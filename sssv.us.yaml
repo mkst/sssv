@@ -1,0 +1,652 @@
+basename: sssv
+options:
+  compiler: IDO
+  create_detected_syms: yes
+  find_file_boundaries: yes
+  symbol_addrs_path:   symbol_addrs.us.txt
+  undefined_syms_path: undefined_syms.us.txt
+  generated_c_preamble: |
+    #include <ultra64.h>
+    #include "common.h"
+segments:
+  - name:  header
+    type:  header
+    start: 0x00000000
+  - name:  boot
+    type:  bin
+    start: 0x00000040
+  - name:  main
+    type:  code
+    start: 0x00001000
+    vram:  0x80125900
+    overlay: no
+    subsections:
+      - [0x1000, asm, entrypoint] # handwritten
+      - [0x1050, c] # -O1
+      - [0x3900, c, core/controller] #
+      - [0x44D0, c, core/string]
+      - [0x4790, c] # -O2 -g3 TODO: check further
+      - [0x4910, c] #
+      - [0x67F0, c, core/rnc]
+      - [0x7770, c]
+      - [0x7890, c]
+      - [0x78F0, c]
+      - [0xC200, c]
+      - [0xC330, c, core/eeprom]
+      - [0xC770, c]
+      - [0xC990, c, core/audio]
+      - [0xE3C0, c] # more audio
+      - [0xF600, asm, libultra/audio/csplayer] # customised
+      - [0x10CB0, c]
+      - [0x123E0, c]
+      ## libultra etc
+      - [0x12FC0, asm, libultra/os/initialize]
+      - [0x13250, asm, libc/ll]
+      - [0x13510, asm, libultra/gu/sqrtf]
+      - [0x13520, asm, libultra/os/gettime]
+      - [0x135B0, asm, libultra/os/writebackdcacheall]
+      - [0x135E0, asm, libultra/io/pidma]
+      - [0x136F0, asm, libultra/os/recvmesg]
+      - [0x13830, asm, libultra/os/virtualtophysical]
+      - [0x138B0, asm, libultra/os/createmesgqueue]
+      - [0x138E0, asm, libultra/os/startthread]
+      - [0x13A30, asm, libultra/sched/sched] # scheduler with a bunch of inlined funcs?
+      - [0x14370, asm, libultra/io/visetspecial]
+      - [0x14530, asm, libultra/io/contreaddata]
+      - [0x14750, asm, libultra/os/sendmesg]
+      - [0x14900, asm, libultra/io/visetxscale]
+      - [0x14A30, asm, libultra/io/visetyscale]
+      - [0x14A90, asm, libultra/io/viblack]
+      - [0x14B00, asm, libultra/os/invalicache]
+      - [0x14B80, asm, libultra/os/invaldcache]
+      - [0x14C30, asm, libc/bzero]
+      - [0x14CD0, asm, libc/sprintf]
+      - [0x14D50, asm, libc/syncprintf]
+      - [0x14D90, asm, libultra/io/conteeplongwrite]
+      - [0x14E80, asm, libultra/io/conteeplongread]
+      - [0x14F10, asm, libultra/io/dpsetstat]
+      - [0x14F20, asm, libultra/io/aisetfreq]
+      - [0x15080, asm, libultra/audio/sl]
+      - [0x15140, asm, libultra/audio/heapalloc]
+      - [0x151A0, asm, libultra/os/createthread]
+      - [0x152F0, asm, libultra/io/aisetnextbuf]
+      - [0x153A0, asm, libultra/io/aigetlen]
+      - [0x153B0, asm, libultra/audio/synthesizer]
+      - [0x15AD0, asm, libultra/audio/bnkf] # is audio compiled with -O3? inlined funcs?
+      - [0x15D20, asm, libultra/audio/sndplayer]
+      - [0x16430, asm, libultra/audio/seqpsetbank]
+      - [0x16470, asm, libultra/audio/cseq]
+      - [0x16F30, asm, libultra/audio/seqpsetseq]
+      - [0x16F70, asm, libultra/audio/seqpsetvol]
+      - [0x16FB0, asm, libultra/audio/seqpplay]
+      - [0x16FE0, asm, libultra/audio/sndpallocate]
+      - [0x17080, asm, libultra/audio/sndpsetsound]
+      - [0x170A0, asm, libultra/audio/sndpsetpitch]
+      - [0x17100, asm, libultra/audio/sndpsetvol]
+      - [0x17160, asm, libultra/audio/sndpsetfxmix]
+      - [0x171C0, asm, libultra/audio/sndpplay]
+      - [0x17230, asm, libultra/audio/seqpstop]
+      - [0x17260, asm, libultra/audio/sndpgetstate]
+      - [0x17280, asm, libultra/audio/sndpdeallocate]
+      - [0x172D0, asm, libultra/audio/sndpsetpan]
+      - [0x17330, asm, libultra/audio/sndpstop]
+      - [0x17380, asm, libultra/audio/seqplayer]
+      - [0x18CC0, asm, libultra/audio/event]
+      - [0x19000, asm, libultra/audio/synaddplayer]
+      - [0x19050, asm, libultra/audio/synstopvoice]
+      - [0x190D0, asm, libultra/audio/synfreevoice]
+      - [0x19220, asm, libultra/audio/synsetpitch]
+      - [0x192B0, asm, libultra/audio/synallocvoice]
+      - [0x194E0, asm, libultra/audio/cents2ratio]
+      - [0x19530, asm, libultra/audio/synstartvoiceparam]
+      - [0x19620, asm, libultra/audio/synsetpan]
+      - [0x196B0, asm, libultra/audio/synsetfxmix]
+      - [0x19750, asm, libultra/os/setintmask]
+      - [0x197F0, asm, libultra/io/pimgr]
+      - [0x19980, asm, libultra/os/setthreadpri]
+      - [0x19A60, asm, libultra/gu/usprite]
+      - [0x19AB0, asm, libultra/os/seteventmesg]
+      - [0x19B20, asm, libultra/io/controller]
+      - [0x19E60, asm, libultra/io/contsetch]
+      - [0x19ED0, asm, libultra/io/pfsinit]
+      - [0x19F90, asm, libultra/io/motor]
+      - [0x1A730, asm, libultra/io/conteepprobe]
+      - [0x1A7D0, asm, libc/llcvt]
+      - [0x1A9E0, asm, libultra/gu/translate]
+      - [0x1AA80, asm, libultra/gu/perspective]
+      - [0x1AD10, asm, libultra/gu/rotateRPY]
+      - [0x1ADB0, asm, libultra/gu/lookat]
+      - [0x1B0E0, asm, libultra/gu/align]
+      - [0x1B2D0, asm, libultra/gu/rotate] # guess
+      - [0x1B470, asm, libultra/gu/cosf]
+      - [0x1B5E0, asm, libultra/gu/sinf]
+      - [0x1B7A0, asm, libultra/gu/lookatref]
+      - [0x1BC30, asm, libultra/gu/lookathil]
+      - [0x1C420, asm, libultra/gu/random]
+      - [0x1C450, asm, libultra/io/vigetline]
+      - [0x1C460, asm, libultra/os/setsr]
+      - [0x1C470, asm, libultra/os/getsr]
+      - [0x1C480, asm, libultra/os/setfpccsr]
+      - [0x1C490, asm, libultra/io/sprawread]
+      - [0x1C4E0, asm, libultra/io/sprawwrite]
+      - [0x1C530, asm, libultra/os/exceptasm]
+      - [0x1CE40, asm, libultra/os/writebackdcache]
+      - [0x1CEC0, asm, libultra/os/maptlbrdb]
+      - [0x1CF20, asm, libultra/io/pirawread]
+      - [0x1CF80, asm, libultra/os/interrupt]
+      - [0x1CFC0, asm, libultra/os/getcount]
+      - [0x1CFD0, asm, libultra/os/timerintr]
+      - [0x1D3D0, asm, libultra/os/jammesg]
+      - [0x1D520, asm, libultra/io/pigetcmdq] # TODO: double-check
+      - [0x1D550, asm, libultra/os/thread]
+      - [0x1D590, asm, libultra/os/probetlb]
+      - [0x1D650, asm, libultra/io/vimgr]
+      - [0x1D9B0, asm, libultra/io/visetmode]
+      - [0x1DA20, asm, libultra/io/visetevent]
+      - [0x1DA90, asm, libultra/io/sptaskyielded]
+      - [0x1DB10, asm, libultra/io/vigetcurrframebuf]
+      - [0x1DB50, asm, libultra/io/vigetnextframebuf]
+      - [0x1DB90, asm, libultra/io/viswapbuf]
+      - [0x1DBE0, asm, libultra/io/sptask]
+      - [0x1DED0, asm, libultra/io/dpsetnextbuf]
+      - [0x1DF80, asm, libultra/io/sptaskyield]
+      - [0x1DFA0, asm, libultra/io/vi]
+      - [0x1E0E0, asm, libultra/io/siacs]
+      - [0x1E1A0, asm, libultra/io/sirawdma]
+      - [0x1E250, asm, libc/xprintf]
+      - [0x1EF10, asm, libc/string]
+      - [0x1EFB0, asm, libultra/io/conteepwrite]
+      - [0x1F4D0, asm, libultra/os/settimer]
+      - [0x1F5B0, asm, libultra/io/conteepread]
+      - [0x1F8D0, asm, libultra/audio/syndelete]
+      - [0x1F8E0, asm, libultra/io/ai]
+      - [0x1F910, asm, libultra/audio/drvrNew]
+      - [0x200B0, asm, libultra/audio/synallocfx]
+      - [0x20150, asm, libultra/audio/mainbus]
+      - [0x202A0, asm, libultra/audio/load]
+      - [0x20DF0, asm, libultra/audio/resample]
+      - [0x210F0, asm, libultra/audio/env]
+      - [0x21D50, asm, libultra/audio/auxbus]
+      - [0x21E60, asm, libultra/audio/save]
+      - [0x21F20, asm, libultra/audio/synstartvoice]
+      - [0x21FB0, asm, libultra/audio/seq]
+      - [0x225D0, asm, libultra/audio/synsetpriority]
+      - [0x225E0, asm, libultra/audio/copy]
+      - [0x22660, asm, libultra/io/cartrominit]
+      - [0x22760, asm, libultra/io/leodiskinit]
+      - [0x22860, asm, libultra/io/piacs]
+      - [0x22920, asm, libultra/os/getthreadpri]
+      - [0x22940, asm, libultra/io/pirawdma]
+      - [0x22A20, asm, libultra/io/epirawdma]
+      - [0x22C50, asm, libultra/io/devmgr]
+      - [0x230E0, asm, libultra/io/pfsgetstatus]
+      - [0x23320, asm, libultra/io/contpfs]
+      - [0x24080, asm, libultra/io/pfschecker]
+      - [0x24AE0, asm, libultra/io/pfsisplug]
+      - [0x24E20, asm, libultra/io/crc]
+      - [0x24FA0, asm, libultra/io/contramwrite]
+      - [0x25300, asm, libultra/io/contramread]
+      - [0x25660, asm, libultra/gu/mtxutil]
+      - [0x258D0, asm, libultra/gu/normalize]
+      - [0x25960, asm, libultra/io/si]
+      - [0x25990, asm, libultra/io/leointerrupt]
+      - [0x26210, asm, libultra/os/destroythread]
+      - [0x26320, asm, libultra/os/setcompare]
+      - [0x26330, asm, libultra/io/vigetcurrcontext]
+      - [0x26340, asm, libultra/io/viswapcontext]
+      - [0x266A0, asm, libultra/io/spgetstat]
+      - [0x266B0, asm, libc/bcopy]
+      - [0x269C0, asm, libultra/io/spsetstat]
+      - [0x269D0, asm, libultra/io/spsetpc]
+      - [0x26A10, asm, libultra/io/sprawdma]
+      - [0x26AA0, asm, libultra/io/sp]
+      - [0x26AD0, asm, libultra/io/dp]
+      - [0x26B00, asm, libc/xlitob]
+      - [0x26DA0, asm, libc/xldtob]
+      - [0x27860, asm, libultra/audio/filter]
+      - [0x27880, asm, libultra/audio/reverb]
+      - [0x284D0, asm, libultra/os/resetglobalintmask]
+      - [0x28530, asm, libultra/io/epirawwrite]
+      - [0x286C0, asm, libultra/io/epirawread]
+      - [0x28860, asm, libultra/os/setglobalintmask]
+      - [0x288B0, asm, libultra/os/yieldthread]
+      - [0x28900, asm, libc/ldiv]
+  - [0x028A90, bin]
+  - [0x02FDD0, bin] # textures; CH, 7-segment score display
+  - [0x0398D0, bin] # textures
+  - [0x07F790, bin] # some more textures
+  - [0x097020, bin]
+  - [0x09E0D0, bin]
+  - [0x0C7A30, bin]
+  - [0x0DD5C0, bin]
+  ## this section is DMA'd as one
+  - [0x116BD0, bin, rnc_116BD0] # 1577 => 2048
+  - [0x117200, bin] # texture?
+  - [0x11D9F0, bin, rnc_11D9F0] # 147 => 4096
+  - [0x11DA90, bin, rnc_11DA90] # 2105 => 3698
+  - [0x11E2D0, bin, rnc_11E2D0] # 153 => 560
+  - [0x11E370, bin, rnc_11E370] # 284 => 616
+  - [0x11E490, bin, rnc_11E490] # 300 => 792
+  - [0x11E5C0, bin, rnc_11E5C0] # 334 => 960
+  - [0x11E710, bin, rnc_11E710] # 288 => 1152
+  - [0x11E830, bin, rnc_11E830] # 304 => 880
+  - [0x11E960, bin, rnc_11E960] # 291 => 720
+  - [0x11EA90, bin, rnc_11EA90] # 219 => 504
+  - [0x11EB70, bin, rnc_11EB70] # 2483 => 23040
+  - [0x11F530, bin] # texture(s)
+  - [0x1289D0, bin, rnc_1289D0] # 1283 => 3692
+  - [0x128EE0, bin, rnc_128EE0] # 1102 => 3302
+  - [0x129330, bin, rnc_129330] # 957 => 2678
+  - [0x1296F0, bin, rnc_1296F0] # 1340 => 3614
+  - [0x129C30, bin, rnc_129C30] # 332 => 2048
+  - [0x129D80, bin, rnc_129D80] # 517 => 2048
+  - [0x129F90, bin, rnc_129F90] # 438 => 2048
+  - [0x12A150, bin, rnc_12A150] # 565 => 2048
+  - [0x12A390, bin, rnc_12A390] # 18979 => 51200
+  ##
+  - [0x12EDC0, bin] # sound file
+  - [0x1AE480, bin]
+  - [0x1AE880, bin]
+  - [0x1B6510, bin] # "B1" ...
+  - [0x1C7C80, bin] # end of soundfile
+  - [0x1E0EB0, bin]
+  - [0x1E11C0, bin]
+  - [0x3B8F60, bin]
+  - [0x3e2780, bin]
+  # all these start with 0044 00
+  - [0x40B210, bin] # "S1" # 244 bytes long
+  - [0x40B304, bin] # length 0xE6A
+  - [0x40C170, bin]
+  - [0x40e52c, bin]
+  - [0x40f2ec, bin]
+  - [0x41076c, bin]
+  - [0x410b90, bin]
+  - [0x411824, bin]
+  - [0x413c6c, bin]
+  - [0x4154bc, bin]
+  - [0x415684, bin]
+  - [0x4173c4, bin]
+  - [0x418e9c, bin]
+  - [0x41bd08, bin]
+  - [0x41d9e8, bin]
+  - [0x4200d8, bin]
+  - [0x421720, bin]
+  - [0x4236f0, bin]
+  - [0x4252e4, bin]
+  - [0x425ab0, bin]
+  - [0x4265c4, bin]
+  - [0x426854, bin]
+  - [0x426c34, bin]
+  - [0x426dac, bin]
+  - [0x426eb4, bin] # music
+  - [0x427198, bin] # music
+  - [0x427c40, bin] # music
+  - [0x427ff4, bin] # music
+  - [0x429ab8, bin] # music
+  - [0x42b5a0, bin] # music
+  - [0x42c49c, bin] # music
+  - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880 # DMA'd to 0x80100000
+  - [0x435320, bin, rnc_435320] # 30784 => 54880
+  - [0x43CB60, bin, rnc_43CB60] # 35981 => 54880
+  - [0x4457F0, bin, rnc_4457F0] # 36755 => 57624
+  - [0x44E790, bin, empty_rnc_44E790] # empty RNC file
+  - [0x44E7B0, bin, rnc_44E7B0] # 35312 => 54880
+  - [0x4571A0, bin, rnc_4571A0] # 9193 => 21952
+  - [0x459590, bin, rnc_459590] # 16318 => 21952
+  - [0x45D550, bin, rnc_45D550] # 6246 => 21952
+  - [0x45EDC0, bin, rnc_45EDC0] # 11068 => 21952
+  - [0x461900, bin, rnc_461900] # 79 => 21952
+  - [0x461950, bin, rnc_461950] # 193 => 21952
+  - [0x461A20, bin, rnc_461A20] # 17776 => 32928
+  - [0x465F90, bin, rnc_465F90] # 23197 => 32928
+  - [0x46BA30, bin, rnc_46BA30] # 19507 => 32928
+  - [0x470670, bin, rnc_470670] # 18530 => 32928
+  - [0x474EE0, bin, rnc_474EE0] # 20997 => 32928
+  - [0x47A0F0, bin, rnc_47A0F0] # 20718 => 32928
+  - [0x47F1E0, bin, rnc_47F1E0] # 21099 => 32928
+  - [0x484450, bin, rnc_484450] # 17949 => 32928
+  - [0x488A70, bin, rnc_488A70] # 21153 => 30184
+  - [0x48DD20, bin, rnc_48DD20] # 19128 => 32928
+  - [0x4927E0, bin, rnc_4927E0] # 21419 => 32928
+  - [0x497B90, bin, rnc_497B90] # 19889 => 32928
+  - [0x49C950, bin, rnc_49C950] # 19766 => 32928
+  - [0x4A1690, bin, rnc_4A1690] # 15066 => 32928
+  - [0x4A5170, bin, rnc_4A5170] # 18027 => 32928
+  - [0x4A97E0, bin, rnc_4A97E0] # 20008 => 32928
+  - [0x4AE610, bin, rnc_4AE610] # 20011 => 32928
+  - [0x4B3440, bin, empty_rnc_4B3440] # empty RNC!
+  - [0x4B3460, bin, rnc_4B3460] # 17728 => 32928
+  - [0x4B79A0, bin, empty_rnc_4B79A0] # empty RNC!
+  - [0x4B79C0, bin, empty_rnc_4B79C0] # empty RNC!
+  - [0x4B79E0, bin, rnc_4B79E0] # 18763 => 30184
+  - [0x4BC330, bin, rnc_4BC330] # 20355 => 32928
+  - [0x4C12C0, bin, rnc_4C12C0] # 14853 => 32928
+  - [0x4C4CD0, bin, rnc_4C4CD0] # 17627 => 32928
+  - [0x4C91B0, bin, rnc_4C91B0] # 16873 => 32928
+  - [0x4CD3A0, bin, rnc_4CD3A0] # 17358 => 32928
+  - [0x4D1770, bin, rnc_4D1770] # 20825 => 32928
+  - [0x4D68D0, bin, rnc_4D68D0] # 144 => 8232
+  - [0x4D6960, bin, empty_rnc_4D6960] # empty RNC!
+  - [0x4D6980, bin, empty_rnc_4D6980] # empty RNC!
+  - [0x4D69A0, bin, rnc_4D69A0] # 18541 => 32928
+  - [0x4DB210, bin, empty_rnc_4DB210] # empty RNC!
+  - [0x4DB230, bin, rnc_4DB230] # 22856 => 32928
+  - [0x4E0B80, bin, rnc_4E0B80] # 19560 => 32928
+  - [0x4E57F0, bin, rnc_4E57F0] # 21481 => 32928
+  - [0x4EABE0, bin, rnc_4EABE0] # 20575 => 32928
+  - [0x4EFC40, bin, rnc_4EFC40] # 22572 => 32928
+  - [0x4F5470, bin, empty_rnc_4F5470] # empty RNC!
+  - [0x4F5490, bin, empty_rnc_4F5490] # empty RNC!
+  - [0x4F54B0, bin, empty_rnc_4F54B0] # empty RNC!
+  - [0x4F54D0, bin, rnc_4F54D0] # 5534 => 20480
+  - [0x4F6A70, bin, rnc_4F6A70] # 5534 => 20480
+  - [0x4F8010, bin, rnc_4F8010] # 5534 => 20480
+  - [0x4F95B0, bin, rnc_4F95B0] # 6590 => 20480
+  - [0x4FAF70, bin, rnc_4FAF70] # 4505 => 10240
+  - [0x4FC110, bin, rnc_4FC110] # 4291 => 10240
+  - [0x4FD1E0, bin, rnc_4FD1E0] # 3462 => 10240
+  - [0x4FDF70, bin, rnc_4FDF70] # 4928 => 10240
+  - [0x4FF2B0, bin, rnc_4FF2B0] # 3435 => 10240
+  - [0x500020, bin, rnc_500020] # 39 => 10240
+  - [0x500050, bin, rnc_500050] # 4074 => 10240
+  - [0x501040, bin, rnc_501040] # 4892 => 10240
+  - [0x502360, bin, rnc_502360] # 5575 => 10240
+  - [0x503930, bin, rnc_503930] # 5433 => 10240
+  - [0x504E70, bin, rnc_504E70] # 4232 => 10240
+  - [0x505F00, bin, rnc_505F00] # 39 => 10240
+  - [0x505F30, bin, rnc_505F30] # 1553 => 10240
+  - [0x506550, bin, rnc_506550] # 2168 => 10240
+  - [0x506DD0, bin, rnc_506DD0] # 4395 => 10240
+  - [0x507F00, bin, rnc_507F00] # 39 => 10240
+  - [0x507F30, bin, rnc_507F30] # 39 => 10240
+  - [0x507F60, bin, rnc_507F60] # 39 => 10240
+  - [0x507F90, bin, rnc_507F90] # 39 => 10240
+  - [0x507FC0, bin, rnc_507FC0] # 4700 => 10240
+  - [0x509220, bin, rnc_509220] # 39 => 10240
+  - [0x509250, bin, rnc_509250] # 4680 => 10240
+  - [0x50A4A0, bin, rnc_50A4A0] # 39 => 10240
+  - [0x50A4D0, bin, rnc_50A4D0] # 6360 => 10240
+  - [0x50BDB0, bin, rnc_50BDB0] # 5235 => 10240
+  - [0x50D230, bin, rnc_50D230] # 6808 => 10240
+  - [0x50ECD0, bin, rnc_50ECD0] # 6661 => 10240
+  - [0x5106E0, bin, rnc_5106E0] # 7000 => 10240
+  - [0x512240, bin, rnc_512240] # 39 => 10240
+  - [0x512270, bin, rnc_512270] # 39 => 10240
+  - [0x5122A0, bin, rnc_5122A0] # 39 => 10240
+  - [0x5122D0, bin, rnc_5122D0] # 5348 => 10240
+  - [0x5137C0, bin, rnc_5137C0] # 5348 => 10240
+  - [0x514CB0, bin, rnc_514CB0] # 2674 => 10240
+  - [0x515730, bin, rnc_515730] # 5348 => 10240
+  - [0x516C20, bin, rnc_516C20] # 5348 => 10240
+  - [0x518110, bin, rnc_518110] # 5348 => 10240
+  - [0x519600, bin, rnc_519600] # 5348 => 10240
+  - [0x51AAF0, bin, rnc_51AAF0] # 39 => 10240
+  - [0x51AB20, bin, rnc_51AB20] # 39 => 10240
+  - [0x51AB50, bin, rnc_51AB50] # 39 => 10240
+  - [0x51AB80, bin, rnc_51AB80] # 3492 => 6144
+  - [0x51B930, bin, rnc_51B930] # 4149 => 6144
+  - [0x51C970, bin, rnc_51C970] # 4793 => 6144
+  - [0x51DC30, bin, rnc_51DC30] # 4137 => 6144
+  - [0x51EC60, bin, rnc_51EC60] # 4241 => 6144
+  - [0x51FD00, bin, rnc_51FD00] # 4014 => 6144
+  - [0x520CB0, bin, rnc_520CB0] # 4690 => 6144
+  - [0x521F10, bin, rnc_521F10] # 3441 => 6144
+  - [0x522C90, bin, rnc_522C90] # 4356 => 6144
+  - [0x523DA0, bin, rnc_523DA0] # 4442 => 6144
+  - [0x524F00, bin, rnc_524F00] # 4850 => 6144
+  - [0x526200, bin, rnc_526200] # 4920 => 6144
+  - [0x527540, bin, rnc_527540] # 4264 => 6144
+  - [0x5285F0, bin, rnc_5285F0] # 4523 => 6144
+  - [0x5297A0, bin, rnc_5297A0] # 4512 => 6144
+  - [0x52A940, bin, rnc_52A940] # 4527 => 6144
+  - [0x52BAF0, bin, rnc_52BAF0] # 4135 => 6144
+  - [0x52CB20, bin, rnc_52CB20] # 3865 => 6144
+  - [0x52DA40, bin, rnc_52DA40] # 5085 => 6144
+  - [0x52EE20, bin, rnc_52EE20] # 4724 => 6144
+  - [0x5300A0, bin, rnc_5300A0] # 4097 => 6144
+  - [0x5310B0, bin, rnc_5310B0] # 4589 => 6144
+  - [0x5322A0, bin, rnc_5322A0] # 4568 => 6144
+  - [0x533480, bin, rnc_533480] # 4166 => 6144
+  - [0x5344D0, bin, rnc_5344D0] # 4447 => 6144
+  - [0x535630, bin, rnc_535630] # 4383 => 6144
+  - [0x536750, bin, rnc_536750] # 4968 => 6144
+  - [0x537AC0, bin, rnc_537AC0] # 4089 => 6144
+  - [0x538AC0, bin, rnc_538AC0] # 3871 => 6144
+  - [0x5399E0, bin, rnc_5399E0] # 4736 => 6144
+  - [0x53AC60, bin, rnc_53AC60] # 3643 => 6144
+  - [0x53BAA0, bin, rnc_53BAA0] # 2526 => 6144
+  - [0x53C480, bin, rnc_53C480] # 3537 => 6144
+  - [0x53D260, bin, rnc_53D260] # 3537 => 6144
+  - [0x53E040, bin, rnc_53E040] # 3537 => 6144
+  - [0x53EE20, bin, rnc_53EE20] # 956 => 2048
+  - [0x53F1E0, bin, rnc_53F1E0] # 1151 => 2048
+  - [0x53F660, bin, rnc_53F660] # 924 => 2048
+  - [0x53FA00, bin, rnc_53FA00] # 661 => 2048
+  - [0x53FCA0, bin, rnc_53FCA0] # 1170 => 2048
+  - [0x540140, bin, rnc_540140] # 961 => 2048
+  - [0x540510, bin, rnc_540510] # 1026 => 2048
+  - [0x540920, bin, rnc_540920] # 1144 => 2048
+  - [0x540DA0, bin, rnc_540DA0] # 906 => 2048
+  - [0x541130, bin, rnc_541130] # 33 => 2048
+  - [0x541160, bin, rnc_541160] # 959 => 2048
+  - [0x541520, bin, rnc_541520] # 1079 => 2048
+  - [0x541960, bin, rnc_541960] # 730 => 2048
+  - [0x541C40, bin, rnc_541C40] # 900 => 2048
+  - [0x541FD0, bin, rnc_541FD0] # 594 => 2048
+  - [0x542230, bin, rnc_542230] # 991 => 2048
+  - [0x542610, bin, rnc_542610] # 33 => 2048
+  - [0x542640, bin, rnc_542640] # 931 => 2048
+  - [0x5429F0, bin, rnc_5429F0] # 647 => 2048
+  - [0x542C80, bin, rnc_542C80] # 722 => 2048
+  - [0x542F60, bin, rnc_542F60] # 1009 => 2048
+  - [0x543360, bin, rnc_543360] # 597 => 2048
+  - [0x5435C0, bin, rnc_5435C0] # 33 => 2048
+  - [0x5435F0, bin, rnc_5435F0] # 838 => 2048
+  - [0x543940, bin, rnc_543940] # 968 => 2048
+  - [0x543D10, bin, rnc_543D10] # 853 => 2048
+  - [0x544070, bin, rnc_544070] # 932 => 2048
+  - [0x544420, bin, rnc_544420] # 645 => 2048
+  - [0x5446B0, bin, rnc_5446B0] # 630 => 2048
+  - [0x544930, bin, rnc_544930] # 33 => 2048
+  - [0x544960, bin, rnc_544960] # 33 => 2048
+  - [0x544990, bin, rnc_544990] # 33 => 2048
+  - [0x5449C0, bin] # tbd
+  - [0x546BC0, bin] # tbd
+  # these all contain further compressed files
+  - [0x546D00, bin, rnc_546D00] # 33736 => 33692
+  - [0x54F0D0, bin, rnc_54F0D0] # 23846 => 23875
+  - [0x554E00, bin, rnc_554E00] # 21894 => 21888
+  - [0x55A390, bin, rnc_55A390] # 24450 => 24492
+  - [0x560320, bin, rnc_560320] # 31699 => 31741
+  - [0x567F00, bin, rnc_567F00] # 19968 => 19993
+  - [0x56CD00, bin, rnc_56CD00] # 24507 => 24509
+  - [0x572CC0, bin, rnc_572CC0] # 24650 => 24773
+  - [0x578D10, bin, rnc_578D10] # 25783 => 25774
+  - [0x57F1D0, bin, rnc_57F1D0] # 14989 => 15113
+  - [0x582C60, bin, rnc_582C60] # 24634 => 24619
+  - [0x588CA0, bin, rnc_588CA0] # 18142 => 18168
+  - [0x58D380, bin, rnc_58D380] # 17649 => 17687
+  - [0x591880, bin, rnc_591880] # 20703 => 20723
+  - [0x596960, bin, rnc_596960] # 42919 => 42851
+  - [0x5A1110, bin, rnc_5A1110] # 27893 => 27959
+  - [0x5A7E10, bin, rnc_5A7E10] # 25689 => 25673
+  - [0x5AE270, bin, rnc_5AE270] # 25239 => 25254
+  - [0x5B4510, bin, rnc_5B4510] # 25166 => 25170
+  - [0x5BA760, bin, rnc_5BA760] # 35876 => 35840
+  - [0x5C3390, bin, rnc_5C3390] # 22768 => 22768
+  - [0x5C8C80, bin, rnc_5C8C80] # 31261 => 31243
+  - [0x5D06A0, bin, rnc_5D06A0] # 30668 => 30707
+  - [0x5D7E70, bin, rnc_5D7E70] # 31350 => 31363
+  - [0x5DF8F0, bin, rnc_5DF8F0] # 20684 => 20683
+  - [0x5E49C0, bin, rnc_5E49C0] # 26489 => 26494
+  - [0x5EB140, bin, rnc_5EB140] # 30450 => 30443
+  - [0x5F2840, bin, rnc_5F2840] # 27591 => 27599
+  - [0x5F9410, bin, rnc_5F9410] # 40441 => 40438
+  - [0x603210, bin, rnc_603210] # 16941 => 16966
+  - [0x607440, bin, rnc_607440] # 29905 => 29917
+  - [0x60E920, bin, rnc_60E920] # 5795 => 5889
+  - [0x60FFD0, bin, rnc_60FFD0] # 1227 => 1413
+  - [0x6104A0, bin, rnc_6104A0] # 1322 => 1513
+  - [0x6109D0, bin, rnc_6109D0] # 25055 => 25120
+  - [0x616BB0, bin, rnc_616BB0] # 4212 => 4332
+  ## these differ from EU ROM
+  - [0x617C30, bin, rnc_617C30] # 10338 => 31544
+  - [0x61A4A0, bin, rnc_61A4A0] # 4981 => 14344
+  - [0x61B820, bin, rnc_61B820] # 2753 => 9272
+  - [0x61C2F0, bin, rnc_61C2F0] # 2893 => 10000
+  - [0x61CE40, bin, rnc_61CE40] # 2881 => 8664
+  - [0x61D990, bin, rnc_61D990] # 2431 => 6824
+  - [0x61E310, bin, rnc_61E310] # 2802 => 8184
+  - [0x61EE10, bin, rnc_61EE10] # 3168 => 9432
+  - [0x61FA70, bin, rnc_61FA70] # 4976 => 14664
+  - [0x620DE0, bin, rnc_620DE0] # 5270 => 20992
+  - [0x622280, bin, rnc_622280] # 3373 => 10032
+  - [0x622FB0, bin, rnc_622FB0] # 1895 => 4864
+  - [0x623720, bin, rnc_623720] # 2399 => 6744
+  - [0x624080, bin, rnc_624080] # 2818 => 8104
+  - [0x624B90, bin, rnc_624B90] # 3478 => 10920
+  - [0x625930, bin, rnc_625930] # 3252 => 9784
+  - [0x6265F0, bin, rnc_6265F0] # 6051 => 18784
+  - [0x627DA0, bin, rnc_627DA0] # 2353 => 6224
+  - [0x6286E0, bin, rnc_6286E0] # 2200 => 5976
+  - [0x628F80, bin, rnc_628F80] # 2677 => 7960
+  - [0x629A00, bin, rnc_629A00] # 2727 => 8064
+  - [0x62A4B0, bin, rnc_62A4B0] # 2277 => 7096
+  - [0x62ADA0, bin, rnc_62ADA0] # 5064 => 14360
+  - [0x62C170, bin, rnc_62C170] # 1959 => 5424
+  - [0x62C920, bin, rnc_62C920] # 2419 => 6960
+  - [0x62D2A0, bin, rnc_62D2A0] # 2146 => 6112
+  - [0x62DB10, bin, rnc_62DB10] # 2610 => 7448
+  - [0x62E550, bin, rnc_62E550] # 2322 => 6904
+  - [0x62EE70, bin, rnc_62EE70] # 1964 => 5496
+  - [0x62F620, bin, rnc_62F620] # 3819 => 16288
+  - [0x630510, bin, rnc_630510] # 12695 => 40200
+  - [0x6336B0, bin, rnc_6336B0] # 98 => 1200
+  - [0x633720, bin, rnc_633720] # 11649 => 38088
+  - [0x6364B0, bin, rnc_6364B0] # 3076 => 8000
+  - [0x6370C0, bin, rnc_6370C0] # 69 => 120
+  - [0x637110, bin, rnc_637110] # 69 => 120
+  - [0x637160, bin, rnc_637160] # 5000 => 115024
+  - type: code
+    name: overlay1
+    overlay: yes
+    start: 0x006384F0 # 450576 bytes are DMA'd
+    vram:  0x80294E50
+    subsections:
+      - [0x6384F0, c]
+      - [0x63C660, asm]
+  # is all of this data for overlay 1?
+  - [0x63CDD0, bin] # tbd
+  - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840
+  - [0x646E80, bin, rnc_646E80] # 28620 => 153600
+  - [0x64DE50, bin, rnc_64DE50] # 21526 => 65536
+  - [0x653270, bin, rnc_653270] # 5873 => 18432
+  - [0x654970, bin, rnc_654970] # 5717 => 18432
+  - [0x655FD0, bin, rnc_655FD0] # 5713 => 18432
+  - [0x657630, bin, rnc_657630] # 6413 => 18432
+  - [0x658F40, bin] # texture(s)?
+  - [0x659B40, bin, rnc_659B40] # 24460 => 163840
+  - [0x65FAD0, bin, rnc_65FAD0] # 11570 => 40960
+  - [0x662810, bin] # "200 credz" texture
+  - [0x664860, bin, rnc_664860] # 23248 => 163840
+  - [0x66A330, bin, rnc_66A330] # 37980 => 163840
+  - [0x673790, bin, rnc_673790] # 43024 => 153600
+  - [0x67DFA0, bin, rnc_67DFA0] # 77877 => 153600
+  - [0x690FE0, bin] # unknown!
+  - [0x698340, bin, rnc_698340] # 35955 => 153600
+  - [0x6A0FC0, bin] # end of RNC files
+  ### end of overlay 1 DMA
+  - type: code
+    name: overlay2 # sssv game code?
+    overlay: yes
+    start: 0x006A6500
+    vram:  0x80294E50
+    subsections:
+    - [0x6A6500, c]
+    - [0x6A7A80, asm]
+    - [0x6AB090, asm]
+    - [0x6AC360, asm]
+    - [0x6ACF20, asm]
+    - [0x6B5380, asm]
+    - [0x6C5570, asm]
+    - [0x6C63D0, asm]
+    - [0x6C9DD0, asm]
+    - [0x6CCEF0, asm]
+    - [0x6D9330, asm]
+    - [0x6D9AF0, asm]
+    - [0x6DB610, asm]
+    - [0x6EBEA0, asm]
+    - [0x6EC720, asm]
+    - [0x6ED230, asm]
+    - [0x6F66B0, asm]
+    - [0x6FA0A0, asm]
+    - [0x6FBA90, asm]
+    - [0x6FBEA0, asm]
+    - [0x700770, asm]
+    - [0x702DE0, asm]
+    - [0x7041D0, asm]
+    - [0x7070A0, asm]
+    - [0x7117E0, asm]
+    - [0x7118C0, asm]
+    - [0x7138B0, asm]
+    - [0x714500, asm]
+    - [0x714B80, asm]
+    - [0x715820, asm]
+    - [0x716530, asm]
+    - [0x716900, asm]
+    - [0x725D10, asm]
+    - [0x72C680, asm]
+    - [0x72DE50, asm]
+    - [0x732A60, asm]
+    - [0x734D30, asm]
+    - [0x739290, c] # cheats?
+    - [0x73EA30, asm]
+    - [0x73ED30, asm]
+    - [0x741000, asm]
+    - [0x7558F0, asm]
+    - [0x7598E0, asm]
+    - [0x75B9D0, asm]
+    - [0x75BC80, asm]
+    - [0x75D3D0, asm]
+    - [0x763930, asm]
+    - [0x7688B0, asm]
+    - [0x7689A0, asm]
+    - [0x768B90, asm]
+    - [0x76BCA0, asm]
+    - [0x76D850, asm]
+    - [0x76F7D0, asm]
+    - [0x7741B0, asm]
+    - [0x775E30, asm]
+    - [0x77D760, asm]
+    - [0x77EDB0, asm]
+    - [0x780E50, asm]
+    - [0x783D90, asm]
+    - [0x786320, asm]
+    - [0x78A890, asm]
+    - [0x78CEB0, asm]
+    - [0x78E970, asm]
+    - [0x7917A0, asm]
+    - [0x793700, asm]
+    - [0x7943A0, asm]
+    - [0x794EE0, asm]
+    - [0x79B1E0, asm]
+    - [0x79CEF0, asm]
+    - [0x79D0E0, c, sssv/cheats]
+    - [0x79D8E0, asm]
+    - [0x79DE10, asm]
+    - [0x79E640, asm]
+    - [0x7A0DA0, asm]
+    - [0x7A8A50, asm]
+    - [0x7A9CE0, asm]
+    - [0x7AF410, asm]
+  - [0x7B1BA0, bin] # might be early/late
+  - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
+  - [0x7C8AC0, bin] # more textures
+  - [0x7D1170, bin] # cheats, mapped to 0x803BFAC0
+  - [0x7d1200, bin]
+  - [0x7D1AD0, bin]
+  - [0x7D61F0, bin]
+  - [0x7D64D0, bin]
+  ### End of Overlay 2 DMA
+  - [0x7DCAF0, bin, trailer]
+  - [0x800000]

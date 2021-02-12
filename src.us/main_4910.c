@@ -1,0 +1,429 @@
+#include <ultra64.h>
+
+#include "common.h"
+
+
+void read_rom_header(void) {
+    // load 32 bytes from offset 0x20 of the header
+    dma_read(32, &D_80204240, 32);
+}
+
+void set_region(void) {
+    switch (D_80204240.countryCode) {
+        case 'J': // Japan
+            D_80204240.mode = 0;
+            break;
+        case 'P': // European
+            D_80204240.mode = 1;
+            break;
+        case 'E': // North America
+            D_80204240.mode = 2;
+            break;
+        default:
+            D_80204240.mode = 1;
+            break;
+    }
+}
+
+void dma_read(u32 devAddr, void *vAddr, s32 nbytes) {
+    s32 mesg;
+
+    osWritebackDCacheAll();
+    osPiStartDma(&D_8028D0C0, 0, 0, devAddr, vAddr, nbytes, &D_8028D078);
+    osRecvMesg(&D_8028D078, (OSMesg)&mesg, OS_MESG_BLOCK);
+}
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129300.s")
+// Not this...
+// void func_80129300(Gfx **arg0, s32 arg1) {
+//
+//     gSPSegment(*arg0++, 0x00, 0);
+//     gSPSegment(*arg0++, 0x01, osVirtualToPhysical(D_801D9E74));
+//     gSPSegment(*arg0++, 0x02, osVirtualToPhysical(arg1));
+//     gSPSegment(*arg0++, 0x03, osVirtualToPhysical(D_801D9E70));
+//     gSPSegment(*arg0++, 0x05, osVirtualToPhysical(D_801D9E78));
+//
+//     gDPSetDepthImage(*arg0++, osVirtualToPhysical(&D_80100000));
+// }
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129430.s")
+// Not this...
+// void func_80129430(Gfx **arg0)
+// {
+//     gDPSetScissorFrac(*arg0++, G_SC_EVEN_INTERLACE, 0, 0, 4.0f*gScreenWidth, 4.0f*gScreenHeight);
+//     gDPPipeSync(*arg0++);
+//     gDPSetCycleType(*arg0++, G_CYC_FILL);
+//     gDPSetColorImage(*arg0++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
+//     gDPSetFillColor(*arg0++, 0xFFFCFFFC);
+//     gDPFillRectangle(*arg0++, 8, 8, gScreenWidth, gScreenHeight);
+// }
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129594.s")
+// miles away..
+// void func_80129594(Gfx **arg0) {
+//     gDPPipeSync(*arg0++);
+//     gDPHalf1(*arg0++, 0x8015D710);
+//     gLoadUcode(*arg0++, &D_8014F1D0, 0x0800);
+//     gDPPipeSync(*arg0++);
+//
+//     func_80129300(arg0, 0); // ??
+//
+//     gDPSetColorImage(*arg0++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
+//
+//     gDPSetScissor(*arg0++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth, gScreenHeight);
+//     gDPSetColorDither(*arg0++, G_CD_BAYER);
+//     gDPSetAlphaDither(*arg0++, G_AD_PATTERN);
+//
+//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RNX, 0x3);
+//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RNY, 0x3);
+//
+//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RPX, 0xFFFD);
+//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RPY, 0xFFFD);
+// }
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129784.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012991C.s")
+
+// first function called after osInitialize
+void func_80129AD0(void) {
+    func_80128FB4(&D_80000400, 0x25800); // 153600
+    func_80128FB4(&D_80025C00, 0x25800);
+}
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129B10.s")
+// NON-MATCHING: almost JUSTREG
+// void func_80129B10(s32 arg0) {
+//     D_80204290 = 1;
+//     D_80204292 = 2;
+//
+//     osCreateMesgQueue(&D_8028D048, &D_802902C0, 32);
+//     osCreateMesgQueue(&D_8028D078, &D_80290FC8, 1);
+//     osCreateMesgQueue(&D_80291060, &D_80291058, 1);
+//     osCreateMesgQueue(&D_80291078, &D_8029105C, 1);
+//     osStartThread(&D_80286720); // start thread 7
+//
+//     read_rom_header();
+//     set_region();
+//     // initialise various tv settings
+//     func_8012A870();
+//
+//     osCreateScheduler(&D_801603D0, &D_80162658, 20, D_802053E0.unk8, 1);
+//     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
+//
+//     gScreenWidth = 320;
+//     gScreenHeight = 240;
+//     D_802910D0 = 0;
+//     func_80131BF0(&D_80286328);
+//
+//     // stack (1)?
+//     D_80162658[0].unk3BBA8 = 6;
+//     D_80162658[0].unk3BBC8 = 2;
+//     D_80162658[0].unk3BBE8 = &D_80000400;
+//     // stack (2)?
+//     D_8019A658[0].unk3F798 = 6;
+//     D_8019A658[0].unk3F7B8 = 2;
+//     D_8019A658[0].unk3F7D8 = &D_80025C00;
+//
+//     func_80129AD0();
+//     D_801D9E38 = 5;
+//     osCreateMesgQueue(&D_8028D060, &D_80290F40, 32);
+//     osScAddClient(&D_801603D0, &D_802042A0, &D_8028D060);
+//
+//     if (func_80136CE0() <= 0) {
+//         D_802912D0 = 0;
+//         D_802912D8 = 0;
+//         D_80204270 = 1;
+//     } else {
+//         D_802912D0 = 1;
+//         D_802912D8 = 1;
+//         D_80204270 = 0;
+//     }
+//     if (D_802912D0 == 0) {
+//         D_80204284 = 0;
+//     }
+//     func_80130C04();
+//     func_80130E44();
+//     D_80204288 = 0;
+//     func_8012C070(1);
+//     D_80204284 = 1;
+//     D_80204290 = 1;
+//     D_8020427C = 1;
+//     D_80204280 = 199;
+//     D_80204282 = 99;
+//
+//     while (TRUE) {
+//         // this has a while loop anyway.. *shrug*
+//         func_80129DC0();
+//     }
+// }
+
+// read controller data
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129DC0.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012A260.s")
+// NON-MATCHING: matches but wont OK
+// void func_8012A260(void) {
+//     s32 temp_a0;
+//     s32 temp_a1;
+//     s16 i;
+//
+//     while (TRUE) {
+//         osRecvMesg(&D_80291060, D_80291054, OS_MESG_BLOCK);
+//         temp_a0 = D_8020428C;
+//         temp_a1 = temp_a0 + 0x4E0;
+//         D_80204278 = temp_a1;
+//         D_801D9E7C = temp_a1;
+//         D_801D9E90 = temp_a0 + 0xDFA0;
+//         D_801D9E94 = temp_a0 + 0x81E0;
+//         D_801D9E88 = temp_a0 + 0x9AE0;
+//         D_801D9E8C = temp_a0 + 0xC060;
+//         D_801D9EB8 = temp_a0 + 0x26C80;
+//
+//         for (i = 0; i < 8; i++) {
+//             D_801D9E98[i] = D_80204278 + 0x109A0 + (i * 0x2BC0); // this is just maths
+//         }
+//
+//         D_80204274 = temp_a0;
+//         if (D_80152E9C == 0) {
+//             func_80294E50(temp_a0, temp_a1); // call overlay function
+//         } else {
+//             func_8012A588(temp_a0, temp_a1);
+//         }
+//         osWritebackDCacheAll();
+//         osSendMesg(&D_80291078,D_80291054, OS_MESG_BLOCK);
+//     }
+// }
+
+void func_8012A400(void) {
+    s16 i;
+
+    for (i = 0; i < 4; i++) {
+        osRecvMesg(&D_8028D060, (OSMesg *)&D_80204298, OS_MESG_BLOCK);
+        if (D_80204298.unk0->unk0 == 2) {
+            i = 100; // thats more than 4!
+        }
+    }
+
+    D_80152EBC = 0;
+}
+
+// display list shenanigans
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012A490.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012A588.s")
+// void func_8012A588(void) {
+//     s16 tmp;
+//
+//     if (D_80152E9C != 0) {
+//         D_80204290 = 1;
+//         if (D_80152E9C == 1) {
+//             func_80137840();
+//             func_8012A400();
+//             func_80129158(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, 0x25800, 0x38000);
+//         }
+//         if (D_80152E9C == 2) {
+//             func_8012AC40();
+//             func_801337DC(0, 10.0f, 20.0f, 0);
+//             func_8013385C(10.0f, 20.0f, 0);
+//         }
+//
+//         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+//         func_8012AD30(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0x78);
+//
+//         D_80152E9C += D_80204290;
+//
+//         if (D_80152E9C >= 16) {
+//             D_80152EBC += 100;
+//             func_8012AC8C();
+//         }
+//     }
+// }
+
+void func_8012A750(void) {
+    if (D_802912D8 == 0) {
+        func_80129300(&D_801D9E7C, D_80204278);
+        func_8012AD30(&D_801D9E7C, 0, 16, 0x140, 0x24, 40, 40, 40, 0x80);
+        gDPPipeSync(D_801D9E7C++);
+
+        func_8012C1F0(&D_801D9E7C);
+        func_8012C248(0, 0, 0, 0);
+        set_text_color(0xFF, 0xFF, 0xFF, 0xFF);
+        func_8012C978(&D_801D9E7C, &D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
+        gDPPipeSync(D_801D9E7C++);
+    }
+}
+
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012A870.s")
+// plenty more work to do here..
+// void func_8012A870(void) {
+//     s16 temp_a2_7;
+//     s32 temp_a1;
+//     s32 temp_v0;
+//     OSViMode *temp_a2;
+//     struct001 *temp_v1;
+//     s32 phi_a3;
+//     struct012 *phi_v1;
+//     s32 phi_t0;
+//     struct012 *phi_a0;
+//     OSViMode *phi_a2;
+//
+//     switch (D_80000302) { // part of tv type?
+//         case 0:
+//             D_802053E0.unk0 = 14;
+//             D_802053E0.unkA = 304;
+//             D_80204294 = 50; // 50 hz
+//             D_802053F0.unk0 = 0x7A0210;
+//             D_802053F0.unk4 = 1200;
+//             D_80205400.unk0 = 0x34025A;
+//             D_80205400.unk4 = 878;
+//             temp_a2_7 = D_80204240.mode;
+//             if (((temp_a2_7 == 2) || (temp_a2_7 == 0)) && (D_80204240.countryCode != 0)) {
+//                 *(volatile s16*)0 = 0; // shit our pants?
+//             }
+//             phi_a2 = &osViModeTable[D_802053E0.unk8];
+//             phi_a3 = phi_a2->unk30;
+//             phi_t0 = phi_a2->unk2C;
+//             phi_v1 = &D_802053E0;
+//             phi_a0 = &D_80205400;
+//             break;
+//         case 1:
+//             D_802053E0.unk0 = 0;
+//             D_802053E0.unkA = 304;
+//             D_80204294 = 60; // 60 hz
+//             phi_a2 = &osViModeTable[D_802053E0.unk8];
+//             phi_a3 = phi_a2->unk30;
+//             phi_t0 = phi_a2->unk2C;
+//             D_802053F0.unk0 = 0x6501BF;
+//             D_802053F0.unk4 = 0x587;
+//             D_80205400.unk0 = phi_a3;
+//             D_80205400.unk4 = phi_t0;
+//             phi_v1 = &D_802053E0;
+//             phi_a0 = &D_80205400;
+//             if (D_80204240.mode == 1) {
+//                 if (D_80204240.countryCode != 0) {
+//                     *(volatile s16*)0 = 0;
+//                 }
+//             }
+//             break;
+//         case 2:
+//             D_802053E0.unk8 = 28;
+//             D_802053E0.unkA = 304;
+//             D_80204294 = 60;
+//             phi_a2 = &osViModeTable[D_802053E0.unk8];
+//             phi_a3 = phi_a2->unk30;
+//             phi_t0 = phi_a2->unk2C;
+//             D_802053F0.unk0 = 0x6501BF;
+//             D_802053F0.unk4 = 0x587; // 1415
+//             D_80205400.unk0 = phi_a3;
+//             D_80205400.unk4 = phi_t0;
+//             phi_v1 = &D_802053E0;
+//             phi_a0 = &D_80205400;
+//             if ((D_80204240.mode == 1) && (D_80204240.countryCode != 0) ){
+//                 *(volatile s16*)0 = 0;
+//                 // phi_a2 = &osViModeTable[D_802053E0.unk8];
+//                 // phi_a3 = phi_a2->unk30;
+//                 // phi_v1 = &D_802053E0;
+//                 // phi_a0 = &D_80205400;
+//                 // phi_t0 = phi_a2->unk2C;
+//             }
+//             break;
+//         default:
+//             D_802053E0.unk8 = 0;
+//             D_802053E0.unkA = 304;
+//             D_80204294 = 60;
+//             phi_a2 = &osViModeTable[D_802053E0.unk8];
+//             phi_a3 = phi_a2->unk30;
+//             phi_t0 = phi_a2->unk2C;
+//             D_802053F0.unk0 = 0x6501BF;
+//             D_802053F0.unk4 = 1415;
+//             D_80205400.unk0 = phi_a3;
+//             D_80205400.unk4 = phi_t0;
+//             phi_v1 = &D_802053E0;
+//             phi_a0 = &D_80205400;
+//             if ((D_80204240.mode == 1) && (D_80204240.countryCode != 0)) {
+//                 *(volatile s16*)0 = 0;
+//                 // phi_a2 = &osViModeTable[D_802053E0.unk8];
+//                 // phi_a3 = phi_a2->unk30;
+//                 // phi_v1 = &D_802053E0;
+//                 // phi_a0 = &D_80205400;
+//                 // phi_t0 = phi_a2->unk2C;
+//             }
+//             break;
+//     }
+//
+//     temp_v0 = phi_a0->unk0;
+//     temp_a1 = phi_a0->unk4;
+//
+//     phi_v1->unk0 = phi_a3;
+//     phi_v1->unk4 = phi_t0;
+//     phi_a2->unk30 = temp_v0;
+//     phi_a2->unk44 = temp_v0;
+//     phi_a2->unk2C = temp_a1;
+//     phi_a2->unk40 = temp_a1;
+//     D_8020540C = (u16)0;
+// }
+
+void func_8012AB94(void) {
+    osViSetXScale(gScreenWidth / 320.0f);
+    osViSetYScale(gScreenHeight / 240.0f);
+}
+
+void func_8012ABF0(void) {
+    OSViMode *mode;
+    s32 vStart;
+    s32 yScale;
+
+    mode = &osViModeTable[D_802053E0.unk8];
+    vStart = D_802053F0.unk0;
+    yScale = D_802053F0.unk4;
+    mode->fldRegs[0].vStart = vStart;
+    mode->fldRegs[1].vStart = vStart;
+    mode->fldRegs[0].yScale = yScale;
+    mode->fldRegs[1].yScale = yScale;
+
+    D_8020540C = 1;
+}
+
+void func_8012AC40(void) {
+    OSViMode *mode;
+    s32 vStart;
+    s32 yScale;
+
+    mode = &osViModeTable[D_802053E0.unk8];
+    vStart = D_80205400.unk0;
+    yScale = D_80205400.unk4;
+    mode->fldRegs[0].vStart = vStart;
+    mode->fldRegs[1].vStart = vStart;
+    mode->fldRegs[0].yScale = yScale;
+    mode->fldRegs[1].yScale = yScale;
+
+    D_8020540C = 0;
+}
+
+void func_8012AC8C(void) {
+    OSViMode *mode;
+    s32 vStart;
+    s32 yScale;
+
+    osViSetXScale(1.0f);
+    osViSetYScale(1.0f);
+
+    mode = &osViModeTable[D_802053E0.unk8];
+    vStart = D_802053E0.unk0;
+    yScale = D_802053E0.unk4;
+    mode->fldRegs[0].vStart = vStart;
+    mode->fldRegs[1].vStart = vStart;
+    mode->fldRegs[0].yScale = yScale;
+    mode->fldRegs[1].yScale = yScale;
+
+    osViBlack(1);
+}
+
+void func_8012AD08(void) {
+    osViBlack(0);
+    func_8012AC40();
+}
+
+// more displaylist stuff
+#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012AD30.s")

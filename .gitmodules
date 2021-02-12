@@ -1,0 +1,18 @@
+[submodule "tools/splat"]
+	path = tools/splat
+	url = https://github.com/ethteck/splat.git
+[submodule "tools/asm-differ"]
+	path = tools/asm-differ
+	url = https://github.com/simonlindholm/asm-differ.git
+[submodule "tools/asm-processor"]
+	path = tools/asm-processor
+	url = https://github.com/simonlindholm/asm-processor.git
+[submodule "tools/decomp-permuter"]
+	path = tools/decomp-permuter
+	url = https://github.com/simonlindholm/decomp-permuter.git
+[submodule "tools/rnc_propack_source"]
+	path = tools/rnc_propack_source
+	url = https://github.com/lab313ru/rnc_propack_source.git
+[submodule "tools/mips_to_c"]
+	path = tools/mips_to_c
+	url = https://github.com/matt-kempster/mips_to_c.git

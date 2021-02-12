@@ -1,0 +1,454 @@
+basename: sssv
+options:
+  compiler: IDO
+  create_detected_syms: yes
+  find_file_boundaries: yes
+  symbol_addrs_path :   symbol_addrs.eu.txt
+  # undefined_syms_path: undefined_syms.eu.txt
+  generated_c_preamble: |
+    #include <ultra64.h>
+    #include "common.h"
+segments:
+  - name: header
+    type: header
+    start: 0x0
+  - name: boot
+    type: bin
+    start: 0x40
+  - name: main
+    type: code
+    start: 0x1000
+    vram: 0x80125900
+    subsections:
+      - [0x1000, asm]
+      - [0x1050, c]
+      - [0x3900, asm]
+      - [0x4910, asm]
+      - [0x6810, asm]
+      - [0x7790, asm]
+      - [0x78B0, asm]
+      - [0x7910, asm]
+      - [0xC220, asm]
+      - [0xC790, asm]
+      - [0xC9B0, asm]
+      - [0xF620, asm]
+      - [0x10CD0, asm]
+      - [0x12400, asm]
+      - [0x12FE0, asm]
+      - [0x13270, asm]
+      - [0x13540, asm]
+      - [0x135D0, asm]
+      - [0x13600, asm]
+      - [0x13710, asm]
+      - [0x13850, asm]
+      - [0x138D0, asm]
+      - [0x13900, asm]
+      - [0x14390, asm]
+      - [0x14550, asm]
+      - [0x14920, asm]
+      - [0x14A50, asm]
+      - [0x14AB0, asm]
+      - [0x14BA0, asm]
+      - [0x14C50, asm]
+      - [0x14CF0, asm]
+      - [0x14D70, asm]
+      - [0x14DB0, asm]
+      - [0x14EA0, asm]
+      - [0x14F30, asm]
+      - [0x14F40, asm]
+      - [0x151C0, asm]
+      - [0x15310, asm]
+      - [0x153C0, asm]
+      - [0x153D0, asm]
+      - [0x15AF0, asm]
+      - [0x15D40, asm]
+      - [0x16450, asm]
+      - [0x16490, asm]
+      - [0x16F50, asm]
+      - [0x16F90, asm]
+      - [0x16FD0, asm]
+      - [0x170A0, asm]
+      - [0x170C0, asm]
+      - [0x17120, asm]
+      - [0x17180, asm]
+      - [0x171E0, asm]
+      - [0x17250, asm]
+      - [0x17350, asm]
+      - [0x173A0, asm]
+      - [0x18CE0, asm]
+      - [0x190F0, asm]
+      - [0x19240, asm]
+      - [0x192D0, asm]
+      - [0x19500, asm]
+      - [0x19640, asm]
+      - [0x196D0, asm]
+      - [0x19770, asm]
+      - [0x199A0, asm]
+      - [0x19AD0, asm]
+      - [0x19B40, asm]
+      - [0x19E80, asm]
+      - [0x19EF0, asm]
+      - [0x1A750, asm]
+      - [0x1AA00, asm]
+      - [0x1AAA0, asm]
+      - [0x1AD30, asm]
+      - [0x1ADD0, asm]
+      - [0x1B2F0, asm]
+      - [0x1B490, asm]
+      - [0x1B600, asm]
+      - [0x1BC50, asm]
+      - [0x1C470, asm]
+      - [0x1C480, asm]
+      - [0x1C4A0, asm]
+      - [0x1C550, asm]
+      - [0x1CEE0, asm]
+      - [0x1CF40, asm]
+      - [0x1CFA0, asm]
+      - [0x1CFE0, asm]
+      - [0x1CFF0, asm]
+      - [0x1D570, asm]
+      - [0x1D670, asm]
+      - [0x1D9D0, asm]
+      - [0x1DA40, asm]
+      - [0x1DAB0, asm]
+      - [0x1DEF0, asm]
+      - [0x1DFA0, asm]
+      - [0x1E100, asm]
+      - [0x1E270, asm]
+      - [0x1EF30, asm]
+      - [0x1EFD0, asm]
+      - [0x1F4F0, asm]
+      - [0x1F5D0, asm]
+      - [0x1F900, asm]
+      - [0x200D0, asm]
+      - [0x20170, asm]
+      - [0x20E10, asm]
+      - [0x21110, asm]
+      - [0x21D70, asm]
+      - [0x21E80, asm]
+      - [0x21FD0, asm]
+      - [0x22680, asm]
+      - [0x22780, asm]
+      - [0x22960, asm]
+      - [0x22C70, asm]
+      - [0x240A0, asm]
+      - [0x25320, asm]
+      - [0x25680, asm]
+      - [0x258F0, asm]
+      - [0x25980, asm]
+      - [0x259B0, asm]
+      - [0x26230, asm]
+      - [0x26340, asm]
+      - [0x26350, asm]
+      - [0x26360, asm]
+      - [0x266C0, asm]
+      - [0x266D0, asm]
+      - [0x269F0, asm]
+      - [0x26A30, asm]
+      - [0x26AC0, asm]
+      - [0x26AF0, asm]
+      - [0x26B20, asm]
+      - [0x26DC0, asm]
+      - [0x27880, asm]
+      - [0x278A0, asm]
+      - [0x284F0, asm]
+      - [0x28550, asm]
+      - [0x28880, asm]
+      - [0x288D0, asm]
+      - [0x28920, asm]
+  - type: bin
+    start: 0x28AB0
+  ### these are 0x20 later than in US ROM
+  - [0x116BF0, bin, rnc_116BF0] # 1577 => 2048
+  - [0x117220, bin] # unknown!
+  - [0x11DA10, bin, rnc_11DA10] # 147 => 4096
+  - [0x11DAB0, bin, rnc_11DAB0] # 2105 => 3698
+  - [0x11E2F0, bin, rnc_11E2F0] # 153 => 560
+  - [0x11E390, bin, rnc_11E390] # 284 => 616
+  - [0x11E4B0, bin, rnc_11E4B0] # 300 => 792
+  - [0x11E5E0, bin, rnc_11E5E0] # 334 => 960
+  - [0x11E730, bin, rnc_11E730] # 288 => 1152
+  - [0x11E850, bin, rnc_11E850] # 304 => 880
+  - [0x11E980, bin, rnc_11E980] # 291 => 720
+  - [0x11EAB0, bin, rnc_11EAB0] # 219 => 504
+  - [0x11EB90, bin, rnc_11EB90] # 2483 => 23040
+  - [0x11F550, bin] # unknown!
+  - [0x1289F0, bin, rnc_1289F0] # 1283 => 3692
+  - [0x128F00, bin, rnc_128F00] # 1102 => 3302
+  - [0x129350, bin, rnc_129350] # 957 => 2678
+  - [0x129710, bin, rnc_129710] # 1340 => 3614
+  - [0x129C50, bin, rnc_129C50] # 332 => 2048
+  - [0x129DA0, bin, rnc_129DA0] # 517 => 2048
+  - [0x129FB0, bin, rnc_129FB0] # 438 => 2048
+  - [0x12A170, bin, rnc_12A170] # 565 => 2048
+  - [0x12A3B0, bin, rnc_12A3B0] # 19014 => 51200
+  - [0x12EE00, bin] # "B1" ...
+  - [0x13618C, bin] # tbd?
+  - [0x13658C, bin] # tbd?
+  - [0x37E2B8, bin] # "up" soundeffect in language menu
+  - [0x37E3C0, bin] # "down" soundeffect in language menu
+  - [0x42DCE0, bin, rnc_42DCE0] # 30326 => 54880
+  - [0x435360, bin, rnc_435360] # 30784 => 54880
+  - [0x43CBA0, bin, rnc_43CBA0] # 35981 => 54880
+  - [0x445830, bin, rnc_445830] # 36755 => 57624
+  - [0x44E7D0, bin, empty_rnc_44E7D0] # empty RNC file
+  - [0x44E7F0, bin, rnc_44E7F0] # 35312 => 54880
+  - [0x4571E0, bin, rnc_4571E0] # 9193 => 21952
+  - [0x4595D0, bin, rnc_4595D0] # 16318 => 21952
+  - [0x45D590, bin, rnc_45D590] # 6246 => 21952
+  - [0x45EE00, bin, rnc_45EE00] # 11068 => 21952
+  - [0x461940, bin, rnc_461940] # 79 => 21952
+  - [0x461990, bin, rnc_461990] # 193 => 21952
+  - [0x461A60, bin, rnc_461A60] # 17776 => 32928
+  - [0x465FD0, bin, rnc_465FD0] # 23197 => 32928
+  - [0x46BA70, bin, rnc_46BA70] # 19507 => 32928
+  - [0x4706B0, bin, rnc_4706B0] # 18530 => 32928
+  - [0x474F20, bin, rnc_474F20] # 20997 => 32928
+  - [0x47A130, bin, rnc_47A130] # 20718 => 32928
+  - [0x47F220, bin, rnc_47F220] # 21099 => 32928
+  - [0x484490, bin, rnc_484490] # 17949 => 32928
+  - [0x488AB0, bin, rnc_488AB0] # 21153 => 30184
+  - [0x48DD60, bin, rnc_48DD60] # 19128 => 32928
+  - [0x492820, bin, rnc_492820] # 21419 => 32928
+  - [0x497BD0, bin, rnc_497BD0] # 19889 => 32928
+  - [0x49C990, bin, rnc_49C990] # 19766 => 32928
+  - [0x4A16D0, bin, rnc_4A16D0] # 15066 => 32928
+  - [0x4A51B0, bin, rnc_4A51B0] # 18027 => 32928
+  - [0x4A9820, bin, rnc_4A9820] # 20008 => 32928
+  - [0x4AE650, bin, rnc_4AE650] # 20011 => 32928
+  - [0x4B3480, bin, empty_rnc_4B3480] # empty RNC file
+  - [0x4B34A0, bin, rnc_4B34A0] # 17728 => 32928
+  - [0x4B79E0, bin, empty_rnc_4B79E0] # empty RNC file
+  - [0x4B7A00, bin, empty_rnc_4B7A00] # empty RNC file
+  - [0x4B7A20, bin, rnc_4B7A20] # 18763 => 30184
+  - [0x4BC370, bin, rnc_4BC370] # 20355 => 32928
+  - [0x4C1300, bin, rnc_4C1300] # 14853 => 32928
+  - [0x4C4D10, bin, rnc_4C4D10] # 17627 => 32928
+  - [0x4C91F0, bin, rnc_4C91F0] # 16873 => 32928
+  - [0x4CD3E0, bin, rnc_4CD3E0] # 17358 => 32928
+  - [0x4D17B0, bin, rnc_4D17B0] # 20825 => 32928
+  - [0x4D6910, bin, rnc_4D6910] # 144 => 8232
+  - [0x4D69A0, bin, empty_rnc_4D69A0] # empty RNC file
+  - [0x4D69C0, bin, empty_rnc_4D69C0] # empty RNC file
+  - [0x4D69E0, bin, rnc_4D69E0] # 18541 => 32928
+  - [0x4DB250, bin, empty_rnc_4DB250] # empty RNC file
+  - [0x4DB270, bin, rnc_4DB270] # 22856 => 32928
+  - [0x4E0BC0, bin, rnc_4E0BC0] # 19560 => 32928
+  - [0x4E5830, bin, rnc_4E5830] # 21481 => 32928
+  - [0x4EAC20, bin, rnc_4EAC20] # 20575 => 32928
+  - [0x4EFC80, bin, rnc_4EFC80] # 22572 => 32928
+  - [0x4F54B0, bin, empty_rnc_4F54B0] # empty RNC file
+  - [0x4F54D0, bin, empty_rnc_4F54D0] # empty RNC file
+  - [0x4F54F0, bin, empty_rnc_4F54F0] # empty RNC file
+  - [0x4F5510, bin, rnc_4F5510] # 5534 => 20480
+  - [0x4F6AB0, bin, rnc_4F6AB0] # 5534 => 20480
+  - [0x4F8050, bin, rnc_4F8050] # 5534 => 20480
+  - [0x4F95F0, bin, rnc_4F95F0] # 6590 => 20480
+  - [0x4FAFB0, bin, rnc_4FAFB0] # 4505 => 10240
+  - [0x4FC150, bin, rnc_4FC150] # 4291 => 10240
+  - [0x4FD220, bin, rnc_4FD220] # 3462 => 10240
+  - [0x4FDFB0, bin, rnc_4FDFB0] # 4928 => 10240
+  - [0x4FF2F0, bin, rnc_4FF2F0] # 3435 => 10240
+  - [0x500060, bin, rnc_500060] # 39 => 10240
+  - [0x500090, bin, rnc_500090] # 4074 => 10240
+  - [0x501080, bin, rnc_501080] # 4892 => 10240
+  - [0x5023A0, bin, rnc_5023A0] # 5575 => 10240
+  - [0x503970, bin, rnc_503970] # 5433 => 10240
+  - [0x504EB0, bin, rnc_504EB0] # 4232 => 10240
+  - [0x505F40, bin, rnc_505F40] # 39 => 10240
+  - [0x505F70, bin, rnc_505F70] # 1553 => 10240
+  - [0x506590, bin, rnc_506590] # 2168 => 10240
+  - [0x506E10, bin, rnc_506E10] # 4395 => 10240
+  - [0x507F40, bin, rnc_507F40] # 39 => 10240
+  - [0x507F70, bin, rnc_507F70] # 39 => 10240
+  - [0x507FA0, bin, rnc_507FA0] # 39 => 10240
+  - [0x507FD0, bin, rnc_507FD0] # 39 => 10240
+  - [0x508000, bin, rnc_508000] # 4700 => 10240
+  - [0x509260, bin, rnc_509260] # 39 => 10240
+  - [0x509290, bin, rnc_509290] # 4680 => 10240
+  - [0x50A4E0, bin, rnc_50A4E0] # 39 => 10240
+  - [0x50A510, bin, rnc_50A510] # 6360 => 10240
+  - [0x50BDF0, bin, rnc_50BDF0] # 5235 => 10240
+  - [0x50D270, bin, rnc_50D270] # 6808 => 10240
+  - [0x50ED10, bin, rnc_50ED10] # 6661 => 10240
+  - [0x510720, bin, rnc_510720] # 7000 => 10240
+  - [0x512280, bin, rnc_512280] # 39 => 10240
+  - [0x5122B0, bin, rnc_5122B0] # 39 => 10240
+  - [0x5122E0, bin, rnc_5122E0] # 39 => 10240
+  - [0x512310, bin, rnc_512310] # 5348 => 10240
+  - [0x513800, bin, rnc_513800] # 5348 => 10240
+  - [0x514CF0, bin, rnc_514CF0] # 2674 => 10240
+  - [0x515770, bin, rnc_515770] # 5348 => 10240
+  - [0x516C60, bin, rnc_516C60] # 5348 => 10240
+  - [0x518150, bin, rnc_518150] # 5348 => 10240
+  - [0x519640, bin, rnc_519640] # 5348 => 10240
+  - [0x51AB30, bin, rnc_51AB30] # 39 => 10240
+  - [0x51AB60, bin, rnc_51AB60] # 39 => 10240
+  - [0x51AB90, bin, rnc_51AB90] # 39 => 10240
+  - [0x51ABC0, bin, rnc_51ABC0] # 3492 => 6144
+  - [0x51B970, bin, rnc_51B970] # 4149 => 6144
+  - [0x51C9B0, bin, rnc_51C9B0] # 4793 => 6144
+  - [0x51DC70, bin, rnc_51DC70] # 4137 => 6144
+  - [0x51ECA0, bin, rnc_51ECA0] # 4241 => 6144
+  - [0x51FD40, bin, rnc_51FD40] # 4014 => 6144
+  - [0x520CF0, bin, rnc_520CF0] # 4690 => 6144
+  - [0x521F50, bin, rnc_521F50] # 3441 => 6144
+  - [0x522CD0, bin, rnc_522CD0] # 4356 => 6144
+  - [0x523DE0, bin, rnc_523DE0] # 4442 => 6144
+  - [0x524F40, bin, rnc_524F40] # 4850 => 6144
+  - [0x526240, bin, rnc_526240] # 4920 => 6144
+  - [0x527580, bin, rnc_527580] # 4264 => 6144
+  - [0x528630, bin, rnc_528630] # 4523 => 6144
+  - [0x5297E0, bin, rnc_5297E0] # 4512 => 6144
+  - [0x52A980, bin, rnc_52A980] # 4527 => 6144
+  - [0x52BB30, bin, rnc_52BB30] # 4135 => 6144
+  - [0x52CB60, bin, rnc_52CB60] # 3865 => 6144
+  - [0x52DA80, bin, rnc_52DA80] # 5085 => 6144
+  - [0x52EE60, bin, rnc_52EE60] # 4724 => 6144
+  - [0x5300E0, bin, rnc_5300E0] # 4097 => 6144
+  - [0x5310F0, bin, rnc_5310F0] # 4589 => 6144
+  - [0x5322E0, bin, rnc_5322E0] # 4568 => 6144
+  - [0x5334C0, bin, rnc_5334C0] # 4166 => 6144
+  - [0x534510, bin, rnc_534510] # 4447 => 6144
+  - [0x535670, bin, rnc_535670] # 4383 => 6144
+  - [0x536790, bin, rnc_536790] # 4968 => 6144
+  - [0x537B00, bin, rnc_537B00] # 4089 => 6144
+  - [0x538B00, bin, rnc_538B00] # 3871 => 6144
+  - [0x539A20, bin, rnc_539A20] # 4736 => 6144
+  - [0x53ACA0, bin, rnc_53ACA0] # 3643 => 6144
+  - [0x53BAE0, bin, rnc_53BAE0] # 2526 => 6144
+  - [0x53C4C0, bin, rnc_53C4C0] # 3537 => 6144
+  - [0x53D2A0, bin, rnc_53D2A0] # 3537 => 6144
+  - [0x53E080, bin, rnc_53E080] # 3537 => 6144
+  - [0x53EE60, bin, rnc_53EE60] # 956 => 2048
+  - [0x53F220, bin, rnc_53F220] # 1151 => 2048
+  - [0x53F6A0, bin, rnc_53F6A0] # 924 => 2048
+  - [0x53FA40, bin, rnc_53FA40] # 661 => 2048
+  - [0x53FCE0, bin, rnc_53FCE0] # 1170 => 2048
+  - [0x540180, bin, rnc_540180] # 961 => 2048
+  - [0x540550, bin, rnc_540550] # 1026 => 2048
+  - [0x540960, bin, rnc_540960] # 1144 => 2048
+  - [0x540DE0, bin, rnc_540DE0] # 906 => 2048
+  - [0x541170, bin, rnc_541170] # 33 => 2048
+  - [0x5411A0, bin, rnc_5411A0] # 959 => 2048
+  - [0x541560, bin, rnc_541560] # 1079 => 2048
+  - [0x5419A0, bin, rnc_5419A0] # 730 => 2048
+  - [0x541C80, bin, rnc_541C80] # 900 => 2048
+  - [0x542010, bin, rnc_542010] # 594 => 2048
+  - [0x542270, bin, rnc_542270] # 991 => 2048
+  - [0x542650, bin, rnc_542650] # 33 => 2048
+  - [0x542680, bin, rnc_542680] # 931 => 2048
+  - [0x542A30, bin, rnc_542A30] # 647 => 2048
+  - [0x542CC0, bin, rnc_542CC0] # 722 => 2048
+  - [0x542FA0, bin, rnc_542FA0] # 1009 => 2048
+  - [0x5433A0, bin, rnc_5433A0] # 597 => 2048
+  - [0x543600, bin, rnc_543600] # 33 => 2048
+  - [0x543630, bin, rnc_543630] # 838 => 2048
+  - [0x543980, bin, rnc_543980] # 968 => 2048
+  - [0x543D50, bin, rnc_543D50] # 853 => 2048
+  - [0x5440B0, bin, rnc_5440B0] # 932 => 2048
+  - [0x544460, bin, rnc_544460] # 645 => 2048
+  - [0x5446F0, bin, rnc_5446F0] # 630 => 2048
+  - [0x544970, bin, rnc_544970] # 33 => 2048
+  - [0x5449A0, bin, rnc_5449A0] # 33 => 2048
+  - [0x5449D0, bin, rnc_5449D0] # 33 => 2048
+  - [0x544A00, bin] # tbd
+  - [0x546C00, bin] # tbd
+  # starts to differ from US ROM
+  # these are recursively compressed RNC files
+  - [0x546D40, bin, rnc_546D40] # 33910 => 33872
+  - [0x54F1C0, bin, rnc_54F1C0] # 24023 => 24072
+  - [0x554FA0, bin, rnc_554FA0] # 22081 => 22075
+  - [0x55A5F0, bin, rnc_55A5F0] # 24665 => 24699
+  - [0x560650, bin, rnc_560650] # 31902 => 31954
+  - [0x5682F0, bin, rnc_5682F0] # 20057 => 20085
+  - [0x56D150, bin, rnc_56D150] # 24681 => 24685
+  - [0x5731C0, bin, rnc_5731C0] # 24725 => 24852
+  - [0x579260, bin, rnc_579260] # 25892 => 25884
+  - [0x57F790, bin, rnc_57F790] # 15177 => 15302
+  - [0x5832E0, bin, rnc_5832E0] # 24819 => 24815
+  - [0x5893E0, bin, rnc_5893E0] # 18336 => 18357
+  - [0x58DB80, bin, rnc_58DB80] # 17843 => 17881
+  - [0x592140, bin, rnc_592140] # 20872 => 20894
+  - [0x5972D0, bin, rnc_5972D0] # 43107 => 43046
+  - [0x5A1B40, bin, rnc_5A1B40] # 28054 => 28125
+  - [0x5A88E0, bin, rnc_5A88E0] # 25878 => 25860
+  - [0x5AEE00, bin, rnc_5AEE00] # 25442 => 25453
+  - [0x5B5170, bin, rnc_5B5170] # 25355 => 25352
+  - [0x5BB480, bin, rnc_5BB480] # 36083 => 36049
+  - [0x5C4180, bin, rnc_5C4180] # 23002 => 22991
+  - [0x5C9B60, bin, rnc_5C9B60] # 31426 => 31422
+  - [0x5D1630, bin, rnc_5D1630] # 30870 => 30899
+  - [0x5D8ED0, bin, rnc_5D8ED0] # 31552 => 31561
+  - [0x5E0A10, bin, rnc_5E0A10] # 20844 => 20852
+  - [0x5E5B80, bin, rnc_5E5B80] # 26684 => 26691
+  - [0x5EC3C0, bin, rnc_5EC3C0] # 30645 => 30642
+  - [0x5F3B80, bin, rnc_5F3B80] # 27807 => 27813
+  - [0x5FA820, bin, rnc_5FA820] # 40599 => 40595
+  - [0x6046C0, bin, rnc_6046C0] # 17104 => 17128
+  - [0x608990, bin, rnc_608990] # 30096 => 30106
+  - [0x60FF20, bin, rnc_60FF20] # 5980 => 6072
+  - [0x611680, bin, rnc_611680] # 1399 => 1587
+  - [0x611C00, bin, rnc_611C00] # 1494 => 1684
+  - [0x6121E0, bin, rnc_6121E0] # 25247 => 25298
+  - [0x618480, bin, rnc_618480] # 4183 => 4305
+  ## matches US ROM from here..
+  - [0x6194E0, bin, rnc_6194E0] # 10338 => 31544
+  - [0x61BD50, bin, rnc_61BD50] # 4981 => 14344
+  - [0x61D0D0, bin, rnc_61D0D0] # 2753 => 9272
+  - [0x61DBA0, bin, rnc_61DBA0] # 2893 => 10000
+  - [0x61E6F0, bin, rnc_61E6F0] # 2881 => 8664
+  - [0x61F240, bin, rnc_61F240] # 2431 => 6824
+  - [0x61FBC0, bin, rnc_61FBC0] # 2802 => 8184
+  - [0x6206C0, bin, rnc_6206C0] # 3168 => 9432
+  - [0x621320, bin, rnc_621320] # 4976 => 14664
+  - [0x622690, bin, rnc_622690] # 5270 => 20992
+  - [0x623B30, bin, rnc_623B30] # 3373 => 10032
+  - [0x624860, bin, rnc_624860] # 1895 => 4864
+  - [0x624FD0, bin, rnc_624FD0] # 2399 => 6744
+  - [0x625930, bin, rnc_625930] # 2818 => 8104
+  - [0x626440, bin, rnc_626440] # 3478 => 10920
+  - [0x6271E0, bin, rnc_6271E0] # 3252 => 9784
+  - [0x627EA0, bin, rnc_627EA0] # 6051 => 18784
+  - [0x629650, bin, rnc_629650] # 2353 => 6224
+  - [0x629F90, bin, rnc_629F90] # 2200 => 5976
+  - [0x62A830, bin, rnc_62A830] # 2677 => 7960
+  - [0x62B2B0, bin, rnc_62B2B0] # 2727 => 8064
+  - [0x62BD60, bin, rnc_62BD60] # 2277 => 7096
+  - [0x62C650, bin, rnc_62C650] # 5064 => 14360
+  - [0x62DA20, bin, rnc_62DA20] # 1959 => 5424
+  - [0x62E1D0, bin, rnc_62E1D0] # 2419 => 6960
+  - [0x62EB50, bin, rnc_62EB50] # 2146 => 6112
+  - [0x62F3C0, bin, rnc_62F3C0] # 2610 => 7448
+  - [0x62FE00, bin, rnc_62FE00] # 2322 => 6904
+  - [0x630720, bin, rnc_630720] # 1964 => 5496
+  - [0x630ED0, bin, rnc_630ED0] # 3819 => 16288
+  - [0x631DC0, bin, rnc_631DC0] # 12695 => 40200
+  - [0x634F60, bin, rnc_634F60] # 98 => 1200
+  - [0x634FD0, bin, rnc_634FD0] # 11649 => 38088
+  - [0x637D60, bin, rnc_637D60] # 3076 => 8000
+  - [0x638970, bin, rnc_638970] # 69 => 120
+  - [0x6389C0, bin, rnc_6389C0] # 69 => 120
+  - [0x638A10, bin, rnc_638A10] # 5000 => 115024
+  - [0x639DA0, bin] # unknown!
+  - [0x6409B0, bin, rnc_6409B0] # 37463 => 163840
+  - [0x649C10, bin, rnc_649C10] # 28620 => 153600
+  - [0x650BE0, bin, rnc_650BE0] # 21526 => 65536
+  - [0x656000, bin, rnc_656000] # 5873 => 18432
+  - [0x657700, bin, rnc_657700] # 5717 => 18432
+  - [0x658D60, bin, rnc_658D60] # 5713 => 18432
+  - [0x65A3C0, bin, rnc_65A3C0] # 6413 => 18432
+  - [0x65BCD0, bin] # unknown!
+  - [0x65C8D0, bin, rnc_65C8D0] # 24460 => 163840
+  - [0x662860, bin, rnc_662860] # 11570 => 40960
+  - [0x6655A0, bin] # unknown!
+  - [0x6675F0, bin, rnc_6675F0] # 23248 => 163840
+  - [0x66D0C0, bin, rnc_66D0C0] # 37980 => 163840
+  - [0x676520, bin, rnc_676520] # 43024 => 153600
+  - [0x680D30, bin, rnc_680D30] # 77877 => 153600
+  - [0x693D70, bin] # unknown!
+  - [0x69B0D0, bin, rnc_69B0D0] # 35955 => 153600
+  - [0x6A3D50, bin] #  end of RNC
+  - [0x7d395C, bin] # credits
+  - [0x7DF890, bin, trailer] # 0xff to end
+  - [0x800000]

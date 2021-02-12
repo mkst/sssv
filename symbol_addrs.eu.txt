@@ -1,0 +1,10 @@
+__ull_rshift      = 0x80137B70;
+osGetTime         = 0x80137E40;
+osCreateMesgQueue = 0x801381D0;
+osStartThread     = 0x80138200;
+bzero             = 0x80139550;
+osCreateThread    = 0x80139AC0;
+memcpy            = 0x80143830;
+strlen            = 0x8014385C;
+strchr            = 0x80143884;
+osInitialize      = 0x801378E0;

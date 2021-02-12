@@ -1,0 +1,29 @@
+# directories
+
+__pycache__/
+asm.*/
+bin.*/
+build/
+expected/
+junk/
+nonmatchings/
+py/
+rodata/
+
+
+# symlinks
+
+asm
+bin
+src
+diff_settings.py
+
+
+# files
+
+*.ld
+*auto.txt
+*.ok
+.splat_cache
+*.bin
+*.z64
