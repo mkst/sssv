@@ -48,13 +48,13 @@ build/sssv.us.z64: OK
 
 There are 5 known versions of the ROM:
 
-| Name           | Country Code               | CRC1       | CRC2       | ROM SHA1                                   | Notes           | Version |
-|:---------------|:---------------------------|:----------:|:----------:|:------------------------------------------:|:----------------|:-------:|
-| Silicon Valley | E - North America          | `BFE23884` | `EF48EAAF` | `e5e09205aa743a9e5043a42df72adc379c746b0b` | US 1.0          | `1.37`  |
-| Silicon Valley | J - Japanese               | `BFE23884` | `EF48EAAF` | `7320f08474c011fc7781093bf1a6818c37ce51e2` | JP (Unreleased) | `1.37`  |
-| Silicon Valley | E - North America          | `FC70E272` | `08FFE7AA` | `c968bba6a90db9ecbd957e910684a80726b0497d` | US 1.1          | `1.37`  |
-| Silicon Valley | P - European (basic spec.) | `FC70E272` | `08FFE7AA` | `23710541bb3394072740b0f0236a7cb1a7d41531` | EU              | `1.37`  |
-| Silicon Valley | ???                        | ???        | ???        | ???                                        | [NES World](http://www.nesworld.com/prototype-details.php?system=n64&data=124) | `1.26B` |
+| Country Code               | CRC1       | CRC2       | ROM SHA1                                   | Notes           | Version |
+|:---------------------------|:----------:|:----------:|:------------------------------------------:|:----------------|:-------:|
+| E - North America          | `BFE23884` | `EF48EAAF` | `e5e09205aa743a9e5043a42df72adc379c746b0b` | US 1.0          | `1.37`  |
+| J - Japanese               | `BFE23884` | `EF48EAAF` | `7320f08474c011fc7781093bf1a6818c37ce51e2` | JP (Unreleased) | `1.37`  |
+| E - North America          | `FC70E272` | `08FFE7AA` | `c968bba6a90db9ecbd957e910684a80726b0497d` | US 1.1          | `1.37`  |
+| P - European (basic spec.) | `FC70E272` | `08FFE7AA` | `23710541bb3394072740b0f0236a7cb1a7d41531` | EU              | `1.37`  |
+| ???                        | ???        | ???        | ???                                        | [NES World](http://www.nesworld.com/prototype-details.php?system=n64&data=124) | `1.26B` |
 
 Only US and EU versions were released. If you are in possession of the Prototype ROM, let me know - `mkst#4741`.
 

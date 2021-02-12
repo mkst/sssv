@@ -89,8 +89,6 @@ dirs:
 tools: $(RNC64)
 
 symlinks:
-	ln -nsf asm.$(VERSION) asm
-	ln -nsf bin.$(VERSION) bin
 	ln -nsf src.$(VERSION) src
 	ln -nsf diff_settings.$(VERSION).py diff_settings.py
 

@@ -1,8 +1,8 @@
 # directories
 
 __pycache__/
-asm.*/
-bin.*/
+asm/
+bin/
 build/
 expected/
 junk/
@@ -13,8 +13,6 @@ rodata/
 
 # symlinks
 
-asm
-bin
 src
 diff_settings.py
 
