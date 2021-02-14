@@ -21,7 +21,8 @@ void func_8038BA30_79D0E0(void)
     D_803F6428[10]  = 0;
     D_803F6428[11]  = 0;
     D_803F6428[12]  = 0;
-    sprintf(&D_803F6410, &D_803BFAA0, 0x69F6BC7);
+    // "%9d"
+    sprintf(&D_803F6410, &D_803BFAA0, 111111111);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/cheats/func_8038BAC0_79D170.s")
@@ -30,7 +31,7 @@ void func_8038BA30_79D0E0(void)
 //     s32 sp28;
 //     s16 temp_v0;
 //     u16 butDown;
-//     struct002 *temp_v0_2;
+//     Animal *player;
 //     u8 lastButton;
 //
 //     if (D_803F642E != 0)
@@ -40,8 +41,10 @@ void func_8038BA30_79D0E0(void)
 //         func_8012C248(0, 0, 0, 0);
 //         if ((D_803F642E != 0) && (D_803F6680 == 0))
 //         {
-//             temp_v0_2 = D_801DDD8C[D_803D5534].unk0;
-//             sprintf(&D_802042B0, &D_803BFAA4, temp_v0_2->unk4 >> 6, temp_v0_2->unk8 >> 6, temp_v0_2->unkC);
+//             // print debug location
+//             player = D_801DDD8C[D_803D5534].unk0;
+//             // "(%3d  %3d  %4d).Ver - 1.37"
+//             sprintf(&D_802042B0, &D_803BFAA4, player->xPos >> 6, player->zPos >> 6, player->yPos);
 //             func_801308B4(&D_802042B0, &sp28);
 //             func_8012DEF8(&D_801D9E7C, &sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
 //             func_801308B4(&D_803BFAB4, &sp28);
@@ -145,7 +148,7 @@ void func_8038BA30_79D0E0(void)
 //     }
 //     if (func_8038C13C_79D7EC(&D_803F6410, D_803BFAC0) != 0) // , &D_803B62BC
 //     {
-//         D_801DDD8C[D_803D5534].unk0->unk14C = (u16)0x7F;
+//         D_801DDD8C[D_803D5534].unk0->health = (u16)127;
 //         func_8013307C(0x56, 0, 0x5000, 1.0f, 64);
 //         D_803B62B0 = 0; // reset position
 //     }

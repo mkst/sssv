@@ -168,7 +168,7 @@
 //         func_80137840();
 //         func_8012A400();
 //         temp_v0_4 = D_80152EB8;
-//         func_80129158((&D_80162658 + (temp_v0_4 * 0x3BBF0))->unk3BBE8, (&D_80162658 + ((temp_v0_4 ^ 1) * 0x3BBF0))->unk3BBE8, 0x25800, 0x38000);
+//         strncpy((&D_80162658 + (temp_v0_4 * 0x3BBF0))->unk3BBE8, (&D_80162658 + ((temp_v0_4 ^ 1) * 0x3BBF0))->unk3BBE8, 0x25800, 0x38000);
 //         func_8038F8C8_7A0F78();
 //         temp_v0_5 = D_803E4D28 & ~0x40;
 //         D_803E4D28 = temp_v0_5;
@@ -550,7 +550,7 @@ void func_8029614C_6A77FC(void) {
 }
 
 void func_8029619C_6A784C(void) {
-    D_801DDD8C[D_803D5534].unk0->unk14C = 0x7F;
+    D_801DDD8C[D_803D5534].unk0->health = 0x7F;
     D_803F2CE8 = 0;
     D_8020427C = 1;
 }

@@ -3,8 +3,8 @@
 #include "common.h"
 
 
+// load 32 bytes from offset 0x20 of the header
 void read_rom_header(void) {
-    // load 32 bytes from offset 0x20 of the header
     dma_read(32, &D_80204240, 32);
 }
 
@@ -33,52 +33,48 @@ void dma_read(u32 devAddr, void *vAddr, s32 nbytes) {
     osRecvMesg(&D_8028D078, (OSMesg)&mesg, OS_MESG_BLOCK);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129300.s")
-// Not this...
-// void func_80129300(Gfx **arg0, s32 arg1) {
-//
-//     gSPSegment(*arg0++, 0x00, 0);
-//     gSPSegment(*arg0++, 0x01, osVirtualToPhysical(D_801D9E74));
-//     gSPSegment(*arg0++, 0x02, osVirtualToPhysical(arg1));
-//     gSPSegment(*arg0++, 0x03, osVirtualToPhysical(D_801D9E70));
-//     gSPSegment(*arg0++, 0x05, osVirtualToPhysical(D_801D9E78));
-//
-//     gDPSetDepthImage(*arg0++, osVirtualToPhysical(&D_80100000));
-// }
+void func_80129300(Gfx **arg0, DisplayList *ddl) {
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129430.s")
-// Not this...
-// void func_80129430(Gfx **arg0)
-// {
-//     gDPSetScissorFrac(*arg0++, G_SC_EVEN_INTERLACE, 0, 0, 4.0f*gScreenWidth, 4.0f*gScreenHeight);
-//     gDPPipeSync(*arg0++);
-//     gDPSetCycleType(*arg0++, G_CYC_FILL);
-//     gDPSetColorImage(*arg0++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
-//     gDPSetFillColor(*arg0++, 0xFFFCFFFC);
-//     gDPFillRectangle(*arg0++, 8, 8, gScreenWidth, gScreenHeight);
-// }
+    gSPSegment((*arg0)++, 0x00, 0);
+    gSPSegment((*arg0)++, 0x01, osVirtualToPhysical(D_801D9E74));
+    gSPSegment((*arg0)++, 0x02, osVirtualToPhysical(ddl));
+    gSPSegment((*arg0)++, 0x03, osVirtualToPhysical(D_801D9E70));
+    gSPSegment((*arg0)++, 0x05, osVirtualToPhysical(D_801D9E78));
+
+    gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
+}
+
+void func_80129430(Gfx **arg0) {
+    gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 0, 0, gScreenWidth, gScreenHeight);
+    gDPPipeSync((*arg0)++);
+    gDPSetCycleType((*arg0)++, G_CYC_FILL);
+    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
+    gDPSetFillColor((*arg0)++, 0xFFFCFFFC);
+    gDPFillRectangle((*arg0)++, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129594.s")
-// miles away..
+// need to define gDPHalf1 and gLoadUcode macros
 // void func_80129594(Gfx **arg0) {
-//     gDPPipeSync(*arg0++);
-//     gDPHalf1(*arg0++, 0x8015D710);
-//     gLoadUcode(*arg0++, &D_8014F1D0, 0x0800);
-//     gDPPipeSync(*arg0++);
+//
+//     gDPPipeSync((*arg0)++);
+//     gDPHalf1((*arg0)++, &D_8015D710);
+//     gLoadUcode((*arg0)++, &D_8014F1D0, 0x0800);
+//     gDPPipeSync((*arg0)++);
 //
 //     func_80129300(arg0, 0); // ??
 //
-//     gDPSetColorImage(*arg0++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
+//     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
 //
-//     gDPSetScissor(*arg0++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth, gScreenHeight);
-//     gDPSetColorDither(*arg0++, G_CD_BAYER);
-//     gDPSetAlphaDither(*arg0++, G_AD_PATTERN);
+//     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth, gScreenHeight);
+//     gDPSetColorDither((*arg0)++, G_CD_BAYER);
+//     gDPSetAlphaDither((*arg0)++, G_AD_PATTERN);
 //
-//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RNX, 0x3);
-//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RNY, 0x3);
+//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RNX, 0x3);
+//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RNY, 0x3);
 //
-//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RPX, 0xFFFD);
-//     gMoveWd(*arg0++, G_MW_CLIP, G_MWO_CLIP_RPY, 0xFFFD);
+//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RPX, 0xFFFD);
+//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RPY, 0xFFFD);
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129784.s")
@@ -162,36 +158,36 @@ void func_80129AD0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129DC0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012A260.s")
-// NON-MATCHING: matches but wont OK
+// NON-MATCHING: matches but won't OK
 // void func_8012A260(void) {
-//     s32 temp_a0;
+//     struct018 *temp_a0;
 //     s32 temp_a1;
 //     s16 i;
 //
 //     while (TRUE) {
 //         osRecvMesg(&D_80291060, D_80291054, OS_MESG_BLOCK);
 //         temp_a0 = D_8020428C;
-//         temp_a1 = temp_a0 + 0x4E0;
+//         temp_a1 = &temp_a0->unk4E0;
 //         D_80204278 = temp_a1;
 //         D_801D9E7C = temp_a1;
-//         D_801D9E90 = temp_a0 + 0xDFA0;
-//         D_801D9E94 = temp_a0 + 0x81E0;
-//         D_801D9E88 = temp_a0 + 0x9AE0;
-//         D_801D9E8C = temp_a0 + 0xC060;
-//         D_801D9EB8 = temp_a0 + 0x26C80;
+//         D_801D9E90 = &temp_a0->unkDFA0;
+//         D_801D9E94 = &temp_a0->unk81E0;
+//         D_801D9E88 = &temp_a0->unk9AE0;
+//         D_801D9E8C = &temp_a0->unkC060;
+//         D_801D9EB8 = &temp_a0->unk26C80;
 //
 //         for (i = 0; i < 8; i++) {
-//             D_801D9E98[i] = D_80204278 + 0x109A0 + (i * 0x2BC0); // this is just maths
+//             D_801D9E98[i] = &D_80204278->unk109A0[i];
 //         }
 //
 //         D_80204274 = temp_a0;
 //         if (D_80152E9C == 0) {
-//             func_80294E50(temp_a0, temp_a1); // call overlay function
+//             func_80294E50(); // call overlay func
 //         } else {
-//             func_8012A588(temp_a0, temp_a1);
+//             func_8012A588();
 //         }
 //         osWritebackDCacheAll();
-//         osSendMesg(&D_80291078,D_80291054, OS_MESG_BLOCK);
+//         osSendMesg(&D_80291078, D_80291054, OS_MESG_BLOCK);
 //     }
 // }
 
@@ -220,7 +216,7 @@ void func_8012A400(void) {
 //         if (D_80152E9C == 1) {
 //             func_80137840();
 //             func_8012A400();
-//             func_80129158(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, 0x25800, 0x38000);
+//             strncpy(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, 0x25800, 0x38000);
 //         }
 //         if (D_80152E9C == 2) {
 //             func_8012AC40();
@@ -243,7 +239,7 @@ void func_8012A400(void) {
 void func_8012A750(void) {
     if (D_802912D8 == 0) {
         func_80129300(&D_801D9E7C, D_80204278);
-        func_8012AD30(&D_801D9E7C, 0, 16, 0x140, 0x24, 40, 40, 40, 0x80);
+        func_8012AD30(&D_801D9E7C, 0, 16, 320, 36, 40, 40, 40, 128);
         gDPPipeSync(D_801D9E7C++);
 
         func_8012C1F0(&D_801D9E7C);
@@ -425,5 +421,46 @@ void func_8012AD08(void) {
     func_8012AC40();
 }
 
-// more displaylist stuff
-#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012AD30.s")
+void func_8012AD30(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 alpha) {
+    s32 color;
+
+    if (alpha != 0) {
+        gDPPipeSync((*arg0)++);
+        gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 0, 0, 320, 241);
+
+        gDPPipeSync((*arg0)++);
+        gDPSetAlphaCompare((*arg0)++, G_AC_NONE);
+
+        if (alpha == 0xFF) {
+            // rgba5551
+            gDPPipeSync((*arg0)++);
+            gDPSetCycleType((*arg0)++, G_CYC_FILL);
+            gDPPipeSync((*arg0)++);
+
+            gDPSetRenderMode((*arg0)++, G_RM_NOOP, G_RM_NOOP2);
+
+            gDPSetFillColor((*arg0)++, GPACK_RGBA5551(r, g, b, 1) << 16 | GPACK_RGBA5551(r, g, b, 1));
+            gDPFillRectangle((*arg0)++, x0, y0, x1 - 1, y1 - 1);
+        } else {
+            // rgba32
+            gDPPipeSync((*arg0)++);
+            gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
+            gDPSetColorDither((*arg0)++, G_CD_NOISE);
+            gDPSetAlphaDither((*arg0)++, G_AD_DISABLE);
+
+            gDPSetPrimColor((*arg0)++, 0, 0, r, g, b, alpha);
+
+            if (D_80204288 == 10) {
+                gDPSetRenderMode((*arg0)++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+            } else {
+                gDPSetRenderMode((*arg0)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+            }
+
+            gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+            gDPFillRectangle((*arg0)++, x0, y0, x1, y1);
+        }
+
+        gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+        gDPPipeSync((*arg0)++);
+    }
+}

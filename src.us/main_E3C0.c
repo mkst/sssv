@@ -27,6 +27,7 @@
 //     }
 // }
 
+// count used sounds?
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80132D54.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80132D84.s")
@@ -39,7 +40,16 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013328C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80133528.s")
+void func_80133528(u8 arg0, s16 vol) {
+    struct017 *temp_v0 = func_80132414(arg0);
+
+    if (temp_v0 != NULL) {
+        if ((temp_v0->unk22 >= 0) && (D_802863B0[temp_v0->unk22] != 1)) {
+            alSndpSetSound(D_80286310, temp_v0->unk22);
+            alSndpSetVol(D_80286310, vol);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013359C.s")
 
@@ -100,15 +110,12 @@ void func_80133E44(void) {
     D_80155184 = 0;
 }
 
-
 void func_80133E84(void) {
-    if (D_80155180 == D_8028645C) {
-        if (D_8028645C != 0) {
-            D_80155184 += 1;
-            if (D_80155184 >= 3) {
-                alCSeqSetLoc(D_802863CC, &D_80286460);
-                D_80155180 = 0;
-            }
+    if ((D_80155180 == D_8028645C) && (D_8028645C != 0)) {
+        D_80155184 += 1;
+        if (D_80155184 >= 3) {
+            alCSeqSetLoc(D_802863CC, &D_80286460);
+            D_80155180 = 0;
         }
     }
 }

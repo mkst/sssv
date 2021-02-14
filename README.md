@@ -1,6 +1,7 @@
 # Space Station Silicon Valley N64
 
 ![build](https://github.com/mkst/sssv/workflows/build/badge.svg)
+![progress](https://img.shields.io/badge/dynamic/json?url=https%3A//sssv.deco.mp/latest.json&color=critical&label=progress&query=$.progress[?(@.version=='us')].sections[?(@.section=='all')].percent&suffix=%&link=https%3A//sssv.deco.mp&logo=github&logoColor=959da5&labelColor=353c43)
 
 A WIP decompilation of Space Station Silicon Valley (SSSV) for N64.
 Checkout the [wiki](https://github.com/mkst/sssv/wiki) for more information.
@@ -107,8 +108,8 @@ tools/
  - [splat](https://github.com/ethteck/splat); successor to n64split
 
 # Useful Links
- - [SSSV at TCRF](https://tcrf.net/Space_Station_Silicon_Valley_(Nintendo_64)
- - [SSSV at romhacking.net](http://datacrystal.romhacking.net/wiki/Space_Station_Silicon_Valley_(Nintendo_64)
- - [Music video based on SSSV Prototype buil](https://www.youtube.com/watch?v=IAJ4OT6-5GU)
+ - [SSSV at TCRF](https://tcrf.net/Space_Station_Silicon_Valley_(Nintendo_64))
+ - [SSSV at romhacking.net](http://datacrystal.romhacking.net/wiki/Space_Station_Silicon_Valley_(Nintendo_64))
+ - [Music video based on SSSV Prototype build](https://www.youtube.com/watch?v=IAJ4OT6-5GU)
  - [ScriptHawk lua for SSSV](https://github.com/Isotarge/ScriptHawk/blob/master/games/sssv.lua)
  - [EverDrive Forum thread](https://krikzz.com/forum/index.php?topic=6946.0)

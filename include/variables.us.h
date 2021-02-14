@@ -42,8 +42,10 @@ extern s32  D_801D9E88;
 extern s32  D_801D9E8C;
 extern s32  D_801D9E90;
 extern s32  D_801D9E94;
-extern s32  D_801D9E98[];
+extern struct014 *D_801D9E98[];
 extern s32  D_801D9EB8;
+
+extern s32  D_801542D0;
 
 extern s32  D_80154628; // display list?
 extern s32  D_80154680; // some kind of counter?
@@ -60,11 +62,13 @@ extern s32  D_8014F1D0;
 extern s16  D_80152040[];
 extern s8   D_80152248[];
 extern struct013  D_80152350[];
-extern s32  D_80152E80;
+extern u32  D_80152E80;
 extern s16  D_80152E9C;
 extern s32  D_80152EA8;
 extern u16  D_80152EB8;
 extern u16  D_80152EBC;
+extern s32  D_801582C0; // display list?
+extern s32  D_80158368;
 extern s32  D_801584A0;
 extern s16  D_80158540;
 extern s32  D_80158544;
@@ -83,13 +87,14 @@ extern struct009 D_8019A658[];
 
 extern s16  D_80200008;
 extern RomHeader D_80204240;
-extern s32  D_80204260;
+extern s16  D_80204260;
 extern u16  D_80204270;
 extern s32  D_802042B0;
 extern struct008 *D_80204274;
-extern s32  D_80204278; // array of structs size 0x2BC0?
+extern DisplayList *D_80204278;
 extern s32  D_802042A0;
-extern s32  D_802042F0;
+extern s16 *D_802042F0;
+extern s16 *D_80204368;
 extern s16  gScreenWidth;
 extern s16  gScreenHeight;
 
@@ -97,12 +102,14 @@ extern s32  D_8022E0D4;
 extern s32  D_8022E0DC;
 extern s32  D_8022E3E0;
 extern u8   D_8022E3E4;
-extern s32  D_8022E3F0; // maps to ROM 0x12A390
+extern s16  D_8022E3F0[]; // maps to ROM 0x12A390
 
 extern ALSndPlayer *D_80286310;
 
 extern s32  D_80286328;
 extern ALCSeq *D_802863CC;
+extern u8   D_802863B0[];
+
 
 extern OSThread D_802868D0; // thread ID 1
 extern OSThread D_80286A80; // thread ID 9
@@ -126,6 +133,44 @@ extern OSIoMesg    D_8028D0C0;
 extern s32  D_8028E230;
 extern OSMesg      D_8028F640;
 
+extern f32  D_80299DB8;
+extern f32  D_80299DBC;
+extern f32  D_80299DC0;
+extern f32  D_80299DC4;
+extern f32  D_80299DC8;
+extern f32  D_80299DCC;
+extern f32  D_80299DD0;
+extern f32  D_80299DD4;
+extern f32  D_80299DD8;
+extern f32  D_80299DDC;
+extern f32  D_80299DE0;
+extern f32  D_80299DE4;
+extern f32  D_80299DE8;
+extern f32  D_80299DEC;
+extern f32  D_80299DF0;
+
+extern s32  D_802AFBD0;
+extern s32  D_802B12D0;
+extern s32  D_802B2930;
+extern s32  D_802B3F90;
+extern s32  D_802B64A0; // ROM 0x659b40
+extern s32  D_802BC430;
+extern s32  D_802C11C0;
+extern s32  D_802EEB20;
+extern s32  D_802F4CA0;
+extern s32  D_80302E88;
+extern s32  D_8032AE88;
+extern s32  D_80338688;
+extern s32  D_8033CE88;
+extern s32  D_80364E88;
+extern s32  D_80376ED8;
+extern s32  D_8039E2E8;
+extern s32  D_803A38D8;
+extern s32  D_803A8EC8;
+
+extern f32  D_80302D20; // 15000.0f
+extern u16  D_80302E60;
+
 extern u32  D_80151430;
 extern u16  D_80151434;
 extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
@@ -137,26 +182,26 @@ extern f32  D_8015517C;
 extern s16  D_80155180;
 extern s16  D_80155184;
 extern u16  D_801552A8;
+extern s32  D_8015D710;
 
 extern u16  D_8020427C;
 extern s16  D_80204280;
 extern u16  D_80204282;
 extern u16  D_80204284;
-extern u8   D_80204288;
-extern s32  D_8020428C;
+extern s8   D_80204288;
+extern struct018 *D_8020428C;
 extern s16  D_80204290;
 extern u16  D_80204292;
 extern s16  D_80204294;
 extern struct006 D_80204298; // OSMesg
-// extern s16  D_802053E8;
-// extern u8   D_802053E9;
+
 extern struct012 D_802053E0;
 extern struct012 D_802053F0; // pointer?
 extern struct012 D_80205400;
 extern u16  D_8020540C;
 extern u16  D_8028645A;
 extern s16  D_8028645C;
-extern ALCSeqMarker *D_80286460;
+extern ALCSeqMarker D_80286460;
 extern OSMesg D_80290F40;
 extern OSMesg D_802902C0;
 extern OSMesg D_80290FC8;
@@ -166,7 +211,7 @@ extern OSMesg D_8029105C;
 extern Controller D_80291090[];
 extern OSMesg D_80291048;
 extern OSMesg D_8029104C;
-extern s32   *D_802910D0;
+extern u16   *D_802910D0;
 extern OSContStatus *D_802910D8[];
 extern ControllerMesg D_80291100;
 extern OSPfs        *D_80291110[]; // ?
@@ -232,13 +277,17 @@ extern u8   D_803F2D39; // map index
 extern struct001 D_803F2D30;
 extern s32  D_803E4D2C;
 extern u16  D_803E1BC4; // buttons pressed
-extern struct015 D_801DDD8C[];
+extern struct015 D_801DDD8C[]; // animals struct array
+
+extern s32  D_80231AA0;
+extern s32  D_80231D5C;
 extern s8   D_8023F1F0;
 extern s8   D_8023F1F1;
 extern s8   D_8023F1F2;
 extern s8   D_8023F1F3;
-extern s32  D_8023F260[];
-extern s32  D_8023F2A0[];
+extern s32  D_8023F260[]; // likely Eeprom too
+extern Eeprom D_8023F2A0;
+extern s8   D_8023F2AE;
 
 // display
 extern s16  D_8023F3E0;

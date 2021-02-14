@@ -34,7 +34,6 @@ OBJCOPY = $(CROSS)objcopy
 PYTHON = python3
 
 OBJCOPYFLAGS = -O binary
-# --remove-section=.reginfo --remove-section=.MIPS.abiflags --remove-section=.gnu.attributes --remove-section=.options
 
 RNC64 = $(TOOLS_DIR)/rnc_propack_source/rnc64
 
@@ -43,7 +42,7 @@ CC := $(TOOLS_DIR)/ido5.3_recomp/cc
 OPT_FLAGS := -O2
 MIPSBIT := -mips2 -o32
 
-INCLUDE_CFLAGS := -I . -I include -I include/2.0
+INCLUDE_CFLAGS := -I . -I include -I include/2.0 -I include/libc
 
 ASFLAGS = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 
@@ -74,8 +73,8 @@ ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 
 $(BUILD_DIR)/$(SRC_DIR)/main_1050.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2 -g3
-
-$(BUILD_DIR)/$(SRC_DIR)/main_7770.o: OPT_FLAGS := -O2
+# TODO:
+# $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O3
 
 ### Targets
 
@@ -97,19 +96,22 @@ check: .baserom.$(VERSION).ok
 verify: $(TARGET).z64
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $(TARGET).z64" | sha1sum --check
 
+progress: verify progress.csv
+
 extract: check symlinks
 	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml --rom baserom.$(VERSION).z64 --outdir .
 
 decompress: $(RNC_EXTRACTED)
 
 compress: dirs $(RNC_COMPRESSED)
-	# DO NOT REPLACE UNTIL COMPRESSION IS MATCHING
+	# DO NOT UNCOMMENT NEXT LINE UNTIL COMPRESSION IS MATCHING
 	#cp $(BUILD_DIR)/bin/rnc* bin/
 
 clean:
-	rm -rf asm/*
-	rm -rf bin/*
+	rm -rf asm
+	rm -rf bin
 	rm -rf build
+	rm -f *auto.txt
 
 ### Recipes
 
@@ -156,6 +158,19 @@ $(BUILD_DIR)/%.bin: assets/%.bin
 
 $(RNC64):
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64
+
+progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.overlay2.csv
+	cat $^ > $@
+
+progress.main.csv: $(TARGET).elf
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_main --version $(VERSION) > $@
+progress.lib.csv: $(TARGET).elf
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_lib --version $(VERSION) > $@
+progress.overlay1.csv: $(TARGET).elf
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_overlay1 --version $(VERSION) > $@
+progress.overlay2.csv: $(TARGET).elf
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_overlay2 --version $(VERSION) > $@
+
 
 ### Settings
 .PHONY: all clean default

@@ -17,22 +17,22 @@ via https://wiki.multimedia.cx/index.php/RNC_ProPack
 */
 
 // check_rnc_header
-u16 func_8012B0F0(u8 *arg0) {
+u16 rnc_decompress(u8 *src, u8* dst) {
     u16 res;
 
-    if ((arg0[0] != 'R') || (arg0[1] != 'N') || (arg0[2] != 'C')) {
+    if ((src[0] != 'R') || (src[1] != 'N') || (src[2] != 'C')) {
         return 0xFFFF; // -1
     }
 
-    switch (arg0[3]) {
+    switch (src[3]) {
         case 0:
             res = 0; // no compression
             break;
         case 1:      // method 1 (all files appear to be this type)
-            res = func_8012B194(arg0);
+            res = func_8012B194(src, dst);
             break;
         case 2:      // method 2
-            res = func_8012B3B8(arg0);
+            res = func_8012B3B8(src, dst);
             break;
         default:
             res = 0xFFFE; // -2

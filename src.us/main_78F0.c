@@ -2,19 +2,16 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012C1F0.s")
-// not this:
-// void func_8012C1F0(Gfx *arg0) {
-//     gSPDisplayList(arg0++, &D_80154628);
-// }
+void func_8012C1F0(Gfx **arg0) {
+    gSPDisplayList((*arg0)++, &D_80154628);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/set_text_color.s")
-// void set_text_color(s32 r, s32 g, s32 b, s32 a) {
-//     D_8023F1F0 = r; // textColorR
-//     D_8023F1F1 = g; // textColorG
-//     D_8023F1F2 = b; // textColorB
-//     D_8023F1F3 = a; // textColorA
-// }
+void set_text_color(u8 r, u8 g, u8 b, u8 a) {
+    D_8023F1F0 = r; // textColorR
+    D_8023F1F1 = g; // textColorG
+    D_8023F1F2 = b; // textColorB
+    D_8023F1F3 = a; // textColorA
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012C248.s")
 
@@ -60,6 +57,17 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_801308E8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_80130A90.s")
+s16 *func_80130A90(s16 arg0) {
+    return &D_8022E3F0[D_8022E3F0[arg0 + 7000] + 7350];
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_80130AC0.s")
+s16 func_80130AC0(s16 *arg0) {
+    s16 cnt = 0;
+
+    while (*arg0 != 30000) {
+        cnt++;
+        arg0++;
+    };
+
+    return cnt;
+}

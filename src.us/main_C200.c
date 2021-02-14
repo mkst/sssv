@@ -3,7 +3,6 @@
 
 
 extern s32 D_8012A390;
-s32 func_80130E10(u8*);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_C200/func_80130B00.s")
 // void func_80130B00(void) {
@@ -16,8 +15,7 @@ s32 func_80130E10(u8*);
 //     }
 //     D_801D9E70 = &D_8022E3F0;
 //     dma_read(&D_8012A390, &D_8022E3F0, 0x12EDC0 - 0x12A390); //, 0x12EDC0 - 0x12A390);
-//     // decompress RNC file
-//     func_8012B0F0(&D_8022E3F0, &D_800E1220);
+//     rnc_decompress(&D_8022E3F0, &D_800E1220);
 // }
 
 // waste some time

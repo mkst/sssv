@@ -25,3 +25,4 @@ diff_settings.py
 .splat_cache
 *.bin
 *.z64
+progress*.csv
