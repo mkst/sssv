@@ -33,6 +33,8 @@ void dma_read(u32 devAddr, void *vAddr, s32 nbytes) {
     osRecvMesg(&D_8028D078, (OSMesg)&mesg, OS_MESG_BLOCK);
 }
 
+// file break here?
+
 void func_80129300(Gfx **arg0, DisplayList *ddl) {
 
     gSPSegment((*arg0)++, 0x00, 0);
@@ -53,33 +55,52 @@ void func_80129430(Gfx **arg0) {
     gDPFillRectangle((*arg0)++, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129594.s")
-// need to define gDPHalf1 and gLoadUcode macros
-// void func_80129594(Gfx **arg0) {
-//
-//     gDPPipeSync((*arg0)++);
-//     gDPHalf1((*arg0)++, &D_8015D710);
-//     gLoadUcode((*arg0)++, &D_8014F1D0, 0x0800);
-//     gDPPipeSync((*arg0)++);
-//
-//     func_80129300(arg0, 0); // ??
-//
-//     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
-//
-//     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth, gScreenHeight);
-//     gDPSetColorDither((*arg0)++, G_CD_BAYER);
-//     gDPSetAlphaDither((*arg0)++, G_AD_PATTERN);
-//
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RNX, 0x3);
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RNY, 0x3);
-//
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RPX, 0xFFFD);
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RPY, 0xFFFD);
-// }
+void func_80129594(Gfx **dl, DisplayList *ddl) {
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_80129784.s")
+    gDPPipeSync((*dl)++);
+    gSPLoadUcodeEx((*dl)++, &D_8014F1D0, &D_8015D710, 2048);
+    gDPPipeSync((*dl)++);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012991C.s")
+    func_80129300(dl, ddl);
+
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
+
+    gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+    gDPSetColorDither((*dl)++, G_CD_BAYER);
+    gDPSetAlphaDither((*dl)++, G_AD_PATTERN);
+
+    gSPClipRatio((*dl)++, FRUSTRATIO_3);
+}
+
+// unused
+void func_80129784(Gfx **dl, DisplayList *ddl) {
+    gDPPipeSync((*dl)++);
+
+    func_80129300(dl, ddl);
+
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
+    gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+    gDPSetColorDither((*dl)++, G_CD_BAYER);
+    gDPSetAlphaDither((*dl)++, G_AD_PATTERN);
+
+    gSPClipRatio((*dl)++, FRUSTRATIO_3);
+}
+
+// unused
+void func_8012991C(Gfx **dl, DisplayList *ddl) {
+    gDPPipeSync((*dl)++);
+    gDPPipeSync((*dl)++);
+
+    func_80129300(dl, ddl);
+
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
+
+    gSPClipRatio((*dl)++, FRUSTRATIO_3);
+
+    gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+    gDPSetColorDither((*dl)++, G_CD_BAYER);
+    gDPSetAlphaDither((*dl)++, G_AD_PATTERN);
+}
 
 // first function called after osInitialize
 void func_80129AD0(void) {
@@ -204,8 +225,20 @@ void func_8012A400(void) {
     D_80152EBC = 0;
 }
 
-// display list shenanigans
-#pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012A490.s")
+// end_display_lists
+void func_8012A490(void) {
+    gSPTexture(D_801D9E7C++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
+
+    gSPEndDisplayList(D_801D9E90++);
+    gSPEndDisplayList(D_801D9E94++);
+    gSPEndDisplayList(D_801D9E88++);
+    gSPEndDisplayList(D_801D9E8C++);
+    gSPEndDisplayList(D_801D9EB8++);
+
+    gDPFullSync(D_801D9E7C++);
+
+    gSPEndDisplayList(D_801D9E7C++);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_4910/func_8012A588.s")
 // void func_8012A588(void) {
@@ -216,7 +249,8 @@ void func_8012A400(void) {
 //         if (D_80152E9C == 1) {
 //             func_80137840();
 //             func_8012A400();
-//             strncpy(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, 0x25800, 0x38000);
+//             // not quite right?
+//             strncpy(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, 0x25800);
 //         }
 //         if (D_80152E9C == 2) {
 //             func_8012AC40();
@@ -225,7 +259,7 @@ void func_8012A400(void) {
 //         }
 //
 //         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
-//         func_8012AD30(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0x78);
+//         func_8012AD30(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
 //
 //         D_80152E9C += D_80204290;
 //

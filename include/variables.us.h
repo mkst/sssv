@@ -3,7 +3,12 @@
 
 #include "PR/sched.h"
 
-// BSS from D_803A04E0
+// Overlay 1
+// instuctions 0x80294E50 to 0x803A04E0
+// bss 0x803A04E0 to 0x803C0420
+// Overlay 2
+// instuctions 0x80294E50 to 0x80299730
+// bss 0x80299730 to 0x80302E60
 
 // 0x2CB38 in ROM maps to D_80151438
 
@@ -34,16 +39,16 @@ extern OSSched D_801603D0;
 extern struct008 D_80162658[];
 
 extern u16  D_801D9E38;
-extern s32  D_801D9E70;
+extern s16 *D_801D9E70;
 extern s32  D_801D9E74;
 extern s32  D_801D9E78;
 extern Gfx *D_801D9E7C;
-extern s32  D_801D9E88;
-extern s32  D_801D9E8C;
-extern s32  D_801D9E90;
-extern s32  D_801D9E94;
+extern Gfx *D_801D9E88;
+extern Gfx *D_801D9E8C;
+extern Gfx *D_801D9E90;
+extern Gfx *D_801D9E94;
 extern struct014 *D_801D9E98[];
-extern s32  D_801D9EB8;
+extern Gfx *D_801D9EB8;
 
 extern s32  D_801542D0;
 
@@ -80,11 +85,12 @@ extern f64  D_8015AC78;
 extern f64  D_8015AC80;
 extern f64  D_8015AC88;
 extern f64  D_8015AC90;
-extern s32  D_8015AD10;
-extern s32  D_8015AD5C;
+extern u8   D_8015AD10[]; // "\nASSERT: len < (_fontbufferSegmentEnd - _fontbufferSegmentStart), %s, %u\n"
+extern u8   D_8015AD5C[]; // "../src/fontinit.c"
 
 extern struct009 D_8019A658[];
 
+extern struct002 *D_80200000;
 extern s16  D_80200008;
 extern RomHeader D_80204240;
 extern s16  D_80204260;
@@ -310,8 +316,8 @@ extern OSMesgQueue D_802423D0;
 extern ALGlobals   D_8023F708;
 extern struct003 D_803F2D10;
 
+extern s32  D_800E1220; // _fontbufferSegmentStart
 extern s32  D_800EF0D0; // _fontbufferSegmentEnd
-extern s32  D_800E1220;
 
 
 #endif

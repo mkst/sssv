@@ -22,35 +22,49 @@ void func_801355B0(void) {
 //     while (TRUE) {};
 // }
 
-// bunch of displaylist stuff
+// bunch of displaylist stuff, contains "Wrong texture size" error
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_801356C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_80135CD8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_801360C8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_80136418.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_801366BC.s")
-// void func_801366BC(Gfx **arg0, u8 r, u8 g, u8 b, u8 a) {
-//
-//     gDPPipeSync((*arg0)++);
-//     gDPHalf1((*arg0)++, &D_8015C750);
-//     gLoadUcode((*arg0)++, &D_8014E300, 0x0800);
-//     gDPPipeSync((*arg0)++);
-//
-//     func_80129300((*arg0)++, D_80204278);
-//
-//     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274 + 0x3BBE8));
-//     gSPViewport((*arg0)++, &D_80152EA8);
-//
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RNX, 0x00000004);
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RNY, 0x00000004);
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RPX, 0x0000FFFC);
-//     gMoveWd((*arg0)++, G_MW_CLIP, G_MWO_CLIP_RPY, 0x0000FFFC);
-//
-//     gSPDisplayList((*arg0)++, &D_801584A0);
-//     gDPSetPrimColor((*arg0)++, 0, 0, r, g, b, a);
-//     gDPSetTextureFilter((*arg0)++, G_TF_POINT | G_TL_LOD | G_TD_SHARPEN);
-//
-//     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth, gScreenHeight);
-// }
+void func_80136418(Gfx **dl, u8 color) {
 
+    gSPLoadUcodeEx((*dl)++, &D_8014E300, &D_8015C750, 2048);
+    gDPPipeSync((*dl)++);
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+
+    gSPViewport((*dl)++, &D_80152EA8);
+    gSPSetGeometryMode((*dl)++, G_ZBUFFER);
+    gSPClipRatio((*dl)++, FRUSTRATIO_4);
+
+    gSPDisplayList((*dl)++, &D_801584A0);
+
+    gDPSetPrimColor((*dl)++, 0, 0, color, color, color, color);
+    gDPSetDepthSource((*dl)++, G_ZS_PRIM);
+    gDPSetRenderMode((*dl)++, G_RM_AA_ZB_TEX_EDGE, G_RM_AA_ZB_TEX_EDGE2);
+    gDPSetTextureFilter((*dl)++, G_TF_AVERAGE);
+
+    gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+}
+
+void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a) {
+    gDPPipeSync((*dl)++);
+
+    gSPLoadUcodeEx((*dl)++, &D_8014E300, &D_8015C750, 2048);
+    gDPPipeSync((*dl)++);
+
+    func_80129300(dl, D_80204278);
+
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+    gSPViewport((*dl)++, &D_80152EA8);
+    gSPClipRatio((*dl)++, FRUSTRATIO_4);
+
+    gSPDisplayList((*dl)++, &D_801584A0);
+    gDPSetPrimColor((*dl)++, 0, 0, r, g, b, a);
+    gDPSetTextureFilter((*dl)++, G_TF_AVERAGE);
+
+    gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+}
+
+// calls guSprite2DInit
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_80136938.s")

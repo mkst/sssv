@@ -180,7 +180,17 @@ typedef struct {
 } struct014; // size 0x2BC0
 
 typedef struct {
-    /* 0x00000 */ u8 pad0[0x109A0];
+    u8 pad[0x18];
+} struct011; // size 0x18
+
+typedef struct {
+    struct011 unk32870[1];
+} struct002; //
+
+typedef struct {
+    /* 0x00000 */ u8 pad0[0x4278];
+    /* 0x04278 */ struct002* unk4278;
+    /* 0x0427C */ u8 pad427C[0xc724];
     /* 0x109A0 */ struct014 unk109A0[8];
     /* 0x267A0 */ u8  pad267A0[0xcdf0];
     /* 0x33590 */ Mtx unk33590[1]; // probably more than 1

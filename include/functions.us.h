@@ -36,18 +36,21 @@ void set_region(void);
 void dma_read(u32 devAddr, void *vAddr, s32 nbytes);
 void func_80129300(Gfx **arg0, DisplayList *ddl);
 void func_80129430(Gfx **arg0);
-void func_80129594(Gfx **arg0);
+void func_80129594(Gfx **dl, DisplayList *ddl);
+void func_80129784(Gfx **dl, DisplayList *ddl);
+void func_8012991C(Gfx **dl, DisplayList *ddl);
 void func_80129AD0(void);
 void func_80129B10(s32);
+void func_80129DC0(void);
 void func_8012A260(void);
 void func_8012A400(void);
+void func_8012A490(void);
 void func_8012A588(void);
 void func_8012A750(void);
 void func_8012A870(void);
 void func_8012AB94(void);
 void func_8012ABF0(void);
 void func_8012AC40(void);
-void func_80129DC0(void);
 void func_8012AC8C(void);
 void func_8012AD08(void);
 void func_8012AD30(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 a);
@@ -76,7 +79,7 @@ s32  func_80131BF0(s32);
 void func_80130C04(void);
 s32  func_801323B8(s16);
 
-// main_C200.c
+// main_C200.c aka fontinit.c
 void func_80130B00(void);
 
 // core/eeprom.c
@@ -100,7 +103,13 @@ void func_80133E84(void);
 
 void func_801337DC(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
 void func_8013307C(s32, s32, s32, f32, s32);
+
+// main_10CB0.c
+void func_801355B0(void);
 void func_80135604(void);
+void func_80136418(Gfx **dl, u8 color);
+void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
+void func_80136938(Gfx **dl, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u8 arg6, u8 arg7, u16 arg8, u16 arg9, u8 argA);
 
 // main_123E0.c
 s32  func_80136CE0(void); // initialise controllers?
