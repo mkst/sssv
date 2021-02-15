@@ -532,37 +532,40 @@ segments:
   - [0x6370C0, bin, rnc_6370C0] # 69 => 120
   - [0x637110, bin, rnc_637110] # 69 => 120
   - [0x637160, bin, rnc_637160] # 5000 => 115024
-  - type: code
-    name: overlay1
+  - type:  code
+    name:  overlay1
     overlay: yes
-    start: 0x006384F0 # 450576 bytes are DMA'd
+    start: 0x006384F0
     vram:  0x80294E50
     subsections:
     - [0x6384F0, c]
-    - [0x63C660, asm]
-  # overlay1 .data
-  - [0x63CDD0, bin] # tbd ### D_80299730
-  - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840
-  - [0x646E80, bin, rnc_646E80] # 28620 => 153600 # 320x240, president mrs
-  - [0x64DE50, bin, rnc_64DE50] # 21526 => 65536  # 256x128, spacestation silicon valley logo
-  - [0x653270, bin, rnc_653270] # 5873 => 18432
-  - [0x654970, bin, rnc_654970] # 5717 => 18432
-  - [0x655FD0, bin, rnc_655FD0] # 5713 => 18432
-  - [0x657630, bin, rnc_657630] # 6413 => 18432
-  - [0x658F40, bin] # texture(s)?
-  - [0x659B40, bin, rnc_659B40] # 24460 => 163840 ## D_802B64A0
-  - [0x65FAD0, bin, rnc_65FAD0] # 11570 => 40960   # 160x128, space background
-  - [0x662810, bin] # "200 credz" texture
-  - [0x664860, bin, rnc_664860] # 23248 => 163840
-  - [0x66A330, bin, rnc_66A330] # 37980 => 163840
-  - [0x673790, bin, rnc_673790] # 43024 => 153600  # 320x240, professor cheese & space marines
-  - [0x67DFA0, bin, rnc_67DFA0] # 77877 => 153600  # 320x240, space station graphic
-  - [0x690FE0, bin] # unknown!
-  - [0x698340, bin, rnc_698340] # 35955 => 153600  # 320x240, trademark screen
-  - [0x6A0FC0, bin] # end of RNC files
-  ### end of overlay 1 DMA
+    - [0x63C660, asm] # this is a monster file
+  - type:  code
+    name:  overlay1_data
+    start: 0x0063CDD0
+    vram:  0x80299730
+    subsections:
+    - [0x63CDD0, bin] # tbd ### D_80299730
+    - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840
+    - [0x646E80, bin, rnc_646E80] # 28620 => 153600 # 320x240, president mrs frank bloke
+    - [0x64DE50, bin, rnc_64DE50] # 21526 => 65536  # 256x128, spacestation silicon valley logo
+    - [0x653270, bin, rnc_653270] # 5873 => 18432
+    - [0x654970, bin, rnc_654970] # 5717 => 18432
+    - [0x655FD0, bin, rnc_655FD0] # 5713 => 18432
+    - [0x657630, bin, rnc_657630] # 6413 => 18432
+    - [0x658F40, bin] # texture(s)?
+    - [0x659B40, bin, rnc_659B40] # 24460 => 163840 ## D_802B64A0
+    - [0x65FAD0, bin, rnc_65FAD0] # 11570 => 40960   # 160x128, space background
+    - [0x662810, bin] # "200 credz" texture
+    - [0x664860, bin, rnc_664860] # 23248 => 163840
+    - [0x66A330, bin, rnc_66A330] # 37980 => 163840
+    - [0x673790, bin, rnc_673790] # 43024 => 153600  # 320x240, professor cheese & space marines
+    - [0x67DFA0, bin, rnc_67DFA0] # 77877 => 153600  # 320x240, space station graphic
+    - [0x690FE0, bin] # unknown!
+    - [0x698340, bin, rnc_698340] # 35955 => 153600  # 320x240, trademark screen
+    - [0x6A0FC0, bin] # end of RNC files
   - type: code
-    name: overlay2 # sssv game code?
+    name: overlay2 # sssv game code
     overlay: yes
     start: 0x006A6500
     vram:  0x80294E50
@@ -644,14 +647,18 @@ segments:
     - [0x7A8A50, asm]
     - [0x7A9CE0, asm]
     - [0x7AF410, asm]
-  - [0x7B1BA0, bin] # might be early/late
-  - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
-  - [0x7C8AC0, bin] # more textures
-  - [0x7D1170, bin] # cheats, mapped to 0x803BFAC0
-  - [0x7D1200, bin]
-  - [0x7D1AD0, bin]
-  - [0x7D61F0, bin]
-  - [0x7D64D0, bin]
-  ### End of Overlay 2 DMA
+  - name:  overlay2_data
+    type:  code
+    start: 0x007B1BA0
+    vram:  0x803A04E0
+    subsections:
+    - [0x7B1BA0, bin]
+    - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
+    - [0x7C8AC0, bin] # more textures
+    - [0x7D1170, bin] # cheats, mapped to 0x803BFAC0
+    - [0x7D1200, bin]
+    - [0x7D1AD0, bin]
+    - [0x7D61F0, bin]
+    - [0x7D64D0, bin]
   - [0x7DCAF0, bin, trailer]
   - [0x800000]

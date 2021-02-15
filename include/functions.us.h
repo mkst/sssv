@@ -65,19 +65,27 @@ void func_8012C070(u8);
 
 // main_78F0
 void func_8012C1F0(Gfx**);
-void set_text_color(u8 r, u8 g, u8 b, u8 a);
+void set_menu_text_color(u8 r, u8 g, u8 b, u8 a);
+void func_8012C248(u8, u8, u8, u8);
+void func_8012C2A4(void);
+void func_8012C2E4(void);
+s16  func_8012C314(f32 arg0);
+void func_8012DCA8(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height);
+s32  func_8012E724(u16 *arg0, s32 arg1, s32 arg2);
+void func_8012FA78(Gfx **arg0);
+void func_8012FAD4(Gfx **dl, s32 arg1);
+void func_8012FB4C(Gfx **arg0, s16 arg1);
+void func_801308B4(u8 *src, u16 *dst);
 s16* func_80130A90(s16 arg0);
 s16  func_80130AC0(s16 *arg0);
 
-
 void func_8012C214(s32, s32, s32, s32);
-void func_8012C248(u8, u8, u8, u8);
 void func_8012C978(s32, s32, u16, s32, f32, f32);
-void func_8012DEF8(s32, s32, u16, s32, f32, f32);
+void func_8012DEF8(Gfx *, s32, u16, s32, f32, f32);
 void func_80131070(void);
 s32  func_80131BF0(s32);
 void func_80130C04(void);
-s32  func_801323B8(s16);
+
 
 // main_C200.c aka fontinit.c
 void func_80130B00(void);
@@ -89,20 +97,38 @@ s32  func_80130E10(u8 *arg0);
 void func_80130E44(void);
 
 // core/audio.c
-struct017 *func_80132414(u8);
+void func_80131290(ALSynConfig *c, s32 priority);
+void *func_80131AA0(s32 *arg0);
+void func_80132394(void);
+struct017 *func_801323B8(s16 slot); // get_sound_by_slot
+struct017 *func_80132414(u16 id);   // get_sound_by_id
+struct017 *func_80132568(void);
+void *func_80132580(s32 arg0, s16 id);
+void func_801325E8(s32 arg0, s8 arg1);
+s32  func_8013266C(s8 arg0); // get_seqp_state
 
 // main_E3C0.c
 void func_80132CC0(s32 arg0);
+s16  func_80132D54(void);
+s32  func_80132D84(ALSndPlayer *sndp);
+void func_8013307C(s32, s32, s32, f32, s32);
 void func_80133528(u8 arg0, s16 vol);
+void func_8013359C(u8 arg0);
+void func_80133608(s16 arg0);
+void func_8013364C(void);
 void func_80133738(void);
-void func_8013385C(f32, f32, f32);
+void func_801337BC(s8 arg0, s32 arg1);
+void func_801337DC(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
+void func_8013385C(f32 arg0, f32 arg1, f32 arg2);
+void func_801338A8(s16 arg0);
+void func_801339F8(void);
 void func_80133B74(s16 arg0);
 void func_80133BA0(s16 arg0);
+void func_80133BE4(void);
+void func_80133C50(void);
 void func_80133E44(void);
 void func_80133E84(void);
 
-void func_801337DC(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
-void func_8013307C(s32, s32, s32, f32, s32);
 
 // main_10CB0.c
 void func_801355B0(void);
@@ -143,6 +169,10 @@ void func_80298C70_63C310(u8 arg0);
 void func_802C9340_6DA9F0(void);
 void func_802C9834_6DAEE4(void);
 void func_802CB360_6DCA10(void);
+
+// overlay2_739290.c
+void func_8032AA94_73C144(void);
+struct025* func_803284C4_739B74(void);
 
 void func_80304170_715820(void);
 void func_80304194_715844(void);

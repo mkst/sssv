@@ -12,7 +12,19 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_803283DC_739A8C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_803284C4_739B74.s")
+struct025* func_803284C4_739B74(void) {
+    struct025 *temp_v1;
+    struct025 *temp_v0;
+
+    temp_v1 = D_803D5524;
+    temp_v0 = &D_803F28E0[D_803F2A98];
+    temp_v0->unk4E = temp_v1->unkCA;
+    temp_v0->unk54 = temp_v1->unkD0;
+    temp_v0->unk56 = temp_v1->unkD2;
+    temp_v0->unk58 = temp_v1->unkCC;
+    temp_v0->unk60 = temp_v1->unkCE;
+    return temp_v0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328520_739BD0.s")
 
@@ -28,7 +40,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032A710_73BDC0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AA94_73C144.s")
+void func_8032AA94_73C144(void) {
+    func_80321920_732FD0(D_803D552C->unk320, 0, 0);
+    D_803D552C->unk320 = 0;
+    if (*D_803D5530 == 0xDD) {
+        func_802E4AB8_6F6168();
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AAF0_73C1A0.s")
 

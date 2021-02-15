@@ -4,10 +4,10 @@
 #include "PR/sched.h"
 
 // Overlay 1
-// instuctions 0x80294E50 to 0x803A04E0
+// instructions 0x80294E50 to 0x803A04E0
 // bss 0x803A04E0 to 0x803C0420
 // Overlay 2
-// instuctions 0x80294E50 to 0x80299730
+// instructions 0x80294E50 to 0x80299730
 // bss 0x80299730 to 0x80302E60
 
 // 0x2CB38 in ROM maps to D_80151438
@@ -25,6 +25,8 @@ extern s32 D_803F2C20; // struct?
 */
 
 // more position vars
+extern struct025 *D_803D5524;
+extern struct026 *D_803D552C;
 extern s32 D_803D5564;
 extern s32 D_803D5568;
 extern u8  D_803D5575; // controller maginitude?
@@ -50,18 +52,31 @@ extern Gfx *D_801D9E94;
 extern struct014 *D_801D9E98[];
 extern Gfx *D_801D9EB8;
 
+extern s32  D_80150600;
 extern s32  D_801542D0;
-
+extern s32  D_80154370;
+extern s32  D_80154500[]; // bunch of offsets to RNC files
 extern s32  D_80154628; // display list?
 extern s32  D_80154680; // some kind of counter?
-extern u8   D_801546BC;
+extern s16  D_80154688;
+extern u8   D_80154690[];
+extern s8   D_801546A8[];
+extern f32  D_801546AC[];
+extern f32  D_801546B0[];
+extern f32  D_801546B4[];
+extern f32  D_801546B8[];
+
+extern s8   D_801546BC;
 extern f32  D_801546C0;
 extern f32  D_801546C4;
 extern f32  D_801546C8;
 extern f32  D_801546CC;
 extern f32  D_801546D0;
 extern f32  D_801546D4;
+extern f32  D_801546D8;
 extern s32  D_8015C750;
+extern s32  D_8014D390;
+extern s32  D_8014D460;
 extern s32  D_8014E300;
 extern s32  D_8014F1D0;
 extern s16  D_80152040[];
@@ -77,6 +92,7 @@ extern s32  D_80158368;
 extern s32  D_801584A0;
 extern s16  D_80158540;
 extern s32  D_80158544;
+extern s32  D_80158550;
 // extern OSViMode D_80159980[];
 extern f64  D_8015AC60;
 extern f64  D_8015AC68;
@@ -87,6 +103,8 @@ extern f64  D_8015AC88;
 extern f64  D_8015AC90;
 extern u8   D_8015AD10[]; // "\nASSERT: len < (_fontbufferSegmentEnd - _fontbufferSegmentStart), %s, %u\n"
 extern u8   D_8015AD5C[]; // "../src/fontinit.c"
+extern u8   D_8015AD90[]; // "----------------- Active sounds"
+extern u8   D_8015ADB4[]; // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
 
 extern struct009 D_8019A658[];
 
@@ -110,10 +128,17 @@ extern s32  D_8022E3E0;
 extern u8   D_8022E3E4;
 extern s16  D_8022E3F0[]; // maps to ROM 0x12A390
 
+// extern struct022 *D_8028630C[];
+extern ALSeqFile **D_8028630C;
+
 extern ALSndPlayer *D_80286310;
+extern s32 D_80286314[];
+extern struct017 *D_8028631C;
+extern struct017 *D_80286320;
 
 extern s32  D_80286328;
 extern ALCSeq *D_802863CC;
+extern ALSeqPlayer *D_802863C8[];
 extern u8   D_802863B0[];
 
 
@@ -182,13 +207,21 @@ extern u16  D_80151434;
 extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 extern f32  D_80151C38[];
 
-extern s32  D_80155154;
-extern s8   D_80155164;
+extern s16  D_801550F8[];
+extern s32  D_80155154; // sound initialised?
+extern s32  D_8015515C;
+extern s8   D_80155164[];
+extern s8   D_80155168[];
+extern s16  D_8015516C[];
+extern s8   D_80155170;
 extern f32  D_8015517C;
 extern s16  D_80155180;
 extern s16  D_80155184;
+extern s16  D_80155188;
+extern s32  D_8015518C;
 extern u16  D_801552A8;
 extern s32  D_8015D710;
+extern s32  D_8015DF10;
 
 extern u16  D_8020427C;
 extern s16  D_80204280;
@@ -205,6 +238,7 @@ extern struct012 D_802053E0;
 extern struct012 D_802053F0; // pointer?
 extern struct012 D_80205400;
 extern u16  D_8020540C;
+extern u8   D_80286458;
 extern u16  D_8028645A;
 extern s16  D_8028645C;
 extern ALCSeqMarker D_80286460;
@@ -238,14 +272,14 @@ extern u8   D_802912E3;
 extern u8   D_802912E4;
 extern u8   D_802912E5;
 
-extern u16  D_803B62B0;
+extern s16  D_803B62B0;
 extern s16  D_803B62B4;
 extern u16  D_803B62B8;
 extern s16  D_803B62BC;
 extern u16  D_803B62C0;
 extern s32  D_803BFAA0;
-extern s32  D_803BFAA4;
-extern s32  D_803BFAB4;
+extern u8   D_803BFAA4[]; // (%3d  %3d  %4d)
+extern u8   D_803BFAB4[]; // Ver - 1.37
 extern u8   D_803BFAC0[]; // WIZDIZWE
 extern u8   D_803BFACC[]; // UDIZDUZD
 extern u8   D_803BFAD8[]; // UDZIDEZD
@@ -278,19 +312,26 @@ extern struct000 D_803F2D50;
 extern s64  D_803C0644;
 extern s64  D_803C064C;
 extern s32  D_803C0654;
+extern u16 *D_803D5530;
 extern s16  D_803D5534; // current animal (id within level)
 extern u8   D_803F2D39; // map index
 extern struct001 D_803F2D30;
 extern s32  D_803E4D2C;
 extern u16  D_803E1BC4; // buttons pressed
 extern struct015 D_801DDD8C[]; // animals struct array
-
 extern s32  D_80231AA0;
 extern s32  D_80231D5C;
+extern s32  D_80235410[];
+extern struct023 D_8023F1E0;
+extern u8   D_8023F1E8;
 extern s8   D_8023F1F0;
 extern s8   D_8023F1F1;
 extern s8   D_8023F1F2;
 extern s8   D_8023F1F3;
+extern s8   D_8023F1F4;
+extern s8   D_8023F1F5;
+extern f32  D_8023F1F8;
+extern f32  D_8023F1FC;
 extern s32  D_8023F260[]; // likely Eeprom too
 extern Eeprom D_8023F2A0;
 extern s8   D_8023F2AE;
@@ -306,13 +347,16 @@ extern OSMesg      D_8023F688;
 extern OSMesgQueue D_8023F670;
 extern OSMesgQueue D_8023F5D8;
 extern OSMesg      D_802423E8;
-extern u8   D_80241758;
+extern struct021   D_80241758;
 extern ALHeap D_80241768[];
 extern ALHeap D_8024177C[];
 extern s16  D_80241D08;
 extern s16  D_80241D0A;
 extern s16  D_80241D0C;
+extern u16  D_80241D0E;
 extern OSMesgQueue D_802423D0;
+extern s16  D_803F2A98;
+extern struct025   D_803F28E0[];
 extern ALGlobals   D_8023F708;
 extern struct003 D_803F2D10;
 

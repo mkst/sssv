@@ -13,10 +13,10 @@ typedef struct {
 } struct000;
 
 typedef struct {
-    u8 pad0[0x4];
+    s32 score;
     s16 unk4;
     u8  pad6[0x2];
-    s16 unk8;
+    s16 unk8; // level index
     u16 unkA;
     u16 unkC;
 } struct001;
@@ -79,7 +79,7 @@ typedef struct {
 
 typedef struct {
     u8  pad0;
-    s32 unk8;
+    s32 unk8; // pointer to some audio struct
 } struct007;
 
 // merge these two?
@@ -170,10 +170,23 @@ typedef struct {
     u8  pad3E[0x2A];
 } Controller; // size 0x68
 
-typedef struct {
-    u8  pad0[0x22];
-    s16 unk22; // sound id?
-} struct017;
+typedef struct struct017 struct017;
+
+struct struct017 {
+    /* 0x00 */ u8  pad0[0x2];
+    /* 0x02 */ u16 sndID;
+    /* 0x04 */ u8  pad4[0x8];
+    /* 0x0C */ s16 unkC;
+    /* 0x0E */ u16 counter;
+    /* 0x10 */ u8  pad10[0x10];
+    /* 0x20 */ u16 unk20;
+    /* 0x22 */ s16 sndSlot;
+    /* 0x24 */ u8  sndState;
+    /* 0x25 */ u8  pad25[0x3];
+    /* 0x28 */ s32 unk28; // ptr?
+    /* 0x2C */ struct017 *prev; // maybe
+    /* 0x30 */ struct017 *next;
+};
 
 typedef struct {
     u8 pad0[0x2BC0];
@@ -230,5 +243,90 @@ typedef struct {
     /* 0x26 */ s16 unk26;
     /* 0x28 */ u8  pad28[0x18];
 } Eeprom; // size 0x40
+
+typedef struct {
+    s32 unk0;
+    s16 unk4;
+    u8  pad6[0x2];
+    s32 unk8;
+    u8  unkC[0x4];
+    s32 unk10;
+    u8  unk14[0x4];
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+    u8  unk2C[0x4];
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk40;
+    s32 unk44;
+    s32 unk48;
+    s32 unk4C;
+    s32 unk50;
+    s32 unk54;
+    s32 unk58;
+    s32 unk5C;
+    u8  unk60[0x10];
+    s32 unk70;
+} struct019;
+
+typedef struct {
+    s32 unk0;
+    s16 unk4;
+} struct020;
+
+typedef struct {
+    u8 unk0;
+    u8 pad1[0x3];
+    s32 unk4;
+    s32 unk8;
+} struct021;
+
+typedef struct {
+    ALSeqFile *seqFile;
+    s32 unk4;
+} struct022;
+
+typedef struct {
+    s32 unk0;
+    s32 fontAddress;
+    u8  unk8;
+    u8  unk9;
+    u8  unkA;
+    u8  padB;
+    u16 glyphBytes;
+} struct023; // something font related?
+
+typedef struct {
+    s32 start;
+    s32 end;
+} struct024; // only RNC?
+
+typedef struct {
+    u8  pad0[0x4E];
+    s16 unk4E;
+    u8  pad50[0x4];
+    s16 unk54;
+    s16 unk56;
+    s16 unk58;
+    u8  pad5A[0x6];
+    s16 unk60;
+    u8  pad62[0x68];
+    s16 unkCA;
+    s16 unkCC;
+    s16 unkCE;
+    s16 unkD0;
+    s16 unkD2;
+    u8  unkD4[0x8];
+} struct025; // size 0xDC
+
+typedef struct {
+    u8  pad0[0x320];
+    s32 unk320;
+} struct026;
 
 #endif

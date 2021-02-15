@@ -278,7 +278,7 @@ void func_8012A750(void) {
 
         func_8012C1F0(&D_801D9E7C);
         func_8012C248(0, 0, 0, 0);
-        set_text_color(0xFF, 0xFF, 0xFF, 0xFF);
+        set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         func_8012C978(&D_801D9E7C, &D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
         gDPPipeSync(D_801D9E7C++);
     }
@@ -455,6 +455,7 @@ void func_8012AD08(void) {
     func_8012AC40();
 }
 
+// draw_texture
 void func_8012AD30(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 alpha) {
     s32 color;
 
