@@ -341,6 +341,11 @@ __osActiveQueue   = 0x8015A75C;
 osViModeTable     = 0x80159980;
 gScreenWidth      = 0x80203FD0;
 gScreenHeight     = 0x80203FD2;
+gThread1          = 0x802868D0;
+gAudioThread      = 0x8023F428;
+gThread6          = 0x80286570;
+gThread7          = 0x80286720;
+gThread9          = 0x80286A80;
 
 strncpy                = 0x80129158;
 read_rom_header        = 0x80129210;
@@ -348,6 +353,7 @@ set_region             = 0x8012923C;
 dma_read               = 0x80129290;
 rnc_decompress         = 0x8012B0F0;
 set_menu_text_color    = 0x8012C214;
+font_init              = 0x80130B00;
 
 jtbl80302E00 = 0x80302E00;
 jtbl80302E1C = 0x80302E1C;

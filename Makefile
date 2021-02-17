@@ -76,7 +76,6 @@ $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2 -g3
 # TODO:
 # $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O3
 
-# $(BUILD_DIR)/$(SRC_DIR)/core/audio.o: OPT_FLAGS := -O2
 
 ### Targets
 

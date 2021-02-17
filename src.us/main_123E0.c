@@ -37,8 +37,8 @@
 //
 //     osContSetCh(1);
 //     osCreateMesgQueue(&D_802912B0, &D_802912C8, 1);
-//     osCreateThread(&D_80286A80, 9, (void *)func_80137294, 0, &D_8028E230, 9);
-//     osStartThread(&D_80286A80);
+//     osCreateThread(&gThread9, 9, (void *)func_80137294, 0, &D_8028E230, 9);
+//     osStartThread(&gThread9);
 //
 //     for (i = 0; i < 4; i++) {
 //         D_80291090[i].hasRumblePak = 0;

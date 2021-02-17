@@ -7,13 +7,11 @@ void func_80131070(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_C770/func_8013107C.s")
-// void func_8013107C(void *arg0, ?32 arg1, ?32 arg2, s8 arg3, s32 arg4, s32 arg5) {
-//     s8 temp_t7;
-//     void *temp_s0;
+// void func_8013107C(struct018 *arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4, s32 arg5) {
+//     struct031 *temp_s0;
 //
-//     temp_t7 = arg3;
-//     D_801D9E7C = (s32) (arg0->unk4E0); // 1248
-//     temp_s0 = arg0 + (D_8023F3E0 * 0x68);
+//     D_801D9E7C = (arg0->unk4E0); // 1248
+//     temp_s0 = &arg0->unk0[D_8023F3E0];
 //     switch (arg3) {
 //         case 0:
 //             temp_s0->unk40 = arg1;
@@ -52,7 +50,7 @@ void func_80131070(void) {
 //
 //     temp_s0->unk10 = 1;
 //     temp_s0->unk18 = &D_8014D390;
-//     temp_s0->unk1C = (s32) (&D_8014D460 - &D_8014D390);
+//     temp_s0->unk1C = (&D_8014D460 - &D_8014D390);
 //     temp_s0->unk24 = 0x1000;
 //     temp_s0->unk2C = 0x800;
 //     temp_s0->unk30 = &D_800DEE20;
@@ -65,5 +63,5 @@ void func_80131070(void) {
 //
 //     osDpSetStatus(DPC_CLR_CLOCK_CTR | DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR); // 0x3C0
 //     osSendMesg(osScGetCmdQ(&D_801603D0), temp_s0, 1);
-//     D_8023F3E0 = (u16) (D_8023F3E0 + 1);
+//     D_8023F3E0 += 1;
 // }

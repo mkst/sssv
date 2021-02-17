@@ -87,8 +87,8 @@ s32 func_80131908(u32 arg0, s32 arg1, s32 arg2);
 //     osCreateMesgQueue(&D_8023F670, &D_8023F688, 0x20);
 //     osCreateMesgQueue(&D_8023F5D8, &D_8023F5F0, 0x20);
 //     osCreateMesgQueue(&D_802423D0, &D_802423E8, 0x48);
-//     osCreateThread(&D_8023F428, 3, &func_80131554, 0, &D_80241758, priority);
-//     osStartThread(&D_8023F428);
+//     osCreateThread(&gAudioThread, 3, &func_80131554, 0, &D_80241758, priority);
+//     osStartThread(&gAudioThread);
 // }
 
 // audio thread

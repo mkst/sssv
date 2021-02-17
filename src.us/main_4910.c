@@ -118,7 +118,7 @@ void func_80129AD0(void) {
 //     osCreateMesgQueue(&D_8028D078, &D_80290FC8, 1);
 //     osCreateMesgQueue(&D_80291060, &D_80291058, 1);
 //     osCreateMesgQueue(&D_80291078, &D_8029105C, 1);
-//     osStartThread(&D_80286720); // start thread 7
+//     osStartThread(&gThread7); // start thread 7
 //
 //     read_rom_header();
 //     set_region();

@@ -22,7 +22,8 @@ typedef struct {
 } struct001;
 
 typedef struct {
-    /* 0x00 */  u8  pad0[0x4];
+    /* 0x00 */  u16 unk0;
+    /* 0x02 */  u8  pad2[0x2];
     /* 0x04 */  s16 xPos;
     /* 0x06 */  u8  pad6[0x2];
     /* 0x08 */  s16 zPos;
@@ -36,7 +37,9 @@ typedef struct {
     /* 0x24 */  s16 yVelocity;
     /* 0x26 */  u8  pad26[0x6];
     /* 0x2C */  s16 yRotation;
-    /* 0x2E */  u8  pad2E[0x11E];
+    /* 0x2E */  u8  pad2E[0x14];
+    /* 0x42 */  u16 unk42;
+    /* 0x44 */  u8  unk44[0x108];
     /* 0x14C */ u16 health;
     /* 0x2E0 */ s16 skillAEnergy;
     /* 0x2E2 */ u8  pad2E2[0x2];
@@ -205,21 +208,54 @@ typedef struct {
     /* 0x04278 */ struct002* unk4278;
     /* 0x0427C */ u8 pad427C[0xc724];
     /* 0x109A0 */ struct014 unk109A0[8];
-    /* 0x267A0 */ u8  pad267A0[0xcdf0];
+    /* 0x267A0 */ s32 unk267A0;
+    /* 0x267A4 */ u8  pad267A4[0xc0cc];
+    /* 0x32870 */ u8  unk32870[1][0x18]; // probably more than 1
+    /* 0x32888 */ u8  pad32888[0xD08];
     /* 0x33590 */ Mtx unk33590[1]; // probably more than 1
     /* 0x335D0 */ u8  unk335D0[0x3e40];
     /* 0x37410 */ Mtx unk37410;  // projection matrix 1
     /* 0x37450 */ Mtx unk37450;  // projection matrix 2
     /* 0x37490 */ Mtx unk37490;  // projection matrix 3
     /* 0x374D0 */ Mtx unk374D0;  // modelview matrix 1
-    /* 0x37510 */ u8  unk37510[0x3408];
+    /* 0x37510 */ u8  unk37510[0x3404];
+    /* 0x38914 */ s32 unk38914;
     /* 0x38918 */ s32 unk38918;
+    /* 0x3891C */ u8  pad3891C[0x9f4];
+    /* 0x39310 */ s32 unk39310;
 } DisplayList;
 
 typedef struct {
-    /* 0x00000 */ u8  pad0[0x4E0];
-    /* 0x00000 */ DisplayList* unk4E0;
-    /* 0x00000 */ u8  pad4E4[0x7cfc];
+  /* 0x00 */ s32 unk0;
+  /* 0x04 */ u8  pad4[0x4];
+  /* 0x08 */ s32 unk8;
+  /* 0xC; */ s32 unkC;
+  /* 0x10 */ s32 unk10;
+  /* 0x14 */ s32 unk14;
+  /* 0x18 */ s32 unk18;
+  /* 0x1C */ s32 unk1C;
+  /* 0x20 */ s32 unk20;
+  /* 0x24 */ s32 unk24;
+  /* 0x28 */ s32 unk28;
+  /* 0x2C */ s32 unk2C;
+  /* 0x30 */ s32 unk30;
+  /* 0x34 */ s32 unk34;
+  /* 0x38 */ s32 unk38;
+  /* 0x3C */ s32 unk3C;
+  /* 0x40 */ s32 unk40;
+  /* 0x44 */ s32 unk44;
+  /* 0x48 */ s32 unk48;
+  /* 0x4C */ s32 unk4C;
+  /* 0x50 */ s32 unk50;
+  /* 0x54 */ s32 unk54;
+  /* 0x58 */ u8 unk58[0x10];
+} struct031; // size 0x68
+
+typedef struct {
+    /* 0x00000 */ struct031 unk0[2]; // dont think this is quite right?
+    /* 0x000D0 */ u8  padD0[0x410];
+    /* 0x004E0 */ DisplayList* unk4E0;
+    /* 0x004E4 */ u8  pad4E4[0x7cfc];
     /* 0x081E0 */ s32 unk81E0;
     /* 0x081E4 */ u8  unk81E4[0x18fc];
     /* 0x09AE0 */ s32 unk9AE0;
@@ -272,7 +308,7 @@ typedef struct {
     s32 unk5C;
     u8  unk60[0x10];
     s32 unk70;
-} struct019;
+} struct019; // audio
 
 typedef struct {
     s32 unk0;
@@ -299,7 +335,7 @@ typedef struct {
     u8  unkA;
     u8  padB;
     u16 glyphBytes;
-} struct023; // something font related?
+} struct023;
 
 typedef struct {
     s32 start;
@@ -307,26 +343,61 @@ typedef struct {
 } struct024; // only RNC?
 
 typedef struct {
-    u8  pad0[0x4E];
-    s16 unk4E;
-    u8  pad50[0x4];
-    s16 unk54;
-    s16 unk56;
-    s16 unk58;
-    u8  pad5A[0x6];
-    s16 unk60;
-    u8  pad62[0x68];
-    s16 unkCA;
-    s16 unkCC;
-    s16 unkCE;
-    s16 unkD0;
-    s16 unkD2;
-    u8  unkD4[0x8];
+    /* 0x00 */ u8  pad0[0x4E];
+    /* 0x4E */ s16 unk4E;
+    /* 0x50 */ u8  pad50[0x4];
+    /* 0x54 */ s16 unk54;
+    /* 0x56 */ s16 unk56;
+    /* 0x58 */ s16 unk58;
+    /* 0x5A */ u8  pad5A[0x6];
+    /* 0x60 */ s16 unk60;
+    /* 0x62 */ u8  pad62[0x3A];
+    /* 0x9C */ u16 unk9C;
+    /* 0x9E */ u8  pad9E[0x2C];
+    /* 0xCA */ s16 unkCA;
+    /* 0xCC */ s16 unkCC;
+    /* 0xCE */ s16 unkCE;
+    /* 0xD0 */ s16 unkD0;
+    /* 0xD2 */ s16 unkD2;
+    /* 0xD4 */ u8  unkD4[0x8];
 } struct025; // size 0xDC
 
 typedef struct {
-    u8  pad0[0x320];
+    u8  pad0[0x2EC];
+    s16 unk2EC;
+    u8  pad2EE[0x1A];
+    s16 unk308;
+    u8  unk30A[0x16];
     s32 unk320;
+    u8  pad324[0x4A];
+    u8  unk36E;
 } struct026;
+
+typedef struct {
+    s16 unk0;
+    u8  pad2[0x24];
+    u8  unk26;
+    u8  unk27[0x6];
+    u8  unk2D;
+} struct027;
+
+typedef struct {
+    s16 unk0;
+    s16 unk2;
+    u8  pad4[0x4];
+    s16 unk8;
+    s16 unkA;
+} struct028;
+
+typedef struct {
+    u8  unk0;
+    u8  pad1[0xFF];
+} struct029; // size 0x100
+
+typedef struct {
+    u8  pad0[0xEC];
+} struct030; // size 0xEC
+
+
 
 #endif

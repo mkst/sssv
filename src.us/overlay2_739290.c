@@ -43,7 +43,7 @@ struct025* func_803284C4_739B74(void) {
 void func_8032AA94_73C144(void) {
     func_80321920_732FD0(D_803D552C->unk320, 0, 0);
     D_803D552C->unk320 = 0;
-    if (*D_803D5530 == 0xDD) {
+    if (D_803D5530->unk0 == 0xDD) {
         func_802E4AB8_6F6168();
     }
 }

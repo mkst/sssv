@@ -5,17 +5,17 @@
 
 // second function called after osInitialize()
 void func_801355B0(void) {
-    osCreateThread(&D_802868D0, 1, (void*)func_80135604, 0, &D_8028D230, 10);
-    osStartThread(&D_802868D0);
+    osCreateThread(&gThread1, 1, (void*)func_80135604, 0, &D_8028D230, 10);
+    osStartThread(&gThread1);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_80135604.s")
 // NON-MATCHING: matches but does not OK
 // void func_80135604(void) {
-//     osCreateThread(&D_80286570, 6, (void *)func_80129B10, 0, &D_80288E30, 10);
-//     osCreateThread(&D_80286720, 7, (void *)func_8012A260, 0, &D_8028B030, 8);
+//     osCreateThread(&gThread6, 6, (void *)func_80129B10, 0, &D_80288E30, 10);
+//     osCreateThread(&gThread7, 7, (void *)func_8012A260, 0, &D_8028B030, 8);
 //     osCreatePiManager(150, &D_8028D030, &D_8028F640, 800);
-//     osStartThread(&D_80286570);
+//     osStartThread(&gThread6);
 //     // set lowest priority for this thread
 //     osSetThreadPri(NULL, OS_PRIORITY_IDLE);
 //     // loop forever
@@ -26,6 +26,21 @@ void func_801355B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_801356C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_80135CD8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10CB0/func_801360C8.s")
+// miles away.
+// void *func_801360C8(Gfx **arg0, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u8 arg6, u8 arg7, u16 arg8, u16 arg9, u16 argA) {
+//
+//     gDPPipeSync((*arg0)++);
+//     gDPSetPrimDepth((*arg0)++, argA, 0);
+//
+//     guSprite2DInit(arg0, &D_80204278->unk32870[D_80204278->unk38914], 0, arg2, arg2, arg3, 0, 2, 0, 0);
+//     gSPBgRect1Cyc((*arg0)++, D_80032870 + D_80204278->unk38914);
+//
+//     gSPCullDisplayList((*arg0)++, (arg6 << 8) | arg7, (s32) (((u32) (((f32) (u32) arg2 / (f32) (u32) arg4) * 1024.0f) << 0x10) | ((u32) (((f32) (u32) arg3 / (f32) arg5) * 1024.0f) & 0xFFFF)));
+//     gSPPopMatrix((*arg0)++, ((arg8 << 0x12) | ((arg9 * 4) & 0xFFFF)));
+//
+//     D_80204278->unk38914 += 1;
+//     gDPPipeSync((*arg0)++);
+// }
 
 void func_80136418(Gfx **dl, u8 color) {
 

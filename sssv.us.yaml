@@ -31,7 +31,8 @@ segments:
     - [0x7770, c]
     - [0x7890, c]
     - [0x78F0, c]
-    - [0xC200, c]
+    - [0xC200, c, core/fontinit]
+    - [0xC2A0, c]
     - [0xC330, c, core/eeprom]
     - [0xC770, c]
     - [0xC990, c, core/audio]
@@ -218,6 +219,14 @@ segments:
     - [0x28900, asm, libc/ldiv]
   - [0x028A90, bin]
   - [0x02FDD0, bin] # textures; CH, 7-segment score display
+  - name:  main_data
+    type:  code
+    start: 0x00036410
+    vram:  0x8015AD10
+    overlay: no
+    subsections:
+    - [0x036410, .rodata, core/fontinit]
+  - [0x036470, bin] # more data
   - [0x0398D0, bin] # textures
   - [0x07F790, bin] # some more textures
   - [0x097020, bin]
@@ -556,7 +565,7 @@ segments:
     - [0x658F40, bin] # texture(s)?
     - [0x659B40, bin, rnc_659B40] # 24460 => 163840 ## D_802B64A0
     - [0x65FAD0, bin, rnc_65FAD0] # 11570 => 40960   # 160x128, space background
-    - [0x662810, bin] # "200 credz" texture
+    - [0x662810, bin] # "200 credz" texture, 32x128, chunked
     - [0x664860, bin, rnc_664860] # 23248 => 163840
     - [0x66A330, bin, rnc_66A330] # 37980 => 163840
     - [0x673790, bin, rnc_673790] # 43024 => 153600  # 320x240, professor cheese & space marines
@@ -577,18 +586,18 @@ segments:
     - [0x6ACF20, asm]
     - [0x6B5380, asm]
     - [0x6C5570, asm]
-    - [0x6C63D0, asm]
+    - [0x6C63D0, c, sssv/collision]
     - [0x6C9DD0, asm]
     - [0x6CCEF0, asm]
     - [0x6D9330, asm]
     - [0x6D9AF0, asm]
     - [0x6DB610, asm]
-    - [0x6EBEA0, asm]
+    - [0x6EBEA0, c, sssv/collist2]
     - [0x6EC720, asm]
     - [0x6ED230, asm]
     - [0x6F66B0, asm]
     - [0x6FA0A0, asm]
-    - [0x6FBA90, asm]
+    - [0x6FBA90, c, sssv/aidata]
     - [0x6FBEA0, asm]
     - [0x700770, asm]
     - [0x702DE0, asm]
@@ -616,7 +625,8 @@ segments:
     - [0x75B9D0, asm]
     - [0x75BC80, asm]
     - [0x75D3D0, asm]
-    - [0x763930, asm]
+    - [0x763930, c, sssv/init]
+    - [0x767AC0, c, sssv/overlay2_767AC0]
     - [0x7688B0, asm]
     - [0x7689A0, asm]
     - [0x768B90, asm]
@@ -633,7 +643,7 @@ segments:
     - [0x78A890, asm]
     - [0x78CEB0, asm]
     - [0x78E970, asm]
-    - [0x7917A0, asm]
+    - [0x7917A0, c, sssv/animinit]
     - [0x793700, asm]
     - [0x7943A0, asm]
     - [0x794EE0, asm]
@@ -641,7 +651,7 @@ segments:
     - [0x79CEF0, asm]
     - [0x79D0E0, c, sssv/cheats]
     - [0x79D8E0, asm]
-    - [0x79DE10, asm]
+    - [0x79DE10, asm] # references animal info screen background
     - [0x79E640, asm]
     - [0x7A0DA0, asm]
     - [0x7A8A50, asm]

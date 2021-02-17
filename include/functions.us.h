@@ -87,8 +87,8 @@ s32  func_80131BF0(s32);
 void func_80130C04(void);
 
 
-// main_C200.c aka fontinit.c
-void func_80130B00(void);
+// core/fontinit.c
+void font_init(void);
 
 // core/eeprom.c
 s16  func_80130C30(s16 arg0);
@@ -148,7 +148,9 @@ void func_8013724C(s16 arg0);
 void func_80137840(void);
 
 
+
 void func_80137294(void);
+void func_801373CC(s32, s32, s32, s32, s32);
 void func_80139200(f32);
 void func_80139330(f32);
 void func_80296310_6A79C0(void);
@@ -170,6 +172,8 @@ void func_802C9340_6DA9F0(void);
 void func_802C9834_6DAEE4(void);
 void func_802CB360_6DCA10(void);
 
+s32  func_802F8160_709810(s32, s32, s32, s32, s32, s32, s32, s32, f32);
+
 // overlay2_739290.c
 void func_8032AA94_73C144(void);
 struct025* func_803284C4_739B74(void);
@@ -178,8 +182,32 @@ void func_80304170_715820(void);
 void func_80304194_715844(void);
 
 void func_8031B390_72CA40(s32);
-void func_80352280_763930(void);
-void func_80352310_7639C0(void);
+void func_80322064_733714(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_8032C360_73DA10(u8, u16, s32, s16, s16, s16, f32); // tbd
+
+void func_8034220C_7538BC(s32, s32, s32, s32);
+
+void func_80352280_763930(void); // load display list segment
+void func_80352310_7639C0(void); // load water texture?
+void func_80355EDC_76758C(void);
+void func_80355EFC_7675AC(void);
+void func_80355F64_767614(void);
+void func_80355FFC_7676AC(void);
+void func_80356064_767714(void);
+void func_803560CC_76777C(void);
+void func_80356134_7677E4(s32 arg0);
+void func_803562C8_767978(s16 arg0);
+void func_80356348_7679F8(s16 arg0);
+void func_803563C8_767A78(s16 arg0);
+
+// load 1 tile(?)
+void func_80356410_767AC0(s32 arg0, s32 arg1);
+void func_803565D4_767C84(s32 arg0, s32 arg1, s32 arg2);
+void func_80356870_767F20(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_80356BD8_768288(s32 arg0, s32 arg1, s16 arg2);
+void func_80356D84_768434(s32 arg0, s32 arg1);
+void func_80356F64_768614(s32 arg0, s32 arg1, s32 arg2);
+
 
 void func_8038BA30_79D0E0(void);
 

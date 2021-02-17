@@ -1,0 +1,19 @@
+#include <ultra64.h>
+
+#include "common.h"
+
+
+void font_init(void) {
+    u32 fontbufferSegmentLen = D_800EF0D0 - D_800E1220;
+    u32 len = D_0012EDC0 - D_0012A390;
+
+    if (len >= fontbufferSegmentLen) {
+        rmonPrintf("\nASSERT: len < (_fontbufferSegmentEnd - _fontbufferSegmentStart), %s, %u\n", "../src/fontinit.c", 74, len);
+        // die
+        *(volatile int*)0 = 0;
+    }
+
+    D_801D9E70 = D_8022E3F0;
+    dma_read(D_0012A390, &D_8022E3F0, len);
+    rnc_decompress(D_8022E3F0, D_800E1220);
+}

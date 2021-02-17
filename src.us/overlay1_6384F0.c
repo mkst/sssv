@@ -30,7 +30,7 @@ void func_802950B8_638758(void) {
     s16 *src;
     s16 *dst;
 
-    func_80130B00();
+    font_init();
     if (D_80204260 == 1) {
         func_80298FC0_63C660(0);
     }
