@@ -346,6 +346,7 @@ gAudioThread      = 0x8023F428;
 gThread6          = 0x80286570;
 gThread7          = 0x80286720;
 gThread9          = 0x80286A80;
+gCurrentAnimalIndex = 0x803D5534;
 
 strncpy                = 0x80129158;
 read_rom_header        = 0x80129210;
@@ -354,6 +355,9 @@ dma_read               = 0x80129290;
 rnc_decompress         = 0x8012B0F0;
 set_menu_text_color    = 0x8012C214;
 font_init              = 0x80130B00;
+select_font            = 0x8012C248;
+select_comic_sans_font = 0x8012C2A4;
+select_lcd_font        = 0x8012C2E4;
 
 jtbl80302E00 = 0x80302E00;
 jtbl80302E1C = 0x80302E1C;

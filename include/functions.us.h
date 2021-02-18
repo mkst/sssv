@@ -66,15 +66,17 @@ void func_8012C070(u8);
 // main_78F0
 void func_8012C1F0(Gfx**);
 void set_menu_text_color(u8 r, u8 g, u8 b, u8 a);
-void func_8012C248(u8, u8, u8, u8);
-void func_8012C2A4(void);
-void func_8012C2E4(void);
+void select_font(u8, u8, u8, u8);
+void select_comic_sans_font(void);
+void select_lcd_font(void);
 s16  func_8012C314(f32 arg0);
 void func_8012DCA8(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height);
 s32  func_8012E724(u16 *arg0, s32 arg1, s32 arg2);
+s32  func_8012E78C(s32, f32, f32, s32);
 void func_8012FA78(Gfx **arg0);
 void func_8012FAD4(Gfx **dl, s32 arg1);
 void func_8012FB4C(Gfx **arg0, s16 arg1);
+void func_801304EC(Gfx **arg0, s32, u16, u16);
 void func_801308B4(u8 *src, u16 *dst);
 s16* func_80130A90(s16 arg0);
 s16  func_80130AC0(s16 *arg0);
@@ -186,6 +188,22 @@ void func_80322064_733714(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_8032C360_73DA10(u8, u16, s32, s16, s16, s16, f32); // tbd
 
 void func_8034220C_7538BC(s32, s32, s32, s32);
+
+// overlay2_7598E0
+void func_803491F0_75A8A0(void);
+void func_80349278_75A928(void);
+void func_80349280_75A930(Animal *arg0, s16 arg1);
+void func_803493C8_75AA78(void);
+void func_8034967C_75AD2C(void);
+void func_80349720_75ADD0(void);
+void func_80349748_75ADF8(void);
+void func_80349778_75AE28(void);
+void func_803497DC_75AE8C(void);
+u8   func_80349874_75AF24(void);
+void func_80349900_75AFB0(s32 arg0, u16 arg1);
+u8   func_80349A14_75B0C4(void); // dupe of func_80349874_75AF24
+void func_80349AA0_75B150(u16 arg0);
+
 
 void func_80352280_763930(void); // load display list segment
 void func_80352310_7639C0(void); // load water texture?

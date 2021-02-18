@@ -1,6 +1,8 @@
 #ifndef STRUCTS_US_H
 #define STRUCTS_US_H
 
+typedef struct struct032 struct032;
+
 typedef struct {
     u8  pad0[0xC4];
     u16 unkC4;
@@ -21,8 +23,17 @@ typedef struct {
     u16 unkC;
 } struct001;
 
+/*
+states:
+  02 - standing
+  04 - walking
+  05 - in air?
+  8D - in water
+  8F - swimming
+  DD - ???
+*/
 typedef struct {
-    /* 0x00 */  u16 unk0;
+    /* 0x00 */  u16 state; // state? standing, walking, jumping,
     /* 0x02 */  u8  pad2[0x2];
     /* 0x04 */  s16 xPos;
     /* 0x06 */  u8  pad6[0x2];
@@ -40,10 +51,17 @@ typedef struct {
     /* 0x2E */  u8  pad2E[0x14];
     /* 0x42 */  u16 unk42;
     /* 0x44 */  u8  unk44[0x108];
-    /* 0x14C */ u16 health;
+    /* 0x14C */ s16 health;
+    /* 0x14E */ u8  pad14E[0x1E];
+    /* 0x16C */ struct032* unk16C;
+    /* 0x170 */ u8  pad170[0x170];
     /* 0x2E0 */ s16 skillAEnergy;
     /* 0x2E2 */ u8  pad2E2[0x2];
     /* 0x2E4 */ s16 skillBEnergy;
+    /* 0x2E6 */ u8  pad2E6[0x80];
+    /* 0x366 */ u8  unk366;
+    /* 0x368 */ u8  pad367[0x4];
+    /* 0x36B */ s8  unk36B;
 } Animal;
 
 typedef struct {
@@ -270,7 +288,7 @@ typedef struct {
 } struct018;
 
 typedef struct {
-    /* 0x00 */ s32 unk0;        // checksum?
+    /* 0x00 */ s32 unk0;        // eeprom checksum?
     /* 0x04 */ u8  unk4[0x8];
     /* 0x0C */ s8  unkC;
     /* 0x0D */ s8  unkD;
@@ -398,6 +416,19 @@ typedef struct {
     u8  pad0[0xEC];
 } struct030; // size 0xEC
 
+struct struct032 {
+    u8  unk0[0x7C];
+    u16 unk7C;
+    u8  pad7E[0x2];
+    s32 unk80;
+};
 
+typedef struct {
+    /* 0x00 */  Animal* animal;
+    /* 0x04 */  s16     health;
+    /* 0x06 */  s16     unk6; // health related too?
+    /* 0x08 */  s16     unk8; // ALSO health?
+    /* 0x0A */  s16     unkA; // 0x40?
+} struct033;
 
 #endif

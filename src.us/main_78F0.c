@@ -14,17 +14,17 @@ void set_menu_text_color(u8 r, u8 g, u8 b, u8 a) {
     D_8023F1F3 = a; // textColorA
 }
 
-void func_8012C248(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
+void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
     D_8023F1F4 = arg0;
     D_8023F1F5 = arg2;
-    if (arg1 == 3) {
-        func_8012C2E4();
+    if (fontType == 3) {
+        select_lcd_font(); // select_7_segment_display_font()
     } else {
-        func_8012C2A4();
+        select_comic_sans_font();
     }
 }
 
-void func_8012C2A4(void) {
+void select_comic_sans_font(void) {
     D_8023F1E0.unk0 = &D_80154370;
     D_8023F1E0.fontAddress = &D_800E1220; // _fontbufferSegmentStart
     D_8023F1E0.unk8 = 16;
@@ -33,8 +33,8 @@ void func_8012C2A4(void) {
     D_8023F1E0.glyphBytes = 128;
 }
 
-void func_8012C2E4(void) {
-    D_8023F1E0.fontAddress = &D_80158550;
+void select_lcd_font(void) {
+    D_8023F1E0.fontAddress = &D_80158550; // 7-segment display font
     D_8023F1E0.unk8 = 16;
     D_8023F1E0.unk9 = 16;
     D_8023F1E0.unkA = 16;

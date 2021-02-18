@@ -136,6 +136,7 @@ extern struct009 D_8019A658[];
 
 // 0x801Dxxxx
 
+extern s32  D_801D9D70; // camera position? distance? angle?
 extern u16  D_801D9E38;
 extern s16 *D_801D9E70;
 extern s16 *D_801D9E74;
@@ -149,7 +150,6 @@ extern struct014 *D_801D9E98[];
 extern Gfx *D_801D9EB8;
 extern u16  D_801D9ED4;
 extern s32  D_801D9ED8;
-
 // 0x8020xxxx
 
 extern struct002 *D_80200000;
@@ -209,6 +209,9 @@ extern OSIoMesg    D_8028D0C0;
 extern s32  D_8028E230;
 extern OSMesg      D_8028F640;
 
+extern s32  D_80299CD0;
+extern Light *D_80299D50;
+extern Light *D_80299D58;
 extern f32  D_80299DB8;
 extern f32  D_80299DBC;
 extern f32  D_80299DC0;
@@ -298,6 +301,7 @@ extern s32  D_80376ED8;
 extern s32  D_8039E2E8;
 extern s32  D_803A05B0;
 extern s32  D_803A38D8;
+extern u8  *D_803A8344; // timer string written here
 extern s32  D_803A8EC8;
 extern struct029 D_803A4B78[];
 extern u8   D_803A48C0[]; // europe
@@ -311,6 +315,9 @@ extern u16  D_803B62B8;
 extern s16  D_803B62BC;
 extern u16  D_803B62C0;
 extern u8   D_803BBF00[]; // "\nASSERT: TotalMass != 0, %s, %u\n" (in /src/collision.c)
+extern u8   D_803BE940[]; // "%8d"
+extern u8   D_803BE944[]; // "%d"
+extern u8   D_803BE948[]; // "%d:%02d"
 extern f32  D_803BEB0C; // 1.7999999523162842
 extern f32  D_803BEB10;
 extern f32  D_803BEB14;
@@ -368,13 +375,30 @@ extern s32  D_803C0428;
 extern s16  D_803C042A;
 extern s32  D_803C0640;
 extern s32  D_803C0648;
-extern u16  D_803F2CE8;
+extern u16  D_803F2CD0;
+extern s16  D_803F2CD2; // (race?) timer
+extern u16  D_803F2CD4;
+extern s16  D_803F2CD6;
+extern s16  D_803F2CD8;
+extern s16  D_803F2CDA;
+extern s8   D_803F2CDC;
+extern s8   D_803F2CDD;
+extern u8   D_803F2CDE;
+extern u8   D_803F2CDF;
+extern s32  D_803F2CE0;
+extern s16  D_803F2CE4;
+extern u8   D_803F2CF2;
+
+extern u16  D_803F2CE8; // health slider 'animation'
+extern s16  D_803F2CF0;
+extern struct033 D_803F2CF8; // pointer to an animal+health
 extern s32  D_803F2C3C;
 extern s32  D_803F2C40;
 extern struct001 D_803F2D30;
 extern s16  D_803F2D34;
 extern s16  D_803F2D38;
 extern u8   D_803F2D39; // map index
+extern u8   D_803F2D3E; // score as a string, e.g. "       0"
 extern struct000 D_803F2D50;
 extern u16  D_803F2D68;
 extern s16  D_803F2D70; // biome (0 Europe, 1 Ice, 2 Desert, 3 Jungle)
@@ -382,7 +406,7 @@ extern s64  D_803C0644;
 extern s64  D_803C064C;
 extern s32  D_803C0654;
 extern Animal *D_803D5530;
-extern s16  D_803D5534; // current animal (id within level)
+extern s16  gCurrentAnimalIndex; // current animal (id within level)
 extern s16  D_803F2E16;
 extern s16  D_803F2E2A;
 extern s32  D_803E4D28;

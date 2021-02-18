@@ -621,7 +621,7 @@ segments:
     - [0x73ED30, asm]
     - [0x741000, asm]
     - [0x7558F0, asm]
-    - [0x7598E0, asm]
+    - [0x7598E0, c]
     - [0x75B9D0, asm]
     - [0x75BC80, asm]
     - [0x75D3D0, asm]
@@ -665,6 +665,8 @@ segments:
     - [0x7B1BA0, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C8AC0, bin] # more textures
+    # - [0x7D0000, .rodata, overlay2_7598E0]
+    - [0x7D0028, bin]
     - [0x7D1170, bin] # cheats, mapped to 0x803BFAC0
     - [0x7D1200, bin]
     - [0x7D1AD0, bin]
