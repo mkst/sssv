@@ -118,6 +118,7 @@ extern f64  D_8015AC78;
 extern f64  D_8015AC80;
 extern f64  D_8015AC88;
 extern f64  D_8015AC90;
+extern u8   D_8015AD70[]; // "reset all data - %d\n"
 extern u8   D_8015AD90[]; // "----------------- Active sounds"
 extern u8   D_8015ADB4[]; // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
 
@@ -149,11 +150,13 @@ extern Gfx *D_801D9E94;
 extern struct014 *D_801D9E98[];
 extern Gfx *D_801D9EB8;
 extern u16  D_801D9ED4;
-extern s32  D_801D9ED8;
+extern struct035 D_801D9ED8[];
+
 // 0x8020xxxx
 
 extern struct002 *D_80200000;
 extern s16  D_80200008;
+extern s32  D_80203FD2;
 extern RomHeader D_80204240;
 extern s16  D_80204260;
 extern u16  D_80204270;
@@ -301,6 +304,10 @@ extern s32  D_80376ED8;
 extern s32  D_8039E2E8;
 extern s32  D_803A05B0;
 extern s32  D_803A38D8;
+extern s8   D_803A63B0[];
+extern s16  D_803A6730[];
+extern s16  D_803A69F0[];
+extern s16  D_803A6CE4;
 extern u8  *D_803A8344; // timer string written here
 extern s32  D_803A8EC8;
 extern struct029 D_803A4B78[];
@@ -318,6 +325,7 @@ extern u8   D_803BBF00[]; // "\nASSERT: TotalMass != 0, %s, %u\n" (in /src/colli
 extern u8   D_803BE940[]; // "%8d"
 extern u8   D_803BE944[]; // "%d"
 extern u8   D_803BE948[]; // "%d:%02d"
+extern f64  D_803BE950;
 extern f32  D_803BEB0C; // 1.7999999523162842
 extern f32  D_803BEB10;
 extern f32  D_803BEB14;
@@ -341,10 +349,16 @@ extern u8   D_803BFB2C[]; // ZDUIRILR
 extern u8   D_803BFB38[]; // LRZILZRL
 extern u8   D_803BFB44[]; // DANISIL
 
+extern DisplayList* D_803D3434;
 // more position vars
-extern struct025 *D_803D5524;
-extern struct026 *D_803D552C;
+extern struct037 *D_803D5520;
+extern struct035 *D_803D5524;
+extern s32 D_803D5528;
+extern struct026 *D_803D552C; // is this Animal?
 extern s16 D_803D5540;
+extern u16 D_803D5544;
+extern s8  D_803D554B;
+extern s8  D_803D554C;
 extern s32 D_803D5564;
 extern s32 D_803D5568;
 extern u8  D_803D5575; // controller maginitude?
@@ -377,7 +391,7 @@ extern s32  D_803C0640;
 extern s32  D_803C0648;
 extern u16  D_803F2CD0;
 extern s16  D_803F2CD2; // (race?) timer
-extern u16  D_803F2CD4;
+extern s16  D_803F2CD4;
 extern s16  D_803F2CD6;
 extern s16  D_803F2CD8;
 extern s16  D_803F2CDA;
@@ -387,6 +401,8 @@ extern u8   D_803F2CDE;
 extern u8   D_803F2CDF;
 extern s32  D_803F2CE0;
 extern s16  D_803F2CE4;
+extern s16  D_803F2CE6;
+extern s32  D_803F2CEC;
 extern u8   D_803F2CF2;
 
 extern u16  D_803F2CE8; // health slider 'animation'
@@ -394,6 +410,10 @@ extern s16  D_803F2CF0;
 extern struct033 D_803F2CF8; // pointer to an animal+health
 extern s32  D_803F2C3C;
 extern s32  D_803F2C40;
+extern f32  D_803F2C44;
+extern f32  D_803F2C48;
+extern f32  D_803F2C4C;
+extern struct034 D_803F2D04;
 extern struct001 D_803F2D30;
 extern s16  D_803F2D34;
 extern s16  D_803F2D38;
@@ -406,13 +426,23 @@ extern s64  D_803C0644;
 extern s64  D_803C064C;
 extern s32  D_803C0654;
 extern Animal *D_803D5530;
+extern s32  D_803D5534; // this is gCurrentAnimalIndex!
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
+extern u8   D_803D5538;
+extern u16  D_803D553A;
+extern s16  D_803D553C;
+extern s16  D_803D553E;
 extern s16  D_803F2E16;
 extern s16  D_803F2E2A;
 extern s32  D_803E4D28;
 extern s32  D_803E4D2C;
 extern s16  D_803E1BC0;
 extern u16  D_803E1BC4; // buttons pressed
+extern s16  D_803E9820;
+extern s16  D_803E9822;
+extern s16  D_803E9824;
+extern u16  D_803E9828[];
+extern s32  D_801DD800;
 extern struct015 D_801DDD8C[]; // animals struct array
 extern s32  D_80231AA0;
 extern s32  D_80231D5C;
@@ -431,6 +461,7 @@ extern s32  D_8023F260[]; // likely Eeprom too
 extern Eeprom D_8023F2A0;
 extern s32  D_8023F2A8; // TODO: is this D_8023F2A0.unk8?
 extern s8   D_8023F2AE;
+extern Eeprom  D_8023F2E0[];
 
 // display
 extern u16  D_8023F3E0;
@@ -453,6 +484,7 @@ extern u16  D_80241D0E;
 extern OSMesgQueue D_802423D0;
 extern s16  D_803F2A98;
 extern u8   D_803F2AA2;
+extern u8   D_803F2AA3;
 extern s32  D_803F28D0;
 extern struct025   D_803F28E0[];
 extern ALGlobals   D_8023F708;
@@ -464,8 +496,13 @@ extern u8   D_8004B400[]; // _gfxdlistSegmentEnd
 extern s32  D_800C5A40;
 extern s32  D_800DCC20; // water texture location?
 extern u8   D_800DEE20[]; // tbd
+extern u8   D_800DF220[];
 extern u8   D_800E1220[]; // _fontbufferSegmentStart
 extern u8   D_800EF0D0[]; // _fontbufferSegmentEnd
 extern u8   D_800FF0D0[];
+
+// display lists
+extern u8   D_01004270[];
+extern u8   D_0103B6F0[];
 
 #endif

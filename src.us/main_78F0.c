@@ -18,7 +18,7 @@ void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
     D_8023F1F4 = arg0;
     D_8023F1F5 = arg2;
     if (fontType == 3) {
-        select_lcd_font(); // select_7_segment_display_font()
+        select_lcd_font();
     } else {
         select_comic_sans_font();
     }

@@ -621,7 +621,7 @@ segments:
     - [0x73ED30, asm]
     - [0x741000, asm]
     - [0x7558F0, asm]
-    - [0x7598E0, c]
+    - [0x7598E0, c, sssv/osd]
     - [0x75B9D0, asm]
     - [0x75BC80, asm]
     - [0x75D3D0, asm]
@@ -642,7 +642,7 @@ segments:
     - [0x786320, asm]
     - [0x78A890, asm]
     - [0x78CEB0, asm]
-    - [0x78E970, asm]
+    - [0x78E970, c]
     - [0x7917A0, c, sssv/animinit]
     - [0x793700, asm]
     - [0x7943A0, asm]
@@ -652,7 +652,7 @@ segments:
     - [0x79D0E0, c, sssv/cheats]
     - [0x79D8E0, asm]
     - [0x79DE10, asm] # references animal info screen background
-    - [0x79E640, asm]
+    - [0x79E640, c]
     - [0x7A0DA0, asm]
     - [0x7A8A50, asm]
     - [0x7A9CE0, asm]
@@ -665,7 +665,7 @@ segments:
     - [0x7B1BA0, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C8AC0, bin] # more textures
-    # - [0x7D0000, .rodata, overlay2_7598E0]
+    # - [0x7D0000, .rodata, sssv/osd]
     - [0x7D0028, bin]
     - [0x7D1170, bin] # cheats, mapped to 0x803BFAC0
     - [0x7D1200, bin]

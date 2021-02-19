@@ -39,7 +39,7 @@ void func_8038BA30_79D0E0(void)
 //         if ((D_803F642E != 0) && (D_803F6680 == 0)) {
 //             // print debug location
 //             player = D_801DDD8C[gCurrentAnimalIndex].unk0;
-//             // "(%3d  %3d  %4d).Ver - 1.37"
+//             // "(%3d  %3d  %4d)"
 //             sprintf(&D_802042B0, D_803BFAA4, player->xPos >> 6, player->zPos >> 6, player->yPos);
 //             func_801308B4(&D_802042B0, &sp28);
 //             func_8012DEF8(&D_801D9E7C, &sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);

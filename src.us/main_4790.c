@@ -4,11 +4,11 @@
 
 
 // this file might very well be a continuation of string.c
-
 #pragma GLOBAL_ASM("asm/nonmatchings/main_4790/func_80129090.s")
 
+
 #pragma GLOBAL_ASM("asm/nonmatchings/main_4790/func_80129128.s")
-// close but not *quite*
+// nope.
 // s32 func_80129128(void) {
 //     u32 tmp = (D_80152E80 * 0x41C64E6D) + 12345;
 //     return D_80152E80 = (tmp >> 16) & 0x7FFF;

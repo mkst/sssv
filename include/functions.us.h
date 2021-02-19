@@ -7,7 +7,7 @@
 // main_1050.c
 void func_80125950(s32 arg0);
 void func_80125980(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
-void func_8012635C(s32 arg0, s32 arg1, struct005 *arg2);
+void func_8012635C(s32 arg0, s32 arg1, s32 arg2[]);
 
 // core/controller.c
 u32  func_80128200(void);
@@ -82,8 +82,9 @@ s16* func_80130A90(s16 arg0);
 s16  func_80130AC0(s16 *arg0);
 
 void func_8012C214(s32, s32, s32, s32);
-void func_8012C978(s32, s32, u16, s32, f32, f32);
+void func_8012C978(Gfx *, s32, u16, s32, f32, f32);
 void func_8012DEF8(Gfx *, s32, u16, s32, f32, f32);
+void func_8012EB4C(Gfx *, s32, u16, u16, f32, f32, u8);
 void func_80131070(void);
 s32  func_80131BF0(s32);
 void func_80130C04(void);
@@ -94,7 +95,7 @@ void font_init(void);
 
 // core/eeprom.c
 s16  func_80130C30(s16 arg0);
-s16  func_80130CD4(s16 arg0);
+s16  func_80130CD4(s16 slot);
 s32  func_80130E10(u8 *arg0);
 void func_80130E44(void);
 
@@ -114,6 +115,7 @@ void func_80132CC0(s32 arg0);
 s16  func_80132D54(void);
 s32  func_80132D84(ALSndPlayer *sndp);
 void func_8013307C(s32, s32, s32, f32, s32);
+s16  func_8013328C(s32 arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4, s16 arg5);
 void func_80133528(u8 arg0, s16 vol);
 void func_8013359C(u8 arg0);
 void func_80133608(s16 arg0);
@@ -130,7 +132,6 @@ void func_80133BE4(void);
 void func_80133C50(void);
 void func_80133E44(void);
 void func_80133E84(void);
-
 
 // main_10CB0.c
 void func_801355B0(void);
@@ -179,6 +180,18 @@ s32  func_802F8160_709810(s32, s32, s32, s32, s32, s32, s32, s32, f32);
 // overlay2_739290.c
 void func_8032AA94_73C144(void);
 struct025* func_803284C4_739B74(void);
+void func_8032AAF0_73C1A0(s16 arg0);
+void func_8032AE34_73C4E4(void);
+void func_8032AC98_73C348(void);
+void func_8032AEA0_73C550(void);
+void func_8032B084_73C734(void);
+void func_8032B1C8_73C878(void);
+u8   func_8032BCF8_73D3A8(s32 arg0, s16 arg1);
+s32  func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5);
+void func_8032C0EC_73D79C(s32 arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b);
+void func_8032C2D0_73D980(s16 arg0, s16 arg1, f32 arg2);
+void func_8032C508_73DBB8(s16 arg0, s16 arg1, s16 arg2, f32 arg3);
+void func_8032CD20_73E3D0(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4);
 
 void func_80304170_715820(void);
 void func_80304194_715844(void);
@@ -189,7 +202,8 @@ void func_8032C360_73DA10(u8, u16, s32, s16, s16, s16, f32); // tbd
 
 void func_8034220C_7538BC(s32, s32, s32, s32);
 
-// overlay2_7598E0
+// sssv/osd.c
+void func_80348230_7598E0(s32 arg0);
 void func_803491F0_75A8A0(void);
 void func_80349278_75A928(void);
 void func_80349280_75A930(Animal *arg0, s16 arg1);
@@ -203,7 +217,9 @@ u8   func_80349874_75AF24(void);
 void func_80349900_75AFB0(s32 arg0, u16 arg1);
 u8   func_80349A14_75B0C4(void); // dupe of func_80349874_75AF24
 void func_80349AA0_75B150(u16 arg0);
-
+void func_80349B84_75B234(u16 arg0);
+void func_80349CA4_75B354(u16 arg0);
+void func_80349D34_75B3E4(void);
 
 void func_80352280_763930(void); // load display list segment
 void func_80352310_7639C0(void); // load water texture?
@@ -226,7 +242,22 @@ void func_80356BD8_768288(s32 arg0, s32 arg1, s16 arg2);
 void func_80356D84_768434(s32 arg0, s32 arg1);
 void func_80356F64_768614(s32 arg0, s32 arg1, s32 arg2);
 
+// overlay2_78E970
+void func_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_8037D2D4_78E984(s32 arg0, s32 arg1, s32 arg2);
+void func_8037D2E4_78E994(s32 arg0);
+void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2);
+void func_8037D320_78E9D0(s32 arg0, s32 arg1);
+void func_8037D32C_78E9DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_8037D994_78F044(s8 arg0);
+void func_8037D9D4_78F084(void);
+void func_8037FE24_7914D4(void) ;
 
 void func_8038BA30_79D0E0(void);
+
+// overlay2_79E640
+void func_8038CF90_79E640(void);
+void func_8038DA70_79F120(void);
+void func_8038F694_7A0D44(void);
 
 #endif
