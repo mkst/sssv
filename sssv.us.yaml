@@ -581,7 +581,7 @@ segments:
     subsections:
     - [0x6A6500, c]
     - [0x6A7A80, asm]
-    - [0x6AB090, asm]
+    - [0x6AB090, c]
     - [0x6AC360, asm]
     - [0x6ACF20, asm]
     - [0x6B5380, asm]
