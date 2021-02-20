@@ -177,6 +177,13 @@ void func_802CB360_6DCA10(void);
 
 s32  func_802F8160_709810(s32, s32, s32, s32, s32, s32, s32, s32, f32);
 
+// overlay2_6AB090.c
+void func_802999E0_6AB090(DisplayList *arg0);
+void func_8029A32C_6AB9DC(s32 arg0);
+u16  func_8029A52C_6ABBDC(u8 arg0);
+u16  func_8029A568_6ABC18(s16 arg0);
+void func_8029A5B4_6ABC64(Gfx **arg0, u8 r, u8 g, u8 b);
+
 // overlay2_739290.c
 void func_8032AA94_73C144(void);
 struct025* func_803284C4_739B74(void);

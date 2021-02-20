@@ -4,7 +4,10 @@
 typedef struct struct035 struct035;
 
 typedef struct {
-    u8  pad0[0xC4];
+    u8  pad0[0xC];
+    s16 unkC;
+    s16 unkE;
+    u8  pad10[0xB4];
     u16 unkC4;
     u16 unkC6;
     u8  unkC8[0x6];
@@ -12,6 +15,8 @@ typedef struct {
     u8  unkD0[0xA];
     u16 unkDA;
     u16 unkDC; // initialised?
+    u8  padDE[0x2];
+    f32 unkE0;
 } struct000;
 
 typedef struct {
@@ -493,5 +498,10 @@ typedef struct {
 typedef struct {
     struct035* unk0;
 } struct037;
+
+typedef struct {
+    s16 unk0;
+    u8  pad2[0xab6];
+} struct038; // size 0xAB8
 
 #endif

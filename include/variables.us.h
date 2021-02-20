@@ -33,6 +33,10 @@ extern s32  D_80000400;
 
 extern s32  D_80025C00;
 
+// 0x800Bxxxx
+
+extern struct038 D_800BB210[];
+
 // 0x8010xxxx
 
 extern s32  D_80100000;
@@ -425,6 +429,7 @@ extern s16  D_803F2D70; // biome (0 Europe, 1 Ice, 2 Desert, 3 Jungle)
 extern s64  D_803C0644;
 extern s64  D_803C064C;
 extern s32  D_803C0654;
+extern u16 *D_803C0658;
 extern Animal *D_803D5530;
 extern s32  D_803D5534; // this is gCurrentAnimalIndex!
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
