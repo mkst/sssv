@@ -60,6 +60,7 @@ extern u32  D_80151430;
 extern u16  D_80151434;
 extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 extern f32  D_80151C38[];
+extern s16  D_80152C78[];
 extern s16  D_80152040[];
 extern s8   D_80152248[];
 extern struct013  D_80152350[];
@@ -160,6 +161,7 @@ extern struct035 D_801D9ED8[];
 
 extern struct002 *D_80200000;
 extern s16  D_80200008;
+extern s16  D_80203FD0;
 extern s32  D_80203FD2;
 extern RomHeader D_80204240;
 extern s16  D_80204260;
@@ -234,6 +236,9 @@ extern f32  D_80299DE4;
 extern f32  D_80299DE8;
 extern f32  D_80299DEC;
 extern f32  D_80299DF0;
+extern s8   D_80299E24;
+extern u8   D_80299FCC;
+extern s16  D_80299FD0;
 
 extern s32  D_802AFBD0;
 extern s32  D_802B12D0;
@@ -262,6 +267,7 @@ extern struct012 D_802053E0;
 extern s16 D_802053EA;
 extern struct012 D_802053F0; // pointer?
 extern struct012 D_80205400;
+extern s32 D_80205410[];
 extern s16  D_8020540C;
 extern u8   D_80286458;
 extern u16  D_8028645A;
@@ -298,6 +304,7 @@ extern u8   D_802912E4;
 extern u8   D_802912E5;
 
 extern f32  D_80302D20; // 15000.0f
+extern f64  D_80302D28;
 extern u16  D_80302E60;
 extern s32  D_80302E88;
 extern s32  D_8032AE88;
@@ -306,6 +313,7 @@ extern s32  D_8033CE88;
 extern s32  D_80364E88;
 extern s32  D_80376ED8;
 extern s32  D_8039E2E8;
+extern s16  D_803A0500;
 extern s32  D_803A05B0;
 extern s32  D_803A38D8;
 extern s8   D_803A63B0[];
@@ -358,7 +366,7 @@ extern DisplayList* D_803D3434;
 extern struct037 *D_803D5520;
 extern struct035 *D_803D5524;
 extern s32 D_803D5528;
-extern struct026 *D_803D552C; // is this Animal?
+extern Animal *D_803D552C;
 extern s16 D_803D5540;
 extern u16 D_803D5544;
 extern s8  D_803D554B;
@@ -367,6 +375,7 @@ extern s32 D_803D5564;
 extern s32 D_803D5568;
 extern u8  D_803D5575; // controller maginitude?
 
+extern s16  D_803F63E0;
 extern u8   D_803F6410[20];
 extern u16  D_803F6428[13];
 extern s16  D_803F642C;
@@ -391,6 +400,8 @@ extern u8   D_803C0424;
 extern s32  D_803C0426;
 extern s32  D_803C0428;
 extern s16  D_803C042A;
+extern Fog  D_803C0660[]; // fogPositions? or just a coincidence
+extern u8   D_803C063C;
 extern s32  D_803C0640;
 extern s32  D_803C0648;
 extern u16  D_803F2CD0;
@@ -420,8 +431,7 @@ extern f32  D_803F2C4C;
 extern struct034 D_803F2D04;
 extern struct001 D_803F2D30;
 extern s16  D_803F2D34;
-extern s16  D_803F2D38;
-extern u8   D_803F2D39; // map index
+extern s16  D_803F2D38; // map index
 extern u8   D_803F2D3E; // score as a string, e.g. "       0"
 extern struct000 D_803F2D50;
 extern u16  D_803F2D68;
@@ -429,9 +439,10 @@ extern s16  D_803F2D70; // biome (0 Europe, 1 Ice, 2 Desert, 3 Jungle)
 extern s64  D_803C0644;
 extern s64  D_803C064C;
 extern s32  D_803C0654;
-extern u16 *D_803C0658;
+extern u16  D_803C0658; // matrix normalise
+extern s16  D_803D5510;
+extern s16  D_803D5512;
 extern Animal *D_803D5530;
-extern s32  D_803D5534; // this is gCurrentAnimalIndex!
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
 extern u8   D_803D5538;
 extern u16  D_803D553A;
@@ -439,10 +450,14 @@ extern s16  D_803D553C;
 extern s16  D_803D553E;
 extern s16  D_803F2E16;
 extern s16  D_803F2E2A;
+extern s32  D_803F2EB0;
+extern s32  D_803F2EB4;
+extern s32  D_803F2EB8;
 extern s32  D_803E4D28;
 extern s32  D_803E4D2C;
 extern s16  D_803E1BC0;
 extern u16  D_803E1BC4; // buttons pressed
+extern Fog  D_803E1CF8;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  D_803E9824;
@@ -490,7 +505,7 @@ extern OSMesgQueue D_802423D0;
 extern s16  D_803F2A98;
 extern u8   D_803F2AA2;
 extern u8   D_803F2AA3;
-extern s32  D_803F28D0;
+extern u16  D_803F28D0;
 extern struct025   D_803F28E0[];
 extern ALGlobals   D_8023F708;
 extern struct003 D_803F2D10;
@@ -508,6 +523,8 @@ extern u8   D_800FF0D0[];
 
 // display lists
 extern u8   D_01004270[];
+extern u8   D_010043A0[];
+extern u8   D_01021BB0[];
 extern u8   D_0103B6F0[];
 
 #endif

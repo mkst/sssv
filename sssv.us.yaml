@@ -584,7 +584,7 @@ segments:
     - [0x6AB090, c]
     - [0x6AC360, asm]
     - [0x6ACF20, asm]
-    - [0x6B5380, asm]
+    - [0x6B5380, c]
     - [0x6C5570, asm]
     - [0x6C63D0, c, sssv/collision]
     - [0x6C9DD0, asm]

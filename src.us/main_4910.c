@@ -259,7 +259,7 @@ void func_8012A490(void) {
 //         }
 //
 //         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
-//         func_8012AD30(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
+//         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
 //
 //         D_80152E9C += D_80204290;
 //
@@ -273,7 +273,7 @@ void func_8012A490(void) {
 void func_8012A750(void) {
     if (D_802912D8 == 0) {
         func_80129300(&D_801D9E7C, D_80204278);
-        func_8012AD30(&D_801D9E7C, 0, 16, 320, 36, 40, 40, 40, 128);
+        draw_rectangle(&D_801D9E7C, 0, 16, 320, 36, 40, 40, 40, 128);
         gDPPipeSync(D_801D9E7C++);
 
         func_8012C1F0(&D_801D9E7C);
@@ -455,8 +455,7 @@ void func_8012AD08(void) {
     func_8012AC40();
 }
 
-// draw_texture
-void func_8012AD30(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 alpha) {
+void draw_rectangle(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 alpha) {
     s32 color;
 
     if (alpha != 0) {

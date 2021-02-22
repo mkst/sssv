@@ -53,7 +53,7 @@ void func_8012ABF0(void);
 void func_8012AC40(void);
 void func_8012AC8C(void);
 void func_8012AD08(void);
-void func_8012AD30(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 a);
+void draw_rectangle(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 a);
 
 // core/rnc.c
 u16  rnc_decompress(u8 *src, u8* dst);
@@ -138,7 +138,7 @@ void func_801355B0(void);
 void func_80135604(void);
 void func_80136418(Gfx **dl, u8 color);
 void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
-void func_80136938(Gfx **dl, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u8 arg6, u8 arg7, u16 arg8, u16 arg9, u8 argA);
+void func_80136938(Gfx **dl, s32 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u8 arg6, u8 arg7, u16 arg8, u16 arg9, u8 argA);
 
 // main_123E0.c
 s32  func_80136CE0(void); // initialise controllers?
@@ -169,7 +169,11 @@ void func_80294EB8_638558(Gfx **dl);
 void func_802950B8_638758(void);
 void func_80295234_6388D4(void);
 void func_8029548C_638B2C(void);
+void func_80295494_638B34(Gfx **arg0, u16 arg1);
+void func_802958B8_638F58(Gfx **dl);
 void func_80298C70_63C310(u8 arg0);
+void func_80295EB0_639550(s32 arg0);
+void func_802988E8_63BF88(void);
 
 void func_802C9340_6DA9F0(void);
 void func_802C9834_6DAEE4(void);
@@ -179,10 +183,17 @@ s32  func_802F8160_709810(s32, s32, s32, s32, s32, s32, s32, s32, f32);
 
 // overlay2_6AB090.c
 void func_802999E0_6AB090(DisplayList *arg0);
+void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1);
 void func_8029A32C_6AB9DC(s32 arg0);
+void func_8029A3B0_6ABA60(s32, s32, s32);
 u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
-void func_8029A5B4_6ABC64(Gfx **arg0, u8 r, u8 g, u8 b);
+void func_8029A5B4_6ABC64(Gfx **dl, u8 r, u8 g, u8 b);
+void func_8029A624_6ABCD4(Gfx **dl);
+void func_8029ABCC_6AC27C(void);
+
+// overlay2_6B5380
+void func_802A3E70_6B5520(Animal *arg0, u32 *arg1, u32 *arg2);
 
 // overlay2_739290.c
 void func_8032AA94_73C144(void);
@@ -259,6 +270,12 @@ void func_8037D32C_78E9DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_8037D994_78F044(s8 arg0);
 void func_8037D9D4_78F084(void);
 void func_8037FE24_7914D4(void) ;
+
+// sssv/animinit.c
+void func_80380620_791CD0(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
+void func_80380644_791CF4(Animal *arg0);
+void func_8038064C_791CFC(void);
+
 
 void func_8038BA30_79D0E0(void);
 

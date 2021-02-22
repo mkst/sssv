@@ -41,10 +41,10 @@
 //     if (D_803C0422 != 0) {
 //         D_803C0422++;
 //         if (D_803C0422 == 2) {
-//             func_8012AD30(&D_801D9E7C, 0, 0, 8, 0xF0, 0, 0, 0, 0xFF);
-//             func_8012AD30(&D_801D9E7C, (gScreenWidth - 8), 0, gScreenWidth, 0xF0, 0, 0, 0, 0xFF);
-//             func_8012AD30(&D_801D9E7C, 0, 0, gScreenWidth, 8, 0, 0, 0, 0xFF);
-//             func_8012AD30(&D_801D9E7C, 0, (gScreenHeight - 8), gScreenWidth, 0xF0, 0, 0, 0, 0xFF);
+//             draw_rectangle(&D_801D9E7C, 0, 0, 8, 0xF0, 0, 0, 0, 0xFF);
+//             draw_rectangle(&D_801D9E7C, (gScreenWidth - 8), 0, gScreenWidth, 0xF0, 0, 0, 0, 0xFF);
+//             draw_rectangle(&D_801D9E7C, 0, 0, gScreenWidth, 8, 0, 0, 0, 0xFF);
+//             draw_rectangle(&D_801D9E7C, 0, (gScreenHeight - 8), gScreenWidth, 0xF0, 0, 0, 0, 0xFF);
 //         }
 //         if (D_803C0422 == 3) {
 //             func_80137840();
@@ -152,9 +152,9 @@
 //             D_803E4D28 = (s32) (D_803E4D28 & ~0x20);
 //         }
 //         if (D_803F671C != 0) {
-//             func_8012AD30(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 2);
-//             func_8012AD30(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 2);
-//             func_8012AD30(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 2);
+//             draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 2);
+//             draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 2);
+//             draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 2);
 //             D_803F671C = (s16) (D_803F671C + 1);
 //             if ((s32) D_803F671C >= 3) {
 //                 D_803F671C = (u16)0;
@@ -350,7 +350,7 @@
 //     func_802F0918_701FC8();
 //     if (D_803C0426 != 0) {
 //         if (D_803C042A == 1) {
-//             func_8012AD30(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0xFF);
+//             draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0xFF);
 //         }
 //     }
 //     if ((D_803F2D38 == 0x23) && (D_803F6680.unk0 == 0)) {
@@ -420,7 +420,7 @@ void func_8029619C_6A784C(void) {
 //     func_802CB360_6DCA10();
 //     func_80304170_715820();
 //     func_80304194_715844();
-//     func_8031B390_72CA40(D_803F2D39);
+//     func_8031B390_72CA40((u8)D_803F2D38);
 //     D_80204280 = D_803F2D30.unk8;
 //     D_803F2D30.unk4 = 0;
 //     func_80296310_6A79C0();
