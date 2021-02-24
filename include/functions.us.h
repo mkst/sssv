@@ -8,6 +8,7 @@
 void func_80125950(s32 arg0);
 void func_80125980(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
 void func_8012635C(s32 arg0, s32 arg1, s32 arg2[]);
+void func_80125FE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8);
 
 // core/controller.c
 u32  func_80128200(void);
@@ -78,12 +79,13 @@ void func_8012FAD4(Gfx **dl, s32 arg1);
 void func_8012FB4C(Gfx **arg0, s16 arg1);
 void func_801304EC(Gfx **arg0, s32, u16, u16);
 void func_801308B4(u8 *src, u16 *dst);
+s16  func_801308E8(s16 arg0, s16 arg1, s32 *arg2, s32 *arg3);
 s16* func_80130A90(s16 arg0);
 s16  func_80130AC0(s16 *arg0);
 
 void func_8012C214(s32, s32, s32, s32);
 void func_8012C978(Gfx *, s32, u16, s32, f32, f32);
-void func_8012DEF8(Gfx *, s32, u16, s32, f32, f32);
+void func_8012DEF8(Gfx *, u16*, u16, s32, f32, f32);
 void func_8012EB4C(Gfx *, s32, u16, u16, f32, f32, u8);
 void func_80131070(void);
 s32  func_80131BF0(s32);
@@ -156,14 +158,13 @@ void func_80137294(void);
 void func_801373CC(s32, s32, s32, s32, s32);
 void func_80139200(f32);
 void func_80139330(f32);
-void func_80296310_6A79C0(void);
-s32  func_80296320_6A79D0(void);
+
 void func_80296544_6A7BF4(void);
 
 void func_802B3FAC_6C565C(void);
 
 // overlay1_6384F0.c
-void func_80294E50_6384F0(void);
+void func_80294E50_6384F0(void); // overlay1 entrypoint
 void func_80294E70_638510(Gfx **dl, u8 alpha);
 void func_80294EB8_638558(Gfx **dl);
 void func_802950B8_638758(void);
@@ -180,6 +181,14 @@ void func_802C9834_6DAEE4(void);
 void func_802CB360_6DCA10(void);
 
 s32  func_802F8160_709810(s32, s32, s32, s32, s32, s32, s32, s32, f32);
+
+// overlay2_6A6500.c
+void func_80294E50_6A6500(void); // overlay2 entrypoint
+void func_8029614C_6A77FC(void);
+void func_8029619C_6A784C(void);
+void func_802961D4_6A7884(void);
+void func_80296310_6A79C0(void);
+s32  func_80296320_6A79D0(void);
 
 // overlay2_6AB090.c
 void func_802999E0_6AB090(DisplayList *arg0);
@@ -276,12 +285,47 @@ void func_80380620_791CD0(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
 void func_80380644_791CF4(Animal *arg0);
 void func_8038064C_791CFC(void);
 
-
+// sssv/cheats.c
 void func_8038BA30_79D0E0(void);
+void func_8038BAC0_79D170(u16 *buttonMaskPtr);
+s32  func_8038C13C_79D7EC(u8 *buttonPresses, u8 *cheatCode);
 
 // overlay2_79E640
 void func_8038CF90_79E640(void);
 void func_8038DA70_79F120(void);
 void func_8038F694_7A0D44(void);
+
+
+// overlay2_7A0DA0
+void func_8038F6F0_7A0DA0(void);
+void func_8038F708_7A0DB8(void);
+void func_8038F794_7A0E44(void);
+void func_8038F8C8_7A0F78(void);
+void func_8038F968_7A1018(void);
+void func_8038FA00_7A10B0(void);
+void func_8038FAB4_7A1164(void);
+void func_8038FB68_7A1218(void);
+void func_8038FB94_7A1244(s16 arg0);
+void func_8038FC04_7A12B4(void);
+void func_8038FC58_7A1308(void);
+void func_8038FCF8_7A13A8(void);
+void func_8038FD74_7A1424(void);
+void func_8038FF48_7A15F8(void);
+void func_8039264C_7A3CFC(void);
+void func_80395074_7A6724(s32 arg0);
+void func_80395088_7A6738(Gfx **arg0, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 color);
+void func_803951BC_7A686C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
+void func_80395314_7A69C4(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
+void func_8039546C_7A6B1C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
+void func_80395480_7A6B30(void);
+void func_80395854_7A6F04(void);
+void func_80395B58_7A7208(void);
+void func_80395E98_7A7548(Gfx **arg0);
+void func_803960F4_7A77A4(Gfx **arg0);
+void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
+s32  func_80396714_7A7DC4(void);
+s32  func_80396748_7A7DF8(void);
+
+void func_8039C834_7ADEE4(s32, s32, s32, s32, f32, f32, s32, s32, s32, u16);
 
 #endif

@@ -360,6 +360,8 @@ select_comic_sans_font = 0x8012C2A4;
 select_lcd_font        = 0x8012C2E4;
 font_init              = 0x80130B00;
 
+check_cheat_code       = 0x8038C13C; // rom:0x79D7EC
+
 jtbl80302E00 = 0x80302E00;
 jtbl80302E1C = 0x80302E1C;
 jtbl80302E38 = 0x80302E38;

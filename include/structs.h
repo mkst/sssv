@@ -156,9 +156,9 @@ typedef struct {
 typedef struct {
     u8  pad0[0x3F798];
     s16 unk3F798;
-    u8  padunk3F79A[0x1E];
+    u8  pad3F79A[0x1E];
     s16 unk3F7B8;
-    u8  padunk3F7BA[0x1E];
+    u8  pad3F7BA[0x1E];
     s32 unk3F7D8;
 } struct009;
 
@@ -283,6 +283,24 @@ typedef struct {
     /* 0x38918 */ s32 unk38918; // used modelview matrices (unk33590, max 240?)
     /* 0x3891C */ u8  pad3891C[0x9f4];
     /* 0x39310 */ s16 unk39310;
+                  u8  pad39311[0x2327];
+                  Light unk3B638;
+                  Light unk3B640;
+                  s8  unk3B648;
+                  s8  unk3B649;
+                  s8  unk3B64A;
+                  u8  pad3B64B[0x5];
+                  s8  unk3B650;
+                  s8  unk3B651;
+                  s8  unk3B652;
+                  u8  pad3B653;
+                  s8  unk3B654;
+                  s8  unk3B655;
+                  s8  unk3B656;
+                  u8  pad3B657;
+                  s8  unk3B658;
+                  s8  unk3B659;
+                  s8  unk3B65A;
 } DisplayList;
 
 typedef struct {
@@ -430,10 +448,37 @@ typedef struct {
 
 typedef struct {
     s16 unk0;
-    u8  pad2[0x24];
+    u16 unk2;
+    u8  pad4[0x2];
+    u16 unk6;
+    u16 unk8;
+    u8  padA[0x4];
+    u16 unkE;
+    u8  pad10[0x4];
+    u16 unk14;
+    u16 unk16;
+    u16 unk18;
+    s16 unk1A;
+    u8  pad1C[0x2];
+    s16 unk1E;
+    s16 unk20;
+    s16 unk22;
+    u16 unk24;
     u8  unk26;
-    u8  unk27[0x6];
+    u8  unk27;
+    u8  pad28;
+    u8  unk29;
+    u8  unk2A;
+    u8  unk2B;
+    u8  unk2C;
     u8  unk2D;
+    u8  unk2E;
+    u8  pad2F[0x2];
+    u8  unk31;
+    u8  pad32;
+    u8  unk33;
+    u8  pad34;
+    u8  unk35;
 } struct027;
 
 typedef struct {
@@ -517,5 +562,59 @@ typedef struct {
     u8  b;
     // u8  pad7;
 } Fog; // size 0x8
+
+typedef struct {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+} struct004; // sizze 0x18
+
+typedef struct {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+    s16 unk8;
+    s16 europe;
+    s16 ice;
+    s16 jungle;
+    s16 desert;
+    s16 final;
+    s16 hidden;
+    s16 unk16;
+    s16 unk18;
+} struct005; // size 0x1A
+
+typedef struct {
+    u8 pad0[0x2D];
+    s8 unk2D;
+} struct030;
+
+typedef struct {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    s32 unk30; // tbd
+    s32 unk34; // tbd
+    s32 unk38;
+    s32 unk3C;
+    s16 unk40;
+    s16 unk42;
+    s16 unk44;
+    u8  pad46;
+    f32 unk48;
+} struct032;
 
 #endif

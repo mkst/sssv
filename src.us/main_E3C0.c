@@ -84,6 +84,7 @@ s32 func_80132D84(ALSndPlayer *sndp) {
 
 // bit odd, copy values into some structs?
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80132F70.s")
+// play a sound effect?
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013307C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80133188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013328C.s")
