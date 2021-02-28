@@ -256,7 +256,7 @@ segments:
   - [0x129D80, bin, rnc_129D80] # 517 => 2048
   - [0x129F90, bin, rnc_129F90] # 438 => 2048
   - [0x12A150, bin, rnc_12A150] # 565 => 2048
-  - [0x12A390, bin, rnc_12A390] # 18979 => 51200
+  - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
   ##
   - [0x12EDC0, bin] # sound file
   - [0x1AE480, bin]
@@ -581,10 +581,10 @@ segments:
     subsections:
     - [0x6A6500, c]
     - [0x6A7A80, asm]
-    - [0x6AB090, asm]
+    - [0x6AB090, c]
     - [0x6AC360, asm]
     - [0x6ACF20, asm]
-    - [0x6B5380, asm]
+    - [0x6B5380, c]
     - [0x6C5570, asm]
     - [0x6C63D0, c, sssv/collision]
     - [0x6C9DD0, asm]
@@ -653,16 +653,16 @@ segments:
     - [0x79D8E0, asm]
     - [0x79DE10, asm] # references animal info screen background
     - [0x79E640, c]
-    - [0x7A0DA0, asm]
+    - [0x7A0DA0, c]
     - [0x7A8A50, asm]
     - [0x7A9CE0, asm]
     - [0x7AF410, asm]
   - name:  overlay2_data
     type:  code
-    start: 0x007B1BA0
+    start: 0x007B1B90
     vram:  0x803A04E0
     subsections:
-    - [0x7B1BA0, bin]
+    - [0x7B1B90, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C8AC0, bin] # more textures
     # - [0x7D0000, .rodata, sssv/osd]

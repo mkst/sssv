@@ -33,7 +33,16 @@ void func_80128E18(u8 *dst, u8 *src) {
     dst[i] = 0; // NUL terminate
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80128E90.s")
+// strcpy
+void func_80128E90(u8* dst, u8 *src) {
+    u16 i = 0;
+    while (src[i] != 0) {
+        dst[i] = src[i];
+        i++;
+    }
+
+    dst[i] = 0; // NUL terminate
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80128ED4.s")
 

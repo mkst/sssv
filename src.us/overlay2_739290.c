@@ -4,7 +4,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80327BE0_739290.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80327DA0_739450.s")
 void func_80327DA0_739450(void) {
 }
 

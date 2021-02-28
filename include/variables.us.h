@@ -33,6 +33,10 @@ extern s32  D_80000400;
 
 extern s32  D_80025C00;
 
+// 0x800Bxxxx
+
+extern struct038 D_800BB210[];
+
 // 0x8010xxxx
 
 extern s32  D_80100000;
@@ -56,6 +60,7 @@ extern u32  D_80151430;
 extern u16  D_80151434;
 extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 extern f32  D_80151C38[];
+extern s16  D_80152C78[];
 extern s16  D_80152040[];
 extern s8   D_80152248[];
 extern struct013  D_80152350[];
@@ -85,7 +90,9 @@ extern f32  D_801546C8;
 extern f32  D_801546CC;
 extern f32  D_801546D0;
 extern f32  D_801546D4;
-extern f32  D_801546D8;
+extern s16  D_801546D8;
+extern u16  D_801546E0;
+extern s32  D_80154C4C[]; // sound effect pointers?
 
 extern s16  D_801550F8[];
 extern s32  D_80155154; // sound initialised?
@@ -139,6 +146,7 @@ extern struct009 D_8019A658[];
 
 extern s32  D_801D9D70; // camera position? distance? angle?
 extern u16  D_801D9E38;
+extern s16 *D_801D9E6C;
 extern s16 *D_801D9E70;
 extern s16 *D_801D9E74;
 extern s32  D_801D9E78;
@@ -156,6 +164,7 @@ extern struct035 D_801D9ED8[];
 
 extern struct002 *D_80200000;
 extern s16  D_80200008;
+extern s16  D_80203FD0;
 extern s32  D_80203FD2;
 extern RomHeader D_80204240;
 extern s16  D_80204260;
@@ -230,6 +239,9 @@ extern f32  D_80299DE4;
 extern f32  D_80299DE8;
 extern f32  D_80299DEC;
 extern f32  D_80299DF0;
+extern s8   D_80299E24;
+extern u8   D_80299FCC;
+extern s16  D_80299FD0;
 
 extern s32  D_802AFBD0;
 extern s32  D_802B12D0;
@@ -258,6 +270,7 @@ extern struct012 D_802053E0;
 extern s16 D_802053EA;
 extern struct012 D_802053F0; // pointer?
 extern struct012 D_80205400;
+extern s32 D_80205410[];
 extern s16  D_8020540C;
 extern u8   D_80286458;
 extern u16  D_8028645A;
@@ -294,6 +307,7 @@ extern u8   D_802912E4;
 extern u8   D_802912E5;
 
 extern f32  D_80302D20; // 15000.0f
+extern f64  D_80302D28;
 extern u16  D_80302E60;
 extern s32  D_80302E88;
 extern s32  D_8032AE88;
@@ -302,12 +316,14 @@ extern s32  D_8033CE88;
 extern s32  D_80364E88;
 extern s32  D_80376ED8;
 extern s32  D_8039E2E8;
+extern s16  D_803A0500;
 extern s32  D_803A05B0;
 extern s32  D_803A38D8;
 extern s8   D_803A63B0[];
 extern s16  D_803A6730[];
 extern s16  D_803A69F0[];
 extern s16  D_803A6CE4;
+extern s16  D_803A8340;
 extern u8  *D_803A8344; // timer string written here
 extern s32  D_803A8EC8;
 extern struct029 D_803A4B78[];
@@ -320,7 +336,13 @@ extern s16  D_803B62B0;
 extern s16  D_803B62B4;
 extern u16  D_803B62B8;
 extern s16  D_803B62BC;
-extern u16  D_803B62C0;
+extern u8   D_803B62C0;
+extern struct028 D_803B66F0;
+extern struct004 D_803B6700[];
+extern struct004 D_803B6730;
+extern struct004 D_803B683C;
+extern struct004 D_803B6790;
+extern u16  D_803B6870[];
 extern u8   D_803BBF00[]; // "\nASSERT: TotalMass != 0, %s, %u\n" (in /src/collision.c)
 extern u8   D_803BE940[]; // "%8d"
 extern u8   D_803BE944[]; // "%d"
@@ -336,25 +358,26 @@ extern f32  D_803BEB20;
 extern u8   D_803BFAA0[]; // "%9d"
 extern u8   D_803BFAA4[]; // (%3d  %3d  %4d)
 extern u8   D_803BFAB4[]; // Ver - 1.37
-extern u8   D_803BFAC0[]; // WIZDIZWE
-extern u8   D_803BFACC[]; // UDIZDUZD
-extern u8   D_803BFAD8[]; // UDZIDEZD
-extern u8   D_803BFAE4[]; // UDIZDWZD
-extern u8   D_803BFAF0[]; // UDIZDLZD
-extern u8   D_803BFAFC[]; // UDIZDRZD
-extern u8   D_803BFB08[]; // DUZIDLZD
-extern u8   D_803BFB14[]; // UIZDLZDU
-extern u8   D_803BFB20[]; // IDZIDUIL
-extern u8   D_803BFB2C[]; // ZDUIRILR
-extern u8   D_803BFB38[]; // LRZILZRL
-extern u8   D_803BFB44[]; // DANISIL
+extern u8   D_803BFAC0[]; // WIZDIZWE (energy top up)
+extern u8   D_803BFACC[]; // UDIZDUZD (unlock Europe)
+extern u8   D_803BFAD8[]; // UDZIDEZD (unlock Ice)
+extern u8   D_803BFAE4[]; // UDIZDWZD (unlock Jungle)
+extern u8   D_803BFAF0[]; // UDIZDLZD (unlock Desert)
+extern u8   D_803BFAFC[]; // UDIZDRZD (unlock Final level)
+extern u8   D_803BFB08[]; // DUZIDLZD (unlock Hidden level)
+extern u8   D_803BFB14[]; // UIZDLZDU ("Funny effect 1")
+extern u8   D_803BFB20[]; // IDZIDUIL ("Funny effect 2")
+extern u8   D_803BFB2C[]; // ZDUIRILR ("Funny effect 3")
+extern u8   D_803BFB38[]; // LRZILZRL ("Funny effect 4")
+extern u8   D_803BFB44[]; // DANISIL (stop camera in Wallrace64 (?))
+extern u8   D_803BFB50[]; // "%9d"
 
 extern DisplayList* D_803D3434;
 // more position vars
 extern struct037 *D_803D5520;
 extern struct035 *D_803D5524;
 extern s32 D_803D5528;
-extern struct026 *D_803D552C; // is this Animal?
+extern Animal *D_803D552C;
 extern s16 D_803D5540;
 extern u16 D_803D5544;
 extern s8  D_803D554B;
@@ -363,8 +386,12 @@ extern s32 D_803D5564;
 extern s32 D_803D5568;
 extern u8  D_803D5575; // controller maginitude?
 
+extern s16  D_803F3330[]; // tbd
+extern s16  D_803F34C0[]; // tbd
+extern s16  D_803F63C0;
+extern s16  D_803F63E0;
 extern u8   D_803F6410[20];
-extern u16  D_803F6428[13];
+extern struct005  D_803F6428;
 extern s16  D_803F642C;
 extern s16  D_803F642E;
 extern s16  D_803F6432;
@@ -376,19 +403,40 @@ extern s16  D_803F643C;
 extern struct027 D_803F6680;
 extern u16  D_803F6684;
 extern u8   D_803F66A6;
+extern u16  D_803F66A4;
 extern u8   D_803F66AD;
+extern u8   D_803F66AE;
+extern u8   D_803F66AF;
+extern struct032 D_803F66B8;
+extern f32  D_803F6700;
 extern u16  D_803F6704;
+extern u16  D_803F6706;
+extern u16  D_803F6708;
+extern u16  D_803F670A;
+extern u16  D_803F670C;
+extern u16  D_803F670E;
 extern u16  D_803F6714;
-extern s32  D_803F671C;
+extern s16  D_803F6716; // these 3 store eeprom data
+extern s16  D_803F6718;
+extern s16  D_803F671A;
+extern s16  D_803F671C;
 
 extern s16  D_803C0420[];
+
+extern f32  D_803C0388;
 extern u8   D_803C0422;
-extern u8   D_803C0424;
-extern s32  D_803C0426;
+extern s16  D_803C0424;
+extern s16  D_803C0426;
 extern s32  D_803C0428;
 extern s16  D_803C042A;
-extern s32  D_803C0640;
-extern s32  D_803C0648;
+extern Fog  D_803C0660[]; // fogPositions? or just a coincidence
+extern u8   D_803C063C;
+extern s64  D_803C0640;
+extern s32  D_803C0644;
+extern s64  D_803C0648;
+extern s64  D_803C064C;
+extern s64  D_803C0650;
+extern u16  D_803C0658; // matrix normalise
 extern u16  D_803F2CD0;
 extern s16  D_803F2CD2; // (race?) timer
 extern s16  D_803F2CD4;
@@ -416,32 +464,40 @@ extern f32  D_803F2C4C;
 extern struct034 D_803F2D04;
 extern struct001 D_803F2D30;
 extern s16  D_803F2D34;
-extern s16  D_803F2D38;
-extern u8   D_803F2D39; // map index
+extern s16  D_803F2D38; // map index
 extern u8   D_803F2D3E; // score as a string, e.g. "       0"
 extern struct000 D_803F2D50;
 extern u16  D_803F2D68;
 extern s16  D_803F2D70; // biome (0 Europe, 1 Ice, 2 Desert, 3 Jungle)
-extern s64  D_803C0644;
-extern s64  D_803C064C;
-extern s32  D_803C0654;
+
+
+extern s16  D_803D5510;
+extern s16  D_803D5512;
 extern Animal *D_803D5530;
-extern s32  D_803D5534; // this is gCurrentAnimalIndex!
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
 extern u8   D_803D5538;
 extern u16  D_803D553A;
 extern s16  D_803D553C;
 extern s16  D_803D553E;
-extern s16  D_803F2E16;
-extern s16  D_803F2E2A;
 extern s32  D_803E4D28;
 extern s32  D_803E4D2C;
 extern s16  D_803E1BC0;
 extern u16  D_803E1BC4; // buttons pressed
+extern Fog  D_803E1CF8;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  D_803E9824;
 extern u16  D_803E9828[];
+extern s16  D_803F2E16;
+extern s16  D_803F2E2A;
+extern s32  D_803F2EB0;
+extern s32  D_803F2EB4;
+extern s32  D_803F2EB8;
+extern struct030 D_803F7DA8;
+extern s8   D_803F7DD4;
+extern s8   D_803F7DD5;
+extern s8   D_803F7DD6;
+
 extern s32  D_801DD800;
 extern struct015 D_801DDD8C[]; // animals struct array
 extern s32  D_80231AA0;
@@ -460,6 +516,8 @@ extern f32  D_8023F1FC;
 extern s32  D_8023F260[]; // likely Eeprom too
 extern Eeprom D_8023F2A0;
 extern s32  D_8023F2A8; // TODO: is this D_8023F2A0.unk8?
+extern s8   D_8023F2AC;
+extern s8   D_8023F2AD;
 extern s8   D_8023F2AE;
 extern Eeprom  D_8023F2E0[];
 
@@ -485,7 +543,7 @@ extern OSMesgQueue D_802423D0;
 extern s16  D_803F2A98;
 extern u8   D_803F2AA2;
 extern u8   D_803F2AA3;
-extern s32  D_803F28D0;
+extern u16  D_803F28D0;
 extern struct025   D_803F28E0[];
 extern ALGlobals   D_8023F708;
 extern struct003 D_803F2D10;
@@ -493,6 +551,10 @@ extern struct003 D_803F2D10;
 extern s32  D_80032870;
 extern u8   D_80099600[]; // _gfxdlistSegmentStart
 extern u8   D_8004B400[]; // _gfxdlistSegmentEnd
+extern s32  D_800C3A40;
+extern s32  D_800C4240;
+extern s32  D_800C4A40;
+extern s32  D_800C5240;
 extern s32  D_800C5A40;
 extern s32  D_800DCC20; // water texture location?
 extern u8   D_800DEE20[]; // tbd
@@ -502,7 +564,17 @@ extern u8   D_800EF0D0[]; // _fontbufferSegmentEnd
 extern u8   D_800FF0D0[];
 
 // display lists
+extern u8   D_01003498[];
+extern u8   D_01003998[];
+extern u8   D_01003B70[];
 extern u8   D_01004270[];
+extern u8   D_01004360[];
+extern u8   D_010043A0[];
+extern u8   D_01004AF8[];
+extern u8   D_01021BB0[];
+extern u8   D_01030810[];
 extern u8   D_0103B6F0[];
-
+extern u8   D_04005B60[];
+extern u8   D_04006D00[];
+extern u8   D_0400A9E0[];
 #endif

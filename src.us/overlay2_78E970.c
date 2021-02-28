@@ -2,24 +2,24 @@
 #include "common.h"
 
 
-// unused
+
 void func_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
-// unused
+
 void func_8037D2D4_78E984(s32 arg0, s32 arg1, s32 arg2) {
 }
-// unused
+
 void func_8037D2E4_78E994(s32 arg0) {
     u8 *nonsense;
     rnc_decompress(nonsense, D_800DF220);
 }
-// unused
+
 void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2) {
 }
-// unused
+
 void func_8037D320_78E9D0(s32 arg0, s32 arg1) {
 }
-// unused
+
 void func_8037D32C_78E9DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
@@ -89,18 +89,14 @@ void func_8037D9D4_78F084(void) {
 //     } else {
 //         phi_a0 = 1;
 //     }
-//     temp_a2 = &D_803D5524 + ((phi_a0 * 4) - phi_a0);
-//     temp_t8 = (D_803D552C->unk2E0[phi_a0] + (temp_a2->unkDC * 8)) / temp_a2->unkDA;
+//     temp_a2 = &D_803D5524 + (phi_a0 * 3);//((phi_a0 * 4) - phi_a0);
+//     temp_t8 = (D_803D552C->skillAEnergy[phi_a0] + (temp_a2->unkDC * 8)) / temp_a2->unkDA;
 //     if (temp_t8 == 1) {
-//         if (D_803D552C->unk2E8 == 0) {
-//             if (D_803D552C->unk2E9 == 0) {
-//                 if (D_803D552C->unk2EA == 0) {
-//                     D_803D552C->unk2E9 = (u8)1U;
-//                     return;
-//                 } else {
-//                     D_803D552C->unk2E8 = (u8)1U;
-//                     return;
-//                 }
+//         if ((D_803D552C->unk2E8 == 0) && (D_803D552C->unk2E9 == 0)) {
+//             if (D_803D552C->unk2EA == 0) {
+//                 D_803D552C->unk2E9 = 1U;
+//             } else {
+//                 D_803D552C->unk2E8 = 1U;
 //             }
 //         }
 //     } else if (temp_t8 >= 2) {
@@ -124,7 +120,7 @@ void func_8037FE24_7914D4(void) {
             D_803D552C->unk2E8 = 8U;
         }
     }
-    tmp = ((D_803D552C->unk2E4 + (D_803D5524->unkE2 * 8)) / D_803D5524->unkE0);
+    tmp = ((D_803D552C->skillBEnergy[0] + (D_803D5524->unkE2 * 8)) / D_803D5524->unkE0);
     if ((tmp > 0) && (D_803D552C->unk2E8 == 0)) {
         D_803D552C->unk2E8 = 1U;
     }

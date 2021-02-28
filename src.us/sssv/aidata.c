@@ -82,8 +82,8 @@ extern u8 D_803BCD78[];
 //         return 2;
 //     }
 //
-//     if ((D_803F2D70 != (s32)(&D_801D9ED8 + (arg0 * 0xEC) + 0xFFFF0000) + 0x14D6) ||
-//         (D_803F2D70 != (s32)(&D_801D9ED8 + (arg1 * 0xEC) + 0xFFFF0000) + 0x14D6)) {
+//     if ((D_803F2D70 != (s32)(&D_801D9ED8[arg0] + 0xFFFF0000) + 0x14D6) ||
+//         (D_803F2D70 != (s32)(&D_801D9ED8[arg1] + 0xFFFF0000) + 0x14D6)) {
 //         return 0;
 //     }
 //
