@@ -627,7 +627,7 @@ segments:
     - [0x732A60, asm]
     - [0x734D30, asm]
     - [0x739290, c] # cheats?
-    - [0x73EA30, asm]
+    - [0x73EA30, c]
     - [0x73ED30, asm]
     - [0x741000, asm]
     - [0x7558F0, asm]

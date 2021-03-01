@@ -298,6 +298,13 @@ s16  func_803051F0_7168A0(s16 arg0, s16 arg1);
 
 void func_803223F4_733AA4(s32);
 
+// overlay2_716530
+s32  func_80304E80_716530(struct039 *arg0);
+void func_80304EC4_716574(struct039 *arg0, struct039 *arg1);
+void func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2);
+s16  func_80305194_716844(s16 arg0, s16 arg1);
+s16  func_803051F0_7168A0(s16 arg0, s16 arg1);
+
 // overlay2_739290.c
 void func_8032AA94_73C144(void);
 struct025* func_803284C4_739B74(void);
@@ -314,6 +321,14 @@ void func_8032C2D0_73D980(s16 arg0, s16 arg1, f32 arg2);
 void func_8032C360_73DA10(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, f32 arg6);
 void func_8032C508_73DBB8(s16 arg0, s16 arg1, s16 arg2, f32 arg3);
 void func_8032CD20_73E3D0(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4);
+
+// overlay2_73EA30
+void func_8032D380_73EA30(Vertex *x, Vertex *y, Vertex *res);
+void func_8032D3B4_73EA64(Vertex *x, Vertex *y, Vertex *res);
+void func_8032D3E8_73EA98(Vertex *x, f32 c, Vertex *res);
+void func_8032D414_73EAC4(Vertex *x, f32 c, Vertex *res);
+f32  func_8032D504_73EBB4(Vertex *x, Vertex *y);
+void func_8032D534_73EBE4(Vertex *x, Vertex *y, Vertex *res);
 
 void func_80304170_715820(void);
 void func_80304194_715844(void);

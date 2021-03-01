@@ -1022,4 +1022,10 @@ typedef struct {
     s8 unk2[0x30];
 } struct059;
 
+typedef struct {
+    /* 0x00 */ f32 x;
+    /* 0x04 */ f32 y;
+    /* 0x08 */ f32 z;
+} Vertex;
+
 #endif
