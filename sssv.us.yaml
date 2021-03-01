@@ -598,7 +598,7 @@ segments:
     - [0x6B5380, c]
     - [0x6C5570, asm]
     - [0x6C63D0, c, sssv/collision]
-    - [0x6C9DD0, asm]
+    - [0x6C9DD0, c]
     - [0x6CCEF0, asm]
     - [0x6D9330, asm]
     - [0x6D9AF0, asm]
