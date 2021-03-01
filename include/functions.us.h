@@ -298,6 +298,13 @@ s16  func_803051F0_7168A0(s16 arg0, s16 arg1);
 
 void func_803223F4_733AA4(s32);
 
+// overlay2_716530
+s32  func_80304E80_716530(struct039 *arg0);
+void func_80304EC4_716574(struct039 *arg0, struct039 *arg1);
+void func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2);
+s16  func_80305194_716844(s16 arg0, s16 arg1);
+s16  func_803051F0_7168A0(s16 arg0, s16 arg1);
+
 // overlay2_739290.c
 void func_8032AA94_73C144(void);
 struct025* func_803284C4_739B74(void);
