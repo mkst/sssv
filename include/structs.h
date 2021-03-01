@@ -555,6 +555,11 @@ typedef struct {
 } struct038; // size 0xAB8
 
 typedef struct {
+	u32 unk0;
+	u32 unk4;
+} struct039;
+
+typedef struct {
     s16 min;
     s16 max;
     u8  r;

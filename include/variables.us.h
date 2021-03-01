@@ -386,6 +386,10 @@ extern s32 D_803D5564;
 extern s32 D_803D5568;
 extern u8  D_803D5575; // controller maginitude?
 
+extern u16 D_803F2D20;
+extern s8  D_803F2D22;
+extern s8  D_803F2D23;
+
 extern s16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
