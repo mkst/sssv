@@ -20,8 +20,8 @@ void func_80304EC4_716574(struct039 *arg0, struct039 *arg1) {
         arg1->unk0 = 0;
         arg1->unk4 = 0;
     } else {
-        arg1->unk0 = (s32) (arg0->unk0 << 8) / temp_v0;
-        arg1->unk4 = (s32) (arg0->unk4 << 8) / temp_v0;
+        arg1->unk0 = (s32) (arg0->unk0 * 256) / temp_v0;
+        arg1->unk4 = (s32) (arg0->unk4 * 256) / temp_v0;
     }
 }
 
@@ -32,7 +32,20 @@ void func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716530/func_80304F94_716644.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716530/func_80305084_716734.s")
+s16 func_80305084_716734(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
+    f32 tmp;
+    s16 res;
+
+    tmp = sqrtf(arg0 * arg0 + arg1 * arg1);
+    tmp *= sqrtf(arg2 * arg2 + arg3 * arg3);
+
+    if (tmp == 0.0f) {
+        res = (u16)0;
+    } else {
+        res = func_801283AC((((arg0 * arg2) + (arg1 * arg3)) * 256) / tmp);
+    }
+    return res;
+}
 
 s16 func_80305194_716844(s16 arg0, s16 arg1) {
     s32 diff;

@@ -160,7 +160,7 @@ extern Gfx *D_801D9E94;
 extern struct014 *D_801D9E98[];
 extern Gfx *D_801D9EB8;
 extern u16  D_801D9ED4;
-extern struct035 D_801D9ED8[]; // size 0xEC
+extern struct050 D_801D9ED8; // what is this variable!?
 
 // 0x8020xxxx
 
@@ -206,6 +206,8 @@ extern OSThread gThread9; // thread ID 9
 extern s32  D_8028D230;
 
 extern s16  D_8028654C;
+extern s16  D_80286560;
+extern s16  D_80286562;
 extern OSThread gThread6; // thread ID 6
 extern OSThread gThread7; // thread ID 7
 extern s32  D_80288E30;
@@ -334,11 +336,13 @@ extern u8   D_803A4ABC[]; // ice
 extern u8   D_803A4A2C[]; // jungle
 extern u8   D_803A4B38[]; // desert
 
+extern s32  D_803B6000[];
 extern s16  D_803B62B0;
 extern s16  D_803B62B4;
 extern u16  D_803B62B8;
 extern s16  D_803B62BC;
 extern u8   D_803B62C0;
+extern s16  D_803B62D0[];
 extern u8   D_803B6318;
 extern s32  D_803B6320[];
 extern s32  D_803B6328[];
@@ -348,6 +352,8 @@ extern struct004 D_803B6730;
 extern struct004 D_803B683C;
 extern struct004 D_803B6790;
 extern u16  D_803B6870[];
+extern struct046 D_803B6890[];
+extern s16  D_803B6B24[];
 extern f32  D_803B7468;
 extern u8   D_803BBF00[]; // "\nASSERT: TotalMass != 0, %s, %u\n" (in /src/collision.c)
 extern f64  D_803BBF48; // 0.7
@@ -365,29 +371,32 @@ extern f32  D_803BEB18;
 extern f32  D_803BEB1C;
 extern f32  D_803BEB20;
 
-extern u8   D_803BFAA0[]; // "%9d"
-extern u8   D_803BFAA4[]; // (%3d  %3d  %4d)
-extern u8   D_803BFAB4[]; // Ver - 1.37
-extern u8   D_803BFAC0[]; // WIZDIZWE (energy top up)
-extern u8   D_803BFACC[]; // UDIZDUZD (unlock Europe)
-extern u8   D_803BFAD8[]; // UDZIDEZD (unlock Ice)
-extern u8   D_803BFAE4[]; // UDIZDWZD (unlock Jungle)
-extern u8   D_803BFAF0[]; // UDIZDLZD (unlock Desert)
-extern u8   D_803BFAFC[]; // UDIZDRZD (unlock Final level)
-extern u8   D_803BFB08[]; // DUZIDLZD (unlock Hidden level)
-extern u8   D_803BFB14[]; // UIZDLZDU ("Funny effect 1")
-extern u8   D_803BFB20[]; // IDZIDUIL ("Funny effect 2")
-extern u8   D_803BFB2C[]; // ZDUIRILR ("Funny effect 3")
-extern u8   D_803BFB38[]; // LRZILZRL ("Funny effect 4")
-extern u8   D_803BFB44[]; // DANISIL (stop camera in Wallrace64 (?))
-extern u8   D_803BFB50[]; // "%9d"
-extern u8   D_803BFFD4[]; // "%s\n"
+extern char D_803BF3F0[];
+extern char D_803BF400[];
+extern char D_803BFA90[]; // "%s"
+extern char D_803BFAA0[]; // "%9d"
+extern char D_803BFAA4[]; // (%3d  %3d  %4d)
+extern char D_803BFAB4[]; // Ver - 1.37
+extern char D_803BFAC0[]; // WIZDIZWE (energy top up)
+extern char D_803BFACC[]; // UDIZDUZD (unlocks Europe)
+extern char D_803BFAD8[]; // UDZIDEZD (unlocks Ice)
+extern char D_803BFAE4[]; // UDIZDWZD (unlocks Jungle)
+extern char D_803BFAF0[]; // UDIZDLZD (unlocks Desert)
+extern char D_803BFAFC[]; // UDIZDRZD (unlocks Final level)
+extern char D_803BFB08[]; // DUZIDLZD (unlocks Hidden level)
+extern char D_803BFB14[]; // UIZDLZDU ("Funny effect 1")
+extern char D_803BFB20[]; // IDZIDUIL ("Funny effect 2")
+extern char D_803BFB2C[]; // ZDUIRILR ("Funny effect 3")
+extern char D_803BFB38[]; // LRZILZRL ("Funny effect 4")
+extern char D_803BFB44[]; // DANISIL (stop camera in Wallrace64 (?))
+extern char D_803BFB50[]; // "%9d"
+extern char D_803BFFD4[]; // "%s\n"
 
 extern DisplayList* D_803D3434;
 // more position vars
 extern struct037 *D_803D5520;
 extern struct035 *D_803D5524;
-extern s32 D_803D5528;
+extern Animal *D_803D5528;
 extern Animal *D_803D552C;
 extern s16 D_803D5540;
 extern u16 D_803D5544;
@@ -407,6 +416,8 @@ extern s16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
 extern s16  D_803F63E0;
+extern s16  D_803F6400; // credit entry offset
+extern s16  D_803F6402; // credit vertical position
 extern u8   D_803F6410[20];
 extern struct005  D_803F6428;
 extern s16  D_803F642C;
@@ -437,6 +448,12 @@ extern s16  D_803F6716; // these 3 store eeprom data
 extern s16  D_803F6718;
 extern s16  D_803F671A;
 extern s16  D_803F671C;
+extern struct048  D_803F6720[][10];
+extern s16  D_803F70F8[][10];
+extern s16  D_803F7134[];
+extern s16  D_803F713C[];
+extern s16  D_803F7144[];
+extern s16  D_803F714C[];
 extern f32  D_803F7D68;
 extern u16  D_803F7D9C;
 extern u16  D_803F7D9E;
@@ -445,6 +462,7 @@ extern u16  D_803FDEA0;
 extern s16  D_803C0420[];
 
 extern f32  D_803C0388;
+extern f64  D_803C0390;
 extern f32  D_803C03F4;
 extern u8   D_803C0422;
 extern s16  D_803C0424;
@@ -535,6 +553,7 @@ extern s8   D_803F7DD8;
 
 extern s32  D_801DD800;
 extern struct015 D_801DDD8C[]; // animals struct array
+extern s16  D_801E9EB2;
 extern s16  D_801E9EB4;
 
 extern s32  D_80231AA0;

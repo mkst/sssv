@@ -3,6 +3,9 @@
 
 typedef struct struct035 struct035;
 typedef struct struct044 struct044;
+typedef struct struct049 struct049;
+
+typedef struct Animal Animal;
 
 typedef struct {
     u8  pad0[0xC];
@@ -39,7 +42,7 @@ states:
   8F - swimming
   DD - ???
 */
-typedef struct {
+struct Animal {
     /* 0x00 */  u16 state; // state? standing, walking, jumping,
     /* 0x02 */  u8  pad2[0x2];
     /* 0x04 */  s16 xPos;
@@ -67,7 +70,11 @@ typedef struct {
     /* 0x4C */  s16 unk4C;
     /* 0x4E */  u8  pad4E;
     /* 0x4F */  u8  unk4F;
-    /* 0x50 */  u8  pad50[0x80];
+    /* 0x50 */  u8  pad50[0xC];
+    /* 0x5C */  u8  unk5C;
+    /* 0x5D */  u8  pad5D[0x3];
+    /* 0x60 */  Animal* unk60;
+    /* 0x64 */  u8  pad64[0x6C];
     /* 0xD0 */  s32 unkD0;
     /* 0xD4 */  u8  padD4[0x40];
     /* 0x114 */ s16 unk114[4];
@@ -89,7 +96,25 @@ typedef struct {
     /* 0x198 */ s32 unk198; // pointer?
     /* 0x19C */ u8  pad19C[0xD1];
     /* 0x26D */ u8  unk26D;
-    /* 0x26E */ u8  pad26E[0x72];
+    /* 0x26E */ u8  pad26E[0x2];
+    /* 0x270 */ u8  unk270;
+    /* 0x271 */ u8  pad271;
+    /* 0x272 */ u16 unk272;
+    /* 0x274 */ u8  pad274[0x40];
+    /* 0x2B4 */ union {
+                    u8  ub;
+                    s16 h;
+                    u32 uw;
+                } unk2B4;
+    /* 0x2B8 */ s32 unk2B8;
+    /* 0x2BC */ s32 unk2BC;
+    /* 0x2C0 */ s32 unk2C0;
+    /* 0x2C4 */ s32 unk2C4;
+    /* 0x2C8 */ u16 unk2C8;
+    /* 0x2CA */ u8  pad2CA;
+    /* 0x2CC */ Animal* unk2CC; // is this actually Animal?
+    /* 0x2D0 */ s16 unk2D0;
+    /* 0x2D4 */ u8  pad2D2[0xE];
     /* 0x2E0 */ s16 skillAEnergy[2]; // seems to be an array?
     /* 0x2E4 */ s16 skillBEnergy[2]; // same...
     /* 0x2E8 */ u8  unk2E8;
@@ -102,9 +127,14 @@ typedef struct {
     /* 0x302 */ s16 unk304;
     /* 0x306 */ u8  pad306[0x2];
     /* 0x308 */ s16 unk308;
-    /* 0x30A */ u8  unk30A[0x4];
+    /* 0x30A */ u8  unk30A[0x2];
+    /* 0x30C */ s16 unk30C;
     /* 0x30E */ s16 unk30E;
-    /* 0x310 */ u8  pad310[0x10];
+    /* 0x310 */ s16 unk310;
+    /* 0x312 */ u8  pad312[0x2];
+    /* 0x314 */ s16 unk314;
+    /* 0x316 */ s16 unk316;
+    /* 0x318 */ u8  pad318[0x8];
     /* 0x320 */ s32 unk320; // pointer to somewhere
     /* 0x324 */ u8  pad324[0x4];
     /* 0x328 */ u16 unk328;
@@ -118,7 +148,9 @@ typedef struct {
     /* 0x354 */ s16 unk354;
     /* 0x356 */ s16 unk356;
     /* 0x358 */ s16 unk358;
-    /* 0x35A */ u8  pad35A[0x6];
+    /* 0x35A */ s16 unk35A;
+    /* 0x35C */ s16 unk35C;
+    /* 0x35E */ s16 unk35E;
     /* 0x360 */ s8  unk360;
     /* 0x361 */ u8  unk361;
     /* 0x362 */ u8  unk362;
@@ -126,13 +158,15 @@ typedef struct {
     /* 0x364 */ u8  pad364[0x2];
     /* 0x366 */ u8  unk366;
     /* 0x367 */ u8  pad367;
-    /* 0x368 */ u8  unk368;
+    /* 0x368 */ s8  unk368;
     /* 0x369 */ u8  pad369;
     /* 0x36A */ u8  unk36A;
     /* 0x36B */ u8  unk36B;
     /* 0x36C */ u8  pad36C[0x2];
     /* 0x36E */ u8  unk36E;
-} Animal;
+    /* 0x36F */ u8  pad36F[0x51];
+    /* 0x3C0 */ s16 unk3C0;
+} ;
 
 typedef struct {
     s8  unk0;
@@ -586,6 +620,7 @@ typedef struct {
 
 typedef struct {
     struct035* unk0;
+    s32 unk4;
 } struct037;
 
 typedef struct {
@@ -735,6 +770,57 @@ struct struct044 {
     struct044 *unk0;
     s32 unk4;
     s32 unk8;
-} ;
+};
+
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+} struct046; // size 0x14
+
+typedef struct {
+    u8  pad0[0x48];
+    f32 unk48;
+    f32 unk4C;
+} struct047;
+
+typedef struct {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    f32 unk30;
+    f32 unk34;
+    f32 unk38;
+    f32 unk3C;
+    f32 unk40;
+    f32 unk44;
+    f32 unk48;
+    f32 unk4C;
+    s16 unk50;
+    u8  pad52[2];
+} struct048; // size 0x54
+
+struct struct049 {
+    u8  pad0[0x4];
+    s16 unk4;
+    u8  pad6[0x2];
+    s16 unk8;
+};
+
+typedef struct {
+    /* 0x0000 */ struct035 unk0[68]; // each 0xEC so 0x3EB0 total
+    /* 0x3EB0 */ Animal    *animal;  // how many?
+} struct050;
 
 #endif

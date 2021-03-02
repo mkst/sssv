@@ -191,6 +191,7 @@ void func_8038FD74_7A1424(void) {
     D_803E1BC0 = 0;
     D_803C0424 = 0;
     D_803C0426 = 0;
+    // reset credits?
     func_8038B840_79CEF0();
     func_801308E8(D_8023F2AE, 32, &D_80231AA0, &D_80231D5C);
     func_8039D580_7AEC30();

@@ -651,15 +651,15 @@ segments:
     - [0x7917A0, c, sssv/animinit]
     - [0x793700, asm]
     - [0x7943A0, asm]
-    - [0x794EE0, asm]
-    - [0x79B1E0, asm]
-    - [0x79CEF0, asm]
+    - [0x794EE0, c]
+    - [0x79B1E0, c]
+    - [0x79CEF0, c, sssv/credits]
     - [0x79D0E0, c, sssv/cheats]
-    - [0x79D8E0, asm]
-    - [0x79DE10, asm] # references animal info screen background
+    - [0x79D8E0, c]
+    - [0x79DE10, c] # references animal info screen background
     - [0x79E640, c]
     - [0x7A0DA0, c]
-    - [0x7A8A50, asm]
+    - [0x7A8A50, c]
     - [0x7A9CE0, c]
     - [0x7AF410, c]
   - name:  overlay2_data

@@ -6,7 +6,7 @@
 A WIP decompilation of Space Station Silicon Valley (SSSV) for N64.
 Checkout the [wiki](https://github.com/mkst/sssv/wiki) for more information.
 
-**Note:** To use this repository, you must already have a copy of the game.
+**Note:** To use this repository, you must already own a copy of the game.
 
 # Building
 
