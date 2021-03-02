@@ -145,7 +145,7 @@ s32 func_80131908(u32 arg0, s32 arg1, s32 arg2);
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_80131700.s")
 // s32 func_80131700(struct019 *arg0, struct020 *arg1) {
 //     s32 sp44;
-//     s32 sp3C;
+//     s32 sp3C[4];
 //     s32 temp_v1_2;
 //
 //     func_80131AD8();
@@ -159,7 +159,7 @@ s32 func_80131908(u32 arg0, s32 arg1, s32 arg2);
 //         arg0->unk4 = D_80241D08;
 //     }
 //     temp_v1_2 = alAudioFrame(&D_8023F410[D_80154688], &sp3C, sp44, arg0->unk4);
-//     if (sp3C == 0) {
+//     if (sp3C == NULL) {
 //         return 0;
 //     }
 //     arg0->unk8 = 0;
@@ -207,16 +207,90 @@ void *func_80131AA0(s32 *arg0) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_80131AD8.s")
+// need to determine type of D_80241758
+// void func_80131AD8(void) {
+//     s32 sp40[2];
+//     struct040 *temp_a1;
+//     struct040 *temp_v0;
+//     u32 i;
+//     struct040 *phi_s0_2;
+//
+//     for (i = 0; i < D_80154684; i++) {
+//         osRecvMesg(&D_802423D0, &sp40, OS_MESG_NOBLOCK);
+//     }
+//
+//     for (phi_s0_2 = D_80241758.unk4; phi_s0_2 != NULL; phi_s0_2 = phi_s0_2->unk0) {
+//         temp_v0 = phi_s0_2->unk0;
+//         if ((u32) (phi_s0_2->unkC + 2) < (u32) D_80154680) {
+//             if ((s32)phi_s0_2 == D_80241758.unk4) {
+//                 D_80241758.unk4 = temp_v0;
+//             }
+//             alUnlink(phi_s0_2);
+//             temp_a1 = D_80241758.unk8;
+//             if (temp_a1 != 0) {
+//                 alLink(phi_s0_2, temp_a1);
+//             } else {
+//                 D_80241758.unk8 = phi_s0_2;
+//                 phi_s0_2->unk0 = NULL;
+//                 phi_s0_2->unk4 = 0;
+//             }
+//         }
+//     }
+//     D_80154684 = 0;
+//     D_80154680 += 1;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_80131BF0.s")
 
+// some kind of de-init?
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_80132044.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_801320EC.s")
+// NON-MATCHING: once D_80286338 is figured out...
+// struct042 *func_801320EC(void) {
+//     struct042 *temp_a0;
+//     s32 i;
+//
+//     if (D_80155154 == 0) {
+//         return NULL;
+//     }
+//     if (D_8015468C >= 21) {
+//         return NULL;
+//     }
+//
+//     for (i = 0; i < 20; i++) {
+//         if (D_80286388[i] != -1) {
+//             D_80286388[i] = -1;
+//             break;
+//         }
+//     }
+//     temp_a0 = &D_80286338[i]; // arghhh what type is this hold?
+//     temp_a0->unk0->unk1E = i;
+//     return temp_a0;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_80132174.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_801322EC.s")
+void func_801322EC(struct026 *arg0, struct026 *arg1, struct026 *arg2) {
+    if ((D_80155154 != 0) && (arg0 != NULL)) {
+        func_80132044(arg0->unk1E);
+        if (arg0 == arg1->unk0) {
+            arg1->unk0 = arg0->next;
+            if (arg1->unk0 != NULL) {
+                arg1->unk0->prev = NULL;
+            } else {
+                arg2->unk0 = NULL;
+            }
+        } else {
+            arg0->prev->next = arg0->next;
+            if (arg0 != arg2->unk0) {
+                arg0->next->prev = arg0->prev;
+            } else {
+                arg2->unk0 = arg0->prev;
+            }
+        }
+    }
+}
 
 void func_80132394(void) {
     struct017 *snd;
@@ -286,26 +360,24 @@ void *func_80132580(s32 arg0, s16 id) {
     return NULL;
 }
 
-// load_sequence_file ?
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_801325E8.s")
-// void func_801325E8(s32 arg0, s8 arg1) {
-//     s32 offset;
-//     s16 length;
-//
-//     if (D_80155154 != 0) {
-//         ALSeqFile *sf = &D_8028630C[arg0];
-//         length = sf->seqArray[0].len;
-//         offset = sf->seqArray[0].offset;
-//
-//         // align to 2 bytes
-//         if (length & 1) {
-//             length += 1;
-//         }
-//
-//         osWritebackDCacheAll();
-//         dma_read(offset, D_80286314[arg1], length);
-//     }
-// }
+// load_sequence_array ?
+void func_801325E8(s32 seqArrayIndex, s8 destIndex) {
+    s32 offset;
+    s16 length;
+
+    if (D_80155154 != 0) {
+        offset = D_8028630C->seqArray[seqArrayIndex].offset;
+        length = D_8028630C->seqArray[seqArrayIndex].len;
+
+        // align to 2 bytes
+        if (length & 1) {
+            length += 1;
+        }
+
+        osWritebackDCacheAll();
+        dma_read(offset, D_80286314[destIndex], length);
+    }
+}
 
 // get_seqp_state
 s32 func_8013266C(s8 arg0) {

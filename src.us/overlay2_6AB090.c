@@ -24,7 +24,7 @@ void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1) {
 // void func_80299B68_6AB218(s32 arg0) {
 //
 //     struct025 *temp_v1;
-//     struct039 *temp_v1_2;
+//     struct045 *temp_v1_2;
 //
 //     gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20 + (((s32) D_803C063C >> 1) << 9));
 //     gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0180, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);

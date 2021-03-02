@@ -5,8 +5,8 @@
 
 void func_80125950(s32 arg0) {
     osInitialize();
-    func_80129AD0();
-    func_801355B0();
+    init();
+    init2();
 }
 
 // crazy multiply/divide code, loading data, decoding? how to match this?!

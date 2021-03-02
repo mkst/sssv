@@ -72,9 +72,9 @@ ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 ### Optimisation Overrides
 
 $(BUILD_DIR)/$(SRC_DIR)/main_1050.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2 -g3
+$(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2
 # TODO:
-# $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O3
+# $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2 -g3
 
 
 ### Targets

@@ -28,8 +28,8 @@ void func_80131070(void) {
 //             temp_s0->unk40 = arg1;
 //             temp_s0->unk44 = arg2;
 //             temp_s0->unk14 = 6;
-//             temp_s0->unk20 = &D_8014F1D0;
-//             temp_s0->unk28 = &D_8015D710;
+//             temp_s0->unk20 = &D_8014F1D0; // ucode code start
+//             temp_s0->unk28 = &D_8015D710; // ucode data start
 //             temp_s0->unk38 = &D_800EF0D0;
 //             temp_s0->unk3C = &D_800FF0D0;
 //             temp_s0->unk48 = &D_802043E0;
@@ -39,8 +39,8 @@ void func_80131070(void) {
 //             temp_s0->unk40 = arg1;
 //             temp_s0->unk44 = arg2;
 //             temp_s0->unk14 = 6;
-//             temp_s0->unk20 = &D_8014F1D0;
-//             temp_s0->unk28 = &D_8015D710;
+//             temp_s0->unk20 = &D_8014F1D0; // ucode code start
+//             temp_s0->unk28 = &D_8015D710; // ucode data start
 //             temp_s0->unk38 = &D_800EF0D0;
 //             temp_s0->unk3C = &D_800FF0D0;
 //             temp_s0->unk48 = &D_802043E0;

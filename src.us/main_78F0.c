@@ -57,12 +57,11 @@ s16 func_8012C314(f32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012D374.s")
 
-// draw_glyph
-void func_8012DCA8(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height) {
+void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height) {
     D_8023F1F8 = width;
     D_8023F1FC = height;
     func_8012FA78(arg0);
-    func_8012FB4C(arg0, *arg1);
+    load_glyph(arg0, *arg1);
 
     gSPTextureRectangle((*arg0)++, x * 4, y * 4, (x + (s32) D_8023F1F8) * 4, (y + (s32) D_8023F1FC) * 4, G_TX_RENDERTILE, 0, 0, 16384.0f / D_8023F1F8, 16384.0f / D_8023F1FC);
     gDPPipeSync((*arg0)++);
@@ -80,7 +79,7 @@ s32 func_8012E724(u16 *arg0, s32 arg1, s32 arg2) {
         } else if (temp_v0 == 339) {
             return 2;
         }
-    } else if ((temp_v0 & 0xFFFF) == 20000) {
+    } else if ((u16)temp_v0 == 20000) {
         return 3;
     }
     return 0;
@@ -105,8 +104,7 @@ void func_8012FAD4(Gfx **dl, s32 arg1) {
     gDPPipeSync((*dl)++);
 }
 
-// load_glyph
-void func_8012FB4C(Gfx **arg0, s16 arg1) {
+void load_glyph(Gfx **arg0, s16 arg1) {
     gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, ((arg1 * D_8023F1E0.glyphBytes) + D_8023F1E0.fontAddress) & 0x1FFFFFFF);
     gDPLoadSync((*arg0)++);
     gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 63, 2048);
