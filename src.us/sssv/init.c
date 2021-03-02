@@ -92,11 +92,11 @@ void func_803560CC_76777C(void) {
     func_8032AAF0_73C1A0(28);
 }
 
-void func_80356134_7677E4(s32 arg0) {
+void func_80356134_7677E4(Animal *a) {
     s32 temp_v0;
     s16 rot;
 
-    temp_v0 = func_802F8160_709810(D_803D5530, arg0, 0x20, 0x14, 0x1E, 0x59, -4, 3, (f32)D_803A05B0 / 65536.0);
+    temp_v0 = func_802F8160_709810(D_803D5530, a, 0x20, 0x14, 0x1E, 0x59, -4, 3, (f32)D_803A05B0 / 65536.0);
     if (temp_v0 == -1) {
         rot = 32;
     } else {

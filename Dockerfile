@@ -17,7 +17,8 @@ RUN python3 -m pip install \
       capstone pyyaml pycparser \
       colorama ansiwrap watchdog python-Levenshtein cxxfilt \
       python-ranges \
-      pypng
+      pypng \
+      toml
 
 RUN mkdir /sssv
 WORKDIR /sssv

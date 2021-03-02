@@ -235,12 +235,13 @@ void func_8032AA94_73C144(void) {
 // }
 
 // reset or initialise something?
+// #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AE34_73C4E4.s")
 void func_8032AE34_73C4E4(void) {
     struct035 *tmp;
     s16 i;
 
     for (i = 0; i < 68; i++) { // AID_MAX_ANIMALS
-        tmp = &D_801D9ED8[i];
+        tmp = &D_801D9ED8.unk0[i];
         tmp->unkDA = 1;
         tmp->unkE0 = 1;
     }
@@ -251,6 +252,7 @@ void func_8032AE34_73C4E4(void) {
     }
 }
 
+// #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AEA0_73C550.s")
 void func_8032AEA0_73C550(void) {
     struct035 *tmp;
     s16 i;
@@ -261,7 +263,7 @@ void func_8032AEA0_73C550(void) {
     }
 
     for (i = 0; i < 68; i++) {
-        tmp = &D_801D9ED8[i];
+        tmp = &D_801D9ED8.unk0[i];
         tmp->unkC8 = tmp->unkC8 / 3;
         tmp->unkA4 = tmp->unkA4 / 3;
         tmp->unkAA = tmp->unkAA / 3;
@@ -281,15 +283,15 @@ void func_8032AEA0_73C550(void) {
 //     s16 temp_a1;
 //     u16 temp_v1;
 //     Animal *temp_a0;
-//     struct036 *temp_v0;
+//     struct050 *temp_v0;
 //
 //     temp_a1 = gCurrentAnimalIndex;
-//     temp_v0 = &((struct015*)D_801D9ED8)[temp_a1]; /* this cast makes no sense */
+//     temp_v0 = &D_801D9ED8.unk0[gCurrentAnimalIndex];
 //     temp_a0 = temp_v0->animal;
-//     temp_v1 = temp_a0->unk16C->unk0; // * ?
+//     temp_v1 = temp_a0->unk16C->unk0;
 //     if (temp_v1 == 278) {
-//         D_803D5520->unk0 = temp_v0->unk3EB0;
-//         D_803D5524 = &temp_v0->unk3EB0;
+//         D_803D5520->unk0 = &D_801D9ED8.animal;
+//         D_803D5524 = D_801D9ED8.animal;
 //         D_803D5528 = temp_a0;
 //         D_803D552C = temp_a0;
 //         D_803D5530 = temp_a0;
@@ -300,8 +302,8 @@ void func_8032AEA0_73C550(void) {
 //         func_802B2EA8_6C4558();
 //         D_803A6CE4 |= 4;
 //     } else if (temp_v1 == 280) {
-//         D_803D5520->unk0 = temp_v0->unk3EB0;
-//         D_803D5524 = &temp_v0->unk3EB0;
+//         // D_803D5520->unk0 = temp_v0->unk3EB0;
+//         // D_803D5524 = &temp_v0->unk3EB0;
 //         D_803D5528 = temp_a0;
 //         D_803D552C = temp_a0;
 //         D_803D5530 = temp_a0;
