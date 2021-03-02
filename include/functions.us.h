@@ -71,12 +71,12 @@ void select_font(u8, u8, u8, u8);
 void select_comic_sans_font(void);
 void select_lcd_font(void);
 s16  func_8012C314(f32 arg0);
-void func_8012DCA8(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height);
+void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height);
 s32  func_8012E724(u16 *arg0, s32 arg1, s32 arg2);
 s32  func_8012E78C(s32, f32, f32, s32);
 void func_8012FA78(Gfx **arg0);
 void func_8012FAD4(Gfx **dl, s32 arg1);
-void func_8012FB4C(Gfx **arg0, s16 arg1);
+void load_glyph(Gfx **arg0, s16 arg1);
 void func_801304EC(Gfx **arg0, s32, u16, u16);
 void func_801308B4(u8 *src, u16 *dst);
 s16  func_801308E8(s16 arg0, s16 arg1, s32 *arg2, s32 *arg3);
@@ -104,6 +104,7 @@ void func_80130E44(void);
 // core/audio.c
 void func_80131290(ALSynConfig *c, s32 priority);
 void *func_80131AA0(s32 *arg0);
+void func_801322EC(struct026 *arg0, struct026 *arg1, struct026 *arg2);
 void func_80132394(void);
 struct017 *func_801323B8(s16 slot); // get_sound_by_slot
 struct017 *func_80132414(u16 id);   // get_sound_by_id
@@ -203,6 +204,21 @@ void func_8029ABCC_6AC27C(void);
 
 // overlay2_6B5380
 void func_802A3E70_6B5520(Animal *arg0, u32 *arg1, u32 *arg2);
+s16  func_802B2580_6C3C30(void);
+void func_802B2EA8_6C4558(void);
+void func_802B2FF4_6C46A4(void);
+void func_802B34B8_6C4B68(Animal *a);
+void func_802B34DC_6C4B8C(void);
+void func_802B3518_6C4BC8(void);
+void func_802B3530_6C4BE0(void);
+void func_802B3540_6C4BF0(void);
+s16  func_802B3D68_6C5418(void);
+
+// collision.c
+u8   func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9);
+s32  func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+
+void func_802F2B54_704204(s16, s16, s16, s32, s32, s32, s32);
 
 // overlay2_716530
 s32  func_80304E80_716530(struct039 *arg0);
@@ -299,6 +315,7 @@ s32  func_8038C13C_79D7EC(u8 *buttonPresses, u8 *cheatCode);
 
 // overlay2_79E640
 void func_8038CF90_79E640(void);
+void func_8038D920_79EFD0(u8 arg0);
 void func_8038DA70_79F120(void);
 void func_8038F694_7A0D44(void);
 

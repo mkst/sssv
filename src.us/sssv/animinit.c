@@ -13,7 +13,6 @@ void func_80380620_791CD0(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
     arg0->unk362 = arg4;
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_80380644_791CF4.s")
 void func_80380644_791CF4(Animal *arg0) {
     arg0->unk34C = 0;
 }

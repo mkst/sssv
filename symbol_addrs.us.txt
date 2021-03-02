@@ -352,14 +352,17 @@ strncpy                = 0x80129158;
 read_rom_header        = 0x80129210;
 set_region             = 0x8012923C;
 dma_read               = 0x80129290;
+init                   = 0x80129AD0;
+init2                  = 0x801355B0;
 draw_rectangle         = 0x8012AD30;
 rnc_decompress         = 0x8012B0F0;
 set_menu_text_color    = 0x8012C214;
 select_font            = 0x8012C248;
 select_comic_sans_font = 0x8012C2A4;
 select_lcd_font        = 0x8012C2E4;
+draw_glyph             = 0x8012DCA8;
+load_glyph             = 0x8012FB4C;
 font_init              = 0x80130B00;
-
 check_cheat_code       = 0x8038C13C; // rom:0x79D7EC
 
 jtbl80302E00 = 0x80302E00;

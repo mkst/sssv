@@ -27,6 +27,8 @@ segments:
     - [0x44D0, c, core/string]
     - [0x4790, c] # -O2 -g3 TODO: check further
     - [0x4910, c] #
+    - [0x4A00, c]
+    - [0x51D0, c]
     - [0x67F0, c, core/rnc]
     - [0x7770, c]
     - [0x7890, c]
@@ -39,6 +41,7 @@ segments:
     - [0xE3C0, c] # more audio
     - [0xF600, asm, libultra/audio/csplayer] # customised
     - [0x10CB0, c]
+    - [0x10DC0, c]
     - [0x123E0, c]
   - name:  lib
     type:  code
@@ -259,6 +262,7 @@ segments:
   - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
   ##
   - [0x12EDC0, bin] # sound file
+  - [0x133450, bin] # end of soundfile?
   - [0x1AE480, bin]
   - [0x1AE880, bin]
   - [0x1B6510, bin] # "B1" ...
@@ -267,7 +271,7 @@ segments:
   - [0x1E11C0, bin]
   - [0x3B8F60, bin]
   - [0x3e2780, bin]
-  # all these start with 0044 00
+  # music (all these start with 0044 00 and can be extracted with Soundbank tool)
   - [0x40B210, bin] # "S1" # 244 bytes long
   - [0x40B304, bin] # length 0xE6A
   - [0x40C170, bin]
@@ -292,13 +296,14 @@ segments:
   - [0x426854, bin]
   - [0x426c34, bin]
   - [0x426dac, bin]
-  - [0x426eb4, bin] # music
-  - [0x427198, bin] # music
-  - [0x427c40, bin] # music
-  - [0x427ff4, bin] # music
-  - [0x429ab8, bin] # music
-  - [0x42b5a0, bin] # music
-  - [0x42c49c, bin] # music
+  - [0x426eb4, bin]
+  - [0x427198, bin]
+  - [0x427c40, bin]
+  - [0x427ff4, bin]
+  - [0x429ab8, bin]
+  - [0x42b5a0, bin]
+  - [0x42c49c, bin]
+  # end of music
   - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880 # DMA'd to 0x80100000
   - [0x435320, bin, rnc_435320] # 30784 => 54880
   - [0x43CB60, bin, rnc_43CB60] # 35981 => 54880
@@ -655,8 +660,8 @@ segments:
     - [0x79E640, c]
     - [0x7A0DA0, c]
     - [0x7A8A50, asm]
-    - [0x7A9CE0, asm]
-    - [0x7AF410, asm]
+    - [0x7A9CE0, c]
+    - [0x7AF410, c]
   - name:  overlay2_data
     type:  code
     start: 0x007B1B90
