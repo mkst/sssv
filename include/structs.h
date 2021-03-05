@@ -105,7 +105,7 @@ struct Animal {
                     u8  ub;
                     s16 h;
                     u32 uw;
-                } unk2B4;
+                } unk2B4; // TODO: is this a bit field?
     /* 0x2B8 */ s32 unk2B8;
     /* 0x2BC */ s32 unk2BC;
     /* 0x2C0 */ s32 unk2C0;

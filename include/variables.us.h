@@ -63,7 +63,7 @@ extern f32  D_80151C38[];
 extern s16  D_80152C78[];
 extern s16  D_80152040[];
 extern s8   D_80152248[];
-extern struct013  D_80152350[];
+extern struct013  *D_80152350[];
 extern u32  D_80152E80;
 extern u8   D_80152E90;
 extern u8   D_80152E98;
@@ -336,6 +336,8 @@ extern u8   D_803A4ABC[]; // ice
 extern u8   D_803A4A2C[]; // jungle
 extern u8   D_803A4B38[]; // desert
 
+extern void (*D_803B5D20[])(void);
+
 extern s32  D_803B6000[];
 extern s16  D_803B62B0;
 extern s16  D_803B62B4;
@@ -416,6 +418,7 @@ extern s16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
 extern s16  D_803F63E0;
+extern s16  D_803F63F0;
 extern s16  D_803F6400; // credit entry offset
 extern s16  D_803F6402; // credit vertical position
 extern u8   D_803F6410[20];
