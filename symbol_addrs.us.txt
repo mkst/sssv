@@ -178,8 +178,8 @@ osViGetCurrentLine = 0x80140D50;
 __osSetSR = 0x80140D60;
 __osGetSR = 0x80140D70;
 __osSetFpcCsr = 0x80140D80;
-__osSpRawReadIo = 0x80140D90;
-__osSpRawWriteIo = 0x80140DE0;
+__osSiRawReadIo = 0x80140D90;
+__osSiRawWriteIo = 0x80140DE0;
 __osExceptionPreamble = 0x80140E30;
 __osException = 0x80140E40;
 __osEnqueueAndYield = 0x8014145C;
@@ -337,15 +337,35 @@ osYieldThread = 0x8014D1B0;
 lldiv = 0x8014D200;
 ldiv = 0x8014D300;
 
+osTvType          = 0x80000300;
+osResetType       = 0x8000030C;
+osAppNMIBuffer    = 0x8000031C;
+__osCleanupThread = 0x80141730;
+osClockRate       = 0x80159950;
+osViClock         = 0x80159958;
+__OSGlobalIntMask = 0x80159960;
 __osActiveQueue   = 0x8015A75C;
 osViModeTable     = 0x80159980;
+__osTimerList     = 0x8015A740;
+__osThreadTail    = 0x8015A750;
+__osRunQueue      = 0x8015A758;
+__osRunningThread = 0x8015A760;
+__osViNext        = 0x8015A7F4;
 gScreenWidth      = 0x80203FD0;
 gScreenHeight     = 0x80203FD2;
-gThread1          = 0x802868D0;
 gAudioThread      = 0x8023F428;
 gThread6          = 0x80286570;
 gThread7          = 0x80286720;
+gThread1          = 0x802868D0;
 gThread9          = 0x80286A80;
+__osFinalrom      = 0x802912F0;
+__osEventStateTab = 0x802924D0;
+__osCurrentTime   = 0x80292860;
+__osViIntrCount   = 0x8029286C;
+__osTimerCounter  = 0x80292870;
+__osBaseCounter   = 0x80292868;
+
+
 gCurrentAnimalIndex = 0x803D5534;
 
 strncpy                = 0x80129158;

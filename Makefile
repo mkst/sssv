@@ -5,7 +5,7 @@ BUILD_DIR = build
 ASM_DIRS  = asm asm/libc asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched
 BIN_DIRS  = bin
 SRC_DIR   = src
-SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core $(SRC_DIR)/sssv
+SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core $(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/os $(SRC_DIR)/sssv
 
 TOOLS_DIR := tools
 
@@ -42,7 +42,7 @@ CC := $(TOOLS_DIR)/ido5.3_recomp/cc
 OPT_FLAGS := -O2
 MIPSBIT := -mips2 -o32
 
-INCLUDE_CFLAGS := -I . -I include -I include/2.0 -I include/libc
+INCLUDE_CFLAGS := -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc
 
 ASFLAGS = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 
@@ -76,6 +76,9 @@ $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2
 # TODO:
 # $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2 -g3
 
+# libultra
+$(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/libultra/io/%.o: OPT_FLAGS := -O1
 
 ### Targets
 

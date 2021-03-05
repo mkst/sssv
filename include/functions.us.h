@@ -301,6 +301,14 @@ void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3);
 void func_80363E88_775538(Animal *arg0, Animal *arg1);
 void func_80363EDC_77558C(Animal *arg0, s32 arg1, Animal *arg2);
 
+
+void func_8036C014_77D6C4(s32);
+void func_8036F50C_780BBC(Animal *);
+void func_8036F5F4_780CA4(Animal *);
+void func_8036F740_780DF0(u16);
+
+void func_803791AC_78A85C(void);
+
 // overlay2_78E970
 void func_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_8037D2D4_78E984(s32 arg0, s32 arg1, s32 arg2);
@@ -328,7 +336,7 @@ s32  func_8038C13C_79D7EC(u8 *buttonPresses, u8 *cheatCode);
 
 // overlay2_794EE0
 s32  func_80383830_794EE0(u16 arg0);
-s32  func_803838C8_794F78(s16 rotation, u16 arg1);
+s32  func_803838C8_794F78(u16 rotation, u16 arg1);
 s16  func_8038395C_79500C(void);
 void func_803839F0_7950A0(void);
 void func_80383BE4_795294(void);
@@ -354,7 +362,43 @@ void func_803859D4_797084(void);
 void func_80385A0C_7970BC(void);
 void func_80385BE0_797290(void);
 void func_80385DF0_7974A0(void);
-
+void func_80386454_797B04(void);
+void func_803865A0_797C50(void);
+void func_803867B8_797E68(void);
+void func_803867C0_797E70(void);
+void func_80386A48_7980F8(void);
+void func_80386BB8_798268(void);
+void func_80386D80_798430(void);
+void func_80386F84_798634(void);
+void func_8038710C_7987BC(void);
+void func_80387114_7987C4(void);
+void func_80387330_7989E0(void);
+void func_80387780_798E30(void);
+void func_803879A4_799054(void);
+void func_80387BF4_7992A4(void);
+void func_80387DE0_799490(void);
+void func_8038801C_7996CC(void);
+void func_80388248_7998F8(void);
+void func_80388480_799B30(void);
+void func_80388744_799DF4(void);
+void func_80388B0C_79A1BC(void);
+void func_80388CC8_79A378(void);
+void func_80388F10_79A5C0(void);
+void func_80389150_79A800(void);
+void func_80389158_79A808(void);
+void func_80389160_79A810(void);
+void func_803892D4_79A984(void);
+void func_803892DC_79A98C(void);
+void func_803892E4_79A994(void);
+void func_803892EC_79A99C(void);
+void func_8038951C_79ABCC(void);
+void func_80389524_79ABD4(void);
+void func_8038974C_79ADFC(void);
+void func_80389754_79AE04(void);
+void func_8038975C_79AE0C(void);
+void func_80389764_79AE14(u8 arg0);
+s32 func_803897B0_79AE60(u8 arg0);
+void func_803899E0_79B090(void *arg0);
 
 // overlay2_79E640
 void func_8038CF90_79E640(void);

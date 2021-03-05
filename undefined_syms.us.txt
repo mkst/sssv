@@ -54,3 +54,7 @@ D_0103B6F0   = 0x103B6F0;
 D_04005B60   = 0x4005B60;
 D_04006D00   = 0x4006D00;
 D_0400A9E0   = 0x400A9E0;
+
+osTvType          = 0x80000300;
+osResetType       = 0x8000030C;
+osAppNMIBuffer    = 0x8000031C;

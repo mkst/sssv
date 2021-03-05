@@ -14,11 +14,18 @@ RUN apt-get update && \
       wget
 
 RUN python3 -m pip install \
-      capstone pyyaml pycparser \
-      colorama ansiwrap watchdog python-Levenshtein cxxfilt \
-      python-ranges \
+      ansiwrap \
+      attrs \
+      capstone \
+      colorama \
+      cxxfilt \
+      pycparser \
       pypng \
-      toml
+      python-Levenshtein \
+      python-ranges \
+      pyyaml \
+      toml \
+      watchdog
 
 RUN mkdir /sssv
 WORKDIR /sssv
