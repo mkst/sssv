@@ -50,8 +50,8 @@ segments:
     overlay: no
     subsections:
     - [0x12FC0, c, libultra/os/initialize]
-    - [0x13250, asm, libc/ll]
-    - [0x13510, asm, libultra/gu/sqrtf]
+    - [0x13250, c, libultra/libc/ll]
+    - [0x13510, hasm, libultra/gu/sqrtf]
     - [0x13520, c, libultra/os/gettime]
     - [0x135B0, hasm, libultra/os/writebackdcacheall]
     - [0x135E0, asm, libultra/io/pidma]
@@ -121,7 +121,7 @@ segments:
     - [0x19ED0, asm, libultra/io/pfsinit]
     - [0x19F90, asm, libultra/io/motor]
     - [0x1A730, asm, libultra/io/conteepprobe]
-    - [0x1A7D0, asm, libc/llcvt]
+    - [0x1A7D0, c, libultra/libc/llcvt]
     - [0x1A9E0, asm, libultra/gu/translate]
     - [0x1AA80, asm, libultra/gu/perspective]
     - [0x1AD10, asm, libultra/gu/rotateRPY]
@@ -220,17 +220,21 @@ segments:
     - [0x286C0, asm, libultra/io/epirawread]
     - [0x28860, c, libultra/os/setglobalintmask]
     - [0x288B0, c, libultra/os/yieldthread]
-    - [0x28900, asm, libc/ldiv]
+    - [0x28900, c, libultra/libc/ldiv]
   - [0x028A90, bin]
   - [0x02FDD0, bin] # textures; CH, 7-segment score display
   - name:  main_data
     type:  code
-    start: 0x00036410
-    vram:  0x8015AD10
+    start: 0x00035050
+    vram:  0x80159950
     overlay: no
     subsections:
+    - [0x035050, .data, libultra/os/initialize]
+    - [0x035070, bin]
     - [0x036410, .rodata, core/fontinit]
-  - [0x036470, bin] # more data
+    - [0x036470, bin] # more data
+    - [0x036AC0, .rodata, libultra/libc/llcvt]
+    - [0x036AD0, bin]
   - [0x0398D0, bin] # textures
   - [0x07F790, bin] # some more textures
   - [0x097020, bin]
@@ -647,11 +651,11 @@ segments:
     - [0x783D90, asm]
     - [0x786320, asm]
     - [0x78A890, asm]
-    - [0x78CEB0, asm]
+    - [0x78CEB0, c]
     - [0x78E970, c]
     - [0x7917A0, c, sssv/animinit]
-    - [0x793700, asm]
-    - [0x7943A0, asm]
+    - [0x793700, c]
+    - [0x7943A0, c]
     - [0x794EE0, c]
     - [0x79B1E0, c]
     - [0x79CEF0, c, sssv/credits]
@@ -673,6 +677,8 @@ segments:
     - [0x7C8AC0, bin] # more textures
     # - [0x7D0000, .rodata, sssv/osd]
     - [0x7D0028, bin]
+    - [0x7D0AA0, .rodata, overlay2_794EE0]
+    - [0x7D0B40, bin]
     - [0x7D1170, bin] # cheats, mapped to 0x803BFAC0
     - [0x7D1200, bin]
     - [0x7D1AD0, bin]

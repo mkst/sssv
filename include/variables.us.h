@@ -14,6 +14,7 @@
 
 extern s32 *D_801DDD88; // base of animal pointers
 
+extern s32 D_803F2C18;
 extern s32 D_803F2C20; // struct?
 /*
   00 // something with camera
@@ -337,7 +338,11 @@ extern u8   D_803A4A2C[]; // jungle
 extern u8   D_803A4B38[]; // desert
 
 extern void (*D_803B5D20[])(void);
-
+extern s32  D_803B58A0;
+extern s32  D_803B58A4;
+extern s32  D_803B58A8;
+extern s32  D_803B58B0;
+extern s32  D_803B58C4;
 extern s32  D_803B6000[];
 extern s16  D_803B62B0;
 extern s16  D_803B62B4;
@@ -347,7 +352,7 @@ extern u8   D_803B62C0;
 extern s16  D_803B62D0[];
 extern u8   D_803B6318;
 extern s32  D_803B6320[];
-extern s32  D_803B6328[];
+extern s32  D_803B6328[]; // array of pointers to TV screen assembly background text
 extern struct028 D_803B66F0;
 extern struct004 D_803B6700[];
 extern struct004 D_803B6730;
@@ -362,6 +367,8 @@ extern f64  D_803BBF48; // 0.7
 extern f64  D_803BBF50; // 0.7
 extern f32  D_803BBF58; // 0.699999988079071f (0.7f)
 extern f32  D_803BBF5C; // -0.699999988079071f (-0.7f)
+extern s16  D_803BD54A[];
+extern s16  D_803BD602[];
 extern u8   D_803BE940[]; // "%8d"
 extern u8   D_803BE944[]; // "%d"
 extern u8   D_803BE948[]; // "%d:%02d"
@@ -373,8 +380,6 @@ extern f32  D_803BEB18;
 extern f32  D_803BEB1C;
 extern f32  D_803BEB20;
 
-extern char D_803BF3F0[];
-extern char D_803BF400[];
 extern char D_803BFA90[]; // "%s"
 extern char D_803BFAA0[]; // "%9d"
 extern char D_803BFAA4[]; // (%3d  %3d  %4d)
@@ -520,11 +525,13 @@ extern s16  D_803D5512;
 extern Animal *D_803D5530;
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
 extern u8   D_803D5538;
-extern u16  D_803D553A;
+extern s16  D_803D553A;
 extern s16  D_803D553C;
 extern s16  D_803D553E;
 extern Animal *D_803DA2F0;
 extern Animal *D_803DA2F4;
+extern struct051 D_803E00EE[];
+extern s32  D_803E4C3C;
 extern s32  D_803E4D28;
 extern s32  D_803E4D2C;
 extern s16  D_803E1BC0;
@@ -541,6 +548,14 @@ extern u16 *D_803F2E34;
 extern s32  D_803F2EB0;
 extern s32  D_803F2EB4;
 extern s32  D_803F2EB8;
+extern s32  D_803F2EC8;
+extern u16  D_803F2ECC;
+extern u16  D_803F2ECE;
+extern s16  D_803F2ED0;
+extern s16  D_803F2ED2;
+extern s32  D_803F2ED4;
+extern u8   D_803F2EDA;
+extern f32  D_803F2EDD;
 extern f32  D_803F7D70;
 extern struct030 D_803F7D78; // ?
 extern u8   D_803F7DA0;
@@ -556,6 +571,7 @@ extern s8   D_803F7DD8;
 
 extern s32  D_801DD800;
 extern struct015 D_801DDD8C[]; // animals struct array
+extern u16  D_801E9E8E;
 extern s16  D_801E9EB2;
 extern s16  D_801E9EB4;
 
