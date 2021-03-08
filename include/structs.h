@@ -100,19 +100,23 @@ struct Animal {
     /* 0x270 */ u8  unk270;
     /* 0x271 */ u8  pad271;
     /* 0x272 */ u16 unk272;
-    /* 0x274 */ u8  pad274[0x40];
-    /* 0x2B4 */ union {
-                    u8  ub;
-                    s16 h;
-                    u32 uw;
-                } unk2B4; // TODO: is this a bit field?
+    /* 0x274 */ u8  pad274[0xC];
+    /* 0x280 */ Animal *unk280; // another one? is this a repeating array?
+    /* 0x282 */ u8  pad284[0x30];
+    /* 0x2B4 */ struct {
+                    u8  state : 4;
+                    u8  unk4  : 3;
+                    u8  unk7  : 1;
+                    s8  unk8  : 8;
+                    u32 pad10 : 16;
+                } unk2B4;
     /* 0x2B8 */ s32 unk2B8;
     /* 0x2BC */ s32 unk2BC;
     /* 0x2C0 */ s32 unk2C0;
-    /* 0x2C4 */ s32 unk2C4;
+    /* 0x2C4 */ s32 unk2C4; // "FC" ?
     /* 0x2C8 */ u16 unk2C8;
     /* 0x2CA */ u8  pad2CA;
-    /* 0x2CC */ Animal* unk2CC; // is this actually Animal?
+    /* 0x2CC */ Animal* unk2CC;
     /* 0x2D0 */ s16 unk2D0;
     /* 0x2D4 */ u8  pad2D2[0xE];
     /* 0x2E0 */ s16 skillAEnergy[2]; // seems to be an array?
@@ -135,10 +139,12 @@ struct Animal {
     /* 0x314 */ s16 unk314;
     /* 0x316 */ s16 unk316;
     /* 0x318 */ u8  pad318[0x8];
-    /* 0x320 */ s32 unk320; // pointer to somewhere
-    /* 0x324 */ u8  pad324[0x4];
+    /* 0x320 */ Animal *unk320;
+    /* 0x324 */ u8  pad324[0x2];
+    /* 0x326 */ u16 unk326;
     /* 0x328 */ u16 unk328;
-    /* 0x32A */ u8  pad32A[0x1E];
+    /* 0x32A */ u16 unk32A;
+    /* 0x32A */ u8  pad32C[0x1C];
     /* 0x348 */ u16 unk348;
     /* 0x34A */ u16 unk34A;
     /* 0x34C */ s16 unk34C;
@@ -155,17 +161,20 @@ struct Animal {
     /* 0x361 */ u8  unk361;
     /* 0x362 */ u8  unk362;
     /* 0x363 */ u8  unk363;
-    /* 0x364 */ u8  pad364[0x2];
+    /* 0x364 */ u8  pad364;
+    /* 0x365 */ u8  unk365;
     /* 0x366 */ u8  unk366;
     /* 0x367 */ u8  pad367;
     /* 0x368 */ s8  unk368;
-    /* 0x369 */ u8  pad369;
+    /* 0x369 */ u8  unk369;
     /* 0x36A */ u8  unk36A;
     /* 0x36B */ u8  unk36B;
     /* 0x36C */ u8  pad36C[0x2];
     /* 0x36E */ u8  unk36E;
     /* 0x36F */ u8  pad36F[0x51];
     /* 0x3C0 */ s16 unk3C0;
+    /* 0x3C2 */ u8  pad3C2[0x8];
+    /* 0x3CA */ s16 unk3CA;
 } ;
 
 typedef struct {
@@ -499,7 +508,9 @@ typedef struct {
     /* 0x58 */ s16 unk58;
     /* 0x5A */ u8  pad5A[0x6];
     /* 0x60 */ s16 unk60;
-    /* 0x62 */ u8  pad62[0x12];
+    /* 0x62 */ u8  pad62[0x2];
+               s32 unk64;
+               u8  pad68[0xC];
                f32 unk74;
                f32 unk78;
                f32 unk7C;
@@ -593,7 +604,9 @@ struct struct035 {
               u8  padA6[0x4];
               u16 unkAA;
               u16 unkAC;
-              u8  padAE[0x14];
+              u8  padAE[0xC];
+              u16 unkBA;
+              u8  padBC[0x6];
               s16 unkC2;
               s16 unkC4;
               u8  padC6[0x2];
@@ -603,7 +616,9 @@ struct struct035 {
   /* 0xCE */  s16 unkCE;
   /* 0xD0 */  s16 unkD0;
   /* 0xD2 */  s16 unkD2;
-  /* 0xD4 */  u8  padD4[0x6];
+  /* 0xD4 */  u8  padD4[0x2];
+  /* 0xD6 */  s16 unkD6;
+  /* 0xD8 */  u8  padD8[0x2];
   /* 0xDA */  s16 unkDA;
   /* 0xDC */  s16 unkDC;
   /* 0xDE */  u8  padDE[0x2];
@@ -822,5 +837,10 @@ typedef struct {
     /* 0x0000 */ struct035 unk0[68]; // each 0xEC so 0x3EB0 total
     /* 0x3EB0 */ Animal    *animal;  // how many?
 } struct050;
+
+typedef struct {
+    u8 unk0;
+    u8 pad1[0x37];
+} struct051; // size 0x38
 
 #endif
