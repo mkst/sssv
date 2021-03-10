@@ -6,7 +6,7 @@
 // initialise/reset
 void func_8039DD60_7AF410(void) {
     D_803FDEA0 = 0; // structs used = 0
-    func_80128FB4(&D_803F7E10, 30 * sizeof(struct045)); // 24720
+    fancy_bzero(&D_803F7E10, 30 * sizeof(struct045)); // 24720
 }
 
 void func_8039DD90_7AF440(u8 *arg0) {

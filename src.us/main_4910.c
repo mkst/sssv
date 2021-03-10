@@ -25,7 +25,7 @@ void set_region(void) {
     }
 }
 
-void dma_read(u32 devAddr, void *vAddr, s32 nbytes) {
+void dma_read(u8 *devAddr, void *vAddr, s32 nbytes) {
     s32 mesg;
 
     osWritebackDCacheAll();

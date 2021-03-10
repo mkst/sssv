@@ -26,7 +26,7 @@ void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
 
 void select_comic_sans_font(void) {
     D_8023F1E0.unk0 = &D_80154370;
-    D_8023F1E0.fontAddress = &D_800E1220; // _fontbufferSegmentStart
+    D_8023F1E0.fontAddress = D_800E1220; // _fontbufferSegmentStart
     D_8023F1E0.unk8 = 16;
     D_8023F1E0.unk9 = 16;
     D_8023F1E0.unkA = 4;
@@ -34,7 +34,7 @@ void select_comic_sans_font(void) {
 }
 
 void select_lcd_font(void) {
-    D_8023F1E0.fontAddress = &D_80158550; // 7-segment display font
+    D_8023F1E0.fontAddress = D_80158550; // 7-segment display font
     D_8023F1E0.unk8 = 16;
     D_8023F1E0.unk9 = 16;
     D_8023F1E0.unkA = 16;
@@ -105,7 +105,7 @@ void func_8012FAD4(Gfx **dl, s32 arg1) {
 }
 
 void load_glyph(Gfx **arg0, s16 arg1) {
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, ((arg1 * D_8023F1E0.glyphBytes) + D_8023F1E0.fontAddress) & 0x1FFFFFFF);
+    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (arg1 * D_8023F1E0.glyphBytes + (s32)D_8023F1E0.fontAddress) & 0x1FFFFFFF);
     gDPLoadSync((*arg0)++);
     gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 63, 2048);
     gDPPipeSync((*arg0)++);
@@ -115,7 +115,7 @@ void load_glyph(Gfx **arg0, s16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_801304EC.s")
 
-void func_801308B4(u8 *src, u16 *dst) {
+void func_801308B4(u8 *src, s16 *dst) {
     u8 tmp;
     while (*src != NULL) {
         tmp = *src;
