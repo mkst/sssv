@@ -178,11 +178,12 @@ extern u8 D_01029DD0[];
 //     }
 // }
 
+
 // osd_draw_score
 void func_803491F0_75A8A0(void) {
-    sprintf(&D_803F2D3E, &D_803BE940, D_803F2D30.score);
+    sprintf(D_803F2D3E, D_803BE940, D_803F2D30.score);
     select_font(0, 3, 1, 0);
-    func_801304EC(&D_801D9E7C, &D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
+    func_801304EC(&D_801D9E7C, D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
 }
 
 void func_80349278_75A928(void) {
@@ -342,7 +343,7 @@ void func_803497DC_75AE8C(void) {
     D_803F2CDF = 1;
     D_803F2CE0 = 0;
     D_803F2CF2 = 1;
-    func_80128FB4(&D_803F2CF8, 12);
+    fancy_bzero(&D_803F2CF8, 12);
 }
 
 u8 func_80349874_75AF24(void) {
@@ -410,22 +411,23 @@ void func_80349AA0_75B150(u16 arg0) {
 // osd_draw_timer
 void func_80349B84_75B234(u16 arg0) {
     s32 time;
-    u8 str[40]; // how long is a piece of string
+    s16 str[20]; // how long is a piece of string
 
     time = D_803F2CD2;
     if (time > 0) {
         if (time < 60) {
-            sprintf(&D_803A8344, &D_803BE944, time); // "%d"
+            sprintf(D_803A8344, D_803BE944, time); // "%d"
         } else {
-            sprintf(&D_803A8344, &D_803BE948, time / 60, time % 60); // "%d:%02d"
+            sprintf(D_803A8344, D_803BE948, time / 60, time % 60); // "%d:%02d"
         }
     }
-    func_801308B4(&D_803A8344, &str);
+
+    func_801308B4(D_803A8344, str);
     func_8012C1F0(&D_801D9E7C);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     select_font(0, 0, 1, 0);
     // write string centered
-    func_8012C978(&D_801D9E7C, &str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
+    func_8012C978(&D_801D9E7C, str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
 }
 
 void func_80349CA4_75B354(u16 arg0) {

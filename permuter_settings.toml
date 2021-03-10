@@ -1,0 +1,5 @@
+[preserve_macros]
+"g[DS]P.*" = "void"
+"G_IM_SIZ_.*" = "int"
+"G_[AC]C.*" = "int"
+"SP_UCODE_DATA_SIZE" = "int"

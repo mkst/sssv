@@ -43,12 +43,8 @@ segments:
     - [0x10CB0, c]
     - [0x10DC0, c]
     - [0x123E0, c]
-  - name:  lib
-    type:  code
-    start: 0x00012FC0
-    vram:  0x801378C0
-    overlay: no
-    subsections:
+    # fake split here for progress
+    - [0x12FC0, linker, code_lib]
     - [0x12FC0, c, libultra/os/initialize]
     - [0x13250, c, libultra/libc/ll]
     - [0x13510, hasm, libultra/gu/sqrtf]
@@ -661,11 +657,11 @@ segments:
     - [0x79CEF0, c, sssv/credits]
     - [0x79D0E0, c, sssv/cheats]
     - [0x79D8E0, c]
-    - [0x79DE10, c] # references animal info screen background
-    - [0x79E640, c]
+    - [0x79DE10, c]
+    - [0x79E640, c, sssv/terminal_background]
     - [0x7A0DA0, c]
     - [0x7A8A50, c]
-    - [0x7A9CE0, c]
+    - [0x7A9CE0, c] # relates to file select
     - [0x7AF410, c]
   - name:  overlay2_data
     type:  code
@@ -674,11 +670,15 @@ segments:
     subsections:
     - [0x7B1B90, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
+    - [0x7C76B0, .data, sssv/credits]
+    - [0x7C7960, bin]
     - [0x7C8AC0, bin] # more textures
     # - [0x7D0000, .rodata, sssv/osd]
     - [0x7D0028, bin]
     - [0x7D0AA0, .rodata, overlay2_794EE0]
     - [0x7D0B40, bin]
+    - [0x7D0B70, .rodata, sssv/credits]
+    - [0x7D1150, bin]
     - [0x7D1170, bin] # cheats, mapped to 0x803BFAC0
     - [0x7D1200, bin]
     - [0x7D1AD0, bin]

@@ -5,8 +5,9 @@
 
 // first function called after osInitialize
 void init(void) {
-    func_80128FB4(&D_80000400, 0x25800); // 153600
-    func_80128FB4(&D_80025C00, 0x25800);
+    // fancy bzero
+    fancy_bzero(D_80000400, 0x25800); // 153600
+    fancy_bzero(D_80025C00, 0x25800);
 }
 
 // thread 6
@@ -181,7 +182,7 @@ void func_8012A750(void) {
         func_8012C1F0(&D_801D9E7C);
         select_font(0, 0, 0, 0);
         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-        func_8012C978(&D_801D9E7C, &D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
+        func_8012C978(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
         gDPPipeSync(D_801D9E7C++);
     }
 }

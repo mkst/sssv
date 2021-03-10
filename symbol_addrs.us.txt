@@ -368,6 +368,10 @@ __osBaseCounter   = 0x80292868;
 
 gCurrentAnimalIndex = 0x803D5534;
 
+strlen2                = 0x80128DD0;
+strcat                 = 0x80128E18;
+strcpy                 = 0x80128E90;
+fancy_bzero            = 0x80128FB4;
 strncpy                = 0x80129158;
 read_rom_header        = 0x80129210;
 set_region             = 0x8012923C;
@@ -384,8 +388,14 @@ draw_glyph             = 0x8012DCA8;
 load_glyph             = 0x8012FB4C;
 font_init              = 0x80130B00;
 check_cheat_code       = 0x8038C13C; // rom:0x79D7EC
+reset_credits_counters = 0x8038B840; // rom:0x79CEF0
+display_credits        = 0x8038B854; // rom:0x79CF04
+render_stars           = 0x8039D30C; // rom:0x7AE9BC
+generate_stars         = 0x8039D580; // rom:0x7AEC30
+seconds_to_mins_secs   = 0x8039DB60; // rom:0x7AF210
 
 jtbl80302E00 = 0x80302E00;
 jtbl80302E1C = 0x80302E1C;
 jtbl80302E38 = 0x80302E38;
+jtbl803BEAC0 = 0x803BEAC0;
 jtbl803BE978 = 0x803BE978;

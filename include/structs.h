@@ -21,6 +21,8 @@ typedef struct {
     u16 unkDC; // initialised?
     u8  padDE[0x2];
     f32 unkE0;
+    u16 unkE4;
+    u16 unkE6;
 } struct000;
 
 typedef struct {
@@ -54,7 +56,8 @@ struct Animal {
     /* 0x1C */  s32 xVelocity;
     /* 0x20 */  s32 zVelocity;
     /* 0x24 */  s32 yVelocity;
-    /* 0x28 */  u8  pad28[0x4];
+    /* 0x28 */  s16 unk28;
+    /* 0x2A */  u8  pad2A[0x2];
     /* 0x2C */  s16 yRotation;
     /* 0x2E */  u8  pad2E[0x2];
     /* 0x30 */  s16 unk30;
@@ -126,19 +129,26 @@ struct Animal {
     /* 0x2EA */ u8  unk2EA;
     /* 0x2EB */ u8  pad2EB;
     /* 0x2EC */ s16 unk2EC;
-    /* 0x2EE */ u8  pad2EE[0x14];
+    /* 0x2EE */ u8  pad2EE[0x4];
+    /* 0x2F2 */ u16 unk2F2;
+    /* 0x2F4 */ u16 unk2F4;
+    /* 0x2F6 */ u8  pad2F6[0x6];
+    /* 0x2FC */ u16 unk2FC;
+    /* 0x2FE */ u8  pad2FE[0x4];
     /* 0x302 */ s16 unk302;
     /* 0x302 */ s16 unk304;
     /* 0x306 */ u8  pad306[0x2];
     /* 0x308 */ s16 unk308;
-    /* 0x30A */ u8  unk30A[0x2];
+    /* 0x30A */ s16 unk30A;
     /* 0x30C */ s16 unk30C;
     /* 0x30E */ s16 unk30E;
     /* 0x310 */ s16 unk310;
     /* 0x312 */ u8  pad312[0x2];
     /* 0x314 */ s16 unk314;
     /* 0x316 */ s16 unk316;
-    /* 0x318 */ u8  pad318[0x8];
+    /* 0x318 */ u8  pad318[0x2];
+    /* 0x31A */ s16 unk31A;
+    /* 0x31C */ u8  pad31C[0x4];
     /* 0x320 */ Animal *unk320;
     /* 0x324 */ u8  pad324[0x2];
     /* 0x326 */ u16 unk326;
@@ -170,7 +180,7 @@ struct Animal {
     /* 0x36A */ u8  unk36A;
     /* 0x36B */ u8  unk36B;
     /* 0x36C */ u8  pad36C[0x2];
-    /* 0x36E */ u8  unk36E;
+    /* 0x36E */ s8  unk36E;
     /* 0x36F */ u8  pad36F[0x51];
     /* 0x3C0 */ s16 unk3C0;
     /* 0x3C2 */ u8  pad3C2[0x8];
@@ -485,7 +495,7 @@ typedef struct {
 
 typedef struct {
     s32 unk0;
-    s32 fontAddress;
+    u8 *fontAddress;
     u8  unk8;
     u8  unk9;
     u8  unkA;
@@ -842,5 +852,20 @@ typedef struct {
     u8 unk0;
     u8 pad1[0x37];
 } struct051; // size 0x38
+
+// might just be an s16 array but this is a little nicer
+typedef struct {
+    s16 x;
+    s16 y;
+    s16 brightness;
+    s16 speed;
+} Star; // size 0x8
+
+typedef struct {
+    u8  pad0[0x4];
+    u8  unk4[0xC];
+    u8  pad10[0x12];
+    u8  unk22;
+} struct052;
 
 #endif

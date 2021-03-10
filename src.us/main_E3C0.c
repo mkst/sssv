@@ -9,10 +9,10 @@ void func_80132CC0(s32 arg0) {
     struct017 *snd;
 
     snd = D_8028631C;
-    rmonPrintf(&D_8015AD90);
+    rmonPrintf(D_8015AD90);
 
     while (snd != NULL) {
-        rmonPrintf(&D_8015ADB4,
+        rmonPrintf(D_8015ADB4,
             snd->sndState, snd->sndSlot, snd->sndID, snd->unk28, snd->counter, D_802863B0[snd->sndSlot]);
         snd = snd->next;
     }
@@ -37,8 +37,7 @@ s32 func_80132D84(ALSndPlayer *sndp) {
         return 8;
     }
 
-    snd = D_8028631C;
-    while (snd != NULL) {
+    for (snd = D_8028631C; snd != NULL; snd = snd->next) {
         if (snd->sndSlot < 0) {
             if (snd->sndSlot == -2) {
                 func_801322EC(snd, &D_8028631C, &D_80286320);
@@ -77,7 +76,6 @@ s32 func_80132D84(ALSndPlayer *sndp) {
                 }
             }
         }
-        snd = snd->next;
     }
     return used;
 }
@@ -196,14 +194,12 @@ void func_801339F8(void) {
     struct017 *snd;
 
     if (D_80155154 != 0) {
-        snd = D_8028631C;
-        while (snd != NULL) {
+        for (snd = D_8028631C; snd != NULL; snd = snd->next) {
             if ((snd->sndSlot >= 0) && (D_801546BC == 1)) {
                 vol = ((snd->unkC * D_801546C8) + ((D_801546CC * (snd->unkC * D_801546C0)) / D_801546C4)) * D_801546D4;
                 alSndpSetSound(D_80286310, snd->sndSlot);
                 alSndpSetVol(D_80286310, vol);
             }
-            snd = snd->next;
         }
 
         if (D_801546C0 == 0.0f) {
@@ -223,19 +219,16 @@ void func_80133BA0(s16 arg0) {
     func_80133C50();
 }
 
-// unused
 void func_80133BE4(void) {
     ALSndPlayer *sndp;
     struct017 *snd;
 
     if (D_80155154 != 0) {
-        snd = D_8028631C;
-        while (snd != 0) {
+        for (snd = D_8028631C; snd != NULL; snd = snd->next) {
             if (snd->sndSlot >= 0) {
                 alSndpSetSound(sndp, snd->sndSlot);
                 alSndpGetState(sndp);
             }
-            snd = snd->next;
         }
     }
 }
@@ -271,8 +264,7 @@ void func_80133E44(void) {
 
 void func_80133E84(void) {
     if ((D_80155180 == D_8028645C) && (D_8028645C != 0)) {
-        D_80155184 += 1;
-        if (D_80155184 >= 3) {
+        if (++D_80155184 >= 3) {
             alCSeqSetLoc(D_802863CC, &D_80286460);
             D_80155180 = 0;
         }

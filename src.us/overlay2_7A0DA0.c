@@ -19,7 +19,7 @@ void func_8038F708_7A0DB8(void) {
 }
 
 void func_8038F794_7A0E44(void) {
-    func_8039D580_7AEC30();
+    generate_stars();
     func_801337DC(0, 60.0f, 20.0f, 6.0f);
 
     D_803F6680.unk14 = 0;
@@ -52,8 +52,9 @@ void func_8038F794_7A0E44(void) {
 }
 
 void func_8038F8C8_7A0F78(void) {
-    func_8039D580_7AEC30();
+    generate_stars();
     func_801337DC(0, 15.0f, 20.0f, 6.0f);
+
     D_803F6680.unk2D = 0;
     D_803F6680.unk31 = 0;
     D_803F6680.unk33 = 0;
@@ -85,7 +86,8 @@ void func_8038F968_7A1018(void) {
 }
 
 void func_8038FA00_7A10B0(void) {
-    func_8039D580_7AEC30();
+    generate_stars();
+
     D_803F6680.unk2D = 0;
     D_803B683C = D_803B6730;
     D_803F6680.unk8 = 6;
@@ -103,7 +105,8 @@ void func_8038FA00_7A10B0(void) {
 }
 
 void func_8038FAB4_7A1164(void) {
-    func_8039D580_7AEC30();
+    generate_stars();
+
     D_803F6680.unk24 = 0;
     D_803F6680.unk2D = 0;
     D_803B683C = D_803B6730;
@@ -191,10 +194,11 @@ void func_8038FD74_7A1424(void) {
     D_803E1BC0 = 0;
     D_803C0424 = 0;
     D_803C0426 = 0;
-    // reset credits?
-    func_8038B840_79CEF0();
+
+    reset_credits_counters();
     func_801308E8(D_8023F2AE, 32, &D_80231AA0, &D_80231D5C);
-    func_8039D580_7AEC30();
+    generate_stars();
+
     D_803F6704 = 0;
     D_803F7DD4 = 0;
     D_803F6680.unk2E = 0;

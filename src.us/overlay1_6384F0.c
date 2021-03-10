@@ -34,26 +34,27 @@ void func_802950B8_638758(void) {
     if (D_80204260 == 1) {
         func_80298FC0_63C660(0);
     }
-    rnc_decompress(&D_802B64A0, &D_80302E88); // newscaster video
-    rnc_decompress(&D_802AFBD0, &D_8039E2E8);
-    rnc_decompress(&D_802B12D0, &D_803A38D8);
-    rnc_decompress(&D_802B2930, &D_803A8EC8);
-    rnc_decompress(&D_802B3F90, &D_80338688);
-    rnc_decompress(&D_802C11C0, &D_8033CE88);
-    rnc_decompress(&D_802BC430, &D_8032AE88);
-    rnc_decompress(&D_802F4CA0, &D_80376ED8);
+    rnc_decompress(D_802B64A0, D_80302E88); // newscaster video
+    rnc_decompress(D_802AFBD0, D_8039E2E8);
+    rnc_decompress(D_802B12D0, D_803A38D8);
+    rnc_decompress(D_802B2930, D_803A8EC8);
+    rnc_decompress(D_802B3F90, D_80338688);
+    rnc_decompress(D_802C11C0, D_8033CE88);
+    rnc_decompress(D_802BC430, D_8032AE88);
+    rnc_decompress(D_802F4CA0, D_80376ED8);
 
     func_801308E8(D_8023F2AE, 0x21, &D_80231AA0, &D_80231D5C);
 
     src = func_80130A90(16);
-    dst = &D_802042F0;
+    dst = D_802042F0;
     while (*src != 30000) {
         *dst++ = *src++;
     }
     *dst = 30000;
 
+
     src = func_80130A90(14);
-    dst = &D_80204368;
+    dst = D_80204368;
     while (*src != 30000) {
         *dst++ = *src++;
     }
@@ -82,7 +83,7 @@ void func_8029548C_638B2C(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_6384F0/func_80295494_638B34.s")
-// NON-MATCHING: second half goes awry
+// NON-MATCHING: 2 instructions in the wrong place
 // void func_80295494_638B34(Gfx **arg0, u16 arg1) {
 //     s32 phi_a1;
 //     s32 phi_a2;
@@ -106,13 +107,14 @@ void func_8029548C_638B2C(void) {
 //         if (phi_a2 >= 313) {
 //             phi_a2 = 312;
 //         }
-//         gDPSetScissorFrac((*arg0)++, G_SC_EVEN_INTERLACE, phi_a1 * 4.0f, 480, phi_a2 * 4.0f, 484);
+//         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, phi_a1, 120, phi_a2, 121);
 //     } else if (arg1 < 40) {
 //         phi_a1 = (arg1 / 2) * 12;
 //         if (phi_a1 >= 233) {
 //             phi_a1 = 232;
 //         }
-//         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, (239 - phi_a1) * 4.0f, 312, phi_a1 * 4.0f);
+//         // this line is slightly off...
+//         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 239 - phi_a1, 312, phi_a1);
 //     } else {
 //         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 //     }
@@ -125,7 +127,7 @@ void func_8029548C_638B2C(void) {
 //     gDPSetRenderMode((*arg0)++, G_RM_ZB_PCL_SURF, G_RM_ZB_PCL_SURF2);
 //     gSPClearGeometryMode((*arg0)++, G_CULL_BACK);
 //     gSPDisplayList((*arg0)++, &D_80299CD0);
-//     gDPSetScissorFrac((*arg0)++, G_SC_EVEN_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+//     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 // }
 
 void func_802958B8_638F58(Gfx **dl) {
@@ -152,10 +154,10 @@ void func_802958B8_638F58(Gfx **dl) {
 //     }
 //
 //     temp_t2 = ((D_80299FCC * 260.0f) / 48.0) + 60.0;
-//     if (D_80299FCC < 0x18) {
-//         phi_t3 = 1U;
+//     if (D_80299FCC < 24) {
+//         phi_t3 = 1;
 //     } else {
-//         phi_t3 = 0U;
+//         phi_t3 = 0;
 //     }
 //
 //     func_801366BC(&D_801D9E7C, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -173,7 +175,7 @@ void func_802958B8_638F58(Gfx **dl) {
 //     }
 //
 //     temp_v0_2 = 48 - D_80299FCC;
-//     func_80136938(&D_801D9E7C, arg0, 320, 240, phi_t1, ((D_80299FCC * 195.0f) / 48.0) + D_80302D28, phi_t3, 0, ((s32) (temp_t2 - phi_v1) / 2) + temp_v0_2, temp_v0_2, 0x10);
+//     func_80136938(&D_801D9E7C, arg0, 320, 240, phi_t1, ((D_80299FCC * 195.0f) / 48.0) + D_80302D28, phi_t3, 0, ((temp_t2 - phi_v1) / 2) + temp_v0_2, temp_v0_2, 16);
 //     if (D_80299FCC < 49) {
 //         if (D_80299FCC < 24) {
 //             D_80299FD0 -= temp_t2 / 48;

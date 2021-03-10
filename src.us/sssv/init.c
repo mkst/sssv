@@ -3,48 +3,35 @@
 #include "common.h"
 
 
-extern u8 D_803BE9F0[];
-extern u8 D_803BEA38[];
+void func_80352280_763930(void) {
+    s32 pad[2];
+    u32 len = D_0007F790 - D_000398D0;
 
-extern u8 D_0007F790[];
-extern u8 D_000398D0[];
+    if (len >= D_80099600 - D_8004B400) {
+        // "\nASSERT: len < (_gfxdlistSegmentEnd - _gfxdlistSegmentStart), %s, %u\n"
+        // "../src/init.c"
+        rmonPrintf(D_803BE9F0, D_803BEA38, 93, len);
+        // die
+        *(volatile int*)0 = 0;
+    }
+    D_801D9E74 = D_8004B400;
+    dma_read(D_000398D0, D_801D9E74, len);
+}
 
-extern u8 D_803BEA48[];
-extern u8 D_803BEA78[];
+void func_80352310_7639C0(void) {
+    s32 pad[2];
+    u32 len = D_00546BC0 - D_005449C0;
 
-extern u8 D_00546BC0[];
-extern u8 D_005449C0[];
+    if (len >= 0x2201U) {
+        // "\nASSERT: len <= sizeof(WaterTexture), %s, %u\n"
+        // "../src/init.c"
+        rmonPrintf(D_803BEA48, D_803BEA78, 115, len);
+        *(volatile int*)0 = 0;
+    }
+    dma_read(&D_005449C0, &D_800DCC20, len);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/init/func_80352280_763930.s")
-// NON-MATCHING: 80% there..
-// void func_80352280_763930(void) {
-//     u32 len = D_0007F790 - D_000398D0;
-//
-//     if (len >= D_80099600 - D_8004B400) {
-//         // "\nASSERT: len < (_gfxdlistSegmentEnd - _gfxdlistSegmentStart), %s, %u\n"
-//         // "../src/init.c"
-//         rmonPrintf(D_803BE9F0, D_803BEA38, 0x5D, len);
-//         // die
-//         *(volatile int*)0 = 0;
-//     }
-//     D_801D9E74 = D_8004B400;
-//     dma_read(&D_000398D0, D_8004B400, len);
-// }
-
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/init/func_80352310_7639C0.s")
-// NON-MATCHING: wrong stack size...
-// void func_80352310_7639C0(void) {
-//     u32 len = D_00546BC0 - D_005449C0;
-//
-//     if (len >= 0x2201U) {
-//         // "\nASSERT: len <= sizeof(WaterTexture), %s, %u\n"
-//         // "../src/init.c"
-//         rmonPrintf(D_803BEA48, D_803BEA78, 0x73, len);
-//         *(volatile int*)0 = 0;
-//     }
-//     dma_read(&D_005449C0, &D_800DCC20, len);
-// }
-
+// 2000 lines
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/init/func_80352380_763A30.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/init/func_80354188_765838.s")
