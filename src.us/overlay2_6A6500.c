@@ -253,7 +253,7 @@
 // //                     func_80349DCC_75B47C(0);
 // //                 }
 // //             } else if (D_802912D8 != 0) {
-// //                 func_8012C1F0(&D_801D9E7C);
+// //                 load_default_display_list(&D_801D9E7C);
 // //                 set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
 // //                 select_font(0, 2, 1, 0);
 // //                 func_8012EB4C(&D_801D9E7C, &D_80204368, ((s32) gScreenWidth / 2) & 0xFFFF, 0xC8, 16.0f, 16.0f, 0x10);
@@ -437,8 +437,9 @@ s32 func_80296320_6A79D0(void) {
     s16 ret;
     s16 i;
     s32 res;
-
+    u8* e = &D_8023F260;
     ret = 0;
+
 
     for (i = 1; i < 32; i++) {
         if ((i != 10) &&
@@ -446,7 +447,7 @@ s32 func_80296320_6A79D0(void) {
             (i != 23) &&
             (i != 30) &&
             (i != 31)) {
-                ret += (u32)((u8*)D_8023F260)[i + 3] >> 4;
+                ret += (u32)e[i + 3] >> 4;
             }
     }
     if (ret < 200) {

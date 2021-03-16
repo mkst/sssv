@@ -2,28 +2,27 @@
 #include "common.h"
 
 
-void func_802B6F6C_6C861C(void);
-void func_802B6B5C_6C820C(void);
-void func_802B6088_6C7738(void);
-void func_802B6948_6C7FF8(void);
+s32 func_802B6F6C_6C861C(void);
+s32 func_802B6B5C_6C820C(void);
+s32 func_802B6088_6C7738(void);
+s32 func_802B6948_6C7FF8(void);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B4D20_6C63D0.s")
 
-s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, void (**arg2)(void), u8 *arg3) {
-    struct035 *temp_v0;   // arg0
-    struct035 *temp_v0_2; // arg1
+s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
+    struct035 *a0;   // arg0
+    struct035 *a1; // arg1
     s32 res = 0;
 
-
     *arg2 = NULL;
-    temp_v0 = arg0->unk16C;
-    if (temp_v0->unk15 == 4) {
-      temp_v0_2 = arg1->unk16C;
-        if (temp_v0_2->unk15 == 4) {
+    a0 = arg0->unk16C;
+    if (a0->unk15 == 4) {
+      a1 = arg1->unk16C;
+        if (a1->unk15 == 4) {
             res = 6;
             *arg2 = func_802B750C_6C8BBC;
             *arg3 = 0;
-        } else if (temp_v0_2->unk18 != 0) {
+        } else if (a1->unk18 != 0) {
             if (arg1->unkD0 != NULL) {
                 res = 7;
                 *arg2 = func_802B6F6C_6C861C;
@@ -40,9 +39,9 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, void (**arg2)(void), u8 *ar
                 *arg3 = 1;
             }
         }
-    } else if (temp_v0->unk18 != 0) {
-        temp_v0_2 = arg1->unk16C;
-        if (temp_v0_2->unk15 == 4) {
+    } else if (a0->unk18 != 0) {
+        a1 = arg1->unk16C;
+        if (a1->unk15 == 4) {
             if (arg1->unkD0 != NULL) {
                 res = 7;
                 *arg2 = func_802B6F6C_6C861C;
@@ -52,7 +51,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, void (**arg2)(void), u8 *ar
                 *arg2 = func_802B6F6C_6C861C;
                 *arg3 = 1;
             }
-        } else if (temp_v0_2->unk18 != 0) {
+        } else if (a1->unk18 != 0) {
             if ((arg0->unkD0 != NULL) && (arg1->unkD0 != NULL)) {
                 res = 1;
                 *arg2 = func_802B6088_6C7738;
@@ -84,12 +83,12 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, void (**arg2)(void), u8 *ar
     } else {
         res = 0;
         if (arg0->unkD0 != NULL) {
-            temp_v0_2 = arg1->unk16C;
-            if (temp_v0_2->unk15 == 4) {
+            a1 = arg1->unk16C;
+            if (a1->unk15 == 4) {
                 res = 4;
                 *arg2 = func_802B6B5C_6C820C;
                 *arg3 = 0;
-            } else if (temp_v0_2->unk18 != 0) {
+            } else if (a1->unk18 != 0) {
                 res = 1;
                 *arg2 = func_802B6088_6C7738;
                 *arg3 = 0;
@@ -121,7 +120,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, void (**arg2)(void), u8 *ar
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B750C_6C8BBC.s")
 // JUSTREG!
-// u8 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
+// s32 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
 //     u8 check0;
 //     u8 check1;
 //     s32 velocity0;
@@ -133,9 +132,9 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, void (**arg2)(void), u8 *ar
 //     check0 = ((arg4 - velocity0) < arg7) && ((arg4 + velocity0) > arg7) &&
 //              ((arg5 - velocity1) < arg8) && ((arg5 + velocity1) > arg8);
 //
-//    check1 = ((arg9 - arg0->unk42) < arg6) && ((arg6 - arg1->unk42) < arg9);
+//     check1 = ((arg9 - arg0->unk42) < arg6) && ((arg6 - arg1->unk42) < arg9);
 //
-//     return check0 && check1;
+//     return (u8) (check0 && check1);
 // }
 
 s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {

@@ -13,7 +13,9 @@ s16 func_8038CC28_79E2D8(void) {
     return D_803B62D0[((D_80286560 + 3) & 0x3F) >> 1];
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_79DE10/func_8038CC50_79E300.s")
+s16 func_8038CC50_79E300(void) {
+    return ((D_80152C78[(u8)((s16)((D_80286560 - 7) << 2) + 64)] >> 7) + 256) / 8;
+}
 
 s16 func_8038CCA4_79E354(void) {
     return (D_80286560 + 7) & 0x3F;

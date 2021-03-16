@@ -9,7 +9,7 @@ void func_8038F6F0_7A0DA0(void) {
 
 void func_8038F708_7A0DB8(void) {
     if ((D_803F6716 != D_8023F2A0.unkD) || (D_803F6718 != D_8023F2A0.unkC) || (D_803F671A != D_8023F2A0.unkE)) {
-        func_80130C30(4);
+        write_eeprom(4);
         func_80133BA0(D_8023F2A0.unkC);
     }
     D_803F66A4 = 1;

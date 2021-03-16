@@ -33,7 +33,7 @@ void func_8038BA30_79D0E0(void)
 //     s16 sp28[60]; // TBD how long this needs to be
 //
 //     if (D_803F6428.unk6 != 0) {
-//         func_8012C1F0(&D_801D9E7C);
+//         load_default_display_list(&D_801D9E7C);
 //         set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
 //         select_font(0, 0, 0, 0);
 //         if ((D_803F6428.unk6 != 0) && (D_803F6680.unk0 == 0)) {

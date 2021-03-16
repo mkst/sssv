@@ -5,7 +5,6 @@
 
 // first function called after osInitialize
 void init(void) {
-    // fancy bzero
     fancy_bzero(D_80000400, 0x25800); // 153600
     fancy_bzero(D_80025C00, 0x25800);
 }
@@ -14,6 +13,9 @@ void init(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main_51D0/func_80129B10.s")
 // NON-MATCHING: almost JUSTREG
 // void func_80129B10(s32 arg0) {
+//     struct008 *a;
+//     struct009 *b;
+//
 //     D_80204290 = 1;
 //     D_80204292 = 2;
 //
@@ -33,17 +35,21 @@ void init(void) {
 //
 //     gScreenWidth = 320;
 //     gScreenHeight = 240;
-//     D_802910D0 = 0;
-//     func_80131BF0(&D_80286328); // initialize_audio
+//     // pointer to controller state
+//     D_802910D0 = NULL;
+//
+//     func_80131BF0(D_80286328); // initialize_audio
 //
 //     // stack (1)?
-//     D_80162658[0].unk3BBA8 = 6;
-//     D_80162658[0].unk3BBC8 = 2;
-//     D_80162658[0].unk3BBE8 = &D_80000400;
+//     a = &D_80162658;
+//     a->unk3BBA8 = 6;
+//     a->unk3BBC8 = 2;
+//     a->unk3BBE8 = D_80000400; // framebuffer 1 ?
 //     // stack (2)?
-//     D_8019A658[0].unk3F798 = 6;
-//     D_8019A658[0].unk3F7B8 = 2;
-//     D_8019A658[0].unk3F7D8 = &D_80025C00;
+//     9 = &D_8019A658;
+//     9->unk3F798 = 6;
+//     9->unk3F7B8 = 2;
+//     9->unk3F7D8 = D_80025C00; // framebuffer 2?
 //
 //     init();
 //     D_801D9E38 = 5;
@@ -179,7 +185,7 @@ void func_8012A750(void) {
         draw_rectangle(&D_801D9E7C, 0, 16, 320, 36, 40, 40, 40, 128);
         gDPPipeSync(D_801D9E7C++);
 
-        func_8012C1F0(&D_801D9E7C);
+        load_default_display_list(&D_801D9E7C);
         select_font(0, 0, 0, 0);
         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         func_8012C978(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);

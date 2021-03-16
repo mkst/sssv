@@ -101,7 +101,7 @@ void func_8012D374(s32, s32, s32, u16, f32, f32, s32);
 //     s16 phi_s0_2;
 //
 //
-//     func_8012C1F0(arg0);
+//     load_default_display_list(arg0);
 //     select_font(0, 2, 0, 0);
 //
 //     if ((arg1 * 4) < 80) {
@@ -252,7 +252,7 @@ void func_8038DA70_79F120(void) {
 //         break;
 //     case 1:
 //         gScreenWidth = 320;
-//         func_8012C1F0(&D_801D9E7C);
+//         load_default_display_list(&D_801D9E7C);
 //         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
 //         select_font(0, 2, 1, 0);
 //         func_8038D920_79EFD0(0xFF);
@@ -271,7 +271,7 @@ void func_8038DA70_79F120(void) {
 //         func_8038D004_79E6B4(&D_801D9E90, D_803B6310);
 //         func_8038DA70_79F120();
 //         func_8038E504_79FBB4(D_803B6310);
-//         func_8012C1F0(&D_801D9E7C);
+//         load_default_display_list(&D_801D9E7C);
 //         set_menu_text_color(0x80, 0xFF, 0, 0xFF);
 //         select_font(0, 2, 1, 0);
 //         func_8038DBE0_79F290(0xE, 0x10);
@@ -332,7 +332,7 @@ void func_8038DA70_79F120(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038F414_7A0AC4.s")
 // NON-MATCHING: almost JUSTREG
 // void func_8038F414_7A0AC4(void) {
-//     switch (D_803F2AA2) {
+//     switch (D_803F2AA2 & 0xff) {
 //         u8 tmp;
 //     case 0:
 //         if (D_803F6460 > 0) {

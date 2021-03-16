@@ -23,7 +23,6 @@
 // }
 
 void func_80136418(Gfx **dl, u8 color) {
-
     gSPLoadUcodeEx((*dl)++, &D_8014E300, &D_8015C750, 2048);
     gDPPipeSync((*dl)++);
     gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
