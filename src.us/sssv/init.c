@@ -28,7 +28,7 @@ void func_80352310_7639C0(void) {
         rmonPrintf(D_803BEA48, D_803BEA78, 115, len);
         *(volatile int*)0 = 0;
     }
-    dma_read(&D_005449C0, &D_800DCC20, len);
+    dma_read(D_005449C0, &D_800DCC20, len);
 }
 
 // 2000 lines

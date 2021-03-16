@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern u8 D_800BA760[];
 extern u8 D_800BDC80[];
 extern u8 D_800BB700[];
 extern u8 D_800DE390[];
@@ -35,7 +34,7 @@ extern s8  D_803B71D0[][5];
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_80398630_7A9CE0.s")
 // void func_80398630_7A9CE0(void) {
 //     func_803800F0_7917A0(6);
-//     rnc_decompress(D_801D9E6C + (D_04006EC0 & 0xFFFFFF), &D_800BA760); // rnc_42DCA0
+//     rnc_decompress(D_801D9E6C + (D_04006EC0 & 0xFFFFFF), &D_800BA760); // rnc_42DCA0, textures
 //     rnc_decompress(D_801D9E6C + (D_04007FA0 & 0xFFFFFF), &D_800BDC80);
 //     rnc_decompress(D_801D9E6C + (D_04000000 & 0xFFFFFF), &D_800DE390);
 //     rnc_decompress(D_801D9E6C + (D_04013060 & 0xFFFFFF), &D_800C3A40);
@@ -93,10 +92,10 @@ void func_8039895C_7AA00C(void) {
     generate_stars();
 
     for (i = 0; i < 4; i++) {
-        func_80130CD4(i);
+        read_eeprom(i);
         strncpy(&D_8023F260, &D_8023F2E0[i], 64);
     }
-    func_80130CD4(D_803F7DD6);
+    read_eeprom(D_803F7DD6);
 }
 
 void func_80398A00_7AA0B0(void) {
@@ -108,6 +107,86 @@ void func_80398A00_7AA0B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039A2DC_7AB98C.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039BBB8_7AD268.s")
+// void func_8039BBB8_7AD268(void) {
+//     s16 temp_a0_2;
+//     s16 temp_t6;
+//     s16 temp_t8;
+//     s16 temp_t9;
+//     s32 temp_a0;
+//     s32 temp_v1;
+//     u32 temp_v1_2;
+//     u8 temp_t3;
+//     struct003 *temp_v0;
+//
+//
+//     if (D_803F2D50.unkC6 != 0) {
+//         temp_a0 = D_803E4D28 & 2;
+//         if ((D_803E4D28 & 1) != 0) {
+//             temp_t9 = D_803F7DA8.unk2D + 1;
+//             if ((temp_t9 != 10) && (temp_t9 != 17) && (temp_t9 != 23) &&
+//                 (temp_t9 != 30) && (temp_t9 != 31)) {
+//                 temp_v0 = &D_8023F260 + D_803F2D30.unk8;
+//                 temp_v0->unk3 |= 1;
+//             }
+//         }
+//         temp_t8 = D_803F7DA8.unk2D + 1;
+//         if (temp_a0 != 0) {
+//             if (temp_t8 == 10) {
+//                 D_8023F260.unk3B |= 1;
+//             }
+//             if (temp_t8 == 17) {
+//                 D_8023F260.unk3B |= 2;
+//             }
+//             if (temp_t8 == 23) {
+//                 D_8023F260.unk3B |= 4;
+//             }
+//             if (temp_t8 == 30) {
+//                 D_8023F260.unk3B |= 8;
+//             }
+//         }
+//         if ((temp_t8 == 10) || (temp_t8 == 17) || (temp_t8 == 23) || (temp_t8 == 30)) {
+//             if (temp_a0 != 0) {
+//                 temp_v0 = &D_8023F260 + D_803F2D30.unk8;
+//                 temp_v0->unk3 |= 2;
+//             }
+//         } else {
+//             temp_a0_2 = D_803F2D30.unkC;
+//             temp_v0 = &D_8023F260 + D_803F2D30.unk8;
+//             temp_t3 = temp_v0->unk3 | 2;
+//             temp_v1_2 = temp_t3 & 0xFF;
+//             temp_v0->unk3 = temp_t3;
+//             if ((s32) (temp_v1_2 >> 4) < (s32) temp_a0_2) {
+//                 temp_v0->unk3 = (u8) ((temp_a0_2 * 0x10) | (temp_v1_2 & 0xFF0F));
+//             }
+//         }
+//         D_803F2D50.unkC6 = 0;
+//         strncpy(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
+//         write_eeprom(D_803F7DA8.unk2E);
+//         temp_t6 = D_803F7DA8.unk2D + 1;
+//         if ((temp_t6 == 10) || (temp_t6 == 17) || (temp_t6 == 23) || (temp_t6 == 30)) {
+//             if ((D_803E4D28 & 2) != 0) {
+//                 if (temp_t6 == 30) {
+//                     if (D_8023F260.unk3B == 0xF) {
+//                         D_803F7DA8.unk2D += 1;
+//                     }
+//                 } else {
+//                     D_803F7DA8.unk2D += 1;
+//                 }
+//             }
+//         } else {
+//             D_803F7DA8.unk2D += 1;
+//         }
+//         if (D_803F7DA8.unk2D == 0x1F) {
+//             D_803F7DA8.unk2D = 0x22;
+//         }
+//     } else {
+//         if (D_8023F260.score < D_803F2D30.score) {
+//             D_8023F260.score = D_803F2D30.score;
+//         }
+//         strncpy(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
+//         write_eeprom(D_803F7DA8.unk2E);
+//     }
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039BE98_7AD548.s")
 // NON-MATCHING: long way to go here...

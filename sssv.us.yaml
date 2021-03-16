@@ -217,14 +217,18 @@ segments:
     - [0x28860, c, libultra/os/setglobalintmask]
     - [0x288B0, c, libultra/os/yieldthread]
     - [0x28900, c, libultra/libc/ldiv]
-  - [0x028A90, bin]
-  - [0x02FDD0, bin] # textures; CH, 7-segment score display
   - name:  main_data
     type:  code
-    start: 0x00035050
-    vram:  0x80159950
+    start: 0x028A90 # 0x00035050
+    vram:  0x8014D390
     overlay: no
+    subalign: 8
     subsections:
+    - [0x028A90, bin]
+    # - [0x02FC00, .rodata, main_78F0]
+    - [0x02FD28, .rodata, main_78F0]
+    - [0x02FD80, bin]
+    - [0x02FDD0, bin] # textures; CH, 7-segment score display
     - [0x035050, .data, libultra/os/initialize]
     - [0x035070, bin]
     - [0x036410, .rodata, core/fontinit]
@@ -554,7 +558,7 @@ segments:
     vram:  0x80294E50
     subsections:
     - [0x6384F0, c]
-    - [0x63C660, asm] # this is a monster file
+    - [0x63C660, c]
   - type:  code
     name:  overlay1_data
     start: 0x0063CDD0
@@ -586,10 +590,10 @@ segments:
     vram:  0x80294E50
     subsections:
     - [0x6A6500, c]
-    - [0x6A7A80, asm]
+    - [0x6A7A80, c]
     - [0x6AB090, c]
-    - [0x6AC360, asm]
-    - [0x6ACF20, asm]
+    - [0x6AC360, c]
+    - [0x6ACF20, c]
     - [0x6B5380, c]
     - [0x6C5570, asm]
     - [0x6C63D0, c, sssv/collision]
@@ -609,7 +613,7 @@ segments:
     - [0x702DE0, asm]
     - [0x7041D0, asm]
     - [0x7070A0, asm]
-    - [0x7117E0, asm]
+    - [0x7117E0, c]
     - [0x7118C0, asm]
     - [0x7138B0, asm]
     - [0x714500, asm]
@@ -628,13 +632,13 @@ segments:
     - [0x741000, asm]
     - [0x7558F0, asm]
     - [0x7598E0, c, sssv/osd]
-    - [0x75B9D0, asm]
+    - [0x75B9D0, c, sssv/hilites]
     - [0x75BC80, asm]
     - [0x75D3D0, asm]
     - [0x763930, c, sssv/init]
     - [0x767AC0, c, sssv/overlay2_767AC0]
     - [0x7688B0, c]
-    - [0x7689A0, asm]
+    - [0x7689A0, c]
     - [0x768B90, asm]
     - [0x76BCA0, asm]
     - [0x76D850, asm]
@@ -645,8 +649,8 @@ segments:
     - [0x77EDB0, asm]
     - [0x780E50, asm]
     - [0x783D90, asm]
-    - [0x786320, asm]
-    - [0x78A890, asm]
+    - [0x786320, c]
+    - [0x78A890, c]
     - [0x78CEB0, c]
     - [0x78E970, c]
     - [0x7917A0, c, sssv/animinit]

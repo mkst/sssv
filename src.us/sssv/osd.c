@@ -189,45 +189,44 @@ void func_803491F0_75A8A0(void) {
 void func_80349278_75A928(void) {
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/osd/func_80349280_75A930.s")
-// NON-MATCHING: JUSTREG
-// void func_80349280_75A930(Animal *arg0, s16 arg1) {
-//     s32 temp_a2;
-//     s32 temp_v1;
-//
-//     if (((arg0->unk16C->unk80 << 18) < 0) && ((arg0->unk366== 3) || (arg0->unk366 == 4) || (arg0->unk366 == 1))) {
-//         if (arg1 != 0) {
-//             temp_a2 = arg1 >> 2;
-//             temp_v1 = temp_a2 + 4;
-//             temp_a2 = arg0->unk36B + temp_a2;
-//             if (temp_v1 < temp_a2) {
-//                 arg0->unk36B = temp_a2;
-//             } else {
-//                 arg0->unk36B = temp_v1;
-//             }
-//         }
-//         if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
-//             if (arg0 == D_803F2CF8.animal) {
-//                 if ((arg0->health - arg1) < 0) {
-//                     D_803F2CF8.unk6 = 0;
-//                 } else {
-//                     D_803F2CF8.unk6 = arg0->health - arg1;
-//                 }
-//                 D_803F2CF8.unkA = 64;
-//             } else if ((D_803F2CF8.animal == NULL) || ((arg1 != 0) && ((D_803F2CF8.unk8 == D_803F2CF8.unk6) || (D_803F2CF8.animal->unk16C->unk7C < arg0->unk16C->unk7C)))) {
-//                 D_803F2CF8.animal = arg0;
-//                 D_803F2CF8.health = arg0->health;
-//                 if (arg0->health - arg1 < 0) {
-//                     D_803F2CF8.unk6 = 0;
-//                 } else {
-//                     D_803F2CF8.unk6 = arg0->health - arg1;
-//                 }
-//                 D_803F2CF8.unk8 = D_803F2CF8.health;
-//                 D_803F2CF8.unkA = 64;
-//             }
-//         }
-//     }
-// }
+void func_80349280_75A930(Animal *arg0, s16 arg1) {
+    s32 temp_a2;
+    s32 temp_v1;
+
+    if ((arg0->unk16C->unk80.bit) &&
+        ((arg0->unk366== 3) || (arg0->unk366 == 4) || (arg0->unk366 == 1))) {
+        if (arg1 != 0) {
+            temp_a2 = arg1 >> 2;
+            temp_v1 = temp_a2 + 4;
+            temp_a2 = arg0->unk36B + temp_a2;
+            if (temp_v1 < temp_a2) {
+                arg0->unk36B = temp_a2;
+            } else {
+                arg0->unk36B = temp_v1;
+            }
+        }
+        if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
+            if (arg0 == D_803F2CF8.animal) {
+                if ((arg0->health - arg1) < 0) {
+                    D_803F2CF8.unk6 = 0;
+                } else {
+                    D_803F2CF8.unk6 = arg0->health - arg1;
+                }
+                D_803F2CF8.unkA = 64;
+            } else if ((D_803F2CF8.animal == NULL) || ((arg1 != 0) && ((D_803F2CF8.unk8 == D_803F2CF8.unk6) || (D_803F2CF8.animal->unk16C->unk7C < arg0->unk16C->unk7C)))) {
+                D_803F2CF8.animal = arg0;
+                D_803F2CF8.health = arg0->health;
+                if (arg0->health - arg1 < 0) {
+                    D_803F2CF8.unk6 = 0;
+                } else {
+                    D_803F2CF8.unk6 = arg0->health - arg1;
+                }
+                D_803F2CF8.unk8 = D_803F2CF8.health;
+                D_803F2CF8.unkA = 64;
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/osd/func_803493C8_75AA78.s")
 // NON-MATCHING: few things wrong here..
@@ -423,7 +422,7 @@ void func_80349B84_75B234(u16 arg0) {
     }
 
     func_801308B4(D_803A8344, str);
-    func_8012C1F0(&D_801D9E7C);
+    load_default_display_list(&D_801D9E7C);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     select_font(0, 0, 1, 0);
     // write string centered
@@ -431,7 +430,7 @@ void func_80349B84_75B234(u16 arg0) {
 }
 
 void func_80349CA4_75B354(u16 arg0) {
-    func_8012C1F0(&D_801D9E7C);
+    load_default_display_list(&D_801D9E7C);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     select_font(0, 0, 1, 0);
     func_8012EB4C(&D_801D9E7C, D_803F2CE0, (gScreenWidth >> 1), arg0, 16.0f, 16.0f, 0x10);

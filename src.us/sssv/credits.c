@@ -68,7 +68,7 @@ s32 display_credits(void) {
     s16 sp90[58];
     u8  sp50[64];
 
-    func_8012C1F0(&D_801D9E7C);
+    load_default_display_list(&D_801D9E7C);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
     select_font(0, 2, 0, 0);
 

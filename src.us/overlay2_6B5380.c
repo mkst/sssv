@@ -224,14 +224,14 @@ void func_802A5CF4_6B73A4(void) {
     D_803D552C->unk2F4 = 0;
     D_803D552C->unk2FC = 22;
     D_803D552C->unk368 = 0;
-    D_803D5530->yVelocity = 2 * D_803A05B0;
+    D_803D5530->yVelocity.w = 2 * D_803A05B0;
     D_803D5530->unk162 = 2;
 }
 
 void func_802A5D64_6B7414(void) {
     D_803D5530->state = 121;
     D_803D552C->unk31A = 0;
-    D_803D5530->yVelocity = 0;
+    D_803D5530->yVelocity.w = 0;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
     D_803D552C->unk368 = 0;
@@ -245,7 +245,7 @@ void func_802A5DD0_6B7480(void) {
     D_803D552C->unk2F4 = 0;
     D_803D552C->unk2FC = 22;
     D_803D552C->unk368 = 0;
-    D_803D5530->yVelocity = 0;
+    D_803D5530->yVelocity.w = 0;
 }
 
 void func_802A5E1C_6B74CC(u16 rotation) {
@@ -532,8 +532,8 @@ void func_802B2EA8_6C4558(void) {
         D_803D5530->unk162 = 1;
         break;
     case 256:
-        D_803D5530->xVelocity = 0;
-        D_803D5530->zVelocity = 0;
+        D_803D5530->xVelocity.w = 0;
+        D_803D5530->zVelocity.w = 0;
         func_802A5E64_6B7514();
         D_803D5530->unk162 = 1;
         break;
@@ -567,8 +567,8 @@ void func_802B2FF4_6C46A4(void) {
         D_803D5530->unk162 = 3;
         break;
     case 256:
-        D_803D5530->xVelocity = 0;
-        D_803D5530->zVelocity = 0;
+        D_803D5530->xVelocity.w = 0;
+        D_803D5530->zVelocity.w = 0;
         func_802A5E1C_6B74CC(0);
         D_803D5530->unk162 = 3;
         break;
@@ -579,23 +579,19 @@ void func_802B2FF4_6C46A4(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3230_6C48E0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B33D0_6C4A80.s")
-// JUSTREG
-// void func_802B33D0_6C4A80(Animal *a) {
-//     a->unk4A += 1;
-//     if ((a->unk16C->unk80 << 18) < 0) {
-//         a->unk304 = a->unk302 & 0xffff;
-//     }
-// }
+void func_802B33D0_6C4A80(Animal *a) {
+    a->unk4A += 1;
+    if (a->unk16C->unk80.bit) {
+        a->unk304 = a->unk302;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3400_6C4AB0.s")
-// JUSTREG
-// void func_802B3400_6C4AB0(Animal *a) {
-//     a->unk4A = 1;
-//     if ((a->unk16C->unk80 << 18) < 0) {
-//         a->unk304 = a->unk302;
-//     }
-// }
+void func_802B3400_6C4AB0(Animal *a) {
+    a->unk4A = 1;
+    if (a->unk16C->unk80.bit) {
+        a->unk304 = a->unk302;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B342C_6C4ADC.s")
 
