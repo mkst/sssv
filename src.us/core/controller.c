@@ -25,7 +25,7 @@ void func_8012822C(s32 time) {
 u16 func_8012826C(void) {
     u16 temp_a0 = D_80151434;
 
-    D_80151434 *= 2;
+    D_80151434 <<= 1;
     if (temp_a0 & CONT_A) {
         D_80151434 ^= 1;
     }

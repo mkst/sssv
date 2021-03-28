@@ -82,8 +82,77 @@ s32 func_80132D84(ALSndPlayer *sndp) {
 
 // bit odd, copy values into some structs?
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80132F70.s")
+
+typedef struct {
+    s16 unk0;      // 4C
+    s16 unk2;      // 4E
+    u8  unk4;      // 50
+    u8  pad5[0x3];
+    f32 unk8;      // 54
+    s16 unkC;      // 58
+    u8  padE[0x2]; // 5A
+    u16 unk10;     // 5C
+    u8  pad12[0x2];
+    s16 unk14;     // 60
+    u8  pad16[0x2];
+    s32 unk18;     // 64
+    s16 unk1C;     // 68
+    u8  pad1E[0x4];
+    s16 unk22;     // 6E
+    u8  pad24[0x4];
+    s16 unk28;     // 74
+    s32 unk30;
+} foo;
+
 // play a sound effect?
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013307C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/play_sound_effect.s")
+// wth is this?
+// void play_sound_effect(s16 arg0, s16 arg1, s16 arg2, f32 arg3, u8 arg4) {
+//     foo tmp;
+//
+//     s16 *temp_t5;
+//     s16 *temp_t5_2;
+//     s32 temp_v0;
+//     void *temp_t9;
+//     foo  *phi_t5;
+//     void *phi_t9;
+//
+//     if (D_80155154 != 0) {
+//         if (arg0 != 10000) {
+//             tmp.unk0 = D_80154C4C[arg0];
+//             tmp.unk2 = arg0;
+//             tmp.unk14 = 0;
+//             tmp.unk18 = 0;
+//             tmp.unk8 = D_801546E8[arg0] * arg3; // + temp_v0) * arg3;
+//             tmp.unk28 = 0;
+//             tmp.unk22 = -1;
+//             tmp.unk1C = arg1;
+//             tmp.unk4 = arg4;
+//             tmp.unkC = arg2;
+//             tmp.unk10 = D_80241D0E;
+//             // phi_t9 = sp;
+//             phi_t5 = &tmp;
+//             while(phi_t5->unkC != phi_t5->unk30) {
+//                 // ?
+//             }
+// // loop_3:
+// //             temp_t5_2 = phi_t5 + 0xC;
+// //             temp_t9 = phi_t9 + 0xC;
+// //             temp_t9->unk-C = (s32) *phi_t5;
+// //             temp_t9->unk-8 = (s32) temp_t5_2->unk-8;
+// //             temp_t9->unk-4 = (s32) temp_t5_2->unk-4;
+// //             phi_t5 = temp_t5_2;
+// //             phi_t9 = temp_t9;
+// //             if (temp_t5_2 != (temp_t5 + 0x30)) {
+// //                 goto loop_3;
+// //             }
+//             // temp_t9->unk0 = (s32) temp_t5_2->unk0;
+//             // func_80132174(arg3, subroutine_arg0, subroutine_arg1, subroutine_arg2, subroutine_arg3, &D_8028631C, &D_80286320);
+//             func_80132174(arg3, phi_t5->unk0, &D_8028631C, &D_80286320);
+//         }
+//     }
+// }
+
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80133188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013328C.s")
 

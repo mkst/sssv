@@ -185,9 +185,9 @@ void func_8038FCF8_7A13A8(void) {
     func_8038FC58_7A1308();
 }
 
-// initialise_level (?)
+// initialise game (?)
 void func_8038FD74_7A1424(void) {
-    func_8038BA30_79D0E0();
+    reset_cheats();
     D_803F671C = 0;
     func_80133B74(D_8023F2AD);
     func_80133BA0(D_8023F2AC);
@@ -486,7 +486,7 @@ s32 func_80396714_7A7DC4(void) {
 s32 func_80396748_7A7DF8(void) {
     if (((*D_802910D0 & CONT_START) && (D_802912DE == 1)) ||
         ((*D_802910D0 & CONT_A) && (D_802912DF == 1))) {
-          func_8013307C(0x90, 0, 0x5000, 1.0f, 64);
+          play_sound_effect(0x90, 0, 0x5000, 1.0f, 64);
           D_803F66AF = (u8)1;
           return 1;
     } else {

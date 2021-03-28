@@ -96,25 +96,25 @@ s32 unpack_data_m1(u8 *src, u8* dst) {
         make_huftable(D_8022E2E0, 16); // pos_table
         subchunks = input_bits_m1(16);
 goto foo;
-        // is this all skipped?!
-        while (subchunks != 0) {
+        do {
+            // skipped on first loop
             match_offset = (D_8022E0DC - decode_table_data(D_8022E1E0)) - 1;
             match_count = decode_table_data(D_8022E2E0) + 2;
             while (match_count--) {
                 *D_8022E0DC++ = *match_offset++;
             }
 foo:
-        data_length = decode_table_data(D_8022E0E0);
-        while (data_length--) {
-            *D_8022E0DC++ = *D_8022E3E0++;
-        }
+            data_length = decode_table_data(D_8022E0E0);
+            while (data_length--) {
+                *D_8022E0DC++ = *D_8022E3E0++;
+            }
 
-        rs = reverse_short(D_8022E3E0 + 1);
-        rw = reverse_word(D_8022E3E0 + 2) << 16;
-        D_8022E0D8 = (((*D_8022E3E0 + rw + (rs << 8)) << D_8022E3E4) +
-                      (D_8022E0D8 & ((1 << D_8022E3E4) - 1)));
-        subchunks--;
-        };
+            rs = reverse_short(D_8022E3E0 + 1);
+            rw = reverse_word(D_8022E3E0 + 2) << 16;
+            D_8022E0D8 = (((*D_8022E3E0 + rw + (rs << 8)) << D_8022E3E4) +
+                          (D_8022E0D8 & ((1 << D_8022E3E4) - 1)));
+            subchunks--;
+        } while (subchunks);
     }
     return 0;
 }

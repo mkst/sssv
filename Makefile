@@ -5,7 +5,9 @@ BUILD_DIR = build
 ASM_DIRS  = asm asm/libc asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched
 BIN_DIRS  = bin
 SRC_DIR   = src
-SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core $(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os $(SRC_DIR)/sssv
+SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
+			$(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os \
+			$(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals
 
 TOOLS_DIR := tools
 
