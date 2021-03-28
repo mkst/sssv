@@ -84,7 +84,7 @@ void func_8037D9D4_78F084(void) {
 //             D_803D552C->unk2E9 = 8;
 //         }
 //     }
-//     if (D_803D5524->unk9C == 0x27) {
+//     if (D_803D5524->unk9C == POLAR_TANK) {
 //         phi_a0 = 0;
 //     } else {
 //         phi_a0 = 1;

@@ -98,7 +98,8 @@ extern f32  D_801546D0;
 extern f32  D_801546D4;
 extern s16  D_801546D8;
 extern s16  D_801546E0;
-extern s32  D_80154C4C[]; // sound effect pointers?
+extern s16  D_801546E8[];
+extern s16  D_80154C4C[]; // sound effect pointers?
 
 extern s16  D_801550F8[];
 extern s32  D_80155154; // sound initialised?
@@ -310,7 +311,7 @@ extern OSMesg D_8029105C;
 extern Controller D_80291090[];
 extern OSMesg D_80291048;
 extern OSMesg D_8029104C;
-extern u16   *D_802910D0;
+extern u16   *D_802910D0; // controller mask
 extern OSContStatus *D_802910D8[];
 extern ControllerMesg D_80291100;
 extern OSPfs        *D_80291110[]; // ?
@@ -380,6 +381,8 @@ extern s16  D_803B0594;
 extern u8   D_803B0595;
 extern u16  D_803B0596;
 
+extern s16  D_803B4F30;
+extern s16  D_803B4F34;
 extern s16  D_803B52FC[];
 extern void (*D_803B5D20[])(void);
 extern s32  D_803B58A0;
@@ -430,6 +433,14 @@ extern f32  D_803BEB14;
 extern f32  D_803BEB18;
 extern f32  D_803BEB1C;
 extern f32  D_803BEB20;
+extern f32  D_803BEC10;
+extern f32  D_803BEC14;
+extern f32  D_803BEC18;
+extern f32  D_803BEF14;
+extern f32  D_803BEF18;
+extern f32  D_803BEF68;
+extern f32  D_803BEF6C;
+extern f32  D_803BEF90;
 
 extern f32  D_803BF028; // 0x3F333333
 extern f32  D_803BF02C; // 3F333333
@@ -470,7 +481,7 @@ extern s16 D_803D5508;
 extern struct037 *D_803D5520;
 extern struct035 *D_803D5524;
 extern Animal *D_803D5528;
-extern Animal *D_803D552C;
+extern Animal *D_803D552C; // is this *really* Animal?
 extern s16 D_803D5540;
 extern u16 D_803D5544;
 extern u16 D_803D5546;
@@ -486,6 +497,11 @@ extern s16  D_803D6110;
 extern u16  D_803F2D20;
 extern s8   D_803F2D22;
 extern s8   D_803F2D23;
+extern struct060 D_803F2F08[];
+extern s16  D_803F3308;
+extern s16  D_803F330A;
+extern s16  D_803F330C;
+extern s16  D_803F330E;
 extern s16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
@@ -536,6 +552,7 @@ extern s16  D_803F7134[];
 extern s16  D_803F713C[];
 extern s16  D_803F7144[];
 extern s16  D_803F714C[];
+extern s16  D_803F71A0[];
 extern s32  D_803F7D60;
 extern f32  D_803F7D68;
 extern s16  D_803F7D9C;
@@ -623,10 +640,12 @@ extern s32  D_803E4D2C;
 extern s16  D_803E1BC0;
 extern u16  D_803E1BC4; // buttons pressed
 extern Fog  D_803E1CF8;
+extern s32  D_803E8E60[];
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  D_803E9824;
 extern u16  D_803E9828[];
+extern s16  D_803F2EE0[];
 extern s16  D_803F2E16;
 extern s16  D_803F2E1E;
 extern s16  D_803F2E2A;

@@ -57,7 +57,9 @@ struct Animal {
     /* 0x08 */  s16 zPos;
     /* 0x0A */  u8  padA[0x2];
     /* 0x0C */  s16 yPos;
-    /* 0x0E */  u8  padE[0xE];
+    /* 0x0E */  u8  padE[0xA];
+    /* 0x18 */  s16 unk18;
+    /* 0x1A */  u8  pad1A[0x2];
     /* 0x1C */  union {
                     s32 w;
                     s16 h;
@@ -93,7 +95,7 @@ struct Animal {
     /* 0x60 */  Animal* unk60;
     /* 0x64 */  u8  pad64[0x4];
     /* 0x68 */  Animal *unk68;
-    /* 0x6C */  u8  pad6C[0x4];
+    /* 0x6C */  Animal *unk6C;
     /* 0x70 */  s32 unk70;
     /* 0x74 */  u8  pad74[0x5C];
     /* 0xD0 */  s32 unkD0;
@@ -125,9 +127,42 @@ struct Animal {
     /* 0x270 */ u8  unk270;
     /* 0x271 */ u8  pad271;
     /* 0x272 */ u16 unk272;
-    /* 0x274 */ u8  pad274[0xC];
+    /* 0x274 */ u8  unk274;
+    /* 0x275 */ s8  unk275;
+    /* 0x276 */ s16 unk276;
+    /* 0x278 */ s16 unk278;
+    /* 0x27A */ s16 unk27A;
+    /* 0x27C */ s16 unk27C;
+    /* 0x27E */ u8  pad27E[0x2];
     /* 0x280 */ Animal *unk280; // another one? is this a repeating array?
-    /* 0x282 */ u8  pad284[0x30];
+    /* 0x284 */ u8  pad284[0x8];
+    /* 0x28C */ u16 unk28C;
+    /* 0x28E */ u8  unk28E;
+    /* 0x28F */ u8  pad28F;
+    /* 0x290 */ s16 unk290;
+    /* 0x292 */ u8  pad292[0x2];
+    /* 0x294 */ union {
+                    Animal *w;
+                    s16 h[2];
+                    s8  b[4];
+                } unk294;
+    /* 0x298 */ s16 unk298;
+    /* 0x29A */ union {
+                    s16 h;
+                    s8  b;
+                } unk29A;
+    /* 0x29C */ s32 unk29C;
+    /* 0x2A0 */ s8  unk2A0;
+    /* 0x2A1 */ s8  unk2A1;
+    /* 0x2A2 */ s8  unk2A2;
+    /* 0x2A3 */ u8  pad2A3;
+    /* 0x2A4 */ s16 unk2A4;
+    /* 0x2A6 */ s16 unk2A6;
+    /* 0x2A8 */ s16 unk2A8;
+    /* 0x2AA */ u8  pad2AA[0x2];
+    /* 0x2AC */ s32 unk2AC; // Animal* ?
+    /* 0x2B0 */ u8  unk2B0;
+    /* 0x2B1 */ u8  pad2B1[0x3];
     /* 0x2B4 */ struct {
                     u8  state : 4;
                     u8  unk4  : 3;
@@ -143,7 +178,11 @@ struct Animal {
     /* 0x2CA */ u8  pad2CA;
     /* 0x2CC */ Animal* unk2CC;
     /* 0x2D0 */ s16 unk2D0;
-    /* 0x2D4 */ u8  pad2D2[0xE];
+    /* 0x2D2 */ u8  pad2D2[0x2];
+    /* 0x2D4 */ s32 unk2D4;
+    /* 0x2D8 */ s32 unk2D8;
+    /* 0x2DC */ s16 unk2DC;
+    /* 0x2DE */ u8  unk2DE[0x2];
     /* 0x2E0 */ s16 skillAEnergy[2]; // seems to be an array?
     /* 0x2E4 */ s16 skillBEnergy[2]; // same...
     /* 0x2E8 */ u8  unk2E8;
@@ -175,12 +214,15 @@ struct Animal {
     /* 0x324 */ u8  pad324[0x2];
     /* 0x326 */ u16 unk326;
     /* 0x328 */ u16 unk328;
-    /* 0x32A */ u16 unk32A;
-    /* 0x32C */ u8  pad32C[0x4];
+    /* 0x32A */ s16 unk32A;
+    /* 0x32C */ s16 unk32C;
+    /* 0x32E */ u8  pad32E[0x2];
     /* 0x330 */ Animal *unk330;
     /* 0x334 */ u16 unk334;
-    /* 0x336 */ u8  pad336[0x12];
-    /* 0x348 */ u16 unk348;
+    /* 0x336 */ u8  pad336[0x2];
+    /* 0x338 */ s32 unk338;
+    /* 0x33C */ u8  pad33C[0xC];
+    /* 0x348 */ s16 unk348;
     /* 0x34A */ u16 unk34A;
     /* 0x34C */ s16 unk34C;
     /* 0x34E */ s16 unk34E;
@@ -673,31 +715,30 @@ struct struct035 {
                 u8  bit : 1;
               } unk80;
   /* 0x84 */  u8  pad84[0x18];
-  /* 0x9C */  u16 unk9C;
+  /* 0x9C */  u16 unk9C; // animal type?
   /* 0x9E */  u16 unk9E;
-              u8  padA0[0x4];
-              u16 unkA4;
+              u16 unkA0;
+              u8  padA2[0x2];
+              u16 unkA4; // scaling?
               u8  padA6[0x4];
-              u16 unkAA;
-              u16 unkAC;
+              u16 unkAA; // scaling?
+              u16 unkAC; // scaling?
               u8  padAE[0xC];
               u16 unkBA;
               u8  padBC[0x6];
-              s16 unkC2;
-              s16 unkC4;
+              s16 unkC2; // scaling?
+              s16 unkC4; // scaling?
               u8  padC6[0x2];
-              s16 unkC8;
+              s16 unkC8; // scaling?
   /* 0xCA */  s16 unkCA;
   /* 0xCC */  s16 unkCC;
   /* 0xCE */  s16 unkCE;
-  /* 0xD0 */  s16 unkD0;
-  /* 0xD2 */  s16 unkD2;
+  /* 0xD0 */  s16 unkD0; // scaling?
+  /* 0xD2 */  s16 unkD2; // scaling?
   /* 0xD4 */  u8  padD4[0x2];
   /* 0xD6 */  s16 unkD6;
   /* 0xD8 */  u8  padD8[0x2];
-  /* 0xDA */  s16 unkDA;
-  /* 0xDC */  s16 unkDC;
-  /* 0xDE */  u8  padDE[0x2];
+  /* 0xDA */  s16 unkDA[3];
   /* 0xE0 */  s16 unkE0;
   /* 0xE2 */  s16 unkE2;
   /* 0xE4 */  u8  padE4[0x8];
@@ -1027,5 +1068,13 @@ typedef struct {
     /* 0x04 */ f32 y;
     /* 0x08 */ f32 z;
 } Vertex;
+
+typedef struct {
+     s32 unk0;
+     s32 unk4;
+     s32 unk8;
+     s16 unkC;
+     s16 unkE;
+} struct060;
 
 #endif

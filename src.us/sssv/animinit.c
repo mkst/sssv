@@ -67,6 +67,7 @@ void func_80380644_791CF4(Animal *arg0) {
 //     }
 // }
 
+// file boundary?
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_80380920_791FD0.s")
 
 void func_80321920_732FD0(void *arg0, s16 arg1, s16 arg2);
@@ -101,7 +102,7 @@ void func_80321920_732FD0(void *arg0, s16 arg1, s16 arg2);
 //         temp_a3_2 = temp_v1->unk320;
 //         if (temp_a3_2 != 0) {
 //             temp_v1->unk308 = (u16) temp_a3_2->unk42;
-//             func_8032AAF0_73C1A0(0x19);
+//             func_8032AAF0_73C1A0(SEAGULL2);
 //             temp_v1_2 = D_803D552C;
 //             temp_v1_2->unkC = (s16) (temp_v1_2->unkC - temp_v1_2->unk308);
 //             if ((*(void *)0x803D5530)->unk160 == 2) {
@@ -157,7 +158,7 @@ void func_80321920_732FD0(void *arg0, s16 arg1, s16 arg2);
 //         temp_v1_9->unkC = (s16) (temp_v1_9->unkC + temp_v1_9->unk308);
 //         temp_v1_10 = D_803D552C;
 //         temp_v1_10->unk18 = (s16) (temp_v1_10->unk18 + temp_v1_10->unk308);
-//         func_8032AAF0_73C1A0(0);
+//         func_8032AAF0_73C1A0(SEAGULL);
 //     }
 //     // return phi_return_2;
 // }

@@ -195,6 +195,7 @@ void func_8032AA94_73C144(void) {
 // same issue as above function
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AC48_73C2F8.s")
 
+// funny effect 1: weird continuous growing/shrinking
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AC98_73C348.s")
 // void func_8032AC98_73C348(void) {
 //     Animal *temp_a0;
@@ -207,7 +208,7 @@ void func_8032AA94_73C144(void) {
 //         temp_a0 = temp_v1->animal;
 //         if (temp_a0 != NULL) {
 //             temp_a1 = temp_v1->unk3EB0;
-//             if ((temp_a1->unk9C != 0x3E) && (temp_a0->unk366 != 6)) {
+//             if ((temp_a1->unk9C != EVO_GLITCHY) && (temp_a0->unk366 != 6)) {
 //                 D_803D5520 = &temp_v1->unk3EB0;
 //                 D_803D5524 = temp_a1;
 //                 D_803D552C = temp_a0;
@@ -227,22 +228,21 @@ void func_8032AA94_73C144(void) {
 //             }
 //         }
 //   }
-//     if ((D_803A6CE4 & 6) == 0) {
+//     if ((D_803A6CE4 & (4 | 2)) == 0) {
 //         D_803A6CE4 |= 2;
 //     } else {
 //         D_803A6CE4 |= 4;
 //     }
 // }
 
-// reset or initialise something?
-// #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AE34_73C4E4.s")
+// funny effect 2: infinite a+b energy? flips camera
 void func_8032AE34_73C4E4(void) {
     struct035 *tmp;
     s16 i;
 
-    for (i = 0; i < 68; i++) { // AID_MAX_ANIMALS
+    for (i = 0; i < AID_MAX_ANIMALS; i++) {
         tmp = &D_801D9ED8.unk0[i];
-        tmp->unkDA = 1;
+        tmp->unkDA[0] = 1;
         tmp->unkE0 = 1;
     }
     if ((D_803A6CE4 & 5) == 0) {
@@ -252,6 +252,7 @@ void func_8032AE34_73C4E4(void) {
     }
 }
 
+// funny effect 3: tiny body / big head
 void func_8032AEA0_73C550(void) {
     struct035 *tmp;
     s16 i;
@@ -261,7 +262,7 @@ void func_8032AEA0_73C550(void) {
         return;
     }
 
-    for (i = 0; i < 68; i++) {
+    for (i = 0; i < AID_MAX_ANIMALS; i++) {
         tmp = &D_801D9ED8.unk0[i];
         tmp->unkC8 = tmp->unkC8 / 3;
         tmp->unkA4 = tmp->unkA4 / 3;
@@ -269,13 +270,15 @@ void func_8032AEA0_73C550(void) {
         tmp->unkAC = tmp->unkAC / 3;
         tmp->unkC2 = tmp->unkC2 / 3;
         tmp->unkC4 = tmp->unkC4 / 3;
+        // different scaling factor?
         tmp->unkD0 = tmp->unkD0 / 2;
         tmp->unkD2 = tmp->unkD2 / 2;
     }
 
-    D_803A6CE4 |= 12;
+    D_803A6CE4 |= (8 | 4);
 }
 
+// funny effect 4: turns bear into unibear
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032B084_73C734.s")
 // more of the same nonsense...
 // void func_8032B084_73C734(void) {
@@ -297,7 +300,7 @@ void func_8032AEA0_73C550(void) {
 //         D_803D5538 = 1;
 //         D_803D553C = temp_a1;
 //         D_803D553A = 0;
-//         func_8032AAF0_73C1A0(24);
+//         func_8032AAF0_73C1A0(MYSTERY_BEAR);
 //         func_802B2EA8_6C4558();
 //         D_803A6CE4 |= 4;
 //     } else if (temp_v1 == 280) {
@@ -309,7 +312,7 @@ void func_8032AEA0_73C550(void) {
 //         D_803D5538 = 1;
 //         D_803D553C = temp_a1;
 //         D_803D553A = 0;
-//         func_8032AAF0_73C1A0(22);
+//         func_8032AAF0_73C1A0(BEAR);
 //         func_802B2EA8_6C4558();
 //         D_803A6CE4 &= 0xFFFB;
 //     } else {
@@ -317,6 +320,7 @@ void func_8032AEA0_73C550(void) {
 //     }
 // }
 
+// cheat 5: tbd the effect
 void func_8032B1C8_73C878(void) {
     D_803A6CE4 &= 0xFFF8;
 }
@@ -376,7 +380,7 @@ void func_8032C2D0_73D980(s16 arg0, s16 arg1, f32 arg2) {
     if (arg0 != 255) {
         tmp = &D_803A69F0[arg0];
         if ((*tmp == 8) || (func_80132D54() < *tmp)) {
-            func_8013307C(arg0, 0, arg1, arg2, 64);
+            play_sound_effect(arg0, 0, arg1, arg2, 64);
         }
     }
 }
@@ -392,7 +396,7 @@ void func_8032C360_73DA10(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                          ((arg5 - (s16) D_803F2C4C) * (arg5 - (s16) D_803F2C4C)));
             if (sqrt < D_803A6730[arg0]) {
                 tmp = 256 - ((sqrt * 256) / D_803A6730[arg0]);
-                func_8013307C(arg0, 0, (tmp * arg1) >> 8, arg6, 64);
+                play_sound_effect(arg0, 0, (tmp * arg1) >> 8, arg6, 64);
             }
         }
     }
@@ -402,7 +406,7 @@ void func_8032C508_73DBB8(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {
     if (D_803F2D10.unk0 == 0) {
         if ((D_803A69F0[arg0] == 8) || (func_80132D54() < D_803A69F0[arg0])) {
             if (arg0 != 0xFF) {
-                func_8013307C(arg0, 0, arg1, arg3, 64);
+                play_sound_effect(arg0, 0, arg1, arg3, 64);
             }
         }
     }
@@ -418,7 +422,7 @@ void func_8032CD20_73E3D0(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
     }
 }
 
-void func_8032CD70_73E420(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7) {
+void func_8032CD70_73E420(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7) {
     s16 tmp;
     s32 sqrt;
 
