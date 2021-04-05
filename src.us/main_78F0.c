@@ -97,19 +97,19 @@ void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
 }
 
 void select_comic_sans_font(void) {
-    D_8023F1E0.unk0 = &D_80154370;
+    D_8023F1E0.unk0 = D_80154370;
     D_8023F1E0.fontAddress = D_800E1220; // _fontbufferSegmentStart
-    D_8023F1E0.unk8 = 16;
-    D_8023F1E0.unk9 = 16;
-    D_8023F1E0.unkA = 4;
+    D_8023F1E0.unk8 = 16; // width?
+    D_8023F1E0.unk9 = 16; // height?
+    D_8023F1E0.unkA = 4;  // color depth?
     D_8023F1E0.glyphBytes = 128;
 }
 
 void select_lcd_font(void) {
     D_8023F1E0.fontAddress = D_80158550; // 7-segment display font
-    D_8023F1E0.unk8 = 16;
-    D_8023F1E0.unk9 = 16;
-    D_8023F1E0.unkA = 16;
+    D_8023F1E0.unk8 = 16; // width?
+    D_8023F1E0.unk9 = 16; // height?
+    D_8023F1E0.unkA = 16; // color depth?
     D_8023F1E0.glyphBytes = 512;
 }
 
@@ -120,6 +120,16 @@ s16 func_8012C314(f32 arg0) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012C360.s")
+// what is going on here..
+// u8 func_8012C360(s16 *arg0) {
+//     u8 phi_v1;
+//     phi_v1 = 0;
+//     while ((*arg0 >= 320) && (*arg0 < 330)) {
+//         phi_v1 = ((*arg0 + (phi_v1 * 10)) - 320);
+//         *arg0++;
+//     }
+//     return phi_v1;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012C3D8.s")
 
@@ -185,7 +195,63 @@ void load_glyph(Gfx **arg0, s16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012FBEC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_801304EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_score.s")
+// display_score
+// void display_score(Gfx **arg0, u8 *score, u16 x_offset, u16 y_offset) {
+//     s16 temp_t3;
+//     u8 temp_t7;
+//     s16 digits;
+//     s16 temp_s3;
+//
+//     D_8023F1F8 = 16.0f;
+//     D_8023F1FC = 16.0f;
+//
+//     digits = 0;
+//     while (*score != 0) {
+//         temp_t7 = (*score - 32);
+//         D_8023F1E0.unk0 = D_8023F1E0.unk0 + temp_t7;
+//         D_8023F1E0.unk0 = D_8023F1E0.unk0 - temp_t7;
+//         digits += 16; // how many.. chars? bytes? horizontal pixels?
+//         score++;
+//     }
+//
+//     gDPPipeSync((*arg0)++);
+//     gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
+//     gDPSetCombineMode((*arg0)++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+//     gDPSetRenderMode((*arg0)++, Z_UPD | CVG_DST_FULL | ZMODE_OPA | ALPHA_CVG_SEL | GBL_c1(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_A_MEM), Z_UPD | CVG_DST_FULL | ZMODE_OPA | ALPHA_CVG_SEL | GBL_c2(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_A_MEM));
+//     gDPSetDepthSource((*arg0)++, G_ZS_PRIM);
+//     gDPSetPrimDepth((*arg0)++, 0, 0);
+//     gDPSetTexturePersp((*arg0)++, G_TP_NONE);
+//     gDPSetTextureLUT((*arg0)++, G_TT_NONE);
+//     gDPSetAlphaCompare((*arg0)++, G_AC_NONE);
+//
+//     while (*score != 0) {
+//
+//         temp_t7 = (*score - 32); // ASCII to ?
+//         D_8023F1E0.unk0 += temp_t7;
+//         if (temp_t7 != 0) {
+//             s32 img = D_80158550[(temp_t7 << 8)];
+//             gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img - 4096);
+//             gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
+//             gDPLoadSync((*arg0)++);
+//             gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 255, 512);
+//             gDPPipeSync((*arg0)++);
+//             gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
+//             gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 60, 60);
+//
+//             temp_t3 = x_offset - digits;
+//             temp_s3 = y_offset;
+//             // temp_v0_18->unk0 = (s32) (((((temp_t3 + 0x18) * 4) & 0xFFF) << 12) | 0xE4000000 | (((temp_s3 + 0x10) * 4) & 0xFFF));
+//             // temp_v0_18->unk4 = (s32) (((((temp_t3 + 8) * 4) & 0xFFF) << 12) | ((temp_s3 * 4) & 0xFFF));
+//             gSPTextureRectangle((*arg0)++, ((temp_t3 + 8) * 4), (temp_s3 * 4), ((temp_t3 + 0x18) * 4), ((temp_s3 + 0x10) * 4), G_TX_RENDERTILE, 0, 0, 1024, 1024);
+//         }
+//         D_8023F1E0.unk0 -= temp_t7;
+//         x_offset += 16;
+//         score++;
+//     }
+//
+//     gDPPipeSync((*arg0)++);
+// }
 
 void func_801308B4(u8 *src, s16 *dst) {
     u8 tmp;
@@ -205,7 +271,7 @@ void func_801308B4(u8 *src, s16 *dst) {
 //     s16 chunk_size;
 //     s16 i;
 //     s16 *src;
-//     u8 **file;
+//     s32 start, end;
 //     s16 temp_s4;
 //
 //     if (D_80204260 == 1) {
@@ -232,15 +298,16 @@ void func_801308B4(u8 *src, s16 *dst) {
 //     // decompress from D_8022E3F0 into D_80235410
 //     // copy 12000 bytes from D_80235410 into D_8022E3F0
 //
-//     file = D_80154500[arg1 << 1];
-//     dma_read(file[0], D_8022E3F0, file[1] - file[0]);
+//     start = D_80154500[arg1*2][0];
+//     end = D_80154500[arg1*2][1];
+//     dma_read(start, D_8022E3F0, end - start);
 //     rnc_decompress((u8*)D_8022E3F0, (u8*)D_80235410);
 //     strncpy((u8*)D_80235410 + D_80235410[arg0], D_8022E3F0, 12000);
 //
 //     src = &D_8022E3F2; // offset?
 //     copied = 0;
 //
-//     temp_s4 = D_8022E3F0[0];  // total_length?
+//     temp_s4 = D_8022E3F0[0];  // total_chunks?
 //     for (i = 0; i < temp_s4; i++) {
 //         chunk_size = *src++;
 //         *arg2 = copied;

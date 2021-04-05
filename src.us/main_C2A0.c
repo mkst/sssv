@@ -4,14 +4,26 @@
 
 // unused
 void func_80130BA0(void) {
-    s16 phi_v0 = 0;
-    do { phi_v0++; } while (phi_v0 < 60U);
+    s16 i = 0;
+    do { i++; } while (i < 60U);
 }
 
-// unused
-#pragma GLOBAL_ASM("asm/nonmatchings/main_C2A0/func_80130BC4.s")
+// junk out eeprom?
+void func_80130BC4(void) {
+    s16 i;
+    u16 c;
+    u8 *e;
+
+    c = 0;
+    e = (u8*)&D_8023F260.unk4;
+
+    for (i = 0; i < 60U; i++) {
+        *e++ = c;
+        c++;
+    }
+}
 
 void func_80130C04(void) {
     // zero out Eeprom?
-    func_80129090(&D_8023F260, 0, 64);
+    memset_bytes((u8*)&D_8023F260, 0, 64);
 }

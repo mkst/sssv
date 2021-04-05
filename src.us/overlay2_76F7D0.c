@@ -3,30 +3,22 @@
 
 
 void func_8035E120_76F7D0(void) {
-    // FAKEMATCH? could this be a macro instead?
-    if ((D_803D5524->unkDA[1] + D_803D552C->skillAEnergy[0]) > (0,1024)) {
-        D_803D552C->skillAEnergy[0] = 1024;
-    } else {
-        D_803D552C->skillAEnergy[0] += D_803D5524->unkDA[1];
-    }
+
+    D_803D552C->skillAEnergy[0] = MIN(1024, D_803D552C->skillAEnergy[0] + D_803D5524->unkDA[1]);
+
     if ((D_803D552C->skillAEnergy[1] != 0x7FFF) && (D_803D552C->skillAEnergy[1] != 0x7FFE)) {
-        if ((D_803D552C->skillAEnergy[1] - 1) < 0) {
-            D_803D552C->skillAEnergy[1] = 0;
-        } else {
-            D_803D552C->skillAEnergy[1] -= 1;
-        }
+        D_803D552C->skillAEnergy[1] = MAX(0, D_803D552C->skillAEnergy[1] - 1);
     }
+
+    // D_803D552C->skillBEnergy[0] = MIN(1024, D_803D552C->skillBEnergy[0] + D_803D5524->unkE2);
     if ((D_803D5524->unkE2 + D_803D552C->skillBEnergy[0]) > (0,1024)) {
         D_803D552C->skillBEnergy[0] = 1024;
     } else {
         D_803D552C->skillBEnergy[0] += D_803D5524->unkE2;
     }
+
     if ((D_803D552C->skillBEnergy[1] != 0x7FFF) && (D_803D552C->skillBEnergy[1] != 0x7FFE)) {
-        if ((D_803D552C->skillBEnergy[1] - 1) < 0) {
-            D_803D552C->skillBEnergy[1] = 0;
-        } else {
-            D_803D552C->skillBEnergy[1] -= 1;
-        }
+        D_803D552C->skillBEnergy[1] = MAX(0, D_803D552C->skillBEnergy[1] - 1);
     }
 }
 

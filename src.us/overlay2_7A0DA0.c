@@ -81,7 +81,7 @@ void func_8038F968_7A1018(void) {
     D_803F2CE4 = func_8012E78C(D_803F2CE0, 10.0f, 10.0f, 0xC) - 0xC;
     D_803F6680.unk0 = 0;
     D_803F6680.unk27 = 1;
-    func_80133BA0(D_8023F2AC);
+    func_80133BA0(D_8023F2A0.unkC);
     D_803F671C = 1;
 }
 
@@ -139,7 +139,7 @@ void func_8038FB94_7A1244(s16 arg0) {
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
     D_803C0422 = 0;
-    D_803F2D38 = arg0;
+    gLevelIndex = arg0;
     func_802961D4_6A7884();
     func_8029614C_6A77FC();
     func_802F07E8_701E98(2);
@@ -153,7 +153,7 @@ void func_8038FC04_7A12B4(void) {
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
     D_803C0422 = 0;
-    D_803F2D38 = DMA_INTRO;
+    gLevelIndex = DMA_INTRO;
     func_802961D4_6A7884();
     func_8029614C_6A77FC();
     D_80152E98 = 0;
@@ -179,9 +179,9 @@ void func_8038FC58_7A1308(void) {
 void func_8038FCF8_7A13A8(void) {
     D_80204290 = 2;
     func_801337DC(0, 5.0f, 20.0f, 0);
-    D_803F2D38 = 1;
+    gLevelIndex = SMASHING_START;
     D_803F7DA8.unk2D = 0;
-    D_803F63C0 = func_801308E8(D_8023F2AE, D_803F7DA8.unk2D, &D_803F3330, &D_803F34C0);
+    D_803F63C0 = func_801308E8(D_8023F2A0.unkE, D_803F7DA8.unk2D, &D_803F3330, &D_803F34C0);
     func_8038FC58_7A1308();
 }
 
@@ -189,14 +189,14 @@ void func_8038FCF8_7A13A8(void) {
 void func_8038FD74_7A1424(void) {
     reset_cheats();
     D_803F671C = 0;
-    func_80133B74(D_8023F2AD);
-    func_80133BA0(D_8023F2AC);
+    func_80133B74(D_8023F2A0.unkD);
+    func_80133BA0(D_8023F2A0.unkC);
     D_803E1BC0 = 0;
     D_803C0424 = 0;
     D_803C0426 = 0;
 
     reset_credits_counters();
-    func_801308E8(D_8023F2AE, 32, &D_80231AA0, &D_80231D5C);
+    func_801308E8(D_8023F2A0.unkE, 32, &D_80231AA0, &D_80231D5C);
     generate_stars();
 
     D_803F6704 = 0;

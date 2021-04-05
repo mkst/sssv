@@ -1304,8 +1304,8 @@ void func_8038801C_7996CC(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0xFB) && (func_80383830_794EE0(0x14) != 0)) {
-            func_803745C4_785C74(0x78);
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 251) && (func_80383830_794EE0(20) != 0)) {
+            func_803745C4_785C74(0x78); // attack?
             D_803D552C->unk2C4 = 0xB4;
         } else if (D_803D552C->unk2C4 > 0) {
             if (D_803D552C->unk2C4 < 0x3D) {

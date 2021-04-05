@@ -8,6 +8,7 @@ options:
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
+  src_path: src.us
 segments:
   - name:  header
     type:  header
@@ -25,7 +26,6 @@ segments:
     - [0x1050, c] # -O1
     - [0x3900, c, core/controller] #
     - [0x44D0, c, core/string]
-    - [0x4790, c] # -O2 -g3 TODO: check further
     - [0x4910, c] #
     - [0x4A00, c]
     - [0x51D0, c]
@@ -630,20 +630,20 @@ segments:
     - [0x739290, c] # cheats?
     - [0x73EA30, c]
     - [0x73ED30, asm]
-    - [0x741000, asm]
-    - [0x7558F0, asm]
+    - [0x741000, c]
+    - [0x7558F0, c]
     - [0x7598E0, c, sssv/osd]
     - [0x75B9D0, c, sssv/hilites]
-    - [0x75BC80, asm]
-    - [0x75D3D0, asm]
+    - [0x75BC80, c]
+    - [0x75D3D0, c]
     - [0x763930, c, sssv/init]
     - [0x7667E0, c, sssv/animals/tortoise]
     - [0x767AC0, c, sssv/overlay2_767AC0]
     - [0x7688B0, c]
     - [0x7689A0, c]
-    - [0x768B90, asm]
-    - [0x76BCA0, asm]
-    - [0x76D850, asm]
+    - [0x768B90, c]
+    - [0x76BCA0, c]
+    - [0x76D850, c]
     - [0x76F7D0, c]
     - [0x7741B0, c]
     - [0x775E30, c]

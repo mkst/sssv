@@ -1,0 +1,106 @@
+#include <ultra64.h>
+#include "common.h"
+
+// uses jump table
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_768B90/func_803574E0_768B90.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_768B90/func_80358E3C_76A4EC.s")
+
+void func_8035A130_76B7E0(void) {
+    func_8037E1C4_78F874();
+    func_80380620_791CD0(D_803D552C, 15, 12, 40, 10);
+}
+
+void func_8035A170_76B820(void) {
+    if (D_803D5530->state == 21) {
+        func_8037D9D4_78F084();
+        if ((D_803D5540 & 1) == 0) {
+            func_802D5F4C_6E75FC(
+                D_803D5530->xPos,
+                D_803D5530->zPos,
+                D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+                21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
+        }
+    } else {
+        func_8037D994_78F044(24);
+        if ((D_803D5540 & 1) == 0) {
+            func_802D5F4C_6E75FC(
+                D_803D5530->xPos,
+                D_803D5530->zPos,
+                D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+                21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
+        }
+    }
+}
+
+void func_8035A2A8_76B958(void) {
+    Animal *animal;
+    s16 tmp;
+
+    animal = func_8037E9AC_79005C();
+
+    if (func_8037FBBC_79126C()) {
+        tmp = 712;
+    } else {
+        tmp = -713;
+    }
+
+    func_802FEE98_710548(
+        D_803D5530->xPos + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->zPos - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->yPos + (D_803D5530->unk42 >> 1),
+        5,
+        ((u8)D_803D552C->unk302 * 360) >> 8,
+        animal,
+        2,
+        40,
+        0.25f,
+        200,
+        8,
+        D_803D5530->xVelocity.h,
+        D_803D5530->zVelocity.h,
+        D_803D5530->yVelocity.h,
+        D_803D5530);
+    func_803223F4_733AA4(2);
+}
+
+void func_8035A420_76BAD0(Animal *animal) {
+    s16 tmp;
+
+    if (func_8037FBBC_79126C()) {
+        tmp = 712;
+    } else {
+        tmp = -713;
+    }
+
+    func_802FEE98_710548(
+        D_803D5530->xPos + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->zPos - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->yPos + (D_803D5530->unk42 >> 1),
+        5,
+        ((u8)D_803D552C->unk302 * 360) >> 8,
+        animal,
+        3,
+        40,
+        0.25f,
+        200,
+        8,
+        D_803D5530->xVelocity.h,
+        D_803D5530->zVelocity.h,
+        D_803D5530->yVelocity.h,
+        D_803D5530);
+    func_803223F4_733AA4(2);
+}
+
+void func_8035A590_76BC40(s16 arg0) {
+    D_803D552C->unk2EC = arg0;
+}
+
+void func_8035A5A4_76BC54(s16 arg0) {
+    if (arg0 != 0) {
+        D_803D552C->unk36E = 24;
+        D_803D552C->unk2EC = arg0;
+    } else {
+        D_803D552C->unk36E = 0;
+    }
+}
