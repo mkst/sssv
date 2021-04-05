@@ -112,7 +112,7 @@ s32 eeprom_checksum(u8 *eeprom) {
 //     if ((res != 0) || (i >= 4) || (D_8023F2A0.unk4 != 0xCF76F7E)) {
 //         requireReset = 1;
 //         i = 0;
-//         func_80129090(&D_8023F2A0, 0, 64);
+//         memset_bytes(&D_8023F2A0, 0, 64);
 //         D_8023F2A0.unk4 = 0xCF76F7E;
 //         D_8023F2A0.unkC = 16;
 //         D_8023F2A0.unkD = 16;
@@ -149,7 +149,7 @@ s32 eeprom_checksum(u8 *eeprom) {
 //             i = 0;
 //             rmonPrintf(D_8015AD70, cnt); // "reset all data - %d\n"
 //             if (cnt != 4) {
-//                 func_80129090(&D_8023F260, 0, 64);
+//                 memset_bytes(&D_8023F260, 0, 64);
 //             }
 //
 //             while (i < 4) {

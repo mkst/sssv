@@ -152,7 +152,7 @@ void func_8012A490(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_51D0/func_8012A588.s")
 // void func_8012A588(void) {
-//     s16 pad;
+//     s32 pad;
 //
 //     if (D_80152E9C != 0) {
 //         D_80204290 = 1;

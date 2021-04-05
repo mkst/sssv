@@ -4,7 +4,8 @@ VERSION  := us
 BUILD_DIR = build
 ASM_DIRS  = asm asm/libc asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched
 BIN_DIRS  = bin
-SRC_DIR   = src
+SRC_DIR   = src.$(VERSION)
+
 SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
 			$(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os \
 			$(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals
@@ -99,7 +100,6 @@ dirs:
 tools: $(RNC64)
 
 symlinks:
-	ln -nsf src.$(VERSION) src
 	ln -nsf diff_settings.$(VERSION).py diff_settings.py
 
 check: .baserom.$(VERSION).ok
@@ -155,7 +155,6 @@ $(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.o: $(SRC_DIR)/libultra/libc/ll.c
 $(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.o: $(SRC_DIR)/libultra/libc/llcvt.c
 	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
-
 
 $(BUILD_DIR)/%.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<

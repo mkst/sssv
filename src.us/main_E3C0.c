@@ -9,10 +9,10 @@ void func_80132CC0(s32 arg0) {
     struct017 *snd;
 
     snd = D_8028631C;
-    rmonPrintf(D_8015AD90);
+    rmonPrintf(D_8015AD90); // "----------------- Active sounds\n"
 
     while (snd != NULL) {
-        rmonPrintf(D_8015ADB4,
+        rmonPrintf(D_8015ADB4, // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
             snd->sndState, snd->sndSlot, snd->sndID, snd->unk28, snd->counter, D_802863B0[snd->sndSlot]);
         snd = snd->next;
     }
@@ -183,26 +183,23 @@ void func_80133608(s16 slot) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013364C.s")
-// NON-MATCHING: along these lines but... not quite
-// void func_8013364C(void) {
-//     s8 i;
-//
-//     for (i = 0; i < 1; i++) {
-//         if ((u8)D_80155168[i] = -1) { // what is this line about
-//             alSeqpStop(D_802863C8[i]);
-//             D_80155168[i] = 0U;
-//           }
-//
-//         D_80154690[i] = 0;
-//         D_80155164[i] = -1;
-//     }
-//
-//     D_80286458 = 1;
-//     D_8015515C = -1;
-//     D_80155170 = -1;
-//     D_80155188 = -99;
-// }
+void func_8013364C(void) {
+    s8 i;
+    for (i = 0; i < 1; i++) {
+        if ((u8)(D_80155168[i] = 1)) { // makes no sense?
+            alSeqpStop(D_802863C8[i]);
+            D_80155168[i] = 0U;
+          }
+
+        D_80154690[i] = 0;
+        D_80155164[i] = -1;
+    }
+
+    D_80286458 = 1;
+    D_8015515C = -1;
+    D_80155170 = -1;
+    D_80155188 = -99;
+}
 
 void func_80133738(void) {
     s8 i;

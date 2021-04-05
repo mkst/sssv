@@ -24,9 +24,9 @@ void func_80294E70_638510(Gfx **dl, u8 alpha) {
 }
 
 void func_80294EB8_638558(Gfx **dl) {
-    guPerspective(&D_80204278->unk37410, &D_80302E60, 33.0f, 1.33333333f, 100.0f, D_80302D20, 1.0f);
+    guPerspective(&D_80204278->unk37410, D_80302E60, 33.0f, 1.33333333f, 100.0f, D_80302D20, 1.0f);
 
-    gSPPerspNormalize((*dl)++, D_80302E60);
+    gSPPerspNormalize((*dl)++, *D_80302E60);
 
     guRotateRPY(&D_80204278->unk37450, D_80299DDC, D_80299DE0, D_80299DE4);
     guRotateRPY(&D_80204278->unk374D0, D_80299DDC, D_80299DE0, D_80299DE4);
@@ -55,7 +55,7 @@ void func_802950B8_638758(void) {
     rnc_decompress(D_802BC430, D_8032AE88);
     rnc_decompress(D_802F4CA0, D_80376ED8);
 
-    func_801308E8(D_8023F2AE, 0x21, &D_80231AA0, &D_80231D5C);
+    func_801308E8(D_8023F2A0.unkE, 33, D_80231AA0, D_80231D5C);
 
     src = func_80130A90(16);
     dst = D_802042F0;
@@ -122,7 +122,7 @@ void func_8029548C_638B2C(void) {
 //         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, phi_a1, 120, phi_a2, 121);
 //     } else if (arg1 < 40) {
 //         phi_a1 = (arg1 / 2) * 12;
-//         if (phi_a1 >= 233) {
+//         if (phi_a1 > 232) {
 //             phi_a1 = 232;
 //         }
 //         // this line is slightly off...
@@ -151,14 +151,14 @@ void func_802958B8_638F58(Gfx **dl) {
     gDPFillRectangle((*dl)++, 0, 0, 321, 241);
 }
 
+// what the hell is this
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_6384F0/func_8029597C_63901C.s")
-// void func_8029597C_63901C(s32 arg0, u8 arg1) {
+// void func_8029597C_63901C(u8 *arg0, u8 arg1) {
 //     s16 temp_t2;
 //
 //     u8 phi_t3;
 //     s32 phi_t1;
 //     s32 phi_v1;
-//
 //
 //     if (arg1 != 0) {
 //         D_80299FD0 = 60;
@@ -187,7 +187,19 @@ void func_802958B8_638F58(Gfx **dl) {
 //         phi_v1 = D_80299FD0;
 //     }
 //
-//     func_80136938(&D_801D9E7C, arg0, 320, 240, phi_t1, ((D_80299FCC * 195.0f) / 48.0) + D_80302D28, phi_t3, 0, ((temp_t2 - phi_v1) / 2) + 48 - D_80299FCC, 48 - D_80299FCC, 16);
+//     func_80136938(
+//         &D_801D9E7C,
+//         arg0,
+//         320,
+//         240,
+//         phi_t1,
+//         ((D_80299FCC * 195.0f) / 48.0) + D_80302D28,
+//         phi_t3,
+//         0,
+//         ((temp_t2 - phi_v1) / 2) + 48 - D_80299FCC,
+//         48 - D_80299FCC,
+//         16);
+//
 //     if (D_80299FCC < 49) {
 //         if (D_80299FCC < 24) {
 //             D_80299FD0 -= temp_t2 / 48;

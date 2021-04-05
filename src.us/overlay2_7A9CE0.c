@@ -70,8 +70,8 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D70 = D_803C03F4;
     func_801308B4(sp18, D_803F2E34);
     D_803F7DA8.unk8 = 1.0f;
-    D_803B7468 = D_803F7DA8.unk2D * 0xC;;
-    D_803F7D68 = D_803F7DA8.unk2D * 0xC;;
+    D_803B7468 = D_803F7DA8.unk2D * 12;
+    D_803F7D68 = D_803F7DA8.unk2D * 12;
     D_803F7DA8.unk0 = 40.0f;
     D_803F7DA8.unk4 = 30.0f;
     D_803F7D9C = 0;
@@ -80,7 +80,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7DA1 = 6;
     D_803F7DA2 = 0;
     D_803F7DA3 = 0;
-    D_803F2E1E = func_80296320_6A79D0();
+    D_803F2E1E = get_evo_suit_color();
 }
 
 void func_8039895C_7AA00C(void) {

@@ -183,7 +183,7 @@ extern u8 D_01029DD0[];
 void func_803491F0_75A8A0(void) {
     sprintf(D_803F2D3E, D_803BE940, D_803F2D30.score);
     select_font(0, 3, 1, 0);
-    func_801304EC(&D_801D9E7C, D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
+    display_score(&D_801D9E7C, D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
 }
 
 void func_80349278_75A928(void) {
@@ -354,12 +354,12 @@ u8 func_80349874_75AF24(void) {
                                 );
 }
 
-void func_80349900_75AFB0(s32 arg0, u16 arg1) {
+void func_80349900_75AFB0(s16 *arg0, u16 arg1) {
     D_803F2CE0 = arg0;
     D_803F2CD0 = arg1 * 30;
     D_803F2CD4 = 0;
     D_803F2CDA = 0;
-    D_803F2CE4 = func_8012E78C(D_803F2CE0, 10.0f, 10.0f, 0xC) - 0xC;
+    D_803F2CE4 = func_8012E78C(D_803F2CE0, 10.0f, 10.0f, 12) - 12;
     if (D_803F2CDC == 0) {
         D_803F2CDC = 5;
         D_803F2CDD = 0;
@@ -407,8 +407,7 @@ void func_80349AA0_75B150(u16 arg0) {
     }
 }
 
-// osd_draw_timer
-void func_80349B84_75B234(u16 arg0) {
+void osd_draw_timer(u16 arg0) {
     s32 time;
     s16 str[20]; // how long is a piece of string
 
@@ -423,7 +422,7 @@ void func_80349B84_75B234(u16 arg0) {
 
     func_801308B4(D_803A8344, str);
     load_default_display_list(&D_801D9E7C);
-    set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
+    set_menu_text_color(255, 255, 0, 255); // yellow
     select_font(0, 0, 1, 0);
     // write string centered
     func_8012C978(&D_801D9E7C, str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
@@ -431,9 +430,9 @@ void func_80349B84_75B234(u16 arg0) {
 
 void func_80349CA4_75B354(u16 arg0) {
     load_default_display_list(&D_801D9E7C);
-    set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
+    set_menu_text_color(255, 255, 0, 255); // yellow
     select_font(0, 0, 1, 0);
-    func_8012EB4C(&D_801D9E7C, D_803F2CE0, (gScreenWidth >> 1), arg0, 16.0f, 16.0f, 0x10);
+    func_8012EB4C(&D_801D9E7C, D_803F2CE0, gScreenWidth >> 1, arg0, 16.0f, 16.0f, 0x10);
 }
 
 void func_80349D34_75B3E4(void) {
@@ -493,7 +492,7 @@ void func_80349D34_75B3E4(void) {
 //                     D_803F2CDC = 3U;
 //                     D_803F2CDA = 0;
 //                 }
-//                 func_80349B84_75B234(gScreenHeight - 36);
+//                 osd_draw_timer(gScreenHeight - 36);
 //             }
 //             break;
 //         case 2:
@@ -504,7 +503,7 @@ void func_80349D34_75B3E4(void) {
 //                 } else {
 //                     phi_a0 = gScreenHeight - (D_803F2CDA * 4);
 //                 }
-//                 func_80349B84_75B234(phi_a0);
+//                 osd_draw_timer(phi_a0);
 //                 D_803F2CDA += 1;
 //             }
 //             break;
@@ -517,7 +516,7 @@ void func_80349D34_75B3E4(void) {
 //                 } else {
 //                     phi_a0 = ((gScreenHeight + (D_803F2CDA * 4)) - 36);
 //                 }
-//                 func_80349B84_75B234(phi_a0);
+//                 osd_draw_timer(phi_a0);
 //                 D_803F2CDA += 1;
 //               }
 //               break;

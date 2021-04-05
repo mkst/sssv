@@ -24,8 +24,10 @@ void func_8035739C_768A4C(void) {
     D_801546E0 = 2048;
     D_801546D8 = 2048;
 
-    if ((D_803F2D38 == 10) || (D_803F2D38 == 17) ||
-        (D_803F2D38 == 23) || (D_803F2D38 == 30)) {
+    if ((gLevelIndex == GIVE_A_DOG_A_BONUS) ||
+        (gLevelIndex == WALRACE_64) ||
+        (gLevelIndex == EVOS_ESCAPE) ||
+        (gLevelIndex == PUNCHUP_PYRAMID)) {
         if ((D_803E4D28 & 2) != 0) {
             D_8028645C = 5;
         } else {

@@ -126,6 +126,11 @@
 #define COOL_COD                    66
 #define EVO_SHELLSUIT               67
 
+// evo suit colors
+#define EVO_BRONZE_SHELLSUIT    0
+#define EVO_SILVER_SHELLSUIT    1
+#define EVO_GOLD_SHELLSUIT      2
+
 // extra gbi macros
 
 #define gDPLoadTextureBlock2(pkt, timg, fmt, line, siz, width, height, \
@@ -147,6 +152,5 @@
       ((width)-1) << G_TEXTURE_IMAGE_FRAC, \
       ((height)-1) << G_TEXTURE_IMAGE_FRAC) \
 }
-
 
 #endif

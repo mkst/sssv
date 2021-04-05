@@ -77,4 +77,63 @@ void fancy_bzero(u8 *addr, s32 len) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80129060.s")
+s32 *memset_words(s32 *dst, s32 c, u32 len) {
+    while (len-- > 0) {
+        *dst++ = c;
+    }
+    return dst;
+}
+
+u8 *memset_bytes(u8 *dst, u8 c, u32 len) {
+    u32 word;
+    u8 *_dst = dst;
+
+    if (len > 3) {
+        word = (c << 8) | c;
+        word = (word << 16) | word;
+        _dst = memset_words(dst, word, len >> 2);
+        len = len & 3;
+    }
+    while (len-- > 0) {
+        *_dst++ = c;
+    }
+
+    return dst;
+}
+
+u16 rand(void) {
+      u32 *tmp = &D_80152E80;
+      if (0)
+      {
+          // debug?
+      }
+
+      D_80152E80 = (*tmp * 0x41c64e6d + 12345) ;
+      return (*tmp >> 16) & 0x7fff;
+}
+
+u8 *strncpy(u8 *src, u8 *dst, u32 len) {
+    u8 *_src = src;
+    u8 *_dst = dst;
+
+    while (len-- > 0) {
+        *_dst++ = *_src++;
+    }
+    return dst;
+}
+
+#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80129198.s")
+// matches with -O2 -g3
+// s16 func_80129198(s16 arg0) {
+//     // huh? is this swallowed up by func_801291A4
+// }
+
+u8 *func_801291A4(u8 *x) {
+    u8 *_x = x;
+
+    while (*_x) {
+        *_x++ = func_80129198(*_x);
+    }
+
+    return x;
+}

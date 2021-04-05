@@ -60,7 +60,35 @@ void func_8037D9D4_78F084(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F6CC_790D7C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037FBBC_79126C.s")
+u8 func_8037FBBC_79126C(void) {
+    switch (D_803D5524->unk9C) {
+    case RACING_DOG:
+    case SKI_HUSKY:
+    case WALRUS:
+    case BIKER_HYENA:
+        if ((D_803D552C->unk2E8 == 8) && (D_803D552C->unk2E9 == 8)) {
+            if (D_803D552C->unk2EA != 0) {
+                D_803D552C->unk2EA = 0U;
+                D_803D552C->unk2E8 = 0;
+            } else {
+                D_803D552C->unk2EA = 1U;
+                D_803D552C->unk2E9 = 0;
+            }
+        } else if (D_803D552C->unk2E9 < D_803D552C->unk2E8) {
+            D_803D552C->unk2EA = 0U;
+            D_803D552C->unk2E8 = 0;
+        } else {
+            D_803D552C->unk2EA = 1U;
+            D_803D552C->unk2E9 = 0;
+        }
+        break;
+    case FIRE_FOX:
+        D_803D552C->unk2E8 = 0;
+    }
+
+    return D_803D552C->unk2EA;
+}
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037FCA8_791358.s")
 // NON-MATCHING: not quite right...
@@ -69,20 +97,11 @@ void func_8037D9D4_78F084(void) {
 //     struct035 *temp_a2;
 //     s32 phi_a0;
 //
-//
 //     if (D_803D552C->unk2E8 != 0) {
-//         if ((D_803D552C->unk2E8 + 1) < 8) {
-//             D_803D552C->unk2E8 += 1;
-//         } else {
-//             D_803D552C->unk2E8 = 8;
-//         }
+//         D_803D552C->unk2E8 = MIN(D_803D552C->unk2E8 + 1, 8);
 //     }
 //     if (D_803D552C->unk2E9 != 0) {
-//         if ((D_803D552C->unk2E9 + 1) < 8) {
-//             D_803D552C->unk2E9 += 1;
-//         } else {
-//             D_803D552C->unk2E9 = 8;
-//         }
+//         D_803D552C->unk2E9 = MIN(D_803D552C->unk2E9 + 1, 8);
 //     }
 //     if (D_803D5524->unk9C == POLAR_TANK) {
 //         phi_a0 = 0;
@@ -90,7 +109,7 @@ void func_8037D9D4_78F084(void) {
 //         phi_a0 = 1;
 //     }
 //     temp_a2 = &D_803D5524 + (phi_a0 * 3);//((phi_a0 * 4) - phi_a0);
-//     temp_t8 = (D_803D552C->skillAEnergy[phi_a0] + (temp_a2->unkDC * 8)) / temp_a2->unkDA;
+//     temp_t8 = (D_803D552C->skillAEnergy[phi_a0] + (temp_a2->unkDA[1] * 8)) / temp_a2->unkDA[0];
 //     if (temp_t8 == 1) {
 //         if ((D_803D552C->unk2E8 == 0) && (D_803D552C->unk2E9 == 0)) {
 //             if (D_803D552C->unk2EA == 0) {
@@ -108,7 +127,6 @@ void func_8037D9D4_78F084(void) {
 //         }
 //     }
 // }
-
 
 void func_8037FE24_7914D4(void) {
     s16 tmp;

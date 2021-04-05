@@ -360,18 +360,18 @@ void func_802A623C_6B78EC(s16 arg0, s16 arg1) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A628C_6B793C.s")
-// NON-MATCHING: bleurgh
+// NON-MATCHING: (almost) JUSTREG
 // void func_802A628C_6B793C(void) {
-//     s16 temp_f6;
-//     s32 temp_lo;
-//     s32 temp_lo_2;
+//     s32 xVel;
+//     s32 zVel;
+//     s8 tmp;
 //
 //     func_802E4A78_6F6128(D_803D552C->unk308);
-//     temp_f6 = D_803F2900[D_803F2A98].unk0;
-//     temp_lo = (D_80152C78[(temp_f6 + 64)] >> 7) * D_801E9EB4;
-//     temp_lo_2 = (D_80152C78[temp_f6] >> 7) * -D_801E9EB4;
-//     D_803D5530->xVelocity += temp_lo * 16;
-//     D_803D5530->zVelocity += temp_lo_2 * 16;
+//     tmp = D_803F28E0[D_803F2A98].unk20;
+//     xVel = (D_80152C78[(tmp + 64) & 0xff] >> 7) * D_801E9EB4;
+//     zVel = (D_80152C78[tmp & 0xff] >> 7) * -D_801E9EB4;
+//     D_803D5530->xVelocity.w += xVel * 16;
+//     D_803D5530->zVelocity.w += zVel * 16;
 //     D_803D552C->unk368 = 0;
 //     D_803D5546 = 50;
 //     func_802B2EA8_6C4558();

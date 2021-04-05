@@ -114,7 +114,7 @@ void func_8012D374(s32, s32, s32, u16, f32, f32, s32);
 //     // phi_s1 = 0;
 //     for (i = 0; i < 4; i++) {
 //         // "%s\n"
-//         sprintf(&spE4, &D_803BFFD4, D_803B6328[(func_80129128() / 924) & 0xFF]);
+//         sprintf(&spE4, &D_803BFFD4, D_803B6328[(rand() / 924) & 0xFF]);
 //         func_801308B4(&spE4, &sp64);
 //         func_8012D374(arg0, &sp64, 6, i * 10, 13.0f, 9.0f, -1);
 //         // phi_s1 += 10;
@@ -197,7 +197,7 @@ void func_8038DA70_79F120(void) {
 //         func_8013385C(1.0f, 0.0f, 20.0f);
 //         D_803F6470 = 0;
 //         D_803F646C = 0.0f;
-//         if (D_80291090[0].hasRumblePak != 0) { // Controller array
+//         if (D_80291090.hasRumblePak.[0] != 0) { // Controller array
 //             func_80137168();
 //             func_8013724C(0);
 //         }

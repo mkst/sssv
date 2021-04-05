@@ -8,6 +8,7 @@ options:
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
+  src_path: src.eu
 segments:
   - name: header
     type: header
