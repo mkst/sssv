@@ -121,7 +121,18 @@ void func_8034B000_75C6B0(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75BC80/func_8034B008_75C6B8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75BC80/func_8034B298_75C948.s")
+void func_8034B298_75C948(s16 arg0) {
+    s16 sp2E;
+    s16 sp2C;
+
+    if ((arg0 == 0) || ((D_803D5540 & 2) == 0)) {
+        if ((D_803D5530->state == 143) || (((D_803D5530->state == 142) || (D_803D5530->state == 144)) && ((D_803D5540 & 1) != 0))) {
+            sp2E = (((func_8012826C() & 0xF) - 7) * (u16)D_803D5524->unkBE) >> 3;
+            sp2C = (((func_8012826C() & 0xF) - 7) * (u16)D_803D5524->unkBE) >> 3;
+            func_802D5B88_6E7238(D_803D5530->xPos + sp2E, D_803D5530->zPos + sp2C, D_803D5530->yPos, 28, (func_8012826C() & 3) + 4, 0, 0, 0);
+        }
+    }
+}
 
 void func_8034B3A8_75CA58(s16 arg0) {
     if ((arg0 == 0) || ((D_803D5540 & 2) == 0)) {

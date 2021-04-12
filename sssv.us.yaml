@@ -267,48 +267,53 @@ segments:
   - [0x12A150, bin, rnc_12A150] # 565 => 2048
   - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
   ##
-  - [0x12EDC0, bin] # sound file
-  - [0x133450, bin] # end of soundfile?
-  - [0x1AE480, bin]
-  - [0x1AE880, bin]
-  - [0x1B6510, bin] # "B1" ...
-  - [0x1C7C80, bin] # end of soundfile
-  - [0x1E0EB0, bin]
-  - [0x1E11C0, bin]
-  - [0x3B8F60, bin]
-  - [0x3e2780, bin]
-  # music (all these start with 0044 00 and can be extracted with Soundbank tool)
-  - [0x40B210, bin] # "S1" # 244 bytes long
-  - [0x40B304, bin] # length 0xE6A
-  - [0x40C170, bin]
-  - [0x40e52c, bin]
-  - [0x40f2ec, bin]
-  - [0x41076c, bin]
-  - [0x410b90, bin]
-  - [0x411824, bin]
-  - [0x413c6c, bin]
-  - [0x4154bc, bin]
-  - [0x415684, bin]
-  - [0x4173c4, bin]
-  - [0x418e9c, bin]
-  - [0x41bd08, bin]
-  - [0x41d9e8, bin]
-  - [0x4200d8, bin]
-  - [0x421720, bin]
-  - [0x4236f0, bin]
-  - [0x4252e4, bin]
-  - [0x425ab0, bin]
-  - [0x4265c4, bin]
-  - [0x426854, bin]
-  - [0x426c34, bin]
-  - [0x426dac, bin]
-  - [0x426eb4, bin]
-  - [0x427198, bin]
-  - [0x427c40, bin]
-  - [0x427ff4, bin]
-  - [0x429ab8, bin]
-  - [0x42b5a0, bin]
-  - [0x42c49c, bin]
+  - name: sounds
+    type:  bin
+    subalign: 4
+    start: 0x12EDC0
+    subsections:
+    - [0x12EDC0, bin] # sound file
+    - [0x133450, bin] # end of soundfile?
+    - [0x1AE480, bin]
+    - [0x1AE880, bin]
+    - [0x1B6510, bin] # "B1" ...
+    - [0x1C7C80, bin] # end of soundfile
+    - [0x1E0EB0, bin]
+    - [0x1E11C0, bin]
+    - [0x3B8F60, bin]
+    - [0x3e2780, bin]
+    # music (all these start with 0044 00 and can be extracted with Soundbank tool)
+    - [0x40B210, bin] # "S1" # 244 bytes long
+    - [0x40B304, bin] # length 0xE6A
+    - [0x40C170, bin]
+    - [0x40e52c, bin]
+    - [0x40f2ec, bin]
+    - [0x41076c, bin]
+    - [0x410b90, bin]
+    - [0x411824, bin]
+    - [0x413c6c, bin]
+    - [0x4154bc, bin]
+    - [0x415684, bin]
+    - [0x4173c4, bin]
+    - [0x418e9c, bin]
+    - [0x41bd08, bin]
+    - [0x41d9e8, bin]
+    - [0x4200d8, bin]
+    - [0x421720, bin]
+    - [0x4236f0, bin]
+    - [0x4252e4, bin]
+    - [0x425ab0, bin]
+    - [0x4265c4, bin]
+    - [0x426854, bin]
+    - [0x426c34, bin]
+    - [0x426dac, bin]
+    - [0x426eb4, bin]
+    - [0x427198, bin]
+    - [0x427c40, bin]
+    - [0x427ff4, bin]
+    - [0x429ab8, bin]
+    - [0x42b5a0, bin]
+    - [0x42c49c, bin]
   # end of music
   - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880 # DMA'd to 0x80100000
   - [0x435320, bin, rnc_435320] # 30784 => 54880
@@ -674,6 +679,7 @@ segments:
     type:  code
     start: 0x007B1B90
     vram:  0x803A04E0
+    subalign: 8
     subsections:
     - [0x7B1B90, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item

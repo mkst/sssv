@@ -443,6 +443,7 @@ void func_8034AFE0_75C690(void);
 void func_8034AFE8_75C698(s32 arg0, Animal *arg1);
 void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1);
 void func_8034B000_75C6B0(s32 arg0);
+void func_8034B298_75C948(s16 arg0);
 void func_8034B3A8_75CA58(s16 arg0);
 
 // overlay2_76BCA0
