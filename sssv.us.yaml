@@ -1,5 +1,7 @@
-basename: sssv
 options:
+  basename: sssv
+  target_path: baserom.us.z64
+  base_path: .
   compiler: IDO
   create_detected_syms: yes
   find_file_boundaries: yes
@@ -21,30 +23,36 @@ segments:
     start: 0x00001000
     vram:  0x80125900
     overlay: no
-    subsections:
+    subsegments:
     - [0x1000, asm, entrypoint] # handwritten
-    - [0x1050, c] # -O1
+    - [0x1050, c, main_1050] # -O1
     - [0x3900, c, core/controller] #
     - [0x44D0, c, core/string]
-    - [0x4910, c] #
-    - [0x4A00, c]
-    - [0x51D0, c]
+    - [0x4910, c, main_4910] #
+    - [0x4A00, c, main_4A00]
+    - [0x51D0, c, main_51D0]
     - [0x67F0, c, core/rnc]
-    - [0x7770, c]
-    - [0x7890, c]
-    - [0x78F0, c]
+    - [0x7770, c, main_7770]
+    - [0x7890, c, main_7890]
+    - [0x78F0, c, main_78F0]
     - [0xC200, c, core/fontinit]
-    - [0xC2A0, c]
+    - [0xC2A0, c, main_C2A0]
     - [0xC330, c, core/eeprom]
-    - [0xC770, c]
+    - [0xC770, c, main_C770]
     - [0xC990, c, core/audio]
-    - [0xE3C0, c] # more audio
+    - [0xE3C0, c, main_E3C0] # more audio
     - [0xF600, asm, libultra/audio/csplayer] # customised
-    - [0x10CB0, c]
-    - [0x10DC0, c]
-    - [0x123E0, c]
+    - [0x10CB0, c, main_10CB0]
+    - [0x10DC0, c, main_10DC0]
+    - [0x123E0, c, main_123E0]
+  - name:  lib
+    type:  code
+    start: 0x00012FC0
+    vram:  0x801378C0
+    overlay: no
+    subsegments:
     #############################
-    - [0x12FC0, linker, code_lib] # fake split here for progress
+    # - [0x12FC0, linker, code_lib] # fake split here for progress
     #############################
     - [0x12FC0, c, libultra/os/initialize]
     - [0x13250, c, libultra/libc/ll]
@@ -224,7 +232,7 @@ segments:
     vram:  0x8014D390
     overlay: no
     subalign: 8
-    subsections:
+    subsegments:
     - [0x028A90, bin]
     # - [0x02FC00, .rodata, main_78F0]
     - [0x02FD28, .rodata, main_78F0]
@@ -271,7 +279,7 @@ segments:
     type:  bin
     subalign: 4
     start: 0x12EDC0
-    subsections:
+    subsegments:
     - [0x12EDC0, bin] # sound file
     - [0x133450, bin] # end of soundfile?
     - [0x1AE480, bin]
@@ -562,14 +570,14 @@ segments:
     overlay: yes
     start: 0x006384F0
     vram:  0x80294E50
-    subsections:
-    - [0x6384F0, c]
-    - [0x63C660, c]
+    subsegments:
+    - [0x6384F0, c, overlay1_6384F0]
+    - [0x63C660, c, overlay1_63C660]
   - type:  code
     name:  overlay1_data
     start: 0x0063CDD0
     vram:  0x80299730
-    subsections:
+    subsegments:
     - [0x63CDD0, bin] # tbd ### D_80299730
     - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840
     - [0x646E80, bin, rnc_646E80] # 28620 => 153600 # 320x240, president mrs frank bloke
@@ -594,16 +602,16 @@ segments:
     overlay: yes
     start: 0x006A6500
     vram:  0x80294E50
-    subsections:
-    - [0x6A6500, c]
-    - [0x6A7A80, c]
-    - [0x6AB090, c]
-    - [0x6AC360, c]
-    - [0x6ACF20, c]
-    - [0x6B5380, c]
+    subsegments:
+    - [0x6A6500, c, overlay2_6A6500]
+    - [0x6A7A80, c, overlay2_6A7A80]
+    - [0x6AB090, c, overlay2_6AB090]
+    - [0x6AC360, c, overlay2_6AC360]
+    - [0x6ACF20, c, overlay2_6ACF20]
+    - [0x6B5380, c, overlay2_6B5380]
     - [0x6C5570, asm]
     - [0x6C63D0, c, sssv/collision]
-    - [0x6C9DD0, c]
+    - [0x6C9DD0, c, overlay2_6C9DD0]
     - [0x6CCEF0, asm]
     - [0x6D9330, asm]
     - [0x6D9AF0, asm]
@@ -619,68 +627,68 @@ segments:
     - [0x702DE0, asm]
     - [0x7041D0, asm]
     - [0x7070A0, asm]
-    - [0x7117E0, c]
+    - [0x7117E0, c, overlay2_7117E0]
     - [0x7118C0, asm]
     - [0x7138B0, asm]
     - [0x714500, asm]
     - [0x714B80, asm]
     - [0x715820, asm]
-    - [0x716530, c]
+    - [0x716530, c, overlay2_716530]
     - [0x716900, asm]
     - [0x725D10, asm]
     - [0x72C680, asm]
     - [0x72DE50, asm]
     - [0x732A60, asm]
     - [0x734D30, asm]
-    - [0x739290, c] # cheats?
-    - [0x73EA30, c]
-    - [0x73ED30, asm]
-    - [0x741000, c]
-    - [0x7558F0, c]
+    - [0x739290, c, overlay2_739290] # cheats?
+    - [0x73EA30, c, overlay2_73EA30]
+    - [0x73ED30, c, overlay2_73ED30]
+    - [0x741000, c, overlay2_741000]
+    - [0x7558F0, c, overlay2_7558F0]
     - [0x7598E0, c, sssv/osd]
     - [0x75B9D0, c, sssv/hilites]
-    - [0x75BC80, c]
-    - [0x75D3D0, c]
+    - [0x75BC80, c, overlay2_75BC80]
+    - [0x75D3D0, c, overlay2_75D3D0]
     - [0x763930, c, sssv/init]
     - [0x7667E0, c, sssv/animals/tortoise]
     - [0x767AC0, c, sssv/overlay2_767AC0]
-    - [0x7688B0, c]
-    - [0x7689A0, c]
-    - [0x768B90, c]
-    - [0x76BCA0, c]
-    - [0x76D850, c]
-    - [0x76F7D0, c]
-    - [0x7741B0, c]
-    - [0x775E30, c]
+    - [0x7688B0, c, overlay2_7688B0]
+    - [0x7689A0, c, overlay2_7689A0]
+    - [0x768B90, c, overlay2_768B90]
+    - [0x76BCA0, c, overlay2_76BCA0]
+    - [0x76D850, c, overlay2_76D850]
+    - [0x76F7D0, c, overlay2_76F7D0]
+    - [0x7741B0, c, overlay2_7741B0]
+    - [0x775E30, c, overlay2_775E30]
     - [0x77A480, c, sssv/animals/husky]
     - [0x77D760, c, sssv/animals/vulture]
-    - [0x77EDB0, c]
-    - [0x780E50, c]
-    - [0x783D90, c]
-    - [0x786320, c]
-    - [0x78A890, c]
-    - [0x78CEB0, c]
-    - [0x78E970, c]
+    - [0x77EDB0, c, overlay2_77EDB0]
+    - [0x780E50, c, overlay2_780E50]
+    - [0x783D90, c, overlay2_783D90]
+    - [0x786320, c, overlay2_786320]
+    - [0x78A890, c, overlay2_78A890]
+    - [0x78CEB0, c, overlay2_78CEB0]
+    - [0x78E970, c, overlay2_78E970]
     - [0x7917A0, c, sssv/animinit]
-    - [0x793700, c]
-    - [0x7943A0, c]
-    - [0x794EE0, c]
-    - [0x79B1E0, c]
+    - [0x793700, c, overlay2_793700]
+    - [0x7943A0, c, overlay2_7943A0]
+    - [0x794EE0, c, overlay2_794EE0]
+    - [0x79B1E0, c, overlay2_79B1E0]
     - [0x79CEF0, c, sssv/credits]
     - [0x79D0E0, c, sssv/cheats]
-    - [0x79D8E0, c]
-    - [0x79DE10, c]
+    - [0x79D8E0, c, overlay2_79D8E0]
+    - [0x79DE10, c, overlay2_79DE10]
     - [0x79E640, c, sssv/terminal_background]
-    - [0x7A0DA0, c]
-    - [0x7A8A50, c]
-    - [0x7A9CE0, c] # relates to file select
-    - [0x7AF410, c]
+    - [0x7A0DA0, c, overlay2_7A0DA0]
+    - [0x7A8A50, c, overlay2_7A8A50]
+    - [0x7A9CE0, c, overlay2_7A9CE0] # relates to file select
+    - [0x7AF410, c, overlay2_7AF410]
   - name:  overlay2_data
     type:  code
     start: 0x007B1B90
     vram:  0x803A04E0
     subalign: 8
-    subsections:
+    subsegments:
     - [0x7B1B90, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C76B0, .data, sssv/credits]

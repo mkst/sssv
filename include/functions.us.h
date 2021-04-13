@@ -376,6 +376,9 @@ void func_8032AC48_73C2F8(s16);
 
 void func_8032CD70_73E420(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7);
 
+// overlay2_73ED30
+void func_8032F8C8_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
+
 // overlay2_741000
 void func_80338E1C_74A4CC(u8);
 void func_803391D0_74A880(u8 arg0);

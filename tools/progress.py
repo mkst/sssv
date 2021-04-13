@@ -46,7 +46,7 @@ def parse_map(mapfile, section, ending=None):
                 break
             # assuming "build/src/..."
             if line.startswith(" build/"):
-                filename = line[7:].replace(".o(.text)", "").strip()
+                filename = line[7:].replace(".c.o(.text)", "").strip()
                 files[filename] = []
                 continue
             if line.startswith(" .text "):
@@ -110,7 +110,7 @@ def main(basedir, mapfile, section, ending, version):
         c_functions = parse_file(basedir, filename, file_funcs)
         for c_function in c_functions:
             functions[c_function]["language"] = "c"
-    section_name = section.split("_")[-1] # .code_game -> game
+    section_name = section.replace('.', '') # .game -> game
     csv = generate_csv(files, functions, version, section_name)
     print(csv)
 

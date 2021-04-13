@@ -476,7 +476,10 @@ typedef struct {
     /* 0x38910 */ s32 usedHilites;
     /* 0x38914 */ s32 unk38914;  // used xxx ?
     /* 0x38918 */ s32 unk38918;  // usedModelViewMatrixes (unk33590, max 240?)
-    /* 0x3891C */ u8  pad3891C[0x9f4];
+    /* 0x3891C */ u8  pad3891C[0xF4];
+    /* 0x38A10 */ f32 unk38A10[3][4];
+    /* 0x38A40 */ f32 unk38A40[4];
+    /* 0x38A50 */ u8  pad38A50[0x8C0];
     /* 0x39310 */ s16 unk39310; // used xxx ?
                   u8  pad39311[0x2327];
                   Light unk3B638;
