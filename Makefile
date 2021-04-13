@@ -3,7 +3,7 @@ VERSION  := us
 
 BUILD_DIR = build
 ASM_DIRS  = asm asm/libc asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched
-BIN_DIRS  = bin
+BIN_DIRS  = assets
 SRC_DIR   = src.$(VERSION)
 
 SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
@@ -14,15 +14,15 @@ TOOLS_DIR := tools
 
 S_FILES   = $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
 C_FILES   = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-H_FILES   = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
+# H_FILES   = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
 BIN_FILES = $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
 
-O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file:.s=.o)) \
-           $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file:.c=.o)) \
-           $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file:.bin=.o))
+O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
+           $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file).o) \
+           $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file).o)
 
-RNC_FILES := $(wildcard bin/rnc*.bin)
-RNC_EXTRACTED := $(foreach file,$(RNC_FILES),assets/$(file))
+RNC_FILES := $(wildcard assets/rnc*.bin)
+RNC_EXTRACTED := $(foreach file,$(RNC_FILES),rnc/$(file))
 RNC_COMPRESSED := $(foreach file,$(RNC_FILES),build/$(file))
 
 TARGET = $(BUILD_DIR)/$(BASENAME).$(VERSION)
@@ -52,7 +52,8 @@ ASFLAGS = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 # Files requiring pre/post-processing
 GREP := grep -rl
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
-GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file:.c=.o))
+GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
+
 
 CFLAGS := -G 0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
 CFLAGS += -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI
@@ -67,26 +68,26 @@ ifeq ($(VERSION),eu)
 CFLAGS += -DVERSION_EU
 endif
 
-LDFLAGS = -T $(BUILD_DIR)/$(LD_SCRIPT) -Map $(TARGET).map -T undefined_syms_auto.txt -T undefined_funcs_auto.txt -T undefined_syms.$(VERSION).txt --no-check-sections
+LDFLAGS = -T $(LD_SCRIPT) -Map $(TARGET).map -T undefined_syms_auto.txt -T undefined_funcs_auto.txt -T undefined_syms.$(VERSION).txt --no-check-sections
 
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 
 ### Optimisation Overrides
-$(BUILD_DIR)/$(SRC_DIR)/main_1050.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/main_4790.c.o: OPT_FLAGS := -O2
 # TODO:
 # $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2 -g3
 
 # libultra
-$(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/libultra/io/%.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.c.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/libultra/io/%.c.o: OPT_FLAGS := -O1
 
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.o: MIPSISET := -mips3 -o32
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.c.o: MIPSISET := -mips3 -o32
+$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.c.o: OPT_FLAGS := -O1
 
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.o: MIPSISET := -mips3 -o32
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: MIPSISET := -mips3 -o32
+$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: OPT_FLAGS := -O1
 
 ### Targets
 
@@ -110,17 +111,17 @@ verify: $(TARGET).z64
 progress: verify progress.csv
 
 extract: check symlinks
-	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml --rom baserom.$(VERSION).z64 --outdir .
+	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml
 
 decompress: $(RNC_EXTRACTED)
 
 compress: dirs $(RNC_COMPRESSED)
 	# DO NOT UNCOMMENT NEXT LINE UNTIL COMPRESSION IS MATCHING
-	#cp $(BUILD_DIR)/bin/rnc* bin/
+	#cp $(BUILD_DIR)/assets/rnc*.bin assets/
 
 clean:
 	rm -rf asm
-	rm -rf bin
+	rm -rf assets
 	rm -rf build
 	rm -f *auto.txt
 
@@ -130,36 +131,37 @@ clean:
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $<" | sha1sum --check
 	@touch $@
 
-$(BUILD_DIR)/$(LD_SCRIPT): $(LD_SCRIPT)
-	$(CPP) -P -DBUILD_DIR=$(BUILD_DIR) -o $@ $<
+# $(BUILD_DIR)/$(LD_SCRIPT): $(LD_SCRIPT)
+# 	$(CPP) -P -DBUILD_DIR=$(BUILD_DIR) -o $@ $<
 
-$(TARGET).elf: $(O_FILES) $(BUILD_DIR)/$(LD_SCRIPT)
+$(TARGET).elf: $(O_FILES)
 	@$(LD) $(LDFLAGS) -o $@
 
 ifndef PERMUTER
-$(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
+$(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
 	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
-	$(CC) -c -32 $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
+	$(CC) -c -32 $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
 	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< --post-process $@ \
 		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.s
 endif
 
-$(BUILD_DIR)/%.o: %.c
+# non asm-processor recipe
+$(BUILD_DIR)/%.c.o: %.c
 	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 
 # force mips2 bit
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.o: $(SRC_DIR)/libultra/libc/ll.c
+$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.c.o: $(SRC_DIR)/libultra/libc/ll.c
 	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
 
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.o: $(SRC_DIR)/libultra/libc/llcvt.c
+$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: $(SRC_DIR)/libultra/libc/llcvt.c
 	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
 
-$(BUILD_DIR)/%.o: %.s
+$(BUILD_DIR)/%.s.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-$(BUILD_DIR)/%.o: %.bin
+$(BUILD_DIR)/%.bin.o: %.bin
 	$(LD) -r -b binary -o $@ $<
 
 $(TARGET).bin: $(TARGET).elf
@@ -168,11 +170,11 @@ $(TARGET).bin: $(TARGET).elf
 $(TARGET).z64: $(TARGET).bin
 	@cp $< $@
 
-assets/%.bin: %.bin $(RNC64)
-	@mkdir -p assets/bin
+rnc/%.bin: %.bin $(RNC64)
+	@mkdir -p rnc/assets
 	$(RNC64) u $< $@ >/dev/null
 
-$(BUILD_DIR)/%.bin: assets/%.bin
+$(BUILD_DIR)/%.bin: rnc/%.bin
 	$(TOOLS_DIR)/rnc_propack_source/rnc64 p $< $@ >/dev/null
 	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@
 
@@ -183,13 +185,13 @@ progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.
 	cat $^ > $@
 
 progress.main.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_main --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .main --version $(VERSION) > $@
 progress.lib.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_lib --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .lib --version $(VERSION) > $@
 progress.overlay1.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_overlay1 --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay1 --version $(VERSION) > $@
 progress.overlay2.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .code_overlay2 --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay2 --version $(VERSION) > $@
 
 
 ### Settings

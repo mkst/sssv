@@ -68,7 +68,7 @@ void func_802A40EC_6B579C(void) {
 //nonmatch: SPLIT VARIABLE
 /* void func_802A4184_6B5834(void) {
     s16 temp_a0;
-    
+
     temp_a0 = (D_803D5530->yPos + D_803D5524->unkBA) - func_80298F78_6AA628(D_803D5530->xPos, D_803D5530->zPos);
     if (temp_a0 >= 0) {
         D_803D5530->yVelocity.w = D_803D5530->yVelocity.w - D_803A05B0;
@@ -239,12 +239,8 @@ void func_802A5C80_6B7330(void) {
     D_803D552C->unk31A = 0;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
-    if (D_803D552C->unk30C < 6) {
-        D_803D552C->unk30C = 6;
-    } else {
-        // huh?
-        D_803D552C->unk30C = D_803D552C->unk30C;
-    }
+    D_803D552C->unk30C = MAX(6, D_803D552C->unk30C);
+
     func_802B8720_6C9DD0();
 }
 

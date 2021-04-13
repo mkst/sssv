@@ -228,7 +228,7 @@ extern s16  D_801E9EB4;
 extern struct002 *D_80200000;
 extern s16  D_80200008;
 extern s16  D_80203FD0;
-extern s32  D_80203FD2;
+extern s16  D_80203FD2;
 extern struct016 D_80203FE0[16];
 extern s16  D_80203FE8;
 extern s16  D_80203FF0;
