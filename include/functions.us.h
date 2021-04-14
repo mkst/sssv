@@ -242,6 +242,8 @@ void func_8029E3CC_6AFA7C(void);
 
 // overlay2_6B5380
 void func_802A3E70_6B5520(Animal *arg0, u32 *arg1, u32 *arg2);
+void func_802A40EC_6B579C(void);
+void func_802A4390_6B5A40(void);
 void func_802A4CB8_6B6368(void);
 void func_802A4D0C_6B63BC(u16 rotation, s8 arg1);
 void func_802A4D80_6B6430(u16 rotation, s8 arg1);
@@ -271,6 +273,10 @@ void func_802A613C_6B77EC(u16 rotation);
 void func_802A6198_6B7848(u16 rotation);
 void func_802A61EC_6B789C(u16 rotation);
 void func_802A623C_6B78EC(s16 arg0, s16 arg1);
+void func_802A6390_6B7A40(void);
+void func_802A63C0_6B7A70(void);
+void func_802AA424_6BBAD4(void);
+s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1);
 
 s16  func_802B2580_6C3C30(void);
 void func_802B2EA8_6C4558(void);
@@ -300,7 +306,7 @@ void func_802B8A48_6CA0F8(void);
 void func_802B8AD8_6CA188(void);
 void func_802B8B1C_6CA1CC(void);
 void func_802B901C_6CA6CC(s16 arg0, s16 *arg1, s16 *arg2);
-void func_802B90A0_6CA750(s16 arg0, s32 *arg1, s32 *arg2);
+//void func_802B90A0_6CA750(s16 arg0, s32 *arg1, s32 *arg2); //arg0 may be u8 *arg0
 void func_802B964C_6CACFC(void);
 void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3);
 void func_802BAA38_6CC0E8(u16 arg0, u16 arg1);
