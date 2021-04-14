@@ -20,6 +20,7 @@ RUN python3 -m pip install \
       colorama \
       cxxfilt \
       pycparser \
+      pylibyaml \
       pypng \
       python-Levenshtein \
       python-ranges \
