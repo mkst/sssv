@@ -2,85 +2,116 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A3CD0_6B5380.s")
+void func_802A3CD0_6B5380(void) {
+    s16 xVel, zVel;
 
-void func_802A3E70_6B5520(Animal *arg0, u32 *arg1, u32 *arg2) {
-    s32 tmp = 0xFFFF0000;
+    if (D_803D5530->unk160 == 2) {
+        func_80311AA8_723158(D_803D5530->xPos, D_803D5530->zPos, &D_803D5510, &D_803D5512);
+    } else {
+        func_80311BF8_7232A8(D_803D5530->xPos, D_803D5530->zPos, &D_803D5510, &D_803D5512);
+    }
 
+    if (D_803D5530->unk161 == 0) {
+        xVel = D_803D5510;
+        zVel = D_803D5512;
+
+        if (xVel > 24) {
+            xVel += xVel - 24;
+        }
+        if (xVel < -24) {
+            xVel += xVel + 24;
+        }
+
+        if (zVel > 24) {
+            zVel += zVel - 24;
+        }
+        if (zVel < -24) {
+            zVel += zVel + 24;
+        }
+
+        D_803D5530->xVelocity.w += MAX(MIN(xVel, 128), -128) << 12;
+        D_803D5530->zVelocity.w += MAX(MIN(zVel, 128), -128) << 12;
+    }
+}
+
+void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2) {
     if (arg0->unk161 == 0) {
         if (D_803D5510 < -23) {
-            if ((s32)*arg1 < tmp) {
-                *arg1 = *arg1;
-            } else {
-                *arg1 = tmp;
-            }
+            *arg1 = MIN(*arg1, -65536);
         }
         if (D_803D5510 >= 24) {
-            if ((s32)*arg1 >= 65537) {
-                *arg1 = *arg1;
-            } else {
-                *arg1 = 65536;
-            }
+            *arg1 = MAX(*arg1, 65536);
         }
         if (D_803D5512 < -23) {
-            if ((s32)*arg2 < tmp) {
-                *arg2 = *arg2;
-            } else {
-                *arg2 = tmp;
-            }
+            *arg2 = MIN(*arg2, -65536);
         }
         if (D_803D5512 >= 24) {
-            if ((s32)*arg2 >= 65537) {
-                *arg2 = *arg2;
-            } else {
-                *arg2 = 65536;
-            }
+            *arg2 = MAX(*arg2, 65536);
         }
     }
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A3F68_6B5618.s")
+// JUSTREG
 // void func_802A3F68_6B5618(s32 *arg0, s32 *arg1) {
-//     u8 temp_t6;
-//     u8 temp_v1;
+//     s32 temp_t6;
+//     s32 temp_v1;
 //
-//     temp_v1 = (&D_803C0740 + (((s32) D_803D5530->xPos >> 6) * 0x408) + (((s32) D_803D5530->zPos >> 6) * 8))->unk7;
-//     *arg0 = (s32) (*arg0 + (((((s32) (temp_v1 & 0xF0) >> 4) & 7) * (1 - ((s32) (((s32) temp_v1 >> 4) & 8) >> 2))) << 0x11));
-//     temp_t6 = (&D_803C0740 + (((s32) D_803D5530->xPos >> 6) * 0x408) + (((s32) D_803D5530->zPos >> 6) * 8))->unk7;
-//     *arg1 = (s32) (*arg1 + (((temp_t6 & 7) * (1 - ((s32) (temp_t6 & 8) >> 2))) << 0x11));
+//     temp_v1 = D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7;
+//     *arg0 += ((1 - (((temp_v1 >> 4) & 8) >> 2)) * (((temp_v1 & 0xF0) >> 4) & 7)) << 17;
+//     if (0) { };
+//     temp_t6 = D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7;
+//     *arg1 += ((1 - ((temp_t6 & 8) >> 2)) * (temp_t6 & 7)) << 17;
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A403C_6B56EC.s")
+void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
+    s32 temp_v0;
+    s32 temp_v1;
+    s32 temp_a2;
 
-void func_802A40EC_6B579C(void) {
-    s16 sp1E;
+    temp_v0 = arg0->xVelocity.w;
+    temp_a2 = D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk7;
+    temp_v1 = arg0->zVelocity.w;
 
-    if ((D_803D5524->unkA0 & 0xC00) != 0) {
-        sp1E = D_803D5524->unkBA;
-    } else {
-        sp1E = D_803D5524->unkB8;
-    }
-    D_803D5530->yVelocity.w = (D_803D5530->yVelocity.w * 7) >> 3;
-    D_803D5530->yVelocity.w = D_803D5530->yVelocity.w - (((D_803D5530->yPos + sp1E) - func_80298F78_6AA628(D_803D5530->xPos, D_803D5530->zPos)) << 0xA); //function used to have sp1E as a 3rd input
+    temp_v0 = temp_v0 - (((1 - (((temp_a2 >> 4) & 8) >> 2)) * (((temp_a2 & 0xF0) >> 4) & 7)) << 17);
+    temp_v1 = temp_v1 - (((1 - ((temp_a2 & 8) >> 2)) * ((u8)temp_a2 & 7)) << 17);
+
+    arg0->xVelocity.w -= (temp_v0 >> arg1);
+    arg0->zVelocity.w -= (temp_v1 >> arg1);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4184_6B5834.s")
-//nonmatch: SPLIT VARIABLE
-/* void func_802A4184_6B5834(void) {
-    s16 temp_a0;
-
-    temp_a0 = (D_803D5530->yPos + D_803D5524->unkBA) - func_80298F78_6AA628(D_803D5530->xPos, D_803D5530->zPos);
-    if (temp_a0 >= 0) {
-        D_803D5530->yVelocity.w = D_803D5530->yVelocity.w - D_803A05B0;
-        return;
+void func_802A40EC_6B579C(void) {
+    s16 tmp;
+    if ((D_803D5524->unkA0 & 0xC00) != 0) {
+        tmp = D_803D5524->unkBA;
+    } else {
+        tmp = D_803D5524->unkB8;
     }
-    if (temp_a0 >= -0xF) {
-        D_803D5530->yVelocity.w = D_803D5530->yVelocity.w - (((temp_a0 + 0x10) * D_803A05B0) >> 4);
-    }
-} */
+    D_803D5530->yVelocity.w = (D_803D5530->yVelocity.w * 7) >> 3;
+    D_803D5530->yVelocity.w -= ((D_803D5530->yPos + tmp) - func_80298F78_6AA628(D_803D5530->xPos, D_803D5530->zPos)) << 10;
+}
 
-// ???
+void func_802A4184_6B5834(void) {
+    s16 tmp = (D_803D5530->yPos + D_803D5524->unkBA) - func_80298F78_6AA628(D_803D5530->xPos, D_803D5530->zPos);
+    if (tmp >= 0) {
+        D_803D5530->yVelocity.w -= D_803A05B0;
+    } else if (tmp >= -15) {
+        D_803D5530->yVelocity.w -= ((tmp + 16) * D_803A05B0) >> 4;
+    }
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4220_6B58D0.s")
+// what???
+// void func_802A4220_6B58D0(s32 *arg0, s32 *arg1, s32 arg2) {
+//     s32 temp_v0;
+//     s32 temp_v1;
+//
+//     temp_v0 = ABS(*arg0);
+//     temp_v1 = ABS(*arg1);
+//
+//     *arg0 = (*arg0 * temp_v0) >> 8;
+//     *arg1 = (*arg1 * temp_v1) >> 8;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4278_6B5928.s")
 
@@ -93,12 +124,58 @@ void func_802A4390_6B5A40(void) {
     func_802B8720_6C9DD0();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A43E4_6B5A94.s")
+void func_802A43E4_6B5A94(u16 rotation, s8 arg1) {
+    D_803D552C->unk2F2 = 0;
+    D_803D552C->unk2F4 = 0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A44C4_6B5B74.s")
+    D_803D5530->state = 3;
+    D_803D5530->yRotation = rotation;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A459C_6B5C4C.s")
+    if ((D_803D5524->unk9C == GORILLA) || (D_803D5524->unk9C == BEAR)) {
+        if (D_803D552C->unk320 != 0) {
+            arg1 = (arg1 * 5) / 6;
+        }
+    }
+    D_803D552C->unk368 = arg1;
+    D_803D552C->unk31A = (arg1 * D_803D5524->unkA4) / 16;
+    func_802B8790_6C9E40();
+}
 
+void func_802A44C4_6B5B74(u16 rotation, s8 arg1) {
+    D_803D5530->state = 6;
+    D_803D5530->yRotation = rotation;
+
+    D_803D552C->unk2F2 = 0;
+    D_803D552C->unk2F4 = 0;
+    D_803D552C->unk368 = arg1;
+
+    if ((D_803D5524->unk9C == GORILLA) || ( (D_803D5524->unk9C == BEAR))) {
+        if (D_803D552C->unk320 != 0) {
+            arg1 = (arg1 * 5) / 6;
+        }
+    }
+    D_803D552C->unk31A = (arg1 * D_803D5524->unkA4) / 16;
+    func_802B8790_6C9E40();
+}
+
+void func_802A459C_6B5C4C(u16 rotation, s8 arg1) {
+    D_803D552C->unk2F2 = 0;
+    D_803D552C->unk2F4 = 0;
+
+    D_803D5530->state = 4;
+    D_803D5530->yRotation = rotation;
+
+    if ((D_803D5524->unk9C == GORILLA) || (D_803D5524->unk9C == BEAR)) {
+        if (D_803D552C->unk320 != 0) {
+            arg1 = (arg1 * 5) / 6;
+        }
+    }
+    D_803D552C->unk368 = arg1;
+    D_803D552C->unk31A = (arg1 * D_803D5524->unkA4) / 16;
+    func_802B8810_6C9EC0();
+}
+
+// might not be too bad
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A467C_6B5D2C.s")
 
 void func_802A4CB8_6B6368(void) {
@@ -422,6 +499,49 @@ void func_802A63C0_6B7A70(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A6400_6B7AB0.s")
+// well this looks grim
+// u16 func_802A6400_6B7AB0(void) {
+//     u16 temp_v0;
+//     u32 temp_t6;
+//     u32 temp_t7;
+//     u32 temp_t8;
+//
+//     temp_v0 = D_803D5530->state;
+//     temp_t6 = temp_v0 - 0xB5;
+//     if (temp_v0 >= 0x6B) {
+//         if (temp_t6 < 5U) {
+//             goto **(&jtbl803BADC0 + (temp_t6 * 4)); // switch 1
+// block_3:
+//             temp_t8 = temp_v0 - 2;
+//             if (temp_v0 >= 7) {
+//                 temp_t7 = temp_v0 - 0x65;
+//                 if (temp_t7 < 6U) {
+//                     goto **(&jtbl803BADD4 + (temp_t7 * 4)); // switch 2
+// block_6:
+//                     if (temp_t8 < 5U) {
+//                         goto **(&jtbl803BADEC + (temp_t8 * 4)); // switch 3
+//                     default: // switch 3
+//                     case 0: // switch 3
+//                         *temp_v1 = (u16)5U;
+//                         return temp_v0;
+//                     default: // switch 2
+//                     case 0: // switch 2
+//                         *temp_v1 = (u16)0x67U;
+//                         return temp_v0;
+//                     default: // switch 1
+//                     case 0: // switch 1
+//                         *temp_v1 = (u16)0xB8U;
+//                     }
+//                 }
+//             } else {
+//                 goto block_6;
+//             }
+//         }
+//     } else {
+//         goto block_3;
+//     }
+//     return temp_v0;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A64B0_6B7B60.s")
 
@@ -462,18 +582,17 @@ void func_802AA424_6BBAD4(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC8A0_6BDF50.s")
 //nonmatch: JUSTREG
-/* void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
-    *arg0 = 0;
-    if (D_801E9EB2 >= 3) {
-        *arg1 = D_803D5524->unkA4 << 0xA;
-    } else if (D_801E9EB2 > 0) {
-        *arg1 = D_803D5524->unkA4 * 640;
-    } else {
-        *arg1 = 0;
-    }
-    func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1); //unk2D??
-}
- */
+// void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
+//     *arg0 = 0;
+//     if (D_801E9EB2 > 2) {
+//         *arg1 = D_803D5524->unkA4 * 1024;
+//     } else if (D_801E9EB2 > 0) {
+//         *arg1 = D_803D5524->unkA4 * 640;
+//     } else {
+//         *arg1 = 0;
+//     }
+//     func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+// }
 
 s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
     if (arg0 < 0) {
@@ -699,8 +818,30 @@ void func_802B3540_6C4BF0(void) {
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3B48_6C51F8.s")
 
-// requires jumptable
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3C9C_6C534C.s")
+s16 func_802B3C9C_6C534C(s16 arg0, Animal *arg1) {
+    s16 tmp;
+    if (arg0 == 0) {
+        return (u16)0;
+    }
+
+    switch (arg1->unk16C->unkE6) {
+    case 0:
+        arg0 = (arg0 * 32) >> 4;
+        break;
+    case 1:
+        arg0 = (arg0 * 24) >> 4;
+        break;
+    case 2:
+        break;
+    case 3:
+        arg0 = (arg0 * 10) >> 4;
+        break;
+    case 4:
+        arg0 = (arg0 * 6) >> 4;
+        break;
+    }
+    return  MAX(1, arg0);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3D68_6C5418.s")
 // NON-MATCHING: almost just reg, final logic is not correct

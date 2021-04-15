@@ -276,14 +276,6 @@ extern s32  D_80205410[];
 
 // 0x8022xxxx
 
-extern u8   D_8022E0D0;
-extern s32  D_8022E0D4;
-extern u32  D_8022E0D8;
-extern u8  *D_8022E0DC; // decompression destination
-extern u8  *D_8022E3E0;
-extern u8   D_8022E3E4;
-extern u16  D_8022E3E6;
-extern u16  D_8022E3E8;
 extern s16  D_8022E3F0[]; // maps to ROM 0x12A390
 extern s16  D_8022E3F2;
 
@@ -562,6 +554,9 @@ extern u16  D_803B6870[];
 extern struct046 D_803B6890[];
 extern s16  D_803B6B24[];
 extern f32  D_803B7468;
+
+// rodata starts at 0x803BACD0 (maybe)
+
 extern u8   D_803BBF00[]; // "\nASSERT: TotalMass != 0, %s, %u\n" (in /src/collision.c)
 extern f64  D_803BBF48; // 0.7
 extern f64  D_803BBF50; // 0.7
@@ -632,6 +627,7 @@ extern s64  D_803C064C;
 extern s64  D_803C0650;
 extern u32  D_803C0654; // geometry mode
 extern u16  D_803C0658; // matrix normalise
+extern struct063 D_803C0740_7D1DF0[][0x81];
 
 // 0x803Dxxxx
 

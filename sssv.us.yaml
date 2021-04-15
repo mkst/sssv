@@ -22,6 +22,7 @@ segments:
     type:  code
     start: 0x00001000
     vram:  0x80125900
+    subalign: 8
     overlay: no
     subsegments:
     - [0x1000, asm, entrypoint] # handwritten
@@ -45,15 +46,8 @@ segments:
     - [0x10CB0, c, main_10CB0]
     - [0x10DC0, c, main_10DC0]
     - [0x123E0, c, main_123E0]
-  - name:  lib
-    type:  code
-    start: 0x00012FC0
-    vram:  0x801378C0
-    overlay: no
-    subsegments:
-    #############################
-    # - [0x12FC0, linker, code_lib] # fake split here for progress
-    #############################
+    # libultra
+    - [0x12FC0, linker, lib] # fake split here
     - [0x12FC0, c, libultra/os/initialize]
     - [0x13250, c, libultra/libc/ll]
     - [0x13510, hasm, libultra/gu/sqrtf]
@@ -226,13 +220,8 @@ segments:
     - [0x28860, c, libultra/os/setglobalintmask]
     - [0x288B0, c, libultra/os/yieldthread]
     - [0x28900, c, libultra/libc/ldiv]
-  - name:  main_data
-    type:  code
-    start: 0x028A90 # 0x00035050
-    vram:  0x8014D390
-    overlay: no
-    subalign: 8
-    subsegments:
+    # .data / .rodata
+    - [0x28A90, linker, data] # fake split here for progress
     - [0x028A90, bin]
     # - [0x02FC00, .rodata, main_78F0]
     - [0x02FD28, .rodata, main_78F0]
@@ -573,11 +562,8 @@ segments:
     subsegments:
     - [0x6384F0, c, overlay1_6384F0]
     - [0x63C660, c, overlay1_63C660]
-  - type:  code
-    name:  overlay1_data
-    start: 0x0063CDD0
-    vram:  0x80299730
-    subsegments:
+    # .data / .rodata
+    - [0x63CDD0, linker, data]
     - [0x63CDD0, bin] # tbd ### D_80299730
     - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840
     - [0x646E80, bin, rnc_646E80] # 28620 => 153600 # 320x240, president mrs frank bloke
@@ -602,6 +588,7 @@ segments:
     overlay: yes
     start: 0x006A6500
     vram:  0x80294E50
+    subalign: 8
     subsegments:
     - [0x6A6500, c, overlay2_6A6500]
     - [0x6A7A80, c, overlay2_6A7A80]
@@ -639,7 +626,7 @@ segments:
     - [0x72C680, asm]
     - [0x72DE50, asm]
     - [0x732A60, asm]
-    - [0x734D30, asm]
+    - [0x734D30, c, sssv/animals/bear]
     - [0x739290, c, overlay2_739290] # cheats?
     - [0x73EA30, c, overlay2_73EA30]
     - [0x73ED30, c, overlay2_73ED30]
@@ -683,19 +670,31 @@ segments:
     - [0x7A8A50, c, overlay2_7A8A50]
     - [0x7A9CE0, c, overlay2_7A9CE0] # relates to file select
     - [0x7AF410, c, overlay2_7AF410]
-  - name:  overlay2_data
-    type:  code
-    start: 0x007B1B90
-    vram:  0x803A04E0
-    subalign: 8
-    subsegments:
+    # .data / .rodata
+    - [0x7B1B90, linker, data]
     - [0x7B1B90, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C76B0, .data, sssv/credits]
     - [0x7C7960, bin]
     - [0x7C8AC0, bin] # more textures
+    - [0x7CC380, rodata, overlay2_6A7A80]
+    - [0x7CC3C0, bin] # rodata overlay2_6ACF20
     # - [0x7D0000, .rodata, sssv/osd]
+    - [0x7CC470, rodata, overlay2_6B5380]
+    - [0x7CD590, .rodata, overlay2_6B5380] # rodata, sssv/collision
+    - [0x7CD5B0, bin] # rodata, sssv/collision
+    - [0x7CF080, bin]
+    - [0x7CF110, bin]
+    - [0x7CF120, rodata, sssv/animals/bear]
+    - [0x7CF180, bin]
+    - [0x7CF530, bin]
     - [0x7D0028, bin]
+    - [0x7D0620, rodata, sssv/animals/vulture]  # 0x803BEF70
+    - [0x7D0650, rodata, overlay2_77EDB0]       # 0x803BEFA0
+    - [0x7D0660, rodata, overlay2_780E50]       # 0x803BEFB0
+    - [0x7D0670, rodata, overlay2_783D90]       # 0x803BEFC0
+    - [0x7D0690, rodata, overlay2_786320]       # 0x803BEFE0
+    - [0x7D0710, bin]                           # 0x803BF060
     - [0x7D0AA0, .rodata, overlay2_794EE0]
     - [0x7D0B40, bin]
     - [0x7D0B70, .rodata, sssv/credits]

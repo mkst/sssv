@@ -1,6 +1,10 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+
+#define ABS(x) ((x)<0 ? -(x) : (x))
+
+
 #define MAX_EUROPE_ANIMALS     19
 #define MAX_ICE_ANIMALS        11
 #define MAX_DESERT_ANIMALS     8

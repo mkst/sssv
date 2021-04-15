@@ -301,7 +301,7 @@ void func_801308B4(u8 *src, s16 *dst) {
 //     start = D_80154500[arg1*2][0];
 //     end = D_80154500[arg1*2][1];
 //     dma_read(start, D_8022E3F0, end - start);
-//     rnc_decompress((u8*)D_8022E3F0, (u8*)D_80235410);
+//     UnpackRNC((u8*)D_8022E3F0, (u8*)D_80235410);
 //     strncpy((u8*)D_80235410 + D_80235410[arg0], D_8022E3F0, 12000);
 //
 //     src = &D_8022E3F2; // offset?

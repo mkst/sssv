@@ -779,7 +779,9 @@ struct struct035 {
   /* 0xDA */  s16 unkDA[3]; // skill a recharge/drain rate?
   /* 0xE0 */  s16 unkE0;    // skill b recharge/drain rate?
   /* 0xE2 */  s16 unkE2;
-  /* 0xE4 */  u8  padE4[0x8];
+  /* 0xE4 */  u8  padE4[0x2];
+  /* 0xE6 */  u8  unkE6;
+  /* 0xE8 */  u8  padE7[0x5];
 }; // size 0xEC
 
 typedef struct {
@@ -1141,5 +1143,11 @@ typedef struct {
     s8  unk1B;
     u8  pad1C[0x4];
 } struct062; // size 0x20
+
+typedef struct {
+    u8 unk0;
+    u8 pad1[0x6];
+    u8 unk7;
+} struct063; // size 0x8
 
 #endif

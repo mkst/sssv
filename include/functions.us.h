@@ -63,9 +63,6 @@ void func_8012AC8C(void);
 void func_8012AD08(void);
 void draw_rectangle(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 a);
 
-// core/rnc.c
-u16  rnc_decompress(u8 *src, u8* dst);
-
 // main_7770.c
 void func_8012C070(u8);
 
@@ -241,9 +238,15 @@ void func_8029DD84_6AF434(void);
 void func_8029E3CC_6AFA7C(void);
 
 // overlay2_6B5380
-void func_802A3E70_6B5520(Animal *arg0, u32 *arg1, u32 *arg2);
+void func_802A3CD0_6B5380(void);
+void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2);
+void func_802A403C_6B56EC(Animal *arg0, s16 arg1);
 void func_802A40EC_6B579C(void);
+void func_802A4184_6B5834(void);
 void func_802A4390_6B5A40(void);
+void func_802A43E4_6B5A94(u16 rotation, s8 arg1);
+void func_802A44C4_6B5B74(u16 rotation, s8 arg1);
+void func_802A459C_6B5C4C(u16 rotation, s8 arg1);
 void func_802A4CB8_6B6368(void);
 void func_802A4D0C_6B63BC(u16 rotation, s8 arg1);
 void func_802A4D80_6B6430(u16 rotation, s8 arg1);
@@ -287,6 +290,7 @@ void func_802B34DC_6C4B8C(void);
 void func_802B3518_6C4BC8(void);
 void func_802B3530_6C4BE0(void);
 void func_802B3540_6C4BF0(void);
+s16  func_802B3C9C_6C534C(s16 arg0, Animal *arg1);
 s16  func_802B3D68_6C5418(void);
 
 // collision.c
@@ -305,13 +309,15 @@ void func_802B89D8_6CA088(void);
 void func_802B8A48_6CA0F8(void);
 void func_802B8AD8_6CA188(void);
 void func_802B8B1C_6CA1CC(void);
-void func_802B901C_6CA6CC(s16 arg0, s16 *arg1, s16 *arg2);
-//void func_802B90A0_6CA750(s16 arg0, s32 *arg1, s32 *arg2); //arg0 may be u8 *arg0
+u16  func_802B8B74_6CA224(void);
+void func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2);
+void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2);
 void func_802B964C_6CACFC(void);
 void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3);
 void func_802BAA38_6CC0E8(u16 arg0, u16 arg1);
 void func_802BAD60_6CC410(u16 arg0, u16 arg1);
 
+void func_802D5F4C_6E75FC(s32, s32, s32, s16, s16, s16, u16, s16, s16, u16, s16); // TBD
 void func_802DB9E8_6ED098(s16 *, s16, s16);
 
 void func_802E87B8_6F9E68(Animal *arg0);
@@ -338,6 +344,16 @@ s32  func_803136FC_724DAC(s16 arg0, s16 arg1, s16 arg2);
 void func_8031B390_72CA40(u8);
 void func_80322064_733714(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_803223F4_733AA4(s32);
+
+// sssv/animals/bear (overlay2_734D30)
+void func_803277B4_738E64(void);
+void func_8032786C_738F1C(void);
+void func_803278D4_738F84(void);
+void func_80327908_738FB8(void);
+void func_803279BC_73906C(void);
+void func_80327B84_739234(s32 arg0, s32 arg1, s32 arg2);
+void func_80327B94_739244(s16 arg0);
+
 void func_80327B94_739244(s16 arg0);
 void func_8032AC48_73C2F8(s16);
 
