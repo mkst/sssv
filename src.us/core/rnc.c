@@ -1,398 +1,542 @@
-#include <ultra64.h>
-#include "common.h"
+/*----------------------------------------------------------------------------
+ * PROPACK Unpacker 'C' Source Code
+ *
+ * Copyright (c) 1995 Rob Northen Computing, UK. All Rights Reserved.
+ *
+ * File: UNPACK.C
+ *
+ * Date: 18.03.95
+ *----------------------------------------------------------------------------*/
 
-/*
-RNC Header:
+#if 0
+#include <malloc.h>
+#include <mem.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <string.h>
+#endif
 
-3 bytes   signature "RNC"
-1 byte    version
-4 bytes   unpacked data length
-4 bytes   packed data length
-2 bytes   CRC-16 of packed data
-2 bytes   CRC-16 of unpacked data
-2 bytes   overlap size (used for inplace unpacking) (unused here)
+#include "pp.h"
 
-via https://wiki.multimedia.cx/index.php/RNC_ProPack
-*/
+#if 0
+BYTE BitBuffM2,
+     *OutputEnd;
 
-typedef struct {
-    /* 0x00 */ u8  signature[3];    // always 'RNC';
-    /* 0x03 */ u8  version;         // 0 or 1;
-    /* 0x04 */ u32 unpackedLength;
-    /* 0x08 */ u32 packedLength;
-    /* 0x0C */ u16 packedCRC;
-    /* 0x0E */ u16 unpackedCRC;
-    /* 0x10 */ u16 overlap;
-} RNCHeader; // size 0x14 (due to alignment...) RNC header is only 18 bytes
+ULONG BitBuffM1;
+#else
+extern BYTE BitBuffM2,
+     *OutputEnd;
 
-typedef struct {
-    /* 0x00 */ u32 l1;
-    /* 0x04 */ u16 l2;
-    /* 0x08 */ u32 l3;
-    /* 0x0C */ u16 bit_depth;
-} HuffTable; // size 0x10
+extern ULONG BitBuffM1;
+#endif
 
-extern HuffTable D_8022E0E0[16];
-extern HuffTable D_8022E1E0[16];
-extern HuffTable D_8022E2E0[16];
+WORD UnpackRNC(RNC_fileptr, BYTE *OutputBuffer);
+WORD UnpackMethod1(RNC_fileptr FilePtr, BYTE *OutputBuffer);
+WORD UnpackMethod2(RNC_fileptr FilePtr, BYTE *OutputBuffer);
+void InitUnpack(RNC_fileptr FilePtr, BYTE *OutputBuffer);
+WORD InputBitsM1(BYTE n);
+WORD InputBitsM2(BYTE n);
+void InputHuffmanTable(HUFFMAN_tableptr Table, BYTE TableSize);
+WORD InputValue(HUFFMAN_tableptr Table);
+WORD InputLenM2(void);
+WORD InputPosM2(void);
 
-s32  unpack_data_m1(u8 *src, u8* dst);
-s32  unpack_data_m2(u8 *src, u8* dst);
-void func_8012B648(u8 *src, u8 *dst);
-u16  input_bits_m1(u8 count);
-u16  input_bits_m2(u8 count);
-void make_huftable(HuffTable *src, u8 count);
-u16  decode_table_data(HuffTable *data);
-u16  decode_match_count(void);
-u16  decode_match_offset(void);
-u32  reverse_word(u8 *arg0);
-u16  reverse_short(u8 *arg0);
-void clear_table(HuffTable *data, u8 count);
-void func_8012BC00(HuffTable *data, u8 count);
-void func_8012BCEC(HuffTable *data, u8 count);
-s32  func_8012BF5C(HuffTable *data, u8 count);
-s32  inverse_bits(u32 value, u8 count);
+ULONG ReverseLong(BYTE *b);
+WORD  ReverseWord(BYTE *b);
 
-u16 rnc_decompress(u8 *src, u8* dst) {
-    RNCHeader *hdr = (RNCHeader*) src;
-    u16 res;
+#if 0
+int main(int argc, char *argv[])
+{
+    BYTE *InputBuffer,
+         *OutputBuffer;
 
-    if ((hdr->signature[0] != 'R') ||
-        (hdr->signature[1] != 'N') ||
-        (hdr->signature[2] != 'C')) {
-        return 0xFFFF; // -1
+    int handle;
+
+    ULONG FileSize,
+         UncompressedSize;
+
+    if (argc < 2) {
+        printf("filename required.\n");
+        exit(EXIT_FAILURE);
     }
 
-    switch (hdr->version) {
+    if ((handle = open(argv[1], O_RDONLY | O_BINARY)) == -1) {
+        printf("failed to open: %s\n", argv[1]);
+        exit(EXIT_FAILURE);
+    }
+
+    FileSize = filelength(handle);
+
+    if ((InputBuffer = (BYTE *)malloc(FileSize)) == NULL) {
+        printf("failed to allocate input buffer\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (read(handle, InputBuffer, FileSize) != FileSize) {
+        close(handle);
+        printf("failed to read file\n");
+        exit(EXIT_FAILURE);
+    }
+
+    close(handle);
+
+    UncompressedSize = BIGENDIANL(((RNC_fileptr)InputBuffer)->UncompressedSize);
+
+    if ((OutputBuffer = (BYTE *)malloc(UncompressedSize)) == NULL) {
+        free((void *)InputBuffer);
+        printf("failed to allocate output buffer\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (UnpackRNC((RNC_fileptr)InputBuffer, OutputBuffer) != 0) {
+        printf("failed to unpack RNC file\n");
+        free((void *)InputBuffer);
+        free((void *)OutputBuffer);
+        exit(EXIT_FAILURE);
+    }
+
+    free((void *)InputBuffer);
+    free((void *)OutputBuffer);
+    return(EXIT_SUCCESS);
+}
+#endif
+
+WORD UnpackRNC(RNC_fileptr FilePtr, BYTE *OutputBuffer)
+{
+    WORD    result;
+    BYTE    *string;
+
+    string = (BYTE *)&FilePtr->Id[0];
+
+    if ((string[0] != 'R') || (string[1] != 'N') || (string[2] != 'C'))
+        return RNCERROR_BADFILEID;
+
+
+    switch (FilePtr->Method) {
         case 0:
-            res = 0; // no compression
+#if 1
+            // do nothing
+#else
+            memcpy(OutputBuffer, &FilePtr->Data, BIGENDIANL(FilePtr->UncompressedSize));
+#endif
+            result = RNCERROR_OK;
             break;
-        case 1:      // all files appear to be this type
-            res = unpack_data_m1(src, dst);
+
+        case 1:
+            result = UnpackMethod1(FilePtr, OutputBuffer);
             break;
-        case 2:      // method 2
-            res = unpack_data_m2(src, dst);
+
+        case 2:
+            result = UnpackMethod2(FilePtr, OutputBuffer);
             break;
+
         default:
-            res = 0xFFFE; // -2
+            result = RNCERROR_UNKNOWNMETHOD;
     }
 
-    return res;
+    return result;
 }
 
-s32 unpack_data_m1(u8 *src, u8* dst) {
-    u16 rs;
-    u16 match_count;
-    u16 data_length;
-    u16 subchunks;
-    u8* match_offset;
-    u32 rw;
+WORD UnpackMethod1(RNC_fileptr FilePtr, BYTE *OutputBuffer)
+{
+#if 1
+    WORD rs;
+    ULONG rw;
+#endif
+    BYTE *Ptr;
 
-    func_8012B648(src, dst);
-    input_bits_m1(2);
-    while ((u32) D_8022E0DC < (u32) D_8022E0D4) {
-        make_huftable(D_8022E0E0, 16); // raw_table
-        make_huftable(D_8022E1E0, 16); // len_table
-        make_huftable(D_8022E2E0, 16); // pos_table
-        subchunks = input_bits_m1(16);
-goto foo;
-        do {
-            // skipped on first loop
-            match_offset = (D_8022E0DC - decode_table_data(D_8022E1E0)) - 1;
-            match_count = decode_table_data(D_8022E2E0) + 2;
-            while (match_count--) {
-                *D_8022E0DC++ = *match_offset++;
+    WORD LoopCount,
+         Len;
+
+    InitUnpack(FilePtr, OutputBuffer);
+
+    InputBitsM1(2); // lock and key bits
+
+    while (OutputPtr < OutputEnd) {
+        InputHuffmanTable(&RawHuffmanTable[0], 16);
+        InputHuffmanTable(&PosHuffmanTable[0], 16);
+        InputHuffmanTable(&LenHuffmanTable[0], 16);
+        LoopCount = InputBitsM1(16);
+        goto Start;
+
+        Again:
+            Ptr = OutputPtr - (InputValue(PosHuffmanTable) + 1);
+            Len = InputValue(LenHuffmanTable) + 2;
+            while (Len--)
+                *OutputPtr++ = *Ptr++;
+        Start:
+            Len = InputValue(RawHuffmanTable);
+            while (Len--)
+                *OutputPtr++ = *InputPtr++;
+#if 1
+            rs = ReverseWord(InputPtr + 1);
+            rw = ReverseLong(InputPtr + 2) << 16;
+            BitBuffM1 = (((*InputPtr + rw + (rs << 8)) << BitBuffBits) +
+                          (BitBuffM1 & ((1 << BitBuffBits) - 1)));
+#else
+            BitBuffM1 = ((((ULONG)*(InputPtr+2) << 16) + ((WORD)*(InputPtr+1) << 8) + *InputPtr) << BitBuffBits)
+                         + (BitBuffM1 & (1 << BitBuffBits) - 1);
+#endif
+
+            if (--LoopCount) goto Again;
+    }
+
+    return RNCERROR_OK;
+}
+
+WORD UnpackMethod2(RNC_fileptr FilePtr, BYTE *OutputBuffer)
+{
+    BYTE *Ptr;
+
+    WORD Pos,
+         Len;
+
+    InitUnpack(FilePtr, OutputBuffer);
+
+    InputBitsM2(2); // lock and key bits
+
+    while (OutputPtr < OutputEnd) {
+        for (;;) {
+            while (InputBitsM2(1) == 0)
+                *OutputPtr++ = *InputPtr++;
+            if (InputBitsM2(1)) {
+                if (InputBitsM2(1) == 0) {
+                    Len = 2;
+                    Pos = *InputPtr++ + 1;
+                } else {
+                    if (InputBitsM2(1) == 0)
+                        Len = 3;
+                    else {
+                        if ((Len = *InputPtr++ + 8) == 8)
+                            break;
+                    }
+                    Pos = InputPosM2();
+                }
+                Ptr = OutputPtr - Pos;
+                while (Len--)
+                    *OutputPtr++ = *Ptr++;
             }
-foo:
-            data_length = decode_table_data(D_8022E0E0);
-            while (data_length--) {
-                *D_8022E0DC++ = *D_8022E3E0++;
-            }
-
-            rs = reverse_short(D_8022E3E0 + 1);
-            rw = reverse_word(D_8022E3E0 + 2) << 16;
-            D_8022E0D8 = (((*D_8022E3E0 + rw + (rs << 8)) << D_8022E3E4) +
-                          (D_8022E0D8 & ((1 << D_8022E3E4) - 1)));
-            subchunks--;
-        } while (subchunks);
-    }
-    return 0;
-}
-
-#pragma GLOBAL_ASM("asm/nonmatchings/core/rnc/unpack_data_m2.s")
-
-void func_8012B648(u8 *src, u8 *dst) {
-    u32 sp2C;
-    u32 sp28;
-    u32 sp24;
-    u32 tmp4;
-
-    D_8022E3E0 = src + 18; // skip over header
-    D_8022E0DC = dst;
-
-    src += 4; // what we skipping here?
-    sp24 = reverse_word(src);
-    sp28 = reverse_word(src);
-    sp2C = reverse_word(src);
-    tmp4 = reverse_word(src);
-
-    D_8022E0D4 = dst + ((((tmp4 >> 16) & 0xFF00) >> 8) + (((sp2C >> 16) & 0x00FF) << 8) +
-                        ((((sp28 & 0xFFFF) << 8) + ((sp24 & 0xFF00) >> 8)) << 16));
-    D_8022E3E4 = 0;
-}
-
-u16 input_bits_m1(u8 count) {
-    u16 bits, prev_bits;
-
-    bits = 0;
-    prev_bits = 1;
-
-    while (count--) {
-        // if no bits to process, get more
-        if (D_8022E3E4 == 0) {
-            D_8022E0D8 = reverse_word(D_8022E3E0);
-            D_8022E3E4 = 16; // 16 bits to process
-            D_8022E3E0 += 2; // increment by 2 bytes
-        }
-        if (D_8022E0D8 & 1) {
-            bits |= prev_bits;
-        }
-        prev_bits <<= 1;
-        D_8022E0D8 >>= 1;
-        D_8022E3E4 -= 1;
-    }
-
-    return bits;
-}
-
-u16 input_bits_m2(u8 count) {
-    u16 bits = 0;
-
-    while (count--) {
-        // if no bits to process, get more
-        if (D_8022E3E4 == 0) {
-            D_8022E0D0 = *D_8022E3E0;
-            D_8022E3E0 += 1; // increment 1 byte
-            D_8022E3E4 = 8;  // 8 bits to process
-        }
-        bits <<= 1;
-        if ((D_8022E0D0 & 0x80)) {
-            bits += 1;
-        }
-        D_8022E0D0 <<= 1;
-        D_8022E3E4 -= 1;
-    }
-
-    return bits;
-}
-
-void make_huftable(HuffTable *src, u8 count) {
-    u8 leaf_nodes;
-    u8 i;
-    HuffTable *ht;
-
-    clear_table(src, count);
-
-    leaf_nodes = input_bits_m1(5);
-    if (leaf_nodes != 0) {
-        if (leaf_nodes > 16) {
-            leaf_nodes = 16;
-        }
-        ht = src;
-        for (i = 0; i < leaf_nodes; i++) {
-            ht->bit_depth = input_bits_m1(4);
-            ht++;
-        }
-        func_8012BC00(src, leaf_nodes);
-    }
-}
-
-u16 decode_table_data(HuffTable *data) {
-    u8 i;
-    u16 bit_depth;
-    HuffTable *h;
-
-    i = 0;
-    h = data;
-    while (((*h).bit_depth == 0) || ((*h).l3 != (D_8022E0D8 & ((1 << (*h).bit_depth) - 1)))) {
-        h++;
-        i += 1;
-    }
-
-    input_bits_m1(h->bit_depth);
-    if (i < 2) {
-        return i;
-    }
-
-    return input_bits_m1(i - 1) | (1 << (i - 1));
-}
-
-u16 decode_match_count(void) {
-    u16 res = input_bits_m2(1) + 4;
-    if (input_bits_m2(1) == 0) {
-        return res;
-    } else {
-        return input_bits_m2(1) + ((res - 1) << 1);
-    }
-}
-
-u16 decode_match_offset(void) {
-    u16 match_offset;
-    u8 *temp_v1;
-
-    match_offset = 0;
-    if (input_bits_m2(1)) {
-        match_offset = input_bits_m2(1);
-        if (input_bits_m2(1)) {
-            match_offset = (input_bits_m2(1) + (match_offset * 2)) | 4;
-            if (input_bits_m2(1) == 0) {
-                match_offset = input_bits_m2(1) + (match_offset * 2);
-            }
-        } else {
-            if (match_offset == 0) {
-                match_offset = (input_bits_m2(1) + 2);
+            else {
+                if ((Len = InputLenM2()) == 9) {
+                    Len = (InputBitsM2(4) << 2) + 12;
+                    while (Len--)
+                        *OutputPtr++ = *InputPtr++;
+                } else {
+                    Ptr = OutputPtr - InputPosM2();
+                    while (Len--)
+                        *OutputPtr++ = *Ptr++;
+                }
             }
         }
+        InputBitsM2(1);
     }
-    return *D_8022E3E0++ + (match_offset << 8) + 1;
+
+    return RNCERROR_OK;
 }
 
+void InitUnpack(RNC_fileptr FilePtr, BYTE *OutputBuffer)
+{
+#if 1
+    ULONG sp2C;
+    ULONG sp28;
+    ULONG sp24;
+    ULONG sp20;
+#endif
+    InputPtr = (BYTE *)&FilePtr->Data; // skip over header
+    OutputPtr = OutputBuffer;
+#if 1
+    sp24 = ReverseLong((BYTE *)&FilePtr->UncompressedSize);
+    sp28 = ReverseLong((BYTE *)&FilePtr->UncompressedSize);
+    sp2C = ReverseLong((BYTE *)&FilePtr->UncompressedSize);
+    sp20 = ReverseLong((BYTE *)&FilePtr->UncompressedSize);
+
+    OutputEnd = OutputBuffer + ((((sp20 >> 16) & 0xFF00) >> 8) + (((sp2C >> 16) & 0x00FF) << 8) +
+                               ((((sp28 & 0xFFFF) << 8) + ((sp24 & 0xFF00) >> 8)) << 16));
+#else
+    OutputEnd = OutputBuffer + BIGENDIANL(FilePtr->UncompressedSize);
+#endif
+    BitBuffBits = 0;
+}
+
+WORD InputBitsM1(BYTE n)
+{
+    WORD Bits = 0,
+         BitMask = 1;
+
+    while (n--) {
+        if (BitBuffBits == 0) {
+#if 1
+            BitBuffM1 = ReverseLong(InputPtr);
+#else
+            BitBuffM1 = *((ULONG *)InputPtr);
+#endif
+            InputPtr += 2;
+            BitBuffBits = 16;
+        }
+        if (BitBuffM1 & 1)
+            Bits |= BitMask;
+        BitMask <<= 1;
+        BitBuffM1 >>= 1;
+        BitBuffBits--;
+    }
+
+    return Bits;
+}
+
+WORD InputBitsM2(BYTE n)
+{
+    WORD Bits = 0;
+
+    while (n--) {
+        if (BitBuffBits == 0) {
+            BitBuffM2 = *InputPtr++;
+            BitBuffBits = 8;
+        }
+        Bits <<= 1;
+        if (BitBuffM2 & 0x80)
+            Bits++;
+        BitBuffM2 <<= 1;
+        BitBuffBits--;
+    }
+
+    return Bits;
+}
+
+void InputHuffmanTable(HUFFMAN_tableptr Table, BYTE TableSize)
+{
+    BYTE n,
+         i;
+
+    HUFFMAN_tableptr tableptr;
+
+    InitHuffmanTable(Table, TableSize);
+
+    if ((n = (BYTE)InputBitsM1(5)) != 0) {
+        if (n > 16)
+            n = 16;
+        tableptr = Table;
+        for (i = 0; i < n; i++) {
+            tableptr->CodeLen = InputBitsM1(4);
+            tableptr++;
+        }
+        MakeHuffmanCodes(Table, n);
+    }
+}
+
+WORD InputValue(HUFFMAN_tableptr Table)
+{
+    BYTE Bits = 0;
+
+    HUFFMAN_tableptr tableptr;
+
+    tableptr = Table;
+
+    while ( (tableptr->CodeLen == 0) || ((BitBuffM1 & (1 << tableptr->CodeLen) - 1) != tableptr->Code)) {
+        tableptr++;
+        Bits++;
+    }
+
+    InputBitsM1(tableptr->CodeLen);
+
+    if (Bits < 2)
+        return Bits;
+
+    return InputBitsM1(Bits - 1) | (1 << (Bits - 1));
+}
+
+WORD InputLenM2(void)
+{
+    WORD Len = InputBitsM2(1) + 4;
+
+    if (InputBitsM2(1) == 0)
+        return Len;
+
+    return ((Len - 1) << 1) + InputBitsM2(1);
+}
+
+WORD InputPosM2(void)
+{
+    WORD Pos = 0;
+
+    if (InputBitsM2(1)) {
+        Pos = InputBitsM2(1);
+        if (InputBitsM2(1)) {
+            Pos = ((Pos << 1) + InputBitsM2(1)) | 4;
+            if (InputBitsM2(1) == 0)
+                Pos = (Pos << 1) + InputBitsM2(1);
+        } else
+            if (Pos == 0)
+                Pos = InputBitsM2(1) + 2;
+    }
+
+    return (Pos << 8) + *InputPtr++ + 1;
+}
+
+#if 1
 // turns "abcd" => "dcba"
-u32 reverse_word(u8 *arg0) {
-    return arg0[0] | (arg0[1] << 8) | (arg0[2] << 16) | (arg0[3] << 24);
+ULONG ReverseLong(BYTE *b) {
+    return b[0] | (b[1] << 8) | (b[2] << 16) | (b[3] << 24);
 }
 
-u16 reverse_short(u8 *arg0) {
-    return arg0[0] | (arg0[1] << 8);
+// turns "ab" => "ba"
+WORD ReverseWord(BYTE *b) {
+    return b[0] | (b[1] << 8);
 }
+#endif
 
-void clear_table(HuffTable *data, u8 count) {
-    while (count--) {
-        data->l1 = 0;
-        data->l2 = 0xFFFF;
-        data->l3 = 0;
-        data->bit_depth = 0;
-        data++;
+/*----------------------------------------------------------------------------
+ * PROPACK Unpacker 'C' Source Code
+ *
+ * Copyright (c) 1995 Rob Northen Computing, UK. All Rights Reserved.
+ *
+ * File: HUFFMAN.C
+ *
+ * Date: 07-APR-95
+ *----------------------------------------------------------------------------*/
+
+#if 0
+BYTE BitBuffBits,
+     *InputPtr,
+     *OutputPtr;
+
+WORD FirstEntry,
+     SecondEntry;
+
+huffman RawHuffmanTable[16],
+        PosHuffmanTable[16],
+        LenHuffmanTable[16];
+#else
+extern WORD FirstEntry,
+            SecondEntry;
+#endif
+
+void InitHuffmanTable(HUFFMAN_tableptr Table, BYTE TableSize);
+void MakeHuffmanCodes(HUFFMAN_tableptr Table, BYTE n);
+void MakeHuffmanTable(HUFFMAN_tableptr Table, BYTE n);
+WORD FindLowest(HUFFMAN_tableptr Table, BYTE n);
+ULONG SwapBits(ULONG InBits, BYTE n);
+
+void InitHuffmanTable(HUFFMAN_tableptr Table, BYTE TableSize)
+{
+    while (TableSize--) {
+        Table->Frequency = 0;
+        Table->EntryPtr = USHRT_MAX;
+        Table->Code = 0;
+        Table->CodeLen = 0;
+        Table++;
     }
 }
 
-// proc_20
-void func_8012BC00(HuffTable *data, u8 count) {
-    HuffTable * ht;
-    u16 bits_count;
-    u16 i;
-    u32 div;
-    u32 val;
+void MakeHuffmanCodes(HUFFMAN_tableptr Table, BYTE n)
+{
+    WORD huff_bits = 1,
+         i;
 
-    bits_count = 1;
-    val = 0;
-    div = 0x80000000;
+    ULONG huff_code = 0,
+         huff_base = 0x80000000;
 
-    while (bits_count <= 16) {
-        ht = data;
-        for (i = 0; i < count; i++) {
-            if (ht->bit_depth == bits_count) {
-                ht->l3 = inverse_bits(val / div, bits_count);
-                val += div;
+    HUFFMAN_tableptr tableptr;
+
+    while (huff_bits <= 16) {
+        tableptr = Table;
+        for (i = 0; i < n; i++) {
+            if (tableptr->CodeLen == huff_bits) {
+                tableptr->Code = SwapBits(huff_code / huff_base, huff_bits);
+                huff_code += huff_base;
             }
-            ht++; // next table
+            tableptr++;
         }
-        bits_count++;
-        div >>= 1;
+        huff_bits++;
+        huff_base >>= 1;
     }
 }
 
-// proc_16
-void func_8012BCEC(HuffTable *data, u8 count) {
-    u16 i;
-    u16 used;
-    u16 max;
-    u32 tmp[16];
+void MakeHuffmanTable(HUFFMAN_tableptr Table, BYTE n)
+{
+    WORD i,
+         j,
+         k;
 
+    ULONG temp[16];
 
-    for (i = 0; i < 16; i++) {
-        tmp[i] = data[i].l1;
+    for (i = 0; i < 16; i++)
+        temp[i] = Table[i].Frequency;
+
+    for (i = j = 0; i < n; i++)
+        if (Table[i].Frequency) {
+            j++;
+            k = i;
+        }
+
+    if (j == 0)
+        return;
+
+    if (j == 1) {
+        Table[k].CodeLen++;
+        return;
     }
 
-    used = 0;
+    while (FindLowest(Table, n)) {
+        Table[FirstEntry].Frequency += Table[SecondEntry].Frequency;
+        Table[SecondEntry].Frequency = 0;
+        Table[FirstEntry].CodeLen++;
 
-    for (i = 0; i < count; i++) {
-        if (data[i].l1 != 0) {
-            used += 1;
-            max = i;
+        while (Table[FirstEntry].EntryPtr !=  USHRT_MAX) {
+            FirstEntry = Table[FirstEntry].EntryPtr;
+            Table[FirstEntry].CodeLen++;
+        }
+
+        Table[FirstEntry].EntryPtr = SecondEntry;
+        Table[SecondEntry].CodeLen++;
+
+        while (Table[SecondEntry].EntryPtr != USHRT_MAX) {
+            SecondEntry = Table[SecondEntry].EntryPtr;
+            Table[SecondEntry].CodeLen++;
         }
     }
-    if (used != 0) {
-        if (used == 1) {
-            data[max].bit_depth += 1;
-            return;
-        }
-        while (func_8012BF5C(data, count)) {
-            data[D_8022E3E6].l1 += data[D_8022E3E8].l1;
-            data[D_8022E3E8].l1 = 0;
-            data[D_8022E3E6].bit_depth += 1;
 
-            while (data[D_8022E3E6].l2 != 0xFFFF) {
-                D_8022E3E6 = data[D_8022E3E6].l2;
-                data[D_8022E3E6].bit_depth += 1;
-            }
+    for (i = 0; i < 16; i++)
+        Table[i].Frequency = temp[i];
 
-            data[D_8022E3E6].l2 = D_8022E3E8;
-            data[D_8022E3E8].bit_depth += 1;
-
-            while (data[D_8022E3E8].l2 != 0xFFFF) {
-                D_8022E3E8 = data[D_8022E3E8].l2;
-                data[D_8022E3E8].bit_depth += 1;
-            }
-        }
-        for (i = 0; i < 16; i++) {
-            data[i].l1 = tmp[i];
-        }
-        func_8012BC00(data, count);
-    }
+    MakeHuffmanCodes(Table, n);
 }
 
-//proc_17
-s32 func_8012BF5C(HuffTable *data, u8 count) {
-    u8 i;
-    u32 l1;
-    u32 phi_v0;
-    u32 phi_v1;
+WORD FindLowest(HUFFMAN_tableptr Table, BYTE n)
+{
+    BYTE Entry;
 
-    phi_v0 = 0xFFFFFFFF;
-    phi_v1 = 0xFFFFFFFF;
+    ULONG Freq,
+         FirstFreq  = ULONG_MAX,
+         SecondFreq = ULONG_MAX;
 
-    for (i = 0; i < count; i++){
-        l1 = data[i].l1;
-        if (l1 != 0) {
-            if (l1 < phi_v0) {
-                phi_v1 = phi_v0;
-                D_8022E3E8 = D_8022E3E6;
-                phi_v0 = l1;
-                D_8022E3E6 = i;
-            } else if (l1 < phi_v1) {
-                phi_v1 = l1;
-                D_8022E3E8 = i;
-            }
-        }
-    }
-
-    if ((phi_v0 == -1) || (phi_v1 == -1)) {
+    for (Entry = 0; Entry < n; Entry++)
+        if ((Freq = Table[Entry].Frequency) != 0)
+            if (Freq < FirstFreq) {
+                SecondFreq  = FirstFreq;
+                SecondEntry = FirstEntry;
+                FirstFreq   = Freq;
+                FirstEntry  = Entry;
+            } else
+                if (Freq < SecondFreq) {
+                    SecondFreq  = Freq;
+                    SecondEntry = Entry;
+                }
+    if ((FirstFreq == ULONG_MAX) || (SecondFreq == ULONG_MAX))
         return 0;
-    } else {
-        return 1;
-    }
+    return 1;
 }
 
-s32 inverse_bits(u32 value, u8 count) {
-    s32 bits = 0;
+ULONG SwapBits(ULONG InBits, BYTE n)
+{
+    ULONG OutBits = 0;
 
-    while (count--) {
-        bits <<= 1;
-        if (value & 1) {
-            bits |= 1;
-        }
-        value >>= 1;
+    while (n--) {
+        OutBits <<= 1;
+        if (InBits & 1)
+            OutBits |= 1;
+        InBits >>= 1;
     }
-    return bits;
+
+    return OutBits;
 }

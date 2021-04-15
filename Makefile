@@ -2,7 +2,10 @@ BASENAME  = sssv
 VERSION  := us
 
 BUILD_DIR = build
-ASM_DIRS  = asm asm/libc asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched
+ASM_DIRS  = asm \
+			asm/libc \
+			asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched \
+			asm/data asm/data/sssv asm/data/sssv/animals
 BIN_DIRS  = assets
 SRC_DIR   = src.$(VERSION)
 
@@ -56,7 +59,7 @@ GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).
 
 
 CFLAGS := -G 0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
-CFLAGS += -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI
+CFLAGS += -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32
 # ignore compiler warnings about anonymous structs
 CFLAGS += -woff 649,838
 CFLAGS += $(INCLUDE_CFLAGS)
@@ -187,7 +190,7 @@ progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.
 progress.main.csv: $(TARGET).elf
 	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .main --version $(VERSION) > $@
 progress.lib.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .lib --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .main_lib --version $(VERSION) > $@
 progress.overlay1.csv: $(TARGET).elf
 	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay1 --version $(VERSION) > $@
 progress.overlay2.csv: $(TARGET).elf

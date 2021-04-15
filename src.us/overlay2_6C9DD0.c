@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-// u16 func_802B8B74_6CA224(void);
 
 void func_802B8720_6C9DD0(void) {
     D_803D5528->unk380 = 0;
@@ -138,35 +137,52 @@ void func_802B8B1C_6CA1CC(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B901C_6CA6CC.s")
 // NON-MATCHING: kinda JUSTREG but not really..
-// void func_802B901C_6CA6CC(s16 arg0, s16 *arg1, s16 *arg2) {
+// void func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
 //     s16 temp_a3;
 //     s16 temp_t1;
 //     s16 temp_t2;
 //     s16 temp_v0;
+//     s32 tmp0;
+//     s32 tmp1;
+//     temp_v0 = D_80152C78[(u8) arg0];
+//     temp_t2 = *arg2;
+//     temp_a3 = D_80152C78[(u8) (arg0 + 64)];
 //
-//     temp_v0 = D_80152C78[(u8)arg0];
-//     temp_a3 = D_80152C78[(u8)(arg0 + 64)];
-//     temp_t2 = *arg1;
-//     temp_t1 = *arg2;
-//     *arg1 = ((temp_t1 * temp_v0) + (temp_t2 * temp_a3)) >> 15;
-//     *arg2 = ((temp_t1 * temp_a3) - (temp_t2 * temp_v0)) >> 15;
+//     tmp0 = temp_t2 * temp_v0;
+//     tmp0 += (*arg1) * temp_a3;
+//
+//     tmp1 = temp_t2 * temp_a3;
+//     tmp1 -= (*arg1) * temp_v0;
+//
+//     *arg2 = (tmp1 >>= 15);
+//     *arg1 = (tmp0 >>= 15);
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B90A0_6CA750.s")
 // NON-MATCHING: same issue as previous
-// void func_802B90A0_6CA750(s16 arg0, s32 *arg1, s32 *arg2) {
-//     s32 new_var;
+// void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
 //     s32 temp_t1;
 //     s32 temp_t2;
+//     s32 new_var3;
 //     s32 temp_t4;
 //     s32 temp_t5;
+//     s32 new_var;
+//     s32 new_var2;
 //
-//     temp_t5 = D_80152C78[(u8)arg0] >> 7;
-//     temp_t4 = D_80152C78[(u8)(arg0 + 64)] >> 7;
+//     temp_t5 = D_80152C78[(u8) arg0] >> 7;
+//     new_var3 = *arg1;
+//     temp_t4 = D_80152C78[(u8) (arg0 + 64)] >> 7;
+//     new_var = *arg2;
 //
-//     new_var = *arg1;
-//     temp_t2 = ((temp_t5 * (*arg2)) + (temp_t4 * (new_var))) >> 8;
-//     temp_t1 = ((temp_t4 * (*arg2)) - ((new_var) * temp_t5)) >> 8;
+//     temp_t2 = new_var * temp_t5;
+//     new_var2 = new_var3 * temp_t5;
+//     temp_t2 += temp_t4 * (*arg1);
+//     temp_t2 >>= 8;
+//
+//     temp_t1 = temp_t4 * new_var;
+//     temp_t1 -= new_var2;
+//     temp_t1 >>= 8;
+//
 //     *arg2 = temp_t1;
 //     *arg1 = temp_t2;
 // }
@@ -174,12 +190,12 @@ void func_802B8B1C_6CA1CC(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B9130_6CA7E0.s")
 
 void func_802B964C_6CACFC(void) {
-    D_80203FE0[1].unk0 = ((D_80203FE0[3].unk0 + D_80203FE0[4].unk0) >> 1);
-    D_80203FE0[1].unk2 = ((D_80203FE0[3].unk2 + D_80203FE0[4].unk2) >> 1);
-    D_80203FE0[1].unk4 = ((D_80203FE0[3].unk4 + D_80203FE0[4].unk4) >> 1);
-    D_80203FE0[2].unk0 = ((D_80203FE0[5].unk0 + D_80203FE0[6].unk0) >> 1);
-    D_80203FE0[2].unk2 = ((D_80203FE0[5].unk2 + D_80203FE0[6].unk2) >> 1);
-    D_80203FE0[2].unk4 = ((D_80203FE0[5].unk4 + D_80203FE0[6].unk4) >> 1);
+    D_80203FE0[1].unk0 = (D_80203FE0[3].unk0 + D_80203FE0[4].unk0) >> 1;
+    D_80203FE0[1].unk2 = (D_80203FE0[3].unk2 + D_80203FE0[4].unk2) >> 1;
+    D_80203FE0[1].unk4 = (D_80203FE0[3].unk4 + D_80203FE0[4].unk4) >> 1;
+    D_80203FE0[2].unk0 = (D_80203FE0[5].unk0 + D_80203FE0[6].unk0) >> 1;
+    D_80203FE0[2].unk2 = (D_80203FE0[5].unk2 + D_80203FE0[6].unk2) >> 1;
+    D_80203FE0[2].unk4 = (D_80203FE0[5].unk4 + D_80203FE0[6].unk4) >> 1;
 }
 
 void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3) {

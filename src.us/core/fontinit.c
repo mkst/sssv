@@ -2,6 +2,7 @@
 
 #include "common.h"
 
+#include "pp.h"
 
 void font_init(void) {
     u32 fontbufferSegmentLen = D_800EF0D0 - D_800E1220;
@@ -15,5 +16,5 @@ void font_init(void) {
 
     D_801D9E70 = D_8022E3F0;
     dma_read(D_0012A390, (void*)D_8022E3F0, len);
-    rnc_decompress((u8*)D_8022E3F0, D_800E1220);
+    UnpackRNC((u8*)D_8022E3F0, D_800E1220);
 }

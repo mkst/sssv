@@ -2,6 +2,8 @@
 
 #include "common.h"
 
+#include "pp.h"
+
 #if 0
 const Gfx D_801542D0[] =
 {
@@ -46,14 +48,14 @@ void func_802950B8_638758(void) {
     if (D_80204260 == 1) {
         func_80298FC0_63C660(0);
     }
-    rnc_decompress(D_802B64A0, D_80302E88); // newscaster "video"
-    rnc_decompress(D_802AFBD0, D_8039E2E8);
-    rnc_decompress(D_802B12D0, D_803A38D8);
-    rnc_decompress(D_802B2930, D_803A8EC8);
-    rnc_decompress(D_802B3F90, D_80338688);
-    rnc_decompress(D_802C11C0, D_8033CE88);
-    rnc_decompress(D_802BC430, D_8032AE88);
-    rnc_decompress(D_802F4CA0, D_80376ED8);
+    UnpackRNC(D_802B64A0, D_80302E88); // newscaster "video"
+    UnpackRNC(D_802AFBD0, D_8039E2E8);
+    UnpackRNC(D_802B12D0, D_803A38D8);
+    UnpackRNC(D_802B2930, D_803A8EC8);
+    UnpackRNC(D_802B3F90, D_80338688);
+    UnpackRNC(D_802C11C0, D_8033CE88);
+    UnpackRNC(D_802BC430, D_8032AE88);
+    UnpackRNC(D_802F4CA0, D_80376ED8);
 
     func_801308E8(D_8023F2A0.unkE, 33, D_80231AA0, D_80231D5C);
 
