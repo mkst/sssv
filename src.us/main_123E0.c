@@ -60,45 +60,45 @@
 // }
 
 void func_80136F64(void) {
-    u16 *bitmask = D_802910D0; // pointer to controller input bitmask
+    OSContPad *ci = gControllerInput;
 
-    if (bitmask != 0) {
-        if (*bitmask & CONT_START) {
+    if (ci != 0) {
+        if (ci->button & CONT_START) {
             D_802912DE = 0;
         } else {
             D_802912DE = 1;
         }
-        if (*bitmask & CONT_A) {
+        if (ci->button & CONT_A) {
             D_802912DF = 0;
         } else {
             D_802912DF = 1;
         }
-        if (*bitmask & CONT_B) {
+        if (ci->button & CONT_B) {
             D_802912E0 = 0;
         } else {
             D_802912E0 = 1;
         }
-        if (*bitmask & CONT_UP) {
+        if (ci->button & CONT_UP) {
             D_802912E1 = 0;
         } else {
             D_802912E1 = 1;
         }
-        if (*bitmask & CONT_DOWN) {
+        if (ci->button & CONT_DOWN) {
             D_802912E2 = 0;
         } else {
             D_802912E2 = 1;
         }
-        if (*bitmask & CONT_LEFT) {
+        if (ci->button & CONT_LEFT) {
             D_802912E3 = 0;
         } else {
             D_802912E3 = 1;
         }
-        if (*bitmask & CONT_RIGHT) {
+        if (ci->button & CONT_RIGHT) {
             D_802912E4 = 0;
         } else {
             D_802912E4 = 1;
         }
-        if (*bitmask & Z_TRIG) {
+        if (ci->button & Z_TRIG) {
             D_802912E5 = 0;
         } else {
             D_802912E5 = 1;

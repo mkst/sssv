@@ -2,45 +2,41 @@
 #include "common.h"
 
 
-extern u8 D_803BCA70[];
-extern u8 D_803BCAA0[];
-extern u8 D_803BCAB0[];
-extern u8 D_803BCAE0[];
-extern u8 D_803BCAF0[];
-extern u8 D_803BCB2C[];
-extern u8 D_803BCB3C[];
-extern u8 D_803BCB78[];
-extern u8 D_803BCB88[];
-extern u8 D_803BCBB4[];
-extern u8 D_803BCBC4[];
-extern u8 D_803BCBF0[];
-extern u8 D_803BCC00[];
-extern u8 D_803BCC28[];
-extern u8 D_803BCC38[];
-extern u8 D_803BCC60[];
-extern u8 D_803BCC70[];
-extern u8 D_803BCC9C[];
-extern u8 D_803BCCAC[];
-extern u8 D_803BCCD8[];
-extern u8 D_803BCCE8[];
-extern u8 D_803BCD14[];
-extern u8 D_803BCD24[];
-extern u8 D_803BCD50[];
-extern u8 D_803BCD60[];
-extern u8 D_803BCD78[];
+extern char D_803BCA70[];
+extern char D_803BCAA0[];
+extern char D_803BCAB0[];
+extern char D_803BCAE0[];
+extern char D_803BCAF0[];
+extern char D_803BCB2C[];
+extern char D_803BCB3C[];
+extern char D_803BCB78[];
+extern char D_803BCB88[];
+extern char D_803BCBB4[];
+extern char D_803BCBC4[];
+extern char D_803BCBF0[];
+extern char D_803BCC00[];
+extern char D_803BCC28[];
+extern char D_803BCC38[];
+extern char D_803BCC60[];
+extern char D_803BCC70[];
+extern char D_803BCC9C[];
+extern char D_803BCCAC[];
+extern char D_803BCCD8[];
+extern char D_803BCCE8[];
+extern char D_803BCD14[];
+extern char D_803BCD24[];
+extern char D_803BCD50[];
+extern char D_803BCD60[];
+extern char D_803BCD78[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/aidata/func_802EA3E0_6FBA90.s")
 // NON-MATCHING: maybe 60% there?
 // s32 func_802EA3E0_6FBA90(u16 arg0, u16 arg1) {
 //     // wierd struct or?
 //     s16 sp5E;
-//     // s16 sp5C;
-//     // s16 sp5A;
-//     // s32 sp1C;
-//     // s32 sp18;
 //
-//     u8 temp_t0;
-//     u8 temp_t1;
+//     s32 temp_t0;
+//     s32 temp_t1;
 //     struct029 *temp_t2;
 //     struct029 *temp_t9;
 //
@@ -48,7 +44,7 @@ extern u8 D_803BCD78[];
 //     if (arg0 < OB_TYPE_ANIMAL_OFFSET) {
 //         // "\nASSERT: X >= OB_TYPE_ANIMAL_OFFSET, %s, %u\n"
 //         // "../src/aidata.c"
-//         rmonPrintf(&D_803BCA70, &D_803BCAA0, 0x177);
+//         rmonPrintf(D_803BCA70, D_803BCAA0, 0x177);
 //         *(volatile int*)0 = 0;
 //     }
 //     if (arg1 < OB_TYPE_ANIMAL_OFFSET) {
@@ -70,10 +66,12 @@ extern u8 D_803BCD78[];
 //     }
 //
 //     // ???
-//     temp_t9 = &D_803A4B78[arg0];
-//     temp_t0 = (temp_t9 - 1)->unk0;
-//     temp_t2 = &D_803A4B78[arg1];
-//     temp_t1 = (temp_t2 - 1)->unk0;
+//     // temp_t9 = &D_803A4B78[arg0];
+//     // temp_t0 = (temp_t9 - 1)->unk0;
+//     // temp_t2 = &D_803A4B78[arg1];
+//     // temp_t1 = (temp_t2 - 1)->unk0;
+//     temp_t0 = D_803A4B78[arg0 - 1][0];
+//     temp_t1 = D_803A4B78[arg1 - 1][0];
 //
 //     if ((temp_t0 == 99) || (temp_t1 == 99) ){
 //         return 0;
@@ -82,8 +80,8 @@ extern u8 D_803BCD78[];
 //         return 2;
 //     }
 //
-//     if ((D_803F2D70 != (s32)(&D_801D9ED8[arg0] + 0xFFFF0000) + 0x14D6) ||
-//         (D_803F2D70 != (s32)(&D_801D9ED8[arg1] + 0xFFFF0000) + 0x14D6)) {
+//     if ((D_803F2D70 != (s32)(&D_801D9ED8.unk0[arg0]) + 0x14D6) ||
+//         (D_803F2D70 != (s32)(&D_801D9ED8.unk0[arg1]) + 0x14D6)) {
 //         return 0;
 //     }
 //

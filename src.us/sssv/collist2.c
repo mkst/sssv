@@ -8,8 +8,8 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collist2/func_802DAD18_6EC3C8.s")
 // no idea what is up with these random offsets
-// void func_802DAD18_6EC3C8(Animal *arg0) {
-//     Animal *temp_a1;
+// void func_802DAD18_6EC3C8(void *arg0) {
+//     void *temp_a1;
 //     struct044 *temp_a2;
 //     struct044 *temp_a2_2;
 //     s16 i;
@@ -36,6 +36,36 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collist2/func_802DAE5C_6EC50C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collist2/func_802DAF5C_6EC60C.s")
+void func_802DAF5C_6EC60C(void) {
+    s16 i;
+
+    for (i = 0; i < 40; i++) {
+        D_803DA110[i].unk0 = 0;
+        D_803DA110[i].unk4 = 0;
+        D_803DA110[i].unk8 = 0;
+    }
+
+    D_803DA2F0 = NULL;
+    D_803DA2F4 = NULL;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collist2/func_802DAFAC_6EC65C.s")
+// JUSTREG
+// void func_802DAFAC_6EC65C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
+//     Animal *ptr;
+//     // s64 foo = arg0;
+//     s32 a0 = arg0;
+//     s32 a1 = arg1;
+//     s32 a2 = arg2;
+//     s32 a3 = arg3;
+//
+//
+//     for (ptr = D_803DA2F4; ptr != NULL; ptr = ptr->unk198) {
+//         if (((ptr->xPos >= ((a0 + a2 + 1) << 22) >> 16)) &&
+//              (ptr->xPos >= ((a0             << 22) >> 16)) &&
+//             ((ptr->zPos >= ((a1 + a3 + 1) << 22) >> 16)) &&
+//              (ptr->zPos >= ((a1             << 22) >> 16))) {
+//                 ptr->unk4F |= 0x40;
+//         }
+//     }
+// }

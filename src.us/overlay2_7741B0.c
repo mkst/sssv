@@ -75,7 +75,7 @@ void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
     if (arg0->unk320 == 0) {
         arg0->unk28E = 0;
         arg0->unk28C = 9;
-        arg0->unk298 = arg2;
+        arg0->unk298.h = arg2;
         arg0->unk294.w = arg1;
         func_80363DB4_775464(arg0, arg1, -1, arg2);
     } else {
@@ -92,7 +92,7 @@ void func_8036379C_774E4C(Animal *arg0) {
 
 void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2) {
     arg0->unk28C = 8;
-    arg0->unk298 = arg2;
+    arg0->unk298.h = arg2;
     arg0->unk294.w = arg1;
     arg0->unk29A.b = arg1 == D_801DDD8C[gCurrentAnimalIndex].unk0;
     func_80363CC8_775378(arg0);
@@ -115,7 +115,7 @@ void func_80363880_774F30(Animal *arg0, Animal *arg1) {
 void func_803638A8_774F58(Animal *arg0, Animal *arg1, s16 arg2) {
     arg0->unk28C = 5;
     arg0->unk294.w = arg1;
-    arg0->unk298 = arg2;
+    arg0->unk298.h = arg2;
     func_80363DB4_775464(arg0, arg1, -1, arg2);
 }
 
@@ -140,7 +140,7 @@ void func_80363B34_7751E4(Animal *arg0, u16 arg1) {
 void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5) {
     arg0->unk28C = 2;
     arg0->unk294.h[1] = xPos;
-    arg0->unk298 = zPos;
+    arg0->unk298.h = zPos;
     arg0->unk29A.h = arg3;
     arg0->unk294.b[0] = arg4;
     arg0->unk294.b[1] = arg5;
@@ -251,7 +251,294 @@ void func_80363FB8_775668(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
     arg0->unk274 = 1;
 }
 
-// uses jump table
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80363FF0_7756A0.s")
-// uses jump table
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80364120_7757D0.s")
+void func_80363FF0_7756A0(Animal *arg0) {
+    switch (arg0->unk28C) {
+    case 0:
+        func_803638E8_774F98(arg0);
+        break;
+    case 1:
+        func_80363A0C_7750BC(arg0, arg0->unk294.ub[0], arg0->unk298.ub[0], (s8)(arg0->unk294.h[1] >> 12), arg0->unk294.ub[2] & 0xF, arg0->unk294.ub[3]);
+        break;
+    case 2:
+        func_80363B98_775248(arg0, arg0->unk294.h[1], arg0->unk298.h, arg0->unk29A.h, arg0->unk294.b[0], arg0->unk294.ub[1]);
+        break;
+    case 3:
+        func_80363B34_7751E4(arg0, arg0->unk294.ub[0]);
+        break;
+    case 4:
+        func_80363C0C_7752BC(arg0, arg0->unk294.ub[0]);
+        break;
+    case 5:
+        func_803638A8_774F58(arg0, arg0->unk294.w, arg0->unk298.h);
+        break;
+    case 6:
+        func_80363844_774EF4(arg0, arg0->unk294.h[0]);
+        break;
+    case 7:
+        func_80363880_774F30(arg0, arg0->unk294.w);
+        break;
+    case 8:
+        func_803637D4_774E84(arg0, arg0->unk294.w, arg0->unk298.h);
+        break;
+    case 9:
+        func_80363738_774DE8(arg0, arg0->unk294.w, arg0->unk298.h);
+        break;
+    case 10:
+        func_803638E8_774F98(arg0);
+        break;
+    }
+}
+
+void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
+    if (arg0 == 0) {
+        switch (D_803D5524->unk9C) {
+        case SEAGULL:
+            break;
+        case LION:
+            func_8030A958_71C008();
+            break;
+        case HIPPO:
+            func_802F0780_701E30(0, 0, 0);
+            break;
+        case RACING_DOG:
+            func_802EF074_700724(arg1);
+            break;
+        case FLYING_DOG:
+            func_802EEF9C_70064C(0, 0, 0);
+            break;
+        case FOX:
+            func_802E89AC_6FA05C();
+            break;
+        case FROG:
+            func_8030A958_71C008();
+            break;
+        case RABBIT:
+            func_8030A958_71C008();
+            break;
+        case KING_RAT:
+            func_8035FE6C_77151C(60);
+            break;
+        case PARROT:
+            func_80314600_725CB0();
+            break;
+        case MOUSE:
+            func_8030A958_71C008();
+            break;
+        case RACING_MOUSE:
+            func_8031FBE8_731298(arg1);
+            break;
+        case MOUSE2:
+            func_8030A958_71C008();
+            break;
+        case RACING_FOX:
+            func_802E89AC_6FA05C();
+            break;
+        case RACING_TORTOISE:
+            func_803563C8_767A78(arg1);
+            break;
+        case PIRANA:
+            func_8030A958_71C008();
+            break;
+        case DOG:
+            func_8030A958_71C008();
+            break;
+        case RAT:
+            func_8035FC2C_7712DC();
+            break;
+        case SHEEP:
+            func_8030A958_71C008();
+            break;
+        case RAM:
+            func_8030A958_71C008();
+            break;
+        case SPRINGY_THINGY:
+            func_8030A958_71C008();
+            break;
+        case SPRINGY_RAM:
+            func_8030A958_71C008();
+            break;
+        case PENGUIN:
+            func_8030A958_71C008();
+            break;
+        case POLAR_BEAR:
+            func_80368D18_77A3C8();
+            break;
+        case POLAR_TANK:
+            func_80368CF0_77A3A0();
+            break;
+        case HUSKY:
+            func_8030A958_71C008();
+            break;
+        case SKI_HUSKY:
+            func_8036C05C_77D70C(arg1);
+            break;
+        case WALRUS:
+            func_80376CF8_7883A8(arg1);
+            break;
+        case CAMEL:
+            func_8030A958_71C008();
+            break;
+        case CANNON_CAMEL:
+            func_8036F740_780DF0(D_803D5530->yRotation);
+            break;
+        case POGO_KANGAROO:
+            func_8030A958_71C008();
+            break;
+        case BOXING_KANGAROO:
+            func_8030A958_71C008();
+            break;
+        case DESERT_FOX:
+            func_8030A958_71C008();
+            break;
+        case ARMED_DESERT_FOX:
+            func_8030A958_71C008();
+            break;
+        case SCORPION:
+            func_803791AC_78A85C();
+            break;
+        case GORILLA:
+            func_8030A958_71C008();
+            break;
+        case ELEPHANT:
+            func_8037D268_78E918(arg1);
+            break;
+        case HYENA:
+            func_8030A958_71C008();
+            break;
+        case BIKER_HYENA:
+            func_8035A5A4_76BC54(arg1);
+            break;
+        case CHAMELEON:
+            func_8035C10C_76D7BC();
+            break;
+        case COOL_COD:
+            break;
+        }
+    } else {
+        switch (D_803D5524->unk9C) {
+        case SEAGULL:
+        case LION:
+            func_802F2AA0_704150();
+            break;
+        case HIPPO:
+            func_802F05A4_701C54();
+            break;
+        case RACING_DOG:
+            func_802EEDE0_700490(arg3);
+            break;
+        case FLYING_DOG:
+            func_802EEFEC_70069C(0, 0, 0);
+            break;
+        case FOX:
+            func_802E88C0_6F9F70(arg1);
+            break;
+        case FIRE_FOX:
+            func_802E87B8_6F9E68(arg3);
+            break;
+        case FROG:
+            func_80302DD0_714480();
+            break;
+        case POLAR_BEAR_DEFENDING:
+            func_80368D60_77A410(arg1);
+            break;
+        case RABBIT:
+            func_803021A8_713858();
+            break;
+        case HELI_RABBIT:
+            func_80302120_7137D0(0, 0, 0);
+            break;
+        case MOUSE:
+            func_8031FB30_7311E0(arg1);
+            break;
+        case RACING_MOUSE:
+            func_8031FB78_731228(arg1);
+            break;
+        case MOUSE2:
+            func_8031FB30_7311E0(arg1);
+            break;
+        case BEAR:
+            func_80327B94_739244(arg1);
+            break;
+        case RACING_FOX:
+            func_802E88C0_6F9F70(arg1);
+            break;
+        case TORTOISE_TANK:
+            func_803562C8_767978(arg1);
+            break;
+        case RACING_TORTOISE:
+            func_80356348_7679F8(arg1);
+            break;
+        case PIRANA:
+            func_80382CC0_794370(arg1);
+            break;
+        case DOG:
+            func_802EEF74_700624();
+            break;
+        case RAT:
+            func_8035FD4C_7713FC();
+            break;
+        case SHEEP:
+            func_8037FEDC_79158C();
+            break;
+        case RAM:
+            func_80362A84_774134();
+            break;
+        case SPRINGY_RAM:
+            func_80362A84_774134();
+            break;
+        case PENGUIN:
+            func_80365D8C_77743C(arg3);
+            break;
+        case POLAR_BEAR:
+            func_80368D60_77A410(arg1);
+            break;
+        case POLAR_TANK:
+            func_80368C50_77A300();
+            break;
+        case HUSKY:
+            func_8036C014_77D6C4(arg1);
+            break;
+        case SKI_HUSKY:
+            func_8036BEA4_77D554(arg3);
+            break;
+        case WALRUS:
+            func_80376B88_788238(arg3, arg1);
+            break;
+        case CAMEL:
+            func_8036F50C_780BBC(arg3);
+            break;
+        case CANNON_CAMEL:
+            func_8036F5F4_780CA4(arg3);
+            break;
+        case POGO_KANGAROO:
+            func_80372698_783D48();
+            break;
+        case BOXING_KANGAROO:
+            func_80372604_783CB4();
+            break;
+        case DESERT_FOX:
+            func_803745C4_785C74(arg1);
+            break;
+        case ARMED_DESERT_FOX:
+            func_8037460C_785CBC();
+            break;
+        case SCORPION:
+            func_80379148_78A7F8(arg3);
+            break;
+        case HYENA:
+            func_8035A590_76BC40(arg1);
+            break;
+        case BIKER_HYENA:
+            func_8035A420_76BAD0(arg3);
+            break;
+        case CHAMELEON:
+            func_8035C180_76D830(arg1);
+            break;
+        case CHAMELEON_DEFENDING:
+            func_8035C180_76D830(arg1);
+            break;
+        case COOL_COD:
+            break;
+        }
+    }
+}

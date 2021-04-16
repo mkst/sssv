@@ -3,6 +3,7 @@
 
 
 #define ABS(x) ((x)<0 ? -(x) : (x))
+#define ABSF(x) ((x)<0.0f ? -(x) : (x))
 
 
 #define MAX_EUROPE_ANIMALS     19
@@ -81,7 +82,7 @@
 #define RACING_MOUSE_ATTACKING      17
 #define RACING_MOUSE                18
 #define VULTURE                     19
-#define MOUSE2                      20 // ear-less?
+#define MOUSE2                      20 // ear-less? mouse-attacking?
 #define HELI_MOUSE                  21 // ?
 #define BEAR                        22
 #define BEAR_ATTACKING              23
@@ -131,9 +132,16 @@
 #define EVO_SHELLSUIT               67
 
 // evo suit colors
-#define EVO_BRONZE_SHELLSUIT    0
-#define EVO_SILVER_SHELLSUIT    1
-#define EVO_GOLD_SHELLSUIT      2
+#define EVO_BRONZE_SHELLSUIT        0
+#define EVO_SILVER_SHELLSUIT        1
+#define EVO_GOLD_SHELLSUIT          2
+
+// biomes
+#define EUROPE_BIOME                0
+#define ICE_BIOME                   1
+#define JUNGLE_BIOME                2
+#define DESERT_BIOME                3
+#define CITY_BIOME                  4
 
 // extra gbi macros
 

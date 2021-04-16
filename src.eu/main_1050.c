@@ -12,9 +12,9 @@ void func_80125950(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main_1050/func_80125980.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main_1050/func_80125FE0.s")
 
-void func_8012635C(s32 arg0, s32 arg1, struct005 *arg2) {
-    arg2->unk0 = (arg0 & 0xFFFF0000) | ((arg1 >> 16) & 0xFFFF);
-    arg2->unk20 = (arg0 << 16) | (arg1 & 0xFFFF);
+void func_8012635C(s32 arg0, s32 arg1, s32 arg2[]) {
+    arg2[0] = (arg0 & 0xFFFF0000) | ((arg1 >> 16) & 0xFFFF);
+    arg2[8] = (arg0 << 16) | (arg1 & 0xFFFF);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_1050/func_80126388.s")

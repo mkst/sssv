@@ -1,8 +1,102 @@
 #include <ultra64.h>
 #include "common.h"
 
+extern s32 D_801D9E5C;
+extern s32 D_801D9EC4;
+extern s32 D_801D9E58;
+extern s32 D_801D9E60;
+extern s32 D_801D9E64;
+extern s32 D_801D9E68;
+
+extern u8  D_800B0B20[];
+extern u8  D_000C7A30[];
+extern u8  D_000DD5C0[];
+extern u8  D_000E75B0[];
+extern u8  D_000F1060[];
+extern u8  D_000FFD50[];
+extern u8  D_00116BD0[];
+extern u8  D_00085790[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_803800F0_7917A0.s")
+// void func_803800F0_7917A0(u8 arg0) {
+//     s32 pad[4]; // urgh
+//     u32 available;
+//     u32 len;
+//
+//     osWritebackDCacheAll();
+//     available = D_800B0B20 - D_80099600;
+//     fancy_bzero(D_80099600, available);
+//     switch (arg0) {
+//     case 5:
+//         len = D_00116BD0 - D_000FFD50;
+//         if ((available <= len)) {
+//             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x72, available);
+//             *(volatile int*)0 = 0;
+//         }
+//         D_801D9E5C = D_80099600;
+//         dma_read(D_000FFD50, D_80099600, len);
+//         D_801D9EC4 = D_801D9E5C;
+//         break;
+//     case 0:
+//         len = D_000DD5C0 - D_000C7A30;
+//         if ((available <= len)) {
+//             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x84, available);
+//             *(volatile int*)0 = 0;
+//         }
+//         D_801D9E58 = D_80099600;
+//         dma_read(D_000C7A30, D_80099600, len);
+//         D_801D9EC4 = D_801D9E58;
+//         break;
+//     case 1:
+//         len = D_000E75B0 - D_000DD5C0;
+//         if ((available > len)) { // huh
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x96, available);
+//             *(volatile int*)0 = 0;
+//         }
+//         D_801D9E60 = D_80099600;
+//         dma_read(D_000DD5C0, D_80099600, len);
+//         D_801D9EC4 = D_801D9E60;
+//         break;
+//     case 2:
+//         len = D_000F1060 - D_000E75B0;
+//         if ((available > len)) {
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xA8, available);
+//             *(volatile int*)0 = 0;
+//         }
+//         D_801D9E64 = D_80099600;
+//         dma_read(D_000E75B0, D_80099600, len);
+//         D_801D9EC4 = D_801D9E64;
+//         break;
+//     case 3:
+//         len = D_000FFD50 - D_000F1060;
+//         if ((available > len)) {
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xBA, available);
+//             *(volatile int*)0 = 0;
+//         }
+//         D_801D9E68 = D_80099600;
+//         dma_read(D_000F1060, D_80099600, len);
+//         D_801D9EC4 = D_801D9E68;
+//         break;
+//     case 4: // maybe?
+//     case 6:
+//         len = D_00085790 - D_0007F790;
+//         if (((u32)D_800BA760 - (u32)D_800B0B20) < len) {
+//             rmonPrintf("\nASSERT: len <= (_gfxspecificSegmentEnd - _gfxspecificSegmentStart), %s, %u\n", "../src/animinit.c", 0xCE, available);
+//             *(volatile int*)0 = 0;
+//         }
+//         D_801D9E78 = D_800B0B20;
+//         dma_read(D_0007F790, D_800B0B20, len);
+//         available = D_800B0B20 - D_80099600;
+//         len = D_0012A390 - D_00116BD0;
+//         if ((available <= len) != 0) {
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xDA, available);
+//             *(volatile int*)0 = 0;
+//         }
+//         D_801D9E6C = D_80099600;
+//         dma_read(D_00116BD0, D_80099600, len);
+//         D_801D9EC4 = D_801D9E6C;
+//     }
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_80380490_791B40.s")
 
@@ -66,101 +160,3 @@ void func_80380644_791CF4(Animal *arg0) {
 //         }
 //     }
 // }
-
-// file boundary?
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_80380920_791FD0.s")
-
-void func_80321920_732FD0(void *arg0, s16 arg1, s16 arg2);
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_80381C60_793310.s")
-// void func_80381C60_793310(void) {
-//     s16 temp_a0;
-//     s16 temp_a0_2;
-//     s16 temp_v1_7;
-//     s32 temp_a3;
-//     void *temp_a3_2;
-//     void *temp_v0;
-//     void *temp_v0_2;
-//     void *temp_v0_3;
-//     void *temp_v0_4;
-//     void *temp_v0_5;
-//     void *temp_v1;
-//     void *temp_v1_10;
-//     void *temp_v1_2;
-//     void *temp_v1_3;
-//     void *temp_v1_4;
-//     void *temp_v1_5;
-//     void *temp_v1_6;
-//     void *temp_v1_8;
-//     void *temp_v1_9;
-//     void *phi_return;
-//     void *phi_return_2;
-//
-//     temp_a3 = D_803D552C->unk320;
-//     if (temp_a3 == NULL) {
-//         D_803D552C->unk320 = func_803213B0_732A60(); //temp_a3, 0, temp_a3);
-//         temp_v1 = D_803D552C;
-//         temp_a3_2 = temp_v1->unk320;
-//         if (temp_a3_2 != 0) {
-//             temp_v1->unk308 = (u16) temp_a3_2->unk42;
-//             func_8032AAF0_73C1A0(SEAGULL2);
-//             temp_v1_2 = D_803D552C;
-//             temp_v1_2->unkC = (s16) (temp_v1_2->unkC - temp_v1_2->unk308);
-//             if ((*(void *)0x803D5530)->unk160 == 2) {
-//                 temp_v1_3 = D_803D552C;
-//                 temp_v1_4 = D_803D552C;
-//                 temp_a0 = temp_v1_4->unkC;
-//                 if ((func_80310F58_722608(temp_v1_3->unk4, temp_v1_3->unk8) >> 0x10) < (s32) temp_a0) {
-//                     temp_v1_4->unkC = temp_a0;
-//                 } else {
-//                     D_803D552C->unkC = (s16) (func_80310F58_722608(temp_v1_4->unk4, temp_v1_4->unk8) >> 0x10);
-//                 }
-//             } else {
-//                 temp_v1_5 = D_803D552C;
-//                 temp_v1_6 = D_803D552C;
-//                 temp_a0_2 = temp_v1_6->unkC;
-//                 if ((func_8031124C_7228FC(temp_v1_5->unk4, temp_v1_5->unk8) >> 0x10) < (s32) temp_a0_2) {
-//                     temp_v1_6->unkC = temp_a0_2;
-//                 } else {
-//                     D_803D552C->unkC = (s16) (func_8031124C_7228FC(temp_v1_6->unk4, temp_v1_6->unk8) >> 0x10);
-//                 }
-//             }
-//         }
-//         phi_return_2 = &D_803D5528;
-//         if (D_803D5530->unk162 == 2) {
-//             temp_v0 = D_803D5528;
-//             temp_v1_7 = temp_v0->unk2E4;
-//             phi_return_2 = temp_v0;
-//             if ((s32) temp_v1_7 >= 0x191) {
-//                 temp_v0->unk2E4 = (s16) (temp_v1_7 - 0x190);
-//                 if (func_803224C4_733B74(-0x3A, 0, 0, 0x1D, 0x14, 0, 0, 0xB) != 0) {
-//                     temp_v0_2 = D_803D5530;
-//                     func_8032C360_73DA10(0x44, 0x5000, 0, temp_v0_2->unk4, (?32) temp_v0_2->unk8, (?32) temp_v0_2->unkC, 1.0f);
-//                     temp_v0_3 = D_803D5530;
-//                     temp_v0_3->unk24 = (s16) (temp_v0_3->unk24 + 2);
-//                 } else {
-//                     temp_v0_4 = D_803D5530;
-//                     func_8032C360_73DA10(0x4F, 0x5000, 0, temp_v0_4->unk4, (?32) temp_v0_4->unk8, (?32) temp_v0_4->unkC, 1.0f);
-//                 }
-//                 temp_v1_8 = D_803D552C;
-//                 phi_return_2 = phi_return;
-//                 if (temp_v1_8->unk365 == 0) {
-//                     temp_v1_8->unk365 = (u8)0x12U;
-//                     D_803D552C->unk32A = (u16) *(void *)0x803D5544;
-//                     return;// phi_return;
-//                 }
-//             }
-//         }
-//     } else {
-//         func_80321920_732FD0(temp_a3, 0, 0); //, temp_a3);
-//         temp_v0_5 = D_803D5530;
-//         func_8032C360_73DA10(0x63, 0x5000, 0, temp_v0_5->unk4, (?32) temp_v0_5->unk8, (?32) temp_v0_5->unkC, D_803BF3E0);
-//         temp_v1_9 = D_803D552C;
-//         temp_v1_9->unkC = (s16) (temp_v1_9->unkC + temp_v1_9->unk308);
-//         temp_v1_10 = D_803D552C;
-//         temp_v1_10->unk18 = (s16) (temp_v1_10->unk18 + temp_v1_10->unk308);
-//         func_8032AAF0_73C1A0(SEAGULL);
-//     }
-//     // return phi_return_2;
-// }
-
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_80381F14_7935C4.s")

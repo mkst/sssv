@@ -384,8 +384,8 @@ void func_80395854_7A6F04(void) {
 //     D_80204278->unk3B649 = 0x5C;
 //     D_80204278->unk3B64A = 0x70;
 //     // huh
-//     temp_t0 = (s16) ((s32) (s16) (D_803F670E + 2) % 0x168);
-//     temp_lo = (s32) &D_80152350[(temp_t0 + 0xFF) / 6];
+//     temp_t0 = (s16) ((s32) (s16) (D_803F670E + 2) % 360);
+//     temp_lo = (s32) &D_80152350.unk2D0[(temp_t0 + 0xFF) / 6]; // maybe not unk2D0
 //     D_80204278->unk3B650 = temp_lo;
 //     D_80204278->unk3B651 = 8;
 //     D_80204278->unk3B652 = 0;
@@ -484,8 +484,8 @@ s32 func_80396714_7A7DC4(void) {
 }
 
 s32 func_80396748_7A7DF8(void) {
-    if (((*D_802910D0 & CONT_START) && (D_802912DE == 1)) ||
-        ((*D_802910D0 & CONT_A) && (D_802912DF == 1))) {
+    if (((gControllerInput->button & CONT_START) && (D_802912DE == 1)) ||
+        ((gControllerInput->button & CONT_A) && (D_802912DF == 1))) {
           play_sound_effect(0x90, 0, 0x5000, 1.0f, 64);
           D_803F66AF = (u8)1;
           return 1;
@@ -493,7 +493,6 @@ s32 func_80396748_7A7DF8(void) {
         return 0;
     }
 }
-
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_803967D4_7A7E84.s")
 // void func_803967D4_7A7E84(u16 arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {

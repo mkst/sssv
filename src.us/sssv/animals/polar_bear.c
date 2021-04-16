@@ -2,9 +2,9 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_775E30/func_80364780_775E30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80364780_775E30.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_775E30/func_80365954_777004.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80365954_777004.s")
 // void func_80365954_777004(void) {
 //     u16 sp4C;
 //     u16 sp4A;
@@ -91,6 +91,7 @@ void func_80365D74_777424(void) {
     D_803D552C->unk2B4.unk4 = 0;
 }
 
+// pengiun?
 void func_80365D8C_77743C(Animal *arg0) {
     if (D_803D552C->unk365 != 0x20) {
         s32 tmp = func_802F8160_709810(D_803D5530, arg0, 0xA, 0x14, 0x23, 0x59, 0, 3, (f32) D_803A05B0 / 65536.0);
@@ -114,11 +115,11 @@ void func_80365E70_777520(s16 arg0) {
     D_803D552C->unk2B4.unk4 = 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_775E30/func_80365F10_7775C0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80365F10_7775C0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_775E30/func_803677C4_778E74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_803677C4_778E74.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_775E30/func_80368840_779EF0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80368840_779EF0.s")
 
 void func_80368AC4_77A174(void) {
     if ((D_803D552C->unk365 != 27) && (D_803D552C->unk365 != 28)) {

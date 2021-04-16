@@ -815,13 +815,56 @@ void func_802B3540_6C4BF0(void) {
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B38FC_6C4FAC.s")
 
-// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3B48_6C51F8.s")
+// JUSTREG - also need to confirm rodata
+// void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2) {
+//     s16 temp_v1 = *arg2;
+//
+//     switch (arg0->unk16C->unkE6) {
+//     case 0:
+//         *arg2 = (*arg2 * 36) >> 4;
+//         break;
+//     case 1:
+//         *arg2 = (*arg2 * 24) >> 4;
+//         break;
+//     case 2:
+//         *arg2 = *arg2;
+//         break;
+//     case 3:
+//         // ???
+//         *arg2 = ((((*arg2) * 8) >> 4) & 0xFFFF) & 0xFFFF;
+//         break;
+//     case 4:
+//         *arg2 = (*arg2 * 5) >> 4;
+//     }
+//
+//     if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
+//         s16 tmp = (s8)arg0->unk16C->unkE6 - (s8)arg1->unk16C->unkE6;
+//         switch (tmp - 2) {
+//         case 0:
+//             *arg2 = *arg2 >> 1;
+//             break;
+//         case 1:
+//             *arg2 = *arg2 >> 2;
+//             break;
+//         case 2:
+//             *arg2 = *arg2 >> 3;
+//             break;
+//         case 3:
+//         case 4:
+//         case 5:
+//             *arg2 = 0;
+//         }
+//     }
+//
+//     if (temp_v1 != 0) {
+//         *arg2 = MAX(*arg2, 1);
+//     }
+// }
 
 s16 func_802B3C9C_6C534C(s16 arg0, Animal *arg1) {
-    s16 tmp;
     if (arg0 == 0) {
-        return (u16)0;
+        return 0;
     }
 
     switch (arg1->unk16C->unkE6) {
@@ -843,54 +886,33 @@ s16 func_802B3C9C_6C534C(s16 arg0, Animal *arg1) {
     return  MAX(1, arg0);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3D68_6C5418.s")
-// NON-MATCHING: almost just reg, final logic is not correct
-// s16 func_802B3D68_6C5418(void) {
-//     s16 x;
-//     s16 y;
-//     s16 z;
-//
-//     s32 tmp0;
-//     s32 tmp1;
-//
-//     f32 tmpf;
-//
-//     if (D_803D5530->xPos < D_803F2C44) {
-//         tmpf = -(D_803D5530->xPos - D_803F2C44);
-//     } else {
-//         tmpf = D_803D5530->xPos - D_803F2C44;
-//     }
-//     x = (s16)tmpf >> 1;
-//
-//     if (D_803D5530->zPos < D_803F2C48) {
-//         tmpf = -(D_803D5530->zPos - D_803F2C48);
-//     } else {
-//         tmpf = D_803D5530->zPos - D_803F2C48;
-//     }
-//     z = (s16) tmpf >> 1;
-//
-//     if (D_803D5530->yPos < D_803F2C4C) {
-//         tmpf = -(D_803D5530->yPos - D_803F2C4C);
-//     } else {
-//         tmpf = D_803D5530->yPos - D_803F2C4C;
-//     }
-//     y = (s16) tmpf >> 1;
-//
-//     if (z < x) {
-//         tmp1 = x;
-//     } else {
-//         tmp1 = z;
-//     }
-//
-//     if (y < tmp1) {
-//         if (tmp1 < x) {
-//             tmp0 = x;
-//         } else {
-//             tmp0 = tmp1;
-//         }
-//     } else {
-//         tmp0 = y;
-//     }
-//
-//     return tmp0 + tmp1 + x + z;
-// }
+s16 func_802B3D68_6C5418(void) {
+    s16 x;
+    s16 y;
+    s16 z;
+
+    f32 tmpf;
+
+    if (D_803D5530->xPos < D_803F2C44) {
+        tmpf = -(D_803D5530->xPos - D_803F2C44);
+    } else {
+        tmpf = D_803D5530->xPos - D_803F2C44;
+    }
+    x = (s16)tmpf >> 1;
+
+    if (D_803D5530->zPos < D_803F2C48) {
+        tmpf = -(D_803D5530->zPos - D_803F2C48);
+    } else {
+        tmpf = D_803D5530->zPos - D_803F2C48;
+    }
+    z = (s16)tmpf >> 1;
+
+    if (D_803D5530->yPos < D_803F2C4C) {
+        tmpf = -(D_803D5530->yPos - D_803F2C4C);
+    } else {
+        tmpf = D_803D5530->yPos - D_803F2C4C;
+    }
+    y = (s16)tmpf >> 1;
+
+    return MAX(MAX(x, z), y) + x + z + y;
+}
