@@ -5,84 +5,85 @@
 
 // first function called after osInitialize
 void init(void) {
-    fancy_bzero(D_80000400, 0x25800); // 153600
-    fancy_bzero(D_80025C00, 0x25800);
+    fancy_bzero(gFramebuffer[0], sizeof(gFramebuffer[0]));
+    fancy_bzero(gFramebuffer[1], sizeof(gFramebuffer[1]));
 }
 
 // thread 6
-#pragma GLOBAL_ASM("asm/nonmatchings/main_51D0/func_80129B10.s")
-// NON-MATCHING: almost JUSTREG
-// void func_80129B10(s32 arg0) {
-//     struct008 *a;
-//     struct009 *b;
-//
-//     D_80204290 = 1;
-//     D_80204292 = 2;
-//
-//     osCreateMesgQueue(&D_8028D048, &D_802902C0, 32);
-//     osCreateMesgQueue(&D_8028D078, &D_80290FC8, 1);
-//     osCreateMesgQueue(&D_80291060, &D_80291058, 1);
-//     osCreateMesgQueue(&D_80291078, &D_8029105C, 1);
-//     osStartThread(&gThread7); // start thread 7
-//
-//     read_rom_header();
-//     set_region();
-//     // initialise various tv settings
-//     func_8012A870();
-//
-//     osCreateScheduler(&D_801603D0, &D_80162658, 20, D_802053E0.unk8, 1);
-//     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
-//
-//     gScreenWidth = 320;
-//     gScreenHeight = 240;
-//     // pointer to controller state
-//     D_802910D0 = NULL;
-//
-//     func_80131BF0(D_80286328); // initialize_audio
-//
-//     // stack (1)?
-//     a = &D_80162658;
-//     a->unk3BBA8 = 6;
-//     a->unk3BBC8 = 2;
-//     a->unk3BBE8 = D_80000400; // framebuffer 1 ?
-//     // stack (2)?
-//     9 = &D_8019A658;
-//     9->unk3F798 = 6;
-//     9->unk3F7B8 = 2;
-//     9->unk3F7D8 = D_80025C00; // framebuffer 2?
-//
-//     init();
-//     D_801D9E38 = 5;
-//     osCreateMesgQueue(&D_8028D060, &D_80290F40, 32);
-//     osScAddClient(&D_801603D0, &D_802042A0, &D_8028D060);
-//
-//     if (func_80136CE0() <= 0) {
-//         D_802912D0 = 0;
-//         D_802912D8 = 0;
-//         D_80204270 = 1;
-//     } else {
-//         D_802912D0 = 1;
-//         D_802912D8 = 1;
-//         D_80204270 = 0;
-//     }
-//     if (D_802912D0 == 0) {
-//         D_80204284 = 0;
-//     }
-//     func_80130C04();
-//     func_80130E44();
-//     D_80204288 = 0;
-//     func_8012C070(1);
-//     D_80204284 = 1;
-//     D_80204290 = 1;
-//     D_8020427C = 1;
-//     D_80204280 = 199;
-//     D_80204282 = 99;
-//
-//     while (TRUE) {
-//         // this has a while loop anyway.. *shrug*
-//         func_80129DC0();
-//     }
-// }
+void func_80129B10(s32 arg0) {
+    unsigned long long  i;
+
+    D_80204290 = 1;
+    D_80204292 = 2;
+
+    osCreateMesgQueue(&D_8028D048, &D_802902C0, 32);
+    osCreateMesgQueue(&D_8028D078, &D_80290FC8, 1);
+    osCreateMesgQueue(&D_80291060, &D_80291058, 1);
+    osCreateMesgQueue(&D_80291078, &D_8029105C, 1);
+    // start thread 7
+    osStartThread(&gThread7);
+
+    read_rom_header();
+    set_region();
+    // initialise various tv settings
+    func_8012A870();
+
+    osCreateScheduler(&D_801603D0, &D_80162658, 20, D_802053E0.unk8, 1);
+    osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
+
+    gScreenWidth = 320;
+    gScreenHeight = 240;
+
+    gControllerInput = NULL;
+
+    initialise_audio(D_80286328);
+
+    i = 0; // fakematch
+    // stack (1)?
+    D_80162658[i].unk3BBA8 = 6;
+    D_80162658[i].unk3BBC8 = 2;
+    D_80162658[i].unk3BBE8 = gFramebuffer[0];
+    // stack (2)?
+    D_8019A658[0].unk3F798 = 6;
+    D_8019A658[0].unk3F7B8 = 2;
+    D_8019A658[0].unk3F7D8 = gFramebuffer[1];
+
+    init();
+    D_801D9E38 = 5;
+    osCreateMesgQueue(&D_8028D060, &D_80290F40, 32);
+    osScAddClient(&D_801603D0, &D_802042A0, &D_8028D060);
+
+    if (func_80136CE0() <= 0) {
+        D_802912D0 = 0;
+        D_802912D8 = 0;
+        D_80204270 = 1;
+    } else {
+        D_802912D0 = 1;
+        D_802912D8 = 1;
+        D_80204270 = 0;
+    }
+    if (D_802912D0 == 0) {
+        D_80204284 = 0;
+    }
+    // eeprom stuff
+    func_80130C04();
+    func_80130E44();
+
+    D_80204288 = 0;
+    // load_overlay
+    func_8012C070(1);
+
+    D_80204284 = 1;
+    D_80204290 = 1;
+    D_8020427C = 1;
+    D_80204280 = 199;
+    D_80204282 = 99;
+
+    while (TRUE) {
+        // this has a while loop anyway.. *shrug*
+        func_80129DC0();
+    }
+}
 
 // read controller data
 #pragma GLOBAL_ASM("asm/nonmatchings/main_51D0/func_80129DC0.s")
@@ -152,19 +153,20 @@ void func_8012A490(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_51D0/func_8012A588.s")
 // void func_8012A588(void) {
-//     s32 pad;
+//     s16 pad;
 //
 //     if (D_80152E9C != 0) {
 //         D_80204290 = 1;
 //         if (D_80152E9C == 1) {
 //             func_80137840();
 //             func_8012A400();
-//             strncpy(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, 0x25800);
+//             strncpy(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
 //         }
 //         if (D_80152E9C == 2) {
 //             func_8012AC40();
-//             func_801337DC(0, 10.0f, 20.0f, 0);
-//             func_8013385C(10.0f, 20.0f, 0);
+//             func_801337DC(0.0f, 10.0f, 20.0f, 0.0f);
+//             func_8013385C(10.0f, 20.0f, 0.0f);
+//             // ???
 //         }
 //
 //         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));

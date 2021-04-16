@@ -24,7 +24,7 @@ void reset_cheats(void)
     sprintf(D_803F6410, "%9d", 111111111);
 }
 
-void check_cheats(u16 *buttonMaskPtr) {
+void check_cheats(OSContPad *contPad) {
     u16 lastButton;
     u16 butDown;
     u32 butDown2;
@@ -53,7 +53,7 @@ void check_cheats(u16 *buttonMaskPtr) {
         D_803B62BC--;
     }
     // TODO: can this be simplified and still match?
-    butDown = *buttonMaskPtr;
+    butDown = contPad->button;
     butDown2 = butDown;
     if ((D_803B62B4 == 0) && (butDown2 == 0)) {
         D_803B62B4 = 1;

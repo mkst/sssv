@@ -30,7 +30,23 @@ void func_80304F70_716620(struct039 *arg0, struct039 *arg1, struct039 *arg2) {
     arg2->unk4 = arg0->unk4 - arg1->unk4;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716530/func_80304F94_716644.s")
+s16 func_80304F94_716644(struct039 *arg0, struct039 *arg1) {
+    s16 res;
+    f32 tmp;
+    s32 tmp2;
+
+    tmp = sqrtf(arg0->unk0 * arg0->unk0 + arg0->unk4 * arg0->unk4);
+    tmp *= sqrtf(arg1->unk0 * arg1->unk0 + arg1->unk4 * arg1->unk4);
+
+    tmp2 = arg0->unk0 * arg1->unk0 + arg0->unk4 * arg1->unk4;
+
+    if (tmp == 0.0f) {
+        res = 0;
+    } else {
+        res = func_801283AC((tmp2 * 256) / tmp);
+    }
+    return res;
+}
 
 s16 func_80305084_716734(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     f32 tmp;

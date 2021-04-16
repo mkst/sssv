@@ -280,7 +280,7 @@ void func_8038DA70_79F120(void) {
 //         if ((s32) temp_v0_6 >= 0xFDE9) {
 //             D_803B6310 = 0xC8U;
 //         }
-//         if (((*D_802910D0 & 0x8000) != 0) || ((*D_802910D0 & 0x4000) != 0)) {
+//         if (((gControllerInput->button & 0x8000) != 0) || ((gControllerInput->button & 0x4000) != 0)) {
 //             if (D_803B631C == 0) {
 //                 func_801337DC(0, 25.0f, 0, 20.0f);
 //                 D_803B6314 = 0;

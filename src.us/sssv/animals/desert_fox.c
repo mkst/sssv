@@ -2,9 +2,9 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_783D90/func_803726E0_783D90.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_803726E0_783D90.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_783D90/func_80373788_784E38.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_80373788_784E38.s")
 
 void func_80374470_785B20(void) {
     if (D_803D552C->unk365 == 0) {
@@ -63,7 +63,7 @@ void func_8037460C_785CBC(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_783D90/func_80374660_785D10.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_80374660_785D10.s")
 // is xPos/zPos s32?
 // void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
 //     s32 temp_ret;
@@ -97,7 +97,7 @@ void func_803747CC_785E7C(void) {
 }
 
 // display lists
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_783D90/func_803747F4_785EA4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_803747F4_785EA4.s")
 // void func_803747F4_785EA4(void) {
 //     s16 temp_s3;
 //     s16 temp_t4;

@@ -1,55 +1,25 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern u8 D_800BDC80[];
-extern u8 D_800BB700[];
-extern u8 D_800DE390[];
-extern u8 D_800BBBB0[];
-extern u8 D_800BC060[];
-extern u8 D_800BC510[];
-extern u8 D_800BC9C0[];
-extern u8 D_800BCE70[];
-extern u8 D_800BD320[];
-extern u8 D_800BD7D0[];
 
-extern s32 D_04006EC0;
-extern s32 D_04007FA0;
-extern s32 D_04000000;
-extern s32 D_04013060;
-extern s32 D_040133C0;
-extern s32 D_040131B0;
-extern s32 D_04013580;
-extern s32 D_04007700;
-extern s32 D_040077A0;
-extern s32 D_040078C0;
-extern s32 D_040079F0;
-extern s32 D_04007B40;
-extern s32 D_04007C60;
-extern s32 D_04007D90;
-extern s32 D_04007EC0;
-
-extern s8  D_803F7DE0[];
-extern s8  D_803B71D0[][5];
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_80398630_7A9CE0.s")
-// void func_80398630_7A9CE0(void) {
-//     func_803800F0_7917A0(6);
-//     UnpackRNC(D_801D9E6C + (D_04006EC0 & 0xFFFFFF), &D_800BA760); // rnc_42DCA0, textures
-//     UnpackRNC(D_801D9E6C + (D_04007FA0 & 0xFFFFFF), &D_800BDC80);
-//     UnpackRNC(D_801D9E6C + (D_04000000 & 0xFFFFFF), &D_800DE390);
-//     UnpackRNC(D_801D9E6C + (D_04013060 & 0xFFFFFF), &D_800C3A40);
-//     UnpackRNC(D_801D9E6C + (D_040133C0 & 0xFFFFFF), &D_800C5240);
-//     UnpackRNC(D_801D9E6C + (D_040131B0 & 0xFFFFFF), &D_800C4240);
-//     UnpackRNC(D_801D9E6C + (D_04013580 & 0xFFFFFF), &D_800C4A40);
-//     UnpackRNC(D_801D9E6C + (D_04007700 & 0xFFFFFF), &D_800BB700);
-//     UnpackRNC(D_801D9E6C + (D_040077A0 & 0xFFFFFF), &D_800BBBB0);
-//     UnpackRNC(D_801D9E6C + (D_040078C0 & 0xFFFFFF), &D_800BC060);
-//     UnpackRNC(D_801D9E6C + (D_040079F0 & 0xFFFFFF), &D_800BC510);
-//     UnpackRNC(D_801D9E6C + (D_04007B40 & 0xFFFFFF), &D_800BC9C0);
-//     UnpackRNC(D_801D9E6C + (D_04007C60 & 0xFFFFFF), &D_800BCE70);
-//     UnpackRNC(D_801D9E6C + (D_04007D90 & 0xFFFFFF), &D_800BD320);
-//     UnpackRNC(D_801D9E6C + (D_04007EC0 & 0xFFFFFF), &D_800BD7D0);
-// }
+void func_80398630_7A9CE0(void) {
+    func_803800F0_7917A0(6);
+    UnpackRNC(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF), &D_800BA760); // rnc_42DCA0, textures
+    UnpackRNC(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF), &D_800BDC80);
+    UnpackRNC(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF), &D_800DE390);
+    UnpackRNC(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF), &D_800C3A40);
+    UnpackRNC(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF), &D_800C5240);
+    UnpackRNC(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF), &D_800C4240);
+    UnpackRNC(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF), &D_800C4A40);
+    UnpackRNC(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF), &D_800BB700);
+    UnpackRNC(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF), &D_800BBBB0);
+    UnpackRNC(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF), &D_800BC060);
+    UnpackRNC(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF), &D_800BC510);
+    UnpackRNC(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF), &D_800BC9C0);
+    UnpackRNC(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF), &D_800BCE70);
+    UnpackRNC(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF), &D_800BD320);
+    UnpackRNC(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF), &D_800BD7D0);
+}
 
 void func_8039884C_7A9EFC(void) {
     u8 sp18[0x58]; // 88?
@@ -109,8 +79,7 @@ void func_80398A00_7AA0B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039BBB8_7AD268.s")
 // void func_8039BBB8_7AD268(void) {
 //     s16 temp_a0_2;
-//     s16 temp_t6;
-//     s16 temp_t8;
+//     s16 level;
 //     s16 temp_t9;
 //     s32 temp_a0;
 //     s32 temp_v1;
@@ -123,28 +92,34 @@ void func_80398A00_7AA0B0(void) {
 //         temp_a0 = D_803E4D28 & 2;
 //         if ((D_803E4D28 & 1) != 0) {
 //             temp_t9 = D_803F7DA8.unk2D + 1;
-//             if ((temp_t9 != 10) && (temp_t9 != 17) && (temp_t9 != 23) &&
-//                 (temp_t9 != 30) && (temp_t9 != 31)) {
+//             if ((temp_t9 != GIVE_A_DOG_A_BONUS) &&
+//                 (temp_t9 != WALRACE_64) &&
+//                 (temp_t9 != EVOS_ESCAPE) &&
+//                 (temp_t9 != PUNCHUP_PYRAMID) &&
+//                 (temp_t9 != BIG_CELEBRATION_PARADE)) {
 //                 temp_v0 = &D_8023F260 + D_803F2D30.unk8;
 //                 temp_v0->unk3 |= 1;
 //             }
 //         }
-//         temp_t8 = D_803F7DA8.unk2D + 1;
+//         level = D_803F7DA8.unk2D + 1;
 //         if (temp_a0 != 0) {
-//             if (temp_t8 == 10) {
+//             if (level == GIVE_A_DOG_A_BONUS) {
 //                 D_8023F260.unk3B |= 1;
 //             }
-//             if (temp_t8 == 17) {
+//             if (level == WALRACE_64) {
 //                 D_8023F260.unk3B |= 2;
 //             }
-//             if (temp_t8 == 23) {
+//             if (level == EVOS_ESCAPE) {
 //                 D_8023F260.unk3B |= 4;
 //             }
-//             if (temp_t8 == 30) {
+//             if (level == PUNCHUP_PYRAMID) {
 //                 D_8023F260.unk3B |= 8;
 //             }
 //         }
-//         if ((temp_t8 == 10) || (temp_t8 == 17) || (temp_t8 == 23) || (temp_t8 == 30)) {
+//         if ((level == GIVE_A_DOG_A_BONUS) ||
+//             (level == WALRACE_64) ||
+//             (level == EVOS_ESCAPE) ||
+//             (level == PUNCHUP_PYRAMID)) {
 //             if (temp_a0 != 0) {
 //                 temp_v0 = &D_8023F260 + D_803F2D30.unk8;
 //                 temp_v0->unk3 |= 2;
@@ -162,11 +137,14 @@ void func_80398A00_7AA0B0(void) {
 //         D_803F2D50.unkC6 = 0;
 //         strncpy(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
 //         write_eeprom(D_803F7DA8.unk2E);
-//         temp_t6 = D_803F7DA8.unk2D + 1;
-//         if ((temp_t6 == 10) || (temp_t6 == 17) || (temp_t6 == 23) || (temp_t6 == 30)) {
+//         level = D_803F7DA8.unk2D + 1;
+//         if ((level == GIVE_A_DOG_A_BONUS) ||
+//             (level == WALRACE_64) ||
+//             (level == EVOS_ESCAPE) ||
+//             (level == PUNCHUP_PYRAMID)) {
 //             if ((D_803E4D28 & 2) != 0) {
-//                 if (temp_t6 == 30) {
-//                     if (D_8023F260.unk3B == 0xF) {
+//                 if (level == PUNCHUP_PYRAMID) {
+//                     if (D_8023F260.unk3B == 15) {
 //                         D_803F7DA8.unk2D += 1;
 //                     }
 //                 } else {
@@ -183,7 +161,7 @@ void func_80398A00_7AA0B0(void) {
 //         if (D_8023F260.score < D_803F2D30.score) {
 //             D_8023F260.score = D_803F2D30.score;
 //         }
-//         strncpy(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
+//         strncpy(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 64);
 //         write_eeprom(D_803F7DA8.unk2E);
 //     }
 // }
@@ -454,7 +432,7 @@ void generate_stars(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039D6A4_7AED54.s")
-
+// yuck
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039DAAC_7AF15C.s")
 
 void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs) {
@@ -466,13 +444,12 @@ void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039DBC8_7AF278.s")
 // JUSTREG: using v1 not v0..
 // void func_8039DBC8_7AF278(void) {
-//     s16 *tmp;
-//     s16 i;
 //     s16 end;
+//     s16 i;
 //
 //     end = 0;
 //     for (i = 0; i < D_803F63C0; i++) {
-//         tmp = &D_803F34C0[D_803F3330[i]];
+//         s16 *tmp = &D_803F34C0[D_803F3330[i]];
 //         if ((tmp[0] == 336) && (tmp[1] == 350)) {
 //             strncpy(&tmp[2], D_803F2E34, 84);
 //             end = 1;
@@ -485,20 +462,22 @@ void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs) {
 //     }
 // }
 
-s32 func_8039DCC0_7AF370(s16 arg0) {
+// note that levels are off by 1
+// SMASHING_START would be 0 in this function
+s32 get_biome_for_level(s16 arg0) {
     if ((arg0 >= 0) && (arg0 < 10)) {
-        return 0;
+        return EUROPE_BIOME;
     }
     if ((arg0 >= 10) && (arg0 < 17)) {
-        return 1;
+        return ICE_BIOME;
     }
     if ((arg0 >= 17) && (arg0 < 23)) {
-        return 2;
+        return JUNGLE_BIOME;
     }
     if ((arg0 >= 23) && (arg0 < 30)) {
-        return 3;
+        return DESERT_BIOME;
     }
     if ((arg0 == 30) || (arg0 == 31)) {
-        return 4;
+        return CITY_BIOME;
     }
 }

@@ -21,6 +21,7 @@ RUN python3 -m pip install \
       cxxfilt \
       pycparser \
       pylibyaml \
+      pynacl \
       pypng \
       python-Levenshtein \
       python-ranges \

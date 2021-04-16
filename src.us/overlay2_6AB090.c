@@ -19,12 +19,11 @@ void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1) {
     gSPPerspNormalize((*arg1)++, D_803C0658);
 }
 
-
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AB090/func_80299B68_6AB218.s")
 // void func_80299B68_6AB218(s32 arg0) {
 //
-//     struct025 *temp_v1;
-//     struct045 *temp_v1_2;
+//     // struct025 *temp_v1;
+//     Fog *temp_v1_2;
 //
 //     gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20 + (((s32) D_803C063C >> 1) << 9));
 //     gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0180, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -44,13 +43,13 @@ void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1) {
 //
 //     gSPDisplayList(D_801D9E7C++, D_010043A0);
 //
-//     temp_v1 = &D_803F28E0[D_803F2A98]; // * 0xDC) + &D_803F28E0;
-//     func_8029A3B0_6ABA60(temp_v1->unk74, temp_v1->unk78, temp_v1->unk7C);
+//     // temp_v1 = &D_803F28E0[D_803F2A98]; // * 0xDC) + &D_803F28E0;
+//     func_8029A3B0_6ABA60(D_803F28E0[D_803F2A98].unk74, D_803F28E0[D_803F2A98].unk78, D_803F28E0[D_803F2A98].unk7C);
 //
 //     D_803A0500 = 0;
-//     while (D_803C0660[D_803A0500].unk0 != 0x63) {
+//     while (D_803C0660[D_803A0500].min != 0x63) {
 //         temp_v1_2 = &D_803C0660[D_803A0500];
-//         gSPDisplayList(D_801D9E7C++, &D_80205410[(temp_v1_2->unk0 * 0x18) + (temp_v1_2->unk2 * 4)]);
+//         gSPDisplayList(D_801D9E7C++, D_80205410[temp_v1_2->min][temp_v1_2->max]); // * 0x18
 //         D_803A0500 += 1;
 //     }
 //

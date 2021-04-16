@@ -101,7 +101,7 @@ void select_comic_sans_font(void) {
     D_8023F1E0.fontAddress = D_800E1220; // _fontbufferSegmentStart
     D_8023F1E0.unk8 = 16; // width?
     D_8023F1E0.unk9 = 16; // height?
-    D_8023F1E0.unkA = 4;  // color depth?
+    D_8023F1E0.unkA = 4;  // color bitdepth?
     D_8023F1E0.glyphBytes = 128;
 }
 
@@ -109,7 +109,7 @@ void select_lcd_font(void) {
     D_8023F1E0.fontAddress = D_80158550; // 7-segment display font
     D_8023F1E0.unk8 = 16; // width?
     D_8023F1E0.unk9 = 16; // height?
-    D_8023F1E0.unkA = 16; // color depth?
+    D_8023F1E0.unkA = 16; // color bitdepth?
     D_8023F1E0.glyphBytes = 512;
 }
 

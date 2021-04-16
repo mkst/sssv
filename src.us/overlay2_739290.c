@@ -243,7 +243,7 @@ void func_8032AE34_73C4E4(void) {
     for (i = 0; i < AID_MAX_ANIMALS; i++) {
         tmp = &D_801D9ED8.unk0[i];
         tmp->unkDA[0] = 1;
-        tmp->unkE0 = 1;
+        tmp->unkE0[0] = 1;
     }
     if ((D_803A6CE4 & 5) == 0) {
         D_803A6CE4 |= 1;

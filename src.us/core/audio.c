@@ -240,7 +240,7 @@ void *func_80131AA0(s32 *arg0) {
 //     D_80154680 += 1;
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_80131BF0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/core/audio/initialise_audio.s")
 
 // some kind of de-init?
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_80132044.s")

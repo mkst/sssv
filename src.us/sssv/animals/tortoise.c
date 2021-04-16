@@ -5,7 +5,12 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/tortoise/func_80355918_766FC8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/tortoise/func_80355E14_7674C4.s")
+void func_80355E14_7674C4(void) {
+    func_80321E60_733510(17, 32, 0, 30, 10, 0, 2, 45);
+    func_8034220C_7538BC(17, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
+    D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
+    func_8032C360_73DA10(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+}
 
 void func_80355EDC_76758C(void) {
     func_8035E3E8_76FA98(0);
@@ -46,7 +51,7 @@ void func_80356134_7677E4(Animal *a) {
     s32 temp_v0;
     s16 rot;
 
-    temp_v0 = func_802F8160_709810(D_803D5530, a, 0x20, 0x14, 0x1E, 0x59, -4, 3, (f32)D_803A05B0 / 65536.0);
+    temp_v0 = func_802F8160_709810(D_803D5530, a, 32, 20, 30, 0x59, -4, 3, (f32)D_803A05B0 / 65536.0);
     if (temp_v0 == -1) {
         rot = 32;
     } else {

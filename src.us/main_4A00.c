@@ -5,11 +5,11 @@
 
 void func_80129300(Gfx **arg0, DisplayList *ddl) {
 
-    gSPSegment((*arg0)++, 0x00, 0);
-    gSPSegment((*arg0)++, 0x01, osVirtualToPhysical(D_801D9E74));
-    gSPSegment((*arg0)++, 0x02, osVirtualToPhysical(ddl));
-    gSPSegment((*arg0)++, 0x03, osVirtualToPhysical(D_801D9E70));
-    gSPSegment((*arg0)++, 0x05, osVirtualToPhysical(D_801D9E78));
+    gSPSegment((*arg0)++, 0, 0);
+    gSPSegment((*arg0)++, 1, osVirtualToPhysical(D_801D9E74));
+    gSPSegment((*arg0)++, 2, osVirtualToPhysical(ddl));
+    gSPSegment((*arg0)++, 3, osVirtualToPhysical(D_801D9E70));
+    gSPSegment((*arg0)++, 5, osVirtualToPhysical(D_801D9E78));
 
     gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
 }
@@ -24,7 +24,6 @@ void func_80129430(Gfx **arg0) {
 }
 
 void func_80129594(Gfx **dl, DisplayList *ddl) {
-
     gDPPipeSync((*dl)++);
     gSPLoadUcodeEx((*dl)++, &D_8014F1D0, &D_8015D710, 2048);
     gDPPipeSync((*dl)++);

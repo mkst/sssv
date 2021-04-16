@@ -8,8 +8,8 @@ void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
     if ((arg1->state == 1) &&
         (D_803D2D90.unk0 == 0) && (D_803D2D90.unk64 == 0) &&
         (dist < 800) && (arg0->unk16C->unk80.bit) &&
-        (arg1->unk24C != NULL) && (arg0->unk320 == 0)) {
-        struct055 *tmp;
+        (arg1->unk248[1] != NULL) && (arg0->unk320 == 0)) {
+        Animal *tmp;
         arg1->unk158 = 1;
         arg0->xPos = arg1->xPos;
         arg0->zPos = arg1->zPos;
@@ -17,12 +17,12 @@ void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
         D_803D2D90.unk4E = arg1->zPos;
         D_803D2D90.unk50 = arg1->yPos;
         D_803D2D90.unk2 = 0x36;
-        tmp = arg1->unk24C;
+        tmp = arg1->unk248[1];
         D_803D2D90.unk60 = tmp;
         D_803D2D90.unk5C = arg1;
-        D_803D2D90.unk52 = tmp->unk4;
-        D_803D2D90.unk54 = tmp->unk8;
-        D_803D2D90.unk56 = tmp->unkC;
+        D_803D2D90.unk52 = tmp->xPos;
+        D_803D2D90.unk54 = tmp->zPos;
+        D_803D2D90.unk56 = tmp->yPos;
         D_803D2D90.unk58 = arg0;
         D_803D2D90.unk0 = 1;
         D_803D2D90.unk46 = D_803D2D90.unk4C;

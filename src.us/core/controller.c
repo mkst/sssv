@@ -84,14 +84,12 @@ s8 func_80128424(u8 idx) {
 
 // is this mapping controller input?
 s16 func_8012844C(s16 arg0) {
-
-    if (arg0 >= 2048) {
+    if (arg0 > 2047) {
         return 89;
     }
     if (arg0 < -2047) {
         return -89;
     }
-
     if (arg0 < 0) {
         return -D_80151438[-arg0];
     } else {
@@ -100,22 +98,9 @@ s16 func_8012844C(s16 arg0) {
 }
 
 s16 func_801284B8(s16 arg0, s16 arg1) {
-    s32 phi_v1;
-    s32 phi_v0;
     s16 res;
 
-    if (arg0 < 0) {
-        phi_v1 = -arg0;
-    } else {
-        phi_v1 = arg0;
-    }
-    if (arg1 < 0) {
-        phi_v0 = -arg1;
-    } else {
-        phi_v0 = arg1;
-    }
-
-    if (phi_v1 < phi_v0) {
+    if (ABS(arg0) < ABS(arg1)) {
         if (arg1 > 0) {
             res = func_8012844C((arg0 * 64) / arg1);
             if (res < 0) {
@@ -147,21 +132,8 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
     f32 temp_f2;
     s16 temp_v0;
     f32 *temp_v1;
-    f32 phi_f0;
-    f32 phi_f2;
 
-    if (arg0 < 0.0f) {
-        phi_f0 = -arg0;
-    } else {
-        phi_f0 = arg0;
-    }
-    if (arg1 < 0.0f) {
-        phi_f2 = -arg1;
-    } else {
-        phi_f2 = arg1;
-    }
-
-    if (phi_f0 < phi_f2) {
+    if (ABSF(arg0) < ABSF(arg1)) {
         if (arg1 > 0.0f) {
             if (arg0 > 0.0f) {
                 temp_f2 = (arg0 / arg1) * 256.0;

@@ -1,164 +1,168 @@
-basename: sssv
 options:
+  basename: sssv
+  target_path: baserom.eu.z64
+  base_path: .
   compiler: IDO
   create_detected_syms: yes
   find_file_boundaries: yes
   symbol_addrs_path :   symbol_addrs.eu.txt
-  # undefined_syms_path: undefined_syms.eu.txt
+  undefined_syms_path:  undefined_syms.eu.txt
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
   src_path: src.eu
 segments:
-  - name: header
-    type: header
-    start: 0x0
-  - name: boot
-    type: bin
-    start: 0x40
-  - name: main
-    type: code
-    start: 0x1000
-    vram: 0x80125900
-    subsections:
-      - [0x1000, asm]
-      - [0x1050, c]
-      - [0x3900, asm]
-      - [0x4910, asm]
-      - [0x6810, asm]
-      - [0x7790, asm]
-      - [0x78B0, asm]
-      - [0x7910, asm]
-      - [0xC220, asm]
-      - [0xC790, asm]
-      - [0xC9B0, asm]
-      - [0xF620, asm]
-      - [0x10CD0, asm]
-      - [0x12400, asm]
-      - [0x12FE0, asm]
-      - [0x13270, asm]
-      - [0x13540, asm]
-      - [0x135D0, asm]
-      - [0x13600, asm]
-      - [0x13710, asm]
-      - [0x13850, asm]
-      - [0x138D0, asm]
-      - [0x13900, asm]
-      - [0x14390, asm]
-      - [0x14550, asm]
-      - [0x14920, asm]
-      - [0x14A50, asm]
-      - [0x14AB0, asm]
-      - [0x14BA0, asm]
-      - [0x14C50, asm]
-      - [0x14CF0, asm]
-      - [0x14D70, asm]
-      - [0x14DB0, asm]
-      - [0x14EA0, asm]
-      - [0x14F30, asm]
-      - [0x14F40, asm]
-      - [0x151C0, asm]
-      - [0x15310, asm]
-      - [0x153C0, asm]
-      - [0x153D0, asm]
-      - [0x15AF0, asm]
-      - [0x15D40, asm]
-      - [0x16450, asm]
-      - [0x16490, asm]
-      - [0x16F50, asm]
-      - [0x16F90, asm]
-      - [0x16FD0, asm]
-      - [0x170A0, asm]
-      - [0x170C0, asm]
-      - [0x17120, asm]
-      - [0x17180, asm]
-      - [0x171E0, asm]
-      - [0x17250, asm]
-      - [0x17350, asm]
-      - [0x173A0, asm]
-      - [0x18CE0, asm]
-      - [0x190F0, asm]
-      - [0x19240, asm]
-      - [0x192D0, asm]
-      - [0x19500, asm]
-      - [0x19640, asm]
-      - [0x196D0, asm]
-      - [0x19770, asm]
-      - [0x199A0, asm]
-      - [0x19AD0, asm]
-      - [0x19B40, asm]
-      - [0x19E80, asm]
-      - [0x19EF0, asm]
-      - [0x1A750, asm]
-      - [0x1AA00, asm]
-      - [0x1AAA0, asm]
-      - [0x1AD30, asm]
-      - [0x1ADD0, asm]
-      - [0x1B2F0, asm]
-      - [0x1B490, asm]
-      - [0x1B600, asm]
-      - [0x1BC50, asm]
-      - [0x1C470, asm]
-      - [0x1C480, asm]
-      - [0x1C4A0, asm]
-      - [0x1C550, asm]
-      - [0x1CEE0, asm]
-      - [0x1CF40, asm]
-      - [0x1CFA0, asm]
-      - [0x1CFE0, asm]
-      - [0x1CFF0, asm]
-      - [0x1D570, asm]
-      - [0x1D670, asm]
-      - [0x1D9D0, asm]
-      - [0x1DA40, asm]
-      - [0x1DAB0, asm]
-      - [0x1DEF0, asm]
-      - [0x1DFA0, asm]
-      - [0x1E100, asm]
-      - [0x1E270, asm]
-      - [0x1EF30, asm]
-      - [0x1EFD0, asm]
-      - [0x1F4F0, asm]
-      - [0x1F5D0, asm]
-      - [0x1F900, asm]
-      - [0x200D0, asm]
-      - [0x20170, asm]
-      - [0x20E10, asm]
-      - [0x21110, asm]
-      - [0x21D70, asm]
-      - [0x21E80, asm]
-      - [0x21FD0, asm]
-      - [0x22680, asm]
-      - [0x22780, asm]
-      - [0x22960, asm]
-      - [0x22C70, asm]
-      - [0x240A0, asm]
-      - [0x25320, asm]
-      - [0x25680, asm]
-      - [0x258F0, asm]
-      - [0x25980, asm]
-      - [0x259B0, asm]
-      - [0x26230, asm]
-      - [0x26340, asm]
-      - [0x26350, asm]
-      - [0x26360, asm]
-      - [0x266C0, asm]
-      - [0x266D0, asm]
-      - [0x269F0, asm]
-      - [0x26A30, asm]
-      - [0x26AC0, asm]
-      - [0x26AF0, asm]
-      - [0x26B20, asm]
-      - [0x26DC0, asm]
-      - [0x27880, asm]
-      - [0x278A0, asm]
-      - [0x284F0, asm]
-      - [0x28550, asm]
-      - [0x28880, asm]
-      - [0x288D0, asm]
-      - [0x28920, asm]
-  - type: bin
-    start: 0x28AB0
+  - name:  header
+    type:  header
+    start: 0x00000000
+  - name:  boot
+    type:  bin
+    start: 0x00000040
+  - name:  main
+    type:  code
+    start: 0x00001000
+    vram:  0x80125900
+    subalign: 8
+    overlay: no
+    subsegments:
+    - [0x1000, asm]
+    - [0x1050, c, main_1050]
+    - [0x3900, asm]
+    - [0x4910, asm]
+    - [0x6810, asm]
+    - [0x7790, asm]
+    - [0x78B0, asm]
+    - [0x7910, asm]
+    - [0xC220, asm]
+    - [0xC790, asm]
+    - [0xC9B0, asm]
+    - [0xF620, asm]
+    - [0x10CD0, asm]
+    - [0x12400, asm]
+    - [0x12FE0, asm]
+    - [0x13270, asm]
+    - [0x13540, asm]
+    - [0x135D0, asm]
+    - [0x13600, asm]
+    - [0x13710, asm]
+    - [0x13850, asm]
+    - [0x138D0, asm]
+    - [0x13900, asm]
+    - [0x14390, asm]
+    - [0x14550, asm]
+    - [0x14920, asm]
+    - [0x14A50, asm]
+    - [0x14AB0, asm]
+    - [0x14BA0, asm]
+    - [0x14C50, asm]
+    - [0x14CF0, asm]
+    - [0x14D70, asm]
+    - [0x14DB0, asm]
+    - [0x14EA0, asm]
+    - [0x14F30, asm]
+    - [0x14F40, asm]
+    - [0x151C0, asm]
+    - [0x15310, asm]
+    - [0x153C0, asm]
+    - [0x153D0, asm]
+    - [0x15AF0, asm]
+    - [0x15D40, asm]
+    - [0x16450, asm]
+    - [0x16490, asm]
+    - [0x16F50, asm]
+    - [0x16F90, asm]
+    - [0x16FD0, asm]
+    - [0x170A0, asm]
+    - [0x170C0, asm]
+    - [0x17120, asm]
+    - [0x17180, asm]
+    - [0x171E0, asm]
+    - [0x17250, asm]
+    - [0x17350, asm]
+    - [0x173A0, asm]
+    - [0x18CE0, asm]
+    - [0x190F0, asm]
+    - [0x19240, asm]
+    - [0x192D0, asm]
+    - [0x19500, asm]
+    - [0x19640, asm]
+    - [0x196D0, asm]
+    - [0x19770, asm]
+    - [0x199A0, asm]
+    - [0x19AD0, asm]
+    - [0x19B40, asm]
+    - [0x19E80, asm]
+    - [0x19EF0, asm]
+    - [0x1A750, asm]
+    - [0x1AA00, asm]
+    - [0x1AAA0, asm]
+    - [0x1AD30, asm]
+    - [0x1ADD0, asm]
+    - [0x1B2F0, asm]
+    - [0x1B490, asm]
+    - [0x1B600, asm]
+    - [0x1BC50, asm]
+    - [0x1C470, asm]
+    - [0x1C480, asm]
+    - [0x1C4A0, asm]
+    - [0x1C550, asm]
+    - [0x1CEE0, asm]
+    - [0x1CF40, asm]
+    - [0x1CFA0, asm]
+    - [0x1CFE0, asm]
+    - [0x1CFF0, asm]
+    - [0x1D570, asm]
+    - [0x1D670, asm]
+    - [0x1D9D0, asm]
+    - [0x1DA40, asm]
+    - [0x1DAB0, asm]
+    - [0x1DEF0, asm]
+    - [0x1DFA0, asm]
+    - [0x1E100, asm]
+    - [0x1E270, asm]
+    - [0x1EF30, asm]
+    - [0x1EFD0, asm]
+    - [0x1F4F0, asm]
+    - [0x1F5D0, asm]
+    - [0x1F900, asm]
+    - [0x200D0, asm]
+    - [0x20170, asm]
+    - [0x20E10, asm]
+    - [0x21110, asm]
+    - [0x21D70, asm]
+    - [0x21E80, asm]
+    - [0x21FD0, asm]
+    - [0x22680, asm]
+    - [0x22780, asm]
+    - [0x22960, asm]
+    - [0x22C70, asm]
+    - [0x240A0, asm]
+    - [0x25320, asm]
+    - [0x25680, asm]
+    - [0x258F0, asm]
+    - [0x25980, asm]
+    - [0x259B0, asm]
+    - [0x26230, asm]
+    - [0x26340, asm]
+    - [0x26350, asm]
+    - [0x26360, asm]
+    - [0x266C0, asm]
+    - [0x266D0, asm]
+    - [0x269F0, asm]
+    - [0x26A30, asm]
+    - [0x26AC0, asm]
+    - [0x26AF0, asm]
+    - [0x26B20, asm]
+    - [0x26DC0, asm]
+    - [0x27880, asm]
+    - [0x278A0, asm]
+    - [0x284F0, asm]
+    - [0x28550, asm]
+    - [0x28880, asm]
+    - [0x288D0, asm]
+    - [0x28920, asm]
+  # .data/.rodata
+  - [0x28AB0, bin]
   ### these are 0x20 later than in US ROM
   - [0x116BF0, bin, rnc_116BF0] # 1577 => 2048
   - [0x117220, bin] # unknown!
@@ -182,12 +186,13 @@ segments:
   - [0x129DA0, bin, rnc_129DA0] # 517 => 2048
   - [0x129FB0, bin, rnc_129FB0] # 438 => 2048
   - [0x12A170, bin, rnc_12A170] # 565 => 2048
-  - [0x12A3B0, bin, rnc_12A3B0] # 19014 => 51200
+  - [0x12A3B0, bin, rnc_12A3B0] # 19014 => 51200 # fonts, different to US
   - [0x12EE00, bin] # "B1" ...
   - [0x13618C, bin] # tbd?
   - [0x13658C, bin] # tbd?
   - [0x37E2B8, bin] # "up" soundeffect in language menu
   - [0x37E3C0, bin] # "down" soundeffect in language menu
+  # end of music
   - [0x42DCE0, bin, rnc_42DCE0] # 30326 => 54880
   - [0x435360, bin, rnc_435360] # 30784 => 54880
   - [0x43CBA0, bin, rnc_43CBA0] # 35981 => 54880
@@ -286,6 +291,7 @@ segments:
   - [0x51AB30, bin, rnc_51AB30] # 39 => 10240
   - [0x51AB60, bin, rnc_51AB60] # 39 => 10240
   - [0x51AB90, bin, rnc_51AB90] # 39 => 10240
+  # rgba16 level thumbnails
   - [0x51ABC0, bin, rnc_51ABC0] # 3492 => 6144
   - [0x51B970, bin, rnc_51B970] # 4149 => 6144
   - [0x51C9B0, bin, rnc_51C9B0] # 4793 => 6144
@@ -321,6 +327,7 @@ segments:
   - [0x53C4C0, bin, rnc_53C4C0] # 3537 => 6144
   - [0x53D2A0, bin, rnc_53D2A0] # 3537 => 6144
   - [0x53E080, bin, rnc_53E080] # 3537 => 6144
+  # rbga16 trophies
   - [0x53EE60, bin, rnc_53EE60] # 956 => 2048
   - [0x53F220, bin, rnc_53F220] # 1151 => 2048
   - [0x53F6A0, bin, rnc_53F6A0] # 924 => 2048
@@ -353,10 +360,10 @@ segments:
   - [0x544970, bin, rnc_544970] # 33 => 2048
   - [0x5449A0, bin, rnc_5449A0] # 33 => 2048
   - [0x5449D0, bin, rnc_5449D0] # 33 => 2048
-  - [0x544A00, bin] # tbd
+  #
+  - [0x544A00, bin] # I4 water texture?
   - [0x546C00, bin] # tbd
-  # starts to differ from US ROM
-  # these are recursively compressed RNC files
+  # game levels (nested RNC compressed) (differ to US)
   - [0x546D40, bin, rnc_546D40] # 33910 => 33872
   - [0x54F1C0, bin, rnc_54F1C0] # 24023 => 24072
   - [0x554FA0, bin, rnc_554FA0] # 22081 => 22075
@@ -431,7 +438,16 @@ segments:
   - [0x638970, bin, rnc_638970] # 69 => 120
   - [0x6389C0, bin, rnc_6389C0] # 69 => 120
   - [0x638A10, bin, rnc_638A10] # 5000 => 115024
-  - [0x639DA0, bin] # unknown!
+  - type:  code
+    name:  overlay1
+    overlay: yes
+    start: 0x00639DA0
+    vram:  0x80294E50
+    subsegments:
+    - [0x639DA0, asm, overlay1_639DA0]
+    - [0x63ED30, asm, overlay1_63ED30]
+    - [0x63F1A0, asm, overlay1_63F1A0]
+  - [0x63FB60, bin]
   - [0x6409B0, bin, rnc_6409B0] # 37463 => 163840
   - [0x649C10, bin, rnc_649C10] # 28620 => 153600
   - [0x650BE0, bin, rnc_650BE0] # 21526 => 65536
@@ -450,6 +466,90 @@ segments:
   - [0x693D70, bin] # unknown!
   - [0x69B0D0, bin, rnc_69B0D0] # 35955 => 153600
   - [0x6A3D50, bin] #  end of RNC
-  - [0x7d395C, bin] # credits
+  - type: code
+    name: overlay2 # sssv game code
+    overlay: yes
+    start: 0x006A9290
+    vram:  0x80294E50
+    subsegments:
+    - [0x6A9290, asm]
+    - [0x6AA810, asm]
+    - [0x6ADE20, asm]
+    - [0x6AF0F0, asm]
+    - [0x6AFCB0, asm]
+    - [0x6B8110, asm]
+    - [0x6C8300, asm]
+    - [0x6C9160, asm]
+    - [0x6CCB70, asm]
+    - [0x6CFC90, asm]
+    - [0x6DC0D0, asm]
+    - [0x6DC890, asm]
+    - [0x6DE3B0, asm]
+    - [0x6EEC40, asm]
+    - [0x6EF4C0, asm]
+    - [0x6EFFD0, asm]
+    - [0x6F9450, asm]
+    - [0x6FCE40, asm]
+    - [0x6FE830, asm]
+    - [0x6FEC40, asm]
+    - [0x703510, asm]
+    - [0x705B80, asm]
+    - [0x706F70, asm]
+    - [0x709E40, asm]
+    - [0x714580, asm]
+    - [0x714660, asm]
+    - [0x716650, asm]
+    - [0x7172A0, asm]
+    - [0x717920, asm]
+    - [0x7185C0, asm]
+    - [0x7192D0, asm]
+    - [0x7196A0, asm]
+    - [0x728AB0, asm]
+    - [0x72F420, asm]
+    - [0x730BF0, asm]
+    - [0x735800, asm]
+    - [0x737AD0, asm]
+    - [0x73C030, asm]
+    - [0x7417D0, asm]
+    - [0x741AD0, asm]
+    - [0x743DA0, asm]
+    - [0x758690, asm]
+    - [0x75C680, asm]
+    - [0x75E770, asm]
+    - [0x75EA20, asm]
+    - [0x760170, asm]
+    - [0x7666D0, asm]
+    - [0x76B650, asm]
+    - [0x76B740, asm]
+    - [0x76B930, asm]
+    - [0x76EA40, asm]
+    - [0x7705F0, asm]
+    - [0x772570, asm]
+    - [0x776F50, asm]
+    - [0x778BD0, asm]
+    - [0x780500, asm]
+    - [0x781B50, asm]
+    - [0x783BF0, asm]
+    - [0x786B30, asm]
+    - [0x7890C0, asm]
+    - [0x78D630, asm]
+    - [0x78FC50, asm]
+    - [0x791710, asm]
+    - [0x794540, asm]
+    - [0x7964A0, asm]
+    - [0x797140, asm]
+    - [0x797C80, asm]
+    - [0x79DF80, asm]
+    - [0x79FC90, asm]
+    - [0x79FE80, asm]
+    - [0x7A0680, asm]
+    - [0x7A0BB0, asm]
+    - [0x7A13E0, asm]
+    - [0x7A3B40, asm]
+    - [0x7AB7F0, asm]
+    - [0x7ACA80, asm]
+    - [0x7B21B0, asm]
+    # .data/.rodata
+    - [0x7B4930, bin]
   - [0x7DF890, bin, trailer] # 0xff to end
   - [0x800000]
