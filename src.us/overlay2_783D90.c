@@ -24,6 +24,7 @@ void func_803744C4_785B74(void) {
     }
 }
 
+//Desert fox dizziness function
 void func_80374518_785BC8(void) {
     func_8032AAF0_73C1A0(DESERT_FOX);
 

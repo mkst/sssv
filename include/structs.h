@@ -185,9 +185,9 @@ struct Animal {
     /* 0x2DE */ u8  unk2DE[0x2];
     /* 0x2E0 */ s16 skillAEnergy[2]; // seems to be an array?
     /* 0x2E4 */ s16 skillBEnergy[2]; // same...
-    /* 0x2E8 */ u8  unk2E8;
-    /* 0x2E9 */ u8  unk2E9;
-    /* 0x2EA */ u8  unk2EA;
+    /* 0x2E8 */ u8  unk2E8; // model size(?) of missile 1 on animal
+    /* 0x2E9 */ u8  unk2E9; // model size(?) of missile 2 on animal
+    /* 0x2EA */ u8  unk2EA; // selector for missile 1 or 2
     /* 0x2EB */ u8  pad2EB;
     /* 0x2EC */ s16 unk2EC;
     /* 0x2EE */ u16 unk2EE;
@@ -230,8 +230,8 @@ struct Animal {
     /* 0x336 */ u8  pad336[0x2];
     /* 0x338 */ s32 unk338;
     /* 0x33C */ u8  pad33C[0xC];
-    /* 0x348 */ s16 unk348;
-    /* 0x34A */ s16 unk34A;
+    /* 0x348 */ s16 unk348; // (desert fox) dizziness duration and size
+    /* 0x34A */ s16 unk34A; // (desert fox) dizziness recovery delay?
     /* 0x34C */ s16 unk34C;
     /* 0x34E */ s16 unk34E;
     /* 0x34E */ s16 unk350;
@@ -247,7 +247,7 @@ struct Animal {
     /* 0x362 */ u8  unk362;
     /* 0x363 */ u8  unk363;
     /* 0x364 */ u8  unk364;
-    /* 0x365 */ u8  unk365;
+    /* 0x365 */ u8  unk365; //different animations? 36 = desert fox spin start, 37 = desert fox spin end, 28 = polar bear out of defense curl
     /* 0x366 */ u8  unk366;
     /* 0x367 */ u8  pad367;
     /* 0x368 */ s8  unk368;
@@ -750,7 +750,7 @@ struct struct035 {
                 u8  bit : 1;
               } unk80;
   /* 0x84 */  u8  pad84[0x18];
-  /* 0x9C */  u16 unk9C; // animal type?
+  /* 0x9C */  u16 unk9C; // ANIMAL_TYPE
   /* 0x9E */  u16 unk9E;
               u16 unkA0;
               u8  padA2[0x2];

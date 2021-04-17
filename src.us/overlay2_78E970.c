@@ -59,6 +59,7 @@ void func_8037D9D4_78F084(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F6CC_790D7C.s")
 
+//missile model (on animal) disappearing and left-right missile selector function
 u8 func_8037FBBC_79126C(void) {
     switch (D_803D5524->unk9C) {
     case RACING_DOG:
