@@ -228,6 +228,11 @@ void func_802A3CD0_6B5380(void);
 
 s16  func_8029B7D0_6ACE80(s16, s16, s16);
 
+// overlay2_6AC360
+void func_8029ACB0_6AC360(void);
+s32 func_8029ACB8_6AC368(s32 arg0, s32 arg1); // function does nothing but return 1, types can be changed
+s16 func_8029B7D0_6ACE80(s16 x, s16 z, s16 y);
+
 // overlay2_6ACF20
 void func_8029B870_6ACF20(Animal *arg0, Animal *arg1);
 void func_8029B9B8_6AD068(Animal *arg0, Animal *arg1);
