@@ -13,21 +13,9 @@ RUN apt-get update && \
       unzip \
       wget
 
-RUN python3 -m pip install \
-      ansiwrap \
-      attrs \
-      capstone \
-      colorama \
-      cxxfilt \
-      pycparser \
-      pylibyaml \
-      pynacl \
-      pypng \
-      python-Levenshtein \
-      python-ranges \
-      pyyaml \
-      toml \
-      watchdog
+COPY requirements.txt /
+
+RUN python3 -m pip install -r /requirements.txt
 
 RUN mkdir /sssv
 WORKDIR /sssv
