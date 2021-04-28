@@ -60,7 +60,7 @@ void func_8036BE70_77D520(void) {
     }
 }
 
-void func_8036BEA4_77D554(Animal *arg0) {
+void ski_husky_fire_missile(Animal *arg0) {
     s16 temp_v1;
     u8 temp_t0;
     s32 phi_t1;

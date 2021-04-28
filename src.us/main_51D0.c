@@ -190,7 +190,7 @@ void func_8012A750(void) {
         load_default_display_list(&D_801D9E7C);
         select_font(0, 0, 0, 0);
         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-        func_8012C978(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
+        display_text(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
         gDPPipeSync(D_801D9E7C++);
     }
 }

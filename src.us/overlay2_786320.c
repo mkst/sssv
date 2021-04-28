@@ -29,7 +29,7 @@ void func_803769E0_788090(void) {
     func_801373CC(0, 25, 30, 5, func_8029B7D0_6ACE80(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
 }
 
-void func_80376B88_788238(Animal *arg0) {
+void walrus_fire_missile(Animal *arg0) {
     s32 tmp;
 
     if (func_8037FBBC_79126C() != 0) {

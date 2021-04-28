@@ -18,7 +18,11 @@ typedef struct {
     u16 unk12;
     s16 unk14;
     s16 unk16;
-    u8  pad18[0xAC];
+    u8  pad18[0x8];
+    u16 unk20;
+    u8  pad22[0x30];
+    s16 unk52;
+    u8  pad54[0x70];
     u16 unkC4;
     s16 unkC6;
     u8  unkC8[0x6];
@@ -205,7 +209,7 @@ struct Animal {
     /* 0x2C4 */ s32 unk2C4; // "FC" ?
     /* 0x2C8 */ u16 unk2C8;
     /* 0x2CA */ u8  pad2CA;
-    /* 0x2CC */ Animal* unk2CC;
+    /* 0x2CC */ Animal* unk2CC; // target for missiles?
     /* 0x2D0 */ s16 unk2D0;
     /* 0x2D2 */ u8  pad2D2[0x2];
     /* 0x2D4 */ s32 unk2D4;
@@ -536,7 +540,8 @@ typedef struct {
     /* 0x38910 */ s32 usedHilites;
     /* 0x38914 */ s32 unk38914;  // used xxx ?
     /* 0x38918 */ s32 unk38918;  // usedModelViewMatrixes (unk33590, max 240?)
-    /* 0x3891C */ u8  pad3891C[0xF4];
+    /* 0x3891C */ s32 unk3891C;
+    /* 0x38920 */ u8  pad38920[0xF0];
     /* 0x38A10 */ f32 unk38A10[3][4];
     /* 0x38A40 */ f32 unk38A40[4];
     /* 0x38A50 */ u8  pad38A50[0x8C0];
@@ -818,9 +823,10 @@ struct struct035 {
   /* 0x9C */  u16 unk9C; // ANIMAL_TYPE
   /* 0x9E */  u16 unk9E;
               u16 unkA0;
-              u8  padA2[0x2];
+              u16 unkA2;
               u16 unkA4; // scaling?
-              u8  padA6[0x4];
+              u16 unkA6;
+              u16 unkA8;
               u16 unkAA; // scaling?
               u16 unkAC; // scaling?
               u8  padAE[0xA];
@@ -1243,5 +1249,27 @@ typedef struct {
     /* 0x1C */ u16 unk1C;
     /* 0x20 */ u8 pad1E[0x7E];
 } struct068; // size 0x9C
+
+typedef struct {
+    /* 0x0 */   u8  pad0[0x154];
+    /* 0x154 */ s8  unk154;
+    /* 0x155 */ u8  pad155[0x7];
+    /* 0x15C */ s8  unk15C;
+    /* 0x15D */ u8  pad15D;
+    /* 0x15E */ s16 unk15E;
+    /* 0x160 */ u8  unk160[0x8];
+    /* 0x168 */ Animal *unk168;
+    /* 0x16C */ u8  pad16C[0xE0];
+    /* 0x26C */ s32 unk24C[8]; // tbd how many
+    /* 0x26C */ u8  unk26C;
+    /* 0x26D */ u8  pad26C[0x3];
+} struct071; // game object
+
+typedef struct {
+    /* 0x0 */    u8 pad[0xA110];
+    /* 0xA110 */ s16 unkA110;
+    /* 0xA112 */ s16 unkA112;
+    /* 0xA114 */ s16 unkA114;
+} struct072;
 
 #endif

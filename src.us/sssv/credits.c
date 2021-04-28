@@ -74,12 +74,12 @@ s32 display_credits(void) {
 
     for (i = 0; i < 16; i++) {
         sprintf((char*)sp50, "%s", credits[i + D_803F6400]);
-        func_801308B4(sp50, sp90);
+        prepare_text(sp50, sp90);
         if ((sp50[0] == 'E') && (sp50[1] == 'N') && (sp50[2] == 'D')) {
             D_803F6400 = 0;
             i = 1000; // break
         } else {
-            func_8012C978(&D_801D9E7C, sp90, gScreenWidth / 2, D_803F6402 + (i * 16), 16.0f, 16.0f);
+            display_text(&D_801D9E7C, sp90, gScreenWidth / 2, D_803F6402 + (i * 16), 16.0f, 16.0f);
         }
     }
 

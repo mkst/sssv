@@ -135,7 +135,7 @@ s16 func_8012C314(f32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012C678.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012C978.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_text.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012D374.s")
 
@@ -253,7 +253,7 @@ void load_glyph(Gfx **arg0, s16 arg1) {
 //     gDPPipeSync((*arg0)++);
 // }
 
-void func_801308B4(u8 *src, s16 *dst) {
+void prepare_text(u8 *src, s16 *dst) {
     u8 tmp;
     while (*src != NULL) {
         tmp = *src;

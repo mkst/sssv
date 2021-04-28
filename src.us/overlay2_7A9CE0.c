@@ -38,7 +38,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D78.unk10 = 0.0f;
     D_803F7D78.unk14 = 0.0f;
     D_803F7D70 = D_803C03F4;
-    func_801308B4(sp18, D_803F2E34);
+    prepare_text(sp18, D_803F2E34);
     D_803F7DA8.unk8 = 1.0f;
     D_803B7468 = D_803F7DA8.unk2D * 12;
     D_803F7D68 = D_803F7DA8.unk2D * 12;

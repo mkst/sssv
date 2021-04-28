@@ -630,7 +630,7 @@ segments:
     - [0x6C9DD0, c, overlay2_6C9DD0]
     - [0x6CCEF0, c, overlay2_6CCEF0]
     - [0x6D9330, asm]
-    - [0x6D9AF0, asm]
+    - [0x6D9AF0, c, overlay2_6D9AF0]
     - [0x6DB610, asm]
     - [0x6EBEA0, c, sssv/collist2]
     - [0x6EC720, asm]
@@ -642,7 +642,7 @@ segments:
     - [0x700770, asm]
     - [0x702DE0, asm]
     - [0x7041D0, asm]
-    - [0x7070A0, asm]
+    - [0x7070A0, c, overlay2_7070A0]
     - [0x7117E0, c, overlay2_7117E0]
     - [0x7118C0, asm]
     - [0x7138B0, asm]
@@ -678,7 +678,8 @@ segments:
     - [0x76D850, c, overlay2_76D850]
     - [0x76F7D0, c, overlay2_76F7D0]
     - [0x7741B0, c, overlay2_7741B0]
-    - [0x775E30, c, sssv/animals/polar_bear]
+    - [0x775E30, c, sssv/animals/penguin]
+    - [0x7775C0, c, sssv/animals/polar_bear]
     - [0x77A480, c, sssv/animals/husky]
     - [0x77D760, c, sssv/animals/vulture]
     - [0x77EDB0, c, overlay2_77EDB0]
@@ -707,7 +708,8 @@ segments:
     - [0x7B1B90, linker, data]
     - [0x7B1B90, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
-    - [0x7C73D0, bin]
+    - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
+    - [0x7C74E0, bin]
     - [0x7C76B0, .data, sssv/credits]
     - [0x7C7960, bin]
     - [0x7C7f40, bin] # data for overlay2_7A8A50?
@@ -715,12 +717,12 @@ segments:
     - [0x7C8AC0, bin] # more textures
     - [0x7CC380, rodata, overlay2_6A7A80]
     - [0x7CC3C0, bin] # rodata overlay2_6ACF20
-    # - [0x7D0000, .rodata, sssv/osd]
     - [0x7CC470, rodata, overlay2_6B5380]
     - [0x7CD590, .rodata, overlay2_6B5380]
     - [0x7CD5B0, bin] # rodata, sssv/collision
+    - [0x7CE560, rodata, overlay2_7070A0]
+    - [0x7CE650, bin]
     - [0x7CE7C0, rodata, sssv/animals/parrot]
-    # - [0x7CE7D0, bin]
     - [0x7CE7D0, .rodata, overlay2_725D10]
     - [0x7CE804, rodata, overlay2_725D10]
     - [0x7CEB70, rodata, overlay2_72B100]
@@ -730,10 +732,13 @@ segments:
     - [0x7CF120, rodata, sssv/animals/bear]
     - [0x7CF180, bin]
     - [0x7CF530, bin]
+    - [0x7D0000, rodata, sssv/osd]
+    - [0x7D0050, bin] # hilites?
     - [0x7D02C0, rodata, overlay2_76F7D0]
     - [0x7D0310, rodata, overlay2_7741B0]
     - [0x7D0360, .rodata, overlay2_7741B0]
-    - [0x7D05B0, rodata, sssv/animals/polar_bear]
+    - [0x7D05B0, rodata, sssv/animals/penguin]
+    - [0x7D05D0, rodata, sssv/animals/polar_bear]
     - [0x7D0610, rodata, sssv/animals/husky]
     - [0x7D0620, rodata, sssv/animals/vulture]    # 0x803BEF70
     - [0x7D0650, rodata, overlay2_77EDB0]         # 0x803BEFA0

@@ -10,7 +10,7 @@ s32 func_802B6948_6C7FF8(void);
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B4D20_6C63D0.s")
 
 s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
-    struct035 *a0;   // arg0
+    struct035 *a0; // arg0
     struct035 *a1; // arg1
     s32 res = 0;
 
@@ -141,6 +141,7 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     return 0;
 }
 
+// broken expansion pak function
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B75CC_6C8C7C.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B7BC8_6C9278.s")

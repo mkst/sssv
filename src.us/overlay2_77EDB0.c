@@ -21,7 +21,7 @@ void func_8036F404_780AB4(void) {
         D_803D552C->unk30A += 25;
     }
     func_803421E0_753890(17);
-    func_8032C360_73DA10(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_8036F4CC_780B7C(void) {
@@ -44,7 +44,7 @@ void func_8036F50C_780BBC(Animal *arg0) {
     }
 }
 
-void func_8036F5F4_780CA4(Animal *arg0) {
+void camel_cannon_fire_cannon(Animal *arg0) {
     s32 tmp = func_802F8160_709810(D_803D5530, arg0, 60, 60, 22, 32, -12, 0, (f32)D_803A05B0 / 65536.0);
     if (tmp == -1) {
         tmp = 2;
@@ -58,7 +58,7 @@ void func_8036F5F4_780CA4(Animal *arg0) {
         D_803D552C->unk30A += 25;
     }
     func_803421E0_753890(17);
-    func_8032C360_73DA10(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_8036F740_780DF0(u16 arg0) {

@@ -17,5 +17,7 @@ COPY requirements.txt /
 
 RUN python3 -m pip install -r /requirements.txt
 
+COPY .bash_aliases /root/.bash_aliases
+
 RUN mkdir /sssv
 WORKDIR /sssv

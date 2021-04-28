@@ -67,12 +67,12 @@ void func_80321920_732FD0(void *arg0, s16 arg1, s16 arg2);
 //                 temp_v0->unk2E4 = (s16) (temp_v1_7 - 0x190);
 //                 if (func_803224C4_733B74(-0x3A, 0, 0, 0x1D, 0x14, 0, 0, 0xB) != 0) {
 //                     temp_v0_2 = D_803D5530;
-//                     func_8032C360_73DA10(0x44, 0x5000, 0, temp_v0_2->unk4, (?32) temp_v0_2->unk8, (?32) temp_v0_2->unkC, 1.0f);
+//                     play_sound_effect_at_location(0x44, 0x5000, 0, temp_v0_2->unk4, (?32) temp_v0_2->unk8, (?32) temp_v0_2->unkC, 1.0f);
 //                     temp_v0_3 = D_803D5530;
 //                     temp_v0_3->unk24 = (s16) (temp_v0_3->unk24 + 2);
 //                 } else {
 //                     temp_v0_4 = D_803D5530;
-//                     func_8032C360_73DA10(0x4F, 0x5000, 0, temp_v0_4->unk4, (?32) temp_v0_4->unk8, (?32) temp_v0_4->unkC, 1.0f);
+//                     play_sound_effect_at_location(0x4F, 0x5000, 0, temp_v0_4->unk4, (?32) temp_v0_4->unk8, (?32) temp_v0_4->unkC, 1.0f);
 //                 }
 //                 temp_v1_8 = D_803D552C;
 //                 phi_return_2 = phi_return;
@@ -86,7 +86,7 @@ void func_80321920_732FD0(void *arg0, s16 arg1, s16 arg2);
 //     } else {
 //         func_80321920_732FD0(temp_a3, 0, 0); //, temp_a3);
 //         temp_v0_5 = D_803D5530;
-//         func_8032C360_73DA10(0x63, 0x5000, 0, temp_v0_5->unk4, (?32) temp_v0_5->unk8, (?32) temp_v0_5->unkC, D_803BF3E0);
+//         play_sound_effect_at_location(0x63, 0x5000, 0, temp_v0_5->unk4, (?32) temp_v0_5->unk8, (?32) temp_v0_5->unkC, D_803BF3E0);
 //         temp_v1_9 = D_803D552C;
 //         temp_v1_9->unkC = (s16) (temp_v1_9->unkC + temp_v1_9->unk308);
 //         temp_v1_10 = D_803D552C;

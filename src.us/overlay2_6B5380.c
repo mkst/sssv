@@ -256,9 +256,81 @@ void func_802A5008_6B66B8(u16 rotation, s8 arg1) {
     func_802B8810_6C9EC0();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A50A8_6B6758.s")
+void func_802A50A8_6B6758(void) {
+    s16 xVel, zVel;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A5300_6B69B0.s")
+    D_803D5530->state = 184;
+    D_803D552C->unk2F2 = 0;
+    D_803D552C->unk2F4 = 0;
+    D_803D552C->unk2FC = 22;
+
+    if (D_803D5530->unk162 != 1) {
+        zVel = 0;
+        xVel = 0;
+    } else {
+        func_80311A2C_7230DC(D_803D5530->xPos, D_803D5530->zPos, &xVel, &zVel, D_803D5530->unk160);
+    }
+    if (xVel < -23) {
+        D_803D5530->xVelocity.w = MIN(D_803D5530->xVelocity.w, -(s32) D_803D5524->unkA6 << 0xF);
+    }
+    if (xVel > 23) {
+        D_803D5530->xVelocity.w = MAX(D_803D5530->xVelocity.w, D_803D5524->unkA6 << 0xF);
+    }
+    if (zVel < -23) {
+        D_803D5530->zVelocity.w = MIN(D_803D5530->zVelocity.w, -(s32) D_803D5524->unkA6 << 0xF);
+    }
+    if (zVel > 23) {
+        D_803D5530->zVelocity.w = MAX(D_803D5530->zVelocity.w, D_803D5524->unkA6 << 0xF);
+    }
+
+    if ((ABS(xVel) > 23) || (ABS(zVel) > 23)) {
+        D_803D5530->yVelocity.w += (D_803D5524->unkA6 << 12);
+    } else {
+        D_803D5530->yVelocity.w += (D_803D5524->unkA6 << 16);
+        if (D_803D5530->unk162 != 1) {
+            D_803D5530->yVelocity.w += D_803A05B0;
+        }
+    }
+    func_802B8890_6C9F40();
+}
+
+void func_802A5300_6B69B0(void) {
+    s16 xVel, zVel;
+
+    D_803D5530->state = 184;
+    D_803D552C->unk2F2 = 0;
+    D_803D552C->unk2F4 = 0;
+    D_803D552C->unk2FC = 32;
+
+    if (D_803D5530->unk162 != 1) {
+        zVel = 0;
+        xVel = 0;
+    } else {
+        func_80311A2C_7230DC(D_803D5530->xPos, D_803D5530->zPos, &xVel, &zVel, D_803D5530->unk160);
+    }
+    if (xVel < -23) {
+        D_803D5530->xVelocity.w = MIN(D_803D5530->xVelocity.w, -(s32) D_803D5524->unkA8 << 0xF);
+    }
+    if (xVel > 23) {
+        D_803D5530->xVelocity.w = MAX(D_803D5530->xVelocity.w, D_803D5524->unkA8 << 0xF);
+    }
+    if (zVel < -23) {
+        D_803D5530->zVelocity.w = MIN(D_803D5530->zVelocity.w, -(s32) D_803D5524->unkA8 << 0xF);
+    }
+    if (zVel > 23) {
+        D_803D5530->zVelocity.w = MAX(D_803D5530->zVelocity.w, D_803D5524->unkA8 << 0xF);
+    }
+
+    if ((ABS(xVel) > 23) || (ABS(zVel) > 23)) {
+        D_803D5530->yVelocity.w += (D_803D5524->unkA8 << 12);
+    } else {
+        D_803D5530->yVelocity.w += (D_803D5524->unkA8 << 16);
+        if (D_803D5530->unk162 != 1) {
+            D_803D5530->yVelocity.w += D_803A05B0;
+        }
+    }
+    func_802B8890_6C9F40();
+}
 
 void func_802A5558_6B6C08(void) {
     D_803D5530->state = 201;
@@ -317,8 +389,7 @@ void func_802A5C80_6B7330(void) {
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
     D_803D552C->unk30C = MAX(6, D_803D552C->unk30C);
-
-    func_802B8720_6C9DD0();
+     func_802B8720_6C9DD0();
 }
 
 void func_802A5CF4_6B73A4(void) {
@@ -468,7 +539,7 @@ void func_802A623C_6B78EC(s16 arg0, s16 arg1) {
 // void func_802A628C_6B793C(void) {
 //     s32 xVel;
 //     s32 zVel;
-//     s8 tmp;
+//     s16 tmp;
 //
 //     func_802E4A78_6F6128(D_803D552C->unk308);
 //     tmp = D_803F28E0[D_803F2A98].unk20;
@@ -644,7 +715,52 @@ s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B0B00_6C21B0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B0D4C_6C23FC.s")
+void func_802B0D4C_6C23FC(s16 arg0, s16 arg1) {
+    switch (D_803D5530->state) {
+    case 1:
+    case 181:
+        if (arg1 > 0) {
+            if (arg1 < 14) {
+                func_802A4EC8_6B6578(arg0, arg1);
+            } else if (arg1 >= 14) {
+                func_802A5008_6B66B8(arg0, arg1);
+            }
+        }
+        break;
+    case 182:
+        if (arg1 <= 0) {
+            func_802A4E74_6B6524();
+        } else if (arg1 >= 14) {
+            func_802A5008_6B66B8(arg0, arg1);
+        } else {
+            D_803D5530->yRotation = arg0;
+            if (arg1 != D_803D552C->unk368) {
+                D_803D552C->unk368 = arg1;
+                D_803D552C->unk31A = (arg1 * D_803D5524->unkA4) / 16;
+                D_803D552C->unk2FA = func_802B8B74_6CA224();
+            }
+        }
+        break;
+    case 183:
+        if (arg1 <= 0) {
+            func_802A4E74_6B6524();
+        } else if (arg1 < 14) {
+            func_802A4EC8_6B6578(arg0, arg1);
+        } else {
+            D_803D5530->yRotation = arg0;
+            if (arg1 != D_803D552C->unk368) {
+                D_803D552C->unk368 = arg1;
+                D_803D552C->unk31A = (arg1 * D_803D5524->unkA4) / 16;
+                D_803D552C->unk2FA = func_802B8B74_6CA224();
+            }
+        }
+        break;
+    }
+
+    if (arg1 < 0) {
+        D_803D5530->yRotation = arg0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B0F4C_6C25FC.s")
 
@@ -679,7 +795,6 @@ s16 func_802B2580_6C3C30(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B2C20_6C42D0.s")
 
 void func_802B2EA8_6C4558(void) {
-
     switch (D_803D5524->unk9E) {
     case 2:
         func_802A4390_6B5A40();
@@ -749,8 +864,31 @@ void func_802B2FF4_6C46A4(void) {
     }
 }
 
-// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B315C_6C480C.s")
+// needs .rodata
+// void func_802B315C_6C480C(void) {
+//     switch (D_803D5524->unkA0 & 0x3FF) {
+//     case 1:
+//         func_802A5EA4_6B7554();
+//         D_803D5530->unk162 = 5;
+//         break;
+//     case 2:
+//         func_802A5DD0_6B7480();
+//         D_803D5530->unk162 = 4;
+//         break;
+//     case 4:
+//         func_802A4E74_6B6524();
+//         D_803D5530->unk162 = 6;
+//         break;
+//     case 8:
+//         func_802A5558_6B6C08();
+//         D_803D5530->unk162 = 6;
+//         break;
+//     case 16:
+//         D_803D5530->yVelocity.w += 0x50000;
+//         break;
+//     }
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3230_6C48E0.s")
 
@@ -819,40 +957,43 @@ void func_802B3540_6C4BF0(void) {
 // JUSTREG - also need to confirm rodata
 // void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2) {
 //     s16 temp_v1 = *arg2;
+//     s16 tmp;
 //
 //     switch (arg0->unk16C->unkE6) {
 //     case 0:
-//         *arg2 = (*arg2 * 36) >> 4;
+//         *arg2 = *arg2 * 36 >> 4;
 //         break;
 //     case 1:
-//         *arg2 = (*arg2 * 24) >> 4;
+//         *arg2 = *arg2 * 24 >> 4;
 //         break;
 //     case 2:
 //         *arg2 = *arg2;
 //         break;
 //     case 3:
-//         // ???
-//         *arg2 = ((((*arg2) * 8) >> 4) & 0xFFFF) & 0xFFFF;
+//         // why does regalloc break down here?
+//         *arg2 = *arg2 * 8 >> 4; // & 0xFFFF) & 0xFFFF;
 //         break;
 //     case 4:
-//         *arg2 = (*arg2 * 5) >> 4;
+//         *arg2 = *arg2 * 5 >> 4;
 //     }
 //
+//
 //     if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
-//         s16 tmp = (s8)arg0->unk16C->unkE6 - (s8)arg1->unk16C->unkE6;
-//         switch (tmp - 2) {
-//         case 0:
+//         tmp  = (s8)arg0->unk16C->unkE6 - (s8)arg1->unk16C->unkE6;
+//
+//         switch (tmp) {
+//         case 2:
 //             *arg2 = *arg2 >> 1;
 //             break;
-//         case 1:
+//         case 3:
 //             *arg2 = *arg2 >> 2;
 //             break;
-//         case 2:
+//         case 4:
 //             *arg2 = *arg2 >> 3;
 //             break;
-//         case 3:
-//         case 4:
 //         case 5:
+//         case 6:
+//         case 7:
 //             *arg2 = 0;
 //         }
 //     }

@@ -115,7 +115,7 @@ void func_8012D374(s32, s32, s32, u16, f32, f32, s32);
 //     for (i = 0; i < 4; i++) {
 //         // "%s\n"
 //         sprintf(&spE4, &D_803BFFD4, D_803B6328[(rand() / 924) & 0xFF]);
-//         func_801308B4(&spE4, &sp64);
+//         prepare_text(&spE4, &sp64);
 //         func_8012D374(arg0, &sp64, 6, i * 10, 13.0f, 9.0f, -1);
 //         // phi_s1 += 10;
 //     }
@@ -127,7 +127,7 @@ void func_8012D374(s32, s32, s32, u16, f32, f32, s32);
 //         temp_s2 = (temp_v0_2 >> 8) & 3;   // bottom 3 bits?
 //         temp_a0 = &spE4;
 //         spE4 = temp_t4;
-//         func_801308B4(temp_a0, &sp64);
+//         prepare_text(temp_a0, &sp64);
 //         draw_glyph(arg0, &sp64, ((temp_s1 * 0xD) + 0xAF) , (temp_s2 * 8) + 10 , 13.0f, 9.0f);
 //     }
 //

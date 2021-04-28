@@ -130,7 +130,7 @@
 //         } else {
 //             set_menu_text_color(128, 128, 128, 255);
 //         }
-//         func_8012C978(&D_801D9E7C, D_803B0400[i], 160, verticalOffset, 16.0f, 16.0f);
+//         display_text(&D_801D9E7C, D_803B0400[i], 160, verticalOffset, 16.0f, 16.0f);
 //         verticalOffset += 16;
 //     }
 //

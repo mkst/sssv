@@ -6,12 +6,8 @@
 
 // calculate_hypotenuse
 s32 func_80304E80_716530(struct039 *arg0) {
-    s32 tmp0, tmp1;
-
-    tmp0 = arg0->unk0;
-    tmp1 = arg0->unk4;
     // a^2 + b^2 = c^2
-    return sqrtf(tmp0 * tmp0 + tmp1 * tmp1);
+    return sqrtf(arg0->unk0 * arg0->unk0 + arg0->unk4 * arg0->unk4);
 }
 
 void func_80304EC4_716574(struct039 *arg0, struct039 *arg1) {
@@ -64,15 +60,7 @@ s16 func_80305084_716734(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
 }
 
 s16 func_80305194_716844(s16 arg0, s16 arg1) {
-    s32 diff;
-    s16 ret;
-
-    diff = arg0 - arg1;
-    if (diff < 0) {
-        ret = -diff;
-    } else {
-        ret = diff;
-    }
+    s16 ret = ABS(arg0 - arg1);
     if (ret >= 181) {
         ret = 360 - ret;
     }
@@ -80,16 +68,7 @@ s16 func_80305194_716844(s16 arg0, s16 arg1) {
 }
 
 s16 func_803051F0_7168A0(s16 arg0, s16 arg1) {
-    s32 diff;
-    s16 ret;
-
-    diff = arg0 - arg1;
-
-    if (diff < 0) {
-        ret = -diff;
-    } else {
-        ret = diff;
-    }
+    s16 ret = ABS(arg0 - arg1);
     if (ret >= 129) {
         ret = 256 - ret;
     }

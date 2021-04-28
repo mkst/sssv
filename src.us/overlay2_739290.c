@@ -147,7 +147,7 @@ struct025* func_803284C4_739B74(void) {
 //     }
 //     D_803D553C = (u16)0;
 //     D_803D553A = (u16)0;
-//     func_8032C360_73DA10(0x28, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos,  D_803D5530->yPos, 1.0f);
+//     play_sound_effect_at_location(0x28, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos,  D_803D5530->yPos, 1.0f);
 // }
 
 void func_8032AA94_73C144(void) {
@@ -385,7 +385,7 @@ void func_8032C2D0_73D980(s16 arg0, s16 arg1, f32 arg2) {
     }
 }
 
-void func_8032C360_73DA10(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, f32 arg6) {
+void play_sound_effect_at_location(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, f32 arg6) {
     s32 sqrt;
     s16 tmp;
 

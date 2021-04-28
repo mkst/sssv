@@ -13,7 +13,7 @@ void func_80372510_783BC0(void) {
     } else {
         D_803D552C->unk365 = 5;
     }
-    func_8032C360_73DA10(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_803725A4_783C54(void) {
@@ -33,7 +33,7 @@ void func_80372604_783CB4(void) {
     } else {
         D_803D552C->unk365 = 5;
     }
-    func_8032C360_73DA10(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_80372698_783D48(void) {

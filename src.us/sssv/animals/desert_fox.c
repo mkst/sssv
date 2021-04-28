@@ -77,7 +77,7 @@ void func_8037460C_785CBC(void) {
 //         temp_t0 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF];
 //         temp_t2 = (temp_a3 * arg1 * 2) + D_803D552C->xPos + (arg0 * temp_t0 * 2);
 //         temp_t3 = (D_803D552C->zPos + (arg1 * temp_t0 * 2)) - (temp_a3 * arg0 * 2);
-//         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160, temp_a3);
+//         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160);
 //         D_803F2F08[D_803B4F30].unk0 = temp_t2;
 //         D_803F2F08[D_803B4F30].unk4 = temp_t3;
 //         D_803F2F08[D_803B4F30].unk8 = temp_ret + 0x40000;
