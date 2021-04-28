@@ -199,28 +199,16 @@ void func_80349280_75A930(Animal *arg0, s16 arg1) {
             temp_a2 = arg1 >> 2;
             temp_v1 = temp_a2 + 4;
             temp_a2 = arg0->unk36B + temp_a2;
-            if (temp_v1 < temp_a2) {
-                arg0->unk36B = temp_a2;
-            } else {
-                arg0->unk36B = temp_v1;
-            }
+            arg0->unk36B = MAX(temp_a2, temp_v1);
         }
         if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
             if (arg0 == D_803F2CF8.animal) {
-                if ((arg0->health - arg1) < 0) {
-                    D_803F2CF8.unk6 = 0;
-                } else {
-                    D_803F2CF8.unk6 = arg0->health - arg1;
-                }
+                D_803F2CF8.unk6 = MAX(0, arg0->health - arg1);
                 D_803F2CF8.unkA = 64;
             } else if ((D_803F2CF8.animal == NULL) || ((arg1 != 0) && ((D_803F2CF8.unk8 == D_803F2CF8.unk6) || (D_803F2CF8.animal->unk16C->unk7C < arg0->unk16C->unk7C)))) {
                 D_803F2CF8.animal = arg0;
                 D_803F2CF8.health = arg0->health;
-                if (arg0->health - arg1 < 0) {
-                    D_803F2CF8.unk6 = 0;
-                } else {
-                    D_803F2CF8.unk6 = arg0->health - arg1;
-                }
+                D_803F2CF8.unk6 = MAX(0, arg0->health - arg1);
                 D_803F2CF8.unk8 = D_803F2CF8.health;
                 D_803F2CF8.unkA = 64;
             }
@@ -231,43 +219,32 @@ void func_80349280_75A930(Animal *arg0, s16 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/osd/func_803493C8_75AA78.s")
 // NON-MATCHING: few things wrong here..
 // void func_803493C8_75AA78(void) {
-//     s32 spC;
-//     s32 temp_t7;
-//     s32 temp_t9;
+//     s32 pad[2];
 //
 //     if (D_803F2CF8.animal != NULL) {
-//
+//         s32 alpha;
 //         gDPPipeSync(D_801D9E7C++);
 //
-//         if (D_803F2CF8.unkA >= 33) {
-//             spC = 32;
-//         } else {
-//             spC = D_803F2CF8.unkA;
-//         }
-//
-//         temp_t9 = (spC * 6) & 0xFF; // blue alpha
-//
-//         // temp_v0_2->unk4 = (s32) (temp_t9 | 0x00508200); // dark blue
-//         gDPSetPrimColor(D_801D9E7C++, 0, 0, 0x00, 0x50, 0x82, temp_t9);
-//         // temp_v0_3->unk4 = (s32) (temp_t9 | 0x0050EB00); // light blue
-//         gDPSetEnvColor(D_801D9E7C++, 0x00, 0x50, 0xEB, temp_t9);
+//         alpha = MIN(32, D_803F2CF8.unkA);
+//         gDPSetPrimColor(D_801D9E7C++, 0, 0, 0, 80, 130, alpha * 6); // dark blue
+//         gDPSetEnvColor(D_801D9E7C++, 0, 80, 235, alpha * 6);        // light blue
 //
 //         // E4000000000C4000B400000000000000B300000000000400
-//         gSPTextureRectangle(D_801D9E7C++, 4*(49), D_803F2CF0 + 0xC, D_803F2CF8.unk8 + 0xC4, D_803F2CF0 + 0x18, G_TX_RENDERTILE, 0, 0, 0, 1024);
+//         gSPTextureRectangle(D_801D9E7C++, 196, D_803F2CF0 + 12, D_803F2CF8.unk8 + 196, D_803F2CF0 + 24, G_TX_RENDERTILE, 0, 0, 0, 1024);
 //         gDPPipeSync(D_801D9E7C++);
 //
-//         temp_t7 = (spC * 5) & 0xFF; // pink alpha
+//         // temp_t7 = (spC * 5) ; // pink alpha
 //         // temp_v0_8->unk4 = (s32) (temp_t7 | 0xC8006400); // dark pink
-//         gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xC8, 0x00, 0x64, temp_t7);
+//         gDPSetPrimColor(D_801D9E7C++, 0, 0, 200, 0, 100, alpha * 5);
 //         // temp_v0_9->unk4 = (s32) (temp_t7 | 0xFF008000); // light pink
-//         gDPSetEnvColor(D_801D9E7C++, 0xFF, 0x00, 0x80, temp_t7);
+//         gDPSetEnvColor(D_801D9E7C++, 255, 0, 128, alpha * 5);
 //
 //         // E400000000000000B400000000000000B300000000000400
-//         gSPTextureRectangle(D_801D9E7C++, D_803F2CF8.unk8 + 0xC4, D_803F2CF0 + 0xC, D_803F2CF8.unk8 + (D_803F2CF8.health - D_803F2CF8.unk8) + 0xC4, D_803F2CF0 + 0x18, G_TX_RENDERTILE, 0, 0, 0, 1024);
+//         gSPTextureRectangle(D_801D9E7C++, D_803F2CF8.unk8 + 196, D_803F2CF0 + 12, D_803F2CF8.unk8 + (D_803F2CF8.health - D_803F2CF8.unk8) + 196, D_803F2CF0 + 24, G_TX_RENDERTILE, 0, 0, 0, 1024);
 //
 //         if (D_803F2CF8.unk6 < D_803F2CF8.unk8) {
 //             D_803F2CF8.unk8 -= 1;
-//         } else if ( D_803F2CF8.unkA > 0) {
+//         } else if (D_803F2CF8.unkA > 0) {
 //             D_803F2CF8.unkA -= 1;
 //         } else {
 //             D_803F2CF8.animal = 0;
@@ -282,23 +259,27 @@ void func_80349280_75A930(Animal *arg0, s16 arg1) {
 //     D_803F2CDF = 0;
 //     D_803F2CDA = 0;
 //
-//     switch (D_803F2CDC - 1) {
-//         case 3:
+//     switch (D_803F2CDC) {
+//         case 1:
 //             D_803F2CDD = 5;
+//             break;
+//         case 2:
+//             D_803F2CDD = 5;
+//             break;
+//         case 3:
 //             break;
 //         case 4:
-//             D_803F2CDD = 5;
-//             break;
-//         case 0:
 //             D_803F2CDD = 2;
 //             break;
-//         case 1:
+//         case 5:
 //             D_803F2CDD = 2;
 //             break;
 //         case 6:
-//             D_803F2CDD = 8;
 //             break;
 //         case 7:
+//             D_803F2CDD = 8;
+//             break;
+//         case 8:
 //             D_803F2CDD = 8;
 //             break;
 //     }
@@ -407,7 +388,7 @@ void func_80349AA0_75B150(u16 arg0) {
     }
 }
 
-void osd_draw_timer(u16 arg0) {
+void osd_draw_timer(s16 arg0) {
     s32 time;
     s16 str[20]; // how long is a piece of string
 
@@ -420,15 +401,15 @@ void osd_draw_timer(u16 arg0) {
         }
     }
 
-    func_801308B4(D_803A8344, str);
+    prepare_text(D_803A8344, str);
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(255, 255, 0, 255); // yellow
     select_font(0, 0, 1, 0);
     // write string centered
-    func_8012C978(&D_801D9E7C, str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
+    display_text(&D_801D9E7C, str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
 }
 
-void func_80349CA4_75B354(u16 arg0) {
+void func_80349CA4_75B354(s16 arg0) {
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(255, 255, 0, 255); // yellow
     select_font(0, 0, 1, 0);
@@ -436,7 +417,6 @@ void func_80349CA4_75B354(u16 arg0) {
 }
 
 void func_80349D34_75B3E4(void) {
-
     if (D_803F2CDF == 0) {
         D_803F2CDC = 0;
     } else if ((D_803F2CDC == 6) && (D_803F2CD2 > 0)) {
@@ -455,37 +435,20 @@ void func_80349D34_75B3E4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/osd/func_80349DCC_75B47C.s")
 // NON-MATCHING: starts ok-ish, falls apart towards the end
 // void func_80349DCC_75B47C(s16 arg0) {
-//     s16 temp_t6;
-//     s16 temp_v0;
-//     s16 temp_v0_2;
-//     s16 temp_v0_3;
-//     s16 temp_v0_4;
-//     s16 temp_v0_5;
-//     s16 temp_v0_6;
-//     s16 temp_v0_7;
-//     s16 temp_v1;
-//     s16 temp_v1_2;
 //     s16 phi_a0;
-//     s16 phi_a0_2;
-//     s16 phi_a0_3;
-//     s32 phi_a1;
-//     s16 phi_a0_4;
-//     s16 phi_a0_5;
-//     s16 phi_a1_2;
-//     s16 phi_a1_3;
-//     s16 phi_a0_6;
-//     s16 phi_a1_4;
 //
 //     if ((arg0 == 0) && (D_803F2D10.unk0 == 0)) {
-//         if ((s32) D_803F2CD2 > 0) {
+//         if (D_803F2CD2 > 0) {
 //             D_803F2CD4 += 1;
-//             if ((s32) D_803F2CD4 >= (s32) D_803F2CD8) {
-//                 D_803F2CD4 = (u16)0;
+//             if (D_803F2CD4 >= D_803F2CD8) {
+//                 D_803F2CD4 = 0;
 //                 D_803F2CD2 +=  D_803F2CD6;
 //             }
 //         }
 //     }
 //     switch (D_803F2CDC) {
+//         case 0:
+//             break;
 //         case 1:
 //             if (arg0 == 0) {
 //                 if (D_803F2CD2 <= 0) {
@@ -499,7 +462,7 @@ void func_80349D34_75B3E4(void) {
 //             if (arg0 == 0) {
 //                 if (D_803F2CDA >= 9) {
 //                     D_803F2CDC = (u8)1U;
-//                     phi_a0 = gScreenHeight - 0x24;
+//                     phi_a0 = gScreenHeight - 36;
 //                 } else {
 //                     phi_a0 = gScreenHeight - (D_803F2CDA * 4);
 //                 }
@@ -522,24 +485,23 @@ void func_80349D34_75B3E4(void) {
 //               break;
 //         case 4:
 //             if (arg0 == 0) {
-//                 D_803F2CD0 = (s16) (D_803F2CD0 - 1);
-//                 if ((s32) D_803F2CD0 <= 0) {
+//                 D_803F2CD0 -= 1;
+//                 if (D_803F2CD0 <= 0) {
 //                     D_803F2CDC = (u8)6U;
 //                     D_803F2CDA = (u16)0;
 //                 }
-//                 func_80349CA4_75B354(gScreenHeight - 0x24);
+//                 func_80349CA4_75B354(gScreenHeight - 36);
 //             }
 //             break;
 //         case 5:
 //             if (arg0 == 0) {
-//                 if ((s32) D_803F2CDA >= 9) {
+//                 if (D_803F2CDA >= 9) {
 //                     D_803F2CDC = (u8)4U;
-//                     phi_a0_3 = gScreenHeight - 0x24;
+//                     phi_a0 = gScreenHeight - 36;
 //                 } else {
-//                     temp_v1 = gScreenHeight;
-//                     phi_a0_3 = (temp_v1 + ((9 - D_803F2CDA) * ((s32) (((temp_v1 + D_803F2CE4) - temp_v1) + 0x24) / 9))) - 0x24;
+//                     phi_a0 = (gScreenHeight + ((9 - D_803F2CDA) * ((s32) (((gScreenHeight + D_803F2CE4) - gScreenHeight) + 36) / 9))) - 36;
 //                 }
-//                 func_80349CA4_75B354(phi_a0_3); //, phi_a1, &D_803F2CDC);
+//                 func_80349CA4_75B354(phi_a0);
 //                 D_803F2CDA += 1;
 //             }
 //             break;
@@ -547,23 +509,23 @@ void func_80349D34_75B3E4(void) {
 //             if (arg0 == 0) {
 //                 if (D_803F2CD2 > 0) {
 //                     D_803F2CDC = (u8)1U;
-//                     phi_a0_4 = (s16) (gScreenHeight - 0x24);
+//                     phi_a0 = gScreenHeight - 36;
 //                 } else {
 //                     if ((s32) D_803F2CDA >= 9) {
 //                         func_80349D34_75B3E4(); //&D_803F2CD2); //, temp_t6, &D_803F2CDC);
-//                         phi_a0_4 = (s16) (gScreenHeight + D_803F2CE4);
+//                         phi_a0 = gScreenHeight + D_803F2CE4;
 //                     } else {
-//                         temp_v1_2 = gScreenHeight;
-//                         phi_a0_4 = (s16) ((temp_v1_2 + (D_803F2CDA * ((s32) (((temp_v1_2 + D_803F2CE4) - temp_v1_2) + 0x24) / 9))) - 0x24);
+//                         phi_a0 = (gScreenHeight + (D_803F2CDA * ((((gScreenHeight + D_803F2CE4) - gScreenHeight) + 36) / 9))) - 36;
 //                     }
 //                 }
-//                 func_80349CA4_75B354(phi_a0_4);
+//                 func_80349CA4_75B354(phi_a0);
 //                 D_803F2CDA += 1;
 //             }
 //             break;
 //         case 7:
-//             if (arg0 == 0) {
-//                 func_803491F0_75A8A0();
+//             if (arg0 != 0) {
+//                 phi_a0 = gScreenHeight - 36;
+//                 func_80348230_7598E0(phi_a0);
 //             }
 //             break;
 //         case 8:
@@ -580,26 +542,28 @@ void func_80349D34_75B3E4(void) {
 //             }
 //             if (arg0 != 0) {
 //                 if (D_803F2CDA >= 9) {
-//                     phi_a0_6 = D_80203FD2;
+//                     phi_a0 = D_80203FD2;
 //                 } else {
-//                     phi_a0_6 = (D_80203FD2 + (D_803F2CDA * 4)) - 0x24;
+//                     phi_a0 = (D_80203FD2 + (D_803F2CDA * 4)) - 36;
 //                 }
-//                 func_80348230_7598E0(phi_a0_6);
+//                 func_80348230_7598E0(phi_a0);
 //             }
 //             if (arg0 == 0) {
 //                 D_803F2CDA += 1;
 //             }
 //             break;
-//         case 0:
+//         default:
 //             if (D_803F2CDA >= 9) {
 //                 D_803F2CDC = (u8)7U;
-//                 phi_a0_5 = gScreenHeight - 0x24;
+//                 phi_a0 = gScreenHeight - 36;
 //             } else {
-//                 phi_a0_5 = gScreenHeight - (D_803F2CDA * 4);
+//                 phi_a0 = gScreenHeight - (D_803F2CDA * 4);
 //             }
-//             func_80348230_7598E0(phi_a0_5);
+//             func_80348230_7598E0(phi_a0);
 //             D_803F2CDA += 1;
-//             func_80348230_7598E0(gScreenHeight - 0x24); // doubtful?
 //             break;
+//         // default:
+//             // func_80348230_7598E0(gScreenHeight - 36); // doubtful?
+//             // break;
 //     }
 // }

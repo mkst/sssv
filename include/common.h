@@ -143,6 +143,10 @@
 #define DESERT_BIOME                3
 #define CITY_BIOME                  4
 
+// sound effects
+#define SOUND_EFFECT_RAT_BITE       7
+#define SOUND_EFFECT_DROP_MINE      156
+
 // extra gbi macros
 
 #define gDPLoadTextureBlock2(pkt, timg, fmt, line, siz, width, height, \

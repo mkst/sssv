@@ -42,7 +42,28 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_8030A8EC_71BF9C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_8030A958_71C008.s")
+// jump
+void animal_jump(void) {
+    if (D_803D5524->unkA2 & 1) {
+        if (D_803D5524->unk9E == 2) {
+            if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) {
+                switch (D_803D5530->state) {
+                case 2:
+                    func_802A6390_6B7A40();
+                    break;
+                case 3:
+                    func_802A6390_6B7A40();
+                    break;
+                case 4:
+                    func_802A63C0_6B7A70();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_8030AA08_71C0B8.s")
 
@@ -78,7 +99,15 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80310E10_7224C0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80310EE4_722594.s")
+s32 func_80310EE4_722594(s16 x, s16 z, u8 arg2) {
+    switch (arg2) {
+        case 0:
+        case 1:
+            return func_8031124C_7228FC(x, z);
+        case 2:
+            return func_80310F58_722608(x, z);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80310F58_722608.s")
 

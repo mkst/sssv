@@ -64,7 +64,7 @@ void func_8035A2A8_76B958(void) {
     func_803223F4_733AA4(2);
 }
 
-void func_8035A420_76BAD0(Animal *animal) {
+void biker_hyena_fire_missile(Animal *animal) {
     s16 tmp;
 
     if (func_8037FBBC_79126C()) {

@@ -77,11 +77,11 @@ extern s32  D_80032870;
 
 // 0x8004xxxx
 
-extern u8   D_8004B400[]; // _gfxdlistSegmentStart
+extern u8   *D_8004B400; // _gfxdlistSegmentStart
 
 // 0x8009xxxx
 
-extern u8   D_80099600[]; // _gfxdlistSegmentEnd
+extern u8   *D_80099600; // _gfxdlistSegmentEnd
 
 // 0x800Bxxxx
 
@@ -246,6 +246,7 @@ extern Gfx *D_801D9E90;
 extern Gfx *D_801D9E94;
 extern struct014 *D_801D9E98[];
 extern Gfx *D_801D9EB8;
+extern s32  D_801D9ED0;
 extern s16  D_801D9ED4;
 extern struct050 D_801D9ED8; // what is this variable!?
 
@@ -258,12 +259,17 @@ extern struct015 D_801DDD8C[]; // animals struct array
 extern u16  D_801E9E8E;
 extern s16  D_801E9EB2;
 extern s16  D_801E9EB4;
-extern s16  D_801E9EB8;
+
+// 0x801Fxxxx
+
+extern struct072 D_801F9EB8;
 
 // 0x8020xxxx
 
 extern struct002 *D_80200000;
 extern s16  D_80200008;
+extern struct071 *D_80203D1C[]; // table of pointers to each interactive object
+extern s16  D_80203FC4;
 extern s16  D_80203FD0;
 extern s16  D_80203FD2;
 extern struct016 D_80203FE0[16];
@@ -416,6 +422,7 @@ extern OSMesgQueue D_80291078;
 extern Controller D_80291090;
 extern OSContPad *gControllerInput;
 extern OSContStatus *D_802910D8[];
+extern OSContPad D_802910E8[4]; // 4?
 extern ControllerMesg D_80291100;
 extern OSPfs       *D_80291110[]; // ?
 extern OSMesgQueue D_802912B0;
@@ -530,6 +537,10 @@ extern u8   D_803A38D8[];
 extern s32  D_803A5590_7B6C40[];
 extern u16  D_803A5750_7B6E00;
 extern u32  D_803A5BF8_7B72A8[][2];
+extern s32  D_803A52C0;
+extern s32  D_803A52C0_7B6970;
+extern s16  D_803A52C4;
+extern s16  D_803A52C4_7B6974;
 extern s8   D_803A63B0[];
 extern s16  D_803A6730[];
 extern s16  D_803A69F0[];
@@ -567,6 +578,13 @@ extern s16  D_803B0592;
 extern s16  D_803B0594;
 extern u8   D_803B0595;
 extern s16  D_803B0596;
+
+extern OSContPad D_803B1F20_7C35D0;
+extern OSContPad D_803B2580_7C3C30;
+extern OSContPad D_803B29D8_7C4088;
+extern OSContPad D_803B30D0_7C4780;
+extern OSContPad D_803B384C_7C4EFC;
+extern OSContPad D_803B3388_7C4A38;
 
 extern s16  D_803B4F30;
 extern s16  D_803B4F34;
@@ -712,6 +730,7 @@ extern struct035 *D_803D5524;
 extern Animal *D_803D5528;
 extern Animal *D_803D552C; // is this *really* Animal?
 extern s16  D_803D5540;
+extern s16  D_803D5542;
 extern u16  D_803D5544;
 extern u16  D_803D5546;
 extern s8   D_803D554A;
@@ -760,9 +779,11 @@ extern s32  D_803E4D2C;
 extern s32  D_803E4D30;
 extern s32  D_803E4D38[2];
 extern u8   D_803E4D40[0x4114]; // tbd what this is
+extern u16  D_803E1B04;
 extern s16  D_803E1B10[4]; // struct?
 extern s16  D_803E1BC0;
-extern u16  D_803E1BC4; // buttons pressed
+extern OSContPad D_803E1BC4;
+extern OSContPad *D_803E1BD4;
 extern Fog  D_803E1CF8;
 extern struct064 D_803E1D3B[];
 extern u16  D_803E8E54;
@@ -886,6 +907,7 @@ extern s16  D_803F3308;
 extern s16  D_803F330A;
 extern s16  D_803F330C;
 extern s16  D_803F330E;
+extern s16  D_803F3310;
 extern s16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;

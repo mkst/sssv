@@ -2,6 +2,77 @@
 #include "common.h"
 
 
+void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
+    perform_behavior_seagull,
+    perform_behavior_lion,
+    perform_behavior_hippo,
+    func_80383E38_7954E8,
+    func_80383E40_7954F0,
+    func_80384060_795710, // 5 FLYING_DOG
+    func_8038448C_795B3C,
+    func_803846BC_795D6C, // 7 FIRE_FOX
+    func_80384858_795F08,
+    func_803892DC_79A98C, // 9 POLAR_BEAR_DEFENDING
+    func_80384A8C_79613C,
+    func_80384CB8_796368, // HELI_RABBIT
+    func_80384F14_7965C4,
+    func_80385DF0_7974A0, // KING_RAT
+    func_80384F1C_7965CC,
+    func_80385078_796728,
+    func_80385080_796730,
+    func_803892E4_79A994,
+    func_80385088_796738,
+    func_803892EC_79A99C,
+    func_803852B8_796968,
+    func_803852C0_796970,
+    func_803852C8_796978,
+    func_80385480_796B30, // 23 BEAR_ATTACKING
+    func_80385488_796B38,
+    func_8038951C_79ABCC,
+    func_80385490_796B40,
+    func_80385710_796DC0, // TORTOISE_TANK
+    func_80385A0C_7970BC,
+    func_803859D4_797084,
+    func_80389524_79ABD4,
+    func_80385BE0_797290,
+    func_80385F90_797640, // RAT
+    perform_behavior_sheep,
+    func_803865A0_797C50,
+    func_803867B8_797E68,
+    func_803867C0_797E70,
+    func_80386A48_7980F8, // PENGUIN
+    func_80386BB8_798268,
+    func_80386D80_798430,
+    func_80386F84_798634,
+    func_8038710C_7987BC,
+    func_80387114_7987C4,
+    func_8038974C_79ADFC,
+    func_80387330_7989E0,
+    func_8038754C_798BFC,
+    func_80387780_798E30,
+    func_803879A4_799054,
+    func_80389754_79AE04,
+    func_80387BF4_7992A4,
+    func_80387DE0_799490,
+    func_8038801C_7996CC,
+    func_80388248_7998F8,
+    func_80388480_799B30,
+    func_80388744_799DF4,
+    func_8038801C_7996CC,
+    func_803888F0_799FA0,
+    func_80388B0C_79A1BC,
+    func_80388CC8_79A378, // BIKER_HYENA
+    func_80388F10_79A5C0,
+    func_80389150_79A800,
+    func_80389158_79A808,
+    func_80389158_79A808,
+    func_80389158_79A808,
+    func_80389160_79A810, // KING_PENGUIN
+    func_803892D4_79A984,
+    func_8038975C_79AE0C,
+    func_80389158_79A808
+};
+
 s32 func_80383830_794EE0(u16 arg0) {
     Animal *a = D_803D552C->unk2CC;
     if (arg0 < func_803051F0_7168A0((func_801284B8(a->xPos - D_803D5530->xPos, a->zPos - D_803D5530->zPos) * 256) / 360, D_803D5530->yRotation)) {
@@ -35,7 +106,9 @@ s16 func_8038395C_79500C(void) {
     return res;
 }
 
-void func_803839F0_7950A0(void) {
+// all animal behaviours
+
+void perform_behavior_lion(void) {
     if (1) {}; // needed for regalloc
 
     switch (D_803D552C->unk2B4.state) {
@@ -52,7 +125,7 @@ void func_803839F0_7950A0(void) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 101) && (func_80383830_794EE0(5) != 0)) {
-            func_802F2AA0_704150();
+            lion_roar();
             D_803D552C->unk2C4 = (func_8012826C() % 40) + 50;
         } else if (D_803D552C->unk2C4 <= 0) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
@@ -69,7 +142,7 @@ void func_803839F0_7950A0(void) {
     }
 }
 
-void func_80383BE4_795294(void) {
+void perform_behavior_hippo(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -98,7 +171,7 @@ void func_80383BE4_795294(void) {
         break;
     case 2:
         if ((func_80383830_794EE0(80) == 0) && (D_803D552C->unk2C4 <= 0)) {
-            func_802F05A4_701C54();
+            drop_sticky_mine();
             D_803D552C->unk2C4 = 60;
         }
         if ((D_803D552C->unk2D0 >= 401) || (D_803D552C->unk2B8++ >= 60)) {
@@ -148,6 +221,7 @@ void func_80383E40_7954F0(void) {
     }
 }
 
+// perform_behavior_flying_fox
 void func_80384060_795710(void) {
     if ((D_803D552C->unk2CC->unk16C->unk9E == 64) ||
         (D_803D552C->unk2CC->unk16C->unk9E == 128) ||
@@ -262,7 +336,7 @@ void func_803846BC_795D6C(void) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
         }
         if ((D_803D552C->unk2C4 == 0) && (D_803D552C->unk2D0 < 200) && (func_80383830_794EE0(20) != 0)) {
-            func_802E87B8_6F9E68(D_803D552C->unk2CC);
+            flying_fox_fire_missile(D_803D552C->unk2CC);
             D_803D552C->unk2C4 = 0x96;
             D_803D552C->unk2B4.state = 2;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
@@ -296,7 +370,7 @@ void func_80384858_795F08(void) {
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
             D_803D552C->unk2BC += 1;
             if (D_803D552C->unk2BC < 4) {
-                func_80302DD0_714480();
+                frog_croak();
             }
             D_803D552C->unk2C4 =  (func_8012826C() & 7) + 10;
             if (D_803D552C->unk2BC >= 5) {
@@ -369,7 +443,7 @@ void func_80384CB8_796368(void) {
         break;
     case 2:
         if ((D_803D552C->unk2C4 >= 60) && ((D_803D552C->unk2C4 % 5) == 0)) {
-            func_80302120_7137D0(0, 0, 0);
+            heli_rabbit_drop_bomb(0, 0, 0);
         } else if (D_803D552C->unk2C4 < 60) {
             D_803D552C->unk2B4.state = 3;
             func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -180, 16);
@@ -731,7 +805,7 @@ void func_80385F90_797640(void) {
             break;
         case 2:
             if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(80) == 0)) {
-                func_8035FC2C_7712DC();
+                rat_drop_mine();
                 D_803D552C->unk2C4 = 0x3C;
             }
             if (D_803D552C->unk2C0 > 0) {
@@ -763,7 +837,7 @@ void func_80385F90_797640(void) {
             break;
         case 2:
             if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x29) && (func_80383830_794EE0(15) != 0)) {
-                func_8035FD4C_7713FC();
+                rat_bite();
                 D_803D552C->unk2C4 = (func_8012826C() & 3) + 5;
                 D_803D552C->unk2BC += 1;
                 if (D_803D552C->unk2BC >= 6) {
@@ -774,7 +848,7 @@ void func_80385F90_797640(void) {
             }
             break;
         case 3:
-            if (D_803E4C3C < 0x65) {
+            if (D_803E4C3C < 101) {
                 func_80363CC8_775378(D_803D5530);
                 D_803D552C->unk2B4.state = 4;
                 break;
@@ -790,7 +864,7 @@ void func_80385F90_797640(void) {
             // fallthru
         case 1:
             if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x47) && (func_80383830_794EE0(15) != 0)) {
-                func_8035FD4C_7713FC();
+                rat_bite();
                 D_803D552C->unk2C4 = (func_8012826C() & 3) + 5;
                 if (++D_803D552C->unk2BC >= 6) {
                     func_80363CC8_775378(D_803D5530);
@@ -809,7 +883,7 @@ void func_80385F90_797640(void) {
     }
 }
 
-void func_80386454_797B04(void) {
+void perform_behavior_sheep(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
@@ -824,7 +898,7 @@ void func_80386454_797B04(void) {
                 D_803D552C->unk2CC = 0;
                 func_80363FF0_7756A0(D_803D5530);
             } else {
-                func_8030A958_71C008();
+                animal_jump();
                 func_80363FB8_775668(D_803D5530, (guRandom() % 360), 0, 16);
                 D_803D552C->unk2C0 = ((guRandom() % 0xF) + 20);
             }
@@ -852,7 +926,7 @@ void func_803865A0_797C50(void) {
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x33)) {
             if (func_80383830_794EE0(5) != 0) {
                 if (++D_803D552C->unk2BC < 4) {
-                    func_80362A84_774134();
+                    ram_headbutt();
                 }
                 D_803D552C->unk2C4 = (func_8012826C() & 3) + 5;
                 if (D_803D552C->unk2BC >= 3) {
@@ -892,7 +966,7 @@ void func_803867C0_797E70(void) {
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x33)) {
             if (func_80383830_794EE0(5) != 0) {
                 if (++D_803D552C->unk2BC < 5) {
-                    func_80362A84_774134();
+                    ram_headbutt();
                 }
                 D_803D552C->unk2C4 = (func_8012826C() & 3) + 5;
                 if (D_803D552C->unk2BC >= 5) {
@@ -937,7 +1011,7 @@ void func_80386A48_7980F8(void) {
         }
         if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
-            func_80365D8C_77743C(D_803D552C->unk2CC);
+            penguin_throw_snowball(D_803D552C->unk2CC);
         }
     }
 }
@@ -1002,7 +1076,7 @@ void func_80386D80_798430(void) {
         break;
     case 3:
         if (D_803D552C->unk2C4 <= 0) {
-            func_80368C50_77A300();
+            polar_tank_drop_mine();
             D_803D552C->unk2C4 = (guRandom() & 0xF) + 70;
         }
         if (D_803D552C->unk2D0 >= 0xFB) {
@@ -1069,7 +1143,7 @@ void func_80387114_7987C4(void) {
             if (D_803D552C->unk2C4 <= 0) {
                 if (func_80383830_794EE0(20) != 0) {
                     D_803D552C->unk2C4 = (guRandom() % 20) + 20;
-                    func_8036BEA4_77D554(D_803D552C->unk2CC);
+                    ski_husky_fire_missile(D_803D552C->unk2CC);
                 }
             }
         }
@@ -1106,7 +1180,7 @@ void func_80387330_7989E0(void) {
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(0x14) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() % 30) + 30);
-            func_80376B88_788238(D_803D552C->unk2CC);
+            walrus_fire_missile(D_803D552C->unk2CC);
         }
         break;
     case 3:
@@ -1216,7 +1290,7 @@ void func_803879A4_799054(void) {
         }
         if ((D_803D552C->unk2C4 <= 0) && (func_803838C8_794F78(D_803D552C->unk308, 5) != 0)) {
             if (D_803D552C->unk2D0 < 0x17D) {
-                func_8036F5F4_780CA4(D_803D552C->unk2CC);
+                camel_cannon_fire_cannon(D_803D552C->unk2CC);
                 D_803D552C->unk2C4 = ((guRandom() % 0x24) + 25);
             }
         }
@@ -1564,7 +1638,7 @@ void func_80388CC8_79A378(void) {
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 0x14) + 0x14;
-            func_8035A420_76BAD0(D_803D552C->unk2CC);
+            biker_hyena_fire_missile(D_803D552C->unk2CC);
         }
         break;
     case 3:
@@ -1657,7 +1731,7 @@ void func_803892E4_79A994(void) {
 void func_803892EC_79A99C(void) {
 }
 
-void func_803892F4_79A9A4(void) {
+void perform_behavior_seagull(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -0x50 - D_803D552C->unk2CC->unk42, 16);
@@ -1790,7 +1864,7 @@ s32 func_803897B0_79AE60(u8 arg0) {
 
     if (sp22 != 0) {
         if (--D_803D552C->unk2C0 <= 0) {
-            func_8030A958_71C008();
+            animal_jump();
             D_803D552C->unk2C0 = (guRandom() & 0xF) + 70;
         }
     }

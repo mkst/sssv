@@ -7,14 +7,14 @@ void func_80352280_763930(void) {
     s32 pad[2];
     u32 len = D_0007F790 - D_000398D0;
 
-    if (len >= D_80099600 - D_8004B400) {
+    if (len >= (u32)&D_80099600 - (u32)&D_8004B400) {
         // "\nASSERT: len < (_gfxdlistSegmentEnd - _gfxdlistSegmentStart), %s, %u\n"
         // "../src/init.c"
         rmonPrintf(D_803BE9F0, D_803BEA38, 93, len);
         // die
         *(volatile int*)0 = 0;
     }
-    D_801D9E74 = D_8004B400;
+    D_801D9E74 = &D_8004B400;
     dma_read(D_000398D0, D_801D9E74, len);
 }
 

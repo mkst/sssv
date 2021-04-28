@@ -15,7 +15,7 @@ void func_803144F8_725BA8(void) {
 void func_80314590_725C40(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     func_8032AAF0_73C1A0(PARROT);
-    func_8032C360_73DA10(0x8D, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BD114_7CE7C4);
+    play_sound_effect_at_location(0x8D, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BD114_7CE7C4);
     func_802A6100_6B77B0();
 }
 

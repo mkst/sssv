@@ -1,21 +1,22 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern s32 D_801D9E5C;
-extern s32 D_801D9EC4;
-extern s32 D_801D9E58;
-extern s32 D_801D9E60;
-extern s32 D_801D9E64;
-extern s32 D_801D9E68;
+extern u8  *D_801D9E58;
+extern u8  *D_801D9E5C;
+extern u8  *D_801D9E60;
+extern u8  *D_801D9E64;
+extern u8  *D_801D9E68;
+extern u8  *D_801D9EC4;
 
-extern u8  D_800B0B20[];
+extern u8  *D_800B0B20;
+
+extern u8  D_00085790[];
 extern u8  D_000C7A30[];
 extern u8  D_000DD5C0[];
 extern u8  D_000E75B0[];
 extern u8  D_000F1060[];
 extern u8  D_000FFD50[];
 extern u8  D_00116BD0[];
-extern u8  D_00085790[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/func_803800F0_7917A0.s")
 // void func_803800F0_7917A0(u8 arg0) {
@@ -27,60 +28,62 @@ extern u8  D_00085790[];
 //     available = D_800B0B20 - D_80099600;
 //     fancy_bzero(D_80099600, available);
 //     switch (arg0) {
-//     case 5:
+//     case 0:
 //         len = D_00116BD0 - D_000FFD50;
 //         if ((available <= len)) {
 //             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x72, available);
 //             *(volatile int*)0 = 0;
 //         }
 //         D_801D9E5C = D_80099600;
-//         dma_read(D_000FFD50, D_80099600, len);
+//         dma_read(D_000FFD50, &D_80099600, len);
 //         D_801D9EC4 = D_801D9E5C;
 //         break;
-//     case 0:
+//     case 1:
 //         len = D_000DD5C0 - D_000C7A30;
 //         if ((available <= len)) {
 //             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x84, available);
 //             *(volatile int*)0 = 0;
 //         }
 //         D_801D9E58 = D_80099600;
-//         dma_read(D_000C7A30, D_80099600, len);
+//         dma_read(D_000C7A30, &D_80099600, len);
 //         D_801D9EC4 = D_801D9E58;
 //         break;
-//     case 1:
+//     case 2:
 //         len = D_000E75B0 - D_000DD5C0;
 //         if ((available > len)) { // huh
 //             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x96, available);
 //             *(volatile int*)0 = 0;
 //         }
 //         D_801D9E60 = D_80099600;
-//         dma_read(D_000DD5C0, D_80099600, len);
+//         dma_read(D_000DD5C0, &D_80099600, len);
 //         D_801D9EC4 = D_801D9E60;
 //         break;
-//     case 2:
+//     case 3:
 //         len = D_000F1060 - D_000E75B0;
 //         if ((available > len)) {
 //             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xA8, available);
 //             *(volatile int*)0 = 0;
 //         }
 //         D_801D9E64 = D_80099600;
-//         dma_read(D_000E75B0, D_80099600, len);
+//         dma_read(D_000E75B0, &D_80099600, len);
 //         D_801D9EC4 = D_801D9E64;
 //         break;
-//     case 3:
+//     case 4:
+//         break;
+//     case 5:
 //         len = D_000FFD50 - D_000F1060;
 //         if ((available > len)) {
 //             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xBA, available);
 //             *(volatile int*)0 = 0;
 //         }
 //         D_801D9E68 = D_80099600;
-//         dma_read(D_000F1060, D_80099600, len);
+//         dma_read(D_000F1060, &D_80099600, len);
 //         D_801D9EC4 = D_801D9E68;
 //         break;
-//     case 4: // maybe?
+//     // case 5: // maybe?
 //     case 6:
 //         len = D_00085790 - D_0007F790;
-//         if (((u32)D_800BA760 - (u32)D_800B0B20) < len) {
+//         if (((u8*)D_800BA760 - D_800B0B20) < len) {
 //             rmonPrintf("\nASSERT: len <= (_gfxspecificSegmentEnd - _gfxspecificSegmentStart), %s, %u\n", "../src/animinit.c", 0xCE, available);
 //             *(volatile int*)0 = 0;
 //         }
@@ -93,7 +96,7 @@ extern u8  D_00085790[];
 //             *(volatile int*)0 = 0;
 //         }
 //         D_801D9E6C = D_80099600;
-//         dma_read(D_00116BD0, D_80099600, len);
+//         dma_read(D_00116BD0, &D_80099600, len);
 //         D_801D9EC4 = D_801D9E6C;
 //     }
 // }
@@ -116,25 +119,15 @@ void func_80380644_791CF4(Animal *arg0) {
 // void func_8038064C_791CFC(void) {
 //     s32 temp_v0_2;
 //     s32 tmp;
-//     s32 phi_v1;
 //
 //     if (D_803F2D10.unk0 == 0) {
-//         if ((D_803D552C->unk358 - 1) < 0) {
-//             D_803D552C->unk358 = 0;
-//         } else {
-//             D_803D552C->unk358 -= 1;
-//         }
+//         D_803D552C->unk358 = MAX(0, D_803D552C->unk358 - 1);
 //         if (D_803D552C->unk358 <= 0) {
 //             D_803D552C->unk363 = 0;
 //         }
 //     }
 //     if (D_803D552C->unk363 != 0) {
-//         if ((D_803D552C->unk358 >> 1) >= 51) {
-//             phi_v1 = 50;
-//         } else {
-//             phi_v1 = D_803D552C->unk358 >> 1;
-//         }
-//         func_80380620_791CD0(D_803D552C, 150, 15, phi_v1, 10);
+//         func_80380620_791CD0(D_803D552C, 150, 15, MIN(50, D_803D552C->unk358 >> 1), 10);
 //     }
 //     D_803F63E0 = 0;
 //     if ((D_803D552C->unk34C != 0) || (D_803D552C->unk34E != 0)) {
