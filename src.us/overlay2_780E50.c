@@ -22,7 +22,7 @@ void func_803725A4_783C54(void) {
         D_803D552C->unk365 = 35;
         D_803D552C->unk32C = D_803D552C->unk302;
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 

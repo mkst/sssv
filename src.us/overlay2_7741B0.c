@@ -129,6 +129,31 @@ void func_803638E8_774F98(Animal *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_8036390C_774FBC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80363A0C_7750BC.s")
+// void func_80363A0C_7750BC(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
+//     s32 sp2C;
+//     s16 temp_t4;
+//     s16 temp_v0;
+//     s32 temp_a0;
+//     s8 temp_t6;
+//     void *temp_v1;
+//
+//     temp_a0 = D_803E8E60[arg1];
+//     sp2C = temp_a0;
+//     temp_v0 = func_80319B4C_72B1FC(temp_a0, arg0->xPos, arg0->zPos, arg0->yPos);
+//     arg0->unk28C = (u16)1;
+//     temp_t4 = temp_v0;
+//     arg0->unk294.b[0] = (s8) temp_t4;
+//     arg0->unk294 = arg1;
+//     temp_t6 = (arg3 * 0x10) | (arg0->unk296 & 0xFF0F);
+//     arg0->unk294.b[2] = temp_t6;
+//     arg0->unk298 = arg2;
+//     arg0->unk294.b[2] = (s8) ((arg4 & 0xF) | (temp_t6 & 0xF0));
+//     arg0->unk294.b[3] = arg5;
+//     arg0->unk29C = sp2C;
+//     temp_v1 = sp2C + (temp_t4 * 3);
+//     func_80363C48_7752F8(arg0, (s16) ((temp_v1->unk1 << 6) + 0x20), (s16) ((temp_v1->unk2 << 6) + 0x20), (s16) ((temp_v1->unk3 << 6) + 0x20), (?32) arg2, (?32) arg5);
+//     arg0->unk294.b[1] += arg3; //(s8) (arg0->unk295 + arg3);
+// }
 
 void func_80363B34_7751E4(Animal *arg0, u16 arg1) {
     arg0->unk28C = 3;
@@ -406,7 +431,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
         case HYENA:
             animal_jump();
             break;
-        case BIKER_HYENA:
+        case HYENA_BIKER:
             func_8035A5A4_76BC54(arg1);
             break;
         case CHAMELEON:
@@ -504,7 +529,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             ski_husky_fire_missile(arg3);
             break;
         case WALRUS:
-            walrus_fire_missile(arg3, arg1);
+            walrus_fire_missile(arg3);
             break;
         case CAMEL:
             func_8036F50C_780BBC(arg3);
@@ -530,7 +555,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
         case HYENA:
             func_8035A590_76BC40(arg1);
             break;
-        case BIKER_HYENA:
+        case HYENA_BIKER:
             biker_hyena_fire_missile(arg3);
             break;
         case CHAMELEON:

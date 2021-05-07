@@ -79,13 +79,13 @@
 #define PARROT                      14
 #define PARROT_ATTACKING            15
 #define MOUSE                       16
-#define RACING_MOUSE_ATTACKING      17
+#define RACING_MOUSE_ATTACKING      17 // HARD_MOUSE
 #define RACING_MOUSE                18
 #define VULTURE                     19
 #define MOUSE2                      20 // ear-less? mouse-attacking?
 #define HELI_MOUSE                  21 // ?
 #define BEAR                        22
-#define BEAR_ATTACKING              23
+#define BEAR_ATTACKING              23 // CRAZY_BEAR
 #define MYSTERY_BEAR                24
 #define SEAGULL2                    25
 #define RACING_FOX                  26
@@ -103,14 +103,14 @@
 #define POLAR_BEAR                  38
 #define POLAR_TANK                  39
 #define HUSKY                       40
-#define HUSKY_ATTACKING             41
+#define HUSKY_ATTACKING             41 // CRAZY_HUSKY
 #define SKI_HUSKY                   42
 #define CROW                        43
 #define WALRUS                      44
 #define VULTURE2                    45
 #define CAMEL                       46
 #define CANNON_CAMEL                47
-#define UNKNOWN_ANIMAL_48           48 // TBD
+#define CROW_DIVER                  48
 #define POGO_KANGAROO               49
 #define BOXING_KANGAROO             50
 #define DESERT_FOX                  51
@@ -120,12 +120,12 @@
 #define DESERT_FOX_ATTACKING        55
 #define ELEPHANT                    56
 #define HYENA                       57
-#define BIKER_HYENA                 58
+#define HYENA_BIKER                 58
 #define CHAMELEON                   59
-#define CHAMELEON_DEFENDING         60
+#define CHAMELEON_DEFENDING         60 // SNEAKY_CHAMELEON
 #define EVO_MICROCHIP               61
 #define EVO_GLITCHY                 62
-#define UNKNOWN_ANIMAL_63           63
+#define UNKNOWN_ANIMAL_63           63 // EVO
 #define KING_PENGUIN                64
 #define RACING_TORTOISE_ATTACKING   65
 #define COOL_COD                    66
@@ -145,7 +145,33 @@
 
 // sound effects
 #define SOUND_EFFECT_RAT_BITE       7
+#define SOUND_EFFECT_CHEAT_ENABLED  86
+#define SOUND_EFFECT_DROP_BOMB      124
 #define SOUND_EFFECT_DROP_MINE      156
+#define SOUND_EFFECT_BUGEL_CALL     184
+
+// states
+#define STATE_STANDING               2
+#define STATE_WALKING                3
+#define STATE_RUNNING                4
+#define STATE_IN_AIR                 5
+// #define STATE_06 - collecting something? collsion?
+// #define STATE_FISH_IN_WATER          62
+// #define STATE_FISH_OUT_OF_WATER      63
+#define STATE_FISH_IN_WATER          141
+#define STATE_FISH_SWIMMING_SLOW     142
+#define STATE_FISH_SWIMMING          143
+
+#define STATE_FISH_STANDING_ON_LAND  161
+#define STATE_FISH_WALKING_ON_LAND   162
+
+#define STATE_STANDING_IN_WATER      181
+#define STATE_WALKING_IN_WATER       182
+
+// unknown states
+// 6, 21, 23, 41, 43, 61, 81, 101, 121, 144, 183, 185, 201, 0x3F, 0x90,
+
+#define TILESET_ASCII_OFFSET    272
 
 // extra gbi macros
 

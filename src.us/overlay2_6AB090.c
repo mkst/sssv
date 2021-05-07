@@ -118,7 +118,7 @@ void func_8029A624_6ABCD4(Gfx **dl) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AB090/func_8029A720_6ABDD0.s")
 
 void func_8029ABCC_6AC27C(void) {
-    func_80125980(&D_80204278->unk33590[D_80204278->unk38918], 0x1000000, 0x2000000, 0x5780000, 0, 0, 0, 0x20000, 0x20000, 0x20000);
-    gSPMatrix(D_801D9E7C++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->unk38918 += 1;
+    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0x1000000, 0x2000000, 0x5780000, 0, 0, 0, 0x20000, 0x20000, 0x20000);
+    gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
 }

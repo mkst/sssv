@@ -654,12 +654,17 @@ void func_802AA424_6BBAD4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC8A0_6BDF50.s")
 //nonmatch: JUSTREG
 // void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
+//     s32 tmp;
+//     s16 new_var2;
+//
 //     *arg0 = 0;
 //     if (D_801E9EB2 > 2) {
 //         *arg1 = D_803D5524->unkA4 * 1024;
 //     } else if (D_801E9EB2 > 0) {
 //         *arg1 = D_803D5524->unkA4 * 640;
 //     } else {
+//         new_var2 = D_801E9EB2;
+//         if (new_var2) {}
 //         *arg1 = 0;
 //     }
 //     func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);

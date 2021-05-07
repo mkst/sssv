@@ -49,9 +49,9 @@ void func_8035E120_76F7D0(void) {
 // urghhh, what is this
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E344_76F9F4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E3E8_76FA98.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/recharge_skill.s")
 // JUSTREG
-// void func_8035E3E8_76FA98(s16 arg0) {
+// void recharge_skill(s16 arg0) {
 //     D_803D552C->skillAEnergy[arg0*2] += D_803D5524->unkDA[arg0*3];
 // }
 
@@ -66,7 +66,7 @@ void func_8035F92C_770FDC(void) {
             552, 110, D_803D5530, 3, 33);
         play_sound_effect_at_location(156, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
     } else {
-        func_8035E3E8_76FA98(0);
+        recharge_skill(0);
     }
 }
 
@@ -135,7 +135,7 @@ void rat_bite(void) {
     play_sound_effect_at_location(7, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEC14);
 }
 
-void func_8035FDC0_771470(s16 arg0) {
+void king_rat_bugel_call(s16 arg0) {
     if (D_803D552C->unk308 == 0) {
         play_sound_effect_at_location(184, 0x7000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEC18);
         D_803D552C->unk308 = 80;
@@ -170,7 +170,7 @@ void func_803629B0_774060(void) {
     if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 5)) {
         func_8037FEDC_79158C();
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 

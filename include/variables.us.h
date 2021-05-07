@@ -24,6 +24,7 @@ extern u8   D_01000CC0[];
 extern u8   D_01003498[];
 extern u8   D_010034C0[];
 extern u8   D_01003548[];
+extern Gfx  D_01003618[];
 extern u8   D_01003998[];
 extern u8   D_01003A58[];
 extern u8   D_01003B70[];
@@ -36,6 +37,7 @@ extern u8   D_01004AF8[];
 extern u8   D_01021BB0[];
 extern u8   D_0102F010[];
 extern u8   D_01030810[];
+extern Gfx  D_01037700[];
 extern u8   D_0103B6F0[];
 extern u8   D_04000000[];
 extern u8   D_040000A0[];
@@ -102,11 +104,11 @@ extern u8 D_800BA760[20][0xAB8]; // 2744 bytes per texture, initially contains r
 
 // 0x800Cxxxx
 
-extern s32  D_800C3A40;
-extern s32  D_800C4240;
-extern s32  D_800C4A40;
-extern s32  D_800C5240;
-extern s32  D_800C5A40;
+extern u8   D_800C3A40[];
+extern u8   D_800C4240[];
+extern u8   D_800C4A40[];
+extern u8   D_800C5240[];
+extern u8   D_800C5A40[];
 
 // 0x800Dxxxx
 
@@ -213,6 +215,7 @@ extern f64  D_8015AC78;
 extern f64  D_8015AC80;
 extern f64  D_8015AC88;
 extern f64  D_8015AC90;
+extern char D_8015ACA4[]; // "%d"
 extern char D_8015AD70[]; // "reset all data - %d\n"
 extern char D_8015AD90[]; // "----------------- Active sounds\n"
 extern char D_8015ADB4[]; // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
@@ -326,7 +329,7 @@ extern s16  D_8022E3F2;
 
 extern u16  D_80231AA0[];
 extern s16  D_80231D5C[];
-extern s32  D_80235410[];
+extern s16  D_80235410[];
 extern struct023 D_8023F1E0;
 extern u8   D_8023F1E8;
 extern s8   D_8023F1F0;
@@ -337,7 +340,9 @@ extern s8   D_8023F1F4;
 extern s8   D_8023F1F5;
 extern f32  D_8023F1F8;
 extern f32  D_8023F1FC;
+extern s16  D_8023F206[];
 extern s16  D_8023F208[32];
+extern s16  D_8023F248[];
 extern Eeprom D_8023F260; // 0x40
 extern Eeprom D_8023F2A0;
 extern Eeprom D_8023F2E0[4]; // 0x100
@@ -534,9 +539,21 @@ extern s32  D_803A05B0;
 extern s32  D_803A05B0_7B1C60;
 extern s32  D_803A05B4_7B1C64;
 extern u8   D_803A38D8[];
+extern s32  D_803A5520_7B6BD0;
+extern s32  D_803A5524_7B6BD4;
+extern s32  D_803A5528_7B6BD8;
+extern s32  D_803A5530_7B6BE0;
+extern s32  D_803A5544_7B6BF4;
 extern s32  D_803A5590_7B6C40[];
 extern u16  D_803A5750_7B6E00;
 extern u32  D_803A5BF8_7B72A8[][2];
+extern u8   D_803A52A0_7B6950;
+extern u8   D_803A52A4_7B6954;
+extern u8   D_803A52A8_7B6958;
+extern u8   D_803A52AC_7B695C;
+extern u8   D_803A52B0_7B6960;
+extern u8   D_803A52B4_7B6964;
+extern u8   D_803A52B8_7B6968;
 extern s32  D_803A52C0;
 extern s32  D_803A52C0_7B6970;
 extern s16  D_803A52C4;
@@ -551,6 +568,8 @@ extern f32  D_803A6CD4;
 extern f32  D_803A6CD8;
 extern s16  D_803A6CE4;
 extern s16  D_803A6CEC;
+extern struct075 D_803A6D14_7B83C4[128];
+extern struct074 D_803A7114_7B87C4[128];
 extern s16  D_803A7B3C[][2];
 extern s16  D_803A8340;
 extern u8   D_803A8344[]; // timer string written here
@@ -632,6 +651,8 @@ extern f64  D_803BBF48; // 0.7
 extern f64  D_803BBF50; // 0.7
 extern f32  D_803BBF58; // 0.699999988079071f (0.7f)
 extern f32  D_803BBF5C; // -0.699999988079071f (-0.7f)
+
+extern f32  D_803BCFD0_7CE680;
 extern f32  D_803BD114_7CE7C4; // 1.1892
 extern s16  D_803BD54A[];
 extern s16  D_803BD602[];
@@ -749,6 +770,8 @@ extern Animal *D_803DA2F4;
 // 0x803Exxxx
 
 extern struct051 D_803E00EE[];
+extern struct073 D_803E3130[];
+extern u8   D_803E4AD0[];
 extern s32  D_803E4C3C;
 extern s16  D_803E4C52;
 extern s16  D_803E4C54;
@@ -781,6 +804,32 @@ extern s32  D_803E4D38[2];
 extern u8   D_803E4D40[0x4114]; // tbd what this is
 extern u16  D_803E1B04;
 extern s16  D_803E1B10[4]; // struct?
+extern s16  D_803E1B20[5];
+extern s16  D_803E1B8A;
+extern u16  D_803E1B8C;
+extern u16  D_803E1B8E;
+extern u16  D_803E1B90;
+extern u16  D_803E1B92;
+extern u16  D_803E1B94;
+extern u8   D_803E1B96;
+extern u8   D_803E1B97;
+extern u8   D_803E1B98;
+extern u8   D_803E1B99;
+extern u8   D_803E1B9A;
+extern u8   D_803E1B9B;
+extern u16  D_803E1BA2;
+extern u16  D_803E1BA4;
+extern u8   D_803E1BA6;
+extern u16  D_803E1BA8;
+extern u16  D_803E1BAA;
+extern u16  D_803E1BAC;
+extern u16  D_803E1BAE;
+extern u16  D_803E1BB0;
+extern u16  D_803E1BB0;
+extern u16  D_803E1BB2;
+extern u16  D_803E1BB4;
+extern u16  D_803E1BB6;
+extern u16  D_803E1BB8;
 extern s16  D_803E1BC0;
 extern OSContPad D_803E1BC4;
 extern OSContPad *D_803E1BD4;

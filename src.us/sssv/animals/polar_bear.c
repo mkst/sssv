@@ -16,7 +16,7 @@ void func_80368AC4_77A174(void) {
 
 void func_80368B04_77A1B4(void) {
     if ((D_803D552C->unk365 != 27) && (D_803D552C->unk365 != 28)) {
-        func_8032AAF0_73C1A0(POLAR_BEAR);
+        load_animal(POLAR_BEAR);
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = 28;
         func_802A4390_6B5A40();
@@ -34,7 +34,7 @@ void func_80368BA0_77A250(void) {
         spawn_temporary_object(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 0x599, 0xB4, D_803D5530, 0x32, 0x21);
         play_sound_effect_at_location(38, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 

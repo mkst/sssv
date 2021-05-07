@@ -84,7 +84,6 @@ void func_8038CF90_79E640(void) {
     gDPSetRenderMode(D_801D9E7C++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 }
 
-void func_8012D374(s32, s32, s32, u16, f32, f32, s32);
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D004_79E6B4.s")
 // a fair way away
 // void func_8038D004_79E6B4(Gfx **arg0, u16 arg1) {

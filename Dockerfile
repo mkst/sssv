@@ -2,16 +2,9 @@ FROM ubuntu:20.04 as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && \
-    apt-get install -y \
-      binutils-mips-linux-gnu \
-      build-essential \
-      less \
-      libglib2.0 \
-      python3 \
-      python3-pip \
-      unzip \
-      wget
+COPY /packages.txt /
+
+RUN apt-get update && apt-get install -y $(cat /packages.txt)
 
 COPY requirements.txt /
 

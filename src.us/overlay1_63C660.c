@@ -5,7 +5,7 @@
 // #define PRIMITIVE 1
 // language_select_menu
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_63C660/language_select_menu.s")
-// JUSTREG
+// // JUSTREG
 // u8 language_select_menu(s16 arg0) {
 //     s16 used;
 //     s16 i;
@@ -18,7 +18,7 @@
 //     if (arg0 == 0) {
 //         used = 0;
 //         // copy in language strings?
-//         for (i = 0; i < 9; i++) {
+//         for (i = 0; (i < 9) != 0; i++) { // regalloc hack, FIXME
 //             func_801308E8(i, 32, D_80231AA0, D_80231D5C);
 //             if ((i != 6) && (i != 0)) {
 //                 src = func_80130A90(28);
@@ -83,25 +83,25 @@
 //
 //     // previous selection?
 //     switch (D_803B0596) {
-//     case 0: // switch 2
+//     case 0:
 //         flagTexture = D_80301520;
 //         break;
-//     case 1: // switch 2
+//     case 1:
 //         flagTexture = D_802FD920;
 //         break;
-//     case 2: // switch 2
+//     case 2:
 //         flagTexture = D_802FE520;
 //         break;
-//     case 3: // switch 2
+//     case 3:
 //         flagTexture = D_802FF120;
 //         break;
-//     case 4: // switch 2
+//     case 4:
 //         flagTexture = D_802FFD20;
 //         break;
-//     case 5: // switch 2
+//     case 5:
 //         flagTexture = D_80300920;
 //         break;
-//     case 6: // switch 2
+//     case 6:
 //         flagTexture = D_80302120;
 //     }
 //
@@ -137,8 +137,8 @@
 //     selected = D_803B0590; // save current selection
 //
 //     // analogue stick up or dpad up or c-up
-//     if ((gControllerInput->analogueY > 50) ||
-//         (gControllerInput->button & U_JPAD) ||
+//     if ((gControllerInput->stick_y > 50) ||
+//         ((gControllerInput->button & 0x0800) & 0xFFFFu) ||
 //         (gControllerInput->button & U_CBUTTONS)) {
 //         if (D_801D9ED4 == 0) {
 //             if (D_803B0590 > 0) {
@@ -149,8 +149,8 @@
 //         }
 //     }
 //     // analogue stick down or dpad down or c-down
-//     if ((gControllerInput->analogueY < -50) ||
-//         (gControllerInput->button & D_JPAD) ||
+//     if ((gControllerInput->stick_y < -50) ||
+//         ((gControllerInput->button & D_JPAD) & 0xFFFFu) ||
 //         (gControllerInput->button & D_CBUTTONS)) {
 //         if (D_801D9ED4 == 0) {
 //             if (D_803B0590 < 6) {

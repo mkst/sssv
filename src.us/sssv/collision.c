@@ -23,7 +23,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
             *arg2 = func_802B750C_6C8BBC;
             *arg3 = 0;
         } else if (a1->unk18 != 0) {
-            if (arg1->unkD0 != NULL) {
+            if (arg1->unkD0.m[0][0] != 0) {
                 res = 7;
                 *arg2 = func_802B6F6C_6C861C;
                 *arg3 = 0;
@@ -33,7 +33,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
                 *arg3 = 0;
             }
         } else {
-            if (arg1->unkD0 != NULL) {
+            if (arg1->unkD0.m[0][0] != 0) {
                 res = 5;
                 *arg2 = func_802B6B5C_6C820C;
                 *arg3 = 1;
@@ -42,7 +42,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
     } else if (a0->unk18 != 0) {
         a1 = arg1->unk16C;
         if (a1->unk15 == 4) {
-            if (arg1->unkD0 != NULL) {
+            if (arg1->unkD0.m[0][0] != 0) {
                 res = 7;
                 *arg2 = func_802B6F6C_6C861C;
                 *arg3 = 1;
@@ -52,7 +52,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
                 *arg3 = 1;
             }
         } else if (a1->unk18 != 0) {
-            if ((arg0->unkD0 != NULL) && (arg1->unkD0 != NULL)) {
+            if ((arg0->unkD0.m[0][0] != 0) && (arg1->unkD0.m[0][0] != 0)) {
                 res = 1;
                 *arg2 = func_802B6088_6C7738;
                 if ((u32) arg0 < (u32) arg1) {
@@ -61,7 +61,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
                     *arg3 = 1;
                 }
             } else {
-                if (arg0->unkD0 != NULL) {
+                if (arg0->unkD0.m[0][0] != 0) {
                     res = 1;
                     *arg2 = func_802B6088_6C7738;
                     *arg3 = 0;
@@ -74,7 +74,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
             }
         } else {
             res = 0;
-            if (arg1->unkD0 != NULL) {
+            if (arg1->unkD0.m[0][0] != NULL) {
                 res = 2;
                 *arg2 = func_802B6088_6C7738;
                 *arg3 = 1;
@@ -82,7 +82,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
         }
     } else {
         res = 0;
-        if (arg0->unkD0 != NULL) {
+        if (arg0->unkD0.m[0][0] != NULL) {
             a1 = arg1->unk16C;
             if (a1->unk15 == 4) {
                 res = 4;
@@ -94,7 +94,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**arg2)(), u8 *arg3) {
                 *arg3 = 0;
             } else {
                 res = 0;
-                if (arg1->unkD0 != NULL) {
+                if (arg1->unkD0.m[0][0] != NULL) {
                     res = 3;
                     *arg2 = func_802B6948_6C7FF8;
                     *arg3 = 0;

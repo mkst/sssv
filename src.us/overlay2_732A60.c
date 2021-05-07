@@ -39,7 +39,7 @@ void func_80321D74_733424(s16 arg0, s16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_8032225C_73390C.s")
 
-void func_803223F4_733AA4(s16 arg0) {
+void recoil(s16 arg0) {
     s32 temp_t2 = D_80152C78[(u8)D_803D552C->unk302] >> 7;
     s32 temp_t7 = D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7;
 

@@ -18,11 +18,11 @@ void func_8031F858_730F08(void) {
 }
 
 void func_8031F87C_730F2C(void) {
-    func_8032AAF0_73C1A0(MOUSE2);
+    load_animal(MOUSE2);
 }
 
 void func_8031F89C_730F4C(void) {
-    func_8032AAF0_73C1A0(MOUSE);
+    load_animal(MOUSE);
 }
 
 void func_8031F8BC_730F6C(void) {
@@ -61,7 +61,7 @@ void func_8031F8BC_730F6C(void) {
 
 void func_8031FA84_731134(void) {
     func_802DBA58_6ED108(15, D_803D552C);
-    func_8032AAF0_73C1A0(RACING_MOUSE_ATTACKING);
+    load_animal(RACING_MOUSE_ATTACKING);
     D_803D552C->unk365 = 40;
     D_803D552C->unk32A = D_803D5544;
 }
@@ -80,14 +80,14 @@ void func_8031FAD8_731188(void) {
 void func_8031FB30_7311E0(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == MOUSE) {
-        func_8032AAF0_73C1A0(MOUSE2);
+        load_animal(MOUSE2);
     }
 }
 
 void func_8031FB78_731228(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == RACING_MOUSE) {
-        func_8032AAF0_73C1A0(RACING_MOUSE_ATTACKING);
+        load_animal(RACING_MOUSE_ATTACKING);
         D_803D552C->unk365 = 40;
         D_803D552C->unk32A = D_803D5544;
     }

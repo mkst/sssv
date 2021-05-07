@@ -103,9 +103,6 @@ dirs:
 
 tools: $(RNC64)
 
-symlinks:
-	ln -nsf diff_settings.$(VERSION).py diff_settings.py
-
 check: .baserom.$(VERSION).ok
 
 verify: $(TARGET).z64
@@ -113,7 +110,7 @@ verify: $(TARGET).z64
 
 progress: verify progress.csv
 
-extract: check symlinks
+extract: check
 	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml
 
 decompress: $(RNC_EXTRACTED)
@@ -133,9 +130,6 @@ clean:
 .baserom.$(VERSION).ok: baserom.$(VERSION).z64
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $<" | sha1sum --check
 	@touch $@
-
-# $(BUILD_DIR)/$(LD_SCRIPT): $(LD_SCRIPT)
-# 	$(CPP) -P -DBUILD_DIR=$(BUILD_DIR) -o $@ $<
 
 $(TARGET).elf: $(O_FILES)
 	@$(LD) $(LDFLAGS) -o $@

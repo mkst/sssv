@@ -1,10 +1,113 @@
 #include <ultra64.h>
 #include "common.h"
 
+void func_8032FF94_741644(u8);
+void func_80332444_743AF4(u8);
+void func_80334470_745B20(u8, u8, u8, u8);
+void func_8033641C_747ACC(u8, f32, u8, u8);
+void func_803378BC_748F6C(u8);
+void func_80337ECC_74957C(u8);
+void func_80338E1C_74A4CC(u8);
+void func_803391D0_74A880(u8);
+void func_80339238_74A8E8(u8);
+void func_803392A0_74A950(u8);
+void func_803394E4_74AB94(u8, u8, u8, u8);
+void func_80339B84_74B234(u8, f32, u8, u8);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032F950_741000.s")
 // uses jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032FD0C_7413BC.s")
+// miles away
+// s16 func_8032FD0C_7413BC(u8 arg0, u8 arg1) {
+//
+//     func_80342550_753C00(&D_803F28E0[arg0]); // arg0?
+//
+//
+//     switch (D_803F28E0[arg0].unk0) {
+//         case 0:
+//             func_80332444_743AF4(arg0);
+//             break;
+//         case 1:
+//         func_8032FF94_741644(arg0);
+//         break;
+//         case 2:
+//         func_803378BC_748F6C(arg0);
+//         break;
+//         case 3:
+//         func_80337ECC_74957C(arg0);
+//         break;
+//         case 4:
+//         func_80338E1C_74A4CC(arg0);
+//         break;
+//         case 5:
+//         func_803391D0_74A880(arg0);
+//         break;
+//         case 6:
+//         func_80339238_74A8E8(arg0);
+//         break;
+//         case 7:
+//         func_803392A0_74A950(arg0);
+//         break;
+//         case 8:
+//         func_803394E4_74AB94(arg0, arg1, arg1, arg0);
+//         break;
+//         case 9:
+//         func_80334470_745B20(arg0, arg1, arg1, arg0);
+//         break;
+//         case 10:
+//         func_8033641C_747ACC(arg0, 0, arg1, arg0);
+//         break;
+//         case 11:
+//         func_80339B84_74B234(arg0, 0, arg1, arg0);
+//         break;
+//         case 12:
+//         func_80339B84_74B234(arg0, 128.0f, arg1, arg0);
+//         break;
+//         case 13:
+//         func_80339B84_74B234(arg0, 64.0f, arg1, arg0);
+//         break;
+//         case 14:
+//         func_80339B84_74B234(arg0, 192.0f, arg1, arg0);
+//         break;
+//         case 15:
+//         func_80339B84_74B234(arg0, 32.0f, arg1, arg0);
+//         break;
+//         case 16:
+//         func_80339B84_74B234(arg0, 96.0f, arg1, arg0);
+//         break;
+//         case 17:
+//         func_80339B84_74B234(arg0, 160.0f, arg1, arg0);
+//         break;
+//         case 18:
+//         func_80339B84_74B234(arg0, 224.0f, arg1, arg0);
+//         break;
+//         case 19:
+//         func_80339308_74A9B8(arg0);
+//         break;
+//         case 20:
+//         func_8033AAC8_74C178(arg0);
+//         break;
+//         case 21:
+//         func_8033B118_74C7C8(arg0);
+//         break;
+//         case 22:
+//         func_8033B440_74CAF0(arg0);
+//         break;
+//         case 23:
+//         func_8033C320_74D9D0(arg0);
+//         break;
+//         case 24:
+//         case 51:
+//         func_8033641C_747ACC(arg0, 1, arg1, arg0);
+//         break;
+//         case 25:
+//         func_8033B594_74CC44(arg0);
+//         break;
+//         case 26:
+//         func_8033C054_74D704(arg0);
+//         break;
+//     }
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032FF94_741644.s")
 
@@ -371,24 +474,43 @@ void func_80343F78_755628(void) {
     }
 }
 
-// no idea
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8034401C_7556CC.s")
+void func_8034401C_7556CC(void) {
+    s16 i, j;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80344158_755808.s")
-// needs rest of file to match for the rodata
-// s32 func_80344158_755808(s16 arg0) {
-//     switch (arg0 - 3) {
-//     case 0:
-//     case 2:
-//     case 3:
-//     case 4:
-//     case 14:
-//     case 25:
-//         return 1;
-//     default:
-//         return 0;
-//     }
-// }
+    for (i = 1; i < 128; i++) {
+        for (j = 0; j < i; j++) {
+            if ((D_803A7114_7B87C4[i].unk0 == D_803A7114_7B87C4[j].unk0) &&
+                (D_803A7114_7B87C4[i].unk1 == D_803A7114_7B87C4[j].unk1) &&
+                (D_803A7114_7B87C4[i].unk2 == D_803A7114_7B87C4[j].unk2) &&
+                (D_803A7114_7B87C4[i].unk4 == D_803A7114_7B87C4[j].unk4) &&
+                (D_803A7114_7B87C4[i].unk6 == D_803A7114_7B87C4[j].unk6) &&
+                (D_803A7114_7B87C4[i].unk8 == D_803A7114_7B87C4[j].unk8) &&
+                (D_803A7114_7B87C4[i].unkA == D_803A7114_7B87C4[j].unkA) &&
+                (D_803A7114_7B87C4[i].unkC == D_803A7114_7B87C4[j].unkC) &&
+                (D_803A7114_7B87C4[i].unkE == D_803A7114_7B87C4[j].unkE) &&
+                (D_803A7114_7B87C4[i].unk10 == D_803A7114_7B87C4[j].unk10) &&
+                (D_803A7114_7B87C4[i].unk12 == D_803A7114_7B87C4[j].unk12)) {
+                // break loop
+                D_803A6D14_7B83C4[i].unk7 = D_803A6D14_7B83C4[j].unk7;
+                j = (u16)0x80;
+            }
+        }
+    }
+}
+
+s32 func_80344158_755808(s16 arg0) {
+    switch (arg0) {
+    case 3:
+    case 5:
+    case 6:
+    case 7:
+    case 17:
+    case 28:
+        return 1;
+    default:
+        return 0;
+    }
+}
 
 void func_8034419C_75584C(s32 arg0) {
     func_80343AE0_755190(4, 0, 30, arg0, 0, 0, 0, 0, 0, 0, 228, 1, 0, 0, 0);

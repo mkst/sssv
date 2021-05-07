@@ -16,5 +16,5 @@ void font_init(void) {
 
     D_801D9E70 = D_8022E3F0;
     dma_read(D_0012A390, (void*)D_8022E3F0, len);
-    UnpackRNC((u8*)D_8022E3F0, D_800E1220);
+    UnpackRNC((RNC_fileptr)D_8022E3F0, D_800E1220);
 }

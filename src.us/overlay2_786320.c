@@ -25,7 +25,7 @@ void func_803769E0_788090(void) {
                          animal,
                          1, 17, D_803BF028, 110, 96,
                          D_803D5530->xVelocity.h, D_803D5530->zVelocity.h, D_803D5530->yVelocity.h, D_803D5530);
-    func_803223F4_733AA4(2);
+    recoil(2);
     func_801373CC(0, 25, 30, 5, func_8029B7D0_6ACE80(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
 }
 
@@ -46,7 +46,7 @@ void walrus_fire_missile(Animal *arg0) {
                          arg0,
                          2, 17, D_803BF02C, 120, 96,
                          D_803D5530->xVelocity.h, D_803D5530->zVelocity.h, D_803D5530->yVelocity.h, D_803D5530);
-    func_803223F4_733AA4(2);
+    recoil(2);
 }
 
 void func_80376CF8_7883A8(s16 arg0) {
@@ -136,7 +136,7 @@ void func_80379070_78A720(void) {
     if (D_803D552C->unk365 == 0) {
         Animal *a = func_8037ED1C_7903CC();
         if (a == NULL) {
-            func_8035E3E8_76FA98(1);
+            recharge_skill(1);
         } else {
             D_803D552C->unk330 = a;
             D_803D552C->unk365 = 38;
@@ -145,7 +145,7 @@ void func_80379070_78A720(void) {
             func_801373CC(0, 0x19, 5, 0x3C, func_8029B7D0_6ACE80(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
         }
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 

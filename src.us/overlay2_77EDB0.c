@@ -9,7 +9,7 @@ void func_8036F3AC_780A5C(void) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = 0x16;
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 

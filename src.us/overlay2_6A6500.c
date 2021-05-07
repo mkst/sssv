@@ -31,7 +31,7 @@
 //     s16 *phi_a1_2;
 //     void *phi_a1_3;
 //
-//     D_80204278->unk38918 = 0;
+//     D_80204278->usedModelViewMtxs = 0;
 //     D_80204278->unk39310 = (u16)0;
 //     D_80204278->unk38914 = 0;
 //     D_8028645A = (u16)0;
@@ -418,7 +418,7 @@ void func_802961D4_6A7884(void) {
     func_80296544_6A7BF4();
     func_802CB360_6DCA10();
     func_80304170_715820();
-    func_80304194_715844();
+    func_80304194_715844(); // zero out something
     func_8031B390_72CA40(gLevelIndex);
     D_80204280 = D_803F2D30.unk8;
     D_803F2D30.unk4 = 0;

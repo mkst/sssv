@@ -158,9 +158,9 @@ void func_8032AA94_73C144(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AAF0_73C1A0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/load_animal.s")
 // NON-MATCHING: JUSTREG
-// void func_8032AAF0_73C1A0(s16 arg0) {
+// void load_animal(s16 arg0) {
 //     s8  *temp_v1;
 //     struct035* ptr;
 //
@@ -300,7 +300,7 @@ void func_8032AEA0_73C550(void) {
 //         D_803D5538 = 1;
 //         D_803D553C = temp_a1;
 //         D_803D553A = 0;
-//         func_8032AAF0_73C1A0(MYSTERY_BEAR);
+//         load_animal(MYSTERY_BEAR);
 //         func_802B2EA8_6C4558();
 //         D_803A6CE4 |= 4;
 //     } else if (temp_v1 == 280) {
@@ -312,7 +312,7 @@ void func_8032AEA0_73C550(void) {
 //         D_803D5538 = 1;
 //         D_803D553C = temp_a1;
 //         D_803D553A = 0;
-//         func_8032AAF0_73C1A0(BEAR);
+//         load_animal(BEAR);
 //         func_802B2EA8_6C4558();
 //         D_803A6CE4 &= 0xFFFB;
 //     } else {
@@ -362,12 +362,12 @@ s32 func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 a
 
 void func_8032C0EC_73D79C(s32 arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
 
-    if (D_803D3434->unk38918 < 240) {
+    if (D_803D3434->usedModelViewMtxs < 240) {
         gDPSetPrimColor(D_801D9E8C++, 0, 0, r, g, b, 0xFF);
-        guTranslate(&D_803D3434->unk33590[D_803D3434->unk38918], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);
-        gSPMatrix(D_801D9E8C++, &D_803D3434->unk33590[D_803D3434->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);
+        gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-        D_803D3434->unk38918 += 1; // used matrices?
+        D_803D3434->usedModelViewMtxs += 1; // used matrices?
 
         gSPDisplayList(D_801D9E8C++, D_0103B6F0);
         gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);

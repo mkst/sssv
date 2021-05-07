@@ -3,8 +3,8 @@
 
 
 void func_80319A50_72B100(void) {
-    fancy_bzero(&D_803E8F60, 1100); // 0x44C
-    fancy_bzero(&D_803E8E60, 256);
+    fancy_bzero(D_803E8F60, 1100); // 0x44C
+    fancy_bzero(D_803E8E60, 256);
     D_803E93B0[5] = D_803E93B0[2] = 245;
     D_803A5750_7B6E00 = 0;
 }
