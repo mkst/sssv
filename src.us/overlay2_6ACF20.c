@@ -172,14 +172,14 @@ void func_8029D89C_6AEF4C(void) {
 //             gDPTileSync(D_801D9E90++);
 //             loaded_texture = current_texture;
 //         }
-//         if (D_803D3434->unk38918 < 250) {
+//         if (D_803D3434->usedModelViewMtxs < 250) {
 //             temp_t8_2 = temp_s1->unk2 << 5;
-//             func_80125FE0(&D_803D3434->unk33590[D_803D3434->unk38918],
+//             func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
 //                 temp_s1->unk4, temp_s1->unk8, temp_s1->unkC,
 //                 temp_s1->unk10, temp_s1->unk12, temp_t8_2, temp_t8_2, temp_t8_2);
 //
-//             gSPMatrix(D_801D9E90++, &D_803D3434->unk33590[D_803D3434->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-//             D_803D3434->unk38918 += 1;
+//             gSPMatrix(D_801D9E90++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+//             D_803D3434->usedModelViewMtxs += 1;
 //
 //             gSPClearGeometryMode(D_801D9E90++, G_CULL_BACK);
 //             gSPDisplayList(D_801D9E90++, temp_s1->unk14);
@@ -193,13 +193,13 @@ void func_8029D89C_6AEF4C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029E100_6AF7B0.s")
 
 void func_8029E3CC_6AFA7C(void) {
-    if (D_803D3434->unk38918 < 250) {
-        func_80125FE0(&D_803D3434->unk33590[D_803D3434->unk38918],
+    if (D_803D3434->usedModelViewMtxs < 250) {
+        func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
             D_803D343C->unk4, D_803D343C->unk8, D_803D343C->unkC + (D_803D343C->unk42 << 0xF),
             D_803D343C->unk2E, D_803D343C->unk2C,
             D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
-        gSPMatrix(D_801D9E8C++, &D_803D3434->unk33590[D_803D3434->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        D_803D3434->unk38918 += 1;
+        gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        D_803D3434->usedModelViewMtxs += 1;
         gSPDisplayList(D_801D9E8C++, D_803D3438[D_803D343C->unk64]);
         gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
     }

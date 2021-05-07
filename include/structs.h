@@ -63,11 +63,13 @@ struct struct070 {
 /*
 states:
   02 - standing
-  04 - walking
+  03 - walking
+  04 - running
   05 - in air?
   06 - collecting something?
   8D - in water
-  8F - swimming
+  8E - swimming slowly
+  8F - swimming fast
   DD - ???
 */
 struct Animal {
@@ -101,7 +103,7 @@ struct Animal {
     /* 0x32 */  s16 unk32;
     /* 0x34 */  u8  pad34[0xC];
     /* 0x40 */  u16 unk40;
-    /* 0x42 */  u16 unk42;
+    /* 0x42 */  u16 unk42; // distance from camera (height?) cameraOffsetY?
     /* 0x44 */  u8  pad44[0x2];
     /* 0x46 */  u16 unk46;
     /* 0x48 */  u8  pad8[0x2];
@@ -118,9 +120,13 @@ struct Animal {
     /* 0x68 */  Animal *unk68;
     /* 0x6C */  Animal *unk6C;
     /* 0x70 */  s32 unk70;
-    /* 0x74 */  u8  pad74[0x5C];
-    /* 0xD0 */  s32 unkD0;
-    /* 0xD4 */  u8  padD4[0x40];
+    /* 0x74 */  u8  pad74[0x8];
+    /* 0x7C */  s16 unk7C;
+    /* 0x80 */  s32 unk80;
+    /* 0x84 */  u8  pad84[0x3C];
+    /* 0xC0 */  s16 unkC0[1][8];
+    /* 0xD0 */  Mtx unkD0; // this might be nonsense
+    /* 0x110 */ u8  pad110[0x4];
     /* 0x114 */ s16 unk114[4];
     /* 0x11C */ struct044 *unk11C;
     /* 0x120 */ s32 unk120;
@@ -529,7 +535,7 @@ typedef struct {
     /* 0x28BD0 */ u8  pad28BD0[0x9CA0];
     /* 0x32870 */ u8  unk32870[1][0x18]; // probably more than 1
     /* 0x32888 */ u8  pad32888[0xD08];
-    /* 0x33590 */ Mtx unk33590[250]; // modelViewMtx (might only be 240?)
+    /* 0x33590 */ Mtx modelViewMtx[250]; // (might only be 240?)
     /* 0x37410 */ Mtx unk37410;  // projection matrix 1
     /* 0x37450 */ Mtx unk37450;  // projection matrix 2
     /* 0x37490 */ Mtx unk37490;  // projection matrix 3
@@ -539,16 +545,16 @@ typedef struct {
     /* 0x37C90 */ LookAt lookAts[100]; // 0x20 each
     /* 0x38910 */ s32 usedHilites;
     /* 0x38914 */ s32 unk38914;  // used xxx ?
-    /* 0x38918 */ s32 unk38918;  // usedModelViewMatrixes (unk33590, max 240?)
+    /* 0x38918 */ s32 usedModelViewMtxs;  // usedModelViewMatrixes (modelViewMtx, max 240?)
     /* 0x3891C */ s32 unk3891C;
     /* 0x38920 */ u8  pad38920[0xF0];
     /* 0x38A10 */ f32 unk38A10[3][4];
     /* 0x38A40 */ f32 unk38A40[4];
     /* 0x38A50 */ u8  pad38A50[0x8C0];
     /* 0x39310 */ s16 unk39310; // used xxx ?
-                  u8  pad39311[0x2327];
-                  Light unk3B638;
-                  Light unk3B640;
+                  u8  pad39312[0x2326];
+                  Ambient unk3B638; // either this or a pointer to a Light struct
+                  Ambient unk3B640;
                   s8  unk3B648;
                   s8  unk3B649;
                   s8  unk3B64A;
@@ -1271,5 +1277,35 @@ typedef struct {
     /* 0xA112 */ s16 unkA112;
     /* 0xA114 */ s16 unkA114;
 } struct072;
+
+typedef struct {
+    s8 unk0;
+    s16 unk2;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+} struct073; // size 0x18
+
+typedef struct {
+    u8  unk0;
+    u8  unk1;
+    u8  unk2;
+    u8  pad3;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u16 unkA;
+    u16 unkC;
+    u16 unkE;
+    u16 unk10;
+    u16 unk12;
+} struct074; // size 0x14
+
+typedef struct {
+    u8 pad0[0x7];
+    s8 unk7;
+} struct075; // size 0x8
 
 #endif

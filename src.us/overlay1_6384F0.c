@@ -48,14 +48,14 @@ void func_802950B8_638758(void) {
     if (D_80204260 == 1) { // if first init show language select
         language_select_menu(0);
     }
-    UnpackRNC(D_802B64A0, D_80302E88); // newscaster "video"
-    UnpackRNC(D_802AFBD0, D_8039E2E8);
-    UnpackRNC(D_802B12D0, D_803A38D8);
-    UnpackRNC(D_802B2930, D_803A8EC8);
-    UnpackRNC(D_802B3F90, D_80338688);
-    UnpackRNC(D_802C11C0, D_8033CE88);
-    UnpackRNC(D_802BC430, D_8032AE88);
-    UnpackRNC(D_802F4CA0, D_80376ED8);
+    UnpackRNC((RNC_fileptr)D_802B64A0, D_80302E88); // newscaster "video"
+    UnpackRNC((RNC_fileptr)D_802AFBD0, D_8039E2E8);
+    UnpackRNC((RNC_fileptr)D_802B12D0, D_803A38D8);
+    UnpackRNC((RNC_fileptr)D_802B2930, D_803A8EC8);
+    UnpackRNC((RNC_fileptr)D_802B3F90, D_80338688);
+    UnpackRNC((RNC_fileptr)D_802C11C0, D_8033CE88);
+    UnpackRNC((RNC_fileptr)D_802BC430, D_8032AE88);
+    UnpackRNC((RNC_fileptr)D_802F4CA0, D_80376ED8);
 
     func_801308E8(D_8023F2A0.unkE, 33, D_80231AA0, D_80231D5C);
 
@@ -78,13 +78,13 @@ void func_80295234_6388D4(void) {
     gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, 312, 232);
     gSPDisplayList(D_801D9E7C++, &D_80158368);
 
-    guTranslate(&D_80204278->unk33590[D_80204278->unk38918], D_80299DC4, D_80299DC8, D_80299DCC);
-    gSPMatrix(D_801D9E7C++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->unk38918 += 1;
+    guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_80299DC4, D_80299DC8, D_80299DCC);
+    gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
 
-    func_80125980(&D_80204278->unk33590[D_80204278->unk38918], 0, 0, 0, D_80299DD0, D_80299DD4, D_80299DD8, 0x10000, 0x10000, 0x10000);
-    gSPMatrix(D_801D9E7C++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->unk38918 += 1;
+    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, D_80299DD0, D_80299DD4, D_80299DD8, 0x10000, 0x10000, 0x10000);
+    gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
 
     gSPDisplayList(D_801D9E7C++, &D_801542D0);
     gSPDisplayList(D_801D9E7C++, &D_802EEB20);
@@ -132,10 +132,10 @@ void func_8029548C_638B2C(void) {
 //         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 //     }
 //
-//     func_80125980(&D_80204278->unk33590[D_80204278->unk38918], 0, 0, 0, 0, 0, 0, 0x80000, 0x80000, 0x80000);
+//     func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, 0, 0, 0, 0x80000, 0x80000, 0x80000);
 //
-//     gSPMatrix((*arg0)++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-//     D_80204278->unk38918 += 1;
+//     gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+//     D_80204278->usedModelViewMtxs += 1;
 //
 //     gDPSetRenderMode((*arg0)++, G_RM_ZB_PCL_SURF, G_RM_ZB_PCL_SURF2);
 //     gSPClearGeometryMode((*arg0)++, G_CULL_BACK);
@@ -271,7 +271,7 @@ void func_802988E8_63BF88(void) {
 
     // reset used counters
     D_80204278->unk38914 = 0;
-    D_80204278->unk38918 = 0;
+    D_80204278->usedModelViewMtxs = 0;
     D_80204278->unk38914 = 0;
     D_80204278->unk39310 = 0;
     D_80204278->usedHilites = 0;

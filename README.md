@@ -10,10 +10,10 @@ Checkout the [wiki](https://github.com/mkst/sssv/wiki) for more information.
 
 # Building
 
-The assumption is that you will be using `Ubuntu 20.04`, either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
-Please check the [Dockerfile](Dockerfile) for the necessary prerequisites.
+The instructions below assume that you will be using `Ubuntu 20.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
+Please check the [packages.txt](packages.txt) and [requirements.txt](requirements.txt) for the  prerequisite Linux and Python packages respectively.
 
-## Build steps
+## Natively
 
 Clone the repository; note the `--recursive` flag to fetch submodules at the same time:
 
@@ -45,6 +45,16 @@ If you did everything correctly, you'll be greeted with the following:
 build/sssv.us.z64: OK
 ```
 
+## Docker
+
+Clone this repository, place the `baserom.us.z64` at its root, and then run the Docker image via:
+
+```sh
+docker run --rm -ti -v $(pwd):/sssv markstreet/sssv:latest
+```
+
+From here you can run the `make extract` and `make --jobs` commands.
+
 # Versions
 
 There are 5 known versions of the ROM:
@@ -61,7 +71,7 @@ Only US and EU versions were released. If you are in possession of the Prototype
 
 ## Building EU Version
 
-Place `baserom.eu.z64` in the root of the repository, and suffix each `make` command with `VERSION=eu`.
+Place `baserom.eu.z64` in the root of the repository, and suffix each `make` command with `VERSION=eu`. Note that whilst this will build the EU ROM, no effort has been made to decompile it.
 
 # ROM Info
 
@@ -76,6 +86,8 @@ Uses [RNC](https://segaretro.org/Rob_Northen_compression) for a number of assets
 Compression is partially matching; 250/263 files match after compression.
 
 A handful of files are compressed twice.
+
+In order to decompress the game assets run `make decompress` after you have performed the `make extract` step. This will be done automatically when matching compression has been figured out.
 
 ## Obfuscation
 

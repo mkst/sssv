@@ -13,13 +13,13 @@ void func_80355E14_7674C4(void) {
 }
 
 void func_80355EDC_76758C(void) {
-    func_8035E3E8_76FA98(0);
+    recharge_skill(0);
 }
 
 void func_80355EFC_7675AC(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos,  D_803D5530->zPos, D_803D5530->yPos, D_803BEB0C);
-    func_8032AAF0_73C1A0(TORTOISE_TANK_DEFENDING);
+    load_animal(TORTOISE_TANK_DEFENDING);
 }
 
 void func_80355F64_767614(void) {
@@ -32,19 +32,19 @@ void func_80355F64_767614(void) {
 void func_80355FFC_7676AC(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB10);
-    func_8032AAF0_73C1A0(RACING_TORTOISE_ATTACKING);
+    load_animal(RACING_TORTOISE_ATTACKING);
 }
 
 void func_80356064_767714(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(101, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB14);
-    func_8032AAF0_73C1A0(TORTOISE_TANK);
+    load_animal(TORTOISE_TANK);
 }
 
 void func_803560CC_76777C(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(101, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB18);
-    func_8032AAF0_73C1A0(RACING_TORTOISE);
+    load_animal(RACING_TORTOISE);
 }
 
 void func_80356134_7677E4(Animal *a) {
@@ -74,7 +74,7 @@ void func_803562C8_767978(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == TORTOISE_TANK) {
         play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB1C);
-        func_8032AAF0_73C1A0(TORTOISE_TANK_DEFENDING);
+        load_animal(TORTOISE_TANK_DEFENDING);
     }
 }
 
@@ -82,7 +82,7 @@ void func_80356348_7679F8(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == RACING_TORTOISE) {
         play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB20);
-        func_8032AAF0_73C1A0(RACING_TORTOISE_ATTACKING);
+        load_animal(RACING_TORTOISE_ATTACKING);
     }
 }
 

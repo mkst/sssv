@@ -3,7 +3,7 @@
 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_79D8E0/func_8038C230_79D8E0.s")
-// not quite JUSTREG
+// JUSTREG
 // void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
 //     s16 phi_v1;
 //
@@ -14,16 +14,16 @@
 //             } else {
 //                 phi_v1 = (D_803D552C->unk368 >> 2) << (arg2 + 2);
 //             }
-//             D_803D552C->unk35C = D_803D552C->unk35C + (phi_v1 + ((s32) (((s32) (D_80152C78[(u8)(D_803D5540 << arg3)]) >> 7) * (4 - D_801E9EB2)) >> (8 - arg1)));
-//             D_803D552C->unk35C = D_803D552C->unk35C - ((s32) D_803D552C->unk35A >> 4);
-//             D_803D552C->unk35C = ((D_803D552C->unk35C * 0xF) >> 4) & 0xFFFFFFFFFFFFFFFFu;
+//             D_803D552C->unk35C = D_803D552C->unk35C + (phi_v1 + ((((D_80152C78[(u8)(D_803D5540 << arg3) & 0xff]) >> 7) * (4 - D_801E9EB2)) >> (8 - arg1)));
+//             D_803D552C->unk35C = D_803D552C->unk35C - (D_803D552C->unk35A >> 4);
+//             D_803D552C->unk35C = ((D_803D552C->unk35C * 0xF) >> 4);
+//             if (phi_v1) {}; // regalloc help
 //             D_803D552C->unk35A = D_803D552C->unk35A + D_803D552C->unk35C;
 //         }
 //
-//         func_80128078(&D_80204278->unk33590[D_80204278->unk38918], arg0, (D_803D552C->unk35A * arg4) / 24.0);
-//         // need to bump to 0x80000000 range?
-//         gSPMatrix(D_801D9E88++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-//         D_80204278->unk38918 += 1;
+//         func_80128078(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], arg0, (D_803D552C->unk35A * arg4) / 24.0);
+//         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+//         D_80204278->usedModelViewMtxs += 1;
 //     }
 // }
 
@@ -50,10 +50,10 @@
 //                 D_803D552C->unk35C = ((s32) (D_803D552C->unk35C * 0xF) >> 4);
 //                 D_803D552C->unk35A = (D_803D552C->unk35A + D_803D552C->unk35C);
 //             }
-//             func_80128078(&D_80204278->unk33590[D_80204278->unk38918], 0, (D_803D552C->unk35A * arg3) / 24.0);
+//             func_80128078(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, (D_803D552C->unk35A * arg3) / 24.0);
 //             // 0x80033590
-//             gSPMatrix(D_801D9E88++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-//             D_80204278->unk38918 += 1;
+//             gSPMatrix(D_801D9E88++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+//             D_80204278->usedModelViewMtxs += 1;
 //         }
 //     } else if ((D_803D5530->unk162 != 4) && (D_803D5530->unk162 != 5) && (D_803D5530->unk162 != 7)) {
 //         D_803D552C->unk35A = arg4;

@@ -136,8 +136,7 @@ void func_8012A400(void) {
     D_80152EBC = 0;
 }
 
-// end_display_lists
-void func_8012A490(void) {
+void end_display_lists(void) {
     gSPTexture(D_801D9E7C++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
 
     gSPEndDisplayList(D_801D9E90++);

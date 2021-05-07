@@ -44,22 +44,20 @@
 
 // jump
 void animal_jump(void) {
-    if (D_803D5524->unkA2 & 1) {
-        if (D_803D5524->unk9E == 2) {
-            if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) {
-                switch (D_803D5530->state) {
-                case 2:
-                    func_802A6390_6B7A40();
-                    break;
-                case 3:
-                    func_802A6390_6B7A40();
-                    break;
-                case 4:
-                    func_802A63C0_6B7A70();
-                    break;
-                default:
-                    break;
-                }
+    if ((D_803D5524->unkA2 & 1) && (D_803D5524->unk9E == 2)) {
+        if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) {
+            switch (D_803D5530->state) {
+            case STATE_STANDING:
+                func_802A6390_6B7A40();
+                break;
+            case STATE_WALKING:
+                func_802A6390_6B7A40();
+                break;
+            case STATE_RUNNING:
+                func_802A63C0_6B7A70();
+                break;
+            default:
+                break;
             }
         }
     }

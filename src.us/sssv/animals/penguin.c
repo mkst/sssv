@@ -57,7 +57,7 @@
 //             ((((func_8012826C() & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
 //             0);
 //     } else {
-//         func_8035E3E8_76FA98(0);
+//         recharge_skill(0);
 //     }
 // }
 
@@ -66,7 +66,7 @@ void func_80365C28_7772D8(void) {
         D_803D552C->unk365 = 32;
         D_803D552C->unk32A = D_803D5544;
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 

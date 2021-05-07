@@ -284,9 +284,9 @@ void func_80395088_7A6738(Gfx **arg0, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 col
 }
 
 void func_803951BC_7A686C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3) {
-    func_80125FE0(&D_80204278->unk33590[D_80204278->unk38918], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, 0x8000, 0x8000, 0x9000);
-    gSPMatrix((*arg0)++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->unk38918 += 1;
+    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, 0x8000, 0x8000, 0x9000);
+    gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
 
     gSPDisplayList((*arg0)++, D_04006D00);
     gSPPopMatrix((*arg0)++, G_MTX_MODELVIEW);
@@ -294,9 +294,9 @@ void func_803951BC_7A686C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3) {
 }
 
 void func_80395314_7A69C4(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3) {
-    func_80125FE0(&D_80204278->unk33590[D_80204278->unk38918], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, 0x8000, 0x8000, 0x9000);
-    gSPMatrix((*arg0)++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->unk38918 += 1;
+    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, 0x8000, 0x8000, 0x9000);
+    gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
 
     gSPDisplayList((*arg0)++, D_0400A9E0);
     gSPPopMatrix((*arg0)++, G_MTX_MODELVIEW);
@@ -417,9 +417,9 @@ void func_80395E98_7A7548(Gfx **arg0) {
     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 4*31, 4*31);
 
-    func_80125FE0(&D_80204278->unk33590[D_80204278->unk38918], 0x3E80000, 0x3E80000, 0x3E80000, 0, 0, 0xC0000, 0xC0000, 0xC0000);
-    gSPMatrix((*arg0)++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->unk38918 += 1;
+    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0x3E80000, 0x3E80000, 0x3E80000, 0, 0, 0xC0000, 0xC0000, 0xC0000);
+    gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
     gSPPopMatrix((*arg0)++, G_MTX_MODELVIEW);
 }
 
@@ -432,10 +432,10 @@ void func_803960F4_7A77A4(Gfx **arg0) {
     gDPSetRenderMode((*arg0)++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
     gSPSetGeometryMode((*arg0)++, G_CULL_BACK | G_LIGHTING);
 
-    func_80125FE0(&D_80204278->unk33590[D_80204278->unk38918], 0x3E80000, 0x3E80000, 0x3E80000, 0, 0, 0x30000, 0x30000, 0x30000);
+    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0x3E80000, 0x3E80000, 0x3E80000, 0, 0, 0x30000, 0x30000, 0x30000);
 
-    gSPMatrix((*arg0)++, &D_80204278->unk33590[D_80204278->unk38918], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->unk38918 += 1;
+    gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
     gSPDisplayList((*arg0)++, D_04005B60);
     gSPPopMatrix((*arg0)++, G_MTX_MODELVIEW);
 

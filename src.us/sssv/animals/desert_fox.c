@@ -11,7 +11,7 @@ void func_80374470_785B20(void) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = 36;
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 
@@ -20,13 +20,13 @@ void func_803744C4_785B74(void) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = 14;
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 
 //Desert fox dizziness function
 void func_80374518_785BC8(void) {
-    func_8032AAF0_73C1A0(DESERT_FOX);
+    load_animal(DESERT_FOX);
 
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = 37;
@@ -50,7 +50,7 @@ void func_803745BC_785C6C(void) {
 void func_803745C4_785C74(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == DESERT_FOX) {
-        func_8032AAF0_73C1A0(DESERT_FOX_ATTACKING);
+        load_animal(DESERT_FOX_ATTACKING);
     }
 }
 
@@ -59,7 +59,7 @@ void func_8037460C_785CBC(void) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = 14;
     } else {
-        func_8035E3E8_76FA98(1);
+        recharge_skill(1);
     }
 }
 

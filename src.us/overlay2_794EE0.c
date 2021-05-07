@@ -61,7 +61,7 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_8038801C_7996CC,
     func_803888F0_799FA0,
     func_80388B0C_79A1BC,
-    func_80388CC8_79A378, // BIKER_HYENA
+    func_80388CC8_79A378, // HYENA_BIKER
     func_80388F10_79A5C0,
     func_80389150_79A800,
     func_80389158_79A808,
@@ -770,7 +770,7 @@ void func_80385DF0_7974A0(void) {
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 2;
         } else if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2B4.unk8 > 0)) {
-            func_8035FDC0_771470(0x78);
+            king_rat_bugel_call(0x78);
             D_803D552C->unk2C4 = 250;
         }
         break;

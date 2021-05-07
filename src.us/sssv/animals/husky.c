@@ -8,7 +8,7 @@
 
 void func_8036BBB8_77D268(void) {
     D_803D552C->unk30E = 15;
-    func_8032AAF0_73C1A0(HUSKY_ATTACKING);
+    load_animal(HUSKY_ATTACKING);
 }
 
 void func_8036BBE8_77D298(void) {
@@ -51,12 +51,12 @@ void func_8036BCF8_77D3A8(void) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    func_803223F4_733AA4(2);
+    recoil(2);
 }
 
 void func_8036BE70_77D520(void) {
     if (D_803D552C->unk30E <= 0) {
-        func_8032AAF0_73C1A0(HUSKY);
+        load_animal(HUSKY);
     }
 }
 
@@ -88,13 +88,13 @@ void ski_husky_fire_missile(Animal *arg0) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    func_803223F4_733AA4(2);
+    recoil(2);
 }
 
 void func_8036C014_77D6C4(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == HUSKY) {
-        func_8032AAF0_73C1A0(HUSKY_ATTACKING);
+        load_animal(HUSKY_ATTACKING);
     }
 }
 

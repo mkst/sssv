@@ -2,10 +2,12 @@
 
 #include "common.h"
 
-// unused
+
 void func_80130BA0(void) {
-    s16 i = 0;
-    do { i++; } while (i < 60U);
+    s16 i;
+    for (i = 0; i < 60U; i++) {
+        // debug stuff removed?
+    };
 }
 
 // junk out eeprom?

@@ -1,24 +1,25 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "pp.h"
 
 void func_80398630_7A9CE0(void) {
     func_803800F0_7917A0(6);
-    UnpackRNC(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF), &D_800BA760); // rnc_42DCA0, textures
-    UnpackRNC(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF), &D_800BDC80);
-    UnpackRNC(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF), &D_800DE390);
-    UnpackRNC(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF), &D_800C3A40);
-    UnpackRNC(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF), &D_800C5240);
-    UnpackRNC(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF), &D_800C4240);
-    UnpackRNC(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF), &D_800C4A40);
-    UnpackRNC(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF), &D_800BB700);
-    UnpackRNC(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF), &D_800BBBB0);
-    UnpackRNC(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF), &D_800BC060);
-    UnpackRNC(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF), &D_800BC510);
-    UnpackRNC(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF), &D_800BC9C0);
-    UnpackRNC(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF), &D_800BCE70);
-    UnpackRNC(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF), &D_800BD320);
-    UnpackRNC(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF), &D_800BD7D0);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF)), &D_800BA760); // rnc_42DCA0, textures
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF)), &D_800BDC80);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF)), &D_800DE390);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF)), &D_800C3A40);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF)), &D_800C5240);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF)), &D_800C4240);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF)), &D_800C4A40);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF)), &D_800BB700);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF)), &D_800BBBB0);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF)), &D_800BC060);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF)), &D_800BC510);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF)), &D_800BC9C0);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF)), &D_800BCE70);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF)), &D_800BD320);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF)), &D_800BD7D0);
 }
 
 void func_8039884C_7A9EFC(void) {
@@ -63,7 +64,7 @@ void func_8039895C_7AA00C(void) {
 
     for (i = 0; i < 4; i++) {
         read_eeprom(i);
-        strncpy(&D_8023F260, &D_8023F2E0[i], 64);
+        strncpy((u8*)&D_8023F260, (u8*) &D_8023F2E0[i], 64);
     }
     read_eeprom(D_803F7DD6);
 }
