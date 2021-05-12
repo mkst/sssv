@@ -2,9 +2,9 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_786320/func_80374C70_786320.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/walrus/func_80374C70_786320.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_786320/func_803766E8_787D98.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/walrus/func_803766E8_787D98.s")
 
 void func_803769E0_788090(void) {
     Animal *animal;
@@ -58,9 +58,9 @@ void func_80376CF8_7883A8(s16 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_786320/func_80376D40_7883F0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/walrus/func_80376D40_7883F0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_786320/func_80378B84_78A234.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/walrus/func_80378B84_78A234.s")
 // NON-MATCHING: middle section needs work + regalloc
 // void func_80378B84_78A234(s16 arg0, s16 *arg1, s16 *arg2, s16 *arg3, s16 *arg4, Animal *arg5) {
 //     s16 sp44;

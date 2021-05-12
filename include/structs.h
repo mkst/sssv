@@ -251,7 +251,7 @@ struct Animal {
     /* 0x30C */ s16 unk30C;
     /* 0x30E */ s16 unk30E;
     /* 0x310 */ s16 unk310;
-    /* 0x312 */ u8  pad312[0x2];
+    /* 0x312 */ s16 unk312;
     /* 0x314 */ s16 unk314;
     /* 0x316 */ s16 unk316;
     /* 0x318 */ s16 unk318;

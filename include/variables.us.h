@@ -652,6 +652,8 @@ extern f64  D_803BBF50; // 0.7
 extern f32  D_803BBF58; // 0.699999988079071f (0.7f)
 extern f32  D_803BBF5C; // -0.699999988079071f (-0.7f)
 
+extern f32  D_803BCDD8_7CE488;
+extern f32  D_803BCDDC_7CE48C;
 extern f32  D_803BCFD0_7CE680;
 extern f32  D_803BD114_7CE7C4; // 1.1892
 extern s16  D_803BD54A[];

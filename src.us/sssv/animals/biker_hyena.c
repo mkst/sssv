@@ -2,9 +2,9 @@
 #include "common.h"
 
 // uses jump table
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_768B90/func_803574E0_768B90.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/biker_hyena/func_803574E0_768B90.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_768B90/func_80358E3C_76A4EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/biker_hyena/func_80358E3C_76A4EC.s")
 
 void func_8035A130_76B7E0(void) {
     func_8037E1C4_78F874();

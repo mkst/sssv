@@ -2,7 +2,7 @@
 #include "common.h"
 
 // this is a biggun
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78CEB0/func_8037B800_78CEB0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/elephant/func_8037B800_78CEB0.s")
 
 void func_8037D06C_78E71C(void) {
     if ((D_803D5530->unk162 == 6) || (D_803D5530->unk162 == 7)) {
@@ -23,7 +23,7 @@ void func_8037D0EC_78E79C(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78CEB0/func_8037D138_78E7E8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/elephant/func_8037D138_78E7E8.s")
 // NON-MATCHING: JUSTREG
 // void func_8037D138_78E7E8(void) {
 //     s32 tmp;

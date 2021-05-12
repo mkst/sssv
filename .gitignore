@@ -2,6 +2,7 @@
 
 __pycache__/
 asm/
+assets/
 bin/
 build/
 expected/
@@ -15,8 +16,6 @@ rodata/
 # symlinks
 
 src
-diff_settings.py
-
 
 # files
 

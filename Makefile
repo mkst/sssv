@@ -3,15 +3,15 @@ VERSION  := us
 
 BUILD_DIR = build
 ASM_DIRS  = asm \
-			asm/libc \
-			asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched \
-			asm/data asm/data/sssv asm/data/sssv/animals
+            asm/libc \
+            asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched \
+            asm/data asm/data/sssv asm/data/sssv/animals
 BIN_DIRS  = assets
 SRC_DIR   = src.$(VERSION)
 
 SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
-			$(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os \
-			$(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals
+            $(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os \
+            $(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals
 
 TOOLS_DIR := tools
 
@@ -19,6 +19,9 @@ S_FILES   = $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
 C_FILES   = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 # H_FILES   = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
 BIN_FILES = $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
+
+LANG_BIN_FILES = $(wildcard assets/lang/*.bin)
+LANG_O_FILES = $(foreach file,$(LANG_BIN_FILES),$(BUILD_DIR)/$(file).o)
 
 O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file).o) \
@@ -131,7 +134,7 @@ clean:
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $<" | sha1sum --check
 	@touch $@
 
-$(TARGET).elf: $(O_FILES)
+$(TARGET).elf: $(O_FILES) $(LANG_O_FILES)
 	@$(LD) $(LDFLAGS) -o $@
 
 ifndef PERMUTER
@@ -178,6 +181,28 @@ $(BUILD_DIR)/%.bin: rnc/%.bin
 $(RNC64):
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64
 
+# language files
+%.dat: %.bin $(RNC64)
+	@mkdir -p $$(dirname $@)
+	$(RNC64) u $< $@ > /dev/null
+
+%.json: %.dat
+	@mkdir -p $$(dirname $@)
+	$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@
+
+$(BUILD_DIR)/%.dat: %.json
+	@mkdir -p $$(dirname $@)
+	$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@ --encode
+
+%.rnc: %.dat
+	@mkdir -p $$(dirname $@)
+	$(RNC64) p $< $@ >/dev/null
+
+$(LANG_O_FILES) : %.bin.o: %.rnc
+	@mkdir -p $$(dirname $@)
+	$(LD) -r -b binary -o $@ $<
+
+
 progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.overlay2.csv
 	cat $^ > $@
 
@@ -192,5 +217,6 @@ progress.overlay2.csv: $(TARGET).elf
 
 
 ### Settings
+.SECONDARY:
 .PHONY: all clean default
 SHELL = /bin/bash -e -o pipefail
