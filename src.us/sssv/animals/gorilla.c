@@ -2,7 +2,7 @@
 #include "common.h"
 
 // 2400 lines
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78A890/func_803791E0_78A890.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/gorilla/func_803791E0_78A890.s")
 
 void func_8037B590_78CC40(void) {
     if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 != 11) && (D_803D5530->unk162 == 1)) {

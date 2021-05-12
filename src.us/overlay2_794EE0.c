@@ -6,8 +6,8 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     perform_behavior_seagull,
     perform_behavior_lion,
     perform_behavior_hippo,
-    func_80383E38_7954E8,
-    func_80383E40_7954F0,
+    func_80383E38_7954E8, // 3 RACING_HIPPO
+    func_80383E40_7954F0, // 4 RACING_DOG
     func_80384060_795710, // 5 FLYING_DOG
     func_8038448C_795B3C,
     func_803846BC_795D6C, // 7 FIRE_FOX
@@ -47,19 +47,19 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_8038710C_7987BC,
     func_80387114_7987C4,
     func_8038974C_79ADFC,
-    func_80387330_7989E0,
+    func_80387330_7989E0, // 44 WALRUS
     func_8038754C_798BFC,
     func_80387780_798E30,
     func_803879A4_799054,
     func_80389754_79AE04,
     func_80387BF4_7992A4,
-    func_80387DE0_799490,
+    func_80387DE0_799490, // 50 BOXING_KANGAROO
     func_8038801C_7996CC,
     func_80388248_7998F8,
     func_80388480_799B30,
-    func_80388744_799DF4,
+    perform_behavior_gorilla, // 54 GORILLA
     func_8038801C_7996CC,
-    func_803888F0_799FA0,
+    perform_behavior_elephant, // 56 ELEPHANT
     func_80388B0C_79A1BC,
     func_80388CC8_79A378, // HYENA_BIKER
     func_80388F10_79A5C0,
@@ -221,7 +221,7 @@ void func_80383E40_7954F0(void) {
     }
 }
 
-// perform_behavior_flying_fox
+// perform_behavior_flying_dog
 void func_80384060_795710(void) {
     if ((D_803D552C->unk2CC->unk16C->unk9E == 64) ||
         (D_803D552C->unk2CC->unk16C->unk9E == 128) ||
@@ -1505,7 +1505,7 @@ void func_80388480_799B30(void) {
     }
 }
 
-void func_80388744_799DF4(void) {
+void perform_behavior_gorilla(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -1533,7 +1533,7 @@ void func_80388744_799DF4(void) {
     }
 }
 
-void func_803888F0_799FA0(void) {
+void perform_behavior_elephant(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -1809,12 +1809,15 @@ void func_80389524_79ABD4(void) {
 }
 
 void func_8038974C_79ADFC(void) {
+    // no behavior for crow
 }
 
 void func_80389754_79AE04(void) {
+    // no behavior for pogo kangaroo
 }
 
 void func_8038975C_79AE0C(void) {
+    // no behaviour for cool cod
 }
 
 void func_80389764_79AE14(u8 arg0) {

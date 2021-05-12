@@ -2,7 +2,7 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_793700/func_80382050_793700.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/pirana/func_80382050_793700.s")
 
 void func_80382C9C_79434C(void) {
     D_803D552C->unk365 = 18;

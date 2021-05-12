@@ -2,9 +2,9 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_780E50/func_8036F7A0_780E50.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/kangaroo/func_8036F7A0_780E50.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_780E50/func_80370C84_782334.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/kangaroo/func_80370C84_782334.s")
 
 void func_80372510_783BC0(void) {
     D_803D552C->unk32A = D_803D5544;

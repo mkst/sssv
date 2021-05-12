@@ -27,20 +27,11 @@ void func_8037D32C_78E9DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 
 void func_8037D994_78F044(s8 arg0) {
     D_803D554B = arg0;
-
-    if ((D_803D554C + 2) < 20) {
-        D_803D554C += 2;
-    } else {
-        D_803D554C = 20;
-    }
+    D_803D554C = MIN(D_803D554C + 2, 20);
 }
 
 void func_8037D9D4_78F084(void) {
-    if ((D_803D554C + 1) < 5) {
-        D_803D554C += 1;
-    } else {
-        D_803D554C = 5;
-      }
+    D_803D554C = MIN(D_803D554C + 1, 5);
 }
 
 // jump table
