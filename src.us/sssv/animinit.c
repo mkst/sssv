@@ -26,7 +26,7 @@ extern u8  D_00116BD0[];
 //
 //     osWritebackDCacheAll();
 //     available = D_800B0B20 - D_80099600;
-//     fancy_bzero(D_80099600, available);
+//     bzero_sssv(D_80099600, available);
 //     switch (arg0) {
 //     case 0:
 //         len = D_00116BD0 - D_000FFD50;

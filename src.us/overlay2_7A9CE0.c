@@ -64,7 +64,7 @@ void func_8039895C_7AA00C(void) {
 
     for (i = 0; i < 4; i++) {
         read_eeprom(i);
-        strncpy((u8*)&D_8023F260, (u8*) &D_8023F2E0[i], 64);
+        memcpy_sssv((u8*)&D_8023F260, (u8*) &D_8023F2E0[i], 64);
     }
     read_eeprom(D_803F7DD6);
 }
@@ -136,7 +136,7 @@ void func_80398A00_7AA0B0(void) {
 //             }
 //         }
 //         D_803F2D50.unkC6 = 0;
-//         strncpy(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
+//         memcpy_sssv(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
 //         write_eeprom(D_803F7DA8.unk2E);
 //         level = D_803F7DA8.unk2D + 1;
 //         if ((level == GIVE_A_DOG_A_BONUS) ||
@@ -162,7 +162,7 @@ void func_80398A00_7AA0B0(void) {
 //         if (D_8023F260.score < D_803F2D30.score) {
 //             D_8023F260.score = D_803F2D30.score;
 //         }
-//         strncpy(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 64);
+//         memcpy_sssv(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 64);
 //         write_eeprom(D_803F7DA8.unk2E);
 //     }
 // }
@@ -452,7 +452,7 @@ void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs) {
 //     for (i = 0; i < D_803F63C0; i++) {
 //         s16 *tmp = &D_803F34C0[D_803F3330[i]];
 //         if ((tmp[0] == 336) && (tmp[1] == 350)) {
-//             strncpy(&tmp[2], D_803F2E34, 84);
+//             memcpy_sssv(&tmp[2], D_803F2E34, 84);
 //             end = 1;
 //         }
 //     }

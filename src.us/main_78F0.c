@@ -413,7 +413,7 @@ void prepare_text(u8 *src, s16 *dst) {
 //     end = D_80154500[language*2][1];
 //     dma_read(start, D_8022E3F0, end - start);
 //     UnpackRNC((RNC_fileptr)D_8022E3F0, (u8*)D_80235410);
-//     strncpy((u8*)D_80235410 + D_80235410[arg0], D_8022E3F0, 12000);
+//     memcpy_sssv((u8*)D_80235410 + D_80235410[arg0], D_8022E3F0, 12000);
 //
 //     src = &D_8022E3F2; // offset?
 //     copied = 0;
@@ -422,7 +422,7 @@ void prepare_text(u8 *src, s16 *dst) {
 //     for (i = 0; i < temp_s4; i++) {
 //         chunk_size = *src++;
 //         *arg2 = copied;
-//         strncpy(src, arg3 + copied, chunk_size);
+//         memcpy_sssv(src, arg3 + copied, chunk_size);
 //         copied += chunk_size ;
 //         src += chunk_size / 2;
 //     }

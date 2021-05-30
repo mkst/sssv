@@ -16,7 +16,7 @@ void func_8036BBE8_77D298(void) {
         func_8037D9D4_78F084();
         func_802D5F4C_6E75FC(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
     } else {
-        func_8037D994_78F044(0xB);
+        func_8037D994_78F044(11);
         func_802D5F4C_6E75FC(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
     }
 }

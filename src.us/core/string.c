@@ -3,7 +3,7 @@
 #include "common.h"
 
 // strlen is already defined in libc, this is an extra...
-u16 strlen2(u8 *s) {
+u16 strlen_sssv(u8 *s) {
     u16 i;
 
     if (s == NULL) {
@@ -17,7 +17,7 @@ u16 strlen2(u8 *s) {
 void strcat(u8 *dst, u8 *src) {
     u16 i, j;
 
-    i = strlen2(dst);
+    i = strlen_sssv(dst);
     j = 0;
 
     while (src[j] != 0) {
@@ -36,13 +36,36 @@ void strcpy(u8* dst, u8 *src) {
     dst[i] = 0; // NUL terminate
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80128ED4.s")
+void strncpy(u8 *dst, u8 *src, s16 num) {
+    u16 i = 0;
+    while ((src[i] != 0) && (i < num)) {
+        dst[i] = src[i];
+        i++;
+    }
+    dst[i] = 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80128F38.s")
+s32 strcmp(u8 *str1, u8 *str2) {
+    // empty strings are equal
+    if ((*str1 == 0) && (*str2 == 0)) {
+        return 0;
+    }
+    // iterate until NUL or mismatch
+    while ((*str1 != 0) && (*str2 != 0)) {
+        if (*str1++ != *str2++) {
+            return 1;
+        }
+    };
+    // final check...
+    if (*str1 == *str2) {
+        return 0;
+    }
+    // mismatch
+    return 1;
+}
 
-void fancy_bzero(u8 *addr, s32 len) {
+void bzero_sssv(u8 *addr, s32 len) {
     s32 unaligned_bytes, remainder;
-
     u64 *l;
     u8  *b;
 
@@ -103,8 +126,7 @@ u8 *memset_bytes(u8 *dst, u8 c, u32 len) {
 
 u16 rand(void) {
       u32 *tmp = &D_80152E80;
-      if (0)
-      {
+      if (0) {
           // debug?
       }
 
@@ -112,7 +134,7 @@ u16 rand(void) {
       return (*tmp >> 16) & 0x7fff;
 }
 
-u8 *strncpy(u8 *src, u8 *dst, u32 len) {
+u8 *memcpy_sssv(u8 *src, u8 *dst, u32 len) {
     u8 *_src = src;
     u8 *_dst = dst;
 

@@ -75,7 +75,7 @@ void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2) {
     func_802C19CC_6D307C(&D_803D5528->unk3AC, arg2->unk6, 6, 16, 0, arg1);
 }
 
-void func_802C19CC_6D307C(s32 arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5) {
+void func_802C19CC_6D307C(s32 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5) {
     s16 tmp0 = D_80203FE0[arg2].unk0;
     s16 tmp2 = D_80203FE0[arg2].unk2;
 

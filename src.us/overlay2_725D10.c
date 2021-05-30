@@ -45,8 +45,8 @@ Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
 }
 
 void func_80314788_725E38(void) {
-    fancy_bzero((u8*)D_803E4CA8, sizeof(D_803E4CA8));
-    fancy_bzero((u8*)D_803E4D40, sizeof(D_803E4D40));
+    bzero_sssv((u8*)D_803E4CA8, sizeof(D_803E4CA8));
+    bzero_sssv((u8*)D_803E4D40, sizeof(D_803E4D40));
     D_803E8E54 = 0;
     D_803E4CA4 = 0;
     D_803E4CA5 = 0;

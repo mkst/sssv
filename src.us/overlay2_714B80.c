@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
-
+// urgh
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714B80/func_803034D0_714B80.s")
 
 void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {

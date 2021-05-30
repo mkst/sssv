@@ -1,9 +1,10 @@
 #include <ultra64.h>
 #include "common.h"
+#include "pp.h"
 
 #if 0
 // levels
-u32 D_803A5BF8_7B72A8[36][2] = {
+u8* D_803A5BF8_7B72A8[36][2] = {
     { 0x546D00, 0x54F0D0 },
     { 0x54F0D0, 0x554E00 },
     { 0x554E00, 0x55A390 },
@@ -40,20 +41,46 @@ u32 D_803A5BF8_7B72A8[36][2] = {
     { 0x6104A0, 0x6109D0 },
     { 0x6109D0, 0x616BB0 },
     { 0x616BB0, 0x617C30 }
-}
+};
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031AFD0_72C680.s")
+// get_uncompressed_size
+s32 func_8031AFD0_72C680(u8 *arg0) {
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B058_72C708.s")
+    if ((arg0[0] == 'R') && (arg0[1] == 'N') && (arg0[2] == 'C')) {
+        // return uncompressed length length
+        return arg0[7] | (arg0[6] << 8) | (arg0[5] << 16) | (arg0[4] << 24);
+    } else {
+        return arg0[3] | (arg0[2] << 8) | (arg0[1] << 16) | (arg0[0] << 24);
+    }
+}
+
+// get_compressed_size
+s32 func_8031B058_72C708(u8 *arg0) {
+    if ((arg0[0] == 'R') && (arg0[1] == 'N') && (arg0[2] == 'C')) {
+        // return compressed length length + RNC header size (18 bytes)
+        return (arg0[11] | (arg0[10] << 8) | (arg0[9] << 16) | (arg0[8] << 24)) + HEADERLEN;
+    } else {
+        return (arg0[3] | (arg0[2] << 8) | (arg0[1] << 16) | (arg0[0] << 24)) + 4;
+    }
+
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B0E8_72C798.s")
+// NON-MATCHING: not quite right...
+// s32 func_8031B0E8_72C798(u8 *arg0, u8 *arg1, u8 *arg2) {
+//     if ((arg0[0] == 'R') && (arg0[1] == 'N') && (arg0[2] == 'C')) {
+//         UnpackRNC(arg0, arg1);
+//     } else {
+//         memcpy_sssv(arg0 + 4, arg0[3] | (arg0[2] << 8) | (arg0[1] << 16) | (arg0[0] << 24), arg2);
+//     }
+//     return 1;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B174_72C824.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B390_72CA40.s")
-// load_level
-// void func_8031B390_72CA40(u8 arg0) {
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level.s")
+// void load_level(u8 arg0) {
 //     u8 idx = arg0 - 1;
 //
 //     func_8031C374_72DA24();
@@ -64,13 +91,16 @@ u32 D_803A5BF8_7B72A8[36][2] = {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B400_72CAB0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031C304_72D9B4.s")
+void func_8031C304_72D9B4(void) {
+    func_8012A400();
+    func_8012AC8C();
+}
 
 void func_8031C32C_72D9DC(void) {
     // zero out framebuffer 1
-    fancy_bzero(gFramebuffer[0], sizeof(gFramebuffer[0]));
+    bzero_sssv(gFramebuffer[0], sizeof(gFramebuffer[0]));
     // zero out framebuffer 2
-    fancy_bzero(gFramebuffer[1], sizeof(gFramebuffer[0]));
+    bzero_sssv(gFramebuffer[1], sizeof(gFramebuffer[0]));
     // cancel blackout
     osViBlack(0);
 }
@@ -87,7 +117,7 @@ void func_8031C374_72DA24(void) {
 void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
     s16 i;
 
-    strncpy(arg0, (u8*)&D_803E9840[D_803F28C2], sizeof(struct067));
+    memcpy_sssv(arg0, (u8*)&D_803E9840[D_803F28C2], sizeof(struct067));
 
     for (i = 0; i < 247; i++) {
         if (arg1 == D_803A8528_7B9BD8[i].unk1C) {

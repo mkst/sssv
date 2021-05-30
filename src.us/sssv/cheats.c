@@ -188,7 +188,7 @@ s32 check_cheat_code(const u8 *buttonPresses, const char *cheatCode) {
     s16 res;
     s16 idx;
 
-    len = strlen2(cheatCode);
+    len = strlen_sssv(cheatCode);
 
     res = 1;
     for (i = 0; i < len; i++) {

@@ -85,7 +85,7 @@
 //         func_80137840(); // initialise rumble packs?
 //         func_8012A400(); // receive some messages?
 //         // swap frame buffer?
-//         strncpy(&D_80162658[D_80152EB8].unk3BBE8, &D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
+//         memcpy_sssv(&D_80162658[D_80152EB8].unk3BBE8, &D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
 //         func_8038F8C8_7A0F78();
 //         D_803E4D28 = D_803E4D28 & ~0x40;
 //     }
@@ -419,7 +419,7 @@ void func_802961D4_6A7884(void) {
     func_802CB360_6DCA10();
     func_80304170_715820();
     func_80304194_715844(); // zero out something
-    func_8031B390_72CA40(gLevelIndex);
+    load_level(gLevelIndex);
     D_80204280 = D_803F2D30.unk8;
     D_803F2D30.unk4 = 0;
     func_80296310_6A79C0();

@@ -39,7 +39,7 @@ void func_80372604_783CB4(void) {
 void func_80372698_783D48(void) {
     if (D_803D552C->unk365 == 0) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 0x23;
+        D_803D552C->unk365 = 35;
         D_803D552C->unk32C = D_803D552C->unk302;
     }
 }

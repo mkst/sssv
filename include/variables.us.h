@@ -34,7 +34,9 @@ extern u8   D_010043A0[];
 extern Gfx  D_01004510[];
 extern Gfx  D_010049A0[];
 extern u8   D_01004AF8[];
+extern Gfx  D_01013370[];
 extern u8   D_01021BB0[];
+extern u8   D_0102A210[];
 extern u8   D_0102F010[];
 extern u8   D_01030810[];
 extern Gfx  D_01037700[];
@@ -262,6 +264,7 @@ extern struct015 D_801DDD8C[]; // animals struct array
 extern u16  D_801E9E8E;
 extern s16  D_801E9EB2;
 extern s16  D_801E9EB4;
+extern s16  D_801E9EB8;
 
 // 0x801Fxxxx
 
@@ -275,7 +278,8 @@ extern struct071 *D_80203D1C[]; // table of pointers to each interactive object
 extern s16  D_80203FC4;
 extern s16  D_80203FD0;
 extern s16  D_80203FD2;
-extern struct016 D_80203FE0[16];
+extern struct016 D_80203FE0[34];
+extern struct016 D_802040F0[34];
 extern s16  D_80203FE8;
 extern s16  D_80203FF0;
 extern s16  D_80203FF2;
@@ -536,9 +540,13 @@ extern u8   D_8039E2E8[];
 
 extern s16  D_803A0500;
 extern s32  D_803A05B0;
+extern s16  D_803A05C0_7B1C70;
+extern s16  D_803A05C8_7B1C78;
 extern s32  D_803A05B0_7B1C60;
 extern s32  D_803A05B4_7B1C64;
+extern struct076 D_803A2D90_7B4440[];
 extern u8   D_803A38D8[];
+extern struct028 D_803A50C0_7B6770;
 extern s32  D_803A5520_7B6BD0;
 extern s32  D_803A5524_7B6BD4;
 extern s32  D_803A5528_7B6BD8;
@@ -546,7 +554,9 @@ extern s32  D_803A5530_7B6BE0;
 extern s32  D_803A5544_7B6BF4;
 extern s32  D_803A5590_7B6C40[];
 extern u16  D_803A5750_7B6E00;
-extern u32  D_803A5BF8_7B72A8[][2];
+extern u16  D_803A5760_7B6E10;
+extern s16  D_803A5764_7B6E14;
+extern u8*  D_803A5BF8_7B72A8[36][2];
 extern u8   D_803A52A0_7B6950;
 extern u8   D_803A52A4_7B6954;
 extern u8   D_803A52A8_7B6958;
@@ -558,7 +568,11 @@ extern s32  D_803A52C0;
 extern s32  D_803A52C0_7B6970;
 extern s16  D_803A52C4;
 extern s16  D_803A52C4_7B6974;
+extern u8   D_803A52D0_7B6980;
+extern s16  D_803A5330_7B69E0;
 extern s8   D_803A63B0[];
+extern s16  D_803A6470_7B7B20[];
+extern s16  D_803A6520_7B7BD0[];
 extern s16  D_803A6730[];
 extern s16  D_803A69F0[];
 extern f32  D_803A6CC4;
@@ -658,6 +672,7 @@ extern f32  D_803BCFD0_7CE680;
 extern f32  D_803BD114_7CE7C4; // 1.1892
 extern s16  D_803BD54A[];
 extern s16  D_803BD602[];
+extern char D_803BD8B0_7CEF60[]; // "Fq %d Time %d S %d\n"
 extern char D_803BD9A0_7CF050[]; // "Helimouse is gone\n"
 extern f64  D_803BE5F8;
 extern f64  D_803BE600;
@@ -690,6 +705,7 @@ extern f32  D_803BF028; // 0x3F333333
 extern f32  D_803BF02C; // 0x3F333333
 extern char D_803BF030[]; // "mapStatus12:%d %d\n"
 extern char D_803BF044[]; // "ATTACK ABANDONED\n"
+extern f32  D_803BF3E0;
 extern f64  D_803BFB60;
 extern char D_803BFFD4[]; // "%s\n"
 
@@ -762,16 +778,23 @@ extern s8   D_803D554C;
 extern s32  D_803D5564;
 extern s32  D_803D5568;
 extern u8   D_803D5575; // controller maginitude?
+extern s16  D_803D5590[360];
+extern s16  D_803D5860[360];
+extern s16  D_803D5B30[360];
+extern s16  D_803D5E00[360];
 extern struct043 *D_803D60DC;
 extern s16  D_803D6110;
+extern u8   D_803D6120;
 
+extern u16  D_803DA0F4;
 extern struct065 D_803DA110[40];
 extern Animal *D_803DA2F0;
 extern Animal *D_803DA2F4;
 
 // 0x803Exxxx
 
-extern struct051 D_803E00EE[];
+extern struct051 D_803E00C0[]; // ?
+extern struct051 D_803E00EE[]; // D_803E0000[3] ?
 extern struct073 D_803E3130[];
 extern u8   D_803E4AD0[];
 extern s32  D_803E4C3C;
@@ -804,8 +827,12 @@ extern s32  D_803E4D2C;
 extern s32  D_803E4D30;
 extern s32  D_803E4D38[2];
 extern u8   D_803E4D40[0x4114]; // tbd what this is
+extern s16  D_803E1B00;
+extern s16  D_803E1B02;
 extern u16  D_803E1B04;
-extern s16  D_803E1B10[4]; // struct?
+extern u16  D_803E1B06;
+extern s16  D_803E1B08;
+extern s16  D_803E1B10[5]; // struct?
 extern s16  D_803E1B20[5];
 extern s16  D_803E1B8A;
 extern u16  D_803E1B8C;
@@ -835,7 +862,15 @@ extern u16  D_803E1BB8;
 extern s16  D_803E1BC0;
 extern OSContPad D_803E1BC4;
 extern OSContPad *D_803E1BD4;
+extern s32  D_803E1BE0;
+extern u8   D_803E1BE8[][24]; // maybe a struct?
+extern Fog  D_803E1CE0;
+extern Fog  D_803E1CE8;
 extern Fog  D_803E1CF8;
+extern s16  D_803E1D00;
+extern s16  D_803E1D02;
+extern u8   D_803E1D04;
+extern s16  D_803E1D0C;
 extern struct064 D_803E1D3B[];
 extern u16  D_803E8E54;
 extern u8   D_803E8E56;
@@ -844,6 +879,7 @@ extern u8   D_803E8E58;
 extern u8   D_803E8E60[256];
 extern u8   D_803E8F60[1100];
 extern u8   D_803E93B0[]; // ??
+extern s16  D_803E97C0;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  D_803E9824;
@@ -853,6 +889,7 @@ extern struct067 D_803E9840[];
 
 extern s16  D_803F28C2;
 extern u16  D_803F28D0;
+extern u16  D_803F28DC;
 extern struct025 D_803F28E0[]; // 2 values?
 
 extern s8   D_803F2A92;
@@ -886,8 +923,8 @@ extern f32  D_803F2C2C;
 extern f32  D_803F2C30;
 extern f32  D_803F2C34;
 extern s8   D_803F2C38;
-extern s32  D_803F2C3C;
-extern s32  D_803F2C40;
+extern f32  D_803F2C3C;
+extern f32  D_803F2C40;
 extern f32  D_803F2C44;
 extern f32  D_803F2C48;
 extern f32  D_803F2C4C;

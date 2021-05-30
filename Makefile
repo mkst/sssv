@@ -1,6 +1,8 @@
 BASENAME  = sssv
 VERSION  := us
 
+# Directories
+
 BUILD_DIR = build
 ASM_DIRS  = asm \
             asm/libc \
@@ -13,50 +15,56 @@ SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
             $(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os \
             $(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals
 
-TOOLS_DIR := tools
+TOOLS_DIR = tools
 
-S_FILES   = $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
-C_FILES   = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-# H_FILES   = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
-BIN_FILES = $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
+# Files
 
-LANG_BIN_FILES = $(wildcard assets/lang/*.bin)
-LANG_O_FILES = $(foreach file,$(LANG_BIN_FILES),$(BUILD_DIR)/$(file).o)
+S_FILES         = $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
+C_FILES         = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+# H_FILES       = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
+BIN_FILES       = $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
+
+LANG_FILES      = $(wildcard assets/lang/*.dat)
+LANG_RNC_FILES  = $(foreach file,$(LANG_FILES),$(BUILD_DIR)/$(file:.dat=.rnc))
+LANG_O_FILES    = $(foreach file,$(LANG_FILES),$(BUILD_DIR)/$(file:.dat=.dat.o))
 
 O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file).o)
 
-RNC_FILES := $(wildcard assets/rnc*.bin)
-RNC_EXTRACTED := $(foreach file,$(RNC_FILES),rnc/$(file))
-RNC_COMPRESSED := $(foreach file,$(RNC_FILES),build/$(file))
+RNC_FILES       := $(wildcard assets/rnc*.bin)
+RNC_EXTRACTED   := $(foreach file,$(RNC_FILES),rnc/$(file))
+RNC_COMPRESSED  := $(foreach file,$(RNC_FILES),build/$(file))
 
-TARGET = $(BUILD_DIR)/$(BASENAME).$(VERSION)
-LD_SCRIPT = $(BASENAME).ld
+TARGET     = $(BUILD_DIR)/$(BASENAME).$(VERSION)
+LD_SCRIPT  = $(BASENAME).ld
 
-CROSS = mips-linux-gnu-
-AS = $(CROSS)as
-CPP = cpp
-LD = $(CROSS)ld
-OBJDUMP = $(CROSS)objdump
-OBJCOPY = $(CROSS)objcopy
-PYTHON = python3
+# Tools
 
-OBJCOPYFLAGS = -O binary
+CROSS    = mips-linux-gnu-
 
-RNC64 = $(TOOLS_DIR)/rnc_propack_source/rnc64
+AS       = $(CROSS)as
+CPP      = cpp
+LD       = $(CROSS)ld
+OBJDUMP  = $(CROSS)objdump
+OBJCOPY  = $(CROSS)objcopy
+PYTHON   = python3
 
-CC := $(TOOLS_DIR)/ido5.3_recomp/cc
+GREP     = grep -rl
+CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
+RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
 
-OPT_FLAGS := -O2
-MIPSISET := -mips2 -o32
+# Flags
 
-INCLUDE_CFLAGS := -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc
+OPT_FLAGS      = -O2
+MIPSISET       = -mips2 -o32
 
-ASFLAGS = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
+INCLUDE_CFLAGS = -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc
+
+ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
+OBJCOPYFLAGS   = -O binary
 
 # Files requiring pre/post-processing
-GREP := grep -rl
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
@@ -81,9 +89,7 @@ ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 
 ### Optimisation Overrides
 $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/main_4790.c.o: OPT_FLAGS := -O2
-# TODO:
-# $(BUILD_DIR)/$(SRC_DIR)/main_4790.o: OPT_FLAGS := -O2 -g3
+# $(BUILD_DIR)/$(SRC_DIR)/main_4790.c.o: OPT_FLAGS := -O2
 
 # libultra
 $(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.c.o: OPT_FLAGS := -O1
@@ -113,7 +119,7 @@ verify: $(TARGET).z64
 
 progress: verify progress.csv
 
-extract: check
+extract: check tools
 	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml
 
 decompress: $(RNC_EXTRACTED)
@@ -170,21 +176,17 @@ $(TARGET).bin: $(TARGET).elf
 $(TARGET).z64: $(TARGET).bin
 	@cp $< $@
 
-rnc/%.bin: %.bin $(RNC64)
+rnc/%.bin: %.bin
 	@mkdir -p rnc/assets
 	$(RNC64) u $< $@ >/dev/null
 
 $(BUILD_DIR)/%.bin: rnc/%.bin
 	$(TOOLS_DIR)/rnc_propack_source/rnc64 p $< $@ >/dev/null
-	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@
+	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
+	@mv $@.pad $@
 
-$(RNC64):
+$(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64
-
-# language files
-%.dat: %.bin $(RNC64)
-	@mkdir -p $$(dirname $@)
-	$(RNC64) u $< $@ > /dev/null
 
 %.json: %.dat
 	@mkdir -p $$(dirname $@)
@@ -194,11 +196,12 @@ $(BUILD_DIR)/%.dat: %.json
 	@mkdir -p $$(dirname $@)
 	$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@ --encode
 
-%.rnc: %.dat
+# TODO: make this slightly more intuitive
+$(LANG_RNC_FILES): %.rnc: %.dat
 	@mkdir -p $$(dirname $@)
 	$(RNC64) p $< $@ >/dev/null
 
-$(LANG_O_FILES) : %.bin.o: %.rnc
+%.dat.o: %.rnc
 	@mkdir -p $$(dirname $@)
 	$(LD) -r -b binary -o $@ $<
 

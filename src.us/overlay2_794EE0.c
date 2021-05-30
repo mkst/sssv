@@ -6,12 +6,12 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     perform_behavior_seagull,
     perform_behavior_lion,
     perform_behavior_hippo,
-    func_80383E38_7954E8, // 3 RACING_HIPPO
-    func_80383E40_7954F0, // 4 RACING_DOG
-    func_80384060_795710, // 5 FLYING_DOG
-    func_8038448C_795B3C,
-    func_803846BC_795D6C, // 7 FIRE_FOX
-    func_80384858_795F08,
+    perform_behavior_racing_hippo,
+    perform_behavior_racing_dog,
+    perform_behavior_flying_dog,
+    perform_behavior_fox,
+    perform_behavior_fire_fox,
+    perform_behavior_frog,
     func_803892DC_79A98C, // 9 POLAR_BEAR_DEFENDING
     func_80384A8C_79613C,
     func_80384CB8_796368, // HELI_RABBIT
@@ -29,7 +29,7 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_80385480_796B30, // 23 BEAR_ATTACKING
     func_80385488_796B38,
     func_8038951C_79ABCC,
-    func_80385490_796B40,
+    func_80385490_796B40, // 26 RACING_FOX
     func_80385710_796DC0, // TORTOISE_TANK
     func_80385A0C_7970BC,
     func_803859D4_797084,
@@ -50,7 +50,7 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_80387330_7989E0, // 44 WALRUS
     func_8038754C_798BFC,
     func_80387780_798E30,
-    func_803879A4_799054,
+    func_803879A4_799054, // 47 CANNON_CAMEL
     func_80389754_79AE04,
     func_80387BF4_7992A4,
     func_80387DE0_799490, // 50 BOXING_KANGAROO
@@ -183,10 +183,11 @@ void perform_behavior_hippo(void) {
     }
 }
 
-void func_80383E38_7954E8(void) {
+void perform_behavior_racing_hippo(void) {
+    // no racing hippo behavior
 }
 
-void func_80383E40_7954F0(void) {
+void perform_behavior_racing_dog(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -222,7 +223,7 @@ void func_80383E40_7954F0(void) {
 }
 
 // perform_behavior_flying_dog
-void func_80384060_795710(void) {
+void perform_behavior_flying_dog(void) {
     if ((D_803D552C->unk2CC->unk16C->unk9E == 64) ||
         (D_803D552C->unk2CC->unk16C->unk9E == 128) ||
         (D_803D552C->unk2CC->unk16C->unk9E == 32)) {
@@ -287,7 +288,7 @@ void func_80384060_795710(void) {
     }
 }
 
-void func_8038448C_795B3C(void) {
+void perform_behavior_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -322,7 +323,7 @@ void func_8038448C_795B3C(void) {
     }
 }
 
-void func_803846BC_795D6C(void) {
+void perform_behavior_fire_fox(void) {
     if (1) {}; // regalloc
 
     switch (D_803D552C->unk2B4.state) {
@@ -351,7 +352,7 @@ void func_803846BC_795D6C(void) {
     }
 }
 
-void func_80384858_795F08(void) {
+void perform_behavior_frog(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -1756,7 +1757,7 @@ void perform_behavior_seagull(void) {
             D_803D552C->unk2C0 = 0;
             func_80363EDC_77558C(D_803D5530, -0x50 - D_803D552C->unk2CC->unk42, D_803D552C->unk2CC);
         } else if ((D_803D552C->unk2C4 % 0xF) == 0) {
-            func_80381F14_7935C4(D_803D552C->unk2C4);
+            func_80381F14_7935C4();
         }
         break;
     case 4:

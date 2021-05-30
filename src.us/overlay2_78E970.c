@@ -19,12 +19,13 @@ void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2) {
 void func_8037D320_78E9D0(s32 arg0, s32 arg1) {
 }
 
-void func_8037D32C_78E9DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void func_8037D32C_78E9DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 
 // jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037D340_78E9F0.s")
 
+// velocity related?
 void func_8037D994_78F044(s8 arg0) {
     D_803D554B = arg0;
     D_803D554C = MIN(D_803D554C + 2, 20);
