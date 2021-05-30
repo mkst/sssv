@@ -4,13 +4,12 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/func_80136CE0.s")
-// NON-MATCHING: 80% of the way there...
-// s32 func_80136CE0(void) {
-//     s32 res;
-//     OSPfs *pfs;
-//     u8 bitpattern;
+#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/init_controllers.s")
+// NON-MATCHING: almost REGALLOC
+// s32 init_controllers(void) {
 //     s16 i;
+//     s32 res;
+//     u8 pattern;
 //
 //     D_802912DA = 0;
 //     D_802912DC = 0;
@@ -24,39 +23,48 @@
 //     D_802912E5 = 1;
 //
 //     osCreateMesgQueue(&D_8028D0A8, &D_8029104C, 1);
-//     osSetEventMesg(5, &D_8028D0A8, 1);
-//     osContInit(&D_8028D0A8, &bitpattern, &D_802910D8);
-//     D_80158544 = 0;
+//     osSetEventMesg(OS_EVENT_SI, &D_8028D0A8, 1);
 //
-//     for (i = 0; i < 4; i++) {
-//         if ((bitpattern & (1 << i)) && ((((D_802910D8[i])->errno) & 8) == 0)) {
-//             D_80158544++;
+//     osContInit(&D_8028D0A8, &pattern, &gControllerStatus[0]);
+//
+//
+//     numControllers = 0;
+//     for (i = 0; i < MAXCONTROLLERS; i++) {
+//         if ((pattern & (1 << i)) &&
+//             !(gControllerStatus[i].errno & CONT_NO_RESPONSE_ERROR)) {
+//             numControllers++;
 //         }
 //     }
-//
+//     // only 1 controller
 //     osContSetCh(1);
+//
 //     osCreateMesgQueue(&D_802912B0, &D_802912C8, 1);
 //     osCreateThread(&gThread9, 9, (void *)func_80137294, 0, &D_8028E230, 9);
 //     osStartThread(&gThread9);
 //
-//     for (i = 0; i < 4; i++) {
+//     for (i = 0; i < MAXCONTROLLERS; i++) {
 //         D_80291090.hasRumblePak[i] = 0;
-//         if ((bitpattern >> i) & 1) {
-//             if ((D_802910D8[i]->type & CONT_JOYPORT) && (D_802910D8[i]->status & CONT_CARD_ON)) {
-//                 pfs = D_80291110[i];
-//                 res = osPfsInit(&D_8028D0A8, pfs, i);
-//                 if ((res == PFS_ERR_ID_FATAL) || (res == PFS_ERR_DEVICE)) {
-//                     if (osMotorInit(&D_8028D0A8, pfs, i) == 0) {
-//                         D_80291090.hasRumblePak[i] = (u8)1;
-//                     }
+//         if (((pattern >> i) & 1) &&
+//             ((gControllerStatus[i].type & CONT_JOYPORT) &&
+//             (gControllerStatus[i].status & CONT_CARD_ON))) {
+//             res = osPfsInit(&D_8028D0A8, &D_80291110[i], i);
+//             // bad?
+//             if ((res == PFS_ERR_ID_FATAL) || (res == PFS_ERR_DEVICE)) {
+//                 // regalloc help
+//                 if (gControllerStatus[i].status) {}
+//                 // try to enable rumblepak
+//                 if (osMotorInit(&D_8028D0A8, &D_80291110[i], i) == 0) {
+//                     D_80291090.hasRumblePak[i] = (u8)1;
 //                 }
 //             }
+//             // regalloc
+//             if (!res) {};
 //         }
 //     }
 //
 //     D_802912D4 = osEepromProbe(&D_8028D0A8);
 //     func_80137168();
-//     return D_80158544;
+//     return numControllers;
 // }
 
 void func_80136F64(void) {
@@ -127,7 +135,7 @@ void func_8013713C(void) {
 void func_80137168(void) {
     s16 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MAXCONTROLLERS; i++) {
         D_80291090.state.unk0[i] = 0;
         D_80291090.state.unk8[i] = 0;
         D_80291090.state.unk10[i] = 0;
@@ -154,35 +162,34 @@ void func_8013724C(s16 arg0) {
     osSendMesg(&D_802912B0, (OSMesg)&D_80291100, OS_MESG_BLOCK);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/func_80137294.s")
-// miles away
-// void func_80137294(void) {
-//     ControllerMesg *msg;
-//     s16 controller;
-//     s16 status;
-//
-//     do {
-//         osRecvMesg(&D_802912B0, &msg, OS_MESG_BLOCK);
-//         func_801370F4();
-//         status = msg->status;
-//         controller = msg->controller;
-//         if (status != (u16)1) {
-//             if (status == 2) {
-//                 if (osMotorStart(D_80291110[controller]) == 0) {
-//                     D_80291090.unk4[controller] = (u16)1;
-//                 } else {
-//                     D_80291090.hasRumblePak[controller] = (u8)0; // temp_s0
-//                 }
-//             }
-//         } else if (osMotorStop(D_80291110[controller]) == 0) {
-//             D_80291090.unk4[controller] = (u16)0;
-//         } else {
-//             D_80291090.hasRumblePak[controller]= (u8)0;
-//         }
-//         func_8013713C();
-//     }
-//     while (TRUE);
-// }
+void func_80137294(void) {
+    ControllerMesg *msg;
+    s32 padding;
+    s16 status;
+    s16 controller;
+
+    do {
+        osRecvMesg(&D_802912B0, &msg, OS_MESG_BLOCK);
+        func_801370F4();
+        status = msg->status;
+        controller = msg->controller;
+        if (status != 1) {
+            if (status == 2) {
+                if ((s16)osMotorStart(&D_80291110[controller]) == 0) {
+                    D_80291090.state.unk0[controller] = 1;
+                } else {
+                    D_80291090.hasRumblePak[controller] = 0;
+                }
+            }
+        } else if ((s16)osMotorStop(&D_80291110[controller]) == 0) {
+            D_80291090.state.unk0[controller] = 0;
+        } else {
+            D_80291090.hasRumblePak[controller]= 0;
+        }
+        func_8013713C();
+    }
+    while (TRUE);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/func_801373CC.s")
 

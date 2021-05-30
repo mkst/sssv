@@ -3,7 +3,6 @@ options:
   target_path: baserom.us.z64
   base_path: .
   compiler: IDO
-  create_detected_syms: yes
   find_file_boundaries: yes
   symbol_addrs_path:   symbol_addrs.us.txt
   undefined_syms_path: undefined_syms.us.txt
@@ -28,9 +27,9 @@ segments:
     subsegments:
     - [0x1000, asm, entrypoint] # handwritten
     - [0x1050, c, main_1050] # -O1
-    - [0x3900, c, core/controller] #
+    - [0x3900, c, core/controller]
     - [0x44D0, c, core/string]
-    - [0x4910, c, main_4910] #
+    - [0x4910, c, main_4910]
     - [0x4A00, c, main_4A00]
     - [0x51D0, c, main_51D0]
     - [0x67F0, c, core/rnc]
@@ -43,7 +42,7 @@ segments:
     - [0xC770, c, main_C770]
     - [0xC990, c, core/audio]
     - [0xE3C0, c, main_E3C0] # more audio
-    - [0xF600, asm, libultra/audio/csplayer] # customised
+    - [0xF600, c, libultra/audio/csplayer]
     - [0x10CB0, c, main_10CB0]
     - [0x10DC0, c, main_10DC0]
     - [0x123E0, c, main_123E0]
@@ -229,7 +228,7 @@ segments:
     - [0x02E9D0, bin] # tbd
     - [0x02F9D0, bin] # displaylist
     - [0x02FA30, bin] # displaylist
-    - [0x02FA70, bin]
+    - [0x02FA70, bin] # tbd
     # - [0x02FC00, data, main_78F0]
     - [0x02FD28, .rodata, main_78F0]
     - [0x02FD80, bin]
@@ -238,58 +237,103 @@ segments:
     - [0x033A68, bin] # displaylist
     - [0x033B20, bin] # displaylist
     - [0x033BA0, bin] # displaylist
+    - [0x033C50, bin] # tbd
     - [0x035050, .data, libultra/os/initialize]
     - [0x035070, bin]
     - [0x0360F0, bin] # another lookup table?
     - [0x0363A0, rodata, main_78F0]
     - [0x036410, .rodata, core/fontinit]
-    - [0x036470, bin] # more data
+    - [0x036470, rodata, core/eeprom]
+    - [0x036490, .rodata, main_E3C0]
+    - [0x036508, rodata, libultra/audio/csplayer]
+    - [0x036510, .rodata, libultra/audio/csplayer]
+    - [0x036750, rodata, main_10DC0]
+    - [0x036770, rodata]
+    - [0x0367F0, rodata]
+    - [0x036A40, rodata, libultra/os/exceptasm]
     - [0x036AC0, .rodata, libultra/libc/llcvt]
     - [0x036AD0, bin]
-  - [0x0398D0, bin] # textures
-  - [0x03CD30, bin] # displaylist
+    - [0x037100, bin] # data for 2nd ucode
+    - [0x0380C0, bin] # data for ucode
+    - [0x0390C0, bin] # F3DEX data
+    - [0x0398D0, bin] # textures
+    # display lists
+    - [0x03CD30, .rodata, data/3CD30]
+    - [0x03CD68, .data, data/3CD68]
+    - [0x03CD80, .data, data/3CD80]
+    - [0x03CD90, .rodata, data/3CD90]
+    - [0x03CDD8, .rodata, data/3CDD8]
+    - [0x03CE18, .rodata, data/3CE18]
+    - [0x03CE58, .rodata, data/3CE58]
+  - [0x03CEE8, bin]
+  - [0x03CF20, bin]
+  - [0x03CF60, bin]
+  - [0x03CFA0, bin]
+  - [0x03D010, bin]
+  - [0x03D050, bin]
+  - [0x03D088, bin]
+  - [0x03D0C0, bin]
+  - [0x03D110, bin]
+  - [0x03D120, bin]
+  - [0x03D170, bin]
+  - [0x03D240, bin]
+  - [0x03D268, bin]
+  - [0x03D2C8, bin]
+  - [0x03D2F8, bin]
+  - [0x03D310, bin]
+  - [0x03D328, bin]
+  - [0x03D380, bin]
+  - [0x03D3A0, bin]
+  - [0x03D440, bin]
+  - [0x03D488, bin]
+  - [0x03D4A0, bin] # textures?
+  - [0x03F8C0, bin] # tris?
+  - [0x03FB30, bin] # displaylist
+  - [0x03FBE0, bin] # display lists / vertexes?
+  - [0x040530, bin] # more textures
   - [0x07F790, bin] # some more textures
   - [0x097020, bin]
   - [0x09E0D0, bin]
   - [0x0C7A30, bin]
   - [0x0DD5C0, bin]
   ## this section is DMA'd as one
-  - [0x116BD0, bin, rnc_116BD0] # 1577 => 2048  # powercell
-  # spaceship interior textures?
-  - [0x117200, bin]
-  - [0x117A00, bin]
-  - [0x118200, bin]
-  - [0x118A00, bin] # tigerprint seat texture
-  - [0x119200, bin]
-  - [0x119A00, bin]
+  - [0x116BD0, rnc, img/menu/powercell, rgba16, 32, 32]
+  # spaceship interior textures
+  - [0x117200, rgba16, img/intro/spaceship_interior_0.rgba16, 32, 32]
+  - [0x117A00, rgba16, img/intro/spaceship_interior_1.rgba16, 32, 32]
+  - [0x118200, rgba16, img/intro/spaceship_interior_2.rgba16, 32, 32]
+  - [0x118A00, rgba16, img/intro/tigerprint.rgba16, 32, 32]
+  - [0x119200, rgba16, img/intro/spaceship_interior_3.rgba16, 32, 32]
+  - [0x119A00, rgba16, img/intro/spaceship_interior_4.rgba16, 32, 32]
   #
   - [0x11A200, bin] # tbd
-  - [0x11D9F0, bin, rnc_11D9F0] # 147 => 4096
-  - [0x11DA90, bin, rnc_11DA90] # 2105 => 3698
-  - [0x11E2D0, bin, rnc_11E2D0] # 153 => 560
-  - [0x11E370, bin, rnc_11E370] # 284 => 616
-  - [0x11E490, bin, rnc_11E490] # 300 => 792
-  - [0x11E5C0, bin, rnc_11E5C0] # 334 => 960
-  - [0x11E710, bin, rnc_11E710] # 288 => 1152
-  - [0x11E830, bin, rnc_11E830] # 304 => 880
-  - [0x11E960, bin, rnc_11E960] # 291 => 720
-  - [0x11EA90, bin, rnc_11EA90] # 219 => 504
-  - [0x11EB70, bin, rnc_11EB70] # 2483 => 23040
-  - [0x11F530, bin] # 64x64 SV test card
+  - [0x11D9F0, rnc, img/menu/rnc_11D9F0, rgba16, 32, 64]
+  - [0x11DA90, rnc, img/menu/sssv, rgba16, 43, 43]
+  - [0x11E2D0, rnc, img/rnc_11E2D0, rgba16, 14, 20]
+  - [0x11E370, rnc, img/rnc_11E370, rgba16, 14, 22]
+  - [0x11E490, rnc, img/rnc_11E490, rgba16, 18, 22]
+  - [0x11E5C0, rnc, img/rnc_11E5C0, rgba16, 20, 24]
+  - [0x11E710, rnc, img/rnc_11E710, rgba16, 24, 24]
+  - [0x11E830, rnc, img/rnc_11E830, rgba16, 20, 22]
+  - [0x11E960, rnc, img/rnc_11E960, rgba16, 20, 18]
+  - [0x11EA90, rnc, img/rnc_11EA90, rgba16, 18, 14]
+  - [0x11EB70, rnc, img/menu/sssv_header, rgba16, 320, 36]
+  - [0x11F530, rgba16, img/menu/test_card.rgba16, 64, 64]
   - [0x121530, bin] # texture(s)?
-  - [0x127FB0, bin] # 32x32 texture
-  - [0x1289D0, bin, rnc_1289D0] # 1283 => 3692  # "BANK SELECT", 142x13
-  - [0x128EE0, bin, rnc_128EE0] # 1102 => 3302  # "MISSION BRIEFING" 127x13
-  - [0x129330, bin, rnc_129330] # 957 => 2678   # "OPTIONS", 103x13
-  - [0x1296F0, bin, rnc_1296F0] # 1340 => 3614  # "ZONE SELECT", 139x13
-  - [0x129C30, bin, rnc_129C30] # 332 => 2048   # EVO head
-  - [0x129D80, bin, rnc_129D80] # 517 => 2048   # EVO leg
-  - [0x129F90, bin, rnc_129F90] # 438 => 2048   # EVO arm
-  - [0x12A150, bin, rnc_12A150] # 565 => 2048   # EVO torso
+  - [0x127FB0, rgba16, img/menu/tbd.rgba16, 32, 32] # 32x32 texture
+  - [0x1287B0, bin] # ?
+  - [0x1289D0, rnc, img/menu/BANK_SELECT, rgba16, 142, 13]
+  - [0x128EE0, rnc, img/menu/MISSION_BRIEFING, rgba16, 127, 13]
+  - [0x129330, rnc, img/menu/OPTIONS, rgba16, 103, 13]
+  - [0x1296F0, rnc, img/menu/ZONE_SELECT, rgba16, 139, 13]
+  - [0x129C30, rnc, img/trophies/EVO_HEAD, rgba16, 32, 32]
+  - [0x129D80, rnc, img/trophies/EVO_LEG, rgba16, 32, 32]
+  - [0x129F90, rnc, img/trophies/EVO_ARM, rgba16, 32, 32]
+  - [0x12A150, rnc, img/trophies/EVO_TORSO, rgba16, 32, 32]
   - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
   ##
   - name: sounds
-    type:  bin
+    type:  group
     subalign: 4
     start: 0x12EDC0
     subsegments:
@@ -335,19 +379,21 @@ segments:
     - [0x429ab8, bin]
     - [0x42b5a0, bin]
     - [0x42c49c, bin]
-  # end of music
-  - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880 # DMA'd to 0x80100000
-  - [0x435320, bin, rnc_435320] # 30784 => 54880
-  - [0x43CB60, bin, rnc_43CB60] # 35981 => 54880
-  - [0x4457F0, bin, rnc_4457F0] # 36755 => 57624
-  - [0x44E790, bin, empty_rnc_44E790] # empty RNC file
-  - [0x44E7B0, bin, rnc_44E7B0] # 35312 => 54880
+  # rgba16 textures (mipmap)
+  - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880        # europe
+  - [0x435320, bin, rnc_435320] # 30784 => 54880        # ice
+  - [0x43CB60, bin, rnc_43CB60] # 35981 => 54880        # desert
+  - [0x4457F0, bin, rnc_4457F0] # 36755 => 57624        # jungle
+  - [0x44E790, bin, empty_rnc_44E790] # empty RNC file  # ?
+  - [0x44E7B0, bin, rnc_44E7B0] # 35312 => 54880        # city/credits?
+  # tbd
   - [0x4571A0, bin, rnc_4571A0] # 9193 => 21952
   - [0x459590, bin, rnc_459590] # 16318 => 21952
   - [0x45D550, bin, rnc_45D550] # 6246 => 21952
   - [0x45EDC0, bin, rnc_45EDC0] # 11068 => 21952
   - [0x461900, bin, rnc_461900] # 79 => 21952      # RNC pack differs
   - [0x461950, bin, rnc_461950] # 193 => 21952
+  # more textures (mipmap), level specific?
   - [0x461A20, bin, rnc_461A20] # 17776 => 32928
   - [0x465F90, bin, rnc_465F90] # 23197 => 32928
   - [0x46BA30, bin, rnc_46BA30] # 19507 => 32928
@@ -363,12 +409,14 @@ segments:
   - [0x49C950, bin, rnc_49C950] # 19766 => 32928
   - [0x4A1690, bin, rnc_4A1690] # 15066 => 32928
   - [0x4A5170, bin, rnc_4A5170] # 18027 => 32928
+  # ice
   - [0x4A97E0, bin, rnc_4A97E0] # 20008 => 32928    # snow textures
   - [0x4AE610, bin, rnc_4AE610] # 20011 => 32928
   - [0x4B3440, bin, empty_rnc_4B3440] # empty RNC!
   - [0x4B3460, bin, rnc_4B3460] # 17728 => 32928
   - [0x4B79A0, bin, empty_rnc_4B79A0] # empty RNC!
   - [0x4B79C0, bin, empty_rnc_4B79C0] # empty RNC!
+  # desert
   - [0x4B79E0, bin, rnc_4B79E0] # 18763 => 30184
   - [0x4BC330, bin, rnc_4BC330] # 20355 => 32928
   - [0x4C12C0, bin, rnc_4C12C0] # 14853 => 32928
@@ -434,152 +482,152 @@ segments:
   - [0x51AAF0, bin, rnc_51AAF0] # 39 => 10240
   - [0x51AB20, bin, rnc_51AB20] # 39 => 10240
   - [0x51AB50, bin, rnc_51AB50] # 39 => 10240
-  # rgba16 level thumbnails
-  - [0x51AB80, bin, rnc_51AB80] # 3492 => 6144 # SMASHING_START
-  - [0x51B930, bin, rnc_51B930] # 4149 => 6144
-  - [0x51C970, bin, rnc_51C970] # 4793 => 6144
-  - [0x51DC30, bin, rnc_51DC30] # 4137 => 6144
-  - [0x51EC60, bin, rnc_51EC60] # 4241 => 6144
-  - [0x51FD00, bin, rnc_51FD00] # 4014 => 6144
-  - [0x520CB0, bin, rnc_520CB0] # 4690 => 6144
-  - [0x521F10, bin, rnc_521F10] # 3441 => 6144
-  - [0x522C90, bin, rnc_522C90] # 4356 => 6144 # RAT_O_MATIC
-  - [0x523DA0, bin, rnc_523DA0] # 4442 => 6144 # GIVE_A_DOG_A_BONUS
-  - [0x524F00, bin, rnc_524F00] # 4850 => 6144
-  - [0x526200, bin, rnc_526200] # 4920 => 6144
-  - [0x527540, bin, rnc_527540] # 4264 => 6144
-  - [0x5285F0, bin, rnc_5285F0] # 4523 => 6144
-  - [0x5297A0, bin, rnc_5297A0] # 4512 => 6144
-  - [0x52A940, bin, rnc_52A940] # 4527 => 6144
-  - [0x52BAF0, bin, rnc_52BAF0] # 4135 => 6144
-  - [0x52CB20, bin, rnc_52CB20] # 3865 => 6144
-  - [0x52DA40, bin, rnc_52DA40] # 5085 => 6144
-  - [0x52EE20, bin, rnc_52EE20] # 4724 => 6144
-  - [0x5300A0, bin, rnc_5300A0] # 4097 => 6144
-  - [0x5310B0, bin, rnc_5310B0] # 4589 => 6144
-  - [0x5322A0, bin, rnc_5322A0] # 4568 => 6144
-  - [0x533480, bin, rnc_533480] # 4166 => 6144
-  - [0x5344D0, bin, rnc_5344D0] # 4447 => 6144
-  - [0x535630, bin, rnc_535630] # 4383 => 6144
-  - [0x536750, bin, rnc_536750] # 4968 => 6144
-  - [0x537AC0, bin, rnc_537AC0] # 4089 => 6144
-  - [0x538AC0, bin, rnc_538AC0] # 3871 => 6144
-  - [0x5399E0, bin, rnc_5399E0] # 4736 => 6144  # PUNCHUP_PYRAMID
-  - [0x53AC60, bin, rnc_53AC60] # 3643 => 6144  # BIG_CELEBRATION_PARADE
-  - [0x53BAA0, bin, rnc_53BAA0] # 2526 => 6144  # secret level
-  - [0x53C480, bin, rnc_53C480] # 3537 => 6144  # unused
-  - [0x53D260, bin, rnc_53D260] # 3537 => 6144
-  - [0x53E040, bin, rnc_53E040] # 3537 => 6144
-  # rbga16 trophies
-  - [0x53EE20, bin, rnc_53EE20] # 956 => 2048
-  - [0x53F1E0, bin, rnc_53F1E0] # 1151 => 2048
-  - [0x53F660, bin, rnc_53F660] # 924 => 2048
-  - [0x53FA00, bin, rnc_53FA00] # 661 => 2048
-  - [0x53FCA0, bin, rnc_53FCA0] # 1170 => 2048
-  - [0x540140, bin, rnc_540140] # 961 => 2048
-  - [0x540510, bin, rnc_540510] # 1026 => 2048
-  - [0x540920, bin, rnc_540920] # 1144 => 2048
-  - [0x540DA0, bin, rnc_540DA0] # 906 => 2048
-  - [0x541130, bin, rnc_541130] # 33 => 2048
-  - [0x541160, bin, rnc_541160] # 959 => 2048
-  - [0x541520, bin, rnc_541520] # 1079 => 2048
-  - [0x541960, bin, rnc_541960] # 730 => 2048
-  - [0x541C40, bin, rnc_541C40] # 900 => 2048
-  - [0x541FD0, bin, rnc_541FD0] # 594 => 2048
-  - [0x542230, bin, rnc_542230] # 991 => 2048
-  - [0x542610, bin, rnc_542610] # 33 => 2048
-  - [0x542640, bin, rnc_542640] # 931 => 2048
-  - [0x5429F0, bin, rnc_5429F0] # 647 => 2048
-  - [0x542C80, bin, rnc_542C80] # 722 => 2048
-  - [0x542F60, bin, rnc_542F60] # 1009 => 2048
-  - [0x543360, bin, rnc_543360] # 597 => 2048
-  - [0x5435C0, bin, rnc_5435C0] # 33 => 2048
-  - [0x5435F0, bin, rnc_5435F0] # 838 => 2048
-  - [0x543940, bin, rnc_543940] # 968 => 2048
-  - [0x543D10, bin, rnc_543D10] # 853 => 2048
-  - [0x544070, bin, rnc_544070] # 932 => 2048
-  - [0x544420, bin, rnc_544420] # 645 => 2048
-  - [0x5446B0, bin, rnc_5446B0] # 630 => 2048
-  - [0x544930, bin, rnc_544930] # 33 => 2048
-  - [0x544960, bin, rnc_544960] # 33 => 2048
-  - [0x544990, bin, rnc_544990] # 33 => 2048
+  # level thumbnails
+  - [0x51AB80, rnc, img/thumbnails/SMASHING_START, rgba16, 64, 48]
+  - [0x51B930, rnc, img/thumbnails/HAVE_A_NICE_DAY, rgba16, 64, 48]
+  - [0x51C970, rnc, img/thumbnails/HONEYMOON_LAGOON, rgba16, 64, 48]
+  - [0x51DC30, rnc, img/thumbnails/THE_BATTERY_FARM, rgba16, 64, 48]
+  - [0x51EC60, rnc, img/thumbnails/THE_ENGINE_ROOM, rgba16, 64, 48]
+  - [0x51FD00, rnc, img/thumbnails/FAT_BEAR_MOUNTAIN, rgba16, 64, 48]
+  - [0x520CB0, rnc, img/thumbnails/ROCKY_HARD_PLACE, rgba16, 64, 48]
+  - [0x521F10, rnc, img/thumbnails/STINKY_SEWERS, rgba16, 64, 48]
+  - [0x522C90, rnc, img/thumbnails/RAT_O_MATIC, rgba16, 64, 48]
+  - [0x523DA0, rnc, img/thumbnails/GIVE_A_DOG_A_BONUS, rgba16, 64, 48]
+  - [0x524F00, rnc, img/thumbnails/SNOW_JOKE, rgba16, 64, 48]
+  - [0x526200, rnc, img/thumbnails/ICE_N_EASY_DOES_IT, rgba16, 64, 48]
+  - [0x527540, rnc, img/thumbnails/PENGUIN_PLAYPEN, rgba16, 64, 48]
+  - [0x5285F0, rnc, img/thumbnails/PINBALL_BLIZZARD, rgba16, 64, 48]
+  - [0x5297A0, rnc, img/thumbnails/HOPPA_CHOPPA, rgba16, 64, 48]
+  - [0x52A940, rnc, img/thumbnails/SOMETHING_FISHY, rgba16, 64, 48]
+  - [0x52BAF0, rnc, img/thumbnails/WALRACE_64, rgba16, 64, 48]
+  - [0x52CB20, rnc, img/thumbnails/JUNGLE_JAPES, rgba16, 64, 48]
+  - [0x52DA40, rnc, img/thumbnails/JUNGLE_DOLDRUMS, rgba16, 64, 48]
+  - [0x52EE20, rnc, img/thumbnails/SWAMP_OF_ETERNAL_STENCH, rgba16, 64, 48]
+  - [0x5300A0, rnc, img/thumbnails/WEIGHT_FOR_IT, rgba16, 64, 48]
+  - [0x5310B0, rnc, img/thumbnails/JUNGLE_JUMPS, rgba16, 64, 48]
+  - [0x5322A0, rnc, img/thumbnails/EVOS_ESCAPE, rgba16, 64, 48]
+  - [0x533480, rnc, img/thumbnails/FUN_IN_THE_SUN, rgba16, 64, 48]
+  - [0x5344D0, rnc, img/thumbnails/HOT_CROSS_BUNS, rgba16, 64, 48]
+  - [0x535630, rnc, img/thumbnails/STING_IN_THE_TAIL, rgba16, 64, 48]
+  - [0x536750, rnc, img/thumbnails/BORASSIC_PARK, rgba16, 64, 48]
+  - [0x537AC0, rnc, img/thumbnails/WHIRLWIND_TOUR, rgba16, 64, 48]
+  - [0x538AC0, rnc, img/thumbnails/SHIFTING_SANDS, rgba16, 64, 48]
+  - [0x5399E0, rnc, img/thumbnails/PUNCHUP_PYRAMID, rgba16, 64, 48]
+  - [0x53AC60, rnc, img/thumbnails/BIG_CELEBRATION_PARADE, rgba16, 64, 48]
+  - [0x53BAA0, rnc, img/thumbnails/SECRET_LEVEL, rgba16, 64, 48]
+  - [0x53C480, rnc, img/thumbnails/NO_LEVEL_32, rgba16, 64, 48]
+  - [0x53D260, rnc, img/thumbnails/NO_LEVEL_33, rgba16, 64, 48]
+  - [0x53E040, rnc, img/thumbnails/NO_LEVEL_34, rgba16, 64, 48]
+  # trophies
+  - [0x53EE20, rnc, img/trophies/SMASHING_START, rgba16, 32, 32]
+  - [0x53F1E0, rnc, img/trophies/HAVE_A_NICE_DAY, rgba16, 32, 32]
+  - [0x53F660, rnc, img/trophies/HONEYMOON_LAGOON, rgba16, 32, 32]
+  - [0x53FA00, rnc, img/trophies/THE_BATTERY_FARM, rgba16, 32, 32]
+  - [0x53FCA0, rnc, img/trophies/THE_ENGINE_ROOM, rgba16, 32, 32]
+  - [0x540140, rnc, img/trophies/FAT_BEAR_MOUNTAIN, rgba16, 32, 32]
+  - [0x540510, rnc, img/trophies/ROCKY_HARD_PLACE, rgba16, 32, 32]
+  - [0x540920, rnc, img/trophies/STINKY_SEWERS, rgba16, 32, 32]
+  - [0x540DA0, rnc, img/trophies/RAT_O_MATIC, rgba16, 32, 32]
+  - [0x541130, rnc, img/trophies/GIVE_A_DOG_A_BONUS, rgba16, 32, 32]
+  - [0x541160, rnc, img/trophies/SNOW_JOKE, rgba16, 32, 32]
+  - [0x541520, rnc, img/trophies/ICE_N_EASY_DOES_IT, rgba16, 32, 32]
+  - [0x541960, rnc, img/trophies/PENGUIN_PLAYPEN, rgba16, 32, 32]
+  - [0x541C40, rnc, img/trophies/PINBALL_BLIZZARD, rgba16, 32, 32]
+  - [0x541FD0, rnc, img/trophies/HOPPA_CHOPPA, rgba16, 32, 32]
+  - [0x542230, rnc, img/trophies/SOMETHING_FISHY, rgba16, 32, 32]
+  - [0x542610, rnc, img/trophies/WALRACE_64, rgba16, 32, 32]
+  - [0x542640, rnc, img/trophies/JUNGLE_JAPES, rgba16, 32, 32]
+  - [0x5429F0, rnc, img/trophies/JUNGLE_DOLDRUMS, rgba16, 32, 32]
+  - [0x542C80, rnc, img/trophies/SWAMP_OF_ETERNAL_STENCH, rgba16, 32, 32]
+  - [0x542F60, rnc, img/trophies/WEIGHT_FOR_IT, rgba16, 32, 32]
+  - [0x543360, rnc, img/trophies/JUNGLE_JUMPS, rgba16, 32, 32]
+  - [0x5435C0, rnc, img/trophies/EVOS_ESCAPE, rgba16, 32, 32]
+  - [0x5435F0, rnc, img/trophies/FUN_IN_THE_SUN, rgba16, 32, 32]
+  - [0x543940, rnc, img/trophies/HOT_CROSS_BUNS, rgba16, 32, 32]
+  - [0x543D10, rnc, img/trophies/STING_IN_THE_TAIL, rgba16, 32, 32]
+  - [0x544070, rnc, img/trophies/BORASSIC_PARK, rgba16, 32, 32]
+  - [0x544420, rnc, img/trophies/WHIRLWIND_TOUR, rgba16, 32, 32]
+  - [0x5446B0, rnc, img/trophies/SHIFTING_SANDS, rgba16, 32, 32]
+  - [0x544930, rnc, img/trophies/PUNCHUP_PYRAMID, rgba16, 32, 32]
+  - [0x544960, rnc, img/trophies/BIG_CELEBRATION_PARADE, rgba16, 32, 32]
+  - [0x544990, rnc, img/trophies/END_CREDITS, rgba16, 32, 32]
   #
   - [0x5449C0, bin] # I4 water texture?
   - [0x546BC0, bin] # tbd
   # game levels (nested RNC compressed) (differ from EU ROM)
-  - [0x546D00, bin, rnc_546D00] # 33736 => 33692 # level 1      # RNC pack differs
-  - [0x54F0D0, bin, rnc_54F0D0] # 23846 => 23875
-  - [0x554E00, bin, rnc_554E00] # 21894 => 21888                # RNC pack differs
-  - [0x55A390, bin, rnc_55A390] # 24450 => 24492
-  - [0x560320, bin, rnc_560320] # 31699 => 31741
-  - [0x567F00, bin, rnc_567F00] # 19968 => 19993
-  - [0x56CD00, bin, rnc_56CD00] # 24507 => 24509
-  - [0x572CC0, bin, rnc_572CC0] # 24650 => 24773
-  - [0x578D10, bin, rnc_578D10] # 25783 => 25774                # RNC pack differs
-  - [0x57F1D0, bin, rnc_57F1D0] # 14989 => 15113
-  - [0x582C60, bin, rnc_582C60] # 24634 => 24619                # RNC pack differs
-  - [0x588CA0, bin, rnc_588CA0] # 18142 => 18168
-  - [0x58D380, bin, rnc_58D380] # 17649 => 17687
-  - [0x591880, bin, rnc_591880] # 20703 => 20723
-  - [0x596960, bin, rnc_596960] # 42919 => 42851                # RNC pack differs
-  - [0x5A1110, bin, rnc_5A1110] # 27893 => 27959
-  - [0x5A7E10, bin, rnc_5A7E10] # 25689 => 25673                # RNC pack differs
-  - [0x5AE270, bin, rnc_5AE270] # 25239 => 25254
-  - [0x5B4510, bin, rnc_5B4510] # 25166 => 25170
-  - [0x5BA760, bin, rnc_5BA760] # 35876 => 35840                # RNC pack differs
-  - [0x5C3390, bin, rnc_5C3390] # 22768 => 22768
-  - [0x5C8C80, bin, rnc_5C8C80] # 31261 => 31243                # RNC pack differs
-  - [0x5D06A0, bin, rnc_5D06A0] # 30668 => 30707
-  - [0x5D7E70, bin, rnc_5D7E70] # 31350 => 31363
-  - [0x5DF8F0, bin, rnc_5DF8F0] # 20684 => 20683                # RNC pack differs
-  - [0x5E49C0, bin, rnc_5E49C0] # 26489 => 26494
-  - [0x5EB140, bin, rnc_5EB140] # 30450 => 30443                # RNC pack differs
-  - [0x5F2840, bin, rnc_5F2840] # 27591 => 27599
-  - [0x5F9410, bin, rnc_5F9410] # 40441 => 40438                # RNC pack differs
-  - [0x603210, bin, rnc_603210] # 16941 => 16966
-  - [0x607440, bin, rnc_607440] # 29905 => 29917
-  - [0x60E920, bin, rnc_60E920] # 5795 => 5889
-  - [0x60FFD0, bin, rnc_60FFD0] # 1227 => 1413
-  - [0x6104A0, bin, rnc_6104A0] # 1322 => 1513
-  - [0x6109D0, bin, rnc_6109D0] # 25055 => 25120
-  - [0x616BB0, bin, rnc_616BB0] # 4212 => 4332   # level 36
+  - [0x546D00, bin, levels/rnc_546D00] # 33736 => 33692 # level 1      # RNC pack differs
+  - [0x54F0D0, bin, levels/rnc_54F0D0] # 23846 => 23875
+  - [0x554E00, bin, levels/rnc_554E00] # 21894 => 21888                # RNC pack differs
+  - [0x55A390, bin, levels/rnc_55A390] # 24450 => 24492
+  - [0x560320, bin, levels/rnc_560320] # 31699 => 31741
+  - [0x567F00, bin, levels/rnc_567F00] # 19968 => 19993
+  - [0x56CD00, bin, levels/rnc_56CD00] # 24507 => 24509
+  - [0x572CC0, bin, levels/rnc_572CC0] # 24650 => 24773
+  - [0x578D10, bin, levels/rnc_578D10] # 25783 => 25774                # RNC pack differs
+  - [0x57F1D0, bin, levels/rnc_57F1D0] # 14989 => 15113
+  - [0x582C60, bin, levels/rnc_582C60] # 24634 => 24619                # RNC pack differs
+  - [0x588CA0, bin, levels/rnc_588CA0] # 18142 => 18168
+  - [0x58D380, bin, levels/rnc_58D380] # 17649 => 17687
+  - [0x591880, bin, levels/rnc_591880] # 20703 => 20723
+  - [0x596960, bin, levels/rnc_596960] # 42919 => 42851                # RNC pack differs
+  - [0x5A1110, bin, levels/rnc_5A1110] # 27893 => 27959
+  - [0x5A7E10, bin, levels/rnc_5A7E10] # 25689 => 25673                # RNC pack differs
+  - [0x5AE270, bin, levels/rnc_5AE270] # 25239 => 25254
+  - [0x5B4510, bin, levels/rnc_5B4510] # 25166 => 25170
+  - [0x5BA760, bin, levels/rnc_5BA760] # 35876 => 35840                # RNC pack differs
+  - [0x5C3390, bin, levels/rnc_5C3390] # 22768 => 22768
+  - [0x5C8C80, bin, levels/rnc_5C8C80] # 31261 => 31243                # RNC pack differs
+  - [0x5D06A0, bin, levels/rnc_5D06A0] # 30668 => 30707
+  - [0x5D7E70, bin, levels/rnc_5D7E70] # 31350 => 31363
+  - [0x5DF8F0, bin, levels/rnc_5DF8F0] # 20684 => 20683                # RNC pack differs
+  - [0x5E49C0, bin, levels/rnc_5E49C0] # 26489 => 26494
+  - [0x5EB140, bin, levels/rnc_5EB140] # 30450 => 30443                # RNC pack differs
+  - [0x5F2840, bin, levels/rnc_5F2840] # 27591 => 27599
+  - [0x5F9410, bin, levels/rnc_5F9410] # 40441 => 40438                # RNC pack differs
+  - [0x603210, bin, levels/rnc_603210] # 16941 => 16966
+  - [0x607440, bin, levels/rnc_607440] # 29905 => 29917
+  - [0x60E920, bin, levels/rnc_60E920] # 5795 => 5889
+  - [0x60FFD0, bin, levels/rnc_60FFD0] # 1227 => 1413
+  - [0x6104A0, bin, levels/rnc_6104A0] # 1322 => 1513
+  - [0x6109D0, bin, levels/rnc_6109D0] # 25055 => 25120
+  - [0x616BB0, bin, levels/rnc_616BB0] # 4212 => 4332   # level 36
   ## language files (matches EU ROM from here..)
-  - [0x617C30, rnc, lang/lang1.dat] # 10338 => 31544
-  - [0x61A4A0, rnc, lang/lang2.dat] # 4981 => 14344
-  - [0x61B820, rnc, lang/lang3.dat] # 2753 => 9272
-  - [0x61C2F0, rnc, lang/lang4.dat] # 2893 => 10000
-  - [0x61CE40, rnc, lang/lang5.dat] # 2881 => 8664
-  - [0x61D990, rnc, lang/lang6.dat] # 2431 => 6824
-  - [0x61E310, rnc, lang/lang7.dat] # 2802 => 8184
-  - [0x61EE10, rnc, lang/lang8.dat] # 3168 => 9432
-  - [0x61FA70, rnc, lang/lang9.dat] # 4976 => 14664
-  - [0x620DE0, rnc, lang/lang10.dat] # 5270 => 20992
-  - [0x622280, rnc, lang/lang11.dat] # 3373 => 10032
-  - [0x622FB0, rnc, lang/lang12.dat] # 1895 => 4864
-  - [0x623720, rnc, lang/lang13.dat] # 2399 => 6744
-  - [0x624080, rnc, lang/lang14.dat] # 2818 => 8104
-  - [0x624B90, rnc, lang/lang15.dat] # 3478 => 10920
-  - [0x625930, rnc, lang/lang16.dat] # 3252 => 9784
-  - [0x6265F0, rnc, lang/lang17.dat] # 6051 => 18784
-  - [0x627DA0, rnc, lang/lang18.dat] # 2353 => 6224
-  - [0x6286E0, rnc, lang/lang19.dat] # 2200 => 5976
-  - [0x628F80, rnc, lang/lang20.dat] # 2677 => 7960
-  - [0x629A00, rnc, lang/lang21.dat] # 2727 => 8064
-  - [0x62A4B0, rnc, lang/lang22.dat] # 2277 => 7096
-  - [0x62ADA0, rnc, lang/lang23.dat] # 5064 => 14360
-  - [0x62C170, rnc, lang/lang24.dat] # 1959 => 5424
-  - [0x62C920, rnc, lang/lang25.dat] # 2419 => 6960
-  - [0x62D2A0, rnc, lang/lang26.dat] # 2146 => 6112
-  - [0x62DB10, rnc, lang/lang27.dat] # 2610 => 7448
-  - [0x62E550, rnc, lang/lang28.dat] # 2322 => 6904
-  - [0x62EE70, rnc, lang/lang29.dat] # 1964 => 5496
-  - [0x62F620, rnc, lang/lang30.dat] # 3819 => 16288
-  - [0x630510, rnc, lang/lang31.dat] # 12695 => 40200
-  - [0x6336B0, rnc, lang/lang32.dat] # 98 => 1200
-  - [0x633720, rnc, lang/lang33.dat] # 11649 => 38088
-  - [0x6364B0, rnc, lang/lang34.dat] # 3076 => 8000
-  - [0x6370C0, rnc, lang/lang35.dat] # 69 => 120
-  - [0x637110, rnc, lang/lang36.dat] # 69 => 120
+  - [0x617C30, rnc, lang/lang1.dat]
+  - [0x61A4A0, rnc, lang/lang2.dat]
+  - [0x61B820, rnc, lang/lang3.dat]
+  - [0x61C2F0, rnc, lang/lang4.dat]
+  - [0x61CE40, rnc, lang/lang5.dat]
+  - [0x61D990, rnc, lang/lang6.dat]
+  - [0x61E310, rnc, lang/lang7.dat]
+  - [0x61EE10, rnc, lang/lang8.dat]
+  - [0x61FA70, rnc, lang/lang9.dat]
+  - [0x620DE0, rnc, lang/lang10.dat]
+  - [0x622280, rnc, lang/lang11.dat]
+  - [0x622FB0, rnc, lang/lang12.dat]
+  - [0x623720, rnc, lang/lang13.dat]
+  - [0x624080, rnc, lang/lang14.dat]
+  - [0x624B90, rnc, lang/lang15.dat]
+  - [0x625930, rnc, lang/lang16.dat]
+  - [0x6265F0, rnc, lang/lang17.dat]
+  - [0x627DA0, rnc, lang/lang18.dat]
+  - [0x6286E0, rnc, lang/lang19.dat]
+  - [0x628F80, rnc, lang/lang20.dat]
+  - [0x629A00, rnc, lang/lang21.dat]
+  - [0x62A4B0, rnc, lang/lang22.dat]
+  - [0x62ADA0, rnc, lang/lang23.dat]
+  - [0x62C170, rnc, lang/lang24.dat]
+  - [0x62C920, rnc, lang/lang25.dat]
+  - [0x62D2A0, rnc, lang/lang26.dat]
+  - [0x62DB10, rnc, lang/lang27.dat]
+  - [0x62E550, rnc, lang/lang28.dat]
+  - [0x62EE70, rnc, lang/lang29.dat]
+  - [0x62F620, rnc, lang/lang30.dat]
+  - [0x630510, rnc, lang/lang31.dat]
+  - [0x6336B0, rnc, lang/lang32.dat]
+  - [0x633720, rnc, lang/lang33.dat]
+  - [0x6364B0, rnc, lang/lang34.dat]
+  - [0x6370C0, rnc, lang/lang35.dat]
+  - [0x637110, rnc, lang/lang36.dat]
   # end of languages
   - [0x637160, bin, rnc_637160] # 5000 => 115024 # some textures
   - type:  code
@@ -595,29 +643,33 @@ segments:
     - [0x63CDD0, bin] # tbd ### D_80299730
     # - [0x63d4e2, bin] # "C" texture 10x11 rgba16
     - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840 # chunked   # RNC pack differs
-    - [0x646E80, bin, rnc_646E80] # 28620 => 153600 # 320x240, president mrs frank bloke
-    - [0x64DE50, bin, rnc_64DE50] # 21526 => 65536  # 256x128, spacestation silicon valley logo
+    - [0x646E80, rnc, img/intro/president_frank_bloke, rgba16, 320, 240]
+    - [0x64DE50, rnc, img/sssv_logo, rgba16, 256, 128]
     - [0x653270, bin, rnc_653270] # 5873 => 18432   # newscaster "video"
     - [0x654970, bin, rnc_654970] # 5717 => 18432   # newscaster "video"
     - [0x655FD0, bin, rnc_655FD0] # 5713 => 18432   # newscaster "video"
     - [0x657630, bin, rnc_657630] # 6413 => 18432   # newscaster "video"
     - [0x658F40, bin] # texture(s)? stars?
     - [0x659B40, bin, rnc_659B40] # 24460 => 163840 # D_802B64A0
-    - [0x65FAD0, bin, rnc_65FAD0] # 11570 => 40960  # 160x128, space background
-    - [0x662810, bin] # "200 credz" texture, 32x128, chunked
+    - [0x65FAD0, rnc, img/space_background, rgba16, 160, 128]
+    - [0x662810, rgba16, img/intro/200_credz.rgba16, 32, 128] # "200 credz" texture, 32x128, chunked
+    - [0x664810, bin] # tbd
     - [0x664860, bin, rnc_664860] # 23248 => 163840
-    - [0x66A330, bin, rnc_66A330] # 37980 => 163840 # chunked, heroes for hire
-    - [0x673790, bin, rnc_673790] # 43024 => 153600 # 320x240, professor cheese & space marines
-    - [0x67DFA0, bin, rnc_67DFA0] # 77877 => 153600 # 320x240, space station graphic
+    - [0x66A330, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
+    - [0x673790, rnc, img/intro/professor_cheese, rgba16, 320, 240]
+    - [0x67DFA0, rnc, img/intro/space_station, rgba16, 320, 240]
     - [0x690FE0, bin] # unknown!
-    - [0x698340, bin, rnc_698340] # 35955 => 153600 # 320x240, trademark screen
-    - [0x6A0FC0, bin] # 'English' flag texture
-    - [0x6A1BC0, bin] # French flag texture
-    - [0x6A27C0, bin] # German flag texture
-    - [0x6A33C0, bin] # Italian flag texture
-    - [0x6A3FC0, bin] # Portugese texture
-    - [0x6A4BC0, bin] # Dutch texture
-    - [0x6A57C0, bin] # Spanish texture
+    - [0x6921C0, bin] # display list?
+    - [0x6923A0, bin]
+    - [0x692570, bin]
+    - [0x698340, rnc, img/menu/trademark, rgba16, 320, 240]
+    - [0x6A0FC0, rgba16, img/flags/english.rgba16, 48, 32]
+    - [0x6A1BC0, rgba16, img/flags/french.rgba16, 48, 32]
+    - [0x6A27C0, rgba16, img/flags/german.rgba16, 48, 32]
+    - [0x6A33C0, rgba16, img/flags/italian.rgba16, 48, 32]
+    - [0x6A3FC0, rgba16, img/flags/portugese.rgba16, 48, 32]
+    - [0x6A4BC0, rgba16, img/flags/dutch.rgba16, 48, 32]
+    - [0x6A57C0, rgba16, img/flags/spanish.rgba16, 48, 32]
     - [0x6A63C0, rodata, overlay1_6384F0]
     - [0x6A64A0, rodata, overlay1_63C660]
   - type: code
@@ -637,6 +689,7 @@ segments:
     - [0x6C63D0, c, sssv/collision]
     - [0x6C9DD0, c, overlay2_6C9DD0]
     - [0x6CCEF0, c, overlay2_6CCEF0]
+    - [0x6D6120, c, overlay2_6D6120]
     - [0x6D9330, c, overlay2_6D9330]
     - [0x6D9AF0, c, overlay2_6D9AF0]
     - [0x6DB610, c, overlay2_6DB610]
@@ -698,6 +751,7 @@ segments:
     - [0x780E50, c, sssv/animals/kangaroo]
     - [0x783D90, c, sssv/animals/desert_fox]
     - [0x786320, c, sssv/animals/walrus]
+    - [0x7883F0, c, sssv/animals/scorpion]
     - [0x78A890, c, sssv/animals/gorilla]
     - [0x78CEB0, c, sssv/animals/elephant]
     - [0x78E970, c, overlay2_78E970]
@@ -719,6 +773,7 @@ segments:
     # .data / .rodata
     - [0x7B1B90, linker, data]
     - [0x7B1B90, bin]
+    - [0x7B6E20, bin]
     - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table?
     - [0x7B7C80, bin] #
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
@@ -726,14 +781,16 @@ segments:
     - [0x7C74E0, bin]
     - [0x7C76B0, .data, sssv/credits]
     - [0x7C7960, bin]
-    - [0x7C7f40, bin] # data for overlay2_7A8A50?
+    - [0x7C7F40, bin] # data for overlay2_7A8A50?
     - [0x7C81E0, bin]
     - [0x7C8AC0, bin] # more textures
     - [0x7CC380, rodata, overlay2_6A7A80]
-    - [0x7CC3C0, bin] # rodata overlay2_6ACF20
+    - [0x7CC3C0, rodata, overlay2_6ACF20]
     - [0x7CC470, rodata, overlay2_6B5380]
     - [0x7CD590, .rodata, overlay2_6B5380]
-    - [0x7CD5B0, bin] # rodata, sssv/collision
+    - [0x7CD5B0, rodata, sssv/collision]
+    - [0x7CD610, rodata, overlay2_6CCEF0]
+    - [0x7CD7D0, rodata, overlay2_6D6120]
     - [0x7CD890, rodata, overlay2_6D9AF0]
     - [0x7CD9A0, rodata, overlay2_6DB610]
     - [0x7CD9E0, rodata, overlay2_6DCA10]
@@ -755,19 +812,24 @@ segments:
     - [0x7CE7C0, rodata, sssv/animals/parrot]
     - [0x7CE7D0, .rodata, overlay2_725D10]
     - [0x7CE804, rodata, overlay2_725D10]
-    - [0x7CEB70, bin] # rodata, overlay2_72B100]
-    - [0x7CEBE0, bin]
-    - [0x7CED50, rodata, overlay2_72B100]
+    - [0x7CEB70, rodata, overlay2_72B100]
+    - [0x7CEBE0, bin] # FIXME alignment goes wrong around here
+    - [0x7CED50, rodata, overlay2_72B100_cont]
     - [0x7CEF60, rodata, overlay2_72C680]
     - [0x7CF050, rodata, sssv/animals/mouse]
     - [0x7CF120, rodata, sssv/animals/bear]
-    - [0x7CF180, bin]
-    - [0x7CF530, bin]
+    - [0x7CF180, rodata, overlay2_739290]
+    - [0x7CF810, rodata, overlay2_73ED30]
     - [0x7CF860, rodata, overlay2_741000]
     - [0x7CFF64, .rodata, overlay2_741000]
-    - [0x7CFFD0, bin]
-    - [0x7D0000, rodata, sssv/osd]
-    - [0x7D0050, bin] # hilites?
+    - [0x7CFFD0, rodata, overlay2_7558F0]
+    - [0x7CFFF0, rodata, sssv/osd]
+    - [0x7D0050, rodata, sssv/hilites]
+    - [0x7D0080, rodata, overlay2_75BC80]
+    - [0x7D00A0, rodata, sssv/init]
+    - [0x7D01E0, rodata, sssv/animals/biker_hyena]
+    - [0x7D0220, rodata, overlay2_76D850]
+    - [0x7D02B0, rodata, sssv/animals/rat]
     - [0x7D02C0, rodata, overlay2_76F7D0]
     - [0x7D0310, rodata, overlay2_7741B0]
     - [0x7D033C, .rodata, overlay2_7741B0]
@@ -779,6 +841,7 @@ segments:
     - [0x7D0660, rodata, sssv/animals/kangaroo]   # 0x803BEFB0
     - [0x7D0670, rodata, sssv/animals/desert_fox] # 0x803BEFC0
     - [0x7D0690, rodata, sssv/animals/walrus]     # 0x803BEFE0
+    - [0x7D06E0, rodata, sssv/animals/scorpion]
     - [0x7D0710, rodata, sssv/animals/gorilla]    # 0x803BF060
     - [0x7D0740, rodata, sssv/animals/elephant]
     - [0x7D0750, rodata, overlay2_78E970]
@@ -788,10 +851,12 @@ segments:
     - [0x7D0B40, rodata, overlay2_79B1E0]
     - [0x7D0B70, .rodata, sssv/credits]
     - [0x7D1150, .rodata, sssv/cheats]
-    - [0x7D1210, bin]
+    - [0x7D1210, .rodata, overlay2_79DE10]
+    - [0x7D1220, rodata, sssv/terminal_background]
     - [0x7D1840, rodata, overlay2_7A0DA0]
-    - [0x7D19E0, bin]
-    # - [0x7D1A40, rodata, overlay2_7A8A50]
+    - [0x7D19E0, .rodata, overlay2_7A0DA0]
+    - [0x7D19F8, rodata, overlay2_7A0DA0_cont]
+    - [0x7D1A40, rodata, overlay2_7A8A50]
     - [0x7D1A50, rodata, overlay2_7A9CE0]
     - [0x7D1AD0, bin] # ?
     - [0x7D2E50, bin]

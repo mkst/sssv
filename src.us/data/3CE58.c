@@ -1,0 +1,16 @@
+#include <ultra64.h>
+
+const Gfx D_8004E988[] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_2CYCLE),
+    gsDPSetEnvColor(0xFF, 0xFF, 0xC8, 0xFF), // light yellow
+    gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_RA_ZB_OPA_SURF2),
+    gsSPClearGeometryMode(-1),
+    gsSPSetGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BACK | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_SHADING_SMOOTH | G_CLIPPING),
+    gsDPSetCombineLERP(PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, ENVIRONMENT, COMBINED, TEXEL1, COMBINED, ENVIRONMENT, COMBINED, TEXEL1, COMBINED),
+    gsDPLoadTextureBlock_4b(0x01037290, G_IM_FMT_I, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
+    gsSPTexture(1984, 1984, 0, G_TX_RENDERTILE, G_ON),
+    gsDPSetTextureLUT(G_TT_NONE),
+    gsSPEndDisplayList(),
+};

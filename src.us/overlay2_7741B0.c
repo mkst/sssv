@@ -410,7 +410,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             func_802EF074_700724(arg1);
             break;
         case FLYING_DOG:
-            func_802EEF9C_70064C(0, 0, 0);
+            flying_dog_fire_gun(0, 0, 0);
             break;
         case FOX:
             func_802E89AC_6FA05C();
@@ -531,16 +531,16 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             drop_sticky_mine();
             break;
         case RACING_DOG:
-            func_802EEDE0_700490(arg3);
+            racing_dog_fire_missile(arg3);
             break;
         case FLYING_DOG:
-            func_802EEFEC_70069C(0, 0, 0);
+            flying_dog_drop_bomb(0, 0, 0);
             break;
         case FOX:
             func_802E88C0_6F9F70(arg1);
             break;
         case FIRE_FOX:
-            flying_fox_fire_missile(arg3);
+            fire_fox_fire_missile(arg3);
             break;
         case FROG:
             frog_croak();

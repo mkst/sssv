@@ -3,7 +3,6 @@ options:
   target_path: baserom.eu.z64
   base_path: .
   compiler: IDO
-  create_detected_syms: yes
   find_file_boundaries: yes
   symbol_addrs_path :   symbol_addrs.eu.txt
   undefined_syms_path:  undefined_syms.eu.txt

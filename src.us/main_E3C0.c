@@ -6,13 +6,11 @@
 // more audio funcs
 
 void func_80132CC0(s32 arg0) {
-    struct017 *snd;
-
-    snd = D_8028631C;
-    rmonPrintf(D_8015AD90); // "----------------- Active sounds\n"
+    struct017 *snd = D_8028631C;
+    rmonPrintf("----------------- Active sounds\n");
 
     while (snd != NULL) {
-        rmonPrintf(D_8015ADB4, // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
+        rmonPrintf("sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d.\n",
             snd->sndState, snd->sndSlot, snd->sndID, snd->unk28, snd->counter, D_802863B0[snd->sndSlot]);
         snd = snd->next;
     }

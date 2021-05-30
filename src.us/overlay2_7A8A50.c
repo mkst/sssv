@@ -4,13 +4,15 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A8A50/func_803973A0_7A8A50.s")
 // JUSTREG - need to remove the temp vars
 // void func_803973A0_7A8A50(s16 arg0) {
-//     s32 temp_a0;
-//     s32 sp1C;
+//     s32 pad;
+//     s32 tmp1;
+//     s32 tmp2;
 //
-//     temp_a0 = D_803B6890[arg0].unk8;
-//     sp1C = D_803B6890[arg0].unk4 - D_803B6890[arg0].unk0;
-//     osInvalDCache(temp_a0, D_803B6890[arg0].unkC - D_803B6890[arg0].unk8);
-//     dma_read(D_803B6890[arg0].unk0, D_803B6890[arg0].unk10, sp1C);
+//     tmp2 = D_803B6890[arg0].unk4 - D_803B6890[arg0].unk0;
+//     tmp1 = D_803B6890[arg0].unkC - D_803B6890[arg0].unk8;
+//
+//     osInvalDCache(D_803B6890[arg0].unk8, tmp1);
+//     dma_read(D_803B6890[arg0].unk0, D_803B6890[arg0].unk10, tmp2);
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A8A50/func_80397414_7A8AC4.s")
