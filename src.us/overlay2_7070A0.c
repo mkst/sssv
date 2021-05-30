@@ -138,7 +138,16 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
     return arg1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F657C_707C2C.s")
+void func_802F657C_707C2C(struct071 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+    arg0->unk178 = arg1;
+    arg0->unk17A = arg2;
+    arg0->unk17C = arg3;
+    arg0->unk172 = arg4;
+    arg0->unk184 = 0;
+    arg0->unk17E = arg0->unk4.h;
+    arg0->unk180 = arg0->unk8.h;
+    arg0->unk182 = arg0->unkC.h;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F65BC_707C6C.s")
 
@@ -150,7 +159,8 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F6DEC_70849C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F7054_708704.s")
+void func_802F7054_708704(s32 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F705C_70870C.s")
 
@@ -162,7 +172,22 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8658_709D08.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8918_709FC8.s")
+s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
+    u8 i, j;
+
+    if (arg0->unk18C == 0) {
+        return 1;
+    }
+    for (i = 0; i < arg0->unk18C; i++) {
+        for (j = 0; j < arg1->unk192; j++) {
+            if (arg0->unk18D[i] == arg1->unk193[j]) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8994_70A044.s")
 
@@ -170,13 +195,29 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8DCC_70A47C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9084_70A734.s")
+void func_802F9084_70A734(s32 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F908C_70A73C.s")
+void func_802F908C_70A73C(struct071 *arg0) {
+    if (arg0->unk154 == 0) {
+        arg0->unk154 = 100;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F90A8_70A758.s")
+void func_802F90A8_70A758(struct071 *arg0) {
+    arg0->unk4.w += arg0->unk1C;
+    arg0->unk8.w += arg0->unk20.w;
+    if (!arg0->unk4C.unk1D) {
+        arg0->unkC.w += arg0->unk24;
+    }
+    func_803136B0_724D60(arg0);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9104_70A7B4.s")
+void func_802F9104_70A7B4(Animal *arg0) {
+    arg0->unk150 = (arg0->unk150 + 4) & 0xFF;
+    arg0->unk40 = (((D_80152C78[(arg0->unk150 + 64) & 0xFF] >> 7) * 0x66) >> 8) + 0x533;
+    func_802C9BA4_6DB254();
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9178_70A828.s")
 
@@ -202,7 +243,14 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FA4F8_70BBA8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FA6D8_70BD88.s")
+void func_802FA6D8_70BD88(void) {
+    D_80204278->unk3B308 = 0;
+    D_803E97C0 = 0;
+    D_803A5760_7B6E10 = D_803A5760_7B6E10 + 4;
+    D_803A5760_7B6E10 = D_803A5760_7B6E10 & 0xFF;
+    D_803A52D0_7B6980 += 1;
+    D_803E1BE0 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FA730_70BDE0.s")
 
@@ -211,6 +259,15 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB270_70C920.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB49C_70CB4C.s")
+// huh?
+// void func_802FB49C_70CB4C(struct071 *arg0) {
+//     arg0->unk54 = 0;
+//     arg0->unk55 = 0;
+//     arg0->unk56 = 0;
+//     arg0->unk57 = 0;
+//     arg0->unk5C = arg0->unk54;
+//     arg0->unk60 = arg0->unk58;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB4C0_70CB70.s")
 
@@ -238,11 +295,26 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC808_70DEB8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC8F4_70DFA4.s")
+void func_802FC8F4_70DFA4(Animal *arg0) {
+    s32 tmp = (arg0->unk40 * 18) >> 11;
+    func_802D5F4C_6E75FC(arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 23, 0, 0, 0, tmp, 0xB5AC, 0xB5AC, 0);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC970_70E020.s")
+void func_802FC970_70E020(Animal *arg0) {
+    func_802FCA08_70E0B8(arg0, arg0->unk164);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC990_70E040.s")
+void func_802FC990_70E040(Animal *arg0) {
+    if (arg0->unk26C != 1) {
+        func_802FCA08_70E0B8(arg0, arg0->unk164);
+        arg0->unk26C = 1;
+        if (arg0->unk246 != 0) {
+            struct069 *tmp = &D_803E4D40[(arg0->unk246 * 10) - 10];
+            func_803153B0_726A60(arg0, tmp, 0);
+            func_803191B0_72A860(arg0);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FCA08_70E0B8.s")
 
@@ -250,15 +322,56 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD26C_70E91C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD348_70E9F8.s")
+s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
+    struct065 *tmp;
+    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
+        if ((arg0 == tmp->unk8->unk6C) && (tmp->unk8->unk16C->unk0 == arg1)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD3B8_70EA68.s")
+s32 func_802FD3B8_70EA68(Animal *arg0) {
+    struct065 *tmp;
+    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
+        if (arg0 == tmp->unk8->unk6C) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD40C_70EABC.s")
+// is this animal or object?
+s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
+    struct065 *tmp;
+    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
+        if ((arg0 == tmp->unk8->unk6C) && (arg1 == tmp->unk8)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD468_70EB18.s")
+s32 func_802FD468_70EB18(Animal *arg0) {
+    struct065 *tmp;
+    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
+        if ((arg0 == tmp->unk8->unk6C) && (tmp->unk8->unk16C->unk0 >= 256)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD4D0_70EB80.s")
+s32 func_802FD4D0_70EB80(Animal *arg0) {
+    struct065 *tmp;
+    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
+        if ((arg0 == tmp->unk8->unk6C) && (tmp->unk8->unk16C->unk0 < 256)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD538_70EBE8.s")
 
@@ -268,6 +381,7 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD8CC_70EF7C.s")
 
+// huh?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD94C_70EFFC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD9C4_70F074.s")
@@ -294,7 +408,14 @@ void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal 
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF140_7107F0.s")
+void func_802FF140_7107F0(void) {
+    s16 i;
+
+    D_803A5330_7B69E0 = 0;
+    for (i = 0; i < 10; i++) {
+        D_803E1BE8[i][0] = 0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF184_710834.s")
 
@@ -302,7 +423,9 @@ void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF540_710BF0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF7D4_710E84.s")
+void func_802FF7D4_710E84(Animal *arg0) {
+    func_802D5F4C_6E75FC(arg0->xPos, arg0->zPos, arg0->yPos, 0x7C, 0, 0, 0, 0x14, 0, 0, 0);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF828_710ED8.s")
 
@@ -312,19 +435,37 @@ void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFD50_711400.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFE94_711544.s")
+void func_802FFE94_711544(struct071 *arg0) {
+    arg0->unk14E = (arg0->unk14E + 1) & 0x1F;
+    if ((arg0->unk200 & 1) != 0) {
+        func_802FFD50_711400(arg0);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFED0_711580.s")
+void func_802FFED0_711580(struct071 *arg0) {
+    if (arg0->unk158 != 0) {
+        func_802FFD50_711400(arg0);
+    }
+}
+void func_802FFEFC_7115AC(struct071 *arg0) {
+    if (arg0->unk0 == 1) {
+        if (arg0->unk14E == 0) {
+            arg0->unk14E = 1;
+            func_8034419C_75584C(arg0);
+        }
+    } else if (arg0->unk14E == 1) {
+        arg0->unk14E = 0;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFEFC_7115AC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFF50_711600.s")
+void func_802FFF50_711600(struct071 *arg0) {
+    func_802FFED0_711580(arg0);
+}
 
 void func_8032CED0_73E580(s16*, s16, s16, f32, s16, s16, s16, s16, s16, s16, s16, s16);
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFF70_711620.s")
-// not animal?
-// void func_802FFF70_711620(Animal *arg0) {
-//     func_8032CED0_73E580(&arg0->yVelocity, 0x9F, 0x3000, 1.0f, 0, 0, arg0->xPos, arg0->zPos, arg0->yPos, 0, 0, 0);
-// }
+
+void func_802FFF70_711620(struct071 *arg0) {
+    func_8032CED0_73E580(&arg0->unk20.h[1], 0x9F, 0x3000, 1.0f, 0, 0, arg0->unk4.h, arg0->unk8.h, arg0->unkC.h, 0, 0, 0);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFFD0_711680.s")

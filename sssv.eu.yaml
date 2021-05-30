@@ -11,6 +11,7 @@ options:
     #include <ultra64.h>
     #include "common.h"
   src_path: src.eu
+  extensions_path: tools/splat_ext
 segments:
   - name:  header
     type:  header
@@ -401,42 +402,42 @@ segments:
   - [0x6121E0, bin, rnc_6121E0] # 25247 => 25298
   - [0x618480, bin, rnc_618480] # 4183 => 4305
   ## matches US ROM from here..
-  - [0x6194E0, bin, lang/lang1] # 10338 => 31544
-  - [0x61BD50, bin, lang/lang2] # 4981 => 14344
-  - [0x61D0D0, bin, lang/lang3] # 2753 => 9272
-  - [0x61DBA0, bin, lang/lang4] # 2893 => 10000
-  - [0x61E6F0, bin, lang/lang5] # 2881 => 8664
-  - [0x61F240, bin, lang/lang6] # 2431 => 6824
-  - [0x61FBC0, bin, lang/lang7] # 2802 => 8184
-  - [0x6206C0, bin, lang/lang8] # 3168 => 9432
-  - [0x621320, bin, lang/lang9] # 4976 => 14664
-  - [0x622690, bin, lang/lang10] # 5270 => 20992
-  - [0x623B30, bin, lang/lang11] # 3373 => 10032
-  - [0x624860, bin, lang/lang12] # 1895 => 4864
-  - [0x624FD0, bin, lang/lang13] # 2399 => 6744
-  - [0x625930, bin, lang/lang14] # 2818 => 8104
-  - [0x626440, bin, lang/lang15] # 3478 => 10920
-  - [0x6271E0, bin, lang/lang16] # 3252 => 9784
-  - [0x627EA0, bin, lang/lang17] # 6051 => 18784
-  - [0x629650, bin, lang/lang18] # 2353 => 6224
-  - [0x629F90, bin, lang/lang19] # 2200 => 5976
-  - [0x62A830, bin, lang/lang20] # 2677 => 7960
-  - [0x62B2B0, bin, lang/lang21] # 2727 => 8064
-  - [0x62BD60, bin, lang/lang22] # 2277 => 7096
-  - [0x62C650, bin, lang/lang23] # 5064 => 14360
-  - [0x62DA20, bin, lang/lang24] # 1959 => 5424
-  - [0x62E1D0, bin, lang/lang25] # 2419 => 6960
-  - [0x62EB50, bin, lang/lang26] # 2146 => 6112
-  - [0x62F3C0, bin, lang/lang27] # 2610 => 7448
-  - [0x62FE00, bin, lang/lang28] # 2322 => 6904
-  - [0x630720, bin, lang/lang29] # 1964 => 5496
-  - [0x630ED0, bin, lang/lang30] # 3819 => 16288
-  - [0x631DC0, bin, lang/lang31] # 12695 => 40200
-  - [0x634F60, bin, lang/lang32] # 98 => 1200
-  - [0x634FD0, bin, lang/lang33] # 11649 => 38088
-  - [0x637D60, bin, lang/lang34] # 3076 => 8000
-  - [0x638970, bin, lang/lang35] # 69 => 120
-  - [0x6389C0, bin, lang/lang36] # 69 => 120
+  - [0x6194E0, rnc, lang/lang1.dat] # 10338 => 31544
+  - [0x61BD50, rnc, lang/lang2.dat] # 4981 => 14344
+  - [0x61D0D0, rnc, lang/lang3.dat] # 2753 => 9272
+  - [0x61DBA0, rnc, lang/lang4.dat] # 2893 => 10000
+  - [0x61E6F0, rnc, lang/lang5.dat] # 2881 => 8664
+  - [0x61F240, rnc, lang/lang6.dat] # 2431 => 6824
+  - [0x61FBC0, rnc, lang/lang7.dat] # 2802 => 8184
+  - [0x6206C0, rnc, lang/lang8.dat] # 3168 => 9432
+  - [0x621320, rnc, lang/lang9.dat] # 4976 => 14664
+  - [0x622690, rnc, lang/lang10.dat] # 5270 => 20992
+  - [0x623B30, rnc, lang/lang11.dat] # 3373 => 10032
+  - [0x624860, rnc, lang/lang12.dat] # 1895 => 4864
+  - [0x624FD0, rnc, lang/lang13.dat] # 2399 => 6744
+  - [0x625930, rnc, lang/lang14.dat] # 2818 => 8104
+  - [0x626440, rnc, lang/lang15.dat] # 3478 => 10920
+  - [0x6271E0, rnc, lang/lang16.dat] # 3252 => 9784
+  - [0x627EA0, rnc, lang/lang17.dat] # 6051 => 18784
+  - [0x629650, rnc, lang/lang18.dat] # 2353 => 6224
+  - [0x629F90, rnc, lang/lang19.dat] # 2200 => 5976
+  - [0x62A830, rnc, lang/lang20.dat] # 2677 => 7960
+  - [0x62B2B0, rnc, lang/lang21.dat] # 2727 => 8064
+  - [0x62BD60, rnc, lang/lang22.dat] # 2277 => 7096
+  - [0x62C650, rnc, lang/lang23.dat] # 5064 => 14360
+  - [0x62DA20, rnc, lang/lang24.dat] # 1959 => 5424
+  - [0x62E1D0, rnc, lang/lang25.dat] # 2419 => 6960
+  - [0x62EB50, rnc, lang/lang26.dat] # 2146 => 6112
+  - [0x62F3C0, rnc, lang/lang27.dat] # 2610 => 7448
+  - [0x62FE00, rnc, lang/lang28.dat] # 2322 => 6904
+  - [0x630720, rnc, lang/lang29.dat] # 1964 => 5496
+  - [0x630ED0, rnc, lang/lang30.dat] # 3819 => 16288
+  - [0x631DC0, rnc, lang/lang31.dat] # 12695 => 40200
+  - [0x634F60, rnc, lang/lang32.dat] # 98 => 1200
+  - [0x634FD0, rnc, lang/lang33.dat] # 11649 => 38088
+  - [0x637D60, rnc, lang/lang34.dat] # 3076 => 8000
+  - [0x638970, rnc, lang/lang35.dat] # 69 => 120
+  - [0x6389C0, rnc, lang/lang36.dat] # 69 => 120
   # end of languages
   - [0x638A10, bin, rnc_638A10] # 5000 => 115024
   - type:  code

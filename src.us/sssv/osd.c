@@ -323,7 +323,7 @@ void func_803497DC_75AE8C(void) {
     D_803F2CDF = 1;
     D_803F2CE0 = 0;
     D_803F2CF2 = 1;
-    fancy_bzero(&D_803F2CF8, 12);
+    bzero_sssv(&D_803F2CF8, 12);
 }
 
 u8 func_80349874_75AF24(void) {

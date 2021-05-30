@@ -11,6 +11,7 @@ options:
     #include <ultra64.h>
     #include "common.h"
   src_path: src.us
+  extensions_path: tools/splat_ext
 segments:
   - name:  header
     type:  header
@@ -345,7 +346,7 @@ segments:
   - [0x459590, bin, rnc_459590] # 16318 => 21952
   - [0x45D550, bin, rnc_45D550] # 6246 => 21952
   - [0x45EDC0, bin, rnc_45EDC0] # 11068 => 21952
-  - [0x461900, bin, rnc_461900] # 79 => 21952
+  - [0x461900, bin, rnc_461900] # 79 => 21952      # RNC pack differs
   - [0x461950, bin, rnc_461950] # 193 => 21952
   - [0x461A20, bin, rnc_461A20] # 17776 => 32928
   - [0x465F90, bin, rnc_465F90] # 23197 => 32928
@@ -506,35 +507,35 @@ segments:
   - [0x5449C0, bin] # I4 water texture?
   - [0x546BC0, bin] # tbd
   # game levels (nested RNC compressed) (differ from EU ROM)
-  - [0x546D00, bin, rnc_546D00] # 33736 => 33692 # level 1
+  - [0x546D00, bin, rnc_546D00] # 33736 => 33692 # level 1      # RNC pack differs
   - [0x54F0D0, bin, rnc_54F0D0] # 23846 => 23875
-  - [0x554E00, bin, rnc_554E00] # 21894 => 21888
+  - [0x554E00, bin, rnc_554E00] # 21894 => 21888                # RNC pack differs
   - [0x55A390, bin, rnc_55A390] # 24450 => 24492
   - [0x560320, bin, rnc_560320] # 31699 => 31741
   - [0x567F00, bin, rnc_567F00] # 19968 => 19993
   - [0x56CD00, bin, rnc_56CD00] # 24507 => 24509
   - [0x572CC0, bin, rnc_572CC0] # 24650 => 24773
-  - [0x578D10, bin, rnc_578D10] # 25783 => 25774
+  - [0x578D10, bin, rnc_578D10] # 25783 => 25774                # RNC pack differs
   - [0x57F1D0, bin, rnc_57F1D0] # 14989 => 15113
-  - [0x582C60, bin, rnc_582C60] # 24634 => 24619
+  - [0x582C60, bin, rnc_582C60] # 24634 => 24619                # RNC pack differs
   - [0x588CA0, bin, rnc_588CA0] # 18142 => 18168
   - [0x58D380, bin, rnc_58D380] # 17649 => 17687
   - [0x591880, bin, rnc_591880] # 20703 => 20723
-  - [0x596960, bin, rnc_596960] # 42919 => 42851
+  - [0x596960, bin, rnc_596960] # 42919 => 42851                # RNC pack differs
   - [0x5A1110, bin, rnc_5A1110] # 27893 => 27959
-  - [0x5A7E10, bin, rnc_5A7E10] # 25689 => 25673
+  - [0x5A7E10, bin, rnc_5A7E10] # 25689 => 25673                # RNC pack differs
   - [0x5AE270, bin, rnc_5AE270] # 25239 => 25254
   - [0x5B4510, bin, rnc_5B4510] # 25166 => 25170
-  - [0x5BA760, bin, rnc_5BA760] # 35876 => 35840
+  - [0x5BA760, bin, rnc_5BA760] # 35876 => 35840                # RNC pack differs
   - [0x5C3390, bin, rnc_5C3390] # 22768 => 22768
-  - [0x5C8C80, bin, rnc_5C8C80] # 31261 => 31243
+  - [0x5C8C80, bin, rnc_5C8C80] # 31261 => 31243                # RNC pack differs
   - [0x5D06A0, bin, rnc_5D06A0] # 30668 => 30707
   - [0x5D7E70, bin, rnc_5D7E70] # 31350 => 31363
-  - [0x5DF8F0, bin, rnc_5DF8F0] # 20684 => 20683
+  - [0x5DF8F0, bin, rnc_5DF8F0] # 20684 => 20683                # RNC pack differs
   - [0x5E49C0, bin, rnc_5E49C0] # 26489 => 26494
-  - [0x5EB140, bin, rnc_5EB140] # 30450 => 30443
+  - [0x5EB140, bin, rnc_5EB140] # 30450 => 30443                # RNC pack differs
   - [0x5F2840, bin, rnc_5F2840] # 27591 => 27599
-  - [0x5F9410, bin, rnc_5F9410] # 40441 => 40438
+  - [0x5F9410, bin, rnc_5F9410] # 40441 => 40438                # RNC pack differs
   - [0x603210, bin, rnc_603210] # 16941 => 16966
   - [0x607440, bin, rnc_607440] # 29905 => 29917
   - [0x60E920, bin, rnc_60E920] # 5795 => 5889
@@ -543,44 +544,44 @@ segments:
   - [0x6109D0, bin, rnc_6109D0] # 25055 => 25120
   - [0x616BB0, bin, rnc_616BB0] # 4212 => 4332   # level 36
   ## language files (matches EU ROM from here..)
-  - [0x617C30, bin, lang/lang1] # 10338 => 31544
-  - [0x61A4A0, bin, lang/lang2] # 4981 => 14344
-  - [0x61B820, bin, lang/lang3] # 2753 => 9272
-  - [0x61C2F0, bin, lang/lang4] # 2893 => 10000
-  - [0x61CE40, bin, lang/lang5] # 2881 => 8664
-  - [0x61D990, bin, lang/lang6] # 2431 => 6824
-  - [0x61E310, bin, lang/lang7] # 2802 => 8184
-  - [0x61EE10, bin, lang/lang8] # 3168 => 9432
-  - [0x61FA70, bin, lang/lang9] # 4976 => 14664
-  - [0x620DE0, bin, lang/lang10] # 5270 => 20992
-  - [0x622280, bin, lang/lang11] # 3373 => 10032
-  - [0x622FB0, bin, lang/lang12] # 1895 => 4864
-  - [0x623720, bin, lang/lang13] # 2399 => 6744
-  - [0x624080, bin, lang/lang14] # 2818 => 8104
-  - [0x624B90, bin, lang/lang15] # 3478 => 10920
-  - [0x625930, bin, lang/lang16] # 3252 => 9784
-  - [0x6265F0, bin, lang/lang17] # 6051 => 18784
-  - [0x627DA0, bin, lang/lang18] # 2353 => 6224
-  - [0x6286E0, bin, lang/lang19] # 2200 => 5976
-  - [0x628F80, bin, lang/lang20] # 2677 => 7960
-  - [0x629A00, bin, lang/lang21] # 2727 => 8064
-  - [0x62A4B0, bin, lang/lang22] # 2277 => 7096
-  - [0x62ADA0, bin, lang/lang23] # 5064 => 14360
-  - [0x62C170, bin, lang/lang24] # 1959 => 5424
-  - [0x62C920, bin, lang/lang25] # 2419 => 6960
-  - [0x62D2A0, bin, lang/lang26] # 2146 => 6112
-  - [0x62DB10, bin, lang/lang27] # 2610 => 7448
-  - [0x62E550, bin, lang/lang28] # 2322 => 6904
-  - [0x62EE70, bin, lang/lang29] # 1964 => 5496
-  - [0x62F620, bin, lang/lang30] # 3819 => 16288
-  - [0x630510, bin, lang/lang31] # 12695 => 40200
-  - [0x6336B0, bin, lang/lang32] # 98 => 1200
-  - [0x633720, bin, lang/lang33] # 11649 => 38088
-  - [0x6364B0, bin, lang/lang34] # 3076 => 8000
-  - [0x6370C0, bin, lang/lang35] # 69 => 120
-  - [0x637110, bin, lang/lang36] # 69 => 120
+  - [0x617C30, rnc, lang/lang1.dat] # 10338 => 31544
+  - [0x61A4A0, rnc, lang/lang2.dat] # 4981 => 14344
+  - [0x61B820, rnc, lang/lang3.dat] # 2753 => 9272
+  - [0x61C2F0, rnc, lang/lang4.dat] # 2893 => 10000
+  - [0x61CE40, rnc, lang/lang5.dat] # 2881 => 8664
+  - [0x61D990, rnc, lang/lang6.dat] # 2431 => 6824
+  - [0x61E310, rnc, lang/lang7.dat] # 2802 => 8184
+  - [0x61EE10, rnc, lang/lang8.dat] # 3168 => 9432
+  - [0x61FA70, rnc, lang/lang9.dat] # 4976 => 14664
+  - [0x620DE0, rnc, lang/lang10.dat] # 5270 => 20992
+  - [0x622280, rnc, lang/lang11.dat] # 3373 => 10032
+  - [0x622FB0, rnc, lang/lang12.dat] # 1895 => 4864
+  - [0x623720, rnc, lang/lang13.dat] # 2399 => 6744
+  - [0x624080, rnc, lang/lang14.dat] # 2818 => 8104
+  - [0x624B90, rnc, lang/lang15.dat] # 3478 => 10920
+  - [0x625930, rnc, lang/lang16.dat] # 3252 => 9784
+  - [0x6265F0, rnc, lang/lang17.dat] # 6051 => 18784
+  - [0x627DA0, rnc, lang/lang18.dat] # 2353 => 6224
+  - [0x6286E0, rnc, lang/lang19.dat] # 2200 => 5976
+  - [0x628F80, rnc, lang/lang20.dat] # 2677 => 7960
+  - [0x629A00, rnc, lang/lang21.dat] # 2727 => 8064
+  - [0x62A4B0, rnc, lang/lang22.dat] # 2277 => 7096
+  - [0x62ADA0, rnc, lang/lang23.dat] # 5064 => 14360
+  - [0x62C170, rnc, lang/lang24.dat] # 1959 => 5424
+  - [0x62C920, rnc, lang/lang25.dat] # 2419 => 6960
+  - [0x62D2A0, rnc, lang/lang26.dat] # 2146 => 6112
+  - [0x62DB10, rnc, lang/lang27.dat] # 2610 => 7448
+  - [0x62E550, rnc, lang/lang28.dat] # 2322 => 6904
+  - [0x62EE70, rnc, lang/lang29.dat] # 1964 => 5496
+  - [0x62F620, rnc, lang/lang30.dat] # 3819 => 16288
+  - [0x630510, rnc, lang/lang31.dat] # 12695 => 40200
+  - [0x6336B0, rnc, lang/lang32.dat] # 98 => 1200
+  - [0x633720, rnc, lang/lang33.dat] # 11649 => 38088
+  - [0x6364B0, rnc, lang/lang34.dat] # 3076 => 8000
+  - [0x6370C0, rnc, lang/lang35.dat] # 69 => 120
+  - [0x637110, rnc, lang/lang36.dat] # 69 => 120
   # end of languages
-  - [0x637160, bin, rnc_637160] # 5000 => 115024
+  - [0x637160, bin, rnc_637160] # 5000 => 115024 # some textures
   - type:  code
     name:  overlay1
     overlay: yes
@@ -593,7 +594,7 @@ segments:
     - [0x63CDD0, linker, data]
     - [0x63CDD0, bin] # tbd ### D_80299730
     # - [0x63d4e2, bin] # "C" texture 10x11 rgba16
-    - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840 # chunked
+    - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840 # chunked   # RNC pack differs
     - [0x646E80, bin, rnc_646E80] # 28620 => 153600 # 320x240, president mrs frank bloke
     - [0x64DE50, bin, rnc_64DE50] # 21526 => 65536  # 256x128, spacestation silicon valley logo
     - [0x653270, bin, rnc_653270] # 5873 => 18432   # newscaster "video"
@@ -632,27 +633,28 @@ segments:
     - [0x6AC360, c, overlay2_6AC360]
     - [0x6ACF20, c, overlay2_6ACF20]
     - [0x6B5380, c, overlay2_6B5380]
-    - [0x6C5570, asm]
+    - [0x6C5570, c, overlay2_6C5570]
     - [0x6C63D0, c, sssv/collision]
     - [0x6C9DD0, c, overlay2_6C9DD0]
     - [0x6CCEF0, c, overlay2_6CCEF0]
-    - [0x6D9330, asm]
+    - [0x6D9330, c, overlay2_6D9330]
     - [0x6D9AF0, c, overlay2_6D9AF0]
-    - [0x6DB610, asm]
-    - [0x6DCA10, asm]
+    - [0x6DB610, c, overlay2_6DB610]
+    - [0x6DCA10, c, overlay2_6DCA10]
     - [0x6EBEA0, c, sssv/collist2]
-    - [0x6EC720, asm]
-    - [0x6ED230, asm]
-    - [0x6F66B0, asm]
-    - [0x6FA0A0, asm]
+    - [0x6EC720, c, overlay2_6EC720]
+    - [0x6ED230, c, overlay2_6ED230]
+    - [0x6F66B0, c, sssv/animals/fox]
+    - [0x6FA0A0, c, overlay2_6FA0A0]
     - [0x6FBA90, c, sssv/aidata]
     - [0x6FBEA0, c, sssv/animals/flying_dog]
-    - [0x700770, c, overlay2_700770]
+    - [0x700770, c, sssv/animals/hippo]
+    - [0x701E80, c, overlay2_701E80]
     - [0x702DE0, c, sssv/animals/lion]
     - [0x7041D0, c, overlay2_7041D0]
     - [0x7070A0, c, overlay2_7070A0]
     - [0x7117E0, c, overlay2_7117E0]
-    - [0x7118C0, c, sssv/animals/heli_rabbit]
+    - [0x7118C0, c, sssv/animals/rabbit]
     - [0x7138B0, c, sssv/animals/frog]
     - [0x714500, c, overlay2_714500]
     - [0x714B80, c, overlay2_714B80]
@@ -685,12 +687,14 @@ segments:
     - [0x76BCA0, c, sssv/animals/chameleon]
     - [0x76D850, c, overlay2_76D850]
     - [0x76F7D0, c, overlay2_76F7D0]
+    - [0x76FAE0, c, sssv/animals/rat]
+    - [0x771540, c, sssv/animals/sheep]
     - [0x7741B0, c, overlay2_7741B0]
     - [0x775E30, c, sssv/animals/penguin]
     - [0x7775C0, c, sssv/animals/polar_bear]
     - [0x77A480, c, sssv/animals/husky]
     - [0x77D760, c, sssv/animals/vulture]
-    - [0x77EDB0, c, overlay2_77EDB0]
+    - [0x77EDB0, c, sssv/animals/camel]
     - [0x780E50, c, sssv/animals/kangaroo]
     - [0x783D90, c, sssv/animals/desert_fox]
     - [0x786320, c, sssv/animals/walrus]
@@ -715,6 +719,8 @@ segments:
     # .data / .rodata
     - [0x7B1B90, linker, data]
     - [0x7B1B90, bin]
+    - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table?
+    - [0x7B7C80, bin] #
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
     - [0x7C74E0, bin]
@@ -733,15 +739,16 @@ segments:
     - [0x7CD9E0, rodata, overlay2_6DCA10]
     - [0x7CDD70, rodata, sssv/collist2]
     - [0x7CDE00, rodata, overlay2_6ED230]
-    - [0x7CE0B0, rodata, overlay2_6F66B0]
+    - [0x7CE0B0, rodata, sssv/animals/fox]
     - [0x7CE110, rodata, overlay2_6FA0A0]
     - [0x7CE120, rodata, sssv/aidata]
     - [0x7CE440, rodata, sssv/animals/flying_dog]
-    - [0x7CE490, rodata, overlay2_700770]
+    - [0x7CE490, rodata, sssv/animals/hippo]
+    - [0x7CE4B0, rodata, overlay2_701E80]
     - [0x7CE520, rodata, sssv/animals/lion]
     - [0x7CE530, rodata, overlay2_7041D0]
     - [0x7CE560, rodata, overlay2_7070A0]
-    - [0x7CE650, rodata, sssv/animals/heli_rabbit]
+    - [0x7CE650, rodata, sssv/animals/rabbit]
     - [0x7CE680, rodata, sssv/animals/frog]
     - [0x7CE690, rodata, overlay2_715820]
     - [0x7CE6C0, rodata, overlay2_716900]
@@ -763,13 +770,13 @@ segments:
     - [0x7D0050, bin] # hilites?
     - [0x7D02C0, rodata, overlay2_76F7D0]
     - [0x7D0310, rodata, overlay2_7741B0]
-    - [0x7D0360, .rodata, overlay2_7741B0]
+    - [0x7D033C, .rodata, overlay2_7741B0]
     - [0x7D05B0, rodata, sssv/animals/penguin]
     - [0x7D05D0, rodata, sssv/animals/polar_bear]
     - [0x7D0610, rodata, sssv/animals/husky]
     - [0x7D0620, rodata, sssv/animals/vulture]    # 0x803BEF70
-    - [0x7D0650, rodata, overlay2_77EDB0]         # 0x803BEFA0
-    - [0x7D0660, rodata, sssv/animals/kangaroo]         # 0x803BEFB0
+    - [0x7D0650, rodata, sssv/animals/camel]      # 0x803BEFA0
+    - [0x7D0660, rodata, sssv/animals/kangaroo]   # 0x803BEFB0
     - [0x7D0670, rodata, sssv/animals/desert_fox] # 0x803BEFC0
     - [0x7D0690, rodata, sssv/animals/walrus]     # 0x803BEFE0
     - [0x7D0710, rodata, sssv/animals/gorilla]    # 0x803BF060

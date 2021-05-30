@@ -35,11 +35,7 @@ void func_80374518_785BC8(void) {
         D_803D552C->unk348 = 512;
         D_803D552C->unk34A = 50;
     } else {
-        if (D_803D552C->unk348 < D_803D552C->unk30A) {
-            D_803D552C->unk348 = D_803D552C->unk30A;
-        } else {
-            D_803D552C->unk348 = D_803D552C->unk348;
-        }
+        D_803D552C->unk348 = MAX(D_803D552C->unk30A, D_803D552C->unk348);
         D_803D552C->unk30A = 0;
     }
 }

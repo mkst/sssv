@@ -68,8 +68,88 @@ void func_80362C10_7742C0(Animal *arg0) {
 
 // contains jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80362CC4_774374.s")
-// contains jump table
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_803633C4_774A74.s")
+
+void func_803633C4_774A74(Animal *arg0) {
+    s32 tmp0, tmp1;
+
+    switch (arg0->unk2A0) {
+    case 0:
+        break;
+    case 1:
+        if ((ABS(arg0->unk2A4 - arg0->xPos) < arg0->unk2A2) && (ABS(arg0->unk2A6 - arg0->zPos) < arg0->unk2A2)) {
+            func_80363CC8_775378(arg0);
+        } else {
+            func_80362C10_7742C0(arg0);
+        }
+        break;
+    case 2:
+        if (arg0->unk2B0 != 0) {
+            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+        }
+        if (arg0->unk2AC->unk26C != 0) {
+            func_80363CC8_775378(arg0);
+        } else {
+            arg0->unk278 = arg0->unk2AC->xPos;
+            arg0->unk27A = arg0->unk2AC->zPos;
+            if ((func_80362BC4_774274(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
+                arg0->unk27C = (arg0->unk2AC->yPos + (arg0->unk2AC->unk42 >> 1)) - arg0->unk2A8;
+            }
+        }
+        break;
+    case 3:
+        if (arg0->unk2B0 != 0) {
+            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+        }
+        arg0->unk278 = arg0->unk2AC->xPos;
+        arg0->unk27A = arg0->unk2AC->zPos;
+        break;
+    case 4:
+        if (arg0->unk2B0 != 0) {
+            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+        }
+        if (arg0->unk2AC->unk26C != 0) {
+            func_80363CC8_775378(arg0);
+        } else {
+            arg0->unk278 = arg0->unk2AC->xPos;
+            arg0->unk27A = arg0->unk2AC->zPos;
+            if ((func_80362BC4_774274(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
+                arg0->unk27C = (arg0->unk2AC->yPos + (arg0->unk2AC->unk42 >> 1)) - arg0->unk2A8;
+            }
+        }
+        break;
+    case 5:
+        break;
+    case 6:
+        tmp0 = arg0->unk2A4 - arg0->xPos;
+        tmp1 = arg0->unk2A6 - arg0->zPos;
+
+        if (func_803051F0_7168A0((func_801284B8(tmp0, tmp1) << 8) / 360, arg0->yRotation) < 6) {
+            arg0->unk2A0 = 1;
+            arg0->unk275 = arg0->unk2A1;
+        }
+        break;
+    case 7:
+        break;
+    case 8:
+        if (arg0->unk2B0 != 0) {
+            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+        }
+        if (arg0->unk2AC->unk26C != 0) {
+            func_80363CC8_775378(arg0);
+        } else {
+            arg0->unk278 = arg0->unk2AC->xPos;
+            arg0->unk27A = arg0->unk2AC->zPos;
+            if ((func_80362BC4_774274(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
+                arg0->unk27C = ((arg0->unk2AC->yPos + (arg0->unk2AC->unk42 >> 1)) - arg0->unk2A8);
+            }
+            if (((arg0->unk5C & 5) != 0) && (arg0->unk60 == arg0->unk2AC)) {
+                func_80363CC8_775378(arg0);
+            }
+        }
+        break;
+    }
+}
+
 
 void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
     if (arg0->unk320 == 0) {

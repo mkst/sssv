@@ -160,7 +160,7 @@ s32 eeprom_checksum(u8 *eeprom) {
 //                 }
 //             }
 //         } else if (cnt != 4) {
-//             strncpy(&D_8023F260, &D_8023F2E0[cnt], 64);
+//             memcpy_sssv(&D_8023F260, &D_8023F2E0[cnt], 64);
 //         }
 //     }
 // }

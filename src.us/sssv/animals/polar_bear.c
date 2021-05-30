@@ -61,7 +61,7 @@ void func_80368D60_77A410(s16 arg0) {
     if (arg0 == 0) {
         D_803D552C->unk2EC = 0;
     } else {
-        if (D_803D552C->unk365 != 0x1B) {
+        if (D_803D552C->unk365 != 27) {
             D_803D552C->unk2EC = arg0;
             D_803D552C->unk32A = D_803D5544;
             D_803D552C->unk365 = 27;

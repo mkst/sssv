@@ -60,12 +60,7 @@ void func_80356134_7677E4(Animal *a) {
     func_80322064_733714(17, 32, 0, 20, 30, D_803D5530->yRotation, rot, 2, 45);
     func_801373CC(0, 10, 40, 5, func_8029B7D0_6ACE80(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
     func_8034220C_7538BC(0xE, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
-
-    if ((D_803D552C->unk308 + 30) >= 47) {
-        D_803D552C->unk308 = 46;
-    } else {
-        D_803D552C->unk308 += 30;
-    }
+    D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
 
     play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }

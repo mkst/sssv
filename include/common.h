@@ -144,11 +144,11 @@
 #define CITY_BIOME                  4
 
 // sound effects
-#define SOUND_EFFECT_RAT_BITE       7
-#define SOUND_EFFECT_CHEAT_ENABLED  86
-#define SOUND_EFFECT_DROP_BOMB      124
-#define SOUND_EFFECT_DROP_MINE      156
-#define SOUND_EFFECT_BUGEL_CALL     184
+#define SFX_RAT_BITE                7
+#define SFX_CHEAT_ENABLED           86
+#define SFX_DROP_BOMB               124
+#define SFX_DROP_MINE               156
+#define SFX_BUGEL_CALL              184
 
 // states
 #define STATE_STANDING               2

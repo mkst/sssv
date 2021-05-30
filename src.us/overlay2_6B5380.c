@@ -911,13 +911,15 @@ void func_802B3400_6C4AB0(Animal *a) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B342C_6C4ADC.s")
+void func_802B342C_6C4ADC(void) {
+  D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk4A += 1;
+  D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk304 = D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk302;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3474_6C4B24.s")
-// void func_802B3474_6C4B24(void) {
-//     D_801D9ED8->unk3EB4[gCurrentAnimalIndex].unk0->unk4A = 1;
-//     D_801D9ED8->unk3EB4[gCurrentAnimalIndex].unk0->unk304 = D_801D9ED8->unk3EB4[gCurrentAnimalIndex].unk0->unk302;
-// }
+void func_802B3474_6C4B24(void) {
+    D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk4A = 1;
+    D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk304 = D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk302;
+}
 
 void func_802B34B8_6C4B68(Animal *a) {
     if ((a->unk4A - 1) < 0) {

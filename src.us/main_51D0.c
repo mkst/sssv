@@ -5,8 +5,8 @@
 
 // first function called after osInitialize
 void init(void) {
-    fancy_bzero(gFramebuffer[0], sizeof(gFramebuffer[0]));
-    fancy_bzero(gFramebuffer[1], sizeof(gFramebuffer[1]));
+    bzero_sssv(gFramebuffer[0], sizeof(gFramebuffer[0]));
+    bzero_sssv(gFramebuffer[1], sizeof(gFramebuffer[1]));
 }
 
 // thread 6
@@ -159,7 +159,7 @@ void end_display_lists(void) {
 //         if (D_80152E9C == 1) {
 //             func_80137840();
 //             func_8012A400();
-//             strncpy(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
+//             memcpy_sssv(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
 //         }
 //         if (D_80152E9C == 2) {
 //             func_8012AC40();
