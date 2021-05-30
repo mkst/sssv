@@ -249,7 +249,40 @@ void func_8038FF48_7A15F8(void) {
 // requires jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_8038FF68_7A1618.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80391A38_7A30E8.s")
+void func_80391A38_7A30E8(void) {
+    func_8032CD20_73E3D0(1169, 73, 0x4000, 0, D_803C032C_7D19DC);
+    if (D_803F66AA == 1) {
+        if ((guRandom() % 20) == 1) {
+            D_803B6880_7C7F30 = (s32) (guRandom() % 6);
+        }
+        switch (D_803B6880_7C7F30) {
+        case 0:
+            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            break;
+        case 1:
+            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            break;
+        case 2:
+            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            break;
+        case 3:
+            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            break;
+        case 4:
+            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, D_803C0348_7D19F8);
+            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            break;
+        case 5:
+            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, D_803C034C_7D19FC);
+            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80391C90_7A3340.s")
 
@@ -265,6 +298,7 @@ void func_8039264C_7A3CFC(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_803929FC_7A40AC.s")
 
+// render some text to screen?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80393024_7A46D4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80393238_7A48E8.s")

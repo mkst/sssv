@@ -67,7 +67,7 @@ void func_802E8760_6F9E10(void) {
     }
 }
 
-void flying_fox_fire_missile(Animal *animal) {
+void fire_fox_fire_missile(Animal *animal) {
     play_sound_effect_at_location(2, 0x3700, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
     // scale missile to zero
     func_8037FBBC_79126C();

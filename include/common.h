@@ -125,7 +125,7 @@
 #define CHAMELEON_DEFENDING         60 // SNEAKY_CHAMELEON
 #define EVO_MICROCHIP               61
 #define EVO_GLITCHY                 62
-#define UNKNOWN_ANIMAL_63           63 // EVO
+#define EVO                         63 // EVO
 #define KING_PENGUIN                64
 #define RACING_TORTOISE_ATTACKING   65
 #define COOL_COD                    66
@@ -145,6 +145,7 @@
 
 // sound effects
 #define SFX_RAT_BITE                7
+#define SFX_CAMERA_PAN              15
 #define SFX_CHEAT_ENABLED           86
 #define SFX_DROP_BOMB               124
 #define SFX_DROP_MINE               156

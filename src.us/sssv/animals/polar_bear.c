@@ -5,7 +5,47 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_803677C4_778E74.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80368840_779EF0.s")
+// animation?
+void func_80368840_779EF0(s16 arg0) {
+    s32 pad;
+
+    f32 temp_s1f;
+    f32 temp_s7f;
+    f32 temp_s2f;
+
+    struct078 *phi_a1;
+
+    s16 temp_s1;
+    s16 temp_s2;
+    struct078 *sp44;
+    s32 tmp;
+    s16 temp_s3;
+    s16 temp_s7;
+    s16 temp_v0;
+
+    s16 i;
+
+    sp44 = ((s32)D_04002930 & 0xFFFFFF) + D_801D9EC4;
+    tmp = ((s32)D_04002630 & 0xFFFFFF) + D_801D9EC4;
+    phi_a1 = tmp;
+
+    for (i = 0; i < 48; i++) {
+        // FIXME: fakematch nonsense
+        temp_s1 = (((0, sp44)) + i)->unk0;
+        temp_s2 = (sp44 + i)->unk2;
+        temp_s3 = (sp44 + i)->unk4;
+
+        temp_s1f = temp_s1;
+        temp_s2f = temp_s2;
+        temp_s7f = temp_s7 = temp_s3 + ((temp_s3 + 75) / 2);
+
+        temp_v0 = (s32) sqrtf((temp_s1f * temp_s1f) + (temp_s2f * temp_s2f) + (temp_s7f * temp_s7f));
+
+        (phi_a1 + i)->unk0 = ((((s16)  ((temp_s1 * 50) / temp_v0)       * arg0) + (temp_s1 * (32 - arg0))) >> 5);
+        (phi_a1 + i)->unk2 = ((((s16)  ((temp_s2 * 50) / temp_v0)       * arg0) + (temp_s2 * (32 - arg0))) >> 5);
+        (phi_a1 + i)->unk4 = ((((s16) (((temp_s7 * 50) / temp_v0) - 15) * arg0) + (temp_s3 * (32 - arg0))) >> 5);
+    }
+}
 
 void func_80368AC4_77A174(void) {
     if ((D_803D552C->unk365 != 27) && (D_803D552C->unk365 != 28)) {

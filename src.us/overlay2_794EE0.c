@@ -13,18 +13,18 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     perform_behavior_fire_fox,
     perform_behavior_frog,
     func_803892DC_79A98C, // 9 POLAR_BEAR_DEFENDING
-    func_80384A8C_79613C,
-    func_80384CB8_796368, // HELI_RABBIT
-    func_80384F14_7965C4,
-    func_80385DF0_7974A0, // KING_RAT
-    func_80384F1C_7965CC,
+    perform_behavior_rabbit,
+    perform_behavior_heli_rabbit,
+    perform_behavior_cod,
+    perform_behavior_king_rat, // KING_RAT
+    perform_behavior_parrot,   // PARROT
     func_80385078_796728,
-    func_80385080_796730,
+    perform_behavior_mouse,   // 16 MOUSE
     func_803892E4_79A994,
-    func_80385088_796738,
+    perform_behavior_racing_mouse,   // 18 RACING_MOUSE
     func_803892EC_79A99C,
     func_803852B8_796968,
-    func_803852C0_796970,
+    perform_behavior_heli_mouse,   // 21 HELI_MOUSE
     func_803852C8_796978,
     func_80385480_796B30, // 23 BEAR_ATTACKING
     func_80385488_796B38,
@@ -35,12 +35,12 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_803859D4_797084,
     func_80389524_79ABD4,
     func_80385BE0_797290,
-    func_80385F90_797640, // RAT
+    perform_behavior_rat, // RAT
     perform_behavior_sheep,
     func_803865A0_797C50,
     func_803867B8_797E68,
     func_803867C0_797E70,
-    func_80386A48_7980F8, // PENGUIN
+    perform_behavior_penguin, // PENGUIN
     func_80386BB8_798268,
     func_80386D80_798430,
     func_80386F84_798634,
@@ -56,7 +56,7 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_80387DE0_799490, // 50 BOXING_KANGAROO
     func_8038801C_7996CC,
     func_80388248_7998F8,
-    func_80388480_799B30,
+    perform_behavior_scorpion, // 53 SCORPION
     perform_behavior_gorilla, // 54 GORILLA
     func_8038801C_7996CC,
     perform_behavior_elephant, // 56 ELEPHANT
@@ -211,7 +211,7 @@ void perform_behavior_racing_dog(void) {
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0) ){
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
-            func_802EEDE0_700490(D_803D552C->unk2CC);
+            racing_dog_fire_missile(D_803D552C->unk2CC);
         }
         break;
     case 3:
@@ -222,7 +222,6 @@ void perform_behavior_racing_dog(void) {
     }
 }
 
-// perform_behavior_flying_dog
 void perform_behavior_flying_dog(void) {
     if ((D_803D552C->unk2CC->unk16C->unk9E == 64) ||
         (D_803D552C->unk2CC->unk16C->unk9E == 128) ||
@@ -243,7 +242,7 @@ void perform_behavior_flying_dog(void) {
                 D_803D552C->unk2C4 = 140;
             }
             if ((D_803D552C->unk2C4 > 0) && (D_803D552C->unk2C4 >= 100) && ((D_803D552C->unk2C4 & 3) == 0)) {
-                func_802EEF9C_70064C(0, 0, 0);
+                flying_dog_fire_gun(0, 0, 0);
             }
             break;
         case 2:
@@ -271,7 +270,7 @@ void perform_behavior_flying_dog(void) {
             break;
         case 2:
             if ((D_803D552C->unk2C4 >= 60) && ((D_803D552C->unk2C4 % 5) == 0)) {
-                func_802EEFEC_70069C(0, 0, 0);
+                flying_dog_drop_bomb(0, 0, 0);
             } else if (D_803D552C->unk2C4 < 60) {
                 D_803D552C->unk2B4.state = 3;
                 func_80363FB8_775668(D_803D5530, (D_803D5530->yRotation * 360) >> 8, -180, 16);
@@ -337,7 +336,7 @@ void perform_behavior_fire_fox(void) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
         }
         if ((D_803D552C->unk2C4 == 0) && (D_803D552C->unk2D0 < 200) && (func_80383830_794EE0(20) != 0)) {
-            flying_fox_fire_missile(D_803D552C->unk2CC);
+            fire_fox_fire_missile(D_803D552C->unk2CC);
             D_803D552C->unk2C4 = 0x96;
             D_803D552C->unk2B4.state = 2;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
@@ -389,7 +388,7 @@ void perform_behavior_frog(void) {
     }
 }
 
-void func_80384A8C_79613C(void) {
+void perform_behavior_rabbit(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -426,7 +425,7 @@ void func_80384A8C_79613C(void) {
     }
 }
 
-void func_80384CB8_796368(void) {
+void perform_behavior_heli_rabbit(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -200, 16);
@@ -459,10 +458,10 @@ void func_80384CB8_796368(void) {
     }
 }
 
-void func_80384F14_7965C4(void) {
+void perform_behavior_cod(void) {
 }
 
-void func_80384F1C_7965CC(void) {
+void perform_behavior_parrot(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -240, 16);
@@ -487,10 +486,10 @@ void func_80384F1C_7965CC(void) {
 void func_80385078_796728(void) {
 }
 
-void func_80385080_796730(void) {
+void perform_behavior_mouse(void) {
 }
 
-void func_80385088_796738(void) {
+void perform_behavior_racing_mouse(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
@@ -533,7 +532,7 @@ void func_80385088_796738(void) {
 void func_803852B8_796968(void) {
 }
 
-void func_803852C0_796970(void) {
+void perform_behavior_heli_mouse(void) {
 }
 
 void func_803852C8_796978(void) {
@@ -759,7 +758,7 @@ void func_80385BE0_797290(void) {
     }
 }
 
-void func_80385DF0_7974A0(void) {
+void perform_behavior_king_rat(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
@@ -790,7 +789,7 @@ void func_80385DF0_7974A0(void) {
     }
 }
 
-void func_80385F90_797640(void) {
+void perform_behavior_rat(void) {
     if (D_803F63F0 == 0) {
         switch (D_803D552C->unk2B4.state) {
         case 0:
@@ -993,7 +992,7 @@ void func_803867C0_797E70(void) {
     }
 }
 
-void func_80386A48_7980F8(void) {
+void perform_behavior_penguin(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -1459,7 +1458,7 @@ void func_80388248_7998F8(void) {
     }
 }
 
-void func_80388480_799B30(void) {
+void perform_behavior_scorpion(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);

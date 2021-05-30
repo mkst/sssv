@@ -5,7 +5,7 @@
 
 void func_80125950(s32 arg0) {
     osInitialize();
-    init();
+    clear_framebuffer();
     init2();
 }
 

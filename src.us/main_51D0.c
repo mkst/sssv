@@ -4,7 +4,7 @@
 
 
 // first function called after osInitialize
-void init(void) {
+void clear_framebuffer(void) {
     bzero_sssv(gFramebuffer[0], sizeof(gFramebuffer[0]));
     bzero_sssv(gFramebuffer[1], sizeof(gFramebuffer[1]));
 }
@@ -48,12 +48,13 @@ void func_80129B10(s32 arg0) {
     D_8019A658[0].unk3F7B8 = 2;
     D_8019A658[0].unk3F7D8 = gFramebuffer[1];
 
-    init();
+    clear_framebuffer();
     D_801D9E38 = 5;
     osCreateMesgQueue(&D_8028D060, &D_80290F40, 32);
     osScAddClient(&D_801603D0, &D_802042A0, &D_8028D060);
 
-    if (func_80136CE0() <= 0) {
+    if (init_controllers() <= 0) {
+        // if no controllers connected
         D_802912D0 = 0;
         D_802912D8 = 0;
         D_80204270 = 1;
@@ -151,6 +152,7 @@ void end_display_lists(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_51D0/func_8012A588.s")
+// NON-MATCHING: missing lui/lh to D_80152E9C
 // void func_8012A588(void) {
 //     s16 pad;
 //
@@ -165,13 +167,12 @@ void end_display_lists(void) {
 //             func_8012AC40();
 //             func_801337DC(0.0f, 10.0f, 20.0f, 0.0f);
 //             func_8013385C(10.0f, 20.0f, 0.0f);
-//             // ???
 //         }
 //
 //         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
 //         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
 //
-//         D_80152E9C += D_80204290;
+//         D_80152E9C += D_80204290 ;
 //
 //         if (D_80152E9C >= 16) {
 //             D_80152EBC += 100;

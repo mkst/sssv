@@ -111,7 +111,7 @@ void func_802EEC44_7002F4(void) {
     recoil(2);
 }
 
-void func_802EEDE0_700490(Animal *animal) {
+void racing_dog_fire_missile(Animal *animal) {
     s16 temp_v1;
     u8 temp_t0;
     s32 phi_t1;
@@ -145,12 +145,13 @@ void func_802EEDE0_700490(Animal *animal) {
     recoil(2);
 }
 
+// dog_bark? or set dog_bark_state? seems to do nothing
 void func_802EEF74_700624(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = 18;
 }
 
-void func_802EEF9C_70064C(s32 arg0, s32 arg1, s32 arg2) {
+void flying_dog_fire_gun(s32 arg0, s32 arg1, s32 arg2) {
     if (D_803D552C->missileSide != 0) {
         D_803D552C->missileSide = 0;
     } else {
@@ -160,8 +161,7 @@ void func_802EEF9C_70064C(s32 arg0, s32 arg1, s32 arg2) {
     D_803D552C->unk312 = 4;
 }
 
-// drop cannonball
-void func_802EEFEC_70069C(s32 arg0, s32 arg1, s32 arg2) {
+void flying_dog_drop_bomb(s32 arg0, s32 arg1, s32 arg2) {
     func_80321E60_733510(0x11, 0, 0, -28, 0, 0, -9, 8);
     play_sound_effect_at_location(0x7C, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }

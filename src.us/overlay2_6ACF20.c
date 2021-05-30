@@ -88,6 +88,7 @@ void func_8029BA70_6AD120(Animal *arg0, Animal *arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029BB94_6AD244.s")
 
+// bunch of display lists
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029C8F0_6ADFA0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029CEF0_6AE5A0.s")
@@ -238,6 +239,19 @@ void func_8029F3CC_6B0A7C(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029F464_6B0B14.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029F65C_6B0D0C.s")
+
+void func_8029F65C_6B0D0C(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, s32 arg8) {
+    arg5 += arg0->unk42 << 0xF;
+
+    if ((arg1 & 0xC0) == 0xC0) { // both flags set?
+        func_8029F464_6B0B14(&D_803D3FF8, arg1 & 0x3F, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+    } else if ((arg1 & 0x40)) {
+        func_8029F464_6B0B14(&D_803D3A20, arg1 & 0x3F, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+    } else if ((arg1 & 0x80)) {
+        func_8029DB20_6AF1D0(arg1 & 0x3F, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+    } else {
+        func_8029F464_6B0B14(&D_803D3448, arg1 & 0x3F, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029F7D4_6B0E84.s")

@@ -94,7 +94,6 @@ void func_8038CF90_79E640(void) {
 //     s32 temp_v0_2;
 //     u8 *temp_a0;
 //     u8 temp_t4;
-//     s32 green;
 //     u16 phi_s1;
 //     u16 i;
 //     s16 phi_s0_2;
@@ -103,12 +102,7 @@ void func_8038CF90_79E640(void) {
 //     load_default_display_list(arg0);
 //     select_font(0, 2, 0, 0);
 //
-//     if ((arg1 * 4) < 80) {
-//         green = (arg1 * 4);
-//     } else {
-//         green = 80;
-//     }
-//     set_menu_text_color(0, green, 0, 0xFF);
+//     set_menu_text_color(0, MIN(arg1 * 4, 80), 0, 0xFF);
 //
 //     // phi_s1 = 0;
 //     for (i = 0; i < 4; i++) {
@@ -127,7 +121,7 @@ void func_8038CF90_79E640(void) {
 //         temp_a0 = &spE4;
 //         spE4 = temp_t4;
 //         prepare_text(temp_a0, &sp64);
-//         draw_glyph(arg0, &sp64, ((temp_s1 * 0xD) + 0xAF) , (temp_s2 * 8) + 10 , 13.0f, 9.0f);
+//         draw_glyph(arg0, &sp64, ((temp_s1 * 13) + 0xAF) , (temp_s2 * 8) + 10 , 13.0f, 9.0f);
 //     }
 //
 //     gSPEndDisplayList((*arg0)++);
