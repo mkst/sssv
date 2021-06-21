@@ -218,9 +218,10 @@ extern u16  D_801552A8;
 extern u8   D_801552B0;
 extern u8   D_801552B4;
 
-extern s32  D_801582C0; // display list?
-extern Gfx *D_80158368; // display list
-extern s32  D_801584A0;
+extern Gfx  D_801582C0[];
+extern Gfx  D_80158368[];
+extern Gfx  D_80158420[];
+extern Gfx  D_801584A0[];
 extern s16  D_80158540;
 extern s32  numControllers;
 extern u8   D_80158550[];
@@ -516,7 +517,7 @@ extern u8   D_802C11C0[];
 
 // 0x802Exxxx
 
-extern s32  D_802EEB20;
+extern const Gfx  D_802EEB20[];
 
 // 0x802Fxxxx
 

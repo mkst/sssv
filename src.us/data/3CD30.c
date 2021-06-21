@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_8004E860[] = {
+Gfx D_8004E860[] = {
     gsDPPipeSync(),
     gsSPTexture(32768, 32768, 0, G_TX_RENDERTILE, G_ON),
     gsDPSetTexturePersp(G_TP_PERSP),

@@ -1038,11 +1038,11 @@ struct struct044 {
 };
 
 typedef struct {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-    s32 unkC;
-    s32 unk10;
+    s32 unk0;   // e.g. 007d1ad0
+    s32 unk4;   // e.g. 007d2f50
+    s32 unk8;   // e.g. 803fdec0
+    s32 unkC;   // e.g. 803ff340
+    s32 unk10;  // e.g. 803fdec0
 } struct046; // size 0x14
 
 typedef struct {

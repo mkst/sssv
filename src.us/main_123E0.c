@@ -3,6 +3,7 @@
 
 #include "common.h"
 
+extern s32 numControllers;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/init_controllers.s")
 // NON-MATCHING: almost REGALLOC

@@ -14,7 +14,7 @@ SRC_DIR   = src.$(VERSION)
 SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
             $(SRC_DIR)/libultra/audio $(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os \
             $(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals \
-			$(SRC_DIR)/data
+            $(SRC_DIR)/data
 
 TOOLS_DIR = tools
 
@@ -43,9 +43,14 @@ RGBA16_RNC_FILES    = $(wildcard assets/img/*.rgba16.rnc.png) \
                       $(wildcard assets/img/trophies/*.rgba16.rnc.png)
 RGBA16_RNC_O_FILES  = $(foreach file,$(RGBA16_RNC_FILES),$(BUILD_DIR)/$(file:.rgba16.rnc.png=.rgba16.rnc.o))
 
-RGBA16_FILES        = $(wildcard assets/img/flags/*.rgba16.png) \
+RGBA16_FILES        = $(wildcard assets/img/*.rgba16.png) \
+                      $(wildcard assets/img/flags/*.rgba16.png) \
+                      $(wildcard assets/img/fonts/*.rgba16.png) \
+                      $(wildcard assets/img/hud/*.rgba16.png) \
+                      $(wildcard assets/img/levels/THE_BATTERY_FARM/*.rgba16.png) \
                       $(wildcard assets/img/intro/*.rgba16.png) \
-                      $(wildcard assets/img/menu/*.rgba16.png)
+                      $(wildcard assets/img/menu/*.rgba16.png) \
+                      $(wildcard assets/img/objects/*.rgba16.png)
 RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 
 # Generic RNC compressed files
@@ -74,7 +79,7 @@ RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
 OPT_FLAGS      = -O2
 MIPSISET       = -mips2 -o32
 
-INCLUDE_CFLAGS = -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc -I src.$(VERSION)/libultra/os -I src.$(VERSION)/libultra/audio
+INCLUDE_CFLAGS = -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc -I src.$(VERSION) -I src.$(VERSION)/libultra/os -I src.$(VERSION)/libultra/audio
 
 ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
@@ -232,6 +237,8 @@ $(BUILD_DIR)/%.png.o: $(BUILD_DIR)/%.png
 # rnc compress
 %.rnc: %
 	$(RNC64) p $< $@ >/dev/null
+	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
+	@mv $@.pad $@
 
 %.rnc.o: %.rnc
 	$(LD) -r -b binary -o $@ $<

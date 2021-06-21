@@ -1,6 +1,8 @@
 import argparse
 import os
 import re
+import sys
+
 
 def parse_map(mapfile, section, ending=None):
     functions = {}
@@ -32,12 +34,12 @@ def parse_map(mapfile, section, ending=None):
                     split_line = line.split()
                     if len(split_line) < 2:
                         print("Could not determine total size, aborting")
-                        break
+                        sys.exit(1)
                     total_size = int(split_line[0], 16) + int(split_line[1], 16)
                 continue
         else:
             if (ending and line.startswith(ending)) or (ending is None and len(line) in [0, 1, 2]):
-                in_code = False # kinda pointless
+                in_code = False  # kinda pointless
                 if function and total_size:
                     functions[function]["length"] = total_size - functions[function]["offset"]
                 else:
@@ -46,8 +48,8 @@ def parse_map(mapfile, section, ending=None):
             if re.match(r" build/.*\(\.text\)", line):
                 # skip
                 continue
-            match = re.match(r"^ \.text +(0x[0-9A-z]+) +(0x[0-9A-z]+) +build/(.*)\.[a-z]+\.o", line)
-            if match: #
+            match = re.match(r"^ \.text +(0x[0-9A-z]+) +(0x[0-9A-z]+) +.*/build/(.*)\.[a-z]+\.o", line)
+            if match:
                 # offset = match.group(1)
                 # filesize = match.group(2)
                 filename = match.group(3)
@@ -83,7 +85,7 @@ def parse_file(basedir, filename, file_funcs):
     pattern = re.compile(r'#pragma GLOBAL_ASM\(".*\/([^\/]+)\.s"\)')
     if os.path.isfile(c_path):
         global_asms = []
-        with open (c_path, "r") as infile:
+        with open(c_path, "r") as infile:
             while True:
                 line = infile.readline()
                 if not line:
@@ -92,7 +94,7 @@ def parse_file(basedir, filename, file_funcs):
                 if match:
                     global_asms.append(match.group(1))
         for function in file_funcs:
-            if not function in global_asms:
+            if function not in global_asms:
                 updates.append(function)
     return updates
 
@@ -116,9 +118,10 @@ def main(basedir, mapfile, section, ending, version):
         c_functions = parse_file(basedir, filename, file_funcs)
         for c_function in c_functions:
             functions[c_function]["language"] = "c"
-    section_name = section[1:].split("_")[-1] # .main_lib -> lib
+    section_name = section[1:].split("_")[-1]  # .main_lib -> lib
     csv = generate_csv(files, functions, version, section_name)
     print(csv)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Create progress csv based on map file',

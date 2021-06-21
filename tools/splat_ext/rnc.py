@@ -5,12 +5,14 @@ from typing import Optional
 
 from segtypes.n64.segment import N64Segment
 from segtypes.n64.rgba16 import N64SegRgba16
-from util import options
-from util import log
+from util import options, log
+
 
 class N64SegRnc(N64Segment):
-    def __init__(self, segment, rom_start, rom_end):
-        super().__init__(segment, rom_start, rom_end)
+    def __init__(self, rom_start, rom_end, type, name, vram_start, extract,
+                 given_subalign, given_is_overlay, given_dir, args=[], yaml={}):
+        super().__init__(rom_start, rom_end, type, name, vram_start, extract,
+                         given_subalign, given_is_overlay, given_dir, args, yaml)
         if len(self.args) > 0:
             self.subtype = self.args[0]
             if self.subtype == 'rgba16':
@@ -25,7 +27,6 @@ class N64SegRnc(N64Segment):
         # append .rnc
         self.name += '.rnc'
 
-
     def out_path(self) -> Optional[Path]:
         return options.get_asset_path() / self.dir / f'{self.name}'
 
@@ -37,7 +38,7 @@ class N64SegRnc(N64Segment):
         tmp_path = path.parent / (path.name + '.tmp')
         # write out RNC file
         with open(tmp_path, 'wb') as f:
-            f.write(rom_bytes[self.rom_start : self.rom_end])
+            f.write(rom_bytes[self.rom_start:self.rom_end])
         # build path to rnc64 binary
         rnc64 = options.get_base_path() / 'tools' / 'rnc_propack_source' / 'rnc64'
         # run rnc64
@@ -49,9 +50,11 @@ class N64SegRnc(N64Segment):
         if self.subtype is not None:
             with open(path, 'rb') as infile:
                 data = infile.read()
-            segment = [0, self.subtype, self.name, *self.args[1:]]
             if self.subtype == 'rgba16':
-                seg = N64SegRgba16(segment, 0, len(data))
+                args = [None, None, None, self.width, self.height]
+                seg = N64SegRgba16(0, len(data), self.subtype, self.name, self.vram_start,
+                                   self.extract, self.given_subalign, self.given_is_overlay,
+                                   self.given_dir, [], args)
             else:
                 log.error(f'Error: Unsupported subtype: {self.subtype}')
             seg.split(data)
