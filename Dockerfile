@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y $(cat /packages.txt)
 
 COPY requirements.txt /
 
-RUN python3 -m pip install -r /requirements.txt
+RUN python3 -m pip install -r /requirements.txt --no-cache-dir
 
 COPY .bash_aliases /root/.bash_aliases
 

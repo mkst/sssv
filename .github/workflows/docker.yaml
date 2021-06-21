@@ -31,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: docker.pkg.github.com/mkst/sssv:latest
+          tags: docker.pkg.github.com/mkst/sssv/builder:latest

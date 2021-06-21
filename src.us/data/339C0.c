@@ -1,0 +1,25 @@
+#include <ultra64.h>
+
+Gfx D_801582C0[] = {
+    gsDPSetColorDither(G_CD_BAYER),
+    gsDPSetTextureDetail(G_TD_CLAMP),
+    gsDPSetTextureConvert(G_TC_FILT),
+    gsDPPipeSync(),
+    gsDPPipelineMode(G_PM_NPRIMITIVE),
+    gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
+    gsDPSetCombineMode(G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM),
+    gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
+    gsDPSetCycleType(G_CYC_1CYCLE),
+    gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
+    gsDPSetTexturePersp(G_TP_NONE),
+    gsDPSetTextureLUT(G_TT_NONE),
+    gsSPClearGeometryMode(G_ZBUFFER | G_TEXTURE_ENABLE | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH | G_CLIPPING | 0xFF60CDF8),
+    gsDPSetAlphaCompare(G_AC_THRESHOLD),
+    gsDPSetBlendColor(0x00, 0x00, 0x00, 0x02),
+    gsSPSetGeometryMode(G_SHADE | G_SHADING_SMOOTH),
+    gsDPSetTileSize(G_TX_RENDERTILE, 0, 0, 4*(7), 4*(7)),
+    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD),
+    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD),
+    gsDPSetScissor(G_SC_NON_INTERLACE, 8, 8, 312, 232),
+    gsSPEndDisplayList(),
+};

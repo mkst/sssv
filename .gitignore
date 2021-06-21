@@ -26,3 +26,4 @@ src
 *.bin
 *.z64
 progress*.csv
+*.inc.c

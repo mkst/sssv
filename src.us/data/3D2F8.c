@@ -1,0 +1,7 @@
+#include <ultra64.h>
+
+const Gfx D_8004EE28[] = {
+    gsDPSetCombineLERP(PRIMITIVE, ENVIRONMENT, PRIM_LOD_FRAC, ENVIRONMENT, 0, 0, 0, TEXEL0, PRIMITIVE, ENVIRONMENT, PRIM_LOD_FRAC, ENVIRONMENT, 0, 0, 0, TEXEL0),
+    gsDPSetTextureLUT(G_TT_NONE),
+    gsSPEndDisplayList(),
+};

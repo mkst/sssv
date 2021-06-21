@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_8004E988[] = {
+Gfx D_8004E988[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_2CYCLE),
     gsDPSetEnvColor(0xFF, 0xFF, 0xC8, 0xFF), // light yellow

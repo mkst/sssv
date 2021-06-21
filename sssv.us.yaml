@@ -222,22 +222,25 @@ segments:
     - [0x28900, c, libultra/libc/ldiv]
     # .data / .rodata
     - [0x28A90, linker, data] # fake split here for progress
-    - [0x028A90, bin]
+    - [0x028A90, bin] # ucode
+    - [0x02BD00, bin] #
     - [0x02DD20, bin] # lookup tables?
     - [0x02DFF0, bin] # lookup tables?
-    - [0x02E9D0, bin] # tbd
-    - [0x02F9D0, bin] # displaylist
-    - [0x02FA30, bin] # displaylist
+    - [0x02E9D0, rgba16, img/2E9D0.rgba16, 32, 32] # spaceship texture
+    - [0x02F1D0, rgba16, img/2F1D0.rgba16, 32, 32] # spaceship texture
+    - [0x02F9D0, .data, data/2F9D0]
+    - [0x02FA30, .data, data/2FA30] # displaylist
     - [0x02FA70, bin] # tbd
     # - [0x02FC00, data, main_78F0]
     - [0x02FD28, .rodata, main_78F0]
     - [0x02FD80, bin]
-    - [0x02FDD0, bin] # textures; CH, 7-segment score display
-    - [0x0339C0, bin] # displaylist
-    - [0x033A68, bin] # displaylist
-    - [0x033B20, bin] # displaylist
-    - [0x033BA0, bin] # displaylist
-    - [0x033C50, bin] # tbd
+    - [0x02FDD0, bin] # CH.10 textures
+    - [0x0339C0, .data, data/339C0] # D_801582C0
+    - [0x033A68, .data, data/33A68] # D_80158368
+    - [0x033B20, .data, data/33B20] # D_80158420
+    - [0x033BA0, .data, data/33BA0] # D_801584A0
+    - [0x033C40, bin] # alignment?
+    - [0x033C50, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
     - [0x035050, .data, libultra/os/initialize]
     - [0x035070, bin]
     - [0x0360F0, bin] # another lookup table?
@@ -256,82 +259,903 @@ segments:
     - [0x037100, bin] # data for 2nd ucode
     - [0x0380C0, bin] # data for ucode
     - [0x0390C0, bin] # F3DEX data
-    - [0x0398D0, bin] # textures
+    - [0x039610, bin] #
+    - [0x0398D0, bin] # I4 textures
+    - [0x03A570, bin] # ?
+    - [0x03A5F0, bin] # different eye textures? I4, 16xXX
+    - [0x03C530, rgba16, img/3C5F0.rgba16, 32, 32]
     # display lists
-    - [0x03CD30, .rodata, data/3CD30]
+    - [0x03CD30, .data, data/3CD30]
     - [0x03CD68, .data, data/3CD68]
     - [0x03CD80, .data, data/3CD80]
-    - [0x03CD90, .rodata, data/3CD90]
-    - [0x03CDD8, .rodata, data/3CDD8]
-    - [0x03CE18, .rodata, data/3CE18]
-    - [0x03CE58, .rodata, data/3CE58]
-  - [0x03CEE8, bin]
-  - [0x03CF20, bin]
-  - [0x03CF60, bin]
-  - [0x03CFA0, bin]
-  - [0x03D010, bin]
-  - [0x03D050, bin]
-  - [0x03D088, bin]
-  - [0x03D0C0, bin]
-  - [0x03D110, bin]
-  - [0x03D120, bin]
-  - [0x03D170, bin]
-  - [0x03D240, bin]
-  - [0x03D268, bin]
-  - [0x03D2C8, bin]
-  - [0x03D2F8, bin]
-  - [0x03D310, bin]
-  - [0x03D328, bin]
-  - [0x03D380, bin]
-  - [0x03D3A0, bin]
-  - [0x03D440, bin]
-  - [0x03D488, bin]
-  - [0x03D4A0, bin] # textures?
-  - [0x03F8C0, bin] # tris?
-  - [0x03FB30, bin] # displaylist
-  - [0x03FBE0, bin] # display lists / vertexes?
-  - [0x040530, bin] # more textures
-  - [0x07F790, bin] # some more textures
-  - [0x097020, bin]
-  - [0x09E0D0, bin]
-  - [0x0C7A30, bin]
-  - [0x0DD5C0, bin]
-  ## this section is DMA'd as one
-  - [0x116BD0, rnc, img/menu/powercell, rgba16, 32, 32]
-  # spaceship interior textures
-  - [0x117200, rgba16, img/intro/spaceship_interior_0.rgba16, 32, 32]
-  - [0x117A00, rgba16, img/intro/spaceship_interior_1.rgba16, 32, 32]
-  - [0x118200, rgba16, img/intro/spaceship_interior_2.rgba16, 32, 32]
-  - [0x118A00, rgba16, img/intro/tigerprint.rgba16, 32, 32]
-  - [0x119200, rgba16, img/intro/spaceship_interior_3.rgba16, 32, 32]
-  - [0x119A00, rgba16, img/intro/spaceship_interior_4.rgba16, 32, 32]
-  #
-  - [0x11A200, bin] # tbd
-  - [0x11D9F0, rnc, img/menu/rnc_11D9F0, rgba16, 32, 64]
-  - [0x11DA90, rnc, img/menu/sssv, rgba16, 43, 43]
-  - [0x11E2D0, rnc, img/rnc_11E2D0, rgba16, 14, 20]
-  - [0x11E370, rnc, img/rnc_11E370, rgba16, 14, 22]
-  - [0x11E490, rnc, img/rnc_11E490, rgba16, 18, 22]
-  - [0x11E5C0, rnc, img/rnc_11E5C0, rgba16, 20, 24]
-  - [0x11E710, rnc, img/rnc_11E710, rgba16, 24, 24]
-  - [0x11E830, rnc, img/rnc_11E830, rgba16, 20, 22]
-  - [0x11E960, rnc, img/rnc_11E960, rgba16, 20, 18]
-  - [0x11EA90, rnc, img/rnc_11EA90, rgba16, 18, 14]
-  - [0x11EB70, rnc, img/menu/sssv_header, rgba16, 320, 36]
-  - [0x11F530, rgba16, img/menu/test_card.rgba16, 64, 64]
-  - [0x121530, bin] # texture(s)?
-  - [0x127FB0, rgba16, img/menu/tbd.rgba16, 32, 32] # 32x32 texture
-  - [0x1287B0, bin] # ?
-  - [0x1289D0, rnc, img/menu/BANK_SELECT, rgba16, 142, 13]
-  - [0x128EE0, rnc, img/menu/MISSION_BRIEFING, rgba16, 127, 13]
-  - [0x129330, rnc, img/menu/OPTIONS, rgba16, 103, 13]
-  - [0x1296F0, rnc, img/menu/ZONE_SELECT, rgba16, 139, 13]
-  - [0x129C30, rnc, img/trophies/EVO_HEAD, rgba16, 32, 32]
-  - [0x129D80, rnc, img/trophies/EVO_LEG, rgba16, 32, 32]
-  - [0x129F90, rnc, img/trophies/EVO_ARM, rgba16, 32, 32]
-  - [0x12A150, rnc, img/trophies/EVO_TORSO, rgba16, 32, 32]
-  - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
-  ##
+    - [0x03CD90, .data, data/3CD90]
+    - [0x03CDD8, .data, data/3CDD8]
+    - [0x03CE18, .data, data/3CE18]
+    - [0x03CE58, .data, data/3CE58]
+    - [0x03CEE8, .data, data/3CEE8]
+    - [0x03CF20, .data, data/3CF20]
+    - [0x03CF60, .data, data/3CF60]
+    - [0x03CFA0, .data, data/3CFA0]
+    - [0x03CFD8, .data, data/3CFD8]
+    - [0x03D010, .data, data/3D010]
+    - [0x03D050, .data, data/3D050]
+    - [0x03D088, .data, data/3D088]
+    - [0x03D0C0, .rodata, data/3D0C0]
+    - [0x03D110, .rodata, data/3D110]
+    - [0x03D120, .rodata, data/3D120]
+    - [0x03D170, .data, data/3D170]
+    - [0x03D1F0, .rodata, data/3D1F0]
+    - [0x03D240, .rodata, data/3D240]
+    - [0x03D268, .rodata, data/3D268]
+    - [0x03D2C8, .rodata, data/3D2C8]
+    - [0x03D2F8, .rodata, data/3D2F8]
+    - [0x03D310, .rodata, data/3D310]
+    - [0x03D328, .rodata, data/3D328]
+    - [0x03D380, .rodata, data/3D380]
+    - [0x03D3A0, .rodata, data/3D3A0]
+    - [0x03D3E0, .rodata, data/3D3E0]
+    - [0x03D440, .rodata, data/3D440]
+    - [0x03D488, .rodata, data/3D488]
+    - [0x03D4A0, bin] # I4 textures
+    - [0x03DB40, bin]
+    - [0x03DBD8, bin]
+    - [0x03DC30, bin]
+    - [0x03DC70, bin]
+    - [0x03DD28, bin]
+    - [0x03DDE0, bin]
+    - [0x03DE70, bin]
+    - [0x03DED0, bin]
+    - [0x03DF20, bin]
+    - [0x03DF50, bin]
+    - [0x03DFB0, bin]
+    - [0x03DFF0, bin]
+    - [0x03E040, bin]
+    - [0x03E0A0, bin]
+    - [0x03E0F8, bin]
+    - [0x03E170, bin]
+    - [0x03E1C8, bin]
+    - [0x03E240, bin]
+    - [0x03E270, bin]
+    - [0x03E2B8, bin]
+    - [0x03E340, bin]
+    - [0x03E3C8, bin]
+    - [0x03E3F8, bin]
+    - [0x03E468, bin]
+    - [0x03E4D8, bin]
+    - [0x03E5E0, bin]
+    - [0x03E6B0, bin]
+    - [0x03E750, bin]
+    - [0x03E770, bin]
+    - [0x03E8B0, bin]
+    - [0x03E970, bin]
+    - [0x03EE70, bin]
+    - [0x03F020, bin]
+    - [0x03F0C0, bin]
+    - [0x03F270, bin]
+    - [0x03F310, bin]
+    - [0x03F720, bin]
+    - [0x03F830, bin]
+    - [0x03F890, bin]
+    - [0x03F8C0, .data, data/3FB30]
+    - [0x03F8C0, vtx, data/inc/D_01005FF0]
+    - [0x03FAC0, vtx, data/inc/D_010061F0]
+    - [0x03FB30]
+    - [0x03FBE0, vtx, data/D_01006310, D_01006310]
+    - [0x03FD00, .data, data/3FD00]
+    - [0x03FD80, vtx, data/D_010064B0, D_010064B0]
+    - [0x03FDE0, vtx, data/D_01006510, D_01006510]
+    - [0x03FE40, .data, data/3FE40]
+    - [0x03FE90, vtx, data/D_010065C0, D_010065C0]
+    - [0x03FEF0, vtx, data/D_01006620, D_01006620]
+    - [0x03FF50, .data, data/3FF50]
+    - [0x03FFA0, vtx, data/D_010066D0, D_010066D0]
+    - [0x0402A0, .data, data/402A0] # D_80051DD0
+    - [0x0402D8, bin] # another displaylist
+    - [0x040310, bin] # another displaylist
+    - [0x040348, bin] # another displaylist
+    - [0x040380, bin] # another displaylist
+    - [0x0403B8, bin] # another displaylist
+    - [0x0403E0, vtx, data/D_01006B10, D_01006B10]
+    - [0x040500, bin] # displaylist # D_80052030
+    - [0x040530, rgba16, img/40530.rgba16, 32, 8] # ?
+    - [0x040730, bin] # IA4
+    - [0x040930, bin] # IA4
+    - [0x040B30, bin] # more textures
+    - [0x040D30, bin] # more textures
+    - [0x040D70, bin] # 128x31px rgba16 maybe?
+    - [0x041D70, bin]
+    - [0x043DA0, .data, data/43FA0]
+    - [0x043DA0, vtx, data/inc/D_0100A4D0]
+    - [0x043E20, vtx, data/inc/D_0100A550]
+    - [0x043FA0] # end of 43FA0
+    - [0x044000, bin] # maybe 16x32 ia16 texture
+    - [0x044400, vtx, data/D_0100AB30, D_0100AB30]
+    - [0x0445F0, vtx, data/D_0100AD20, D_0100AD20]
+    - [0x044760, vtx, data/D_0100AE90, D_0100AE90]
+    - [0x044860, bin] # displaylist
+    - [0x044910, vtx, data/D_0100B040, D_0100B040]
+    - [0x044B10, vtx, data/D_0100B240, D_0100B240]
+    - [0x044B50, vtx, data/D_0100B280, D_0100B280]
+    - [0x044B90, .data, data/44B90]
+    - [0x044C00, bin]
+    - [0x0455B0, bin] # displaylist
+    - [0x0456A0, bin] # displaylist
+    - [0x045720, vtx, data/D_0100BE50, D_0100BE50]
+    - [0x0459F0, bin]
+    - [0x045B30, bin]
+    - [0x045CB0, rgba16, img/45CB0.rgba16, 32, 32]
+    - [0x0464B0, rgba16, img/464B0.rgba16, 32, 32]
+    - [0x046CB0, vtx, data/D_0100D3E0, D_0100D3E0]
+    - [0x046ea0, vtx, data/D_0100D5D0, D_0100D5D0]
+    - [0x0470a0, vtx, data/D_0100D7D0, D_0100D7D0]
+    - [0x0472a0, vtx, data/D_0100D9D0, D_0100D9D0]
+    - [0x0474a0, vtx, data/D_0100DBD0, D_0100DBD0]
+    - [0x047690, vtx, data/D_0100DDC0, D_0100DDC0]
+    - [0x047810, vtx, data/D_0100DF40, D_0100DF40]
+    - [0x047a10, vtx, data/D_0100E140, D_0100E140]
+    - [0x047c00, vtx, data/D_0100E330, D_0100E330]
+    - [0x047C60, bin] # displaylist
+    - [0x047F90, bin] # vtx
+    - [0x048170, bin] # displaylist
+    - [0x048200, bin] # vtx
+    - [0x048530, bin] # displaylist
+    - [0x0485A0, bin] # vtx
+    - [0x048A70, bin] # displaylist
+    - [0x048B20, bin] # vtx
+    - [0x048CA0, bin] # displaylist
+    - [0x048CE0, bin] # vtx
+    - [0x048DC0, bin] # displaylist
+    - [0x048E18, bin] # vtx
+    - [0x048F08, bin] # displaylist
+    - [0x048F80, bin] # vtx
+    - [0x049110, bin] # displaylist
+    - [0x049250, rgba16, img/objects/turd.rgba16, 16, 16]
+    - [0x049450, bin] # vtx
+    - [0x049520, bin] # displaylist
+    - [0x0495F0, bin] # vtx
+    - [0x049630, bin] # displaylist
+    - [0x049650, rgba16, img/objects/49650.rgba16, 32, 32]
+    - [0x049E50, vtx, data/D_01010580, D_01010580]
+    - [0x049fb0, bin] # displaylist
+    - [0x04A0B0, rgba16, img/objects/4A0B0.rgba16, 32, 32] # same as 0x49650?
+    - [0x04A8B0, vtx, data/D_01010FE0, D_01010FE0]
+    - [0x04AA10, bin] # displaylist
+    - [0x04AB00, rgba16, img/objects/button.rgba16, 32, 32]
+    - [0x04B300, bin] # vtx
+    - [0x04B380, bin] # displaylist
+    - [0x04B3C8, bin] # vtx
+    - [0x04B448, bin] # displaylist
+    - [0x04B480, bin] # vtx
+    - [0x04B5C0, bin] # displaylist
+    - [0x04B670, bin] # vtx
+    - [0x04B870, bin] # displaylist
+    - [0x04B8D0, bin] # vtx
+    - [0x04BB70, bin] # displaylist
+    - [0x04BC00, bin] # vtx
+    - [0x04BDC0, bin] # displaylist
+    - [0x04BE20, bin] # vtx
+    - [0x04BFD0, bin] # displaylist
+    - [0x04C060, bin] # vtx
+    - [0x04C450, bin] # displaylist
+    - [0x04c530, bin] # vtx
+    - [0x04c6e0, bin] # displaylist
+    - [0x04C750, bin] # vtx # D_01012E80 (31)
+    - [0x04C940, bin] # vtx # D_01013070 (16)
+    - [0x04CA40, bin] # vtx # D_01013170 (32)
+    - [0x04CC40, bin] # displaylist
+    - [0x04CDA0, rgba16, img/intro/earth.rgba16, 64, 32] # 64x32
+    - [0x04DDA0, bin] # vtx
+    - [0x04EA50, bin] # displaylist
+    - [0x04EDF0, bin] # vtx
+    - [0x04F7B0, bin] # displaylist
+    - [0x04FAD0, bin] # vtx
+    - [0x050760, bin] # displaylist
+    - [0x050B40, bin] # vtx
+    - [0x50ee0, bin] # displaylist
+    - [0x50fb0, bin] # vtx
+    - [0x51370, bin] # displaylist
+    - [0x51480, bin] # vtx
+    - [0x51520, bin] # displaylist
+    - [0x51560, bin] # vtx
+    - [0x51630, bin] # displaylist
+    - [0x517d0, bin] # vtx
+    - [0x51a40, bin] # displaylist
+    - [0x51b00, bin] # vtx
+    - [0x51c80, bin] # displaylist
+    - [0x51cc0, bin] # vtx
+    - [0x51ef0, bin] # vtx
+    - [0x52030, bin] # displaylist
+    - [0x520a0, bin] # vtx
+    - [0x52460, bin] # displaylist
+    - [0x52530, bin] # vtx
+    - [0x52D00, bin] # displaylist
+    - [0x52E00, bin] # vtx
+    - [0x52F80, bin] # displaylist
+    - [0x52FC0, bin] # vtx
+    - [0x53140, bin] # displaylist
+    - [0x53180, bin] # vtx
+    - [0x53380, bin] # displaylist
+    - [0x533f0, bin] # vtx
+    - [0x53590, bin] # displaylist
+    - [0x535d0, bin] # vtx
+    - [0x53810, bin] # displaylist
+    - [0x53870, bin] # vtx
+    - [0x53A70, bin] # displaylist
+    - [0x53AD0, bin] # vtx
+    - [0x53c50, bin] # displaylist
+    - [0x53C90, bin] # vtx
+    - [0x53E90, bin] # displaylist
+    - [0x53Ef0, bin] # vtx
+    - [0x54070, bin] # displaylist
+    - [0x540B0, bin] # vtx
+    - [0x54230, bin] # displaylist
+    - [0x54270, bin] # vtx
+    - [0x54450, bin] # displaylist
+    - [0x544a0, bin] # vtx
+    - [0x54600, bin] # displaylist
+    - [0x54650, bin] # vtx
+    - [0x548D0, bin] # displaylist
+    - [0x54980, bin] # vtx
+    - [0x54fd0, bin] # displaylist
+    - [0x55140, bin] # vtx
+    - [0x552a0, bin] # displaylist
+    - [0x55320, bin] # vtx
+    - [0x555e0, bin] # displaylist
+    - [0x55690, vtx, data/inc/D_0101BDC0] # vtx D_0101BDC0
+    - [0x55710, vtx, data/inc/D_0101BE40] # vtx D_0101BE40
+    - [0x558D0, .data, data/558D0] # displaylist
+    - [0x55980, bin] # vtx
+    - [0x55B20, bin]
+    - [0x55BB0, bin]
+    - [0x55f80, bin] # displaylist
+    - [0x56040, bin]
+    - [0x56570, bin] # displaylist
+    - [0x56650, bin]
+    - [0x56890, bin] # displaylist
+    - [0x56900, bin]
+    - [0x56cd0, bin] # displaylist
+    - [0x56D90, bin]
+    - [0x56F90, bin]
+    - [0x57000, bin]
+    - [0x57500, bin]
+    - [0x57610, bin] # vtx
+    - [0x57710, bin] # displaylist
+    - [0x57750, bin]
+    - [0x578d0, bin]
+    - [0x57940, bin]
+    - [0x57bb0, bin] # displaylist
+    - [0x57c80, bin]
+    - [0x57f90, bin]
+    - [0x58120, bin]
+    - [0x582a0, bin]
+    - [0x58450, bin]
+    - [0x58f40, bin]
+    - [0x59410, bin]
+    - [0x59b60, bin]
+    - [0x59cc0, bin]
+    - [0x5a190, bin]
+    - [0x5a280, bin]
+    - [0x6c940, bin]
+    - [0x6c9a0, bin]
+    - [0x6ca00, bin]
+    - [0x6ca68, bin]
+    - [0x71020, bin]
+    - [0x71268, bin]
+    - [0x712a8, bin]
+    - [0x712d0, bin]
+    - [0x712f8, bin]
+    - [0x75010, bin]
+    - [0x75200, bin]
+    - [0x753F0, rgba16, img/hud/energy_bar_left.rgba16, 48, 32]
+    - [0x75FF0, rgba16, img/hud/energy_bar_right.rgba16, 48, 32]
+    - [0x76BF0, rgba16, img/hud/power_green.rgba16, 16, 16]
+    - [0x76DF0, rgba16, img/hud/power_blue.rgba16, 16, 16]
+    - [0x76FF0, rgba16, img/fonts/lcd_tileset2.rgba16, 16, 160]
+    - [0x783F0, bin] # vtx
+    - [0x784F0, bin] # displaylist
+    - [0x78580, bin] # 32x320? rgba16
+    - [0x7A580, bin] ###
+    - [0x7F790, bin] # vtx
+    - [0x7F910, bin] # displaylist
+    - [0x7F9D0, bin]
+    - [0x7fd28, bin]
+    - [0x80ce0, bin]
+    - [0x80f20, bin]
+    - [0x81278, bin]
+    - [0x82200, bin]
+    - [0x82dd0, bin]
+    - [0x84110, bin]
+    - [0x846e0, bin]
+    - [0x84790, bin]
+    - [0x86e10, bin]
+    - [0x87b80, bin]
+    - [0x87c80, bin]
+    - [0x883a0, bin]
+    - [0x89260, bin]
+    - [0x8ad00, bin]
+    - [0x8c400, bin]
+    - [0x8d470, bin]
+    - [0x8EC70, rgba16, img/intro/spaceship_interior_0_16.rgba16, 16, 16]
+    - [0x8EE70, rgba16, img/intro/tigerprint_16.rgba16, 16, 16]
+    - [0x8F070, bin] ###
+    - [0x8F270, bin] ###
+    - [0x8F470, bin] ###
+    - [0x8F670, bin] ###
+    - [0x8F870, rgba16, img/intro/spaceship_interior_4_16.rgba16, 16, 16] ###
+    - [0x8FA70, bin] ###
+    # 16x16
+    - [0x928e0, bin]
+    - [0x929b0, bin]
+    - [0x92BF0, rgba16, img/levels/THE_BATTERY_FARM/roof_tile.rgba16, 32, 32]
+    - [0x933F0, rgba16, img/levels/THE_BATTERY_FARM/floorboard.rgba16, 32, 32]
+    - [0x93BF0, bin] # vtx
+    - [0x940E0, bin] # displaylist
+    - [0x94270, bin] # vtx
+    - [0x94390, bin] # displaylist
+    - [0x943E0, bin] # vtx
+    - [0x94610, bin] # displaylist
+    - [0x94690, rgba16, img/levels/THE_BATTERY_FARM/chair.rgba16, 32, 32]
+    - [0x94E90, bin]
+    - [0x959a0, bin]
+    - [0x96040, bin]
+    - [0x96790, bin]
+    - [0x097020, bin]
+    - [0x098430, bin]
+    - [0x09E0D0, bin]
+    - [0x09E790, bin]
+    - [0x09E940, bin]
+    - [0x09ED10, bin]
+    - [0x09F3D0, bin]
+    - [0x09F580, bin]
+    - [0x0A0460, bin]
+    - [0x0A0E40, bin]
+    - [0x0A10C0, bin]
+    - [0x0A10D0, bin]
+    - [0x0A1AA0, bin]
+    - [0x0A80F0, bin]
+    - [0x0A88F0, bin] # displaylist
+    - [0x0A8A40, bin]
+    - [0x0AA940, bin]
+    - [0x0AAD30, bin]
+    - [0x0AAFD0, bin]
+    - [0x0AB200, bin] # displaylist
+    - [0x0AB270, bin]
+    - [0x0AC0D0, bin]
+    - [0x0ACBC0, bin]
+    - [0x0AEEF0, bin]
+    - [0x0AF1B0, bin]
+    - [0x0AF470, bin]
+    - [0x0B0050, bin]
+    - [0x0B0270, bin]
+    - [0x0B0490, bin]
+    - [0x0B0B90, bin]
+    - [0x0B2630, bin]
+    - [0x0B2810, bin]
+    - [0x0B2ED0, bin]
+    - [0x0B3790, bin]
+    - [0x0B3A80, bin]
+    - [0x0B3D70, bin]
+    - [0x0B3D80, bin]
+    - [0x0B3D90, bin]
+    - [0x0B3DA0, bin]
+    - [0x0B3DB0, bin]
+    - [0x0B3DC0, bin]
+    - [0x0B3DD0, bin]
+    - [0x0B40C0, bin]
+    - [0x0B40D0, bin]
+    - [0x0B43A0, bin]
+    - [0x0B48C0, bin]
+    - [0x0B48D0, bin]
+    - [0x0B4B20, bin]
+    - [0x0BA320, bin]
+    - [0x0BB980, bin]
+    - [0x0BC300, bin]
+    - [0x0BD090, bin]
+    - [0x0BD0A0, bin]
+    - [0x0BD0B0, bin]
+    - [0x0BD0C0, bin]
+    - [0x0BD0D0, bin]
+    - [0x0BD2B0, bin]
+    - [0x0BD5E0, bin] # vtx
+    - [0x0BD940, bin] # gfx
+    - [0x0BD9E0, bin]
+    - [0x0BEB90, bin]
+    - [0x0BFC40, bin]
+    - [0x0C09B0, bin]
+    - [0x0C21A0, bin]
+    - [0x0C37B0, bin]
+    - [0x0C4500, bin]
+    - [0x0C4510, bin]
+    - [0x0C47A0, bin]
+    - [0x0C47B0, bin]
+    - [0x0C5EA0, bin]
+    - [0x0C7170, bin]
+    - [0x0C7910, bin]
+    - [0x0C7A00, bin]
+    - [0x0C7A10, bin]
+    - [0x0C7A20, bin]
+    - [0x0C7A30, vtx, data/D_0108E160, D_0108E160]
+    - [0x0C7BD0, .data, data/C7BD0]
+    - [0x0C7CB0, bin]
+    - [0x0C7E50, bin]
+    - [0x0C7F30, bin]
+    - [0x0C82B0, bin]
+    - [0x0C83C0, bin]
+    - [0x0C8800, bin]
+    - [0x0C8960, bin] # vtx
+    - [0x0C89E0, bin] # displaylist
+    - [0x0C8A30, bin]
+    - [0x0C8AB0, bin]
+    - [0x0C8B00, bin]
+    - [0x0C8B80, bin]
+    - [0x0C8BD0, bin]
+    - [0x0C8C50, bin]
+    - [0x0C8C90, bin]
+    - [0x0C8D50, bin] # displaylist
+    - [0x0C8D90, bin] # vtx
+    - [0x0C8DD0, bin]
+    - [0x0C8E00, bin]
+    - [0x0C8F20, bin]
+    - [0x0C8FC0, bin]
+    - [0x0C92E0, bin]
+    - [0x0C93D0, bin]
+    - [0x0C9450, bin]
+    - [0x0C9490, bin]
+    - [0x0C94A0, bin] # textures + more
+    - [0x0CCB00, bin] # 32x32 I4 texture (light source?)
+    - [0x0CCD00, bin]
+    - [0x0CCE70, bin]
+    - [0x0CCEE0, bin]
+    - [0x0CD010, bin]
+    - [0x0CD160, bin]
+    - [0x0CD5F0, bin]
+    - [0x0CD750, bin]
+    - [0x0CDBA0, bin]
+    - [0x0CE4F0, bin]
+    - [0x0CE550, bin]
+    - [0x0CE5B0, bin]
+    - [0x0CE670, bin]
+    - [0x0CEC60, bin]
+    - [0x0CED80, bin]
+    - [0x0CEE08, bin]
+    - [0x0CEE30, bin]
+    - [0x0CEFC0, bin]
+    - [0x0CF2D0, bin]
+    - [0x0CF720, bin]
+    - [0x0CF9B0, bin]
+    - [0x0CFE40, bin]
+    - [0x0CFED8, bin]
+    - [0x0CFEF0, bin]
+    - [0x0D0620, bin]
+    - [0x0D0930, bin]
+    - [0x0D1110, bin]
+    - [0x0D14D0, bin]
+    - [0x0D1900, bin]
+    - [0x0D2130, bin]
+    - [0x0D22A0, bin]
+    - [0x0D3470, bin]
+    - [0x0D36B0, bin]
+    - [0x0D3A08, bin]
+    - [0x0D49C0, bin]
+    - [0x0D5D00, bin]
+    - [0x0D62D0, bin]
+    - [0x0D6380, bin]
+    - [0x0D64D0, bin]
+    - [0x0D65E8, bin]
+    - [0x0D6810, bin]
+    - [0x0D6B50, bin]
+    - [0x0D6C58, bin]
+    - [0x0D6E70, bin]
+    - [0x0D71A0, bin]
+    - [0x0D7A30, bin]
+    - [0x0D7B10, bin]
+    - [0x0D7FC0, bin]
+    - [0x0D8200, bin]
+    - [0x0D8558, bin]
+    - [0x0D94E0, bin]
+    - [0x0DA0B0, rgba16, img/DA0B0.rgba16, 32, 32]
+    - [0x0DA8B0, bin]
+    - [0x0DC9D0, bin]
+    - [0x0DD5C0, bin]
+    - [0x0DD720, bin]
+    - [0x0DD800, bin]
+    - [0x0DD8F0, bin]
+    - [0x0DDC80, bin]
+    - [0x0DDE50, bin]
+    - [0x0DDF00, bin]
+    - [0x0DE060, bin]
+    - [0x0DE0C0, bin]
+    - [0x0DE120, bin]
+    - [0x0DE7A0, bin]
+    - [0x0DE810, bin]
+    - [0x0DE8F0, bin]
+    - [0x0DEEC0, bin]
+    - [0x0DF0A0, bin]
+    - [0x0DF170, bin]
+    - [0x0DF3F0, bin]
+    - [0x0DF5F0, bin]
+    - [0x0DF680, bin]
+    - [0x0DF7E0, bin]
+    - [0x0DF930, bin]
+    - [0x0DFA30, bin]
+    - [0x0DFAD0, bin]
+    - [0x0DFAF0, bin]
+    - [0x0DFBF0, bin]
+    - [0x0E0338, bin]
+    - [0x0E0480, bin]
+    - [0x0E0990, bin]
+    - [0x0E0AF0, bin]
+    - [0x0E0C80, bin]
+    - [0x0E0D20, bin]
+    - [0x0E0D40, bin]
+    - [0x0E0E90, bin]
+    - [0x0E0F20, bin]
+    - [0x0E0FB0, bin]
+    - [0x0E1110, bin]
+    - [0x0E11D0, bin]
+    - [0x0E1290, bin]
+    - [0x0E1350, bin]
+    - [0x0E1630, bin]
+    - [0x0E1790, bin]
+    - [0x0E1C60, bin]
+    - [0x0E1EC0, bin]
+    - [0x0E21A0, bin]
+    - [0x0E2550, bin]
+    - [0x0E2760, bin]
+    - [0x0E2820, bin]
+    - [0x0E2AE0, bin]
+    - [0x0E2B00, bin]
+    - [0x0E2BA0, bin]
+    - [0x0E2BC0, bin]
+    - [0x0E2E90, bin]
+    - [0x0E3640, bin]
+    - [0x0E37A0, bin]
+    - [0x0E3900, bin]
+    - [0x0E4040, bin]
+    - [0x0E4190, bin]
+    - [0x0E4460, bin]
+    - [0x0E4480, bin]
+    - [0x0E4750, bin]
+    - [0x0E4C30, bin]
+    - [0x0E4E60, bin]
+    - [0x0E5190, bin]
+    - [0x0E5450, bin]
+    - [0x0E5470, bin]
+    - [0x0E63A0, bin]
+    - [0x0E66D0, bin]
+    - [0x0E73E0, bin]
+    - [0x0E75B0, bin]
+    - [0x0E76B0, bin]
+    - [0x0E7890, bin]
+    - [0x0E7960, bin]
+    - [0x0E7AB0, bin]
+    - [0x0E7C00, bin]
+    - [0x0E7D00, bin]
+    - [0x0E80C0, bin]
+    - [0x0E8380, bin]
+    - [0x0E83A0, bin]
+    - [0x0E8610, bin]
+    - [0x0E89F0, bin]
+    - [0x0E8AC0, bin]
+    - [0x0E8BC0, bin]
+    - [0x0E8C20, bin]
+    - [0x0E8D80, bin]
+    - [0x0E9090, bin]
+    - [0x0E9570, bin]
+    - [0x0E9600, bin] # vtx
+    - [0x0E96A0, bin] # displaylist
+    - [0x0E96F8, bin]
+    - [0x0E9B10, bin] # 32x32 IA4
+    - [0x0E9D10, bin]
+    - [0x0E9DD0, bin]
+    - [0x0E9DF0, bin]
+    - [0x0E9E10, bin]
+    - [0x0EA020, bin]
+    - [0x0EA140, bin]
+    - [0x0EA520, bin]
+    - [0x0EA640, bin]
+    - [0x0EA900, bin]
+    - [0x0EAAB0, bin]
+    - [0x0EAB70, bin]
+    - [0x0EAC30, bin]
+    - [0x0EACB0, bin]
+    - [0x0EAD60, bin]
+    - [0x0EAEF0, bin]
+    - [0x0EB310, bin]
+    - [0x0EB400, bin]
+    - [0x0EB490, bin]
+    - [0x0EB520, bin]
+    - [0x0EB5C0, bin]
+    - [0x0EB5E0, bin]
+    - [0x0EB7A0, bin]
+    - [0x0EB960, bin]
+    - [0x0EBBA0, bin]
+    - [0x0EC120, bin]
+    - [0x0EC280, bin]
+    - [0x0EC370, bin]
+    - [0x0EC740, bin]
+    - [0x0ECEA0, bin]
+    - [0x0ECF30, bin]
+    - [0x0ED1A0, bin]
+    - [0x0ED280, bin]
+    - [0x0ED370, bin]
+    - [0x0ED410, bin]
+    - [0x0ED430, bin]
+    - [0x0ED590, bin]
+    - [0x0ED650, bin]
+    - [0x0ED748, bin]
+    - [0x0EDBD0, bin]
+    - [0x0EDBE8, bin]
+    - [0x0EDC08, bin]
+    - [0x0EDC30, bin]
+    - [0x0EE3E0, bin]
+    - [0x0EE710, bin]
+    - [0x0EF270, bin]
+    - [0x0EFA20, bin]
+    - [0x0F0E00, bin]
+    - [0x0F1060, bin]
+    - [0x0F1210, bin]
+    - [0x0F12D0, bin]
+    - [0x0F1430, bin]
+    - [0x0F15E0, bin]
+    - [0x0F16A0, bin]
+    - [0x0F1C10, bin]
+    - [0x0F1E70, bin]
+    - [0x0F1F00, bin]
+    - [0x0F1F80, bin]
+    - [0x0F1FE0, bin]
+    - [0x0F2040, bin]
+    - [0x0F2380, bin]
+    - [0x0F2700, bin]
+    - [0x0F2780, bin]
+    - [0x0F27F0, bin]
+    - [0x0F2A00, bin]
+    - [0x0F2A60, bin]
+    - [0x0F2B50, bin]
+    - [0x0F2BB0, bin]
+    - [0x0F2CA0, bin]
+    - [0x0F3200, bin]
+    - [0x0F3960, bin]
+    - [0x0F3FA0, bin]
+    - [0x0F40E0, bin]
+    - [0x0F4210, bin]
+    - [0x0F4360, bin]
+    - [0x0F4490, bin]
+    - [0x0F45D0, bin]
+    - [0x0F4720, bin]
+    - [0x0F48B8, bin]
+    - [0x0F52A0, bin]
+    - [0x0F5600, bin]
+    - [0x0F59A0, bin]
+    - [0x0F5B20, bin]
+    - [0x0F5BB0, bin]
+    - [0x0F5C40, bin]
+    - [0x0F5CD0, bin]
+    - [0x0F5D30, bin]
+    - [0x0F5D90, bin]
+    - [0x0F5EA0, bin]
+    - [0x0F5FF0, bin]
+    - [0x0F6080, bin]
+    - [0x0F6570, bin]
+    - [0x0F6DB0, bin]
+    - [0x0F70E0, bin]
+    - [0x0F71E0, bin]
+    - [0x0F72A0, bin]
+    - [0x0F7360, bin]
+    - [0x0F7400, bin]
+    - [0x0F7420, bin]
+    - [0x0F79C0, bin]
+    - [0x0F7A70, bin]
+    - [0x0F7B70, bin]
+    - [0x0F7D30, bin]
+    - [0x0F7E20, bin]
+    - [0x0F7ED0, bin]
+    - [0x0F7F80, bin]
+    - [0x0F8320, bin]
+    - [0x0F8490, bin]
+    - [0x0F8540, bin]
+    - [0x0F87E0, bin]
+    - [0x0F8AA0, bin]
+    - [0x0F8AC0, bin]
+    - [0x0F8C40, bin]
+    - [0x0F8DC0, bin]
+    - [0x0F8FB0, bin]
+    - [0x0F9180, bin]
+    - [0x0F9720, bin]
+    - [0x0F99F0, bin]
+    - [0x0F9BC0, bin]
+    - [0x0F9D60, bin]
+    - [0x0F9E10, bin]
+    - [0x0F9FE0, bin]
+    - [0x0FA090, bin]
+    - [0x0FA720, bin]
+    - [0x0FA9B0, bin]
+    - [0x0FAA50, bin]
+    - [0x0FB0B0, bin]
+    - [0x0FB670, bin]
+    - [0x0FB810, bin]
+    - [0x0FB8E0, bin]
+    - [0x0FBA30, bin]
+    - [0x0FBB80, bin]
+    - [0x0FBDE0, bin]
+    - [0x0FC0A0, bin]
+    - [0x0FC0C0, bin]
+    - [0x0FC4D0, bin]
+    - [0x0FC520, bin]
+    - [0x0FC570, bin]
+    - [0x0FC5C0, bin]
+    - [0x0FC610, bin]
+    - [0x0FC660, bin]
+    - [0x0FCE70, bin]
+    - [0x0FD120, bin]
+    - [0x0FD220, bin]
+    - [0x0FD2C0, bin]
+    - [0x0FD2E0, bin]
+    - [0x0FDB10, bin]
+    - [0x0FDF80, bin]
+    - [0x0FE270, bin]
+    - [0x0FE560, bin]
+    - [0x0FE7C0, bin]
+    - [0x0FE980, bin]
+    - [0x0FED20, bin]
+    - [0x0FEE20, bin]
+    - [0x0FF140, bin]
+    - [0x0FF450, bin]
+    - [0x0FF7E0, bin]
+    - [0x0FFD50, bin]
+    - [0x0FFFD0, bin]
+    - [0x100250, bin]
+    - [0x1006E0, bin]
+    - [0x100C80, bin]
+    - [0x100D50, bin]
+    - [0x100E20, bin]
+    - [0x100EF0, bin]
+    - [0x100FB0, bin]
+    - [0x1010B0, bin]
+    - [0x101120, bin]
+    - [0x1012E0, bin]
+    - [0x1016F0, bin]
+    - [0x101790, bin]
+    - [0x1017B8, bin]
+    - [0x102510, bin]
+    - [0x102588, bin]
+    - [0x102600, bin]
+    - [0x102690, bin]
+    - [0x102720, bin]
+    - [0x102C78, bin]
+    - [0x1031D0, bin]
+    - [0x103320, bin]
+    - [0x103470, bin]
+    - [0x103510, bin]
+    - [0x103530, bin]
+    - [0x1037D0, bin]
+    - [0x103C60, bin]
+    - [0x103E90, bin]
+    - [0x103FC0, bin]
+    - [0x1040E0, bin]
+    - [0x1043A0, bin]
+    - [0x104440, bin]
+    - [0x104460, bin]
+    - [0x1047F0, bin]
+    - [0x104B50, bin]
+    - [0x104E20, bin]
+    - [0x105190, bin]
+    - [0x105200, bin]
+    - [0x105330, bin]
+    - [0x105480, bin]
+    - [0x105910, bin]
+    - [0x105A70, bin]
+    - [0x105EC0, bin]
+    - [0x106810, bin]
+    - [0x106870, bin]
+    - [0x1068D0, bin]
+    - [0x106990, bin]
+    - [0x106F80, bin]
+    - [0x1070A0, bin]
+    - [0x107128, bin]
+    - [0x107150, bin]
+    - [0x1072E0, bin]
+    - [0x108170, bin]
+    - [0x108310, bin]
+    - [0x1086E0, bin]
+    - [0x108760, bin]
+    - [0x108980, rgba16, img/brain.rgba16, 32, 32]
+    - [0x109180, bin]
+    - [0x1094F0, rgba16, img/brain_eye.rgba16, 32, 32]
+    - [0x109CF0, bin]
+    - [0x10a070, bin]
+    - [0x10c170, bin]
+    - [0x10c730, bin]
+    - [0x10cc30, bin]
+    - [0x10d300, bin]
+    - [0x10d5f0, bin]
+    - [0x10d8e0, bin]
+    - [0x10dd50, bin]
+    - [0x10e5f0, bin]
+    - [0x10e860, bin]
+    - [0x10ea20, bin]
+    - [0x10fc60, bin]
+    - [0x10ff40, bin]
+    - [0x110700, bin]
+    - [0x110950, bin]
+    - [0x111800, bin]
+    - [0x112000, bin]
+    # - [0x111fb0, bin]
+    - [0x1122F0, rgba16, img/1122F0.rgba16, 32, 32]
+    - [0x112AF0, bin]
+    - [0x114C10, rgba16, img/114C10.rgba16, 32, 32]
+    - [0x115410, bin]
+    - [0x1166B0, bin]
+    ## this section is DMA'd as one
+    - [0x116BD0, rnc, img/menu/powercell, rgba16, 32, 32]
+    # spaceship interior textures
+    - [0x117200, rgba16, img/intro/spaceship_interior_0.rgba16, 32, 32]
+    - [0x117A00, rgba16, img/intro/spaceship_interior_1.rgba16, 32, 32]
+    - [0x118200, rgba16, img/intro/spaceship_interior_2.rgba16, 32, 32]
+    - [0x118A00, rgba16, img/intro/tigerprint.rgba16, 32, 32]
+    - [0x119200, rgba16, img/intro/spaceship_interior_3.rgba16, 32, 32]
+    - [0x119A00, rgba16, img/intro/spaceship_interior_4.rgba16, 32, 32]
+    #
+    - [0x11A200, bin] # tbd
+    - [0x11D9F0, rnc, img/menu/rnc_11D9F0, rgba16, 32, 64]
+    - [0x11DA90, rnc, img/menu/sssv, rgba16, 43, 43]
+    - [0x11E2D0, rnc, img/rnc_11E2D0, rgba16, 14, 20]
+    - [0x11E370, rnc, img/rnc_11E370, rgba16, 14, 22]
+    - [0x11E490, rnc, img/rnc_11E490, rgba16, 18, 22]
+    - [0x11E5C0, rnc, img/rnc_11E5C0, rgba16, 20, 24]
+    - [0x11E710, rnc, img/rnc_11E710, rgba16, 24, 24]
+    - [0x11E830, rnc, img/rnc_11E830, rgba16, 20, 22]
+    - [0x11E960, rnc, img/rnc_11E960, rgba16, 20, 18]
+    - [0x11EA90, rnc, img/rnc_11EA90, rgba16, 18, 14]
+    - [0x11EB70, rnc, img/menu/sssv_header, rgba16, 320, 36]
+    - [0x11F530, rgba16, img/menu/test_card.rgba16, 64, 64]
+    - [0x121530, bin] # vtx?
+    - [0x1215B0, bin] # displaylist
+    - [0x121690, bin] # vtx
+    - [0x121790, bin] # displaylist?
+    - [0x1217F0, rgba16, img/1217F0.rgba16, 32, 32]
+    - [0x121ff0, bin] # vtx
+    - [0x1227f0, bin] # displaylist
+    - [0x122a90, bin] # vtx
+    - [0x122b90, bin] # displaylist
+    - [0x122C00, rgba16, img/122C00.rgba16, 32, 32]
+    - [0x123400, bin] # vtx
+    - [0x1236B0, bin] # displaylist
+    - [0x1237B0, rgba16, img/1237B0.rgba16, 32, 32]
+    - [0x123FB0, bin] # tbd
+    - [0x124090, bin] # displaylist
+    - [0x124130, rgba16, img/124130.rgba16, 32, 32]
+    - [0x124930, bin] # vtx
+    - [0x124e80, bin] # displaylist
+    - [0x125000, rgba16, img/125000.rgba16, 32, 32]
+    - [0x125800, bin] # vtx
+    - [0x125940, bin] # displaylist
+    - [0x1259D0, rgba16, img/1259D0.rgba16, 32, 32]
+    - [0x1261D0, bin] # vtx
+    - [0x126320, bin] # displaylist
+    - [0x1263C0, rgba16, img/1263C0.rgba16, 32, 32] # D_0400F7F0
+    - [0x126BC0, .data, data/126F70] # displaylist
+    - [0x126BC0, vtx, data/inc/D_0400FFF0] # vtx 31
+    - [0x126DB0, vtx, data/inc/D_040101E0] # vtx 28
+    - [0x126F70]
+    - [0x127080, rgba16, img/127080.rgba16, 32, 32] # D_040104B0
+    - [0x127880, .data, data/127EA0]
+    - [0x127880, vtx, data/inc/D_04010CB0]
+    - [0x127A70, vtx, data/inc/D_04010EA0]
+    - [0x127C60, vtx, data/inc/D_04011090]
+    - [0x127E40, vtx, data/inc/D_04011270]
+    - [0x127EA0]
+    - [0x127FB0, rgba16, img/menu/tbd.rgba16, 32, 32]
+    - [0x1287B0, bin] # ?
+    - [0x1289D0, rnc, img/menu/BANK_SELECT, rgba16, 142, 13]
+    - [0x128EE0, rnc, img/menu/MISSION_BRIEFING, rgba16, 127, 13]
+    - [0x129330, rnc, img/menu/OPTIONS, rgba16, 103, 13]
+    - [0x1296F0, rnc, img/menu/ZONE_SELECT, rgba16, 139, 13]
+    - [0x129C30, rnc, img/trophies/EVO_HEAD, rgba16, 32, 32]
+    - [0x129D80, rnc, img/trophies/EVO_LEG, rgba16, 32, 32]
+    - [0x129F90, rnc, img/trophies/EVO_ARM, rgba16, 32, 32]
+    - [0x12A150, rnc, img/trophies/EVO_TORSO, rgba16, 32, 32]
+    - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
   - name: sounds
     type:  group
     subalign: 4
@@ -387,7 +1211,7 @@ segments:
   - [0x44E790, bin, empty_rnc_44E790] # empty RNC file  # ?
   - [0x44E7B0, bin, rnc_44E7B0] # 35312 => 54880        # city/credits?
   # tbd
-  - [0x4571A0, bin, rnc_4571A0] # 9193 => 21952
+  - [0x4571A0, bin, rnc_4571A0] # 9193 => 21952   # textures, ia16?
   - [0x459590, bin, rnc_459590] # 16318 => 21952
   - [0x45D550, bin, rnc_45D550] # 6246 => 21952
   - [0x45EDC0, bin, rnc_45EDC0] # 11068 => 21952
@@ -447,7 +1271,7 @@ segments:
   - [0x4FDF70, bin, rnc_4FDF70] # 4928 => 10240
   - [0x4FF2B0, bin, rnc_4FF2B0] # 3435 => 10240
   - [0x500020, bin, rnc_500020] # 39 => 10240
-  - [0x500050, bin, rnc_500050] # 4074 => 10240
+  - [0x500050, bin, rnc_500050] # 4074 => 10240  # europe tree textures, rgba16
   - [0x501040, bin, rnc_501040] # 4892 => 10240
   - [0x502360, bin, rnc_502360] # 5575 => 10240
   - [0x503930, bin, rnc_503930] # 5433 => 10240
@@ -658,10 +1482,21 @@ segments:
     - [0x66A330, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
     - [0x673790, rnc, img/intro/professor_cheese, rgba16, 320, 240]
     - [0x67DFA0, rnc, img/intro/space_station, rgba16, 320, 240]
-    - [0x690FE0, bin] # unknown!
-    - [0x6921C0, bin] # display list?
-    - [0x6923A0, bin]
-    - [0x692570, bin]
+    - [0x690FE0, .data, data/6921C0]
+    - [0x690FE0, vtx, data/inc/D_802ED940]
+    - [0x6911E0, vtx, data/inc/D_802EDB40]
+    - [0x6913c0, vtx, data/inc/D_802EDD20]
+    - [0x6915c0, vtx, data/inc/D_802EDF20]
+    - [0x691700, vtx, data/inc/D_802EE060]
+    - [0x691900, vtx, data/inc/D_802EE260]
+    - [0x691af0, vtx, data/inc/D_802EE450]
+    - [0x691cf0, vtx, data/inc/D_802EE650]
+    - [0x691ef0, vtx, data/inc/D_802EE850]
+    - [0x6920F0, vtx, data/inc/D_802EEA50]
+    - [0x6921C0] # end of 6921C0
+    - [0x692570, vtx, data/D_802EEED0, D_802EEED0]
+    - [0x692760, bin] # more vtx
+    - [0x6972D0, .data, data/6972D0] # displaylist
     - [0x698340, rnc, img/menu/trademark, rgba16, 320, 240]
     - [0x6A0FC0, rgba16, img/flags/english.rgba16, 48, 32]
     - [0x6A1BC0, rgba16, img/flags/french.rgba16, 48, 32]
@@ -776,14 +1611,29 @@ segments:
     - [0x7B6E20, bin]
     - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table?
     - [0x7B7C80, bin] #
+    - [0x7B9580, .data, data/7B9940]
+    - [0x7B9580, vtx, data/inc/D_803A7ED0]
+    - [0x7b9780, vtx, data/inc/D_803A80D0]
+    - [0x7B9940] # end of vtx
+    - [0x7B99F0, bin]
     - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
     - [0x7C74E0, bin]
     - [0x7C76B0, .data, sssv/credits]
     - [0x7C7960, bin]
+    - [0x7C7CB8, bin] # displaylist
+    - [0x7C7D68, bin] # displaylist
+    - [0x7C7D90, bin]
     - [0x7C7F40, bin] # data for overlay2_7A8A50?
     - [0x7C81E0, bin]
-    - [0x7C8AC0, bin] # more textures
+    - [0x7C8AC0, bin] # tbd, contains "Europe", "Ice", "Jungle", "Desert" text
+    - [0x7C8B80, rgba16, img/butterfly_thing.rgba16, 32, 32]
+    - [0x7C9380, rgba16, img/butterfly1a.rgba16, 32, 32]
+    - [0x7C9B80, rgba16, img/butterfly1b.rgba16, 32, 32]
+    - [0x7CA380, rgba16, img/butterfly1c.rgba16, 32, 32]
+    - [0x7CAB80, rgba16, img/butterfly2a.rgba16, 32, 32]
+    - [0x7CB380, rgba16, img/butterfly2b.rgba16, 32, 32]
+    - [0x7CBB80, rgba16, img/butterfly2c.rgba16, 32, 32]
     - [0x7CC380, rodata, overlay2_6A7A80]
     - [0x7CC3C0, rodata, overlay2_6ACF20]
     - [0x7CC470, rodata, overlay2_6B5380]
