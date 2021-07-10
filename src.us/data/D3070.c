@@ -1,0 +1,157 @@
+#include <ultra64.h>
+
+
+Vtx D_0400A870_D22A0[32] = {
+#include "data/inc/D_0400A870_D22A0.inc.c"
+};
+Vtx D_0400AA70_D24A0[32] = {
+#include "data/inc/D_0400AA70_D24A0.inc.c"
+};
+Vtx D_0400AC70_D26A0[32] = {
+#include "data/inc/D_0400AC70_D26A0.inc.c"
+};
+Vtx D_0400AE70_D28A0[32] = {
+#include "data/inc/D_0400AE70_D28A0.inc.c"
+};
+Vtx D_0400B070_D2AA0[32] = {
+#include "data/inc/D_0400B070_D2AA0.inc.c"
+};
+Vtx D_0400B270_D2CA0[31] = {
+#include "data/inc/D_0400B270_D2CA0.inc.c"
+};
+Vtx D_0400B460_D2E90[12] = {
+#include "data/inc/D_0400B460_D2E90.inc.c"
+};
+Vtx D_0400B520_D2F50[18] = {
+#include "data/inc/D_0400B520_D2F50.inc.c"
+};
+
+const Gfx D_0400B640_D3070[] = {
+    gsSPVertex(D_0400A870_D22A0, 32, 0),
+    gsSP2Triangles(0, 1, 2, 0, 3, 4, 2, 0),
+    gsSP2Triangles(1, 5, 6, 0, 3, 2, 6, 0),
+    gsSP2Triangles(5, 7, 8, 0, 3, 6, 8, 0),
+    gsSP2Triangles(7, 9, 10, 0, 3, 8, 10, 0),
+    gsSP2Triangles(9, 11, 12, 0, 3, 10, 12, 0),
+    gsSP2Triangles(11, 0, 4, 0, 3, 12, 4, 0),
+    gsSP2Triangles(13, 1, 0, 0, 2, 4, 0, 0),
+    gsSP2Triangles(13, 5, 1, 0, 6, 2, 1, 0),
+    gsSP2Triangles(13, 7, 5, 0, 8, 6, 5, 0),
+    gsSP2Triangles(13, 9, 7, 0, 10, 8, 7, 0),
+    gsSP2Triangles(13, 11, 9, 0, 12, 10, 9, 0),
+    gsSP2Triangles(13, 0, 11, 0, 4, 12, 11, 0),
+    gsSP2Triangles(14, 15, 16, 0, 17, 16, 18, 0),
+    gsSP2Triangles(19, 20, 18, 0, 15, 21, 22, 0),
+    gsSP2Triangles(16, 22, 23, 0, 19, 18, 23, 0),
+    gsSP2Triangles(21, 24, 25, 0, 22, 25, 26, 0),
+    gsSP2Triangles(19, 23, 26, 0, 24, 27, 28, 0),
+    gsSP2Triangles(25, 28, 29, 0, 19, 26, 29, 0),
+    gsSP1Triangle(27, 30, 31, 0),
+    gsSPVertex(D_0400AA70_D24A0, 32, 0),
+    gsSP2Triangles(0, 1, 2, 0, 3, 4, 2, 0),
+    gsSP2Triangles(5, 6, 7, 0, 1, 7, 8, 0),
+    gsSP2Triangles(3, 2, 8, 0, 6, 9, 10, 0),
+    gsSP2Triangles(7, 10, 11, 0, 3, 8, 11, 0),
+    gsSP2Triangles(9, 12, 13, 0, 10, 13, 14, 0),
+    gsSP2Triangles(3, 11, 14, 0, 15, 16, 12, 0),
+    gsSP2Triangles(17, 13, 12, 0, 18, 14, 13, 0),
+    gsSP2Triangles(15, 19, 16, 0, 20, 17, 16, 0),
+    gsSP2Triangles(21, 18, 17, 0, 15, 22, 19, 0),
+    gsSP2Triangles(23, 20, 19, 0, 24, 21, 20, 0),
+    gsSP2Triangles(15, 25, 22, 0, 0, 23, 22, 0),
+    gsSP2Triangles(4, 24, 23, 0, 15, 5, 25, 0),
+    gsSP2Triangles(1, 0, 25, 0, 2, 4, 0, 0),
+    gsSP2Triangles(15, 6, 5, 0, 7, 1, 5, 0),
+    gsSP2Triangles(8, 2, 1, 0, 15, 9, 6, 0),
+    gsSP2Triangles(10, 7, 6, 0, 11, 8, 7, 0),
+    gsSP2Triangles(15, 12, 9, 0, 13, 10, 9, 0),
+    gsSP2Triangles(14, 11, 10, 0, 26, 27, 28, 0),
+    gsSP1Triangle(29, 30, 31, 0),
+    gsSPVertex(D_0400AC70_D26A0, 32, 0),
+    gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
+    gsSP1Quadrangle(6, 7, 8, 9, 0),
+    gsSP2Triangles(10, 9, 8, 0, 11, 12, 7, 0),
+    gsSP2Triangles(11, 7, 6, 0, 7, 13, 10, 0),
+    gsSP2Triangles(7, 10, 8, 0, 13, 6, 9, 0),
+    gsSP2Triangles(13, 9, 10, 0, 14, 15, 16, 0),
+    gsSP2Triangles(14, 16, 12, 0, 15, 17, 11, 0),
+    gsSP2Triangles(15, 11, 16, 0, 17, 14, 12, 0),
+    gsSP2Triangles(17, 12, 11, 0, 12, 16, 13, 0),
+    gsSP2Triangles(12, 13, 7, 0, 16, 11, 6, 0),
+    gsSP2Triangles(16, 6, 13, 0, 15, 18, 17, 0),
+    gsSP2Triangles(14, 18, 15, 0, 18, 14, 17, 0),
+    gsSP1Quadrangle(19, 20, 21, 22, 0),
+    gsSP1Quadrangle(19, 22, 23, 24, 0),
+    gsSP1Quadrangle(19, 24, 25, 20, 0),
+    gsSP1Quadrangle(26, 27, 28, 29, 0),
+    gsSP1Quadrangle(26, 29, 30, 31, 0),
+    gsSPVertex(D_0400AE70_D28A0, 32, 0),
+    gsSP1Quadrangle(0, 1, 2, 3, 0),
+    gsSP2Triangles(4, 5, 6, 0, 7, 5, 4, 0),
+    gsSP2Triangles(7, 4, 8, 0, 9, 7, 8, 0),
+    gsSP2Triangles(8, 10, 9, 0, 11, 10, 8, 0),
+    gsSP2Triangles(8, 12, 11, 0, 13, 11, 12, 0),
+    gsSP2Triangles(13, 12, 14, 0, 14, 6, 15, 0),
+    gsSP2Triangles(15, 13, 14, 0, 16, 17, 18, 0),
+    gsSP2Triangles(16, 18, 19, 0, 15, 6, 5, 0),
+    gsSP2Triangles(5, 20, 15, 0, 20, 5, 7, 0),
+    gsSP2Triangles(7, 9, 20, 0, 9, 21, 20, 0),
+    gsSP2Triangles(9, 10, 21, 0, 10, 11, 21, 0),
+    gsSP2Triangles(15, 21, 13, 0, 15, 20, 21, 0),
+    gsSP2Triangles(21, 11, 13, 0, 22, 23, 24, 0),
+    gsSP2Triangles(22, 25, 23, 0, 23, 26, 27, 0),
+    gsSP1Quadrangle(24, 23, 27, 28, 0),
+    gsSP2Triangles(28, 29, 24, 0, 30, 26, 23, 0),
+    gsSP2Triangles(23, 25, 30, 0, 24, 29, 31, 0),
+    gsSPVertex(D_0400B070_D2AA0, 32, 0),
+    gsSP2Triangles(0, 1, 2, 0, 3, 4, 0, 0),
+    gsSP2Triangles(0, 2, 3, 0, 5, 4, 3, 0),
+    gsSP2Triangles(3, 6, 5, 0, 7, 1, 8, 0),
+    gsSP2Triangles(1, 7, 2, 0, 9, 5, 6, 0),
+    gsSP2Triangles(6, 10, 9, 0, 11, 7, 12, 0),
+    gsSP1Quadrangle(2, 7, 11, 3, 0),
+    gsSP2Triangles(11, 6, 3, 0, 11, 12, 10, 0),
+    gsSP2Triangles(6, 11, 10, 0, 13, 14, 15, 0),
+    gsSP2Triangles(14, 16, 15, 0, 17, 16, 14, 0),
+    gsSP2Triangles(14, 18, 17, 0, 19, 18, 14, 0),
+    gsSP2Triangles(19, 14, 13, 0, 20, 19, 13, 0),
+    gsSP2Triangles(13, 21, 20, 0, 22, 21, 13, 0),
+    gsSP2Triangles(13, 15, 22, 0, 23, 22, 15, 0),
+    gsSP2Triangles(23, 15, 16, 0, 16, 17, 24, 0),
+    gsSP2Triangles(24, 23, 16, 0, 24, 17, 18, 0),
+    gsSP2Triangles(18, 25, 24, 0, 25, 18, 19, 0),
+    gsSP2Triangles(19, 20, 25, 0, 20, 26, 25, 0),
+    gsSP2Triangles(20, 21, 26, 0, 21, 22, 26, 0),
+    gsSP2Triangles(26, 22, 23, 0, 24, 26, 23, 0),
+    gsSP2Triangles(24, 25, 26, 0, 27, 28, 29, 0),
+    gsSP2Triangles(27, 30, 28, 0, 28, 30, 31, 0),
+    gsSPVertex(D_0400B270_D2CA0, 31, 0),
+    gsSP2Triangles(0, 1, 2, 0, 2, 1, 3, 0),
+    gsSP1Quadrangle(4, 2, 3, 5, 0),
+    gsSP2Triangles(5, 6, 4, 0, 4, 6, 7, 0),
+    gsSP2Triangles(7, 8, 4, 0, 8, 7, 9, 0),
+    gsSP2Triangles(10, 8, 9, 0, 11, 0, 10, 0),
+    gsSP2Triangles(10, 9, 11, 0, 1, 0, 11, 0),
+    gsSP2Triangles(11, 12, 1, 0, 3, 1, 12, 0),
+    gsSP2Triangles(12, 5, 3, 0, 12, 13, 5, 0),
+    gsSP2Triangles(13, 6, 5, 0, 13, 7, 6, 0),
+    gsSP1Quadrangle(9, 7, 13, 11, 0),
+    gsSP2Triangles(13, 12, 11, 0, 14, 15, 16, 0),
+    gsSP2Triangles(15, 17, 16, 0, 18, 17, 15, 0),
+    gsSP2Triangles(19, 20, 21, 0, 22, 23, 24, 0),
+    gsSP2Triangles(25, 26, 27, 0, 28, 29, 30, 0),
+    gsSPVertex(D_0400B460_D2E90, 12, 0),
+    gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
+    gsSP2Triangles(6, 7, 8, 0, 9, 10, 11, 0),
+    gsSPClearGeometryMode(G_CULL_BACK),
+    gsSPVertex(D_0400B520_D2F50, 18, 0),
+    gsSP2Triangles(0, 1, 2, 0, 3, 0, 2, 0),
+    gsSP2Triangles(4, 3, 2, 0, 5, 4, 2, 0),
+    gsSP2Triangles(6, 5, 2, 0, 1, 6, 2, 0),
+    gsSP2Triangles(7, 8, 9, 0, 10, 7, 9, 0),
+    gsSP2Triangles(11, 10, 9, 0, 12, 11, 9, 0),
+    gsSP2Triangles(13, 12, 9, 0, 8, 13, 9, 0),
+    gsSP2Triangles(14, 15, 16, 0, 16, 17, 14, 0),
+    gsSPSetGeometryMode(G_CULL_BACK),
+    gsSPEndDisplayList(),
+};

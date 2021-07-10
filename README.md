@@ -89,10 +89,6 @@ A handful of files are compressed twice.
 
 In order to decompress the game assets run `make decompress` after you have performed the `make extract` step. This will be done automatically when matching compression has been figured out.
 
-## Obfuscation
-
-There appears to be a level of obfuscation going on in the ROM. For example, the F3DEX microcode is not obvious within the ROM, but it is present in RAM.
-
 # Repo layout
 
 ```

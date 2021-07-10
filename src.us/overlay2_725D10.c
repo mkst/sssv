@@ -70,8 +70,165 @@ void func_80314788_725E38(void) {
 
 // requires jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314874_725F24.s")
+
+
 // requires jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314F0C_7265BC.s")
+// something to do with in-game scripting
+extern s32 D_FFFE0404[];
+extern f32 D_803F2E30;
+extern s32 D_803E4D3C;
+extern s32 D_803C4DAC_7D645C[];
+// NON-MATCHING: mosly regex, bit a couple of issues
+// s32 func_80314F0C_7265BC(Animal *arg0, s32 arg1) {
+//     s32 res;
+//
+//     if (arg1 < 0x7F7F) {
+//         res = arg1;
+//     } else {
+//         switch (arg1 - 0x7F7F) {
+//         case 0:
+//             res = D_FFFE0404[arg1]; // + (arg0 + (arg1 * 4)));
+//             break;
+//         case 3:
+//             res = arg0->unk158;
+//             break;
+//         case 4:
+//             res = arg0->health;
+//             break;
+//         case 5:
+//             res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
+//             break;
+//         case 6:
+//             res = arg0->xPos;
+//             break;
+//         case 7:
+//             res = arg0->zPos;
+//             break;
+//         case 8:
+//             res = arg0->yPos;
+//             break;
+//         case 9:
+//             res = arg0->unk40;
+//             break;
+//         case 10:
+//             if (D_803F2CD6 < 0) {
+//                 res = D_803F2CD2;
+//             } else {
+//                 res = D_803F2CD2 - 1;
+//                 if ((D_803F2CD8 >> 1) < D_803F2CD4) {
+//                     res += 1;
+//                 }
+//             }
+//             break;
+//         case 11:
+//             res = arg0->xVelocity.w >> 5;
+//             break;
+//         case 12:
+//             res = arg0->zVelocity.w >> 5;
+//             break;
+//         case 13:
+//             res = arg0->yVelocity.w >> 5;
+//             break;
+//         case 14:
+//             if (arg0->unk16C->unk0 >= 256) {
+//                 res = (arg0->unk2E * 360) / 256;
+//             } else {
+//                 res = arg0->unk2E;
+//             }
+//             break;
+//         case 15:
+//             if (arg0->unk16C->unk0 >= 256) {
+//                 res = (arg0->yRotation * 360) / 256;
+//             } else {
+//                 res = arg0->yRotation;
+//             }
+//             break;
+//         case 16:
+//             res = arg0->unk1CC;
+//             break;
+//         case 17:
+//             res = (arg0->unk163 & 0x18) >> 3;
+//             break;
+//         case 18:
+//             res = arg0->unk46;
+//             break;
+//         case 19:
+//             res = D_803F2D30.score;
+//             break;
+//         case 20:
+//             res = arg0->unk3E;
+//             break;
+//         case 21:
+//             res = arg0->state;
+//             break;
+//         case 22:
+//             res = D_803F2CD8 * D_803F2CD6;
+//             break;
+//         case 23:
+//             res = D_803A05B0_7B1C60 >> 6;
+//             break;
+//         case 24:
+//             if ((gControllerInput->stick_x < -8) || (gControllerInput->stick_x > 8)) {
+//                 res = gControllerInput->stick_x;
+//             } else {
+//                 res = 0;
+//             }
+//             break;
+//         case 25:
+//             if ((gControllerInput->stick_y < -8) || (gControllerInput->stick_y > 8)) {
+//                 res = gControllerInput->stick_y;
+//             } else {
+//                 res = 0;
+//             }
+//             break;
+//         case 26:
+//             if ((gControllerInput->button & A_BUTTON)) {
+//                 res = 1;
+//             } else {
+//                 res = 0;
+//             }
+//             break;
+//         case 27:
+//             if ((gControllerInput->button & B_BUTTON)) {
+//                 res = 1;
+//             } else {
+//                 res = 0;
+//             }
+//             break;
+//         case 28:
+//             res = D_803E4D2C;
+//             break;
+//         case 29:
+//             res = D_803F2E30 * 100.0f;
+//             break;
+//         case 30:
+//             res = D_803E4D30;
+//             break;
+//         case 31:
+//             res = D_803E4D38[0];
+//             break;
+//         case 32:
+//             res = arg0->unk16C->unk0;
+//             break;
+//         case 33:
+//             res = D_801546E0;
+//             break;
+//         case 34:
+//             res = D_801546D8;
+//             break;
+//         case 35:
+//             res = D_803E4D3C;
+//             break;
+//         case 36:
+//             res = D_803E4D28;
+//             break;
+//         default:
+//             res = D_803C4DAC_7D645C[arg1];
+//         }
+//     }
+//     return res;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_803152A4_726954.s")
 // rodata should be correct

@@ -379,7 +379,17 @@ s32 func_802FD4D0_70EB80(Animal *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD674_70ED24.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD8CC_70EF7C.s")
+void func_802FD8CC_70EF7C(void) {
+    D_803E1CF8.min = D_803E1CE8.min = D_803F2D50.unk2;
+    D_803E1CF8.max = D_803E1CE8.max = D_803F2D50.unk4;
+
+    D_803E1CF8.r = D_803E1CE8.r = D_803F2D50.unk6;
+    D_803E1CF8.g = D_803E1CE8.g = D_803F2D50.unk8;
+    D_803E1CF8.b = D_803E1CE8.b = D_803F2D50.unkA;
+
+    D_803E1D00 = D_803E1D02 = 0;
+    D_803E1D04 = 1;
+}
 
 // huh?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD94C_70EFFC.s")
@@ -391,6 +401,24 @@ s32 func_802FD4D0_70EB80(Animal *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FE4C4_70FB74.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FE560_70FC10.s")
+// extern struct081 D_803E1D10, D_803E1D20;
+// extern struct063 D_803E1D18;
+// void func_802FE560_70FC10(s8 arg0, s8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 arg6, u8 arg7, s16 arg8) {
+//     D_803E1D10.unk0 = D_803E1D20.unk0;
+//     D_803E1D10.unk4 = D_803E1D20.unk4;
+//     D_803E1D18.unk0 = arg0;
+//     D_803E1D18.unk1 = arg1;
+//     if (1) { };
+//     D_803E1D18.unk2 = arg2;
+//     D_803E1D18.unk3 = arg3;
+//     D_803E1D18.unk4 = arg4;
+//     D_803E1D18.unk5 = arg5;
+//     D_803E1D18.unk6 = arg6;
+//     D_803E1D18.unk7 = arg7;
+//     D_803E1D28 = arg8;
+//     D_803E1D2A = 0;
+//     D_803E1D2C = 0;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FE5E8_70FC98.s")
 

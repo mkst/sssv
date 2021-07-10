@@ -48,7 +48,7 @@ def parse_map(mapfile, section, ending=None):
             if re.match(r" build/.*\(\.text\)", line):
                 # skip
                 continue
-            match = re.match(r"^ \.text +(0x[0-9A-z]+) +(0x[0-9A-z]+) +.*/build/(.*)\.[a-z]+\.o", line)
+            match = re.match(r"^ \.text +(0x[0-9A-z]+) +(0x[0-9A-z]+) +.*build/(.*)\.[a-z]+\.o", line)
             if match:
                 # offset = match.group(1)
                 # filesize = match.group(2)

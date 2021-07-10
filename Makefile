@@ -36,21 +36,12 @@ LANG_RNC_O_FILES    = $(foreach file,$(LANG_RNC_FILES),$(BUILD_DIR)/$(file:.dat.
 
 # Images
 
-RGBA16_RNC_FILES    = $(wildcard assets/img/*.rgba16.rnc.png) \
-                      $(wildcard assets/img/intro/*.rgba16.rnc.png) \
-                      $(wildcard assets/img/menu/*.rgba16.rnc.png) \
-                      $(wildcard assets/img/thumbnails/*.rgba16.rnc.png) \
-                      $(wildcard assets/img/trophies/*.rgba16.rnc.png)
+RGBA16_RNC_FILES    = $(shell find assets/img/ -name "*.rgba16.rnc.png" 2> /dev/null)
 RGBA16_RNC_O_FILES  = $(foreach file,$(RGBA16_RNC_FILES),$(BUILD_DIR)/$(file:.rgba16.rnc.png=.rgba16.rnc.o))
 
-RGBA16_FILES        = $(wildcard assets/img/*.rgba16.png) \
-                      $(wildcard assets/img/flags/*.rgba16.png) \
-                      $(wildcard assets/img/fonts/*.rgba16.png) \
-                      $(wildcard assets/img/hud/*.rgba16.png) \
-                      $(wildcard assets/img/levels/THE_BATTERY_FARM/*.rgba16.png) \
-                      $(wildcard assets/img/intro/*.rgba16.png) \
-                      $(wildcard assets/img/menu/*.rgba16.png) \
-                      $(wildcard assets/img/objects/*.rgba16.png)
+# TODO: change this to fine command?
+RGBA16_FILES        = $(shell find assets/img/ -name "*.rgba16.png" 2> /dev/null)
+
 RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 
 # Generic RNC compressed files

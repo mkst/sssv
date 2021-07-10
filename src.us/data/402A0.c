@@ -1,9 +1,11 @@
 #include <ultra64.h>
 
-extern Vtx D_010066D0[];
+Vtx D_010066D0_3FFA0[] = {
+#include "data/inc/D_010066D0_3FFA00.inc.c"
+};
 
-const Gfx D_80051DD0[] = {
-    gsSPVertex(D_010066D0, 8, 0),
+const Gfx D_010069D0_402A0[] = {
+    gsSPVertex(D_010066D0_3FFA0, 8, 0),
     gsSP1Quadrangle(0, 1, 5, 4, 0),
     gsSP1Quadrangle(0, 4, 7, 3, 0),
     gsSP1Quadrangle(2, 3, 7, 6, 0),

@@ -19,8 +19,8 @@
 //         used = 0;
 //         // copy in language strings?
 //         for (i = 0; (i < 9) != 0; i++) { // regalloc hack, FIXME
-//             func_801308E8(i, 32, D_80231AA0, D_80231D5C);
-//             if ((i != 6) && (i != 0)) {
+//             load_level_text_data(i, 32, D_80231AA0, D_80231D5C);
+//             if ((i != LANG_JAPANESE) && (i != LANG_AMERICAN)) {
 //                 src = func_80130A90(28);
 //                 dst = D_803B0400[used];
 //                 while (*src != 30000) {

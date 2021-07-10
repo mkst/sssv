@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_8004EBF0[] = {
+const Gfx D_010037F0_3D0C0[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_2CYCLE),
     gsDPSetAlphaCompare(G_AC_THRESHOLD),

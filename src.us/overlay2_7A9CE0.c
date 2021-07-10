@@ -4,7 +4,7 @@
 #include "pp.h"
 
 void func_80398630_7A9CE0(void) {
-    func_803800F0_7917A0(6);
+    load_data_section(6);
     UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF)), &D_800BA760); // rnc_42DCA0, textures
     UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF)), &D_800BDC80);
     UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF)), &D_800DE390);
@@ -81,31 +81,29 @@ void func_80398A00_7AA0B0(void) {
 // void func_8039BBB8_7AD268(void) {
 //     s16 temp_a0_2;
 //     s16 level;
-//     s16 temp_t9;
 //     s32 temp_a0;
-//     s32 temp_v1;
-//     u32 temp_v1_2;
-//     u8 temp_t3;
 //     struct003 *temp_v0;
-//
 //
 //     if (D_803F2D50.unkC6 != 0) {
 //         temp_a0 = D_803E4D28 & 2;
-//         if ((D_803E4D28 & 1) != 0) {
-//             temp_t9 = D_803F7DA8.unk2D + 1;
-//             if ((temp_t9 != GIVE_A_DOG_A_BONUS) &&
-//                 (temp_t9 != WALRACE_64) &&
-//                 (temp_t9 != EVOS_ESCAPE) &&
-//                 (temp_t9 != PUNCHUP_PYRAMID) &&
-//                 (temp_t9 != BIG_CELEBRATION_PARADE)) {
+//         if (D_803E4D28 & 1) { // level completed?
+//             level = D_803F7DA8.unk2D + 1;
+//             if ((level != GIVE_A_DOG_A_BONUS) &&
+//                 (level != WALRACE_64) &&
+//                 (level != EVOS_ESCAPE) &&
+//                 (level != PUNCHUP_PYRAMID) &&
+//                 (level != BIG_CELEBRATION_PARADE)) {
 //                 temp_v0 = &D_8023F260 + D_803F2D30.unk8;
 //                 temp_v0->unk3 |= 1;
 //             }
+//             // regalloc help
+//             if (1) {}
+//
 //         }
 //         level = D_803F7DA8.unk2D + 1;
 //         if (temp_a0 != 0) {
 //             if (level == GIVE_A_DOG_A_BONUS) {
-//                 D_8023F260.unk3B |= 1;
+//                 D_8023F260.unk3B |= 1; //
 //             }
 //             if (level == WALRACE_64) {
 //                 D_8023F260.unk3B |= 2;
@@ -126,18 +124,17 @@ void func_80398A00_7AA0B0(void) {
 //                 temp_v0->unk3 |= 2;
 //             }
 //         } else {
-//             temp_a0_2 = D_803F2D30.unkC;
 //             temp_v0 = &D_8023F260 + D_803F2D30.unk8;
-//             temp_t3 = temp_v0->unk3 | 2;
-//             temp_v1_2 = temp_t3 & 0xFF;
-//             temp_v0->unk3 = temp_t3;
-//             if ((s32) (temp_v1_2 >> 4) < (s32) temp_a0_2) {
-//                 temp_v0->unk3 = (u8) ((temp_a0_2 * 0x10) | (temp_v1_2 & 0xFF0F));
+//             temp_v0->unk3 |= 2;
+//             if ((temp_v0->unk3 >> 4) < D_803F2D30.unkC) {
+//                 // FIXME
+//                 temp_v0->unk3 |= (D_803F2D30.unkC * 0x10) & 0xff0f;
 //             }
 //         }
 //         D_803F2D50.unkC6 = 0;
 //         memcpy_sssv(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
 //         write_eeprom(D_803F7DA8.unk2E);
+//
 //         level = D_803F7DA8.unk2D + 1;
 //         if ((level == GIVE_A_DOG_A_BONUS) ||
 //             (level == WALRACE_64) ||
@@ -145,8 +142,8 @@ void func_80398A00_7AA0B0(void) {
 //             (level == PUNCHUP_PYRAMID)) {
 //             if ((D_803E4D28 & 2) != 0) {
 //                 if (level == PUNCHUP_PYRAMID) {
-//                     if (D_8023F260.unk3B == 15) {
-//                         D_803F7DA8.unk2D += 1;
+//                     if (D_8023F260.unk3B == 15) { // all bodyparts collected
+//                         D_803F7DA8.unk2D += 1; // big day parade
 //                     }
 //                 } else {
 //                     D_803F7DA8.unk2D += 1;
@@ -155,8 +152,8 @@ void func_80398A00_7AA0B0(void) {
 //         } else {
 //             D_803F7DA8.unk2D += 1;
 //         }
-//         if (D_803F7DA8.unk2D == 0x1F) {
-//             D_803F7DA8.unk2D = 0x22;
+//         if (D_803F7DA8.unk2D == 31) {
+//             D_803F7DA8.unk2D = 34; // END_CREDITS?
 //         }
 //     } else {
 //         if (D_8023F260.score < D_803F2D30.score) {

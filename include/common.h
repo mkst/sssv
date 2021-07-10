@@ -14,6 +14,8 @@
 #define OB_TYPE_ANIMAL_OFFSET  256
 #define AID_MAX_ANIMALS        68
 
+#define DEFAULT_AUDIO_VOLUME   16
+
 #ifdef VERSION_US
 #include "common.us.h"
 #endif
@@ -174,6 +176,25 @@
 
 #define TILESET_ASCII_OFFSET    272
 
+// region
+#define REGION_JP       0
+#define REGION_EU       1
+#define REGION_US       2
+
+// languages
+
+#define LANG_AMERICAN   0
+#define LANG_DUTCH      1
+#define LANG_ENGLISH    2
+#define LANG_FRENCH     3
+#define LANG_GERMAN     4
+#define LANG_ITALIAN    5
+#define LANG_JAPANESE   6
+#define LANG_PORTUGESE  7
+#define LANG_SPANISH    8
+#define LANG_DEFAULT    20
+
+#define EOM             0x7530
 // extra gbi macros
 
 #define gDPLoadTextureBlock2(pkt, timg, fmt, line, siz, width, height, \

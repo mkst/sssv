@@ -8,9 +8,11 @@ void func_8038F6F0_7A0DA0(void) {
 }
 
 void func_8038F708_7A0DB8(void) {
-    if ((D_803F6716 != D_8023F2A0.unkD) || (D_803F6718 != D_8023F2A0.unkC) || (D_803F671A != D_8023F2A0.unkE)) {
+    if ((D_803F6716 != D_8023F2A0.sfxVol) ||
+        (D_803F6718 != D_8023F2A0.musicVol) ||
+        (D_803F671A != D_8023F2A0.language)) {
         write_eeprom(4);
-        func_80133BA0(D_8023F2A0.unkC);
+        set_music_volume(D_8023F2A0.musicVol);
     }
     D_803F66A4 = 1;
     func_802F07D0_701E80();
@@ -46,9 +48,9 @@ void func_8038F794_7A0E44(void) {
     D_803F670C = 0x3C0;
     D_803C0422 = 1;
     D_801D9ED4 = 6;
-    D_803F6716 = D_8023F2A0.unkD;
-    D_803F6718 = D_8023F2A0.unkC;
-    D_803F671A = D_8023F2A0.unkE;
+    D_803F6716 = D_8023F2A0.sfxVol;
+    D_803F6718 = D_8023F2A0.musicVol;
+    D_803F671A = D_8023F2A0.language;
 }
 
 void func_8038F8C8_7A0F78(void) {
@@ -81,7 +83,7 @@ void func_8038F968_7A1018(void) {
     D_803F2CE4 = func_8012E78C(D_803F2CE0, 10.0f, 10.0f, 0xC) - 0xC;
     D_803F6680.unk0 = 0;
     D_803F6680.unk27 = 1;
-    func_80133BA0(D_8023F2A0.unkC);
+    set_music_volume(D_8023F2A0.musicVol);
     D_803F671C = 1;
 }
 
@@ -180,8 +182,8 @@ void func_8038FCF8_7A13A8(void) {
     D_80204290 = 2;
     func_801337DC(0, 5.0f, 20.0f, 0);
     gLevelIndex = SMASHING_START;
-    D_803F7DA8.unk2D = 0;
-    D_803F63C0 = func_801308E8(D_8023F2A0.unkE, D_803F7DA8.unk2D, &D_803F3330, &D_803F34C0);
+    D_803F7DA8.unk2D = 0; // level language file?
+    D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.unk2D, &D_803F3330, &D_803F34C0);
     func_8038FC58_7A1308();
 }
 
@@ -189,14 +191,14 @@ void func_8038FCF8_7A13A8(void) {
 void func_8038FD74_7A1424(void) {
     reset_cheats();
     D_803F671C = 0;
-    func_80133B74(D_8023F2A0.unkD);
-    func_80133BA0(D_8023F2A0.unkC);
+    set_sfx_volume(D_8023F2A0.sfxVol);
+    set_music_volume(D_8023F2A0.musicVol);
     D_803E1BC0 = 0;
     D_803C0424 = 0;
     D_803C0426 = 0;
 
     reset_credits_counters();
-    func_801308E8(D_8023F2A0.unkE, 32, &D_80231AA0, &D_80231D5C);
+    load_level_text_data(D_8023F2A0.language, 32, &D_80231AA0, &D_80231D5C);
     generate_stars();
 
     D_803F6704 = 0;

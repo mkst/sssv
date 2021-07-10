@@ -72,14 +72,13 @@ class N64SegVtx(N64SegCodeSubsegment):
         if self.standalone:
             lines.append(f'Vtx {self.label}[{vertex_count}] = {{')
 
-        for i in range(vertex_count):
+        for vtx in struct.iter_unpack('>hhhHhhBBBB', vertex_data):
+            x, y, z, flg, t, c, r, g, b, a = vtx
             indent = '    ' if self.standalone else ''
-            x, y, z, flg, t, c, r, g, b, a = struct.unpack('>hhhHhhBBBB',
-                                                           vertex_data[i*16:i*16+16])
-            vtx = f'{indent}{{{{{{ {x:5}, {y:5}, {z:5} }}, {flg}, {{ {t:5}, {c:5} }}, {{ {r:3}, {g:3}, {b:3}, {a:3} }}}}}},'
+            vtx_string = f'{indent}{{{{{{ {x:5}, {y:5}, {z:5} }}, {flg}, {{ {t:5}, {c:5} }}, {{ {r:3}, {g:3}, {b:3}, {a:3} }}}}}},'
             if flg != 0:
                 self.warn(f'Non-zero flag found in vertex data {self.name}!')
-            lines.append(vtx)
+            lines.append(vtx_string)
 
         if self.standalone:
             lines.append('};')

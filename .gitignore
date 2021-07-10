@@ -27,3 +27,4 @@ src
 *.z64
 progress*.csv
 *.inc.c
+*.ply

@@ -12,7 +12,12 @@ typedef struct struct070 struct070;
 typedef struct Animal Animal;
 
 typedef struct {
-    u8  pad0[0xC];
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u16 unkA;
     s16 unkC;
     s16 unkE;
     u16 unk10;
@@ -102,7 +107,8 @@ struct Animal {
     /* 0x2E */  s16 unk2E;
     /* 0x30 */  s16 unk30;
     /* 0x32 */  s16 unk32;
-    /* 0x34 */  u8  pad34[0xC];
+    /* 0x34 */  u8  pad34[0xA];
+    /* 0x3E */  u16 unk3E;
     /* 0x40 */  u16 unk40;
     /* 0x42 */  u16 unk42; // distance from camera (height?) cameraOffsetY?
     /* 0x44 */  u16 unk44;
@@ -392,7 +398,7 @@ typedef struct {
                 u8  pad0[0x1E];
     /* 0x1E */  u8  countryCode;
                 u8  pad1F;
-    /* 0x20 */  u16 mode;
+    /* 0x20 */  u16 region;
 } RomHeader;
 
 typedef struct {
@@ -638,9 +644,9 @@ typedef struct {
     /* 0x00 */ s32 checksum;
     /* 0x04 */ s32 unk4;
     /* 0x08 */ s32 unk8;
-    /* 0x0C */ s8  unkC;
-    /* 0x0D */ s8  unkD;
-    /* 0x0E */ s8  unkE;
+    /* 0x0C */ s8  musicVol;
+    /* 0x0D */ s8  sfxVol;
+    /* 0x0E */ s8  language;  // chosen language, e.g. LANG_ENGLISH
     /* 0x0F */ u8  padF[0x17];
     /* 0x26 */ s16 unk26;
     /* 0x28 */ u8  unk28;
@@ -648,9 +654,10 @@ typedef struct {
     /* 0x30 */ s32 unk30;
     /* 0x34 */ s32 unk34;
     /* 0x38 */ u8  pad38[0x3];
-    /* 0x3B */ s8  unk3B; // special level completed?
+    /* 0x3B */ s8  unk3B; // evo bodyparts collected
     /* 0x3C */ s32 score;
 } Eeprom; // size 0x40
+// might be separate for 'game' vs 'user'
 
 typedef struct {
     s32 unk0; // vaddr
@@ -942,8 +949,8 @@ typedef struct {
     s32 unk1C;
     u16 unk20;
     u8  pad22[0xB];
-    s8  unk2D;
-    s8  unk2E;
+    s8  unk2D; // currenty selected level
+    s8  unk2E; // current save bank?
     u8  pad2F[0x3];
     u8  unk32;
 } struct030;
@@ -1253,7 +1260,7 @@ typedef struct {
     u8 unk2;
     u8 unk3;
     u8 unk4;
-    u8 pad5;
+    u8 unk5;
     u8 unk6;
     u8 unk7;
 } struct063; // size 0x8
@@ -1430,5 +1437,10 @@ typedef struct {
     u16 unk7FC7;
     u16 unk7FC9;
 } struct080; // nonsense
+
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+} struct081;
 
 #endif

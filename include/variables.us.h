@@ -22,15 +22,15 @@ extern u8   D_00546BC0[];
 extern u8   D_01000620[];
 extern u8   D_01000CC0[];
 extern Gfx  D_01003460[];
-extern u8   D_01003498[];
-extern u8   D_010034C0[];
-extern u8   D_01003548[];
-extern Gfx  D_01003618[];
-extern u8   D_01003998[];
+extern Gfx  D_01003498_3CD68[];
+extern Gfx  D_010034C0_3CD90[];
+extern Gfx  D_01003548_3CE18[];
+extern Gfx  D_01003618_3CEE8[];
+extern Gfx  D_01003998_3D268[];
 extern u8   D_01003A58[];
-extern u8   D_01003B70[];
+extern Gfx  D_01003B70_3D440[];
 extern Gfx  D_01004270[];
-extern u8   D_01004360[];
+extern u8   D_01004360_3DC30[];
 extern u8   D_010043A0[];
 extern Gfx  D_01004510[];
 extern Gfx  D_010049A0[];
@@ -96,11 +96,11 @@ extern s32  D_80032870;
 
 // 0x8004xxxx
 
-extern u8   *D_8004B400; // _gfxdlistSegmentStart
+extern u8   D_8004B400[]; // _gfxdlistSegmentStart
 
 // 0x8009xxxx
 
-extern u8   *D_80099600; // _gfxdlistSegmentEnd
+extern u8   D_80099600[]; // _gfxdlistSegmentEnd
 
 // 0x800Bxxxx
 
@@ -179,7 +179,8 @@ extern u16  D_80152EB8; // frame buffer id?
 extern u16  D_80152EBC;
 extern s32  D_801542D0;
 extern u8   D_80154370[];
-extern s32  D_80154500[][2]; // bunch of offsets to RNC files
+
+extern u8*  D_80154500[37][2]; // bunch of offsets to RNC language files
 extern s32  D_80154680; // some kind of counter?
 extern s16  D_80154684;
 extern s16  D_80154688;
@@ -233,6 +234,7 @@ extern f64  D_8015AC78;
 extern f64  D_8015AC80;
 extern f64  D_8015AC88;
 extern f64  D_8015AC90;
+extern char D_8015ACA0[]; // "%d"
 extern char D_8015ACA4[]; // "%d"
 extern char D_8015AD70[]; // "reset all data - %d\n"
 extern char D_8015AD90[]; // "----------------- Active sounds\n"
@@ -313,7 +315,7 @@ extern f32  D_80204200;
 extern f32  D_80204204;
 extern f32  D_80204208;
 extern RomHeader D_80204240;
-extern s16  D_80204260;
+extern s16  gRegion;
 extern u16  D_80204270;
 extern struct008 *D_80204274;
 extern DisplayList *D_80204278;
@@ -344,29 +346,29 @@ extern u8  D_80205410[][0x18];
 
 // 0x8022xxxx
 
-extern s16  D_8022E3F0[]; // maps to ROM 0x12A390
+extern s16  D_8022E3F0[]; // scratch area for RNC decompression
 extern s16  D_8022E3F2;
 
 // 0x8023xxxx
 
 extern u16  D_80231AA0[];
 extern s16  D_80231D5C[];
-extern s16  D_80235410[];
+extern s32  D_80235410[];
 extern struct023 D_8023F1E0;
 extern u8   D_8023F1E8;
 extern s8   D_8023F1F0;
 extern s8   D_8023F1F1;
 extern s8   D_8023F1F2;
 extern s8   D_8023F1F3;
-extern s8   D_8023F1F4;
-extern s8   D_8023F1F5;
-extern f32  D_8023F1F8;
-extern f32  D_8023F1FC;
+extern u8   D_8023F1F4;
+extern u8   D_8023F1F5;
+extern f32  D_8023F1F8; // current font width / scale
+extern f32  D_8023F1FC; // current font height / scale
 extern s16  D_8023F206[];
 extern s16  D_8023F208[32];
 extern s16  D_8023F248[];
-extern Eeprom D_8023F260; // 0x40
-extern Eeprom D_8023F2A0;
+extern Eeprom D_8023F260; // 0x40 // default user state?
+extern Eeprom D_8023F2A0; // global game save state, different struct to user data?
 extern Eeprom D_8023F2E0[4]; // 0x100
 
 // display
@@ -490,7 +492,19 @@ extern f32  D_80299DE4;
 extern f32  D_80299DE8;
 extern f32  D_80299DEC;
 extern f32  D_80299DF0;
-extern u8   D_80299DFC_63D49C;
+extern u8   D_80299DFC_63D49C; // intro state
+/*
+  1 - NEWSFLASH
+  2 - Newscaster
+  3 - Main splash (rotating spaceship)
+  4 - black screen
+  5 - blue screen (scrolling)
+  6 - black screen
+  7 - black screen
+  8 - static spaceship
+  9 - NEWSFLASH + 200 credz
+  A - black screen
+*/
 extern u16  D_80299E10;
 extern u8   D_80299E14;
 extern u16  D_80299E1C_63D4BC;
@@ -517,7 +531,8 @@ extern u8   D_802C11C0[];
 
 // 0x802Exxxx
 
-extern const Gfx  D_802EEB20[];
+extern const Gfx  D_802EEB20_6921C0[]; // spaceship model
+extern const Gfx  D_802F3C20_6972C0[]; // N64 controller model
 
 // 0x802Fxxxx
 
@@ -911,10 +926,13 @@ extern u8   D_803E1BE8[][24]; // maybe a struct?
 extern Fog  D_803E1CE0;
 extern Fog  D_803E1CE8;
 extern Fog  D_803E1CF8;
-extern s16  D_803E1D00;
-extern s16  D_803E1D02;
-extern u8   D_803E1D04;
-extern s16  D_803E1D0C;
+extern u16  D_803E1D00;
+extern u16  D_803E1D02;
+extern s8   D_803E1D04;
+extern u16  D_803E1D0C;
+extern s16  D_803E1D28;
+extern s16  D_803E1D2A;
+extern u8   D_803E1D2C;
 extern u8   *D_803E1D32; // ?
 extern struct064 D_803E1D3B[];
 extern u16  D_803E8E54;
@@ -1110,7 +1128,7 @@ extern u8   D_803F7DA2;
 extern u8   D_803F7DA3;
 extern struct030 D_803F7DA8;
 extern s8   D_803F7DD4;
-extern s8   D_803F7DD5;
+extern s8   D_803F7DD5; // current level idx?
 extern s8   D_803F7DD6;
 extern s8   D_803F7DD7;
 extern s8   D_803F7DD8;

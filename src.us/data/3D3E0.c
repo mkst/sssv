@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_8004EF10[] = {
+const Gfx D_01003B10_3D3E0[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_1CYCLE),
     gsDPSetTexturePersp(G_TP_NONE),
