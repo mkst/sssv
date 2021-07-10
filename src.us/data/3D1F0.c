@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_8004ED20[] = {
+const Gfx D_01003920_3D1F0[] = {
     gsDPSetTexturePersp(G_TP_PERSP),
     gsDPSetAlphaCompare(G_AC_NONE),
     gsDPPipeSync(),

@@ -11,16 +11,16 @@ void read_rom_header(void) {
 void set_region(void) {
     switch (D_80204240.countryCode) {
         case 'J': // Japan
-            D_80204240.mode = 0;
+            D_80204240.region = REGION_JP;
             break;
         case 'P': // European
-            D_80204240.mode = 1;
+            D_80204240.region = REGION_EU;
             break;
         case 'E': // North America
-            D_80204240.mode = 2;
+            D_80204240.region = REGION_US;
             break;
         default:
-            D_80204240.mode = 1;
+            D_80204240.region = REGION_EU;
             break;
     }
 }

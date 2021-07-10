@@ -218,8 +218,8 @@ void func_8012A750(void) {
 //             D_802053F0.unk4 = 1200;
 //             D_80205400.unk0 = 0x34025A;
 //             D_80205400.unk4 = 878;
-//             temp_a2_7 = D_80204240.mode;
-//             if (((temp_a2_7 == 2) || (temp_a2_7 == 0)) && (D_80204240.countryCode != 0)) {
+//             temp_a2_7 = D_80204240.region;
+//             if (((temp_a2_7 == REGION_US) || (temp_a2_7 == REGION_JP)) && (D_80204240.countryCode != 0)) {
 //                 *(volatile s16*)0 = 0; // shit our pants?
 //             }
 //             phi_a2 = &osViModeTable[D_802053E0.unk8];
@@ -241,7 +241,7 @@ void func_8012A750(void) {
 //             D_80205400.unk4 = phi_t0;
 //             phi_v1 = &D_802053E0;
 //             phi_a0 = &D_80205400;
-//             if (D_80204240.mode == 1) {
+//             if (D_80204240.region == REGION_EU) {
 //                 if (D_80204240.countryCode != 0) {
 //                     *(volatile s16*)0 = 0;
 //                 }
@@ -260,7 +260,7 @@ void func_8012A750(void) {
 //             D_80205400.unk4 = phi_t0;
 //             phi_v1 = &D_802053E0;
 //             phi_a0 = &D_80205400;
-//             if ((D_80204240.mode == 1) && (D_80204240.countryCode != 0) ){
+//             if ((D_80204240.region == REGION_EU) && (D_80204240.countryCode != 0) ){
 //                 *(volatile s16*)0 = 0;
 //                 // phi_a2 = &osViModeTable[D_802053E0.unk8];
 //                 // phi_a3 = phi_a2->unk30;
@@ -282,7 +282,7 @@ void func_8012A750(void) {
 //             D_80205400.unk4 = phi_t0;
 //             phi_v1 = &D_802053E0;
 //             phi_a0 = &D_80205400;
-//             if ((D_80204240.mode == 1) && (D_80204240.countryCode != 0)) {
+//             if ((D_80204240.region == REGION_EU) && (D_80204240.countryCode != 0)) {
 //                 *(volatile s16*)0 = 0;
 //                 // phi_a2 = &osViModeTable[D_802053E0.unk8];
 //                 // phi_a3 = phi_a2->unk30;

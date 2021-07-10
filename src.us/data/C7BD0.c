@@ -1,11 +1,14 @@
 #include <ultra64.h>
 
-extern Gfx D_010034C0[]; // vulture related?
-extern Vtx D_04000000[];
+extern Gfx D_010034C0_3CD90[];
 
-const Gfx D_800D9700[] = {
-    gsSPDisplayList(D_010034C0),
-    gsSPVertex(D_04000000, 26, 0),
+Vtx D_04000000_C7A30[] = {
+#include "data/inc/D_04000000_C7A30.inc.c"
+};
+
+const Gfx D_040001A0_C7BD0[] = {
+    gsSPDisplayList(D_010034C0_3CD90),
+    gsSPVertex(D_04000000_C7A30, 26, 0),
     gsSP2Triangles(0, 2, 1, 0, 1, 3, 0, 0),
     gsSP2Triangles(4, 2, 0, 0, 0, 5, 4, 0),
     gsSP2Triangles(5, 0, 3, 0, 3, 6, 5, 0),

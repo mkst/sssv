@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_8004EED0[] = {
+const Gfx D_01003AD0_3D3A0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM),
     gsDPSetRenderMode(G_RM_AA_ZB_TEX_EDGE, G_RM_NOOP2),

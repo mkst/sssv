@@ -45,7 +45,7 @@ void func_802950B8_638758(void) {
     s16 *dst;
 
     font_init();
-    if (D_80204260 == 1) { // if first init show language select
+    if (gRegion == REGION_EU) {
         language_select_menu(0);
     }
     UnpackRNC((RNC_fileptr)D_802B64A0, D_80302E88); // newscaster "video"
@@ -57,7 +57,8 @@ void func_802950B8_638758(void) {
     UnpackRNC((RNC_fileptr)D_802BC430, D_8032AE88);
     UnpackRNC((RNC_fileptr)D_802F4CA0, D_80376ED8);
 
-    func_801308E8(D_8023F2A0.unkE, 33, D_80231AA0, D_80231D5C);
+    // load "lang34.dat"
+    load_level_text_data(D_8023F2A0.language, 33, D_80231AA0, D_80231D5C);
 
     src = func_80130A90(16);
     dst = D_802042F0;
@@ -86,8 +87,8 @@ void func_80295234_6388D4(void) {
     gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     D_80204278->usedModelViewMtxs += 1;
 
-    gSPDisplayList(D_801D9E7C++, &D_801542D0);
-    gSPDisplayList(D_801D9E7C++, &D_802EEB20);
+    gSPDisplayList(D_801D9E7C++, &D_801542D0); // load spaceship texture
+    gSPDisplayList(D_801D9E7C++, &D_802EEB20_6921C0); // load spaceship model
 
     gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
 }

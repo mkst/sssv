@@ -77,6 +77,7 @@ s32 func_8031B058_72C708(u8 *arg0) {
 //     return 1;
 // }
 
+// load_texture_bank()
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B174_72C824.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level.s")
@@ -92,7 +93,7 @@ s32 func_8031B058_72C708(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B400_72CAB0.s")
 
 void func_8031C304_72D9B4(void) {
-    func_8012A400();
+    func_8012A400(); // receive messages, synchronization?
     func_8012AC8C();
 }
 

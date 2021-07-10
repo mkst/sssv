@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-Gfx D_8004EB40[] = {
+Gfx D_01003740_3D010[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_2CYCLE),
     gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_TEX_EDGE2),

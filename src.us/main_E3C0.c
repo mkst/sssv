@@ -274,11 +274,11 @@ void func_801339F8(void) {
     }
 }
 
-void func_80133B74(s16 arg0) {
+void set_sfx_volume(s16 arg0) {
     D_801546D4 = arg0 / 20.0f;
 }
 
-void func_80133BA0(s16 arg0) {
+void set_music_volume(s16 arg0) {
     D_801546D0 = arg0 / 20.0f;
     func_80133C50();
 }

@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_8004EF70[] = {
+const Gfx D_01003B70_3D440[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_1CYCLE),
     gsDPSetRenderMode(G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2),
@@ -9,5 +9,10 @@ const Gfx D_8004EF70[] = {
     gsDPSetCombineLERP(0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0),
     gsDPSetTextureLUT(G_TT_NONE),
     gsSPTexture(32768, 32768, 0, G_TX_RENDERTILE, G_ON),
+    gsSPEndDisplayList(),
+};
+
+const Gfx D_01003BB8_3D488[] = {
+    gsDPPipeSync(),
     gsSPEndDisplayList(),
 };

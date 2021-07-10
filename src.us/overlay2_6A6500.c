@@ -122,12 +122,12 @@
 //         func_802FE5E8_70FC98();
 //         func_802F30A4_704754();
 //
-//         gSPDisplayList(D_801D9E88++, D_01003498);
-//         gSPDisplayList(D_801D9E88++, D_01004360);
-//         gSPDisplayList(D_801D9E88++, D_01003B70);
-//         gSPDisplayList(D_801D9E88++, D_01003998);
+//         gSPDisplayList(D_801D9E88++, D_01003498_3CD68);
+//         gSPDisplayList(D_801D9E88++, D_01004360_3DC30);
+//         gSPDisplayList(D_801D9E88++, D_01003B70_3D440);
+//         gSPDisplayList(D_801D9E88++, D_01003998_3D268);
 //
-//         gSPDisplayList(D_801D9E90++, D_01003998);
+//         gSPDisplayList(D_801D9E90++, D_01003998_3D268);
 //         gDPSetColorDither(D_801D9E90++, G_CD_NOISE);
 //         gDPSetAlphaDither(D_801D9E90++, G_AD_DISABLE);
 //
@@ -281,8 +281,8 @@
 //             D_803C0420[0] = D_803C0420[0] & 0x7F;
 //         }
 //         if (D_803F66A7 != 0) {
-//             func_803800F0_7917A0((u8)D_803F2D70, &D_803C0420);
-//             func_8031B174_72C824((u8)D_803F2D70, D_803F2DA3);
+//             load_data_section((u8)D_803F2D70);
+//             func_8031B174_72C824((u8)D_803F2D70, D_803F2DA3); // load_texture_bank
 //             func_80352310_7639C0();
 //             D_803F66A7 = (u8)0;
 //             D_803F66AD = (u8)0;
@@ -297,35 +297,25 @@
 //             D_8015517C = 1.0f;
 //             D_801546D8 = (u16)0x800;
 //         }
-//         temp_v0_12 = D_803C0426;
-//         phi_a1_3 = &D_803C0426;
-//         if (temp_v0_12 != 0) {
-//             phi_v0_3 = temp_v0_12;
-//             if (temp_v0_12 == 2) {
+//         if (D_803C0426 != 0) {
+//             if (D_803C0426 == 2) {
 //                 func_80133738();
-//                 phi_v0_3 = D_803C0426;
 //             }
-//             if (phi_v0_3 == 1) {
-//                 phi_a1_2 = &D_803C0426;
+//             if (D_803C0426 == 1) {
 //                 if (D_803C042A == 0) {
 //                     func_802F07D0_701E80();
 //                     func_802F07E8_701E98(3);
-//                     phi_v0_4 = D_803C042A;
-//                     phi_a1_2 = &D_803C0426;
 //                 }
 //                 if (D_803C042A == 1) {
-//                     *phi_a1_2 = (u16)0xD;
+//                     D_803C0426 = (u16)0xD;
 //                 }
 //                 D_8028645C = (u16)0;
-//                 *phi_a1_2 = (s16) (*phi_a1_2 + 1);
-//                 phi_a1_3 = phi_a1_2;
+//                 D_803C0426 += 1;
 //             } else {
-//                 D_803C0426 = (s16) (phi_v0_3 + 1);
-//                 phi_a1_3 = &D_803C0426;
-//                 if ((s32) D_803C0426 >= 0x11) {
+//                 D_803C0426 += 1;
+//                 if ((s32) D_803C0426 >= 17) {
 //                     D_80204284 = (u16)3;
 //                     D_80152E90 = (u8)1;
-//                     phi_a1_3 = &D_803C0426;
 //                 }
 //             }
 //         }
