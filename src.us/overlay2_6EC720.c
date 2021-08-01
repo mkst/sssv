@@ -91,13 +91,14 @@ void func_802DB5C0_6ECC70(s16 arg0, s16 arg1, s16 arg2, u16 arg3) {
     D_80203FE0[0].unk4 = ((D_80203FE0[0].unk4 * (32 - arg3)) + (arg3 * arg2)) >> 5;
 }
 
+
 void func_802DB670_6ECD20(u8 *arg0, u8 *arg1, s16 *arg2, struct077 *arg3) {
     if (D_803F2ECC < 31) {
         func_802DB5C0_6ECC70(arg3->unk0, arg3->unk2, arg3->unk4, D_803F2ECC);
         arg3++; // increment 6 bytes
         while (*arg0 != *arg1) {
             func_802DB070_6EC720(*arg0++, *arg1++, arg3->unk0, arg3->unk2, *arg2++, D_803F2ECC);
-            ((struct076*)arg3)++; // increment 4 bytes
+            arg3 = ((struct076*)arg3) + 1; // increment 4 bytes
         }
     } else {
         D_80203FE0[0].unk0 = arg3->unk0;
@@ -106,7 +107,7 @@ void func_802DB670_6ECD20(u8 *arg0, u8 *arg1, s16 *arg2, struct077 *arg3) {
         arg3++; // increment 6 bytes
         while (*arg0 != *arg1) {
             func_802DB494_6ECB44(*arg0++, *arg1++, arg3->unk0, arg3->unk2, *arg2++);
-            ((struct076*)arg3)++; // increment 4 bytes
+            arg3 = ((struct076*)arg3) + 1; // increment 4 bytes
         }
     }
 }

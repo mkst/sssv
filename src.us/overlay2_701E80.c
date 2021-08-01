@@ -71,7 +71,7 @@ void func_802F13B8_702A68(void) {
 
         gSPPerspNormalize(D_801D9E7C++, (u16)D_803E1B10[7]);
 
-        func_80129300(&D_801D9E7C, D_80204278);
+        load_segments(&D_801D9E7C, D_80204278);
         func_80380490_791B40(&D_801D9E7C, D_80204278);
 
         gSPViewport(D_801D9E7C++, &D_803A50C0_7B6770);

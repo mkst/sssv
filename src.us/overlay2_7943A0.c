@@ -61,10 +61,10 @@
 //         }
 //     }
 //     if (D_803D553A == 8) {
-//         play_sound_effect_at_location(9, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//         play_sound_effect_at_location(SFX_UNKNOWN_9, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //     }
 //     if (D_803D553A == 9) {
-//         play_sound_effect_at_location(10, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//         play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //     }
 //     if (D_803D5530->unk162 == 3) {
 //         if (D_803D5538 != 0) {
@@ -96,7 +96,7 @@
 //                             } else {
 //                                 D_803D552C->unk308 -= 25;
 //                             }
-//                             play_sound_effect_at_location(0x20, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//                             play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //                         }
 //                     }
 //                 }

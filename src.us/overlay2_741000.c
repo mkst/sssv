@@ -3,108 +3,116 @@
 
 void func_8032FF94_741644(u8);
 void func_80332444_743AF4(u8);
-void func_80334470_745B20(u8, u8, u8, u8);
-void func_8033641C_747ACC(u8, f32, u8, u8);
+void func_80334470_745B20(u8, u8);
+void func_8033641C_747ACC(u8, u8);
 void func_803378BC_748F6C(u8);
 void func_80337ECC_74957C(u8);
 void func_80338E1C_74A4CC(u8);
 void func_803391D0_74A880(u8);
 void func_80339238_74A8E8(u8);
 void func_803392A0_74A950(u8);
-void func_803394E4_74AB94(u8, u8, u8, u8);
-void func_80339B84_74B234(u8, f32, u8, u8);
+void func_803394E4_74AB94(u8, u8);
+void func_80339B84_74B234(u8, f32);
+void func_8033AAC8_74C178(u8);
+void func_8033B118_74C7C8(u8);
+void func_8033B594_74CC44(u8);
+void func_8033B9B8_74D068(u8);
+void func_8033C054_74D704(u8);
+void func_8033C320_74D9D0(u8);
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032F950_741000.s")
-// uses jump table
+
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032FD0C_7413BC.s")
-// miles away
-// s16 func_8032FD0C_7413BC(u8 arg0, u8 arg1) {
+// very close, a2/a3 mixup
+// void func_8032FD0C_7413BC(u8 arg0, u8 arg1) {
 //
 //     func_80342550_753C00(&D_803F28E0[arg0]); // arg0?
 //
-//
 //     switch (D_803F28E0[arg0].unk0) {
-//         case 0:
-//             func_80332444_743AF4(arg0);
-//             break;
-//         case 1:
+//     case 0:
+//         func_80332444_743AF4(arg0);
+//         break;
+//     case 1:
 //         func_8032FF94_741644(arg0);
 //         break;
-//         case 2:
+//     case 2:
 //         func_803378BC_748F6C(arg0);
 //         break;
-//         case 3:
+//     case 3:
 //         func_80337ECC_74957C(arg0);
 //         break;
-//         case 4:
+//     case 4:
 //         func_80338E1C_74A4CC(arg0);
 //         break;
-//         case 5:
+//     case 5:
 //         func_803391D0_74A880(arg0);
 //         break;
-//         case 6:
+//     case 6:
 //         func_80339238_74A8E8(arg0);
 //         break;
-//         case 7:
+//     case 7:
 //         func_803392A0_74A950(arg0);
 //         break;
-//         case 8:
-//         func_803394E4_74AB94(arg0, arg1, arg1, arg0);
+//     case 8:
+//         func_803394E4_74AB94(arg0, arg1);
 //         break;
-//         case 9:
-//         func_80334470_745B20(arg0, arg1, arg1, arg0);
+//     case 9:
+//         func_80334470_745B20(arg0, arg1);
 //         break;
-//         case 10:
-//         func_8033641C_747ACC(arg0, 0, arg1, arg0);
+//     case 10:
+//         func_8033641C_747ACC(arg0, 0);
 //         break;
-//         case 11:
-//         func_80339B84_74B234(arg0, 0, arg1, arg0);
+//     case 11:
+//         func_80339B84_74B234(arg1, 0.0f);
 //         break;
-//         case 12:
-//         func_80339B84_74B234(arg0, 128.0f, arg1, arg0);
+//     case 12:
+//         func_80339B84_74B234(arg1, 128.0f);
 //         break;
-//         case 13:
-//         func_80339B84_74B234(arg0, 64.0f, arg1, arg0);
+//     case 13:
+//         func_80339B84_74B234(arg1, 64.0f);
 //         break;
-//         case 14:
-//         func_80339B84_74B234(arg0, 192.0f, arg1, arg0);
+//     case 14:
+//         func_80339B84_74B234(arg1, 192.0f);
 //         break;
-//         case 15:
-//         func_80339B84_74B234(arg0, 32.0f, arg1, arg0);
+//     case 15:
+//         func_80339B84_74B234(arg1, 32.0f);
 //         break;
-//         case 16:
-//         func_80339B84_74B234(arg0, 96.0f, arg1, arg0);
+//     case 16:
+//         func_80339B84_74B234(arg1, 96.0f);
 //         break;
-//         case 17:
-//         func_80339B84_74B234(arg0, 160.0f, arg1, arg0);
+//     case 17:
+//         func_80339B84_74B234(arg1, 160.0f);
 //         break;
-//         case 18:
-//         func_80339B84_74B234(arg0, 224.0f, arg1, arg0);
+//     case 18:
+//         func_80339B84_74B234(arg1, 224.0f);
 //         break;
-//         case 19:
-//         func_80339308_74A9B8(arg0);
+//     case 19:
+//         func_80339308_74A9B8(arg1);
 //         break;
-//         case 20:
-//         func_8033AAC8_74C178(arg0);
+//     case 20:
+//         func_8033AAC8_74C178(arg1);
 //         break;
-//         case 21:
-//         func_8033B118_74C7C8(arg0);
+//     case 21:
+//         func_8033B118_74C7C8(arg1);
 //         break;
-//         case 22:
-//         func_8033B440_74CAF0(arg0);
+//     case 22:
+//         func_8033B440_74CAF0(arg1);
 //         break;
-//         case 23:
-//         func_8033C320_74D9D0(arg0);
+//     case 23:
+//         func_8033C320_74D9D0(arg1);
 //         break;
-//         case 24:
-//         case 51:
-//         func_8033641C_747ACC(arg0, 1, arg1, arg0);
+//     case 24:
+//         func_8033641C_747ACC(arg1, 1);
 //         break;
-//         case 25:
-//         func_8033B594_74CC44(arg0);
+//     case 30:
+//         func_8033B594_74CC44(arg1);
 //         break;
-//         case 26:
-//         func_8033C054_74D704(arg0);
+//     case 31:
+//         func_8033B9B8_74D068(arg1);
+//         break;
+//     case 228:
+//         func_8033C054_74D704(arg1);
 //         break;
 //     }
 // }
@@ -176,6 +184,42 @@ void func_80339308_74A9B8(u8 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80339B84_74B234.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033AAC8_74C178.s")
+// 80% of the way there...
+// void func_8033AAC8_74C178(u8 arg0) {
+//     f32 temp_f0;
+//     f32 temp_f14;
+//     f32 phi_f2;
+//     s32 temp_a2;
+//     u8 temp_a3;
+//
+//     D_803F2AD0 = &D_803F28E0[arg0];
+//     temp_a3 = *D_803F2AD0->unk6C;
+//     temp_a2 = temp_a3 << 5;
+//     if (D_803F2AD0->unk6 < (temp_a2 - 65)) {
+//         D_803F2AD0->unk6 += 1;
+//     } else {
+//         D_803F2AC5 = 1;
+//     }
+//     if (temp_a2 == (D_803F2AD0->unk6 + 104)) {
+//         D_803F2C6D = 0;
+//         D_803F2C6C = 0;
+//         D_803F2AD0->unk0 = 24;
+//     }
+//     func_8033AC68_74C318(&D_803F2AD0->unk74, &D_803F2AD0->unk78, &D_803F2AD0->unk7C, &D_803F2AD0->unk6C, D_803F2AD0->unk6);
+//     func_8033AC68_74C318(&D_803F2AD0->unk8, &D_803F2AD0->unkC, &D_803F2AD0->unk10, &D_803F2AD0->unk6C, D_803F2AD0->unk6 + 31);
+//     D_803F2AD0->unk8C = 0.0f;
+//     D_803F2AD0->unk90 = 0.0f;
+//     D_803F2AD0->unk94 = 1.0f;
+//     temp_f14 = D_803F2AD0->unk8 - D_803F2AD0->unk74;
+//     temp_f0 = D_803F2AD0->unkC - D_803F2AD0->unk78;
+//     if ((temp_f0 == 0.0) && (temp_f14 == 0.0)) {
+//         phi_f2 = 0.0f;
+//     } else {
+//         phi_f2 = func_801286B8(-temp_f0, temp_f14);
+//     }
+//     D_803F2AD0->unk24 = phi_f2;
+//     D_803F2AD0->unk20 = phi_f2;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033AC68_74C318.s")
 
@@ -207,13 +251,14 @@ void func_8033B440_74CAF0(u8 arg0) {
     D_803F2AD0->unk20 = phi_f2;
 }
 
+// "ca_UpdateCamera_Watch_TV.\n"
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033B594_74CC44.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033B9B8_74D068.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033C054_74D704.s")
 
-void func_8033C320_74D9D0(s32 arg0) {
+void func_8033C320_74D9D0(u8 arg0) {
     D_803F2AC5 = 1;
 }
 
@@ -343,7 +388,19 @@ void func_803421E0_753890(s16 arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8034220C_7538BC.s")
+void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
+    s16 tmp = ((ABS(arg1 - (s16)D_803F2C44) +
+                ABS(arg2 - (s16)D_803F2C48) +
+                ABS(arg3 - (s16)D_803F2C4C)) >> 6);
+    tmp -= 5;
+
+    if (tmp > 0) {
+        arg0 -= tmp >> 1;
+    }
+    if (arg0 > 0) {
+        func_803421E0_753890(arg0);
+    }
+}
 
 void func_80342318_7539C8(s32 arg0, s32 arg1, s32 arg2) {
     func_803423C4_753A74(0, arg0 / 65536.0, arg1 / 65536.0, arg2 / 65536.0);
@@ -386,15 +443,49 @@ void func_80343A50_755100(void) {
     }
 }
 
-// uses jump table
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80343AE0_755190.s")
+void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE) {
+    s32 pad;
+    D_803F2AA4 = D_803F2AA5 = 0;
+
+    if (arg1 == 0x7FFF) {
+        arg1 = 0;
+    }
+    if (D_803F2C22 != D_803F2C20) {
+        switch (arg0) {
+        case 0:
+            break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+            memset_bytes(&D_803F2AF8[D_803F2C22], 0, 32);
+            D_803F2AF8[D_803F2C22].unk18 = arg0;
+            D_803F2AF8[D_803F2C22].unk8 = arg1;
+            D_803F2AF8[D_803F2C22].unkA = arg2;
+            D_803F2AF8[D_803F2C22].unk0 = arg3;
+            D_803F2AF8[D_803F2C22].unkC = arg4;
+            D_803F2AF8[D_803F2C22].unkE = arg5;
+            D_803F2AF8[D_803F2C22].unk10 = arg6;
+            D_803F2AF8[D_803F2C22].unk14 = arg7;
+            D_803F2AF8[D_803F2C22].unk15 = arg8;
+            D_803F2AF8[D_803F2C22].unk16 = arg9;
+            D_803F2AF8[D_803F2C22].unk12 = argA;
+            D_803F2AF8[D_803F2C22].unk17 = argB;
+            D_803F2AF8[D_803F2C22].unk19 = argC;
+            D_803F2AF8[D_803F2C22].unk1A = argD;
+            D_803F2AF8[D_803F2C22].unk1B = argE;
+            D_803F2C22 = (D_803F2C22 + 1) % 8;
+            break;
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80343C44_7552F4.s")
 // JUSTREG: perhaps not quite this?
 // void func_80343C44_7552F4(s16 arg0, s16 *arg1, s16 *arg2) {
-//     s16 *tmp = D_803A7B3C[arg0];
-//     *arg1 = tmp[0];
-//     *arg2 = tmp[1];
+//     *arg1 = D_803A7B3C[arg0][0];
+//     *arg2 = D_803A7B3C[arg0][1];
 // }
 
 void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
@@ -413,8 +504,9 @@ void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
     }
 }
 
-void func_80343D44_7553F4(u8 *arg0, s8 arg1) {
-    func_80343AE0_755190(5, (s16) ((*arg0 << 5) - 136), 40, arg0, 0, 0, 0, 0, 0, 0, 44, arg1, -2, 0, 1);
+void func_80343D44_7553F4(struct071 *arg0, s8 arg1) {
+    // FIXME: arg0->unk0 ?
+    func_80343AE0_755190(5, ((*(u8*)arg0) * 32) - 136, 40, arg0, 0, 0, 0, 0, 0, 0, 44, arg1, -2, 0, 1);
 }
 
 void func_80343DC0_755470(void) {
@@ -512,7 +604,7 @@ s32 func_80344158_755808(s16 arg0) {
     }
 }
 
-void func_8034419C_75584C(s32 arg0) {
+void func_8034419C_75584C(struct071 *arg0) {
     func_80343AE0_755190(4, 0, 30, arg0, 0, 0, 0, 0, 0, 0, 228, 1, 0, 0, 0);
 }
 

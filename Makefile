@@ -60,6 +60,7 @@ LD       = $(CROSS)ld
 OBJDUMP  = $(CROSS)objdump
 OBJCOPY  = $(CROSS)objcopy
 PYTHON   = python3
+GCC      = gcc
 
 GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
@@ -80,18 +81,31 @@ GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/nu
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
 
+DEFINES := -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32 -DSSSV
+
+ifeq ($(VERSION),us)
+DEFINES += -DVERSION_US
+endif
+ifeq ($(VERSION),eu)
+DEFINES += -DVERSION_EU
+endif
+
+VERIFY = verify
+
+ifeq ($(NON_MATCHING),1)
+DEFINES += -DNON_MATCHING
+VERIFY = no_verify
+endif
+
 CFLAGS := -G 0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
-CFLAGS += -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32 -DSSSV
+CFLAGS += $(DEFINES)
 # ignore compiler warnings about anonymous structs
 CFLAGS += -woff 649,838
 CFLAGS += $(INCLUDE_CFLAGS)
 
-ifeq ($(VERSION),us)
-CFLAGS += -DVERSION_US
-endif
-ifeq ($(VERSION),eu)
-CFLAGS += -DVERSION_EU
-endif
+CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
+CC_CHECK := $(GCC) -fno-builtin -fsyntax-only -fsigned-char -std=gnu90 -m32 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
+
 
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(VERSION)
 LD_SCRIPT  = $(BASENAME).ld
@@ -103,7 +117,7 @@ ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 
 ### Optimisation Overrides
 $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
-# $(BUILD_DIR)/$(SRC_DIR)/main_4790.c.o: OPT_FLAGS := -O2
+$(BUILD_DIR)/$(SRC_DIR)/core/string.c.o: OPT_FLAGS := -O2
 
 # libultra
 $(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.c.o: OPT_FLAGS := -O1
@@ -115,11 +129,12 @@ $(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: MIPSISET := -mips3 -o32
 $(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: OPT_FLAGS := -O1
 
+
 ### Targets
 
 default: all
 
-all: dirs $(TARGET).z64 verify
+all: dirs $(VERIFY)
 
 dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
@@ -131,7 +146,10 @@ check: .baserom.$(VERSION).ok
 verify: $(TARGET).z64
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $(TARGET).z64" | sha1sum --check
 
-progress: verify progress.csv
+no_verify: $(TARGET).z64
+	@echo "Skipping SHA1SUM check!"
+
+progress: $(VERIFY) progress.csv
 
 extract: check tools
 	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml
@@ -160,6 +178,7 @@ $(TARGET).elf: $(O_FILES) $(LANG_RNC_O_FILES) $(RGBA16_RNC_O_FILES) $(RGBA16_O_F
 
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
+	$(CC_CHECK) $<
 	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
 	$(CC) -c -32 $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
 	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< --post-process $@ \
@@ -168,6 +187,7 @@ endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
+	$(CC_CHECK) $<
 	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
 
 # force mips2 bit

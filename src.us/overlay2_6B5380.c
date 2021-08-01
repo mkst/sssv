@@ -534,24 +534,22 @@ void func_802A623C_6B78EC(s16 arg0, s16 arg1) {
     D_803D5530->unk162 = 2;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A628C_6B793C.s")
-// NON-MATCHING: (almost) JUSTREG
-// void func_802A628C_6B793C(void) {
-//     s32 xVel;
-//     s32 zVel;
-//     s16 tmp;
-//
-//     func_802E4A78_6F6128(D_803D552C->unk308);
-//     tmp = D_803F28E0[D_803F2A98].unk20;
-//     xVel = (D_80152C78[(tmp + 64) & 0xff] >> 7) * D_801E9EB4;
-//     zVel = (D_80152C78[tmp & 0xff] >> 7) * -D_801E9EB4;
-//     D_803D5530->xVelocity.w += xVel * 16;
-//     D_803D5530->zVelocity.w += zVel * 16;
-//     D_803D552C->unk368 = 0;
-//     D_803D5546 = 50;
-//     func_802B2EA8_6C4558();
-//     D_803D5530->unk162 = 3;
-// }
+void func_802A628C_6B793C(void) {
+    s32 xVel;
+    s32 zVel;
+    s16 tmp;
+
+    func_802E4A78_6F6128(D_803D552C->unk308);
+    tmp = D_803F28E0[D_803F2A98].unk20;
+    xVel = ((D_80152C78[(tmp + 64) & 0xff] >> 7) * D_801E9EB4) * 16;
+    zVel = ((D_80152C78[tmp & 0xff] >> 7) * -D_801E9EB4) * 16;
+    D_803D5530->xVelocity.w += xVel;
+    D_803D5530->zVelocity.w += zVel;
+    D_803D552C->unk368 = 0;
+    D_803D5546 = 50;
+    func_802B2EA8_6C4558();
+    D_803D5530->unk162 = 3;
+}
 
 void func_802A6390_6B7A40(void) {
     if (D_803D552C->unk360 == 0) {
@@ -570,48 +568,32 @@ void func_802A63C0_6B7A70(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A6400_6B7AB0.s")
-// well this looks grim
-// u16 func_802A6400_6B7AB0(void) {
-//     u16 temp_v0;
-//     u32 temp_t6;
-//     u32 temp_t7;
-//     u32 temp_t8;
-//
-//     temp_v0 = D_803D5530->state;
-//     temp_t6 = temp_v0 - 0xB5;
-//     if (temp_v0 >= 0x6B) {
-//         if (temp_t6 < 5U) {
-//             goto **(&jtbl803BADC0 + (temp_t6 * 4)); // switch 1
-// block_3:
-//             temp_t8 = temp_v0 - 2;
-//             if (temp_v0 >= 7) {
-//                 temp_t7 = temp_v0 - 0x65;
-//                 if (temp_t7 < 6U) {
-//                     goto **(&jtbl803BADD4 + (temp_t7 * 4)); // switch 2
-// block_6:
-//                     if (temp_t8 < 5U) {
-//                         goto **(&jtbl803BADEC + (temp_t8 * 4)); // switch 3
-//                     default: // switch 3
-//                     case 0: // switch 3
-//                         *temp_v1 = (u16)5U;
-//                         return temp_v0;
-//                     default: // switch 2
-//                     case 0: // switch 2
-//                         *temp_v1 = (u16)0x67U;
-//                         return temp_v0;
-//                     default: // switch 1
-//                     case 0: // switch 1
-//                         *temp_v1 = (u16)0xB8U;
-//                     }
-//                 }
-//             } else {
-//                 goto block_6;
-//             }
-//         }
-//     } else {
-//         goto block_3;
+// should match, need to decomp functions in between due to rodata
+// void func_802A6400_6B7AB0(void) {
+//     switch (D_803D5530->state) {
+//     case 2:
+//     case 3:
+//     case 4:
+//     case 5:
+//     case 6:
+//         D_803D5530->state = 5;
+//         break;
+//     case 0x65:
+//     case 0x66:
+//     case 0x67:
+//     case 0x68:
+//     case 0x69:
+//     case 0x6A:
+//         D_803D5530->state = 0x67;
+//         break;
+//     case 0xB5:
+//     case 0xB6:
+//     case 0xB7:
+//     case 0xB8:
+//     case 0xB9:
+//         D_803D5530->state = 0xB8;
+//         break;
 //     }
-//     return temp_v0;
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A64B0_6B7B60.s")
@@ -622,7 +604,26 @@ void func_802A63C0_6B7A70(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A935C_6BAA0C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA0A0_6BB750.s")
+void func_802AA0A0_6BB750(void) {
+    if ((D_803D552C->unk366 != 4) &&
+        ((D_803D5530->state == 2) || (D_803D5530->state == 0x15) || (D_803D5530->state == 0x29) || (D_803D5530->state == 0x79)) &&
+        ((func_8012826C() & 0x1F) == 0) && (D_803F6450 != 0)) {
+        func_802AA5C0_6BBC70();
+    }
+    if ((D_803D5530->unk4B >= 0x21) && (D_803D5530->unk4C.unk26 == 0)) {
+        D_803D5530->health = MAX(0, D_803D5530->health - 1);
+
+        func_80349280_75A930(D_803D5530, 1);
+        if (D_803D5530->unk4B >= 0x31) {
+            D_803D5530->health = MAX(0, D_803D5530->health - 1);
+            func_80349280_75A930(D_803D5530, 1);
+        }
+        if (D_803D5530->unk4B >= 0x3D) {
+            D_803D5530->health = 0;
+            func_80349280_75A930(D_803D5530, 40);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA1EC_6BB89C.s")
 
@@ -632,8 +633,77 @@ void func_802AA424_6BBAD4(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA444_6BBAF4.s")
 
-// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA5C0_6BBC70.s")
+// should match, just rodata...
+// void func_802AA5C0_6BBC70(void) {
+//     u8 tmp;
+//
+//     tmp = (func_8012826C() >> 8) & 0xF;
+//     switch (tmp) {
+//     case 0:
+//         if ((D_803D5528->unk380 == 0) && (D_803D5528->unk394 == 0)) {
+//             D_803D5528->unk380 = 1;
+//             D_803D5528->unk382 = 0;
+//         }
+//         break;
+//     case 1:
+//         if ((D_803D5528->unk394 == 0) && (D_803D5528->unk380 == 0)) {
+//             D_803D5528->unk394 = 1;
+//             D_803D5528->unk396 = 0;
+//         }
+//         break;
+//     case 2:
+//         if ((D_803D5528->unk3A8 == 0) && (D_803D5528->unk3BC == 0)) {
+//             D_803D5528->unk3A8 = 1;
+//             D_803D5528->unk3AA = 0;
+//         }
+//         break;
+//     case 3:
+//         if ((D_803D5528->unk3BC == 0) && (D_803D5528->unk3A8 == 0)) {
+//             D_803D5528->unk3BC = 1;
+//             D_803D5528->unk3BE = 0;
+//         }
+//         break;
+//     case 4:
+//         if ((D_803D5528->unk380 == 0) && (D_803D5528->unk394 == 0)) {
+//             D_803D5528->unk380 = 11;
+//             D_803D5528->unk382 = 0;
+//         }
+//         break;
+//     case 5:
+//         if ((D_803D5528->unk394 == 0) && (D_803D5528->unk380 == 0)) {
+//             D_803D5528->unk394 = 11;
+//             D_803D5528->unk396 = 0;
+//         }
+//         break;
+//     case 6:
+//         if ((D_803D5528->unk3A8 == 0) && (D_803D5528->unk3BC == 0)) {
+//             D_803D5528->unk3A8 = 11;
+//             D_803D5528->unk3AA = 0;
+//         }
+//         break;
+//     case 7:
+//         if ((D_803D5528->unk3BC == 0) && (D_803D5528->unk3A8 == 0)) {
+//             D_803D5528->unk3BC = 11;
+//             D_803D5528->unk3BE = 0;
+//         }
+//         break;
+//     case 8:
+//     case 9:
+//         if ((D_803D5528->unk3C0 == 0) && (D_803D5524->unk9C != RACING_DOG) && (D_803D552C->unk318 == 0)) {
+//             D_803D5528->unk3C0 = 1;
+//             D_803D5528->unk3C2 = 0;
+//         }
+//         break;
+//     case 10:
+//     case 11:
+//         if ((D_803D5528->unk3C0 == 0) && (D_803D552C->unk318 == 0)) {
+//             D_803D5528->unk3C0 = 5;
+//             D_803D5528->unk3C2 = 0;
+//         }
+//         break;
+//     }
+// }
 
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA85C_6BBF0C.s")
@@ -957,8 +1027,62 @@ void func_802B3540_6C4BF0(void) {
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B356C_6C4C1C.s")
 
-// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B38FC_6C4FAC.s")
+// should match, need to check rodata
+// void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
+//     s16 phi_a2;
+//     s16 temp_v0;
+//
+//     if ((arg0->unk4C.unk26 != 0) || (arg0->unk4A != 0)) {
+//         arg1 = 0;
+//     }
+//     if (arg0->unk16C->unk8B == 0xFF) {
+//         arg1 = 0;
+//     }
+//     phi_a2 = arg1;
+//     if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+//         temp_v0 = arg0->unk16C->unkE6 - arg2;
+//         switch (temp_v0) {
+//         case 2:
+//             phi_a2 = (arg1 * 0xC) >> 4;
+//             break;
+//         case 3:
+//             phi_a2 = (arg1 * 9) >> 4;
+//             break;
+//         case 4:
+//             phi_a2 = (arg1 * 6) >> 4;
+//             break;
+//         case 5:
+//         case 6:
+//         case 7:
+//             phi_a2 = (arg1 * 4) >> 4;
+//             break;
+//         }
+//     }
+//
+//     if ((arg0->unk16C->unk80.bit) && (arg3 != 0) && ((arg0->health - phi_a2) > 0)) {
+//         if (phi_a2 > 0x1E0) {
+//             func_802DBA58_6ED108(0xE, arg0);
+//             func_8034A684_75BD34();
+//         } else if (phi_a2 > 0xC0) {
+//             func_802DBA58_6ED108(0xE, arg0);
+//             func_8034A914_75BFC4();
+//         } else if (phi_a2 >= 0x40) {
+//             func_802DBA58_6ED108(0xD, arg0);
+//             func_8034ABA4_75C254();
+//         }
+//     }
+//
+//     if ((arg1 != 0) && (phi_a2 <= 0)) {
+//         phi_a2 = 1;
+//     }
+//
+//     if (phi_a2 >= 0x23) {
+//         phi_a2 = 0x23;
+//     }
+//     func_80349280_75A930(arg0, phi_a2);
+//     arg0->health = MAX(0, arg0->health - phi_a2);
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3B48_6C51F8.s")
 // JUSTREG - also need to confirm rodata
@@ -978,16 +1102,15 @@ void func_802B3540_6C4BF0(void) {
 //         break;
 //     case 3:
 //         // why does regalloc break down here?
-//         *arg2 = *arg2 * 8 >> 4; // & 0xFFFF) & 0xFFFF;
+//         *arg2 = ((*arg2 * 8 >> 4) & 0xFFFF) & 0xFFFF;
 //         break;
 //     case 4:
 //         *arg2 = *arg2 * 5 >> 4;
+//         break;
 //     }
 //
-//
 //     if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
-//         tmp  = (s8)arg0->unk16C->unkE6 - (s8)arg1->unk16C->unkE6;
-//
+//         tmp  = arg0->unk16C->unkE6 - arg1->unk16C->unkE6;
 //         switch (tmp) {
 //         case 2:
 //             *arg2 = *arg2 >> 1;

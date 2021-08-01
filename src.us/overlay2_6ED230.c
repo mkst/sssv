@@ -2,19 +2,96 @@
 #include "common.h"
 
 
-// sfx lookup table
-s16 D_803A6470_7B7B20[88] = {
-    255, 255, 255, 255, 183, 183, 255, 255,
-    255, 255, 255, 255, 255,  36,  37, 255,
-    255,  66,  66,  99,  66,  66,  36,  36,
-     36, 255, 255, 255, 255, 255, 255, 183,
-    255, 107, 107, 107, 107, 255, 255, 255,
-    255, 255, 255,  99, 255,  99, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255,
-    255, 183, 183, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255, 255,
-    255, 255, 255, 255, 255, 255, 255,   0
+// hurt animal noises
+s16 D_803A6470_7B7B20[88] = { // FIXME: should be 68
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_DOG_HURT,       // 4 RACING_DOG
+    SFX_DOG_HURT,       // 5 FLYING_DOG
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_BEAR_HURT,      // 13 KING_RAT!?
+    SFX_PARROT_HURT,    // 14 PARROT
+    SFX_NONE,
+    SFX_NONE,
+    SFX_MOUSE_HURT,     // 17 HARD_MOUSE
+    SFX_MOUSE_HURT,     // 18 RACING_MOUSE
+    SFX_BIRD_HURT,      // 19 VULTURE
+    SFX_MOUSE_HURT,     // 20 MOUSE2
+    SFX_MOUSE_HURT,     // 21 HELI_MOUSE
+    SFX_BEAR_HURT,      // 22 BEAR
+    SFX_BEAR_HURT,      // 23 CRAZY_BEAR
+    SFX_BEAR_HURT,      // 24 MYSTERY_BEAR
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_DOG_HURT,       // 31 DOG
+    SFX_NONE,
+    SFX_SHEEP_HURT,     // 33 SHEEP
+    SFX_SHEEP_HURT,     // 34 RAM
+    SFX_SHEEP_HURT,     // 35 SPRINGY_THINGY
+    SFX_SHEEP_HURT,     // 36 SPRINGY_RAM
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_BIRD_HURT,      // 43 CROW
+    SFX_NONE,
+    SFX_BIRD_HURT,      // 45 VULTURE2
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_DOG_HURT,       // 57 HYENA
+    SFX_DOG_HURT,       // 58 HYENA_BIKER
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    SFX_NONE,
+    0,
 };
 
 s16 D_803A6520_7B7BD0[88] = {

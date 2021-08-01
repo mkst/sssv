@@ -150,9 +150,9 @@ void func_8029D89C_6AEF4C(void) {
 //     s32 loaded_texture;
 //     s16 i;
 //
-//     gSPDisplayList(D_801D9E90++, D_010049A0);
-//     gSPSetGeometryMode(D_801D9E90++, D_803C0654);
-//     gSPDisplayList(D_801D9E90++, D_01004510);
+//     gSPDisplayList(D_801D9E90++, &D_010049A0_3E270);
+//     gSPSetGeometryMode(D_801D9E90++, D_803C0650_7D1D00);
+//     gSPDisplayList(D_801D9E90++, &D_01004510);
 //
 //     gDPSetRenderMode(D_801D9E90++, G_RM_PASS, G_RM_ZB_XLU_SURF2);
 //     gDPSetCombineLERP(D_801D9E90++, SHADE, 0, COMBINED, 0, 0, 0, 0, PRIMITIVE, TEXEL1, TEXEL0, LOD_FRACTION, TEXEL0, 0, 0, 0, PRIMITIVE);
@@ -214,7 +214,26 @@ void func_8029E3CC_6AFA7C(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029EF20_6B05D0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029F218_6B08C8.s")
+void func_8029F218_6B08C8(void) {
+
+    gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
+    gSPSetGeometryMode(D_801D9E8C++, D_803C0650_7D1D00);
+    gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+    gSPDisplayList(D_801D9E8C++, D_01004510);
+
+    if (D_803D3448.unk1 != -1) {
+        func_8029EF20_6B05D0(&D_803D3448, &D_801D9E8C);
+    }
+    if (D_803D3A20.unk1 != -1) {
+        gDPPipeSync(D_801D9E8C++);
+        gSPTexture(D_801D9E8C++, 32768, 32768, 1, G_TX_RENDERTILE, G_ON);
+        gDPSetAlphaCompare(D_801D9E8C++, G_AC_THRESHOLD);
+        gDPSetBlendColor(D_801D9E8C++, 0x00, 0x00, 0x00, 0x00);
+        gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0 , 0x113078);
+        gDPSetCombineMode(D_801D9E8C++, G_CC_TRILERP, G_CC_MODULATEIDECALA);
+        func_8029EF20_6B05D0(&D_803D3A20, &D_801D9E8C);
+    }
+}
 
 void func_8029F3CC_6B0A7C(void) {
     s16 i;

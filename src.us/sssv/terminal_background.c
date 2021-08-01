@@ -85,43 +85,42 @@ void func_8038CF90_79E640(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D004_79E6B4.s")
-// a fair way away
+// NON_MATCHING: draw_glyph isnt quite right
 // void func_8038D004_79E6B4(Gfx **arg0, u16 arg1) {
-//     u8 spE4;
-//     u16 sp64[4];
-//     s16 temp_s1;
-//     s16 temp_s2;
-//     s32 temp_v0_2;
-//     u8 *temp_a0;
-//     u8 temp_t4;
-//     u16 phi_s1;
-//     u16 i;
+//     s16 text2[32]; // fixme
+//     u8 i;
+//     s8 spE4;
+//     s16 xPos;
+//     s16 yPos;
+//     u16 temp_v0_2;
 //     s16 phi_s0_2;
+//     u16 tmp;
+//     s16 sp64[60]; // fixme
+//     u8 tmp2;
 //
+//     tmp = 10;
 //
 //     load_default_display_list(arg0);
 //     select_font(0, 2, 0, 0);
 //
-//     set_menu_text_color(0, MIN(arg1 * 4, 80), 0, 0xFF);
+//     set_menu_text_color(0, MIN(arg1 * 4, 80), 0, 0xFF); // green-ish
 //
-//     // phi_s1 = 0;
 //     for (i = 0; i < 4; i++) {
 //         // "%s\n"
-//         sprintf(&spE4, &D_803BFFD4, D_803B6328[(rand() / 924) & 0xFF]);
-//         prepare_text(&spE4, &sp64);
-//         func_8012D374(arg0, &sp64, 6, i * 10, 13.0f, 9.0f, -1);
-//         // phi_s1 += 10;
+//         sprintf((char*)&spE4, D_803BFFD4, D_803B6328[(rand() / 924) & 0xFF]);
+//         prepare_text(&spE4, sp64);
+//         func_8012D374(arg0, sp64, 6, tmp, 13.0f, 9.0f, -1);
+//         tmp = tmp + 10;
 //     }
 //
 //     for (phi_s0_2 = 0; phi_s0_2 < 15; phi_s0_2++) {
-//         temp_v0_2 = func_8012826C();
-//         temp_t4 = D_803B6320[temp_v0_2 & 7];
-//         temp_s1 = (temp_v0_2 >> 3) & 0xF; //
-//         temp_s2 = (temp_v0_2 >> 8) & 3;   // bottom 3 bits?
-//         temp_a0 = &spE4;
-//         spE4 = temp_t4;
-//         prepare_text(temp_a0, &sp64);
-//         draw_glyph(arg0, &sp64, ((temp_s1 * 13) + 0xAF) , (temp_s2 * 8) + 10 , 13.0f, 9.0f);
+//         temp_v0_2 = func_8012826C(); // random number
+//         xPos = (temp_v0_2 >> 3) & 0xF; // bottom 7 bits
+//         yPos = (temp_v0_2 >> 8) & 3;   // bottom 2 bits
+//         temp_v0_2 = temp_v0_2 & 7;
+//         tmp2 = D_803B6320_7C79D0[temp_v0_2]; // take bottom 3 bits
+//         prepare_text(&tmp2, &sp64);
+//         draw_glyph(arg0, sp64, (xPos * 13) + 175, (yPos * 8) + 10, 13.0f, 9.0f);
 //     }
 //
 //     gSPEndDisplayList((*arg0)++);
@@ -172,10 +171,9 @@ void func_8038DA70_79F120(void) {
 //     s16 temp_a0;
 //     s16 temp_v0_2;
 //     s16 temp_v0_5;
-//     u16 temp_v0_6;
 //     s16 i;
 //
-//     func_80129300(&D_801D9E7C, D_80204278);
+//     load_segments(&D_801D9E7C, D_80204278);
 //     func_80380490_791B40(&D_801D9E7C, D_80204278);
 //
 //     gSPViewport(D_801D9E7C++, &D_80152EA8);
@@ -190,19 +188,19 @@ void func_8038DA70_79F120(void) {
 //         func_8013385C(1.0f, 0.0f, 20.0f);
 //         D_803F6470 = 0;
 //         D_803F646C = 0.0f;
-//         if (D_80291090.hasRumblePak.[0] != 0) { // Controller array
+//         if (D_80291090.hasRumblePak[0] != 0) { // Controller array
 //             func_80137168();
 //             func_8013724C(0);
 //         }
 //     }
-//     if (D_803F6470 < 0x64) {
+//     if (D_803F6470 < 100) {
 //         D_803F6470 += 1;
 //     }
 //     if ((D_803F6470 == 5) && (D_803F2AA2 == 3)) {
-//         play_sound_effect(0x87, 0, 0x5000, 1.0f, 0x40);
+//         play_sound_effect(SFX_UNKNOWN_135, 0, 0x5000, 1.0f, 0x40);
 //     }
 //     if (D_803B6314 < 2) {
-//         draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0xFF);
+//         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 0xFF);
 //         D_803B6314 += 1;
 //     }
 //     func_8032CD20_73E3D0(0x45, 0x84, 6144.0f * D_803F646C, 0, 1.0f);
@@ -213,20 +211,20 @@ void func_8038DA70_79F120(void) {
 //         D_803F646C += D_803C0168;
 //     }
 //     gScreenHeight = 240;
-//     D_803A6CC4 = (((f64) ((s32) D_80152C78[D_803F6472] >> 7) / 3200.0) + D_803C0170);
+//     D_803A6CC4 = (((f64) ((s32) D_80152C78[D_803F6472] >> 7) / 3200.0) + D_803C0170_7D1820);
 //     D_803A6CC8 = (((f64) ((s32) D_80152C78[D_803F6472] >> 7) / 15.0) + D_803C0178);
 //     D_803F6472 += 1;
 //
-//     D_80152EA8.unk0 = D_80203FD0 * 2;
-//     D_80152EA8.unk2 = gScreenHeight * 2;
-//     D_80152EA8.unk8 = D_80203FD0 * 2;
-//     D_80152EA8.unkA = gScreenHeight * 2;
+//     D_80152EA8.vp.vscale[0] = D_80203FD0 * 2;
+//     D_80152EA8.vp.vscale[1] = gScreenHeight * 2;
+//     D_80152EA8.vp.vtrans[0] = D_80203FD0 * 2;
+//     D_80152EA8.vp.vtrans[1] = gScreenHeight * 2;
 //
 //     func_8038CF90_79E640();
 //     if (D_803B6318 == 0) {
-//         draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0x4B);
+//         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 75);
 //     } else {
-//         draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0x64);
+//         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 100);
 //     }
 //
 //     switch (D_803B6318) {
@@ -237,7 +235,7 @@ void func_8038DA70_79F120(void) {
 //         func_8038D920_79EFD0(0xFF);
 //         func_8038DA70_79F120();
 //         D_803B6310 += 1;
-//         if (D_803B6310 >= 0x29) {
+//         if (D_803B6310 > 40) {
 //             D_803B631C = 1;
 //             D_803B6310 = 0;
 //             D_803B6318 = 1;
@@ -268,28 +266,25 @@ void func_8038DA70_79F120(void) {
 //         set_menu_text_color(0x80, 0xFF, 0, 0xFF);
 //         select_font(0, 2, 1, 0);
 //         func_8038DBE0_79F290(0xE, 0x10);
-//         temp_v0_6 = D_803B6310;
-//         D_803B6310 = (u16) (temp_v0_6 + 1);
-//         if ((s32) temp_v0_6 >= 0xFDE9) {
-//             D_803B6310 = 0xC8U;
+//         if (++D_803B6310 > 65000) {
+//             D_803B6310 = 200U;
 //         }
-//         if (((gControllerInput->button & 0x8000) != 0) || ((gControllerInput->button & 0x4000) != 0)) {
+//         if ((gControllerInput->button & A_BUTTON) || (gControllerInput->button & B_BUTTON)) {
 //             if (D_803B631C == 0) {
 //                 func_801337DC(0, 25.0f, 0, 20.0f);
 //                 D_803B6314 = 0;
 //                 D_803B631C = 1;
 //                 D_803B6310 = 0U;
 //                 D_803F2D10.unk0 = 0;
-//                 D_803F2C6D = 0;
-//                 D_803F2C6C = D_803F2C6D;
+//                 D_803F2C6C = D_803F2C6D = 0;
 //                 D_803B6318 = 0;
-//                 D_803F6460 = 0x64;
-//                 D_803D6110 = 0x12;
-//                 draw_rectangle(&D_801D9E7C, 0, 0, 0x140, 0xF0, 0, 0, 0, 0xFF);
+//                 D_803F6460 = 100;
+//                 D_803D6110 = 18;
+//                 draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 0xFF);
 //                 if (D_803F2AA2 == 4) {
 //                     D_803F2AA2 = 2;
 //                     D_803F6468 = 0;
-//                     D_803F2AA3 = 0x3C;
+//                     D_803F2AA3 = 60;
 //                 } else {
 //                     D_803F2AA2 = 0;
 //                 }
@@ -300,15 +295,14 @@ void func_8038DA70_79F120(void) {
 //         func_8038D920_79EFD0(0xFF);
 //         func_8038DA70_79F120();
 //         if (D_803B6310 == 1) {
-//             func_802F2EEC_70459C(0x50, 0x50, 0x50, 0xC8, 0xC8, 0xC8, 0xA);
+//             func_802F2EEC_70459C(80, 80, 80, 200, 200, 200, 10);
 //         }
 //         D_803B6310 += 1;
-//         if ((D_803B6310) == 0x28) {
+//         if ((D_803B6310) == 40) {
 //             D_803B6310 = 0;
 //             D_803F2AA2 = 0;
 //             D_803F2D10.unk0 = 0;
-//             D_803F2C6D = 0;
-//             D_803F2C6C = D_803F2C6D;
+//             D_803F2C6C = D_803F2C6D = 0;
 //             D_803B6318 = 0;
 //         }
 //         break;
@@ -379,7 +373,7 @@ void func_8038F5F8_7A0CA8(s32 arg0) {
             D_803F6468 = 0;
             D_803F2AA3 = 100;
             D_803F6460 = 100;
-            func_8032AC48_73C2F8(D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk9C);
+            set_species_as_encountered(D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk9C);
         }
     }
 }

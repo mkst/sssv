@@ -8,3 +8,15 @@ memcpy            = 0x80143830;
 strlen            = 0x8014385C;
 strchr            = 0x80143884;
 osInitialize      = 0x801378E0;
+
+osRecvMesg        = 0x80138010;
+osContStartReadData = 0x80138E50;
+osContGetReadData   = 0x80138EDC;
+osSendMesg        = 0x80139070;
+osRecvMesg        = 0x80138010;
+
+gControllerInput  = 0x802910F0;
+
+clear_framebuffer = 0x80129AD0;
+end_display_lists = 0x8012A4B0;
+init2             = 0x801355D0;

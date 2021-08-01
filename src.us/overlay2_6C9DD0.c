@@ -125,7 +125,7 @@ void func_802B8B1C_6CA1CC(void) {
     D_803D5528->unk3CE = 12;
     D_803D5528->unk3C2 = -1;
     D_803D5528->unk3D0 = -1;
-    if ((u16)D_803D5528->unk3C4 != 12U) { // argh
+    if (D_803D5528->unk3C4 != 12) {
         D_803D5528->unk3C4 = 12;
         D_803D5528->unk3C6 = -1;
     }

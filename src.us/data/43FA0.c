@@ -1,11 +1,11 @@
 #include <ultra64.h>
 
 Vtx D_0100A4D0_43DA0[8] = {
-#include "data/inc/D_0100A4D0_43DA0.inc.c";
+#include "data/inc/D_0100A4D0_43DA0.inc.c"
 };
 
 Vtx D_0100A550_43E20[24] = {
-#include "data/inc/D_0100A550_43E20.inc.c";
+#include "data/inc/D_0100A550_43E20.inc.c"
 };
 
 const Gfx D_0100A6D0_43FA0[] = {

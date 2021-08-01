@@ -131,6 +131,34 @@ s32 func_80309B40_71B1F0(void) {
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80309C8C_71B33C.s")
+// void func_80309C8C_71B33C(void) {
+//
+//     if (D_803D552C->unk270 != 0) {
+//         D_803D552C->unk287 = 0;
+//     }
+//     switch (D_803D552C->unk287) {
+//     case 0:
+//         break;
+//     case 1:
+//         if ((D_803D552C->unk28A != 0) || (D_803E4C3C < 640)) {
+//             D_803D552C->unk287 = 0U;
+//             func_80363CC8_775378(D_803D5530);
+//         } else if (--D_803D552C->unk288 <= 0) {
+//             s32 tmp = D_803A5580_7B6C30++;
+//             if ((tmp & 3) ) {
+//                 func_8037FEDC_79158C();
+//             }
+//             D_803D552C->unk287 = 2;
+//             D_803D552C->unk288 = 0;
+//         }
+//         break;
+//     case 2:
+//         if ((D_803D552C->unk28A != 0) || (++D_803D552C->unk288 >= 70)) {
+//             D_803D552C->unk287 = 0;
+//             func_80363CC8_775378(D_803D5530);
+//         }
+//     }
+// }
 
 // functionally similar to func_802F8918_709FC8
 s32 func_80309DC4_71B474(void) {
@@ -352,16 +380,16 @@ s32 func_80310EE4_722594(s16 x, s16 z, u8 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80311554_722C04.s")
 
-void func_80311A2C_7230DC(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3, u8 arg4) {
+void func_80311A2C_7230DC(s16 xPos, s16 zPos, s16 *xVel, s16 *zVel, u8 arg4) {
     switch (arg4) {
     case 1:
-        func_80311BF8_7232A8(arg0, arg1, arg2, arg3);
+        func_80311BF8_7232A8(xPos, zPos, xVel, zVel);
         break;
     case 0:
-        func_80311BF8_7232A8(arg0, arg1, arg2, arg3);
+        func_80311BF8_7232A8(xPos, zPos, xVel, zVel);
         break;
     case 2:
-        func_80311AA8_723158(arg0, arg1, arg2, arg3);
+        func_80311AA8_723158(xPos, zPos, xVel, zVel);
         break;
     }
 }

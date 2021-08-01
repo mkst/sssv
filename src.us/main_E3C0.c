@@ -17,7 +17,7 @@ void func_80132CC0(s32 arg0) {
 }
 
 // count used sounds
-s16 func_80132D54(void) {
+s16 get_used_sound_count(void) {
     struct017 *snd;
     s16 cnt = 0;
 
@@ -31,7 +31,7 @@ s32 func_80132D84(ALSndPlayer *sndp) {
     struct017 *snd;
     s16 used = 0;
 
-    if (D_80155154 == 0) {
+    if (gAudioInitialized == 0) {
         return 8;
     }
 
@@ -102,9 +102,9 @@ typedef struct {
     s32 unk30;
 } foo;
 
-// play a sound effect?
+
 #pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/play_sound_effect.s")
-// wth is this?
+// id, tbd, tbd, speed, tbd
 // void play_sound_effect(s16 arg0, s16 arg1, s16 arg2, f32 arg3, u8 arg4) {
 //     foo tmp;
 //
@@ -115,7 +115,7 @@ typedef struct {
 //     foo  *phi_t5;
 //     void *phi_t9;
 //
-//     if (D_80155154 != 0) {
+//     if (gAudioInitialized != 0) {
 //         if (arg0 != 10000) {
 //             tmp.unk0 = D_80154C4C[arg0];
 //             tmp.unk2 = arg0;
@@ -202,7 +202,7 @@ void func_8013364C(void) {
 void func_80133738(void) {
     s8 i;
 
-    if (D_80155154) {
+    if (gAudioInitialized) {
         for (i = 0; i < 20; i++) {
             if (func_801323B8(i)) {
                 alSndpStop(D_80286310);
@@ -243,7 +243,7 @@ void func_801338A8(s16 arg0) {
     if (((u8)D_80155168[arg0] == 1) && (D_801546A8[arg0] == 1)) {
         tmp = D_801550F8[D_8015516C[arg0]];
         alSeqpSetVol(D_802863C8[arg0],
-            ((D_801546B4[arg0] * tmp) + ((D_801546B8[arg0] * (tmp * D_801546AC[arg0])) / D_801546B0[arg0])) * D_801546D0 * D_8015517C);
+            ((D_801546B4[arg0] * tmp) + ((D_801546B8[arg0] * (tmp * D_801546AC[arg0])) / D_801546B0[arg0])) * gMusicVolume * D_8015517C);
     }
 
     if (0.0f == D_801546AC[arg0]) {
@@ -257,10 +257,10 @@ void func_801339F8(void) {
     s16 vol;
     struct017 *snd;
 
-    if (D_80155154 != 0) {
+    if (gAudioInitialized != 0) {
         for (snd = D_8028631C; snd != NULL; snd = snd->next) {
             if ((snd->sndSlot >= 0) && (D_801546BC == 1)) {
-                vol = ((snd->unkC * D_801546C8) + ((D_801546CC * (snd->unkC * D_801546C0)) / D_801546C4)) * D_801546D4;
+                vol = ((snd->unkC * D_801546C8) + ((D_801546CC * (snd->unkC * D_801546C0)) / D_801546C4)) * gSfxVolume;
                 alSndpSetSound(D_80286310, snd->sndSlot);
                 alSndpSetVol(D_80286310, vol);
             }
@@ -275,11 +275,11 @@ void func_801339F8(void) {
 }
 
 void set_sfx_volume(s16 arg0) {
-    D_801546D4 = arg0 / 20.0f;
+    gSfxVolume = arg0 / 20.0f;
 }
 
 void set_music_volume(s16 arg0) {
-    D_801546D0 = arg0 / 20.0f;
+    gMusicVolume = arg0 / 20.0f;
     func_80133C50();
 }
 
@@ -287,7 +287,7 @@ void func_80133BE4(void) {
     ALSndPlayer *sndp;
     struct017 *snd;
 
-    if (D_80155154 != 0) {
+    if (gAudioInitialized != 0) {
         for (snd = D_8028631C; snd != NULL; snd = snd->next) {
             if (snd->sndSlot >= 0) {
                 alSndpSetSound(sndp, snd->sndSlot);
@@ -310,10 +310,10 @@ void func_80133BE4(void) {
 //         if ((temp_v1 != -1) && (D_80155168[i] == 1)) {
 //             if ((s16)D_801546A8[0] == 1.0f) { // ??
 //                 tmp = D_801550F8[temp_v1];
-//                 // phi_a1 = ((((D_801546B8[i] * (tmp * D_801546AC[i]))) / D_801546B0[i]) + (D_801546B4[i] * tmp)) * D_801546D0 * D_8015517C;
-//                 phi_a1 = ((D_801546B4[i] * tmp) + ((D_801546B8[i] * (tmp * D_801546AC[i])) / D_801546B0[i])) * D_801546D0 * D_8015517C;
+//                 // phi_a1 = ((((D_801546B8[i] * (tmp * D_801546AC[i]))) / D_801546B0[i]) + (D_801546B4[i] * tmp)) * gMusicVolume * D_8015517C;
+//                 phi_a1 = ((D_801546B4[i] * tmp) + ((D_801546B8[i] * (tmp * D_801546AC[i])) / D_801546B0[i])) * gMusicVolume * D_8015517C;
 //             } else {
-//                 phi_a1 = D_801550F8[temp_v1] * (D_8015517C * D_801546D0);
+//                 phi_a1 = D_801550F8[temp_v1] * (D_8015517C * gMusicVolume);
 //             }
 //             alSeqpSetVol(D_802863C8[i], phi_a1 * (D_801546D8 / 2048.0f));
 //         }
@@ -321,7 +321,7 @@ void func_80133BE4(void) {
 // }
 
 void func_80133E44(void) {
-    alCSeqGetLoc(D_802863CC, &D_80286460);
+    alCSeqGetLoc(D_802863CC[0], &D_80286460);
     D_80155180 = D_8028645C;
     D_80155184 = 0;
 }
@@ -329,7 +329,7 @@ void func_80133E44(void) {
 void func_80133E84(void) {
     if ((D_80155180 == D_8028645C) && (D_8028645C != 0)) {
         if (++D_80155184 >= 3) {
-            alCSeqSetLoc(D_802863CC, &D_80286460);
+            alCSeqSetLoc(D_802863CC[0], &D_80286460);
             D_80155180 = 0;
         }
     }

@@ -1,10 +1,10 @@
 #include <ultra64.h>
 
-extern Vtx D_010064B0_3FD80[] = {
+Vtx D_010064B0_3FD80[] = {
 #include "data/inc/D_010064B0_3FD80.inc.c"
 };
 
-extern Vtx D_01006510_3FDE0[] = {
+Vtx D_01006510_3FDE0[] = {
 #include "data/inc/D_01006510_3FDE0.inc.c"
 };
 

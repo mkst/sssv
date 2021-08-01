@@ -182,8 +182,8 @@ void func_8038FCF8_7A13A8(void) {
     D_80204290 = 2;
     func_801337DC(0, 5.0f, 20.0f, 0);
     gLevelIndex = SMASHING_START;
-    D_803F7DA8.unk2D = 0; // level language file?
-    D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.unk2D, &D_803F3330, &D_803F34C0);
+    D_803F7DA8.currentLevel = 0;
+    D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.currentLevel, &D_803F3330, &D_803F34C0);
     func_8038FC58_7A1308();
 }
 
@@ -352,7 +352,7 @@ void func_80395480_7A6B30(void) {
     func_80129594(&D_801D9E7C, D_80204278);
     gDPPipeSync(D_801D9E7C++);
 
-    func_80129300(&D_801D9E7C, D_80204278);
+    load_segments(&D_801D9E7C, D_80204278);
 
     gSPSegment(D_801D9E7C++, 0x04, osVirtualToPhysical(D_801D9E6C));
     gSPViewport(D_801D9E7C++, &D_803B66F0);
@@ -381,7 +381,7 @@ void func_80395854_7A6F04(void) {
     func_80129594(&D_801D9E7C, D_80204278);
     gDPPipeSync(D_801D9E7C++);
 
-    func_80129300(&D_801D9E7C, D_80204278);
+    load_segments(&D_801D9E7C, D_80204278);
 
     gSPSegment(D_801D9E7C++, 0x04, osVirtualToPhysical(D_801D9E6C));
     gSPViewport(D_801D9E7C++, &D_803B66F0);
@@ -443,7 +443,7 @@ void func_80395E98_7A7548(Gfx **arg0) {
     gDPPipeSync((*arg0)++);
     gSPDisplayList((*arg0)++, D_01004AF8);
 
-    gDPSetRenderMode((*arg0)++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetRenderMode((*arg0)++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
 
     gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01030810);
     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);

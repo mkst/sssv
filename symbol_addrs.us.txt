@@ -341,6 +341,10 @@ osTvType          = 0x80000300;
 osResetType       = 0x8000030C;
 osAppNMIBuffer    = 0x8000031C;
 __osCleanupThread = 0x80141730;
+
+gMusicVolume      = 0x801546D0;
+gSfxVolume        = 0x801546D4;
+gAudioInitialized = 0x80155154;
 numControllers    = 0x80158544;
 osClockRate       = 0x80159950;
 osViClock         = 0x80159958;
@@ -379,16 +383,18 @@ strcat                 = 0x80128E18;
 strncpy                = 0x80128ED4;
 strcpy                 = 0x80128E90;
 strcmp                 = 0x80128F38;
-bzero_sssv            = 0x80128FB4;
+bzero_sssv             = 0x80128FB4;
 memset_bytes           = 0x80129090;
 memset_words           = 0x80129060;
 rand                   = 0x80129128;
-memcpy_sssv                = 0x80129158;
+memcpy_sssv            = 0x80129158;
 read_rom_header        = 0x80129210;
 set_region             = 0x8012923C;
 dma_read               = 0x80129290;
+load_segments          = 0x80129300;
 clear_framebuffer      = 0x80129AD0;
 end_display_lists      = 0x8012A490;
+no_controller_message  = 0x8012A750;
 draw_rectangle         = 0x8012AD30;
 UnpackRNC              = 0x8012B0F0;
 UnpackMethod1          = 0x8012B194;
@@ -408,6 +414,7 @@ MakeHuffmanTable       = 0x8012BCEC;
 FindLowest             = 0x8012BF5C;
 SwapBits               = 0x8012C010;
 
+load_overlay           = 0x8012C070;
 load_default_display_list = 0x8012C1F0;
 set_menu_text_color    = 0x8012C214;
 select_font            = 0x8012C248;
@@ -425,14 +432,15 @@ read_eeprom            = 0x80130CD4;
 eeprom_checksum        = 0x80130E10;
 load_level_text_data   = 0x801308E8;
 initialise_audio       = 0x80131BF0;
+get_used_sound_count   = 0x80132D54;
 play_sound_effect      = 0x8013307C;
 set_sfx_volume         = 0x80133B74;
 set_music_volume       = 0x80133BA0;
 init2                  = 0x801355B0;
 init_controllers       = 0x80136CE0;
 
-
 gRegion                = 0x80204260;
+gRefreshRate           = 0x80204294;
 OutputPtr              = 0x8022E0DC;
 OutputEnd              = 0x8022E0D4;
 RawHuffmanTable        = 0x8022E0E0;
@@ -444,6 +452,9 @@ BitBuffM1              = 0x8022E0D8;
 BitBuffM2              = 0x8022E0D0;
 FirstEntry             = 0x8022E3E6;
 SecondEntry            = 0x8022E3E8;
+
+
+set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4
 
 load_level             = 0x8031B390; // rom:0x72CA40
 language_select_menu   = 0x80298FC0; // rom:0x63C660
@@ -457,6 +468,8 @@ heli_rabbit_drop_bomb  = 0x80302120; // rom:0x7137D0
 animal_jump            = 0x8030A958; // rom:0x71C008
 recoil                 = 0x803223F4; // rom:0x733AA4
 load_animal            = 0x8032AAF0; // rom:0x73C1A0
+check_and_set_species_encountered = 0x8032ABB8; // rom:0x73C268
+set_species_as_encountered = 0x8032AC48; // rom:0x73C2F8
 play_sound_effect_at_location = 0x8032C360; // rom:0x73DA10
 vector_add             = 0x8032D380; // rom:0x73EA30
 vector_subtract        = 0x8032D3B4; // rom:0x73EA64
@@ -468,6 +481,8 @@ cross_product          = 0x8032D534; // rom:0x73EBE4
 osd_draw_timer         = 0x80349B84; // rom:0x75B234
 
 racing_dog_fire_missile  = 0x802EEDE0; // rom:0x700490
+flying_dog_fire_gun      = 0x802EEF9C; // rom:0x70064C
+flying_dog_drop_bomb     = 0x802EEFEC; // rom:0x70069C
 biker_hyena_fire_missile = 0x8035A420; // rom:0x76BAD0
 recharge_skill           = 0x8035E3E8; // rom:0x76FA98
 rat_drop_mine            = 0x8035FC2C; // rom:0x7712DC

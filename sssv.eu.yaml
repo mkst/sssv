@@ -25,20 +25,28 @@ segments:
     subalign: 8
     overlay: no
     subsegments:
-    - [0x1000, asm]
+    - [0x1000, asm, entrypoint]
     - [0x1050, c, main_1050]
-    - [0x3900, asm]
-    - [0x4910, asm]
-    - [0x6810, asm]
-    - [0x7790, asm]
-    - [0x78B0, asm]
-    - [0x7910, asm]
-    - [0xC220, asm]
-    - [0xC790, asm]
-    - [0xC9B0, asm]
-    - [0xF620, asm]
-    - [0x10CD0, asm]
-    - [0x12400, asm]
+    - [0x1080, c, main_1080]
+    - [0x3900, c, core/controller]
+    - [0x44D0, c, core/string]
+    - [0x4910, c, main_4910]
+    - [0x4A00, c, main_4A00]
+    - [0x51D0, c, main_51D0]
+    - [0x6810, c, core/rnc]
+    - [0x7790, c, main_7790]
+    - [0x78B0, c, main_78B0]
+    - [0x7910, c, main_7910]
+    - [0xC220, c, core/fontinit]
+    - [0xC2C0, c, main_C2C0]
+    - [0xC350, c, core/eeprom]
+    - [0xC790, c, main_C770]
+    - [0xC9B0, c, core/audio]
+    - [0xF620, c, libultra/audio/csplayer]
+    - [0x10CD0, c, main_10CD0]
+    - [0x10DE0, c, main_10DE0]
+    - [0x12400, c, main_12400]
+    # libultra
     - [0x12FE0, asm]
     - [0x13270, asm]
     - [0x13540, asm]
@@ -162,8 +170,39 @@ segments:
     - [0x288D0, asm]
     - [0x28920, asm]
   # .data/.rodata
-  - [0x28AB0, bin]
-  ### these are 0x20 later than in US ROM
+    - [0x28AB0, linker, data]
+    - [0x28AB0, bin]
+  - [0x398F0, bin]   # in-game objects?
+  - [0x7F7B0, bin]   # Dan Danger#
+  - [0x857B0, bin]
+  - [0x87BA0, bin]
+  - [0x89280, bin]   # Intro sequence
+  - [0x92C10, bin]
+  - [0x967B0, bin]
+  - [0x97040, bin]
+  - [0x9E0F0, bin]
+  - [0x9ED30, bin]
+  - [0xA0E60, bin]
+  - [0xA10F0, bin]
+  - [0xAA960, bin]
+  - [0xB04B0, bin]
+  - [0xB0BB0, bin]
+  - [0xB2EF0, bin]
+  - [0xB3DF0, bin]
+  - [0xB40F0, bin]
+  - [0xB43C0, bin]
+  - [0xB48E0, bin]
+  - [0xBD0F0, bin]
+  - [0xBD2D0, bin]
+  - [0xBFC60, bin]
+  - [0xC4530, bin]
+  - [0xC47D0, bin]
+  - [0xC7A50, bin]
+  - [0xDD5E0, bin] # ice
+  - [0xE75D0, bin] # desert
+  - [0xF1080, bin] # jungle
+  - [0xFFD70, bin] # city
+  # menu data
   - [0x116BF0, bin, rnc_116BF0] # 1577 => 2048
   - [0x117220, bin] # unknown!
   - [0x11DA10, bin, rnc_11DA10] # 147 => 4096
@@ -193,6 +232,7 @@ segments:
   - [0x37E2B8, bin] # "up" soundeffect in language menu
   - [0x37E3C0, bin] # "down" soundeffect in language menu
   # end of music
+  # we are now 0x40 ahead of US ROM
   - [0x42DCE0, bin, rnc_42DCE0] # 30326 => 54880
   - [0x435360, bin, rnc_435360] # 30784 => 54880
   - [0x43CBA0, bin, rnc_43CBA0] # 35981 => 54880
@@ -292,74 +332,74 @@ segments:
   - [0x51AB60, bin, rnc_51AB60] # 39 => 10240
   - [0x51AB90, bin, rnc_51AB90] # 39 => 10240
   # rgba16 level thumbnails
-  - [0x51ABC0, bin, rnc_51ABC0] # 3492 => 6144
-  - [0x51B970, bin, rnc_51B970] # 4149 => 6144
-  - [0x51C9B0, bin, rnc_51C9B0] # 4793 => 6144
-  - [0x51DC70, bin, rnc_51DC70] # 4137 => 6144
-  - [0x51ECA0, bin, rnc_51ECA0] # 4241 => 6144
-  - [0x51FD40, bin, rnc_51FD40] # 4014 => 6144
-  - [0x520CF0, bin, rnc_520CF0] # 4690 => 6144
-  - [0x521F50, bin, rnc_521F50] # 3441 => 6144
-  - [0x522CD0, bin, rnc_522CD0] # 4356 => 6144
-  - [0x523DE0, bin, rnc_523DE0] # 4442 => 6144
-  - [0x524F40, bin, rnc_524F40] # 4850 => 6144
-  - [0x526240, bin, rnc_526240] # 4920 => 6144
-  - [0x527580, bin, rnc_527580] # 4264 => 6144
-  - [0x528630, bin, rnc_528630] # 4523 => 6144
-  - [0x5297E0, bin, rnc_5297E0] # 4512 => 6144
-  - [0x52A980, bin, rnc_52A980] # 4527 => 6144
-  - [0x52BB30, bin, rnc_52BB30] # 4135 => 6144
-  - [0x52CB60, bin, rnc_52CB60] # 3865 => 6144
-  - [0x52DA80, bin, rnc_52DA80] # 5085 => 6144
-  - [0x52EE60, bin, rnc_52EE60] # 4724 => 6144
-  - [0x5300E0, bin, rnc_5300E0] # 4097 => 6144
-  - [0x5310F0, bin, rnc_5310F0] # 4589 => 6144
-  - [0x5322E0, bin, rnc_5322E0] # 4568 => 6144
-  - [0x5334C0, bin, rnc_5334C0] # 4166 => 6144
-  - [0x534510, bin, rnc_534510] # 4447 => 6144
-  - [0x535670, bin, rnc_535670] # 4383 => 6144
-  - [0x536790, bin, rnc_536790] # 4968 => 6144
-  - [0x537B00, bin, rnc_537B00] # 4089 => 6144
-  - [0x538B00, bin, rnc_538B00] # 3871 => 6144
-  - [0x539A20, bin, rnc_539A20] # 4736 => 6144
-  - [0x53ACA0, bin, rnc_53ACA0] # 3643 => 6144
-  - [0x53BAE0, bin, rnc_53BAE0] # 2526 => 6144
-  - [0x53C4C0, bin, rnc_53C4C0] # 3537 => 6144
-  - [0x53D2A0, bin, rnc_53D2A0] # 3537 => 6144
-  - [0x53E080, bin, rnc_53E080] # 3537 => 6144
+  - [0x51ABC0, rnc, img/thumbnails/SMASHING_START, rgba16, 64, 48]
+  - [0x51B970, rnc, img/thumbnails/HAVE_A_NICE_DAY, rgba16, 64, 48]
+  - [0x51C9B0, rnc, img/thumbnails/HONEYMOON_LAGOON, rgba16, 64, 48]
+  - [0x51DC70, rnc, img/thumbnails/THE_BATTERY_FARM, rgba16, 64, 48]
+  - [0x51ECA0, rnc, img/thumbnails/THE_ENGINE_ROOM, rgba16, 64, 48]
+  - [0x51FD40, rnc, img/thumbnails/FAT_BEAR_MOUNTAIN, rgba16, 64, 48]
+  - [0x520CF0, rnc, img/thumbnails/ROCKY_HARD_PLACE, rgba16, 64, 48]
+  - [0x521F50, rnc, img/thumbnails/STINKY_SEWERS, rgba16, 64, 48]
+  - [0x522CD0, rnc, img/thumbnails/RAT_O_MATIC, rgba16, 64, 48]
+  - [0x523DE0, rnc, img/thumbnails/GIVE_A_DOG_A_BONUS, rgba16, 64, 48]
+  - [0x524F40, rnc, img/thumbnails/SNOW_JOKE, rgba16, 64, 48]
+  - [0x526240, rnc, img/thumbnails/ICE_N_EASY_DOES_IT, rgba16, 64, 48]
+  - [0x527580, rnc, img/thumbnails/PENGUIN_PLAYPEN, rgba16, 64, 48]
+  - [0x528630, rnc, img/thumbnails/PINBALL_BLIZZARD, rgba16, 64, 48]
+  - [0x5297E0, rnc, img/thumbnails/HOPPA_CHOPPA, rgba16, 64, 48]
+  - [0x52A980, rnc, img/thumbnails/SOMETHING_FISHY, rgba16, 64, 48]
+  - [0x52BB30, rnc, img/thumbnails/WALRACE_64, rgba16, 64, 48]
+  - [0x52CB60, rnc, img/thumbnails/JUNGLE_JAPES, rgba16, 64, 48]
+  - [0x52DA80, rnc, img/thumbnails/JUNGLE_DOLDRUMS, rgba16, 64, 48]
+  - [0x52EE60, rnc, img/thumbnails/SWAMP_OF_ETERNAL_STENCH, rgba16, 64, 48]
+  - [0x5300E0, rnc, img/thumbnails/WEIGHT_FOR_IT, rgba16, 64, 48]
+  - [0x5310F0, rnc, img/thumbnails/JUNGLE_JUMPS, rgba16, 64, 48]
+  - [0x5322E0, rnc, img/thumbnails/EVOS_ESCAPE, rgba16, 64, 48]
+  - [0x5334C0, rnc, img/thumbnails/FUN_IN_THE_SUN, rgba16, 64, 48]
+  - [0x534510, rnc, img/thumbnails/HOT_CROSS_BUNS, rgba16, 64, 48]
+  - [0x535670, rnc, img/thumbnails/STING_IN_THE_TAIL, rgba16, 64, 48]
+  - [0x536790, rnc, img/thumbnails/BORASSIC_PARK, rgba16, 64, 48]
+  - [0x537B00, rnc, img/thumbnails/WHIRLWIND_TOUR, rgba16, 64, 48]
+  - [0x538B00, rnc, img/thumbnails/SHIFTING_SANDS, rgba16, 64, 48]
+  - [0x539A20, rnc, img/thumbnails/PUNCHUP_PYRAMID, rgba16, 64, 48]
+  - [0x53ACA0, rnc, img/thumbnails/BIG_CELEBRATION_PARADE, rgba16, 64, 48]
+  - [0x53BAE0, rnc, img/thumbnails/SECRET_LEVEL, rgba16, 64, 48]
+  - [0x53C4C0, rnc, img/thumbnails/NO_LEVEL_32, rgba16, 64, 48]
+  - [0x53D2A0, rnc, img/thumbnails/NO_LEVEL_33, rgba16, 64, 48]
+  - [0x53E080, rnc, img/thumbnails/NO_LEVEL_34, rgba16, 64, 48]
   # rbga16 trophies
-  - [0x53EE60, bin, rnc_53EE60] # 956 => 2048
-  - [0x53F220, bin, rnc_53F220] # 1151 => 2048
-  - [0x53F6A0, bin, rnc_53F6A0] # 924 => 2048
-  - [0x53FA40, bin, rnc_53FA40] # 661 => 2048
-  - [0x53FCE0, bin, rnc_53FCE0] # 1170 => 2048
-  - [0x540180, bin, rnc_540180] # 961 => 2048
-  - [0x540550, bin, rnc_540550] # 1026 => 2048
-  - [0x540960, bin, rnc_540960] # 1144 => 2048
-  - [0x540DE0, bin, rnc_540DE0] # 906 => 2048
-  - [0x541170, bin, rnc_541170] # 33 => 2048
-  - [0x5411A0, bin, rnc_5411A0] # 959 => 2048
-  - [0x541560, bin, rnc_541560] # 1079 => 2048
-  - [0x5419A0, bin, rnc_5419A0] # 730 => 2048
-  - [0x541C80, bin, rnc_541C80] # 900 => 2048
-  - [0x542010, bin, rnc_542010] # 594 => 2048
-  - [0x542270, bin, rnc_542270] # 991 => 2048
-  - [0x542650, bin, rnc_542650] # 33 => 2048
-  - [0x542680, bin, rnc_542680] # 931 => 2048
-  - [0x542A30, bin, rnc_542A30] # 647 => 2048
-  - [0x542CC0, bin, rnc_542CC0] # 722 => 2048
-  - [0x542FA0, bin, rnc_542FA0] # 1009 => 2048
-  - [0x5433A0, bin, rnc_5433A0] # 597 => 2048
-  - [0x543600, bin, rnc_543600] # 33 => 2048
-  - [0x543630, bin, rnc_543630] # 838 => 2048
-  - [0x543980, bin, rnc_543980] # 968 => 2048
-  - [0x543D50, bin, rnc_543D50] # 853 => 2048
-  - [0x5440B0, bin, rnc_5440B0] # 932 => 2048
-  - [0x544460, bin, rnc_544460] # 645 => 2048
-  - [0x5446F0, bin, rnc_5446F0] # 630 => 2048
-  - [0x544970, bin, rnc_544970] # 33 => 2048
-  - [0x5449A0, bin, rnc_5449A0] # 33 => 2048
-  - [0x5449D0, bin, rnc_5449D0] # 33 => 2048
+  - [0x53EE60, rnc, img/trophies/SMASHING_START, rgba16, 32, 32]
+  - [0x53F220, rnc, img/trophies/HAVE_A_NICE_DAY, rgba16, 32, 32]
+  - [0x53F6A0, rnc, img/trophies/HONEYMOON_LAGOON, rgba16, 32, 32]
+  - [0x53FA40, rnc, img/trophies/THE_BATTERY_FARM, rgba16, 32, 32]
+  - [0x53FCE0, rnc, img/trophies/THE_ENGINE_ROOM, rgba16, 32, 32]
+  - [0x540180, rnc, img/trophies/FAT_BEAR_MOUNTAIN, rgba16, 32, 32]
+  - [0x540550, rnc, img/trophies/ROCKY_HARD_PLACE, rgba16, 32, 32]
+  - [0x540960, rnc, img/trophies/STINKY_SEWERS, rgba16, 32, 32]
+  - [0x540DE0, rnc, img/trophies/RAT_O_MATIC, rgba16, 32, 32]
+  - [0x541170, rnc, img/trophies/GIVE_A_DOG_A_BONUS, rgba16, 32, 32]
+  - [0x5411A0, rnc, img/trophies/SNOW_JOKE, rgba16, 32, 32]
+  - [0x541560, rnc, img/trophies/ICE_N_EASY_DOES_IT, rgba16, 32, 32]
+  - [0x5419A0, rnc, img/trophies/PENGUIN_PLAYPEN, rgba16, 32, 32]
+  - [0x541C80, rnc, img/trophies/PINBALL_BLIZZARD, rgba16, 32, 32]
+  - [0x542010, rnc, img/trophies/HOPPA_CHOPPA, rgba16, 32, 32]
+  - [0x542270, rnc, img/trophies/SOMETHING_FISHY, rgba16, 32, 32]
+  - [0x542650, rnc, img/trophies/WALRACE_64, rgba16, 32, 32]
+  - [0x542680, rnc, img/trophies/JUNGLE_JAPES, rgba16, 32, 32]
+  - [0x542A30, rnc, img/trophies/JUNGLE_DOLDRUMS, rgba16, 32, 32]
+  - [0x542CC0, rnc, img/trophies/SWAMP_OF_ETERNAL_STENCH, rgba16, 32, 32]
+  - [0x542FA0, rnc, img/trophies/WEIGHT_FOR_IT, rgba16, 32, 32]
+  - [0x5433A0, rnc, img/trophies/JUNGLE_JUMPS, rgba16, 32, 32]
+  - [0x543600, rnc, img/trophies/EVOS_ESCAPE, rgba16, 32, 32]
+  - [0x543630, rnc, img/trophies/FUN_IN_THE_SUN, rgba16, 32, 32]
+  - [0x543980, rnc, img/trophies/HOT_CROSS_BUNS, rgba16, 32, 32]
+  - [0x543D50, rnc, img/trophies/STING_IN_THE_TAIL, rgba16, 32, 32]
+  - [0x5440B0, rnc, img/trophies/BORASSIC_PARK, rgba16, 32, 32]
+  - [0x544460, rnc, img/trophies/WHIRLWIND_TOUR, rgba16, 32, 32]
+  - [0x5446F0, rnc, img/trophies/SHIFTING_SANDS, rgba16, 32, 32]
+  - [0x544970, rnc, img/trophies/PUNCHUP_PYRAMID, rgba16, 32, 32]
+  - [0x5449A0, rnc, img/trophies/BIG_CELEBRATION_PARADE, rgba16, 32, 32]
+  - [0x5449D0, rnc, img/trophies/END_CREDITS, rgba16, 32, 32]
   #
   - [0x544A00, bin] # I4 water texture?
   - [0x546C00, bin] # tbd
@@ -400,7 +440,7 @@ segments:
   - [0x611C00, bin, rnc_611C00] # 1494 => 1684
   - [0x6121E0, bin, rnc_6121E0] # 25247 => 25298
   - [0x618480, bin, rnc_618480] # 4183 => 4305
-  ## matches US ROM from here..
+  # 0x18B0 ahead of US ROM
   - [0x6194E0, rnc, lang/lang1.dat] # 10338 => 31544
   - [0x61BD50, rnc, lang/lang2.dat] # 4981 => 14344
   - [0x61D0D0, rnc, lang/lang3.dat] # 2753 => 9272
@@ -450,20 +490,20 @@ segments:
     - [0x63F1A0, asm, overlay1_63F1A0]
   - [0x63FB60, bin]
   - [0x6409B0, bin, rnc_6409B0] # 37463 => 163840
-  - [0x649C10, bin, rnc_649C10] # 28620 => 153600
-  - [0x650BE0, bin, rnc_650BE0] # 21526 => 65536
+  - [0x649C10, rnc, img/intro/president_frank_bloke, rgba16, 320, 240]
+  - [0x650BE0, rnc, img/sssv_logo, rgba16, 256, 128]
   - [0x656000, bin, rnc_656000] # 5873 => 18432
   - [0x657700, bin, rnc_657700] # 5717 => 18432
   - [0x658D60, bin, rnc_658D60] # 5713 => 18432
   - [0x65A3C0, bin, rnc_65A3C0] # 6413 => 18432
   - [0x65BCD0, bin] # unknown!
   - [0x65C8D0, bin, rnc_65C8D0] # 24460 => 163840
-  - [0x662860, bin, rnc_662860] # 11570 => 40960
+  - [0x662860, rnc, img/space_background, rgba16, 160, 128] # 11570 => 40960
   - [0x6655A0, bin] # unknown!
   - [0x6675F0, bin, rnc_6675F0] # 23248 => 163840
-  - [0x66D0C0, bin, rnc_66D0C0] # 37980 => 163840
-  - [0x676520, bin, rnc_676520] # 43024 => 153600
-  - [0x680D30, bin, rnc_680D30] # 77877 => 153600
+  - [0x66D0C0, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
+  - [0x676520, rnc, img/intro/professor_cheese, rgba16, 320, 240]
+  - [0x680D30, rnc, img/intro/space_station, rgba16, 320, 240]
   - [0x693D70, bin] # unknown!
   - [0x69B0D0, bin, rnc_69B0D0] # 35955 => 153600
   - [0x6A3D50, bin] #  end of RNC
@@ -480,12 +520,14 @@ segments:
     - [0x6AFCB0, asm]
     - [0x6B8110, asm]
     - [0x6C8300, asm]
-    - [0x6C9160, asm]
+    - [0x6C9160, asm] # sssv/collision # 0x10 longer than US
     - [0x6CCB70, asm]
     - [0x6CFC90, asm]
+    - [0x6D8EC0, asm] # extra split
     - [0x6DC0D0, asm]
     - [0x6DC890, asm]
     - [0x6DE3B0, asm]
+    - [0x6DF7B0, asm] # extra split
     - [0x6EEC40, asm]
     - [0x6EF4C0, asm]
     - [0x6EFFD0, asm]
@@ -494,6 +536,7 @@ segments:
     - [0x6FE830, asm]
     - [0x6FEC40, asm]
     - [0x703510, asm]
+    - [0x704C20, asm] # extra split
     - [0x705B80, asm]
     - [0x706F70, asm]
     - [0x709E40, asm]
@@ -505,12 +548,18 @@ segments:
     - [0x7185C0, asm]
     - [0x7192D0, asm]
     - [0x7196A0, asm]
+    - [0x727BE0, asm] # extra split
     - [0x728AB0, asm]
+    - [0x72D6D0, asm] # extra split
+    - [0x72DEA0, asm] # extra split
     - [0x72F420, asm]
     - [0x730BF0, asm]
     - [0x735800, asm]
     - [0x737AD0, asm]
     - [0x73C030, asm]
+    - [0x73F630, asm] # extra split
+    - [0x740720, asm] # extra split
+    - [0x741320, asm] # extra split
     - [0x7417D0, asm]
     - [0x741AD0, asm]
     - [0x743DA0, asm]
@@ -520,14 +569,20 @@ segments:
     - [0x75EA20, asm]
     - [0x760170, asm]
     - [0x7666D0, asm]
+    - [0x769580, asm] # extra split
+    - [0x76A860, asm] # extra split
     - [0x76B650, asm]
     - [0x76B740, asm]
     - [0x76B930, asm]
     - [0x76EA40, asm]
     - [0x7705F0, asm]
     - [0x772570, asm]
+    - [0x772880, asm] # extra split
+    - [0x7742E0, asm] # extra split
     - [0x776F50, asm]
     - [0x778BD0, asm]
+    - [0x77A360, asm] # extra split
+    - [0x77D220, asm] # extra split
     - [0x780500, asm]
     - [0x781B50, asm]
     - [0x783BF0, asm]
@@ -537,6 +592,8 @@ segments:
     - [0x78FC50, asm]
     - [0x791710, asm]
     - [0x794540, asm]
+    - [0x794A70, asm]
+    - [0x794D70, asm]
     - [0x7964A0, asm]
     - [0x797140, asm]
     - [0x797C80, asm]

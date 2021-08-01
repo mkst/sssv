@@ -15,35 +15,38 @@
 //     s16 temp_s2;
 //
 //     s16 temp_t9;
-//     s32 temp_a0;
 //     s16 temp_a3;
 //
-//     struct078 *temp_s3;
-//     struct078 *temp_v1_2;
+//     Vtx *temp_s3;
+//     Vtx *temp_v1_2;
 //     s16 i;
 //
 //     if (D_803D5544 != D_803F2EF0) {
+//         Vtx **base, **base2;
 //         D_803F2EF0 = D_803D5544;
 //
-//         for (i = 0; i < 0x34; i++) {
-//             temp_a0 = i * 0x10;
-//             temp_v1_2 = ((s32)D_04002F28 & 0xFFFFFF) + D_801D9EC4 + temp_a0;
-//             temp_s3 = ((s32)D_040029D0 & 0xFFFFFF) + D_801D9EC4 + temp_a0;
-//             temp_a3 = temp_v1_2->unk0 * 0x10;
+//         base = D_801D9EC4 + ((s32)D_04002F28 & 0xFFFFFF);
+//         base2 = D_801D9EC4 + ((s32)D_040029D0 & 0xFFFFFF);
 //
-//             temp_s3->unk0 = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->unk0) >> 0xC) + temp_v1_2->unk0;
-//             temp_s3->unk2 = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->unk2) >> 0xC) + temp_v1_2->unk2;
-//             temp_s3->unk4 = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->unk4) >> 0xC) + temp_v1_2->unk4;
+//         for (i = 0; i < 52; i++) {
+//             temp_v1_2 = base[i];
+//             temp_s3 = base2[i];
 //
-//             temp_s0 = temp_v1_2->unkC + ((D_80152C78[(temp_a3 + (D_803D5540 * 8)) & 0xFF] >> 7) >> 2);
-//             temp_s1 = temp_v1_2->unkD + ((D_80152C78[((temp_a3 + (D_803D5540 * 8)) + 0x40) & 0xFF] >> 7) >> 2);
-//             temp_s2 = temp_v1_2->unkE - ((D_80152C78[(temp_a3 + (D_803D5540 * 8)) & 0xFF] >> 7) >> 2);
+//             temp_a3 = temp_v1_2->v.ob[0] * 0x10;
+//
+//             temp_s3->v.ob[0] = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->v.ob[0]) >> 0xC) + temp_v1_2->v.ob[0];
+//             temp_s3->v.ob[1] = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->v.ob[1]) >> 0xC) + temp_v1_2->v.ob[1];
+//             temp_s3->v.ob[2] = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->v.ob[2]) >> 0xC) + temp_v1_2->v.ob[2];
+//
+//             temp_s0 = temp_v1_2->v.cn[0] + ((D_80152C78[(temp_a3 + (D_803D5540 * 8)) & 0xFF] >> 7) >> 2);
+//             temp_s1 = temp_v1_2->v.cn[1] + ((D_80152C78[((temp_a3 + (D_803D5540 * 8)) + 64) & 0xFF] >> 7) >> 2);
+//             temp_s2 = temp_v1_2->v.cn[2] - ((D_80152C78[(temp_a3 + (D_803D5540 * 8)) & 0xFF] >> 7) >> 2);
 //
 //             temp_t9 = sqrtf((temp_s0 * temp_s0) + (temp_s1 * temp_s1) + (temp_s2 * temp_s2));
 //
-//             temp_s3->unkC = (s16) ((temp_s0 * 0x7F) / temp_t9);
-//             temp_s3->unkD = (s16) ((temp_s1 * 0x7F) / temp_t9);
-//             temp_s3->unkE = (s16) ((temp_s2 * 0x7F) / temp_t9);
+//             temp_s3->v.cn[0] = (s16) ((temp_s0 * 0x7F) / temp_t9);
+//             temp_s3->v.cn[1] = (s16) ((temp_s1 * 0x7F) / temp_t9);
+//             temp_s3->v.cn[2] = (s16) ((temp_s2 * 0x7F) / temp_t9);
 //         }
 //     }
 // }
@@ -54,7 +57,7 @@
 //     s16 tmp;
 //
 //     if (D_803D552C->unk36D == 7) {
-//         play_sound_effect_at_location(117, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//         play_sound_effect_at_location(SFX_SHEEP_FLOAT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //     }
 //     if (D_803D552C->skillAEnergy[0] < 15) {
 //         if (D_803D552C->unk365 != 45) {
@@ -62,7 +65,7 @@
 //             if (tmp > 96) {
 //                 D_803D552C->unk365 = 45;
 //                 D_803D552C->unk32A = D_803D5544;
-//                 play_sound_effect_at_location(107, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//                 play_sound_effect_at_location(SFX_SHEEP_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //             }
 //         }
 //     }
@@ -117,11 +120,11 @@ void func_80362A08_7740B8(void) {
 void func_80362A10_7740C0(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = 3;
-    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 //
 void ram_headbutt(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = 3;
-    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }

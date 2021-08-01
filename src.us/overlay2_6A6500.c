@@ -37,8 +37,7 @@
 //     D_8028645A = (u16)0;
 //     func_8029F3CC_6B0A7C();
 //
-//     D_803C0648 = 0;
-//     D_803C064C = 0x112038;
+//     D_803C0648_7D1CF8 = 0x112038;
 //     if (D_803C0422 != 0) {
 //         D_803C0422++;
 //         if (D_803C0422 == 2) {
@@ -72,8 +71,8 @@
 //     if ((((gControllerInput->button & START_BUTTON) != 0) && (D_802912DE == (u16)1) && (D_803F6680.unk0 == 0)) || (D_803F66A6 == 3)) {
 //         if ((D_803E1BC0 == 0) && (D_803C0426 == 0) && (D_8020540C != 1) && (D_803C0422 == 0)) {
 //             if ((D_803F2D34 == 0) && (D_803F2E16 == 0) && (gLevelIndex != END_CREDITS) && ((D_803E4D28 & 0x10) == 0)) {
-//                 if ((D_803C0420 == 0) || ((((s32) D_803C0420 < 0xB) == 0))) {
-//                     play_sound_effect(0x7F, 0, 0x5000, 1.0f, 0x40);
+//                 if ((D_803C0420 == 0) || ((((s32) D_803C0420 >= 0xA)))) {
+//                     play_sound_effect(SFX_UNKNOWN_127, 0, 0x5000, 1.0f, 64);
 //                     D_801D9ED4 = (u16)0xA;
 //                     func_8038F794_7A0E44();
 //                 }
@@ -132,7 +131,7 @@
 //         gDPSetAlphaDither(D_801D9E90++, G_AD_DISABLE);
 //
 //         func_803041FC_7158AC(&D_801D9E90);
-//         func_80129300(&D_801D9E7C, D_80204278);
+//         load_segments(&D_801D9E7C, D_80204278);
 //         func_80380490_791B40(&D_801D9E7C, D_80204278);
 //
 //         gSPViewport(D_801D9E7C++, &D_80152EA8);
@@ -147,7 +146,7 @@
 //         func_8032F950_741000();
 //         func_802999E0_6AB090(D_80204278);
 //         func_80299AA8_6AB158(D_80204278, &D_801D9E7C);
-//         func_8029A624_6ABCD4(&D_801D9E7C);
+//         set_fog_position_and_color(&D_801D9E7C);
 //         func_802C87E0_6D9E90();
 //         if (func_8038CCC0_79E370() != 0) {
 //             D_803E4D28 = (s32) (D_803E4D28 | 0x20);
@@ -186,29 +185,32 @@
 //         func_802D6738_6E7DE8();
 //         func_802CB394_6DCA44(D_80204278);
 //         // temp_t9 = gScreenWidth * 2;
-//         D_80152EA8.unk0 = gScreenWidth * 2;
-//         D_80152EA8.unk8 = gScreenWidth * 2;
+//         //D_80152EA8.unk0 = gScreenWidth * 2;
+//         //D_80152EA8.unk8 = gScreenWidth * 2;
 //         // temp_t8_2 = gScreenHeight * 2;
-//         D_80152EA8.unk2 = gScreenHeight * 2;
-//         D_80152EA8.unkA = gScreenHeight * 2;
+//         //D_80152EA8.unk2 = gScreenHeight * 2;
+//         //D_80152EA8.unkA = gScreenHeight * 2;
+//         D_80152EA8.vp.vscale[0] = gScreenWidth * 2;
+//         D_80152EA8.vp.vscale[1] = gScreenHeight * 2;
+//         D_80152EA8.vp.vtrans[0] = gScreenWidth * 2;
+//         D_80152EA8.vp.vtrans[1] = gScreenHeight * 2;
 //         func_802DE950_6F0000(&D_80152EA8);
 //         func_802C8878_6D9F28();
 //         func_802E072C_6F1DDC(0);
 //
 //         gSPDisplayList(D_801D9E7C++, D_80204278->unk9600);
 //
-//         D_803C0648 = 0;
-//         D_803C064C = 0x110038;
+//         D_803C0648_7D1CF8 = 0x110038;
 //         func_8029F7D4_6B0E84(D_80204278, &D_801E9EB8, &D_80204278);
 //         func_8029A720_6ABDD0();
-//         func_8029A624_6ABCD4(&D_801D9E7C);
+//         set_fog_position_and_color(&D_801D9E7C);
 //
 //         gSPDisplayList(D_801D9E7C++, D_80204278->unkBB80);
 //
 //         if ((gControllerInput != NULL) && (D_801D9ED4 == 0) && (gControllerInput->button & L_TRIG)) {
 //             D_801D9ED4 = 10;
 //         }
-//         func_8029A624_6ABCD4(&D_801D9E7C);
+//         set_fog_position_and_color(&D_801D9E7C);
 //         if ((D_803F2AA2 != 2) || ((s32) D_803F6468 >= 7)) {
 //             func_80299B68_6AB218(D_80204278);
 //         }
@@ -315,7 +317,7 @@
 //                 D_803C0426 += 1;
 //                 if ((s32) D_803C0426 >= 17) {
 //                     D_80204284 = (u16)3;
-//                     D_80152E90 = (u8)1;
+//                     D_80152E90 = (u8)1; // select menu overlay
 //                 }
 //             }
 //         }
@@ -329,7 +331,7 @@
 //                 D_803C0424 = (s16) (D_803C0424 + 1);
 //                 if ((s32) D_803C0424 >= 0xE) {
 //                     D_80204284 = (u16)3;
-//                     D_80152E90 = (u8)1;
+//                     D_80152E90 = (u8)1; // select menu overlay
 //                     D_8028645C = (u16)0;
 //                 }
 //             }
@@ -350,7 +352,7 @@
 //             if ((s32) D_803C0428 >= 20) {
 //                 D_8028645C = (u16)0;
 //                 D_80204284 = (u16)3;
-//                 D_80152E90 = (u8)1;
+//                 D_80152E90 = (u8)1; // select menu overlay
 //             }
 //         } else {
 //             if (display_credits() == 1) {
@@ -400,9 +402,9 @@ void func_802961D4_6A7884(void) {
     D_803F2D50.unkDA = 320;
     D_803F2D50.unkDC = 0;
     // these 3 are 64bit
-    D_803C0640 = 0xFFFFFFFFC8000000; // rendermode mask?
-    D_803C0648 = 0x0000000000112038;
-    D_803C0650 = 0x0000000000010000;
+    D_803C0640_7D1CF0 = 0xFFFFFFFFC8000000; // rendermode mask?
+    D_803C0648_7D1CF8 = 0x0000000000112038;
+    D_803C0650_7D1D00 = 0x0000000000010000;
     func_802C9340_6DA9F0();
     func_802C9834_6DAEE4();
     func_80296544_6A7BF4();
@@ -428,7 +430,7 @@ s32 get_evo_suit_color(void) {
     s16 powercells;
     s16 i;
     s32 color;
-    u8* e = (u8*)&D_8023F260;
+
     powercells = 0;
 
     for (i = 1; i < 32; i++) {
@@ -437,7 +439,7 @@ s32 get_evo_suit_color(void) {
             (i != EVOS_ESCAPE) &&
             (i != PUNCHUP_PYRAMID) &&
             (i != BIG_CELEBRATION_PARADE)) {
-                powercells += (u32)e[i + 3] >> 4;
+                powercells += D_8023F260.level[i-1].powercells;
             }
     }
     if (powercells < 200) {

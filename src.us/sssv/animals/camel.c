@@ -17,7 +17,7 @@ void func_8036F404_780AB4(void) {
     func_80322064_733714(17, 60, 0, 60, 22, D_803D552C->unk308, 4, 1, 20);
     D_803D552C->unk30A = MIN(38, D_803D552C->unk30A + 25);
     func_803421E0_753890(17);
-    play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_8036F4CC_780B7C(void) {
@@ -51,7 +51,7 @@ void camel_cannon_fire_cannon(Animal *arg0) {
     func_80322064_733714(17, 60, 0, 60, 22, D_803D552C->unk308, tmp, 1, 20);
     D_803D552C->unk30A = MIN(38, D_803D552C->unk30A + 25);
     func_803421E0_753890(17);
-    play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_8036F740_780DF0(u16 arg0) {

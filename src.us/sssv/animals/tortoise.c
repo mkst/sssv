@@ -142,7 +142,7 @@ s32 func_8035E344_76F9F4(struct037 *arg0, s16 arg1);
 //     }
 //     if (D_803D5538 == 0) {
 //         if (D_803D552C->unk2EC <= 0) {
-//             play_sound_effect_at_location(0x65, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB00_7D01B0);
+//             play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB00_7D01B0);
 //             if (D_803D5524->unk9C == TORTOISE_TANK_DEFENDING) {
 //                 load_animal(TORTOISE_TANK);
 //             } else {
@@ -194,7 +194,7 @@ s32 func_8035E344_76F9F4(struct037 *arg0, s16 arg1);
 //
 //             D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
 //
-//             play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//             play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //             func_801373CC(0, 10, 40, 5, func_8029B7D0_6ACE80(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
 //         }
 //     } else {
@@ -223,7 +223,7 @@ s32 func_8035E344_76F9F4(struct037 *arg0, s16 arg1);
 //
 //             D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
 //
-//             play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//             play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //             func_801373CC(0, 10, 40, 5, func_8029B7D0_6ACE80(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
 //         }
 //         if (D_801D9ED8.unkFFB2 != 0) {
@@ -243,7 +243,7 @@ void func_80355E14_7674C4(void) {
     func_80321E60_733510(17, 32, 0, 30, 10, 0, 2, 45);
     func_8034220C_7538BC(17, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
     D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
-    play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_80355EDC_76758C(void) {
@@ -252,7 +252,7 @@ void func_80355EDC_76758C(void) {
 
 void func_80355EFC_7675AC(void) {
     func_802DBA58_6ED108(15, D_803D552C);
-    play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos,  D_803D5530->zPos, D_803D5530->yPos, D_803BEB0C);
+    play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos,  D_803D5530->zPos, D_803D5530->yPos, D_803BEB0C);
     load_animal(TORTOISE_TANK_DEFENDING);
 }
 
@@ -265,19 +265,19 @@ void func_80355F64_767614(void) {
 
 void func_80355FFC_7676AC(void) {
     func_802DBA58_6ED108(15, D_803D552C);
-    play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB10);
+    play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB10);
     load_animal(RACING_TORTOISE_ATTACKING);
 }
 
 void func_80356064_767714(void) {
     func_802DBA58_6ED108(15, D_803D552C);
-    play_sound_effect_at_location(101, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB14);
+    play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB14);
     load_animal(TORTOISE_TANK);
 }
 
 void func_803560CC_76777C(void) {
     func_802DBA58_6ED108(15, D_803D552C);
-    play_sound_effect_at_location(101, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB18);
+    play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB18);
     load_animal(RACING_TORTOISE);
 }
 
@@ -296,13 +296,13 @@ void func_80356134_7677E4(Animal *a) {
     func_8034220C_7538BC(0xE, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
     D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
 
-    play_sound_effect_at_location(75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_803562C8_767978(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == TORTOISE_TANK) {
-        play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB1C);
+        play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB1C);
         load_animal(TORTOISE_TANK_DEFENDING);
     }
 }
@@ -310,7 +310,7 @@ void func_803562C8_767978(s16 arg0) {
 void func_80356348_7679F8(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == RACING_TORTOISE) {
-        play_sound_effect_at_location(123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB20);
+        play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB20);
         load_animal(RACING_TORTOISE_ATTACKING);
     }
 }

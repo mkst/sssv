@@ -2,45 +2,81 @@
 #include "common.h"
 #include "pp.h"
 
+extern u8 lang_lang1_dat_rnc_ROM_START[], lang_lang1_dat_rnc_ROM_END[];
+extern u8 lang_lang2_dat_rnc_ROM_START[], lang_lang2_dat_rnc_ROM_END[];
+extern u8 lang_lang3_dat_rnc_ROM_START[], lang_lang3_dat_rnc_ROM_END[];
+extern u8 lang_lang4_dat_rnc_ROM_START[], lang_lang4_dat_rnc_ROM_END[];
+extern u8 lang_lang5_dat_rnc_ROM_START[], lang_lang5_dat_rnc_ROM_END[];
+extern u8 lang_lang6_dat_rnc_ROM_START[], lang_lang6_dat_rnc_ROM_END[];
+extern u8 lang_lang7_dat_rnc_ROM_START[], lang_lang7_dat_rnc_ROM_END[];
+extern u8 lang_lang8_dat_rnc_ROM_START[], lang_lang8_dat_rnc_ROM_END[];
+extern u8 lang_lang9_dat_rnc_ROM_START[], lang_lang9_dat_rnc_ROM_END[];
+extern u8 lang_lang10_dat_rnc_ROM_START[], lang_lang10_dat_rnc_ROM_END[];
+extern u8 lang_lang11_dat_rnc_ROM_START[], lang_lang11_dat_rnc_ROM_END[];
+extern u8 lang_lang12_dat_rnc_ROM_START[], lang_lang12_dat_rnc_ROM_END[];
+extern u8 lang_lang13_dat_rnc_ROM_START[], lang_lang13_dat_rnc_ROM_END[];
+extern u8 lang_lang14_dat_rnc_ROM_START[], lang_lang14_dat_rnc_ROM_END[];
+extern u8 lang_lang15_dat_rnc_ROM_START[], lang_lang15_dat_rnc_ROM_END[];
+extern u8 lang_lang16_dat_rnc_ROM_START[], lang_lang16_dat_rnc_ROM_END[];
+extern u8 lang_lang17_dat_rnc_ROM_START[], lang_lang17_dat_rnc_ROM_END[];
+extern u8 lang_lang18_dat_rnc_ROM_START[], lang_lang18_dat_rnc_ROM_END[];
+extern u8 lang_lang19_dat_rnc_ROM_START[], lang_lang19_dat_rnc_ROM_END[];
+extern u8 lang_lang20_dat_rnc_ROM_START[], lang_lang20_dat_rnc_ROM_END[];
+extern u8 lang_lang21_dat_rnc_ROM_START[], lang_lang21_dat_rnc_ROM_END[];
+extern u8 lang_lang22_dat_rnc_ROM_START[], lang_lang22_dat_rnc_ROM_END[];
+extern u8 lang_lang23_dat_rnc_ROM_START[], lang_lang23_dat_rnc_ROM_END[];
+extern u8 lang_lang24_dat_rnc_ROM_START[], lang_lang24_dat_rnc_ROM_END[];
+extern u8 lang_lang25_dat_rnc_ROM_START[], lang_lang25_dat_rnc_ROM_END[];
+extern u8 lang_lang26_dat_rnc_ROM_START[], lang_lang26_dat_rnc_ROM_END[];
+extern u8 lang_lang27_dat_rnc_ROM_START[], lang_lang27_dat_rnc_ROM_END[];
+extern u8 lang_lang28_dat_rnc_ROM_START[], lang_lang28_dat_rnc_ROM_END[];
+extern u8 lang_lang29_dat_rnc_ROM_START[], lang_lang29_dat_rnc_ROM_END[];
+extern u8 lang_lang30_dat_rnc_ROM_START[], lang_lang30_dat_rnc_ROM_END[];
+extern u8 lang_lang31_dat_rnc_ROM_START[], lang_lang31_dat_rnc_ROM_END[];
+extern u8 lang_lang32_dat_rnc_ROM_START[], lang_lang32_dat_rnc_ROM_END[];
+extern u8 lang_lang33_dat_rnc_ROM_START[], lang_lang33_dat_rnc_ROM_END[];
+extern u8 lang_lang34_dat_rnc_ROM_START[], lang_lang34_dat_rnc_ROM_END[];
+extern u8 lang_lang35_dat_rnc_ROM_START[], lang_lang35_dat_rnc_ROM_END[];
+extern u8 lang_lang36_dat_rnc_ROM_START[], lang_lang36_dat_rnc_ROM_END[];
+
 // language file offsets at ROM 0x2fc00
 u8* D_80154500[37][2] = {
-    /* start, end */
-    {0x617C30, 0x61A4A0}, // lang1
-    {0x61A4A0, 0x61B820},
-    {0x61B820, 0x61C2F0},
-    {0x61C2F0, 0x61CE40},
-    {0x61CE40, 0x61D990},
-    {0x61D990, 0x61E310},
-    {0x61E310, 0x61EE10},
-    {0x61EE10, 0x61FA70},
-    {0x61FA70, 0x620DE0},
-    {0x620DE0, 0x622280},
-    {0x622280, 0x622FB0},
-    {0x622FB0, 0x623720},
-    {0x623720, 0x624080},
-    {0x624080, 0x624B90},
-    {0x624B90, 0x625930},
-    {0x625930, 0x6265F0},
-    {0x6265F0, 0x627DA0},
-    {0x627DA0, 0x6286E0},
-    {0x6286E0, 0x628F80},
-    {0x628F80, 0x629A00},
-    {0x629A00, 0x62A4B0},
-    {0x62A4B0, 0x62ADA0},
-    {0x62ADA0, 0x62C170},
-    {0x62C170, 0x62C920},
-    {0x62C920, 0x62D2A0},
-    {0x62D2A0, 0x62DB10},
-    {0x62DB10, 0x62E550},
-    {0x62E550, 0x62EE70},
-    {0x62EE70, 0x62F620},
-    {0x62F620, 0x630510},
-    {0x630510, 0x6336B0},
-    {0x6336B0, 0x633720},
-    {0x633720, 0x6364B0},
-    {0x6364B0, 0x6370C0},
-    {0x6370C0, 0x637110},
-    {0x637110, 0x637160}, // lang36
+    {lang_lang1_dat_rnc_ROM_START, lang_lang1_dat_rnc_ROM_END},
+    {lang_lang2_dat_rnc_ROM_START, lang_lang2_dat_rnc_ROM_END},
+    {lang_lang3_dat_rnc_ROM_START, lang_lang3_dat_rnc_ROM_END},
+    {lang_lang4_dat_rnc_ROM_START, lang_lang4_dat_rnc_ROM_END},
+    {lang_lang5_dat_rnc_ROM_START, lang_lang5_dat_rnc_ROM_END},
+    {lang_lang6_dat_rnc_ROM_START, lang_lang6_dat_rnc_ROM_END},
+    {lang_lang7_dat_rnc_ROM_START, lang_lang7_dat_rnc_ROM_END},
+    {lang_lang8_dat_rnc_ROM_START, lang_lang8_dat_rnc_ROM_END},
+    {lang_lang9_dat_rnc_ROM_START, lang_lang9_dat_rnc_ROM_END},
+    {lang_lang10_dat_rnc_ROM_START, lang_lang10_dat_rnc_ROM_END},
+    {lang_lang11_dat_rnc_ROM_START, lang_lang11_dat_rnc_ROM_END},
+    {lang_lang12_dat_rnc_ROM_START, lang_lang12_dat_rnc_ROM_END},
+    {lang_lang13_dat_rnc_ROM_START, lang_lang13_dat_rnc_ROM_END},
+    {lang_lang14_dat_rnc_ROM_START, lang_lang14_dat_rnc_ROM_END},
+    {lang_lang15_dat_rnc_ROM_START, lang_lang15_dat_rnc_ROM_END},
+    {lang_lang16_dat_rnc_ROM_START, lang_lang16_dat_rnc_ROM_END},
+    {lang_lang17_dat_rnc_ROM_START, lang_lang17_dat_rnc_ROM_END},
+    {lang_lang18_dat_rnc_ROM_START, lang_lang18_dat_rnc_ROM_END},
+    {lang_lang19_dat_rnc_ROM_START, lang_lang19_dat_rnc_ROM_END},
+    {lang_lang20_dat_rnc_ROM_START, lang_lang20_dat_rnc_ROM_END},
+    {lang_lang21_dat_rnc_ROM_START, lang_lang21_dat_rnc_ROM_END},
+    {lang_lang22_dat_rnc_ROM_START, lang_lang22_dat_rnc_ROM_END},
+    {lang_lang23_dat_rnc_ROM_START, lang_lang23_dat_rnc_ROM_END},
+    {lang_lang24_dat_rnc_ROM_START, lang_lang24_dat_rnc_ROM_END},
+    {lang_lang25_dat_rnc_ROM_START, lang_lang25_dat_rnc_ROM_END},
+    {lang_lang26_dat_rnc_ROM_START, lang_lang26_dat_rnc_ROM_END},
+    {lang_lang27_dat_rnc_ROM_START, lang_lang27_dat_rnc_ROM_END},
+    {lang_lang28_dat_rnc_ROM_START, lang_lang28_dat_rnc_ROM_END},
+    {lang_lang29_dat_rnc_ROM_START, lang_lang29_dat_rnc_ROM_END},
+    {lang_lang30_dat_rnc_ROM_START, lang_lang30_dat_rnc_ROM_END},
+    {lang_lang31_dat_rnc_ROM_START, lang_lang31_dat_rnc_ROM_END},
+    {lang_lang32_dat_rnc_ROM_START, lang_lang32_dat_rnc_ROM_END},
+    {lang_lang33_dat_rnc_ROM_START, lang_lang33_dat_rnc_ROM_END},
+    {lang_lang34_dat_rnc_ROM_START, lang_lang34_dat_rnc_ROM_END},
+    {lang_lang35_dat_rnc_ROM_START, lang_lang35_dat_rnc_ROM_END},
+    {lang_lang36_dat_rnc_ROM_START, lang_lang36_dat_rnc_ROM_END},
     {0, 0} /* might just be alignment? */
 };
 
@@ -119,7 +155,7 @@ u8 convert_text_to_int(s16 *arg0) {
 s16 func_8012C3D8(s16 *arg0) {
     u16 res = 0;
     s16 time[4];
-    u8  spFC[80];
+    char spFC[80];
     s16 sp5C[80];
     s16 tmp;
 
@@ -133,11 +169,10 @@ s16 func_8012C3D8(s16 *arg0) {
                 time[1] = arg0[2];
                 time[2] = EOM;
 
-                sprintf(&spFC, &D_8015ACA0, D_8023F206[convert_text_to_int(&time)]);
-                prepare_text(&spFC, &sp5C);
-                res += func_8012C3D8(&sp5C);
+                sprintf(spFC, D_8015ACA0, D_8023F206[convert_text_to_int(time)]);
+                prepare_text((u8*)spFC, sp5C);
+                res += func_8012C3D8(sp5C);
                 arg0 += 3;
-
             } else if (*arg0 == 339) { // color
                 arg0 = arg0 + 2;
             }
@@ -341,10 +376,10 @@ s16 func_8012C3D8(s16 *arg0) {
 //                 temp_v0_2 = (phi_s4 - temp_s2) + (temp_a3 / 2);
 //                 gSPTextureRectangle(
 //                     (*arg0)++,
-//                     4*(temp_v0_2 + 1),
-//                     4*(y + 1),
-//                     4*(temp_v0_2 + (s32) D_8023F1F8 + 1),
-//                     4*(y + (s32) D_8023F1FC + 1),
+//                     (temp_v0_2 + 1),
+//                     (y + 1),
+//                     (temp_v0_2 + (s32) D_8023F1F8 + 1),
+//                     (y + (s32) D_8023F1FC + 1),
 //                     G_TX_LOADTILE,
 //                     0,
 //                     0,
@@ -359,10 +394,10 @@ s16 func_8012C3D8(s16 *arg0) {
 //             temp_v0_2 = (phi_s4 - temp_s2)  + (temp_a3 / 2);
 //             gSPTextureRectangle(
 //                 (*arg0)++,
-//                 4*(temp_v0_2),
-//                 4*(y),
-//                 4*(temp_v0_2 + (s32) D_8023F1F8),
-//                 4*(y + (s32) D_8023F1FC),
+//                 (temp_v0_2),
+//                 (y),
+//                 (temp_v0_2 + (s32) D_8023F1F8),
+//                 (y + (s32) D_8023F1FC),
 //                 G_TX_LOADTILE,
 //                 0,
 //                 0,
@@ -434,7 +469,7 @@ void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height) {
 //
 //     while (*text != EOM) {
 //         phi_v0 = *text;
-//         D_8023F1E0.unk0 += phi_v0;
+//         D_8023F1E0.unk0 += *text;
 //         load_glyph(arg0, phi_v0);
 //
 //         temp_a3 = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
@@ -445,10 +480,10 @@ void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height) {
 //             temp_a2 = (x - msgLen) + (temp_a3 / 2);
 //             gSPTextureRectangle(
 //                 (*arg0)++,
-//                 (temp_a2 + 1) * 4,
-//                 (y + 1) * 4,
-//                 (temp_a2 + 1 + (s32) D_8023F1F8) * 4,
-//                 (y + 1 + (s32) D_8023F1FC) * 4,
+//                 (temp_a2 + 1),
+//                 (y + 1),
+//                 (temp_a2 + 1 + (s32) D_8023F1F8),
+//                 (y + 1 + (s32) D_8023F1FC),
 //                 G_TX_LOADTILE,
 //                 0,
 //                 0,
@@ -463,10 +498,10 @@ void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height) {
 //         temp_a2 = (x - msgLen) + (temp_a3 / 2);
 //         gSPTextureRectangle(
 //             (*arg0)++,
-//             (temp_a2) * 4,
-//             (y) * 4,
-//             (temp_a2 + (s32) D_8023F1F8) * 4,
-//             (y + (s32) D_8023F1FC) * 4,
+//             (temp_a2),
+//             (y),
+//             (temp_a2 + (s32) D_8023F1F8),
+//             (y + (s32) D_8023F1FC),
 //             G_TX_LOADTILE,
 //             0,
 //             0,
@@ -718,14 +753,14 @@ void prepare_text(u8 *src, s16 *dst) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/load_level_text_data.s")
-// NON-MATCHING: a few differences
-// s32 load_level_text_data(s16 language, s16 level, s16 *arg2, s16 *dst) {
+// NON-MATCHING: language file offsets :(
+// s16 load_level_text_data(s16 language, s16 level, u16 *msg_lengths, s16 *dst) {
 //     s16 copied;
 //     s16 msg_length;
 //     s16 i;
 //     s16 *src;
-//     s32 end;
 //     s32 start;
+//     s32 end;
 //     s16 num_msgs;
 //
 //     if (gRegion == REGION_EU) {
@@ -758,6 +793,7 @@ void prepare_text(u8 *src, s16 *dst) {
 //     // each message starts with an s16 containing the message length in bytes
 //     // each message ends with 0x7350 (30000)
 //
+//     // wrong data type?
 //     start = D_80154500[level][0];
 //     end = D_80154500[level][1];
 //
@@ -774,9 +810,9 @@ void prepare_text(u8 *src, s16 *dst) {
 //     for (i = 0; i < num_msgs; i++) {
 //         // first field is message length
 //         msg_length = *src++;
-//         // update copied?
-//         *arg2 = copied;
-//         memcpy_sssv(src, dst + copied, msg_length);
+//         // update list of message lengths
+//         msg_lengths[i] = copied;
+//         memcpy_sssv((u8*)src, &dst[copied], msg_length);
 //         copied += msg_length;
 //         // message length is in bytes but source is shorts
 //         src += msg_length / 2;
@@ -785,8 +821,9 @@ void prepare_text(u8 *src, s16 *dst) {
 //     return num_msgs; // ?
 // }
 
-s16 *func_80130A90(s16 arg0) {
-    return &D_8022E3F0[D_8022E3F0[arg0 + 7000] + 7350];
+// load message id
+s16 *func_80130A90(s16 id) {
+    return &D_8022E3F0[D_8022E3F0[id + 7000] + 7350];
 }
 
 // get_raw_message_length

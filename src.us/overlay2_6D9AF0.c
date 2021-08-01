@@ -24,7 +24,9 @@ void func_802C87E0_6D9E90(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9340_6DA9F0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C93E8_6DAA98.s")
+struct071 *func_802C93E8_6DAA98(u16 arg0) {
+    return &D_80203AA8[0-arg0].unk4.w; // probably not right?
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C941C_6DAACC.s")
 
@@ -47,7 +49,6 @@ struct071 *func_802C9488_6DAB38(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9500_6DABB0.s")
 // void func_802C9500_6DABB0(struct071 *obj) {
-//
 //     D_80203D1C[D_801F9EB8.unkA112--] = obj;
 //     if (D_801F9EB8.unkA112 < 0) {
 //         D_801F9EB8.unkA112 = 169;
@@ -57,14 +58,29 @@ struct071 *func_802C9488_6DAB38(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9564_6DAC14.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9834_6DAEE4.s")
+
+void func_802C9834_6DAEE4(void) {
+    func_802C9884_6DAF34();
+    func_802C8440_6D9AF0();
+}
 
 void func_802C985C_6DAF0C(void) {
     func_802C9884_6DAF34();
     func_802C8440_6D9AF0();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9884_6DAF34.s")
+void func_802C9884_6DAF34(void) {
+    u16 i;
+
+    func_802DAF5C_6EC60C();
+    func_802C941C_6DAACC();
+
+    for (i = 0; i < 170; i++) {
+        bzero_sssv(&D_801E9EB8[i].unk4, 0x270);
+
+    }
+    func_8029F3CC_6B0A7C();
+}
 
 void func_802C9900_6DAFB0(struct071 *arg0, s32 arg1, u8 arg2) {
     arg0->unk24C[arg2] = arg1;

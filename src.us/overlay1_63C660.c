@@ -5,7 +5,7 @@
 // #define PRIMITIVE 1
 // language_select_menu
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_63C660/language_select_menu.s")
-// // JUSTREG
+// JUSTREG
 // u8 language_select_menu(s16 arg0) {
 //     s16 used;
 //     s16 i;
@@ -17,8 +17,8 @@
 //
 //     if (arg0 == 0) {
 //         used = 0;
-//         // copy in language strings?
-//         for (i = 0; (i < 9) != 0; i++) { // regalloc hack, FIXME
+//         // copy in language strings
+//         for (i = 0; (i < 9); i++) {
 //             load_level_text_data(i, 32, D_80231AA0, D_80231D5C);
 //             if ((i != LANG_JAPANESE) && (i != LANG_AMERICAN)) {
 //                 src = func_80130A90(28);
@@ -26,7 +26,7 @@
 //                 while (*src != 30000) {
 //                     *dst++ = *src++;
 //                 }
-//                 *dst = 30000; // 0x7530 // 'u0'
+//                 *dst = EOM; // 0x7530 // 'u0'
 //                 used += 1;
 //             }
 //         }
@@ -116,7 +116,7 @@
 //
 //     func_80136938(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 50, 16);
 //
-//     func_80129300(&D_801D9E7C, D_80204278);
+//     load_segments(&D_801D9E7C, D_80204278);
 //     gDPPipeSync(D_801D9E7C++);
 //
 //     // write language strings
@@ -138,11 +138,11 @@
 //
 //     // analogue stick up or dpad up or c-up
 //     if ((gControllerInput->stick_y > 50) ||
-//         ((gControllerInput->button & 0x0800) & 0xFFFFu) ||
+//         ((gControllerInput->button & CONT_UP)) ||
 //         (gControllerInput->button & U_CBUTTONS)) {
 //         if (D_801D9ED4 == 0) {
 //             if (D_803B0590 > 0) {
-//                 play_sound_effect(0x90, 0, 0x5000, 1.0f, 64);
+//                 play_sound_effect(SFX_UNKNOWN_144, 0, 0x5000, 1.0f, 64);
 //                 D_801D9ED4 = 10;
 //                 D_803B0590 -= 1;
 //             }
@@ -150,11 +150,11 @@
 //     }
 //     // analogue stick down or dpad down or c-down
 //     if ((gControllerInput->stick_y < -50) ||
-//         ((gControllerInput->button & D_JPAD) & 0xFFFFu) ||
+//         ((gControllerInput->button & CONT_DOWN)) ||
 //         (gControllerInput->button & D_CBUTTONS)) {
 //         if (D_801D9ED4 == 0) {
 //             if (D_803B0590 < 6) {
-//                 play_sound_effect(0x91, 0, 0x5000, 1.0f, 64);
+//                 play_sound_effect(SFX_UNKNOWN_145, 0, 0x5000, 1.0f, 64);
 //                 D_801D9ED4 = 10;
 //                 D_803B0590 += 1;
 //             }
@@ -166,7 +166,8 @@
 //         D_803B0594 = 248;
 //     }
 //
-//     if ((gControllerInput->button & A_BUTTON) || (gControllerInput->button & START_BUTTON)) {
+//     if ((gControllerInput->button & A_BUTTON) ||
+//         (gControllerInput->button & START_BUTTON)) {
 //         switch (D_803B0590) {
 //         case 0: // Dutch
 //             return 1;
