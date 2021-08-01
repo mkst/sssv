@@ -5,29 +5,30 @@
 
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF)), &D_800BA760); // rnc_42DCA0, textures
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF)), &D_800BDC80);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF)), &D_800DE390);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF)), &D_800C3A40);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF)), &D_800C5240);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF)), &D_800C4240);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF)), &D_800C4A40);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF)), &D_800BB700);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF)), &D_800BBBB0);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF)), &D_800BC060);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF)), &D_800BC510);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF)), &D_800BC9C0);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF)), &D_800BCE70);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF)), &D_800BD320);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF)), &D_800BD7D0);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF)), D_800BA760); // ROM: 0x11DA90
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF)), D_800BDC80);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF)), D_800DE390); // ROM: 0x116BD0
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF)), D_800C3A40);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF)), D_800C5240);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF)), D_800C4240);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF)), D_800C4A40);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF)), D_800BB700);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF)), D_800BBBB0);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF)), D_800BC060);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF)), D_800BC510);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF)), D_800BC9C0);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF)), D_800BCE70);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF)), D_800BD320);
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF)), D_800BD7D0);
 }
+
 
 void func_8039884C_7A9EFC(void) {
     u8 sp18[0x58]; // 88?
 
     func_8039D6A4_7AED54();
     // debug here?
-    if (0);
+    if (0) {};
     D_803F7DA8.unk32 = 99;
     D_803F7D78.unk18 = 0;
     D_803F7D78.unk1C = 0;
@@ -41,8 +42,8 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D70 = D_803C03F4;
     prepare_text(sp18, D_803F2E34);
     D_803F7DA8.unk8 = 1.0f;
-    D_803B7468 = D_803F7DA8.unk2D * 12;
-    D_803F7D68 = D_803F7DA8.unk2D * 12;
+    D_803B7468 = D_803F7DA8.currentLevel * 12;
+    D_803F7D68 = D_803F7DA8.currentLevel * 12;
     D_803F7DA8.unk0 = 40.0f;
     D_803F7DA8.unk4 = 30.0f;
     D_803F7D9C = 0;
@@ -77,92 +78,85 @@ void func_80398A00_7AA0B0(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039A2DC_7AB98C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039BBB8_7AD268.s")
-// void func_8039BBB8_7AD268(void) {
-//     s16 temp_a0_2;
-//     s16 level;
-//     s32 temp_a0;
-//     struct003 *temp_v0;
-//
-//     if (D_803F2D50.unkC6 != 0) {
-//         temp_a0 = D_803E4D28 & 2;
-//         if (D_803E4D28 & 1) { // level completed?
-//             level = D_803F7DA8.unk2D + 1;
-//             if ((level != GIVE_A_DOG_A_BONUS) &&
-//                 (level != WALRACE_64) &&
-//                 (level != EVOS_ESCAPE) &&
-//                 (level != PUNCHUP_PYRAMID) &&
-//                 (level != BIG_CELEBRATION_PARADE)) {
-//                 temp_v0 = &D_8023F260 + D_803F2D30.unk8;
-//                 temp_v0->unk3 |= 1;
-//             }
-//             // regalloc help
-//             if (1) {}
-//
-//         }
-//         level = D_803F7DA8.unk2D + 1;
-//         if (temp_a0 != 0) {
-//             if (level == GIVE_A_DOG_A_BONUS) {
-//                 D_8023F260.unk3B |= 1; //
-//             }
-//             if (level == WALRACE_64) {
-//                 D_8023F260.unk3B |= 2;
-//             }
-//             if (level == EVOS_ESCAPE) {
-//                 D_8023F260.unk3B |= 4;
-//             }
-//             if (level == PUNCHUP_PYRAMID) {
-//                 D_8023F260.unk3B |= 8;
-//             }
-//         }
-//         if ((level == GIVE_A_DOG_A_BONUS) ||
-//             (level == WALRACE_64) ||
-//             (level == EVOS_ESCAPE) ||
-//             (level == PUNCHUP_PYRAMID)) {
-//             if (temp_a0 != 0) {
-//                 temp_v0 = &D_8023F260 + D_803F2D30.unk8;
-//                 temp_v0->unk3 |= 2;
-//             }
-//         } else {
-//             temp_v0 = &D_8023F260 + D_803F2D30.unk8;
-//             temp_v0->unk3 |= 2;
-//             if ((temp_v0->unk3 >> 4) < D_803F2D30.unkC) {
-//                 // FIXME
-//                 temp_v0->unk3 |= (D_803F2D30.unkC * 0x10) & 0xff0f;
-//             }
-//         }
-//         D_803F2D50.unkC6 = 0;
-//         memcpy_sssv(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 0x40);
-//         write_eeprom(D_803F7DA8.unk2E);
-//
-//         level = D_803F7DA8.unk2D + 1;
-//         if ((level == GIVE_A_DOG_A_BONUS) ||
-//             (level == WALRACE_64) ||
-//             (level == EVOS_ESCAPE) ||
-//             (level == PUNCHUP_PYRAMID)) {
-//             if ((D_803E4D28 & 2) != 0) {
-//                 if (level == PUNCHUP_PYRAMID) {
-//                     if (D_8023F260.unk3B == 15) { // all bodyparts collected
-//                         D_803F7DA8.unk2D += 1; // big day parade
-//                     }
-//                 } else {
-//                     D_803F7DA8.unk2D += 1;
-//                 }
-//             }
-//         } else {
-//             D_803F7DA8.unk2D += 1;
-//         }
-//         if (D_803F7DA8.unk2D == 31) {
-//             D_803F7DA8.unk2D = 34; // END_CREDITS?
-//         }
-//     } else {
-//         if (D_8023F260.score < D_803F2D30.score) {
-//             D_8023F260.score = D_803F2D30.score;
-//         }
-//         memcpy_sssv(&D_8023F260, &D_8023F2E0[D_803F7DA8.unk2E], 64);
-//         write_eeprom(D_803F7DA8.unk2E);
-//     }
-// }
+void func_8039BBB8_7AD268(void) {
+    s16 level;
+
+    if (D_803F2D50.unkC6 != 0) {
+        if (D_803E4D28 & 1) { // level completed?
+            level = D_803F7DA8.currentLevel + 1;
+            if ((level != GIVE_A_DOG_A_BONUS) &&
+                (level != WALRACE_64) &&
+                (level != EVOS_ESCAPE) &&
+                (level != PUNCHUP_PYRAMID) &&
+                (level != BIG_CELEBRATION_PARADE)) {
+                D_8023F260.level[D_803F2D30.unk8 - 1].trophy = 1;
+            }
+            // regalloc helper
+            if (1) {}
+        }
+        level = D_803F7DA8.currentLevel + 1;
+        if (D_803E4D28 & 2) { // trophy collected?
+            if (level == GIVE_A_DOG_A_BONUS) {
+                D_8023F260.evoPartsCollected |= 1;
+            }
+            if (level == WALRACE_64) {
+                D_8023F260.evoPartsCollected |= 2;
+            }
+            if (level == EVOS_ESCAPE) {
+                D_8023F260.evoPartsCollected |= 4;
+            }
+            if (level == PUNCHUP_PYRAMID) {
+                D_8023F260.evoPartsCollected |= 8;
+            }
+        }
+        if ((level == GIVE_A_DOG_A_BONUS) ||
+            (level == WALRACE_64) ||
+            (level == EVOS_ESCAPE) ||
+            (level == PUNCHUP_PYRAMID)) {
+            if (D_803E4D28 & 2) {
+                D_8023F260.level[D_803F2D30.unk8 - 1].completed = 1;
+            }
+        } else {
+            D_8023F260.level[D_803F2D30.unk8 - 1].completed = 1;
+            // 'powercells' element used to store 'time' in bonus levels
+            if (D_8023F260.level[D_803F2D30.unk8 - 1].powercells < D_803F2D30.unkC) {
+                D_8023F260.level[D_803F2D30.unk8 - 1].powercells = D_803F2D30.unkC;
+            }
+        }
+        D_803F2D50.unkC6 = 0;
+        memcpy_sssv((u8*)&D_8023F260, (u8*)&D_8023F2E0[D_803F7DA8.unk2E], 64);
+        write_eeprom(D_803F7DA8.unk2E);
+
+        level = D_803F7DA8.currentLevel + 1;
+        if ((level == GIVE_A_DOG_A_BONUS) ||
+            (level == WALRACE_64) ||
+            (level == EVOS_ESCAPE) ||
+            (level == PUNCHUP_PYRAMID)) {
+            if (D_803E4D28 & 2) {
+                if (level == PUNCHUP_PYRAMID) {
+                    // only increment level counter if we have collected all bodyparts
+                    if (D_8023F260.evoPartsCollected == 15) {
+                        D_803F7DA8.currentLevel += 1;
+                    }
+                } else {
+                    D_803F7DA8.currentLevel += 1;
+                }
+            }
+        } else {
+            D_803F7DA8.currentLevel += 1;
+        }
+        // there is no level 32, so trigger end credits
+        if (D_803F7DA8.currentLevel == NO_LEVEL_32-1) {
+            D_803F7DA8.currentLevel = END_CREDITS-1;
+        }
+    } else {
+        if (D_8023F260.score < D_803F2D30.score) {
+            D_8023F260.score = D_803F2D30.score;
+        }
+        memcpy_sssv((u8*)&D_8023F260, (u8*)&D_8023F2E0[D_803F7DA8.unk2E], 64);
+        write_eeprom(D_803F7DA8.unk2E);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039BE98_7AD548.s")
 // NON-MATCHING: long way to go here...
@@ -306,7 +300,38 @@ void func_8039CAB8_7AE168(s16 arg0) {
     gDPPipeSync(D_801D9E7C++);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039CCBC_7AE36C.s")
+// get_player_progress ?
+void func_8039CCBC_7AE36C(PlayerEeprom *e, s16 *arg1) {
+    s16 levels;
+    s16 powercells;
+    s16 species;
+    s16 i;
+
+    levels = species = powercells = 0;
+
+    for (i = 0; i < 31; i++) {
+        if (e->level[i].completed) {
+            levels += 1;
+        }
+        if ((i != GIVE_A_DOG_A_BONUS-1) &&
+            (i != WALRACE_64-1) &&
+            (i != EVOS_ESCAPE-1) &&
+            (i != PUNCHUP_PYRAMID-1) &&
+            (i != BIG_CELEBRATION_PARADE-1)) {
+            powercells += e->level[i].powercells;
+        }
+    }
+
+    for (i = 0; i < AID_MAX_ANIMALS; i++) {
+        if (e->speciesSeen[(s8)(i >> 3)] & (1 << (s8)(i % 7))) {
+            species += 1;
+        }
+    }
+
+    arg1[0] = levels;
+    arg1[1] = species;
+    arg1[2] = powercells;
+}
 
 // min/max with tolerance?
 f32 func_8039CDE8_7AE498(f32 arg0, f32 arg1) {
@@ -328,7 +353,7 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
     gSPLoadUcode((*arg0)++, &D_8014E300, &D_8015C750);
     gDPPipeSync((*arg0)++);
 
-    func_80129300(arg0, D_80204278);
+    load_segments(arg0, D_80204278);
 
     gSPViewport((*arg0)++, &D_803B66F0);
     gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
@@ -460,22 +485,23 @@ void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs) {
 //     }
 // }
 
-// note that levels are off by 1
-// SMASHING_START would be 0 in this function
+// note that levels appear to be in-game order (1-indexed) rather than common.h
+// SMASHING_START (level 1) would be considered 0 here
 s32 get_biome_for_level(s16 arg0) {
-    if ((arg0 >= 0) && (arg0 < 10)) {
+    if ((arg0 >= SMASHING_START-1) && (arg0 < SNOW_JOKE-1)) {
         return EUROPE_BIOME;
     }
-    if ((arg0 >= 10) && (arg0 < 17)) {
+    if ((arg0 >= SNOW_JOKE-1) && (arg0 < JUNGLE_JAPES-1)) {
         return ICE_BIOME;
     }
-    if ((arg0 >= 17) && (arg0 < 23)) {
+    if ((arg0 >= JUNGLE_JAPES-1) && (arg0 < FUN_IN_THE_SUN-1)) {
         return JUNGLE_BIOME;
     }
-    if ((arg0 >= 23) && (arg0 < 30)) {
+    if ((arg0 >= FUN_IN_THE_SUN-1) && (arg0 < BIG_CELEBRATION_PARADE-1)) {
         return DESERT_BIOME;
     }
-    if ((arg0 == 30) || (arg0 == 31)) {
+    // TODO: understand why this is not END_CREDITS-1
+    if ((arg0 == BIG_CELEBRATION_PARADE-1) || (arg0 == NO_LEVEL_32-1)) {
         return CITY_BIOME;
     }
 }

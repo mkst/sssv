@@ -10,105 +10,109 @@ extern u8  *D_801D9EC4;
 
 extern u8  D_800B0B20[];
 
-extern u8  D_00085790[];
-extern u8  D_000C7A30[];
-extern u8  D_000DD5C0[];
-extern u8  D_000E75B0[];
-extern u8  D_000F1060[];
-extern u8  D_000FFD50[];
-extern u8  D_00116BD0[];
+extern u8  data_7F790_ROM_END[];
 
+extern u8  data_C7A30_ROM_START[];
+extern u8  data_C7A30_ROM_END[];
+
+extern u8  data_DD5C0_ROM_START[];
+extern u8  data_DD5C0_ROM_END[];
+extern u8  data_E75B0_ROM_START[];
+extern u8  data_E75B0_ROM_END[];
+extern u8  data_F1060_ROM_START[];
+extern u8  data_F1060_ROM_END[];
+extern u8  data_FFD50_ROM_START[];
+extern u8  data_FFD50_ROM_END[];
+extern u8  data_116BD0_ROM_START[];
+extern u8  data_116BD0_ROM_END[];
 extern char D_803BF364_7D0A14[];
+
+extern u8  data_7F790_ROM_START[];
 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animinit/load_data_section.s")
 // void load_data_section(u8 arg0) {
-//     s32 pad[4]; // urgh
-//     u32 available;
-//     u32 len;
+//     char *new_var;
+//     u32 available, available2;
+//     s32 len;
+//     s32 pad[2]; // urgh
 //
-//     osWritebackDCacheAll();
 //     available = D_800B0B20 - D_80099600;
+//     osWritebackDCacheAll();
 //     bzero_sssv(D_80099600, available);
 //
+//     new_var = "../src/animinit.c";
+//
 //     switch (arg0) {
-//     case 0:
-//         len = D_00116BD0 - D_000FFD50;
-//         if ((len >= available)) {
-//             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x72, available);
-//             *(volatile int*)0 = 0;
+//     case 5:
+//         // city animals?
+//         if (((len = data_FFD50_ROM_END - data_FFD50_ROM_START) >= available)) {
+//             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0x72);
+//             *(volatile s32*)NULL = 0;
 //         }
 //         D_801D9E5C = D_80099600;
-//         dma_read(D_000FFD50, &D_80099600, len);
+//         dma_read(data_FFD50_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E5C;
-//     case 1:
-//         len = D_000DD5C0 - D_000C7A30;
-//         if (len >= available) {
-//             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x84, available);
-//             *(volatile int*)0 = 0;
+//         break;
+//     case 0:
+//         // europe animals (?)
+//         if ((len = data_C7A30_ROM_END - data_C7A30_ROM_START) >= available) {
+//             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0x84);
+//             *(volatile s32*)NULL = 0;
 //         }
 //         D_801D9E58 = D_80099600;
-//         dma_read(D_000C7A30, &D_80099600, len);
+//         dma_read(data_C7A30_ROM_START, &D_80099600, len);
 //         D_801D9EC4 = D_801D9E58;
 //         break;
-//     case 2:
-//         len = D_000E75B0 - D_000DD5C0;
-//         if ((len > available)) {
-//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0x96, available);
-//             *(volatile int*)0 = 0;
+//     case 1:
+//         // ice animals
+//         if ((len = data_DD5C0_ROM_END - data_DD5C0_ROM_START) > available) {
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0x96);
+//             *(volatile s32*)NULL = 0;
 //         }
 //         D_801D9E60 = D_80099600;
-//         dma_read(D_000DD5C0, &D_80099600, len);
+//         dma_read(data_DD5C0_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E60;
 //         break;
 //
-//     case 3:
-//         len = D_000F1060 - D_000E75B0;
-//         if ((len > available)) {
-//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xA8, available);
-//             *(volatile int*)0 = 0;
+//     case 2:
+//         // desert animals
+//         if ((len = data_E75B0_ROM_END - data_E75B0_ROM_START) > available) {
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0xA8);
+//             *(volatile s32*)NULL = 0;
 //         }
 //         D_801D9E64 = D_80099600;
-//         dma_read(D_000E75B0, &D_80099600, len);
+//         dma_read(data_E75B0_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E64;
 //         break;
-//     case 5:
-//         len = D_000FFD50 - D_000F1060;
-//         if ((len > available)) {
-//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xba, available);
-//             *(volatile int*)0 = 0;
+//     case 3:
+//         // jungle animals
+//         if ((len = data_F1060_ROM_END - data_F1060_ROM_START) > available) {
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0xBA);
+//             *(volatile s32*)NULL = 0;
 //         }
 //         D_801D9E68 = D_80099600;
-//         dma_read(D_000F1060, &D_80099600, len);
+//         dma_read(data_F1060_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E68;
 //         break;
-//         // len = D_00116BD0 - D_000FFD50;
-//         // if ((len > available)) {
-//         //     rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xba, available);
-//         //     *(volatile int*)0 = 0;
-//         // }
-//         // D_801D9E5C = D_80099600;
-//         // dma_read(D_000FFD50, &D_80099600, len);
-//         // D_801D9EC4 = D_801D9E5C;
-//         // break;
 //     case 6:
-//         len = D_00085790 - D_0007F790;
-//         if (((u8*)D_800BA760 - D_800B0B20) < len) {
-//             rmonPrintf("\nASSERT: len <= (_gfxspecificSegmentEnd - _gfxspecificSegmentStart), %s, %u\n", "../src/animinit.c", 0xCE, available);
-//             *(volatile int*)0 = 0;
+//         // dan
+//         available2 = ((u8*)D_800BA760 - D_800B0B20);
+//         if ((len = data_7F790_ROM_END - data_7F790_ROM_START) > available2) {
+//             rmonPrintf("\nASSERT: len <= (_gfxspecificSegmentEnd - _gfxspecificSegmentStart), %s, %u\n", new_var, 0xCE);
+//             *(volatile s32*)NULL = 0;
 //         }
 //         D_801D9E78 = D_800B0B20;
-//         dma_read(D_0007F790, D_800B0B20, len);
-//         len = D_0012A390 - D_00116BD0;
-//         if (len > available) {
-//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", "../src/animinit.c", 0xDA, available);
-//             *(volatile int*)0 = 0;
+//         dma_read(data_7F790_ROM_START, D_800B0B20, len);
+//
+//         // menu
+//         if ((len = data_116BD0_ROM_END - data_116BD0_ROM_START) > available) {
+//             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0xDA);
+//             *(volatile s32*)NULL = 0;
 //         }
 //         D_801D9E6C = D_80099600;
-//         dma_read(D_00116BD0, &D_80099600, len);
+//         dma_read(data_116BD0_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E6C;
-//         break;
-//     case 4:
 //         break;
 //     }
 // }

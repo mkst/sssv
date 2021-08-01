@@ -84,8 +84,8 @@ u8 func_8037FBBC_79126C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037FCA8_791358.s")
 // NON-MATCHING: almost...
 // void func_8037FCA8_791358(void) {
-//     s16 temp_t8;
 //     s32 phi_a0;
+//     s16 tmp;
 //
 //     if (D_803D552C->missileScaleLeft != 0) {
 //         D_803D552C->missileScaleLeft = MIN(D_803D552C->missileScaleLeft + 1, 8);
@@ -100,8 +100,8 @@ u8 func_8037FBBC_79126C(void) {
 //     }
 //     // this isnt right
 //     phi_a0 = (phi_a0 << 2) - phi_a0;
-//     temp_t8 = ((D_803D552C->skillAEnergy[phi_a0] + (D_803D5524->unkDA[1] * 8)) / D_803D5524->unkDA[0]);
-//     if (temp_t8 == 1) {
+//     tmp = ((D_803D552C->skillAEnergy[phi_a0 * 2] + (D_803D5524->unkDA[1+phi_a0] * 8)) / D_803D5524->unkDA[0+phi_a0]);
+//     if (tmp == 1) {
 //         if ((D_803D552C->missileScaleLeft == 0) && (D_803D552C->missileScaleRight == 0)) {
 //             if (D_803D552C->missileSide == 0) {
 //                 D_803D552C->missileScaleRight = 1;
@@ -109,7 +109,7 @@ u8 func_8037FBBC_79126C(void) {
 //                 D_803D552C->missileScaleLeft = 1;
 //             }
 //         }
-//     } else if (temp_t8 >= 2) {
+//     } else if (tmp >= 2) {
 //         if (D_803D552C->missileScaleLeft == 0) {
 //             D_803D552C->missileScaleLeft += 1;
 //         }

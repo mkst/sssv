@@ -3,11 +3,11 @@
 
 
 // delay slot
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/flying_dog/func_802EA7F0_6FBEA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/dog/func_802EA7F0_6FBEA0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/flying_dog/func_802EBB34_6FD1E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/dog/func_802EBB34_6FD1E4.s")
 // delay slot
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/flying_dog/func_802ED108_6FE7B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/dog/func_802ED108_6FE7B8.s")
 
 void func_802EE89C_6FFF4C(void) {
     if (D_803D552C->missileSide != 0) {
@@ -22,7 +22,7 @@ void func_802EE89C_6FFF4C(void) {
     D_803D552C->unk312 = 4;
 
     if (D_803D552C->unk310 == 0) {
-        play_sound_effect_at_location(0x7C, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
         func_80321E60_733510(17, 0, 0, -28, 0, 0, -9, 8);
         D_803D552C->unk310 = 20;
     }
@@ -163,7 +163,7 @@ void flying_dog_fire_gun(s32 arg0, s32 arg1, s32 arg2) {
 
 void flying_dog_drop_bomb(s32 arg0, s32 arg1, s32 arg2) {
     func_80321E60_733510(0x11, 0, 0, -28, 0, 0, -9, 8);
-    play_sound_effect_at_location(0x7C, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 
 void func_802EF074_700724(s16 arg0) {

@@ -68,50 +68,51 @@ void func_80314788_725E38(void) {
     D_803E8E58 = 1;
 }
 
-// requires jump table
+// set_game_state()
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314874_725F24.s")
 
-
-// requires jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314F0C_7265BC.s")
 // something to do with in-game scripting
-extern s32 D_FFFE0404[];
-extern f32 D_803F2E30;
+extern u8 D_FFFE0400[];
+
 extern s32 D_803E4D3C;
 extern s32 D_803C4DAC_7D645C[];
-// NON-MATCHING: mosly regex, bit a couple of issues
+// need to check rodata
+// get_game_state()
 // s32 func_80314F0C_7265BC(Animal *arg0, s32 arg1) {
 //     s32 res;
 //
 //     if (arg1 < 0x7F7F) {
 //         res = arg1;
 //     } else {
-//         switch (arg1 - 0x7F7F) {
-//         case 0:
-//             res = D_FFFE0404[arg1]; // + (arg0 + (arg1 * 4)));
+//         switch (arg1) { // arg1 - 0x7F7F
+//         case 32639:
+//         case 32640:
+//         case 32641:
+//             res = *(s32*)&D_FFFE0400[(s32)(((s32*)&arg0->xPos) + arg1)];
 //             break;
-//         case 3:
+//         case 32642:
 //             res = arg0->unk158;
 //             break;
-//         case 4:
+//         case 32643:
 //             res = arg0->health;
 //             break;
-//         case 5:
+//         case 32644:
 //             res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
 //             break;
-//         case 6:
+//         case 32645:
 //             res = arg0->xPos;
 //             break;
-//         case 7:
+//         case 32646:
 //             res = arg0->zPos;
 //             break;
-//         case 8:
+//         case 32647:
 //             res = arg0->yPos;
 //             break;
-//         case 9:
+//         case 32648:
 //             res = arg0->unk40;
 //             break;
-//         case 10:
+//         case 32649:
 //             if (D_803F2CD6 < 0) {
 //                 res = D_803F2CD2;
 //             } else {
@@ -121,106 +122,106 @@ extern s32 D_803C4DAC_7D645C[];
 //                 }
 //             }
 //             break;
-//         case 11:
+//         case 32650:
 //             res = arg0->xVelocity.w >> 5;
 //             break;
-//         case 12:
+//         case 32651:
 //             res = arg0->zVelocity.w >> 5;
 //             break;
-//         case 13:
+//         case 32652:
 //             res = arg0->yVelocity.w >> 5;
 //             break;
-//         case 14:
+//         case 32653:
 //             if (arg0->unk16C->unk0 >= 256) {
 //                 res = (arg0->unk2E * 360) / 256;
 //             } else {
 //                 res = arg0->unk2E;
 //             }
 //             break;
-//         case 15:
+//         case 32654:
 //             if (arg0->unk16C->unk0 >= 256) {
 //                 res = (arg0->yRotation * 360) / 256;
 //             } else {
 //                 res = arg0->yRotation;
 //             }
 //             break;
-//         case 16:
+//         case 32655:
 //             res = arg0->unk1CC;
 //             break;
-//         case 17:
+//         case 32656:
 //             res = (arg0->unk163 & 0x18) >> 3;
 //             break;
-//         case 18:
+//         case 32657:
 //             res = arg0->unk46;
 //             break;
-//         case 19:
+//         case 32658:
 //             res = D_803F2D30.score;
 //             break;
-//         case 20:
+//         case 32659:
 //             res = arg0->unk3E;
 //             break;
-//         case 21:
+//         case 32660:
 //             res = arg0->state;
 //             break;
-//         case 22:
+//         case 32661:
 //             res = D_803F2CD8 * D_803F2CD6;
 //             break;
-//         case 23:
+//         case 32662:
 //             res = D_803A05B0_7B1C60 >> 6;
 //             break;
-//         case 24:
+//         case 32663:
 //             if ((gControllerInput->stick_x < -8) || (gControllerInput->stick_x > 8)) {
 //                 res = gControllerInput->stick_x;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 25:
+//         case 32664:
 //             if ((gControllerInput->stick_y < -8) || (gControllerInput->stick_y > 8)) {
 //                 res = gControllerInput->stick_y;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 26:
+//         case 32665:
 //             if ((gControllerInput->button & A_BUTTON)) {
 //                 res = 1;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 27:
+//         case 32666:
 //             if ((gControllerInput->button & B_BUTTON)) {
 //                 res = 1;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 28:
+//         case 32667:
 //             res = D_803E4D2C;
 //             break;
-//         case 29:
+//         case 32668:
 //             res = D_803F2E30 * 100.0f;
 //             break;
-//         case 30:
+//         case 32669:
 //             res = D_803E4D30;
 //             break;
-//         case 31:
+//         case 32670:
 //             res = D_803E4D38[0];
 //             break;
-//         case 32:
+//         case 32671:
 //             res = arg0->unk16C->unk0;
 //             break;
-//         case 33:
+//         case 32672:
 //             res = D_801546E0;
 //             break;
-//         case 34:
+//         case 32673:
 //             res = D_801546D8;
 //             break;
-//         case 35:
-//             res = D_803E4D3C;
+//         case 32674:
+//             res = D_803E4D38[1];
 //             break;
-//         case 36:
+//         case 32675:
 //             res = D_803E4D28;
 //             break;
 //         default:

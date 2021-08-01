@@ -4,18 +4,6 @@
 
 #include "pp.h"
 
-#if 0
-const Gfx D_801542D0[] =
-{
-    gsDPPipeSync(),
-    gsSPSetGeometryMode(G_CULL_BACK | G_TEXTURE_GEN),
-    gsDPSetCombineMode(G_CC_DECALRGB, G_CC_DECALRGB),
-    gsSPTexture(0x10000*(0.0302734), 0x10000*(0.0302734), 0, G_TX_RENDERTILE, G_ON),
-    // maps to ROM 0x2E9D0
-    gsDPLoadTextureBlock(D_801532D0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD),
-    gsSPEndDisplayList(),
-}
-#endif
 
 void func_80294E50_6384F0(void) {
     func_802988E8_63BF88();
@@ -60,14 +48,16 @@ void func_802950B8_638758(void) {
     // load "lang34.dat"
     load_level_text_data(D_8023F2A0.language, 33, D_80231AA0, D_80231D5C);
 
-    src = func_80130A90(16);
+    // load "CONTROLLER NOT CONNECTED" text
+    src = func_80130A90(16); // message 16
     dst = D_802042F0;
     while (*src != 30000) {
         *dst++ = *src++;
     }
     *dst = 30000;
 
-    src = func_80130A90(14);
+    // load "PRESS START" text
+    src = func_80130A90(14); // message 14
     dst = D_80204368;
     while (*src != 30000) {
         *dst++ = *src++;
@@ -256,17 +246,17 @@ void func_80295EB0_639550(s32 arg0) {
 void func_802988E8_63BF88(void) {
     gScreenWidth = 320;
     gScreenHeight = 240;
-    func_80129300(&D_801D9E7C, D_80204278);
+    load_segments(&D_801D9E7C, D_80204278);
     func_80129430(&D_801D9E7C);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);
     gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
     gDPPipeSync(D_801D9E7C++);
 
-    D_80152EA8.unk0 = D_80203FD0 * 2;
-    D_80152EA8.unk2 = gScreenHeight * 2;
-    D_80152EA8.unk8 = D_80203FD0 * 2;
-    D_80152EA8.unkA = gScreenHeight * 2;
+    D_80152EA8.vp.vscale[0] = D_80203FD0 * 2;
+    D_80152EA8.vp.vscale[1] = gScreenHeight * 2;
+    D_80152EA8.vp.vtrans[0] = D_80203FD0 * 2;
+    D_80152EA8.vp.vtrans[1] = gScreenHeight * 2;
 
     gSPTexture(D_801D9E7C++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
@@ -279,7 +269,7 @@ void func_802988E8_63BF88(void) {
 
     func_80295FAC_63964C(&D_80162658[D_80152EB8]);
     if (D_80299E24 != 0) {
-        D_80152E90 = 0;
+        D_80152E90 = 0;  // select game overlay
         D_80204284 = 4;
     }
 }

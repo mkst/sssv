@@ -1884,13 +1884,13 @@ void func_803899E0_79B090(Animal *arg0) {
         } else {
             phi_v0 = D_803E1D3B[D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk2].unk0;
         }
-        if (phi_v0 != arg0->unk4E) {
-            if (phi_v0 < arg0->unk4E) {
+        if (phi_v0 != arg0->unk4C.unk16) {
+            if (phi_v0 < arg0->unk4C.unk16) {
                 if ((ABS(arg0->xVelocity.w) > 32768) || (ABS(arg0->zVelocity.w) > 32768) || (ABS(arg0->yVelocity.w) > 327680)) {
-                    arg0->unk4E -= 1;
+                    arg0->unk4C.unk16 -= 1;
                 }
             } else {
-                arg0->unk4E += 1;
+                arg0->unk4C.unk16 += 1;
             }
         }
     }

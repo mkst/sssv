@@ -2,7 +2,7 @@
 #include "common.h"
 
 
-void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, s32 arg4, s32 arg5) {
+void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     D_803A05C0_7B1C70 = 1 - D_803A05C0_7B1C70;
     if (arg1 != 1) {
         if (0) {

@@ -24,10 +24,9 @@ extern s32 numControllers;
 //     D_802912E5 = 1;
 //
 //     osCreateMesgQueue(&D_8028D0A8, &D_8029104C, 1);
-//     osSetEventMesg(OS_EVENT_SI, &D_8028D0A8, 1);
+//     osSetEventMesg(OS_EVENT_SI, &D_8028D0A8, (OSMesg)1);
 //
 //     osContInit(&D_8028D0A8, &pattern, &gControllerStatus[0]);
-//
 //
 //     numControllers = 0;
 //     for (i = 0; i < MAXCONTROLLERS; i++) {
@@ -48,6 +47,7 @@ extern s32 numControllers;
 //         if (((pattern >> i) & 1) &&
 //             ((gControllerStatus[i].type & CONT_JOYPORT) &&
 //             (gControllerStatus[i].status & CONT_CARD_ON))) {
+//
 //             res = osPfsInit(&D_8028D0A8, &D_80291110[i], i);
 //             // bad?
 //             if ((res == PFS_ERR_ID_FATAL) || (res == PFS_ERR_DEVICE)) {
@@ -59,7 +59,7 @@ extern s32 numControllers;
 //                 }
 //             }
 //             // regalloc
-//             if (!res) {};
+//             if (res) {};
 //         }
 //     }
 //
@@ -170,7 +170,7 @@ void func_80137294(void) {
     s16 controller;
 
     do {
-        osRecvMesg(&D_802912B0, &msg, OS_MESG_BLOCK);
+        osRecvMesg(&D_802912B0, (OSMesg)&msg, OS_MESG_BLOCK);
         func_801370F4();
         status = msg->status;
         controller = msg->controller;
@@ -192,9 +192,62 @@ void func_80137294(void) {
     while (TRUE);
 }
 
+// TODO: is ControllerState struct really correct?
 #pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/func_801373CC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/func_801375E8.s")
+void func_801375E8(s16 arg0) {
+    s32 tmp;
+    s16 pad0[2];
+
+    if (D_80291090.hasRumblePak[arg0] == 0) {
+        if ((++D_802912DC > 60) ) {
+            if (osMotorInit(&D_8028D0A8, D_80291110, 0) == 0) {
+                D_80291090.hasRumblePak[0] = 1;
+            } else {
+                D_80291090.hasRumblePak[0] = 0;
+            }
+            if (D_80291090.hasRumblePak[0] == 1) {
+                osMotorStop(D_80291110);
+            }
+            D_802912DC = 0;
+        }
+        return;
+    }
+
+    if (D_80291090.state.unk18[arg0] != 0) {
+        tmp = (((D_80291090.state.unk10[arg0] - D_80291090.state.unk8[arg0]) *
+                (D_80291090.state.unk18[arg0] - D_80291090.state.unk20[arg0])) /
+                D_80291090.state.unk18[arg0]) + D_80291090.state.unk8[arg0];
+
+        if (--D_80291090.state.unk20[arg0] == 0) {
+            D_80291090.state.unk18[arg0] = 0;
+        }
+    } else {
+        tmp = 0;
+    }
+
+    if (tmp >= 71) {
+        if (D_80291090.state.unk0[arg0] == 0) {
+            func_80137204(arg0);
+        }
+    }
+    if ((tmp < 6) && (D_80291090.state.unk0[arg0] != 0)) {
+        func_8013724C(arg0);
+    }
+    if ((tmp >= 6) && (tmp < 71)) {
+        if (D_80291090.state.unk30[arg0] >= 256) {
+            D_80291090.state.unk30[arg0] -= 256;
+            if (D_80291090.state.unk0[arg0] == 0) {
+                func_80137204(arg0);
+            }
+        } else {
+            D_80291090.state.unk30[arg0] += (((tmp * tmp * tmp) / 512) + 4);
+            if (D_80291090.state.unk0[arg0] != 0) {
+                func_8013724C(arg0);
+            }
+        }
+    }
+}
 
 // initialise rumble pack
 void func_80137840(void) {
@@ -207,6 +260,5 @@ void func_80137840(void) {
         if (D_80291090.hasRumblePak[0] == 1) {
             osMotorStop(D_80291110);
         }
-
     }
 }

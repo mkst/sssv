@@ -11,7 +11,7 @@ Animal *func_803218D8_732F88(Animal *arg0) {
         D_803D552C->unk324 = arg0->state;
         D_803D552C->unk320 = arg0;
         arg0->state = 30;
-        arg0->unk4F = (arg0->unk4F & 0xFF) | 64; // fakematch?
+        arg0->unk4C.unk25 = 1;
         return arg0;
     }
     return NULL;

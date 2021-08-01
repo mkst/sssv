@@ -8,7 +8,7 @@
 
 void func_8035D6A0_76ED50(void) {
     if (D_803F2EDC != 0) {
-        func_8029A624_6ABCD4(&D_801D9E88);
+        set_fog_position_and_color(&D_801D9E88);
     }
 }
 

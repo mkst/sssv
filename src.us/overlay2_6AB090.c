@@ -87,19 +87,21 @@ u16 func_8029A52C_6ABBDC(u8 arg0) {
 }
 
 u16 func_8029A568_6ABC18(s16 arg0) {
-    s16 temp_v0;
-    u16 temp_v1;
-    u16 temp_v2;
-    u16 temp_v3;
-    u16 res;
+    u16 r;
+    u16 g;
+    u16 b;
 
-    temp_v0 = arg0;
-    temp_v1 =  ((temp_v0 & 0x003E) >> 2) & 0x3E;
-    temp_v2 = (((temp_v0 & 0x07C0) >> 7) << 5) & 0x7C0;
-    temp_v3 = (((temp_v0 & 0xF800) >> 12) << 10) & 0xF800;
+    // rgba 5/5/5/1 to 25% intensity
+    // rrrrrgggggbbbbba => __rrr__ggg__bbb_
+    // 0000000000111110 => 0000000000001110
+    // 0000011111000000 => 0000000111000000
+    // 1111100000000000 => 0011100000000000
 
-    res = temp_v1 | temp_v2 | temp_v3;
-    return res;
+    b =  ((arg0 & 0x003E) >> 2)         & 0x003E;
+    g = (((arg0 & 0x07C0) >> 7) << 5)   & 0x07C0;
+    r = (((arg0 & 0xF800) >> 12) << 10) & 0xF800;
+
+    return b | g | r;
 }
 
 // set_fog_factor
@@ -109,13 +111,64 @@ void func_8029A5B4_6ABC64(Gfx **dl, u8 r, u8 g, u8 b) {
     gDPSetFogColor((*dl)++, r, g, b, 0x00);
 }
 
-// set_fog_position_and_color
-void func_8029A624_6ABCD4(Gfx **dl) {
+void set_fog_position_and_color(Gfx **dl) {
     gSPFogPosition((*dl)++, D_803E1CF8.min, D_803E1CF8.max);
     gDPSetFogColor((*dl)++, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 0x00);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AB090/func_8029A720_6ABDD0.s")
+// JUSTREG
+// void func_8029A720_6ABDD0(void) {
+//     if ((D_803F28DC & 1) & 0xFF) { // regalloc help
+//         func_80127D30(&D_80204278->unk37510, ((D_803F28DC & 0xFFC) << 17) >> 16);
+//
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+//         gSPDisplayList(D_801D9E7C++, &D_80204278->unkBB80);
+//         gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
+//         gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
+//
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+//     } else if ((D_803F28DC & 2) & 0xFF) {
+//         func_80127ED4(&D_80204278->unk37510, ((D_803F28DC & 0xFFC) << 17) >> 16);
+//
+//         D_80204278->unk3B6B0.l.col[0]  = D_80204278->unk3B638.l.col[0] >> 1;
+//         D_80204278->unk3B6B0.l.col[1]  = D_80204278->unk3B638.l.col[1] >> 1;
+//         D_80204278->unk3B6B0.l.col[2]  = D_80204278->unk3B638.l.col[2] >> 1;
+//         D_80204278->unk3B6B0.l.colc[0] = D_80204278->unk3B638.l.colc[0] >> 1;
+//         D_80204278->unk3B6B0.l.colc[1] = D_80204278->unk3B638.l.colc[1] >> 1;
+//         D_80204278->unk3B6B0.l.colc[2] = D_80204278->unk3B638.l.colc[2] >> 1;
+//
+//         D_80204278->unk3B6B8.l.col[0]  = D_80204278->unk3B640.l.col[0] >> 2;
+//         D_80204278->unk3B6B8.l.col[1]  = D_80204278->unk3B640.l.col[1] >> 2;
+//         D_80204278->unk3B6B8.l.col[2]  = D_80204278->unk3B640.l.col[2] >> 2;
+//         D_80204278->unk3B6B8.l.colc[0] = D_80204278->unk3B640.l.col[0] >> 2;
+//         D_80204278->unk3B6B8.l.colc[1] = D_80204278->unk3B640.l.col[1] >> 2;
+//         D_80204278->unk3B6B8.l.colc[2] = D_80204278->unk3B640.l.col[2] >> 2;
+//
+//         D_80204278->unk3B6B8.l.dir[0] = D_80204278->unk3B640.l.dir[0];
+//         D_80204278->unk3B6B8.l.dir[1] = D_80204278->unk3B640.l.dir[1];
+//         D_80204278->unk3B6B8.l.dir[2] = D_80204278->unk3B640.l.dir[2];
+//
+//         gSPNumLights(D_801D9E7C++, 1);
+//         gSPLight(D_801D9E7C++, &D_80204278->unk3B6B8, 1);
+//         gSPLight(D_801D9E7C++, &D_80204278->unk3B6B0, 2);
+//
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+//         gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
+//
+//         gSPNumLights(D_801D9E7C++, 1);
+//         gSPLight(D_801D9E7C++, &D_80204278->unk3B640, 1);
+//         gSPLight(D_801D9E7C++, &D_80204278->unk3B638, 2);
+//
+//         gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
+//
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+//     }
+// }
 
 void func_8029ABCC_6AC27C(void) {
     func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0x1000000, 0x2000000, 0x5780000, 0, 0, 0, 0x20000, 0x20000, 0x20000);

@@ -122,61 +122,61 @@ void check_cheats(OSContPad *contPad) {
     }
     if (check_cheat_code(D_803F6410, "WIZDIZWE")) {
         D_801DDD8C[gCurrentAnimalIndex].unk0->health = 127;
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803B62B0 = 0; // reset cursor position
     }
     if (check_cheat_code(D_803F6410, "UDIZDUZD")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803F6428.europe = 1 - D_803F6428.europe;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDZIDEZD")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803F6428.ice = 1 - D_803F6428.ice;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDIZDWZD")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803F6428.jungle = 1 - D_803F6428.jungle;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDIZDLZD")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803F6428.desert = 1 - D_803F6428.desert;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDIZDRZD")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803F6428.final = 1 - D_803F6428.final;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "DUZIDLZD")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803F6428.hidden = 1 - D_803F6428.hidden;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UIZDLZDU")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         func_8032AC98_73C348(); // "funny effect 1"
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "IDZIDUIL")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         func_8032AE34_73C4E4(); // "funny effect 2"
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "ZDUIRILR")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         func_8032AEA0_73C550(); // "funny effect 3"
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "LRZILZRL")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         func_8032B084_73C734();  // "funny effect 4"
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "DANISIL\0")) {
-        play_sound_effect(86, 0, 0x5000, 1.0f, 64);
+        play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         func_8032B1C8_73C878();  // "disable wallrace cam?"
         D_803B62B0 = 0;
     }

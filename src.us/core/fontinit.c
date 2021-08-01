@@ -9,7 +9,7 @@ void font_init(void) {
     u32 len = D_0012EDC0 - D_0012A390;
 
     if (len >= fontbufferSegmentLen) {
-        rmonPrintf("\nASSERT: len < (_fontbufferSegmentEnd - _fontbufferSegmentStart), %s, %u\n", "../src/fontinit.c", 74, len);
+        rmonPrintf("\nASSERT: len < (_fontbufferSegmentEnd - _fontbufferSegmentStart), %s, %u\n", "../src/fontinit.c", 74);
         // die
         *(volatile int*)0 = 0;
     }

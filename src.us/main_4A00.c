@@ -3,7 +3,7 @@
 #include "common.h"
 
 
-void func_80129300(Gfx **arg0, DisplayList *ddl) {
+void load_segments(Gfx **arg0, DisplayList *ddl) {
 
     gSPSegment((*arg0)++, 0, 0);
     gSPSegment((*arg0)++, 1, osVirtualToPhysical(D_801D9E74));
@@ -28,7 +28,7 @@ void func_80129594(Gfx **dl, DisplayList *ddl) {
     gSPLoadUcodeEx((*dl)++, &D_8014F1D0, &D_8015D710, 2048);
     gDPPipeSync((*dl)++);
 
-    func_80129300(dl, ddl);
+    load_segments(dl, ddl);
 
     gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
 
@@ -42,7 +42,7 @@ void func_80129594(Gfx **dl, DisplayList *ddl) {
 void func_80129784(Gfx **dl, DisplayList *ddl) {
     gDPPipeSync((*dl)++);
 
-    func_80129300(dl, ddl);
+    load_segments(dl, ddl);
 
     gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
     gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
@@ -56,7 +56,7 @@ void func_8012991C(Gfx **dl, DisplayList *ddl) {
     gDPPipeSync((*dl)++);
     gDPPipeSync((*dl)++);
 
-    func_80129300(dl, ddl);
+    load_segments(dl, ddl);
 
     gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(&D_80100000));
 

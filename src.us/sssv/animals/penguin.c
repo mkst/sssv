@@ -6,59 +6,75 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/penguin/func_80365954_777004.s")
 // void func_80365954_777004(void) {
-//     u16 sp4C;
-//     u16 sp4A;
-//     u16 sp48;
-//     u16 sp46;
-//     u16 sp44;
-//     u16 sp42;
 //
+//     Animal *a;
+//     u16 tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 //
 //     if ((D_803D552C->unk162 != 1) && (D_803D552C->unk4A == 0)) {
-//         func_8032CD70_73E420(D_803D552C, 0x67, 0x7000, 0, 0.25f, D_803D552C->xPos, D_803D552C->zPos, D_803D552C->yPos);
-//         if (D_803D5530->yVelocity.w >= 0x40001) {
-//             D_803D5530->yVelocity.w += 0x10000;
+//         func_8032CD70_73E420(
+//             D_803D552C,
+//             103,
+//             0x7000,
+//             0,
+//             0.25f,
+//             D_803D552C->xPos,
+//             D_803D552C->zPos,
+//             D_803D552C->yPos
+//             );
+//
+//         a = D_803D5530;
+//         if (a->yVelocity.w > 0x40000) {
+//             a->yVelocity.w += 0x10000;
 //         } else {
-//             D_803D5530->yVelocity.w += 0x28000;
+//             a->yVelocity.w += 0x28000;
 //         }
-//         sp42 = func_8012826C();
-//         sp44 = func_8012826C();
-//         sp46 = func_8012826C();
-//         sp48 = func_8012826C();
-//         sp4A = func_8012826C();
-//         sp4C = func_8012826C();
+//
+//         tmp0 = func_8012826C();
+//         tmp1 = func_8012826C();
+//         tmp2 = func_8012826C();
+//         tmp3 = func_8012826C();
+//         tmp4 = func_8012826C();
+//         tmp5 = func_8012826C();
+//         tmp6 = func_8012826C();
+//
 //         func_802D5F4C_6E75FC(
-//             ((sp42 & 0xF) + D_803D5530->xPos) - 8,
-//             ((sp44 & 0xF) + D_803D5530->zPos) - 8,
-//             D_803D5530->yPos,
-//             ((sp46 & 1) + 25),
-//             ((sp48 & 0x7FFF) * 2) - 40000,
-//             ((sp4A & 0x7FFF) * 2) - 40000,
-//             (D_803D5530->yVelocity.w >> 1) - 200000,
-//             sp4C & 0xC,
+//             ((tmp0 & 0xF) + a->xPos) - 8,
+//             ((tmp1 & 0xF) + a->zPos) - 8,
+//             a->yPos,
+//             ((tmp2 & 1) + 25),
+//             ((tmp3 & 0x7FFF) * 2) - 40000,
+//             ((tmp4 & 0x7FFF) * 2) - 40000,
+//             (a->yVelocity.w >> 1) - 200000,
+//             tmp5 & 0xC,
 //             1,
 //             0x39CF,
-//             (func_8012826C() & 0xF) + 20);
-//         sp44 = func_8012826C();
-//         sp46 = func_8012826C();
-//         sp48 = func_8012826C();
-//         sp4A = func_8012826C();
-//         sp4C = func_8012826C();
+//             (tmp6 & 0xF) + 20);
+//
+//         tmp0 = func_8012826C();
+//         tmp1 = func_8012826C();
+//         tmp2 = func_8012826C();
+//         tmp3 = func_8012826C();
+//         tmp4 = func_8012826C();
+//         tmp5 = func_8012826C();
+//         a = D_803D5530;
 //         func_802D5F4C_6E75FC(
-//             ((sp44 & 0xF) + D_803D5530->xPos) - 8,
-//             ((sp46 & 0xF) + D_803D5530->zPos) - 8,
-//             D_803D5530->yPos,
+//             ((tmp0 & 0xF) + a->xPos) - 8,
+//             ((tmp1 & 0xF) + a->zPos) - 8,
+//             a->yPos,
 //             0x3F,
-//             (D_803D5530->xVelocity.w >> 2) * -1,
-//             (D_803D5530->zVelocity.w >> 2) * -1,
-//             (D_803D5530->yVelocity.w >> 1) - 300000,
-//             (sp48 & 0x1F) + 30,
-//             ((((sp4C & 0x3F) + 0xC0) * 8) & 0x7C0) | ((((sp4A & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
-//             ((((func_8012826C() & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
+//             (a->xVelocity.w >> 2) * -1,
+//             (a->zVelocity.w >> 2) * -1,
+//             (a->yVelocity.w >> 1) - 300000,
+//             (tmp2 & 0x1F) + 30,
+//             ((((tmp3 & 0x3F) + 0xC0) << 3) & 0x7C0) | ((((tmp4 & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
+//                                                       ((((tmp5 & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
 //             0);
+//
 //     } else {
 //         recharge_skill(0);
+//         if (D_803D552C) {};
 //     }
+//
 // }
 
 void func_80365C28_7772D8(void) {

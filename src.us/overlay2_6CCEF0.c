@@ -36,7 +36,11 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BC900_6CDFB0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BCC50_6CE300.s")
+void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA) {
+    *arg8 = ((arg5 * arg0) + (arg2 * (arg1 - arg0))) / arg1;
+    *arg9 = ((arg6 * arg0) + (arg3 * (arg1 - arg0))) / arg1;
+    *argA = ((arg7 * arg0) + (arg4 * (arg1 - arg0))) / arg1;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BCDA0_6CE450.s")
 

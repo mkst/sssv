@@ -1,10 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
-
 
 #define MAX_EUROPE_ANIMALS     19
 #define MAX_ICE_ANIMALS        11
@@ -23,6 +21,8 @@
 #ifdef VERSION_EU
 #include "common.eu.h"
 #endif
+
+#include "sfx.h"
 
 // levels
 #define NO_LEVEL_0               0
@@ -81,13 +81,13 @@
 #define PARROT                      14
 #define PARROT_ATTACKING            15
 #define MOUSE                       16
-#define RACING_MOUSE_ATTACKING      17 // HARD_MOUSE
+#define HARD_MOUSE                  17
 #define RACING_MOUSE                18
 #define VULTURE                     19
 #define MOUSE2                      20 // ear-less? mouse-attacking?
 #define HELI_MOUSE                  21 // ?
 #define BEAR                        22
-#define BEAR_ATTACKING              23 // CRAZY_BEAR
+#define CRAZY_BEAR                  23
 #define MYSTERY_BEAR                24
 #define SEAGULL2                    25
 #define RACING_FOX                  26
@@ -127,7 +127,7 @@
 #define CHAMELEON_DEFENDING         60 // SNEAKY_CHAMELEON
 #define EVO_MICROCHIP               61
 #define EVO_GLITCHY                 62
-#define EVO                         63 // EVO
+#define EVO                         63
 #define KING_PENGUIN                64
 #define RACING_TORTOISE_ATTACKING   65
 #define COOL_COD                    66
@@ -145,13 +145,7 @@
 #define DESERT_BIOME                3
 #define CITY_BIOME                  4
 
-// sound effects
-#define SFX_RAT_BITE                7
-#define SFX_CAMERA_PAN              15
-#define SFX_CHEAT_ENABLED           86
-#define SFX_DROP_BOMB               124
-#define SFX_DROP_MINE               156
-#define SFX_BUGEL_CALL              184
+
 
 // states
 #define STATE_STANDING               2
@@ -195,6 +189,7 @@
 #define LANG_DEFAULT    20
 
 #define EOM             0x7530
+
 // extra gbi macros
 
 #define gDPLoadTextureBlock2(pkt, timg, fmt, line, siz, width, height, \

@@ -27,7 +27,7 @@
 
 void func_8032786C_738F1C(void) {
     if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 == 0) && (D_803D5530->state != 0xDD)) {
-        load_animal(BEAR_ATTACKING);
+        load_animal(CRAZY_BEAR);
         D_803D552C->unk30E = (u16)0x14;
     }
 }
@@ -100,6 +100,6 @@ void func_80327B84_739234(s32 arg0, s32 arg1, s32 arg2) {
 void func_80327B94_739244(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == BEAR) {
-        load_animal(BEAR_ATTACKING);
+        load_animal(CRAZY_BEAR);
     }
 }

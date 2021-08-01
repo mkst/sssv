@@ -27,11 +27,14 @@ segments:
     subsegments:
     - [0x1000, asm, entrypoint] # handwritten
     - [0x1050, c, main_1050] # -O1
+    - [0x1080, c, main_1080]
     - [0x3900, c, core/controller]
     - [0x44D0, c, core/string]
     - [0x4910, c, main_4910]
     - [0x4A00, c, main_4A00]
     - [0x51D0, c, main_51D0]
+    - [0x5210, c, thread6]
+    - [0x5F70, c, tv]
     - [0x67F0, c, core/rnc]
     - [0x7770, c, main_7770]
     - [0x7890, c, main_7890]
@@ -222,10 +225,11 @@ segments:
     - [0x28900, c, libultra/libc/ldiv]
     # .data / .rodata
     - [0x28A90, linker, data] # fake split here for progress
-    - [0x028A90, bin] # ucode
-    - [0x02BD00, bin] #
-    - [0x02DD20, bin] # lookup tables?
-    - [0x02DFF0, bin] # lookup tables?
+    - [0x28A90, bin] # ucode
+    - [0x28B60, bin] # end of ucode?
+    - [0x2BD00, bin] #
+    - [0x2DD20, bin] # lookup tables?
+    - [0x2DFF0, bin] # lookup tables?
     - [0x02E9D0, rgba16, img/2E9D0.rgba16, 32, 32] # spaceship texture
     - [0x02F1D0, rgba16, img/2F1D0.rgba16, 32, 32] # spaceship texture
     - [0x02F9D0, .data, data/2F9D0] # load spaceship textures
@@ -233,8 +237,10 @@ segments:
     - [0x02FA70, bin] # tbd
     - [0x02FC00, .data, main_78F0]
     - [0x02FD28, .rodata, main_78F0]
-    - [0x02FD80, bin]
-    - [0x02FDD0, bin] # CH.10 textures
+    - [0x02FD80, bin] # alignment?
+    - [0x02FDD0, bin] # audio lookups D_801546D0
+    - [0x02FDE8, bin] # main_E3C0 rodata
+    - [0x030860, bin] # CH.10 textures
     - [0x0339C0, .data, data/339C0] # D_801582C0
     - [0x033A68, .data, data/33A68] # D_80158368
     - [0x033B20, .data, data/33B20] # D_80158420
@@ -267,9 +273,11 @@ segments:
     overlay: yes
     subalign: 8
     subsegments:
-    - [0x0398D0, bin] # I4 textures
-    - [0x03A570, bin] # ?
-    - [0x03A5F0, bin] # different eye textures? I4, 16xXX
+    - [0x0398D0, bin] # CI4 textures
+    - [0x039ED0, bin] # CI4 textures
+    - [0x03A570, bin] # palette
+    - [0x3A5F0, bin] # different eye textures? I4, 16xXX
+    - [0x3C4F0, bin] # palette
     - [0x03C530, rgba16, img/D_01002C60_3C530.rgba16, 32, 32]
     # display lists
     - [0x03CD30, .data, data/3CD30]
@@ -292,10 +300,10 @@ segments:
     - [0x03D3E0, .rodata, data/3D3E0]
     - [0x03D440, .rodata, data/3D440]
     - [0x03D4A0, bin] # I4 textures
-    - [0x03DB40, bin]
-    - [0x03DBD8, bin]
-    - [0x03DC30, bin]
-    - [0x03DC70, bin]
+    - [0x03DB40, bin] # displaylist
+    - [0x03DBD8, bin] # displaylist
+    - [0x03DC30, bin] # displaylist
+    - [0x03DC70, bin] # displaylist
     - [0x03DD28, bin]
     - [0x03DDE0, bin]
     - [0x03DE70, bin]
@@ -310,8 +318,7 @@ segments:
     - [0x03E170, bin]
     - [0x03E1C8, bin]
     - [0x03E240, bin]
-    - [0x03E270, bin]
-    - [0x03E2B8, bin]
+    - [0x03E270, .data, data/D_010049A0_3E270]
     - [0x03E340, bin]
     - [0x03E3C8, bin]
     - [0x03E3F8, bin]
@@ -323,14 +330,14 @@ segments:
     - [0x03E770, bin]
     - [0x03E8B0, bin]
     - [0x03E970, bin]
-    - [0x03EE70, bin]
-    - [0x03F020, bin]
-    - [0x03F0C0, bin]
-    - [0x03F270, bin]
-    - [0x03F310, bin]
-    - [0x03F720, bin]
-    - [0x03F830, bin]
-    - [0x03F890, bin]
+    - [0x03EE70, bin] # vtx
+    - [0x03F020, bin] # dl # no idea what
+    - [0x03F0C0, bin] # vtx
+    - [0x03F270, bin] # dl # no idea what
+    - [0x03F310, bin] # vtx
+    - [0x03F720, bin] # dl # no idea what
+    - [0x03F830, bin] # vtx
+    - [0x03F890, bin] # dl # prism?
     - [0x03F8C0, .data, data/3FB30]  # evo maybe?
     - [0x03F8C0, vtx, data/inc/D_01005FF0_3F8C0]
     - [0x03FAC0, vtx, data/inc/D_010061F0_3FAC0]
@@ -350,7 +357,7 @@ segments:
     - [0x040348, bin] # another displaylist
     - [0x040380, bin] # another displaylist
     - [0x0403B8, bin] # another displaylist
-    - [0x0403E0, vtx, data/D_01006B10, D_01006B10]
+    - [0x0403E0, bin]
     - [0x040500, bin] # displaylist # D_80052030
     - [0x040530, rgba16, img/40530.rgba16, 32, 8] # ?
     - [0x040730, bin] # IA4
@@ -416,8 +423,8 @@ segments:
     - [0x04A8B0, vtx, data/D_01010FE0, D_01010FE0]
     - [0x04AA10, bin] # displaylist
     - [0x04AB00, rgba16, img/objects/button.rgba16, 32, 32]
-    - [0x04B300, bin] # vtx
-    - [0x04B380, bin] # displaylist
+    - [0x4B300, vtx, data/inc/D_01011A30_4B300]
+    - [0x4B380, .data, data/4B380] # displaylist
     - [0x04B3C8, bin] # vtx
     - [0x04B448, bin] # displaylist
     - [0x04B480, bin] # vtx
@@ -438,9 +445,15 @@ segments:
     - [0x04C940, bin] # vtx # D_01013070 (16)
     - [0x04CA40, bin] # vtx # D_01013170 (32)
     - [0x04CC40, bin] # displaylist
-    - [0x04CDA0, rgba16, img/intro/earth.rgba16, 64, 32] # 64x32
-    - [0x04DDA0, bin] # vtx
-    - [0x04EA50, bin] # displaylist
+    - [0x04CDA0, rgba16, img/intro/earth.D_010134D0_4CDA0.rgba16, 64, 32] # 64x32
+    - [0x4DDA0, vtx, data/inc/D_010144D0_4DDA0]
+    - [0x4DFA0, vtx, data/inc/D_010146D0_4DFA0]
+    - [0x4E1A0, vtx, data/inc/D_010148D0_4E1A0]
+    - [0x4E3A0, vtx, data/inc/D_01014AD0_4E3A0]
+    - [0x4E590, vtx, data/inc/D_01014CC0_4E590]
+    - [0x4E770, vtx, data/inc/D_01014EA0_4E770]
+    - [0x4E960, vtx, data/inc/D_01015090_4E960]
+    - [0x4EA50, .data, data/D_01015180_4EA50] # displaylist
     - [0x04EDF0, bin] # vtx
     - [0x04F7B0, bin] # displaylist # dead scientist
     - [0x04FAD0, bin] # vtx
@@ -453,7 +466,8 @@ segments:
     - [0x51520, bin] # displaylist
     - [0x51560, bin] # vtx
     - [0x51630, bin] # displaylist
-    - [0x517d0, bin] # vtx
+    - [0x51680, bin] # displaylist
+    - [0x517D0, bin] # vtx
     - [0x51a40, bin] # displaylist
     - [0x51b00, bin] # vtx
     - [0x51c80, bin] # displaylist
@@ -655,17 +669,19 @@ segments:
     start: 0x87B80
     overlay: yes
     subsegments:
-    - [0x87b80, bin]
+    - [0x87B80, bin]
     - [0x87C80, bin]
     - [0x883A0, bin] # vtx
-    - [0x890C0, bin] # dl # machine?
+    - [0x890C0, bin] # dl # HONEYMOON_LAGOON trophy?
   - name: data_89260 # intro sequence?
     type: code
     vram: 0x05000000
     start: 0x89260
     overlay: yes
     subsegments:
-    - [0x89260, bin]
+    - [0x89260, rgba16, img/intro/D_05000000_89260.rgba16, 32, 32]
+    - [0x89A60, bin] # vtx
+    - [0x8A980, bin] # dl # white/blue capsule thing
     - [0x8AD00, bin] # vtx
     - [0x8BFB0, bin] # displaylist # spaceship
     - [0x8C400, rgba16, img/intro/asteroid.rgba16, 32, 32]
@@ -677,7 +693,7 @@ segments:
     - [0x8EAD0, bin] # displaylist # earth/silicon valley sign posts
     - [0x8EC70, rgba16, img/intro/spaceship_interior_0_16.rgba16, 16, 16]
     - [0x8EE70, rgba16, img/intro/tigerprint_16.rgba16, 16, 16]
-    - [0x8F070, bin] ###
+    - [0x8F070, bin] ### 32x8 rgba16?
     - [0x8F270, bin] ###
     - [0x8F470, bin] ###
     - [0x8F670, bin] ###
@@ -788,9 +804,9 @@ segments:
     - [0x9E600, bin] # displaylist # toilet (rat-o-matic)
     - [0x9E790, bin] # vtx
     - [0x9E8B0, bin] # displaylist # toilet seat lid
-    - [0x9E940, rgba16, img/objects/turd2/turd2.rgba16, 16, 16] # dupe
-    - [0x9EB40, bin] # vtx
-    - [0x9EC20, bin] # displaylist
+    - [0x9E940, rgba16, img/objects/turd2/turd2.D_05000870_9E940.rgba16, 16, 16]
+    - [0x9EB40, vtx, data/inc/D_05000A70_9EB40]
+    - [0x9EC20, .data, data/9EC20] # turd
   - name: data_9ED10
     type: code
     vram: 0x05000000
@@ -852,7 +868,7 @@ segments:
     - [0xA8A40, rgba16, img/A8A40.rgba16, 32, 32] # dupe of 0x464B0
     - [0xA9240, bin] # vtx
     - [0xAA530, bin] # displaylist  # shrink-ray
-  - name: data_AA940
+  - name: data_AA940 # SOMETHING_FISHY objects
     type: code
     vram: 0x05000000
     start: 0xAA940
@@ -861,11 +877,11 @@ segments:
     - [0xAA940, bin] # vtx
     - [0xAAC70, bin] # displaylist # pentagon pot thing
     - [0xAAD30, bin] # vtx
-    - [0xAAF60, bin] # displaylist
+    - [0xAAF60, bin] # displaylist # fish
     - [0xAAFD0, bin] # vtx
-    - [0xAB200, bin] # displaylist # simple fish
+    - [0xAB200, bin] # displaylist # another fish
     - [0xAB270, bin] # vtx
-    - [0xABF50, bin] # displaylist
+    - [0xABF50, bin] # displaylist # mine
     - [0xAC0D0, bin] # vtx
     - [0xAC9D0, bin] # displaylist # shopping cart
     - [0xACBC0, bin] # vtx
@@ -1070,41 +1086,93 @@ segments:
     - [0xC7A10, bin] # end of displaylist
   # new section here?
     - [0xC7A20, bin] # end of displaylist
-  - name: data_C7A30
+  - name: data_C7A30 # europe animals
     type: code
     vram: 0x04000000
     start: 0xC7A30
     overlay: yes
     subalign: 8
     subsegments:
-    - [0x0C7A30, vtx, data/inc/D_04000000_C7A30]
-    - [0x0C7BD0, .data, data/C7BD0] # boulder? or dog's body? D_040001A0_C7BD0
-    - [0x0C7CB0, bin]
-    - [0x0C7E50, bin]
-    - [0x0C7F30, bin]
-    - [0x0C82B0, bin]
-    - [0x0C83C0, bin]
-    - [0x0C8800, bin]
-    - [0x0C8960, bin] # vtx
-    - [0x0C89E0, bin] # displaylist
-    - [0x0C8A30, bin]
-    - [0x0C8AB0, bin]
-    - [0x0C8B00, bin]
-    - [0x0C8B80, bin]
-    - [0x0C8BD0, bin]
-    - [0x0C8C50, bin]
-    - [0x0C8C90, bin]
-    - [0x0C8D50, bin] # displaylist
-    - [0x0C8D90, bin] # vtx
-    - [0x0C8DD0, bin]
-    - [0x0C8E00, bin]
-    - [0x0C8F20, bin]
-    - [0x0C8FC0, bin]
-    - [0x0C92E0, bin]
-    - [0x0C93D0, bin]
-    - [0x0C9450, bin]
-    - [0x0C9490, bin]
-    - [0x0C94A0, bin] # textures + more
+    - [0xC7A30, vtx, data/inc/D_04000000_C7A30]
+    - [0xC7BD0, .data, data/C7BD0] # boulder? or dog's body? D_040001A0_C7BD0
+    - [0xC7CB0, vtx, data/inc/D_04000280_C7CB0]
+    - [0xC7E50, .data, data/dog_body.D_04000420_C7E50]
+    - [0xC7F30, vtx, data/inc/D_04000500_C7F30]
+    - [0xC8060, vtx, data/inc/D_04000630_C8060]
+    - [0xC80D0, vtx, data/inc/D_040006A0_C80D0]
+    - [0xC81B0, vtx, data/inc/D_04000780_C81B0]
+    - [0xC82A0, .data, data/dog_head.D_04000870_C82A0]
+    - [0xC83C0, vtx, data/inc/D_04000990_C83C0]
+    - [0xC8440, vtx, data/inc/D_04000A10_C8440]
+    - [0xC8510, vtx, data/inc/D_04000AE0_C8510]
+    - [0xC85D0, vtx, data/inc/D_04000BA0_C85D0]
+    - [0xC86C0, vtx, data/inc/D_04000C90_C86C0]
+    - [0xC8720, vtx, data/inc/D_04000CF0_C8720]
+    - [0xC8800, .data, data/flying_dog_head.D_04000DD0_C8800] # racing dog head?
+    - [0xC8960, bin] # vtx
+    - [0xC89E0, bin] # displaylist # dog thigh?
+    - [0xC8A30, bin] # vtx
+    - [0xC8AB0, bin] # displaylist # dog leg?
+    - [0xC8B00, bin] # vtx
+    - [0xC8B80, bin] # displaylist
+    - [0xC8BD0, bin] # vtx
+    - [0xC8C50, bin] # displaylist
+    - [0xC8C90, bin] # vtx
+    - [0xC8D50, bin] # displaylist
+    - [0xC8D90, bin] # vtx
+    - [0xC8DD0, bin] # displaylist
+    - [0xC8E00, vtx, data/inc/D_040013D0_C8E00]
+    - [0xC8E60, vtx, data/inc/D_04001430_C8E60]
+    - [0xC8F20, .data, data/racing_dog_leg.D_040014F0_C8F20]
+    - [0xC8FC0, bin] # vtx
+    - [0xC92E0, bin] # displaylist # tbd, purple/blue, mouse? rabbit?
+    - [0xC93D0, bin] # vtx
+    - [0xC9450, bin] # displaylist # tbd, eyes? teeth?
+    - [0xC9490, bin] # padding?
+    - [0xC94A0, bin] # texture
+    - [0xC95A0, bin] # tbd
+    - [0xC95D0, bin] # texture?
+    - [0xC96B0, bin] # 32x32 CI4
+    - [0xC98B0, bin] # palettes?
+    - [0xC98E0, bin] # 48x32 CI4
+    - [0xC9BE0, bin] # 48x32 CI4
+    - [0xC9EE0, bin] # tbd
+    - [0xC9F20, bin] # vtx
+    - [0xCA150, bin] # displaylist missile
+    - [0xCA1F0, bin] # vtx
+    - [0xCA240, bin] # displaylist
+    - [0xCA268, bin] # vtx
+    - [0xCA2B8, bin] # displaylist
+    - [0xCA2E0, bin] # vtx
+    - [0xCA340, bin] # displaylist
+    - [0xCA370, bin] # vtx
+    - [0xCA3D0, bin] # displaylist
+    - [0xCA400, bin] # vtx
+    - [0xCA7C0, bin] # dl # sheep body (sheep? springy thing? ram?)
+    - [0xCA958, bin] # vtx
+    - [0xCAD18, bin] # dl # sheep body (sheep? springy thing? ram?)
+    - [0xCAEB0, bin] # vtx
+    - [0xCAFB0, bin] # dl # sheep leg
+    - [0xCB000, bin] # vtx
+    - [0xCB0E0, bin] # dl # tbd
+    - [0xCB150, bin] # vtx
+    - [0xCB1D0, bin] # dl
+    - [0xCB1F0, bin] # dl
+    - [0xCB210, bin] # vtx
+    - [0xCB410, bin] # dl # springy-thing spring
+    - [0xCB4B0, bin] # vtx
+    - [0xCB810, bin] # dl # (springy)ram head
+    - [0xCB940, bin] # vtx
+    - [0xCBAC0, bin] # dl # fox body
+    - [0xCBB70, bin] # vtx
+    - [0xCBC30, bin] # dl
+    - [0x0CBCA0, bin]
+    - [0x0CBDC0, bin]
+    - [0x0CC080, bin]
+    - [0x0CC120, bin]
+    - [0x0CC140, bin]
+    - [0x0CC4D0, bin]
+    - [0x0CC830, bin]
     - [0x0CCB00, bin] # 32x32 I4 texture (light source?)
     - [0x0CCD00, bin]
     - [0x0CCE70, bin]
@@ -1123,12 +1191,24 @@ segments:
     - [0x0CEE08, bin]
     - [0x0CEE30, bin]
     - [0x0CEFC0, bin]
-    - [0x0CF2D0, bin]
-    - [0x0CF720, bin]
-    - [0x0CF9B0, bin]
-    - [0x0CFE40, bin]
-    - [0x0CFED8, bin]
-    - [0x0CFEF0, bin]
+    - [0xCF2D0, vtx, data/inc/D_040078A0_CF2D0]
+    - [0xCF3A0, vtx, data/inc/D_04007970_CF3A0]
+    - [0xCF470, vtx, data/inc/D_04007A40_CF470]
+    - [0xCF530, vtx, data/inc/D_04007B00_CF530]
+    - [0xCF590, vtx, data/inc/D_04007B60_CF590]
+    - [0xCF5F0, .data, data/bear_head.D_04007BC0_CF5F0]
+    - [0xCF720, vtx, data/inc/D_04007CF0_CF720]
+    - [0xCF7E0, vtx, data/inc/D_04007DB0_CF7E0]
+    - [0xCF860, vtx, data/inc/D_04007E30_CF860]
+    - [0xCF8F0, .data, data/bear_foot.D_04007EC0_CF8F0]
+    - [0xCF9B0, vtx, data/inc/D_04007F80_CF9B0]
+    - [0xCFAF0, vtx, data/inc/D_040080C0_CFAF0]
+    - [0xCFCF0, .data, data/bear_body.D_040082C0_CFCF0]
+    - [0xCFE40, bin]
+    - [0xCFEC0, bin]
+    - [0x0CFED8, bin] # include in above
+    - [0xCFEF0, bin]
+    - [0xD0450, bin]
     - [0x0D0620, bin]
     - [0x0D0930, bin]
     - [0x0D1110, bin]
@@ -1144,7 +1224,7 @@ segments:
     - [0xD2CA0, vtx, data/inc/D_0400B270_D2CA0]
     - [0xD2E90, vtx, data/inc/D_0400B460_D2E90]
     - [0xD2F50, vtx, data/inc/D_0400B520_D2F50]
-    - [0xD3070] # racing mouse
+    - [0xD3070] # racing mouse trophy?
     - [0x0D3470, bin]
     - [0x0D36B0, bin]
     - [0x0D3A08, bin] ###
@@ -1188,7 +1268,7 @@ segments:
     - [0xDC3C0, bin] # displaylist # piece of silicon valley?
     - [0xDC9D0, bin] # vtx # D_04014FA0,
     - [0xDD390, bin] # displaylist
-  - name: data_DD5C0
+  - name: data_DD5C0 # ice animals/objects?
     type: code
     vram: 0x04000000
     start: 0xDD5C0
@@ -1204,14 +1284,28 @@ segments:
     - [0x0DDF00, bin]
     - [0x0DE060, bin]
     - [0x0DE0C0, bin]
-    - [0x0DE120, bin]
-    - [0x0DE7A0, bin]
-    - [0x0DE810, bin]
-    - [0x0DE8F0, bin]
-    - [0x0DEEC0, bin]
-    - [0x0DF0A0, bin]
-    - [0x0DF170, bin]
-    - [0x0DF3F0, bin]
+    - [0xDE120, vtx, data/inc/D_04000B60_DE120]
+    - [0xDE270, vtx, data/inc/D_04000CB0_DE270]
+    - [0xDE470, vtx, data/inc/D_04000EB0_DE470]
+    - [0xDE5D0, .data, data/penguin_body.D_04001010_DE5D0]
+    - [0xDE7A0, vtx, data/inc/D_040011E0_DE7A0]
+    - [0xDE7E0, .data, data/penguin_beak.D_04001220_DE7E0]
+    - [0xDE810, vtx, data/inc/D_04001250_DE810]
+    - [0xDE8A0, .data, data/penguin_foot.D_040012E0_DE8A0]
+    - [0xDE8F0, bin] # texture
+    - [0xDEAF0, bin] # texture
+    - [0xDECF0, bin] # palette?
+    - [0xDED10, bin] # palette?
+    - [0xDED30, vtx, data/inc/D_04001770_DED30]
+    - [0xDEE50, .data, data/penguin_king_crown.D_04001890_DEE50]
+    - [0x0DEEC0, bin] # vtx
+    - [0x0DF020, bin] # dl # penguin_parachute
+    - [0x0DF0A0, bin] # vtx
+    - [0x0DF120, bin] # dl # white cube?
+    - [0xDF170, bin] # vtx
+    - [0xDF330, bin] # dl # seagull body?
+    - [0x0DF3F0, bin] # vtx
+    - [0x0DF540, bin] # dl # seagull head
     - [0x0DF5F0, bin]
     - [0x0DF680, bin]
     - [0x0DF7E0, bin]
@@ -1219,8 +1313,11 @@ segments:
     - [0x0DFA30, bin]
     - [0x0DFAD0, bin]
     - [0x0DFAF0, bin]
-    - [0x0DFBF0, bin]
-    - [0x0E0338, bin]
+    - [0xDFBF0, vtx, data/inc/D_04002630_DFBF0]
+    - [0xDFDF0, vtx, data/inc/D_04002830_DFDF0]
+    - [0xDFEF0, vtx, data/inc/D_04002930_DFEF0]
+    - [0xE00F0, vtx, data/inc/D_04002B30_E00F0]
+    - [0xE01F0, .data, data/polar_bear_body.D_04002C30_E01F0]
     - [0x0E0480, bin]
     - [0x0E0990, bin]
     - [0x0E0AF0, bin]
@@ -1257,7 +1354,7 @@ segments:
     - [0xE3730, bin] # displaylist # walrus ski 1?
     - [0xE37A0, bin] # vtx
     - [0xE3890, bin] # displaylist # walrus ski 2?
-    - [0xE3900, .data, data/E3E20] # walrus head
+    - [0xE3900, .data, data/walrus_head.D_04006860_E3E20]
     - [0xE3900, vtx, data/inc/D_04006340_E3900]
     - [0xE39D0, vtx, data/inc/D_04006410_E39D0]
     - [0xE3B70, vtx, data/inc/D_040065B0_E3B70]
@@ -1284,13 +1381,13 @@ segments:
     - [0xE5BF0, vtx, data/inc/D_04008630_E5BF0]
     - [0xE5DE0, vtx, data/inc/D_04008820_E5DE0]
     - [0xE5FD0, vtx, data/inc/D_04008A10_E5FD0]
-    - [0xE6120, .data, data/E6120] # king penguin statue
+    - [0xE6120, .data, data/D_04008B60_E6120] # king penguin statue, object 120
     - [0x0E63A0, bin]
     - [0xE66D0, bin] # vtx
     - [0xE7200, bin] # displaylist # igloo
     - [0xE73E0, bin] # vtx D_04009E20
     - [0xE7570, bin] # displaylist
-  - name: data_E75B0
+  - name: data_E75B0 # desert objects/animals?
     type: code
     vram: 0x04000000
     start: 0xE75B0
@@ -1315,8 +1412,8 @@ segments:
     - [0x0E8D80, bin]
     - [0x0E9090, bin]
     - [0x0E9570, bin]
-    - [0x0E9600, bin] # vtx
-    - [0x0E96A0, bin] # displaylist
+    - [0xE9600, bin] # vtx
+    - [0xE96A0, bin] # displaylist # evo leg?
     - [0x0E96F8, bin]
     - [0x0E9B10, bin] # 32x32 IA4
     - [0x0E9D10, bin]
@@ -1342,7 +1439,8 @@ segments:
     - [0x0EB5E0, bin]
     - [0x0EB7A0, bin]
     - [0x0EB960, bin]
-    - [0x0EBBA0, bin]
+    - [0xEBBA0, bin] # vtx
+    - [0xEBFB0, bin] # desert fox head
     - [0x0EC120, bin]
     - [0x0EC280, bin]
     - [0x0EC370, bin]
@@ -1367,19 +1465,25 @@ segments:
     - [0x0EFA20, bin]
     - [0x0F0E00, bin] # vtx D_04009850
     - [0x0F0FA0, bin] # displaylist # ball? rock?
-  - name: data_F1060
+  - name: data_F1060 # jungle animals?
     type: code
     vram: 0x04000000
     start: 0xF1060
     overlay: yes
     subalign: 8
     subsegments:
-    - [0x0F1060, bin]
-    - [0x0F1210, bin]
-    - [0x0F12D0, bin]
-    - [0x0F1430, bin]
-    - [0x0F15E0, bin]
-    - [0x0F16A0, bin]
+    - [0x0F1060, bin] # vtx
+    - [0x0F1190, bin] # dl  # lion leg?
+    - [0x0F1210, bin] # vtx
+    - [0x0F1290, bin] # dl
+    - [0x0F12D0, bin] # vtx # body?
+    - [0x0F13C0, bin] # dl
+    - [0x0F1430, bin] # vtx
+    - [0x0F1560, bin] # dl
+    - [0xF15E0, bin] # vtx
+    - [0xF1660, bin] # dl
+    - [0xF16A0, bin] # vtx
+    - [0xF1A60, bin] # dl # lion head
     - [0x0F1C10, bin]
     - [0x0F1E70, bin]
     - [0x0F1F00, bin]
@@ -1394,8 +1498,10 @@ segments:
     - [0x0F2A60, bin]
     - [0x0F2B50, bin]
     - [0x0F2BB0, bin]
-    - [0x0F2CA0, bin]
-    - [0x0F3200, bin]
+    - [0xF2CA0, bin] # vtx
+    - [0xF3120, bin] # dl (something yellow)
+    - [0xF3200, bin] # vtx
+    - [0xF3780, bin] # dl # dive-bombing parrot
     - [0x0F3960, bin]
     - [0x0F3FA0, bin]
     - [0x0F40E0, bin]
@@ -1405,54 +1511,107 @@ segments:
     - [0x0F45D0, bin]
     - [0x0F4720, bin]
     - [0x0F48B8, bin]
-    - [0x0F52A0, bin]
-    - [0x0F5600, bin]
-    - [0x0F59A0, bin]
+    - [0xF52A0, bin] # vtx
+    - [0xF5510, bin] # dl  # gorilla?
+    - [0xF5600, bin] # vtx
+    - [0xF5880, bin] # dl
+    - [0xF59A0, bin] # vtx
+    - [0xF5AB0, bin] # dl
     - [0x0F5B20, bin]
     - [0x0F5BB0, bin]
     - [0x0F5C40, bin]
-    - [0x0F5CD0, bin]
-    - [0x0F5D30, bin]
+    - [0x0F5CD0, bin] # vtx
+    - [0x0F5D10, bin] # dl # something yellow
+    - [0x0F5D30, bin] # vtx
+    - [0x0F5D70, bin] # dl
     - [0x0F5D90, bin]
     - [0x0F5EA0, bin]
     - [0x0F5FF0, bin]
-    - [0x0F6080, bin]
-    - [0x0F6570, bin]
+    - [0x0F6080, bin] # 32x32 I4?
+    - [0x0F6280, bin] # palette?
+    - [0x0F62A0, bin] # vtx
+    - [0xF6440, bin] # palette?
+    - [0xF6460, bin] # dl
+    - [0xF6570, bin] # vtx
+    - [0xF6B70, bin] # dl   # elephant head
     - [0x0F6DB0, bin]
     - [0x0F70E0, bin]
     - [0x0F71E0, bin]
     - [0x0F72A0, bin]
     - [0x0F7360, bin]
     - [0x0F7400, bin]
-    - [0x0F7420, bin]
+    - [0x0F7420, bin] # texture
+    - [0x0F7620, bin] # texture
+    - [0x0F7820, bin] # palette
+    - [0x0F7860, bin] # vtx
+    - [0x0F7950, bin] # dl
     - [0x0F79C0, bin]
     - [0x0F7A70, bin]
     - [0x0F7B70, bin]
     - [0x0F7D30, bin]
     - [0x0F7E20, bin]
     - [0x0F7ED0, bin]
-    - [0x0F7F80, bin]
-    - [0x0F8320, bin]
-    - [0x0F8490, bin]
-    - [0x0F8540, bin]
-    - [0x0F87E0, bin]
-    - [0x0F8AA0, bin]
-    - [0x0F8AC0, bin]
-    - [0x0F8C40, bin]
-    - [0x0F8DC0, bin]
-    - [0x0F8FB0, bin]
-    - [0x0F9180, bin]
-    - [0x0F9720, bin]
-    - [0x0F99F0, bin]
-    - [0x0F9BC0, bin]
-    - [0x0F9D60, bin]
-    - [0x0F9E10, bin]
-    - [0x0F9FE0, bin]
-    - [0xFA090, bin] # vtx
-    - [0xFA560, bin] # displaylist
+    - [0xF7F80, bin] # vtx
+    - [0xF8220, bin] # dl # hyena head
+    - [0xF8320, bin] # vtx
+    - [0xF8420, bin] # dl # hyena jaw
+    - [0xF8490, bin] # vtx
+    - [0xF8510, bin] # dl # hyena thigh?
+    - [0xF8540, bin] # vtx
+    - [0xF8740, bin] # dl # hyena tail
+    - [0xF87E0, bin] # texture
+    - [0xF89E0, bin] # palette
+    - [0xF8A00, bin] # vtx
+    - [0xF8A80, bin] # dl
+    - [0xF8AA0, bin] # dl
+    - [0xF8AC0, bin] # vtx
+    - [0xF8BC0, bin] # dl
+    - [0xF8C40, bin] # vtx
+    - [0xF8D40, bin] # dl
+    - [0xF8DC0, bin] # vtx
+    - [0xF8F00, bin] # dl # biker hyena exhaust
+    - [0xF8FB0, bin] # vtx
+    - [0xF9100, bin] # dl # biker hyena front fork
+    - [0xF9180, bin] # texture
+    - [0xF9380, bin] # palette?
+    - [0xF93A0, bin] # texture
+    - [0xF95A0, bin] # palette?
+    - [0xF95C0, bin] # vtx
+    - [0xF96B0, bin] # dl # hyena paw
+    - [0xF9720, bin] # vtx
+    - [0xF9950, bin] # dl # missile
+    - [0xF99F0, bin] # vtx
+    - [0xF9B30, bin] # dl # chameleon foot (l?)
+    - [0xF9BC0, bin] # vtx
+    - [0xF9CD0, bin] # dl # chameleon body?
+    - [0xF9D60, bin] # vtx
+    - [0xF9DD0, bin] # dl # chameleon leg? (l?)
+    - [0xF9E10, bin] # vtx
+    - [0xF9F50, bin] # dl # chameleon foot (r?)
+    - [0xF9FE0, bin] # vtx
+    - [0xFA050, bin] # dl # chameleon leg? (r?)
+    - [0xFA090, vtx, data/inc/D_04009030_FA090]
+    - [0xFA110, vtx, data/inc/D_040090B0_FA110]
+    - [0xFA190, vtx, data/inc/D_04009130_FA190]
+    - [0xFA1C0, vtx, data/inc/D_04009160_FA1C0]
+    - [0xFA200, vtx, data/inc/D_040091A0_FA200]
+    - [0xFA2A0, vtx, data/inc/D_04009240_FA2A0]
+    - [0xFA310, vtx, data/inc/D_040092B0_FA310]
+    - [0xFA380, vtx, data/inc/D_04009320_FA380]
+    - [0xFA3B0, vtx, data/inc/D_04009350_FA3B0]
+    - [0xFA4A0, vtx, data/inc/D_04009440_FA4A0]
+    - [0xFA4D0, vtx, data/inc/D_04009470_FA4D0]
+    - [0xFA500, vtx, data/inc/D_040094A0_FA500]
+    - [0xFA530, vtx, data/inc/D_040094D0_FA530]
+    - [0xFA560, .data, data/chameleon_head.D_04009500_FA560] # chameleon head
     - [0x0FA720, bin]
     - [0x0FA9B0, bin]
-    - [0x0FAA50, bin]
+    - [0x0FAA50, bin] # texture?    # chameleon?
+    - [0x0FAC50, bin] # palette?
+    - [0x0FAC70, bin]
+    - [0x0FAE70, bin]
+    - [0xFAE90, bin] # vtx
+    - [0xFB020, bin] # displaylist # chameleon something?
     - [0x0FB0B0, bin]
     - [0x0FB670, bin]
     - [0x0FB810, bin]
@@ -1461,13 +1620,17 @@ segments:
     - [0x0FBB80, bin]
     - [0x0FBDE0, bin]
     - [0x0FC0A0, bin]
-    - [0x0FC0C0, bin]
-    - [0x0FC4D0, bin]
-    - [0x0FC520, bin]
-    - [0x0FC570, bin]
-    - [0x0FC5C0, bin]
-    - [0x0FC610, bin]
-    - [0x0FC660, bin]
+    - [0xFC0C0, bin] # vtx
+    - [0xFC480, bin] # dl
+    - [0xFC4D0, bin] # dl
+    - [0xFC520, bin] # dl
+    - [0xFC570, bin] # dl
+    - [0xFC5C0, bin] # dl
+    - [0xFC610, bin] # dl
+    - [0xFC660, bin] # texture
+    - [0xFCA60, bin] # palette?
+    - [0xFCAA0, bin] # vtx
+    - [0xFCD60, bin] # dl # lower jaw of something?
     - [0x0FCE70, bin]
     - [0x0FD120, bin]
     - [0x0FD220, bin]
@@ -1479,13 +1642,20 @@ segments:
     - [0x0FE560, bin]
     - [0x0FE7C0, bin]
     - [0x0FE980, bin]
-    - [0x0FED20, bin]
-    - [0x0FEE20, bin]
-    - [0x0FF140, bin]
-    - [0x0FF450, bin]
-    - [0x0FF7E0, bin] # vtx D_0400E780
-    - [0x0FFC20, bin] # displaylist # helicopter thing?
-  - name: data_FFD50
+    - [0xFED20, bin] # vtx
+    - [0xFEDD0, bin] # dl
+    - [0xFEE20, bin] # vtx
+    - [0xFF090, bin] # dl
+    - [0xFF140, bin] # vtx
+    - [0xFF3C0, bin] # dl # plant?
+    - [0xFF450, bin] # vtx
+    - [0xFF750, bin] # dl # flame torch base
+    - [0xFF7E0, vtx, data/inc/D_0400E780_FF7E0]
+    - [0xFF860, vtx, data/inc/D_0400E800_FF860]
+    - [0xFFA60, vtx, data/inc/D_0400EA00_FFA60]
+    - [0xFFBB0, vtx, data/inc/D_0400EB50_FFBB0]
+    - [0xFFC20, .data, data/D_0400EBC0_FFC20] # displaylist # helicopter thing?
+  - name: data_FFD50 # big day parade objects?
     type: code
     vram: 0x04000000
     start: 0xFFD50
@@ -1534,16 +1704,38 @@ segments:
     - [0x103470, bin]
     - [0x103510, bin]
     - [0x103530, bin]
-    - [0x1037D0, bin]
-    - [0x103C60, bin]
-    - [0x103E90, bin]
-    - [0x103FC0, bin]
-    - [0x1040E0, bin]
-    - [0x1043A0, bin]
-    - [0x104440, bin]
-    - [0x104460, bin]
-    - [0x1047F0, bin]
-    - [0x104B50, bin]
+    - [0x1037D0, bin] # vtx
+    - [0x103B30, bin] # dl  # ram head
+    - [0x103C60, vtx, data/inc/D_04003F10_103C60]
+    - [0x103D80, vtx, data/inc/D_04004030_103D80]
+    - [0x103DE0, .data, data/fox_body.D_04004090_103DE0]
+    - [0x103E90, vtx, data/inc/D_04004140_103E90]
+    - [0x103EF0, vtx, data/inc/D_040041A0_103EF0]
+    - [0x103F50, .data, data/fox_tail.D_04004200_103F50]
+    - [0x103FC0, vtx, data/inc/D_04004270_103FC0]
+    - [0x104020, vtx, data/inc/D_040042D0_104020]
+    - [0x104080, .data, data/fire_fox_leg.D_04004330_104080]
+    - [0x1040E0, vtx, data/inc/D_04004390_1040E0]
+    - [0x1041E0, vtx, data/inc/D_04004490_1041E0]
+    - [0x1042E0, .data, data/racing_fox_wheel.D_04004590_1042E0]
+    - [0x1043A0, bin] # vtx
+    - [0x104420, bin] # dl # light blue square
+    - [0x104440, bin] # dl
+    - [0x104460, .data, data/fire_fox_flame.D_04004A20_104770] # dl
+    - [0x104460, vtx, data/inc/D_04004710_104460]
+    - [0x104550, vtx, data/inc/D_04004800_104550]
+    - [0x1045E0, vtx, data/inc/D_04004890_1045E0]
+    - [0x1046D0, vtx, data/inc/D_04004980_1046D0]
+    - [0x104770]
+    - [0x1047F0, vtx, data/inc/D_04004AA0_1047F0]
+    - [0x104830, vtx, data/inc/D_04004AE0_104830]
+    - [0x104870, vtx, data/inc/D_04004B20_104870]
+    - [0x1048D0, vtx, data/inc/D_04004B80_1048D0]
+    - [0x104960, vtx, data/inc/D_04004C10_104960]
+    - [0x104A60, .data, data/fox_head.D_04004D10_104A60] # dl
+    - [0x104B50, vtx, data/inc/D_04004E00_104B50]
+    - [0x104D50, vtx, data/inc/D_04005000_104D50]
+    - [0x104D80, .data, data/fox_missile.D_04005030_104D80]
     - [0x104E20, bin] # texture CI4, 32x32
     - [0x105020, bin] # palette? (jungle flower?)
     - [0x105040, vtx, data/inc/D_040052F0_105040]
@@ -1576,7 +1768,7 @@ segments:
     - [0x106990, bin] # vtx
     - [0x106DD0, bin] # displaylist # rat head
     - [0x106F80, bin] # vtx
-    - [0x107040, bin] # displaylist
+    - [0x107040, bin] # displaylist # ?
     - [0x1070A0, bin] # vtx
     - [0x107100, bin] # displaylist
     - [0x107128, bin] # displaylist
@@ -1584,16 +1776,16 @@ segments:
     - [0x107280, bin] # displaylist
     - [0x1072E0, bin] # vtx
     - [0x107FD0, bin] # tbd
-    - [0x107FE0, bin] # displaylist
+    - [0x107FE0, bin] # displaylist # frog
     - [0x108170, bin] # displaylist
     - [0x108310, bin] # vtx
     - [0x108630, bin] # tbd
-    - [0x108640, bin] # displaylist
+    - [0x108640, bin] # displaylist # frog base?
     - [0x1086E0, bin] # vtx
     - [0x108720, bin] # tbd
-    - [0x108730, bin] # displaylist
+    - [0x108730, bin] # displaylist # frog tongue?
     - [0x108760, bin] # I4 32x32
-    - [0x108960, bin] # tbd
+    - [0x108960, bin] # tbd palette?
     - [0x108980, rgba16, img/actors/brain/brain.rgba16, 32, 32]
     - [0x109180, bin] # vtx
     - [0x109390, bin] # displaylist
@@ -1642,7 +1834,7 @@ segments:
     - [0x111800, bin] # vtx
     - [0x111EA0, bin] # displaylist
     - [0x111FB0, bin] # vtx
-    - [0x1121F0, bin] # displaylist
+    - [0x1121F0, bin] # displaylist     # object 225?
     - [0x1122F0, rgba16, img/1122F0.rgba16, 32, 32]
     - [0x112AF0, bin] # vtx
     - [0x114600, bin] # displaylist # part of space station?
@@ -1651,7 +1843,7 @@ segments:
     - [0x116330, bin] # displaylist
     - [0x1166B0, bin] # vtx
     - [0x116B00, bin] # displaylist # space station sliding door ?
-  - name: data_116BD0 # data for 'menu'
+  - name: data_116BD0 # menu data, 'section 6'
     type: code
     vram: 0x04000000
     start: 0x116BD0
@@ -1701,7 +1893,7 @@ segments:
     - [0x124090, bin] # displaylist
     - [0x124130, rgba16, img/124130.rgba16, 32, 32]
     - [0x124930, bin] # vtx
-    - [0x124e80, bin] # displaylist
+    - [0x124E80, bin] # displaylist # cylinder thing
     - [0x125000, rgba16, img/125000.rgba16, 32, 32]
     - [0x125800, bin] # vtx
     - [0x125940, bin] # displaylist
@@ -2041,7 +2233,15 @@ segments:
     # .data / .rodata
     - [0x63CDD0, linker, data]
     - [0x63CDD0, bin] # tbd ### D_80299730
-    # - [0x63d4e2, bin] # "C" texture 10x11 rgba16
+    - [0x63D000, bin] # D_80299960_63D000 in overlay1_6384F0
+    - [0x63D0E0, bin]
+    # - [0x63D4E2, bin] # "C" texture 10x11 rgba16
+    - [0x63D5E0, bin] # dl
+    - [0x63D660, bin] # dl D_80299FC0_63D660
+    - [0x63D700, bin] # vtx
+    - [0x63DA00, bin] # dl # rocket flames 1
+    - [0x63DA60, bin] # D_8029A3C0 vtx
+    - [0x63DBE0, bin] # dl # rocket flames 2
     - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840 # chunked   # RNC pack differs
     - [0x646E80, rnc, img/intro/president_frank_bloke, rgba16, 320, 240]
     - [0x64DE50, rnc, img/sssv_logo, rgba16, 256, 128]
@@ -2124,6 +2324,7 @@ segments:
     - [0x6A57C0, rgba16, img/flags/spanish.rgba16, 48, 32]
     - [0x6A63C0, rodata, overlay1_6384F0]
     - [0x6A64A0, rodata, overlay1_63C660]
+    # - [0x6A6500, .bss, overlay1_6384F0, 0xAD740]
   - type: code
     name: overlay2 # sssv game code
     overlay: yes
@@ -2152,7 +2353,7 @@ segments:
     - [0x6F66B0, c, sssv/animals/fox]
     - [0x6FA0A0, c, overlay2_6FA0A0]
     - [0x6FBA90, c, sssv/aidata]
-    - [0x6FBEA0, c, sssv/animals/flying_dog]
+    - [0x6FBEA0, c, sssv/animals/dog]
     - [0x700770, c, sssv/animals/hippo]
     - [0x701E80, c, overlay2_701E80]
     - [0x702DE0, c, sssv/animals/lion]
@@ -2175,6 +2376,9 @@ segments:
     - [0x732A60, c, overlay2_732A60]
     - [0x734D30, c, sssv/animals/bear]
     - [0x739290, c, overlay2_739290]
+    - [0x73C890, c, overlay2_73C890]
+    - [0x73D980, c, overlay2_73D980]
+    - [0x73E580, c, overlay2_73E580]
     - [0x73EA30, c, overlay2_73EA30]
     - [0x73ED30, c, overlay2_73ED30]
     - [0x741000, c, overlay2_741000]
@@ -2229,24 +2433,33 @@ segments:
     - [0x7B6E20, bin] # D_803A5770_7B6E20
     - [0x7B6E50, bin] # D_803A57A0_7B6E50
     - [0x7B6FD8, bin] # D_803A5928_7B6FD8
+    - [0x7B7720, bin] # D_803A6070_7B7720
+    - [0x7B7A60, bin]
     - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table?
     - [0x7B7C80, bin] #
-    - [0x7B9580, .data, data/7B9940]
+    - [0x7B7D30, bin] #
+    - [0x7B7DE0, bin] #
+    - [0x7B9580, .data, data/7B9940] # green crib??
     - [0x7B9580, vtx, data/inc/D_803A7ED0]
-    - [0x7b9780, vtx, data/inc/D_803A80D0]
+    - [0x7B9780, vtx, data/inc/D_803A80D0]
     - [0x7B9940] # end of vtx
-    - [0x7B99F0, bin]
-    - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
+    - [0x7B99F0, bin] # overlay2_725D10 data?
+    - [0x7B9BD8, bin] # 0x9C objects, 247  # rodata overlay2_72C680
+    - [0x7C325C, bin] # end of objects
+    # - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
     - [0x7C74E0, bin]
     - [0x7C76B0, .data, sssv/credits]
     - [0x7C7960, bin]
+    - [0x7C79D0, rodata, unk_7C79D0]
+    - [0x7C7B00, bin]
     - [0x7C7CB8, bin] # displaylist
     - [0x7C7D68, bin] # displaylist
     - [0x7C7D90, bin]
     - [0x7C7F40, bin] # data for overlay2_7A8A50?
     - [0x7C81E0, bin]
-    - [0x7C8AC0, bin] # tbd, contains "Europe", "Ice", "Jungle", "Desert" text
+    - [0x7C8AC0, bin] # data for overlay2_7A9CE0?
+    - [0x7C8B30, bin] # tbd, contains "Europe", "Ice", "Jungle", "Desert" text
     - [0x7C8B80, rgba16, img/butterfly_thing.rgba16, 32, 32]
     - [0x7C9380, rgba16, img/butterfly1a.rgba16, 32, 32]
     - [0x7C9B80, rgba16, img/butterfly1b.rgba16, 32, 32]
@@ -2269,7 +2482,7 @@ segments:
     - [0x7CE0B0, rodata, sssv/animals/fox]
     - [0x7CE110, rodata, overlay2_6FA0A0]
     - [0x7CE120, rodata, sssv/aidata]
-    - [0x7CE440, rodata, sssv/animals/flying_dog]
+    - [0x7CE440, rodata, sssv/animals/dog]
     - [0x7CE490, rodata, sssv/animals/hippo]
     - [0x7CE4B0, rodata, overlay2_701E80]
     - [0x7CE520, rodata, sssv/animals/lion]
@@ -2282,18 +2495,24 @@ segments:
     - [0x7CE7C0, rodata, sssv/animals/parrot]
     - [0x7CE7D0, .rodata, overlay2_725D10]
     - [0x7CE804, rodata, overlay2_725D10]
-    - [0x7CEB70, rodata, overlay2_72B100] # this starts too early. 0x7CEBA0
+    - [0x7CEB70, rodata, overlay2_72B100_tmp] # FIXME force some alignment
+    - [0x7CEBA0, rodata, overlay2_72B100]
     - [0x7CEBE0, bin] # FIXME alignment goes wrong around here
     - [0x7CED50, rodata, overlay2_72B100_cont]
     - [0x7CEF60, rodata, overlay2_72C680]
     - [0x7CF050, rodata, sssv/animals/mouse]
     - [0x7CF120, rodata, sssv/animals/bear]
-    - [0x7CF180, rodata, overlay2_739290]
+    - [0x7CF180, .rodata, overlay2_739290]
+    - [0x7CF25C, rodata, overlay2_739290_cont]
+    - [0x7CF530, rodata, overlay2_73D980]
+    - [0x7CF6A8, .rodata, overlay2_73D980]
+    - [0x7CF800, rodata, overlay2_73E580]
     - [0x7CF810, rodata, overlay2_73ED30]
     - [0x7CF860, rodata, overlay2_741000]
-    - [0x7CFF64, .rodata, overlay2_741000]
+    - [0x7CFF4C, .rodata, overlay2_741000]
     - [0x7CFFD0, rodata, overlay2_7558F0]
     - [0x7CFFF0, rodata, sssv/osd]
+    - [0x7D0008, .rodata, sssv/osd]
     - [0x7D0050, rodata, sssv/hilites]
     - [0x7D0080, rodata, overlay2_75BC80]
     - [0x7D00A0, rodata, sssv/init]
@@ -2301,6 +2520,7 @@ segments:
     - [0x7D0220, rodata, overlay2_76D850]
     - [0x7D02B0, rodata, sssv/animals/rat]
     - [0x7D02C0, rodata, overlay2_76F7D0]
+    - [0x7D02D0, rodata, sssv/animals/sheep]
     - [0x7D0310, rodata, overlay2_7741B0]
     - [0x7D033C, .rodata, overlay2_7741B0]
     - [0x7D05B0, rodata, sssv/animals/penguin]
@@ -2329,9 +2549,8 @@ segments:
     - [0x7D19F8, rodata, overlay2_7A0DA0_cont]
     - [0x7D1A40, rodata, overlay2_7A8A50]
     - [0x7D1A50, rodata, overlay2_7A9CE0]
-    - [0x7D1AD0, bin] # ?
-    - [0x7D2E50, bin]
-    - [0x7D61F0, bin]
-    - [0x7D64D0, bin]
+    # - [0x7D1AD0, .bss, overlay2_6A6500, 0x3DAA0]
+  - [0x7D1AD0, bin] # is everything to the end of the ROM junk?
+  - [0x7D2E50, bin] # leftovers? or script data?
   - [0x7DCAF0, bin, trailer]
   - [0x800000]

@@ -2,17 +2,239 @@
 #include "common.h"
 
 
+extern s32 D_803A6070_7B7720;
+extern s32 D_803A6078_7B7728;
+extern s32 D_803A607C_7B772C;
+extern s32 D_803A608C_7B773C;
+extern s32 D_803A6098_7B7748;
+extern s32 D_803A60B0_7B7760;
+extern s32 D_803A60C4_7B7774;
+extern s32 D_803A60DC_7B778C;
+extern s32 D_803A60F0_7B77A0;
+extern s32 D_803A60F8_7B77A8;
+extern s32 D_803A60FC_7B77AC;
+extern s32 D_803A610C_7B77BC;
+extern s32 D_803A6118_7B77C8;
+extern s32 D_803A6120_7B77D0;
+extern s32 D_803A6124_7B77D4;
+extern s32 D_803A6134_7B77E4;
+extern s32 D_803A6138_7B77E8;
+extern s32 D_803A6160_7B7810;
+extern s32 D_803A6174_7B7824;
+extern s32 D_803A618C_7B783C;
+extern s32 D_803A61A0_7B7850;
+extern s32 D_803A61B8_7B7868;
+extern s32 D_803A61CC_7B787C;
+extern s32 D_803A61DC_7B788C;
+extern s32 D_803A61E8_7B7898;
+extern s32 D_803A6208_7B78B8;
+extern s32 D_803A6224_7B78D4;
+extern s32 D_803A6234_7B78E4;
+extern s32 D_803A6240_7B78F0;
+extern s32 D_803A6258_7B7908;
+extern s32 D_803A6264_7B7914;
+extern s32 D_803A6274_7B7924;
+extern s32 D_803A6280_7B7930;
+extern s32 D_803A6288_7B7938;
+extern s32 D_803A628C_7B793C;
+extern s32 D_803A629C_7B794C;
+extern s32 D_803A62A0_7B7950;
+extern s32 D_803A62B0_7B7960;
+extern s32 D_803A62BC_7B796C;
+extern s32 D_803A62CC_7B797C;
+extern s32 D_803A62D8_7B7988;
+extern s32 D_803A62F0_7B79A0;
+extern s32 D_803A62FC_7B79AC;
+extern s32 D_803A6304_7B79B4;
+extern s32 D_803A6308_7B79B8;
+extern s32 D_803A6310_7B79C0;
+extern s32 D_803A6314_7B79C4;
+extern s32 D_803A631C_7B79CC;
+extern s32 D_803A6320_7B79D0;
+extern s32 D_803A6330_7B79E0;
+extern s32 D_803A633C_7B79EC;
+extern s32 D_803A634C_7B79FC;
+extern s32 D_803A6358_7B7A08;
+extern s32 D_803A6360_7B7A10;
+extern s32 D_803A6364_7B7A14;
+extern s32 D_803A6374_7B7A24;
+extern s32 D_803A6378_7B7A28;
+extern s32 D_803A6380_7B7A30;
+extern s32 D_803A6384_7B7A34;
+extern s32 D_803A6394_7B7A44;
+extern s32 D_803A6398_7B7A48;
+extern s32 D_803A63A0_7B7A50;
+extern s32 D_803A63A4_7B7A54;
+extern s32 D_803A63AC_7B7A5C;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80327BE0_739290.s")
 
 void func_80327DA0_739450(void) {
 }
 
-// requires jump table
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80327DA8_739458.s")
+void func_80327DA8_739458(void) {
+    switch (D_803E9820 - 1) {
+    case 0:
+        D_803E9828 = &D_803A6070_7B7720;
+        D_803E982C = &D_803A6078_7B7728;
+        break;
+    case 1:
+        D_803E9828 = &D_803A607C_7B772C;
+        D_803E982C = &D_803A608C_7B773C;
+        break;
+    case 2:
+        D_803E9828 = &D_803A6098_7B7748;
+        D_803E982C = &D_803A60B0_7B7760;
+        break;
+    case 3:
+        D_803E9828 = &D_803A60C4_7B7774;
+        D_803E982C = &D_803A60DC_7B778C;
+        break;
+    case 4:
+        D_803E9828 = &D_803A60F0_7B77A0;
+        D_803E982C = &D_803A60F8_7B77A8;
+        break;
+    case 5:
+        D_803E9828 = &D_803A60FC_7B77AC;
+        D_803E982C = &D_803A610C_7B77BC;
+        break;
+    case 6:
+        D_803E9828 = &D_803A6118_7B77C8;
+        D_803E982C = &D_803A6120_7B77D0;
+        break;
+    case 7:
+        D_803E9828 = &D_803A6124_7B77D4;
+        D_803E982C = &D_803A6134_7B77E4;
+        break;
+    case 8:
+        D_803E9828 = &D_803A6138_7B77E8;
+        D_803E982C = &D_803A6160_7B7810;
+        break;
+    case 9:
+        D_803E9828 = &D_803A6174_7B7824;
+        D_803E982C = &D_803A618C_7B783C;
+        break;
+    case 10:
+        D_803E9828 = &D_803A61A0_7B7850;
+        D_803E982C = &D_803A61B8_7B7868;
+        break;
+    case 11:
+        D_803E9828 = &D_803A61CC_7B787C;
+        D_803E982C = &D_803A61DC_7B788C;
+        break;
+    case 12:
+        D_803E9828 = &D_803A61E8_7B7898;
+        D_803E982C = &D_803A6208_7B78B8;
+        break;
+    case 13:
+        D_803E9828 = &D_803A6224_7B78D4;
+        D_803E982C = &D_803A6234_7B78E4;
+        break;
+    case 14:
+        D_803E9828 = &D_803A6240_7B78F0;
+        D_803E982C = &D_803A6258_7B7908;
+        break;
+    case 15:
+        D_803E9828 = &D_803A6264_7B7914;
+        D_803E982C = &D_803A6274_7B7924;
+        break;
+    case 16:
+        D_803E9828 = &D_803A6280_7B7930;
+        D_803E982C = &D_803A6288_7B7938;
+        break;
+    case 17:
+        D_803E9828 = &D_803A628C_7B793C;
+        D_803E982C = &D_803A629C_7B794C;
+        break;
+    case 18:
+        D_803E9828 = &D_803A62A0_7B7950;
+        D_803E982C = &D_803A62B0_7B7960;
+        break;
+    case 19:
+        D_803E9828 = &D_803A62BC_7B796C;
+        D_803E982C = &D_803A62CC_7B797C;
+        break;
+    case 20:
+        D_803E9828 = &D_803A62D8_7B7988;
+        D_803E982C = &D_803A62F0_7B79A0;
+        break;
+    case 21:
+        D_803E9828 = &D_803A62FC_7B79AC;
+        D_803E982C = &D_803A6304_7B79B4;
+        break;
+    case 22:
+        D_803E9828 = &D_803A6308_7B79B8;
+        D_803E982C = &D_803A6310_7B79C0;
+        break;
+    case 23:
+        D_803E9828 = &D_803A6314_7B79C4;
+        D_803E982C = &D_803A631C_7B79CC;
+        break;
+    case 24:
+        D_803E9828 = &D_803A6320_7B79D0;
+        D_803E982C = &D_803A6330_7B79E0;
+        break;
+    case 25:
+        D_803E9828 = &D_803A633C_7B79EC;
+        D_803E982C = &D_803A634C_7B79FC;
+        break;
+    case 26:
+        D_803E9828 = &D_803A6358_7B7A08;
+        D_803E982C = &D_803A6360_7B7A10;
+        break;
+    case 27:
+        D_803E9828 = &D_803A6364_7B7A14;
+        D_803E982C = &D_803A6374_7B7A24;
+        break;
+    case 28:
+        D_803E9828 = &D_803A6378_7B7A28;
+        D_803E982C = &D_803A6380_7B7A30;
+        break;
+    case 29:
+        D_803E9828 = &D_803A6384_7B7A34;
+        D_803E982C = &D_803A6394_7B7A44;
+        break;
+    case 30:
+        D_803E9828 = &D_803A6398_7B7A48;
+        D_803E982C = &D_803A63A0_7B7A50;
+        break;
+    case 31:
+        D_803E9828 = &D_803A63A4_7B7A54;
+        D_803E982C = &D_803A63AC_7B7A5C;
+        break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328258_739908.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_803283DC_739A8C.s")
+void func_803283DC_739A8C(void) {
+    func_803284C4_739B74();
+
+    if (D_803D5524->unk9C != ELEPHANT) {
+        D_803D552C->unk308 = 0;
+    }
+    D_803D552C->unk30A = 0;
+    D_803D552C->unk30C = 0;
+    D_803D552C->unk30E = 0;
+    switch (D_803E9824) {
+    case 5:
+        D_803D552C->unk302 = 0;
+        D_803D5530->unk28 = 0;
+        D_803D5530->yPos += 35;
+        break;
+    case 6:
+        break;
+    case 7:
+        D_803D552C->unk302 = 0;
+        D_803D5530->unk28 = 0;
+        D_803D5530->yPos += 35;
+        break;
+    default:
+    case 8:
+    case 27:
+        break;
+    }
+}
 
 struct025* func_803284C4_739B74(void) {
     struct035 *temp_v1;
@@ -126,10 +348,10 @@ struct025* func_803284C4_739B74(void) {
 //     D_803D5530->unk18C = (u8) D_801D9ED8.animal->unk18C;
 //     D_803E9824 = (u16) temp_a2->unk3EB0->unk9C;
 //     temp_a0 = (s16) D_803E9824;
-//     temp_v0_7 = (temp_a0 * 2) + &D_803A63B0;
+//     temp_v0_7 = (temp_a0 * 2) + &D_803A63B0_7B7A60;
 //     D_803E9820 = temp_v0_7[0];
 //     D_803E9822 = temp_v0_7[1];
-//     func_8032ABB8_73C268(temp_a0, &D_803D5538, temp_a2, (u8)1);
+//     check_and_set_species_encountered(temp_a0); //, &D_803D5538, temp_a2, (u8)1);
 //     func_80327DA8_739458();
 //     func_803283DC_739A8C();
 //     func_802B2EA8_6C4558();
@@ -147,7 +369,7 @@ struct025* func_803284C4_739B74(void) {
 //     }
 //     D_803D553C = (u16)0;
 //     D_803D553A = (u16)0;
-//     play_sound_effect_at_location(0x28, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos,  D_803D5530->yPos, 1.0f);
+//     play_sound_effect_at_location(SFX_UNKNOWN_40, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos,  D_803D5530->yPos, 1.0f);
 // }
 
 void func_8032AA94_73C144(void) {
@@ -161,39 +383,31 @@ void func_8032AA94_73C144(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/load_animal.s")
 // NON-MATCHING: JUSTREG
 // void load_animal(s16 arg0) {
-//     s8  *temp_v1;
-//     struct035* ptr;
-//
-//     ptr = &D_801D9ED8[arg0];
-//     D_803D5520->unk0 = ptr;
-//     D_803D5530->unk16C = ptr;
+//     D_803D5530->unk16C = D_803D5520->unk0 = &D_801D9ED8.unk0[arg0];
 //     D_803E9824 = arg0;
-//     temp_v1 = &D_803A63B0[D_803E9824 << 1];
-//     D_803E9820 = temp_v1[0];
-//     D_803E9822 = temp_v1[1];
+//
+//     D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
+//     D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
 //     func_80327DA8_739458(&D_803E9824);
 //     D_803D5530->unk46 = D_803D5530->unk16C->unk7C;
 //     func_802C9BA4_6DB254(D_803D5530);
 //     D_803D5524 = D_803D5520->unk0;
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032ABB8_73C268.s")
-// void func_8032ABB8_73C268(s16 arg0) {
-//     s32 temp_a0;
-//     Eeprom *temp_v0;
-//
-//     if ((D_803E4D28 & 8) == 0) {
-//         temp_v0 = &D_8023F260[((s8)(arg0 >> 3))];
-//         temp_a0 = 1 << (s8)(arg0 % 7);
-//         if (((temp_v0->unk28 & temp_a0) == 0) && (D_803E1BC0 == 0)) {
-//             temp_v0->unk28 |= temp_a0;
-//             func_8038F694_7A0D44();
-//         }
-//     }
-// }
+// load animal info screen if first time player is transferring into an animal
+void check_and_set_species_encountered(s16 animal_id) {
+    if ((D_803E4D28 & 8) == 0) {
+        // if first time visiting then load TV info screen
+        if (((D_8023F260.speciesSeen[(s8) (animal_id >> 3)] & (1 << (s8)(animal_id % 7))) == 0) && (D_803E1BC0 == 0)) {
+            D_8023F260.speciesSeen[(s8) (animal_id >> 3)] |= (1 << (s8)(animal_id % 7));
+            func_8038F694_7A0D44();
+        }
+    }
+}
 
-// same issue as above function
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AC48_73C2F8.s")
+void set_species_as_encountered(s16 animal_id) {
+    D_8023F260.speciesSeen[(s8) (animal_id >> 3)] |= (1 << (s8) (animal_id % 7));
+}
 
 // funny effect 1: weird continuous growing/shrinking
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032AC98_73C348.s")
@@ -320,124 +534,7 @@ void func_8032AEA0_73C550(void) {
 //     }
 // }
 
-// cheat 5: tbd the effect
+// cheat 5: nothing?
 void func_8032B1C8_73C878(void) {
     D_803A6CE4 &= 0xFFF8;
 }
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032B1E0_73C890.s")
-
-// check some flag?
-u8 func_8032BCF8_73D3A8(s32 arg0, s16 arg1) {
-    if (arg1 >= 0) {
-        while ((2 << arg1) & arg0) {
-            if (--arg1 < 0) {
-                break;
-            }
-        }
-    }
-    return (arg1 + 1) == 0;
-}
-
-s32 func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5) {
-    if (arg0 == 0) {
-        if ((func_8032BCF8_73D3A8(arg1, arg4) == 0) || (func_8032BCF8_73D3A8(arg2, arg5) == 0)) {
-            return 0;
-        }
-    }
-    if (arg1 == 0) {
-        if ((func_8032BCF8_73D3A8(arg0, arg4) == 0) || (func_8032BCF8_73D3A8(arg2, arg5) == 0)) {
-            return 0;
-        }
-    }
-    if (arg2 == 0) {
-        if ((func_8032BCF8_73D3A8(arg0, arg4) == 0) || (func_8032BCF8_73D3A8(arg1, arg4) == 0)) {
-            return 0;
-        }
-    }
-    return 1;
-}
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032BE28_73D4D8.s")
-
-void func_8032C0EC_73D79C(s32 arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
-
-    if (D_803D3434->usedModelViewMtxs < 240) {
-        gDPSetPrimColor(D_801D9E8C++, 0, 0, r, g, b, 0xFF);
-        guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);
-        gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-
-        D_803D3434->usedModelViewMtxs += 1; // used matrices?
-
-        gSPDisplayList(D_801D9E8C++, D_0103B6F0);
-        gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
-    }
-}
-
-void func_8032C2D0_73D980(s16 arg0, s16 arg1, f32 arg2) {
-    s16 *tmp;
-
-    if (arg0 != 255) {
-        tmp = &D_803A69F0[arg0];
-        if ((*tmp == 8) || (func_80132D54() < *tmp)) {
-            play_sound_effect(arg0, 0, arg1, arg2, 64);
-        }
-    }
-}
-
-void play_sound_effect_at_location(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, f32 arg6) {
-    s32 sqrt;
-    s16 tmp;
-
-    if ((D_803F2D10.unk0 == 0) && (arg0 != 255)) {
-        if ((D_803A69F0[arg0] == 8) || (func_80132D54() < D_803A69F0[arg0])) {
-            sqrt = sqrtf(((arg3 - (s16) D_803F2C44) * (arg3 - (s16) D_803F2C44)) +
-                         ((arg4 - (s16) D_803F2C48) * (arg4 - (s16) D_803F2C48)) +
-                         ((arg5 - (s16) D_803F2C4C) * (arg5 - (s16) D_803F2C4C)));
-            if (sqrt < D_803A6730[arg0]) {
-                tmp = 256 - ((sqrt * 256) / D_803A6730[arg0]);
-                play_sound_effect(arg0, 0, (tmp * arg1) >> 8, arg6, 64);
-            }
-        }
-    }
-}
-
-void func_8032C508_73DBB8(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {
-    if (D_803F2D10.unk0 == 0) {
-        if ((D_803A69F0[arg0] == 8) || (func_80132D54() < D_803A69F0[arg0])) {
-            if (arg0 != 0xFF) {
-                play_sound_effect(arg0, 0, arg1, arg3, 64);
-            }
-        }
-    }
-}
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032C5A8_73DC58.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032CA90_73E140.s")
-
-void func_8032CD20_73E3D0(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
-    if (arg1 != 0xFF) {
-        func_8013328C(arg0, arg1, 64, arg4, arg2, arg3);
-    }
-}
-
-void func_8032CD70_73E420(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7) {
-    s16 tmp;
-    s32 sqrt;
-
-    if (arg1 != 0xFF) {
-        sqrt = sqrtf(((arg5 - (s16) D_803F2C44) * (arg5 - (s16) D_803F2C44)) +
-                     ((arg6 - (s16) D_803F2C48) * (arg6 - (s16) D_803F2C48)) +
-                     ((arg7 - (s16) D_803F2C4C) * (arg7 - (s16) D_803F2C4C)));
-        if (sqrt < D_803A6730[arg1]) {
-            tmp = 256 - ((sqrt * 256) / D_803A6730[arg1]);
-            // fakematch? or just a typo?
-            sqrt = (tmp * arg2) >> 8;
-            sqrt = (tmp * arg2) >> 8;
-            func_8013328C(arg0, arg1, 64, arg4, sqrt, arg3);
-        }
-    }
-}
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032CED0_73E580.s")

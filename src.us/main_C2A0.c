@@ -17,7 +17,7 @@ void func_80130BC4(void) {
     u8 *e;
 
     c = 0;
-    e = (u8*)&D_8023F260.unk4;
+    e = (u8*)&D_8023F260.level;
 
     for (i = 0; i < 60U; i++) {
         *e++ = c;
