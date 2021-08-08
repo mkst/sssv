@@ -18,18 +18,20 @@ void func_802C5824_6D6ED4(s16 arg0, s16 arg1, s16 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C58E4_6D6F94.s")
 
+#ifdef NON_MATCHING_TODO // JUSTREG?
+void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {
+    D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
+    D_80203FE0[19].unk2 = D_80203FE0[1].unk2;
+    D_80203FE0[19].unk4 = D_80203FE0[1].unk4 + arg0;
+
+    D_80203FE0[20].unk0 = D_80203FE0[1].unk0;
+    D_80203FE0[20].unk2 = D_80203FE0[1].unk2 + arg1;
+    D_80203FE0[20].unk4 = D_80203FE0[1].unk4 + arg0;
+
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C5EF4_6D75A4.s")
-// JUSTREG
-// void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {
-//     D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
-//     D_80203FE0[19].unk2 = D_80203FE0[1].unk2;
-//     D_80203FE0[19].unk4 = D_80203FE0[1].unk4 + arg0;
-//
-//     D_80203FE0[20].unk0 = D_80203FE0[1].unk0;
-//     D_80203FE0[20].unk2 = D_80203FE0[1].unk2 + arg1;
-//     D_80203FE0[20].unk4 = D_80203FE0[1].unk4 + arg0;
-//
-// }
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C5F34_6D75E4.s")
 

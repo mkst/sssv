@@ -51,18 +51,20 @@ void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2) {
     }
 }
 
+#ifdef NON_MATCHING // JUSTREG
+void func_802A3F68_6B5618(s32 *arg0, s32 *arg1) {
+    s32 temp_t6;
+    s32 temp_v1;
+
+    temp_v1 = D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7;
+    *arg0 += ((1 - (((temp_v1 >> 4) & 8) >> 2)) * (((temp_v1 & 0xF0) >> 4) & 7)) << 17;
+    if (0) { };
+    temp_t6 = D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7;
+    *arg1 += ((1 - ((temp_t6 & 8) >> 2)) * (temp_t6 & 7)) << 17;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A3F68_6B5618.s")
-// JUSTREG
-// void func_802A3F68_6B5618(s32 *arg0, s32 *arg1) {
-//     s32 temp_t6;
-//     s32 temp_v1;
-//
-//     temp_v1 = D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7;
-//     *arg0 += ((1 - (((temp_v1 >> 4) & 8) >> 2)) * (((temp_v1 & 0xF0) >> 4) & 7)) << 17;
-//     if (0) { };
-//     temp_t6 = D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7;
-//     *arg1 += ((1 - ((temp_t6 & 8) >> 2)) * (temp_t6 & 7)) << 17;
-// }
+#endif
 
 void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
     s32 temp_v0;
@@ -102,18 +104,38 @@ void func_802A4184_6B5834(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4220_6B58D0.s")
 // what???
-// void func_802A4220_6B58D0(s32 *arg0, s32 *arg1, s32 arg2) {
+// void func_802A4220_6B58D0(s32 arg0, s32 arg1, s32 arg2) {
 //     s32 temp_v0;
 //     s32 temp_v1;
 //
-//     temp_v0 = ABS(*arg0);
-//     temp_v1 = ABS(*arg1);
+//     temp_v0 = ABS(arg0);
+//     temp_v1 = ABS(arg1);
 //
-//     *arg0 = (*arg0 * temp_v0) >> 8;
-//     *arg1 = (*arg1 * temp_v1) >> 8;
+//     *arg0 = (arg0 * temp_v0) >> 8;
+//     *arg1 = (arg1 * temp_v1) >> 8;
 // }
 
+// miles away
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4278_6B5928.s")
+// void func_802A4278_6B5928(u16 arg0, u16 arg1, s16 arg2) {
+//     s32 temp_t7_2;
+//     s32 temp_t6_2;
+//     s32 temp_t7_3;
+//
+//     s32 xVel;
+//     s32 zVel;
+//
+//     xVel = D_803D5530->xVelocity.w;
+//     zVel = D_803D5530->zVelocity.w;
+//
+//     temp_t7_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 5;
+//     temp_t6_2 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 5;
+//
+//     temp_t7_3 = (((xVel >> 10) * temp_t7_2) + ((zVel >> 10) * temp_t6_2)) >> 10;
+//
+//     D_803D5530->xVelocity.w = xVel - (((((xVel - (temp_t7_2 * temp_t7_3)) >> arg0) + (xVel >> arg1)) * arg2) >> 4);
+//     D_803D5530->zVelocity.w = zVel - (((((zVel - (temp_t6_2 * temp_t7_3)) >> arg0) + (zVel >> arg1)) * arg2) >> 4);
+// }
 
 void func_802A4390_6B5A40(void) {
     D_803D5530->state = 2;
@@ -596,12 +618,16 @@ void func_802A63C0_6B7A70(void) {
 //     }
 // }
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A64B0_6B7B60.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A7648_6B8CF8.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A78CC_6B8F7C.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A935C_6BAA0C.s")
 
 void func_802AA0A0_6BB750(void) {
@@ -625,12 +651,14 @@ void func_802AA0A0_6BB750(void) {
     }
 }
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA1EC_6BB89C.s")
 
 void func_802AA424_6BBAD4(void) {
     func_802AA444_6BBAF4();
 }
 
+// jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA444_6BBAF4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA5C0_6BBC70.s")
@@ -708,6 +736,7 @@ void func_802AA424_6BBAD4(void) {
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AA85C_6BBF0C.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AAAB0_6BC160.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AB8EC_6BCF9C.s")
@@ -721,24 +750,22 @@ void func_802AA424_6BBAD4(void) {
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC5CC_6BDC7C.s")
 
+#ifdef NON_MATCHING // JUSTREG
+void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
+    *arg0 = 0;
+
+    if (D_801E9EB2 > 2) {
+        *arg1 = D_803D5524->unkA4 * 1024;
+    } else if (D_801E9EB2 > 0) {
+        *arg1 = D_803D5524->unkA4 * 640;
+    } else {
+        *arg1 = 0;
+    }
+    func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC8A0_6BDF50.s")
-//nonmatch: JUSTREG
-// void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
-//     s32 tmp;
-//     s16 new_var2;
-//
-//     *arg0 = 0;
-//     if (D_801E9EB2 > 2) {
-//         *arg1 = D_803D5524->unkA4 * 1024;
-//     } else if (D_801E9EB2 > 0) {
-//         *arg1 = D_803D5524->unkA4 * 640;
-//     } else {
-//         new_var2 = D_801E9EB2;
-//         if (new_var2) {}
-//         *arg1 = 0;
-//     }
-//     func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
-// }
+#endif
 
 s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
     if (arg0 < 0) {
@@ -753,8 +780,23 @@ s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
     return (arg1 / 2) + arg0;
 }
 
-// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC980_6BE030.s")
+// should match, just rodata
+// void func_802AC980_6BE030(void) {
+//     switch (D_803F28E0[D_803F2A98].unk0) {
+//     case 3:
+//     case 5:
+//     case 6:
+//     case 7:
+//     case 17:
+//     case 28:
+//         func_802AD0FC_6BE7AC();
+//         break;
+//     default:
+//         func_802AC9FC_6BE0AC();
+//         break;
+//     }
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC9FC_6BE0AC.s")
 
@@ -764,6 +806,7 @@ s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AD63C_6BECEC.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AD87C_6BEF2C.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802ADDD0_6BF480.s")
@@ -784,10 +827,12 @@ s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AF7E4_6C0E94.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AF9FC_6C10AC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B066C_6C1D1C.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B0B00_6C21B0.s")
 
 void func_802B0D4C_6C23FC(s16 arg0, s16 arg1) {
@@ -839,7 +884,44 @@ void func_802B0D4C_6C23FC(s16 arg0, s16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B0F4C_6C25FC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B10B0_6C2760.s")
+void func_802B10B0_6C2760(s16 rotation, s16 arg1) {
+    switch (D_803D5530->state) {
+    case 1:
+    case 201:
+        if (arg1 > 0) {
+            if (arg1 < 0xE) {
+                func_802A55AC_6B6C5C(rotation, arg1);
+            } else {
+                func_802A5694_6B6D44(rotation, arg1);
+            }
+        }
+        break;
+    case 202:
+        if (arg1 <= 0) {
+            func_802A5558_6B6C08();
+        } else if (arg1 >= 0xE) {
+            func_802A5694_6B6D44(rotation, arg1);
+        } else {
+            D_803D5530->yRotation = rotation;
+            D_803D552C->unk368 = arg1;
+        }
+        break;
+    case 203:
+        if (arg1 <= 0) {
+            func_802A5558_6B6C08();
+        } else if (arg1 < 0xD) {
+            func_802A5694_6B6D44(rotation, arg1);
+        } else {
+            D_803D5530->yRotation = rotation;
+            D_803D552C->unk368 = arg1;
+        }
+        break;
+    }
+
+    if (arg1 < 0) {
+        D_803D5530->yRotation = rotation;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B1210_6C28C0.s")
 
@@ -853,6 +935,7 @@ void func_802B0D4C_6C23FC(s16 arg0, s16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B1D00_6C33B0.s")
 
+// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B1E28_6C34D8.s")
 
 s16 func_802B2580_6C3C30(void) {
@@ -863,9 +946,50 @@ s16 func_802B2580_6C3C30(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B2834_6C3EE4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B2964_6C4014.s")
+void func_802B2964_6C4014(void) {
+    s16 phi_a3;
+    s16 temp_v0_2;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B2AF0_6C41A0.s")
+    temp_v0_2 = func_80298F78_6AA628(D_803D5530->xPos, D_803D5530->zPos);
+    if ((D_803D5524->unkA0 & 0xC00) != 0) {
+        phi_a3 = D_803D5524->unkBA;
+    } else {
+        phi_a3 = D_803D5524->unkB8;
+    }
+    if ((temp_v0_2 == 0) || (temp_v0_2 < ((func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16) + phi_a3))) {
+        func_802B2EA8_6C4558();
+        return;
+    }
+    if ((D_803D5538 != 0) &&
+        (((D_803D5524->unk9E == 0x20) && (D_801D9ED8.unkFFB8 == 0) && (D_801D9ED8.unkFFB2 != 0)) ||
+         ((D_803D5524->unk9E == 0x80) && (D_801D9ED8.unkFFB2 != 0)))) {
+
+        if (((D_803D5530->yPos + phi_a3) - temp_v0_2) > -7) {
+            D_803D5530->yPos = MAX(D_803D5530->yPos, temp_v0_2 - phi_a3);
+            D_803D5530->yVelocity.w = 0x40000;
+            func_802B2EA8_6C4558();
+        }
+    }
+    if ((temp_v0_2 + 16) < D_803D5530->yPos) {
+        func_802B2FF4_6C46A4();
+    }
+}
+
+s32 func_802B2AF0_6C41A0(s32 arg0, s32 arg1) {
+    if ((arg0 <= 0) && (func_802B2C20_6C42D0(D_803D5530->xPos - D_803D5524->unkBE, D_803D5530->zPos))) {
+        return 1;
+    }
+    if ((arg0 >= 0) && (func_802B2C20_6C42D0(D_803D5530->xPos + D_803D5524->unkBE, D_803D5530->zPos))) {
+        return 1;
+    }
+    if ((arg1 <= 0) && (func_802B2C20_6C42D0(D_803D5530->xPos, D_803D5530->zPos - D_803D5524->unkBE))) {
+        return 1;
+    }
+    if ((arg1 >= 0) && (func_802B2C20_6C42D0(D_803D5530->xPos, D_803D5530->zPos + D_803D5524->unkBE))) {
+        return 1;
+    }
+    // implicit return?
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B2C20_6C42D0.s")
 
@@ -939,33 +1063,69 @@ void func_802B2FF4_6C46A4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B315C_6C480C.s")
-// needs .rodata
-// void func_802B315C_6C480C(void) {
-//     switch (D_803D5524->unkA0 & 0x3FF) {
-//     case 1:
-//         func_802A5EA4_6B7554();
-//         D_803D5530->unk162 = 5;
-//         break;
-//     case 2:
-//         func_802A5DD0_6B7480();
-//         D_803D5530->unk162 = 4;
-//         break;
-//     case 4:
-//         func_802A4E74_6B6524();
-//         D_803D5530->unk162 = 6;
-//         break;
-//     case 8:
-//         func_802A5558_6B6C08();
-//         D_803D5530->unk162 = 6;
-//         break;
-//     case 16:
-//         D_803D5530->yVelocity.w += 0x50000;
-//         break;
-//     }
-// }
+void func_802B315C_6C480C(void) {
+    switch (D_803D5524->unkA0 & 0x3FF) {
+    case 2:
+        func_802A5EA4_6B7554();
+        D_803D5530->unk162 = 5;
+        break;
+    case 4:
+        func_802A5DD0_6B7480();
+        D_803D5530->unk162 = 4;
+        break;
+    case 8:
+        func_802A4E74_6B6524();
+        D_803D5530->unk162 = 6;
+        break;
+    case 16:
+        func_802A5558_6B6C08();
+        D_803D5530->unk162 = 6;
+        break;
+    case 1:
+        D_803D5530->yVelocity.w += 0x50000;
+        break;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3230_6C48E0.s")
+void func_802B3230_6C48E0(void) {
+    s16 tmp;
+
+    if ((D_803D5524->unkA0 & 0xC00)) {
+        switch (D_803D5530->state) {
+        case 61:
+        case 62:
+        case 141:
+        case 142:
+        case 143:
+        case 144:
+        case 181:
+        case 182:
+        case 183:
+        case 184:
+        case 185:
+        case 201:
+        case 202:
+        case 203:
+        case 204:
+            if (D_803D5524->unkBA < (func_80298F78_6AA628(D_803D5530->xPos, D_803D5530->zPos) - (func_8031124C_7228FC(D_803D5530->xPos, D_803D5530->zPos) >> 0x10))) {
+                if ((D_803D5530->unk4C.unk26 == 0) && ((D_803D5540 & 3) == 0)) {
+                    tmp = 0;
+                    if (D_803D5524->unkA0 & 0x400) {
+                        tmp += 1;
+                    }
+                    if (D_803D5524->unkA0 & 0x800) {
+                        tmp += 2;
+                    }
+                    func_802B38FC_6C4FAC(D_803D5530, tmp, -1, 0);
+                }
+                if ((func_8012826C() & 0xF) == 0xC) {
+                    func_802D9C64_6EB314(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 33, 0xE721);
+
+                }
+            }
+        }
+    }
+}
 
 void func_802B33D0_6C4A80(Animal *a) {
     a->unk4A += 1;
@@ -1024,114 +1184,189 @@ void func_802B3540_6C4BF0(void) {
     }
 }
 
-// requires jumptable
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B356C_6C4C1C.s")
+void func_802B356C_6C4C1C(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
+    s16 tmp;
+    s16 temp_v1_2;
+    s16 pad;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B38FC_6C4FAC.s")
-// should match, need to check rodata
-// void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
-//     s16 phi_a2;
-//     s16 temp_v0;
-//
-//     if ((arg0->unk4C.unk26 != 0) || (arg0->unk4A != 0)) {
-//         arg1 = 0;
-//     }
-//     if (arg0->unk16C->unk8B == 0xFF) {
-//         arg1 = 0;
-//     }
-//     phi_a2 = arg1;
-//     if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
-//         temp_v0 = arg0->unk16C->unkE6 - arg2;
-//         switch (temp_v0) {
-//         case 2:
-//             phi_a2 = (arg1 * 0xC) >> 4;
-//             break;
-//         case 3:
-//             phi_a2 = (arg1 * 9) >> 4;
-//             break;
-//         case 4:
-//             phi_a2 = (arg1 * 6) >> 4;
-//             break;
-//         case 5:
-//         case 6:
-//         case 7:
-//             phi_a2 = (arg1 * 4) >> 4;
-//             break;
-//         }
-//     }
-//
-//     if ((arg0->unk16C->unk80.bit) && (arg3 != 0) && ((arg0->health - phi_a2) > 0)) {
-//         if (phi_a2 > 0x1E0) {
-//             func_802DBA58_6ED108(0xE, arg0);
-//             func_8034A684_75BD34();
-//         } else if (phi_a2 > 0xC0) {
-//             func_802DBA58_6ED108(0xE, arg0);
-//             func_8034A914_75BFC4();
-//         } else if (phi_a2 >= 0x40) {
-//             func_802DBA58_6ED108(0xD, arg0);
-//             func_8034ABA4_75C254();
-//         }
-//     }
-//
-//     if ((arg1 != 0) && (phi_a2 <= 0)) {
-//         phi_a2 = 1;
-//     }
-//
-//     if (phi_a2 >= 0x23) {
-//         phi_a2 = 0x23;
-//     }
-//     func_80349280_75A930(arg0, phi_a2);
-//     arg0->health = MAX(0, arg0->health - phi_a2);
-// }
+    arg1 <<= 4;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B3B48_6C51F8.s")
-// JUSTREG - also need to confirm rodata
-// void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2) {
-//     s16 temp_v1 = *arg2;
-//     s16 tmp;
-//
-//     switch (arg0->unk16C->unkE6) {
-//     case 0:
-//         *arg2 = *arg2 * 36 >> 4;
-//         break;
-//     case 1:
-//         *arg2 = *arg2 * 24 >> 4;
-//         break;
-//     case 2:
-//         *arg2 = *arg2;
-//         break;
-//     case 3:
-//         // why does regalloc break down here?
-//         *arg2 = ((*arg2 * 8 >> 4) & 0xFFFF) & 0xFFFF;
-//         break;
-//     case 4:
-//         *arg2 = *arg2 * 5 >> 4;
-//         break;
-//     }
-//
-//     if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
-//         tmp  = arg0->unk16C->unkE6 - arg1->unk16C->unkE6;
-//         switch (tmp) {
-//         case 2:
-//             *arg2 = *arg2 >> 1;
-//             break;
-//         case 3:
-//             *arg2 = *arg2 >> 2;
-//             break;
-//         case 4:
-//             *arg2 = *arg2 >> 3;
-//             break;
-//         case 5:
-//         case 6:
-//         case 7:
-//             *arg2 = 0;
-//         }
-//     }
-//
-//     if (temp_v1 != 0) {
-//         *arg2 = MAX(*arg2, 1);
-//     }
-// }
+    if ((arg0->unk4C.unk26 != 0) || (arg0->unk4A != 0) || (arg0->unk16C->unk8B == 0xFF)) {
+        arg1 = 0;
+    }
+
+    if (arg0->unk16C->unk80.bit == 0) {
+        arg0->health = MAX(0, arg0->health - (arg1 >> 4));
+    }
+
+    switch (arg0->unk16C->unkE6) {
+    case 0:
+        tmp = (arg1 * 36) >> 4;
+        break;
+    case 1:
+        tmp = (arg1 * 24) >> 4;
+        break;
+    case 2:
+        tmp = (arg1 * 16) >> 4;
+        break;
+    case 3:
+        tmp = (arg1 * 8) >> 4;
+        break;
+    case 4:
+        tmp = (arg1 * 5) >> 4;
+        break;
+    default:
+        tmp = (arg1 * 16) >> 4;
+        break;
+    }
+
+    if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+        temp_v1_2 = arg0->unk16C->unkE6 - arg2;
+        switch (temp_v1_2) {
+        case 2:
+            tmp = ((tmp * 3) >> 2);
+            break;
+        case 3:
+            tmp = (tmp >> 1);
+            break;
+        case 4:
+            tmp = (tmp >> 2);
+            break;
+        case 5:
+            tmp = (tmp >> 3);
+            break;
+        case 6:
+        case 7:
+            tmp = 0;
+            break;
+        }
+    }
+
+    if ((arg0->unk16C->unk80.bit) && (arg3 != 0) && ((arg0->health - tmp) > 0)) {
+        if (tmp > 480) {
+            func_802DBA58_6ED108(14, arg0);
+            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 33, 0xE701);
+        } else if (tmp > 192) {
+            func_802DBA58_6ED108(14, arg0);
+            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 17, 0xE701);
+        } else if (tmp >= 64) {
+            func_802DBA58_6ED108(13, arg0);
+            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 8, 0xE701);
+        }
+    }
+    tmp = MIN(tmp, 0x230);
+
+    if ((arg1 != 0) && (tmp <= 0)) {
+        tmp = 1;
+    }
+
+    func_80349280_75A930(arg0, tmp >> 4);
+
+    if (tmp > 0) {
+        arg0->health = MAX(0, (arg0->health - MAX(1, tmp >> 4)));
+    }
+}
+
+void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
+    s16 phi_a2;
+    s16 temp_v0;
+
+    if ((arg0->unk4C.unk26 != 0) || (arg0->unk4A != 0)) {
+        arg1 = 0;
+    }
+    if (arg0->unk16C->unk8B == 0xFF) {
+        arg1 = 0;
+    }
+    phi_a2 = arg1;
+    if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+        temp_v0 = arg0->unk16C->unkE6 - arg2;
+        switch (temp_v0) {
+        case 2:
+            phi_a2 = (arg1 * 12) >> 4;
+            break;
+        case 3:
+            phi_a2 = (arg1 * 9) >> 4;
+            break;
+        case 4:
+            phi_a2 = (arg1 * 6) >> 4;
+            break;
+        case 5:
+        case 6:
+        case 7:
+            phi_a2 = (arg1 * 4) >> 4;
+            break;
+        }
+    }
+
+    if ((arg0->unk16C->unk80.bit) && (arg3 != 0) && ((arg0->health - phi_a2) > 0)) {
+        if (phi_a2 > 0x1E0) {
+            func_802DBA58_6ED108(0xE, arg0);
+            func_8034A684_75BD34();
+        } else if (phi_a2 > 0xC0) {
+            func_802DBA58_6ED108(0xE, arg0);
+            func_8034A914_75BFC4();
+        } else if (phi_a2 >= 0x40) {
+            func_802DBA58_6ED108(0xD, arg0);
+            func_8034ABA4_75C254();
+        }
+    }
+
+    if ((arg1 != 0) && (phi_a2 <= 0)) {
+        phi_a2 = 1;
+    }
+
+    if (phi_a2 >= 0x23) {
+        phi_a2 = 0x23;
+    }
+    func_80349280_75A930(arg0, phi_a2);
+    arg0->health = MAX(0, arg0->health - phi_a2);
+}
+
+void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2) {
+    s16 orig = *arg2;
+    s16 tmp;
+
+    switch (arg0->unk16C->unkE6) {
+    case 0:
+        *arg2 = *arg2 * 36 >> 4;
+        break;
+    case 1:
+        *arg2 = *arg2 * 24 >> 4;
+        break;
+    case 2:
+        *arg2 = *arg2 * 16 >> 4;
+        break;
+    case 3:
+        *arg2 = *arg2 * 8 >> 4;
+        break;
+    case 4:
+        *arg2 = *arg2 * 5 >> 4;
+        break;
+    }
+
+    if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
+        tmp = arg0->unk16C->unkE6 - arg1->unk16C->unkE6;
+        switch (tmp) {
+        case 2:
+            *arg2 = *arg2 >> 1;
+            break;
+        case 3:
+            *arg2 = *arg2 >> 2;
+            break;
+        case 4:
+            *arg2 = *arg2 >> 3;
+            break;
+        case 5:
+        case 6:
+        case 7:
+            *arg2 = 0;
+        }
+    }
+
+    if (orig != 0) {
+        *arg2 = MAX(*arg2, 1);
+    }
+}
 
 s16 func_802B3C9C_6C534C(s16 arg0, Animal *arg1) {
     if (arg0 == 0) {

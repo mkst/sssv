@@ -16,7 +16,6 @@ void func_80132CC0(s32 arg0) {
     }
 }
 
-// count used sounds
 s16 get_used_sound_count(void) {
     struct017 *snd;
     s16 cnt = 0;
@@ -78,84 +77,72 @@ s32 func_80132D84(ALSndPlayer *sndp) {
     return used;
 }
 
-// bit odd, copy values into some structs?
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80132F70.s")
+typedef struct {
+    /* 0x0 */ s16 unk0;
+    /* 0x2 */ s16 unk2;
+    /* 0x4 */ s8  unk4;
+    /* 0x8 */ f32 unk8;
+} myStructInner; // size 0xC
 
 typedef struct {
-    s16 unk0;      // 4C
-    s16 unk2;      // 4E
-    u8  unk4;      // 50
-    u8  pad5[0x3];
-    f32 unk8;      // 54
-    s16 unkC;      // 58
-    u8  padE[0x2]; // 5A
-    u16 unk10;     // 5C
-    u8  pad12[0x2];
-    s16 unk14;     // 60
-    u8  pad16[0x2];
-    s32 unk18;     // 64
-    s16 unk1C;     // 68
-    u8  pad1E[0x4];
-    s16 unk22;     // 6E
-    u8  pad24[0x4];
-    s16 unk28;     // 74
-    s32 unk30;
-} foo;
+    myStructInner sp50[5]; // size 0xC
+    s16 sp5C;
+    u8  pad5E[0x2];
+    u16 sp60;
+    u8  pad62[0x2];
+    s16 sp64;
+    u8  pad66[0x2];
+    s32 sp68;
+    s32 sp6C;
+    s16 sp72;
+    u8  sp74[0x6];
+    s32 sp78;
+} myStruct;
 
+extern myStructInner D_80154C4C[100]; // sound effect pointers?
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/play_sound_effect.s")
-// id, tbd, tbd, speed, tbd
-// void play_sound_effect(s16 arg0, s16 arg1, s16 arg2, f32 arg3, u8 arg4) {
-//     foo tmp;
+#pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/func_80132F70.s")
+// called with (0x56, 0x5000)
+// pure nonsense
+// void func_80132F70(s16 arg0, s32 arg1) {
+//     myStruct tmp;
+//     s32 i;
 //
-//     s16 *temp_t5;
-//     s16 *temp_t5_2;
-//     s32 temp_v0;
-//     void *temp_t9;
-//     foo  *phi_t5;
-//     void *phi_t9;
+//     if (gAudioInitialized == 0) {
+//         return;
+//     }
 //
-//     if (gAudioInitialized != 0) {
-//         if (arg0 != 10000) {
-//             tmp.unk0 = D_80154C4C[arg0];
-//             tmp.unk2 = arg0;
-//             tmp.unk14 = 0;
-//             tmp.unk18 = 0;
-//             tmp.unk8 = D_801546E8[arg0] * arg3; // + temp_v0) * arg3;
-//             tmp.unk28 = 0;
-//             tmp.unk22 = -1;
-//             tmp.unk1C = arg1;
-//             tmp.unk4 = arg4;
-//             tmp.unkC = arg2;
-//             tmp.unk10 = D_80241D0E;
-//             // phi_t9 = sp;
-//             phi_t5 = &tmp;
-//             while(phi_t5->unkC != phi_t5->unk30) {
-//                 // ?
+//     if (arg0 != 10000) {
+//         tmp.sp64 = 0;
+//         tmp.sp68 = 0;
+//         tmp.sp6C = 0;
+//         tmp.sp50[0].unk2 = arg0;
+//         tmp.sp50[0].unk0 = D_80154C4C[arg0].unk0;
+//         tmp.sp50[0].unk4 = 64;
+//         tmp.sp50[0].unk8 = D_801546E8[arg0];
+//         if (!(D_801546E8[arg0] > 2.0f)) {
+//             tmp.sp78 = 0;
+//             tmp.sp72 = -1;
+//             tmp.sp5C = arg1;
+//             tmp.sp60 = D_80241D0E;
+//
+//             for (i = 2; i < 4; i++) {
+//                 tmp.sp50[i] = D_80154C4C[arg0];
 //             }
-// // loop_3:
-// //             temp_t5_2 = phi_t5 + 0xC;
-// //             temp_t9 = phi_t9 + 0xC;
-// //             temp_t9->unk-C = (s32) *phi_t5;
-// //             temp_t9->unk-8 = (s32) temp_t5_2->unk-8;
-// //             temp_t9->unk-4 = (s32) temp_t5_2->unk-4;
-// //             phi_t5 = temp_t5_2;
-// //             phi_t9 = temp_t9;
-// //             if (temp_t5_2 != (temp_t5 + 0x30)) {
-// //                 goto loop_3;
-// //             }
-//             // temp_t9->unk0 = (s32) temp_t5_2->unk0;
-//             // func_80132174(arg3, subroutine_arg0, subroutine_arg1, subroutine_arg2, subroutine_arg3, &D_8028631C, &D_80286320);
-//             func_80132174(arg3, phi_t5->unk0, &D_8028631C, &D_80286320);
+//             // subroutine_arg0, subroutine_arg1, subroutine_arg2, subroutine_arg3,
+//             func_80132174(arg0, arg1, &D_8028631C, &D_80286320);
 //         }
 //     }
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80133188.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_8013328C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/play_sound_effect.s")
+// void play_sound_effect(s16 id, s16 arg1, s16 arg2, f32 speed, u8 arg4) {
 
-void func_80133528(u8 arg0, s16 vol) {
-    struct017 *snd = func_80132414(arg0);
+#pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/func_80133188.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/func_8013328C.s")
+
+void func_80133528(u8 id, s16 vol) { // play_sound_by_id_with_volume
+    struct017 *snd = get_sound_by_id(id);
     if (snd != NULL) {
         if ((snd->sndSlot >= 0) && (D_802863B0[snd->sndSlot] != 1)) {
             alSndpSetSound(D_80286310, snd->sndSlot);
@@ -164,8 +151,8 @@ void func_80133528(u8 arg0, s16 vol) {
     }
 }
 
-void func_8013359C(u8 arg0) {
-    struct017 *snd = func_80132414(arg0);
+void func_8013359C(u8 id) { // play_sound_by_id
+    struct017 *snd = get_sound_by_id(id);
     if (snd != NULL) {
         if ((snd->sndSlot >= 0) && (D_802863B0[snd->sndSlot] != 1)) {
             alSndpSetSound(D_80286310, snd->sndSlot);
@@ -174,7 +161,7 @@ void func_8013359C(u8 arg0) {
     }
 }
 
-void func_80133608(s16 slot) {
+void func_80133608(s16 slot) { // play_sound_by_slot
     if (slot >= 0) {
         alSndpSetSound(D_80286310, slot);
         alSndpStop(D_80286310);
@@ -204,7 +191,7 @@ void func_80133738(void) {
 
     if (gAudioInitialized) {
         for (i = 0; i < 20; i++) {
-            if (func_801323B8(i)) {
+            if (get_sound_by_slot(i)) {
                 alSndpStop(D_80286310);
             }
         }
@@ -297,28 +284,30 @@ void func_80133BE4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_E3C0/func_80133C50.s")
-// needs some love
-// void func_80133C50(void) {
-//     f32 tmp;
-//     s16 temp_v1;
-//     s16 i;
-//     s16 phi_a1;
-//
-//     for (i = 0; i < 1; i++) {
-//         temp_v1 = D_8015516C[i];
-//         if ((temp_v1 != -1) && (D_80155168[i] == 1)) {
-//             if ((s16)D_801546A8[0] == 1.0f) { // ??
-//                 tmp = D_801550F8[temp_v1];
-//                 // phi_a1 = ((((D_801546B8[i] * (tmp * D_801546AC[i]))) / D_801546B0[i]) + (D_801546B4[i] * tmp)) * gMusicVolume * D_8015517C;
-//                 phi_a1 = ((D_801546B4[i] * tmp) + ((D_801546B8[i] * (tmp * D_801546AC[i])) / D_801546B0[i])) * gMusicVolume * D_8015517C;
-//             } else {
-//                 phi_a1 = D_801550F8[temp_v1] * (D_8015517C * gMusicVolume);
-//             }
-//             alSeqpSetVol(D_802863C8[i], phi_a1 * (D_801546D8 / 2048.0f));
-//         }
-//     }
-// }
+#ifdef NON_MATCHING // (almost) JUSTREG
+void func_80133C50(void) {
+    s16 i;
+
+    for (i = 0; i < 1; i++) {
+        if ((D_8015516C[i] != 1) && (D_80155168[i] == -1)) {
+            s16 volume;
+            float tmp;
+            tmp = 2048.0f / D_801546D8;
+
+            if (D_801546A8[i] == 1) {
+                volume = ((D_801546B4[i] * D_801550F8[D_8015516C[i]]) + ((D_801546B8[i] * (D_801550F8[D_8015516C[i]] * D_801546AC[i])) / D_801546B0[i])) * gMusicVolume * D_8015517C;
+            } else {
+                volume = D_801550F8[D_8015516C[i]] * (D_8015517C * gMusicVolume);
+            }
+
+            volume = tmp * volume;
+            alSeqpSetVol(D_802863C8[i], volume);
+        }
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/func_80133C50.s")
+#endif
 
 void func_80133E44(void) {
     alCSeqGetLoc(D_802863CC[0], &D_80286460);

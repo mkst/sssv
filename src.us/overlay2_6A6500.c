@@ -285,7 +285,7 @@
 //         if (D_803F66A7 != 0) {
 //             load_data_section((u8)D_803F2D70);
 //             func_8031B174_72C824((u8)D_803F2D70, D_803F2DA3); // load_texture_bank
-//             func_80352310_7639C0();
+//             load_water_texture();
 //             D_803F66A7 = (u8)0;
 //             D_803F66AD = (u8)0;
 //             if (D_803F6704 != 0) {
@@ -392,8 +392,8 @@ void func_8029619C_6A784C(void) {
 
 void func_802961D4_6A7884(void) {
     func_8012A400();
-    func_80352280_763930();
-    func_80352310_7639C0();
+    load_ingame_objects();
+    load_water_texture();
     D_803C0422 = 0;
     D_803F6684 = 0;
     D_8028645A = 0;

@@ -82,7 +82,7 @@ void func_8039BBB8_7AD268(void) {
     s16 level;
 
     if (D_803F2D50.unkC6 != 0) {
-        if (D_803E4D28 & 1) { // level completed?
+        if (D_803E4D28 & 1) { // souvenir collected
             level = D_803F7DA8.currentLevel + 1;
             if ((level != GIVE_A_DOG_A_BONUS) &&
                 (level != WALRACE_64) &&
@@ -95,18 +95,18 @@ void func_8039BBB8_7AD268(void) {
             if (1) {}
         }
         level = D_803F7DA8.currentLevel + 1;
-        if (D_803E4D28 & 2) { // trophy collected?
+        if (D_803E4D28 & 2) { // level completed
             if (level == GIVE_A_DOG_A_BONUS) {
-                D_8023F260.evoPartsCollected |= 1;
+                D_8023F260.evoPartsCollected |= 1; // torso
             }
             if (level == WALRACE_64) {
-                D_8023F260.evoPartsCollected |= 2;
+                D_8023F260.evoPartsCollected |= 2; // head
             }
             if (level == EVOS_ESCAPE) {
-                D_8023F260.evoPartsCollected |= 4;
+                D_8023F260.evoPartsCollected |= 4; // arms/legs
             }
             if (level == PUNCHUP_PYRAMID) {
-                D_8023F260.evoPartsCollected |= 8;
+                D_8023F260.evoPartsCollected |= 8; // arms/legs
             }
         }
         if ((level == GIVE_A_DOG_A_BONUS) ||

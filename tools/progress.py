@@ -2,6 +2,7 @@ import argparse
 import os
 import re
 import sys
+import subprocess
 
 
 def parse_map(mapfile, section, ending=None):
@@ -79,20 +80,22 @@ def parse_map(mapfile, section, ending=None):
     return (files, functions)
 
 
-def parse_file(basedir, filename, file_funcs):
+def parse_file(basedir, filename, file_funcs, includes, non_matching=False):
     updates = []
-    c_path = os.path.join(basedir, filename + ".c")
+
     pattern = re.compile(r'#pragma GLOBAL_ASM\(".*\/([^\/]+)\.s"\)')
+    c_path = os.path.join(basedir, filename + ".c")
     if os.path.isfile(c_path):
         global_asms = []
-        with open(c_path, "r") as infile:
-            while True:
-                line = infile.readline()
-                if not line:
-                    break
-                match = pattern.match(line)
-                if match:
-                    global_asms.append(match.group(1))
+        # cpp src.us/overlay2_6AB090.c  -I include/2.0I -I include -DNON_MATCHING
+        extra_args = ["-DNON_MATCHING"] if non_matching else []
+        cmd = ["cpp", c_path, *includes, *extra_args]
+        res = subprocess.run(cmd, capture_output=True, check=True, text=True)
+        lines = res.stdout.split("\n")
+        for line in lines:
+            match = pattern.match(line)
+            if match:
+                global_asms.append(match.group(1))
         for function in file_funcs:
             if function not in global_asms:
                 updates.append(function)
@@ -112,10 +115,10 @@ def generate_csv(files, functions, version, section):
     return "\n".join(ret)
 
 
-def main(basedir, mapfile, section, ending, version):
+def main(basedir, mapfile, section, ending, version, includes, non_matching=False):
     files, functions = parse_map(mapfile, section, ending)
     for filename, file_funcs in files.items():
-        c_functions = parse_file(basedir, filename, file_funcs)
+        c_functions = parse_file(basedir, filename, file_funcs, includes, non_matching)
         for c_function in c_functions:
             functions[c_function]["language"] = "c"
     section_name = section[1:].split("_")[-1]  # .main_lib -> lib
@@ -136,6 +139,15 @@ if __name__ == '__main__':
                         help="section name that marks the end of 'section'")
     parser.add_argument('--version', type=str, default='us',
                         help="ROM version, us/eu")
+    parser.add_argument('--includes', type=str,
+                        help="comma-separated includes for cpp")
+    parser.add_argument('--non-matching', action='store_true', default=False,
+                        help="-DNON_MATCHING")
     args = parser.parse_args()
 
-    main(args.basedir, args.mapfile, args.section, args.ending, args.version)
+    if args.includes is None:
+        includes = ["-I", "include", "-I", "include/2.0", "-I", "include/2.0/PR"]
+    else:
+        includes = args.includes.split(",")
+
+    main(args.basedir, args.mapfile, args.section, args.ending, args.version, includes, args.non_matching)

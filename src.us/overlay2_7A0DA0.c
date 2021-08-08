@@ -205,8 +205,8 @@ void func_8038FD74_7A1424(void) {
     D_803F7DD4 = 0;
     D_803F6680.unk2E = 0;
 
-    func_80352280_763930();
-    func_80352310_7639C0();
+    load_ingame_objects();
+    load_water_texture();
     D_803F6680.unk2D = 0;
     D_803B683C = D_803B6790;
     D_803F6680.unk8 = 6;
@@ -230,7 +230,7 @@ void func_8038FD74_7A1424(void) {
     D_801546E0 = 2048;
     D_8015517C = 1.0f;
 
-    func_802F07D0_701E80();
+    func_802F07D0_701E80(); // reset something
     func_802F07E8_701E98(2);
 
     if (D_80204288 == 0xA) {
@@ -252,35 +252,35 @@ void func_8038FF48_7A15F8(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_8038FF68_7A1618.s")
 
 void func_80391A38_7A30E8(void) {
-    func_8032CD20_73E3D0(1169, 73, 0x4000, 0, D_803C032C_7D19DC);
+    func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, D_803C032C_7D19DC);
     if (D_803F66AA == 1) {
         if ((guRandom() % 20) == 1) {
             D_803B6880_7C7F30 = (s32) (guRandom() % 6);
         }
         switch (D_803B6880_7C7F30) {
         case 0:
-            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 1:
-            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 2:
-            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 3:
-            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 4:
-            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, D_803C0348_7D19F8);
-            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, D_803C0348_7D19F8);
+            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 5:
-            func_8032CD20_73E3D0(1269, 132, 0x1000, 0, D_803C034C_7D19FC);
-            func_8032CD20_73E3D0(1369, 133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, D_803C034C_7D19FC);
+            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         }
     }

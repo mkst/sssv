@@ -41,7 +41,6 @@ u8  *memcpy_sssv(u8 *src, u8 *dst, u32 len);
 s16  func_80129198(s16 arg0);
 u8  *func_801291A4(u8 *x);
 
-
 // main_4910.c
 void read_rom_header(void);
 void set_region(void);
@@ -89,7 +88,7 @@ void func_8012FAD4(Gfx **dl, s32 arg1);
 void load_glyph(Gfx **arg0, s16 arg1);
 void display_score(Gfx **arg0, u8*, u16, u16);
 void prepare_text(u8 *src, s16 *dst);
-// s16  load_level_text_data(s16 arg0, s16 arg1, u16 *arg2, s16 *arg3);
+s16  load_level_text_data(s16 language, s16 level, u16 *msg_lengths, s16 *dst);
 s16* func_80130A90(s16 arg0); // load message id
 s16  func_80130AC0(s16 *arg0);
 
@@ -114,18 +113,19 @@ s32  read_eeprom(s16 slot);
 s32  eeprom_checksum(u8 *arg0);
 void func_80130E44(void);
 
-// core/audio.c
+// core/audio
 void func_80131070(void);
 void func_80131290(ALSynConfig *c, s32 priority);
 void func_801318C8(s32 arg0);
 void *func_80131AA0(s32 *arg0);
 void func_80131AD8(void);
 void initialise_audio(s32*);
-struct026 *func_801320EC(void);
-void func_801322EC(struct026 *arg0, struct026 *arg1, struct026 *arg2);
+struct017 *func_801320EC(void);
+void func_801322EC(struct017 *arg0, struct017 **arg1, struct017 **arg2);
 void func_80132394(void);
-struct017 *func_801323B8(s16 slot); // get_sound_by_slot
-struct017 *func_80132414(u16 id);   // get_sound_by_id
+struct017 *get_sound_by_slot(s16 slot);
+struct017 *get_sound_by_id(u16 id);
+struct017 *func_80132474(void);
 struct017 *func_80132568(void);
 void *func_80132580(s32 arg0, s16 id);
 void func_801325E8(s32 arg0, s8 arg1);
@@ -134,7 +134,7 @@ void func_801326A8(s8 arg0, s8 arg1);
 void func_801328F8(void);
 void func_80132C48(s8 idx);
 
-// main_E3C0.c
+// core/audio2
 void func_80132CC0(s32 arg0);
 s16  get_used_sound_count(void);
 s32  func_80132D84(ALSndPlayer *sndp);
@@ -315,13 +315,19 @@ void func_802A6390_6B7A40(void);
 void func_802A63C0_6B7A70(void);
 void func_802AA0A0_6BB750(void);
 void func_802AA424_6BBAD4(void);
+void func_802AA444_6BBAF4(void);
 void func_802AA5C0_6BBC70(void);
 s32  func_802AC928_6BDFD8(s32 arg0, s32 arg1);
 void func_802B0D4C_6C23FC(s16 arg0, s16 arg1);
+void func_802B10B0_6C2760(s16 rotation, s16 arg1);
 
 s16  func_802B2580_6C3C30(void);
+void func_802B2964_6C4014(void);
+s32  func_802B2AF0_6C41A0(s32 arg0, s32 arg1);
+s32  func_802B2C20_6C42D0(s16, s16);
 void func_802B2EA8_6C4558(void);
 void func_802B2FF4_6C46A4(void);
+void func_802B3230_6C48E0(void);
 void func_802B33D0_6C4A80(Animal *a);
 void func_802B3400_6C4AB0(Animal *a);
 void func_802B342C_6C4ADC(void);
@@ -331,6 +337,9 @@ void func_802B34DC_6C4B8C(void);
 void func_802B3518_6C4BC8(void);
 void func_802B3530_6C4BE0(void);
 void func_802B3540_6C4BF0(void);
+void func_802B356C_6C4C1C(Animal *arg0, s16 arg1, s16 arg2, u8 arg3);
+void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3);
+void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2);
 s16  func_802B3C9C_6C534C(s16 arg0, Animal *arg1);
 s16  func_802B3D68_6C5418(void);
 
@@ -385,8 +394,11 @@ void func_802C9900_6DAFB0(struct071 *arg0, s32 arg1, u8 arg2);
 
 // overlay2_6DCA10
 void func_802CB360_6DCA10(void);
+void func_802D5AD8_6E7188(s16 arg0, s16 arg1);
 
 // collist2
+void func_802DA7F0_6EBEA0(void);
+void func_802DAE5C_6EC50C(Animal *arg0);
 void func_802DAF5C_6EC60C(void);
 
 // overlay2_6EC720
@@ -419,7 +431,6 @@ void func_802E864C_6F9CFC(void);
 void func_802E86C8_6F9D78(void);
 void func_802E8760_6F9E10(void);
 void fire_fox_fire_missile(Animal *animal);
-void func_802F2B54_704204(s16, s16, s16, s32, s32, s32, s32);
 void func_802E88C0_6F9F70(s16 arg0);
 void func_802E89AC_6FA05C(void);
 
@@ -465,6 +476,7 @@ void lion_roar(void);
 
 // overlay2_7041D0
 void func_802F2B20_7041D0(void);
+void func_802F2B54_704204(s16, s16, s16, s32, s32, s32, s32);
 void func_802F2DF8_7044A8(void);
 void func_802F2EEC_70459C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6);
 void func_802F301C_7046CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7);
@@ -482,6 +494,7 @@ void func_802F908C_70A73C(struct071 *arg0);
 void func_802F90A8_70A758(struct071 *arg0);
 void func_802F9104_70A7B4(Animal *arg0);
 void func_802FA6D8_70BD88(void);
+void func_802FB270_70C920(Animal *arg0);
 void func_802FC8F4_70DFA4(Animal *arg0);
 void func_802FC970_70E020(Animal *arg0);
 void func_802FC990_70E040(Animal *arg0);
@@ -490,6 +503,7 @@ s32  func_802FD3B8_70EA68(Animal *arg0);
 s32  func_802FD40C_70EABC(Animal *arg0, Animal *arg1);
 s32  func_802FD468_70EB18(Animal *arg0);
 s32  func_802FD4D0_70EB80(Animal *arg0);
+void func_802FD674_70ED24(Animal *arg0, Animal *arg1);
 void func_802FD8CC_70EF7C(void);
 void func_802FD94C_70EFFC(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5);
 void func_802FD9C4_70F074(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5, s16 arg6);
@@ -564,6 +578,7 @@ void func_80311554_722C04(s16, s16, s32*, s32*);
 s16  func_8031124C_7228FC(s16, s16);
 void func_80311A2C_7230DC(s16 xPos, s16 zPos, s16 *xVel, s16 *zVel, u8 arg4);
 void func_80311AA8_723158(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3);
+void func_80311BF8_7232A8(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3);
 void func_80313334_7249E4(void);
 void func_803136B0_724D60(Animal *arg0);
 s32  func_803136FC_724DAC(s16 x, s16 z, s16 y);
@@ -645,7 +660,7 @@ void func_80327B94_739244(s16 arg0);
 // overlay2_739290.c
 void func_8032AA94_73C144(void);
 struct025* func_803284C4_739B74(void);
-void load_animal(s16 id); // pick new animal? load 2nd state model?
+void load_animal(s16 id);
 void check_and_set_species_encountered(s16 arg0);
 void set_species_as_encountered(s16);
 void func_8032AC98_73C348(void);
@@ -660,8 +675,8 @@ void func_8032C2D0_73D980(s16 arg0, s16 arg1, f32 arg2);
 void play_sound_effect_at_location(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, f32 arg6);
 void func_8032C508_73DBB8(s16 arg0, s16 arg1, s16 arg2, f32 arg3); // sound effect helper?
 void func_8032CA90_73E140(u16 arg0, u16 animalId, s16 xPos, s16 zPos, s16 yPos);
-void func_8032CD20_73E3D0(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4);
-void func_8032CD70_73E420(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7);
+void func_8032CD20_73E3D0(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4);
+void func_8032CD70_73E420(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7);
 void func_8032CED0_73E580(s16*, s16, s16, f32, s16, s16, s16, s16, s16, s16, s16, s16); // maybe
 
 // overlay2_73EA30
@@ -720,7 +735,6 @@ void func_803441FC_7558AC(void);
 void func_803458B8_756F68(Gfx **arg0, Vtx *vtx, s16 num);
 void func_80346878_757F28(Gfx **arg0, u8 arg1);
 void func_803469D4_758084(Gfx **arg0, u16 arg1);
-void func_8034A320_75B9D0(void);
 void func_80346AB0_758160(Gfx **arg0, u8 arg1);
 
 // sssv/osd.c
@@ -744,10 +758,13 @@ void func_80349D34_75B3E4(void);
 void func_80349DCC_75B47C(s16 arg0);
 
 // overlay2_75BC80
+void func_8034A320_75B9D0(void);
 void func_8034A5D0_75BC80(void);
 void func_8034A60C_75BCBC(void);
 void func_8034A648_75BCF8(void);
 void func_8034A684_75BD34(void);
+void func_8034A914_75BFC4(void);
+void func_8034ABA4_75C254(void);
 void func_8034AE34_75C4E4(s32 arg0, Animal *arg1);
 void func_8034AF0C_75C5BC(s32 arg0, Animal *arg1);
 void func_8034AFE0_75C690(void);
@@ -767,8 +784,8 @@ void func_8035C180_76D830(s16 arg0);
 // overlay2_76D850
 void func_8035D6A0_76ED50(void);
 
-void func_80352280_763930(void); // load display list segment
-void func_80352310_7639C0(void); // load water texture?
+void load_ingame_objects(void); // load display list segment
+void load_water_texture(void); // load water texture?
 
 // tortoise
 void func_80355E14_7674C4(void);

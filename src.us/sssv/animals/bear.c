@@ -8,22 +8,24 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/bear/func_80326260_737910.s")
 
+#ifdef NON_MATCHING // JUSTREG
+void func_803277B4_738E64(void) {
+    if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 != 11)) {
+        D_803D552C->unk32A = D_803D5544 & 0xffff; // helps regalloc but unlikely?
+        D_803D552C->unk365 = 11;
+    } else if ((D_803D552C->unk320 != 0) && (D_803D552C->unk365 != 14) &&
+               (D_803D552C->unk365 != 15) && (D_803D552C->unk318 == 0)) {
+        D_803D552C->unk32A = D_803D5544;
+        if ((D_803D552C->unk320->unk16C->unk0 == 2) || (D_803D552C->unk320->unk16C->unk0 == 61)) {
+            D_803D552C->unk365 = 14;
+        } else {
+            D_803D552C->unk365 = 15;
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/bear/func_803277B4_738E64.s")
-// JUSTREG
-// void func_803277B4_738E64(void) {
-//     if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 != 11)) {
-//         D_803D552C->unk32A = D_803D5544 & 0xffff; // helps regalloc but unlikely?
-//         D_803D552C->unk365 = 11;
-//     } else if ((D_803D552C->unk320 != 0) && (D_803D552C->unk365 != 14) &&
-//                (D_803D552C->unk365 != 15) && (D_803D552C->unk318 == 0)) {
-//         D_803D552C->unk32A = D_803D5544;
-//         if ((D_803D552C->unk320->unk16C->unk0 == 2) || (D_803D552C->unk320->unk16C->unk0 == 61)) {
-//             D_803D552C->unk365 = 14;
-//         } else {
-//             D_803D552C->unk365 = 15;
-//         }
-//     }
-// }
+#endif
 
 void func_8032786C_738F1C(void) {
     if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 == 0) && (D_803D5530->state != 0xDD)) {

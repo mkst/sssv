@@ -207,14 +207,13 @@ extern f32  gSfxVolume;
 extern s16  D_801546D8;
 extern s16  D_801546E0;
 extern s32  D_801546E4;
-extern s16  D_801546E8[];
-extern s16  D_80154C4C[]; // sound effect pointers?
+extern f32  D_801546E8[];
 
 extern s16  D_801550F8[];
 extern s32  gAudioInitialized;
 extern s32  D_8015515C;
 extern s8   D_80155164[];
-extern s8   D_80155168[];
+extern s8   D_80155168[]; // is this u8?
 extern s16  D_8015516C[];
 extern s8   D_80155170;
 extern f32  D_8015517C;
@@ -415,7 +414,7 @@ extern u8 *D_80286314[];
 extern struct017 *D_8028631C;
 extern struct017 *D_80286320;
 extern s32  D_80286328[]; // more likely some audio struct.. but whatever
-extern struct026 *D_80286338[];
+extern struct017 *D_80286338[];
 extern s16  D_80286388[];
 extern u8   D_802863B0[];
 extern ALSeqPlayer *D_802863C8[];
@@ -670,6 +669,7 @@ extern s16  D_803B0594;
 extern u8   D_803B0595;
 extern s16  D_803B0596;
 
+extern s16 D_803B1BAC[];
 extern OSContPad D_803B1F20_7C35D0;
 extern OSContPad D_803B2580_7C3C30;
 extern OSContPad D_803B29D8_7C4088;
@@ -725,6 +725,10 @@ extern f64  D_803BBF50; // 0.7
 extern f32  D_803BBF58; // 0.699999988079071f (0.7f)
 extern f32  D_803BBF5C; // -0.699999988079071f (-0.7f)
 
+extern char D_803BC6C0_7CDD70[];
+extern char D_803BC6FC_7CDDAC[];
+extern char D_803BC720_7CDDD0[];
+extern char D_803BC738_7CDDE8[];
 extern f32  D_803BCDD8_7CE488;
 extern f32  D_803BCDDC_7CE48C;
 extern f32  D_803BCFD0_7CE680;
@@ -856,9 +860,13 @@ extern s16  D_803D5590[360];
 extern s16  D_803D5860[360];
 extern s16  D_803D5B30[360];
 extern s16  D_803D5E00[360];
+
+extern s32  (D_803D60D0)();
+extern u8   D_803D60D4[];
+extern s32  D_803D60D8;
 extern struct043 *D_803D60DC;
 extern s16  D_803D6110;
-extern u8   D_803D6120;
+extern struct084 D_803D6120;
 
 extern u16  D_803DA0F4;
 extern struct065 D_803DA110[40];
@@ -947,6 +955,7 @@ extern s16  D_803E4C76;
 extern u8   D_803E4C78;
 extern s32  D_803E4C7C;
 extern s32  D_803E4C80;
+extern s16  D_803E4C84;
 extern Animal *D_803E4C94;
 extern s32  D_803E4CA0;
 extern u8   D_803E4CA4;

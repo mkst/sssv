@@ -380,19 +380,17 @@ void func_8032AA94_73C144(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/load_animal.s")
-// NON-MATCHING: JUSTREG
-// void load_animal(s16 arg0) {
-//     D_803D5530->unk16C = D_803D5520->unk0 = &D_801D9ED8.unk0[arg0];
-//     D_803E9824 = arg0;
-//
-//     D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
-//     D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
-//     func_80327DA8_739458(&D_803E9824);
-//     D_803D5530->unk46 = D_803D5530->unk16C->unk7C;
-//     func_802C9BA4_6DB254(D_803D5530);
-//     D_803D5524 = D_803D5520->unk0;
-// }
+void load_animal(s16 arg0) {
+    D_803D5530->unk16C = D_803D5520->unk0 = &D_801D9ED8.unk0[arg0];
+    D_803E9824 = arg0;
+
+    D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
+    D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
+    func_80327DA8_739458();
+    D_803D5530->unk46 = D_803D5530->unk16C->unk7C;
+    func_802C9BA4_6DB254(D_803D5530);
+    D_803D5524 = D_803D5520->unk0;
+}
 
 // load animal info screen if first time player is transferring into an animal
 void check_and_set_species_encountered(s16 animal_id) {

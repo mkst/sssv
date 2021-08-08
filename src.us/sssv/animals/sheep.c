@@ -51,48 +51,50 @@
 //     }
 // }
 
+#ifdef NON_MATCHING // JUSTREG
+void func_80362618_773CC8(void) {
+    s16 tmp;
+
+    if (D_803D552C->unk36D == 7) {
+        play_sound_effect_at_location(SFX_SHEEP_FLOAT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    }
+    if (D_803D552C->skillAEnergy[0] < 15) {
+        if (D_803D552C->unk365 != 45) {
+            tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740_7D1DF0[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
+            if (tmp > 96) {
+                D_803D552C->unk365 = 45;
+                D_803D552C->unk32A = D_803D5544;
+                play_sound_effect_at_location(SFX_SHEEP_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            }
+        }
+    }
+    if (D_803D5530->unk162 == 3) {
+        if (D_803D552C->unk30E < 0) {
+            D_803D552C->unk30E = D_803D5540;
+        }
+        if (D_803D5530->unk162 != 1) {
+            if ((D_803D552C->unk36D == 0) || (D_803D552C->unk36D > 7)) {
+                D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 3) + 0x90000) >> 2) + 0xFFFD0000);
+            } else {
+                D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 15) + 0x2D0000) >> 4) + 0xFFFD0000);
+            }
+            if (D_803D5530->yVelocity.w < 0) {
+                D_803D5530->yVelocity.w += (D_803A05B0_7B1C60 * 15) >> 4;
+            } else {
+                D_803D5530->yVelocity.w += D_803A05B0_7B1C60 >> 2;
+            }
+            // this casting is likely nonsense, but 'helps' regalloc
+            D_803D5530->yVelocity.w += (D_80152C78[((u8)(((s16)(D_803D5540 - D_803D552C->unk30E) << 2) + 64))] >> 7) << 8;
+            D_803D5530->xVelocity.w += (D_80152C78[((u8)(D_803D5540 << 3) & 0xFF)& 0xFF] >> 7) << 8;
+            D_803D5530->zVelocity.w += (D_80152C78[((u8)((D_803D5540 << 2) + 64)& 0xFF)& 0xFF] >> 7) << 8;
+        }
+    } else {
+        recharge_skill(0);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_80362618_773CC8.s")
-// JUSTREG
-// void func_80362618_773CC8(void) {
-//     s16 tmp;
-//
-//     if (D_803D552C->unk36D == 7) {
-//         play_sound_effect_at_location(SFX_SHEEP_FLOAT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
-//     }
-//     if (D_803D552C->skillAEnergy[0] < 15) {
-//         if (D_803D552C->unk365 != 45) {
-//             tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740_7D1DF0[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
-//             if (tmp > 96) {
-//                 D_803D552C->unk365 = 45;
-//                 D_803D552C->unk32A = D_803D5544;
-//                 play_sound_effect_at_location(SFX_SHEEP_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
-//             }
-//         }
-//     }
-//     if (D_803D5530->unk162 == 3) {
-//         if (D_803D552C->unk30E < 0) {
-//             D_803D552C->unk30E = D_803D5540;
-//         }
-//         if (D_803D5530->unk162 != 1) {
-//             if ((D_803D552C->unk36D == 0) || (D_803D552C->unk36D > 7)) {
-//                 D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 3) + 0x90000) >> 2) + 0xFFFD0000);
-//             } else {
-//                 D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 15) + 0x2D0000) >> 4) + 0xFFFD0000);
-//             }
-//             if (D_803D5530->yVelocity.w < 0) {
-//                 D_803D5530->yVelocity.w += (D_803A05B0_7B1C60 * 15) >> 4;
-//             } else {
-//                 D_803D5530->yVelocity.w += D_803A05B0_7B1C60 >> 2;
-//             }
-//             // this casting is likely nonsense, but 'helps' regalloc
-//             D_803D5530->yVelocity.w += (D_80152C78[((u8)(((s16)(D_803D5540 - D_803D552C->unk30E) << 2) + 64))] >> 7) << 8;
-//             D_803D5530->xVelocity.w += (D_80152C78[((u8)(D_803D5540 << 3) & 0xFF)& 0xFF] >> 7) << 8;
-//             D_803D5530->zVelocity.w += (D_80152C78[((u8)((D_803D5540 << 2) + 64)& 0xFF)& 0xFF] >> 7) << 8;
-//         }
-//     } else {
-//         recharge_skill(0);
-//     }
-// }
+#endif
 
 void func_80362964_774014(void) {
     if (D_803D5530->unk162 == 1) {
