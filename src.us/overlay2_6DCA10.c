@@ -1,16 +1,25 @@
 #include <ultra64.h>
 #include "common.h"
 
+// minigame?
 
 void func_802CB360_6DCA10(void) {
-    D_803D6120 = 0;
-    memset_bytes(&D_803D6120, 0, 0x3FD8);
+    D_803D6120.unk0 = 0;
+    memset_bytes((u8*)&D_803D6120, 0, sizeof(D_803D6120));
     D_803DA0F4 = 0;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802CB394_6DCA44.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D5AD8_6E7188.s")
+void func_802D5AD8_6E7188(s16 arg0, s16 arg1) {
+    s16 i;
+
+    for (i = arg0; i < arg1; i++) {
+        if (D_803D6120.unk3FC8[i] == 1) {
+            gSPDisplayList(D_801D9E7C++, &D_80204278->unk109A0[i])
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D5B88_6E7238.s")
 

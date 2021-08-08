@@ -116,59 +116,61 @@ void set_fog_position_and_color(Gfx **dl) {
     gDPSetFogColor((*dl)++, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 0x00);
 }
 
+#ifdef NON_MATCHING // JUSTREG
+void func_8029A720_6ABDD0(void) {
+    if ((D_803F28DC & 1) & 0xFF) { // regalloc help
+        func_80127D30(&D_80204278->unk37510, ((D_803F28DC & 0xFFC) << 17) >> 16);
+
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPDisplayList(D_801D9E7C++, &D_80204278->unkBB80);
+        gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
+        gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
+
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+    } else if ((D_803F28DC & 2) & 0xFF) {
+        func_80127ED4(&D_80204278->unk37510, ((D_803F28DC & 0xFFC) << 17) >> 16);
+
+        D_80204278->unk3B6B0.l.col[0]  = D_80204278->unk3B638.l.col[0] >> 1;
+        D_80204278->unk3B6B0.l.col[1]  = D_80204278->unk3B638.l.col[1] >> 1;
+        D_80204278->unk3B6B0.l.col[2]  = D_80204278->unk3B638.l.col[2] >> 1;
+        D_80204278->unk3B6B0.l.colc[0] = D_80204278->unk3B638.l.colc[0] >> 1;
+        D_80204278->unk3B6B0.l.colc[1] = D_80204278->unk3B638.l.colc[1] >> 1;
+        D_80204278->unk3B6B0.l.colc[2] = D_80204278->unk3B638.l.colc[2] >> 1;
+
+        D_80204278->unk3B6B8.l.col[0]  = D_80204278->unk3B640.l.col[0] >> 2;
+        D_80204278->unk3B6B8.l.col[1]  = D_80204278->unk3B640.l.col[1] >> 2;
+        D_80204278->unk3B6B8.l.col[2]  = D_80204278->unk3B640.l.col[2] >> 2;
+        D_80204278->unk3B6B8.l.colc[0] = D_80204278->unk3B640.l.col[0] >> 2;
+        D_80204278->unk3B6B8.l.colc[1] = D_80204278->unk3B640.l.col[1] >> 2;
+        D_80204278->unk3B6B8.l.colc[2] = D_80204278->unk3B640.l.col[2] >> 2;
+
+        D_80204278->unk3B6B8.l.dir[0] = D_80204278->unk3B640.l.dir[0];
+        D_80204278->unk3B6B8.l.dir[1] = D_80204278->unk3B640.l.dir[1];
+        D_80204278->unk3B6B8.l.dir[2] = D_80204278->unk3B640.l.dir[2];
+
+        gSPNumLights(D_801D9E7C++, 1);
+        gSPLight(D_801D9E7C++, &D_80204278->unk3B6B8, 1);
+        gSPLight(D_801D9E7C++, &D_80204278->unk3B6B0, 2);
+
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
+
+        gSPNumLights(D_801D9E7C++, 1);
+        gSPLight(D_801D9E7C++, &D_80204278->unk3B640, 1);
+        gSPLight(D_801D9E7C++, &D_80204278->unk3B638, 2);
+
+        gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
+
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPMatrix(D_801D9E7C++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AB090/func_8029A720_6ABDD0.s")
-// JUSTREG
-// void func_8029A720_6ABDD0(void) {
-//     if ((D_803F28DC & 1) & 0xFF) { // regalloc help
-//         func_80127D30(&D_80204278->unk37510, ((D_803F28DC & 0xFFC) << 17) >> 16);
-//
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-//         gSPDisplayList(D_801D9E7C++, &D_80204278->unkBB80);
-//         gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
-//         gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
-//
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-//     } else if ((D_803F28DC & 2) & 0xFF) {
-//         func_80127ED4(&D_80204278->unk37510, ((D_803F28DC & 0xFFC) << 17) >> 16);
-//
-//         D_80204278->unk3B6B0.l.col[0]  = D_80204278->unk3B638.l.col[0] >> 1;
-//         D_80204278->unk3B6B0.l.col[1]  = D_80204278->unk3B638.l.col[1] >> 1;
-//         D_80204278->unk3B6B0.l.col[2]  = D_80204278->unk3B638.l.col[2] >> 1;
-//         D_80204278->unk3B6B0.l.colc[0] = D_80204278->unk3B638.l.colc[0] >> 1;
-//         D_80204278->unk3B6B0.l.colc[1] = D_80204278->unk3B638.l.colc[1] >> 1;
-//         D_80204278->unk3B6B0.l.colc[2] = D_80204278->unk3B638.l.colc[2] >> 1;
-//
-//         D_80204278->unk3B6B8.l.col[0]  = D_80204278->unk3B640.l.col[0] >> 2;
-//         D_80204278->unk3B6B8.l.col[1]  = D_80204278->unk3B640.l.col[1] >> 2;
-//         D_80204278->unk3B6B8.l.col[2]  = D_80204278->unk3B640.l.col[2] >> 2;
-//         D_80204278->unk3B6B8.l.colc[0] = D_80204278->unk3B640.l.col[0] >> 2;
-//         D_80204278->unk3B6B8.l.colc[1] = D_80204278->unk3B640.l.col[1] >> 2;
-//         D_80204278->unk3B6B8.l.colc[2] = D_80204278->unk3B640.l.col[2] >> 2;
-//
-//         D_80204278->unk3B6B8.l.dir[0] = D_80204278->unk3B640.l.dir[0];
-//         D_80204278->unk3B6B8.l.dir[1] = D_80204278->unk3B640.l.dir[1];
-//         D_80204278->unk3B6B8.l.dir[2] = D_80204278->unk3B640.l.dir[2];
-//
-//         gSPNumLights(D_801D9E7C++, 1);
-//         gSPLight(D_801D9E7C++, &D_80204278->unk3B6B8, 1);
-//         gSPLight(D_801D9E7C++, &D_80204278->unk3B6B0, 2);
-//
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-//         gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
-//
-//         gSPNumLights(D_801D9E7C++, 1);
-//         gSPLight(D_801D9E7C++, &D_80204278->unk3B640, 1);
-//         gSPLight(D_801D9E7C++, &D_80204278->unk3B638, 2);
-//
-//         gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
-//
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-//         gSPMatrix(D_801D9E7C++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-//     }
-// }
+#endif
 
 void func_8029ABCC_6AC27C(void) {
     func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0x1000000, 0x2000000, 0x5780000, 0, 0, 0, 0x20000, 0x20000, 0x20000);

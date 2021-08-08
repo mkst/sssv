@@ -3,9 +3,9 @@
 
 // #define TEXEL0 1
 // #define PRIMITIVE 1
-// language_select_menu
+
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_63C660/language_select_menu.s")
-// JUSTREG
+// JUSTREG but uses rodata
 // u8 language_select_menu(s16 arg0) {
 //     s16 used;
 //     s16 i;
@@ -21,7 +21,7 @@
 //         for (i = 0; (i < 9); i++) {
 //             load_level_text_data(i, 32, D_80231AA0, D_80231D5C);
 //             if ((i != LANG_JAPANESE) && (i != LANG_AMERICAN)) {
-//                 src = func_80130A90(28);
+//                 src = func_80130A90(28); // lang33 message 28, e.g. "ENGLISH"
 //                 dst = D_803B0400[used];
 //                 while (*src != 30000) {
 //                     *dst++ = *src++;

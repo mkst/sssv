@@ -95,6 +95,7 @@ VERIFY = verify
 ifeq ($(NON_MATCHING),1)
 DEFINES += -DNON_MATCHING
 VERIFY = no_verify
+PROGRESS_NONMATCHING = --non-matching
 endif
 
 CFLAGS := -G 0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
@@ -149,7 +150,7 @@ verify: $(TARGET).z64
 no_verify: $(TARGET).z64
 	@echo "Skipping SHA1SUM check!"
 
-progress: $(VERIFY) progress.csv
+progress: dirs $(VERIFY) progress.csv
 
 extract: check tools
 	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml
@@ -259,13 +260,13 @@ progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.
 	cat $^ > $@
 
 progress.main.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .main --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .main --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 progress.lib.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .main_lib --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .main_lib --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 progress.overlay1.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay1 --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay1 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 progress.overlay2.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay2 --version $(VERSION) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay2 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 
 
 ### Settings

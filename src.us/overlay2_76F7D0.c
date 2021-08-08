@@ -49,8 +49,10 @@ void func_8035E120_76F7D0(void) {
 // urghhh, what is this
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E344_76F9F4.s")
 
+#ifdef NON_MATCHING // JUSTREG
+void recharge_skill(s16 arg0) {
+    D_803D552C->skillAEnergy[arg0*2] += D_803D5524->unkDA[arg0*3];
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/recharge_skill.s")
-// JUSTREG
-// void recharge_skill(s16 arg0) {
-//     D_803D552C->skillAEnergy[arg0*2] += D_803D5524->unkDA[arg0*3];
-// }
+#endif

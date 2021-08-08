@@ -3,7 +3,7 @@
 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6EC720/func_802DB070_6EC720.s")
-// NON-MATCHING: JUSTREG
+// NON-MATCHING: almost JUSTREG
 // void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 arg5) {
 //     s16 tmp1;
 //     s16 tmp2;

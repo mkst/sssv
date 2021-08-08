@@ -3,7 +3,7 @@
 #include "common.h"
 
 
-void func_80352280_763930(void) {
+void load_ingame_objects(void) {
     s32 pad[2];
     u32 len = D_0007F790 - D_000398D0;
 
@@ -18,7 +18,7 @@ void func_80352280_763930(void) {
     dma_read(D_000398D0, D_801D9E74, len);
 }
 
-void func_80352310_7639C0(void) {
+void load_water_texture(void) {
     s32 pad[2];
     u32 len = D_00546BC0 - D_005449C0;
 
