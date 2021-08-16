@@ -157,8 +157,8 @@ extern u8  D_0012EDC0[];
 
 // 0x8014xxxx
 
-extern u8   D_8014D390[];
-extern u8   D_8014D460[]; // ucode text start
+// extern u8   D_8014D390[];
+// extern u8   D_8014D460[]; // ucode text start
 extern s32  D_8014E300;
 extern s32  D_8014F1D0; // ucode text start
 
@@ -253,7 +253,7 @@ extern u8   D_8015DF10[];
 
 // 0x8016xxxx
 
-extern OSSched D_801603D0;
+extern OSSched sc; // D_801603D0;
 extern struct018 D_80162658[];
 
 // 0x8019xxxx
@@ -267,7 +267,7 @@ extern u16  D_801D9E38;
 extern u8  *D_801D9E6C;
 extern s16 *D_801D9E70;
 extern s16 *D_801D9E74;
-extern s32  D_801D9E78;
+extern u8  *D_801D9E78;
 extern Gfx *D_801D9E7C;
 extern Gfx *D_801D9E88;
 extern Gfx *D_801D9E8C;
@@ -308,13 +308,9 @@ extern s16  D_80203FD0;
 extern s16  D_80203FD2;
 extern struct016 D_80203FE0[34];
 extern struct016 D_802040F0[34];
-extern s16  D_80203FE8;
+extern s16  D_80203FE8;  // D_80203FE0[1].unk0?
 extern s16  D_80203FF0;
 extern s16  D_80203FF2;
-extern s16  D_80203FF8;
-extern s16  D_80204000;
-extern s16  D_80204008;
-extern s16  D_80204010;
 extern struct061 D_80204090;
 extern struct061 D_80204098;
 extern struct061 D_802040A0;
@@ -384,7 +380,6 @@ extern Eeprom D_8023F2E0[4]; // 0x100
 // display
 extern u16  D_8023F3E0;
 // audio
-// extern struct007   *D_8023F410[3];
 extern OSThread    gAudioThread;
 extern OSMesgQueue D_8023F5D8;
 extern OSMesg      D_8023F5F0;
@@ -396,15 +391,15 @@ extern Acmd *D_8023F410[3];
 // 0x8024xxxx
 
 extern struct021   D_80241758;
-extern ALHeap D_80241768[];
-extern ALHeap D_8024177C[];
+extern ALEventQueue D_80241768[];
+extern ALEventQueue D_8024177C[];
 extern s16  D_80241D08;
 extern s16  D_80241D0A;
 extern s16  D_80241D0C;
 extern u16  D_80241D0E;
 extern OSMesgQueue D_802423D0;
 extern OSMesg      D_802423E8;
-
+extern s32  D_80242508; // base of heap
 // 0x8028xxxx
 
 extern ALBankFile *D_802862F8;
@@ -413,7 +408,7 @@ extern ALSndPlayer *D_80286310;
 extern u8 *D_80286314[];
 extern struct017 *D_8028631C;
 extern struct017 *D_80286320;
-extern s32  D_80286328[]; // more likely some audio struct.. but whatever
+extern ALHeap D_80286328; // more likely some audio struct.. but whatever
 extern struct017 *D_80286338[];
 extern s16  D_80286388[];
 extern u8   D_802863B0[];
@@ -425,7 +420,7 @@ extern u16  D_8028645A;
 extern s16  D_8028645C;
 extern ALCSeqMarker D_80286460;
 
-extern s32  D_8028654C;
+extern s16  D_8028654C;
 extern s16  D_80286560;
 extern s16  D_80286562;
 extern f32  D_80286564;
@@ -640,6 +635,7 @@ extern u8   D_803A8344[]; // timer string written here
 extern s32  D_803A8350[];
 extern s32  D_803A8358[];
 extern s32  D_803A8360[];
+extern s32  D_803A8374;
 extern s32  D_803A843C;
 extern s32  D_803A8450;
 extern s32  D_803A8464;
@@ -731,6 +727,7 @@ extern char D_803BC720_7CDDD0[];
 extern char D_803BC738_7CDDE8[];
 extern f32  D_803BCDD8_7CE488;
 extern f32  D_803BCDDC_7CE48C;
+extern f32  D_803BCF94_7CE644;
 extern f32  D_803BCFD0_7CE680;
 extern f32  D_803BD114_7CE7C4; // 1.1892
 extern s16  D_803BD54A[];
@@ -913,7 +910,7 @@ extern s16  D_803E1BC0;
 extern OSContPad D_803E1BC4;
 extern OSContPad *D_803E1BD4;
 extern s32  D_803E1BE0;
-extern u8   D_803E1BE8[][24]; // maybe a struct?
+extern struct085  D_803E1BE8[10];
 extern Fog  D_803E1CE0;
 extern Fog  D_803E1CE8;
 extern Fog  D_803E1CF0;
@@ -953,10 +950,15 @@ extern s16  D_803E4C72;
 extern s16  D_803E4C74;
 extern s16  D_803E4C76;
 extern u8   D_803E4C78;
+extern u8   D_803E4C7A;
 extern s32  D_803E4C7C;
 extern s32  D_803E4C80;
 extern s16  D_803E4C84;
-extern Animal *D_803E4C94;
+extern s16  D_803E4C86;
+extern s32  D_803E4C88;
+extern s32  D_803E4C8C;
+extern void *D_803E4C90;
+extern struct071 *D_803E4C94; // Animal*?
 extern s32  D_803E4CA0;
 extern u8   D_803E4CA4;
 extern u8   D_803E4CA5;

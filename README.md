@@ -55,23 +55,27 @@ docker run --rm -ti -v $(pwd):/sssv markstreet/sssv:latest
 
 From here you can run the `make extract` and `make --jobs` commands.
 
-# Versions
+## Building `EU` Version
+
+Place `baserom.eu.z64` in the root of the repository, and suffix each `make` command with `VERSION=eu`. Note that whilst this will build the EU ROM, minimal effort has been made to decompile this version.
+
+## Building `NON_MATCHING` Version
+
+A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but not byte-perfect. Progress is approximately 0.5% ahead of the fully matching build. In order to build/test the non-matching, add `NON_MATCHING=1` to the `make` commands.
+
+# ROM Versions
 
 There are 5 known versions of the ROM:
 
-| Country Code               | CRC1       | CRC2       | ROM SHA1                                   | Notes           | Version |
-|:---------------------------|:----------:|:----------:|:------------------------------------------:|:----------------|:-------:|
-| E - North America          | `BFE23884` | `EF48EAAF` | `e5e09205aa743a9e5043a42df72adc379c746b0b` | US 1.0          | `1.37`  |
-| J - Japanese               | `BFE23884` | `EF48EAAF` | `7320f08474c011fc7781093bf1a6818c37ce51e2` | JP (Unreleased) | `1.37`  |
-| E - North America          | `FC70E272` | `08FFE7AA` | `c968bba6a90db9ecbd957e910684a80726b0497d` | US 1.1          | `1.37`  |
-| P - European (basic spec.) | `FC70E272` | `08FFE7AA` | `23710541bb3394072740b0f0236a7cb1a7d41531` | EU              | `1.37`  |
-| ???                        | ???        | ???        | ???                                        | [NES World](http://www.nesworld.com/prototype-details.php?system=n64&data=124) | `1.26B` |
+| Country Code               | CRC1/CRC2           | ROM SHA1                                   | Notes           | Version |
+|:---------------------------|:-------------------:|:------------------------------------------:|:----------------|:-------:|
+| E - North America          | `BFE23884/EF48EAAF` | `e5e09205aa743a9e5043a42df72adc379c746b0b` | US 1.0          | `1.37`  |
+| J - Japanese               | `BFE23884/EF48EAAF` | `7320f08474c011fc7781093bf1a6818c37ce51e2` | JP (Unreleased) | `1.37`  |
+| E - North America          | `FC70E272/08FFE7AA` | `c968bba6a90db9ecbd957e910684a80726b0497d` | US 1.1          | `1.37`  |
+| P - European (basic spec.) | `FC70E272/08FFE7AA` | `23710541bb3394072740b0f0236a7cb1a7d41531` | EU              | `1.37`  |
+| ???                        | ???                 | ???                                        | [NES World](http://www.nesworld.com/prototype-details.php?system=n64&data=124) | `1.26B` |
 
 Only US and EU versions were released. If you are in possession of a beta/prototype ROM, please let me know - `mkst#4741`.
-
-## Building EU Version
-
-Place `baserom.eu.z64` in the root of the repository, and suffix each `make` command with `VERSION=eu`. Note that whilst this will build the EU ROM, minimal effort has been made to decompile it.
 
 # ROM Info
 

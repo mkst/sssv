@@ -21,7 +21,7 @@ void func_80129B10(s32 arg0) {
     // initialise various tv settings
     func_8012A870();
 
-    osCreateScheduler(&D_801603D0, &D_80162658, 20, D_802053E0.VIModeType, 1);
+    osCreateScheduler(&sc, &D_80162658, 20, D_802053E0.VIModeType, 1);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
 
     gScreenWidth = 320;
@@ -29,7 +29,7 @@ void func_80129B10(s32 arg0) {
 
     gControllerInput = NULL;
 
-    initialise_audio(D_80286328);
+    initialise_audio(&D_80286328);
 
     i = 0; // fakematch
     // stack (1)?
@@ -44,7 +44,7 @@ void func_80129B10(s32 arg0) {
     clear_framebuffer();
     D_801D9E38 = 5;
     osCreateMesgQueue(&D_8028D060, &D_80290F40, 32);
-    osScAddClient(&D_801603D0, &D_802042A0, &D_8028D060);
+    osScAddClient(&sc, &D_802042A0, &D_8028D060);
 
     if (init_controllers() <= 0) {
         // if no controllers connected

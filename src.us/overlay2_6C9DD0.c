@@ -131,63 +131,190 @@ void func_802B8B1C_6CA1CC(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B8B74_6CA224.s")
+u16 func_802B8B74_6CA224(void) {
+    s32 phi_v0;
+    u16 tmp;
+
+    phi_v0 = 3000;
+    if ((D_803D5530->state == 3) ||
+        (D_803D5530->state == 182) ||
+        (D_803D5530->state == 6) ||
+        (D_803D5530->state == 185)) {
+        phi_v0 = (u16) D_803D5524->unkC2;
+    }
+    if ((D_803D5530->state == 4) ||
+        (D_803D5530->state == 183)) {
+        phi_v0 = (u16) D_803D5524->unkC4;
+    }
+
+    tmp = phi_v0 / MAX(1, (D_803D552C->unk31A << 5) >> 6);
+
+    return MAX(1, tmp);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B8C50_6CA300.s")
 
+#ifdef NON_MATCHING // NON-MATCHING: kinda JUSTREG but not really..
+void func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
+    s16 temp_a3;
+    s16 temp_t1;
+    s16 temp_t2;
+    s16 temp_v0;
+    s32 temp_t7;
+    s32 temp_t8;
+
+    temp_v0 = D_80152C78[arg0 & 0xFF];
+    temp_a3 = D_80152C78[(arg0 + 64) & 0xFF];
+
+    temp_t2 = *arg1;
+    temp_t1 = *arg2;
+
+    temp_t7 = (temp_t1 * temp_v0) + (temp_a3 * temp_t2);
+    *arg1 = temp_t7  >> 0xF;
+    temp_t8 = (temp_a3 * temp_t1) - (temp_t2 * temp_v0);
+    *arg2 = temp_t8  >> 0xF;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B901C_6CA6CC.s")
-// NON-MATCHING: kinda JUSTREG but not really..
-// void func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
-//     s16 temp_a3;
-//     s16 temp_t1;
-//     s16 temp_t2;
-//     s16 temp_v0;
-//     s32 tmp0;
-//     s32 tmp1;
-//     temp_v0 = D_80152C78[(u8) arg0];
-//     temp_t2 = *arg2;
-//     temp_a3 = D_80152C78[(u8) (arg0 + 64)];
-//
-//     tmp0 = temp_t2 * temp_v0;
-//     tmp0 += (*arg1) * temp_a3;
-//
-//     tmp1 = temp_t2 * temp_a3;
-//     tmp1 -= (*arg1) * temp_v0;
-//
-//     *arg2 = (tmp1 >>= 15);
-//     *arg1 = (tmp0 >>= 15);
-// }
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B90A0_6CA750.s")
 // NON-MATCHING: same issue as previous
 // void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
 //     s32 temp_t1;
 //     s32 temp_t2;
-//     s32 new_var3;
-//     s32 temp_t4;
-//     s32 temp_t5;
-//     s32 new_var;
-//     s32 new_var2;
+//     s32 temp_a3;
+//     s32 temp_v0;
 //
-//     temp_t5 = D_80152C78[(u8) arg0] >> 7;
-//     new_var3 = *arg1;
-//     temp_t4 = D_80152C78[(u8) (arg0 + 64)] >> 7;
-//     new_var = *arg2;
+//     s32 temp_t8;
+//     s32 temp_t7;
 //
-//     temp_t2 = new_var * temp_t5;
-//     new_var2 = new_var3 * temp_t5;
-//     temp_t2 += temp_t4 * (*arg1);
-//     temp_t2 >>= 8;
+//     temp_v0 = D_80152C78[arg0] >> 7;
+//     temp_a3 = D_80152C78[(arg0 + 64) & 0xff] >> 7;
 //
-//     temp_t1 = temp_t4 * new_var;
-//     temp_t1 -= new_var2;
-//     temp_t1 >>= 8;
+//     temp_t2 = *arg1;
+//     temp_t1 = *arg2;
 //
-//     *arg2 = temp_t1;
-//     *arg1 = temp_t2;
+//     temp_t7 = (temp_t1 * temp_v0) + (temp_a3 * temp_t2);
+//     *arg1 = temp_t7 >> 8;
+//     temp_t8 = (temp_a3 * temp_t1) - (temp_t2 * temp_v0);
+//     *arg2 = temp_t8 >> 8;
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B9130_6CA7E0.s")
+void func_802B9130_6CA7E0(struct086 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+    s16 sp36;
+    s16 sp34;
+    s16 sp28;
+    s16 temp_v1;
+    s16 phi_a1;
+    s16 tmp;
+
+    if ((D_803D5530->state == 3) ||
+        (D_803D5530->state == 6) ||
+        (D_803D5530->state == 4) ||
+        (D_803D5530->state == 182) ||
+        (D_803D5530->state == 185) ||
+        (D_803D5530->state == 183)) {
+
+        D_803D552C->unk2F6 = (D_803D552C->unk2F2 << 8) / (u32) D_803D552C->unk2FA;
+        D_803D552C->unk2F8 = (D_803D552C->unk2F4 << 8) / (u32) D_803D552C->unk2FA;
+    } else {
+        D_803D552C->unk2F6 = (u16) D_803D552C->unk2F2;
+        D_803D552C->unk2F8 = (u16) D_803D552C->unk2F4;
+    }
+
+    D_80203FE0[3].unk0 = -arg2;
+    D_80203FE0[3].unk4 = 0;
+    D_80203FE0[4].unk4 = 0;
+    D_80203FE0[5].unk2 = -arg1;
+    D_80203FE0[5].unk0 = -arg2;
+    D_80203FE0[5].unk4 = 0;
+    D_80203FE0[6].unk2 = -arg1;
+    D_80203FE0[6].unk4 = 0;
+    D_80203FE0[3].unk2 = arg1;
+    D_80203FE0[4].unk0 = arg2;
+    D_80203FE0[4].unk2 = arg1;
+    D_80203FE0[6].unk0 = arg2;
+
+    func_802BCF38_6CE5E8((u16) arg1, (u16) arg2, arg0);
+    tmp = arg0->unk0;
+    sp36 = (arg0->unk2 + tmp) >> 1;
+    sp34 = (arg0->unk6 + arg0->unk4) >> 1;
+
+    temp_v1 = tmp - sp36;
+    if (temp_v1 >= arg2) {
+        phi_a1 = 90;
+    } else if (-arg2 >= temp_v1) {
+        phi_a1 = -90;
+    } else {
+        phi_a1 = func_8012835C((temp_v1 * 256) / arg2);
+    }
+
+    if (phi_a1 < -30) {
+        phi_a1 = ((phi_a1 / 2) - 15);
+    }
+    if (phi_a1 > 30) {
+        phi_a1 = ((phi_a1 / 2) + 15);
+    }
+
+    func_802C7A7C_6D912C((s16*)&D_80203FE0[3], phi_a1);
+    func_802C7A7C_6D912C((s16*)&D_80203FE0[4], phi_a1);
+
+    temp_v1 = arg0->unk4 - sp34;
+
+    if (temp_v1 >= arg2) {
+        phi_a1 = 90;
+    } else if (-arg2 >= temp_v1) {
+        phi_a1 = -90;
+    } else {
+        phi_a1 = func_8012835C((temp_v1 * 256) / arg2);
+    }
+
+    if (phi_a1 < -30) {
+        phi_a1 = (phi_a1 / 2) - 15;
+    }
+
+    if (phi_a1 > 30) {
+        phi_a1 = (phi_a1 / 2) + 15;
+    }
+
+    func_802C7A7C_6D912C((s16*)&D_80203FE0[5], phi_a1);
+    func_802C7A7C_6D912C((s16*)&D_80203FE0[6], phi_a1);
+
+    sp28 = (sp36 + sp34) >> 1;
+    temp_v1 = sp36 - sp28;
+
+    if (arg1) {}; // regalloc
+
+    if (temp_v1 >= arg1) {
+        phi_a1 = -90;
+    } else if (-arg1 >= temp_v1) {
+        phi_a1 = 90;
+    } else {
+        phi_a1 = (func_8012835C(((temp_v1 * 256) / arg1)) * -1);
+    }
+
+    if (phi_a1 < -40) {
+        phi_a1 = (phi_a1 / 2) - 20;
+    }
+
+    if (phi_a1 > 40) {
+        phi_a1 = (phi_a1 / 2) + 20;
+    }
+
+    func_802C79E0_6D9090((s16*)&D_80203FE0[3], phi_a1);
+    func_802C79E0_6D9090((s16*)&D_80203FE0[4], phi_a1);
+    func_802C79E0_6D9090((s16*)&D_80203FE0[5], phi_a1);
+    func_802C79E0_6D9090((s16*)&D_80203FE0[6], phi_a1);
+
+    D_80203FE0[3].unk4 += (sp28 + arg3) - arg4;
+    D_80203FE0[4].unk4 += (sp28 + arg3) - arg4;
+    D_80203FE0[5].unk4 += (sp28 + arg3) - arg4;
+    D_80203FE0[6].unk4 += (sp28 + arg3) - arg4;
+    D_80203FE0[0].unk0 = 0;
+    D_80203FE0[0].unk2 = 0;
+    D_80203FE0[0].unk4 = (sp28 + arg3) - arg4;
+}
 
 void func_802B964C_6CACFC(void) {
     D_80203FE0[1].unk0 = (D_80203FE0[3].unk0 + D_80203FE0[4].unk0) >> 1;
@@ -269,10 +396,10 @@ void func_802BAA38_6CC0E8(u16 arg0, u16 arg1) {
     D_80203FE0[6].unk0 = arg1;
     D_80203FE0[3].unk2 = arg0;
     D_80203FE0[4].unk2 = arg0;
-    func_802C79E0_6D9090(&D_80203FF8, -D_803D5530->unk28);
-    func_802C79E0_6D9090(&D_80204000, -D_803D5530->unk28);
-    func_802C79E0_6D9090(&D_80204008, -D_803D5530->unk28);
-    func_802C79E0_6D9090(&D_80204010, -D_803D5530->unk28);
+    func_802C79E0_6D9090((s16*)&D_80203FE0[3], -D_803D5530->unk28);
+    func_802C79E0_6D9090((s16*)&D_80203FE0[4], -D_803D5530->unk28);
+    func_802C79E0_6D9090((s16*)&D_80203FE0[5], -D_803D5530->unk28);
+    func_802C79E0_6D9090((s16*)&D_80203FE0[6], -D_803D5530->unk28);
     D_80203FE0[3].unk4 = (D_80203FE0[3].unk4 + (D_803D5524->unkB8 << 5));
     D_80203FE0[4].unk4 = (D_80203FE0[4].unk4 + (D_803D5524->unkB8 << 5));
     D_80203FE0[5].unk4 = (D_80203FE0[5].unk4 + (D_803D5524->unkB8 << 5));
@@ -288,7 +415,40 @@ void func_802BAA38_6CC0E8(u16 arg0, u16 arg1) {
     D_80203FE0[0].unk4 = ((D_80203FE0[1].unk4 + D_80203FE0[2].unk4) >> 1);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802BAC24_6CC2D4.s")
+void func_802BAC24_6CC2D4(u16 arg0, u16 arg1) {
+    s16 velocity;
+
+    D_80203FE0[0].unk2 = 0;
+
+    D_80203FE0[1].unk0 = 0;
+    D_80203FE0[1].unk2 = arg0;
+    D_80203FE0[1].unk4 = 0;
+
+    D_80203FE0[2].unk0 = 0;
+    D_80203FE0[2].unk2 = -arg0;
+    D_80203FE0[2].unk4 = 0;
+
+    D_80203FE0[0].unk0 = D_80203FE0[0].unk2;
+    D_80203FE0[0].unk4 = 0;
+
+    velocity = (-D_803D5530->yVelocity.w) >> 14;
+    if (velocity > 0) {
+        velocity -= MIN(4, velocity);
+    }
+    if (velocity < 0) {
+        velocity += MIN(4, -velocity);
+    }
+
+    velocity = MAX(-40, velocity);
+    velocity = MIN(40, velocity);
+
+    func_802C79E0_6D9090(&D_80203FE8, velocity);
+    func_802C79E0_6D9090(&D_80203FF0, velocity);
+
+    D_80203FE0[0].unk4 += arg1;
+    D_80203FE0[1].unk4 += arg1;
+    D_80203FE0[2].unk4 += arg1;
+}
 
 void func_802BAD60_6CC410(u16 arg0, u16 arg1) {
     s32 temp_t9;

@@ -31,7 +31,7 @@ extern char D_803BCD78[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/aidata/func_802EA3E0_6FBA90.s")
 // NON-MATCHING: maybe 60% there?
-// s32 func_802EA3E0_6FBA90(u16 arg0, u16 arg1) {
+// s16 func_802EA3E0_6FBA90(u16 arg0, u16 arg1) {
 //     // wierd struct or?
 //     s16 sp5E;
 //
