@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
+#pragma intrinsic sqrtf
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F59F0_7070A0.s")
 // still a long way to go ..
@@ -57,7 +58,7 @@
 //                 D_803E1BC4.button = D_803E1BD4->button;
 //                 D_803E1BC4.stick_x = D_803E1BD4->stick_x;
 //                 D_803E1BC4.stick_y = D_803E1BD4->stick_y;
-//                 D_803E1BD4 = (OSContPad *) (D_803E1BD4 + 6); // next?!
+//                 D_803E1BD4++; // next?!
 //                 D_803A52C4 = D_803E1BD4->errno;
 //             } else {
 //                 D_803E1BC4.button = 0U;
@@ -78,11 +79,53 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F5C60_707310.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F5F44_7075F4.s")
+void func_802F5F44_7075F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, struct077 *arg5) {
+    s16 temp_t0;
+    s16 temp_t1;
+    s16 temp_t3;
+    s16 temp_v0;
+    s32 temp_t7;
+
+    temp_v0 = D_80152350.unk2D0[arg3];
+    temp_t0 = D_80152350.unk384[arg3];
+
+    temp_t1 = D_80152350.unk2D0[arg4];
+    temp_t3 = D_80152350.unk384[arg4];
+
+    temp_t7 = ((arg1 * temp_t0) - (arg2 * temp_v0)) >> 8;
+
+    arg5->unk0 = ((arg0 * temp_t3) + (temp_t7 * temp_t1)) >> 8;
+    arg5->unk2 = ((-arg0 * temp_t1) + (temp_t7 * temp_t3)) >> 8;
+    arg5->unk4 = ((arg1 * temp_v0) + (arg2 * temp_t0)) >> 8;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F603C_7076EC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F62E4_707994.s")
+struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s32 scale) {
+    struct071 *res;
+    struct077 sp3C;
+    struct077 sp34;
+
+    func_802F5F44_7075F4(arg4,      arg5, arg6, arg7, arg8, &sp3C);
+    func_802F5F44_7075F4(0,    arg9 << 8,    0, arg7, arg8, &sp34);
+    res = func_802C9564_6DAC14(
+        id,
+        x + sp3C.unk0,
+        z + sp3C.unk2,
+        y + sp3C.unk4,
+        sp34.unk0 << 8,
+        sp34.unk2 << 8,
+        sp34.unk4 << 8,
+        arg7,
+        arg8,
+        scale);
+
+    if (res == 0) {
+        return NULL;
+    }
+    res->unk2E = arg7;
+    return res;
+}
 
 s16 func_802F63F8_707AA8(s16 arg0, s16 arg1, s16 arg2) {
     s16 temp_v0;
@@ -166,7 +209,26 @@ void func_802F7054_708704(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F7940_708FF0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F804C_7096FC.s")
+s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    f32 temp_f18;
+    f32 phi_f18;
+
+    if (arg1 == 0.0f) {
+        return 90;
+    }
+    temp_f18 = 1.0 - (((2.0f * arg4) / (arg2 * arg2)) * (((arg4 * (arg1 * arg1)) / (2.0f * (arg2 * arg2))) + arg3));
+    if (temp_f18 < 0.0f) {
+        return 9999;
+    }
+    temp_f18 = sqrtf(temp_f18);
+    if (arg0 != 0) {
+        phi_f18 = ((arg2 * arg2) / (arg4 * arg1)) * (1.0 + temp_f18);
+    } else {
+        phi_f18 = ((arg2 * arg2) / (arg4 * arg1)) * (1.0 - temp_f18);
+    }
+    return func_8012844C(phi_f18 * 64.0f);
+}
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8160_709810.s")
 
@@ -205,7 +267,7 @@ void func_802F908C_70A73C(struct071 *arg0) {
 }
 
 void func_802F90A8_70A758(struct071 *arg0) {
-    arg0->unk4.w += arg0->unk1C;
+    arg0->unk4.w += arg0->unk1C.w;
     arg0->unk8.w += arg0->unk20.w;
     if (!arg0->unk4C.unk1D) {
         arg0->unkC.w += arg0->unk24;
@@ -461,12 +523,35 @@ void func_802FF140_7107F0(void) {
 
     D_803A5330_7B69E0 = 0;
     for (i = 0; i < 10; i++) {
-        D_803E1BE8[i][0] = 0;
+        D_803E1BE8[i].unk0 = 0;
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF184_710834.s")
+void func_802FF184_710834(s32 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
+    s16 i;
 
+    if (D_803A5330_7B69E0 < 10) {
+        for (i = 0; i < 10; i++) {
+            if (D_803E1BE8[i].unk0 == 0) {
+                D_803E1BE8[i].unk2 = arg2;
+                D_803E1BE8[i].unk4 = arg3;
+                D_803E1BE8[i].unk0 = arg1;
+                D_803E1BE8[i].unk1 = 0;
+                D_803E1BE8[i].unk6 = arg4;
+                D_803E1BE8[i].unkC = arg7;
+                D_803E1BE8[i].unkE = arg8;
+                D_803E1BE8[i].unk10 = arg9;
+                D_803E1BE8[i].unk14 = arg0;
+                D_803E1BE8[i].unkA = arg5;
+                D_803E1BE8[i].unk8 = arg6;
+                D_803A5330_7B69E0 += 1;
+                break;
+            }
+        }
+    }
+}
+
+// displaylist stuff
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF25C_71090C.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF540_710BF0.s")
@@ -479,9 +564,70 @@ void func_802FF7D4_710E84(Animal *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFA20_7110D0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFC34_7112E4.s")
+void func_802FFC34_7112E4(struct071 *arg0) {
+    s32 pad;
+    s32 phi_v1;
+    s32 temp_t4;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFD50_711400.s")
+    if (arg0->unk0 == 1) {
+        phi_v1 = MIN(arg0->unk158, 0xFF);
+        func_802F2B54_704204(
+            arg0->unk4.h,
+            arg0->unk8.h,
+            arg0->unkC.h,
+            (s16) phi_v1,
+            arg0->unk200,
+            arg0->unk204,
+            arg0->unk208);
+
+        if ((arg0->unk163 & 8) == 0) { // probably a bitfield
+            temp_t4 = (arg0->unk40 << 6) >> 0xB;
+            func_8034BD20_75D3D0(
+                arg0->unk4.h,
+                arg0->unk8.h,
+                arg0->unkC.h,
+                (s16) ((arg0->unk2C << 8) / 360),
+                D_803A8374,
+                (s16) temp_t4,
+                (s16) temp_t4,
+                (s16) phi_v1,
+                arg0->unk200,
+                arg0->unk204,
+                arg0->unk208,
+                2,
+                0);
+        }
+    }
+}
+
+void func_802FFD50_711400(struct071 *arg0) {
+    f32 sp34;
+    f32 sp1C; // pad
+    f32 temp_f0;
+    f32 temp_f12;
+    f32 temp_f14;
+    f32 temp_f16;
+    f32 temp_f18;
+
+    temp_f16 = arg0->unk1C.w / 65536.0f;
+    temp_f12 = arg0->unk20.w / 65536.0f;
+    temp_f18 = arg0->unk24 / 65536.0f;
+    sp34 = sqrtf((temp_f16 * temp_f16) + (temp_f12 * temp_f12) + (temp_f18 * temp_f18));
+
+    if (ABSF(sp34) > 0.0f) {
+        temp_f14 = temp_f12 / sp34;
+        if (temp_f14 == 0.0f) {
+            temp_f14 = 0.001f;
+        }
+
+        arg0->unk2C = func_801286B8(temp_f16 / sp34, temp_f14);
+        arg0->unk2E = func_8012835C((temp_f18 / sp34) * 256.0f);
+
+        if ((arg0->unk2E < 0) || (arg0->unk2E > 360)) {
+            arg0->unk2E = (arg0->unk2E + 1440) % 360;
+        }
+    }
+}
 
 void func_802FFE94_711544(struct071 *arg0) {
     arg0->unk14E = (arg0->unk14E + 1) & 0x1F;
@@ -495,6 +641,8 @@ void func_802FFED0_711580(struct071 *arg0) {
         func_802FFD50_711400(arg0);
     }
 }
+
+// used by object 151
 void func_802FFEFC_7115AC(struct071 *arg0) {
     if (arg0->unk0 == 1) {
         if (arg0->unk14E == 0) {
@@ -510,10 +658,8 @@ void func_802FFF50_711600(struct071 *arg0) {
     func_802FFED0_711580(arg0);
 }
 
-void func_8032CED0_73E580(s16*, s16, s16, f32, s16, s16, s16, s16, s16, s16, s16, s16);
-
 void func_802FFF70_711620(struct071 *arg0) {
-    func_8032CED0_73E580(&arg0->unk20.h[1], 0x9F, 0x3000, 1.0f, 0, 0, arg0->unk4.h, arg0->unk8.h, arg0->unkC.h, 0, 0, 0);
+    func_8032CED0_73E580(&arg0->unk20.h[1], SFX_UNKNOWN_159, 0x3000, 1.0f, 0, 0, arg0->unk4.h, arg0->unk8.h, arg0->unkC.h, 0, 0, 0);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFFD0_711680.s")

@@ -150,7 +150,6 @@ void func_803633C4_774A74(Animal *arg0) {
     }
 }
 
-
 void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
     if (arg0->unk320 == 0) {
         arg0->unk28E = 0;

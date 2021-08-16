@@ -431,7 +431,16 @@ write_eeprom           = 0x80130C30;
 read_eeprom            = 0x80130CD4;
 eeprom_checksum        = 0x80130E10;
 load_level_text_data   = 0x801308E8;
+
+amCreateAudioMgr       = 0x80131290;
+__amHandleFrameMsg     = 0x80131700;
+__amDMA                = 0x80131908;
+__amDmaNew             = 0x80131AA0;
+__clearAudioDMA        = 0x80131AD8;
 initialise_audio       = 0x80131BF0;
+__amHandleDoneMsg      = 0x801318C8;
+__amMain               = 0x80131554;
+
 get_sound_by_slot      = 0x801323B8;
 get_sound_by_id        = 0x80132414;
 get_used_sound_count   = 0x80132D54;
@@ -454,6 +463,26 @@ BitBuffM1              = 0x8022E0D8;
 BitBuffM2              = 0x8022E0D0;
 FirstEntry             = 0x8022E3E6;
 SecondEntry            = 0x8022E3E8;
+
+
+dmaState = 0x80241758;
+dmaBuffs = 0x80241768;
+
+rspbootTextStart       = 0x8014D390;
+rspbootTextEnd         = 0x8014D460;
+
+nextDMA                = 0x80154684;
+audFrameCt             = 0x80154680;
+curAcmdList            = 0x80154688;
+sc                     = 0x801603D0;
+aspMainTextStart       = 0x80150600;
+aspMainDataStart       = 0x8015DF10;
+
+minFrameSize           = 0x80241D08;
+frameSize              = 0x80241D0A;
+maxFrameSize           = 0x80241D0C;
+audDMAIOMesgBuf        = 0x80241D10;
+audDMAMessageQ         = 0x802423D0;
 
 
 set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4

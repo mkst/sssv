@@ -50,7 +50,7 @@ extern u8  data_7F790_ROM_START[];
 //             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0x72);
 //             *(volatile s32*)NULL = 0;
 //         }
-//         D_801D9E5C = D_80099600;
+//         D_801D9E5C[0] = D_80099600;
 //         dma_read(data_FFD50_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E5C;
 //         break;
@@ -60,8 +60,8 @@ extern u8  data_7F790_ROM_START[];
 //             rmonPrintf("\nASSERT: len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0x84);
 //             *(volatile s32*)NULL = 0;
 //         }
-//         D_801D9E58 = D_80099600;
-//         dma_read(data_C7A30_ROM_START, &D_80099600, len);
+//         D_801D9E58[0] = D_80099600;
+//         dma_read(data_C7A30_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E58;
 //         break;
 //     case 1:
@@ -70,7 +70,7 @@ extern u8  data_7F790_ROM_START[];
 //             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0x96);
 //             *(volatile s32*)NULL = 0;
 //         }
-//         D_801D9E60 = D_80099600;
+//         D_801D9E60[0] = D_80099600;
 //         dma_read(data_DD5C0_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E60;
 //         break;
@@ -81,7 +81,7 @@ extern u8  data_7F790_ROM_START[];
 //             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0xA8);
 //             *(volatile s32*)NULL = 0;
 //         }
-//         D_801D9E64 = D_80099600;
+//         D_801D9E64[0] = D_80099600;
 //         dma_read(data_E75B0_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E64;
 //         break;
@@ -91,7 +91,7 @@ extern u8  data_7F790_ROM_START[];
 //             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0xBA);
 //             *(volatile s32*)NULL = 0;
 //         }
-//         D_801D9E68 = D_80099600;
+//         D_801D9E68[0] = D_80099600;
 //         dma_read(data_F1060_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E68;
 //         break;
@@ -102,7 +102,7 @@ extern u8  data_7F790_ROM_START[];
 //             rmonPrintf("\nASSERT: len <= (_gfxspecificSegmentEnd - _gfxspecificSegmentStart), %s, %u\n", new_var, 0xCE);
 //             *(volatile s32*)NULL = 0;
 //         }
-//         D_801D9E78 = D_800B0B20;
+//         D_801D9E78[0] = D_800B0B20;
 //         dma_read(data_7F790_ROM_START, D_800B0B20, len);
 //
 //         // menu
@@ -110,7 +110,7 @@ extern u8  data_7F790_ROM_START[];
 //             rmonPrintf("\nASSERT: len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), %s, %u\n", new_var, 0xDA);
 //             *(volatile s32*)NULL = 0;
 //         }
-//         D_801D9E6C = D_80099600;
+//         D_801D9E6C[0] = D_80099600;
 //         dma_read(data_116BD0_ROM_START, D_80099600, len);
 //         D_801D9EC4 = D_801D9E6C;
 //         break;

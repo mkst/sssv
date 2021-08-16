@@ -1,71 +1,72 @@
 #include <ultra64.h>
 #include "common.h"
 
+void func_803283DC_739A8C(void);
 
-extern s32 D_803A6070_7B7720;
-extern s32 D_803A6078_7B7728;
-extern s32 D_803A607C_7B772C;
-extern s32 D_803A608C_7B773C;
-extern s32 D_803A6098_7B7748;
-extern s32 D_803A60B0_7B7760;
-extern s32 D_803A60C4_7B7774;
-extern s32 D_803A60DC_7B778C;
-extern s32 D_803A60F0_7B77A0;
-extern s32 D_803A60F8_7B77A8;
-extern s32 D_803A60FC_7B77AC;
-extern s32 D_803A610C_7B77BC;
-extern s32 D_803A6118_7B77C8;
-extern s32 D_803A6120_7B77D0;
-extern s32 D_803A6124_7B77D4;
-extern s32 D_803A6134_7B77E4;
-extern s32 D_803A6138_7B77E8;
-extern s32 D_803A6160_7B7810;
-extern s32 D_803A6174_7B7824;
-extern s32 D_803A618C_7B783C;
-extern s32 D_803A61A0_7B7850;
-extern s32 D_803A61B8_7B7868;
-extern s32 D_803A61CC_7B787C;
-extern s32 D_803A61DC_7B788C;
-extern s32 D_803A61E8_7B7898;
-extern s32 D_803A6208_7B78B8;
-extern s32 D_803A6224_7B78D4;
-extern s32 D_803A6234_7B78E4;
-extern s32 D_803A6240_7B78F0;
-extern s32 D_803A6258_7B7908;
-extern s32 D_803A6264_7B7914;
-extern s32 D_803A6274_7B7924;
-extern s32 D_803A6280_7B7930;
-extern s32 D_803A6288_7B7938;
-extern s32 D_803A628C_7B793C;
-extern s32 D_803A629C_7B794C;
-extern s32 D_803A62A0_7B7950;
-extern s32 D_803A62B0_7B7960;
-extern s32 D_803A62BC_7B796C;
-extern s32 D_803A62CC_7B797C;
-extern s32 D_803A62D8_7B7988;
-extern s32 D_803A62F0_7B79A0;
-extern s32 D_803A62FC_7B79AC;
-extern s32 D_803A6304_7B79B4;
-extern s32 D_803A6308_7B79B8;
-extern s32 D_803A6310_7B79C0;
-extern s32 D_803A6314_7B79C4;
-extern s32 D_803A631C_7B79CC;
-extern s32 D_803A6320_7B79D0;
-extern s32 D_803A6330_7B79E0;
-extern s32 D_803A633C_7B79EC;
-extern s32 D_803A634C_7B79FC;
-extern s32 D_803A6358_7B7A08;
-extern s32 D_803A6360_7B7A10;
-extern s32 D_803A6364_7B7A14;
-extern s32 D_803A6374_7B7A24;
-extern s32 D_803A6378_7B7A28;
-extern s32 D_803A6380_7B7A30;
-extern s32 D_803A6384_7B7A34;
-extern s32 D_803A6394_7B7A44;
-extern s32 D_803A6398_7B7A48;
-extern s32 D_803A63A0_7B7A50;
-extern s32 D_803A63A4_7B7A54;
-extern s32 D_803A63AC_7B7A5C;
+extern u8 D_803A6070_7B7720[];
+extern u8 D_803A6078_7B7728[];
+extern u8 D_803A607C_7B772C[];
+extern u8 D_803A608C_7B773C[];
+extern u8 D_803A6098_7B7748[];
+extern u8 D_803A60B0_7B7760[];
+extern u8 D_803A60C4_7B7774[];
+extern u8 D_803A60DC_7B778C[];
+extern u8 D_803A60F0_7B77A0[];
+extern u8 D_803A60F8_7B77A8[];
+extern u8 D_803A60FC_7B77AC[];
+extern u8 D_803A610C_7B77BC[];
+extern u8 D_803A6118_7B77C8[];
+extern u8 D_803A6120_7B77D0[];
+extern u8 D_803A6124_7B77D4[];
+extern u8 D_803A6134_7B77E4[];
+extern u8 D_803A6138_7B77E8[];
+extern u8 D_803A6160_7B7810[];
+extern u8 D_803A6174_7B7824[];
+extern u8 D_803A618C_7B783C[];
+extern u8 D_803A61A0_7B7850[];
+extern u8 D_803A61B8_7B7868[];
+extern u8 D_803A61CC_7B787C[];
+extern u8 D_803A61DC_7B788C[];
+extern u8 D_803A61E8_7B7898[];
+extern u8 D_803A6208_7B78B8[];
+extern u8 D_803A6224_7B78D4[];
+extern u8 D_803A6234_7B78E4[];
+extern u8 D_803A6240_7B78F0[];
+extern u8 D_803A6258_7B7908[];
+extern u8 D_803A6264_7B7914[];
+extern u8 D_803A6274_7B7924[];
+extern u8 D_803A6280_7B7930[];
+extern u8 D_803A6288_7B7938[];
+extern u8 D_803A628C_7B793C[];
+extern u8 D_803A629C_7B794C[];
+extern u8 D_803A62A0_7B7950[];
+extern u8 D_803A62B0_7B7960[];
+extern u8 D_803A62BC_7B796C[];
+extern u8 D_803A62CC_7B797C[];
+extern u8 D_803A62D8_7B7988[];
+extern u8 D_803A62F0_7B79A0[];
+extern u8 D_803A62FC_7B79AC[];
+extern u8 D_803A6304_7B79B4[];
+extern u8 D_803A6308_7B79B8[];
+extern u8 D_803A6310_7B79C0[];
+extern u8 D_803A6314_7B79C4[];
+extern u8 D_803A631C_7B79CC[];
+extern u8 D_803A6320_7B79D0[];
+extern u8 D_803A6330_7B79E0[];
+extern u8 D_803A633C_7B79EC[];
+extern u8 D_803A634C_7B79FC[];
+extern u8 D_803A6358_7B7A08[];
+extern u8 D_803A6360_7B7A10[];
+extern u8 D_803A6364_7B7A14[];
+extern u8 D_803A6374_7B7A24[];
+extern u8 D_803A6378_7B7A28[];
+extern u8 D_803A6380_7B7A30[];
+extern u8 D_803A6384_7B7A34[];
+extern u8 D_803A6394_7B7A44[];
+extern u8 D_803A6398_7B7A48[];
+extern u8 D_803A63A0_7B7A50[];
+extern u8 D_803A63A4_7B7A54[];
+extern u8 D_803A63AC_7B7A5C[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80327BE0_739290.s")
 
@@ -75,137 +76,171 @@ void func_80327DA0_739450(void) {
 void func_80327DA8_739458(void) {
     switch (D_803E9820 - 1) {
     case 0:
-        D_803E9828 = &D_803A6070_7B7720;
-        D_803E982C = &D_803A6078_7B7728;
+        D_803E9828 = D_803A6070_7B7720; // 0x0001FF00
+        D_803E982C = D_803A6078_7B7728;
         break;
     case 1:
-        D_803E9828 = &D_803A607C_7B772C;
-        D_803E982C = &D_803A608C_7B773C;
+        D_803E9828 = D_803A607C_7B772C; // 0x000200FF
+        D_803E982C = D_803A608C_7B773C;
         break;
     case 2:
-        D_803E9828 = &D_803A6098_7B7748;
-        D_803E982C = &D_803A60B0_7B7760;
+        D_803E9828 = D_803A6098_7B7748; // 0x001F0001
+        D_803E982C = D_803A60B0_7B7760;
         break;
     case 3:
-        D_803E9828 = &D_803A60C4_7B7774;
-        D_803E982C = &D_803A60DC_7B778C;
+        D_803E9828 = D_803A60C4_7B7774; // 0x00060002
+        D_803E982C = D_803A60DC_7B778C;
         break;
     case 4:
-        D_803E9828 = &D_803A60F0_7B77A0;
-        D_803E982C = &D_803A60F8_7B77A8;
+        D_803E9828 = D_803A60F0_7B77A0; // 0x0008FF00
+        D_803E982C = D_803A60F8_7B77A8;
         break;
     case 5:
-        D_803E9828 = &D_803A60FC_7B77AC;
-        D_803E982C = &D_803A610C_7B77BC;
+        D_803E9828 = D_803A60FC_7B77AC; // 0x000A00FF
+        D_803E982C = D_803A610C_7B77BC;
         break;
     case 6:
-        D_803E9828 = &D_803A6118_7B77C8;
-        D_803E982C = &D_803A6120_7B77D0;
+        D_803E9828 = D_803A6118_7B77C8; // 0x000CFF00
+        D_803E982C = D_803A6120_7B77D0;
         break;
     case 7:
-        D_803E9828 = &D_803A6124_7B77D4;
-        D_803E982C = &D_803A6134_7B77E4;
+        D_803E9828 = D_803A6124_7B77D4; // 0x000EFF00
+        D_803E982C = D_803A6134_7B77E4;
         break;
     case 8:
-        D_803E9828 = &D_803A6138_7B77E8;
-        D_803E982C = &D_803A6160_7B7810;
+        D_803E9828 = D_803A6138_7B77E8; // 0x00100001
+        D_803E982C = D_803A6160_7B7810;
         break;
     case 9:
-        D_803E9828 = &D_803A6174_7B7824;
-        D_803E982C = &D_803A618C_7B783C;
+        D_803E9828 = D_803A6174_7B7824; // 0x00160001
+        D_803E982C = D_803A618C_7B783C;
         break;
     case 10:
-        D_803E9828 = &D_803A61A0_7B7850;
-        D_803E982C = &D_803A61B8_7B7868;
+        D_803E9828 = D_803A61A0_7B7850; // 0x001B0001
+        D_803E982C = D_803A61B8_7B7868;
         break;
     case 11:
-        D_803E9828 = &D_803A61CC_7B787C;
-        D_803E982C = &D_803A61DC_7B788C;
+        D_803E9828 = D_803A61CC_7B787C; // 0x002000FF
+        D_803E982C = D_803A61DC_7B788C;
         break;
     case 12:
-        D_803E9828 = &D_803A61E8_7B7898;
-        D_803E982C = &D_803A6208_7B78B8;
+        D_803E9828 = D_803A61E8_7B7898; // 0x00210002
+        D_803E982C = D_803A6208_7B78B8;
         break;
     case 13:
-        D_803E9828 = &D_803A6224_7B78D4;
-        D_803E982C = &D_803A6234_7B78E4;
+        D_803E9828 = D_803A6224_7B78D4; // 0x002500FF
+        D_803E982C = D_803A6234_7B78E4;
         break;
     case 14:
-        D_803E9828 = &D_803A6240_7B78F0;
-        D_803E982C = &D_803A6258_7B7908;
+        D_803E9828 = D_803A6240_7B78F0; // 0x002600FF
+        D_803E982C = D_803A6258_7B7908;
         break;
     case 15:
-        D_803E9828 = &D_803A6264_7B7914;
-        D_803E982C = &D_803A6274_7B7924;
+        D_803E9828 = D_803A6264_7B7914; // 0x002800FF
+        D_803E982C = D_803A6274_7B7924;
         break;
     case 16:
-        D_803E9828 = &D_803A6280_7B7930;
-        D_803E982C = &D_803A6288_7B7938;
+        D_803E9828 = D_803A6280_7B7930; // 0x002CFF00
+        D_803E982C = D_803A6288_7B7938;
         break;
     case 17:
-        D_803E9828 = &D_803A628C_7B793C;
-        D_803E982C = &D_803A629C_7B794C;
+        D_803E9828 = D_803A628C_7B793C; // 0x002DFF00
+        D_803E982C = D_803A629C_7B794C;
         break;
     case 18:
-        D_803E9828 = &D_803A62A0_7B7950;
-        D_803E982C = &D_803A62B0_7B7960;
+        D_803E9828 = D_803A62A0_7B7950; // 0x002E00FF
+        D_803E982C = D_803A62B0_7B7960;
         break;
     case 19:
-        D_803E9828 = &D_803A62BC_7B796C;
-        D_803E982C = &D_803A62CC_7B797C;
+        D_803E9828 = D_803A62BC_7B796C; // 0x003200FF
+        D_803E982C = D_803A62CC_7B797C;
         break;
     case 20:
-        D_803E9828 = &D_803A62D8_7B7988;
-        D_803E982C = &D_803A62F0_7B79A0;
+        D_803E9828 = D_803A62D8_7B7988; // 0x003300FF
+        D_803E982C = D_803A62F0_7B79A0;
         break;
     case 21:
-        D_803E9828 = &D_803A62FC_7B79AC;
-        D_803E982C = &D_803A6304_7B79B4;
+        D_803E9828 = D_803A62FC_7B79AC; // 0x0035FF00
+        D_803E982C = D_803A6304_7B79B4;
         break;
     case 22:
-        D_803E9828 = &D_803A6308_7B79B8;
-        D_803E982C = &D_803A6310_7B79C0;
+        D_803E9828 = D_803A6308_7B79B8; // 0x0036FF00
+        D_803E982C = D_803A6310_7B79C0;
         break;
     case 23:
-        D_803E9828 = &D_803A6314_7B79C4;
-        D_803E982C = &D_803A631C_7B79CC;
+        D_803E9828 = D_803A6314_7B79C4; // 0x0038FF00
+        D_803E982C = D_803A631C_7B79CC;
         break;
     case 24:
-        D_803E9828 = &D_803A6320_7B79D0;
-        D_803E982C = &D_803A6330_7B79E0;
+        D_803E9828 = D_803A6320_7B79D0; // 0x003900FF
+        D_803E982C = D_803A6330_7B79E0;
         break;
     case 25:
-        D_803E9828 = &D_803A633C_7B79EC;
-        D_803E982C = &D_803A634C_7B79FC;
+        D_803E9828 = D_803A633C_7B79EC; // 0x003B00FF
+        D_803E982C = D_803A634C_7B79FC;
         break;
     case 26:
-        D_803E9828 = &D_803A6358_7B7A08;
-        D_803E982C = &D_803A6360_7B7A10;
+        D_803E9828 = D_803A6358_7B7A08; // 0x003DFF00
+        D_803E982C = D_803A6360_7B7A10;
         break;
     case 27:
-        D_803E9828 = &D_803A6364_7B7A14;
-        D_803E982C = &D_803A6374_7B7A24;
+        D_803E9828 = D_803A6364_7B7A14; // 0x0000FF00
+        D_803E982C = D_803A6374_7B7A24;
         break;
     case 28:
-        D_803E9828 = &D_803A6378_7B7A28;
-        D_803E982C = &D_803A6380_7B7A30;
+        D_803E9828 = D_803A6378_7B7A28; // 0x001EFF00
+        D_803E982C = D_803A6380_7B7A30;
         break;
     case 29:
-        D_803E9828 = &D_803A6384_7B7A34;
-        D_803E982C = &D_803A6394_7B7A44;
+        D_803E9828 = D_803A6384_7B7A34; // 0x002BFF00
+        D_803E982C = D_803A6394_7B7A44;
         break;
     case 30:
-        D_803E9828 = &D_803A6398_7B7A48;
-        D_803E982C = &D_803A63A0_7B7A50;
+        D_803E9828 = D_803A6398_7B7A48; // 0x0042FF00
+        D_803E982C = D_803A63A0_7B7A50;
         break;
     case 31:
-        D_803E9828 = &D_803A63A4_7B7A54;
-        D_803E982C = &D_803A63AC_7B7A5C;
+        D_803E9828 = D_803A63A4_7B7A54; // 0x0043FF00
+        D_803E982C = D_803A63AC_7B7A5C;
         break;
     }
 }
 
+extern s32 D_803D5534;
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328258_739908.s")
+// void func_80328258_739908(s16 arg0) {
+//     s16 *temp_v1;
+//
+//     func_8032AA94_73C144();
+//     temp_v1 = D_803E982C[((D_803E9828[(D_803E9822 * 8) + arg0 + 2]) * 4)]; // ->unk2
+//     D_803E9822 = temp_v1[0];
+//     D_803E9824 = D_803E9828[D_803E9822 * 8];
+//     if (D_803D552C)
+//     {
+//     }
+//     D_803D5520 = &D_801D9ED8.unk0[D_803E9824];
+//     D_803D5524 = D_803D5520->unk0;
+//     D_801D9ED8.animal[D_803D5534].unk0->unk16C = &D_801D9ED8.unk0[D_803E9824];
+//
+//     func_803283DC_739A8C();
+//     func_802B2EA8_6C4558();
+//
+//     D_803D5530->unk46 = (u16) D_803D5530->unk16C->unk7C;
+//     func_802C9BA4_6DB254(&D_801DDD8C[gCurrentAnimalIndex]);
+//
+//     // sp1F = ;
+//     switch ((u8)temp_v1[0]) {
+//     case 0:
+//         do { } while (0);
+//         break;
+//     case 1:
+//         func_802DBA58_6ED108(15, D_803D552C);
+//         break;
+//     case 2:
+//         func_802DBA58_6ED108(15, D_803D552C);
+//         break;
+//     }
+// }
 
 void func_803283DC_739A8C(void) {
     func_803284C4_739B74();
