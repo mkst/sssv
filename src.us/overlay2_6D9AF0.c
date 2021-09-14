@@ -22,6 +22,7 @@ void func_802C87E0_6D9E90(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C8FC0_6DA670.s")
 
+// huh?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9340_6DA9F0.s")
 
 struct071 *func_802C93E8_6DAA98(u16 arg0) {
@@ -57,7 +58,6 @@ struct071 *func_802C9488_6DAB38(void) {
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9564_6DAC14.s")
-
 
 void func_802C9834_6DAEE4(void) {
     func_802C9884_6DAF34();

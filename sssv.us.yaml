@@ -122,7 +122,7 @@ segments:
     - [0x19B20, asm, libultra/io/controller]
     - [0x19E60, asm, libultra/io/contsetch]
     - [0x19ED0, asm, libultra/io/pfsinit]
-    - [0x19F90, asm, libultra/io/motor]
+    - [0x19F90, c, libultra/io/motor]
     - [0x1A730, asm, libultra/io/conteepprobe]
     - [0x1A7D0, c, libultra/libc/llcvt]
     - [0x1A9E0, asm, libultra/gu/translate]
@@ -240,18 +240,20 @@ segments:
     - [0x02FD28, .rodata, main_78F0]
     - [0x02FD80, bin] #
     # - [0x02FD80, .data, core/audiomgr] # .data for audiomgr
-    - [0x02FDD0, bin] # audio lookups D_801546D0
-    - [0x02FDE8, bin] # main_E3C0 rodata
-    - [0x030860, bin] # CH.10 textures
-    - [0x0339C0, .data, data/339C0] # D_801582C0
-    - [0x033A68, .data, data/33A68] # D_80158368
-    - [0x033B20, .data, data/33B20] # D_80158420
-    - [0x033BA0, .data, data/33BA0] # D_801584A0
-    - [0x033C40, bin] # alignment?
-    - [0x033C50, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
-    - [0x035050, .data, libultra/os/initialize]
-    - [0x035070, bin]
-    - [0x0360F0, bin] # another lookup table?
+    - [0x2FDD0, bin] # audio lookups D_801546D0
+    - [0x2FDE8, bin] # main_E3C0 rodata
+    - [0x30860, bin] # CH.10 textures
+    - [0x339C0, .data, data/339C0] # D_801582C0
+    - [0x33A68, .data, data/33A68] # D_80158368
+    - [0x33B20, .data, data/33B20] # D_80158420
+    - [0x33BA0, .data, data/33BA0] # D_801584A0
+    - [0x33C40, bin] # alignment?
+    - [0x33C50, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
+    - [0x35050, .data, libultra/os/initialize]
+    - [0x35070, bin]
+    - [0x35E00, .data, libultra/io/motor]
+    - [0x35E10, bin]
+    - [0x360F0, bin] # another lookup table?
     - [0x0363A0, rodata, main_78F0]
     - [0x036410, .rodata, core/fontinit]
     - [0x036470, rodata, core/eeprom]
@@ -268,7 +270,10 @@ segments:
     - [0x0380C0, bin] # data for ucode
     - [0x0390C0, bin] # F3DEX data
     - [0x039610, bin] #
+    # .bss
     - [0x398D0, .bss, core/audiomgr]
+    # lots more bss here
+    - [0x398D0, .bss, libultra/io/motor]
   - name: segment1 # in-game objects?
     type: code
     vram: 0x01000000
@@ -276,9 +281,9 @@ segments:
     overlay: yes
     subalign: 8
     subsegments:
-    - [0x0398D0, bin] # CI4 textures
-    - [0x039ED0, bin] # CI4 textures
-    - [0x03A570, bin] # palette
+    - [0x398D0, bin] # CI4 textures
+    - [0x39ED0, bin] # CI4 textures
+    - [0x3A570, bin] # palette
     - [0x3A5F0, bin] # different eye textures? I4, 16xXX
     - [0x3C4F0, bin] # palette
     - [0x03C530, rgba16, img/D_01002C60_3C530.rgba16, 32, 32]
@@ -303,7 +308,7 @@ segments:
     - [0x03D3E0, .rodata, data/3D3E0]
     - [0x03D440, .rodata, data/3D440]
     - [0x03D4A0, bin] # I4 textures
-    - [0x03DB40, bin] # displaylist
+    - [0x3DB40, bin] # displaylist   D_01004270
     - [0x03DBD8, bin] # displaylist
     - [0x03DC30, bin] # displaylist
     - [0x03DC70, bin] # displaylist
@@ -342,18 +347,18 @@ segments:
     - [0x03F830, bin] # vtx
     - [0x03F890, bin] # dl # prism?
     - [0x03F8C0, .data, data/3FB30]  # evo maybe?
-    - [0x03F8C0, vtx, data/inc/D_01005FF0_3F8C0]
-    - [0x03FAC0, vtx, data/inc/D_010061F0_3FAC0]
+    - [0x03F8C0, sssv_vtx, data/inc/D_01005FF0_3F8C0]
+    - [0x03FAC0, sssv_vtx, data/inc/D_010061F0_3FAC0]
     - [0x03FB30] # end of 0x03F8C0
-    - [0x03FBE0, vtx, data/inc/D_01006310_3FBE0]
+    - [0x03FBE0, sssv_vtx, data/inc/D_01006310_3FBE0]
     - [0x03FD00, .data, data/3FD00]  # evo maybe?
-    - [0x03FD80, vtx, data/inc/D_010064B0_3FD80]
-    - [0x03FDE0, vtx, data/inc/D_01006510_3FDE0]
+    - [0x03FD80, sssv_vtx, data/inc/D_010064B0_3FD80]
+    - [0x03FDE0, sssv_vtx, data/inc/D_01006510_3FDE0]
     - [0x03FE40, .data, data/3FE40]  # more evo? arm?
-    - [0x03FE90, vtx, data/inc/D_010065C0_3FE90]
-    - [0x03FEF0, vtx, data/inc/D_01006620_3FEF0]
+    - [0x03FE90, sssv_vtx, data/inc/D_010065C0_3FE90]
+    - [0x03FEF0, sssv_vtx, data/inc/D_01006620_3FEF0]
     - [0x03FF50, .data, data/3FF50]  # more evo? arm 2?
-    - [0x03FFA0, vtx, data/inc/D_010066D0_3FFA00]
+    - [0x03FFA0, sssv_vtx, data/inc/D_010066D0_3FFA00]
     - [0x0402A0, .data, data/402A0] # D_80051DD0 # evo laserbeam
     - [0x0402D8, bin] # another displaylist
     - [0x040310, bin] # another displaylist
@@ -370,193 +375,286 @@ segments:
     - [0x040D70, rgba16, img/hud/unused_powerbar.rgba16, 128, 16]
     - [0x041D70, bin] # rgba16 mix of stuff?
     - [0x043DA0, .data, data/43FA0]
-    - [0x043DA0, vtx, data/inc/D_0100A4D0_43DA0]
-    - [0x043E20, vtx, data/inc/D_0100A550_43E20]
+    - [0x043DA0, sssv_vtx, data/inc/D_0100A4D0_43DA0]
+    - [0x043E20, sssv_vtx, data/inc/D_0100A550_43E20]
     - [0x043FA0] # end of 43FA0
     - [0x044000, bin] # maybe 16x32 ia16 texture
-    - [0x044400, vtx, data/inc/D_0100AB30_44400]
-    - [0x0445F0, vtx, data/inc/D_0100AD20_445F0]
-    - [0x044760, vtx, data/inc/D_0100AE90_44760]
+    - [0x044400, sssv_vtx, data/inc/D_0100AB30_44400]
+    - [0x0445F0, sssv_vtx, data/inc/D_0100AD20_445F0]
+    - [0x044760, sssv_vtx, data/inc/D_0100AE90_44760]
     - [0x44860, .data, data/44860] # gun turret base
-    - [0x044910, vtx, data/inc/D_0100B040_44910]
-    - [0x044B10, vtx, data/inc/D_0100B240_44B10]
-    - [0x044B50, vtx, data/inc/D_0100B280_44B50]
+    - [0x044910, sssv_vtx, data/inc/D_0100B040_44910]
+    - [0x044B10, sssv_vtx, data/inc/D_0100B240_44B10]
+    - [0x044B50, sssv_vtx, data/inc/D_0100B280_44B50]
     - [0x044B90, .data, data/44B90] # gun turrent gun
     - [0x044C00, bin]
     - [0x0455B0, bin] # displaylist
     - [0x0456A0, bin] # displaylist
-    - [0x45720, vtx, data/inc/D_0100BE50_45720]
-    - [0x45810, vtx, data/inc/D_0100BF40_45810]
-    - [0x458F0, vtx, data/inc/D_0100C020_458F0]
-    - [0x459B0, vtx, data/inc/D_0100C0E0_459B0]
+    - [0x45720, sssv_vtx, data/inc/D_0100BE50_45720]
+    - [0x45810, sssv_vtx, data/inc/D_0100BF40_45810]
+    - [0x458F0, sssv_vtx, data/inc/D_0100C020_458F0]
+    - [0x459B0, sssv_vtx, data/inc/D_0100C0E0_459B0]
     - [0x459F0, .data, data/D_0100C120_459F0] # tv from THE_BATTERY_FARM
-    - [0x45B30, vtx, data/inc/D_0100C260_45B30]
+    - [0x45B30, sssv_vtx, data/inc/D_0100C260_45B30]
     - [0x45C70, .data, data/D_0100C3A0_45C70] # stand?
     - [0x045CB0, rgba16, img/D_0100C3E0_45CB0.rgba16, 32, 32]
     - [0x0464B0, rgba16, img/D_0100CBE0_464B0.rgba16, 32, 32]
-    - [0x46CB0, vtx, data/inc/D_0100D3E0_46CB0]
-    - [0x46EA0, vtx, data/inc/D_0100D5D0_46EA0]
-    - [0x470A0, vtx, data/inc/D_0100D7D0_470A0]
-    - [0x472A0, vtx, data/inc/D_0100D9D0_472A0]
-    - [0x474A0, vtx, data/inc/D_0100DBD0_474A0]
-    - [0x47690, vtx, data/inc/D_0100DDC0_47690]
-    - [0x47810, vtx, data/inc/D_0100DF40_47810]
-    - [0x47A10, vtx, data/inc/D_0100E140_47A10]
-    - [0x47C00, vtx, data/inc/D_0100E330_47C00]
+    - [0x46CB0, sssv_vtx, data/inc/D_0100D3E0_46CB0]
+    - [0x46EA0, sssv_vtx, data/inc/D_0100D5D0_46EA0]
+    - [0x470A0, sssv_vtx, data/inc/D_0100D7D0_470A0]
+    - [0x472A0, sssv_vtx, data/inc/D_0100D9D0_472A0]
+    - [0x474A0, sssv_vtx, data/inc/D_0100DBD0_474A0]
+    - [0x47690, sssv_vtx, data/inc/D_0100DDC0_47690]
+    - [0x47810, sssv_vtx, data/inc/D_0100DF40_47810]
+    - [0x47A10, sssv_vtx, data/inc/D_0100E140_47A10]
+    - [0x47C00, sssv_vtx, data/inc/D_0100E330_47C00]
     - [0x47C60, .data, data/47C60] # mine from SOMETHING_FISHY?
-    - [0x047F90, bin] # vtx
-    - [0x048170, bin] # displaylist # cog?
-    - [0x048200, bin] # vtx
-    - [0x048530, bin] # displaylist
-    - [0x0485A0, bin] # vtx
-    - [0x048A70, bin] # displaylist
-    - [0x048B20, bin] # vtx
-    - [0x048CA0, bin] # displaylist
-    - [0x048CE0, bin] # vtx
-    - [0x048DC0, bin] # displaylist
+    - [0x47F90, sssv_vtx, data/inc/D_0100E6C0_47F90]
+    - [0x48170, .data, data/D_0100E8A0_48170] # displaylist # cog?
+    - [0x48200, sssv_vtx, data/inc/D_0100E930_48200]
+    - [0x483F0, sssv_vtx, data/inc/D_0100EB20_483F0]
+    - [0x48530, .data, data/D_0100EC60_48530]
+    - [0x485A0, sssv_vtx, data/inc/D_0100ECD0_485A0]
+    - [0x48780, sssv_vtx, data/inc/D_0100EEB0_48780]
+    - [0x48970, sssv_vtx, data/inc/D_0100F0A0_48970]
+    - [0x48A70, .data, data/D_0100F1A0_48A70]
+    - [0x48B20, sssv_vtx, data/inc/D_0100F250_48B20]
+    - [0x48CA0, .data, data/D_0100F3D0_48CA0]
+    - [0x48CE0, sssv_vtx, data/inc/D_0100F410_48CE0]
+    - [0x48DC0, .data, data/D_0100F4F0_48DC0]
+    # HELP with 0x8 offset
     - [0x048E18, bin] # vtx
     - [0x048F08, bin] # displaylist
     - [0x048F80, bin] # vtx
     - [0x049180, bin] # vtx
     - [0x049250, rgba16, img/objects/turd/turd.rgba16, 16, 16]
-    - [0x049450, bin] # vtx
-    - [0x049520, bin] # displaylist
-    - [0x0495F0, bin] # vtx
-    - [0x049630, bin] # displaylist
-    - [0x049650, rgba16, img/objects/49650.rgba16, 32, 32]
-    - [0x049E50, vtx, data/D_01010580, D_01010580]
-    - [0x049fb0, bin] # displaylist
-    - [0x04A0B0, rgba16, img/objects/4A0B0.rgba16, 32, 32] # same as 0x49650?
-    - [0x04A8B0, vtx, data/D_01010FE0, D_01010FE0]
-    - [0x04AA10, bin] # displaylist
-    - [0x04AB00, rgba16, img/objects/button.rgba16, 32, 32]
-    - [0x4B300, vtx, data/inc/D_01011A30_4B300]
-    - [0x4B380, .data, data/4B380] # displaylist
+    - [0x49450, sssv_vtx, data/inc/D_0100FB80_49450]
+    - [0x49520, .data, data/D_0100FC50_49520]
+    - [0x495F0, sssv_vtx, data/inc/D_0100FD20_495F0]
+    - [0x49630, .data, data/D_0100FD60_49630]
+    - [0x49650, rgba16, img/objects/49650.rgba16, 32, 32]
+    - [0x49E50, sssv_vtx, data/inc/D_01010580_49E50]
+    - [0x49F20, sssv_vtx, data/inc/D_01010650_49F20]
+    - [0x49FB0, .data, data/D_010106E0_49FB0]
+    - [0x4A0B0, rgba16, img/objects/4A0B0.rgba16, 32, 32]
+    - [0x4A8B0, sssv_vtx, data/inc/D_01010FE0_4A8B0]
+    - [0x4AA10, .data, data/D_01011140_4AA10]
+    - [0x4AB00, rgba16, img/objects/button.rgba16, 32, 32]
+    - [0x4B300, sssv_vtx, data/inc/D_01011A30_4B300]
+    - [0x4B380, .data, data/4B380]
+    # HELP with 0x8 offset
     - [0x04B3C8, bin] # vtx
     - [0x04B448, bin] # displaylist
-    - [0x04B480, bin] # vtx
-    - [0x04B5C0, bin] # displaylist
-    - [0x04B670, bin] # vtx
-    - [0x04B870, bin] # displaylist
-    - [0x04B8D0, bin] # vtx
-    - [0x04BB70, bin] # displaylist
-    - [0x04BC00, bin] # vtx
-    - [0x04BDC0, bin] # displaylist
-    - [0x4BE20, vtx, data/inc/D_01012550_4BE20]
+    - [0x4B480, .data, data/D_01011CF0_4B5C0]
+    - [0x4B480, sssv_vtx, data/inc/D_01011BB0_4B480]
+    - [0x4B5C0] # end of D_01011CF0_4B5C0
+    - [0x4B670, sssv_vtx, data/inc/D_01011DA0_4B670]
+    - [0x4B6F0, sssv_vtx, data/inc/D_01011E20_4B6F0]
+    - [0x4B870, .data, data/D_01011FA0_4B870]
+    - [0x4B8D0, sssv_vtx, data/inc/D_01012000_4B8D0]
+    - [0x4B950, sssv_vtx, data/inc/D_01012080_4B950]
+    - [0x4BB40, sssv_vtx, data/inc/D_01012270_4BB40]
+    - [0x4BB70, .data, data/D_010122A0_4BB70]
+    - [0x4BC00, sssv_vtx, data/inc/D_01012330_4BC00]
+    - [0x4BC80, sssv_vtx, data/inc/D_010123B0_4BC80]
+    - [0x4BDC0, .data, data/D_010124F0_4BDC0]
+    - [0x4BE20, sssv_vtx, data/inc/D_01012550_4BE20]
     - [0x4BFD0, .data, data/D_01012700_4BFD0] # boulder? earth?
-    - [0x04C060, bin] # vtx
-    - [0x04C450, bin] # displaylist
-    - [0x04C530, bin] # vtx
-    - [0x04C6E0, bin] # displaylist
-    - [0x04C750, bin] # vtx # D_01012E80 (31)
-    - [0x04C940, bin] # vtx # D_01013070 (16)
-    - [0x04CA40, bin] # vtx # D_01013170 (32)
-    - [0x04CC40, bin] # displaylist
+    - [0x4C060, sssv_vtx, data/inc/D_01012790_4C060]
+    - [0x4C0E0, sssv_vtx, data/inc/D_01012810_4C0E0]
+    - [0x4C150, sssv_vtx, data/inc/D_01012880_4C150]
+    - [0x4C350, sssv_vtx, data/inc/D_01012A80_4C350]
+    - [0x4C450, .data, data/D_01012B80_4C450]
+    - [0x4C530, sssv_vtx, data/inc/D_01012C60_4C530]
+    - [0x4C6E0, .data, data/D_01012E10_4C6E0]
+    - [0x4C750, sssv_vtx, data/inc/D_01012E80_4C750]
+    - [0x4C940, sssv_vtx, data/inc/D_01013070_4C940]
+    - [0x4CA40, sssv_vtx, data/inc/D_01013170_4CA40]
+    - [0x4CC40, .data, data/D_01013370_4CC40]
     - [0x04CDA0, rgba16, img/intro/earth.D_010134D0_4CDA0.rgba16, 64, 32] # 64x32
-    - [0x4DDA0, vtx, data/inc/D_010144D0_4DDA0]
-    - [0x4DFA0, vtx, data/inc/D_010146D0_4DFA0]
-    - [0x4E1A0, vtx, data/inc/D_010148D0_4E1A0]
-    - [0x4E3A0, vtx, data/inc/D_01014AD0_4E3A0]
-    - [0x4E590, vtx, data/inc/D_01014CC0_4E590]
-    - [0x4E770, vtx, data/inc/D_01014EA0_4E770]
-    - [0x4E960, vtx, data/inc/D_01015090_4E960]
+    - [0x4DDA0, sssv_vtx, data/inc/D_010144D0_4DDA0]
+    - [0x4DFA0, sssv_vtx, data/inc/D_010146D0_4DFA0]
+    - [0x4E1A0, sssv_vtx, data/inc/D_010148D0_4E1A0]
+    - [0x4E3A0, sssv_vtx, data/inc/D_01014AD0_4E3A0]
+    - [0x4E590, sssv_vtx, data/inc/D_01014CC0_4E590]
+    - [0x4E770, sssv_vtx, data/inc/D_01014EA0_4E770]
+    - [0x4E960, sssv_vtx, data/inc/D_01015090_4E960]
     - [0x4EA50, .data, data/D_01015180_4EA50] # displaylist
-    - [0x04EDF0, bin] # vtx
-    - [0x04F7B0, bin] # displaylist # dead scientist
-    - [0x04FAD0, bin] # vtx
-    - [0x050760, bin] # displaylist # keycard scientist THE_ENGINE_ROOM
-    - [0x050B40, bin] # vtx
-    - [0x50ee0, bin] # displaylist
-    - [0x50FB0, bin] # vtx
-    - [0x51370, bin] # displaylist # TV Screen
-    - [0x51480, bin] # vtx
-    - [0x51520, bin] # displaylist
-    - [0x51560, bin] # vtx
-    - [0x51630, bin] # displaylist
-    - [0x51680, bin] # displaylist
-    - [0x517D0, bin] # vtx
-    - [0x51a40, bin] # displaylist
-    - [0x51b00, bin] # vtx
-    - [0x51c80, bin] # displaylist
-    - [0x51cc0, bin] # vtx
-    - [0x51ef0, bin] # vtx
-    - [0x52030, bin] # displaylist
-    - [0x520a0, bin] # vtx
-    - [0x52460, bin] # displaylist
-    - [0x52530, bin] # vtx
-    - [0x52D00, bin] # displaylist # pillar
-    - [0x52E00, bin] # vtx
-    - [0x52F80, bin] # displaylist # large rectangular base
-    - [0x52FC0, bin] # vtx
-    - [0x53140, bin] # displaylist
-    - [0x53180, bin] # vtx
-    - [0x53380, bin] # displaylist
-    - [0x533f0, bin] # vtx
-    - [0x53590, bin] # displaylist
-    - [0x535d0, bin] # vtx
-    - [0x53810, bin] # displaylist
-    - [0x53870, bin] # vtx
-    - [0x53A70, bin] # displaylist
-    - [0x53AD0, bin] # vtx
-    - [0x53c50, bin] # displaylist
-    - [0x53C90, bin] # vtx
-    - [0x53E90, bin] # displaylist
-    - [0x53Ef0, bin] # vtx
-    - [0x54070, bin] # displaylist
-    - [0x540B0, bin] # vtx
-    - [0x54230, bin] # displaylist
-    - [0x54270, bin] # vtx
-    - [0x54450, bin] # displaylist
-    - [0x544a0, bin] # vtx
-    - [0x54600, bin] # displaylist
-    - [0x54650, bin] # vtx
-    - [0x548D0, bin] # displaylist D_0101B000_548D0 - green ring
-    - [0x54980, vtx, data/inc/D_0101B0B0_54980]
-    - [0x54A00, vtx, data/inc/D_0101B130_54A00]
-    - [0x54BE0, vtx, data/inc/D_0101B310_54BE0]
-    - [0x54C70, vtx, data/inc/D_0101B3A0_54C70]
-    - [0x54E50, vtx, data/inc/D_0101B580_54E50]
-    - [0x54F30, vtx, data/inc/D_0101B660_54F30]
+    - [0x4EDF0, sssv_vtx, data/inc/D_01015520_4EDF0]
+    - [0x4EFE0, sssv_vtx, data/inc/D_01015710_4EFE0]
+    - [0x4F0E0, sssv_vtx, data/inc/D_01015810_4F0E0]
+    - [0x4F1E0, sssv_vtx, data/inc/D_01015910_4F1E0]
+    - [0x4F3D0, sssv_vtx, data/inc/D_01015B00_4F3D0]
+    - [0x4F590, sssv_vtx, data/inc/D_01015CC0_4F590]
+    - [0x4F750, sssv_vtx, data/inc/D_01015E80_4F750]
+    - [0x4F7B0, .data, data/D_01015EE0_4F7B0] # dead scientist
+    - [0x4FAD0, sssv_vtx, data/inc/D_01016200_4FAD0]
+    - [0x4FCB0, sssv_vtx, data/inc/D_010163E0_4FCB0]
+    - [0x4FEA0, sssv_vtx, data/inc/D_010165D0_4FEA0]
+    - [0x4FEF0, sssv_vtx, data/inc/D_01016620_4FEF0]
+    - [0x500D0, sssv_vtx, data/inc/D_01016800_500D0]
+    - [0x50150, sssv_vtx, data/inc/D_01016880_50150]
+    - [0x50330, sssv_vtx, data/inc/D_01016A60_50330]
+    - [0x50480, sssv_vtx, data/inc/D_01016BB0_50480]
+    - [0x50580, sssv_vtx, data/inc/D_01016CB0_50580]
+    - [0x505C0, sssv_vtx, data/inc/D_01016CF0_505C0]
+    - [0x506C0, sssv_vtx, data/inc/D_01016DF0_506C0]
+    - [0x50760, .data, data/D_01016E90_50760] # keycard scientist THE_ENGINE_ROOM
+    - [0x50B40, sssv_vtx, data/inc/D_01017270_50B40]
+    - [0x50BC0, sssv_vtx, data/inc/D_010172F0_50BC0]
+    - [0x50DA0, sssv_vtx, data/inc/D_010174D0_50DA0]
+    - [0x50E20, sssv_vtx, data/inc/D_01017550_50E20]
+    - [0x50EE0, .data, data/D_01017610_50EE0]
+    - [0x50FB0, sssv_vtx, data/inc/D_010176E0_50FB0]
+    - [0x51030, sssv_vtx, data/inc/D_01017760_51030]
+    - [0x51210, sssv_vtx, data/inc/D_01017940_51210]
+    - [0x512F0, sssv_vtx, data/inc/D_01017A20_512F0]
+    - [0x51330, sssv_vtx, data/inc/D_01017A60_51330]
+    - [0x51370, .data, data/D_01017AA0_51370] # TV Screen
+    - [0x51480, sssv_vtx, data/inc/D_01017BB0_51480]
+    - [0x51520, .data, data/D_01017C50_51520]
+    - [0x51560, sssv_vtx, data/inc/D_01017C90_51560]
+    - [0x51630, .data, data/D_01017D60_51630]
+    - [0x51680, sssv_vtx, data/inc/D_01017DB0_51680]
+    - [0x51780, .data, data/D_01017EB0_51780]
+    - [0x517D0, sssv_vtx, data/inc/D_01017F00_517D0]
+    - [0x51900, sssv_vtx, data/inc/D_01018030_51900]
+    - [0x51A40, .data, data/D_01018170_51A40]
+    - [0x51B00, sssv_vtx, data/inc/D_01018230_51B00]
+    - [0x51C80, .data, data/D_010183B0_51C80]
+    - [0x51CC0, sssv_vtx, data/inc/D_010183F0_51CC0]
+    - [0x51EC0, sssv_vtx, data/inc/D_010185F0_51EC0]
+    - [0x51EF0, .data, data/D_01018620_51EF0]
+    - [0x51F70, sssv_vtx, data/inc/D_010186A0_51F70]
+    - [0x51FD0, sssv_vtx, data/inc/D_01018700_51FD0]
+    - [0x52030, .data, data/D_01018760_52030]
+    - [0x520A0, sssv_vtx, data/inc/D_010187D0_520A0]
+    - [0x52120, sssv_vtx, data/inc/D_01018850_52120]
+    - [0x52300, sssv_vtx, data/inc/D_01018A30_52300]
+    - [0x52460, .data, data/D_01018B90_52460]
+    - [0x52530, sssv_vtx, data/inc/D_01018C60_52530]
+    - [0x52710, sssv_vtx, data/inc/D_01018E40_52710]
+    - [0x528F0, sssv_vtx, data/inc/D_01019020_528F0]
+    - [0x52AD0, sssv_vtx, data/inc/D_01019200_52AD0]
+    - [0x52CD0, sssv_vtx, data/inc/D_01019400_52CD0]
+    - [0x52D00, .data, data/D_01019430_52D00] # pillar
+    - [0x52E00, sssv_vtx, data/inc/D_01019530_52E00]
+    - [0x52F80, .data, data/D_010196B0_52F80] # large rectangular base
+    - [0x52FC0, sssv_vtx, data/inc/D_010196F0_52FC0]
+    - [0x53140, .data, data/D_01019870_53140]
+    - [0x53180, sssv_vtx, data/inc/D_010198B0_53180]
+    - [0x53200, sssv_vtx, data/inc/D_01019930_53200]
+    - [0x53380, .data, data/D_01019AB0_53380]
+    - [0x533F0, sssv_vtx, data/inc/D_01019B20_533F0]
+    - [0x53590, .data, data/D_01019CC0_53590]
+    - [0x535D0, sssv_vtx, data/inc/D_01019D00_535D0]
+    - [0x53650, sssv_vtx, data/inc/D_01019D80_53650]
+    - [0x53810, .data, data/D_01019F40_53810]
+    - [0x53870, sssv_vtx, data/inc/D_01019FA0_53870]
+    - [0x538F0, sssv_vtx, data/inc/D_0101A020_538F0]
+    - [0x53A70, .data, data/D_0101A1A0_53A70]
+    - [0x53AD0, sssv_vtx, data/inc/D_0101A200_53AD0]
+    - [0x53C50, .data, data/D_0101A380_53C50]
+    - [0x53C90, sssv_vtx, data/inc/D_0101A3C0_53C90]
+    - [0x53D10, sssv_vtx, data/inc/D_0101A440_53D10]
+    - [0x53E90, .data, data/D_0101A5C0_53E90]
+    - [0x53EF0, sssv_vtx, data/inc/D_0101A620_53EF0]
+    - [0x54070, .data, data/D_0101A7A0_54070]
+    - [0x540B0, sssv_vtx, data/inc/D_0101A7E0_540B0]
+    - [0x54230, .data, data/D_0101A960_54230]
+    - [0x54270, sssv_vtx, data/inc/D_0101A9A0_54270]
+    - [0x54450, .data, data/D_0101AB80_54450]
+    - [0x544A0, sssv_vtx, data/inc/D_0101ABD0_544A0]
+    - [0x54600, .data, data/D_0101AD30_54600]
+    - [0x54650, sssv_vtx, data/inc/D_0101AD80_54650]
+    - [0x546F0, sssv_vtx, data/inc/D_0101AE20_546F0]
+    - [0x54790, sssv_vtx, data/inc/D_0101AEC0_54790]
+    - [0x54830, sssv_vtx, data/inc/D_0101AF60_54830]
+    - [0x548D0, .data, data/D_0101B000_548D0] # green ring
+    - [0x54980, sssv_vtx, data/inc/D_0101B0B0_54980]
+    - [0x54A00, sssv_vtx, data/inc/D_0101B130_54A00]
+    - [0x54BE0, sssv_vtx, data/inc/D_0101B310_54BE0]
+    - [0x54C70, sssv_vtx, data/inc/D_0101B3A0_54C70]
+    - [0x54E50, sssv_vtx, data/inc/D_0101B580_54E50]
+    - [0x54F30, sssv_vtx, data/inc/D_0101B660_54F30]
     - [0x54FD0, .data, data/54FD0] # pipe (RAT_O_MATIC?)
-    - [0x55140, bin] # vtx
-    - [0x552A0, bin] # displaylist
-    - [0x55320, bin] # vtx
-    - [0x555E0, bin] # displaylist
-    - [0x55690, vtx, data/inc/D_0101BDC0_55690]
-    - [0x55710, vtx, data/inc/D_0101BE40_55710]
+    - [0x55140, sssv_vtx, data/inc/D_0101B870_55140]
+    - [0x551C0, sssv_vtx, data/inc/D_0101B8F0_551C0]
+    - [0x552A0, .data, data/D_0101B9D0_552A0]
+    - [0x55320, sssv_vtx, data/inc/D_0101BA50_55320]
+    - [0x553A0, sssv_vtx, data/inc/D_0101BAD0_553A0]
+    - [0x55580, sssv_vtx, data/inc/D_0101BCB0_55580]
+    - [0x555E0, .data, data/D_0101BD10_555E0]
+    - [0x55690, sssv_vtx, data/inc/D_0101BDC0_55690]
+    - [0x55710, sssv_vtx, data/inc/D_0101BE40_55710]
     - [0x558D0, .data, data/558D0] # pipe corner (RAT_O_MATIC?)
-    - [0x55980, bin] # vtx
-    - [0x55B20, bin]
-    - [0x55BB0, bin]
-    - [0x55f80, bin] # displaylist
-    - [0x56040, bin]
-    - [0x56570, bin] # displaylist
-    - [0x56650, bin]
-    - [0x56890, bin] # displaylist
-    - [0x56900, bin]
-    - [0x56cd0, bin] # displaylist
-    - [0x56D90, bin]
-    - [0x56F90, bin]
-    - [0x57000, bin]
-    - [0x57500, bin]
-    - [0x57610, bin] # vtx
-    - [0x57710, bin] # displaylist
-    - [0x57750, bin]
-    - [0x578d0, bin]
-    - [0x57940, bin]
-    - [0x57bb0, bin] # displaylist
-    - [0x57c80, bin]
-    - [0x57f90, bin]
-    - [0x58120, bin]
-    - [0x582a0, bin]
-    - [0x58450, bin]
-    - [0x58f40, bin]
-    - [0x59410, bin]
-    - [0x59b60, bin]
-    - [0x59cc0, bin]
-    - [0x5a190, bin]
+    - [0x55980, sssv_vtx, data/inc/D_0101C0B0_55980]
+    - [0x55A00, sssv_vtx, data/inc/D_0101C130_55A00]
+    - [0x55B20, .data, data/D_0101C250_55B20]
+    - [0x55BB0, sssv_vtx, data/inc/D_0101C2E0_55BB0]
+    - [0x55C30, sssv_vtx, data/inc/D_0101C360_55C30]
+    - [0x55E20, sssv_vtx, data/inc/D_0101C550_55E20]
+    - [0x55F80, .data, data/D_0101C6B0_55F80]
+    - [0x56040, sssv_vtx, data/inc/D_0101C770_56040]
+    - [0x56230, sssv_vtx, data/inc/D_0101C960_56230]
+    - [0x56410, sssv_vtx, data/inc/D_0101CB40_56410]
+    - [0x56570, .data, data/D_0101CCA0_56570]
+    - [0x56650, sssv_vtx, data/inc/D_0101CD80_56650]
+    - [0x566D0, sssv_vtx, data/inc/D_0101CE00_566D0]
+    - [0x56850, sssv_vtx, data/inc/D_0101CF80_56850]
+    - [0x56890, .data, data/D_0101CFC0_56890]
+    - [0x56900, sssv_vtx, data/inc/D_0101D030_56900]
+    - [0x56980, sssv_vtx, data/inc/D_0101D0B0_56980]
+    - [0x56B70, sssv_vtx, data/inc/D_0101D2A0_56B70]
+    - [0x56C90, sssv_vtx, data/inc/D_0101D3C0_56C90]
+    - [0x56CD0, .data, data/D_0101D400_56CD0]
+    - [0x56D90, sssv_vtx, data/inc/D_0101D4C0_56D90]
+    - [0x56E10, sssv_vtx, data/inc/D_0101D540_56E10]
+    - [0x56F90, .data, data/D_0101D6C0_56F90]
+    - [0x57000, sssv_vtx, data/inc/D_0101D730_57000]
+    - [0x571F0, sssv_vtx, data/inc/D_0101D920_571F0]
+    - [0x573E0, sssv_vtx, data/inc/D_0101DB10_573E0]
+    - [0x57500, .data, data/D_0101DC30_57500]
+    - [0x57610, sssv_vtx, data/inc/D_0101DD40_57610]
+    - [0x57710, .data, data/D_0101DE40_57710]
+    - [0x57750, sssv_vtx, data/inc/D_0101DE80_57750]
+    - [0x578D0, .data, data/D_0101E000_578D0]
+    - [0x57940, sssv_vtx, data/inc/D_0101E070_57940]
+    - [0x579C0, sssv_vtx, data/inc/D_0101E0F0_579C0]
+    - [0x57BB0, .data, data/D_0101E2E0_57BB0]
+    - [0x57C80, sssv_vtx, data/inc/D_0101E3B0_57C80]
+    - [0x57E70, sssv_vtx, data/inc/D_0101E5A0_57E70]
+    - [0x57ED0, .data, data/D_0101E600_57ED0]
+    - [0x57F90, sssv_vtx, data/inc/D_0101E6C0_57F90]
+    - [0x58010, sssv_vtx, data/inc/D_0101E740_58010]
+    - [0x58090, .data, data/D_0101E7C0_58090]
+    - [0x58120, sssv_vtx, data/inc/D_0101E850_58120]
+    - [0x581A0, sssv_vtx, data/inc/D_0101E8D0_581A0]
+    - [0x58240, .data, data/D_0101E970_58240]
+    - [0x582A0, sssv_vtx, data/inc/D_0101E9D0_582A0]
+    - [0x58380, sssv_vtx, data/inc/D_0101EAB0_58380]
+    - [0x583F0, .data, data/D_0101EB20_583F0]
+    - [0x58450, rgba16, img/D_0101EB80_58450.rgba16, 32, 32] # imgs? D_0101EB80_58450
+    - [0x58C50, sssv_vtx, data/inc/D_0101F380_58C50]
+    - [0x58CD0, sssv_vtx, data/inc/D_0101F400_58CD0]
+    - [0x58E50, .data, data/D_0101F580_58E50]
+    - [0x58F40, sssv_vtx, data/inc/D_0101F670_58F40]
+    - [0x59130, sssv_vtx, data/inc/D_0101F860_59130]
+    - [0x59320, sssv_vtx, data/inc/D_0101FA50_59320]
+    - [0x59380, .data, data/D_0101FAB0_59380]
+    - [0x59410, sssv_vtx, data/inc/D_0101FB40_59410]
+    - [0x595F0, sssv_vtx, data/inc/D_0101FD20_595F0]
+    - [0x597D0, sssv_vtx, data/inc/D_0101FF00_597D0]
+    - [0x599B0, sssv_vtx, data/inc/D_010200E0_599B0]
+    - [0x59AA0, .data, data/D_010201D0_59AA0]
+    - [0x59B60, sssv_vtx, data/inc/D_01020290_59B60]
+    - [0x59C50, .data, data/D_01020380_59C50]
+    - [0x59CC0, bin] # vtx
+    - [0x5A0B0, bin] # dl
+    - [0x5A190, sssv_vtx, data/inc/D_010208C0_5A190]
+    - [0x5A220, .data, data/D_01020950_5A220]
     - [0x5A280, bin] # I4, 128x16, lightning bolt?
-    - [0x5A680, bin]
+    - [0x5A680, bin] # bunch of textures/palettes
     - [0x5BFA0, bin] # 16x16 I4
     - [0x5C020, bin] # 16x16 I4
     - [0x5C0A0, bin] # 16x16 I4 100, 200, 500
@@ -583,21 +681,24 @@ segments:
     - [0x6b0e0, rgba16, img/6B0E0.rgba16, 32, 32]
     - [0x6b8e0, rgba16, img/6B8E0.rgba16, 32, 32]
     - [0x6c0e0, rgba16, img/6C0E0.rgba16, 32, 32]
-    - [0x6c8e0, bin]
-    - [0x6C940, bin]
-    - [0x6C9A0, bin]
-    - [0x6C9E0, bin]
-    - [0x6CA00, bin]
-    - [0x6CA40, bin]
+    - [0x6C8E0, bin] # vtx
+    - [0x6C920, bin] # dl
+    - [0x6C940, bin] # vtx
+    - [0x6C980, bin] # dl
+    - [0x6C9A0, sssv_vtx, data/inc/D_010330D0_6C9A0]
+    - [0x6C9E0, .data, data/D_01033110_6C9E0]
+    - [0x6CA00, sssv_vtx, data/inc/D_01033130_6CA00]
+    - [0x6CA40, .data, data/D_01033170_6CA40]
     - [0x6CA60, bin] # 64x64, I4 (IA4?)
     - [0x6D260, bin] # 64x64, I4 (IA4?)
-    - [0x6DA60, bin]
+    - [0x6DA60, bin] # 32x32 rgba16?
     - [0x6E260, bin] # 64x64, I4 (IA4?)
-    - [0x6EA60, bin]
-    - [0x71020, bin]
+    - [0x6EA60, bin] # tbd
+    - [0x71020, bin] #
+    - [0x71220, bin] # dl?
     - [0x71268, bin] # displaylist
-    - [0x712a8, bin] # displaylist
-    - [0x712d0, bin] # displaylist
+    - [0x712A8, bin] # displaylist
+    - [0x712D0, bin] # displaylist
     - [0x712F0, bin] # I4 ring
     - [0x71AF0, bin] # I4 plane?
     - [0x742F0, bin] # rgba16 colors?
@@ -606,18 +707,19 @@ segments:
     - [0x74910, bin] # I4, 64x32
     - [0x74D10, bin] # tbd
     - [0x74D30, bin] # I4, 32x32
-    - [0x74FC0, bin] # displaylist
-    - [0x75010, bin] # vtx
-    - [0x75150, bin] # displaylist
-    - [0x75200, bin] # vtx
-    - [0x75340, bin] # displaylist
+    - [0x74F50, sssv_vtx, data/inc/D_0103B680_74F50]
+    - [0x74FC0, .data, data/D_0103B6F0_74FC0]
+    - [0x75010, sssv_vtx, data/inc/D_0103B740_75010]
+    - [0x75150, .data, data/D_0103B880_75150]
+    - [0x75200, sssv_vtx, data/inc/D_0103B930_75200]
+    - [0x75340, .data, data/D_0103BA70_75340]
     - [0x753F0, rgba16, img/hud/energy_bar_left.rgba16, 48, 32]
     - [0x75FF0, rgba16, img/hud/energy_bar_right.rgba16, 48, 32]
     - [0x76BF0, rgba16, img/hud/power_green.rgba16, 16, 16]
     - [0x76DF0, rgba16, img/hud/power_blue.rgba16, 16, 16]
     - [0x76FF0, rgba16, img/fonts/lcd_tileset2.rgba16, 16, 160]
-    - [0x783F0, bin] # vtx
-    - [0x784F0, bin] # displaylist # long cylinder?
+    - [0x783F0, sssv_vtx, data/inc/D_0103EB20_783F0]
+    - [0x784F0, .data, data/D_0103EC20_784F0] # long cylinder?
     - [0x78580, bin] # 32x320? rgba16
     - [0x7A580, bin] # tbd
   - name: data_7F790 # Dan Danger
@@ -627,40 +729,53 @@ segments:
     subalign: 8
     overlay: yes
     subsegments:
-    - [0x7F790, vtx, data/inc/D_05000000_7F790]
+    - [0x7F790, sssv_vtx, data/inc/D_05000000_7F790]
     - [0x7F910, .data, data/7F910]
-    - [0x7F9D0, vtx, data/inc/D_05000240_7F9D0]
-    - [0x7FBC0, vtx, data/inc/D_05000430_7FBC0]
+    - [0x7F9D0, sssv_vtx, data/inc/D_05000240_7F9D0]
+    - [0x7FBC0, sssv_vtx, data/inc/D_05000430_7FBC0]
     - [0x7FC70, .data, data/7FC70] # dl
     - [0x7FD28, .data, data/80A98] # dl
-    - [0x7FD28, vtx, data/inc/D_05000598_7FD28]
-    - [0x7FF18, vtx, data/inc/D_05000788_7FF18]
-    - [0x80118, vtx, data/inc/D_05000988_80118]
-    - [0x80308, vtx, data/inc/D_05000B78_80308]
-    - [0x804F8, vtx, data/inc/D_05000D68_804F8]
-    - [0x806E8, vtx, data/inc/D_05000F58_806E8]
-    - [0x808D8, vtx, data/inc/D_05001148_808D8]
+    - [0x7FD28, sssv_vtx, data/inc/D_05000598_7FD28]
+    - [0x7FF18, sssv_vtx, data/inc/D_05000788_7FF18]
+    - [0x80118, sssv_vtx, data/inc/D_05000988_80118]
+    - [0x80308, sssv_vtx, data/inc/D_05000B78_80308]
+    - [0x804F8, sssv_vtx, data/inc/D_05000D68_804F8]
+    - [0x806E8, sssv_vtx, data/inc/D_05000F58_806E8]
+    - [0x808D8, sssv_vtx, data/inc/D_05001148_808D8]
     - [0x80A98] # end of 80A98
     - [0x80CE0, .data, data/80E60] # Dan's arm
-    - [0x80CE0, vtx, data/inc/D_05001550_80CE0]
+    - [0x80CE0, sssv_vtx, data/inc/D_05001550_80CE0]
     - [0x80E60] # end of 80E60
-    - [0x80F20, bin] # vtx
-    - [0x811C0, bin] # dl
+    - [0x80F20, sssv_vtx, data/inc/D_05001790_80F20]
+    - [0x81110, sssv_vtx, data/inc/D_05001980_81110]
+    - [0x811C0, .data, data/D_05001A30_811C0]
     - [0x81278, bin] # vtx
     - [0x81FB8, bin] # dl
     - [0x82200, .data, data/82B50]
-    - [0x82200, vtx, data/inc/D_05002A70_82200]
-    - [0x823F0, vtx, data/inc/D_05002C60_823F0]
-    - [0x825E0, vtx, data/inc/D_05002E50_825E0]
-    - [0x827D0, vtx, data/inc/D_05003040_827D0]
-    - [0x829D0, vtx, data/inc/D_05003240_829D0]
+    - [0x82200, sssv_vtx, data/inc/D_05002A70_82200]
+    - [0x823F0, sssv_vtx, data/inc/D_05002C60_823F0]
+    - [0x825E0, sssv_vtx, data/inc/D_05002E50_825E0]
+    - [0x827D0, sssv_vtx, data/inc/D_05003040_827D0]
+    - [0x829D0, sssv_vtx, data/inc/D_05003240_829D0]
     - [0x82B50] # end of 82B50 Dan torso + thighs
-    - [0x82DD0, bin] # vtx
-    - [0x83DE0, bin] # displaylist
-    - [0x84110, bin] # vtx
-    - [0x84590, bin] # displaylist
-    - [0x846E0, bin] # vtx
-    - [0x84760, bin] # displaylist
+    - [0x82DD0, sssv_vtx, data/inc/D_05003640_82DD0]
+    - [0x82FB0, sssv_vtx, data/inc/D_05003820_82FB0]
+    - [0x83190, sssv_vtx, data/inc/D_05003A00_83190]
+    - [0x83380, sssv_vtx, data/inc/D_05003BF0_83380]
+    - [0x83580, sssv_vtx, data/inc/D_05003DF0_83580]
+    - [0x83760, sssv_vtx, data/inc/D_05003FD0_83760]
+    - [0x838A0, sssv_vtx, data/inc/D_05004110_838A0]
+    - [0x83A80, sssv_vtx, data/inc/D_050042F0_83A80]
+    - [0x83C00, sssv_vtx, data/inc/D_05004470_83C00]
+    - [0x83DE0, .data, data/D_05004650_83DE0]
+    - [0x84110, sssv_vtx, data/inc/D_05004980_84110]
+    - [0x84230, sssv_vtx, data/inc/D_05004AA0_84230]
+    - [0x84420, sssv_vtx, data/inc/D_05004C90_84420]
+    - [0x84500, sssv_vtx, data/inc/D_05004D70_84500]
+    - [0x84530, sssv_vtx, data/inc/D_05004DA0_84530]
+    - [0x84590, .data, data/D_05004E00_84590]
+    - [0x846E0, sssv_vtx, data/inc/D_05004F50_846E0]
+    - [0x84760, .data, data/D_05004FD0_84760]
     - [0x84790, rgba16, img/actors/dan/dan1.rgba16, 32, 32]
     - [0x84F90, rgba16, img/actors/dan/dan2.rgba16, 32, 32]
   - name: data_85790
@@ -671,18 +786,18 @@ segments:
     subsegments:
     - [0x85790, rgba16, img/levels/HAVE_A_NICE_DAY/roof_tile.rgba16, 32, 32]
     - [0x85F90, rgba16, img/levels/HAVE_A_NICE_DAY/floorboard.rgba16, 32, 32]
-    - [0x86790, vtx, data/inc/D_05001000_86790]
-    - [0x86810, vtx, data/inc/D_05001080_86810]
-    - [0x86920, vtx, data/inc/D_05001190_86920]
-    - [0x86B00, vtx, data/inc/D_05001370_86B00]
+    - [0x86790, sssv_vtx, data/inc/D_05001000_86790]
+    - [0x86810, sssv_vtx, data/inc/D_05001080_86810]
+    - [0x86920, sssv_vtx, data/inc/D_05001190_86920]
+    - [0x86B00, sssv_vtx, data/inc/D_05001370_86B00]
     - [0x86C80, .data, data/HAVE_A_NICE_DAY_house.D_050014F0_86C80]
-    - [0x86E10, vtx, data/inc/D_05001680_86E10]
-    - [0x86E90, vtx, data/inc/D_05001700_86E90]
-    - [0x87070, vtx, data/inc/D_050018E0_87070]
-    - [0x87260, vtx, data/inc/D_05001AD0_87260]
-    - [0x87460, vtx, data/inc/D_05001CD0_87460]
-    - [0x87650, vtx, data/inc/D_05001EC0_87650]
-    - [0x87850, vtx, data/inc/D_050020C0_87850]
+    - [0x86E10, sssv_vtx, data/inc/D_05001680_86E10]
+    - [0x86E90, sssv_vtx, data/inc/D_05001700_86E90]
+    - [0x87070, sssv_vtx, data/inc/D_050018E0_87070]
+    - [0x87260, sssv_vtx, data/inc/D_05001AD0_87260]
+    - [0x87460, sssv_vtx, data/inc/D_05001CD0_87460]
+    - [0x87650, sssv_vtx, data/inc/D_05001EC0_87650]
+    - [0x87850, sssv_vtx, data/inc/D_050020C0_87850]
     - [0x879A0, .data, data/HAVE_A_NICE_DAY_tree.D_05002210_879A0]
   - name: data_87B80
     type: code
@@ -690,23 +805,24 @@ segments:
     start: 0x87B80
     overlay: yes
     subsegments:
-    - [0x87B80, bin] # vtx
-    - [0x87C30, bin] # dl # random triangle
-    - [0x87C80, vtx, data/inc/D_05000100_87C80]
-    - [0x87D00, vtx, data/inc/D_05000180_87D00]
-    - [0x87D40, vtx, data/inc/D_050001C0_87D40]
-    - [0x87F20, vtx, data/inc/D_050003A0_87F20]
-    - [0x88110, vtx, data/inc/D_05000590_88110]
+    - [0x87B80, sssv_vtx, data/inc/D_05000000_87B80]
+    - [0x87C00, sssv_vtx, data/inc/D_05000080_87C00]
+    - [0x87C30, .data, data/D_050000B0_87C30] # random triangle
+    - [0x87C80, sssv_vtx, data/inc/D_05000100_87C80]
+    - [0x87D00, sssv_vtx, data/inc/D_05000180_87D00]
+    - [0x87D40, sssv_vtx, data/inc/D_050001C0_87D40]
+    - [0x87F20, sssv_vtx, data/inc/D_050003A0_87F20]
+    - [0x88110, sssv_vtx, data/inc/D_05000590_88110]
     - [0x882C0, .data, data/HONEYMOON_LAGOON_big_machine_arm.D_05000740_882C0]
-    - [0x883A0, vtx, data/inc/D_05000820_883A0]
-    - [0x88420, vtx, data/inc/D_050008A0_88420]
-    - [0x88620, vtx, data/inc/D_05000AA0_88620]
-    - [0x88810, vtx, data/inc/D_05000C90_88810]
-    - [0x88840, vtx, data/inc/D_05000CC0_88840]
-    - [0x88A30, vtx, data/inc/D_05000EB0_88A30]
-    - [0x88C10, vtx, data/inc/D_05001090_88C10]
-    - [0x88DF0, vtx, data/inc/D_05001270_88DF0]
-    - [0x88FD0, vtx, data/inc/D_05001450_88FD0]
+    - [0x883A0, sssv_vtx, data/inc/D_05000820_883A0]
+    - [0x88420, sssv_vtx, data/inc/D_050008A0_88420]
+    - [0x88620, sssv_vtx, data/inc/D_05000AA0_88620]
+    - [0x88810, sssv_vtx, data/inc/D_05000C90_88810]
+    - [0x88840, sssv_vtx, data/inc/D_05000CC0_88840]
+    - [0x88A30, sssv_vtx, data/inc/D_05000EB0_88A30]
+    - [0x88C10, sssv_vtx, data/inc/D_05001090_88C10]
+    - [0x88DF0, sssv_vtx, data/inc/D_05001270_88DF0]
+    - [0x88FD0, sssv_vtx, data/inc/D_05001450_88FD0]
     - [0x890C0, .data, data/HONEYMOON_LAGOON_trophy.D_05001540_890C0] # dl # HONEYMOON_LAGOON trophy?
   - name: data_89260 # intro sequence or just HAVE_A_NICE_DAY?
     type: code
@@ -715,61 +831,125 @@ segments:
     overlay: yes
     subsegments:
     - [0x89260, rgba16, img/intro/D_05000000_89260.rgba16, 32, 32]
-    - [0x89A60, bin] # vtx
-    - [0x8A980, bin] # dl # white/blue capsule thing
-    - [0x8AD00, bin] # vtx
-    - [0x8BFB0, bin] # displaylist # spaceship D_05002D50_8BFB0
+    - [0x89A60, sssv_vtx, data/inc/D_05000800_89A60]
+    - [0x89AE0, sssv_vtx, data/inc/D_05000880_89AE0]
+    - [0x89CD0, sssv_vtx, data/inc/D_05000A70_89CD0]
+    - [0x89EC0, sssv_vtx, data/inc/D_05000C60_89EC0]
+    - [0x8A0B0, sssv_vtx, data/inc/D_05000E50_8A0B0]
+    - [0x8A2A0, sssv_vtx, data/inc/D_05001040_8A2A0]
+    - [0x8A4A0, sssv_vtx, data/inc/D_05001240_8A4A0]
+    - [0x8A540, sssv_vtx, data/inc/D_050012E0_8A540]
+    - [0x8A740, sssv_vtx, data/inc/D_050014E0_8A740]
+    - [0x8A840, sssv_vtx, data/inc/D_050015E0_8A840]
+    - [0x8A980, .data, data/D_05001720_8A980] # white/blue capsule thing
+    - [0x8AD00, sssv_vtx, data/inc/D_05001AA0_8AD00]
+    - [0x8AD80, sssv_vtx, data/inc/D_05001B20_8AD80]
+    - [0x8AF60, sssv_vtx, data/inc/D_05001D00_8AF60]
+    - [0x8B160, sssv_vtx, data/inc/D_05001F00_8B160]
+    - [0x8B350, sssv_vtx, data/inc/D_050020F0_8B350]
+    - [0x8B540, sssv_vtx, data/inc/D_050022E0_8B540]
+    - [0x8B740, sssv_vtx, data/inc/D_050024E0_8B740]
+    - [0x8B800, sssv_vtx, data/inc/D_050025A0_8B800]
+    - [0x8B9F0, sssv_vtx, data/inc/D_05002790_8B9F0]
+    - [0x8BBE0, sssv_vtx, data/inc/D_05002980_8BBE0]
+    - [0x8BD80, sssv_vtx, data/inc/D_05002B20_8BD80]
+    - [0x8BF10, sssv_vtx, data/inc/D_05002CB0_8BF10]
+    - [0x8BFB0, .data, data/D_05002D50_8BFB0] # spaceship D_05002D50_8BFB0
     - [0x8C400, rgba16, img/intro/asteroid.rgba16, 32, 32]
-    - [0x8CC00, bin] # vtx
-    - [0x8D2D0, bin] # displaylist # asteroid
+    - [0x8CC00, sssv_vtx, data/inc/D_050039A0_8CC00]
+    - [0x8CDE0, sssv_vtx, data/inc/D_05003B80_8CDE0]
+    - [0x8CFD0, sssv_vtx, data/inc/D_05003D70_8CFD0]
+    - [0x8D1D0, sssv_vtx, data/inc/D_05003F70_8D1D0]
+    - [0x8D2D0, .data, data/D_05004070_8D2D0] # asteroid
     - [0x8D470, rgba16, img/intro/silicon_valley_sign.rgba16, 32, 32]
     - [0x8DC70, rgba16, img/intro/earth_sign.rgba16, 32, 32]
-    - [0x8E470, bin] # vtx
-    - [0x8EAD0, bin] # displaylist # earth/silicon valley sign posts
-    - [0x8EC70, rgba16, img/intro/spaceship_interior_0_16.rgba16, 16, 16]
-    - [0x8EE70, rgba16, img/intro/tigerprint_16.rgba16, 16, 16]
-    - [0x8F070, bin] ### 32x8 rgba16?
-    - [0x8F270, bin] ###
-    - [0x8F470, bin] ###
-    - [0x8F670, bin] ###
-    - [0x8F870, rgba16, img/intro/spaceship_interior_4_16.rgba16, 16, 16] ###
-    - [0x8FA70, bin] # vtx
-    - [0x91FB0, bin] # displaylist # ship interior
-    - [0x928E0, bin] # vtx
-    - [0x92980, bin] # displaylist # ? broken glass?
-    - [0x929B0, bin] # vtx
-    - [0x92B60, bin] # displaylist # heart trophy (?)
+    - [0x8E470, sssv_vtx, data/inc/D_05005210_8E470]
+    - [0x8E660, sssv_vtx, data/inc/D_05005400_8E660]
+    - [0x8E850, sssv_vtx, data/inc/D_050055F0_8E850]
+    - [0x8E8B0, sssv_vtx, data/inc/D_05005650_8E8B0]
+    - [0x8EA90, sssv_vtx, data/inc/D_05005830_8EA90]
+    - [0x8EAD0, .data, data/D_05005870_8EAD0] # earth/silicon valley sign posts
+    - [0x8EC70, rgba16, img/intro/spaceship_interior_0_16.rgba16, 16, 16]  # D_05005A10_8EC70
+    - [0x8EE70, rgba16, img/intro/tigerprint_16.rgba16, 16, 16]            # D_05005C10_8EE70
+    - [0x8F070, rgba16, img/intro/tbd.D_05005E10_8F070.rgba16, 32, 32]     # D_05005E10_8F070
+    - [0x8F870, rgba16, img/intro/spaceship_interior_4_16.rgba16, 16, 16]  # D_05006610_8F870
+    - [0x8FA70, sssv_vtx, data/inc/D_05006810_8FA70]
+    - [0x8FAF0, sssv_vtx, data/inc/D_05006890_8FAF0]
+    - [0x8FB60, sssv_vtx, data/inc/D_05006900_8FB60]
+    - [0x8FD50, sssv_vtx, data/inc/D_05006AF0_8FD50]
+    - [0x8FF50, sssv_vtx, data/inc/D_05006CF0_8FF50]
+    - [0x90150, sssv_vtx, data/inc/D_05006EF0_90150]
+    - [0x90340, sssv_vtx, data/inc/D_050070E0_90340]
+    - [0x90530, sssv_vtx, data/inc/D_050072D0_90530]
+    - [0x90710, sssv_vtx, data/inc/D_050074B0_90710]
+    - [0x90900, sssv_vtx, data/inc/D_050076A0_90900]
+    - [0x90A50, sssv_vtx, data/inc/D_050077F0_90A50]
+    - [0x90C30, sssv_vtx, data/inc/D_050079D0_90C30]
+    - [0x90DA0, sssv_vtx, data/inc/D_05007B40_90DA0]
+    - [0x90F30, sssv_vtx, data/inc/D_05007CD0_90F30]
+    - [0x91120, sssv_vtx, data/inc/D_05007EC0_91120]
+    - [0x91310, sssv_vtx, data/inc/D_050080B0_91310]
+    - [0x91500, sssv_vtx, data/inc/D_050082A0_91500]
+    - [0x916F0, sssv_vtx, data/inc/D_05008490_916F0]
+    - [0x918E0, sssv_vtx, data/inc/D_05008680_918E0]
+    - [0x91AE0, sssv_vtx, data/inc/D_05008880_91AE0]
+    - [0x91CC0, sssv_vtx, data/inc/D_05008A60_91CC0]
+    - [0x91D10, sssv_vtx, data/inc/D_05008AB0_91D10]
+    - [0x91D90, sssv_vtx, data/inc/D_05008B30_91D90]
+    - [0x91ED0, sssv_vtx, data/inc/D_05008C70_91ED0]
+    - [0x91F50, sssv_vtx, data/inc/D_05008CF0_91F50]
+    - [0x91FB0, .data, data/D_05008D50_91FB0] # ship interior
+    - [0x928E0, sssv_vtx, data/inc/D_05009680_928E0]
+    - [0x92980, .data, data/D_05009720_92980] # broken glass?
+    - [0x929B0, sssv_vtx, data/inc/D_05009750_929B0]
+    - [0x92B60, .data, data/D_05009900_92B60] # heart trophy (?)
   - name: data_92BF0
     type: code
     vram: 0x05000000
     start: 0x92BF0
     overlay: yes
     subsegments:
-    - [0x92BF0, rgba16, img/levels/THE_BATTERY_FARM/roof_tile.rgba16, 32, 32]
-    - [0x933F0, rgba16, img/levels/THE_BATTERY_FARM/floorboard.rgba16, 32, 32]
-    - [0x93BF0, bin] # vtx
-    - [0x940E0, bin] # displaylist # dog kennel
-    - [0x94270, bin] # vtx
-    - [0x94390, bin] # displaylist # D_050017A0 object 163
-    - [0x943E0, bin] # vtx
-    - [0x94610, bin] # displaylist # carrot
-    - [0x94690, rgba16, img/levels/THE_BATTERY_FARM/chair.rgba16, 32, 32]
-    - [0x94E90, bin] # vtx
-    - [0x95800, bin] # displaylist # dog bed
-    - [0x959A0, bin] # vtx
-    - [0x95F40, bin] # displaylist # chair
-    - [0x96040, bin] # vtx
-    - [0x96690, bin] # displaylist # table
+    - [0x92BF0, rgba16, img/levels/THE_BATTERY_FARM/roof_tile.D_05000000_92BF0.rgba16, 32, 32]
+    - [0x933F0, rgba16, img/levels/THE_BATTERY_FARM/floorboard.D_05000800_933F0.rgba16, 32, 32]
+    - [0x93BF0, sssv_vtx, data/inc/D_05001000_93BF0]
+    - [0x93C70, sssv_vtx, data/inc/D_05001080_93C70]
+    - [0x93D80, sssv_vtx, data/inc/D_05001190_93D80]
+    - [0x93F60, sssv_vtx, data/inc/D_05001370_93F60]
+    - [0x940E0, .data, data/D_050014F0_940E0] # dog kennel
+    - [0x94270, sssv_vtx, data/inc/D_05001680_94270]
+    - [0x94330, sssv_vtx, data/inc/D_05001740_94330]
+    - [0x94390, .data, data/D_050017A0_94390] # D_050017A0 object 163
+    - [0x943E0, sssv_vtx, data/inc/D_050017F0_943E0]
+    - [0x945E0, sssv_vtx, data/inc/D_050019F0_945E0]
+    - [0x94610, .data, data/D_05001A20_94610] # carrot
+    - [0x94690, rgba16, img/levels/THE_BATTERY_FARM/dog_bed.D_05001AA0_94690.rgba16, 32, 32]
+    - [0x94E90, sssv_vtx, data/inc/D_050022A0_94E90]
+    - [0x94F10, sssv_vtx, data/inc/D_05002320_94F10]
+    - [0x95110, sssv_vtx, data/inc/D_05002520_95110]
+    - [0x952F0, sssv_vtx, data/inc/D_05002700_952F0]
+    - [0x954D0, sssv_vtx, data/inc/D_050028E0_954D0]
+    - [0x956B0, sssv_vtx, data/inc/D_05002AC0_956B0]
+    - [0x95800, .data, data/D_05002C10_95800] # dog bed
+    - [0x959A0, sssv_vtx, data/inc/D_05002DB0_959A0]
+    - [0x95A20, sssv_vtx, data/inc/D_05002E30_95A20]
+    - [0x95C20, sssv_vtx, data/inc/D_05003030_95C20]
+    - [0x95E10, sssv_vtx, data/inc/D_05003220_95E10]
+    - [0x95F40, .data, data/D_05003350_95F40] # chair
+    - [0x96040, sssv_vtx, data/inc/D_05003450_96040]
+    - [0x960C0, sssv_vtx, data/inc/D_050034D0_960C0]
+    - [0x962A0, sssv_vtx, data/inc/D_050036B0_962A0]
+    - [0x96490, sssv_vtx, data/inc/D_050038A0_96490]
+    - [0x96690, .data, data/D_05003AA0_96690] # table
   - name: data_96790
     type: code
     vram: 0x05000000
     start: 0x96790
     overlay: yes
     subsegments:
-    - [0x96790, vtx, data/inc/D_05000000_96790]
-    - [0x96970, vtx, data/inc/D_050001E0_96970]
-    - [0x96B60, vtx, data/inc/D_050003D0_96B60]
-    - [0x96D60, vtx, data/inc/D_050005D0_96D60]
+    - [0x96790, sssv_vtx, data/inc/D_05000000_96790]
+    - [0x96970, sssv_vtx, data/inc/D_050001E0_96970]
+    - [0x96B60, sssv_vtx, data/inc/D_050003D0_96B60]
+    - [0x96D60, sssv_vtx, data/inc/D_050005D0_96D60]
     - [0x96E80, .data, data/D_050006F0_96E80] # GIVE_A_DOG_A_BONUS torso
   - name: data_97020 # intro
     type: code
@@ -779,58 +959,58 @@ segments:
     subalign: 8
     subsegments:
     - [0x97020, .data, data/DMA_INTRO_D.D_05000880_978A0]
-    - [0x97020, vtx, data/inc/D_05000000_97020]
-    - [0x97200, vtx, data/inc/D_050001E0_97200]
-    - [0x973E0, vtx, data/inc/D_050003C0_973E0]
-    - [0x975E0, vtx, data/inc/D_050005C0_975E0]
-    - [0x977C0, vtx, data/inc/D_050007A0_977C0]
+    - [0x97020, sssv_vtx, data/inc/D_05000000_97020]
+    - [0x97200, sssv_vtx, data/inc/D_050001E0_97200]
+    - [0x973E0, sssv_vtx, data/inc/D_050003C0_973E0]
+    - [0x975E0, sssv_vtx, data/inc/D_050005C0_975E0]
+    - [0x977C0, sssv_vtx, data/inc/D_050007A0_977C0]
     - [0x978A0] # "D" (head of DMA logo)
     - [0x97A30, .data, data/DMA_INTRO_M.D_05000F90_97FB0]
-    - [0x97A30, vtx, data/inc/D_05000A10_97A30]
-    - [0x97C20, vtx, data/inc/D_05000C00_97C20]
-    - [0x97E10, vtx, data/inc/D_05000DF0_97E10]
+    - [0x97A30, sssv_vtx, data/inc/D_05000A10_97A30]
+    - [0x97C20, sssv_vtx, data/inc/D_05000C00_97C20]
+    - [0x97E10, sssv_vtx, data/inc/D_05000DF0_97E10]
     - [0x97FB0] # "M" (torso of DMA logo)
     - [0x98080, .data, data/DMA_INTRO_A.D_05001390_983B0]
-    - [0x98080, vtx, data/inc/D_05001060_98080]
-    - [0x98270, vtx, data/inc/D_05001250_98270]
+    - [0x98080, sssv_vtx, data/inc/D_05001060_98080]
+    - [0x98270, sssv_vtx, data/inc/D_05001250_98270]
     - [0x983B0] # "A" (legs of DMA logo)
     - [0x98430, rgba16, img/take_two_logo.D_05001410_98430.rgba16, 32, 32]
-    - [0x98C30, vtx, data/inc/D_05001C10_98C30]
-    - [0x98E30, vtx, data/inc/D_05001E10_98E30]
-    - [0x99030, vtx, data/inc/D_05002010_99030]
-    - [0x99230, vtx, data/inc/D_05002210_99230]
-    - [0x99430, vtx, data/inc/D_05002410_99430]
-    - [0x99620, vtx, data/inc/D_05002600_99620]
-    - [0x99810, vtx, data/inc/D_050027F0_99810]
-    - [0x99A00, vtx, data/inc/D_050029E0_99A00]
-    - [0x99BF0, vtx, data/inc/D_05002BD0_99BF0]
-    - [0x99DE0, vtx, data/inc/D_05002DC0_99DE0]
-    - [0x99FD0, vtx, data/inc/D_05002FB0_99FD0]
-    - [0x9A1D0, vtx, data/inc/D_050031B0_9A1D0]
-    - [0x9A3C0, vtx, data/inc/D_050033A0_9A3C0]
-    - [0x9A5C0, vtx, data/inc/D_050035A0_9A5C0]
-    - [0x9A7C0, vtx, data/inc/D_050037A0_9A7C0]
-    - [0x9A9C0, vtx, data/inc/D_050039A0_9A9C0]
-    - [0x9ABB0, vtx, data/inc/D_05003B90_9ABB0]
-    - [0x9ADA0, vtx, data/inc/D_05003D80_9ADA0]
-    - [0x9AFA0, vtx, data/inc/D_05003F80_9AFA0]
-    - [0x9B190, vtx, data/inc/D_05004170_9B190]
-    - [0x9B380, vtx, data/inc/D_05004360_9B380]
-    - [0x9B570, vtx, data/inc/D_05004550_9B570]
-    - [0x9B750, vtx, data/inc/D_05004730_9B750]
-    - [0x9B950, vtx, data/inc/D_05004930_9B950]
-    - [0x9BB30, vtx, data/inc/D_05004B10_9BB30]
-    - [0x9BD20, vtx, data/inc/D_05004D00_9BD20]
-    - [0x9BF20, vtx, data/inc/D_05004F00_9BF20]
-    - [0x9C110, vtx, data/inc/D_050050F0_9C110]
-    - [0x9C310, vtx, data/inc/D_050052F0_9C310]
-    - [0x9C510, vtx, data/inc/D_050054F0_9C510]
-    - [0x9C710, vtx, data/inc/D_050056F0_9C710]
-    - [0x9C900, vtx, data/inc/D_050058E0_9C900]
-    - [0x9CAF0, vtx, data/inc/D_05005AD0_9CAF0]
-    - [0x9CCE0, vtx, data/inc/D_05005CC0_9CCE0]
-    - [0x9CEE0, vtx, data/inc/D_05005EC0_9CEE0]
-    - [0x9D0E0, vtx, data/inc/D_050060C0_9D0E0]
+    - [0x98C30, sssv_vtx, data/inc/D_05001C10_98C30]
+    - [0x98E30, sssv_vtx, data/inc/D_05001E10_98E30]
+    - [0x99030, sssv_vtx, data/inc/D_05002010_99030]
+    - [0x99230, sssv_vtx, data/inc/D_05002210_99230]
+    - [0x99430, sssv_vtx, data/inc/D_05002410_99430]
+    - [0x99620, sssv_vtx, data/inc/D_05002600_99620]
+    - [0x99810, sssv_vtx, data/inc/D_050027F0_99810]
+    - [0x99A00, sssv_vtx, data/inc/D_050029E0_99A00]
+    - [0x99BF0, sssv_vtx, data/inc/D_05002BD0_99BF0]
+    - [0x99DE0, sssv_vtx, data/inc/D_05002DC0_99DE0]
+    - [0x99FD0, sssv_vtx, data/inc/D_05002FB0_99FD0]
+    - [0x9A1D0, sssv_vtx, data/inc/D_050031B0_9A1D0]
+    - [0x9A3C0, sssv_vtx, data/inc/D_050033A0_9A3C0]
+    - [0x9A5C0, sssv_vtx, data/inc/D_050035A0_9A5C0]
+    - [0x9A7C0, sssv_vtx, data/inc/D_050037A0_9A7C0]
+    - [0x9A9C0, sssv_vtx, data/inc/D_050039A0_9A9C0]
+    - [0x9ABB0, sssv_vtx, data/inc/D_05003B90_9ABB0]
+    - [0x9ADA0, sssv_vtx, data/inc/D_05003D80_9ADA0]
+    - [0x9AFA0, sssv_vtx, data/inc/D_05003F80_9AFA0]
+    - [0x9B190, sssv_vtx, data/inc/D_05004170_9B190]
+    - [0x9B380, sssv_vtx, data/inc/D_05004360_9B380]
+    - [0x9B570, sssv_vtx, data/inc/D_05004550_9B570]
+    - [0x9B750, sssv_vtx, data/inc/D_05004730_9B750]
+    - [0x9B950, sssv_vtx, data/inc/D_05004930_9B950]
+    - [0x9BB30, sssv_vtx, data/inc/D_05004B10_9BB30]
+    - [0x9BD20, sssv_vtx, data/inc/D_05004D00_9BD20]
+    - [0x9BF20, sssv_vtx, data/inc/D_05004F00_9BF20]
+    - [0x9C110, sssv_vtx, data/inc/D_050050F0_9C110]
+    - [0x9C310, sssv_vtx, data/inc/D_050052F0_9C310]
+    - [0x9C510, sssv_vtx, data/inc/D_050054F0_9C510]
+    - [0x9C710, sssv_vtx, data/inc/D_050056F0_9C710]
+    - [0x9C900, sssv_vtx, data/inc/D_050058E0_9C900]
+    - [0x9CAF0, sssv_vtx, data/inc/D_05005AD0_9CAF0]
+    - [0x9CCE0, sssv_vtx, data/inc/D_05005CC0_9CCE0]
+    - [0x9CEE0, sssv_vtx, data/inc/D_05005EC0_9CEE0]
+    - [0x9D0E0, sssv_vtx, data/inc/D_050060C0_9D0E0]
     - [0x9D190, .data, data/DMA_INTRO_take_two_logo.D_05006170_9D190] # Take Two Interactive Logo
   - name: data_9E0D0
     type: code
@@ -838,13 +1018,18 @@ segments:
     start: 0x9E0D0
     overlay: yes
     subsegments:
-    - [0x9E0D0, bin] # vtx
-    - [0x9E600, bin] # displaylist # toilet (rat-o-matic)
-    - [0x9E790, bin] # vtx
-    - [0x9E8B0, bin] # displaylist # toilet seat lid
+    - [0x9E0D0, sssv_vtx, data/inc/D_05000000_9E0D0]
+    - [0x9E150, sssv_vtx, data/inc/D_05000080_9E150]
+    - [0x9E350, sssv_vtx, data/inc/D_05000280_9E350]
+    - [0x9E450, sssv_vtx, data/inc/D_05000380_9E450]
+    - [0x9E480, sssv_vtx, data/inc/D_050003B0_9E480]
+    - [0x9E600, .data, data/D_05000530_9E600] # toilet (rat-o-matic)
+    - [0x9E790, sssv_vtx, data/inc/D_050006C0_9E790]
+    - [0x9E810, sssv_vtx, data/inc/D_05000740_9E810]
+    - [0x9E8B0, .data, data/D_050007E0_9E8B0] # toilet seat lid
     - [0x9E940, rgba16, img/objects/turd2/turd2.D_05000870_9E940.rgba16, 16, 16]
-    - [0x9EB40, vtx, data/inc/D_05000A70_9EB40]
-    - [0x9EC20, .data, data/9EC20] # turd
+    - [0x9EB40, sssv_vtx, data/inc/D_05000A70_9EB40]
+    - [0x9EC20, .data, data/D_05000B50_9EC20] # turd
   - name: data_9ED10
     type: code
     vram: 0x05000000
@@ -852,195 +1037,319 @@ segments:
     overlay: yes
     subsegments:
     - [0x9ED10, .data, data/9F240]
-    - [0x9ED10, vtx, data/inc/D_05000000_9ED10]
-    - [0x9ED90, vtx, data/inc/D_05000080_9ED90]
-    - [0x9EF90, vtx, data/inc/D_05000280_9EF90]
-    - [0x9F090, vtx, data/inc/D_05000380_9F090]
-    - [0x9F0C0, vtx, data/inc/D_050003B0_9F0C0]
+    - [0x9ED10, sssv_vtx, data/inc/D_05000000_9ED10]
+    - [0x9ED90, sssv_vtx, data/inc/D_05000080_9ED90]
+    - [0x9EF90, sssv_vtx, data/inc/D_05000280_9EF90]
+    - [0x9F090, sssv_vtx, data/inc/D_05000380_9F090]
+    - [0x9F0C0, sssv_vtx, data/inc/D_050003B0_9F0C0]
     - [0x9F240] # end of toilet
     - [0x9F3D0, .data, data/9F4F0]
-    - [0x9F3D0, vtx, data/inc/D_050006C0_9F3D0]
-    - [0x9F450, vtx, data/inc/D_05000740_9F450]
+    - [0x9F3D0, sssv_vtx, data/inc/D_050006C0_9F3D0]
+    - [0x9F450, sssv_vtx, data/inc/D_05000740_9F450]
     - [0x9F4F0] # end of toilet seat
-    - [0x9F580, .data, data/A00B0] # RAT_O_MATIC trophy
-    - [0x9F580, vtx, data/inc/D_05000870_9F580]
-    - [0x9F770, vtx, data/inc/D_05000A60_9F770]
-    - [0x9F8F0, vtx, data/inc/D_05000BE0_9F8F0]
-    - [0x9FA90, vtx, data/inc/D_05000D80_9FA90]
-    - [0x9FB90, vtx, data/inc/D_05000E80_9FB90]
-    - [0x9FBE0, vtx, data/inc/D_05000ED0_9FBE0]
-    - [0x9FCA0, vtx, data/inc/D_05000F90_9FCA0]
-    - [0x9FE30, vtx, data/inc/D_05001120_9FE30]
-    - [0xA0030, vtx, data/inc/D_05001320_A0030]
-    - [0xA00B0]
+    - [0x9F580, .data, data/A00B0]
+    - [0x9F580, sssv_vtx, data/inc/D_05000870_9F580]
+    - [0x9F770, sssv_vtx, data/inc/D_05000A60_9F770]
+    - [0x9F8F0, sssv_vtx, data/inc/D_05000BE0_9F8F0]
+    - [0x9FA90, sssv_vtx, data/inc/D_05000D80_9FA90]
+    - [0x9FB90, sssv_vtx, data/inc/D_05000E80_9FB90]
+    - [0x9FBE0, sssv_vtx, data/inc/D_05000ED0_9FBE0]
+    - [0x9FCA0, sssv_vtx, data/inc/D_05000F90_9FCA0]
+    - [0x9FE30, sssv_vtx, data/inc/D_05001120_9FE30]
+    - [0xA0030, sssv_vtx, data/inc/D_05001320_A0030]
+    - [0xA00B0] # RAT_O_MATIC trophy
     - [0xA0460, .data, data/A0CE0]
-    - [0xA0460, vtx, data/inc/D_05001750_A0460]
-    - [0xA04E0, vtx, data/inc/D_050017D0_A04E0]
-    - [0xA06E0, vtx, data/inc/D_050019D0_A06E0]
-    - [0xA08E0, vtx, data/inc/D_05001BD0_A08E0]
-    - [0xA0AC0, vtx, data/inc/D_05001DB0_A0AC0]
-    - [0xA0BE0, vtx, data/inc/D_05001ED0_A0BE0]
+    - [0xA0460, sssv_vtx, data/inc/D_05001750_A0460]
+    - [0xA04E0, sssv_vtx, data/inc/D_050017D0_A04E0]
+    - [0xA06E0, sssv_vtx, data/inc/D_050019D0_A06E0]
+    - [0xA08E0, sssv_vtx, data/inc/D_05001BD0_A08E0]
+    - [0xA0AC0, sssv_vtx, data/inc/D_05001DB0_A0AC0]
+    - [0xA0BE0, sssv_vtx, data/inc/D_05001ED0_A0BE0]
     - [0xA0CE0] # waterwheel kind of thing?
-  - name: data_A0E40
+  - name: data_A0E40  # ROCKY_HARD_PLACE
     type: code
     vram: 0x05000000
     start: 0xA0E40
     overlay: yes
     subsegments:
-    - [0xA0E40, bin] # vtx
-    - [0xA1000, bin] # displaylist # ROCKY_HARD_PLACE trophy
+    - [0xA0E40, sssv_vtx, data/inc/D_05000000_A0E40]
+    - [0xA0EC0, sssv_vtx, data/inc/D_05000080_A0EC0]
+    - [0xA1000, .data, data/ROCKY_HARD_PLACE_trophy.D_050001C0_A1000]
   - name: data_A10C0
     type: code
     vram: 0x05000000
     start: 0xA10C0
     overlay: yes
     subsegments:
-    - [0xA10C0, bin] # empty displaylist
+    - [0xA10C0, .rodata, data/D_05000000_A10C0]
   - name: data_A10D0
     type: code
     vram: 0x05000000
     start: 0xA10D0
     overlay: yes
     subsegments:
-    - [0xA10D0, bin] # vtx
-    - [0xA1870, bin] # displaylist  # arc?
-    - [0xA1AA0, bin] # vtx
-    - [0xA7370, bin] # displaylist  # evil brain surround?
-    - [0xA80F0, bin] # vtx
-    - [0xA88F0, bin] # displaylist
-    - [0xA8A40, rgba16, img/A8A40.rgba16, 32, 32] # dupe of 0x464B0
-    - [0xA9240, bin] # vtx
-    - [0xAA530, bin] # displaylist  # shrink-ray
+    - [0xA10D0, sssv_vtx, data/inc/D_05000000_A10D0]
+    - [0xA1150, sssv_vtx, data/inc/D_05000080_A1150]
+    - [0xA1340, sssv_vtx, data/inc/D_05000270_A1340]
+    - [0xA1530, sssv_vtx, data/inc/D_05000460_A1530]
+    - [0xA1730, sssv_vtx, data/inc/D_05000660_A1730]
+    - [0xA1870, .data, data/D_050007A0_A1870] # arc?
+    - [0xA1AA0, sssv_vtx, data/inc/D_050009D0_A1AA0]
+    - [0xA1B20, sssv_vtx, data/inc/D_05000A50_A1B20]
+    - [0xA1D20, sssv_vtx, data/inc/D_05000C50_A1D20]
+    - [0xA1F10, sssv_vtx, data/inc/D_05000E40_A1F10]
+    - [0xA20F0, sssv_vtx, data/inc/D_05001020_A20F0]
+    - [0xA22F0, sssv_vtx, data/inc/D_05001220_A22F0]
+    - [0xA24F0, sssv_vtx, data/inc/D_05001420_A24F0]
+    - [0xA26E0, sssv_vtx, data/inc/D_05001610_A26E0]
+    - [0xA28E0, sssv_vtx, data/inc/D_05001810_A28E0]
+    - [0xA2AD0, sssv_vtx, data/inc/D_05001A00_A2AD0]
+    - [0xA2CD0, sssv_vtx, data/inc/D_05001C00_A2CD0]
+    - [0xA2ED0, sssv_vtx, data/inc/D_05001E00_A2ED0]
+    - [0xA30D0, sssv_vtx, data/inc/D_05002000_A30D0]
+    - [0xA32D0, sssv_vtx, data/inc/D_05002200_A32D0]
+    - [0xA34D0, sssv_vtx, data/inc/D_05002400_A34D0]
+    - [0xA36D0, sssv_vtx, data/inc/D_05002600_A36D0]
+    - [0xA38D0, sssv_vtx, data/inc/D_05002800_A38D0]
+    - [0xA3AD0, sssv_vtx, data/inc/D_05002A00_A3AD0]
+    - [0xA3CD0, sssv_vtx, data/inc/D_05002C00_A3CD0]
+    - [0xA3EB0, sssv_vtx, data/inc/D_05002DE0_A3EB0]
+    - [0xA40B0, sssv_vtx, data/inc/D_05002FE0_A40B0]
+    - [0xA42A0, sssv_vtx, data/inc/D_050031D0_A42A0]
+    - [0xA44A0, sssv_vtx, data/inc/D_050033D0_A44A0]
+    - [0xA46A0, sssv_vtx, data/inc/D_050035D0_A46A0]
+    - [0xA4890, sssv_vtx, data/inc/D_050037C0_A4890]
+    - [0xA4A90, sssv_vtx, data/inc/D_050039C0_A4A90]
+    - [0xA4C80, sssv_vtx, data/inc/D_05003BB0_A4C80]
+    - [0xA4E80, sssv_vtx, data/inc/D_05003DB0_A4E80]
+    - [0xA5060, sssv_vtx, data/inc/D_05003F90_A5060]
+    - [0xA5260, sssv_vtx, data/inc/D_05004190_A5260]
+    - [0xA5460, sssv_vtx, data/inc/D_05004390_A5460]
+    - [0xA5650, sssv_vtx, data/inc/D_05004580_A5650]
+    - [0xA5850, sssv_vtx, data/inc/D_05004780_A5850]
+    - [0xA5A50, sssv_vtx, data/inc/D_05004980_A5A50]
+    - [0xA5C50, sssv_vtx, data/inc/D_05004B80_A5C50]
+    - [0xA5E50, sssv_vtx, data/inc/D_05004D80_A5E50]
+    - [0xA6050, sssv_vtx, data/inc/D_05004F80_A6050]
+    - [0xA6250, sssv_vtx, data/inc/D_05005180_A6250]
+    - [0xA6440, sssv_vtx, data/inc/D_05005370_A6440]
+    - [0xA6640, sssv_vtx, data/inc/D_05005570_A6640]
+    - [0xA6840, sssv_vtx, data/inc/D_05005770_A6840]
+    - [0xA6A30, sssv_vtx, data/inc/D_05005960_A6A30]
+    - [0xA6C30, sssv_vtx, data/inc/D_05005B60_A6C30]
+    - [0xA6E30, sssv_vtx, data/inc/D_05005D60_A6E30]
+    - [0xA7030, sssv_vtx, data/inc/D_05005F60_A7030]
+    - [0xA7230, sssv_vtx, data/inc/D_05006160_A7230]
+    - [0xA7370, .data, data/D_050062A0_A7370] # evil brain surround?
+    - [0xA80F0, sssv_vtx, data/inc/D_05007020_A80F0]
+    - [0xA8170, sssv_vtx, data/inc/D_050070A0_A8170]
+    - [0xA8370, sssv_vtx, data/inc/D_050072A0_A8370]
+    - [0xA8570, sssv_vtx, data/inc/D_050074A0_A8570]
+    - [0xA8770, sssv_vtx, data/inc/D_050076A0_A8770]
+    - [0xA88F0, .data, data/D_05007820_A88F0]
+    - [0xA8A40, rgba16, img/shrink_ray.D_05007970_A8A40.rgba16, 32, 32]
+    - [0xA9240, sssv_vtx, data/inc/D_05008170_A9240]
+    - [0xA92C0, sssv_vtx, data/inc/D_050081F0_A92C0]
+    - [0xA94A0, sssv_vtx, data/inc/D_050083D0_A94A0]
+    - [0xA9680, sssv_vtx, data/inc/D_050085B0_A9680]
+    - [0xA9880, sssv_vtx, data/inc/D_050087B0_A9880]
+    - [0xA9A80, sssv_vtx, data/inc/D_050089B0_A9A80]
+    - [0xA9C80, sssv_vtx, data/inc/D_05008BB0_A9C80]
+    - [0xA9E60, sssv_vtx, data/inc/D_05008D90_A9E60]
+    - [0xAA060, sssv_vtx, data/inc/D_05008F90_AA060]
+    - [0xAA240, sssv_vtx, data/inc/D_05009170_AA240]
+    - [0xAA430, sssv_vtx, data/inc/D_05009360_AA430]
+    - [0xAA530, .data, data/D_05009460_AA530] # shrink-ray
   - name: data_AA940 # SOMETHING_FISHY objects
     type: code
     vram: 0x05000000
     start: 0xAA940
     overlay: yes
     subsegments:
-    - [0xAA940, bin] # vtx
-    - [0xAAC70, bin] # displaylist # pentagon pot thing
-    - [0xAAD30, bin] # vtx
-    - [0xAAF60, bin] # displaylist # fish
-    - [0xAAFD0, bin] # vtx
-    - [0xAB200, bin] # displaylist # another fish
-    - [0xAB270, bin] # vtx
-    - [0xABF50, bin] # displaylist # mine
-    - [0xAC0D0, bin] # vtx
-    - [0xAC9D0, bin] # displaylist # shopping cart
-    - [0xACBC0, bin] # vtx
-    - [0xAEAF0, bin] # displaylist # skull?
-    - [0xAEEF0, bin] # vtx
-    - [0xAF130, bin] # displaylist
-    - [0xAF1B0, bin] # vtx
-    - [0xAF3F0, bin] # displaylist
-    - [0xAF470, bin] # vtx
-    - [0xAFE20, bin] # displaylist # dead fish bones
-    - [0xB0050, bin] # vtx
-    - [0xB0230, bin] # displaylist
-    - [0xB0270, bin] # vtx
-    - [0xB0450, bin] # displaylist
-  - name: data_B0490
+    - [0xAA940, sssv_vtx, data/inc/D_05000000_AA940]
+    - [0xAAB30, sssv_vtx, data/inc/D_050001F0_AAB30]
+    - [0xAAC70, .data, data/D_05000330_AAC70] # pentagon pot thing
+    - [0xAAD30, sssv_vtx, data/inc/D_050003F0_AAD30]
+    - [0xAAF30, sssv_vtx, data/inc/D_050005F0_AAF30]
+    - [0xAAF60, .data, data/D_05000620_AAF60] # fish
+    - [0xAAFD0, sssv_vtx, data/inc/D_05000690_AAFD0]
+    - [0xAB1D0, sssv_vtx, data/inc/D_05000890_AB1D0]
+    - [0xAB200, .data, data/D_050008C0_AB200] # another fish
+    - [0xAB270, sssv_vtx, data/inc/D_05000930_AB270]
+    - [0xAB460, sssv_vtx, data/inc/D_05000B20_AB460]
+    - [0xAB650, sssv_vtx, data/inc/D_05000D10_AB650]
+    - [0xAB850, sssv_vtx, data/inc/D_05000F10_AB850]
+    - [0xABA50, sssv_vtx, data/inc/D_05001110_ABA50]
+    - [0xABC50, sssv_vtx, data/inc/D_05001310_ABC50]
+    - [0xABE30, sssv_vtx, data/inc/D_050014F0_ABE30]
+    - [0xABF50, .data, data/D_05001610_ABF50] # mine
+    - [0xAC0D0, sssv_vtx, data/inc/D_05001790_AC0D0]
+    - [0xAC2C0, sssv_vtx, data/inc/D_05001980_AC2C0]
+    - [0xAC4B0, sssv_vtx, data/inc/D_05001B70_AC4B0]
+    - [0xAC560, sssv_vtx, data/inc/D_05001C20_AC560]
+    - [0xAC760, sssv_vtx, data/inc/D_05001E20_AC760]
+    - [0xAC940, sssv_vtx, data/inc/D_05002000_AC940]
+    - [0xAC9D0, .data, data/D_05002090_AC9D0] # shopping cart
+    - [0xACBC0, sssv_vtx, data/inc/D_05002280_ACBC0]
+    - [0xACC40, sssv_vtx, data/inc/D_05002300_ACC40]
+    - [0xACE40, sssv_vtx, data/inc/D_05002500_ACE40]
+    - [0xAD020, sssv_vtx, data/inc/D_050026E0_AD020]
+    - [0xAD210, sssv_vtx, data/inc/D_050028D0_AD210]
+    - [0xAD410, sssv_vtx, data/inc/D_05002AD0_AD410]
+    - [0xAD610, sssv_vtx, data/inc/D_05002CD0_AD610]
+    - [0xAD7F0, sssv_vtx, data/inc/D_05002EB0_AD7F0]
+    - [0xAD9E0, sssv_vtx, data/inc/D_050030A0_AD9E0]
+    - [0xADBD0, sssv_vtx, data/inc/D_05003290_ADBD0]
+    - [0xADDC0, sssv_vtx, data/inc/D_05003480_ADDC0]
+    - [0xADFA0, sssv_vtx, data/inc/D_05003660_ADFA0]
+    - [0xAE190, sssv_vtx, data/inc/D_05003850_AE190]
+    - [0xAE370, sssv_vtx, data/inc/D_05003A30_AE370]
+    - [0xAE550, sssv_vtx, data/inc/D_05003C10_AE550]
+    - [0xAE730, sssv_vtx, data/inc/D_05003DF0_AE730]
+    - [0xAE920, sssv_vtx, data/inc/D_05003FE0_AE920]
+    - [0xAEAF0, .data, data/D_050041B0_AEAF0] # skull?
+    - [0xAEEF0, sssv_vtx, data/inc/D_050045B0_AEEF0]
+    - [0xAEF70, sssv_vtx, data/inc/D_05004630_AEF70]
+    - [0xAF130, .data, data/D_050047F0_AF130]
+    - [0xAF1B0, sssv_vtx, data/inc/D_05004870_AF1B0]
+    - [0xAF230, sssv_vtx, data/inc/D_050048F0_AF230]
+    - [0xAF3F0, .data, data/D_05004AB0_AF3F0]
+    - [0xAF470, sssv_vtx, data/inc/D_05004B30_AF470]
+    - [0xAF4F0, sssv_vtx, data/inc/D_05004BB0_AF4F0]
+    - [0xAF6E0, sssv_vtx, data/inc/D_05004DA0_AF6E0]
+    - [0xAF8E0, sssv_vtx, data/inc/D_05004FA0_AF8E0]
+    - [0xAFAE0, sssv_vtx, data/inc/D_050051A0_AFAE0]
+    - [0xAFCE0, sssv_vtx, data/inc/D_050053A0_AFCE0]
+    - [0xAFE20, .data, data/D_050054E0_AFE20] # dead fish bones
+    - [0xB0050, sssv_vtx, data/inc/D_05005710_B0050]
+    - [0xB0230, .data, data/D_050058F0_B0230]
+    - [0xB0270, sssv_vtx, data/inc/D_05005930_B0270]
+    - [0xB0450, .data, data/D_05005B10_B0450]
+  - name: data_B0490 # HOPPA_CHOPPA
     type: code
     vram: 0x05000000
     start: 0xB0490
     overlay: yes
     subsegments:
-    - [0xB0490, bin] # vtx
-    - [0xB0A20, bin] # displaylist  # HOPPA_CHOPPA head?
-  - name: data_B0B90
+    - [0xB0490, sssv_vtx, data/inc/D_05000000_B0490]
+    - [0xB04C0, sssv_vtx, data/inc/D_05000030_B04C0]
+    - [0xB06C0, sssv_vtx, data/inc/D_05000230_B06C0]
+    - [0xB08C0, sssv_vtx, data/inc/D_05000430_B08C0]
+    - [0xB0A20, .data, data/D_05000590_B0A20] # HOPPA_CHOPPA head?
+  - name: data_B0B90 # PENGUIN_PLAYPEN
     type: code
     vram: 0x05000000
     start: 0xB0B90
     overlay: yes
     subsegments:
-    - [0xB0B90, bin] # vtx
-    - [0xB2270, bin] # displaylist  # PENGUIN_PLAYPEN ufo
-    - [0xB2630, bin] # vtx
-    - [0xB2760, bin] # displaylist  # ufo glass dome
-    - [0xB2810, bin] # vtx
-    - [0xB2DA0, bin] # displaylist  # PENGUIN_PLAYPEN trophy (musical notes)
-  - name: data_B2ED0
+    - [0xB0B90, sssv_vtx, data/inc/D_05000000_B0B90]
+    - [0xB0D90, sssv_vtx, data/inc/D_05000200_B0D90]
+    - [0xB0F80, sssv_vtx, data/inc/D_050003F0_B0F80]
+    - [0xB1180, sssv_vtx, data/inc/D_050005F0_B1180]
+    - [0xB1380, sssv_vtx, data/inc/D_050007F0_B1380]
+    - [0xB1570, sssv_vtx, data/inc/D_050009E0_B1570]
+    - [0xB1750, sssv_vtx, data/inc/D_05000BC0_B1750]
+    - [0xB1950, sssv_vtx, data/inc/D_05000DC0_B1950]
+    - [0xB1B40, sssv_vtx, data/inc/D_05000FB0_B1B40]
+    - [0xB1D40, sssv_vtx, data/inc/D_050011B0_B1D40]
+    - [0xB1F20, sssv_vtx, data/inc/D_05001390_B1F20]
+    - [0xB2060, sssv_vtx, data/inc/D_050014D0_B2060]
+    - [0xB2240, sssv_vtx, data/inc/D_050016B0_B2240]
+    - [0xB2270, .data, data/D_050016E0_B2270] # PENGUIN_PLAYPEN ufo
+    - [0xB2630, sssv_vtx, data/inc/D_05001AA0_B2630]
+    - [0xB2760, .data, data/D_05001BD0_B2760] # ufo glass dome
+    - [0xB2810, sssv_vtx, data/inc/D_05001C80_B2810]
+    - [0xB2A00, sssv_vtx, data/inc/D_05001E70_B2A00]
+    - [0xB2BF0, sssv_vtx, data/inc/D_05002060_B2BF0]
+    - [0xB2DA0, .data, data/D_05002210_B2DA0] # PENGUIN_PLAYPEN trophy (musical notes)
+  - name: data_B2ED0 # WALRACE_64
     type: code
     vram: 0x05000000
     start: 0xB2ED0
     overlay: yes
     subsegments:
-    - [0xB2ED0, vtx, data/inc/D_05000000_B2ED0]
-    - [0xB30C0, vtx, data/inc/D_050001F0_B30C0]
-    - [0xB32B0, vtx, data/inc/D_050003E0_B32B0]
-    - [0xB34A0, vtx, data/inc/D_050005D0_B34A0]
-    - [0xB34D0, vtx, data/inc/D_05000600_B34D0]
+    - [0xB2ED0, sssv_vtx, data/inc/D_05000000_B2ED0]
+    - [0xB30C0, sssv_vtx, data/inc/D_050001F0_B30C0]
+    - [0xB32B0, sssv_vtx, data/inc/D_050003E0_B32B0]
+    - [0xB34A0, sssv_vtx, data/inc/D_050005D0_B34A0]
+    - [0xB34D0, sssv_vtx, data/inc/D_05000600_B34D0]
     - [0xB35D0, .data, data/B35D0] # wallrace 64 trophy
-    - [0xB3790, bin] # vtx
-    - [0xB3990, bin] # displaylist # wallrace penguin spectator
-    - [0xB3A80, bin] # vtx
-    - [0xB3CF0, bin] # displaylist # wallrace buoy
+    - [0xB3790, sssv_vtx, data/inc/D_050008C0_B3790]
+    - [0xB3860, sssv_vtx, data/inc/D_05000990_B3860]
+    - [0xB3890, sssv_vtx, data/inc/D_050009C0_B3890]
+    - [0xB38C0, sssv_vtx, data/inc/D_050009F0_B38C0]
+    - [0xB3950, sssv_vtx, data/inc/D_05000A80_B3950]
+    - [0xB3990, .data, data/D_05000AC0_B3990] # wallrace penguin spectator
+    - [0xB3A80, sssv_vtx, data/inc/D_05000BB0_B3A80]
+    - [0xB3B00, sssv_vtx, data/inc/D_05000C30_B3B00]
+    - [0xB3B60, sssv_vtx, data/inc/D_05000C90_B3B60]
+    - [0xB3CF0, .data, data/D_05000E20_B3CF0] # wallrace buoy
   - name: data_B3D70
     type: code
     vram: 0x05000000
     start: 0xB3D70
     overlay: yes
     subsegments:
-    - [0xB3D70, bin] # end of displaylists
+    - [0xB3D70, .rodata, data/D_05000000_B3D70]
   - name: data_B3D80
     type: code
     vram: 0x05000000
     start: 0xB3D80
     overlay: yes
     subsegments:
-    - [0xB3D80, bin] # end of displaylists
+    - [0xB3D80, .rodata, data/D_05000000_B3D80]
   - name: data_B3D90
     type: code
     vram: 0x05000000
     start: 0xB3D90
     overlay: yes
     subsegments:
-    - [0xB3D90, bin] # end of displaylists
+    - [0xB3D90, .rodata, data/D_05000000_B3D90]
   - name: data_B3DA0
     type: code
     vram: 0x05000000
     start: 0xB3DA0
     overlay: yes
     subsegments:
-    - [0xB3DA0, bin] # end of displaylists
+    - [0xB3DA0, .rodata, data/D_05000000_B3DA0]
   - name: data_B3DB0
     type: code
     vram: 0x05000000
     start: 0xB3DB0
     overlay: yes
     subsegments:
-    - [0xB3DB0, bin] # end of displaylists
+    - [0xB3DB0, .rodata, data/D_05000000_B3DB0]
   - name: data_B3DC0
     type: code
     vram: 0x05000000
     start: 0xB3DC0
     overlay: yes
     subsegments:
-    - [0xB3DC0, bin] # end of displaylists
+    - [0xB3DC0, .rodata, data/D_05000000_B3DC0]
   - name: data_B3DD0 # WEIGHT_FOR_IT
     type: code
     vram: 0x05000000
     start: 0xB3DD0
     overlay: yes
     subsegments:
-    - [0xB3DD0, vtx, data/inc/D_05000000_B3DD0]
-    - [0xB3FD0, vtx, data/inc/D_05000200_B3FD0]
-    - [0xB4020, .data, data/D_05000250_B4020] # WEIGHT_FOR_IT trophy
+    - [0xB3DD0, sssv_vtx, data/inc/D_05000000_B3DD0]
+    - [0xB3FD0, sssv_vtx, data/inc/D_05000200_B3FD0]
+    - [0xB4020, .data, data/WEIGHT_FOR_IT_trophy.D_05000250_B4020]
   - name: data_B40C0
     type: code
     vram: 0x05000000
     start: 0xB40C0
     overlay: yes
     subsegments:
-    - [0xB40C0, bin] # end of displaylists
+    - [0xB40C0, .rodata, data/D_05000000_B40C0]
   - name: data_B40D0
     type: code
     vram: 0x05000000
     start: 0xB40D0
     overlay: yes
     subsegments:
-    - [0xB40D0, vtx, data/inc/D_05000000_B40D0]
-    - [0xB4150, vtx, data/inc/D_05000080_B4150]
+    - [0xB40D0, sssv_vtx, data/inc/D_05000000_B40D0]
+    - [0xB4150, sssv_vtx, data/inc/D_05000080_B4150]
     - [0xB42D0, .data, data/D_05000200_B42D0] # JUNGLE_JUMPS key?
   - name: data_B43A0
     type: code
@@ -1048,116 +1357,123 @@ segments:
     start: 0xB43A0
     overlay: yes
     subsegments:
-    - [0xB43A0, bin] # vtx
-    - [0xB47E0, bin] # dl  # JUNGLE_JAPES trophy
+    - [0xB43A0, sssv_vtx, data/inc/D_05000000_B43A0]
+    - [0xB4590, sssv_vtx, data/inc/D_050001F0_B4590]
+    - [0xB4790, sssv_vtx, data/inc/D_050003F0_B4790]
+    - [0xB47E0, .data, data/D_05000440_B47E0] # JUNGLE_JAPES trophy
   - name: data_B48C0
     type: code
     vram: 0x05000000
     start: 0xB48C0
     overlay: yes
     subsegments:
-    - [0xB48C0, bin] # end of displaylist
-  - name: data_B48D0
+    - [0xB48C0, .rodata, data/D_05000000_B48C0]
+  - name: data_B48D0 # EVOS_ESCAPE
     type: code
     vram: 0x05000000
     start: 0xB48D0
     overlay: yes
     subsegments:
-    - [0xB48D0, vtx, data/inc/D_05000000_B48D0]
-    - [0xB4930, vtx, data/inc/D_05000060_B4930]
-    - [0xB49F0, vtx, data/inc/D_05000120_B49F0]
+    - [0xB48D0, sssv_vtx, data/inc/D_05000000_B48D0]
+    - [0xB4930, sssv_vtx, data/inc/D_05000060_B4930]
+    - [0xB49F0, sssv_vtx, data/inc/D_05000120_B49F0]
     - [0xB4A60, .data, data/EVOS_ESCAPE_arrow.D_05000190_B4A60]
     - [0xB4B20, rgba16, img/D_05000250_B4B20.rgba16, 32, 32] # turret texture
-    - [0xB5320, vtx, data/inc/D_05000A50_B5320]
-    - [0xB53A0, vtx, data/inc/D_05000AD0_B53A0]
-    - [0xB5580, vtx, data/inc/D_05000CB0_B5580]
-    - [0xB5780, vtx, data/inc/D_05000EB0_B5780]
-    - [0xB5970, vtx, data/inc/D_050010A0_B5970]
-    - [0xB5B60, vtx, data/inc/D_05001290_B5B60]
-    - [0xB5BE0, vtx, data/inc/D_05001310_B5BE0]
-    - [0xB5DC0, vtx, data/inc/D_050014F0_B5DC0]
-    - [0xB5EB0, vtx, data/inc/D_050015E0_B5EB0]
-    - [0xB6090, vtx, data/inc/D_050017C0_B6090]
-    - [0xB6270, vtx, data/inc/D_050019A0_B6270]
-    - [0xB6460, vtx, data/inc/D_05001B90_B6460]
-    - [0xB6640, vtx, data/inc/D_05001D70_B6640]
-    - [0xB6820, vtx, data/inc/D_05001F50_B6820]
-    - [0xB6970, vtx, data/inc/D_050020A0_B6970]
-    - [0xB6B50, vtx, data/inc/D_05002280_B6B50]
-    - [0xB6C90, vtx, data/inc/D_050023C0_B6C90]
-    - [0xB6E80, vtx, data/inc/D_050025B0_B6E80]
-    - [0xB7060, vtx, data/inc/D_05002790_B7060]
-    - [0xB7250, vtx, data/inc/D_05002980_B7250]
-    - [0xB7430, vtx, data/inc/D_05002B60_B7430]
-    - [0xB7630, vtx, data/inc/D_05002D60_B7630]
-    - [0xB7810, vtx, data/inc/D_05002F40_B7810]
-    - [0xB7A10, vtx, data/inc/D_05003140_B7A10]
-    - [0xB7C10, vtx, data/inc/D_05003340_B7C10]
-    - [0xB7E00, vtx, data/inc/D_05003530_B7E00]
-    - [0xB8000, vtx, data/inc/D_05003730_B8000]
-    - [0xB81F0, vtx, data/inc/D_05003920_B81F0]
-    - [0xB83D0, vtx, data/inc/D_05003B00_B83D0]
-    - [0xB85C0, vtx, data/inc/D_05003CF0_B85C0]
-    - [0xB87A0, vtx, data/inc/D_05003ED0_B87A0]
-    - [0xB8980, vtx, data/inc/D_050040B0_B8980]
-    - [0xB8B70, vtx, data/inc/D_050042A0_B8B70]
-    - [0xB8D70, vtx, data/inc/D_050044A0_B8D70]
-    - [0xB8F70, vtx, data/inc/D_050046A0_B8F70]
-    - [0xB8FF0, vtx, data/inc/D_05004720_B8FF0]
-    - [0xB9070, vtx, data/inc/D_050047A0_B9070]
-    - [0xB90B0, vtx, data/inc/D_050047E0_B90B0]
-    - [0xB9270, vtx, data/inc/D_050049A0_B9270]
-    - [0xB93F0, vtx, data/inc/D_05004B20_B93F0]
-    - [0xB95E0, vtx, data/inc/D_05004D10_B95E0]
-    - [0xB9660, vtx, data/inc/D_05004D90_B9660]
+    - [0xB5320, sssv_vtx, data/inc/D_05000A50_B5320]
+    - [0xB53A0, sssv_vtx, data/inc/D_05000AD0_B53A0]
+    - [0xB5580, sssv_vtx, data/inc/D_05000CB0_B5580]
+    - [0xB5780, sssv_vtx, data/inc/D_05000EB0_B5780]
+    - [0xB5970, sssv_vtx, data/inc/D_050010A0_B5970]
+    - [0xB5B60, sssv_vtx, data/inc/D_05001290_B5B60]
+    - [0xB5BE0, sssv_vtx, data/inc/D_05001310_B5BE0]
+    - [0xB5DC0, sssv_vtx, data/inc/D_050014F0_B5DC0]
+    - [0xB5EB0, sssv_vtx, data/inc/D_050015E0_B5EB0]
+    - [0xB6090, sssv_vtx, data/inc/D_050017C0_B6090]
+    - [0xB6270, sssv_vtx, data/inc/D_050019A0_B6270]
+    - [0xB6460, sssv_vtx, data/inc/D_05001B90_B6460]
+    - [0xB6640, sssv_vtx, data/inc/D_05001D70_B6640]
+    - [0xB6820, sssv_vtx, data/inc/D_05001F50_B6820]
+    - [0xB6970, sssv_vtx, data/inc/D_050020A0_B6970]
+    - [0xB6B50, sssv_vtx, data/inc/D_05002280_B6B50]
+    - [0xB6C90, sssv_vtx, data/inc/D_050023C0_B6C90]
+    - [0xB6E80, sssv_vtx, data/inc/D_050025B0_B6E80]
+    - [0xB7060, sssv_vtx, data/inc/D_05002790_B7060]
+    - [0xB7250, sssv_vtx, data/inc/D_05002980_B7250]
+    - [0xB7430, sssv_vtx, data/inc/D_05002B60_B7430]
+    - [0xB7630, sssv_vtx, data/inc/D_05002D60_B7630]
+    - [0xB7810, sssv_vtx, data/inc/D_05002F40_B7810]
+    - [0xB7A10, sssv_vtx, data/inc/D_05003140_B7A10]
+    - [0xB7C10, sssv_vtx, data/inc/D_05003340_B7C10]
+    - [0xB7E00, sssv_vtx, data/inc/D_05003530_B7E00]
+    - [0xB8000, sssv_vtx, data/inc/D_05003730_B8000]
+    - [0xB81F0, sssv_vtx, data/inc/D_05003920_B81F0]
+    - [0xB83D0, sssv_vtx, data/inc/D_05003B00_B83D0]
+    - [0xB85C0, sssv_vtx, data/inc/D_05003CF0_B85C0]
+    - [0xB87A0, sssv_vtx, data/inc/D_05003ED0_B87A0]
+    - [0xB8980, sssv_vtx, data/inc/D_050040B0_B8980]
+    - [0xB8B70, sssv_vtx, data/inc/D_050042A0_B8B70]
+    - [0xB8D70, sssv_vtx, data/inc/D_050044A0_B8D70]
+    - [0xB8F70, sssv_vtx, data/inc/D_050046A0_B8F70]
+    - [0xB8FF0, sssv_vtx, data/inc/D_05004720_B8FF0]
+    - [0xB9070, sssv_vtx, data/inc/D_050047A0_B9070]
+    - [0xB90B0, sssv_vtx, data/inc/D_050047E0_B90B0]
+    - [0xB9270, sssv_vtx, data/inc/D_050049A0_B9270]
+    - [0xB93F0, sssv_vtx, data/inc/D_05004B20_B93F0]
+    - [0xB95E0, sssv_vtx, data/inc/D_05004D10_B95E0]
+    - [0xB9660, sssv_vtx, data/inc/D_05004D90_B9660]
     - [0xB96E0, .data, data/EVOS_ESCAPE_turret.D_05004E10_B96E0]
-    - [0xBA320, vtx, data/inc/D_05005A50_BA320]
-    - [0xBA3A0, vtx, data/inc/D_05005AD0_BA3A0]
-    - [0xBA590, vtx, data/inc/D_05005CC0_BA590]
-    - [0xBA790, vtx, data/inc/D_05005EC0_BA790]
-    - [0xBA970, vtx, data/inc/D_050060A0_BA970]
-    - [0xBAB50, vtx, data/inc/D_05006280_BAB50]
-    - [0xBAD40, vtx, data/inc/D_05006470_BAD40]
-    - [0xBAF30, vtx, data/inc/D_05006660_BAF30]
-    - [0xBB120, vtx, data/inc/D_05006850_BB120]
-    - [0xBB300, vtx, data/inc/D_05006A30_BB300]
+    - [0xBA320, sssv_vtx, data/inc/D_05005A50_BA320]
+    - [0xBA3A0, sssv_vtx, data/inc/D_05005AD0_BA3A0]
+    - [0xBA590, sssv_vtx, data/inc/D_05005CC0_BA590]
+    - [0xBA790, sssv_vtx, data/inc/D_05005EC0_BA790]
+    - [0xBA970, sssv_vtx, data/inc/D_050060A0_BA970]
+    - [0xBAB50, sssv_vtx, data/inc/D_05006280_BAB50]
+    - [0xBAD40, sssv_vtx, data/inc/D_05006470_BAD40]
+    - [0xBAF30, sssv_vtx, data/inc/D_05006660_BAF30]
+    - [0xBB120, sssv_vtx, data/inc/D_05006850_BB120]
+    - [0xBB300, sssv_vtx, data/inc/D_05006A30_BB300]
     - [0xBB4B0, .data, data/EVOS_ESCAPE_gorilla_statue.D_05006BE0_BB4B0]
-    - [0xBB980, vtx, data/inc/D_050070B0_BB980]
-    - [0xBBA00, vtx, data/inc/D_05007130_BBA00]
-    - [0xBBBE0, vtx, data/inc/D_05007310_BBBE0]
-    - [0xBBDE0, vtx, data/inc/D_05007510_BBDE0]
-    - [0xBBFE0, vtx, data/inc/D_05007710_BBFE0]
+    - [0xBB980, sssv_vtx, data/inc/D_050070B0_BB980]
+    - [0xBBA00, sssv_vtx, data/inc/D_05007130_BBA00]
+    - [0xBBBE0, sssv_vtx, data/inc/D_05007310_BBBE0]
+    - [0xBBDE0, sssv_vtx, data/inc/D_05007510_BBDE0]
+    - [0xBBFE0, sssv_vtx, data/inc/D_05007710_BBFE0]
     - [0xBC110, .data, data/EVOS_ESCAPE_lion_bust.D_05007840_BC110]
-    - [0xBC300, bin] # vtx
-    - [0xBCE70, bin] # dl  # evo arms (or legs)
+    - [0xBC300, sssv_vtx, data/inc/D_05007A30_BC300]
+    - [0xBC4E0, sssv_vtx, data/inc/D_05007C10_BC4E0]
+    - [0xBC6E0, sssv_vtx, data/inc/D_05007E10_BC6E0]
+    - [0xBC8C0, sssv_vtx, data/inc/D_05007FF0_BC8C0]
+    - [0xBCAC0, sssv_vtx, data/inc/D_050081F0_BCAC0]
+    - [0xBCCB0, sssv_vtx, data/inc/D_050083E0_BCCB0]
+    - [0xBCE70, .data, data/EVOS_ESCAPE_trophy.D_050085A0_BCE70]  # evo arms)
   - name: data_BD090
     type: code
     vram: 0x05000000
     start: 0xBD090
     overlay: yes
     subsegments:
-    - [0xBD090, .rodata, data/D_05000000_BD090] # empty displaylist
+    - [0xBD090, .rodata, data/D_05000000_BD090]
   - name: data_BD0A0
     type: code
     vram: 0x05000000
     start: 0xBD0A0
     overlay: yes
     subsegments:
-    - [0xBD0A0, .rodata, data/D_05000000_BD0A0] # empty displaylist
+    - [0xBD0A0, .rodata, data/D_05000000_BD0A0]
   - name: data_BD0B0
     type: code
     vram: 0x05000000
     start: 0xBD0B0
     overlay: yes
     subsegments:
-    - [0xBD0B0, bin] # end of displaylist
+    - [0xBD0B0, .rodata, data/D_05000000_BD0B0]
   - name: data_BD0C0
     type: code
     vram: 0x05000000
     start: 0xBD0C0
     overlay: yes
     subsegments:
-    - [0xBD0C0, bin] # end of displaylist
+    - [0xBD0C0, .rodata, data/D_05000000_BD0C0]
   - name: data_BD0D0
     type: code
     vram: 0x05000000
@@ -1165,55 +1481,101 @@ segments:
     overlay: yes
     subalign: 8
     subsegments:
-    - [0xBD0D0, bin] # vtx
-    - [0xBD240, bin] # dl  # pole
+    - [0xBD0D0, sssv_vtx, data/inc/D_05000000_BD0D0]
+    - [0xBD150, sssv_vtx, data/inc/D_05000080_BD150]
+    - [0xBD1F0, sssv_vtx, data/inc/D_05000120_BD1F0]
+    - [0xBD240, .data, data/D_05000170_BD240] # pole
   - name: data_BD2B0
     type: code
     vram: 0x05000000
     start: 0xBD2B0
     overlay: yes
     subsegments:
-    - [0xBD2B0, bin] # vtx
-    - [0xBD530, bin] # dl # scorpion tail?
-    - [0xBD5E0, bin] # vtx
-    - [0xBD940, bin] # gfx
-    - [0xBD9E0, bin]
-    - [0xBEB90, bin] # vtx
-    - [0xBF820, bin] # displaylist # HOT_CROSS_BUNS trophy
+    - [0xBD2B0, sssv_vtx, data/inc/D_05000000_BD2B0]
+    - [0xBD420, sssv_vtx, data/inc/D_05000170_BD420]
+    - [0xBD4D0, sssv_vtx, data/inc/D_05000220_BD4D0]
+    - [0xBD530, .data, data/D_05000280_BD530] # scorpion tail?
+    - [0xBD5E0, sssv_vtx, data/inc/D_05000330_BD5E0]
+    - [0xBD660, sssv_vtx, data/inc/D_050003B0_BD660]
+    - [0xBD850, sssv_vtx, data/inc/D_050005A0_BD850]
+    - [0xBD940, .data, data/D_05000690_BD940]
+    - [0xBD9E0, sssv_vtx, data/inc/D_05000730_BD9E0]
+    - [0xBDA60, sssv_vtx, data/inc/D_050007B0_BDA60]
+    - [0xBDC50, sssv_vtx, data/inc/D_050009A0_BDC50]
+    - [0xBDE40, sssv_vtx, data/inc/D_05000B90_BDE40]
+    - [0xBE020, sssv_vtx, data/inc/D_05000D70_BE020]
+    - [0xBE220, sssv_vtx, data/inc/D_05000F70_BE220]
+    - [0xBE420, sssv_vtx, data/inc/D_05001170_BE420]
+    - [0xBE5C0, sssv_vtx, data/inc/D_05001310_BE5C0]
+    - [0xBE770, .data, data/D_050014C0_BE770]
+    - [0xBEB90, sssv_vtx, data/inc/D_050018E0_BEB90]
+    - [0xBEC10, sssv_vtx, data/inc/D_05001960_BEC10]
+    - [0xBEE00, sssv_vtx, data/inc/D_05001B50_BEE00]
+    - [0xBF000, sssv_vtx, data/inc/D_05001D50_BF000]
+    - [0xBF1E0, sssv_vtx, data/inc/D_05001F30_BF1E0]
+    - [0xBF3D0, sssv_vtx, data/inc/D_05002120_BF3D0]
+    - [0xBF5C0, sssv_vtx, data/inc/D_05002310_BF5C0]
+    - [0xBF730, sssv_vtx, data/inc/D_05002480_BF730]
+    - [0xBF820, .data, data/D_05002570_BF820] # HOT_CROSS_BUNS trophy
   - name: data_BFC40 # PUNCHUP_PYRAMID ?
     type: code
     vram: 0x05000000
     start: 0xBFC40
     overlay: yes
     subsegments:
-    - [0xBFC40, vtx, data/inc/D_05000000_BFC40]
-    - [0xBFE40, vtx, data/inc/D_05000200_BFE40]
-    - [0xC0020, vtx, data/inc/D_050003E0_C0020]
-    - [0xC0210, vtx, data/inc/D_050005D0_C0210]
-    - [0xC03F0, vtx, data/inc/D_050007B0_C03F0]
-    - [0xC05D0, vtx, data/inc/D_05000990_C05D0]
+    - [0xBFC40, sssv_vtx, data/inc/D_05000000_BFC40]
+    - [0xBFE40, sssv_vtx, data/inc/D_05000200_BFE40]
+    - [0xC0020, sssv_vtx, data/inc/D_050003E0_C0020]
+    - [0xC0210, sssv_vtx, data/inc/D_050005D0_C0210]
+    - [0xC03F0, sssv_vtx, data/inc/D_050007B0_C03F0]
+    - [0xC05D0, sssv_vtx, data/inc/D_05000990_C05D0]
     - [0xC0760, .data, data/C0760] # kangaroo thing...
-    - [0xC09B0, bin] # vtx
-    - [0xC1D10, bin] # dl
-    - [0xC21A0, bin] # vtx
-    - [0xC3300, bin] # dl
-    - [0xC37B0, bin] # vtx
-    - [0xC4280, bin] # dl
+    - [0xC09B0, sssv_vtx, data/inc/D_05000D70_C09B0]
+    - [0xC0A30, sssv_vtx, data/inc/D_05000DF0_C0A30]
+    - [0xC0C20, sssv_vtx, data/inc/D_05000FE0_C0C20]
+    - [0xC0E10, sssv_vtx, data/inc/D_050011D0_C0E10]
+    - [0xC0FF0, sssv_vtx, data/inc/D_050013B0_C0FF0]
+    - [0xC11F0, sssv_vtx, data/inc/D_050015B0_C11F0]
+    - [0xC13F0, sssv_vtx, data/inc/D_050017B0_C13F0]
+    - [0xC15F0, sssv_vtx, data/inc/D_050019B0_C15F0]
+    - [0xC17E0, sssv_vtx, data/inc/D_05001BA0_C17E0]
+    - [0xC19D0, sssv_vtx, data/inc/D_05001D90_C19D0]
+    - [0xC1BB0, sssv_vtx, data/inc/D_05001F70_C1BB0]
+    - [0xC1D10, .data, data/D_050020D0_C1D10]
+    - [0xC21A0, sssv_vtx, data/inc/D_05002560_C21A0]
+    - [0xC2220, sssv_vtx, data/inc/D_050025E0_C2220]
+    - [0xC2400, sssv_vtx, data/inc/D_050027C0_C2400]
+    - [0xC25F0, sssv_vtx, data/inc/D_050029B0_C25F0]
+    - [0xC27F0, sssv_vtx, data/inc/D_05002BB0_C27F0]
+    - [0xC29E0, sssv_vtx, data/inc/D_05002DA0_C29E0]
+    - [0xC2BD0, sssv_vtx, data/inc/D_05002F90_C2BD0]
+    - [0xC2DB0, sssv_vtx, data/inc/D_05003170_C2DB0]
+    - [0xC2F90, sssv_vtx, data/inc/D_05003350_C2F90]
+    - [0xC3180, sssv_vtx, data/inc/D_05003540_C3180]
+    - [0xC3240, sssv_vtx, data/inc/D_05003600_C3240]
+    - [0xC3300, .data, data/D_050036C0_C3300] # kangaroo plinth
+    - [0xC37B0, sssv_vtx, data/inc/D_05003B70_C37B0]
+    - [0xC39A0, sssv_vtx, data/inc/D_05003D60_C39A0]
+    - [0xC3B90, sssv_vtx, data/inc/D_05003F50_C3B90]
+    - [0xC3D80, sssv_vtx, data/inc/D_05004140_C3D80]
+    - [0xC3F70, sssv_vtx, data/inc/D_05004330_C3F70]
+    - [0xC4160, sssv_vtx, data/inc/D_05004520_C4160]
+    - [0xC4280, .data, data/D_05004640_C4280]
   - name: data_C4500
     type: code
     vram: 0x05000000
     start: 0xC4500
     overlay: yes
     subsegments:
-    - [0xC4500, bin] # end of displaylist
+    - [0xC4500, .rodata, data/D_05000000_C4500]
   - name: data_C4510
     type: code
     vram: 0x05000000
     start: 0xC4510
     overlay: yes
     subsegments:
-    - [0xC4510, vtx, data/inc/D_05000000_C4510]
-    - [0xC4590, vtx, data/inc/D_05000080_C4590]
+    - [0xC4510, sssv_vtx, data/inc/D_05000000_C4510]
+    - [0xC4590, sssv_vtx, data/inc/D_05000080_C4590]
     - [0xC46E0, .data, data/D_050001D0_C46E0]  # tbd
   - name: data_C47A0
     type: code
@@ -1221,7 +1583,7 @@ segments:
     start: 0xC47A0
     overlay: yes
     subsegments:
-    - [0xC47A0, bin] # end of displaylist
+    - [0xC47A0, .rodata, data/D_05000000_C47A0]
   - name: data_C47B0
     type: code
     vram: 0x05000000
@@ -1229,54 +1591,58 @@ segments:
     overlay: yes
     subalign: 8
     subsegments:
-    - [0xC47B0, vtx, data/inc/D_05000000_C47B0]
-    - [0xC4830, vtx, data/inc/D_05000080_C4830]
-    - [0xC4A30, vtx, data/inc/D_05000280_C4A30]
-    - [0xC4C20, vtx, data/inc/D_05000470_C4C20]
-    - [0xC4E20, vtx, data/inc/D_05000670_C4E20]
-    - [0xC5010, vtx, data/inc/D_05000860_C5010]
-    - [0xC5200, vtx, data/inc/D_05000A50_C5200]
-    - [0xC53E0, vtx, data/inc/D_05000C30_C53E0]
-    - [0xC55E0, vtx, data/inc/D_05000E30_C55E0]
-    - [0xC57D0, vtx, data/inc/D_05001020_C57D0]
-    - [0xC59D0, vtx, data/inc/D_05001220_C59D0]
-    - [0xC5B60, vtx, data/inc/D_050013B0_C5B60]
+    - [0xC47B0, sssv_vtx, data/inc/D_05000000_C47B0]
+    - [0xC4830, sssv_vtx, data/inc/D_05000080_C4830]
+    - [0xC4A30, sssv_vtx, data/inc/D_05000280_C4A30]
+    - [0xC4C20, sssv_vtx, data/inc/D_05000470_C4C20]
+    - [0xC4E20, sssv_vtx, data/inc/D_05000670_C4E20]
+    - [0xC5010, sssv_vtx, data/inc/D_05000860_C5010]
+    - [0xC5200, sssv_vtx, data/inc/D_05000A50_C5200]
+    - [0xC53E0, sssv_vtx, data/inc/D_05000C30_C53E0]
+    - [0xC55E0, sssv_vtx, data/inc/D_05000E30_C55E0]
+    - [0xC57D0, sssv_vtx, data/inc/D_05001020_C57D0]
+    - [0xC59D0, sssv_vtx, data/inc/D_05001220_C59D0]
+    - [0xC5B60, sssv_vtx, data/inc/D_050013B0_C5B60]
     - [0xC5BB0, .data, data/C5BB0] # ?
-    - [0xC5EA0, vtx, data/inc/D_050016F0_C5EA0]
-    - [0xC5F20, vtx, data/inc/D_05001770_C5F20]
-    - [0xC6120, vtx, data/inc/D_05001970_C6120]
-    - [0xC6320, vtx, data/inc/D_05001B70_C6320]
-    - [0xC6500, vtx, data/inc/D_05001D50_C6500]
-    - [0xC66F0, vtx, data/inc/D_05001F40_C66F0]
-    - [0xC68F0, vtx, data/inc/D_05002140_C68F0]
-    - [0xC6AF0, vtx, data/inc/D_05002340_C6AF0]
-    - [0xC6CE0, vtx, data/inc/D_05002530_C6CE0]
+    - [0xC5EA0, sssv_vtx, data/inc/D_050016F0_C5EA0]
+    - [0xC5F20, sssv_vtx, data/inc/D_05001770_C5F20]
+    - [0xC6120, sssv_vtx, data/inc/D_05001970_C6120]
+    - [0xC6320, sssv_vtx, data/inc/D_05001B70_C6320]
+    - [0xC6500, sssv_vtx, data/inc/D_05001D50_C6500]
+    - [0xC66F0, sssv_vtx, data/inc/D_05001F40_C66F0]
+    - [0xC68F0, sssv_vtx, data/inc/D_05002140_C68F0]
+    - [0xC6AF0, sssv_vtx, data/inc/D_05002340_C6AF0]
+    - [0xC6CE0, sssv_vtx, data/inc/D_05002530_C6CE0]
     - [0xC6E60, .data, data/C6E60] # desert 'claw' tree thing
-    - [0xC7170, bin] # vtx
-    - [0xC77A0, bin] # displaylist
-    - [0xC7910, bin] # vtx # D_05003160
-    - [0xC79A0, bin] # displaylist
+    - [0xC7170, sssv_vtx, data/inc/D_050029C0_C7170]
+    - [0xC71F0, sssv_vtx, data/inc/D_05002A40_C71F0]
+    - [0xC73F0, sssv_vtx, data/inc/D_05002C40_C73F0]
+    - [0xC7580, sssv_vtx, data/inc/D_05002DD0_C7580]
+    - [0xC7770, sssv_vtx, data/inc/D_05002FC0_C7770]
+    - [0xC77A0, .data, data/D_05002FF0_C77A0]
+    - [0xC7910, sssv_vtx, data/inc/D_05003160_C7910]
+    - [0xC79A0, .data, data/D_050031F0_C79A0]
   - name: data_C7A00
     type: code
     vram: 0x05000000
     start: 0xC7A00
     overlay: yes
     subsegments:
-    - [0xC7A00, bin] # end of displaylist
+    - [0xC7A00, .rodata, data/D_05000000_C7A00]
   - name: data_C7A10
     type: code
     vram: 0x05000000
     start: 0xC7A10
     overlay: yes
     subsegments:
-    - [0xC7A10, bin] # end of displaylist
+    - [0xC7A10, .rodata, data/D_05000000_C7A10]
   - name: data_C7A20
     type: code
     vram: 0x05000000
     start: 0xC7A20
     overlay: yes
     subsegments:
-    - [0xC7A20, bin] # end of displaylist
+    - [0xC7A20, .rodata, data/D_05000000_C7A20]
   - name: europe_biome # europe animals
     type: code
     vram: 0x04000000
@@ -1284,41 +1650,46 @@ segments:
     overlay: yes
     subalign: 8
     subsegments:
-    - [0xC7A30, vtx, data/inc/D_04000000_C7A30]
+    - [0xC7A30, sssv_vtx, data/inc/D_04000000_C7A30]
     - [0xC7BD0, .data, data/C7BD0] # boulder? or dog's body? D_040001A0_C7BD0
-    - [0xC7CB0, vtx, data/inc/D_04000280_C7CB0]
+    - [0xC7CB0, sssv_vtx, data/inc/D_04000280_C7CB0]
     - [0xC7E50, .data, data/dog_body.D_04000420_C7E50]
-    - [0xC7F30, vtx, data/inc/D_04000500_C7F30]
-    - [0xC8060, vtx, data/inc/D_04000630_C8060]
-    - [0xC80D0, vtx, data/inc/D_040006A0_C80D0]
-    - [0xC81B0, vtx, data/inc/D_04000780_C81B0]
+    - [0xC7F30, sssv_vtx, data/inc/D_04000500_C7F30]
+    - [0xC8060, sssv_vtx, data/inc/D_04000630_C8060]
+    - [0xC80D0, sssv_vtx, data/inc/D_040006A0_C80D0]
+    - [0xC81B0, sssv_vtx, data/inc/D_04000780_C81B0]
     - [0xC82A0, .data, data/dog_head.D_04000870_C82A0]
-    - [0xC83C0, vtx, data/inc/D_04000990_C83C0]
-    - [0xC8440, vtx, data/inc/D_04000A10_C8440]
-    - [0xC8510, vtx, data/inc/D_04000AE0_C8510]
-    - [0xC85D0, vtx, data/inc/D_04000BA0_C85D0]
-    - [0xC86C0, vtx, data/inc/D_04000C90_C86C0]
-    - [0xC8720, vtx, data/inc/D_04000CF0_C8720]
+    - [0xC83C0, sssv_vtx, data/inc/D_04000990_C83C0]
+    - [0xC8440, sssv_vtx, data/inc/D_04000A10_C8440]
+    - [0xC8510, sssv_vtx, data/inc/D_04000AE0_C8510]
+    - [0xC85D0, sssv_vtx, data/inc/D_04000BA0_C85D0]
+    - [0xC86C0, sssv_vtx, data/inc/D_04000C90_C86C0]
+    - [0xC8720, sssv_vtx, data/inc/D_04000CF0_C8720]
     - [0xC8800, .data, data/flying_dog_head.D_04000DD0_C8800] # racing dog head?
-    - [0xC8960, bin] # vtx
-    - [0xC89E0, bin] # displaylist # dog thigh?
-    - [0xC8A30, bin] # vtx
-    - [0xC8AB0, bin] # displaylist # dog leg?
-    - [0xC8B00, bin] # vtx
-    - [0xC8B80, bin] # displaylist
-    - [0xC8BD0, bin] # vtx
-    - [0xC8C50, bin] # displaylist
-    - [0xC8C90, bin] # vtx
-    - [0xC8D50, bin] # displaylist
-    - [0xC8D90, bin] # vtx
-    - [0xC8DD0, bin] # displaylist
-    - [0xC8E00, vtx, data/inc/D_040013D0_C8E00]
-    - [0xC8E60, vtx, data/inc/D_04001430_C8E60]
+    - [0xC8960, sssv_vtx, data/inc/D_04000F30_C8960]
+    - [0xC89E0, .data, data/D_04000FB0_C89E0] # dog thigh?
+    - [0xC8A30, sssv_vtx, data/inc/D_04001000_C8A30]
+    - [0xC8AB0, .data, data/D_04001080_C8AB0] # dog leg?
+    - [0xC8B00, sssv_vtx, data/inc/D_040010D0_C8B00]
+    - [0xC8B80, .data, data/D_04001150_C8B80]
+    - [0xC8BD0, sssv_vtx, data/inc/D_040011A0_C8BD0]
+    - [0xC8C50, .data, data/D_04001220_C8C50]
+    - [0xC8C90, sssv_vtx, data/inc/D_04001260_C8C90]
+    - [0xC8D50, .data, data/D_04001320_C8D50]
+    - [0xC8D90, sssv_vtx, data/inc/D_04001360_C8D90]
+    - [0xC8DD0, .data, data/D_040013A0_C8DD0]
+    - [0xC8E00, sssv_vtx, data/inc/D_040013D0_C8E00]
+    - [0xC8E60, sssv_vtx, data/inc/D_04001430_C8E60]
     - [0xC8F20, .data, data/racing_dog_leg.D_040014F0_C8F20]
-    - [0xC8FC0, bin] # vtx
-    - [0xC92E0, bin] # displaylist # tbd, purple/blue, mouse? rabbit?
-    - [0xC93D0, bin] # vtx
-    - [0xC9450, bin] # displaylist # tbd, eyes? teeth?
+    - [0xC8FC0, sssv_vtx, data/inc/D_04001590_C8FC0]
+    - [0xC9000, sssv_vtx, data/inc/D_040015D0_C9000]
+    - [0xC90E0, sssv_vtx, data/inc/D_040016B0_C90E0]
+    - [0xC91C0, sssv_vtx, data/inc/D_04001790_C91C0]
+    - [0xC9200, sssv_vtx, data/inc/D_040017D0_C9200]
+    - [0xC92E0, .data, data/D_040018B0_C92E0] # tbd, purple/blue, mouse? rabbit?
+    - [0xC93D0, sssv_vtx, data/inc/D_040019A0_C93D0]
+    - [0xC9410, sssv_vtx, data/inc/D_040019E0_C9410]
+    - [0xC9450, .data, data/D_04001A20_C9450] # tbd, eyes? teeth?
     - [0xC9490, bin] # padding?
     - [0xC94A0, bin] # texture
     - [0xC95A0, bin] # tbd
@@ -1328,127 +1699,219 @@ segments:
     - [0xC98E0, bin] # 48x32 CI4
     - [0xC9BE0, bin] # 48x32 CI4
     - [0xC9EE0, bin] # tbd
-    - [0xC9F20, bin] # vtx
-    - [0xCA150, bin] # displaylist missile
-    - [0xCA1F0, bin] # vtx
-    - [0xCA240, bin] # displaylist
+    - [0xC9F20, sssv_vtx, data/inc/D_040024F0_C9F20]
+    - [0xCA120, sssv_vtx, data/inc/D_040026F0_CA120]
+    - [0xCA150, .data, data/D_04002720_CA150] # missile
+    - [0xCA1F0, sssv_vtx, data/inc/D_040027C0_CA1F0]
+    - [0xCA240, .data, data/D_04002810_CA240]
     - [0xCA268, bin] # vtx
     - [0xCA2B8, bin] # displaylist
-    - [0xCA2E0, bin] # vtx
-    - [0xCA340, bin] # displaylist
-    - [0xCA370, bin] # vtx
-    - [0xCA3D0, bin] # displaylist
-    - [0xCA400, bin] # vtx
-    - [0xCA7C0, bin] # dl # sheep body (sheep? springy thing? ram?)
-    - [0xCA958, bin] # vtx
-    - [0xCAD18, bin] # dl # sheep body (sheep? springy thing? ram?)
-    - [0xCAEB0, bin] # vtx
-    - [0xCAFB0, bin] # dl # sheep leg
-    - [0xCB000, bin] # vtx
-    - [0xCB0E0, bin] # dl # tbd
-    - [0xCB150, bin] # vtx
-    - [0xCB1D0, bin] # dl
-    - [0xCB1F0, bin] # dl
-    - [0xCB210, bin] # vtx
-    - [0xCB410, bin] # dl # springy-thing spring
-    - [0xCB4B0, bin] # vtx
-    - [0xCB810, bin] # dl # (springy)ram head
-    - [0xCB940, bin] # vtx
-    - [0xCBAC0, bin] # dl # fox body
-    - [0xCBB70, bin] # vtx
-    - [0xCBC30, bin] # dl
-    - [0x0CBCA0, bin]
-    - [0x0CBDC0, bin]
-    - [0x0CC080, bin]
-    - [0x0CC120, bin]
-    - [0x0CC140, bin]
-    - [0x0CC4D0, bin]
-    - [0x0CC830, bin]
-    - [0x0CCB00, bin] # 32x32 I4 texture (light source?)
-    - [0x0CCD00, bin]
-    - [0x0CCE70, bin]
-    - [0x0CCEE0, bin]
-    - [0x0CD010, bin]
-    - [0x0CD160, bin]
-    - [0x0CD5F0, bin]
-    - [0x0CD750, bin]
-    - [0x0CDBA0, bin]
-    - [0x0CE4F0, bin]
-    - [0x0CE550, bin]
-    - [0x0CE5B0, bin]
-    - [0x0CE670, bin]
-    - [0x0CEC60, bin]
-    - [0x0CED80, bin]
-    - [0x0CEE08, bin]
-    - [0x0CEE30, bin]
-    - [0x0CEFC0, bin]
-    - [0xCF2D0, vtx, data/inc/D_040078A0_CF2D0]
-    - [0xCF3A0, vtx, data/inc/D_04007970_CF3A0]
-    - [0xCF470, vtx, data/inc/D_04007A40_CF470]
-    - [0xCF530, vtx, data/inc/D_04007B00_CF530]
-    - [0xCF590, vtx, data/inc/D_04007B60_CF590]
+    - [0xCA2E0, .data, data/D_04002910_CA340]
+    - [0xCA2E0, sssv_vtx, data/inc/D_040028B0_CA2E0]
+    - [0xCA340]
+    - [0xCA370, sssv_vtx, data/inc/D_04002940_CA370]
+    - [0xCA3D0, .data, data/D_040029A0_CA3D0]
+    - [0xCA400, sssv_vtx, data/inc/D_040029D0_CA400]
+    - [0xCA600, sssv_vtx, data/inc/D_04002BD0_CA600]
+    - [0xCA740, sssv_vtx, data/inc/D_04002D10_CA740]
+    - [0xCA7C0, .data, data/D_04002D90_CA7C0] # sheep body (sheep? springy thing? ram?)
+    - [0xCA958, .data, data/D_040032E8_CAD18]
+    - [0xCA958, sssv_vtx, data/inc/D_04002F28_CA958]
+    - [0xCAB58, sssv_vtx, data/inc/D_04003128_CAB58]
+    - [0xCAC98, sssv_vtx, data/inc/D_04003268_CAC98]
+    - [0xCAD18] # sheep body (sheep? springy thing? ram?)
+    - [0xCAEB0, .data, data/D_04003580_CAFB0]
+    - [0xCAEB0, sssv_vtx, data/inc/D_04003480_CAEB0]
+    - [0xCAF30, sssv_vtx, data/inc/D_04003500_CAF30]
+    - [0xCAFB0] # sheep leg
+    - [0xCB000, sssv_vtx, data/inc/D_040035D0_CB000]
+    - [0xCB0E0, .data, data/D_040036B0_CB0E0] # tbd
+    - [0xCB150, sssv_vtx, data/inc/D_04003720_CB150]
+    - [0xCB190, sssv_vtx, data/inc/D_04003760_CB190]
+    - [0xCB1D0, .data, data/D_040037A0_CB1D0]
+    - [0xCB210, sssv_vtx, data/inc/D_040037E0_CB210]
+    - [0xCB410, .data, data/D_040039E0_CB410] # springy-thing spring
+    - [0xCB4B0, sssv_vtx, data/inc/D_04003A80_CB4B0]
+    - [0xCB590, sssv_vtx, data/inc/D_04003B60_CB590]
+    - [0xCB5F0, sssv_vtx, data/inc/D_04003BC0_CB5F0]
+    - [0xCB7E0, sssv_vtx, data/inc/D_04003DB0_CB7E0]
+    - [0xCB810, .data, data/D_04003DE0_CB810] # (springy)ram head
+    - [0xCB940, sssv_vtx, data/inc/D_04003F10_CB940]
+    - [0xCBA60, sssv_vtx, data/inc/D_04004030_CBA60]
+    - [0xCBAC0, .data, data/D_04004090_CBAC0] # fox body
+    - [0xCBB70, sssv_vtx, data/inc/D_04004140_CBB70]
+    - [0xCBBD0, sssv_vtx, data/inc/D_040041A0_CBBD0]
+    - [0xCBC30, .data, data/D_04004200_CBC30]
+    - [0xCBCA0, sssv_vtx, data/inc/D_04004270_CBCA0]
+    - [0xCBD00, sssv_vtx, data/inc/D_040042D0_CBD00]
+    - [0xCBD60, .data, data/D_04004330_CBD60]
+    - [0xCBDC0, sssv_vtx, data/inc/D_04004390_CBDC0]
+    - [0xCBEC0, sssv_vtx, data/inc/D_04004490_CBEC0]
+    - [0xCBFC0, .data, data/D_04004590_CBFC0]
+    - [0xCC080, sssv_vtx, data/inc/D_04004650_CC080]
+    - [0xCC0C0, sssv_vtx, data/inc/D_04004690_CC0C0]
+    - [0xCC100, .data, data/D_040046D0_CC100]
+    - [0xCC140, sssv_vtx, data/inc/D_04004710_CC140]
+    - [0xCC230, sssv_vtx, data/inc/D_04004800_CC230]
+    - [0xCC2C0, sssv_vtx, data/inc/D_04004890_CC2C0]
+    - [0xCC3B0, sssv_vtx, data/inc/D_04004980_CC3B0]
+    - [0xCC450, .data, data/D_04004A20_CC450]
+    - [0xCC4D0, sssv_vtx, data/inc/D_04004AA0_CC4D0]
+    - [0xCC510, sssv_vtx, data/inc/D_04004AE0_CC510]
+    - [0xCC550, sssv_vtx, data/inc/D_04004B20_CC550]
+    - [0xCC5B0, sssv_vtx, data/inc/D_04004B80_CC5B0]
+    - [0xCC640, sssv_vtx, data/inc/D_04004C10_CC640]
+    - [0xCC740, .data, data/D_04004D10_CC740] # fox head
+    - [0xCC830, sssv_vtx, data/inc/D_04004E00_CC830]
+    - [0xCCA30, sssv_vtx, data/inc/D_04005000_CCA30]
+    - [0xCCA60, .data, data/D_04005030_CCA60]
+    - [0xCCB00, bin] # 32x32 I4 texture (light source?)
+    - [0xCCD00, bin] # palette?
+    - [0xCCD20, sssv_vtx, data/inc/D_040052F0_CCD20]
+    - [0xCCD90, sssv_vtx, data/inc/D_04005360_CCD90]
+    - [0xCCE00, .data, data/D_040053D0_CCE00]
+    - [0xCCE70, sssv_vtx, data/inc/D_04005440_CCE70]
+    - [0xCCEB0, .data, data/D_04005480_CCEB0]
+    - [0xCCEE0, sssv_vtx, data/inc/D_040054B0_CCEE0]
+    - [0xCCF30, sssv_vtx, data/inc/D_04005500_CCF30]
+    - [0xCCFB0, .data, data/D_04005580_CCFB0]
+    - [0xCD010, sssv_vtx, data/inc/D_040055E0_CD010]
+    - [0xCD0F0, .data, data/D_040056C0_CD0F0]
+    - [0xCD160, sssv_vtx, data/inc/D_04005730_CD160]
+    - [0xCD1A0, sssv_vtx, data/inc/D_04005770_CD1A0]
+    - [0xCD260, sssv_vtx, data/inc/D_04005830_CD260]
+    - [0xCD2E0, sssv_vtx, data/inc/D_040058B0_CD2E0]
+    - [0xCD480, .data, data/D_04005A50_CD480] # rabbit head ()?)
+    - [0xCD5F0, sssv_vtx, data/inc/D_04005BC0_CD5F0]
+    - [0xCD6D0, .data, data/D_04005CA0_CD6D0]
+    - [0xCD750, sssv_vtx, data/inc/D_04005D20_CD750]
+    - [0xCD950, sssv_vtx, data/inc/D_04005F20_CD950]
+    - [0xCDA70, .data, data/D_04006040_CDA70]
+    - [0xCDBA0, sssv_vtx, data/inc/D_04006170_CDBA0]
+    - [0xCDCA0, sssv_vtx, data/inc/D_04006270_CDCA0]
+    - [0xCDDA0, sssv_vtx, data/inc/D_04006370_CDDA0]
+    - [0xCDEA0, sssv_vtx, data/inc/D_04006470_CDEA0]
+    - [0xCDF60, sssv_vtx, data/inc/D_04006530_CDF60]
+    - [0xCDFE0, sssv_vtx, data/inc/D_040065B0_CDFE0]
+    - [0xCE060, sssv_vtx, data/inc/D_04006630_CE060]
+    - [0xCE160, sssv_vtx, data/inc/D_04006730_CE160]
+    - [0xCE260, sssv_vtx, data/inc/D_04006830_CE260]
+    - [0xCE2E0, .data, data/D_040068B0_CE2E0] # rabbit head (?)
+    - [0xCE4F0, sssv_vtx, data/inc/D_04006AC0_CE4F0]
+    - [0xCE530, .data, data/D_04006B00_CE530]
+    - [0xCE550, sssv_vtx, data/inc/D_04006B20_CE550]
+    - [0xCE590, .data, data/D_04006B60_CE590]
+    - [0xCE5B0, sssv_vtx, data/inc/D_04006B80_CE5B0]
+    - [0xCE630, .data, data/D_04006C00_CE630]
+    - [0xCE670, sssv_vtx, data/inc/D_04006C40_CE670]
+    - [0xCE6F0, sssv_vtx, data/inc/D_04006CC0_CE6F0]
+    - [0xCE890, sssv_vtx, data/inc/D_04006E60_CE890]
+    - [0xCE8F0, sssv_vtx, data/inc/D_04006EC0_CE8F0]
+    - [0xCE940, sssv_vtx, data/inc/D_04006F10_CE940]
+    - [0xCEA50, sssv_vtx, data/inc/D_04007020_CEA50]
+    - [0xCEAB0, .data, data/D_04007080_CEAB0] # rat head
+    - [0xCEC60, bin] # v
+    - [0xCED20, bin] # d
+    - [0xCED80, bin] # v
+    - [0xCEDE0, bin] # d
+    - [0xCEE08, bin] # d
+    - [0xCEE30, bin] # v
+    - [0xCEF50, bin] # d
+    - [0xCEFC0, bin] # v
+    - [0xCF1F0, bin] # d
+    - [0xCF2D0, sssv_vtx, data/inc/D_040078A0_CF2D0]
+    - [0xCF3A0, sssv_vtx, data/inc/D_04007970_CF3A0]
+    - [0xCF470, sssv_vtx, data/inc/D_04007A40_CF470]
+    - [0xCF530, sssv_vtx, data/inc/D_04007B00_CF530]
+    - [0xCF590, sssv_vtx, data/inc/D_04007B60_CF590]
     - [0xCF5F0, .data, data/bear_head.D_04007BC0_CF5F0]
-    - [0xCF720, vtx, data/inc/D_04007CF0_CF720]
-    - [0xCF7E0, vtx, data/inc/D_04007DB0_CF7E0]
-    - [0xCF860, vtx, data/inc/D_04007E30_CF860]
+    - [0xCF720, sssv_vtx, data/inc/D_04007CF0_CF720]
+    - [0xCF7E0, sssv_vtx, data/inc/D_04007DB0_CF7E0]
+    - [0xCF860, sssv_vtx, data/inc/D_04007E30_CF860]
     - [0xCF8F0, .data, data/bear_foot.D_04007EC0_CF8F0]
-    - [0xCF9B0, vtx, data/inc/D_04007F80_CF9B0]
-    - [0xCFAF0, vtx, data/inc/D_040080C0_CFAF0]
+    - [0xCF9B0, sssv_vtx, data/inc/D_04007F80_CF9B0]
+    - [0xCFAF0, sssv_vtx, data/inc/D_040080C0_CFAF0]
     - [0xCFCF0, .data, data/bear_body.D_040082C0_CFCF0]
-    - [0xCFE40, bin]
-    - [0xCFEC0, bin]
-    - [0x0CFED8, bin] # include in above
-    - [0xCFEF0, bin]
-    - [0xD0450, bin]
-    - [0x0D0620, bin]
-    - [0x0D0930, bin]
-    - [0x0D1110, bin]
-    - [0xD14D0, vtx, data/inc/D_04009AA0_D14D0]
-    - [0xD1550, vtx, data/inc/D_04009B20_D1550]
-    - [0xD1640, vtx, data/inc/D_04009C10_D1640]
+    - [0xCFE40, bin] # v
+    - [0xCFEC0, bin] # d
+    - [0xCFED8, bin] # d include in above
+    - [0xCFEF0, .data, data/crazy_bear_head.D_04008A20_D0450]
+    - [0xCFEF0, sssv_vtx, data/inc/D_040084C0_CFEF0]
+    - [0xCFF20, sssv_vtx, data/inc/D_040084F0_CFF20]
+    - [0xD0020, sssv_vtx, data/inc/D_040085F0_D0020]
+    - [0xD00A0, sssv_vtx, data/inc/D_04008670_D00A0]
+    - [0xD00D0, sssv_vtx, data/inc/D_040086A0_D00D0]
+    - [0xD01D0, sssv_vtx, data/inc/D_040087A0_D01D0]
+    - [0xD0230, sssv_vtx, data/inc/D_04008800_D0230]
+    - [0xD02D0, sssv_vtx, data/inc/D_040088A0_D02D0]
+    - [0xD0370, sssv_vtx, data/inc/D_04008940_D0370]
+    - [0xD0450] # crazy bear head
+    - [0xD0620, sssv_vtx, data/inc/D_04008BF0_D0620]
+    - [0xD0650, sssv_vtx, data/inc/D_04008C20_D0650]
+    - [0xD0680, sssv_vtx, data/inc/D_04008C50_D0680]
+    - [0xD06C0, sssv_vtx, data/inc/D_04008C90_D06C0]
+    - [0xD07A0, sssv_vtx, data/inc/D_04008D70_D07A0]
+    - [0xD0860, .data, data/crazy_bear_jaw.D_04008E30_D0860] # crazy bear jaw
+    - [0xD0930, sssv_vtx, data/inc/D_04008F00_D0930]
+    - [0xD0A30, sssv_vtx, data/inc/D_04009000_D0A30]
+    - [0xD0B30, sssv_vtx, data/inc/D_04009100_D0B30]
+    - [0xD0C30, sssv_vtx, data/inc/D_04009200_D0C30]
+    - [0xD0CF0, sssv_vtx, data/inc/D_040092C0_D0CF0]
+    - [0xD0DF0, sssv_vtx, data/inc/D_040093C0_D0DF0]
+    - [0xD0EF0, sssv_vtx, data/inc/D_040094C0_D0EF0]
+    - [0xD0F70, .data, data/D_04009540_D0F70] # unibear wheel
+    - [0xD1110, bin] # texture + palette?
+    - [0xD11B0, bin] # v
+    - [0xD13F0, bin] # d
+    - [0xD14D0, sssv_vtx, data/inc/D_04009AA0_D14D0]
+    - [0xD1550, sssv_vtx, data/inc/D_04009B20_D1550]
+    - [0xD1640, sssv_vtx, data/inc/D_04009C10_D1640]
     - [0xD17E0, .data, data/FAT_BEAR_MOUNTAIN_trophy.D_04009DB0_D17E0]
-    - [0x0D1900, bin]
-    - [0x0D2130, bin]
+    - [0xD1900, bin] # v
+    - [0xD2000, bin] # d
+    - [0xD2130, bin] # v
+    - [0xD2240, bin] # d
     - [0xD22A0, .data, data/D3070]
-    - [0xD22A0, vtx, data/inc/D_0400A870_D22A0]
-    - [0xD24A0, vtx, data/inc/D_0400AA70_D24A0]
-    - [0xD26A0, vtx, data/inc/D_0400AC70_D26A0]
-    - [0xD28A0, vtx, data/inc/D_0400AE70_D28A0]
-    - [0xD2AA0, vtx, data/inc/D_0400B070_D2AA0]
-    - [0xD2CA0, vtx, data/inc/D_0400B270_D2CA0]
-    - [0xD2E90, vtx, data/inc/D_0400B460_D2E90]
-    - [0xD2F50, vtx, data/inc/D_0400B520_D2F50]
+    - [0xD22A0, sssv_vtx, data/inc/D_0400A870_D22A0]
+    - [0xD24A0, sssv_vtx, data/inc/D_0400AA70_D24A0]
+    - [0xD26A0, sssv_vtx, data/inc/D_0400AC70_D26A0]
+    - [0xD28A0, sssv_vtx, data/inc/D_0400AE70_D28A0]
+    - [0xD2AA0, sssv_vtx, data/inc/D_0400B070_D2AA0]
+    - [0xD2CA0, sssv_vtx, data/inc/D_0400B270_D2CA0]
+    - [0xD2E90, sssv_vtx, data/inc/D_0400B460_D2E90]
+    - [0xD2F50, sssv_vtx, data/inc/D_0400B520_D2F50]
     - [0xD3070] # racing mouse trophy?
-    - [0x0D3470, bin]
-    - [0xD36B0, vtx, data/inc/D_0400BC80_D36B0]
-    - [0xD38A0, vtx, data/inc/D_0400BE70_D38A0]
+    - [0xD3470, sssv_vtx, data/inc/D_0400BA40_D3470]
+    - [0xD35F0, .data, data/D_0400BBC0_D35F0]
+    - [0xD36B0, sssv_vtx, data/inc/D_0400BC80_D36B0]
+    - [0xD38A0, sssv_vtx, data/inc/D_0400BE70_D38A0]
     - [0xD3950, .data, data/D_0400BF20_D3950] # finger? boulder?
     - [0xD3A08, .data, data/D_0400CD48_D4778] # Dan's hand?
-    - [0xD3A08, vtx, data/inc/D_0400BFD8_D3A08]
-    - [0xD3BF8, vtx, data/inc/D_0400C1C8_D3BF8]
-    - [0xD3DF8, vtx, data/inc/D_0400C3C8_D3DF8]
-    - [0xD3FE8, vtx, data/inc/D_0400C5B8_D3FE8]
-    - [0xD41D8, vtx, data/inc/D_0400C7A8_D41D8]
-    - [0xD43C8, vtx, data/inc/D_0400C998_D43C8]
-    - [0xD45B8, vtx, data/inc/D_0400CB88_D45B8]
+    - [0xD3A08, sssv_vtx, data/inc/D_0400BFD8_D3A08]
+    - [0xD3BF8, sssv_vtx, data/inc/D_0400C1C8_D3BF8]
+    - [0xD3DF8, sssv_vtx, data/inc/D_0400C3C8_D3DF8]
+    - [0xD3FE8, sssv_vtx, data/inc/D_0400C5B8_D3FE8]
+    - [0xD41D8, sssv_vtx, data/inc/D_0400C7A8_D41D8]
+    - [0xD43C8, sssv_vtx, data/inc/D_0400C998_D43C8]
+    - [0xD45B8, sssv_vtx, data/inc/D_0400CB88_D45B8]
     - [0xD4778] # end of Dan's hand
     - [0xD49C0, .data, data/D59D0]
-    - [0xD49C0, vtx, data/inc/D_0400CF90_D49C0]
-    - [0xD4BA0, vtx, data/inc/D_0400D170_D4BA0]
-    - [0xD4D80, vtx, data/inc/D_0400D350_D4D80]
-    - [0xD4F70, vtx, data/inc/D_0400D540_D4F70]
-    - [0xD5170, vtx, data/inc/D_0400D740_D5170]
-    - [0xD5350, vtx, data/inc/D_0400D920_D5350]
-    - [0xD5490, vtx, data/inc/D_0400DA60_D5490]
-    - [0xD5670, vtx, data/inc/D_0400DC40_D5670]
-    - [0xD57F0, vtx, data/inc/D_0400DDC0_D57F0]
+    - [0xD49C0, sssv_vtx, data/inc/D_0400CF90_D49C0]
+    - [0xD4BA0, sssv_vtx, data/inc/D_0400D170_D4BA0]
+    - [0xD4D80, sssv_vtx, data/inc/D_0400D350_D4D80]
+    - [0xD4F70, sssv_vtx, data/inc/D_0400D540_D4F70]
+    - [0xD5170, sssv_vtx, data/inc/D_0400D740_D5170]
+    - [0xD5350, sssv_vtx, data/inc/D_0400D920_D5350]
+    - [0xD5490, sssv_vtx, data/inc/D_0400DA60_D5490]
+    - [0xD5670, sssv_vtx, data/inc/D_0400DC40_D5670]
+    - [0xD57F0, sssv_vtx, data/inc/D_0400DDC0_D57F0]
     - [0xD59D0] # Dan's head (without lower jaw)
     - [0xD5D00, .data, data/D6180]
-    - [0xD5D00, vtx, data/inc/D_0400E2D0_D5D00]
-    - [0xD5E20, vtx, data/inc/D_0400E3F0_D5E20]
-    - [0xD6010, vtx, data/inc/D_0400E5E0_D6010]
-    - [0xD60F0, vtx, data/inc/D_0400E6C0_D60F0]
-    - [0xD6120, vtx, data/inc/D_0400E6F0_D6120]
+    - [0xD5D00, sssv_vtx, data/inc/D_0400E2D0_D5D00]
+    - [0xD5E20, sssv_vtx, data/inc/D_0400E3F0_D5E20]
+    - [0xD6010, sssv_vtx, data/inc/D_0400E5E0_D6010]
+    - [0xD60F0, sssv_vtx, data/inc/D_0400E6C0_D60F0]
+    - [0xD6120, sssv_vtx, data/inc/D_0400E6F0_D6120]
     - [0xD6180] # Dan's lower jaw
     - [0x0D62D0, bin]
     - [0x0D6380, bin]
@@ -1488,19 +1951,19 @@ segments:
     - [0x0DDF00, bin]
     - [0x0DE060, bin]
     - [0x0DE0C0, bin]
-    - [0xDE120, vtx, data/inc/D_04000B60_DE120]
-    - [0xDE270, vtx, data/inc/D_04000CB0_DE270]
-    - [0xDE470, vtx, data/inc/D_04000EB0_DE470]
+    - [0xDE120, sssv_vtx, data/inc/D_04000B60_DE120]
+    - [0xDE270, sssv_vtx, data/inc/D_04000CB0_DE270]
+    - [0xDE470, sssv_vtx, data/inc/D_04000EB0_DE470]
     - [0xDE5D0, .data, data/penguin_body.D_04001010_DE5D0]
-    - [0xDE7A0, vtx, data/inc/D_040011E0_DE7A0]
+    - [0xDE7A0, sssv_vtx, data/inc/D_040011E0_DE7A0]
     - [0xDE7E0, .data, data/penguin_beak.D_04001220_DE7E0]
-    - [0xDE810, vtx, data/inc/D_04001250_DE810]
+    - [0xDE810, sssv_vtx, data/inc/D_04001250_DE810]
     - [0xDE8A0, .data, data/penguin_foot.D_040012E0_DE8A0]
     - [0xDE8F0, bin] # texture
     - [0xDEAF0, bin] # texture
     - [0xDECF0, bin] # palette?
     - [0xDED10, bin] # palette?
-    - [0xDED30, vtx, data/inc/D_04001770_DED30]
+    - [0xDED30, sssv_vtx, data/inc/D_04001770_DED30]
     - [0xDEE50, .data, data/penguin_king_crown.D_04001890_DEE50]
     - [0x0DEEC0, bin] # vtx
     - [0x0DF020, bin] # dl # penguin_parachute
@@ -1517,10 +1980,10 @@ segments:
     - [0x0DFA30, bin]
     - [0x0DFAD0, bin]
     - [0x0DFAF0, bin]
-    - [0xDFBF0, vtx, data/inc/D_04002630_DFBF0]
-    - [0xDFDF0, vtx, data/inc/D_04002830_DFDF0]
-    - [0xDFEF0, vtx, data/inc/D_04002930_DFEF0]
-    - [0xE00F0, vtx, data/inc/D_04002B30_E00F0]
+    - [0xDFBF0, sssv_vtx, data/inc/D_04002630_DFBF0]
+    - [0xDFDF0, sssv_vtx, data/inc/D_04002830_DFDF0]
+    - [0xDFEF0, sssv_vtx, data/inc/D_04002930_DFEF0]
+    - [0xE00F0, sssv_vtx, data/inc/D_04002B30_E00F0]
     - [0xE01F0, .data, data/polar_bear_body.D_04002C30_E01F0]
     - [0x0E0480, bin]
     - [0x0E0990, bin]
@@ -1549,8 +2012,8 @@ segments:
     - [0x0E2B00, bin]
     - [0x0E2BA0, bin]
     - [0xE2BC0, .data, data/E2DF0] # walrus missile
-    - [0xE2BC0, vtx, data/inc/D_04005600_E2BC0]
-    - [0xE2DC0, vtx, data/inc/D_04005800_E2DC0]
+    - [0xE2BC0, sssv_vtx, data/inc/D_04005600_E2BC0]
+    - [0xE2DC0, sssv_vtx, data/inc/D_04005800_E2DC0]
     - [0xE2DF0] # end of walrus missile
     - [0xE2E90, bin] # vtx
     - [0xE3410, bin] # displaylist # walrus body?
@@ -1559,15 +2022,15 @@ segments:
     - [0xE37A0, bin] # vtx
     - [0xE3890, bin] # displaylist # walrus ski 2?
     - [0xE3900, .data, data/walrus_head.D_04006860_E3E20]
-    - [0xE3900, vtx, data/inc/D_04006340_E3900]
-    - [0xE39D0, vtx, data/inc/D_04006410_E39D0]
-    - [0xE3B70, vtx, data/inc/D_040065B0_E3B70]
-    - [0xE3BE0, vtx, data/inc/D_04006620_E3BE0]
-    - [0xE3C20, vtx, data/inc/D_04006660_E3C20]
-    - [0xE3C60, vtx, data/inc/D_040066A0_E3C60]
-    - [0xE3CD0, vtx, data/inc/D_04006710_E3CD0]
-    - [0xE3D60, vtx, data/inc/D_040067A0_E3D60]
-    - [0xE3DC0, vtx, data/inc/D_04006800_E3DC0]
+    - [0xE3900, sssv_vtx, data/inc/D_04006340_E3900]
+    - [0xE39D0, sssv_vtx, data/inc/D_04006410_E39D0]
+    - [0xE3B70, sssv_vtx, data/inc/D_040065B0_E3B70]
+    - [0xE3BE0, sssv_vtx, data/inc/D_04006620_E3BE0]
+    - [0xE3C20, sssv_vtx, data/inc/D_04006660_E3C20]
+    - [0xE3C60, sssv_vtx, data/inc/D_040066A0_E3C60]
+    - [0xE3CD0, sssv_vtx, data/inc/D_04006710_E3CD0]
+    - [0xE3D60, sssv_vtx, data/inc/D_040067A0_E3D60]
+    - [0xE3DC0, sssv_vtx, data/inc/D_04006800_E3DC0]
     - [0xE3E20] # end of walrus head
     - [0x0E4040, bin]
     - [0x0E4190, bin]
@@ -1578,13 +2041,13 @@ segments:
     - [0x0E4E60, bin]
     - [0x0E5190, bin]
     - [0x0E5450, bin]
-    - [0xE5470, vtx, data/inc/D_04007EB0_E5470]
-    - [0xE5600, vtx, data/inc/D_04008040_E5600]
-    - [0xE57F0, vtx, data/inc/D_04008230_E57F0]
-    - [0xE59F0, vtx, data/inc/D_04008430_E59F0]
-    - [0xE5BF0, vtx, data/inc/D_04008630_E5BF0]
-    - [0xE5DE0, vtx, data/inc/D_04008820_E5DE0]
-    - [0xE5FD0, vtx, data/inc/D_04008A10_E5FD0]
+    - [0xE5470, sssv_vtx, data/inc/D_04007EB0_E5470]
+    - [0xE5600, sssv_vtx, data/inc/D_04008040_E5600]
+    - [0xE57F0, sssv_vtx, data/inc/D_04008230_E57F0]
+    - [0xE59F0, sssv_vtx, data/inc/D_04008430_E59F0]
+    - [0xE5BF0, sssv_vtx, data/inc/D_04008630_E5BF0]
+    - [0xE5DE0, sssv_vtx, data/inc/D_04008820_E5DE0]
+    - [0xE5FD0, sssv_vtx, data/inc/D_04008A10_E5FD0]
     - [0xE6120, .data, data/D_04008B60_E6120] # king penguin statue, object 120
     - [0x0E63A0, bin]
     - [0xE66D0, bin] # vtx
@@ -1794,19 +2257,19 @@ segments:
     - [0xF9F50, bin] # dl # chameleon foot (r?)
     - [0xF9FE0, bin] # vtx
     - [0xFA050, bin] # dl # chameleon leg? (r?)
-    - [0xFA090, vtx, data/inc/D_04009030_FA090]
-    - [0xFA110, vtx, data/inc/D_040090B0_FA110]
-    - [0xFA190, vtx, data/inc/D_04009130_FA190]
-    - [0xFA1C0, vtx, data/inc/D_04009160_FA1C0]
-    - [0xFA200, vtx, data/inc/D_040091A0_FA200]
-    - [0xFA2A0, vtx, data/inc/D_04009240_FA2A0]
-    - [0xFA310, vtx, data/inc/D_040092B0_FA310]
-    - [0xFA380, vtx, data/inc/D_04009320_FA380]
-    - [0xFA3B0, vtx, data/inc/D_04009350_FA3B0]
-    - [0xFA4A0, vtx, data/inc/D_04009440_FA4A0]
-    - [0xFA4D0, vtx, data/inc/D_04009470_FA4D0]
-    - [0xFA500, vtx, data/inc/D_040094A0_FA500]
-    - [0xFA530, vtx, data/inc/D_040094D0_FA530]
+    - [0xFA090, sssv_vtx, data/inc/D_04009030_FA090]
+    - [0xFA110, sssv_vtx, data/inc/D_040090B0_FA110]
+    - [0xFA190, sssv_vtx, data/inc/D_04009130_FA190]
+    - [0xFA1C0, sssv_vtx, data/inc/D_04009160_FA1C0]
+    - [0xFA200, sssv_vtx, data/inc/D_040091A0_FA200]
+    - [0xFA2A0, sssv_vtx, data/inc/D_04009240_FA2A0]
+    - [0xFA310, sssv_vtx, data/inc/D_040092B0_FA310]
+    - [0xFA380, sssv_vtx, data/inc/D_04009320_FA380]
+    - [0xFA3B0, sssv_vtx, data/inc/D_04009350_FA3B0]
+    - [0xFA4A0, sssv_vtx, data/inc/D_04009440_FA4A0]
+    - [0xFA4D0, sssv_vtx, data/inc/D_04009470_FA4D0]
+    - [0xFA500, sssv_vtx, data/inc/D_040094A0_FA500]
+    - [0xFA530, sssv_vtx, data/inc/D_040094D0_FA530]
     - [0xFA560, .data, data/chameleon_head.D_04009500_FA560] # chameleon head
     - [0x0FA720, bin]
     - [0x0FA9B0, bin]
@@ -1854,10 +2317,10 @@ segments:
     - [0xFF3C0, bin] # dl # plant? object id 171
     - [0xFF450, bin] # vtx
     - [0xFF750, bin] # dl # flame torch base # object id 178
-    - [0xFF7E0, vtx, data/inc/D_0400E780_FF7E0]
-    - [0xFF860, vtx, data/inc/D_0400E800_FF860]
-    - [0xFFA60, vtx, data/inc/D_0400EA00_FFA60]
-    - [0xFFBB0, vtx, data/inc/D_0400EB50_FFBB0]
+    - [0xFF7E0, sssv_vtx, data/inc/D_0400E780_FF7E0]
+    - [0xFF860, sssv_vtx, data/inc/D_0400E800_FF860]
+    - [0xFFA60, sssv_vtx, data/inc/D_0400EA00_FFA60]
+    - [0xFFBB0, sssv_vtx, data/inc/D_0400EB50_FFBB0]
     - [0xFFC20, .data, data/D_0400EBC0_FFC20] # displaylist # helicopter thing?
   - name: city_biome
     type: code
@@ -1866,16 +2329,16 @@ segments:
     overlay: yes
     subalign: 8
     subsegments:
-    - [0x0FFD50, vtx, data/inc/D_04000000_FFD50]
+    - [0x0FFD50, sssv_vtx, data/inc/D_04000000_FFD50]
     - [0x0FFEF0, .data, data/FFEF0] # tbd
     - [0x0FFFD0, bin]
     - [0x100250, bin]
-    - [0x1006E0, vtx, data/inc/D_04000990_1006E0]
-    - [0x100760, vtx, data/inc/D_04000A10_100760]
-    - [0x100830, vtx, data/inc/D_04000AE0_100830]
-    - [0x1008F0, vtx, data/inc/D_04000BA0_1008F0]
-    - [0x1009E0, vtx, data/inc/D_04000C90_1009E0]
-    - [0x100A40, vtx, data/inc/D_04000CF0_100A40]
+    - [0x1006E0, sssv_vtx, data/inc/D_04000990_1006E0]
+    - [0x100760, sssv_vtx, data/inc/D_04000A10_100760]
+    - [0x100830, sssv_vtx, data/inc/D_04000AE0_100830]
+    - [0x1008F0, sssv_vtx, data/inc/D_04000BA0_1008F0]
+    - [0x1009E0, sssv_vtx, data/inc/D_04000C90_1009E0]
+    - [0x100A40, sssv_vtx, data/inc/D_04000CF0_100A40]
     - [0x100B20, .data, data/100B20] # flying dog head
     - [0x100C80, bin]
     - [0x100D50, bin]
@@ -1890,12 +2353,12 @@ segments:
     - [0x1017B0, bin] # 32x32 I4
     - [0x1019B0, bin] # palette?
     - [0x1019D0, bin] # 32x32 I4
-    - [0x101BD0, bin] # pallete?
+    - [0x101BD0, bin] # palette?
     - [0x101C20, bin] # 48x32 I4
     - [0x101F20, bin] # 48x32 I4
     - [0x102220, bin] # 48x32 I4
-    - [0x102240, vtx, data/inc/D_040024F0_102240]
-    - [0x102440, vtx, data/inc/D_040026F0_102440]
+    - [0x102240, sssv_vtx, data/inc/D_040024F0_102240]
+    - [0x102440, sssv_vtx, data/inc/D_040026F0_102440]
     - [0x102470, .data, data/102470] # missile
     - [0x102510, bin]
     - [0x102588, bin]
@@ -1910,54 +2373,54 @@ segments:
     - [0x103530, bin]
     - [0x1037D0, bin] # vtx
     - [0x103B30, bin] # dl  # ram head
-    - [0x103C60, vtx, data/inc/D_04003F10_103C60]
-    - [0x103D80, vtx, data/inc/D_04004030_103D80]
+    - [0x103C60, sssv_vtx, data/inc/D_04003F10_103C60]
+    - [0x103D80, sssv_vtx, data/inc/D_04004030_103D80]
     - [0x103DE0, .data, data/fox_body.D_04004090_103DE0]
-    - [0x103E90, vtx, data/inc/D_04004140_103E90]
-    - [0x103EF0, vtx, data/inc/D_040041A0_103EF0]
+    - [0x103E90, sssv_vtx, data/inc/D_04004140_103E90]
+    - [0x103EF0, sssv_vtx, data/inc/D_040041A0_103EF0]
     - [0x103F50, .data, data/fox_tail.D_04004200_103F50]
-    - [0x103FC0, vtx, data/inc/D_04004270_103FC0]
-    - [0x104020, vtx, data/inc/D_040042D0_104020]
+    - [0x103FC0, sssv_vtx, data/inc/D_04004270_103FC0]
+    - [0x104020, sssv_vtx, data/inc/D_040042D0_104020]
     - [0x104080, .data, data/fire_fox_leg.D_04004330_104080]
-    - [0x1040E0, vtx, data/inc/D_04004390_1040E0]
-    - [0x1041E0, vtx, data/inc/D_04004490_1041E0]
+    - [0x1040E0, sssv_vtx, data/inc/D_04004390_1040E0]
+    - [0x1041E0, sssv_vtx, data/inc/D_04004490_1041E0]
     - [0x1042E0, .data, data/racing_fox_wheel.D_04004590_1042E0]
     - [0x1043A0, bin] # vtx
     - [0x104420, bin] # dl # light blue square
     - [0x104440, bin] # dl
     - [0x104460, .data, data/fire_fox_flame.D_04004A20_104770] # dl
-    - [0x104460, vtx, data/inc/D_04004710_104460]
-    - [0x104550, vtx, data/inc/D_04004800_104550]
-    - [0x1045E0, vtx, data/inc/D_04004890_1045E0]
-    - [0x1046D0, vtx, data/inc/D_04004980_1046D0]
+    - [0x104460, sssv_vtx, data/inc/D_04004710_104460]
+    - [0x104550, sssv_vtx, data/inc/D_04004800_104550]
+    - [0x1045E0, sssv_vtx, data/inc/D_04004890_1045E0]
+    - [0x1046D0, sssv_vtx, data/inc/D_04004980_1046D0]
     - [0x104770]
-    - [0x1047F0, vtx, data/inc/D_04004AA0_1047F0]
-    - [0x104830, vtx, data/inc/D_04004AE0_104830]
-    - [0x104870, vtx, data/inc/D_04004B20_104870]
-    - [0x1048D0, vtx, data/inc/D_04004B80_1048D0]
-    - [0x104960, vtx, data/inc/D_04004C10_104960]
+    - [0x1047F0, sssv_vtx, data/inc/D_04004AA0_1047F0]
+    - [0x104830, sssv_vtx, data/inc/D_04004AE0_104830]
+    - [0x104870, sssv_vtx, data/inc/D_04004B20_104870]
+    - [0x1048D0, sssv_vtx, data/inc/D_04004B80_1048D0]
+    - [0x104960, sssv_vtx, data/inc/D_04004C10_104960]
     - [0x104A60, .data, data/fox_head.D_04004D10_104A60] # dl
-    - [0x104B50, vtx, data/inc/D_04004E00_104B50]
-    - [0x104D50, vtx, data/inc/D_04005000_104D50]
+    - [0x104B50, sssv_vtx, data/inc/D_04004E00_104B50]
+    - [0x104D50, sssv_vtx, data/inc/D_04005000_104D50]
     - [0x104D80, .data, data/fox_missile.D_04005030_104D80]
     - [0x104E20, bin] # texture CI4, 32x32
     - [0x105020, bin] # palette? (jungle flower?)
-    - [0x105040, vtx, data/inc/D_040052F0_105040]
-    - [0x1050B0, vtx, data/inc/D_04005360_1050B0]
+    - [0x105040, sssv_vtx, data/inc/D_040052F0_105040]
+    - [0x1050B0, sssv_vtx, data/inc/D_04005360_1050B0]
     - [0x105120, .data, data/105120] # mouse ear
-    - [0x105190, vtx, data/inc/D_04005440_105190]
+    - [0x105190, sssv_vtx, data/inc/D_04005440_105190]
     - [0x1051D0, .data, data/1051D0] # mouse tail
-    - [0x105200, vtx, data/inc/D_040054B0_105200]
-    - [0x105250, vtx, data/inc/D_04005500_105250]
+    - [0x105200, sssv_vtx, data/inc/D_040054B0_105200]
+    - [0x105250, sssv_vtx, data/inc/D_04005500_105250]
     - [0x1052D0, .data, data/1052D0] # mouse foot (?)
-    - [0x105330, vtx, data/inc/D_040055E0_105330]
+    - [0x105330, sssv_vtx, data/inc/D_040055E0_105330]
     - [0x105410, .data, data/105410] # mouse body (?)
-    - [0x105480, vtx, data/inc/D_04005730_105480]
-    - [0x1054C0, vtx, data/inc/D_04005770_1054C0]
-    - [0x105580, vtx, data/inc/D_04005830_105580]
-    - [0x105600, vtx, data/inc/D_040058B0_105600]
+    - [0x105480, sssv_vtx, data/inc/D_04005730_105480]
+    - [0x1054C0, sssv_vtx, data/inc/D_04005770_1054C0]
+    - [0x105580, sssv_vtx, data/inc/D_04005830_105580]
+    - [0x105600, sssv_vtx, data/inc/D_040058B0_105600]
     - [0x1057A0, .data, data/1057A0] # mouse head
-    - [0x105910, vtx, data/inc/D_04005BC0_105910]
+    - [0x105910, sssv_vtx, data/inc/D_04005BC0_105910]
     - [0x1059F0, .data, data/1059F0] # racing mouse wheel
     - [0x105A70, bin] # vtx
     - [0x105D90, bin] # displaylist
@@ -2026,14 +2489,14 @@ segments:
     - [0x110570, bin] # displaylist
     - [0x110700, bin] # vtx
     - [0x110880, bin] # displaylist
-    - [0x110950, vtx, data/inc/D_04010C00_110950]
-    - [0x1109D0, vtx, data/inc/D_04010C80_1109D0]
-    - [0x110BD0, vtx, data/inc/D_04010E80_110BD0]
-    - [0x110DB0, vtx, data/inc/D_04011060_110DB0]
-    - [0x110F90, vtx, data/inc/D_04011240_110F90]
-    - [0x111190, vtx, data/inc/D_04011440_111190]
-    - [0x111390, vtx, data/inc/D_04011640_111390]
-    - [0x111570, vtx, data/inc/D_04011820_111570]
+    - [0x110950, sssv_vtx, data/inc/D_04010C00_110950]
+    - [0x1109D0, sssv_vtx, data/inc/D_04010C80_1109D0]
+    - [0x110BD0, sssv_vtx, data/inc/D_04010E80_110BD0]
+    - [0x110DB0, sssv_vtx, data/inc/D_04011060_110DB0]
+    - [0x110F90, sssv_vtx, data/inc/D_04011240_110F90]
+    - [0x111190, sssv_vtx, data/inc/D_04011440_111190]
+    - [0x111390, sssv_vtx, data/inc/D_04011640_111390]
+    - [0x111570, sssv_vtx, data/inc/D_04011820_111570]
     - [0x1115F0, .data, data/1115F0]  # part of brain's protective structure?
     - [0x111800, bin] # vtx
     - [0x111EA0, bin] # displaylist
@@ -2062,12 +2525,38 @@ segments:
     - [0x118A00, rgba16, img/intro/spaceship_interior.D_04001E30_118A00.rgba16, 32, 32]
     - [0x119200, rgba16, img/intro/spaceship_interior.D_04002630_119200.rgba16, 32, 32]
     - [0x119A00, rgba16, img/intro/spaceship_interior.D_04002E30_119A00.rgba16, 32, 32]
-    - [0x11A200, bin] # vtx
-    - [0x11C730, bin] # displaylist (spaceship interior) - crashed ship?
-    - [0x11D360, bin] # vtx
-    - [0x11D4F0, bin] # displaylist # tv screen (with test_card)
-    - [0x11D5A0, bin] # vtx
-    - [0x11D8D0, bin] # displaylist # tv body
+    - [0x11A200, sssv_vtx, data/inc/D_04003630_11A200]
+    - [0x11A400, sssv_vtx, data/inc/D_04003830_11A400]
+    - [0x11A600, sssv_vtx, data/inc/D_04003A30_11A600]
+    - [0x11A800, sssv_vtx, data/inc/D_04003C30_11A800]
+    - [0x11A830, sssv_vtx, data/inc/D_04003C60_11A830]
+    - [0x11AA10, sssv_vtx, data/inc/D_04003E40_11AA10]
+    - [0x11ABF0, sssv_vtx, data/inc/D_04004020_11ABF0]
+    - [0x11ADE0, sssv_vtx, data/inc/D_04004210_11ADE0]
+    - [0x11AFD0, sssv_vtx, data/inc/D_04004400_11AFD0]
+    - [0x11B140, sssv_vtx, data/inc/D_04004570_11B140]
+    - [0x11B270, sssv_vtx, data/inc/D_040046A0_11B270]
+    - [0x11B370, sssv_vtx, data/inc/D_040047A0_11B370]
+    - [0x11B410, sssv_vtx, data/inc/D_04004840_11B410]
+    - [0x11B530, sssv_vtx, data/inc/D_04004960_11B530]
+    - [0x11B5B0, sssv_vtx, data/inc/D_040049E0_11B5B0]
+    - [0x11B7A0, sssv_vtx, data/inc/D_04004BD0_11B7A0]
+    - [0x11B9A0, sssv_vtx, data/inc/D_04004DD0_11B9A0]
+    - [0x11BB80, sssv_vtx, data/inc/D_04004FB0_11BB80]
+    - [0x11BD80, sssv_vtx, data/inc/D_040051B0_11BD80]
+    - [0x11BF60, sssv_vtx, data/inc/D_04005390_11BF60]
+    - [0x11C060, sssv_vtx, data/inc/D_04005490_11C060]
+    - [0x11C250, sssv_vtx, data/inc/D_04005680_11C250]
+    - [0x11C430, sssv_vtx, data/inc/D_04005860_11C430]
+    - [0x11C610, sssv_vtx, data/inc/D_04005A40_11C610]
+    - [0x11C650, sssv_vtx, data/inc/D_04005A80_11C650]
+    - [0x11C6D0, sssv_vtx, data/inc/D_04005B00_11C6D0]
+    - [0x11C730, .data, data/D_04005B60_11C730] # spaceship interior
+    - [0x11D360, sssv_vtx, data/inc/D_04006790_11D360]
+    - [0x11D4F0, .data, data/D_04006920_11D4F0] # tv screen (with test_card)
+    - [0x11D5A0, sssv_vtx, data/inc/D_040069D0_11D5A0]
+    - [0x11D790, sssv_vtx, data/inc/D_04006BC0_11D790]
+    - [0x11D8D0, .data, data/D_04006D00_11D8D0] # tv body
     - [0x11D9F0, rnc, img/menu/rnc_11D9F0, rgba16, 32, 64]
     - [0x11DA90, rnc, img/menu/sssv, rgba16, 43, 43]
     - [0x11E2D0, rnc, img/menu/rnc_11E2D0, rgba16, 14, 20]
@@ -2079,9 +2568,11 @@ segments:
     - [0x11E960, rnc, img/menu/rnc_11E960, rgba16, 20, 18]
     - [0x11EA90, rnc, img/menu/rnc_11EA90, rgba16, 18, 14]
     - [0x11EB70, rnc, img/menu/sssv_header, rgba16, 320, 36]
-    - [0x11F530, rgba16, img/menu/test_card.rgba16, 64, 64]
-    - [0x121530, bin] # vtx?
-    - [0x1215B0, bin] # displaylist
+    - [0x11F530, rgba16, img/menu/test_card_top.rgba16, 64, 32]
+    - [0x120530, rgba16, img/menu/test_card_bottom.rgba16, 64, 32]
+    - [0x121530, sssv_vtx, data/inc/D_0400A960_121530]
+    - [0x121570, sssv_vtx, data/inc/D_0400A9A0_121570]
+    - [0x1215B0, .data, data/D_0400A9E0_1215B0]
     - [0x121690, bin] # vtx
     - [0x121790, bin] # displaylist?
     - [0x1217F0, rgba16, img/1217F0.rgba16, 32, 32]
@@ -2106,18 +2597,18 @@ segments:
     - [0x126320, bin] # displaylist
     - [0x1263C0, rgba16, img/D_0400F7F0_1263C0.rgba16, 32, 32]
     - [0x126BC0, .data, data/126F70] # displaylist
-    - [0x126BC0, vtx, data/inc/D_0400FFF0_126BC0]
-    - [0x126DB0, vtx, data/inc/D_040101E0_126DB0]
+    - [0x126BC0, sssv_vtx, data/inc/D_0400FFF0_126BC0]
+    - [0x126DB0, sssv_vtx, data/inc/D_040101E0_126DB0]
     - [0x126F70] # end of 126F70
     - [0x127080, rgba16, img/D_040104B0_127080.rgba16, 32, 32]
     - [0x127880, .data, data/127EA0]
-    - [0x127880, vtx, data/inc/D_04010CB0_127880]
-    - [0x127A70, vtx, data/inc/D_04010EA0_127A70]
-    - [0x127C60, vtx, data/inc/D_04011090_127C60]
-    - [0x127E40, vtx, data/inc/D_04011270_127E40]
+    - [0x127880, sssv_vtx, data/inc/D_04010CB0_127880]
+    - [0x127A70, sssv_vtx, data/inc/D_04010EA0_127A70]
+    - [0x127C60, sssv_vtx, data/inc/D_04011090_127C60]
+    - [0x127E40, sssv_vtx, data/inc/D_04011270_127E40]
     - [0x127EA0] # end of 127EA0
     - [0x127FB0, rgba16, img/menu/D_040113E0_127FB0.rgba16, 32, 32]
-    - [0x1287B0, vtx, data/inc/D_04011BE0_1287B0] #
+    - [0x1287B0, sssv_vtx, data/inc/D_04011BE0_1287B0] #
     - [0x128960, .data, data/128960] # displaylist
     - [0x1289D0, rnc, img/menu/BANK_SELECT, rgba16, 142, 13]
     - [0x128EE0, rnc, img/menu/MISSION_BRIEFING, rgba16, 127, 13]
@@ -2463,60 +2954,60 @@ segments:
     - [0x673790, rnc, img/intro/professor_cheese, rgba16, 320, 240]
     - [0x67DFA0, rnc, img/intro/space_station, rgba16, 320, 240]
     - [0x690FE0, .data, data/6921C0] # spaceship
-    - [0x690FE0, vtx, data/inc/D_802ED940_690FE0]
-    - [0x6911E0, vtx, data/inc/D_802EDB40_6911E0]
-    - [0x6913C0, vtx, data/inc/D_802EDD20_6913C0]
-    - [0x6915C0, vtx, data/inc/D_802EDF20_6915C0]
-    - [0x691700, vtx, data/inc/D_802EE060_691700]
-    - [0x691900, vtx, data/inc/D_802EE260_691900]
-    - [0x691AF0, vtx, data/inc/D_802EE450_691AF0]
-    - [0x691CF0, vtx, data/inc/D_802EE650_691CF0]
-    - [0x691EF0, vtx, data/inc/D_802EE850_691EF0]
-    - [0x6920F0, vtx, data/inc/D_802EEA50_6920F0]
+    - [0x690FE0, sssv_vtx, data/inc/D_802ED940_690FE0]
+    - [0x6911E0, sssv_vtx, data/inc/D_802EDB40_6911E0]
+    - [0x6913C0, sssv_vtx, data/inc/D_802EDD20_6913C0]
+    - [0x6915C0, sssv_vtx, data/inc/D_802EDF20_6915C0]
+    - [0x691700, sssv_vtx, data/inc/D_802EE060_691700]
+    - [0x691900, sssv_vtx, data/inc/D_802EE260_691900]
+    - [0x691AF0, sssv_vtx, data/inc/D_802EE450_691AF0]
+    - [0x691CF0, sssv_vtx, data/inc/D_802EE650_691CF0]
+    - [0x691EF0, sssv_vtx, data/inc/D_802EE850_691EF0]
+    - [0x6920F0, sssv_vtx, data/inc/D_802EEA50_6920F0]
     - [0x6921C0] # end of 6921C0
-    - [0x692570, vtx, data/inc/D_802EEED0_692570]
-    - [0x692760, vtx, data/inc/D_802EF0C0_692760]
-    - [0x692950, vtx, data/inc/D_802EF2B0_692950]
-    - [0x692B40, vtx, data/inc/D_802EF4A0_692B40]
-    - [0x692D30, vtx, data/inc/D_802EF690_692D30]
-    - [0x692EC0, vtx, data/inc/D_802EF820_692EC0]
-    - [0x6930C0, vtx, data/inc/D_802EFA20_6930C0]
-    - [0x6932B0, vtx, data/inc/D_802EFC10_6932B0]
-    - [0x6934A0, vtx, data/inc/D_802EFE00_6934A0]
-    - [0x693690, vtx, data/inc/D_802EFFF0_693690]
-    - [0x693890, vtx, data/inc/D_802F01F0_693890]
-    - [0x693A80, vtx, data/inc/D_802F03E0_693A80]
-    - [0x693C60, vtx, data/inc/D_802F05C0_693C60]
-    - [0x693E60, vtx, data/inc/D_802F07C0_693E60]
-    - [0x694040, vtx, data/inc/D_802F09A0_694040]
-    - [0x694240, vtx, data/inc/D_802F0BA0_694240]
-    - [0x694440, vtx, data/inc/D_802F0DA0_694440]
-    - [0x694640, vtx, data/inc/D_802F0FA0_694640]
-    - [0x694840, vtx, data/inc/D_802F11A0_694840]
-    - [0x694A20, vtx, data/inc/D_802F1380_694A20]
-    - [0x694C10, vtx, data/inc/D_802F1570_694C10]
-    - [0x694E00, vtx, data/inc/D_802F1760_694E00]
-    - [0x695000, vtx, data/inc/D_802F1960_695000]
-    - [0x6951F0, vtx, data/inc/D_802F1B50_6951F0]
-    - [0x6953E0, vtx, data/inc/D_802F1D40_6953E0]
-    - [0x6955D0, vtx, data/inc/D_802F1F30_6955D0]
-    - [0x6957C0, vtx, data/inc/D_802F2120_6957C0]
-    - [0x6959C0, vtx, data/inc/D_802F2320_6959C0]
-    - [0x695BB0, vtx, data/inc/D_802F2510_695BB0]
-    - [0x695D90, vtx, data/inc/D_802F26F0_695D90]
-    - [0x695F80, vtx, data/inc/D_802F28E0_695F80]
-    - [0x696170, vtx, data/inc/D_802F2AD0_696170]
-    - [0x696370, vtx, data/inc/D_802F2CD0_696370]
-    - [0x696490, vtx, data/inc/D_802F2DF0_696490]
-    - [0x696530, vtx, data/inc/D_802F2E90_696530]
-    - [0x696730, vtx, data/inc/D_802F3090_696730]
-    - [0x696930, vtx, data/inc/D_802F3290_696930]
-    - [0x696B30, vtx, data/inc/D_802F3490_696B30]
-    - [0x696C40, vtx, data/inc/D_802F35A0_696C40]
-    - [0x696D50, vtx, data/inc/D_802F36B0_696D50]
-    - [0x696E60, vtx, data/inc/D_802F37C0_696E60]
-    - [0x696F70, vtx, data/inc/D_802F38D0_696F70]
-    - [0x697160, vtx, data/inc/D_802F3AC0_697160]
+    - [0x692570, sssv_vtx, data/inc/D_802EEED0_692570]
+    - [0x692760, sssv_vtx, data/inc/D_802EF0C0_692760]
+    - [0x692950, sssv_vtx, data/inc/D_802EF2B0_692950]
+    - [0x692B40, sssv_vtx, data/inc/D_802EF4A0_692B40]
+    - [0x692D30, sssv_vtx, data/inc/D_802EF690_692D30]
+    - [0x692EC0, sssv_vtx, data/inc/D_802EF820_692EC0]
+    - [0x6930C0, sssv_vtx, data/inc/D_802EFA20_6930C0]
+    - [0x6932B0, sssv_vtx, data/inc/D_802EFC10_6932B0]
+    - [0x6934A0, sssv_vtx, data/inc/D_802EFE00_6934A0]
+    - [0x693690, sssv_vtx, data/inc/D_802EFFF0_693690]
+    - [0x693890, sssv_vtx, data/inc/D_802F01F0_693890]
+    - [0x693A80, sssv_vtx, data/inc/D_802F03E0_693A80]
+    - [0x693C60, sssv_vtx, data/inc/D_802F05C0_693C60]
+    - [0x693E60, sssv_vtx, data/inc/D_802F07C0_693E60]
+    - [0x694040, sssv_vtx, data/inc/D_802F09A0_694040]
+    - [0x694240, sssv_vtx, data/inc/D_802F0BA0_694240]
+    - [0x694440, sssv_vtx, data/inc/D_802F0DA0_694440]
+    - [0x694640, sssv_vtx, data/inc/D_802F0FA0_694640]
+    - [0x694840, sssv_vtx, data/inc/D_802F11A0_694840]
+    - [0x694A20, sssv_vtx, data/inc/D_802F1380_694A20]
+    - [0x694C10, sssv_vtx, data/inc/D_802F1570_694C10]
+    - [0x694E00, sssv_vtx, data/inc/D_802F1760_694E00]
+    - [0x695000, sssv_vtx, data/inc/D_802F1960_695000]
+    - [0x6951F0, sssv_vtx, data/inc/D_802F1B50_6951F0]
+    - [0x6953E0, sssv_vtx, data/inc/D_802F1D40_6953E0]
+    - [0x6955D0, sssv_vtx, data/inc/D_802F1F30_6955D0]
+    - [0x6957C0, sssv_vtx, data/inc/D_802F2120_6957C0]
+    - [0x6959C0, sssv_vtx, data/inc/D_802F2320_6959C0]
+    - [0x695BB0, sssv_vtx, data/inc/D_802F2510_695BB0]
+    - [0x695D90, sssv_vtx, data/inc/D_802F26F0_695D90]
+    - [0x695F80, sssv_vtx, data/inc/D_802F28E0_695F80]
+    - [0x696170, sssv_vtx, data/inc/D_802F2AD0_696170]
+    - [0x696370, sssv_vtx, data/inc/D_802F2CD0_696370]
+    - [0x696490, sssv_vtx, data/inc/D_802F2DF0_696490]
+    - [0x696530, sssv_vtx, data/inc/D_802F2E90_696530]
+    - [0x696730, sssv_vtx, data/inc/D_802F3090_696730]
+    - [0x696930, sssv_vtx, data/inc/D_802F3290_696930]
+    - [0x696B30, sssv_vtx, data/inc/D_802F3490_696B30]
+    - [0x696C40, sssv_vtx, data/inc/D_802F35A0_696C40]
+    - [0x696D50, sssv_vtx, data/inc/D_802F36B0_696D50]
+    - [0x696E60, sssv_vtx, data/inc/D_802F37C0_696E60]
+    - [0x696F70, sssv_vtx, data/inc/D_802F38D0_696F70]
+    - [0x697160, sssv_vtx, data/inc/D_802F3AC0_697160]
     - [0x6972C0, .data, data/6972C0] # N64 controller model
     - [0x698340, rnc, img/menu/trademark, rgba16, 320, 240]
     - [0x6A0FC0, rgba16, img/flags/english.rgba16, 48, 32]
@@ -2528,7 +3019,7 @@ segments:
     - [0x6A57C0, rgba16, img/flags/spanish.rgba16, 48, 32]
     - [0x6A63C0, rodata, overlay1_6384F0]
     - [0x6A64A0, rodata, overlay1_63C660]
-    # - [0x6A6500, .bss, overlay1_6384F0, 0xAD740]
+    - [0x6A6500, .bss, overlay1_6384F0] # , 0xAD740
   - type: code
     name: overlay2 # sssv game code
     overlay: yes
@@ -2646,8 +3137,8 @@ segments:
     - [0x7B7D30, bin] #
     - [0x7B7DE0, bin] #
     - [0x7B9580, .data, data/7B9940] # green crib??
-    - [0x7B9580, vtx, data/inc/D_803A7ED0]
-    - [0x7B9780, vtx, data/inc/D_803A80D0]
+    - [0x7B9580, sssv_vtx, data/inc/D_803A7ED0]
+    - [0x7B9780, sssv_vtx, data/inc/D_803A80D0]
     - [0x7B9940] # end of vtx
     - [0x7B99F0, bin] # overlay2_725D10 data?
     - [0x7B9BD8, .data, data/objects_7B9BD8] # 0x9C objects x 247  # rodata overlay2_72C680
@@ -2665,7 +3156,8 @@ segments:
     - [0x7C7D90, bin]
     - [0x7C7F40, bin] # data for overlay2_7A8A50?
     - [0x7C81E0, bin]
-    - [0x7C8AC0, bin] # data for overlay2_7A9CE0?
+    - [0x7C8918, bin] # offsets
+    - [0x7C8A18, bin] # offsets
     - [0x7C8B30, bin] # tbd, contains "Europe", "Ice", "Jungle", "Desert" text
     - [0x7C8B80, rgba16, img/butterfly_thing.rgba16, 32, 32]
     - [0x7C9380, rgba16, img/butterfly1a.rgba16, 32, 32]
@@ -2677,7 +3169,7 @@ segments:
     - [0x7CC380, rodata, overlay2_6A7A80]
     - [0x7CC3C0, rodata, overlay2_6ACF20]
     - [0x7CC470, rodata, overlay2_6B5380]
-    - [0x7CD480, .rodata, overlay2_6B5380]
+    - [0x7CD454, .rodata, overlay2_6B5380]
     - [0x7CD5B0, rodata, sssv/collision]
     - [0x7CD610, rodata, overlay2_6CCEF0]
     - [0x7CD7D0, rodata, overlay2_6D6120]
@@ -2686,6 +3178,7 @@ segments:
     - [0x7CD9E0, rodata, overlay2_6DCA10]
     - [0x7CDD70, .rodata, sssv/collist2]
     - [0x7CDE00, rodata, overlay2_6ED230]
+    - [0x7CDFCC, .rodata, overlay2_6ED230]
     - [0x7CE0B0, rodata, sssv/animals/fox]
     - [0x7CE110, rodata, overlay2_6FA0A0]
     - [0x7CE120, rodata, sssv/aidata]

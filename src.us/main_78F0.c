@@ -822,7 +822,7 @@ void prepare_text(u8 *src, s16 *dst) {
 // }
 
 // load message id
-s16 *func_80130A90(s16 id) {
+s16 *get_message_address_by_id(s16 id) {
     return &D_8022E3F0[D_8022E3F0[id + 7000] + 7350];
 }
 

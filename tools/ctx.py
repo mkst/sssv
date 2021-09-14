@@ -28,7 +28,7 @@ def import_c_file(in_file):
     in_file = os.path.relpath(in_file, root_dir)
     cpp_command = ["gcc", "-E", "-P",
         "-Iinclude", "-Iinclude/2.0I", "-Iinclude/2.0I/PR", "-Isrc",
-        "-D_LANGUAGE_C", "-D_FINALROM", "-DF3DEX_GBI", "DWIN32", "DSSSV", "-DVERSION_US",
+        "-D_LANGUAGE_C", "-D_FINALROM", "-DF3DEX_GBI", "-DWIN32", "-DSSSV", "-DVERSION_US",
         in_file]
     try:
         return subprocess.check_output(cpp_command, cwd=root_dir, encoding="utf-8")

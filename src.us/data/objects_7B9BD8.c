@@ -243,24 +243,24 @@ void D_8031AA0C();
 void D_8031AE7C();
 
 typedef struct {
-    /* 0x00 */  s16 unk00;
-    /* 0x02 */  s16 unk02;
-    /* 0x04 */  u32 unk04;
-    /* 0x08 */  u32 unk08;
-    /* 0x0C */  u32 unk0C;
-    /* 0x10 */  u32 unk10;
+    /* 0x00 */  s16 id;     // id
+    /* 0x02 */  s16 type;   // flags
+    /* 0x04 */  u8* unk04;  // object display list, is this a 3-item array?
+    /* 0x08 */  u8* unk08;  // object display list
+    /* 0x0C */  u8* unk0C;  // object display list
+    /* 0x10 */  u8* unk10;  // padding?
     /* 0x14 */  u8  unk14;
     /* 0x15 */  u8  unk15;
     /* 0x16 */  s16 unk16;
-    /* 0x18 */  u32 unk18;
+    /* 0x18 */  u32 unk18;  // pointer
     /* 0x1C */  u16 unk1C;
     /* 0x1E */  u16 unk1E;
     /* 0x20 */  s32 unk20;
     /* 0x24 */  s32 unk24;
     /* 0x28 */  s32 unk28;
-    /* 0x2C */  u32 unk2C; // also hitbox?
-    /* 0x30 */  u32 unk30; // hitbox (z?)
-    /* 0x34 */  u32 unk34; // also hitbox?
+    /* 0x2C */  u32 unk2C;  // also hitbox?
+    /* 0x30 */  u32 unk30;  // hitbox (z?)
+    /* 0x34 */  u32 unk34;  // also hitbox?
     /* 0x38 */  s32 unk38;
     /* 0x3C */  u32 unk3C;
     /* 0x40 */  s32 unk40;
@@ -286,7 +286,7 @@ typedef struct {
     /* 0x7E */  s16 unk7E;
     /* 0x80 */  s16 unk80;
     /* 0x82 */  s16 unk82;
-    /* 0x84 */  u32 unk84;
+    /* 0x84 */  void (*unk84)(); // handler function?
     /* 0x88 */  s16 unk88;
     /* 0x8A */  s16 unk8A;
     /* 0x8C */  s16 unk8C;

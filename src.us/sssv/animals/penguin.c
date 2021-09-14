@@ -23,10 +23,10 @@
 //             );
 //
 //         a = D_803D5530;
-//         if (a->yVelocity.w > 0x40000) {
-//             a->yVelocity.w += 0x10000;
+//         if (a->yVelocity.w > FTOFIX32(4.0)) {
+//             a->yVelocity.w += FTOFIX32(1.0);
 //         } else {
-//             a->yVelocity.w += 0x28000;
+//             a->yVelocity.w += FTOFIX32(2.0);
 //         }
 //
 //         tmp0 = func_8012826C();
@@ -74,7 +74,6 @@
 //         recharge_skill(0);
 //         if (D_803D552C) {};
 //     }
-//
 // }
 
 void func_80365C28_7772D8(void) {

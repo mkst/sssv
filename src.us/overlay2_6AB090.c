@@ -69,7 +69,7 @@ s32 func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
     if ((arg0 < 0) || (arg0 >= 4) || (arg1 < 0) || (arg1 >= 6)) {
         return 1;
     }
-    if ((*(&D_803F28D0 + arg1) & (1 << arg0))) {
+    if (D_803F28D0[arg1] & (1 << arg0)) {
         return 1;
     }
     return 0;

@@ -18,10 +18,10 @@
 //     if (arg0 == 0) {
 //         used = 0;
 //         // copy in language strings
-//         for (i = 0; (i < 9); i++) {
+//         for (i = 0; (i < 9) != 0; i++) {
 //             load_level_text_data(i, 32, D_80231AA0, D_80231D5C);
 //             if ((i != LANG_JAPANESE) && (i != LANG_AMERICAN)) {
-//                 src = func_80130A90(28); // lang33 message 28, e.g. "ENGLISH"
+//                 src = get_message_address_by_id(28); // lang33 message 28, e.g. "ENGLISH"
 //                 dst = D_803B0400[used];
 //                 while (*src != 30000) {
 //                     *dst++ = *src++;
@@ -49,25 +49,25 @@
 //     // current selection
 //     switch (D_803B0590) {
 //     case 0:
-//         flagTexture = D_80301520; // Dutch
+//         flagTexture = D_80301520_6A4BC0; // Dutch
 //         break;
 //     case 1:
-//         flagTexture = D_802FD920; // English
+//         flagTexture = D_802FD920_6A0FC0; // English
 //         break;
 //     case 2:
-//         flagTexture = D_802FE520; // French
+//         flagTexture = D_802FE520_6A1BC0; // French
 //         break;
 //     case 3:
-//         flagTexture = D_802FF120; // German
+//         flagTexture = D_802FF120_6A27C0; // German
 //         break;
 //     case 4:
-//         flagTexture = D_802FFD20; // Italian
+//         flagTexture = D_802FFD20_6A33C0; // Italian
 //         break;
 //     case 5:
-//         flagTexture = D_80300920; // Portugese
+//         flagTexture = D_80300920_6A3FC0; // Portugese
 //         break;
 //     case 6:
-//         flagTexture = D_80302120; // Spanish
+//         flagTexture = D_80302120_6A57C0; // Spanish
 //
 //     }
 //     func_801366BC(&D_801D9E7C, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
@@ -84,25 +84,25 @@
 //     // previous selection?
 //     switch (D_803B0596) {
 //     case 0:
-//         flagTexture = D_80301520;
+//         flagTexture = D_80301520_6A4BC0;
 //         break;
 //     case 1:
-//         flagTexture = D_802FD920;
+//         flagTexture = D_802FD920_6A0FC0;
 //         break;
 //     case 2:
-//         flagTexture = D_802FE520;
+//         flagTexture = D_802FE520_6A1BC0;
 //         break;
 //     case 3:
-//         flagTexture = D_802FF120;
+//         flagTexture = D_802FF120_6A27C0;
 //         break;
 //     case 4:
-//         flagTexture = D_802FFD20;
+//         flagTexture = D_802FFD20_6A33C0;
 //         break;
 //     case 5:
-//         flagTexture = D_80300920;
+//         flagTexture = D_80300920_6A3FC0;
 //         break;
 //     case 6:
-//         flagTexture = D_80302120;
+//         flagTexture = D_80302120_6A57C0;
 //     }
 //
 //     func_801366BC(&D_801D9E7C, D_803B0595, D_803B0595, D_803B0595, D_803B0595);
@@ -124,7 +124,7 @@
 //     load_default_display_list(&D_801D9E7C);
 //     select_font(0, 2, 1, 0);
 //
-//     for (i = 0; i < 7; i++) {
+//     for (i = 0; (i < 7) != 0; i++) {
 //         if (i == D_803B0590) {
 //             set_menu_text_color(255, 255, 255, 255); // selected
 //         } else {
@@ -138,11 +138,11 @@
 //
 //     // analogue stick up or dpad up or c-up
 //     if ((gControllerInput->stick_y > 50) ||
-//         ((gControllerInput->button & CONT_UP)) ||
+//         (gControllerInput->button & CONT_UP) ||
 //         (gControllerInput->button & U_CBUTTONS)) {
 //         if (D_801D9ED4 == 0) {
 //             if (D_803B0590 > 0) {
-//                 play_sound_effect(SFX_UNKNOWN_144, 0, 0x5000, 1.0f, 64);
+//                 play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
 //                 D_801D9ED4 = 10;
 //                 D_803B0590 -= 1;
 //             }
@@ -154,7 +154,7 @@
 //         (gControllerInput->button & D_CBUTTONS)) {
 //         if (D_801D9ED4 == 0) {
 //             if (D_803B0590 < 6) {
-//                 play_sound_effect(SFX_UNKNOWN_145, 0, 0x5000, 1.0f, 64);
+//                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
 //                 D_801D9ED4 = 10;
 //                 D_803B0590 += 1;
 //             }

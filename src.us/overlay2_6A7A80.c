@@ -65,6 +65,7 @@ s32 func_80298E08_6AA4B8(s16 arg0, s16 arg1) {
     return 1;
 }
 
+// no ideas
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_80298E98_6AA548.s")
 
 s16 func_80298F78_6AA628(s16 arg0, s16 arg1) {
@@ -85,6 +86,7 @@ s16 func_80298F78_6AA628(s16 arg0, s16 arg1) {
     }
 }
 
+// more of the same weirdness
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_802990A4_6AA754.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_80299140_6AA7F0.s")

@@ -320,16 +320,14 @@ void func_802FA6D8_70BD88(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB270_70C920.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB49C_70CB4C.s")
-// huh?
-// void func_802FB49C_70CB4C(struct071 *arg0) {
-//     arg0->unk54 = 0;
-//     arg0->unk55 = 0;
-//     arg0->unk56 = 0;
-//     arg0->unk57 = 0;
-//     arg0->unk5C = arg0->unk54;
-//     arg0->unk60 = arg0->unk58;
-// }
+void func_802FB49C_70CB4C(struct071 *arg0) {
+    arg0->unk5C = arg0->unk54;
+
+    arg0->unk54.unk0 = 0;
+    arg0->unk54.unk1 = 0;
+    arg0->unk54.unk2 = 0;
+    arg0->unk54.unk3 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB4C0_70CB70.s")
 
@@ -380,9 +378,29 @@ void func_802FC990_70E040(Animal *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FCA08_70E0B8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD190_70E840.s")
+void func_802FD190_70E840(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4) {
+    s16 i, j;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD26C_70E91C.s")
+    for (i = 0; i <= arg2; i++) {
+        for (j = 0; j <= arg3; j++) {
+            D_803C0740_7D1DF0[arg0 + i][arg1 + j].unk0 = arg4;
+        }
+    }
+
+    func_802DAFAC_6EC65C(arg0, arg1, arg2, arg3);
+}
+
+void func_802FD26C_70E91C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4) {
+    s16 i, j;
+
+    for (i = 0; i <= arg2; i++) {
+        for (j = 0; j <= arg3; j++) {
+            D_803C0740_7D1DF0[arg0 + i][arg1 + j].unk6 = arg4;
+        }
+    }
+
+    func_802DAFAC_6EC65C(arg0, arg1, arg2, arg3);
+}
 
 s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
     struct065 *tmp;
@@ -437,7 +455,20 @@ s32 func_802FD4D0_70EB80(Animal *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD538_70EBE8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD5DC_70EC8C.s")
+s16 func_802FD5DC_70EC8C(Animal *arg0) {
+    struct065 *tmp;
+    s16 res;
+
+    res = 0;
+
+    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
+        if (arg0 == tmp->unk8->unk6C) {
+            res += tmp->unk8->unk44 + func_802FD5DC_70EC8C(tmp->unk8);
+        }
+    }
+
+    return res;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD674_70ED24.s")
 
@@ -484,7 +515,19 @@ void func_802FD9C4_70F074(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5, s16 arg6
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FDA44_70F0F4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FE4C4_70FB74.s")
+void func_802FE4C4_70FB74(void) {
+    D_803E1D20.unk0 = D_803E1D18.unk0 = D_803F2D50.unk54;
+    D_803E1D20.unk1 = D_803E1D18.unk1 = D_803F2D50.unk55;
+    D_803E1D20.unk2 = D_803E1D18.unk2 = D_803F2D50.unk56;
+    D_803E1D20.unk3 = D_803E1D18.unk3 = D_803F2D50.unk57;
+    D_803E1D20.unk4 = D_803E1D18.unk4 = D_803F2D50.unk58;
+    D_803E1D20.unk5 = D_803E1D18.unk5 = D_803F2D50.unk59;
+    D_803E1D20.unk6 = D_803E1D18.unk6 = D_803F2D50.unk5A;
+    D_803E1D20.unk7 = D_803E1D18.unk7 = D_803F2D50.unk5B;
+
+    D_803E1D28 = D_803E1D2A = 0;
+    D_803E1D2C = 1;
+}
 
 void func_802FE560_70FC10(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 arg6, u8 arg7, s16 arg8) {
     D_803E1D10 = D_803E1D20;

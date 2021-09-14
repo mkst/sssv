@@ -50,7 +50,7 @@ const Gfx D_04009500_FA560[] = {
     gsSPVertex(D_04009030_FA090, 8, 0),
     gsSPDisplayList(D_01003548_3CE18),
     gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
-    gsSPDisplayList(0x010034C0),
+    gsSPDisplayList(D_010034C0_3CD90),
     gsSP1Quadrangle(2, 1, 4, 5, 0),
     gsSP2Triangles(0, 2, 5, 0, 1, 6, 4, 0),
     gsSP2Triangles(1, 3, 6, 0, 3, 7, 6, 0),

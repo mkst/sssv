@@ -186,7 +186,7 @@ void func_8013364C(void) {
     D_80155188 = -99;
 }
 
-void func_80133738(void) {
+void stop_all_sounds(void) {
     s8 i;
 
     if (gAudioInitialized) {

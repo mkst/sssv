@@ -51,7 +51,7 @@ const Gfx D_04007BC0_CF5F0[] = {
     gsSP1Quadrangle(4, 6, 5, 7, 0),
     gsSP1Quadrangle(8, 10, 9, 11, 0),
     gsDPSetPrimColor(0, 0, 0xAD, 0x6B, 0x52, 0xFF),
-    gsSPDisplayList(0x01003618),
+    gsSPDisplayList(D_01003618_3CEE8),
     gsSPVertex(D_04007B00_CF530, 6, 0),
     gsSP2Triangles(0, 2, 1, 0, 1, 2, 3, 0),
     gsSP2Triangles(3, 2, 4, 0, 4, 2, 5, 0),

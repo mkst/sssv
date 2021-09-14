@@ -38,7 +38,7 @@ extern u8   D_010043A0[];
 extern Gfx  D_01004510[];
 extern Gfx  D_010049A0_3E270[];
 extern u8   D_01004AF8[];
-extern Gfx  D_01013370[];
+extern Gfx  D_01013370_4CC40[];
 extern u8   D_01021BB0[];
 extern u8   D_0102A210[];
 extern u8   D_0102F010[];
@@ -84,6 +84,7 @@ extern u8   D_040089E0[];
 extern u8   D_04008A10[];
 extern u8   D_04008C10[];
 extern u8   D_0400A9E0[];
+extern u8   D_04012B20_1296F0[];
 extern u8   D_04013060[];
 extern u8   D_040131B0[];
 extern u8   D_040133C0[];
@@ -108,6 +109,9 @@ extern u8   D_80099600[]; // _gfxdlistSegmentEnd
 
 // 0x800Bxxxx
 
+extern u8 D_800B0B20[];
+extern u8 D_800B49A0[]; // level thumbnail img
+extern u8 D_800B68E0[]; // trophy img
 extern struct038 D_800BB210[];
 extern u8 D_800BB700[];
 extern u8 D_800BBBB0[];
@@ -118,8 +122,8 @@ extern u8 D_800BCE70[];
 extern u8 D_800BD320[];
 extern u8 D_800BD7D0[];
 extern u8 D_800BDC80[];
+extern u8 D_800DD3F0[];
 extern u8 D_800DE390[];
-
 // are different values loaded into this area?
 extern u8 D_800BA760[20][0xAB8]; // 2744 bytes per texture, initially contains rnc_42DCA0 compressed texture
 
@@ -279,7 +283,7 @@ extern u8  *D_801D9EC4;
 extern u8   D_801D9EC8;
 extern u8   D_801D9EC9;
 extern s32  D_801D9ED0;
-extern s16  D_801D9ED4;
+extern s16  D_801D9ED4; // either 10 or 6 - input debounce?
 extern struct050 D_801D9ED8; // what is this variable!?
 
 extern s32  D_801DD800;
@@ -288,11 +292,11 @@ extern struct015 D_801DDD8C[]; // animals struct array
 
 // 0x801Exxxx
 
-extern struct080 *D_801E1ED7;
+extern struct080 D_801E1ED8;
 extern u16  D_801E9E8E;
 extern s16  D_801E9EB2;
 extern s16  D_801E9EB4;
-extern struct071 D_801E9EB8[];
+extern struct071 D_801E9EB8[]; // 170
 // 0x801Fxxxx
 
 extern struct072 D_801F9EB8;
@@ -481,9 +485,9 @@ extern u8   D_802912E4; // d-right pressed
 extern u8   D_802912E5; // z pressed
 
 extern u16  D_80299C84[3];
-extern s32  D_80299CD0;
-extern Light *D_80299D50;
-extern Light *D_80299D58;
+extern s32  D_80299CD0_63D370;
+extern Light *D_80299D50_63D3F0;
+extern Light *D_80299D58_63D3F8;
 extern f32  D_80299DB8;
 extern f32  D_80299DBC;
 extern f32  D_80299DC0;
@@ -516,8 +520,8 @@ extern u16  D_80299E10;
 extern u8   D_80299E14;
 extern u16  D_80299E1C_63D4BC;
 extern s8   D_80299E24;
-extern u8   D_80299FCC;
-extern s16  D_80299FD0;
+extern u8   D_80299FCC_63D66C;
+extern s16  D_80299FD0_63D670;
 
 // 0x802Axxxx
 extern u8   D_802AFBD0[];
@@ -544,19 +548,20 @@ extern const Gfx  D_802F3C20_6972C0[]; // N64 controller model
 // 0x802Fxxxx
 
 extern u8   D_802F4CA0[];
-extern u8   D_802FD920[]; // English language flag
-extern u8   D_802FE520[]; // French language flag
-extern u8   D_802FF120[]; // German language flag
-extern u8   D_802FFD20[]; // Italian language flag
+extern u8   D_802FD920_6A0FC0[]; // English language flag
+extern u8   D_802FE520_6A1BC0[]; // French language flag
+extern u8   D_802FF120_6A27C0[]; // German language flag
+extern u8   D_802FFD20_6A33C0[]; // Italian language flag
 
 // 0x8030xxxx
-extern u8   D_80300920[]; // Portugese language flag
-extern u8   D_80301520[]; // Dutch language flag
-extern u8   D_80302120[]; // Spanish language flag
+extern u8   D_80300920_6A3FC0[]; // Portugese language flag
+extern u8   D_80301520_6A4BC0[]; // Dutch language flag
+extern u8   D_80302120_6A57C0[]; // Spanish language flag
 extern f32  D_80302D20; // 15000.0f
 extern f64  D_80302D28;
-extern u16  D_80302E60[];
-extern u8*  D_80302E64;
+
+// BSS (overlay1)
+
 extern u8   D_80302E88[];
 
 // 0x8032xxxx
@@ -583,11 +588,12 @@ extern u8   D_8039E2E8[];
 // 0x803Axxxx
 
 extern s16  D_803A0500;
-extern s32  D_803A05B0;
 extern s16  D_803A05C0_7B1C70;
 extern s16  D_803A05C8_7B1C78;
+extern s32  D_803A05B0;
 extern s32  D_803A05B0_7B1C60;
 extern s32  D_803A05B4_7B1C64;
+extern struct089 D_803A05D0_7B1C80[];
 extern struct076 D_803A2D90_7B4440[];
 extern u8   D_803A38D8[];
 extern struct028 D_803A50C0_7B6770;
@@ -618,6 +624,8 @@ extern s16  D_803A5330_7B69E0;
 extern struct082 D_803A63B0_7B7A60[];
 extern s16  D_803A6470_7B7B20[];
 extern s16  D_803A6520_7B7BD0[];
+extern s16  D_803A65D0[];
+extern s16  D_803A6680[];
 extern s16  D_803A6730[];
 extern s16  D_803A69F0[];
 extern f32  D_803A6CC4;
@@ -703,15 +711,29 @@ extern char D_803B6320_7C79D0[]; // "AGCT.-01"
 extern s32  D_803B6328[]; // array of pointers to TV screen assembly background text
 extern struct028 D_803B66F0;
 extern struct004 D_803B6700[];
+extern struct004 D_803B6700_7C7DB0;
 extern struct004 D_803B6730;
+extern struct004 D_803B6730_7C7DE0;
 extern struct004 D_803B683C;
+extern struct004 D_803B683C_7C7EEC;
+extern struct004 D_803B6718_7C7DC8;
 extern s32  D_803B6880_7C7F30;
 extern struct004 D_803B6790;
 extern u16  D_803B6870[];
+extern s16  D_803B6870_7C7F20;
 extern struct046 D_803B6890[];
 extern s16  D_803B6B24[];
-extern f32  D_803B7468;
 extern s8   D_803B71D0[][5];
+extern struct066 D_803B7268_7C8918[32];
+extern struct066 D_803B7368_7C8A18[32];
+extern f32  D_803B7468;
+extern f32  D_803B74AC_7C8B5C;
+extern f32  D_803B74B0_7C8B60;
+extern f32  D_803B74B4_7C8B64;
+extern f32  D_803B74B8_7C8B68;
+extern f32  D_803B74BC_7C8B6C;
+extern f32  D_803B74C0_7C8B70;
+extern f32  D_803B74C4_7C8B74;
 
 // rodata starts at 0x803BACD0 (maybe)
 
@@ -791,20 +813,40 @@ extern char D_803C0194_7D1844[];
 extern char D_803C0198_7D1848[];
 extern char D_803C01B0_7D1860[];
 extern char D_803C01C8_7D1878[];
-extern s16  D_803C0420[]; // BSS?
-extern struct053 D_803C0430;
 
 extern f32  D_803C032C_7D19DC;
 extern f32  D_803C0348_7D19F8;
 extern f32  D_803C034C_7D19FC;
 extern f32  D_803C0388;
 extern f64  D_803C0390;
+extern char D_803C03A0_7D1A50[];
+extern char D_803C03A8_7D1A58[];
+extern char D_803C03B0_7D1A60[];
+extern char D_803C03B8_7D1A68[];
+extern char D_803C03C0_7D1A70[];
+extern char D_803C03C4_7D1A74[];
+extern char D_803C03C8_7D1A78[];
+extern char D_803C03D0_7D1A80[];
+extern char D_803C03D8_7D1A88[];
+extern char D_803C03DC_7D1A8C[];
+extern char D_803C03E0_7D1A90[];
+extern char D_803C03E4_7D1A94[];
+extern char D_803C03E8_7D1A98[];
+extern char D_803C03EC_7D1A9C[];
+extern char D_803C03F0_7D1AA0[];
+
 extern f32  D_803C03F4;
+extern f32  D_803C03F8_7D1AA8;
+extern f64  D_803C0400_7D1AB0;
+extern f64  D_803C0408_7D1AB8;
+extern f32  D_803C0410_7D1AC0;
+extern s16  D_803C0420[]; // BSS?
 extern u8   D_803C0422;
 extern s16  D_803C0424;
 extern s16  D_803C0426;
-extern s32  D_803C0428;
+extern s16  D_803C0428;
 extern s16  D_803C042A;
+extern struct053 D_803C0430;
 extern Fog  D_803C0660[]; // fogPositions? or just a coincidence
 extern u16  D_803C063A;
 extern u8   D_803C063C;
@@ -842,7 +884,7 @@ extern s16  D_803D553E;
 extern struct037 *D_803D5520;
 extern struct035 *D_803D5524;
 extern Animal *D_803D5528;
-extern Animal *D_803D552C; // is this *really* Animal?
+extern Animal *D_803D552C; // is this *really* Animal? is it World?
 extern s16  D_803D5540;
 extern s16  D_803D5542;
 extern u16  D_803D5544;
@@ -850,8 +892,14 @@ extern u16  D_803D5546;
 extern s8   D_803D554A;
 extern s8   D_803D554B;
 extern s8   D_803D554C;
-extern s32  D_803D5564;
-extern s32  D_803D5568;
+extern s16  D_803D555A;
+extern Animal *D_803D5560;
+extern s16  D_803D5564;
+extern s16  D_803D5566;
+extern s16  D_803D5568;
+extern s16  D_803D556A;
+extern s16  D_803D556C;
+extern s16  D_803D556E;
 extern u8   D_803D5575; // controller maginitude?
 extern s16  D_803D5590[360];
 extern s16  D_803D5860[360];
@@ -869,10 +917,12 @@ extern u16  D_803DA0F4;
 extern struct065 D_803DA110[40];
 extern Animal *D_803DA2F0;
 extern Animal *D_803DA2F4;
+extern struct088 D_803DA300[];
 
 // 0x803Exxxx
 
 extern struct051 D_803E00C0[]; // ?
+extern struct087 D_803E00D6[];
 extern struct051 D_803E00EE[]; // D_803E0000[3] ?
 extern s16  D_803E1B00;
 extern s16  D_803E1B02;
@@ -926,8 +976,9 @@ extern struct063 D_803E1D10;
 extern struct063 D_803E1D18;
 extern struct063 D_803E1D20;
 extern s16  D_803E1D28;
-extern s16  D_803E1D2A;
+extern u16  D_803E1D2A;
 extern u8   D_803E1D2C;
+extern u8   D_803E1D30[];
 extern u8   *D_803E1D32; // ?
 extern struct064 D_803E1D3B[];
 extern struct073 D_803E3130[];
@@ -987,7 +1038,7 @@ extern struct067 D_803E9840[];
 // 0x803Fxxxx
 
 extern s16  D_803F28C2;
-extern u16  D_803F28D0;
+extern u16  D_803F28D0[];
 extern u16  D_803F28DC;
 extern struct025 D_803F28E0[]; // 2 values?
 
@@ -1100,7 +1151,7 @@ extern s16  D_803F330A;
 extern s16  D_803F330C;
 extern s16  D_803F330E;
 extern s16  D_803F3310;
-extern s16  D_803F3330[]; // tbd
+extern u16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
 extern s16  D_803F63C2;
@@ -1127,7 +1178,6 @@ extern s16  D_803F6470;
 extern s8   D_803F6472;
 extern s16  D_803F6474;
 extern struct027 D_803F6680;
-extern u16  D_803F6684;
 extern u8   D_803F66A6;
 extern u8   D_803F66A7;
 extern s16  D_803F66A4;
@@ -1144,36 +1194,40 @@ extern u16  D_803F670A;
 extern u16  D_803F670C;
 extern u16  D_803F670E;
 extern u16  D_803F6714;
-extern s16  D_803F6716; // these 3 store eeprom data
-extern s16  D_803F6718;
-extern s16  D_803F671A;
+extern s16  D_803F6716; // current sfx volume
+extern s16  D_803F6718; // current music volume
+extern s16  D_803F671A; // current language
 extern s16  D_803F671C;
 extern struct048  D_803F6720[][10];
 extern s16  D_803F70F8[][10];
 extern s16  D_803F7134[];
-extern s16  D_803F713C[];
+extern u16  D_803F713C[];
 extern s16  D_803F7144[];
 extern s16  D_803F714C[];
 extern s16  D_803F71A0[];
 extern s32  D_803F7D60;
 extern f32  D_803F7D68;
 extern f32  D_803F7D70;
-extern struct030 D_803F7D78; // ?
+extern struct008 D_803F7D78;
 extern s16  D_803F7D9C;
 extern s16  D_803F7D9E;
-extern u8   D_803F7DA0;
-extern u8   D_803F7DA1;
-extern u8   D_803F7DA2;
-extern u8   D_803F7DA3;
+extern s8   D_803F7DA0;
+extern s8   D_803F7DA1;
+extern s8   D_803F7DA2;
+extern s8   D_803F7DA3;
 extern struct030 D_803F7DA8;
 extern s8   D_803F7DD4;
 extern s8   D_803F7DD5; // current level idx?
 extern s8   D_803F7DD6;
 extern s8   D_803F7DD7;
 extern s8   D_803F7DD8;
-extern s8   D_803F7DE0[];
+extern s8   D_803F7DE0[]; // levels available
 extern s8   D_803F7DFE;
 
+extern s16  D_803F7E00; // europe levels completed
+extern s16  D_803F7E02; // levels
+extern s16  D_803F7E04; // levels
+extern s16  D_803F7E06; // levels
 extern struct045  D_803F7E10[30];
 extern u16  D_803FDEA0;
 

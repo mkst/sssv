@@ -20,7 +20,7 @@ from util import options
 from segtypes.n64.codesubsegment import N64SegCodeSubsegment
 
 
-class N64SegVtx(N64SegCodeSubsegment):
+class N64SegSssv_vtx(N64SegCodeSubsegment):
     def __init__(self, rom_start, rom_end, type, name, vram_start, extract,
                  given_subalign, given_is_overlay, given_dir, args = [], yaml = {}):
         super().__init__(rom_start, rom_end, type, name, vram_start, extract,

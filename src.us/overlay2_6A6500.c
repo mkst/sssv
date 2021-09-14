@@ -73,7 +73,7 @@
 //             if ((D_803F2D34 == 0) && (D_803F2E16 == 0) && (gLevelIndex != END_CREDITS) && ((D_803E4D28 & 0x10) == 0)) {
 //                 if ((D_803C0420 == 0) || ((((s32) D_803C0420 >= 0xA)))) {
 //                     play_sound_effect(SFX_UNKNOWN_127, 0, 0x5000, 1.0f, 64);
-//                     D_801D9ED4 = (u16)0xA;
+//                     D_801D9ED4 = (u16)10;
 //                     func_8038F794_7A0E44();
 //                 }
 //             }
@@ -97,8 +97,8 @@
 //         D_803C042A = 1;
 //     }
 //     if (D_803F6680.unk0 != 0) {
-//         if (D_803F66AD == 0) {
-//             // decompress a bunch of textures
+//         if (D_803F66AD == 0) { // is menu loaded?
+//             // load menu displaylists & decompress a bunch of textures
 //             func_80398630_7A9CE0();
 //             D_803F66AD = (u8)1;
 //         }
@@ -301,7 +301,7 @@
 //         }
 //         if (D_803C0426 != 0) {
 //             if (D_803C0426 == 2) {
-//                 func_80133738();
+//                 stop_all_sounds();
 //             }
 //             if (D_803C0426 == 1) {
 //                 if (D_803C042A == 0) {
@@ -381,7 +381,7 @@ void func_8029614C_6A77FC(void) {
 
     D_8020427C = 0;
 
-    D_803F2D30.unkC = 0;
+    D_803F2D30.time = 0;
 }
 
 void func_8029619C_6A784C(void) {
@@ -391,11 +391,11 @@ void func_8029619C_6A784C(void) {
 }
 
 void func_802961D4_6A7884(void) {
-    func_8012A400();
+    func_8012A400(); // synchronise?
     load_ingame_objects();
     load_water_texture();
     D_803C0422 = 0;
-    D_803F6684 = 0;
+    D_803F6680.unk4 = 0;
     D_8028645A = 0;
     D_8015517C = 0.0f;
     D_8028645C = 0;

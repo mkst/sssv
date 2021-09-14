@@ -5,7 +5,7 @@
 #include "audio.h"
 #include "simple.h"
 
-u8 bss_padding[0xe0fb0];
+u8 bss_padding_audiomgr_c[0xe0fb0];
 
 /****  type define's for structures unique to audiomgr ****/
 typedef union {
