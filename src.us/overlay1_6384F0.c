@@ -4,6 +4,8 @@
 
 #include "pp.h"
 
+u16 D_80302E60[2];
+u8*  D_80302E64;
 
 void func_80294E50_6384F0(void) {
     func_802988E8_63BF88();
@@ -49,7 +51,7 @@ void func_802950B8_638758(void) {
     load_level_text_data(D_8023F2A0.language, 33, D_80231AA0, D_80231D5C);
 
     // load "CONTROLLER NOT CONNECTED" text
-    src = func_80130A90(16); // message 16
+    src = get_message_address_by_id(16); // message 16
     dst = D_802042F0;
     while (*src != 30000) {
         *dst++ = *src++;
@@ -57,7 +59,7 @@ void func_802950B8_638758(void) {
     *dst = 30000;
 
     // load "PRESS START" text
-    src = func_80130A90(14); // message 14
+    src = get_message_address_by_id(14); // message 14
     dst = D_80204368;
     while (*src != 30000) {
         *dst++ = *src++;
@@ -86,53 +88,55 @@ void func_80295234_6388D4(void) {
 void func_8029548C_638B2C(void) {
 }
 
+#ifdef NON_MATCHING
+void func_80295494_638B34(Gfx **arg0, u16 arg1) {
+    s32 phi_a1;
+    s32 phi_a2;
+
+    D_80299DC4 = D_80299DB8;
+    D_80299DC8 = D_80299DBC;
+
+    func_80294EB8_638558(&D_801D9E7C);
+
+    gSPDisplayList((*arg0)++, &D_80158368);
+    gSPNumLights((*arg0)++, 1);
+    gSPLight((*arg0)++, &D_80299D58_63D3F8, 1);
+    gSPLight((*arg0)++, &D_80299D50_63D3F0, 2);
+
+    if (arg1 < 20) {
+        phi_a1 = 159 - (arg1 * 8);
+        phi_a2 = (arg1 * 8) + 161;
+        if (phi_a1 < 8) {
+            phi_a1 = 8;
+        }
+        if (phi_a2 > 312) {
+            phi_a2 = 312;
+        }
+        gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, phi_a1, 120, phi_a2, 121);
+    } else if (arg1 < 40) {
+        phi_a1 = (arg1 / 2) * 12;
+        if (phi_a1 > 232) {
+            phi_a1 = 232;
+        }
+        // this line is slightly off...
+        gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 239 - phi_a1, 312, phi_a1);
+    } else {
+        gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+    }
+
+    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, 0, 0, 0, 0x80000, 0x80000, 0x80000);
+
+    gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    D_80204278->usedModelViewMtxs += 1;
+
+    gDPSetRenderMode((*arg0)++, G_RM_ZB_PCL_SURF, G_RM_ZB_PCL_SURF2);
+    gSPClearGeometryMode((*arg0)++, G_CULL_BACK);
+    gSPDisplayList((*arg0)++, &D_80299CD0_63D370);
+    gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_6384F0/func_80295494_638B34.s")
-// NON-MATCHING: 2 instructions in the wrong place
-// void func_80295494_638B34(Gfx **arg0, u16 arg1) {
-//     s32 phi_a1;
-//     s32 phi_a2;
-//
-//     D_80299DC4 = D_80299DB8;
-//     D_80299DC8 = D_80299DBC;
-//
-//     func_80294EB8_638558(&D_801D9E7C);
-//
-//     gSPDisplayList((*arg0)++, &D_80158368);
-//     gSPNumLights((*arg0)++, 1);
-//     gSPLight((*arg0)++, &D_80299D58, 1);
-//     gSPLight((*arg0)++, &D_80299D50, 2);
-//
-//     if (arg1 < 20) {
-//         phi_a1 = 159 - (arg1 * 8);
-//         phi_a2 = (arg1 * 8) + 161;
-//         if (phi_a1 < 8) {
-//             phi_a1 = 8;
-//         }
-//         if (phi_a2 > 312) {
-//             phi_a2 = 312;
-//         }
-//         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, phi_a1, 120, phi_a2, 121);
-//     } else if (arg1 < 40) {
-//         phi_a1 = (arg1 / 2) * 12;
-//         if (phi_a1 > 232) {
-//             phi_a1 = 232;
-//         }
-//         // this line is slightly off...
-//         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 239 - phi_a1, 312, phi_a1);
-//     } else {
-//         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
-//     }
-//
-//     func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, 0, 0, 0, 0x80000, 0x80000, 0x80000);
-//
-//     gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-//     D_80204278->usedModelViewMtxs += 1;
-//
-//     gDPSetRenderMode((*arg0)++, G_RM_ZB_PCL_SURF, G_RM_ZB_PCL_SURF2);
-//     gSPClearGeometryMode((*arg0)++, G_CULL_BACK);
-//     gSPDisplayList((*arg0)++, &D_80299CD0);
-//     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
-// }
+#endif
 
 void func_802958B8_638F58(Gfx **dl) {
     gSPDisplayList((*dl)++, &D_801582C0);
@@ -150,39 +154,44 @@ void func_802958B8_638F58(Gfx **dl) {
 //     s32 tmp;
 //
 //     if (arg1 != 0) {
-//         D_80299FD0 = 60;
-//         D_80299FCC = 0;
+//         D_80299FD0_63D670 = 60;
+//         D_80299FCC_63D66C = 0;
 //     }
 //
-//     temp_t2 = (s16)((((u32)D_80299FCC * 260.0f) / 48.0) + 60.0);
+//     temp_t2 = ((D_80299FCC_63D66C * 260.0f) / 48.0) + 60.0;
 //
-//     if (D_80299FCC < 24) {
+//     if (D_80299FCC_63D66C < 24) {
 //         phi_t3 = 1;
-//     }
+//     } else if (D_80299FCC_63D66C) {
+//         //
+//     };
+//
 //
 //     func_801366BC(&D_801D9E7C, 0xFF, 0xFF, 0xFF, 0xFF);
-//
 //     func_80136938(
 //         &D_801D9E7C,
 //         arg0,
 //         320,
 //         240,
-//         ABS(D_80299FD0),
-//         D_80302D28 + ((u32)D_80299FCC * 195.0f / 48.0),
+//         ABS(D_80299FD0_63D670),
+//         (D_80299FCC_63D66C * 195.0f / 48.0) + D_80302D28,
 //         phi_t3,
 //         0,
-//         ((temp_t2 - ABS(D_80299FD0)) / 2) + (48 - D_80299FCC),
-//         (48 - D_80299FCC),
+//         (48 - D_80299FCC_63D66C) + ((temp_t2 - ABS(D_80299FD0_63D670)) / 2),
+//         (48 - D_80299FCC_63D66C),
 //         16);
 //
-//     tmp = temp_t2;
-//     if (D_80299FCC < 49) {
-//         if (D_80299FCC < 24) {
-//             D_80299FD0 -= tmp / 48;
+//     if (D_80299FCC_63D66C < 49) {
+//         tmp = temp_t2;
+//
+//         if (D_80299FD0_63D670) {};
+//
+//         if (D_80299FCC_63D66C < 24) {
+//             D_80299FD0_63D670 -= tmp / 48;
 //         } else {
-//             D_80299FD0 += tmp / 19;
+//             D_80299FD0_63D670 += tmp / 19;
 //         }
-//         D_80299FCC += 1;
+//         D_80299FCC_63D66C++;
 //     }
 // }
 

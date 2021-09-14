@@ -23,6 +23,7 @@
 #endif
 
 #include "sfx.h"
+#include "messages.h"
 
 // levels
 #define NO_LEVEL_0               0
@@ -57,7 +58,7 @@
 #define SHIFTING_SANDS           29
 #define PUNCHUP_PYRAMID          30
 #define BIG_CELEBRATION_PARADE   31
-#define NO_LEVEL_32              32
+#define SECRET_LEVEL             32
 #define NO_LEVEL_33              33
 #define NO_LEVEL_34              34
 #define END_CREDITS              35
@@ -137,6 +138,12 @@
 #define EVO_BRONZE_SHELLSUIT        0
 #define EVO_SILVER_SHELLSUIT        1
 #define EVO_GOLD_SHELLSUIT          2
+
+// evo body parts
+#define EVO_TORSO                   1
+#define EVO_HEAD                    2
+#define EVO_ARMS                    4
+#define EVO_LEGS                    8
 
 // biomes
 #define EUROPE_BIOME                0

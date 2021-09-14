@@ -84,6 +84,6 @@ void func_802F13B8_702A68(void) {
 
         func_802F30A4_704754();
         gSPSetGeometryMode(D_801D9E7C++, G_LIGHTING);
-        gSPDisplayList(D_801D9E7C++, D_01013370);
+        gSPDisplayList(D_801D9E7C++, D_01013370_4CC40); // tv screen
     }
 }

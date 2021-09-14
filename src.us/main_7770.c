@@ -17,6 +17,8 @@ extern u8 overlay2_data_VRAM[];
 extern u8 D_803B05A0[]; // overlay1 bss end
 extern u8 D_803FDEC0[]; // overlay2 bss end
 
+extern u16 D_80302E60[];
+
 #ifdef NON_MATCHING // almost JUSTREG
 void load_overlay(u8 arg0) {
     s32 pad[2];
@@ -25,8 +27,7 @@ void load_overlay(u8 arg0) {
     s32 len3;
     s32 len4;
 
-    // stop all sounds
-    func_80133738();
+    stop_all_sounds();
 
     switch(arg0){
     case 0: // overlay 2

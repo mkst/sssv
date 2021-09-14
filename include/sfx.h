@@ -148,10 +148,10 @@
 #define SFX_UNKNOWN_141             141
 #define SFX_UNKNOWN_142             142
 #define SFX_UNKNOWN_143             143
-#define SFX_UNKNOWN_144             144
-#define SFX_UNKNOWN_145             145
+#define SFX_MENU_NAGIVATE_UP        144
+#define SFX_MENU_NAGIVATE_DOWN      145
 #define SFX_UNKNOWN_146             146
-#define SFX_UNKNOWN_147             147
+#define SFX_MENU_NAGIVATE_NEW_BIOME 147
 #define SFX_UNKNOWN_148             148
 #define SFX_UNKNOWN_149             149
 #define SFX_UNKNOWN_150             150

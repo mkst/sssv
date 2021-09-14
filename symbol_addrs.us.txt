@@ -372,6 +372,9 @@ __osViIntrCount   = 0x8029286C;
 __osTimerCounter  = 0x80292870;
 __osBaseCounter   = 0x80292868;
 
+__osContLastCmd        = 0x80292590;
+__osPfsPifRam          = 0x80293C60;
+
 gFramebuffer           = 0x80000400;
 gControllerInput       = 0x802910D0;
 gControllerStatus      = 0x802910D8;
@@ -426,6 +429,7 @@ draw_glyph             = 0x8012DCA8;
 load_glyph             = 0x8012FB4C;
 display_score          = 0x801304EC;
 prepare_text           = 0x801308B4;
+get_message_address_by_id = 0x80130A90;
 font_init              = 0x80130B00;
 write_eeprom           = 0x80130C30;
 read_eeprom            = 0x80130CD4;
@@ -445,6 +449,7 @@ get_sound_by_slot      = 0x801323B8;
 get_sound_by_id        = 0x80132414;
 get_used_sound_count   = 0x80132D54;
 play_sound_effect      = 0x8013307C;
+stop_all_sounds        = 0x80133738;
 set_sfx_volume         = 0x80133B74;
 set_music_volume       = 0x80133BA0;
 init2                  = 0x801355B0;
@@ -483,7 +488,6 @@ frameSize              = 0x80241D0A;
 maxFrameSize           = 0x80241D0C;
 audDMAIOMesgBuf        = 0x80241D10;
 audDMAMessageQ         = 0x802423D0;
-
 
 set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4
 
@@ -554,14 +558,16 @@ perform_behavior_gorilla        = 0x80388744; // rom:0x799DF4
 perform_behavior_elephant       = 0x803888F0; // rom:0x799FA0
 perform_behavior_seagull        = 0x803892F4; // rom:0x79A9A4
 
-reset_cheats           = 0x8038BA30; // rom:0x79D0E0
-check_cheats           = 0x8038BAC0; // rom:0x79D170
-check_cheat_code       = 0x8038C13C; // rom:0x79D7EC
-reset_credits_counters = 0x8038B840; // rom:0x79CEF0
-display_credits        = 0x8038B854; // rom:0x79CF04
-render_stars           = 0x8039D30C; // rom:0x7AE9BC
-generate_stars         = 0x8039D580; // rom:0x7AEC30
-seconds_to_mins_secs   = 0x8039DB60; // rom:0x7AF210
-get_biome_for_level    = 0x8039DCC0; // rom:0x7AF370
+reset_cheats                = 0x8038BA30; // rom:0x79D0E0
+check_cheats                = 0x8038BAC0; // rom:0x79D170
+check_cheat_code            = 0x8038C13C; // rom:0x79D7EC
+reset_credits_counters      = 0x8038B840; // rom:0x79CEF0
+display_credits             = 0x8038B854; // rom:0x79CF04
+render_stars                = 0x8039D30C; // rom:0x7AE9BC
+generate_stars              = 0x8039D580; // rom:0x7AEC30
+seconds_to_mins_secs        = 0x8039DB60; // rom:0x7AF210
+get_biome_for_level         = 0x8039DCC0; // rom:0x7AF370
+determine_available_levels  = 0x8039D6A4; // rom:0x7AED54
+load_pause_menu             = 0x80393238; // rom:0x7A48E8
 
-D_803BD52C_7CEB7C      = 0x803BD52C; // rom:0x7CEB7C
+D_803BD52C_7CEB7C           = 0x803BD52C; // rom:0x7CEB7C

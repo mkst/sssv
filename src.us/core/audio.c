@@ -130,14 +130,13 @@ struct017 *func_80132568(void) {
     bar = &foo;
     foo = &D_80286320;
 
-    D_80286320 = NULL;
-    D_8028631C = NULL;
+    D_8028631C = D_80286320 = NULL;
 
     if (1) {}
     return *bar;
 }
 
-void *func_80132580(s32 arg0, s16 id) {
+struct017 *func_80132580(s32 arg0, s16 id) {
     struct017 *snd;
 
     if (gAudioInitialized == 0) {
