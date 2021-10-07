@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-void func_803283DC_739A8C(void);
 
 extern u8 D_803A6070_7B7720[];
 extern u8 D_803A6078_7B7728[];
@@ -285,9 +284,165 @@ struct025* func_803284C4_739B74(void) {
     return temp_v0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328520_739BD0.s")
+void func_80328520_739BD0(void) {
+    switch (D_803D552C->unk366) {
+    case 1:
+        if (D_803D5530->health <= 0) {
+            D_803D552C->unk366 = 2U;
+            func_80328918_739FC8();
+            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            func_80321920_732FD0(D_803D552C->unk320, 0, 0);
+        }
+        break;
+    case 3:
+        if (D_803D5530->health <= 0) {
+            D_803D552C->unk366 = 5U;
+            func_80328918_739FC8();
+            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            switch (D_803D5524->unkE6) {
+            case 0:
+                D_803F2D30.score += 50;
+                break;
+            case 1:
+                D_803F2D30.score += 100;
+                break;
+            case 2:
+                D_803F2D30.score += 200;
+                break;
+            case 3:
+                D_803F2D30.score += 350;
+                break;
+            case 4:
+                D_803F2D30.score += 500;
+                break;
+            }
+            if (D_803D5530->unk246 != 0) {
+                func_803153B0_726A60(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
+                func_803191B0_72A860(D_803D5530);
+            }
+        } else if (D_803D5524->unkD8 >= D_803D5530->health) {
+            D_803D552C->unk366 = 4U;
+            D_803D552C->unk328 = D_803D5544;
+        }
+        break;
+    case 4:
+        if (D_803D5524->unkD8 < D_803D5530->health) {
+            D_803D552C->unk366 = 3U;
+        } else if (D_803D5530->health <= 0) {
+            D_803D552C->unk366 = 5U;
+            func_80328918_739FC8();
+            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            if (D_803D5544 >= 2) {
+                switch (D_803D5524->unkE6) {
+                case 0:
+                    D_803F2D30.score += 50;
+                    break;
+                case 1:
+                    D_803F2D30.score += 100;
+                    break;
+                case 2:
+                    D_803F2D30.score += 200;
+                    break;
+                case 3:
+                    D_803F2D30.score += 350;
+                    break;
+                case 4:
+                    D_803F2D30.score += 500;
+                    break;
+                }
+            }
+            if (D_803D5530->unk246 != 0) {
+                func_803153B0_726A60(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
+                func_803191B0_72A860(D_803D5530);
+            }
+        }
+        break;
+    case 5:
+        if (D_803D5530->health > 0) {
+            D_803D552C->unk366 = 4U;
+            D_803D552C->unk328 = D_803D5544;
+            D_803D552C->unk36A = 1;
+        }
+        break;
+    case 6:
+        break;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328918_739FC8.s")
+void func_80328918_739FC8(void) {
+    D_803D552C->unk328 = D_803D5544;
+    D_803D552C->unk36A = 1;
+    D_803D552C->unk348 = 0;
+    D_803D552C->unk34A = 0;
+    D_803D552C->unk358 = 0;
+    D_803D552C->unk363 = 0;
+    D_803D552C->unk369 = 0;
+    D_803D552C->unk365 = 0;
+    D_803D552C->unk36E = 0;
+    D_803D552C->unk364 = 0;
+    D_803D552C->unk2EC = 0;
+
+    if (D_803D5524->unk9C == CHAMELEON_DEFENDING) {
+        load_animal(CHAMELEON);
+    }
+
+    D_803D552C->unk30A = 0;
+    D_803D552C->unk34C = 0;
+    D_803D552C->unk356 = 0;
+    D_803D5530->unk46 = D_803D5530->unk16C->unk7C;
+    func_802C9BA4_6DB254(D_803D5530);
+
+    switch (D_803D5530->state) {
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+        D_803D5530->state = 2;
+        break;
+    case 22:
+    case 23:
+    case 24:
+        D_803D5530->state = 21;
+        break;
+    case 42:
+        D_803D5530->state = 41;
+        break;
+    case 62:
+    case 63:
+        D_803D5530->state = 61;
+        break;
+    case 102:
+    case 103:
+    case 104:
+    case 105:
+    case 106:
+        D_803D5530->state = 101;
+        break;
+    case 122:
+    case 123:
+        D_803D5530->state = 121;
+        break;
+    case 142:
+    case 143:
+    case 144:
+        D_803D5530->state = 141;
+        break;
+    case 162:
+        D_803D5530->state = 161;
+        break;
+    case 182:
+    case 183:
+    case 184:
+    case 185:
+        D_803D5530->state = 181;
+        break;
+    case 202:
+    case 203:
+    case 204:
+        D_803D5530->state = 201;
+        break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328ACC_73A17C.s")
 

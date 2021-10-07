@@ -6,23 +6,26 @@
 
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF)), D_800BA760); // ROM: 0x11DA90
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF)), D_800BDC80);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF)), D_800DE390); // ROM: 0x116BD0
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF)), D_800C3A40);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF)), D_800C5240);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF)), D_800C4240);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF)), D_800C4A40);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF)), D_800BB700);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF)), D_800BBBB0);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF)), D_800BC060);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF)), D_800BC510);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF)), D_800BC9C0);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF)), D_800BCE70);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF)), D_800BD320);
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF)), D_800BD7D0);
+    // unpack menu graphics
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF)), D_800BA760); // central piece of SSSV
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF)), D_800BDC80); // "SSSV" Header graphic
+    // unpack powercell
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF)), D_800DE390); // powercell
+    // unpack evo bodyparts
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF)), D_800C3A40); // evo head trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF)), D_800C5240); // evo arms trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF)), D_800C4240); // evo legs trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF)), D_800C4A40); // evo torso trophy
+    // unpack 'silver' level ring pieces
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF)), D_800BB700); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF)), D_800BBBB0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF)), D_800BC060); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF)), D_800BC510); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF)), D_800BC9C0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF)), D_800BCE70); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF)), D_800BD320); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF)), D_800BD7D0); // silver ring piece
 }
-
 
 void func_8039884C_7A9EFC(void) {
     u8 sp18[0x58]; // 88?
@@ -38,7 +41,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D78.unk18 = 0;
     D_803F7D78.unk1C = 0;
     D_803F7D78.unk20 = 0;
-    D_803F7D70 = D_803C03F4;
+    D_803F7D70 = D_803C03F4_7D1AA4; // 0.1f
     prepare_text(sp18, D_803F2E34);
     D_803F7DA8.unk8 = 1.0f;
     D_803B7468 = D_803F7DA8.currentLevel * 12;
@@ -73,7 +76,7 @@ void func_80398A00_7AA0B0(void) {
     D_803F7DD8 = 0;
 }
 
-// main menu rings?
+// display_zone_select_screen
 #if 0
 void func_80398A0C_7AA0BC(void) {
     char ascii[52];
@@ -86,6 +89,7 @@ void func_80398A0C_7AA0BC(void) {
 
     s16 old_current_level;
     s16 vertical_offset;
+    s16 tmp_level;
 
     s16 secs;
     s16 mins;
@@ -123,6 +127,7 @@ void func_80398A0C_7AA0BC(void) {
     D_803F7DA8.unk0 = func_8039CDE8_7AE498(D_803F7DA8.unk0, 94.0f);
     D_803F7DA8.unk4 = func_8039CDE8_7AE498(D_803F7DA8.unk4, 134.0f);
     D_803F7DA8.unk8 += (2.0 - D_803F7DA8.unk8) / 16;
+    // 1.95 and 2.05
     if ((D_803C0400_7D1AB0 < D_803F7DA8.unk8) && (D_803F7DA8.unk8 < D_803C0408_7D1AB8)) {
         D_803F7DA8.unk8 = 2.0f;
     }
@@ -144,6 +149,7 @@ void func_80398A0C_7AA0BC(void) {
 
     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
+    // decompress ZONE SELECT image
     UnpackRNC(((s32)D_04012B20_1296F0 & 0xFFFFFF) + D_801D9E6C, D_800DD3F0); // ZONE_SELECT rgba16
 
     if (D_803F7DA8.lastLevel != D_803F7DA8.currentLevel) {
@@ -174,12 +180,12 @@ void func_80398A0C_7AA0BC(void) {
     gDPSetCombineMode(D_801D9E7C++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0x1A);
 
-    currentLevel = (s16)(D_803F7DA8.currentLevel + 1);
-    if ((currentLevel == GIVE_A_DOG_A_BONUS) ||
-        (currentLevel == WALRACE_64) ||
-        (currentLevel == EVOS_ESCAPE) ||
-        (currentLevel == PUNCHUP_PYRAMID) ||
-        (currentLevel == BIG_CELEBRATION_PARADE)) {
+    // currentLevel = (s16)(D_803F7DA8.currentLevel + 1); // no diff?
+    if (((s16)(D_803F7DA8.currentLevel + 1) == GIVE_A_DOG_A_BONUS) ||
+        ((s16)(D_803F7DA8.currentLevel + 1) == WALRACE_64) ||
+        ((s16)(D_803F7DA8.currentLevel + 1) == EVOS_ESCAPE) ||
+        ((s16)(D_803F7DA8.currentLevel + 1) == PUNCHUP_PYRAMID) ||
+        ((s16)(D_803F7DA8.currentLevel + 1) == BIG_CELEBRATION_PARADE)) {
         switch (D_803F2E1E) { // evo suit color
         case EVO_BRONZE_SHELLSUIT:
             evo_r = 200;
@@ -345,28 +351,29 @@ void func_80398A0C_7AA0BC(void) {
     select_font(0, 2, 0, 0);
 
     // currentLevel = D_803F7DA8.currentLevel; // 0-indexed
-    currentLevel = (s16)(D_803F7DA8.currentLevel + 1);
+    tmp_level = D_803F7DA8.currentLevel;
 
-    if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
-        func_8012DEF8(&D_801D9E7C, D_803F2E34, 300, 60, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
-        currentLevel = D_803F7DD5;
-    }
-
-    // vertical offset?
     vertical_offset = 60;
+    if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
+        func_8012DEF8(&D_801D9E7C, D_803F2E34, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+        tmp_level = D_803F7DD5;
+    }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
+    currentLevel = tmp_level;
+
     if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) {
         if (D_8023F260.level[D_803F7DA8.currentLevel].completed == 1) {
             func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_SECURED), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         } else {
                 func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
-        currentLevel = D_803F7DD5;
         vertical_offset += D_803B74B0_7C8B60 + 1.0f;
+        tmp_level = D_803F7DD5;
     }
 
     // this can't be right?
-    currentLevel = (s16)(D_803F7DA8.currentLevel + 1);
+    // currentLevel = (s16)(D_803F7DA8.currentLevel + 1);
+    currentLevel += tmp_level + 1;
     if ((currentLevel == GIVE_A_DOG_A_BONUS) ||
         (currentLevel == WALRACE_64) ||
         (currentLevel == EVOS_ESCAPE) ||
@@ -460,7 +467,7 @@ void func_80398A0C_7AA0BC(void) {
     func_8039D034_7AE6E4(&D_801D9E7C, 0);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_80398A0C_7AA0BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_80398A0C_7AA0BC.s")
 #endif
 
 void func_8039A2DC_7AB98C(void) {
@@ -861,7 +868,7 @@ void func_8039A2DC_7AB98C(void) {
     set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
 
     if ((D_8023F2A0.language == LANG_FRENCH) || (D_8023F2A0.language == LANG_SPANISH)) {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17U, 0xD0U, D_803C0410_7D1AC0, 16.0f, -1);
+        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17U, 0xD0U, 15.2f, 16.0f, -1);
     } else if ((D_8023F2A0.language == LANG_PORTUGESE) || (D_8023F2A0.language == LANG_JAPANESE)) {
         func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17U, 0xD0U, 10.0f, 16.0f, -1);
     } else {
@@ -1006,94 +1013,111 @@ void func_8039BBB8_7AD268(void) {
     }
 }
 
-// func_8039BE98_7AD548(r, g, b, a, start, end, struct, x rotation?, y rotation?, tbd, current_level)
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039BE98_7AD548.s")
-// NON-MATCHING: long way to go here...
-// void func_8039BE98_7AD548(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, struct052 *arg6, s16 arg7, s16 arg8, f32 arg9, u8 argA) {
-//
-//     f32 temp_f22;
-//     s32 phi_t4;
-//     s32 phi_t5;
-//     s16 i;
-//     s8 *temp_t0;
-//
-//     D_803F7D60 = (D_803F7D60 + 1) % 100;
-//
-//     if (arg4 == 0x1E) {
-//         if (argA == 0x1E) {
-//             if (((u32)(arg6->unk22 << 0x1E) >> 0x1F) == 1) {
-//                 if (D_803F7D60 < 0x32) {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xF0);
-//                 } else {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xff, 0x80, 0, 0xF0);
-//                 }
-//             } else if (D_803F7D60 < 0x32) {
-//                 gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xF0);
-//             } else {
-//                 gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xff, 0x80, 0, 0xF0);
-//             }
-//         } else if ((D_803F7DFE == 0) && (argA != 0xFF)) {
-//             gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0x14);
-//         } else if (argA == 0xFF) {
-//             if (((u32)(arg6->unk22 << 0x1E) >> 0x1F) == 1) {
-//                 gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0 - 0xF, 0x28, 0x28, 0xFF);
-//             } else {
-//                 gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xFF);
-//             }
-//         } else if (((u32)(arg6->unk22 << 0x1E) >> 0x1F) == 1) {
-//             gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xF0);
-//         } else {
-//             gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0x46);
-//         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, &D_800BA760, 0x2B, 0x2B, arg9, arg9, 0, 0, arg7, arg8);
-//     } else {
-//
-//         temp_f22 = arg9 / 2.0f;
-//
-//         for (i = arg4; i < arg5; i++) {
-//
-//             temp_t0 = &D_803B71D0[i];
-//             if (temp_t0[0] < 0) {
-//                 phi_t4 = 1;
-//             } else {
-//                 phi_t4 = 0;
-//             }
-//             if (temp_t0[1] < -1) {
-//                 phi_t5 = 1;
-//             } else {
-//                 phi_t5 = 0;
-//             }
-//             if (i == argA) {
-//                 if (((u32) (arg6->unk4[i] << 0x1E) >> 0x1F) == 1) {
-//                     if (D_803F7D60 < 0x32) {
-//                         gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xF0);
-//                     } else {
-//                         gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xff, 0x80, 0, 0xF0);
-//                     }
-//                 } else if (D_803F7D60 < 0x32) {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xF0);
-//                 } else {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xff, 0x80, 0, 0xF0);
-//                 }
-//             } else if ((D_803F7DE0[i] == 0) && (argA != 0xFF)) {
-//                 gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0x14);
-//             } else if (argA == 0xFF) {
-//                 if (((u32) (arg6->unk4[i] << 0x1E) >> 0x1F) == 1) {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0 + 0xF, 0, 0, 0xFF);
-//                 } else {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xFF);
-//                 }
-//             } else {
-//                 if (((u32) (arg6->unk4[i] << 0x1E) >> 0x1F) == 1) {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0xF0);
-//                 } else {
-//                     gDPSetPrimColor(D_801D9E7C++, 0, 0, arg0, arg1, arg2, 0x46);
-//                 }
-//             }
-//             func_8039C834_7ADEE4(&D_801D9E7C, ((temp_t0[4] * 0x4B0) ) + 0xFA0 + &D_800BA760, (temp_t0[2] * 2) & 0xFFFF, (temp_t0[3] * 2) & 0xFFFF, temp_f22, temp_f22, phi_t4, phi_t5, (s16) (s32) (arg7 + ((f32) temp_t0[0] * arg9)), (s16) (s32) (arg8 + ((f32) temp_t0[1] * arg9)));
-//         }
-//     }
-// }
+// NON-MATCHING: final function needs some love
+#if 0
+void func_8039BE98_7AD548(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 end, PlayerEeprom *eeprom, s16 xRot, s16 yRot, f32 scale, u8 currentLevel) {
+
+    f32 temp_f22;
+    s32 phi_t4;
+    s32 phi_t5;
+    s16 i;
+    s8 *temp_t0;
+
+    D_803F7D60 = (D_803F7D60 + 1) % 100; // pulse
+
+    if (start == 30) {
+        if (currentLevel == 30) {
+            if (eeprom->level[30].completed == 1) {
+                if (D_803F7D60 < 50) {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                } else {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240); // orange (selected)
+                }
+            } else {
+                if (D_803F7D60 < 50) {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                } else {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240); // orange (selected)
+                }
+            }
+        } else if ((D_803F7DFE == 0) && (currentLevel != 0xff)) {
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
+        } else if (currentLevel == 0xFF) {
+            if (eeprom->level[30].completed == 1) {
+                gDPSetPrimColor(D_801D9E7C++, 0, 0, red - 0xF, 0x28, 0x28, 0xFF);
+            } else {
+                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 0xFF);
+            }
+        } else {
+            if (eeprom->level[30].completed == 1) {
+                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+            } else {
+                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 70);
+            }
+        }
+        func_8039C834_7ADEE4(&D_801D9E7C, &D_800BA760, 43, 43, scale, scale, 0, 0, xRot, yRot);
+    } else {
+        // temp_f22 = scale / 2.0f;
+
+        for (i = start; i < end; i++) {
+
+            temp_t0 = &D_803B71D0[i];
+            if (temp_t0[0] < 0) {
+                phi_t4 = 1;
+            } else {
+                phi_t4 = 0;
+            }
+            if (temp_t0[1] < -1) {
+                phi_t5 = 1;
+            } else {
+                phi_t5 = 0;
+            }
+            if (i == currentLevel) {
+                if (eeprom->level[i].completed == 1) {
+                    if (D_803F7D60 < 50) {
+                        gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                    } else {
+                        gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240);
+                    }
+                } else {
+                    if (D_803F7D60 < 50) {
+                        gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                    } else {
+                        gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240);
+                    }
+                }
+            } else if ((D_803F7DE0[i] == 0) && (currentLevel != 0xFF)) {
+                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
+            } else if (currentLevel == 0xFF) {
+                if (eeprom->level[i].completed == 1) {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red + 15, 0, 0, 255);
+                } else {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 255);
+                }
+            } else {
+                if (eeprom->level[i].completed == 1) {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                } else {
+                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 70);
+                }
+            }
+            func_8039C834_7ADEE4(&D_801D9E7C,
+                /* img  */ (s32)&D_800BB700 + ((temp_t0[4] * 0x4B0) ) , // + 0xFA0 + &D_800BA760
+                /* xpos */ temp_t0[2] << 1,
+                /* ypos */ temp_t0[3] << 1,
+                /* xscale */ scale / 2.0f,
+                /* yscale */ scale / 2.0f,
+                /* */ phi_t4,
+                /* */ phi_t5,
+                /* xrot */ (s16) (s32) (xRot + ((f32) temp_t0[0] * scale)),
+                /* yrot*/ (s16) (s32) (yRot + ((f32) temp_t0[1] * scale))
+            );
+        }
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_8039BE98_7AD548.s")
+#endif
 
 void func_8039C5F8_7ADCA8(s16 arg0, s16 arg1, f32 arg2, PlayerEeprom *eeprom, s16 active) {
     s32 tmp0, tmp1;
@@ -1115,19 +1139,19 @@ void func_8039C5F8_7ADCA8(s16 arg0, s16 arg1, f32 arg2, PlayerEeprom *eeprom, s1
     tmp0 = arg0 - (21.5f * arg2);
     tmp1 = arg1 - (21.5f * arg2);
     // BIG_CELEBRATION_PARADE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 30, 30, eeprom, tmp0, tmp1, arg2, 0xFF);
+    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 30, 30, eeprom, tmp0, tmp1, arg2, -1);
     // EUROPE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128,  0,  9, eeprom, arg0, arg1, arg2, 0xFF);
+    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128,  0,  9, eeprom, arg0, arg1, arg2, -1);
     // ICE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 10, 16, eeprom, arg0, arg1, arg2, 0xFF);
+    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 10, 16, eeprom, arg0, arg1, arg2, -1);
     // JUNGLE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 17, 22, eeprom, arg0, arg1, arg2, 0xFF);
+    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 17, 22, eeprom, arg0, arg1, arg2, -1);
     // DESERT
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 23, 29, eeprom, arg0, arg1, arg2, 0xFF);
+    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 23, 29, eeprom, arg0, arg1, arg2, -1);
 }
 
-// calls guSprite2DInit
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039C834_7ADEE4.s")
+// calls guSprite2DInit, draw 2d image
+#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_8039C834_7ADEE4.s")
 
 void func_8039CAB8_7AE168(s16 arg0) {
     if (arg0 == 1) {
@@ -1149,7 +1173,7 @@ void func_8039CAB8_7AE168(s16 arg0) {
     gDPSetColorDither(D_801D9E7C++, G_CD_NOISE);
     gDPSetAlphaDither(D_801D9E7C++, G_AD_DISABLE);
 
-    func_8039C834_7ADEE4(&D_801D9E7C, D_800BDC80, 0x140, 0x24, 1.0f, 1.0f, 0, 0, 0, 0xC);
+    func_8039C834_7ADEE4(&D_801D9E7C, D_800BDC80, 320, 36, 1.0f, 1.0f, 0, 0, 0, 12);
 
     gDPPipeSync(D_801D9E7C++);
 }
@@ -1490,7 +1514,7 @@ void func_8039DBC8_7AF278(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A9CE0/func_8039DBC8_7AF278.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_8039DBC8_7AF278.s")
 #endif
 
 // note that levels appear to be in-game order (1-indexed) rather than common.h

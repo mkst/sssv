@@ -369,7 +369,7 @@ void func_802FC990_70E040(Animal *arg0) {
         func_802FCA08_70E0B8(arg0, arg0->unk164);
         arg0->unk26C = 1;
         if (arg0->unk246 != 0) {
-            struct069 *tmp = &D_803E4D40[(arg0->unk246 * 10) - 10];
+            struct069 *tmp = &D_803E4D40[arg0->unk246 - 1];
             func_803153B0_726A60(arg0, tmp, 0);
             func_803191B0_72A860(arg0);
         }

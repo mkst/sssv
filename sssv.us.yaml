@@ -11,6 +11,7 @@ options:
     #include "common.h"
   src_path: src.us
   extensions_path: tools/splat_ext
+  enable_ld_alignment_hack: yes
 segments:
   - name:  header
     type:  header
@@ -237,14 +238,12 @@ segments:
     - [0x02FA30, .data, data/2FA30] # displaylist
     - [0x02FA70, bin] # tbd
     - [0x02FC00, .data, main_78F0]
-    - [0x02FD28, .rodata, main_78F0]
     - [0x02FD80, bin] #
     # - [0x02FD80, .data, core/audiomgr] # .data for audiomgr
     - [0x2FDD0, bin] # audio lookups D_801546D0
     - [0x2FDE8, bin] # main_E3C0 rodata
     - [0x30860, bin] # CH.10 textures
     - [0x339C0, .data, data/339C0] # D_801582C0
-    - [0x33A68, .data, data/33A68] # D_80158368
     - [0x33B20, .data, data/33B20] # D_80158420
     - [0x33BA0, .data, data/33BA0] # D_801584A0
     - [0x33C40, bin] # alignment?
@@ -254,7 +253,7 @@ segments:
     - [0x35E00, .data, libultra/io/motor]
     - [0x35E10, bin]
     - [0x360F0, bin] # another lookup table?
-    - [0x0363A0, rodata, main_78F0]
+    - [0x0363A0, .rodata, main_78F0]
     - [0x036410, .rodata, core/fontinit]
     - [0x036470, rodata, core/eeprom]
     - [0x036490, .rodata, core/audio2]
@@ -327,7 +326,7 @@ segments:
     - [0x03E1C8, bin]
     - [0x03E240, bin]
     - [0x03E270, .data, data/D_010049A0_3E270]
-    - [0x03E340, bin]
+    - [0x03E340, bin] # D_01004A70_3E340
     - [0x03E3C8, bin]
     - [0x03E3F8, bin]
     - [0x03E468, bin]
@@ -722,6 +721,8 @@ segments:
     - [0x784F0, .data, data/D_0103EC20_784F0] # long cylinder?
     - [0x78580, bin] # 32x320? rgba16
     - [0x7A580, bin] # tbd
+    - [0x7E580, bin] # image
+    - [0x7ED80, bin] # image
   - name: data_7F790 # Dan Danger
     type: code
     vram: 0x05000000
@@ -2557,17 +2558,17 @@ segments:
     - [0x11D5A0, sssv_vtx, data/inc/D_040069D0_11D5A0]
     - [0x11D790, sssv_vtx, data/inc/D_04006BC0_11D790]
     - [0x11D8D0, .data, data/D_04006D00_11D8D0] # tv body
-    - [0x11D9F0, rnc, img/menu/rnc_11D9F0, rgba16, 32, 64]
-    - [0x11DA90, rnc, img/menu/sssv, rgba16, 43, 43]
-    - [0x11E2D0, rnc, img/menu/rnc_11E2D0, rgba16, 14, 20]
-    - [0x11E370, rnc, img/menu/rnc_11E370, rgba16, 14, 22]
-    - [0x11E490, rnc, img/menu/rnc_11E490, rgba16, 18, 22]
-    - [0x11E5C0, rnc, img/menu/rnc_11E5C0, rgba16, 20, 24]
-    - [0x11E710, rnc, img/menu/rnc_11E710, rgba16, 24, 24]
-    - [0x11E830, rnc, img/menu/rnc_11E830, rgba16, 20, 22]
-    - [0x11E960, rnc, img/menu/rnc_11E960, rgba16, 20, 18]
-    - [0x11EA90, rnc, img/menu/rnc_11EA90, rgba16, 18, 14]
-    - [0x11EB70, rnc, img/menu/sssv_header, rgba16, 320, 36]
+    - [0x11D9F0, rnc, img/menu/rnc.D_04006E20_11D9F0, rgba16, 32, 64]
+    - [0x11DA90, rnc, img/menu/sssv.D_04006EC0_11DA90, rgba16, 43, 43]
+    - [0x11E2D0, rnc, img/menu/rnc.D_04007700_11E2D0, rgba16, 14, 20]
+    - [0x11E370, rnc, img/menu/rnc.D_040077A0_11E370, rgba16, 14, 22]
+    - [0x11E490, rnc, img/menu/rnc.D_040078C0_11E490, rgba16, 18, 22]
+    - [0x11E5C0, rnc, img/menu/rnc.D_040079F0_11E5C0, rgba16, 20, 24]
+    - [0x11E710, rnc, img/menu/rnc.D_04007B40_11E710, rgba16, 24, 24]
+    - [0x11E830, rnc, img/menu/rnc.D_04007C60_11E830, rgba16, 20, 22]
+    - [0x11E960, rnc, img/menu/rnc.D_04007D90_11E960, rgba16, 20, 18]
+    - [0x11EA90, rnc, img/menu/rnc.D_04007EC0_11EA90, rgba16, 18, 14]
+    - [0x11EB70, rnc, img/menu/sssv_header.D_04007FA0_11EB70, rgba16, 320, 36]
     - [0x11F530, rgba16, img/menu/test_card_top.rgba16, 64, 32]
     - [0x120530, rgba16, img/menu/test_card_bottom.rgba16, 64, 32]
     - [0x121530, sssv_vtx, data/inc/D_0400A960_121530]
@@ -2610,14 +2611,14 @@ segments:
     - [0x127FB0, rgba16, img/menu/D_040113E0_127FB0.rgba16, 32, 32]
     - [0x1287B0, sssv_vtx, data/inc/D_04011BE0_1287B0] #
     - [0x128960, .data, data/128960] # displaylist
-    - [0x1289D0, rnc, img/menu/BANK_SELECT, rgba16, 142, 13]
-    - [0x128EE0, rnc, img/menu/MISSION_BRIEFING, rgba16, 127, 13]
-    - [0x129330, rnc, img/menu/OPTIONS, rgba16, 103, 13]
-    - [0x1296F0, rnc, img/menu/ZONE_SELECT, rgba16, 139, 13]
-    - [0x129C30, rnc, img/trophies/EVO_HEAD, rgba16, 32, 32]
-    - [0x129D80, rnc, img/trophies/EVO_LEG, rgba16, 32, 32]
-    - [0x129F90, rnc, img/trophies/EVO_ARM, rgba16, 32, 32]
-    - [0x12A150, rnc, img/trophies/EVO_TORSO, rgba16, 32, 32]
+    - [0x1289D0, rnc, img/menu/BANK_SELECT.D_04011E00_1289D0, rgba16, 142, 13]
+    - [0x128EE0, rnc, img/menu/MISSION_BRIEFING.D_04012310_128EE0, rgba16, 127, 13]
+    - [0x129330, rnc, img/menu/OPTIONS.D_04012760_129330, rgba16, 103, 13]
+    - [0x1296F0, rnc, img/menu/ZONE_SELECT.D_04012B20_1296F0, rgba16, 139, 13]
+    - [0x129C30, rnc, img/trophies/EVO_HEAD.D_04013060_129C30, rgba16, 32, 32]
+    - [0x129D80, rnc, img/trophies/EVO_LEG.D_040131B0_129D80, rgba16, 32, 32]
+    - [0x129F90, rnc, img/trophies/EVO_ARM.D_040133C0_129F90, rgba16, 32, 32]
+    - [0x12A150, rnc, img/trophies/EVO_TORSO.D_04013580_12A150, rgba16, 32, 32]
     - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
   - name: sounds
     type:  group
@@ -3120,7 +3121,7 @@ segments:
     - [0x79E640, c, sssv/terminal_background]
     - [0x7A0DA0, c, overlay2_7A0DA0]
     - [0x7A8A50, c, overlay2_7A8A50]
-    - [0x7A9CE0, c, overlay2_7A9CE0] # relates to file select
+    - [0x7A9CE0, c, ui_main_menu] # relates to file select
     - [0x7AF410, c, overlay2_7AF410]
     # .data / .rodata
     - [0x7B1B90, linker, data]
@@ -3154,7 +3155,7 @@ segments:
     - [0x7C7CB8, bin] # displaylist
     - [0x7C7D68, bin] # displaylist
     - [0x7C7D90, bin]
-    - [0x7C7F40, bin] # data for overlay2_7A8A50?
+    - [0x7C7F40, .data, overlay2_7A8A50] # data for overlay2_7A8A50?
     - [0x7C81E0, bin]
     - [0x7C8918, bin] # offsets
     - [0x7C8A18, bin] # offsets
@@ -3204,7 +3205,6 @@ segments:
     - [0x7CF050, rodata, sssv/animals/mouse]
     - [0x7CF120, rodata, sssv/animals/bear]
     - [0x7CF180, .rodata, overlay2_739290]
-    - [0x7CF25C, rodata, overlay2_739290_cont]
     - [0x7CF530, rodata, overlay2_73D980]
     - [0x7CF6A8, .rodata, overlay2_73D980]
     - [0x7CF800, rodata, overlay2_73E580]
@@ -3249,9 +3249,41 @@ segments:
     - [0x7D19E0, .rodata, overlay2_7A0DA0]
     - [0x7D19F8, rodata, overlay2_7A0DA0_cont]
     - [0x7D1A40, rodata, overlay2_7A8A50]
-    - [0x7D1A50, rodata, overlay2_7A9CE0]
+    - [0x7D1A50, rodata, ui_main_menu]
+    - [0x7D1AC0, .rodata, ui_main_menu]
     # - [0x7D1AD0, .bss, overlay2_6A6500, 0x3DAA0]
-  - [0x7D1AD0, bin] # is everything to the end of the ROM junk?
-  - [0x7D2E50, bin] # leftovers? or script data?
+  - [0x7D1AD0, bin] # referenced in overlay2_7A8A50
+  - [0x7D2F50, bin] #
+  - [0x7D3360, bin] #
+  - [0x7D3AB0, bin] #
+  - [0x7D4270, bin] #
+  - [0x7D4830, bin] #
+  - [0x7D49C0, bin] #
+  - [0x7D5240, bin] #
+  - [0x7D5620, bin] #
+  - [0x7D5990, bin] #
+  - [0x7D5D90, bin] #
+  - [0x7D61F0, bin] #
+  - [0x7D64D0, bin] #
+  - [0x7D6770, bin] #
+  - [0x7D6E30, bin] #
+  - [0x7D7570, bin] #
+  - [0x7D7AA0, bin] #
+  - [0x7D8350, bin] #
+  - [0x7D88E0, bin] #
+  - [0x7D8EA0, bin] #
+  - [0x7D92E0, bin] #
+  - [0x7D9860, bin] #
+  - [0x7D9F20, bin] #
+  - [0x7DA020, bin] #
+  - [0x7DA120, bin] #
+  - [0x7DA4A0, bin] #
+  - [0x7DA990, bin] #
+  - [0x7DADF0, bin] #
+  - [0x7DB380, bin] #
+  - [0x7DBBC0, bin] #
+  - [0x7DC250, bin] #
+  - [0x7DC580, bin] #
+  - [0x7DC990, bin] #
   - [0x7DCAF0, bin, trailer]
   - [0x800000]

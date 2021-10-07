@@ -53,18 +53,18 @@ void func_802950B8_638758(void) {
     // load "CONTROLLER NOT CONNECTED" text
     src = get_message_address_by_id(16); // message 16
     dst = D_802042F0;
-    while (*src != 30000) {
+    while (*src != EOM) {
         *dst++ = *src++;
     }
-    *dst = 30000;
+    *dst = EOM;
 
     // load "PRESS START" text
     src = get_message_address_by_id(14); // message 14
     dst = D_80204368;
-    while (*src != 30000) {
+    while (*src != EOM) {
         *dst++ = *src++;
     }
-    *dst = 30000;
+    *dst = EOM;
 }
 
 void func_80295234_6388D4(void) {

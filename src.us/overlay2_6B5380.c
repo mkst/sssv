@@ -105,15 +105,15 @@ void func_802A4184_6B5834(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4220_6B58D0.s")
 // what???
-// void func_802A4220_6B58D0(s32 arg0, s32 arg1, s32 arg2) {
+// void func_802A4220_6B58D0(s32 *arg0, s32 *arg1, u16 arg2) {
 //     s32 temp_v0;
 //     s32 temp_v1;
 //
-//     temp_v0 = ABS(arg0);
-//     temp_v1 = ABS(arg1);
+//     temp_v0 = ABS(*arg0);
+//     temp_v1 = ABS(*arg1);
 //
-//     *arg0 = (arg0 * temp_v0) >> 8;
-//     *arg1 = (arg1 * temp_v1) >> 8;
+//     *arg0 = (*arg0 * temp_v0) >> 8;
+//     *arg1 = (*arg1 * temp_v1) >> 8;
 // }
 
 // miles away
@@ -2152,6 +2152,7 @@ s16 func_802B3C9C_6C534C(s16 arg0, Animal *arg1) {
         arg0 = (arg0 * 24) >> 4;
         break;
     case 2:
+        // arg0 = (arg0 * 16) >> 4;
         break;
     case 3:
         arg0 = (arg0 * 10) >> 4;

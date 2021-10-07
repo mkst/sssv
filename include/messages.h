@@ -27,5 +27,14 @@
 #define MSG_ENCOUNTERED         18
 #define MSG_MISSION_BRIEF       19
 #define MSG_OPTIONS             20
+#define MSG_CONTINUE            21
+#define MSG_MISSION_BRIEF2      22
+#define MSG_RESTART_ZONE        23
+#define MSG_CANCEL2             24
+#define MSG_CONFIRM             25
+#define MSG_REPLAY_ZONE         26
+#define MSG_EXIT_ZONE           27
+// somewhat meta, e.g. ENGLISH
+#define MSG_LANGUAGE            28
 #define MSG_SELECT_A_BANK       214
 #endif

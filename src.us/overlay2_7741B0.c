@@ -66,8 +66,220 @@ void func_80362C10_7742C0(Animal *arg0) {
     }
 }
 
-// contains jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80362CC4_774374.s")
+#if 0
+void func_80362CC4_774374(Animal *arg0) {
+    s16 sp54;
+    s16 sp52;
+    s16 sp4C;
+    s16 sp48;
+    s16 sp46;
+    Animal *sp28;
+    Animal *temp_t7_2;
+    Animal *temp_v0_5;
+    s16 temp_v0_3;
+    s16 temp_v1;
+    s32 temp_t0_2;
+    s32 temp_t3;
+    s32 temp_t7;
+    s32 temp_t8;
+    s32 temp_v1_3;
+    u16 temp_t6;
+    u8 temp_a0;
+    u8 temp_a1;
+    u8 temp_t0;
+    u8 temp_t1;
+    u8 temp_v1_2;
+    u8 temp_v1_4;
+    void *temp_v0;
+    void *temp_v0_2;
+    void *temp_v0_4;
+    u8 phi_v0;
+    s16 phi_v1;
+    s16 phi_t0;
+
+    // temp_t6 = arg0->unk28C;
+    switch (arg0->unk28C) {
+    case 1:
+        if (arg0->unk2A0 == 0) {
+            temp_t8 = (s32) arg0->unk294.h[1] >> 0xC;
+            if (temp_t8 > 0) {
+                phi_v0 = (((s32) arg0->unk295 < (s32) *arg0->unk29C) ^ 1); // & 0xFF;
+            } else {
+                phi_v0 = ((s32) arg0->unk295 < 0) & 0xFF;
+            }
+            if (phi_v0 != 0) {
+                if (((u8) arg0->unk294.h[1] & 0xF) == 1) {
+                    func_80363CC8_775378(arg0);
+                    arg0->unk28C = 0;
+                } else if (temp_t8 > 0) {
+                    arg0->unk295 = 0;
+                } else {
+                    arg0->unk295 = (s8) (*arg0->unk29C - 1);
+                }
+            } else {
+                temp_v0 = arg0->unk29C + (arg0->unk295 * 3);
+                func_80363C48_7752F8(
+                    arg0,
+                    (s16) ((temp_v0->unk1 << 6) + 0x20),
+                    (s16) ((temp_v0->unk2 << 6) + 0x20),
+                    (s16) ((temp_v0->unk3 << 6) + 0x20),
+                    (s8) (s32) (s8) arg0->unk298.h,
+                    (u8) (s32) arg0->unk297
+                    );
+                arg0->unk295 = (s8) (arg0->unk295 + ((s32) arg0->unk294.h[1] >> 0xC));
+            }
+        }
+        break;
+    // default:
+        // return;
+    case 2:
+        if ((u8) arg0->unk2A0 == 0) {
+            func_803638E8_774F98(arg0);
+        }
+        break;
+    case 3:
+        if ((u8) arg0->unk2A0 == 0) {
+            temp_v1 = arg0->unk290;
+            temp_v0_2 = ((u8) arg0->unk294.w * 8) + D_803E93B0;
+            temp_a0 = temp_v0_2->unk3;
+            temp_t0 = temp_v0_2->unk0;
+            temp_t1 = temp_v0_2->unk4;
+            temp_a1 = temp_v0_2->unk1;
+            temp_t7 = (s32) (temp_a0 - temp_t0) >> 2;
+            temp_t3 = (s32) (temp_t1 - temp_a1) >> 2;
+            switch (temp_v1) {
+            case 0:
+                sp54 = temp_t0 + (s16) temp_t7;
+                sp52 = temp_a1 + (s16) temp_t3;
+                break;
+            case 1:
+                sp54 = temp_a0 - (s16) temp_t7;
+                sp52 = temp_a1 + (s16) temp_t3;
+                break;
+            case 2:
+                sp54 = temp_a0 - (s16) temp_t7;
+                sp52 = temp_t1 - (s16) temp_t3;
+                break;
+            case 3:
+                sp54 = temp_t0 + (s16) temp_t7;
+                sp52 = temp_t1 - (s16) temp_t3;
+                break;
+            }
+
+            func_80363C48_7752F8(arg0, (s16) ((sp54 << 6) + 0x20), (s16) ((sp52 << 6) + 0x20), -1, (s8) 0xA, (u8) 0x20);
+            arg0->unk290 += 1;
+            arg0->unk290 &= 3;
+        }
+        // Duplicate return node #63. Try simplifying control flow for better match
+        break;
+    case 4:
+        temp_v1_2 = arg0->unk28E;
+        if (temp_v1_2 != 0) {
+            if (temp_v1_2 == 1) {
+                if (arg0->unk290 == 0) {
+                    temp_v0_4 = ((u8) arg0->unk294.w * 8) + D_803E93B0;
+                    temp_v1_3 = (s32) (((temp_v0_4->unk3 - temp_v0_4->unk0) - 1) << 0x16) >> 0x10;
+                    temp_t0_2 = (s32) (((temp_v0_4->unk4 - temp_v0_4->unk1) - 1) << 0x16) >> 0x10;
+                    phi_v1 = (s16) temp_v1_3;
+                    phi_t0 = (s16) temp_t0_2;
+                    if (temp_v1_3 <= 0) {
+                        phi_v1 = 1;
+                    }
+                    if (temp_t0_2 <= 0) {
+                        phi_t0 = 1;
+                    }
+                    sp48 = phi_v1;
+                    sp46 = phi_t0;
+                    sp4C = (func_8012826C() % (s32) phi_v1) + ((*(D_803E93B0 + ((u8) arg0->unk294.w * 8)) + 1) << 6);
+                    func_80363C48_7752F8(arg0, sp4C, (s16) ((func_8012826C() % (s32) phi_t0) + ((*(&D_803E93B1 + ((u8) arg0->unk294.w * 8)) + 1) << 6)), -1, (s8) 0xA, (u8) 0x20);
+                    arg0->unk28E = 0;
+                } else {
+                    arg0->unk290 = arg0->unk290 - 1;
+                }
+                break;
+            }
+            // Duplicate return node #63. Try simplifying control flow for better match
+            return;
+        }
+        if ((u8) arg0->unk2A0 == 0) {
+            arg0->unk290 = (func_8012826C() & 0x3F) + 0x3C;
+            arg0->unk28E = 1;
+            func_80363CC8_775378(arg0);
+        }
+        break;
+    case 5:
+        if ((u8) arg0->unk2A0 == 0) {
+            func_803638E8_774F98(arg0);
+        }
+        break;
+    case 6:
+        if (arg0->yRotation == ((s32) (arg0->unk294.h[0] << 8) / 0x168)) {
+            func_803638E8_774F98(arg0);
+        }
+        break;
+    case 7:
+        temp_v0_5 = arg0->unk294.w;
+        if (func_803051F0_7168A0((s16) ((s32) (func_801284B8((s16) (temp_v0_5->xPos - arg0->xPos), (s16) (temp_v0_5->zPos - arg0->zPos)) << 8) / 0x168), arg0->yRotation) < 6) {
+            func_803638E8_774F98(arg0);
+        }
+        break;
+    case 8:
+        if ((u8) arg0->unk29A.b != 0) {
+            arg0->unk294.w = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+            arg0->unk2AC = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+            arg0->unk2CC = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+        }
+        if (func_803099BC_71B06C() == 0) {
+            func_803638E8_774F98(arg0);
+        }
+        // Duplicate return node #63. Try simplifying control flow for better match
+        break;
+    case 9:
+        temp_t7_2 = arg0->unk294.w;
+        sp28 = temp_t7_2;
+        if (temp_t7_2->unk26C != 0) {
+            func_803153B0_726A60(arg0, NULL, 0U);
+            func_803638E8_774F98(arg0);
+        } else {
+            // temp_v1_4 = arg0->unk28E;
+            switch (arg0->unk28E) {
+            case 0:
+                if ((u8) arg0->unk2A0 == 0) {
+                    if ((sp28->xVelocity.h | sp28->zVelocity.h | sp28->yVelocity.h) == 0) {
+                        func_80363E88_775538(arg0, sp28);
+                        arg0->unk28E = 1;
+                    } else {
+                        func_80363DB4_775464(arg0, sp28, -1, arg0->unk298.h);
+                    }
+                }
+                break;
+            case 1:
+                if (func_803051F0_7168A0((s16) ((s32) (func_801284B8((s16) (sp28->xPos - arg0->xPos), (s16) (sp28->zPos - arg0->zPos)) << 8) / 0x168), arg0->yRotation) < 4) {
+                    func_8037B754_78CE04(arg0, arg0->unk294.w);
+                    arg0->unk290 = 0;
+                    arg0->unk28E = 2;
+                }
+                break;
+            case 2:
+                arg0->unk290 += 1;
+                if ((s32) arg0->unk290 >= 0x15) {
+                    func_803638E8_774F98(arg0);
+                }
+                break;
+            }
+        }
+        break;
+    case 10:
+        arg0->unk290 += 1;
+        if ((s32) arg0->unk290 >= 0x3D) {
+            func_803638E8_774F98(arg0);
+        }
+        // Duplicate return node #63. Try simplifying control flow for better match
+        break;
+    }
+}
+#endif
 
 void func_803633C4_774A74(Animal *arg0) {
     s32 tmp0, tmp1;

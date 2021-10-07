@@ -257,8 +257,8 @@ void func_802B9130_6CA7E0(struct086 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg
         phi_a1 = ((phi_a1 / 2) + 15);
     }
 
-    func_802C7A7C_6D912C((s16*)&D_80203FE0[3], phi_a1);
-    func_802C7A7C_6D912C((s16*)&D_80203FE0[4], phi_a1);
+    func_802C7A7C_6D912C(&D_80203FE0[3], phi_a1);
+    func_802C7A7C_6D912C(&D_80203FE0[4], phi_a1);
 
     temp_v1 = arg0->unk4 - sp34;
 
@@ -278,8 +278,8 @@ void func_802B9130_6CA7E0(struct086 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg
         phi_a1 = (phi_a1 / 2) + 15;
     }
 
-    func_802C7A7C_6D912C((s16*)&D_80203FE0[5], phi_a1);
-    func_802C7A7C_6D912C((s16*)&D_80203FE0[6], phi_a1);
+    func_802C7A7C_6D912C(&D_80203FE0[5], phi_a1);
+    func_802C7A7C_6D912C(&D_80203FE0[6], phi_a1);
 
     sp28 = (sp36 + sp34) >> 1;
     temp_v1 = sp36 - sp28;
@@ -302,10 +302,10 @@ void func_802B9130_6CA7E0(struct086 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg
         phi_a1 = (phi_a1 / 2) + 20;
     }
 
-    func_802C79E0_6D9090((s16*)&D_80203FE0[3], phi_a1);
-    func_802C79E0_6D9090((s16*)&D_80203FE0[4], phi_a1);
-    func_802C79E0_6D9090((s16*)&D_80203FE0[5], phi_a1);
-    func_802C79E0_6D9090((s16*)&D_80203FE0[6], phi_a1);
+    func_802C79E0_6D9090(&D_80203FE0[3], phi_a1);
+    func_802C79E0_6D9090(&D_80203FE0[4], phi_a1);
+    func_802C79E0_6D9090(&D_80203FE0[5], phi_a1);
+    func_802C79E0_6D9090(&D_80203FE0[6], phi_a1);
 
     D_80203FE0[3].unk4 += (sp28 + arg3) - arg4;
     D_80203FE0[4].unk4 += (sp28 + arg3) - arg4;

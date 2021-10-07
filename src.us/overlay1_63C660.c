@@ -8,22 +8,24 @@
 // JUSTREG but uses rodata
 // u8 language_select_menu(s16 arg0) {
 //     s16 used;
-//     s16 i;
+//     s16 lang;
 //     s16 verticalOffset;
 //     s16 selected;
 //     s16 *dst;
 //     s16 *src;
 //     u8 *flagTexture;
 //
+//     // init?
 //     if (arg0 == 0) {
 //         used = 0;
 //         // copy in language strings
-//         for (i = 0; (i < 9) != 0; i++) {
-//             load_level_text_data(i, 32, D_80231AA0, D_80231D5C);
-//             if ((i != LANG_JAPANESE) && (i != LANG_AMERICAN)) {
-//                 src = get_message_address_by_id(28); // lang33 message 28, e.g. "ENGLISH"
+//         for (lang = 0; (lang < 9) != 0; lang++) { // helps with regalloc
+//             // load lang33.dat
+//             load_level_text_data(lang, 32, D_80231AA0, D_80231D5C);
+//             if ((lang != LANG_JAPANESE) && (lang != LANG_AMERICAN)) {
+//                 src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
 //                 dst = D_803B0400[used];
-//                 while (*src != 30000) {
+//                 while (*src != EOM) {
 //                     *dst++ = *src++;
 //                 }
 //                 *dst = EOM; // 0x7530 // 'u0'
@@ -68,18 +70,19 @@
 //         break;
 //     case 6:
 //         flagTexture = D_80302120_6A57C0; // Spanish
-//
+//         break;
 //     }
 //     func_801366BC(&D_801D9E7C, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
 //     gDPPipeSync(D_801D9E7C++);
 //
 //     gDPSetCombineLERP(D_801D9E7C++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
 //     gDPSetRenderMode(D_801D9E7C++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-//     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0x80, 0x80, 0x80, D_803B0592);
+//     gDPSetPrimColor(D_801D9E7C++, 0, 0, 128, 128, 128, D_803B0592);
 //     gDPSetColorDither(D_801D9E7C++, G_CD_BAYER);
 //     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 //
-//     func_80136938(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 50, 16);
+//     verticalOffset = 50;
+//     func_80136938(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
 //
 //     // previous selection?
 //     switch (D_803B0596) {
@@ -103,6 +106,7 @@
 //         break;
 //     case 6:
 //         flagTexture = D_80302120_6A57C0;
+//         break;
 //     }
 //
 //     func_801366BC(&D_801D9E7C, D_803B0595, D_803B0595, D_803B0595, D_803B0595);
@@ -114,23 +118,25 @@
 //     gDPSetColorDither(D_801D9E7C++, G_CD_BAYER);
 //     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 //
-//     func_80136938(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 50, 16);
+//     func_80136938(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
 //
 //     load_segments(&D_801D9E7C, D_80204278);
 //     gDPPipeSync(D_801D9E7C++);
 //
+//     if (!D_803B0594) {}; // regalloc help
+//
 //     // write language strings
-//     verticalOffset = 66;
+//     verticalOffset += 16;
 //     load_default_display_list(&D_801D9E7C);
 //     select_font(0, 2, 1, 0);
 //
-//     for (i = 0; (i < 7) != 0; i++) {
-//         if (i == D_803B0590) {
+//     for (lang = 0; (lang < 7) != 0; lang++) {
+//         if (lang == D_803B0590) {
 //             set_menu_text_color(255, 255, 255, 255); // selected
 //         } else {
 //             set_menu_text_color(128, 128, 128, 255);
 //         }
-//         display_text(&D_801D9E7C, D_803B0400[i], 160, verticalOffset, 16.0f, 16.0f);
+//         display_text(&D_801D9E7C, D_803B0400[lang], 160, verticalOffset, 16.0f, 16.0f);
 //         verticalOffset += 16;
 //     }
 //
@@ -161,7 +167,7 @@
 //         }
 //     }
 //     if (D_803B0590 != selected) {
-//         D_803B0596 = D_803B0590;
+//         D_803B0596 = selected;
 //         D_803B0592 = 0;
 //         D_803B0594 = 248;
 //     }

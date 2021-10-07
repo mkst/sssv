@@ -247,7 +247,7 @@ struct Animal {
                     s16 h;
                     s8  b;
                 } unk29A;
-    /* 0x29C */ s32 unk29C;
+    /* 0x29C */ s32 *unk29C;
     /* 0x2A0 */ s8  unk2A0;
     /* 0x2A1 */ s8  unk2A1;
     /* 0x2A2 */ u8  unk2A2;
@@ -930,7 +930,8 @@ struct struct035 {
   /* 0xD2 */  s16 unkD2; // scaling?
   /* 0xD4 */  s16 unkD4;
   /* 0xD6 */  s16 unkD6;
-  /* 0xD8 */  s16 unkD8;
+  /* 0xD8 */  u8  unkD8;
+  /* 0xD9 */  u8  padD9;
   /* 0xDA */  s16 unkDA[3]; // skill A (drainRate;unknown;unknown)
   /* 0xE0 */  s16 unkE0[3]; // skill B (drainRate;unknown;unknown)
   /* 0xE6 */  s8  unkE6;
@@ -1109,11 +1110,11 @@ struct struct044 {
 };
 
 typedef struct {
-    s32 unk0;   // e.g. 007d1ad0
-    s32 unk4;   // e.g. 007d2f50
-    s32 unk8;   // e.g. 803fdec0
-    s32 unkC;   // e.g. 803ff340
-    s32 unk10;  // e.g. 803fdec0
+    u8 *romStart;   // e.g. 007d1ad0
+    u8 *romEnd;   // e.g. 007d2f50
+    u8 *ramStart;   // e.g. 803fdec0
+    u8 *ramEnd;   // e.g. 803ff340
+    u8 *ramStart2;  // e.g. 803fdec0
 } struct046; // size 0x14
 
 typedef struct {
@@ -1123,28 +1124,18 @@ typedef struct {
 } struct047;
 
 typedef struct {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    f32 unk14;
-    f32 unk18;
-    f32 unk1C;
-    f32 unk20;
-    f32 unk24;
-    f32 unk28;
-    f32 unk2C;
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-    f32 unk3C;
-    f32 unk40;
-    f32 unk44;
-    f32 unk48;
-    f32 unk4C;
-    s16 unk50;
-    u8  pad52[2];
+    f32 unk0[3];
+    f32 unkC[3];
+} struct048a; // size 0x18
+
+typedef struct {
+    /* 0x00 */ struct048a unk0;
+    /* 0x18 */ struct048a unk18;
+    /* 0x30 */ struct048a unk30;
+    /* 0x48 */ f32 unk48;
+    /* 0x4C */ f32 unk4C;
+    /* 0x50 */ s16 unk50;
+    /* 0x52 */ u8  pad52[2];
 } struct048; // size 0x54
 
 struct struct049 {
