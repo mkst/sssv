@@ -19,7 +19,7 @@ void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2) {
 void func_8037D320_78E9D0(s32 arg0, s32 arg1) {
 }
 
-void func_8037D32C_78E9DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 }
 
 // jump table

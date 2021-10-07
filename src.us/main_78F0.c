@@ -81,7 +81,7 @@ u8* D_80154500[37][2] = {
 };
 
 // at ROM 0x2fd28
-const Gfx D_80154628[] = {
+Gfx D_80154628[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_1CYCLE),
     gsDPSetCombineLERP(PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, TEXEL0, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, TEXEL0),
@@ -95,7 +95,7 @@ const Gfx D_80154628[] = {
 };
 
 void load_default_display_list(Gfx **arg0) {
-    gSPDisplayList((*arg0)++, &D_80154628);
+    gSPDisplayList((*arg0)++, D_80154628);
 }
 
 // does not appear to be used for cutscenes
@@ -140,8 +140,6 @@ s16 func_8012C314(f32 arg0) {
 }
 
 u8 convert_text_to_int(s16 *arg0) {
-#define TILESET_ZERO (TILESET_ASCII_OFFSET + '0')
-#define TILESET_NINE (TILESET_ASCII_OFFSET + '9')
     u8 ret = 0, i = 0;
 
     while ((arg0[i] >= TILESET_ZERO) && (arg0[i] <= TILESET_NINE)) {
@@ -159,21 +157,21 @@ s16 func_8012C3D8(s16 *arg0) {
     s16 sp5C[80];
     s16 tmp;
 
-    while (*arg0 != EOM) { // EOM
+    while (*arg0 != EOM) {
         tmp = *arg0;
-        if (*arg0 == 336) { // control
+        if (*arg0 == TEXT_CONTROL_CHAR) {
             arg0 += 1;
-            if (*arg0 == 343) { // timer
+            if (*arg0 == TEXT_TIMER) {
                 // parse timer text
                 time[0] = arg0[1];
                 time[1] = arg0[2];
                 time[2] = EOM;
 
-                sprintf(spFC, D_8015ACA0, D_8023F206[convert_text_to_int(time)]);
+                sprintf(spFC, "%d", D_8023F206[convert_text_to_int(time)]);
                 prepare_text((u8*)spFC, sp5C);
                 res += func_8012C3D8(sp5C);
                 arg0 += 3;
-            } else if (*arg0 == 339) { // color
+            } else if (*arg0 == TEXT_COLOR) {
                 arg0 = arg0 + 2;
             }
         } else {
@@ -198,130 +196,88 @@ s16 func_8012C3D8(s16 *arg0) {
     return res;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012C678.s")
-// urghhh
-// s32 func_8012C678(s16 *arg0, u16 arg1, u16 arg2) {
-//     u8 spD8[16];
-//     s16 sp34;
-//     s16 sp32;
-//     s16 sp30;
-//     s16 temp_a3;
-//     s16 temp_v0;
-//     s16 temp_v0_2;
-//     s16 temp_v0_3;
-//     s32 temp_t4;
-//     u32 temp_t0;
-//     s16 *temp_a0;
-//     s32 phi_v1;
-//     s16 phi_a3;
-//     s16 phi_v0;
-//     s16 phi_a3_2;
-//
-//     temp_v0 = *arg0; //->unk0;
-//     if (temp_v0 == 0x150) {
-//         *arg0++;
-//         // temp_v0_2 = *(arg0 + 1); //->unk2;
-//         temp_a0 = arg0 + 2;
-//         if (*arg0 == 0x157) {
-//             // sp30 = temp_a0->unk2;
-//             sp34 = 0x7530;
-//             sp32 = *(temp_a0 + 4);
-//             phi_a3 = (u16)0;
-//             if ((s32) sp30 >= 0x140) {
-//                 phi_a3 = (u16)0;
-//                 if ((s32) sp30 < 0x14A) {
-//                     phi_v1 = 0;
-//                     // phi_v0 = (sp + (0 * 2))->unk30;
-//                     phi_a3_2 = (u16)0;
-// loop_5:
-//                     temp_t4 = (phi_v1 + 1) & 0xFF;
-//                     temp_v0_3 = *(&sp30 + (temp_t4 * 2));
-//                     temp_a3 = (phi_v0 + (phi_a3_2 * 0xA)) - 0x140;
-//                     phi_a3 = temp_a3;
-//                     if ((s32) temp_v0_3 >= 0x140) {
-//                         phi_v1 = temp_t4;
-//                         phi_a3 = temp_a3;
-//                         phi_v0 = temp_v0_3;
-//                         phi_a3_2 = temp_a3;
-//                         if ((s32) temp_v0_3 < 0x14A) {
-//                             goto loop_5;
-//                         }
-//                     }
-//                 }
-//             }
-//             // "%d"
-//             sprintf(&spD8, &D_8015ACA4, D_8023F206[phi_a3]);
-//             prepare_text(&spD8, &D_8023F248);
-//             func_8012D374(&D_801D9E7C, &D_8023F248, arg1, arg2, D_8023F1F8, D_8023F1FC, -1);
-//             return 1;
-//
-//         }
-//         // change text color
-//         if (*arg0 == 339) {  // 'C' in tileset
-//             switch (*++arg0) {
-//             case 354: // 16: // 'R' in tileset
-//                 // red
-//                 D_8023F1F0 = 0xC8;
-//                 D_8023F1F1 = 0x28;
-//                 D_8023F1F2 = 0x28;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             case 343: // 5:  // 'G' in tileset
-//                 // green
-//                 D_8023F1F0 = 0;
-//                 D_8023F1F1 = 0xFF;
-//                 D_8023F1F2 = 0;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             case 338: // 0     // 'B' in tileset
-//                 // blue
-//                 D_8023F1F0 = 0x78;
-//                 D_8023F1F1 = 0x78;
-//                 D_8023F1F2 = 0xFF;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             case 361: // 14:
-//                 // yellow
-//                 D_8023F1F0 = 0xFF;
-//                 D_8023F1F1 = 0xFF;
-//                 D_8023F1F2 = 0;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             case 359: // 21:
-//                 // white
-//                 D_8023F1F0 = 0xFF;
-//                 D_8023F1F1 = 0xFF;
-//                 D_8023F1F2 = 0xFF;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             case 360: // 22:
-//                 // black
-//                 D_8023F1F0 = 0;
-//                 D_8023F1F1 = 0;
-//                 D_8023F1F2 = 0;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             case 352: //23:
-//                 // purple
-//                 D_8023F1F0 = 0xFF;
-//                 D_8023F1F1 = 0;
-//                 D_8023F1F2 = 0xFF;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             case 339: // 1
-//                 // cyan
-//                 D_8023F1F0 = 0;
-//                 D_8023F1F1 = 0xFF;
-//                 D_8023F1F2 = 0xFF;
-//                 D_8023F1F3 = 0xFF;
-//                 return 2;
-//             }
-//         }
-//     } else if (temp_v0 == 20000) { // newline
-//         return 3;
-//     }
-//     return 0;
-// }
+s32 func_8012C678(s16 *arg0, u16 x, u16 y) {
+    u8  spD8[80];
+    s16 sp30[84];
+
+    u8 i;
+    s16 num = 0;
+
+    if (*arg0 == TEXT_CONTROL_CHAR) {
+        if (*++arg0 == TEXT_TIMER) {
+            sp30[0] = *++arg0;
+            sp30[1] = *++arg0;
+            sp30[2] = EOM;
+
+            i = 0;
+            while ((sp30[i] >= TILESET_ZERO) && (sp30[i] <= TILESET_NINE)) {
+                num = (num*10 + sp30[i]) - TILESET_ZERO;
+                i++;
+            }
+            sprintf((char*)spD8, "%d", D_8023F206[num]);
+            prepare_text(spD8, D_8023F248);
+            func_8012D374(&D_801D9E7C, D_8023F248, x, y, D_8023F1F8, D_8023F1FC, -1);
+            return 1;
+        }
+        // change text color
+        if (*arg0 == TEXT_COLOR) {
+            switch (*++arg0) {
+            case TEXT_COLOR_RED:
+                D_8023F1F0 = 200;
+                D_8023F1F1 = 40;
+                D_8023F1F2 = 40;
+                D_8023F1F3 = 255;
+                break;
+            case TEXT_COLOR_GREEN:
+                D_8023F1F0 = 0;
+                D_8023F1F1 = 255;
+                D_8023F1F2 = 0;
+                D_8023F1F3 = 255;
+                break;
+            case TEXT_COLOR_BLUE:
+                D_8023F1F0 = 120;
+                D_8023F1F1 = 120;
+                D_8023F1F2 = 255;
+                D_8023F1F3 = 255;
+                break;
+            case TEXT_COLOR_YELLOW:
+                D_8023F1F0 = 255;
+                D_8023F1F1 = 255;
+                D_8023F1F2 = 0;
+                D_8023F1F3 = 255;
+                break;
+            case TEXT_COLOR_WHITE:
+                D_8023F1F0 = 255;
+                D_8023F1F1 = 255;
+                D_8023F1F2 = 255;
+                D_8023F1F3 = 255;
+                break;
+            case TEXT_COLOR_BLACK:
+                D_8023F1F0 = 0;
+                D_8023F1F1 = 0;
+                D_8023F1F2 = 0;
+                D_8023F1F3 = 255;
+                break;
+            case TEXT_COLOR_PURPLE:
+                D_8023F1F0 = 255;
+                D_8023F1F1 = 0;
+                D_8023F1F2 = 255;
+                D_8023F1F3 = 255;
+                break;
+            case TEXT_COLOR_CYAN:
+                D_8023F1F0 = 0;
+                D_8023F1F1 = 255;
+                D_8023F1F2 = 255;
+                D_8023F1F3 = 255;
+                break;
+            }
+            return 2;
+        }
+    } else if (*arg0 == 20000) { // newline
+        return 3;
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_text.s")
 // NON-MATCHING: plenty to do
@@ -530,14 +486,14 @@ void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height) {
 
 s32 func_8012E724(u16 *arg0, s32 arg1, s32 arg2) {
     s16 tmp = *arg0;
-    if (tmp == 336) { // control character
+    if (tmp == TEXT_CONTROL_CHAR) {
         tmp = *++arg0;
-        if (tmp == 343) { // time type
+        if (tmp == TEXT_TIMER) {
             return 1;
-        } else if (tmp == 339) { // color type
+        } else if (tmp == TEXT_COLOR) {
             return 2;
         }
-    } else if ((u16)tmp == 20000) { // newline
+    } else if ((u16)tmp == NEWLINE) {
         return 3;
     }
     return 0;

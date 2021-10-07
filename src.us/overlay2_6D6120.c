@@ -49,22 +49,43 @@ void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C7310_6D89C0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C75A4_6D8C54.s")
+void func_802C75A4_6D8C54(s16 arg0) {
+    D_80203FE0[19].unk2 -= arg0 * 90;
+    D_80203FE0[19].unk4 += arg0 * 90;
+    D_80203FE0[20].unk2 -= arg0 * 90;
+    D_80203FE0[20].unk4 += arg0 * 90;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C7600_6D8CB0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C78B0_6D8F60.s")
+void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *arg9) {
+    if (func_80126388(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
+        gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        D_80204278->usedModelViewMtxs += 1;
+        gSPDisplayList(D_801D9E88++, arg9);
+        gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C79E0_6D9090.s")
+void func_802C79E0_6D9090(struct016 *arg0, s16 arg1) {
+    s16 temp_v0 = arg0->unk2;
+    s16 temp_v1 = arg0->unk4;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C7A7C_6D912C.s")
+    arg0->unk2 = ((temp_v0 * D_80152350.unk384[arg1]) + (D_80152350.unk2D0[arg1] * temp_v1)) / 256;
+    arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
+}
 
-void func_802C7B18_6D91C8(struct061 *arg0, s16 arg1) {
-    s16 temp_v0;
-    s16 temp_v1;
+void func_802C7A7C_6D912C(struct016 *arg0, s16 arg1) {
+    s16 temp_v0 = arg0->unk0;
+    s16 temp_v1 = arg0->unk4;
 
-    temp_v0 = arg0->unk0;
-    temp_v1 = arg0->unk2;
+    arg0->unk0 = ((temp_v0 * D_80152350.unk384[arg1]) + (D_80152350.unk2D0[arg1] * temp_v1)) / 256;
+    arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
+}
+
+void func_802C7B18_6D91C8(struct016 *arg0, s16 arg1) {
+    s16 temp_v0 = arg0->unk0;
+    s16 temp_v1 = arg0->unk2;
 
     arg0->unk0 = ((temp_v0 * D_80152350.unk384[arg1]) + (temp_v1 * D_80152350.unk2D0[arg1])) / 256;
     arg0->unk2 = ((temp_v1 * D_80152350.unk384[arg1]) - (temp_v0 * D_80152350.unk2D0[arg1])) / 256;

@@ -366,10 +366,10 @@ extern s16  D_80231D5C[];
 extern s32  D_80235410[];
 extern struct023 D_8023F1E0;
 extern u8   D_8023F1E8;
-extern s8   D_8023F1F0;
-extern s8   D_8023F1F1;
-extern s8   D_8023F1F2;
-extern s8   D_8023F1F3;
+extern u8   D_8023F1F0;
+extern u8   D_8023F1F1;
+extern u8   D_8023F1F2;
+extern u8   D_8023F1F3;
 extern u8   D_8023F1F4;
 extern u8   D_8023F1F5;
 extern f32  D_8023F1F8; // current font width / scale
@@ -420,7 +420,7 @@ extern ALSeqPlayer *D_802863C8[];
 extern ALCSeq *D_802863CC[];
 
 extern u8   D_80286458;
-extern u16  D_8028645A;
+extern s16  D_8028645A;
 extern s16  D_8028645C;
 extern ALCSeqMarker D_80286460;
 
@@ -721,8 +721,6 @@ extern s32  D_803B6880_7C7F30;
 extern struct004 D_803B6790;
 extern u16  D_803B6870[];
 extern s16  D_803B6870_7C7F20;
-extern struct046 D_803B6890[];
-extern s16  D_803B6B24[];
 extern s8   D_803B71D0[][5];
 extern struct066 D_803B7268_7C8918[32];
 extern struct066 D_803B7368_7C8A18[32];
@@ -835,12 +833,13 @@ extern char D_803C03E8_7D1A98[];
 extern char D_803C03EC_7D1A9C[];
 extern char D_803C03F0_7D1AA0[];
 
-extern f32  D_803C03F4;
-extern f32  D_803C03F8_7D1AA8;
-extern f64  D_803C0400_7D1AB0;
-extern f64  D_803C0408_7D1AB8;
+extern f32 D_803C03F4_7D1AA4; // 0.1f
+extern f32 D_803C03F8_7D1AA8; // 9.7f;
+extern f64 D_803C0400_7D1AB0; // 1.95;
+extern f64 D_803C0408_7D1AB8; // 2.05;
+
 extern f32  D_803C0410_7D1AC0;
-extern s16  D_803C0420[]; // BSS?
+extern s16  D_803C0420; // first var in BSS
 extern u8   D_803C0422;
 extern s16  D_803C0424;
 extern s16  D_803C0426;
@@ -1020,7 +1019,7 @@ extern s32  D_803E4D2C;
 extern s32  D_803E4D30;
 extern s32  D_803E4D38[2];
 extern s32  D_803E4D3C;
-extern u8   D_803E4D40[0x4114]; // tbd what this is
+extern u8   D_803E4D40[1666][10]; // tbd what this is 0x4114
 extern u16  D_803E8E54;
 extern u8   D_803E8E56;
 extern u8   D_803E8E57;
@@ -1154,7 +1153,7 @@ extern s16  D_803F3310;
 extern u16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
-extern s16  D_803F63C2;
+extern u8   D_803F63C2;
 extern s16  D_803F63E0;
 extern s16  D_803F63F0;
 extern s16  D_803F6400; // credit entry offset
@@ -1187,7 +1186,7 @@ extern u8   D_803F66AE;
 extern u8   D_803F66AF;
 extern struct032 D_803F66B8;
 extern f32  D_803F6700;
-extern u16  D_803F6704;
+extern s16  D_803F6704;
 extern u16  D_803F6706;
 extern u16  D_803F6708;
 extern u16  D_803F670A;

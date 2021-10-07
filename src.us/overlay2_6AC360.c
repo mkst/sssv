@@ -9,6 +9,7 @@ s32 func_8029ACB8_6AC368(s32 arg0, s32 arg1) {
     return 1;
 }
 
+// loops, initialising.. stuff
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029ACC8_6AC378.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B000_6AC6B0.s")

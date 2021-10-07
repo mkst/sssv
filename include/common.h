@@ -176,6 +176,21 @@
 // 6, 21, 23, 41, 43, 61, 81, 101, 121, 144, 183, 185, 201, 0x3F, 0x90,
 
 #define TILESET_ASCII_OFFSET    272
+#define TILESET_ZERO (TILESET_ASCII_OFFSET + '0')
+#define TILESET_NINE (TILESET_ASCII_OFFSET + '9')
+
+#define TEXT_CONTROL_CHAR       336
+#define TEXT_TIMER              343
+#define TEXT_COLOR              339
+
+#define TEXT_COLOR_BLUE         338
+#define TEXT_COLOR_CYAN         339
+#define TEXT_COLOR_GREEN        343
+#define TEXT_COLOR_PURPLE       352
+#define TEXT_COLOR_RED          354
+#define TEXT_COLOR_WHITE        359
+#define TEXT_COLOR_BLACK        360
+#define TEXT_COLOR_YELLOW       361
 
 // region
 #define REGION_JP       0
@@ -195,7 +210,8 @@
 #define LANG_SPANISH    8
 #define LANG_DEFAULT    20
 
-#define EOM             0x7530
+#define NEWLINE         20000
+#define EOM             30000
 
 // extra gbi macros
 

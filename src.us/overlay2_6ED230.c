@@ -198,6 +198,59 @@ void func_802DBED8_6ED588(u16 arg0) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DC0D4_6ED784.s")
+// void func_802DC0D4_6ED784(u16 arg0) {
+//     s32 temp_t8;
+//     u16 tmp;
+//
+//     tmp = (D_803D5544 - D_803D552C->unk334);
+//     if (arg0 < tmp) {
+//         D_803D552C->unk364 = 0;
+//         return;
+//     }
+//
+//     if (tmp == 1) {
+//         switch (D_803D5524->unk9C) {
+//         case 14:
+//         case 15:
+//         case 16:
+//
+//         case 17:
+//         case 18:
+//         case 19:
+//         case 20:
+//         case 21:
+//         case 22:
+//         case 23:
+//         case 24:
+//         case 25:
+//         case 26:
+//         case 27:
+//         case 28:
+//         case 29:
+//         default:
+//             play_sound_effect_at_location(32, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//             break;
+//         case 65:
+//             break;
+//         }
+//     }
+//
+//     // this is wrong
+//     temp_t8 = (-D_80152C78[((((tmp << 7) / arg0) << 2) + 64) & 0xFF] * (0x80 - ((tmp << 7) / arg0))) >> 7;
+//
+//     D_803F2EB0 += temp_t8;
+//     D_803F2EB4 += temp_t8;
+//     D_803F2EB8 += temp_t8;
+//     if (D_803F2EB0 < 1024) {
+//         D_803F2EB0 = 1024;
+//     }
+//     if (D_803F2EB4 < 1024) {
+//         D_803F2EB4 = 1024;
+//     }
+//     if (D_803F2EB8 < 1024) {
+//         D_803F2EB8 = 1024;
+//     }
+// }
 
 void func_802DC2AC_6ED95C(u16 arg0) {
     s32 temp_t8;
@@ -228,6 +281,24 @@ void func_802DC2AC_6ED95C(u16 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DC6A4_6EDD54.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DC854_6EDF04.s")
+// almost regalloc
+// void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
+//     u16 temp_t0;
+//     s16 phi_v1;
+//
+//     temp_t0 = (arg0 << 7) / arg1;
+//
+//     if (temp_t0 < 96) {
+//         phi_v1 = (temp_t0 << 2) / 3;
+//     } else {
+//         phi_v1 = (-temp_t0 << 2) + 512;
+//     }
+//
+//     D_803F2EBC += (D_80152C78[(temp_t0 * 8) & 0xFF] >> 7) * phi_v1;
+//     D_803F2EC0 += (D_80152C78[(temp_t0 * 4) & 0xFF] >> 7) * phi_v1;
+//     D_803F2EC4 -= (D_80152C78[(temp_t0 * 8) & 0xFF] >> 7) * phi_v1;
+// }
+
 
 void func_802DC968_6EE018(u16 arg0, s16 arg1) {
     u16 tmp = D_803D5544 - D_803D552C->unk334;
@@ -367,23 +438,23 @@ s32 func_802E4B0C_6F61BC(s16 arg0) {
     case 20:
     case 21:
     case 32:
-        return func_802DD090_6EE740(6, 0x32000, 1, 3, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(3.125), 1, 3, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case 13:
-        return func_802DD090_6EE740(6, 0x64000, 1, 32, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(6.25), 1, 32, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case 40:
     case 42:
-        return func_802DD090_6EE740(4, 0x6E000, 1, 11, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 11, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case 41:
-        return func_802DD090_6EE740(4, 0x6E000, 1, 12, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 12, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case 49:
     case 50:
-        return func_802DD090_6EE740(4, 0xF0000, 1, 13, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.0), 1, 13, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case 53:
-        return func_802DD090_6EE740(7, 0x5E800, 1, 14, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(7, FTOFIX32(5.90625), 1, 14, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case 56:
-        return func_802DD090_6EE740(5, 0x106800, 1, 16, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(5, FTOFIX32(16.40625), 1, 16, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case 1:
-        return func_802DD090_6EE740(4, 0xFA000, 1, 35, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.625), 1, 35, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     default:
         return 0;
     }

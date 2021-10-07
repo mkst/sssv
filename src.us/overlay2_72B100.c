@@ -34,7 +34,7 @@ void func_80319AC4_72B174(u8 *arg0, u8 arg1) {
     }
 }
 
-
+// what is this doing?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B100/func_80319B4C_72B1FC.s")
 
 // needs jump table

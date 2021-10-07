@@ -4,6 +4,7 @@
 "G_[AC]C.*" = "int"
 "SP_UCODE_DATA_SIZE" = "int"
 "FRUSTRATIO_.*" = "int"
+"FR_[PN].*" = "int"
 
 [decompme.compilers]
 "tools/ido5.3_recomp/cc" = "ido5.3"
