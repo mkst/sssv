@@ -11,7 +11,7 @@ void reset_cheats(void)
     D_803F6428.unk0 = 0;
     D_803F6428.unk2 = 0;
     D_803F6428.unk4 = 0;
-    D_803F6428.unk6 = 0;
+    D_803F6428.debugMode = 0;
     D_803F6428.unk8 = 0;
     D_803F6428.europe = 0;
     D_803F6428.ice = 0;
@@ -30,11 +30,11 @@ void check_cheats(OSContPad *contPad) {
     u32 butDown2;
     s16 sp28[60]; // long enough...
 
-    if (D_803F6428.unk6 != 0) {
+    if (D_803F6428.debugMode != 0) {
         load_default_display_list(&D_801D9E7C);
         set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
         select_font(0, 0, 0, 0);
-        if ((D_803F6428.unk6 != 0) && (D_803F6680.unk0 == 0)) {
+        if ((D_803F6428.debugMode != 0) && (D_803F6680.unk0 == 0)) {
             // print debug location
             sprintf(D_802042B0, "(%3d  %3d  %4d)",
                 D_801DDD8C[gCurrentAnimalIndex].unk0->xPos >> 6,

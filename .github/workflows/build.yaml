@@ -25,16 +25,16 @@ jobs:
       run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.us.z64.aes -out baserom.us.z64
 
     - name: Perform make extract
-      uses: docker://docker.io/markstreet/sssv:latest
+      uses: docker://ghcr.io/mkst/sssv:latest
       with:
         args: make extract
     - name: Perform make
-      uses: docker://docker.io/markstreet/sssv:latest
+      uses: docker://ghcr.io/mkst/sssv:latest
       with:
         args: make --jobs
 
     - name: Create progress.csv
-      uses: docker://docker.io/markstreet/sssv:latest
+      uses: docker://ghcr.io/mkst/sssv:latest
       with:
         args: make progress
 

@@ -153,7 +153,6 @@ void func_802DAF5C_6EC60C(void) {
     D_803DA2F4 = NULL;
 }
 
-#ifdef NON_MATCHING // JUSTREG
 void func_802DAFAC_6EC65C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
     Animal *ptr;
     s32 a0 = arg0;
@@ -162,14 +161,11 @@ void func_802DAFAC_6EC65C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
     s32 a3 = arg3;
 
     for (ptr = D_803DA2F4; ptr != NULL; ptr = ptr->unk198) {
-        if (((ptr->xPos >= ((a0 + a2 + 1) << 22) >> 16)) &&
-             (ptr->xPos >= ((a0           << 22) >> 16)) &&
-            ((ptr->zPos >= ((a1 + a3 + 1) << 22) >> 16)) &&
-             (ptr->zPos >= ((a1           << 22) >> 16))) {
+        if (((s16)(a0 + a2 + 1 << 6) >= ptr->xPos) &&
+            ((s16)(a0          << 6) <= ptr->xPos) &&
+            ((s16)(a1 + a3 + 1 << 6) >= ptr->zPos) &&
+            ((s16)(a1          << 6) <= ptr->zPos)) {
               ptr->unk4C.unk25 = 1;
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collist2/func_802DAFAC_6EC65C.s")
-#endif

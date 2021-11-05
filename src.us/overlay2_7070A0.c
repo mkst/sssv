@@ -357,7 +357,7 @@ void func_802FB49C_70CB4C(struct071 *arg0) {
 
 void func_802FC8F4_70DFA4(Animal *arg0) {
     s32 tmp = (arg0->unk40 * 18) >> 11;
-    func_802D5F4C_6E75FC(arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 23, 0, 0, 0, tmp, 0xB5AC, 0xB5AC, 0);
+    create_particle_effect(arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 23, 0, 0, 0, tmp, 0xB5AC, 0xB5AC, 0);
 }
 
 void func_802FC970_70E020(Animal *arg0) {
@@ -600,7 +600,7 @@ void func_802FF184_710834(s32 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF540_710BF0.s")
 
 void func_802FF7D4_710E84(Animal *arg0) {
-    func_802D5F4C_6E75FC(arg0->xPos, arg0->zPos, arg0->yPos, 0x7C, 0, 0, 0, 0x14, 0, 0, 0);
+    create_particle_effect(arg0->xPos, arg0->zPos, arg0->yPos, 0x7C, 0, 0, 0, 0x14, 0, 0, 0);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF828_710ED8.s")

@@ -12,6 +12,7 @@ void func_802E84E0_6F9B90(void) {
     func_8037D994_78F044(16);
 }
 
+// fire_fox_fire_missile2 ?
 void func_802E8500_6F9BB0(void) {
     Animal *animal = func_8037E9AC_79005C();
     if (animal != NULL) {
@@ -75,15 +76,15 @@ void fire_fox_fire_missile(Animal *animal) {
     func_802FEE98_710548(
         D_803D5530->xPos,
         D_803D5530->zPos,
-        (D_803D5530->yPos - D_803D5530->unk42),
-        0x161,
-        (D_803D552C->unk302 * 360) >> 8,
+        D_803D5530->yPos - D_803D5530->unk42,
+        353,
+        D_803D552C->unk302 * 360 >> 8,
         animal,
         2,
         16,
         0.5f,
-        0xC8,
-        0x60,
+        200,
+        96,
         D_803D5530->xVelocity.h,
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,

@@ -1944,7 +1944,7 @@ segments:
     subalign: 8
     subsegments:
     - [0x0DD5C0, bin]
-    - [0x0DD720, bin]
+    - [0x0DD720, bin] # D_04000160
     - [0x0DD800, bin]
     - [0x0DD8F0, bin]
     - [0x0DDC80, bin]
@@ -1995,8 +1995,10 @@ segments:
     - [0x0E0E90, bin]
     - [0x0E0F20, bin]
     - [0x0E0FB0, bin]
-    - [0x0E1110, bin]
-    - [0x0E11D0, bin]
+    - [0xE1110, sssv_vtx, data/inc/D_04003B50_E1110]
+    - [0xE1190, .data, data/husky.D_04003BD0_E1190]  # dl, husky
+    - [0xE11D0, sssv_vtx, data/inc/D_04003C10_E11D0]
+    - [0xE1250, .data, data/husky.D_04003C90_E1250]  # dl, husky
     - [0x0E1290, bin]
     - [0x0E1350, bin]
     - [0x0E1630, bin]
@@ -2062,12 +2064,14 @@ segments:
     overlay: yes
     subalign: 8
     subsegments:
-    - [0x0E75B0, bin]
-    - [0x0E76B0, bin]
+    - [0xE75B0, bin] # v
+    - [0xE7650, bin] # d D_040000A0 # vulture
+    - [0x0E76B0, bin] # v D_04000100
     - [0x0E7890, bin]
     - [0x0E7960, bin]
     - [0x0E7AB0, bin]
-    - [0x0E7C00, bin]
+    - [0xE7C00, bin]
+    - [0xE7CA0, bin] # d D_040006F0_E7CA0
     - [0x0E7D00, bin]
     - [0x0E80C0, bin]
     - [0x0E8380, bin]
@@ -3126,6 +3130,7 @@ segments:
     # .data / .rodata
     - [0x7B1B90, linker, data]
     - [0x7B1B90, bin]
+    - [0x7B3770, bin] # D_803A20C0_7B3770
     - [0x7B6E20, bin] # D_803A5770_7B6E20
     - [0x7B6E50, bin] # D_803A57A0_7B6E50
     - [0x7B6FD8, bin] # D_803A5928_7B6FD8
@@ -3145,6 +3150,9 @@ segments:
     - [0x7B9BD8, .data, data/objects_7B9BD8] # 0x9C objects x 247  # rodata overlay2_72C680
     # - [0x7B9BD8, bin]
     - [0x7C325C, bin] # end of objects
+    - [0x7C5F38, bin] # husky texture 1? 16x16 ci
+    - [0x7C5FB8, bin] # husky texture 2?
+    - [0x7C6038, bin] # tbd
     # - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
     - [0x7C74E0, bin]

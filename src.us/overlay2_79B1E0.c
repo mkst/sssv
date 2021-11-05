@@ -5,7 +5,64 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_79B1E0/func_80389B30_79B1E0.s")
 
 // evo shellsuit function?
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_79B1E0/func_8038B330_79C9E0.s")
+void func_8038B330_79C9E0(void) {
+    s16 tmp;
+
+    if (D_803D5530->unk162 != 1) {
+        if (D_803D5530->unk4A == 0) {
+            func_8032CD70_73E420(
+                D_803D5530,
+                SFX_UNKNOWN_103,
+                0x7000,
+                0,
+                0.25f,
+                D_803D552C->xPos,
+                D_803D552C->zPos,
+                D_803D552C->yPos);
+        }
+
+        if (D_803D5530->yVelocity.w > FTOFIX32(2.0)) {
+            D_803D5530->yVelocity.w = MAX(D_803D5530->yVelocity.w + FTOFIX32(1.0), FTOFIX32(3.75));
+        } else if (D_803D5530->yVelocity.w > FTOFIX32(-10.0)) {
+            D_803D5530->yVelocity.w += FTOFIX32(1.875);
+        } else {
+            D_803D5530->yVelocity.w += FTOFIX32(4.0);
+        }
+
+        tmp = -16;
+        do {
+            create_particle_effect(
+                ((func_8012826C() & 0xF) + D_803D5530->xPos + ((tmp * (D_80152C78[(((s16)-D_803D552C->unk302) + 64) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                ((func_8012826C() & 0xF) + D_803D5530->zPos + ((tmp * (D_80152C78[((s16)-D_803D552C->unk302) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                D_803D5530->yPos,
+                ((func_8012826C() & 1) + 25),
+                ((func_8012826C() & 0x7FFF) << 1) + D_803D5530->xVelocity.w + FTOFIX32(-0.6103515625),
+                ((func_8012826C() & 0x7FFF) << 1) + D_803D5530->zVelocity.w + FTOFIX32(-0.6103515625),
+                (D_803D5530->yVelocity.w >> 1) + FTOFIX32(-3.0517578125),
+                func_8012826C() & 0xC,
+                1,
+                0x39CF,
+                (func_8012826C() & 0xF) + 15);
+
+            create_particle_effect(
+                ((func_8012826C() & 0xF) + D_803D5530->xPos + ((tmp * (D_80152C78[(((s16)-D_803D552C->unk302) + 64) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                ((func_8012826C() & 0xF) + D_803D5530->zPos + ((tmp * (D_80152C78[((s16)-D_803D552C->unk302) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                D_803D5530->yPos,
+                63,
+                D_803D5530->xVelocity.w,
+                D_803D5530->zVelocity.w,
+                D_803D5530->yVelocity.w + FTOFIX32(-4.57763671875),  // 0xFFFB6C20 ??
+                (func_8012826C() & 0xF) + 25,
+                ((((func_8012826C() & 0x3F) + 0xC0) << 8) & 0xF800) | ((((func_8012826C() & 0x1F) + 0xC0) << 3) & 0x7C0) | 1,
+                ((((func_8012826C() & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
+                0);
+
+            tmp += 32;
+        } while (tmp < 17);
+    } else {
+        recharge_skill(0);
+    }
+}
 
 void func_8038B730_79CDE0(void) {
     D_803D5528->unk3C0 = 0;

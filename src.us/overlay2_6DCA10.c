@@ -23,7 +23,8 @@ void func_802D5AD8_6E7188(s16 arg0, s16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D5B88_6E7238.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D5F4C_6E75FC.s")
+// arg3 = smoke type 38 --> Zzzzz...
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/create_particle_effect.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D6738_6E7DE8.s")
 

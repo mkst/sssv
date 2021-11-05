@@ -58,11 +58,11 @@ void func_802C75A4_6D8C54(s16 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C7600_6D8CB0.s")
 
-void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *arg9) {
+void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *dl) {
     if (func_80126388(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         D_80204278->usedModelViewMtxs += 1;
-        gSPDisplayList(D_801D9E88++, arg9);
+        gSPDisplayList(D_801D9E88++, dl);
         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
     }
 }
@@ -92,18 +92,22 @@ void func_802C7B18_6D91C8(struct016 *arg0, s16 arg1) {
 }
 
 void func_802C7BB4_6D9264(u16 arg0) {
-    D_803D5528->unk37A = D_803D5528->unk374;
-    D_803D5528->unk37C = D_803D5528->unk376;
-    D_803D5528->unk37E = D_803D5528->unk378;
-    D_803D5528->unk38E = D_803D5528->unk388;
-    D_803D5528->unk390 = D_803D5528->unk38A;
-    D_803D5528->unk392 = D_803D5528->unk38C;
-    D_803D5528->unk3A2 = D_803D5528->unk39C;
-    D_803D5528->unk3A4 = D_803D5528->unk39E;
-    D_803D5528->unk3A6 = D_803D5528->unk3A0;
-    D_803D5528->unk3B6 = D_803D5528->unk3B0;
-    D_803D5528->unk3B8 = D_803D5528->unk3B2;
-    D_803D5528->unk3BA = D_803D5528->unk3B4;
+    D_803D5528->unk370[5] = D_803D5528->unk370[2];
+    D_803D5528->unk370[6] = D_803D5528->unk370[3];
+    D_803D5528->unk370[7] = D_803D5528->unk370[4];
+
+    D_803D5528->unk384[5] = D_803D5528->unk384[2];
+    D_803D5528->unk384[6] = D_803D5528->unk384[3];
+    D_803D5528->unk384[7] = D_803D5528->unk384[4];
+
+    D_803D5528->unk398[5] = D_803D5528->unk398[2];
+    D_803D5528->unk398[6] = D_803D5528->unk398[3];
+    D_803D5528->unk398[7] = D_803D5528->unk398[4];
+
+    D_803D5528->unk3AC[5] = D_803D5528->unk3AC[2];
+    D_803D5528->unk3AC[6] = D_803D5528->unk3AC[3];
+    D_803D5528->unk3AC[7] = D_803D5528->unk3AC[4];
+
     D_803D552C->unk2FE = D_803D552C->unk2F2;
     D_803D552C->unk300 = arg0;
 }

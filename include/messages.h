@@ -36,5 +36,8 @@
 #define MSG_EXIT_ZONE           27
 // somewhat meta, e.g. ENGLISH
 #define MSG_LANGUAGE            28
+#define MSG_POO_POO             29
+#define MSG_LEAVE_SV            30
+
 #define MSG_SELECT_A_BANK       214
 #endif

@@ -30,7 +30,7 @@ extern Gfx  D_010034C0_3CD90[];
 extern Gfx  D_01003548_3CE18[];
 extern Gfx  D_01003618_3CEE8[];
 extern Gfx  D_01003998_3D268[];
-extern u8   D_01003A58[];
+extern Gfx  D_01003A58[];
 extern Gfx  D_01003B70_3D440[];
 extern Gfx  D_01004270[];
 extern Gfx  D_01004360_3DC30[];
@@ -65,8 +65,8 @@ extern u8   D_040029D0[];
 extern u8   D_04002F28[];
 extern u8   D_04003850[];
 extern u8   D_04003A50[];
-extern u8   D_04005B60[];
-extern u8   D_04006D00[];
+extern u8   D_04005B60_11C730[]; // spaceship interior
+extern u8   D_04006D00_11D8D0[]; // tv body
 extern u8   D_04006EC0[];
 extern u8   D_04007700[];
 extern u8   D_040077A0[];
@@ -83,12 +83,18 @@ extern u8   D_040088F0[];
 extern u8   D_040089E0[];
 extern u8   D_04008A10[];
 extern u8   D_04008C10[];
-extern u8   D_0400A9E0[];
+extern u8   D_0400A9E0_1215B0[];
 extern u8   D_04012B20_1296F0[];
 extern u8   D_04013060[];
 extern u8   D_040131B0[];
 extern u8   D_040133C0[];
 extern u8   D_04013580[];
+extern Gfx  D_04003140[];
+extern Gfx  D_040033C0[];
+extern Gfx  D_04003530[];
+extern Gfx  D_04003650[];
+extern Gfx  D_04003E70[];
+extern Gfx  D_04004070[];
 // 0x8000xxxx
 
 extern s32  D_80000300;
@@ -133,7 +139,7 @@ extern u8   D_800C3A40[];
 extern u8   D_800C4240[];
 extern u8   D_800C4A40[];
 extern u8   D_800C5240[];
-extern u8   D_800C5A40[];
+extern u8   D_800C5A40[]; // current frame?
 
 // 0x800Dxxxx
 
@@ -174,6 +180,7 @@ extern u16  D_80151434; // kinda random number?
 extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 
 extern f32  D_80151C38[];
+extern s16  D_80152620[];
 extern s16  D_80152C78[];
 extern s16  D_80152040[];
 extern s8   D_80152248[];
@@ -277,7 +284,7 @@ extern Gfx *D_801D9E88;
 extern Gfx *D_801D9E8C;
 extern Gfx *D_801D9E90;
 extern Gfx *D_801D9E94;
-extern struct014 *D_801D9E98[];
+extern Gfx *D_801D9E98[8];
 extern Gfx *D_801D9EB8;
 extern u8  *D_801D9EC4;
 extern u8   D_801D9EC8;
@@ -303,7 +310,6 @@ extern struct072 D_801F9EB8;
 
 // 0x8020xxxx
 
-extern struct002 *D_80200000;
 extern s16  D_80200008;
 extern struct071 D_80203AA8[];
 extern struct071 *D_80203D1C[]; // table of pointers to each interactive object
@@ -472,7 +478,7 @@ extern OSMesg      D_802912C8;
 extern OSMesg      D_802912CC;
 extern s32  D_802912D0;
 extern s32  D_802912D4;
-extern s16  D_802912D8;
+extern s16  gControllerConnected;
 extern u16  D_802912DA;
 extern s16  D_802912DC;
 extern u8   D_802912DE; // start pressed
@@ -707,8 +713,8 @@ extern u16  D_803B6310;
 extern s16  D_803B6314;
 extern u8   D_803B6318;
 extern u8   D_803B631C;
-extern char D_803B6320_7C79D0[]; // "AGCT.-01"
-extern s32  D_803B6328[]; // array of pointers to TV screen assembly background text
+extern u8   D_803B6320_7C79D0[]; // "AGCT.-01"
+extern s32  D_803B6328_7C79D8[]; // array of pointers to TV screen assembly background text
 extern struct028 D_803B66F0;
 extern struct004 D_803B6700[];
 extern struct004 D_803B6700_7C7DB0;
@@ -719,6 +725,8 @@ extern struct004 D_803B683C_7C7EEC;
 extern struct004 D_803B6718_7C7DC8;
 extern s32  D_803B6880_7C7F30;
 extern struct004 D_803B6790;
+extern f32  D_803B6868_7C7F18;
+extern f32  D_803B686C_7C7F1C;
 extern u16  D_803B6870[];
 extern s16  D_803B6870_7C7F20;
 extern s8   D_803B71D0[][5];
@@ -981,7 +989,9 @@ extern u8   D_803E1D30[];
 extern u8   *D_803E1D32; // ?
 extern struct064 D_803E1D3B[];
 extern struct073 D_803E3130[];
+extern s16  D_803E4AC8;
 extern u8   D_803E4AD0[];
+extern s16  D_803E4BD4;
 extern struct079 D_803E4BE0;
 extern s32  D_803E4C3C;
 extern s16  D_803E4C52;
@@ -1015,7 +1025,7 @@ extern u8   D_803E4CA5;
 extern u8   D_803E4CA6;
 extern s32  D_803E4CA8[32];
 extern s32  D_803E4D28;
-extern s32  D_803E4D2C;
+extern s32  D_803E4D2C; // completed tasks?
 extern s32  D_803E4D30;
 extern s32  D_803E4D38[2];
 extern s32  D_803E4D3C;
@@ -1123,10 +1133,10 @@ extern s32  D_803F2E0C;
 extern s16  D_803F2EE0[];
 extern u16  D_803F2EF0;
 extern s16  D_803F2E16;
-extern s16  D_803F2E1E;
+extern s16  D_803F2E1E; // evo suit color
 extern s16  D_803F2E2A;
 extern f32  D_803F2E30;
-extern s16  D_803F2E34[42];
+extern s16  D_803F2E34[];
 extern s32  D_803F2EB0;
 extern s32  D_803F2EB4;
 extern s32  D_803F2EB8;
@@ -1150,7 +1160,7 @@ extern s16  D_803F330A;
 extern s16  D_803F330C;
 extern s16  D_803F330E;
 extern s16  D_803F3310;
-extern u16  D_803F3330[]; // tbd
+extern s16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
 extern u8   D_803F63C2;
@@ -1187,10 +1197,10 @@ extern u8   D_803F66AF;
 extern struct032 D_803F66B8;
 extern f32  D_803F6700;
 extern s16  D_803F6704;
-extern u16  D_803F6706;
-extern u16  D_803F6708;
-extern u16  D_803F670A;
-extern u16  D_803F670C;
+extern s16  D_803F6706;
+extern s16  D_803F6708;
+extern s16  D_803F670A;
+extern s16  D_803F670C;
 extern u16  D_803F670E;
 extern u16  D_803F6714;
 extern s16  D_803F6716; // current sfx volume

@@ -40,7 +40,7 @@ extern u8 lang_lang35_dat_rnc_ROM_START[], lang_lang35_dat_rnc_ROM_END[];
 extern u8 lang_lang36_dat_rnc_ROM_START[], lang_lang36_dat_rnc_ROM_END[];
 
 // language file offsets at ROM 0x2fc00
-u8* D_80154500[37][2] = {
+struct066 D_80154500[37] = {
     {lang_lang1_dat_rnc_ROM_START, lang_lang1_dat_rnc_ROM_END},
     {lang_lang2_dat_rnc_ROM_START, lang_lang2_dat_rnc_ROM_END},
     {lang_lang3_dat_rnc_ROM_START, lang_lang3_dat_rnc_ROM_END},
@@ -710,7 +710,7 @@ void prepare_text(u8 *src, s16 *dst) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/load_level_text_data.s")
 // NON-MATCHING: language file offsets :(
-// s16 load_level_text_data(s16 language, s16 level, u16 *msg_lengths, s16 *dst) {
+// s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
 //     s16 copied;
 //     s16 msg_length;
 //     s16 i;
@@ -718,12 +718,13 @@ void prepare_text(u8 *src, s16 *dst) {
 //     s32 start;
 //     s32 end;
 //     s16 num_msgs;
+//     struct066 *lvl;
 //
 //     if (gRegion == REGION_EU) {
-//         if (language < 0) {
+//         if (language < LANG_MIN) {
 //             language = LANG_ENGLISH;
 //         }
-//         if (language > 8) {
+//         if (language > LANG_MAX) {
 //             language = LANG_ENGLISH;
 //         }
 //         // pointless check?
@@ -749,33 +750,31 @@ void prepare_text(u8 *src, s16 *dst) {
 //     // each message starts with an s16 containing the message length in bytes
 //     // each message ends with 0x7350 (30000)
 //
-//     // wrong data type?
-//     start = D_80154500[level][0];
-//     end = D_80154500[level][1];
-//
-//     dma_read(start, D_8022E3F0, end - start);
+//     lvl = &D_80154500[level];
+//     dma_read(lvl->start, D_8022E3F0, lvl->end - lvl->start);
 //     UnpackRNC((RNC_fileptr)D_8022E3F0, (u8*)D_80235410);
 //     memcpy_sssv((u8*)D_80235410 + D_80235410[language], (u8*)D_8022E3F0, 12000);
 //
-//     // first s16 contains number of messages in segment
 //     src = &D_8022E3F0[1]; // first message in segment
 //     copied = 0;
 //
-//     // number of messages
+//     // first s16 contains number of messages in segment
 //     num_msgs = D_8022E3F0[0];
 //     for (i = 0; i < num_msgs; i++) {
 //         // first field is message length
 //         msg_length = *src++;
-//         // update list of message lengths
-//         msg_lengths[i] = copied;
+//         // update offset as end of previous message
+//         msg_offsets[i] = copied;
 //         memcpy_sssv((u8*)src, &dst[copied], msg_length);
 //         copied += msg_length;
 //         // message length is in bytes but source is shorts
 //         src += msg_length / 2;
 //     }
 //
-//     return num_msgs; // ?
+//     return num_msgs;
 // }
+
+// ========== file split? ========== //
 
 // load message id
 s16 *get_message_address_by_id(s16 id) {
@@ -786,7 +785,7 @@ s16 *get_message_address_by_id(s16 id) {
 s16 func_80130AC0(s16 *arg0) {
     s16 cnt = 0;
 
-    while (*arg0 != 30000) {
+    while (*arg0 != EOM) {
         cnt++;
         arg0++;
     };

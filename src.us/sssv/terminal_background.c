@@ -3,7 +3,7 @@
 #include "common.h"
 
 #if 0
-char* asm[] = {
+char* D_803B6328_7C79D8[] = {
     "mov si,animaltype",
     "add si,128",
     "mov blocksi,si",
@@ -84,48 +84,56 @@ void func_8038CF90_79E640(void) {
     gDPSetRenderMode(D_801D9E7C++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D004_79E6B4.s")
-// NON_MATCHING: draw_glyph isnt quite right
-// void func_8038D004_79E6B4(Gfx **arg0, u16 arg1) {
-//     s16 text2[32]; // fixme
-//     u8 i;
-//     s8 spE4;
-//     s16 xPos;
-//     s16 yPos;
-//     u16 temp_v0_2;
-//     s16 phi_s0_2;
-//     u16 tmp;
-//     s16 sp64[60]; // fixme
-//     u8 tmp2;
-//
-//     tmp = 10;
-//
-//     load_default_display_list(arg0);
-//     select_font(0, 2, 0, 0);
-//
-//     set_menu_text_color(0, MIN(arg1 * 4, 80), 0, 0xFF); // green-ish
-//
-//     for (i = 0; i < 4; i++) {
-//         // "%s\n"
-//         sprintf((char*)&spE4, D_803BFFD4, D_803B6328[(rand() / 924) & 0xFF]);
-//         prepare_text(&spE4, sp64);
-//         func_8012D374(arg0, sp64, 6, tmp, 13.0f, 9.0f, -1);
-//         tmp = tmp + 10;
-//     }
-//
-//     for (phi_s0_2 = 0; phi_s0_2 < 15; phi_s0_2++) {
-//         temp_v0_2 = func_8012826C(); // random number
-//         xPos = (temp_v0_2 >> 3) & 0xF; // bottom 7 bits
-//         yPos = (temp_v0_2 >> 8) & 3;   // bottom 2 bits
-//         temp_v0_2 = temp_v0_2 & 7;
-//         tmp2 = D_803B6320_7C79D0[temp_v0_2]; // take bottom 3 bits
-//         prepare_text(&tmp2, &sp64);
-//         draw_glyph(arg0, sp64, (xPos * 13) + 175, (yPos * 8) + 10, 13.0f, 9.0f);
-//     }
-//
-//     gSPEndDisplayList((*arg0)++);
-// }
+#ifdef NON_MATCHING
+// just the stack
+void func_8038D004_79E6B4(Gfx **arg0, u16 intensity) {
+    u8  i;
+    s16 j;
+    u16 vertical_offset;
 
+    s16 xPos;
+    s16 yPos;
+    s16 idx;
+
+    s8  spE4[64];  // tbd
+    s16 sp64[64];  // todo
+
+    vertical_offset = 10;
+
+    load_default_display_list(arg0);
+    select_font(0, 2, 0, 0);
+
+    set_menu_text_color(0, MIN(intensity * 4, 80), 0, 0xFF); // green-ish
+
+    for (i = 0; i < 4; i++) {
+        // "%s\n"
+        sprintf(spE4, D_803BFFD4, D_803B6328_7C79D8[(rand() / 924) & 0xFF]);
+        prepare_text((s8*)spE4, sp64);
+        func_8012D374(arg0, sp64, 6, vertical_offset, 13.0f, 9.0f, -1);
+        vertical_offset += 10;
+    }
+
+    for (j = 0; j < 15; j++) {
+        idx = func_8012826C(); // random number
+
+        xPos = (idx >> 3) & 0xF; // bottom 7 bits (max=15)
+        yPos = (idx >> 8) & 3;   // bottom 2 bits (max=3)
+        idx = idx & 7;
+
+        spE4[0] = D_803B6320_7C79D0[idx]; // take bottom 3 bits (max=7)
+        spE4[1] = 0; // NUL terminate string
+
+        prepare_text((s8*)spE4, sp64);
+        draw_glyph(arg0, sp64, (xPos * 13) + 175, (yPos * 8) + 10, 13.0f, 9.0f);
+    }
+
+    gSPEndDisplayList((*arg0)++);
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D004_79E6B4.s")
+#endif
+
+// load animal stats
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D258_79E908.s")
 
 void func_8038D920_79EFD0(u8 arg0) {
@@ -316,56 +324,53 @@ void func_8038DA70_79F120(void) {
 //     }
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038F414_7A0AC4.s")
-// NON-MATCHING: almost JUSTREG
-// void func_8038F414_7A0AC4(void) {
-//     switch (D_803F2AA2 & 0xff) {
-//         u8 tmp;
-//     case 0:
-//         if (D_803F6460 > 0) {
-//             D_803F6460 -= 1;
-//         }
-//         if ((D_803F2AA3 > 0) && ((tmp = --D_803F2AA3) == 0)) {
-//             D_803F2AA2 = 3;
-//             D_803B6318 = 0;
-//             func_8038D258_79E908();
-//             D_803B6310 = 0;
-//             D_803A6CC4 = D_803C0180;
-//             D_803A6CC8 = 45.0f;
-//             D_803F6472 = 0;
-//             D_803F2D10.unk0 = 3;
-//             D_803F6474 = D_803F2E2A;
-//         }
-//         break;
-//     case 1:
-//         if (D_803F2AA3 > 0) {
-//             D_803F2AA3 -= 1;
-//         }
-//         if ((D_803F2AA3 <= 0) && (D_803F6468 >= 100)) {
-//             func_802B342C_6C4ADC();
-//             func_801337DC(0, 25.0f, 20.0f, 0.0f);
-//             D_803F2AA2 = 4;
-//             D_803B6318 = 1;
-//             func_8038D258_79E908();
-//             D_803B6310 = 0;
-//             D_803A6CC4 = D_803C0184;
-//             D_803A6CC8 = 45.0f;
-//             D_803F6472 = 0;
-//             D_803F2D10.unk0 = 3;
-//             D_803F6474 = D_803F2E2A;
-//             func_8032C508_73DBB8(16, 0x4000, 0, 1.0f);
-//         }
-//         break;
-//     case 2:
-//         if ((D_803F2AA3 > 0) && (--D_803F2AA3 == 0)) {
-//             D_803F2AA2 = 0;
-//             func_802B34DC_6C4B8C();
-//         }
-//     }
-// }
+void func_8038F414_7A0AC4(void) {
+    switch (D_803F2AA2) {
+    case 0:
+        if (D_803F6460 > 0) {
+            D_803F6460 -= 1;
+        }
+        if ((D_803F2AA3 > 0) && (--D_803F2AA3  == 0)) {
+            D_803F2AA2 = 3;
+            D_803B6318 = 0;
+            func_8038D258_79E908();
+            D_803B6310 = 0;
+            D_803A6CC4 = D_803C0180;
+            D_803A6CC8 = 45.0f;
+            D_803F6472 = 0;
+            D_803F2D10.unk0 = 3;
+            D_803F6474 = D_803F2E2A;
+        }
+        break;
+    case 1:
+        if (D_803F2AA3 > 0) {
+            D_803F2AA3--;
+        }
+        if ((D_803F2AA3 <= 0) && (D_803F6468 >= 100)) {
+            func_802B342C_6C4ADC();
+            func_801337DC(0, 25.0f, 20.0f, 0.0f);
+            D_803F2AA2 = 4;
+            D_803B6318 = 1;
+            func_8038D258_79E908();
+            D_803B6310 = 0;
+            D_803A6CC4 = D_803C0184;
+            D_803A6CC8 = 45.0f;
+            D_803F6472 = 0;
+            D_803F2D10.unk0 = 3;
+            D_803F6474 = D_803F2E2A;
+            func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
+        }
+        break;
+    case 2:
+        if ((D_803F2AA3 > 0) && (--D_803F2AA3 == 0)) {
+            D_803F2AA2 = 0;
+            func_802B34DC_6C4B8C();
+        }
+    }
+}
 
 void func_8038F5F8_7A0CA8(s32 arg0) {
-    if ((D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 0x13F) && (D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 0x13D)) {
+    if ((D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 319) && (D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 317)) {
         if (D_803F6460 == 0) {
             D_803D6110 = 100;
             D_803F2AA2 = 1;

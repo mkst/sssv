@@ -9,7 +9,7 @@ void func_80125950(s32 arg0);
 
 // main_1080
 void func_80125980(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
-void func_8012635C(s32 arg0, s32 arg1, s32 arg2[4][4]);
+void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2);
 s32 func_80126388(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, void *arg9);
 void func_80125FE0(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8);
 void func_80128078(Mtx *arg0, s16 arg1, s16 arg2);
@@ -55,9 +55,9 @@ void func_80129784(Gfx **dl, DisplayList *ddl);
 void func_8012991C(Gfx **dl, DisplayList *ddl);
 
 // main_51D0
-void func_80129B10(s32);
+void thread6(s32);
 void func_80129DC0(void);
-void func_8012A260(void);
+void thread7(void);
 void func_8012A400(void);
 void func_8012A588(void);
 void no_controller_message(void);
@@ -87,6 +87,7 @@ s32  func_8012E724(u16 *arg0, s32 arg1, s32 arg2);
 s32  func_8012E78C(u8*, f32, f32, s32);
 void func_8012FA78(Gfx **arg0);
 void func_8012FAD4(Gfx **dl, s32 arg1);
+s16  func_8012FBEC(Gfx **dl, s16 *text, u16 x, u16 y, f32 xs, f32 ys, u16 arg6, u8 arg7); // tbd
 void load_glyph(Gfx **arg0, s16 arg1);
 void display_score(Gfx **arg0, u8*, u16, u16);
 void prepare_text(u8 *src, s16 *dst);
@@ -156,15 +157,16 @@ void func_80133E44(void);
 void func_80133E84(void);
 
 // main_10CB0
-void func_80135604(void);
+void thread1(void);
 
 // main_10DC0
 void func_801356C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, Gfx **arg4, u8 *arg5, f32 arg6, f32 arg7, u8 arg8);
 void func_80135CD8(u32 arg0, u32 arg1, u32 arg2, s32 arg3, Gfx **arg4, u8 *arg5);
+void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z);
 void func_80136418(Gfx **dl, u8 color);
 void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
 // draw_texture_to_screen?
-void func_80136938(Gfx **dl, u8 *arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u8 arg6, u8 arg7, u16 arg8, u16 arg9, u8 argA);
+void draw_sprite(Gfx **dl, uSprite *sprite, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u8 depth);
 
 // main_123E0.c
 s32  init_controllers(void); // initialise controllers?
@@ -175,7 +177,7 @@ void func_8013713C(void);
 void func_80137168(void);
 void func_80137204(s16 arg0);
 void func_8013724C(s16 arg0);
-void func_80137294(void);
+void thread9(void);
 void func_801373CC(s16, s16, s16, s16, s32); // rumble
 void func_801375E8(s16 arg0);
 void func_80137840(void);
@@ -187,6 +189,8 @@ void func_80139330(f32);
 void func_80296544_6A7BF4(void);
 
 // overlay2_6C5570
+void func_802B2FF4_6C46A4(void);
+void func_802B315C_6C480C(void);
 void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5);
 void func_802B3FAC_6C565C(void);
 void func_802B4148_6C57F8(Gfx **arg0);
@@ -269,6 +273,7 @@ void func_8029F65C_6B0D0C(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, 
 // overlay2_6B5380
 void func_802A3CD0_6B5380(void);
 void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2);
+void func_802A3F68_6B5618(s32 *arg0, s32 *arg1);
 void func_802A403C_6B56EC(Animal *arg0, s16 arg1);
 void func_802A40EC_6B579C(void);
 void func_802A4184_6B5834(void);
@@ -291,6 +296,7 @@ void func_802A55AC_6B6C5C(u16 rotation, s8 arg1);
 void func_802A5620_6B6CD0(u16 rotation, s8 arg1);
 void func_802A5694_6B6D44(u16 rotation, s8 arg1);
 void func_802A5708_6B6DB8(s16 arg0, s16 arg1, s8 arg2);
+void func_802A5778_6B6E28(s16, s16);
 void func_802A5C80_6B7330(void);
 void func_802A5CF4_6B73A4(void);
 void func_802A5D64_6B7414(void);
@@ -317,15 +323,19 @@ void func_802AA5C0_6BBC70(void);
 s32  func_802AC928_6BDFD8(s32 arg0, s32 arg1);
 void func_802B0B00_6C21B0(s16 arg0, s16 arg1);
 void func_802B0D4C_6C23FC(s16 arg0, s16 arg1);
+void func_802B0F4C_6C25FC(s16 arg0, s16 arg1);
 void func_802B10B0_6C2760(s16 rotation, s16 arg1);
+void func_802B1210_6C28C0(s16 rotation, s16 arg1);
+void func_802B1B98_6C3248(s16 rotation, s16 arg1);
+void func_802B1D00_6C33B0(s16 rotation, s16 arg1);
 void func_802B1E28_6C34D8(s16 arg0, s16 arg1, s16 arg2);
-
+s16  func_802B25B4_6C3C64(s16);
 s16  func_802B2580_6C3C30(void);
+void func_802B2834_6C3EE4(void);
 void func_802B2964_6C4014(void);
 s32  func_802B2AF0_6C41A0(s32 arg0, s32 arg1);
 s32  func_802B2C20_6C42D0(s16, s16);
 void func_802B2EA8_6C4558(void);
-void func_802B2FF4_6C46A4(void);
 void func_802B3230_6C48E0(void);
 void func_802B33D0_6C4A80(Animal *a);
 void func_802B3400_6C4AB0(Animal *a);
@@ -373,7 +383,8 @@ void func_802BAD60_6CC410(u16 arg0, u16 arg1);
 void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA);
 void func_802BCF38_6CE5E8(u16, u16, s32);
 void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1);
-void func_802C19CC_6D307C(s32 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
+void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2);
+void func_802C19CC_6D307C(s16 **arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
 void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s32 arg2);
 void func_802C4448_6D5AF8(s16 arg0);
 
@@ -407,7 +418,7 @@ void func_802C9900_6DAFB0(struct071 *arg0, s32 arg1, u8 arg2);
 // overlay2_6DCA10
 void func_802CB360_6DCA10(void);
 void func_802D5AD8_6E7188(s16 arg0, s16 arg1);
-void func_802D5F4C_6E75FC(s32, s32, s32, s16, s16, s16, u16, s16, u16, u16, s16); // TBD
+void create_particle_effect(s32, s32, s32, s16, s16, s16, u16, s16, u16, u16, s16); // TBD
 
 // collist2
 void func_802DA7F0_6EBEA0(void);
@@ -715,9 +726,8 @@ void play_sound_effect_at_location(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 a
 void func_8032C508_73DBB8(s16 arg0, s16 arg1, s16 arg2, f32 arg3); // sound effect helper?
 void func_8032CA90_73E140(u16 arg0, u16 animalId, s16 xPos, s16 zPos, s16 yPos);
 void func_8032CD20_73E3D0(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4);
-void func_8032CD70_73E420(s32 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7);
+void func_8032CD70_73E420(void* arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7);
 void func_8032CED0_73E580(s16*, s16, s16, f32, s16, s16, s16, s16, s16, s16, s16, s16); // maybe
-
 // overlay2_73EA30
 void vector_add(Vertex *x, Vertex *y, Vertex *res);
 void vector_subtract(Vertex *x, Vertex *y, Vertex *res);
@@ -812,6 +822,7 @@ void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1);
 void func_8034B000_75C6B0(s32 arg0);
 void func_8034B298_75C948(s16 arg0);
 void func_8034B3A8_75CA58(s16 arg0);
+void func_8034BD20_75D3D0(s16, s16, s16, s16, s32, s16, s16, s16, s32, s32, s32, s16, s16);
 
 // overlay2_76BCA0
 void func_8035C018_76D6C8(void);
@@ -1032,6 +1043,7 @@ void check_cheats(OSContPad *contPad);
 s32  check_cheat_code(const u8 *buttonPresses, const char *cheatCode);
 
 // overlay2_794EE0
+void func_80383804_794EB4(void);
 s32  func_80383830_794EE0(u16 arg0);
 s32  func_803838C8_794F78(u16 rotation, u16 arg1);
 s16  func_8038395C_79500C(void);
@@ -1105,9 +1117,15 @@ void func_803899E0_79B090(Animal *arg0);
 
 void func_8038C230_79D8E0(s16, s16, s16, s16, f32);
 
+// overlay2_79B1E0
+void func_8038B330_79C9E0(void);
+void func_8038B730_79CDE0(void);
+void func_8038B774_79CE24(void);
+
 // overlay2_79DE10
 void func_8038C760_79DE10(void);
 void func_8038C768_79DE18(void);
+void func_8038C98C_79E03C(void);
 s16  func_8038CC28_79E2D8(void);
 s16  func_8038CC50_79E300(void);
 s16  func_8038CCA4_79E354(void);
@@ -1139,19 +1157,21 @@ void func_8038FCF8_7A13A8(void);
 void func_8038FD74_7A1424(void);
 void func_8038FF48_7A15F8(void);
 void func_80391A38_7A30E8(void);
+void func_803925D0_7A3C80(u16 *src, u16 *dst);
 void func_8039264C_7A3CFC(void);
-void load_pause_menu(s32, s32);
+void load_pause_menu(s32 arg0, s16 arg1);
+void load_mission_brief_screen(s16 vertical_offset);
 void func_80395074_7A6724(s32 debug);
 void func_80395088_7A6738(Gfx **arg0, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 color);
-void func_803951BC_7A686C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
-void func_80395314_7A69C4(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
+void render_tv_body(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
+void render_tv_glass(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
 void func_8039546C_7A6B1C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
 void func_80395480_7A6B30(void);
 void func_80395854_7A6F04(void);
 void func_80395B58_7A7208(void);
 void func_80395E98_7A7548(Gfx **arg0);
-void func_803962EC_7A799C(Gfx **arg0, s32, s16, s32, s16, u8* img, s32 width, s32 height); // tbd
-void func_803960F4_7A77A4(Gfx **arg0);
+void func_803962EC_7A799C(Gfx **arg0, s16, s16, s16, s16, u8* img, s32 width, s32 height); // tbd
+void render_spaceship_interior(Gfx **arg0);
 void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
 s32  func_80396714_7A7DC4(void);
 s32  func_80396748_7A7DF8(void);
@@ -1174,9 +1194,9 @@ void func_8039A2DC_7AB98C(void);
 void func_8039BBB8_7AD268(void);
 void func_8039BE98_7AD548(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, PlayerEeprom *arg6, s16 arg7, s16 arg8, f32 arg9, u8 argA);
 void func_8039C5F8_7ADCA8(s16 arg0, s16 arg1, f32 arg2, PlayerEeprom *arg3, s16 arg4);
-void func_8039C834_7ADEE4(Gfx **arg0, s32 arg1, u16 arg2, u16 arg3, f32 arg4, f32 arg5, u8 arg6, u8 arg7, u16 arg8, u16 arg9);
+void func_8039C834_7ADEE4(Gfx **dl, s32 src, u16 width, u16 height, f32 scale_x, f32 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y);
 void func_8039CAB8_7AE168(s16 arg0);
-void func_8039CCBC_7AE36C(PlayerEeprom *e, s16 *arg1);
+void get_player_progress(PlayerEeprom *e, s16 *arg1);
 f32  func_8039CDE8_7AE498(f32 arg0, f32 arg1);
 void func_8039CE38_7AE4E8(Gfx **arg0);
 void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1);
@@ -1185,9 +1205,9 @@ void func_8039DD60_7AF410(void);
 void render_stars(Gfx **arg0);
 void generate_stars(void);
 void determine_available_levels(void);
-s16  func_8039DAAC_7AF15C(s16 current_level, s16 offset);
+s16  get_next_available_level(s16 current_level, s16 offset);
 void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs);
-void func_8039DBC8_7AF278(void);
+void load_level_title(void);
 s16  get_biome_for_level(s16 arg0);
 
 #endif

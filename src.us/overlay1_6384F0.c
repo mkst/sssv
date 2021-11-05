@@ -124,7 +124,7 @@ void func_80295494_638B34(Gfx **arg0, u16 arg1) {
         gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
     }
 
-    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, 0, 0, 0, 0x80000, 0x80000, 0x80000);
+    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, 0, 0, 0, FTOFIX32(8.0), FTOFIX32(8.0), FTOFIX32(8.0));
 
     gSPMatrix((*arg0)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     D_80204278->usedModelViewMtxs += 1;
@@ -168,7 +168,7 @@ void func_802958B8_638F58(Gfx **dl) {
 //
 //
 //     func_801366BC(&D_801D9E7C, 0xFF, 0xFF, 0xFF, 0xFF);
-//     func_80136938(
+//     draw_sprite(
 //         &D_801D9E7C,
 //         arg0,
 //         320,
@@ -242,7 +242,7 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
 
 void func_80295EB0_639550(s32 arg0) {
     func_801366BC(&D_801D9E7C, 0xFF, 0xFF, 0xFF, 0xFF);
-    func_80136938(&D_801D9E7C, D_8032AE88, 160, 128, 320, 241, 0, 0, arg0, 0, 16);
+    draw_sprite(&D_801D9E7C, D_8032AE88, 160, 128, 320, 241, 0, 0, arg0, 0, 16);
     func_80129594(&D_801D9E7C, D_80204278);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);
@@ -270,9 +270,9 @@ void func_802988E8_63BF88(void) {
     gSPTexture(D_801D9E7C++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
     // reset used counters
-    D_80204278->unk38914 = 0;
+    D_80204278->usedSprites = 0;
     D_80204278->usedModelViewMtxs = 0;
-    D_80204278->unk38914 = 0;
+    D_80204278->usedSprites = 0;
     D_80204278->unk39310 = 0;
     D_80204278->usedHilites = 0;
 

@@ -76,7 +76,7 @@ void func_802B3FAC_6C565C(void) {
 //         temp_s0 = (guRandom() % 6000) + 2000;
 //         temp_s2 = (guRandom() % 360);
 //
-//         func_802D5F4C_6E75FC(
+//         create_particle_effect(
 //             ((D_80152350.unk2D0[temp_s2] * temp_s0) / 0x80) + 0x900,
 //             ((D_80152350.unk384[temp_s2] * temp_s0) / 0x80) + 0xE00,
 //             (guRandom() % 2000) + 1000,

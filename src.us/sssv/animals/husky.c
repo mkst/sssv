@@ -8,16 +8,16 @@
 
 void func_8036BBB8_77D268(void) {
     D_803D552C->unk30E = 15;
-    load_animal(HUSKY_ATTACKING);
+    load_animal(CRAZY_HUSKY);
 }
 
 void func_8036BBE8_77D298(void) {
     if (D_803D5530->state == 21) {
         func_8037D9D4_78F084();
-        func_802D5F4C_6E75FC(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
+        create_particle_effect(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
     } else {
         func_8037D994_78F044(11);
-        func_802D5F4C_6E75FC(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
+        create_particle_effect(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
     }
 }
 
@@ -94,7 +94,7 @@ void ski_husky_fire_missile(Animal *arg0) {
 void func_8036C014_77D6C4(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == HUSKY) {
-        load_animal(HUSKY_ATTACKING);
+        load_animal(CRAZY_HUSKY);
     }
 }
 

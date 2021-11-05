@@ -3,7 +3,7 @@
 #include "common.h"
 
 // thread 6
-void func_80129B10(s32 arg0) {
+void thread6(s32 arg0) {
     unsigned long long  i;
 
     D_80204290 = 1;
@@ -49,11 +49,11 @@ void func_80129B10(s32 arg0) {
     if (init_controllers() <= 0) {
         // if no controllers connected
         D_802912D0 = 0;
-        D_802912D8 = 0; // gControllerConnected
+        gControllerConnected = 0; // gControllerConnected
         D_80204270 = 1;
     } else {
         D_802912D0 = 1;
-        D_802912D8 = 1;
+        gControllerConnected = 1;
         D_80204270 = 0;
     }
     if (D_802912D0 == 0) {
@@ -138,8 +138,8 @@ void func_80129DC0(void) {
                 D_801D9ED4 -= 1;
             }
             if ((D_80152EBC < 2) && (phi_s1 == 0) && (D_80204292 >= D_80204290)) {
-                func_80136F64();
-                if (D_802912D8 != 0) {
+                func_80136F64(); // debounce input?
+                if (gControllerConnected != 0) {
                     func_801370F4();
                     osContStartReadData(&D_8028D0A8);
                     osRecvMesg(&D_8028D0A8, &D_802042EC, OS_MESG_BLOCK);
@@ -204,7 +204,7 @@ void func_80129DC0(void) {
 }
 
 // thread 7
-void func_8012A260(void) {
+void thread7(void) {
     struct018 *temp_a0;
     s16 i;
 
@@ -261,38 +261,38 @@ void end_display_lists(void) {
     gSPEndDisplayList(D_801D9E7C++);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/thread6/func_8012A588.s")
-// NON_MATCHING: missing lui/lh to D_80152E9C
-// void func_8012A588(void) {
-//     s16 pad;
-//
-//     if (D_80152E9C != 0) {
-//         D_80204290 = 1;
-//         if (D_80152E9C == 1) {
-//             func_80137840();
-//             func_8012A400();
-//             memcpy_sssv(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
-//         }
-//         if (D_80152E9C == 2) {
-//             func_8012AC40();
-//             func_801337DC(0, 10.0f, 20.0f, 0.0f);
-//             func_8013385C(   10.0f, 20.0f, 0.0f);
-//         }
-//
-//         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
-//         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
-//
-//         D_80152E9C = D_80152E9C + D_80204290;
-//
-//         if (D_80152E9C >= 16) {
-//             D_80152EBC += 100;
-//             func_8012AC8C();
-//         }
-//     }
-// }
+void func_8012A588(void) {
+    s16 tmp;
+
+    if (D_80152E9C != 0) {
+        D_80204290 = 1;
+        if (D_80152E9C == 1) {
+            func_80137840();
+            func_8012A400();
+            memcpy_sssv(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
+        }
+        if (D_80152E9C == 2) {
+            func_8012AC40();
+            func_801337DC(0, 10.0f, 20.0f, 0.0f);
+            func_8013385C(   10.0f, 20.0f, 0.0f);
+        }
+        // fakematch
+        if (tmp = D_80152E9C != 0) {}
+
+        gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+        draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
+
+        D_80152E9C = D_80152E9C + D_80204290;
+
+        if (D_80152E9C >= 16) {
+            D_80152EBC += 100;
+            func_8012AC8C();
+        }
+    }
+}
 
 void no_controller_message(void) {
-    if (D_802912D8 == 0) {
+    if (gControllerConnected == 0) {
         load_segments(&D_801D9E7C, D_80204278);
         draw_rectangle(&D_801D9E7C, 0, 16, 320, 36, 40, 40, 40, 128);
         gDPPipeSync(D_801D9E7C++);
