@@ -6,7 +6,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/penguin/func_80365954_777004.s")
 // void func_80365954_777004(void) {
-//
 //     Animal *a;
 //     u16 tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
 //
@@ -37,14 +36,14 @@
 //         tmp5 = func_8012826C();
 //         tmp6 = func_8012826C();
 //
-//         func_802D5F4C_6E75FC(
+//         create_particle_effect(
 //             ((tmp0 & 0xF) + a->xPos) - 8,
 //             ((tmp1 & 0xF) + a->zPos) - 8,
 //             a->yPos,
 //             ((tmp2 & 1) + 25),
-//             ((tmp3 & 0x7FFF) * 2) - 40000,
-//             ((tmp4 & 0x7FFF) * 2) - 40000,
-//             (a->yVelocity.w >> 1) - 200000,
+//             ((tmp3 & 0x7FFF) << 1) - FTOFIX32(0.6103515625),
+//             ((tmp4 & 0x7FFF) << 1) - FTOFIX32(0.6103515625),
+//             (a->yVelocity.w >> 1) - FTOFIX32(3.0517578125),
 //             tmp5 & 0xC,
 //             1,
 //             0x39CF,
@@ -57,14 +56,14 @@
 //         tmp4 = func_8012826C();
 //         tmp5 = func_8012826C();
 //         a = D_803D5530;
-//         func_802D5F4C_6E75FC(
+//         create_particle_effect(
 //             ((tmp0 & 0xF) + a->xPos) - 8,
 //             ((tmp1 & 0xF) + a->zPos) - 8,
 //             a->yPos,
-//             0x3F,
+//             63,
 //             (a->xVelocity.w >> 2) * -1,
 //             (a->zVelocity.w >> 2) * -1,
-//             (a->yVelocity.w >> 1) - 300000,
+//             (a->yVelocity.w >> 1) - FTOFIX32(4.57763671875),
 //             (tmp2 & 0x1F) + 30,
 //             ((((tmp3 & 0x3F) + 0xC0) << 3) & 0x7C0) | ((((tmp4 & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
 //                                                       ((((tmp5 & 0x3F) + 0xC0) << 8) & 0xF800) | 1,

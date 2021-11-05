@@ -48,7 +48,7 @@ void func_8034A648_75BCF8(void) {
 //         temp_s3 = D_803A8358[i];
 //         temp_s2 = D_803A8350[i];
 //         temp_t5 = ((((s32) temp_s1 >> 2) & 0x3E) | ((temp_s2 << 8) & 0xF800) | ((temp_s3 * 8) & 0x7C0) | 1); // & 0xFFFF;
-//         func_802D5F4C_6E75FC(
+//         create_particle_effect(
 //             ((s32) (temp_t6 * temp_t3) >> 9) + D_803D5530->xPos,
 //             ((s32) (temp_t6_2 * temp_t3) >> 9) + D_803D5530->zPos,
 //             D_803D5530->yPos + D_803D5524->unkBA,
@@ -59,7 +59,7 @@ void func_8034A648_75BCF8(void) {
 //             8, temp_t5, temp_t5, 0);
 //         // ===
 //         temp_t5_2 = ((((s32) temp_s1 >> 2) & 0x3E) | ((temp_s2 << 8) & 0xF800) | ((temp_s3 * 8) & 0x7C0) | 1); // & 0xFFFF;
-//         func_802D5F4C_6E75FC(
+//         create_particle_effect(
 //             ((func_8012826C() & 0x1F) + D_803D5530->xPos) - 0x10,
 //             ((func_8012826C() & 0x1F) + D_803D5530->zPos) - 0x10,
 //             (func_8012826C() & 0x1F) + D_803D5530->yPos + (D_803D5524->unkBA >> 1),
@@ -82,7 +82,7 @@ void func_8034AE34_75C4E4(s32 arg0, Animal *arg1) {
     for (i = 0; i < 2; i++) {
         temp_v0 = func_8012826C();
         if ((temp_v0 & 1) != 0) {
-            func_802D5F4C_6E75FC(
+            create_particle_effect(
                 (D_803D5530->xPos + (temp_v0 & 0xF)) - 8,
                 (D_803D5530->zPos + ((temp_v0 >> 8) & 0xF)) - 8,
                 D_803D5530->yPos,
@@ -98,7 +98,7 @@ void func_8034AF0C_75C5BC(s32 arg0, Animal *arg1) {
     for (i = 0; i < 4; i++) {
         temp_v0 = func_8012826C();
         if ((temp_v0 & 1) != 0) {
-            func_802D5F4C_6E75FC(
+            create_particle_effect(
                 (D_803D5530->xPos + (temp_v0 & 0xF)) - 8,
                 (D_803D5530->zPos + ((temp_v0 & 0xF0) >> 4)) - 8,
                 D_803D5530->yPos,

@@ -50,7 +50,7 @@ build/sssv.us.z64: OK
 Clone this repository, place the `baserom.us.z64` at its root, and then run the Docker image via:
 
 ```sh
-docker run --rm -ti -v $(pwd):/sssv markstreet/sssv:latest
+docker run --rm -ti -v $(pwd):/sssv ghcr.io/mkst/sssv:latest
 ```
 
 From here you can run the `make extract` and `make --jobs` commands.

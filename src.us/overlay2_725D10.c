@@ -339,7 +339,7 @@ void func_803159B0_727060(s16 arg0) {
 
 // uses jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_803159E4_727094.s")
-// uses jump table
+// absolutely huge function
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80316408_727AB8.s")
 
 // unsure how correct this is?

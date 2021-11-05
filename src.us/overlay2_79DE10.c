@@ -48,7 +48,61 @@ void func_8038C768_79DE18(void) {
     D_803D552C->unk316 %= 360;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_79DE10/func_8038C98C_79E03C.s")
+void func_8038C98C_79E03C(void) {
+    u16 tmp1;
+    s16 tmp2;
+
+    tmp1 = D_803D5544 - D_803D552C->unk35E;
+    if ((D_803F2D10.unk0 == 0) && (D_803D5530->unk4A == 0) && (tmp1 != 0)) {
+        if (D_803D5538 != 0) {
+            if ((tmp1 & 0xFF) >= 150) {
+                if ((func_8012826C() & 0x1F) == 13) {
+                    D_803D552C->unk314 = (func_8012826C() % 140) - 70;
+                    if (D_803D552C->unk314 < 0) {
+                        D_803D552C->unk314 += 360;
+                    }
+                }
+            } else {
+                D_803D552C->unk314 = 0;
+            }
+        } else if ((tmp1 & 0xFF) >= 200) {
+            D_803D552C->unk314 = ((D_803D552C->unk302 * 360) >> 8) - func_80128C10(D_801DDD8C[gCurrentAnimalIndex].unk0->xPos, D_801DDD8C[gCurrentAnimalIndex].unk0->zPos, D_803D5530->xPos, D_803D5530->zPos);
+
+            if (D_803D552C->unk314 > 0x55) {
+                D_803D552C->unk314 = 0x55;
+            }
+            if (D_803D552C->unk314 < -0x55) {
+                D_803D552C->unk314 = -0x55;
+            }
+        } else {
+            D_803D552C->unk314 = 0;
+        }
+    } else {
+        D_803D552C->unk314 = 0;
+    }
+    if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
+        D_803D552C->unk314 = 0;
+    }
+    if ((u16)D_803D5528->unk3C0 != 0) {
+        D_803D552C->unk314 = 0;
+    }
+
+    tmp2 = D_803D552C->unk314 - D_803D552C->unk316;
+
+    while (tmp2 >= 360) {
+        tmp2 -= 360;
+    }
+    while (tmp2 < 0) {
+        tmp2 += 360;
+    }
+
+    if (tmp2 > 180) {
+        D_803D552C->unk316 += MAX(tmp2 - 360, -8);
+    } else {
+        D_803D552C->unk316 += MIN(tmp2, 8);
+    }
+    D_803D552C->unk316 %= 360;
+}
 
 s16 func_8038CC28_79E2D8(void) {
     return D_803B62D0[((D_80286560 + 3) & 0x3F) >> 1];

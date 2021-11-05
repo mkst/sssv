@@ -34,7 +34,7 @@ void func_8031F8BC_730F6C(void) {
         tmp[4] = func_8012826C();
         tmp[5] = func_8012826C();
         tmp[6] = func_8012826C();
-        func_802D5F4C_6E75FC(
+        create_particle_effect(
             D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2),
             (tmp[3] & 1) + 25,
             ((tmp[4] & 0x7FFF) * 2) - 40000,
@@ -48,7 +48,7 @@ void func_8031F8BC_730F6C(void) {
         tmp[4] = func_8012826C();
         tmp[5] = func_8012826C();
         tmp[6] = func_8012826C();
-        func_802D5F4C_6E75FC(
+        create_particle_effect(
             D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2),
             (tmp[3] & 1) + 25,
             ((tmp[4] & 0x7FFF) * 2) - 40000,

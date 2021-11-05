@@ -38,7 +38,7 @@ s32 init_controllers(void) {
     osContSetCh(1);
 
     osCreateMesgQueue(&D_802912B0, &D_802912C8, 1);
-    osCreateThread(&gThread9, 9, (void *)func_80137294, 0, &D_8028E230, 9);
+    osCreateThread(&gThread9, 9, (void *)thread9, 0, &D_8028E230, 9);
     osStartThread(&gThread9);
 
     for (i = 0; i < MAXCONTROLLERS; i++) {
@@ -167,7 +167,7 @@ void func_8013724C(s16 cont) {
 }
 
 // motorMain
-void func_80137294(void) {
+void thread9(void) {
     ControllerMesg *msg;
     s32 padding;
     s16 status;

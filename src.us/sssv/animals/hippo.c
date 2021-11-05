@@ -29,7 +29,7 @@ void func_802F03B8_701A68(void) {
         play_sound_effect_at_location(0x6D, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 
         for (i = 0; i < 4; i++) {
-            func_802D5F4C_6E75FC(
+            create_particle_effect(
                 ((func_8012826C() & 0x3F) + xPos) - 32,
                 ((func_8012826C() & 0x3F) + zPos) - 32,
                 (func_8012826C() & 0x3F) + yPos,
@@ -61,7 +61,7 @@ void drop_sticky_mine(void) {
         play_sound_effect_at_location(0x6D, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 
         for (i = 0; i < 4; i++) {
-            func_802D5F4C_6E75FC(
+            create_particle_effect(
                 ((func_8012826C() & 0x3F) + xPos) - 32,
                 ((func_8012826C() & 0x3F) + zPos) - 32,
                 (func_8012826C() & 0x3F) + yPos,

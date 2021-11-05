@@ -28,7 +28,7 @@ void func_80398630_7A9CE0(void) {
 }
 
 void func_8039884C_7A9EFC(void) {
-    u8 sp18[0x58]; // 88?
+    s16 sp18[44];
 
     determine_available_levels();
     D_803F7DA8.lastLevel = 99;
@@ -42,7 +42,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D78.unk1C = 0;
     D_803F7D78.unk20 = 0;
     D_803F7D70 = D_803C03F4_7D1AA4; // 0.1f
-    prepare_text(sp18, D_803F2E34);
+    prepare_text(sp18, (u8*)D_803F2D50.titleText); // zero out title?
     D_803F7DA8.unk8 = 1.0f;
     D_803B7468 = D_803F7DA8.currentLevel * 12;
     D_803F7D68 = D_803F7DA8.currentLevel * 12;
@@ -76,9 +76,8 @@ void func_80398A00_7AA0B0(void) {
     D_803F7DD8 = 0;
 }
 
-// display_zone_select_screen
 #if 0
-void func_80398A0C_7AA0BC(void) {
+void display_zone_select_screen(void) {
     char ascii[52];
     s16  wide_text[26]; // 0x118 - 0xE4 => 52
 
@@ -165,7 +164,7 @@ void func_80398A0C_7AA0BC(void) {
         UnpackRNC(D_800B0B20, D_800B68E0);
 
         D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
-        func_8039DBC8_7AF278();
+        load_level_title();
     }
     gDPPipeSync(D_801D9E7C++);
 
@@ -230,7 +229,7 @@ void func_80398A0C_7AA0BC(void) {
         }
         D_803F7DA2 = D_803F7DA0;
         old_current_level = D_803F7DA8.currentLevel;
-        D_803F7DA8.currentLevel = func_8039DAAC_7AF15C(D_803F7DA8.currentLevel, -1);
+        D_803F7DA8.currentLevel = get_next_available_level(D_803F7DA8.currentLevel, -1);
         if (old_current_level != D_803F7DA8.currentLevel) {
             if (D_803F7DA8.currentLevel == PUNCHUP_PYRAMID) {
                 play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
@@ -254,7 +253,7 @@ void func_80398A0C_7AA0BC(void) {
         }
         D_803F7DA3 = D_803F7DA1;
         old_current_level = D_803F7DA8.currentLevel;
-        D_803F7DA8.currentLevel = func_8039DAAC_7AF15C(D_803F7DA8.currentLevel, 1);
+        D_803F7DA8.currentLevel = get_next_available_level(D_803F7DA8.currentLevel, 1);
         if (old_current_level != D_803F7DA8.currentLevel) {
             if (D_803F7DA8.currentLevel == PUNCHUP_PYRAMID) {
                 play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
@@ -355,7 +354,8 @@ void func_80398A0C_7AA0BC(void) {
 
     vertical_offset = 60;
     if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
-        func_8012DEF8(&D_801D9E7C, D_803F2E34, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+        // write title text
+        func_8012DEF8(&D_801D9E7C, (u8*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         tmp_level = D_803F7DD5;
     }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
@@ -467,7 +467,7 @@ void func_80398A0C_7AA0BC(void) {
     func_8039D034_7AE6E4(&D_801D9E7C, 0);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_80398A0C_7AA0BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/display_zone_select_screen.s")
 #endif
 
 void func_8039A2DC_7AB98C(void) {
@@ -520,9 +520,9 @@ void func_8039A2DC_7AB98C(void) {
 
     // get user progress
     if (D_803F7DA8.unk2F == 2) {
-        func_8039CCBC_7AE36C((PlayerEeprom *) &D_8023F2E0[D_803F7DA8.unk31], (s16*)&progress);
+        get_player_progress((PlayerEeprom *) &D_8023F2E0[D_803F7DA8.unk31], (s16*)&progress);
     } else {
-        func_8039CCBC_7AE36C((PlayerEeprom *) &D_8023F2E0[D_803F7DA8.bank], (s16*)&progress);
+        get_player_progress((PlayerEeprom *) &D_8023F2E0[D_803F7DA8.bank], (s16*)&progress);
     }
     set_menu_text_color(0xFFU, 0xFFU, 0U, 0xFFU);
 
@@ -974,8 +974,8 @@ void func_8039BBB8_7AD268(void) {
         } else {
             D_8023F260.level[D_803F2D30.unk8 - 1].completed = 1;
             // 'powercells' element used to store 'time' in bonus levels
-            if (D_8023F260.level[D_803F2D30.unk8 - 1].powercells < D_803F2D30.time) {
-                D_8023F260.level[D_803F2D30.unk8 - 1].powercells = D_803F2D30.time;
+            if (D_8023F260.level[D_803F2D30.unk8 - 1].powercells < D_803F2D30.powercells) {
+                D_8023F260.level[D_803F2D30.unk8 - 1].powercells = D_803F2D30.powercells;
             }
         }
         D_803F2D50.unkC6 = 0;
@@ -1055,7 +1055,7 @@ void func_8039BE98_7AD548(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 en
                 gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 70);
             }
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, &D_800BA760, 43, 43, scale, scale, 0, 0, xRot, yRot);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800BA760, 43, 43, scale, scale, 0, 0, xRot, yRot);
     } else {
         // temp_f22 = scale / 2.0f;
 
@@ -1102,15 +1102,15 @@ void func_8039BE98_7AD548(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 en
                 }
             }
             func_8039C834_7ADEE4(&D_801D9E7C,
-                /* img  */ (s32)&D_800BB700 + ((temp_t0[4] * 0x4B0) ) , // + 0xFA0 + &D_800BA760
-                /* xpos */ temp_t0[2] << 1,
-                /* ypos */ temp_t0[3] << 1,
+                /* img  */ D_800BB700 + ((temp_t0[4] * 0x4B0)) , // + 0xFA0 + &D_800BA760
+                /* width */ temp_t0[2] << 1,
+                /* height */ temp_t0[3] << 1,
                 /* xscale */ scale / 2.0f,
                 /* yscale */ scale / 2.0f,
-                /* */ phi_t4,
-                /* */ phi_t5,
-                /* xrot */ (s16) (s32) (xRot + ((f32) temp_t0[0] * scale)),
-                /* yrot*/ (s16) (s32) (yRot + ((f32) temp_t0[1] * scale))
+                /* flipx*/ phi_t4,
+                /* flipy*/ phi_t5,
+                /* xpos */ (s16) (s32) (xRot + ((f32) temp_t0[0] * scale)),
+                /* ypos */ (s16) (s32) (yRot + ((f32) temp_t0[1] * scale))
             );
         }
     }
@@ -1150,8 +1150,27 @@ void func_8039C5F8_7ADCA8(s16 arg0, s16 arg1, f32 arg2, PlayerEeprom *eeprom, s1
     func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 23, 29, eeprom, arg0, arg1, arg2, -1);
 }
 
-// calls guSprite2DInit, draw 2d image
-#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_8039C834_7ADEE4.s")
+// draw sprite
+void func_8039C834_7ADEE4(Gfx **dl, s32 src, u16 width, u16 height, f32 scale_x, f32 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y) {
+    guSprite2DInit(
+    /* sprite ptr */    &D_80204278->sprites[D_80204278->usedSprites],
+    /* source ptr */    src,
+    /* tlut ptr */      0,
+    /* stride */        width,
+    /* width */         width,
+    /* height */        height - 1,
+    /* img type */      0,
+    /* bitsize */       2,
+    /* s */             0,
+    /* t */             0);
+
+    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&D_80204278->sprites[D_80204278->usedSprites]));
+    gSPSprite2DScaleFlip((*dl)++, 1024.0f / scale_x, 1024.0f / scale_y, flip_x, flip_y);
+
+    gSPSprite2DDraw((*dl)++, p_screen_x * 4, p_screen_y * 4);
+
+    D_80204278->usedSprites += 1;
+}
 
 void func_8039CAB8_7AE168(s16 arg0) {
     if (arg0 == 1) {
@@ -1178,8 +1197,7 @@ void func_8039CAB8_7AE168(s16 arg0) {
     gDPPipeSync(D_801D9E7C++);
 }
 
-// get_player_progress ?
-void func_8039CCBC_7AE36C(PlayerEeprom *e, s16 *arg1) {
+void get_player_progress(PlayerEeprom *e, s16 *arg1) {
     s16 levels;
     s16 powercells;
     s16 species;
@@ -1458,8 +1476,8 @@ void determine_available_levels(void) {
     }
 }
 
-// get_next_available_level e.g. get_next_available_level(JUNGLE_JUMPS, -1)
-s16 func_8039DAAC_7AF15C(s16 current_level, s16 offset) {
+// e.g. get_next_available_level(JUNGLE_JUMPS, -1)
+s16 get_next_available_level(s16 current_level, s16 offset) {
     s16 level;
     s16 new_level;
 
@@ -1494,28 +1512,29 @@ void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs) {
     *secs = seconds - (s16) (_div * 60);
 }
 
-#ifdef NON_MATCHING
-void func_8039DBC8_7AF278(void) {
+void load_level_title(void) {
+    s16 found;
     s16 i;
-    s16 end;
+    s16 *msg;
 
-    end = 0;
+    found = 0;
+    // iterate over each message
     for (i = 0; i < D_803F63C0; i++) {
-        s16 *tmp = &D_803F34C0[(s16)D_803F3330[i]];
-        if ((tmp[0] == 336) && (tmp[1] == 350)) {
-            memcpy_sssv(&tmp[2], D_803F2E34, 84);
-            end = 1;
+        msg = &D_803F34C0[(s16)D_803F3330[i]];
+        if ((msg[0] == TEXT_CONTROL_CHAR) &&
+            (msg[1] == TEXT_NEWLINE)) {
+            // we found e.g. <N>Smashing Start
+            msg = &msg[2];
+            memcpy_sssv((u8*)msg, (u8*)D_803F2D50.titleText, 84);
+            found = 1;
         }
     }
 
-    if (end == 0) {
-        D_803F2D50.unkE4 = 304;
-        D_803F2D50.unkE6 = 30000; // end marker
+    if (found == 0) {
+        D_803F2D50.titleText[0] = 304; // ' '
+        D_803F2D50.titleText[1] = EOM;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_8039DBC8_7AF278.s")
-#endif
 
 // note that levels appear to be in-game order (1-indexed) rather than common.h
 // SMASHING_START (level 1) would be considered 0 here

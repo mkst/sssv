@@ -3,15 +3,15 @@
 #include "common.h"
 
 // 1 tile
-void func_80356410_767AC0(s32 arg0, s32 arg1) {
+void func_80356410_767AC0(s32 dram, s32 timg) {
     gDPLoadSync(D_801D9E88++);
 
-    gDPLoadTLUT(D_801D9E88++, 16, 0x110, arg0);
+    gDPLoadTLUT(D_801D9E88++, 16, 0x110, dram);
 
     // customised
     gDPLoadTextureBlock2(
         /* pkt    */ D_801D9E88++,
-        /* timg   */ arg1 & 0x1FFFFFFF,
+        /* timg   */ timg & 0x1FFFFFFF,
         /* fmt    */ G_IM_FMT_CI,
         /* line   */ 2,
         /* siz    */ G_IM_SIZ_16b,

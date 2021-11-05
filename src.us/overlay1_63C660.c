@@ -82,7 +82,7 @@
 //     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 //
 //     verticalOffset = 50;
-//     func_80136938(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
+//     draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
 //
 //     // previous selection?
 //     switch (D_803B0596) {
@@ -118,7 +118,7 @@
 //     gDPSetColorDither(D_801D9E7C++, G_CD_BAYER);
 //     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 //
-//     func_80136938(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
+//     draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
 //
 //     load_segments(&D_801D9E7C, D_80204278);
 //     gDPPipeSync(D_801D9E7C++);

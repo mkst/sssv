@@ -52,6 +52,7 @@
 // }
 
 #ifdef NON_MATCHING // JUSTREG
+// score: 50
 void func_80362618_773CC8(void) {
     s16 tmp;
 
@@ -74,9 +75,9 @@ void func_80362618_773CC8(void) {
         }
         if (D_803D5530->unk162 != 1) {
             if ((D_803D552C->unk36D == 0) || (D_803D552C->unk36D > 7)) {
-                D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 3) + 0x90000) >> 2) + 0xFFFD0000);
+                D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 3) + FTOFIX32(9.0)) >> 2) + FTOFIX32(-3.0));
             } else {
-                D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 15) + 0x2D0000) >> 4) + 0xFFFD0000);
+                D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w * 15) + FTOFIX32(45.0)) >> 4) + FTOFIX32(-3.0));
             }
             if (D_803D5530->yVelocity.w < 0) {
                 D_803D5530->yVelocity.w += (D_803A05B0_7B1C60 * 15) >> 4;

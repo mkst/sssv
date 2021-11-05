@@ -5,13 +5,13 @@
 
 // second function called after osInitialize()
 void init2(void) {
-    osCreateThread(&gThread1, 1, (void*)func_80135604, 0, &D_8028D230, 10);
+    osCreateThread(&gThread1, 1, (void*)thread1, 0, &D_8028D230, 10);
     osStartThread(&gThread1);
 }
 
-void func_80135604(void) {
-    osCreateThread(&gThread6, 6, (void *)func_80129B10, 0, &D_80288E30, 10);
-    osCreateThread(&gThread7, 7, (void *)func_8012A260, 0, &D_8028B030, 8);
+void thread1(void) {
+    osCreateThread(&gThread6, 6, (void *)thread6, 0, &D_80288E30, 10);
+    osCreateThread(&gThread7, 7, (void *)thread7, 0, &D_8028B030, 8);
     osCreatePiManager(150, &D_8028D030, &D_8028F640, 800);
     osStartThread(&gThread6);
     // set lowest priority for this thread

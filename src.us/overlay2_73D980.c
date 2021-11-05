@@ -108,7 +108,7 @@ void func_8032CD20_73E3D0(s32 arg0, s16 id, s16 arg2, s16 arg3, f32 arg4) {
     }
 }
 
-void func_8032CD70_73E420(s32 arg0, s16 id, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7) {
+void func_8032CD70_73E420(void *arg0, s16 id, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7) {
     s16 tmp;
     s32 sqrt;
 

@@ -58,22 +58,22 @@ s32 read_eeprom(s16 slot) {
     eepromBytes = (u8*)eeprom;
     checksum = eeprom_checksum(eepromBytes);
     if (slot == 4) {
-        if (D_8023F2A0.musicVol < 0) {
+        if (D_8023F2A0.musicVol < MIN_AUDIO_VOLUME) {
             D_8023F2A0.musicVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.musicVol >= 20) {
+        if (D_8023F2A0.musicVol > MAX_AUDIO_VOLUME) {
             D_8023F2A0.musicVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.sfxVol < 0) {
+        if (D_8023F2A0.sfxVol < MIN_AUDIO_VOLUME) {
             D_8023F2A0.sfxVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.sfxVol >= 20) {
+        if (D_8023F2A0.sfxVol > MAX_AUDIO_VOLUME) {
             D_8023F2A0.sfxVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.language > 8) {
+        if (D_8023F2A0.language > LANG_MAX) {
             D_8023F2A0.language = LANG_ENGLISH;
         }
-        if (D_8023F2A0.language < 0) {
+        if (D_8023F2A0.language < LANG_MIN) {
             D_8023F2A0.language = LANG_ENGLISH;
         }
         if (D_8023F2A0.checksum != checksum) {
@@ -107,6 +107,7 @@ void func_80130E44(void) {
     s16 requireReset;
 
     s32 res;
+    s16 j;
 
     requireReset = 0;
     i = 0;
@@ -118,7 +119,6 @@ void func_80130E44(void) {
     } while (res && i < 4);
 
     if ((res_s16 != 0) || (i > 3) || (D_8023F2A0.unk4 != 0xCF76F7E)) {
-        s16 j;
         j = 0;
         requireReset = 1;
 
@@ -142,10 +142,7 @@ void func_80130E44(void) {
         do {
             res = write_eeprom(4);
             j++;
-            if (res == 0) {
-                break;
-            }
-        } while (j < 4);
+        } while (res && j < 4);
     }
 
     // read each user bank
@@ -160,7 +157,6 @@ void func_80130E44(void) {
         } while (res && i < 4);
 
         if ((res_s16 != 0) || (requireReset == 1)) {
-            s16 j;
             rmonPrintf("reset all data - %d\n", bank); // D_8015AD70
             j = 0;
             if (bank != 4) {

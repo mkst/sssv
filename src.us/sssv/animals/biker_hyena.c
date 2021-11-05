@@ -15,7 +15,7 @@ void func_8035A170_76B820(void) {
     if (D_803D5530->state == 21) {
         func_8037D9D4_78F084();
         if ((D_803D5540 & 1) == 0) {
-            func_802D5F4C_6E75FC(
+            create_particle_effect(
                 D_803D5530->xPos,
                 D_803D5530->zPos,
                 D_803D5530->yPos + (D_803D5530->unk42 >> 2),
@@ -24,7 +24,7 @@ void func_8035A170_76B820(void) {
     } else {
         func_8037D994_78F044(24);
         if ((D_803D5540 & 1) == 0) {
-            func_802D5F4C_6E75FC(
+            create_particle_effect(
                 D_803D5530->xPos,
                 D_803D5530->zPos,
                 D_803D5530->yPos + (D_803D5530->unk42 >> 2),
