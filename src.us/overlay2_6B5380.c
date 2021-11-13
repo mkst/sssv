@@ -40,13 +40,13 @@ void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2) {
         if (D_803D5510 < -23) {
             *arg1 = MIN(*arg1, FTOFIX32(-1.0));
         }
-        if (D_803D5510 >= 24) {
+        if (D_803D5510 > 23) {
             *arg1 = MAX(*arg1, FTOFIX32(1.0));
         }
         if (D_803D5512 < -23) {
             *arg2 = MIN(*arg2, FTOFIX32(-1.0));
         }
-        if (D_803D5512 >= 24) {
+        if (D_803D5512 > 23) {
             *arg2 = MAX(*arg2, FTOFIX32(1.0));
         }
     }
@@ -544,12 +544,12 @@ void func_802A5708_6B6DB8(s16 arg0, s16 arg1, s8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A5778_6B6E28.s")
 
 void func_802A5C80_6B7330(void) {
-    D_803D5530->state = 0x29;
+    D_803D5530->state = 41;
     D_803D552C->unk31A = 0;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
     D_803D552C->unk30C = MAX(6, D_803D552C->unk30C);
-     func_802B8720_6C9DD0();
+    func_802B8720_6C9DD0();
 }
 
 void func_802A5CF4_6B73A4(void) {
@@ -2055,8 +2055,12 @@ void func_802B3230_6C48E0(void) {
                     func_802B38FC_6C4FAC(D_803D5530, tmp, -1, 0);
                 }
                 if ((func_8012826C() & 0xF) == 0xC) {
-                    func_802D9C64_6EB314(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 33, 0xE721);
-
+                    func_802D9C64_6EB314(
+                        D_803D5530->xPos,
+                        D_803D5530->zPos,
+                        D_803D5530->yPos,
+                        33,
+                        GPACK_RGBA5551(224, 224, 128, 1));
                 }
             }
         }
@@ -2170,13 +2174,13 @@ void func_802B356C_6C4C1C(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
     if ((arg0->unk16C->unk80.bit) && (arg3 != 0) && ((arg0->health - tmp) > 0)) {
         if (tmp > 480) {
             func_802DBA58_6ED108(14, arg0);
-            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 33, 0xE701);
+            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 33, GPACK_RGBA5551(224, 224, 0, 1));
         } else if (tmp > 192) {
             func_802DBA58_6ED108(14, arg0);
-            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 17, 0xE701);
+            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 17, GPACK_RGBA5551(224, 224, 0, 1));
         } else if (tmp >= 64) {
             func_802DBA58_6ED108(13, arg0);
-            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 8, 0xE701);
+            func_802D9C64_6EB314(arg0->xPos, arg0->zPos, arg0->yPos, 8, GPACK_RGBA5551(224, 224, 0, 1));
         }
     }
     tmp = MIN(tmp, 0x230);
@@ -2224,15 +2228,15 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
     }
 
     if ((arg0->unk16C->unk80.bit) && (arg3 != 0) && ((arg0->health - phi_a2) > 0)) {
-        if (phi_a2 > 0x1E0) {
+        if (phi_a2 > 480) {
             func_802DBA58_6ED108(14, arg0);
-            func_8034A684_75BD34();
-        } else if (phi_a2 > 0xC0) {
+            func_8034A684_75BD34(); // lots of stars
+        } else if (phi_a2 > 192) {
             func_802DBA58_6ED108(14, arg0);
-            func_8034A914_75BFC4();
-        } else if (phi_a2 >= 0x40) {
+            func_8034A914_75BFC4(); // medium amount of stars
+        } else if (phi_a2 >= 64) {
             func_802DBA58_6ED108(13, arg0);
-            func_8034ABA4_75C254();
+            func_8034ABA4_75C254(); // small amount of stars
         }
     }
 
@@ -2240,8 +2244,8 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
         phi_a2 = 1;
     }
 
-    if (phi_a2 >= 0x23) {
-        phi_a2 = 0x23;
+    if (phi_a2 >= 35) {
+        phi_a2 = 35;
     }
     func_80349280_75A930(arg0, phi_a2);
     arg0->health = MAX(0, arg0->health - phi_a2);

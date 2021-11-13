@@ -38,8 +38,8 @@ void func_802F03B8_701A68(void) {
                 0,
                 0,
                 35,
-                4229,
-                50193,
+                GPACK_RGBA5551(16, 16, 16, 1),
+                GPACK_RGBA5551(192, 128, 64, 1),
                 0);
         }
     } else {
@@ -70,14 +70,14 @@ void drop_sticky_mine(void) {
                 0,
                 0,
                 35,
-                4229,
-                50193,
+                GPACK_RGBA5551(16, 16, 16, 1),
+                GPACK_RGBA5551(192, 128, 64, 1),
                 0);
         }
     }
 }
 
-void func_802F0780_701E30(s32 arg0, s32 arg1, s32 arg2) {
+void hippo_spit(s32 arg0, s32 arg1, s32 arg2) {
     if (D_803D552C->unk365 == 0) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = 17;

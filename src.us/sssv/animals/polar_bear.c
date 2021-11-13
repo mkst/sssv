@@ -85,12 +85,12 @@ void polar_tank_drop_mine(void) {
     }
 }
 
-void func_80368CF0_77A3A0(void) {
+void polar_tank_fire_cannon(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = 26;
 }
 
-void func_80368D18_77A3C8(void) {
+void polar_bear_jump_thump(void) {
     if (D_803D5530->unk162 == 1) {
         func_802A467C_6B5D2C(0);
         D_803D552C->unk369 = 1;

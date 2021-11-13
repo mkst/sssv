@@ -4,76 +4,55 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/penguin/func_80364780_775E30.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/penguin/func_80365954_777004.s")
-// void func_80365954_777004(void) {
-//     Animal *a;
-//     u16 tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
-//
-//     if ((D_803D552C->unk162 != 1) && (D_803D552C->unk4A == 0)) {
-//         func_8032CD70_73E420(
-//             D_803D552C,
-//             103,
-//             0x7000,
-//             0,
-//             0.25f,
-//             D_803D552C->xPos,
-//             D_803D552C->zPos,
-//             D_803D552C->yPos
-//             );
-//
-//         a = D_803D5530;
-//         if (a->yVelocity.w > FTOFIX32(4.0)) {
-//             a->yVelocity.w += FTOFIX32(1.0);
-//         } else {
-//             a->yVelocity.w += FTOFIX32(2.0);
-//         }
-//
-//         tmp0 = func_8012826C();
-//         tmp1 = func_8012826C();
-//         tmp2 = func_8012826C();
-//         tmp3 = func_8012826C();
-//         tmp4 = func_8012826C();
-//         tmp5 = func_8012826C();
-//         tmp6 = func_8012826C();
-//
-//         create_particle_effect(
-//             ((tmp0 & 0xF) + a->xPos) - 8,
-//             ((tmp1 & 0xF) + a->zPos) - 8,
-//             a->yPos,
-//             ((tmp2 & 1) + 25),
-//             ((tmp3 & 0x7FFF) << 1) - FTOFIX32(0.6103515625),
-//             ((tmp4 & 0x7FFF) << 1) - FTOFIX32(0.6103515625),
-//             (a->yVelocity.w >> 1) - FTOFIX32(3.0517578125),
-//             tmp5 & 0xC,
-//             1,
-//             0x39CF,
-//             (tmp6 & 0xF) + 20);
-//
-//         tmp0 = func_8012826C();
-//         tmp1 = func_8012826C();
-//         tmp2 = func_8012826C();
-//         tmp3 = func_8012826C();
-//         tmp4 = func_8012826C();
-//         tmp5 = func_8012826C();
-//         a = D_803D5530;
-//         create_particle_effect(
-//             ((tmp0 & 0xF) + a->xPos) - 8,
-//             ((tmp1 & 0xF) + a->zPos) - 8,
-//             a->yPos,
-//             63,
-//             (a->xVelocity.w >> 2) * -1,
-//             (a->zVelocity.w >> 2) * -1,
-//             (a->yVelocity.w >> 1) - FTOFIX32(4.57763671875),
-//             (tmp2 & 0x1F) + 30,
-//             ((((tmp3 & 0x3F) + 0xC0) << 3) & 0x7C0) | ((((tmp4 & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
-//                                                       ((((tmp5 & 0x3F) + 0xC0) << 8) & 0xF800) | 1,
-//             0);
-//
-//     } else {
-//         recharge_skill(0);
-//         if (D_803D552C) {};
-//     }
-// }
+void func_80365954_777004(void) {
+    if ((D_803D5530->unk162 != 1) && (D_803D5530->unk4A == 0)) {
+        func_8032CD70_73E420(
+            D_803D5530,
+            103,
+            0x7000,
+            0,
+            0.25f,
+            D_803D552C->xPos,
+            D_803D552C->zPos,
+            D_803D552C->yPos
+            );
+
+        if (D_803D5530->yVelocity.w > FTOFIX32(4.0)) {
+            D_803D5530->yVelocity.w += FTOFIX32(1.0);
+        } else {
+            D_803D5530->yVelocity.w += FTOFIX32(2.5);
+        }
+
+        create_particle_effect(
+            ((func_8012826C() & 0xF) + D_803D5530->xPos) - 8,
+            ((func_8012826C() & 0xF) + D_803D5530->zPos) - 8,
+            D_803D5530->yPos,
+            ((func_8012826C() & 1) + 25),
+            ((func_8012826C() & 0x7FFF) << 1) - FTOFIX32(0.6103515625),
+            ((func_8012826C() & 0x7FFF) << 1) - FTOFIX32(0.6103515625),
+            (D_803D5530->yVelocity.w >> 1) - FTOFIX32(3.0517578125),
+            func_8012826C() & 0xC,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(56, 56, 56, 1),
+            (func_8012826C() & 0xF) + 20);
+
+        create_particle_effect(
+            ((func_8012826C() & 0xF) + D_803D5530->xPos) - 8,
+            ((func_8012826C() & 0xF) + D_803D5530->zPos) - 8,
+            D_803D5530->yPos,
+            63,
+            (D_803D5530->xVelocity.w >> 2) * -1,
+            (D_803D5530->zVelocity.w >> 2) * -1,
+            (D_803D5530->yVelocity.w >> 1) - FTOFIX32(4.57763671875),
+            (func_8012826C() & 0x1F) + 30,
+            GPACK_RGBA5551((func_8012826C() & 0x3F) + 192, (func_8012826C() & 0x3F) + 192, 0, 1),
+            GPACK_RGBA5551((func_8012826C() & 0x3F) + 192, 0, 0, 1),
+            0);
+
+    } else {
+        recharge_skill(0);
+    }
+}
 
 void func_80365C28_7772D8(void) {
     if (D_803D552C->unk365 == 0) {

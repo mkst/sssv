@@ -154,52 +154,53 @@ u16 func_802B8B74_6CA224(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B8C50_6CA300.s")
 
-#ifdef NON_MATCHING // NON-MATCHING: kinda JUSTREG but not really..
 void func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
-    s16 temp_a3;
-    s16 temp_t1;
-    s16 temp_t2;
-    s16 temp_v0;
-    s32 temp_t7;
+    s32 temp_t1;
+    s32 temp_t2;
+    s32 temp_a3;
+    s32 temp_v0;
     s32 temp_t8;
+    s32 temp_t7;
 
-    temp_v0 = D_80152C78[arg0 & 0xFF];
+    temp_v0 = D_80152C78[(arg0 & 0xFF) & 0xFF];
     temp_a3 = D_80152C78[(arg0 + 64) & 0xFF];
 
+    temp_t7 = *arg2;
+    temp_t1 = temp_t7;
     temp_t2 = *arg1;
-    temp_t1 = *arg2;
 
     temp_t7 = (temp_t1 * temp_v0) + (temp_a3 * temp_t2);
-    *arg1 = temp_t7  >> 0xF;
     temp_t8 = (temp_a3 * temp_t1) - (temp_t2 * temp_v0);
-    *arg2 = temp_t8  >> 0xF;
-}
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B901C_6CA6CC.s")
-#endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B90A0_6CA750.s")
-// NON-MATCHING: same issue as previous
-// void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
-//     s32 temp_t1;
-//     s32 temp_t2;
-//     s32 temp_a3;
-//     s32 temp_v0;
-//
-//     s32 temp_t8;
-//     s32 temp_t7;
-//
-//     temp_v0 = D_80152C78[arg0] >> 7;
-//     temp_a3 = D_80152C78[(arg0 + 64) & 0xff] >> 7;
-//
-//     temp_t2 = *arg1;
-//     temp_t1 = *arg2;
-//
-//     temp_t7 = (temp_t1 * temp_v0) + (temp_a3 * temp_t2);
-//     *arg1 = temp_t7 >> 8;
-//     temp_t8 = (temp_a3 * temp_t1) - (temp_t2 * temp_v0);
-//     *arg2 = temp_t8 >> 8;
-// }
+    temp_t8 = (s16)(temp_t8 >> 15);
+    temp_t7 = (s16)(temp_t7 >> 15);
+    *arg2 = temp_t8;
+    *arg1 = temp_t7;
+}
+
+void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
+    s32 temp_t1;
+    s32 temp_t2;
+    s32 temp_a3;
+    s32 temp_v0;
+    s32 temp_t8;
+    s32 temp_t7;
+
+    temp_v0 = D_80152C78[(arg0 & 0xFF) & 0xFF] >> 7;
+    temp_a3 = D_80152C78[(arg0 + 64) & 0xFF] >> 7;
+
+    temp_t7 = *arg2;
+    temp_t1 = temp_t7;
+    temp_t2 = *arg1;
+
+    temp_t7 = (temp_t1 * temp_v0) + (temp_a3 * temp_t2);
+    temp_t8 = (temp_a3 * temp_t1) - (temp_t2 * temp_v0);
+
+    temp_t8 = temp_t8 >> 8;
+    temp_t7 = temp_t7 >> 8;
+    *arg2 = temp_t8;
+    *arg1 = temp_t7;
+}
 
 void func_802B9130_6CA7E0(struct086 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 sp36;
@@ -326,7 +327,7 @@ void func_802B964C_6CACFC(void) {
 }
 
 void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3) {
-    func_802BD358_6CEA08();
+    func_802BD358_6CEA08(arg0);
     D_80203FE0[2].unk2 = 0;
     D_80203FE0[2].unk0 = D_80203FE0[2].unk2;
     D_80203FE0[2].unk4 = arg2 + *arg0;
@@ -338,44 +339,88 @@ void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3) {
     D_80203FE0[0].unk4 = (D_80203FE0[1].unk4 + D_80203FE0[2].unk4) >> 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B975C_6CAE0C.s")
-// NON-MATCHING: 80% there
-// void func_802B975C_6CAE0C(s16 *arg0, s16 arg1, s16 arg2) {
-//     if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 4) ||
-//         (D_803D5530->state == 0xB6) || (D_803D5530->state == 0xB9) || (D_803D5530->state == 0xB7) ||
-//         (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) || (D_803D5530->state == 0x8F)) {
-//         D_803D552C->unk2F6 = (D_803D552C->unk2F2 * 256) / (u32) D_803D552C->unk2FA;
-//         D_803D552C->unk2F8 = (D_803D552C->unk2F4 * 256) / (u32) D_803D552C->unk2FA;
-//     } else {
-//         D_803D552C->unk2F6 = D_803D552C->unk2F2;
-//         D_803D552C->unk2F8 = D_803D552C->unk2F4;
-//     }
-//
-//     func_802BD358_6CEA08();
-//     D_80203FE0[2].unk2 = 0;
-//     D_80203FE0[2].unk0 = D_80203FE0[2].unk2;
-//     D_80203FE0[2].unk4 = *arg0;
-//     D_80203FE0[1].unk2 = 0;
-//     D_80203FE0[24].unk2 = 0;
-//     D_80203FE0[1].unk0 =  D_80203FE0[1].unk2;
-//     D_80203FE0[24].unk0 =  D_80203FE0[24].unk2;
-//
-//     if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
-//         D_80203FE0[1].unk0 += ((arg1 * (D_80152C78[D_803D552C->unk2F6 & 0xFF] >> 7)) >> 8) >> arg2;
-//         D_80203FE0[2].unk4 += ((arg1 * (256 - (D_80152C78[(((u16) D_803D552C->unk2F6 * 2) + 64) & 0xFF] >> 7))) >> 8) >> arg2;
-//     } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
-//         D_80203FE0[1].unk0 += ((arg1 * ((D_80152C78[D_803D552C->unk2F6 & 0xFF]) >> 7)) >> 8) >> arg2;
-//         D_80203FE0[2].unk4 += ((arg1 * (256 - (D_80152C78[(((u16) D_803D552C->unk2F6 * 2) + 64) & 0xFF] >> 7))) >> 8) >> arg2;
-//     }
-//
-//     D_80203FE0[1].unk4 = D_80203FE0[2].unk4 + (arg1 * 2);
-//     D_80203FE0[24].unk4 = D_80203FE0[2].unk4 + (arg1 * 2);
-//     D_80203FE0[0].unk4 = (D_80203FE0[2].unk4 + D_80203FE0[1].unk4) >> 1;
-//     D_80203FE0[0].unk2 = 0;
-//     D_80203FE0[0].unk0 = D_80203FE0[0].unk2;
-// }
+#ifdef NON_MATCHING
+void func_802B975C_6CAE0C(s16 *arg0, s16 arg1, s16 arg2) {
+    if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 4) ||
+        (D_803D5530->state == 0xB6) || (D_803D5530->state == 0xB9) || (D_803D5530->state == 0xB7) ||
+        (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) || (D_803D5530->state == 0x8F)) {
+        D_803D552C->unk2F6 = (D_803D552C->unk2F2 * 256) / (u32) D_803D552C->unk2FA;
+        D_803D552C->unk2F8 = (D_803D552C->unk2F4 * 256) / (u32) D_803D552C->unk2FA;
+    } else {
+        D_803D552C->unk2F6 = D_803D552C->unk2F2;
+        D_803D552C->unk2F8 = D_803D552C->unk2F4;
+    }
 
+    func_802BD358_6CEA08(arg0);
+    D_80203FE0[2].unk2 = 0;
+    D_80203FE0[2].unk0 = D_80203FE0[2].unk2;
+    D_80203FE0[2].unk4 = *arg0;
+
+    D_80203FE0[1].unk2 = 0;
+    D_80203FE0[1].unk0 =  D_80203FE0[1].unk2;
+
+    D_80203FE0[24].unk2 = 0;
+    D_80203FE0[24].unk0 =  D_80203FE0[24].unk2;
+
+    if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
+        D_80203FE0[1].unk0 += ((arg1 *        (D_80152C78[D_803D552C->unk2F6 & 0xFF] >> 7)) >> 8) >> arg2;
+        D_80203FE0[2].unk4 += ((arg1 * (256 - (D_80152C78[(s16)(((u16) D_803D552C->unk2F6 << 1) + 64) & 0xFF] >> 7))) >> 8) >> arg2;
+    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
+        D_80203FE0[1].unk0 += ((arg1 *        (D_80152C78[D_803D552C->unk2F6 & 0xFF] >> 7)) >> 8) >> arg2;
+        D_80203FE0[2].unk4 += ((arg1 * (256 - (D_80152C78[(s16)(((u16) D_803D552C->unk2F6 << 1) + 64) & 0xFF] >> 7))) >> 8) >> arg2;
+    }
+
+    D_80203FE0[1].unk4 = D_80203FE0[2].unk4 + (arg1 << 1);
+    D_80203FE0[24].unk4 = D_80203FE0[2].unk4 + (arg1 << 1);
+    D_80203FE0[0].unk4 = (D_80203FE0[2].unk4 + D_80203FE0[1].unk4) >> 1;
+    D_80203FE0[0].unk2 = 0;
+    D_80203FE0[0].unk0 = D_80203FE0[0].unk2;
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B975C_6CAE0C.s")
+#endif
+
+#ifdef NON_MATCHING
+void func_802B9A5C_6CB10C(s16 *arg0, s16 arg1) {
+    if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 4) ||
+        (D_803D5530->state == 0xB6) || (D_803D5530->state == 0xB9) || (D_803D5530->state == 0xB7) ||
+        (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) || (D_803D5530->state == 0x8F)) {
+        D_803D552C->unk2F6 = (D_803D552C->unk2F2 * 256) / (u32) D_803D552C->unk2FA;
+        D_803D552C->unk2F8 = (D_803D552C->unk2F4 * 256) / (u32) D_803D552C->unk2FA;
+    } else {
+        D_803D552C->unk2F6 = D_803D552C->unk2F2;
+        D_803D552C->unk2F8 = D_803D552C->unk2F4;
+    }
+
+    func_802BD358_6CEA08(arg0);
+    D_80203FE0[2].unk2 = 0;
+    D_80203FE0[2].unk0 = D_80203FE0[2].unk2;
+    D_80203FE0[2].unk4 = *arg0;
+
+    D_80203FE0[0].unk2 = 0;
+    D_80203FE0[1].unk2 = 0;
+
+    D_80203FE0[24].unk2 = 0;
+    D_80203FE0[24].unk0 =  D_80203FE0[24].unk2;
+
+    if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
+        D_80203FE0[2].unk4 += ((arg1 * (256 - (D_80152C78[(s16)(((u16) D_803D552C->unk2F6 << 1) + 64) & 0xFF] >> 7))) >> 10);
+        D_80203FE0[2].unk0 += ((arg1 *        (D_80152C78[D_803D552C->unk2F6 & 0xFF] >> 7)) >> 10);
+    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
+        D_80203FE0[2].unk4 += ((arg1 *       ((D_80152C78[(s16)(((u16) D_803D552C->unk2F6 << 1) + 64) & 0xFF] >> 7))) >> 10);
+        D_80203FE0[2].unk0 += ((arg1 *        (D_80152C78[D_803D552C->unk2F6 & 0xFF] >> 7)) >> 10);
+    }
+
+    D_80203FE0[0].unk4 = (D_80203FE0[2].unk4 + arg1);
+
+    D_80203FE0[1].unk4 = D_80203FE0[2].unk4 + (arg1 << 1);
+    D_80203FE0[1].unk0 = D_80203FE0[2].unk0;
+    D_80203FE0[0].unk0 = D_80203FE0[2].unk0;
+    D_80203FE0[24].unk4 = D_80203FE0[2].unk4 + (arg1 << 1);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B9A5C_6CB10C.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802B9D20_6CB3D0.s")
 

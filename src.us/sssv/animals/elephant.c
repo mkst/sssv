@@ -18,7 +18,7 @@ void func_8037D0EC_78E79C(void) {
     if (D_803D552C->unk365 == tmp) {
         D_803D552C->unk365 = 0U;
         if (D_803D5528->unk3CA != 0) {
-            D_803E00EE[D_803D5528->unk3CA].unk0 = tmp;
+            D_803E00C0[D_803D5528->unk3CA].unk2E = tmp;
         }
     }
 }

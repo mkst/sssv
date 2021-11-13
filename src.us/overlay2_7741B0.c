@@ -615,16 +615,16 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             animal_jump();
             break;
         case HIPPO:
-            func_802F0780_701E30(0, 0, 0);
+            hippo_spit(0, 0, 0);
             break;
         case RACING_DOG:
-            func_802EF074_700724(arg1);
+            racing_dog_turbo(arg1);
             break;
         case FLYING_DOG:
             flying_dog_fire_gun(0, 0, 0);
             break;
         case FOX:
-            func_802E89AC_6FA05C();
+            fox_warp();
             break;
         case FROG:
             animal_jump();
@@ -633,25 +633,25 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             animal_jump();
             break;
         case KING_RAT:
-            func_8035FE6C_77151C(60);
+            king_rat_fart(60);
             break;
         case PARROT:
-            func_80314600_725CB0();
+            parrot_fly();
             break;
         case MOUSE:
             animal_jump();
             break;
         case RACING_MOUSE:
-            func_8031FBE8_731298(arg1);
+            racing_mouse_turbo(arg1);
             break;
         case MOUSE2:
             animal_jump();
             break;
         case RACING_FOX:
-            func_802E89AC_6FA05C();
+            fox_warp();
             break;
         case RACING_TORTOISE:
-            func_803563C8_767A78(arg1);
+            racing_tortoise_turbo(arg1);
             break;
         case PIRANA:
             animal_jump();
@@ -678,19 +678,19 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             animal_jump();
             break;
         case POLAR_BEAR:
-            func_80368D18_77A3C8();
+            polar_bear_jump_thump();
             break;
         case POLAR_TANK:
-            func_80368CF0_77A3A0();
+            polar_tank_fire_cannon();
             break;
         case HUSKY:
             animal_jump();
             break;
         case SKI_HUSKY:
-            func_8036C05C_77D70C(arg1);
+            ski_husky_turbo(arg1);
             break;
         case WALRUS:
-            func_80376CF8_7883A8(arg1);
+            walrus_turbo(arg1);
             break;
         case CAMEL:
             animal_jump();
@@ -790,7 +790,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             func_80382CC0_794370(arg1);
             break;
         case DOG:
-            func_802EEF74_700624();
+            dog_bite();
             break;
         case RAT:
             rat_bite();

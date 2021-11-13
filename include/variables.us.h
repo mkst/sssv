@@ -294,7 +294,7 @@ extern s16  D_801D9ED4; // either 10 or 6 - input debounce?
 extern struct050 D_801D9ED8; // what is this variable!?
 
 extern s32  D_801DD800;
-extern s32 *D_801DDD88; // base of animal pointers
+extern struct035 *D_801DDD88; // base of animal pointers
 extern struct015 D_801DDD8C[]; // animals struct array
 
 // 0x801Exxxx
@@ -304,6 +304,7 @@ extern u16  D_801E9E8E;
 extern s16  D_801E9EB2;
 extern s16  D_801E9EB4;
 extern struct071 D_801E9EB8[]; // 170
+
 // 0x801Fxxxx
 
 extern struct072 D_801F9EB8;
@@ -600,6 +601,9 @@ extern s32  D_803A05B0;
 extern s32  D_803A05B0_7B1C60;
 extern s32  D_803A05B4_7B1C64;
 extern struct089 D_803A05D0_7B1C80[];
+extern struct098 D_803A1BB0_7B3260[];
+extern u16  D_803A20B0_7B3760[]; // colors
+extern struct099 D_803A20C0_7B3770[];
 extern struct076 D_803A2D90_7B4440[];
 extern u8   D_803A38D8[];
 extern struct028 D_803A50C0_7B6770;
@@ -626,6 +630,7 @@ extern s32  D_803A52C0_7B6970;
 extern s16  D_803A52C4;
 extern s16  D_803A52C4_7B6974;
 extern u8   D_803A52D0_7B6980;
+extern struct100 D_803A52E8_7B6998[];
 extern s16  D_803A5330_7B69E0;
 extern struct082 D_803A63B0_7B7A60[];
 extern s16  D_803A6470_7B7B20[];
@@ -640,15 +645,16 @@ extern f32  D_803A6CD0;
 extern f32  D_803A6CD4;
 extern f32  D_803A6CD8;
 extern s16  D_803A6CE4;
+extern s16  D_803A6CE4_7B8394;
 extern s16  D_803A6CEC;
 extern struct075 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
 extern s16  D_803A7B3C[][2];
 extern s16  D_803A8340;
 extern u8   D_803A8344[]; // timer string written here
-extern s32  D_803A8350[];
-extern s32  D_803A8358[];
-extern s32  D_803A8360[];
+extern s8   D_803A8350_7B9A00[];
+extern s8   D_803A8358_7B9A08[];
+extern s8   D_803A8360_7B9A10[];
 extern s32  D_803A8374;
 extern s32  D_803A843C;
 extern s32  D_803A8450;
@@ -790,6 +796,8 @@ extern f32  D_803BEB14;
 extern f32  D_803BEB18;
 extern f32  D_803BEB1C;
 extern f32  D_803BEB20;
+extern s16  D_803BEB70_7D0220[16];
+extern s16  D_803BEB90_7D0240[16];
 extern f32  D_803BEC10;
 extern f32  D_803BEC14;
 extern f32  D_803BEC18;
@@ -887,14 +895,14 @@ extern s16  gCurrentAnimalIndex; // current animal (id within level)
 extern u8   D_803D5538;
 extern s16  D_803D553A;
 extern s16  D_803D553C;
-extern s16  D_803D553E;
+extern s16  D_803D553E; // number of animals in level?
 extern struct037 *D_803D5520;
 extern struct035 *D_803D5524;
 extern Animal *D_803D5528;
 extern Animal *D_803D552C; // is this *really* Animal? is it World?
 extern s16  D_803D5540;
 extern s16  D_803D5542;
-extern u16  D_803D5544;
+extern u16  D_803D5544; // timer (for attacks? everything?)
 extern u16  D_803D5546;
 extern s8   D_803D554A;
 extern s8   D_803D554B;
@@ -924,15 +932,13 @@ extern u16  D_803DA0F4;
 extern struct065 D_803DA110[40];
 extern Animal *D_803DA2F0;
 extern Animal *D_803DA2F4;
-extern struct088 D_803DA300[];
+extern struct088 D_803DA300[1000];
 
 // 0x803Exxxx
 
-extern struct051 D_803E00C0[]; // ?
-extern struct087 D_803E00D6[];
-extern struct051 D_803E00EE[]; // D_803E0000[3] ?
-extern s16  D_803E1B00;
-extern s16  D_803E1B02;
+extern struct051 D_803E00C0[120];
+extern s16  D_803E1B00; // counter, max 1000
+extern s16  D_803E1B02; // another counter, max 120
 extern u16  D_803E1B04;
 extern u16  D_803E1B06;
 extern s16  D_803E1B08;
@@ -963,6 +969,9 @@ extern u16  D_803E1BB2;
 extern u16  D_803E1BB4;
 extern u16  D_803E1BB6;
 extern u16  D_803E1BB8;
+extern u8   D_803E1BBA;
+extern u8   D_803E1BBB;
+extern u8   D_803E1BBC;
 extern s16  D_803E1BC0;
 extern OSContPad D_803E1BC4;
 extern OSContPad *D_803E1BD4;
@@ -1124,12 +1133,14 @@ extern s8   D_803F2D23;
 extern struct001 D_803F2D30;
 extern s16  D_803F2D34;
 extern s16  gLevelIndex;
+extern s16  D_803F2D3C;
 extern char D_803F2D3E[]; // score as a string, e.g. "       0"
 extern struct000 D_803F2D50;
 extern u16  D_803F2D68;
 extern s16  D_803F2D70; // biome (0 Europe, 1 Ice, 2 Desert, 3 Jungle)
 extern u8   D_803F2DA3;
 extern s32  D_803F2E0C;
+extern s32  D_803F2E10;
 extern s16  D_803F2EE0[];
 extern u16  D_803F2EF0;
 extern s16  D_803F2E16;
@@ -1151,8 +1162,10 @@ extern s16  D_803F2ED2;
 extern s32  D_803F2ED4;
 extern s16  D_803F2ED8;
 extern u8   D_803F2EDA;
+extern s8   D_803F2EDB;
 extern u8   D_803F2EDC;
 extern u8   D_803F2EDD;
+extern u8   D_803F2EDE;
 extern struct060 D_803F2F08[];
 
 extern s16  D_803F3308;

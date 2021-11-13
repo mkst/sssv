@@ -52,8 +52,7 @@
 //             // tmp = D_803A52C4;
 //             D_803A52C4 = 0;
 //         }
-//         D_803A52C4 -= 1;
-//         if (D_803A52C4 < 0) {
+//         if (--D_803A52C4 < 0) {
 //             if (D_803E1BD4->button != 0xFFFF) {
 //                 D_803E1BC4.button = D_803E1BD4->button;
 //                 D_803E1BC4.stick_x = D_803E1BD4->stick_x;
@@ -68,7 +67,7 @@
 //             }
 //         }
 //         // press start?
-//         if ((D_802910E8[D_801D9ED0].button & CONT_START) != 0) {
+//         if ((D_802910E8[D_801D9ED0].button & CONT_START)) {
 //             D_803E1BC0 = 2;
 //         }
 //         break;
@@ -293,7 +292,44 @@ void func_802F9104_70A7B4(Animal *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9880_70AF30.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9A08_70B0B8.s")
+void func_802F9A08_70B0B8(Animal *arg0) {
+    if (arg0->state == 1) {
+        if (arg0->unk14E == 0) {
+            arg0->unk23C = 13;
+            arg0->unk23D = 128;
+            arg0->unk23E = 128;
+            arg0->unk23F = 96;
+            arg0->unk240 = 128;
+            arg0->unk241 = 5;
+            arg0->unk242 = 64;
+            arg0->unk244 = 0;
+        }
+        if (arg0->unk14E < 0xFF) {
+            arg0->unk14E += 4;
+            if (arg0->unk14E >= 256) {
+                arg0->unk14E = 0xFF;
+            }
+        }
+    } else {
+        if (arg0->unk14E >= 0xFF) {
+            arg0->unk23C = 13;
+            arg0->unk23D = 128;
+            arg0->unk23E = 128;
+            arg0->unk23F = 128;
+            arg0->unk240 = 96;
+            arg0->unk241 = 5;
+            arg0->unk242 = 64;
+            arg0->unk244 = 0;
+        }
+        if (arg0->unk14E > 0) {
+            arg0->unk14E -= 4;
+            if (arg0->unk14E < 0) {
+                arg0->unk14E = 0;
+            }
+        }
+    }
+    arg0->yRotation = ((arg0->unk14E * 360) / 128) % 360;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9B4C_70B1FC.s")
 
@@ -345,19 +381,85 @@ void func_802FB49C_70CB4C(struct071 *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC108_70D7B8.s")
 
+// huh?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC2B8_70D968.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC438_70DAE8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC5C0_70DC70.s")
+void func_802FC5C0_70DC70(Animal *arg0) {
+    s16 phi_a1;
+    s32 phi_v1;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC6E4_70DD94.s")
+    phi_v1 = MAX(MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
+                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
+                 MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
+                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
 
+    if (arg0->yPos < (phi_v1 * 4)) {
+        phi_a1 = 40;
+    } else {
+        phi_a1 = 9;
+    }
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
+}
+
+void func_802FC6E4_70DD94(Animal *arg0) {
+    s16 phi_a1;
+    s32 phi_v1;
+
+    phi_v1 = MAX(MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
+                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
+                 MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
+                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+
+    if (arg0->yPos < (phi_v1 * 4)) {
+        phi_a1 = 104;
+    } else {
+        phi_a1 = 72;
+    }
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
+}
+
+#ifdef NON_MATCHING
+// regalloc
+void func_802FC808_70DEB8(Animal *arg0) {
+    s32 tmp = (arg0->unk40 * 18) >> 11;
+    s16 i;
+
+    for (i = 0; i < 10; i++) {
+        create_particle_effect(
+            arg0->xPos,
+            arg0->zPos,
+            arg0->yPos + (arg0->unk42 >> 1),
+            23,
+            ((arg0->unk40 & 0xffff) * D_803A52E8_7B6998[i].unk0) >> 11,
+            ((arg0->unk40 & 0xffff) * D_803A52E8_7B6998[i].unk4) >> 11,
+            0,
+            tmp,
+            GPACK_RGBA5551(176, 176, 176, 0),
+            GPACK_RGBA5551(176, 176, 176, 0),
+            0);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC808_70DEB8.s")
+#endif
+
 
 void func_802FC8F4_70DFA4(Animal *arg0) {
     s32 tmp = (arg0->unk40 * 18) >> 11;
-    create_particle_effect(arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 23, 0, 0, 0, tmp, 0xB5AC, 0xB5AC, 0);
+    create_particle_effect(
+        arg0->xPos,
+        arg0->zPos,
+        arg0->yPos + (arg0->unk42 >> 1),
+        23,
+        0,
+        0,
+        0,
+        tmp,
+        GPACK_RGBA5551(176, 176, 176, 0),
+        GPACK_RGBA5551(176, 176, 176, 0),
+        0);
 }
 
 void func_802FC970_70E020(Animal *arg0) {
@@ -600,7 +702,18 @@ void func_802FF184_710834(s32 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF540_710BF0.s")
 
 void func_802FF7D4_710E84(Animal *arg0) {
-    create_particle_effect(arg0->xPos, arg0->zPos, arg0->yPos, 0x7C, 0, 0, 0, 0x14, 0, 0, 0);
+    create_particle_effect(
+        arg0->xPos,
+        arg0->zPos,
+        arg0->yPos,
+        0x7C,
+        0,
+        0,
+        0,
+        20,
+        GPACK_RGBA5551(0, 0, 0, 0),
+        GPACK_RGBA5551(0, 0, 0, 0),
+        0);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FF828_710ED8.s")

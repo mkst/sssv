@@ -14,10 +14,32 @@ void func_8036BBB8_77D268(void) {
 void func_8036BBE8_77D298(void) {
     if (D_803D5530->state == 21) {
         func_8037D9D4_78F084();
-        create_particle_effect(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
+        create_particle_effect(
+            D_803D5530->xPos,
+            D_803D5530->zPos,
+            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            21,
+            0,
+            0,
+            (func_8012826C() + FTOFIX32(3.0)) & (FTOFIX32(0.5) - 1),
+            30,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
+            0);
     } else {
         func_8037D994_78F044(11);
-        create_particle_effect(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
+        create_particle_effect(
+            D_803D5530->xPos,
+            D_803D5530->zPos,
+            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            21,
+            0,
+            0,
+            (func_8012826C() + FTOFIX32(3.0)) & (FTOFIX32(0.5) - 1),
+            30,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
+            0);
     }
 }
 
@@ -98,7 +120,7 @@ void func_8036C014_77D6C4(s16 arg0) {
     }
 }
 
-void func_8036C05C_77D70C(s16 arg0) {
+void ski_husky_turbo(s16 arg0) {
     if (arg0 != 0) {
         D_803D552C->unk36E = 11;
         D_803D552C->unk2EC = arg0;

@@ -5,6 +5,30 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C8440_6D9AF0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C85EC_6D9C9C.s")
+// miles away
+// void func_802C85EC_6D9C9C(void) {
+//     Animal *temp_v0;
+//
+//     if (D_803F2D50.unk1A != 61) {
+//         D_803E9824 = D_803F2D50.unk1A;
+//         D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
+//         D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
+//         gCurrentAnimalIndex = D_803D553E;
+//         temp_v0 = &D_801D9ED8.animal[0].unk0;
+//         func_802C7F88_6D9638(temp_v0->xPos, temp_v0->zPos, temp_v0->yPos, 0, 0x7F, D_803E9824, 1);
+//         func_80327DA8_739458();
+//         D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk366 = 3;
+//         D_801D9ED8.unk3EB0 = D_801DD800;
+//         D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk16C = D_801DD800;
+//         D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk4A = 1; //  + (gCurrentAnimalIndex * 8))->unk3EB4
+//         D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk4A = 0;
+//     }
+//     D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk302 = (D_803F2D50.unk4E << 8) / 360;
+//     D_801D9ED8.animal[gCurrentAnimalIndex].unk0->yRotation = (D_803F2D50.unk4E << 8) / 360;
+//     D_801D9ED8.unkFFA8 = (D_803F2D50.unk4E << 8) / 360;
+//     D_803F2AA3 = 0;
+//     D_803F2AA2 = 0;
+// }
 
 void func_802C87E0_6D9E90(void) {
     D_80204278->usedHilites = 0;

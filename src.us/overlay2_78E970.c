@@ -2,6 +2,9 @@
 #include "common.h"
 #include "pp.h"
 
+void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
+
+
 void func_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
@@ -131,4 +134,40 @@ void func_8037FE24_7914D4(void) {
     }
 }
 
+
+#ifdef NON_MATCHING
+// the D_801D9ED8.unk3EB0->unk9C check is not right...
+void func_8037FEDC_79158C(void) {
+    s16 xDist, zDist;
+    s16 i;
+
+    play_sound_effect_at_location(SFX_SHEEP_BAA, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+
+    // iterate over all animals in the level
+    for (i = 0; i < D_803D553E; i++) {
+        if ((D_801D9ED8.animal[i].unk0 != NULL) &&
+            (D_801D9ED8.unk3EB0->unk9C != EVO_GLITCHY) &&
+            (D_801D9ED8.animal[i].unk0->unk366 != 6) &&
+            (D_801D9ED8.animal[i].unk0 != D_803D5530) &&
+            ((u8)D_801D9ED8.animal[i].unk0->unk2A0 == 0) &&
+            // this is not right.. but its close!
+            ((D_801D9ED8.unk3EB0->unk9C == SHEEP) || (D_801D9ED8.unk3EB0->unk9C == SPRINGY_THINGY))) {
+            xDist = ABS(D_801D9ED8.animal[i].unk0->xPos - D_803D5530->xPos);
+            if (xDist < 200) {
+                zDist = ABS(D_801D9ED8.animal[i].unk0->zPos - D_803D5530->zPos);
+                if (zDist < 200) {
+                    if ((D_801D9ED8.animal[i].unk0->unk287 == 0) && (D_803D552C->unk28A == 0)) {
+                        D_801D9ED8.animal[i].unk0->unk287 = 1;
+                        D_801D9ED8.animal[i].unk0->unk288 = (xDist + zDist) >> 3;
+                        // swarm? follow?
+                        func_80363E88_775538(D_801D9ED8.animal[i].unk0, D_803D5530);
+                    }
+                }
+            }
+        }
+    }
+    func_8037E6DC_78FD8C(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 200, 15);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037FEDC_79158C.s")
+#endif

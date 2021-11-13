@@ -49,7 +49,7 @@ void walrus_fire_missile(Animal *arg0) {
     recoil(2);
 }
 
-void func_80376CF8_7883A8(s16 arg0) {
+void walrus_turbo(s16 arg0) {
     if (arg0 != 0) {
         D_803D552C->unk36E = 24;
         D_803D552C->unk2EC = arg0;

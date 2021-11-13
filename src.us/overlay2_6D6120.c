@@ -27,7 +27,6 @@ void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {
     D_80203FE0[20].unk0 = D_80203FE0[1].unk0;
     D_80203FE0[20].unk2 = D_80203FE0[1].unk2 + arg1;
     D_80203FE0[20].unk4 = D_80203FE0[1].unk4 + arg0;
-
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C5EF4_6D75A4.s")
@@ -36,9 +35,42 @@ void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C5F34_6D75E4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6468_6D7B18.s")
+// used by mouse
+// void func_802C6468_6D7B18(s16 arg0, s16 arg1, s16 arg2) {
+//     s16 tmp0 = D_80203FE0[1].unk0;
+//     s16 tmp1 = D_80203FE0[1].unk2;
+//     s16 tmp2 = D_80203FE0[1].unk4;
+//
+//     D_80203FE0[19].unk0 = tmp0;
+//     D_80203FE0[19].unk2 = tmp1;
+//     D_80203FE0[19].unk4 = tmp2 + arg0;
+//
+//     D_80203FE0[20].unk0 = tmp0;
+//     D_80203FE0[20].unk2 = tmp1 + arg1;
+//     D_80203FE0[20].unk4 = tmp2 + arg0;
+//
+//     D_80203FE0[22].unk0 = tmp0 - (arg2 >> 1);
+//     D_80203FE0[22].unk2 = tmp1 + arg1 - arg1;
+//     D_80203FE0[22].unk4 = tmp2 + arg0 + (arg2 >> 1);
+//
+//     D_80203FE0[23].unk0 = tmp0 + (arg2 >> 1);
+//     D_80203FE0[23].unk2 = tmp1 + arg1 - arg1;
+//     D_80203FE0[23].unk4 = tmp2 + arg0 + (arg2 >> 1);
+// }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C64E0_6D7B90.s")
+void func_802C64E0_6D7B90(s16 arg0) {
+    s16 tmp0 = D_80203FE0[2].unk0;
+    s16 tmp1 = D_80203FE0[2].unk2;
+    s16 tmp2 = D_80203FE0[2].unk4;
 
+    D_80203FE0[22].unk0 = tmp0 - (arg0 >> 1);
+    D_80203FE0[22].unk2 = tmp1;
+    D_80203FE0[22].unk4 = tmp2 + (arg0 >> 1);
+
+    D_80203FE0[23].unk0 = tmp0 + (arg0 >> 1);
+    D_80203FE0[23].unk2 = tmp1;
+    D_80203FE0[23].unk4 = tmp2 + (arg0 >> 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C652C_6D7BDC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6C00_6D82B0.s")

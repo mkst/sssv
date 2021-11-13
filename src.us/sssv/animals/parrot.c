@@ -15,11 +15,11 @@ void func_803144F8_725BA8(void) {
 void func_80314590_725C40(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     load_animal(PARROT);
-    play_sound_effect_at_location(0x8D, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BD114_7CE7C4);
+    play_sound_effect_at_location(SFX_UNKNOWN_141, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BD114_7CE7C4);
     func_802A6100_6B77B0();
 }
 
-void func_80314600_725CB0(void) {
+void parrot_fly(void) {
     if (D_803D5530->unk162 != 1) {
         load_animal(PARROT_ATTACKING);
         func_802A61EC_6B789C(D_803D5530->yRotation);

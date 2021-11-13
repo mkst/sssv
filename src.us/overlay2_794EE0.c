@@ -163,7 +163,7 @@ void perform_behavior_hippo(void) {
                 D_803D552C->unk2B8 = 0;
                 D_803D552C->unk2B4.state = 2;
             } else {
-                func_802F0780_701E30(0, 0, 0);
+                hippo_spit(0, 0, 0);
                 D_803D552C->unk2C4 = (guRandom() % 5) + 30;
                 D_803D552C->unk2B8 += 1;
             }
@@ -471,7 +471,7 @@ void perform_behavior_parrot(void) {
         if (D_803D552C->unk2D0 < 5) {
             func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -240, 16);
             D_803D552C->unk2B4.state = 2;
-            func_80314600_725CB0();
+            parrot_fly();
         }
         break;
     case 2:
@@ -618,7 +618,7 @@ void func_80385490_796B40(void) {
         if ((D_803D552C->unk2B8 == 0) && (func_80383830_794EE0(80) == 0)) {
             D_803D552C->unk2B8 = 1;
             if ((guRandom() & 3) == 0) {
-                 func_802E89AC_6FA05C();
+                 fox_warp();
             }
         } else {
             if (D_803D552C->unk2D0 >= 250) {
@@ -738,7 +738,7 @@ void func_80385BE0_797290(void) {
             if (func_80383830_794EE0(5) != 0) {
                 D_803D552C->unk2BC = (D_803D552C->unk2BC + 1);
                 if (D_803D552C->unk2BC < 4) {
-                    func_802EEF74_700624();
+                    dog_bite();
                 }
                 D_803D552C->unk2C4 = (func_8012826C() & 3) + 5;
                 if (D_803D552C->unk2BC >= 5) {
@@ -779,7 +779,7 @@ void perform_behavior_king_rat(void) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->unk2D0 < 200)) {
-            func_8035FE6C_77151C(60);
+            king_rat_fart(60);
             D_803D552C->unk2B8 = 180;
         }
     }
@@ -1030,7 +1030,7 @@ void func_80386BB8_798268(void) {
             D_803D552C->unk2C0 = 0;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(24) != 0)) {
-            func_80368D18_77A3C8();
+            polar_bear_jump_thump();
             D_803D552C->unk2C4 = ((guRandom() & 60) + 25);
             D_803D552C->unk2B8 += 1;
         }
@@ -1070,7 +1070,7 @@ void func_80386D80_798430(void) {
         } else if (D_803D552C->unk2C4 <= 0) {
             if (func_80383830_794EE0(5) != 0) {
                 D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
-                func_80368CF0_77A3A0();
+                polar_tank_fire_cannon();
             }
         }
         break;
