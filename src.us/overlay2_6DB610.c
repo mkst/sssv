@@ -116,4 +116,49 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     arg1->unk65 += sp38;
 }
 
+#ifdef NON_MATCHING
+// score: 58, stack var offsets are wrong
+void func_802CB180_6DC830(Animal *arg0) {
+    if (func_80298E08_6AA4B8(arg0->xPos, arg0->zPos)) {
+        s16 xPos = arg0->xPos >> 6;
+        s16 zPos = arg0->zPos >> 6;
+        s16 temp_t7 = D_803C0740_7D1DF0[xPos][zPos].unk6 << 2;
+        s16 phi_a1;
+        s8 tmp;
+
+        if (temp_t7 < arg0->yPos) {
+            phi_a1 = 0;
+        } else {
+            if ((arg0->yPos + arg0->unk42) < temp_t7) {
+                phi_a1 = 64;
+            } else {
+                phi_a1 = ((temp_t7 - arg0->yPos) << 6) / arg0->unk42;
+            }
+        }
+
+        tmp = (s8)((arg0->unk4C.pad0 * phi_a1) >> 6);
+        if (tmp >= (arg0->unk4C.pad8 + 3)) {
+            arg0->unk4C.pad8++;
+            if (D_803C0740_7D1DF0[xPos][zPos].unk6) {
+                D_803C0740_7D1DF0[xPos][zPos].unk6++;
+            } else {
+                D_803C0740_7D1DF0[xPos][zPos].unk6 = (D_803C0740_7D1DF0[xPos][zPos].unk0 << 1) + 1;
+            }
+            if (func_80298E08_6AA4B8(xPos + 1, zPos)) {
+                arg0->unk4C.pad8++;
+                if (D_803C0740_7D1DF0[xPos + 1][zPos].unk6) {
+                    D_803C0740_7D1DF0[xPos + 1][zPos].unk6++;
+                }
+            }
+            if (func_80298E08_6AA4B8(xPos, zPos + 1)) {
+                arg0->unk4C.pad8++;
+                if (D_803C0740_7D1DF0[xPos][zPos + 1].unk6) {
+                    D_803C0740_7D1DF0[xPos][zPos + 1].unk6++;
+                }
+            }
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DB610/func_802CB180_6DC830.s")
+#endif

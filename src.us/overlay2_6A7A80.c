@@ -65,8 +65,24 @@ s32 func_80298E08_6AA4B8(s16 arg0, s16 arg1) {
     return 1;
 }
 
-// no ideas
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_80298E98_6AA548.s")
+// no ideas
+#if 0
+s16 func_80298E98_6AA548(s16 arg0, s16 arg1) {
+    s16 sp1C;
+    s32 temp_lo;
+    u8 temp_a2;
+
+    temp_a2 = D_803C0740[arg0 >> 6][arg1 >> 6].unk6;
+    sp1C = temp_a2 * 4;
+    if (func_80298E08_6AA4B8(arg0, arg1) != 0) {
+        temp_lo = arg0 * arg1;
+        return (s16) (sp1C + *(&D_803C0430 + ((temp_lo & 7) << 6) +
+                              ((D_803C0430.unk204 + ((temp_lo + (arg0 * arg0)) * 8)) & 0x3F)));
+    }
+    return sp1C;
+}
+#endif
 
 s16 func_80298F78_6AA628(s16 arg0, s16 arg1) {
     s16 sp36;

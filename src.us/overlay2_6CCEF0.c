@@ -39,15 +39,133 @@ void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BCDA0_6CE450.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BCF38_6CE5E8.s")
+void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, struct061 *arg2) {
+    s16 temp_v1;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BD21C_6CE8CC.s")
+    switch (D_803D5530->unk162 & 0xF) {
+    case 1:
+    case 6:
+        arg2->unk0 = ((func_802B8C50_6CA300(-arg1, arg0) >> 8) << 5) >> 8;
+        arg2->unk2 = ((func_802B8C50_6CA300(arg1, arg0) >> 8) << 5) >> 8;
+        arg2->unk4 = ((func_802B8C50_6CA300(-arg1, -arg0) >> 8) << 5) >> 8;
+        arg2->unk6 = ((func_802B8C50_6CA300(arg1, -arg0) >> 8) << 5) >> 8;
 
-// uses jump table
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BD358_6CEA08.s")
+        if (arg0 * 3 < arg2->unk0) {
+            arg2->unk0 = arg0 * 3;
+        }
+        if (arg2->unk0 < arg0 * -3) {
+            arg2->unk0 = arg0 * -3;
+        }
+        if (arg0 * 3 < arg2->unk2) {
+            arg2->unk2 = arg0 * 3;
+        }
+        if (arg2->unk2 < arg0 * -3) {
+            arg2->unk2 = arg0 * -3;
+        }
+        if (arg0 * 3 < arg2->unk4) {
+            arg2->unk4 = arg0 * 3;
+        }
+        if (arg2->unk4 < arg0 * -3) {
+            arg2->unk4 = arg0 * -3;
+        }
+        if (arg0 * 3 < arg2->unk6) {
+            arg2->unk6 = arg0 * 3;
+        }
+        if (arg2->unk6 < arg0 * -3) {
+            arg2->unk6 = arg0 * -3;
+        }
+        break;
+    default:
+        break;
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 7:
+        arg2->unk0 = 0;
+        arg2->unk2 = 0;
+        arg2->unk4 = 0;
+        arg2->unk6 = 0;
+
+        temp_v1 = func_802B8C50_6CA300(-arg1, arg0) >> 16;
+        if (arg2->unk0 < temp_v1) {
+            arg2->unk0 = temp_v1 << 5;
+        }
+        temp_v1 = func_802B8C50_6CA300(arg1, arg0) >> 16;
+        if (arg2->unk2 < temp_v1) {
+            arg2->unk2 = temp_v1 << 5;
+        }
+        temp_v1 = func_802B8C50_6CA300(-arg1, -arg0) >> 16;
+        if (arg2->unk4 < temp_v1) {
+            arg2->unk4 = temp_v1 << 5;
+        }
+        temp_v1 = func_802B8C50_6CA300(arg1, -arg0) >> 16;
+        if (arg2->unk6 < temp_v1) {
+            arg2->unk6 = temp_v1 << 5;
+        }
+        break;
+    }
+}
+
+void func_802BD21C_6CE8CC(u16 arg0, struct061 *arg1) {
+    s16 tmp;
+
+    switch (D_803D5530->unk162 & 0xF) {
+    case 1:
+    case 6:
+        arg1->unk0 = ((func_802B8C50_6CA300(-arg0, 0) >> 8) << 5) >> 8;
+        arg1->unk2 = ((func_802B8C50_6CA300(arg0, 0) >> 8) << 5) >> 8;
+        break;
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 7:
+        arg1->unk0 = 0;
+        arg1->unk2 = 0;
+        arg1->unk4 = 0;
+        arg1->unk6 = 0;
+
+        tmp = func_802B8C50_6CA300(-arg0, 0) >> 16;
+        if (arg1->unk0 < tmp) {
+            arg1->unk0 = tmp << 5;
+        }
+        tmp = func_802B8C50_6CA300(arg0, 0) >> 16;
+        if (arg1->unk2 < tmp) {
+            arg1->unk2 = tmp << 5;
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+void func_802BD358_6CEA08(s16 *arg0) {
+    s16 tmp;
+
+    switch (D_803D5530->unk162 & 0xF) {
+    case 1:
+    case 6:
+        *arg0 = ((func_802B8C50_6CA300(0, 0) >> 8) << 5) >> 8;
+        break;
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 7:
+        *arg0 = 0;
+        tmp = func_802B8C50_6CA300(0, 0) >> 16;
+        if (*arg0 < tmp) {
+            *arg0 = tmp << 5;
+        }
+        break;
+    default:
+        break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BD40C_6CEABC.s")
-
+// uses jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BE1A0_6CF850.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BEAB0_6D0160.s")
@@ -239,7 +357,6 @@ void func_802C4448_6D5AF8(s16 arg0) {
 //     D_80203FE0[12].unk0 = D_80203FE0[4].unk0 + ((arg3 * 0xB) >> 4);
 //     D_80203FE0[12].unk2 = (D_80203FE0[4].unk2 + ((arg3 * 0xB) >> 4)) - sp3E;
 //     D_80203FE0[12].unk4 = D_80203FE0[4].unk4 - sp3C;
-//
 //
 //     if (D_803D5530->state == 101) {
 //         if ((D_803D5524->unk9C != SEAGULL2) && (D_803D5524->unk9C != VULTURE)) {

@@ -92,7 +92,7 @@ void king_rat_bugel_call(s16 arg0) {
     D_803D552C->unk2B4.unk4 = 1;
 }
 
-void func_8035FE6C_77151C(s16 arg0) {
+void king_rat_fart(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     D_803D552C->unk365 = 19;
 }

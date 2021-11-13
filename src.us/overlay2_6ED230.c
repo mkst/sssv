@@ -351,7 +351,53 @@ void func_802DD040_6EE6F0(s32 arg0) {
     D_803E1B02 = 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DD090_6EE740.s")
+s16 func_802DD090_6EE740(s16 arg0, s32 arg1, u8 arg2, s8 arg3, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, s32 argA, s32 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11) {
+    u16 i;
+    s32 res;
+
+    if (((D_803E1B00 + arg0) < 1000) && (D_803E1B02 < 120)) {
+        D_803E00C0[D_803E1B02].unk14 = arg0;
+        D_803E00C0[D_803E1B02].unk16 = D_803E1B00;
+        D_803E00C0[D_803E1B02].unk1C = ((arg0 + 1) * arg1) >> 0x10;
+        D_803E00C0[D_803E1B02].unk2E = arg3;
+        D_803E00C0[D_803E1B02].unk2F = arg4;
+        D_803E00C0[D_803E1B02].unk32 = arg8;
+        D_803E00C0[D_803E1B02].unk33 = arg9;
+        D_803E00C0[D_803E1B02].unk0 = argA;
+        D_803E00C0[D_803E1B02].unk4 = argB;
+        D_803E00C0[D_803E1B02].unk8 = argC;
+        D_803E00C0[D_803E1B02].unkA = argD;
+        D_803E00C0[D_803E1B02].unkC = argE;
+        D_803E00C0[D_803E1B02].unk18 = arg1;
+        D_803E00C0[D_803E1B02].unk20 = arg5;
+        D_803E00C0[D_803E1B02].unk24 = arg6;
+        D_803E00C0[D_803E1B02].unk28 = arg7;
+        D_803E00C0[D_803E1B02].unkE = argF;
+        D_803E00C0[D_803E1B02].unk10 = arg10;
+        D_803E00C0[D_803E1B02].unk12 = arg11;
+        D_803E00C0[D_803E1B02].unk2C = 0;
+        D_803E00C0[D_803E1B02].unk34 = 1;
+
+        for (i = 0; i < arg0; i++) {
+            D_803DA300[D_803E1B00 + i].unk0 = arg5;
+            D_803DA300[D_803E1B00 + i].unk4 = arg6;
+            D_803DA300[D_803E1B00 + i].unk8 = arg7;
+            D_803DA300[D_803E1B00 + i].unkC = 0;
+            D_803DA300[D_803E1B00 + i].unk10 = 0;
+            D_803DA300[D_803E1B00 + i].unk14 = 0;
+
+            if (arg2) {
+                arg7 += arg1;
+            } else {
+                arg7 -= arg1;
+            }
+        }
+        D_803E1B00 += arg0;
+        return D_803E1B02++;
+    } else {
+        return 0;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DD244_6EE8F4.s")
 
@@ -360,9 +406,9 @@ void func_802DD040_6EE6F0(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DD994_6EF044.s")
 
 void func_802DE770_6EFE20(s16 arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unkC += arg2;
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unk10 += arg3;
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unk14 += arg4;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unkC += arg2;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk10 += arg3;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk14 += arg4;
 }
 
 void func_802DE7F4_6EFEA4(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -376,12 +422,12 @@ void func_802DE7F4_6EFEA4(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
 void func_802DE890_6EFF40(s16 arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unk0 = arg2;
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unk4 = arg3;
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unk8 = arg4;
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unkC = arg5;
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unk10 = arg6;
-    D_803DA300[D_803E00D6[arg0].unk0 + arg1].unk14 = arg7;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk0 = arg2;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk4 = arg3;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk8 = arg4;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unkC = arg5;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk10 = arg6;
+    D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk14 = arg7;
 }
 
 void func_802DE914_6EFFC4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
@@ -403,7 +449,7 @@ void func_802DE914_6EFFC4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
 void func_802E497C_6F602C(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     struct088 *tmp;
 
-    tmp = &D_803DA300[D_803E00D6[arg0].unk0];
+    tmp = &D_803DA300[D_803E00C0[arg0].unk16];
 
     *arg1 = (tmp->unk0 - *(s32*)&D_803D5530->xPos) >> 14;
     *arg2 = (tmp->unk4 - *(s32*)&D_803D5530->zPos) >> 14;

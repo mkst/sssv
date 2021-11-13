@@ -259,7 +259,18 @@ void func_80355EFC_7675AC(void) {
 void func_80355F64_767614(void) {
     func_8037D994_78F044(20);
     if ((D_803D5540 & 1) == 0) {
-        create_particle_effect(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2), 21, 0, 0, (func_8012826C() + 0x30000) & 0x7FFF, 30, 1, 1, 0);
+        create_particle_effect(
+            D_803D5530->xPos,
+            D_803D5530->zPos,
+            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            21,
+            0,
+            0,
+            (func_8012826C() + FTOFIX32(3.0)) & (FTOFIX32(0.5) - 1),
+            30,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
+            0);
     }
 }
 
@@ -315,7 +326,7 @@ void func_80356348_7679F8(s16 arg0) {
     }
 }
 
-void func_803563C8_767A78(s16 arg0) {
+void racing_tortoise_turbo(s16 arg0) {
     if (arg0 != 0) {
         D_803D552C->unk36E = 20;
         D_803D552C->unk2EC = arg0;

@@ -1905,8 +1905,21 @@ void render_spaceship_interior(Gfx **arg0) {
     gDPPipeSync((*arg0)++);
 }
 
-// calls sprite macros
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_803962EC_7A799C.s")
+void func_803962EC_7A799C(Gfx **dl, s16 p_screen_x, s16 p_screen_y, s16 arg3, s16 arg4, u8* img, u16 width, u16 height) {
+    guSprite2DInit(&D_80204278->sprites[D_80204278->usedSprites], img, 0, width, width, height, 0, 2, 0, 0);
+    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&D_80204278->sprites[D_80204278->usedSprites]));
+    gSPSprite2DScaleFlip(
+        (*dl)++,
+        (f32)(((f32)width  / (((f32)arg3 - (f32)p_screen_x) * 0.25)) * 1024),
+        (f32)(((f32)height / (((f32)arg4 - (f32)p_screen_y) * 0.25)) * 1024),
+        0,
+        0);
+
+    gSPSprite2DDraw((*dl)++, p_screen_x, p_screen_y);
+    gDPPipeSync((*dl)++);
+
+    D_80204278->usedSprites += 1;
+}
 
 void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2) {
     struct004 *temp_v0;

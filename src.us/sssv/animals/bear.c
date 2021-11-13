@@ -72,8 +72,8 @@ void func_803279BC_73906C(void) {
             ((tmp[5] & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
             0,
             (tmp[6] & 0xF) + 0xF,
-            1,
-            1,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
             (func_8012826C() & 0x1F) + 0xF);
     } else {
         func_8037D994_78F044(16);
@@ -90,8 +90,8 @@ void func_803279BC_73906C(void) {
             ((tmp[5] & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
             0,
             (tmp[6] & 0xF) + 0xF,
-            1,
-            1,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
             (func_8012826C() & 0x1F) + 0xF);
     }
 }

@@ -107,7 +107,7 @@ void func_802E88C0_6F9F70(s16 arg0) {
     }
 }
 
-void func_802E89AC_6FA05C(void) {
+void fox_warp(void) {
     if (D_803D552C->unk365 != 20) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = 20;

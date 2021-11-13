@@ -35,13 +35,17 @@ void func_8031F8BC_730F6C(void) {
         tmp[5] = func_8012826C();
         tmp[6] = func_8012826C();
         create_particle_effect(
-            D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            D_803D5530->xPos,
+            D_803D5530->zPos,
+            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
             (tmp[3] & 1) + 25,
             ((tmp[4] & 0x7FFF) * 2) - 40000,
             ((tmp[5] & 0x7FFF) * 2) - 40000,
             0,
             (tmp[6] & 0xF) + 10,
-            1, 1, (func_8012826C() & 0xF) + 0xF);
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
+            (func_8012826C() & 0xF) + 0xF);
     } else {
         func_8037D994_78F044(16); // not animal id
         tmp[3] = func_8012826C();
@@ -49,13 +53,17 @@ void func_8031F8BC_730F6C(void) {
         tmp[5] = func_8012826C();
         tmp[6] = func_8012826C();
         create_particle_effect(
-            D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            D_803D5530->xPos,
+            D_803D5530->zPos,
+            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
             (tmp[3] & 1) + 25,
             ((tmp[4] & 0x7FFF) * 2) - 40000,
             ((tmp[5] & 0x7FFF) * 2) - 40000,
             0,
             (tmp[6] & 0xF) + 10,
-            1, 1, (func_8012826C() & 0xF) + 0xF);
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
+            (func_8012826C() & 0xF) + 0xF);
     }
 }
 
@@ -93,7 +101,7 @@ void func_8031FB78_731228(s16 arg0) {
     }
 }
 
-void func_8031FBE8_731298(s16 arg0) {
+void racing_mouse_turbo(s16 arg0) {
     if (arg0 != 0) {
         D_803D552C->unk36E = 16;
         D_803D552C->unk2EC = arg0;

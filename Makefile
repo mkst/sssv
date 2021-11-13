@@ -65,6 +65,7 @@ GCC      = gcc
 GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
 RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
+SPLAT    = $(TOOLS_DIR)/splat/split.py
 
 # Flags
 
@@ -154,8 +155,10 @@ no_verify: $(TARGET).z64
 
 progress: dirs $(VERIFY) progress.csv
 
-extract: check tools
-	$(PYTHON) $(TOOLS_DIR)/splat/split.py $(BASENAME).$(VERSION).yaml
+splat: $(SPLAT)
+
+extract: splat check tools
+	$(PYTHON) $(SPLAT) $(BASENAME).$(VERSION).yaml
 
 decompress: $(RNC_EXTRACTED)
 
@@ -270,6 +273,15 @@ progress.overlay1.csv: $(TARGET).elf
 progress.overlay2.csv: $(TARGET).elf
 	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map .overlay2 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 
+# fake targets for better error handling
+$(SPLAT):
+	$(info Repo cloned without submodules, attempting to fetch them now...)
+	@which git >/dev/null || echo "ERROR: git binary not found on PATH"
+	@which git >/dev/null
+	git submodule update --init --recursive
+
+baserom.$(VERSION).z64:
+	$(error Place the SSSV ROM, named '$@', in the root of this repo and try again.)
 
 ### Settings
 .SECONDARY:
