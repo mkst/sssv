@@ -97,11 +97,11 @@ void func_8029BA70_6AD120(Animal *arg0, Animal *arg1) {
 
 void func_8029D89C_6AEF4C(void) {
     s16 i;
-
-    D_803D2E08[0] = -1;
-    D_803D2E08[1] = -1;
+    // struct059
+    D_803D2E08.unk0 = -1;
+    D_803D2E08.unk1 = -1;
     for (i = 0; i < 64; i++) {
-        D_803D2E08[i+2] = -1;
+        D_803D2E08.unk2[i] = -1;
     }
 }
 
@@ -215,7 +215,6 @@ void func_8029E3CC_6AFA7C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029EF20_6B05D0.s")
 
 void func_8029F218_6B08C8(void) {
-
     gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
     gSPSetGeometryMode(D_801D9E8C++, D_803C0650_7D1D00);
     gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
@@ -247,7 +246,7 @@ void func_8029F3CC_6B0A7C(void) {
     D_803D45D0 = -1;
     D_803D4BB1 = -1;
 
-    for (i = 0; i < 0x30; i++) {
+    for (i = 0; i < 48; i++) {
         D_803D3448.unk2[i] = -1;
         D_803D3A20.unk2[i] = -1;
         D_803D3FF8.unk2[i] = -1;

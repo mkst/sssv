@@ -304,20 +304,12 @@ void func_8036D30C_77E9BC(void) {
             load_animal(VULTURE);
             D_803D552C->yPos -= D_803D552C->unk308;
             if (D_803D5530->unk160 == 2) {
-                if ((func_80310F58_722608(D_803D552C->xPos, D_803D552C->zPos) >> 16) < D_803D552C->yPos) {
-                    D_803D552C->yPos = D_803D552C->yPos;
-                } else {
-                    D_803D552C->yPos = func_80310F58_722608(D_803D552C->xPos, D_803D552C->zPos) >> 16;
-                }
+                D_803D552C->yPos = MAX(D_803D552C->yPos, func_80310F58_722608(D_803D552C->xPos, D_803D552C->zPos) >> 16);
             } else {
-                if ((func_8031124C_7228FC(D_803D552C->xPos, D_803D552C->zPos) >> 0x10) < D_803D552C->yPos) {
-                    D_803D552C->yPos = D_803D552C->yPos;
-                } else {
-                    D_803D552C->yPos = func_8031124C_7228FC(D_803D552C->xPos, D_803D552C->zPos) >> 16;
-                }
+                D_803D552C->yPos = MAX(D_803D552C->yPos, func_8031124C_7228FC(D_803D552C->xPos, D_803D552C->zPos) >> 16);
             }
         } else if (D_803D5530->unk162 == 2) {
-            if (D_803D5528->skillBEnergy[0] >= 401) {
+            if (D_803D5528->skillBEnergy[0] > 400) {
                 D_803D5528->skillBEnergy[0] -= 400;
                 if (func_803224C4_733B74(-62, 0, 0, 15, 20, 0, 0, 19) != 0) {
                     play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);

@@ -137,7 +137,7 @@ void display_zone_select_screen(void) {
     gDPPipeSync(D_801D9E7C++);
 
     load_default_display_list(&D_801D9E7C);
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_ZONE_SELECT), 0x18, 0x1F, 24.0f, 16.0f, -1);
 
@@ -347,7 +347,7 @@ void display_zone_select_screen(void) {
 
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
 
     // currentLevel = D_803F7DA8.currentLevel; // 0-indexed
     tmp_level = D_803F7DA8.currentLevel;
@@ -496,7 +496,7 @@ void func_8039A2DC_7AB98C(void) {
 
     load_default_display_list(&D_801D9E7C);
 
-    select_font(0U, 2U, 0U, 0U);
+    select_font(0U, FONT_COMIC_SANS, 0U, 0U);
     set_menu_text_color(0xFF, 0xFF, 0U, 0xFF);
     if (D_8023F2A0.language == LANG_FRENCH) {
         func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_BANK_SELECT), 24, 31, 22.0f, 16.0f, -1);
@@ -703,7 +703,7 @@ void func_8039A2DC_7AB98C(void) {
 
         draw_rectangle(&D_801D9E7C, x_offset - 38, y_offset - 24, x_offset + 36, y_offset + 20, 0, 0, 0, 0xA8);
         load_default_display_list(&D_801D9E7C);
-        select_font(0U, 2U, 0U, 0U);
+        select_font(0U, FONT_COMIC_SANS, 0U, 0U);
 
         if (D_803F7DA8.unk30 == 0) { // SELECT
             set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU); // white
@@ -735,7 +735,7 @@ void func_8039A2DC_7AB98C(void) {
             memcpy_sssv((u8 *) &D_8023F2E0[D_803F7DA8.bank], (u8 *) &D_8023F260, 0x40U);
             write_eeprom((s16) D_803F7DA8.unk31);
             D_803F7DA8.unk2F = 0;
-            play_sound_effect(0x8F, 0, 0x5000, 1.0f, 64);
+            play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
         } else {
             if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1)) {
                 play_sound_effect(164, 0, 0x5000, 1.0f, 64);
@@ -743,14 +743,14 @@ void func_8039A2DC_7AB98C(void) {
             }
             if ((cont_left != 0) && (((D_803F7DA8.unk31 == 1)) || (D_803F7DA8.unk31 == 3))) {
                 D_803F7DA8.unk31 = (s8) (D_803F7DA8.unk31 - 1);
-                play_sound_effect(0x92, 0, 0x5000, 1.0f, 64);
+                play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
                 if (D_803F7DA8.bank == D_803F7DA8.unk31) {
                     D_803F7DA8.unk31 += 1;
                 }
             }
             if ((cont_right != 0) && (((D_803F7DA8.unk31 == 0)) || (D_803F7DA8.unk31 == 2))) {
                 D_803F7DA8.unk31 = (s8) (D_803F7DA8.unk31 + 1);
-                play_sound_effect(0x92, 0, 0x5000, 1.0f, 64);
+                play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
 
                 if (D_803F7DA8.bank == D_803F7DA8.unk31) {
                     D_803F7DA8.unk31 -= 1;
@@ -758,7 +758,7 @@ void func_8039A2DC_7AB98C(void) {
             }
             if ((cont_up != 0) && (((D_803F7DA8.unk31 == 2)) || (D_803F7DA8.unk31 == 3))) {
                 D_803F7DA8.unk31 -= 2;
-                play_sound_effect(0x92, 0, 0x5000, 1.0f, 64);
+                play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
 
                 if (D_803F7DA8.bank == D_803F7DA8.unk31) {
                     D_803F7DA8.unk31 += 2;
@@ -766,7 +766,7 @@ void func_8039A2DC_7AB98C(void) {
             }
             if ((cont_down != 0) && (((D_803F7DA8.unk31 == 0)) || (D_803F7DA8.unk31 == 1))) {
                 D_803F7DA8.unk31 += 2;
-                play_sound_effect(0x92, 0, 0x5000, 1.0f, 64);
+                play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
                 if (D_803F7DA8.bank == D_803F7DA8.unk31) {
                     D_803F7DA8.unk31 -= 2;
                 }
@@ -789,7 +789,7 @@ void func_8039A2DC_7AB98C(void) {
             }
             draw_rectangle(&D_801D9E7C, (x_offset - 0x1E), (y_offset - 0x18), (x_offset + 0x1C), (s16) (y_offset + 0x14), (u8) 0, (u8) 0, (u8) 0, (u8) 0xA8);
             load_default_display_list(&D_801D9E7C);
-            select_font(0U, 2U, 0U, 0U);
+            select_font(0U, FONT_COMIC_SANS, 0U, 0U);
             set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_COPY2), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_TO), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
@@ -811,16 +811,16 @@ void func_8039A2DC_7AB98C(void) {
             }
         } else {
             if (((gControllerInput->button & B_BUTTON)) && (D_802912E0 == 1)) {
-                play_sound_effect(164, 0, 0x5000, 1.0f, 64);
+                play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
                 D_803F7DA8.unk2F = 0;
             }
             if ((cont_up != 0) || (cont_down != 0)) {
                 D_803F7DA8.unk30 = (1 - D_803F7DA8.unk30);
                 if (D_803F7DA8.unk30 == 0) { // SELECT
-                    play_sound_effect(0x90, 0, 0x5000, 1.0f, 64);
+                    play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
                 }
                 if (D_803F7DA8.unk30 == 1) { // COPY
-                    play_sound_effect(0x92, 0, 0x5000, 1.0f, 64);
+                    play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
                 }
             }
             // temp_v0_9 = D_803F7DA8.bank;
@@ -844,7 +844,7 @@ void func_8039A2DC_7AB98C(void) {
             load_default_display_list(&D_801D9E7C);
             gDPSetAlphaCompare(D_801D9E7C++, G_AC_NONE);
 
-            select_font(0U, 2U, 0U, 0U);
+            select_font(0U, FONT_COMIC_SANS, 0U, 0U);
 
             if (D_803F7DA8.unk30 == 0) { // SELECT
                 set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
@@ -864,7 +864,7 @@ void func_8039A2DC_7AB98C(void) {
     }
 
     load_default_display_list(&D_801D9E7C);
-    select_font(0U, 2U, 1U, 0U);
+    select_font(0U, FONT_COMIC_SANS, 1U, 0U);
     set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
 
     if ((D_8023F2A0.language == LANG_FRENCH) || (D_8023F2A0.language == LANG_SPANISH)) {

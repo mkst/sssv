@@ -34,7 +34,7 @@ void func_8038F708_7A0DB8(void) {
         set_music_volume(D_8023F2A0.musicVol);
     }
     D_803F66A4 = 1;
-    func_802F07D0_701E80();
+    reset_screen_transition();
     func_802F07E8_701E98(3);
     D_8028645C = 0;
 }
@@ -153,8 +153,7 @@ void func_8038FB68_7A1218(void) {
     D_803C0422 = 0;
 }
 
-// load_level
-void func_8038FB94_7A1244(s16 arg0) {
+void load_level(s16 arg0) {
     D_803F671C = 0;
     D_803F6680.unk2D = 1;
     D_803F6680.unk27 = 1;
@@ -168,8 +167,7 @@ void func_8038FB94_7A1244(s16 arg0) {
     D_803E1BC0 = 1;
 }
 
-// load_intro
-void func_8038FC04_7A12B4(void) {
+void load_intro(void) {
     D_803F6680.unk2D = 1;
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
@@ -217,6 +215,7 @@ void func_8038FD74_7A1424(void) {
     D_803C0426 = 0;
 
     reset_credits_counters();
+    // load lang33.dat
     load_level_text_data(D_8023F2A0.language, 32, D_80231AA0, D_80231D5C);
     generate_stars();
 
@@ -249,15 +248,15 @@ void func_8038FD74_7A1424(void) {
     D_801546E0 = 2048;
     D_8015517C = 1.0f;
 
-    func_802F07D0_701E80(); // reset something
+    reset_screen_transition(); // reset something
     func_802F07E8_701E98(2);
 
-    if (D_80204288 == 0xA) {
+    if (D_80204288 == 10) {
         // load intro
-        func_8038FC04_7A12B4();
+        load_intro();
     } else if (D_80204288 != 0) {
         // load level
-        func_8038FB94_7A1244(D_803B6870[D_80204288]);
+        load_level(D_803B6870[D_80204288]);
     }
 }
 
@@ -361,7 +360,7 @@ void func_8038FF68_7A1618(void) {
     case 0:
         switch (D_803F6680.unk18) {
         case -4:
-            func_802F07D0_701E80();
+            reset_screen_transition();
             func_802F07E8_701E98(2);
             gLevelIndex = 1;
             func_8039661C_7A7CCC(12, 4, 0);
@@ -562,7 +561,7 @@ void func_8038FF68_7A1618(void) {
             if (func_80396714_7A7DC4()) {
                 D_803F6680.unk1A = 0;
                 D_803F6680.unk18 += 1;
-                func_802F07D0_701E80();
+                reset_screen_transition();
                 func_802F07E8_701E98(3);
             }
             if (func_80396748_7A7DF8()) {
@@ -570,7 +569,7 @@ void func_8038FF68_7A1618(void) {
                 D_803B683C_7C7EEC = D_803B6730_7C7DE0;
                 func_8039264C_7A3CFC();
                 D_803B683C_7C7EEC = D_803B6730_7C7DE0;
-                func_802F07D0_701E80();
+                reset_screen_transition();
                 func_802F07E8_701E98(3);
             }
             break;
@@ -726,7 +725,7 @@ void func_8038FF68_7A1618(void) {
             determine_available_levels();
             D_803F6680.unk2B = 1U;
             D_803F2D30.score = 0;
-            func_802F07D0_701E80();
+            reset_screen_transition();
             D_803B683C_7C7EEC = D_803B6730_7C7DE0;
             D_803F6680.unk1A = 0;
             D_803F6680.unk2A = 1U;
@@ -873,7 +872,7 @@ void func_8038FF68_7A1618(void) {
             if (func_80396714_7A7DC4()) {
                 D_803F6680.unk18 += 1;
                 D_803F6680.unk1A = 0;
-                func_802F07D0_701E80();
+                reset_screen_transition();
                 func_802F07E8_701E98(3);
             }
             break;
@@ -960,7 +959,7 @@ void func_803925D0_7A3C80(u16 *src, u16 *dst) {
     for (row = 0; row < 240; row++) {
         for (col = 0; col < D_802053E0.unkA; col += 2) {
             *_dst++ = val = *_src++;
-            *_src++;
+            _src++;
         }
         _src += len;
     }
@@ -992,16 +991,14 @@ void load_mission_brief_screen(s16 vertical_offset) {
     gDPPipeSync(D_801D9E7C++);
 
     load_default_display_list(&D_801D9E7C);
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // YELLOW
     func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_MISSION_BRIEF), 24, 30, 24.0f, 16.0f, -1);
 
     vertical_offset += 52;
-    horizontal_offset = 23;
 
     D_803B6868_7C7F18 = 12.0f;  // char width
     D_803B686C_7C7F1C = 13.0f;  // char height
-
 
     if (D_8023F2A0.language == LANG_JAPANESE) {
         D_803B6868_7C7F18 = 14.0f;
@@ -1012,18 +1009,18 @@ void load_mission_brief_screen(s16 vertical_offset) {
     is_first_line = 0;
 
     // print title e.g. "Have a Nice Day!"
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-    vertical_offset = func_8012FBEC(D_801D9E98, D_803F2E34, horizontal_offset, vertical_offset, 16.0f, 16.0f, 296, 14);
+    vertical_offset = func_8012FBEC(D_801D9E98, D_803F2E34, 23, vertical_offset, 16.0f, 16.0f, 296, 14);
     vertical_offset += 24;
 
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
 
     for (i = 0; i < D_803F63C0; i++) {
         // load mission task text
         mission_brief_text = &D_803F34C0[D_803F3330[i]];
         // reset horizontal offset
-        horizontal_offset = 23;
+            horizontal_offset = 23;
         if (mission_brief_text[0] == 307) {
             if (mission_brief_text[1] == 307) { // <MISSION_OBJECTIVE>
                 horizontal_offset = 43;
@@ -1035,7 +1032,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
                     // '☑️' (green text)
                     set_menu_text_color(0, 200, 0, 0xFF);
                     // "%c"
-                    sprintf(sp8C, D_803C0190_7D1840, 93);
+                    sprintf((char*)sp8C, D_803C0190_7D1840, 93);
                     prepare_text(sp8C, sp64);
                     // FIXME!
                     vertical_offset = func_8012FBEC(D_801D9E98, sp64, 23, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
@@ -1044,7 +1041,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
                 } else {
                     // '☐' (yellow text)
                     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
-                    sprintf(sp8C, D_803C0194_7D1844, 94);
+                    sprintf((char*)sp8C, D_803C0194_7D1844, 94);
                     prepare_text(sp8C, sp64);
                     // FIXME
                     vertical_offset = func_8012FBEC(D_801D9E98, sp64, 23, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
@@ -1055,7 +1052,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
                 set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
             }
             // write out task e.g. "Get FOUR sheep into the pen"
-            vertical_offset = func_8012FBEC(D_801D9E98, mission_brief_text + 2, horizontal_offset, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
+            vertical_offset = func_8012FBEC(D_801D9E98, &mission_brief_text[2], horizontal_offset, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
             vertical_offset += D_803B686C_7C7F1C + 2.0f;
         }
     }
@@ -1155,7 +1152,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
     load_default_display_list(&D_801D9E7C);
 
     // write "OPTIONS" in yellow at top of screen
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_OPTIONS), 24, 31, 24.0f, 16.0f, -1);
 
@@ -1274,7 +1271,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         D_803F6708, // y0
         D_803F670A, // x1
         D_803F670C, // y1
-        D_800C5A40, // img?
+        D_800C5A40, // current framebuffer?
         D_802053E0.unkA >> 1, // half screen width?
         240);                 // height?
 
@@ -1286,7 +1283,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         gDPPipeSync(D_801D9E7C++);
 
         load_default_display_list(&D_801D9E7C);
-        select_font(0, 2, 1, 0);
+        select_font(0, FONT_COMIC_SANS, 1, 0);
         set_menu_text_color(160, 160, 160, 0xFF);
         if (D_803F7DD5 != 31) {
             // write level title
@@ -1295,7 +1292,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         gDPPipeSync(D_801D9E7C++);
 
         load_default_display_list(&D_801D9E7C);
-        select_font(0, 2, 0, 0);
+        select_font(0, FONT_COMIC_SANS, 0, 0);
         if (D_803F6680.unk14 == PAUSE_MENU_OPTION_CONTINUE) {
             set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
         } else {
@@ -1787,8 +1784,8 @@ void func_80395480_7A6B30(void) {
     gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
 
     guPerspective(&D_80204278->unk37410, &D_803C0658, 45.0f, 1.0f, 2.0f, 2000.0f, 1.0f);
-    guRotateRPY(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
-    guRotateRPY(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
+    guScale(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
+    guScale(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
 
     guLookAt(&D_80204278->unk37490, D_803B683C.unk0, (D_803F6700 / 700.0f) + D_803B683C.unk4, D_803B683C.unk8, D_803B683C.unkC, D_803B683C.unk10, D_803B683C.unk14, 0.0f, 0.0f, 1.0f);
     func_80299AA8_6AB158(D_80204278, &D_801D9E7C);
@@ -1814,8 +1811,8 @@ void func_80395854_7A6F04(void) {
     gSPViewport(D_801D9E7C++, &D_803B66F0);
 
     guPerspective(&D_80204278->unk37410, &D_803C0658, 45.0f, 0.92f, 2.0f, D_803C0388, 1.0f);
-    guRotateRPY(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
-    guRotateRPY(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
+    guScale(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
+    guScale(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
     guLookAt(&D_80204278->unk37490, D_803B683C.unk0, D_803B683C.unk4, D_803B683C.unk8, D_803B683C.unkC, D_803B683C.unk10, D_803B683C.unk14, 0.0f, 0.0f, 1.0f);
     func_80299AA8_6AB158(D_80204278, &D_801D9E7C);
 

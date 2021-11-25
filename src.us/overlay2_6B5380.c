@@ -75,7 +75,7 @@ void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
 
 void func_802A40EC_6B579C(void) {
     s16 tmp;
-    if ((D_803D5524->unkA0 & 0xC00) != 0) {
+    if (D_803D5524->unkA0 & 0xC00) {
         tmp = D_803D5524->unkBA;
     } else {
         tmp = D_803D5524->unkB8;
@@ -621,7 +621,7 @@ void func_802A5EF8_6B75A8(u16 rotation, s8 arg1) {
 
 void func_802A5F9C_6B764C(u16 rotation, s8 arg1) {
     D_803D5530->yRotation = rotation;
-    D_803D5530->state = 0x90;
+    D_803D5530->state = 144;
     D_803D552C->unk31A = 0;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
@@ -632,7 +632,7 @@ void func_802A5F9C_6B764C(u16 rotation, s8 arg1) {
 
 void func_802A6044_6B76F4(u16 rotation, s8 arg1) {
     D_803D5530->yRotation = rotation;
-    D_803D5530->state = 0x8F;
+    D_803D5530->state = 143;
     D_803D552C->unk31A = 0;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
@@ -669,7 +669,7 @@ void func_802A613C_6B77EC(u16 rotation) {
 }
 
 void func_802A6198_6B7848(u16 rotation) {
-    D_803D5530->state = 0x69;
+    D_803D5530->state = 105;
     D_803D5530->yRotation = rotation;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
@@ -678,7 +678,7 @@ void func_802A6198_6B7848(u16 rotation) {
 }
 
 void func_802A61EC_6B789C(u16 rotation) {
-    D_803D5530->state = 0x6A;
+    D_803D5530->state = 106;
     D_803D5530->yRotation = rotation;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
@@ -687,7 +687,7 @@ void func_802A61EC_6B789C(u16 rotation) {
 }
 
 void func_802A623C_6B78EC(s16 arg0, s16 arg1) {
-    D_803D5530->state = 0xDD;
+    D_803D5530->state = 221;
     D_803D552C->unk308 = arg0;
     D_803D552C->unk30A = arg1 * 16;
     D_803D552C->unk368 = 0;
@@ -738,20 +738,20 @@ void func_802A63C0_6B7A70(void) {
 //     case 6:
 //         D_803D5530->state = 5;
 //         break;
-//     case 0x65:
-//     case 0x66:
-//     case 0x67:
-//     case 0x68:
-//     case 0x69:
-//     case 0x6A:
-//         D_803D5530->state = 0x67;
+//     case 101:
+//     case 102:
+//     case 103:
+//     case 104:
+//     case 105:
+//     case 106:
+//         D_803D5530->state = 103;
 //         break;
 //     case 0xB5:
 //     case 0xB6:
 //     case 0xB7:
 //     case 0xB8:
 //     case 0xB9:
-//         D_803D5530->state = 0xB8;
+//         D_803D5530->state = 184;
 //         break;
 //     }
 // }

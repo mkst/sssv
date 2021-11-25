@@ -47,7 +47,7 @@ void func_80327908_738FB8(void) {
     if ((D_803D5530->state != 0xDD) && (D_803D552C->unk320 == 0)) {
         if (func_802E414C_6F57FC(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, &sp2E, &sp2D)) {
             func_802A623C_6B78EC(sp2E, sp2D);
-            D_803D552C->unk365 = 0;
+            D_803D552C->unk365 = ATTACK_NONE;
         }
     } else if ((D_803D5530->state == 0xDD) && (D_801D9ED8.unkFFB8 == 0) && (D_801D9ED8.unkFFB2 != 0)) {
         func_802A628C_6B793C();

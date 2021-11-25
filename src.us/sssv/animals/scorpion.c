@@ -86,7 +86,7 @@ void func_80379070_78A720(void) {
             D_803D552C->unk365 = 38;
             D_803D552C->unk32A = D_803D5544;
             D_803D552C->unk30C = D_803D552C->unk330->yPos + (D_803D552C->unk330->unk42 >> 1);
-            func_801373CC(0, 0x19, 5, 0x3C, func_8029B7D0_6ACE80(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
+            do_rumble(0, 25, 5, 60, distance_from_player(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
         }
     } else {
         recharge_skill(1);

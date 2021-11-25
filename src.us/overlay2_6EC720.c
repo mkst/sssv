@@ -51,17 +51,18 @@
 //
 //     // falls apart here
 //     foo = arg5;
-//     if (arg5 < 17) {
+//     if (foo < 17) {
 //         phi_v1 = foo + (temp_t9_2 * 17);
 //         phi_a0 = D_803A2D90_7B4440[phi_v1].unk0;
 //         phi_a1 = D_803A2D90_7B4440[phi_v1].unk2;
 //     } else {
-//         phi_v1 = (temp_t9_2 * 17) + ((32 - foo) & 0xffff);
+//         phi_v1 = (temp_t9_2 * 17);
+//         phi_v1 += (32 - arg5) & 0xffff;
 //         phi_a0 = D_803A2D90_7B4440[phi_v1].unk0;
 //         phi_a1 = D_803A2D90_7B4440[phi_v1].unk2;
 //     }
 //
-//     D_80203FE0[arg1].unk0 = D_80203FE0[arg0].unk0 + (((phi_a0 * tmp3) + ((0, phi_a1) * sp40)) / 256);
+//     D_80203FE0[arg1].unk0 = D_80203FE0[arg0].unk0 + (((phi_a0 * tmp3) + (phi_a1 * sp40)) / 256);
 //     D_80203FE0[arg1].unk2 = D_80203FE0[arg0].unk2 + (((phi_a0 * tmp1) + (phi_a1 * sp3E)) / 256);
 //     D_80203FE0[arg1].unk4 = D_80203FE0[arg0].unk4 + (((phi_a0 * tmp2) + (phi_a1 * sp3C)) / 256);
 //     if ((D_80203FE0[arg1].unk0 == D_80203FE0[arg0].unk0) &&
@@ -114,12 +115,12 @@ void func_802DB7C4_6ECE74(u8 *arg0, u8 *arg1, s16 *arg2, struct076 *arg3) {
     if (D_803F2ECC < 31) {
         while (*arg0 != *arg1) {
             func_802DB070_6EC720(*arg0++, *arg1++, arg3->unk0, arg3->unk2, *arg2++, D_803F2ECC);
-            *arg3++;
+            arg3++;
         }
     } else {
         while (*arg0 != *arg1) {
             func_802DB494_6ECB44(*arg0++, *arg1++, arg3->unk0, arg3->unk2, *arg2++);
-            *arg3++;
+            arg3++;
         }
     }
 }
@@ -137,7 +138,7 @@ void func_802DB8DC_6ECF8C(void) {
 }
 
 void func_802DB940_6ECFF0(s16 *arg0, s16 arg1, u16 arg2) {
-    if (arg1 != *arg0) {
+    if (*arg0 != arg1) {
         s16 tmp = arg1 - *arg0;
         if (tmp < 0) {
             tmp += 256;
@@ -163,7 +164,7 @@ void func_802DB940_6ECFF0(s16 *arg0, s16 arg1, u16 arg2) {
 }
 
 void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 arg2) {
-    if (arg1 != *arg0) {
+    if (*arg0 != arg1) {
         if (*arg0 < arg1) {
             *arg0 += arg2;
             if (arg1 < *arg0) {

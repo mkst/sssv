@@ -48,7 +48,10 @@
 #define DESERT_BIOME                3
 #define CITY_BIOME                  4
 
-
+// fonts
+#define FONT_DEFAULT                0
+#define FONT_COMIC_SANS             2
+#define FONT_LCD                    3
 
 // states
 #define STATE_STANDING               2
@@ -122,6 +125,18 @@
 #define PAUSE_MENU_OPTION_SFX       5
 #define PAUSE_MENU_OPTION_LANGUAGE  6
 #define PAUSE_MENU_OPTION_LEAVE_SV  7
+
+// attacks?
+
+#define ATTACK_NONE         0
+#define ATTACK_FROG_TONGUE  2
+#define ATTACK_ROAR         8
+#define ATTACK_SPIT         17
+#define ATTACK_BITE         18
+#define ATTACK_FART         19
+#define ATTACK_SNOWBALL     32
+#define ATTACK_MOUSE_TAIL   40
+
 
 // extra gbi macros
 

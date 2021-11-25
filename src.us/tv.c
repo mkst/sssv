@@ -154,46 +154,46 @@ void func_8012AD08(void) {
 
 // file split here?
 
-void draw_rectangle(Gfx **arg0, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 alpha) {
+void draw_rectangle(Gfx **dl, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, u8 alpha) {
     s32 color;
 
     if (alpha != 0) {
-        gDPPipeSync((*arg0)++);
-        gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 0, 0, 320, 241);
+        gDPPipeSync((*dl)++);
+        gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 0, 0, 320, 241);
 
-        gDPPipeSync((*arg0)++);
-        gDPSetAlphaCompare((*arg0)++, G_AC_NONE);
+        gDPPipeSync((*dl)++);
+        gDPSetAlphaCompare((*dl)++, G_AC_NONE);
 
         if (alpha == 0xFF) {
             // rgba5551
-            gDPPipeSync((*arg0)++);
-            gDPSetCycleType((*arg0)++, G_CYC_FILL);
-            gDPPipeSync((*arg0)++);
+            gDPPipeSync((*dl)++);
+            gDPSetCycleType((*dl)++, G_CYC_FILL);
+            gDPPipeSync((*dl)++);
 
-            gDPSetRenderMode((*arg0)++, G_RM_NOOP, G_RM_NOOP2);
+            gDPSetRenderMode((*dl)++, G_RM_NOOP, G_RM_NOOP2);
 
-            gDPSetFillColor((*arg0)++, GPACK_RGBA5551(r, g, b, 1) << 16 | GPACK_RGBA5551(r, g, b, 1));
-            gDPFillRectangle((*arg0)++, x0, y0, x1 - 1, y1 - 1);
+            gDPSetFillColor((*dl)++, GPACK_RGBA5551(r, g, b, 1) << 16 | GPACK_RGBA5551(r, g, b, 1));
+            gDPFillRectangle((*dl)++, x0, y0, x1 - 1, y1 - 1);
         } else {
             // rgba32
-            gDPPipeSync((*arg0)++);
-            gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
-            gDPSetColorDither((*arg0)++, G_CD_NOISE);
-            gDPSetAlphaDither((*arg0)++, G_AD_DISABLE);
+            gDPPipeSync((*dl)++);
+            gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
+            gDPSetColorDither((*dl)++, G_CD_NOISE);
+            gDPSetAlphaDither((*dl)++, G_AD_DISABLE);
 
-            gDPSetPrimColor((*arg0)++, 0, 0, r, g, b, alpha);
+            gDPSetPrimColor((*dl)++, 0, 0, r, g, b, alpha);
 
             if (D_80204288 == 10) {
-                gDPSetRenderMode((*arg0)++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+                gDPSetRenderMode((*dl)++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
             } else {
-                gDPSetRenderMode((*arg0)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+                gDPSetRenderMode((*dl)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
             }
 
-            gDPSetCombineMode((*arg0)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
-            gDPFillRectangle((*arg0)++, x0, y0, x1, y1);
+            gDPSetCombineMode((*dl)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+            gDPFillRectangle((*dl)++, x0, y0, x1, y1);
         }
 
-        gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
-        gDPPipeSync((*arg0)++);
+        gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+        gDPPipeSync((*dl)++);
     }
 }

@@ -13,22 +13,19 @@
 //     s16 selected;
 //     s16 *dst;
 //     s16 *src;
-//     u8 *flagTexture;
+//     uSprite *flagTexture;
 //
 //     // init?
 //     if (arg0 == 0) {
 //         used = 0;
 //         // copy in language strings
-//         for (lang = 0; (lang < 9) != 0; lang++) { // helps with regalloc
+//         for (lang = 0; lang < 9; lang++) { // '!= 0' helps with regalloc
 //             // load lang33.dat
 //             load_level_text_data(lang, 32, D_80231AA0, D_80231D5C);
 //             if ((lang != LANG_JAPANESE) && (lang != LANG_AMERICAN)) {
 //                 src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
 //                 dst = D_803B0400[used];
-//                 while (*src != EOM) {
-//                     *dst++ = *src++;
-//                 }
-//                 *dst = EOM; // 0x7530 // 'u0'
+//                 COPY_MESSAGE(src, dst);
 //                 used += 1;
 //             }
 //         }
@@ -86,25 +83,25 @@
 //
 //     // previous selection?
 //     switch (D_803B0596) {
-//     case 0:
+//     case 0: // Dutch
 //         flagTexture = D_80301520_6A4BC0;
 //         break;
-//     case 1:
+//     case 1: // English
 //         flagTexture = D_802FD920_6A0FC0;
 //         break;
-//     case 2:
+//     case 2: // French
 //         flagTexture = D_802FE520_6A1BC0;
 //         break;
-//     case 3:
+//     case 3: // German
 //         flagTexture = D_802FF120_6A27C0;
 //         break;
-//     case 4:
+//     case 4: // Italian
 //         flagTexture = D_802FFD20_6A33C0;
 //         break;
-//     case 5:
+//     case 5: // Portugese
 //         flagTexture = D_80300920_6A3FC0;
 //         break;
-//     case 6:
+//     case 6: // Spanish
 //         flagTexture = D_80302120_6A57C0;
 //         break;
 //     }
@@ -123,14 +120,12 @@
 //     load_segments(&D_801D9E7C, D_80204278);
 //     gDPPipeSync(D_801D9E7C++);
 //
-//     if (!D_803B0594) {}; // regalloc help
-//
 //     // write language strings
 //     verticalOffset += 16;
 //     load_default_display_list(&D_801D9E7C);
-//     select_font(0, 2, 1, 0);
+//     select_font(0, FONT_COMIC_SANS, 1, 0);
 //
-//     for (lang = 0; (lang < 7) != 0; lang++) {
+//     for (lang = 0; lang < 7; lang++) {
 //         if (lang == D_803B0590) {
 //             set_menu_text_color(255, 255, 255, 255); // selected
 //         } else {
@@ -176,19 +171,19 @@
 //         (gControllerInput->button & START_BUTTON)) {
 //         switch (D_803B0590) {
 //         case 0: // Dutch
-//             return 1;
+//             return LANG_DUTCH;
 //         case 1: // English
-//             return 2;
+//             return LANG_ENGLISH;
 //         case 2: // French
-//             return 3;
+//             return LANG_FRENCH;
 //         case 3: // German
-//             return 4;
+//             return LANG_GERMAN;
 //         case 4: // Italian
-//             return 5;
+//             return LANG_ITALIAN;
 //         case 5: // Portugese
-//             return 7;
+//             return LANG_PORTUGESE;
 //         case 6: // Spanish
-//             return 8;
+//             return LANG_SPANISH;
 //         }
 //     }
 //     return -1;

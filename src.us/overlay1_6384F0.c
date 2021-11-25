@@ -20,8 +20,8 @@ void func_80294EB8_638558(Gfx **dl) {
 
     gSPPerspNormalize((*dl)++, *D_80302E60);
 
-    guRotateRPY(&D_80204278->unk37450, D_80299DDC, D_80299DE0, D_80299DE4);
-    guRotateRPY(&D_80204278->unk374D0, D_80299DDC, D_80299DE0, D_80299DE4);
+    guScale(&D_80204278->unk37450, D_80299DDC, D_80299DE0, D_80299DE4);
+    guScale(&D_80204278->unk374D0, D_80299DDC, D_80299DE0, D_80299DE4);
     guLookAt(&D_80204278->unk37490, D_80299DB8, D_80299DBC, D_80299DC0, 0.0f, 0.0f, 0.0f, D_80299DE8, D_80299DEC, D_80299DF0);
 
     gSPMatrix((*dl)++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -50,21 +50,13 @@ void func_802950B8_638758(void) {
     // load "lang34.dat"
     load_level_text_data(D_8023F2A0.language, 33, D_80231AA0, D_80231D5C);
 
-    // load "CONTROLLER NOT CONNECTED" text
-    src = get_message_address_by_id(16); // message 16
+    src = get_message_address_by_id(MSG_CONTROLLER_NOT_CONNECTED);
     dst = D_802042F0;
-    while (*src != EOM) {
-        *dst++ = *src++;
-    }
-    *dst = EOM;
+    COPY_MESSAGE(src, dst);
 
-    // load "PRESS START" text
-    src = get_message_address_by_id(14); // message 14
+    src = get_message_address_by_id(MSG_PRESS_START);
     dst = D_80204368;
-    while (*src != EOM) {
-        *dst++ = *src++;
-    }
-    *dst = EOM;
+    COPY_MESSAGE(src, dst);
 }
 
 void func_80295234_6388D4(void) {
@@ -166,7 +158,6 @@ void func_802958B8_638F58(Gfx **dl) {
 //         //
 //     };
 //
-//
 //     func_801366BC(&D_801D9E7C, 0xFF, 0xFF, 0xFF, 0xFF);
 //     draw_sprite(
 //         &D_801D9E7C,
@@ -242,7 +233,7 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
 
 void func_80295EB0_639550(s32 arg0) {
     func_801366BC(&D_801D9E7C, 0xFF, 0xFF, 0xFF, 0xFF);
-    draw_sprite(&D_801D9E7C, D_8032AE88, 160, 128, 320, 241, 0, 0, arg0, 0, 16);
+    draw_sprite(&D_801D9E7C, (uSprite *)D_8032AE88, 160, 128, 320, 241, 0, 0, arg0, 0, 16);
     func_80129594(&D_801D9E7C, D_80204278);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);

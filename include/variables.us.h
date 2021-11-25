@@ -24,6 +24,8 @@ extern u8   D_00546BC0[];
 
 extern u8   D_01000620[];
 extern u8   D_01000CC0[];
+extern u8   D_01000D00[];
+extern u8   D_01000D20[];
 extern Gfx  D_01003460[];
 extern Gfx  D_01003498_3CD68[];
 extern Gfx  D_010034C0_3CD90[];
@@ -41,6 +43,7 @@ extern u8   D_01004AF8[];
 extern Gfx  D_01013370_4CC40[];
 extern u8   D_01021BB0[];
 extern u8   D_0102A210[];
+extern u8   D_0102C810[];
 extern u8   D_0102F010[];
 extern u8   D_01030810[];
 extern u8   D_01033190[];
@@ -48,16 +51,23 @@ extern Gfx  D_01037700[];
 extern u8   D_0103B6F0[];
 extern u8   D_04000000[];
 extern u8   D_040000A0[];
+extern Gfx  D_040000E0_DD6A0[];
 extern u8   D_04000230[];
+extern Gfx  D_040002D0_DD890[];
 extern u8   D_04000370[];
 extern u8   D_040004B0[];
 extern u8   D_04000600[];
 extern u8   D_040006F0[];
+extern Gfx  D_04000840_DDE00[];
+extern Gfx  D_04000900_DDEC0[];
 extern u8   D_040009D0[];
+extern Gfx  D_04000AE0_DE0A0[];
 extern u8   D_04000B10[];
+extern Gfx  D_04000B40_DE100[];
 extern u8   D_04000D10[];
 extern u8   D_04000DB0[]; // tortoise?
 extern u8   D_04000DD0[];
+extern Gfx  D_040005A0_DDB60[];
 extern u8   D_04002D70[];
 extern Gfx  D_04002630_DFBF0[]; // polar bear
 extern Gfx  D_04002930_DFEF0[]; // polar bear
@@ -68,13 +78,20 @@ extern u8   D_04003A50[];
 extern u8   D_04005B60_11C730[]; // spaceship interior
 extern u8   D_04006D00_11D8D0[]; // tv body
 extern u8   D_04006EC0[];
+extern Gfx  D_04007500_E4AC0[];
+extern Gfx  D_040077E0_E4DA0[];
+extern Gfx  D_04007BD0[];
 extern u8   D_04007700[];
 extern u8   D_040077A0[];
 extern u8   D_040078C0[];
 extern u8   D_040079F0[];
+extern Gfx  D_04007AE0_E50A0[];
 extern u8   D_04007B40[];
 extern u8   D_04007C60[];
 extern u8   D_04007D90[];
+extern u8   D_04007DD0[];
+extern u8   D_04007E70[];
+extern u8   D_04007E90[];
 extern u8   D_04007EC0[];
 extern u8   D_04007FA0[];
 extern u8   D_04008290[];
@@ -359,9 +376,14 @@ extern s16  D_802053EA;
 extern struct012 D_802053F0; // pointer?
 extern struct012 D_80205400;
 extern s16  D_8020540C;
-extern u8  D_80205410[][0x18];
+extern u8   D_80205410[][0x18];
+
+// 0x8021xxxx
+extern Vtx  D_8021A5A0[]; // level vtx?
 
 // 0x8022xxxx
+
+extern Vtx  D_802294D0[]; // unknown size
 
 extern s16  D_8022E3F0[]; // scratch area for RNC decompression
 extern s16  D_8022E3F2;
@@ -372,11 +394,10 @@ extern u16  D_80231AA0[];
 extern s16  D_80231D5C[];
 extern s32  D_80235410[];
 extern struct023 D_8023F1E0;
-extern u8   D_8023F1E8;
-extern u8   D_8023F1F0;
-extern u8   D_8023F1F1;
-extern u8   D_8023F1F2;
-extern u8   D_8023F1F3;
+extern u8   D_8023F1F0; // r
+extern u8   D_8023F1F1; // g
+extern u8   D_8023F1F2; // b
+extern u8   D_8023F1F3; // a
 extern u8   D_8023F1F4;
 extern u8   D_8023F1F5;
 extern f32  D_8023F1F8; // current font width / scale
@@ -632,6 +653,11 @@ extern s16  D_803A52C4_7B6974;
 extern u8   D_803A52D0_7B6980;
 extern struct100 D_803A52E8_7B6998[];
 extern s16  D_803A5330_7B69E0;
+extern s16  D_803A53C4_7B6A74;
+extern s16  D_803A53CC_7B6A7C;
+extern s16  D_803A53D4_7B6A84;
+extern s16  D_803A53E0_7B6A90;
+extern s16  D_803A53FC_7B6AAC;
 extern struct082 D_803A63B0_7B7A60[];
 extern s16  D_803A6470_7B7B20[];
 extern s16  D_803A6520_7B7BD0[];
@@ -703,11 +729,11 @@ extern s32  D_803B497C_7C602C;
 
 extern s16  D_803B52FC[];
 extern Gfx  D_803B5764[];
-extern s32  D_803B58A0;
-extern s32  D_803B58A4;
-extern s32  D_803B58A8;
-extern s32  D_803B58B0;
-extern s32  D_803B58C4;
+extern u8   D_803B58A0_7C6F50[];
+extern u8   D_803B58A4_7C6F54[];
+extern s16  D_803B58A8_7C6F58[];
+extern s32  D_803B58B0_7C6F60;
+extern s32  D_803B58C4_7C6F74;
 extern void (*D_803B5D20[])(void);
 extern s16  D_803B62B0;
 extern s16  D_803B62B4;
@@ -762,9 +788,17 @@ extern char D_803BC738_7CDDE8[];
 extern f32  D_803BCDD8_7CE488;
 extern f32  D_803BCDDC_7CE48C;
 extern f32  D_803BCF94_7CE644;
-extern f32  D_803BCFD0_7CE680;
+// rabbit
+extern f32  D_803BCFA0_7CE650; // -0.35f
+extern f64  D_803BCFA8_7CE658; // 0.6
+extern f64  D_803BCFB0_7CE660; // 1.666
+extern f64  D_803BCFB8_7CE668; // 1.2
+extern f32  D_803BCFC0_7CE670; // -0.35
+// frog
+extern f32  D_803BCFD0_7CE680; // -0.38
 extern f32  D_803BD114_7CE7C4; // 1.1892
 extern s16  D_803BD54A[];
+extern s16  D_803BD564_7CEC14[];
 extern s16  D_803BD602[];
 extern char D_803BD8B0_7CEF60[]; // "Fq %d Time %d S %d\n"
 extern char D_803BD9A0_7CF050[]; // "Helimouse is gone\n"
@@ -871,11 +905,12 @@ extern u64  D_803C0650_7D1D00;
 extern u32  D_803C0654; // geometry mode
 extern u16  D_803C0658; // matrix normalise
 extern struct063 D_803C0740_7D1DF0[][0x81];
+extern s16  D_803C29E4_7D4094[];
 extern s16  D_803C29FE[];
 // 0x803Dxxxx
 
 extern struct054 D_803D2D90;
-extern s8   D_803D2E08[];
+extern struct059 D_803D2E08;
 
 extern DisplayList* D_803D3434;
 extern struct059 D_803D3448;
@@ -926,9 +961,8 @@ extern u8   D_803D60D4[];
 extern s32  D_803D60D8;
 extern struct043 *D_803D60DC;
 extern s16  D_803D6110;
-extern struct084 D_803D6120;
+extern struct084 D_803D6120; // size 0x3FD8
 
-extern u16  D_803DA0F4;
 extern struct065 D_803DA110[40];
 extern Animal *D_803DA2F0;
 extern Animal *D_803DA2F4;
@@ -942,7 +976,11 @@ extern s16  D_803E1B02; // another counter, max 120
 extern u16  D_803E1B04;
 extern u16  D_803E1B06;
 extern s16  D_803E1B08;
-extern s16  D_803E1B10[5]; // struct?
+extern ScreenTransition D_803E1B10;
+extern u8   D_803E1B1A;
+extern u8   D_803E1B1B;
+extern u8   D_803E1B1C;
+extern u16  D_803E1B1E;
 extern s16  D_803E1B20[5];
 extern s16  D_803E1B8A;
 extern u16  D_803E1B8C;
@@ -1045,7 +1083,7 @@ extern u8   D_803E8E57;
 extern u8   D_803E8E58;
 extern u8   D_803E8E60[256];
 extern u8   D_803E8F60[1100];
-extern u8   D_803E93B0[]; // ??
+extern struct063 D_803E93B0[]; // ??
 extern s16  D_803E97C0;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
@@ -1106,6 +1144,20 @@ extern s8   D_803F2C6C;
 extern s8   D_803F2C6D;
 extern s16  D_803F2C6E;
 extern s16  D_803F2C70;
+extern struct102 D_803F2C80[]; // [0x34] big?
+extern s16  D_803F2C86;
+extern s16  D_803F2C88;
+extern s16  D_803F2C8A;
+extern s16  D_803F2C8C;
+extern s16  D_803F2C8E;
+extern s16  D_803F2C92;
+extern u8   D_803F2C96;
+extern u8   D_803F2C97;
+extern u8   D_803F2C99;
+extern u8   D_803F2C9A;
+extern u8   D_803F2C9B;
+extern s16  D_803F2CA4;
+extern s16  D_803F2CA6;
 extern s16  D_803F2CD0;
 extern s16  D_803F2CD2; // (race?) timer
 extern s16  D_803F2CD4;

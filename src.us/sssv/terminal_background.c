@@ -87,28 +87,27 @@ void func_8038CF90_79E640(void) {
 #ifdef NON_MATCHING
 // just the stack
 void func_8038D004_79E6B4(Gfx **arg0, u16 intensity) {
-    u8  i;
-    s16 j;
-    u16 vertical_offset;
-
     s16 xPos;
     s16 yPos;
     s16 idx;
+    u16 vertical_offset;
+    s16 j;
+    u8  i;
 
-    s8  spE4[64];  // tbd
-    s16 sp64[64];  // todo
+    s8  spE4[64];
+    s16 sp64[64];
 
     vertical_offset = 10;
 
     load_default_display_list(arg0);
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
 
-    set_menu_text_color(0, MIN(intensity * 4, 80), 0, 0xFF); // green-ish
+    set_menu_text_color(0, MIN(intensity << 2, 80), 0, 0xFF); // green-ish
 
     for (i = 0; i < 4; i++) {
         // "%s\n"
         sprintf(spE4, D_803BFFD4, D_803B6328_7C79D8[(rand() / 924) & 0xFF]);
-        prepare_text((s8*)spE4, sp64);
+        prepare_text((u8*)spE4, sp64);
         func_8012D374(arg0, sp64, 6, vertical_offset, 13.0f, 9.0f, -1);
         vertical_offset += 10;
     }
@@ -123,7 +122,7 @@ void func_8038D004_79E6B4(Gfx **arg0, u16 intensity) {
         spE4[0] = D_803B6320_7C79D0[idx]; // take bottom 3 bits (max=7)
         spE4[1] = 0; // NUL terminate string
 
-        prepare_text((s8*)spE4, sp64);
+        prepare_text((u8*)spE4, sp64);
         draw_glyph(arg0, sp64, (xPos * 13) + 175, (yPos * 8) + 10, 13.0f, 9.0f);
     }
 
@@ -211,10 +210,10 @@ void func_8038DA70_79F120(void) {
 //         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 0xFF);
 //         D_803B6314 += 1;
 //     }
-//     func_8032CD20_73E3D0(0x45, 0x84, 6144.0f * D_803F646C, 0, 1.0f);
-//     func_8032CD20_73E3D0(0xA9, 0x85, 4352.0f * D_803F646C, 0, D_803C0160);
-//     func_8032CD20_73E3D0(0x171, 0x85, 4352.0f * D_803F646C, 0, 1.0f);
-//     func_8032CD20_73E3D0(0x10D, 0x86, 21760.0f * D_803F646C, 0, 1.0f);
+//     func_8032CD20_73E3D0(0x45, SFX_UNKNOWN_132, 6144.0f * D_803F646C, 0, 1.0f);
+//     func_8032CD20_73E3D0(0xA9, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, D_803C0160);
+//     func_8032CD20_73E3D0(0x171, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 1.0f);
+//     func_8032CD20_73E3D0(0x10D, SFX_UNKNOWN_134, 21760.0f * D_803F646C, 0, 1.0f);
 //     if (D_803F646C < 1.0) {
 //         D_803F646C += D_803C0168;
 //     }
@@ -253,7 +252,7 @@ void func_8038DA70_79F120(void) {
 //         gScreenWidth = 320;
 //         load_default_display_list(&D_801D9E7C);
 //         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-//         select_font(0, 2, 1, 0);
+//         select_font(0, FONT_COMIC_SANS, 1, 0);
 //         func_8038D920_79EFD0(0xFF);
 //         sp68 = func_8012826C() & 7;
 //         for (i = 0; i < 6; i++) {
@@ -272,7 +271,7 @@ void func_8038DA70_79F120(void) {
 //         func_8038E504_79FBB4(D_803B6310);
 //         load_default_display_list(&D_801D9E7C);
 //         set_menu_text_color(0x80, 0xFF, 0, 0xFF);
-//         select_font(0, 2, 1, 0);
+//         select_font(0, FONT_COMIC_SANS, 1, 0);
 //         func_8038DBE0_79F290(0xE, 0x10);
 //         if (++D_803B6310 > 65000) {
 //             D_803B6310 = 200U;

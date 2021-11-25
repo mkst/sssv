@@ -31,6 +31,7 @@ osRecvMesg        = 0x80137FF0;
 osSendMesg        = 0x80139050;
 osVirtualToPhysical = 0x80138130;
 
+do_rumble         = 0x801373CC;
 osInvalICache     = 0x80139400;
 osInvalDCache     = 0x80139480;
 
@@ -161,8 +162,8 @@ guTranslateF = 0x8013F2E0;
 guTranslate = 0x8013F328;
 guPerspectiveF = 0x8013F380;
 guPerspective = 0x8013F5B0;
-guRotateRPYF = 0x8013F610;
-guRotateRPY = 0x8013F664;
+guScaleF = 0x8013F610;
+guScale = 0x8013F664;
 guRotateF = 0x8013FBD0;
 guRotate = 0x8013FD1C;
 guLookAtF = 0x8013F6B0;
@@ -435,6 +436,7 @@ load_glyph             = 0x8012FB4C;
 display_score          = 0x801304EC;
 prepare_text           = 0x801308B4;
 get_message_address_by_id = 0x80130A90;
+get_raw_message_length = 0x80130AC0;
 font_init              = 0x80130B00;
 write_eeprom           = 0x80130C30;
 read_eeprom            = 0x80130CD4;
@@ -499,11 +501,16 @@ set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4
 
 language_select_menu   = 0x80298FC0; // rom:0x63C660
 get_evo_suit_color     = 0x80296320; // rom:0x6A79D0
+distance_from_player   = 0x8029B7D0; // rom:0x6ACE80
 create_particle_effect = 0x802D5F4C; // rom:0x6E75FC
 fire_fox_fire_missile  = 0x802E87B8; // rom:0x6F9E68
 fox_warp               = 0x802E89AC; // rom:0x6FA05C
 drop_sticky_mine       = 0x802F05A4; // rom:0x701C54
 hippo_spit             = 0x802F0780; // rom:0x701E30
+
+reset_screen_transition   = 0x802F07D0; // rom:0x701E80
+perform_screen_transition = 0x802F0918; // rom:0x701FC8
+
 spawn_temporary_object = 0x802FF0A4; // rom:0x710754
 lion_roar              = 0x802F2AA0; // rom:0x704150
 heli_rabbit_drop_bomb  = 0x80302120; // rom:0x7137D0
@@ -512,7 +519,7 @@ animal_jump            = 0x8030A958; // rom:0x71C008
 parrot_fly             = 0x80314600; // rom:0x725CB0
 get_uncompressed_size  = 0x8031AFD0; // rom:0x72C680
 get_compressed_size    = 0x8031B058; // rom:0x72C708
-load_level             = 0x8031B390; // rom:0x72CA40
+load_level_data        = 0x8031B390; // rom:0x72CA40
 racing_mouse_turbo     = 0x8031FBE8; // rom:0x731298
 recoil                 = 0x803223F4; // rom:0x733AA4
 load_animal            = 0x8032AAF0; // rom:0x73C1A0
@@ -526,7 +533,10 @@ vector_divide_by       = 0x8032D414; // rom:0x73EAC4
 get_magnitude          = 0x8032D440; // rom:0x73EAF0
 dot_product            = 0x8032D504; // rom:0x73EBB4
 cross_product          = 0x8032D534; // rom:0x73EBE4
+
 osd_draw_timer         = 0x80349B84; // rom:0x75B234
+show_osd                 = 0x80349748; // rom:0x75ADF8
+hide_osd                 = 0x80349778; // rom:0x75AE28
 
 racing_dog_turbo         = 0x802EF074; // rom:0x700724
 racing_dog_fire_missile  = 0x802EEDE0; // rom:0x700490
@@ -583,6 +593,8 @@ check_cheats                = 0x8038BAC0; // rom:0x79D170
 check_cheat_code            = 0x8038C13C; // rom:0x79D7EC
 reset_credits_counters      = 0x8038B840; // rom:0x79CEF0
 display_credits             = 0x8038B854; // rom:0x79CF04
+load_level                  = 0x8038FB94; // rom:0x7A1244
+load_intro                  = 0x8038FC04; // rom:0x7A12B4
 load_pause_menu             = 0x80393238; // rom:0x7A48E8
 load_mission_brief_screen   = 0x803929FC; // rom:0x7A40AC
 render_tv_body              = 0x803951BC; // rom:0x7A686C

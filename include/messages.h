@@ -1,7 +1,12 @@
 #ifndef MESSAGES_H
 #define MESSAGES_H
 
-//
+
+#define COPY_MESSAGE(SRC, DST) \
+while (*SRC != EOM) { \
+  *DST++ = *SRC++; \
+} \
+*DST = EOM;
 
 
 // lang 33 (level select menu)
@@ -40,4 +45,10 @@
 #define MSG_LEAVE_SV            30
 
 #define MSG_SELECT_A_BANK       214
+
+// lang 34
+
+#define MSG_PRESS_START         14
+#define MSG_CONTROLLER_NOT_CONNECTED 16
+
 #endif

@@ -109,7 +109,7 @@ void set_menu_text_color(u8 r, u8 g, u8 b, u8 a) {
 void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
     D_8023F1F4 = arg0;
     D_8023F1F5 = arg2;
-    if (fontType == 3) {
+    if (fontType == FONT_LCD) {
         select_lcd_font();
     } else {
         select_comic_sans_font();
@@ -134,7 +134,7 @@ void select_lcd_font(void) {
 }
 
 s16 func_8012C314(f32 arg0) {
-    f32 a = arg0 / D_8023F1E8;
+    f32 a = arg0 / D_8023F1E0.unk8;
     s16 res = D_8023F1F8 * a;
     return res;
 }
@@ -776,18 +776,16 @@ void prepare_text(u8 *src, s16 *dst) {
 
 // ========== file split? ========== //
 
-// load message id
 s16 *get_message_address_by_id(s16 id) {
     return &D_8022E3F0[D_8022E3F0[id + 7000] + 7350];
 }
 
-// get_raw_message_length
-s16 func_80130AC0(s16 *arg0) {
+s16 get_raw_message_length(s16 *msg) {
     s16 cnt = 0;
 
-    while (*arg0 != EOM) {
+    while (*msg != EOM) {
         cnt++;
-        arg0++;
+        msg++;
     };
 
     return cnt;

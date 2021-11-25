@@ -298,7 +298,7 @@ void no_controller_message(void) {
         gDPPipeSync(D_801D9E7C++);
 
         load_default_display_list(&D_801D9E7C);
-        select_font(0, 0, 0, 0);
+        select_font(0, FONT_DEFAULT, 0, 0);
         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         // "CONTROLLER NOT CONNECTED" text
         display_text(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);

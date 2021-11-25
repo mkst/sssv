@@ -246,8 +246,8 @@ s32 get_compressed_size(u8 *arg0) {
 // load_texture_bank()
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B174_72C824.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level.s")
-// void load_level(u8 level) {
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level_data.s")
+// void load_level_data(u8 level) {
 //     func_8031C374_72DA24();
 //     // 0-indexed so subtract 1
 //     level = level - 1;
@@ -278,10 +278,10 @@ void func_8031C32C_72D9DC(void) {
 
 void func_8031C374_72DA24() {
     func_8031C304_72D9B4();
-    D_803E1B10[0] = 1;
-    D_803E1B10[1] = 100;
-    D_803E1B10[3] = 8;
-    D_803E1B10[2] = 5;
+    D_803E1B10.unk0 = 1;
+    D_803E1B10.unk2 = 100;
+    D_803E1B10.unk6 = 8;
+    D_803E1B10.transitionId = 5; // square-folding transition
     D_803F2E0C = 0;
 }
 

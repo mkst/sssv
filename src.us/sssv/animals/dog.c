@@ -42,7 +42,7 @@ void func_802EEA18_7000C8(void) {
 
 void func_802EEA54_700104(void) {
     D_803D552C->unk32A = D_803D5544;
-    D_803D552C->unk365 = 18;
+    D_803D552C->unk365 = ATTACK_BITE;
 }
 
 void func_802EEA7C_70012C(void) {
@@ -157,7 +157,7 @@ void racing_dog_fire_missile(Animal *animal) {
 
 void dog_bite(void) {
     D_803D552C->unk32A = D_803D5544;
-    D_803D552C->unk365 = 18;
+    D_803D552C->unk365 = ATTACK_BITE;
 }
 
 void flying_dog_fire_gun(s32 arg0, s32 arg1, s32 arg2) {
