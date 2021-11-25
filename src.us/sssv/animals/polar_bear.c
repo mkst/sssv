@@ -72,7 +72,7 @@ void func_80368B78_77A228(void) {
 void func_80368BA0_77A250(void) {
     if ((D_803D5530->unk162 == 1) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 0x599, 0xB4, D_803D5530, 0x32, 0x21);
-        play_sound_effect_at_location(38, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
     } else {
         recharge_skill(1);
     }
@@ -81,7 +81,7 @@ void func_80368BA0_77A250(void) {
 void polar_tank_drop_mine(void) {
     if ((D_803D5530->unk162 == 1) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 0x599, 0xDC, D_803D5530, 0x32, 0x21);
-        play_sound_effect_at_location(0x26, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
     }
 }
 
@@ -100,13 +100,11 @@ void polar_bear_jump_thump(void) {
 void func_80368D60_77A410(s16 arg0) {
     if (arg0 == 0) {
         D_803D552C->unk2EC = 0;
+    } else if (D_803D552C->unk365 != 27) {
+        D_803D552C->unk2EC = arg0;
+        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk365 = 27;
     } else {
-        if (D_803D552C->unk365 != 27) {
-            D_803D552C->unk2EC = arg0;
-            D_803D552C->unk32A = D_803D5544;
-            D_803D552C->unk365 = 27;
-        } else {
-            D_803D552C->unk2EC = arg0;
-        }
+        D_803D552C->unk2EC = arg0;
     }
 }

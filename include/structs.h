@@ -9,6 +9,7 @@ typedef struct struct065 struct065;
 typedef struct struct069 struct069;
 typedef struct struct070 struct070;
 typedef struct struct071 struct071;
+typedef struct struct101 struct101;
 
 typedef struct Animal Animal;
 
@@ -28,11 +29,13 @@ typedef struct {
     s16 unk16;
     u8  pad18[0x2];
     u16 unk1A;
-    u8  pad1C[0x4];
+    u16 unk1C;
+    u16 unk1E;
     u16 unk20;  // current biome
     u8  pad22[0x1E];
     s16 unk40;
-    u8  pad42[0xC];
+    u8  pad42[0xA];
+    s16 unk4C;
     s16 unk4E;
     u8  pad50[0x2];
     s16 unk52;
@@ -261,7 +264,7 @@ struct Animal {
                     s16 h;
                     s8  b;
                 } unk29A;
-    /* 0x29C */ s32 *unk29C;
+    /* 0x29C */ u8 *unk29C;
     /* 0x2A0 */ s8  unk2A0;
     /* 0x2A1 */ s8  unk2A1;
     /* 0x2A2 */ u8  unk2A2;
@@ -358,14 +361,14 @@ struct Animal {
     /* 0x362 */ u8  unk362;
     /* 0x363 */ u8  unk363;
     /* 0x364 */ u8  unk364;
-    /* 0x365 */ u8  unk365; //different animations? 36 = desert fox spin start, 37 = desert fox spin end, 28 = polar bear out of defense curl
+    /* 0x365 */ u8  unk365; // current attack
     /* 0x366 */ u8  unk366;
     /* 0x367 */ u8  unk367;
     /* 0x368 */ s8  unk368;
     /* 0x369 */ u8  unk369;
     /* 0x36A */ u8  unk36A;
     /* 0x36B */ s8  unk36B;
-    /* 0x36C */ u8  pad36C;
+    /* 0x36C */ u8  unk36C;
     /* 0x36D */ u8  unk36D; // sheep only?
     /* 0x36E */ s8  unk36E;
     /* 0x36F */ s8  unk36F;
@@ -625,7 +628,7 @@ typedef struct {
     /* 0x3BBAA */ u8  pad3BBAA[0x1E];
     /* 0x3BBC8 */ u16 unk3BBC8;
     /* 0x3BBCA */ u8  pad3BBCA[0x1E];
-    /* 0x3BBE8 */ u8 *unk3BBE8;
+    /* 0x3BBE8 */ u8 *unk3BBE8; // pointer to framebuffer
     /* 0x3BBEC */ u8  pad3BBEC[0x4];
 } struct018; // size 0x3BBF0
 
@@ -1256,7 +1259,7 @@ typedef struct {
 typedef struct {
     s8 unk0;
     s8 unk1;
-    s8 unk2[0x30];
+    s8 unk2[64]; // 48?
 } struct059;
 
 typedef struct {
@@ -1450,12 +1453,13 @@ typedef struct {
 
 typedef struct {
     s8 unk0;
+    s8 unk1;
     s16 unk2;
     s32 unk4;   // 10.2 format
     s32 unk8;   // 10.2 format
     s32 unkC;
     s32 unk10;
-    s32 unk14;
+    s32 unk14;  // displaylist?
 } struct073; // size 0x18
 
 typedef struct {
@@ -1541,10 +1545,43 @@ typedef struct {
     ALBank *unk4;
 } struct083;
 
+struct struct101 {
+    u8  unk0;
+    u8  pad1[0x3];
+    s32 unk4;
+    s32 *unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s16 unk18;
+    s16 unk1A;
+    s32 unk1C;
+    s16 unk20;
+    u8  unk22;
+    u8  pad23; //
+    s32 unk24;
+    s32 unk28;
+    u8  unk2C;
+    u8  unk2D;
+    s8  unk2E;
+    u8  pad2F;
+    s16 unk30;
+    s16 unk32;
+    s16 unk34;
+    s16 unk36;
+    s8  unk38;
+    u8  pad39[0x3];
+    s32 unk3C;
+}; // size 0x40
+
 typedef struct {
-    u8 unk0;
-    u8 pad1[0x3FC7];
-    s8 unk3FC8[16];
+    /* 0x00 */   struct101 unk0[255];
+    /* 0x3FC0 */ u8  pad3FC0[8];
+    /* 0x3FC8 */ s8  unk3FC8[8]; // is displaylist enabled?
+    /* 0x3FD0 */ u16 unk3FD0;
+    /* 0x3FD2 */ s16 unk3FD2;
+    /* 0x3FD4 */ s16 unk3FD4;
+    /* 0x3FD6 */ s16 unk3FD6;
 } struct084; // size 0x3FD8
 
 typedef struct {
@@ -1686,12 +1723,13 @@ typedef struct {
 } struct098; // size 0x8
 
 typedef struct {
-    s16 unk0;
-    s16 unk2;
+    u16 unk0; // particle type?
+    u8  unk2;
+    u8  pad3;
     s16 unk4;
     u8  pad6[0x8];
-    s16 unkE;
-    s16 unk10;
+    u16 unkE;
+    u16 unk10;
     u8  unk12[0x6];
 } struct099; // particle, size 0x18?
 
@@ -1699,5 +1737,19 @@ typedef struct {
     s32 unk0;
     s32 unk4;
 } struct100;
+
+typedef struct {
+    s16 unk0;
+    s8  unk2;
+    s8  unk3;
+} struct102;
+
+typedef struct {
+    s16 unk0;
+    s16 unk2;
+    s16 transitionId;
+    s16 unk6;
+    s16 overlayTV;
+} ScreenTransition;
 
 #endif

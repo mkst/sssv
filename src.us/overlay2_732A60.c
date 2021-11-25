@@ -17,7 +17,49 @@ Animal *func_803218D8_732F88(Animal *arg0) {
     return NULL;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80321920_732FD0.s")
+void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2) {
+    if (arg0 != NULL) {
+        arg0->xVelocity.h = D_803D5530->xVelocity.h + (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg1) >> 8);
+        arg0->zVelocity.h = D_803D5530->zVelocity.h + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg1) >> 8);
+        arg0->yVelocity.h = (D_803D5530->yVelocity.h + arg2) - 1;
+        arg0->unk4C.unk25 = 1;
+        arg0->unk160 = D_803D5530->unk160;
+        if (arg0->unk160 != 0) {
+            if (((arg0->unk160 == 1) || (arg0->unk160 == 2)) && (D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk3 == 0)) {
+                arg0->unk160 = 0U;
+            }
+        } else {
+            if (D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk3 != 0) {
+                if ((func_80310F58_722608(arg0->xPos, arg0->zPos) >> 0x10) < arg0->yPos) {
+                    arg0->unk160 = 2U;
+                } else {
+                    arg0->unk160 = 1U;
+                }
+            }
+        }
+
+        arg0->state = D_803D552C->unk324;
+        D_803D552C->unk320 = 0;
+
+        if (arg0->yRotation < 45) {
+            arg0->yRotation = 0;
+        } else if (arg0->yRotation < 135) {
+            arg0->yRotation = 90;
+        } else if (arg0->yRotation < 225) {
+            arg0->yRotation = 180;
+        } else if (arg0->yRotation < 315) {
+            arg0->yRotation = 270;
+        } else {
+            arg0->yRotation = 0;
+        }
+        if (arg0->unk16C->unk80.bit == 0) {
+            if ((arg0->unk163 & 0x20) == 0) {
+                arg0->unk163 &= 0xFFF7;
+            }
+        }
+    }
+}
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80321B70_733220.s")
 

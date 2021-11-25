@@ -70,7 +70,7 @@ s32 display_credits(void) {
 
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
 
     for (i = 0; i < 16; i++) {
         sprintf((char*)sp50, "%s", credits[i + D_803F6400]);

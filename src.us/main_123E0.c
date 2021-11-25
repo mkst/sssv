@@ -200,8 +200,38 @@ void thread9(void) {
     while (TRUE);
 }
 
-// TODO: is ControllerState struct really correct?
-#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/func_801373CC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/do_rumble.s")
+// void do_rumble(s16 cont, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
+//     s32 new_var;
+//     s32 pad[3];
+//     s32 phi_s0;
+//
+//     phi_s0 = arg4;
+//
+//     if (!D_80291090.hasRumblePak[cont ^ 0]) {}; // regalloc?
+//
+//     new_var = phi_s0 >> 6;
+//     if ((D_80291090.hasRumblePak[cont]) && ((phi_s0 >> 6) < 21) && (D_80204288 == 0)) {
+//         phi_s0 = new_var >> 2;
+//         if (phi_s0 == 0) {
+//             phi_s0 = 1;
+//         }
+//
+//         if ((D_80291090.state.unk18[cont] == 0) ||
+//             (((((((D_80291090.state.unk10[cont] - D_80291090.state.unk8[cont]) * (D_80291090.state.unk18[cont] - D_80291090.state.unk20[cont])) / D_80291090.state.unk18[cont]) >> 1) + D_80291090.state.unk8[cont]) * D_80291090.state.unk20[cont]) >= (s16)((arg1 * (arg2 + arg3)) / (s16)(phi_s0 << 1)))) {
+//             D_80291090.state.unk0[cont] = 0;
+//             D_80291090.state.unk8[cont] = arg2 / phi_s0;
+//             D_80291090.state.unk10[cont] = arg3 / phi_s0;
+//             D_80291090.state.unk18[cont] = arg1;
+//             D_80291090.state.unk20[cont] = arg1;
+//             D_80291090.state.unk28[cont] = 0;
+//             D_80291090.state.unk30[cont] = 256;
+//             if ((D_80291090.state.unk0[cont]) && ((s16)osMotorStart(&D_80291110[0]) == 0)) {
+//                 D_80291090.state.unk0[cont] = 1;
+//             }
+//         }
+//     }
+// }
 
 void func_801375E8(s16 cont) {
     s32 tmp;

@@ -5,8 +5,8 @@
 
 void func_802999E0_6AB090(DisplayList *arg0) {
     guPerspective(&arg0->unk37410, &D_803C0658, D_803F2D50.unkE0, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);
-    guRotateRPY(&arg0->unk37450, 0.5f, 0.5f, 0.5f);
-    guRotateRPY(&arg0->unk374D0, 1.0f, 1.0f, 1.0f);
+    guScale(&arg0->unk37450, 0.5f, 0.5f, 0.5f);
+    guScale(&arg0->unk374D0, 1.0f, 1.0f, 1.0f);
     func_8033F380_750A30();
 }
 

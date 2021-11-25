@@ -70,7 +70,7 @@ void func_8031F8BC_730F6C(void) {
 void func_8031FA84_731134(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     load_animal(HARD_MOUSE);
-    D_803D552C->unk365 = 40;
+    D_803D552C->unk365 = ATTACK_MOUSE_TAIL;
     D_803D552C->unk32A = D_803D5544;
 }
 
@@ -96,7 +96,7 @@ void func_8031FB78_731228(s16 arg0) {
     D_803D552C->unk2EC = arg0;
     if (D_803D5524->unk9C == RACING_MOUSE) {
         load_animal(HARD_MOUSE);
-        D_803D552C->unk365 = 40;
+        D_803D552C->unk365 = ATTACK_MOUSE_TAIL;
         D_803D552C->unk32A = D_803D5544;
     }
 }

@@ -49,7 +49,7 @@ void func_8037D138_78E7E8(void) {
                 D_803D552C->unk365 = 15;
             }
         } else {
-            func_8032C508_73DBB8(16, 0x4000, 0, 1.0f);
+            func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
         }
     }
 }

@@ -12,7 +12,6 @@ void func_802CAACC_6DC17C(Animal *arg0, s16 arg1) {
 }
 
 void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
-
     s16 phi_a0;
     s16 phi_a1;
     s16 phi_a2;
@@ -116,15 +115,15 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     arg1->unk65 += sp38;
 }
 
-#ifdef NON_MATCHING
-// score: 58, stack var offsets are wrong
 void func_802CB180_6DC830(Animal *arg0) {
     if (func_80298E08_6AA4B8(arg0->xPos, arg0->zPos)) {
+        s8 tmp;
+        s16 phi_a1;
+        s16 pad;
+        s16 temp_t7;
         s16 xPos = arg0->xPos >> 6;
         s16 zPos = arg0->zPos >> 6;
-        s16 temp_t7 = D_803C0740_7D1DF0[xPos][zPos].unk6 << 2;
-        s16 phi_a1;
-        s8 tmp;
+        temp_t7 = D_803C0740_7D1DF0[xPos][zPos].unk6 << 2;
 
         if (temp_t7 < arg0->yPos) {
             phi_a1 = 0;
@@ -159,6 +158,3 @@ void func_802CB180_6DC830(Animal *arg0) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DB610/func_802CB180_6DC830.s")
-#endif

@@ -105,7 +105,7 @@ void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     arg2->usedModelViewMtxs += 1;
 
-    guRotateRPY(&arg2->modelViewMtx[arg2->usedModelViewMtxs], (f64)arg0->unkD0.m[arg1][0] * 1.0f, (f64)arg0->unkD0.m[arg1][0] * 1.0f, (f64)arg0->unkD0.m[arg1][0] * 1.0f);
+    guScale(&arg2->modelViewMtx[arg2->usedModelViewMtxs], (f64)arg0->unkD0.m[arg1][0] * 1.0f, (f64)arg0->unkD0.m[arg1][0] * 1.0f, (f64)arg0->unkD0.m[arg1][0] * 1.0f);
 
     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     arg2->usedModelViewMtxs += 1;

@@ -164,7 +164,7 @@ extern u8 D_01029DD0[];
 // osd_draw_score
 void func_803491F0_75A8A0(void) {
     sprintf(D_803F2D3E, D_803BE940, D_803F2D30.score);
-    select_font(0, 3, 1, 0);
+    select_font(0, FONT_LCD, 1, 0);
     display_score(&D_801D9E7C, D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
 }
 
@@ -285,7 +285,7 @@ void func_80349720_75ADD0(void) {
     func_80349D34_75B3E4();
 }
 
-void func_80349748_75ADF8(void) {
+void show_osd(void) {
     if (D_803F2CDC == 0) {
         D_803F2CDA = 0;
         D_803F2CDC = 8;
@@ -293,7 +293,7 @@ void func_80349748_75ADF8(void) {
     D_803F2CDE = 1;
 }
 
-void func_80349778_75AE28(void) {
+void hide_osd(void) {
     if (((D_803F2CDC == 7) || (D_803F2CDC == 8)) && (D_803F2CDD == 0)) {
         D_803F2CDC = 9;
         D_803F2CDA = 0;
@@ -398,7 +398,7 @@ void osd_draw_timer(s16 arg0) {
     prepare_text(D_803A8344, str);
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(255, 255, 0, 255); // yellow
-    select_font(0, 0, 1, 0);
+    select_font(0, FONT_DEFAULT, 1, 0);
     // write string centered
     display_text(&D_801D9E7C, str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
 }
@@ -406,7 +406,7 @@ void osd_draw_timer(s16 arg0) {
 void func_80349CA4_75B354(s16 arg0) {
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(255, 255, 0, 255); // yellow
-    select_font(0, 0, 1, 0);
+    select_font(0, FONT_DEFAULT, 1, 0);
     func_8012EB4C(&D_801D9E7C, D_803F2CE0, gScreenWidth >> 1, arg0, 16.0f, 16.0f, 0x10);
 }
 

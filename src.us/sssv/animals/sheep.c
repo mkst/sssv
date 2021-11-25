@@ -25,8 +25,8 @@
 //         Vtx **base, **base2;
 //         D_803F2EF0 = D_803D5544;
 //
-//         base = D_801D9EC4 + ((s32)D_04002F28 & 0xFFFFFF);
-//         base2 = D_801D9EC4 + ((s32)D_040029D0 & 0xFFFFFF);
+//         base = D_801D9EC4 + ((s32)D_04002F28_CA958 & 0xFFFFFF);
+//         base2 = D_801D9EC4 + ((s32)D_040029D0_CA400 & 0xFFFFFF);
 //
 //         for (i = 0; i < 52; i++) {
 //             temp_v1_2 = base[i];
@@ -51,8 +51,6 @@
 //     }
 // }
 
-#ifdef NON_MATCHING // JUSTREG
-// score: 50
 void func_80362618_773CC8(void) {
     s16 tmp;
 
@@ -84,18 +82,14 @@ void func_80362618_773CC8(void) {
             } else {
                 D_803D5530->yVelocity.w += D_803A05B0_7B1C60 >> 2;
             }
-            // this casting is likely nonsense, but 'helps' regalloc
-            D_803D5530->yVelocity.w += (D_80152C78[((u8)(((s16)(D_803D5540 - D_803D552C->unk30E) << 2) + 64))] >> 7) << 8;
-            D_803D5530->xVelocity.w += (D_80152C78[((u8)(D_803D5540 << 3) & 0xFF)& 0xFF] >> 7) << 8;
-            D_803D5530->zVelocity.w += (D_80152C78[((u8)((D_803D5540 << 2) + 64)& 0xFF)& 0xFF] >> 7) << 8;
+            D_803D5530->yVelocity.w += (D_80152C78[((s16)((D_803D5540 - D_803D552C->unk30E) << 2) + 64) & 0xff] >> 7) << 8;
+            D_803D5530->xVelocity.w += (D_80152C78[((s16)(D_803D5540 << 3)) & 0xff] >> 7) << 8;
+            D_803D5530->zVelocity.w += (D_80152C78[(((s16)(D_803D5540 << 2)) + 64) & 0xff] >> 7) << 8;
         }
     } else {
         recharge_skill(0);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_80362618_773CC8.s")
-#endif
 
 void func_80362964_774014(void) {
     if (D_803D5530->unk162 == 1) {

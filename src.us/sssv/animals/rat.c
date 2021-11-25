@@ -19,7 +19,7 @@ void func_8035F92C_770FDC(void) {
 
 void func_8035FA5C_77110C(void) {
     D_803D552C->unk32A = D_803D5544;
-    D_803D552C->unk365 = 18;
+    D_803D552C->unk365 = ATTACK_BITE;
 }
 
 void func_8035FA84_771134(void) {
@@ -27,13 +27,13 @@ void func_8035FA84_771134(void) {
         func_8035FAEC_77119C();
     } else {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 19;
+        D_803D552C->unk365 = ATTACK_FART;
     }
 }
 
 void func_8035FAEC_77119C(void) {
-    if (D_803D552C->unk365 == 19) {
-        D_803D552C->unk365 = 0;
+    if (D_803D552C->unk365 == ATTACK_FART) {
+        D_803D552C->unk365 = ATTACK_NONE;
     }
 }
 
@@ -70,7 +70,11 @@ void rat_drop_mine(void) {
                 D_803D5530->xPos - (((D_80152C78[(u8)(D_803D552C->unk302)] >> 7) * 20) >> 8),
                 D_803D5530->zPos - (((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * 20) >> 8),
                 D_803D5530->yPos,
-                552, 150, D_803D5530, 3, 33);
+                552,
+                150,
+                D_803D5530,
+                3,
+                33);
             play_sound_effect_at_location(SFX_DROP_MINE, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
         }
     }
@@ -78,7 +82,7 @@ void rat_drop_mine(void) {
 
 void rat_bite(void) {
     D_803D552C->unk32A = D_803D5544;
-    D_803D552C->unk365 = 18;
+    D_803D552C->unk365 = ATTACK_BITE;
     play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEC14);
 }
 
@@ -94,5 +98,5 @@ void king_rat_bugel_call(s16 arg0) {
 
 void king_rat_fart(s16 arg0) {
     D_803D552C->unk2EC = arg0;
-    D_803D552C->unk365 = 19;
+    D_803D552C->unk365 = ATTACK_FART;
 }

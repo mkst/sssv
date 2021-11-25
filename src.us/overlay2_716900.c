@@ -136,7 +136,7 @@ s32 func_80309B40_71B1F0(void) {
     return 0;
 }
 
-#ifdef NON_MATCHING // JUSTREG
+#ifdef NON_MATCHING // JUSTREG but definitely wrong reg
 s32 func_80309BA0_71B250(void) {
     s32 phi_v1;
     s32 phi_a3;
@@ -809,9 +809,9 @@ void func_80311BF8_7232A8(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3) {
 void func_80313334_7249E4(void) {
     if (D_803E4C94 == (struct071*) D_801DDD8C[gCurrentAnimalIndex].unk0) {
         if ((ABS(D_803E4C94->unk1C.h[0]) + ABS(D_803E4C94->unk20.h[0])) > 15) {
-            func_801373CC(0, 25, 55, 5, 0);
+            do_rumble(0, 25, 55, 5, 0);
         } else if ((ABS(D_803E4C94->unk1C.h[0]) + ABS(D_803E4C94->unk20.h[0])) > 5) {
-            func_801373CC(0, 13, 25, 5, 0);
+            do_rumble(0, 13, 25, 5, 0);
         }
     }
     D_803E4C94->unk1C.h[0] = 0;

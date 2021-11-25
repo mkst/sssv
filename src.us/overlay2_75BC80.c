@@ -180,6 +180,7 @@ void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1) {
 void func_8034B000_75C6B0(s32 arg0) {
 }
 
+// matrix
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75BC80/func_8034B008_75C6B8.s")
 
 void func_8034B298_75C948(s16 arg0) {
@@ -256,6 +257,85 @@ void func_8034B64C_75CCFC(s16 arg0, s16 arg1, s16 arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75BC80/func_8034B848_75CEF8.s")
+void func_8034B848_75CEF8(s16 arg0) {
+    s16 sp4E;
+    s16 sp4C;
+    s16 temp_a3;
+    s16 temp_t7;
+    s16 phi_t3;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75BC80/func_8034BB38_75D1E8.s")
+    if (((arg0 == 0) || ((D_803D5540 & 2) == 0)) && ((D_803D5540 & 1) == 0)) {
+        phi_t3 = 0;
+        if (D_803D5530->state == 143) {
+            phi_t3 = 2;
+        } else if (D_803D5530->state == 142) {
+            phi_t3 = 1;
+        }
+        if (phi_t3 != 0) {
+            temp_a3 = -((D_80152C78[D_803D552C->unk302 & 0xFF]) >> 7);
+            temp_t7 = -((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF]) >> 7);
+            sp4E = (temp_a3 * D_803D5524->unkBE) >> 8;
+            sp4C = (temp_t7 * D_803D5524->unkBE) >> 8;
+
+            create_particle_effect(
+                D_803D5530->xPos + sp4E,
+                D_803D5530->zPos + sp4C,
+                MAX(func_80298E98_6AA548(D_803D5530->xPos, D_803D5530->zPos), D_803D5530->yPos) + 10,
+                24,
+                ((func_8012826C() & 0x20) + (phi_t3 * 3 * temp_a3)) << 7,
+                ((func_8012826C() & 0x20) + (phi_t3 * 3 * temp_t7)) << 7,
+                (phi_t3 << 4) << 0xE,
+                (func_8012826C() & 0xF) + 4,
+                GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
+                GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
+                0);
+        }
+    }
+}
+
+void func_8034BB38_75D1E8(u8 arg0) {
+    switch (D_803D5530->unk162) {
+    case 1:
+    case 2:
+    case 3:
+        if ((D_803D552C->unk36C != 0)) {
+            D_803D552C->unk36C--;
+            if ((func_8012826C() & 0x1F) == 17) {
+                s16 tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740_7D1DF0[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
+                if (tmp > 10) {
+                    create_particle_effect(
+                        D_803D5530->xPos,
+                        D_803D5530->zPos,
+                        D_803D5530->yPos + (D_803D5524->unkBA >> 1),
+                        24,
+                        D_803D5530->xVelocity.w,
+                        D_803D5530->zVelocity.w,
+                        D_803D5530->yVelocity.w,
+                        (func_8012826C() & 7) + 4,
+                        0,
+                        0,
+                        0);
+                } else {
+                    func_802D5B88_6E7238(
+                        D_803D5530->xPos,
+                        D_803D5530->zPos,
+                        D_803D5530->yPos - tmp,
+                        99,
+                        0,
+                        0,
+                        0,
+                        (func_8012826C() & 0x3F) + 50);
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+        D_803D552C->unk36C = arg0;
+        break;
+    }
+}

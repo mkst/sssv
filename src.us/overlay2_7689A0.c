@@ -28,7 +28,8 @@ void func_8035739C_768A4C(void) {
         (gLevelIndex == WALRACE_64) ||
         (gLevelIndex == EVOS_ESCAPE) ||
         (gLevelIndex == PUNCHUP_PYRAMID)) {
-        if ((D_803E4D28 & 2) != 0) {
+        if (D_803E4D28 & 2) {
+            // level completed
             D_8028645C = 5;
         } else {
             D_8028645C = 24;

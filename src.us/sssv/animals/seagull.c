@@ -49,8 +49,8 @@ void func_80381F14_7935C4(void) {
             play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
         }
         if (D_803D552C->unk365 == 0) {
-            D_803D552C->unk365 = (u8)0x12U;
-            D_803D552C->unk32A = (u16) D_803D5544;
+            D_803D552C->unk365 = 18;
+            D_803D552C->unk32A = D_803D5544;
         }
     }
 }

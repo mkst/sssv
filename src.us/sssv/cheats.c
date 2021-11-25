@@ -33,7 +33,7 @@ void check_cheats(OSContPad *contPad) {
     if (D_803F6428.debugMode != 0) {
         load_default_display_list(&D_801D9E7C);
         set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
-        select_font(0, 0, 0, 0);
+        select_font(0, FONT_DEFAULT, 0, 0);
         if ((D_803F6428.debugMode != 0) && (D_803F6680.unk0 == 0)) {
             // print debug location
             sprintf(D_802042B0, "(%3d  %3d  %4d)",

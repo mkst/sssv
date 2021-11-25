@@ -377,7 +377,7 @@ void func_80328918_739FC8(void) {
     D_803D552C->unk358 = 0;
     D_803D552C->unk363 = 0;
     D_803D552C->unk369 = 0;
-    D_803D552C->unk365 = 0;
+    D_803D552C->unk365 = ATTACK_NONE;
     D_803D552C->unk36E = 0;
     D_803D552C->unk364 = 0;
     D_803D552C->unk2EC = 0;

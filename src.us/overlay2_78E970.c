@@ -13,7 +13,7 @@ void func_8037D2D4_78E984(s32 arg0, s32 arg1, s32 arg2) {
 
 void func_8037D2E4_78E994(s32 arg0) {
     u8 *nonsense;
-    UnpackRNC((RNC_fileptr)nonsense, D_800DF220);
+    UnpackRNC((RNC_fileptr)nonsense, (u8*)D_800DF220);
 }
 
 void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2) {

@@ -87,12 +87,12 @@ void func_80356870_767F20(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0080,               2, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
 }
 
-void func_80356BD8_768288(s32 arg0, s32 arg1, s16 arg2) {
+void func_80356BD8_768288(u8 *tlut, u8 *img_base, s16 size) {
     gDPLoadSync(D_801D9E88++);
 
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0110, arg0);
+    gDPLoadTLUT(D_801D9E88++, 16, 0x0110, tlut);
 
-    gDPSetTextureImage(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, ((arg2 << 7) + arg1));
+    gDPSetTextureImage(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, ((size << 7) + img_base));
     gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync(D_801D9E88++);
     gDPLoadBlock(D_801D9E88++, G_TX_LOADTILE, 0, 0, 63, 2048);
