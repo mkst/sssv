@@ -1,5 +1,6 @@
 binutils-mips-linux-gnu
 build-essential
+gcc-mips-linux-gnu
 less
 libglib2.0
 python3
