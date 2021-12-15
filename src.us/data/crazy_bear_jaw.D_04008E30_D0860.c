@@ -19,7 +19,7 @@ Vtx D_04008D70_D07A0[12] = {
 extern Gfx D_01003548_3CE18[];
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_04008E30_D0860[] = {
+Gfx D_04008E30_D0860[] = {
     gsSPDisplayList(D_01003618_3CEE8),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPVertex(D_04008BF0_D0620, 3, 0),

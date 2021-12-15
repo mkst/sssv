@@ -7,7 +7,7 @@ Vtx D_05004630_AEF70[28] = {
 #include "data/inc/D_05004630_AEF70.inc.c"
 };
 
-const Gfx D_050047F0_AF130[] = {
+Gfx D_050047F0_AF130[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_050045B0_AEEF0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

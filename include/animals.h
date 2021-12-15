@@ -63,7 +63,7 @@
 #define CHAMELEON                   59
 #define CHAMELEON_DEFENDING         60 // SNEAKY_CHAMELEON
 #define EVO_MICROCHIP               61
-#define EVO_GLITCHY                 62
+#define EVO_GLITCHY                 62 // EVO_TRANSFER?
 #define EVO                         63
 #define KING_PENGUIN                64
 #define RACING_TORTOISE_ATTACKING   65

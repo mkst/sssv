@@ -4,7 +4,7 @@ Vtx D_04007230_CEC60[12] = {
 #include "data/inc/D_04007230_CEC60.inc.c"
 };
 
-const Gfx D_040072F0_CED20[] = {
+Gfx D_040072F0_CED20[] = {
     gsSPVertex(D_04007230_CEC60, 12, 0),
     gsSP2Triangles(0, 1, 2, 0, 2, 1, 3, 0),
     gsSP2Triangles(1, 0, 4, 0, 4, 3, 1, 0),

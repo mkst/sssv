@@ -130,7 +130,7 @@ Vtx D_05004D90_B9660[8] = {
 
 extern u8 img_D_05000250_B4B20_rgba16_rgba16__png[];
 
-const Gfx D_05004E10_B96E0[] = {
+Gfx D_05004E10_B96E0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05000A50_B5320, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

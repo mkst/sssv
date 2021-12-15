@@ -18,7 +18,7 @@ Vtx D_050007A0_977C0[14] = {
 };
 
 
-const Gfx D_05000880_978A0[] = {
+Gfx D_05000880_978A0[] = {
     gsSPVertex(D_05000000_97020, 30, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 2, 4, 0),
     gsSP2Triangles(5, 3, 6, 0, 6, 7, 5, 0),

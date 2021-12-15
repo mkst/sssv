@@ -33,86 +33,90 @@ void func_8033C320_74D9D0(u8);
 //     case 0:
 //         func_80332444_743AF4(arg0);
 //         break;
-//     case 1:
+//     case 26:
 //         func_8032FF94_741644(arg0);
 //         break;
 //     case 2:
+//     case 12:
 //         func_803378BC_748F6C(arg0);
 //         break;
 //     case 3:
+//     case 17:
 //         func_80337ECC_74957C(arg0);
 //         break;
 //     case 4:
 //         func_80338E1C_74A4CC(arg0);
 //         break;
-//     case 5:
+//     case 19:
 //         func_803391D0_74A880(arg0);
 //         break;
-//     case 6:
+//     case 20:
 //         func_80339238_74A8E8(arg0);
 //         break;
-//     case 7:
+//     case 21:
 //         func_803392A0_74A950(arg0);
 //         break;
-//     case 8:
+//     case 5:
 //         func_803394E4_74AB94(arg0, arg1);
 //         break;
-//     case 9:
+//     case 6:
 //         func_80334470_745B20(arg0, arg1);
 //         break;
-//     case 10:
+//     case 7:
 //         func_8033641C_747ACC(arg0, 0);
 //         break;
-//     case 11:
+//     case 13:
 //         func_80339B84_74B234(arg1, 0.0f);
 //         break;
-//     case 12:
+//     case 14:
 //         func_80339B84_74B234(arg1, 128.0f);
 //         break;
-//     case 13:
+//     case 15:
 //         func_80339B84_74B234(arg1, 64.0f);
 //         break;
-//     case 14:
+//     case 16:
 //         func_80339B84_74B234(arg1, 192.0f);
 //         break;
-//     case 15:
+//     case 8:
 //         func_80339B84_74B234(arg1, 32.0f);
 //         break;
-//     case 16:
+//     case 9:
 //         func_80339B84_74B234(arg1, 96.0f);
 //         break;
-//     case 17:
+//     case 10:
 //         func_80339B84_74B234(arg1, 160.0f);
 //         break;
-//     case 18:
+//     case 11:
 //         func_80339B84_74B234(arg1, 224.0f);
 //         break;
-//     case 19:
-//         func_80339308_74A9B8(arg1);
-//         break;
-//     case 20:
-//         func_8033AAC8_74C178(arg1);
-//         break;
-//     case 21:
-//         func_8033B118_74C7C8(arg1);
-//         break;
 //     case 22:
-//         func_8033B440_74CAF0(arg1);
+//         func_80339308_74A9B8(arg0);
 //         break;
 //     case 23:
-//         func_8033C320_74D9D0(arg1);
-//         break;
 //     case 24:
-//         func_8033641C_747ACC(arg1, 1);
+//         func_8033AAC8_74C178(arg0);
+//         break;
+//     case 25:
+//         func_8033B118_74C7C8(arg0);
 //         break;
 //     case 30:
-//         func_8033B594_74CC44(arg1);
+//         func_8033B440_74CAF0(arg1);
 //         break;
+//     case 27:
+//         func_8033C320_74D9D0(arg1);
+//         break;
+//     case 28:
+//         func_8033641C_747ACC(arg0, 1);
+//         break;
+//     case 29:
+//         func_8033B594_74CC44(arg0);
+//         break;
+//     case 18:
 //     case 31:
-//         func_8033B9B8_74D068(arg1);
+//         func_8033B9B8_74D068(arg0);
 //         break;
 //     case 228:
-//         func_8033C054_74D704(arg1);
+//         func_8033C054_74D704(arg0);
 //         break;
 //     }
 // }
@@ -299,9 +303,9 @@ void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f3
     f32 tmp1;
     f32 tmp2;
 
-    tmp1 = arg1 * D_803BE5F8 * 0.00390625;
+    tmp1 = arg1 * D_803BE5F8 * (256 / 65536.0);
     tmp0 = sinf(tmp1);
-    tmp2 = arg0 * D_803BE600 * 0.00390625;
+    tmp2 = arg0 * D_803BE600 * (256 / 65536.0);
     *arg3 = D_803F2AD0->unk8 - cosf(tmp2) * (arg2 * tmp0);
     tmp0 = cosf(tmp1);
     *arg4 = D_803F2AD0->unkC - cosf(tmp2) * (arg2 * tmp0);
@@ -333,9 +337,9 @@ void func_8033EF94_750644(u16 *arg0, u16 arg1) {
     }
 
     if (res == 2) {
-        func_8032C508_73DBB8(16, 0x4000, 0, 1.0f);
+        func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
     } else if (res == 1) {
-        func_8032C508_73DBB8(15, 0x2A00, 0, 1.0f);
+        func_8032C508_73DBB8(SFX_CAMERA_PAN, 0x2A00, 0, 1.0f);
     }
 }
 
@@ -414,9 +418,9 @@ void func_803423C4_753A74(s16 arg0, f32 arg1, f32 arg2, f32 arg3) {
     D_803F28E0[arg0].unk74 = D_803F28E0[arg0].unk74 + arg1;
     D_803F28E0[arg0].unk78 = D_803F28E0[arg0].unk78 + arg2;
     D_803F28E0[arg0].unk7C = D_803F28E0[arg0].unk7C + arg3;
-    D_803F28E0[arg0].unk5A = D_803F28E0[arg0].unk5A + arg1 * 0.015625;
-    D_803F28E0[arg0].unk5C = D_803F28E0[arg0].unk5C + arg2 * 0.015625;
-    D_803F28E0[arg0].unk5E = D_803F28E0[arg0].unk5E + arg3 * 0.015625;
+    D_803F28E0[arg0].unk5A = D_803F28E0[arg0].unk5A + arg1 * (1.0 / 64.0);
+    D_803F28E0[arg0].unk5C = D_803F28E0[arg0].unk5C + arg2 * (1.0 / 64.0);
+    D_803F28E0[arg0].unk5E = D_803F28E0[arg0].unk5E + arg3 * (1.0 / 64.0);
     D_803F28E0[arg0].unk98 = D_803F28E0[arg0].unk98 + arg1;
     D_803F28E0[arg0].unk9C = D_803F28E0[arg0].unk9C + arg2;
     D_803F28E0[arg0].unkA0 = D_803F28E0[arg0].unkA0 + arg3;

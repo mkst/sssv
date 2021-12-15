@@ -77,29 +77,30 @@ void func_802E4AB8_6F6168(void) {
     }
 }
 
-s32 func_802E4B0C_6F61BC(s16 arg0) {
-    switch (arg0) {
-    case 16:
-    case 18:
-    case 20:
-    case 21:
-    case 32:
+// load_dynamic_tail
+s32 func_802E4B0C_6F61BC(s16 animalId) {
+    switch (animalId) {
+    case MOUSE:
+    case RACING_MOUSE:
+    case MOUSE2:
+    case HELI_MOUSE:
+    case RAT:
         return func_802DD090_6EE740(6, FTOFIX32(3.125), 1, 3, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    case 13:
+    case KING_RAT:
         return func_802DD090_6EE740(6, FTOFIX32(6.25), 1, 32, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    case 40:
-    case 42:
+    case HUSKY:
+    case SKI_HUSKY:
         return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 11, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    case 41:
+    case CRAZY_HUSKY:
         return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 12, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    case 49:
-    case 50:
+    case POGO_KANGAROO:
+    case BOXING_KANGAROO:
         return func_802DD090_6EE740(4, FTOFIX32(15.0), 1, 13, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    case 53:
+    case SCORPION:
         return func_802DD090_6EE740(7, FTOFIX32(5.90625), 1, 14, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    case 56:
+    case ELEPHANT:
         return func_802DD090_6EE740(5, FTOFIX32(16.40625), 1, 16, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    case 1:
+    case LION:
         return func_802DD090_6EE740(4, FTOFIX32(15.625), 1, 35, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     default:
         return 0;

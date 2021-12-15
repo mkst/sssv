@@ -5,19 +5,19 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/gorilla/func_803791E0_78A890.s")
 
 void func_8037B590_78CC40(void) {
-    if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 != 11) && (D_803D5530->unk162 == 1)) {
+    if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 != ATTACK_GRAB) && (D_803D5530->unk162 == 1)) {
         // fakematch
         if (D_803D5530) {};
 
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 11;
+        D_803D552C->unk365 = ATTACK_GRAB;
     } else if (D_803D552C->unk320 != 0) {
-        if ((D_803D552C->unk365 != 14) && (D_803D552C->unk365 != 15) && (D_803D552C->unk318 == 0)) {
+        if ((D_803D552C->unk365 != ATTACK_BEAR_2) && (D_803D552C->unk365 != ATTACK_BEAR_3) && (D_803D552C->unk318 == 0)) {
             D_803D552C->unk32A = D_803D5544;
             if ((D_803D552C->unk320->unk16C->unk0 == 2) || (D_803D552C->unk320->unk16C->unk0 == 61)) {
-                D_803D552C->unk365 = 14;
+                D_803D552C->unk365 = ATTACK_BEAR_2;
             } else {
-                D_803D552C->unk365 = 15;
+                D_803D552C->unk365 = ATTACK_BEAR_3;
             }
         }
     }
@@ -46,23 +46,23 @@ void func_8037B70C_78CDBC(void) {
 }
 
 void func_8037B754_78CE04(Animal *arg0, Animal *arg1) {
-    if (arg0->unk365 != 11) {
+    if (arg0->unk365 != ATTACK_GRAB) {
         arg0->unk330 = arg1;
         arg0->unk32A = D_803D5544;
-        arg0->unk365 = 11;
+        arg0->unk365 = ATTACK_GRAB;
     }
 }
 
 void func_8037B784_78CE34(Animal *arg0) {
     if (arg0->unk320 != NULL) {
-        if ((arg0->unk365 != 14) && (arg0->unk365 != 15) &&
+        if ((arg0->unk365 != ATTACK_BEAR_2) && (arg0->unk365 != ATTACK_BEAR_3) &&
             (D_803D552C->unk318 == 0)) {
             arg0->unk32A = D_803D5544;
             if ((arg0->unk320->unk16C->unk0 == 2) ||
                 (arg0->unk320->unk16C->unk0 == 61)) {
-                arg0->unk365 = 14;
+                arg0->unk365 = ATTACK_BEAR_2;
             } else {
-                arg0->unk365 = 15;
+                arg0->unk365 = ATTACK_BEAR_3;
             }
         }
     }

@@ -15,7 +15,7 @@ Vtx D_04004980_CC3B0[10] = { // alignment?
 
 extern Gfx D_01003740_3D010[];
 
-const Gfx D_04004A20_CC450[] = {
+Gfx D_04004A20_CC450[] = {
     gsSPDisplayList(D_01003740_3D010),
     gsSPVertex(D_04004710_CC140, 15, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),

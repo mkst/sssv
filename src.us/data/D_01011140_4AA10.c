@@ -6,7 +6,7 @@ Vtx D_01010FE0_4A8B0[22] = {
 
 extern u8 img_objects_4A0B0_rgba16_rgba16__png[];
 
-const Gfx D_01011140_4AA10[] = {
+Gfx D_01011140_4AA10[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

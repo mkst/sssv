@@ -86,7 +86,7 @@ extern u8 img_intro_spaceship_interior_D_04001E30_118A00_rgba16_D_04001E30_118A0
 extern u8 img_intro_spaceship_interior_D_04002630_119200_rgba16_D_04002630_119200__rgba16__png[];
 extern u8 img_intro_spaceship_interior_D_04002E30_119A00_rgba16_D_04002E30_119A00__rgba16__png[];
 
-const Gfx D_04005B60_11C730[] = {
+Gfx D_04005B60_11C730[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

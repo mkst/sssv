@@ -34,7 +34,7 @@ Vtx D_05001F70_C1BB0[22] = {
 #include "data/inc/D_05001F70_C1BB0.inc.c"
 };
 
-const Gfx D_050020D0_C1D10[] = {
+Gfx D_050020D0_C1D10[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05000D70_C09B0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

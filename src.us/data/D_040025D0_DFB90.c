@@ -7,7 +7,7 @@ Vtx D_04002570_DFB30[6] = {
 #include "data/inc/D_04002570_DFB30.inc.c"
 };
 
-const Gfx D_040025D0_DFB90[] = {
+Gfx D_040025D0_DFB90[] = {
     gsSPVertex(D_04002530_DFAF0, 4, 0),
     gsDPSetPrimColor(0, 0, 0xFF, 0x64, 0x00, 0xFF),
     gsSP2Triangles(0, 2, 1, 0, 1, 2, 3, 0),

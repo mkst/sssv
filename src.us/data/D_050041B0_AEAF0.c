@@ -52,7 +52,7 @@ Vtx D_05003FE0_AE920[29] = {
 #include "data/inc/D_05003FE0_AE920.inc.c"
 };
 
-const Gfx D_050041B0_AEAF0[] = {
+Gfx D_050041B0_AEAF0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05002280_ACBC0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

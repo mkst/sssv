@@ -10,7 +10,7 @@ Vtx D_01013170_4CA40[32] = {
 #include "data/inc/D_01013170_4CA40.inc.c"
 };
 
-const Gfx D_01013370_4CC40[] = {
+Gfx D_01013370_4CC40[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0x02, 0x0F, 0xFF, 0xFF),
     gsSPVertex(D_01012E80_4C750, 31, 0),

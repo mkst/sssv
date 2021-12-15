@@ -86,10 +86,10 @@ s8 func_80128424(u8 idx) {
 s16 func_8012844C(s16 arg0) {
     if (arg0 > 2047) {
         return 89;
-    }
+    } else
     if (arg0 < -2047) {
         return -89;
-    }
+    } else
     if (arg0 < 0) {
         return -D_80151438[-arg0];
     } else {
@@ -194,15 +194,14 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
 
 s16 func_80128C10(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_v0;
-    s32 temp_v1;
     s32 phi_v1;
     s16 res;
 
     phi_v1 = arg3 - arg1;
+    temp_v0 = arg2 - arg0;
     if (phi_v1 == 0) {
         phi_v1 = 1;
     }
-    temp_v0 = arg2 - arg0;
     if (temp_v0 > 0) {
         if (phi_v1 > 0) {
             res = 180 - func_8012844C((temp_v0 * 64) / phi_v1);

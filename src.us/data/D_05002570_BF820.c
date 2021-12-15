@@ -25,7 +25,7 @@ Vtx D_05002480_BF730[15] = {
 #include "data/inc/D_05002480_BF730.inc.c"
 };
 
-const Gfx D_05002570_BF820[] = {
+Gfx D_05002570_BF820[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_050018E0_BEB90, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

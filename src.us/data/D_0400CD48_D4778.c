@@ -22,8 +22,7 @@ Vtx D_0400CB88_D45B8[28] = {
 #include "data/inc/D_0400CB88_D45B8.inc.c"
 };
 
-
-const Gfx D_0400CD48_D4778[] = {
+Gfx D_0400CD48_D4778[] = {
     gsSPVertex(D_0400BFD8_D3A08, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 9, 10, 11, 0),

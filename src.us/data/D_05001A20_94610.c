@@ -7,7 +7,7 @@ Vtx D_050019F0_945E0[3] = {
 #include "data/inc/D_050019F0_945E0.inc.c"
 };
 
-const Gfx D_05001A20_94610[] = {
+Gfx D_05001A20_94610[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_050017F0_943E0, 32, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),

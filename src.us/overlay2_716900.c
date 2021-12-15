@@ -164,7 +164,6 @@ s32 func_80309BA0_71B250(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80309C8C_71B33C.s")
 // void func_80309C8C_71B33C(void) {
-//
 //     if (D_803D552C->unk270 != 0) {
 //         D_803D552C->unk287 = 0;
 //     }
@@ -173,10 +172,11 @@ s32 func_80309BA0_71B250(void) {
 //         break;
 //     case 1:
 //         if ((D_803D552C->unk28A != 0) || (D_803E4C3C < 640)) {
-//             D_803D552C->unk287 = 0U;
+//             D_803D552C->unk287 = 0;
 //             func_80363CC8_775378(D_803D5530);
-//         } else if (--D_803D552C->unk288 < 1) {
-//             if ((((D_803A5580_7B6C30++) & 3)) ) {
+//         } else if ((--D_803D552C->unk288 <= 0) != 0) {
+//             // is this a bitfield?
+//             if ((D_803A5580_7B6C30++ & 3) == 0) {
 //                 func_8037FEDC_79158C();
 //             }
 //             D_803D552C->unk287 = 2;

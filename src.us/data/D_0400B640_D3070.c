@@ -26,7 +26,7 @@ Vtx D_0400B520_D2F50[18] = {
 #include "data/inc/D_0400B520_D2F50.inc.c"
 };
 
-const Gfx D_0400B640_D3070[] = {
+Gfx D_0400B640_D3070[] = {
     gsSPVertex(D_0400A870_D22A0, 32, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 2, 0),
     gsSP2Triangles(1, 5, 6, 0, 3, 2, 6, 0),

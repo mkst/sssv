@@ -1296,7 +1296,7 @@ void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1) {
                 gDPSetPrimColor((*arg0)++, 0, 0, 120, 120, 120, arg1);
 
             } else {
-                gDPSetPrimColor((*arg0)++, 0, 0, 120, 120, 120, 0x05);
+                gDPSetPrimColor((*arg0)++, 0, 0, 120, 120, 120, 5);
 
             }
             gDPPipeSync((*arg0)++);

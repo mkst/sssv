@@ -13,7 +13,7 @@ Vtx D_04007A80_E5040[6] = {
 extern Gfx D_010034C0_3CD90[];
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_04007AE0_E50A0[] = {
+Gfx D_04007AE0_E50A0[] = {
     gsDPSetPrimColor(0, 0, 0x00, 0x00, 0xFF, 0xFF),
     gsSPVertex(D_040078A0_E4E60, 15, 0),
     gsSP1Quadrangle(0, 2, 1, 3, 0),

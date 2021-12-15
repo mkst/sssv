@@ -7,7 +7,7 @@ Vtx D_050005F0_AAF30[3] = {
 #include "data/inc/D_050005F0_AAF30.inc.c"
 };
 
-const Gfx D_05000620_AAF60[] = {
+Gfx D_05000620_AAF60[] = {
     gsSPVertex(D_050003F0_AAD30, 32, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP1Quadrangle(6, 7, 8, 9, 0),

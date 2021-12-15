@@ -4,7 +4,7 @@ Vtx D_01017DB0_51680[16] = {
 #include "data/inc/D_01017DB0_51680.inc.c"
 };
 
-const Gfx D_01017EB0_51780[] = {
+Gfx D_01017EB0_51780[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_01017DB0_51680, 16, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 2, 1, 0),

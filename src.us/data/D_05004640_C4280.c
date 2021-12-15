@@ -19,7 +19,7 @@ Vtx D_05004520_C4160[18] = {
 #include "data/inc/D_05004520_C4160.inc.c"
 };
 
-const Gfx D_05004640_C4280[] = {
+Gfx D_05004640_C4280[] = {
     gsSPVertex(D_05003B70_C37B0, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 9, 10, 11, 0),

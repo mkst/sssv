@@ -33,7 +33,7 @@ Vtx D_802EEA50_6920F0[13] = {
 };
 
 
-const Gfx D_802EEB20_6921C0[] = {
+Gfx D_802EEB20_6921C0[] = {
     gsDPPipeSync(),
     gsSPSetGeometryMode(G_CULL_BACK),
     gsSPVertex(D_802ED940_690FE0, 32, 0),

@@ -8,7 +8,7 @@ Vtx D_0100A550_43E20[24] = {
 #include "data/inc/D_0100A550_43E20.inc.c"
 };
 
-const Gfx D_0100A6D0_43FA0[] = {
+Gfx D_0100A6D0_43FA0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_0100A4D0_43DA0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

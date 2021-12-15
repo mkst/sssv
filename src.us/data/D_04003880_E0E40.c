@@ -15,7 +15,7 @@ Vtx D_04003840_E0E00[4] = {
 
 extern Gfx D_010034C0_3CD90[];
 
-const Gfx D_04003880_E0E40[] = {
+Gfx D_04003880_E0E40[] = {
     gsSPDisplayList(D_010034C0_3CD90),
     gsSPVertex(D_04003780_E0D40, 4, 0),
     gsSP2Triangles(0, 1, 2, 0, 2, 3, 0, 0),

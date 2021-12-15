@@ -6,7 +6,7 @@ Vtx D_0400EC30_125800[20] = {
 
 extern u8 D_0400E430_125000[];
 
-const Gfx D_0400ED70_125940[] = {
+Gfx D_0400ED70_125940[] = {
     gsDPPipeSync(),
     gsDPTileSync(),
     gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400E430_125000),

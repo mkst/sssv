@@ -66,21 +66,14 @@ void func_80362C10_7742C0(Animal *arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80362CC4_774374.s")
 #if 0
 void func_80362CC4_774374(Animal *arg0) {
     s16 sp54;
     s16 sp52;
-    s16 sp4C;
-    s16 sp48;
-    s16 sp46;
     Animal *sp28;
-    Animal *temp_v0_5;
-    s16 temp_v1;
     s16 temp_t3;
     s16 temp_t7;
     s32 temp_t8;
-    u16 temp_t6;
     u8 *temp_v0;
     u8 phi_v0;
     s16 phi_v1;
@@ -93,7 +86,8 @@ void func_80362CC4_774374(Animal *arg0) {
         break;
     case 1:
         if ((u8)arg0->unk2A0 == 0) {
-            temp_t8 = arg0->unk294.h[1] >> 12;
+            temp_t8 = arg0->unk294.h[1] >> 0xC;
+            // temp_t8 = tmp >> 12; // what?
             if (temp_t8 > 0) {
                 phi_v0 = ((arg0->unk294.b[1] >= *arg0->unk29C));
             } else {
@@ -263,6 +257,8 @@ void func_80362CC4_774374(Animal *arg0) {
         break;
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80362CC4_774374.s")
 #endif
 
 void func_803633C4_774A74(Animal *arg0) {

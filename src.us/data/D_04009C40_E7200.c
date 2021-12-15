@@ -19,7 +19,7 @@ Vtx D_04009AD0_E7090[23] = {
 #include "data/inc/D_04009AD0_E7090.inc.c"
 };
 
-const Gfx D_04009C40_E7200[] = {
+Gfx D_04009C40_E7200[] = {
     gsSPVertex(D_04009110_E66D0, 30, 0),
     gsSP2Triangles(0, 1, 2, 0, 2, 3, 0, 0),
     gsSP2Triangles(4, 5, 6, 0, 6, 7, 4, 0),

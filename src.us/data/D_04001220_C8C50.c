@@ -6,8 +6,7 @@ Vtx D_040011A0_C8BD0[8] = {
 
 extern Gfx D_01003548_3CE18[];
 
-
-const Gfx D_04001220_C8C50[] = {
+Gfx D_04001220_C8C50[] = {
     gsSPDisplayList(D_01003548_3CE18),
     gsSPVertex(D_040011A0_C8BD0, 8, 0),
     gsSP1Quadrangle(0, 2, 1, 3, 0),

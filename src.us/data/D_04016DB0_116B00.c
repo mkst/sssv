@@ -10,7 +10,7 @@ Vtx D_04016D30_116A80[8] = {
 #include "data/inc/D_04016D30_116A80.inc.c"
 };
 
-const Gfx D_04016DB0_116B00[] = {
+Gfx D_04016DB0_116B00[] = {
     gsSPVertex(D_04016960_1166B0, 30, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),
     gsSP1Quadrangle(4, 5, 1, 0, 0),

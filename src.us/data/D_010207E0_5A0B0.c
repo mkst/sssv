@@ -10,7 +10,7 @@ Vtx D_01020760_5A030[8] = {
 #include "data/inc/D_01020760_5A030.inc.c"
 };
 
-const Gfx D_010207E0_5A0B0[] = {
+Gfx D_010207E0_5A0B0[] = {
     gsSPVertex(D_010203F0_59CC0, 30, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),
     gsSP1Quadrangle(4, 5, 6, 7, 0),

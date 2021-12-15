@@ -7,18 +7,18 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_80373788_784E38.s")
 
 void func_80374470_785B20(void) {
-    if (D_803D552C->unk365 == 0) {
+    if (D_803D552C->unk365 == ATTACK_NONE) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 36;
+        D_803D552C->unk365 = ATTACK_DESERT_FOX_1;
     } else {
         recharge_skill(1);
     }
 }
 
 void func_803744C4_785B74(void) {
-    if (D_803D552C->unk365 == 0) {
+    if (D_803D552C->unk365 == ATTACK_NONE) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 14;
+        D_803D552C->unk365 = ATTACK_BEAR_2;
     } else {
         recharge_skill(1);
     }
@@ -29,7 +29,7 @@ void func_80374518_785BC8(void) {
     load_animal(DESERT_FOX);
 
     D_803D552C->unk32A = D_803D5544;
-    D_803D552C->unk365 = 37;
+    D_803D552C->unk365 = ATTACK_DESERT_FOX_SPIN;
 
     if (D_803D5528->skillBEnergy[0] < 900) {
         D_803D552C->unk348 = 512;
@@ -51,9 +51,9 @@ void func_803745C4_785C74(s16 arg0) {
 }
 
 void func_8037460C_785CBC(void) {
-    if (D_803D552C->unk365 == 0) {
+    if (D_803D552C->unk365 == ATTACK_NONE) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 14;
+        D_803D552C->unk365 = ATTACK_BEAR_2;
     } else {
         recharge_skill(1);
     }

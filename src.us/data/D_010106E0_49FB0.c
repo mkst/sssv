@@ -9,7 +9,7 @@ Vtx D_01010650_49F20[9] = {
 
 extern u8 img_objects_49650_rgba16_rgba16__png[];
 
-const Gfx D_010106E0_49FB0[] = {
+Gfx D_010106E0_49FB0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

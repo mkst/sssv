@@ -139,7 +139,7 @@ Vtx D_05006160_A7230[20] = {
 #include "data/inc/D_05006160_A7230.inc.c"
 };
 
-const Gfx D_050062A0_A7370[] = {
+Gfx D_050062A0_A7370[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_050009D0_A1AA0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

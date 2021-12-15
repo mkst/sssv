@@ -4,7 +4,7 @@ Vtx D_0100FB80_49450[13] = {
 #include "data/inc/D_0100FB80_49450.inc.c"
 };
 
-const Gfx D_0100FC50_49520[] = {
+Gfx D_0100FC50_49520[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

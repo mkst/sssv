@@ -2096,7 +2096,7 @@ void func_802B34B8_6C4B68(Animal *a) {
 }
 
 void func_802B34DC_6C4B8C(void) {
-    Animal *a = D_801DDD8C[gCurrentAnimalIndex].unk0;
+    Animal *a = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
     a->unk4A = MAX(0, a->unk4A - 1);
 }
 
@@ -2149,7 +2149,7 @@ void func_802B356C_6C4C1C(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
         break;
     }
 
-    if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+    if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801D9ED8.animal[gCurrentAnimalIndex].unk0)) {
         temp_v1_2 = arg0->unk16C->unkE6 - arg2;
         switch (temp_v1_2) {
         case 2:
@@ -2207,7 +2207,7 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
         arg1 = 0;
     }
     phi_a2 = arg1;
-    if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+    if ((arg2 >= 0) && (arg0->unk16C->unk80.bit) && (arg0 != D_801D9ED8.animal[gCurrentAnimalIndex].unk0)) {
         temp_v0 = arg0->unk16C->unkE6 - arg2;
         switch (temp_v0) {
         case 2:
@@ -2273,7 +2273,7 @@ void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2) {
         break;
     }
 
-    if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
+    if (arg0 != D_801D9ED8.animal[gCurrentAnimalIndex].unk0) {
         tmp = arg0->unk16C->unkE6 - arg1->unk16C->unkE6;
         switch (tmp) {
         case 2:

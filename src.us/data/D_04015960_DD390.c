@@ -19,7 +19,7 @@ Vtx D_040157C0_DD1F0[26] = {
 #include "data/inc/D_040157C0_DD1F0.inc.c"
 };
 
-const Gfx D_04015960_DD390[] = {
+Gfx D_04015960_DD390[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_04014FA0_DC9D0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

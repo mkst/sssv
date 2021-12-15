@@ -313,6 +313,7 @@ extern struct050 D_801D9ED8; // what is this variable!?
 extern s32  D_801DD800;
 extern struct035 *D_801DDD88; // base of animal pointers
 extern struct015 D_801DDD8C[]; // animals struct array
+// equal to D_801D9ED8.animal in some cases?
 
 // 0x801Exxxx
 
@@ -658,11 +659,11 @@ extern s16  D_803A53CC_7B6A7C;
 extern s16  D_803A53D4_7B6A84;
 extern s16  D_803A53E0_7B6A90;
 extern s16  D_803A53FC_7B6AAC;
-extern struct082 D_803A63B0_7B7A60[];
+extern struct082 D_803A63B0_7B7A60[]; // animals?
 extern s16  D_803A6470_7B7B20[];
 extern s16  D_803A6520_7B7BD0[];
-extern s16  D_803A65D0[];
-extern s16  D_803A6680[];
+extern s16  D_803A65D0_7B7C80[];
+extern s16  D_803A6680_7B7D30[];
 extern s16  D_803A6730[];
 extern s16  D_803A69F0[];
 extern f32  D_803A6CC4;
@@ -682,6 +683,7 @@ extern s8   D_803A8350_7B9A00[];
 extern s8   D_803A8358_7B9A08[];
 extern s8   D_803A8360_7B9A10[];
 extern s32  D_803A8374;
+extern s32  D_803A8374_7B9A24;
 extern s32  D_803A843C;
 extern s32  D_803A8450;
 extern s32  D_803A8464;
@@ -728,6 +730,12 @@ extern s32  D_803B4930_7C5FE0;
 extern s32  D_803B497C_7C602C;
 
 extern s16  D_803B52FC[];
+extern u8   D_803B5498_7C6B48[];
+extern u8   D_803B54A0_7C6B50[];
+extern s16  D_803B54A8_7C6B58[];
+extern struct076 D_803B555C_7C6C0C[];
+extern struct076 D_803B5574_7C6C24[];
+extern struct076 D_803B558C_7C6C3C[];
 extern Gfx  D_803B5764[];
 extern u8   D_803B58A0_7C6F50[];
 extern u8   D_803B58A4_7C6F54[];
@@ -761,10 +769,12 @@ extern f32  D_803B6868_7C7F18;
 extern f32  D_803B686C_7C7F1C;
 extern u16  D_803B6870[];
 extern s16  D_803B6870_7C7F20;
+extern Gfx*  D_803B7108_7C87B8[5][10];
 extern s8   D_803B71D0[][5];
 extern struct066 D_803B7268_7C8918[32];
 extern struct066 D_803B7368_7C8A18[32];
 extern f32  D_803B7468;
+extern char D_803B7480_7C8B30[]; // Europe, Ice, Jungle, Dessert
 extern f32  D_803B74AC_7C8B5C;
 extern f32  D_803B74B0_7C8B60;
 extern f32  D_803B74B4_7C8B64;
@@ -772,6 +782,7 @@ extern f32  D_803B74B8_7C8B68;
 extern f32  D_803B74BC_7C8B6C;
 extern f32  D_803B74C0_7C8B70;
 extern f32  D_803B74C4_7C8B74;
+
 
 // rodata starts at 0x803BACD0 (maybe)
 
@@ -787,6 +798,7 @@ extern char D_803BC720_7CDDD0[];
 extern char D_803BC738_7CDDE8[];
 extern f32  D_803BCDD8_7CE488;
 extern f32  D_803BCDDC_7CE48C;
+extern f64  D_803BCF00_7CE5B0; // 0.3
 extern f32  D_803BCF94_7CE644;
 // rabbit
 extern f32  D_803BCFA0_7CE650; // -0.35f
@@ -866,7 +878,7 @@ extern f32  D_803C032C_7D19DC;
 extern f32  D_803C0348_7D19F8;
 extern f32  D_803C034C_7D19FC;
 extern f32  D_803C0388;
-extern f64  D_803C0390;
+extern f64  D_803C0390_7D1A40;
 extern char D_803C03A0_7D1A50[];
 extern char D_803C03A8_7D1A58[];
 extern char D_803C03B0_7D1A60[];
@@ -925,16 +937,16 @@ extern s32  D_803D5188;
 extern s16  D_803D5508;
 extern s16  D_803D5510;
 extern s16  D_803D5512;
+extern struct037 *D_803D5520;
+extern struct035 *D_803D5524;
+extern Animal *D_803D5528;
+extern Animal *D_803D552C; // is this *really* Animal? is it World?
 extern Animal *D_803D5530;
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
 extern u8   D_803D5538;
 extern s16  D_803D553A;
 extern s16  D_803D553C;
 extern s16  D_803D553E; // number of animals in level?
-extern struct037 *D_803D5520;
-extern struct035 *D_803D5524;
-extern Animal *D_803D5528;
-extern Animal *D_803D552C; // is this *really* Animal? is it World?
 extern s16  D_803D5540;
 extern s16  D_803D5542;
 extern u16  D_803D5544; // timer (for attacks? everything?)
@@ -1088,8 +1100,12 @@ extern s16  D_803E97C0;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  D_803E9824;
-extern u8  *D_803E9828;
-extern u8  *D_803E982C;
+extern struct105 *D_803E9828;
+extern struct104 *D_803E982C;
+extern u16  D_803E9836;
+extern u16  D_803E9838;
+extern u16  D_803E983A;
+extern u16  D_803E983C;
 extern struct067 D_803E9840[];
 // 0x803Fxxxx
 

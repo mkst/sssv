@@ -18,10 +18,11 @@ Vtx D_04006F10_CE940[17] = {
 Vtx D_04007020_CEA50[6] = {
 #include "data/inc/D_04007020_CEA50.inc.c"
 };
+
 extern Gfx D_01003618_3CEE8[];
 extern Gfx D_01003548_3CE18[];
 
-const Gfx D_04007080_CEAB0[] = {
+Gfx D_04007080_CEAB0[] = {
     gsSPDisplayList(D_01003618_3CEE8),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPVertex(D_04006C40_CE670, 8, 0),

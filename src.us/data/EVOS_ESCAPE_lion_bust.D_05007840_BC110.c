@@ -18,7 +18,7 @@ Vtx D_05007710_BBFE0[19] = {
 };
 
 
-const Gfx D_05007840_BC110[] = {
+Gfx D_05007840_BC110[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_050070B0_BB980, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

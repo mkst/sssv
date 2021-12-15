@@ -16,7 +16,7 @@ Vtx D_05001370_86B00[24] = {
 extern u8 img_levels_HAVE_A_NICE_DAY_roof_tile_rgba16_rgba16__png[];
 extern u8 img_levels_HAVE_A_NICE_DAY_floorboard_rgba16_rgba16__png[];
 
-const Gfx D_050014F0_86C80[] = {
+Gfx D_050014F0_86C80[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05001000_86790, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

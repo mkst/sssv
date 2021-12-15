@@ -41,9 +41,9 @@ void func_802E8500_6F9BB0(void) {
 }
 
 void func_802E864C_6F9CFC(void) {
-    if (D_803D552C->unk365 != 20) {
+    if (D_803D552C->unk365 != ATTACK_FOX_DASH) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 20;
+        D_803D552C->unk365 = ATTACK_FOX_DASH;
         func_8033F2EC_75099C();
         func_8033F294_750944(2);
     } else {
@@ -52,18 +52,18 @@ void func_802E864C_6F9CFC(void) {
 }
 
 void func_802E86C8_6F9D78(void) {
-    if (D_803D552C->unk365 == 43) {
-        D_803D552C->unk365 = 42;
-    } else if (D_803D552C->unk365 != 42) {
+    if (D_803D552C->unk365 == ATTACK_FOX_3) {
+        D_803D552C->unk365 = ATTACK_FOX_TAIL;
+    } else if (D_803D552C->unk365 != ATTACK_FOX_TAIL) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 42;
+        D_803D552C->unk365 = ATTACK_FOX_TAIL;
         play_sound_effect_at_location(0, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
     }
 }
 
 void func_802E8760_6F9E10(void) {
-    if (((D_803D5544 - D_803D552C->unk32A) >= 13) && (D_803D552C->unk365 == 42)) {
-        D_803D552C->unk365 = 43;
+    if (((D_803D5544 - D_803D552C->unk32A) >= 13) && (D_803D552C->unk365 == ATTACK_FOX_TAIL)) {
+        D_803D552C->unk365 = ATTACK_FOX_3;
         D_803D552C->unk32A = D_803D5544;
     }
 }
@@ -93,23 +93,23 @@ void fire_fox_fire_missile(Animal *animal) {
 
 // fox_tail_attack
 void func_802E88C0_6F9F70(s16 arg0) {
-    if (D_803D552C->unk365 == 42) {
+    if (D_803D552C->unk365 == ATTACK_FOX_TAIL) {
         D_803D552C->unk2EC = MAX(D_803D552C->unk2EC, arg0);
-    } else if (D_803D552C->unk365 == 43) {
+    } else if (D_803D552C->unk365 == ATTACK_FOX_3) {
         D_803D552C->unk2EC = arg0;
-        D_803D552C->unk365 = 42;
+        D_803D552C->unk365 = ATTACK_FOX_TAIL;
         D_803D552C->unk32A -= 8;
     } else {
         D_803D552C->unk2EC = arg0;
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 42;
+        D_803D552C->unk365 = ATTACK_FOX_TAIL;
         play_sound_effect_at_location(0, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
     }
 }
 
 void fox_warp(void) {
-    if (D_803D552C->unk365 != 20) {
+    if (D_803D552C->unk365 != ATTACK_FOX_DASH) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 20;
+        D_803D552C->unk365 = ATTACK_FOX_DASH;
     }
 }

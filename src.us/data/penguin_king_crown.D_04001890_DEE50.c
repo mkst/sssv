@@ -1,16 +1,14 @@
 #include <ultra64.h>
 
-
 Vtx D_04001770_DED30[18] = {
 #include "data/inc/D_04001770_DED30.inc.c"
 };
-
 
 extern Gfx D_01003548_3CE18[];
 extern Gfx D_01003618_3CEE8[];
 
 
-const Gfx D_04001890_DEE50[] = {
+Gfx D_04001890_DEE50[] = {
     gsSPDisplayList(D_01003618_3CEE8),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0x00, 0xFF),
     gsSPVertex(D_04001770_DED30, 18, 0),

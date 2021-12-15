@@ -9,7 +9,7 @@ Vtx D_0400CA20_1235F0[12] = {
 
 extern u8 D_0400C030_122C00[];
 
-const Gfx D_0400CAE0_1236B0[] = {
+Gfx D_0400CAE0_1236B0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
     gsSPClearGeometryMode(G_TEXTURE_GEN),

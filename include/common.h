@@ -126,17 +126,59 @@
 #define PAUSE_MENU_OPTION_LANGUAGE  6
 #define PAUSE_MENU_OPTION_LEAVE_SV  7
 
-// attacks?
+// attacks? animations? poses?
 
 #define ATTACK_NONE         0
+#define ATTACK_VULTURE      1
 #define ATTACK_FROG_TONGUE  2
+#define ATTACK_SHEEP_HEADBUTT 3
+#define ATTACK_KANGAROO_1   4
+#define ATTACK_KANGAROO_2   5
+#define ATTACK_SCORPION_1   6
+#define ATTACK_CHAMELEON_TONGUE 7
 #define ATTACK_ROAR         8
+#define ATTACK_GRAB         11
+#define ATTACK_HOLD         12
+#define ATTACK_BEAR_2       14
+#define ATTACK_BEAR_3       15
+#define ATTACK_ELEPHANT_1   16
 #define ATTACK_SPIT         17
 #define ATTACK_BITE         18
 #define ATTACK_FART         19
+#define ATTACK_FOX_DASH     20
+#define ATTACK_CAMEL_1      22
+#define ATTACK_CAMEL_2      23
+#define ATTACK_CHAMELEON_1  24
+#define ATTACK_CHAMELEON_2  25
+#define ATTACK_POLAR_BEAR_1 26
+#define ATTACK_POLAR_BEAR_2 27
+#define ATTACK_POLAR_BEAR_3 28
+#define ATTACK_RABBIT_1     29
 #define ATTACK_SNOWBALL     32
+#define ATTACK_KANGAROO_3   35
+#define ATTACK_DESERT_FOX_1 36
+#define ATTACK_DESERT_FOX_SPIN 37
+#define ATTACK_SCORPION_2   38
+#define ATTACK_KING_RAT     39
 #define ATTACK_MOUSE_TAIL   40
+#define ATTACK_MOUSE_2      41
+#define ATTACK_FOX_TAIL     42
+#define ATTACK_FOX_3        43
+#define ATTACK_SHEEP_FLOAT  45
+#define ATTACK_DOG_1        48
 
+// objects
+
+#define OBJECT_CANNONBALL   17
+#define OBJECT_MISSILE      18
+#define OBJECT_SWITCH_ON    24
+
+
+// transitions
+
+#define TRANSITION_1        1
+#define TRANSITION_FADE_IN  2
+#define TRANSITION_FADE_OUT_BLK 3
 
 // extra gbi macros
 

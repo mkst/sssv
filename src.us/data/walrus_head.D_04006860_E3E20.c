@@ -32,7 +32,7 @@ extern Gfx D_010034C0_3CD90[];
 extern Gfx D_01003548_3CE18[];
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_04006860_E3E20[] = {
+Gfx D_04006860_E3E20[] = {
     gsSPDisplayList(D_010034C0_3CD90),
     gsSPVertex(D_04006340_E3900, 13, 0),
     gsSP2Triangles(0, 2, 1, 0, 2, 3, 1, 0),

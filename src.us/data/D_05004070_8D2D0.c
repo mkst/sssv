@@ -14,7 +14,7 @@ Vtx D_05003F70_8D1D0[16] = {
 };
 extern u8 D_050031A0_8C400[];
 
-const Gfx D_05004070_8D2D0[] = {
+Gfx D_05004070_8D2D0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

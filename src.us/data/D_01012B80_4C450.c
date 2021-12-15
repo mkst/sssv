@@ -13,7 +13,7 @@ Vtx D_01012A80_4C350[16] = {
 #include "data/inc/D_01012A80_4C350.inc.c"
 };
 
-const Gfx D_01012B80_4C450[] = {
+Gfx D_01012B80_4C450[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_01012790_4C060, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

@@ -25,7 +25,7 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_803892EC_79A99C,
     func_803852B8_796968,
     perform_behavior_heli_mouse,   // 21 HELI_MOUSE
-    func_803852C8_796978,
+    func_803852C8_796978, // 22 BEAR
     func_80385480_796B30, // 23 BEAR_ATTACKING
     func_80385488_796B38,
     func_8038951C_79ABCC,
@@ -554,7 +554,7 @@ void func_803852C8_796978(void) {
             D_803D552C->unk2B4.state = 1;
         } else {
             func_80327B94_739244(70);
-            D_803D552C->unk2B4.state = 3;
+            D_803D552C->unk2B4.state = 3; // ATTACKING
             D_803D552C->unk2B8 = 0;
         }
         break;
@@ -564,8 +564,8 @@ void func_803852C8_796978(void) {
         // fallthru
     case 4:
         if ((D_803D552C->unk2D0 >= 0xC8) || (D_803D552C->unk2B8++ >= 0x3D)) {
-                D_803D552C->unk2B4.state = 1;
-                func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 20);
+            D_803D552C->unk2B4.state = 1;
+            func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 20);
         }
     }
 }

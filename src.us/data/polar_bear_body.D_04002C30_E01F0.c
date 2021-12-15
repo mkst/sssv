@@ -15,7 +15,7 @@ Vtx D_04002B30_E00F0[16] = {
 
 extern Gfx D_01003548_3CE18[];
 
-const Gfx D_04002C30_E01F0[] = {
+Gfx D_04002C30_E01F0[] = {
     gsSPDisplayList(D_01003548_3CE18),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPVertex(D_04002930_DFEF0, 32, 0),
@@ -59,7 +59,7 @@ const Gfx D_04002C30_E01F0[] = {
     gsSPEndDisplayList(),
 };
 
-const Gfx D_04002D78_E0338[] = {
+Gfx D_04002D78_E0338[] = {
     gsSPDisplayList(D_01003548_3CE18),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPVertex(D_04002630_DFBF0, 32, 0),

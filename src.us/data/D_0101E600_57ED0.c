@@ -7,7 +7,7 @@ Vtx D_0101E5A0_57E70[6] = {
 #include "data/inc/D_0101E5A0_57E70.inc.c"
 };
 
-const Gfx D_0101E600_57ED0[] = {
+Gfx D_0101E600_57ED0[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_0101E3B0_57C80, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),

@@ -1,0 +1,5 @@
+# ignore everything except the files being copied in
+*
+!requirements.txt
+!packages.txt
+!.bash_aliases

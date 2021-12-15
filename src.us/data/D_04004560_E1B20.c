@@ -20,7 +20,7 @@ extern Gfx D_01003618_3CEE8[];
 extern Gfx D_01003548_3CE18[];
 extern Gfx D_010034C0_3CD90[];
 
-const Gfx D_04004560_E1B20[] = {
+Gfx D_04004560_E1B20[] = {
     gsSPDisplayList(D_01003618_3CEE8),
     gsDPSetPrimColor(0, 0, 0x9B, 0xFF, 0xFF, 0xFF),
     gsSPVertex(D_04004250_E1810, 10, 0),

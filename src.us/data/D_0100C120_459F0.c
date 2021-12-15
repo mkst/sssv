@@ -15,7 +15,7 @@ Vtx D_0100C0E0_459B0[4] = {
 };
 
 
-const Gfx D_0100C120_459F0[] = {
+Gfx D_0100C120_459F0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0x0A, 0x0A, 0x7D, 0xFF),
     gsSPVertex(D_0100BE50_45720, 15, 0),

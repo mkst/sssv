@@ -10,7 +10,7 @@ Vtx D_040024B0_DFA70[4] = {
 
 extern Gfx D_010037F0_3D0C0[];
 
-const Gfx D_040024F0_DFAB0[] = {
+Gfx D_040024F0_DFAB0[] = {
     gsSPDisplayList(D_010037F0_3D0C0),
     gsSPVertex(D_04002470_DFA30, 4, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),
@@ -19,7 +19,7 @@ const Gfx D_040024F0_DFAB0[] = {
 
 extern Gfx D_01003840_3D110[];
 
-const Gfx D_04002510_DFAD0[] = {
+Gfx D_04002510_DFAD0[] = {
     gsSPVertex(D_040024B0_DFA70, 4, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),
     gsSPDisplayList(D_01003840_3D110),

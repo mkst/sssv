@@ -34,7 +34,7 @@ Vtx D_05003600_C3240[12] = {
 #include "data/inc/D_05003600_C3240.inc.c"
 };
 
-const Gfx D_050036C0_C3300[] = {
+Gfx D_050036C0_C3300[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05002560_C21A0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

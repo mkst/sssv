@@ -12,7 +12,7 @@ Vtx D_04009C10_D1640[26] = {
 };
 
 
-const Gfx D_04009DB0_D17E0[] = {
+Gfx D_04009DB0_D17E0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_04009AA0_D14D0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

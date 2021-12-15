@@ -4,7 +4,7 @@ Vtx D_8029A3C0_63DA60[24] = {
 #include "data/inc/D_8029A3C0_63DA60.inc.c"
 };
 
-const Gfx D_8029A540_63DBE0[] = {
+Gfx D_8029A540_63DBE0[] = {
     gsDPPipeSync(),
     gsSPVertex(D_8029A3C0_63DA60, 24, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),

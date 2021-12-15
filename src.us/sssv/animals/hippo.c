@@ -8,7 +8,7 @@ void func_802F036C_701A1C(void) {
 }
 
 void func_802F0374_701A24(void) {
-    if (D_803D552C->unk365 == 0) {
+    if (D_803D552C->unk365 == ATTACK_NONE) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_SPIT;
         D_803D552C->unk32C = D_803D552C->unk302;
@@ -78,7 +78,7 @@ void drop_sticky_mine(void) {
 }
 
 void hippo_spit(s32 arg0, s32 arg1, s32 arg2) {
-    if (D_803D552C->unk365 == 0) {
+    if (D_803D552C->unk365 == ATTACK_NONE) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_SPIT;
         D_803D552C->unk32C = D_803D552C->unk302;

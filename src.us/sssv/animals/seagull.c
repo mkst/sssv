@@ -25,8 +25,8 @@ void func_80381C60_793310(void) {
                 } else {
                     play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
                 }
-                if (D_803D552C->unk365 == 0) {
-                    D_803D552C->unk365 = 18;
+                if (D_803D552C->unk365 == ATTACK_NONE) {
+                    D_803D552C->unk365 = ATTACK_BITE;
                     D_803D552C->unk32A = D_803D5544;
                 }
             }
@@ -48,8 +48,8 @@ void func_80381F14_7935C4(void) {
         } else {
             play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
         }
-        if (D_803D552C->unk365 == 0) {
-            D_803D552C->unk365 = 18;
+        if (D_803D552C->unk365 == ATTACK_NONE) {
+            D_803D552C->unk365 = ATTACK_BITE;
             D_803D552C->unk32A = D_803D5544;
         }
     }

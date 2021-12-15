@@ -7,7 +7,7 @@ Vtx D_04005500_CCF30[8] = {
 #include "data/inc/D_04005500_CCF30.inc.c"
 };
 
-const Gfx D_04005580_CCFB0[] = {
+Gfx D_04005580_CCFB0[] = {
     gsDPSetPrimColor(0, 0, 0x66, 0x82, 0xFF, 0xFF),
     gsSPVertex(D_040054B0_CCEE0, 5, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),

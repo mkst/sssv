@@ -182,7 +182,7 @@ s32 func_8035E344_76F9F4(struct037 *arg0, s16 arg1);
 //
 //         if ((D_801D9ED8.unkFFB8 == 0) && (D_801D9ED8.unkFFB2 != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
 //             func_80321E60_733510(
-//                 17,
+//                 OBJECT_CANNONBALL,
 //                 32,
 //                 0,
 //                 20,
@@ -211,7 +211,7 @@ s32 func_8035E344_76F9F4(struct037 *arg0, s16 arg1);
 //             phi_v1 = (((D_80152C78[(temp_v1 + 64) & 0xFF] >> 7) << 5) >> 8);
 //
 //             func_80321E60_733510(
-//                 17,
+//                 OBJECT_CANNONBALL,
 //                 (phi_v1),
 //                 0,
 //                 (s16) (((((D_80152C78[temp_t0 & 0xFF]) >> 7) << 5) >> 8) + 16),
@@ -240,7 +240,7 @@ s32 func_8035E344_76F9F4(struct037 *arg0, s16 arg1);
 // }
 
 void func_80355E14_7674C4(void) {
-    func_80321E60_733510(17, 32, 0, 30, 10, 0, 2, 45);
+    func_80321E60_733510(OBJECT_CANNONBALL, 32, 0, 30, 10, 0, 2, 45);
     func_8034220C_7538BC(17, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
     D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
     play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
@@ -302,9 +302,9 @@ void func_80356134_7677E4(Animal *a) {
     } else {
         rot = (temp_v0 * 256) / 360;
     }
-    func_80322064_733714(17, 32, 0, 20, 30, D_803D5530->yRotation, rot, 2, 45);
+    func_80322064_733714(OBJECT_CANNONBALL, 32, 0, 20, 30, D_803D5530->yRotation, rot, 2, 45);
     do_rumble(0, 10, 40, 5, distance_from_player(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
-    func_8034220C_7538BC(0xE, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
+    func_8034220C_7538BC(14, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
     D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
 
     play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);

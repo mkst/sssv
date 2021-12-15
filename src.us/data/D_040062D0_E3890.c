@@ -7,7 +7,7 @@ Vtx D_04006240_E3800[9] = {
 #include "data/inc/D_04006240_E3800.inc.c"
 };
 
-const Gfx D_040062D0_E3890[] = {
+Gfx D_040062D0_E3890[] = {
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0x00, 0xFF),
     gsSPVertex(D_040061E0_E37A0, 6, 0),
     gsSP2Triangles(0, 2, 1, 0, 1, 3, 0, 0),

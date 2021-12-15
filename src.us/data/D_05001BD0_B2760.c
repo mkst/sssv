@@ -4,7 +4,7 @@ Vtx D_05001AA0_B2630[19] = {
 #include "data/inc/D_05001AA0_B2630.inc.c"
 };
 
-const Gfx D_05001BD0_B2760[] = {
+Gfx D_05001BD0_B2760[] = {
     gsDPPipeSync(),
     gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_XLU_SURF2),
     gsSPVertex(D_05001AA0_B2630, 19, 0),

@@ -1,11 +1,10 @@
 #include <ultra64.h>
 
-
 Vtx D_01012550_4BE20[27] = {
 #include "data/inc/D_01012550_4BE20.inc.c"
 };
 
-const Gfx D_01012700_4BFD0[] = {
+Gfx D_01012700_4BFD0[] = {
     gsSPVertex(D_01012550_4BE20, 27, 0),
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 4, 0),
     gsSP2Triangles(1, 4, 2, 0, 2, 4, 5, 0),

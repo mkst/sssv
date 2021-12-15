@@ -10,7 +10,7 @@ Vtx D_0101DB10_573E0[18] = {
 #include "data/inc/D_0101DB10_573E0.inc.c"
 };
 
-const Gfx D_0101DC30_57500[] = {
+Gfx D_0101DC30_57500[] = {
     gsSPVertex(D_0101D730_57000, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 1, 0),
     gsSP2Triangles(5, 6, 4, 0, 7, 2, 6, 0),

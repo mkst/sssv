@@ -12,7 +12,7 @@ Vtx D_04005CD0_E3290[24] = {
 
 extern Gfx D_01003548_3CE18[];
 
-const Gfx D_04005E50_E3410[] = {
+Gfx D_04005E50_E3410[] = {
     gsSPDisplayList(D_01003548_3CE18),
     gsSPVertex(D_040058D0_E2E90, 32, 0),
     gsSP1Quadrangle(0, 2, 1, 3, 0),

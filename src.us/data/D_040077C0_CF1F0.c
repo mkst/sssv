@@ -12,7 +12,7 @@ Vtx D_04007730_CF160[9] = {
 
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_040077C0_CF1F0[] = {
+Gfx D_040077C0_CF1F0[] = {
     gsDPSetPrimColor(0, 0, 0xB0, 0x3F, 0x00, 0xFF),
     gsSPVertex(D_04007590_CEFC0, 19, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 2, 1, 0),

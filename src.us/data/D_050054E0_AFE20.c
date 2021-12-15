@@ -19,7 +19,7 @@ Vtx D_050053A0_AFCE0[20] = {
 #include "data/inc/D_050053A0_AFCE0.inc.c"
 };
 
-const Gfx D_050054E0_AFE20[] = {
+Gfx D_050054E0_AFE20[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05004B30_AF470, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

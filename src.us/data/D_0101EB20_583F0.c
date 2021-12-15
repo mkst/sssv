@@ -7,7 +7,7 @@ Vtx D_0101EAB0_58380[7] = {
 #include "data/inc/D_0101EAB0_58380.inc.c"
 };
 
-const Gfx D_0101EB20_583F0[] = {
+Gfx D_0101EB20_583F0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPClearGeometryMode(G_CULL_BACK),

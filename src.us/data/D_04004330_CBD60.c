@@ -7,7 +7,7 @@ Vtx D_040042D0_CBD00[6] = {
 #include "data/inc/D_040042D0_CBD00.inc.c"
 };
 
-const Gfx D_04004330_CBD60[] = {
+Gfx D_04004330_CBD60[] = {
     gsDPSetPrimColor(0, 0, 0xFF, 0x20, 0x00, 0xFF),
     gsSPVertex(D_04004270_CBCA0, 6, 0),
     gsSP2Triangles(0, 2, 1, 0, 2, 0, 3, 0),

@@ -66,20 +66,20 @@
 //         }
 //         // not quite this
 //         switch (D_803D552C->unk365) {
-//         case 0:
+//         case ATTACK_NONE: // 0
 //             break;
-//         case 1:
+//         case ATTACK_VULTURE: // 1
 //             func_802DCCAC_6EE35C(0x10);
 //             D_803F2ECC = (s16) D_803F2ED8;
 //             D_803F2ECE = (u16)3;
 //             break;
-//         case 18:
+//         case ATTACK_BITE: // 18
 //             if ((D_803D5544 - D_803D552C->unk32A) >= 9) {
 //                 D_803D552C->unk365 = (u8)0U;
 //             }
 //             break;
 //         default:
-//             D_803D552C->unk365 = (u8)0U;
+//             D_803D552C->unk365 = ATTACK_NONE;
 //         }
 //
 //         func_8035DA60_76F110();
@@ -178,7 +178,7 @@
 //                                     phi_t1 = FTOFIX32(1.0);
 //                                 }
 //                                 phi_v1_4 = 0;
-//                                 if (D_803D552C->unk365 == 0x12) {
+//                                 if (D_803D552C->unk365 == ATTACK_BITE) {
 //                                     switch ((D_803D5544 - (u16)D_803D552C->unk32A) - 1) {
 //                                     case 0:
 //                                         phi_v1_4 = 0x177;
@@ -317,8 +317,8 @@ void func_8036D30C_77E9BC(void) {
                 } else {
                     play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
                 }
-                if (D_803D552C->unk365 == 0) {
-                    D_803D552C->unk365 = 18;
+                if (D_803D552C->unk365 == ATTACK_NONE) {
+                    D_803D552C->unk365 = ATTACK_BITE;
                     D_803D552C->unk32A = D_803D5544;
                 }
             }
@@ -340,8 +340,8 @@ void func_8036D5CC_77EC7C(void) {
         } else {
             play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
         }
-        if (D_803D552C->unk365 == 0) {
-            D_803D552C->unk365 = 18;
+        if (D_803D552C->unk365 == ATTACK_NONE) {
+            D_803D552C->unk365 = ATTACK_BITE;
             D_803D552C->unk32A = D_803D5544;
         }
     }
