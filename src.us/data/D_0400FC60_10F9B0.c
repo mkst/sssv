@@ -31,7 +31,7 @@ Vtx D_0400FB40_10F890[18] = {
 #include "data/inc/D_0400FB40_10F890.inc.c"
 };
 
-const Gfx D_0400FC60_10F9B0[] = {
+Gfx D_0400FC60_10F9B0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_0400ECD0_10EA20, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

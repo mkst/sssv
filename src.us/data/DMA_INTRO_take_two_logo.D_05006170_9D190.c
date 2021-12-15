@@ -112,7 +112,7 @@ Vtx D_050060C0_9D0E0[11] = {
 };
 
 
-const Gfx D_05006170_9D190[] = {
+Gfx D_05006170_9D190[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

@@ -3,9 +3,10 @@
 Vtx D_040037E0_CB210[32] = {
 #include "data/inc/D_040037E0_CB210.inc.c"
 };
+
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_040039E0_CB410[] = {
+Gfx D_040039E0_CB410[] = {
     gsSPDisplayList(D_01003618_3CEE8),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0x00, 0xFF),
     gsSPVertex(D_040037E0_CB210, 32, 0),

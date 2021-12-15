@@ -22,7 +22,7 @@ Vtx D_01015E80_4F750[6] = {
 #include "data/inc/D_01015E80_4F750.inc.c"
 };
 
-const Gfx D_01015EE0_4F7B0[] = {
+Gfx D_01015EE0_4F7B0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0x00, 0x00, 0x00, 0xFF),
     gsSPVertex(D_01015520_4EDF0, 31, 0),

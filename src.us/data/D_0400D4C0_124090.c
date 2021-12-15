@@ -6,7 +6,7 @@ Vtx D_0400D3E0_123FB0[14] = {
 
 extern u8 D_0400CBE0_1237B0[];
 
-const Gfx D_0400D4C0_124090[] = {
+Gfx D_0400D4C0_124090[] = {
     gsDPPipeSync(),
     gsSPTexture(0x8000, 0x8000, 0, G_TX_RENDERTILE, G_OFF),
     gsSPClearGeometryMode(-1),

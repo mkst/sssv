@@ -11,7 +11,7 @@ Vtx D_0100AE90_44760[16] = {
 #include "data/inc/D_0100AE90_44760.inc.c"
 };
 
-const Gfx D_0100AF90_44860[] = {
+Gfx D_0100AF90_44860[] = {
     gsSPVertex(D_0100AB30_44400, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(3, 5, 6, 0, 7, 1, 8, 0),

@@ -19,7 +19,7 @@ Vtx D_05002000_AC940[9] = {
 #include "data/inc/D_05002000_AC940.inc.c"
 };
 
-const Gfx D_05002090_AC9D0[] = {
+Gfx D_05002090_AC9D0[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_05001790_AC0D0, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),

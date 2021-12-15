@@ -8,7 +8,7 @@ Vtx D_01006510_3FDE0[] = {
 #include "data/inc/D_01006510_3FDE0.inc.c"
 };
 
-const Gfx D_01006570_3FE40[] = {
+Gfx D_01006570_3FE40[] = {
     gsSPVertex(D_010064B0_3FD80, 6, 0),
     gsSP1Quadrangle(0, 2, 1, 3, 0),
     gsSP1Quadrangle(4, 2, 0, 3, 0),

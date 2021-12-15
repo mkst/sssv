@@ -7,7 +7,7 @@ Vtx D_0400E920_10E670[24] = {
 #include "data/inc/D_0400E920_10E670.inc.c"
 };
 
-const Gfx D_0400EAA0_10E7F0[] = {
+Gfx D_0400EAA0_10E7F0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_0400E8A0_10E5F0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

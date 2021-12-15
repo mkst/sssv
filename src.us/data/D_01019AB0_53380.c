@@ -7,7 +7,7 @@ Vtx D_01019930_53200[24] = {
 #include "data/inc/D_01019930_53200.inc.c"
 };
 
-const Gfx D_01019AB0_53380[] = {
+Gfx D_01019AB0_53380[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_010198B0_53180, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

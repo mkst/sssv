@@ -28,7 +28,8 @@ Vtx D_05004470_83C00[30] = {
 #include "data/inc/D_05004470_83C00.inc.c"
 };
 
-const Gfx D_05004650_83DE0[] = {
+
+Gfx D_05004650_83DE0[] = {
     gsSPVertex(D_05003640_82DD0, 30, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 9, 10, 2, 0),

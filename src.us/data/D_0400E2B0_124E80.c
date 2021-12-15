@@ -12,7 +12,7 @@ Vtx D_0400E140_124D10[23] = {
 
 extern u8 D_0400D560_124130[];
 
-const Gfx D_0400E2B0_124E80[] = {
+Gfx D_0400E2B0_124E80[] = {
     gsDPPipeSync(),
     gsSPClearGeometryMode(G_LIGHTING),
     gsDPTileSync(),

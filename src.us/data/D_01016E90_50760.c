@@ -34,7 +34,7 @@ Vtx D_01016DF0_506C0[10] = {
 #include "data/inc/D_01016DF0_506C0.inc.c"
 };
 
-const Gfx D_01016E90_50760[] = {
+Gfx D_01016E90_50760[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xE7, 0xB4, 0xA4, 0xFF),
     gsSPVertex(D_01016200_4FAD0, 30, 0),

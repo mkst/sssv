@@ -4,7 +4,7 @@ Vtx D_0400BEC0_122A90[16] = {
 #include "data/inc/D_0400BEC0_122A90.inc.c"
 };
 
-const Gfx D_0400BFC0_122B90[] = {
+Gfx D_0400BFC0_122B90[] = {
     gsDPPipeSync(),
     gsSPSetGeometryMode(G_LIGHTING),
     gsDPSetRenderMode(G_RM_AA_ZB_OPA_INTER, G_RM_AA_ZB_OPA_INTER2),

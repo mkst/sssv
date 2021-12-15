@@ -33,7 +33,7 @@ Vtx D_05006A30_BB300[27] = {
 };
 
 
-const Gfx D_05006BE0_BB4B0[] = {
+Gfx D_05006BE0_BB4B0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05005A50_BA320, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

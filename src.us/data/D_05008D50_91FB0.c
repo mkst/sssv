@@ -80,7 +80,7 @@ extern u8 D_05005C10_8EE70[];
 extern u8 D_05005E10_8F070[];
 extern u8 D_05006610_8F870[];
 
-const Gfx D_05008D50_91FB0[] = {
+Gfx D_05008D50_91FB0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0x16, 0x0A, 0xFF, 0xFF),
     gsSPVertex(D_05006810_8FA70, 8, 0),

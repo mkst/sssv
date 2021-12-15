@@ -15,7 +15,7 @@ Vtx D_040058B0_CD2E0[26] = {
 
 extern Gfx D_01003548_3CE18[];
 
-const Gfx D_04005A50_CD480[] = {
+Gfx D_04005A50_CD480[] = {
     gsDPSetPrimColor(0, 0, 0x66, 0x82, 0xFF, 0xFF),
     gsSPVertex(D_04005730_CD160, 4, 0),
     gsDPSetPrimColor(0, 0, 0x00, 0x00, 0x00, 0xFF),

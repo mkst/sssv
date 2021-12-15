@@ -13,7 +13,7 @@ Vtx D_04003AB0_E1070[3] = {
 #include "data/inc/D_04003AB0_E1070.inc.c"
 };
 
-const Gfx D_04003AE0_E10A0[] = {
+Gfx D_04003AE0_E10A0[] = {
     gsSPVertex(D_040039F0_E0FB0, 4, 0),
     gsSP2Triangles(0, 1, 2, 0, 2, 3, 0, 0),
     gsDPSetPrimColor(0, 0, 0x14, 0x14, 0x14, 0xFF),

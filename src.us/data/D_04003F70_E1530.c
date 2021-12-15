@@ -6,7 +6,7 @@ Vtx D_04003D90_E1350[30] = {
 
 extern Gfx D_010034C0_3CD90[];
 
-const Gfx D_04003F70_E1530[] = {
+Gfx D_04003F70_E1530[] = {
     gsSPDisplayList(D_010034C0_3CD90),
     gsSPVertex(D_04003D90_E1350, 30, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 0, 2, 0),

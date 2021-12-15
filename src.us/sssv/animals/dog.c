@@ -23,7 +23,7 @@ void func_802EE89C_6FFF4C(void) {
 
     if (D_803D552C->unk310 == 0) {
         play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
-        func_80321E60_733510(17, 0, 0, -28, 0, 0, -9, 8);
+        func_80321E60_733510(OBJECT_CANNONBALL, 0, 0, -28, 0, 0, -9, 8);
         D_803D552C->unk310 = 20;
     }
     D_803D552C->unk310 = MAX(3, D_803D552C->unk310 - 1);
@@ -34,9 +34,9 @@ void func_802EE9EC_70009C(void) {
 }
 
 void func_802EEA18_7000C8(void) {
-    if (D_803D552C->unk365 != 48) {
+    if (D_803D552C->unk365 != ATTACK_DOG_1) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 48;
+        D_803D552C->unk365 = ATTACK_DOG_1;
     }
 }
 
@@ -171,7 +171,7 @@ void flying_dog_fire_gun(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void flying_dog_drop_bomb(s32 arg0, s32 arg1, s32 arg2) {
-    func_80321E60_733510(17, 0, 0, -28, 0, 0, -9, 8);
+    func_80321E60_733510(OBJECT_CANNONBALL, 0, 0, -28, 0, 0, -9, 8);
     play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 }
 

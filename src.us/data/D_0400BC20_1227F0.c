@@ -18,7 +18,7 @@ Vtx D_0400BBD0_1227A0[5] = {
 
 extern u8 D_0400AC20_1217F0[];
 
-const Gfx D_0400BC20_1227F0[] = {
+Gfx D_0400BC20_1227F0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
     gsDPTileSync(),

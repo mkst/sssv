@@ -31,7 +31,7 @@ Vtx D_0100E330_47C00[6] = {
 #include "data/inc/D_0100E330_47C00.inc.c"
 };
 
-const Gfx D_0100E390_47C60[] = {
+Gfx D_0100E390_47C60[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

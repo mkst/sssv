@@ -12,10 +12,11 @@ Vtx D_05001190_93D80[30] = {
 Vtx D_05001370_93F60[24] = {
 #include "data/inc/D_05001370_93F60.inc.c"
 };
+
 extern u8 D_05000000_92BF0[];
 extern u8 D_05000800_933F0[];
 
-const Gfx D_050014F0_940E0[] = {
+Gfx D_050014F0_940E0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05001000_93BF0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

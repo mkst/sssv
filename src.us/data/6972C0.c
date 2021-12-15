@@ -131,7 +131,7 @@ Vtx D_802F3AC0_697160[22] = {
 };
 
 
-const Gfx D_802F3C20_6972C0[527] = {
+Gfx D_802F3C20_6972C0[527] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0x4A, 0x4A, 0x4A, 0xFF),
     gsSPVertex(D_802EEED0_692570, 31, 0),

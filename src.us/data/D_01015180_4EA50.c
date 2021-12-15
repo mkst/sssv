@@ -26,7 +26,7 @@ Vtx D_01015090_4E960[15] = {
 
 extern u8 D_010134D0_4CDA0[];
 
-const Gfx D_01015180_4EA50[] = {
+Gfx D_01015180_4EA50[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPClearGeometryMode(G_CULL_BACK),

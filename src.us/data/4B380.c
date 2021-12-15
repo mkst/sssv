@@ -6,7 +6,7 @@ Vtx D_01011A30_4B300[8] = {
 };
 
 
-const Gfx D_01011AB0_4B380[] = {
+Gfx D_01011AB0_4B380[] = {
     gsDPPipeSync(),
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_01011A30_4B300, 8, 0),

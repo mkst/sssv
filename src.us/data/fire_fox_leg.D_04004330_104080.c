@@ -1,6 +1,5 @@
 #include <ultra64.h>
 
-
 Vtx D_04004270_103FC0[6] = {
 #include "data/inc/D_04004270_103FC0.inc.c"
 };
@@ -8,8 +7,7 @@ Vtx D_040042D0_104020[6] = {
 #include "data/inc/D_040042D0_104020.inc.c"
 };
 
-
-const Gfx D_04004330_104080[] = {
+Gfx D_04004330_104080[] = {
     gsDPSetPrimColor(0, 0, 0xFF, 0x20, 0x00, 0xFF),
     gsSPVertex(D_04004270_103FC0, 6, 0),
     gsSP2Triangles(0, 2, 1, 0, 2, 0, 3, 0),

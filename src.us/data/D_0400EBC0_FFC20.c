@@ -1,6 +1,5 @@
 #include <ultra64.h>
 
-
 Vtx D_0400E780_FF7E0[8] = {
 #include "data/inc/D_0400E780_FF7E0.inc.c"
 };
@@ -14,8 +13,7 @@ Vtx D_0400EB50_FFBB0[7] = {
 #include "data/inc/D_0400EB50_FFBB0.inc.c"
 };
 
-
-const Gfx D_0400EBC0_FFC20[] = {
+Gfx D_0400EBC0_FFC20[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_0400E780_FF7E0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

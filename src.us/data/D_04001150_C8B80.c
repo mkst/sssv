@@ -4,7 +4,7 @@ Vtx D_040010D0_C8B00[8] = {
 #include "data/inc/D_040010D0_C8B00.inc.c"
 };
 
-const Gfx D_04001150_C8B80[] = {
+Gfx D_04001150_C8B80[] = {
     gsDPSetPrimColor(0, 0, 0x14, 0x14, 0x14, 0xFF),
     gsSPVertex(D_040010D0_C8B00, 8, 0),
     gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),

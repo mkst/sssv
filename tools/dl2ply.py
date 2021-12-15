@@ -122,7 +122,7 @@ def parse_display_list_file(path, include):
         elif match := re.match(r".*gsSPVertex\(([0-9A-z_]+), ([0-9]+), ([0-9]+)\),", line):
             offset = (vtx_dict[match.group(1)] - vtx_offset_start) // 16
         # include decompiled vertexes
-        elif match := re.match(r"#include \"(.*\.inc\.c)\"", line):
+        elif match := re.match(r" *#include \"(.*\.inc\.c)\"", line):
             vtx_file = match.group(1)
             vtxs += parse_vtx_file(os.path.join(include, vtx_file))
         elif match := re.match(r".*gsDPSetPrimColor\(([0-9]+), ([0-9]+), ([0-9A-Fx]+), ([0-9A-Fx]+), ([0-9A-Fx]+), ([0-9A-Fx]+)\),", line):

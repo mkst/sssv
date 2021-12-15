@@ -4,7 +4,7 @@ Vtx D_0100F410_48CE0[14] = {
 #include "data/inc/D_0100F410_48CE0.inc.c"
 };
 
-const Gfx D_0100F4F0_48DC0[] = {
+Gfx D_0100F4F0_48DC0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPClearGeometryMode(G_CULL_BACK),

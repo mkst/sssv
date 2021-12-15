@@ -35,7 +35,7 @@ Vtx D_05009360_AA430[16] = {
 };
 extern u8 D_05007970_A8A40[];
 
-const Gfx D_05009460_AA530[] = {
+Gfx D_05009460_AA530[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05008170_A9240, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

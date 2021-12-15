@@ -67,23 +67,23 @@ void func_80378FF8_78A6A8(void) {
 
     if ((D_801D9ED8.unkFFBC == 0) && (D_801D9ED8.unkFFB6 != 0)) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = 6;
+        D_803D552C->unk365 = ATTACK_SCORPION_1;
     }
 }
 
 void func_80379048_78A6F8(void) {
     D_803D552C->unk32A = D_803D5544;
-    D_803D552C->unk365 = 6;
+    D_803D552C->unk365 = ATTACK_SCORPION_1;
 }
 
 void func_80379070_78A720(void) {
-    if (D_803D552C->unk365 == 0) {
+    if (D_803D552C->unk365 == ATTACK_NONE) {
         Animal *a = func_8037ED1C_7903CC();
         if (a == NULL) {
             recharge_skill(1);
         } else {
             D_803D552C->unk330 = a;
-            D_803D552C->unk365 = 38;
+            D_803D552C->unk365 = ATTACK_SCORPION_2;
             D_803D552C->unk32A = D_803D5544;
             D_803D552C->unk30C = D_803D552C->unk330->yPos + (D_803D552C->unk330->unk42 >> 1);
             do_rumble(0, 25, 5, 60, distance_from_player(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
@@ -96,7 +96,7 @@ void func_80379070_78A720(void) {
 void func_80379148_78A7F8(Animal *a) {
     if ((D_803D552C->unk365 == 0) && (a != NULL)) {
         D_803D552C->unk330 = a;
-        D_803D552C->unk365 = 38;
+        D_803D552C->unk365 = ATTACK_SCORPION_2;
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk30C = D_803D552C->unk330->yPos + (D_803D552C->unk330->unk42 >> 1);
     }
@@ -104,5 +104,5 @@ void func_80379148_78A7F8(Animal *a) {
 
 void func_803791AC_78A85C(void) {
     D_803D552C->unk32A = D_803D5544;
-    D_803D552C->unk365 = 6;
+    D_803D552C->unk365 = ATTACK_SCORPION_1;
 }

@@ -6,9 +6,10 @@ Vtx D_04004E00_CC830[32] = {
 Vtx D_04005000_CCA30[3] = {
 #include "data/inc/D_04005000_CCA30.inc.c"
 };
+
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_04005030_CCA60[] = {
+Gfx D_04005030_CCA60[] = {
     gsSPDisplayList(D_01003618_3CEE8),
     gsSPVertex(D_04004E00_CC830, 32, 0),
     gsDPSetPrimColor(0, 0, 0x00, 0x00, 0xFF, 0xFF),

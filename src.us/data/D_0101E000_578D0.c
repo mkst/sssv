@@ -4,7 +4,7 @@ Vtx D_0101DE80_57750[24] = {
 #include "data/inc/D_0101DE80_57750.inc.c"
 };
 
-const Gfx D_0101E000_578D0[] = {
+Gfx D_0101E000_578D0[] = {
     gsSPVertex(D_0101DE80_57750, 24, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 0, 4, 0),
     gsSP2Triangles(5, 6, 1, 0, 0, 7, 5, 0),

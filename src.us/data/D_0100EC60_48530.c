@@ -7,7 +7,7 @@ Vtx D_0100EB20_483F0[20] = {
 #include "data/inc/D_0100EB20_483F0.inc.c"
 };
 
-const Gfx D_0100EC60_48530[] = {
+Gfx D_0100EC60_48530[] = {
     gsSPVertex(D_0100E930_48200, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 8, 9, 10, 0),

@@ -73,9 +73,9 @@
 //         func_8034B298_75C948(0);
 //         func_8035D120_76E7D0();
 //         func_8035D734_76EDE4();
-//         if (D_803D552C->unk365 != 0) {
+//         if (D_803D552C->unk365 != ATTACK_NONE) {
 //             if (D_803D552C->unk365 != ATTACK_FROG_TONGUE) {
-//                 D_803D552C->unk365 = (u8)0U;
+//                 D_803D552C->unk365 = ATTACK_NONE;
 //             } else {
 //                 func_802DCCAC_6EE35C(16);
 //                 if ((D_803D5544 - D_803D552C->unk32A) == 4) {

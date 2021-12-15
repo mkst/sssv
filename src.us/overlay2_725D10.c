@@ -70,6 +70,231 @@ void func_80314788_725E38(void) {
 
 // set_game_state()
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314874_725F24.s")
+// extern s32 D_FFFE0404[];
+// extern s32 D_803C4DAC[];
+// void func_80314874_725F24(Animal *arg0, s16 arg1, s32 arg2) {
+//     s16 temp_v1;
+//     s32 temp_hi;
+//     s32 temp_t6;
+//     struct035 *temp_v0_3;
+//     s32 phi_v0;
+//     s16 phi_v1;
+//     struct035 *phi_t1;
+//     s16 phi_v1_2;
+//     Animal *tmp;
+//             s16 i;
+//
+//     switch (arg1) {
+//     case 0x7F7F:
+//     case 0x7F80:
+//     case 0x7F81:
+//         // wtf is this
+//         D_FFFE0404[(s32)arg0 + (arg1)] = arg2; // -130044 , -0x1fbfc?
+//         break;
+//     case 0x7F82:
+//         arg0->unk158 = arg2;
+//         arg0->unk15E = arg2;
+//         break;
+//     case 0x7F83:
+//         if (!(arg0->unk4C.pad30 /* & 0x20 */) || (arg0->health < arg2)) {
+//             if (arg0->unk16C->unk0 >= 256) {
+//                 if (arg2 < arg0->health) {
+//                     func_80349280_75A930(arg0, arg0->health - arg2);
+//                 }
+//             }
+//             if (arg2 < 0) {
+//                 phi_v0 = 0;
+//             } else {
+//                 phi_v0 = arg2;
+//             }
+//             if (phi_v0 > 0x7F) {
+//                 arg0->health = 0x7F;
+//             } else {
+//                 if (arg2 < 0) {
+//                     phi_v0 = 0;
+//                 } else {
+//                     phi_v0 = arg2;
+//                 }
+//                 arg0->health = phi_v0;
+//             }
+//         }
+//         break;
+//     case 0x7F97:
+//     case 0x7F98:
+//     case 0x7F99:
+//     case 0x7F9A:
+//         break;
+//     case 0x7F84:
+//         func_8012822C(arg2);
+//         break;
+//     case 0x7F85:
+//         arg0->xPos = arg2 << 16;
+//         func_803136B0_724D60(arg0);
+//         break;
+//     case 0x7F86:
+//         arg0->zPos = arg2 << 16;
+//         func_803136B0_724D60(arg0);
+//         break;
+//     case 0x7F87:
+//         arg0->yPos = arg2 << 16;
+//         func_803136B0_724D60(arg0);
+//         break;
+//     case 0x7F88:
+//         arg0->unk40 = arg2;
+//         func_802C9BA4_6DB254(arg0);
+//         break;
+//     case 0x7F89:
+//         func_80349AA0_75B150(arg2);
+//         break;
+//     case 0x7F8A:
+//         arg0->xVelocity.w = arg2 << 5;
+//         break;
+//     case 0x7F8B:
+//         arg0->zVelocity.w = arg2 << 5;
+//         break;
+//     case 0x7F8C:
+//         arg0->yVelocity.w = arg2 << 5;
+//         break;
+//     case 0x7F8D:
+//         if (arg0->unk16C->unk0 >= 256) {
+//             arg0->unk2E = (s16) (((s32) (arg2 << 8) / 360) & 0xFF);
+//         } else {
+//             // is 1800 a typo?
+//             func_802C9918_6DAFC8(arg0, (s16) ((s32) (arg2 + 1800) % 360), arg0->yRotation);
+//         }
+//     case 0x7F8E:
+//         if (arg0->unk16C->unk0 >= 256) {
+//             arg0->yRotation = (s16) (((s32) (arg2 * 256) / 360) & 0xFF);
+//             arg0->unk302 = (s16) arg0->yRotation;
+//         } else {
+//             func_802C9918_6DAFC8(arg0, arg0->unk2E, (s16) ((s32) (arg2 + 1800) % 360));
+//         }
+//     case 0x7F8F:
+//         temp_hi = arg2 % 100;
+//         arg0->unk248[0] = func_803146A8_725D58(arg0, (s16) temp_hi, (arg2 / 100) & 0xFFFF);
+//         arg0->unk1CC = (s8) temp_hi;
+//         break;
+//     case 0x7F90:
+//         if (arg2 & 1) {
+//             arg0->unk163 &= ~0x8;
+//         } else {
+//             arg0->unk163 |= 0x8;
+//         }
+//         if (arg2 & 2) {
+//             arg0->unk163 |= 0x10;
+//         } else {
+//             arg0->unk163 &= ~0x10;
+//         }
+//         if (arg2 & 4) {
+//             arg0->unk163 |= 0x40;
+//         } else {
+//             arg0->unk163 &= ~0x40;
+//         }
+//         if (arg2 & 8) {
+//             arg0->unk163 |= 0x80;
+//         } else {
+//             arg0->unk163 &= ~0x80;
+//         }
+//         break;
+//     case 0x7F91:
+//         arg0->unk46 = arg2;
+//         arg0->unk44 = (s16) ((s32) ((arg2) * arg0->unk40) >> 0xB);
+//         break;
+//     case 0x7F92:
+//         D_803F2D30.score = arg2;
+//         break;
+//     case 0x7F93:
+//         arg0->unk3E = arg2;
+//         break;
+//     case 0x7F94:
+//         arg0->state = arg2;
+//         break;
+//     case 0x7F95:
+//         D_803F2CD8 = ABS(arg2);
+//         D_803F2CD6 = ABS(arg2);
+//         break;
+//     case 0x7F96:
+//         temp_t6 = arg2 << 6;
+//         D_803A05B0_7B1C60 = temp_t6;
+//         D_803A05B4_7B1C64 = temp_t6 * 2;
+//         break;
+//     case 0x7F9B:
+//         D_803E4D2C = arg2;
+//         break;
+//     case 0x7F9C:
+//         D_803F2E30 = (f32) arg2 / 100.0f;
+//         break;
+//     case 0x7F9D:
+//         D_803E4D30 = arg2;
+//         break;
+//     case 0x7F9E:
+//         D_803E4D38[0] = arg2;
+//         D_8023F260.unk30 = arg2;
+//         write_eeprom(D_803F7DD6);
+//         break;
+//     case 0x7F9F:
+//         if (arg2 < 256) {
+//             arg0->unk16C = &D_801E9EB8[arg2];
+//             func_802C9BA4_6DB254(arg0);
+//         } else {
+//             phi_t1 = NULL;
+//             for (i = 0; i < D_803D553E; i++) {
+//                 tmp = D_801D9ED8.animal[i].unk0;
+//                 if ((arg0 == tmp) && (tmp->unk366 != 6)) {
+//                     phi_t1 = D_801D9ED8.unk3EB0;
+//                     break;
+//                 }
+//             }
+//             if (phi_t1 != NULL) {
+//                 temp_v0_3 = &D_801D9ED8.unk0[arg2]; // + (arg2 * 0xEC) + 0xFFFF1400;
+//                 phi_t1->unk0 = temp_v0_3;
+//                 arg0->unk16C = temp_v0_3;
+//                 // help
+//                 D_803D5520 = &D_801D9ED8.unk0[arg2];
+//                 D_803D5524 = &D_801D9ED8.unk3EB0; //phi_t1->unk0;
+//                 D_803D5528 = &D_801D9ED8.animal;  //phi_t1->unk4;
+//                 D_803D552C = &D_801D9ED8.animal;  //phi_t1->unk4;
+//                 D_803D5530 = &D_801D9ED8.animal;  //phi_t1->unk4;
+//                 if (i == gCurrentAnimalIndex) {
+//                     D_803D5538 = 1;
+//                 } else {
+//                     D_803D5538 = 0;
+//                 }
+//                 D_803D553C = i;
+//                 D_803D553A = 0;
+//                 // arg0 = arg0;
+//                 func_802B2EA8_6C4558();
+//                 if (arg0 == D_801D9ED8.animal[gCurrentAnimalIndex].unk0) { // + (gCurrentAnimalIndex * 8))->
+//                     D_803E9824 = arg2 - 256;
+//                     // temp_v0_4 = (D_803E9824 * 2) + &D_803A63B0_7B7A60;
+//                     // arg0 = arg0;
+//                     D_803E9820 = (s16) D_803A63B0_7B7A60[D_803E9824].unk0;
+//                     D_803E9822 = (s16) D_803A63B0_7B7A60[D_803E9824].unk1;
+//                     func_80327DA8_739458();
+//                 }
+//                 func_802C9BA4_6DB254(arg0);
+//             }
+//         }
+//         break;
+//     case 0x7FA0:
+//         D_801546E0 = (s16) arg2;
+//         break;
+//     case 0x7FA1:
+//         D_801546D8 = MAX(arg2, 0);
+//         break;
+//     case 0x7FA2:
+//         D_803E4D38[1] = arg2;
+//         D_8023F260.unk34 = arg2;
+//         write_eeprom(D_803F7DD6); //, arg1, arg0);
+//         break;
+//     case 0x7FA3:
+//         D_803E4D28 = arg2;
+//         break;
+//     default:
+//         D_803C4DAC[arg1] = arg2; // + (arg1 * 4)) = arg2;
+//         break;
+//     }
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314F0C_7265BC.s")
 // something to do with in-game scripting
@@ -290,7 +515,7 @@ void func_803153B0_726A60(Animal *arg0, struct069 arg1[], u8 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_8031540C_726ABC.s")
 
-// delay slot
+// delay slot + loopy
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80315658_726D08.s")
 
 s32 func_80315870_726F20(s32 arg0, s32 arg1) {

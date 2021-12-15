@@ -19,7 +19,7 @@ Vtx D_050083E0_BCCB0[28] = {
 #include "data/inc/D_050083E0_BCCB0.inc.c"
 };
 
-const Gfx D_050085A0_BCE70[] = {
+Gfx D_050085A0_BCE70[] = {
     gsSPVertex(D_05007A30_BC300, 30, 0),
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 2, 0),
     gsSP2Triangles(3, 4, 2, 0, 4, 5, 2, 0),

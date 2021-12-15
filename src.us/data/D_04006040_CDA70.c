@@ -6,9 +6,10 @@ Vtx D_04005D20_CD750[32] = {
 Vtx D_04005F20_CD950[18] = {
 #include "data/inc/D_04005F20_CD950.inc.c"
 };
+
 extern Gfx D_01003548_3CE18[];
 
-const Gfx D_04006040_CDA70[] = {
+Gfx D_04006040_CDA70[] = {
     gsSPDisplayList(D_01003548_3CE18),
     gsDPSetPrimColor(0, 0, 0x66, 0x82, 0xFF, 0xFF),
     gsSPVertex(D_04005D20_CD750, 32, 0),

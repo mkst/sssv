@@ -55,8 +55,8 @@ void func_80365954_777004(void) {
 }
 
 void func_80365C28_7772D8(void) {
-    if (D_803D552C->unk365 == 0) {
-        D_803D552C->unk365 = 32;
+    if (D_803D552C->unk365 == ATTACK_NONE) {
+        D_803D552C->unk365 = ATTACK_SNOWBALL;
         D_803D552C->unk32A = D_803D5544;
     } else {
         recharge_skill(1);
@@ -86,14 +86,14 @@ void func_80365D74_777424(void) {
 
 // penguin?
 void penguin_throw_snowball(Animal *arg0) {
-    if (D_803D552C->unk365 != 32) {
+    if (D_803D552C->unk365 != ATTACK_SNOWBALL) {
         s32 tmp = func_802F8160_709810(D_803D5530, arg0, 0xA, 0x14, 0x23, 0x59, 0, 3, (f32) D_803A05B0 / 65536.0);
         if (tmp == -1) {
             tmp = 0x20;
         } else {
             tmp = (s16) ((tmp * 256) / 360);
         }
-        D_803D552C->unk365 = 32;
+        D_803D552C->unk365 = ATTACK_SNOWBALL;
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk338 = tmp;
     }

@@ -13,7 +13,7 @@ Vtx D_04012090_111DE0[12] = {
 #include "data/inc/D_04012090_111DE0.inc.c"
 };
 
-const Gfx D_04012150_111EA0[] = {
+Gfx D_04012150_111EA0[] = {
     gsSPVertex(D_04011AB0_111800, 32, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),
     gsSP1Quadrangle(4, 5, 6, 7, 0),

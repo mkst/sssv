@@ -7,7 +7,7 @@ Vtx D_01018030_51900[20] = {
 #include "data/inc/D_01018030_51900.inc.c"
 };
 
-const Gfx D_01018170_51A40[] = {
+Gfx D_01018170_51A40[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0x1D, 0x1C, 0x19, 0xFF),
     gsSPClearGeometryMode(G_CULL_BACK),

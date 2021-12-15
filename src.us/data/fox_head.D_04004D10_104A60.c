@@ -21,7 +21,7 @@ extern Gfx D_01003548_3CE18[];
 extern Gfx D_01003618_3CEE8[];
 
 
-const Gfx D_04004D10_104A60[] = {
+Gfx D_04004D10_104A60[] = {
     gsSPDisplayList(D_01003618_3CEE8),
     gsDPSetPrimColor(0, 0, 0xFF, 0x20, 0x00, 0xFF),
     gsSPVertex(D_04004AA0_1047F0, 4, 0),

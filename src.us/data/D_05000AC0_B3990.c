@@ -16,7 +16,7 @@ Vtx D_05000A80_B3950[4] = {
 #include "data/inc/D_05000A80_B3950.inc.c"
 };
 
-const Gfx D_05000AC0_B3990[] = {
+Gfx D_05000AC0_B3990[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0x00, 0x00, 0x16, 0xFF),
     gsSPClearGeometryMode(G_CULL_BACK),

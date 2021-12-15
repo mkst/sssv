@@ -13,7 +13,7 @@ Vtx D_0400FD40_D7770[18] = {
 #include "data/inc/D_0400FD40_D7770.inc.c"
 };
 
-const Gfx D_0400FE60_D7890[] = {
+Gfx D_0400FE60_D7890[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_0400F770_D71A0, 30, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),

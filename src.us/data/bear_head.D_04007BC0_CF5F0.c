@@ -1,6 +1,5 @@
 #include <ultra64.h>
 
-
 Vtx D_040078A0_CF2D0[13] = {
 #include "data/inc/D_040078A0_CF2D0.inc.c"
 };
@@ -17,11 +16,10 @@ Vtx D_04007B60_CF590[6] = {
 #include "data/inc/D_04007B60_CF590.inc.c"
 };
 
-
 extern Gfx D_01003548_3CE18[];
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_04007BC0_CF5F0[] = {
+Gfx D_04007BC0_CF5F0[] = {
     gsSPDisplayList(D_01003548_3CE18),
     gsDPSetPrimColor(0, 0, 0xAD, 0x6B, 0x52, 0xFF),
     gsSPVertex(D_040078A0_CF2D0, 13, 0),

@@ -22,7 +22,7 @@ Vtx D_050014F0_ABE30[18] = {
 #include "data/inc/D_050014F0_ABE30.inc.c"
 };
 
-const Gfx D_05001610_ABF50[] = {
+Gfx D_05001610_ABF50[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_05000930_AB270, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),

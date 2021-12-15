@@ -1,13 +1,12 @@
 #include <ultra64.h>
 
-
 Vtx D_05000A70_9EB40[14] = {
 #include "data/inc/D_05000A70_9EB40.inc.c"
 };
 
 extern u8 D_05000870_9E940[];
 
-const Gfx D_05000B50_9EC20[] = {
+Gfx D_05000B50_9EC20[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),

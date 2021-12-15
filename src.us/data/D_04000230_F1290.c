@@ -4,7 +4,7 @@ Vtx D_040001B0_F1210[8] = {
 #include "data/inc/D_040001B0_F1210.inc.c"
 };
 
-const Gfx D_04000230_F1290[] = {
+Gfx D_04000230_F1290[] = {
     gsSPVertex(D_040001B0_F1210, 8, 0),
     gsSP2Triangles(0, 2, 1, 0, 1, 3, 0, 0),
     gsSP2Triangles(2, 0, 4, 0, 3, 4, 0, 0),

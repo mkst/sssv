@@ -14,7 +14,7 @@ Vtx D_04000EB0_DE470[22] = {
 extern Gfx D_010034C0_3CD90[];
 
 
-const Gfx D_04001010_DE5D0[] = {
+Gfx D_04001010_DE5D0[] = {
     gsSPDisplayList(D_010034C0_3CD90),
     gsSPTexture(32768, 32768, 0, G_TX_RENDERTILE, G_ON),
     gsSPVertex(D_04000B60_DE120, 21, 0),

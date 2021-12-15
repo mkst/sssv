@@ -22,7 +22,7 @@ Vtx D_04008A10_E5FD0[21] = {
 #include "data/inc/D_04008A10_E5FD0.inc.c"
 };
 
-const Gfx D_04008B60_E6120[] = {
+Gfx D_04008B60_E6120[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_04007EB0_E5470, 25, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),

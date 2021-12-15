@@ -5,7 +5,7 @@ Vtx D_0103B680_74F50[7] = {
 #include "data/inc/D_0103B680_74F50.inc.c"
 };
 
-const Gfx D_0103B6F0_74FC0[] = {
+Gfx D_0103B6F0_74FC0[] = {
     gsSPVertex(D_0103B680_74F50, 6, 0),
     gsSP1Triangle(0, 2, 4, 0),
     gsSP1Triangle(0, 4, 3, 0),

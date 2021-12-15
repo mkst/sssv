@@ -4,7 +4,7 @@ Vtx D_040038D0_E0E90[6] = {
 #include "data/inc/D_040038D0_E0E90.inc.c"
 };
 
-const Gfx D_04003930_E0EF0[] = {
+Gfx D_04003930_E0EF0[] = {
     gsSPVertex(D_040038D0_E0E90, 6, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),
     gsSP1Quadrangle(0, 3, 4, 1, 0),

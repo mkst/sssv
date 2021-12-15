@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-const Gfx D_01004970_3DF20[] = {
+Gfx D_01004970_3DF20[] = {
     gsDPPipeSync(),
     gsDPSetAlphaCompare(G_AC_THRESHOLD),
     gsDPSetBlendColor(0x00, 0x00, 0x00, 0x80),

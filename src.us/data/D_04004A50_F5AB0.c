@@ -7,7 +7,7 @@ Vtx D_040049C0_F5A20[9] = {
 #include "data/inc/D_040049C0_F5A20.inc.c"
 };
 
-const Gfx D_04004A50_F5AB0[] = {
+Gfx D_04004A50_F5AB0[] = {
     gsDPSetPrimColor(0, 0, 0x6E, 0x00, 0x7E, 0xFF),
     gsSPVertex(D_04004940_F59A0, 8, 0),
     gsSP2Triangles(0, 2, 1, 0, 1, 3, 0, 0),

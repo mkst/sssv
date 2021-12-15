@@ -10,7 +10,7 @@ Vtx D_050005A0_BD850[15] = {
 #include "data/inc/D_050005A0_BD850.inc.c"
 };
 
-const Gfx D_05000690_BD940[] = {
+Gfx D_05000690_BD940[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05000330_BD5E0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

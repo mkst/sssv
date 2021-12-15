@@ -7,7 +7,7 @@ Vtx D_010185F0_51EC0[3] = {
 #include "data/inc/D_010185F0_51EC0.inc.c"
 };
 
-const Gfx D_01018620_51EF0[] = {
+Gfx D_01018620_51EF0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPVertex(D_010183F0_51CC0, 32, 0),

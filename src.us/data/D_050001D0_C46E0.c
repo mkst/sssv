@@ -1,6 +1,5 @@
 #include <ultra64.h>
 
-
 Vtx D_05000000_C4510[8] = {
 #include "data/inc/D_05000000_C4510.inc.c"
 };
@@ -8,8 +7,7 @@ Vtx D_05000080_C4590[21] = {
 #include "data/inc/D_05000080_C4590.inc.c"
 };
 
-
-const Gfx D_050001D0_C46E0[] = {
+Gfx D_050001D0_C46E0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_05000000_C4510, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

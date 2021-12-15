@@ -2,22 +2,164 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BB840_6CCEF0.s")
-// nonsense
-// void func_802BB840_6CCEF0(s16 arg0) {
-//     s16 tmp = arg0;
+void func_802BB840_6CCEF0(u16 arg0) {
+    s16 tmp0;
+    s16 tmp1;
+    s16 tmp2;
+
+    if (1) {};
+    tmp0 = D_80203FE0[2].unk0;
+    tmp1 = D_80203FE0[2].unk2;
+    tmp2 = D_80203FE0[2].unk4;
+
+    D_80203FE0[26].unk0 = tmp0;
+    D_80203FE0[26].unk2 = (tmp1 - arg0) & 0xFFFF; // fakematch shenanigans
+    D_80203FE0[26].unk4 = tmp2;
+}
+
+// unused? more nonsense
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BB870_6CCF20.s")
+// void func_802BB870_6CCF20(u16 arg0) {
+//     s16 phi_t1;
 //
-//     D_80203FE0[26].unk0 = D_80203FE0[2].unk0;
-//     D_80203FE0[26].unk2 = D_80203FE0[2].unk2 - tmp;
-//     D_80203FE0[26].unk4 = D_80203FE0[2].unk4;
+//     s16 tmp0;
+//     s16 tmp1;
+//     s16 tmp2;
+//     s16 tmp3;
+//
+//     tmp2 = D_80203FE0[2].unk4;
+//     tmp1 = D_80203FE0[2].unk2;
+//     tmp0 = D_80203FE0[2].unk0;
+//
+//     if (1) {};
+//
+//     tmp3 = D_80203FE0[0].unk2;
+//
+//     phi_t1 = tmp3 - tmp1;
+//     tmp1 = tmp1 - arg0;
+//
+//     if (phi_t1 == 0) {
+//         phi_t1 = 1;
+//     }
+//
+//     tmp2 += ((((tmp2 - D_80203FE0[0].unk4) / 2) * arg0) / phi_t1);
+//
+//     D_80203FE0[26].unk0 = tmp0;
+//     D_80203FE0[26].unk2 = tmp1;
+//     D_80203FE0[26].unk4 = tmp2;
 // }
 
-// unused? similar issue to func_802BB840_6CCEF0
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BB870_6CCF20.s")
-
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BB938_6CCFE8.s")
+//more nonsense
+// void func_802BB938_6CCFE8(u16 arg0) {
+//     s16 temp_a0;
+//     s16 temp_a1;
+//     s16 temp_a2;
+//     s16 temp_t1;
+//     s16 temp_v1;
+//     u16 temp_a3;
+//     s16 phi_t1;
+//     s16 new_var;
+//
+//     temp_a3 = arg0; // & 0xFFFF;
+//
+//     temp_a0 = D_80203FE0[2].unk2;
+//     new_var = D_80203FE0[0].unk2;
+//     temp_a2 = D_80203FE0[2].unk4;
+//
+//     temp_t1 = new_var - temp_a0;
+//     temp_v1 = temp_a0 - temp_a3;
+//
+//     phi_t1 = (s32) temp_t1;
+//
+//     if (phi_t1 == 0) {
+//         temp_v1 = temp_a0 - temp_a3;
+//         phi_t1 = 1;
+//     }
+//
+//     D_80203FE0[26].unk0 = D_80203FE0[2].unk0;
+//
+//     if ((D_80203FE0 && D_80203FE0) && D_80203FE0) {};
+//
+//     temp_a1 = temp_a2 + ((((temp_a2 - D_80203FE0[0].unk4) / 2) * temp_a3) / phi_t1);
+//     D_80203FE0[26].unk2 = ((temp_a1 - temp_a2) + temp_v1);
+//     D_80203FE0[26].unk4 = ((temp_a0 - temp_v1) + temp_a1);
+// }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BBA10_6CD0C0.s")
+// used by fox, called with func_802BBA10_6CD0C0(870)
+void func_802BBA10_6CD0C0(u16 arg0) {
+    struct106 *tmp;
+    s16 temp_v1;
+    s16 phi_a1_2;
+    s32 phi_a0;
+    s16 tmp0, tmp1, tmp2;
+
+    tmp = &D_803D5528->unk3C8;
+
+    if (tmp->unk6 != 0) {
+        tmp->unk8 += 1;
+    }
+    temp_v1 = D_80203FE0[1].unk2 - D_80203FE0[2].unk2;
+    if (temp_v1 == 0) {
+        phi_a0 = 0;
+    } else {
+        phi_a0 = ((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 0xA) / (s32) temp_v1;
+    }
+
+    phi_a1_2 = D_803D552C->unk302 - tmp->unk4;
+    while (phi_a1_2 < -128) {
+        phi_a1_2 += 256;
+    };
+    while (phi_a1_2 >= 128) {
+        phi_a1_2 -= 256;
+    };
+
+    if (ABS(phi_a1_2) < 48) {
+        if (phi_a1_2 < 0) {
+            tmp->unk4 -= 2;
+            if (tmp->unk4 < 0) {
+                tmp->unk4 += 256;
+            }
+            phi_a1_2 += 1;
+        }
+        if (phi_a1_2 > 0) {
+            tmp->unk4 += 2;
+            if (tmp->unk4 >= 256) {
+                tmp->unk4 -= 256;
+            }
+            phi_a1_2 -= 1;
+        }
+    } else {
+        if (phi_a1_2 < 0) {
+            tmp->unk4 -= 4;
+            if (tmp->unk4 < 0) {
+                tmp->unk4 += 256;
+            }
+            phi_a1_2 += 2;
+        }
+        if (phi_a1_2 > 0) {
+            tmp->unk4 += 4;
+            if (tmp->unk4 >= 256) {
+                tmp->unk4 -= 256;
+            }
+            phi_a1_2 -= 2;
+        }
+    }
+
+    if (1) {};
+
+    tmp0 = D_80203FE0[2].unk0;
+    tmp1 = D_80203FE0[2].unk2;
+    tmp2 = D_80203FE0[2].unk4;
+
+    tmp0 += (D_80152350.unk2D0[phi_a1_2] * arg0) / 256;
+    tmp2 -= (phi_a0 * arg0) / 1024;
+    tmp1 -= (arg0 * D_80152350.unk384[phi_a1_2]) / 256;
+
+    D_80203FE0[26].unk0 =  tmp0;
+    D_80203FE0[26].unk2 =  tmp1;
+    D_80203FE0[26].unk4 =  tmp2;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BBC90_6CD340.s")
 
@@ -179,20 +321,20 @@ void func_802BD358_6CEA08(s16 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C13E4_6D2A94.s")
 
 void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1) {
-    func_802C19CC_6D307C(D_803D5528->unk370, arg1->unk0, 3, 7, 0, arg0);
-    func_802C19CC_6D307C(D_803D5528->unk384, arg1->unk2, 4, 10, 0, arg0);
-    func_802C19CC_6D307C(D_803D5528->unk398, arg1->unk4, 5, 13, 0, arg0);
-    func_802C19CC_6D307C(D_803D5528->unk3AC, arg1->unk6, 6, 16, 0, arg0);
+    func_802C19CC_6D307C(&D_803D5528->unk370, arg1->unk0, 3, 7, 0, arg0);
+    func_802C19CC_6D307C(&D_803D5528->unk384, arg1->unk2, 4, 10, 0, arg0);
+    func_802C19CC_6D307C(&D_803D5528->unk398, arg1->unk4, 5, 13, 0, arg0);
+    func_802C19CC_6D307C(&D_803D5528->unk3AC, arg1->unk6, 6, 16, 0, arg0);
 }
 
 void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2) {
-    func_802C19CC_6D307C(D_803D5528->unk370, arg2->unk0, 3, 7, 0, arg0);
-    func_802C19CC_6D307C(D_803D5528->unk384, arg2->unk2, 4, 10, 0, arg0);
-    func_802C19CC_6D307C(D_803D5528->unk398, arg2->unk4, 5, 13, 0, arg1);
-    func_802C19CC_6D307C(D_803D5528->unk3AC, arg2->unk6, 6, 16, 0, arg1);
+    func_802C19CC_6D307C(&D_803D5528->unk370, arg2->unk0, 3, 7, 0, arg0);
+    func_802C19CC_6D307C(&D_803D5528->unk384, arg2->unk2, 4, 10, 0, arg0);
+    func_802C19CC_6D307C(&D_803D5528->unk398, arg2->unk4, 5, 13, 0, arg1);
+    func_802C19CC_6D307C(&D_803D5528->unk3AC, arg2->unk6, 6, 16, 0, arg1);
 }
 
-void func_802C19CC_6D307C(s16 **arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5) {
+void func_802C19CC_6D307C(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5) {
     s16 tmp0 = D_80203FE0[arg2].unk0;
     s16 tmp2 = D_80203FE0[arg2].unk2;
 

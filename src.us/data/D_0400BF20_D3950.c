@@ -1,6 +1,5 @@
 #include <ultra64.h>
 
-
 Vtx D_0400BC80_D36B0[31] = {
 #include "data/inc/D_0400BC80_D36B0.inc.c"
 };
@@ -8,7 +7,7 @@ Vtx D_0400BE70_D38A0[11] = {
 #include "data/inc/D_0400BE70_D38A0.inc.c"
 };
 
-const Gfx D_0400BF20_D3950[] = {
+Gfx D_0400BF20_D3950[] = {
     gsSPVertex(D_0400BC80_D36B0, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 0, 3, 4, 0),
     gsSP2Triangles(5, 6, 2, 0, 2, 7, 5, 0),

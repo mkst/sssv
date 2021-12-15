@@ -7,7 +7,7 @@ Vtx D_050001F0_AAB30[20] = {
 #include "data/inc/D_050001F0_AAB30.inc.c"
 };
 
-const Gfx D_05000330_AAC70[] = {
+Gfx D_05000330_AAC70[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
     gsSPVertex(D_05000000_AA940, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 2, 0),

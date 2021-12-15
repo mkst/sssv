@@ -7,7 +7,7 @@ Vtx D_04009840_D1270[24] = {
 #include "data/inc/D_04009840_D1270.inc.c"
 };
 
-const Gfx D_040099C0_D13F0[] = {
+Gfx D_040099C0_D13F0[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFB, 0xFF, 0xBA, 0xFF),
     gsSPVertex(D_04009780_D11B0, 12, 0),

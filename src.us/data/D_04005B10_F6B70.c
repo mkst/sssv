@@ -21,7 +21,7 @@ Vtx D_04005AB0_F6B10[6] = {
 
 extern Gfx D_01003618_3CEE8[];
 
-const Gfx D_04005B10_F6B70[] = {
+Gfx D_04005B10_F6B70[] = {
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsSPVertex(D_04005510_F6570, 11, 0),
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 2, 0),

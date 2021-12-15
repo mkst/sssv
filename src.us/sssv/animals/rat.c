@@ -92,7 +92,7 @@ void king_rat_bugel_call(s16 arg0) {
         D_803D552C->unk308 = 80;
     }
     D_803D552C->unk2EC = arg0;
-    D_803D552C->unk365 = 39;
+    D_803D552C->unk365 = ATTACK_KING_RAT;
     D_803D552C->unk2B4.unk4 = 1;
 }
 

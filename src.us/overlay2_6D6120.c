@@ -124,21 +124,21 @@ void func_802C7B18_6D91C8(struct016 *arg0, s16 arg1) {
 }
 
 void func_802C7BB4_6D9264(u16 arg0) {
-    D_803D5528->unk370[5] = D_803D5528->unk370[2];
-    D_803D5528->unk370[6] = D_803D5528->unk370[3];
-    D_803D5528->unk370[7] = D_803D5528->unk370[4];
+    D_803D5528->unk370.unkA = D_803D5528->unk370.unk4;
+    D_803D5528->unk370.unkC = D_803D5528->unk370.unk6;
+    D_803D5528->unk370.unkE = D_803D5528->unk370.unk8;
 
-    D_803D5528->unk384[5] = D_803D5528->unk384[2];
-    D_803D5528->unk384[6] = D_803D5528->unk384[3];
-    D_803D5528->unk384[7] = D_803D5528->unk384[4];
+    D_803D5528->unk384.unkA = D_803D5528->unk384.unk4;
+    D_803D5528->unk384.unkC = D_803D5528->unk384.unk6;
+    D_803D5528->unk384.unkE = D_803D5528->unk384.unk8;
 
-    D_803D5528->unk398[5] = D_803D5528->unk398[2];
-    D_803D5528->unk398[6] = D_803D5528->unk398[3];
-    D_803D5528->unk398[7] = D_803D5528->unk398[4];
+    D_803D5528->unk398.unkA = D_803D5528->unk398.unk4;
+    D_803D5528->unk398.unkC = D_803D5528->unk398.unk6;
+    D_803D5528->unk398.unkE = D_803D5528->unk398.unk8;
 
-    D_803D5528->unk3AC[5] = D_803D5528->unk3AC[2];
-    D_803D5528->unk3AC[6] = D_803D5528->unk3AC[3];
-    D_803D5528->unk3AC[7] = D_803D5528->unk3AC[4];
+    D_803D5528->unk3AC.unkA = D_803D5528->unk3AC.unk4;
+    D_803D5528->unk3AC.unkC = D_803D5528->unk3AC.unk6;
+    D_803D5528->unk3AC.unkE = D_803D5528->unk3AC.unk8;
 
     D_803D552C->unk2FE = D_803D552C->unk2F2;
     D_803D552C->unk300 = arg0;

@@ -9,6 +9,7 @@ void func_803458B8_756F68(Gfx **arg0, Vtx *vtx, s16 num) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_803458FC_756FAC.s")
+
 // a long way to go here
 #if 0
 void func_803458FC_756FAC(Gfx **dl, s32 arg1, s16 arg2) {

@@ -10,7 +10,7 @@ Vtx D_0101BCB0_55580[6] = {
 #include "data/inc/D_0101BCB0_55580.inc.c"
 };
 
-const Gfx D_0101BD10_555E0[] = {
+Gfx D_0101BD10_555E0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_0101BA50_55320, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

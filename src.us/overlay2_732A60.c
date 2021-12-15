@@ -60,8 +60,35 @@ void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2) {
     }
 }
 
+void func_80321B70_733220(s16 arg0, s16 arg1, s16 arg2) {
+    s32 temp_t0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80321B70_733220.s")
+    Animal *a = D_803D552C->unk320;
+    if (a != 0) {
+        a->xPos = (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg1) >> 8) + (D_803D5530->xPos + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg0) >> 8));
+        a->zPos = D_803D5530->zPos + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg1) >> 8) - (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg0) >> 8);
+        a->yPos = D_803D5530->yPos + arg2;
+        a->unk160 = D_803D5530->unk160;
+        a->xVelocity.w = D_803D5530->xVelocity.w;
+        a->zVelocity.w = D_803D5530->zVelocity.w;
+        a->yVelocity.w = D_803D5530->yVelocity.w;
+
+        temp_t0 = D_803D552C->unk302 - D_803D552C->unk304;
+        if (a->unk16C->unk80.bit != 0) {
+            a->yRotation = ((a->yRotation + temp_t0) & 0xFF);
+            a->unk302 = a->yRotation;
+        } else {
+            temp_t0 = (temp_t0 * 360) / 256;
+            a->yRotation += temp_t0;
+            while (a->yRotation < 0) {
+                a->yRotation += 360;
+            }
+            while (a->yRotation >= 360) {
+                a->yRotation -= 360;
+            }
+        }
+    }
+}
 
 void func_80321D74_733424(s16 arg0, s16 arg1) {
     Animal *a = D_803D552C->unk320;
@@ -76,10 +103,123 @@ void func_80321D74_733424(s16 arg0, s16 arg1) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80321E60_733510.s")
+// long way to go here
+// void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
+//     s32 sp38;
+//     s32 sp34;
+//     s32 sp30;
+//
+//     s32 zpos;
+//     s32 xpos;
+//
+//     s32 temp_t7;
+//     s32 temp_t7_2;
+//     struct071 *obj;
+//
+//     temp_t7 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7;
+//     temp_t7_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 7;
+//     xpos = D_803D5530->xPos + (((temp_t7 * arg2) + (arg1 * temp_t7_2)) >> 8);
+//     zpos = D_803D5530->zPos + (((arg1 * temp_t7) - (temp_t7_2 * arg2)) >> 8);
+//     sp38 = temp_t7_2 * (D_80152C78[(arg5 + 64) & 0xFF] >> 7) * arg4;
+//     sp34 = temp_t7 * (D_80152C78[(arg5 + 64) & 0xFF] >> 7) * arg4;
+//     sp30 = ((D_80152C78[arg5 & 0xFF] >> 7) * arg4) << 8;
+//     obj = func_802C9564_6DAC14(
+//         arg0 & 0xffff,
+//         xpos,
+//         zpos,
+//         D_803D5530->yPos + arg3,
+//         D_803D5530->xVelocity.w + sp38,
+//         D_803D5530->zVelocity.w + sp34,
+//         D_803D5530->yVelocity.w + sp30,
+//         0,
+//         0,
+//         0);
+//     if (obj != 0) {
+//         D_803D5530->xVelocity.w -= sp38 >> arg6;
+//         D_803D5530->zVelocity.w -= sp34 >> arg6;
+//         obj->unk15C = 15;
+//         obj->unk168 = D_803D5530;
+//         if (arg7 != 0) {
+//             obj->unk15E = arg7;
+//         }
+//     }
+// }
 
+// how to match these functions??
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80322064_733714.s")
+// void func_80322064_733714(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8) {
+//     s32 sp38;
+//     s32 sp34;
+//     s32 temp_lo;
+//     s32 temp_t6;
+//     s32 temp_t8;
+//     struct071 *obj;
+//
+//     temp_t8 = D_80152C78[(arg5 + 64) & 0xFF] >> 7;
+//     temp_t6 = D_80152C78[arg5 & 0xFF] >> 7;
+//     sp38 = temp_t6 * (D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4;
+//     sp34 = temp_t8 * (D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4;
+//     obj = func_802C9564_6DAC14(
+//         arg0,
+//         D_803D5530->xPos + (((temp_t8 * arg2) + (arg1 * temp_t6)) >> 8),
+//         D_803D5530->zPos + (((arg1 * temp_t8) - (temp_t6 * arg2)) >> 8),
+//         D_803D5530->yPos + arg3,
+//         D_803D5530->xVelocity.w + sp38,
+//         D_803D5530->zVelocity.w + sp34,
+//         D_803D5530->yVelocity.w + (((D_80152C78[arg6 & 0xFF] >> 7) * arg4) << 8),
+//         0,
+//         0,
+//         0);
+//     if (obj != NULL) {
+//         D_803D5530->xVelocity.w -= (sp38 >> arg7);
+//         D_803D5530->zVelocity.w -= (sp34 >> arg7);
+//         obj->unk15C = 15;
+//         obj->unk168 = (void *) D_803D5530;
+//         if (arg8 != 0) {
+//             obj->unk15E = arg8;
+//         }
+//     }
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_8032225C_73390C.s")
+// another junk function
+// void func_8032225C_73390C(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8) {
+//     s32 temp_t7;
+//     s32 temp_t7_2;
+//     s32 xpos;
+//     s32 zpos;
+//     s16 idx;
+//
+//     struct071 *obj;
+//
+//     idx = D_803D552C->unk302;
+//     temp_t7 = D_80152C78[(idx + 64) & 0xFF] >> 7;
+//     temp_t7_2 = D_80152C78[idx & 0xFF] >> 7;
+//
+//     xpos = D_803D5530->xPos + (((temp_t7 * arg2) + (arg1 * temp_t7_2)) >> 8);
+//     zpos = D_803D5530->zPos + (((arg1 * temp_t7) - (temp_t7_2 * arg2)) >> 8);
+//
+//     obj = func_802C9564_6DAC14(
+//         arg0 & 0xffff,
+//         xpos & 0xFFFFFFFFFFFFFFFFu,
+//         zpos & 0xFFFFFFFFFFFFFFFFu,
+//         D_803D5530->yPos + arg3,
+//         D_803D5530->xVelocity.w + arg4,
+//         D_803D5530->zVelocity.w + arg5,
+//         D_803D5530->yVelocity.w + arg6,
+//         0,
+//         0,
+//         0);
+//
+//     if (obj != NULL) {
+//         D_803D5530->xVelocity.w -= arg4 >> arg7;
+//         D_803D5530->zVelocity.w -= arg5 >> arg7;
+//         obj->unk168 = D_803D5530;
+//         if (arg8 != 0) {
+//             obj->unk15E = arg8;
+//         }
+//     }
+// }
 
 void recoil(s16 arg0) {
     s32 temp_t2 = D_80152C78[(u8)D_803D552C->unk302] >> 7;

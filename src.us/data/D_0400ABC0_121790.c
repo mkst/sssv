@@ -4,7 +4,7 @@ Vtx D_0400AAC0_121690[16] = {
 #include "data/inc/D_0400AAC0_121690.inc.c"
 };
 
-const Gfx D_0400ABC0_121790[] = {
+Gfx D_0400ABC0_121790[] = {
     gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_0400AAC0_121690, 16, 0),

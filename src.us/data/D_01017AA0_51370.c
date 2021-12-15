@@ -16,7 +16,7 @@ Vtx D_01017A60_51330[4] = {
 #include "data/inc/D_01017A60_51330.inc.c"
 };
 
-const Gfx D_01017AA0_51370[] = {
+Gfx D_01017AA0_51370[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_010176E0_50FB0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

@@ -5,7 +5,7 @@ Vtx D_0100C260_45B30[20] = {
 };
 
 
-const Gfx D_0100C3A0_45C70[] = {
+Gfx D_0100C3A0_45C70[] = {
     gsSPVertex(D_0100C260_45B30, 20, 0),
     gsSP1Quadrangle(0, 1, 2, 3, 0),
     gsSP1Quadrangle(4, 5, 6, 7, 0),

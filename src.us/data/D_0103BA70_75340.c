@@ -4,7 +4,7 @@ Vtx D_0103B930_75200[20] = {
 #include "data/inc/D_0103B930_75200.inc.c"
 };
 
-const Gfx D_0103BA70_75340[] = {
+Gfx D_0103BA70_75340[] = {
     gsSPSetGeometryMode(G_CULL_BACK),
     gsSPVertex(D_0103B930_75200, 20, 0),
     gsDPPipeSync(),

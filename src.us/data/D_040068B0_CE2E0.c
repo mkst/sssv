@@ -28,7 +28,7 @@ Vtx D_04006830_CE260[8] = {
 #include "data/inc/D_04006830_CE260.inc.c"
 };
 
-const Gfx D_040068B0_CE2E0[] = {
+Gfx D_040068B0_CE2E0[] = {
     gsSPVertex(D_04006170_CDBA0, 16, 0),
     gsSP2Triangles(0, 2, 1, 0, 2, 0, 3, 0),
     gsSP2Triangles(0, 4, 3, 0, 3, 5, 2, 0),
