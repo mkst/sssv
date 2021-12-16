@@ -284,7 +284,7 @@ void display_zone_select_screen(void) {
     }
 
     D_803F7DA8.biome = get_biome_for_level(D_803F7DA8.currentLevel);
-    if (D_803F7DA8.biome == EUROPE_BIOME) {
+    if (D_803F7DA8.biome == UI_EUROPE_BIOME) {
         D_803F7DA8.unkC += (-6.0 - D_803F7DA8.unkC) / 2;     // pop out ring
         D_803F7DA8.unk10 += (-12.0 - D_803F7DA8.unk10) / 2;  // pop out ring
         D_803F7DA8.unkC = func_8039CDE8_7AE498(D_803F7DA8.unkC, -6.0f);
@@ -296,7 +296,7 @@ void display_zone_select_screen(void) {
         D_803F7DA8.unk10 = func_8039CDE8_7AE498(D_803F7DA8.unk10, 0.0f);
     }
 
-    if (D_803F7DA8.biome == ICE_BIOME) {
+    if (D_803F7DA8.biome == UI_ICE_BIOME) {
         D_803F7DA8.unk24 += (12.0 - D_803F7DA8.unk24) / 2;
         D_803F7DA8.unk28 += (-4.0 - D_803F7DA8.unk28) / 2;
         D_803F7DA8.unk24 = func_8039CDE8_7AE498(D_803F7DA8.unk24, 12.0f);
@@ -308,7 +308,7 @@ void display_zone_select_screen(void) {
         D_803F7DA8.unk28 = func_8039CDE8_7AE498(D_803F7DA8.unk28, 0.0f);
     }
 
-    if (D_803F7DA8.biome == JUNGLE_BIOME) {
+    if (D_803F7DA8.biome == UI_JUNGLE_BIOME) {
         D_803F7DA8.unk1C += (3.0 - D_803F7DA8.unk1C) / 2;
         D_803F7DA8.unk20 += (12.0 - D_803F7DA8.unk20) / 2;
         D_803F7DA8.unk1C = func_8039CDE8_7AE498(D_803F7DA8.unk1C, 3.0f);
@@ -320,7 +320,7 @@ void display_zone_select_screen(void) {
         D_803F7DA8.unk20 = func_8039CDE8_7AE498(D_803F7DA8.unk20, 0.0f);
     }
 
-    if (D_803F7DA8.biome == DESERT_BIOME) {
+    if (D_803F7DA8.biome == UI_DESERT_BIOME) {
         D_803F7DA8.unk14 += (-12.0 - D_803F7DA8.unk14) / 2;
         D_803F7DA8.unk18 += (6.0 - D_803F7DA8.unk18) / 2;
         D_803F7DA8.unk14 = func_8039CDE8_7AE498(D_803F7DA8.unk14, -12.0f);
@@ -1540,19 +1540,19 @@ void load_level_title(void) {
 // SMASHING_START (level 1) would be considered 0 here
 s16 get_biome_for_level(s16 arg0) {
     if ((arg0 >= SMASHING_START-1) && (arg0 < SNOW_JOKE-1)) {
-        return EUROPE_BIOME;
+        return UI_EUROPE_BIOME;
     }
     if ((arg0 >= SNOW_JOKE-1) && (arg0 < JUNGLE_JAPES-1)) {
-        return ICE_BIOME;
+        return UI_ICE_BIOME;
     }
     if ((arg0 >= JUNGLE_JAPES-1) && (arg0 < FUN_IN_THE_SUN-1)) {
-        return JUNGLE_BIOME;
+        return UI_JUNGLE_BIOME;
     }
     if ((arg0 >= FUN_IN_THE_SUN-1) && (arg0 < BIG_CELEBRATION_PARADE-1)) {
-        return DESERT_BIOME;
+        return UI_DESERT_BIOME;
     }
     // TODO: understand why this is not END_CREDITS-1
     if ((arg0 == BIG_CELEBRATION_PARADE-1) || (arg0 == SECRET_LEVEL-1)) {
-        return CITY_BIOME;
+        return UI_CITY_BIOME;
     }
 }

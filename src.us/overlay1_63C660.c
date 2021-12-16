@@ -4,6 +4,8 @@
 // #define TEXEL0 1
 // #define PRIMITIVE 1
 
+u8 overlay1_bss_padding[0xad730]; // 0x10 in overlay1_6384F0
+
 #if 0
 // JUSTREG but uses rodata
 u8 language_select_menu(s16 arg0) {

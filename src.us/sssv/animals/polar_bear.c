@@ -25,8 +25,8 @@ void func_80368840_779EF0(s16 arg0) {
 
     s16 i;
 
-    sp44 = ((s32)D_04002930_DFEF0 & 0xFFFFFF) + D_801D9EC4;
-    tmp = ((s32)D_04002630_DFBF0 & 0xFFFFFF) + D_801D9EC4;
+    sp44 = D_801D9EC4 + ((s32)D_04002930_DFEF0 & 0xFFFFFF);
+    tmp = D_801D9EC4 + ((s32)D_04002630_DFBF0 & 0xFFFFFF);
     phi_a1 = tmp;
 
     for (i = 0; i < 48; i++) {

@@ -30,7 +30,7 @@ void func_8013107C(struct018 *arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4, s32 a
             temp_s0->unk14 = 6;
             temp_s0->unk20 = &D_8014F1D0; // ucode code start
             temp_s0->unk28 = &D_8015D710; // ucode data start
-            temp_s0->unk38 = &D_800EF0D0;
+            temp_s0->unk38 = &_fontbufferSegmentEnd; // so what starts here?
             temp_s0->unk3C = &D_800FF0D0;
             temp_s0->unk48 = &D_802043E0;
             temp_s0->unk4C = 0xC00;
@@ -41,7 +41,7 @@ void func_8013107C(struct018 *arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4, s32 a
             temp_s0->unk14 = 6;
             temp_s0->unk20 = &D_8014F1D0; // ucode code start
             temp_s0->unk28 = &D_8015D710; // ucode data start
-            temp_s0->unk38 = &D_800EF0D0;
+            temp_s0->unk38 = &_fontbufferSegmentEnd; // so what starts here?
             temp_s0->unk3C = &D_800FF0D0;
             temp_s0->unk48 = &D_802043E0;
             temp_s0->unk4C = 0xC00;

@@ -535,7 +535,7 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4);
 s32 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3);
 
 // src/sssv/aidata
-s16 func_802EA3E0_6FBA90(u16 arg0, u16 arg1);
+s16 func_802EA3E0_6FBA90(u16 X, u16 Y);
 
 // sssv/animals/flying_dog (overlay2_6FBEA0)
 void func_802EE89C_6FFF4C(void);
@@ -831,9 +831,10 @@ s16  func_8032D5A4_73EC54(Vertex *x, Vertex *y);
 
 // overlay2_73ED30
 void func_8032F8C8_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
-void func_8032F950_741000(void);
 
 // overlay2_741000
+void func_8032F950_741000(void);
+void func_8032FD0C_7413BC(u8, u8); // tbd
 void func_80338E1C_74A4CC(u8);
 void func_803391D0_74A880(u8 arg0);
 void func_80339238_74A8E8(u8 arg0);

@@ -2,158 +2,59 @@
 #include "common.h"
 
 
-extern char D_803BCA70[];
-extern char D_803BCAA0[];
-extern char D_803BCAB0[];
-extern char D_803BCAE0[];
-extern char D_803BCAF0[];
-extern char D_803BCB2C[];
-extern char D_803BCB3C[];
-extern char D_803BCB78[];
-extern char D_803BCB88[];
-extern char D_803BCBB4[];
-extern char D_803BCBC4[];
-extern char D_803BCBF0[];
-extern char D_803BCC00[];
-extern char D_803BCC28[];
-extern char D_803BCC38[];
-extern char D_803BCC60[];
-extern char D_803BCC70[];
-extern char D_803BCC9C[];
-extern char D_803BCCAC[];
-extern char D_803BCCD8[];
-extern char D_803BCCE8[];
-extern char D_803BCD14[];
-extern char D_803BCD24[];
-extern char D_803BCD50[];
-extern char D_803BCD60[];
-extern char D_803BCD78[];
+s16 func_802EA3E0_6FBA90(u16 X, u16 Y) {
+    s16 sp5E;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/aidata/func_802EA3E0_6FBA90.s")
-// NON-MATCHING: maybe 60% there?
-// s16 func_802EA3E0_6FBA90(u16 arg0, u16 arg1) {
-//     // wierd struct or?
-//     s16 sp5E;
-//
-//     s32 temp_t0;
-//     s32 temp_t1;
-//     struct029 *temp_t2;
-//     struct029 *temp_t9;
-//
-//     // sp1C = arg0;
-//     if (arg0 < OB_TYPE_ANIMAL_OFFSET) {
-//         // "\nASSERT: X >= OB_TYPE_ANIMAL_OFFSET, %s, %u\n"
-//         // "../src/aidata.c"
-//         rmonPrintf(D_803BCA70, D_803BCAA0, 0x177);
-//         *(volatile int*)0 = 0;
-//     }
-//     if (arg1 < OB_TYPE_ANIMAL_OFFSET) {
-//         // "\nASSERT: Y >= OB_TYPE_ANIMAL_OFFSET, %s, %u\n"
-//         // "../src/aidata.c"
-//         rmonPrintf(D_803BCAB0, D_803BCAE0, 0x178, arg1);
-//         *(volatile int*)0 = 0;
-//     }
-//     if ((arg0 - OB_TYPE_ANIMAL_OFFSET) >= AID_MAX_ANIMALS) {
-//         // "\nASSERT: X-OB_TYPE_ANIMAL_OFFSET < AID_MAX_ANIMALS, %s, %u\n"
-//         // "../src/aidata.c"
-//         rmonPrintf(D_803BCAF0, D_803BCB2C, 0x179, arg1);
-//         *(volatile int*)0 = 0;
-//     }
-//     if ((arg1 - OB_TYPE_ANIMAL_OFFSET) >= AID_MAX_ANIMALS) {
-//         // "\nASSERT: Y-OB_TYPE_ANIMAL_OFFSET < AID_MAX_ANIMALS, %s, %u\n"
-//         rmonPrintf(D_803BCB3C, D_803BCB78, 0x17A, arg1);
-//         *(volatile int*)0 = 0;
-//     }
-//
-//     // ???
-//     // temp_t9 = &D_803A4B78[arg0];
-//     // temp_t0 = (temp_t9 - 1)->unk0;
-//     // temp_t2 = &D_803A4B78[arg1];
-//     // temp_t1 = (temp_t2 - 1)->unk0;
-//     temp_t0 = D_803A4B78[arg0 - 1][0];
-//     temp_t1 = D_803A4B78[arg1 - 1][0];
-//
-//     if ((temp_t0 == 99) || (temp_t1 == 99) ){
-//         return 0;
-//     }
-//     if ((temp_t0 == 100) || (temp_t1 == 100)) {
-//         return 2;
-//     }
-//
-//     if ((D_803F2D70 != (s32)(&D_801D9ED8.unk0[arg0]) + 0x14D6) ||
-//         (D_803F2D70 != (s32)(&D_801D9ED8.unk0[arg1]) + 0x14D6)) {
-//         return 0;
-//     }
-//
-//     switch (D_803F2D70) {
-//         case 0:
-//             if (temp_t0 >= MAX_EUROPE_ANIMALS) {
-//                 // "\nASSERT: Xl < MAX_EUROPE_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCB88, D_803BCBB4, 0x194, arg1);
-//                 *(volatile int*)0 = 0;
-//             }
-//             if (temp_t1 >= MAX_EUROPE_ANIMALS) {
-//                 // "\nASSERT: Yl < MAX_EUROPE_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCBC4, D_803BCBF0, 0x195);
-//                 *(volatile int*)0 = 0;
-//             }
-//             sp5E = D_803A48C0[((((temp_t0 * 4) + temp_t0) * 4) - temp_t0) + temp_t1];
-//             break;
-//         case 1:
-//             if (temp_t0 >= MAX_ICE_ANIMALS) {
-//                 // "\nASSERT: Xl < MAX_ICE_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCC00, D_803BCC28, 0x19A, arg1);
-//                 *(volatile int*)0 = 0;
-//             }
-//             if (temp_t1 >= MAX_ICE_ANIMALS) {
-//                 // "\nASSERT: Yl < MAX_ICE_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCC38, D_803BCC60, 0x19B);
-//                 *(volatile int*)0 = 0;
-//             }
-//             sp5E = D_803A4ABC[((((temp_t0 * 4) - temp_t0) * 4) - temp_t0) + temp_t1];
-//
-//             break;
-//         case 2:
-//             if (temp_t0 >= MAX_DESERT_ANIMALS) {
-//                 // "\nASSERT: Xl < MAX_DESERT_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCC70, D_803BCC9C, 0x1A0, arg1);
-//                 *(volatile int*)0 = 0;
-//             }
-//             if (temp_t1 >= MAX_DESERT_ANIMALS) {
-//                 // "\nASSERT: Yl < MAX_DESERT_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCCAC, D_803BCCD8, 0x1A1);
-//                 *(volatile int*)0 = 0;
-//             }
-//             sp5E = D_803A4B38[(temp_t0 * 8) + temp_t1];
-//             break;
-//         case 3:
-//             if (temp_t0 >= MAX_JUNGLE_ANIMALS) {
-//                 // "\nASSERT: Xl < MAX_JUNGLE_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCCE8, D_803BCD14, 0x1A6, arg1);
-//                 *(volatile int*)0 = 0;
-//             }
-//             if (temp_t1 >= MAX_JUNGLE_ANIMALS) {
-//                 // "\nASSERT: Yl < MAX_JUNGLE_ANIMALS, %s, %u\n"
-//                 // "../src/aidata.c"
-//                 rmonPrintf(D_803BCD24, D_803BCD50, 0x1A7);
-//                 *(volatile int*)0 = 0;
-//             }
-//             sp5E = D_803A4A2C[(((temp_t0 * 4) - temp_t0) * 4) + temp_t1];
-//             break;
-//         default:
-//             // "\nASSERT: FALSE, %s, %u\n"
-//             // "../src/aidata.c"
-//             rmonPrintf(D_803BCD60, D_803BCD78, 0x1AC, arg1);
-//             *(volatile int*)0 = 0;
-//             break;
-//     }
-//
-//     return sp5E;
-// }
+    s16 Xl;
+    s16 Yl;
+
+    u8 pad[0x34];
+
+    SSSV_ASSERT(X >= OB_TYPE_ANIMAL_OFFSET, "../src/aidata.c", 375)
+    SSSV_ASSERT(Y >= OB_TYPE_ANIMAL_OFFSET, "../src/aidata.c", 376)
+    SSSV_ASSERT(X-OB_TYPE_ANIMAL_OFFSET < AID_MAX_ANIMALS, "../src/aidata.c", 377)
+    SSSV_ASSERT(Y-OB_TYPE_ANIMAL_OFFSET < AID_MAX_ANIMALS, "../src/aidata.c", 378)
+
+    Xl = D_803A4B78_7B6228[X - OB_TYPE_ANIMAL_OFFSET];
+    Yl = D_803A4B78_7B6228[Y - OB_TYPE_ANIMAL_OFFSET];
+
+    if ((Xl == 99) || (Yl == 99) ){
+        return 0;
+    }
+    if ((Xl == 100) || (Yl == 100)) {
+        return 2;
+    }
+
+    if ((D_801D9ED8.unk0[(s32)X - OB_TYPE_ANIMAL_OFFSET].unkD6 != D_803F2D70) ||
+        (D_801D9ED8.unk0[(s32)Y - OB_TYPE_ANIMAL_OFFSET].unkD6 != D_803F2D70)) {
+        return 0;
+    }
+
+    switch (D_803F2D70) {
+        case EUROPE_BIOME:
+            SSSV_ASSERT(Xl < MAX_EUROPE_ANIMALS, "../src/aidata.c", 404)
+            SSSV_ASSERT(Yl < MAX_EUROPE_ANIMALS, "../src/aidata.c", 405)
+            sp5E = D_803A48C0_7B5F70[Xl*MAX_EUROPE_ANIMALS + Yl];
+            break;
+        case ICE_BIOME:
+            SSSV_ASSERT(Xl < MAX_ICE_ANIMALS, "../src/aidata.c", 410)
+            SSSV_ASSERT(Yl < MAX_ICE_ANIMALS, "../src/aidata.c", 411)
+            sp5E = D_803A4ABC_7B616C[Xl*MAX_ICE_ANIMALS + Yl];
+            break;
+        case DESERT_BIOME:
+            SSSV_ASSERT(Xl < MAX_DESERT_ANIMALS, "../src/aidata.c", 416)
+            SSSV_ASSERT(Yl < MAX_DESERT_ANIMALS, "../src/aidata.c", 417)
+            sp5E = D_803A4B38_7B61E8[Xl * MAX_DESERT_ANIMALS + Yl];
+            break;
+        case JUNGLE_BIOME:
+            SSSV_ASSERT(Xl < MAX_JUNGLE_ANIMALS, "../src/aidata.c", 422)
+            SSSV_ASSERT(Yl < MAX_JUNGLE_ANIMALS, "../src/aidata.c", 423)
+            sp5E = D_803A4A2C_7B60DC[Xl * MAX_JUNGLE_ANIMALS + Yl];
+            break;
+        default:
+            SSSV_ASSERT(FALSE, "../src/aidata.c", 428)
+            break;
+    }
+
+    return sp5E;
+}

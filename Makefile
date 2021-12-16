@@ -29,6 +29,8 @@ O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file).o)
 
+LIBULTRA = lib/libultra.a
+
 # Language data
 
 LANG_RNC_FILES      = $(wildcard assets/lang/*.dat.rnc)
@@ -49,10 +51,19 @@ RNC_FILES       := $(wildcard assets/rnc*.bin)
 RNC_EXTRACTED   := $(foreach file,$(RNC_FILES),rnc/$(file))
 RNC_COMPRESSED  := $(foreach file,$(RNC_FILES),build/$(file))
 
+UNDEFINED_SYMS  := osViGetCurrentLine \
+	__osDevMgrMain \
+	__osLeoInterrupt \
+	__scYield __scAppendList __scHandleRDP __scHandleRSP __scHandleRetrace __scTaskComplete __scTaskReady __scExec __scSchedule osScGetCmdQ osScRemoveClient osScAddClient osCreateScheduler __scMain \
+	__osRdbSend \
+	osCartRomInit \
+	osLeoDiskInit \
+	osCreatePiManager \
+	osPfsIsPlug
 
 # Tools
 
-CROSS    = mips-linux-gnu-
+CROSS    = mips-elf-
 
 AS       = $(CROSS)as
 CPP      = cpp
@@ -61,7 +72,8 @@ OBJDUMP  = $(CROSS)objdump
 OBJCOPY  = $(CROSS)objcopy
 PYTHON   = python3
 GCC      = gcc
-XGCC     = $(CROSS)gcc
+
+XGCC     = mips-linux-gnu-gcc
 
 GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
@@ -118,8 +130,11 @@ GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(VERSION)
 LD_SCRIPT  = $(BASENAME).ld
 
-LDFLAGS = -T $(LD_SCRIPT) -Map $(TARGET).map -T undefined_syms_auto.txt -T undefined_funcs_auto.txt -T undefined_syms.$(VERSION).txt --no-check-sections
+LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt -T undefined_funcs_auto.txt
+LD_FLAGS  += -Map $(TARGET).map --no-check-sections
 
+LD_FLAGS_EXTRA  = -Lbuild/lib -lultra
+LD_FLAGS_EXTRA += $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 
@@ -131,13 +146,6 @@ $(BUILD_DIR)/$(SRC_DIR)/core/string.c.o: OPT_FLAGS := -O2
 # libultra
 $(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/libultra/io/%.c.o: OPT_FLAGS := -O1
-
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.c.o: MIPSISET := -mips3 -o32
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.c.o: OPT_FLAGS := -O1
-
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: MIPSISET := -mips3 -o32
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: OPT_FLAGS := -O1
-
 
 ### Targets
 
@@ -184,8 +192,8 @@ clean:
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $<" | sha1sum --check
 	@touch $@
 
-$(TARGET).elf: $(O_FILES) $(LANG_RNC_O_FILES) $(RGBA16_RNC_O_FILES) $(RGBA16_O_FILES)
-	@$(LD) $(LDFLAGS) -o $@
+$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(RGBA16_RNC_O_FILES) $(RGBA16_O_FILES)
+	$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
@@ -205,15 +213,6 @@ $(BUILD_DIR)/%.c.o: %.c
 $(BUILD_DIR)/$(SRC_DIR)/data/%.c.o: $(SRC_DIR)/data/%.c
 	$(XGCC) -c $(GCC_FLAGS) -o $@ $<
 
-# force mips2 bit
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/ll.c.o: $(SRC_DIR)/libultra/libc/ll.c
-	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
-	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
-
-$(BUILD_DIR)/$(SRC_DIR)/libultra/libc/llcvt.c.o: $(SRC_DIR)/libultra/libc/llcvt.c
-	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
-	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
-
 $(BUILD_DIR)/%.s.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
@@ -225,6 +224,11 @@ $(TARGET).bin: $(TARGET).elf
 
 $(TARGET).z64: $(TARGET).bin
 	@cp $< $@
+
+$(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
+	@mkdir -p $$(dirname $@)
+	@cp $< $@
+	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
 
 rnc/%.bin: %.bin
 	@mkdir -p rnc/assets

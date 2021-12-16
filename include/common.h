@@ -29,7 +29,6 @@
 #include "levels.h"
 #include "animals.h"
 
-
 // evo suit colors
 #define EVO_BRONZE_SHELLSUIT        0
 #define EVO_SILVER_SHELLSUIT        1
@@ -41,12 +40,19 @@
 #define EVO_ARMS                    4
 #define EVO_LEGS                    8
 
-// biomes
+// biomes (per aidata.c)
 #define EUROPE_BIOME                0
 #define ICE_BIOME                   1
-#define JUNGLE_BIOME                2
-#define DESERT_BIOME                3
+#define DESERT_BIOME                2
+#define JUNGLE_BIOME                3
 #define CITY_BIOME                  4
+
+// ui is in 'game order'
+#define UI_EUROPE_BIOME             0
+#define UI_ICE_BIOME                1
+#define UI_JUNGLE_BIOME             2
+#define UI_DESERT_BIOME             3
+#define UI_CITY_BIOME               4
 
 // fonts
 #define FONT_DEFAULT                0
@@ -179,6 +185,16 @@
 #define TRANSITION_1        1
 #define TRANSITION_FADE_IN  2
 #define TRANSITION_FADE_OUT_BLK 3
+
+
+// custom ASSERT
+
+#define SSSV_ASSERT(TEST, FILE, LINE) \
+    if (!(TEST)) { \
+        rmonPrintf("\nASSERT: "#TEST", %s, %u\n", FILE, LINE); \
+        *(volatile int*)0 = 0; \
+    }
+
 
 // extra gbi macros
 

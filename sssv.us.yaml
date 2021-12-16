@@ -12,6 +12,7 @@ options:
   src_path: src.us
   extensions_path: tools/splat_ext
   enable_ld_alignment_hack: yes
+  lib_path: build/lib
 segments:
   - name:  header
     type:  header
@@ -26,8 +27,8 @@ segments:
     subalign: 8
     overlay: no
     subsegments:
-    - [0x1000, asm, entrypoint] # handwritten
-    - [0x1050, c, main_1050] # -O1
+    - [0x1000, asm, entrypoint]                     # handwritten
+    - [0x1050, c, main_1050]                        # -O1
     - [0x1080, c, main_1080]
     - [0x3900, c, core/controller]
     - [0x44D0, c, core/string]
@@ -44,201 +45,208 @@ segments:
     - [0xC2A0, c, main_C2A0]
     - [0xC330, c, core/eeprom]
     - [0xC770, c, main_C770]
-    - [0xC990, c, core/audiomgr] # from ultra64demos
+    - [0xC990, c, core/audiomgr]                    # from ultra64demos
     - [0xD2F0, c, core/audio]
-    - [0xE3C0, c, core/audio2] # more audio
-    - [0xF600, c, libultra/audio/csplayer]
+    - [0xE3C0, c, core/audio2]                      # more audio
+    - [0xF600, c, libultra/audio/csplayer]          # customised
     - [0x10CB0, c, thread1]
     - [0x10DC0, c, main_10DC0]
     - [0x123E0, c, main_123E0]
     # libultra
-    - [0x12FC0, linker, lib] # fake split here for progress
+    - [0x12FC0, linker, lib]  # fake split here for progress
+    # - [0x12FC0, lib, libultra, initialize]        # requires exceptasm
     - [0x12FC0, c, libultra/os/initialize]
-    - [0x13250, c, libultra/libc/ll]
-    - [0x13510, hasm, libultra/gu/sqrtf]
-    - [0x13520, c, libultra/os/gettime]
-    - [0x135B0, hasm, libultra/os/writebackdcacheall]
-    - [0x135E0, asm, libultra/io/pidma]
-    - [0x136F0, c, libultra/os/recvmesg]
-    - [0x13830, c, libultra/os/virtualtophysical]
-    - [0x138B0, c, libultra/os/createmesgqueue]
-    - [0x138E0, c, libultra/os/startthread]
-    - [0x13A30, asm, libultra/sched/sched] # scheduler with a bunch of inlined funcs?
-    - [0x14370, asm, libultra/io/visetspecial]
-    - [0x14530, asm, libultra/io/contreaddata]
-    - [0x14750, c, libultra/os/sendmesg]
-    - [0x148A0, bin, alignment_meme_001] # 0x60 bytes of 0x00
-    - [0x14900, c, libultra/io/visetxscale]
-    - [0x14A30, asm, libultra/io/visetyscale]
-    - [0x14A90, asm, libultra/io/viblack]
-    - [0x14B00, hasm, libultra/os/invalicache]
-    - [0x14B80, hasm, libultra/os/invaldcache]
-    - [0x14C30, asm, libc/bzero]
-    - [0x14CD0, asm, libc/sprintf]
-    - [0x14D50, asm, libc/syncprintf]
-    - [0x14D90, asm, libultra/io/conteeplongwrite]
-    - [0x14E80, asm, libultra/io/conteeplongread]
-    - [0x14F10, asm, libultra/io/dpsetstat]
-    - [0x14F20, asm, libultra/io/aisetfreq]
-    - [0x15080, asm, libultra/audio/sl]
-    - [0x15140, asm, libultra/audio/heapalloc]
-    - [0x151A0, c, libultra/os/createthread]
-    - [0x152F0, asm, libultra/io/aisetnextbuf]
-    - [0x153A0, asm, libultra/io/aigetlen]
-    - [0x153B0, asm, libultra/audio/synthesizer]
-    - [0x15AD0, asm, libultra/audio/bnkf] # is audio compiled with -O3? inlined funcs?
-    - [0x15D20, asm, libultra/audio/sndplayer]
-    - [0x16430, asm, libultra/audio/seqpsetbank]
-    - [0x16470, asm, libultra/audio/cseq]
-    - [0x16F30, asm, libultra/audio/seqpsetseq]
-    - [0x16F70, asm, libultra/audio/seqpsetvol]
-    - [0x16FB0, asm, libultra/audio/seqpplay]
-    - [0x16FE0, asm, libultra/audio/sndpallocate]
-    - [0x17080, asm, libultra/audio/sndpsetsound]
-    - [0x170A0, asm, libultra/audio/sndpsetpitch]
-    - [0x17100, asm, libultra/audio/sndpsetvol]
-    - [0x17160, asm, libultra/audio/sndpsetfxmix]
-    - [0x171C0, asm, libultra/audio/sndpplay]
-    - [0x17230, asm, libultra/audio/seqpstop]
-    - [0x17260, asm, libultra/audio/sndpgetstate]
-    - [0x17280, asm, libultra/audio/sndpdeallocate]
-    - [0x172D0, asm, libultra/audio/sndpsetpan]
-    - [0x17330, asm, libultra/audio/sndpstop]
-    - [0x17380, asm, libultra/audio/seqplayer]
-    - [0x18CC0, asm, libultra/audio/event]
-    - [0x19000, asm, libultra/audio/synaddplayer]
-    - [0x19050, asm, libultra/audio/synstopvoice]
-    - [0x190D0, asm, libultra/audio/synfreevoice]
-    - [0x19220, asm, libultra/audio/synsetpitch]
-    - [0x192B0, asm, libultra/audio/synallocvoice]
-    - [0x194E0, asm, libultra/audio/cents2ratio]
-    - [0x19530, asm, libultra/audio/synstartvoiceparam]
-    - [0x19620, asm, libultra/audio/synsetpan]
-    - [0x196B0, asm, libultra/audio/synsetfxmix]
-    - [0x19750, hasm, libultra/os/setintmask]
-    - [0x197F0, asm, libultra/io/pimgr]
-    - [0x19980, c, libultra/os/setthreadpri]
-    - [0x19A60, asm, libultra/gu/usprite]
-    - [0x19AB0, c, libultra/os/seteventmesg]
-    - [0x19B20, asm, libultra/io/controller]
-    - [0x19E60, asm, libultra/io/contsetch]
-    - [0x19ED0, asm, libultra/io/pfsinit]
-    - [0x19F90, c, libultra/io/motor]
-    - [0x1A730, asm, libultra/io/conteepprobe]
-    - [0x1A7D0, c, libultra/libc/llcvt]
-    - [0x1A9E0, asm, libultra/gu/translate]
-    - [0x1AA80, asm, libultra/gu/perspective]
-    - [0x1AD10, asm, libultra/gu/rotateRPY]
-    - [0x1ADB0, asm, libultra/gu/lookat]
-    - [0x1B0E0, asm, libultra/gu/align]
-    - [0x1B2D0, asm, libultra/gu/scale]
-    - [0x1B470, asm, libultra/gu/cosf]
-    - [0x1B5E0, asm, libultra/gu/sinf]
-    - [0x1B7A0, asm, libultra/gu/lookatref]
-    - [0x1BC30, asm, libultra/gu/lookathil]
-    - [0x1C420, asm, libultra/gu/random]
-    - [0x1C450, asm, libultra/io/vigetline]
-    - [0x1C460, hasm, libultra/os/setsr]
-    - [0x1C470, hasm, libultra/os/getsr]
-    - [0x1C480, hasm, libultra/os/setfpccsr]
-    - [0x1C490, asm, libultra/io/sirawread]
-    - [0x1C4E0, asm, libultra/io/sirawwrite]
-    - [0x1C530, hasm, libultra/os/exceptasm]
-    - [0x1CE40, hasm, libultra/os/writebackdcache]
-    - [0x1CEC0, hasm, libultra/os/maptlbrdb]
-    - [0x1CF20, asm, libultra/io/pirawread]
-    - [0x1CF80, hasm, libultra/os/interrupt]
-    - [0x1CFC0, hasm, libultra/os/getcount]
-    - [0x1CFD0, c, libultra/os/timerintr]
-    - [0x1D3D0, c, libultra/os/jammesg]
-    - [0x1D520, asm, libultra/io/pigetcmdq] # TODO: double-check
-    - [0x1D550, c, libultra/os/thread]
-    - [0x1D590, hasm, libultra/os/probetlb]
-    - [0x1D650, asm, libultra/io/vimgr]
-    - [0x1D9B0, asm, libultra/io/visetmode]
-    - [0x1DA20, asm, libultra/io/visetevent]
-    - [0x1DA90, asm, libultra/io/sptaskyielded]
-    - [0x1DB10, asm, libultra/io/vigetcurrframebuf]
-    - [0x1DB50, asm, libultra/io/vigetnextframebuf]
-    - [0x1DB90, asm, libultra/io/viswapbuf]
-    - [0x1DBE0, asm, libultra/io/sptask]
-    - [0x1DED0, asm, libultra/io/dpsetnextbuf]
-    - [0x1DF80, asm, libultra/io/sptaskyield]
-    - [0x1DFA0, asm, libultra/io/vi]
-    - [0x1E0E0, asm, libultra/io/siacs]
-    - [0x1E1A0, asm, libultra/io/sirawdma]
-    - [0x1E250, asm, libc/xprintf]
-    - [0x1EF10, asm, libc/string]
-    - [0x1EFB0, asm, libultra/io/conteepwrite]
-    - [0x1F4D0, c, libultra/os/settimer]
-    - [0x1F5B0, asm, libultra/io/conteepread]
-    - [0x1F8D0, asm, libultra/audio/syndelete]
-    - [0x1F8E0, asm, libultra/io/ai]
-    - [0x1F910, asm, libultra/audio/drvrNew]
-    - [0x200B0, asm, libultra/audio/synallocfx]
-    - [0x20150, asm, libultra/audio/mainbus]
-    - [0x202A0, asm, libultra/audio/load]
-    - [0x20DF0, asm, libultra/audio/resample]
-    - [0x210F0, asm, libultra/audio/env]
-    - [0x21D50, asm, libultra/audio/auxbus]
-    - [0x21E60, asm, libultra/audio/save]
-    - [0x21F20, asm, libultra/audio/synstartvoice]
-    - [0x21FB0, asm, libultra/audio/seq]
-    - [0x225D0, asm, libultra/audio/synsetpriority]
-    - [0x225E0, asm, libultra/audio/copy]
-    - [0x22660, asm, libultra/io/cartrominit]
-    - [0x22760, asm, libultra/io/leodiskinit]
-    - [0x22860, asm, libultra/io/piacs]
-    - [0x22920, c, libultra/os/getthreadpri]
-    - [0x22940, asm, libultra/io/pirawdma]
-    - [0x22A20, asm, libultra/io/epirawdma]
-    - [0x22C50, asm, libultra/io/devmgr]
-    - [0x230E0, asm, libultra/io/pfsgetstatus]
-    - [0x23320, asm, libultra/io/contpfs]
-    - [0x24080, asm, libultra/io/pfschecker]
-    - [0x24AE0, asm, libultra/io/pfsisplug]
-    - [0x24E20, asm, libultra/io/crc]
-    - [0x24FA0, asm, libultra/io/contramwrite]
-    - [0x25300, asm, libultra/io/contramread]
-    - [0x25660, asm, libultra/gu/mtxutil]
-    - [0x258D0, asm, libultra/gu/normalize]
-    - [0x25960, asm, libultra/io/si]
-    - [0x25990, asm, libultra/io/leointerrupt]
-    - [0x26210, c, libultra/os/destroythread]
-    - [0x26320, hasm, libultra/os/setcompare]
-    - [0x26330, asm, libultra/io/vigetcurrcontext]
-    - [0x26340, asm, libultra/io/viswapcontext]
-    - [0x266A0, asm, libultra/io/spgetstat]
-    - [0x266B0, asm, libc/bcopy]
-    - [0x269C0, asm, libultra/io/spsetstat]
-    - [0x269D0, asm, libultra/io/spsetpc]
-    - [0x26A10, asm, libultra/io/sprawdma]
-    - [0x26AA0, asm, libultra/io/sp]
-    - [0x26AD0, asm, libultra/io/dp]
-    - [0x26B00, asm, libc/xlitob]
-    - [0x26DA0, asm, libc/xldtob]
-    - [0x27860, asm, libultra/audio/filter]
-    - [0x27880, asm, libultra/audio/reverb]
-    - [0x284D0, c, libultra/os/resetglobalintmask]
-    - [0x28530, asm, libultra/io/epirawwrite]
-    - [0x286C0, asm, libultra/io/epirawread]
-    - [0x28860, c, libultra/os/setglobalintmask]
-    - [0x288B0, c, libultra/os/yieldthread]
-    - [0x28900, c, libultra/libc/ldiv]
+    - [0x13250, lib, libultra, ll]
+    - [0x13510, lib, libultra, sqrtf]
+    - [0x13520, lib, libultra, gettime]
+    - [0x135B0, lib, libultra, writebackdcacheall]
+    - [0x135E0, lib, libultra, pidma]
+    - [0x136F0, lib, libultra, recvmesg]
+    - [0x13830, lib, libultra, virtualtophysical]
+    - [0x138B0, lib, libultra, createmesgqueue]
+    - [0x138E0, lib, libultra, startthread]
+    - [0x13A30, asm, libultra/sched/sched]          # -O3
+    - [0x14370, lib, libultra, visetspecial]
+    - [0x14530, lib, libultra, contreaddata]
+    - [0x14750, lib, libultra, sendmesg]
+    - [0x148A0, bin, alignment_meme_001]            # 0x60 bytes of 0x00, was something patched out?
+    - [0x14900, lib, libultra, visetxscale]
+    - [0x14A30, lib, libultra, visetyscale]
+    - [0x14A90, lib, libultra, viblack]
+    - [0x14B00, lib, libultra, invalicache]
+    - [0x14B80, lib, libultra, invaldcache]
+    - [0x14C30, lib, libultra, bzero]
+    - [0x14CD0, lib, libultra, sprintf]
+    - [0x14D50, c, libultra/libc/syncprintf]        # TODO: needs initialize.o, rdbsend.o
+    - [0x14D90, lib, libultra, conteeplongwrite]
+    - [0x14E80, lib, libultra, conteeplongread]
+    - [0x14F10, lib, libultra, dpsetstat]
+    - [0x14F20, lib, libultra, aisetfreq]
+    - [0x15080, lib, libultra, sl]
+    - [0x15140, lib, libultra, heapalloc]
+    - [0x151A0, lib, libultra, createthread]
+    - [0x152F0, lib, libultra, aisetnextbuf]
+    - [0x153A0, lib, libultra, aigetlen]
+    - [0x153B0, lib, libultra, synthesizer]
+    - [0x15A90, lib, libultra, heapinit]
+    - [0x15AD0, lib, libultra, bnkf]
+    - [0x15D20, lib, libultra, sndplayer]
+    - [0x16430, lib, libultra, seqpsetbank]
+    - [0x16470, lib, libultra, cseq]
+    - [0x16F30, lib, libultra, seqpsetseq]
+    - [0x16F70, lib, libultra, seqpsetvol]
+    - [0x16FB0, lib, libultra, seqpplay]
+    - [0x16FE0, lib, libultra, sndpallocate]
+    - [0x17080, lib, libultra, sndpsetsound]
+    - [0x170A0, lib, libultra, sndpsetpitch]
+    - [0x17100, lib, libultra, sndpsetvol]
+    - [0x17160, lib, libultra, sndpsetfxmix]
+    - [0x171C0, lib, libultra, sndpplay]
+    - [0x17230, lib, libultra, seqpstop]
+    - [0x17260, lib, libultra, sndpgetstate]
+    - [0x17280, lib, libultra, sndpdeallocate]
+    - [0x172D0, lib, libultra, sndpsetpan]
+    - [0x17330, lib, libultra, sndpstop]
+    - [0x17380, lib, libultra, seqplayer]
+    - [0x18CC0, lib, libultra, event]
+    - [0x19000, lib, libultra, synaddplayer]
+    - [0x19050, lib, libultra, synstopvoice]
+    - [0x190D0, lib, libultra, synfreevoice]
+    - [0x19180, lib, libultra, synsetvol]
+    - [0x19220, lib, libultra, synsetpitch]
+    - [0x192B0, lib, libultra, synallocvoice]
+    - [0x194E0, lib, libultra, cents2ratio]
+    - [0x19530, lib, libultra, synstartvoiceparam]
+    - [0x19620, lib, libultra, synsetpan]
+    - [0x196B0, lib, libultra, synsetfxmix]
+    - [0x19750, lib, libultra, setintmask]
+    - [0x197F0, c, BSS_PADDING_197F0]
+    - [0x197F0, c, libultra/io/pimgr]             # TODO: needs piacs.o + rdbsend.o
+    - [0x19980, c, BSS_PADDING_19980]
+    - [0x19980, lib, libultra, setthreadpri]
+    - [0x19A60, lib, libultra, usprite]
+    - [0x19AB0, lib, libultra, seteventmesg]
+    - [0x19B20, lib, libultra, controller]
+    - [0x19E60, lib, libultra, contsetch]
+    - [0x19ED0, lib, libultra, pfsinit]
+    - [0x19F90, lib, libultra, motor]
+    - [0x1A730, lib, libultra, conteepprobe]
+    - [0x1A7D0, lib, libultra, llcvt]
+    - [0x1A9E0, lib, libultra, translate]
+    - [0x1AA80, lib, libultra, perspective]
+    - [0x1AD10, lib, libultra, scale]
+    - [0x1ADB0, lib, libultra, lookat]
+    - [0x1B0E0, lib, libultra, rotate]
+    - [0x1B2D0, lib, libultra, rotateRPY]
+    - [0x1B470, lib, libultra, cosf]
+    - [0x1B5E0, lib, libultra, sinf]
+    - [0x1B7A0, lib, libultra, lookatref]
+    - [0x1BC30, lib, libultra, lookathil]
+    - [0x1C420, lib, libultra, random]
+    - [0x1C450, lib, libultra, vigetline]
+    - [0x1C460, lib, libultra, setsr]
+    - [0x1C470, lib, libultra, getsr]
+    - [0x1C480, lib, libultra, setfpccsr]
+    - [0x1C490, lib, libultra, sirawread]
+    - [0x1C4E0, lib, libultra, sirawwrite]
+    - [0x1C530, asm, libultra/os/exceptasm]         # FIXME: needs kdebugserver.o, initialize.o, readhost.o, rmonsio.o, initrdb.o, rdbsend.o, initrdb.o
+    - [0x1CE40, lib, libultra, writebackdcache]
+    - [0x1CEC0, lib, libultra, maptlbrdb]
+    - [0x1CF20, lib, libultra, pirawread]
+    - [0x1CF80, lib, libultra, interrupt]
+    - [0x1CFC0, lib, libultra, getcount]
+    - [0x1CFD0, c, libultra/os/timerintr]           # FIXME: why this doesnt match as lib?
+    - [0x1D3D0, lib, libultra, jammesg]
+    - [0x1D520, lib, libultra, pigetcmdq]
+    - [0x1D550, lib, libultra, thread]
+    - [0x1D590, lib, libultra, probetlb]
+    - [0x1D650, lib, libultra, vimgr]
+    - [0x1D9B0, lib, libultra, visetmode]
+    - [0x1DA20, lib, libultra, visetevent]
+    - [0x1DA90, lib, libultra, sptaskyielded]
+    - [0x1DB10, lib, libultra, vigetcurrframebuf]
+    - [0x1DB50, lib, libultra, vigetnextframebuf]
+    - [0x1DB90, lib, libultra, viswapbuf]
+    - [0x1DBE0, lib, libultra, sptask]
+    - [0x1DED0, lib, libultra, dpsetnextbuf]
+    - [0x1DF80, lib, libultra, sptaskyield]
+    - [0x1DFA0, lib, libultra, vi]
+    - [0x1E0E0, lib, libultra, siacs]
+    - [0x1E1A0, lib, libultra, sirawdma]
+    - [0x1E250, lib, libultra, xprintf]
+    - [0x1EF10, lib, libultra, string]
+    - [0x1EFB0, lib, libultra, conteepwrite]
+    - [0x1F4D0, lib, libultra, settimer]
+    - [0x1F5B0, lib, libultra, conteepread]
+    - [0x1F8D0, lib, libultra, syndelete]
+    - [0x1F8E0, lib, libultra, ai]
+    - [0x1F910, lib, libultra, drvrNew]
+    - [0x200B0, lib, libultra, synallocfx]
+    - [0x20150, lib, libultra, mainbus]
+    - [0x202A0, lib, libultra, load]
+    - [0x20DF0, lib, libultra, resample]
+    - [0x210F0, lib, libultra, env]
+    - [0x21D50, lib, libultra, auxbus]
+    - [0x21E60, lib, libultra, save]
+    - [0x21F20, lib, libultra, synstartvoice]
+    - [0x21FB0, lib, libultra, seq]
+    - [0x225D0, lib, libultra, synsetpriority]
+    - [0x225E0, lib, libultra, copy]
+    - [0x22660, lib, libultra, cartrominit]
+    - [0x22760, lib, libultra, leodiskinit]
+    - [0x22860, lib, libultra, piacs]
+    - [0x22920, lib, libultra, getthreadpri]
+    - [0x22940, lib, libultra, pirawdma]
+    - [0x22A20, lib, libultra, epirawdma]
+    - [0x22C50, lib, libultra, devmgr]
+    - [0x230E0, lib, libultra, pfsgetstatus]
+    - [0x23320, lib, libultra, contpfs]
+    - [0x24080, lib, libultra, pfschecker]
+    - [0x24AE0, lib, libultra, pfsisplug]
+    - [0x24E20, lib, libultra, crc]
+    - [0x24FA0, lib, libultra, contramwrite]
+    - [0x25300, lib, libultra, contramread]
+    - [0x25660, lib, libultra, mtxutil]
+    - [0x258D0, lib, libultra, normalize]
+    - [0x25960, lib, libultra, si]
+    - [0x25990, lib, libultra, leointerrupt]
+    - [0x26210, lib, libultra, destroythread]
+    - [0x26320, lib, libultra, setcompare]
+    - [0x26330, lib, libultra, vigetcurrcontext]
+    - [0x26340, lib, libultra, viswapcontext]
+    - [0x266A0, lib, libultra, spgetstat]
+    - [0x266B0, lib, libultra, bcopy]
+    - [0x269C0, lib, libultra, spsetstat]
+    - [0x269D0, lib, libultra, spsetpc]
+    - [0x26A10, lib, libultra, sprawdma]
+    - [0x26AA0, lib, libultra, sp]
+    - [0x26AD0, lib, libultra, dp]
+    - [0x26B00, lib, libultra, xlitob]
+    - [0x26DA0, lib, libultra, xldtob]
+    - [0x27860, lib, libultra, filter]
+    - [0x27880, lib, libultra, reverb]
+    - [0x284D0, lib, libultra, resetglobalintmask]
+    - [0x28530, lib, libultra, epirawwrite]
+    - [0x286C0, lib, libultra, epirawread]
+    - [0x28860, c, libultra/os/setglobalintmask]    # TODO needs initialize.o
+    - [0x288B0, lib, libultra, yieldthread]
+    - [0x28900, lib, libultra, ldiv]
     # .data / .rodata
     - [0x28A90, linker, data] # fake split here for progress
-    - [0x28A90, bin] # ucode
+    - [0x28A90, bin] # ucode # rspbootTextStart / 0x8014D390
     - [0x28B60, bin] # end of ucode?
     - [0x2BD00, bin] #
-    - [0x2DD20, bin] # lookup tables?
-    - [0x2DFF0, bin] # lookup tables?
-    - [0x02E9D0, rgba16, img/2E9D0.rgba16, 32, 32] # spaceship texture
-    - [0x02F1D0, rgba16, img/2F1D0.rgba16, 32, 32] # spaceship texture
-    - [0x02F9D0, .data, data/2F9D0] # load spaceship textures
-    - [0x02FA30, .data, data/2FA30] # displaylist
+    - [0x2DD20, .data, screen_transition]
+    - [0x2DFF0, bin] # lookup tables? 0x801528F0
+    - [0x2E580, lib, libultra, rdbsend, .data] # ?
+    - [0x2E590, bin]
+    - [0x2E9D0, rgba16, img/2E9D0.rgba16, 32, 32] # spaceship texture
+    - [0x2F1D0, rgba16, img/2F1D0.rgba16, 32, 32] # spaceship texture
+    - [0x2F9D0, .data, data/2F9D0] # load spaceship textures
+    - [0x2FA30, .data, data/2FA30] # displaylist
     - [0x02FA70, bin] # tbd
-    - [0x02FC00, .data, main_78F0]
-    - [0x02FD80, bin] #
+    - [0x2FC00, .data, main_78F0]
+    - [0x2FD80, bin] #
     # - [0x02FD80, .data, core/audiomgr] # .data for audiomgr
     - [0x2FDD0, bin] # audio lookups D_801546D0
     - [0x2FDE8, bin] # main_E3C0 rodata
@@ -248,11 +256,31 @@ segments:
     - [0x33BA0, .data, data/33BA0] # D_801584A0
     - [0x33C40, bin] # alignment?
     - [0x33C50, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
+    # - [0x35050, lib, libultra, initialize, .data]
     - [0x35050, .data, libultra/os/initialize]
-    - [0x35070, bin]
-    - [0x35E00, .data, libultra/io/motor]
-    - [0x35E10, bin]
-    - [0x360F0, bin] # another lookup table?
+    - [0x35070, bin] #lib, libultra, sched, .data]
+    - [0x35080, bin]
+    - [0x35DA0, lib, libultra, sl, .data]
+    - [0x35DB0, lib, libultra, aisetnextbuf, .data]
+    - [0x35DC0, .data, libultra/io/pimgr] # lib, libultra, pimgr, .data]
+    - [0x35DF0, lib, libultra, controller, .data]
+    - [0x35E00, lib, libultra, motor, .data]
+    - [0x35E10, lib, libultra, random, .data]
+    - [0x35E20, bin] # lib, libultra, exceptasm, .data]
+    - [0x35E40, .data, libultra/os/timerintr]
+    - [0x35E50, lib, libultra, thread, .data]
+    - [0x35E70, lib, libultra, vimgr, .data]
+    - [0x35E90, lib, libultra, vi, .data]
+    - [0x35F00, lib, libultra, siacs, .data]
+    - [0x35F10, lib, libultra, xprintf, .data]
+    - [0x35F60, lib, libultra, drvrNew, .data]
+    - [0x360F0, lib, libultra, env, .data]
+    - [0x36230, lib, libultra, piacs, .data]
+    - [0x36240, lib, libultra, vimodepallan1, .data]
+    - [0x36290, lib, libultra, vimodempallan1, .data]
+    - [0x362E0, lib, libultra, vimodentsclan1, .data]
+    - [0x36330, lib, libultra, xlitob, .data]
+    - [0x36360, .rodata, core/controller]
     - [0x363A0, .rodata, main_78F0]
     - [0x36410, .rodata, core/fontinit]
     - [0x36470, rodata, core/eeprom]
@@ -260,11 +288,31 @@ segments:
     - [0x36508, rodata, libultra/audio/csplayer]
     - [0x36510, .rodata, libultra/audio/csplayer]
     - [0x36750, rodata, main_10DC0]
-    - [0x36770, rodata]
-    - [0x367F0, rodata]
-    - [0x36A40, rodata, libultra/os/exceptasm]
-    - [0x36AC0, .rodata, libultra/libc/llcvt]
-    - [0x36AD0, bin]
+    - [0x36770, rodata] # lib, libultra, sched, .rodata]
+    - [0x36790, lib, libultra, synthesizer, .rodata]
+    - [0x367A0, lib, libultra, sndplayer, .rodata]
+    - [0x367E0, lib, libultra, cseq, .rodata]
+    - [0x367F0, lib, libultra, seqplayer, .rodata]
+    - [0x36A30, lib, libultra, cents2ratio, .rodata]
+    - [0x36A40, lib, libultra, setintmask, .rodata]
+    - [0x36AC0, lib, libultra, llcvt, .rodata]
+    - [0x36AD0, lib, libultra, perspective, .rodata]
+    - [0x36AE0, lib, libultra, rotate, .rodata]
+    - [0x36AF0, lib, libultra, rotateRPY, .rodata]
+    - [0x36B00, lib, libultra, cosf, .rodata]
+    - [0x36B50, lib, libultra, sinf, .rodata]
+    - [0x36BA0, lib, libultra, lookathil, .rodata]
+    - [0x36BB0, bin] # lib, libultra, exceptasm, .rodata]
+    - [0x36C00, lib, libultra, xprintf, .rodata]
+    - [0x36D00, lib, libultra, drvrNew, .rodata]
+    - [0x36D20, lib, libultra, resample, .rodata]
+    - [0x36D60, lib, libultra, env, .rodata]
+    - [0x36DC0, lib, libultra, seq, .rodata]
+    - [0x36DD0, lib, libultra, devmgr, .rodata]
+    - [0x36DF0, lib, libultra, libm_vals, .rodata]
+    - [0x36E00, lib, libultra, xldtob, .rodata]
+    - [0x36E60, lib, libultra, reverb, .rodata]
+    - [0x36E90, bin]
     - [0x37100, bin] # data for 2nd ucode
     - [0x380C0, bin] # data for ucode
     - [0x390C0, bin] # F3DEX data
@@ -272,7 +320,26 @@ segments:
     # .bss
     - [0x398D0, .bss, core/audiomgr]
     # lots more bss here
-    - [0x398D0, .bss, libultra/io/motor]
+    # - [0x398D0, lib, libultra, initialize, .bss]
+    - [0x398D0, .bss, libultra/os/initialize]
+    - [0x398D0, .bss, BSS_PADDING_197F0]            # TODO: 0xADA0 of padding
+    - [0x398D0, .bss, libultra/io/pimgr]
+    - [0x398D0, .bss, BSS_PADDING_19980]            # TODO: 0x80 of padding
+    # - [0x398D0, lib, libultra, seteventmesg, .bss]  # 0xC0 padding?
+    - [0x398D0, lib, libultra, controller, .bss]
+    - [0x398D0, lib, libultra, motor, .bss]
+    - [0x398D0, lib, libultra, rotate, .bss]
+    - [0x398D0, lib, libultra, rotateRPY, .bss]
+    - [0x398D0, .bss, libultra/os/timerintr]
+    - [0x398D0, lib, libultra, vimgr, .bss]
+    - [0x398D0, lib, libultra, sptask, .bss]
+    - [0x398D0, lib, libultra, siacs, .bss]
+    - [0x398D0, lib, libultra, conteepread, .bss]
+    - [0x398D0, lib, libultra, cartrominit, .bss]
+    - [0x398D0, lib, libultra, leodiskinit, .bss]
+    - [0x398D0, lib, libultra, piacs, .bss]
+    - [0x398D0, lib, libultra, pfsisplug, .bss]
+    # - [0x398D0, .bss, libultra/io/leointerrupt]
   - name: segment1 # in-game objects?
     type: code
     vram: 0x01000000
@@ -3087,6 +3154,10 @@ segments:
     - [0x129D80, rnc, img/trophies/EVO_LEG.D_040131B0_129D80, rgba16, 32, 32]
     - [0x129F90, rnc, img/trophies/EVO_ARM.D_040133C0_129F90, rgba16, 32, 32]
     - [0x12A150, rnc, img/trophies/EVO_TORSO.D_04013580_12A150, rgba16, 32, 32]
+  - name: fonts
+    type: group
+    start: 0x12A390
+    subsegments:
     - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
   - name: sounds
     type:  group
@@ -3490,7 +3561,8 @@ segments:
     - [0x6A57C0, rgba16, img/flags/spanish.rgba16, 48, 32]
     - [0x6A63C0, rodata, overlay1_6384F0]
     - [0x6A64A0, rodata, overlay1_63C660]
-    - [0x6A6500, .bss, overlay1_6384F0] # , 0xAD740
+    - [0x6A6500, .bss, overlay1_6384F0] # , 0xAD740 // should be D_80302E60
+    - [0x6A6500, .bss, overlay1_63C660]
   - type: code
     name: overlay2 # sssv game code
     overlay: yes
@@ -3601,6 +3673,11 @@ segments:
     - [0x7B3260, bin] # some floats
     - [0x7B3760, bin] # tbd
     - [0x7B3770, bin] # D_803A20C0_7B3770
+    - [0x7B5F70, bin] # D_803A48C0_7B5F70 europe
+    - [0x7B60DC, bin] # D_803A4A2C_7B60DC jungle
+    - [0x7B616C, bin] # D_803A4ABC_7B616C ice
+    - [0x7B61E8, bin] # D_803A4B38_7B61E8 desert
+    - [0x7B6228, bin] # D_803A4B78_7B6228
     - [0x7B6E20, bin] # D_803A5770_7B6E20
     - [0x7B6E50, bin] # D_803A57A0_7B6E50
     - [0x7B6FD8, bin] # D_803A5928_7B6FD8
@@ -3667,7 +3744,7 @@ segments:
     - [0x7CDFCC, .rodata, overlay2_6EFE20]
     - [0x7CE0B0, rodata, sssv/animals/fox]
     - [0x7CE110, rodata, overlay2_6FA0A0]
-    - [0x7CE120, rodata, sssv/aidata]
+    - [0x7CE120, .rodata, sssv/aidata]
     - [0x7CE440, rodata, sssv/animals/dog]
     - [0x7CE490, rodata, sssv/animals/hippo]
     - [0x7CE4B0, .rodata, screen_transition]
@@ -3722,8 +3799,7 @@ segments:
     - [0x7D0710, rodata, sssv/animals/gorilla]    # 0x803BF060
     - [0x7D0740, rodata, sssv/animals/elephant]
     - [0x7D0750, rodata, overlay2_78E970]
-    - [0x7D0790, rodata, sssv/animinit]           # 0x803BF0E0
-    - [0x7D0A50, .rodata, sssv/animinit]
+    - [0x7D0790, .rodata, sssv/animinit]
     - [0x7D0A70, rodata, sssv/animals/seagull]    # 0x803BF3C0
     - [0x7D0AA0, .rodata, overlay2_794EE0]
     - [0x7D0B40, rodata, sssv/animals/evo]
@@ -3737,9 +3813,11 @@ segments:
     - [0x7D1A40, .rodata, overlay2_7A8A50]
     - [0x7D1A50, rodata, ui_main_menu]
     - [0x7D1AC0, .rodata, ui_main_menu]
-    # - [0x7D1AD0, .bss, overlay2_6A6500, 0x3DAA0]
-  - [0x7D1AD0, bin] # referenced in overlay2_7A8A50
+    - [0x7D1AD0, .bss, overlay2_6A6500]
+    - [0x7D1AD0, .bss, overlay2_741000]
   # - [0x7D1DF0, bin] # D_803C0740_7D1DF0
+  - [0x7D1AD0, bin] # referenced in overlay2_7A8A50
+  # - [0x7D1AF0, bin] # end of data?
   - [0x7D2F50, bin] #
   - [0x7D3360, bin] #
   - [0x7D3AB0, bin] #
