@@ -166,8 +166,8 @@ extern Star D_800DF220[1024]; // could just be [x][4] s16 array
 
 // 0x800Exxxx
 
-extern u8   D_800E1220[]; // _fontbufferSegmentStart
-extern u8   D_800EF0D0[]; // _fontbufferSegmentEnd
+extern u8  _fontbufferSegmentStart[]; // D_800E1220
+extern u8  _fontbufferSegmentEnd[];   // D_800EF0D0
 
 // 0x800Fxxxx
 
@@ -179,8 +179,7 @@ extern s32  D_80100000;
 
 // 0x8012xxxx
 
-extern u8  D_0012A390[];
-extern u8  D_0012EDC0[];
+// 0x8013xxxx
 
 // 0x8014xxxx
 
@@ -230,6 +229,7 @@ extern f32  D_801546C0;
 extern f32  D_801546C4;
 extern f32  D_801546C8;
 extern f32  D_801546CC;
+// core/audio.c .data
 extern f32  gMusicVolume;
 extern f32  gSfxVolume;
 extern s16  D_801546D8;
@@ -261,13 +261,7 @@ extern s16  D_80158540;
 extern s32  numControllers;
 extern u8   D_80158550[];
 // extern OSViMode D_80159980[];
-extern f64  D_8015AC60;
-extern f64  D_8015AC68;
-extern f64  D_8015AC70;
-extern f64  D_8015AC78;
-extern f64  D_8015AC80;
-extern f64  D_8015AC88;
-extern f64  D_8015AC90;
+
 extern char D_8015ACA0[]; // "%d"
 extern char D_8015ACA4[]; // "%d"
 extern char D_8015AD70[]; // "reset all data - %d\n"
@@ -292,6 +286,11 @@ extern struct009 D_8019A658[];
 
 extern s32  D_801D9D70; // camera position? distance? angle?
 extern u16  D_801D9E38;
+extern u8  *D_801D9E58;
+extern u8  *D_801D9E5C;
+extern u8  *D_801D9E60;
+extern u8  *D_801D9E64;
+extern u8  *D_801D9E68;
 extern u8  *D_801D9E6C;
 extern s16 *D_801D9E70;
 extern s16 *D_801D9E74;
@@ -303,7 +302,7 @@ extern Gfx *D_801D9E90;
 extern Gfx *D_801D9E94;
 extern Gfx *D_801D9E98[8];
 extern Gfx *D_801D9EB8;
-extern u8  *D_801D9EC4;
+extern u8  *D_801D9EC4; // currently loaded segment
 extern u8   D_801D9EC8;
 extern u8   D_801D9EC9;
 extern s32  D_801D9ED0;
@@ -698,11 +697,11 @@ extern s32  D_803A8518_7B9BC8;
 extern struct068 D_803A8528_7B9BD8[247]; // 0x9C each
 extern u8   D_803A8EC8[];
 extern u16  D_803A4638[];
-extern u8   D_803A48C0[]; // europe
-extern u8   D_803A4ABC[]; // ice
-extern u8   D_803A4A2C[]; // jungle
-extern u8   D_803A4B38[]; // desert
-extern u8   D_803A4B78[][0x100];
+extern u8   D_803A48C0_7B5F70[]; // europe
+extern u8   D_803A4ABC_7B616C[]; // ice
+extern u8   D_803A4A2C_7B60DC[]; // jungle
+extern u8   D_803A4B38_7B61E8[]; // desert
+extern u8   D_803A4B78_7B6228[];
 
 // 0x803Bxxxx
 
@@ -1112,9 +1111,10 @@ extern struct067 D_803E9840[];
 extern s16  D_803F28C2;
 extern u16  D_803F28D0[];
 extern u16  D_803F28DC;
-extern struct025 D_803F28E0[]; // 2 values?
+extern struct025 D_803F28E0[2]; // 2 values
 
-extern s8   D_803F2A92;
+// end of camera structs (assuming there are 2)
+
 extern s16  D_803F2A98;
 extern s16  D_803F2A9E;
 extern u8   D_803F2AA0;
@@ -1135,12 +1135,12 @@ extern s8   D_803F2AC6;
 extern s16  D_803F2AC8;
 extern s16  D_803F2ACA;
 extern s16  D_803F2ACC;
-extern struct025 *D_803F2AD0;
+extern struct025 *D_803F2AD0; // ptr to current camera
 extern struct062 D_803F2AD8;
 extern struct062 D_803F2AF8[8]; // indexed in with % 8
 extern struct062 D_803F2BF8;
 
-extern s16  D_803F2C18[3]; // struct?
+extern s16  D_803F2C18[3]; // declared in overlay2_741000
 extern s16  D_803F2C1E;
 extern s16  D_803F2C20; // struct?
 extern s16  D_803F2C22;

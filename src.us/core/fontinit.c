@@ -4,17 +4,16 @@
 
 #include "pp.h"
 
+
+extern u8  fonts_ROM_START[];
+extern u8  fonts_ROM_END[];
+
 void font_init(void) {
-    u32 fontbufferSegmentLen = D_800EF0D0 - D_800E1220;
-    u32 len = D_0012EDC0 - D_0012A390;
+    s32 pad;
+    u32 len = fonts_ROM_END - fonts_ROM_START;
 
-    if (len >= fontbufferSegmentLen) {
-        rmonPrintf("\nASSERT: len < (_fontbufferSegmentEnd - _fontbufferSegmentStart), %s, %u\n", "../src/fontinit.c", 74);
-        // die
-        *(volatile int*)0 = 0;
-    }
-
+    SSSV_ASSERT(len < (_fontbufferSegmentEnd - _fontbufferSegmentStart), "../src/fontinit.c", 74)
     D_801D9E70 = D_8022E3F0;
-    dma_read(D_0012A390, (void*)D_8022E3F0, len);
-    UnpackRNC((RNC_fileptr)D_8022E3F0, D_800E1220);
+    dma_read(fonts_ROM_START, (void*)D_8022E3F0, len);
+    UnpackRNC((RNC_fileptr)D_8022E3F0, _fontbufferSegmentStart);
 }

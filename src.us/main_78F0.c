@@ -118,7 +118,7 @@ void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
 
 void select_comic_sans_font(void) {
     D_8023F1E0.unk0 = D_80154370;
-    D_8023F1E0.fontAddress = D_800E1220; // _fontbufferSegmentStart
+    D_8023F1E0.fontAddress = _fontbufferSegmentStart;
     D_8023F1E0.unk8 = 16; // width?
     D_8023F1E0.unk9 = 16; // height?
     D_8023F1E0.unkA = 4;  // color bitdepth?

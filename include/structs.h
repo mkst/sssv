@@ -752,10 +752,10 @@ typedef struct {
 } struct024; // only RNC?
 
 typedef struct {
-    /* 0x00 */ s16 unk0;
+    /* 0x00 */ s16 unk0; // camera mode?
     /* 0x02 */ s16 unk2;
     /* 0x04 */ u8  pad4[0x2];
-    /* 0x60 */ s16 unk6;
+    /* 0x06 */ s16 unk6;
     /* 0x08 */ f32 unk8;
     /* 0x0C */ f32 unkC;
     /* 0x10 */ f32 unk10;
@@ -871,7 +871,7 @@ typedef struct {
 } struct034;
 
 struct struct035 {
-  /* 0x00 */  u16 unk0;
+  /* 0x00 */  u16 unk0; // animal type?
   /* 0x02 */  s16 unk2;
               u8  pad4[0x11];
               u8  unk15; // checked if 4?

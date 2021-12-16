@@ -2,6 +2,8 @@
 
 #include "common.h"
 
+s16 D_803C0420;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A6500/func_80294E50_6A6500.s")
 // void func_80294E50_6A6500(void) {
 //     u8 temp_t6;

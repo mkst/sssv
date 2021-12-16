@@ -130,8 +130,7 @@ void func_802DAE5C_6EC50C(Animal *arg0) {
         if (*a == NULL) {
             rmonPrintf("collist2. Object has been deleted but was not in list. %d.\n", arg0->unk26D);
             rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", arg0, arg0->unk16C->unk0, arg0->xPos, arg0->zPos, arg0->yPos);
-            rmonPrintf("\nASSERT: FALSE, %s, %u\n", "../src/collist2.c", 436U);
-            *(volatile int*)0 = 0;
+            SSSV_ASSERT(FALSE, "../src/collist2.c", 436);
         } else {
             *a = arg0->unk198;
         }

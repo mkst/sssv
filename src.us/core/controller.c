@@ -17,7 +17,7 @@ u32 func_80128200(void) {
 // set time?
 void func_8012822C(s32 time) {
     if (time == 0) {
-        time = __ull_rshift(osGetTime(), 2);
+        time = osGetTime() >> 2;
     }
     D_80151430 = time;
 }
@@ -146,7 +146,7 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
                 temp_v0 = temp_f2;
                 temp_v1 = &D_80151C38[temp_v0];
                 temp_f16 = temp_f2 - temp_v0;
-                return D_8015AC60 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
+                return 360.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
             }
         }
         if (arg0 > 0.0f) {
@@ -154,13 +154,13 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
             temp_v0 = temp_f2;
             temp_v1 = &D_80151C38[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
-            return D_8015AC68 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
+            return 180.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
         } else {
             temp_f2 = (arg0 / arg1) * 256.0;
             temp_v0 = temp_f2;
             temp_v1 = &D_80151C38[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
-            return ((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]) + D_8015AC70;
+            return ((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]) + 180.0;
         }
     }
     if (arg1 > 0.0f) {
@@ -169,26 +169,26 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
             temp_v0 = temp_f2;
             temp_v1 = &D_80151C38[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
-            return D_8015AC78 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
+            return 90.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
         } else {
             temp_f2 = (arg1 / -arg0) * 256.0;
             temp_v0 = temp_f2;
             temp_v1 = &D_80151C38[temp_v0];
             temp_f16 = temp_f2 - temp_v0;
-            return ((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]) + D_8015AC80;
+            return ((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]) + 270.0;
         }
     } else if (arg0 > 0.0f) {
         temp_f2 = (-arg1 / arg0) * 256.0;
         temp_v0 = temp_f2;
         temp_v1 = &D_80151C38[temp_v0];
         temp_f16 = temp_f2 - temp_v0;
-        return (((1.0 - temp_f16) * temp_v1[0]) + temp_f16 * temp_v1[1]) + D_8015AC88;
+        return (((1.0 - temp_f16) * temp_v1[0]) + temp_f16 * temp_v1[1]) + 90.0;
     } else {
         temp_f2 = (arg1 / arg0) * 256.0;
         temp_v0 = temp_f2;
         temp_v1 = &D_80151C38[temp_v0];
         temp_f16 = temp_f2 - temp_v0;
-        return D_8015AC90 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
+        return 270.0 - (((1.0 - temp_f16) * temp_v1[0]) + (temp_f16 * temp_v1[1]));
     }
 }
 

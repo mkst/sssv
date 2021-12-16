@@ -471,5 +471,17 @@ aspMainTextStart       = 0x80150600;
 aspMainDataStart       = 0x8015DF10;
 __am                   = 0x8023F410;
 
+_gfxanimSegmentStart   = 0x80099600;
+_gfxanimSegmentEnd     = 0x800B0B20;
+_gfxspecificSegmentStart = 0x800B0B20;
+_gfxspecificSegmentEnd = 0x800BA760;
 
 D_803FF340 = 0x803FF340;
+
+
+overlay1_data_VRAM_end = 0x80302E60;
+overlay2_data_VRAM_end = 0x803C0420;
+
+fake_overlay1_BSS_START = 0x80302E60;
+fake_overlay1_BSS_END = 0x803B05A0;
+fake_overlay2_BSS_END = 0x803FDEC0;

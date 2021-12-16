@@ -21,6 +21,7 @@ src
 
 *.ld
 *auto.txt
+*.o
 *.ok
 .splat_cache
 *.bin

@@ -29,7 +29,7 @@ void func_802FED68_710418(struct071 *arg0, struct071 *arg1, s16 arg2, s16 arg3, 
 //     case 2:
 //         if (D_803A52C0 == 0) {
 //             D_80151434 = (u16)0xB57; // 2903?
-//             func_8012822C(1);
+//             func_8012822C(1); // set time to 1
 //             switch (D_803F2D50.unk20) {
 //             case 0:
 //                 D_803E1BD4 = &D_803B1F20_7C35D0;

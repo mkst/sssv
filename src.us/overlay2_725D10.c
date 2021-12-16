@@ -125,7 +125,7 @@ void func_80314788_725E38(void) {
 //     case 0x7F9A:
 //         break;
 //     case 0x7F84:
-//         func_8012822C(arg2);
+//         func_8012822C(arg2); // update game time?
 //         break;
 //     case 0x7F85:
 //         arg0->xPos = arg2 << 16;
