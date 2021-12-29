@@ -6,6 +6,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/biker_hyena/func_80358E3C_76A4EC.s")
 
+// hyena
 void func_8035A130_76B7E0(void) {
     func_8037E1C4_78F874();
     func_80380620_791CD0(D_803D552C, 15, 12, 40, 10);
@@ -47,6 +48,7 @@ void func_8035A170_76B820(void) {
     }
 }
 
+// hyena biker
 void func_8035A2A8_76B958(void) {
     Animal *animal;
     s16 tmp;

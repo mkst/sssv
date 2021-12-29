@@ -14,6 +14,10 @@ s32  func_80126388(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s
 void func_80125FE0(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8);
 void func_80128078(Mtx *arg0, s16 arg1, s16 arg2);
 
+// mtx
+void func_80127D30(Mtx*, s16);
+void func_80127ED4(Mtx*, s16);
+
 // core/controller.c
 u32  func_80128200(void);
 void func_8012822C(s32 time);
@@ -256,12 +260,13 @@ void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1);
 void func_80299B68_6AB218(s32 arg0);
 void func_80299E84_6AB534(s32 arg0);
 void func_8029A32C_6AB9DC(s32 arg0);
-void func_8029A3B0_6ABA60(s32, s32, s32);
+s32  func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2);
+void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2);
 u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
-void func_8029A5B4_6ABC64(Gfx **dl, u8 r, u8 g, u8 b);
-void func_8029A720_6ABDD0(void);
+void set_fog_factor_and_color(Gfx **dl, u8 r, u8 g, u8 b);
 void set_fog_position_and_color(Gfx **dl);
+void func_8029A720_6ABDD0(void);
 void func_8029ABCC_6AC27C(void);
 
 // overlay2_6AC360
@@ -335,12 +340,16 @@ void func_802AA0A0_6BB750(void);
 void func_802AA424_6BBAD4(void);
 void func_802AA444_6BBAF4(void);
 void func_802AA5C0_6BBC70(void);
+void func_802AB8EC_6BCF9C(u8 arg0, s8 arg1, s16 arg2);
 s32  func_802AC928_6BDFD8(s32 arg0, s32 arg1);
 void func_802B0B00_6C21B0(s16 arg0, s16 arg1);
 void func_802B0D4C_6C23FC(s16 arg0, s16 arg1);
 void func_802B0F4C_6C25FC(s16 arg0, s16 arg1);
 void func_802B10B0_6C2760(s16 rotation, s16 arg1);
 void func_802B1210_6C28C0(s16 rotation, s16 arg1);
+void func_802B1374_6C2A24(s16, s16); // tbd
+void func_802B1654_6C2D04(s16, s16); // tbd
+void func_802B1918_6C2FC8(s16, s16);
 void func_802B1B98_6C3248(s16 rotation, s16 arg1);
 void func_802B1D00_6C33B0(s16 rotation, s16 arg1);
 void func_802B1E28_6C34D8(s16 arg0, s16 arg1, s16 arg2);
@@ -404,6 +413,7 @@ void func_802BB70C_6CCDBC(s16 arg0, s16 arg1);
 void func_802BB840_6CCEF0(u16 arg0);
 void func_802BBA10_6CD0C0(u16 arg0);
 void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA);
+void func_802BCDA0_6CE450(struct103 *arg0, s16 *arg1, s16 *arg2, s16 *arg3);
 void func_802BCF38_6CE5E8(u16, u16, struct061*);
 void func_802BD21C_6CE8CC(u16 arg0, struct061 *arg1);
 void func_802BD358_6CEA08(s16 *arg0);
@@ -411,6 +421,7 @@ void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1);
 void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2);
 void func_802C19CC_6D307C(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
 void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s32 arg2);
+void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2);
 void func_802C4448_6D5AF8(s16 arg0);
 
 // overlay2_6D6120

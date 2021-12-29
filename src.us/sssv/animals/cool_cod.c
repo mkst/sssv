@@ -54,8 +54,9 @@
 //             play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 //         }
 //     }
-//     switch (D_803D5538) {
-//     case 0:
+//
+//     // how to do this without the goto?
+//     if (D_803D5538 != 0) {
 //         if ((D_803F2D70 == D_803D5524->unkD6) || (D_803D5524->unkD6 == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5))) {
 //             phi_t0_2 = 1;
 //         } else {
@@ -64,16 +65,16 @@
 //         if (phi_t0_2 != 0) {
 //             sp8A = 0;
 //             D_803F2EDD = 0;
-//             break;
+//             goto here;
 //         }
-//     default:
-//         if ((D_803F2D70 == D_803D5524->unkD6) || (D_803D5524->unkD6 == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5))) {
-//             phi_t0_2 = 1;
-//         } else {
-//             phi_t0_2 = 0;
-//         }
-//         sp8A = func_802E89F0_6FA0A0(*(s32*)&D_803D552C->xPos, *(s32*)&D_803D552C->zPos, *(s32*)&D_803D552C->yPos + (D_803D5524->unkBA << 0xF), 0x800, 0, 60, 60, 0x78, 1, phi_t0_2 == 0);
 //     }
+//     if ((D_803F2D70 == D_803D5524->unkD6) || (D_803D5524->unkD6 == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5))) {
+//           phi_t0_2 = 1;
+//       } else {
+//           phi_t0_2 = 0;
+//       }
+//       sp8A = func_802E89F0_6FA0A0(*(s32*)&D_803D552C->xPos, *(s32*)&D_803D552C->zPos, *(s32*)&D_803D552C->yPos + (D_803D5524->unkBA << 0xF), 0x800, 0, 60, 60, 0x78, 1, phi_t0_2 == 0);
+// here:
 //
 //     if (sp8A == 0) {
 //         func_8034B45C_75CB0C();
@@ -83,15 +84,15 @@
 //         if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
 //             func_80302E50_714500(500, 500, 500);
 //             if (D_803D5530->state == 31) {
+//                 // stuff is wrong around here
 //                 D_803D552C->unk308 += 1;
 //                 if (D_803D552C->unk308 > 40) {
+//                     D_803D552C->unk308 += 1;
 //                     phi_a2_3 = 40;
 //                 } else {
-//                     D_803D552C->unk308 += 1;
 //                     phi_a2_3 = D_803D552C->unk308;
-//                     // phi_a2_3 = temp_a2;
 //                 }
-//                 temp_a1_2 = -(s32) (40 - (phi_a2_3 * 2));
+//                 temp_a1_2 = -(((phi_a2_3 * 2) - 40));
 //                 func_8030322C_7148DC(0, temp_a1_2);
 //                 func_8030322C_7148DC(1, sp6A);
 //                 func_8030322C_7148DC(2, sp6A);

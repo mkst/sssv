@@ -76,6 +76,7 @@ void func_8036BCF8_77D3A8(void) {
     recoil(2);
 }
 
+// 'crazy' husky
 void func_8036BE70_77D520(void) {
     if (D_803D552C->unk30E <= 0) {
         load_animal(HUSKY);

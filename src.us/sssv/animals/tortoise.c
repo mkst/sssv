@@ -250,6 +250,7 @@ void func_80355EDC_76758C(void) {
     recharge_skill(0);
 }
 
+// tortoise tank
 void func_80355EFC_7675AC(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos,  D_803D5530->zPos, D_803D5530->yPos, D_803BEB0C);
@@ -274,18 +275,21 @@ void func_80355F64_767614(void) {
     }
 }
 
+// racing tortoise
 void func_80355FFC_7676AC(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB10);
     load_animal(RACING_TORTOISE_ATTACKING);
 }
 
+// tortoise tank
 void func_80356064_767714(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB14);
     load_animal(TORTOISE_TANK);
 }
 
+// racing tortoise
 void func_803560CC_76777C(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEB18);

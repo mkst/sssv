@@ -36,7 +36,8 @@ extern Gfx  D_01003A58[];
 extern Gfx  D_01003B70_3D440[];
 extern Gfx  D_01004270[];
 extern Gfx  D_01004360_3DC30[];
-extern u8   D_010043A0[];
+extern u8   D_010043A0_3DC70[];
+extern Gfx  D_01004458[];
 extern Gfx  D_01004510[];
 extern Gfx  D_010049A0_3E270[];
 extern u8   D_01004AF8[];
@@ -160,7 +161,7 @@ extern u8   D_800C5A40[]; // current frame?
 
 // 0x800Dxxxx
 
-extern s32  D_800DCC20; // water texture location?
+extern u8   D_800DCC20[][512]; // water texture location?
 extern u8   D_800DEE20[]; // tbd
 extern Star D_800DF220[1024]; // could just be [x][4] s16 array
 
@@ -376,7 +377,7 @@ extern s16  D_802053EA;
 extern struct012 D_802053F0; // pointer?
 extern struct012 D_80205400;
 extern s16  D_8020540C;
-extern u8   D_80205410[][0x18];
+extern Gfx  *D_80205410[][6];
 
 // 0x8021xxxx
 extern Vtx  D_8021A5A0[]; // level vtx?
@@ -384,6 +385,8 @@ extern Vtx  D_8021A5A0[]; // level vtx?
 // 0x8022xxxx
 
 extern Vtx  D_802294D0[]; // unknown size
+
+extern Gfx  *D_802255F0[][6];
 
 extern s16  D_8022E3F0[]; // scratch area for RNC decompression
 extern s16  D_8022E3F2;
@@ -615,7 +618,7 @@ extern u8   D_8039E2E8[];
 
 // 0x803Axxxx
 
-extern s16  D_803A0500;
+extern s16  D_803A0500_7B1BB0;
 extern s16  D_803A05C0_7B1C70;
 extern s16  D_803A05C8_7B1C78;
 extern s32  D_803A05B0;
@@ -907,7 +910,7 @@ extern s16  D_803C0426;
 extern s16  D_803C0428;
 extern s16  D_803C042A;
 extern struct053 D_803C0430;
-extern Fog  D_803C0660[]; // fogPositions? or just a coincidence
+extern Fog2  D_803C0660[]; // fogPositions? or just a coincidence
 extern u16  D_803C063A;
 extern u8   D_803C063C;
 extern u64  D_803C0640_7D1CF0;
@@ -1174,6 +1177,7 @@ extern u8   D_803F2C9A;
 extern u8   D_803F2C9B;
 extern s16  D_803F2CA4;
 extern s16  D_803F2CA6;
+extern s8   D_803F2CA8[][6];
 extern s16  D_803F2CD0;
 extern s16  D_803F2CD2; // (race?) timer
 extern s16  D_803F2CD4;
@@ -1195,6 +1199,7 @@ extern struct033 D_803F2CF8; // pointer to an animal+health
 
 extern struct034 D_803F2D04;
 extern struct003 D_803F2D10;
+extern s16  D_803F2D18;
 extern u16  D_803F2D20;
 extern s8   D_803F2D22;
 extern s8   D_803F2D23;
@@ -1234,6 +1239,7 @@ extern s8   D_803F2EDB;
 extern u8   D_803F2EDC;
 extern u8   D_803F2EDD;
 extern u8   D_803F2EDE;
+extern s16  D_803F2F00;
 extern struct060 D_803F2F08[];
 
 extern s16  D_803F3308;

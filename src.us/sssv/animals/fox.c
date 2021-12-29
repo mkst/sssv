@@ -61,6 +61,7 @@ void func_802E86C8_6F9D78(void) {
     }
 }
 
+// racing fox
 void func_802E8760_6F9E10(void) {
     if (((D_803D5544 - D_803D552C->unk32A) >= 13) && (D_803D552C->unk365 == ATTACK_FOX_TAIL)) {
         D_803D552C->unk365 = ATTACK_FOX_3;

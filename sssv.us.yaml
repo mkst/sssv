@@ -29,7 +29,7 @@ segments:
     subsegments:
     - [0x1000, asm, entrypoint]                     # handwritten
     - [0x1050, c, main_1050]                        # -O1
-    - [0x1080, c, main_1080]
+    - [0x1080, c, mtx]
     - [0x3900, c, core/controller]
     - [0x44D0, c, core/string]
     - [0x4910, c, dma]
@@ -51,7 +51,7 @@ segments:
     - [0xF600, c, libultra/audio/csplayer]          # customised
     - [0x10CB0, c, thread1]
     - [0x10DC0, c, main_10DC0]
-    - [0x123E0, c, main_123E0]
+    - [0x123E0, c, thread9]
     # libultra
     - [0x12FC0, linker, lib]  # fake split here for progress
     # - [0x12FC0, lib, libultra, initialize]        # requires exceptasm
@@ -379,7 +379,7 @@ segments:
     - [0x3DB40, bin] # displaylist   D_01004270
     - [0x03DBD8, bin] # displaylist
     - [0x03DC30, bin] # displaylist
-    - [0x03DC70, bin] # displaylist
+    - [0x3DC70, bin] # displaylist D_010043A0_3DC70
     - [0x03DD28, bin]
     - [0x03DDE0, bin]
     - [0x03DE70, bin]
@@ -3380,7 +3380,7 @@ segments:
   - [0x544960, rnc, img/trophies/BIG_CELEBRATION_PARADE, rgba16, 32, 32]
   - [0x544990, rnc, img/trophies/END_CREDITS, rgba16, 32, 32]
   #
-  - [0x5449C0, bin] # I4 water texture?
+  - [0x5449C0, bin] # I4 water texture (0x2200)
   - [0x546BC0, bin] # tbd
   # game levels (nested RNC compressed) (differ from EU ROM)
   - [0x546D00, bin, levels/rnc_546D00] # 33736 => 33692 # level 1      # RNC pack differs

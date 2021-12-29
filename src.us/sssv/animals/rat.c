@@ -37,6 +37,7 @@ void func_8035FAEC_77119C(void) {
     }
 }
 
+// king rat
 void func_8035FB10_7711C0(void) {
     Animal *a;
 
@@ -58,6 +59,7 @@ void func_8035FB10_7711C0(void) {
     }
 }
 
+// king rat
 void func_8035FC08_7712B8(void) {
     D_803D552C->unk2B4.unk4 = 0;
     D_803D552C->unk2CC = NULL;
