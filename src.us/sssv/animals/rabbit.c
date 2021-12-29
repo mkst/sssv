@@ -188,6 +188,7 @@
 //     }
 // }
 
+// rabbit
 void func_80302018_7136C8(void) {
     if ((D_803D5530->unk162 == 1) && (D_803D552C->unk365 == ATTACK_NONE)) {
         D_803D552C->unk32A = D_803D5544;

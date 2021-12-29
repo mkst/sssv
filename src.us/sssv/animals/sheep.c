@@ -99,6 +99,7 @@ void func_80362964_774014(void) {
     }
 }
 
+// sheep / springy thing
 void func_803629B0_774060(void) {
     if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 5)) {
         func_8037FEDC_79158C();

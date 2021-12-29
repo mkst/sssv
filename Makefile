@@ -83,6 +83,8 @@ SPLAT    = $(TOOLS_DIR)/splat/split.py
 # Flags
 
 OPT_FLAGS      = -O2
+LOOP_UNROLL    =
+
 MIPSISET       = -mips2 -o32
 
 INCLUDE_CFLAGS = -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc -I assets \
@@ -143,6 +145,8 @@ $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/core/string.c.o: OPT_FLAGS := -O2
 # $(BUILD_DIR)/$(SRC_DIR)/core/eeprom.c.o: OPT_FLAGS := -O2
 
+$(BUILD_DIR)/$(SRC_DIR)/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
+
 # libultra
 $(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.c.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/$(SRC_DIR)/libultra/io/%.c.o: OPT_FLAGS := -O1
@@ -199,7 +203,7 @@ ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
 	$(CC_CHECK) $<
 	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
-	$(CC) -c -32 $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
+	$(CC) -c -32 $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
 	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< --post-process $@ \
 		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.s
 endif
@@ -207,7 +211,7 @@ endif
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
 	$(CC_CHECK) $<
-	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(MIPSISET) -o $@ $<
+	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
 
 # use modern gcc for data
 $(BUILD_DIR)/$(SRC_DIR)/data/%.c.o: $(SRC_DIR)/data/%.c

@@ -149,6 +149,7 @@ maxFrameSize           = 0x80241D0C;
 audDMAIOMesgBuf        = 0x80241D10;
 audDMAMessageQ         = 0x802423D0;
 
+set_fog_factor_and_color   = 0x8029A5B4; // rom:0x6ABC64
 set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4
 
 language_select_menu   = 0x80298FC0; // rom:0x63C660

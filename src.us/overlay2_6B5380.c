@@ -1254,7 +1254,44 @@ void func_802AA424_6BBAD4(void) {
 //     }
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AB8EC_6BCF9C.s")
+void func_802AB8EC_6BCF9C(u8 arg0, s8 arg1, s16 arg2) {
+    if (D_803D552C->unk360 != 0) {
+        if (--D_803D552C->unk360 == 0) {
+            func_802A467C_6B5D2C(D_803D552C->unk361);
+        }
+    }
+    if (D_803D552C->unk363 != 0) {
+        arg1 = 0;
+        arg2 = 0;
+    }
+    if ((arg1 != 0) && (arg1 != -1)) {
+        D_803D552C->unk35E = (u16) D_803D5544;
+    }
+
+    if (D_803D5530->state < 7) {
+        func_802B0B00_6C21B0(arg0, arg1);
+    } else if (D_803D5530->state < 0x19) {
+        func_802B0F4C_6C25FC(arg0, arg1);
+    } else if (D_803D5530->state < 0x2B) {
+        func_802B1210_6C28C0(arg0, arg1);
+    } else if (D_803D5530->state < 0x40) {
+        func_802B1374_6C2A24(arg0, arg1);
+    } else if (D_803D5530->state < 0x52) {
+        func_802B1654_6C2D04(arg0, arg1);
+    } else if (D_803D5530->state < 0x6B) {
+        func_802B1E28_6C34D8(arg0, arg1, arg2);
+    } else if (D_803D5530->state < 0x7C) {
+        func_802B1918_6C2FC8(arg0, arg1);
+    } else if (D_803D5530->state < 0x91) {
+        func_802B1B98_6C3248(arg0, arg1);
+    } else if (D_803D5530->state < 0xA3) {
+        func_802B1D00_6C33B0(arg0, arg1);
+    } else if (D_803D5530->state < 0xBA) {
+        func_802B0D4C_6C23FC(arg0, arg1);
+    } else if (D_803D5530->state < 0xCD) {
+        func_802B10B0_6C2760(arg0, arg1);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802ABB10_6BD1C0.s")
 
@@ -1262,8 +1299,102 @@ void func_802AA424_6BBAD4(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC484_6BDB34.s")
 
-// requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC5CC_6BDC7C.s")
+
+#if 0
+// should match, need to check rodata
+void func_802AC5CC_6BDC7C(s32 *arg0, s32 *arg1) {
+    if (D_803D5530->yRotation == 0x100) {
+        *arg0 = 0;
+        *arg1 = 0;
+        return;
+    }
+
+    switch (D_803D5530->state) {
+    case 0x2:
+    case 0x15:
+    case 0x29:
+    case 0x3D:
+    case 0x65:
+    case 0x66:
+    case 0x67:
+    case 0x6A:
+    case 0x79:
+    case 0x7B:
+    case 0x8D:
+    case 0xA1:
+    case 0xB5:
+    case 0xB8:
+    case 0xC9:
+    case 0xDD:
+        *arg0 = 0;
+        *arg1 = 0;
+        break;
+    case 0x3:
+    case 0x5:
+    case 0x16:
+    case 0x3E:
+    case 0x7A:
+    case 0xA2:
+    case 0xB6:
+    case 0xCA:
+        *arg0 = 0;
+        *arg1 = (D_803D5524->unkA4 * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x6:
+    case 0x18:
+    case 0xCC:
+        *arg0 = 0;
+        *arg1 = -(D_803D5524->unkA4 * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x4:
+    case 0x17:
+    case 0x2A:
+    case 0xB7:
+    case 0xCB:
+        *arg0 = 0;
+        *arg1 = (D_803D5524->unkA4 * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x68:
+        *arg0 = 0;
+        *arg1 = (D_803D5524->unkAC * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x69:
+        *arg0 = 0;
+        *arg1 = (D_803D5524->unkAC * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x51:
+        *arg0 = 0;
+        *arg1 = D_803D5524->unkAC << 0xA;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x8E:
+        *arg0 = 0;
+        *arg1 = (D_803D5524->unkAA * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x90:
+        *arg0 = 0;
+        *arg1 = (D_803D5524->unkAA * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    case 0x8F:
+        *arg0 = 0;
+        *arg1 = (D_803D5524->unkAA * D_803D552C->unk368) << 6;
+        func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
+        break;
+    default:
+        *arg0 = 0;
+        *arg1 = 0;
+        break;
+    }
+}
+#endif
 
 #ifdef NON_MATCHING // JUSTREG
 void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
@@ -1272,10 +1403,15 @@ void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
     if (D_801E9EB2 > 2) {
         *arg1 = D_803D5524->unkA4 * 1024;
     } else if (D_801E9EB2 > 0) {
+        // *arg1 = ((D_803D5524->unkA4 << 2) + D_803D5524->unkA4) << 7;
         *arg1 = D_803D5524->unkA4 * 640;
     } else {
         *arg1 = 0;
     }
+
+    // regalloc help?
+    if ((D_803D5524->unkA4 && D_803D5524->unkA4) && D_803D5524->unkA4) {};
+
     func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
 }
 #else

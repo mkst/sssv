@@ -107,9 +107,9 @@
 //     if ((D_803D5540 & 2) && (D_803D552C->unk36B > 0)) {
 //         D_803F2EDC = 1;
 //         if (D_803D552C->unk36B < 3) {
-//             func_8029A5B4_6ABC64(&D_801D9E88, 160, 160, 160);
+//             set_fog_factor_and_color(&D_801D9E88, 160, 160, 160);
 //         } else {
-//             func_8029A5B4_6ABC64(&D_801D9E88, 200, 200, 200);
+//             set_fog_factor_and_color(&D_801D9E88, 200, 200, 200);
 //         }
 //         D_803D552C->unk36B = MAX(0, D_803D552C->unk36B - 2);
 //     }

@@ -2,6 +2,11 @@
 #include "common.h"
 
 
+// tbd
+void func_8032C5A8_73DC58(u16, u16 animalId, s16, s16, s16, s16);
+void func_802BE1A0_6CF850(struct103*, s16, u8, u8, u8, s16, s16, s16, s32, s32, s32, s32, s16);
+void func_802C3F58_6D5608(struct103*, u8, u8, u8, s16, s16, s16);
+
 void func_802BB840_6CCEF0(u16 arg0) {
     s16 tmp0;
     s16 tmp1;
@@ -179,7 +184,23 @@ void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     *argA = ((arg7 * arg0) + (arg4 * (arg1 - arg0))) / arg1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BCDA0_6CE450.s")
+void func_802BCDA0_6CE450(struct103 *arg0, s16 *arg1, s16 *arg2, s16 *arg3) {
+    s16 tmp;
+
+    if (D_803D552C->unk300 != 0) {
+        tmp = D_803D552C->unk2F2 - D_803D552C->unk2FE;
+        if (tmp < 0) {
+            tmp += 256;
+        }
+        if (tmp < D_803D552C->unk300) {
+            *arg1 = (((*arg1 * tmp) + (arg0->unkA * (D_803D552C->unk300 - tmp))) / D_803D552C->unk300);
+            *arg2 = (((*arg2 * tmp) + (arg0->unkC * (D_803D552C->unk300 - tmp))) / D_803D552C->unk300);
+            *arg3 = (((*arg3 * tmp) + ((s16)arg0->unkE * (D_803D552C->unk300 - tmp))) / D_803D552C->unk300);
+        } else {
+            D_803D552C->unk300 = 0U;
+        }
+    }
+}
 
 void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, struct061 *arg2) {
     s16 temp_v1;
@@ -372,8 +393,161 @@ void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C3188_6D4838.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C353C_6D4BEC.s")
+// void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, struct061 *arg6) {
+//     u16 phi_t2;
+//     u16 phi_t3;
+//     u16 temp_v1;
+//     s8  phi_t1;
+//
+//     temp_v1 = D_803D552C->unk2F2;
+//
+//     switch (D_803D5530->state) {                        /* implicit */
+//     case 0x3:
+//     case 0x8E:
+//     case 0xB6:
+//         phi_t1 = 1;
+//         phi_t2 = D_803D552C->unk2F6 % 256;
+//         phi_t3 = (D_803D552C->unk2F6 + 0x80) % 256;
+//         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+//             if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
+//                 D_803F2F00 = 1;
+//                 D_803D553A = 5;
+//                 func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+//             } else if ((phi_t3 > 0x80) && (((D_803D552C->unk2F8 + 0x80) % 256) <= 0x80)) {
+//                 D_803F2F00 = 2;
+//                 D_803D553A = 5;
+//                 func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+//             }
+//         }
+//         break;
+//     case 0x6:
+//     case 0x90:
+//     case 0xB9:
+//         phi_t1 = 1;
+//         phi_t2 = 0x100 - (D_803D552C->unk2F6 % 256);
+//         phi_t3 = 0x100 - ((D_803D552C->unk2F6 + 0x80) % 256);
+//         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+//             if ((phi_t2 < 0x80) && ((0x100 - (D_803D552C->unk2F8 % 256)) >= 0x80)) {
+//                 D_803F2F00 = 1;
+//                 D_803D553A = 5;
+//                 func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+//             } else
+//             if ((phi_t3 < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + 0x80) % 256)) >= 0xE1)) {
+//                 D_803F2F00 = 2;
+//                 D_803D553A = 5;
+//                 func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+//             }
+//         }
+//         break;
+//     case 0x4:
+//     case 0x8F:
+//     case 0xB7:
+//         phi_t1 = 2;
+//         phi_t2 = D_803D552C->unk2F6 % 256;
+//         phi_t3 = (D_803D552C->unk2F6 + 0x80) % 256;
+//         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+//             if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
+//                 D_803F2F00 = 1;
+//                 D_803D553A = 5;
+//                 func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+//             } else // ?
+//             if ((phi_t3 > 0x80) && (((D_803D552C->unk2F8 + 0x80) % 256) <= 0x80)) {
+//                 D_803F2F00 = 2;
+//                 D_803D553A = 5;
+//                 func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+//             }
+//         }
+//         break;
+//     default:
+//         phi_t1 = 0;
+//         phi_t3 = temp_v1;
+//         phi_t2 = temp_v1;
+//         break;
+//     }
+//
+//     if ((D_803D5524->unkA0 & 0xC00)) {
+//         if ((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 5) ||
+//             (D_803D5530->unk162 == 6) || (D_803D5530->unk162 == 7)) {
+//             phi_t1 = 2;
+//             phi_t2 = (D_803D552C->unk2F6 * 16) & 0xFF;
+//             phi_t3 = ((D_803D552C->unk2F6 * 16) + 0x80) & 0xFF;
+//         }
+//     } else {
+//         if ((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 5) ||
+//             (D_803D5530->unk162 == 7)) {
+//             phi_t1 = 2;
+//             switch (D_803D5530->state) {
+//             default:
+//                 phi_t2 = (D_803D552C->unk2F6 * 2) & 0xFF;
+//                 phi_t3 = ((D_803D552C->unk2F6 * 2) + 0x80) & 0xFF;
+//                 break;
+//             case 0x8E:
+//                 phi_t2 = D_803D552C->unk2F6 & 0xFF;
+//                 phi_t3 = (D_803D552C->unk2F6 + 0x80) & 0xFF;
+//                 break;
+//             case 0x90:
+//                 // help
+//                 phi_t2 -= (256 - (D_803D552C->unk2F6       )) & 0xFFFF;
+//                 phi_t3 -= (256 - (D_803D552C->unk2F6 + 0x80)) & 0xFFFF;
+//                 break;
+//             case 0x8F:
+//                 phi_t2 = (D_803D552C->unk2F6 * 2) & 0xFF;
+//                 phi_t3 = ((D_803D552C->unk2F6 * 2) + 0x80) & 0xFF;
+//                 break;
+//             }
+//         }
+//     }
+//
+//     func_802BE1A0_6CF850(&D_803D5528->unk398, arg6->unk0, 5, 13, phi_t2, arg0, arg1, 0, arg2, arg3, arg4, arg5, phi_t1);
+//     func_802BE1A0_6CF850(&D_803D5528->unk3AC, arg6->unk2, 6, 16, phi_t3, arg0, arg1, 0, arg2, arg3, arg4, arg5, phi_t1);
+// }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C3C64_6D5314.s")
+void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
+    u16 tmp1;
+    u16 tmp2;
+
+    s32 fixme;
+
+    switch (D_803D5530->state) {
+    case 0x3:
+    case 0x6:
+    case 0xB6:
+    case 0xB9:
+        tmp1 = D_803D552C->unk2F6 % 256;
+        tmp2 = D_803D552C->unk2F8 % 256;
+        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2) && (tmp1 >= 0xB) && (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
+            D_803F2F00 = 1;
+            D_803D553A = 5;
+            func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+        }
+        break;
+    case 0x4:
+    case 0xB7:
+        tmp1 = D_803D552C->unk2F6 % 256;
+        tmp2 = D_803D552C->unk2F8 % 256;
+        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2) &&
+            (tmp1 >= 0xB) &&
+            (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
+            D_803F2F00 = 1;
+            D_803D553A = 6;
+            func_8032C5A8_73DC58(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803D5530->unk160);
+        }
+        break;
+    case 0x8E:
+    case 0x90:
+        if (!(fixme = D_803D552C->unk2F2 & 7)) {
+            func_8032CA90_73E140(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
+        }
+        break;
+    case 0x8F:
+        if (!(fixme = D_803D552C->unk2F2 & 7)) {
+            func_8032CA90_73E140(D_803D5524->unk7C, D_803D5524->unk9C, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos);
+        }
+        break;
+    }
+    func_802C3F58_6D5608(&D_803D5528->unk398, 5, 13, 14,  arg0, arg1, arg2);
+    func_802C3F58_6D5608(&D_803D5528->unk3AC, 6, 16, 17, -arg0, arg1, arg2);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C3F58_6D5608.s")
 

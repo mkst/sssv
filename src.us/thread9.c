@@ -68,7 +68,7 @@ s32 init_controllers(void) {
     return numControllers;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/init_controllers.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread9/init_controllers.s")
 #endif
 
 void func_80136F64(void) {
@@ -200,7 +200,7 @@ void thread9(void) {
     while (TRUE);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_123E0/do_rumble.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/thread9/do_rumble.s")
 // void do_rumble(s16 cont, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
 //     s32 new_var;
 //     s32 pad[3];

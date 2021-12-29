@@ -40,7 +40,7 @@ extern u8 lang_lang35_dat_rnc_ROM_START[], lang_lang35_dat_rnc_ROM_END[];
 extern u8 lang_lang36_dat_rnc_ROM_START[], lang_lang36_dat_rnc_ROM_END[];
 
 // language file offsets at ROM 0x2fc00
-struct066 D_80154500[37] = {
+u8* D_80154500[36][2] = {
     {lang_lang1_dat_rnc_ROM_START, lang_lang1_dat_rnc_ROM_END},
     {lang_lang2_dat_rnc_ROM_START, lang_lang2_dat_rnc_ROM_END},
     {lang_lang3_dat_rnc_ROM_START, lang_lang3_dat_rnc_ROM_END},
@@ -77,8 +77,9 @@ struct066 D_80154500[37] = {
     {lang_lang34_dat_rnc_ROM_START, lang_lang34_dat_rnc_ROM_END},
     {lang_lang35_dat_rnc_ROM_START, lang_lang35_dat_rnc_ROM_END},
     {lang_lang36_dat_rnc_ROM_START, lang_lang36_dat_rnc_ROM_END},
-    {0, 0} /* might just be alignment? */
 };
+
+u8 *D_80154620[2] = {0, 0}; /* might just be alignment? */
 
 // at ROM 0x2fd28
 Gfx D_80154628[] = {
@@ -149,7 +150,7 @@ u8 convert_text_to_int(s16 *arg0) {
     return ret;
 }
 
-// get_message_length ?
+// get_message_length?
 s16 func_8012C3D8(s16 *arg0) {
     u16 res = 0;
     s16 time[4];
@@ -172,7 +173,7 @@ s16 func_8012C3D8(s16 *arg0) {
                 res += func_8012C3D8(sp5C);
                 arg0 += 3;
             } else if (*arg0 == TEXT_COLOR) {
-                arg0 = arg0 + 2;
+                arg0 += 2;
             }
         } else {
             switch (D_8023F1F4) {
@@ -180,13 +181,13 @@ s16 func_8012C3D8(s16 *arg0) {
                 D_8023F1E0.unk0 += tmp;
                 res += func_8012C314(*D_8023F1E0.unk0);
                 D_8023F1E0.unk0 -= tmp;
-                // if character width less than 14px?
+                // if font width less than 14px?
                 if (D_8023F1F8 < 14.0f) {
                     res += 1;
                 }
                 break;
             case 1:
-                // increment by pixel width?
+                // increment by font width?
                 res += D_8023F1F8;
                 break;
             }
@@ -501,6 +502,7 @@ s32 func_8012E724(u16 *arg0, s32 arg1, s32 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012E78C.s")
 
+// contains delay slot
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012EB4C.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012F160.s")
@@ -715,10 +717,7 @@ void prepare_text(u8 *src, s16 *dst) {
 //     s16 msg_length;
 //     s16 i;
 //     s16 *src;
-//     s32 start;
-//     s32 end;
 //     s16 num_msgs;
-//     struct066 *lvl;
 //
 //     if (gRegion == REGION_EU) {
 //         if (language < LANG_MIN) {
@@ -750,8 +749,8 @@ void prepare_text(u8 *src, s16 *dst) {
 //     // each message starts with an s16 containing the message length in bytes
 //     // each message ends with 0x7350 (30000)
 //
-//     lvl = &D_80154500[level];
-//     dma_read(lvl->start, D_8022E3F0, lvl->end - lvl->start);
+//     dma_read(D_80154500[level][0], D_8022E3F0, D_80154500[level][1] - D_80154500[level][0]);
+//
 //     UnpackRNC((RNC_fileptr)D_8022E3F0, (u8*)D_80235410);
 //     memcpy_sssv((u8*)D_80235410 + D_80235410[language], (u8*)D_8022E3F0, 12000);
 //

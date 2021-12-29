@@ -47,6 +47,7 @@ void func_80368840_779EF0(s16 arg0) {
     }
 }
 
+// polar bear
 void func_80368AC4_77A174(void) {
     if ((D_803D552C->unk365 != ATTACK_POLAR_BEAR_2) &&
         (D_803D552C->unk365 != ATTACK_POLAR_BEAR_3)) {
@@ -55,6 +56,7 @@ void func_80368AC4_77A174(void) {
     }
 }
 
+// polar bear defending
 void func_80368B04_77A1B4(void) {
     if ((D_803D552C->unk365 != ATTACK_POLAR_BEAR_2) &&
         (D_803D552C->unk365 != ATTACK_POLAR_BEAR_3)) {
@@ -71,6 +73,7 @@ void func_80368B78_77A228(void) {
     D_803D552C->unk365 = ATTACK_POLAR_BEAR_1;
 }
 
+// polar tank
 void func_80368BA0_77A250(void) {
     if ((D_803D5530->unk162 == 1) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 0x599, 0xB4, D_803D5530, 0x32, 0x21);

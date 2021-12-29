@@ -56,7 +56,7 @@ typedef struct {
     u8  unkC8[0x6];
     u16 unkCE; // evo suit colour
     u8  unkD0[0xA];
-    u16 unkDA;
+    u16 unkDA;  // scissor? width?
     u16 unkDC; // initialised?
     u8  padDE[0x2];
     f32 unkE0;
@@ -96,7 +96,7 @@ struct struct103 {
  /* 0x8 */ s16 unk8; // used
  /* 0xA */ s16 unkA; // used
  /* 0xC */ s16 unkC; // used
- /* 0xE */ u16 unkE; // used
+ /* 0xE */ u16 unkE; // used    (also used as s16)
  /* 0x10 */ u16 unk10; // used
  /* 0x12 */ s16 unk12; // used
 }; // size 0x14
@@ -343,7 +343,7 @@ struct Animal {
     /* 0x2FA */ u16 unk2FA;
     /* 0x2FC */ u16 unk2FC;
     /* 0x2FE */ u16 unk2FE;
-    /* 0x300 */ s16 unk300;
+    /* 0x300 */ u16 unk300;
     /* 0x302 */ s16 unk302; // heading? facing?
     /* 0x304 */ s16 unk304;
     /* 0x306 */ s16 unk306;
@@ -574,7 +574,7 @@ typedef struct {
     /* 0x37450 */ Mtx unk37450;  // projection matrix 2
     /* 0x37490 */ Mtx unk37490;  // projection matrix 3
     /* 0x374D0 */ Mtx unk374D0;  // modelview matrix 1
-    /* 0x37510 */ u8  unk37510[0x40];
+    /* 0x37510 */ Mtx unk37510;
     /* 0x37550 */ Mtx unk37550;
     /* 0x37590 */ Mtx unk37590;
     /* 0x375D0 */ Mtx unk375D0;
@@ -966,7 +966,14 @@ typedef struct {
     /* 0x4 */ u8  r;
     /* 0x5 */ u8  g;
     /* 0x6 */ u8  b;
+    /* 0x7 */ u8  padding;
 } Fog; // size 0x8
+
+typedef struct {
+    s16 min;
+    s16 max;
+    s32 position;
+} Fog2;
 
 typedef struct {
     f32 unk0;

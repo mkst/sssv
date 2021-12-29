@@ -3,26 +3,26 @@
 #include "common.h"
 
 // crazy multiply/divide code, loading data, decoding? how to match this?!
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80125980.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80125FE0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80125980.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80125FE0.s")
 
 void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2) {
     arg2->m[0][0] = (arg0 & 0xFFFF0000) | ((arg1 >> 16) & 0xFFFF);
     arg2->m[2][0] = (arg0 << 16) | (arg1 & 0xFFFF);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80126388.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80126388.s")
 
 // wierd offsets
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80126CC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80126CC4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80126FD4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80126FD4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80127640.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80127640.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80127994.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80127994.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80127D30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80127D30.s")
 // same issue as func_80127ED4
 // void func_80127D30(Mtx *arg0, u16 arg1) {
 //     s32 sp0[2];
@@ -70,7 +70,7 @@ void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2) {
 //     *m2++ = (((u16) sp0[1] << 0x10) | (u16) sp0[0]);
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80127ED4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80127ED4.s")
 // offsets are wrong...
 // void func_80127ED4(Mtx *arg0, s16 arg1) {
 //     s32 tmp[2];
@@ -116,7 +116,7 @@ void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2) {
 //     arg0->m[3][3] = ((u16)tmp[1] << 16) | (u16) tmp[0];
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_1080/func_80128078.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80128078.s")
 // nonsense
 // void func_80128078(Mtx *arg0, s16 arg1, s16 arg2) {
 //     u32 sp44;

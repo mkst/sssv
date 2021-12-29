@@ -80,6 +80,7 @@ void func_80365C7C_77732C(void) {
     }
 }
 
+// king penguin
 void func_80365D74_777424(void) {
     D_803D552C->unk2B4.unk4 = 0;
 }
