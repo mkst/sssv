@@ -41,9 +41,9 @@ void check_cheats(OSContPad *contPad) {
                 D_801DDD8C[gCurrentAnimalIndex].unk0->zPos >> 6,
                 D_801DDD8C[gCurrentAnimalIndex].unk0->yPos);
             prepare_text(D_802042B0, sp28);
-            func_8012DEF8(&D_801D9E7C, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
+            display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
             prepare_text("Ver - 1.37", sp28);
-            func_8012DEF8(&D_801D9E7C, sp28, gScreenWidth - 20, 36, 16.0f, 16.0f);
+            display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 36, 16.0f, 16.0f);
         }
     }
     // reset

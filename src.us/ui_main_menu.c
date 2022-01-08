@@ -153,14 +153,13 @@ void display_zone_select_screen(void) {
 
     if (D_803F7DA8.lastLevel != D_803F7DA8.currentLevel) {
         // level thumbnails
-        // deferencing helps regalloc but probaly isnt right
-        dma_read(&D_803B7268_7C8918[D_803F7DA8.currentLevel].start, D_800B0B20, D_803B7268_7C8918[D_803F7DA8.currentLevel].start - D_803B7268_7C8918[D_803F7DA8.currentLevel].end);
+        dma_read(D_803B7268_7C8918[D_803F7DA8.currentLevel].start, D_800B0B20, D_803B7268_7C8918[D_803F7DA8.currentLevel].end - D_803B7268_7C8918[D_803F7DA8.currentLevel].start);
         UnpackRNC(D_800B0B20, D_800B49A0);
 
         D_803F7DA8.lastLevel = D_803F7DA8.currentLevel;
 
         // trophy images
-        dma_read(&D_803B7368_7C8A18[D_803F7DA8.currentLevel].start, D_800B0B20, D_803B7368_7C8A18[D_803F7DA8.currentLevel].start - D_803B7368_7C8A18[D_803F7DA8.currentLevel].end);
+        dma_read(D_803B7368_7C8A18[D_803F7DA8.currentLevel].start, D_800B0B20, D_803B7368_7C8A18[D_803F7DA8.currentLevel].end - D_803B7368_7C8A18[D_803F7DA8.currentLevel].start);
         UnpackRNC(D_800B0B20, D_800B68E0);
 
         D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
@@ -355,7 +354,7 @@ void display_zone_select_screen(void) {
     vertical_offset = 60;
     if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
         // write title text
-        func_8012DEF8(&D_801D9E7C, (u8*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+        display_text(&D_801D9E7C, (u8*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         tmp_level = D_803F7DD5;
     }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
@@ -363,9 +362,9 @@ void display_zone_select_screen(void) {
 
     if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) {
         if (D_8023F260.level[D_803F7DA8.currentLevel].completed == 1) {
-            func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_SECURED), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&D_801D9E7C, get_message_address_by_id(MSG_SECURED), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         } else {
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
         vertical_offset += D_803B74B0_7C8B60 + 1.0f;
         tmp_level = D_803F7DD5;
@@ -386,47 +385,47 @@ void display_zone_select_screen(void) {
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03A0_7D1A50
+                    sprintf(ascii, D_803C03A0_7D1A50, mins, secs); // "%d:0%d"
                 } else {
-                    sprintf(ascii,  "%d:%d", mins, secs); // _803C03A8_7D1A58
+                    sprintf(ascii, D_803C03A8_7D1A58, mins, secs); // "%d:%d"
                 }
                 prepare_text((u8*)ascii, wide_text);
-                func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (currentLevel == WALRACE_64) {
             if (D_8023F260.unk30 & 0xFF) {
                 seconds_to_mins_secs(D_8023F260.unk30 & 0xFF, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03B0_7D1A60
+                    sprintf(ascii, D_803C03B0_7D1A60, mins, secs); // "%d:0%d"
                 } else {
-                    sprintf(ascii,  "%d:%d", mins, secs); // D_803C03B8_7D1A68
+                    sprintf(ascii, D_803C03B8_7D1A68, mins, secs); // "%d:%d"
                 }
                 prepare_text((u8*)ascii, wide_text);
-                func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 if ((D_8023F2A0.language == LANG_ITALIAN) || (D_8023F2A0.language == LANG_FRENCH)) {
-                    func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                    display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 } else {
-                    func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 270, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                    display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 270, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 }
             }
         }
         if (currentLevel == EVOS_ESCAPE) {
             if ((D_8023F260.unk30 >> 24) * 100) {
-                sprintf(ascii, "%d", (D_8023F260.unk30 >> 24) * 100); //  D_803C03C0_7D1A70
+                sprintf(ascii, D_803C03C0_7D1A70, (D_8023F260.unk30 >> 24) * 100); //  "%d"
                 prepare_text((u8*)ascii, wide_text);
-                func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (currentLevel == PUNCHUP_PYRAMID) {
             u16 rounds = (D_8023F260.unk30 >> 8) & 0x1F;
             if (rounds) {
-                sprintf(ascii, "%d", rounds); //  D_803C03C4_7D1A74
+                sprintf(ascii, D_803C03C4_7D1A74, rounds); //  "%d"
                 prepare_text((u8*)ascii, wide_text);
-                func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (currentLevel == BIG_CELEBRATION_PARADE) {
@@ -434,26 +433,26 @@ void display_zone_select_screen(void) {
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03C8_7D1A78
+                    sprintf(ascii, D_803C03C8_7D1A78, mins, secs); // "%d:0%d"
                 } else {
-                    sprintf(ascii,  "%d:%d", mins, secs); // D_803C03D0_7D1A80
+                    sprintf(ascii, D_803C03D0_7D1A80, mins, secs); // "%d:%d"
                 }
                 prepare_text((u8*)ascii, wide_text);
-                func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (currentLevel == SECRET_LEVEL) {
             s32 score = (D_8023F260.unk34 >> 21) & 0x7FF;
-            sprintf(ascii, "%d", score * 100); // D_803C03D8_7D1A88
+            sprintf(ascii, D_803C03D8_7D1A88, score * 100); // "%d"
             prepare_text((u8*)ascii, wide_text);
-            func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
-            func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 240, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 240, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
     } else {
-        sprintf(ascii, "%2d", D_8023F260.level[currentLevel].powercells); //  D_803C03DC_7D1A8C
+        sprintf(ascii, D_803C03DC_7D1A8C, D_8023F260.level[currentLevel].powercells); //  "%2d"
         prepare_text((u8*)ascii, wide_text);
-        func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+        display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 
         gSPDisplayList(D_801D9E7C++, &D_801584A0);
 
@@ -710,21 +709,21 @@ void func_8039A2DC_7AB98C(void) {
         } else {
             set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU); // grey
         }
-        display_text(&D_801D9E7C, get_message_address_by_id(MSG_SELECT), x_offset, (y_offset - 0x12), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+        display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_SELECT), x_offset, (y_offset - 0x12), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         if (D_803F7DA8.unk30 == 1) { // COPY
             set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
         } else {
             set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
         }
-        display_text(&D_801D9E7C, get_message_address_by_id(MSG_COPY), x_offset, (y_offset - 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+        display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_COPY), x_offset, (y_offset - 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         if (D_803F7DA8.unk30 == 2) { // DELETE
             set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
         } else {
             set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
         }
-        display_text(&D_801D9E7C, get_message_address_by_id(MSG_DELETE), x_offset, (y_offset + 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+        display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_DELETE), x_offset, (y_offset + 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         break;
     case 2: // "COPY TO" MENU
@@ -791,8 +790,8 @@ void func_8039A2DC_7AB98C(void) {
             load_default_display_list(&D_801D9E7C);
             select_font(0U, FONT_COMIC_SANS, 0U, 0U);
             set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_COPY2), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_TO), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_COPY2), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_TO), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
         }
         break;
     case 3:
@@ -851,14 +850,14 @@ void func_8039A2DC_7AB98C(void) {
             } else {
                 set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
             }
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
             if (D_803F7DA8.unk30 == 1) { // COPY
                 set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
             } else {
                 set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
             }
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_DELETE2), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_DELETE2), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
         }
         break;
     }
@@ -878,15 +877,15 @@ void func_8039A2DC_7AB98C(void) {
     vertical_offset = 56;
 
     // write "Secure Zones"
-    func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_SECURE_ZONES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
+    display_text(&D_801D9E7C, get_message_address_by_id(MSG_SECURE_ZONES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
 
     // write "Species"
     vertical_offset += D_803B74B0_7C8B60 + 6.0f;
-    func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_SPECIES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
+    display_text(&D_801D9E7C, get_message_address_by_id(MSG_SPECIES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
 
     // write "Encountered"
     vertical_offset += D_803B74B0_7C8B60;
-    func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_ENCOUNTERED), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
+    display_text(&D_801D9E7C, get_message_address_by_id(MSG_ENCOUNTERED), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
 
     vertical_offset = 56;
     // write ":" for "Secure Zones"
@@ -907,7 +906,7 @@ void func_8039A2DC_7AB98C(void) {
     vertical_offset = 56;
     sprintf(ascii, D_803C03E8_7D1A98, progress[0]); // levels // "%2d"
     prepare_text((u8 *) ascii, wide_text);
-    func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
+    display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
     vertical_offset += D_803B74B0_7C8B60 + 6;
     vertical_offset += D_803B74B0_7C8B60;
@@ -915,13 +914,13 @@ void func_8039A2DC_7AB98C(void) {
     // write species
     sprintf(ascii, D_803C03EC_7D1A9C, progress[1]); // species // & "%2d"
     prepare_text((u8 *) ascii, wide_text);
-    func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
+    display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
     // write powercells
     vertical_offset += D_803B74B0_7C8B60 + 6;
     sprintf(ascii, D_803C03F0_7D1AA0, progress[2]); // powercells // "%3d"
     prepare_text((u8 *) ascii, wide_text);
-    func_8012DEF8(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+    display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 
     gSPDisplayList(D_801D9E7C++, D_801584A0);
     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xff, 0xff, 0xff, 0xff);

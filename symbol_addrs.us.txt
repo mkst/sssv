@@ -81,9 +81,11 @@ select_font            = 0x8012C248;
 select_comic_sans_font = 0x8012C2A4;
 select_lcd_font        = 0x8012C2E4;
 convert_text_to_int    = 0x8012C360;
-display_text           = 0x8012C978;
+display_text_centered  = 0x8012C978;
 draw_glyph             = 0x8012DCA8;
+display_text           = 0x8012DEF8;
 load_glyph             = 0x8012FB4C;
+display_text_wrapped   = 0x8012FBEC;
 display_score          = 0x801304EC;
 prepare_text           = 0x801308B4;
 get_message_address_by_id = 0x80130A90;
@@ -171,8 +173,12 @@ heli_rabbit_drop_bomb  = 0x80302120; // rom:0x7137D0
 frog_croak             = 0x80302DD0; // rom:0x714480
 animal_jump            = 0x8030A958; // rom:0x71C008
 parrot_fly             = 0x80314600; // rom:0x725CB0
+
+get_closest_waypoint_index = 0x80319B4C; // rom:0x72B1FC
+
 get_uncompressed_size  = 0x8031AFD0; // rom:0x72C680
 get_compressed_size    = 0x8031B058; // rom:0x72C708
+copy_or_extract        = 0x8031B0E8; // rom:0x72C798
 load_level_data        = 0x8031B390; // rom:0x72CA40
 racing_mouse_turbo     = 0x8031FBE8; // rom:0x731298
 recoil                 = 0x803223F4; // rom:0x733AA4

@@ -196,7 +196,7 @@ void func_80314788_725E38(void) {
 //             arg0->unk163 &= ~0x80;
 //         }
 //         break;
-//     case 0x7F91:
+//     case 0x7F91: // set mass?
 //         arg0->unk46 = arg2;
 //         arg0->unk44 = (s16) ((s32) ((arg2) * arg0->unk40) >> 0xB);
 //         break;
@@ -297,6 +297,7 @@ void func_80314788_725E38(void) {
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314F0C_7265BC.s")
+
 // something to do with in-game scripting
 extern u8 D_FFFE0400[];
 
@@ -376,7 +377,7 @@ extern s32 D_803C4DAC_7D645C[];
 //         case 32656:
 //             res = (arg0->unk163 & 0x18) >> 3;
 //             break;
-//         case 32657:
+//         case 32657: // get mass?
 //             res = arg0->unk46;
 //             break;
 //         case 32658:
@@ -522,8 +523,8 @@ s32 func_80315870_726F20(s32 arg0, s32 arg1) {
     return 1;
 }
 
-void func_80315880_726F30(s16 arg0) {
-    func_80315658_726D08(arg0, &func_80315870_726F20, 0);
+s32 func_80315880_726F30(s16 arg0) {
+    return func_80315658_726D08(arg0, &func_80315870_726F20, 0);
 }
 
 s32 func_803158B4_726F64(Animal *arg0, s16 arg1) {
@@ -534,8 +535,8 @@ s32 func_803158B4_726F64(Animal *arg0, s16 arg1) {
     }
 }
 
-void func_803158E4_726F94(s16 arg0, s16 arg1) {
-    func_80315658_726D08(arg0, &func_803158B4_726F64, arg1);
+s32 func_803158E4_726F94(s16 arg0, s16 arg1) {
+    return func_80315658_726D08(arg0, &func_803158B4_726F64, arg1);
 }
 
 s32 func_80315924_726FD4(Animal *arg0, s16 arg1) {
@@ -546,8 +547,8 @@ s32 func_80315924_726FD4(Animal *arg0, s16 arg1) {
     }
 }
 
-void func_80315950_727000(s16 arg0) {
-    func_80315658_726D08(arg0, &func_80315924_726FD4, 0);
+s32 func_80315950_727000(s16 arg0) {
+    return func_80315658_726D08(arg0, &func_80315924_726FD4, 0);
 }
 
 s32 func_80315984_727034(Animal *arg0, s16 arg1) {
@@ -558,12 +559,200 @@ s32 func_80315984_727034(Animal *arg0, s16 arg1) {
     }
 }
 
-void func_803159B0_727060(s16 arg0) {
-    func_80315658_726D08(arg0, &func_80315984_727034, 0);
+s32 func_803159B0_727060(s16 arg0) {
+    return func_80315658_726D08(arg0, &func_80315984_727034, 0);
 }
 
-// uses jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_803159E4_727094.s")
+// u8 func_803159E4_727094(Animal *arg0, struct070 *arg1) {
+//     u16 changed;
+//     u16 sp3C;
+//     s32 phi_v1;
+//
+//     sp3C = arg1->unk0 & 0x80;
+//
+//     changed = 0;
+//
+//     switch (arg1->unk0 & ~0xC0) {
+//     case 0:
+//         if ((arg1->unk2.b[0] & 8) && (func_80315880_726F30(arg1->unk2.b[1]))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 1) && (func_803159B0_727060(arg1->unk2.b[1]))) {
+//             changed = 1;
+//         } else if (arg1->unk2.b[0] & 2) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 16) && (func_80319E1C_72B4CC(
+//                     D_801D9ED8.animal[gCurrentAnimalIndex].unk0->xPos >> 6,
+//                     D_801D9ED8.animal[gCurrentAnimalIndex].unk0->zPos >> 6,
+//                     D_801D9ED8.animal[gCurrentAnimalIndex].unk0->yPos >> 6,
+//                     arg1->unk2.b[1],
+//                     D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk160))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 4) && (func_80315950_727000(arg1->unk2.b[1]))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 32) && (func_803158E4_726F94(arg1->unk2.b[1], (arg1->unk4.b[1] + 0x100)))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 64) && (func_803158E4_726F94(arg1->unk2.b[1], arg1->unk4.b[0]))) {
+//             changed = 1;
+//         }
+//         break;
+//     case 1:
+//         if ((arg0->unk162 != 4) && (arg0->unk162 != 5) && (arg0->unk162 != 6) && (arg0->unk162 != 7)) {
+//             phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6),
+//                          MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6));
+//
+//             if (arg0->yPos < (phi_v1 * 4)) {
+//                 changed = 1;
+//             }
+//         } else {
+//             // wrong?
+//             changed = 1;
+//         }
+//         break;
+//     case 2:
+//         if (arg1->unk2.h == arg0->state) {
+//             changed = 1;
+//         }
+//         break;
+//     case 3:
+//         phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6),
+//                      MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6));
+//         if (func_80314F0C_7265BC(arg0, arg1->unk2.h) < (phi_v1 * 4)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 4:
+//         if ((arg1->unk2.b[0] & 8) && ((arg0->unk5C & 8))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 1) && (arg0->unk5C & 1)) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 2) && (arg0->unk5C & 2)) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 16) && ((arg0->unk5C & 16))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 4) && (arg0->unk5C & 4)) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 32) && (arg0->unk5C & 4) && (arg0->unk5D == arg1->unk4.b[1])) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 64) && (arg0->unk5C & 1) && (arg0->unk5D == arg1->unk4.b[0])) {
+//             changed = 1;
+//         }
+//         break;
+//     case 5:
+//         if (arg0->unk16C->unk0 >= 0x100) {
+//             if (arg0->unk28C == 0) {
+//                 changed = 1;
+//             }
+//         } else if ((u8)arg0->unk170 == 0) {
+//             changed = 1;
+//         }
+//         break;
+//     case 6:
+//         if ((arg0 != NULL) && (arg0->unk26C != 1)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 7:
+//     case 8:
+//         if (D_803F2AA4 != 0) {
+//             changed = 1;
+//         }
+//         break;
+//     case 9:
+//         if (func_802FD5DC_70EC8C(arg0) >= func_80314F0C_7265BC(arg0, arg1->unk2.h)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 11:
+//         if ((arg1->unk2.b[0] & 8) && (func_802FD3B8_70EA68(arg0))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 1) && (func_802FD4D0_70EB80(arg0))) {
+//             changed = 1;
+//         } else if (((arg1->unk2.b[0] & 16) && (func_802FD40C_70EABC(arg0, D_801D9ED8.animal[gCurrentAnimalIndex].unk0))) || (func_802FD538_70EBE8(arg0))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 4) && (func_802FD468_70EB18(arg0))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 32) && (func_802FD348_70E9F8(arg0, (arg1->unk4.b[1] + 0x100)))) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 64) && (func_802FD348_70E9F8(arg0, arg1->unk4.b[0]))) {
+//             changed = 1;
+//         }
+//         break;
+//     case 14:
+//         if (D_803A52B8_7B6968 != 0) {
+//             changed = 1;
+//         }
+//         break;
+//     case 15:
+//         if (arg0->unk22C == 0) {
+//             changed = 1;
+//         }
+//         break;
+//     case 16:
+//         if (func_80319E1C_72B4CC(
+//                 arg0->xPos >> 6,
+//                 arg0->zPos >> 6,
+//                 arg0->yPos >> 6,
+//                 arg1->unk2.b[1],
+//                 arg0->unk160)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 17:
+//         if (func_80314F0C_7265BC(arg0, arg1->unk2.h) < func_80314F0C_7265BC(arg0, arg1->unk4.h)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 18:
+//         if (func_80314F0C_7265BC(arg0, arg1->unk2.h) >= func_80314F0C_7265BC(arg0, arg1->unk4.h)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 19:
+//         if (func_80314F0C_7265BC(arg0, arg1->unk2.h) == func_80314F0C_7265BC(arg0, arg1->unk4.h)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 20:
+//         if (func_80314F0C_7265BC(arg0, arg1->unk2.h) >= func_80314F0C_7265BC(arg0, arg1->unk4.h)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 21:
+//         if (func_80314F0C_7265BC(arg0, arg1->unk2.h) < func_80314F0C_7265BC(arg0, arg1->unk4.h)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 22:
+//         if (((arg1->unk2.b[0] & 1)) && (arg0->unk16C->unk0 < 0x100)) {
+//             changed = 1;
+//         } else if (((arg1->unk2.b[0] & 0x10)) && (arg0 == (D_801D9ED8.animal[gCurrentAnimalIndex].unk0))) {
+//             changed = 1;
+//         } else if (((arg1->unk2.b[0] & 4)) && (arg0->unk16C->unk0 >= 0x100)) {
+//             changed = 1;
+//         } else if (((arg1->unk2.b[0] & 32)) && ((arg1->unk4.b[1] + 0x100) == arg0->unk16C->unk0)) {
+//             changed = 1;
+//         } else if (((arg1->unk2.b[0] & 64)) && (arg1->unk4.h == arg0->unk16C->unk0)) {
+//             changed = 1;
+//         } else if ((arg1->unk2.b[0] & 8)) {
+//             changed = 1;
+//         }
+//         break;
+//     case 23:
+//         if (arg1->unk2.h == arg0->unk5F) {
+//             changed = 1;
+//             break;
+//         }
+//         break;
+//     }
+//
+//     if (sp3C) {
+//         // invert result?
+//         changed ^= 1;
+//     }
+//     return changed;
+// }
+
 // absolutely huge function
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80316408_727AB8.s")
 

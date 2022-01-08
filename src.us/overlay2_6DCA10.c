@@ -282,16 +282,16 @@ void func_802D6738_6E7DE8(void) {
         D_80204278->unk3B640.l.colc[2] = 0x50;
         D_80204278->unk3B640.l.col[2] = D_80204278->unk3B640.l.colc[2];
     }
-    if ((s16)D_803F2D50.unk20 == 1) {
+    if ((s16)D_803F2D50.biome == 1) {
         sp7A = (guRandom() % 0x3F) + 4;
         sp78 = (guRandom() % 0x7F) + 8;
-        if (((D_803C0740_7D1DF0[sp7A][sp78].unk0 != D_803C0740_7D1DF0[sp7A + 1][sp78 + 1].unk0) || (D_803C0740_7D1DF0[sp7A][sp78].unk0 != D_803C0740_7D1DF0[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740_7D1DF0[sp7A][sp78].unk6 == 0)) {
-            func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740_7D1DF0[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
+        if (((D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A + 1][sp78 + 1].unk0) || (D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740[sp7A][sp78].unk6 == 0)) {
+            func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
         } else {
             sp7A = (guRandom() % 0x3F) + 4;
             sp78 = (guRandom() % 0x7F) + 8;
-            if (((D_803C0740_7D1DF0[sp7A][sp78].unk0 != D_803C0740_7D1DF0[sp7A + 1][sp78 + 1].unk0) || (D_803C0740_7D1DF0[sp7A][sp78].unk0 != D_803C0740_7D1DF0[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740_7D1DF0[sp7A][sp78].unk6 == 0)) {
-                func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740_7D1DF0[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
+            if (((D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A + 1][sp78 + 1].unk0) || (D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740[sp7A][sp78].unk6 == 0)) {
+                func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
             }
         }
     }
@@ -368,15 +368,15 @@ s16 func_802D7434_6E8AE4(s16 arg0, s16 arg1) {
 
     s16 ret;
 
-    temp_t6 = D_803C0740_7D1DF0[(s16)(arg0 >> 6) + 0][(s16)(arg1 >> 6) + 0].unk0 << 3;
-    temp_t8 = D_803C0740_7D1DF0[(s16)(arg0 >> 6) + 0][(s16)(arg1 >> 6) + 1].unk0 << 3;
-    temp_t7 = D_803C0740_7D1DF0[(s16)(arg0 >> 6) + 1][(s16)(arg1 >> 6) + 1].unk0 << 3;
-    temp_t9 = D_803C0740_7D1DF0[(s16)(arg0 >> 6) + 1][(s16)(arg1 >> 6) + 0].unk0 << 3;
+    temp_t6 = D_803C0740[(s16)(arg0 >> 6) + 0][(s16)(arg1 >> 6) + 0].unk0 << 3;
+    temp_t8 = D_803C0740[(s16)(arg0 >> 6) + 0][(s16)(arg1 >> 6) + 1].unk0 << 3;
+    temp_t7 = D_803C0740[(s16)(arg0 >> 6) + 1][(s16)(arg1 >> 6) + 1].unk0 << 3;
+    temp_t9 = D_803C0740[(s16)(arg0 >> 6) + 1][(s16)(arg1 >> 6) + 0].unk0 << 3;
 
     temp_t2 = arg0 & 0x3F;
     temp_t4 = arg1 & 0x3F;
 
-    if ((D_803C0740_7D1DF0[(s16)(arg0 >> 6) + 0][(s16)(arg1 >> 6) + 0].unk4 & 1)) {
+    if ((D_803C0740[(s16)(arg0 >> 6) + 0][(s16)(arg1 >> 6) + 0].unk4 & 1)) {
         if (temp_t2 < temp_t4) {
             ret = (((((temp_t7 - temp_t8) * temp_t2) + ((temp_t8 - temp_t6) * temp_t4)) >> 6) + temp_t6);
         } else {

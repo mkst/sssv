@@ -46,7 +46,7 @@ def parse_map(mapfile, section, ending=None):
                 else:
                     print("No function / unable to determine total size")
                 break
-            if re.match(r" build/.*\(\.text\)", line):
+            if re.match(r" .*build/.*\(\.text\)", line):
                 # skip
                 continue
             match = re.match(r"^ \.text +(0x[0-9A-z]+) +(0x[0-9A-z]+) +.*build/(.*)\.[a-z]+\.o", line)

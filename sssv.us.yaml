@@ -13,6 +13,7 @@ options:
   extensions_path: tools/splat_ext
   enable_ld_alignment_hack: yes
   lib_path: build/lib
+  hi_lo_max_distance: 32
 segments:
   - name:  header
     type:  header
@@ -3383,42 +3384,42 @@ segments:
   - [0x5449C0, bin] # I4 water texture (0x2200)
   - [0x546BC0, bin] # tbd
   # game levels (nested RNC compressed) (differ from EU ROM)
-  - [0x546D00, bin, levels/rnc_546D00] # 33736 => 33692 # level 1      # RNC pack differs
-  - [0x54F0D0, bin, levels/rnc_54F0D0] # 23846 => 23875
-  - [0x554E00, bin, levels/rnc_554E00] # 21894 => 21888                # RNC pack differs
-  - [0x55A390, bin, levels/rnc_55A390] # 24450 => 24492
-  - [0x560320, bin, levels/rnc_560320] # 31699 => 31741
-  - [0x567F00, bin, levels/rnc_567F00] # 19968 => 19993
-  - [0x56CD00, bin, levels/rnc_56CD00] # 24507 => 24509
-  - [0x572CC0, bin, levels/rnc_572CC0] # 24650 => 24773
-  - [0x578D10, bin, levels/rnc_578D10] # 25783 => 25774                # RNC pack differs
-  - [0x57F1D0, bin, levels/rnc_57F1D0] # 14989 => 15113
-  - [0x582C60, bin, levels/rnc_582C60] # 24634 => 24619                # RNC pack differs
-  - [0x588CA0, bin, levels/rnc_588CA0] # 18142 => 18168
-  - [0x58D380, bin, levels/rnc_58D380] # 17649 => 17687
-  - [0x591880, bin, levels/rnc_591880] # 20703 => 20723
-  - [0x596960, bin, levels/rnc_596960] # 42919 => 42851                # RNC pack differs
-  - [0x5A1110, bin, levels/rnc_5A1110] # 27893 => 27959
-  - [0x5A7E10, bin, levels/rnc_5A7E10] # 25689 => 25673                # RNC pack differs
-  - [0x5AE270, bin, levels/rnc_5AE270] # 25239 => 25254
-  - [0x5B4510, bin, levels/rnc_5B4510] # 25166 => 25170
-  - [0x5BA760, bin, levels/rnc_5BA760] # 35876 => 35840                # RNC pack differs
-  - [0x5C3390, bin, levels/rnc_5C3390] # 22768 => 22768
-  - [0x5C8C80, bin, levels/rnc_5C8C80] # 31261 => 31243                # RNC pack differs
-  - [0x5D06A0, bin, levels/rnc_5D06A0] # 30668 => 30707
-  - [0x5D7E70, bin, levels/rnc_5D7E70] # 31350 => 31363
-  - [0x5DF8F0, bin, levels/rnc_5DF8F0] # 20684 => 20683                # RNC pack differs
-  - [0x5E49C0, bin, levels/rnc_5E49C0] # 26489 => 26494
-  - [0x5EB140, bin, levels/rnc_5EB140] # 30450 => 30443                # RNC pack differs
-  - [0x5F2840, bin, levels/rnc_5F2840] # 27591 => 27599
-  - [0x5F9410, bin, levels/rnc_5F9410] # 40441 => 40438                # RNC pack differs
-  - [0x603210, bin, levels/rnc_603210] # 16941 => 16966
-  - [0x607440, bin, levels/rnc_607440] # 29905 => 29917
+  - [0x546D00, bin, levels/SMASHING_START]
+  - [0x54F0D0, bin, levels/HAVE_A_NICE_DAY]
+  - [0x554E00, bin, levels/HONEYMOON_LAGOON]
+  - [0x55A390, bin, levels/THE_BATTERY_FARM]
+  - [0x560320, bin, levels/THE_ENGINE_ROOM]
+  - [0x567F00, bin, levels/FAT_BEAR_MOUNTAIN]
+  - [0x56CD00, bin, levels/ROCKY_HARD_PLACE]
+  - [0x572CC0, bin, levels/STINKY_SEWERS]
+  - [0x578D10, bin, levels/RAT_O_MATIC]
+  - [0x57F1D0, bin, levels/GIVE_A_DOG_A_BONUS]
+  - [0x582C60, bin, levels/SNOW_JOKE]
+  - [0x588CA0, bin, levels/ICE_N_EASY_DOES_IT]
+  - [0x58D380, bin, levels/PENGUIN_PLAYPEN]
+  - [0x591880, bin, levels/PINBALL_BLIZZARD]
+  - [0x596960, bin, levels/HOPPA_CHOPPA]
+  - [0x5A1110, bin, levels/SOMETHING_FISHY]
+  - [0x5A7E10, bin, levels/WALRACE_64]
+  - [0x5AE270, bin, levels/JUNGLE_JAPES]
+  - [0x5B4510, bin, levels/JUNGLE_DOLDRUMS]
+  - [0x5BA760, bin, levels/SWAMP_OF_ETERNAL_STENCH]
+  - [0x5C3390, bin, levels/WEIGHT_FOR_IT]
+  - [0x5C8C80, bin, levels/JUNGLE_JUMPS]
+  - [0x5D06A0, bin, levels/EVOS_ESCAPE]
+  - [0x5D7E70, bin, levels/FUN_IN_THE_SUN]
+  - [0x5DF8F0, bin, levels/HOT_CROSS_BUNS]
+  - [0x5E49C0, bin, levels/STING_IN_THE_TAIL]
+  - [0x5EB140, bin, levels/BORASSIC_PARK]
+  - [0x5F2840, bin, levels/WHIRLWIND_TOUR]
+  - [0x5F9410, bin, levels/SHIFTING_SANDS]
+  - [0x603210, bin, levels/PUNCHUP_PYRAMID]
+  - [0x607440, bin, levels/BIG_CELEBRATION_PARADE]
   - [0x60E920, bin, levels/rnc_60E920] # 5795 => 5889
   - [0x60FFD0, bin, levels/rnc_60FFD0] # 1227 => 1413
   - [0x6104A0, bin, levels/rnc_6104A0] # 1322 => 1513
-  - [0x6109D0, bin, levels/rnc_6109D0] # 25055 => 25120
-  - [0x616BB0, bin, levels/rnc_616BB0] # 4212 => 4332   # level 36
+  - [0x6109D0, bin, levels/rnc_6109D0] # 25055 => 25120 # no animals... credits?
+  - [0x616BB0, bin, levels/INTRO]
   ## language files (matches EU ROM from here..)
   - [0x617C30, rnc, lang/lang1.dat]
   - [0x61A4A0, rnc, lang/lang2.dat]
@@ -3695,7 +3696,6 @@ segments:
     - [0x7B9940] # end of vtx
     - [0x7B99F0, bin] # overlay2_725D10 data?
     - [0x7B9BD8, .data, data/objects_7B9BD8] # 0x9C objects x 247  # rodata overlay2_72C680
-    # - [0x7B9BD8, bin]
     - [0x7C325C, bin] # end of objects
     - [0x7C5F38, bin] # husky texture 1? 16x16 ci
     - [0x7C5FB8, bin] # husky texture 2?
@@ -3705,7 +3705,7 @@ segments:
     - [0x7C74E0, bin]
     - [0x7C76B0, .data, sssv/credits]
     - [0x7C7960, bin]
-    - [0x7C79D0, rodata, unk_7C79D0]
+    - [0x7C79D0, .data, sssv/terminal_background]
     - [0x7C7B00, bin]
     - [0x7C7CB8, bin] # displaylist
     - [0x7C7D68, bin] # displaylist
@@ -3726,7 +3726,8 @@ segments:
     - [0x7CAB80, rgba16, img/butterfly2a.rgba16, 32, 32]
     - [0x7CB380, rgba16, img/butterfly2b.rgba16, 32, 32]
     - [0x7CBB80, rgba16, img/butterfly2c.rgba16, 32, 32]
-    - [0x7CC380, rodata, overlay2_6A7A80]
+    - [0x7CC380, .rodata, overlay2_6A7A80]
+    - [0x7CC3B0, rodata, overlay2_6A7A80]
     - [0x7CC3C0, rodata, overlay2_6ACF20]
     - [0x7CC470, rodata, overlay2_6B5380]
     - [0x7CD454, .rodata, overlay2_6B5380]
@@ -3760,7 +3761,8 @@ segments:
     - [0x7CE7D0, .rodata, overlay2_725D10]
     - [0x7CE804, rodata, overlay2_725D10]
     - [0x7CEB70, rodata, overlay2_72B100_tmp] # FIXME force some alignment
-    - [0x7CEBA0, rodata, overlay2_72B100]
+    - [0x7CEBA0, .rodata, overlay2_72B100]
+    - [0x7CEBC8, rodata, overlay2_72B100]
     - [0x7CEBE0, bin] # FIXME alignment goes wrong around here
     - [0x7CED50, rodata, overlay2_72B100_cont]
     - [0x7CEF60, rodata, overlay2_72C680]
@@ -3806,7 +3808,8 @@ segments:
     - [0x7D0B70, .rodata, sssv/credits]
     - [0x7D1150, .rodata, sssv/cheats]
     - [0x7D1210, .rodata, overlay2_79DE10]
-    - [0x7D1220, rodata, sssv/terminal_background]
+    - [0x7D1220, .rodata, sssv/terminal_background]
+    - [0x7D1688, rodata, sssv/terminal_background]
     - [0x7D1840, rodata, overlay2_7A0DA0]
     - [0x7D19E0, .rodata, overlay2_7A0DA0]
     - [0x7D19F8, rodata, overlay2_7A0DA0_cont]

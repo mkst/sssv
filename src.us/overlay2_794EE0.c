@@ -1880,9 +1880,9 @@ void func_803899E0_79B090(Animal *arg0) {
 
     if (arg0->unk6C == NULL) {
         if (arg0->unk160 == 2) {
-            phi_v0 = D_803E1D3B[D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk3].unk0;
+            phi_v0 = D_803E1D3B[D_803C0740[arg0->xPos >> 6][arg0->zPos >> 6].unk3].unk0;
         } else {
-            phi_v0 = D_803E1D3B[D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk2].unk0;
+            phi_v0 = D_803E1D3B[D_803C0740[arg0->xPos >> 6][arg0->zPos >> 6].unk2].unk0;
         }
         if (phi_v0 != arg0->unk4C.unk16) {
             if (phi_v0 < arg0->unk4C.unk16) {

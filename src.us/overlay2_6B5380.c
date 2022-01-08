@@ -53,8 +53,8 @@ void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2) {
 }
 
 void func_802A3F68_6B5618(s32 *arg0, s32 *arg1) {
-    *arg0 += ((((D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 & 0xF0) >> 4) & 7) * (1 - (((D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 >> 4) & 8) >> 2))) << 17;
-    *arg1 += (((D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 & 7) & 0xFFFF) * (1 - ((D_803C0740_7D1DF0[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 & 8) >> 2))) << 17;
+    *arg0 += ((((D_803C0740[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 & 0xF0) >> 4) & 7) * (1 - (((D_803C0740[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 >> 4) & 8) >> 2))) << 17;
+    *arg1 += (((D_803C0740[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 & 7) & 0xFFFF) * (1 - ((D_803C0740[D_803D5530->xPos >> 6][D_803D5530->zPos >> 6].unk7 & 8) >> 2))) << 17;
 }
 
 void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
@@ -63,7 +63,7 @@ void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
     s32 temp_a2;
 
     temp_v0 = arg0->xVelocity.w;
-    temp_a2 = D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk7;
+    temp_a2 = D_803C0740[arg0->xPos >> 6][arg0->zPos >> 6].unk7;
     temp_v1 = arg0->zVelocity.w;
 
     temp_v0 = temp_v0 - (((1 - (((temp_a2 >> 4) & 8) >> 2)) * (((temp_a2 & 0xF0) >> 4) & 7)) << 17);
@@ -232,10 +232,10 @@ void func_802A459C_6B5C4C(u16 rotation, s8 arg1) {
 //     if ((animal == NULL) && ((xVel != 0) || (zVel != 0))) {
 //         if (phi_v1 == 2) {
 //             // phi_v0 = ((*(&D_803C0743 + (((xPos >> 6) * 0x408) + ((zPos >> 6) * 8))) * 0xC) + 0x803E0000)->unk1D30;
-//             phi_v0 = D_803E1D30[D_803C0740_7D1DF0[xPos >> 6][zPos >> 6].unk3 * 12];
+//             phi_v0 = D_803E1D30[D_803C0740[xPos >> 6][zPos >> 6].unk3 * 12];
 //         } else {
 //             // phi_v0 = *(&D_803E1D30 + (*(&D_803C0742 + (((xPos >> 6) * 0x408) + ((zPos >> 6) * 8))) * 0xC));
-//             phi_v0 = D_803E1D30[D_803C0740_7D1DF0[xPos >> 6][zPos >> 6].unk2 * 12];
+//             phi_v0 = D_803E1D30[D_803C0740[xPos >> 6][zPos >> 6].unk2 * 12];
 //         }
 //
 //         if (phi_v0 == 0) {
@@ -1995,10 +1995,10 @@ void func_802B2834_6C3EE4(void) {
     a = D_803D5530->xPos >> 6;
     b = D_803D5530->zPos >> 6;
 
-    if ((D_803C0740_7D1DF0[a + 0][b + 0].unk6) ||
-        (D_803C0740_7D1DF0[a + 1][b + 0].unk6) ||
-        (D_803C0740_7D1DF0[a + 0][b + 1].unk6) ||
-        (D_803C0740_7D1DF0[a + 1][b + 1].unk6)) {
+    if ((D_803C0740[a + 0][b + 0].unk6) ||
+        (D_803C0740[a + 1][b + 0].unk6) ||
+        (D_803C0740[a + 0][b + 1].unk6) ||
+        (D_803C0740[a + 1][b + 1].unk6)) {
 
         if (D_803D5524->unkA0 & 0xC00) {
             phi_a2 = D_803D5524->unkBA;
@@ -2256,7 +2256,7 @@ void func_802B356C_6C4C1C(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
 
     arg1 <<= 4;
 
-    if ((arg0->unk4C.unk26 != 0) || (arg0->unk4A != 0) || (arg0->unk16C->unk8B == 0xFF)) {
+    if ((arg0->unk4C.unk26 != 0) || (arg0->unk4A != 0) || (arg0->unk16C->armour == 0xFF)) {
         arg1 = 0;
     }
 
@@ -2339,7 +2339,7 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3) {
     if ((arg0->unk4C.unk26 != 0) || (arg0->unk4A != 0)) {
         arg1 = 0;
     }
-    if (arg0->unk16C->unk8B == 0xFF) {
+    if (arg0->unk16C->armour == 0xFF) {
         arg1 = 0;
     }
     phi_a2 = arg1;

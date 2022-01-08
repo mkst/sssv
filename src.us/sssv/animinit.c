@@ -96,7 +96,7 @@ void load_data_section(u8 arg0) {
     }
 }
 
-void func_80380490_791B40(Gfx **arg0, s32 arg1) {
+void func_80380490_791B40(Gfx **arg0, DisplayList *arg1) {
     switch (D_803F2D70) {
     case 5:
         gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E5C));

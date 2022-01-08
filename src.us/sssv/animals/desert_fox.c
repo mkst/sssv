@@ -134,7 +134,7 @@ void func_803747CC_785E7C(void) {
 //             temp_t0 = (phi_s2 * 16) + &D_803F2F08;
 //             temp_t5 = (D_803D5544 - temp_t0->unkE) & 0xFFFF;
 //             if (temp_t5 >= 401) {
-//                 if (D_803F2D50.unk20 == 1) {
+//                 if (D_803F2D50.biome == 1) {
 //                     gDPSetEnvColor(D_801D9E90++, 0, 0, 100, 500 - temp_t5);
 //                 } else {
 //                     gDPSetEnvColor(D_801D9E90++, 0, 0, 0, 500 - temp_t5);
@@ -143,7 +143,7 @@ void func_803747CC_785E7C(void) {
 //                     D_803B4F34 -= 1;
 //                 }
 //             } else {
-//                 if (D_803F2D50.unk20 == 1) {
+//                 if (D_803F2D50.biome == 1) {
 //                     gDPSetEnvColor(D_801D9E90++, 0, 0, 65, 100);
 //                 } else {
 //                     gDPSetEnvColor(D_801D9E90++, 0, 0, 0, 100);

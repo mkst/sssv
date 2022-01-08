@@ -133,7 +133,7 @@ u8 language_select_menu(s16 arg0) {
         } else {
             set_menu_text_color(128, 128, 128, 255);
         }
-        display_text(&D_801D9E7C, D_803B0400[lang], 160, verticalOffset, 16.0f, 16.0f);
+        display_text_centered(&D_801D9E7C, D_803B0400[lang], 160, verticalOffset, 16.0f, 16.0f);
         verticalOffset += 16;
     }
 

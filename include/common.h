@@ -4,6 +4,10 @@
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
 
+#define MAX_INT                0x7FFFFFFF
+// DMA's interpretation of PI...
+#define SSSV_PI                3.141579
+
 #define MAX_EUROPE_ANIMALS     19
 #define MAX_ICE_ANIMALS        11
 #define MAX_DESERT_ANIMALS     8
@@ -83,7 +87,7 @@
 #define TILESET_ASCII_OFFSET    272
 #define TILESET_ZERO (TILESET_ASCII_OFFSET + '0')
 #define TILESET_NINE (TILESET_ASCII_OFFSET + '9')
-
+#define TILESET_SPACE           (TILESET_ASCII_OFFSET + ' ')
 #define TEXT_CONTROL_CHAR       336
 #define TEXT_TIMER              343
 #define TEXT_COLOR              339

@@ -123,7 +123,7 @@ void func_802CB180_6DC830(Animal *arg0) {
         s16 temp_t7;
         s16 xPos = arg0->xPos >> 6;
         s16 zPos = arg0->zPos >> 6;
-        temp_t7 = D_803C0740_7D1DF0[xPos][zPos].unk6 << 2;
+        temp_t7 = D_803C0740[xPos][zPos].unk6 << 2;
 
         if (temp_t7 < arg0->yPos) {
             phi_a1 = 0;
@@ -138,21 +138,21 @@ void func_802CB180_6DC830(Animal *arg0) {
         tmp = (s8)((arg0->unk4C.pad0 * phi_a1) >> 6);
         if (tmp >= (arg0->unk4C.pad8 + 3)) {
             arg0->unk4C.pad8++;
-            if (D_803C0740_7D1DF0[xPos][zPos].unk6) {
-                D_803C0740_7D1DF0[xPos][zPos].unk6++;
+            if (D_803C0740[xPos][zPos].unk6) {
+                D_803C0740[xPos][zPos].unk6++;
             } else {
-                D_803C0740_7D1DF0[xPos][zPos].unk6 = (D_803C0740_7D1DF0[xPos][zPos].unk0 << 1) + 1;
+                D_803C0740[xPos][zPos].unk6 = (D_803C0740[xPos][zPos].unk0 << 1) + 1;
             }
             if (func_80298E08_6AA4B8(xPos + 1, zPos)) {
                 arg0->unk4C.pad8++;
-                if (D_803C0740_7D1DF0[xPos + 1][zPos].unk6) {
-                    D_803C0740_7D1DF0[xPos + 1][zPos].unk6++;
+                if (D_803C0740[xPos + 1][zPos].unk6) {
+                    D_803C0740[xPos + 1][zPos].unk6++;
                 }
             }
             if (func_80298E08_6AA4B8(xPos, zPos + 1)) {
                 arg0->unk4C.pad8++;
-                if (D_803C0740_7D1DF0[xPos][zPos + 1].unk6) {
-                    D_803C0740_7D1DF0[xPos][zPos + 1].unk6++;
+                if (D_803C0740[xPos][zPos + 1].unk6) {
+                    D_803C0740[xPos][zPos + 1].unk6++;
                 }
             }
         }

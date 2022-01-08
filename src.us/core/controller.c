@@ -39,7 +39,7 @@ u16 func_8012826C(void) {
 }
 
 // is this some pseudo-random number generator?
-void func_801282C4(void) {
+s32 func_801282C4(void) {
     func_8012826C();
     func_8012826C();
     func_8012826C();
