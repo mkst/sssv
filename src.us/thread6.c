@@ -49,7 +49,7 @@ void thread6(s32 arg0) {
     if (init_controllers() <= 0) {
         // if no controllers connected
         D_802912D0 = 0;
-        gControllerConnected = 0; // gControllerConnected
+        gControllerConnected = 0;
         D_80204270 = 1;
     } else {
         D_802912D0 = 1;
@@ -301,7 +301,7 @@ void no_controller_message(void) {
         select_font(0, FONT_DEFAULT, 0, 0);
         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         // "CONTROLLER NOT CONNECTED" text
-        display_text(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
+        display_text_centered(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
         gDPPipeSync(D_801D9E7C++);
     }
 }

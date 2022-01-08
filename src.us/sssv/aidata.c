@@ -25,8 +25,8 @@ s16 func_802EA3E0_6FBA90(u16 X, u16 Y) {
         return 2;
     }
 
-    if ((D_801D9ED8.unk0[(s32)X - OB_TYPE_ANIMAL_OFFSET].unkD6 != D_803F2D70) ||
-        (D_801D9ED8.unk0[(s32)Y - OB_TYPE_ANIMAL_OFFSET].unkD6 != D_803F2D70)) {
+    if ((D_801D9ED8.unk0[(s32)X - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D70) ||
+        (D_801D9ED8.unk0[(s32)Y - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D70)) {
         return 0;
     }
 

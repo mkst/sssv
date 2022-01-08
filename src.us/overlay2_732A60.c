@@ -25,11 +25,11 @@ void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2) {
         arg0->unk4C.unk25 = 1;
         arg0->unk160 = D_803D5530->unk160;
         if (arg0->unk160 != 0) {
-            if (((arg0->unk160 == 1) || (arg0->unk160 == 2)) && (D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk3 == 0)) {
+            if (((arg0->unk160 == 1) || (arg0->unk160 == 2)) && (D_803C0740[arg0->xPos >> 6][arg0->zPos >> 6].unk3 == 0)) {
                 arg0->unk160 = 0U;
             }
         } else {
-            if (D_803C0740_7D1DF0[arg0->xPos >> 6][arg0->zPos >> 6].unk3 != 0) {
+            if (D_803C0740[arg0->xPos >> 6][arg0->zPos >> 6].unk3 != 0) {
                 if ((func_80310F58_722608(arg0->xPos, arg0->zPos) >> 0x10) < arg0->yPos) {
                     arg0->unk160 = 2U;
                 } else {

@@ -301,7 +301,7 @@ void func_8034BB38_75D1E8(u8 arg0) {
         if ((D_803D552C->unk36C != 0)) {
             D_803D552C->unk36C--;
             if ((func_8012826C() & 0x1F) == 17) {
-                s16 tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740_7D1DF0[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
+                s16 tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
                 if (tmp > 10) {
                     create_particle_effect(
                         D_803D5530->xPos,

@@ -30,7 +30,7 @@ void func_802FED68_710418(struct071 *arg0, struct071 *arg1, s16 arg2, s16 arg3, 
 //         if (D_803A52C0 == 0) {
 //             D_80151434 = (u16)0xB57; // 2903?
 //             func_8012822C(1); // set time to 1
-//             switch (D_803F2D50.unk20) {
+//             switch (D_803F2D50.biome) {
 //             case 0:
 //                 D_803E1BD4 = &D_803B1F20_7C35D0;
 //                 break;
@@ -851,10 +851,10 @@ void func_802FC5C0_70DC70(Animal *arg0) {
     s16 phi_a1;
     s32 phi_v1;
 
-    phi_v1 = MAX(MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
 
     if (arg0->yPos < (phi_v1 * 4)) {
         phi_a1 = 40;
@@ -868,10 +868,10 @@ void func_802FC6E4_70DD94(Animal *arg0) {
     s16 phi_a1;
     s32 phi_v1;
 
-    phi_v1 = MAX(MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740_7D1DF0[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740_7D1DF0[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
 
     if (arg0->yPos < (phi_v1 * 4)) {
         phi_a1 = 104;
@@ -946,7 +946,7 @@ void func_802FD190_70E840(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4) {
 
     for (i = 0; i <= arg2; i++) {
         for (j = 0; j <= arg3; j++) {
-            D_803C0740_7D1DF0[arg0 + i][arg1 + j].unk0 = arg4;
+            D_803C0740[arg0 + i][arg1 + j].unk0 = arg4;
         }
     }
 
@@ -958,7 +958,7 @@ void func_802FD26C_70E91C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4) {
 
     for (i = 0; i <= arg2; i++) {
         for (j = 0; j <= arg3; j++) {
-            D_803C0740_7D1DF0[arg0 + i][arg1 + j].unk6 = arg4;
+            D_803C0740[arg0 + i][arg1 + j].unk6 = arg4;
         }
     }
 

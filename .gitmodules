@@ -12,7 +12,7 @@
 	url = https://github.com/simonlindholm/decomp-permuter.git
 [submodule "tools/rnc_propack_source"]
 	path = tools/rnc_propack_source
-	url = https://github.com/lab313ru/rnc_propack_source.git
+	url = https://github.com/mkst/rnc_propack_source.git
 [submodule "tools/mips_to_c"]
 	path = tools/mips_to_c
 	url = https://github.com/matt-kempster/mips_to_c.git

@@ -943,6 +943,7 @@ void func_80391A38_7A30E8(void) {
     }
 }
 
+// displaylists
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80391C90_7A3340.s")
 
 void func_803925D0_7A3C80(u16 *src, u16 *dst) {
@@ -974,7 +975,7 @@ void func_8039264C_7A3CFC(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80392668_7A3D18.s")
 
 #if 0
-// calls to func_8012FBEC are junk
+// calls to display_text_wrapped are junk
 void load_mission_brief_screen(s16 vertical_offset) {
     s16 is_first_line; // spA2
     u8  sp8C[24];
@@ -997,6 +998,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
 
     vertical_offset += 52;
 
+
     D_803B6868_7C7F18 = 12.0f;  // char width
     D_803B686C_7C7F1C = 13.0f;  // char height
 
@@ -1011,7 +1013,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
     // print title e.g. "Have a Nice Day!"
     select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-    vertical_offset = func_8012FBEC(D_801D9E98, D_803F2E34, 23, vertical_offset, 16.0f, 16.0f, 296, 14);
+    vertical_offset = display_text_wrapped(D_801D9E98, D_803F2E34, 23, vertical_offset, 16.0f, 16.0f, 296, 14);
     vertical_offset += 24;
 
     select_font(0, FONT_COMIC_SANS, 0, 0);
@@ -1020,7 +1022,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
         // load mission task text
         mission_brief_text = &D_803F34C0[D_803F3330[i]];
         // reset horizontal offset
-            horizontal_offset = 23;
+        horizontal_offset = 23;
         if (mission_brief_text[0] == 307) {
             if (mission_brief_text[1] == 307) { // <MISSION_OBJECTIVE>
                 horizontal_offset = 43;
@@ -1035,7 +1037,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
                     sprintf((char*)sp8C, D_803C0190_7D1840, 93);
                     prepare_text(sp8C, sp64);
                     // FIXME!
-                    vertical_offset = func_8012FBEC(D_801D9E98, sp64, 23, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
+                    vertical_offset = display_text_wrapped(D_801D9E98, sp64, 23, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
                     // dark YELLOW for task text
                     set_menu_text_color(120, 120, 0, 0xFF);
                 } else {
@@ -1044,7 +1046,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
                     sprintf((char*)sp8C, D_803C0194_7D1844, 94);
                     prepare_text(sp8C, sp64);
                     // FIXME
-                    vertical_offset = func_8012FBEC(D_801D9E98, sp64, 23, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
+                    vertical_offset = display_text_wrapped(D_801D9E98, sp64, 23, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
                 }
                 tasks += 1;
             }
@@ -1052,7 +1054,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
                 set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
             }
             // write out task e.g. "Get FOUR sheep into the pen"
-            vertical_offset = func_8012FBEC(D_801D9E98, &mission_brief_text[2], horizontal_offset, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
+            vertical_offset = display_text_wrapped(D_801D9E98, &mission_brief_text[2], horizontal_offset, vertical_offset, D_803B686C_7C7F1C, D_803B6868_7C7F18, D_803B686C_7C7F1C, 0);
             vertical_offset += D_803B686C_7C7F1C + 2.0f;
         }
     }
@@ -1287,7 +1289,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         set_menu_text_color(160, 160, 160, 0xFF);
         if (D_803F7DD5 != 31) {
             // write level title
-            display_text(&D_801D9E7C, D_803F2E34, 160, 208, 16.0f, 16.0f);
+            display_text_centered(&D_801D9E7C, D_803F2E34, 160, 208, 16.0f, 16.0f);
         }
         gDPPipeSync(D_801D9E7C++);
 
@@ -1299,7 +1301,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             set_menu_text_color(0x80, 0x80, 0x80, alpha);
         }
 
-        display_text(&D_801D9E7C, get_message_address_by_id(MSG_CONTINUE), 94, vertical_offset, font_width, 16.0f);
+        display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_CONTINUE), 94, vertical_offset, font_width, 16.0f);
         vertical_offset += 18;
 
         if ((D_803F7DD5 != 30) && (D_803F7DD5 != 31)) {
@@ -1308,14 +1310,14 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             } else {
                 set_menu_text_color(0x80, 0x80, 0x80, alpha);
             }
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_MISSION_BRIEF2), 94, vertical_offset, font_width, 16.0f);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_MISSION_BRIEF2), 94, vertical_offset, font_width, 16.0f);
             vertical_offset += 18;
         }
 
         if (D_803F6680.unk14 == PAUSE_MENU_OPTION_REPLAY_ZONE) {
             if (D_803F6680.unk35 == 0) { // if cancel/confirm not active
                 set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_REPLAY_ZONE), 94, vertical_offset, font_width, 16.0f);
+                display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_REPLAY_ZONE), 94, vertical_offset, font_width, 16.0f);
                 vertical_offset += 18;
             } else {
                 if (D_803F6680.unk36 == 0) { // cancel active
@@ -1323,7 +1325,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 } else {
                     set_menu_text_color(0x80, 0x80, 0x80, alpha);
                 }
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
 
                 if (D_803F6680.unk36 == 1) { // confirm active
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
@@ -1335,13 +1337,13 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             }
         } else {
             set_menu_text_color(0x80, 0x80, 0x80, alpha);
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_REPLAY_ZONE), 94, vertical_offset, font_width, 16.0f);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_REPLAY_ZONE), 94, vertical_offset, font_width, 16.0f);
             vertical_offset += 18;
         }
         if (D_803F6680.unk14 == PAUSE_MENU_OPTION_EXIT_ZONE) {
             if (D_803F6680.unk31 == 0) {
                 set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_EXIT_ZONE), 94, vertical_offset, font_width, 16.0f);
+                display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_EXIT_ZONE), 94, vertical_offset, font_width, 16.0f);
                 vertical_offset += 18;
             } else {
                 if (D_803F6680.unk32 == 0) {
@@ -1349,7 +1351,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 } else {
                     set_menu_text_color(0x80, 0x80, 0x80, alpha);
                 }
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
 
                 if (D_803F6680.unk32 == 1) {
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
@@ -1361,7 +1363,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             }
         } else {
             set_menu_text_color(0x80, 0x80, 0x80, alpha);
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_EXIT_ZONE), 94, vertical_offset, font_width, 16.0f);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_EXIT_ZONE), 94, vertical_offset, font_width, 16.0f);
             vertical_offset += 18;
         }
         if (D_803F6680.unk14 == PAUSE_MENU_OPTION_MUSIC) {
@@ -1374,7 +1376,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         // fill out "|"
         sp174[D_8023F2A0.musicVol + 2] = '>';
         prepare_text(sp174, spFC);
-        display_text(&D_801D9E7C, spFC, 94, vertical_offset, 16.0f, 16.0f);
+        display_text_centered(&D_801D9E7C, spFC, 94, vertical_offset, 16.0f, 16.0f);
         vertical_offset += 18;
 
         if (D_803F6680.unk14 == PAUSE_MENU_OPTION_SFX) {
@@ -1387,7 +1389,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         // fill out "|"
         sp174[D_8023F2A0.sfxVol + 2] = '>';
         prepare_text(sp174, spFC);
-        display_text(&D_801D9E7C, spFC, 94, vertical_offset, 16.0f, 16.0f);
+        display_text_centered(&D_801D9E7C, spFC, 94, vertical_offset, 16.0f, 16.0f);
         vertical_offset += 18;
 
         // show "language" menu if not US ROM
@@ -1399,21 +1401,21 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             }
             // "%d"
             sprintf((char*)sp174, D_803C01C8_7D1878, D_8023F2A0.language);
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_LANGUAGE), 94, vertical_offset, font_width, 16.0f);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_LANGUAGE), 94, vertical_offset, font_width, 16.0f);
             vertical_offset += 18;
         }
 
         if (D_803F6680.unk14 == PAUSE_MENU_OPTION_LEAVE_SV) {
             if (D_803F6680.unk33 == 0) {
                 set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_LEAVE_SV), 94, vertical_offset, font_width, 16.0f);
+                display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_LEAVE_SV), 94, vertical_offset, font_width, 16.0f);
             } else {
                 if (D_803F6680.unk34 == 0) {
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
                 } else {
                     set_menu_text_color(0x80, 0x80, 0x80, alpha);
                 }
-                func_8012DEF8(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
+                display_text(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
 
                 if (D_803F6680.unk34 == 1) {
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
@@ -1424,7 +1426,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             }
         } else {
             set_menu_text_color(0x80, 0x80, 0x80, alpha);
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_LEAVE_SV), 94, vertical_offset, font_width, 16.0f);
+            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_LEAVE_SV), 94, vertical_offset, font_width, 16.0f);
         }
 
         if (((gControllerInput->stick_y > 50) || (gControllerInput->button & CONT_UP) || (gControllerInput->button & U_CBUTTONS)) &&

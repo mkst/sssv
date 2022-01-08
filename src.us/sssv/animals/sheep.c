@@ -59,7 +59,7 @@ void func_80362618_773CC8(void) {
     }
     if (D_803D552C->skillAEnergy[0] < 15) {
         if (D_803D552C->unk365 != ATTACK_SHEEP_FLOAT) {
-            tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740_7D1DF0[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
+            tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
             if (tmp > 96) {
                 D_803D552C->unk365 = ATTACK_SHEEP_FLOAT;
                 D_803D552C->unk32A = D_803D5544;

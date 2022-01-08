@@ -9,8 +9,8 @@
 // void func_802C85EC_6D9C9C(void) {
 //     Animal *temp_v0;
 //
-//     if (D_803F2D50.unk1A != 61) {
-//         D_803E9824 = D_803F2D50.unk1A;
+//     if (D_803F2D50.animalId != EVO_MICROCHIP) {
+//         D_803E9824 = D_803F2D50.animalId;
 //         D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
 //         D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
 //         gCurrentAnimalIndex = D_803D553E;

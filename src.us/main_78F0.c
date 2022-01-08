@@ -95,8 +95,8 @@ Gfx D_80154628[] = {
     gsSPEndDisplayList(),
 };
 
-void load_default_display_list(Gfx **arg0) {
-    gSPDisplayList((*arg0)++, D_80154628);
+void load_default_display_list(Gfx **dl) {
+    gSPDisplayList((*dl)++, D_80154628);
 }
 
 // does not appear to be used for cutscenes
@@ -107,9 +107,9 @@ void set_menu_text_color(u8 r, u8 g, u8 b, u8 a) {
     D_8023F1F3 = a; // textColorA
 }
 
-void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
+void select_font(u8 arg0, u8 fontType, u8 shadow, u8 arg3) {
     D_8023F1F4 = arg0;
-    D_8023F1F5 = arg2;
+    D_8023F1F5 = shadow;
     if (fontType == FONT_LCD) {
         select_lcd_font();
     } else {
@@ -120,22 +120,22 @@ void select_font(u8 arg0, u8 fontType, u8 arg2, u8 arg3) {
 void select_comic_sans_font(void) {
     D_8023F1E0.unk0 = D_80154370;
     D_8023F1E0.fontAddress = _fontbufferSegmentStart;
-    D_8023F1E0.unk8 = 16; // width?
-    D_8023F1E0.unk9 = 16; // height?
-    D_8023F1E0.unkA = 4;  // color bitdepth?
+    D_8023F1E0.width = 16; // width?
+    D_8023F1E0.height = 16; // height?
+    D_8023F1E0.bits = 4;  // color bitdepth?
     D_8023F1E0.glyphBytes = 128; // 16*16*0.5
 }
 
 void select_lcd_font(void) {
     D_8023F1E0.fontAddress = D_80158550; // 7-segment display font
-    D_8023F1E0.unk8 = 16; // width?
-    D_8023F1E0.unk9 = 16; // height?
-    D_8023F1E0.unkA = 16; // color bitdepth?
+    D_8023F1E0.width = 16;
+    D_8023F1E0.height = 16;
+    D_8023F1E0.bits = 16; // color bitdepth?
     D_8023F1E0.glyphBytes = 512; // 16*16*2
 }
 
 s16 func_8012C314(f32 arg0) {
-    f32 a = arg0 / D_8023F1E0.unk8;
+    f32 a = arg0 / D_8023F1E0.width;
     s16 res = D_8023F1F8 * a;
     return res;
 }
@@ -150,30 +150,30 @@ u8 convert_text_to_int(s16 *arg0) {
     return ret;
 }
 
-// get_message_length?
-s16 func_8012C3D8(s16 *arg0) {
+// get_message_width?
+s16 func_8012C3D8(s16 *text) {
     u16 res = 0;
     s16 time[4];
     char spFC[80];
     s16 sp5C[80];
     s16 tmp;
 
-    while (*arg0 != EOM) {
-        tmp = *arg0;
-        if (*arg0 == TEXT_CONTROL_CHAR) {
-            arg0 += 1;
-            if (*arg0 == TEXT_TIMER) {
+    while (*text != EOM) {
+        tmp = *text;
+        if (*text == TEXT_CONTROL_CHAR) {
+            text += 1;
+            if (*text == TEXT_TIMER) {
                 // parse timer text
-                time[0] = arg0[1];
-                time[1] = arg0[2];
+                time[0] = text[1];
+                time[1] = text[2];
                 time[2] = EOM;
 
                 sprintf(spFC, "%d", D_8023F206[convert_text_to_int(time)]);
                 prepare_text((u8*)spFC, sp5C);
                 res += func_8012C3D8(sp5C);
-                arg0 += 3;
-            } else if (*arg0 == TEXT_COLOR) {
-                arg0 += 2;
+                text += 3;
+            } else if (*text == TEXT_COLOR) {
+                text += 2;
             }
         } else {
             switch (D_8023F1F4) {
@@ -191,23 +191,23 @@ s16 func_8012C3D8(s16 *arg0) {
                 res += D_8023F1F8;
                 break;
             }
-            arg0 += 1;
+            text += 1;
         }
     }
     return res;
 }
 
-s32 func_8012C678(s16 *arg0, u16 x, u16 y) {
+s32 func_8012C678(s16 *text, u16 x, u16 y) {
     u8  spD8[80];
     s16 sp30[84];
 
     u8 i;
     s16 num = 0;
 
-    if (*arg0 == TEXT_CONTROL_CHAR) {
-        if (*++arg0 == TEXT_TIMER) {
-            sp30[0] = *++arg0;
-            sp30[1] = *++arg0;
+    if (*text == TEXT_CONTROL_CHAR) {
+        if (*++text == TEXT_TIMER) {
+            sp30[0] = *++text;
+            sp30[1] = *++text;
             sp30[2] = EOM;
 
             i = 0;
@@ -221,8 +221,8 @@ s32 func_8012C678(s16 *arg0, u16 x, u16 y) {
             return 1;
         }
         // change text color
-        if (*arg0 == TEXT_COLOR) {
-            switch (*++arg0) {
+        if (*text == TEXT_COLOR) {
+            switch (*++text) {
             case TEXT_COLOR_RED:
                 D_8023F1F0 = 200;
                 D_8023F1F1 = 40;
@@ -274,227 +274,223 @@ s32 func_8012C678(s16 *arg0, u16 x, u16 y) {
             }
             return 2;
         }
-    } else if (*arg0 == 20000) { // newline
+    } else if (*text == 20000) { // newline
         return 3;
     }
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_text.s")
-// NON-MATCHING: plenty to do
-// void display_text(Gfx **arg0, s16 *text, u16 x, u16 y, f32 width, f32 height) {
-//     s16 tmp;
-//     u16 temp_a3;
-//     s32 temp_s1_2;
-//     u16 temp_s2;
-//     s32 temp_s5_2;
-//     s32 temp_v0_2;
-//     s16 phi_s1;
-//     u16 phi_s4;
-//     // s16 phi_v0;
-//
-//     D_8023F1F8 = width;
-//     D_8023F1FC = height;
-//
-//     temp_s2 = func_8012C3D8(text) / 2;
-//
-//     phi_s1 = (x - temp_s2) + ((((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4) / 2);
-//
-//     gDPSetPrimColor((*arg0)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//     gDPSetEnvColor((*arg0)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//
-//     // load tile
-//     func_8012FA78(arg0);
-//
-//     phi_s4 = x;
-//
-//     while (*text != EOM) {
-//         switch (func_8012C678(text, phi_s1, y)) {
-//         case 0:
-//             phi_s4 += func_8012C3D8(D_8023F248);
-//             text += 4;
-//             break;
-//         case 1:
-//             gDPSetPrimColor((*arg0)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//             gDPSetEnvColor((*arg0)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//
-//             tmp = *text;
-//             D_8023F1E0.unk0 += tmp;
-//             load_glyph(arg0, tmp);
-//
-//             temp_a3 = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
-//
-//             // add drop shadow?
-//             if (D_8023F1F5 != 0) {
-//
-//                 gDPSetPrimColor((*arg0)++, 0, 0, 0, 0, 0, 255);
-//                 gDPSetEnvColor((*arg0)++, 0, 0, 0, 0);
-//
-//                 temp_v0_2 = (phi_s4 - temp_s2) + (temp_a3 / 2);
-//                 gSPTextureRectangle(
-//                     (*arg0)++,
-//                     (temp_v0_2 + 1),
-//                     (y + 1),
-//                     (temp_v0_2 + (s32) D_8023F1F8 + 1),
-//                     (y + (s32) D_8023F1FC + 1),
-//                     G_TX_LOADTILE,
-//                     0,
-//                     0,
-//                     (16384.0f / D_8023F1F8),
-//                     (16384.0f / D_8023F1FC)
-//                 );
-//
-//                 gDPSetPrimColor((*arg0)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//                 gDPSetEnvColor((*arg0)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//             }
-//
-//             temp_v0_2 = (phi_s4 - temp_s2)  + (temp_a3 / 2);
-//             gSPTextureRectangle(
-//                 (*arg0)++,
-//                 (temp_v0_2),
-//                 (y),
-//                 (temp_v0_2 + (s32) D_8023F1F8),
-//                 (y + (s32) D_8023F1FC),
-//                 G_TX_LOADTILE,
-//                 0,
-//                 0,
-//                 (16384.0f / D_8023F1F8),
-//                 (16384.0f / D_8023F1FC)
-//             );
-//
-//             switch (D_8023F1F4) {
-//             case 0:
-//                 phi_s4 += func_8012C314(*D_8023F1E0.unk0);
-//                 if (width < 14.0f) {
-//                     phi_s4 += 1;
-//                 }
-//                 break;
-//             case 1:
-//                 phi_s4 += D_8023F1F8;
-//                 break;
-//             }
-//
-//             D_8023F1E0.unk0 = (D_8023F1E0.unk0 - tmp);
-//             text += 1;
-//             // phi_s1 = (phi_s4 - sp74) + temp_s1_2;
-//             phi_s1 = (phi_s4 - temp_s2) + (temp_a3 / 2);
-//
-//             break;
-//         case 2:
-//             text += 3;
-//             break;
-//         default:
-//             text += 1;
-//             break;
-//         }
-//     }
-//
-//     gDPPipeSync((*arg0)++);
-// }
+void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
+    s16 chr;
+    s16 ypos;
+    s32 tmp_xpos;
+    s16 xpos;
+    u16 chr_width;
+    u16 msg_width;
+
+    s16 two = 2; // filth
+
+    D_8023F1F8 = width;
+    D_8023F1FC = height;
+
+    // calculate half the width of the text
+    msg_width = func_8012C3D8(text) / 2;
+
+    chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+    xpos = (x - msg_width) + (chr_width / 2);
+    ypos = y;
+
+    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+    // load tile
+    func_8012FA78(dl);
+
+    while (*text != EOM) {
+        switch (func_8012C678(text, xpos, ypos)) {
+        case 1: // timer
+            // increment xpos by length of timer text
+            x += func_8012C3D8(D_8023F248);
+            text += 4; // skip over 4 chars
+            break;
+        case 2: // color change
+            // no change to xpos
+            text += 3; // skip over 3 chars
+            break;
+        case 0: // regular character
+            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+            chr = *text;
+            D_8023F1E0.unk0 += chr;
+            load_glyph(dl, chr);
+
+            chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+
+            // add drop shadow?
+            if (D_8023F1F5) {
+
+                gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
+                gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
+
+                tmp_xpos = (x - msg_width) + (chr_width / 2);
+                gSPTextureRectangle(
+                    (*dl)++,
+                    (tmp_xpos + 1) << 2,
+                    (y + 1) << 2,
+                    ((tmp_xpos + 1) + (s32) D_8023F1F8) << 2,
+                    ((y + 1) + (s32) D_8023F1FC) << 2,
+                    G_TX_RENDERTILE,
+                    0,
+                    0,
+                    (16384.0f / D_8023F1F8),
+                    (16384.0f / D_8023F1FC)
+                );
+
+                gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            }
+
+            tmp_xpos = (x - msg_width) + (chr_width / two);
+            gSPTextureRectangle(
+                (*dl)++,
+                (tmp_xpos) << two,
+                (y) << two,
+                ((s32)tmp_xpos + (s32) D_8023F1F8) << two, // regalloc
+                (y + (s32) D_8023F1FC) << two,
+                G_TX_RENDERTILE,
+                0,
+                0,
+                (16384.0f / D_8023F1F8),
+                (16384.0f / D_8023F1FC)
+            );
+
+            switch (D_8023F1F4) {
+            case 0:
+                x += func_8012C314(*D_8023F1E0.unk0);
+                if (width < 14.0f) {
+                    x += 1;
+                }
+                break;
+            case 1:
+                x += D_8023F1F8;
+                break;
+            }
+
+            xpos = (x - msg_width) + (chr_width / 2);
+            text++;
+            D_8023F1E0.unk0 -= chr;
+            break;
+        case 3: // newline
+            // no change (not even to y?)
+            text++; // skip over 1 char
+            break;
+        }
+    }
+
+    gDPPipeSync((*dl)++);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012D374.s")
 
-void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height) {
+void draw_glyph(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     D_8023F1F8 = width;
     D_8023F1FC = height;
-    func_8012FA78(arg0);
-    load_glyph(arg0, *arg1);
+    func_8012FA78(dl);
+    load_glyph(dl, *text);
 
-    gSPTextureRectangle((*arg0)++, x * 4, y * 4, (x + (s32) D_8023F1F8) * 4, (y + (s32) D_8023F1FC) * 4, G_TX_RENDERTILE, 0, 0, 16384.0f / D_8023F1F8, 16384.0f / D_8023F1FC);
-    gDPPipeSync((*arg0)++);
+    gSPTextureRectangle((*dl)++, x * 4, y * 4, (x + (s32) D_8023F1F8) * 4, (y + (s32) D_8023F1FC) * 4, G_TX_RENDERTILE, 0, 0, 16384.0f / D_8023F1F8, 16384.0f / D_8023F1FC);
+    gDPPipeSync((*dl)++);
 }
 
-// write text to screen
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012DEF8.s")
-// NON-MATCHING: 60%
-// void func_8012DEF8(Gfx **arg0, s16 *text, u16 x, u16 y, f32 width, f32 height) {
-//     s16 msgLen;
-//     u16 temp_a3;
-//     u16 temp_a2;
-//     s16 phi_v0;
-//
-//
-//     D_8023F1F8 = width;
-//     D_8023F1FC = height;
-//
-//     gDPSetPrimColor((*arg0)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//     gDPSetEnvColor((*arg0)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//
-//     msgLen = func_8012C3D8(text);
-//     // load tile
-//     func_8012FA78(arg0);
-//
-//     while (*text != EOM) {
-//         phi_v0 = *text;
-//         D_8023F1E0.unk0 += *text;
-//         load_glyph(arg0, phi_v0);
-//
-//         temp_a3 = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
-//         if (D_8023F1F5 != 0) {
-//             gDPSetPrimColor((*arg0)++, 0, 0, 0, 0, 0, 255);
-//             gDPSetEnvColor((*arg0)++, 0, 0, 0, 0);
-//
-//             temp_a2 = (x - msgLen) + (temp_a3 / 2);
-//             gSPTextureRectangle(
-//                 (*arg0)++,
-//                 (temp_a2 + 1),
-//                 (y + 1),
-//                 (temp_a2 + 1 + (s32) D_8023F1F8),
-//                 (y + 1 + (s32) D_8023F1FC),
-//                 G_TX_LOADTILE,
-//                 0,
-//                 0,
-//                 (16384.0f / D_8023F1F8),
-//                 (16384.0f / D_8023F1FC)
-//                 );
-//
-//             gDPSetPrimColor((*arg0)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//             gDPSetEnvColor((*arg0)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//         }
-//
-//         temp_a2 = (x - msgLen) + (temp_a3 / 2);
-//         gSPTextureRectangle(
-//             (*arg0)++,
-//             (temp_a2),
-//             (y),
-//             (temp_a2 + (s32) D_8023F1F8),
-//             (y + (s32) D_8023F1FC),
-//             G_TX_LOADTILE,
-//             0,
-//             0,
-//             (16384.0f / D_8023F1F8),
-//             (16384.0f / D_8023F1FC)
-//             );
-//
-//         switch (D_8023F1F4) {
-//         case 0:
-//             x += func_8012C314(*D_8023F1E0.unk0);
-//             if (width < 14.0f) {
-//                 x += 1;
-//             }
-//             break;
-//         case 1:
-//             x += D_8023F1F8;
-//             break;
-//         }
-//
-//         D_8023F1E0.unk0 -= phi_v0;
-//         text += 1;
-//     }
-//
-//     gDPPipeSync((*arg0)++);
-// }
+void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
+    s16 chr;
+    s16 msg_width;
+    u16 chr_width;
 
-s32 func_8012E724(u16 *arg0, s32 arg1, s32 arg2) {
-    s16 tmp = *arg0;
-    if (tmp == TEXT_CONTROL_CHAR) {
-        tmp = *++arg0;
-        if (tmp == TEXT_TIMER) {
+    D_8023F1F8 = width;
+    D_8023F1FC = height;
+
+    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+    msg_width = func_8012C3D8(text);
+
+    // load tile
+    func_8012FA78(dl);
+
+    while (*text != EOM) {
+        chr = *text;
+        D_8023F1E0.unk0 += chr;
+        load_glyph(dl, chr);
+
+        chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+
+        // add drop shadow?
+        if (D_8023F1F5) {
+
+            gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
+            gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
+
+            gSPTextureRectangle(
+                (*dl)++,
+                ((s32)((x - msg_width) + (chr_width / 2)) + 1) << 2,
+                (y + 1) << 2,
+                (((s32)((x - msg_width) + (chr_width / 2)) + 1) + (s32) D_8023F1F8) << 2,
+                ((y + 1) + (s32) D_8023F1FC) << 2,
+                G_TX_RENDERTILE,
+                0,
+                0,
+                (16384.0f / D_8023F1F8),
+                (16384.0f / D_8023F1FC)
+                );
+
+            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+        }
+
+        gSPTextureRectangle(
+            (*dl)++,
+            ((s32)((x - msg_width) + (chr_width / 2))) << 2,
+            (y) << 2,
+            ((s32)((x - msg_width) + (chr_width / 2)) + (s32) D_8023F1F8) << 2,
+            (y + (s32) D_8023F1FC) << 2,
+            G_TX_RENDERTILE,
+            0,
+            0,
+            (16384.0f / D_8023F1F8),
+            (16384.0f / D_8023F1FC)
+            );
+
+        switch (D_8023F1F4) {
+        case 0:
+            x += func_8012C314(*D_8023F1E0.unk0);
+            if (width < 14.0f) {
+                x += 1;
+            }
+            break;
+        case 1:
+            x += D_8023F1F8;
+            break;
+        }
+
+        text++;
+        D_8023F1E0.unk0 -= chr;
+    }
+
+    gDPPipeSync((*dl)++);
+}
+
+s32 func_8012E724(s16 *text, s32 arg1, s32 arg2) {
+    if (*text == TEXT_CONTROL_CHAR) {
+        // next char
+        text++;
+        if (*text == TEXT_TIMER) {
             return 1;
-        } else if (tmp == TEXT_COLOR) {
+        } else if (*text == TEXT_COLOR) {
             return 2;
         }
-    } else if ((u16)tmp == NEWLINE) {
+    } else if ((*text & 0xFFFF) == NEWLINE) {
         return 3;
     }
     return 0;
@@ -507,10 +503,10 @@ s32 func_8012E724(u16 *arg0, s32 arg1, s32 arg2) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012F160.s")
 
-void func_8012FA78(Gfx **arg0) {
-    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE,   0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_4b,  1, 0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 60, 60);
+void func_8012FA78(Gfx **dl) {
+    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE,   0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b,  1, 0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 60, 60);
 }
 
 void func_8012FAD4(Gfx **dl, s32 arg1) {
@@ -520,183 +516,190 @@ void func_8012FAD4(Gfx **dl, s32 arg1) {
     gDPPipeSync((*dl)++);
 }
 
-void load_glyph(Gfx **arg0, s16 tileId) {
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (tileId * D_8023F1E0.glyphBytes + (s32)D_8023F1E0.fontAddress) & 0x1FFFFFFF);
-    gDPLoadSync((*arg0)++);
-    gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 63, 2048);
-    gDPPipeSync((*arg0)++);
+void load_glyph(Gfx **dl, s16 tileId) {
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (tileId * D_8023F1E0.glyphBytes + (s32)D_8023F1E0.fontAddress) & 0x1FFFFFFF);
+    gDPLoadSync((*dl)++);
+    gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 63, 2048);
+    gDPPipeSync((*dl)++);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012FBEC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_text_wrapped.s")
 // NON-MATCHING: quite a long way to go here...
-// s16 func_8012FBEC(Gfx **arg0, s16 *arg1, s16 arg2, u16 arg3, f32 arg4, f32 arg5, u16 arg6, u8 arg7) {
+// returns updated vertical offset
+// s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 xs, f32 ys, u16 maxWidth, u8 lineSpacing) {
 //     s16 phi_v0;
-//     s32 phi_s5;
-//     s32 phi_s6;
-//     s16 tmp;
+//     s16 end;
+//     u16 phi_s6;
+//     s32 chr;
+//     u16 x_start;
 //
-//     D_8023F1F8 = arg4;
-//     D_8023F1FC = arg5;
+//     D_8023F1F8 = xs;
+//     D_8023F1FC = ys;
 //
-//     gDPSetPrimColor((*arg0)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//     gDPSetEnvColor((*arg0)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+//     gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+//     gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
 //
-//     func_8012FA78(arg0);
+//     func_8012FA78(dl);
 //
-//     while (*arg1 != EOM) {
-//         tmp = *arg1;
-//         switch (func_8012C678(arg1, arg2, arg3)) {
-//         case 0:
-//             gDPSetPrimColor((*arg0)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//             gDPSetEnvColor((*arg0)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//             load_glyph(arg0, tmp);
-//             if (D_8023F1F5 != 0) {
-//                 gDPSetPrimColor((*arg0)++, 0, 0, 0, 0, 0, 255);
-//                 gDPSetEnvColor((*arg0)++, 0, 0, 0, 0);
+//     x_start = x;
+//     while (*text != EOM) {
+//         switch (func_8012C678(text, x, y)) {
+//         case 2: // color
+//             text += 3;
+//             break;
+//         case 0: // normal char
+//             gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+//             gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+//
+//             chr = *text;
+//             load_glyph(dl, chr);
+//
+//             if (D_8023F1F5) { // drop shadow
+//                 gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
+//                 gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
 //
 //                 gSPTextureRectangle(
-//                     (*arg0)++,
-//                     4*(arg2 + 1),
-//                     4*(arg3 + 1),
-//                     4*(arg2 + (s32) D_8023F1F8 + 1),
-//                     4*(arg3 + (s32) D_8023F1FC + 1),
-//                     G_TX_LOADTILE,
+//                     (*dl)++,
+//                     (x + 1) << 2,
+//                     (y + 1) << 2,
+//                     (x + 1 + (s32) D_8023F1F8) << 2,
+//                     (y + 1 + (s32) D_8023F1FC) << 2,
+//                     G_TX_RENDERTILE,
 //                     0,
 //                     0,
 //                     (16384.0f / D_8023F1F8),
 //                     (16384.0f / D_8023F1FC)
 //                 );
-//                 gDPSetPrimColor((*arg0)++, 0, 0, 0, 0, 0, 255);
-//                 gDPSetEnvColor((*arg0)++, 0, 0, 0, 0);
+//
+//                 gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+//                 gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
 //             }
 //
 //             gSPTextureRectangle(
-//                 (*arg0)++,
-//                 4*arg2,
-//                 4*arg3,
-//                 4*(arg2 + (s32) D_8023F1F8),
-//                 4*(arg3 + (s32) D_8023F1FC),
-//                 G_TX_LOADTILE,
+//                 (*dl)++,
+//                 x << 2,
+//                 y << 2,
+//                 (x + (s32) D_8023F1F8) << 2,
+//                 (y + (s32) D_8023F1FC) << 2,
+//                 G_TX_RENDERTILE,
 //                 0,
 //                 0,
 //                 (16384.0f / D_8023F1F8),
 //                 (16384.0f / D_8023F1FC)
 //             );
 //
-//             D_8023F1E0.unk0 += tmp;
-//             arg3 = (arg3 + func_8012C314(*D_8023F1E0.unk0));
-//             D_8023F1E0.unk0 -= tmp;
-//             if (arg4 < 13.0f) {
-//                 arg3 = arg3 + 1;
+//             D_8023F1E0.unk0 += chr;
+//             x += func_8012C314(*D_8023F1E0.unk0);
+//             D_8023F1E0.unk0 -= chr;
+//
+//             if (xs < 13.0f) {
+//                 x++;
 //             }
 //
-//             phi_s6 = arg3 - 1;
-//
-//             if (tmp == 0x130) {
-//                 arg1 += 1;
-//                 phi_s5 = 0;
-//                 while ((*arg1 != 0x130) && (*arg1 != EOM) && (phi_s5 == 0)) {
-//                     phi_v0 = *arg1;
-//                     D_8023F1E0.unk0 = D_8023F1E0.unk0 + phi_v0;
-//                     arg3 = (arg3 + func_8012C314(*D_8023F1E0.unk0));
-//                     if (arg3 >= (s32) arg6) {
-//                         arg3 = arg3 + arg7;
-//                         phi_s5 = 1;
+//             if (chr == TILESET_SPACE) {
+//                 text += 1;
+//                 end = 0;
+//                 while ((*text != TILESET_SPACE) && (*text != EOM) && (end == 0)) {
+//                     chr = *text;
+//                     D_8023F1E0.unk0 += chr;
+//                     x += func_8012C314(*D_8023F1E0.unk0);
+//                     // if we have exceeded desired line length, wrap
+//                     if (x >= maxWidth) {
+//                         y += lineSpacing;
+//                         x = 0; // x_start ?
+//                         end = 1;
 //                     }
-//                     D_8023F1E0.unk0 = (D_8023F1E0.unk0 - phi_v0);
-//                     arg1 += 1;
+//                     text += 1;
+//                     D_8023F1E0.unk0 -= chr;
 //                 }
 //             }
-//             arg1 += 1;
+//
 //             if (D_8023F2A0.language == LANG_JAPANESE) {
-//                 if (phi_s6 >= (arg6 - 10)) {
-//                     if (*arg1 != EOM) {
-//                         arg3 = (arg3 + arg7);
+//                 if (x >= (maxWidth - 10)) {
+//                     if (*text != EOM) {
+//                         y += lineSpacing;
+//                         x = 0; // x_start ?
 //                     }
 //                 }
 //             }
-//             break;
-//         case 2: // color
-//             arg1 += 3;
+//             text += 1;
 //             break;
 //         case 3: // newline
-//             arg1 += 1;
+//             text += 1;
 //             break;
 //         }
 //     }
 //
-//     gDPPipeSync((*arg0)++);
+//     gDPPipeSync((*dl)++);
 //
-//     return arg3;
+//     return y;
 // }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_score.s")
-// void display_score(Gfx **arg0, u8 *text, u16 x_offset, u16 y_offset) {
-//     s16 temp_t3;
-//     u8 temp_t7;
-//     s16 digits;
-//     s16 temp_s3;
-//
-//     D_8023F1F8 = 16.0f;
-//     D_8023F1FC = 16.0f;
-//
-//     digits = 0;
-//     while (*text != 0) {
-//         temp_t7 = (*text - 32) & 0xffff; // probably not it
-//         D_8023F1E0.unk0 += temp_t7;
-//         D_8023F1E0.unk0 -= temp_t7;
-//         digits += 16; // how many.. chars? bytes? horizontal pixels?
-//         text++;
-//     }
-//
-//     gDPPipeSync((*arg0)++);
-//     gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
-//     gDPSetCombineMode((*arg0)++, G_CC_DECALRGBA, G_CC_DECALRGBA);
-//     gDPSetRenderMode((*arg0)++, Z_UPD | CVG_DST_FULL | ZMODE_OPA | ALPHA_CVG_SEL | GBL_c1(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_A_MEM), Z_UPD | CVG_DST_FULL | ZMODE_OPA | ALPHA_CVG_SEL | GBL_c2(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_A_MEM));
-//     gDPSetDepthSource((*arg0)++, G_ZS_PRIM);
-//     gDPSetPrimDepth((*arg0)++, 0, 0);
-//     gDPSetTexturePersp((*arg0)++, G_TP_NONE);
-//     gDPSetTextureLUT((*arg0)++, G_TT_NONE);
-//     gDPSetAlphaCompare((*arg0)++, G_AC_NONE);
-//
-//     while (*text != 0) {
-//
-//         temp_t7 = (*text - 32); // ASCII to ?
-//         D_8023F1E0.unk0 += temp_t7;
-//
-//         if (temp_t7 != 0) {
-//             s32 img = &D_80158550[(temp_t7 << 8)];
-//             gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img - 4096);
-//             gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
-//             gDPLoadSync((*arg0)++);
-//             gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 255, 512);
-//             gDPPipeSync((*arg0)++);
-//             gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
-//             gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 60, 60);
-//
-//             // temp_t3 = x_offset - digits;
-//             // temp_s3 = y_offset;
-//             // temp_v0_18->unk0 = (s32) (((((temp_t3 + 0x18) * 4) & 0xFFF) << 12) | 0xE4000000 | (((temp_s3 + 0x10) * 4) & 0xFFF));
-//             // temp_v0_18->unk4 = (s32) (((((temp_t3 + 8) * 4) & 0xFFF) << 12) | ((temp_s3 * 4) & 0xFFF));
-//             gSPTextureRectangle(
-//                 (*arg0)++,
-//                 4*(((x_offset - digits) + 8)),
-//                 4*((y_offset)),
-//                 4*(((x_offset - digits) + 16)),
-//                 4*((y_offset + 24)),
-//                 G_TX_RENDERTILE,
-//                 0,
-//                 0,
-//                 1024,
-//                 1024);
-//         }
-//         D_8023F1E0.unk0 -= temp_t7;
-//         x_offset += 16;
-//         text++;
-//     }
-//
-//     gDPPipeSync((*arg0)++);
-// }
+void display_score(Gfx **dl, u8 *score, u16 x_offset, u16 y_offset) {
+    u8 digit;
+    s16 width;
+    u8 *text;
+
+    D_8023F1F8 = 16.0f;
+    D_8023F1FC = 16.0f;
+
+    text = score;
+
+    // calculate width required to draw score?
+    width = 0;
+    while (*text != '\0') {
+        digit = (*text - ' ');
+        D_8023F1E0.unk0 += digit;
+        // anything missing here?
+        width += 16;
+        text++;
+        D_8023F1E0.unk0 -= digit;
+    }
+
+    gDPPipeSync((*dl)++);
+    gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
+    gDPSetCombineMode((*dl)++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+    gDPSetRenderMode((*dl)++, Z_UPD | CVG_DST_FULL | ZMODE_OPA | ALPHA_CVG_SEL | GBL_c1(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_A_MEM), Z_UPD | CVG_DST_FULL | ZMODE_OPA | ALPHA_CVG_SEL | GBL_c2(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_A_MEM));
+    gDPSetDepthSource((*dl)++, G_ZS_PRIM);
+    gDPSetPrimDepth((*dl)++, 0, 0);
+    gDPSetTexturePersp((*dl)++, G_TP_NONE);
+    gDPSetTextureLUT((*dl)++, G_TT_NONE);
+    gDPSetAlphaCompare((*dl)++, G_AC_NONE);
+
+    while (*score != '\0') {
+        // 0 is ascii 48 so.. why -32?
+        digit = (*score - ' ');
+        D_8023F1E0.unk0 += digit;
+
+        if (digit != 0) {
+            gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &D_80158550[((digit - 16) * 256) << 1]);
+            gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
+            gDPLoadSync((*dl)++);
+            gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 255, 512);
+            gDPPipeSync((*dl)++);
+            gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
+            gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 60, 60);
+
+            gSPTextureRectangle(
+                (*dl)++,
+                ((x_offset - width) + 8) << 2,
+                y_offset << 2,
+                ((x_offset - width) + 24) << 2,
+                (y_offset + 16) << 2,
+                G_TX_RENDERTILE,
+                0,
+                0,
+                1024,
+                1024);
+        }
+
+        x_offset += 16;
+        score++;
+        D_8023F1E0.unk0 -= digit;
+    }
+
+    gDPPipeSync((*dl)++);
+}
 
 // naive map of ASCII to in-game font tilemap
 void prepare_text(u8 *src, s16 *dst) {

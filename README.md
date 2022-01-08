@@ -101,7 +101,7 @@ Overlay2 contains the core Space Station Silicon Valley game logic.
 
 Uses [RNC](https://segaretro.org/Rob_Northen_compression) for a number of assets.
 
-Compression is partially matching; 250/263 files match after compression.
+Compression is almost completely matching; 261/263 files match after compression. `rnc_461900` and `rnc_63DC20` are still a problem.
 
 A handful of files are compressed twice; these appear to be the game level data.
 

@@ -2,8 +2,9 @@
 
 #include "common.h"
 
-#if 0
-char* D_803B6328_7C79D8[] = {
+u8 dna[8] = "AGCT.-01";
+
+char* terminal_asm[] = {
     "mov si,animaltype",
     "add si,128",
     "mov blocksi,si",
@@ -75,7 +76,80 @@ char* D_803B6328_7C79D8[] = {
     "gbaddie2:",
     "mov al,enemy2right",
     "gnotbaddie:",
-}
+};
+
+#if 0
+// animal stats (message ids)
+struct107 D_803B58E0_7C6F90[68] = {
+    { 125,  53,  88, 118, 198, 205, 211 }, // seagull, low, flight, claw attack, kerosene, excellent, little lift
+    { 126,  57,  76,  77, 195, 206, 210 },
+    { 127,  53,  78,  79, 196, 206, 210 },
+    { 128,  53,  98,  98, 201, 206, 210 },
+    { 129,  53,  80,  81, 193, 206,  56 },
+    { 130,  88,  88,  83, 198,  66,  56 },
+    { 131,  60,  99,  94, 202, 206,  56 },
+    { 132,  60,  80,  81, 200, 206,  56 },
+    { 133,  56,  76,  86, 203, 205,  56 },
+    { 134,  56, 109, 101,  98, 206, 210 },
+    { 135,  56,  76,  87, 203, 206,  56 },
+    { 136,  56,  88,  82, 198, 206,  56 },
+    { 137,  53,  80,  76, 196, 205, 209 },
+    { 138,  60,  90,  91, 201, 206,  56 },
+    { 139,  56,  88,  92, 204, 205, 209 },
+    { 140,  56,  88,  92, 204, 205, 209 },
+    { 141,  57,  76,  93, 202,  66, 209 },
+    { 142,  57,  80,  94, 194,  66, 209 },
+    { 143,  57,  80,  94, 194,  66, 209 },
+    { 144,  56,  88,  95, 198, 205, 211 },
+    { 145,  57,  76,  93, 202,  66, 209 },
+    { 146,  57,  98,  98, 198,  66, 209 },
+    { 147,  53,  95,  96, 196,  66, 212 },
+    { 148,  53,  95,  96, 196,  66, 210 },
+    { 149,  53,  98,  98, 197,  66, 210 },
+    { 150,  53,  88, 118, 198, 205, 211 },
+    { 151,  60,  99,  94, 193, 206,  56 },
+    { 152,  57, 100, 101, 201, 206, 210 },
+    { 153,  57,  80, 102, 193, 206,  56 },
+    { 154,  57, 100, 101,  98, 206, 210 },
+    { 155,  53,  76,  84, 197, 205,  56 },
+    { 156,  53,  76,  84, 202, 205,  56 },
+    { 157,  57, 103,  84, 201, 205, 209 },
+    { 158,  50, 104, 105, 204, 206, 209 },
+    { 159,  53,  76, 106, 202, 206,  56 },
+    { 160,  50,  76, 105, 203, 206, 209 },
+    { 161,  53,  76, 106, 203, 206,  56 },
+    { 162,  56,  76, 108, 202, 205, 209 },
+    { 163,  50, 109, 101, 197, 205, 210 },
+    { 164,  50, 100, 112, 197, 205, 210 },
+    { 165,  56,  76, 113, 202, 206,  56 },
+    { 166,  53,  76, 113, 202, 206,  56 },
+    { 167,  56,  80,  81, 202,  66,  56 },
+    { 168,  57,  88,  82, 198, 206, 209 },
+    { 169,  57,  80, 114, 196, 205, 210 },
+    { 170,  56,  88,  95, 198, 205, 211 },
+    { 171,  57,  76,  89, 204, 206, 210 },
+    { 172,  57, 100, 115, 197, 206, 210 },
+    { 173,  57,  98,  98, 204, 206, 209 },
+    { 174,  56,  76, 116, 203, 206,  56 },
+    { 175,  56,  76, 117, 195, 206,  56 },
+    { 176,  57,  76, 124, 202,  66, 209 },
+    { 177,  57,  76, 100, 202,  66, 209 },
+    { 178,  60, 118, 119, 195, 208,  56 },
+    { 179,  50, 109,  95, 196, 206, 212 },
+    { 180,  57,  76, 124, 195,  66,  56 },
+    { 181,  57, 120,  95, 201, 206, 210 },
+    { 182,  57,  76, 121, 202, 206,  56 },
+    { 183,  57,  80,  81, 194, 206,  56 },
+    { 184,  56,  86, 122, 197,  66, 209 },
+    { 185,  56,  86, 122, 197,  66, 209 },
+    { 186,  60,  98,  98, 202, 206, 209 },
+    { 187,  60,  98,  98, 202, 206, 209 },
+    { 188,  60,  98,  98, 202, 206, 209 },
+    { 189,  57, 107, 123, 199, 205,  56 },
+    { 190,  57,  80, 102, 197, 206,  56 },
+    { 191,  56,  76,  80, 199, 205, 209 },
+    { 192,  56,  88,  98, 202, 206, 210 },
+};
 #endif
 
 void func_8038CF90_79E640(void) {
@@ -84,56 +158,205 @@ void func_8038CF90_79E640(void) {
     gDPSetRenderMode(D_801D9E7C++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 }
 
-#ifdef NON_MATCHING
-// just the stack
-void func_8038D004_79E6B4(Gfx **arg0, u16 intensity) {
+void func_8038D004_79E6B4(Gfx **dl, u16 intensity) {
     s16 xPos;
     s16 yPos;
     s16 idx;
     u16 vertical_offset;
     s16 j;
-    u8  i;
-
-    s8  spE4[64];
-    s16 sp64[64];
+    u8 i;
+    s32 pad;
+    s32 g;
+    s8 ascii[64];
+    s16 wide[64];
 
     vertical_offset = 10;
 
-    load_default_display_list(arg0);
-    select_font(0, FONT_COMIC_SANS, 0, 0);
+    load_default_display_list(dl);
+    select_font(0, 2, 0, 0);
 
-    set_menu_text_color(0, MIN(intensity << 2, 80), 0, 0xFF); // green-ish
+    // needed for stack
+    g = MIN(intensity << 2, 80);
+
+    set_menu_text_color(0, g, 0, 0xFF);
 
     for (i = 0; i < 4; i++) {
-        // "%s\n"
-        sprintf(spE4, D_803BFFD4, D_803B6328_7C79D8[(rand() / 924) & 0xFF]);
-        prepare_text((u8*)spE4, sp64);
-        func_8012D374(arg0, sp64, 6, vertical_offset, 13.0f, 9.0f, -1);
+        sprintf((char*)ascii, "%s\n", terminal_asm[(rand() / 924) & 0xFF]);
+        prepare_text((u8*)ascii, wide);
+        func_8012D374(dl, wide, 6, vertical_offset, 13.0f, 9.0f, -1);
         vertical_offset += 10;
     }
 
     for (j = 0; j < 15; j++) {
-        idx = func_8012826C(); // random number
+        idx = func_8012826C();   // random number
 
         xPos = (idx >> 3) & 0xF; // bottom 7 bits (max=15)
         yPos = (idx >> 8) & 3;   // bottom 2 bits (max=3)
-        idx = idx & 7;
+        idx = idx & 7;           // bottom 3 bits (max=7)
 
-        spE4[0] = D_803B6320_7C79D0[idx]; // take bottom 3 bits (max=7)
-        spE4[1] = 0; // NUL terminate string
+        ascii[0] = dna[idx];
+        ascii[1] = '\0'; // NUL terminate string
 
-        prepare_text((u8*)spE4, sp64);
-        draw_glyph(arg0, sp64, (xPos * 13) + 175, (yPos * 8) + 10, 13.0f, 9.0f);
+        prepare_text((u8*)ascii, wide);
+        draw_glyph(dl, wide, (xPos * 13) + 175, (yPos * 8) + 10, 13.0f, 9.0f);
     }
 
-    gSPEndDisplayList((*arg0)++);
+    gSPEndDisplayList((*dl)++);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D004_79E6B4.s")
-#endif
 
+extern char* D_803BFFD8_7D1688;
+extern char* D_803BFFDC_7D168C;
 // load animal stats
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D258_79E908.s")
+// void func_8038D258_79E908(void) {
+//     s16 *msg;
+//     s16 i;
+//     s16 wide[64];
+//     u8 ascii[54];
+//
+//     // pre-fill with empty messages
+//     for (i = 0; i < 17; i++) {
+//         if (D_803B6560_7C7C10[i] == 0) {
+//             get_message_address_by_id(0xD5); // ""
+//         }
+//     }
+//
+//     // what are these variables...
+//     *D_803D5520 = &D_801D9ED8.unk0[gCurrentAnimalIndex];
+//     D_803D5524 = *D_803D5520;
+//     D_803D5528 = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+//     D_803D552C = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+//     D_803D5530 = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+//
+//     D_803D5538 = 1;
+//     D_803D553C = gCurrentAnimalIndex;
+//     D_803D553A = 0;
+//
+//     D_803F6500[0] = get_message_address_by_id(0x1F);  // type
+//     D_803F6500[1] = get_message_address_by_id(0x2E);  // environment
+//     D_803F6500[2] = get_message_address_by_id(0x29);  // skill A
+//     D_803F6500[3] = get_message_address_by_id(0x2A);  // skill B
+//     D_803F6500[4] = get_message_address_by_id(0x21);  // water resistance
+//     D_803F6500[5] = get_message_address_by_id(0x24);  // mass
+//     D_803F6500[6] = get_message_address_by_id(0x26);  // armour
+//     D_803F6500[7] = get_message_address_by_id(0x25);  // strength
+//     D_803F6500[8] = get_message_address_by_id(0x23);  // traction
+//     D_803F6500[9] = get_message_address_by_id(0x28);  // fall distance
+//     D_803F6500[10] = get_message_address_by_id(0x2C); // production
+//     D_803F6500[11] = get_message_address_by_id(0x20); // engine
+//     D_803F6500[12] = get_message_address_by_id(0x2D); // intelligence
+//     D_803F6500[13] = get_message_address_by_id(0xD5); // ""
+//     D_803F6500[14] = get_message_address_by_id(0xD5); // ""
+//     D_803F6500[15] = get_message_address_by_id(0xD5); // ""
+//     D_803F6500[16] = get_message_address_by_id(0xD5); // ""
+//
+//     D_803B6560_7C7C10[0] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk0);
+//     D_803B6560_7C7C10[11] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk8);
+//     D_803B6560_7C7C10[4] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unkA);
+//     D_803B6560_7C7C10[7] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unkC);
+//     D_803B6560_7C7C10[12] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk2);
+//     D_803B6560_7C7C10[2] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk4);
+//     D_803B6560_7C7C10[3] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk6);
+//
+//     switch (D_803D5524->biome) {
+//     case EUROPE_BIOME:
+//         D_803B6560_7C7C10[1] = get_message_address_by_id(0x46); // europe
+//         break;
+//     case ICE_BIOME:
+//         D_803B6560_7C7C10[1] = get_message_address_by_id(0x49); // ice
+//         break;
+//     case DESERT_BIOME:
+//         D_803B6560_7C7C10[1] = get_message_address_by_id(0x48); // desert
+//         break;
+//     case JUNGLE_BIOME:
+//         D_803B6560_7C7C10[1] = get_message_address_by_id(0x47); // jungle
+//         break;
+//     }
+//
+//     switch (D_803D5524->mass) {
+//     case 0x14:
+//         D_803B6560_7C7C10[5] = get_message_address_by_id(0x34);     // tiny
+//         D_803B6560_7C7C10[10] = get_message_address_by_id(0x33);    // very short
+//         break;
+//     case 0x28:
+//         D_803B6560_7C7C10[5] = get_message_address_by_id(0x37);     // light
+//         D_803B6560_7C7C10[10] = get_message_address_by_id(0x36);    // short
+//         break;
+//     case 0x3C:
+//         D_803B6560_7C7C10[5] = get_message_address_by_id(0x38);     // medium
+//         D_803B6560_7C7C10[10] = get_message_address_by_id(0x38);    // medium
+//         break;
+//     case 0x50:
+//         D_803B6560_7C7C10[5] = get_message_address_by_id(0x3B);     // heavy
+//         D_803B6560_7C7C10[10] = get_message_address_by_id(0x3A);    // long
+//         break;
+//     case 0x64:
+//         D_803B6560_7C7C10[5] = get_message_address_by_id(0x3E);     // huge
+//         D_803B6560_7C7C10[10] = get_message_address_by_id(0x3D);    // very long
+//         break;
+//     }
+//
+//     if (D_803D5524->fallDistance < 0x14) {
+//         msg = get_message_address_by_id(0x32);   // very low
+//     } else if (D_803D5524->fallDistance < 0x32) {
+//         msg = get_message_address_by_id(0x35);   // low
+//     } else if (D_803D5524->fallDistance < 0xA0) {
+//         msg = get_message_address_by_id(0x38);   // medium
+//     } else if (D_803D5524->fallDistance < 0x1F4) {
+//         msg = get_message_address_by_id(0x39);   // high
+//     } else {
+//         msg = get_message_address_by_id(0x3C);   // very high
+//     }
+//     D_803B6560_7C7C10[9] = msg;
+//
+//     switch (D_803D5524->armour) {
+//     case 4:
+//         D_803B6560_7C7C10[6] = get_message_address_by_id(0x37); // light
+//         break;
+//     case 8:
+//         D_803B6560_7C7C10[6] = get_message_address_by_id(0x38); // medium
+//         break;
+//     case 16:
+//         D_803B6560_7C7C10[6] = get_message_address_by_id(0x3F); // tough
+//         break;
+//     case 255:
+//         D_803B6560_7C7C10[6] = get_message_address_by_id(0x40); // invincible
+//         break;
+//     }
+//
+//     if (D_803D5524->traction < 0xA) {
+//         msg = get_message_address_by_id(0x41); // very poor
+//     } else if (D_803D5524->traction < 0x13) {
+//         msg = get_message_address_by_id(0x42); // poor
+//     } else if (D_803D5524->traction < 0x28) {
+//         msg = get_message_address_by_id(0x43); // average
+//     } else if (D_803D5524->traction < 0x46) {
+//         msg = get_message_address_by_id(0x44); // good
+//     } else {
+//         msg = get_message_address_by_id(0x45); // very good
+//     }
+//
+//     D_803B6560_7C7C10[8] = msg;
+//     select_font(0, 2, 1, 0);
+//     // "%s", " "
+//     sprintf(&ascii, &D_803BFFD8_7D1688, &D_803BFFDC_7D168C);
+//     prepare_text(&ascii, &wide);
+//     func_8012D374(&D_801D9E7C, &wide, 25, 0, 14.0f, 16.0f, 0);
+//
+//     for (i = 0; i < 13; i++) {
+//         D_803F6548[i] = (gScreenWidth - func_8012C3D8(D_803B6560_7C7C10[i])) - 14;
+//     }
+//
+//     for (i = 0; i < 13; i++) {
+//         D_803F6478.unk0[i] = 0;
+//         D_803F6478.unk34[i] = 0;
+//         D_803F6478.unk68[i] = 0;
+//         // huh?
+//         D_803F6478.unk82 = 0;
+//         D_803F6478.unk84 = 0;
+//         D_803F6478.unk86 = 0;
+//     }
+// }
 
 void func_8038D920_79EFD0(u8 arg0) {
     func_8032F950_741000();
@@ -369,7 +592,8 @@ void func_8038F414_7A0AC4(void) {
 }
 
 void func_8038F5F8_7A0CA8(s32 arg0) {
-    if ((D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 319) && (D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 317)) {
+    if ((D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 319) &&
+        (D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 317)) {
         if (D_803F6460 == 0) {
             D_803D6110 = 100;
             D_803F2AA2 = 1;

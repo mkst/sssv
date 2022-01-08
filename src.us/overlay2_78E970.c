@@ -136,10 +136,10 @@ void func_8037FE24_7914D4(void) {
 
 
 #ifdef NON_MATCHING
-// the D_801D9ED8.unk3EB0->unk9C check is not right...
 void func_8037FEDC_79158C(void) {
-    s16 xDist, zDist;
     s16 i;
+    s16 zDist;
+    s16 xDist;
 
     play_sound_effect_at_location(SFX_SHEEP_BAA, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
 
@@ -150,7 +150,6 @@ void func_8037FEDC_79158C(void) {
             (D_801D9ED8.animal[i].unk0->unk366 != 6) &&
             (D_801D9ED8.animal[i].unk0 != D_803D5530) &&
             ((u8)D_801D9ED8.animal[i].unk0->unk2A0 == 0) &&
-            // this is not right.. but its close!
             ((D_801D9ED8.unk3EB0->unk9C == SHEEP) || (D_801D9ED8.unk3EB0->unk9C == SPRINGY_THINGY))) {
             xDist = ABS(D_801D9ED8.animal[i].unk0->xPos - D_803D5530->xPos);
             if (xDist < 200) {
@@ -158,6 +157,7 @@ void func_8037FEDC_79158C(void) {
                 if (zDist < 200) {
                     if ((D_801D9ED8.animal[i].unk0->unk287 == 0) && (D_803D552C->unk28A == 0)) {
                         D_801D9ED8.animal[i].unk0->unk287 = 1;
+                        if (D_803D5530) {};
                         D_801D9ED8.animal[i].unk0->unk288 = (xDist + zDist) >> 3;
                         // swarm? follow?
                         func_80363E88_775538(D_801D9ED8.animal[i].unk0, D_803D5530);

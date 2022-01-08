@@ -22,7 +22,7 @@ void func_80127ED4(Mtx*, s16);
 u32  func_80128200(void);
 void func_8012822C(s32 time);
 u16  func_8012826C(void);
-void func_801282C4(void);
+s32 func_801282C4(void);
 s16  func_8012835C(s16 idx);
 s16  func_801283AC(s16 arg0);
 s8   func_8012840C(u8 idx);
@@ -90,22 +90,22 @@ u8   convert_text_to_int(s16 *arg0);
 s16  func_8012C3D8(s16 *arg0);
 s32 func_8012C678(s16 *arg0, u16 arg1, u16 arg2);
 void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height);
-s32  func_8012E724(u16 *arg0, s32 arg1, s32 arg2);
+s32  func_8012E724(s16 *arg0, s32 arg1, s32 arg2);
 s32  func_8012E78C(u8*, f32, f32, s32);
 void func_8012FA78(Gfx **arg0);
 void func_8012FAD4(Gfx **dl, s32 arg1);
-s16  func_8012FBEC(Gfx **dl, s16 *text, u16 x, u16 y, f32 xs, f32 ys, u16 arg6, u8 arg7); // tbd
+s16  display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 xs, f32 ys, u16 arg6, u8 arg7); // tbd
 void load_glyph(Gfx **arg0, s16 arg1);
-void display_score(Gfx **arg0, u8*, u16, u16);
+void display_score(Gfx **arg0, u8 *arg1, u16 x_offset, u16 y_offset);
 void prepare_text(u8 *src, s16 *dst);
 s16  load_level_text_data(s16 language, s16 level, u16 *msg_lengths, s16 *dst);
 s16* get_message_address_by_id(s16 arg0); // load message id
 s16  get_raw_message_length(s16 *arg0);
 
 void func_8012C214(s32, s32, s32, s32);
-void display_text(Gfx **, s16*, u16, u16, f32, f32);
+void display_text_centered(Gfx **, s16*, u16, u16, f32, f32);
 void func_8012D374(Gfx **arg0, s16 *arg1, u16 arg2, u16 arg3, f32 arg4, f32 arg5, s16 arg6);
-void func_8012DEF8(Gfx **, s16*, u16, u16, f32, f32);
+void display_text(Gfx **, s16*, u16, u16, f32, f32);
 void func_8012EB4C(Gfx **, s16*, u16, u16, f32, f32, u8);
 
 // main_C2A0
@@ -247,10 +247,15 @@ s32  get_evo_suit_color(void);
 
 
 // overlay2_6A7A80
+void func_80296544_6A7BF4(void);
+void func_802985AC_6A9C5C(Gfx **dl);
 void func_8029877C_6A9E2C(void);
+s16  func_80298B70_6AA220(s16 arg0, s16 arg1);
+void func_80298D44_6AA3F4(Animal *arg0);
 s32  func_80298E08_6AA4B8(s16 arg0, s16 arg1);
-s16  func_80298E98_6AA548(s16, s16);
+s16  func_80298E98_6AA548(s16 arg0, s16 arg1);
 s16  func_80298F78_6AA628(s16 arg0, s16 arg1);
+s16  func_802990A4_6AA754(s16 arg0, s16 arg1);
 void func_80299140_6AA7F0(void);
 void func_80299640_6AACF0(s16, s16, s16*, s16*, s16*, s16*);
 
@@ -622,6 +627,7 @@ s32  func_802FD40C_70EABC(Animal *arg0, Animal *arg1);
 s32  func_802FD468_70EB18(Animal *arg0);
 s32  func_802FD4D0_70EB80(Animal *arg0);
 s16  func_802FD5DC_70EC8C(Animal *arg0);
+s32  func_802FD538_70EBE8(Animal *arg0); // tbd
 void func_802FD674_70ED24(Animal *arg0, Animal *arg1);
 void func_802FD8CC_70EF7C(void);
 void func_802FD94C_70EFFC(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5);
@@ -725,18 +731,19 @@ void parrot_fly(void);
 // overlay2_725D10
 void func_80314660_725D10(void);
 void func_80314788_725E38(void);
+s32  func_80314F0C_7265BC(Animal*, s32);
 s32  func_803152A4_726954(s32 arg0, u8 arg1, s32 arg2);
 void func_80315384_726A34(struct069 *arg0, struct069 *arg1);
 void func_803153B0_726A60(Animal *arg0, struct069 arg1[], u8 arg2);
 Animal *func_8031540C_726ABC(s16, u8);
 s32  func_80315870_726F20(s32 arg0, s32 arg1);
-void func_80315880_726F30(s16 arg0);
+s32  func_80315880_726F30(s16 arg0);
 s32  func_803158B4_726F64(Animal *arg0, s16 arg1);
-void func_803158E4_726F94(s16 arg0, s16 arg1);
+s32  func_803158E4_726F94(s16 arg0, s16 arg1);
 s32  func_80315924_726FD4(Animal *arg0, s16 arg1);
-void func_80315950_727000(s16 arg0);
+s32  func_80315950_727000(s16 arg0);
 s32  func_80315984_727034(Animal *arg0, s16 arg1);
-void func_803159B0_727060(s16 arg0);
+s32  func_803159B0_727060(s16 arg0);
 s32  func_80316408_727AB8(Animal *arg0);
 void func_803190FC_72A7AC(Animal *arg0);
 void func_803191B0_72A860(Animal *arg0);
@@ -748,13 +755,16 @@ void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s1
 void func_80319A50_72B100(void);
 void func_80319AA0_72B150(u8 *arg0, u8 arg1);
 void func_80319AC4_72B174(u8 *arg0, u8 arg1);
-void func_80319C38_72B2E8(u8, u8, u8, u8*, u8*, u8);
+u16  get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y);
+void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5);
+u8   func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
 void func_8031A150_72B800(s16 arg0, u16 *arg1, u16 *arg2);
 
 void func_8031A278_72B928(s16*, s16*, s16*); // tbd
 // overlay2_72C680
 s32  get_uncompressed_size(u8 *arg0);
 s32  get_compressed_size(u8 *arg0);
+s32  copy_or_extract(u8 *src, u8 *dst, s32 unused);
 void load_level_data(u8);
 void func_8031B174_72C824(s32 arg0, u8 arg1);
 void func_8031C304_72D9B4(void);
@@ -1022,7 +1032,7 @@ void func_80363880_774F30(Animal *arg0, Animal *arg1);
 void func_803638A8_774F58(Animal *arg0, Animal *arg1, s16 arg2);
 void func_803638E8_774F98(Animal *arg0);
 void func_80363B34_7751E4(Animal *arg0, u16 arg1);
-void func_80363A0C_7750BC(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5);
+void func_80363A0C_7750BC(Animal *arg0, s16 pathId, s16 arg2, s16 arg3, s8 arg4, u8 arg5);
 void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5);
 void func_80363C0C_7752BC(Animal *arg0, u8 arg1);
 void func_80363C48_7752F8(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5);
@@ -1135,7 +1145,7 @@ void func_8037FEDC_79158C(void);
 
 // sssv/animinit.c
 void load_data_section(u8 arg0);
-void func_80380490_791B40(Gfx **arg0, s32 arg1);
+void func_80380490_791B40(Gfx **arg0, DisplayList *arg1);
 void func_80380620_791CD0(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
 void func_80380644_791CF4(Animal *arg0);
 void func_8038064C_791CFC(void);
@@ -1251,7 +1261,7 @@ s16  func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 
 // sssv/terminal_background (overlay2_79E640)
 void func_8038CF90_79E640(void);
-void func_8038D004_79E6B4(Gfx **arg0, u16 arg1);
+void func_8038D004_79E6B4(Gfx **arg0, u16 intensity);
 void func_8038D258_79E908(void);
 void func_8038D920_79EFD0(u8 arg0);
 void func_8038DA70_79F120(void);
@@ -1296,6 +1306,7 @@ void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
 s32  func_80396714_7A7DC4(void);
 s32  func_80396748_7A7DF8(void);
 void func_803967D4_7A7E84(u16 arg0, s16 arg1, u8 r, u8 g, u8 b, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9);
+
 // overlay2_7A8A50
 void func_803973A0_7A8A50(s16);
 void func_80397414_7A8AC4(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle);
@@ -1304,6 +1315,7 @@ void func_80397734_7A8DE4(s16 arg0, u8 arg1);
 void func_80397840_7A8EF0(void);
 void func_80397B84_7A9234(void);
 void func_80397C58_7A9308(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s16 arg7, u8 arg8);
+void func_80397D1C_7A93CC(u8 arg0);
 // void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7);
 
 // overlay2_7A9CE0

@@ -79,7 +79,7 @@ s32 display_credits(void) {
             D_803F6400 = 0;
             i = 1000; // break
         } else {
-            display_text(&D_801D9E7C, sp90, gScreenWidth / 2, D_803F6402 + (i * 16), 16.0f, 16.0f);
+            display_text_centered(&D_801D9E7C, sp90, gScreenWidth / 2, D_803F6402 + (i * 16), 16.0f, 16.0f);
         }
     }
 

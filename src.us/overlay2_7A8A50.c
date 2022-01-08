@@ -255,7 +255,7 @@ void func_80397D1C_7A93CC(u8 arg0) {
                 temp_f16 = (D_803F6720[arg0][i].unk30.unkC[2] - D_803F6720[arg0][i].unk18.unkC[2]) / factor;
                 tmp = ((D_803F6720[arg0][i].unk48 / D_803F6720[arg0][i].unk4C) * 180.0f);
                 // this is not quite PI (3.14159265359)
-                temp_f0 = cosf((3.141579 / 180) * tmp);
+                temp_f0 = cosf((SSSV_PI / 180) * tmp);
                 D_803F6720[arg0][i].unk0.unk0[0] = (D_803F6720[arg0][i].unk18.unk0[0] + temp_f22) - (temp_f22 * temp_f0);
                 D_803F6720[arg0][i].unk0.unk0[1] = (D_803F6720[arg0][i].unk18.unk0[1] + temp_f24) - (temp_f24 * temp_f0);
                 D_803F6720[arg0][i].unk0.unk0[2] = (D_803F6720[arg0][i].unk18.unk0[2] + temp_f26) - (temp_f26 * temp_f0);

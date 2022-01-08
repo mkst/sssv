@@ -232,16 +232,14 @@ s32 get_compressed_size(u8 *arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B0E8_72C798.s")
-// NON-MATCHING: not quite right...
-// s32 func_8031B0E8_72C798(u8 *src, u8 *scratch, s32 len) {
-//     if ((src[0] == 'R') && (src[1] == 'N') && (src[2] == 'C')) {
-//         UnpackRNC(src, scratch);
-//     } else {
-//         memcpy_sssv(src + 4, src[3] | (src[2] << 8) | (src[1] << 16) | (src[0] << 24), len);
-//     }
-//     return 1;
-// }
+s32 copy_or_extract(u8 *src, u8 *dst, s32 unused) {
+    if ((src[0] == 'R') && (src[1] == 'N') && (src[2] == 'C')) {
+        UnpackRNC(src, dst);
+    } else {
+        memcpy_sssv(src + 4, dst, src[3] | (src[2] << 8) | (src[1] << 16) | (src[0] << 24));
+    }
+    return 1;
+}
 
 // load_texture_bank()
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B174_72C824.s")
@@ -303,16 +301,15 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
 //
 //     Animal *temp_a0;
 //     struct071 *temp_v0;
-//     struct069 *temp_v0_5;
+//     struct112 *temp_v0_5;
 //     struct068 *temp_v0_6;
 //     s16 i;
-//
 //
 //     if (D_803F2D50.unkBC != 0) {
 //         func_8029B9B8_6AD068(D_801D9ED8.animal[gCurrentAnimalIndex].unk0, D_803F2D50.unkBC);
 //     }
 //
-//     load_data_section(D_803F2D50.unk20);
+//     load_data_section(D_803F2D50.biome);
 //     func_802FD8CC_70EF7C();
 //     func_8033C334_74D9E4();
 //     func_802F2DF8_7044A8();
@@ -341,22 +338,21 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
 //     D_803F28C2 = 0;
 //     osWritebackDCacheAll();
 //     dma_read(rnc_637160_ROM_START, &D_80100000, rnc_637160_ROM_START - rnc_637160_ROM_START);
-//     UnpackRNC(&D_80100000, &gFramebuffer);
+//     UnpackRNC(&D_80100000, gFramebuffer);
 //
 //     // starts falling apart around here...
 //     for (i = 0; i < 170; i++) {
 //         temp_v0 = D_801E9EB8[i].unk170;
 //         if ((temp_v0 != NULL) && (&D_801E9EB8[i+1].unk0 == 0)) {
-//             if ((temp_v0->unk1C != 0) && (temp_v0->unk18 == 0)) {
-//                 func_8031C3C0_72DA70((s32)&gFramebuffer + (((s16) temp_v0->unk1C - 1) * 0x100C), (s16) temp_v0->unk1C);
+//             if ((temp_v0->unk1C.w != 0) && (temp_v0->unk18 == 0)) {
+//                 func_8031C3C0_72DA70((s32)&gFramebuffer + (((s16) temp_v0->unk1C.w - 1) * 0x100C), (s16) temp_v0->unk1C.w);
 //             }
 //         }
 //     }
 //
 //     for (i = 0; i < D_803E8E54; i++) {
-//         temp_v0_5 = &D_803E4D40 + (i * 10);
-//         if ((temp_v0_5->unk0 == 16) || (temp_v0_5->unk0 == 17)) {
-//             temp_v0_6 = &D_803A8528_7B9BD8[temp_v0_5->unk2];
+//         if ((D_803E4D40[i].unk0 == 16) || (D_803E4D40[i].unk0 == 17)) {
+//             temp_v0_6 = &D_803A8528_7B9BD8[(s16)D_803E4D40[i].unk2];
 //             if ((temp_v0_6->unk1C != 0) && (temp_v0_6->unk18 == 0)) {
 //                 func_8031C3C0_72DA70((s32)&gFramebuffer + (((s16) temp_v0_6->unk1C - 1) * 0x100C), (s16) temp_v0_6->unk1C);
 //             }

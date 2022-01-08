@@ -233,6 +233,7 @@ void func_80327DA8_739458(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328258_739908.s")
+// miles away
 // void func_80328258_739908(s16 arg0) {
 //     struct104 *temp_v1;
 //
@@ -242,13 +243,13 @@ void func_80327DA8_739458(void) {
 //     D_803E9824 = &D_803E9828[D_803E9822];
 //
 //     D_803D5520 = &D_801D9ED8.unk0[D_803E9824];
-//     D_803D5524 = D_803D5520->unk0;
+//     D_803D5524 = *D_803D5520;
 //     D_801D9ED8.animal[gCurrentAnimalIndex].unk0->unk16C = &D_801D9ED8.unk0[D_803E9824];
 //
 //     func_803283DC_739A8C();
 //     func_802B2EA8_6C4558();
 //
-//     D_803D5530->unk46 = (u16) D_803D5530->unk16C->unk7C;
+//     D_803D5530->unk46 = (u16) D_803D5530->unk16C->mass;
 //     func_802C9BA4_6DB254(D_801D9ED8.animal[gCurrentAnimalIndex].unk0);
 //
 //     switch (temp_v1->unk0) {
@@ -412,7 +413,7 @@ void func_80328918_739FC8(void) {
     D_803D552C->unk30A = 0;
     D_803D552C->unk34C = 0;
     D_803D552C->unk356 = 0;
-    D_803D5530->unk46 = D_803D5530->unk16C->unk7C;
+    D_803D5530->unk46 = D_803D5530->unk16C->mass;
     func_802C9BA4_6DB254(D_803D5530);
 
     switch (D_803D5530->state) {
@@ -503,7 +504,7 @@ s32 func_80329BAC_73B25C(s16 arg0, s16 arg1) {
     sp56 = D_801D9ED8.animal[arg1].unk0->unk42 / 4;
     sp54 = (D_801D9ED8.animal[arg1].unk0->unk42 * 6) / 4;
 
-    if (((s16)D_803F2D50.unk20 == 0) &&
+    if (((s16)D_803F2D50.biome == 0) &&
         (D_803F2D50.unk52 == 7) &&
         func_803233A0_734A50(
             sp64,
@@ -706,15 +707,17 @@ void func_8032AA94_73C144(void) {
 }
 
 void load_animal(s16 animalId) {
-    D_803D5530->unk16C = D_803D5520->unk0 = &D_801D9ED8.unk0[animalId];
+    *D_803D5520 = &D_801D9ED8.unk0[animalId];
+    D_803D5530->unk16C =  &D_801D9ED8.unk0[animalId];
+
     D_803E9824 = animalId;
 
     D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
     D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
     func_80327DA8_739458();
-    D_803D5530->unk46 = D_803D5530->unk16C->unk7C;
+    D_803D5530->unk46 = D_803D5530->unk16C->mass;
     func_802C9BA4_6DB254(D_803D5530);
-    D_803D5524 = D_803D5520->unk0;
+    D_803D5524 = *D_803D5520;
 }
 
 // load animal info screen if first time player is transferring into an animal
@@ -774,13 +777,11 @@ void set_species_as_encountered(s16 animal_id) {
 
 // funny effect 2: infinite a+b energy? flips camera
 void func_8032AE34_73C4E4(void) {
-    struct035 *tmp;
     s16 i;
 
     for (i = 0; i < AID_MAX_ANIMALS; i++) {
-        tmp = &D_801D9ED8.unk0[i];
-        tmp->unkDA[0] = 1;
-        tmp->unkE0[0] = 1;
+        D_801D9ED8.unk0[i].unkDA[0] = 1;
+        D_801D9ED8.unk0[i].unkE0[0] = 1;
     }
     if ((D_803A6CE4 & 5) == 0) {
         D_803A6CE4 |= 1;

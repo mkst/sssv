@@ -47,7 +47,7 @@ RGBA16_FILES        = $(shell find assets/img/ -name "*.rgba16.png" 2> /dev/null
 RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 
 # Generic RNC compressed files
-RNC_FILES       := $(wildcard assets/rnc*.bin)
+RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
 RNC_EXTRACTED   := $(foreach file,$(RNC_FILES),rnc/$(file))
 RNC_COMPRESSED  := $(foreach file,$(RNC_FILES),build/$(file))
 
@@ -235,11 +235,11 @@ $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
 
 rnc/%.bin: %.bin
-	@mkdir -p rnc/assets
+	@mkdir -p rnc/assets/levels
 	$(RNC64) u $< $@ >/dev/null
 
 $(BUILD_DIR)/%.bin: rnc/%.bin
-	$(TOOLS_DIR)/rnc_propack_source/rnc64 p $< $@ >/dev/null
+	$(RNC64) p $< $@ /f >/dev/null
 	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
 	@mv $@.pad $@
 
@@ -270,7 +270,7 @@ $(BUILD_DIR)/%.png.o: $(BUILD_DIR)/%.png
 
 # rnc compress
 %.rnc: %
-	$(RNC64) p $< $@ >/dev/null
+	$(RNC64) p $< $@ /f >/dev/null
 	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
 	@mv $@.pad $@
 

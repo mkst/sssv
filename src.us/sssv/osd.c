@@ -163,6 +163,7 @@ extern u8 D_01029DD0[];
 
 // osd_draw_score
 void func_803491F0_75A8A0(void) {
+    // "%8d"
     sprintf(D_803F2D3E, D_803BE940, D_803F2D30.score);
     select_font(0, FONT_LCD, 1, 0);
     display_score(&D_801D9E7C, D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
@@ -187,7 +188,7 @@ void func_80349280_75A930(Animal *arg0, s16 arg1) {
             if (arg0 == D_803F2CF8.animal) {
                 D_803F2CF8.unk6 = MAX(0, arg0->health - arg1);
                 D_803F2CF8.unkA = 64;
-            } else if ((D_803F2CF8.animal == NULL) || ((arg1 != 0) && ((D_803F2CF8.unk8 == D_803F2CF8.unk6) || (D_803F2CF8.animal->unk16C->unk7C < arg0->unk16C->unk7C)))) {
+            } else if ((D_803F2CF8.animal == NULL) || ((arg1 != 0) && ((D_803F2CF8.unk8 == D_803F2CF8.unk6) || (D_803F2CF8.animal->unk16C->mass < arg0->unk16C->mass)))) {
                 D_803F2CF8.animal = arg0;
                 D_803F2CF8.health = arg0->health;
                 D_803F2CF8.unk6 = MAX(0, arg0->health - arg1);
@@ -400,7 +401,7 @@ void osd_draw_timer(s16 arg0) {
     set_menu_text_color(255, 255, 0, 255); // yellow
     select_font(0, FONT_DEFAULT, 1, 0);
     // write string centered
-    display_text(&D_801D9E7C, str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
+    display_text_centered(&D_801D9E7C, str, gScreenWidth >> 1, arg0, 16.0f, 16.0f);
 }
 
 void func_80349CA4_75B354(s16 arg0) {
