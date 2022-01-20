@@ -306,7 +306,7 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
 //     s16 i;
 //
 //     if (D_803F2D50.unkBC != 0) {
-//         func_8029B9B8_6AD068(D_801D9ED8.animal[gCurrentAnimalIndex].unk0, D_803F2D50.unkBC);
+//         func_8029B9B8_6AD068(D_801D9ED8.animals[gCurrentAnimalIndex].animal, D_803F2D50.unkBC);
 //     }
 //
 //     load_data_section(D_803F2D50.biome);
@@ -325,7 +325,7 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
 //     }
 //
 //     for (i = 0; i < D_803D553E; i++) {
-//         temp_a0 = D_801D9ED8.animal[i].unk0;
+//         temp_a0 = D_801D9ED8.animals[i].animal;
 //         if (temp_a0->unk1A8 != 0) {
 //             func_803191B0_72A860(temp_a0);
 //         }

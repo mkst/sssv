@@ -6,13 +6,13 @@ VERSION  := us
 BUILD_DIR = build
 ASM_DIRS  = asm \
             asm/libc \
-            asm/libultra asm/libultra/audio asm/libultra/gu asm/libultra/io asm/libultra/os asm/libultra/sched \
-            asm/data asm/data/libultra/audio asm/data/libultra/os asm/data/core asm/data/sssv asm/data/sssv/animals
+            asm/libultra/audio \
+            asm/data asm/data/libultra/audio asm/data/core asm/data/sssv asm/data/sssv/animals
 BIN_DIRS  = assets assets/levels
 SRC_DIR   = src.$(VERSION)
 
 SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
-            $(SRC_DIR)/libultra/audio $(SRC_DIR)/libultra/io $(SRC_DIR)/libultra/libc $(SRC_DIR)/libultra/os \
+            $(SRC_DIR)/libultra/audio $(SRC_DIR)/libultra/libc \
             $(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals \
             $(SRC_DIR)/data
 
@@ -29,7 +29,7 @@ O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file).o) \
            $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file).o)
 
-LIBULTRA = lib/libultra.a
+LIBULTRA = lib/libultra_rom.a
 
 # Language data
 
@@ -51,15 +51,8 @@ RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
 RNC_EXTRACTED   := $(foreach file,$(RNC_FILES),rnc/$(file))
 RNC_COMPRESSED  := $(foreach file,$(RNC_FILES),build/$(file))
 
-UNDEFINED_SYMS  := osViGetCurrentLine \
-	__osDevMgrMain \
-	__osLeoInterrupt \
-	__scYield __scAppendList __scHandleRDP __scHandleRSP __scHandleRetrace __scTaskComplete __scTaskReady __scExec __scSchedule osScGetCmdQ osScRemoveClient osScAddClient osCreateScheduler __scMain \
-	__osRdbSend \
-	osCartRomInit \
-	osLeoDiskInit \
-	osCreatePiManager \
-	osPfsIsPlug
+# function is not included unless explicitly undefined
+UNDEFINED_SYMS  := osViGetCurrentLine
 
 # Tools
 
@@ -85,7 +78,7 @@ SPLAT    = $(TOOLS_DIR)/splat/split.py
 OPT_FLAGS      = -O2
 LOOP_UNROLL    =
 
-MIPSISET       = -mips2 -o32
+MIPSISET       = -mips2 -32
 
 INCLUDE_CFLAGS = -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc -I assets \
                  -I src.$(VERSION) -I src.$(VERSION)/libultra/os -I src.$(VERSION)/libultra/audio
@@ -98,7 +91,7 @@ GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/nu
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
 
-DEFINES := -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32 -DSSSV
+DEFINES := -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32 -DSSSV -DNDEBUG
 
 ifeq ($(VERSION),us)
 DEFINES += -DVERSION_US
@@ -135,7 +128,7 @@ LD_SCRIPT  = $(BASENAME).ld
 LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt -T undefined_funcs_auto.txt
 LD_FLAGS  += -Map $(TARGET).map --no-check-sections
 
-LD_FLAGS_EXTRA  = -Lbuild/lib -lultra
+LD_FLAGS_EXTRA  = -Lbuild/lib -lultra_rom
 LD_FLAGS_EXTRA += $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
@@ -147,9 +140,6 @@ $(BUILD_DIR)/$(SRC_DIR)/core/string.c.o: OPT_FLAGS := -O2
 
 $(BUILD_DIR)/$(SRC_DIR)/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
 
-# libultra
-$(BUILD_DIR)/$(SRC_DIR)/libultra/os/%.c.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/libultra/io/%.c.o: OPT_FLAGS := -O1
 
 ### Targets
 

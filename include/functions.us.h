@@ -484,7 +484,7 @@ void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3);
 // collist2
 void func_802DA7F0_6EBEA0(void);
 void func_802DAD18_6EC3C8(Animal *arg0);
-void func_802DAE5C_6EC50C(Animal *arg0);
+void func_802DAE5C_6EC50C(struct071 *arg0);
 void func_802DAF5C_6EC60C(void);
 void func_802DAFAC_6EC65C(u8, u8, u8, u8);
 
@@ -880,6 +880,7 @@ void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
 void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
 void func_803423C4_753A74(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
 void func_80342318_7539C8(s32 arg0, s32 arg1, s32 arg2);
+void func_80343438_754AE8(void);
 void func_80343720_754DD0(s16*, s16*, s16*);
 void func_80343A50_755100(void);
 void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE);

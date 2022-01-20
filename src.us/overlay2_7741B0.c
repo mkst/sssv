@@ -209,9 +209,9 @@ void func_80362CC4_774374(Animal *arg0) {
         break;
     case 8:
         if ((u8) arg0->unk29A.b != 0) {
-            arg0->unk294.w = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
-            arg0->unk2AC = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
-            arg0->unk2CC = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+            arg0->unk294.w = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2CC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (func_803099BC_71B06C() == 0) {
             func_803638E8_774F98(arg0);

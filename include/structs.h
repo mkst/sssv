@@ -772,9 +772,14 @@ typedef struct {
     /* 0x14 */ u8  pad14[0xC];
     /* 0x20 */ f32 unk20;
     /* 0x24 */ f32 unk24;
-    /* 0x28 */ u8  pad28[0x26];
-    /* 0x4E */ s16 unk4E;
-    /* 0x50 */ u8  pad50[0x4];
+    /* 0x28 */ u8  pad28[0x8];
+    /* 0x30 */ f32 unk30;
+    /* 0x34 */ f32 unk34;
+    /* 0x38 */ f32 unk38;
+    /* 0x36 */ u8  pad3C[0x12];
+    /* 0x4E */ s16 unk4E;  // distance?
+    /* 0x50 */ s16 unk50;  // distance?
+    /* 0x52 */ u8  pad52[0x2];
     /* 0x54 */ s16 unk54;
     /* 0x56 */ s16 unk56;
     /* 0x58 */ s16 unk58;
@@ -804,7 +809,10 @@ typedef struct {
     /* 0xA8 */ f32 unkA8;
     /* 0xAC */ u8  padAC[0xA];
     /* 0xB6 */ s8  unkB6;
-    /* 0xB7 */ u8  padB7[0x11];
+    /* 0xB7 */ u8  padB7[0x5];
+    /* 0xBC */ f32 unkBC;
+    /* 0xC0 */ f32 unkC0;
+    /* 0xC0 */ u8  padC4[0x4];
     /* 0xC8 */ u8  unkC8;
     /* 0xC9 */ u8  unkC9;
     /* 0xCA */ s16 unkCA;
@@ -1159,12 +1167,15 @@ struct struct049 {
     s16 unk8;
 };
 
+typedef struct {
+    struct035 *unk0;
+    Animal    *animal;
+} Animal2;
 
 typedef struct {
-    /* 0x0000 */ struct035 unk0[68]; // each 0xEC so 0x3EB0 total
-    /* 0x3EB0 */ struct035 *unk3EB0;    // what is this D_801DDD88
-    /* 0x3EB4 */ struct015 animal[68];  // D_801DDD8C
-    /* 0x40D4 */ u8        pad3FC4[0x3f07];
+    /* 0x0000 */ struct035 unk0[68];    // each 0xEC so 0x3EB0 total
+    /* 0x3EB0 */ Animal2   animals[68];
+    /* 0x40D0 */ u8        pad40D0[0x3f0b];
     /* 0x7FDB */ u8        unk7FDB;
     /* 0x7FDC */ u8        pad7FDC[0x7fcc];
     /* 0xFFA8 */ s16       unkFFA8;
@@ -1353,13 +1364,13 @@ typedef struct {
 } struct062; // size 0x20
 
 typedef struct {
-    u8 unk0;
-    u8 unk1;
-    u8 unk2;
-    u8 unk3;
+    u8 unk0; // terrain height?
+    u8 unk1; // terrain height?
+    u8 unk2; // terrain type?
+    u8 unk3; // e.g. bridges? fences?
     u8 unk4;
     u8 unk5;
-    u8 unk6;
+    u8 unk6; // water?
     u8 unk7;
 } struct063; // size 0x8
 
@@ -1443,9 +1454,14 @@ struct struct071 {
     /* 0x44 */  u8  pad44[0x7];
     /* 0x4B */  u8  unk4B;
     /* 0x4C */  struct {
-                    s32  unk0  : 0x1C;
-                    s32  unk1C : 1;
-                    s32  unk1D : 1;
+                    /* not hex numbers */
+                    s32  unk0  : 25;
+                    u32  unk26 : 1;
+                    s32  pad27 : 1;
+                    s32  pad28 : 1;
+                    s32  unk29 : 1;
+                    s32  unk30 : 1;
+                    s32  pad31 : 1;
                 } unk4C;
     /* 0x50 */  u8  pad50[0x4];
     /* 0x54 */  struct071_inner unk54;
@@ -1472,7 +1488,7 @@ struct struct071 {
     /* 0x164 */ u8  unk164;
     /* 0x165 */ u8  unk165[0x3];
     /* 0x168 */ Animal *unk168;
-    /* 0x16C */ u8  pad16C[0x4];
+    /* 0x16C */ struct035* unk16C;
     /* 0x170 */ struct068 *unk170;
     /* 0x174 */ u8  pad174[0x4];
     /* 0x178 */ s16 unk178;
@@ -1482,7 +1498,9 @@ struct struct071 {
     /* 0x180 */ s16 unk180;
     /* 0x182 */ s16 unk182;
     /* 0x184 */ s16 unk184;
-    /* 0x186 */ u8  pad186[0x26];
+    /* 0x186 */ u8  pad186[0x12];
+    /* 0x198 */ void *unk198;
+    /* 0x19C */ u8  pad19C[0x10];
     /* 0x1AC */ s32 unk1AC;
     /* 0x1B0 */ u8  pad1B0[0x50];
     /* 0x200 */ s32 unk200;
@@ -1491,7 +1509,8 @@ struct struct071 {
     /* 0x201 */ u8  pad20C[0x40];
     /* 0x26C */ s32 unk24C[8]; // tbd how many
     /* 0x26C */ u8  unk26C;
-    /* 0x26D */ u8  pad26D[0x3]; // just alignment?
+    /* 0x26D */ u8  unk26D;
+    /* 0x26E */ u8  pad26E[0x2]; // just alignment?
 }; // game object, size 0x270
 
 typedef struct {

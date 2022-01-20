@@ -173,7 +173,7 @@ void func_8038D004_79E6B4(Gfx **dl, u16 intensity) {
     vertical_offset = 10;
 
     load_default_display_list(dl);
-    select_font(0, 2, 0, 0);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
 
     // needed for stack
     g = MIN(intensity << 2, 80);
@@ -204,8 +204,10 @@ void func_8038D004_79E6B4(Gfx **dl, u16 intensity) {
     gSPEndDisplayList((*dl)++);
 }
 
+extern s16 *D_803B6560_7C7C10[11];
 extern char* D_803BFFD8_7D1688;
 extern char* D_803BFFDC_7D168C;
+
 // load animal stats
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D258_79E908.s")
 // void func_8038D258_79E908(void) {
@@ -222,11 +224,12 @@ extern char* D_803BFFDC_7D168C;
 //     }
 //
 //     // what are these variables...
-//     *D_803D5520 = &D_801D9ED8.unk0[gCurrentAnimalIndex];
-//     D_803D5524 = *D_803D5520;
-//     D_803D5528 = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
-//     D_803D552C = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
-//     D_803D5530 = D_801D9ED8.animal[gCurrentAnimalIndex].unk0;
+//     D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
+//     D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
+//
+//     D_803D5528 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+//     D_803D552C = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+//     D_803D5530 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //
 //     D_803D5538 = 1;
 //     D_803D553C = gCurrentAnimalIndex;
@@ -337,7 +340,7 @@ extern char* D_803BFFDC_7D168C;
 //     }
 //
 //     D_803B6560_7C7C10[8] = msg;
-//     select_font(0, 2, 1, 0);
+//     select_font(0, FONT_COMIC_SANS, 1, 0);
 //     // "%s", " "
 //     sprintf(&ascii, &D_803BFFD8_7D1688, &D_803BFFDC_7D168C);
 //     prepare_text(&ascii, &wide);

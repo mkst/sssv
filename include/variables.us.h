@@ -388,6 +388,8 @@ extern Vtx  D_802294D0[]; // unknown size
 
 extern Gfx  *D_802255F0[][6];
 
+extern Gfx  *D_80225658;
+
 extern s16  D_8022E3F0[]; // scratch area for RNC decompression
 extern s16  D_8022E3F2;
 
@@ -821,6 +823,7 @@ extern f32  D_803BE13C_7CF7EC;
 extern f32  D_803BE140_7CF7F0;
 extern f32  D_803BE144_7CF7F4;
 extern f32  D_803BE148_7CF7F8;
+
 extern f64  D_803BE5F8;
 extern f64  D_803BE600;
 extern char D_803BE920[]; // "load xlui texture - %d\n"
@@ -920,7 +923,7 @@ extern u64  D_803C0648_7D1CF8;
 extern u64  D_803C0650_7D1D00;
 extern u32  D_803C0654; // geometry mode
 extern u16  D_803C0658; // matrix normalise
-extern struct063 D_803C0740[][0x81];
+extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
 extern s16  D_803C29E4_7D4094[];
 extern s16  D_803C29FE[];
 // 0x803Dxxxx
@@ -981,7 +984,7 @@ extern struct084 D_803D6120; // size 0x3FD8
 
 extern struct065 D_803DA110[40];
 extern Animal *D_803DA2F0;
-extern Animal *D_803DA2F4;
+extern Animal *D_803DA2F4; // not animal, script
 extern struct088 D_803DA300[1000];
 
 // 0x803Exxxx

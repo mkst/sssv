@@ -9,6 +9,8 @@ def parse_map(mapfile, section, ending=None):
     functions = {}
     files = {}
 
+    lib_files = []
+
     in_code = False
 
     filename = None
@@ -49,12 +51,24 @@ def parse_map(mapfile, section, ending=None):
             if re.match(r" .*build/.*\(\.text\)", line):
                 # skip
                 continue
+            # e.g.
+            # .text          0x00000000802ef0c0     0x1710 build/src.us/sssv/animals/hippo.c.o
             match = re.match(r"^ \.text +(0x[0-9A-z]+) +(0x[0-9A-z]+) +.*build/(.*)\.[a-z]+\.o", line)
             if match:
                 # offset = match.group(1)
                 # filesize = match.group(2)
                 filename = match.group(3)
                 files[filename] = []
+                continue
+            # e.g.
+            # .text          0x0000000080138330      0x940 build/lib/libultra.a(sched.o)
+            match = re.match(r"^ \.text +(0x[0-9A-z]+) +(0x[0-9A-z]+) +.*build/(.*)\.a\((.*)\.o\)", line)
+            if match:
+                # offset = match.group(1)
+                # filesize = match.group(2)
+                filename = match.group(4)
+                files[filename] = []
+                lib_files.append(filename)
                 continue
             # should we use regex?
             split_line = line.split()
@@ -72,7 +86,8 @@ def parse_map(mapfile, section, ending=None):
             if function:
                 # not 100% accurate due to nops but.. it'll do for now
                 functions[function]["length"] = offset - functions[function]["offset"]
-            functions[new_function] = {"offset": offset, "filename": filename, "language": "asm"}
+            language = "c" if filename in lib_files else "asm"
+            functions[new_function] = {"offset": offset, "filename": filename, "language": language}
             files[filename].append(new_function)
             function = new_function
             previous_offset = offset
@@ -84,7 +99,7 @@ def parse_file(basedir, filename, file_funcs, includes, non_matching=False):
     updates = []
 
     pattern = re.compile(r'#pragma GLOBAL_ASM\(".*\/([^\/]+)\.s"\)')
-    c_path = os.path.join(basedir, filename + ".c")
+    c_path = os.path.join(basedir, f"{filename}.c")
     if os.path.isfile(c_path):
         global_asms = []
         # cpp src.us/overlay2_6AB090.c  -I include/2.0I -I include -DNON_MATCHING

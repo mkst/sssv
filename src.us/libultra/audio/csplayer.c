@@ -39,9 +39,7 @@
 #include <libaudio.h>
 #include <os_internal.h>
 #include <ultraerror.h>
-#ifndef SSSV
 #include <assert.h>
-#endif
 #include "seqp.h"
 #include "cseqp.h"
 #include "cseq.h"
@@ -294,9 +292,8 @@ ALMicroTime __CSPVoiceHandler(void *node)
             seqp->chanState[chan].priority = seqp->nextEvent.msg.sppriority.priority;
             break;
         case (AL_SEQP_SEQ_EVT):
-#ifndef SSSV
             assert(seqp->state != AL_PLAYING);  /* Must be done playing to change sequences. */
-#endif
+
             seqp->target = seqp->nextEvent.msg.spseq.seq;
             __setUsptFromTempo (seqp, 500000.0);
             if (seqp->bank)
@@ -304,9 +301,8 @@ ALMicroTime __CSPVoiceHandler(void *node)
             break;
 
         case (AL_SEQP_BANK_EVT):
-#ifndef SSSV
             assert(seqp->state == AL_STOPPED);  /* Must be fully stopped to change banks. */
-#endif
+
             seqp->bank = seqp->nextEvent.msg.spbank.bank;
             __initFromBank((ALSeqPlayer *)seqp, seqp->bank);
             break;
@@ -315,9 +311,7 @@ ALMicroTime __CSPVoiceHandler(void *node)
         case (AL_SEQ_END_EVT):
         case (AL_TEMPO_EVT):
         case (AL_SEQ_MIDI_EVT):
-#ifndef SSSV
             assert(FALSE);
-#endif
             break;
         }
         seqp->nextDelta = alEvtqNextEvent(&seqp->evtq, &seqp->nextEvent);
@@ -383,10 +377,8 @@ void __CSPHandleNextSeqEvent(ALCSPlayer *seqp)
         __CSPPostNextSeqEvent(seqp);
         break;
 
-#ifndef SSSV
     default:
         assert(FALSE);  /* Sequence event type not supported. */
-#endif
     }
 }
 
@@ -709,10 +701,8 @@ void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event)
             }
             break;
         case (AL_MIDI_ProgramChange):
-#ifndef SSSV
         /* sct 1/16/96 - We must have a valid bank in order to process the program change. */
         assert(seqp->bank != NULL);
-#endif
 
             if (key < seqp->bank->instCount)
             {
