@@ -56,6 +56,7 @@ void func_803769E0_788090(void) {
     s32 tmp;
 
     animal = func_8037E9AC_79005C();
+    // twist animal Z based on missile side fired?
     if (func_8037FBBC_79126C() != 0) {
         tmp = 861;
     } else {

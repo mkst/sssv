@@ -488,3 +488,5 @@ overlay2_data_VRAM_end = 0x803C0420;
 fake_overlay1_BSS_START = 0x80302E60;
 fake_overlay1_BSS_END = 0x803B05A0;
 fake_overlay2_BSS_END = 0x803FDEC0;
+
+D_80100000_X = 0x80100000;

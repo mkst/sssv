@@ -275,10 +275,10 @@ s32 func_8030AA08_71C0B8(Animal *arg0, Animal *arg1) {
 }
 
 s32 func_8030AA90_71C140(struct071 *arg0) {
-    if (!arg0->unk4C.unk1D) {
+    if (!arg0->unk4C.unk30) {
         return 0;
     }
-    if (!arg0->unk4C.unk1C) {
+    if (!arg0->unk4C.unk29) {
         return func_8030E8AC_71FF5C(arg0);
     }
     return func_8030AAE0_71C190(arg0);
@@ -713,80 +713,80 @@ void func_80311A2C_7230DC(s16 xPos, s16 zPos, s16 *xVel, s16 *zVel, u8 arg4) {
 }
 
 void func_80311AA8_723158(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3) {
-    s16 temp_t7_2;
-    s16 temp_t9_2;
+    s16 x;
+    s16 y;
 
-    u8 temp_t0;
-    u8 temp_t1;
-    u8 temp_t2;
-    u8 temp_v1;
+    u8 x0y1;
+    u8 x1y1;
+    u8 x1y0;
+    u8 x0y0;
 
     *arg2 = *arg3 = 0;
 
-    temp_t7_2 = arg0 >> 6;
-    temp_t9_2 = arg1 >> 6;
+    x = arg0 >> 6;
+    y = arg1 >> 6;
 
-    if ((temp_t7_2 >= 0) && (temp_t7_2 < 72)) {
-        if ((temp_t9_2 >= 0) && (temp_t9_2 < 128)) {
-            temp_v1 = D_803C0740[temp_t7_2][temp_t9_2].unk1;
-            temp_t0 = D_803C0740[temp_t7_2][(temp_t9_2)+1].unk1;
-            temp_t1 = D_803C0740[(temp_t7_2)+1][(temp_t9_2)+1].unk1;
-            temp_t2 = D_803C0740[(temp_t7_2)+1][temp_t9_2].unk1;
+    if ((x >= 0) && (x < 72)) {
+        if ((y >= 0) && (y < 128)) {
+            x0y0 = D_803C0740[x][y].unk1;
+            x0y1 = D_803C0740[x][y+1].unk1;
+            x1y1 = D_803C0740[x+1][y+1].unk1;
+            x1y0 = D_803C0740[x+1][y].unk1;
 
-            if ((D_803C0740[temp_t7_2][temp_t9_2].unk4 & 2) != 0) {
+            if ((D_803C0740[x][y].unk4 & 2) != 0) {
                 if ((s16)(arg0 & 0x3F) < (s16)(arg1 & 0x3F)) {
-                    *arg2 = (temp_t0 - temp_t1) * 2;
-                    *arg3 = (temp_v1 - temp_t0) * 2;
+                    *arg2 = (x0y1 - x1y1) * 2;
+                    *arg3 = (x0y0 - x0y1) * 2;
                 } else {
-                    *arg2 = (temp_v1 - temp_t2) * 2;
-                    *arg3 = (temp_t2 - temp_t1) * 2;
+                    *arg2 = (x0y0 - x1y0) * 2;
+                    *arg3 = (x1y0 - x1y1) * 2;
                 }
             } else if (((s16)(arg0 & 0x3F) + (s16)(arg1 & 0x3F)) < 64) {
-                *arg2 = (temp_v1 - temp_t2) * 2;
-                *arg3 = (temp_v1 - temp_t0) * 2;
+                *arg2 = (x0y0 - x1y0) * 2;
+                *arg3 = (x0y0 - x0y1) * 2;
             } else {
-                *arg2 = (temp_t0 - temp_t1) * 2;
-                *arg3 = (temp_t2 - temp_t1) * 2;
+                *arg2 = (x0y1 - x1y1) * 2;
+                *arg3 = (x1y0 - x1y1) * 2;
             }
         }
     }
 }
 
-void func_80311BF8_7232A8(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3) {
-    u8 temp_t0;
-    u8 temp_t1;
-    u8 temp_t2;
-    u8 temp_v1;
+void func_80311BF8_7232A8(s16 xPos, s16 zPos, s16 *xVel, s16 *zVel) {
+    u8 x0y1;
+    u8 x1y1;
+    u8 x1y0;
+    u8 x0y0;
 
-    s16 tmp0;
-    s16 tmp1;
+    s16 x;
+    s16 y;
 
-    *arg2 = *arg3 = 0;
+    *xVel = *zVel = 0;
 
-    tmp0 = arg0 >> 6;
-    tmp1 = arg1 >> 6;
+    x = xPos >> 6;
+    y = zPos >> 6;
 
-    if ((tmp0 >= 0) && (tmp0 < 0x48) &&
-        (tmp1 >= 0) && (tmp1 < 0x80)) {
+    if ((x >= 0) && (x < 72) &&
+        (y >= 0) && (y < 128)) {
 
-        temp_v1 = D_803C0740[tmp0][tmp1].unk0;
-        temp_t0 = D_803C0740[tmp0][tmp1+1].unk0;
-        temp_t1 = D_803C0740[tmp0+1][tmp1+1].unk0;
-        temp_t2 = D_803C0740[tmp0+1][tmp1].unk0;
-        if (D_803C0740[tmp0][tmp1].unk4 & 1) {
-            if ((s16)(arg0 & 0x3F) < (s16)(arg1 & 0x3F)) {
-                *arg2 = (temp_t0 - temp_t1) * 2;
-                *arg3 = (temp_v1 - temp_t0) * 2;
+        x0y0 = D_803C0740[x+0][y+0].unk0;
+        x0y1 = D_803C0740[x+0][y+1].unk0;
+        x1y1 = D_803C0740[x+1][y+1].unk0;
+        x1y0 = D_803C0740[x+1][y+0].unk0;
+        if (D_803C0740[x][y].unk4 & 1) {
+            if ((s16) (xPos & 0x3F) < (s16) (zPos & 0x3F)) {
+                *xVel = (x0y1 - x1y1) * 2;
+                *zVel = (x0y0 - x0y1) * 2;
             } else {
-                *arg2 = (temp_v1 - temp_t2) * 2;
-                *arg3 = (temp_t2 - temp_t1) * 2;
+                *xVel = (x0y0 - x1y0) * 2;
+                *zVel = (x1y0 - x1y1) * 2;
             }
-        } else if (((s16) (arg0 & 0x3F) + (s16) (arg1 & 0x3F)) < 64) {
-            *arg2 = (temp_v1 - temp_t2) * 2;
-            *arg3 = (temp_v1 - temp_t0) * 2;
+        } else if (((s16) (xPos & 0x3F) + (s16) (zPos & 0x3F)) < 64) {
+            *xVel = (x0y0 - x1y0) * 2;
+            *zVel = (x0y0 - x0y1) * 2;
         } else {
-            *arg2 = (temp_t0 - temp_t1) * 2;
-            *arg3 = (temp_t2 - temp_t1) * 2;
+            *xVel = (x0y1 - x1y1) * 2;
+            *zVel = (x1y0 - x1y1) * 2;
         }
     }
 }

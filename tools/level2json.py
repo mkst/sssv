@@ -2,8 +2,9 @@ import json
 import os
 import struct
 import sys
+from pathlib import Path
 
-LEVEL_NAME = "levels/SMASHING_START"
+# LEVEL_NAME = "levels/SMASHING_START"
 
 # super work-in-progress
 
@@ -16,6 +17,15 @@ payload_types = {
     7: "dynamic_objects",
     12: "game_state",
 }
+
+#
+default_script_struct = "hhhhh"
+script_structs = {
+    12: "hhbbbbh",
+    16: "hhbbbbbb",
+
+}
+
 
 def unpack_datatype_0(data):
     # H             # number of entries
@@ -115,7 +125,7 @@ def unpack_datatype_7(data):
     res = []
     entries, = struct.unpack(">h", data[0:2])
     datatype_7_format = "hhhhhhhhhhhhbb"
-    for i, s in enumerate(struct.iter_unpack(">" datatype_7_format, data[2:])):
+    for i, s in enumerate(struct.iter_unpack(">" + datatype_7_format, data[2:])):
         id, x, z, y, unk8, unkA, unkC, unkE, unk10, unk12, unk14, unk16, unk18, unk19 = s
         entry = {
             "id": id,
@@ -259,29 +269,24 @@ def unpack_data(datatype, data):
         o.write(data)
 
     if datatype == 0:
-        print("[0]  - Objects")
+        print("[0]  - Objects, e.g. level01.cob")
         res = unpack_datatype_0(data)
     elif datatype == 1:
-        print("[1]  - Animals")
+        print("[1]  - Animals, e.g. level01.can")
         res = unpack_datatype_1(data)
     elif datatype == 2:
         # 6 bytes per entry, link objects together?
-        print("[2]  - Unknown")
+        print("[2]  - Unknown, e.g. level01.joi")
         res = unpack_datatype_2(data)
     elif datatype == 4:
-        print("[4]  - Unknown")
+        print("[4]  - Unknown, e.g. level01.cmd")
         length, = struct.unpack(">h", data[0:2])
-        # print(length, "bytes")
-        for i, x in enumerate(struct.iter_unpack(">hhBBhh", data[2:])):
+        for i, x in enumerate(struct.iter_unpack(">hhhhh", data[2:])):
             res.append(x)
-            # if x[0] == 24:
-                # print("particle state", x)
-            # if i < 20:
-                # print("\t", i, x)
     elif datatype == 5:
-        # 8 bytes per entry?
-        print("[5]  - Unknown, FIVE", len(data))
+        print("[5]  - Unknown, e.g. level01.rng")
         length, = struct.unpack(">h", data[0:2])
+        # 8 bytes per entry?
         # print(length, "entries")
         # print(len(data[2:]))
         # e.g. 64 bytes
@@ -290,13 +295,13 @@ def unpack_data(datatype, data):
             res.append(x)
             # print("\t", i, x)
     elif datatype == 6:
-        print("[6]  - Waypoints (Path Thingies)")
+        print("[6]  - Waypoints (Path Thingies), e.g. level01.paf")
         res = unpack_datatype_6(data)
     elif datatype == 7:
         print("[7]  - Dynamic objects? e.g. ropes?")
         res = unpack_datatype_7(data)
     elif datatype == 9:
-        print("[9]  - Unknown NINE (level data?)", len(data))
+        print("[9]  - Unknown, e.g. level01.map")
         # print("data length: ", len(data))
         # size 50440 bytes
         for i, s in enumerate(struct.iter_unpack(">BBBBBBBB", data)):
@@ -309,14 +314,14 @@ def unpack_data(datatype, data):
         # size 0x34
         # print((len(data) - 4) / 0x34) # ?
     elif datatype == 11:
-        print("[11] - Unknown")
+        print("[11] - Unknown, e.g. level01.mat")
         # 3072 bytes
         # straight copy into D_803E1D30, what is this?
     elif datatype == 12:
-        print("[12] - Game state (struct000)")
+        print("[12] - Game state (struct000), e.g. level01.dat")
         res = unpack_datatype_12(data)
     elif datatype == 13:
-        print("[13] - Unknown (2 payloads)")
+        print("[13] - Unknown (2 payloads), e.g. level01.cam")
         p1 = []
         p2 = []
         # two payloads
@@ -355,6 +360,10 @@ def unpack_data(datatype, data):
 def main(infile, outfile):
     with open(infile, "rb") as f:
         data = f.read()
+
+    infile_path = Path(outfile)
+    global LEVEL_NAME
+    LEVEL_NAME = Path("/".join(infile_path.parts[:-1])) / Path(infile_path.name).stem
 
     KEY_ORDER = [12, 11, 9, 4, 0, 1, 2, 5, 7, 6, 10, 13, 14, 15, 3]
 

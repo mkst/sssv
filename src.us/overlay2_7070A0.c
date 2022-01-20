@@ -580,37 +580,35 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8994_70A044.s")
 // regalloc is wrong,
-// Animal *func_802F8994_70A044(Animal *arg0) {
+// struct071 *func_802F8994_70A044(struct071 *arg0) {
 //     s16 i;
 //     s16 phi_v1;
 //     s16 phi_a0;
 //
-//     s16 phi_s4;
+//     s16 distance;
 //     s16 temp_s0;
 //
 //     Animal *animal;
-//     Animal *ret;
+//     struct071 *ret;
 //
-//     phi_s4 = 0x7FFF; // MAX_SHORT ?
+//     distance = 0x7FFF; // MAX_SHORT ?
 //     ret = NULL;
 //
 //     for (i = 0; i < D_803D553E; i++) {
-//         animal = D_801D9ED8.animal[i].unk0;
+//         animal = D_801D9ED8.animals[i].animal;
 //         if (animal != NULL) {
 //             if ((animal->unk366 != 6) && (animal->unk366 != 2) && (animal->unk366 != 5)) {
-//                 struct035 *new_var = D_801D9ED8.unk3EB0;
-//                 if ((new_var->unk9C != EVO_GLITCHY) &&
-//                     (new_var->unk9C != EVO)) {
+//                 if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) &&
+//                     (D_801D9ED8.animals[i].unk0->unk9C != EVO)) {
 //
 //                     ret = arg0; // not this but similar?
-//                     phi_a0 = ABS(arg0->xPos - animal->xPos);
-//                     phi_v1 = ABS(arg0->zPos - animal->zPos);
+//                     phi_a0 = ABS(arg0->unk4.h - animal->xPos);
+//                     phi_v1 = ABS(arg0->unk8.h - animal->zPos);
 //                     temp_s0 = MAX(phi_a0, phi_v1) + (MIN(phi_a0, phi_v1) >> 1);
 //
-//                     if ((temp_s0 < phi_s4) && func_802F8918_709FC8(arg0, animal)) {
+//                     if ((temp_s0 < distance) && func_802F8918_709FC8(arg0, animal)) {
 //                         // found a new closer animal?
-//                         if (1) { } if (1) { }
-//                         phi_s4 = temp_s0;
+//                         distance = temp_s0;
 //                         ret = animal;
 //                     }
 //                 }
@@ -729,7 +727,7 @@ void func_802F908C_70A73C(struct071 *arg0) {
 void func_802F90A8_70A758(struct071 *arg0) {
     arg0->unk4.w += arg0->unk1C.w;
     arg0->unk8.w += arg0->unk20.w;
-    if (!arg0->unk4C.unk1D) {
+    if (!arg0->unk4C.unk30) {
         arg0->unkC.w += arg0->unk24;
     }
     func_803136B0_724D60(arg0);

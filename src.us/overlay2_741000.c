@@ -222,144 +222,86 @@ void func_8032F950_741000(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80338E1C_74A4CC.s")
 #if 0
+// f64  D_803BE4D0_7CFB80 = 0.8;
 void func_80338E1C_74A4CC(u8 arg0) {
-    f32 temp_f0;
-    f32 temp_f12_3;
-    f32 temp_f14;
-    f64 temp_f12;
-    f64 temp_f12_2;
-    f64 temp_f16;
-    f64 temp_f16_2;
-    s16 temp_a0;
-    s16 temp_a0_2;
-    s8 temp_v1;
-    void *temp_t9;
-    void *temp_v0;
-    void *temp_v0_10;
-    void *temp_v0_11;
-    void *temp_v0_12;
-    void *temp_v0_13;
-    void *temp_v0_14;
-    void *temp_v0_2;
-    void *temp_v0_3;
-    void *temp_v0_4;
-    void *temp_v0_5;
-    void *temp_v0_6;
-    void *temp_v0_7;
-    void *temp_v0_8;
-    void *temp_v0_9;
-    f32 phi_f16;
-    f32 phi_f12;
     s32 phi_a0;
     s32 phi_v1;
     f32 phi_f0;
-    f64 phi_f16_2;
+    f32 temp;
 
-    temp_t9 = D_803F28E0[arg0]; //.unk0; //((arg0 & 0xFF) * 0xDC) + &D_803F28E0;
-    D_803F2AD0 = temp_t9;
-    if (temp_t9->unkD6 == 1) {
-        temp_t9->unk50 = (s16) (&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB0->unkC8;
-        D_803F2AD0->unk4E = (s16) (&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB0->unkCA;
+    D_803F2AD0 = &D_803F28E0[arg0];
+
+    if (D_803F2AD0->unkD6 == 1) {
+        D_803F2AD0->unk50 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC8;
+        D_803F2AD0->unk4E = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkCA;
     } else {
-        temp_t9->unk50 = 0x190;
-        D_803F2AD0->unk4E = 0x20;
+        // defaults
+        D_803F2AD0->unk50 = 400;
+        D_803F2AD0->unk4E = 32;
     }
-    temp_v0 = D_803F2AD0;
-    temp_v1 = temp_v0->unk64;
-    if ((s32) temp_v1 < 0) {
-        temp_a0 = temp_v0->unk50;
-        temp_v0->unk34 = (f32) (temp_a0 + ((s32) (temp_v1 * temp_a0) / 4));
+    if (D_803F2AD0->unk64 < 0) {
+        D_803F2AD0->unk34 = D_803F2AD0->unk50 + ((D_803F2AD0->unk64 * D_803F2AD0->unk50) / 4);
     } else {
-        temp_a0_2 = temp_v0->unk50;
-        temp_v0->unk34 = (f32) (temp_a0_2 + ((s32) (temp_v1 * temp_a0_2) / 2));
+        D_803F2AD0->unk34 = D_803F2AD0->unk50 + ((D_803F2AD0->unk64 * D_803F2AD0->unk50) / 2);
     }
-    temp_v0_2 = D_803F2AD0;
-    temp_f0 = (f32) ((f64) (temp_v0_2->unk34 - temp_v0_2->unk30) * D_803BE4D0_7CFB80);
-    phi_f0 = temp_f0;
-    if (temp_f0 < 0.0f) {
-        phi_f12 = -temp_f0;
-    } else {
-        phi_f12 = temp_f0;
-    }
-    temp_f14 = temp_v0_2->unk38;
-    if (temp_f14 < 0.0f) {
-        phi_f16 = -temp_f14;
-    } else {
-        phi_f16 = temp_f14;
-    }
-    if (!(phi_f16 < phi_f12)) {
-        phi_a0 = 1;
-        phi_v1 = 1;
-        if (temp_f0 < 0.0f) {
+
+    phi_f0 = (D_803F2AD0->unk34 - D_803F2AD0->unk30) * 0.18; // D_803BE4D0_7CFB80
+
+    if (!(ABSF(phi_f0) > ABSF(D_803F2AD0->unk38))) {
+        phi_a0 = phi_v1 = 1U;
+        if (phi_f0 < 0.0f) {
             phi_v1 = -1;
         }
-        if (temp_f14 < 0.0f) {
+        if (D_803F2AD0->unk38 < 0.0f) {
             phi_a0 = -1;
         }
-        if (phi_a0 != phi_v1) {
+
+        if (phi_v1 != phi_a0) {
             goto block_18;
         }
     } else {
 block_18:
-        if (temp_f0 > 0.0f) {
-            temp_f12 = (f64) temp_f0;
-            temp_f16 = (f64) temp_f14 + 4.0;
-            phi_f16_2 = temp_f16;
-            if (temp_f12 < temp_f16) {
-                phi_f0 = (f32) temp_f12;
-            } else {
-                goto block_24;
-            }
+        if (phi_f0 > 0.0f) {
+            phi_f0 = MIN(phi_f0, D_803F2AD0->unk38 + 4.0);
         } else {
-            temp_f12_2 = (f64) temp_f0;
-            temp_f16_2 = (f64) temp_f14 - 4.0;
-            phi_f16_2 = temp_f16_2;
-            if (temp_f16_2 < temp_f12_2) {
-                phi_f0 = (f32) temp_f12_2;
-            } else {
-block_24:
-                phi_f0 = (f32) phi_f16_2;
-            }
+            phi_f0 = MAX(phi_f0, D_803F2AD0->unk38 - 4.0);
         }
     }
-    temp_v0_2->unk38 = phi_f0;
-    temp_v0_3 = D_803F2AD0;
-    temp_f12_3 = temp_v0_3->unk30;
-    temp_v0_3->unk30 = (f32) (temp_f12_3 + phi_f0);
-    temp_v0_4 = D_803F2AD0;
-    temp_v0_4->unkA4 = (f32) (temp_v0_4->unkA4 * (temp_v0_4->unk30 / temp_f12_3));
-    temp_v0_5 = D_803F2AD0;
-    temp_v0_5->unkA8 = (f32) (temp_v0_5->unkA8 * (temp_v0_5->unk30 / temp_f12_3));
-    temp_v0_6 = D_803F2AD0;
-    temp_v0_6->unkBC = (f32) (temp_v0_6->unkBC * (temp_v0_6->unk30 / temp_f12_3));
-    temp_v0_7 = D_803F2AD0;
-    temp_v0_7->unkC0 = (f32) (temp_v0_7->unkC0 * (temp_v0_7->unk30 / temp_f12_3));
+
+    D_803F2AD0->unk38 = phi_f0;
+    temp = D_803F2AD0->unk30;
+    D_803F2AD0->unk30 += phi_f0;
+
+    D_803F2AD0->unkA4 = D_803F2AD0->unkA4 * (D_803F2AD0->unk30 / temp);
+    D_803F2AD0->unkA8 = D_803F2AD0->unkA8 * (D_803F2AD0->unk30 / temp);
+
+    D_803F2AD0->unkBC = D_803F2AD0->unkBC * (D_803F2AD0->unk30 / temp);
+    D_803F2AD0->unkC0 = D_803F2AD0->unkC0 * (D_803F2AD0->unk30 / temp);
+
     D_803F2AD0->unk20 = 0.0f;
     D_803F2AD0->unk24 = 0.0f;
-    temp_v0_8 = D_803F2AD0;
-    if ((f64) temp_v0_8->unk30 < 1.0) {
-        temp_v0_8->unk30 = 1.0f;
+
+    if (D_803F2AD0->unk30 < 1.0) {
+        D_803F2AD0->unk30 = 1.0f;
     }
-    D_803F2AD0->unk8 = (f32) D_803F2AD0->unk98;
-    temp_v0_9 = D_803F2AD0;
-    temp_v0_9->unkC = (f32) temp_v0_9->unk9C;
-    temp_v0_10 = D_803F2AD0;
-    temp_v0_10->unk10 = (f32) ((f64) temp_v0_10->unkA0 + 4.0);
-    temp_v0_11 = D_803F2AD0;
-    temp_v0_11->unk74 = (f32) temp_v0_11->unk8;
-    temp_v0_12 = D_803F2AD0;
-    temp_v0_12->unk78 = (f32) temp_v0_12->unkC;
-    temp_v0_13 = D_803F2AD0;
-    temp_v0_13->unk7C = (f32) (temp_v0_13->unk10 + temp_v0_13->unk30);
+
+    D_803F2AD0->unk8 = D_803F2AD0->unk98;
+    D_803F2AD0->unkC = D_803F2AD0->unk9C;
+    D_803F2AD0->unk10 = D_803F2AD0->unkA0 + 4.0;
+
+    D_803F2AD0->unk74 = D_803F2AD0->unk8;
+    D_803F2AD0->unk78 = D_803F2AD0->unkC;
+    D_803F2AD0->unk7C = D_803F2AD0->unk10 + D_803F2AD0->unk30;
+
     D_803F2AD0->unk8C = 0.0f;
     D_803F2AD0->unk90 = 1.0f;
     D_803F2AD0->unk94 = 0.0f;
+
     if (D_803F2AA6 != 0) {
-        temp_v0_14 = D_803F2AD0;
-        temp_v0_14->unk30 = (f32) temp_v0_14->unk34;
+        D_803F2AD0->unk30 = D_803F2AD0->unk34;
         D_803F2AD0->unk38 = 0.0f;
     }
-    *(s8 *)0x803F2AC5 = 1;
+    D_803F2AC5 = 1;
 }
 #endif
 
@@ -456,6 +398,59 @@ void func_80339308_74A9B8(u8 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033AC68_74C318.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033B118_74C7C8.s")
+// void func_8033B118_74C7C8(u8 arg0) {
+//     f32 sp30;
+//     f32 temp_f16;
+//     f32 temp_f22;
+//     f32 temp_f2;
+//     f64 temp_f0;
+//     f64 temp_f20;
+//     u16 temp_t5;
+//     void *temp_t9;
+//     void *temp_v0;
+//     void *temp_v0_2;
+//     void *temp_v0_3;
+//     void *temp_v0_4;
+//     void *temp_v1;
+//     f32 phi_f2;
+//     f32 phi_f16;
+//
+//     // temp_t9 = ((arg0 & 0xFF) * 0xDC) + &D_803F28E0;
+//     D_803F2AD0 = &D_803F28E0[arg0];
+//     D_803F2AD0->unk20 = (f32) (D_803F2AD0->unk20 + D_803A6CCC_7B837C);
+//     // temp_v0 = D_803F2AD0;
+//     temp_f2 = D_803F2AD0->unk20;
+//     temp_f0 = (f64) temp_f2;
+//     phi_f2 = temp_f2;
+//     if (temp_f0 > 256.0) {
+//         D_803F2AD0->unk20 = (f32) (temp_f0 - 256.0);
+//         phi_f2 = D_803F2AD0->unk20;
+//     }
+//     temp_f20 = D_803BE550_7CFC00;
+//     D_803F2AD0->unk24 = phi_f2;
+//     D_803F2AD0->unk8 = (f32) ((f64) (f32) (D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos / 65536.0);
+//     D_803F2AD0->unkC = (f32) ((f64) (f32) (D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos / 65536.0);
+//     temp_v1 = (&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4;
+//     temp_t5 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42; //temp_v1->unk42;
+//     temp_f16 = (f32) temp_t5;
+//     phi_f16 = temp_f16;
+//     if ((s32) temp_t5 < 0) {
+//         phi_f16 = temp_f16 + 4294967296.0f;
+//     }
+//     D_803F2AD0->unk10 = (f32) (((f64) phi_f16 * 0.5) + ((f64) (f32) temp_v1->unkC / 65536.0));
+//     temp_f22 = ((f32) (&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB0->unkD4 * D_803A6CC4_7B8374 * 75.0f) / D_803F2E30;
+//     sp30 = cosf((f32) (((f64) D_803A6CC8_7B8378 * temp_f20) / D_803BE558_7CFC08), &D_801D9ED8, &gCurrentAnimalIndex);
+//     // temp_v0_2 = D_803F2AD0;
+//     D_803F2AD0->unk74 = (f32) (D_803F2AD0->unk8 - (sinf((f32) ((f64) D_803F2AD0->unk20 * temp_f20 * 0.00390625)) * (temp_f22 * sp30)));
+//     sp30 = cosf((f32) (((f64) D_803A6CC8_7B8378 * temp_f20) / D_803BE560_7CFC10));
+//     // temp_v0_3 = D_803F2AD0;
+//     D_803F2AD0->unk78 = (f32) (D_803F2AD0->unkC - (cosf((f32) ((f64) D_803F2AD0->unk20 * temp_f20 * 0.00390625)) * (temp_f22 * sp30)));
+//     // temp_v0_4 = D_803F2AD0;
+//     D_803F2AD0->unk7C = (f32) ((sinf((f32) (((f64) D_803A6CC8_7B8378 * temp_f20) / D_803BE568_7CFC18)) * temp_f22) + D_803F2AD0->unk10);
+//     D_803F2AD0->unk8C = 0.0f;
+//     D_803F2AD0->unk90 = 0.0f;
+//     D_803F2AD0->unk94 = 1.0f;
+// }
 
 void func_8033B440_74CAF0(u8 arg0) {
     f32 temp_f0;

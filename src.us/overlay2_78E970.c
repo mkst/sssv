@@ -134,8 +134,6 @@ void func_8037FE24_7914D4(void) {
     }
 }
 
-
-#ifdef NON_MATCHING
 void func_8037FEDC_79158C(void) {
     s16 i;
     s16 zDist;
@@ -145,22 +143,22 @@ void func_8037FEDC_79158C(void) {
 
     // iterate over all animals in the level
     for (i = 0; i < D_803D553E; i++) {
-        if ((D_801D9ED8.animal[i].unk0 != NULL) &&
-            (D_801D9ED8.unk3EB0->unk9C != EVO_GLITCHY) &&
-            (D_801D9ED8.animal[i].unk0->unk366 != 6) &&
-            (D_801D9ED8.animal[i].unk0 != D_803D5530) &&
-            ((u8)D_801D9ED8.animal[i].unk0->unk2A0 == 0) &&
-            ((D_801D9ED8.unk3EB0->unk9C == SHEEP) || (D_801D9ED8.unk3EB0->unk9C == SPRINGY_THINGY))) {
-            xDist = ABS(D_801D9ED8.animal[i].unk0->xPos - D_803D5530->xPos);
+        if ((D_801D9ED8.animals[i].animal != NULL) &&
+            (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) &&
+            (D_801D9ED8.animals[i].animal->unk366 != 6) &&
+            (D_801D9ED8.animals[i].animal != D_803D5530) &&
+            ((u8)D_801D9ED8.animals[i].animal->unk2A0 == 0) &&
+            ((D_801D9ED8.animals[i].unk0->unk9C == SHEEP) || (D_801D9ED8.animals[i].unk0->unk9C == SPRINGY_THINGY))) {
+            xDist = ABS(D_801D9ED8.animals[i].animal->xPos - D_803D5530->xPos);
             if (xDist < 200) {
-                zDist = ABS(D_801D9ED8.animal[i].unk0->zPos - D_803D5530->zPos);
+                zDist = ABS(D_801D9ED8.animals[i].animal->zPos - D_803D5530->zPos);
                 if (zDist < 200) {
-                    if ((D_801D9ED8.animal[i].unk0->unk287 == 0) && (D_803D552C->unk28A == 0)) {
-                        D_801D9ED8.animal[i].unk0->unk287 = 1;
+                    if ((D_801D9ED8.animals[i].animal->unk287 == 0) && (D_803D552C->unk28A == 0)) {
+                        D_801D9ED8.animals[i].animal->unk287 = 1;
                         if (D_803D5530) {};
-                        D_801D9ED8.animal[i].unk0->unk288 = (xDist + zDist) >> 3;
+                        D_801D9ED8.animals[i].animal->unk288 = (xDist + zDist) >> 3;
                         // swarm? follow?
-                        func_80363E88_775538(D_801D9ED8.animal[i].unk0, D_803D5530);
+                        func_80363E88_775538(D_801D9ED8.animals[i].animal, D_803D5530);
                     }
                 }
             }
@@ -168,6 +166,3 @@ void func_8037FEDC_79158C(void) {
     }
     func_8037E6DC_78FD8C(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 200, 15);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037FEDC_79158C.s")
-#endif

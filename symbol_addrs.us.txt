@@ -779,28 +779,3 @@ osYieldThread               = 0x8014D1B0; // defined:true
 
 lldiv                       = 0x8014D200; // defined:true
 ldiv                        = 0x8014D300; // defined:true
-
-
-// libultra .data
-
-// initialize.o
-osClockRate                 = 0x80159950;
-osViClock                   = 0x80159958;
-__OSGlobalIntMask           = 0x80159960;
-osViModeTable               = 0x80159980;
-
-// pimgr.o
-__osCurrentHandle           = 0x8015A6E0;
-
-// exceptasm.o
-__osRcpImTable              = 0x8015B340;
-
-
-
-// libultra .bss
-
-// initialize.o
-__osFinalrom                = 0x802912F0;
-
-// seteventmesg.o
-__osEventStateTab           = 0x802924D0;

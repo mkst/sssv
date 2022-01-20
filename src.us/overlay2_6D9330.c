@@ -129,7 +129,7 @@ struct050 *func_802C7F88_6D9638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4
 
     used = 0;
     for (i = 0; i < D_803D553E; i++) {
-        if (D_801D9ED8.animal[i].unk0->unk366 != 6) {
+        if (D_801D9ED8.animals[i].animal->unk366 != 6) {
             used = i; //++;
         }
     }

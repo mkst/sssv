@@ -105,38 +105,38 @@ void func_802DA7F0_6EBEA0(void) {
 //     func_802DA90C_6EBFBC(arg0);
 // }
 
-void func_802DAE5C_6EC50C(Animal *arg0) {
-    Animal **a;
+void func_802DAE5C_6EC50C(struct071 *obj) {
+    struct071 **o;
 
-    func_802DAD18_6EC3C8(arg0);
-    switch (arg0->unk26D) {
+    func_802DAD18_6EC3C8(obj);
+    switch (obj->unk26D) {
     case 1:
-        a = &D_803DA2F0;
+        o = &D_803DA2F0;
         break;
     case 2:
-        a = &D_803DA2F4;
+        o = &D_803DA2F4;
         break;
     default:
-        a = NULL;
+        o = NULL;
         break;
     }
 
-    if (a != NULL) {
+    if (o != NULL) {
 
-        while ((*a != NULL) && (*a != arg0)) {
-            a = &(*a)->unk198;
+        while ((*o != NULL) && (*o != obj)) {
+            o = &(*o)->unk198;
         }
 
-        if (*a == NULL) {
-            rmonPrintf("collist2. Object has been deleted but was not in list. %d.\n", arg0->unk26D);
-            rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", arg0, arg0->unk16C->unk0, arg0->xPos, arg0->zPos, arg0->yPos);
+        if (*o == NULL) {
+            rmonPrintf("collist2. Object has been deleted but was not in list. %d.\n", obj->unk26D);
+            rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", obj, obj->unk16C->unk0, obj->unk4.h, obj->unk8.h, obj->unkC.h);
             SSSV_ASSERT(FALSE, "../src/collist2.c", 436);
         } else {
-            *a = arg0->unk198;
+            *o = obj->unk198;
         }
     }
-    arg0->unk198 = NULL;
-    arg0->unk26D = 0U;
+    obj->unk198 = NULL;
+    obj->unk26D = 0U;
 }
 
 void func_802DAF5C_6EC60C(void) {
@@ -153,18 +153,18 @@ void func_802DAF5C_6EC60C(void) {
 }
 
 void func_802DAFAC_6EC65C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
-    Animal *ptr;
+    struct071 *obj;
     s32 a0 = arg0;
     s32 a1 = arg1;
     s32 a2 = arg2;
     s32 a3 = arg3;
 
-    for (ptr = D_803DA2F4; ptr != NULL; ptr = ptr->unk198) {
-        if (((s16)(a0 + a2 + 1 << 6) >= ptr->xPos) &&
-            ((s16)(a0          << 6) <= ptr->xPos) &&
-            ((s16)(a1 + a3 + 1 << 6) >= ptr->zPos) &&
-            ((s16)(a1          << 6) <= ptr->zPos)) {
-              ptr->unk4C.unk25 = 1;
+    for (obj = D_803DA2F4; obj != NULL; obj = obj->unk198) {
+        if (((s16)((a0 + a2 + 1) << 6) >= obj->unk4.h) &&
+            ((s16)((a0         ) << 6) <= obj->unk4.h) &&
+            ((s16)((a1 + a3 + 1) << 6) >= obj->unk8.h) &&
+            ((s16)((a1         ) << 6) <= obj->unk8.h)) {
+              obj->unk4C.unk26 = 1;
         }
     }
 }

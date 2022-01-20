@@ -120,8 +120,8 @@ void select_font(u8 arg0, u8 fontType, u8 shadow, u8 arg3) {
 void select_comic_sans_font(void) {
     D_8023F1E0.unk0 = D_80154370;
     D_8023F1E0.fontAddress = _fontbufferSegmentStart;
-    D_8023F1E0.width = 16; // width?
-    D_8023F1E0.height = 16; // height?
+    D_8023F1E0.width = 16;
+    D_8023F1E0.height = 16;
     D_8023F1E0.bits = 4;  // color bitdepth?
     D_8023F1E0.glyphBytes = 128; // 16*16*0.5
 }
@@ -274,7 +274,7 @@ s32 func_8012C678(s16 *text, u16 x, u16 y) {
             }
             return 2;
         }
-    } else if (*text == 20000) { // newline
+    } else if (*text == NEWLINE) {
         return 3;
     }
     return 0;
@@ -391,7 +391,104 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
     gDPPipeSync((*dl)++);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012D374.s")
+void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16 maxChars) {
+    u16 chr_width;
+    s16 chr;
+    s16 xpos;
+
+    D_8023F1F8 = width;
+    D_8023F1FC = height;
+
+    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+    chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+
+    xpos = x + (chr_width / 2);
+
+    func_8012FA78(dl);
+
+    while ((*text != EOM) && (maxChars != 0)) {
+        switch (func_8012C678(text, xpos, y)) {
+        case 1: // timer
+            x += func_8012C3D8(D_8023F248); // write out time
+            text += 4;
+            break;
+        case 2: // change color
+            text += 3;
+            break;
+        case 0:
+            if (maxChars > 0) {
+                maxChars += -1;
+            }
+
+            chr = *text;
+            if (chr != TILESET_SPACE) {
+
+                load_glyph(dl, chr);
+                chr_width = (((s32) D_8023F1F8 - func_8012C314(*(D_8023F1E0.unk0 + chr))) * D_8023F1F4);
+
+                if (D_8023F1F5) {
+
+                    gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
+                    gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
+
+                    gSPTextureRectangle(
+                        (*dl)++,
+                        ((s32)(x + (chr_width / 2)) + 1) << 2,
+                        (y + 1) << 2,
+                        (((s32)(x + (chr_width / 2)) + 1) + (s32) D_8023F1F8) << 2,
+                        (y + 1 + (s32) D_8023F1FC) << 2,
+                        G_TX_RENDERTILE,
+                        0,
+                        0,
+                        16384.0f / D_8023F1F8,
+                        16384.0f / D_8023F1FC
+                    );
+
+                    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                }
+
+                gSPTextureRectangle(
+                    (*dl)++,
+                    ((s32)(x + (chr_width / 2))) << 2,
+                    (y) << 2,
+                    ((s32)(x + (chr_width / 2)) + (s32) D_8023F1F8) << 2,
+                    (y + (s32) D_8023F1FC) << 2,
+                    G_TX_RENDERTILE,
+                    0,
+                    0,
+                    16384.0f / D_8023F1F8,
+                    16384.0f / D_8023F1FC
+                    );
+            }
+
+            switch (D_8023F1F4) {
+            case 0:
+                x += func_8012C314(*(D_8023F1E0.unk0 + chr));
+                if (width < 14.0f) {
+                    x += 1;
+                }
+                break;
+            case 1:
+                x += D_8023F1F8;
+                break;
+            default:
+                break; // required for matching
+            }
+
+            xpos = x + (chr_width / 2);
+            text++;
+            break;
+        case 3:
+            text++;
+            break;
+        }
+    }
+
+    gDPPipeSync((*dl)++);
+}
 
 void draw_glyph(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     D_8023F1F8 = width;
@@ -458,8 +555,8 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
             G_TX_RENDERTILE,
             0,
             0,
-            (16384.0f / D_8023F1F8),
-            (16384.0f / D_8023F1FC)
+            16384.0f / D_8023F1F8,
+            16384.0f / D_8023F1FC
             );
 
         switch (D_8023F1F4) {
@@ -527,10 +624,8 @@ void load_glyph(Gfx **dl, s16 tileId) {
 // NON-MATCHING: quite a long way to go here...
 // returns updated vertical offset
 // s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 xs, f32 ys, u16 maxWidth, u8 lineSpacing) {
-//     s16 phi_v0;
-//     s16 end;
-//     u16 phi_s6;
-//     s32 chr;
+//     u8 end;
+//     u16 chr;
 //     u16 x_start;
 //
 //     D_8023F1F8 = xs;
@@ -543,7 +638,7 @@ void load_glyph(Gfx **dl, s16 tileId) {
 //
 //     x_start = x;
 //     while (*text != EOM) {
-//         switch (func_8012C678(text, x, y)) {
+//         switch (func_8012C678(text, (s16)x, (s16)y)) {
 //         case 2: // color
 //             text += 3;
 //             break;
@@ -593,7 +688,7 @@ void load_glyph(Gfx **dl, s16 tileId) {
 //             D_8023F1E0.unk0 -= chr;
 //
 //             if (xs < 13.0f) {
-//                 x++;
+//                 x += 1;
 //             }
 //
 //             if (chr == TILESET_SPACE) {
@@ -605,24 +700,25 @@ void load_glyph(Gfx **dl, s16 tileId) {
 //                     x += func_8012C314(*D_8023F1E0.unk0);
 //                     // if we have exceeded desired line length, wrap
 //                     if (x >= maxWidth) {
-//                         y += lineSpacing;
-//                         x = 0; // x_start ?
 //                         end = 1;
+//                         x = x_start; //x_start; // 0?
+//                         y += lineSpacing;
 //                     }
 //                     text += 1;
 //                     D_8023F1E0.unk0 -= chr;
 //                 }
 //             }
 //
+//             text += 1;
+//
 //             if (D_8023F2A0.language == LANG_JAPANESE) {
 //                 if (x >= (maxWidth - 10)) {
 //                     if (*text != EOM) {
 //                         y += lineSpacing;
-//                         x = 0; // x_start ?
+//                         x = x_start; // 0?
 //                     }
 //                 }
 //             }
-//             text += 1;
 //             break;
 //         case 3: // newline
 //             text += 1;
@@ -710,7 +806,7 @@ void prepare_text(u8 *src, s16 *dst) {
         src++;
     }
 
-    *dst = 30000;
+    *dst = EOM;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/load_level_text_data.s")
