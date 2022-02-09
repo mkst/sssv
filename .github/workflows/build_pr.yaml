@@ -33,3 +33,15 @@ jobs:
       uses: docker://ghcr.io/mkst/sssv:latest
       with:
         args: make --jobs
+
+    # build NON_MATCHING ROM
+
+    - name: Delete build/ directory
+      uses: docker://ghcr.io/mkst/sssv:latest
+      with:
+        args: rm -rf build/
+
+    - name: Perform make NON_MATCHING
+      uses: docker://ghcr.io/mkst/sssv:latest
+      with:
+        args: make --jobs NON_MATCHING=1

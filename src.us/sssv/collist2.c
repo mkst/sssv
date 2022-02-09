@@ -89,7 +89,7 @@ void func_802DA7F0_6EBEA0(void) {
 //         arg0->unk26D = 2;
 //     }
 //
-//     if (arg0->unk16C->unk0 < 256) {
+//     if (arg0->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET) {
 //         arg0->unk198 = *phi_v0;
 //         *phi_v0 = arg0;
 //     }

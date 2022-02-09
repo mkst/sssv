@@ -53,7 +53,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     if (phi_t1 == 0) {
         sp38 = (phi_a2 + phi_a1 + phi_a0) << 8;
         temp_v1_4 = arg1->unk16C->unk8C;
-        if ((arg1->unk16C->unk0 == 273) && (arg1 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+        if ((arg1->unk16C->unk0 == 273) && (arg1 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             temp_v1_4 /= 5;
         }
         sp38 = ((sp38 * temp_v1_4) >> 4) / 1024;
@@ -63,11 +63,11 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 
     if ((arg1->unk16C->unk80.bit) &&
         ((arg1->unk16C->unk9C == DESERT_FOX_ATTACKING) ||
-         (arg1->unk16C->unk9C == RACING_TORTOISE_ATTACKING) ||
+         (arg1->unk16C->unk9C == RACING_TORTOISE_DEFENDING) ||
          (arg1->unk16C->unk9C == POLAR_BEAR_DEFENDING) ||
          (arg1->unk16C->unk9C == HARD_MOUSE))) {
         func_802B3B48_6C51F8(arg0, arg1, &sp38);
-        if ((arg0->unk16C->unk80.bit) && (arg1 == D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+        if ((arg0->unk16C->unk80.bit) && (arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             arg0->unk2EB += 1;
         }
     }
@@ -88,7 +88,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     if (phi_t1 == 0) {
         sp38 = (phi_a2 + phi_a1 + phi_a0) << 8;
         temp_v1_4 = arg0->unk16C->unk8C;
-        if ((arg0->unk16C->unk0 == 273) && (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+        if ((arg0->unk16C->unk0 == 273) && (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             temp_v1_4 = temp_v1_4 / 5;
         }
         sp38 = ((sp38 * temp_v1_4) >> 4) / 1024;
@@ -98,11 +98,11 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 
     if ((arg0->unk16C->unk80.bit) &&
         ((arg0->unk16C->unk9C == DESERT_FOX_ATTACKING) ||
-         (arg0->unk16C->unk9C == RACING_TORTOISE_ATTACKING) ||
+         (arg0->unk16C->unk9C == RACING_TORTOISE_DEFENDING) ||
          (arg0->unk16C->unk9C == POLAR_BEAR_DEFENDING) ||
          (arg0->unk16C->unk9C == HARD_MOUSE))) {
         func_802B3B48_6C51F8(arg1, arg0, &sp38);
-        if ((arg1->unk16C->unk80.bit) && (arg0 == D_801DDD8C[gCurrentAnimalIndex].unk0)) {
+        if ((arg1->unk16C->unk80.bit) && (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             arg1->unk2EB += 1;
         }
     }

@@ -69,6 +69,7 @@ extern u8 D_803A63AC_7B7A5C[];
 
 void func_80328258_739908(s16);
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80327BE0_739290.s")
+// close but no cigar
 // void func_80327BE0_739290(void) {
 //     u8 phi_v0;
 //     s16 i;
@@ -77,12 +78,10 @@ void func_80328258_739908(s16);
 //         func_80328ACC_73A17C();
 //     }
 //
-//     for (i = 0, phi_v0 = D_803E9828[D_803E9822 + i].unk2 & 0xff; (phi_v0 != 0xFF) && (i < 6); i++, phi_v0 = D_803E9828[D_803E9822 + i].unk2 & 0xff) {
-//         u8 tmp1 = D_803E982C[phi_v0].unk3;
-//         if ((tmp1 == 1) || (tmp1 == 2)) {
-//             u8 tmp2 = D_803E982C[phi_v0].unk2;
-//             if ((tmp2 != 1) && (tmp2 != 2) && (tmp2 == 7) &&
-//                 ((D_801D9ED8.unkFFCE) || ((D_801D9ED8.unkFFC0) && (D_801D9ED8.unkFFD6 == 0)))) {
+//     for (i = 0, phi_v0 = D_803E9828[D_803E9822 + i].unk2 & 0xFFu; (phi_v0 != 0xFF) && (i < 6); i++, phi_v0 = D_803E9828[D_803E9822 + i].unk2 ) {
+//         if ((D_803E982C[phi_v0].unk3 == 1) || (D_803E982C[phi_v0].unk3 == 2)) {
+//             if ((D_803E982C[phi_v0].unk2 != 1) && (D_803E982C[phi_v0].unk2 != 2) && (D_803E982C[phi_v0].unk2 == 7) &&
+//                 (D_801D9ED8.unkFFCE || (D_801D9ED8.unkFFC0 && (D_801D9ED8.unkFFD6 == 0)))) {
 //                 func_80328258_739908(i);
 //                 i = 6; // break out of loop
 //             }

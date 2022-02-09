@@ -20,6 +20,8 @@
 #define MAX_AUDIO_VOLUME       19
 #define MIN_AUDIO_VOLUME       0
 
+#define MAX_OBJECTS            169
+
 #ifdef VERSION_US
 #include "common.us.h"
 #endif
@@ -190,6 +192,17 @@
 #define TRANSITION_FADE_IN  2
 #define TRANSITION_FADE_OUT_BLK 3
 
+// ai behaviours
+
+#define AI_IGNORE           0
+#define AI_FLEE             1
+#define AI_ATTACK           2
+#define AI_SAME_ANIMAL      3
+#define AI_HERD             4
+#define AI_LEAD_HERD        5
+#define AI_FOLLOWER         6
+#define AI_LEADER           7
+#define AI_INVISIBLE        8
 
 // custom ASSERT
 

@@ -163,15 +163,15 @@ void func_802DB940_6ECFF0(s16 *arg0, s16 arg1, u16 arg2) {
     }
 }
 
-void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 arg2) {
+void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 delta) {
     if (*arg0 != arg1) {
         if (*arg0 < arg1) {
-            *arg0 += arg2;
+            *arg0 += delta;
             if (arg1 < *arg0) {
                 *arg0 = arg1;
             }
         } else {
-            *arg0 -= arg2;
+            *arg0 -= delta;
             if (*arg0 < arg1) {
                 *arg0 = arg1;
             }

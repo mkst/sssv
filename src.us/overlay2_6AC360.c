@@ -60,6 +60,6 @@ extern struct063 D_80100000_X[][0x81];
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B56C_6ACC1C.s")
 
 s16 distance_from_player(s16 x, s16 z, s16 y) {
-    Animal *a = D_801DDD8C[gCurrentAnimalIndex].unk0;
+    Animal *a = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     return ABS(x - a->xPos) + ABS(z - a->zPos) + ABS(y - a->yPos);
 }

@@ -283,13 +283,13 @@ void func_802D6738_6E7DE8(void) {
         D_80204278->unk3B640.l.col[2] = D_80204278->unk3B640.l.colc[2];
     }
     if ((s16)D_803F2D50.biome == 1) {
-        sp7A = (guRandom() % 0x3F) + 4;
-        sp78 = (guRandom() % 0x7F) + 8;
+        sp7A = RAND(63) + 4;
+        sp78 = RAND(127) + 8;
         if (((D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A + 1][sp78 + 1].unk0) || (D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740[sp7A][sp78].unk6 == 0)) {
             func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
         } else {
-            sp7A = (guRandom() % 0x3F) + 4;
-            sp78 = (guRandom() % 0x7F) + 8;
+            sp7A = RAND(63) + 4;
+            sp78 = RAND(127) + 8;
             if (((D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A + 1][sp78 + 1].unk0) || (D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740[sp7A][sp78].unk6 == 0)) {
                 func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
             }
@@ -297,16 +297,16 @@ void func_802D6738_6E7DE8(void) {
     }
     if ((D_803F2D50.unk4C == 0) || (D_803F2D50.unk4C == 3)) {
         for (i = 0; i < 5; i++) {
-            sp7A = D_801DDD8C[gCurrentAnimalIndex].unk0->xPos - 960;
-            sp78 = D_801DDD8C[gCurrentAnimalIndex].unk0->zPos - 960;
+            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos - 960;
+            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos - 960;
             if (sp7A < 0) {
                 sp7A = 0;
             }
             if (sp78 < 0) {
                 sp78 = 0;
             }
-            sp7A += (guRandom() % 960) * 2;
-            sp78 += (guRandom() % 960) * 2;
+            sp7A += RAND(960) * 2;
+            sp78 += RAND(960) * 2;
             sp76 = func_80298818_6A9EC8(sp7A, sp78);
             if ((sp76 != 0) && ((func_802D7434_6E8AE4(sp7A, sp78) + 64) < sp76)) {
                 func_802D5B88_6E7238(
@@ -322,36 +322,36 @@ void func_802D6738_6E7DE8(void) {
         }
 
         if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < func_80298818_6A9EC8((u16) D_803F28E0[D_803F2A98].unk74, (u16) D_803F28E0[D_803F2A98].unk78)) {
-            sp7A = D_801DDD8C[gCurrentAnimalIndex].unk0->xPos - 512;
-            sp78 = D_801DDD8C[gCurrentAnimalIndex].unk0->zPos - 512;
+            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos - 512;
+            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos - 512;
             if (sp7A < 0) {
                 sp7A = 0;
             }
             if (sp78 < 0) {
                 sp78 = 0;
             }
-            sp7A += (guRandom() % 512) * 2;
-            sp78 += (guRandom() % 512) * 2;
+            sp7A += RAND(512) * 2;
+            sp78 += RAND(512) * 2;
             if (func_80298818_6A9EC8(sp7A, sp78) != 0) {
                 sp76 = func_802D7434_6E8AE4(sp7A, sp78);
-                func_802D7AD4_6E9184(sp7A, sp78, sp76, guRandom() % 3);
+                func_802D7AD4_6E9184(sp7A, sp78, sp76, RAND(3));
             }
         }
     } else if (D_803F2D50.unk4C != 2) {
         for (i = 0; i < 4; i++) {
-            sp7A = D_801DDD8C[gCurrentAnimalIndex].unk0->xPos - 960;
-            sp78 = D_801DDD8C[gCurrentAnimalIndex].unk0->zPos - 960;
+            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos - 960;
+            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos - 960;
             if (sp7A < 0) {
                 sp7A = 0;
             }
             if (sp78 < 0) {
                 sp78 = 0;
             }
-            sp7A += (guRandom() % 960) * 2;
-            sp78 += (guRandom() % 960) * 2;
+            sp7A += RAND(960) * 2;
+            sp78 += RAND(960) * 2;
             sp76 = func_80298818_6A9EC8(sp7A, sp78);
             if ((sp76 != 0) && ((func_802D7434_6E8AE4(sp7A, sp78) + 64) < sp76)) {
-                func_802D5B88_6E7238(sp7A, sp78, sp76, 106, (guRandom() % 0xF) + 10, 0, 0, 0);
+                func_802D5B88_6E7238(sp7A, sp78, sp76, 106, RAND(15) + 10, 0, 0, 0);
             }
         }
     }
@@ -537,8 +537,8 @@ void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
             z,
             y,
             35,
-            D_80152350.unk2D0[(s16)((guRandom() % 90) + (360 / tmp0) * i)] * tmp2 * 84,
-            D_80152350.unk384[(s16)((guRandom() % 90) + (360 / tmp0) * i)] * tmp2 * 84,
+            D_80152350.unk2D0[(s16)(RAND(90) + (360 / tmp0) * i)] * tmp2 * 84,
+            D_80152350.unk384[(s16)(RAND(90) + (360 / tmp0) * i)] * tmp2 * 84,
             ((func_8012826C() & 0x7FFF) * 2) + FTOFIX32(6.0),
             (func_8012826C() & 1) + 3,
             color,
@@ -563,10 +563,10 @@ void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
     u16 temp_v1;
     s16 i;
 
-    phi_s0 = guRandom() % 4;
+    phi_s0 = RAND(4);
 
     switch (arg3) {
-    case 1:
+    case 1: // energy ball
         play_sound_effect_at_location(SFX_PICKUP_ENERGY_BALL, 0x6000, 0, x, z, y, 1.0f);
         for (i = 0; i < 8; i++) {
             phi_s0 = (s16)(phi_s0 + 1) % 4;
@@ -575,7 +575,7 @@ void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
                 z,
                 y,
                 60,
-                guRandom() % 0x80,
+                RAND(128),
                 0,
                 0,
                 16,
@@ -584,7 +584,7 @@ void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
                 i << 2);
         }
         break;
-    case 2:
+    case 2: // powercell?
         play_sound_effect_at_location(D_803A1BB0_7B3260[D_803F2D3C].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[D_803F2D3C].unk0);
         for (i = 0; i < 8; i++) {
             phi_s0 = (s16)(phi_s0 + 1) % 4;
@@ -593,7 +593,7 @@ void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
                 z,
                 y,
                 61,
-                guRandom() % 0x80,
+                RAND(128),
                 0,
                 0,
                 16,
@@ -602,52 +602,52 @@ void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
                 i << 2);
         }
         break;
-    case 3:
+    case 3: // trophy?
         play_sound_effect_at_location(SFX_UNKNOWN_112, 0x6000, 0, x, z, y, 1.0f);
         for (i = 0; i < 16; i++) {
             create_particle_effect(
-                ((guRandom() % 20) + x) - 12,
-                ((guRandom() % 20) + z) - 12,
-                ((guRandom() % 20) + y) - 12,
+                (RAND(20) + x) - 12,
+                (RAND(20) + z) - 12,
+                (RAND(20) + y) - 12,
                 89,
-                guRandom() % 0x80,
+                RAND(128),
                 0,
                 0,
                 1,
-                GPACK_RGBA5551((guRandom() % 64) + 192, (guRandom() % 64) + 192, 0, 1),
-                GPACK_RGBA5551((guRandom() % 64) + 192, (guRandom() % 64) + 192, 0, 1),
+                GPACK_RGBA5551(RAND(64) + 192, RAND(64) + 192, 0, 1),
+                GPACK_RGBA5551(RAND(64) + 192, RAND(64) + 192, 0, 1),
                 32);
         }
         break;
-    case 4:
+    case 4: // key?
         play_sound_effect_at_location(SFX_UNKNOWN_163, 0x5000, 0, x, z, y, 1.0f);
         for (i = 0; i < 16; i++) {
             create_particle_effect(
-                ((guRandom() % 20) + x) - 12,
-                ((guRandom() % 20) + z) - 12,
-                ((guRandom() % 20) + y) - 12,
+                (RAND(20) + x) - 12,
+                (RAND(20) + z) - 12,
+                (RAND(20) + y) - 12,
                 89,
-                guRandom() % 0x80,
+                RAND(128),
                 0,
                 0,
                 16,
-                GPACK_RGBA5551((guRandom() % 64) + 192, (guRandom() % 64) + 192, 0, 1),
-                GPACK_RGBA5551((guRandom() % 64) + 192, (guRandom() % 64) + 192, 0, 1),
+                GPACK_RGBA5551(RAND(64) + 192, RAND(64) + 192, 0, 1),
+                GPACK_RGBA5551(RAND(64) + 192, RAND(64) + 192, 0, 1),
                 32);
         }
         break;
-    case 5:
-    case 6:
+    case 5: // objective (e.g. keycard)
+    case 6: // objective but no sound?
         if (arg3 == 5) {
             play_sound_effect_at_location(SFX_UNKNOWN_78, 0x6000, 0, x, z, y, 1.0f);
         }
         for (i = 0; i < 16; i++) {
             create_particle_effect(
-                ((guRandom() % 60) + x) - 36,
-                ((guRandom() % 60) + z) - 36,
-                ((guRandom() % 60) + y) - 36,
+                (RAND(60) + x) - 36,
+                (RAND(60) + z) - 36,
+                (RAND(60) + y) - 36,
                 65,
-                guRandom() % 0x80,
+                RAND(128),
                 0,
                 0,
                 16,

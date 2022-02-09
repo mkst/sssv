@@ -10,8 +10,9 @@ s32 func_80362B00_7741B0(Animal *a) {
     }
 }
 
+// can_swim?
 s32 func_80362B38_7741E8(Animal *a) {
-    if (a->unk16C->unkA0 & 4) {
+    if (a->unk16C->waterClass & WATER_SWIM) {
         return 1;
     } else {
         return 0;
@@ -27,16 +28,18 @@ s32 func_80362B60_774210(Animal *a) {
     }
 }
 
+// water_hurts?
 s32 func_80362B9C_77424C(Animal *a) {
-    if ((a->unk16C->unkA0 & 0xC00) != 0) {
+    if (a->unk16C->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2)) {
         return 1;
     } else {
         return 0;
     }
 }
 
+// can_fly?
 s32 func_80362BC4_774274(Animal *a) {
-    if ((a->unk16C->unk9E & 0xE0) != 0) {
+    if (a->unk16C->class & (CLASS_BIRD | CLASS_FLYING | CLASS_HELI)) {
         return 1;
     } else {
         return 0;
@@ -276,7 +279,7 @@ void func_803633C4_774A74(Animal *arg0) {
         break;
     case 2:
         if (arg0->unk2B0 != 0) {
-            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
@@ -290,14 +293,14 @@ void func_803633C4_774A74(Animal *arg0) {
         break;
     case 3:
         if (arg0->unk2B0 != 0) {
-            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         arg0->unk278 = arg0->unk2AC->xPos;
         arg0->unk27A = arg0->unk2AC->zPos;
         break;
     case 4:
         if (arg0->unk2B0 != 0) {
-            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
@@ -324,7 +327,7 @@ void func_803633C4_774A74(Animal *arg0) {
         break;
     case 8:
         if (arg0->unk2B0 != 0) {
-            arg0->unk2AC = D_801DDD8C[gCurrentAnimalIndex].unk0;
+            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
@@ -365,7 +368,7 @@ void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2) {
     arg0->unk28C = 8;
     arg0->unk298.h = arg2;
     arg0->unk294.w = arg1;
-    arg0->unk29A.b = arg1 == D_801DDD8C[gCurrentAnimalIndex].unk0;
+    arg0->unk29A.b = D_801D9ED8.animals[gCurrentAnimalIndex].animal == arg1;
     func_80363CC8_775378(arg0);
     func_80309E4C_71B4FC(arg1);
     arg0->unk270 = 1;
@@ -486,7 +489,7 @@ void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
     arg0->unk2AC = arg1;
     arg0->unk2A0 = 2;
-    arg0->unk2B0 = arg1 == D_801DDD8C[gCurrentAnimalIndex].unk0;
+    arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = arg1->xPos;
     arg0->unk27A = arg1->zPos;
     if (func_80362BC4_774274(arg1) || func_80362B60_774210(arg1)) {
@@ -502,7 +505,7 @@ void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
     arg0->unk2AC = arg1;
     arg0->unk2A0 = 8;
-    arg0->unk2B0 = arg1 == D_801DDD8C[gCurrentAnimalIndex].unk0;
+    arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = arg1->xPos;
     arg0->unk27A = arg1->zPos;
     if (func_80362BC4_774274(arg1) || func_80362B60_774210(arg0->unk2AC)) {
@@ -517,7 +520,7 @@ void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
 void func_80363E88_775538(Animal *arg0, Animal *arg1) {
     arg0->unk2AC = arg1;
     arg0->unk2A0 = 3;
-    arg0->unk2B0 = arg1 == D_801DDD8C[gCurrentAnimalIndex].unk0;
+    arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = arg1->xPos;
     arg0->unk27A = arg1->zPos;
     arg0->unk274 = 2;
@@ -529,7 +532,7 @@ void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *arg2) {
     arg0->unk2AC = arg2;
     arg0->unk2A0 = 4;
     arg0->unk2A1 = 16;
-    arg0->unk2B0 = arg2 == D_801DDD8C[gCurrentAnimalIndex].unk0;
+    arg0->unk2B0 = arg2 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = arg2->xPos;
     arg0->unk27A = arg2->zPos;
     arg0->unk274 = 3;

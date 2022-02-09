@@ -33,9 +33,9 @@ void func_8032F950_741000(void) {
 
     if (D_803F28E0[D_803F2A98].unkD6 != 1) {
         D_803F2ACC = 20;
-    } else if (((D_801DDD8C[gCurrentAnimalIndex].unk0->xVelocity.w != 0) ||
-                (D_801DDD8C[gCurrentAnimalIndex].unk0->zVelocity.w != 0)) ||
-            (ABS(D_801DDD8C[gCurrentAnimalIndex].unk0->yVelocity.h) > 1)) {
+    } else if (((D_801D9ED8.animals[gCurrentAnimalIndex].animal->xVelocity.w != 0) ||
+                (D_801D9ED8.animals[gCurrentAnimalIndex].animal->zVelocity.w != 0)) ||
+            (ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->yVelocity.h) > 1)) {
         D_803F2ACC = 20;
     } else if (D_803F2ACC > 0) {
         D_803F2ACC = D_803F2ACC - 1;
@@ -708,12 +708,14 @@ void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4
     }
 }
 
+#ifdef NON_MATCHING
+void func_80343C44_7552F4(s16 arg0, s16 *arg1, s16 *arg2) {
+    *arg1 = D_803A7B3C_7B91EC[arg0][0];
+    *arg2 = D_803A7B3C_7B91EC[arg0][1];
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80343C44_7552F4.s")
-// JUSTREG: perhaps not quite this?
-// void func_80343C44_7552F4(s16 arg0, s16 *arg1, s16 *arg2) {
-//     *arg1 = D_803A7B3C[arg0][0];
-//     *arg2 = D_803A7B3C[arg0][1];
-// }
+#endif
 
 void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
     memset_bytes((u8*)&D_803F2AD8, 0, sizeof(D_803F2AD8));

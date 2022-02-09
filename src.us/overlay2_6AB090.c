@@ -2,6 +2,7 @@
 
 #include "common.h"
 
+s16 D_803A0500_7B1BB0 = 0;
 
 void func_802999E0_6AB090(DisplayList *arg0) {
     guPerspective(&arg0->unk37410, &D_803C0658, D_803F2D50.unkE0, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);

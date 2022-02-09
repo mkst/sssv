@@ -253,7 +253,7 @@ void func_8034B64C_75CCFC(s16 arg0, s16 arg1, s16 arg2) {
             1,
             GPACK_RGBA5551(248, 248, 248, 0),
             GPACK_RGBA5551(248, 248, 248, 0),
-            ((guRandom() % arg0) >> 2) + arg0);
+            (RAND(arg0) >> 2) + arg0);
     }
 }
 

@@ -20,7 +20,7 @@ void func_8038C768_79DE18(void) {
                 D_803D552C->unk314 = 0;
             }
         } else if ((tmp1 & 0xFF) >= 130) {
-            D_803D552C->unk314 = ((D_803D552C->unk302 * 360) >> 8) - func_80128C10(D_801DDD8C[gCurrentAnimalIndex].unk0->xPos, D_801DDD8C[gCurrentAnimalIndex].unk0->zPos, D_803D5530->xPos, D_803D5530->zPos);
+            D_803D552C->unk314 = ((D_803D552C->unk302 * 360) >> 8) - func_80128C10(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos, D_803D5530->xPos, D_803D5530->zPos);
         } else {
             D_803D552C->unk314 = 0;
         }
@@ -66,7 +66,7 @@ void func_8038C98C_79E03C(void) {
                 D_803D552C->unk314 = 0;
             }
         } else if ((tmp1 & 0xFF) >= 200) {
-            D_803D552C->unk314 = ((D_803D552C->unk302 * 360) >> 8) - func_80128C10(D_801DDD8C[gCurrentAnimalIndex].unk0->xPos, D_801DDD8C[gCurrentAnimalIndex].unk0->zPos, D_803D5530->xPos, D_803D5530->zPos);
+            D_803D552C->unk314 = ((D_803D552C->unk302 * 360) >> 8) - func_80128C10(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos, D_803D5530->xPos, D_803D5530->zPos);
 
             if (D_803D552C->unk314 > 0x55) {
                 D_803D552C->unk314 = 0x55;

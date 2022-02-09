@@ -35,13 +35,14 @@ void func_80381C60_793310(void) {
         func_80321920_732FD0(D_803D552C->unk320, 0, 0);
         play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BF3E0);
         D_803D552C->yPos += D_803D552C->unk308;
-        D_803D552C->unk18 += D_803D552C->unk308;
+        D_803D552C->unk18.h += D_803D552C->unk308;
         load_animal(SEAGULL);
     }
 }
 
 void func_80381F14_7935C4(void) {
-    if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != 0) && (D_803D5530->unk6C->unk16C->unk0 >= 256))) {
+    // check object is an animal?
+    if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != 0) && (D_803D5530->unk6C->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET))) {
         if (func_803224C4_733B74(-78, 0, 0, 58, 20, 0, 0, 19) != 0) {
             play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
             D_803D5530->yVelocity.h += 2;

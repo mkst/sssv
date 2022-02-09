@@ -4,7 +4,7 @@
 
 #include "pp.h"
 
-u16 D_80302E60[2];
+u16  D_80302E60[2];
 u8*  D_80302E64;
 
 void func_80294E50_6384F0(void) {
@@ -253,9 +253,9 @@ void func_802988E8_63BF88(void) {
     gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
     gDPPipeSync(D_801D9E7C++);
 
-    D_80152EA8.vp.vscale[0] = D_80203FD0 * 2;
+    D_80152EA8.vp.vscale[0] = gScreenWidth * 2;
     D_80152EA8.vp.vscale[1] = gScreenHeight * 2;
-    D_80152EA8.vp.vtrans[0] = D_80203FD0 * 2;
+    D_80152EA8.vp.vtrans[0] = gScreenWidth * 2;
     D_80152EA8.vp.vtrans[1] = gScreenHeight * 2;
 
     gSPTexture(D_801D9E7C++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);

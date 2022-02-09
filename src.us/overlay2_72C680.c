@@ -5,19 +5,19 @@
 
 extern u8 rnc_637160_ROM_START[], rnc_637160_ROM_END[];
 
-#if 0
+#if 1
 // textures?
 u8* D_803A5770_7B6E20[][2] = {
-    { 0x42DCA0, 0x435320, },
-    { 0x435320, 0x43cb60, },
-    { 0x43CB60, 0x4457f0, },
-    { 0x4457F0, 0x44e790, },
-    { 0x44E790, 0x44e7b0, },
-    { 0x44E7B0, 0x4571a0, },
+    { 0x42DCA0, 0x435320, }, // europe
+    { 0x435320, 0x43cb60, }, // ice
+    { 0x43CB60, 0x4457f0, }, // desert
+    { 0x4457F0, 0x44e790, }, // jungle
+    { 0x44E790, 0x44e7b0, }, // empty
+    { 0x44E7B0, 0x4571a0, }, // city / credits
 };
 
 u8* D_803A57A0_7B6E50[][2] = {
-    { 0x4571A0, 0x459590, }
+    { 0x4571A0, 0x459590, },
     { 0x459590, 0x45d550, },
     { 0x45d550, 0x45edc0, },
     { 0x45edc0, 0x461900, },
@@ -68,11 +68,14 @@ u8* D_803A57A0_7B6E50[][2] = {
     { 0x4f54b0, 0x4f54d0, }, // empty
 };
 
-u8* D_803A5918_7B6FC8[] = {
-    { 0x803A57D0, 0x803A5828, 0x803A5878, 0x803A58C8, },
+u8* D_803A5918_7B6FC8[4] = {
+    0x803A57D0,
+    0x803A5828,
+    0x803A5878,
+    0x803A58C8,
 };
 
-u8* D_803A5928_7B6FD8[44][2] = {
+u8* D_803A5928_7B6FD8[45][2] = {
     { 0x4F54D0, 0x4f6a70, },
     { 0x4f95b0, 0x4faf70, },
     { 0x4f8010, 0x4f95b0, },
@@ -120,46 +123,53 @@ u8* D_803A5928_7B6FD8[44][2] = {
     { 0x51ab50, 0x51ab80, },
 };
 
-u8* D_803A5A90_7B7140[][2] = {
-    { 0x803A5948, 0x803A59A0, 0x803A5A40, 0x803A59F0, },
+u8* D_803A5A90_7B7140[4] = {
+    0x803A5948,
+    0x803A59A0,
+    0x803A5A40,
+    0x803A59F0,
 };
 
 // level objects
-u8 *D_803A5AA0_7B7150[40][2] = {
-    { 0x85790, 0x87b80, },  // HAVE_A_NICE_DAY
-    { 0x87b80, 0x89260, },
-    { 0x89260, 0x92bf0, },
-    { 0x92bf0, 0x96790, },
-    { 0x96790, 0x97020, },
-    { 0x97020, 0x9e0d0, },
-    { 0x9e0d0, 0x9ed10, },
-    { 0x9ed10, 0xa0e40, },
-    { 0xa0e40, 0xa10c0, },
-    { 0xa10c0, 0xa10d0, },
-    { 0xa10d0, 0xaa940, },
-    { 0xaa940, 0xb0490, },
-    { 0xb0490, 0xb0b90, },
-    { 0xb0b90, 0xb2ed0, },
-    { 0xb2ed0, 0xb3d70, },
-    { 0xb3d70, 0xb3d80, },
-    { 0xb3d80, 0xb3d90, },
-    { 0xb3d90, 0xb3da0, },
-    { 0xb3da0, 0xb3db0, },
-    { 0xb3db0, 0xb3dc0, },
-    { 0xb3dc0, 0xb3dd0, },
+u8 *D_803A5AA0_7B7150[41][2] = {
+    // europe
+    { 0x85790, 0x87b80, }, // HAVE_A_NICE_DAY
+    { 0x87b80, 0x89260, }, // HONEYMOON_LAGOON
+    { 0x89260, 0x92bf0, }, // SMASHING_START + intro
+    { 0x92bf0, 0x96790, }, // THE_BATTERY_FARM
+    { 0x96790, 0x97020, }, // GIVE_A_DOG_A_BONUS
+    { 0x97020, 0x9e0d0, }, // DMA_INTRO
+    { 0x9e0d0, 0x9ed10, }, // STINKY_SEWERS
+    { 0x9ed10, 0xa0e40, }, // RAT_O_MATIC
+    { 0xa0e40, 0xa10c0, }, // ROCKY_HARD_PLACE
+    { 0xa10c0, 0xa10d0, }, // empty
+    { 0xa10d0, 0xaa940, }, // BIG_CELEBRATION_PARADE?
+    // ice
+    { 0xaa940, 0xb0490, }, // SOMETHING_FISHY
+    { 0xb0490, 0xb0b90, }, // HOPPA_CHOPPA
+    { 0xb0b90, 0xb2ed0, }, // PENGUIN_PLAYPEN
+    { 0xb2ed0, 0xb3d70, }, // WALRACE_64
+    { 0xb3d70, 0xb3d80, }, // empty
+    { 0xb3d80, 0xb3d90, }, // empty
+    { 0xb3d90, 0xb3da0, }, // empty
+    { 0xb3da0, 0xb3db0, }, // empty
+    { 0xb3db0, 0xb3dc0, }, // empty
+    { 0xb3dc0, 0xb3dd0, }, // empty
+    // desert / jungle ?
     { 0xb3dd0, 0xb40c0, },
     { 0xb40c0, 0xb40d0, },
     { 0xb40d0, 0xb43a0, },
     { 0xb43a0, 0xb48c0, },
-    { 0xb48c0, 0xb48d0, },
+    { 0xb48c0, 0xb48d0, }, // EVOS_ESCAPE
     { 0xb48d0, 0xbd090, },
     { 0xbd090, 0xbd0a0, },
     { 0xbd0a0, 0xbd0b0, },
     { 0xbd0b0, 0xbd0c0, },
     { 0xbd0c0, 0xbd0d0, },
+    // jungle / desert ?
     { 0xbd0d0, 0xbd2b0, },
     { 0xbd2b0, 0xbfc40, },
-    { 0xbfc40, 0xc4500, },
+    { 0xbfc40, 0xc4500, }, // PUNCHUP_PYRAMID
     { 0xc4500, 0xc4510, },
     { 0xc4510, 0xc47a0, },
     { 0xc47a0, 0xc47b0, },
@@ -169,49 +179,97 @@ u8 *D_803A5AA0_7B7150[40][2] = {
     { 0xc7a20, 0xc7a30, },
 };
 
-u8* D_803A5BE8_7B7298[][2] = {
-    { 0x803A5AA0, 0x803A5AF8, 0x803A5B98, 0x803A5B48, },
+u8* D_803A5BE8_7B7298[4] = {
+    D_803A5AA0_7B7150[0],  // 0x803A5AA0,
+    D_803A5AA0_7B7150[11], // 0x803A5AF8, // 0x7b71a8
+    D_803A5AA0_7B7150[31], // 0x803A5B98, // 0x7b7248
+    D_803A5AA0_7B7150[21], // 0x803A5B48, // 0x7b71f8
 };
+
+extern u8 levels_SMASHING_START_ROM_START[], levels_SMASHING_START_ROM_END[];
+extern u8 levels_HAVE_A_NICE_DAY_ROM_START[], levels_HAVE_A_NICE_DAY_ROM_END[];
+extern u8 levels_HONEYMOON_LAGOON_ROM_START[], levels_HONEYMOON_LAGOON_ROM_END[];
+extern u8 levels_THE_BATTERY_FARM_ROM_START[], levels_THE_BATTERY_FARM_ROM_END[];
+extern u8 levels_THE_ENGINE_ROOM_ROM_START[], levels_THE_ENGINE_ROOM_ROM_END[];
+extern u8 levels_FAT_BEAR_MOUNTAIN_ROM_START[], levels_FAT_BEAR_MOUNTAIN_ROM_END[];
+extern u8 levels_ROCKY_HARD_PLACE_ROM_START[], levels_ROCKY_HARD_PLACE_ROM_END[];
+extern u8 levels_STINKY_SEWERS_ROM_START[], levels_STINKY_SEWERS_ROM_END[];
+extern u8 levels_RAT_O_MATIC_ROM_START[], levels_RAT_O_MATIC_ROM_END[];
+extern u8 levels_GIVE_A_DOG_A_BONUS_ROM_START[], levels_GIVE_A_DOG_A_BONUS_ROM_END[];
+extern u8 levels_SNOW_JOKE_ROM_START[], levels_SNOW_JOKE_ROM_END[];
+extern u8 levels_ICE_N_EASY_DOES_IT_ROM_START[], levels_ICE_N_EASY_DOES_IT_ROM_END[];
+extern u8 levels_PENGUIN_PLAYPEN_ROM_START[], levels_PENGUIN_PLAYPEN_ROM_END[];
+extern u8 levels_PINBALL_BLIZZARD_ROM_START[], levels_PINBALL_BLIZZARD_ROM_END[];
+extern u8 levels_HOPPA_CHOPPA_ROM_START[], levels_HOPPA_CHOPPA_ROM_END[];
+extern u8 levels_SOMETHING_FISHY_ROM_START[], levels_SOMETHING_FISHY_ROM_END[];
+extern u8 levels_WALRACE_64_ROM_START[], levels_WALRACE_64_ROM_END[];
+extern u8 levels_JUNGLE_JAPES_ROM_START[], levels_JUNGLE_JAPES_ROM_END[];
+extern u8 levels_JUNGLE_DOLDRUMS_ROM_START[], levels_JUNGLE_DOLDRUMS_ROM_END[];
+extern u8 levels_SWAMP_OF_ETERNAL_STENCH_ROM_START[], levels_SWAMP_OF_ETERNAL_STENCH_ROM_END[];
+extern u8 levels_WEIGHT_FOR_IT_ROM_START[], levels_WEIGHT_FOR_IT_ROM_END[];
+extern u8 levels_JUNGLE_JUMPS_ROM_START[], levels_JUNGLE_JUMPS_ROM_END[];
+extern u8 levels_EVOS_ESCAPE_ROM_START[], levels_EVOS_ESCAPE_ROM_END[];
+extern u8 levels_FUN_IN_THE_SUN_ROM_START[], levels_FUN_IN_THE_SUN_ROM_END[];
+extern u8 levels_HOT_CROSS_BUNS_ROM_START[], levels_HOT_CROSS_BUNS_ROM_END[];
+extern u8 levels_STING_IN_THE_TAIL_ROM_START[], levels_STING_IN_THE_TAIL_ROM_END[];
+extern u8 levels_BORASSIC_PARK_ROM_START[], levels_BORASSIC_PARK_ROM_END[];
+extern u8 levels_WHIRLWIND_TOUR_ROM_START[], levels_WHIRLWIND_TOUR_ROM_END[];
+extern u8 levels_SHIFTING_SANDS_ROM_START[], levels_SHIFTING_SANDS_ROM_END[];
+extern u8 levels_PUNCHUP_PYRAMID_ROM_START[], levels_PUNCHUP_PYRAMID_ROM_END[];
+extern u8 levels_BIG_CELEBRATION_PARADE_ROM_START[], levels_BIG_CELEBRATION_PARADE_ROM_END[];
+
+extern u8 levels_rnc_60E920_ROM_START[], levels_rnc_60E920_ROM_END[];
+extern u8 levels_rnc_60FFD0_ROM_START[], levels_rnc_60FFD0_ROM_END[];
+extern u8 levels_rnc_6104A0_ROM_START[], levels_rnc_6104A0_ROM_END[];
+extern u8 levels_rnc_6109D0_ROM_START[], levels_rnc_6109D0_ROM_END[];
+extern u8 levels_INTRO_ROM_START[], levels_INTRO_ROM_END[];
 
 // levels
 u8* D_803A5BF8_7B72A8[36][2] = {
-    { 0x546D00, 0x54F0D0 },
-    { 0x54F0D0, 0x554E00 },
-    { 0x554E00, 0x55A390 },
-    { 0x55A390, 0x560320 },
-    { 0x560320, 0x567F00 },
-    { 0x567F00, 0x56CD00 },
-    { 0x56CD00, 0x572CC0 },
-    { 0x572CC0, 0x578D10 },
-    { 0x578D10, 0x57F1D0 },
-    { 0x57F1D0, 0x582C60 },
-    { 0x582C60, 0x588CA0 },
-    { 0x588CA0, 0x58D380 },
-    { 0x58D380, 0x591880 },
-    { 0x591880, 0x596960 },
-    { 0x596960, 0x5A1110 },
-    { 0x5A1110, 0x5A7E10 },
-    { 0x5A7E10, 0x5AE270 },
-    { 0x5AE270, 0x5B4510 },
-    { 0x5B4510, 0x5BA760 },
-    { 0x5BA760, 0x5C3390 },
-    { 0x5C3390, 0x5C8C80 },
-    { 0x5C8C80, 0x5D06A0 },
-    { 0x5D06A0, 0x5D7E70 },
-    { 0x5D7E70, 0x5DF8F0 },
-    { 0x5DF8F0, 0x5E49C0 },
-    { 0x5E49C0, 0x5EB140 },
-    { 0x5EB140, 0x5F2840 },
-    { 0x5F2840, 0x5F9410 },
-    { 0x5F9410, 0x603210 },
-    { 0x603210, 0x607440 },
-    { 0x607440, 0x60E920 },
-    { 0x60E920, 0x60FFD0 },
-    { 0x60FFD0, 0x6104A0 },
-    { 0x6104A0, 0x6109D0 },
-    { 0x6109D0, 0x616BB0 },
-    { 0x616BB0, 0x617C30 }
+    { levels_SMASHING_START_ROM_START, levels_SMASHING_START_ROM_END },
+    { levels_HAVE_A_NICE_DAY_ROM_START, levels_HAVE_A_NICE_DAY_ROM_END },
+    { levels_HONEYMOON_LAGOON_ROM_START, levels_HONEYMOON_LAGOON_ROM_END },
+    { levels_THE_BATTERY_FARM_ROM_START, levels_THE_BATTERY_FARM_ROM_END },
+    { levels_THE_ENGINE_ROOM_ROM_START, levels_THE_ENGINE_ROOM_ROM_END },
+    { levels_FAT_BEAR_MOUNTAIN_ROM_START, levels_FAT_BEAR_MOUNTAIN_ROM_END },
+    { levels_ROCKY_HARD_PLACE_ROM_START, levels_ROCKY_HARD_PLACE_ROM_END },
+    { levels_STINKY_SEWERS_ROM_START, levels_STINKY_SEWERS_ROM_END },
+    { levels_RAT_O_MATIC_ROM_START, levels_RAT_O_MATIC_ROM_END },
+    { levels_GIVE_A_DOG_A_BONUS_ROM_START, levels_GIVE_A_DOG_A_BONUS_ROM_END },
+
+    { levels_SNOW_JOKE_ROM_START, levels_SNOW_JOKE_ROM_END },
+    { levels_ICE_N_EASY_DOES_IT_ROM_START, levels_ICE_N_EASY_DOES_IT_ROM_END },
+    { levels_PENGUIN_PLAYPEN_ROM_START, levels_PENGUIN_PLAYPEN_ROM_END },
+    { levels_PINBALL_BLIZZARD_ROM_START, levels_PINBALL_BLIZZARD_ROM_END },
+    { levels_HOPPA_CHOPPA_ROM_START, levels_HOPPA_CHOPPA_ROM_END },
+    { levels_SOMETHING_FISHY_ROM_START, levels_SOMETHING_FISHY_ROM_END },
+    { levels_WALRACE_64_ROM_START, levels_WALRACE_64_ROM_END },
+
+    { levels_JUNGLE_JAPES_ROM_START, levels_JUNGLE_JAPES_ROM_END },
+    { levels_JUNGLE_DOLDRUMS_ROM_START, levels_JUNGLE_DOLDRUMS_ROM_END },
+    { levels_SWAMP_OF_ETERNAL_STENCH_ROM_START, levels_SWAMP_OF_ETERNAL_STENCH_ROM_END },
+    { levels_WEIGHT_FOR_IT_ROM_START, levels_WEIGHT_FOR_IT_ROM_END },
+    { levels_JUNGLE_JUMPS_ROM_START, levels_JUNGLE_JUMPS_ROM_END },
+    { levels_EVOS_ESCAPE_ROM_START, levels_EVOS_ESCAPE_ROM_END },
+
+    { levels_FUN_IN_THE_SUN_ROM_START, levels_FUN_IN_THE_SUN_ROM_END },
+    { levels_HOT_CROSS_BUNS_ROM_START, levels_HOT_CROSS_BUNS_ROM_END },
+    { levels_STING_IN_THE_TAIL_ROM_START, levels_STING_IN_THE_TAIL_ROM_END },
+    { levels_BORASSIC_PARK_ROM_START, levels_BORASSIC_PARK_ROM_END },
+    { levels_WHIRLWIND_TOUR_ROM_START, levels_WHIRLWIND_TOUR_ROM_END },
+    { levels_SHIFTING_SANDS_ROM_START, levels_SHIFTING_SANDS_ROM_END },
+    { levels_PUNCHUP_PYRAMID_ROM_START, levels_PUNCHUP_PYRAMID_ROM_END },
+
+    { levels_BIG_CELEBRATION_PARADE_ROM_START, levels_BIG_CELEBRATION_PARADE_ROM_END },
+
+    { levels_rnc_60E920_ROM_START, levels_rnc_60E920_ROM_END },
+    { levels_rnc_60FFD0_ROM_START, levels_rnc_60FFD0_ROM_END },
+    { levels_rnc_6104A0_ROM_START, levels_rnc_6104A0_ROM_END },
+    { levels_rnc_6109D0_ROM_START, levels_rnc_6109D0_ROM_END },
+
+    { levels_INTRO_ROM_START, levels_INTRO_ROM_END }
 };
+
 #endif
 
 s32 get_uncompressed_size(u8 *arg0) {
@@ -241,8 +299,112 @@ s32 copy_or_extract(u8 *src, u8 *dst, s32 unused) {
     return 1;
 }
 
+// extern u32 D_803A5770_7B6E20[][2];
+// extern u32 D_803A57A0_7B6E50[][2];
+// extern u32 D_803A5928_7B6FD8[][2];
+//
+// extern char D_803BD880_7CEF30[];
+//
+// extern u8 D_800CFE60[];
+// extern u8 D_800D7C20[];
+
 // load_texture_bank()
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B174_72C824.s")
+#if 0
+// so much to figure out here
+void func_8031B174_72C824(u8 arg0, u8 arg1) {
+    s32 sp34;
+    s32 sp30;
+    u8 sp2E;
+    s32 sp28;
+    s32 sp24;
+    s32 temp_a0;
+    s32 temp_a0_2;
+    s32 temp_a0_3;
+    s32 temp_a0_4;
+    s32 temp_a0_5;
+    s32 temp_a0_6;
+    s32 temp_s1;
+    s32 temp_t1;
+    s32 temp_v0_3;
+    s32 temp_v1;
+    void *temp_a3;
+    void *temp_v0;
+    void *temp_v0_2;
+    void *temp_v0_4;
+    void *temp_v0_5;
+    void *temp_v1_2;
+    s32 bank;
+    s32 texture;
+    u8 phi_t0;
+    s32 bank_2;
+    s32 phi_s1;
+
+    // D_800BA760->unk1ACC0 == D_800D5420
+    // D_800BA760->unk1D4C0 == D_800D7C20
+
+    // temp_s1 = arg0 & 0xFF;
+    bank = arg0 & 0xFF;
+    texture = arg0 & 0xFF;
+    phi_t0 = arg0 & 0xFF;
+    phi_s1 = arg0;
+    if (arg0 == 4) {
+        bank = 5;
+        texture = 5;
+        phi_s1 = 5;
+    }
+
+    if ((bank == 4) || (bank == 5)) {
+        phi_t0 = 0;
+        bank = 0;
+        phi_s1 = 0;
+    }
+    sp24 = texture;
+    sp2E = phi_t0;
+
+    // "Bank - %d Texture - %d\n" &D_803BD880_7CEF30
+    rmonPrintf("Bank - %d Texture - %d\n", bank, texture);
+    // temp_v1 = ((sp24 * 2) & 0xFFFF) * 4;
+    // temp_v0 = temp_v1 + &D_803A5770_7B6E20;
+    // temp_a0 = temp_v0->unk0;
+    arg1 += -1;
+    // sp28 = temp_v1;
+    dma_read(D_803A5770_7B6E20[texture][0], &D_80100000, D_803A5770_7B6E20[texture][1] - D_803A5770_7B6E20[texture][0]);
+    UnpackRNC(&D_80100000, &D_800BA760);
+
+    // difference is 0x15700
+
+    // temp_v0_2 = sp28 + &D_803A57A0_7B6E50;
+    // temp_a0_2 = temp_v0_2->unk0;
+    dma_read(D_803A57A0_7B6E50[texture][0], &D_80100000, D_803A57A0_7B6E50[texture][1] - D_803A57A0_7B6E50[texture][0]);
+    UnpackRNC(&D_80100000, &D_800CFE60);
+
+    // difference is 0x7dc0
+    // temp_v1_2 = (((sp2E * 2) & 0xFFFF) * 4) + &D_803A5928_7B6FD8;
+    // temp_a0_3 = temp_v1_2->unk0;
+    dma_read(D_803A5928_7B6FD8[bank][0], &D_80100000, D_803A5928_7B6FD8[bank][1] - D_803A5928_7B6FD8[bank][0]);
+    UnpackRNC(&D_80100000, &D_800D7C20);
+#if 0
+    temp_v0_3 = phi_s1 * 4;
+    // temp_t1 = ((arg1 * 2) & 0xFFFF) * 4;
+    temp_a3 = *(&D_803A5918_7B6FC8[bank]; // + temp_v0_3) + ((arg1 * 2) & 0xFFFF) * 4;
+    sp34 = *(&D_803A5A90_7B7140[bank]; // + temp_v0_3);
+    sp30 = *(&D_803A5BE8_7B7298[bank]; // + temp_v0_3);
+    temp_a0_4 = temp_a3->unk0;
+    sp28 = ((arg1 * 2) & 0xFFFF) * 4;
+    dma_read(temp_a0_4, &D_80100000, temp_a3->unk4 - temp_a0_4);
+    UnpackRNC(&D_80100000, &D_800C7DC0);
+    temp_v0_4 = sp34 + sp28;
+    temp_a0_5 = temp_v0_4->unk0;
+    dma_read(temp_a0_5, &D_80100000, temp_v0_4->unk4 - temp_a0_5);
+    UnpackRNC(&D_80100000, &D_800D5420);
+    D_801D9E78 = &D_800B0B20;
+    temp_v0_5 = sp30 + sp28;
+    temp_a0_6 = temp_v0_5->unk0;
+    dma_read(temp_a0_6, &D_800B0B20, temp_v0_5->unk4 - temp_a0_6);
+#endif
+}
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level_data.s")
 // void load_level_data(u8 level) {
@@ -283,13 +445,14 @@ void func_8031C374_72DA24() {
     D_803F2E0C = 0;
 }
 
-void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
+void func_8031C3C0_72DA70(u8 *arg0, s16 id) {
     s16 i;
 
-    memcpy_sssv(arg0, (u8*)&D_803E9840[D_803F28C2], sizeof(struct067));
+    memcpy_sssv(arg0, (u8*)&D_803E9840[D_803F28C2], sizeof(Particle));
 
     for (i = 0; i < 247; i++) {
-        if (arg1 == D_803A8528_7B9BD8[i].unk1C) {
+        if (id == D_803A8528_7B9BD8[i].unk1C) {
+            // link particle?
             D_803A8528_7B9BD8[i].unk18 = &D_803E9840[D_803F28C2];
         }
     }
@@ -299,10 +462,9 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031C48C_72DB3C.s")
 // void func_8031C48C_72DB3C(void) {
 //
-//     Animal *temp_a0;
 //     struct071 *temp_v0;
-//     struct112 *temp_v0_5;
 //     struct068 *temp_v0_6;
+//     struct035 *tmp;
 //     s16 i;
 //
 //     if (D_803F2D50.unkBC != 0) {
@@ -317,44 +479,47 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 arg1) {
 //     func_8039DD60_7AF410(); // reset used objects, zero out memory
 //     func_802C85EC_6D9C9C();
 //
+//     // all game objects
 //     for (i = 0; i < 170; i++) {
-//         temp_v0 = &D_801E9EB8[i];
-//         if (temp_v0->unk1AC != 0) {
-//             func_803191B0_72A860(&temp_v0->unk4.h);
+//         if (D_801E9EB8.unk4[i].unk1A8 != 0) {
+//             func_803191B0_72A860(&D_801E9EB8.unk4[i]);
 //         }
 //     }
 //
+//     // animals in level
 //     for (i = 0; i < D_803D553E; i++) {
-//         temp_a0 = D_801D9ED8.animals[i].animal;
-//         if (temp_a0->unk1A8 != 0) {
-//             func_803191B0_72A860(temp_a0);
+//         if (D_801D9ED8.animals[i].animal->unk1A8 != 0) {
+//             func_803191B0_72A860(D_801D9ED8.animals[i].animal);
 //         }
 //     }
 //
 //     for (i = 0; i < 247; i++) {
-//         D_803A8528_7B9BD8[i].unk18 = 0;
+//         D_803A8528_7B9BD8[i].unk18 = 0; // null them out
 //     }
 //
 //     D_803F28C2 = 0;
 //     osWritebackDCacheAll();
+//     // load a bunch of textures
 //     dma_read(rnc_637160_ROM_START, &D_80100000, rnc_637160_ROM_START - rnc_637160_ROM_START);
 //     UnpackRNC(&D_80100000, gFramebuffer);
 //
 //     // starts falling apart around here...
 //     for (i = 0; i < 170; i++) {
-//         temp_v0 = D_801E9EB8[i].unk170;
-//         if ((temp_v0 != NULL) && (&D_801E9EB8[i+1].unk0 == 0)) {
-//             if ((temp_v0->unk1C.w != 0) && (temp_v0->unk18 == 0)) {
-//                 func_8031C3C0_72DA70((s32)&gFramebuffer + (((s16) temp_v0->unk1C.w - 1) * 0x100C), (s16) temp_v0->unk1C.w);
+//         tmp = D_801E9EB8.unk4[i].unk16C;
+//         if ((tmp != NULL) && (D_801E9EB8.unk4[i].unk26C == 0)) {
+//             if ((tmp->unk1C != 0) && (tmp->unk18 == 0)) {
+//                 func_8031C3C0_72DA70(&((Particle*)gFramebuffer)[(s16)tmp->unk1C - 1], tmp->unk1C);
 //             }
 //         }
 //     }
 //
+//     // particles
 //     for (i = 0; i < D_803E8E54; i++) {
-//         if ((D_803E4D40[i].unk0 == 16) || (D_803E4D40[i].unk0 == 17)) {
-//             temp_v0_6 = &D_803A8528_7B9BD8[(s16)D_803E4D40[i].unk2];
-//             if ((temp_v0_6->unk1C != 0) && (temp_v0_6->unk18 == 0)) {
-//                 func_8031C3C0_72DA70((s32)&gFramebuffer + (((s16) temp_v0_6->unk1C - 1) * 0x100C), (s16) temp_v0_6->unk1C);
+//         if ((D_803E4D40[i].type == 16) || (D_803E4D40[i].type == 17)) {
+//             s16 id = D_803E4D40[i].id;
+//             struct068 = &D_803A8528_7B9BD8[id];
+//             if ((struct068->unk1C != 0) && (struct068->unk18 == NULL)) {
+//                 func_8031C3C0_72DA70(&((Particle*)gFramebuffer)[(s16)struct068->unk1C - 1], struct068->unk1C);
 //             }
 //         }
 //     }

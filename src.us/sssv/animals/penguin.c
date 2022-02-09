@@ -4,6 +4,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/penguin/func_80364780_775E30.s")
 
+// king_penguin_jetpack
 void func_80365954_777004(void) {
     if ((D_803D5530->unk162 != 1) && (D_803D5530->unk4A == 0)) {
         func_8032CD70_73E420(
@@ -90,7 +91,7 @@ void penguin_throw_snowball(Animal *arg0) {
     if (D_803D552C->unk365 != ATTACK_SNOWBALL) {
         s32 tmp = func_802F8160_709810(D_803D5530, arg0, 0xA, 0x14, 0x23, 0x59, 0, 3, (f32) D_803A05B0 / 65536.0);
         if (tmp == -1) {
-            tmp = 0x20;
+            tmp = 32;
         } else {
             tmp = (s16) ((tmp * 256) / 360);
         }

@@ -58,8 +58,7 @@ void func_8037B784_78CE34(Animal *arg0) {
         if ((arg0->unk365 != ATTACK_BEAR_2) && (arg0->unk365 != ATTACK_BEAR_3) &&
             (D_803D552C->unk318 == 0)) {
             arg0->unk32A = D_803D5544;
-            if ((arg0->unk320->unk16C->unk0 == 2) ||
-                (arg0->unk320->unk16C->unk0 == 61)) {
+            if ((arg0->unk320->unk16C->unk0 == 2) || (arg0->unk320->unk16C->unk0 == 61)) {
                 arg0->unk365 = ATTACK_BEAR_2;
             } else {
                 arg0->unk365 = ATTACK_BEAR_3;

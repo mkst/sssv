@@ -53,7 +53,7 @@ void func_8038B330_79C9E0(void) {
                 63,
                 D_803D5530->xVelocity.w,
                 D_803D5530->zVelocity.w,
-                D_803D5530->yVelocity.w + FTOFIX32(-4.57763671875),  // 0xFFFB6C20 ??
+                D_803D5530->yVelocity.w + FTOFIX32(-4.57763671875),
                 (func_8012826C() & 0xF) + 25,
                 GPACK_RGBA5551((func_8012826C() & 0x3F) + 192, (func_8012826C() & 0x1F) + 192, 0, 1), // red/orange
                 GPACK_RGBA5551((func_8012826C() & 0x3F) + 192, 0, 0, 1), // red

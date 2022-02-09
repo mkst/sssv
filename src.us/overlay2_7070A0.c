@@ -5,7 +5,7 @@
 
 u8 func_802F8658_709D08(Animal *arg0, struct071 *arg1, f32 arg2, f32 arg3, struct077 *arg4);
 struct071 *func_802F8994_70A044(struct071*);
-void func_802FED68_710418(struct071 *arg0, struct071 *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, f32 argB, u8 argC);
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F59F0_7070A0.s")
 // still a long way to go ..
@@ -26,7 +26,7 @@ void func_802FED68_710418(struct071 *arg0, struct071 *arg1, s16 arg2, s16 arg3, 
 //         D_803E1BC4.stick_x = 0;
 //         D_803E1BC4.stick_y = 0;
 //         break;
-//     case 2:
+//     case 2: // go to main menu
 //         if (D_803A52C0 == 0) {
 //             D_80151434 = (u16)0xB57; // 2903?
 //             func_8012822C(1); // set time to 1
@@ -107,13 +107,13 @@ void func_802F5F44_7075F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, stru
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F603C_7076EC.s")
 
 struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s32 scale) {
-    struct071 *res;
+    struct071 *obj;
     struct077 sp3C;
     struct077 sp34;
 
     func_802F5F44_7075F4(arg4,      arg5, arg6, arg7, arg8, &sp3C);
     func_802F5F44_7075F4(0,    arg9 << 8,    0, arg7, arg8, &sp34);
-    res = func_802C9564_6DAC14(
+    obj = func_802C9564_6DAC14(
         id,
         x + sp3C.unk0,
         z + sp3C.unk2,
@@ -125,11 +125,11 @@ struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, 
         arg8,
         scale);
 
-    if (res == 0) {
+    if (obj == 0) {
         return NULL;
     }
-    res->unk2E = arg7;
-    return res;
+    obj->unk2E = arg7;
+    return obj;
 }
 
 s16 func_802F63F8_707AA8(s16 arg0, s16 arg1, s16 arg2) {
@@ -449,7 +449,7 @@ void func_802F6A5C_70810C(Animal *arg0) {
         }
 
         if (ABS(phi_v0_4) < 90) {
-            arg0->unk2E -= (s16) (temp_f2 * 0.0008742899988063026); // D_803BCEE8_7CE598
+            arg0->unk2E -= (s16) (temp_f2 * 0.0008742899988063026); // SSSV_PI / (10 * 360) ? ish D_803BCEE8_7CE598
         } else {
             arg0->unk2E += (s16) (temp_f2 * 0.0008742899988063026); // D_803BCEF0_7CE5A0
         }
@@ -618,11 +618,11 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //     return ret;
 // }
 
-
+// gun turret
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8B4C_70A1FC.s")
 // void func_802F8B4C_70A1FC(struct071 *arg0) {
 //     s16 pad2[8];
-//     s16 sp5E;
+//     s16 angle;
 //     struct071 *obj;
 //     s16 temp_t0;
 //     s16 pad[3];
@@ -639,9 +639,9 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //         obj = func_802F8994_70A044(arg0);
 //         if ((obj != NULL) && func_802F8658_709D08(arg0, obj, 16.0f, 512.0f, &sp48)) {
 //             // something missing here...
-//             sp5E = func_801284B8(sp48.unk0 - arg0->unk4.h, sp48.unk2 - arg0->unk8.h);
+//             angle = func_801284B8(sp48.unk0 - arg0->unk4.h, sp48.unk2 - arg0->unk8.h);
 //             temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f64) (f32) D_803A05B0_7B1C60 / (512 * 1024));
-//             arg0->unk2C = ((sp5E + 180) % 360) & 0xffff;
+//             arg0->unk2C = ((angle + 180) % 360) & 0xffff;
 //             if (temp_t0 != -1) {
 //                 if (temp_t0 <= 90) {
 //                     arg0->unk2E = 90 - temp_t0;
@@ -655,7 +655,7 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //                     arg0->unk150 = 256;
 //                     if (((arg0->unk152 & 1) == 1)) {
 //                         play_sound_effect_at_location(SFX_UNKNOWN_74, 0x5000, 0, arg0->unk4.h, arg0->unk8.h, arg0->unkC.h, 1.0f);
-//                         obj = func_802F62E4_707994(arg0->unk4.h, arg0->unk8.h, (s16) (arg0->unkC.h + ((s32) (arg0->unk40 * 6) >> 0xB)), 0x26, 0, (arg0->unk40 * 40) >> 11, 0, temp_t0, sp5E, 0x10, (s32) (arg0->unk40 << 0xB) >> 0xB);
+//                         obj = func_802F62E4_707994(arg0->unk4.h, arg0->unk8.h, (s16) (arg0->unkC.h + ((s32) (arg0->unk40 * 6) >> 0xB)), 0x26, 0, (arg0->unk40 * 40) >> 11, 0, temp_t0, angle, 0x10, (s32) (arg0->unk40 << 0xB) >> 0xB);
 //                         if (obj != NULL) {
 //                             obj->unk154 = 200;
 //                         }
@@ -671,6 +671,7 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //     }
 // }
 
+// homing missile turret
 void func_802F8DCC_70A47C(struct071 *arg0) {
     s32 temp_a2;
     s32 temp_a3;
@@ -679,14 +680,14 @@ void func_802F8DCC_70A47C(struct071 *arg0) {
     s16 sp56;
     s16 phi_t0;
     s16 pad[2];
-    struct071 *obj;
+    struct071 *obj; // target, animal?
 
     if (arg0->unk150 > 0) {
         arg0->unk150 -= 2;
     }
     if (arg0->unk0 == 1) {
         obj = func_802F8994_70A044(arg0);
-        if (obj != 0) {
+        if (obj != NULL) {
             if (arg0->unk14E > 0) {
                 arg0->unk14E -= 1;
             }
@@ -739,9 +740,101 @@ void func_802F9104_70A7B4(struct071 *arg0) {
     func_802C9BA4_6DB254(arg0);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9178_70A828.s")
+// mouse radar?
+s32 func_802F9178_70A828(Animal *arg0) {
+    Animal *target;
+    s16 zDist;
+    s16 xDist;
+    s32 phi_t0;
+    s32 phi_a3;
+    s16 i;
 
+    for (i = 0; i < D_803D553E; i++) {
+        if ((D_801D9ED8.animals[i].animal != 0) &&
+            (D_801D9ED8.animals[i].unk0->unk9C == MOUSE2)) {
+            if ((D_801D9ED8.animals[i].animal->unk366 != 6) &&
+                (D_801D9ED8.animals[i].animal->unk366 != 2) &&
+                (D_801D9ED8.animals[i].animal->unk366 != 5)) {
+
+                target = D_801D9ED8.animals[i].animal;
+
+                xDist = ABS(arg0->xPos - target->xPos);
+                zDist = ABS(arg0->zPos - target->zPos);
+                phi_a3 = MAX(xDist, zDist);
+                phi_t0 = MIN(xDist, zDist);
+
+                // found a close animal
+                if ((s16) ((phi_t0 >> 1) + phi_a3) < 0x280) {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+#ifdef NON_MATCHING
+// justreg
+void func_802F92B0_70A960(Animal *arg0) {
+    s16 phi_a2;
+    s16 temp_a3_2;
+    s32 temp_v1;
+    s32 temp_a2;
+    s16 phi_a1;
+    Animal *temp_a3;
+    s32 pad;
+
+    s32 sp54;
+    s32 sp50;
+    s16 sp4E;
+    s16 sp4C;
+    s16 pad4A;
+    s16 sp48;
+    u8  sp47;
+
+    sp47 = func_802F9178_70A828(arg0);
+    temp_a3 = arg0->unk188;
+    if (temp_a3 != NULL) {
+        temp_v1 = temp_a3->xPos - arg0->xPos;
+        temp_a2 = temp_a3->zPos - arg0->zPos;
+        sp54 = (temp_a3->yPos - arg0->yPos) + (temp_a3->unk42 >> 1);
+        sp50 = (s16) sqrtf(((temp_v1 * temp_v1) + (temp_a2 * temp_a2)));
+        sp4E = func_801284B8(temp_v1, temp_a2);
+        temp_a3_2 = func_801284B8(sp54, sp50);
+        if (arg0->unk150 != 0) {
+            phi_a2 = arg0->unk150;
+        } else {
+            phi_a2 = 7;
+        }
+        sp4C = temp_a3_2;
+        arg0->yRotation = func_802F649C_707B4C(sp4E, arg0->yRotation, phi_a2);
+        arg0->unk2E = func_802F649C_707B4C(sp4C, arg0->unk2E, MAX((phi_a2 * 3) / 4, 1));
+    }
+
+    if (arg0->unk152 != 0) {
+        phi_a1 = arg0->unk152;
+    } else {
+        phi_a1 = 18;
+    }
+
+    if (sp47 != 0) {
+        arg0->yRotation += (D_80152620[(s16) ((arg0->unk14E * 16) % 360)]) >> 5;
+    }
+    if (arg0->yRotation >= 360) {
+        arg0->yRotation -= 360;
+    } else if (arg0->yRotation < 0) {
+        arg0->yRotation += 360;
+    }
+    func_802F6DEC_70849C(arg0, phi_a1);
+    arg0->unk14E += 1;
+    if (arg0->unk154 == 0) {
+        arg0->unk154 = 160;
+    }
+    func_8032CED0_73E580(arg0, 0x67, 0x4000, 0.4f, 0, 0, arg0->xPos, arg0->zPos, arg0->yPos, arg0->xVelocity.w, arg0->zVelocity.w, arg0->yVelocity.w);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F92B0_70A960.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F951C_70ABCC.s")
 
@@ -828,7 +921,63 @@ void func_802FB49C_70CB4C(struct071 *arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB680_70CD30.s")
 
+#ifdef NON_MATCHING
+void func_802FB85C_70CF0C(Animal *arg0) {
+    s16 phi_v0;
+    s16 phi_v1;
+    s32 phi_v1_2;
+    u16 phi_a1;
+
+    if (arg0->unk15E == 0) {
+        phi_v0 = (arg0->unk40 << 5) >> 11;
+        if (arg0->unk158 != 0) {
+            phi_v0 *= arg0->unk158;
+        }
+    } else {
+        phi_v0 = arg0->unk15E;
+    }
+
+    if ((arg0->unk168 != 0) && (arg0->unk168->unk16C->unk80.bit)) {
+        phi_v1 = arg0->unk168->unk16C->unkE6;
+    } else {
+        phi_v1 = -1;
+    }
+
+    func_802FF184_710834(
+        arg0,
+        1,
+        arg0->xPos,
+        arg0->zPos,
+        arg0->yPos + (arg0->unk42 >> 1),
+        0,
+        0,
+        100,
+        phi_v0,
+        phi_v1);
+
+    phi_v1_2 = MAX(
+        MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6, D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
+        MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6, D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6)
+    );
+
+    if (arg0->yPos < (phi_v1_2 << 2)) {
+        phi_a1 = 32;
+    } else {
+        phi_a1 = 4 | 2 | 1;
+    }
+
+    func_802D7BE0_6E9290(
+        0,
+        (phi_a1 | 0x40) & 0xFFFF,
+        arg0->xPos,
+        arg0->zPos,
+        arg0->yPos + (arg0->unk42 >> 1),
+        arg0->unk30 >> 2,
+        0);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB85C_70CF0C.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FBA40_70D0F0.s")
 
@@ -843,7 +992,33 @@ void func_802FB49C_70CB4C(struct071 *arg0) {
 // huh?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC2B8_70D968.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC438_70DAE8.s")
+// complete mess
+// #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC438_70DAE8.s")
+void func_802FC438_70DAE8(s16 x, s16 z, s16 y) {
+    s32 temp_s1;
+    s32 temp_s2;
+    s32 temp_s3;
+    s16 i;
+
+    for (i = 0; i < 3; i++) {
+        temp_s1 = ((s32)func_80128200() % FTOFIX32(6.0)) - FTOFIX32(3.0);
+        temp_s2 = ((s32)func_80128200() % FTOFIX32(6.0)) - FTOFIX32(3.0);
+        temp_s3 = ((s32)func_80128200() % FTOFIX32(2.0)) + FTOFIX32(3.0);
+        create_particle_effect(
+            x,
+            z,
+            y,
+            35,
+            temp_s1, // ?
+            temp_s2, // ?
+            temp_s3, // ?
+            8,       // particle size
+            GPACK_RGBA5551(0, 248, 0, 1),
+            GPACK_RGBA5551(8,  56, 0, 1),
+            0);
+    }
+}
+
 
 void func_802FC5C0_70DC70(Animal *arg0) {
     s16 phi_a1;
@@ -938,6 +1113,158 @@ void func_802FC990_70E040(Animal *arg0) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FCA08_70E0B8.s")
+// void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
+//     s32 temp_t5;
+//     s16 phi_v0;
+//     s16 phi_v1;
+//     // surely not...
+//     volatile u8 tmp  = ((arg1 & 0x4000) == 0) & 0xFF;
+//
+//     switch ((s16)(arg1 & 0xBFFF)) {
+//     case 0:
+//         break;
+//     case 1: // dust cloud
+//         func_802FC808_70DEB8(arg0);
+//         break;
+//     case 2: // bomb/explosion air
+//         func_802FB4C0_70CB70(arg0);
+//         break;
+//     case 3: // bomb/explosion ground
+//         func_802FBBF8_70D2A8(arg0);
+//         break;
+//     case 4: // powerup?
+//         switch (arg0->unk16C->unk0) {
+//         case 0x22: // powercell
+//             if (((arg1 & 0x4000) == 0)) {
+//                 D_803F2D30.powercells += 1;
+//                 D_803F2D30.unk6 += 1;
+//                 D_803F2D30.score += 1000;
+//             }
+//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, (arg0->yPos + ((arg0->unk40) >> 7) * 2), 2);
+//             break;
+//         case 0x3A: // energy ball + 16 hp
+//             if (((arg1 & 0x4000) == 0)) {
+//                 if (D_803F2D30.unk4 == 0) {
+//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x10, 0x7F);
+//                 }
+//                 D_803D552C->unk348 = 0;
+//                 D_803D552C->unk34A = 0;
+//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
+//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
+//             }
+//             // func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, (arg0->yPos + (((s32) arg0->unk40 >> 7) * 2)), 1);
+//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos + ((arg0->unk40) >> 7) * 2, 1);
+//             break;
+//         case 0x3B:  // energy ball + 32 hp
+//             if (((arg1 & 0x4000) == 0)) {
+//                 if (D_803F2D30.unk4 == 0) {
+//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x20, 0x7F);
+//                 }
+//                 D_803D552C->unk348 = 0;
+//                 D_803D552C->unk34A = 0;
+//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk358 = 0;
+//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk363 = 0;
+//             }
+//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, (arg0->yPos + ((arg0->unk40) >> 7) * 2), 1);
+//             break;
+//         case 0x3C: // energy ball + 64hp
+//             if (((arg1 & 0x4000) == 0)) {
+//                 if (D_803F2D30.unk4 == 0) {
+//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x40, 0x7F);
+//                 }
+//                 D_803D552C->unk348 = 0;
+//                 D_803D552C->unk34A = 0;
+//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
+//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
+//             }
+//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos + ((arg0->unk40) >> 7) * 2, 1);
+//             break;
+//         default:                                    /* switch 1 */
+//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos + ((arg0->unk40) >> 7) * 2, 2);
+//             break;
+//         }
+//         break;
+//     // no case 5
+//     case 6: // white sparks?
+//         func_802FC2B8_70D968(arg0->xPos, arg0->zPos, (arg0->yPos + (arg0->unk42 >> 1)));
+//         break;
+//     case 7: // explosion with red debris
+//         func_802FBF58_70D608(arg0);
+//         break;
+//     case 8: // ground explosion
+//         func_802FBDA8_70D458(arg0);
+//         break;
+//     case 9: // explosion
+//         func_802FC108_70D7B8(arg0);
+//         break;
+//     case 10: // big explosion, brown debris
+//         func_802FC5C0_70DC70(arg0);
+//         break;
+//     case 11: // water splash
+//         func_802D760C_6E8CBC(arg0->xPos, arg0->zPos, (arg0->yPos + ((s32) arg0->unk42 >> 1)), arg0->unk30, 8);
+//         break;
+//     case 12: // small explosion
+//         func_802D5B88_6E7238(arg0->xPos, arg0->zPos, arg0->yPos + ((s32) arg0->unk42 >> 1), 0, 0, 0, 0, 0);
+//         break;
+//     case 13: // explosion
+//         func_802FB680_70CD30(arg0);
+//         break;
+//     case 14: // explosion vertical (wall hit?)
+//         func_802FBA40_70D0F0(arg0);
+//         break;
+//     case 15: // radioactive
+//         func_802FC438_70DAE8(arg0->xPos, arg0->zPos, (s16) (arg0->yPos + ((s32) arg0->unk42 >> 1)));
+//         break;
+//     case 16: // cardboard/earthquake debris?
+//         func_802FC6E4_70DD94(arg0);
+//         play_sound_effect_at_location(0x79, 0x6000, 0, arg0->xPos, (s32) arg0->zPos, (s32) arg0->yPos, 1.0f);
+//         break;
+//     case 17: // trophy?
+//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 3);
+//         break;
+//     case 18: //
+//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 4);
+//         break;
+//     case 19: // shockwave
+//         if (arg0->unk15E == 0) {
+//             phi_v0 = ((arg0->unk40 << 5) >> 11);
+//             if (arg0->unk158 != 0) {
+//                 phi_v0 *= arg0->unk158;
+//             }
+//         } else {
+//             phi_v0 = arg0->unk15E;
+//         }
+//         if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+//             phi_v1 = arg0->unk168->unk16C->unkE6;
+//         } else {
+//             phi_v1 = -1;
+//         }
+//         func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0, 0, 100, phi_v0, phi_v1);
+//         func_802D7BE0_6E9290(0, 32, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), arg0->unk30 >> 1, 0);
+//         break;
+//     case 20: // objective with sound?
+//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 5);
+//         break;
+//     case 21: // big splash?
+//         func_802D5B88_6E7238(arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0x3A, arg0->unk30 << 2, 0, 0, 0);
+//         break;
+//     case 22: // objective no sound?
+//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 6);
+//         break;
+//     case 23: // nuts & bolts (evo exploding?)
+//         func_802D7BE0_6E9290(0, 16, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
+//         break;
+//     case 24: // brown debris
+//         func_802FC6E4_70DD94(arg0);
+//         play_sound_effect_at_location(0x4B, 0x6000, 0, arg0->xPos, arg0->zPos, arg0->yPos, 1.0f);
+//         break;
+//     case 25: // ground explosion
+//         func_802FB85C_70CF0C(arg0);
+//         break;
+//     default:
+//         break;
+//     }
+// }
 
 void func_802FD190_70E840(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4) {
     s16 i, j;
@@ -1014,7 +1341,19 @@ s32 func_802FD4D0_70EB80(Animal *arg0) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FD538_70EBE8.s")
+s32 func_802FD538_70EBE8(Animal *arg0) {
+    s16 i;
+
+    if ((D_803E1B02 > 0) && (D_801D9ED8.animals[gCurrentAnimalIndex].animal->state == 0xDD)) {
+        for (i = 0; i < 120; i++) {
+            if ((D_803E00C0[i].unk2F == 2) &&
+                ((arg0 == D_803E00C0[i].unk4) || (arg0 == D_803E00C0[i].unk0))) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
 
 s16 func_802FD5DC_70EC8C(Animal *arg0) {
     struct065 *tmp;
@@ -1108,13 +1447,35 @@ void func_802FE560_70FC10(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FE5E8_70FC98.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FED68_710418.s")
+void func_802FED68_710418(struct071 *arg0, struct071 *arg1, s16 x, s16 z, s16 y, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, f32 argB, u8 argC) {
+    struct077 sp50;
+    struct077 sp48;
+
+    func_802F5F44_7075F4(arg5, arg6, arg7, arg8, arg9, &sp50);
+    func_802F5F44_7075F4(0, argA << 8, 0, arg8, arg9, &sp48);
+    func_802FEE98_710548(
+        x + sp50.unk0,
+        z + sp50.unk2,
+        y + sp50.unk4,
+        arg8,
+        arg9,
+        arg1, // target
+        3,
+        10,
+        argB,
+        250,
+        (arg0->unk40 * 0xA) >> 0xB,
+        sp48.unk0 << 8,
+        sp48.unk2 << 8,
+        sp48.unk4 << 8,
+        arg0);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FEE98_710548.s")
 
 void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal *owner, s16 arg6, u8 id) {
     struct071 *obj = func_802C9564_6DAC14(id, x, z, func_80310EE4_722594(x, z, owner->unk160) >> 16, 0, 0, 0, 0, 0, scale);
-    if (obj != 0) {
+    if (obj != NULL) {
         obj->unk15C = 50;
         obj->unk168 = owner;
         obj->unk154 = lifetime;
@@ -1131,7 +1492,7 @@ void func_802FF140_7107F0(void) {
     }
 }
 
-void func_802FF184_710834(s32 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
+void func_802FF184_710834(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
     s16 i;
 
     if (D_803A5330_7B69E0 < 10) {
@@ -1202,7 +1563,7 @@ void func_802FFC34_7112E4(struct071 *arg0) {
                 arg0->unk8.h,
                 arg0->unkC.h,
                 (s16) ((arg0->unk2C << 8) / 360),
-                D_803A8374,
+                D_803A8374_7B9A24,
                 (s16) temp_t4,
                 (s16) temp_t4,
                 (s16) phi_v1,
@@ -1277,4 +1638,42 @@ void func_802FFF70_711620(struct071 *arg0) {
     func_8032CED0_73E580(&arg0->unk20.h[1], SFX_UNKNOWN_159, 0x3000, 1.0f, 0, 0, arg0->unk4.h, arg0->unk8.h, arg0->unkC.h, 0, 0, 0);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFFD0_711680.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FFFD0_711680.s")
+void func_802FFFD0_711680(struct071 *arg0) {
+    u8 red, green, blue;
+
+    // same line required for regalloc
+    if (arg0->unk16C->unk0 == 60) {
+        red = 0xFF; green = 0xFF; blue = 0xFF;
+    } else if (arg0->unk16C->unk0 == 59) {
+        red = 0xFF; green = 0xA0; blue = 0xFF;
+    } else if (arg0->unk16C->unk0 == 58) {
+        red = 0xFF; green = 0; blue = 0xFF;
+    }
+
+    func_802F2B54_704204(
+        arg0->unk4.h,
+        arg0->unk8.h,
+        arg0->unkC.h,
+        128,
+        red,
+        green,
+        blue);
+    if ((arg0->unk163 & 8) == 0) {
+        s32 tmp = (arg0->unk40 << 5) >> 11;
+        func_8034BD20_75D3D0(
+            arg0->unk4.h,
+            arg0->unk8.h,
+            arg0->unkC.h,
+            ((arg0->unk2C << 8) / 360),
+            D_803A8374_7B9A24,
+            tmp,
+            tmp,
+            64,
+            red,
+            green,
+            blue,
+            2,
+            0);
+    }
+}

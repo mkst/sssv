@@ -1,9 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
-
+// load_sheep_or_ram
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_8035FE90_771540.s")
-
+// load_springy_thing_or_springy_ram
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_80360D94_772444.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_803622DC_77398C.s")
@@ -25,8 +25,8 @@
 //         Vtx **base, **base2;
 //         D_803F2EF0 = D_803D5544;
 //
-//         base = D_801D9EC4 + ((s32)D_04002F28_CA958 & 0xFFFFFF);
-//         base2 = D_801D9EC4 + ((s32)D_040029D0_CA400 & 0xFFFFFF);
+//         base = D_801D9EC4 + SEGMENT_OFFSET(D_04002F28_CA958);
+//         base2 = D_801D9EC4 + SEGMENT_OFFSET(D_040029D0_CA400);
 //
 //         for (i = 0; i < 52; i++) {
 //             temp_v1_2 = base[i];

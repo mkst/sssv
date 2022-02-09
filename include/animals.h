@@ -66,8 +66,28 @@
 #define EVO_GLITCHY                 62 // EVO_TRANSFER?
 #define EVO                         63
 #define KING_PENGUIN                64
-#define RACING_TORTOISE_ATTACKING   65
+#define RACING_TORTOISE_DEFENDING   65
 #define COOL_COD                    66
 #define EVO_SHELLSUIT               67
+
+// classes
+
+// 'flying' class receives damage when touching the ground
+
+#define CLASS_WALK          2
+#define CLASS_WHEELS        4
+#define CLASS_POGO          8
+#define CLASS_BIRD          32
+#define CLASS_FLYING        64
+#define CLASS_HELI          128
+#define CLASS_SWIM          256
+
+#define WATER_TBD           1
+#define WATER_FLOAT         2
+#define WATER_SWIM          4
+#define WATER_SINK_WALK     8
+#define WATER_SINK_WHEELS   16
+#define WATER_DAMAGE        1024
+#define WATER_DAMAGE_X2     2048
 
 #endif

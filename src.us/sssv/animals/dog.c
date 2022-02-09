@@ -46,42 +46,37 @@ void func_802EEA54_700104(void) {
 }
 
 void func_802EEA7C_70012C(void) {
-    u16 tmp[9];
 
     if (D_803D5530->state == 21) {
         func_8037D9D4_78F084();
-        tmp[5] = func_8012826C();
-        tmp[6] = func_8012826C();
-        tmp[7] = func_8012826C();
-        tmp[8] = func_8012826C();
         create_particle_effect(
             D_803D5530->xPos,
             D_803D5530->zPos,
-            D_803D5530->yPos + ((s32) D_803D5530->unk42 >> 2),
-            (tmp[5] & 1) + 25,
-            ((tmp[6] & 0x7FFF) * 2) - 40000,
-            ((tmp[7] & 0x7FFF) * 2) - 40000,
+            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            (func_8012826C() & 1) + 25,
+            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
+            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
             0,
-            (tmp[8] & 0xF) + 15,
+            (func_8012826C() & 0xF) + 15,
             GPACK_RGBA5551(0, 0, 0, 1),
             GPACK_RGBA5551(0, 0, 0, 1),
-            (func_8012826C() & 0x1F) + 15);
+            (func_8012826C() & 0x1F) + 15
+        );
     } else {
         func_8037D994_78F044(16);
-        tmp[5] = func_8012826C();
-        tmp[6] = func_8012826C();
-        tmp[7] = func_8012826C();
-        tmp[8] = func_8012826C();
         create_particle_effect(
             D_803D5530->xPos,
             D_803D5530->zPos,
-            D_803D5530->yPos + ((s32) D_803D5530->unk42 >> 2),
-            (tmp[5] & 1) + 25, ((tmp[6] & 0x7FFF) * 2) - 40000, ((tmp[7] & 0x7FFF) * 2) - 40000,
+            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            (func_8012826C() & 1) + 25,
+            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
+            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
             0,
-            (tmp[8] & 0xF) + 15,
+            (func_8012826C() & 0xF) + 15,
             GPACK_RGBA5551(0, 0, 0, 1),
             GPACK_RGBA5551(0, 0, 0, 1),
-            (func_8012826C() & 0x1F) + 15);
+            (func_8012826C() & 0x1F) + 15
+        );
     }
 }
 
@@ -95,7 +90,7 @@ void func_802EEC44_7002F4(void) {
     if (animal == NULL) {
         func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
     }
-    if (func_8037FBBC_79126C() != 0) {
+    if (func_8037FBBC_79126C()) {
         phi_t1 = 450;
     } else {
         phi_t1 = -450;

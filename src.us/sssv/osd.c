@@ -50,9 +50,9 @@ extern u8 D_01029DD0[];
 //         gSPTextureRectangle(D_801D9E7C++, D_803F2CEC + 192, D_803F2CF0 - 64, D_803F2CEC + 384, D_803F2CF0 + 64, G_TX_RENDERTILE, 0, 0, 1024, 1024);
 //         gDPPipeSync(D_801D9E7C++);
 //
-//         // temp_ra = &D_801DDD8C[gCurrentAnimalIndex].unk0;
-//         animal = D_801DDD8C[gCurrentAnimalIndex].unk0;
-//         health = D_801DDD8C[gCurrentAnimalIndex].unk0->health;
+//         // temp_ra = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+//         animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+//         health = D_801D9ED8.animals[gCurrentAnimalIndex].animal->health;
 //
 //         gDPPipeSync(D_801D9E7C++);
 //
@@ -184,7 +184,7 @@ void func_80349280_75A930(Animal *arg0, s16 arg1) {
             temp_a2 = arg0->unk36B + temp_a2;
             arg0->unk36B = MAX(temp_a2, temp_v1);
         }
-        if (arg0 != D_801DDD8C[gCurrentAnimalIndex].unk0) {
+        if (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
             if (arg0 == D_803F2CF8.animal) {
                 D_803F2CF8.unk6 = MAX(0, arg0->health - arg1);
                 D_803F2CF8.unkA = 64;
@@ -546,9 +546,9 @@ void func_80349DCC_75B47C(s16 arg0) {
             }
             if (arg0 != 0) {
                 if (D_803F2CDA >= 9) {
-                    phi_a0 = D_80203FD2;
+                    phi_a0 = gScreenHeight;
                 } else {
-                    phi_a0 = (D_80203FD2 + (D_803F2CDA * 4)) - 36;
+                    phi_a0 = (gScreenHeight + (D_803F2CDA * 4)) - 36;
                 }
                 func_80348230_7598E0(phi_a0);
             }
