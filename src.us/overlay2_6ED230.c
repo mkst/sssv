@@ -229,7 +229,7 @@ void func_802DC0D4_6ED784(u16 arg0) {
         default:
             play_sound_effect_at_location(32, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
             break;
-        case RACING_TORTOISE_ATTACKING:
+        case RACING_TORTOISE_DEFENDING:
             break;
         }
     }

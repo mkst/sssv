@@ -465,7 +465,7 @@ void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s32 arg2) {
 //         break;
 //     }
 //
-//     if ((D_803D5524->unkA0 & 0xC00)) {
+//     if ((D_803D5524->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2))) {
 //         if ((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 5) ||
 //             (D_803D5530->unk162 == 6) || (D_803D5530->unk162 == 7)) {
 //             phi_t1 = 2;

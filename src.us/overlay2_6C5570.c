@@ -2,6 +2,10 @@
 #include "common.h"
 
 
+s16 D_803A05C0_7B1C70 = 0;
+s32 D_803A05C4_7B1C74 = 8;
+s16 D_803A05C8_7B1C78 = 10000;
+
 void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     D_803A05C0_7B1C70 = 1 - D_803A05C0_7B1C70;
     if (arg1 != 1) {
@@ -21,10 +25,10 @@ void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f3
 void func_802B3FAC_6C565C(void) {
     s16 i;
     for (i = 0 ; i < 360; i++) {
-        D_803D5590[i] = (guRandom() % 0xFFFA) - 0x7FF8;
-        D_803D5860[i] = (guRandom() % 0xFFFA) + 0x7FF8;
-        D_803D5B30[i] = (guRandom() % 0x1B58) - 0xBB8;
-        D_803D5E00[i] = (guRandom() % 0x64)   + 0x96;
+        D_803D5590[i] = RAND(65530) - 32760;
+        D_803D5860[i] = RAND(65530) + 32760;
+        D_803D5B30[i] = RAND(7000)  - 3000;
+        D_803D5E00[i] = RAND(100)   + 150;
     }
 }
 
@@ -68,23 +72,23 @@ void func_802B4148_6C57F8(Gfx **arg0) {
     }
 
     D_803A05C8_7B1C78 = temp_s6;
-    if ((D_803F6680.unk0 == 0) && ((guRandom() % 100000) < 5)) {
+    if ((D_803F6680.unk0 == 0) && (RAND(100000) < 5)) {
         s32 temp_s0;
         s16 temp_s1;
         s16 temp_s2;
 
-        temp_s1 = guRandom() % 360;
-        temp_s0 = (guRandom() % 6000) + 2000;
-        temp_s2 = guRandom() % 360;
+        temp_s1 = RAND(360);
+        temp_s0 = RAND(6000) + 2000;
+        temp_s2 = RAND(360);
 
         create_particle_effect(
             ((D_80152350.unk2D0[temp_s2] * temp_s0) / 0x80) + 0x900,
             ((D_80152350.unk384[temp_s2] * temp_s0) / 0x80) + 0xE00,
-            (guRandom() % 2000) + 1000,
+            RAND(2000) + 1000,
             86,
             D_80152350.unk2D0[temp_s1] * 4000,
             D_80152350.unk384[temp_s1] * 4000,
-            D_80152350.unk2D0[(s16)(guRandom() % 360)] * 5000,
+            D_80152350.unk2D0[(s16)RAND(360)] * 5000,
             100,
             GPACK_RGBA5551(200, 200, 248, 0),
             GPACK_RGBA5551(0, 0, 248, 0),

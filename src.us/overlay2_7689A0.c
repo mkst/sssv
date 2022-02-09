@@ -4,7 +4,7 @@
 
 void func_803572F0_7689A0(void) {
     if (D_803F2D10.unk0 == 0) {
-        if ((D_801DDD8C[gCurrentAnimalIndex].unk0->health <= 0) &&
+        if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->health <= 0) &&
             (D_803F2D30.unk4 == 0) && (D_803F2E16 == 0)) {
             D_803F2D30.unk4 = 1;
             D_8028645C = 9;
@@ -50,7 +50,7 @@ void func_80357438_768AE8(void) {
 
 void func_80357480_768B30(void) {
     if (D_803F2D34 == 160) {
-        func_8038FA00_7A10B0();
+        trigger_level_failed();
     }
     if (D_803F2D34 == 122) {
         func_8013385C(30.0f, 20.0f, 0);

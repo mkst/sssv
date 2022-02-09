@@ -327,7 +327,7 @@ extern u8 D_803A8450_7B9B00[];
 //             }
 //             // sp9C = phi_t0;
 //             // sp98 = phi_t3;
-//             func_80356410_767AC0(D_04003A50, D_04003850);
+//             load_1_tile(D_04003A50, D_04003850);
 //             func_802C78B0_6D8F60(
 //                 2,
 //                 1,
@@ -355,7 +355,7 @@ extern u8 D_803A8450_7B9B00[];
 //             if (D_803F2EDD == 0) {
 //                 func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_04003530);
 //             }
-//             func_80356410_767AC0(D_04004070, D_04003E70);
+//             load_1_tile(D_04004070, D_04003E70);
 //
 //             gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
 //             gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD);

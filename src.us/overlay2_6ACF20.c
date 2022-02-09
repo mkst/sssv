@@ -112,13 +112,16 @@ void func_8029D89C_6AEF4C(void) {
 //     s32 phi_at;
 //     // this is currently nonsense
 //     if (arg1 < 8) {
+//         // offset is 120000
 //         phi_a2 = &D_800BA760->unk1D4C0[arg1]; //  << 0xB
 //         phi_v1 = &D_800BA760 + (arg1 << 9);
 //         phi_at = 0x214C0;
 //     } else {
+//         // 2048 size?
 //         arg1 = arg1 - 8;
+//         // offset is 109760
 //         phi_a2 = &D_800BA760->unk1ACC0[arg1]; //  << 0xB
-//         phi_v1 = &D_800BA760 + (arg1 << 9);
+//         phi_v1 = &D_800BA760 + (arg1 << 9); // 512 size?
 //         phi_at = 0x1CCC0;
 //     }
 //

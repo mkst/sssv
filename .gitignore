@@ -33,3 +33,4 @@ progress*.csv
 *.ply
 ctx.c
 ctx.c.m2c
+pah.conf

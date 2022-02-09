@@ -65,6 +65,7 @@ void func_802F301C_7046CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7041D0/func_802F30A4_704754.s")
 
+// display lists
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7041D0/func_802F5088_706738.s")
 
 // ambient light?

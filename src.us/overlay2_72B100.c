@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
+u16 D_803A5750_7B6E00 = 0;
 
 void func_80319A50_72B100(void) {
     bzero_sssv((u8*)D_803E8F60, 1100); // raw waypoint data
@@ -68,13 +69,11 @@ void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5
     i = 0;
 
     *arg4 = 0;
-    tmp = &D_803E93B0;
+    tmp = &D_803E93B0[0];
 
     while ((tmp->unk2 != 245) && (*arg4 < 4)) {
-        if ((arg0 >= tmp->unk0) &&
-            (tmp->unk3 >= arg0) &&
-            (arg1 >= tmp->unk1) &&
-            (tmp->unk4 >= arg1)) {
+        if ((arg0 >= tmp->unk0) && (tmp->unk3 >= arg0) &&
+            (arg1 >= tmp->unk1) && (tmp->unk4 >= arg1)) {
             switch (tmp->unk2) {
             case 240:
                 *arg3 = i;
@@ -131,10 +130,8 @@ u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
     ret = 0;
     tmp = &D_803E93B0[idx];
 
-    if ((arg0 >= tmp->unk0) &&
-        (tmp->unk3 >= arg0) &&
-        (arg1 >= tmp->unk1) &&
-        (tmp->unk4 >= arg1)) {
+    if ((arg0 >= tmp->unk0) && (tmp->unk3 >= arg0) &&
+        (arg1 >= tmp->unk1) && (tmp->unk4 >= arg1)) {
 
         switch (tmp->unk2) {
         case 240:
@@ -172,65 +169,64 @@ u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B100/func_80319F58_72B608.s")
+u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s8 *arg5, s8 *arg6) {
+    u16 ret;
+    struct105 *phi_t0;
 
-void func_8031A150_72B800(s16 arg0, u16 *arg1, u16 *arg2) {
-    s16 temp_v1;
-    s16 temp_v1_2;
-    s32 temp_v0;
-    s32 temp_v0_2;
+    ret = 0;
+    phi_t0 = arg0;
 
-    *arg1 = 0;
-    *arg2 = 0;
-    if ((arg0 & 0x3F) >= 0x3A) {
-        *arg1 = 5;
-        *arg2 = 5;
-    }
-    if (((arg0 & 0x4FF) >= 0x46A) || ((arg0 & 0xFFF) >= 0xE0C)) {
-        *arg1 = 7;
-        *arg2 = 7;
-    }
-    temp_v0 = arg0 & 0x2FF; // 767
-    temp_v1 = temp_v0 - 737;
-    if (temp_v0 > 737) {
-        if (temp_v1 < 7) {
-            *arg1 = 1;
-            *arg2 = 0;
-        } else if (temp_v1 < 14) {
-            *arg1 = 0;
-            *arg2 = 1;
-        } else if (temp_v1 < 21) {
-            *arg1 = 2;
-            *arg2 = 0;
-        } else {
-            *arg1 = 0;
-            *arg2 = 2;
+    while (phi_t0->unk2 != 245) {
+        if ((arg1 >= phi_t0->unk0) && (phi_t0->unk3 >= arg1) &&
+            (arg2 >= phi_t0->unk1) && (phi_t0->unk4 >= arg2)) {
+            switch (phi_t0->unk2) {
+            case 240:
+                *arg5 = phi_t0->unk6;
+                *arg6 = phi_t0->unk7;
+                return ret;
+            case 241:
+                if (arg4 == 2) {
+                    *arg5 = phi_t0->unk6;
+                    *arg6 = phi_t0->unk7;
+                    return ret;
+                }
+                break;
+            case 242:
+                if (arg4 == 1) {
+                    *arg5 = phi_t0->unk6;
+                    *arg6 = phi_t0->unk7;
+                    return ret;
+                }
+                break;
+            case 243:
+                if ((arg4 == 2) || (arg4 == 0)) {
+                    *arg5 = phi_t0->unk6;
+                    *arg6 = phi_t0->unk7;
+                    return ret;
+                }
+                break;
+            case 244:
+                if ((arg4 == 1) || (arg4 == 0)) {
+                    *arg5 = phi_t0->unk6;
+                    *arg6 = phi_t0->unk7;
+                    return ret;
+                }
+                break;
+            default:
+                if ((arg3 >= phi_t0->unk2) &&
+                    (phi_t0->unk5 >= arg3)) {
+                    *arg5 = phi_t0->unk6;
+                    *arg6 = phi_t0->unk7;
+                    return ret;
+                }
+                break;
+            }
         }
+        phi_t0++;
+        ret++;
     }
-    temp_v0_2 = arg0 & 0x3FF;
-    temp_v1_2 = temp_v0_2 - 960;
-    if (temp_v0_2 > 960) {
-        if ((temp_v1_2 > 10) && (temp_v1_2 < 25)) {
-            *arg1 = 3;
-            *arg2 = 3;
-        } else if ((temp_v1_2 > 40) && (temp_v1_2 < 55)) {
-            *arg1 = 4;
-            *arg2 = 4;
-        } else {
-            *arg1 = 0;
-            *arg2 = 0;
-        }
-    }
+
+    *arg5 = phi_t0->unk6;
+    *arg6 = phi_t0->unk7;
+    return 0xFFFF;
 }
-
-// yucky switch
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B100/func_8031A278_72B928.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B100/func_8031A370_72BA20.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B100/func_8031A4E0_72BB90.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B100/func_8031AA0C_72C0BC.s")
-
-// huh?
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B100/func_8031AE7C_72C52C.s")

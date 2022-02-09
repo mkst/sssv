@@ -94,7 +94,7 @@
 //         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
 //              (D_803F2EDA != 0) &&
 //              ((D_803D5538 != 0) || (D_803F2AA2 == 0) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 > 10))) &&
-//              ((D_803F2C18 != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].unk0 != 3) && (D_803F28E0[D_803F2A98].unk0 != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+//              ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].unk0 != 3) && (D_803F28E0[D_803F2A98].unk0 != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 //             func_80127640(D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s32) D_803F2ED2, D_803F2ED4);
 //             if (0) { }
 //             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);

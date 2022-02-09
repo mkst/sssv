@@ -7,24 +7,24 @@
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
     // unpack menu graphics
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04006EC0 & 0xFFFFFF)), D_800BA760); // central piece of SSSV
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007FA0 & 0xFFFFFF)), D_800BDC80); // "SSSV" Header graphic
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04006EC0)), D_800BA760); // central piece of SSSV
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007FA0)), D_800BDC80); // "SSSV" Header graphic
     // unpack powercell
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04000000 & 0xFFFFFF)), D_800DE390); // powercell
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04000000)), D_800DE390); // powercell
     // unpack evo bodyparts
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013060 & 0xFFFFFF)), D_800C3A40); // evo head trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040133C0 & 0xFFFFFF)), D_800C5240); // evo arms trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040131B0 & 0xFFFFFF)), D_800C4240); // evo legs trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04013580 & 0xFFFFFF)), D_800C4A40); // evo torso trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013060)), D_800C3A40); // evo head trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040133C0)), D_800C5240); // evo arms trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040131B0)), D_800C4240); // evo legs trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013580)), D_800C4A40); // evo torso trophy
     // unpack 'silver' level ring pieces
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007700 & 0xFFFFFF)), D_800BB700); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040077A0 & 0xFFFFFF)), D_800BBBB0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040078C0 & 0xFFFFFF)), D_800BC060); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_040079F0 & 0xFFFFFF)), D_800BC510); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007B40 & 0xFFFFFF)), D_800BC9C0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007C60 & 0xFFFFFF)), D_800BCE70); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007D90 & 0xFFFFFF)), D_800BD320); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + ((s32)D_04007EC0 & 0xFFFFFF)), D_800BD7D0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007700)), D_800BB700); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040077A0)), D_800BBBB0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040078C0)), D_800BC060); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040079F0)), D_800BC510); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007B40)), D_800BC9C0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007C60)), D_800BCE70); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007D90)), D_800BD320); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007EC0)), D_800BD7D0); // silver ring piece
 }
 
 void func_8039884C_7A9EFC(void) {
@@ -149,7 +149,7 @@ void display_zone_select_screen(void) {
     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
     // decompress ZONE SELECT image
-    UnpackRNC(((s32)D_04012B20_1296F0 & 0xFFFFFF) + D_801D9E6C, D_800DD3F0); // ZONE_SELECT rgba16
+    UnpackRNC(SEGMENT_OFFSET(D_04012B20_1296F0) + D_801D9E6C, D_800DD3F0); // ZONE_SELECT rgba16
 
     if (D_803F7DA8.lastLevel != D_803F7DA8.currentLevel) {
         // level thumbnails
@@ -1260,25 +1260,25 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
 void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1) {
     if (D_803F66A4 == 0) {
         if (D_803F7D9E == 0) {
-            if ((guRandom() % 1000) < 10) {
+            if (RAND(1000) < 10) {
                 D_803F7D9E = 1;
             }
         } else {
             D_803F7D9E += 1;
         }
 
-        if (((guRandom() % 2) + 1) < D_803F7D9E) {
+        if ((RAND(2) + 1) < D_803F7D9E) {
             D_803F7D9E = 0;
         }
         if (D_803F7D9C == 0) {
-            if ((guRandom() % 2000) < 10) {
+            if (RAND(2000) < 10) {
                 D_803F7D9C = 1;
                 func_8032CD20_73E3D0(0x283B, 0x74, 0x4000, 0, 1.0f);
             }
         } else {
             D_803F7D9C += 1;
         }
-        if (((guRandom() % 5) + 9) < D_803F7D9C) {
+        if ((RAND(5) + 9) < D_803F7D9C) {
             D_803F7D9C = 0;
         }
 
@@ -1341,9 +1341,9 @@ void render_stars(Gfx **arg0) {
 void generate_stars(void) {
     s16 i;
     for (i = 0; i < 180; i++) {
-        D_800DF220[i].x = (guRandom() % 320) * 4;
-        D_800DF220[i].y = (guRandom() % 240) * 4;
-        D_800DF220[i].speed = (guRandom() % 4) + 1;
+        D_800DF220[i].x = RAND(320) * 4;
+        D_800DF220[i].y = RAND(240) * 4;
+        D_800DF220[i].speed = RAND(4) + 1;
         D_800DF220[i].brightness = (D_800DF220[i].speed * 15) + 70;
     }
 }

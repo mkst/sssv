@@ -60,7 +60,7 @@
 //                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.1892f);
 //                 D_803D552C->unk320 = 0;
 //                 D_803D552C->yPos += D_803D552C->unk308;
-//                 D_803D552C->unk18 += D_803D552C->unk308;
+//                 D_803D552C->unk18.h += D_803D552C->unk308;
 //                 load_animal(VULTURE2);
 //             }
 //         }
@@ -135,7 +135,7 @@
 //             if ((D_803D5538 == 0) && ((D_803F2AA2 != 0)) && (D_803F2AA2 != 2)) {
 //                 if ((D_803F2AA2 == 1) && (D_803F2AA3 >= 11)) {
 // block_61:
-//                     if ((D_803F2C18 == 0) && (D_803D5538 != 0)) {
+//                     if ((D_803F2C18[0] == 0) && (D_803D5538 != 0)) {
 //                         if ((D_803F28E0[D_803F2A98].unk0 == 3) || (D_803F28E0[D_803F2A98].unk0 == 17)) {
 //                             if (D_803F28E0[D_803F2A98].unk64 != -3) {
 // block_66:
@@ -153,7 +153,7 @@
 //                                 } else {
 //                                     func_8038C230_79D8E0((D_803D5524->unkBA * 12) / 5, 2, 3, 3, 0.1f);
 //                                 }
-//                                 func_80356410_767AC0(D_04000D10, D_04000B10);
+//                                 load_1_tile(D_04000D10, D_04000B10);
 //                                 gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
 //
 //                                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_040009D0);
@@ -243,7 +243,7 @@
 //                                     D_803D552C->unk326 += 1;
 //                                     func_8031A150_72B800(D_803D552C->unk326, &sp86, &sp84);
 //                                     func_8031A278_72B928(D_803D552C->unk326, &sp86, &sp84);
-//                                     temp_a2 = D_803BD54A[sp86]; // * 2)
+//                                     temp_a2 = D_803BD54A_7CEBFA[sp86]; // * 2)
 //                                     sp84 = D_803C29FE[sp84]; // * 2) + D_803C29FE)->unk-29FE;
 //                                     func_80356BD8_768288(D_01000CC0, D_01000620, temp_a2);
 //                                     temp_a3_4 = (D_803F2EC8 << 6) >> 6;
@@ -327,13 +327,14 @@ void func_8036D30C_77E9BC(void) {
         play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEF90);
         func_80321920_732FD0(D_803D552C->unk320, 0, 0);
         D_803D552C->yPos += D_803D552C->unk308;
-        D_803D552C->unk18 += D_803D552C->unk308;
+        D_803D552C->unk18.h += D_803D552C->unk308;
         load_animal(VULTURE2);
     }
 }
 
 void func_8036D5CC_77EC7C(void) {
-    if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk0 >= 256))) {
+    // check object is an animal?
+    if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET))) {
         if (func_803224C4_733B74(-62, 0, 0, 46, 20, 0, 0, 19) != 0) {
             play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
             D_803D5530->yVelocity.h += 2;

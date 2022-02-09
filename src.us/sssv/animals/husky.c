@@ -47,19 +47,19 @@ void func_8036BCF8_77D3A8(void) {
     Animal *animal;
     s16 temp_v1;
     u8 temp_t0;
-    s32 phi_t1;
+    s32 twist;
 
     animal = func_8037E9AC_79005C();
     if (func_8037FBBC_79126C() != 0) {
-        phi_t1 = 369;
+        twist = 369;
     } else {
-        phi_t1 = -369;
+        twist = -369;
     }
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
     func_802FEE98_710548(
-        D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * phi_t1) / 32) >> 8),
-        D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * phi_t1) / 32) >> 8),
+        D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
+        D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
         D_803D5530->yPos + (D_803D5530->unk42 >> 1),
         10,
         temp_t0*360 >> 8,
@@ -86,18 +86,18 @@ void func_8036BE70_77D520(void) {
 void ski_husky_fire_missile(Animal *arg0) {
     s16 temp_v1;
     u8 temp_t0;
-    s32 phi_t1;
+    s32 twist;
 
     if (func_8037FBBC_79126C() != 0) {
-        phi_t1 = 369;
+        twist = 369;
     } else {
-        phi_t1 = -369;
+        twist = -369;
     }
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
     func_802FEE98_710548(
-        D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * phi_t1) / 32) >> 8),
-        D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * phi_t1) / 32) >> 8),
+        D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
+        D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
         D_803D5530->yPos + (D_803D5530->unk42 >> 1),
         10,
         (temp_t0 * 360) >> 8,

@@ -205,13 +205,13 @@ void func_8038D004_79E6B4(Gfx **dl, u16 intensity) {
 }
 
 extern s16 *D_803B6560_7C7C10[11];
-extern char* D_803BFFD8_7D1688;
-extern char* D_803BFFDC_7D168C;
+extern char D_803BFFD8_7D1688[];
+extern char D_803BFFDC_7D168C[];
 
 // load animal stats
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038D258_79E908.s")
 // void func_8038D258_79E908(void) {
-//     s16 *msg;
+//     s32 pad;
 //     s16 i;
 //     s16 wide[64];
 //     u8 ascii[54];
@@ -223,13 +223,15 @@ extern char* D_803BFFDC_7D168C;
 //         }
 //     }
 //
-//     // what are these variables...
 //     D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
 //     D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
 //
 //     D_803D5528 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //     D_803D552C = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //     D_803D5530 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+//
+//     goto dummy_label_714037;dummy_label_714037: ;
+//     if (pad = D_803D5528 == NULL) {};
 //
 //     D_803D5538 = 1;
 //     D_803D553C = gCurrentAnimalIndex;
@@ -300,17 +302,16 @@ extern char* D_803BFFDC_7D168C;
 //     }
 //
 //     if (D_803D5524->fallDistance < 0x14) {
-//         msg = get_message_address_by_id(0x32);   // very low
+//         D_803B6560_7C7C10[9] = get_message_address_by_id(0x32);   // very low
 //     } else if (D_803D5524->fallDistance < 0x32) {
-//         msg = get_message_address_by_id(0x35);   // low
+//         D_803B6560_7C7C10[9] = get_message_address_by_id(0x35);   // low
 //     } else if (D_803D5524->fallDistance < 0xA0) {
-//         msg = get_message_address_by_id(0x38);   // medium
+//         D_803B6560_7C7C10[9] = get_message_address_by_id(0x38);   // medium
 //     } else if (D_803D5524->fallDistance < 0x1F4) {
-//         msg = get_message_address_by_id(0x39);   // high
+//         D_803B6560_7C7C10[9] = get_message_address_by_id(0x39);   // high
 //     } else {
-//         msg = get_message_address_by_id(0x3C);   // very high
+//         D_803B6560_7C7C10[9] = get_message_address_by_id(0x3C);   // very high
 //     }
-//     D_803B6560_7C7C10[9] = msg;
 //
 //     switch (D_803D5524->armour) {
 //     case 4:
@@ -328,23 +329,22 @@ extern char* D_803BFFDC_7D168C;
 //     }
 //
 //     if (D_803D5524->traction < 0xA) {
-//         msg = get_message_address_by_id(0x41); // very poor
+//         D_803B6560_7C7C10[8] = get_message_address_by_id(0x41); // very poor
 //     } else if (D_803D5524->traction < 0x13) {
-//         msg = get_message_address_by_id(0x42); // poor
+//         D_803B6560_7C7C10[8] = get_message_address_by_id(0x42); // poor
 //     } else if (D_803D5524->traction < 0x28) {
-//         msg = get_message_address_by_id(0x43); // average
+//         D_803B6560_7C7C10[8] = get_message_address_by_id(0x43); // average
 //     } else if (D_803D5524->traction < 0x46) {
-//         msg = get_message_address_by_id(0x44); // good
+//         D_803B6560_7C7C10[8] = get_message_address_by_id(0x44); // good
 //     } else {
-//         msg = get_message_address_by_id(0x45); // very good
+//         D_803B6560_7C7C10[8] = get_message_address_by_id(0x45); // very good
 //     }
 //
-//     D_803B6560_7C7C10[8] = msg;
 //     select_font(0, FONT_COMIC_SANS, 1, 0);
 //     // "%s", " "
-//     sprintf(&ascii, &D_803BFFD8_7D1688, &D_803BFFDC_7D168C);
-//     prepare_text(&ascii, &wide);
-//     func_8012D374(&D_801D9E7C, &wide, 25, 0, 14.0f, 16.0f, 0);
+//     sprintf((char*)ascii, D_803BFFD8_7D1688, D_803BFFDC_7D168C);
+//     prepare_text(ascii, wide);
+//     func_8012D374(&D_801D9E7C, wide, 25, 0, 14.0f, 16.0f, 0);
 //
 //     for (i = 0; i < 13; i++) {
 //         D_803F6548[i] = (gScreenWidth - func_8012C3D8(D_803B6560_7C7C10[i])) - 14;
@@ -367,8 +367,8 @@ void func_8038D920_79EFD0(u8 arg0) {
     func_802C8878_6D9F28();
     func_802E072C_6F1DDC(1);
     if (D_803F2AA2 != 0) {
-        func_802F2B54_704204(D_801DDD8C[gCurrentAnimalIndex].unk0->xPos + 64, D_801DDD8C[gCurrentAnimalIndex].unk0->zPos,      D_801DDD8C[gCurrentAnimalIndex].unk0->yPos + 64, arg0,    0, arg0, 0);
-        func_802F2B54_704204(D_801DDD8C[gCurrentAnimalIndex].unk0->xPos,      D_801DDD8C[gCurrentAnimalIndex].unk0->zPos - 64, D_801DDD8C[gCurrentAnimalIndex].unk0->yPos - 64, arg0, arg0,    0, 0);
+        func_802F2B54_704204(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos + 64, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos,      D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos + 64, arg0,    0, arg0, 0);
+        func_802F2B54_704204(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos,      D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos - 64, D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos - 64, arg0, arg0,    0, 0);
         if ((D_803F2AA2 == 1) && (D_803B6318 != 2)) {
             func_802F2EEC_70459C(70, 70, 70, 50, 30, 30, 30);
             D_803F2AA2 += 1;
@@ -448,9 +448,9 @@ void func_8038DA70_79F120(void) {
 //     D_803A6CC8 = (((f64) ((s32) D_80152C78[D_803F6472] >> 7) / 15.0) + D_803C0178);
 //     D_803F6472 += 1;
 //
-//     D_80152EA8.vp.vscale[0] = D_80203FD0 * 2;
+//     D_80152EA8.vp.vscale[0] = gScreenWidth * 2;
 //     D_80152EA8.vp.vscale[1] = gScreenHeight * 2;
-//     D_80152EA8.vp.vtrans[0] = D_80203FD0 * 2;
+//     D_80152EA8.vp.vtrans[0] = gScreenWidth * 2;
 //     D_80152EA8.vp.vtrans[1] = gScreenHeight * 2;
 //
 //     func_8038CF90_79E640();
@@ -462,8 +462,8 @@ void func_8038DA70_79F120(void) {
 //
 //     switch (D_803B6318) {
 //     case 0:
-//         if (D_80203FD0 < 320) {
-//             gScreenWidth = D_80203FD0 + 2;
+//         if (gScreenWidth < 320) {
+//             gScreenWidth = gScreenWidth + 2;
 //         }
 //         func_8038D920_79EFD0(0xFF);
 //         func_8038DA70_79F120();
@@ -595,8 +595,8 @@ void func_8038F414_7A0AC4(void) {
 }
 
 void func_8038F5F8_7A0CA8(s32 arg0) {
-    if ((D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 319) &&
-        (D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk0 != 317)) {
+    if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->unk0 != OB_TYPE_ANIMAL_OFFSET+EVO) &&
+        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->unk0 != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
         if (D_803F6460 == 0) {
             D_803D6110 = 100;
             D_803F2AA2 = 1;
@@ -604,7 +604,7 @@ void func_8038F5F8_7A0CA8(s32 arg0) {
             D_803F6468 = 0;
             D_803F2AA3 = 100;
             D_803F6460 = 100;
-            set_species_as_encountered(D_801DDD8C[gCurrentAnimalIndex].unk0->unk16C->unk9C);
+            set_species_as_encountered(D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->unk9C);
         }
     }
 }

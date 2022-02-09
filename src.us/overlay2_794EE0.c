@@ -164,7 +164,7 @@ void perform_behavior_hippo(void) {
                 D_803D552C->unk2B4.state = 2;
             } else {
                 hippo_spit(0, 0, 0);
-                D_803D552C->unk2C4 = (guRandom() % 5) + 30;
+                D_803D552C->unk2C4 = RAND(5) + 30;
                 D_803D552C->unk2B8 += 1;
             }
         }
@@ -223,9 +223,9 @@ void perform_behavior_racing_dog(void) {
 }
 
 void perform_behavior_flying_dog(void) {
-    if ((D_803D552C->unk2CC->unk16C->unk9E == 64) ||
-        (D_803D552C->unk2CC->unk16C->unk9E == 128) ||
-        (D_803D552C->unk2CC->unk16C->unk9E == 32)) {
+    if ((D_803D552C->unk2CC->unk16C->class == CLASS_FLYING) ||
+        (D_803D552C->unk2CC->unk16C->class == CLASS_HELI) ||
+        (D_803D552C->unk2CC->unk16C->class == CLASS_BIRD)) {
         // typo
         rmonPrintf("staet %d FC %d\n", D_803D552C->unk2B4.state, D_803D552C->unk2C4);
         switch (D_803D552C->unk2B4.state) {
@@ -899,8 +899,8 @@ void perform_behavior_sheep(void) {
                 func_80363FF0_7756A0(D_803D5530);
             } else {
                 animal_jump();
-                func_80363FB8_775668(D_803D5530, (guRandom() % 360), 0, 16);
-                D_803D552C->unk2C0 = ((guRandom() % 0xF) + 20);
+                func_80363FB8_775668(D_803D5530, RAND(360), 0, 16);
+                D_803D552C->unk2C0 = (RAND(0xF) + 20);
             }
         }
         break;
@@ -1142,7 +1142,7 @@ void func_80387114_7987C4(void) {
         } else {
             if (D_803D552C->unk2C4 <= 0) {
                 if (func_80383830_794EE0(20) != 0) {
-                    D_803D552C->unk2C4 = (guRandom() % 20) + 20;
+                    D_803D552C->unk2C4 = RAND(20) + 20;
                     ski_husky_fire_missile(D_803D552C->unk2CC);
                 }
             }
@@ -1179,7 +1179,7 @@ void func_80387330_7989E0(void) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(0x14) != 0)) {
-            D_803D552C->unk2C4 = ((guRandom() % 30) + 30);
+            D_803D552C->unk2C4 = (RAND(30) + 30);
             walrus_fire_missile(D_803D552C->unk2CC);
         }
         break;
@@ -1291,7 +1291,7 @@ void func_803879A4_799054(void) {
         if ((D_803D552C->unk2C4 <= 0) && (func_803838C8_794F78(D_803D552C->unk308, 5) != 0)) {
             if (D_803D552C->unk2D0 < 0x17D) {
                 camel_cannon_fire_cannon(D_803D552C->unk2CC);
-                D_803D552C->unk2C4 = ((guRandom() % 0x24) + 25);
+                D_803D552C->unk2C4 = (RAND(0x24) + 25);
             }
         }
         if (D_803D552C->unk2B8 > 0) {
@@ -1321,7 +1321,7 @@ void func_80387BF4_7992A4(void) {
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
             func_80372698_783D48();
-            D_803D552C->unk2C4 = (guRandom() % 0x14) + 0x5A;
+            D_803D552C->unk2C4 = RAND(0x14) + 0x5A;
         }
         break;
     case 3:
@@ -1452,7 +1452,7 @@ void func_80388248_7998F8(void) {
         if (D_803D552C->unk2C4 <= 0) {
             if (func_80383830_794EE0(0xA) != 0) {
                 func_8037460C_785CBC();
-                D_803D552C->unk2C4 = ((guRandom() % 5) + 0x11);
+                D_803D552C->unk2C4 = (RAND(5) + 0x11);
             }
         }
     }
@@ -1476,11 +1476,11 @@ void perform_behavior_scorpion(void) {
         }
         if ((D_803D552C->unk2D0 < 0xFB) && (D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(2) != 0)) {
             func_80379148_78A7F8(D_803D552C->unk2CC);
-            D_803D552C->unk2C4 = ((guRandom() % 0x32) + 0x96);
+            D_803D552C->unk2C4 = (RAND(0x32) + 0x96);
         } else if ((D_803D552C->unk2D0 < 0x3D) && (D_803D552C->unk2B8 <= 0)) {
             if ((D_803D552C->unk2BC < 6) && (D_803D552C->unk2C4 < 0x33)) {
                 func_803791AC_78A85C();
-                D_803D552C->unk2B8 = (guRandom() % 8) + 9;
+                D_803D552C->unk2B8 = RAND(8) + 9;
                 D_803D552C->unk2BC = D_803D552C->unk2BC + 1;
             }
         }
@@ -1518,7 +1518,7 @@ void perform_behavior_gorilla(void) {
             D_803D552C->unk2C0 = 0;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(32) != 0)) {
             func_8037B70C_78CDBC();
-            D_803D552C->unk2C4 = (guRandom() % 0x14) + 0x1E;
+            D_803D552C->unk2C4 = RAND(0x14) + 0x1E;
         }
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 -= 1;
@@ -1668,7 +1668,7 @@ void func_80388F10_79A5C0(void) {
         }
         if ((D_803D552C->unk2D0 < 0x3D) && (D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2BC < 3)) {
             func_8035C10C_76D7BC();
-            D_803D552C->unk2C4 = (guRandom() % 8) + 9;
+            D_803D552C->unk2C4 = RAND(8) + 9;
             D_803D552C->unk2BC += 1;
         } else if (D_803D552C->unk2BC >= 3) {
             D_803D552C->unk2B4.state = 2;

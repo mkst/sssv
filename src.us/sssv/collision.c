@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-
 s32 func_802B6F6C_6C861C(void);
 s32 func_802B6B5C_6C820C(void);
 s32 func_802B6088_6C7738(void);
@@ -185,7 +184,7 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //                 (temp_v1->state != 0x1E) && (arg0->state != 0x1E) &&
 //                 (temp_v1->state != 0x1F) && (arg0->state != 0x1F) &&
 //                 ((temp_v1->unk15C == 0) || (arg0 != temp_v1->unk168)) && ((arg0->unk15C == 0) || (temp_v1 != arg0->unk168)) &&
-//                 ((arg6 == 0) || ((s32) temp_v1->unk16C->unk0 < 256))) {
+//                 ((arg6 == 0) || ((s32) temp_v1->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET))) {
 //
 //                 func_802B5E48_6C74F8(temp_v1, arg0, &D_803D60D0, D_803D60D4);
 //
@@ -221,25 +220,29 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //                     if ((D_803D60D4 == 0) && (func_803D60D0(temp_v1, arg0, &D_803D60D8, &D_803D60DC, *phi_s2, *phi_s3, *phi_s4, arg2, arg3, sp74) != 0)) {
 // block_46:
 //                         *arg5 = 1;
-//                         phi_v0_5 = &D_801DDD8C[gCurrentAnimalIndex].unk0;
-//                         if ((arg0 == phi_v0_5) && (temp_v1->unk16C->unk0 == 0xF2)) {
+//                         phi_v0_5 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+//                         // if its a TV Screen
+//                         if ((arg0 == phi_v0_5) && (temp_v1->unk16C->unk0 == 242)) {
 //                             func_8038F5F8_7A0CA8(temp_v1);
-//                             // phi_v0_5 = &D_801DDD8C[gCurrentAnimalIndex].unk0;
+//                             // phi_v0_5 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //                         }
-//                         if ((temp_v1 == phi_v0_5) && (arg0->unk16C->unk0 == 0xF2)) {
+//                         // if its a TV Screen
+//                         if ((temp_v1 == phi_v0_5) && (arg0->unk16C->unk0 == 242)) {
 //                             func_8038F5F8_7A0CA8(arg0);
 //                         }
 //                         func_802FD674_70ED24(arg0, temp_v1);
 //                         return 1;
 //                     } else {
 //                         *arg5 = 0;
-//                         phi_v0_4 = &D_801DDD8C[gCurrentAnimalIndex].unk0;
+//                         phi_v0_4 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //                         // phi_v0_4 = temp_v0_3;
-//                         if ((arg0 == phi_v0_4) && (temp_v1->unk16C->unk0 == 0xF2)) {
+//                         // if its a TV Screen
+//                         if ((arg0 == phi_v0_4) && (temp_v1->unk16C->unk0 == 242)) {
 //                             func_8038F5F8_7A0CA8(temp_v1);
-//                             // phi_v0_4 = &D_801DDD8C[gCurrentAnimalIndex].unk0;
+//                             // phi_v0_4 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //                         }
-//                         if ((temp_v1 == phi_v0_4) && (arg0->unk16C->unk0 == 0xF2)) {
+//                         // if its a TV Screen
+//                         if ((temp_v1 == phi_v0_4) && (arg0->unk16C->unk0 == 242)) {
 //                             func_8038F5F8_7A0CA8(arg0);
 //                         }
 //                         func_802FD674_70ED24(arg0, temp_v1);

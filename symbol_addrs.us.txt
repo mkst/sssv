@@ -205,7 +205,13 @@ flying_dog_fire_gun      = 0x802EEF9C; // rom:0x70064C
 flying_dog_drop_bomb     = 0x802EEFEC; // rom:0x70069C
 load_ingame_objects      = 0x80352280; // rom:0x763930
 load_water_texture       = 0x80352310; // rom:0x7639C0
+
 racing_tortoise_turbo    = 0x803563C8; // rom:0x767A78
+
+load_1_tile              = 0x80356410; // rom:0x767AC0
+load_2_tiles             = 0x803565D4; // rom:0x767C84
+load_3_tiles             = 0x80356870; // rom:0x767F20
+
 biker_hyena_fire_missile = 0x8035A420; // rom:0x76BAD0
 recharge_skill           = 0x8035E3E8; // rom:0x76FA98
 rat_drop_mine            = 0x8035FC2C; // rom:0x7712DC
@@ -255,6 +261,10 @@ reset_credits_counters      = 0x8038B840; // rom:0x79CEF0
 display_credits             = 0x8038B854; // rom:0x79CF04
 load_level                  = 0x8038FB94; // rom:0x7A1244
 load_intro                  = 0x8038FC04; // rom:0x7A12B4
+trigger_pause_menu          = 0x8038F794; // rom:0x7A0E44
+trigger_mission_brief_screen = 0x8038F8C8; // rom:0x7A0F78
+trigger_level_failed        = 0x8038FA00; // rom:0x7A10B0
+load_smashing_start         = 0x8038FCF8; // rom:0x7A13A8
 load_pause_menu             = 0x80393238; // rom:0x7A48E8
 load_mission_brief_screen   = 0x803929FC; // rom:0x7A40AC
 render_tv_body              = 0x803951BC; // rom:0x7A686C

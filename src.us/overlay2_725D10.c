@@ -29,7 +29,7 @@ Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
         ret = arg0->unk60;
         break;
     case 9:
-        ret = D_801DDD8C[gCurrentAnimalIndex].unk0;
+        ret = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         break;
     case 10:
         ret = func_8031540C_726ABC(arg2, 1);
@@ -762,7 +762,7 @@ void func_803191B0_72A860(Animal *arg0) {
     s8 temp_v0;
 
     if (arg0->unk1CC == 9) {
-        arg0->unk248[0] = D_801DDD8C[gCurrentAnimalIndex].unk0;
+        arg0->unk248[0] = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     }
     if (arg0->unk1CD != 0) {
         func_803190FC_72A7AC(arg0);

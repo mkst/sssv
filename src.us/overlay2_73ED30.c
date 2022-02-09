@@ -31,8 +31,8 @@
 //     D_80204278->unk38A40[2] = (f32) ((temp_v0->m[1][1] & 0xFFFF0000      ) | ((temp_v0->m[3][1] & 0xFFFF0000) >> 16)) / 65536.0;
 //     D_80204278->unk38A40[3] = (f32) ((temp_v0->m[1][3] & 0xFFFF0000      ) | ((temp_v0->m[3][3] & 0xFFFF0000) >> 16)) / 65536.0;
 //
-//     D_80204278->unk38A40[0] *= -(D_80203FD0 * 2);
-//     D_80204278->unk38A40[1] *= D_80203FD2 * 2;
+//     D_80204278->unk38A40[0] *= -(gScreenWidth * 2);
+//     D_80204278->unk38A40[1] *= gScreenHeight * 2;
 // }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/func_8032DACC_73F17C.s")

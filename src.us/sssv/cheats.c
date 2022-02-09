@@ -21,7 +21,7 @@ void reset_cheats(void)
     D_803F6428.hidden = 0;
     D_803F6428.unk16 = 0;
     D_803F6428.unk18 = 0;
-    sprintf(D_803F6410, "%9d", 111111111);
+    sprintf((char*)D_803F6410, "%9d", 111111111);
 }
 
 void check_cheats(OSContPad *contPad) {
@@ -37,12 +37,12 @@ void check_cheats(OSContPad *contPad) {
         if ((D_803F6428.debugMode != 0) && (D_803F6680.unk0 == 0)) {
             // print debug location
             sprintf(D_802042B0, "(%3d  %3d  %4d)",
-                D_801DDD8C[gCurrentAnimalIndex].unk0->xPos >> 6,
-                D_801DDD8C[gCurrentAnimalIndex].unk0->zPos >> 6,
-                D_801DDD8C[gCurrentAnimalIndex].unk0->yPos);
-            prepare_text(D_802042B0, sp28);
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos);
+            prepare_text((u8*)D_802042B0, sp28);
             display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
-            prepare_text("Ver - 1.37", sp28);
+            prepare_text((u8*)"Ver - 1.37", sp28);
             display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 36, 16.0f, 16.0f);
         }
     }
@@ -121,7 +121,7 @@ void check_cheats(OSContPad *contPad) {
         D_803F6410[D_803B62B0] = lastButton;
     }
     if (check_cheat_code(D_803F6410, "WIZDIZWE")) {
-        D_801DDD8C[gCurrentAnimalIndex].unk0->health = 127;
+        D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = 127;
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803B62B0 = 0; // reset cursor position
     }
@@ -188,7 +188,7 @@ s32 check_cheat_code(const u8 *buttonPresses, const char *cheatCode) {
     s16 res;
     s16 idx;
 
-    len = strlen_sssv(cheatCode);
+    len = strlen_sssv((u8*)cheatCode);
 
     res = 1;
     for (i = 0; i < len; i++) {
@@ -205,6 +205,6 @@ s32 check_cheat_code(const u8 *buttonPresses, const char *cheatCode) {
     if (res == 0) { // user has not entered a cheat code sequence
         return 0;
     }
-    sprintf(D_803F6410, "%9d", 111111111);
+    sprintf((char*)D_803F6410, "%9d", 111111111);
     return 1;
 }
