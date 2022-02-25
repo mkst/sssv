@@ -169,7 +169,7 @@ u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
     return ret;
 }
 
-u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s8 *arg5, s8 *arg6) {
+u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6) {
     u16 ret;
     struct105 *phi_t0;
 

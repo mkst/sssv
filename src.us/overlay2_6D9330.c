@@ -14,7 +14,7 @@
 //     s16 phi_a1;
 //     s16 i;
 //
-//     memset_bytes(&D_801D9ED8, 0, 0x3EB0);
+//     memset_bytes(&D_801D9ED8, 0, sizeof(D_801D9ED8.unk0)); //0x3EB0);
 //
 //     for (i = 0; i < 68; i++) {
 //         D_801D9ED8.unk0[i].unk7E = 0xCC;
@@ -96,9 +96,9 @@
 // }
 
 // spawn animal?
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9330/func_802C7F88_6D9638.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9330/spawn_animal.s")
 #if 0
-struct050 *func_802C7F88_6D9638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s8 arg6) {
+struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s16 id, s8 arg6) {
     s16 sp2A;
     struct050 *sp24;
     void *sp20;
@@ -111,7 +111,7 @@ struct050 *func_802C7F88_6D9638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4
     u8 temp_v0_3;
     void *temp_a0;
     void *temp_a0_2;
-    struct050 *temp_v0_2;
+    struct035 *temp_v0_2;
     void *temp_v0_4;
     void *temp_v0_5;
     void *temp_v0_6;
@@ -136,23 +136,23 @@ struct050 *func_802C7F88_6D9638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4
         phi_t0 = used;
     }
 
-    temp_v0_2 = &D_801D9ED8 + (phi_t0 * 8);
-    temp_a0 = temp_v0_2->unk3EB0;
-    sp20 = temp_a0;
-    sp24 = temp_v0_2;
-    sp2A = phi_t0;
-    memset_bytes(temp_a0, 0, 8); //, &D_801D9ED8);
-    temp_a0_2 = &D_801D9ED8 + (phi_t0 * 0x3D4) + 0x4040;
-    sp1C = temp_a0_2;
-    memset_bytes(temp_a0_2, 0, 0x3D4); //, &D_801D9ED8);
-    temp_v1_2 = &D_801D9ED8.unk0[arg5]; // + (arg5 * 0xEC);
-    sp24->unk3EB0 = temp_v1_2;
-    sp24->animal->unk0 = sp1C;
-    D_803D5520 = sp20;
-    D_803D5524 = temp_v1_2;
-    D_803D5530 = sp1C;
-    D_803D552C = sp1C;
-    D_803D5528 = sp1C;
+    // temp_v0_2 = &D_801D9ED8.unk0[phi_t0]; // + (phi_t0 * 8);
+    // temp_a0 = &D_801D9ED8.animals[phi_t0]; //temp_v0_2->unk3EB0; // &D_801D9ED8.animals[phi_t0]
+    // sp20 = temp_a0;
+    // sp24 = temp_v0_2;
+    // sp2A = phi_t0;
+    memset_bytes(&D_801D9ED8.animals[phi_t0], 0, 8); //, &D_801D9ED8);
+    // temp_a0_2 = &D_801D9ED8.unk4040[phi_t0]; // * 0x3D4) + 0x4040;
+    // sp1C = temp_a0_2;
+    memset_bytes(&D_801D9ED8.unk4040[phi_t0], 0, 0x3D4); //, &D_801D9ED8);
+    // temp_v1_2 = &D_801D9ED8.unk0[id]; // + (id * 0xEC);
+    D_801D9ED8.animals[phi_t0].unk0 = &D_801D9ED8.unk0[id]; // = temp_v1_2;
+    D_801D9ED8.animals[phi_t0].animal = &D_801D9ED8.unk4040[phi_t0]; //animal->unk0 = sp1C;
+    D_803D5520 = &D_801D9ED8.animals[phi_t0];
+    D_803D5524 = &D_801D9ED8.unk0[id]; //temp_v1_2;
+    D_803D5530 = &D_801D9ED8.unk4040[phi_t0];
+    D_803D552C = &D_801D9ED8.unk4040[phi_t0];
+    D_803D5528 = &D_801D9ED8.unk4040[phi_t0];
     if (phi_t0 == gCurrentAnimalIndex) {
         D_803D5538 = 1;
     } else {
@@ -162,14 +162,14 @@ struct050 *func_802C7F88_6D9638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4
     D_803D553A = 0;
     if (arg6 != 0) {
         sp1C->unk366 = 1;
-    } else if ((s32) arg4 > 0) {
+    } else if (health > 0) {
         sp1C->unk366 = 3;
     } else {
         sp1C->unk366 = 5;
     }
     D_803D552C->unk31A = 0;
-    D_803D5530->yRotation = arg3;
-    D_803D552C->unk302 = arg3;
+    D_803D5530->yRotation = rotation;
+    D_803D552C->unk302 = rotation;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
     D_803D552C->unk2F6 = 0;
@@ -178,7 +178,7 @@ struct050 *func_802C7F88_6D9638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4
     D_803D5530->unk162 = 1;
     D_803D5530->unk160 = 0;
     D_803D5530->unk16C = D_803D5524;
-    D_803D5530->health = MIN(arg4, D_803D5524->unk8A);
+    D_803D5530->health = MIN(health, D_803D5524->unk8A);
 #if 0
     D_803D5530->unk4F = (u8) (D_803D5530->unk4F | 0x10);
     D_803D5530->unk4F = (u8) (D_803D5530->unk4F | 8);
@@ -207,11 +207,11 @@ struct050 *func_802C7F88_6D9638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4
     D_803D5530->zVelocity.w = 0;
     D_803D5530->yVelocity.w = -1;
     // temp_v0_7 = D_803D5530;
-    D_803D5530->unk46 = (u16) D_803D5530->unk16C->mass;
-    func_802DADA0_6EC450(sp24->animal);
-    D_803D5528->unk3C8.unk2 = func_802E4B0C_6F61BC(arg5);
+    D_803D5530->unk46 = D_803D5530->unk16C->mass;
+    func_802DADA0_6EC450(D_801D9ED8.animals[phi_t0].animal); //sp24->animal);
+    D_803D5528->unk3C8.unk2 = func_802E4B0C_6F61BC(id);
     D_803D552C->unk272 = 0x43F;
-    func_802C9BA4_6DB254(sp24->animal);
+    func_802C9BA4_6DB254(D_801D9ED8.animals[phi_t0].animal); //sp24->animal);
     D_803D552C->skillAEnergy[0] = 0x3FF;
     D_803D552C->skillBEnergy[0] = 0x3FF;
     if ((arg6 != 0) && (((D_803F2A98 == 0)) || (D_803F2A98 == 1))) {

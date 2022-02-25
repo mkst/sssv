@@ -735,8 +735,8 @@ void func_802BAC24_6CC2D4(u16 arg0, u16 arg1) {
     velocity = MAX(-40, velocity);
     velocity = MIN(40, velocity);
 
-    func_802C79E0_6D9090(&D_80203FE8, velocity);
-    func_802C79E0_6D9090(&D_80203FF0, velocity);
+    func_802C79E0_6D9090(&D_80203FE0[1], velocity);
+    func_802C79E0_6D9090(&D_80203FE0[2], velocity);
 
     D_80203FE0[0].unk4 += arg1;
     D_80203FE0[1].unk4 += arg1;
@@ -979,10 +979,10 @@ void func_802BB70C_6CCDBC(s16 arg0, s16 arg1) {
     if (D_803F2D10.unk0 == 0) {
         func_802DB9E8_6ED098(&D_803D552C->unk30C, (s16)(D_803D552C->unk306 * 15), 4);
     }
-    func_802C7A7C_6D912C(&D_80204090, D_803D552C->unk30C);
-    func_802C7A7C_6D912C(&D_80204098, D_803D552C->unk30C);
-    func_802C7A7C_6D912C(&D_802040A0, D_803D552C->unk30C);
-    func_802C7A7C_6D912C(&D_802040A8, D_803D552C->unk30C);
+    func_802C7A7C_6D912C(&D_80203FE0[22], D_803D552C->unk30C);
+    func_802C7A7C_6D912C(&D_80203FE0[23], D_803D552C->unk30C);
+    func_802C7A7C_6D912C(&D_80203FE0[24], D_803D552C->unk30C);
+    func_802C7A7C_6D912C(&D_80203FE0[25], D_803D552C->unk30C);
     D_80203FE0[22].unk4 += D_80203FE0[0].unk4;
     D_80203FE0[23].unk4 += D_80203FE0[0].unk4;
     D_80203FE0[24].unk4 += D_80203FE0[0].unk4;

@@ -136,7 +136,7 @@
 //                 if ((D_803F2AA2 == 1) && (D_803F2AA3 >= 11)) {
 // block_61:
 //                     if ((D_803F2C18[0] == 0) && (D_803D5538 != 0)) {
-//                         if ((D_803F28E0[D_803F2A98].unk0 == 3) || (D_803F28E0[D_803F2A98].unk0 == 17)) {
+//                         if ((D_803F28E0[D_803F2A98].cameraMode == 3) || (D_803F28E0[D_803F2A98].cameraMode == 17)) {
 //                             if (D_803F28E0[D_803F2A98].unk64 != -3) {
 // block_66:
 //                                 mtx = &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs];

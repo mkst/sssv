@@ -45,7 +45,7 @@ void trigger_pause_menu(void) {
 
     D_803F6680.unk14 = 0;
     D_803F6680.unk2D = 0;
-    D_803B683C = D_803B6730;
+    D_803B683C_7C7EEC = D_803B6730_7C7DE0;
     D_803F6680.unk31 = 0;
     D_803F6680.unk33 = 0;
     D_803F6680.unk35 = 0;
@@ -110,7 +110,7 @@ void trigger_level_failed(void) {
     generate_stars();
 
     D_803F6680.unk2D = 0;
-    D_803B683C = D_803B6730;
+    D_803B683C_7C7EEC = D_803B6730_7C7DE0;
     D_803F6680.unk8 = 6;
     D_803F6680.unk6 = 2;
     D_803F6680.unk29 = 1;
@@ -130,7 +130,7 @@ void func_8038FAB4_7A1164(void) {
 
     D_803F6680.unk24 = 0;
     D_803F6680.unk2D = 0;
-    D_803B683C = D_803B6730;
+    D_803B683C_7C7EEC = D_803B6730_7C7DE0;
     D_803F6680.unk8 = 0xC;
     D_803F6680.unk6 = 2;
     D_803F6680.unk29 = 1;
@@ -159,7 +159,7 @@ void load_level(s16 arg0) {
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
     D_803C0422 = 0;
-    gLevelIndex = arg0;
+    D_803F2D30.level = arg0;
     func_802961D4_6A7884();
     func_8029614C_6A77FC();
     trigger_screen_transition(TRANSITION_FADE_IN);
@@ -172,7 +172,7 @@ void load_intro(void) {
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
     D_803C0422 = 0;
-    gLevelIndex = DMA_INTRO;
+    D_803F2D30.level = DMA_INTRO;
     func_802961D4_6A7884();
     func_8029614C_6A77FC();
     D_80152E98 = 0;
@@ -198,7 +198,7 @@ void func_8038FC58_7A1308(void) {
 void load_smashing_start(void) {
     D_80204290 = 2;
     func_801337DC(0, 5.0f, 20.0f, 0);
-    gLevelIndex = SMASHING_START;
+    D_803F2D30.level = SMASHING_START;
     D_803F7DA8.currentLevel = 0;
     D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
     func_8038FC58_7A1308();
@@ -226,7 +226,7 @@ void func_8038FD74_7A1424(void) {
     load_ingame_objects();
     load_water_texture();
     D_803F6680.unk2D = 0;
-    D_803B683C = D_803B6790;
+    D_803B683C_7C7EEC = D_803B6790;
     D_803F6680.unk8 = 6;
     D_803F6680.unk24 = 0;
     D_803F6680.unk6 = 6;
@@ -360,7 +360,7 @@ void func_8038FF68_7A1618(void) {
         case -4:
             reset_screen_transition();
             trigger_screen_transition(TRANSITION_FADE_IN);
-            gLevelIndex = 1;
+            D_803F2D30.level = 1;
             func_8039661C_7A7CCC(12, 4, 0);
 
             D_803F6680.unk18 += 1;
@@ -416,7 +416,7 @@ void func_8038FF68_7A1618(void) {
             break;
         case 3:
             if (D_803F6680.unk1A == 0) {
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0;
+                D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
                 D_803F6680.unk1A = 1;
                 func_8039884C_7A9EFC();
                 func_8039895C_7AA00C();
@@ -425,18 +425,18 @@ void func_8038FF68_7A1618(void) {
             func_8039A2DC_7AB98C();
             break;
         case 4:
-            if ((D_8023F260.unk34 & 1) == 0) { // D_8023F294
+            if ((D_8023F260.unk34 & 1) == 0) {
                 load_smashing_start();
             }
             D_80204290 = 1;
             display_zone_select_screen();
             func_8039264C_7A3CFC();
-            D_803B683C_7C7EEC = D_803B6700_7C7DB0;
+            D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
             break;
         case 5:
             D_80204290 = 2;
             func_8039264C_7A3CFC();
-            D_803B683C_7C7EEC = D_803B6700_7C7DB0;
+            D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
             D_803F6680.unk2B = 0U;
             D_803F6680.unk2A = 1U;
             D_803F6680.unk2C = 1U;
@@ -481,7 +481,7 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6718_7C7DC8;
+                D_803B683C_7C7EEC = D_803B6700_7C7DB0[1];
             }
             break;
         case 9:
@@ -531,7 +531,7 @@ void func_8038FF68_7A1618(void) {
             if (D_803F6680.unk1A != 0) {
                 D_803F6680.unk1A += 1;
                 if (D_803F6680.unk1A >= 3) {
-                    D_803B683C_7C7EEC = D_803B6700_7C7DB0;
+                    D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
                     D_803F6680.unk2C = 0U;
                     D_803F6680.unk2A = 0U;
                     D_803F6680.unk18 = 4;
@@ -547,12 +547,12 @@ void func_8038FF68_7A1618(void) {
         case 12:
             D_80204290 = 2;
             func_8039661C_7A7CCC(2, 8, 1);
-            D_803B683C_7C7EEC = D_803B6718_7C7DC8;
+            D_803B683C_7C7EEC = D_803B6700_7C7DB0[1];
             D_803F6680.unk1A = 0;
             D_803F6680.unk18 = 13;
             D_803F6680.unk2A = 1U;
             // change around here
-            func_801337DC(0, 10.0f, 20.0f, 0);
+            func_801337DC(0, 10.0f, 20.0f, 0.0f);
             func_8013385C(10.0f, 19.0f, 1.0f);
             break;
         case 13:
@@ -602,7 +602,7 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0;
+                D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
             }
             break;
         case 33:
@@ -667,7 +667,7 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6718_7C7DC8;
+                D_803B683C_7C7EEC = D_803B6700_7C7DB0[1];
             }
             break;
         case 5:
@@ -738,7 +738,7 @@ void func_8038FF68_7A1618(void) {
                 D_803F6680.unk18 = 25;
                 D_803F6680.unk1A = 0;
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0;
+                D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
                 func_80397734_7A8DE4(0, 0);
             }
             D_803F6680.unk1A += 1;
@@ -807,10 +807,10 @@ void func_8038FF68_7A1618(void) {
                 determine_available_levels();
             }
             if (D_803F6680.unk1A == 5) {
-                if ((gLevelIndex == GIVE_A_DOG_A_BONUS) ||
-                    (gLevelIndex == WALRACE_64) ||
-                    (gLevelIndex == EVOS_ESCAPE) ||
-                    (gLevelIndex == PUNCHUP_PYRAMID)) {
+                if ((D_803F2D30.level == GIVE_A_DOG_A_BONUS) ||
+                    (D_803F2D30.level == WALRACE_64) ||
+                    (D_803F2D30.level == EVOS_ESCAPE) ||
+                    (D_803F2D30.level == PUNCHUP_PYRAMID)) {
                     if ((D_803E4D28 & 2)) {
                         func_80397734_7A8DE4((RAND(4) + 17), 0);
                     } else {
@@ -826,7 +826,7 @@ void func_8038FF68_7A1618(void) {
             if ((D_803F713C[0] == 0) || (func_80396748_7A7DF8())) {
                 func_8039264C_7A3CFC();
                 if (D_803F7DD5 == 34) {
-                    gLevelIndex = D_803F7DD5 + 1;
+                    D_803F2D30.level = D_803F7DD5 + 1;
                     D_803F6680.unk18 = 40;
                     D_803F6680.unk1A = 0;
                     func_8039661C_7A7CCC(2, 16, 0);
@@ -834,7 +834,7 @@ void func_8038FF68_7A1618(void) {
                     if (func_80396748_7A7DF8()) {
                         func_8039264C_7A3CFC();
                         // struct copy
-                        D_803B683C_7C7EEC = D_803B6700_7C7DB0;
+                        D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
                     } else {
                         func_8039661C_7A7CCC(0, 8, 0);
                     }
@@ -954,10 +954,10 @@ void func_803925D0_7A3C80(u16 *src, u16 *dst) {
 
     _src = src;
     _dst = dst;
-    len = 320 - D_802053E0.unkA;
+    len = 320 - D_802053E0.screenWidth;
 
     for (row = 0; row < 240; row++) {
-        for (col = 0; col < D_802053E0.unkA; col += 2) {
+        for (col = 0; col < D_802053E0.screenWidth; col += 2) {
             *_dst++ = val = *_src++;
             _src++;
         }
@@ -1273,7 +1273,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         D_803F670A, // x1
         D_803F670C, // y1
         D_800C5A40, // current framebuffer?
-        D_802053E0.unkA >> 1, // half screen width?
+        D_802053E0.screenWidth >> 1, // half screen width?
         240);                 // height?
 
     if ((D_803F6680.unk22 == 0) && (D_803F6680.unk24 == 0)) {
@@ -1927,7 +1927,7 @@ void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2) {
     } else {
         D_803F66B8.unk44 = 0;
     }
-    temp_v0 = &D_803B6700[arg0];
+    temp_v0 = &D_803B6700_7C7DB0[arg0];
     D_803F66B8.unk0 = D_803B683C.unk0;
     D_803F66B8.unk4 = D_803B683C.unk4;
     D_803F66B8.unk8 = D_803B683C.unk8;

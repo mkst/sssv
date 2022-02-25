@@ -5,8 +5,12 @@
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
 
 #define MAX_INT                0x7FFFFFFF
+#define MAX_SHORT              0x7FFF
+
 // DMA's interpretation of PI...
 #define SSSV_PI                3.141579
+
+#define SSSV_RAND(x)           (func_8012826C() & (x - 1))
 
 #define MAX_EUROPE_ANIMALS     19
 #define MAX_ICE_ANIMALS        11

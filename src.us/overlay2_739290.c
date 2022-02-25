@@ -628,7 +628,7 @@ void func_80329F44_73B5F4(void) {
 //     temp_a1->unk4F = (u8) (((((u32) (temp_a2->animal->unk4C << 0x1A) >> 0x1F) << 5) & 0x20) | (temp_a1->unk4F & 0xFFDF));
 //     temp_v0_2 = temp_a2->animal;
 //     temp_v0_2->unk4F = (u8) (((((u32) (temp_a1->unk4C << 0x1A) >> 0x1F) << 5) & 0x20) | (temp_v0_2->unk4F & 0xFFDF));
-//     D_803D5520 = &D_801DDD88;
+//     D_803D5520 = &D_801D9ED8.animals;
 //     D_803D5524 = (s32) D_801D9ED8.unk3EB0;
 //     temp_t7 = D_801D9ED8.animals;
 //     D_803D5528 = temp_t7;
@@ -681,7 +681,7 @@ void func_80329F44_73B5F4(void) {
 //     func_803283DC_739A8C();
 //     func_802B2EA8_6C4558();
 //     func_802C9BA4_6DB254(D_803D5530);
-//     D_803D5520 = &D_801DDD88;
+//     D_803D5520 = &D_801D9ED8.animals;
 //     D_803D5524 = (s32) D_801D9ED8.unk3EB0;
 //     temp_t9_2 = D_801D9ED8.animals;
 //     D_803D5528 = temp_t9_2;

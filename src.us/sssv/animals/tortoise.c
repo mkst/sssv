@@ -168,7 +168,7 @@ s32 func_8035E344_76F9F4(struct037 *arg0, s16 arg1);
 //     s16 temp_v1;
 //     s16 phi_v1;
 //
-//     if ((D_803F28E0[D_803F2A98].unk0 == 3) || (D_803F28E0[D_803F2A98].unk0 == 17)) {
+//     if ((D_803F28E0[D_803F2A98].cameraMode == 3) || (D_803F28E0[D_803F2A98].cameraMode == 17)) {
 //         D_803D552C->unk30E = 0;
 //         if (D_801D9ED8.unkFFC6 != 0) {
 //             D_803D552C->unk30C -= 4;

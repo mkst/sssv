@@ -585,7 +585,7 @@ void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
         }
         break;
     case 2: // powercell?
-        play_sound_effect_at_location(D_803A1BB0_7B3260[D_803F2D3C].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[D_803F2D3C].unk0);
+        play_sound_effect_at_location(D_803A1BB0_7B3260[D_803F2D30.powercells].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[D_803F2D30.powercells].unk0);
         for (i = 0; i < 8; i++) {
             phi_s0 = (s16)(phi_s0 + 1) % 4;
             create_particle_effect(

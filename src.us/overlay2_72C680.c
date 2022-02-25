@@ -6,7 +6,8 @@
 extern u8 rnc_637160_ROM_START[], rnc_637160_ROM_END[];
 
 #if 1
-// textures?
+
+// rgba16 textures?
 u8* D_803A5770_7B6E20[][2] = {
     { 0x42DCA0, 0x435320, }, // europe
     { 0x435320, 0x43cb60, }, // ice
@@ -16,6 +17,7 @@ u8* D_803A5770_7B6E20[][2] = {
     { 0x44E7B0, 0x4571a0, }, // city / credits
 };
 
+// ia16 textures?
 u8* D_803A57A0_7B6E50[][2] = {
     { 0x4571A0, 0x459590, },
     { 0x459590, 0x45d550, },
@@ -75,6 +77,7 @@ u8* D_803A5918_7B6FC8[4] = {
     0x803A58C8,
 };
 
+// different to ROM ordering
 u8* D_803A5928_7B6FD8[45][2] = {
     { 0x4F54D0, 0x4f6a70, },
     { 0x4f95b0, 0x4faf70, },
@@ -517,9 +520,8 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 id) {
 //     for (i = 0; i < D_803E8E54; i++) {
 //         if ((D_803E4D40[i].type == 16) || (D_803E4D40[i].type == 17)) {
 //             s16 id = D_803E4D40[i].id;
-//             struct068 = &D_803A8528_7B9BD8[id];
-//             if ((struct068->unk1C != 0) && (struct068->unk18 == NULL)) {
-//                 func_8031C3C0_72DA70(&((Particle*)gFramebuffer)[(s16)struct068->unk1C - 1], struct068->unk1C);
+//             if ((D_803A8528_7B9BD8[id].unk1C != 0) && (D_803A8528_7B9BD8[id].unk18 == NULL)) {
+//                 func_8031C3C0_72DA70(&((Particle*)gFramebuffer)[(s16)D_803A8528_7B9BD8[id].unk1C - 1], D_803A8528_7B9BD8[id].unk1C);
 //             }
 //         }
 //     }

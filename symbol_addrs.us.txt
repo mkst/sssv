@@ -34,7 +34,6 @@ gFramebuffer           = 0x80000400;
 gControllerInput       = 0x802910D0;
 gControllerStatus      = 0x802910D8;
 gCurrentAnimalIndex    = 0x803D5534;
-gLevelIndex            = 0x803F2D38;
 
 strlen_sssv            = 0x80128DD0;
 strcat                 = 0x80128E18;
@@ -157,6 +156,7 @@ set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4
 language_select_menu   = 0x80298FC0; // rom:0x63C660
 get_evo_suit_color     = 0x80296320; // rom:0x6A79D0
 distance_from_player   = 0x8029B7D0; // rom:0x6ACE80
+spawn_animal           = 0x802C7F88; // rom:0x6D9638
 create_particle_effect = 0x802D5F4C; // rom:0x6E75FC
 fire_fox_fire_missile  = 0x802E87B8; // rom:0x6F9E68
 fox_warp               = 0x802E89AC; // rom:0x6FA05C

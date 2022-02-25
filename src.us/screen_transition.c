@@ -92,7 +92,6 @@ void perform_screen_transition(void) {
     if ((D_803E1B10.unk0 == 2) || (D_803E1B10.unk0 == 1)) {
         switch (D_803E1B10.transitionId) {
         case 0:
-            // alpha = 0xff;
             if (D_803E1B10.unk6 < 240) {
                 draw_rectangle(&D_801D9E7C, 0, D_803E1B10.unk6, 320, 240, 0, 0, 0, alpha);
             }
@@ -107,7 +106,6 @@ void perform_screen_transition(void) {
             }
             break;
         case 1:
-            // alpha = 0xff;
             draw_rectangle(&D_801D9E7C, 0, 0, 320, D_803E1B10.unk6 + 1, 0, 0, 0, alpha);
             if (D_803E1B10.unk6 < 240) {
                 D_803E1B10.unk6 += 6;

@@ -1438,7 +1438,7 @@ s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC980_6BE030.s")
 // should match, just rodata
 // void func_802AC980_6BE030(void) {
-//     switch (D_803F28E0[D_803F2A98].unk0) {
+//     switch (D_803F28E0[D_803F2A98].cameraMode) {
 //     case 3:
 //     case 5:
 //     case 6:
@@ -1607,8 +1607,6 @@ void func_802AF9FC_6C10AC(void) {
                     D_803D5530->unk162 = 3;
                     D_803D552C->unk367 = 27;
                 }
-
-                // if (1) {};
             }
         }
 

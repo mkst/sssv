@@ -436,9 +436,9 @@ void func_802C64E0_6D7B90(s16 arg0);
 void func_802C75A4_6D8C54(s16 arg0);
 void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *arg9);
 
-void func_802C79E0_6D9090(struct016 *arg0, s16 arg1);
-// void func_802C7A7C_6D912C(struct016 *arg0, s16 arg1);
-void func_802C7B18_6D91C8(struct016 *arg0, s16 arg1);
+void func_802C79E0_6D9090(struct061 *arg0, s16 arg1);
+// void func_802C7A7C_6D912C(struct061 *arg0, s16 arg1); // not ok
+void func_802C7B18_6D91C8(struct061 *arg0, s16 arg1);
 
 void func_802C7BB4_6D9264(u16 arg0);
 
@@ -449,7 +449,7 @@ void func_802C83CC_6D9A7C(Animal *arg0);
 void func_802C85EC_6D9C9C(void);
 void func_802C87E0_6D9E90(void);
 void func_802C8878_6D9F28(void);
-void func_802C8FC0_6DA670(OSContPad * cont);
+void func_802C8FC0_6DA670(OSContPad *cont);
 s32  func_802C9340_6DA9F0(void);
 struct071 *func_802C93E8_6DAA98(u16 arg0);
 void func_802C941C_6DAACC(void);
@@ -650,6 +650,7 @@ void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal 
 void func_802FF140_7107F0(void);
 void func_802FF184_710834(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9);
 void func_802FF25C_71090C(void);
+void func_802FF540_710BF0(Animal *arg0);
 void func_802FF7D4_710E84(Animal *arg0); // not sure
 void func_802FFC34_7112E4(struct071 *arg0);
 void func_802FFD50_711400(struct071 *arg0);
@@ -769,6 +770,7 @@ void func_80319AC4_72B174(u8 *arg0, u8 arg1);
 u16  get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y);
 void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5);
 u8   func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
+u16  func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6);
 void func_8031A150_72B800(s16 arg0, u16 *arg1, u16 *arg2);
 
 void func_8031A278_72B928(s16*, s16*, s16*); // tbd
@@ -879,15 +881,18 @@ void func_8033C334_74D9E4(void);
 void func_8033C814_74DEC4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 arg8);
 void func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7);
 s32  func_8033C9CC_74E07C(s16, s16, s16, u8, s16, s16, s16, u8, u8, u8); // tbd
+void func_8033E430_74FAE0(void);
 void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f32 *arg5);
-void func_8033EF94_750644(u16 *arg0, u16 arg1);
+void func_8033E7C8_74FE78(OSContPad *cont);
+void func_8033EF94_750644(OSContPad *cont, u16 arg1);
 void func_8033F23C_7508EC(s16 arg0);
 void func_8033F294_750944(s16 arg0);
 void func_8033F2EC_75099C(void);
 void func_8033F380_750A30(void);
 void func_80340E08_7524B8(s16 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s8 arg5, s8 arg6, u8 arg7, s16 arg8);
+void func_80340EA4_752554(struct062*, s16);
 void func_803421E0_753890(s16 arg0);
-void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
+void func_80342550_753C00(struct025 *arg0);
 void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
 void func_803423C4_753A74(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
 void func_80342318_7539C8(s32 arg0, s32 arg1, s32 arg2);
@@ -903,7 +908,7 @@ void func_80343F58_755608(s16 arg0);
 void func_80343F68_755618(void);
 void func_80343F78_755628(void);
 void func_8034401C_7556CC(void);
-s32  func_80344158_755808(s16 arg0);
+s16  func_80344158_755808(s16 arg0);
 void func_8034419C_75584C(struct071 *arg0);
 void func_803441FC_7558AC(void);
 
@@ -1302,6 +1307,7 @@ void func_8038FF68_7A1618(void);
 void func_80391A38_7A30E8(void);
 void func_803925D0_7A3C80(u16 *src, u16 *dst);
 void func_8039264C_7A3CFC(void);
+void func_80392668_7A3D18(void);
 void load_pause_menu(s32 arg0, s16 arg1);
 void load_mission_brief_screen(s16 vertical_offset);
 void func_80395074_7A6724(s32 debug);
@@ -1329,7 +1335,7 @@ void func_80397840_7A8EF0(void);
 void func_80397B84_7A9234(void);
 void func_80397C58_7A9308(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s16 arg7, u8 arg8);
 void func_80397D1C_7A93CC(u8 arg0);
-// void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7);
+void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7);
 
 // overlay2_7A9CE0
 void func_80398630_7A9CE0(void);

@@ -4,6 +4,54 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C4A70_6D6120.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C56D0_6D6D80.s")
+#if 0
+// bleurgh
+void func_802C56D0_6D6D80(u8 arg0) {
+    s16 temp_a1;
+    s16 temp_a1_2;
+    s16 temp_a3;
+    s16 temp_t1;
+    s16 temp_t4;
+    s16 temp_t4_2;
+    s16 temp_t7_2;
+    s16 temp_v0;
+    s16 temp_v0_2;
+    s16 temp_v1;
+    s16 temp_v1_2;
+    s32 temp_t0;
+    s32 temp_t0_2;
+    s32 temp_t2;
+    s32 temp_t2_2;
+    s32 temp_t7;
+    s32 temp_t8;
+
+    temp_v1 = D_80203FE0[19].unk4;
+    temp_a3 = D_80203FE0[1].unk4;
+    temp_t8 = D_80152C78[arg0] >> 7; //(s32) *(((arg0 & 0xFF) * 2) + &D_80152C78) >> 7;
+    temp_t0 = D_80203FE0[19].unk4 - temp_a3;
+    temp_v0 = D_80203FE0[19].unk2;
+    temp_t1 = D_80203FE0[1].unk2;
+    temp_t7 = D_80152C78[arg0 + 64] >> 7; //(s32) *((((arg0 + 0x40) & 0xFF) * 2) + &D_80152C78) >> 7;
+    temp_t2 = temp_v0 - temp_t1;
+    temp_a1 = ((s32) ((temp_t8 * temp_t0) + (temp_t2 * temp_t7)) >> 8) + temp_t1;
+    D_80203FE0[19].unk2 = temp_a1;
+    temp_t4 = ((s32) ((temp_t0 * temp_t7) - (temp_t8 * temp_t2)) >> 8) + temp_a3;
+    temp_v1_2 = D_80203FE0[32].unk4;
+    temp_v0_2 = D_80203FE0[32].unk2;
+    D_80203FE0[20].unk2 = (s16) ((D_80203FE0[20].unk2 + temp_a1) - temp_v0);
+    temp_t0_2 = temp_v1_2 - temp_a3;
+    temp_t2_2 = temp_v0_2 - temp_t1;
+    D_80203FE0[20].unk4 = (s16) ((D_80203FE0[20].unk4 + temp_t4) - D_80203FE0[19].unk4);
+    D_80203FE0[19].unk4 = temp_t4;
+    temp_a1_2 = ((s32) ((temp_t8 * temp_t0_2) + (temp_t2_2 * temp_t7)) >> 8) + temp_t1;
+    D_80203FE0[32].unk2 = temp_a1_2;
+    temp_t4_2 = ((s32) ((temp_t0_2 * temp_t7) - (temp_t8 * temp_t2_2)) >> 8) + temp_a3;
+    temp_t7_2 = (D_80203FE0[33].unk4 + temp_t4_2) - temp_v1_2;
+    D_80203FE0[32].unk4 = temp_t4_2;
+    D_80203FE0[33].unk2 = (s16) ((D_80203FE0[33].unk2 + temp_a1_2) - temp_v0_2);
+    D_80203FE0[33].unk4 = temp_t7_2;
+}
+#endif
 
 void func_802C5824_6D6ED4(s16 arg0, s16 arg1, s16 arg2) {
     D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
@@ -99,7 +147,7 @@ void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 
     }
 }
 
-void func_802C79E0_6D9090(struct016 *arg0, s16 arg1) {
+void func_802C79E0_6D9090(struct061 *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk2;
     s16 temp_v1 = arg0->unk4;
 
@@ -107,7 +155,7 @@ void func_802C79E0_6D9090(struct016 *arg0, s16 arg1) {
     arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
 }
 
-void func_802C7A7C_6D912C(struct016 *arg0, s16 arg1) {
+void func_802C7A7C_6D912C(struct061 *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk0;
     s16 temp_v1 = arg0->unk4;
 
@@ -115,7 +163,7 @@ void func_802C7A7C_6D912C(struct016 *arg0, s16 arg1) {
     arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
 }
 
-void func_802C7B18_6D91C8(struct016 *arg0, s16 arg1) {
+void func_802C7B18_6D91C8(struct061 *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk0;
     s16 temp_v1 = arg0->unk2;
 

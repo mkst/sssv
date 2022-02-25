@@ -2,6 +2,7 @@
 
 #include "common.h"
 
+// .data
 s16 D_803A0500_7B1BB0 = 0;
 
 void func_802999E0_6AB090(DisplayList *arg0) {
