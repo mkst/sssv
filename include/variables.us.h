@@ -39,9 +39,11 @@ extern Gfx  D_01004360_3DC30[];
 extern u8   D_010043A0_3DC70[];
 extern Gfx  D_01004458[];
 extern Gfx  D_01004510[];
+extern Gfx  D_01004970_3E240[];
 extern Gfx  D_010049A0_3E270[];
 extern u8   D_01004AF8[];
 extern Gfx  D_01013370_4CC40[];
+extern Gfx  D_0101B000_548D0[];
 extern u8   D_01021BB0[];
 extern u8   D_0102A210[];
 extern u8   D_0102C810[];
@@ -271,7 +273,7 @@ extern Gfx  D_80158420[];
 extern Gfx  D_801584A0[];
 extern s16  D_80158540;
 extern s32  numControllers;
-extern u8  D_80158550[];
+extern u8   D_80158550[];
 // extern OSViMode D_80159980[];
 
 extern char D_8015ACA0[]; // "%d"
@@ -322,7 +324,7 @@ extern s16  D_801D9ED4; // either 10 or 6 - input debounce?
 extern struct050 D_801D9ED8;
 
 extern s32  D_801DD800;
-extern struct035 *D_801DDD88; // base of animal pointers
+// D_801DDD88 is D_801D9ED8.animals
 // D_801DDD8C[x] is D_801D9ED8.animals[x].animal
 
 // 0x801Exxxx
@@ -352,18 +354,18 @@ extern struct071 *D_80203D1C[]; // table of pointers to each interactive object
 extern s16  D_80203FC4;
 extern s16  D_80203FD0; // gScreenWidth
 extern s16  D_80203FD2; // gScreenHeight
-extern struct016 D_80203FE0[34];
-extern struct016 D_802040F0[34];
-extern s16  D_80203FE8;  // D_80203FE0[1].unk0?
-extern s16  D_80203FF0;
-extern s16  D_80203FF2;
-extern struct061 D_80204090;
-extern struct061 D_80204098;
-extern struct061 D_802040A0;
-extern struct061 D_802040A8;
+extern struct061 D_80203FE0[34];
+extern struct061 D_802040F0[34];
 extern f32  D_80204200;
 extern f32  D_80204204;
 extern f32  D_80204208;
+extern f32  D_80204218;
+extern f32  D_8020421C;
+extern f32  D_80204220;
+extern f32  D_8020422C;
+extern f32  D_80204230;
+extern f32  D_80204234;
+
 extern RomHeader D_80204240;
 extern s16  gRegion;
 extern u16  D_80204270;
@@ -390,10 +392,10 @@ extern s16  gScreenWidth;
 extern s16  gScreenHeight;
 
 extern struct012 D_802053E0;
-extern s16  D_802053EA;
+// D_802053EA -> D_802053E0.screenWidth
 extern struct012 D_802053F0; // pointer?
 extern struct012 D_80205400;
-extern s16  D_8020540C;
+extern s16       D_8020540C; // D_80205400.unkC does not match?
 extern Gfx  *D_80205410[][6];
 
 // 0x8021xxxx
@@ -672,6 +674,7 @@ extern s32  D_803A52C0_7B6970;
 extern s16  D_803A52C4;
 extern s16  D_803A52C4_7B6974;
 extern u8   D_803A52D0_7B6980;
+extern s16  D_803A52D4_7B6984;
 extern struct100 D_803A52E8_7B6998[];
 extern s16  D_803A5330_7B69E0;
 extern s16  D_803A53C4_7B6A74;
@@ -691,10 +694,15 @@ extern f32  D_803A6CC8;
 extern f32  D_803A6CD0;
 extern f32  D_803A6CD4;
 extern f32  D_803A6CD8;
+extern s16  D_803A6CDC_7B838C;
+extern s16  D_803A6CE0_7B8390;
 extern s16  D_803A6CE4;
 extern s16  D_803A6CE4_7B8394;
+extern s16  D_803A6CE8_7B8398;
 extern s16  D_803A6CEC;
-extern struct075 D_803A6D14_7B83C4[128];
+extern s16  D_803A6CEC_7B839C;
+extern u8   D_803A6CF3_7B83A3[];
+extern struct105 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
 extern s16  D_803A7B3C_7B91EC[][2];
 extern s16  D_803A8340;
@@ -780,13 +788,10 @@ extern u8   D_803B6318;
 extern u8   D_803B631C;
 extern s16 *D_803B6560_7C7C10[11];
 extern struct028 D_803B66F0;
-extern struct004 D_803B6700[];
-extern struct004 D_803B6700_7C7DB0;
-extern struct004 D_803B6730;
+extern struct004 D_803B6700_7C7DB0[2];
 extern struct004 D_803B6730_7C7DE0;
 extern struct004 D_803B683C;
 extern struct004 D_803B683C_7C7EEC;
-extern struct004 D_803B6718_7C7DC8;
 extern s32  D_803B6880_7C7F30;
 extern struct004 D_803B6790;
 extern f32  D_803B6868_7C7F18;
@@ -931,6 +936,8 @@ extern f64 D_803C0400_7D1AB0; // 1.95;
 extern f64 D_803C0408_7D1AB8; // 2.05;
 
 extern f32  D_803C0410_7D1AC0;
+
+// overlay2_6A6500
 extern s16  D_803C0420; // first var in BSS
 extern u8   D_803C0422;
 extern s16  D_803C0424;
@@ -938,7 +945,8 @@ extern s16  D_803C0426;
 extern s16  D_803C0428;
 extern s16  D_803C042A;
 extern struct053 D_803C0430;
-extern Fog2  D_803C0660[]; // fogPositions? or just a coincidence
+
+// overlay2_6AB090
 extern u16  D_803C0634;
 extern u16  D_803C063A;
 extern u8   D_803C063C;
@@ -947,9 +955,11 @@ extern u64  D_803C0648_7D1CF8;
 extern u64  D_803C0650_7D1D00;
 extern u32  D_803C0654; // geometry mode
 extern u16  D_803C0658; // matrix normalise
+extern Fog2 D_803C0660[]; // fogPositions? or just a coincidence
 extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
 extern s16  D_803C29E4_7D4094[];
 extern s16  D_803C29FE[];
+
 // 0x803Dxxxx
 
 extern struct054 D_803D2D90;
@@ -982,6 +992,7 @@ extern s16  D_803D5540;
 extern s16  D_803D5542;
 extern u16  D_803D5544; // timer (for attacks? everything?)
 extern u16  D_803D5546;
+extern s16  D_803D5548;
 extern s8   D_803D554A;
 extern s8   D_803D554B;
 extern s8   D_803D554C;
@@ -1137,7 +1148,7 @@ extern struct063 D_803E93B0[]; // ??
 extern s16  D_803E97C0;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
-extern s16  D_803E9824;
+extern s16  D_803E9824; // gCurrentAnimalID
 extern struct105 *D_803E9828;
 extern struct104 *D_803E982C;
 extern u16  D_803E9836;
@@ -1169,13 +1180,13 @@ extern f32  D_803F2AB0;
 extern f32  D_803F2AB4;
 extern f32  D_803F2AB8;
 extern f32  D_803F2ABC;
-extern s8   D_803F2AC5;
-extern s8   D_803F2AC6;
+extern u8   D_803F2AC5;
+extern u8   D_803F2AC6;
 extern s16  D_803F2AC8;
 extern s16  D_803F2ACA;
 extern s16  D_803F2ACC;
 extern struct025 *D_803F2AD0; // ptr to current camera
-extern struct062 D_803F2AD8;
+extern struct062 D_803F2AD8[1];
 extern struct062 D_803F2AF8[8]; // indexed in with % 8
 extern struct062 D_803F2BF8;
 
@@ -1183,10 +1194,11 @@ extern s16  D_803F2C18[3]; // declared in overlay2_741000
 extern s16  D_803F2C1E;
 extern s16  D_803F2C20; // struct?
 extern s16  D_803F2C22;
+extern s16  D_803F2C28;
 extern f32  D_803F2C2C;
 extern f32  D_803F2C30;
 extern f32  D_803F2C34;
-extern s8   D_803F2C38;
+extern u8   D_803F2C38;
 extern f32  D_803F2C3C;
 extern f32  D_803F2C40;
 extern f32  D_803F2C44;
@@ -1195,10 +1207,15 @@ extern f32  D_803F2C4C;
 extern f32  D_803F2C50;
 extern f32  D_803F2C54;
 extern f32  D_803F2C58;
-extern s8   D_803F2C6C;
-extern s8   D_803F2C6D;
+extern f32  D_803F2C5C;
+extern f32  D_803F2C60;
+extern f32  D_803F2C64;
+extern f32  D_803F2C68;
+extern u8   D_803F2C6C;
+extern u8   D_803F2C6D;
 extern s16  D_803F2C6E;
 extern s16  D_803F2C70;
+// extern u16  D_803F2C72;
 extern struct102 D_803F2C80[]; // [0x34] big?
 extern s16  D_803F2C86;
 extern s16  D_803F2C88;
@@ -1226,7 +1243,7 @@ extern u8   D_803F2CDE;
 extern u8   D_803F2CDF;
 extern s16 *D_803F2CE0;
 extern s16  D_803F2CE4;
-extern s16  D_803F2CE6;
+extern s8   D_803F2CE6;
 extern u16  D_803F2CE8; // health slider 'animation'
 extern s32  D_803F2CEC;
 extern s16  D_803F2CF0;
@@ -1239,10 +1256,10 @@ extern s16  D_803F2D18;
 extern u16  D_803F2D20;
 extern s8   D_803F2D22;
 extern s8   D_803F2D23;
+extern s16  D_803F2D24;
 extern struct001 D_803F2D30;
-extern s16  D_803F2D34;
-extern s16  gLevelIndex;
-extern s16  D_803F2D3C;
+// extern s16  D_803F2D38; // D_803F2D30.level
+// extern s16  D_803F2D3C; // D_803F2D30.powercells
 extern char D_803F2D3E[]; // score as a string, e.g. "       0"
 extern struct000 D_803F2D50;
 extern u16  D_803F2D68;
@@ -1296,17 +1313,9 @@ extern u8   D_803F6410[20];
 extern struct005  D_803F6428;
 extern s16  D_803F6450;
 extern u8   D_803F6460;
-extern s32  D_803F6464;
+extern Animal *D_803F6464;
 extern s16  D_803F6468;
 extern f32  D_803F646C;
-extern s16  D_803F642C;
-extern s16  D_803F642E;
-extern s16  D_803F6432;
-extern s16  D_803F6434;
-extern s16  D_803F6436;
-extern s16  D_803F6438;
-extern s16  D_803F643A;
-extern s16  D_803F643C;
 extern s16  D_803F6470;
 extern s8   D_803F6472;
 extern s16  D_803F6474;
@@ -1314,13 +1323,13 @@ extern struct109 D_803F6478;
 extern s16 *D_803F6500[17];
 extern s16  D_803F6548[13];
 extern struct027 D_803F6680;
-extern u8   D_803F66A6;
-extern u8   D_803F66A7;
 extern s16  D_803F66A4;
-extern u8   D_803F66AA;
-extern u8   D_803F66AD;
-extern u8   D_803F66AE;
-extern u8   D_803F66AF;
+extern u8   D_803F66A6; // D_803F6680.unk26
+extern u8   D_803F66A7; // D_803F6680.unk27
+extern u8   D_803F66AA; // D_803F6680.unk2A
+extern u8   D_803F66AD; // D_803F6680.unk2D
+extern u8   D_803F66AE; // D_803F6680.unk2E
+extern u8   D_803F66AF; // D_803F6680.unk2F
 extern struct032 D_803F66B8;
 extern f32  D_803F6700;
 extern s16  D_803F6704;

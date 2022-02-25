@@ -28,7 +28,10 @@ u8 language_select_menu(s16 arg0) {
                 src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
                 dst = D_803B0400[used];
                 COPY_MESSAGE(src, dst);
-                used += 1;
+                // regalloc helper?
+                if (gControllerInput->button && gControllerInput->button) {};
+
+                used++;
             }
         }
 
@@ -39,7 +42,7 @@ u8 language_select_menu(s16 arg0) {
         return 0;
     }
 
-    if (D_803B0594 != 0) {
+    if (D_803B0594) {
         D_803B0594 -= 8; // fade alpha if not selected?
     }
 
@@ -126,6 +129,9 @@ u8 language_select_menu(s16 arg0) {
     verticalOffset += 16;
     load_default_display_list(&D_801D9E7C);
     select_font(0, FONT_COMIC_SANS, 1, 0);
+
+    // more regalloc
+    if ((gControllerInput->button && gControllerInput->button) && gControllerInput->button) {};
 
     for (lang = 0; lang < 7; lang++) {
         if (lang == D_803B0590) {

@@ -375,36 +375,30 @@ segments:
     - [0x03D3E0, .data, data/D_01003B10_3D3E0]
     - [0x03D440, .data, data/D_01003B70_3D440]
     - [0x03D4A0, bin] # I4 textures
-    - [0x3DB40, bin] # displaylist   D_01004270
-    - [0x03DBD8, bin] # displaylist
-    - [0x03DC30, bin] # displaylist, D_01004360_3DC30
-    - [0x3DC70, bin] # displaylist D_010043A0_3DC70
-    - [0x03DD28, bin]
-    - [0x03DDE0, bin]
-    - [0x03DE70, bin]
-    - [0x03DED0, bin]
-    - [0x3DF20, .data, data/D_01004970_3DF20]
-    - [0x3DF50, bin] # displaylist D_01004680_3DF50
-    - [0x03DFB0, bin]
-    - [0x03DFF0, bin]
-    - [0x03E040, bin]
-    - [0x3E0A0, bin] # displaylist D_010047D0_3E0A0
-    - [0x3E0F8, bin] # displaylist D_01004828_3E0F8
-    - [0x03E170, bin]
-    - [0x03E1C8, bin]
-    - [0x03E240, bin]
-    - [0x03E270, .data, data/D_010049A0_3E270]
-    - [0x3E340, bin] # dl  D_01004A70_3E340
-    - [0x3E3C8, bin] # dl
-    - [0x3E3F8, bin] # dl
-    - [0x3E468, bin] # dl
-    - [0x3E4D8, bin] # dl
+    - [0x3DB40, .data, data/D_01004270_3DB40]
+    - [0x3DC30, .data, data/D_01004360_3DC30]
+    - [0x3DC70, .data, data/D_010043A0_3DC70]
+    - [0x3DDE0, .data, data/D_01004510_3DDE0]
+    - [0x3DE70, .data, data/D_010045A0_3DE70]
+    - [0x3DED0, .data, data/D_01004600_3DED0]
+    - [0x3DF20, .data, data/D_01004650_3DF20]
+    - [0x3DF50, .data, data/D_01004680_3DF50]
+    - [0x3DFB0, .data, data/D_010046E0_3DFB0]
+    - [0x3DFF0, .data, data/D_01004720_3DFF0]
+    - [0x3E040, .data, data/D_01004770_3E040]
+    - [0x3E0A0, .data, data/D_010047D0_3E0A0]
+    - [0x3E170, .data, data/D_010048A0_3E170]
+    - [0x3E240, .data, data/D_01004970_3E240]
+    - [0x3E270, .data, data/D_010049A0_3E270]
+    - [0x3E340, .data, data/D_01004A70_3E340]
+    - [0x3E500, sssv_vtx, data/inc/D_01004C30_3E500]
+    - [0x3E590, .data, data/D_01004CC0_3E590]
     - [0x3E5E0, .data, data/D_01004D90_3E660]
     - [0x3E5E0, sssv_vtx, data/inc/D_01004D10_3E5E0] # evo chip?
-    - [0x3E660]
-    - [0x3E6B0, bin] # v
-    - [0x3E730, bin] # d
-    - [0x3E750, bin] # d
+    - [0x3E660] # end of.. evo chip?
+    - [0x3E6B0, sssv_vtx, data/inc/D_01004DE0_3E6B0]
+    - [0x3E6F0, sssv_vtx, data/inc/D_01004E20_3E6F0]
+    - [0x3E730, .data, data/D_01004E60_3E730] # evo eyes?
     - [0x3E770, sssv_vtx, data/inc/D_01004EA0_3E770]
     - [0x3E840, .data, data/D_01004F70_3E840]
     - [0x3E8B0, sssv_vtx, data/inc/D_01004FE0_3E8B0]
@@ -1776,7 +1770,7 @@ segments:
     subalign: 8
     subsegments:
     - [0xC7A30, sssv_vtx, data/inc/D_04000000_C7A30]
-    - [0xC7BD0, .data, data/D_040001A0_C7BD0] # boulder? or dog's body? D_040001A0_C7BD0
+    - [0xC7BD0, .data, data/D_040001A0_C7BD0] # dog's body?
     - [0xC7CB0, sssv_vtx, data/inc/D_04000280_C7CB0]
     - [0xC7E50, .data, data/dog_body.D_04000420_C7E50]
     - [0xC7F30, sssv_vtx, data/inc/D_04000500_C7F30]
@@ -3245,13 +3239,13 @@ segments:
   - [0x4457F0, bin, rnc_4457F0] # 36755 => 57624        # jungle
   - [0x44E790, bin, empty_rnc_44E790] # empty RNC file  # ?
   - [0x44E7B0, bin, rnc_44E7B0] # 35312 => 54880        # city/credits?
-  # tbd
-  - [0x4571A0, bin, rnc_4571A0] # 9193 => 21952   # textures, ia16?
-  - [0x459590, bin, rnc_459590] # 16318 => 21952
-  - [0x45D550, bin, rnc_45D550] # 6246 => 21952
-  - [0x45EDC0, bin, rnc_45EDC0] # 11068 => 21952
-  - [0x461900, bin, rnc_461900] # 79 => 21952      # RNC pack differs
-  - [0x461950, bin, rnc_461950] # 193 => 21952
+  # ia16 textures?
+  - [0x4571A0, bin, rnc_4571A0] # 9193 => 21952         # europe
+  - [0x459590, bin, rnc_459590] # 16318 => 21952        # ice
+  - [0x45D550, bin, rnc_45D550] # 6246 => 21952         # desert
+  - [0x45EDC0, bin, rnc_45EDC0] # 11068 => 21952        # jungle
+  - [0x461900, bin, rnc_461900] # 79 => 21952           # ?             # RNC pack differs
+  - [0x461950, bin, rnc_461950] # 193 => 21952          # city/credits?
   # more textures (mipmap), level specific?
   - [0x461A20, bin, rnc_461A20] # 17776 => 32928
   - [0x465F90, bin, rnc_465F90] # 23197 => 32928
@@ -3263,12 +3257,12 @@ segments:
   - [0x484450, bin, rnc_484450] # 17949 => 32928
   - [0x488A70, bin, rnc_488A70] # 21153 => 30184
   - [0x48DD20, bin, rnc_48DD20] # 19128 => 32928
+  # ice
   - [0x4927E0, bin, rnc_4927E0] # 21419 => 32928
   - [0x497B90, bin, rnc_497B90] # 19889 => 32928
   - [0x49C950, bin, rnc_49C950] # 19766 => 32928
   - [0x4A1690, bin, rnc_4A1690] # 15066 => 32928
   - [0x4A5170, bin, rnc_4A5170] # 18027 => 32928
-  # ice
   - [0x4A97E0, bin, rnc_4A97E0] # 20008 => 32928    # snow textures
   - [0x4AE610, bin, rnc_4AE610] # 20011 => 32928
   - [0x4B3440, bin, empty_rnc_4B3440] # empty RNC!
@@ -3301,6 +3295,7 @@ segments:
   - [0x4F6A70, bin, rnc_4F6A70] # 5534 => 20480
   - [0x4F8010, bin, rnc_4F8010] # 5534 => 20480
   - [0x4F95B0, bin, rnc_4F95B0] # 6590 => 20480
+  #
   - [0x4FAF70, bin, rnc_4FAF70] # 4505 => 10240  # flowers
   - [0x4FC110, bin, rnc_4FC110] # 4291 => 10240  # flowers
   - [0x4FD1E0, bin, rnc_4FD1E0] # 3462 => 10240
@@ -3681,6 +3676,7 @@ segments:
     - [0x77EDB0, c, sssv/animals/camel]
     - [0x780E50, c, sssv/animals/kangaroo]
     - [0x783D90, c, sssv/animals/desert_fox]
+    - [0x785D10, c, overlay2_785D10]
     - [0x786320, c, sssv/animals/walrus]
     - [0x7883F0, c, sssv/animals/scorpion]
     - [0x78A890, c, sssv/animals/gorilla]
@@ -3741,6 +3737,9 @@ segments:
     - [0x7B7C80, bin] # animal sounds lookup
     - [0x7B7D30, bin] # animal sounds lookup
     - [0x7B7DE0, bin] #
+    - [0x7B8370, data]
+    - [0x7B83A0, bin]
+    - [0x7b83d0, bin] # something else
     - [0x7B9580, .data, data/7B9940] # green crib??
     - [0x7B9580, sssv_vtx, data/inc/D_803A7ED0]
     - [0x7B9780, sssv_vtx, data/inc/D_803A80D0]
@@ -3829,7 +3828,7 @@ segments:
     - [0x7CF800, rodata, overlay2_73E580]
     - [0x7CF810, rodata, overlay2_73ED30]
     - [0x7CF860, rodata, overlay2_741000]
-    - [0x7CFF4C, .rodata, overlay2_741000]
+    - [0x7CFE40, .rodata, overlay2_741000]
     - [0x7CFFD0, rodata, overlay2_7558F0]
     - [0x7CFFF0, rodata, sssv/osd]
     - [0x7D0008, .rodata, sssv/osd]

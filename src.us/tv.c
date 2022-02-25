@@ -9,8 +9,8 @@ void func_8012A870(void) {
     switch ((s16)D_80000300) {
     case OS_TV_PAL:
         D_802053E0.VIModeType = OS_VI_PAL_LPN1;
-        D_802053E0.unkA = 304;
-        gRefreshRate = 50; // 50 hz
+        D_802053E0.screenWidth = 304;
+        gRefreshRate = 50; // hz
         D_802053F0.vStart = 0x7A0210;
         D_802053F0.yScale = 1200;
         D_80205400.vStart = 0x34025A;
@@ -26,8 +26,8 @@ void func_8012A870(void) {
         break;
     case OS_TV_NTSC:
         D_802053E0.VIModeType = OS_VI_NTSC_LPN1;
-        D_802053E0.unkA = 304;
-        gRefreshRate = 60; // 60 hz
+        D_802053E0.screenWidth = 304;
+        gRefreshRate = 60; // hz
 
         D_802053F0.vStart = 0x6501BF;
         D_802053F0.yScale = 0x587;
@@ -43,8 +43,8 @@ void func_8012A870(void) {
         break;
     case OS_TV_MPAL:
         D_802053E0.VIModeType = OS_VI_MPAL_LPN1;
-        D_802053E0.unkA = 304;
-        gRefreshRate = 60; // 60 hz
+        D_802053E0.screenWidth = 304;
+        gRefreshRate = 60; // hz
 
         D_802053F0.vStart = 0x6501BF;
         D_802053F0.yScale = 0x587; // 1415
@@ -61,7 +61,7 @@ void func_8012A870(void) {
         break;
     default:
         D_802053E0.VIModeType = OS_VI_NTSC_LPN1;
-        D_802053E0.unkA = 304;
+        D_802053E0.screenWidth = 304;
         gRefreshRate = 60;
 
         D_802053F0.vStart = 0x6501BF;

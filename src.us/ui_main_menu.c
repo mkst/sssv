@@ -273,7 +273,7 @@ void display_zone_select_screen(void) {
         play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
         func_80395074_7A6724(0);
         D_803F6680.unk18 += 1;
-        gLevelIndex = D_803F7DA8.currentLevel + 1;
+        D_803F2D30.level = D_803F7DA8.currentLevel + 1;
     }
     if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1)) {
         play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
@@ -943,7 +943,7 @@ void func_8039BBB8_7AD268(void) {
                 (level != EVOS_ESCAPE) &&
                 (level != PUNCHUP_PYRAMID) &&
                 (level != BIG_CELEBRATION_PARADE)) {
-                D_8023F260.level[D_803F2D30.unk8 - 1].trophy = 1;
+                D_8023F260.level[D_803F2D30.level - 1].trophy = 1;
             }
             // regalloc helper
             if (1) {}
@@ -968,13 +968,13 @@ void func_8039BBB8_7AD268(void) {
             (level == EVOS_ESCAPE) ||
             (level == PUNCHUP_PYRAMID)) {
             if (D_803E4D28 & 2) {
-                D_8023F260.level[D_803F2D30.unk8 - 1].completed = 1;
+                D_8023F260.level[D_803F2D30.level - 1].completed = 1;
             }
         } else {
-            D_8023F260.level[D_803F2D30.unk8 - 1].completed = 1;
+            D_8023F260.level[D_803F2D30.level - 1].completed = 1;
             // 'powercells' element used to store 'time' in bonus levels
-            if (D_8023F260.level[D_803F2D30.unk8 - 1].powercells < D_803F2D30.powercells) {
-                D_8023F260.level[D_803F2D30.unk8 - 1].powercells = D_803F2D30.powercells;
+            if (D_8023F260.level[D_803F2D30.level - 1].powercells < D_803F2D30.powercells) {
+                D_8023F260.level[D_803F2D30.level - 1].powercells = D_803F2D30.powercells;
             }
         }
         D_803F2D50.unkC6 = 0;

@@ -24,11 +24,11 @@
 //     s16 temp_t7_4;
 //
 //
-//     temp_t2 = (D_80203FF2 >> 2) + D_80203FF2;
+//     temp_t2 = (D_80203FE0[2].unk2 >> 2) + D_80203FE0[2].unk2;
 //     temp_t7 = D_80152C78[(u8)D_803D552C->unk302] >> 7;
 //     temp_t9 = D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7;
-//     temp_t7_3 = (((temp_t7 * temp_t2) / 32) + ((temp_t9 * ((D_80203FF0 >> 2) + D_80203FF0)) / 32)) >> 7;
-//     temp_t7_4 = (((temp_t9 * temp_t2) / 32) - ((temp_t7 * ((D_80203FF0 >> 2) + D_80203FF0)) / 32)) >> 7;
+//     temp_t7_3 = (((temp_t7 * temp_t2) / 32) + ((temp_t9 * ((D_80203FF0[2].unk0 >> 2) + D_80203FF0[2].unk0)) / 32)) >> 7;
+//     temp_t7_4 = (((temp_t9 * temp_t2) / 32) - ((temp_t7 * ((D_80203FF0[2].unk0 >> 2) + D_80203FF0[2].unk0)) / 32)) >> 7;
 //
 //     temp_s0 = D_803D552C->xPos - temp_t7_3;
 //     temp_s1 = D_803D552C->zPos - temp_t7_4;

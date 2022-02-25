@@ -12,7 +12,6 @@ void func_80357200_7688B0(void) {
             D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
             D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
 
-
             D_803D5528 = (&D_801D9ED8.animals[gCurrentAnimalIndex])->animal;
             D_803D552C = (&D_801D9ED8.animals[gCurrentAnimalIndex])->animal;
             D_803D5530 = (&D_801D9ED8.animals[gCurrentAnimalIndex])->animal;
