@@ -1407,7 +1407,6 @@ void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
     if (D_801D9ED8.unkFFDA > 2) {
         *arg1 = D_803D5524->unkA4 * 1024;
     } else if (D_801D9ED8.unkFFDA > 0) {
-        // *arg1 = ((D_803D5524->unkA4 << 2) + D_803D5524->unkA4) << 7;
         *arg1 = D_803D5524->unkA4 * 640;
     } else {
         *arg1 = 0;
@@ -2024,8 +2023,11 @@ void func_802B1B98_6C3248(s16 rotation, s16 arg1) {
 void func_802B1D00_6C33B0(s16 rotation, s16 arg1) {
     if ((D_803D5540 & 3) == 0) {
         if ((D_803D5530->unk4A == 0) && (D_803D5530->unk4C.unk26 == 0)) {
-            D_803D5530->health -= 1;
-            D_803D5530->health = D_803D5530->health; // typo?
+#ifdef AVOID_UB
+            D_803D5530->health--;
+#else
+            D_803D5530->health = --D_803D5530->health;
+#endif
             D_803D552C->unk36B += 1;
         }
     }
@@ -2052,7 +2054,7 @@ void func_802B1D00_6C33B0(s16 rotation, s16 arg1) {
 
 void func_802B1E28_6C34D8(s16 rotation, s16 arg1, s16 arg2) {
     s16 pad[3];
-    s16 phi_v0_2;
+    s16 airHeight;
     s16 phi_v1_6;
     s16 temp_v0_3;
     s16 sp18;
@@ -2135,26 +2137,26 @@ void func_802B1E28_6C34D8(s16 rotation, s16 arg1, s16 arg2) {
                 (D_803D5524->unk9C == VULTURE) ||
                 (D_803D5524->unk9C == SEAGULL) ||
                 (D_803D5524->unk9C == SEAGULL2)) {
-                phi_v0_2 = func_802B2580_6C3C30();
+                airHeight = func_802B2580_6C3C30();
                 if ((D_803D5524->unk9C == VULTURE) ||
                     (D_803D5524->unk9C == SEAGULL2)) {
-                    phi_v0_2 += phi_v0_2 >> 1;
+                    airHeight += airHeight >> 1;
                 }
                 if (D_803D5530->yVelocity.w < FTOFIX32(10.0)) {
-                    if (phi_v0_2 > 448) {
+                    if (airHeight > 448) {
                         D_803D5530->yVelocity.w += FTOFIX32(0.5625);
-                    } else if (phi_v0_2 > 320) {
+                    } else if (airHeight > 320) {
                         D_803D5530->yVelocity.w += FTOFIX32(0.6875);
-                    } else if (phi_v0_2 > 192) {
+                    } else if (airHeight > 192) {
                         D_803D5530->yVelocity.w += FTOFIX32(0.75);
                     } else {
                         D_803D5530->yVelocity.w += FTOFIX32(0.875);
                     }
                 }
             } else {
-                phi_v0_2 = func_802B2580_6C3C30();
+                airHeight = func_802B2580_6C3C30();
                 if (D_803D5530->yVelocity.w < FTOFIX32(10.0)) {
-                    if (phi_v0_2 > 640) {
+                    if (airHeight > 640) {
                         D_803D5530->yVelocity.w += FTOFIX32(0.25);
                     } else {
                         D_803D5530->yVelocity.w += FTOFIX32(0.875);
@@ -2208,11 +2210,66 @@ void func_802B1E28_6C34D8(s16 rotation, s16 arg1, s16 arg2) {
     }
 }
 
+// get_distance_from_ground
 s16 func_802B2580_6C3C30(void) {
     return D_803D5530->yPos - func_802B25B4_6C3C64(1);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B25B4_6C3C64.s")
+// still need to understand collision
+// s16 func_802B25B4_6C3C64(u8 getWaterHeight) {
+//     s16 temp_t0;
+//     s16 temp_t1;
+//
+//     s16 temp_a2;
+//     s16 temp_v1;
+//
+//     s32 phi_t2;
+//     s32 phi_t4;
+//     s32 phi_t3;
+//     s32 phi_t5;
+//
+//     s16 phi_a1;
+//
+//     temp_v1 = D_803D5530->xPos >> 6;
+//     temp_a2 = D_803D5530->zPos >> 6;
+//     if (D_803D5530->unk160 == 2) {
+//         phi_a1 = MIN(MIN(D_803C0740[temp_v1 + 0][temp_a2 + 0].unk1,
+//                          D_803C0740[temp_v1 + 1][temp_a2 + 0].unk1),
+//                      MIN(D_803C0740[temp_v1 + 0][temp_a2 + 1].unk1,
+//                          D_803C0740[temp_v1 + 1][temp_a2 + 1].unk1));
+//     } else {
+//         temp_t0 = D_803D5530->xPos & 0x3F;
+//         temp_t1 = D_803D5530->zPos & 0x3F;
+//
+//         if (1) {}; // regalloc helper.. ish
+//
+//         phi_t2 = D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+//         phi_t4 = D_803C0740[temp_v1 + 1][temp_a2 + 0].unk0;
+//         phi_t3 = D_803C0740[temp_v1 + 0][temp_a2 + 1].unk0;
+//         phi_t5 = D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
+//
+//         if (D_803C0740[temp_v1 + 0][temp_a2 + 0].unk4 & 1) {
+//             if (temp_t0 < temp_t1) {
+//                 phi_t4 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+//             } else {
+//                 phi_t3 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+//             }
+//         } else if ((temp_t0 + temp_t1) < 64) {
+//             phi_t5 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+//         } else {
+//             phi_t2 = (s16) D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
+//         }
+//
+//         phi_a1 = MIN(MIN(phi_t2, phi_t4),
+//                      MIN(phi_t3, phi_t5));
+//     }
+//
+//     if (getWaterHeight) {
+//         return MAX(phi_a1 * 8, D_803C0740[temp_v1 + 0][temp_a2 + 0].unk6 * 4);
+//     } // else return lowest point in terrain?
+//     return (phi_a1 * 8);
+// }
 
 void func_802B2834_6C3EE4(void) {
     s16 phi_a2;
@@ -2288,10 +2345,57 @@ s32 func_802B2AF0_6C41A0(s32 arg0, s32 arg1) {
     if ((arg1 >= 0) && (func_802B2C20_6C42D0(D_803D5530->xPos, D_803D5530->zPos + D_803D5524->unkBE))) {
         return 1;
     }
-    // implicit return?
+    // implicit return? UB?
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B2C20_6C42D0.s")
+s32 func_802B2C20_6C42D0(s16 arg0, s16 arg1) {
+    s32 phi_v0_2;
+    s16 phi_v1;
+    s16 temp_a3;
+    s16 xVel;
+    s16 zVel;
+    s32 pad;
+
+    phi_v0_2 = MAX(MAX(D_803C0740[(arg0 >> 6) + 0][(arg1 >> 6) + 0].unk6,
+                       D_803C0740[(arg0 >> 6) + 1][(arg1 >> 6) + 0].unk6),
+                   MAX(D_803C0740[(arg0 >> 6) + 0][(arg1 >> 6) + 1].unk6,
+                       D_803C0740[(arg0 >> 6) + 1][(arg1 >> 6) + 1].unk6)) & 0xFFFFFFFF;
+
+    temp_a3 = D_803C0430.unk0[(arg0 * arg1) & 7][(u16)(D_803C0430.unk204 + (((arg0 * arg1) + (arg0 * arg0)) << 3)) & 63] + (4 * phi_v0_2);
+
+    if (D_803D5524->waterClass & (WATER_DAMAGE|WATER_DAMAGE_X2)) {
+        phi_v1 = D_803D5524->unkBA;
+    } else {
+        // regalloc helper
+        if ((phi_v1 && phi_v1) && phi_v1) {}
+        phi_v1 = D_803D5524->unkB8;
+    }
+
+    phi_v0_2 = func_80310EE4_722594(arg0, arg1, D_803D5530->unk160);
+    if (phi_v0_2 == 0x40000000) {
+        if (temp_a3 < ((func_8031124C_7228FC(arg0, arg1) >> 0x10) + phi_v1)) {
+            func_80311BF8_7232A8(arg0, arg1, &xVel, &zVel);
+            if (ABS(xVel) > 23) {
+                return 1;
+            }
+            if (ABS(zVel) > 23) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    if (temp_a3 < ((phi_v0_2 >> 0x10) + phi_v1)) {
+        func_80311A2C_7230DC(arg0, arg1, &xVel, &zVel, D_803D5530->unk160);
+        if (ABS(xVel) > 23) {
+            return 1;
+        }
+        if (ABS(zVel) > 23) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 void func_802B2EA8_6C4558(void) {
     switch (D_803D5524->class) {
@@ -2693,25 +2797,13 @@ s16 func_802B3D68_6C5418(void) {
 
     f32 tmpf;
 
-    if (D_803D5530->xPos < D_803F2C44) {
-        tmpf = -(D_803D5530->xPos - D_803F2C44);
-    } else {
-        tmpf = D_803D5530->xPos - D_803F2C44;
-    }
+    tmpf = ABS(D_803D5530->xPos - D_803F2C44);
     x = (s16)tmpf >> 1;
 
-    if (D_803D5530->zPos < D_803F2C48) {
-        tmpf = -(D_803D5530->zPos - D_803F2C48);
-    } else {
-        tmpf = D_803D5530->zPos - D_803F2C48;
-    }
+    tmpf = ABS(D_803D5530->zPos - D_803F2C48);
     z = (s16)tmpf >> 1;
 
-    if (D_803D5530->yPos < D_803F2C4C) {
-        tmpf = -(D_803D5530->yPos - D_803F2C4C);
-    } else {
-        tmpf = D_803D5530->yPos - D_803F2C4C;
-    }
+    tmpf = ABS(D_803D5530->yPos - D_803F2C4C);
     y = (s16)tmpf >> 1;
 
     return MAX(MAX(x, z), y) + x + z + y;

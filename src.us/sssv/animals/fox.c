@@ -21,7 +21,7 @@ void func_802E8500_6F9BB0(void) {
     // scale missile to zero
     func_8037FBBC_79126C();
     // fire missile
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos,
         D_803D5530->zPos,
         D_803D5530->yPos - D_803D5530->unk42,
@@ -74,7 +74,7 @@ void fire_fox_fire_missile(Animal *animal) {
     // scale missile to zero
     func_8037FBBC_79126C();
     // fire missile
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos,
         D_803D5530->zPos,
         D_803D5530->yPos - D_803D5530->unk42,

@@ -73,6 +73,8 @@ MakeHuffmanTable       = 0x8012BCEC;
 FindLowest             = 0x8012BF5C;
 SwapBits               = 0x8012C010;
 
+set_tv_mode_widescreen = 0x8012ABF0;
+set_tv_mode_normal     = 0x8012AC40;
 load_overlay           = 0x8012C070;
 load_default_display_list = 0x8012C1F0;
 set_menu_text_color    = 0x8012C214;
@@ -167,8 +169,11 @@ reset_screen_transition   = 0x802F07D0; // rom:0x701E80
 trigger_screen_transition = 0x802F07E8; // rom:0x701E98
 perform_screen_transition = 0x802F0918; // rom:0x701FC8
 
-spawn_temporary_object = 0x802FF0A4; // rom:0x710754
 lion_roar              = 0x802F2AA0; // rom:0x704150
+
+fire_homing_missile    = 0x802FEE98; // rom:0x710548
+spawn_temporary_object = 0x802FF0A4; // rom:0x710754
+
 heli_rabbit_drop_bomb  = 0x80302120; // rom:0x7137D0
 frog_croak             = 0x80302DD0; // rom:0x714480
 animal_jump            = 0x8030A958; // rom:0x71C008

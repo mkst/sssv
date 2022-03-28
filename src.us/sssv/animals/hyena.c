@@ -61,7 +61,7 @@ void func_8035A2A8_76B958(void) {
         tmp = -713;
     }
 
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
         D_803D5530->zPos - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
         D_803D5530->yPos + (D_803D5530->unk42 >> 1),
@@ -89,7 +89,7 @@ void biker_hyena_fire_missile(Animal *animal) {
         tmp = -713;
     }
 
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
         D_803D5530->zPos - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
         D_803D5530->yPos + (D_803D5530->unk42 >> 1),

@@ -786,9 +786,9 @@ void func_8033C054_74D704(u8 arg0) {
 
     D_803F2AD0 = &D_803F28E0[arg0];
 
-    D_803F2AD0->unk74 = D_803F2AD0->unkCC->unk4.w / 65536.0;
-    D_803F2AD0->unk78 = D_803F2AD0->unkCC->unk8.w / 65536.0;
-    D_803F2AD0->unk7C = D_803F2AD0->unkCC->unkC.w / 65536.0;
+    D_803F2AD0->unk74 = D_803F2AD0->unkCC->xPos.w / 65536.0;
+    D_803F2AD0->unk78 = D_803F2AD0->unkCC->zPos.w / 65536.0;
+    D_803F2AD0->unk7C = D_803F2AD0->unkCC->yPos.w / 65536.0;
 
     temp_f20 = D_803F2AD0->unkCC->unk2C * temp_f2;
     D_803F2AD0->unk20 = temp_f20;
@@ -923,7 +923,6 @@ void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f3
     *arg4 = D_803F2AD0->unkC - cosf(tmp2) * (arg2 * tmp0);
     *arg5 = D_803F2AD0->unk10 + sinf(tmp2) * arg2;
 }
-
 
 #if 0
 void func_8033E7C8_74FE78(OSContPad *cont) {
@@ -1133,46 +1132,430 @@ void func_8033F300_7509B0(void) {
 
 #if 0
 // .rodata for function
-const f64 D_803BE688_7CFD38 = 3.1415;
-const f64 D_803BE690_7CFD40 = 3.141593;
-const f64 D_803BE698_7CFD48 = 180.0;
-const f64 D_803BE6A0_7CFD50 = 360.0;
-const f64 D_803BE6A8_7CFD58 = 180.0;
-const f64 D_803BE6B0_7CFD60 = 360.0;
-const f64 D_803BE6B8_7CFD68 = 180.0;
-const f64 D_803BE6C0_7CFD70 = 360.0;
-const f64 D_803BE6C8_7CFD78 = -180.0;
-const f64 D_803BE6D0_7CFD80 = 360.0;
+// const f64 D_803BE688_7CFD38 = 3.1415;
+// const f64 D_803BE690_7CFD40 = 3.141593;
+// const f64 D_803BE698_7CFD48 = 180.0;
+// const f64 D_803BE6A0_7CFD50 = 360.0;
+// const f64 D_803BE6A8_7CFD58 = 180.0;
+// const f64 D_803BE6B0_7CFD60 = 360.0;
+// const f64 D_803BE6B8_7CFD68 = 180.0;
+// const f64 D_803BE6C0_7CFD70 = 360.0;
+// const f64 D_803BE6C8_7CFD78 = -180.0;
+// const f64 D_803BE6D0_7CFD80 = 360.0;
 const f64 D_803BE6D8_7CFD88 = 180.0;
 const f64 D_803BE6E0_7CFD90 = 360.0;
-const f64 D_803BE6E8_7CFD98 = 0.017453277777777776;
-const f64 D_803BE6F0_7CFDA0 = 0.017453277777777776;
-const f64 D_803BE6F8_7CFDA8 = 0.017453277777777776;
-const f64 D_803BE700_7CFDB0 = 0.017453277777777776;
-const f64 D_803BE708_7CFDB8 = 0.0012321;
-const f32 D_803BE710_7CFDC0 = 0.6f;
+// const f64 D_803BE6E8_7CFD98 = 0.017453277777777776;
+// const f64 D_803BE6F0_7CFDA0 = 0.017453277777777776;
+// const f64 D_803BE6F8_7CFDA8 = 0.017453277777777776;
+// const f64 D_803BE700_7CFDB0 = 0.017453277777777776;
+// const f64 D_803BE708_7CFDB8 = 0.0012321;
+// const f32 D_803BE710_7CFDC0 = 0.6f;
 // const f64 D_803BE714_7CFDC4 = 0.0f;
-const f64 D_803BE718_7CFDC8 = 310.0;
-const f64 D_803BE720_7CFDD0 = 0.0015625;
-const f64 D_803BE728_7CFDD8 = 310.0;
-const f64 D_803BE730_7CFDE0 = 0.0015625;
-const f64 D_803BE738_7CFDE8 = 0.00021;
-const f64 D_803BE740_7CFDF0 = 0.000013;
-const f64 D_803BE748_7CFDF8 = 0.00021;
-const f64 D_803BE750_7CFE00 = 0.000013;
-const f64 D_803BE758_7CFE08 = 0.00021;
-const f64 D_803BE760_7CFE10 = 0.000013;
-const f64 D_803BE768_7CFE18 = 0.00021;
-const f64 D_803BE770_7CFE20 = 0.000013;
-const f32 D_803BE778_7CFE28 = 0.7f;
-// const f32 D_803BE77C_7CFE2C = 0.0f;
-const f64 D_803BE780_7CFE30 = 180.0;
-const f64 D_803BE788_7CFE38 = 360.0;
+// const f64 D_803BE718_7CFDC8 = 310.0;
+// const f64 D_803BE720_7CFDD0 = 0.0015625;
+// const f64 D_803BE728_7CFDD8 = 310.0;
+// const f64 D_803BE730_7CFDE0 = 0.0015625;
+// const f64 D_803BE738_7CFDE8 = 0.00021;
+// const f64 D_803BE740_7CFDF0 = 0.000013;
+// const f64 D_803BE748_7CFDF8 = 0.00021;
+// const f64 D_803BE750_7CFE00 = 0.000013;
+// const f64 D_803BE758_7CFE08 = 0.00021;
+// const f64 D_803BE760_7CFE10 = 0.000013;
+// const f64 D_803BE768_7CFE18 = 0.00021;
+// const f64 D_803BE770_7CFE20 = 0.000013;
+// const f32 D_803BE778_7CFE28 = 0.7f;
+const f32 D_803BE77C_7CFE2C = 0.0f;
+// const f64 D_803BE780_7CFE30 = 180.0;
+// const f64 D_803BE788_7CFE38 = 360.0;
 const f64 D_803BE790_7CFE40 = 360.0;
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033F380_750A30.s")
+#if 0
+void func_8033F380_750A30(void) {
+    f32 spCC;
+    f32 spC8;
+    f32 spB4;
+    f32 spB0;
+    f32 spAC;
+    f32 spA0;
+    f32 sp9C;
+    f32 sp98;
+    f32 sp8C;
+    f32 sp84;
+    f32 sp80;
+    f32 sp74;
+    f32 sp70;
+    f32 sp6C;
+    f32 sp64;
+    f32 sp60;
+    f32 sp58;
+    f32 sp54;
+    f32 sp44;
+    f32 sp40;
+    f32 sp3C;
+    f32 sp38;
+    f32 sp34;
 
+    f32 temp_f0;
+    f32 temp_f2;
+    f32 temp_f14;
+
+    struct025 *camera1; // sp64
+    struct025 *camera2; // sp60
+
+    f32 tmp;
+
+    camera2 = &D_803F28E0[D_803F2AC8];
+    camera1 = &D_803F28E0[D_803F2A98];
+
+    switch (D_803F2C18[0]) {
+    case 0:
+        D_803F2C44 = camera1->unk74 + camera1->unkA4;
+        D_803F2C48 = camera1->unk78 + camera1->unkA8;
+        D_803F2C4C = camera1->unk7C;
+
+        D_803F2C50 = camera1->unk8 + camera1->unkA4;
+        D_803F2C54 = camera1->unkC + camera1->unkA8;
+        D_803F2C58 = camera1->unk10;
+
+        D_80204200 = camera1->unk8C;
+        D_80204204 = camera1->unk90;
+        D_80204208 = camera1->unk94;
+        D_803F2A9A = 0x100;
+        break;
+    case 1:
+        tmp = cosf((((f32) D_803F2C18[1] / D_803F2C18[2]) * 3.1415));
+        spCC = 0.5 - 0.5 * tmp;
+        spC8 = 1.0 - spCC;
+        D_803F2C44 = (spC8 * (camera2->unk74 + camera2->unkA4)) + (spCC * (camera1->unk74 + camera1->unkA4));
+        D_803F2C48 = (spC8 * (camera2->unk78 + camera2->unkA8)) + (spCC * (camera1->unk78 + camera1->unkA8));
+        D_803F2C4C = (spC8 * camera2->unk7C) + (spCC * camera1->unk7C);
+
+        D_80204200 = (spC8 * camera2->unk8C) + (spCC * camera1->unk8C);
+        D_80204204 = (spC8 * camera2->unk90) + (spCC * camera1->unk90);
+        D_80204208 = (spC8 * camera2->unk94) + (spCC * camera1->unk94);
+
+        if (((camera2->cameraMode == 4) ||
+             (camera2->cameraMode == 19) ||
+             (camera2->cameraMode == 20) ||
+             (camera2->cameraMode == 21) ||
+             (camera2->cameraMode == 5) ||
+             (camera2->cameraMode == 22)) &&
+             ((camera1->cameraMode == 4) ||
+              (camera1->cameraMode == 19) ||
+              (camera1->cameraMode == 20) ||
+              (camera1->cameraMode == 21) ||
+              (camera1->cameraMode == 5) ||
+              (camera1->cameraMode == 22))) {
+
+            if (ABS(camera2->unk24 - camera1->unk24) == 128.0) {
+                // sp54 = spCC * 3.141593;
+                D_80204200 = (cosf(spCC * 3.141593) * camera2->unk8C) + (sinf(spCC * 3.141593) * camera2->unk90);
+                D_80204204 = (cosf(spCC * 3.141593) * camera2->unk90) - (sinf(spCC * 3.141593) * camera2->unk8C);
+            }
+        }
+        spB4 = camera2->unk8 - camera2->unk74;
+        spB0 = camera2->unkC - camera2->unk78;
+        spAC = camera2->unk10 - camera2->unk7C;
+        sp84 = func_801286B8(spAC, sqrtf((spB4 * spB4) + (spB0 * spB0)));
+
+        if (sp84 > 180.0) {
+            sp84 -= 180.0;
+        }
+        if ((spB0 == 0.0) && (spB4 == 0.0)) {
+            sp80 = 0.0f;
+        } else {
+            sp80 = func_801286B8(-spB0, spB4);
+        }
+        spA0 = camera1->unk8 - camera1->unk74;
+        sp9C = camera1->unkC - camera1->unk78;
+        sp98 = camera1->unk10 - camera1->unk7C;
+
+        sp8C = func_801286B8(sp98, sqrtf((spA0 * spA0) + (sp9C * sp9C)));
+        if (sp8C > 360.0) {
+            sp8C -= 360.0; //(sp8C - 360.0);
+        }
+        if ((sp9C == 0.0) && (spA0 == 0.0)) {
+            temp_f14 = 0.0f;
+        } else {
+            temp_f14 = func_801286B8(-sp9C, spA0);
+        }
+        D_803F2C74 = (spCC * sp8C) + (spC8 * sp84);
+
+        if ((camera2->cameraMode == 4) ||
+            (camera2->cameraMode == 19) ||
+            (camera2->cameraMode == 20) ||
+            (camera2->cameraMode == 21) ||
+            (camera2->cameraMode == 5) ||
+            (camera2->cameraMode == 22)) {
+            D_803F2C78 = temp_f14;
+        } else {
+            if ((camera1->cameraMode == 4) ||
+                (camera1->cameraMode == 19) ||
+                (camera1->cameraMode == 20) ||
+                (camera1->cameraMode == 21) ||
+                (camera1->cameraMode == 5) ||
+                (camera1->cameraMode == 22)) {
+                D_803F2C78 = sp80;
+            } else {
+                temp_f2 = temp_f14 - sp80;
+
+                if (D_803F2C18[1] == 1) {
+
+                    while (temp_f2 > 180.0) {
+                        temp_f2 -= 360.0;
+                    };
+
+                    while (temp_f2 < -180.0) {
+                        temp_f2 += 360.0;
+                    };
+
+                    D_803F2C78 = (temp_f2 * spCC) + sp80;
+                } else {
+                    if (temp_f2 < D_803F2C7C) {
+                        temp_f2 = ABS(temp_f2 - D_803F2C7C);
+                        while (temp_f2 > 180.0f) {
+                            temp_f2 += 360.0f;
+                            temp_f2 = ABS(temp_f2 - D_803F2C7C);
+                        }
+                    } else {
+                        temp_f2 = ABS(temp_f2 - D_803F2C7C);
+
+                        while (temp_f2 > 180.0f) {
+                            temp_f2 -= 360.0f;
+                            temp_f2 = ABS(temp_f2 - D_803F2C7C);
+                        }
+                    }
+                    D_803F2C78 = (temp_f2 * spCC) + sp80;
+                }
+                D_803F2C7C = temp_f2;
+            }
+        }
+        sp74 = cosf(D_803F2C74 * (3.14159 / 180));
+        sp6C = sinf(D_803F2C74 * (3.14159 / 180));
+        sp70 = sinf(D_803F2C78 * (3.14159 / 180)) * -sp74;
+        tmp = (cosf(D_803F2C78 * (3.14159 / 180)) * sp74);
+
+        D_803F2C50 = D_803F2C44 + tmp;
+        D_803F2C54 = D_803F2C48 + sp70;
+        D_803F2C58 = D_803F2C4C + sp6C;
+
+        D_803F2A9A = 256;
+        break;
+    case 2:
+        if (D_803F2C18[1] == 1) {
+            trigger_screen_transition(5);
+        } else if (((D_803F2C18[2] / 2) + 1) == D_803F2C18[1]) {
+            trigger_screen_transition(4);
+        }
+        if ((D_803F2C18[2] / 2) >= D_803F2C18[1]) {
+            D_803F2C44 = camera2->unk74 + camera1->unkA4;
+            D_803F2C48 = camera2->unk78 + camera1->unkA8;
+            D_803F2C4C = camera2->unk7C;
+
+            D_803F2C50 = camera2->unk8 + camera1->unkA4;
+            D_803F2C54 = camera2->unkC + camera1->unkA8;
+            D_803F2C58 = camera2->unk10;
+
+            D_80204200 = camera2->unk8C;
+            D_80204204 = camera2->unk90;
+            D_80204208 = camera2->unk94;
+        } else {
+            D_803F2C44 = camera1->unk74 + camera1->unkA4;
+            D_803F2C48 = camera1->unk78 + camera1->unkA8;
+            D_803F2C4C = camera1->unk7C;
+
+            D_803F2C50 = camera1->unk8 + camera1->unkA4;
+            D_803F2C54 = camera1->unkC + camera1->unkA8;
+            D_803F2C58 = camera1->unk10;
+
+            D_80204200 = camera1->unk8C;
+            D_80204204 = camera1->unk90;
+            D_80204208 = camera1->unk94;
+        }
+        break;
+    }
+
+    if (D_803F2ACA > 0) {
+        D_803F2ACA -= D_803F2ACA >> 3;
+        D_803F2ACA -= 1;
+
+        if ((camera1->cameraMode == 3) || (camera1->cameraMode == 17)) {
+            temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (6 * 65536.0f);
+            D_803F2C44 += temp_f0;
+            D_803F2C50 += temp_f0;
+
+            temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (6 * 65536.0f);
+            D_803F2C48 += temp_f0;
+            D_803F2C54 += temp_f0;
+
+            temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (3 * 65536.0f);
+            D_803F2C4C += temp_f0;
+            D_803F2C58 += temp_f0;
+        } else {
+            temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (2 * 65536.0f);
+            D_803F2C44 += temp_f0;
+            D_803F2C50 += temp_f0;
+
+            temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (2 * 65536.0f);
+            D_803F2C48 += temp_f0;
+            D_803F2C54 += temp_f0;
+
+            temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (1 * 65536.0f);
+            D_803F2C4C += temp_f0;
+            D_803F2C58 += temp_f0;
+        }
+    }
+    if ((D_803F2C44 == D_803F2C50) && (D_803F2C48 == D_803F2C54) && (D_803F2C4C == D_803F2C58)) {
+        D_803F2C50 += 10.0;
+    }
+    if ((D_80204200 == 0.0) && (D_80204204 == 0.0) && (D_80204208 == 0.0)) {
+        D_80204204 = 10.0f;
+    }
+    if ((D_803F2C44 == D_803F2C50) && (D_803F2C48 == D_803F2C54)) {
+        D_80204200 += 0.0012321;
+    }
+    temp_f0 = sqrtf((D_80204200 * D_80204200) + (D_80204204 * D_80204204) + (D_80204208 * D_80204208));
+    D_80204200 /= temp_f0;
+    D_80204204 /= temp_f0;
+    D_80204208 /= temp_f0;
+
+    D_80204218 = D_803F2C50 - D_803F2C44;
+    D_8020421C = D_803F2C54 - D_803F2C48;
+    D_80204220 = D_803F2C58 - D_803F2C4C;
+
+    temp_f0 = sqrtf((D_80204218 * D_80204218) + (D_8020421C * D_8020421C) + (D_80204220 * D_80204220));
+    D_80204218 /= temp_f0;
+    D_8020421C /= temp_f0;
+    D_80204220 /= temp_f0;
+
+    D_80204224 = (s16) (s32) (D_80204218 * 1024.0);
+    D_80204226 = (s16) (s32) (D_8020421C * 1024.0);
+    D_80204228 = (s16) (s32) (D_80204220 * 1024.0);
+
+    // Compute the negative cross product of these two vectors:
+    // x0 = D_80204200
+    // y0 = D_80204204
+    // z0 = D_80204208
+
+    // x1 = D_80204218
+    // y1 = D_8020421C
+    // z1 = D_80204220
+
+    // Cross product:
+    // y0 * z1 - z0 * y1
+    // z0 * x1 - x0 * z1
+    // x0 * y1 - y0 * x1
+
+    // Negative cross product:
+    // z0 * y1 - y0 * z1
+    // x0 * z1 - z0 * x1
+    // y0 * x1 - x0 * y1
+
+    D_8020422C = (D_80204208 * D_8020421C) - (D_80204204 * D_80204220);
+    D_80204230 = (D_80204200 * D_80204220) - (D_80204208 * D_80204218);
+    D_80204234 = (D_80204204 * D_80204218) - (D_80204200 * D_8020421C);
+
+    temp_f0 = sqrtf((D_8020422C * D_8020422C) + (D_80204230 * D_80204230) + (D_80204234 * D_80204234));
+    if (temp_f0 == 0.0f) {
+        D_8020422C = 0.6f;
+        D_80204230 = 0.6f;
+        D_80204234 = 0.6f;
+    } else {
+        D_8020422C /= temp_f0;
+        D_80204230 /= temp_f0;
+        D_80204234 /= temp_f0;
+    }
+
+    if (D_803A6CE4_7B8394 & 4) {
+        D_80204200 = D_80152620[(s16)D_803F2C3C] * (0.0015625 * cosf(D_803D5544 / 310.0));
+        D_80204204 = D_801526D4[(s16)D_803F2C3C] * (0.0015625 * cosf(D_803D5544 / 310.0));
+        guLookAt(
+            &D_80204278->unk37490,
+            D_803F2C44,
+            D_803F2C48,
+            D_803F2C4C,
+            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            D_80204200,
+            D_80204204,
+            D_80204208);
+    } else if (D_803A6CE4_7B8394 & 1) {
+        guLookAt(
+            &D_80204278->unk37490,
+            D_803F2C44,
+            D_803F2C48,
+            D_803F2C4C,
+            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            D_80204200,
+            D_80204204,
+            -D_80204208);
+    } else if (D_803A6CE4_7B8394 & 2) {
+        guLookAt(
+            &D_80204278->unk37490,
+            D_803F2C44,
+            D_803F2C48,
+            D_803F2C4C,
+            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            D_80204200,
+            D_80204208,
+            D_80204204);
+    } else {
+        guLookAt(
+            &D_80204278->unk37490,
+            D_803F2C44,
+            D_803F2C48,
+            D_803F2C4C,
+            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            D_80204200,
+            D_80204204,
+            D_80204208);
+    }
+    D_803F2C5C = D_803F2C50 - D_803F2C44;
+    D_803F2C60 = D_803F2C54 - D_803F2C48;
+
+    temp_f0 = sqrtf((D_803F2C5C * D_803F2C5C) + (D_803F2C60 * D_803F2C60));
+    if (temp_f0 == 0.0) {
+        D_803F2C5C = 0.7f;
+        D_803F2C60 = 0.7f;
+    } else {
+        D_803F2C5C /= temp_f0;
+        D_803F2C60 /= temp_f0;
+    }
+    D_803F2C64 = -D_803F2C60;
+    D_803F2C68 = D_803F2C5C;
+    D_8020420C = (D_80204234 * D_8020421C) - (D_80204230 * D_80204220);
+    D_80204210 = (D_8020422C * D_80204220) - (D_80204234 * D_80204218);
+    D_80204214 = (D_80204230 * D_80204218) - (D_8020422C * D_8020421C);
+    func_803415BC_752C6C();
+    func_8032D680_73ED30();
+
+    D_803F2C40 = func_801286B8(D_80204220, sqrtf((D_80204218 * D_80204218) + (D_8020421C * D_8020421C)));
+    if (360.0 < D_803F2C40) {
+        D_803F2C40 -= 180.0;
+    }
+
+    if ((D_8020421C == 0.0) && (D_80204218 == 0.0)) {
+        D_803F2C3C = 0.0f;
+    } else {
+        D_803F2C3C = func_801286B8(-D_8020421C, D_80204218);
+    }
+    temp_f0 = D_803F2C44 - D_803F2C50;
+    temp_f2 = D_803F2C48 - D_803F2C54;
+    temp_f14 = D_803F2C4C - D_803F2C58;
+    D_803A6CC0_7B8370 = (s32)((256.0 * (f64) (D_803F2C4C - D_803F2C58)) / (f64) sqrtf((temp_f0 * temp_f0) + (temp_f2 * temp_f2) + (temp_f14 * temp_f14)));
+    D_803F2A9C = sqrtf((65536.0 - ((f32)D_803A6CC0_7B8370 * D_803A6CC0_7B8370)));
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033F380_750A30.s")
+#endif
 
 void func_80340E08_7524B8(s16 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s8 arg5, s8 arg6, u8 arg7, s16 arg8) {
     memset_bytes((u8*)&D_803F2BF8, 0, 32);
@@ -1727,9 +2110,9 @@ void func_80342550_753C00(struct025 *arg0) {
         }
         break;
     case 2:
-        arg0->unk98 = (f64) (f32) arg0->unkCC->unk4.w / 65536;
-        arg0->unk9C = (f64) (f32) arg0->unkCC->unk8.w / 65536;
-        arg0->unkA0 = (f64) (f32) arg0->unkCC->unkC.w / 65536;
+        arg0->unk98 = (f64) (f32) arg0->unkCC->xPos.w / 65536;
+        arg0->unk9C = (f64) (f32) arg0->unkCC->zPos.w / 65536;
+        arg0->unkA0 = (f64) (f32) arg0->unkCC->yPos.w / 65536;
         arg0->unkA0 += arg0->unk62;
         arg0->unkC8 = (u8) arg0->unkCC->unk160;
 
@@ -1753,9 +2136,9 @@ void func_80342550_753C00(struct025 *arg0) {
         }
         break;
     case 3:
-        arg0->unk98 = ((f64) (f32) arg0->unkCC->unk4.w / 65536.0);
-        arg0->unk9C = ((f64) (f32) arg0->unkCC->unk8.w / 65536.0);
-        arg0->unkA0 = ((f64) (f32) arg0->unkCC->unkC.w / 65536.0);
+        arg0->unk98 = ((f64) (f32) arg0->unkCC->xPos.w / 65536.0);
+        arg0->unk9C = ((f64) (f32) arg0->unkCC->zPos.w / 65536.0);
+        arg0->unkA0 = ((f64) (f32) arg0->unkCC->yPos.w / 65536.0);
         arg0->unkA0 += arg0->unk62;
         arg0->unkC8 = arg0->unkCC->unk160;
 

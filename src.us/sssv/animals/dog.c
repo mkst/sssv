@@ -97,7 +97,7 @@ void func_802EEC44_7002F4(void) {
     }
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * phi_t1) / 32) >> 8),
         D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * phi_t1) / 32) >> 8),
         D_803D5530->yPos + ((D_803D5530->unk42 * 3) >> 2),
@@ -131,7 +131,7 @@ void racing_dog_fire_missile(Animal *animal) {
     }
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * phi_t1) / 32) >> 8),
         D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * phi_t1) / 32) >> 8),
         D_803D5530->yPos + ((D_803D5530->unk42 * 3) >> 2),

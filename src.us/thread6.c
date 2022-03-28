@@ -100,7 +100,7 @@ void func_80129DC0(void) {
             phi_s1 = 1;
             switch (D_80204284) {
             case 3:
-                func_8012AC40();
+                set_tv_mode_normal();
                 D_80204284 = 5;
                 break;
             case 4:
@@ -272,7 +272,7 @@ void func_8012A588(void) {
             memcpy_sssv(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
         }
         if (D_80152E9C == 2) {
-            func_8012AC40();
+            set_tv_mode_normal();
             func_801337DC(0, 10.0f, 20.0f, 0.0f);
             func_8013385C(   10.0f, 20.0f, 0.0f);
         }
