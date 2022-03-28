@@ -25,8 +25,185 @@ void func_8037D320_78E9D0(s32 arg0, s32 arg1) {
 void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 }
 
-// jump table
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037D340_78E9F0.s")
+// void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
+//     s16 sp9C;
+//     s16 sp9A;
+//     s16 sp98;
+//     s16 sp90;
+//     s16 sp8E;
+//     s16 sp8C;
+//     s32 sp60;
+//     s32 sp5C;
+//     s32 sp54;
+//     s32 sp50;
+//     s32 sp4C;
+//     s16 temp_a0;
+//     s16 temp_a0_2;
+//     s16 temp_a1;
+//     s16 temp_a2;
+//     s16 temp_t7_2;
+//     s16 temp_t9;
+//     s16 temp_v0;
+//     s16 temp_v0_3;
+//     s16 temp_v1_2;
+//     s32 temp_t3;
+//     s32 temp_t4;
+//     s16 temp_t5;
+//     s32 temp_t5_2;
+//     s16 temp_t7;
+//     s32 temp_t8;
+//     s32 temp_t9_3;
+//     s32 temp_v0_4;
+//     s32 temp_v0_6;
+//     s32 temp_v1_4;
+//     s32 temp_v1_5;
+//     s32 temp_v1_6;
+//     s32 temp_v1_7;
+//     s32 temp_v1_8;
+//     u16 temp_v0_5;
+//     // u8 temp_t9_2;
+//     u8 temp_v1;
+//
+//     Animal *temp_v0_2;
+//
+//     s32 phi_a2;
+//     s32 phi_a3;
+//     s32 phi_t0;
+//     s16 phi_t2;
+//     struct065 *phi_s1;
+//     s32 phi_v0;
+//     s32 phi_a0;
+//     s32 phi_v1;
+//     s32 phi_v1_2;
+//     s32 phi_a1;
+//
+//     if (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk162 == 1) {
+//         if (arg0 > 20) {
+//             do_rumble(0, 25, 55, 5, distance_from_player(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos)); //, temp_a3));
+//         } else {
+//             do_rumble(0, 13, 25, 5, distance_from_player(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos)); //, temp_a3_2));
+//         }
+//     }
+//     sp8E = D_803D5530->xPos;
+//     sp8C = D_803D5530->zPos;
+//     func_80374C38_7862E8(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos); //, temp_a3_3);
+//     temp_t5 = sp8E >> 0xA;
+//     temp_t7 = sp8C >> 0xA;
+//     sp9C = temp_t7;
+//
+//     phi_a2 = -1;
+//     phi_a3 = 1;
+//     phi_t0 = -1;
+//     phi_t2 = 1;
+//
+//     if ((temp_t5 + 1) >= 5) {
+//         phi_a3 = 0;
+//     }
+//     if (temp_t5 <= 0) {
+//         phi_a2 = 0;
+//     }
+//     if ((temp_t7 + 1) >= 8) {
+//         phi_t2 = 0;
+//     }
+//     if (temp_t7 <= 0) {
+//         phi_t0 = 0;
+//     }
+//
+//     // temp_v0 = temp_t5 + phi_a2;
+//     sp9A = temp_t5 + phi_a2;
+//     sp60 = temp_t5 + phi_a3;
+//     sp54 = temp_t7 + phi_t0;
+//     // sp50 = temp_t7 + phi_t2;
+//     sp90 = phi_t2;
+//     while (sp9A <= sp60) {
+//         sp98 = sp54;
+//         while (sp98 <= (sp9C + sp90)) {
+//             for (phi_s1 = &D_803DA110[(s16) (sp9A + (sp98 * 5))]; phi_s1 != NULL; phi_s1 = phi_s1->unk0) {
+//                 temp_v0_2 = phi_s1->unk8;
+//                 if (phi_s1 == temp_v0_2->unk11C) {
+//                     if ((D_803D5530 != temp_v0_2) &&
+//                         ((temp_v0_2->unk162 == 6) || (temp_v0_2->unk162 == 1))) {
+//                         temp_v0_3 = sp8E - temp_v0_2->xPos;
+//                         temp_v1_2 = temp_v0_2->zPos;
+//                         temp_v1_2 = sp8C - temp_v1_2;
+//                         temp_a2 = D_803D5530->zPos;
+//                         phi_a0 = ABS(temp_v0_3);
+//                         phi_v0 = ABS(temp_v1_2);
+//
+//                         phi_v1_2 = MAX(phi_v0, phi_a0);
+//                         phi_a1 = MIN(phi_v0, phi_a0);
+//
+//                         phi_v1 = ABS(temp_a2 - temp_v0_2->yPos);
+//                         if (phi_v1 < 128) {
+//                             temp_a0_2 = (phi_v1_2 >> 1) + phi_a1;
+//                             if (temp_a0_2 < arg1) {
+//                                 if (temp_v0_2->unk16C->unk80.bit) {
+//                                     if ((temp_v0_2->unk16C->unk9C != EVO_GLITCHY) &&
+//                                         (temp_v0_2->unk16C->unk9C != D_803D5524->unk9C) &&
+//                                         (temp_v0_2->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
+//                                         (temp_v0_2->unk16C->unk9C != TORTOISE_TANK_DEFENDING)) {
+//
+//                                         temp_v0_2->yVelocity.w += FTOFIX32(10.0);
+//                                         switch (temp_v0_2->unk16C->unkE6) {
+//                                         case 0:
+//                                             temp_t3 = (arg0 * 8) >> 3;
+//                                             temp_v0_2->health = MAX(temp_v0_2->health - temp_t3, 0);
+//                                             func_80349280_75A930(temp_v0_2, temp_t3);
+//                                             break;
+//                                         case 1:
+//                                             temp_t3 = (arg0 * 6) >> 3;
+//                                             temp_v0_2->health = MAX(temp_v0_2->health - temp_t3, 0);
+//                                             func_80349280_75A930(temp_v0_2, temp_t3);
+//                                             break;
+//                                         case 2:
+//                                             temp_t3 = (arg0 * 4) >> 3;
+//                                             temp_v0_2->health = MAX(temp_v0_2->health - temp_t3, 0);
+//                                             func_80349280_75A930(temp_v0_2, temp_t3);
+//                                             break;
+//                                         case 3:
+//                                             temp_t3 = (arg0 * 3) >> 3;
+//                                             temp_v0_2->health = MAX(temp_v0_2->health - temp_t3, 0);
+//                                             func_80349280_75A930(temp_v0_2, temp_t3);
+//                                             break;
+//                                         case 4:
+//                                             temp_t3 = (arg0 * 2) >> 3;
+//                                             temp_v0_2->health = MAX(temp_v0_2->health - temp_t3, 0);
+//                                             func_80349280_75A930(temp_v0_2, temp_t3);
+//                                             break;
+//                                         }
+//                                         if (D_803D5538 != 0) {
+//                                             temp_v0_2->unk2EB++;
+//                                         }
+//                                     }
+//                                 } else {
+//                                     if ((temp_v0_2->unk4A == 0) && (temp_v0_2->unk4C.pad0 & 4)) {
+//                                         temp_v0_2->yVelocity.w += FTOFIX32(10.0); // (s32) (temp_v0_2->yVelocity.w + 0xA0000);
+//                                         // temp_v0_2->unk4F = (u8) (temp_v0_2->unk4F | 0x40);
+//                                         temp_v0_2->unk4C.unk24 = 1;
+//                                     }
+//                                     if ((temp_v0_2->unk4A == 0) && (temp_v0_2->unk4C.unk25)) { // (temp_v0_2->unk4C << 0x1A) >= 0)
+//                                         temp_v0_2->health = MIN(temp_v0_2->health - 1, 0);
+//                                     }
+//                                 }
+//                                 temp_v0_2->unk57 = 21;
+//                             } else if ((temp_a0_2 < (arg1 * 2)) &&
+//                                        (temp_v0_2->unk4A == 0) &&
+//                                        (temp_v0_2->unk4C.pad0 & 4)) {
+//                                 temp_v0_2->yVelocity.w += FTOFIX32(6.0);
+//                                 // temp_v0_2->unk4F = (u8) (temp_v0_2->unk4F | 0x40);
+//                                 temp_v0_2->unk4C.unk24 = 1;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//             sp98++;
+//         }
+//         sp9A++;
+//     }
+//     func_8034220C_7538BC(0xF, sp8E, sp8C, D_803D5530->yPos);
+// }
 
 // velocity related?
 void func_8037D994_78F044(s8 arg0) {

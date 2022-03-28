@@ -5,7 +5,6 @@
 // #define PRIMITIVE 1
 
 u8 overlay1_bss_padding[0xad730]; // 0x10 in overlay1_6384F0
-
 #if 0
 // JUSTREG but uses rodata
 u8 language_select_menu(s16 arg0) {
@@ -16,6 +15,7 @@ u8 language_select_menu(s16 arg0) {
     s16 *dst;
     s16 *src;
     uSprite *flagTexture;
+    s32 maxAlpha = 248;
 
     // init?
     if (arg0 == 0) {
@@ -24,15 +24,16 @@ u8 language_select_menu(s16 arg0) {
         for (lang = 0; lang < 9; lang++) { // '!= 0' helps with regalloc
             // load lang33.dat
             load_level_text_data(lang, 32, D_80231AA0, D_80231D5C);
-            if ((lang != LANG_JAPANESE) && (lang != LANG_AMERICAN)) {
-                src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
-                dst = D_803B0400[used];
-                COPY_MESSAGE(src, dst);
-                // regalloc helper?
-                if (gControllerInput->button && gControllerInput->button) {};
 
-                used++;
-            }
+            if ((lang == LANG_JAPANESE) || (lang == LANG_AMERICAN))
+                continue;
+
+            src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
+            dst = D_803B0400[used];
+            COPY_MESSAGE(src, dst);
+            // regalloc helper?
+            // if (gControllerInput->button && gControllerInput->button) {};
+            used++;
         }
 
         D_803B0590 = 1;
@@ -42,36 +43,36 @@ u8 language_select_menu(s16 arg0) {
         return 0;
     }
 
-    if (D_803B0594) {
+    if ((D_803B0594) != 0) {
         D_803B0594 -= 8; // fade alpha if not selected?
     }
 
-    if (D_803B0592 != 248) {
+    if (D_803B0592 != maxAlpha) {
         D_803B0592 += 8; // increase alpha if selected?
     }
 
     // current selection
     switch (D_803B0590) {
     case 0:
-        flagTexture = D_80301520_6A4BC0; // Dutch
+        flagTexture = (uSprite *)D_80301520_6A4BC0; // Dutch
         break;
     case 1:
-        flagTexture = D_802FD920_6A0FC0; // English
+        flagTexture = (uSprite *)D_802FD920_6A0FC0; // English
         break;
     case 2:
-        flagTexture = D_802FE520_6A1BC0; // French
+        flagTexture = (uSprite *)D_802FE520_6A1BC0; // French
         break;
     case 3:
-        flagTexture = D_802FF120_6A27C0; // German
+        flagTexture = (uSprite *)D_802FF120_6A27C0; // German
         break;
     case 4:
-        flagTexture = D_802FFD20_6A33C0; // Italian
+        flagTexture = (uSprite *)D_802FFD20_6A33C0; // Italian
         break;
     case 5:
-        flagTexture = D_80300920_6A3FC0; // Portugese
+        flagTexture = (uSprite *)D_80300920_6A3FC0; // Portugese
         break;
     case 6:
-        flagTexture = D_80302120_6A57C0; // Spanish
+        flagTexture = (uSprite *)D_80302120_6A57C0; // Spanish
         break;
     }
     func_801366BC(&D_801D9E7C, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
@@ -89,25 +90,25 @@ u8 language_select_menu(s16 arg0) {
     // previous selection?
     switch (D_803B0596) {
     case 0: // Dutch
-        flagTexture = D_80301520_6A4BC0;
+        flagTexture = (uSprite *)D_80301520_6A4BC0;
         break;
     case 1: // English
-        flagTexture = D_802FD920_6A0FC0;
+        flagTexture = (uSprite *)D_802FD920_6A0FC0;
         break;
     case 2: // French
-        flagTexture = D_802FE520_6A1BC0;
+        flagTexture = (uSprite *)D_802FE520_6A1BC0;
         break;
     case 3: // German
-        flagTexture = D_802FF120_6A27C0;
+        flagTexture = (uSprite *)D_802FF120_6A27C0;
         break;
     case 4: // Italian
-        flagTexture = D_802FFD20_6A33C0;
+        flagTexture = (uSprite *)D_802FFD20_6A33C0;
         break;
     case 5: // Portugese
-        flagTexture = D_80300920_6A3FC0;
+        flagTexture = (uSprite *)D_80300920_6A3FC0;
         break;
     case 6: // Spanish
-        flagTexture = D_80302120_6A57C0;
+        flagTexture = (uSprite *)D_80302120_6A57C0;
         break;
     }
 
@@ -131,7 +132,7 @@ u8 language_select_menu(s16 arg0) {
     select_font(0, FONT_COMIC_SANS, 1, 0);
 
     // more regalloc
-    if ((gControllerInput->button && gControllerInput->button) && gControllerInput->button) {};
+    // if ((gControllerInput->button && gControllerInput->button) && gControllerInput->button) {};
 
     for (lang = 0; lang < 7; lang++) {
         if (lang == D_803B0590) {
@@ -169,10 +170,11 @@ u8 language_select_menu(s16 arg0) {
             }
         }
     }
+    // change of selection
     if (D_803B0590 != selected) {
         D_803B0596 = selected;
         D_803B0592 = 0;
-        D_803B0594 = 248;
+        D_803B0594 = maxAlpha;
     }
 
     if ((gControllerInput->button & A_BUTTON) ||

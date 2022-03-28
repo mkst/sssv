@@ -25,7 +25,6 @@ void func_802C8440_6D9AF0(void) {
     D_803D5558 = 0;
 }
 
-
 void func_802C85EC_6D9C9C(void) {
     Animal *a;
 
@@ -151,7 +150,7 @@ void func_802C87E0_6D9E90(void) {
 //                     func_80328520_739BD0();
 //                 }
 //             }
-//             if (D_801D9ED8.animals[i].animal != 0) {
+//             if (D_801D9ED8.animals[i].animal != NULL) {
 //                 switch (D_801D9ED8.animals[i].unk0->unk9C) {
 //                 case LION:
 //                     func_802F1730_702DE0();
@@ -329,7 +328,6 @@ void func_802C87E0_6D9E90(void) {
 //     D_80286562 = D_80286560;
 // }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C8FC0_6DA670.s")
 void func_802C8FC0_6DA670(OSContPad *cont) {
 
     if (D_803D6110 != 0) {
@@ -487,7 +485,16 @@ struct071 *func_802C93E8_6DAA98(u16 arg0) {
     return &D_801E9EB8.unk4[MAX_OBJECTS - arg0];
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C941C_6DAACC.s")
+void func_802C941C_6DAACC(void) {
+    s16 i;
+
+    for (i = 0; i < 170; i++) {
+        D_801E9EB8.unk19E64[i] = &D_801E9EB8.unk4[i];
+    }
+    D_801E9EB8.unk1A110 = MAX_OBJECTS;
+    D_801E9EB8.unk1A112 = MAX_OBJECTS;
+    D_801E9EB8.unk1A114 = 0;
+}
 
 struct071 *func_802C9488_6DAB38(void) {
     struct071 *obj;
@@ -598,9 +605,9 @@ void func_802C9500_6DABB0(struct071 *obj) {
 //     if ((obj->unk16C->unk15 == 4) && ((((s32) arg7 >= 0xE1) && ((s32) arg7 < 0x13B)) || (((s32) arg7 >= 0x2D) && ((s32) arg7 < 0x87)))) {
 //         phi_a3_2 = (s16) ((arg3 + obj->unk32) - ((s32) obj->unk42 >> 1));
 //     }
-//     obj->unk4.h = arg1;
-//     obj->unkC.h = phi_a3_2;
-//     obj->unk8.w = arg2;
+//     obj->xPos.h = arg1;
+//     obj->yPos.h = phi_a3_2;
+//     obj->zPos.w = arg2;
 //     obj->unk10.w = (s32) (arg1 << 0x10);
 //     obj->unk18 = (s32) (phi_a3_2 << 0x10);
 //     obj->unk14.w = (s32) (arg2 << 0x10);

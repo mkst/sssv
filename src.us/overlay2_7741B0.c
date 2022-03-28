@@ -399,8 +399,36 @@ void func_803638E8_774F98(Animal *arg0) {
     func_80363CC8_775378(arg0);
 }
 
-// these two have weird offsets on unk294
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_8036390C_774FBC.s")
+// void func_8036390C_774FBC(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
+//     s16 temp_t4;
+//     s16 phi_t1;
+//     WaypointData *wp_data;
+//
+//     wp_data = D_803E8E60[arg1];
+//     if (arg3 < 0) {
+//         phi_t1 = wp_data->length - 2;
+//     } else {
+//         do { } while (0);
+//         phi_t1 = 1;
+//     }
+//     arg0->unk28C = 1;
+//     arg0->unk294.b[0] = arg1;
+//     temp_t4 = (arg3 << 4) | (arg0->unk294.b[2] & 0xFF0F); // unk296
+//     arg0->unk294.h[1] = temp_t4; // unk296
+//     arg0->unk298.h = arg2;
+//     arg0->unk294.b[2] = (arg4 & 0xF) | (temp_t4 & 0xF0); // unk296
+//     arg0->unk294.b[3] = arg5; // unk297
+//     arg0->unk29C = wp_data;
+//     arg0->unk294.b[1] = phi_t1; // unk295
+//     func_80363C48_7752F8(
+//         arg0,
+//         (wp_data->waypoint[0].x << 6) + 32,
+//         (wp_data->waypoint[0].z << 6) + 32,
+//         (wp_data->waypoint[0].y << 6) + 32,
+//         arg2,
+//         arg5);
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80363A0C_7750BC.s")
 // void func_80363A0C_7750BC(Animal *arg0, s16 pathId, s16 arg2, s16 arg3, s8 arg4, u8 arg5) {

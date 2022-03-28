@@ -42,7 +42,7 @@ void func_80294E50_6A6500(void) {
             D_803F6680.unk26 = 0;
             D_803F6680.unk2D = 0;
             D_803F6704 = D_8020540C;
-            func_8012AC40();
+            set_tv_mode_normal();
         }
     }
     if (D_80152E98 == 1) {
@@ -170,6 +170,7 @@ void func_80294E50_6A6500(void) {
         D_803C0430.unk20F += 1;
         D_803C0430.unk20F &= 7;
         if (D_803C0430.unk20F == 0) {
+            // process terrain map?
             func_8029726C_6A891C(&D_803C0740);
             func_80296C8C_6A833C(&D_803C0740);
         }
@@ -261,6 +262,7 @@ void func_80294E50_6A6500(void) {
         gDPSetCombineMode(D_801D9E7C++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
         gDPFillRectangle(D_801D9E7C++, 23, 186, 117, 221);
 
+        // re-orient camera?
         func_80299140_6AA7F0();
 
         gSPTexture(D_801D9E7C++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
@@ -270,7 +272,11 @@ void func_80294E50_6A6500(void) {
                 func_803497DC_75AE8C();
                 func_80349720_75ADD0();
             }
+#ifdef AVOID_UB
+            D_803C0420 = (D_803C0420 + 1) & 0x7F;
+#else
             D_803C0420 = ++D_803C0420 & 0x7F;
+#endif
         }
         if (D_803F6680.unk27 != 0) {
             load_data_section(D_803F2D70);
@@ -278,8 +284,8 @@ void func_80294E50_6A6500(void) {
             load_water_texture();
             D_803F6680.unk27 = 0;
             D_803F6680.unk2D = 0;
-            if (D_803F6704 != 0) {
-                func_8012ABF0();
+            if (D_803F6704 != 0) { // if widescreen?
+                set_tv_mode_widescreen();
             }
         }
         if (D_8028645A == 0) {
@@ -400,7 +406,7 @@ void func_802961D4_6A7884(void) {
     func_802B3FAC_6C565C();
     D_803F2D50.unkCE = get_evo_suit_color();
     D_803F2D50.unkDC = 1;
-    func_8012AC40();
+    set_tv_mode_normal();
     D_803E4D2C = 0;
 }
 

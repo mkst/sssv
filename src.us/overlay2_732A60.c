@@ -238,6 +238,7 @@ void recoil(s16 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80322A58_734108.s")
 
+// delay slot
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80322D68_734418.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80323040_7346F0.s")

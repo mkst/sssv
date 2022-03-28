@@ -57,7 +57,7 @@ void func_8036BCF8_77D3A8(void) {
     }
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
         D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
         D_803D5530->yPos + (D_803D5530->unk42 >> 1),
@@ -95,7 +95,7 @@ void ski_husky_fire_missile(Animal *arg0) {
     }
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
-    func_802FEE98_710548(
+    fire_homing_missile(
         D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
         D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
         D_803D5530->yPos + (D_803D5530->unk42 >> 1),

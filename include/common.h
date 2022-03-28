@@ -132,6 +132,8 @@
 #define NEWLINE         20000
 #define EOM             30000
 
+#define END_DEMO 0xFFFF
+
 
 #define PAUSE_MENU_OPTION_CONTINUE  0
 #define PAUSE_MENU_OPTION_MISSION_BRIEF 1

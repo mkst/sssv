@@ -96,7 +96,7 @@ void func_8012AB94(void) {
     osViSetYScale(gScreenHeight / 240.0f);
 }
 
-void func_8012ABF0(void) {
+void set_tv_mode_widescreen(void) {
     OSViMode *mode;
     s32 vStart;
     s32 yScale;
@@ -112,7 +112,7 @@ void func_8012ABF0(void) {
     D_8020540C = 1;
 }
 
-void func_8012AC40(void) {
+void set_tv_mode_normal(void) {
     OSViMode *mode;
     s32 vStart;
     s32 yScale;
@@ -149,7 +149,7 @@ void func_8012AC8C(void) {
 
 void func_8012AD08(void) {
     osViBlack(0);
-    func_8012AC40();
+    set_tv_mode_normal();
 }
 
 // file split here?

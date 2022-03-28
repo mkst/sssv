@@ -51,6 +51,8 @@ extern u8   D_0102F010[];
 extern u8   D_01030810[];
 extern u8   D_01033190[];
 extern Gfx  D_01037700[];
+extern u8   D_01037750_71020[];
+extern Gfx  D_01037A20[];
 extern u8   D_0103B6F0[];
 extern u8   D_04000000[];
 extern u8   D_040000A0[];
@@ -81,6 +83,18 @@ extern u8   D_04003A50[];
 extern u8   D_04005B60_11C730[]; // spaceship interior
 extern u8   D_04006D00_11D8D0[]; // tv body
 extern u8   D_04006EC0[];
+// mouse
+extern Gfx  D_04005480_1051D0[];
+extern Gfx  D_040053D0_105120[];
+extern Gfx  D_04005A50_1057A0[];
+extern Gfx  D_04005CA0_1059F0[];
+extern Gfx  D_04006040_105D90[];
+extern Gfx  D_04006B00_106850[];
+extern Gfx  D_04006B60_1068B0[];
+
+extern u8   D_01000CA0[];
+extern u8   D_01002100[];
+
 extern Gfx  D_04007500_E4AC0[];
 extern Gfx  D_040077E0_E4DA0[];
 extern u8   D_04007BD0[];
@@ -211,6 +225,7 @@ extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 
 extern f32  D_80151C38[];
 extern s16  D_80152620[];
+extern s16  D_801526D4[];
 extern s16  D_80152C78[];
 extern s16  D_80152040[];
 extern s8   D_80152248[];
@@ -354,14 +369,27 @@ extern struct071 *D_80203D1C[]; // table of pointers to each interactive object
 extern s16  D_80203FC4;
 extern s16  D_80203FD0; // gScreenWidth
 extern s16  D_80203FD2; // gScreenHeight
+
+// FIXME:
+extern s16 D_80203FF0;
+extern s16 D_80203FF2;
+extern s16 D_80203FF4;
+
 extern struct061 D_80203FE0[34];
 extern struct061 D_802040F0[34];
+// is this a Mtx?
 extern f32  D_80204200;
 extern f32  D_80204204;
 extern f32  D_80204208;
+extern f32  D_8020420C;
+extern f32  D_80204210;
+extern f32  D_80204214;
 extern f32  D_80204218;
 extern f32  D_8020421C;
 extern f32  D_80204220;
+extern s16  D_80204224;
+extern s16  D_80204226;
+extern s16  D_80204228;
 extern f32  D_8020422C;
 extern f32  D_80204230;
 extern f32  D_80204234;
@@ -651,6 +679,8 @@ extern u16  D_803A20B0_7B3760[]; // colors
 extern struct099 D_803A20C0_7B3770[];
 extern struct076 D_803A2D90_7B4440[];
 extern u8   D_803A38D8[];
+extern s32  D_803A3B4C_7B51FC;
+extern s32  D_803A3BAC_7B525C;
 extern struct028 D_803A50C0_7B6770;
 extern u8   D_803A5520_7B6BD0[];
 extern u8   D_803A5524_7B6BD4[];
@@ -669,10 +699,8 @@ extern u8   D_803A52AC_7B695C;
 extern u8   D_803A52B0_7B6960;
 extern u8   D_803A52B4_7B6964;
 extern u8   D_803A52B8_7B6968;
-extern s32  D_803A52C0;
 extern s32  D_803A52C0_7B6970;
-extern s16  D_803A52C4;
-extern s16  D_803A52C4_7B6974;
+// extern s16  D_803A52C4_7B6974;
 extern u8   D_803A52D0_7B6980;
 extern s16  D_803A52D4_7B6984;
 extern struct100 D_803A52E8_7B6998[];
@@ -682,6 +710,13 @@ extern s16  D_803A53CC_7B6A7C;
 extern s16  D_803A53D4_7B6A84;
 extern s16  D_803A53E0_7B6A90;
 extern s16  D_803A53FC_7B6AAC;
+
+extern s16  D_803A5D98_7B7448[];
+extern s16  D_803A5DAC_7B745C[];
+extern s16  D_803A5DC0_7B7470[];
+extern s16  D_803A5DE4_7B7494[];
+extern s16  D_803A5E34_7B74E4[];
+
 extern struct082 D_803A63B0_7B7A60[]; // animals?
 extern s16  D_803A6470_7B7B20[];
 extern s16  D_803A6520_7B7BD0[];
@@ -689,6 +724,7 @@ extern s16  D_803A65D0_7B7C80[];
 extern s16  D_803A6680_7B7D30[];
 extern s16  D_803A6730[];
 extern s16  D_803A69F0[];
+extern s16  D_803A6CC0_7B8370; // camera distance from player?
 extern f32  D_803A6CC4;
 extern f32  D_803A6CC8;
 extern f32  D_803A6CD0;
@@ -741,12 +777,12 @@ extern u8   D_803B0595;
 extern s16  D_803B0596;
 
 extern s16 D_803B1BAC[];
-extern OSContPad D_803B1F20_7C35D0;
-extern OSContPad D_803B2580_7C3C30;
-extern OSContPad D_803B29D8_7C4088;
-extern OSContPad D_803B30D0_7C4780;
-extern OSContPad D_803B384C_7C4EFC;
-extern OSContPad D_803B3388_7C4A38;
+extern DemoInput D_803B1F20_7C35D0[];
+extern DemoInput D_803B2580_7C3C30[];
+extern DemoInput D_803B29D8_7C4088[];
+extern DemoInput D_803B30D0_7C4780[];
+extern DemoInput D_803B3388_7C4A38[];
+extern DemoInput D_803B384C_7C4EFC[];
 
 extern s16  D_803B4F30;
 extern s16  D_803B4F34;
@@ -815,6 +851,7 @@ extern f32  D_803B74C4_7C8B74;
 
 
 // rodata starts at 0x803BACD0 (maybe)
+extern f32  D_803BAD00_7CC3B0;
 
 extern u8   D_803BBF00[]; // "\nASSERT: TotalMass != 0, %s, %u\n" (in /src/collision.c)
 extern f64  D_803BBF48; // 0.7
@@ -846,8 +883,20 @@ extern const s16  D_803BD564_7CEC14[];
 extern const s16  D_803BD602_7CECB2[];
 
 extern s16  D_803BD602[];
+extern s16  D_803BD5B2_7CEC62[];
+extern s16  D_803BD5B6_7CEC66[];
+extern s16  D_803BD66A_7CED1A[];
+extern s16  D_803BD66E_7CED1E[];
 extern char D_803BD8B0_7CEF60[]; // "Fq %d Time %d S %d\n"
+extern f32  D_803BD9B4_7CF064;
+extern f64  D_803BD9B8_7CF068;
+extern f64  D_803BD9C0_7CF070;
+extern f64  D_803BD9C8_7CF078;
+extern f32  D_803BD9D0_7CF080;
+extern f32  D_803BD9D4_7CF084;
 extern char D_803BD9A0_7CF050[]; // "Helimouse is gone\n"
+extern f32  D_803BD9D0_7CF080;
+extern f32  D_803BD9D4_7CF084;
 extern f32  D_803BE13C_7CF7EC;
 extern f32  D_803BE140_7CF7F0;
 extern f32  D_803BE144_7CF7F4;
@@ -865,18 +914,14 @@ extern char D_803BE9F0[];
 extern char D_803BEA38[];
 extern char D_803BEA48[];
 extern char D_803BEA78[];
-extern f64  D_803BEAE8;
-extern f64  D_803BEAF0;
+extern f64  D_803BEAE8_7D0198;
+extern f64  D_803BEAF0_7D01A0;
 extern f64  D_803BEAF8_7D01A8;
 extern f32  D_803BEB00_7D01B0;
 extern f32  D_803BEB04_7D01B4;
 extern f32  D_803BEB08_7D01B8;
-extern f32  D_803BEB0C; // 1.7999999523162842
-extern f32  D_803BEB10; // 0x3FE66666
-extern f32  D_803BEB14;
-extern f32  D_803BEB18;
-extern f32  D_803BEB1C;
-extern f32  D_803BEB20;
+extern f32  D_803BEB0C_7D01BC; // 1.7999999523162842
+
 extern s16  D_803BEB70_7D0220[16];
 extern s16  D_803BEB90_7D0240[16];
 extern f32  D_803BEC10;
@@ -950,6 +995,8 @@ extern struct053 D_803C0430;
 extern u16  D_803C0634;
 extern u16  D_803C063A;
 extern u8   D_803C063C;
+extern u8   D_803C063D;
+extern u8   D_803C063F;
 extern u64  D_803C0640_7D1CF0;
 extern u64  D_803C0648_7D1CF8;
 extern u64  D_803C0650_7D1D00;
@@ -1071,7 +1118,7 @@ extern u8   D_803E1BBE; // water g
 extern u8   D_803E1BBF; // water b
 extern s16  D_803E1BC0;
 extern OSContPad D_803E1BC4;
-extern OSContPad *D_803E1BD4;
+extern DemoInput *D_803E1BD4;
 extern s32  D_803E1BE0;
 extern struct085  D_803E1BE8[10];
 extern Fog  D_803E1CE0;
@@ -1080,15 +1127,15 @@ extern Fog  D_803E1CF0;
 extern Fog  D_803E1CF8;
 extern u16  D_803E1D00;
 extern u16  D_803E1D02;
-extern s8   D_803E1D04;
-extern u16  D_803E1D06;
-extern u16  D_803E1D08;
-extern u16  D_803E1D0A;
-extern u16  D_803E1D0C;
+extern u8   D_803E1D04;
+extern s16  D_803E1D06;
+extern s16  D_803E1D08;
+extern s16  D_803E1D0A;
+extern s16  D_803E1D0C;
 extern struct063 D_803E1D10;
 extern struct063 D_803E1D18;
 extern struct063 D_803E1D20;
-extern s16  D_803E1D28;
+extern u16  D_803E1D28;
 extern u16  D_803E1D2A;
 extern u8   D_803E1D2C;
 extern u8   D_803E1D30[];
@@ -1166,6 +1213,8 @@ extern struct025 D_803F28E0[2]; // 2 values
 // end of camera structs (assuming there are 2)
 
 extern s16  D_803F2A98;
+extern s16  D_803F2A9A;
+extern s16  D_803F2A9C;
 extern s16  D_803F2A9E;
 extern u8   D_803F2AA0;
 extern u8   D_803F2AA2;
@@ -1200,6 +1249,7 @@ extern f32  D_803F2C30;
 extern f32  D_803F2C34;
 extern u8   D_803F2C38;
 extern f32  D_803F2C3C;
+
 extern f32  D_803F2C40;
 extern f32  D_803F2C44;
 extern f32  D_803F2C48;
@@ -1216,6 +1266,9 @@ extern u8   D_803F2C6D;
 extern s16  D_803F2C6E;
 extern s16  D_803F2C70;
 // extern u16  D_803F2C72;
+extern f32  D_803F2C74;
+extern f32  D_803F2C78;
+extern f32  D_803F2C7C;
 extern struct102 D_803F2C80[]; // [0x34] big?
 extern s16  D_803F2C86;
 extern s16  D_803F2C88;
@@ -1265,6 +1318,7 @@ extern struct000 D_803F2D50;
 extern u16  D_803F2D68;
 extern s16  D_803F2D70; // biome (0 Europe, 1 Ice, 2 Desert, 3 Jungle)
 extern s16  D_803F2D72;
+extern s16  D_803F2D9C; // tbd
 extern u8   D_803F2DA3;
 extern s32  D_803F2E0C;
 extern s32  D_803F2E10;
@@ -1289,12 +1343,12 @@ extern s16  D_803F2ED2;
 extern s32  D_803F2ED4;
 extern s16  D_803F2ED8;
 extern u8   D_803F2EDA;
-extern s8   D_803F2EDB;
+extern u8   D_803F2EDB;
 extern u8   D_803F2EDC;
 extern u8   D_803F2EDD;
 extern u8   D_803F2EDE;
 extern s16  D_803F2F00;
-extern struct060 D_803F2F08[];
+extern struct060 D_803F2F08[64]; // 0x400 big
 
 extern s16  D_803F3308;
 extern s16  D_803F330A;

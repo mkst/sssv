@@ -47,27 +47,27 @@ void reset_screen_transition(void) {
     D_803E1B10.overlayTV = 0;
 }
 
-void trigger_screen_transition(s16 arg0) {
-    if ((arg0 == 23) || (arg0 == 24)) {
-        if (arg0 == 23) {
+void trigger_screen_transition(s16 id) {
+    if ((id == 23) || (id == 24)) {
+        if (id == 23) {
             D_803E1B10.overlayTV = 1;
             hide_osd();
         }
-        if (arg0 == 24) {
+        if (id == 24) {
             D_803E1B10.overlayTV = 0;
             show_osd();
         }
-    } else if ((arg0 == 6) || (arg0 == 7) || (arg0 == 19) || (arg0 == 20)) {
-        if (arg0 == 6) {
-            func_8012ABF0(); // resize screen?
+    } else if ((id == 6) || (id == 7) || (id == 19) || (id == 20)) {
+        if (id == 6) {
+            set_tv_mode_widescreen(); // resize screen?
         }
-        if (arg0 == 7) {
-            func_8012AC40();
+        if (id == 7) {
+            set_tv_mode_normal();
         }
-        if (arg0 == 19) {
+        if (id == 19) {
             show_osd();
         }
-        if (arg0 == 20) {
+        if (id == 20) {
             hide_osd();
         }
     } else {
@@ -75,7 +75,7 @@ void trigger_screen_transition(s16 arg0) {
             D_803E1B10.unk0 = 2;
             D_803E1B10.unk2 = 1;
             D_803E1B10.unk6 = 0;
-            D_803E1B10.transitionId = arg0;
+            D_803E1B10.transitionId = id;
         }
     }
 }
@@ -143,24 +143,24 @@ void perform_screen_transition(void) {
             }
             // unreachable. covered in case 15/22
             if (D_803E1B10.transitionId == 15) {
-                D_803E1B1A = 0xFF; // white
-                D_803E1B1B = 0xFF;
-                D_803E1B1C = 0xFF;
+                D_803E1B1A = 255; // white
+                D_803E1B1B = 255;
+                D_803E1B1C = 255;
             }
             if (D_803E1B10.transitionId == 16) {
-                D_803E1B1A = 0xFF; // red
+                D_803E1B1A = 255; // red
                 D_803E1B1B = 0;
                 D_803E1B1C = 0;
             }
             if (D_803E1B10.transitionId == 17) {
                 D_803E1B1A = 0;
-                D_803E1B1B = 0xFF; // green
+                D_803E1B1B = 255; // green
                 D_803E1B1C = 0;
             }
             if (D_803E1B10.transitionId == 18) {
                 D_803E1B1A = 0;
                 D_803E1B1B = 0;
-                D_803E1B1C = 0xFF; // blue
+                D_803E1B1C = 255; // blue
             }
             if (D_803E1B10.unk2 < 11) {
                 phi_v1 = (D_803E1B10.unk2 - 1) * 10;
@@ -168,9 +168,9 @@ void perform_screen_transition(void) {
                     phi_v1 = 89;
                 }
                 alpha = D_80152620[(s16) (89 - phi_v1)];
-                alpha = 0xFF - alpha;
+                alpha = 255 - alpha;
             } else {
-                alpha = 0xFF; // alpha?
+                alpha = 255;
                 D_803E1B10.unk0 = 1;
             }
             draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, D_803E1B1A, D_803E1B1B, D_803E1B1C, alpha);
@@ -212,9 +212,11 @@ void perform_screen_transition(void) {
                 D_803E1B10.unk0 = 1;
             }
             if (D_803E1B10.transitionId == 22) {
+                // fill screen with black + alpha
                 draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, alpha);
             } else {
-                draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0xFF, 0xFF, 0xFF, alpha);
+                // fill screen with white + alpha
+                draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 255, 255, 255, alpha);
             }
             if (D_803E1B10.unk2 < 200) {
                 D_803E1B10.unk2 += 1;

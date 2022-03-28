@@ -13,9 +13,10 @@ void func_8039DD90_7AF440(u8 *arg0) {
     *arg0 = (*arg0 & 0xFFF0) | 2;
 }
 
+// creates a trail (wake?) behind animal?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7AF410/func_8039DDA4_7AF454.s")
 // miles away
-// struct045 *func_8039DDA4_7AF454(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, u8 argA, u8 argB, u8 argC, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
+// struct045 *func_8039DDA4_7AF454(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, u8 argA, u8 argB, u8 argC, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
 //     s32 temp_t9;
 //     s8 temp_t5;
 //     u8 temp_t8;
@@ -43,15 +44,15 @@ void func_8039DD90_7AF440(u8 *arg0) {
 //             temp_t9 = temp_t8 & 0xF0;
 //             temp_v1->unk0.ub[1] = temp_t8;
 //             temp_v1->unk8 = (((arg1 &0xff) * 0x10) | (temp_v1->unk8 & 0xFF0F));
-//             temp_v1->unk10 = arg9;
+//             temp_v1->unk10 = arg9; // blue
 //             temp_v1->unk11 = argA;
 //             temp_v1->unk0.ub[1] = temp_t9 | 1;
 //             temp_v1->unk242 = arg5;
 //             temp_v1->unk240 = arg4;
 //             temp_v1->unk244 = arg6;
 //             temp_v1->unk13 = argC;
-//             temp_v1->unkE = arg7;
-//             temp_v1->unkF = arg8;
+//             temp_v1->unkE = arg7; // red
+//             temp_v1->unkF = arg8; // green
 //             temp_v1->unk12 = argB;
 //             temp_v1->unk14 = argD;
 //             temp_v1->unk4 = arg12;

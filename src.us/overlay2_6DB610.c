@@ -53,7 +53,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     if (phi_t1 == 0) {
         sp38 = (phi_a2 + phi_a1 + phi_a0) << 8;
         temp_v1_4 = arg1->unk16C->unk8C;
-        if ((arg1->unk16C->unk0 == 273) && (arg1 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg1->unk16C->unk0 == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) && (arg1 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             temp_v1_4 /= 5;
         }
         sp38 = ((sp38 * temp_v1_4) >> 4) / 1024;
@@ -88,7 +88,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     if (phi_t1 == 0) {
         sp38 = (phi_a2 + phi_a1 + phi_a0) << 8;
         temp_v1_4 = arg0->unk16C->unk8C;
-        if ((arg0->unk16C->unk0 == 273) && (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg0->unk16C->unk0 == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) && (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             temp_v1_4 = temp_v1_4 / 5;
         }
         sp38 = ((sp38 * temp_v1_4) >> 4) / 1024;

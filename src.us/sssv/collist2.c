@@ -54,8 +54,8 @@ void func_802DA7F0_6EBEA0(void) {
 // no idea what is up with these random offsets
 // void func_802DAD18_6EC3C8(Animal *arg0) {
 //     Animal *temp_a1;
-//     struct044 *temp_a2;
-//     struct044 *temp_a2_2;
+//     struct065 *temp_a2;
+//     struct065 *temp_a2_2;
 //     s16 i;
 //
 //     for (i = 0; i < 4; i++) {
@@ -129,7 +129,7 @@ void func_802DAE5C_6EC50C(struct071 *obj) {
 
         if (*o == NULL) {
             rmonPrintf("collist2. Object has been deleted but was not in list. %d.\n", obj->unk26D);
-            rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", obj, obj->unk16C->unk0, obj->unk4.h, obj->unk8.h, obj->unkC.h);
+            rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", obj, obj->unk16C->unk0, obj->xPos.h, obj->zPos.h, obj->yPos.h);
             SSSV_ASSERT(FALSE, "../src/collist2.c", 436);
         } else {
             *o = obj->unk198;
@@ -160,10 +160,10 @@ void func_802DAFAC_6EC65C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
     s32 a3 = arg3;
 
     for (obj = D_803DA2F4; obj != NULL; obj = obj->unk198) {
-        if (((s16)((a0 + a2 + 1) << 6) >= obj->unk4.h) &&
-            ((s16)((a0         ) << 6) <= obj->unk4.h) &&
-            ((s16)((a1 + a3 + 1) << 6) >= obj->unk8.h) &&
-            ((s16)((a1         ) << 6) <= obj->unk8.h)) {
+        if (((s16)((a0 + a2 + 1) << 6) >= obj->xPos.h) &&
+            ((s16)((a0         ) << 6) <= obj->xPos.h) &&
+            ((s16)((a1 + a3 + 1) << 6) >= obj->zPos.h) &&
+            ((s16)((a1         ) << 6) <= obj->zPos.h)) {
               obj->unk4C.unk26 = 1;
         }
     }
