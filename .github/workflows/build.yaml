@@ -10,6 +10,12 @@ jobs:
   build:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'push' }}
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        include:
+        - version: eu
+        - version: us
+      fail-fast: False
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v2
@@ -22,21 +28,29 @@ jobs:
         token: ${{ secrets.PRIVATE_REPO_ACCESS }}
         path: baserom
     - name: Decrypt baserom
-      run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.us.z64.aes -out baserom.us.z64
+      env:
+        ROM: ${{ matrix.version }}
+      run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${ROM}.z64.aes -out baserom.${ROM}.z64
 
     - name: Perform make extract
       uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
       with:
-        args: make extract
+        args: make extract VERSION=${ROM}
     - name: Perform make
       uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
       with:
-        args: make --jobs
+        args: make --jobs VERSION=${ROM}
 
     - name: Create progress.csv
       uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
       with:
-        args: make progress
+        args: make progress VERSION=${ROM}
 
     - name: Create progress_filename variable
       id: vars
@@ -48,7 +62,7 @@ jobs:
       run: mv progress.csv "${{ steps.vars.outputs.progress_filename }}"
 
     - name: Push progress.csv to sssv-website repo
-      if: ${{ github.event_name == 'push' }}
+      if: ${{ github.event_name == 'push' && matrix.version == 'us' }}
       uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
       env:
         API_TOKEN_GITHUB: ${{ secrets.WEBSITE_REPO_ACCESS }}

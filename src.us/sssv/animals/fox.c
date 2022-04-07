@@ -16,15 +16,15 @@ void func_802E84E0_6F9B90(void) {
 void func_802E8500_6F9BB0(void) {
     Animal *animal = func_8037E9AC_79005C();
     if (animal != NULL) {
-        play_sound_effect_at_location(2, 0x3700, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
     // scale missile to zero
     func_8037FBBC_79126C();
     // fire missile
     fire_homing_missile(
-        D_803D5530->xPos,
-        D_803D5530->zPos,
-        D_803D5530->yPos - D_803D5530->unk42,
+        D_803D5530->xPos.h,
+        D_803D5530->zPos.h,
+        D_803D5530->yPos.h - D_803D5530->unk42,
         0x161,
         D_803D552C->unk302*360 >> 8,
         animal,
@@ -37,7 +37,7 @@ void func_802E8500_6F9BB0(void) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    play_sound_effect_at_location(2, 0x3700, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }
 
 void func_802E864C_6F9CFC(void) {
@@ -57,7 +57,7 @@ void func_802E86C8_6F9D78(void) {
     } else if (D_803D552C->unk365 != ATTACK_FOX_TAIL) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_FOX_TAIL;
-        play_sound_effect_at_location(0, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(0, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
 }
 
@@ -70,14 +70,14 @@ void func_802E8760_6F9E10(void) {
 }
 
 void fire_fox_fire_missile(Animal *animal) {
-    play_sound_effect_at_location(2, 0x3700, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     // scale missile to zero
     func_8037FBBC_79126C();
     // fire missile
     fire_homing_missile(
-        D_803D5530->xPos,
-        D_803D5530->zPos,
-        D_803D5530->yPos - D_803D5530->unk42,
+        D_803D5530->xPos.h,
+        D_803D5530->zPos.h,
+        D_803D5530->yPos.h - D_803D5530->unk42,
         353,
         D_803D552C->unk302 * 360 >> 8,
         animal,
@@ -104,7 +104,7 @@ void func_802E88C0_6F9F70(s16 arg0) {
         D_803D552C->unk2EC = arg0;
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_FOX_TAIL;
-        play_sound_effect_at_location(0, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(0, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
 }
 

@@ -277,14 +277,14 @@ void func_803283DC_739A8C(void) {
     case FLYING_DOG:
         D_803D552C->unk302 = 0;
         D_803D5530->unk28 = 0;
-        D_803D5530->yPos += 35;
+        D_803D5530->yPos.h += 35;
         break;
     case FOX:
         break;
     case FIRE_FOX:
         D_803D552C->unk302 = 0;
         D_803D5530->unk28 = 0;
-        D_803D5530->yPos += 35;
+        D_803D5530->yPos.h += 35;
         break;
     default:
     case FROG:
@@ -313,7 +313,7 @@ void func_80328520_739BD0(void) {
         if (D_803D5530->health <= 0) {
             D_803D552C->unk366 = 2U;
             func_80328918_739FC8();
-            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             func_80321920_732FD0(D_803D552C->unk320, 0, 0);
         }
         break;
@@ -321,7 +321,7 @@ void func_80328520_739BD0(void) {
         if (D_803D5530->health <= 0) {
             D_803D552C->unk366 = 5U;
             func_80328918_739FC8();
-            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             switch (D_803D5524->unkE6) {
             case 0:
                 D_803F2D30.score += 50;
@@ -354,7 +354,7 @@ void func_80328520_739BD0(void) {
         } else if (D_803D5530->health <= 0) {
             D_803D552C->unk366 = 5U;
             func_80328918_739FC8();
-            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             if (D_803D5544 >= 2) {
                 switch (D_803D5524->unkE6) {
                 case 0:
@@ -487,14 +487,14 @@ s32 func_80329BAC_73B25C(s16 arg0, s16 arg1) {
         return 0;
     }
 
-    sp64 = D_801D9ED8.animals[arg0].animal->xPos;
-    sp66 = D_801D9ED8.animals[arg0].animal->zPos;
-    sp62 = D_801D9ED8.animals[arg0].animal->yPos + (D_801D9ED8.animals[arg0].animal->unk42 / 3);
+    sp64 = D_801D9ED8.animals[arg0].animal->xPos.h;
+    sp66 = D_801D9ED8.animals[arg0].animal->zPos.h;
+    sp62 = D_801D9ED8.animals[arg0].animal->yPos.h + (D_801D9ED8.animals[arg0].animal->unk42 / 3);
     sp53 = D_801D9ED8.animals[arg0].animal->unk160;
 
-    sp5A = D_801D9ED8.animals[arg1].animal->xPos;
-    sp5C = D_801D9ED8.animals[arg1].animal->zPos;
-    sp58 = D_801D9ED8.animals[arg1].animal->yPos + (D_801D9ED8.animals[arg1].animal->unk42 / 3);
+    sp5A = D_801D9ED8.animals[arg1].animal->xPos.h;
+    sp5C = D_801D9ED8.animals[arg1].animal->zPos.h;
+    sp58 = D_801D9ED8.animals[arg1].animal->yPos.h + (D_801D9ED8.animals[arg1].animal->unk42 / 3);
     sp52 = D_801D9ED8.animals[arg1].animal->unk160;
 
     sp60 = D_801D9ED8.animals[arg0].animal->unk42 / 4;
@@ -503,7 +503,7 @@ s32 func_80329BAC_73B25C(s16 arg0, s16 arg1) {
     sp56 = D_801D9ED8.animals[arg1].animal->unk42 / 4;
     sp54 = (D_801D9ED8.animals[arg1].animal->unk42 * 6) / 4;
 
-    if (((s16)D_803F2D50.biome == 0) &&
+    if (((s16)D_803F2D50.segment == 0) &&
         (D_803F2D50.unk52 == 7) &&
         func_803233A0_734A50(
             sp64,
@@ -569,8 +569,8 @@ void func_80329F44_73B5F4(void) {
         phi_a1 = ((sp1A * 40) << 16) / 20;
         phi_a0 = ((sp18 * 40) << 16) / 20;
     } else {
-        s16 xpos = D_801D9ED8.animals[0].animal->xPos & 0x3F;
-        s16 zpos = D_801D9ED8.animals[0].animal->zPos & 0x3F;
+        s16 xpos = D_801D9ED8.animals[0].animal->xPos.h & 0x3F;
+        s16 zpos = D_801D9ED8.animals[0].animal->zPos.h & 0x3F;
 
         phi_a1 = FTOFIX32(1.0);
         phi_a0 = FTOFIX32(1.0);
@@ -694,7 +694,7 @@ void func_80329F44_73B5F4(void) {
 //     }
 //     D_803D553C = (u16)0;
 //     D_803D553A = (u16)0;
-//     play_sound_effect_at_location(SFX_UNKNOWN_40, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos,  D_803D5530->yPos, 1.0f);
+//     play_sound_effect_at_location(SFX_UNKNOWN_40, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h,  D_803D5530->yPos.h, 1.0f);
 // }
 
 void func_8032AA94_73C144(void) {

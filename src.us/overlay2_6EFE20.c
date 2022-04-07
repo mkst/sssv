@@ -51,9 +51,9 @@ void func_802E497C_6F602C(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
 
     tmp = &D_803DA300[D_803E00C0[arg0].unk16];
 
-    *arg1 = (tmp->unk0 - *(s32*)&D_803D5530->xPos) >> 14;
-    *arg2 = (tmp->unk4 - *(s32*)&D_803D5530->zPos) >> 14;
-    *arg3 = (tmp->unk8 - *(s32*)&D_803D5530->yPos) >> 14;
+    *arg1 = (tmp->unk0 - D_803D5530->xPos.w) >> 14;
+    *arg2 = (tmp->unk4 - D_803D5530->zPos.w) >> 14;
+    *arg3 = (tmp->unk8 - D_803D5530->yPos.w) >> 14;
 
     if ((ABS(*arg3) < 100) &&
         (ABS(*arg1) < 100) &&
@@ -85,23 +85,23 @@ s32 func_802E4B0C_6F61BC(s16 animalId) {
     case MOUSE2:
     case HELI_MOUSE:
     case RAT:
-        return func_802DD090_6EE740(6, FTOFIX32(3.125), 1, 3, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(3.125), 1, 3, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case KING_RAT:
-        return func_802DD090_6EE740(6, FTOFIX32(6.25), 1, 32, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(6.25), 1, 32, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case HUSKY:
     case SKI_HUSKY:
-        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 11, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 11, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case CRAZY_HUSKY:
-        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 12, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 12, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case POGO_KANGAROO:
     case BOXING_KANGAROO:
-        return func_802DD090_6EE740(4, FTOFIX32(15.0), 1, 13, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.0), 1, 13, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case SCORPION:
-        return func_802DD090_6EE740(7, FTOFIX32(5.90625), 1, 14, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(7, FTOFIX32(5.90625), 1, 14, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case ELEPHANT:
-        return func_802DD090_6EE740(5, FTOFIX32(16.40625), 1, 16, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(5, FTOFIX32(16.40625), 1, 16, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case LION:
-        return func_802DD090_6EE740(4, FTOFIX32(15.625), 1, 35, 0, *(s32*)&D_803D5530->xPos, *(s32*)&D_803D5530->zPos, *(s32*)&D_803D5530->yPos, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.625), 1, 35, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     default:
         return 0;
     }

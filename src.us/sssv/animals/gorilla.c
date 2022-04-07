@@ -28,7 +28,7 @@ void func_8037B660_78CD10(void) {
     s8  sp2D;
 
     if ((D_803D5530->state != 0xDD) && (D_803D552C->unk320 == 0)) {
-        if (func_802E414C_6F57FC(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, &sp2E, &sp2D) != 0) {
+        if (func_802E414C_6F57FC(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, &sp2E, &sp2D) != 0) {
              func_802A623C_6B78EC(sp2E, sp2D);
         }
     } else if (D_803D5530->state == 0xDD) {

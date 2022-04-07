@@ -213,7 +213,91 @@ void func_801326A8(s8 arg0, s8 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_801326A8.s")
 #endif
 
+// wrong args to alSndpAllocate
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio/func_801328F8.s")
+// void func_801328F8(void) {
+//     s16 temp_v1;
+//     s32 used;
+//     s16 slot;
+//     f32 temp_f12;
+//     struct017 *snd;
+//     s16 vol;
+//     s16 i;
+//     s16 phi_s1_2;
+//     f64 phi_f0;
+//
+//     if (gAudioInitialized == 0) {
+//         return;
+//     }
+//
+//     D_80241D0E += 1;
+//     used = func_80132D84(D_80286310);
+//
+//     if (used < 8) {
+//         temp_v1 = 8 - used;
+//         for (i = 0; i < temp_v1; i++) {
+//             snd = func_80132474();
+//             if (snd != 0) {
+//                 // ALSndId alSndpAllocate(ALSndPlayer *sndp, ALSound *sound);
+//                 // ((D_80286300 + (snd->sndID * 4))->unkC + (snd->unk1C * 4))->unk10
+//                 snd->sndSlot = alSndpAllocate(D_80286310, ((struct011*)(D_80286300->unkC[snd->sndID] + snd->unk1C*4))->sound);
+//                 if (snd->sndSlot >= 0) {
+//                     D_802863B0[snd->sndSlot] = 1;
+//                     snd->unk20 = D_80241D0E;
+//                     alSndpSetSound(D_80286310, snd->sndSlot);
+//                     alSndpSetPitch(D_80286310, snd->sndPitch);
+//                     if (D_801546BC == 1) {
+//                         vol = (((snd->sndVolume * D_801546C8) + ((D_801546CC * (snd->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume);
+//                     } else {
+//                         vol = (snd->sndVolume * gSfxVolume);
+//                     }
+//                     alSndpSetVol(D_80286310, vol);
+//                     alSndpSetFXMix(D_80286310, D_80155178);
+//                     alSndpPlay(D_80286310);
+//                     snd->sndState = 9;
+//                 }
+//             }
+//         }
+//     }
+//     phi_s1_2 = 0;
+//     do {
+//         if (D_801546A8[phi_s1_2] != 0) {
+//             func_801338A8(phi_s1_2);
+//         }
+//         phi_s1_2++;
+//     } while (phi_s1_2 <= 0);
+//
+//     if (D_801546BC != 0) {
+//         func_801339F8();
+//     }
+//     if (D_801546DC != D_801546D8) {
+//         D_801546DC = D_801546D8;
+//         func_80133C50();
+//     } else {
+//         if (D_8015529C != D_8015517C) {
+//             // just an ABS?
+//             temp_f12 = D_8015517C - D_8015529C;
+//             phi_f0 = temp_f12;
+//             D_80286554 = temp_f12;
+//             if (phi_f0 < 0) {
+//                 D_80286554 = (phi_f0 * -1.0);
+//             }
+//             if (0.01 < phi_f0) { // D_8015AE08
+//                 func_80133C50();
+//                 D_8015529C = D_8015517C;
+//             }
+//         }
+//     }
+//     if (D_8028645C != D_80155188) {
+//         D_80155188 = D_8028645C;
+//         if (D_8028645C == 0) {
+//             // stop / reset
+//             func_8013364C();
+//         } else {
+//             func_801337BC(D_8028645C, 1);
+//         }
+//     }
+// }
 
 void func_80132C48(s8 idx) {
     ALSeqPlayer *seqp;

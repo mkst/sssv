@@ -24,12 +24,12 @@
 //
 //     if (D_803D553A == 4) {
 //         play_sound_effect_at_location(
-//             SFX_UNKNOWN_2, 0x3700, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos,
+//             SFX_UNKNOWN_2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h,
 //             1.0 - (MIN(256, D_803D552C->unk30E) * 0.0009765625));
 //     }
 //
 //     if (D_803D5538 != 0) {
-//         if ((D_803F2D70 != D_803D5524->biome) && (D_803D5524->biome == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5))) {
+//         if ((D_803F2D50.segment != D_803D5524->biome) && (D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5))) {
 //             phi_v0 = 1;
 //         } else {
 //             phi_v0 = 0;
@@ -39,27 +39,27 @@
 //             D_803F2EDD = (u8)0;
 //         }
 //     } else {
-//         if ((D_803F2D70 != D_803D5524->biome) && (D_803D5524->biome == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5))) {
+//         if ((D_803F2D50.segment != D_803D5524->biome) && (D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5))) {
 //             phi_v0 = 1;
 //         } else {
 //             phi_v0 = 0;
 //         }
-//         sp82 = func_802E89F0_6FA0A0(D_803D552C->xPos, D_803D552C->zPos, D_803D552C->yPos + (D_803D5524->unkBA << 0xF), 0x800, 0, 20, 20, 20, 1, phi_v0 == 0);
+//         sp82 = func_802E89F0_6FA0A0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA << 0xF), 0x800, 0, 20, 20, 20, 1, phi_v0 == 0);
 //     }
 //
 //     if (sp82 == 0) {
 //         func_8034B298_75C948(0);
 //         func_8035D120_76E7D0();
 //         if ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) {
-//             if ((func_8012826C() & 0xFF) == 0x9C) {
-//                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//             if (SSSV_RAND(256) == 156) {
+//                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //             }
 //         }
 //         if (D_803D5524->unk9C == VULTURE) {
 //             if ((D_803D552C->unk320 == 0) || ((D_803D552C->unk320 != 0) && (D_803D552C->unk320->unk26C != 0))) {
-//                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.1892f);
+//                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
 //                 D_803D552C->unk320 = 0;
-//                 D_803D552C->yPos += D_803D552C->unk308;
+//                 D_803D552C->yPos.h += D_803D552C->unk308;
 //                 D_803D552C->unk18.h += D_803D552C->unk308;
 //                 load_animal(VULTURE2);
 //             }
@@ -142,7 +142,7 @@
 //                                 mtx = &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs];
 //                                 func_80127640(
 //                                     mtx,
-//                                     D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, -(s32) D_803D552C->unk302,
+//                                     D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, -(s32) D_803D552C->unk302,
 //                                     D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
 //
 //                                 gSPMatrix(D_801D9E88++, mtx, G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -275,7 +275,7 @@
 //         D_803D552C->unk320->unk70 = D_803D5530;
 //     }
 //     func_8034BD20_75D3D0(
-//         D_803D552C->xPos, D_803D552C->zPos, (s16) (D_803D552C->yPos + (D_803D5524->unkBA >> 1)),
+//         D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + (D_803D5524->unkBA >> 1)),
 //         D_803D552C->unk302, D_01033190_6CA60, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
 //     if (sp82 == 0) {
 //         func_80303820_714ED0(D_803D552C, 0, 1, 750, 1);
@@ -302,20 +302,20 @@ void func_8036D30C_77E9BC(void) {
         if (D_803D552C->unk320 != NULL) {
             D_803D552C->unk308 = D_803D552C->unk320->unk42;
             load_animal(VULTURE);
-            D_803D552C->yPos -= D_803D552C->unk308;
+            D_803D552C->yPos.h -= D_803D552C->unk308;
             if (D_803D5530->unk160 == 2) {
-                D_803D552C->yPos = MAX(D_803D552C->yPos, func_80310F58_722608(D_803D552C->xPos, D_803D552C->zPos) >> 16);
+                D_803D552C->yPos.h = MAX(D_803D552C->yPos.h, func_80310F58_722608(D_803D552C->xPos.h, D_803D552C->zPos.h) >> 16);
             } else {
-                D_803D552C->yPos = MAX(D_803D552C->yPos, func_8031124C_7228FC(D_803D552C->xPos, D_803D552C->zPos) >> 16);
+                D_803D552C->yPos.h = MAX(D_803D552C->yPos.h, func_8031124C_7228FC(D_803D552C->xPos.h, D_803D552C->zPos.h) >> 16);
             }
         } else if (D_803D5530->unk162 == 2) {
             if (D_803D5528->skillBEnergy[0] > 400) {
                 D_803D5528->skillBEnergy[0] -= 400;
                 if (func_803224C4_733B74(-62, 0, 0, 15, 20, 0, 0, 19) != 0) {
-                    play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+                    play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     D_803D5530->yVelocity.h += 2;
                 } else {
-                    play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                 }
                 if (D_803D552C->unk365 == ATTACK_NONE) {
                     D_803D552C->unk365 = ATTACK_BITE;
@@ -324,9 +324,9 @@ void func_8036D30C_77E9BC(void) {
             }
         }
     } else {
-        play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, D_803BEF90);
+        play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEF90);
         func_80321920_732FD0(D_803D552C->unk320, 0, 0);
-        D_803D552C->yPos += D_803D552C->unk308;
+        D_803D552C->yPos.h += D_803D552C->unk308;
         D_803D552C->unk18.h += D_803D552C->unk308;
         load_animal(VULTURE2);
     }
@@ -336,10 +336,10 @@ void func_8036D5CC_77EC7C(void) {
     // check object is an animal?
     if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET))) {
         if (func_803224C4_733B74(-62, 0, 0, 46, 20, 0, 0, 19) != 0) {
-            play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             D_803D5530->yVelocity.h += 2;
         } else {
-            play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
         if (D_803D552C->unk365 == ATTACK_NONE) {
             D_803D552C->unk365 = ATTACK_BITE;

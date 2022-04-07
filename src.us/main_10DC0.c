@@ -37,8 +37,8 @@
 //         MAX(0, arg0 + arg2),
 //         MAX(0, arg1 + arg3),
 //         G_TX_RENDERTILE,
-//         MAX(MAX(0, ((arg0 + arg2) << 18) >> 16), (16384.0f / (sizeX / 2.0f))),
-//         MAX(MAX(0, ((arg1 + arg3) << 18) >> 16), (16384.0f / (sizeY / 2.0f))),
+//         MAX(MAX(0, (s16)(arg0 + arg2) >> 2), (16384.0f / (sizeX / 2.0f))),
+//         MAX(MAX(0, (s16)(arg1 + arg3) >> 2), (16384.0f / (sizeY / 2.0f))),
 //         16384.0f / (sizeX / 2.0f),
 //         16384.0f / (sizeY / 2.0f)
 //         );
@@ -52,7 +52,6 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/main_10DC0/func_80135CD8.s")
 
 void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z) {
-
     gDPPipeSync((*dl)++);
     gDPSetPrimDepth((*dl)++, z, 0);
 

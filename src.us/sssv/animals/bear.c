@@ -50,7 +50,7 @@ void func_80327908_738FB8(void) {
     s8 sp2D;
 
     if ((D_803D5530->state != 0xDD) && (D_803D552C->unk320 == 0)) {
-        if (func_802E414C_6F57FC(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, &sp2E, &sp2D)) {
+        if (func_802E414C_6F57FC(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, &sp2E, &sp2D)) {
             func_802A623C_6B78EC(sp2E, sp2D);
             D_803D552C->unk365 = ATTACK_NONE;
         }
@@ -63,31 +63,31 @@ void func_803279BC_73906C(void) {
     if (D_803D5530->state == 21) {
         func_8037D9D4_78F084();
         create_particle_effect(
-            D_803D5530->xPos,
-            D_803D5530->zPos,
-            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
-            (func_8012826C() & 1) + 25,
-            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
-            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
+            D_803D5530->xPos.h,
+            D_803D5530->zPos.h,
+            D_803D5530->yPos.h + (D_803D5530->unk42 >> 2),
+            SSSV_RAND(2) + 25,
+            (SSSV_RAND(FTOFIX32(0.5)) * 2) - FTOFIX32(0.6103515625),
+            (SSSV_RAND(FTOFIX32(0.5)) * 2) - FTOFIX32(0.6103515625),
             0,
-            (func_8012826C() & 0xF) + 0xF,
+            SSSV_RAND(16) + 0xF,
             GPACK_RGBA5551(0, 0, 0, 1),
             GPACK_RGBA5551(0, 0, 0, 1),
-            (func_8012826C() & 0x1F) + 0xF);
+            SSSV_RAND(32) + 0xF);
     } else {
         func_8037D994_78F044(16);
         create_particle_effect(
-            D_803D5530->xPos,
-            D_803D5530->zPos,
-            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
-            (func_8012826C() & 1) + 25,
-            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
-            ((func_8012826C() & 0x7FFF) * 2) - FTOFIX32(0.6103515625),
+            D_803D5530->xPos.h,
+            D_803D5530->zPos.h,
+            D_803D5530->yPos.h + (D_803D5530->unk42 >> 2),
+            SSSV_RAND(2) + 25,
+            (SSSV_RAND(FTOFIX32(0.5)) * 2) - FTOFIX32(0.6103515625),
+            (SSSV_RAND(FTOFIX32(0.5)) * 2) - FTOFIX32(0.6103515625),
             0,
-            (func_8012826C() & 0xF) + 0xF,
+            SSSV_RAND(16) + 0xF,
             GPACK_RGBA5551(0, 0, 0, 1),
             GPACK_RGBA5551(0, 0, 0, 1),
-            (func_8012826C() & 0x1F) + 0xF);
+            SSSV_RAND(32) + 0xF);
     }
 }
 

@@ -44,8 +44,25 @@ extern struct006 *D_80291074;
 extern OSContPad *gControllerInput;
 
 extern s32 D_80151448; // tbd
+extern Gfx D_80158388[];
+
+extern s16 D_80203FF0;
+extern s16 D_80203FF2;
+
+extern DisplayList *D_80204298;
 
 extern struct018 *D_802042AC;
 
+extern Gfx D_8029B1D0_640100[];
+
+extern Lights1 D_8029B250_640180;
+
+extern f32 D_8029B2B8_6401E8;
+extern f32 D_8029B2BC_6401EC;
+extern f32 D_8029B2C4_6401F4;
+extern f32 D_8029B2C8_6401F8;
+
+
+extern s16 D_803C0450;
 
 #endif

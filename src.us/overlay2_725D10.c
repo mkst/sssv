@@ -110,15 +110,15 @@ extern s32 D_803C4DAC[];
 //         func_8012822C(arg2); // update game time?
 //         break;
 //     case 0x7F85:
-//         arg0->xPos = arg2 << 16;
+//         arg0->xPos.h = arg2 << 16;
 //         func_803136B0_724D60(arg0);
 //         break;
 //     case 0x7F86:
-//         arg0->zPos = arg2 << 16;
+//         arg0->zPos.h = arg2 << 16;
 //         func_803136B0_724D60(arg0);
 //         break;
 //     case 0x7F87:
-//         arg0->yPos = arg2 << 16;
+//         arg0->yPos.h = arg2 << 16;
 //         func_803136B0_724D60(arg0);
 //         break;
 //     case 0x7F88:
@@ -206,7 +206,7 @@ extern s32 D_803C4DAC[];
 //         D_803E4D2C = arg2;
 //         break;
 //     case 0x7F9C:
-//         D_803F2E30 = (f32) arg2 / 100.0f;
+//         D_803F2D50.unkE0 = (f32) arg2 / 100.0f;
 //         break;
 //     case 0x7F9D:
 //         D_803E4D30 = arg2;
@@ -301,7 +301,7 @@ extern s32 D_803C4DAC_7D645C[];
 //         case 32639:
 //         case 32640:
 //         case 32641:
-//             res = *(s32*)&D_FFFE0400[(s32)(((s32*)&arg0->xPos) + arg1)];
+//             res = *(s32*)&D_FFFE0400[(s32)(((s32*)&arg0->xPos.h) + arg1)];
 //             break;
 //         case 32642:
 //             res = arg0->unk158;
@@ -313,13 +313,13 @@ extern s32 D_803C4DAC_7D645C[];
 //             res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
 //             break;
 //         case 32645:
-//             res = arg0->xPos;
+//             res = arg0->xPos.h;
 //             break;
 //         case 32646:
-//             res = arg0->zPos;
+//             res = arg0->zPos.h;
 //             break;
 //         case 32647:
-//             res = arg0->yPos;
+//             res = arg0->yPos.h;
 //             break;
 //         case 32648:
 //             res = arg0->unk40;
@@ -413,7 +413,7 @@ extern s32 D_803C4DAC_7D645C[];
 //             res = D_803E4D2C;
 //             break;
 //         case 32668:
-//             res = D_803F2E30 * 100.0f;
+//             res = D_803F2D50.unkE0 * 100.0f;
 //             break;
 //         case 32669:
 //             res = D_803E4D30;
@@ -570,9 +570,9 @@ s32 func_803159B0_727060(s16 arg0) {
 //         } else if (arg1->unk2.b[0] & 2) {
 //             changed = 1;
 //         } else if ((arg1->unk2.b[0] & 16) && (func_80319E1C_72B4CC(
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos >> 6,
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos >> 6,
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos >> 6,
+//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
+//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
+//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6,
 //                     arg1->unk2.b[1],
 //                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160))) {
 //             changed = 1;
@@ -586,10 +586,10 @@ s32 func_803159B0_727060(s16 arg0) {
 //         break;
 //     case 1:
 //         if ((arg0->unk162 != 4) && (arg0->unk162 != 5) && (arg0->unk162 != 6) && (arg0->unk162 != 7)) {
-//             phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6),
-//                          MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6));
+//             phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6),
+//                          MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6));
 //
-//             if (arg0->yPos < (phi_v1 * 4)) {
+//             if (arg0->yPos.h < (phi_v1 * 4)) {
 //                 changed = 1;
 //             }
 //         } else {
@@ -603,8 +603,8 @@ s32 func_803159B0_727060(s16 arg0) {
 //         }
 //         break;
 //     case 3:
-//         phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6),
-//                      MIN(D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6, D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6));
+//         phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6),
+//                      MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6));
 //         if (func_80314F0C_7265BC(arg0, arg1->unk2.h) < (phi_v1 * 4)) {
 //             changed = 1;
 //         }
@@ -678,9 +678,9 @@ s32 func_803159B0_727060(s16 arg0) {
 //         break;
 //     case 16:
 //         if (func_80319E1C_72B4CC(
-//                 arg0->xPos >> 6,
-//                 arg0->zPos >> 6,
-//                 arg0->yPos >> 6,
+//                 arg0->xPos.h >> 6,
+//                 arg0->zPos.h >> 6,
+//                 arg0->yPos.h >> 6,
 //                 arg1->unk2.b[1],
 //                 arg0->unk160)) {
 //             changed = 1;

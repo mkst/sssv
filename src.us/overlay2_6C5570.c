@@ -171,7 +171,7 @@ void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
             // sp78 = sp78;
             sp70 = (gScreenWidth  * 2) + ((D_80204278->unk38A10[3][0] * sp7C) / temp_f0);
             sp6C = (gScreenHeight * 2) + ((D_80204278->unk38A10[3][1] * sp78) / temp_f0);
-            temp_f2 = ((s32) ((arg6 * 33) / D_803F2E30) << 5) / temp_f18;
+            temp_f2 = ((s32) ((arg6 * 33) / D_803F2D50.unkE0) << 5) / temp_f18;
             // sp0 = temp_f2;
             phi_f2 = temp_f2;
             // clamps

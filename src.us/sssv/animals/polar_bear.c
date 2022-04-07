@@ -76,8 +76,8 @@ void func_80368B78_77A228(void) {
 // polar tank
 void func_80368BA0_77A250(void) {
     if ((D_803D5530->unk162 == 1) && (D_803D5530->unk6C == 0)) {
-        spawn_temporary_object(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 0x599, 0xB4, D_803D5530, 0x32, 0x21);
-        play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        spawn_temporary_object(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 0x599, 0xB4, D_803D5530, 0x32, 0x21);
+        play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     } else {
         recharge_skill(1);
     }
@@ -85,8 +85,8 @@ void func_80368BA0_77A250(void) {
 
 void polar_tank_drop_mine(void) {
     if ((D_803D5530->unk162 == 1) && (D_803D5530->unk6C == 0)) {
-        spawn_temporary_object(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 0x599, 0xDC, D_803D5530, 0x32, 0x21);
-        play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        spawn_temporary_object(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 0x599, 0xDC, D_803D5530, 0x32, 0x21);
+        play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
 }
 

@@ -54,7 +54,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7DA1 = 6;
     D_803F7DA2 = 0;
     D_803F7DA3 = 0;
-    D_803F2E1E = get_evo_suit_color();
+    D_803F2D50.evoSuitColor = get_evo_suit_color();
 }
 
 void func_8039895C_7AA00C(void) {
@@ -184,7 +184,7 @@ void display_zone_select_screen(void) {
         ((s16)(D_803F7DA8.currentLevel + 1) == EVOS_ESCAPE) ||
         ((s16)(D_803F7DA8.currentLevel + 1) == PUNCHUP_PYRAMID) ||
         ((s16)(D_803F7DA8.currentLevel + 1) == BIG_CELEBRATION_PARADE)) {
-        switch (D_803F2E1E) { // evo suit color
+        switch (D_803F2D50.evoSuitColor) { // evo suit color
         case EVO_BRONZE_SHELLSUIT:
             evo_r = 200;
             evo_g = 200;
@@ -1150,7 +1150,7 @@ void func_8039C5F8_7ADCA8(s16 arg0, s16 arg1, f32 arg2, PlayerEeprom *eeprom, s1
 }
 
 // draw sprite
-void func_8039C834_7ADEE4(Gfx **dl, s32 src, u16 width, u16 height, f32 scale_x, f32 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y) {
+void func_8039C834_7ADEE4(Gfx **dl, u8 * src, u16 width, u16 height, f32 scale_x, f32 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y) {
     guSprite2DInit(
     /* sprite ptr */    &D_80204278->sprites[D_80204278->usedSprites],
     /* source ptr */    src,

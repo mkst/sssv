@@ -13,3 +13,4 @@ def apply(config, args):
     config['myimg'] = f'build/{basename}.{version}.z64'
     config['mapfile'] = f'build/{basename}.{version}.map'
     config['source_directories'] = ['src', f'src.{version}', 'include']
+    config["makeflags"] = [f"VERSION={version}"]

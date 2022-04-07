@@ -200,9 +200,9 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
         D_803D5530->unk160 = 1;
     }
     func_802B2EA8_6C4558();
-    D_803D5530->xPos = arg0 << 16;
-    D_803D5530->zPos = arg1 << 16;
-    D_803D5530->yPos = arg2 << 16;
+    D_803D5530->xPos.h = arg0 << 16;
+    D_803D5530->zPos.h = arg1 << 16;
+    D_803D5530->yPos.h = arg2 << 16;
     D_803D5530->xVelocity.w = 0;
     D_803D5530->zVelocity.w = 0;
     D_803D5530->yVelocity.w = -1;

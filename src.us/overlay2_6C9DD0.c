@@ -169,8 +169,8 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
     sp5C = arg1 / 32;
     func_802B901C_6CA6CC(D_803D552C->unk302, &sp5E, &sp5C);
 
-    sp5E += (u16)D_803D5530->xPos;
-    sp5C += (u16)D_803D5530->zPos;
+    sp5E += (u16)D_803D5530->xPos.h;
+    sp5C += (u16)D_803D5530->zPos.h;
 
     switch (D_803D5530->unk160) {
     default:
@@ -178,14 +178,14 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
     case 0:
         sp58 = func_80310F58_722608(sp5E, sp5C);
         sp58 = sp58 - (D_803D5530->unk4C.unk16 << 16);
-        if (*(s32*)&D_803D5530->yPos + FTOFIX32(10.0) < sp58) {
+        if (D_803D5530->yPos.w + FTOFIX32(10.0) < sp58) {
             sp58 = func_8031124C_7228FC(sp5E, sp5C) - (D_803D5530->unk4C.unk16 << 16);
         }
-        if (func_8029B000_6AC6B0(sp5E, sp5C, *(s32*)&D_803D5530->yPos, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
+        if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
             if (sp58 < sp54) {
                 sp58 = sp54;
                 if (D_803D5530->unk161 == 1) {
-                    sp44 = *(s32*)&D_803D5530->yPos - FTOFIX32(10.0);
+                    sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
                     if (sp44 >= sp58) {
                         sp58 = sp44;
                     }
@@ -193,7 +193,7 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
             }
         }
         if (D_803D5530->unk161 == 1) {
-            sp44 = *(s32*)&D_803D5530->yPos - FTOFIX32(10.0);
+            sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
             if (sp44 >= sp58) {
                 sp58 = sp44;
             }
@@ -201,13 +201,13 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         break;
     case 1:
         sp58 = func_8031124C_7228FC(sp5E, sp5C) - (D_803D5530->unk4C.unk16 << 0x10);
-        if (func_8029B000_6AC6B0(sp5E, sp5C, *(s32*)&D_803D5530->yPos, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
+        if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
             if (sp58 < sp54) {
                 sp58 = sp54;
             }
         }
         if (D_803D5530->unk161 == 1) {
-            sp44 = *(s32*)&D_803D5530->yPos - FTOFIX32(10.0);
+            sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
             if (sp44 >= sp58) {
                 sp58 = sp44;
             }
@@ -220,21 +220,21 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
 
             if (1) {}; // regalloc
 
-            if ((func_80310F58_722608(D_803D5530->xPos, D_803D5530->zPos) - FTOFIX32(5.0)) < sp40) {
+            if ((func_80310F58_722608(D_803D5530->xPos.h, D_803D5530->zPos.h) - FTOFIX32(5.0)) < sp40) {
                 sp58 = func_8031124C_7228FC(sp5E, sp5C);
             } else {
-                sp58 = func_80310F58_722608(D_803D5530->xPos, D_803D5530->zPos) - FTOFIX32(5.0);
+                sp58 = func_80310F58_722608(D_803D5530->xPos.h, D_803D5530->zPos.h) - FTOFIX32(5.0);
             }
         }
         sp58 = sp58 - (D_803D5530->unk4C.unk16 << 0x10);
-        if ((func_8029B000_6AC6B0(sp5E, sp5C, *(s32*)&D_803D5530->yPos, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50))) {
+        if ((func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50))) {
             if (sp58 < sp54) {
                 sp58 = sp54;
             }
         }
 
         if (D_803D5530->unk161 == 1) {
-            sp44 = *(s32*)&D_803D5530->yPos - FTOFIX32(10.0);
+            sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
             if (sp44 >= sp58) {
                 sp58 = sp44;
             }
@@ -242,7 +242,7 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         // regalloc helper
         if (1) {};
     }
-    sp58 = sp58 - *(s32*)&D_803D5530->yPos;
+    sp58 = sp58 - D_803D5530->yPos.w;
     return sp58;
 }
 
@@ -654,12 +654,12 @@ void func_802BA614_6CBCC4(s16 *arg0, s16 arg1) {
     if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
         D_80203FE0[2].unk4 += (arg1 * (D_80152C78[(s16)((D_803D552C->unk2F6 & 0xFF) >> 1) & 0xFF] >> 7)) >> 8;
         if ((((D_803D552C->unk2F6 & 0xFF) < (D_803D552C->unk2F8 & 0xFF)) || ((D_803D552C->unk2F8 == 0) && (D_803D552C->unk2F6 == 0))) && (D_803D5530->unk4A == 0)) {
-            play_sound_effect_at_location(D_803A65D0_7B7C80[D_803D5524->unk9C], (D_803A6680_7B7D30[D_803D5524->unk9C] * 5) >> 3, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(D_803A65D0_7B7C80[D_803D5524->unk9C], (D_803A6680_7B7D30[D_803D5524->unk9C] * 5) >> 3, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
     } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
         D_80203FE0[2].unk4 += (arg1 * (D_80152C78[(s16)((D_803D552C->unk2F6 & 0xFF) >> 1) & 0xFF] >> 7)) >> 7;
         if ((((D_803D552C->unk2F6 & 0xFF) < (D_803D552C->unk2F8 & 0xFF)) || ((D_803D552C->unk2F8 == 0) && (D_803D552C->unk2F6 == 0))) && (D_803D5530->unk4A == 0)) {
-            play_sound_effect_at_location(D_803A65D0_7B7C80[D_803D5524->unk9C], D_803A6680_7B7D30[D_803D5524->unk9C], 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(D_803A65D0_7B7C80[D_803D5524->unk9C], D_803A6680_7B7D30[D_803D5524->unk9C], 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
     }
 
@@ -781,9 +781,9 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
         return;
     }
 
-    temp_s5 = D_803D5530->xPos;
-    temp_s6 = D_803D5530->zPos;
-    temp_s7 = D_803D5530->yPos + (D_80203FE0[0].unk4 / 32);
+    temp_s5 = D_803D5530->xPos.h;
+    temp_s6 = D_803D5530->zPos.h;
+    temp_s7 = D_803D5530->yPos.h + (D_80203FE0[0].unk4 / 32);
 
     *arg0 -= D_803D552C->unk318;
     *arg1 += D_803D552C->unk318;
@@ -794,11 +794,11 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
 
     phi_s0 = 0;
 
-    tmp = D_803D552C->unk320->xPos + (D_80152C78[D_803D552C->unk302 & 0xFF] >> 10);
+    tmp = D_803D552C->unk320->xPos.h + (D_80152C78[D_803D552C->unk302 & 0xFF] >> 10);
     if (func_8033C9CC_74E07C(
         tmp,
-        D_803D552C->unk320->zPos + (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 10),
-        D_803D552C->unk320->yPos,
+        D_803D552C->unk320->zPos.h + (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 10),
+        D_803D552C->unk320->yPos.h,
         0x7F,
         temp_s5,
         temp_s6,
@@ -812,11 +812,11 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
             *arg1 += 1;
 
             func_80321D74_733424(*arg0, *arg1);
-            tmp = D_803D552C->unk320->xPos + (D_80152C78[D_803D552C->unk302 & 0xFF] >> 10);
+            tmp = D_803D552C->unk320->xPos.h + (D_80152C78[D_803D552C->unk302 & 0xFF] >> 10);
             if (func_8033C9CC_74E07C(
                 tmp,
-                D_803D552C->unk320->zPos + (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 10),
-                D_803D552C->unk320->yPos,
+                D_803D552C->unk320->zPos.h + (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 10),
+                D_803D552C->unk320->yPos.h,
                 0x7F,
                 temp_s5,
                 temp_s6,
@@ -839,11 +839,11 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
             *arg1 += -1;
 
             func_80321D74_733424(*arg0, *arg1);
-            tmp = D_803D552C->unk320->xPos + (D_80152C78[D_803D552C->unk302 & 0xFF] >> 10);
+            tmp = D_803D552C->unk320->xPos.h + (D_80152C78[D_803D552C->unk302 & 0xFF] >> 10);
             if (func_8033C9CC_74E07C(
                 tmp,
-                D_803D552C->unk320->zPos + (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 10),
-                D_803D552C->unk320->yPos,
+                D_803D552C->unk320->zPos.h + (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 10),
+                D_803D552C->unk320->yPos.h,
                 0x7F,
                 temp_s5,
                 temp_s6,

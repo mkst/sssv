@@ -15,9 +15,9 @@ void func_8036BBE8_77D298(void) {
     if (D_803D5530->state == 21) {
         func_8037D9D4_78F084();
         create_particle_effect(
-            D_803D5530->xPos,
-            D_803D5530->zPos,
-            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            D_803D5530->xPos.h,
+            D_803D5530->zPos.h,
+            D_803D5530->yPos.h + (D_803D5530->unk42 >> 2),
             21,
             0,
             0,
@@ -29,9 +29,9 @@ void func_8036BBE8_77D298(void) {
     } else {
         func_8037D994_78F044(11);
         create_particle_effect(
-            D_803D5530->xPos,
-            D_803D5530->zPos,
-            D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+            D_803D5530->xPos.h,
+            D_803D5530->zPos.h,
+            D_803D5530->yPos.h + (D_803D5530->unk42 >> 2),
             21,
             0,
             0,
@@ -58,9 +58,9 @@ void func_8036BCF8_77D3A8(void) {
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
     fire_homing_missile(
-        D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
-        D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
-        D_803D5530->yPos + (D_803D5530->unk42 >> 1),
+        D_803D5530->xPos.h + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
+        D_803D5530->zPos.h - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
+        D_803D5530->yPos.h + (D_803D5530->unk42 >> 1),
         10,
         temp_t0*360 >> 8,
         animal,
@@ -96,9 +96,9 @@ void ski_husky_fire_missile(Animal *arg0) {
     temp_v1 = D_803D552C->unk302;
     temp_t0 = D_803D552C->unk302;
     fire_homing_missile(
-        D_803D5530->xPos + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
-        D_803D5530->zPos - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
-        D_803D5530->yPos + (D_803D5530->unk42 >> 1),
+        D_803D5530->xPos.h + ((((D_80152C78[(u8)(temp_v1 + 64)] >> 7) * twist) / 32) >> 8),
+        D_803D5530->zPos.h - ((((D_80152C78[temp_t0] >> 7) * twist) / 32) >> 8),
+        D_803D5530->yPos.h + (D_803D5530->unk42 >> 1),
         10,
         (temp_t0 * 360) >> 8,
         arg0,

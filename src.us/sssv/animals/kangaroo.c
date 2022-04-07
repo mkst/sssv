@@ -8,12 +8,12 @@
 
 void func_80372510_783BC0(void) {
     D_803D552C->unk32A = D_803D5544;
-    if ((func_8012826C() & 1) == 0) {
+    if (SSSV_RAND(2) == 0) {
         D_803D552C->unk365 = ATTACK_KANGAROO_1;
     } else {
         D_803D552C->unk365 = ATTACK_KANGAROO_2;
     }
-    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }
 
 void func_803725A4_783C54(void) {
@@ -28,12 +28,12 @@ void func_803725A4_783C54(void) {
 
 void func_80372604_783CB4(void) {
     D_803D552C->unk32A = D_803D5544;
-    if ((func_8012826C() & 1) == 0) {
+    if (SSSV_RAND(2) == 0) {
         D_803D552C->unk365 = ATTACK_KANGAROO_1;
     } else {
         D_803D552C->unk365 = ATTACK_KANGAROO_2;
     }
-    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(57, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }
 
 void func_80372698_783D48(void) {

@@ -34,9 +34,60 @@ s32 func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 a
     return 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73C890/func_8032BE28_73D4D8.s")
+#ifdef NON_MATCHING
+// offsets are fakematches...
+void func_8032BE28_73D4D8(Animal *arg0) {
+    s16 temp_v0;
+    s32 *temp_a1;
+    s16 x;
+    s16 y1;
+    s16 y2;
+    s16 phi_s0;
+    s16 i;
 
-void func_8032C0EC_73D79C(s32 arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
+    temp_a1 = arg0->unk16C->unk18;
+    if (temp_a1 != NULL) {
+        gSPDisplayList(D_801D9E8C++, D_01003548_3CE18);
+        if (temp_a1 != NULL) {
+            x = (D_803D5540 >> 3) % 32;
+            for (i = 0; i < 32; i++) {
+                temp_v0 = x + (i << 5);
+                if (temp_a1[temp_v0+2] != 0) {
+                    y1 = 0;
+                    while ((temp_a1[temp_v0+2] & (1 << y1)) == 0) {
+                        y1++;
+                    }
+                    y2 = 31;
+                    while ((temp_a1[temp_v0+2] & (1 << y2)) == 0) {
+                        y2--;
+                    }
+                    if (y1 == y2) {
+                        // arg0, x, y, z, r, g, b
+                        func_8032C0EC_73D79C(arg0, x, i, y1, 0, 200, 200);  // turquoise
+                    } else {
+                        func_8032C0EC_73D79C(arg0, x, i, y1, 0, 200, 0);    // green
+                        func_8032C0EC_73D79C(arg0, x, i, y2, 0, 0,   200);  // blue
+                        phi_s0 = y1;
+                        while (phi_s0 < y2) {
+                            if ((temp_a1[temp_v0+2] & (1 << phi_s0)) == 0) {
+                                // red
+                                func_8032C0EC_73D79C(arg0, x, i, phi_s0, 255, 0, 0);
+                            }
+                            phi_s0++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // regalloc helper
+    if (temp_a1 && temp_a1) {};
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73C890/func_8032BE28_73D4D8.s")
+#endif
+
+void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
 
     if (D_803D3434->usedModelViewMtxs < 240) {
         gDPSetPrimColor(D_801D9E8C++, 0, 0, r, g, b, 0xFF);

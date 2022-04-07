@@ -98,9 +98,9 @@ void func_80303D50_715400(Animal *arg0, u16 arg1) {
 void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
     guTranslate(
         &arg2->modelViewMtx[arg2->usedModelViewMtxs],
-        arg0->unkC0[arg1][2] + arg0->xPos,
-        arg0->unkC0[arg1][4] + arg0->zPos,
-        arg0->unkC0[arg1][6] + arg0->yPos);
+        arg0->unkC0[arg1][2] + arg0->xPos.h,
+        arg0->unkC0[arg1][4] + arg0->zPos.h,
+        arg0->unkC0[arg1][6] + arg0->yPos.h);
 
     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     arg2->usedModelViewMtxs += 1;

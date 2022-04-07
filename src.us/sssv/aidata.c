@@ -31,12 +31,12 @@ s16 func_802EA3E0_6FBA90(u16 X, u16 Y) {
     }
 
     // ignore if biome mis-match
-    if ((D_801D9ED8.unk0[(s32)X - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D70) ||
-        (D_801D9ED8.unk0[(s32)Y - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D70)) {
+    if ((D_801D9ED8.unk0[(s32)X - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D50.segment) ||
+        (D_801D9ED8.unk0[(s32)Y - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D50.segment)) {
         return AI_IGNORE;
     }
 
-    switch (D_803F2D70) {
+    switch ((s16)D_803F2D50.segment) {
         case EUROPE_BIOME:
             SSSV_ASSERT(Xl < MAX_EUROPE_ANIMALS, "../src/aidata.c", 404)
             SSSV_ASSERT(Yl < MAX_EUROPE_ANIMALS, "../src/aidata.c", 405)

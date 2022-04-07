@@ -8,6 +8,12 @@ jobs:
   build_pr:
     if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        include:
+        - version: eu
+        - version: us
+      fail-fast: False
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v2
@@ -22,26 +28,34 @@ jobs:
         token: ${{ secrets.PRIVATE_REPO_ACCESS }}
         path: baserom
     - name: Decrypt baserom
-      run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.us.z64.aes -out baserom.us.z64
+      env:
+        ROM: ${{ matrix.version }}
+      run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${ROM}.z64.aes -out baserom.${ROM}.z64
 
     - name: Perform make extract
       uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
       with:
-        args: make extract
+        args: make extract VERSION=${ROM}
 
     - name: Perform make
       uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
       with:
-        args: make --jobs
+        args: make --jobs VERSION=${ROM}
 
     # build NON_MATCHING ROM
 
     - name: Delete build/ directory
       uses: docker://ghcr.io/mkst/sssv:latest
       with:
-        args: rm -rf build/
+        args: make clean
 
     - name: Perform make NON_MATCHING
       uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
       with:
-        args: make --jobs NON_MATCHING=1
+        args: make --jobs VERSION=${ROM} NON_MATCHING=1
