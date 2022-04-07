@@ -3,6 +3,7 @@
 
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
+#define ABSD(x) ((x)<0.0 ? -(x) : (x))
 
 #define MAX_INT                0x7FFFFFFF
 #define MAX_SHORT              0x7FFF
@@ -49,6 +50,17 @@
 #define EVO_HEAD                    2
 #define EVO_ARMS                    4
 #define EVO_LEGS                    8
+
+// segments (per animinit.c)
+
+#define SEGMENT_EUROPE              0
+#define SEGMENT_ICE                 1
+#define SEGMENT_DESERT              2
+#define SEGMENT_JUNGLE              3
+#define SEGMENT_4                   4
+#define SEGMENT_CITY                5
+#define SEGMENT_SHIP                6
+
 
 // biomes (per aidata.c)
 #define EUROPE_BIOME                0

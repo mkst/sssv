@@ -48,6 +48,7 @@ while (*SRC != EOM) { \
 
 // lang 34
 
+#define MSG_DUMMY               13
 #define MSG_PRESS_START         14
 #define MSG_CONTROLLER_NOT_CONNECTED 16
 

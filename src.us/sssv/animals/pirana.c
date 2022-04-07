@@ -15,10 +15,10 @@
 //     s32 phi_t0;
 //
 //     if (D_803D553A == 8) {
-//         play_sound_effect_at_location(SFX_UNKNOWN_9, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//         play_sound_effect_at_location(SFX_UNKNOWN_9, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //     }
 //     if (D_803D553A == 9) {
-//         play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//         play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //     }
 //     if ((D_803D5530->unk162 == 3) && (D_803D5538 != 0)) {
 //         if (D_803D552C->unk369 == 0) {
@@ -35,13 +35,13 @@
 //             D_803D5530->yVelocity.h = MAX(7, phi_t0 + 4);
 //
 //             D_803D552C->unk308 = MAX(0, D_803D552C->unk308 - 25);
-//             play_sound_effect_at_location(0x20, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//             play_sound_effect_at_location(0x20, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //         }
 //     }
 //     switch (D_803D5538) {
 //     case 1:
 //     default:
-//         if ((D_803F2D70 == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5)))) {
+//         if ((D_803F2D50.segment == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
 //             phi_a2 = 1;
 //         } else {
 //             phi_a2 = 0;
@@ -53,15 +53,15 @@
 //         }
 //         // fallthrough
 //     case 0:
-//         if ((D_803F2D70 == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5)))) {
+//         if ((D_803F2D50.segment == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
 //             phi_t0 = 1;
 //         } else {
 //             phi_t0 = 0;
 //         }
 //         sp7A = func_802E89F0_6FA0A0(
-//             *(s32*)&D_803D552C->xPos,
-//             *(s32*)&D_803D552C->zPos,
-//             *(s32*)&D_803D552C->yPos + (D_803D5524->unkBA << 0xF),
+//             D_803D552C->xPos.w,
+//             D_803D552C->zPos.w,
+//             D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
 //             0x800,
 //             0,
 //             62,
@@ -98,9 +98,9 @@
 //             sp76 = ((D_80152C78[(D_803D5540 << 5) & 0xFF] >> 7) + 256) >> 3;
 //             if ((D_803D5540 & 7) == 0) {
 //                 if (func_803224C4_733B74(0, 0x1F, 0, 0x1F, 6, 0, 0, 0xD)) {
-//                     play_sound_effect_at_location(7, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//                     play_sound_effect_at_location(7, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //                 } else {
-//                     play_sound_effect_at_location(6, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//                     play_sound_effect_at_location(6, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //                 }
 //             }
 //         } else {
@@ -126,9 +126,9 @@
 //              ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 //             func_80127640(
 //                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
-//                 *(s32*)&D_803D5530->xPos,
-//                 *(s32*)&D_803D5530->zPos,
-//                 *(s32*)&D_803D5530->yPos,
+//                 D_803D5530->xPos.w,
+//                 D_803D5530->zPos.w,
+//                 D_803D5530->yPos.w,
 //                 -D_803D552C->unk302,
 //                 D_803F2EB0 / 4,
 //                 D_803F2EB4 / 4,
@@ -186,9 +186,9 @@
 //     }
 //     if ((sp7A == 0) || (sp7A == 2)) {
 //         func_8034BD20_75D3D0(
-//             D_803D552C->xPos,
-//             D_803D552C->zPos,
-//             D_803D552C->yPos + ((D_803D5524->unkBA * 3) >> 2),
+//             D_803D552C->xPos.h,
+//             D_803D552C->zPos.h,
+//             D_803D552C->yPos.h + ((D_803D5524->unkBA * 3) >> 2),
 //             D_803D552C->unk302,
 //             D_01033190,
 //             28,

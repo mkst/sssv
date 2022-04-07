@@ -16,9 +16,9 @@ void func_8038B330_79C9E0(void) {
                 0x7000,
                 0,
                 0.25f,
-                D_803D552C->xPos,
-                D_803D552C->zPos,
-                D_803D552C->yPos);
+                D_803D552C->xPos.h,
+                D_803D552C->zPos.h,
+                D_803D552C->yPos.h);
         }
 
         if (D_803D5530->yVelocity.w > FTOFIX32(2.0)) {
@@ -33,30 +33,30 @@ void func_8038B330_79C9E0(void) {
         do {
             // smoke
             create_particle_effect(
-                ((func_8012826C() & 0xF) + D_803D5530->xPos + ((tmp * (D_80152C78[(((s16)-D_803D552C->unk302) + 64) & 0xFF] >> 7)) >> 8)) - (0, 8),
-                ((func_8012826C() & 0xF) + D_803D5530->zPos + ((tmp * (D_80152C78[((s16)-D_803D552C->unk302) & 0xFF] >> 7)) >> 8)) - (0, 8),
-                D_803D5530->yPos,
-                ((func_8012826C() & 1) + 25),
-                ((func_8012826C() & 0x7FFF) << 1) + D_803D5530->xVelocity.w + FTOFIX32(-0.6103515625),
-                ((func_8012826C() & 0x7FFF) << 1) + D_803D5530->zVelocity.w + FTOFIX32(-0.6103515625),
+                (SSSV_RAND(16) + D_803D5530->xPos.h + ((tmp * (D_80152C78[(((s16)-D_803D552C->unk302) + 64) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                (SSSV_RAND(16) + D_803D5530->zPos.h + ((tmp * (D_80152C78[((s16)-D_803D552C->unk302) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                D_803D5530->yPos.h,
+                (SSSV_RAND(2) + 25),
+                (SSSV_RAND(FTOFIX32(0.5)) << 1) + D_803D5530->xVelocity.w + FTOFIX32(-0.6103515625),
+                (SSSV_RAND(FTOFIX32(0.5)) << 1) + D_803D5530->zVelocity.w + FTOFIX32(-0.6103515625),
                 (D_803D5530->yVelocity.w >> 1) + FTOFIX32(-3.0517578125),
-                func_8012826C() & 0xC,
+                SSSV_RAND(13),
                 GPACK_RGBA5551(0, 0, 0, 1),
                 GPACK_RGBA5551(56, 56, 56, 1), // grey
-                (func_8012826C() & 0xF) + 15);
+                SSSV_RAND(16) + 15);
 
             // flames
             create_particle_effect(
-                ((func_8012826C() & 0xF) + D_803D5530->xPos + ((tmp * (D_80152C78[(((s16)-D_803D552C->unk302) + 64) & 0xFF] >> 7)) >> 8)) - (0, 8),
-                ((func_8012826C() & 0xF) + D_803D5530->zPos + ((tmp * (D_80152C78[((s16)-D_803D552C->unk302) & 0xFF] >> 7)) >> 8)) - (0, 8),
-                D_803D5530->yPos,
+                (SSSV_RAND(16) + D_803D5530->xPos.h + ((tmp * (D_80152C78[(((s16)-D_803D552C->unk302) + 64) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                (SSSV_RAND(16) + D_803D5530->zPos.h + ((tmp * (D_80152C78[((s16)-D_803D552C->unk302) & 0xFF] >> 7)) >> 8)) - (0, 8),
+                D_803D5530->yPos.h,
                 63,
                 D_803D5530->xVelocity.w,
                 D_803D5530->zVelocity.w,
                 D_803D5530->yVelocity.w + FTOFIX32(-4.57763671875),
-                (func_8012826C() & 0xF) + 25,
-                GPACK_RGBA5551((func_8012826C() & 0x3F) + 192, (func_8012826C() & 0x1F) + 192, 0, 1), // red/orange
-                GPACK_RGBA5551((func_8012826C() & 0x3F) + 192, 0, 0, 1), // red
+                SSSV_RAND(16) + 25,
+                GPACK_RGBA5551(SSSV_RAND(64) + 192, SSSV_RAND(32) + 192, 0, 1), // red/orange
+                GPACK_RGBA5551(SSSV_RAND(64) + 192, 0, 0, 1), // red
                 0);
 
             tmp += 32;

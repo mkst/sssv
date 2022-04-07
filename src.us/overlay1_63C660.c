@@ -127,7 +127,7 @@ u8 language_select_menu(s16 arg0) {
     gDPPipeSync(D_801D9E7C++);
 
     // write language strings
-    verticalOffset += 16;
+    verticalOffset += 16; // verticalOffset = 66; ?
     load_default_display_list(&D_801D9E7C);
     select_font(0, FONT_COMIC_SANS, 1, 0);
 

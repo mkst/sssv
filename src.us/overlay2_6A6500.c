@@ -103,11 +103,11 @@ void func_80294E50_6A6500(void) {
         D_80204290 = 2;
         width = 320;
         if (D_803F6428.unk4 == 0) {
-            D_803F2E2A = D_802053E0.screenWidth;
+            D_803F2D50.unkDA = D_802053E0.screenWidth;
         } else {
-            D_803F2E2A = width;
+            D_803F2D50.unkDA = width;
         }
-        gScreenWidth = D_803F2E2A;
+        gScreenWidth = D_803F2D50.unkDA;
         gScreenHeight = 240;
 
         func_802F59F0_7070A0();
@@ -158,14 +158,14 @@ void func_80294E50_6A6500(void) {
                 D_803F671C = 0;
             }
         }
-        func_802B3EC0_6C5570(&D_801D9E7C, ((D_803F28D0[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos);
+        func_802B3EC0_6C5570(&D_801D9E7C, ((D_803F28D0[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h);
         if ((D_803C0422 == 0) && (D_803E1BC0 == 0) && (D_803F2D30.level != DMA_INTRO)) {
             func_80349DCC_75B47C(1);
         }
 
         gSPDisplayList(D_801D9E7C++, &D_80204278->unk267A0);
         func_8029877C_6A9E2C();
-        D_803F2D68 = 1;
+        D_803F2D50.unk18 = 1; //D_803F2D68 = 1;
         if (0) {};
         D_803C0430.unk20F += 1;
         D_803C0430.unk20F &= 7;
@@ -279,8 +279,8 @@ void func_80294E50_6A6500(void) {
 #endif
         }
         if (D_803F6680.unk27 != 0) {
-            load_data_section(D_803F2D70);
-            func_8031B174_72C824(D_803F2D70, D_803F2DA3); // load_texture_bank
+            load_data_section(D_803F2D50.segment);
+            func_8031B174_72C824(D_803F2D50.segment, D_803F2D50.unk52); // load_texture_bank
             load_water_texture();
             D_803F6680.unk27 = 0;
             D_803F6680.unk2D = 0;
@@ -404,7 +404,7 @@ void func_802961D4_6A7884(void) {
     D_803F2D30.unk4 = 0;
     func_80296310_6A79C0();
     func_802B3FAC_6C565C();
-    D_803F2D50.unkCE = get_evo_suit_color();
+    D_803F2D50.evoSuitColor = get_evo_suit_color();
     D_803F2D50.unkDC = 1;
     set_tv_mode_normal();
     D_803E4D2C = 0;

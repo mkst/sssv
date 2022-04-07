@@ -228,6 +228,7 @@ extern s16  D_80152620[];
 extern s16  D_801526D4[];
 extern s16  D_80152C78[];
 extern s16  D_80152040[];
+extern s16  D_80152212[];
 extern s8   D_80152248[];
 extern struct013 D_80152350;
 extern u32  D_80152E80; // gRandomSeed
@@ -262,6 +263,7 @@ extern f32  D_801546CC;
 extern f32  gMusicVolume;
 extern f32  gSfxVolume;
 extern s16  D_801546D8;
+extern s16  D_801546DC;
 extern s16  D_801546E0;
 extern s32  D_801546E4;
 extern f32  D_801546E8[];
@@ -273,14 +275,23 @@ extern s8   D_80155164[];
 extern s8   D_80155168[]; // is this u8?
 extern s16  D_8015516C[];
 extern s8   D_80155170;
+extern u8   D_80155178; // Wet/dry mix
 extern f32  D_8015517C;
 extern s16  D_80155180;
 extern s16  D_80155184;
 extern s16  D_80155188;
 extern s32  D_8015518C;
+extern f32  D_8015529C;
 extern u16  D_801552A8;
 extern u8   D_801552B0;
 extern u8   D_801552B4;
+
+extern s32  D_801552C0;
+extern s32  D_80155AC0;
+extern s32  D_801562C0;
+extern s32  D_80156AC0;
+extern s32  D_801572C0;
+extern s32  D_80157AC0;
 
 extern Gfx  D_801582C0[];
 extern Gfx  D_80158368[];
@@ -296,6 +307,7 @@ extern char D_8015ACA4[]; // "%d"
 extern char D_8015AD70[]; // "reset all data - %d\n"
 extern char D_8015AD90[]; // "----------------- Active sounds\n"
 extern char D_8015ADB4[]; // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
+extern f64  D_8015AE08;
 
 extern s32  D_8015B790; // ucode data start
 extern s32  D_8015C750;
@@ -305,12 +317,13 @@ extern u8   D_8015DF10[];
 // 0x8016xxxx
 
 extern OSSched sc; // D_801603D0;
-extern struct018 D_80162658[];
+extern struct018 D_80162658[2];
 
 // 0x8019xxxx
 
 extern struct009 D_8019A658[];
-
+// 0d80162658 + 0x3BBF0 => 0x8019E248
+extern u8 D_8019E240[2][0x3BBF0];
 // 0x801Dxxxx
 
 extern s32  D_801D9D70; // camera position? distance? angle?
@@ -344,6 +357,7 @@ extern s32  D_801DD800;
 
 // 0x801Exxxx
 
+// D_801E1ED7->unk7FA9 =>D_801D9ED8.unkFFA8
 extern struct080 D_801E1ED8;
 
 // all of these might be part of D_801D9ED8
@@ -487,6 +501,7 @@ extern s32  D_80242508; // base of heap
 // 0x8028xxxx
 
 extern ALBankFile *D_802862F8;
+extern struct002 *D_80286300; // --> 80257D98
 extern ALSeqFile *D_8028630C;
 extern ALSndPlayer *D_80286310;
 extern u8 *D_80286314[];
@@ -495,7 +510,7 @@ extern struct017 *D_80286320;
 extern ALHeap D_80286328; // more likely some audio struct.. but whatever
 extern struct017 *D_80286338[];
 extern s16  D_80286388[];
-extern u8   D_802863B0[];
+extern u8   D_802863B0[]; // sndSlotState
 extern ALSeqPlayer *D_802863C8[];
 extern ALCSeq *D_802863CC[];
 
@@ -505,6 +520,7 @@ extern s16  D_8028645C;
 extern ALCSeqMarker D_80286460;
 
 extern s16  D_8028654C;
+extern f32  D_80286554;
 extern s16  D_80286560;
 extern s16  D_80286562;
 extern f32  D_80286564;
@@ -564,11 +580,30 @@ extern u8   D_802912E3; // d-left pressed
 extern u8   D_802912E4; // d-right pressed
 extern u8   D_802912E5; // z pressed
 
+extern s32 D_80299960_63D000;
+// extern s32 D_80299964_63D004;
+extern s32 D_80299A40_63D0E0;
+extern s32 D_80299A58_63D0F8;
+extern s32 D_80299A88_63D128;
+extern s32 D_80299ACC_63D16C;
+extern s32 D_80299AF8_63D198;
+extern s32 D_80299B30_63D1D0;
+extern s32 D_80299B74_63D214;
+extern s32 D_80299B94_63D234;
+extern s32 D_80299BC4_63D264;
+extern s32 D_80299BF0_63D290;
+extern s32 D_80299C20_63D2C0;
+extern s32 D_80299C50_63D2F0;
+extern s32 D_80299C70_63D310;
 extern u16  D_80299C84[3];
 extern s32  D_80299CD0_63D370;
-extern Light *D_80299D50_63D3F0;
-extern Light *D_80299D58_63D3F8;
-extern f32  D_80299DB8;
+extern Lights1 D_80299D50_63D3F0;
+// extern Light *D_80299D58_63D3F8;
+extern s32  D_80299960_63D000;
+extern struct014 D_80299964_63D004[]; // size tbd
+extern Light D_80299D90_63D430;
+extern Light D_80299D98_63D438;
+
 extern f32  D_80299DBC;
 extern f32  D_80299DC0;
 extern f32  D_80299DC4;
@@ -583,7 +618,29 @@ extern f32  D_80299DE4;
 extern f32  D_80299DE8;
 extern f32  D_80299DEC;
 extern f32  D_80299DF0;
-extern u8   D_80299DFC_63D49C; // intro state
+extern u16  D_80299E10;
+extern u8   D_80299E14;
+extern u16  D_80299E1C_63D4BC;
+extern s8   D_80299E24;
+// extern u8   D_80299FF0_63D690; // intro text index
+
+// 0x802Axxxx
+extern s32  D_802A23D0;
+extern u8   D_802AFBD0[];
+extern u8   D_802AA7B0_64DE50[];
+
+extern f32 D_80299DB8_63D458;
+extern f32 D_80299DBC_63D45C;
+extern f32 D_80299DC0_63D460;
+extern f32 D_80299DC4_63D464;
+extern f32 D_80299DC8_63D468;
+extern f32 D_80299DCC_63D46C;
+extern f32 D_80299DD0_63D470;
+extern f32 D_80299DD4_63D474;
+extern f32 D_80299DD8_63D478;
+extern f32 D_80299DE8_63D488;
+extern f32 D_80299DF4_63D494;
+extern u8  D_80299DF8_63D498;
 /*
   1 - NEWSFLASH
   2 - Newscaster
@@ -596,15 +653,23 @@ extern u8   D_80299DFC_63D49C; // intro state
   9 - NEWSFLASH + 200 credz
   A - black screen
 */
-extern u16  D_80299E10;
-extern u8   D_80299E14;
-extern u16  D_80299E1C_63D4BC;
-extern s8   D_80299E24;
-extern u8   D_80299FCC_63D66C;
-extern s16  D_80299FD0_63D670;
-
-// 0x802Axxxx
-extern u8   D_802AFBD0[];
+extern u8  D_80299DFC_63D49C; // intro state
+extern u8  D_80299E04_63D4A4;
+extern u16 D_80299E08_63D4A8;
+extern u16 D_80299E0C_63D4AC;
+extern u16 D_80299E10_63D4B0;
+extern u8  D_80299E11_63D4B1;
+extern s8  D_80299E14_63D4B4;
+extern u8  D_80299E18_63D4B8;
+extern u16 D_80299E1C_63D4BC;
+extern s8  D_80299E20_63D4C0;
+extern s8  D_80299E24_63D4C4;
+extern s8  D_80299E28_63D4C8;
+extern s16 D_80299E2C_63D4CC;
+extern s16 D_80299E34_63D4D4;
+extern s16 D_80299E3C_63D4DC;
+extern s16 D_80299E40_63D4E0;
+extern u8  D_80299E44_63D4E4[];
 
 // 0x802Bxxxx
 extern u8   D_802B12D0[];
@@ -615,11 +680,14 @@ extern u8   D_802B5CA0[];
 extern u8   D_802B60A0[];
 extern u8   D_802B64A0[]; // ROM 0x659b40
 extern u8   D_802BC430[];
-
+extern u8   D_802BF170_662810[]; // 200_credz
 // 0x802Cxxxx
 
 extern u8   D_802C11C0[];
-
+extern u8   D_802A37E0_646E80[];
+extern u8   D_802C6C90_66A330[];
+extern u8   D_802D00F0_673790[];
+extern u8   D_802DA900_67DFA0[];
 // 0x802Exxxx
 
 extern const Gfx  D_802EEB20_6921C0[]; // spaceship model
@@ -637,11 +705,14 @@ extern u8   D_802FFD20_6A33C0[]; // Italian language flag
 extern u8   D_80300920_6A3FC0[]; // Portugese language flag
 extern u8   D_80301520_6A4BC0[]; // Dutch language flag
 extern u8   D_80302120_6A57C0[]; // Spanish language flag
-extern f32  D_80302D20; // 15000.0f
-extern f64  D_80302D28;
+extern f32  D_80302D20_6A63C0; // 15000.0f
+// extern f64  D_80302D28;
 
 // BSS (overlay1)
 
+extern u8   D_80302E70;
+extern u8   D_80302E71;
+extern struct026 *D_80302E74;
 extern u8   D_80302E88[];
 
 // 0x8032xxxx
@@ -652,6 +723,8 @@ extern u8   D_8032AE88[];
 
 extern u8   D_80338688[];
 extern u8   D_8033CE88[];
+
+extern s32  D_80352E88;
 
 // 0x8036xxxx
 
@@ -668,6 +741,9 @@ extern u8   D_8039E2E8[];
 // 0x803Axxxx
 
 extern s16  D_803A0500_7B1BB0;
+extern u16  D_803A0510_7B1BC0[]; // tbd
+extern u16  D_803A051A_7B1BCA;
+extern s32  D_803A0594_7B1C44[4]; // rgba
 extern s16  D_803A05C0_7B1C70;
 extern s16  D_803A05C8_7B1C78;
 extern s32  D_803A05B0;
@@ -805,11 +881,14 @@ extern u8   D_803B5864_7C6F14[];
 extern u8   D_803B5868_7C6F18[];
 extern u8   D_803B5870_7C6F20[];
 extern u8   D_803B5884_7C6F34[];
-extern u8   D_803B58A0_7C6F50[];
-extern u8   D_803B58A4_7C6F54[];
-extern s16  D_803B58A8_7C6F58[];
-extern s32  D_803B58B0_7C6F60;
-extern s32  D_803B58C4_7C6F74;
+
+// cool cod
+// extern u8   D_803B58A0_7C6F50[];
+// extern u8   D_803B58A4_7C6F54[];
+// extern s16  D_803B58A8_7C6F58[];
+// extern s32  D_803B58B0_7C6F60;
+// extern s32  D_803B58C4_7C6F74;
+
 extern struct107 D_803B58E0_7C6F90[];
 extern void (*D_803B5D20[])(void);
 extern s16  D_803B62B0;
@@ -1013,14 +1092,14 @@ extern struct054 D_803D2D90;
 extern struct059 D_803D2E08;
 
 extern DisplayList* D_803D3434;
-extern struct059 D_803D3448;
-extern s32    *D_803D3438;
+extern s32       *D_803D3438;
+extern struct059  D_803D3448;
 extern struct058 *D_803D343C;
-extern struct059 D_803D3A20;
-extern struct059 D_803D3FF8;
+extern struct059  D_803D3A20;
+extern struct059  D_803D3FF8;
 extern s8   D_803D45D0;
 extern s8   D_803D4BB1;
-extern s32  D_803D5188;
+extern struct057  D_803D5188[];
 
 extern s16  D_803D5508;
 extern s16  D_803D5510;
@@ -1035,8 +1114,8 @@ extern u8   D_803D5538;
 extern s16  D_803D553A;
 extern s16  D_803D553C;
 extern s16  D_803D553E; // number of animals in level?
-extern s16  D_803D5540;
-extern s16  D_803D5542;
+extern s16  D_803D5540; // timer
+extern s16  D_803D5542; // timer
 extern u16  D_803D5544; // timer (for attacks? everything?)
 extern u16  D_803D5546;
 extern s16  D_803D5548;
@@ -1044,7 +1123,9 @@ extern s8   D_803D554A;
 extern s8   D_803D554B;
 extern s8   D_803D554C;
 extern s16  D_803D5558;
-extern s16  D_803D555A;
+extern u16  D_803D555A; // timer
+extern u8   D_803D555C;
+extern u8   D_803D555D;
 extern Animal *D_803D5560;
 extern s16  D_803D5564;
 extern s16  D_803D5566;
@@ -1052,8 +1133,11 @@ extern s16  D_803D5568;
 extern s16  D_803D556A;
 extern s16  D_803D556C;
 extern s16  D_803D556E;
+extern s16  D_803D5570;
 extern u16  D_803D5572;
 extern u8   D_803D5575; // controller maginitude?
+extern s16  D_803D5578;
+extern s16  D_803D557A;
 extern s16  D_803D5590[360];
 extern s16  D_803D5860[360];
 extern s16  D_803D5B30[360];
@@ -1139,6 +1223,7 @@ extern u16  D_803E1D28;
 extern u16  D_803E1D2A;
 extern u8   D_803E1D2C;
 extern u8   D_803E1D30[];
+extern u8   D_803E1D33[];
 extern u8   *D_803E1D32; // ?
 extern struct064 D_803E1D3B[];
 extern struct073 D_803E3130[];
@@ -1311,24 +1396,14 @@ extern s8   D_803F2D22;
 extern s8   D_803F2D23;
 extern s16  D_803F2D24;
 extern struct001 D_803F2D30;
-// extern s16  D_803F2D38; // D_803F2D30.level
-// extern s16  D_803F2D3C; // D_803F2D30.powercells
 extern char D_803F2D3E[]; // score as a string, e.g. "       0"
+
 extern struct000 D_803F2D50;
-extern u16  D_803F2D68;
-extern s16  D_803F2D70; // biome (0 Europe, 1 Ice, 2 Desert, 3 Jungle)
-extern s16  D_803F2D72;
-extern s16  D_803F2D9C; // tbd
-extern u8   D_803F2DA3;
-extern s32  D_803F2E0C;
-extern s32  D_803F2E10;
+
 extern s16  D_803F2EE0[];
 extern u16  D_803F2EF0;
 extern s16  D_803F2E16;
-extern s16  D_803F2E1E; // evo suit color
-extern s16  D_803F2E2A;
-extern f32  D_803F2E30;
-extern s16  D_803F2E34[];
+
 extern s32  D_803F2EB0;
 extern s32  D_803F2EB4;
 extern s32  D_803F2EB8;

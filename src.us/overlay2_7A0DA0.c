@@ -1012,7 +1012,7 @@ void load_mission_brief_screen(s16 vertical_offset) {
     // print title e.g. "Have a Nice Day!"
     select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-    vertical_offset = display_text_wrapped(D_801D9E98, D_803F2E34, 23, vertical_offset, 16.0f, 16.0f, 296, 14);
+    vertical_offset = display_text_wrapped(D_801D9E98, D_803F2D50.titleText, 23, vertical_offset, 16.0f, 16.0f, 296, 14);
     vertical_offset += 24;
 
     select_font(0, FONT_COMIC_SANS, 0, 0);
@@ -1176,7 +1176,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             (level == EVOS_ESCAPE) ||
             (level == PUNCHUP_PYRAMID) ||
             (level == BIG_CELEBRATION_PARADE)) {
-            switch (D_803F2E1E) {
+            switch (D_803F2D50.evoSuitColor) {
             case EVO_BRONZE_SHELLSUIT:
                 suit_red = 200;
                 suit_green = 200;
@@ -1288,7 +1288,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         set_menu_text_color(160, 160, 160, 0xFF);
         if (D_803F7DD5 != 31) {
             // write level title
-            display_text_centered(&D_801D9E7C, D_803F2E34, 160, 208, 16.0f, 16.0f);
+            display_text_centered(&D_801D9E7C, D_803F2D50.titleText, 160, 208, 16.0f, 16.0f);
         }
         gDPPipeSync(D_801D9E7C++);
 
@@ -1970,15 +1970,17 @@ s32 func_80396748_7A7DF8(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_803967D4_7A7E84.s")
+// no idea whats wrong
 // void func_803967D4_7A7E84(u16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9) {
 //     u8 r, g, b;
-//
-//     gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
-//     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 //
 //     r = red;
 //     g = green;
 //     b = blue;
+//
+//     gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
+//     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
+//
 //
 //     if (arg9 == 1) {
 //         if (head) {
@@ -1986,59 +1988,59 @@ s32 func_80396748_7A7DF8(void) {
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C3A40, 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 1);
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40, 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 1);
 //
 //         if (torso) {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C4A40, 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 32);
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C4A40, 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 32);
 //
 //         if (legs) {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C4240, 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 0xC, arg1 + 0x3A);
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C4240, 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 0xC, arg1 + 0x3A);
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C4240, 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 12, arg1 + 58);
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C4240, 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 12, arg1 + 58);
 //
 //         if (arms) {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C5240, 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 0x1A, arg1 + 0x1C);
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C5240, 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 0x1A, arg1 + 0x1C);
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C5240, 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 26, arg1 + 28);
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C5240, 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 26, arg1 + 28);
 //     } else {
 //         if (head) {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C3A40, 32, 32, 0.5f, 0.5f, 0, 0, arg0, arg1);
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40, 32, 32, 0.5f, 0.5f, 0, 0, arg0, arg1);
 //
 //         if (torso) {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C4A40, 32, 32, 0.5f, 0.5f, 0, 0, arg0, arg1 + (32 / 2.0f));
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C4A40, 32, 32, 0.5f, 0.5f, 0, 0, arg0, arg1 + (32 / 2.0f));
 //
 //         if (legs) {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C4240, 32, 32, 0.5f, 0.5f, 0, 0, arg0 + (12 / 2.0f), arg1 + (58 / 2.0f));
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C4240, 32, 32, 0.5f, 0.5f, 1, 0, arg0 - (12 / 2.0f), arg1 + (58 / 2.0f));
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C4240, 32, 32, 0.5f, 0.5f, 0, 0, arg0 + (12 / 2.0f), arg1 + (58 / 2.0f));
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C4240, 32, 32, 0.5f, 0.5f, 1, 0, arg0 - (12 / 2.0f), arg1 + (58 / 2.0f));
 //
 //         if (arms) {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
 //         } else {
 //             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
 //         }
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C5240, 32, 32, 0.5f, 0.5f, 0, 0, arg0 + (26 / 2.0f), arg1 + (28 / 2.0f));
-//         func_8039C834_7ADEE4(&D_801D9E7C, (s32)D_800C5240, 32, 32, 0.5f, 0.5f, 1, 0, arg0 - (26 / 2.0f), arg1 + (28 / 2.0f));
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C5240, 32, 32, 0.5f, 0.5f, 0, 0, arg0 + (26 / 2.0f), arg1 + (28 / 2.0f));
+//         func_8039C834_7ADEE4(&D_801D9E7C, D_800C5240, 32, 32, 0.5f, 0.5f, 1, 0, arg0 - (26 / 2.0f), arg1 + (28 / 2.0f));
 //     }
 // }

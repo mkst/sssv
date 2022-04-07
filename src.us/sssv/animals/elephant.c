@@ -33,13 +33,13 @@ void func_8037D138_78E7E8(void) {
         D_803D552C->unk365 = ATTACK_GRAB;
     } else if (D_803D552C->unk320) {
         s32 tmp = func_8033C9CC_74E07C(
-            D_803D5530->xPos,
-            D_803D5530->zPos,
-            D_803D5530->yPos + (D_803D5524->unkBA >> 1),
+            D_803D5530->xPos.h,
+            D_803D5530->zPos.h,
+            D_803D5530->yPos.h + (D_803D5524->unkBA >> 1),
             D_803D5530->unk160,
-            D_803D552C->unk320->xPos,
-            D_803D552C->unk320->zPos,
-            D_803D552C->unk320->yPos + (D_803D552C->unk320->unk42 >> 1),
+            D_803D552C->unk320->xPos.h,
+            D_803D552C->unk320->zPos.h,
+            D_803D552C->unk320->yPos.h + (D_803D552C->unk320->unk42 >> 1),
             0x7F,
             0, 0);
         if (tmp == 0) {

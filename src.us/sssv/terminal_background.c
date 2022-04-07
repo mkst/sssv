@@ -367,8 +367,8 @@ void func_8038D920_79EFD0(u8 arg0) {
     func_802C8878_6D9F28();
     func_802E072C_6F1DDC(1);
     if (D_803F2AA2 != 0) {
-        func_802F2B54_704204(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos + 64, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos,      D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos + 64, arg0,    0, arg0, 0);
-        func_802F2B54_704204(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos,      D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos - 64, D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos - 64, arg0, arg0,    0, 0);
+        func_802F2B54_704204(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h + 64, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h,      D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h + 64, arg0,    0, arg0, 0);
+        func_802F2B54_704204(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h,      D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h - 64, D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h - 64, arg0, arg0,    0, 0);
         if ((D_803F2AA2 == 1) && (D_803B6318 != 2)) {
             func_802F2EEC_70459C(70, 70, 70, 50, 30, 30, 30);
             D_803F2AA2 += 1;
@@ -480,7 +480,7 @@ void func_8038DA70_79F120(void) {
 //         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
 //         select_font(0, FONT_COMIC_SANS, 1, 0);
 //         func_8038D920_79EFD0(0xFF);
-//         sp68 = func_8012826C() & 7;
+//         sp68 = SSSV_RAND(8);
 //         for (i = 0; i < 6; i++) {
 //             temp_v0_5 = (((i * 4) + i) * 8) + sp68;
 //
@@ -564,7 +564,7 @@ void func_8038F414_7A0AC4(void) {
             D_803A6CC8 = 45.0f;
             D_803F6472 = 0;
             D_803F2D10.unk0 = 3;
-            D_803F6474 = D_803F2E2A;
+            D_803F6474 = D_803F2D50.unkDA;
         }
         break;
     case 1:
@@ -582,7 +582,7 @@ void func_8038F414_7A0AC4(void) {
             D_803A6CC8 = 45.0f;
             D_803F6472 = 0;
             D_803F2D10.unk0 = 3;
-            D_803F6474 = D_803F2E2A;
+            D_803F6474 = D_803F2D50.unkDA;
             func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
         }
         break;

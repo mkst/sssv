@@ -25,9 +25,9 @@
 //
 //     if (D_803D552C->unk30E != 0) {
 //         if ((D_803D5538 != 0) && (D_803D552C->unk310 < temp_t6)) {
-//             play_sound_effect_at_location(9, D_803D552C->unk30E << 0xA, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//             play_sound_effect_at_location(9, D_803D552C->unk30E << 0xA, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //         } else if ((D_803D5538 != 0) && (D_803D552C->unk310 >= 0x201) && (temp_t6 < 0x201)) {
-//             play_sound_effect_at_location(10, D_803D552C->unk30E << 0xA, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+//             play_sound_effect_at_location(10, D_803D552C->unk30E << 0xA, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 //         }
 //         temp_a2 = D_803D552C->unk310 >> 2;
 //         temp_lo = (((s32) D_80152C78[temp_a2 & 0xFF]) >> 7) * D_803D552C->unk30E;

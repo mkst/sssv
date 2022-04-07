@@ -175,9 +175,9 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //         temp_v1 = phi_s5->unk8;
 //         if ((arg0 != temp_v1) && (arg0 != arg1) && (((D_803B1BAC[temp_v1->unk16C->unk2]) & (1 << (0xF - arg0->unk16C->unk2))) != 0)) {
 //
-//             if ((ABS(temp_v1->xPos - (s16) arg2) < (temp_v1->unk34 + arg0->unk34)) &&
-//                 (ABS(temp_v1->zPos - (s16) arg3) < (temp_v1->unk34 + arg0->unk34)) &&
-//                 (ABS((temp_v1->yPos + (temp_v1->unk42 >> 1)) - arg0->unk42 >> 1) < (temp_v1->unk36 + arg0->unk36)) &&
+//             if ((ABS(temp_v1->xPos.h - (s16) arg2) < (temp_v1->unk34 + arg0->unk34)) &&
+//                 (ABS(temp_v1->zPos.h - (s16) arg3) < (temp_v1->unk34 + arg0->unk34)) &&
+//                 (ABS((temp_v1->yPos.h + (temp_v1->unk42 >> 1)) - arg0->unk42 >> 1) < (temp_v1->unk36 + arg0->unk36)) &&
 //                 (arg0 != temp_v1->unk68) && (temp_v1 != arg0->unk68) &&
 //                 ((arg0 != temp_v1->unk70) || (arg0->unk16C->unk15 != 4)) &&
 //                 ((temp_v1 != arg0->unk70) || (temp_v1->unk16C->unk15 != 4)) &&
@@ -189,9 +189,9 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //                 func_802B5E48_6C74F8(temp_v1, arg0, &D_803D60D0, D_803D60D4);
 //
 //                 if (D_803D60D4 != 0) {
-//                     temp_s2 = temp_v1->xPos;
-//                     temp_s3 = temp_v1->zPos;
-//                     temp_s4 = temp_v1->yPos;
+//                     temp_s2 = temp_v1->xPos.h;
+//                     temp_s3 = temp_v1->zPos.h;
+//                     temp_s4 = temp_v1->yPos.h;
 //                     phi_s2 = temp_s2;
 //                     phi_s3 = temp_s3;
 //                     phi_s4 = temp_s4;
@@ -202,7 +202,7 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //                     goto block_36;
 //                 }
 // block_34:
-//                 if ((D_803D60D4 == 0) && (temp_s2_2 = temp_v1->xPos, temp_s3_2 = temp_v1->zPos, temp_s4_2 = temp_v1->yPos, phi_s2 = temp_s2_2, phi_s3 = temp_s3_2, phi_s4 = temp_s4_2, (func_803D60D0(temp_v1, arg0, &D_803D60D8, &D_803D60DC, *temp_s2_2, *temp_s3_2, *temp_s4_2, arg2, arg3, arg4) != 0))) {
+//                 if ((D_803D60D4 == 0) && (temp_s2_2 = temp_v1->xPos.h, temp_s3_2 = temp_v1->zPos.h, temp_s4_2 = temp_v1->yPos.h, phi_s2 = temp_s2_2, phi_s3 = temp_s3_2, phi_s4 = temp_s4_2, (func_803D60D0(temp_v1, arg0, &D_803D60D8, &D_803D60DC, *temp_s2_2, *temp_s3_2, *temp_s4_2, arg2, arg3, arg4) != 0))) {
 // block_36:
 //                     if ((arg0->unk16C->unk2 == 9) || (temp_v1->unk16C->unk2 == 9) ||
 //                         (arg0->unk16C->unk2 == 8) || (temp_v1->unk16C->unk2 == 8)) {
@@ -297,7 +297,7 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //         } else {
 //             phi_v1 = (s16) arg1->unk40;
 //         }
-//         if ((arg0->yPos + (arg0->unk42 >> 1)) < (arg1->yPos + (arg1->unk42 >> 1))) {
+//         if ((arg0->yPos.h + (arg0->unk42 >> 1)) < (arg1->yPos.h + (arg1->unk42 >> 1))) {
 //             if (phi_v1 >= 2048) {
 //                 phi_v1 = 2048;
 //             }
@@ -307,8 +307,8 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //         arg0->yVelocity -= (D_803D60DC->unk8 * phi_v1) >> 0xB;
 //         return;
 //     }
-//     temp_f2 = (arg0->xPos - arg1->xPos) / 65536.0;
-//     temp_f14 = (arg0->zPos - arg1->zPos) / 65536.0;
+//     temp_f2 = (arg0->xPos.h - arg1->xPos.h) / 65536.0;
+//     temp_f14 = (arg0->zPos.h - arg1->zPos.h) / 65536.0;
 //     phi_f2 = temp_f2;
 //     phi_f14 = temp_f14;
 //     if (temp_v0->unk15 == 4) {

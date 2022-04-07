@@ -30,15 +30,15 @@
 //     temp_t7_3 = (((temp_t7 * temp_t2) / 32) + ((temp_t9 * ((D_80203FF0[2].unk0 >> 2) + D_80203FF0[2].unk0)) / 32)) >> 7;
 //     temp_t7_4 = (((temp_t9 * temp_t2) / 32) - ((temp_t7 * ((D_80203FF0[2].unk0 >> 2) + D_80203FF0[2].unk0)) / 32)) >> 7;
 //
-//     temp_s0 = D_803D552C->xPos - temp_t7_3;
-//     temp_s1 = D_803D552C->zPos - temp_t7_4;
-//     sp3C = D_803D552C->xPos + temp_t7_3;
-//     sp3A = D_803D552C->zPos + temp_t7_4;
-//     sp32 = D_803D552C->yPos + D_803D5524->unkBA;
-//     sp44 = D_803D552C->yPos;
-//     sp38 = D_803D552C->yPos;
-//     sp30 = arg5->xPos;
-//     sp2E = arg5->zPos;
+//     temp_s0 = D_803D552C->xPos.h - temp_t7_3;
+//     temp_s1 = D_803D552C->zPos.h - temp_t7_4;
+//     sp3C = D_803D552C->xPos.h + temp_t7_3;
+//     sp3A = D_803D552C->zPos.h + temp_t7_4;
+//     sp32 = D_803D552C->yPos.h + D_803D5524->unkBA;
+//     sp44 = D_803D552C->yPos.h;
+//     sp38 = D_803D552C->yPos.h;
+//     sp30 = arg5->xPos.h;
+//     sp2E = arg5->zPos.h;
 //     sp2C = D_803D552C->unk30C;
 //     if (arg0 < 5) {
 //         *arg2 = temp_s0 + (((sp3C - temp_s0) * arg0) / 4);
@@ -85,8 +85,8 @@ void func_80379070_78A720(void) {
             D_803D552C->unk330 = a;
             D_803D552C->unk365 = ATTACK_SCORPION_2;
             D_803D552C->unk32A = D_803D5544;
-            D_803D552C->unk30C = D_803D552C->unk330->yPos + (D_803D552C->unk330->unk42 >> 1);
-            do_rumble(0, 25, 5, 60, distance_from_player(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos));
+            D_803D552C->unk30C = D_803D552C->unk330->yPos.h + (D_803D552C->unk330->unk42 >> 1);
+            do_rumble(0, 25, 5, 60, distance_from_player(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h));
         }
     } else {
         recharge_skill(1);
@@ -98,7 +98,7 @@ void func_80379148_78A7F8(Animal *a) {
         D_803D552C->unk330 = a;
         D_803D552C->unk365 = ATTACK_SCORPION_2;
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk30C = D_803D552C->unk330->yPos + (D_803D552C->unk330->unk42 >> 1);
+        D_803D552C->unk30C = D_803D552C->unk330->yPos.h + (D_803D552C->unk330->unk42 >> 1);
     }
 }
 

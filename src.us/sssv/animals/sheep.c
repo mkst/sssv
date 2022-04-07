@@ -55,15 +55,15 @@ void func_80362618_773CC8(void) {
     s16 tmp;
 
     if (D_803D552C->unk36D == 7) {
-        play_sound_effect_at_location(SFX_SHEEP_FLOAT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(SFX_SHEEP_FLOAT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
     if (D_803D552C->skillAEnergy[0] < 15) {
         if (D_803D552C->unk365 != ATTACK_SHEEP_FLOAT) {
-            tmp = D_803D5530->yPos - MAX(func_80310EE4_722594(D_803D5530->xPos, D_803D5530->zPos, D_803D5530->unk160) >> 16, D_803C0740[D_803D5530->xPos >> 16][D_803D5530->zPos >> 16].unk6 << 2);
+            tmp = D_803D5530->yPos.h - MAX(func_80310EE4_722594(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->unk160) >> 16, D_803C0740[D_803D5530->xPos.h >> 16][D_803D5530->zPos.h >> 16].unk6 << 2);
             if (tmp > 96) {
                 D_803D552C->unk365 = ATTACK_SHEEP_FLOAT;
                 D_803D552C->unk32A = D_803D5544;
-                play_sound_effect_at_location(SFX_SHEEP_HURT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+                play_sound_effect_at_location(SFX_SHEEP_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             }
         }
     }
@@ -118,11 +118,11 @@ void func_80362A08_7740B8(void) {
 void func_80362A10_7740C0(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_SHEEP_HEADBUTT;
-    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }
 //
 void ram_headbutt(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_SHEEP_HEADBUTT;
-    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }

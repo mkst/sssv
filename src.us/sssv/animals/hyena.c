@@ -17,9 +17,9 @@ void func_8035A170_76B820(void) {
         func_8037D9D4_78F084();
         if ((D_803D5540 & 1) == 0) {
             create_particle_effect(
-                D_803D5530->xPos,
-                D_803D5530->zPos,
-                D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+                D_803D5530->xPos.h,
+                D_803D5530->zPos.h,
+                D_803D5530->yPos.h + (D_803D5530->unk42 >> 2),
                 21,
                 0,
                 0,
@@ -33,9 +33,9 @@ void func_8035A170_76B820(void) {
         func_8037D994_78F044(24);
         if ((D_803D5540 & 1) == 0) {
             create_particle_effect(
-                D_803D5530->xPos,
-                D_803D5530->zPos,
-                D_803D5530->yPos + (D_803D5530->unk42 >> 2),
+                D_803D5530->xPos.h,
+                D_803D5530->zPos.h,
+                D_803D5530->yPos.h + (D_803D5530->unk42 >> 2),
                 21,
                 0,
                 0,
@@ -62,9 +62,9 @@ void func_8035A2A8_76B958(void) {
     }
 
     fire_homing_missile(
-        D_803D5530->xPos + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
-        D_803D5530->zPos - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
-        D_803D5530->yPos + (D_803D5530->unk42 >> 1),
+        D_803D5530->xPos.h + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->zPos.h - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->yPos.h + (D_803D5530->unk42 >> 1),
         5,
         ((u8)D_803D552C->unk302 * 360) >> 8,
         animal,
@@ -90,9 +90,9 @@ void biker_hyena_fire_missile(Animal *animal) {
     }
 
     fire_homing_missile(
-        D_803D5530->xPos + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
-        D_803D5530->zPos - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
-        D_803D5530->yPos + (D_803D5530->unk42 >> 1),
+        D_803D5530->xPos.h + ((((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->zPos.h - ((((D_80152C78[(u8)D_803D552C->unk302] >> 7) * tmp) / 32) >> 8),
+        D_803D5530->yPos.h + (D_803D5530->unk42 >> 1),
         5,
         ((u8)D_803D552C->unk302 * 360) >> 8,
         animal,

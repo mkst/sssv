@@ -89,8 +89,8 @@ s32 func_80309868_71AF18(void) {
 }
 
 s32 func_803098F0_71AFA0(void) {
-    s32 xDist = ABS(D_803D5530->xPos - D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos);
-    s32 zDist = ABS(D_803D5530->zPos - D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos);
+    s32 xDist = ABS(D_803D5530->xPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h);
+    s32 zDist = ABS(D_803D5530->zPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h);
 
     if ((D_803D552C->unk272 & 1)) {
         if ((s16) (zDist + xDist) < D_803A4638[D_803D5530->unk16C->unk0]) {
@@ -150,11 +150,11 @@ s32 func_80309BA0_71B250(void) {
     s32 phi_v0;
 
     if ((D_803D552C->unk272 & 1) && (D_803E4BE0.unk58 != NULL)) {
-        phi_a3 = ABS(D_803D552C->unk280->xPos - D_803E4BE0.unk58->xPos);
-        phi_v1 = ABS(D_803D552C->unk280->zPos - D_803E4BE0.unk58->zPos);
+        phi_a3 = ABS(D_803D552C->unk280->xPos.h - D_803E4BE0.unk58->xPos.h);
+        phi_v1 = ABS(D_803D552C->unk280->zPos.h - D_803E4BE0.unk58->zPos.h);
         // typo? function looks completely different without:
-        phi_a3 = ABS(D_803D552C->unk280->xPos - D_803E4BE0.unk58->xPos);
-        phi_v1 = ABS(D_803D552C->unk280->zPos - D_803E4BE0.unk58->zPos);
+        phi_a3 = ABS(D_803D552C->unk280->xPos.h - D_803E4BE0.unk58->xPos.h);
+        phi_v1 = ABS(D_803D552C->unk280->zPos.h - D_803E4BE0.unk58->zPos.h);
 
         phi_v0 = (phi_v1 + phi_a3) - (D_803D552C->unk280->unk30 + D_803E4BE0.unk58->unk30);
         phi_v0 = MAX(1, phi_v0);
@@ -249,9 +249,9 @@ void func_80309F38_71B5E8(void) {
     }
 
     func_80319C38_72B2E8(
-        D_803D5530->xPos >> 6,
-        D_803D5530->zPos >> 6,
-        D_803D5530->yPos >> 6,
+        D_803D5530->xPos.h >> 6,
+        D_803D5530->zPos.h >> 6,
+        D_803D5530->yPos.h >> 6,
         D_803D5530->unk193,
         &D_803D5530->unk192,
         D_803D5530->unk160);
@@ -278,8 +278,8 @@ void func_80309F38_71B5E8(void) {
 
     if (D_803D552C->unk2CC != NULL) {
         D_803D552C->unk2D0 = sqrtf(
-            ((D_803D552C->unk2CC->xPos - D_803D5530->xPos) * (D_803D552C->unk2CC->xPos - D_803D5530->xPos)) +
-            ((D_803D552C->unk2CC->zPos - D_803D5530->zPos) * (D_803D552C->unk2CC->zPos - D_803D5530->zPos)));
+            ((D_803D552C->unk2CC->xPos.h - D_803D5530->xPos.h) * (D_803D552C->unk2CC->xPos.h - D_803D5530->xPos.h)) +
+            ((D_803D552C->unk2CC->zPos.h - D_803D5530->zPos.h) * (D_803D552C->unk2CC->zPos.h - D_803D5530->zPos.h)));
         D_803D552C->unk2D0 = ((D_803D552C->unk2D0 - D_803D5524->unkBE) - D_803D552C->unk2CC->unk30);
         if (D_803D552C->unk2D0 < 0) {
             D_803D552C->unk2D0 = 1;
@@ -288,8 +288,8 @@ void func_80309F38_71B5E8(void) {
 
     if (D_803D552C->unk280 != NULL) {
         D_803D552C->unk284 = sqrtf(
-            ((D_803D552C->unk280->xPos - D_803D5530->xPos) * (D_803D552C->unk280->xPos - D_803D5530->xPos)) +
-            ((D_803D552C->unk280->zPos - D_803D5530->zPos) * (D_803D552C->unk280->zPos - D_803D5530->zPos)));
+            ((D_803D552C->unk280->xPos.h - D_803D5530->xPos.h) * (D_803D552C->unk280->xPos.h - D_803D5530->xPos.h)) +
+            ((D_803D552C->unk280->zPos.h - D_803D5530->zPos.h) * (D_803D552C->unk280->zPos.h - D_803D5530->zPos.h)));
         D_803D552C->unk284 = ((D_803D552C->unk284 - D_803D5524->unkBE) - D_803D552C->unk280->unk30);
         if (D_803D552C->unk284 < 0) {
             D_803D552C->unk284 = 1;
@@ -469,7 +469,7 @@ void func_80309F38_71B5E8(void) {
 
 void func_8030A8EC_71BF9C(void) {
     Animal *animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    func_80319C38_72B2E8(animal->xPos >> 6, animal->zPos >> 6, animal->yPos >> 6,
+    func_80319C38_72B2E8(animal->xPos.h >> 6, animal->zPos.h >> 6, animal->yPos.h >> 6,
                          animal->unk193, &animal->unk192, animal->unk160);
 }
 
@@ -1097,7 +1097,7 @@ void func_803135FC_724CAC(Animal *arg0) {
     s32 phi_a2;
     s32 phi_a3;
 
-    temp_v0 = arg0->xPos >> 6;
+    temp_v0 = arg0->xPos.h >> 6;
     if (temp_v0 < 36) {
         phi_a2 = D_803A5590_7B6C40[temp_v0 - 1];
         phi_a3 = D_803A5590_7B6C40[temp_v0];
@@ -1105,11 +1105,11 @@ void func_803135FC_724CAC(Animal *arg0) {
         phi_a2 = D_803A5590_7B6C40[temp_v0];
         phi_a3 = D_803A5590_7B6C40[temp_v0 + 1];
     }
-    temp_t1 = arg0->yPos + arg0->unk42;
+    temp_t1 = arg0->yPos.h + arg0->unk42;
     if ((phi_a2 < temp_t1) || (phi_a3 < temp_t1)) {
-        temp_t2 = phi_a2 + (((phi_a3 - phi_a2) * (arg0->xPos - (temp_v0 << 6))) >> 6);
+        temp_t2 = phi_a2 + (((phi_a3 - phi_a2) * (arg0->xPos.h - (temp_v0 << 6))) >> 6);
         if (temp_t2 < temp_t1) {
-            arg0->yPos = temp_t2 - arg0->unk42;
+            arg0->yPos.h = temp_t2 - arg0->unk42;
             arg0->yVelocity.w = MIN(arg0->yVelocity.w, 0);
         }
     }
@@ -1119,7 +1119,7 @@ void func_803135FC_724CAC(Animal *arg0) {
 #endif
 
 void func_803136B0_724D60(Animal *arg0) {
-    arg0->unk160 = func_803136FC_724DAC(arg0->xPos, arg0->zPos, (arg0->yPos + (arg0->unk42 >> 1)));
+    arg0->unk160 = func_803136FC_724DAC(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + (arg0->unk42 >> 1)));
 }
 
 s32 func_803136FC_724DAC(s16 x, s16 z, s16 y) {

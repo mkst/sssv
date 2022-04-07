@@ -8,7 +8,7 @@
 
 void func_802CAACC_6DC17C(Animal *arg0, s16 arg1) {
     arg0->yVelocity.w = (arg0->yVelocity.w * 7) / 8;
-    arg0->yVelocity.w -= ((arg0->yPos + (arg0->unk42 >> 1)) - arg1) << 10;
+    arg0->yVelocity.w -= ((arg0->yPos.h + (arg0->unk42 >> 1)) - arg1) << 10;
 }
 
 void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
@@ -116,22 +116,22 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 }
 
 void func_802CB180_6DC830(Animal *arg0) {
-    if (func_80298E08_6AA4B8(arg0->xPos, arg0->zPos)) {
+    if (func_80298E08_6AA4B8(arg0->xPos.h, arg0->zPos.h)) {
         s8 tmp;
         s16 phi_a1;
         s16 pad;
         s16 temp_t7;
-        s16 xPos = arg0->xPos >> 6;
-        s16 zPos = arg0->zPos >> 6;
+        s16 xPos = arg0->xPos.h >> 6;
+        s16 zPos = arg0->zPos.h >> 6;
         temp_t7 = D_803C0740[xPos][zPos].unk6 << 2;
 
-        if (temp_t7 < arg0->yPos) {
+        if (temp_t7 < arg0->yPos.h) {
             phi_a1 = 0;
         } else {
-            if ((arg0->yPos + arg0->unk42) < temp_t7) {
+            if ((arg0->yPos.h + arg0->unk42) < temp_t7) {
                 phi_a1 = 64;
             } else {
-                phi_a1 = ((temp_t7 - arg0->yPos) << 6) / arg0->unk42;
+                phi_a1 = ((temp_t7 - arg0->yPos.h) << 6) / arg0->unk42;
             }
         }
 

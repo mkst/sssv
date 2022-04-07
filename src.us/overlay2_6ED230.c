@@ -116,7 +116,7 @@ void func_802DBB80_6ED230(u16 arg0) {
     }
     if (tmp == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
-            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
     }
 
@@ -140,7 +140,7 @@ void func_802DBCDC_6ED38C(u16 arg0) {
     }
     if (tmp == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
-            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
     }
 
@@ -174,7 +174,7 @@ void func_802DBED8_6ED588(u16 arg0) {
     }
     if (tmp == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
-            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
     }
 
@@ -227,7 +227,7 @@ void func_802DC0D4_6ED784(u16 arg0) {
         case SEAGULL2:
         case RACING_FOX:
         default:
-            play_sound_effect_at_location(32, 0x5000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+            play_sound_effect_at_location(32, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             break;
         case RACING_TORTOISE_DEFENDING:
             break;

@@ -24,7 +24,7 @@
 //
 //     switch (D_803D5538) {
 //     case 0:
-//         if ((D_803F2D70 == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5)))) {
+//         if ((D_803F2D50.segment == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
 //             phi_v0 = 1;
 //         } else {
 //             phi_v0 = 0;
@@ -35,15 +35,15 @@
 //             break;
 //         }
 //     default:
-//         if ((D_803F2D70 == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D70 == 4) || (D_803F2D70 == 5)))) {
+//         if ((D_803F2D50.segment == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
 //             phi_v1 = 1;
 //         } else {
 //             phi_v1 = 0;
 //         }
 //         sp84 = func_802E89F0_6FA0A0(
-//             *(s32*)&D_803D552C->xPos,
-//             *(s32*)&D_803D552C->zPos,
-//             *(s32*)&D_803D552C->yPos + (D_803D5524->unkBA << 0xF),
+//             D_803D552C->xPos.w,
+//             D_803D552C->zPos.w,
+//             D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
 //             0x900,
 //             6,
 //             0x9B,
@@ -95,7 +95,7 @@
 //              (D_803F2EDA != 0) &&
 //              ((D_803D5538 != 0) || (D_803F2AA2 == 0) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 > 10))) &&
 //              ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
-//             func_80127640(D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s32) D_803F2ED2, D_803F2ED4);
+//             func_80127640(D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s32) D_803F2ED2, D_803F2ED4);
 //             if (0) { }
 //             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 //             D_80204278->usedModelViewMtxs += 1;
@@ -177,7 +177,7 @@
 //         func_8035D6D0_76ED80();
 //     }
 //     if ((sp84 == 0) || (sp84 == 2)) {
-//         func_8034BD20_75D3D0(D_803D552C->xPos, D_803D552C->zPos, (D_803D552C->yPos + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->unk302, D_01033190, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
+//         func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (D_803D552C->yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->unk302, D_01033190, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
 //     }
 //     if (sp84 == 0) {
 //         func_80303820_714ED0(D_803D552C, 1, 1, 375, 1);
@@ -202,7 +202,7 @@ void func_80302018_7136C8(void) {
 void func_80302080_713730(void) {
     if (D_803D5530->unk162 != 1) {
         func_80321E60_733510(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 24);
-        play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+        play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     } else {
         recharge_skill(1);
     }
@@ -210,7 +210,7 @@ void func_80302080_713730(void) {
 
 void heli_rabbit_drop_bomb(s32 arg0, s32 arg1, s32 arg2) {
     func_80321E60_733510(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 20);
-    play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos, D_803D5530->zPos, D_803D5530->yPos, 1.0f);
+    play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }
 
 void func_803021A8_713858(void) {

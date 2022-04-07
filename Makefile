@@ -1,6 +1,14 @@
 BASENAME  = sssv
 VERSION  := us
 
+# Colors
+
+NO_COL  := \033[0m
+RED     := \033[0;31m
+GREEN   := \033[0;32m
+BLUE    := \033[0;34m
+YELLOW  := \033[0;33m
+
 # Directories
 
 BUILD_DIR = build
@@ -36,15 +44,25 @@ LIBULTRA = lib/libultra_rom.a
 LANG_RNC_FILES      = $(wildcard assets/lang/*.dat.rnc)
 LANG_RNC_O_FILES    = $(foreach file,$(LANG_RNC_FILES),$(BUILD_DIR)/$(file:.dat.rnc=.dat.rnc.o))
 
-# Images
+# Compressed Images
 
 RGBA16_RNC_FILES    = $(shell find assets/img/ -name "*.rgba16.rnc.png" 2> /dev/null)
 RGBA16_RNC_O_FILES  = $(foreach file,$(RGBA16_RNC_FILES),$(BUILD_DIR)/$(file:.rgba16.rnc.png=.rgba16.rnc.o))
 
-# TODO: change this to find command?
+I4_RNC_FILES        = $(shell find assets/img/ -name "*.i4.rnc.png" 2> /dev/null)
+I4_RNC_O_FILES      = $(foreach file,$(I4_RNC_FILES),$(BUILD_DIR)/$(file:.i4.rnc.png=.i4.rnc.o))
+
+# Uncompressed Images
+
 RGBA16_FILES        = $(shell find assets/img/ -name "*.rgba16.png" 2> /dev/null)
+I4_FILES            = $(shell find assets/img/ -name "*.i4.png" 2> /dev/null)
 
 RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
+I4_O_FILES          = $(foreach file,$(I4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
+
+# All Images
+
+IMAGE_O_FILES       = $(RGBA16_RNC_O_FILES) $(I4_RNC_O_FILES) $(RGBA16_O_FILES) $(I4_O_FILES)
 
 # Generic RNC compressed files
 RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
@@ -61,7 +79,6 @@ CROSS    = mips-elf-
 AS       = $(CROSS)as
 CPP      = cpp
 LD       = $(CROSS)ld
-OBJDUMP  = $(CROSS)objdump
 OBJCOPY  = $(CROSS)objcopy
 PYTHON   = python3
 GCC      = gcc
@@ -73,6 +90,7 @@ CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
 RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
 SPLAT    = $(TOOLS_DIR)/splat/split.py
 
+IMG_CONVERT = $(PYTHON) $(TOOLS_DIR)/image_converter.py
 # Flags
 
 OPT_FLAGS      = -O2
@@ -126,13 +144,17 @@ TARGET     = $(BUILD_DIR)/$(BASENAME).$(VERSION)
 LD_SCRIPT  = $(BASENAME).ld
 
 LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt
-# LD_FLAGS  += -T undefined_funcs_auto.txt
 LD_FLAGS  += -Map $(TARGET).map --no-check-sections
 
+ifeq ($(VERSION),us)
 LD_FLAGS_EXTRA  = -Lbuild/lib -lultra_rom
 LD_FLAGS_EXTRA += $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
+else
+LD_FLAGS_EXTRA  =
+endif
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
+ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
 
 ### Optimisation Overrides
 $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
@@ -141,7 +163,8 @@ $(BUILD_DIR)/$(SRC_DIR)/core/string.c.o: OPT_FLAGS := -O2
 
 $(BUILD_DIR)/$(SRC_DIR)/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
 
-
+$(BUILD_DIR)/src.eu/overlay1%.c.o: OPT_FLAGS := -g
+# $(BUILD_DIR)/src.eu/overlay1%_63ED30.c.o: OPT_FLAGS := -g
 ### Targets
 
 default: all
@@ -175,9 +198,11 @@ compress: dirs $(RNC_COMPRESSED)
 	#cp $(BUILD_DIR)/assets/rnc*.bin assets/
 
 clean:
+	rm -rf build
+
+distclean: clean
 	rm -rf asm
 	rm -rf assets
-	rm -rf build
 	rm -f *auto.txt
 
 
@@ -187,35 +212,44 @@ clean:
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $<" | sha1sum --check
 	@touch $@
 
-$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(RGBA16_RNC_O_FILES) $(RGBA16_O_FILES)
-	$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
+$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
+	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
+	@printf "$(GREEN) LD$(NO_COL)   $<\n"
 
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
-	$(CC_CHECK) $<
-	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
-	$(CC) -c -32 $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
-	$(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py $(OPT_FLAGS) $< --post-process $@ \
-		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.s
+	@$(CC_CHECK) $<
+	@printf "$(YELLOW) GCC $(NO_COL) $<\n"
+	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
+	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
+	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
+		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
+	@printf "$(GREEN) IDO $(NO_COL) $<\n"
 endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
-	$(CC_CHECK) $<
-	$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	@$(CC_CHECK) $<
+	@printf "$(YELLOW) GCC$(NO_COL)  $<\n"
+	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	@printf "$(GREEN) IDO$(NO_COL)  $<\n"
 
 # use modern gcc for data
 $(BUILD_DIR)/$(SRC_DIR)/data/%.c.o: $(SRC_DIR)/data/%.c
-	$(XGCC) -c $(GCC_FLAGS) -o $@ $<
+	@$(XGCC) -c $(GCC_FLAGS) -o $@ $<
+	@printf "$(GREEN) XGCC$(NO_COL) $<\n"
 
 $(BUILD_DIR)/%.s.o: %.s
-	$(AS) $(ASFLAGS) -o $@ $<
+	@$(AS) $(ASFLAGS) -o $@ $<
+	@printf "$(GREEN) AS$(NO_COL)   $<\n"
 
 $(BUILD_DIR)/%.bin.o: %.bin
-	$(LD) -r -b binary -o $@ $<
+	@$(LD) -r -b binary -o $@ $<
+	@printf "$(GREEN) LD$(NO_COL)   $<\n"
 
 $(TARGET).bin: $(TARGET).elf
-	$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
+	@$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
+	@printf "$(GREEN) OBJC$(NO_COL) $<\n"
 
 $(TARGET).z64: $(TARGET).bin
 	@cp $< $@
@@ -223,16 +257,18 @@ $(TARGET).z64: $(TARGET).bin
 $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 	@mkdir -p $$(dirname $@)
 	@cp $< $@
-	$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
+	@$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
 
 rnc/%.bin: %.bin
 	@mkdir -p rnc/assets/levels
-	$(RNC64) u $< $@ >/dev/null
+	@$(RNC64) u $< $@ >/dev/null
+	@printf "$(GREEN) RNC$(NO_COL)  $<\n"
 
 $(BUILD_DIR)/%.bin: rnc/%.bin
-	$(RNC64) p $< $@ /f >/dev/null
+	# $(RNC64) p $< $@ /f >/dev/null
 	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
 	@mv $@.pad $@
+	@printf "$(GREEN) RNC$(NO_COL)  $<\n"
 
 $(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64
@@ -241,32 +277,50 @@ $(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 %.dat.rnc.json: %.dat.rnc
 	@mkdir -p $$(dirname $@)
 	$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@
+	@printf "$(YELLOW) LANG$(NO_COL) $<\n"
 
 $(BUILD_DIR)/%.dat: %.dat.rnc.json
 	@mkdir -p $$(dirname $@)
-	$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@ --encode
+	@$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@ --encode
+	@printf "$(GREEN) LANG$(NO_COL) $<\n"
 
-# images
+# compressed images
 $(BUILD_DIR)/%.rgba16: %.rgba16.rnc.png
 	@mkdir -p $$(dirname $@)
-	$(PYTHON) $(TOOLS_DIR)/png2rgba16.py $< $@
+	@$(IMG_CONVERT) rgba16 $< $@
+	@printf "$(GREEN) IMG$(NO_COL)  $<\n"
 
+$(BUILD_DIR)/%.i4: %.i4.rnc.png
+	@mkdir -p $$(dirname $@)
+	@$(IMG_CONVERT) i4 $< $@
+	@printf "$(GREEN) IMG$(NO_COL)  $<\n"
+
+# uncompressed images
 $(BUILD_DIR)/%.rgba16.png: %.rgba16.png
 	@mkdir -p $$(dirname $@)
-	$(PYTHON) $(TOOLS_DIR)/png2rgba16.py $< $@
+	@$(IMG_CONVERT) rgba16 $< $@
+	@printf "$(GREEN) IMG$(NO_COL)  $<\n"
+
+$(BUILD_DIR)/%.i4.png: %.i4.png
+	@mkdir -p $$(dirname $@)
+	@$(IMG_CONVERT) i4 $< $@
+	@printf "$(GREEN) IMG$(NO_COL)  $<\n"
 
 # BUILD_DIR prefix to suppress circular dependency
 $(BUILD_DIR)/%.png.o: $(BUILD_DIR)/%.png
-	$(LD) -r -b binary -o $@ $<
+	@$(LD) -r -b binary -o $@ $<
+	@printf "$(GREEN) LD$(NO_COL)   $<\n"
 
 # rnc compress
 %.rnc: %
-	$(RNC64) p $< $@ /f >/dev/null
+	@$(RNC64) p $< $@ /f >/dev/null
 	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
 	@mv $@.pad $@
+	@printf "$(GREEN) RNC$(NO_COL)  $<\n"
 
 %.rnc.o: %.rnc
-	$(LD) -r -b binary -o $@ $<
+	@$(LD) -r -b binary -o $@ $<
+	@printf "$(GREEN) LD$(NO_COL)   $<\n"
 
 # progress
 progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.overlay2.csv

@@ -376,7 +376,20 @@ segments:
     - [0x03D3A0, .data, data/D_01003AD0_3D3A0]
     - [0x03D3E0, .data, data/D_01003B10_3D3E0]
     - [0x03D440, .data, data/D_01003B70_3D440]
-    - [0x03D4A0, bin] # I4 textures
+    - [0x3D4A0, i4, img/3D4A0.i4, 16, 16]
+    - [0x3D520, i4, img/3D520.i4, 16, 16]
+    - [0x3D5A0, i4, img/3D5A0.i4, 16, 16]
+    - [0x3D620, i4, img/3D620.i4, 16, 16]
+    - [0x3D6A0, i4, img/3D6A0.i4, 16, 16]
+    - [0x3D720, i4, img/3D720.i4, 16, 16]
+    - [0x3D7A0, i4, img/3D7A0.i4, 16, 16]
+    - [0x3D820, i4, img/3D820.i4, 16, 16]
+    - [0x3D8A0, i4, img/3D8A0.i4, 16, 16]
+    - [0x3D920, i4, img/3D920.i4, 16, 16]
+    - [0x3D9A0, i4, img/3D9A0.i4, 16, 16]
+    - [0x3DA20, i4, img/3DA20.i4, 16, 16]
+    - [0x3DAA0, i4, img/3DAA0.i4, 16, 16]
+    - [0x3DB20, bin] # palette?
     - [0x3DB40, .data, data/D_01004270_3DB40]
     - [0x3DC30, .data, data/D_01004360_3DC30]
     - [0x3DC70, .data, data/D_010043A0_3DC70]
@@ -444,7 +457,7 @@ segments:
     - [0x0403E0, bin]
     - [0x040500, bin] # displaylist # D_80052030
     - [0x040530, rgba16, img/40530.rgba16, 32, 8] # ?
-    - [0x040730, bin] # IA4
+    - [0x040730, i4, img/D_0100DB40_40730.i4, 32, 32] # IA4
     - [0x040930, bin] # IA4
     - [0x040B30, bin] # more textures
     - [0x040D30, bin] # more textures
@@ -490,7 +503,7 @@ segments:
     - [0x47C00, sssv_vtx, data/inc/D_0100E330_47C00]
     - [0x47C60, .data, data/47C60] # mine from SOMETHING_FISHY?
     - [0x47F90, sssv_vtx, data/inc/D_0100E6C0_47F90]
-    - [0x48170, .data, data/D_0100E8A0_48170] # displaylist # cog?
+    - [0x48170, .data, data/D_0100E8A0_48170] # cog?
     - [0x48200, sssv_vtx, data/inc/D_0100E930_48200]
     - [0x483F0, sssv_vtx, data/inc/D_0100EB20_483F0]
     - [0x48530, .data, data/D_0100EC60_48530]
@@ -1383,7 +1396,7 @@ segments:
     - [0xB2A00, sssv_vtx, data/inc/D_05001E70_B2A00]
     - [0xB2BF0, sssv_vtx, data/inc/D_05002060_B2BF0]
     - [0xB2DA0, .data, data/D_05002210_B2DA0] # PENGUIN_PLAYPEN trophy (musical notes)
-  - name: WALRACE_64 # WALRACE_64
+  - name: WALRACE_64
     type: code
     vram: 0x05000000
     start: 0xB2ED0
@@ -1447,7 +1460,7 @@ segments:
     overlay: yes
     subsegments:
     - [0xB3DC0, .rodata, data/D_05000000_B3DC0]
-  - name: data_B3DD0 # WEIGHT_FOR_IT
+  - name: WEIGHT_FOR_IT
     type: code
     vram: 0x05000000
     start: 0xB3DD0
@@ -1463,7 +1476,7 @@ segments:
     overlay: yes
     subsegments:
     - [0xB40C0, .rodata, data/D_05000000_B40C0]
-  - name: data_B40D0
+  - name: JUNGLE_JUMPS # ?
     type: code
     vram: 0x05000000
     start: 0xB40D0
@@ -1472,7 +1485,7 @@ segments:
     - [0xB40D0, sssv_vtx, data/inc/D_05000000_B40D0]
     - [0xB4150, sssv_vtx, data/inc/D_05000080_B4150]
     - [0xB42D0, .data, data/D_05000200_B42D0] # JUNGLE_JUMPS key?
-  - name: data_B43A0
+  - name: JUNGLE_JAPES
     type: code
     vram: 0x05000000
     start: 0xB43A0
@@ -1606,7 +1619,7 @@ segments:
     - [0xBD150, sssv_vtx, data/inc/D_05000080_BD150]
     - [0xBD1F0, sssv_vtx, data/inc/D_05000120_BD1F0]
     - [0xBD240, .data, data/D_05000170_BD240] # pole
-  - name: data_BD2B0
+  - name: HOT_CROSS_BUNS
     type: code
     vram: 0x05000000
     start: 0xBD2B0
@@ -2940,7 +2953,7 @@ segments:
     - [0x107E90, sssv_vtx, data/inc/D_04008140_107E90]
     - [0x107F90, sssv_vtx, data/inc/D_04008240_107F90]
     - [0x107FD0, sssv_vtx, data/inc/D_04008280_107FD0] # empty vtx?
-    - [0x107FE0]
+    - [0x107FE0] # end of D_04008290_107FE0
     - [0x108310, .data, data/D_040088F0_108640] # frog stand
     - [0x108310, sssv_vtx, data/inc/D_040085C0_108310]
     - [0x108370, sssv_vtx, data/inc/D_04008620_108370]
@@ -3203,7 +3216,7 @@ segments:
     type: group
     start: 0x12A390
     subsegments:
-    - [0x12A390, bin, rnc_12A390] # 18979 => 51200 # fonts I4 format
+    - [0x12A390, rnc, img/fonts/comic_sans, i4, 16, 6400]
   - name: sounds
     type:  group
     subalign: 4
@@ -3309,17 +3322,17 @@ segments:
   - [0x4F5470, bin, empty_rnc_4F5470] # empty RNC!
   - [0x4F5490, bin, empty_rnc_4F5490] # empty RNC!
   - [0x4F54B0, bin, empty_rnc_4F54B0] # empty RNC!
-  #
-  - [0x4F54D0, bin, rnc_4F54D0] # 5534 => 20480
-  - [0x4F6A70, bin, rnc_4F6A70] # 5534 => 20480
-  - [0x4F8010, bin, rnc_4F8010] # 5534 => 20480
-  - [0x4F95B0, bin, rnc_4F95B0] # 6590 => 20480
-  #
-  - [0x4FAF70, bin, rnc_4FAF70] # 4505 => 10240  # flowers
+  # 3xRGBA16 (32x32) + 5xRGBA16 (32x32) + 8x IA4 (32x32) mask
+  - [0x4F54D0, bin, rnc_4F54D0] # 5534 => 20480  # powercells with chroma etc
+  - [0x4F6A70, bin, rnc_4F6A70] # 5534 => 20480  # dupe
+  - [0x4F8010, bin, rnc_4F8010] # 5534 => 20480  # dupe
+  - [0x4F95B0, bin, rnc_4F95B0] # 6590 => 20480  # slightly different powercell
+  # 4xRGBA16 (32x32) + 4xIA4 (32x32) mask
+  - [0x4FAF70, bin, rnc_4FAF70] # 4505 => 10240  # flowers,
   - [0x4FC110, bin, rnc_4FC110] # 4291 => 10240  # flowers
-  - [0x4FD1E0, bin, rnc_4FD1E0] # 3462 => 10240
-  - [0x4FDF70, bin, rnc_4FDF70] # 4928 => 10240
-  - [0x4FF2B0, bin, rnc_4FF2B0] # 3435 => 10240
+  - [0x4FD1E0, bin, rnc_4FD1E0] # 3462 => 10240  # hearts + flowers
+  - [0x4FDF70, bin, rnc_4FDF70] # 4928 => 10240  # flowers
+  - [0x4FF2B0, bin, rnc_4FF2B0] # 3435 => 10240  # GADAB boosters
   - [0x500020, bin, rnc_500020] # 39 => 10240
   - [0x500050, bin, rnc_500050] # 4074 => 10240  # europe tree textures, rgba16
   - [0x501040, bin, rnc_501040] # 4892 => 10240
@@ -3343,10 +3356,10 @@ segments:
   - [0x50D230, bin, rnc_50D230] # 6808 => 10240
   - [0x50ECD0, bin, rnc_50ECD0] # 6661 => 10240
   - [0x5106E0, bin, rnc_5106E0] # 7000 => 10240
-  - [0x512240, bin, rnc_512240] # 39 => 10240
+  - [0x512240, bin, rnc_512240] # 39 => 10240 # empty?
   - [0x512270, bin, rnc_512270] # 39 => 10240
   - [0x5122A0, bin, rnc_5122A0] # 39 => 10240
-  - [0x5122D0, bin, rnc_5122D0] # 5348 => 10240
+  - [0x5122D0, bin, rnc_5122D0] # 5348 => 10240 # cactus
   - [0x5137C0, bin, rnc_5137C0] # 5348 => 10240
   - [0x514CB0, bin, rnc_514CB0] # 2674 => 10240
   - [0x515730, bin, rnc_515730] # 5348 => 10240 # dupe
@@ -3509,6 +3522,7 @@ segments:
     overlay: yes
     start: 0x006384F0
     vram:  0x80294E50
+    subalign: 8
     subsegments:
     - [0x6384F0, c, overlay1_6384F0]
     - [0x63C660, c, overlay1_63C660]
@@ -3517,9 +3531,11 @@ segments:
     - [0x63CDD0, bin] # tbd ### D_80299730
     - [0x63D000, bin] # D_80299960_63D000 in overlay1_6384F0
     - [0x63D0E0, bin]
-    # - [0x63D4E2, bin] # "C" texture 10x11 rgba16
-    - [0x63D5E0, bin] # dl
-    - [0x63D660, bin] # dl D_80299FC0_63D660
+    # - [0x63D4E4, bin] # "C" texture 10x11 rgba16
+    - [0x63D5D8, bin] # dl
+    - [0x63D660, .data, overlay1_6384F0] # D_80299FC0_63D660
+    - [0x63D6F0, bin]
+    # - [0x63D6A4, bin] # D_8029A004_63D6A4
     - [0x63D700, sssv_vtx, data/inc/D_8029A060_63D700]
     - [0x63D880, sssv_vtx, data/inc/D_8029A1E0_63D880]
     - [0x63DA00, .data, data/D_8029A360_63DA00] # rocket flames 1
@@ -3606,7 +3622,8 @@ segments:
     - [0x6A4BC0, rgba16, img/flags/dutch.rgba16, 48, 32]
     - [0x6A57C0, rgba16, img/flags/spanish.rgba16, 48, 32]
     # rodata
-    - [0x6A63C0, rodata, overlay1_6384F0]
+    - [0x6A63C0, .rodata, overlay1_6384F0]
+    - [0x6A63D0, rodata, overlay1_6384F0]
     - [0x6A64A0, rodata, overlay1_63C660]
     # bss
     - [0x6A6500, .bss, overlay1_6384F0] # , 0xAD740 // should be D_80302E60
@@ -3771,6 +3788,8 @@ segments:
     - [0x7C5F38, bin] # husky texture 1? 16x16 ci
     - [0x7C5FB8, bin] # husky texture 2?
     - [0x7C6038, bin] # tbd
+    - [0x7C6F50, .data, sssv/animals/cool_cod] # cool cod
+    - [0x7C6F90, bin] # tbd
     # - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
     - [0x7C74E0, bin]
@@ -3801,7 +3820,7 @@ segments:
     - [0x7CC3B0, rodata, overlay2_6A7A80]
     - [0x7CC3C0, rodata, overlay2_6ACF20]
     - [0x7CC470, rodata, overlay2_6B5380]
-    - [0x7CD384, .rodata, overlay2_6B5380]
+    - [0x7CCBE0, .rodata, overlay2_6B5380]
     - [0x7CD5B0, rodata, sssv/collision]
     - [0x7CD610, .rodata, overlay2_6CCEF0]
     - [0x7CD664, rodata, overlay2_6CCEF0]
@@ -3894,6 +3913,7 @@ segments:
     - [0x7D1AC0, .rodata, ui_main_menu]
     # bss
     - [0x7D1AD0, .bss, overlay2_6A6500]
+    - [0x7D1AD0, .bss, overlay2_6B5380]
     - [0x7D1AD0, .bss, overlay2_741000]
   # - [0x7D1DF0, bin] # D_803C0740_7D1DF0
   - [0x7D1AD0, bin] # referenced in overlay2_7A8A50

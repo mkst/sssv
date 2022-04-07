@@ -76,7 +76,7 @@ s32 func_80132D84(ALSndPlayer *sndp) {
     }
     return used;
 }
-
+#if 1
 typedef struct {
     /* 0x0 */ s16 unk0;
     /* 0x2 */ s16 unk2;
@@ -100,7 +100,9 @@ typedef struct {
 } myStruct;
 
 extern myStructInner D_80154C4C[100]; // sound effect pointers?
+#endif
 
+// void func_80132174(s32 arg0, s32 arg1, s32 arg2, s32 arg3, void **argD, void **argE);
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/func_80132F70.s")
 // called with (0x56, 0x5000)
 // pure nonsense
@@ -113,24 +115,26 @@ extern myStructInner D_80154C4C[100]; // sound effect pointers?
 //     }
 //
 //     if (arg0 != 10000) {
+//         f32 tmpf = D_801546E8[arg0];
 //         tmp.sp64 = 0;
 //         tmp.sp68 = 0;
 //         tmp.sp6C = 0;
-//         tmp.sp50[0].unk2 = arg0;
 //         tmp.sp50[0].unk0 = D_80154C4C[arg0].unk0;
+//         tmp.sp50[0].unk2 = arg0;
 //         tmp.sp50[0].unk4 = 64;
-//         tmp.sp50[0].unk8 = D_801546E8[arg0];
-//         if (!(D_801546E8[arg0] > 2.0f)) {
+//         tmp.sp50[0].unk8 = tmpf;
+//         if (!(tmpf > 2.0f)) {
 //             tmp.sp78 = 0;
 //             tmp.sp72 = -1;
 //             tmp.sp5C = arg1;
 //             tmp.sp60 = D_80241D0E;
 //
-//             for (i = 2; i < 4; i++) {
-//                 tmp.sp50[i] = D_80154C4C[arg0];
+//             for (i = 0; i < 2; i++) {
+//                 tmp.sp50[i] = tmp.sp50[i+1];
 //             }
-//             // subroutine_arg0, subroutine_arg1, subroutine_arg2, subroutine_arg3,
-//             func_80132174(arg0, arg1, &D_8028631C, &D_80286320);
+//             // tmp.sp50[i].unk0 = tmp.sp50[i+1].unk0;
+//             // subroutine_arg0, subroutine_arg1, subroutine_arg2, subroutine_arg3, &D_8028631C, &D_80286320
+//             func_80132174(tmp.sp50[0].unk0, tmp.sp50[0].unk2, tmp.sp50[0].unk4, tmp.sp50[0].unk8, &D_8028631C, &D_80286320);
 //         }
 //     }
 // }
@@ -138,7 +142,9 @@ extern myStructInner D_80154C4C[100]; // sound effect pointers?
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/play_sound_effect.s")
 // void play_sound_effect(s16 id, s16 arg1, s16 arg2, f32 speed, u8 arg4) {
 
+// unused? absolutely no idea how to decomp
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/func_80133188.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audio2/func_8013328C.s")
 
 void func_80133528(u8 id, s16 vol) { // play_sound_by_id_with_volume
@@ -247,7 +253,7 @@ void func_801339F8(void) {
     if (gAudioInitialized != 0) {
         for (snd = D_8028631C; snd != NULL; snd = snd->next) {
             if ((snd->sndSlot >= 0) && (D_801546BC == 1)) {
-                vol = ((snd->unkC * D_801546C8) + ((D_801546CC * (snd->unkC * D_801546C0)) / D_801546C4)) * gSfxVolume;
+                vol = ((snd->sndVolume * D_801546C8) + ((D_801546CC * (snd->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume;
                 alSndpSetSound(D_80286310, snd->sndSlot);
                 alSndpSetVol(D_80286310, vol);
             }

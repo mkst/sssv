@@ -37,9 +37,9 @@ void check_cheats(OSContPad *contPad) {
         if ((D_803F6428.debugMode != 0) && (D_803F6680.unk0 == 0)) {
             // print debug location
             sprintf(D_802042B0, "(%3d  %3d  %4d)",
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos);
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h);
             prepare_text((u8*)D_802042B0, sp28);
             display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
             prepare_text((u8*)"Ver - 1.37", sp28);

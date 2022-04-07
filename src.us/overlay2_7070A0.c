@@ -32,7 +32,7 @@ void func_802F59F0_7070A0(void) {
             D_80151434 = 0xB57; // 2903?
             func_8012822C(1); // set game time to 1
 
-            switch (D_803F2D50.biome) {
+            switch (D_803F2D50.segment) {
             case 0:
                 D_803E1BD4 = D_803B1F20_7C35D0;
                 break;
@@ -199,9 +199,9 @@ void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) 
     arg0->unk17A = arg2;
     arg0->unk17C = arg3;
     arg0->unk172 = arg4;
-    arg0->unk17E = arg0->xPos;
-    arg0->unk180 = arg0->zPos;
-    arg0->unk182 = arg0->yPos;
+    arg0->unk17E = arg0->xPos.h;
+    arg0->unk180 = arg0->zPos.h;
+    arg0->unk182 = arg0->yPos.h;
     arg0->unk184 = 0;
 }
 
@@ -255,10 +255,10 @@ void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) 
 //         temp_t8 = ((arg0->unk180 + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
 //         temp_t5 = ((arg0->unk182 + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
 //
-//         arg0->xVelocity.w = temp_t6 - *(s32*)&arg0->xPos;
-//         arg0->zVelocity.w = temp_t8 - *(s32*)&arg0->zPos;
+//         arg0->xVelocity.w = temp_t6 - *(s32*)&arg0->xPos.h;
+//         arg0->zVelocity.w = temp_t8 - *(s32*)&arg0->zPos.h;
 //         if (arg0->unk4C.unk29 == 0) {
-//             arg0->yVelocity.w = temp_t5 - *(s32*)&arg0->yPos;
+//             arg0->yVelocity.w = temp_t5 - *(s32*)&arg0->yPos.h;
 //         }
 //     }
 // }
@@ -310,10 +310,10 @@ void func_802F6750_707E00(Animal *arg0) {
         } else {
             yVel = (arg0->unk182 << 16) + ((temp_t1 * arg0->unk184) << 8);
         }
-        arg0->xVelocity.w = xVel - *(s32*)&arg0->xPos;
-        arg0->zVelocity.w = zVel - *(s32*)&arg0->zPos;
+        arg0->xVelocity.w = xVel - *(s32*)&arg0->xPos.h;
+        arg0->zVelocity.w = zVel - *(s32*)&arg0->zPos.h;
         if (arg0->unk4C.unk29 == 0) {
-            arg0->yVelocity.w = yVel - *(s32*)&arg0->yPos;
+            arg0->yVelocity.w = yVel - *(s32*)&arg0->yPos.h;
         }
     }
 }
@@ -321,9 +321,9 @@ void func_802F6750_707E00(Animal *arg0) {
 void func_802F68A0_707F50(Animal *arg0) {
     s32 x, z, y;
 
-    if ((arg0->xPos == arg0->unk178) &&
-        (arg0->zPos == arg0->unk17A) &&
-        ((arg0->unk4C.unk29 != 0) || (arg0->yPos == arg0->unk17C))) {
+    if ((arg0->xPos.h == arg0->unk178) &&
+        (arg0->zPos.h == arg0->unk17A) &&
+        ((arg0->unk4C.unk29 != 0) || (arg0->yPos.h == arg0->unk17C))) {
         arg0->unk170 = 0;
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
@@ -337,58 +337,58 @@ void func_802F68A0_707F50(Animal *arg0) {
             arg0->yVelocity.w = 0;
         }
     } else {
-        if (arg0->xPos < arg0->unk178) {
-            x = arg0->xPos + arg0->unk172;
+        if (arg0->xPos.h < arg0->unk178) {
+            x = arg0->xPos.h + arg0->unk172;
             if (arg0->unk178 < x) {
                 x = arg0->unk178;
             }
         } else {
-            if (arg0->unk178 < arg0->xPos) {
-                x = arg0->xPos - arg0->unk172;
+            if (arg0->unk178 < arg0->xPos.h) {
+                x = arg0->xPos.h - arg0->unk172;
                 if (x < arg0->unk178) {
                     x = arg0->unk178;
                 }
             } else {
-                x = arg0->xPos;
+                x = arg0->xPos.h;
             }
         }
 
-        if (arg0->zPos < arg0->unk17A) {
-            z = arg0->zPos + arg0->unk172;
+        if (arg0->zPos.h < arg0->unk17A) {
+            z = arg0->zPos.h + arg0->unk172;
             if (arg0->unk17A < z) {
                 z = arg0->unk17A;
             }
         } else {
-            if (arg0->unk17A < arg0->zPos) {
-                z = arg0->zPos - arg0->unk172;
+            if (arg0->unk17A < arg0->zPos.h) {
+                z = arg0->zPos.h - arg0->unk172;
                 if (z < arg0->unk17A) {
                     z = arg0->unk17A;
                 }
             } else {
-                z = arg0->zPos;
+                z = arg0->zPos.h;
             }
         }
 
-        if (arg0->yPos < arg0->unk17C) {
-            y = arg0->yPos + arg0->unk172;
+        if (arg0->yPos.h < arg0->unk17C) {
+            y = arg0->yPos.h + arg0->unk172;
             if (arg0->unk17C < y) {
                 y = arg0->unk17C;
             }
         } else {
-            if (arg0->unk17C < arg0->yPos) {
-                y = arg0->yPos - arg0->unk172;
+            if (arg0->unk17C < arg0->yPos.h) {
+                y = arg0->yPos.h - arg0->unk172;
                 if (y < arg0->unk17C) {
                     y = arg0->unk17C;
                 }
             } else {
-                y = arg0->yPos;
+                y = arg0->yPos.h;
             }
         }
 
-        arg0->xVelocity.w = (x << 16) - *(s32*)&arg0->xPos;
-        arg0->zVelocity.w = (z << 16) - *(s32*)&arg0->zPos;
+        arg0->xVelocity.w = (x << 16) - arg0->xPos.w;
+        arg0->zVelocity.w = (z << 16) - arg0->zPos.w;
         if (arg0->unk4C.unk29 == 0) {
-            arg0->yVelocity.w = (y << 16) - *(s32*)&arg0->yPos;
+            arg0->yVelocity.w = (y << 16) - arg0->yPos.w;
         }
     }
 }
@@ -530,9 +530,9 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 //     f32 phi_f12;
 //     f32 phi_f2;
 //
-//     sp44.x = arg0->xPos - arg1->xPos;
-//     sp44.y = arg0->zPos - arg1->zPos;
-//     sp44.z = (arg0->yPos + arg0->unk42) - (arg1->yPos + arg1->unk42);
+//     sp44.x = arg0->xPos.h - arg1->xPos.h;
+//     sp44.y = arg0->zPos.h - arg1->zPos.h;
+//     sp44.z = (arg0->yPos.h + arg0->unk42) - (arg1->yPos.h + arg1->unk42);
 //     sp50 = sqrtf((sp44.x * sp44.x) + (sp44.y * sp44.y) + (sp44.z * sp44.z));
 //
 //     if (arg3 < sp50) {
@@ -563,9 +563,9 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 //         phi_f2 = sp38.y / temp_f0_3;
 //     }
 //     sp5C = sp50 / temp_f0_2;
-//     arg4.unk0 = arg1->xPos + (s16) (sp60 * sp5C * phi_f12);
-//     arg4.unk2 = arg1->zPos + (s16) (sp60 * sp5C * phi_f2);
-//     arg4.unk4 = arg1->yPos + (arg1->unk42 >> 1);
+//     arg4.unk0 = arg1->xPos.h + (s16) (sp60 * sp5C * phi_f12);
+//     arg4.unk2 = arg1->zPos.h + (s16) (sp60 * sp5C * phi_f2);
+//     arg4.unk4 = arg1->yPos.h + (arg1->unk42 >> 1);
 //     return 1;
 // }
 
@@ -610,8 +610,8 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //                     (D_801D9ED8.animals[i].unk0->unk9C != EVO)) {
 //
 //                     ret = arg0; // not this but similar?
-//                     phi_a0 = ABS(arg0->xPos.h - animal->xPos);
-//                     phi_v1 = ABS(arg0->zPos.h - animal->zPos);
+//                     phi_a0 = ABS(arg0->xPos.h - animal->xPos.h);
+//                     phi_v1 = ABS(arg0->zPos.h - animal->zPos.h);
 //                     temp_s0 = MAX(phi_a0, phi_v1) + (MIN(phi_a0, phi_v1) >> 1);
 //
 //                     if ((temp_s0 < distance) && func_802F8918_709FC8(arg0, animal)) {
@@ -766,8 +766,8 @@ s32 func_802F9178_70A828(struct071 *arg0) {
 
                 target = D_801D9ED8.animals[i].animal;
 
-                xDist = ABS(arg0->xPos.h - target->xPos);
-                zDist = ABS(arg0->zPos.h - target->zPos);
+                xDist = ABS(arg0->xPos.h - target->xPos.h);
+                zDist = ABS(arg0->zPos.h - target->zPos.h);
                 phi_a3 = MAX(xDist, zDist);
                 phi_t0 = MIN(xDist, zDist);
 
@@ -802,9 +802,9 @@ void func_802F92B0_70A960(struct071 *arg0) {
     sp47 = func_802F9178_70A828(arg0);
 
     if (arg0->unk188 != NULL) {
-        x_dist = arg0->unk188->xPos - arg0->xPos.h;
-        z_dist = arg0->unk188->zPos - arg0->zPos.h;
-        sp54 = (arg0->unk188->yPos - arg0->yPos.h) + (arg0->unk188->unk42 >> 1);
+        x_dist = arg0->unk188->xPos.h - arg0->xPos.h;
+        z_dist = arg0->unk188->zPos.h - arg0->zPos.h;
+        sp54 = (arg0->unk188->yPos.h - arg0->yPos.h) + (arg0->unk188->unk42 >> 1);
         sp50 = (s16) sqrtf((x_dist * x_dist) + (z_dist * z_dist));
         sp4E = func_801284B8(x_dist, z_dist);
         sp4C = func_801284B8(sp54, sp50);
@@ -939,19 +939,19 @@ void func_802FB4C0_70CB70(Animal *arg0) {
     } else {
         phi_v0 = -1;
     }
-    func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + ((s32) arg0->unk42 >> 1), 0, 0, 0x32, phi_t0, phi_v0);
+    func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0x32, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 0x20;
     } else {
         phi_a1 = 1;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos + ((s32) arg0->unk42 >> 1), (s32) arg0->unk30 >> 2, 0);
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), (s32) arg0->unk30 >> 2, 0);
 }
 
 void func_802FB680_70CD30(Animal *arg0) {
@@ -974,19 +974,19 @@ void func_802FB680_70CD30(Animal *arg0) {
     } else {
         phi_v1 = -1;
     }
-    func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0, 0, 0x64, phi_v0, phi_v1);
+    func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_v0, phi_v1);
 
-    phi_v1_2 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1_2 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1_2 * 4)) {
+    if (arg0->yPos.h < (phi_v1_2 * 4)) {
         phi_a1 = 0x20;
     } else {
         phi_a1 = 7;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos + ((s32) arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
 }
 
 void func_802FB85C_70CF0C(Animal *arg0) {
@@ -1013,21 +1013,21 @@ void func_802FB85C_70CF0C(Animal *arg0) {
     func_802FF184_710834(
         arg0,
         1,
-        arg0->xPos,
-        arg0->zPos,
-        arg0->yPos + (arg0->unk42 >> 1),
+        arg0->xPos.h,
+        arg0->zPos.h,
+        arg0->yPos.h + (arg0->unk42 >> 1),
         0,
         0,
         100,
         phi_v0,
         phi_v1);
 
-    phi_v1_2 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                       D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                   MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                       D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1_2 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                   MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1_2 << 2)) {
+    if (arg0->yPos.h < (phi_v1_2 << 2)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 4 | 2 | 1;
@@ -1038,9 +1038,9 @@ void func_802FB85C_70CF0C(Animal *arg0) {
     func_802D7BE0_6E9290(
         0,
         phi_a1,
-        arg0->xPos,
-        arg0->zPos,
-        arg0->yPos + (arg0->unk42 >> 1),
+        arg0->xPos.h,
+        arg0->zPos.h,
+        arg0->yPos.h + (arg0->unk42 >> 1),
         arg0->unk30 >> 2,
         0);
 }
@@ -1061,19 +1061,19 @@ void func_802FBA40_70D0F0(Animal *arg0) {
     } else {
         phi_v0 = -1;
     }
-    func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), arg0->yRotation, 0x5A, 0x64, phi_t0, phi_v0);
+    func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->yRotation, 0x5A, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 0x20;
     } else {
         phi_a1 = 1;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, arg0->unk30 >> 4, 0);
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 4, 0);
 }
 
 void func_802FBBF8_70D2A8(Animal *arg0) {
@@ -1094,19 +1094,19 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
         phi_v0 = -1;
     }
 
-    func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + ((s32) arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
+    func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 0x20;
     } else {
         phi_a1 = 1;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, (s32) arg0->unk30 >> 2, 0);
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, (s32) arg0->unk30 >> 2, 0);
 }
 
 void func_802FBDA8_70D458(Animal *arg0) {
@@ -1125,19 +1125,19 @@ void func_802FBDA8_70D458(Animal *arg0) {
     } else {
         phi_v0 = -1;
     }
-    func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
+    func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 3;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, (s32) arg0->unk30 >> 2, 0);
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, (s32) arg0->unk30 >> 2, 0);
 }
 
 void func_802FBF58_70D608(Animal *arg0) {
@@ -1157,19 +1157,19 @@ void func_802FBF58_70D608(Animal *arg0) {
         phi_v0 = -1;
     }
 
-    func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
+    func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 5;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, arg0->unk30 >> 2, 0);
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 2, 0);
 }
 
 void func_802FC108_70D7B8(Animal *arg0) {
@@ -1188,19 +1188,19 @@ void func_802FC108_70D7B8(Animal *arg0) {
     } else {
         phi_v0 = -1;
     }
-    func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
+    func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 7;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, arg0->unk30 >> 2, 0);
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 2, 0);
 }
 
 void func_802FC2B8_70D968(s16 x, s16 z, s16 y) {
@@ -1257,34 +1257,34 @@ void func_802FC5C0_70DC70(Animal *arg0) {
     s16 phi_a1;
     s32 phi_v1;
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 40;
     } else {
         phi_a1 = 9;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
 }
 
 void func_802FC6E4_70DD94(Animal *arg0) {
     s16 phi_a1;
     s32 phi_v1;
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos >> 6) + 0][(arg0->zPos >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos >> 6) + 1][(arg0->zPos >> 6) + 1].unk6));
+    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
-    if (arg0->yPos < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 104;
     } else {
         phi_a1 = 72;
     }
-    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos, arg0->zPos, arg0->yPos, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
+    func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
 }
 
 #ifdef NON_MATCHING
@@ -1295,9 +1295,9 @@ void func_802FC808_70DEB8(Animal *arg0) {
 
     for (i = 0; i < 10; i++) {
         create_particle_effect(
-            arg0->xPos,
-            arg0->zPos,
-            arg0->yPos + ((arg0->unk42 & 0xFFFF) >> 1),
+            arg0->xPos.h,
+            arg0->zPos.h,
+            arg0->yPos.h + ((arg0->unk42 & 0xFFFF) >> 1),
             23,
             (arg0->unk40 * D_803A52E8_7B6998[i].unk0) >> 11,
             (arg0->unk40 * D_803A52E8_7B6998[i].unk4) >> 11,
@@ -1315,9 +1315,9 @@ void func_802FC808_70DEB8(Animal *arg0) {
 void func_802FC8F4_70DFA4(Animal *arg0) {
     s32 tmp = (arg0->unk40 * 18) >> 11;
     create_particle_effect(
-        arg0->xPos,
-        arg0->zPos,
-        arg0->yPos + (arg0->unk42 >> 1),
+        arg0->xPos.h,
+        arg0->zPos.h,
+        arg0->yPos.h + (arg0->unk42 >> 1),
         23,
         0,
         0,
@@ -1369,7 +1369,7 @@ void func_802FC990_70E040(Animal *arg0) {
 //                 D_803F2D30.unk6 += 1;
 //                 D_803F2D30.score += 1000;
 //             }
-//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, (arg0->yPos + ((arg0->unk40) >> 7) * 2), 2);
+//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((arg0->unk40) >> 7) * 2), 2);
 //             break;
 //         case 0x3A: // energy ball + 16 hp
 //             if (((arg1 & 0x4000) == 0)) {
@@ -1381,7 +1381,7 @@ void func_802FC990_70E040(Animal *arg0) {
 //                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
 //                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
 //             }
-//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos + ((arg0->unk40) >> 7) * 2, 1);
+//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 1);
 //             break;
 //         case 0x3B:  // energy ball + 32 hp
 //             if (((arg1 & 0x4000) == 0)) {
@@ -1393,7 +1393,7 @@ void func_802FC990_70E040(Animal *arg0) {
 //                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk358 = 0;
 //                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk363 = 0;
 //             }
-//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, (arg0->yPos + ((arg0->unk40) >> 7) * 2), 1);
+//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((arg0->unk40) >> 7) * 2), 1);
 //             break;
 //         case 0x3C: // energy ball + 64hp
 //             if (((arg1 & 0x4000) == 0)) {
@@ -1405,16 +1405,16 @@ void func_802FC990_70E040(Animal *arg0) {
 //                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
 //                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
 //             }
-//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos + ((arg0->unk40) >> 7) * 2, 1);
+//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 1);
 //             break;
 //         default:                                    /* switch 1 */
-//             func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos + ((arg0->unk40) >> 7) * 2, 2);
+//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 2);
 //             break;
 //         }
 //         break;
 //     // no case 5
 //     case 6: // white sparks?
-//         func_802FC2B8_70D968(arg0->xPos, arg0->zPos, (arg0->yPos + (arg0->unk42 >> 1)));
+//         func_802FC2B8_70D968(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + (arg0->unk42 >> 1)));
 //         break;
 //     case 7: // explosion with red debris
 //         func_802FBF58_70D608(arg0);
@@ -1429,10 +1429,10 @@ void func_802FC990_70E040(Animal *arg0) {
 //         func_802FC5C0_70DC70(arg0);
 //         break;
 //     case 11: // water splash
-//         func_802D760C_6E8CBC(arg0->xPos, arg0->zPos, (arg0->yPos + ((s32) arg0->unk42 >> 1)), arg0->unk30, 8);
+//         func_802D760C_6E8CBC(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((s32) arg0->unk42 >> 1)), arg0->unk30, 8);
 //         break;
 //     case 12: // small explosion
-//         func_802D5B88_6E7238(arg0->xPos, arg0->zPos, arg0->yPos + ((s32) arg0->unk42 >> 1), 0, 0, 0, 0, 0);
+//         func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0, 0, 0);
 //         break;
 //     case 13: // explosion
 //         func_802FB680_70CD30(arg0);
@@ -1441,17 +1441,17 @@ void func_802FC990_70E040(Animal *arg0) {
 //         func_802FBA40_70D0F0(arg0);
 //         break;
 //     case 15: // radioactive
-//         func_802FC438_70DAE8(arg0->xPos, arg0->zPos, (s16) (arg0->yPos + ((s32) arg0->unk42 >> 1)));
+//         func_802FC438_70DAE8(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) arg0->unk42 >> 1)));
 //         break;
 //     case 16: // cardboard/earthquake debris?
 //         func_802FC6E4_70DD94(arg0);
-//         play_sound_effect_at_location(0x79, 0x6000, 0, arg0->xPos, (s32) arg0->zPos, (s32) arg0->yPos, 1.0f);
+//         play_sound_effect_at_location(0x79, 0x6000, 0, arg0->xPos.h, (s32) arg0->zPos.h, (s32) arg0->yPos.h, 1.0f);
 //         break;
 //     case 17: // trophy?
-//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 3);
+//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 3);
 //         break;
 //     case 18: //
-//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 4);
+//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 4);
 //         break;
 //     case 19: // shockwave
 //         if (arg0->unk15E == 0) {
@@ -1467,24 +1467,24 @@ void func_802FC990_70E040(Animal *arg0) {
 //         } else {
 //             phi_v1 = -1;
 //         }
-//         func_802FF184_710834(arg0, 1, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0, 0, 100, phi_v0, phi_v1);
-//         func_802D7BE0_6E9290(0, 32, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), arg0->unk30 >> 1, 0);
+//         func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 100, phi_v0, phi_v1);
+//         func_802D7BE0_6E9290(0, 32, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30 >> 1, 0);
 //         break;
 //     case 20: // objective with sound?
-//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 5);
+//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 5);
 //         break;
 //     case 21: // big splash?
-//         func_802D5B88_6E7238(arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), 0x3A, arg0->unk30 << 2, 0, 0, 0);
+//         func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0x3A, arg0->unk30 << 2, 0, 0, 0);
 //         break;
 //     case 22: // objective no sound?
-//         func_802D9FC4_6EB674(arg0->xPos, arg0->zPos, arg0->yPos, 6);
+//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 6);
 //         break;
 //     case 23: // nuts & bolts (evo exploding?)
-//         func_802D7BE0_6E9290(0, 16, arg0->xPos, arg0->zPos, arg0->yPos + (arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
+//         func_802D7BE0_6E9290(0, 16, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
 //         break;
 //     case 24: // brown debris
 //         func_802FC6E4_70DD94(arg0);
-//         play_sound_effect_at_location(0x4B, 0x6000, 0, arg0->xPos, arg0->zPos, arg0->yPos, 1.0f);
+//         play_sound_effect_at_location(0x4B, 0x6000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
 //         break;
 //     case 25: // ground explosion
 //         func_802FB85C_70CF0C(arg0);
@@ -1984,9 +1984,9 @@ void func_802FF540_710BF0(struct071 *arg0) {
         phi_t2 = 256;
     }
 
-    dist = ABS(arg0->xPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos) +
-           ABS(arg0->zPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos) +
-           ABS(arg0->yPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos);
+    dist = ABS(arg0->xPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h) +
+           ABS(arg0->zPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h) +
+           ABS(arg0->yPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h);
 
     if ((dist < 192) && (D_803A52D4_7B6984 == 0) &&
         ((D_801552B0 != 0) || (D_803F2D24 != 0))) {

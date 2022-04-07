@@ -7,8 +7,8 @@ void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_ret;
 
     if (((D_803D5530->unk162 & 0xF) == 1) && (D_803D5530->unk161 != 1)) {
-        temp_t2 = (*(s32*)&D_803D552C->xPos + (arg0 * D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * 2)) + (D_80152C78[D_803D552C->unk302 & 0xFF] * arg1 * 2);
-        temp_t3 = (*(s32*)&D_803D552C->zPos + (arg1 * D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * 2)) - (D_80152C78[D_803D552C->unk302 & 0xFF] * arg0 * 2);
+        temp_t2 = (D_803D552C->xPos.w + (arg0 * D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * 2)) + (D_80152C78[D_803D552C->unk302 & 0xFF] * arg1 * 2);
+        temp_t3 = (D_803D552C->zPos.w + (arg1 * D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * 2)) - (D_80152C78[D_803D552C->unk302 & 0xFF] * arg0 * 2);
         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160);
         D_803F2F08[D_803B4F30].unk0 = temp_t2;
         D_803F2F08[D_803B4F30].unk4 = temp_t3;
@@ -70,7 +70,7 @@ void func_803747F4_785EA4(void) {
         while (phi_s3 > 0) {
             temp_t5 = (D_803D5544 - D_803F2F08[phi_s2].unkE);
             if (temp_t5 > 400) {
-                if ((s16)D_803F2D50.biome == 1) {
+                if (D_803F2D50.segment == SEGMENT_ICE) {
                     gDPSetEnvColor(D_801D9E90++, 0, 0, 100, 500 - temp_t5);
                 } else {
                     gDPSetEnvColor(D_801D9E90++, 0, 0, 0, 500 - temp_t5);
@@ -79,7 +79,7 @@ void func_803747F4_785EA4(void) {
                     D_803B4F34 -= 1;
                 }
             } else {
-                if ((s16)D_803F2D50.biome == 1) {
+                if (D_803F2D50.segment == SEGMENT_ICE) {
                     gDPSetEnvColor(D_801D9E90++, 0, 0, 65, 100);
                 } else {
                     gDPSetEnvColor(D_801D9E90++, 0, 0, 0, 100);
