@@ -10,5 +10,7 @@ pypng
 python-Levenshtein
 python-ranges
 pyyaml
+spimdisasm
 toml
+tqdm
 watchdog

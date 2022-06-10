@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as binutils
+FROM ubuntu:22.04 as binutils
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -15,7 +15,7 @@ RUN wget https://ftp.gnu.org/gnu/binutils/binutils-${BINUTILS_VERSION}.tar.bz2 &
   make --jobs 4 && \
   make install
 
-FROM ubuntu:20.04 as build
+FROM ubuntu:22.04 as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 
