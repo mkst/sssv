@@ -17,6 +17,7 @@ options:
   migrate_rodata_to_functions: no
   # workaround regex issue
   create_undefined_funcs_auto: no
+  symbol_name_format: $VRAM_$ROM
 segments:
   - name:  header
     type:  header
@@ -28,8 +29,8 @@ segments:
     type:  code
     start: 0x00001000
     vram:  0x80125900
+    symbol_name_format: $VRAM
     subalign: 8
-    overlay: no
     subsegments:
     - [0x1000, asm, entrypoint]
     - [0x1050, c, main_1050]
@@ -54,7 +55,7 @@ segments:
     - [0xF620, c, libultra/audio/csplayer]
     - [0x10CD0, c, main_10CD0]
     - [0x10DE0, c, main_10DE0]
-    - [0x12400, c, main_12400]  # .text is 0x40 larger
+    - [0x12400, c, main_12400]  # .text is still 0x20 larger
     # libultra
     - [0x12FE0, linker, lib]  # fake split here for progress
     - [0x12FE0, asm]
@@ -182,20 +183,28 @@ segments:
   # .data/.rodata
     - [0x28AB0, linker, data]
     - [0x28AB0, bin]
+    - [0x33C70, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
+    - [0x35070, bin] # lib data
+    - [0x36380, bin] # rodata
+    - [0x36790, bin] # lib rodata
   - name: segment1 # in-game objects?
     type: code
     vram: 0x01000000
     start: 0x398F0      # still 0x20 ahead of US
-    overlay: yes
+    exclusive_ram_id: ovl_01
     subalign: 8
     subsegments:
     - [0x398F0, bin]   # in-game objects?
+    - [0x69100, rgba16, img/actors/evo/gold.rgba16, 32, 32]
+    - [0x69900, rgba16, img/actors/evo/bronze.rgba16, 32, 32]
+    - [0x6A100, rgba16, img/actors/evo/silver.rgba16, 32, 32]
+    - [0x6A900, bin] # more
   - name: data_7F7B0 # Dan Danger
     type: code
     vram: 0x05000000
     start: 0x7F7B0      # still 0x20 ahead of US
     subalign: 8
-    overlay: yes
+    exclusive_ram_id: ovl_05
     subsegments:
     - [0x7F7B0, bin]    # Dan Danger#
   - [0x857B0, bin]      # HAVE_A_NICE_DAY
@@ -531,9 +540,9 @@ segments:
   - [0x638A10, bin, rnc_638A10] # 5000 => 115024
   - type:  code
     name:  overlay1
-    overlay: yes
     start: 0x00639DA0  # 0x18b0 ahead of US
     vram:  0x80294E70
+    exclusive_ram_id: ovl_80
     subsegments:
     - [0x639DA0, c, overlay1_639DA0]
     - [0x63ED30, c, overlay1_63ED30]
@@ -559,12 +568,14 @@ segments:
     - [0x693D70, bin] # spaceship
     - [0x69B0D0, bin, rnc_69B0D0] # 35955 => 153600
     - [0x6A3D50, bin] #  end of RNC
-    - [0x6A9230, rodata, overlay1_63F1A0]
+    - [0x6A9150, rodata, overlay1_639DA0]
+    - [0x6A9160, .rodata, overlay1_639DA0]
+    - [0x6A9230, .rodata, overlay1_63F1A0]
   - type: code
     name: overlay2 # sssv game code
-    overlay: yes
     start: 0x006A9290 # section is 0x10 larger than us
     vram:  0x80294E70
+    exclusive_ram_id: ovl_80
     subalign: 4
     subsegments:
     - [0x6A9290, c, overlay2_6A9290]

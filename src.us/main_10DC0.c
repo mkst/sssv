@@ -29,16 +29,16 @@
 //     }
 //
 // #if 1
-//     // this is *completely() wrong
+//     // this is *completely* wrong
 //     gSPTextureRectangle(
 //         (*dl)++,
-//         MAX(0, arg0),
-//         MAX(0, arg1),
-//         MAX(0, arg0 + arg2),
-//         MAX(0, arg1 + arg3),
+//         MAX(arg0 * 4, 0),
+//         MAX(arg1 * 4, 0),
+//         MAX((arg0 + arg2) * 4, 0),
+//         MAX((arg1 + arg3) * 4, 0),
 //         G_TX_RENDERTILE,
-//         MAX(MAX(0, (s16)(arg0 + arg2) >> 2), (16384.0f / (sizeX / 2.0f))),
-//         MAX(MAX(0, (s16)(arg1 + arg3) >> 2), (16384.0f / (sizeY / 2.0f))),
+//         MAX(MAX(arg0 * 4, 0) * (s16)(16384.0f / (sizeX / 2.0f)) >> 7, 0),
+//         MAX(MAX(arg1 * 4, 0) * (s16)(16384.0f / (sizeY / 2.0f)) >> 7, 0),
 //         16384.0f / (sizeX / 2.0f),
 //         16384.0f / (sizeY / 2.0f)
 //         );

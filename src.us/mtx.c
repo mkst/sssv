@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-// crazy multiply/divide code, loading data, decoding? how to match this?!
+// crazy multiply/divide code, matrix math?
 #pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80125980.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80125FE0.s")
 

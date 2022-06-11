@@ -86,17 +86,17 @@ extern s32 D_803C4DAC[];
 //     s16 i;
 //
 //     switch (arg1) {
-//     case 0x7F7F:    // 0
-//     case 0x7F80:    // 1
-//     case 0x7F81:    // 2
+//     case 0+0x7F7F:    // 0
+//     case 1+0x7F7F:    // 1
+//     case 2+0x7F7F:    // 2
 //         // wtf is this
 //         D_FFFE0404[(s32)arg0 + (arg1)] = arg2; // -130044 , -0x1fbfc?
 //         break;
-//     case 0x7F82:    // 3
+//     case 3+0x7F7F:    // 3
 //         arg0->unk158 = arg2;
 //         arg0->unk15E = arg2;
 //         break;
-//     case 0x7F83:    // 4
+//     case 4+0x7F7F:    // 4
 //         if (!(arg0->unk4C.pad30 /* & 0x20 */) || (arg0->health < arg2)) {
 //             if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
 //                 if (arg2 < arg0->health) {
@@ -106,38 +106,38 @@ extern s32 D_803C4DAC[];
 //             arg0->health = MIN(0x7F, MAX(0, arg2));
 //         }
 //         break;
-//     case 0x7F84:
+//     case 5+0x7F7F:
 //         func_8012822C(arg2); // update game time?
 //         break;
-//     case 0x7F85:
+//     case 6+0x7F7F:
 //         arg0->xPos.h = arg2 << 16;
 //         func_803136B0_724D60(arg0);
 //         break;
-//     case 0x7F86:
+//     case 7+0x7F7F:
 //         arg0->zPos.h = arg2 << 16;
 //         func_803136B0_724D60(arg0);
 //         break;
-//     case 0x7F87:
+//     case 8+0x7F7F:
 //         arg0->yPos.h = arg2 << 16;
 //         func_803136B0_724D60(arg0);
 //         break;
-//     case 0x7F88:
+//     case 9+0x7F7F:
 //         arg0->unk40 = arg2;
 //         func_802C9BA4_6DB254(arg0);
 //         break;
-//     case 0x7F89:
+//     case 10+0x7F7F:
 //         func_80349AA0_75B150(arg2);
 //         break;
-//     case 0x7F8A:
+//     case 11+0x7F7F:
 //         arg0->xVelocity.w = arg2 << 5;
 //         break;
-//     case 0x7F8B:
+//     case 12+0x7F7F:
 //         arg0->zVelocity.w = arg2 << 5;
 //         break;
-//     case 0x7F8C:
+//     case 13+0x7F7F:
 //         arg0->yVelocity.w = arg2 << 5;
 //         break;
-//     case 0x7F8D:
+//     case 14+0x7F7F:
 //         if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
 //             arg0->unk2E = (s16) (((s32) (arg2 << 8) / 360) & 0xFF);
 //         } else {
@@ -145,7 +145,7 @@ extern s32 D_803C4DAC[];
 //             func_802C9918_6DAFC8(arg0, (s16) ((s32) (arg2 + 1800) % 360), arg0->yRotation);
 //         }
 //         break;
-//     case 0x7F8E:
+//     case 15+0x7F7F:
 //         if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
 //             arg0->yRotation = (s16) (((s32) (arg2 * 256) / 360) & 0xFF);
 //             arg0->unk302 = (s16) arg0->yRotation;
@@ -153,12 +153,12 @@ extern s32 D_803C4DAC[];
 //             func_802C9918_6DAFC8(arg0, arg0->unk2E, (s16) ((s32) (arg2 + 1800) % 360));
 //         }
 //         break;
-//     case 0x7F8F:
+//     case 16+0x7F7F:
 //         temp_hi = arg2 % 100;
 //         arg0->unk248[0] = func_803146A8_725D58(arg0, (s16) temp_hi, (arg2 / 100) & 0xFFFF);
 //         arg0->unk1CC = (s8) temp_hi;
 //         break;
-//     case 0x7F90:
+//     case 17+0x7F7F:
 //         if (arg2 & 1) {
 //             arg0->unk163 &= ~0x8;
 //         } else {
@@ -180,43 +180,43 @@ extern s32 D_803C4DAC[];
 //             arg0->unk163 &= ~0x80;
 //         }
 //         break;
-//     case 0x7F91: // set mass?
+//     case 18+0x7F7F: // set mass?
 //         arg0->unk46 = arg2;
 //         arg0->unk44 = (s16) ((s32) ((arg2) * arg0->unk40) >> 0xB);
 //         break;
-//     case 0x7F92:    // 19
+//     case 19+0x7F7F:    // 19
 //         D_803F2D30.score = arg2;
 //         break;
-//     case 0x7F93:
+//     case 20+0x7F7F:
 //         arg0->unk3E = arg2;
 //         break;
-//     case 0x7F94:
+//     case 21+0x7F7F:
 //         arg0->state = arg2;
 //         break;
-//     case 0x7F95:
+//     case 22+0x7F7F:
 //         D_803F2CD8 = ABS(arg2);
 //         D_803F2CD6 = arg2 < 0 ? -1 : 1;
 //         break;
-//     case 0x7F96:
+//     case 23+0x7F7F:
 //         temp_t6 = arg2 << 6;
 //         D_803A05B0_7B1C60 = temp_t6;
 //         D_803A05B4_7B1C64 = temp_t6 * 2;
 //         break;
-//     case 0x7F9B:
+//     case 28+0x7F7F:
 //         D_803E4D2C = arg2;
 //         break;
-//     case 0x7F9C:
+//     case 29+0x7F7F:
 //         D_803F2D50.unkE0 = (f32) arg2 / 100.0f;
 //         break;
-//     case 0x7F9D:
+//     case 30+0x7F7F:
 //         D_803E4D30 = arg2;
 //         break;
-//     case 0x7F9E:
+//     case 31+0x7F7F:
 //         D_803E4D38[0] = arg2;
 //         D_8023F260.unk30 = arg2;
 //         write_eeprom(D_803F7DD6);
 //         break;
-//     case 0x7F9F:
+//     case 32+0x7F7F:
 //         // is arg2 an object ID?
 //         if (arg2 < OB_TYPE_ANIMAL_OFFSET) {
 //             arg0->unk16C = &D_801E9EB8[arg2];
@@ -262,18 +262,18 @@ extern s32 D_803C4DAC[];
 //             }
 //         }
 //         break;
-//     case 0x7FA0:
+//     case 33+0x7F7F:
 //         D_801546E0 = (s16) arg2;
 //         break;
-//     case 0x7FA1:
+//     case 34+0x7F7F:
 //         D_801546D8 = MAX(arg2, 0);
 //         break;
-//     case 0x7FA2:
+//     case 35+0x7F7F:
 //         D_803E4D38[1] = arg2;
 //         D_8023F260.unk34 = arg2;
 //         write_eeprom(D_803F7DD6); //, arg1, arg0);
 //         break;
-//     case 0x7FA3:
+//     case 36+0x7F7F:
 //         D_803E4D28 = arg2;
 //         break;
 //     default:
@@ -298,33 +298,33 @@ extern s32 D_803C4DAC_7D645C[];
 //         res = arg1;
 //     } else {
 //         switch (arg1) { // arg1 - 0x7F7F
-//         case 32639:
-//         case 32640:
-//         case 32641:
+//         case 0+0x7F7F:
+//         case 1+0x7F7F:
+//         case 2+0x7F7F:
 //             res = *(s32*)&D_FFFE0400[(s32)(((s32*)&arg0->xPos.h) + arg1)];
 //             break;
-//         case 32642:
+//         case 3+0x7F7F:
 //             res = arg0->unk158;
 //             break;
-//         case 32643:
+//         case 4+0x7F7F:
 //             res = arg0->health;
 //             break;
-//         case 32644:
+//         case 5+0x7F7F:
 //             res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
 //             break;
-//         case 32645:
+//         case 6+0x7F7F:
 //             res = arg0->xPos.h;
 //             break;
-//         case 32646:
+//         case 7+0x7F7F:
 //             res = arg0->zPos.h;
 //             break;
-//         case 32647:
+//         case 8+0x7F7F:
 //             res = arg0->yPos.h;
 //             break;
-//         case 32648:
+//         case 9+0x7F7F:
 //             res = arg0->unk40;
 //             break;
-//         case 32649:
+//         case 10+0x7F7F:
 //             if (D_803F2CD6 < 0) {
 //                 res = D_803F2CD2;
 //             } else {
@@ -334,106 +334,106 @@ extern s32 D_803C4DAC_7D645C[];
 //                 }
 //             }
 //             break;
-//         case 32650:
+//         case 11+0x7F7F:
 //             res = arg0->xVelocity.w >> 5;
 //             break;
-//         case 32651:
+//         case 12+0x7F7F:
 //             res = arg0->zVelocity.w >> 5;
 //             break;
-//         case 32652:
+//         case 13+0x7F7F:
 //             res = arg0->yVelocity.w >> 5;
 //             break;
-//         case 32653:
+//         case 14+0x7F7F:
 //             if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
 //                 res = (arg0->unk2E * 360) / 256;
 //             } else {
 //                 res = arg0->unk2E;
 //             }
 //             break;
-//         case 32654:
+//         case 15+0x7F7F:
 //             if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
 //                 res = (arg0->yRotation * 360) / 256;
 //             } else {
 //                 res = arg0->yRotation;
 //             }
 //             break;
-//         case 32655:
+//         case 16+0x7F7F:
 //             res = arg0->unk1CC;
 //             break;
-//         case 32656:
+//         case 17+0x7F7F:
 //             res = (arg0->unk163 & 0x18) >> 3;
 //             break;
-//         case 32657: // get mass?
+//         case 18+0x7F7F: // get mass?
 //             res = arg0->unk46;
 //             break;
-//         case 32658:
+//         case 19+0x7F7F:
 //             res = D_803F2D30.score;
 //             break;
-//         case 32659:
+//         case 20+0x7F7F:
 //             res = arg0->unk3E;
 //             break;
-//         case 32660:
+//         case 21+0x7F7F:
 //             res = arg0->state;
 //             break;
-//         case 32661:
+//         case 22+0x7F7F:
 //             res = D_803F2CD8 * D_803F2CD6;
 //             break;
-//         case 32662:
+//         case 23+0x7F7F:
 //             res = D_803A05B0_7B1C60 >> 6;
 //             break;
-//         case 32663:
+//         case 24+0x7F7F:
 //             if ((gControllerInput->stick_x < -8) || (gControllerInput->stick_x > 8)) {
 //                 res = gControllerInput->stick_x;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 32664:
+//         case 25+0x7F7F:
 //             if ((gControllerInput->stick_y < -8) || (gControllerInput->stick_y > 8)) {
 //                 res = gControllerInput->stick_y;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 32665:
+//         case 26+0x7F7F:
 //             if ((gControllerInput->button & A_BUTTON)) {
 //                 res = 1;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 32666:
+//         case 27+0x7F7F:
 //             if ((gControllerInput->button & B_BUTTON)) {
 //                 res = 1;
 //             } else {
 //                 res = 0;
 //             }
 //             break;
-//         case 32667:
+//         case 28+0x7F7F:
 //             res = D_803E4D2C;
 //             break;
-//         case 32668:
+//         case 29+0x7F7F:
 //             res = D_803F2D50.unkE0 * 100.0f;
 //             break;
-//         case 32669:
+//         case 30+0x7F7F:
 //             res = D_803E4D30;
 //             break;
-//         case 32670:
+//         case 31+0x7F7F:
 //             res = D_803E4D38[0];
 //             break;
-//         case 32671:
+//         case 32+0x7F7F:
 //             res = arg0->unk16C->unk0;
 //             break;
-//         case 32672:
+//         case 33+0x7F7F:
 //             res = D_801546E0;
 //             break;
-//         case 32673:
+//         case 34+0x7F7F:
 //             res = D_801546D8;
 //             break;
-//         case 32674:
+//         case 35+0x7F7F:
 //             res = D_803E4D38[1];
 //             break;
-//         case 32675:
+//         case 36+0x7F7F:
 //             res = D_803E4D28;
 //             break;
 //         default:

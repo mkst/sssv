@@ -27,6 +27,8 @@
 
 #define MAX_OBJECTS            169
 
+#define MAX_LIGHTS             5
+
 #ifdef VERSION_US
 #include "common.us.h"
 #endif

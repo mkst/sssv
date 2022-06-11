@@ -293,9 +293,9 @@ void func_803283DC_739A8C(void) {
     }
 }
 
-struct025* func_803284C4_739B74(void) {
+Camera* func_803284C4_739B74(void) {
     struct035 *temp_v1;
-    struct025 *temp_v0;
+    Camera *temp_v0;
 
     temp_v1 = D_803D5524;
     temp_v0 = &D_803F28E0[D_803F2A98];

@@ -2,14 +2,57 @@
 #include "common.h"
 
 
-void func_802F2B20_7041D0(void) {
+void clear_used_lights(void) {
     s16 i;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < MAX_LIGHTS; i++) {
         D_803E1B20[i] = 0;
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7041D0/func_802F2B54_704204.s")
+void add_light_at_location(s16 x, s16 y, s16 z, s16 intensity, s16 r, s16 g, s16 b) {
+    s16 delta;
+    Animal *a;
+
+    s16 i;
+    s16 prev;
+    s16 _intensity;
+    s16 next = 0;
+
+    a = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+
+    delta = ABS(a->xPos.h - x) +
+            ABS(a->zPos.h - y) +
+            ABS(a->yPos.h - z);
+
+    if ((delta < 320) && (delta != 0)) {
+        if (delta <= 192) {
+            _intensity = intensity;
+        } else {
+            _intensity = (intensity * (320 - delta)) / 128;
+        }
+
+        prev = D_803E1B20[0];
+        next = 0;
+
+        for (i = 1; i < MAX_LIGHTS; i++) {
+            if (D_803E1B20[i] < prev) {
+                next = i;
+                prev = D_803E1B20[i];
+            }
+        }
+
+        if (prev < _intensity) {
+            D_803E1B20[next] = _intensity;
+            D_803E1B30[next] = (r * _intensity) >> 8;
+            D_803E1B40[next] = (g * _intensity) >> 8;
+            D_803E1B50[next] = (b * _intensity) >> 8;
+
+            D_803E1B60[next] = ((x - a->xPos.h) * 120) / delta; // direction x
+            D_803E1B70[next] = ((y - a->zPos.h) * 120) / delta; // direction y
+            D_803E1B80[next] = ((z - a->yPos.h) * 120) / delta; // direction z
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7041D0/func_802F2DF8_7044A8.s")
 // urgh
@@ -65,12 +108,89 @@ void func_802F301C_7046CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7041D0/func_802F30A4_704754.s")
 
-// display lists
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7041D0/func_802F5088_706738.s")
+void add_multiple_lights(void) {
+    s16 used;
+    s16 i;
 
-// ambient light?
-void func_802F5964_707014(Gfx* *arg0) {
-    gSPNumLights((*arg0)++, 1);
-    gSPLight((*arg0)++, &D_80204278->unk3B640, 1);
-    gSPLight((*arg0)++, &D_80204278->unk3B638, 2);
+    used = 0;
+
+    // copy all used lights into a contiguous lights array
+    for (i = 0; i < MAX_LIGHTS; i++) {
+        if (D_803E1B20[i] > 0) {
+            used++;
+            D_80204278->unk3B640[used].l.col[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
+            D_80204278->unk3B640[used].l.col[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
+            D_80204278->unk3B640[used].l.col[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
+
+            D_80204278->unk3B640[used].l.colc[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
+            D_80204278->unk3B640[used].l.colc[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
+            D_80204278->unk3B640[used].l.colc[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
+
+            D_80204278->unk3B640[used].l.dir[0] = D_803E1B60[i];
+            D_80204278->unk3B640[used].l.dir[1] = D_803E1B70[i];
+            D_80204278->unk3B640[used].l.dir[2] = D_803E1B80[i];
+        }
+    }
+
+    switch (used) {
+    case 0:
+        break;
+    case 1:
+        gSPNumLights(D_801D9E88++, 2);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[0], 1);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[1], 2);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B638, 3);
+        return;
+    case 2:
+        gSPNumLights(D_801D9E88++, 3);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[0], 1);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[1], 2);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[2], 3);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B638, 4);
+        break;
+    case 3:
+        gSPNumLights(D_801D9E88++, 4);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[0], 1);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[1], 2);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[2], 3);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[3], 4);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B638, 5);
+        break;
+    case 4:
+        gSPNumLights(D_801D9E88++, 5);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[0], 1);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[1], 2);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[2], 3);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[3], 4);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[4], 5);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B638, 6);
+        break;
+    case 5:
+        gSPNumLights(D_801D9E88++, 6);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[0], 1);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[1], 2);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[2], 3);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[3], 4);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[4], 5);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[5], 6);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B638, 7);
+        break;
+    case 6:
+        gSPNumLights(D_801D9E88++, 7);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[0], 1);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[1], 2);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[2], 3);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[3], 4);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[4], 5);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[5], 6);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B640[6], 7);
+        gSPLight(D_801D9E88++, &D_80204278->unk3B638, 8);
+        break;
+    }
+}
+
+void add_single_light(Gfx** dl) {
+    gSPNumLights((*dl)++, 1);
+    gSPLight((*dl)++, &D_80204278->unk3B640, 1);
+    gSPLight((*dl)++, &D_80204278->unk3B638, 2);
 }

@@ -93,6 +93,8 @@ This is the code that is loaded when the ROM first starts up, it is responsible 
 
 This is the code for the language select, intro cinematics and not much else.
 
+**Note:** In the EU ROM this section is compiled without optimisation!
+
 ### Overlay2
 
 Overlay2 contains the core Space Station Silicon Valley game logic.

@@ -8,7 +8,6 @@ void func_803458B8_756F68(Gfx **arg0, Vtx *vtx, s16 num) {
     gSPVertex((*arg0)++, K0_TO_PHYS(vtx), num, 0);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_803458FC_756FAC.s")
 
 // a long way to go here
 #if 0
@@ -288,6 +287,8 @@ void func_803458FC_756FAC(Gfx **dl, s32 arg1, s16 arg2) {
         }
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_803458FC_756FAC.s")
 #endif
 
 void func_80346878_757F28(Gfx **arg0, u8 arg1) {

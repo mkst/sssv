@@ -96,15 +96,15 @@ void func_8029CEF0_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, struc
 
     arg5->unk1++;
     if (arg5->unk1 < 75) {
-        arg5->unk44[arg5->unk1].unk0 = arg0;
-        arg5->unk44[arg5->unk1].unk4 = arg1;
-        arg5->unk44[arg5->unk1].unk8 = arg2;
-        arg5->unk44[arg5->unk1].unkC = arg3;
-        arg5->unk44[arg5->unk1].unkE = arg4;
-        arg5->unk44[arg5->unk1].unk10 = arg6;
-        arg5->unk44[arg5->unk1].unk11 = arg7;
-        arg5->unk44[arg5->unk1].unk12 = arg8;
-        arg5->unk44[arg5->unk1].unk13 = arg9;
+        arg5->unk44[arg5->unk1].unk0 = arg0; // x
+        arg5->unk44[arg5->unk1].unk4 = arg1; // z
+        arg5->unk44[arg5->unk1].unk8 = arg2; // y
+        arg5->unk44[arg5->unk1].unkC = arg3; // ?
+        arg5->unk44[arg5->unk1].unkE = arg4; // ?
+        arg5->unk44[arg5->unk1].unk10 = arg6; // ?
+        arg5->unk44[arg5->unk1].unk11 = arg7; // red
+        arg5->unk44[arg5->unk1].unk12 = arg8; // green
+        arg5->unk44[arg5->unk1].unk13 = arg9; // blue
 
         tmp = arg5->unk2[arg4];
 

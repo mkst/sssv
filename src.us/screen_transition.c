@@ -59,7 +59,7 @@ void trigger_screen_transition(s16 id) {
         }
     } else if ((id == 6) || (id == 7) || (id == 19) || (id == 20)) {
         if (id == 6) {
-            set_tv_mode_widescreen(); // resize screen?
+            set_tv_mode_widescreen();
         }
         if (id == 7) {
             set_tv_mode_normal();
@@ -357,7 +357,11 @@ void func_802F13B8_702A68(void) {
         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
         gSPDisplayList(D_801D9E7C++, D_01004270);
         gSPTexture(D_801D9E7C++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
-        gDPSetCombineLERP(D_801D9E7C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
+        gDPSetCombineLERP(D_801D9E7C++,
+            SHADE, 0, PRIMITIVE, 0,
+            SHADE, 0, PRIMITIVE, 0,
+            SHADE, 0, PRIMITIVE, 0,
+            SHADE, 0, PRIMITIVE, 0);
         gDPSetRenderMode(D_801D9E7C++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
         func_802F30A4_704754();

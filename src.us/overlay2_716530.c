@@ -61,7 +61,7 @@ s16 func_80305084_716734(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
 
 s16 func_80305194_716844(s16 arg0, s16 arg1) {
     s16 ret = ABS(arg0 - arg1);
-    if (ret >= 181) {
+    if (ret > 180) {
         ret = 360 - ret;
     }
     return ret;
@@ -69,7 +69,7 @@ s16 func_80305194_716844(s16 arg0, s16 arg1) {
 
 s16 func_803051F0_7168A0(s16 arg0, s16 arg1) {
     s16 ret = ABS(arg0 - arg1);
-    if (ret >= 129) {
+    if (ret > 128) {
         ret = 256 - ret;
     }
     return ret;

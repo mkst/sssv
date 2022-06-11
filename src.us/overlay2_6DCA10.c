@@ -248,12 +248,12 @@ void func_802D6738_6E7DE8(void) {
             D_80204278->unk3B638.l.col[1] = D_80204278->unk3B638.l.colc[1];
             D_80204278->unk3B638.l.colc[2] = 0xFF;
             D_80204278->unk3B638.l.col[2] = D_80204278->unk3B638.l.colc[2];
-            D_80204278->unk3B640.l.colc[0] = 0xFF;
-            D_80204278->unk3B640.l.col[0] = D_80204278->unk3B640.l.colc[0];
-            D_80204278->unk3B640.l.colc[1] = 0xFF;
-            D_80204278->unk3B640.l.col[1] = D_80204278->unk3B640.l.colc[1];
-            D_80204278->unk3B640.l.colc[2] = 0xFF;
-            D_80204278->unk3B640.l.col[2] = D_80204278->unk3B640.l.colc[2];
+            D_80204278->unk3B640[0].l.colc[0] = 0xFF;
+            D_80204278->unk3B640[0].l.col[0] = D_80204278->unk3B640[0].l.colc[0];
+            D_80204278->unk3B640[0].l.colc[1] = 0xFF;
+            D_80204278->unk3B640[0].l.col[1] = D_80204278->unk3B640[0].l.colc[1];
+            D_80204278->unk3B640[0].l.colc[2] = 0xFF;
+            D_80204278->unk3B640[0].l.col[2] = D_80204278->unk3B640[0].l.colc[2];
         } else if (D_803D6120.unk3FD2 != 0) {
             D_80204278->unk3B638.l.colc[0] = 0x50;
             D_80204278->unk3B638.l.col[0] = D_80204278->unk3B638.l.colc[0];
@@ -261,12 +261,12 @@ void func_802D6738_6E7DE8(void) {
             D_80204278->unk3B638.l.col[1] = D_80204278->unk3B638.l.colc[1];
             D_80204278->unk3B638.l.colc[2] = 0x50;
             D_80204278->unk3B638.l.col[2] = D_80204278->unk3B638.l.colc[2];
-            D_80204278->unk3B640.l.colc[0] = 0x50;
-            D_80204278->unk3B640.l.col[0] = D_80204278->unk3B640.l.colc[0];
-            D_80204278->unk3B640.l.colc[1] = 0x50;
-            D_80204278->unk3B640.l.col[1] = D_80204278->unk3B640.l.colc[1];
-            D_80204278->unk3B640.l.colc[2] = 0x50;
-            D_80204278->unk3B640.l.col[2] = D_80204278->unk3B640.l.colc[2];
+            D_80204278->unk3B640[0].l.colc[0] = 0x50;
+            D_80204278->unk3B640[0].l.col[0] = D_80204278->unk3B640[0].l.colc[0];
+            D_80204278->unk3B640[0].l.colc[1] = 0x50;
+            D_80204278->unk3B640[0].l.col[1] = D_80204278->unk3B640[0].l.colc[1];
+            D_80204278->unk3B640[0].l.colc[2] = 0x50;
+            D_80204278->unk3B640[0].l.col[2] = D_80204278->unk3B640[0].l.colc[2];
         }
     } else if (D_803D6120.unk3FD2 != 0) {
         D_80204278->unk3B638.l.colc[0] = 0x50;
@@ -275,12 +275,12 @@ void func_802D6738_6E7DE8(void) {
         D_80204278->unk3B638.l.col[1] = D_80204278->unk3B638.l.colc[1];
         D_80204278->unk3B638.l.colc[2] = 0x50;
         D_80204278->unk3B638.l.col[2] = D_80204278->unk3B638.l.colc[2];
-        D_80204278->unk3B640.l.colc[0] = 0x50;
-        D_80204278->unk3B640.l.col[0] = D_80204278->unk3B640.l.colc[0];
-        D_80204278->unk3B640.l.colc[1] = 0x50;
-        D_80204278->unk3B640.l.col[1] = D_80204278->unk3B640.l.colc[1];
-        D_80204278->unk3B640.l.colc[2] = 0x50;
-        D_80204278->unk3B640.l.col[2] = D_80204278->unk3B640.l.colc[2];
+        D_80204278->unk3B640[0].l.colc[0] = 0x50;
+        D_80204278->unk3B640[0].l.col[0] = D_80204278->unk3B640[0].l.colc[0];
+        D_80204278->unk3B640[0].l.colc[1] = 0x50;
+        D_80204278->unk3B640[0].l.col[1] = D_80204278->unk3B640[0].l.colc[1];
+        D_80204278->unk3B640[0].l.colc[2] = 0x50;
+        D_80204278->unk3B640[0].l.col[2] = D_80204278->unk3B640[0].l.colc[2];
     }
     if (D_803F2D50.segment == 1) {
         sp7A = RAND(63) + 4;

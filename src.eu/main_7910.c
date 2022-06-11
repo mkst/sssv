@@ -48,8 +48,8 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_7910/func_801308D4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_7910/func_80130908.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_7910/load_level_text_data.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_7910/func_80130AB0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_7910/get_message_address_by_id.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main_7910/func_80130AE0.s")

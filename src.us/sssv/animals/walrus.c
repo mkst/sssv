@@ -69,7 +69,7 @@ void func_803769E0_788090(void) {
                          animal,
                          1, 17, D_803BF028, 110, 96,
                          D_803D5530->xVelocity.h, D_803D5530->zVelocity.h, D_803D5530->yVelocity.h, D_803D5530);
-    recoil(2);
+    apply_recoil(2);
     do_rumble(0, 25, 30, 5, distance_from_player(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h));
 }
 
@@ -90,7 +90,7 @@ void walrus_fire_missile(Animal *arg0) {
                          arg0,
                          2, 17, D_803BF02C, 120, 96,
                          D_803D5530->xVelocity.h, D_803D5530->zVelocity.h, D_803D5530->yVelocity.h, D_803D5530);
-    recoil(2);
+    apply_recoil(2);
 }
 
 void walrus_turbo(s16 arg0) {

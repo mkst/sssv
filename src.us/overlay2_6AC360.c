@@ -97,8 +97,8 @@ u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 arg2, Animal *arg3, void *arg4, 
         return 0;
     }
 
-    for (phi_s2 = &D_803DA110[temp_v0]; phi_s2 != NULL; phi_s2 = phi_s2->unk0) { // + (temp_v0 * 0xC));
-        temp_s0 = phi_s2->unk8;
+    for (phi_s2 = D_803DA110[temp_v0].next; phi_s2 != NULL; phi_s2 = phi_s2->next) { // + (temp_v0 * 0xC));
+        temp_s0 = phi_s2->animal;
         if (temp_s0 != arg3) {
             temp_a1 = arg3->unk16C;
             temp_t5 = temp_a1->unk0;

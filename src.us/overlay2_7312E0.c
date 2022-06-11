@@ -7,14 +7,11 @@
 
 void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4);
 
-// needs some help
+// needs some help...
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8031FC30_7312E0.s")
-// void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s32 arg3, s16 arg4, s16 arg5) {
-//     s16 new_var;
-//     s16 phi_a1;
+// void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5) {
 //     s32 pad;
-//
-//     new_var = arg1;
+//     s16 sp24;
 //
 //     switch (D_803D5530->state)
 //     {
@@ -24,15 +21,15 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
 //     case 0x90:
 //     case 0xB6:
 //     case 0xB9:
-//         phi_a1 = (D_80152C78[arg2 & 0xFF] >> 7) / 10;
+//         sp24 = (D_80152C78[arg2 & (0xFF)] >> 7) / 10;
 //         break;
 //     case 0x4:
 //     case 0x8F:
 //     case 0xB7:
-//         phi_a1 = (D_80152C78[arg2 & 0xFF] >> 7) / 6;
+//         sp24 = (D_80152C78[arg2 & 0xFF] >> 7) / 6;
 //         break;
 //     default:
-//         phi_a1 = 0;
+//         sp24 = 0;
 //         break;
 //     }
 //
@@ -52,25 +49,26 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
 //         break;
 //     }
 //
+//
 //     if ((s16)arg1 == 7) {
-//         phi_a1 = -phi_a1;
+//         sp24 = -sp24;
 //     }
 //
 //     D_80203FE0[arg1].unk0 = D_80203FE0[1].unk0 + arg3;
 //     D_80203FE0[arg1].unk2 = D_80203FE0[1].unk2;
 //     D_80203FE0[arg1].unk4 = D_80203FE0[1].unk4;
 //
-//     func_802C7B18_6D91C8(&D_80203FE0[arg1], phi_a1); // wrong?
+//     func_802C7B18_6D91C8(&D_80203FE0[arg1], arg1); // wrong? should be sp24 ?
 //
 //     D_80203FE0[arg1 + 1].unk0 = D_80203FE0[arg1].unk0;
 //     D_80203FE0[arg1 + 1].unk2 = D_80203FE0[arg1].unk2;
 //     D_80203FE0[arg1 + 1].unk4 = D_80203FE0[arg1].unk4 - arg4;
 //
 //     D_80203FE0[arg1 + 2].unk0 = D_80203FE0[arg1 + 1].unk0;
-//     if (phi_a1 < 0) {
-//         phi_a1 = 0;
+//     if (sp24 < 0) {
+//         sp24 = 0;
 //     }
-//     D_80203FE0[arg1 + 2].unk2 = D_80203FE0[arg1 + 1].unk2 + ((arg5 * phi_a1) / 64);
+//     D_80203FE0[arg1 + 2].unk2 = D_80203FE0[arg1 + 1].unk2 + ((arg5 * sp24) / 64);
 //     D_80203FE0[arg1 + 2].unk4 = D_80203FE0[arg1 + 1].unk4 - arg5;
 // }
 

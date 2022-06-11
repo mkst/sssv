@@ -14,4 +14,4 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/tv/func_8012AD28.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/tv/func_8012AD50.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/tv/draw_rectangle.s")

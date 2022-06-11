@@ -165,12 +165,16 @@ fire_fox_fire_missile  = 0x802E87B8; // rom:0x6F9E68
 fox_warp               = 0x802E89AC; // rom:0x6FA05C
 drop_sticky_mine       = 0x802F05A4; // rom:0x701C54
 hippo_spit             = 0x802F0780; // rom:0x701E30
-
 reset_screen_transition   = 0x802F07D0; // rom:0x701E80
 trigger_screen_transition = 0x802F07E8; // rom:0x701E98
 perform_screen_transition = 0x802F0918; // rom:0x701FC8
 
 lion_roar              = 0x802F2AA0; // rom:0x704150
+
+clear_used_lights      = 0x802F2B20; // rom:0x7041D0
+add_light_at_location  = 0x802F2B54; // rom:0x704204
+add_multiple_lights    = 0x802F5088; // rom:0x706738
+add_single_light       = 0x802F5964; // rom:0x707014
 
 fire_homing_missile    = 0x802FEE98; // rom:0x710548
 spawn_temporary_object = 0x802FF0A4; // rom:0x710754
@@ -187,7 +191,7 @@ get_compressed_size    = 0x8031B058; // rom:0x72C708
 copy_or_extract        = 0x8031B0E8; // rom:0x72C798
 load_level_data        = 0x8031B390; // rom:0x72CA40
 racing_mouse_turbo     = 0x8031FBE8; // rom:0x731298
-recoil                 = 0x803223F4; // rom:0x733AA4
+apply_recoil           = 0x803223F4; // rom:0x733AA4
 load_animal            = 0x8032AAF0; // rom:0x73C1A0
 check_and_set_species_encountered = 0x8032ABB8; // rom:0x73C268
 set_species_as_encountered = 0x8032AC48; // rom:0x73C2F8
@@ -287,8 +291,11 @@ load_level_title            = 0x8039DBC8; // rom:0x7AF278
 get_biome_for_level         = 0x8039DCC0; // rom:0x7AF370
 D_803BD52C_7CEB7C           = 0x803BD52C; // rom:0x7CEB7C
 
+gCamera = 0x803F2AD0;
+
 _fontbufferSegmentStart     = 0x800E1220;
 _fontbufferSegmentEnd       = 0x800EF0D0;
+
 
 // bss
 
