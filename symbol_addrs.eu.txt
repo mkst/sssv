@@ -20,3 +20,22 @@ gControllerInput  = 0x802910F0;
 clear_framebuffer = 0x80129AD0;
 end_display_lists = 0x8012A4B0;
 init2             = 0x801355D0;
+
+guPerspective = 0x8013F5D0;
+guScale = 0x8013F684;
+guLookAt = 0x8013F988;
+guTranslate = 0x8013F348;
+
+UnpackRNC = 0x8012B110;
+
+font_init = 0x80130B20;
+language_select_menu = 0x8029A270;
+load_level_text_data = 0x80130908;
+get_message_address_by_id = 0x80130AB0;
+
+draw_rectangle = 0x8012AD50;
+
+osVirtualToPhysical = 0x80138150;
+
+gScreenWidth = 0x80203FF0;
+gScreenHeight = 0x80203FF2;

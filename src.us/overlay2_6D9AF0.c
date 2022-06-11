@@ -94,8 +94,8 @@ void func_802C87E0_6D9E90(void) {
 //             (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) &&
 //             (D_801D9ED8.animals[i].animal->unk366 != 6)) {
 //             if (i == gCurrentAnimalIndex) {
-//                 func_802F5088_706738();
-//                 func_802F2B20_7041D0();
+//                 add_multiple_lights();
+//                 clear_used_lights();
 //             }
 //
 //             D_803D5520 = &D_801D9ED8.animals[i].unk0;
@@ -318,7 +318,7 @@ void func_802C87E0_6D9E90(void) {
 //             }
 //             if (i == gCurrentAnimalIndex) {
 //                 // (re)set lights?
-//                 func_802F5964_707014(&D_801D9E88);
+//                 add_single_light(&D_801D9E88);
 //             }
 //             if (D_803D552C->unk366 != 6) {
 //                 func_802DA90C_6EBFBC(D_803D5530);

@@ -73,7 +73,7 @@ void func_8036BCF8_77D3A8(void) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    recoil(2);
+    apply_recoil(2);
 }
 
 // 'crazy' husky
@@ -111,7 +111,7 @@ void ski_husky_fire_missile(Animal *arg0) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    recoil(2);
+    apply_recoil(2);
 }
 
 void func_8036C014_77D6C4(s16 arg0) {

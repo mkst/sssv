@@ -54,10 +54,13 @@ extern Gfx  D_01037700[];
 extern u8   D_01037750_71020[];
 extern Gfx  D_01037A20[];
 extern u8   D_0103B6F0[];
+extern Gfx  D_0103B880[];
+extern Gfx  D_0103BA70[];
+extern Gfx  D_0103EC20[];
 extern u8   D_04000000[];
 extern u8   D_040000A0[];
 extern Gfx  D_040000E0_DD6A0[];
-extern u8   D_04000230[];
+extern Gfx   D_04000230[];
 extern Gfx  D_040002D0_DD890[];
 extern u8   D_04000370[];
 extern u8   D_040004B0[];
@@ -65,7 +68,7 @@ extern u8   D_04000600[];
 extern u8   D_040006F0[];
 extern Gfx  D_04000840_DDE00[];
 extern Gfx  D_04000900_DDEC0[];
-extern u8   D_040009D0[];
+extern Gfx  D_040009D0[];
 extern Gfx  D_04000AE0_DE0A0[];
 extern u8   D_04000B10[];
 extern Gfx  D_04000B40_DE100[];
@@ -240,7 +243,7 @@ extern s16  D_80152EA4;
 extern Vp   D_80152EA8;
 extern u16  D_80152EB8; // frame buffer id?
 extern u16  D_80152EBC;
-extern s32  D_801542D0;
+extern s32  D_801542D0; // Gfx[] ?
 extern u8   D_80154370[];
 
 // extern u8*  D_80154500[37][2]; // bunch of offsets to RNC language files
@@ -361,7 +364,7 @@ extern s32  D_801DD800;
 extern struct080 D_801E1ED8;
 
 // all of these might be part of D_801D9ED8
-extern s16  D_801E9E80; // D_801D9ED8.FFA8
+extern s16  D_801E9E80; // D_801D9ED8.unkFFA8
 extern u16  D_801E9E8A; // D_801D9ED8.FFB2
 extern u16  D_801E9E8E; // D_801D9ED8.FFB6
 extern u16  D_801E9E90; // D_801D9ED8.FFB8
@@ -410,7 +413,7 @@ extern f32  D_80204234;
 
 extern RomHeader D_80204240;
 extern s16  gRegion;
-extern u16  D_80204270;
+extern s16  D_80204270;
 extern struct018 *D_80204274;
 extern DisplayList *D_80204278;
 extern s16  D_8020427C;
@@ -580,7 +583,8 @@ extern u8   D_802912E3; // d-left pressed
 extern u8   D_802912E4; // d-right pressed
 extern u8   D_802912E5; // z pressed
 
-extern s32 D_80299960_63D000;
+extern struct120 D_80299960_63D000[];
+extern struct014 D_80299964_63D004[]; // size tbd
 // extern s32 D_80299964_63D004;
 extern s32 D_80299A40_63D0E0;
 extern s32 D_80299A58_63D0F8;
@@ -599,9 +603,8 @@ extern u16  D_80299C84[3];
 extern s32  D_80299CD0_63D370;
 extern Lights1 D_80299D50_63D3F0;
 // extern Light *D_80299D58_63D3F8;
-extern s32  D_80299960_63D000;
-extern struct014 D_80299964_63D004[]; // size tbd
-extern Light D_80299D90_63D430;
+// extern s32  D_80299960_63D000;
+extern Lights1 D_80299D90_63D430;
 extern Light D_80299D98_63D438;
 
 extern f32  D_80299DBC;
@@ -781,11 +784,11 @@ extern u8   D_803A52D0_7B6980;
 extern s16  D_803A52D4_7B6984;
 extern struct100 D_803A52E8_7B6998[];
 extern s16  D_803A5330_7B69E0;
-extern s16  D_803A53C4_7B6A74;
-extern s16  D_803A53CC_7B6A7C;
-extern s16  D_803A53D4_7B6A84;
-extern s16  D_803A53E0_7B6A90;
-extern s16  D_803A53FC_7B6AAC;
+extern u8   D_803A53C4_7B6A74[];
+extern u8   D_803A53CC_7B6A7C[];
+extern s16  D_803A53D4_7B6A84[];
+extern struct077 D_803A53E0_7B6A90;
+extern struct077 D_803A53FC_7B6AAC;
 
 extern s16  D_803A5D98_7B7448[];
 extern s16  D_803A5DAC_7B745C[];
@@ -798,7 +801,7 @@ extern s16  D_803A6470_7B7B20[];
 extern s16  D_803A6520_7B7BD0[];
 extern s16  D_803A65D0_7B7C80[];
 extern s16  D_803A6680_7B7D30[];
-extern s16  D_803A6730[];
+extern s16  D_803A6730_7B7DE0[];
 extern s16  D_803A69F0[];
 extern s16  D_803A6CC0_7B8370; // camera distance from player?
 extern f32  D_803A6CC4;
@@ -845,11 +848,10 @@ extern u8   D_803A4B38_7B61E8[MAX_DESERT_ANIMALS][MAX_DESERT_ANIMALS]; // desert
 
 // 0x803Bxxxx
 
-extern s16  D_803B0400[][20];
+extern s16  D_803B0400[20];
 extern s16  D_803B0590;
 extern s16  D_803B0592;
 extern s16  D_803B0594;
-extern u8   D_803B0595;
 extern s16  D_803B0596;
 
 extern s16 D_803B1BAC[];
@@ -862,10 +864,10 @@ extern DemoInput D_803B384C_7C4EFC[];
 
 extern s16  D_803B4F30;
 extern s16  D_803B4F34;
-extern s32  D_803B4944_7C5FF4;
-extern s32  D_803B4958_7C6008;
+extern u8   D_803B4944_7C5FF4[];
+extern s16  D_803B4958_7C6008[];
 extern s32  D_803B49CC_7C607C;
-extern s32  D_803B4930_7C5FE0;
+extern u8   D_803B4930_7C5FE0[];
 extern s32  D_803B497C_7C602C;
 
 extern s16  D_803B52FC[];
@@ -901,6 +903,18 @@ extern u16  D_803B6310;
 extern s16  D_803B6314;
 extern u8   D_803B6318;
 extern u8   D_803B631C;
+
+extern struct041 D_803B65A8_7C7C58;
+extern Light     D_803B65B0_7C7C60;
+
+extern struct041 D_803B65D8_7C7C88;
+extern Light     D_803B65E0_7C7C90;
+
+extern struct041 D_803B65F0_7C7CA0;
+extern Light     D_803B65F8_7C7CA8;
+
+
+
 extern s16 *D_803B6560_7C7C10[11];
 extern struct028 D_803B66F0;
 extern struct004 D_803B6700_7C7DB0[2];
@@ -964,8 +978,10 @@ extern const s16  D_803BD602_7CECB2[];
 extern s16  D_803BD602[];
 extern s16  D_803BD5B2_7CEC62[];
 extern s16  D_803BD5B6_7CEC66[];
+extern s16  D_803BD5CC_7CEC7C[];
 extern s16  D_803BD66A_7CED1A[];
 extern s16  D_803BD66E_7CED1E[];
+extern s16  D_803BD684_7CED34[];
 extern char D_803BD8B0_7CEF60[]; // "Fq %d Time %d S %d\n"
 extern f32  D_803BD9B4_7CF064;
 extern f64  D_803BD9B8_7CF068;
@@ -1020,6 +1036,9 @@ extern f32  D_803BF3E0;
 extern char D_803BFFD4_7D1684[]; // "%s\n"
 
 // 0x803Cxxxx
+extern f64  D_803C0128_7D17D8; // 5600.0
+extern f64  D_803C0130_7D17E0; // 350.0
+extern f64  D_803C0138_7D17E8; // -2800.0
 
 extern f32  D_803C0160;
 extern f64  D_803C0168;
@@ -1138,6 +1157,7 @@ extern u16  D_803D5572;
 extern u8   D_803D5575; // controller maginitude?
 extern s16  D_803D5578;
 extern s16  D_803D557A;
+extern s16  D_803D557C;
 extern s16  D_803D5590[360];
 extern s16  D_803D5860[360];
 extern s16  D_803D5B30[360];
@@ -1168,7 +1188,14 @@ extern u8   D_803E1B1A;
 extern u8   D_803E1B1B;
 extern u8   D_803E1B1C;
 extern u16  D_803E1B1E;
-extern s16  D_803E1B20[5];
+extern s16  D_803E1B20[5]; // may be a bunch of structs instead?
+extern s16  D_803E1B30[5];
+extern s16  D_803E1B40[5];
+extern s16  D_803E1B50[5];
+extern s16  D_803E1B60[5];
+extern s16  D_803E1B70[5];
+extern s16  D_803E1B80[5];
+
 extern s16  D_803E1B8A;
 extern u16  D_803E1B8C;
 extern u16  D_803E1B8E;
@@ -1293,7 +1320,7 @@ extern Particle D_803E9840[];
 extern s16  D_803F28C2;
 extern u16  D_803F28D0[];
 extern u16  D_803F28DC;
-extern struct025 D_803F28E0[2]; // 2 values
+extern Camera D_803F28E0[2]; // 2 values
 
 // end of camera structs (assuming there are 2)
 
@@ -1319,7 +1346,7 @@ extern u8   D_803F2AC6;
 extern s16  D_803F2AC8;
 extern s16  D_803F2ACA;
 extern s16  D_803F2ACC;
-extern struct025 *D_803F2AD0; // ptr to current camera
+extern Camera *gCamera; // ptr to current camera (was D_803F2AD0)
 extern struct062 D_803F2AD8[1];
 extern struct062 D_803F2AF8[8]; // indexed in with % 8
 extern struct062 D_803F2BF8;
@@ -1451,6 +1478,8 @@ extern s16  D_803F6474;
 extern struct109 D_803F6478;
 extern s16 *D_803F6500[17];
 extern s16  D_803F6548[13];
+extern f32  D_803F6570[64];
+extern f32  D_803F6670;
 extern struct027 D_803F6680;
 extern s16  D_803F66A4;
 extern u8   D_803F66A6; // D_803F6680.unk26

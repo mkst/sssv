@@ -22,9 +22,9 @@ from segtypes.common.codesubsegment import CommonSegCodeSubsegment
 
 class N64SegSssv_vtx(CommonSegCodeSubsegment):
     def __init__(self, rom_start, rom_end, type, name, vram_start, extract,
-                 given_subalign, given_is_overlay, given_dir, args = [], yaml = {}):
+                 given_subalign, exclusive_ram_id, given_dir, symbol_name_format, symbol_name_format_no_rom, args = [], yaml = {}):
         super().__init__(rom_start, rom_end, type, name, vram_start, extract,
-                         given_subalign, given_is_overlay, given_dir, args, yaml)
+                         given_subalign, exclusive_ram_id, given_dir, symbol_name_format, symbol_name_format_no_rom, args, yaml)
         self.file_text = None
 
         if len(self.args) > 0:

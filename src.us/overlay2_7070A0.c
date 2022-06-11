@@ -111,7 +111,7 @@ void func_802F5F44_7075F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, stru
     arg5->unk4 = ((arg1 * temp_v0) + (arg2 * temp_t0)) >> 8;
 }
 
-// more __ll_mul
+// more __ll_mul, similar to above but extra arg
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F603C_7076EC.s")
 
 struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 vAngle, s16 rotation, s16 arg9, s32 scale) {
@@ -310,10 +310,10 @@ void func_802F6750_707E00(Animal *arg0) {
         } else {
             yVel = (arg0->unk182 << 16) + ((temp_t1 * arg0->unk184) << 8);
         }
-        arg0->xVelocity.w = xVel - *(s32*)&arg0->xPos.h;
-        arg0->zVelocity.w = zVel - *(s32*)&arg0->zPos.h;
+        arg0->xVelocity.w = xVel - arg0->xPos.w;
+        arg0->zVelocity.w = zVel - arg0->zPos.w;
         if (arg0->unk4C.unk29 == 0) {
-            arg0->yVelocity.w = yVel - *(s32*)&arg0->yPos.h;
+            arg0->yVelocity.w = yVel - arg0->yPos.w;
         }
     }
 }
@@ -481,8 +481,36 @@ void func_802F6A5C_70810C(Animal *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F6A5C_70810C.s")
 #endif
 
-// more __ll_mul
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F6DEC_70849C.s")
+void func_802F6DEC_70849C(Animal *arg0, s16 arg1) {
+    struct077 sp68;
+    s16 temp_f4;
+    s32 y;
+    s32 z;
+    s32 x;
+
+    func_802F5F44_7075F4(
+        0,
+        arg1 << 8,
+        0,
+        arg0->zRotation,
+        arg0->yRotation,
+        &sp68);
+
+    x = (sp68.unk0 << 8) - arg0->xVelocity.w;
+    z = (sp68.unk2 << 8) - arg0->zVelocity.w;
+    y = (sp68.unk4 << 8) - arg0->yVelocity.w;
+
+    temp_f4 = sqrtf((s64)x*x + (s64)z*z + (s64)y*y);
+    if (temp_f4 < FTOFIX32(5.0)) {
+        arg0->xVelocity.w += x;
+        arg0->zVelocity.w += z;
+        arg0->yVelocity.w += y;
+    } else {
+        arg0->xVelocity.w += (x * FTOFIX32(5.0)) / temp_f4;
+        arg0->zVelocity.w += (z * FTOFIX32(5.0)) / temp_f4;
+        arg0->yVelocity.w += (y * FTOFIX32(5.0)) / temp_f4;
+    }
+}
 
 void func_802F7054_708704(s32 arg0) {
 }
@@ -518,8 +546,8 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8658_709D08.s")
 // so far away.
 // s32 func_802F8658_709D08(Animal *arg0, struct071 *arg1, f32 arg2, f32 arg3, struct077 *arg4) {
-//     f32 sp60;
-//     f32 sp5C;
+//     f32 y;
+//     f32 z;
 //     f32 sp50;
 //     f32 temp_f0_2;
 //     Vertex sp44;
@@ -541,7 +569,7 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 //     sp38.x = arg1->xVelocity.h;
 //     sp38.y = arg1->zVelocity.h;
 //     sp38.z = arg1->yVelocity.h;
-//     sp60 = sqrtf((sp38.x * sp38.x) + (sp38.y * sp38.y) + (sp38.z * sp38.z)) / arg2;
+//     y = sqrtf((sp38.x * sp38.x) + (sp38.y * sp38.y) + (sp38.z * sp38.z)) / arg2;
 //
 //     temp_v0 = func_8032D5A4_73EC54(&sp44, &sp38); // arg3, arg2,
 //     phi_v1 = func_8012835C((sinf((f32)temp_v0 * 0.017453292519943295) * sp50 * 256.0f)); // D_803BCEF8_7CE5A8
@@ -549,7 +577,7 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 //     if (phi_v1 <= 0.0f) {
 //         phi_v1 = -phi_v1;
 //     }
-//     temp_f0_2 = ((s16) (s32) (D_80152350.unk384[temp_v0] * sp60) + D_80152350.unk384[phi_v1]) * 256.0f;
+//     temp_f0_2 = ((s16) (s32) (D_80152350.unk384[temp_v0] * y) + D_80152350.unk384[phi_v1]) * 256.0f;
 //     if (temp_f0_2 == 0.0f) {
 //         return 0;
 //     }
@@ -562,9 +590,9 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 //         phi_f12 = sp38.x / temp_f0_3;
 //         phi_f2 = sp38.y / temp_f0_3;
 //     }
-//     sp5C = sp50 / temp_f0_2;
-//     arg4.unk0 = arg1->xPos.h + (s16) (sp60 * sp5C * phi_f12);
-//     arg4.unk2 = arg1->zPos.h + (s16) (sp60 * sp5C * phi_f2);
+//     z = sp50 / temp_f0_2;
+//     arg4.unk0 = arg1->xPos.h + (s16) (y * z * phi_f12);
+//     arg4.unk2 = arg1->zPos.h + (s16) (y * z * phi_f2);
 //     arg4.unk4 = arg1->yPos.h + (arg1->unk42 >> 1);
 //     return 1;
 // }
@@ -634,8 +662,8 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //     struct071 *obj;
 //     s16 temp_t0;
 //     s16 pad[3];
-//     // s16 sp5C;
-//     // s32 sp58;
+//     // s16 z;
+//     // s32 x;
 //     // s16 sp4A;
 //     s16 sp4C[1];
 //     struct077 sp48; // probably a bigger struct?
@@ -842,11 +870,98 @@ void func_802F92B0_70A960(struct071 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F92B0_70A960.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F951C_70ABCC.s")
+void func_802F951C_70ABCC(Animal *arg0) {
+    u8 red;
+    u8 blue;
+    u8 green;
+    s16 pad[3];
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9624_70ACD4.s")
+    if (arg0->state == 1) {
+        red = arg0->unk200;
+        blue = arg0->unk204;
+        green = arg0->unk208;
+        if ((red != 0) || (blue != 0) || (green != 0)) {
+            add_light_at_location(
+                arg0->xPos.h,
+                arg0->zPos.h,
+                arg0->yPos.h,
+                0xFF,
+                red,
+                blue,
+                green);
+            func_8029CEF0_6AE5A0(
+                arg0->xPos.h << 16,
+                arg0->zPos.h << 16,
+                (arg0->yPos.h << 16) + (arg0->unk40 * 570),
+                arg0->unk40 << 1,
+                34,
+                &D_803D2E08,
+                0,
+                red,
+                blue,
+                green);
+        }
+    }
+}
 
+void func_802F9624_70ACD4(Animal *arg0) {
+    if (arg0->state == 1) {
+        arg0->unk14E++;
+        arg0->unk14E &= 3;
+        if (arg0->unk14E == 0) {
+            create_particle_effect(
+                arg0->xPos.h,
+                arg0->zPos.h,
+                arg0->yPos.h + arg0->unk42 + (arg0->unk42 / 2),
+                63,
+                0,
+                0,
+                FTOFIX32(4.0),
+                (arg0->unk40 * 0x28) >> 0xB,
+                GPACK_RGBA5551(0, 0, 0, 0),
+                GPACK_RGBA5551(0, 0, 0, 0),
+                0);
+        }
+    }
+}
+
+// used by object 43 (gravity switch)
+#ifdef NON_MATCHING
+void func_802F96E0_70AD90(struct071 *arg0) {
+    if (arg0->unk150 == 0) {
+        arg0->unk150 = arg0->unk40;
+        arg0->unk152 = (func_80128200() & 0xFF);
+    }
+
+    if (arg0->unk0 == 1) {
+        if (arg0->unk14E < 256) {
+            arg0->unk14E += 8;
+            if (arg0->unk14E > 256) {
+                arg0->unk14E = 256;
+            }
+        }
+    } else {
+        if (arg0->unk14E > 0) {
+            arg0->unk14E -= 8;
+            if (arg0->unk14E < 0) {
+                arg0->unk14E = 0;
+            }
+        }
+    }
+
+    if (arg0->unk14E > 0) {
+        s16 tmp;
+        arg0->unk152 += 4;
+        arg0->unk152 &= 0xFF;
+        // regalloc here...
+        // tmp = ((s16) (arg0->unk152 + 64)) & 0xFFFF;
+        arg0->unk40 = (arg0->unk150 + ((D_80152C78[(((s16)(arg0->unk152 + 64)) & 0xFFFF) & 0xFF] >> 7) / 1.5));
+        func_802C9BA4_6DB254(arg0);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F96E0_70AD90.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9880_70AF30.s")
 
@@ -889,14 +1004,83 @@ void func_802F9A08_70B0B8(Animal *arg0) {
     arg0->yRotation = ((arg0->unk14E * 360) / 128) % 360;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9B4C_70B1FC.s")
+// used by object 42 (button)
+extern f32 D_803BCF0C_7CE5BC; // 0.8f
+void func_802F9B4C_70B1FC(struct071 *arg0) {
+    if (arg0->unk0 == (u16) 1) {
+        add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, 255 /* red */, 0, 0);
+        if (arg0->unk14E == 0) {
+            arg0->unk14E = 1;
+            if (arg0->unk152 != 0) {
+                play_sound_effect_at_location(0x52, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+            }
+        }
+    } else if (arg0->unk14E == 1) {
+        arg0->unk14E = 0;
+        if (arg0->unk152 != 0) {
+            play_sound_effect_at_location(0x52, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, D_803BCF0C_7CE5BC);
+        }
+    }
+    if (arg0->unk152 == 0) {
+        arg0->unk152 = 1;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9C50_70B300.s")
+// used by object 24 (switch)
+extern f32 D_803BCF10_7CE5C0; // 0.8
+void func_802F9C50_70B300(struct071 *arg0) {
+    u8 red;
+    u8 green;
+    u8 blue;
 
+    s16 temp_t3;
+
+    if (arg0->unk0 == 1) { // is active? enable-able?
+        red = 255; green = 0; blue = 0;
+        if (arg0->unk14E == 0) {
+            arg0->unk14E = 1; // enabled?
+            if (arg0->unk152 != 0) {
+                play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+            }
+        }
+    } else {
+        red = 0; green = 0; blue = 255;
+        if (arg0->unk14E == 1) {
+            arg0->unk14E = 0; // disabled
+            if (arg0->unk152 != 0) {
+                play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, D_803BCF10_7CE5C0); // 0.8f
+            }
+        }
+    }
+
+    if (arg0->unk152 == 0) {
+        arg0->unk152 = 1;
+    }
+
+    add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, red, green, blue);
+
+    temp_t3 = (arg0->unk40 << 6) >> 0xB;
+    func_8034C8F8_75DFA8(
+        arg0->xPos.h,
+        arg0->zPos.h,
+        arg0->yPos.h + (arg0->unk42 >> 1),
+        0,
+        D_01033190,
+        temp_t3,
+        temp_t3,
+        0x20,
+        red,
+        green,
+        blue,
+        0,
+        0);
+}
+
+// something with Waypoints
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9E10_70B4C0.s")
-
+// something with Waypoints
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9EB8_70B568.s")
-
+// something with Waypoints
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FA4F8_70BBA8.s")
 
 void func_802FA6D8_70BD88(void) {
@@ -912,7 +1096,74 @@ void func_802FA6D8_70BD88(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FADBC_70C46C.s")
 
+#if 0
+// needs rodata
+void func_802FB270_70C920(Animal *arg0) {
+
+    if ((arg0->unk4C.unk28 != 0) || (arg0->unk4C.unk29 != 0)) {
+        func_802C9F60_6DB610(arg0);
+    }
+    if ((arg0->unk4C.unk28 == 0) || (arg0->unk4C.unk29 == 0)) {
+        func_802F90A8_70A758(arg0);
+    }
+    if (arg0->unk1A8 != 0) {
+        func_803191B0_72A860(arg0);
+    }
+    func_802FADBC_70C46C(arg0);
+    arg0->unk10 = arg0->xPos.w + arg0->xVelocity.w;
+    arg0->unk14 = arg0->zPos.w + arg0->zVelocity.w;
+    arg0->unk18.w = arg0->yPos.w + arg0->yVelocity.w;
+    func_802F5C60_707310(arg0);
+
+    if (arg0->unk4C.unk26 == 0) {
+        switch (arg0->unk16C->unk88) {
+        case 0:
+            if (arg0->health <= 0) {
+                func_802FC990_70E040(arg0);
+            }
+            break;
+        case 1:
+            if ((arg0->unk5C & 4) && (arg0->unk60 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+                func_802FC990_70E040(arg0);
+            }
+            break;
+        case 3:
+            if (arg0->unk5C & 8) {
+                func_802FC990_70E040(arg0);
+            }
+            break;
+        case 4:
+            if (arg0->unk5C & 5) {
+                func_802FC990_70E040(arg0);
+            }
+            break;
+        case 5:
+            if (((arg0->unk5C & 1) && (arg0->unk5D != arg0->unk16C->unk0)) ||
+                 (arg0->unk5C & 6)) {
+                func_802FC990_70E040(arg0);
+            }
+            break;
+        }
+        if (arg0->unk26C != 0) {
+            return;
+        }
+    }
+
+    if ((arg0->unk4C.unk26 == 0) && (arg0->unk154 != 0)) {
+        arg0->unk154--;
+        if (arg0->unk154 == 1) {
+            func_802FC990_70E040(arg0);
+        }
+    }
+    func_802FB49C_70CB4C(arg0);
+    arg0->unk65 = 0;
+    if (arg0->unk15C > 0) {
+        arg0->unk15C--;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB270_70C920.s")
+#endif
 
 void func_802FB49C_70CB4C(struct071 *arg0) {
     arg0->unk5C = arg0->unk54;
@@ -977,14 +1228,14 @@ void func_802FB680_70CD30(Animal *arg0) {
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_v0, phi_v1);
 
     phi_v1_2 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
+                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
+                   MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
+                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
     if (arg0->yPos.h < (phi_v1_2 * 4)) {
-        phi_a1 = 0x20;
+        phi_a1 = 32;
     } else {
-        phi_a1 = 7;
+        phi_a1 = 4 | 2 | 1;
     }
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
 }
@@ -1033,7 +1284,7 @@ void func_802FB85C_70CF0C(Animal *arg0) {
         phi_a1 = 4 | 2 | 1;
     }
 
-    phi_a1 |= 0x40;
+    phi_a1 |= 64;
 
     func_802D7BE0_6E9290(
         0,
@@ -1069,7 +1320,7 @@ void func_802FBA40_70D0F0(Animal *arg0) {
                      D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
     if (arg0->yPos.h < (phi_v1 * 4)) {
-        phi_a1 = 0x20;
+        phi_a1 = 32;
     } else {
         phi_a1 = 1;
     }
@@ -1102,7 +1353,7 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
                      D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
     if (arg0->yPos.h < (phi_v1 * 4)) {
-        phi_a1 = 0x20;
+        phi_a1 = 32;
     } else {
         phi_a1 = 1;
     }
@@ -1135,7 +1386,7 @@ void func_802FBDA8_70D458(Animal *arg0) {
     if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 32;
     } else {
-        phi_a1 = 3;
+        phi_a1 = 2 | 1;
     }
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, (s32) arg0->unk30 >> 2, 0);
 }
@@ -1167,7 +1418,7 @@ void func_802FBF58_70D608(Animal *arg0) {
     if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 32;
     } else {
-        phi_a1 = 5;
+        phi_a1 = 4 | 1;
     }
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 2, 0);
 }
@@ -1198,7 +1449,7 @@ void func_802FC108_70D7B8(Animal *arg0) {
     if (arg0->yPos.h < (phi_v1 * 4)) {
         phi_a1 = 32;
     } else {
-        phi_a1 = 7;
+        phi_a1 = 4 | 2 | 1;
     }
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 2, 0);
 }
@@ -1222,8 +1473,8 @@ void func_802FC2B8_70D968(s16 x, s16 z, s16 y) {
             temp_s2,
             temp_s3,
             8,
-            0,
-            0,
+            GPACK_RGBA5551(0, 0, 0, 0),
+            GPACK_RGBA5551(0, 0, 0, 0),
             0);
     }
 }
@@ -1263,9 +1514,9 @@ void func_802FC5C0_70DC70(Animal *arg0) {
                      D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
     if (arg0->yPos.h < (phi_v1 * 4)) {
-        phi_a1 = 40;
+        phi_a1 = 32 | 8;
     } else {
-        phi_a1 = 9;
+        phi_a1 = 8 | 1;
     }
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
 }
@@ -1280,9 +1531,9 @@ void func_802FC6E4_70DD94(Animal *arg0) {
                      D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
 
     if (arg0->yPos.h < (phi_v1 * 4)) {
-        phi_a1 = 104;
+        phi_a1 = 64 | 32 | 8;
     } else {
-        phi_a1 = 72;
+        phi_a1 = 64 | 8;
     }
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
 }
@@ -1344,184 +1595,196 @@ void func_802FC990_70E040(Animal *arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FCA08_70E0B8.s")
-// void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
-//     s16 phi_v0;
-//     s16 phi_v1;
-//     // surely not...
-//     volatile u8 tmp  = ((arg1 & 0x4000) == 0) & 0xFF;
-//
-//     switch ((s16)(arg1 & 0xBFFF)) {
-//     case 1: // dust cloud
-//         func_802FC808_70DEB8(arg0);
-//         break;
-//     case 2: // bomb/explosion air
-//         func_802FB4C0_70CB70(arg0);
-//         break;
-//     case 3: // bomb/explosion ground
-//         func_802FBBF8_70D2A8(arg0);
-//         break;
-//     case 4: // powerup?
-//         switch (arg0->unk16C->unk0) {
-//         case 0x22: // powercell
-//             if (((arg1 & 0x4000) == 0)) {
-//                 D_803F2D30.powercells += 1;
-//                 D_803F2D30.unk6 += 1;
-//                 D_803F2D30.score += 1000;
-//             }
-//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((arg0->unk40) >> 7) * 2), 2);
-//             break;
-//         case 0x3A: // energy ball + 16 hp
-//             if (((arg1 & 0x4000) == 0)) {
-//                 if (D_803F2D30.unk4 == 0) {
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x10, 0x7F);
-//                 }
-//                 D_803D552C->unk348 = 0;
-//                 D_803D552C->unk34A = 0;
-//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
-//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
-//             }
-//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 1);
-//             break;
-//         case 0x3B:  // energy ball + 32 hp
-//             if (((arg1 & 0x4000) == 0)) {
-//                 if (D_803F2D30.unk4 == 0) {
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x20, 0x7F);
-//                 }
-//                 D_803D552C->unk348 = 0;
-//                 D_803D552C->unk34A = 0;
-//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk358 = 0;
-//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk363 = 0;
-//             }
-//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((arg0->unk40) >> 7) * 2), 1);
-//             break;
-//         case 0x3C: // energy ball + 64hp
-//             if (((arg1 & 0x4000) == 0)) {
-//                 if (D_803F2D30.unk4 == 0) {
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x40, 0x7F);
-//                 }
-//                 D_803D552C->unk348 = 0;
-//                 D_803D552C->unk34A = 0;
-//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
-//                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
-//             }
-//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 1);
-//             break;
-//         default:                                    /* switch 1 */
-//             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 2);
-//             break;
-//         }
-//         break;
-//     // no case 5
-//     case 6: // white sparks?
-//         func_802FC2B8_70D968(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + (arg0->unk42 >> 1)));
-//         break;
-//     case 7: // explosion with red debris
-//         func_802FBF58_70D608(arg0);
-//         break;
-//     case 8: // ground explosion
-//         func_802FBDA8_70D458(arg0);
-//         break;
-//     case 9: // explosion
-//         func_802FC108_70D7B8(arg0);
-//         break;
-//     case 10: // big explosion, brown debris
-//         func_802FC5C0_70DC70(arg0);
-//         break;
-//     case 11: // water splash
-//         func_802D760C_6E8CBC(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((s32) arg0->unk42 >> 1)), arg0->unk30, 8);
-//         break;
-//     case 12: // small explosion
-//         func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0, 0, 0);
-//         break;
-//     case 13: // explosion
-//         func_802FB680_70CD30(arg0);
-//         break;
-//     case 14: // explosion vertical (wall hit?)
-//         func_802FBA40_70D0F0(arg0);
-//         break;
-//     case 15: // radioactive
-//         func_802FC438_70DAE8(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) arg0->unk42 >> 1)));
-//         break;
-//     case 16: // cardboard/earthquake debris?
-//         func_802FC6E4_70DD94(arg0);
-//         play_sound_effect_at_location(0x79, 0x6000, 0, arg0->xPos.h, (s32) arg0->zPos.h, (s32) arg0->yPos.h, 1.0f);
-//         break;
-//     case 17: // trophy?
-//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 3);
-//         break;
-//     case 18: //
-//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 4);
-//         break;
-//     case 19: // shockwave
-//         if (arg0->unk15E == 0) {
-//             phi_v0 = ((arg0->unk40 << 5) >> 11);
-//             if (arg0->unk158 != 0) {
-//                 phi_v0 *= arg0->unk158;
-//             }
-//         } else {
-//             phi_v0 = arg0->unk15E;
-//         }
-//         if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
-//             phi_v1 = arg0->unk168->unk16C->unkE6;
-//         } else {
-//             phi_v1 = -1;
-//         }
-//         func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 100, phi_v0, phi_v1);
-//         func_802D7BE0_6E9290(0, 32, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30 >> 1, 0);
-//         break;
-//     case 20: // objective with sound?
-//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 5);
-//         break;
-//     case 21: // big splash?
-//         func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0x3A, arg0->unk30 << 2, 0, 0, 0);
-//         break;
-//     case 22: // objective no sound?
-//         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 6);
-//         break;
-//     case 23: // nuts & bolts (evo exploding?)
-//         func_802D7BE0_6E9290(0, 16, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
-//         break;
-//     case 24: // brown debris
-//         func_802FC6E4_70DD94(arg0);
-//         play_sound_effect_at_location(0x4B, 0x6000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
-//         break;
-//     case 25: // ground explosion
-//         func_802FB85C_70CF0C(arg0);
-//         break;
-//     default:
-//         break;
-//     }
-// }
+#if 0
+void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
+    s16 phi_v0;
+    s16 phi_v1;
+    // surely not...
+    volatile u8 tmp = ((arg1 & 0x4000) == 0) & 0xFF;
 
-void func_802FD190_70E840(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4) {
+    // 0x4000 -> 0100000000000000
+    // 0xBFFF -> 1011111111111111
+
+    switch ((s16)(arg1 & 0xBFFF)) {
+    case 1: // dust cloud
+        func_802FC808_70DEB8(arg0);
+        break;
+    case 2: // bomb/explosion air
+        func_802FB4C0_70CB70(arg0);
+        break;
+    case 3: // bomb/explosion ground
+        func_802FBBF8_70D2A8(arg0);
+        break;
+    case 4: // powerup?
+        switch (arg0->unk16C->unk0) {
+        case 0x22: // powercell
+            if (((arg1 & 0x4000) == 0)) {
+                D_803F2D30.powercells += 1;
+                D_803F2D30.unk6 += 1;
+                D_803F2D30.score += 1000;
+            }
+            func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((arg0->unk40) >> 7) * 2), 2);
+            return;
+            break;
+        case 0x3A: // energy ball + 16 hp
+            if (((arg1 & 0x4000) == 0)) {
+                if (D_803F2D30.unk4 == 0) {
+                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x10, 0x7F);
+                }
+                D_803D552C->unk348 = 0;
+                D_803D552C->unk34A = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
+            }
+            func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 1);
+            return;
+            break;
+        case 0x3B:  // energy ball + 32 hp
+            if (((arg1 & 0x4000) == 0)) {
+                if (D_803F2D30.unk4 == 0) {
+                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x20, 0x7F);
+                }
+                D_803D552C->unk348 = 0;
+                D_803D552C->unk34A = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk358 = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk363 = 0;
+            }
+            func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((arg0->unk40) >> 7) * 2), 1);
+            return;
+            break;
+        case 0x3C: // energy ball + 64hp
+            if (((arg1 & 0x4000) == 0)) {
+                if (D_803F2D30.unk4 == 0) {
+                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x40, 0x7F);
+                }
+                D_803D552C->unk348 = 0;
+                D_803D552C->unk34A = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
+            }
+            func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 1);
+            return;
+            break;
+        default:                                    /* switch 1 */
+            func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 2);
+            return;
+            break;
+        }
+        break;
+    // no case 5
+    case 6: // white sparks?
+        func_802FC2B8_70D968(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + (arg0->unk42 >> 1)));
+        break;
+    case 7: // explosion with red debris
+        func_802FBF58_70D608(arg0);
+        break;
+    case 8: // ground explosion
+        func_802FBDA8_70D458(arg0);
+        break;
+    case 9: // explosion
+        func_802FC108_70D7B8(arg0);
+        break;
+    case 10: // big explosion, brown debris
+        func_802FC5C0_70DC70(arg0);
+        break;
+    case 11: // water splash
+        func_802D760C_6E8CBC(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((s32) arg0->unk42 >> 1)), arg0->unk30, 8);
+        break;
+    case 12: // small explosion
+        func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0, 0, 0);
+        break;
+    case 13: // explosion
+        func_802FB680_70CD30(arg0);
+        break;
+    case 14: // explosion vertical (wall hit?)
+        func_802FBA40_70D0F0(arg0);
+        break;
+    case 15: // radioactive
+        func_802FC438_70DAE8(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) arg0->unk42 >> 1)));
+        break;
+    case 16: // cardboard/earthquake debris?
+        func_802FC6E4_70DD94(arg0);
+        play_sound_effect_at_location(0x79, 0x6000, 0, arg0->xPos.h, (s32) arg0->zPos.h, (s32) arg0->yPos.h, 1.0f);
+        break;
+    case 17: // trophy?
+        func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 3);
+        break;
+    case 18: //
+        func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 4);
+        break;
+    case 19: // shockwave
+        if (arg0->unk15E == 0) {
+            phi_v0 = ((arg0->unk40 << 5) >> 11);
+            if (arg0->unk158 != 0) {
+                phi_v0 *= arg0->unk158;
+            }
+        } else {
+            phi_v0 = arg0->unk15E;
+        }
+        if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+            phi_v1 = arg0->unk168->unk16C->unkE6;
+        } else {
+            phi_v1 = -1;
+        }
+        func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 100, phi_v0, phi_v1);
+        func_802D7BE0_6E9290(0, 32, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30 >> 1, 0);
+        break;
+    case 20: // objective with sound?
+        func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 5);
+        break;
+    case 21: // big splash?
+        func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0x3A, arg0->unk30 << 2, 0, 0, 0);
+        break;
+    case 22: // objective no sound?
+        func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 6);
+        break;
+    case 23: // nuts & bolts (evo exploding?)
+        func_802D7BE0_6E9290(0, 16, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
+        break;
+    case 24: // brown debris
+        func_802FC6E4_70DD94(arg0);
+        play_sound_effect_at_location(0x4B, 0x6000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+        break;
+    case 25: // ground explosion
+        func_802FB85C_70CF0C(arg0);
+        break;
+    default:
+        break;
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FCA08_70E0B8.s")
+#endif
+
+void func_802FD190_70E840(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     s16 i, j;
 
-    for (i = 0; i <= arg2; i++) {
-        for (j = 0; j <= arg3; j++) {
-            D_803C0740[arg0 + i][arg1 + j].unk0 = arg4;
+    for (i = 0; i <= xEnd; i++) {
+        for (j = 0; j <= yEnd; j++) {
+            D_803C0740[xStart + i][yStart + j].unk0 = value;
         }
     }
 
-    func_802DAFAC_6EC65C(arg0, arg1, arg2, arg3);
+    func_802DAFAC_6EC65C(xStart, yStart, xEnd, yEnd);
 }
 
-void func_802FD26C_70E91C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4) {
+// set water level?
+void func_802FD26C_70E91C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     s16 i, j;
 
-    for (i = 0; i <= arg2; i++) {
-        for (j = 0; j <= arg3; j++) {
-            D_803C0740[arg0 + i][arg1 + j].unk6 = arg4;
+    for (i = 0; i <= xEnd; i++) {
+        for (j = 0; j <= yEnd; j++) {
+            D_803C0740[xStart + i][yStart + j].unk6 = value;
         }
     }
 
-    func_802DAFAC_6EC65C(arg0, arg1, arg2, arg3);
+    func_802DAFAC_6EC65C(xStart, yStart, xEnd, yEnd);
 }
 
 s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
     struct065 *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
-        if ((arg0 == tmp->unk8->unk6C) && (tmp->unk8->unk16C->unk0 == arg1)) {
+    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->unk0 == arg1)) {
             return 1;
         }
     }
@@ -1530,8 +1793,8 @@ s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
 
 s32 func_802FD3B8_70EA68(Animal *arg0) {
     struct065 *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
-        if (arg0 == tmp->unk8->unk6C) {
+    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+        if (arg0 == tmp->animal->unk6C) {
             return 1;
         }
     }
@@ -1541,8 +1804,8 @@ s32 func_802FD3B8_70EA68(Animal *arg0) {
 // is this animal or object?
 s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
     struct065 *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
-        if ((arg0 == tmp->unk8->unk6C) && (arg1 == tmp->unk8)) {
+    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+        if ((arg0 == tmp->animal->unk6C) && (arg1 == tmp->animal)) {
             return 1;
         }
     }
@@ -1551,8 +1814,8 @@ s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
 
 s32 func_802FD468_70EB18(Animal *arg0) {
     struct065 *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
-        if ((arg0 == tmp->unk8->unk6C) && (tmp->unk8->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET)) {
+    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET)) {
             return 1;
         }
     }
@@ -1561,8 +1824,8 @@ s32 func_802FD468_70EB18(Animal *arg0) {
 
 s32 func_802FD4D0_70EB80(Animal *arg0) {
     struct065 *tmp;
-    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
-        if ((arg0 == tmp->unk8->unk6C) && (tmp->unk8->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET)) {
+    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET)) {
             return 1;
         }
     }
@@ -1589,9 +1852,9 @@ s16 func_802FD5DC_70EC8C(Animal *arg0) {
 
     res = 0;
 
-    for (tmp = D_803DA110[arg0->unk114[0]].unk0; tmp != NULL; tmp = tmp->unk0) {
-        if (arg0 == tmp->unk8->unk6C) {
-            res += tmp->unk8->unk44 + func_802FD5DC_70EC8C(tmp->unk8);
+    for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
+        if (arg0 == tmp->animal->unk6C) {
+            res += tmp->animal->unk44 + func_802FD5DC_70EC8C(tmp->animal);
         }
     }
 
@@ -1870,26 +2133,28 @@ void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal 
     }
 }
 
+// free all things, unused?
 void func_802FF140_7107F0(void) {
     s16 i;
 
     D_803A5330_7B69E0 = 0;
     for (i = 0; i < 10; i++) {
-        D_803E1BE8[i].unk0 = 0;
+        D_803E1BE8[i].used = 0;
     }
 }
 
-void func_802FF184_710834(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
+// add <thing>
+void func_802FF184_710834(Animal *arg0, s16 used, s16 x, s16 y, s16 z, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
     s16 i;
 
     if (D_803A5330_7B69E0 < 10) {
         for (i = 0; i < 10; i++) {
-            if (D_803E1BE8[i].unk0 == 0) {
-                D_803E1BE8[i].unk2 = arg2;
-                D_803E1BE8[i].unk4 = arg3;
-                D_803E1BE8[i].unk0 = arg1;
+            if (D_803E1BE8[i].used == 0) {
+                D_803E1BE8[i].x = x;
+                D_803E1BE8[i].y = y;
+                D_803E1BE8[i].used = used; // ? always 1
                 D_803E1BE8[i].unk1 = 0;
-                D_803E1BE8[i].unk6 = arg4;
+                D_803E1BE8[i].z = z;
                 D_803E1BE8[i].unkC = arg7;
                 D_803E1BE8[i].unkE = arg8;
                 D_803E1BE8[i].unk10 = arg9;
@@ -1909,13 +2174,13 @@ void func_802FF25C_71090C(void) {
     s32 temp_t4;
 
     for (i = 0; i < 10; i++) {
-        if (D_803E1BE8[i].unk0 == 1) {
+        if (D_803E1BE8[i].used == 1) {
             do { temp_t4 = (((D_803E1BE8[i].unkC * D_803E1BE8[i].unk1) * 65536) / 100) / 16; } while (0);
             func_80125FE0(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
-                D_803E1BE8[i].unk2 << 16,
-                D_803E1BE8[i].unk4 << 16,
-                D_803E1BE8[i].unk6 << 16,
+                D_803E1BE8[i].x << 16,
+                D_803E1BE8[i].y << 16,
+                D_803E1BE8[i].z << 16,
                 D_803E1BE8[i].unk8,
                 D_803E1BE8[i].unkA,
                 temp_t4,
@@ -1942,9 +2207,9 @@ void func_802FF25C_71090C(void) {
 
             func_802F7940_708FF0(
                 D_803E1BE8[i].unk14,
-                D_803E1BE8[i].unk2,
-                D_803E1BE8[i].unk4,
-                D_803E1BE8[i].unk6,
+                D_803E1BE8[i].x,
+                D_803E1BE8[i].y,
+                D_803E1BE8[i].z,
                 phi_v0,
                 0,
                 D_803E1BE8[i].unkC,
@@ -1953,7 +2218,7 @@ void func_802FF25C_71090C(void) {
             D_803E1BE8[i].unk1++;
 
             if (D_803E1BE8[i].unk1 >= 16) {
-                D_803E1BE8[i].unk0 = 0;
+                D_803E1BE8[i].used = 0;
                 D_803A5330_7B69E0 -= 1;
             }
         }
@@ -2061,7 +2326,7 @@ void func_802FFC34_7112E4(struct071 *arg0) {
 
     if (arg0->unk0 == 1) {
         phi_v1 = MIN(arg0->unk158, 0xFF);
-        func_802F2B54_704204(
+        add_light_at_location(
             arg0->xPos.h,
             arg0->zPos.h,
             arg0->yPos.h,
@@ -2172,7 +2437,7 @@ void func_802FFFD0_711680(struct071 *arg0) {
         red = 255; green = 0; blue = 255;
     }
 
-    func_802F2B54_704204(
+    add_light_at_location(
         arg0->xPos.h,
         arg0->zPos.h,
         arg0->yPos.h,

@@ -2,7 +2,7 @@
 #include "common.h"
 
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/rnc/func_8012B110.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/core/rnc/UnpackRNC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/rnc/func_8012B1B4.s")
 

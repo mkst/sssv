@@ -143,9 +143,9 @@ void func_802DAF5C_6EC60C(void) {
     s16 i;
 
     for (i = 0; i < 40; i++) {
-        D_803DA110[i].unk0 = 0;
-        D_803DA110[i].unk4 = 0;
-        D_803DA110[i].unk8 = 0;
+        D_803DA110[i].next = NULL;
+        D_803DA110[i].unk4 = 0;         // tbd
+        D_803DA110[i].animal = NULL;
     }
 
     D_803DA2F0 = NULL;

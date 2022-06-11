@@ -78,17 +78,17 @@ void func_80398A00_7AA0B0(void) {
 
 #if 0
 void display_zone_select_screen(void) {
-    char ascii[52];
-    s16  wide_text[26]; // 0x118 - 0xE4 => 52
-
-    s16 currentLevel;
+    char ascii[50];
+    s16  wide_text[24]; // 0x118 - 0xE4 => 52
 
     f32 spE0;
     f32 spDC;
 
-    s16 old_current_level;
-    s16 vertical_offset;
-    s16 tmp_level;
+    s16 vertical_offset;   // spDA
+    s16 old_current_level; // spD2
+    s16 var_a3;
+
+    s16 temp_a2;
 
     s16 secs;
     s16 mins;
@@ -96,6 +96,8 @@ void display_zone_select_screen(void) {
     u8 evo_r;
     u8 evo_b;
     u8 evo_g;
+
+    s32 score, time;
 
     D_803E4D2C = 0;
     if (D_8028645C != 25) {
@@ -178,12 +180,14 @@ void display_zone_select_screen(void) {
     gDPSetCombineMode(D_801D9E7C++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0x1A);
 
-    // currentLevel = (s16)(D_803F7DA8.currentLevel + 1); // no diff?
-    if (((s16)(D_803F7DA8.currentLevel + 1) == GIVE_A_DOG_A_BONUS) ||
-        ((s16)(D_803F7DA8.currentLevel + 1) == WALRACE_64) ||
-        ((s16)(D_803F7DA8.currentLevel + 1) == EVOS_ESCAPE) ||
-        ((s16)(D_803F7DA8.currentLevel + 1) == PUNCHUP_PYRAMID) ||
-        ((s16)(D_803F7DA8.currentLevel + 1) == BIG_CELEBRATION_PARADE)) {
+    temp_a2 = D_803F7DA8.currentLevel;
+    temp_a2 = temp_a2 + 1;
+
+    if ((temp_a2 == GIVE_A_DOG_A_BONUS) ||
+        (temp_a2 == WALRACE_64) ||
+        (temp_a2 == EVOS_ESCAPE) ||
+        (temp_a2 == PUNCHUP_PYRAMID) ||
+        (temp_a2 == BIG_CELEBRATION_PARADE)) {
         switch (D_803F2D50.evoSuitColor) { // evo suit color
         case EVO_BRONZE_SHELLSUIT:
             evo_r = 200;
@@ -224,10 +228,11 @@ void display_zone_select_screen(void) {
         if (D_803F7DA0 < 8) {
             D_803F7DA0 = 8;
         } else {
-            D_803F7DA0 -= 1;
+            D_803F7DA0--;
         }
-        D_803F7DA2 = D_803F7DA0;
+
         old_current_level = D_803F7DA8.currentLevel;
+        D_803F7DA2 = D_803F7DA0;
         D_803F7DA8.currentLevel = get_next_available_level(D_803F7DA8.currentLevel, -1);
         if (old_current_level != D_803F7DA8.currentLevel) {
             if (D_803F7DA8.currentLevel == PUNCHUP_PYRAMID) {
@@ -250,8 +255,8 @@ void display_zone_select_screen(void) {
         } else {
             D_803F7DA1 -= 1;
         }
-        D_803F7DA3 = D_803F7DA1;
         old_current_level = D_803F7DA8.currentLevel;
+        D_803F7DA3 = D_803F7DA1;
         D_803F7DA8.currentLevel = get_next_available_level(D_803F7DA8.currentLevel, 1);
         if (old_current_level != D_803F7DA8.currentLevel) {
             if (D_803F7DA8.currentLevel == PUNCHUP_PYRAMID) {
@@ -348,40 +353,39 @@ void display_zone_select_screen(void) {
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
     select_font(0, FONT_COMIC_SANS, 0, 0);
 
-    // currentLevel = D_803F7DA8.currentLevel; // 0-indexed
-    tmp_level = D_803F7DA8.currentLevel;
-
     vertical_offset = 60;
-    if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
+
+    var_a3 = D_803F7DA8.currentLevel;
+    if (var_a3 != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
         // write title text
         display_text(&D_801D9E7C, (u8*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
-        tmp_level = D_803F7DD5;
+        var_a3 = D_803F7DD5;
     }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
-    currentLevel = tmp_level;
 
-    if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) {
-        if (D_8023F260.level[D_803F7DA8.currentLevel].completed == 1) {
+    if (var_a3 != SECRET_LEVEL-1) {
+        if (D_8023F260.level[var_a3].completed == 1) {
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_SECURED), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         } else {
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
+        var_a3 = D_803F7DD5;
         vertical_offset += D_803B74B0_7C8B60 + 1.0f;
-        tmp_level = D_803F7DD5;
     }
 
-    // this can't be right?
-    // currentLevel = (s16)(D_803F7DA8.currentLevel + 1);
-    currentLevel += tmp_level + 1;
-    if ((currentLevel == GIVE_A_DOG_A_BONUS) ||
-        (currentLevel == WALRACE_64) ||
-        (currentLevel == EVOS_ESCAPE) ||
-        (currentLevel == PUNCHUP_PYRAMID) ||
-        (currentLevel == BIG_CELEBRATION_PARADE) ||
-        (currentLevel == SECRET_LEVEL)) {
+    old_current_level = var_a3;
+    if (D_803F7DA8.biome) {} ; // nonsense but helps some regalloc
+    old_current_level += 1;
 
-        if (currentLevel == GIVE_A_DOG_A_BONUS) {
-            s32 time = (D_8023F260.unk30 >> 13) & 0x1FF;
+    if ((old_current_level == GIVE_A_DOG_A_BONUS) ||
+        (old_current_level == WALRACE_64) ||
+        (old_current_level == EVOS_ESCAPE) ||
+        (old_current_level == PUNCHUP_PYRAMID) ||
+        (old_current_level == BIG_CELEBRATION_PARADE) ||
+        (old_current_level == SECRET_LEVEL)) {
+
+        if (old_current_level == GIVE_A_DOG_A_BONUS) {
+            time = (D_8023F260.unk30 >> 13) & 0x1FF;
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
                 if (secs < 10) {
@@ -394,7 +398,7 @@ void display_zone_select_screen(void) {
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (currentLevel == WALRACE_64) {
+        if (old_current_level == WALRACE_64) {
             if (D_8023F260.unk30 & 0xFF) {
                 seconds_to_mins_secs(D_8023F260.unk30 & 0xFF, &mins, &secs);
                 if (secs < 10) {
@@ -411,15 +415,16 @@ void display_zone_select_screen(void) {
                 }
             }
         }
-        if (currentLevel == EVOS_ESCAPE) {
-            if ((D_8023F260.unk30 >> 24) * 100) {
-                sprintf(ascii, D_803C03C0_7D1A70, (D_8023F260.unk30 >> 24) * 100); //  "%d"
+        if (old_current_level == EVOS_ESCAPE) {
+            score = (D_8023F260.unk30 >> 24) * 100;
+            if (score) {
+                sprintf(ascii, D_803C03C0_7D1A70, score); //  "%d"
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (currentLevel == PUNCHUP_PYRAMID) {
+        if (old_current_level == PUNCHUP_PYRAMID) {
             u16 rounds = (D_8023F260.unk30 >> 8) & 0x1F;
             if (rounds) {
                 sprintf(ascii, D_803C03C4_7D1A74, rounds); //  "%d"
@@ -428,8 +433,8 @@ void display_zone_select_screen(void) {
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (currentLevel == BIG_CELEBRATION_PARADE) {
-            s32 time = (D_8023F260.unk34 >> 8) & 0x1FF;
+        if (old_current_level == BIG_CELEBRATION_PARADE) {
+            time = (D_8023F260.unk34 >> 8) & 0x1FF;
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
                 if (secs < 10) {
@@ -442,15 +447,15 @@ void display_zone_select_screen(void) {
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (currentLevel == SECRET_LEVEL) {
-            s32 score = (D_8023F260.unk34 >> 21) & 0x7FF;
+        if (old_current_level == SECRET_LEVEL) {
+            score = (D_8023F260.unk34 >> 21) & 0x7FF;
             sprintf(ascii, D_803C03D8_7D1A88, score * 100); // "%d"
             prepare_text((u8*)ascii, wide_text);
             display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 240, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
     } else {
-        sprintf(ascii, D_803C03DC_7D1A8C, D_8023F260.level[currentLevel].powercells); //  "%2d"
+        sprintf(ascii, D_803C03DC_7D1A8C, D_8023F260.level[var_a3].powercells, var_a3); //  "%2d"
         prepare_text((u8*)ascii, wide_text);
         display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 

@@ -242,17 +242,17 @@ void func_8035DA60_76F110(void) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (90)
+// CURRENT (50)
 void func_8035DEC4_76F574(void) {
     if (D_803D552C->unk366 != 5) {
         if (D_803D552C->unk2EE < 385) {
-            D_803F2EBC += D_80152C78[(s16)((D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
-            D_803F2EC0 += D_80152C78[(s16)((D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
-            D_803F2EC4 += D_80152C78[(s16)((D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
+            D_803F2EBC += D_80152C78[((s16)(D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
+            D_803F2EC0 += D_80152C78[((s16)(D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
+            D_803F2EC4 += D_80152C78[((s16)(D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
         } else {
-            D_803F2EBC += D_80152C78[(s16)((D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
-            D_803F2EC0 += D_80152C78[(s16)((D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
-            D_803F2EC4 += D_80152C78[(s16)((D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
+            D_803F2EBC += D_80152C78[((s16)(D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
+            D_803F2EC0 += D_80152C78[((s16)(D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
+            D_803F2EC4 += D_80152C78[((s16)(D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
         }
         if (D_803F2D10.unk0 == 0) {
             D_803D552C->unk2EE += 1;

@@ -77,7 +77,7 @@ void func_8035A2A8_76B958(void) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    recoil(2);
+    apply_recoil(2);
 }
 
 void biker_hyena_fire_missile(Animal *animal) {
@@ -105,7 +105,7 @@ void biker_hyena_fire_missile(Animal *animal) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    recoil(2);
+    apply_recoil(2);
 }
 
 void func_8035A590_76BC40(s16 arg0) {

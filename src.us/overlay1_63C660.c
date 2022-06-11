@@ -1,12 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
-// #define TEXEL0 1
-// #define PRIMITIVE 1
-
 u8 overlay1_bss_padding[0xad730]; // 0x10 in overlay1_6384F0
-#if 0
-// JUSTREG but uses rodata
+
 u8 language_select_menu(s16 arg0) {
     s16 used;
     s16 lang;
@@ -15,25 +11,20 @@ u8 language_select_menu(s16 arg0) {
     s16 *dst;
     s16 *src;
     uSprite *flagTexture;
-    s32 maxAlpha = 248;
 
-    // init?
     if (arg0 == 0) {
         used = 0;
         // copy in language strings
-        for (lang = 0; lang < 9; lang++) { // '!= 0' helps with regalloc
+        for (lang = 0; lang < 9; lang++) {
             // load lang33.dat
             load_level_text_data(lang, 32, D_80231AA0, D_80231D5C);
 
-            if ((lang == LANG_JAPANESE) || (lang == LANG_AMERICAN))
-                continue;
-
-            src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
-            dst = D_803B0400[used];
-            COPY_MESSAGE(src, dst);
-            // regalloc helper?
-            // if (gControllerInput->button && gControllerInput->button) {};
-            used++;
+            if ((lang != LANG_JAPANESE) && (lang != LANG_AMERICAN)) {
+                src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
+                dst = D_803B0400 + used * 20;
+                COPY_MESSAGE(src, dst);
+                used++;
+            }
         }
 
         D_803B0590 = 1;
@@ -43,12 +34,12 @@ u8 language_select_menu(s16 arg0) {
         return 0;
     }
 
-    if ((D_803B0594) != 0) {
-        D_803B0594 -= 8; // fade alpha if not selected?
+    if (D_803B0594 != 0) {
+        D_803B0594 -= 8; // fade alpha if not zero
     }
 
-    if (D_803B0592 != maxAlpha) {
-        D_803B0592 += 8; // increase alpha if selected?
+    if (D_803B0592 != 248) {
+        D_803B0592 += 8; // increase alpha if not max?
     }
 
     // current selection
@@ -84,8 +75,7 @@ u8 language_select_menu(s16 arg0) {
     gDPSetColorDither(D_801D9E7C++, G_CD_BAYER);
     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 
-    verticalOffset = 50;
-    draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
+    draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
 
     // previous selection?
     switch (D_803B0596) {
@@ -112,7 +102,7 @@ u8 language_select_menu(s16 arg0) {
         break;
     }
 
-    func_801366BC(&D_801D9E7C, D_803B0595, D_803B0595, D_803B0595, D_803B0595);
+    func_801366BC(&D_801D9E7C, D_803B0594, D_803B0594, D_803B0594, D_803B0594);
     gDPPipeSync(D_801D9E7C++);
 
     gDPSetCombineLERP(D_801D9E7C++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
@@ -121,18 +111,16 @@ u8 language_select_menu(s16 arg0) {
     gDPSetColorDither(D_801D9E7C++, G_CD_BAYER);
     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 
-    draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, verticalOffset, 16);
-
+    draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
     load_segments(&D_801D9E7C, D_80204278);
+
+    verticalOffset = 0x42;
+
     gDPPipeSync(D_801D9E7C++);
 
     // write language strings
-    verticalOffset += 16; // verticalOffset = 66; ?
     load_default_display_list(&D_801D9E7C);
     select_font(0, FONT_COMIC_SANS, 1, 0);
-
-    // more regalloc
-    // if ((gControllerInput->button && gControllerInput->button) && gControllerInput->button) {};
 
     for (lang = 0; lang < 7; lang++) {
         if (lang == D_803B0590) {
@@ -140,7 +128,7 @@ u8 language_select_menu(s16 arg0) {
         } else {
             set_menu_text_color(128, 128, 128, 255);
         }
-        display_text_centered(&D_801D9E7C, D_803B0400[lang], 160, verticalOffset, 16.0f, 16.0f);
+        display_text_centered(&D_801D9E7C, D_803B0400 + lang * 20, 160, verticalOffset, 16.0f, 16.0f);
         verticalOffset += 16;
     }
 
@@ -154,7 +142,7 @@ u8 language_select_menu(s16 arg0) {
             if (D_803B0590 > 0) {
                 play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
                 D_801D9ED4 = 10;
-                D_803B0590 -= 1;
+                D_803B0590--;
             }
         }
     }
@@ -166,7 +154,7 @@ u8 language_select_menu(s16 arg0) {
             if (D_803B0590 < 6) {
                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
                 D_801D9ED4 = 10;
-                D_803B0590 += 1;
+                D_803B0590++;
             }
         }
     }
@@ -174,7 +162,7 @@ u8 language_select_menu(s16 arg0) {
     if (D_803B0590 != selected) {
         D_803B0596 = selected;
         D_803B0592 = 0;
-        D_803B0594 = maxAlpha;
+        D_803B0594 = 248;
     }
 
     if ((gControllerInput->button & A_BUTTON) ||
@@ -182,22 +170,26 @@ u8 language_select_menu(s16 arg0) {
         switch (D_803B0590) {
         case 0: // Dutch
             return LANG_DUTCH;
+            break;
         case 1: // English
             return LANG_ENGLISH;
+            break;
         case 2: // French
             return LANG_FRENCH;
+            break;
         case 3: // German
             return LANG_GERMAN;
+            break;
         case 4: // Italian
             return LANG_ITALIAN;
+            break;
         case 5: // Portugese
             return LANG_PORTUGESE;
+            break;
         case 6: // Spanish
             return LANG_SPANISH;
+            break;
         }
     }
     return -1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay1_63C660/language_select_menu.s")
-#endif

@@ -170,7 +170,7 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //     Animal *phi_v0_4;
 //     Animal *phi_v0_5;
 //
-//     for (phi_s5 = &D_803DA110[(s32)arg0->unk114]; phi_s5 != NULL; phi_s5 = phi_s5->unk8) {
+//     for (phi_s5 = &D_803DA110[(s32)arg0->unk114]; phi_s5 != NULL; phi_s5 = phi_s5->next) {
 //
 //         temp_v1 = phi_s5->unk8;
 //         if ((arg0 != temp_v1) && (arg0 != arg1) && (((D_803B1BAC[temp_v1->unk16C->unk2]) & (1 << (0xF - arg0->unk16C->unk2))) != 0)) {

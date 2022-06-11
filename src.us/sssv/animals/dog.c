@@ -113,7 +113,7 @@ void func_802EEC44_7002F4(void) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    recoil(2);
+    apply_recoil(2);
 }
 
 void racing_dog_fire_missile(Animal *animal) {
@@ -147,7 +147,7 @@ void racing_dog_fire_missile(Animal *animal) {
         D_803D5530->zVelocity.h,
         D_803D5530->yVelocity.h,
         D_803D5530);
-    recoil(2);
+    apply_recoil(2);
 }
 
 void dog_bite(void) {

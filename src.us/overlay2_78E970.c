@@ -119,8 +119,8 @@ void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 //     while (sp9A <= sp60) {
 //         sp98 = sp54;
 //         while (sp98 <= (sp9C + sp90)) {
-//             for (phi_s1 = &D_803DA110[(s16) (sp9A + (sp98 * 5))]; phi_s1 != NULL; phi_s1 = phi_s1->unk0) {
-//                 temp_v0_2 = phi_s1->unk8;
+//             for (phi_s1 = D_803DA110[(s16) (sp9A + (sp98 * 5))].next; phi_s1 != NULL; phi_s1 = phi_s1->next) {
+//                 temp_v0_2 = phi_s1->animal;
 //                 if (phi_s1 == temp_v0_2->unk11C) {
 //                     if ((D_803D5530 != temp_v0_2) &&
 //                         ((temp_v0_2->unk162 == 6) || (temp_v0_2->unk162 == 1))) {
@@ -223,75 +223,147 @@ void func_8037D9D4_78F084(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037E6DC_78FD8C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037E9AC_79005C.s")
-// 605 away but sqrt etc is not quite right
-// Animal *func_8037E9AC_79005C(void) {
-//     s32 pad2[4];
-//     s16 sp56;
-//     s16 sp54;
-//     s32 pad[2];
-//     s16 xPosDelta, zPosDelta;
-//     Animal *ret;
-//     s16 temp_f6;
-//     s16 temp_lo;
-//     s16 phi_v0;
-//     s16 phi_v1;
-//     s16 phi_s5;
-//     s16 phi_v1_3;
-//     s16 i;
-//
-//     s16 xPos;
-//     s16 zPos;
-//
-//
-//     ret = NULL;
-//     phi_s5 = 0; // best distance?
-//
-//     xPos = D_803D5530->xPos.h;
-//     zPos = D_803D5530->zPos.h;
-//
-//     sp56 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
-//     sp54 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 9;
-//
-//     for (i = 0; i < D_803D553E; i++) {
-//         if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != 62)) {
-//             if ((D_801D9ED8.animals[i].animal->unk366 != 6) && (D_801D9ED8.animals[i].animal->unk366 != 2) && (D_801D9ED8.animals[i].animal->unk366 != 5)) {
-//                 if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (func_802EA3E0_6FBA90(D_803D5530->unk16C->unk0, D_801D9ED8.animals[i].animal->unk16C->unk0) != 7)) {
-//
-//                     Animal *a = D_801D9ED8.animals[i].animal;
-//
-//                     xPosDelta = xPos - a->xPos.h;
-//                     zPosDelta = zPos - a->zPos.h;
-//
-//                     phi_v0 = ABS(xPosDelta);
-//                     phi_v1 = ABS(zPosDelta);
-//
-//                     if ((s16) (MAX(phi_v0, phi_v1) + (MIN(phi_v0, phi_v1) >> 1)) < 0x500) {
-//                         temp_f6 = sqrtf((xPosDelta * xPosDelta) + (zPosDelta * zPosDelta));
-//                         if (temp_f6 == 0) {
-//                             temp_f6 = 1;
-//                         }
-//                         temp_lo = -((xPosDelta * sp56) + (zPosDelta * sp54)) / temp_f6;
-//                         if (temp_lo > 32) {
-//                             phi_v1_3 = ((temp_lo * 3) / 4) + 16;
-//                         } else {
-//                             phi_v1_3 = 0;
-//                         }
-//                         temp_lo = (s16) (((0x500 - temp_f6) << 6) / 1280) * phi_v1_3;
-//                         if (phi_s5 < temp_lo) {
-//                             phi_s5 = temp_lo;
-//                             ret = a;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//
-//     return ret;
-// }
+Animal *func_8037E9AC_79005C(void) {
+    s32 pad2[4];
+    s16 sp56;
+    s16 sp54;
+    s32 pad[2];
+    s16 xPosDelta, zPosDelta;
+    Animal *ret;
+    Animal *a;
+    s16 temp_f6;
+    s16 temp_lo;
+    s16 phi_v0;
+    s16 phi_v1;
+    s16 phi_s5;
+    s16 phi_v1_3;
+    s16 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037ED1C_7903CC.s")
+    s16 tmp;
+
+    s16 xPos;
+    s16 zPos;
+
+
+    ret = NULL;
+    phi_s5 = 0; // best distance?
+
+    xPos = D_803D5530->xPos.h;
+    zPos = D_803D5530->zPos.h;
+
+    sp56 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
+    sp54 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 9;
+
+    for (i = 0; i < D_803D553E; i++) {
+        if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY)) {
+            if ((D_801D9ED8.animals[i].animal->unk366 != 6) && (D_801D9ED8.animals[i].animal->unk366 != 2) && (D_801D9ED8.animals[i].animal->unk366 != 5)) {
+                if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (func_802EA3E0_6FBA90(D_803D5530->unk16C->unk0, D_801D9ED8.animals[i].animal->unk16C->unk0) != 7)) {
+
+                    a = D_801D9ED8.animals[i].animal;
+
+                    xPosDelta = xPos - a->xPos.h;
+                    zPosDelta = zPos - a->zPos.h;
+
+                    phi_v0 = ABS(xPosDelta);
+                    phi_v1 = ABS(zPosDelta);
+
+                    if ((s16) (MAX(phi_v0, phi_v1) + (MIN(phi_v0, phi_v1) >> 1)) < 0x500) {
+                        temp_f6 = sqrtf((xPosDelta * xPosDelta) + (zPosDelta * zPosDelta));
+                        tmp = temp_f6;
+                        if (temp_f6 == 0) {
+                            tmp = 1;
+                        }
+                        temp_lo = -((xPosDelta * sp56) + (zPosDelta * sp54)) / tmp;
+                        if (temp_lo > 32) {
+                            phi_v1_3 = ((temp_lo * 3) / 4) + 16;
+                        } else {
+                            phi_v1_3 = 0;
+                        }
+                        temp_lo = (s16) (((0x500 - temp_f6) << 6) / 1280) * phi_v1_3;
+                        if (phi_s5 < temp_lo) {
+                            phi_s5 = temp_lo;
+                            ret = a;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return ret;
+}
+
+Animal *func_8037ED1C_7903CC(void) {
+    s32 pad[4];
+    s16 temp_fp;
+    s16 var_a3;
+    s32 pad2[2];
+
+    s16 xPosDelta, zPosDelta;
+
+    Animal *ret;
+    Animal *animal;
+
+    s16 temp_f6;
+    s16 temp_lo;
+
+    s16 var_a0;
+    s16 var_s4;
+    s16 var_v0;
+    s16 var_v1_3;
+    s16 var_v1_4;
+
+    s16 i;
+
+    s16 xPos;
+    s16 zPos;
+
+    var_s4 = 0;
+    ret = NULL;
+
+    xPos = D_803D5530->xPos.h;
+    zPos = D_803D5530->zPos.h;
+
+    temp_fp = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
+    var_a3 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 9;
+
+    for (i = 0; i < D_803D553E; i++) {
+        if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
+            if (D_803D5530 != D_801D9ED8.animals[i].animal) {
+
+                animal = D_801D9ED8.animals[i].animal;
+                xPosDelta = xPos - animal->xPos.h;
+                zPosDelta = zPos - animal->zPos.h;
+
+                var_a0 = ABS(xPosDelta);
+                var_v0 = ABS(zPosDelta);
+
+                if ((s16) ((MAX(var_a0, var_v0)) + (MIN(var_a0, var_v0) >> 1)) < 320) {
+                    if (ABS(D_803D5530->yPos.h - animal->yPos.h) < 320) {
+                        temp_f6 = sqrtf((xPosDelta * xPosDelta) + (zPosDelta * zPosDelta));
+                        var_v1_3 = temp_f6;
+                        if (temp_f6 == 0) {
+                            var_v1_3 = 1;
+                        }
+                        temp_lo = -((xPosDelta * temp_fp) + (zPosDelta * var_a3)) / var_v1_3;
+                        if (temp_lo > 20) {
+                            var_v1_4 = temp_lo;
+                        } else {
+                            var_v1_4 = 0;
+                        }
+
+                        temp_lo = (s16) (((0x500 - temp_f6) << 6) / 1280) * var_v1_4;
+                        if (var_s4 < temp_lo) {
+                            var_s4 = temp_lo;
+                            ret = animal;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F07C_79072C.s")
 
@@ -379,8 +451,8 @@ void func_8037FE24_7914D4(void) {
 
 void func_8037FEDC_79158C(void) {
     s16 i;
-    s16 zDist;
-    s16 xDist;
+    s16 zPosDelta;
+    s16 xPosDelta;
 
     play_sound_effect_at_location(SFX_SHEEP_BAA, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 
@@ -392,14 +464,14 @@ void func_8037FEDC_79158C(void) {
             (D_801D9ED8.animals[i].animal != D_803D5530) &&
             ((u8)D_801D9ED8.animals[i].animal->unk2A0 == 0) &&
             ((D_801D9ED8.animals[i].unk0->unk9C == SHEEP) || (D_801D9ED8.animals[i].unk0->unk9C == SPRINGY_THINGY))) {
-            xDist = ABS(D_801D9ED8.animals[i].animal->xPos.h - D_803D5530->xPos.h);
-            if (xDist < 200) {
-                zDist = ABS(D_801D9ED8.animals[i].animal->zPos.h - D_803D5530->zPos.h);
-                if (zDist < 200) {
+            xPosDelta = ABS(D_801D9ED8.animals[i].animal->xPos.h - D_803D5530->xPos.h);
+            if (xPosDelta < 200) {
+                zPosDelta = ABS(D_801D9ED8.animals[i].animal->zPos.h - D_803D5530->zPos.h);
+                if (zPosDelta < 200) {
                     if ((D_801D9ED8.animals[i].animal->unk287 == 0) && (D_803D552C->unk28A == 0)) {
                         D_801D9ED8.animals[i].animal->unk287 = 1;
                         if (D_803D5530) {};
-                        D_801D9ED8.animals[i].animal->unk288 = (xDist + zDist) >> 3;
+                        D_801D9ED8.animals[i].animal->unk288 = (xPosDelta + zPosDelta) >> 3;
                         // swarm? follow?
                         func_80363E88_775538(D_801D9ED8.animals[i].animal, D_803D5530);
                     }

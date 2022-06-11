@@ -12,9 +12,9 @@ from util import options, log
 
 class N64SegRnc(N64Segment):
     def __init__(self, rom_start, rom_end, type, name, vram_start, extract,
-                 given_subalign, given_is_overlay, given_dir, args=[], yaml={}):
+                 given_subalign, exclusive_ram_id, given_dir, symbol_name_format, symbol_name_format_no_rom, args=[], yaml={}):
         super().__init__(rom_start, rom_end, type, name, vram_start, extract,
-                         given_subalign, given_is_overlay, given_dir, args, yaml)
+                         given_subalign, exclusive_ram_id, given_dir, symbol_name_format, symbol_name_format_no_rom, args, yaml)
         if len(self.args) > 0:
             self.subtype = self.args[0]
             if self.subtype in ("i4", "rgba16"):
@@ -55,13 +55,13 @@ class N64SegRnc(N64Segment):
             if self.subtype == "rgba16":
                 args = [None, None, None, self.width, self.height]
                 seg = N64SegRgba16(0, len(data), self.subtype, self.name, self.vram_start,
-                                   self.extract, self.given_subalign, self.given_is_overlay,
-                                   self.given_dir, [], args)
+                                   self.extract, self.given_subalign, self.get_exclusive_ram_id(),
+                                   self.given_dir, self.symbol_name_format, self.symbol_name_format_no_rom, [], args)
             elif self.subtype == "i4":
                 args = [None, None, None, self.width, self.height]
                 seg = N64SegI4(0, len(data), self.subtype, self.name, self.vram_start,
-                               self.extract, self.given_subalign, self.given_is_overlay,
-                               self.given_dir, [], args)
+                               self.extract, self.given_subalign, self.get_exclusive_ram_id(),
+                               self.given_dir, self.symbol_name_format, self.symbol_name_format_no_rom, [], args)
             else:
                 log.error(f"Error: Unsupported subtype: {self.subtype}")
             seg.split(data)

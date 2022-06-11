@@ -10,7 +10,7 @@ typedef struct struct070 struct070;
 typedef struct struct071 struct071;
 typedef struct struct101 struct101;
 typedef struct struct103 struct103;
-
+typedef struct struct044 struct044;
 typedef struct Animal Animal;
 
 
@@ -38,7 +38,7 @@ typedef struct {
     u8  pad42[0xA];
     s16 unk4C;
     s16 unk4E;
-    u8  pad50[0x2];
+    s16 unk50;
     s16 unk52;  // texture bank?
     /* 0x54 */ u8  unk54;
     /* 0x55 */ u8  unk55;
@@ -54,7 +54,7 @@ typedef struct {
     u16 unkC4;
     s16 unkC6;
     u8  unkC8[0x6];
-    /* 0xCE */ u16 evoSuitColor;
+    /* 0xCE */ s16 evoSuitColor;
     u8  unkD0[0xA];
     s16 unkDA;  // scissor? width?
     u16 unkDC;  // initialised?
@@ -194,9 +194,10 @@ struct Animal {
                     s8  unk16 : 8;  // 0x4E
                     u8  unk24 : 1;  // 0x4F
                     u8  unk25 : 1;  // foo->unk4F | 0x40
-                    u8  unk26 : 1;
-                    u8  pad27 : 2;
-                    u8  unk29 : 1;
+                    u8  unk26 : 1;  // unk4C << 0x1A
+                    u8  unk27 : 1;  // unk4C & 0x10
+                    u8  unk28 : 1;
+                    u8  unk29 : 1;  // (unk4C << 0x1D) >> 0x1F
                     u8  pad30 : 2;
                 } unk4C;
     /* 0x50 */  u16 unk50;
@@ -250,7 +251,8 @@ struct Animal {
     /* 0x170 */ s8  unk170;
     /* 0x171 */ u8  pad171;
     /* 0x172 */ s16 unk172;
-    /* 0x174 */ u8  pad174[0x4];
+    /* 0x174 */ s16 unk174;
+    /* 0x174 */ s16 unk176;
     /* 0x178 */ s16 unk178;
     /* 0x17A */ s16 unk17A;
     /* 0x17C */ s16 unk17C;
@@ -273,7 +275,11 @@ struct Animal {
     /* 0x1CD */ u8  unk1CD;
     /* 0x1CE */ u8  pad1CE[0x6];
     /* 0x1D4 */ u8  unk1D4;
-    /* 0x1D5 */ u8  pad1D5[0x57];
+    /* 0x1D5 */ u8  pad1D5[0x2B];
+    /* 0x200 */ s32 unk200;
+    /* 0x204 */ s32 unk204;
+    /* 0x208 */ s32 unk208;
+    /* 0x20C */ u8  pad20C[0x20];
     /* 0x22C */ u8  unk22C;
     /* 0x22D */ u8  pad22D[0xF];
     /* 0x23C */ u8  unk23C;
@@ -445,31 +451,6 @@ struct Animal {
     /* 0x3D0 */ s16 unk3D2;
 }; // how big is this?
 
-// WIP experiment to see if D_803D5530 is a different struct
-typedef struct {
-    /* 0x00 */  u16 state;
-    /* 0x04 */  s32 xPos; // unions?
-    /* 0x08 */  s32 zPos;
-    /* 0x0C */  s32 yPos;
-    /* 0x10 */  u8  pad10[0xC];
-    /* 0x1C */  s32 xVelocity;
-    /* 0x20 */  s32 zVelocity;
-    /* 0x24 */  s32 yVelocity;
-    /* 0x28 */  s16 unk28;
-    /* 0x2A */  u8  pad2A[0x2];
-    /* 0x2C */  s16 yRotation;
-    /* 0x2E */  u8  pad2E[0x14];
-    /* 0x42 */  u16 unk42;
-    /* 0x44 */  u8  pad44[0x6];
-    /* 0x4A */  s8  unk4A;
-    /* 0x4B */  u8  pad4B[0x11];
-    /* 0x5C */  u8  unk5C;
-    /* 0x5D */  u8  pad5D[0x3];
-    /* 0x60 */  Animal* unk60;
-    /* 0x64 */  u8  pad64[0xFE];
-    /* 0x162 */ u8  unk162;
-} Camera;
-
 typedef struct {
     s8  unk0;
     u8  unk1;
@@ -617,7 +598,10 @@ typedef struct {
     /* 0x28BCD */ u8  unk28BCD;
     /* 0x28BCE */ u8  unk28BCE;
     /* 0x28BCF */ u8  unk28BCF;
-    /* 0x28BD0 */ u8  pad28BD0[0x9CA0];
+    /* 0x28BD0 */ u8  pad28BD0[0x84A0];
+    /* 0x31070 */ Vtx unk31070[30]; // might be bigger
+    /* 0x31250 */ Vtx unk31250[2];
+    /* 0x31270 */ u8  pad31270[0x1600];
     /* 0x32870 */ uSprite sprites[140]; // maybe more/less
     /* 0x33590 */ Mtx modelViewMtx[250]; // (might only be 240?)
     /* 0x37410 */ Mtx unk37410;  // projection matrix 1
@@ -644,22 +628,9 @@ typedef struct {
     /* 0x3B308 */ u16 unk3B308;
     /* 0x3B30A */ u8  unk3B30A[6]; // tbd
     /* 0x3B310 */ u8  pad3B310[0x8];
-    /* 0x3B318 */ Gfx **unk3B318;
-    /* 0x3B31C */ u8  pad3B31C[0x31C];
-    /* 0x3B638 */ Ambient unk3B638; // either this or a pointer to a Light struct
-    /* 0x3B640 */ Light unk3B640;
-    /* 0x3B650 */ s8  unk3B650;
-    /* 0x3B651 */ s8  unk3B651;
-    /* 0x3B652 */ s8  unk3B652;
-    /* 0x3B653 */ u8  pad3B653;
-    /* 0x3B654 */ s8  unk3B654;
-    /* 0x3B655 */ s8  unk3B655;
-    /* 0x3B656 */ s8  unk3B656;
-    /* 0x3B657 */ u8  pad3B657;
-    /* 0x3B658 */ s8  unk3B658;
-    /* 0x3B659 */ s8  unk3B659;
-    /* 0x3B65A */ s8  unk3B65A;
-    /* 0x3B65B */ u8  pad3B65B[0x55];
+    /* 0x3B318 */ Gfx *unk3B318[200]; // maybe?
+    /* 0x3B638 */ Ambient unk3B638;
+    /* 0x3B640 */ Light unk3B640[7]; // MAX_LIGHTS+2 ?
     /* 0x3B6B0 */ Ambient unk3B6B0;
     /* 0x3B6B8 */ Light unk3B6B8;
     // /* 0x3B6C0 */ Ambient unk3B6C0;
@@ -876,7 +847,7 @@ typedef struct {
     /* 0xD7 */ u8  unkD7;
     /* 0xD8 */ u8  unkD8;
     /* 0xD9 */ u8  padD9[0x3];
-} struct025; // size 0xDC
+} Camera; // size 0xDC
 
 typedef struct {
     s16 unk0;
@@ -968,11 +939,12 @@ struct struct035 {
                 s32 pad  : 15;
                 u8  bit4 : 1;
                 u8  bit3 : 1;
-                u8  bit2 : 1;
-                u8  bit  : 1;
+                u8  bit2 : 1; // unk80 << 0x11
+                u8  bit  : 1; // (unk80 << 0x12) >> 0x1F *or* & 0x2000
               } unk80;
   /* 0x84 */  void (*unk84)(void *);
-              u8  pad88[0x2];
+              u8  unk88;
+              u8  pad89;
               u8  unk8A;
   /* 0x8B */  u8  armour;
   /* 0x8C */  u8  unk8C;
@@ -1455,9 +1427,9 @@ typedef struct {
 } struct064; // size 0xC
 
 struct struct065 {
-    struct065 *unk0;
+    struct065 *next;
     s32 unk4;
-    Animal *unk8;
+    Animal *animal;
 }; // size 0xC
 
 typedef struct {
@@ -1673,7 +1645,7 @@ typedef struct {
     s16 unk4;
 } struct077; // size 0x6
 
-typedef struct {
+struct struct078 {
     /* 0x0 */ s16 x;
     /* 0x2 */ s16 y;
     /* 0x4 */ s16 z;
@@ -1682,7 +1654,7 @@ typedef struct {
     /* 0xD */ s8  unkD;
     /* 0xE */ s8  unkE;
     /* 0xF */ u8  padF;
-} struct078; // size 0x10
+} ; // size 0x10
 
 typedef struct {
     u8  pad0[0x54];
@@ -1765,11 +1737,11 @@ typedef struct {
 } struct084; // size 0x3FD8
 
 typedef struct {
-    u8  unk0;
-    u8  unk1;
-    s16 unk2;
-    s16 unk4;
-    s16 unk6;
+    u8  used;   // used flag
+    u8  unk1;   // not quite a counter, what?
+    s16 x;      // x
+    s16 y;      // y
+    s16 z;      // z
     s16 unk8;
     s16 unkA;
     s16 unkC;
@@ -1998,7 +1970,7 @@ typedef struct {
 } struct111; // size 0xC
 
 typedef struct {
-    u8    pad0[0x4];
+    s32 unk0; // ?
     void* unk4;
 } struct110;
 
@@ -2039,5 +2011,45 @@ typedef struct {
     s8  stick_y;
     s16 count;
 } DemoInput;
+
+typedef struct {
+    u16 unk0;
+    s16 unk2;
+    s16 unk4;
+} struct120_inner; // size 0x6
+
+typedef struct {
+    struct120_inner *unk0;
+    s32 pad;
+} struct120; // size 0x8
+
+typedef struct {
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 _unk3; // pad
+    u8 unk4;
+    u8 unk5;
+    u8 unk6;
+    u8 _unk7; // pad
+    u8 unk8;
+    u8 unk9;
+    u8 unkA;
+    u8 _unkB; // pad
+    u8 unkC;
+    u8 unkD;
+    u8 unkE;
+    u8 unkF; // pad
+} struct041; // some kind of light? size 0x10
+
+struct struct044 {
+    /* 0x0 */ s16 unk0;
+    /* 0x2 */ u8 pad2[0x2];
+    /* 0x4 */ s16 unk4;
+    /* 0x6 */ u8 pad6[0x2];
+    /* 0x8 */ s16 unk8;
+    /* 0xA */ u8  padA[0x2];
+    /* 0xC */ s32 unkC;
+};
 
 #endif

@@ -398,24 +398,19 @@ void func_803973A0_7A8A50(s16 arg0) {
 void func_80397414_7A8AC4(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle) {
     guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], x_amt, y_amt, z_amt);
     if (push) {
-        gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        D_80204278->usedModelViewMtxs += 1;
+        gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     } else {
-        gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        D_80204278->usedModelViewMtxs += 1;
+        gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     }
 
     guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], y_angle, 0.0f, 1.0f, 0.0f);
-    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->usedModelViewMtxs += 1;
+    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], z_angle, 0.0f, 0.0f, 1.0f);
-    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->usedModelViewMtxs += 1;
+    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], x_angle, 1.0f, 0.0f, 0.0f);
-    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->usedModelViewMtxs += 1;
+    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 }
 
 // init/reset something
@@ -447,6 +442,54 @@ void func_80397734_7A8DE4(s16 arg0, u8 arg1) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A8A50/func_80397840_7A8EF0.s")
+// junk
+// void func_80397840_7A8EF0(void) {
+//     s16 *temp_v0;
+//     u16 temp_t8;
+//     s16 *temp_v0_4;
+//     s16 i;
+//     s16 j;
+//
+//     i = 0;
+//     for (i = 0; i < 3; i++) {
+//         if (D_803F713C[i] != 0) {
+//             if (D_803B7000_7C86B0[D_803F7134[i]].unk4 != 0) {
+//                 temp_v0 = (u8*)D_803B7000_7C86B0[D_803F7134[i]].unk4 + (D_803F7144[i] * 0xC);
+//                 while (temp_v0[0] == D_803F714C[i]) {
+//                     func_8032C508_73DBB8(temp_v0[1], temp_v0[2], 0, temp_v0[3]);
+//                     temp_v0 = (u8*)D_803B7000_7C86B0[D_803F7134[i]].unk4 + (D_803F7144[i] * 0xC);
+//                     D_803F7144[i] += 1;
+//                 }
+//             }
+//
+//             for (j = 0; j < 10; j++) {
+//                 if ((D_803F713C[i] & (1 << j))) {
+//                     if (D_803F6720[i][j].unk4C <= D_803F6720[i][j].unk48) {
+//                         if (D_803F70F8[i][j] >= D_803B7000_7C86B0[D_803F7134[i] + j + 1].unk0) {
+//                             D_803F713C[i] &= ~(1 << j);
+//                         } else {
+//                             temp_v0_4 = (u8*)D_803B7000_7C86B0[D_803F7134[i] + j].unk4 + (D_803F70F8[i][j] * 0xE);
+//                             temp_t8 = temp_v0_4[6] ;//->unkC;
+//
+//                             func_80397C58_7A9308(
+//                                 (temp_v0_4[2] * 180.0f) / 32768.0f,
+//                                 -((temp_v0_4[0] * 180.0f) / 32768.0f),
+//                                 1 << j,
+//                                 D_803F70F8[i][j],
+//                                 -((temp_v0_4[1] * 180.0f) / 32768.0f),
+//                                 temp_v0_4[3],
+//                                 temp_t8,
+//                                 j,
+//                                 i
+//                             );
+//                         }
+//                     }
+//                 }
+//             }
+//             func_80397D1C_7A93CC(i); // temp_s7 & 0xFF
+//         }
+//     }
+// }
 
 void func_80397B84_7A9234(void) {
     s16 i, j, k;

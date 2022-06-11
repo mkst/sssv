@@ -9,7 +9,7 @@ typedef struct {
     s16 count;
 } DemoInput;
 
-const DemoInput D_803B1F20_7C35D0[] = {
+DemoInput D_803B1F20_7C35D0[] = {
     { 0,            1,   4,  173 },
     { 0,            2,   4,    1 },
     { 0,            1,   3,    0 },
@@ -284,7 +284,7 @@ const DemoInput D_803B1F20_7C35D0[] = {
     { END_DEMO,     0,   0,    0 },
 };
 
-const DemoInput D_803B2580_7C3C30[] = {
+DemoInput D_803B2580_7C3C30[] = {
     { 0,           -1,   4,  173 },
     { 0,            1,   4,    8 },
     { A_BUTTON,     1,   4,   12 },
@@ -472,7 +472,7 @@ const DemoInput D_803B2580_7C3C30[] = {
     { END_DEMO,     0,   0,    0 },
 };
 
-const DemoInput D_803B29D8_7C4088[] = {
+DemoInput D_803B29D8_7C4088[] = {
     { 0,           -1,   3,  173 },
     { 0,          -16,   3,    1 },
     { 0,          -35,   3,    1 },
@@ -772,7 +772,7 @@ const DemoInput D_803B29D8_7C4088[] = {
     { END_DEMO,     0,   0,    0 },
 };
 
-const DemoInput D_803B30D0_7C4780[] = {
+DemoInput D_803B30D0_7C4780[] = {
     { 0,            0,   4,  165 },
     { 0,          -25,  23,    0 },
     { 0,          -45,  39,    0 },
@@ -891,7 +891,7 @@ const DemoInput D_803B30D0_7C4780[] = {
     { END_DEMO,     0,   0,    0 },
 };
 
-const DemoInput D_803B3388_7C4A38[] = {
+DemoInput D_803B3388_7C4A38[] = {
     { 0,            0,   5,  213 },
     { 0,            0,  20,    2 },
     { 0,           -6,  39,    8 },
@@ -1097,6 +1097,6 @@ const DemoInput D_803B3388_7C4A38[] = {
     { END_DEMO,     0,   0,    0 },
 };
 
-const DemoInput D_803B384C_7C4EFC[] = {
+DemoInput D_803B384C_7C4EFC[] = {
     { END_DEMO, 0, 0, 0 },
 };

@@ -3,7 +3,6 @@
 
 
 // tbd
-void func_8032C5A8_73DC58(u16, u16 animalId, s16, s16, s16, s16);
 void func_802BE1A0_6CF850(struct103*, s16, u8, u8, u8, s16, s16, s16, s32, s32, s32, s32, s16);
 void func_802C3F58_6D5608(struct103*, u8, u8, u8, s16, s16, s16);
 
@@ -169,8 +168,115 @@ void func_802BBA10_6CD0C0(u16 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BBC90_6CD340.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BBFA0_6CD650.s")
+// used by desert_fox
+// void func_802BBFA0_6CD650(u16 arg0) {
+//     s16 var_a0;
+//     s16 temp_a2;
+//     struct106 *temp_v0;
+//     u16 tmp;
+//     s16 tmp0, tmp1, tmp2;
+//
+//     temp_v0 = &D_803D5528->unk3C8;
+//
+//     if ((D_803F2D10.unk0 == 0) && (temp_v0->unk6 != 0)) {
+//         temp_v0->unk8++;
+//     }
+//     if (D_803F2D10.unk0 == 0) {
+//         temp_v0->unk0 = (temp_v0->unk0 + 3) % 256;
+//     }
+//     tmp = temp_v0->unk0;
+//
+//     var_a0 = D_803D552C->unk302 - temp_v0->unk4;
+//     while (var_a0 < -128) {
+//         var_a0 += 256;
+//     }
+//     while (var_a0 >= 128) {
+//         var_a0 -= 256;
+//     }
+//
+//     if (ABS(var_a0) < 32) {
+//         if (var_a0 < 0) {
+//             temp_v0->unk4 -= 2;
+//             if (temp_v0->unk4 < 0) {
+//                 temp_v0->unk4 += 256;
+//             }
+//             var_a0 += 2;
+//         }
+//         if (var_a0 > 0) {
+//             temp_v0->unk4 += 2;
+//             if (temp_v0->unk4 >= 256) {
+//                 temp_v0->unk4 -= 256;
+//             }
+//             var_a0 -= 2;
+//         }
+//     } else {
+//         if (var_a0 < 0) {
+//             temp_v0->unk4 -= 6;
+//             if (temp_v0->unk4 < 0) {
+//                 temp_v0->unk4 += 256;
+//             }
+//             var_a0 += 6;
+//         }
+//         if (var_a0 > 0) {
+//             temp_v0->unk4 += 6;
+//             if (temp_v0->unk4 >= 256) {
+//                 temp_v0->unk4 -= 256;
+//             }
+//             var_a0 -= 6;
+//         }
+//     }
+//
+//     tmp0 = D_80203FE0[2].unk0;
+//     tmp1 = D_80203FE0[2].unk4;
+//     tmp2 = D_80203FE0[2].unk2;
+//
+//     // temp_a2 = &D_80152350 + ((s16) (var_a0 + ((s16) *(&D_80152C78 + (((u16) temp_v0->unk0 & 0xFF) * 2)) >> 0xB)) * 2);
+//
+//     tmp0 += (arg0 * D_80152350.unk2D0[(s16)(var_a0 + (D_80152C78[tmp & 0xFF] >> 11))]) / 256;
+//     tmp2 -= (arg0 * D_80152350.unk384[(s16)(var_a0 + (D_80152C78[tmp & 0xFF] >> 11))]) / 256;
+//     D_80203FE0[26].unk4 = tmp1;
+//
+//     D_80203FE0[26].unk0 = tmp0;
+//     D_80203FE0[26].unk2 = tmp2;
+// }
 
+// used by vulture, parrot, seagull
+// just regalloc...
+#ifdef NON_MATCHING
+void func_802BC1F4_6CD8A4(u16 arg0) {
+    s16 var_v1;
+    u16 temp_v1;
+    struct106 *temp_v0;
+    u16 tmp;
+
+    temp_v0 = &D_803D5528->unk3C8;
+    if ((D_803F2D10.unk0 == 0) && (temp_v0->unk6 != 0)) {
+        temp_v0->unk8++;
+    }
+    if (temp_v0->unk6 == 9) {
+        temp_v1 = temp_v0->unk8;
+        if (temp_v1 < 5) {
+            var_v1 = ((temp_v1 * 40) / 4);
+            var_v1 = -var_v1;
+        } else if (temp_v1 < 21) {
+            var_v1 = (((temp_v1 * 40) - 160) / 16) - 40;
+        } else if (temp_v1 < 37) {
+            var_v1 = (((temp_v1 * 20) - 400) / 8);
+        } else {
+            var_v1 = 20;
+            temp_v0->unk6 = 0;
+        }
+    } else {
+        var_v1 = 20;
+        temp_v0->unk6 = 0;
+    }
+    D_80203FE0[26].unk2 = -((arg0 * D_80152350.unk384[var_v1]) >> 8) + D_80203FE0[2].unk2;
+    D_80203FE0[26].unk0 = D_80203FE0[2].unk0;
+    D_80203FE0[26].unk4 = ((arg0 * D_80152350.unk2D0[var_v1]) >> 8) + D_80203FE0[2].unk4;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BC1F4_6CD8A4.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BC350_6CDA00.s")
 
