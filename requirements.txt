@@ -10,7 +10,7 @@ pypng
 python-Levenshtein
 python-ranges
 pyyaml
-spimdisasm
+spimdisasm==1.1.7
 toml
 tqdm
 watchdog
