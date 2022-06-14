@@ -824,7 +824,7 @@ void func_8032AEA0_73C550(void) {
 #ifdef NON_MATCHING
 void func_8032B084_73C734(void) {
     Animal *a;
-    s32 id = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->unk0;
+    s32 id = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->objectType;
     if (id == 0x116) {
         D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
         D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;

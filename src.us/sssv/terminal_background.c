@@ -770,8 +770,8 @@ void func_8038F414_7A0AC4(void) {
 }
 
 void func_8038F5F8_7A0CA8(Animal *arg0) {
-    if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->unk0 != OB_TYPE_ANIMAL_OFFSET+EVO) &&
-        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->unk0 != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
+    if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO) &&
+        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
         if (D_803F6460 == 0) {
             D_803D6110 = 100;
             D_803F2AA2 = 1;

@@ -257,7 +257,7 @@ Animal *func_8037E9AC_79005C(void) {
     for (i = 0; i < D_803D553E; i++) {
         if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY)) {
             if ((D_801D9ED8.animals[i].animal->unk366 != 6) && (D_801D9ED8.animals[i].animal->unk366 != 2) && (D_801D9ED8.animals[i].animal->unk366 != 5)) {
-                if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (func_802EA3E0_6FBA90(D_803D5530->unk16C->unk0, D_801D9ED8.animals[i].animal->unk16C->unk0) != 7)) {
+                if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, D_801D9ED8.animals[i].animal->unk16C->objectType) != 7)) {
 
                     a = D_801D9ED8.animals[i].animal;
 
@@ -365,9 +365,214 @@ Animal *func_8037ED1C_7903CC(void) {
     return ret;
 }
 
+// used by fox + camel (warp?)
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F07C_79072C.s")
+// s16 func_8037F07C_79072C(s16 arg0, s32 arg1) {
+//     s16 sp88;
+//     s16 sp86;
+//     s16 zPos; // sp7C
+//     s16 sp7A;
+//     s16 sp76;
+//     s16 sp74;
+//     s16 sp72;
+//     s16 temp_a2;
+//     s16 xPos;
+//     s16 temp_v0_5;
+//     s16 var_a3;
+//     s16 var_s0;
+//     s16 var_s3;
+//     s16 var_s4;
+//     s16 var_s5;
+//     s16 var_v0;
+//     u8 temp_s1;
+//     s16 temp_v1_2;
+//     s16 var_v0_3;
+//     u8 temp_v0_3;
+//     u8 temp_v1;
+//
+//     sp88 = D_80152C78[arg1 & 0xFF] >> 7;
+//     sp86 = D_80152C78[(arg1 + 0x40) & 0xFF] >> 7;
+//
+//     xPos = D_803D5530->xPos.h;
+//     zPos = D_803D5530->zPos.h;
+//     sp7A = D_803D5530->yPos.h;
+//
+//     for (var_s5 = 0x20; var_s5 < arg0; var_s5 += 0x20) {
+//         if (D_803D5530->unk162 != 1) {
+//             var_s3 = xPos + ((sp88 * var_s5) >> 8);
+//             var_s4 = zPos + ((sp86 * var_s5) >> 8);
+//             var_s0 = MIN(sp7A, func_8031124C_7228FC(var_s3, var_s4) >> 0x10) + 8;
+//         } else {
+//             if ((D_803D5530->unk160 == 0) || (D_803D5530->unk160 == 1)) {
+//                 var_s3 = xPos + ((sp88 * var_s5) >> 8);
+//                 var_s4 = zPos + ((sp86 * var_s5) >> 8);
+//                 var_s0 = (func_8031124C_7228FC(var_s3, var_s4) + 8) >> 0x10;
+//             } else {
+//                 var_s3 = xPos + ((sp88 * var_s5) >> 8);
+//                 var_s4 = zPos + ((sp86 * var_s5) >> 8);
+//                 temp_v1_2 = func_80310F58_722608(var_s3, var_s4) >> 0x10;
+//                 if (temp_v1_2 == 0x4000) {
+//                     var_s0 = (func_8031124C_7228FC(var_s3, var_s4) + 8) >> 0x10;
+//                 } else {
+//                     var_s0 = temp_v1_2 + 8;
+//                 }
+//             }
+//         }
+//
+//         temp_s1 = func_803136FC_724DAC(var_s3, var_s4, var_s0); // & 0xFF;
+//         if (((temp_s1 == 1) && (D_803D5530->unk160 == 2)) ||
+//             ((temp_s1 == 2) && (D_803D5530->unk160 == 1))) {
+//
+//             func_80311A2C_7230DC(var_s3, var_s4, &sp76, &sp74, temp_s1);
+//
+//             if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, var_s3, var_s4, var_s0, temp_s1, 0, 0) == 0) {
+//                 if (((ABS(var_s0 - sp7A) < 0x50) && (func_802B75CC_6C8C7C(D_803D5530, 0, var_s3 << 0x10, var_s4 << 0x10, var_s0 << 0x10, &sp72, 1) == 0)) && ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
+//                     break;
+//                 }
+//             }
+//         }
+//     }
+//
+//     temp_v0_5 = var_s5 - 0x30;
+//     var_s5 = arg0;
+//     if (temp_v0_5 < arg0) {
+//         var_s5 = temp_v0_5;
+//     }
+//
+//     if (var_s5 > 16) {
+//         if (D_803D5530->unk160 == 2) {
+//             var_s3 = xPos + ((sp88 * var_s5) >> 8);
+//             var_s4 = zPos + ((sp86 * var_s5) >> 8);
+//
+//             temp_v1_2 = func_80310F58_722608(var_s3, var_s4) >> 0x10;
+//             if (temp_v1_2 == 0x4000) {
+//                 var_a3 = MAX(sp7A, func_8031124C_7228FC(var_s3, var_s4) >> 0x10);
+//             } else {
+//                 var_a3 = MAX(temp_v1_2, sp7A);
+//             }
+//         } else {
+//             var_s3 = xPos + ((sp88 * var_s5) >> 8);
+//             var_s4 = zPos + ((sp86 * var_s5) >> 8);
+//             var_a3 = MAX(sp7A, func_8031124C_7228FC(var_s3, var_s4) >> 0x10);
+//         }
+//
+//         temp_a2 = var_a3 + 0x10;
+//         D_803D5530->xPos.h = var_s3;
+//         D_803D5530->zPos.h = var_s4;
+//         D_803D5530->yPos.h = temp_a2;
+//
+//         D_803D5530->xVelocity.h = 0;
+//         D_803D5530->zVelocity.h = 0;
+//         D_803D5530->yVelocity.h = 0;
+//
+//         D_803D5530->unk160 = func_803136FC_724DAC(var_s3, var_s4, temp_a2);
+//         return var_s5;
+//     }
+//     return 0;
+// }
 
+// used by rat
+#ifdef NON_MATCHING
+// just the stack to fix up
+void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
+    s16 pad[4];
+    s16 sp9A;
+    s16 sp98;
+    s16 sp90;
+    s16 temp_a2;
+    s16 temp_a3_2;
+    s16 temp_v1;
+    s16 var_a0;
+    s16 var_t1;
+    s16 var_t2;
+    s16 var_v1;
+    s16 temp_a3;
+    s16 temp_v0;
+    s16 var_t3;
+    s16 var_t4;
+    s16 var_t5;
+
+    Animal *animal;
+    struct065 *var_s2;
+
+    // temp_t0 = D_803D5530;
+    var_t1 = D_803D5530->xPos.h;
+    temp_v0 = var_t1 >> 0xA;
+    var_t2 = D_803D5530->zPos.h;
+    temp_a3 = var_t2 >> 0xA;
+
+    var_t5 = -1;
+    var_t3 = -1;
+    sp90 = 1;
+    var_t4 = 1;
+
+    if ((temp_v0 + 1) >= 5) {
+        var_t4 = 0;
+    }
+    if (temp_v0 <= 0) {
+        var_t3 = 0;
+    }
+    if ((temp_a3 + 1) >= 8) {
+        sp90 = 0;
+    }
+    if (temp_a3 <= 0) {
+        var_t5 = 0;
+    }
+
+    for (sp9A = temp_v0 + var_t3; sp9A <= (temp_v0 + var_t4); sp9A++) {
+        for (sp98 = temp_a3 + var_t5; sp98 <= (temp_a3 + sp90); sp98++) {
+
+            for (var_s2 = D_803DA110[(s16) (sp9A + (sp98 * 5))].next; var_s2 != NULL; var_s2 = var_s2->next) {
+                if (var_s2 == &var_s2->animal->unk11C) {
+                    if (var_s2->animal != D_803D5530) {
+                        animal = var_s2->animal;
+
+                        if (1) { } if (1) { } // regalloc!
+
+                        temp_a2 = var_t1 - animal->xPos.h;
+                        temp_a3_2 = var_t2 - animal->zPos.h;
+
+                        var_a0 = ABS(temp_a2);
+                        var_v1 = ABS(temp_a3_2);
+
+                        temp_v1 = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
+                        if (animal->unk16C->unk80.bit) {
+                            if ((animal->unk16C->unk9C != EVO_GLITCHY) && (animal->unk16C->unk9C != KING_RAT) && (animal->unk16C->unk9C != RAT)) {
+                                if (temp_v1 < arg1 * 2) {
+                                    if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1) {
+                                        if (temp_v1 < arg1) {
+                                            animal->xVelocity.w -= (temp_a2 << 0x10) / temp_v1;
+                                            animal->zVelocity.w -= (temp_a3_2 << 0x10) / temp_v1;
+                                            if ((D_803D5544 & 3) == 0) {
+
+                                                animal->health = MAX(animal->health - damage, 0);
+                                                func_80349280_75A930(animal, damage);
+
+                                                animal->unk348 = MAX(100, animal->unk348);
+                                                animal->unk34A = MAX(40, animal->unk34A);
+                                            }
+                                        } else {
+                                            animal->xVelocity.w -= (temp_a2 << 0xF) / temp_v1;
+                                            animal->zVelocity.w -= (temp_a3_2 << 0xF) / temp_v1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (temp_v1 < arg1 * 2) {
+                            if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1) {
+                                animal->unk57 = 6;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F6CC_790D7C.s")
+#endif
 
 //missile model (on animal) disappearing and left-right missile selector function
 u8 func_8037FBBC_79126C(void) {
@@ -449,6 +654,7 @@ void func_8037FE24_7914D4(void) {
     }
 }
 
+// used by sheep
 void func_8037FEDC_79158C(void) {
     s16 i;
     s16 zPosDelta;

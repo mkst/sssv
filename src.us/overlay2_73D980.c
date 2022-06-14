@@ -89,9 +89,9 @@ void func_8032C5A8_73DC58(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5) 
 
         if (sp34 < 1600) {
             if (arg5 == 2) {
-                var_v0 = D_803E1D30[(D_803C0740[(x >> 6)][(y >> 6)].unk3 * 12) + 7];
+                var_v0 = D_803E1D30[D_803C0740[(x >> 6)][(y >> 6)].unk3].unk7;
             } else {
-                var_v0 = D_803E1D30[(D_803C0740[(x >> 6)][(y >> 6)].unk2 * 12) + 7];
+                var_v0 = D_803E1D30[D_803C0740[(x >> 6)][(y >> 6)].unk2].unk7;
             }
             if ((var_v0 < 0) || (var_v0 >= 7)) {
                 var_v0 = 0;
