@@ -184,7 +184,7 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //                 (temp_v1->state != 0x1E) && (arg0->state != 0x1E) &&
 //                 (temp_v1->state != 0x1F) && (arg0->state != 0x1F) &&
 //                 ((temp_v1->unk15C == 0) || (arg0 != temp_v1->unk168)) && ((arg0->unk15C == 0) || (temp_v1 != arg0->unk168)) &&
-//                 ((arg6 == 0) || ((s32) temp_v1->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET))) {
+//                 ((arg6 == 0) || ((s32) temp_v1->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET))) {
 //
 //                 func_802B5E48_6C74F8(temp_v1, arg0, &D_803D60D0, D_803D60D4);
 //
@@ -222,12 +222,12 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //                         *arg5 = 1;
 //                         phi_v0_5 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //                         // if its a TV Screen
-//                         if ((arg0 == phi_v0_5) && (temp_v1->unk16C->unk0 == 242)) {
+//                         if ((arg0 == phi_v0_5) && (temp_v1->unk16C->objectType == 242)) {
 //                             func_8038F5F8_7A0CA8(temp_v1);
 //                             // phi_v0_5 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //                         }
 //                         // if its a TV Screen
-//                         if ((temp_v1 == phi_v0_5) && (arg0->unk16C->unk0 == 242)) {
+//                         if ((temp_v1 == phi_v0_5) && (arg0->unk16C->objectType == 242)) {
 //                             func_8038F5F8_7A0CA8(arg0);
 //                         }
 //                         func_802FD674_70ED24(arg0, temp_v1);
@@ -237,12 +237,12 @@ s32 func_802B75B4_6C8C64(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 //                         phi_v0_4 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //                         // phi_v0_4 = temp_v0_3;
 //                         // if its a TV Screen
-//                         if ((arg0 == phi_v0_4) && (temp_v1->unk16C->unk0 == 242)) {
+//                         if ((arg0 == phi_v0_4) && (temp_v1->unk16C->objectType == 242)) {
 //                             func_8038F5F8_7A0CA8(temp_v1);
 //                             // phi_v0_4 = &D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 //                         }
 //                         // if its a TV Screen
-//                         if ((temp_v1 == phi_v0_4) && (arg0->unk16C->unk0 == 242)) {
+//                         if ((temp_v1 == phi_v0_4) && (arg0->unk16C->objectType == 242)) {
 //                             func_8038F5F8_7A0CA8(arg0);
 //                         }
 //                         func_802FD674_70ED24(arg0, temp_v1);

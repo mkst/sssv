@@ -19,7 +19,7 @@ void func_803277B4_738E64(void) {
                (D_803D552C->unk318 == 0)) {
         D_803D552C->unk32A = D_803D5544;
         // object is a bolder or ?
-        if ((D_803D552C->unk320->unk16C->unk0 == 2) || (D_803D552C->unk320->unk16C->unk0 == 61)) {
+        if ((D_803D552C->unk320->unk16C->objectType == 2) || (D_803D552C->unk320->unk16C->objectType == 61)) {
             D_803D552C->unk365 = ATTACK_BEAR_2;
         } else {
             D_803D552C->unk365 = ATTACK_BEAR_3;

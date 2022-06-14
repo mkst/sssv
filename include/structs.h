@@ -82,6 +82,12 @@ typedef struct {
     /* 0x10 */ ALSound *sound;
 } struct011;
 
+struct struct065 {
+    /* 0x0 */ struct065 *next;
+    /* 0x4 */ s32 unk4;
+    /* 0x8 */ Animal *animal;
+}; // size 0xC
+
 struct struct069 {
     u16 unk0;
     s16 unk2;
@@ -226,9 +232,7 @@ struct Animal {
     /* 0xD0 */  Mtx unkD0; // this might be nonsense
     /* 0x110 */ u8  pad110[0x4];
     /* 0x114 */ s16 unk114[4];
-    /* 0x11C */ struct065 *unk11C;
-    /* 0x120 */ s32 unk120;
-    /* 0x124 */ s32 unk124;
+    /* 0x11C */ struct065 unk11C;
     /* 0x128 */ u8  pad128[0x24];
     /* 0x14C */ s16 health;
     /* 0x14E */ s16 unk14E;
@@ -918,11 +922,11 @@ typedef struct {
 } struct115;
 
 struct struct035 {
-  /* 0x00 */  u16 unk0; // objectType
+  /* 0x00 */  u16 objectType;
   /* 0x02 */  u8  unk2;
               u8  pad3;
               u8  pad4[0x11];
-              u8  unk15; // checked if 4?
+              u8  unk15; // checked if 2 or 4?
               u8  pad16[0x2];
               s32 *unk18;
               u16 unk1C;
@@ -1416,21 +1420,25 @@ typedef struct {
     u8 unk2; // terrain type?
     u8 unk3; // e.g. bridges? fences?
     u8 unk4; // flags
-    u8 unk5;
+    u8 unk5; // also flags
     u8 unk6; // water?
     u8 unk7;
 } struct063; // size 0x8
 
 typedef struct {
-    s8 unk0;
-    u8 pad1[0xB];
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u8 unk4;
+    u8 unk5;
+    u8 unk6;
+    u8 unk7;
+    u8 unk8;
+    u8 unk9;
+    u8 unkA;
+    s8 unkB;
 } struct064; // size 0xC
-
-struct struct065 {
-    struct065 *next;
-    s32 unk4;
-    Animal *animal;
-}; // size 0xC
 
 typedef struct {
     u8 *start;
@@ -1657,13 +1665,22 @@ struct struct078 {
 } ; // size 0x10
 
 typedef struct {
-    u8  pad0[0x54];
-    s32 unk54;
-    Animal *unk58; // Animal? or Object?
-    s32 unk5C;
-    Animal *unk60;
-    u8  unk64;
-} struct079; // TODO: likely merge with an existing struct
+    /* 0x0 */  u16 used;
+    /* 0x2 */  // padding not required
+    /* 0x4 */  s32 distance[3];
+    /* 0x10 */ Animal *animal[3];
+} struct079_inner; // size 0x1C
+
+typedef struct {
+    /* 0x0 */  struct079_inner unk0;
+    /* 0x1C */ struct079_inner unk1C;
+    /* 0x38 */ struct079_inner unk38;
+    /* 0x54 */ s32 unk54;
+    /* 0x58 */ Animal *unk58; // Animal? or Object?
+    /* 0x5C */ s32 unk5C;
+    /* 0x60 */ Animal *unk60;
+    /* 0x64 */ u8  unk64;
+} struct079;
 
 typedef struct {
     u8  pad0[0x7FA8];

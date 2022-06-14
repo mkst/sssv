@@ -27,10 +27,10 @@
 //     temp_t0 = arg0->unk44;
 //     temp_t1 = arg3->unk44;
 //     if ((arg0->unk16C->unk80.bit) && (arg3->unk16C->unk80.bit)) {
-//         if ((arg0->unk16C->unk0 == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || ((arg0->unk16C->unk0 == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING)))) {
+//         if ((arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || ((arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING)))) {
 //             temp_t0 = temp_t0 * 3;
 //         }
-//         if ((arg3->unk16C->unk0 == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || (arg3->unk16C->unk0 == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING))) {
+//         if ((arg3->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || (arg3->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING))) {
 //             temp_t1 = temp_t1 * 3;
 //         }
 //     }
@@ -44,7 +44,7 @@
 //     } else {
 //         sp3C = ((u32) (arg3->unk4C << 0x1B) >> 0x1F) == 0;
 //     }
-//     if (arg0->unk16C->unk0 == (OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
+//     if (arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
 //         sp3C = 1;
 //     }
 //     vector_subtract(arg4, arg1, &sp68);

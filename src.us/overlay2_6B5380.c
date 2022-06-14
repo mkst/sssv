@@ -237,9 +237,9 @@ void func_802A459C_6B5C4C(u16 rotation, s8 arg1) {
 //     }
 //     if ((animal == NULL) && ((xVel != 0) || (zVel != 0))) {
 //         if (phi_v1 == 2) {
-//             phi_v0 = D_803E1D30[D_803C0740[xPos >> 6][zPos >> 6].unk3 * 12];
+//             phi_v0 = D_803E1D30[D_803C0740[xPos >> 6][zPos >> 6].unk3].unk0;
 //         } else {
-//             phi_v0 = D_803E1D30[D_803C0740[xPos >> 6][zPos >> 6].unk2 * 12];
+//             phi_v0 = D_803E1D30[D_803C0740[xPos >> 6][zPos >> 6].unk2].unk0;
 //         }
 //
 //         if (phi_v0 == 0) {
@@ -563,9 +563,9 @@ void func_802A5778_6B6E28(s16 arg0, s8 arg1) {
     if ((arg1 == 0) && (D_803D5530->unk6C == 0) && ((xVel != 0) || (zVel != 0))) {
         u8 var_v1;
         if (D_803D5530->unk160 == 2) {
-            var_v1 = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk3 * 12];
+            var_v1 = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk3].unk0;
         } else {
-            var_v1 = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk2 * 12];
+            var_v1 = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk2].unk0;
         }
         if (var_v1 == 0) {
             return;
@@ -835,65 +835,68 @@ s32 func_802A64B0_6B7B60(void);
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A64B0_6B7B60.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A7648_6B8CF8.s")
+#if 0
 // should match, need to decomp functions in between due to rodata
-// s32 func_802A7648_6B8CF8(Animal *arg0) {
-//     s16 pad[1];
-//     s16 temp_lo;
-//     u8 phi_v1;
-//
-//     if (arg0->unk161 != 1) {
-//         arg0->unk54 |= (0x8|0x2);
-//     }
-//     if ((arg0->unk16C->unk0 != 2) || (D_803F2D50.unk52 != 6) || ((s16)D_803F2D50.segment != 0)) {
-//         temp_lo = -arg0->yVelocity.h * arg0->unk44;
-//         if (arg0->unk44 > 120) {
-//             if (temp_lo > 2000) {
-//                 play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
-//             } else if (temp_lo > 500) {
-//                 play_sound_effect_at_location(SFX_UNKNOWN_75, 0x2800, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.5f);
-//             }
-//         }
-//     }
-//
-//     switch (arg0->unk162 & 0xF) {
-//     default:
-//     case 1:
-//     case 2:
-//     case 3:
-//     case 4:
-//         arg0->unk162 = 1U;
-//         break;
-//     case 5:
-//     case 6:
-//     case 7:
-//         arg0->unk162 = 6U;
-//         break;
-//     }
-//     if (arg0->unk161 == 1) {
-//         return 0;
-//     }
-//     if (arg0->unk160 == 2) {
-//         phi_v1 = D_803E1D33[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk3 * 0xC]; // (*(&D_803C0743 + ((((s32) arg0->xPos.h >> 6) * 0x408) + (((s32) arg0->zPos.h;>> 6) * 8))) * 0xC);
-//     } else {
-//         phi_v1 = D_803E1D33[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk2 * 0xC]; // (*(&D_803C0742 + ((((s32) arg0->xPos.h >> 6) * 0x408) + (((s32) arg0->zPos.h;>> 6) * 8))) * 0xC);
-//     }
-//     if (phi_v1 < 17) {
-//         phi_v1 = 0;
-//     } else {
-//         phi_v1 -= 16;
-//     }
-//
-//     if (func_80311D48_7233F8(arg0) != 0) {
-//         return 0;
-//     }
-//     if (phi_v1 == 0) {
-//         return 1;
-//     }
-//
-//     arg0->yVelocity.w = ((ABS(arg0->yVelocity.w) * phi_v1) >> 4);
-//     return 0;
-// }
+s32 func_802A7648_6B8CF8(Animal *arg0) {
+    s16 pad[1];
+    s16 temp_lo;
+    u8 phi_v1;
+
+    if (arg0->unk161 != 1) {
+        arg0->unk54 |= (0x8|0x2);
+    }
+    if ((arg0->unk16C->objectType != 2) || (D_803F2D50.unk52 != 6) || ((s16)D_803F2D50.segment != 0)) {
+        temp_lo = -arg0->yVelocity.h * arg0->unk44;
+        if (arg0->unk44 > 120) {
+            if (temp_lo > 2000) {
+                play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+            } else if (temp_lo > 500) {
+                play_sound_effect_at_location(SFX_UNKNOWN_75, 0x2800, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.5f);
+            }
+        }
+    }
+
+    switch (arg0->unk162 & 0xF) {
+    default:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+        arg0->unk162 = 1U;
+        break;
+    case 5:
+    case 6:
+    case 7:
+        arg0->unk162 = 6U;
+        break;
+    }
+    if (arg0->unk161 == 1) {
+        return 0;
+    }
+    if (arg0->unk160 == 2) {
+        phi_v1 = D_803E1D30[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk3].unk3; // (*(&D_803C0743 + ((((s32) arg0->xPos.h >> 6) * 0x408) + (((s32) arg0->zPos.h;>> 6) * 8))) * 0xC);
+    } else {
+        phi_v1 = D_803E1D30[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk2].unk3; // (*(&D_803C0742 + ((((s32) arg0->xPos.h >> 6) * 0x408) + (((s32) arg0->zPos.h;>> 6) * 8))) * 0xC);
+    }
+    if (phi_v1 < 17) {
+        phi_v1 = 0;
+    } else {
+        phi_v1 -= 16;
+    }
+
+    if (func_80311D48_7233F8(arg0) != 0) {
+        return 0;
+    }
+    if (phi_v1 == 0) {
+        return 1;
+    }
+
+    arg0->yVelocity.w = ((ABS(arg0->yVelocity.w) * phi_v1) >> 4);
+    return 0;
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A7648_6B8CF8.s")
+#endif
 
 // requires jumptable
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A78CC_6B8F7C.s")
@@ -1926,6 +1929,7 @@ void func_802AC158_6BD808(u16 arg0, s32 *arg1, s32 *arg2) {
 
     temp_t3 = D_803D5530->xVelocity.w;
     temp_t4 = D_803D5530->zVelocity.w;
+
     if ((D_803D5530->unk161 == 1) && (D_803D5530->unk68 != NULL)) {
         phi_a2 = (*arg1 + D_803D5530->unk68->xVelocity.w) - temp_t3;
         phi_a3 = (*arg2 + D_803D5530->unk68->zVelocity.w) - temp_t4;
@@ -1945,7 +1949,7 @@ void func_802AC158_6BD808(u16 arg0, s32 *arg1, s32 *arg2) {
         sp3C = phi_a2;
         phi_t0 = sp30;
         if ((D_803D5530->yPos.h - (func_8031124C_7228FC(D_803D5530->xPos.h, D_803D5530->zPos.h) >> 16)) < 32) {
-            temp_lo = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk2 * 0xC] * arg0;
+            temp_lo = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk2].unk0 * arg0;
             if (temp_lo >= phi_t0) {
                 phi_t0 = temp_lo;
             }

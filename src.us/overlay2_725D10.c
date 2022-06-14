@@ -98,7 +98,7 @@ extern s32 D_803C4DAC[];
 //         break;
 //     case 4+0x7F7F:    // 4
 //         if (!(arg0->unk4C.pad30 /* & 0x20 */) || (arg0->health < arg2)) {
-//             if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
+//             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
 //                 if (arg2 < arg0->health) {
 //                     func_80349280_75A930(arg0, arg0->health - arg2);
 //                 }
@@ -138,7 +138,7 @@ extern s32 D_803C4DAC[];
 //         arg0->yVelocity.w = arg2 << 5;
 //         break;
 //     case 14+0x7F7F:
-//         if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
+//         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
 //             arg0->unk2E = (s16) (((s32) (arg2 << 8) / 360) & 0xFF);
 //         } else {
 //             // is 1800 a typo?
@@ -146,7 +146,7 @@ extern s32 D_803C4DAC[];
 //         }
 //         break;
 //     case 15+0x7F7F:
-//         if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
+//         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
 //             arg0->yRotation = (s16) (((s32) (arg2 * 256) / 360) & 0xFF);
 //             arg0->unk302 = (s16) arg0->yRotation;
 //         } else {
@@ -344,14 +344,14 @@ extern s32 D_803C4DAC_7D645C[];
 //             res = arg0->yVelocity.w >> 5;
 //             break;
 //         case 14+0x7F7F:
-//             if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
+//             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
 //                 res = (arg0->unk2E * 360) / 256;
 //             } else {
 //                 res = arg0->unk2E;
 //             }
 //             break;
 //         case 15+0x7F7F:
-//             if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
+//             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
 //                 res = (arg0->yRotation * 360) / 256;
 //             } else {
 //                 res = arg0->yRotation;
@@ -422,7 +422,7 @@ extern s32 D_803C4DAC_7D645C[];
 //             res = D_803E4D38[0];
 //             break;
 //         case 32+0x7F7F:
-//             res = arg0->unk16C->unk0;
+//             res = arg0->unk16C->objectType;
 //             break;
 //         case 33+0x7F7F:
 //             res = D_801546E0;
@@ -514,7 +514,7 @@ s32 func_80315880_726F30(s16 arg0) {
 }
 
 s32 func_803158B4_726F64(Animal *arg0, s16 arg1) {
-    if (arg1 == arg0->unk16C->unk0) {
+    if (arg1 == arg0->unk16C->objectType) {
         return 1;
     } else {
         return 0;
@@ -527,7 +527,7 @@ s32 func_803158E4_726F94(s16 arg0, s16 arg1) {
 
 // is_animal
 s32 func_80315924_726FD4(Animal *arg0, s16 arg1) {
-    if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
+    if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
         return 1;
     } else {
         return 0;
@@ -540,7 +540,7 @@ s32 func_80315950_727000(s16 arg0) {
 
 // is_object
 s32 func_80315984_727034(Animal *arg0, s16 arg1) {
-    if (arg0->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET) {
+    if (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET) {
         return 1;
     } else {
         return 0;
@@ -627,7 +627,7 @@ s32 func_803159B0_727060(s16 arg0) {
 //         }
 //         break;
 //     case 5:
-//         if (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) {
+//         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
 //             if (arg0->unk28C == 0) {
 //                 changed = 1;
 //             }
@@ -712,15 +712,15 @@ s32 func_803159B0_727060(s16 arg0) {
 //         }
 //         break;
 //     case 22:
-//         if (((arg1->unk2.b[0] & 1)) && (arg0->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET)) {
+//         if (((arg1->unk2.b[0] & 1)) && (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET)) {
 //             changed = 1;
 //         } else if (((arg1->unk2.b[0] & 0x10)) && (arg0 == (D_801D9ED8.animals[gCurrentAnimalIndex].animal))) {
 //             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 4)) && (arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET)) {
+//         } else if (((arg1->unk2.b[0] & 4)) && (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET)) {
 //             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 32)) && ((arg1->unk4.b[1] + 0x100) == arg0->unk16C->unk0)) {
+//         } else if (((arg1->unk2.b[0] & 32)) && ((arg1->unk4.b[1] + 0x100) == arg0->unk16C->objectType)) {
 //             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 64)) && (arg1->xPos.h == arg0->unk16C->unk0)) {
+//         } else if (((arg1->unk2.b[0] & 64)) && (arg1->xPos.h == arg0->unk16C->objectType)) {
 //             changed = 1;
 //         } else if ((arg1->unk2.b[0] & 8)) {
 //             changed = 1;

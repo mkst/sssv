@@ -766,7 +766,10 @@ extern u8   D_803A5524_7B6BD4[];
 extern u8   D_803A5528_7B6BD8[];
 extern s32  D_803A5530_7B6BE0;
 extern s32  D_803A5544_7B6BF4;
-extern s8   D_803A5580_7B6C30;
+extern s16  D_803A5560_7B6C10[4];
+extern s16  D_803A5568_7B6C18[];
+extern s16  D_803A5570_7B6C20[];
+extern s16  D_803A5578_7B6C28[];
 extern s32  D_803A5590_7B6C40[];
 extern u16  D_803A5760_7B6E10;
 extern s16  D_803A5764_7B6E14;
@@ -839,7 +842,7 @@ extern s32  D_803A8514_7B9BC4;
 extern s32  D_803A8518_7B9BC8;
 extern struct068 D_803A8528_7B9BD8[247]; // 0x9C each
 extern u8   D_803A8EC8[];
-extern u16  D_803A4638[];
+extern u16  D_803A4638_7B5CE8[];
 extern u8   D_803A48C0_7B5F70[MAX_EUROPE_ANIMALS][MAX_EUROPE_ANIMALS]; // europe
 extern u8   D_803A4ABC_7B616C[MAX_ICE_ANIMALS][MAX_ICE_ANIMALS]; // ice
 extern u8   D_803A4A2C_7B60DC[MAX_JUNGLE_ANIMALS][MAX_JUNGLE_ANIMALS]; // jungle
@@ -1249,10 +1252,7 @@ extern struct063 D_803E1D20;
 extern u16  D_803E1D28;
 extern u16  D_803E1D2A;
 extern u8   D_803E1D2C;
-extern u8   D_803E1D30[];
-extern u8   D_803E1D33[];
-extern u8   *D_803E1D32; // ?
-extern struct064 D_803E1D3B[];
+extern struct064 D_803E1D30[]; // additional layer for level data
 extern struct073 D_803E3130[];
 extern s16  D_803E4AC8;
 extern u8   D_803E4AD0[];
@@ -1282,10 +1282,10 @@ extern s32  D_803E4C7C;
 extern s32  D_803E4C80;
 extern s16  D_803E4C84;
 extern s16  D_803E4C86;
-extern s32  D_803E4C88;
-extern s32  D_803E4C8C;
+extern Animal *D_803E4C88;
+extern Animal *D_803E4C8C;
 extern void *D_803E4C90;
-extern struct071 *D_803E4C94; // Animal*?
+extern Animal *D_803E4C94;
 extern s32  D_803E4CA0;
 extern u8   D_803E4CA4;
 extern u8   D_803E4CA5;

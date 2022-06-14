@@ -42,7 +42,7 @@ void func_80381C60_793310(void) {
 
 void func_80381F14_7935C4(void) {
     // check object is an animal?
-    if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != 0) && (D_803D5530->unk6C->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET))) {
+    if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != 0) && (D_803D5530->unk6C->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET))) {
         if (func_803224C4_733B74(-78, 0, 0, 58, 20, 0, 0, 19) != 0) {
             play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             D_803D5530->yVelocity.h += 2;

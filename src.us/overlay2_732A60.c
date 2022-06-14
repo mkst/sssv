@@ -74,7 +74,7 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
         if ((a->xPos.h >= temp_s1) && (temp_s3 >= a->xPos.h)) {
             if ((a->zPos.h >= temp_s2) && (temp_s4 >= a->zPos.h)) {
                 if ((a->yPos.h >= temp_t1) && (temp_t2 >= a->yPos.h)) {
-                    if ((D_803D5524->unk9C == ELEPHANT) && (a->unk16C->unk0 != 2)) {
+                    if ((D_803D5524->unk9C == ELEPHANT) && (a->unk16C->objectType != 2)) {
                         return NULL;
                     }
                 }
@@ -343,7 +343,7 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
     temp_t8 = D_803DA110[(s16)((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next;
     while (temp_t8 != NULL) {
         a = temp_t8->animal;
-        if ((a != D_803D5530) && (a != arg6) && (a->unk16C->unk0 != 64)) {
+        if ((a != D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
             // TODO: FIXME
             if (a->unkD0.m[0][0] != 0) {
                 // TODO: FIXME
@@ -429,7 +429,7 @@ Animal *func_80323040_7346F0(void) {
 
     for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;
-        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk80.bit) && (temp_s3->unk366 != 5) && ((temp_s3->unk16C->unk0 != 0x13D)) && (temp_s3->unk16C->unk0 != 0x13E) && (temp_s3->unk16C->unk0 != 0x13F)) || (temp_s3->unk16C->unk0 == 0x91))) {
+        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk80.bit) && (temp_s3->unk366 != 5) && ((temp_s3->unk16C->objectType != 0x13D)) && (temp_s3->unk16C->objectType != 0x13E) && (temp_s3->unk16C->objectType != 0x13F)) || (temp_s3->unk16C->objectType == 0x91))) {
             x_dist = D_803D5530->xPos.h - temp_s3->xPos.h;
             z_dist = D_803D5530->zPos.h - temp_s3->zPos.h;
             y_dist = D_803D5530->yPos.h - temp_s3->yPos.h;
@@ -483,7 +483,7 @@ Animal *func_80323040_7346F0(void) {
 //     for (i = 0; i < temp_v1; i++) {
 //         for (temp_a1 = D_803DA110[(s16) ((s16)(phi_a2 >> 0x1A) + ((s16) (phi_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
 //             a = temp_a1->animal;
-//             if (a->unk16C->unk0 == 0x5B) {
+//             if (a->unk16C->objectType == 0x5B) {
 //                 if ((a->yPos.h < (phi_t0 >> 0x10)) && ((phi_t0 >> 0x10) < (a->yPos.h + a->unk42))) {
 //                     if (a->unk30 >= ABS((phi_a2 >> 0x10) - a->xPos.h)) {
 //                         if (a->unk32 >= ABS((phi_a3 >> 0x10) - a->zPos.h)) {

@@ -627,7 +627,7 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //     Animal *animal;
 //     struct071 *ret;
 //
-//     distance = 0x7FFF; // MAX_SHORT ?
+//     distance = MAX_SHORT;
 //     ret = NULL;
 //
 //     for (i = 0; i < D_803D553E; i++) {
@@ -745,7 +745,7 @@ void func_802F8DCC_70A47C(struct071 *arg0) {
                     arg0->unk14E = arg0->unk158 + 250;
                     arg0->unk150 = 256;
                     play_sound_effect_at_location(SFX_UNKNOWN_74, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
-                    func_802FED68_710418(arg0, obj, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40 * 6) >> 11), NULL, (arg0->unk40 * 40) >> 11, 0, phi_t0, sp56, 0, (f32)arg0->unk40 / 2048 * D_803BCF00_7CE5B0, 10); // 0.3
+                    func_802FED68_710418(arg0, obj, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40 * 6) >> 11), NULL, (arg0->unk40 * 40) >> 11, 0, phi_t0, sp56, 0, (f32)arg0->unk40 / 2048 * 0.3, 10); // 0.3
                 }
             }
         }
@@ -786,7 +786,7 @@ s32 func_802F9178_70A828(struct071 *arg0) {
     s16 i;
 
     for (i = 0; i < D_803D553E; i++) {
-        if ((D_801D9ED8.animals[i].animal != 0) &&
+        if ((D_801D9ED8.animals[i].animal != NULL) &&
             (D_801D9ED8.animals[i].unk0->unk9C == MOUSE2)) {
             if ((D_801D9ED8.animals[i].animal->unk366 != 6) &&
                 (D_801D9ED8.animals[i].animal->unk366 != 2) &&
@@ -963,7 +963,40 @@ void func_802F96E0_70AD90(struct071 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F96E0_70AD90.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9880_70AF30.s")
+void func_802F9880_70AF30(Animal *arg0) {
+    if (arg0->state == 1) {
+        if (arg0->unk150 == 0) {
+            arg0->unk150 = 1;
+            if (arg0->unk152 != 0) {
+                play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+            }
+        }
+        if (arg0->unk14E < 128) {
+            arg0->unk14E += 8;
+            if (arg0->unk14E >= 128) {
+                arg0->unk14E = 128;
+            }
+        }
+    } else {
+        if (arg0->unk150 == 1) {
+            arg0->unk150 = 0;
+            if (arg0->unk152 != 0) {
+                play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f); //D_803BCF08_7CE5B8
+            }
+        }
+        if (arg0->unk14E > 0) {
+            arg0->unk14E -= 8;
+            if (arg0->unk14E < 0) {
+                arg0->unk14E = 0;
+            }
+        }
+    }
+    if (arg0->unk152 == 0) {
+        arg0->unk152 = 1;
+    }
+    arg0->unk152 = (((D_80152C78[(arg0->unk14E + 64) & 0xFF] >> 7) * 0x2D) >> 8) + arg0->zRotation;
+    arg0->unk152 %= 360;
+}
 
 void func_802F9A08_70B0B8(Animal *arg0) {
     if (arg0->state == 1) {
@@ -1005,20 +1038,19 @@ void func_802F9A08_70B0B8(Animal *arg0) {
 }
 
 // used by object 42 (button)
-extern f32 D_803BCF0C_7CE5BC; // 0.8f
 void func_802F9B4C_70B1FC(struct071 *arg0) {
     if (arg0->unk0 == (u16) 1) {
         add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, 255 /* red */, 0, 0);
         if (arg0->unk14E == 0) {
             arg0->unk14E = 1;
             if (arg0->unk152 != 0) {
-                play_sound_effect_at_location(0x52, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+                play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
             }
         }
     } else if (arg0->unk14E == 1) {
         arg0->unk14E = 0;
         if (arg0->unk152 != 0) {
-            play_sound_effect_at_location(0x52, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, D_803BCF0C_7CE5BC);
+            play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f);
         }
     }
     if (arg0->unk152 == 0) {
@@ -1027,7 +1059,6 @@ void func_802F9B4C_70B1FC(struct071 *arg0) {
 }
 
 // used by object 24 (switch)
-extern f32 D_803BCF10_7CE5C0; // 0.8
 void func_802F9C50_70B300(struct071 *arg0) {
     u8 red;
     u8 green;
@@ -1048,7 +1079,7 @@ void func_802F9C50_70B300(struct071 *arg0) {
         if (arg0->unk14E == 1) {
             arg0->unk14E = 0; // disabled
             if (arg0->unk152 != 0) {
-                play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, D_803BCF10_7CE5C0); // 0.8f
+                play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f); // 0.8f
             }
         }
     }
@@ -1096,8 +1127,6 @@ void func_802FA6D8_70BD88(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FADBC_70C46C.s")
 
-#if 0
-// needs rodata
 void func_802FB270_70C920(Animal *arg0) {
 
     if ((arg0->unk4C.unk28 != 0) || (arg0->unk4C.unk29 != 0)) {
@@ -1138,7 +1167,7 @@ void func_802FB270_70C920(Animal *arg0) {
             }
             break;
         case 5:
-            if (((arg0->unk5C & 1) && (arg0->unk5D != arg0->unk16C->unk0)) ||
+            if (((arg0->unk5C & 1) && (arg0->unk5D != arg0->unk16C->objectType)) ||
                  (arg0->unk5C & 6)) {
                 func_802FC990_70E040(arg0);
             }
@@ -1161,9 +1190,6 @@ void func_802FB270_70C920(Animal *arg0) {
         arg0->unk15C--;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FB270_70C920.s")
-#endif
 
 void func_802FB49C_70CB4C(struct071 *arg0) {
     arg0->unk5C = arg0->unk54;
@@ -1595,17 +1621,21 @@ void func_802FC990_70E040(Animal *arg0) {
     }
 }
 
-#if 0
 void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
+    u32 tmp;
+    s16 tmp2;
+
     s16 phi_v0;
-    s16 phi_v1;
-    // surely not...
-    volatile u8 tmp = ((arg1 & 0x4000) == 0) & 0xFF;
+    s8 phi_v1;
 
     // 0x4000 -> 0100000000000000
     // 0xBFFF -> 1011111111111111
+    if (tmp = (!(arg1 & 0x4000)) & 0xFF) {};
+    if (tmp2 = (arg1 & (~0x4000)) & 0xFFFF) {};
 
-    switch ((s16)(arg1 & 0xBFFF)) {
+    switch (tmp2) {
+    case 0:
+        break;
     case 1: // dust cloud
         func_802FC808_70DEB8(arg0);
         break;
@@ -1616,9 +1646,9 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         func_802FBBF8_70D2A8(arg0);
         break;
     case 4: // powerup?
-        switch (arg0->unk16C->unk0) {
+        switch (arg0->unk16C->objectType) {
         case 0x22: // powercell
-            if (((arg1 & 0x4000) == 0)) {
+            if (tmp) {
                 D_803F2D30.powercells += 1;
                 D_803F2D30.unk6 += 1;
                 D_803F2D30.score += 1000;
@@ -1627,7 +1657,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
             return;
             break;
         case 0x3A: // energy ball + 16 hp
-            if (((arg1 & 0x4000) == 0)) {
+            if (tmp) {
                 if (D_803F2D30.unk4 == 0) {
                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x10, 0x7F);
                 }
@@ -1640,20 +1670,20 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
             return;
             break;
         case 0x3B:  // energy ball + 32 hp
-            if (((arg1 & 0x4000) == 0)) {
+            if (tmp) {
                 if (D_803F2D30.unk4 == 0) {
                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x20, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
                 D_803D552C->unk34A = 0;
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk358 = 0;
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0; //(&D_801D9ED8 + (gCurrentAnimalIndex * 8))->unk3EB4->unk363 = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk358 = 0;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk363 = 0;
             }
             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((arg0->unk40) >> 7) * 2), 1);
             return;
             break;
         case 0x3C: // energy ball + 64hp
-            if (((arg1 & 0x4000) == 0)) {
+            if (tmp) {
                 if (D_803F2D30.unk4 == 0) {
                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x40, 0x7F);
                 }
@@ -1665,13 +1695,14 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 1);
             return;
             break;
-        default:                                    /* switch 1 */
+        default:
             func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40) >> 7) * 2, 2);
             return;
             break;
         }
         break;
-    // no case 5
+    case 5:
+        break;
     case 6: // white sparks?
         func_802FC2B8_70D968(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + (arg0->unk42 >> 1)));
         break;
@@ -1688,10 +1719,10 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         func_802FC5C0_70DC70(arg0);
         break;
     case 11: // water splash
-        func_802D760C_6E8CBC(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + ((s32) arg0->unk42 >> 1)), arg0->unk30, 8);
+        func_802D760C_6E8CBC(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30, 8);
         break;
     case 12: // small explosion
-        func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0, 0, 0);
+        func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0, 0, 0);
         break;
     case 13: // explosion
         func_802FB680_70CD30(arg0);
@@ -1700,11 +1731,11 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         func_802FBA40_70D0F0(arg0);
         break;
     case 15: // radioactive
-        func_802FC438_70DAE8(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) arg0->unk42 >> 1)));
+        func_802FC438_70DAE8(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1));
         break;
     case 16: // cardboard/earthquake debris?
         func_802FC6E4_70DD94(arg0);
-        play_sound_effect_at_location(0x79, 0x6000, 0, arg0->xPos.h, (s32) arg0->zPos.h, (s32) arg0->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_121, 0x6000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
         break;
     case 17: // trophy?
         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 3);
@@ -1743,7 +1774,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         break;
     case 24: // brown debris
         func_802FC6E4_70DD94(arg0);
-        play_sound_effect_at_location(0x4B, 0x6000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_75, 0x6000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
         break;
     case 25: // ground explosion
         func_802FB85C_70CF0C(arg0);
@@ -1752,9 +1783,6 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FCA08_70E0B8.s")
-#endif
 
 void func_802FD190_70E840(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     s16 i, j;
@@ -1784,7 +1812,7 @@ void func_802FD26C_70E91C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
 s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
-        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->unk0 == arg1)) {
+        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->objectType == arg1)) {
             return 1;
         }
     }
@@ -1815,7 +1843,7 @@ s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
 s32 func_802FD468_70EB18(Animal *arg0) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
-        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET)) {
+        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET)) {
             return 1;
         }
     }
@@ -1825,7 +1853,7 @@ s32 func_802FD468_70EB18(Animal *arg0) {
 s32 func_802FD4D0_70EB80(Animal *arg0) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
-        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->unk0 < OB_TYPE_ANIMAL_OFFSET)) {
+        if ((arg0 == tmp->animal->unk6C) && (tmp->animal->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET)) {
             return 1;
         }
     }
@@ -1864,16 +1892,16 @@ s16 func_802FD5DC_70EC8C(Animal *arg0) {
 void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
     s16 tmp;
 
-    if ((arg1->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) && (arg0->unk56 < 5)) {
+    if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg0->unk56 < 5)) {
         arg0->unk54 |= 0x8 | 0x4;
-        arg0->unk55 = arg1->unk16C->unk0 - OB_TYPE_ANIMAL_OFFSET;
+        arg0->unk55 = arg1->unk16C->objectType - OB_TYPE_ANIMAL_OFFSET;
         arg0->unk58 = arg1;
         arg0->unk56 = 5U;
         if (arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
             arg0->unk54 |= 0x10;
         }
     } else {
-        if ((arg1->unk16C->unk2 != 9) || (arg1->unk16C->unk0 == 9)) {
+        if ((arg1->unk16C->unk2 != 9) || (arg1->unk16C->objectType == 9)) {
             if ((arg1->unk16C->unk2 == 1) || (arg1->unk16C->unk2 == 2)) {
                 tmp = 10;
             } else {
@@ -1881,25 +1909,25 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
             }
             if (arg0->unk56 < tmp) {
                 arg0->unk54 |= 9;
-                arg0->unk55 = arg1->unk16C->unk0;
+                arg0->unk55 = arg1->unk16C->objectType;
                 arg0->unk58 = arg1;
                 arg0->unk56 = tmp;
             }
-            if ((arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) && (arg1->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+            if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg1->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
                 arg0->unk2EB++;
             }
         }
     }
-    if ((arg0->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) && (arg1->unk56 < 5)) {
+    if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg1->unk56 < 5)) {
         arg1->unk54 |= 0x8 | 0x4;
-        arg1->unk55 = arg0->unk16C->unk0 - OB_TYPE_ANIMAL_OFFSET;
+        arg1->unk55 = arg0->unk16C->objectType - OB_TYPE_ANIMAL_OFFSET;
         arg1->unk58 = arg0;
         arg1->unk56 = 5U;
         if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
             arg1->unk54 |= 0x10;
         }
     } else {
-        if ((arg0->unk16C->unk2 != 9) || (arg0->unk16C->unk0 == 9)) {
+        if ((arg0->unk16C->unk2 != 9) || (arg0->unk16C->objectType == 9)) {
             if ((arg0->unk16C->unk2 == 1) || ((arg0->unk16C->unk2 == 2))) {
                 tmp = 10;
             } else {
@@ -1907,11 +1935,11 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
             }
             if (arg1->unk56 < tmp) {
                 arg1->unk54 |= 0x8|0x1;
-                arg1->unk55 = arg0->unk16C->unk0;
+                arg1->unk55 = arg0->unk16C->objectType;
                 arg1->unk58 = arg0;
                 arg1->unk56 = tmp;
             }
-            if ((arg1->unk16C->unk0 >= OB_TYPE_ANIMAL_OFFSET) && (arg0->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+            if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg0->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
                 arg1->unk2EB++;
             }
         }
@@ -2330,7 +2358,7 @@ void func_802FFC34_7112E4(struct071 *arg0) {
             arg0->xPos.h,
             arg0->zPos.h,
             arg0->yPos.h,
-            (s16) phi_v1,
+            phi_v1,
             arg0->unk200,
             arg0->unk204,
             arg0->unk208);
@@ -2426,13 +2454,13 @@ void func_802FFFD0_711680(struct071 *arg0) {
     u8 red, green, blue;
 
     // same line required for regalloc
-    if (arg0->unk16C->unk0 == 60) {
+    if (arg0->unk16C->objectType == 60) {
         // white
         red = 255; green = 255; blue = 255;
-    } else if (arg0->unk16C->unk0 == 59) {
+    } else if (arg0->unk16C->objectType == 59) {
         // light pink
         red = 255; green = 160; blue = 255;
-    } else if (arg0->unk16C->unk0 == 58) {
+    } else if (arg0->unk16C->objectType == 58) {
         // bright pink
         red = 255; green = 0; blue = 255;
     }

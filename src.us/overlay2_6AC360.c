@@ -101,7 +101,7 @@ u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 arg2, Animal *arg3, void *arg4, 
         temp_s0 = phi_s2->animal;
         if (temp_s0 != arg3) {
             temp_a1 = arg3->unk16C;
-            temp_t5 = temp_a1->unk0;
+            temp_t5 = temp_a1->objectType;
             if ((temp_t5 == OB_TYPE_ANIMAL_OFFSET + EVO) && (arg3->unk365 == 9)) {
                 // temp_a1->unk2 somehow?
                 if ((D_803A0510_7B1BC0[5] & (1 << (0xF - temp_s0->unk16C->unk2)))) {
@@ -194,7 +194,7 @@ block_13:
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B56C_6ACC1C.s")
 #if 0
-// 4169 (miles) away
+// 3604 (miles) away
 s32 func_8029B56C_6ACC1C(s16 arg0, s16 arg1, s16 *arg2, struct063 arg3[73][129]) {
     s16 temp_t3;
     s16 temp_t5;
@@ -233,7 +233,7 @@ s32 func_8029B56C_6ACC1C(s16 arg0, s16 arg1, s16 *arg2, struct063 arg3[73][129])
                 *arg2 = (((temp_t0 << 6) + ((temp_a3 - temp_t0) * (0x40 - temp_t3)) + ((temp_t1 - temp_a3) * (0x40 - temp_t5))) >> 6);
             }
         }
-        *arg2 -= D_803E1D32[D_803C0740[arg0 >> 6][arg1 >> 6].unk3 * 0xC] << 3;
+        *arg2 -= D_803E1D30[D_803C0740[arg0 >> 6][arg1 >> 6].unk3].unk2 << 3;
         changed = 1;
     }
     return changed;
