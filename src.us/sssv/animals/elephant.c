@@ -44,7 +44,8 @@ void func_8037D138_78E7E8(void) {
             0, 0);
         if (tmp == 0) {
             D_803D552C->unk32A = D_803D5544;
-            if ((D_803D552C->unk320->unk16C->objectType == 2) || (D_803D552C->unk320->unk16C->objectType == 61)) {
+            if ((D_803D552C->unk320->unk16C->objectType == OBJECT_BOULDER) ||
+                (D_803D552C->unk320->unk16C->objectType == 61)) {
                 D_803D552C->unk365 = ATTACK_BEAR_2;
             } else {
                 D_803D552C->unk365 = ATTACK_BEAR_3;

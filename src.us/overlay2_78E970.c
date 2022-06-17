@@ -139,7 +139,7 @@ void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 //                             temp_a0_2 = (phi_v1_2 >> 1) + phi_a1;
 //                             if (temp_a0_2 < arg1) {
 //                                 if (temp_v0_2->unk16C->unk80.bit) {
-//                                     if ((temp_v0_2->unk16C->unk9C != EVO_GLITCHY) &&
+//                                     if ((temp_v0_2->unk16C->unk9C != EVO_TRANSFER) &&
 //                                         (temp_v0_2->unk16C->unk9C != D_803D5524->unk9C) &&
 //                                         (temp_v0_2->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
 //                                         (temp_v0_2->unk16C->unk9C != TORTOISE_TANK_DEFENDING)) {
@@ -255,7 +255,7 @@ Animal *func_8037E9AC_79005C(void) {
     sp54 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 9;
 
     for (i = 0; i < D_803D553E; i++) {
-        if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY)) {
+        if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER)) {
             if ((D_801D9ED8.animals[i].animal->unk366 != 6) && (D_801D9ED8.animals[i].animal->unk366 != 2) && (D_801D9ED8.animals[i].animal->unk366 != 5)) {
                 if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, D_801D9ED8.animals[i].animal->unk16C->objectType) != 7)) {
 
@@ -328,7 +328,7 @@ Animal *func_8037ED1C_7903CC(void) {
     var_a3 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 9;
 
     for (i = 0; i < D_803D553E; i++) {
-        if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
+        if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
             if (D_803D5530 != D_801D9ED8.animals[i].animal) {
 
                 animal = D_801D9ED8.animals[i].animal;
@@ -537,7 +537,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
 
                         temp_v1 = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
                         if (animal->unk16C->unk80.bit) {
-                            if ((animal->unk16C->unk9C != EVO_GLITCHY) && (animal->unk16C->unk9C != KING_RAT) && (animal->unk16C->unk9C != RAT)) {
+                            if ((animal->unk16C->unk9C != EVO_TRANSFER) && (animal->unk16C->unk9C != KING_RAT) && (animal->unk16C->unk9C != RAT)) {
                                 if (temp_v1 < arg1 * 2) {
                                     if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1) {
                                         if (temp_v1 < arg1) {
@@ -665,7 +665,7 @@ void func_8037FEDC_79158C(void) {
     // iterate over all animals in the level
     for (i = 0; i < D_803D553E; i++) {
         if ((D_801D9ED8.animals[i].animal != NULL) &&
-            (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) &&
+            (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
             (D_801D9ED8.animals[i].animal->unk366 != 6) &&
             (D_801D9ED8.animals[i].animal != D_803D5530) &&
             ((u8)D_801D9ED8.animals[i].animal->unk2A0 == 0) &&

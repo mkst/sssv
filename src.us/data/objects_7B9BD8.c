@@ -1,5 +1,6 @@
 #include <ultra64.h>
 // #include "common.h"
+#include "objects.h"
 
 extern u8 D_01011B78[];
 
@@ -234,8 +235,6 @@ extern u8 D_040099F0[];
     81  - dead scientist
     82  - dead scientist2 (keycard)
     97  - door
-
-
 */
 
 void D_802F6A5C();

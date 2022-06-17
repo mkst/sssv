@@ -203,7 +203,7 @@ void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos) 
     }
 }
 
-void func_8032CD20_73E3D0(s32 arg0, s16 id, s16 arg2, s16 arg3, f32 arg4) {
+void func_8032CD20_73E3D0(void *arg0, s16 id, s16 arg2, s16 arg3, f32 arg4) {
     if (id != SFX_NONE) {
         func_8013328C(arg0, id, 64, arg4, arg2, arg3);
     }

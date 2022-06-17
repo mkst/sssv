@@ -282,7 +282,53 @@ void func_802BC1F4_6CD8A4(u16 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BC628_6CDCD8.s")
 
+#ifdef NON_MATCHING
+// 180 away
+void func_802BC900_6CDFB0(struct087 *arg0, u16 arg1, u16 arg2, s16 *arg3, s16 *arg4, s16 *arg5) {
+    s32 temp_t0;
+    s32 temp_t1;
+    u16 temp_t6_2;
+    s32 temp_t7;
+    u16 temp_t7_2;
+    u16 temp_t8;
+    u16 temp_t9;
+
+    temp_t0 = arg2 / 4;
+    if (arg1 < temp_t0) {
+        *arg3 = arg0->unk0;
+        *arg4 = arg0->unk2;
+        *arg5 = arg0->unk4;
+    }
+    if (arg1 >= temp_t0) {
+        temp_t1 = arg2 / 2;
+        if (arg1 < temp_t1) {
+            temp_t6_2 = (arg1 - temp_t0);
+            temp_t7_2 = (temp_t1 - temp_t0);
+            *arg3 = ((arg0->unk6 * temp_t6_2) + (arg0->unk0 * (temp_t7_2 - temp_t6_2))) / temp_t7_2;
+            *arg4 = ((arg0->unk8 * temp_t6_2) + (arg0->unk2 * (temp_t7_2 - temp_t6_2))) / temp_t7_2;
+            *arg5 = ((arg0->unkA * temp_t6_2) + (arg0->unk4 * (temp_t7_2 - temp_t6_2))) / temp_t7_2;
+        }
+    }
+    temp_t1 = arg2 / 2;
+    if (arg1 >= temp_t1) {
+        temp_t7 = (arg2 * 3) / 4;
+        if (arg1 < temp_t7) {
+            temp_t9 = (arg1 - temp_t1);
+            temp_t8 = (temp_t7 - temp_t1);
+            *arg3 = ((arg0->unkC * temp_t9) + (arg0->unk6 * (temp_t8 - temp_t9))) / temp_t8;
+            *arg4 = ((arg0->unkE * temp_t9) + (arg0->unk8 * (temp_t8 - temp_t9))) / temp_t8;
+            *arg5 = ((arg0->unk10 * temp_t9) + (arg0->unkA * (temp_t8 - temp_t9))) / temp_t8;
+        }
+    }
+    if (arg1 >= ((arg2 * 3) / 4)) {
+        *arg3 = arg0->unkC;
+        *arg4 = arg0->unkE;
+        *arg5 = arg0->unk10;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BC900_6CDFB0.s")
+#endif
 
 void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA) {
     *arg8 = ((arg5 * arg0) + (arg2 * (arg1 - arg0))) / arg1;

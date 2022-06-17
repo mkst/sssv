@@ -405,7 +405,7 @@ void func_80328918_739FC8(void) {
     D_803D552C->unk364 = 0;
     D_803D552C->unk2EC = 0;
 
-    if (D_803D5524->unk9C == CHAMELEON_DEFENDING) {
+    if (D_803D5524->unk9C == SNEAKY_CHAMELEON) {
         load_animal(CHAMELEON);
     }
 
@@ -743,7 +743,7 @@ void func_8032AC98_73C348(void) {
     for (i = 0; i < D_803D553E; i++) {
         a = D_801D9ED8.animals[i].animal;
         if (a != NULL) {
-            if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) &&
+            if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
                 (a->unk366 != 6)) {
                 D_803D5520 = &D_801D9ED8.animals[i].unk0;
                 D_803D5524 = D_801D9ED8.animals[i].unk0;
