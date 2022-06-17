@@ -91,7 +91,7 @@ void func_802C87E0_6D9E90(void) {
 //
 //     for (i = 0; i < D_803D553E; i++) {
 //         if ((D_801D9ED8.animals[i].animal != 0) &&
-//             (D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) &&
+//             (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
 //             (D_801D9ED8.animals[i].animal->unk366 != 6)) {
 //             if (i == gCurrentAnimalIndex) {
 //                 add_multiple_lights();
@@ -291,7 +291,7 @@ void func_802C87E0_6D9E90(void) {
 //                     func_803574E0_768B90();
 //                     break;
 //                 case CHAMELEON:
-//                 case CHAMELEON_DEFENDING:
+//                 case SNEAKY_CHAMELEON:
 //                     func_8035A5F0_76BCA0();
 //                     break;
 //                 case EVO_MICROCHIP:

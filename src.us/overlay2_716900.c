@@ -173,7 +173,7 @@ void func_80305250_716900(struct079_inner *arg0, Animal *animal, s16 arg2, u8 ar
 //                             }
 //                         }
 //                     }
-//                 } else if ((animal != D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_GLITCHY)) {
+//                 } else if ((animal != D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) {
 //
 //                     // its an animal
 //
@@ -529,7 +529,7 @@ s32 func_80309798_71AE48(Animal *arg0) {
 
     tmp = arg0;
     if (tmp->unk4A == 0) {
-        if ((tmp->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+EVO_GLITCHY)) &&
+        if ((tmp->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) &&
             (tmp->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+EVO)) &&
             (tmp->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP))) {
             if ((tmp->unk366 != 5) && (tmp->unk366 != 2)) {
@@ -574,7 +574,7 @@ s32 func_803099BC_71B06C(void) {
     if (D_803D552C->unk28C == 8) {
         if (D_803D552C->unk272 & 1) {
             if (D_803D552C->unk2CC != 0) {
-                if ((D_803D5524->unk9C != EVO_GLITCHY) &&
+                if ((D_803D5524->unk9C != EVO_TRANSFER) &&
                     (D_803D5524->unk9C != EVO) &&
                     (D_803D5524->unk9C != EVO_MICROCHIP)) {
                     if ((D_803D552C->unk2CC->unk366 != 5) && (D_803D552C->unk2CC->unk366 != 2)) {
@@ -587,7 +587,7 @@ s32 func_803099BC_71B06C(void) {
     }
     if (D_803D552C->unk272 & 1) {
         if ((D_803D552C->unk2CC != 0) &&
-            (D_803D552C->unk2CC->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+CHAMELEON_DEFENDING)) &&
+            (D_803D552C->unk2CC->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+SNEAKY_CHAMELEON)) &&
             (D_803D552C->unk2D0 < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType])) {
             return func_80309798_71AE48(D_803D552C->unk2CC);
         }
@@ -1408,11 +1408,11 @@ void func_8030E69C_71FD4C(void) {
         }
     }
 
-    if ((D_803E4C94->unk6C != 0) && (D_803E4C94 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
-        if (D_803E4C94->unk6C->unk16C->objectType == 0x36) {
+    if ((D_803E4C94->unk6C != NULL) && (D_803E4C94 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+        if (D_803E4C94->unk6C->unk16C->objectType == 54) {
             func_8029B870_6ACF20(D_803E4C94, D_803E4C94->unk6C);
         }
-        if (D_803E4C94->unk6C->unk16C->objectType == 0x38) {
+        if (D_803E4C94->unk6C->unk16C->objectType == OBJECT_TELEPORTER_ACTIVE) {
             func_8029BA70_6AD120(D_803E4C94, D_803E4C94->unk6C);
         }
     }

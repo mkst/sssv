@@ -868,7 +868,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
         case CHAMELEON:
             func_8035C180_76D830(arg1);
             break;
-        case CHAMELEON_DEFENDING:
+        case SNEAKY_CHAMELEON:
             func_8035C180_76D830(arg1);
             break;
         case COOL_COD:

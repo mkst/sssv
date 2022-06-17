@@ -32,7 +32,7 @@
 //         D_801D9ED8.unk0[i].armour = D_803A05D0_7B1C80[i].unkA;
 //         D_801D9ED8.unk0[i].unk8C = D_803A05D0_7B1C80[i].unkB;
 //         D_801D9ED8.unk0[i].unkEB = D_803A05D0_7B1C80[i].unk51;
-//         if ((i == EVO) || (i == EVO_GLITCHY)) {
+//         if ((i == EVO) || (i == EVO_TRANSFER)) {
 //             D_801D9ED8.unk0[i].unk2 = 15;
 //         } else {
 //             D_801D9ED8.unk0[i].unk2 = 5;

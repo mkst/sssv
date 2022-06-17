@@ -125,9 +125,57 @@ void func_802C64E0_6D7B90(s16 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6FF4_6D86A4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C71BC_6D886C.s")
+void func_802C71BC_6D886C(s16 *arg0, s16 *arg1, s16 *arg2, s16 arg3) {
+    *arg0 = D_803D5530->xPos.h + ((((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * (D_80203FE0[20].unk0 + 0   )) / 32) + ((D_80152C78[(D_803D552C->unk302 + 0) & 0xFF] * (D_80203FE0[20].unk2 + arg3)) / 32)) >> 0xF);
+    *arg1 = D_803D5530->zPos.h + ((((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * (D_80203FE0[20].unk2 + arg3)) / 32) - ((D_80152C78[(D_803D552C->unk302 + 0) & 0xFF] * (D_80203FE0[20].unk0 + 0   )) / 32)) >> 0xF);
+    *arg2 = D_803D5530->yPos.h + (D_80203FE0[19].unk4 / 32);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C7310_6D89C0.s")
+void func_802C7310_6D89C0(void) {
+    s16 temp_s2;
+    s16 temp_s3;
+    s16 temp_s4;
+    s16 sp68;
+    s16 sp66;
+    s16 sp64;
+    s16 i;
+
+
+    temp_s2 = D_803D5530->xPos.h;
+    temp_s3 = D_803D5530->zPos.h;
+    temp_s4 = (D_80203FE0[0].unk4 / 32) + D_803D5530->yPos.h;
+
+    func_802C56D0_6D6D80(-D_803D552C->unk318 * 3);
+    func_802C71BC_6D886C(&sp68, &sp66, &sp64, 0);
+
+    i = 0;
+    if (func_8033C9CC_74E07C(sp68, sp66, sp64, 0x7F, temp_s2, temp_s3, temp_s4, D_803D5530->unk160, 0, 0)) {
+        while ((D_803D552C->unk318 < 0x1C) && (i < 4)) {
+            func_802C56D0_6D6D80(-3);
+            func_802C71BC_6D886C(&sp68, &sp66, &sp64, 0);
+
+            if (func_8033C9CC_74E07C(sp68, sp66, sp64, 0x7F, temp_s2, temp_s3, temp_s4, D_803D5530->unk160, 0, 0)) {
+                D_803D552C->unk318++;
+                i++;
+            } else {
+                func_802C56D0_6D6D80(3);
+                break;
+            }
+        }
+    } else {
+        while ((D_803D552C->unk318 > 0) && (i < 4)) {
+            func_802C56D0_6D6D80(3);
+            func_802C71BC_6D886C(&sp68, &sp66, &sp64, 0);
+            if (func_8033C9CC_74E07C(sp68, sp66, sp64, 0x7F, temp_s2, temp_s3, temp_s4, D_803D5530->unk160, 0, 0)) {
+                func_802C56D0_6D6D80(-3);
+                break;
+            } else {
+                D_803D552C->unk318--;
+                i++;
+            }
+        }
+    }
+}
 
 void func_802C75A4_6D8C54(s16 arg0) {
     D_80203FE0[19].unk2 -= arg0 * 90;
@@ -136,7 +184,51 @@ void func_802C75A4_6D8C54(s16 arg0) {
     D_80203FE0[20].unk4 += arg0 * 90;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C7600_6D8CB0.s")
+void func_802C7600_6D8CB0(s16 arg0, s16 arg1) {
+    s16 i;
+    s16 xPos;
+    s16 zPos;
+    s16 sp68;
+    s16 sp66;
+    s16 sp64;
+    s16 yPos;
+
+    xPos = D_803D5530->xPos.h;
+    zPos = D_803D5530->zPos.h;
+    yPos = (D_80203FE0[0].unk4 / 32) + D_803D5530->yPos.h;
+
+    func_802C75A4_6D8C54(D_803D552C->unk318);
+    func_802C71BC_6D886C(&sp68, &sp66, &sp64, arg0);
+
+    i = 0;
+    if (func_8033C9CC_74E07C(sp68, sp66, sp64, 0x7F, xPos, zPos, yPos, D_803D5530->unk160, 0, 0)) {
+        while ((D_803D552C->unk318 < arg1) && (i < 4)) {
+            func_802C75A4_6D8C54(1);
+            func_802C71BC_6D886C(&sp68, &sp66, &sp64, arg0);
+
+            if (func_8033C9CC_74E07C(sp68, sp66, sp64, 0x7F, xPos, zPos, yPos, D_803D5530->unk160, 0, 0)) {
+                D_803D552C->unk318++;
+                i++;
+            } else {
+                func_802C56D0_6D6D80(3);
+                return;
+            }
+        }
+    } else {
+        while ((D_803D552C->unk318 > 0) && (i < 4)) {
+            func_802C75A4_6D8C54(-1);
+            func_802C71BC_6D886C(&sp68, &sp66, &sp64, arg0);
+
+            if (func_8033C9CC_74E07C(sp68, sp66, sp64, 0x7F, xPos, zPos, yPos, D_803D5530->unk160, 0, 0)) {
+                func_802C56D0_6D6D80(-3);
+                return;
+            } else {
+                D_803D552C->unk318--;
+                i++;
+            }
+        }
+    }
+}
 
 void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *dl) {
     if (func_80126388(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {

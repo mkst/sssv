@@ -429,7 +429,10 @@ Animal *func_80323040_7346F0(void) {
 
     for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;
-        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk80.bit) && (temp_s3->unk366 != 5) && ((temp_s3->unk16C->objectType != 0x13D)) && (temp_s3->unk16C->objectType != 0x13E) && (temp_s3->unk16C->objectType != 0x13F)) || (temp_s3->unk16C->objectType == 0x91))) {
+        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk80.bit) && (temp_s3->unk366 != 5) &&
+                                        ((temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) &&
+                                        (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER) &&
+                                        (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO)) || (temp_s3->unk16C->objectType == 145))) {
             x_dist = D_803D5530->xPos.h - temp_s3->xPos.h;
             z_dist = D_803D5530->zPos.h - temp_s3->zPos.h;
             y_dist = D_803D5530->yPos.h - temp_s3->yPos.h;
@@ -483,7 +486,7 @@ Animal *func_80323040_7346F0(void) {
 //     for (i = 0; i < temp_v1; i++) {
 //         for (temp_a1 = D_803DA110[(s16) ((s16)(phi_a2 >> 0x1A) + ((s16) (phi_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
 //             a = temp_a1->animal;
-//             if (a->unk16C->objectType == 0x5B) {
+//             if (a->unk16C->objectType == 91) {
 //                 if ((a->yPos.h < (phi_t0 >> 0x10)) && ((phi_t0 >> 0x10) < (a->yPos.h + a->unk42))) {
 //                     if (a->unk30 >= ABS((phi_a2 >> 0x10) - a->xPos.h)) {
 //                         if (a->unk32 >= ABS((phi_a3 >> 0x10) - a->zPos.h)) {

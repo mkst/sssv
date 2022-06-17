@@ -91,24 +91,24 @@ void func_802F59F0_7070A0(void) {
 // contains a bunch of __ll_mul
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F5C60_707310.s")
 
-void func_802F5F44_7075F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, struct077 *arg5) {
+void func_802F5F44_7075F4(s16 x, s16 y, s16 z, s16 yRotation, s16 zRotation, struct077 *res) {
     s16 temp_t0;
     s16 temp_t1;
     s16 temp_t3;
     s16 temp_v0;
     s32 temp_t7;
 
-    temp_v0 = D_80152350.unk2D0[arg3];
-    temp_t0 = D_80152350.unk384[arg3];
+    temp_v0 = D_80152350.unk2D0[yRotation];
+    temp_t0 = D_80152350.unk384[yRotation];
 
-    temp_t1 = D_80152350.unk2D0[arg4];
-    temp_t3 = D_80152350.unk384[arg4];
+    temp_t1 = D_80152350.unk2D0[zRotation];
+    temp_t3 = D_80152350.unk384[zRotation];
 
-    temp_t7 = ((arg1 * temp_t0) - (arg2 * temp_v0)) >> 8;
+    temp_t7 = ((y * temp_t0) - (z * temp_v0)) >> 8;
 
-    arg5->unk0 = ((arg0 * temp_t3) + (temp_t7 * temp_t1)) >> 8;
-    arg5->unk2 = ((-arg0 * temp_t1) + (temp_t7 * temp_t3)) >> 8;
-    arg5->unk4 = ((arg1 * temp_v0) + (arg2 * temp_t0)) >> 8;
+    res->unk0 = ((x * temp_t3) + (temp_t7 * temp_t1)) >> 8;
+    res->unk2 = ((-x * temp_t1) + (temp_t7 * temp_t3)) >> 8;
+    res->unk4 = ((y * temp_v0) + (z * temp_t0)) >> 8;
 }
 
 // more __ll_mul, similar to above but extra arg
@@ -634,7 +634,7 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //         animal = D_801D9ED8.animals[i].animal;
 //         if (animal != NULL) {
 //             if ((animal->unk366 != 6) && (animal->unk366 != 2) && (animal->unk366 != 5)) {
-//                 if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_GLITCHY) &&
+//                 if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
 //                     (D_801D9ED8.animals[i].unk0->unk9C != EVO)) {
 //
 //                     ret = arg0; // not this but similar?
@@ -1123,10 +1123,263 @@ void func_802FA6D8_70BD88(void) {
     D_803E1BE0 = 0;
 }
 
+#ifdef NON_MATCHING
+// 1003 away...
+void func_802FA730_70BDE0(Animal *arg0) {
+    struct077 spB8; // size 0x6
+
+    s32 pad[13];
+
+    s32 temp_t7;
+    s32 tmp1, tmp2, tmp3;
+
+    s32 var_s1;
+    u8 var_s2;
+    u8 var_s3;
+
+    s32 var_v0;
+
+    s16 i;
+
+    if (arg0->unk21E & 0x10) {
+        arg0->unk224--;
+        if (arg0->unk224 == 0) {
+            arg0->unk21E = 0U;
+            return;
+        }
+    }
+
+    if (arg0->unk21E & 8) {
+        if (arg0->unk22A > 0) {
+            arg0->unk22A--;
+            return;
+        }
+
+        if (arg0->unk22A == 0) {
+            i = 1;
+        } else if (arg0->unk22A < 0) {
+            i = -arg0->unk22A;
+        }
+
+        if (arg0->unk21E & 4) {
+            if (arg0->unk158 == 0) {
+                arg0->unk22A = arg0->unk221;
+                return;
+            } else {
+                arg0->unk22A = (arg0->unk221 << 0xB) / arg0->unk158;
+            }
+        } else {
+            arg0->unk22A = arg0->unk221;
+        }
+    } else {
+        i = 1;
+    }
+
+    while (i-- > 0) {
+        if (arg0->unk22A < 0) {
+            arg0->unk22A++;
+        }
+
+        spB8.unk0 = arg0->unk212;
+        spB8.unk2 = arg0->unk213;
+        spB8.unk4 = arg0->unk214;
+
+        if (arg0->unk215 != 0) {
+            spB8.unk0 += ((s16) (((s32)func_80128200() >> 4) % ((s16) arg0->unk215 * 2))) - arg0->unk215;
+        }
+        if (arg0->unk216 != 0) {
+            spB8.unk2 += ((s16) (((s32)func_80128200() >> 4) % ((s16) arg0->unk216 * 2))) - arg0->unk216;
+        }
+        if (arg0->unk217 != 0) {
+            spB8.unk4 += ((s16) (((s32)func_80128200() >> 4) % ((s16) arg0->unk217 * 2))) - arg0->unk217;
+        }
+        if ((arg0->unk21E & 0x40) && ((spB8.unk0 | spB8.unk2 | spB8.unk4) != 0)) {
+            func_802F5F44_7075F4(
+                spB8.unk0,
+                spB8.unk2,
+                spB8.unk4,
+                arg0->zRotation,
+                arg0->yRotation,
+                &spB8);
+        }
+        if (arg0->unk21E & 0x80) {
+            spB8.unk0 = (spB8.unk0 * arg0->unk40) >> 0xB;
+            spB8.unk2 = (spB8.unk2 * arg0->unk40) >> 0xB;
+            spB8.unk4 = (spB8.unk4 * arg0->unk40) >> 0xB;
+        }
+        spB8.unk0 += arg0->xPos.h;
+        spB8.unk2 += arg0->zPos.h;
+        spB8.unk4 += arg0->yPos.h + (arg0->unk42 >> 1);
+
+        var_s1 = arg0->unk21A;
+
+        var_s2 = arg0->unk218;
+        var_s3 = arg0->unk219;
+
+        if (arg0->unk21D != 0) {
+            var_s1 = ((((s32)func_80128200() >> 4) % (      arg0->unk21D * 2)) + var_s1) - arg0->unk21D;
+        }
+        if (arg0->unk21B != 0) {
+            var_s2 = ((((s32)func_80128200() >> 4) % ((s16) arg0->unk21B * 2)) + var_s2) - arg0->unk21B;
+        }
+        if (arg0->unk21C != 0) {
+            var_s3 = ((((s32)func_80128200() >> 4) % ((s16) arg0->unk21C * 2)) + var_s3) - arg0->unk21C;
+        }
+
+        if (arg0->unk21E & 0x20) {
+            var_s2 += (arg0->zRotation << 8) / 360;
+            var_s3 += (arg0->yRotation << 8) / 360;
+        }
+
+        if (arg0->unk21E & 2)  {
+            if (arg0->unk158 != 0) {
+                var_s1 = (var_s1 * arg0->unk158) >> 2;
+            } else {
+                break;
+            }
+        } else {
+            var_s1 = var_s1 << 8;
+        }
+
+        temp_t7 = (D_80152C78[(var_s2 + 0x40) & 0xFF] * var_s1) >> 0xF;
+        tmp3 = (D_80152C78[var_s2 & 0xFF] * var_s1) >> 0xF;
+
+        tmp2 = (D_80152C78[(var_s3 + 0x40) & 0xFF] * temp_t7) >> 0xF;
+        tmp1 = (D_80152C78[var_s3 & 0xFF] * temp_t7) >> 0xF;
+
+        if (arg0->unk21E & 0x80) {
+            var_v0 = (arg0->unk222 * arg0->unk40) >> 0xB;
+        } else {
+            var_v0 = arg0->unk222;
+        }
+
+        create_particle_effect(
+            spB8.unk0,
+            spB8.unk2,
+            spB8.unk4,
+            arg0->unk220, // particle id
+            tmp1 << 8,
+            tmp2 << 8,
+            tmp3 << 8,
+            var_v0,       // size
+            arg0->unk226, // rgba16 color
+            arg0->unk228, // rgba16 color
+            arg0->unk223);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FA730_70BDE0.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FADBC_70C46C.s")
+void func_802FADBC_70C46C(Animal *arg0) {
+    s32 pad[2];
 
+    s16 temp_v1_3;
+    s16 sp44;
+    s16 sp42;
+
+    s32 var_t0;
+    f32 var_f0;
+
+    if ((arg0->unk241 & 4)) {
+        f32 factor = 128.0f;
+        if (arg0->unk242 > 0) {
+            var_t0 = ((((arg0->unk23E - arg0->unk23D) * arg0->unk244) / arg0->unk242) + arg0->unk23D) << 7;
+            var_f0 = ((((arg0->unk240 - arg0->unk23F) * arg0->unk244) / arg0->unk242) + arg0->unk23F + 1) / factor;
+        } else {
+            var_t0 = arg0->unk23D << 7;
+            var_f0 = (arg0->unk23F + 1) / factor;
+        }
+
+        if (arg0->unk241 & 1) {
+            func_8032CED0_73E580(
+                arg0,
+                arg0->unk23C,
+                var_t0,
+                var_f0,
+                0,
+                0,
+                arg0->xPos.h,
+                arg0->zPos.h,
+                arg0->yPos.h,
+                arg0->xVelocity.w,
+                arg0->zVelocity.w,
+                arg0->yVelocity.w);
+        } else {
+            func_8032CD20_73E3D0(arg0, arg0->unk23C, var_t0, 0, var_f0);
+        }
+
+        if (arg0->unk242 >= 0) {
+            if (arg0->unk244++ >= arg0->unk242) {
+                arg0->unk241 = 0;
+            }
+        }
+    }
+
+    if ((arg0->unk20C != 0) && (arg0->unk16C->objectType != 5)) {
+        func_802F705C_70870C(
+            arg0, arg0->zRotation,
+            arg0->yRotation,
+            arg0->unk42 >> 1,
+            arg0->unk158,
+            arg0->unk20C,
+            arg0->unk210,
+            arg0->unk20E);
+    }
+
+    if (arg0->unk170 == 3) {
+        func_802FA4F8_70BBA8(arg0);
+    } else if (arg0->unk170 == 1) {
+        func_802F65BC_707C6C(arg0);
+    } else if (arg0->unk170 == 2) {
+        func_802F6750_707E00(arg0);
+    } else if (arg0->unk170 == 5) {
+        func_802F68A0_707F50(arg0);
+    } else if (arg0->unk170 == 6) {
+        func_802F68A0_707F50(arg0);
+    }
+
+    if (arg0->unk21E & 1) {
+        func_802FA730_70BDE0(arg0);
+    }
+
+    if (arg0->unk22C != 0) {
+        if ((arg0->unk22C & 0x10)) {
+            sp44 = arg0->zRotation + arg0->unk22E;
+            sp42 = arg0->yRotation + arg0->unk232;
+        } else {
+            if ((arg0->unk22C & 4)) {
+                sp44 = arg0->unk236 + ((arg0->unk22E * arg0->unk230) >> 8);
+                sp42 = arg0->unk23A + ((arg0->unk232 * arg0->unk230) >> 8);
+            } else {
+                temp_v1_3 = D_80152C78[((s16)(arg0->unk230 >> 1) + 64) & 0xFF];
+                sp44 = (arg0->unk236 + (arg0->unk22E >> 1)) - (((arg0->unk22E >> 1) * temp_v1_3) >> 0xF);
+                sp42 = (arg0->unk23A + (arg0->unk232 >> 1)) - (((arg0->unk232 >> 1) * temp_v1_3) >> 0xF);
+            }
+            if (arg0->unk230 >= 256) {
+                arg0->unk22C = 0U;
+                sp44 = arg0->unk236 + arg0->unk22E;
+                sp42 = arg0->unk23A + arg0->unk232;
+            } else {
+                arg0->unk230 += arg0->unk22D;
+                if (arg0->unk230 > 256) {
+                    arg0->unk230 = 256;
+                }
+            }
+        }
+
+        sp44 = sp44 % 360;
+        sp42 = sp42 % 360;
+        if (arg0->unk16C->unk15 == 4) {
+            func_802C9918_6DAFC8(arg0, sp44, sp42);
+        } else {
+            arg0->zRotation = sp44;
+            arg0->yRotation = sp42;
+        }
+    }
+}
+
+// used in collist2
 void func_802FB270_70C920(Animal *arg0) {
 
     if ((arg0->unk4C.unk28 != 0) || (arg0->unk4C.unk29 != 0)) {
@@ -1162,13 +1415,13 @@ void func_802FB270_70C920(Animal *arg0) {
             }
             break;
         case 4:
-            if (arg0->unk5C & 5) {
+            if (arg0->unk5C & (1|4)) {
                 func_802FC990_70E040(arg0);
             }
             break;
         case 5:
             if (((arg0->unk5C & 1) && (arg0->unk5D != arg0->unk16C->objectType)) ||
-                 (arg0->unk5C & 6)) {
+                 (arg0->unk5C & (2|4))) {
                 func_802FC990_70E040(arg0);
             }
             break;
@@ -1565,23 +1818,26 @@ void func_802FC6E4_70DD94(Animal *arg0) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (40)
+// CURRENT (10)
 void func_802FC808_70DEB8(Animal *arg0) {
     s16 i;
     s32 tmp = (arg0->unk40 * 18) >> 11;
+    s32 color = GPACK_RGBA5551(176, 176, 176, 0);
+    s32 new_var;
 
     for (i = 0; i < 10; i++) {
+        new_var = arg0->unk40 & 0xFFFF;
         create_particle_effect(
             arg0->xPos.h,
             arg0->zPos.h,
-            arg0->yPos.h + ((arg0->unk42 & 0xFFFF) >> 1),
+            arg0->yPos.h + ((arg0->unk42) >> 1),
             23,
-            (arg0->unk40 * D_803A52E8_7B6998[i].unk0) >> 11,
-            (arg0->unk40 * D_803A52E8_7B6998[i].unk4) >> 11,
+            ((arg0->unk40 & 0xFFFF) * D_803A52E8_7B6998[i].unk0) >> 11,
+            ((arg0->unk40 & 0xFFFF) * D_803A52E8_7B6998[i].unk4) >> 11,
             0,
             tmp,
-            GPACK_RGBA5551(176, 176, 176, 0),
-            GPACK_RGBA5551(176, 176, 176, 0),
+            color,
+            color,
             0);
     }
 }
@@ -1901,7 +2157,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
             arg0->unk54 |= 0x10;
         }
     } else {
-        if ((arg1->unk16C->unk2 != 9) || (arg1->unk16C->objectType == 9)) {
+        if ((arg1->unk16C->unk2 != 9) || (arg1->unk16C->objectType == OBJECT_UNKNOWN_9)) {
             if ((arg1->unk16C->unk2 == 1) || (arg1->unk16C->unk2 == 2)) {
                 tmp = 10;
             } else {
@@ -1927,7 +2183,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
             arg1->unk54 |= 0x10;
         }
     } else {
-        if ((arg0->unk16C->unk2 != 9) || (arg0->unk16C->objectType == 9)) {
+        if ((arg0->unk16C->unk2 != 9) || (arg0->unk16C->objectType == OBJECT_UNKNOWN_9)) {
             if ((arg0->unk16C->unk2 == 1) || ((arg0->unk16C->unk2 == 2))) {
                 tmp = 10;
             } else {
@@ -1939,7 +2195,8 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
                 arg1->unk58 = arg0;
                 arg1->unk56 = tmp;
             }
-            if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg0->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+            if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) &&
+                (arg0->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
                 arg1->unk2EB++;
             }
         }
@@ -2215,11 +2472,9 @@ void func_802FF25C_71090C(void) {
                 temp_t4,
                 temp_t4);
 
-            gSPMatrix(D_801D9E90++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-
-            D_80204278->usedModelViewMtxs++;
-
+            gSPMatrix(D_801D9E90++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             gDPPipeSync(D_801D9E90++);
+
             gSPDisplayList(D_801D9E90++, D_01004970_3E240);
 
             gDPSetPrimColor(D_801D9E90++, 0, 0, 255, MIN(255, 256 - (D_803E1BE8[i].unk1 << 4)), 0, 128 - (D_803E1BE8[i].unk1 << 3));
@@ -2454,13 +2709,13 @@ void func_802FFFD0_711680(struct071 *arg0) {
     u8 red, green, blue;
 
     // same line required for regalloc
-    if (arg0->unk16C->objectType == 60) {
+    if (arg0->unk16C->objectType == OBJECT_ENERGY_BALL) {
         // white
         red = 255; green = 255; blue = 255;
-    } else if (arg0->unk16C->objectType == 59) {
+    } else if (arg0->unk16C->objectType == OBJECT_ENERGY_BALL_PURPLE_2) {
         // light pink
         red = 255; green = 160; blue = 255;
-    } else if (arg0->unk16C->objectType == 58) {
+    } else if (arg0->unk16C->objectType == OBJECT_ENERGY_BALL_PURPLE) {
         // bright pink
         red = 255; green = 0; blue = 255;
     }

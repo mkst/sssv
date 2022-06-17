@@ -35,16 +35,22 @@ extern Gfx  D_01003998_3D268[];
 extern Gfx  D_01003A58[];
 extern Gfx  D_01003B70_3D440[];
 extern Gfx  D_01004270[];
+extern Gfx  D_01004308[];
 extern Gfx  D_01004360_3DC30[];
 extern u8   D_010043A0_3DC70[];
 extern Gfx  D_01004458[];
 extern Gfx  D_01004510[];
 extern Gfx  D_01004970_3E240[];
 extern Gfx  D_010049A0_3E270[];
+extern Gfx  D_010049A0[];
 extern u8   D_01004AF8[];
+extern Gfx  D_01004B98[];
+extern Gfx  D_0100C120[];
 extern Gfx  D_01013370_4CC40[];
+extern Gfx  D_01017AA0[];
 extern Gfx  D_0101B000_548D0[];
 extern u8   D_01021BB0[];
+extern u8   D_01029E10[];
 extern u8   D_0102A210[];
 extern u8   D_0102C810[];
 extern u8   D_0102F010[];
@@ -57,6 +63,8 @@ extern u8   D_0103B6F0[];
 extern Gfx  D_0103B880[];
 extern Gfx  D_0103BA70[];
 extern Gfx  D_0103EC20[];
+extern u8   D_0103ECB0[];
+extern u8   D_01040CB0[];
 extern u8   D_04000000[];
 extern u8   D_040000A0[];
 extern Gfx  D_040000E0_DD6A0[];
@@ -143,6 +151,9 @@ extern Gfx  D_04003530[];
 extern Gfx  D_04003650[];
 extern Gfx  D_04003E70[];
 extern Gfx  D_04004070[];
+
+extern Gfx  D_05006170[];
+
 // 0x8000xxxx
 
 extern s32  D_80000300;
@@ -1111,16 +1122,19 @@ extern s16  D_803C29FE[];
 // 0x803Dxxxx
 
 extern struct054 D_803D2D90;
+extern s16       D_803D2E00;
 extern struct059 D_803D2E08;
 
 extern DisplayList* D_803D3434;
 extern s32       *D_803D3438;
 extern struct059  D_803D3448;
-extern struct058 *D_803D343C;
+extern s32       D_803D3428;
+extern s32       D_803D342C;
+extern Animal    *D_803D343C;
 extern struct059  D_803D3A20;
 extern struct059  D_803D3FF8;
-extern s8   D_803D45D0;
-extern s8   D_803D4BB1;
+extern struct072  D_803D45D0;
+extern struct067  D_803D4BB0;
 extern struct057  D_803D5188[];
 
 extern s16  D_803D5508;
@@ -1157,6 +1171,7 @@ extern s16  D_803D556C;
 extern s16  D_803D556E;
 extern s16  D_803D5570;
 extern u16  D_803D5572;
+extern s16  D_803D5574; // .data or .bss
 extern u8   D_803D5575; // controller maginitude?
 extern s16  D_803D5578;
 extern s16  D_803D557A;

@@ -14,7 +14,7 @@ void func_8037B590_78CC40(void) {
     } else if (D_803D552C->unk320 != 0) {
         if ((D_803D552C->unk365 != ATTACK_BEAR_2) && (D_803D552C->unk365 != ATTACK_BEAR_3) && (D_803D552C->unk318 == 0)) {
             D_803D552C->unk32A = D_803D5544;
-            if ((D_803D552C->unk320->unk16C->objectType == 2) || (D_803D552C->unk320->unk16C->objectType == 61)) {
+            if ((D_803D552C->unk320->unk16C->objectType == OBJECT_BOULDER) || (D_803D552C->unk320->unk16C->objectType == 61)) {
                 D_803D552C->unk365 = ATTACK_BEAR_2;
             } else {
                 D_803D552C->unk365 = ATTACK_BEAR_3;
@@ -58,7 +58,8 @@ void func_8037B784_78CE34(Animal *arg0) {
         if ((arg0->unk365 != ATTACK_BEAR_2) && (arg0->unk365 != ATTACK_BEAR_3) &&
             (D_803D552C->unk318 == 0)) {
             arg0->unk32A = D_803D5544;
-            if ((arg0->unk320->unk16C->objectType == 2) || (arg0->unk320->unk16C->objectType == 61)) {
+            if ((arg0->unk320->unk16C->objectType == OBJECT_BOULDER) ||
+                (arg0->unk320->unk16C->objectType == 61)) {
                 arg0->unk365 = ATTACK_BEAR_2;
             } else {
                 arg0->unk365 = ATTACK_BEAR_3;

@@ -10,8 +10,8 @@ s32 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 ar
             return 4;
         }
     }
-    if ((D_803F28DC & 3) != 0) {
-        if ((D_803F28DC & 1) != 0) {
+    if (D_803F28DC & 3) {
+        if (D_803F28DC & 1) {
             if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28DC & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
                 return 0;
             } else {
@@ -36,7 +36,7 @@ s32 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 ar
             return 4;
         }
     }
-    if ((D_803F28DC & 1) != 0) {
+    if (D_803F28DC & 1) {
         if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28DC & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
             return 0;
         }
@@ -48,6 +48,7 @@ s32 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 ar
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6FA0A0/func_802E8CF4_6FA3A4.s")
 
+// loops and __ll_mul
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6FA0A0/func_802E9B90_6FB240.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6FA0A0/func_802EA004_6FB6B4.s")

@@ -482,15 +482,15 @@ void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {
     s16 tmp = (arg3 * 3) + 1;
 
     for (i = 0; i < tmp; i++) {
-            func_802D5B88_6E7238(
-                SSSV_RAND(8) + x,
-                SSSV_RAND(8) + z,
-                y,
-                28,
-                SSSV_RAND(8) + 1,
-                0,
-                0,
-                0);
+        func_802D5B88_6E7238(
+            SSSV_RAND(8) + x,
+            SSSV_RAND(8) + z,
+            y,
+            28,
+            SSSV_RAND(8) + 1,
+            0,
+            0,
+            0);
     }
 }
 

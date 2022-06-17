@@ -41,6 +41,7 @@
 #include "messages.h"
 #include "levels.h"
 #include "animals.h"
+#include "objects.h"
 
 // evo suit colors
 #define EVO_BRONZE_SHELLSUIT        0
