@@ -3,6 +3,7 @@ attrs
 capstone
 colorama
 cxxfilt
+intervaltree
 pycparser
 pylibyaml
 pynacl
@@ -10,7 +11,7 @@ pypng
 python-Levenshtein
 python-ranges
 pyyaml
-spimdisasm==1.1.7
+spimdisasm==1.2.3
 toml
 tqdm
 watchdog
