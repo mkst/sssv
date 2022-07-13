@@ -131,6 +131,13 @@ typedef struct  {
     /* 0x3D0 */ s16 unk8; //unk3D0;
 } struct106;
 
+typedef struct {
+    /* 0x3C0 */ u16 unk0; // this is another struct
+    /* 0x3C2 */ s16 unk2;
+    /* 0x3C4 */ u16 unk4;
+    /* 0x3C6 */ s16 unk6;
+} struct113;
+
 /*
 states:
   02 - standing
@@ -177,14 +184,19 @@ struct Animal {
                     s16 h;
                 } yVelocity;
     /* 0x28 */  s16 unk28;
-    /* 0x2A */  u8  pad2A[0x2];
+    /* 0x2A */  s16 unk2A;
     /* 0x2C */  s16 yRotation;
     /* 0x2E */  s16 zRotation;
     /* 0x30 */  s16 unk30;
     /* 0x32 */  s16 unk32;
     /* 0x34 */  s16 unk34;
     /* 0x36 */  s16 unk36;
-    /* 0x38 */  u8  pad38[0x6];
+    /* 0x38 */  s8  unk38;
+    /* 0x39 */  u8  pad39;
+    /* 0x3A */  s8  unk3A;
+    /* 0x3B */  u8  pad3B;
+    /* 0x3C */  s8  unk3C;
+    /* 0x3D */  u8  pad3D;
     /* 0x3E */  u16 unk3E;
     /* 0x40 */  u16 unk40;
     /* 0x42 */  u16 unk42; // distance from camera (height?) cameraOffsetY?
@@ -201,8 +213,8 @@ struct Animal {
                     u8  unk25 : 1;  // foo->unk4F | 0x40
                     u8  unk26 : 1;  // unk4C << 0x1A
                     u8  unk27 : 1;  // unk4C & 0x10
-                    u8  unk28 : 1;
-                    u8  unk29 : 1;  // (unk4C << 0x1D) >> 0x1F
+                    u8  unk28 : 1;  // (unk4C << 0x1C) >> 0x1F OR & 8
+                    u8  unk29 : 1;  // (unk4C << 0x1D) >> 0x1F OR & 4
                     u8  pad30 : 2;
                 } unk4C;
     /* 0x50 */  u16 unk50;
@@ -477,10 +489,7 @@ struct Animal {
     /* 0x384 */ struct103 unk384; // s16 x 7
     /* 0x398 */ struct103 unk398;
     /* 0x3AC */ struct103 unk3AC;
-    /* 0x3C0 */ u16 unk3C0; // this is another struct
-    /* 0x3C2 */ s16 unk3C2;
-    /* 0x3C4 */ u16 unk3C4;
-    /* 0x3C6 */ s16 unk3C6;
+    /* 0x3C0 */ struct113 unk3C0;
     /* 0x3C8 */ struct106 unk3C8;
     /* 0x3D0 */ s16 unk3D2;
 }; // how big is this?
@@ -632,7 +641,9 @@ typedef struct {
     /* 0x28BCD */ u8  unk28BCD;
     /* 0x28BCE */ u8  unk28BCE;
     /* 0x28BCF */ u8  unk28BCF;
-    /* 0x28BD0 */ u8  pad28BD0[0x84A0];
+    /* 0x28BD0 */ u8  pad28BD0[0x39a0];
+    /* 0x2C570 */ Vtx unk2C570[1000];
+    /* 0x303F0 */ Vtx unk303F0[200];
     /* 0x31070 */ Vtx unk31070[30]; // might be bigger
     /* 0x31250 */ Vtx unk31250[2];
     /* 0x31270 */ u8  pad31270[0x1600];
@@ -652,7 +663,7 @@ typedef struct {
     /* 0x38910 */ s32 usedHilites;
     /* 0x38914 */ s32 usedSprites;
     /* 0x38918 */ s32 usedModelViewMtxs;
-    /* 0x3891C */ s32 unk3891C;
+    /* 0x3891C */ s32 usedVtxs;
     /* 0x38920 */ u8  pad38920[0xF0];
     /* 0x38A10 */ f32 unk38A10[4][4];
     /* 0x38A50 */ LookAt unk38A50[20];
@@ -961,8 +972,10 @@ struct struct035 {
               s32 *unk18;
               u16 unk1C;
               s16 pad1E;
-              u8  unk20[0x52];
-              s16 unk72;
+              u8  unk20[0xC];
+  /* 0x2C */  s16 unk2C;
+  /* 0x2E */  u8  pad2E[0x44];
+  /* 0x72 */  s16 unk72;
               s16 unk74;
               s16 unk76;
               s16 unk78;
@@ -993,7 +1006,7 @@ struct struct035 {
               u16 unkA8;
               u16 unkAA; // scaling?
               u16 unkAC; // scaling?
-              s16 fallDistance; // fall distance
+  /* 0xAE */  s16 fallDistance; // fall distance
               s16 unkB0;
               u16 traction; // traction
               s16 unkB4;
@@ -1019,7 +1032,7 @@ struct struct035 {
   /* 0xDA */  s16 unkDA[3]; // skill A (drainRate;unknown;unknown)
   /* 0xE0 */  s16 unkE0[3]; // skill B (drainRate;unknown;unknown)
   /* 0xE6 */  s8  unkE6; // animal class / value?
-  /* 0xE7 */  u8  unkE7;
+  /* 0xE7 */  s8  unkE7;
   /* 0xE8 */  u8  unkE8;
   /* 0xE8 */  u8  unkE9;
   /* 0xE8 */  u8  unkEA;
@@ -1327,7 +1340,9 @@ typedef struct {
 typedef struct {
     s16 unk0;
     s16 unk2;
-    u8  pad4[0x42];
+    u8  pad4[0x3C];
+    s16 unk40;
+    u8  pad42[0x4];
     s16 unk46;
     s16 unk48;
     s16 unk4A;

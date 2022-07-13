@@ -199,7 +199,7 @@ void func_8029A32C_6AB9DC(s32 arg0);
 s32  func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2);
 void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2);
 u16  func_8029A52C_6ABBDC(u8 arg0);
-u16  func_8029A568_6ABC18(s16 arg0);
+s32  func_8029A568_6ABC18(s16 arg0);
 void func_8029A720_6ABDD0(void);
 void func_8029ABCC_6AC27C(void);
 
@@ -250,7 +250,7 @@ void func_802A55AC_6B6C5C(u16 rotation, s8 arg1);
 void func_802A5620_6B6CD0(u16 rotation, s8 arg1);
 void func_802A5694_6B6D44(u16 rotation, s8 arg1);
 void func_802A5708_6B6DB8(s16 arg0, s16 arg1, s8 arg2);
-void func_802A5778_6B6E28(s16, s8);
+void func_802A5778_6B6E28(s16, u8);
 void func_802A5C80_6B7330(void);
 void func_802A5CF4_6B73A4(void);
 void func_802A5D64_6B7414(void);
@@ -433,7 +433,7 @@ void func_802D6738_6E7DE8(void);
 void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
 s16  func_802D7434_6E8AE4(s16 arg0, s16 arg1);
 void func_802D7AD4_6E9184(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
-void func_802D7BE0_6E9290(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6);
+void func_802D7BE0_6E9290(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, u16 arg6);
 void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color);
 void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3);
 
@@ -913,8 +913,10 @@ void func_8034BB38_75D1E8(u8 arg0);
 
 // overlay2_75D3D0
 void func_8034BD20_75D3D0(s16, s16, s16, s16, s32, s16, s16, s16, s32, s32, s32, s16, s16);
-void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, Gfx *arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, s16 argB, u8 argC);
-
+void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, s16 argB, u8 argC);
+void func_80351390_762A40(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s32 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC);
+void func_80351A44_7630F4(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue);
+void func_80351EE8_763598(s16 numVtxs, struct061 arg1[], s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
 void func_80355918_766FC8(void);
 
 // overlay2_76BCA0
@@ -928,8 +930,9 @@ void func_8035C180_76D830(s16 arg0);
 void func_8035D120_76E7D0(void);
 void func_8035D6A0_76ED50(void);
 void func_8035D6D0_76ED80(void);
-void func_8035DA60_76F110(void);
 void func_8035D734_76EDE4(void);
+void func_8035DA60_76F110(void);
+void func_8035DEC4_76F574(void);
 
 // tortoise
 void func_80355E14_7674C4(void);
@@ -964,7 +967,7 @@ void func_8035A5A4_76BC54(s16 arg0);
 
 // overlay2_76F7D0
 void func_8035E120_76F7D0(void);
-void *func_8035E200_76F8B0(void);
+// void *func_8035E200_76F8B0(void);
 void func_8035F92C_770FDC(void);
 void func_8035FA5C_77110C(void);
 void func_8035FA84_771134(void);

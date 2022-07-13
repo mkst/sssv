@@ -27,11 +27,11 @@ void func_802C56D0_6D6D80(u8 arg0) {
 
     temp_v1 = D_80203FE0[19].unk4;
     temp_a3 = D_80203FE0[1].unk4;
-    temp_t8 = D_80152C78[arg0] >> 7; //(s32) *(((arg0 & 0xFF) * 2) + &D_80152C78) >> 7;
+    temp_t8 = D_80152C78[arg0] >> 7;
     temp_t0 = D_80203FE0[19].unk4 - temp_a3;
     temp_v0 = D_80203FE0[19].unk2;
     temp_t1 = D_80203FE0[1].unk2;
-    temp_t7 = D_80152C78[arg0 + 64] >> 7; //(s32) *((((arg0 + 0x40) & 0xFF) * 2) + &D_80152C78) >> 7;
+    temp_t7 = D_80152C78[arg0 + 64] >> 7;
     temp_t2 = temp_v0 - temp_t1;
     temp_a1 = ((s32) ((temp_t8 * temp_t0) + (temp_t2 * temp_t7)) >> 8) + temp_t1;
     D_80203FE0[19].unk2 = temp_a1;
@@ -65,6 +65,149 @@ void func_802C5824_6D6ED4(s16 arg0, s16 arg1, s16 arg2) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C58E4_6D6F94.s")
+#if 0
+void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
+    s16 sp0;
+    s16 temp_a0;
+    s16 temp_a0_2;
+    s16 temp_a1;
+    s16 temp_t0_2;
+    s16 temp_t4_2;
+    s16 temp_t5;
+    s16 var_a0;
+    s16 var_a3_2;
+    s16 var_t0;
+    s16 var_t2;
+    s16 var_v0;
+    s16 var_v1;
+    u16 temp_t0;
+    s32 temp_t4;
+    s32 temp_t6;
+    u16 temp_v0;
+    u16 var_t1;
+
+    struct113 *tmp;
+
+    tmp = &D_803D5528->unk3C0;
+
+    temp_t0 = ((s32) D_803D552C->unk2F6 % 256);// & 0xFFFF;
+    if (D_803D5528->unk3C0.unk0 != NULL) {
+        tmp->unk2++; // = (s16) (D_803D5528->unk3C0.unk2+ 1);
+    }
+    switch (tmp->unk0) {                               /* irregular */
+    case 1:
+        if (tmp->unk2 >= 0x64) {
+            tmp->unk0 = 0U;
+        }
+        break;
+    case 5:
+        if (tmp->unk2 >= 0x96) {
+            tmp->unk0 = 0U;
+        }
+        break;
+    }
+
+    var_a0 = ((s16) ((D_803D5530->yRotation - D_803D552C->unk302) & 0xFF) * 360) >> 8;
+
+    if ((var_a0 > 80) && (var_a0 < 280)) {
+        if (var_a0 < 180) {
+            var_a0 = 80;
+        } else {
+            var_a0 = 280;
+        }
+    }
+    if (var_a0 > 180) {
+        var_a0 -= 360;
+    }
+
+    switch (D_803D5530->state) {                        /* switch 1; irregular */
+    case 0x3:                                       /* switch 1 */
+    case 0x16:                                      /* switch 1 */
+    case 0x3E:                                      /* switch 1 */
+    case 0x68:                                      /* switch 1 */
+    case 0xB6:                                      /* switch 1 */
+    case 0xCA:                                      /* switch 1 */
+        var_v1 = (D_80152350.unk2D0[(s16) ((temp_t0 * 360) / 256)] / 80) + 90;
+        var_v0 = var_a0;
+        break;
+    case 0x4:                                       /* switch 1 */
+    case 0x17:                                      /* switch 1 */
+    case 0x51:                                      /* switch 1 */
+    case 0x69:                                      /* switch 1 */
+    case 0xB7:                                      /* switch 1 */
+    case 0xCB:                                      /* switch 1 */
+        var_v1 = (D_80152350.unk2D0[(s16) ((temp_t0 * 360) / 256)] / 40) + 90;
+        var_v0 = var_a0;
+        break;
+    case 0x8D:                                      /* switch 1 */
+        var_v1 = 90;
+        var_v0 = var_a0;
+        break;
+    case 0x8E:                                      /* switch 1 */
+    case 0x8F:                                      /* switch 1 */
+        var_v1 = (D_80152350.unk2D0[(s16) ((temp_t0 * 360) / 256)] / 60) + 90;
+        var_v0 = var_a0;
+        break;
+    default:                                        /* switch 1 */
+        if (tmp->unk0 != 1) {
+            var_v1 = 90;
+            if (tmp->unk0 != 5) {
+                tmp->unk0 = 0U;
+                var_v0 = var_a0;
+            } else {
+                if (tmp->unk2 < 37) {
+                    var_v0 = 21 - ((D_80152350.unk384[(s16) ((tmp->unk2 * 360) / 75)]) / 18);
+                }
+                if ((tmp->unk2 >= 37) && (tmp->unk2 < 112)) {
+                    var_v0 = (s16) ((D_80152350.unk2D0[(s16) ((tmp->unk2 * 360) / 150)]) / 6);
+                }
+                if (tmp->unk2 >= 112) {
+                    var_v0 = ((D_80152350.unk384[(s16) ((tmp->unk2 * 360) / 75)]) / 12) - 21;
+                }
+            }
+        } else {
+            var_v0 = 0;
+            var_v1 = 0x68 - ((D_80152350.unk384[((s16) ((tmp->unk2 * 360) / 100))]) / 18);
+        }
+        break;
+    }
+
+    if (D_803D552C->unk366 == 4) {
+        var_v1 = 100;
+        var_v0 = 0;
+    }
+
+    // temp_a1 = D_80203FE0[1].unk4;
+    temp_t4 = (D_80203FE0[1].unk4 - D_80203FE0[2].unk4) * 3;
+    // temp_a0_2 = D_80203FE0[2].unk0;
+    temp_t4_2 = (D_80203FE0[1].unk2 + arg0) - (temp_t4 >> 2);
+    temp_t5 = (temp_t4 >> 3) + D_80203FE0[1].unk4;
+    D_80203FE0[19].unk2 = temp_t4_2;
+    D_80203FE0[19].unk4 = temp_t5;
+    D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
+    D_80203FE0[32].unk2 = temp_t4_2;
+    D_80203FE0[32].unk4 = temp_t5;
+
+    var_a3_2 = D_80203FE0[19].unk0;
+    temp_t0_2 = D_80203FE0[19].unk2;
+    var_t2 = D_80203FE0[19].unk4;
+    D_80203FE0[32].unk0 = D_80203FE0[2].unk0;
+
+    if (var_v0 != 0) {
+        var_t0 = temp_t0_2 + ((arg1 * D_80152350.unk384[var_v0]) / 256);
+        var_a3_2 += (arg1 * D_80152350.unk2D0[var_v0]) / 256;
+    } else {
+        var_t0 = temp_t0_2 + ((arg1 * D_80152350.unk2D0[var_v1]) / 256);
+        var_t2 += (arg1 * D_80152350.unk384[var_v1]) / 256;
+    }
+    D_80203FE0[20].unk0 = var_a3_2;
+    D_80203FE0[20].unk2 = var_t0;
+    D_80203FE0[20].unk4 = var_t2;
+    D_80203FE0[33].unk0 = var_a3_2;
+    D_80203FE0[33].unk2 = D_80203FE0[32].unk2 + arg1;
+    D_80203FE0[33].unk4 = D_80203FE0[32].unk4;
+}
+#endif
 
 #ifdef NON_MATCHING_TODO // JUSTREG?
 void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {

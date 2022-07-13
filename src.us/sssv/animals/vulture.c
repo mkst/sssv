@@ -15,6 +15,7 @@ void func_8036C0B0_77D760(void) {
     s16 sp86;
     s16 sp84;
     s16 sp82;
+    u8  tmp;
     s32 pad[2];
 
     if (D_803D553A == 4) {
@@ -27,7 +28,8 @@ void func_8036C0B0_77D760(void) {
         } else {
             phi_v0 = 0;
         }
-        if (phi_v0 != 0) {
+
+        if (phi_v0) {
             sp82 = 0;
             D_803F2EDD = 0;
             goto done;
@@ -81,8 +83,8 @@ done:
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(0xC8);
-        if (D_803D5528->unk3C4 == 12) {
-            sp94 = FTOFIX32(1.0) - ((D_803D5528->unk3C6 << 0x10) / 0x14);
+        if (D_803D5528->unk3C0.unk4 == 12) {
+            sp94 = FTOFIX32(1.0) - ((D_803D5528->unk3C0.unk6 << 0x10) / 0x14);
         } else {
             sp94 = FTOFIX32(1.0);
         }
@@ -130,7 +132,7 @@ done:
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) &&
-            (((D_803D5538 != 0)) || ((D_803F2AA2 == 0)) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 >= 0xB))) &&
+            ((D_803D5538 != 0) || ((tmp = D_803F2AA2, tmp == 0)) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
             func_80127640(
@@ -154,8 +156,12 @@ done:
 
             func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000230);
             // same line for regalloc
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 19, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000370); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 26, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040004B0); }
+#pragma _permuter sameline end
             if (sp94 != 0) {
                 func_802C78B0_6D8F60(0, 22, (sp94 << 6) >> 6, (sp94 << 6) >> 6, (sp94 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000600);
                 func_802C78B0_6D8F60(0, 24, (sp94 << 6) >> 6, (sp94 << 6) >> 6, (sp94 << 6) >> 6, D_803F2ED0, 0, 1, 0, D_04000600);
@@ -222,8 +228,10 @@ done:
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
+#pragma _permuter sameline start
                 // same line for regalloc
-                sp86 = D_803BD54A_7CEBFA[sp86]; sp84 = D_803C29FE[sp84];
+                sp86 = D_803BD54A_7CEBFA[sp86]; sp84 = D_803BD602_7CECB2[sp84];
+#pragma _permuter sameline end
                 func_80356BD8_768288(D_01000CC0, D_01000620, sp86);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000DB0);
                 func_80356BD8_768288(D_01000CC0, D_01000620, sp84);
@@ -235,7 +243,7 @@ done:
     } else {
         func_8035D6D0_76ED80();
     }
-    if (D_803D552C->unk320 != 0) {
+    if (D_803D552C->unk320 != NULL) {
         func_80321B70_733220(0, 0, 0);
         D_803D552C->unk320->unk68 = D_803D5530->unk68;
         D_803D552C->unk320->unk70 = D_803D5530;

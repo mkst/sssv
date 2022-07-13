@@ -117,12 +117,9 @@ void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
 }
 
 void func_80303F90_715640(Animal *arg0, DisplayList *arg1) {
-    s16 i = 0;
-    while (arg0->unkD0.m[i][0] != 0) {
+    s16 i;
+    for (i = 0; (i < 5) && (arg0->unkD0.m[i][0] != 0); i++) {
         func_80303D68_715418(arg0, i, arg1);
-        if (++i > 4) {
-            break;
-        }
     }
 }
 

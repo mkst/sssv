@@ -67,7 +67,7 @@ void func_8038B330_79C9E0(void) {
 }
 
 void func_8038B730_79CDE0(void) {
-    D_803D5528->unk3C0 = 0;
+    D_803D5528->unk3C0.unk0 = 0;
     D_803D552C->unk30C = 1;
     if (D_803D5530->unk4A != 0) {
         D_803D552C->unk30C = 0;

@@ -494,7 +494,372 @@ void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {
     }
 }
 
+#if 0
+void func_802D7BE0_6E9290(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, u16 color) {
+
+    s16 spBE;
+    s16 spBC;
+    s16 spBA;
+
+    s16 temp_s4;
+    s16 temp_s5;
+    s16 temp_s6;
+    s16 temp_s7;
+
+    s16 pitch;
+    s16 i;      // spAE
+    s16 j;
+
+    if (arg5 < 2) {
+        arg5 = 2;
+    }
+
+    if (arg5 < 17) {
+        spBC = 0;
+    } else if ((arg5 > 16) && (arg5 <= 32)) {
+        spBC = 1;
+    } else if (arg5 > 31) {
+        spBC = 2;
+    }
+
+    spBE = SSSV_RAND(2) + spBC + 1;
+    if (spBE > 7) {
+        spBE = 7;
+    }
+
+    spBA = arg5 / 4;
+    if (spBA < 4) {
+        spBA = 4;
+    }
+    if (spBA > 24) {
+        spBA = 24;
+    }
+
+    if (arg1 & 1) {
+        func_802D5B88_6E7238(
+            arg2,
+            arg3,
+            arg4,
+            arg0 * 3,
+            SSSV_RAND(16) + (spBC * 40) + 20,
+            0,
+            0,
+            0);
+        do_rumble(
+            0,
+            (spBC * 20) + 20,
+            (spBC * 20) + 40,
+            (spBC * 4) + 4,
+            distance_from_player(arg2, arg3, arg4));
+    }
+
+    for (i = 0; i < spBE; i++) {
+
+        temp_s6 = (((guRandom() % arg5) * 2) + arg2) - arg5;
+        temp_s5 = (((guRandom() % arg5) * 2) + arg3) - arg5;
+        temp_s4 = (((guRandom() % arg5) * 2) + arg4) - arg5;
+        temp_s7 = (guRandom() % 3) + ((SSSV_RAND(2)) * 3);
+
+        if (arg1 & 0x20) {
+            for (j = 0; j < 4; j++) {
+                func_802D5B88_6E7238(
+                    (SSSV_RAND(16) + temp_s6) - 6,
+                    (SSSV_RAND(16) + temp_s5) - 6,
+                    (SSSV_RAND(16) + temp_s4) - 6,
+                    28,
+                    (SSSV_RAND(8)) + 7,
+                    0,
+                    0,
+                    0);
+            }
+        }
+
+        if (arg1 & 1) {
+            if (SSSV_RAND(4) == 0) {
+                func_802D5B88_6E7238(
+                    temp_s6,
+                    temp_s5,
+                    temp_s4,
+                    temp_s7,
+                    SSSV_RAND(16) + (((spBC * 40) + 20) >> 1),
+                    GPACK_RGBA5551(255, 220 - SSSV_RAND(64), 0, 0),
+                    GPACK_RGBA5551(255, SSSV_RAND(128) + 60, 0, 0),
+                    SSSV_RAND(8));
+            } else {
+                func_802D5B88_6E7238(
+                    temp_s6,
+                    temp_s5,
+                    temp_s4,
+                    temp_s7,
+                    SSSV_RAND(16) + (((spBC * 40) + 20) >> 1),
+                    GPACK_RGBA5551(255, 220 - SSSV_RAND(64), 0, 0),
+                    GPACK_RGBA5551(255, 0, 0, 0),
+                    SSSV_RAND(8));
+            }
+        }
+        if (arg1 & 2) {
+            create_particle_effect(
+                (((guRandom() % arg5) * 2) + arg2) - arg5,
+                (((guRandom() % arg5) * 2) + arg3) - arg5,
+                (((guRandom() % arg5) * 2) + arg4),
+                48,
+                0,
+                0,
+                (SSSV_RAND(32) * 4) + 0x20000,
+                2,
+                GPACK_RGBA5551(SSSV_RAND(64) + 20, SSSV_RAND(64), SSSV_RAND(64), 0),
+                GPACK_RGBA5551(SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, 0),
+                SSSV_RAND(16));
+            create_particle_effect(
+                (((guRandom() % arg5) * 2) + arg2) - arg5,
+                (((guRandom() % arg5) * 2) + arg3) - arg5,
+                (((guRandom() % arg5) * 2) + arg4),
+                48,
+                0,
+                0,
+                (SSSV_RAND(32) * 4) + 0x20000,
+                2,
+                GPACK_RGBA5551(SSSV_RAND(64) + 20, SSSV_RAND(64), SSSV_RAND(64), 0),
+                GPACK_RGBA5551(SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, 0),
+                SSSV_RAND(16));
+        }
+        if (arg1 & 4) {
+            // sp7C = arg4 + 20;
+            // temp_lo = (360 / spBE) * i;
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                40,
+                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 8,
+                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 8,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                (SSSV_RAND(8)) + 2,
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                0);
+
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                0x28,
+                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                (SSSV_RAND(8)) + 2,
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                0);
+
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                0x28,
+                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                (SSSV_RAND(8)) + 2,
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                0);
+
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                0x28,
+                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                (SSSV_RAND(8)) + 2,
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                0);
+
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                0x28,
+                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                (SSSV_RAND(8)) + 2,
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
+                0);
+        }
+        if (arg1 & 8) {
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                ((guRandom() % 6) + 0x47),
+                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                SSSV_RAND(32) + (spBC * 0xA),
+                color,
+                func_8029A568_6ABC18(color),
+                0);
+            if ((arg1 & 4) == 0) {
+                create_particle_effect(
+                    arg2,
+                    arg3,
+                    arg4 + 20,
+                    ((guRandom() % 6) + 0x47),
+                    (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                    (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                    (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                    SSSV_RAND(32) + spBC * 0xF,
+                    color,
+                    func_8029A568_6ABC18(color),
+                    0);
+                if (spBC > 0) {
+                    create_particle_effect(
+                        arg2,
+                        arg3,
+                        arg4 + 20,
+                        ((guRandom() % 6) + 0x47),
+                        (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                        SSSV_RAND(32) + spBC * 0xF,
+                        color,
+                        func_8029A568_6ABC18(color),
+                        0);
+                }
+                if (spBC >= 2) {
+                    create_particle_effect(
+                        arg2,
+                        arg3,
+                        arg4 + 20,
+                        ((guRandom() % 6) + 0x47),
+                        (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                        SSSV_RAND(32) + spBC * 0xF,
+                        color,
+                        func_8029A568_6ABC18(color),
+                        0);
+                }
+            }
+        }
+        if (arg1 & 0x10) {
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                (guRandom() % 6) + 0x4D,
+                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                SSSV_RAND(32) + spBC * 0xA,
+                color,
+                func_8029A568_6ABC18(color),
+                0);
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                (guRandom() % 6) + 0x4D,
+                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                SSSV_RAND(32) + spBC * 0xA,
+                color,
+                func_8029A568_6ABC18(color),
+                0);
+
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                (guRandom() % 6) + 0x4D,
+                (D_80152350.unk2D0[(s16) ((guRandom() % 0xB4) + ((360 / spBE) * i))] * spBA) << 7,
+                (D_80152350.unk384[(s16) ((guRandom() % 0xB4) + ((360 / spBE) * i))] * spBA) << 7,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                SSSV_RAND(32) + spBC * 0xA,
+                color,
+                func_8029A568_6ABC18(color),
+                0);
+
+            create_particle_effect(
+                arg2,
+                arg3,
+                arg4 + 20,
+                (guRandom() % 6) + 0x4D,
+                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                SSSV_RAND(32) + spBC * 0xA,
+                color,
+                func_8029A568_6ABC18(color), // reduce to 25%
+                0);
+            if ((arg1 & 4) == 0) {
+                create_particle_effect(
+                    arg2,
+                    arg3,
+                    arg4 + 20,
+                    (guRandom() % 6) + 0x4D,
+                    (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                    (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                    (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                    SSSV_RAND(32) + spBC * 0xF,
+                    color,
+                    func_8029A568_6ABC18(color),
+                    0);
+                if (spBC > 0) {
+                    create_particle_effect(
+                        arg2,
+                        arg3,
+                        arg4 + 20,
+                        (guRandom() % 6) + 0x4D,
+                        (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                        SSSV_RAND(32) + spBC * 0xF,
+                        color,
+                        func_8029A568_6ABC18(color),
+                        0);
+                }
+                if (spBC >= 2) {
+                    create_particle_effect(
+                        arg2,
+                        arg3,
+                        arg4 + 20,
+                        (guRandom() % 6) + 0x4D,
+                        (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                        SSSV_RAND(32) + spBC * 0xF,
+                        color,
+                        func_8029A568_6ABC18(color),
+                        0);
+                }
+            }
+        }
+    }
+
+    // pitch?
+    if (spBC == 0) {
+        pitch = 0x5000;
+    }
+    if (spBC == 1) {
+        pitch = 0x6800;
+    }
+    if (spBC == 2) {
+        pitch = 0x7FFF;
+    }
+    if ((arg1 & 0x40) == 0) {
+        play_sound_effect_at_location(SFX_UNKNOWN_75, pitch, 0x80, arg2, arg3, arg4, 1.0f);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D7BE0_6E9290.s")
+#endif
 
 void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
     s16 tmp0;

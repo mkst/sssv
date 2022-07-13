@@ -71,19 +71,22 @@
 // }
 
 // only cool_cod + pirana
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714500/func_8030322C_7148DC.s")
-// likely uses macro as whitespace affects codegen :(
-// void func_8030322C_7148DC(s16 arg0, s32 arg1) {
-//     s16 tmp;
-//     s16 temp_v1;
-//     s32 temp_t2;
-//     s32 temp_t6;
-//
-//     tmp = D_80203FE0[arg0].unk2; temp_t6 = D_80152C78[arg1 & 0xFF] >> 7; temp_t2 = D_80152C78[(arg1 + 0x40) & 0xFF] >> 7;
-//
-//     D_80203FE0[arg0].unk2 = (((temp_t6 * D_80203FE0[arg0].unk4) + (tmp * temp_t2))) >> 8;
-//     D_80203FE0[arg0].unk4 = (((D_80203FE0[arg0].unk4 * temp_t2) - (temp_t6 * tmp))) >> 8;
-// }
+void func_8030322C_7148DC(s16 idx, s16 angle) {
+    s16 temp_v1;
+    s32 temp_t2;
+    s32 temp_t6;
+    struct061 *temp_v0;
+    s32 fakematch;
+
+    temp_v0 = &D_80203FE0[idx];
+    // sameline for regalloc
+    temp_v1 = temp_v0->unk4; temp_t6 = D_80152C78[angle & 0xFF] >> 7;
+    temp_t2 = D_80152C78[(angle + 0x40) & 0xFF] >> 7;
+
+    temp_v0->unk2 = ((temp_v1 * (fakematch = temp_t6)) + (temp_v0->unk2 * temp_t2)) >> 8;
+    temp_v0->unk4 = ((temp_t2 * temp_v1) - (temp_t6 * temp_v0->unk2)) >> 8;
+}
+
 
 void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2) {
     s16 temp_v0;

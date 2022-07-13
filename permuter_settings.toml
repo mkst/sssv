@@ -2,9 +2,14 @@
 "g[DS]P.*" = "void"
 "G_IM_SIZ_.*" = "int"
 "G_[AC]C.*" = "int"
+"G_MTX_.*" = "int"
 "SP_UCODE_DATA_SIZE" = "int"
 "FRUSTRATIO_.*" = "int"
 "FR_[PN].*" = "int"
+"MIN" = "int"
+"MAX" = "int"
+"ABS" = "int"
+"SFX_.*" = "int"
 
 [decompme.compilers]
 "tools/ido5.3_recomp/cc" = "ido5.3"
