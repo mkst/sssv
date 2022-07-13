@@ -53,6 +53,7 @@ extern void             __CSPHandleMetaMsg(ALCSPlayer *seqp, ALEvent *event);
 extern void             __CSPRepostEvent(ALEventQueue *evtq, ALEventListItem *item);
 extern void             __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo);        /* sct 1/8/96 */
 
+extern void             func_801352E8(void);
 extern void             func_80135518(ALCSPlayer *seqp);
 
 void alCSPNew(ALCSPlayer *seqp, ALSeqpConfig *c)
@@ -863,7 +864,38 @@ void __setUsptFromTempo(ALCSPlayer *seqp, f32 tempo) {
 #endif
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/audio/csplayer/func_801352E8.s")
+void func_801352E8(void) {
+    s8 temp_t3;
+    s8 i;
+
+    for (i = 0; i < 1; i++) {
+        if ((u8)D_80155168[i] == 1) {
+            // fakematch
+            s32 curTime = ((0, D_802863C8[i]->curTime - D_80155160)) / D_802863C8[i]->uspt;
+            D_80286560 = ((s32) ((D_802863CC[i]->qnpt * curTime) * 64.0)) & 0x3F;
+        }
+
+        if (D_80155164[i] != -1) {
+            if (((u8)D_80155168[i] == 1) && (D_80155170 != D_80155164[i])) {
+                func_80132C48(i);
+            } else if (func_8013266C(i) == 0) {
+                if (i < 2) {
+                    if (D_80155170 == D_80155164[i]) {
+                        D_80155164[i] = -1; // disable?
+                        D_80155174 += 1;
+                        break;
+                    }
+                    temp_t3 = (i + 1) % 2;
+                    if ((u8)D_80155168[temp_t3] == 1) {
+                        func_80132C48(temp_t3);
+                    }
+                }
+                func_801326A8(D_80155164[i] - 1, i);
+                D_80155164[i] = -1;
+            }
+        }
+    }
+}
 
 void func_80135518(ALCSPlayer *seqp) {
     f32 tmp;

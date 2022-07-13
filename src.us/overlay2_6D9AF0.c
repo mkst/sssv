@@ -51,7 +51,7 @@ void func_802C85EC_6D9C9C(void) {
 
 void func_802C87E0_6D9E90(void) {
     D_80204278->usedHilites = 0;
-    D_80204278->unk3891C = 0;
+    D_80204278->usedVtxs = 0;
     D_803E1B04 = 0;
     D_803F3310 = 0;
     if (D_803F2D10.unk0 == 0) {
@@ -643,6 +643,7 @@ void func_802C9900_6DAFB0(struct071 *arg0, s32 arg1, u8 arg2) {
     arg0->unk24C[arg2] = arg1;
 }
 
+// __ll_mul
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9918_6DAFC8.s")
-
+// __ll_mul
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9BA4_6DB254.s")

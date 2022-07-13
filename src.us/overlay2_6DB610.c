@@ -1,8 +1,303 @@
 #include <ultra64.h>
 #include "common.h"
 
+void func_802CB180_6DC830(Animal *arg0);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DB610/func_802C9F60_6DB610.s")
+#if 0
+void func_802C9F60_6DB610(Animal *arg0) {
+    s32 sp34;
+    s32 sp30;
+    s32 sp2C;
+    s16 sp2A;
+    s16 temp_v0_10;
+    s16 temp_v0_11;
+    s16 temp_v0_12;
+    s16 temp_v0_7;
+    s16 temp_v0_8;
+    s16 temp_v0_9;
+    s16 temp_v1;
+    s16 temp_v1_3;
+    s32 temp_v0_2;
+    s32 temp_v0_3;
+    s32 temp_v0_4;
+    s32 temp_v0_5;
+    s32 temp_v0_6;
+    s32 var_t2;
+    u16 temp_v0;
+    u16 temp_v0_14;
+    u16 temp_v1_2;
+    u32 var_v0;
+    u32 var_v0_2;
+    u8 temp_t3;
+    u8 temp_t3_2;
+    u8 temp_v0_13;
+
+    if (arg0->unk4A == 0) {
+        if ((arg0->state == 0x1E) || (arg0->state == 0x1F)) {
+            arg0->unk6C = 0;
+            arg0->unk70 = 0;
+            arg0->unk68 = 0;
+            return;
+        }
+
+        sp34 = arg0->xPos.w;
+        sp30 = arg0->zPos.w;
+        sp2C = arg0->yPos.w;
+
+        if (arg0->unk4C.unk29) {
+            // temp_t3 = arg0->unk162;
+            switch (arg0->unk162) {                      /* switch 1 */
+            case 1:                                 /* switch 1 */
+                arg0->yVelocity.w = (s32) (arg0->yVelocity.w - D_803A05B0_7B1C60);
+                switch (func_8030AA90_71C140(arg0)) {                /* switch 3; irregular */
+                case 0:                             /* switch 3 */
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                case 1:                             /* switch 3 */
+                    arg0->unk162 = 3U;
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                case 2:                             /* switch 3 */
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                }
+                break;
+            case 3:                                 /* switch 1 */
+                // temp_v0_3 = func_8030AA90_71C140(arg0);
+                switch (func_8030AA90_71C140(arg0)) {                /* switch 4; irregular */
+                case 0:                             /* switch 4 */
+                    if (func_802A7648_6B8CF8(arg0) != 0) {
+                        arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    }
+                    break;
+                case 1:                             /* switch 4 */
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                case 2:                             /* switch 4 */
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                }
+                break;
+            case 5:                                 /* switch 1 */
+                arg0->yVelocity.w = (s32) (arg0->yVelocity.w - ((s32) D_803A05B0_7B1C60 >> 4));
+                temp_v0_4 = func_8030AA90_71C140(arg0);
+                switch (temp_v0_4) {                /* switch 5; irregular */
+                case 0:                             /* switch 5 */
+                    if (func_802A7648_6B8CF8(arg0) != 0) {
+                        arg0->yVelocity.w = (s32) (arg0->yPos.w - sp2C);
+                    }
+                    break;
+                case 1:                             /* switch 5 */
+                    arg0->yVelocity.w = (s32) (arg0->yPos.w - sp2C);
+                    break;
+                case 2:                             /* switch 5 */
+                    arg0->yVelocity.w = (s32) (arg0->yPos.w - sp2C);
+                    break;
+                }
+                break;
+            case 6:                                 /* switch 1 */
+                temp_v0_5 = func_8030AA90_71C140(arg0);
+                switch (temp_v0_5) {                /* switch 6; irregular */
+                case 0:                             /* switch 6 */
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                case 1:                             /* switch 6 */
+                //  < 0
+                    if (arg0->unk16C->unk80.bit) {
+                        arg0->unk162 = 5U;
+                    } else {
+                        arg0->unk162 = 7U;
+                    }
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                case 2:                             /* switch 6 */
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                }
+                break;
+            case 7:                                 /* switch 1 */
+                // temp_v0_6 = func_8030AA90_71C140(arg0);
+                switch (func_8030AA90_71C140(arg0)) {                /* switch 7; irregular */
+                case 0:                             /* switch 7 */
+                    if (func_802A7648_6B8CF8(arg0) != 0) {
+                        arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    }
+                    break;
+                case 1:                             /* switch 7 */
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                case 2:                             /* switch 7 */
+                    // var_t2 = arg0->yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->yPos.w - sp2C;
+                    break;
+                }
+                break;
+            }
+        }
+        sp2A = func_80298F78_6AA628((s16) arg0->xPos.h, (s16) arg0->zPos.h);
+
+        switch (arg0->unk162) {                        /* switch 2 */
+        case 1:                                     /* switch 2 */
+            // var_v0 = (u32) (arg0->unk4C << 0x1C) >> 0x1F;
+            // var_v0 = arg0->unk4C.unk28;
+            if (arg0->unk4C.unk28 != 0) {
+                if (arg0->unk161 != 1) {
+                    func_80311A2C_7230DC(arg0->xPos.h, arg0->zPos.h, &D_803D5510, &D_803D5512, (s32) arg0->unk160);
+                    // temp_v1 = D_803D5510;
+                    if (D_803D5510 > 0x18) {
+                        D_803D5510 = 0x18;
+                    } else if (D_803D5510 < -0x18) {
+                        D_803D5510 = -0x18;
+                    }
+                    // temp_v0_8 = D_803D5512;
+                    if (D_803D5512 > 0x18) {
+                        D_803D5512 = 0x18;
+                    } else if (D_803D5512 < -0x18) {
+                        D_803D5512 = -0x18;
+                    }
+                    arg0->xVelocity.w += D_803D5510 << 0xC;
+                    arg0->zVelocity.w += D_803D5512 << 0xC;
+                }
+                func_802CA8D4_6DBF84(arg0);
+                func_802A3E70_6B5520(arg0, &arg0->xVelocity, &arg0->zVelocity);
+                // var_v0 = (u32) (arg0->unk4C << 0x1C) >> 0x1F;
+                var_v0 = arg0->unk4C.unk28;
+            }
+            if ((arg0->unk4C.unk28 != 0) && (((s16) arg0->yPos.h + ((s32) arg0->unk42 >> 1)) < sp2A)) {
+                // 2 < 0
+                if (arg0->unk16C->unk80.bit) {
+                    arg0->unk162 = 5U;
+                } else {
+                    arg0->unk162 = 7U;
+                }
+                func_802D760C_6E8CBC((s16) arg0->xPos.h, (s16) arg0->zPos.h, (s16) arg0->yPos.h, arg0->unk30, (s32) (s16) arg0->yVelocity.w);
+            }
+            break;
+        case 3:                                     /* switch 2 */
+            if (arg0->unk4C.unk29) {
+                // temp_v1_2 = arg0->unk16C->objectType;
+                if ((arg0->unk16C->objectType == 38) || (arg0->unk16C->objectType == 177)) {
+                    arg0->yVelocity.w = arg0->yVelocity.w - ((s32) D_803A05B0_7B1C60 >> 3);
+                } else {
+                    arg0->yVelocity.w = arg0->yVelocity.w - D_803A05B0_7B1C60;
+                }
+                if ((arg0->yPos.h + (arg0->unk42 >> 1)) < sp2A) {
+                    // 2 < 0
+                    if (arg0->unk16C->unk80.bit) {
+                        arg0->unk162 = 5U;
+                    } else {
+                        arg0->unk162 = 7U;
+                    }
+                    func_802D760C_6E8CBC(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30, (s32) (s16) arg0->yVelocity.h);
+                }
+            }
+            break;
+        case 5:                                     /* switch 2 */
+            if (arg0->unk4C.unk28) {
+                func_802A403C_6B56EC(arg0, 4);
+            }
+            if (arg0->unk4C.unk29) {
+                func_802CAACC_6DC17C(arg0, sp2A);
+            }
+            break;
+        case 6:                                     /* switch 2 */
+            if (arg0->unk4C.unk28) {
+                func_802A403C_6B56EC(arg0, 3);
+                if (arg0->unk161 != 1) {
+                    func_80311A2C_7230DC((s16) arg0->xPos.h, (s16) arg0->zPos.h, &D_803D5510, &D_803D5512, (s32) arg0->unk160);
+                    if (D_803D5510 > 0x18) {
+                        D_803D5510 = 0x18;
+                    } else if (D_803D5510 < -0x18) {
+                        D_803D5510 = -0x18;
+                    }
+                    if (D_803D5512 > 0x18) {
+                        D_803D5512 = 0x18;
+                    } else if (D_803D5512 < -0x18) {
+                        D_803D5512 = -0x18;
+                    }
+                    arg0->xVelocity.w = (s32) (arg0->xVelocity.w + (D_803D5510 << 0xC));
+                    arg0->zVelocity.w = (s32) (arg0->zVelocity.w + (D_803D5512 << 0xC));
+                }
+                func_802CA8D4_6DBF84(arg0);
+                func_802A3E70_6B5520(arg0, &arg0->xVelocity.h, &arg0->zVelocity.h);
+            }
+            if (sp2A < (arg0->yPos.h + ((s32) arg0->unk42 >> 1))) {
+                arg0->unk162 = 1U;
+            }
+            func_802CB180_6DC830(arg0);
+            break;
+        case 7:                                     /* switch 2 */
+            if (arg0->unk4C.unk28) {
+                func_802A403C_6B56EC(arg0, 3);
+            }
+            if (arg0->unk4C.unk29) {
+                arg0->yVelocity.w = (s32) (arg0->yVelocity.w - ((s32) D_803A05B0_7B1C60 >> 2));
+                if (sp2A < (arg0->yPos.h + (arg0->unk42 >> 1))) {
+                    arg0->unk162 = 3U;
+                }
+            }
+            func_802CB180_6DC830(arg0);
+            break;
+        }
+        // hard borders
+        if (arg0->xPos.h < 64) {
+            arg0->xPos.h = 64;
+            arg0->xVelocity.w = 0;
+            arg0->unk54 = (u8) (arg0->unk54 | 0xA);
+        }
+        if (arg0->zPos.h < 64) {
+            arg0->zPos.h = 64;
+            arg0->zVelocity.w = 0;
+            arg0->unk54 = (u8) (arg0->unk54 | 0xA);
+        }
+        if (arg0->xPos.h > 0x11BF) {
+            arg0->xPos.h = 0x11BF; // 4543
+            arg0->xVelocity.w = 0;
+            arg0->unk54 = (u8) (arg0->unk54 | 0xA);
+        }
+        if (arg0->zPos.h > 0x1FBF) {
+            arg0->zPos.h = 0x1FBF; // 8127
+            arg0->zVelocity.w = 0;
+            arg0->unk54 = (u8) (arg0->unk54 | 0xA);
+        }
+        if ((sp34 != arg0->xPos.w) || (sp30 != arg0->zPos.w) || (sp2C != arg0->yPos.w)) {
+            arg0->unk4C.unk24 &= 1; //(u8) (arg0->unk4C.unk24  | 0x80);
+        } else {
+            arg0->unk4C.unk24 &= -1; //(u8) (arg0->unk4C.unk24  & 0xFF7F);
+        }
+        var_v0_2 = (u8) arg0->unk4C.unk24  >> 7;
+        if (arg0->unk4C.unk24 != 0) {
+            arg0->unk28 += arg0->unk38;
+            arg0->unk2A += arg0->unk3A;
+            arg0->yRotation += arg0->unk3C;
+            if (arg0->unk28 < 0) {
+                arg0->unk28 += 360;
+            } else if (arg0->unk28 >= 360) {
+                arg0->unk28 -= 360;
+            }
+            if (arg0->unk2A < 0) {
+                arg0->unk2A += 360;
+            } else if (arg0->unk2A >= 360) {
+                arg0->unk2A -= 360;
+            }
+            if (arg0->yRotation < 0) {
+                arg0->yRotation += 360;
+            } else if (arg0->yRotation >= 360) {
+                arg0->yRotation -= 360;
+            }
+            var_v0_2 = (u8) arg0->unk4C.unk24  >> 7;
+        }
+        //  >= 0
+        if ((arg0->unk4C.unk24 = 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk80.bit))) && (arg0->unk68 == 0) && (arg0->unk70 == 0) && (arg0->unk1A8 == 0)) {
+
+            if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->unk154 == 0)) {
+                arg0->unk4C.unk24  = (u8) (arg0->unk4C.unk24  & 0xFFBF);
+            }
+        }
+    }
+}
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DB610/func_802CA8D4_6DBF84.s")
 

@@ -23,10 +23,10 @@ void func_80382CF0_7943A0(void) {
 
     if (D_803D5538 != 0) {
         if ((ABS(D_803D5530->xVelocity.h) + ABS(D_803D5530->zVelocity.h)) > 10) {
-            s16 tmp = func_8031124C_7228FC(
+            s32 tmp = func_8031124C_7228FC(
                 D_803D5530->xPos.h + ((D_803D5530->xVelocity.h * 3) >> 1),
-                D_803D5530->zPos.h + ((D_803D5530->zVelocity.h * 3) >> 1));
-            if ((D_803D5530->yPos.h + 0x60) < (tmp >> 16)) {
+                D_803D5530->zPos.h + ((D_803D5530->zVelocity.h * 3) >> 1)) >> 16;
+            if ((D_803D5530->yPos.h + 0x60) < tmp) {
                 D_803D5530->xVelocity.h = -D_803D5530->xVelocity.h >> 1;
                 D_803D5530->zVelocity.h = -D_803D5530->zVelocity.h >> 1;
                 do_rumble(0, 0xD, 0x19, 5, 0);
@@ -63,7 +63,7 @@ void func_80382CF0_7943A0(void) {
     switch (D_803D5538) {
     case 1:
     default:
-        if ((D_803F2D50.segment == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+        if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
             phi_t0_2 = 1;
         } else {
             phi_t0_2 = 0;
@@ -75,7 +75,7 @@ void func_80382CF0_7943A0(void) {
         }
         // fallthrough
     case 0:
-        if ((D_803F2D50.segment == D_803D5524->biome) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+        if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
             phi_t0_2 = 1;
         } else {
             phi_t0_2 = 0;
@@ -102,16 +102,12 @@ void func_80382CF0_7943A0(void) {
             func_80302E50_714500(500, 500, 500);
             if (D_803D5530->state == 0x3F) {
                 // stuff is wrong around here
-                if (new_var = (D_803D552C->unk308++) > 40) {
-                    phi_a2 = 40;
-                } else {
-                    phi_a2 = D_803D552C->unk308++;
-                }
+                phi_a2 = 40 - MIN(40, D_803D552C->unk308++) * 2;
 
-                func_8030322C_7148DC(0, -((phi_a2 * 2) - 0x28));
-                func_8030322C_7148DC(1, -((phi_a2 * 2) - 0x28));
-                func_8030322C_7148DC(2, -((phi_a2 * 2) - 0x28));
-                func_8030322C_7148DC(3, -((phi_a2 * 2) - 0x28));
+                func_8030322C_7148DC(0, phi_a2);
+                func_8030322C_7148DC(1, phi_a2);
+                func_8030322C_7148DC(2, phi_a2);
+                func_8030322C_7148DC(3, phi_a2);
             }
         }
         if (D_803F2ECC != 0) {

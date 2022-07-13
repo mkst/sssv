@@ -172,7 +172,7 @@ u16 func_8029A52C_6ABBDC(u8 arg0) {
     return tmp;
 }
 
-u16 func_8029A568_6ABC18(s16 arg0) {
+s32 func_8029A568_6ABC18(s16 arg0) {
     u16 r;
     u16 g;
     u16 b;
@@ -187,7 +187,7 @@ u16 func_8029A568_6ABC18(s16 arg0) {
     g = (((arg0 & 0x07C0) >> 7) << 5)   & 0x07C0;
     r = (((arg0 & 0xF800) >> 12) << 10) & 0xF800;
 
-    return b | g | r;
+    return (b | g | r) & 0xFFFF;
 }
 
 void set_fog_factor_and_color(Gfx **dl, u8 r, u8 g, u8 b) {

@@ -237,14 +237,15 @@ extern u32  D_80151430;
 extern u16  D_80151434; // kinda random number?
 extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 
-extern f32  D_80151C38[];
-extern s16  D_80152620[];
-extern s16  D_801526D4[];
-extern s16  D_80152C78[];
+
 extern s16  D_80152040[];
 extern s16  D_80152212[];
 extern s8   D_80152248[];
 extern struct013 D_80152350;
+extern s16  D_80152620[]; // these are D_80152350.unk2D0
+extern s16  D_801526D4[]; // these are D_80152350.unk384
+extern f32  D_80151C38[];
+extern s16  D_80152C78[];
 extern u32  D_80152E80; // gRandomSeed
 extern u8   D_80152E90;
 extern u8   D_80152E98;
@@ -285,10 +286,12 @@ extern f32  D_801546E8[];
 extern s16  D_801550F8[];
 extern s32  gAudioInitialized;
 extern s32  D_8015515C;
+extern s32  D_80155160;
 extern s8   D_80155164[];
 extern s8   D_80155168[]; // is this u8?
 extern s16  D_8015516C[];
 extern s8   D_80155170;
+extern s8   D_80155174;
 extern u8   D_80155178; // Wet/dry mix
 extern f32  D_8015517C;
 extern s16  D_80155180;
@@ -376,14 +379,15 @@ extern struct080 D_801E1ED8;
 
 // all of these might be part of D_801D9ED8
 extern s16  D_801E9E80; // D_801D9ED8.unkFFA8
-extern u16  D_801E9E8A; // D_801D9ED8.FFB2
-extern u16  D_801E9E8E; // D_801D9ED8.FFB6
-extern u16  D_801E9E90; // D_801D9ED8.FFB8
-extern s8   D_801E9EB0; // D_801D9ED8.FFD8 // controller x
-extern s8   D_801E9EB1; // D_801D9ED8.FFD9 // controller y
-extern s16  D_801E9EB2; // D_801D9ED8.FFDA // force? duration of controller input?
-extern s16  D_801E9EB4; // D_801D9ED8.FFDC
-extern s16  D_801E9EB6; // D_801D9ED8.FFDE // bear/gorilla use this
+extern u16  D_801E9E8A; // D_801D9ED8.unkFFB2
+extern u16  D_801E9E8E; // D_801D9ED8.unkFFB6
+extern u16  D_801E9E90; // D_801D9ED8.unkFFB8
+extern s16  D_801E9EA6; // D_801D9ED8.unkFFCE
+extern s8   D_801E9EB0; // D_801D9ED8.unkFFD8 // controller x
+extern s8   D_801E9EB1; // D_801D9ED8.unkFFD9 // controller y
+extern s16  D_801E9EB2; // D_801D9ED8.unkFFDA // force? duration of controller input?
+extern s16  D_801E9EB4; // D_801D9ED8.unkFFDC
+extern s16  D_801E9EB6; // D_801D9ED8.unkFFDE // bear/gorilla use this
 
 extern Objects D_801E9EB8;
 
@@ -1011,8 +1015,8 @@ extern f32  D_803BE140_7CF7F0;
 extern f32  D_803BE144_7CF7F4;
 extern f32  D_803BE148_7CF7F8;
 
-extern f64  D_803BE5F8;
-extern f64  D_803BE600;
+extern f64  D_803BE5F8_7CFCA8;
+extern f64  D_803BE600_7CFCB0;
 extern char D_803BE920[]; // "load xlui texture - %d\n"
 extern char D_803BE940[]; // "%8d"
 extern char D_803BE944[]; // "%d"
@@ -1046,6 +1050,8 @@ extern f32  D_803BF028; // 0x3F333333
 extern f32  D_803BF02C; // 0x3F333333
 extern char D_803BF030[]; // "mapStatus12:%d %d\n"
 extern char D_803BF044[]; // "ATTACK ABANDONED\n"
+extern f64  D_803BF0C8_7D0778; // 0.2
+extern f64  D_803BF0D0_7D0780; // 1.3
 extern f32  D_803BF3E0;
 extern char D_803BFFD4_7D1684[]; // "%s\n"
 
@@ -1153,7 +1159,7 @@ extern s16  D_803D553E; // number of animals in level?
 extern s16  D_803D5540; // timer
 extern s16  D_803D5542; // timer
 extern u16  D_803D5544; // timer (for attacks? everything?)
-extern u16  D_803D5546;
+extern s16  D_803D5546;
 extern s16  D_803D5548;
 extern s8   D_803D554A;
 extern s8   D_803D554B;
@@ -1176,6 +1182,7 @@ extern u8   D_803D5575; // controller maginitude?
 extern s16  D_803D5578;
 extern s16  D_803D557A;
 extern s16  D_803D557C;
+extern f32  D_803D5580;
 extern s16  D_803D5590[360];
 extern s16  D_803D5860[360];
 extern s16  D_803D5B30[360];
@@ -1442,6 +1449,10 @@ extern char D_803F2D3E[]; // score as a string, e.g. "       0"
 
 extern struct000 D_803F2D50;
 
+extern s16  D_803F2D70;
+extern s16  D_803F2DA2;
+
+
 extern s16  D_803F2EE0[];
 extern u16  D_803F2EF0;
 extern s16  D_803F2E16;
@@ -1476,6 +1487,7 @@ extern s16  D_803F3330[]; // tbd
 extern s16  D_803F34C0[]; // tbd
 extern s16  D_803F63C0;
 extern u8   D_803F63C2;
+extern u16  D_803F63D0; // relates to D_803D5544
 extern s16  D_803F63E0;
 extern s16  D_803F63F0;
 extern s16  D_803F6400; // credit entry offset

@@ -488,10 +488,176 @@ void func_802BD358_6CEA08(s16 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BF3C0_6D0A70.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BFF84_6D1634.s")
+// void func_802BFF84_6D1634(struct103 *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7[8][3], s16 arg8[8][3], s8 argA) {
+//     s16 var_v0;
+//     u16 temp_t1;
+//     u16 temp_t7;
+//     s16 tmp;
+//     s16 tmp1, tmp2, tmp3;
+//
+//     if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+//         arg0->unk12++;
+//     }
+//
+//     switch (argA) {
+//     case 1:
+//         temp_t1 = (arg4 / 32);
+//         temp_t7 = (arg4 - (temp_t1 << 5));
+//         var_v0 = (((32 - temp_t7) * arg7[temp_t1][0]) + (arg7[(temp_t1 + 1) % 8][0] * temp_t7)) / 32;
+//         break;
+//     case 2:
+//         temp_t1 = (arg4 / 32);
+//         temp_t7 = (arg4 - (temp_t1 << 5));
+//         var_v0 = (((32 - temp_t7) * arg8[temp_t1][0]) + (arg8[(temp_t1 + 1) % 8][0] * temp_t7)) / 32;
+//         break;
+//     default:
+//         var_v0 = 0;
+//         break;
+//     }
+//
+//     switch (arg0->unk10) {                          /* switch 1 */
+//     case 1:                                         /* switch 1 */
+//     case 5:                                         /* switch 1 */
+//     case 6:                                         /* switch 1 */
+//     case 7:                                         /* switch 1 */
+//     case 8:                                         /* switch 1 */
+//     case 9:                                         /* switch 1 */
+//     case 10:                                        /* switch 1 */
+//     case 11:                                        /* switch 1 */
+//         break;
+//     case 2:                                         /* switch 1 */
+//     case 3:                                         /* switch 1 */
+//     case 4:                                         /* switch 1 */
+//         var_v0 = 0;
+//         break;
+//     }
+//     arg0->unk4 = var_v0;
+//
+//     switch (D_803D5530->state) {                    /* switch 2; irregular */
+//     case 0x1:                                       /* switch 2 */
+//     case 0x3:                                       /* switch 2 */
+//     case 0x4:                                       /* switch 2 */
+//     case 0x6:                                       /* switch 2 */
+//     case 0xB6:                                      /* switch 2 */
+//     case 0xB7:                                      /* switch 2 */
+//     case 0xB9:                                      /* switch 2 */
+//         tmp = ((256 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg6) / 512;
+//         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg6) - tmp;
+//         break;
+//     case 0x5:                                       /* switch 2 */
+//     case 0x65:                                      /* switch 2 */
+//     case 0x68:                                      /* switch 2 */
+//     case 0x69:                                      /* switch 2 */
+//     case 0xB8:                                      /* switch 2 */
+//         break;
+//     case 0x2:                                       /* switch 2 */
+//         break;
+//     default:                                        /* switch 2 */
+//         break;
+//     }
+//
+//     // close but no cigar...
+//
+//     tmp1 = D_80203FE0[arg2].unk0;
+//     tmp2 = D_80203FE0[arg2].unk2 - (arg5 * D_80152350.unk2D0[var_v0]) / 256;
+//     tmp3 = D_80203FE0[arg2].unk4 - (arg5 * D_80152350.unk384[var_v0]) / 256;
+//
+//     D_80203FE0[arg3].unk0 = tmp1;
+//     D_80203FE0[arg3].unk2 = tmp2;
+//     D_80203FE0[arg3].unk4 = tmp3;
+// }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C0364_6D1A14.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C13E4_6D2A94.s")
+// similar issues to func_802BFF84_6D1634
+// void func_802C13E4_6D2A94(struct103 *arg0, s32 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7[8][3], s16 arg8[8][3], s8 argA) {
+//     s16 temp_a1;
+//     s16 var_a1;
+//     u16 temp_t1;
+//     u16 temp_t8;
+//     s16 var_a0;
+//     s16 tmp;
+//     s16 tmp1;
+//
+//     if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+//         arg0->unk12++;
+//     }
+//
+//     switch (argA) {
+//     case 1:
+//         temp_t1 = arg4 / 32;
+//         temp_t8 = arg4 - (temp_t1 << 5);
+//         var_a0 = (((32 - temp_t8) * arg7[temp_t1][0]) + (arg7[(temp_t1 + 1) % 8][0] * temp_t8)) / 32;
+//         break;
+//     case 2:
+//         temp_t1 = arg4 / 32;
+//         temp_t8 = arg4 - (temp_t1 << 5);
+//         var_a0 = (((32 - temp_t8) * arg8[temp_t1][0]) + (arg8[(temp_t1 + 1) % 8][0] * temp_t8)) / 32;
+//         break;
+//     default:
+//         var_a0 = 0;
+//         break;
+//     }
+//
+//     switch (arg0->unk10) {                          /* switch 1 */
+//     case 1:                                         /* switch 1 */
+//     case 5:                                         /* switch 1 */
+//     case 6:                                         /* switch 1 */
+//     case 7:                                         /* switch 1 */
+//     case 8:                                         /* switch 1 */
+//     case 9:                                         /* switch 1 */
+//     case 10:                                        /* switch 1 */
+//     case 11:                                        /* switch 1 */
+//         var_a0 = var_a0;
+//         break;
+//     case 2:                                         /* switch 1 */
+//     case 3:                                         /* switch 1 */
+//     case 4:                                         /* switch 1 */
+//         var_a0 = 0;
+//         break;
+//     }
+//     arg0->unk4 = var_a0;
+//
+//     switch (D_803D5530->state) {                        /* switch 2; irregular */
+//     case 0x1:                                       /* switch 2 */
+//     case 0x3:                                       /* switch 2 */
+//     case 0x4:                                       /* switch 2 */
+//     case 0x6:                                       /* switch 2 */
+//     case 0xB6:                                      /* switch 2 */
+//     case 0xB7:                                      /* switch 2 */
+//     case 0xB9:                                      /* switch 2 */
+//         tmp = ((256 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg6) / 512;
+//         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg6) - tmp;
+//         break;
+//     case 0x5:                                       /* switch 2 */
+//     case 0x65:                                      /* switch 2 */
+//     case 0x68:                                      /* switch 2 */
+//     case 0x69:                                      /* switch 2 */
+//     case 0xB8:                                      /* switch 2 */
+//         break;
+//     case 0x2:                                       /* switch 2 */
+//         break;
+//     default:                                        /* switch 2 */
+//         break;
+//     }
+//
+//     // all goes wrong from here ...
+//
+//     var_a1 = D_80203FE0[arg2].unk0 - ((arg5 * D_80152350.unk2D0[var_a0]) >> 8);
+//     if ((arg2 == 3) || (arg2 == 5) || (arg2 == 8) || (arg2 == 14)) {
+//
+//     } else {
+//         var_a1 = D_80203FE0[arg2].unk0 + ((arg5 * D_80152350.unk2D0[var_a0]) >> 8);
+//     }
+//
+//     D_80203FE0[arg3].unk0 = var_a1;
+//     D_80203FE0[arg3].unk2 = D_80203FE0[arg2].unk2;
+//     D_80203FE0[arg3].unk4 = D_80203FE0[arg2].unk4 - ((arg5 * D_80152350.unk384[var_a0]) >> 8);
+//
+//     D_80203FE0[arg3].unk2 -= (((D_80152C78[arg4 & 0xFF] >> 7) >> 4) * arg5) >> 8;
+//     D_80203FE0[arg2].unk2 -= (((D_80152C78[arg4 & 0xFF] >> 7) >> 4) * arg5) >> 8;
+// }
 
 void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1) {
     func_802C19CC_6D307C(&D_803D5528->unk370, arg1->unk0, 3, 7, 0, arg0);
