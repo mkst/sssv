@@ -1,3 +1,5 @@
+compiler_type = "ido"
+
 [preserve_macros]
 "g[DS]P.*" = "void"
 "G_IM_SIZ_.*" = "int"
@@ -10,6 +12,8 @@
 "MAX" = "int"
 "ABS" = "int"
 "SFX_.*" = "int"
+"ATTACK_.*" = "int"
+"FTOFIX32" = "int"
 
 [decompme.compilers]
 "tools/ido5.3_recomp/cc" = "ido5.3"

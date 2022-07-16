@@ -15,6 +15,7 @@ void func_80382CF0_7943A0(void) {
     s16 sp84;
     s16 sp6A;
     s32 sp68;
+
     f64 temp_f2_2;
     s16 temp_a1_2;
     u8 phi_t0_2;
@@ -60,10 +61,9 @@ void func_80382CF0_7943A0(void) {
         }
     }
 
-    switch (D_803D5538) {
-    case 1:
-    default:
-        if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+    if (D_803D5538 != 0) {
+        if ((D_803D5524->biome == D_803F2D50.segment) ||
+            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
             phi_t0_2 = 1;
         } else {
             phi_t0_2 = 0;
@@ -71,28 +71,27 @@ void func_80382CF0_7943A0(void) {
         if (phi_t0_2 != 0) {
             sp8A = 0;
             D_803F2EDD = 0;
-            break;
+            goto done;
         }
-        // fallthrough
-    case 0:
-        if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            phi_t0_2 = 1;
-        } else {
-            phi_t0_2 = 0;
-        }
-        sp8A = func_802E89F0_6FA0A0(
-            D_803D552C->xPos.w,
-            D_803D552C->zPos.w,
-            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
-            0x800,
-            0,
-            60,
-            60,
-            120,
-            1,
-            phi_t0_2 == 0);
     }
-
+    if ((D_803D5524->biome == D_803F2D50.segment) ||
+        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+        phi_t0_2 = 1;
+    } else {
+        phi_t0_2 = 0;
+    }
+    sp8A = func_802E89F0_6FA0A0(
+        D_803D552C->xPos.w,
+        D_803D552C->zPos.w,
+        D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+        0x800,
+        0,
+        60,
+        60,
+        120,
+        1,
+        phi_t0_2 == 0);
+done:
     if (sp8A == 0) {
         func_8034B45C_75CB0C();
         func_8035D120_76E7D0();
@@ -124,7 +123,7 @@ void func_80382CF0_7943A0(void) {
         func_8038064C_791CFC();
         if ((((D_80204278->usedModelViewMtxs + 30) < 250)) &&
             (D_803F2EDA != 0) &&
-            (((D_803D5538 != 0)) || ((D_803F2AA2 == 0)) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 >= 0xB))) &&
+            (((D_803D5538 != 0)) || (D_803F2AA2 == 0) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],

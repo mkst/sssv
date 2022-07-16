@@ -43,7 +43,7 @@ extern struct076 D_803A5020_7B66D0[];
 extern struct076 D_803A506C_7B671C[];
 
 #if 0
-// NON_MATCHING ?
+// NON_MATCHING but .rodata
 void func_802EF0C0_700770(void) {
     struct086 sp100;
     s16 spFE;
@@ -69,7 +69,8 @@ void func_802EF0C0_700770(void) {
     sp78 = FTOFIX32(1.0);
 
     if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+        if ((D_803D5524->biome == D_803F2D50.segment) ||
+            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
             var_v0 = 1;
         } else {
             var_v0 = 0;
@@ -80,7 +81,8 @@ void func_802EF0C0_700770(void) {
             goto done;
         }
     }
-    if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+    if ((D_803D5524->biome == D_803F2D50.segment) ||
+        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
         var_v1 = 1;
     } else {
         var_v1 = 0;
@@ -197,6 +199,7 @@ done:
         }
         if (spF8 == 0) {
             if (D_803D5540 < 64) {
+                // probably (s16)?
                 var_v1 = (D_80152C78[(D_803D5540 << 4) & 0xFF] >> 7) >> 6;
                 spF8 = var_v1; // regalloc helper
             }
@@ -234,10 +237,7 @@ done:
             load_1_tile(D_0400BA20, D_0400B820);
             func_802C78B0_6D8F60(0x14, 1, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (s32) D_803F2ED0, 0, 0, 0, D_0400A4E0);
             D_80203FE0[20].unk4 -= ((spF8 * 0x445) >> 5);
-            if (D_803F2EDD == 0) {
-                // regalloc help
-                do { func_802C78B0_6D8F60(0x14, 1, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400ACE0); } while (0);
-            }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0x14, 1, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400ACE0); }
             D_80203FE0[20].unk4 += ((spF8 * 0x445) >> 5);
             load_1_tile(D_0400AF80, D_0400AD80);
             func_802C78B0_6D8F60(1, 2, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400A720);
@@ -245,12 +245,8 @@ done:
             gSPDisplayList(D_801D9E88++, D_01003548);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x71, 0x7B, 0xFF);
 
-            if (D_803F2EDD == 0) {
-                func_802C78B0_6D8F60(3, 7, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 0, 0, D_0400A840);
-            }
-            if (D_803F2EDD == 0) {
-                func_802C78B0_6D8F60(5, 0xD, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 0, 0, D_0400A840);
-            }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 0, 0, D_0400A840); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(5, 0xD, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 0, 0, D_0400A840); }
 
             gSPDisplayList(D_801D9E88++, D_010034C0);
 
@@ -262,14 +258,11 @@ done:
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
 
-            if (D_803F2EDD == 0) {
-                func_802C78B0_6D8F60(4, 0xA, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 1, 0, D_0400A840);
-            }
-            if (D_803F2EDD == 0) {
-                func_802C78B0_6D8F60(6, 0x10, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 1, 0, D_0400A840);
-            }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xA, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 1, 0, D_0400A840); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(6, 0x10, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), (s32) D_803F2ED0, 0, 1, 0, D_0400A840); }
 
             gSPDisplayList(D_801D9E88++, D_010034C0);
+
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
 

@@ -259,7 +259,7 @@ void func_802DC2AC_6ED95C(u16 arg0) {
         D_803D552C->unk364 = 0;
         return;
     }
-    temp_t8 = (D_80152C78[(((s16) ((tmp << 7) / arg0) & 0xFF))] / (((tmp << 7) / arg0) + 16)) << 5;
+    temp_t8 = (D_80152C78[(s16) ((tmp << 7) / arg0) & 0xFF] / (((tmp << 7) / arg0) + 16)) << 5;
     D_803F2EB0 += temp_t8;
     D_803F2EB4 += temp_t8;
     D_803F2EB8 -= temp_t8;
@@ -458,6 +458,8 @@ void func_802DD004_6EE6B4(u16 arg0) {
     }
 }
 
+// file split?
+
 void func_802DD040_6EE6F0(s32 arg0) {
     s16 i;
     for (i = 0; i < 120; i++) {
@@ -515,6 +517,7 @@ s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 arg3, s8 arg4,
     }
 }
 
+// dynamic tail related? used by kangaroo, husky, lion, elephant, mouse, scorpion and rat
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DD244_6EE8F4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DD548_6EEBF8.s")
