@@ -23,7 +23,8 @@ void func_80301248_7128F8(void) {
     s16 phi_t0;
 
     if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+        if ((D_803D5524->biome == D_803F2D50.segment) ||
+            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
             phi_v0 = 1;
         } else {
             phi_v0 = 0;
@@ -34,7 +35,8 @@ void func_80301248_7128F8(void) {
             goto done;
         }
     }
-    if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
+    if ((D_803D5524->biome == D_803F2D50.segment) ||
+        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
         phi_v1 = 1;
     } else {
         phi_v1 = 0;

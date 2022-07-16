@@ -3223,13 +3223,13 @@ segments:
     subalign: 4
     start: 0x12EDC0
     subsegments:
-    - [0x12EDC0, bin] # sound file
+    - [0x12EDC0, bin] # "B1" ... sound file
     - [0x133450, bin] # alBnkfNew loads this
     - [0x1AE480, bin]
     - [0x1AE880, bin]
     - [0x1B6510, bin] # "B1" ...
     - [0x1C7C80, bin] # alBnkfNew loads this
-    - [0x1E0EB0, bin]
+    - [0x1E0EB0, bin] # padding?
     - [0x1E11C0, bin]
     - [0x3B8F60, bin]
     - [0x3E2780, bin]
@@ -3738,24 +3738,22 @@ segments:
     - [0x7AF410, c, overlay2_7AF410]
     # .data / .rodata
     - [0x7B1B90, linker, data]
-    - [0x7B1B90, bin]
+    - [0x7B1B90, bin] #
     - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
     - [0x7B1BB0, .data, overlay2_6AB090] # D_803A0500_7B1BB0
-    - [0x7B1BC0, bin] # D_803A0510_7B1BC0
+    - [0x7B1BC0, bin] # D_803A0510_7B1BC0 overlay2_6AC360
     - [0x7B1BE0, bin] # D_803A0530_7B1BE0
-    - [0x7B1C30, bin] # D_803A0580_7B1C30
+    - [0x7B1C30, bin] # D_803A0580_7B1C30 overlay2_6ACF20
     - [0x7B1C60, .data, overlay2_6B5380] # D_803A05B0_7B1C60
     - [0x7B1C70, .data, overlay2_6C5570]
     - [0x7B1C80, .data, sssv/animals/stats] # animal stats (struct089 -> struct035)
     - [0x7B3250, bin] # padding?
-    - [0x7B3260, bin] # some floats (struct098)
-    - [0x7B32E0, bin]
-    - [0x7B3760, bin] # tbd
-    - [0x7B3770, bin] # D_803A20C0_7B3770
-    - [0x7B3860, bin] # D_803A21B0_7B3860
-    - [0x7B4430, bin]
-    - [0x7B5E50, bin]
-    - [0x7B5E60, bin]
+    - [0x7B3260, bin] # some floats (struct098) overlay2_6DCA10
+    - [0x7B3760, bin] # tbd overlay2_6DCA10
+    - [0x7B3770, bin] # D_803A20C0_7B3770 overlay2_6DCA10
+    - [0x7B3860, bin] # D_803A21B0_7B3860 overlay2_6DCA10
+    - [0x7B4440, bin] # overlay2_6EC720
+    - [0x7B5E60, bin] # overlay2_716900
     - [0x7B5F70, .data, sssv/aidata]
     - [0x7B62E0, data, sssv/animals/dog]
     - [0x7B65A0, data, sssv/animals/hippo]
