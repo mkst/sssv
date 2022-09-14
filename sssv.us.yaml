@@ -52,14 +52,13 @@ segments:
     - [0xC770, c, main_C770]
     - [0xC990, c, core/audiomgr]                    # from ultra64demos
     - [0xD2F0, c, core/audio]
-    - [0xE3C0, c, core/audio2]                      # more audio
     - [0xF600, c, libultra/audio/csplayer]          # customised
     - [0x10CB0, c, thread1]
     - [0x10DC0, c, main_10DC0]
     - [0x123E0, c, thread9]
     - [0x12FC0, c, BSS_PADDING_12FC0]
     # libultra
-    - [0x12FC0, linker, lib]  # fake split here for progress
+    - [0x12FC0, linker_offset, libultra_start] # marker here for progress
     - [0x12FC0, lib, libultra_rom, initialize]
     - [0x13250, lib, libultra_rom, ll]
     - [0x13510, lib, libultra_rom, sqrtf]
@@ -235,7 +234,7 @@ segments:
     - [0x288B0, lib, libultra_rom, yieldthread]
     - [0x28900, lib, libultra_rom, ldiv]
     # .data
-    - [0x28A90, linker, data] # fake split here for progress
+    - [0x28A90, linker_offset, main_data_start] # marker here for progress
     - [0x28A90, bin] # ucode # rspbootTextStart / 0x8014D390
     - [0x28B60, bin] # end of ucode?
     - [0x2BD00, bin] #
@@ -252,7 +251,7 @@ segments:
     - [0x2FD80, bin] #
     # - [0x02FD80, .data, core/audiomgr] # .data for audiomgr
     - [0x2FDD0, bin] # audio lookups D_801546D0
-    - [0x2FDE8, bin] # main_E3C0 rodata
+    # - [0x2FDE8, bin] # main_E3C0 rodata
     - [0x30860, bin] # CH.10 textures
     - [0x339C0, .data, data/339C0] # D_801582C0
     - [0x33B20, .data, data/33B20] # D_80158420
@@ -287,8 +286,7 @@ segments:
     - [0x363A0, .rodata, main_78F0]
     - [0x36410, .rodata, core/fontinit]
     - [0x36470, rodata, core/eeprom]
-    - [0x36490, .rodata, core/audio2]
-    - [0x36508, rodata, libultra/audio/csplayer]
+    - [0x36490, .rodata, core/audio]
     - [0x36510, .rodata, libultra/audio/csplayer]
     - [0x36750, rodata, main_10DC0]
     - [0x36770, lib, libultra_rom, sched, .rodata]
@@ -448,13 +446,13 @@ segments:
     - [0x03FE90, sssv_vtx, data/inc/D_010065C0_3FE90]
     - [0x03FEF0, sssv_vtx, data/inc/D_01006620_3FEF0]
     - [0x03FF50, .data, data/3FF50]  # more evo? arm 2?
-    - [0x03FFA0, sssv_vtx, data/inc/D_010066D0_3FFA00]
+    - [0x03FFA0, sssv_vtx, data/inc/D_010066D0_3FFA0]
+    - [0x040020, sssv_vtx, data/inc/D_01006750_40020]
     - [0x0402A0, .data, data/402A0] # D_80051DD0 # evo laserbeam
-    - [0x0402D8, bin] # another displaylist
     - [0x040310, bin] # another displaylist
-    - [0x040348, bin] # another displaylist
+    # - [0x040348, bin] # another displaylist
     - [0x040380, bin] # another displaylist
-    - [0x0403B8, bin] # another displaylist
+    # - [0x0403B8, bin] # another displaylist
     - [0x0403E0, bin]
     - [0x040500, bin] # displaylist # D_80052030
     - [0x040530, rgba16, img/40530.rgba16, 32, 8] # ?
@@ -517,8 +515,8 @@ segments:
     - [0x48CE0, sssv_vtx, data/inc/D_0100F410_48CE0]
     - [0x48DC0, .data, data/D_0100F4F0_48DC0]
     # HELP with 0x8 offset
-    - [0x48E18, bin] # vtx
-    - [0x48F08, bin] # displaylist
+    # - [0x48E18, bin] # vtx
+    # - [0x48F08, bin] # displaylist
     - [0x48F80, .data, data/D_0100F8C0_49190]
     - [0x48F80, sssv_vtx, data/inc/D_0100F6B0_48F80]
     - [0x49040, sssv_vtx, data/inc/D_0100F770_49040]
@@ -540,8 +538,8 @@ segments:
     - [0x4B300, sssv_vtx, data/inc/D_01011A30_4B300]
     - [0x4B380, .data, data/4B380]
     # HELP with 0x8 offset
-    - [0x4B3C8, bin] # vtx
-    - [0x4B448, bin] # displaylist
+    - [0x4B3C8, sssv_vtx, data/inc/D_01011AF8_4B3C8]
+    - [0x4B448] # end of D_01011AF8_4B3C8
     - [0x4B480, .data, data/D_01011CF0_4B5C0]
     - [0x4B480, sssv_vtx, data/inc/D_01011BB0_4B480]
     - [0x4B5C0] # end of D_01011CF0_4B5C0
@@ -829,8 +827,8 @@ segments:
     - [0x70760, bin] # D_01036E90_70760 palette?
     - [0x71020, bin] # D_01037750_71020
     - [0x71220, bin] # dl?
-    - [0x71268, bin] # displaylist
-    - [0x712A8, bin] # displaylist
+    # - [0x71268, bin] # displaylist
+    # - [0x712A8, bin] # displaylist
     - [0x712D0, bin] # displaylist
     - [0x712F0, bin] # I4 ring
     - [0x71AF0, bin] # I4 plane?
@@ -869,7 +867,7 @@ segments:
     - [0x7F9D0, sssv_vtx, data/inc/D_05000240_7F9D0]
     - [0x7FBC0, sssv_vtx, data/inc/D_05000430_7FBC0]
     - [0x7FC70, .data, data/D_050004E0_7FC70] # dl
-    - [0x7FD28, .data, data/D_05001308_80A98] # dl
+    # - [0x7FD28, .data, data/D_05001308_80A98] # dl
     - [0x7FD28, sssv_vtx, data/inc/D_05000598_7FD28]
     - [0x7FF18, sssv_vtx, data/inc/D_05000788_7FF18]
     - [0x80118, sssv_vtx, data/inc/D_05000988_80118]
@@ -884,8 +882,8 @@ segments:
     - [0x80F20, sssv_vtx, data/inc/D_05001790_80F20]
     - [0x81110, sssv_vtx, data/inc/D_05001980_81110]
     - [0x811C0, .data, data/D_05001A30_811C0]
-    - [0x81278, bin] # vtx
-    - [0x81FB8, bin] # dl
+    - [0x81278, sssv_vtx, data/inc/D_05001AE8_81278] # vtx
+    - [0x81FB8] # end of 81278
     - [0x82200, .data, data/D_050033C0_82B50]
     - [0x82200, sssv_vtx, data/inc/D_05002A70_82200]
     - [0x823F0, sssv_vtx, data/inc/D_05002C60_823F0]
@@ -1839,8 +1837,8 @@ segments:
     - [0xCA150, .data, data/D_04002720_CA150] # missile
     - [0xCA1F0, sssv_vtx, data/inc/D_040027C0_CA1F0]
     - [0xCA240, .data, data/D_04002810_CA240]
-    - [0xCA268, bin] # vtx
-    - [0xCA2B8, bin] # displaylist
+    - [0xCA268, sssv_vtx, data/inc/D_01003780_CA268]
+    - [0xCA2B8] # end of D_01003780_CA268
     - [0xCA2E0, .data, data/D_04002910_CA340]
     - [0xCA2E0, sssv_vtx, data/inc/D_040028B0_CA2E0]
     - [0xCA340]
@@ -1850,7 +1848,7 @@ segments:
     - [0xCA600, sssv_vtx, data/inc/D_04002BD0_CA600]
     - [0xCA740, sssv_vtx, data/inc/D_04002D10_CA740]
     - [0xCA7C0, .data, data/D_04002D90_CA7C0] # sheep body (sheep? springy thing? ram?)
-    - [0xCA958, .data, data/D_040032E8_CAD18]
+    # - [0xCA958, .data, data/D_040032E8_CAD18]
     - [0xCA958, sssv_vtx, data/inc/D_04002F28_CA958]
     - [0xCAB58, sssv_vtx, data/inc/D_04003128_CAB58]
     - [0xCAC98, sssv_vtx, data/inc/D_04003268_CAC98]
@@ -2028,8 +2026,7 @@ segments:
     - [0xD35F0, .data, data/D_0400BBC0_D35F0]
     - [0xD36B0, sssv_vtx, data/inc/D_0400BC80_D36B0]
     - [0xD38A0, sssv_vtx, data/inc/D_0400BE70_D38A0]
-    - [0xD3950, .data, data/D_0400BF20_D3950] # finger? boulder?
-    - [0xD3A08, .data, data/D_0400CD48_D4778] # Dan's hand?
+    - [0xD3950, .data, data/D_0400BF20_D3950] # finger? boulder? Dan's hand?
     - [0xD3A08, sssv_vtx, data/inc/D_0400BFD8_D3A08]
     - [0xD3BF8, sssv_vtx, data/inc/D_0400C1C8_D3BF8]
     - [0xD3DF8, sssv_vtx, data/inc/D_0400C3C8_D3DF8]
@@ -2059,10 +2056,10 @@ segments:
     - [0x0D62D0, bin]
     - [0x0D6380, bin]
     - [0x0D64D0, bin]
-    - [0x0D65E8, bin]
+    # - [0x0D65E8, bin]
     - [0x0D6810, bin]
     - [0x0D6B50, bin]
-    - [0x0D6C58, bin]
+    # - [0x0D6C58, bin]
     - [0x0D6E70, bin]
     - [0xD71A0, sssv_vtx, data/inc/D_0400F770_D71A0]
     - [0xD7380, sssv_vtx, data/inc/D_0400F950_D7380]
@@ -2073,8 +2070,8 @@ segments:
     - [0x0D7B10, bin]
     - [0x0D7FC0, bin]
     - [0x0D8200, bin]
-    - [0xD8558, bin]
-    - [0xD9298, bin] # dan's hand
+    # - [0xD8558, bin]
+    # - [0xD9298, bin] # dan's hand
     - [0x0D94E0, bin]
     - [0xDA0B0, rgba16, img/D_04012680_DA0B0.rgba16, 32, 32]
     - [0xDA8B0, sssv_vtx, data/inc/D_04012E80_DA8B0]
@@ -2394,7 +2391,7 @@ segments:
     - [0xE95D0, .data, data/D_04002020_E95D0]
     - [0xE9600, sssv_vtx, data/inc/D_04002050_E9600]
     - [0xE96A0, .data, data/D_040020F0_E96A0] # tbd
-    - [0xE96F8, bin]
+    # - [0xE96F8, bin]
     - [0xE9900, bin]
     - [0xE9910, bin]
     - [0xE9B10, bin] # 32x32 IA4
@@ -2840,11 +2837,11 @@ segments:
     - [0x102440, sssv_vtx, data/inc/D_040026F0_102440]
     - [0x102470, .data, data/D_04002720_102470] # missile
     - [0x102510, bin]
-    - [0x102588, bin]
+    # - [0x102588, bin]
     - [0x102600, bin]
     - [0x102690, bin]
     - [0x102720, bin]
-    - [0x102C78, bin]
+    # - [0x102C78, bin]
     - [0x1031D0, bin]
     - [0x103320, bin]
     - [0x103470, bin]
@@ -3235,36 +3232,36 @@ segments:
     - [0x3E2780, bin]
     # music (all these start with 0044 00 and can be extracted with Soundbank tool)
     - [0x40B210, bin] # "S1" # 244 bytes long
-    - [0x40B304, bin] # length 0xE6A
+    # - [0x40B304, bin] # length 0xE6A
     - [0x40C170, bin]
-    - [0x40e52c, bin]
-    - [0x40f2ec, bin]
-    - [0x41076c, bin]
+    # - [0x40e52c, bin]
+    # - [0x40f2ec, bin]
+    # - [0x41076c, bin]
     - [0x410b90, bin]
-    - [0x411824, bin]
-    - [0x413c6c, bin]
-    - [0x4154bc, bin]
-    - [0x415684, bin]
-    - [0x4173c4, bin]
-    - [0x418e9c, bin]
-    - [0x41bd08, bin]
-    - [0x41d9e8, bin]
-    - [0x4200d8, bin]
+    # - [0x411824, bin]
+    # - [0x413c6c, bin]
+    # - [0x4154bc, bin]
+    # - [0x415684, bin]
+    # - [0x4173c4, bin]
+    # - [0x418e9c, bin]
+    # - [0x41bd08, bin]
+    # - [0x41d9e8, bin]
+    # - [0x4200d8, bin]
     - [0x421720, bin]
     - [0x4236f0, bin]
-    - [0x4252e4, bin]
+    # - [0x4252e4, bin]
     - [0x425ab0, bin]
-    - [0x4265c4, bin]
-    - [0x426854, bin]
-    - [0x426c34, bin]
-    - [0x426dac, bin]
-    - [0x426eb4, bin]
-    - [0x427198, bin]
+    # - [0x4265c4, bin]
+    # - [0x426854, bin]
+    # - [0x426c34, bin]
+    # - [0x426dac, bin]
+    # - [0x426eb4, bin]
+    # - [0x427198, bin]
     - [0x427c40, bin]
-    - [0x427ff4, bin]
-    - [0x429ab8, bin]
+    # - [0x427ff4, bin]
+    # - [0x429ab8, bin]
     - [0x42b5a0, bin]
-    - [0x42c49c, bin]
+    # - [0x42c49c, bin]
   # rgba16 textures (mipmap)
   - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880        # europe
   - [0x435320, bin, rnc_435320] # 30784 => 54880        # ice
@@ -3529,12 +3526,12 @@ segments:
     - [0x63C310, c, overlay1_63C310]
     - [0x63C660, c, overlay1_63C660]
     # .data / .rodata
-    - [0x63CDD0, linker, data]
+    - [0x63CDD0, linker_offset, overlay1_data_start] # marker here for progress
     - [0x63CDD0, bin] # tbd ### D_80299730
     - [0x63D000, bin] # D_80299960_63D000 in overlay1_6384F0
     - [0x63D0E0, bin]
     # - [0x63D4E4, bin] # "C" texture 10x11 rgba16
-    - [0x63D5D8, bin] # dl
+    # - [0x63D5D8, bin] # dl
     - [0x63D660, .data, overlay1_6384F0] # D_80299FC0_63D660
     - [0x63D6F0, bin]
     # - [0x63D6A4, bin] # D_8029A004_63D6A4
@@ -3737,7 +3734,7 @@ segments:
     - [0x7A9CE0, c, ui_main_menu]
     - [0x7AF410, c, overlay2_7AF410]
     # .data / .rodata
-    - [0x7B1B90, linker, data]
+    - [0x7B1B90, linker_offset, overlay2_data_start] # marker here for progress
     - [0x7B1B90, bin] #
     - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
     - [0x7B1BB0, .data, overlay2_6AB090] # D_803A0500_7B1BB0
@@ -3783,13 +3780,13 @@ segments:
     - [0x7B9780, sssv_vtx, data/inc/D_803A80D0]
     - [0x7B9940] # end of vtx
     - [0x7B99F0, bin] # overlay2_725D10 data?
-    - [0x7B9BD8, .data, data/objects_7B9BD8] # 0x9C objects x 247  # rodata overlay2_72C680
-    - [0x7C325C, bin] # end of objects
+    # - [0x7B9BD8, .data, data/objects_7B9BD8] # 0x9C objects x 247  # rodata overlay2_72C680
+    # - [0x7C325C, bin] # end of objects
     - [0x7C35D0, .data, data/demo_input] # demo controller input
     - [0x7C4F10, bin] # end of demo controller input
-    - [0x7C5F38, bin] # husky texture 1? 16x16 ci
-    - [0x7C5FB8, bin] # husky texture 2?
-    - [0x7C6038, bin] # tbd
+    # - [0x7C5F38, bin] # husky texture 1? 16x16 ci
+    # - [0x7C5FB8, bin] # husky texture 2?
+    # - [0x7C6038, bin] # tbd
     - [0x7C6F50, .data, sssv/animals/cool_cod] # cool cod
     - [0x7C6F90, bin] # tbd
     # - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
@@ -3800,15 +3797,15 @@ segments:
     - [0x7C79C0, bin] # D_803B6310_7C79C0
     - [0x7C79D0, .data, sssv/terminal_background]
     - [0x7C7B00, bin]
-    - [0x7C7CB8, bin] # displaylist
-    - [0x7C7D68, bin] # displaylist
+    # - [0x7C7CB8, bin] # displaylist
+    # - [0x7C7D68, bin] # displaylist
     - [0x7C7D90, bin]
     - [0x7C7F40, .data, overlay2_7A8A50] # data for overlay2_7A8A50?
     - [0x7C86B0, bin] # pointers
-    - [0x7C87B8, bin] # pointers to displaylists # 7C87B8
+    # - [0x7C87B8, bin] # pointers to displaylists # 7C87B8
     - [0x7C8880, bin] # D_803B71D0
-    - [0x7C8918, bin] # D_803B7268_7C8918
-    - [0x7C8A18, bin] # D_803B7368_7C8A18
+    # - [0x7C8918, bin] # D_803B7268_7C8918
+    # - [0x7C8A18, bin] # D_803B7368_7C8A18
     - [0x7C8B30, bin] # tbd, contains "Europe", "Ice", "Jungle", "Desert" text
     - [0x7C8B80, rgba16, img/butterfly_thing.rgba16, 32, 32]
     - [0x7C9380, rgba16, img/butterfly1a.rgba16, 32, 32]
@@ -3822,19 +3819,20 @@ segments:
     - [0x7CC3B0, rodata, overlay2_6A7A80]
     - [0x7CC3C0, rodata, overlay2_6ACF20]
     - [0x7CC470, rodata, overlay2_6B5380]
-    - [0x7CC898, .rodata, overlay2_6B5380]
+    # - [0x7CC898, .rodata, overlay2_6B5380]
     - [0x7CD5B0, rodata, sssv/collision]
-    - [0x7CD610, .rodata, overlay2_6CCEF0]
-    - [0x7CD664, rodata, overlay2_6CCEF0]
+    - [0x7CD610, rodata, overlay2_6CCEF0]
+    # - [0x7CD610, .rodata, overlay2_6CCEF0]
+    # - [0x7CD664, rodata, overlay2_6CCEF0]
     - [0x7CD7D0, rodata, overlay2_6D6120]
     - [0x7CD890, rodata, overlay2_6D9AF0]
     - [0x7CD9A0, rodata, overlay2_6DB610]
     - [0x7CD9E0, rodata, overlay2_6DCA10]
-    - [0x7CDD54, .rodata, overlay2_6DCA10]
+    # - [0x7CDD54, .rodata, overlay2_6DCA10]
     - [0x7CDD70, .rodata, sssv/collist2]
     - [0x7CDE00, .rodata, overlay2_6ED230]
     - [0x7CDE40, rodata, overlay2_6EFE20]
-    - [0x7CDFCC, .rodata, overlay2_6EFE20]
+    # - [0x7CDFCC, .rodata, overlay2_6EFE20]
     - [0x7CE0B0, rodata, sssv/animals/fox]
     - [0x7CE110, rodata, overlay2_6FA0A0]
     - [0x7CE120, .rodata, sssv/aidata]
@@ -3850,11 +3848,12 @@ segments:
     - [0x7CE680, rodata, sssv/animals/frog]
     - [0x7CE690, rodata, overlay2_715820]
     - [0x7CE6C0, rodata, overlay2_716900]
-    - [0x7CE764, .rodata, overlay2_716900]
+    # - [0x7CE764, .rodata, overlay2_716900]
     - [0x7CE780, rodata, overlay2_716900_cont]
     - [0x7CE7C0, rodata, sssv/animals/parrot]
-    - [0x7CE7D0, .rodata, overlay2_725D10]
-    - [0x7CE804, rodata, overlay2_725D10]
+    - [0x7CE7D0, rodata, overlay2_725D10]
+    # - [0x7CE7D0, .rodata, overlay2_725D10]
+    # - [0x7CE804, rodata, overlay2_725D10]
     - [0x7CEB70, rodata, overlay2_725D10_more] # FIXME force some alignment
     - [0x7CEB80, rodata, overlay2_72B100_pre]
     - [0x7CEBA0, .rodata, overlay2_72B100]
@@ -3873,7 +3872,7 @@ segments:
     - [0x7CFE40, .rodata, overlay2_741000]
     - [0x7CFFD0, rodata, overlay2_7558F0]
     - [0x7CFFF0, rodata, sssv/osd]
-    - [0x7D0008, .rodata, sssv/osd]
+    # - [0x7D0008, .rodata, sssv/osd]
     - [0x7D0050, .rodata, sssv/hilites]
     - [0x7D0080, .rodata, overlay2_75BC80]
     - [0x7D00A0, rodata, sssv/init]
@@ -3883,10 +3882,11 @@ segments:
     - [0x7D0220, rodata, overlay2_76D850]
     - [0x7D02B0, rodata, sssv/animals/rat]
     - [0x7D02C0, rodata, overlay2_76F7D0]
-    - [0x7D02D0, .rodata, sssv/animals/sheep]
-    - [0x7D02F8, rodata, sssv/animals/sheep]
+    - [0x7D02D0, rodata, sssv/animals/sheep]
+    # - [0x7D02D0, .rodata, sssv/animals/sheep]
+    # - [0x7D02F8, rodata, sssv/animals/sheep]
     - [0x7D0310, rodata, overlay2_7741B0]
-    - [0x7D033C, .rodata, overlay2_7741B0]
+    # - [0x7D033C, .rodata, overlay2_7741B0]
     - [0x7D05B0, rodata, sssv/animals/penguin]
     - [0x7D05D0, rodata, sssv/animals/polar_bear]
     - [0x7D0610, rodata, sssv/animals/husky]
@@ -3906,12 +3906,13 @@ segments:
     - [0x7D0B70, .rodata, sssv/credits]
     - [0x7D1150, .rodata, sssv/cheats]
     - [0x7D1210, .rodata, overlay2_79DE10]
-    - [0x7D1220, .rodata, sssv/terminal_background]
-    - [0x7D1688, rodata, sssv/terminal_background]
+    - [0x7D1220, rodata, sssv/terminal_background]
+    # - [0x7D1220, .rodata, sssv/terminal_background]
+    # - [0x7D1688, rodata, sssv/terminal_background]
     - [0x7D1840, rodata, overlay2_7A0DA0]
-    - [0x7D19E0, .rodata, overlay2_7A0DA0]
-    - [0x7D19F8, rodata, overlay2_7A0DA0_cont]
-    - [0x7D1A40, .rodata, overlay2_7A8A50]
+    # - [0x7D19E0, .rodata, overlay2_7A0DA0]
+    # - [0x7D19F8, rodata, overlay2_7A0DA0_cont]
+    # - [0x7D1A40, .rodata, overlay2_7A8A50]
     - [0x7D1A50, rodata, ui_main_menu]
     - [0x7D1AC0, .rodata, ui_main_menu]
     # bss

@@ -324,7 +324,7 @@ extern char D_8015ACA4[]; // "%d"
 extern char D_8015AD70[]; // "reset all data - %d\n"
 extern char D_8015AD90[]; // "----------------- Active sounds\n"
 extern char D_8015ADB4[]; // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
-extern f64  D_8015AE08;
+// extern const f64  D_8015AE08;
 
 extern s32  D_8015B790; // ucode data start
 extern s32  D_8015C750;
