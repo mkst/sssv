@@ -14,7 +14,7 @@ options:
   enable_ld_alignment_hack: yes
   lib_path: build/lib
   hi_lo_max_distance: 32
-  migrate_rodata_to_functions: no
+  migrate_rodata_to_functions: yes
   # workaround regex issue
   create_undefined_funcs_auto: no
   symbol_name_format: $VRAM_$ROM
@@ -285,10 +285,10 @@ segments:
     - [0x36360, .rodata, core/controller]
     - [0x363A0, .rodata, main_78F0]
     - [0x36410, .rodata, core/fontinit]
-    - [0x36470, rodata, core/eeprom]
+    - [0x36470, .rodata, core/eeprom]
     - [0x36490, .rodata, core/audio]
     - [0x36510, .rodata, libultra/audio/csplayer]
-    - [0x36750, rodata, main_10DC0]
+    - [0x36750, .rodata, main_10DC0]
     - [0x36770, lib, libultra_rom, sched, .rodata]
     - [0x36790, lib, libultra_rom, synthesizer, .rodata]
     - [0x367A0, lib, libultra_rom, sndplayer, .rodata]
@@ -3622,7 +3622,7 @@ segments:
     - [0x6A57C0, rgba16, img/flags/spanish.rgba16, 48, 32]
     # rodata
     - [0x6A63C0, .rodata, overlay1_6384F0]
-    - [0x6A63D0, rodata, overlay1_6384F0]
+    # - [0x6A63D0, .rodata, overlay1_6384F0]
     - [0x6A64A0, .rodata, overlay1_63C660]
     # bss
     - [0x6A6500, .bss, overlay1_6384F0] # , 0xAD740 // should be D_80302E60
@@ -3816,105 +3816,150 @@ segments:
     - [0x7CBB80, rgba16, img/butterfly2c.rgba16, 32, 32]
     # rodata
     - [0x7CC380, .rodata, overlay2_6A7A80]
-    - [0x7CC3B0, rodata, overlay2_6A7A80]
-    - [0x7CC3C0, rodata, overlay2_6ACF20]
-    - [0x7CC470, rodata, overlay2_6B5380]
+    # - [0x7CC3B0, rodata, overlay2_6A7A80]
+    - [0x7CC3C0, .rodata, overlay2_6ACF20]
+    # - [0x7CC470, rodata, overlay2_6B5380]
+    - start: 0x7CC470
+      type: .rodata
+      name: overlay2_6B5380
+      partial_migration: True # remove?
     # - [0x7CC898, .rodata, overlay2_6B5380]
-    - [0x7CD5B0, rodata, sssv/collision]
-    - [0x7CD610, rodata, overlay2_6CCEF0]
+    - [0x7CD5B0, .rodata, sssv/collision]
+    # - [0x7CD610, rodata, overlay2_6CCEF0]
+    - start: 0x7CD610
+      type: .rodata
+      name: overlay2_6CCEF0
+      partial_migration: True # remove?
     # - [0x7CD610, .rodata, overlay2_6CCEF0]
     # - [0x7CD664, rodata, overlay2_6CCEF0]
-    - [0x7CD7D0, rodata, overlay2_6D6120]
-    - [0x7CD890, rodata, overlay2_6D9AF0]
-    - [0x7CD9A0, rodata, overlay2_6DB610]
-    - [0x7CD9E0, rodata, overlay2_6DCA10]
+    - [0x7CD7D0, .rodata, overlay2_6D6120]
+    - [0x7CD890, .rodata, overlay2_6D9AF0]
+    - [0x7CD9A0, .rodata, overlay2_6DB610]
+    # - [0x7CD9E0, rodata, overlay2_6DCA10]
+    - start: 0x7CD9E0
+      type: .rodata
+      name: overlay2_6DCA10
+      partial_migration: True # remove?
     # - [0x7CDD54, .rodata, overlay2_6DCA10]
     - [0x7CDD70, .rodata, sssv/collist2]
     - [0x7CDE00, .rodata, overlay2_6ED230]
-    - [0x7CDE40, rodata, overlay2_6EFE20]
+    # - [0x7CDE40, rodata, overlay2_6EFE20]
+    - start: 0x7CDE40
+      type: .rodata
+      name: overlay2_6EFE20
+      partial_migration: True # remove?
     # - [0x7CDFCC, .rodata, overlay2_6EFE20]
-    - [0x7CE0B0, rodata, sssv/animals/fox]
-    - [0x7CE110, rodata, overlay2_6FA0A0]
+    - [0x7CE0B0, .rodata, sssv/animals/fox]
+    - [0x7CE100, .rodata, overlay2_6FA0A0]
     - [0x7CE120, .rodata, sssv/aidata]
-    - [0x7CE440, rodata, sssv/animals/dog]
-    - [0x7CE490, rodata, sssv/animals/hippo]
+    - [0x7CE440, .rodata, sssv/animals/dog]
+    - [0x7CE490, .rodata, sssv/animals/hippo]
     - [0x7CE4B0, .rodata, screen_transition]
-    - [0x7CE520, rodata, sssv/animals/lion]
-    - [0x7CE530, rodata, overlay2_7041D0]
-    - [0x7CE540, .rodata, overlay2_7041D0]
-    - [0x7CE560, rodata, overlay2_7070A0]
-    - [0x7CE5B0, .rodata, overlay2_7070A0] # alignment ok?
-    - [0x7CE650, rodata, sssv/animals/rabbit]
-    - [0x7CE680, rodata, sssv/animals/frog]
-    - [0x7CE690, rodata, overlay2_715820]
-    - [0x7CE6C0, rodata, overlay2_716900]
+    - [0x7CE520, .rodata, sssv/animals/lion]
+    - [0x7CE530, .rodata, overlay2_7041D0]
+    # - [0x7CE540, .rodata, overlay2_7041D0]
+    - [0x7CE560, .rodata, overlay2_7070A0]
+    # - [0x7CE5B0, .rodata, overlay2_7070A0] # alignment ok?
+    - [0x7CE650, .rodata, sssv/animals/rabbit]
+    - [0x7CE680, .rodata, sssv/animals/frog]
+    - [0x7CE690, .rodata, overlay2_715820]
+    # - [0x7CE6C0, rodata, overlay2_716900]
+    - start: 0x7CE6C0
+      type: .rodata
+      name: overlay2_716900
+      partial_migration: True # remove?
     # - [0x7CE764, .rodata, overlay2_716900]
-    - [0x7CE780, rodata, overlay2_716900_cont]
+    # - [0x7CE780, .rodata, overlay2_716900]
     - [0x7CE7C0, rodata, sssv/animals/parrot]
-    - [0x7CE7D0, rodata, overlay2_725D10]
+    # - [0x7CE7D0, rodata, overlay2_725D10]
+    - start: 0x7CE7D0
+      type: .rodata
+      name: overlay2_725D10
+      partial_migration: True # remove?
     # - [0x7CE7D0, .rodata, overlay2_725D10]
     # - [0x7CE804, rodata, overlay2_725D10]
-    - [0x7CEB70, rodata, overlay2_725D10_more] # FIXME force some alignment
-    - [0x7CEB80, rodata, overlay2_72B100_pre]
-    - [0x7CEBA0, .rodata, overlay2_72B100]
+    # - [0x7CEB70, rodata, overlay2_725D10_more] # FIXME force some alignment
+
+    # - [0x7CEB80, rodata, overlay2_72B100_pre]
+    # - [0x7CEBA0, .rodata, overlay2_72B100]
+    - [0x7CEB80, .rodata, overlay2_72B100]
+
     - [0x7CEBE0, .rodata, overlay2_72B800] # .rodata, overlay2_72B800] # FIXME alignment goes wrong around here
     # - [0x7CED50, rodata, overlay2_72B800]
-    - [0x7CEF30, rodata, overlay2_72C680_pre]
-    - [0x7CEF60, rodata, overlay2_72C680]
-    - [0x7CF050, rodata, sssv/animals/mouse]
-    - [0x7CF090, rodata, overlay2_7312E0]
-    - [0x7CF120, rodata, sssv/animals/bear]
+    - [0x7CEF30, .rodata, overlay2_72C680]
+    # - [0x7CEF30, .rodata, overlay2_72C680_pre]
+    # - [0x7CEF60, rodata, overlay2_72C680]
+    - [0x7CF050, .rodata, sssv/animals/mouse]
+    - [0x7CF090, .rodata, overlay2_7312E0]
+    # - [0x7CF120, .rodata, sssv/animals/bear]
+    - start: 0x7CF120
+      type: .rodata
+      name: sssv/animals/bear
+      # partial_migration: True
     - [0x7CF180, .rodata, overlay2_739290]
     - [0x7CF530, .rodata, overlay2_73D980]
-    - [0x7CF800, rodata, overlay2_73E580]
-    - [0x7CF810, rodata, overlay2_73ED30]
-    - [0x7CF860, rodata, overlay2_741000]
-    - [0x7CFE40, .rodata, overlay2_741000]
+    - [0x7CF800, .rodata, overlay2_73E580]
+    - [0x7CF810, .rodata, overlay2_73ED30]
+    - [0x7CF860, .rodata, overlay2_741000]
+    # - [0x7CFE40, .rodata, overlay2_741000]
     - [0x7CFFD0, rodata, overlay2_7558F0]
-    - [0x7CFFF0, rodata, sssv/osd]
+    # - [0x7CFFF0, rodata, sssv/osd]
+    - start: 0x7CFFF0
+      type: .rodata
+      name: sssv/osd
+      partial_migration: True
     # - [0x7D0008, .rodata, sssv/osd]
     - [0x7D0050, .rodata, sssv/hilites]
     - [0x7D0080, .rodata, overlay2_75BC80]
     - [0x7D00A0, rodata, sssv/init]
-    - [0x7D0140, rodata, sssv/animals/tortoise]
-    - [0x7D01C0, .rodata, sssv/animals/tortoise]
-    - [0x7D01E0, rodata, sssv/animals/hyena]
+    - [0x7D0140, .rodata, sssv/animals/tortoise]
+    # - [0x7D01C0, .rodata, sssv/animals/tortoise]
+    - [0x7D01E0, .rodata, sssv/animals/hyena]
+    - [0x7D0210, .rodata, sssv/animals/chameleon]
     - [0x7D0220, rodata, overlay2_76D850]
-    - [0x7D02B0, rodata, sssv/animals/rat]
+    - [0x7D02B0, .rodata, sssv/animals/rat]
     - [0x7D02C0, rodata, overlay2_76F7D0]
-    - [0x7D02D0, rodata, sssv/animals/sheep]
+    - [0x7D02D0, .rodata, sssv/animals/sheep]
     # - [0x7D02D0, .rodata, sssv/animals/sheep]
     # - [0x7D02F8, rodata, sssv/animals/sheep]
-    - [0x7D0310, rodata, overlay2_7741B0]
+    # - [0x7D0310, rodata, overlay2_7741B0]
+    - start: 0x7D0310
+      type: .rodata
+      name: overlay2_7741B0
+      partial_migration: True # remove?
     # - [0x7D033C, .rodata, overlay2_7741B0]
-    - [0x7D05B0, rodata, sssv/animals/penguin]
-    - [0x7D05D0, rodata, sssv/animals/polar_bear]
-    - [0x7D0610, rodata, sssv/animals/husky]
-    - [0x7D0620, rodata, sssv/animals/vulture]    # 0x803BEF70
-    - [0x7D0650, rodata, sssv/animals/camel]      # 0x803BEFA0
-    - [0x7D0660, rodata, sssv/animals/kangaroo]   # 0x803BEFB0
-    - [0x7D0670, rodata, sssv/animals/desert_fox] # 0x803BEFC0
-    - [0x7D0690, rodata, sssv/animals/walrus]     # 0x803BEFE0
-    - [0x7D06E0, rodata, sssv/animals/scorpion]
-    - [0x7D0710, rodata, sssv/animals/gorilla]    # 0x803BF060
-    - [0x7D0740, rodata, sssv/animals/elephant]
-    - [0x7D0750, rodata, overlay2_78E970]
+    - [0x7D05B0, .rodata, sssv/animals/penguin]
+    - [0x7D05D0, .rodata, sssv/animals/polar_bear]
+    - [0x7D0610, .rodata, sssv/animals/husky]
+    - [0x7D0620, .rodata, sssv/animals/vulture]    # 0x803BEF70
+    - [0x7D0650, .rodata, sssv/animals/camel]      # 0x803BEFA0
+    - [0x7D0660, .rodata, sssv/animals/kangaroo]   # 0x803BEFB0
+    - [0x7D0670, .rodata, sssv/animals/desert_fox] # 0x803BEFC0
+    - [0x7D0690, .rodata, sssv/animals/walrus]     # 0x803BEFE0
+    - [0x7D06E0, .rodata, sssv/animals/scorpion]
+    - [0x7D0710, .rodata, sssv/animals/gorilla]    # 0x803BF060
+    - [0x7D0740, .rodata, sssv/animals/elephant]
+    - [0x7D0750, .rodata, overlay2_78E970]
     - [0x7D0790, .rodata, sssv/animinit]
-    - [0x7D0A70, rodata, sssv/animals/seagull]    # 0x803BF3C0
+    - [0x7D0A70, .rodata, sssv/animals/seagull]    # 0x803BF3C0
     - [0x7D0AA0, .rodata, overlay2_794EE0]
-    - [0x7D0B40, rodata, sssv/animals/evo]
+    - [0x7D0B40, .rodata, sssv/animals/evo]
     - [0x7D0B70, .rodata, sssv/credits]
     - [0x7D1150, .rodata, sssv/cheats]
     - [0x7D1210, .rodata, overlay2_79DE10]
-    - [0x7D1220, rodata, sssv/terminal_background]
+    - [0x7D1220, .rodata, sssv/terminal_background]
     # - [0x7D1220, .rodata, sssv/terminal_background]
     # - [0x7D1688, rodata, sssv/terminal_background]
-    - [0x7D1840, rodata, overlay2_7A0DA0]
+    # - [0x7D1840, rodata, overlay2_7A0DA0]
+    - start: 0x7D1840
+      type: .rodata
+      name: overlay2_7A0DA0
+      partial_migration: True
     # - [0x7D19E0, .rodata, overlay2_7A0DA0]
     # - [0x7D19F8, rodata, overlay2_7A0DA0_cont]
-    # - [0x7D1A40, .rodata, overlay2_7A8A50]
-    - [0x7D1A50, rodata, ui_main_menu]
-    - [0x7D1AC0, .rodata, ui_main_menu]
+    - [0x7D1A40, .rodata, overlay2_7A8A50]
+    - [0x7D1A50, .rodata, ui_main_menu]
+    # - [0x7D1AC0, .rodata, ui_main_menu]
     # bss
     - [0x7D1AD0, .bss, overlay2_6A6500]
     - [0x7D1AD0, .bss, overlay2_6B5380]

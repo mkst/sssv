@@ -1281,10 +1281,10 @@ void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f3
     f32 tmp1;
     f32 tmp2;
     // 6.2832 (2*PI)
-    tmp1 = arg1 * D_803BE5F8_7CFCA8 * (256 / 65536.0);
+    tmp1 = arg1 * 6.2832 * (256 / 65536.0);
     tmp0 = sinf(tmp1);
     // 6.2832
-    tmp2 = arg0 * D_803BE600_7CFCB0 * (256 / 65536.0);
+    tmp2 = arg0 * 6.2832 * (256 / 65536.0);
     *arg3 = gCamera->unk8 - cosf(tmp2) * (arg2 * tmp0);
     tmp0 = cosf(tmp1);
     *arg4 = gCamera->unkC - cosf(tmp2) * (arg2 * tmp0);

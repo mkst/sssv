@@ -894,7 +894,7 @@ void func_8039A2DC_7AB98C(void) {
 
     vertical_offset = 56;
     // write ":" for "Secure Zones"
-    sprintf(ascii, D_803C03E0_7D1A90, D_803C03E4_7D1A94); // &D_803C03E0_7D1A90,  &D_803C03E4_7D1A94 "%s", ":"
+    sprintf(ascii, "%s", ":"); // &D_803C03E0_7D1A90,  &D_803C03E4_7D1A94 "%s", ":"
     prepare_text((u8 *) ascii, wide_text);
     func_8012D374(&D_801D9E7C, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
 
@@ -909,7 +909,7 @@ void func_8039A2DC_7AB98C(void) {
 
     // write levels
     vertical_offset = 56;
-    sprintf(ascii, D_803C03E8_7D1A98, progress[0]); // levels // "%2d"
+    sprintf(ascii, "%2d", progress[0]); // levels // "%2d"
     prepare_text((u8 *) ascii, wide_text);
     display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
@@ -917,13 +917,13 @@ void func_8039A2DC_7AB98C(void) {
     vertical_offset += D_803B74B0_7C8B60;
 
     // write species
-    sprintf(ascii, D_803C03EC_7D1A9C, progress[1]); // species // & "%2d"
+    sprintf(ascii, "%2d", progress[1]); // species // & "%2d"
     prepare_text((u8 *) ascii, wide_text);
     display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
     // write powercells
     vertical_offset += D_803B74B0_7C8B60 + 6;
-    sprintf(ascii, D_803C03F0_7D1AA0, progress[2]); // powercells // "%3d"
+    sprintf(ascii, "%3d", progress[2]); // powercells // "%3d"
     prepare_text((u8 *) ascii, wide_text);
     display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 

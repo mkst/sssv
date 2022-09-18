@@ -605,7 +605,7 @@ void func_80355EDC_76758C(void) {
 // tortoise tank
 void func_80355EFC_7675AC(void) {
     func_802DBA58_6ED108(15, D_803D552C);
-    play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos.h,  D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEB0C_7D01BC /* 1.8f */);
+    play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->xPos.h,  D_803D5530->zPos.h, D_803D5530->yPos.h, 1.7999999523162842f /* 1.8f */);
     load_animal(TORTOISE_TANK_DEFENDING);
 }
 
