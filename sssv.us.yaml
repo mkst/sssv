@@ -2391,7 +2391,7 @@ segments:
     - [0xE95D0, .data, data/D_04002020_E95D0]
     - [0xE9600, sssv_vtx, data/inc/D_04002050_E9600]
     - [0xE96A0, .data, data/D_040020F0_E96A0] # tbd
-    # - [0xE96F8, bin]
+    - [0xE96F0, bin]
     - [0xE9900, bin]
     - [0xE9910, bin]
     - [0xE9B10, bin] # 32x32 IA4
@@ -3652,7 +3652,6 @@ segments:
     - [0x6EBEA0, c, sssv/collist2]
     - [0x6EC720, c, overlay2_6EC720]
     - [0x6ED230, c, overlay2_6ED230]
-    - [0x6EFE20, c, overlay2_6EFE20]
     - [0x6F66B0, c, sssv/animals/fox]
     - [0x6FA0A0, c, overlay2_6FA0A0]
     - [0x6FBA90, c, sssv/aidata]
@@ -3843,12 +3842,6 @@ segments:
     # - [0x7CDD54, .rodata, overlay2_6DCA10]
     - [0x7CDD70, .rodata, sssv/collist2]
     - [0x7CDE00, .rodata, overlay2_6ED230]
-    # - [0x7CDE40, rodata, overlay2_6EFE20]
-    - start: 0x7CDE40
-      type: .rodata
-      name: overlay2_6EFE20
-      partial_migration: True # remove?
-    # - [0x7CDFCC, .rodata, overlay2_6EFE20]
     - [0x7CE0B0, .rodata, sssv/animals/fox]
     - [0x7CE100, .rodata, overlay2_6FA0A0]
     - [0x7CE120, .rodata, sssv/aidata]

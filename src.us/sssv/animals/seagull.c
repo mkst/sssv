@@ -322,7 +322,7 @@ void func_80381C60_793310(void) {
         }
     } else {
         func_80321920_732FD0(D_803D552C->unk320, 0, 0);
-        play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BF3E0);
+        play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892000436782837f);
         D_803D552C->yPos.h += D_803D552C->unk308;
         D_803D552C->unk18.h += D_803D552C->unk308;
         load_animal(SEAGULL);

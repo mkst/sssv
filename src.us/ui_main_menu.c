@@ -41,7 +41,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D78.unk18 = 0;
     D_803F7D78.unk1C = 0;
     D_803F7D78.unk20 = 0;
-    D_803F7D70 = D_803C03F4_7D1AA4; // 0.1f
+    D_803F7D70 = 0.10000000149011612f; // 0.1f
     prepare_text(sp18, (u8*)D_803F2D50.titleText); // zero out title?
     D_803F7DA8.unk8 = 1.0f;
     D_803B7468 = D_803F7DA8.currentLevel * 12;

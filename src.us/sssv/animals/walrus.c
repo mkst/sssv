@@ -67,7 +67,7 @@ void func_803769E0_788090(void) {
                          20,
                          ((u8)D_803D552C->unk302 * 360) >> 8, // divide by 256
                          animal,
-                         1, 17, D_803BF028, 110, 96,
+                         1, 17, 0.699999988079071f, 110, 96,
                          D_803D5530->xVelocity.h, D_803D5530->zVelocity.h, D_803D5530->yVelocity.h, D_803D5530);
     apply_recoil(2);
     do_rumble(0, 25, 30, 5, distance_from_player(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h));
@@ -88,7 +88,7 @@ void walrus_fire_missile(Animal *arg0) {
                          20,
                          ((u8)D_803D552C->unk302 * 360) >> 8,
                          arg0,
-                         2, 17, D_803BF02C, 120, 96,
+                         2, 17, 0.699999988079071f, 120, 96,
                          D_803D5530->xVelocity.h, D_803D5530->zVelocity.h, D_803D5530->yVelocity.h, D_803D5530);
     apply_recoil(2);
 }

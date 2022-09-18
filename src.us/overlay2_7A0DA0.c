@@ -2023,7 +2023,7 @@ void func_80395854_7A6F04(void) {
     gSPSegment(D_801D9E7C++, 0x04, osVirtualToPhysical(D_801D9E6C));
     gSPViewport(D_801D9E7C++, &D_803B66F0);
 
-    guPerspective(&D_80204278->unk37410, &D_803C0658, 45.0f, 0.92f, 2.0f, D_803C0388, 1.0f);
+    guPerspective(&D_80204278->unk37410, &D_803C0658, 45.0f, 0.92f, 2.0f, 6000.0f, 1.0f);
     guScale(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
     guScale(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
     guLookAt(&D_80204278->unk37490, D_803B683C.unk0, D_803B683C.unk4, D_803B683C.unk8, D_803B683C.unkC, D_803B683C.unk10, D_803B683C.unk14, 0.0f, 0.0f, 1.0f);
