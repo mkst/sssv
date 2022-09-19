@@ -133,7 +133,7 @@ block_23:
 
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((s16) ((s32) (D_803D5524->unkBA * 8) / 5), 2, 3, 3, D_803BD110_7CE7C0);
+            func_8038C230_79D8E0((s16) ((s32) (D_803D5524->unkBA * 8) / 5), 2, 3, 3, 0.20000000298023224f);
             if (D_803D5530->state == 0x6A) {
                 func_802C78B0_6D8F60(1U, 2U, (s32) (D_803F2EBC * 0x3C) >> 6, (s32) (D_803F2EC0 * 0x3C) >> 6, (s32) (D_803F2EC4 * 0x3C) >> 6, (s16) (s32) D_803F2ED0, (s16) 0, (u8) 0, (u8) 0, &D_04002720_CA150);
                 create_particle_effect((s32) D_803D5530->xPos.h, (s32) D_803D5530->zPos.h, (s32) D_803D5530->yPos.h, 0x15, (s16) 0, (s16) 0, 0x30000, (s16) 0x1E, (u16) 0xFFC1, (u16) 0x79BF, (s16) 0);
@@ -190,7 +190,7 @@ void func_803144F8_725BA8(void) {
 void func_80314590_725C40(void) {
     func_802DBA58_6ED108(15, D_803D552C);
     load_animal(PARROT);
-    play_sound_effect_at_location(SFX_UNKNOWN_141, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BD114_7CE7C4);
+    play_sound_effect_at_location(SFX_UNKNOWN_141, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892000436782837f);
     func_802A6100_6B77B0();
 }
 
