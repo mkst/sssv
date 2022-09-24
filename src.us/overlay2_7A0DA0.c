@@ -908,7 +908,7 @@ void func_8038FF68_7A1618(void) {
 #endif
 
 void func_80391A38_7A30E8(void) {
-    func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, 0.7599999904632568f);
+    func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, 0.76f);
     if (D_803F66AA == 1) {
         if (RAND(20) == 1) {
             D_803B6880_7C7F30 = (s32) RAND(6);
@@ -931,11 +931,11 @@ void func_80391A38_7A30E8(void) {
             func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 4:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.1200000047683716f); // 1.12
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.12f);
             func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 5:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.3300000429153442f); // 1.33
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.33f);
             func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         }

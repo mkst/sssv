@@ -15,7 +15,6 @@ extern u8  D_803B47E4_7C5E94[];
 extern s16 D_803B47F4_7C5EA4[];
 extern s16 D_803B4810_7C5EC0[];
 extern s16 D_803B484C_7C5EFC[];
-extern f32 D_803BEF60_7D0610;
 
 extern Gfx D_04003D50_E1310[];
 extern Gfx D_04004AE0_E20A0[];
@@ -155,7 +154,7 @@ block_9:
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, (s32) D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.10000000149011612f);
+            func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.1f);
             load_1_tile(&D_04005460_E2A20, &D_04005260_E2820);
             func_802C78B0_6D8F60(2,   1, (D_803F2EBC * 0x46) >> 6, (D_803F2EC0 * 0x46) >> 6, (D_803F2EC4 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, &D_04004AE0_E20A0);
             func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, &D_04004E60_E2420);
@@ -690,7 +689,7 @@ void func_8036BCF8_77D3A8(void) {
         animal,
         2,
         16,
-        0.30000001192092896f,
+        0.3f,
         30,
         16,
         D_803D5530->xVelocity.h,
@@ -728,7 +727,7 @@ void ski_husky_fire_missile(Animal *arg0) {
         arg0,
         4,
         16,
-        0.30000001192092896f,
+        0.3f,
         40,
         16,
         D_803D5530->xVelocity.h,

@@ -18,7 +18,7 @@ Gfx D_010069D0_402A0[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_010006A08_402D8[] = {
+Gfx D_01006A08_402D8[] = {
     gsSPVertex(D_01006750_40020, 8, 0),
     gsSP1Quadrangle(0, 1, 5, 4, 0),
     gsSP1Quadrangle(0, 4, 7, 3, 0),

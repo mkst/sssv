@@ -33,11 +33,28 @@ Gfx D_05001A30_811C0[] = {
     gsSPEndDisplayList(),
 };
 
-Vtx D_05001AE8_81278[] = {
+Vtx D_05001AE8_81278[32] = {
 #include "data/inc/D_05001AE8_81278.inc.c"
 };
+Vtx D_05001CE8_81478[30] = {
+#include "data/inc/D_05001CE8_81478.inc.c"
+};
+Vtx D_05001EC8_81658[30] = {
+#include "data/inc/D_05001EC8_81658.inc.c"
+};
+Vtx D_050020A8_81838[32] = {
+#include "data/inc/D_050020A8_81838.inc.c"
+};
+Vtx D_050022A8_81A38[32] = {
+#include "data/inc/D_050022A8_81A38.inc.c"
+};
+Vtx D_050024A8_81C38[31] = {
+#include "data/inc/D_050024A8_81C38.inc.c"
+};
+Vtx D_05002698_81E28[25] = {
+#include "data/inc/D_05002698_81E28.inc.c"
+};
 
-// displaylist that needs to be decoded
 Gfx D_05002828_81FB8[] = {
     gsSPVertex(D_05001AE8_81278, 32, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
@@ -52,7 +69,7 @@ Gfx D_05002828_81FB8[] = {
     gsSP2Triangles(16, 14, 13, 0, 6, 25, 26, 0),
     gsSP2Triangles(27, 5, 28, 0, 29, 12, 30, 0),
     gsSP1Triangle(15, 29, 31, 0),
-    gsSPVertex(&D_05001AE8_81278[0x20], 30, 0),
+    gsSPVertex(D_05001CE8_81478, 30, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 9, 6, 10, 0),
     gsSP2Triangles(11, 12, 9, 0, 7, 12, 13, 0),
@@ -62,7 +79,7 @@ Gfx D_05002828_81FB8[] = {
     gsSP2Triangles(24, 25, 23, 0, 21, 25, 26, 0),
     gsSP2Triangles(27, 28, 21, 0, 29, 5, 27, 0),
     gsSP2Triangles(3, 29, 23, 0, 28, 4, 3, 0),
-    gsSPVertex(&D_05001AE8_81278[0x3E], 30, 0),
+    gsSPVertex(D_05001EC8_81658, 30, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 0, 4, 0),
     gsSP2Triangles(5, 3, 6, 0, 1, 5, 7, 0),
     gsSP2Triangles(8, 9, 1, 0, 10, 11, 8, 0),
@@ -73,7 +90,7 @@ Gfx D_05002828_81FB8[] = {
     gsSP2Triangles(17, 15, 7, 0, 24, 25, 15, 0),
     gsSP2Triangles(26, 14, 25, 0, 27, 28, 26, 0),
     gsSP2Triangles(29, 19, 2, 0, 14, 26, 29, 0),
-    gsSPVertex(&D_05001AE8_81278[0x5C], 32, 0),
+    gsSPVertex(D_050020A8_81838, 32, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 9, 10, 11, 0),
     gsSP2Triangles(12, 13, 14, 0, 15, 16, 11, 0),
@@ -83,7 +100,7 @@ Gfx D_05002828_81FB8[] = {
     gsSP2Triangles(25, 26, 27, 0, 21, 24, 28, 0),
     gsSP2Triangles(28, 27, 29, 0, 16, 18, 24, 0),
     gsSP1Triangle(30, 20, 31, 0),
-    gsSPVertex(&D_05001AE8_81278[0x7C], 32, 0),
+    gsSPVertex(D_050022A8_81A38, 32, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 9, 10, 11, 0),
     gsSP2Triangles(0, 12, 13, 0, 14, 11, 15, 0),
@@ -91,7 +108,7 @@ Gfx D_05002828_81FB8[] = {
     gsSP2Triangles(19, 20, 21, 0, 22, 23, 24, 0),
     gsSP2Triangles(25, 10, 26, 0, 10, 9, 27, 0),
     gsSP2Triangles(28, 29, 30, 0, 29, 25, 31, 0),
-    gsSPVertex(&D_05001AE8_81278[0x9C], 31, 0),
+    gsSPVertex(D_050024A8_81C38, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 2, 0),
     gsSP2Triangles(1, 4, 3, 0, 4, 5, 6, 0),
     gsSP2Triangles(5, 7, 6, 0, 5, 0, 7, 0),
@@ -104,7 +121,7 @@ Gfx D_05002828_81FB8[] = {
     gsSP2Triangles(24, 25, 26, 0, 25, 21, 27, 0),
     gsSP2Triangles(27, 22, 28, 0, 22, 29, 28, 0),
     gsSP2Triangles(22, 23, 29, 0, 23, 26, 30, 0),
-    gsSPVertex(&D_05001AE8_81278[0xBB], 25, 0),
+    gsSPVertex(D_05002698_81E28, 25, 0),
     gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
     gsSP2Triangles(4, 5, 6, 0, 7, 8, 9, 0),
     gsSP2Triangles(10, 11, 12, 0, 1, 13, 14, 0),

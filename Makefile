@@ -77,12 +77,11 @@ UNDEFINED_SYMS  := osViGetCurrentLine
 
 # Tools
 
-export LD_LIBRARY_PATH=.
-CROSS    = mips-linux-gnu-
+CROSS    = mips-elf-
 
 AS       = $(CROSS)as
 CPP      = cpp
-LD       = ./mips-elf-ld
+LD       = $(CROSS)ld
 OBJCOPY  = $(CROSS)objcopy
 PYTHON   = python3
 GCC      = gcc

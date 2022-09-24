@@ -51,7 +51,6 @@ segments:
     - [0xC330, c, core/eeprom]
     - [0xC770, c, main_C770]
     - [0xC990, c, core/audiomgr]                    # from ultra64demos
-    - [0xD2F0, c, core/audio]
     - [0xF600, c, libultra/audio/csplayer]          # customised
     - [0x10CB0, c, thread1]
     - [0x10DC0, c, main_10DC0]
@@ -286,7 +285,7 @@ segments:
     - [0x363A0, .rodata, main_78F0]
     - [0x36410, .rodata, core/fontinit]
     - [0x36470, .rodata, core/eeprom]
-    - [0x36490, .rodata, core/audio]
+    - [0x36490, .rodata, core/audiomgr]
     - [0x36510, .rodata, libultra/audio/csplayer]
     - [0x36750, .rodata, main_10DC0]
     - [0x36770, lib, libultra_rom, sched, .rodata]
@@ -448,7 +447,7 @@ segments:
     - [0x03FF50, .data, data/3FF50]  # more evo? arm 2?
     - [0x03FFA0, sssv_vtx, data/inc/D_010066D0_3FFA0]
     - [0x040020, sssv_vtx, data/inc/D_01006750_40020]
-    - [0x0402A0, .data, data/402A0] # D_80051DD0 # evo laserbeam
+    - [0x0402A0, .data, data/D_010069D0_402A0] # evo laserbeam
     - [0x040310, bin] # another displaylist
     # - [0x040348, bin] # another displaylist
     - [0x040380, bin] # another displaylist
@@ -514,9 +513,8 @@ segments:
     - [0x48CA0, .data, data/D_0100F3D0_48CA0]
     - [0x48CE0, sssv_vtx, data/inc/D_0100F410_48CE0]
     - [0x48DC0, .data, data/D_0100F4F0_48DC0]
-    # HELP with 0x8 offset
-    # - [0x48E18, bin] # vtx
-    # - [0x48F08, bin] # displaylist
+    - [0x48E18, sssv_vtx, data/inc/D_0100F548_48E18]
+    - [0x48F08] # end of vtx
     - [0x48F80, .data, data/D_0100F8C0_49190]
     - [0x48F80, sssv_vtx, data/inc/D_0100F6B0_48F80]
     - [0x49040, sssv_vtx, data/inc/D_0100F770_49040]
@@ -536,8 +534,7 @@ segments:
     - [0x4AA10, .data, data/D_01011140_4AA10]
     - [0x4AB00, rgba16, img/objects/button.rgba16, 32, 32]
     - [0x4B300, sssv_vtx, data/inc/D_01011A30_4B300]
-    - [0x4B380, .data, data/4B380]
-    # HELP with 0x8 offset
+    - [0x4B380, .data, data/D_01011AB0_4B380]
     - [0x4B3C8, sssv_vtx, data/inc/D_01011AF8_4B3C8]
     - [0x4B448] # end of D_01011AF8_4B3C8
     - [0x4B480, .data, data/D_01011CF0_4B5C0]
@@ -866,8 +863,7 @@ segments:
     - [0x7F910, .data, data/D_5000180_7F910]
     - [0x7F9D0, sssv_vtx, data/inc/D_05000240_7F9D0]
     - [0x7FBC0, sssv_vtx, data/inc/D_05000430_7FBC0]
-    - [0x7FC70, .data, data/D_050004E0_7FC70] # dl
-    # - [0x7FD28, .data, data/D_05001308_80A98] # dl
+    - [0x7FC70, .data, data/D_050004E0_7FC70]
     - [0x7FD28, sssv_vtx, data/inc/D_05000598_7FD28]
     - [0x7FF18, sssv_vtx, data/inc/D_05000788_7FF18]
     - [0x80118, sssv_vtx, data/inc/D_05000988_80118]
@@ -882,8 +878,14 @@ segments:
     - [0x80F20, sssv_vtx, data/inc/D_05001790_80F20]
     - [0x81110, sssv_vtx, data/inc/D_05001980_81110]
     - [0x811C0, .data, data/D_05001A30_811C0]
-    - [0x81278, sssv_vtx, data/inc/D_05001AE8_81278] # vtx
-    - [0x81FB8] # end of 81278
+    - [0x81278, sssv_vtx, data/inc/D_05001AE8_81278]
+    - [0x81478, sssv_vtx, data/inc/D_05001CE8_81478]
+    - [0x81658, sssv_vtx, data/inc/D_05001EC8_81658]
+    - [0x81838, sssv_vtx, data/inc/D_050020A8_81838]
+    - [0x81A38, sssv_vtx, data/inc/D_050022A8_81A38]
+    - [0x81C38, sssv_vtx, data/inc/D_050024A8_81C38]
+    - [0x81E28, sssv_vtx, data/inc/D_05002698_81E28]
+    - [0x81FB8] # end of 811C0
     - [0x82200, .data, data/D_050033C0_82B50]
     - [0x82200, sssv_vtx, data/inc/D_05002A70_82200]
     - [0x823F0, sssv_vtx, data/inc/D_05002C60_823F0]
@@ -1837,8 +1839,8 @@ segments:
     - [0xCA150, .data, data/D_04002720_CA150] # missile
     - [0xCA1F0, sssv_vtx, data/inc/D_040027C0_CA1F0]
     - [0xCA240, .data, data/D_04002810_CA240]
-    - [0xCA268, sssv_vtx, data/inc/D_01003780_CA268]
-    - [0xCA2B8] # end of D_01003780_CA268
+    - [0xCA268, sssv_vtx, data/inc/D_04002838_CA268]
+    - [0xCA2B8] # end of D_04003780_CA268
     - [0xCA2E0, .data, data/D_04002910_CA340]
     - [0xCA2E0, sssv_vtx, data/inc/D_040028B0_CA2E0]
     - [0xCA340]
@@ -1848,7 +1850,6 @@ segments:
     - [0xCA600, sssv_vtx, data/inc/D_04002BD0_CA600]
     - [0xCA740, sssv_vtx, data/inc/D_04002D10_CA740]
     - [0xCA7C0, .data, data/D_04002D90_CA7C0] # sheep body (sheep? springy thing? ram?)
-    # - [0xCA958, .data, data/D_040032E8_CAD18]
     - [0xCA958, sssv_vtx, data/inc/D_04002F28_CA958]
     - [0xCAB58, sssv_vtx, data/inc/D_04003128_CAB58]
     - [0xCAC98, sssv_vtx, data/inc/D_04003268_CAC98]
@@ -3622,7 +3623,6 @@ segments:
     - [0x6A57C0, rgba16, img/flags/spanish.rgba16, 48, 32]
     # rodata
     - [0x6A63C0, .rodata, overlay1_6384F0]
-    # - [0x6A63D0, .rodata, overlay1_6384F0]
     - [0x6A64A0, .rodata, overlay1_63C660]
     # bss
     - [0x6A6500, .bss, overlay1_6384F0] # , 0xAD740 // should be D_80302E60
@@ -3867,17 +3867,17 @@ segments:
     - [0x7D05B0, .rodata, sssv/animals/penguin]
     - [0x7D05D0, .rodata, sssv/animals/polar_bear]
     - [0x7D0610, .rodata, sssv/animals/husky]
-    - [0x7D0620, .rodata, sssv/animals/vulture]    # 0x803BEF70
-    - [0x7D0650, .rodata, sssv/animals/camel]      # 0x803BEFA0
-    - [0x7D0660, .rodata, sssv/animals/kangaroo]   # 0x803BEFB0
-    - [0x7D0670, .rodata, sssv/animals/desert_fox] # 0x803BEFC0
-    - [0x7D0690, .rodata, sssv/animals/walrus]     # 0x803BEFE0
+    - [0x7D0620, .rodata, sssv/animals/vulture]
+    - [0x7D0650, .rodata, sssv/animals/camel]
+    - [0x7D0660, .rodata, sssv/animals/kangaroo]
+    - [0x7D0670, .rodata, sssv/animals/desert_fox]
+    - [0x7D0690, .rodata, sssv/animals/walrus]
     - [0x7D06E0, .rodata, sssv/animals/scorpion]
-    - [0x7D0710, .rodata, sssv/animals/gorilla]    # 0x803BF060
+    - [0x7D0710, .rodata, sssv/animals/gorilla]
     - [0x7D0740, .rodata, sssv/animals/elephant]
     - [0x7D0750, .rodata, overlay2_78E970]
     - [0x7D0790, .rodata, sssv/animinit]
-    - [0x7D0A70, .rodata, sssv/animals/seagull]    # 0x803BF3C0
+    - [0x7D0A70, .rodata, sssv/animals/seagull]
     - [0x7D0AA0, .rodata, overlay2_794EE0]
     - [0x7D0B40, .rodata, sssv/animals/evo]
     - [0x7D0B70, .rodata, sssv/credits]
