@@ -90,7 +90,8 @@ extern s32 D_803C4DAC[];
 //     case 1+0x7F7F:    // 1
 //     case 2+0x7F7F:    // 2
 //         // wtf is this
-//         D_FFFE0404[(s32)arg0 + (arg1)] = arg2; // -130044 , -0x1fbfc?
+//         // D_FFFE0404[(s32)arg0 + (arg1)] = arg2; // -130044 , -0x1fbfc?
+//         (arg0 - 133)->pad33C[arg1 + 1] = arg2;
 //         break;
 //     case 3+0x7F7F:    // 3
 //         arg0->unk158 = arg2;
@@ -139,7 +140,7 @@ extern s32 D_803C4DAC[];
 //         break;
 //     case 14+0x7F7F:
 //         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-//             arg0->unk2E = (s16) (((s32) (arg2 << 8) / 360) & 0xFF);
+//             arg0->zRotation = (s16) (((s32) (arg2 << 8) / 360) & 0xFF);
 //         } else {
 //             // is 1800 a typo?
 //             func_802C9918_6DAFC8(arg0, (s16) ((s32) (arg2 + 1800) % 360), arg0->yRotation);
@@ -150,7 +151,7 @@ extern s32 D_803C4DAC[];
 //             arg0->yRotation = (s16) (((s32) (arg2 * 256) / 360) & 0xFF);
 //             arg0->unk302 = (s16) arg0->yRotation;
 //         } else {
-//             func_802C9918_6DAFC8(arg0, arg0->unk2E, (s16) ((s32) (arg2 + 1800) % 360));
+//             func_802C9918_6DAFC8(arg0, arg0->zRotation, (s16) ((s32) (arg2 + 1800) % 360));
 //         }
 //         break;
 //     case 16+0x7F7F:
@@ -219,7 +220,7 @@ extern s32 D_803C4DAC[];
 //     case 32+0x7F7F:
 //         // is arg2 an object ID?
 //         if (arg2 < OB_TYPE_ANIMAL_OFFSET) {
-//             arg0->unk16C = &D_801E9EB8[arg2];
+//             arg0->unk16C = &D_801E9EB8.unk0[arg2];
 //             func_802C9BA4_6DB254(arg0);
 //         } else {
 //             // arg2 is an animal ID
@@ -227,17 +228,17 @@ extern s32 D_803C4DAC[];
 //             for (i = 0; i < D_803D553E; i++) {
 //                 tmp = D_801D9ED8.animals[i].animal;
 //                 if ((arg0 == tmp) && (tmp->unk366 != 6)) {
-//                     phi_t1 = D_801D9ED8.unk3EB0;
+//                     phi_t1 = D_801D9ED8.unk0;
 //                     break;
 //                 }
 //             }
 //             if (phi_t1 != NULL) {
 //                 temp_v0_3 = &D_801D9ED8.unk0[arg2]; // + (arg2 * 0xEC) + 0xFFFF1400;
-//                 phi_t1->unk0 = temp_v0_3;
+//                 phi_t1->objectType = temp_v0_3;
 //                 arg0->unk16C = temp_v0_3;
 //                 // help
 //                 D_803D5520 = &D_801D9ED8.unk0[arg2];
-//                 D_803D5524 = &D_801D9ED8.unk3EB0; //phi_t1->unk0;
+//                 D_803D5524 = &D_801D9ED8.unk0; //phi_t1->unk0;
 //                 D_803D5528 = &D_801D9ED8.animals;  //phi_t1->unk4;
 //                 D_803D552C = &D_801D9ED8.animals;  //phi_t1->unk4;
 //                 D_803D5530 = &D_801D9ED8.animals;  //phi_t1->unk4;
@@ -251,7 +252,7 @@ extern s32 D_803C4DAC[];
 //                 // arg0 = arg0;
 //                 func_802B2EA8_6C4558();
 //                 if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) { // + (gCurrentAnimalIndex * 8))->
-//                     D_803E9824 = arg2 - 256;
+//                     D_803E9824 = arg2 - OB_TYPE_ANIMAL_OFFSET;
 //                     // temp_v0_4 = (D_803E9824 * 2) + &D_803A63B0_7B7A60;
 //                     // arg0 = arg0;
 //                     D_803E9820 = (s16) D_803A63B0_7B7A60[D_803E9824].unk0;
@@ -282,204 +283,200 @@ extern s32 D_803C4DAC[];
 //     }
 // }
 
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80314F0C_7265BC.s")
-// something to do with in-game scripting
 extern u8 D_FFFE0400[];
 
 extern s32 D_803E4D3C;
 extern s32 D_803C4DAC_7D645C[];
-// need to check rodata
 // get_game_state()
-// s32 func_80314F0C_7265BC(Animal *arg0, s32 arg1) {
-//     s32 res;
-//
-//     if (arg1 < 0x7F7F) {
-//         res = arg1;
-//     } else {
-//         switch (arg1) { // arg1 - 0x7F7F
-//         case 0+0x7F7F:
-//         case 1+0x7F7F:
-//         case 2+0x7F7F:
-//             res = *(s32*)&D_FFFE0400[(s32)(((s32*)&arg0->xPos.h) + arg1)];
-//             break;
-//         case 3+0x7F7F:
-//             res = arg0->unk158;
-//             break;
-//         case 4+0x7F7F:
-//             res = arg0->health;
-//             break;
-//         case 5+0x7F7F:
-//             res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
-//             break;
-//         case 6+0x7F7F:
-//             res = arg0->xPos.h;
-//             break;
-//         case 7+0x7F7F:
-//             res = arg0->zPos.h;
-//             break;
-//         case 8+0x7F7F:
-//             res = arg0->yPos.h;
-//             break;
-//         case 9+0x7F7F:
-//             res = arg0->unk40;
-//             break;
-//         case 10+0x7F7F:
-//             if (D_803F2CD6 < 0) {
-//                 res = D_803F2CD2;
-//             } else {
-//                 res = D_803F2CD2 - 1;
-//                 if ((D_803F2CD8 >> 1) < D_803F2CD4) {
-//                     res += 1;
-//                 }
-//             }
-//             break;
-//         case 11+0x7F7F:
-//             res = arg0->xVelocity.w >> 5;
-//             break;
-//         case 12+0x7F7F:
-//             res = arg0->zVelocity.w >> 5;
-//             break;
-//         case 13+0x7F7F:
-//             res = arg0->yVelocity.w >> 5;
-//             break;
-//         case 14+0x7F7F:
-//             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-//                 res = (arg0->unk2E * 360) / 256;
-//             } else {
-//                 res = arg0->unk2E;
-//             }
-//             break;
-//         case 15+0x7F7F:
-//             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-//                 res = (arg0->yRotation * 360) / 256;
-//             } else {
-//                 res = arg0->yRotation;
-//             }
-//             break;
-//         case 16+0x7F7F:
-//             res = arg0->unk1CC;
-//             break;
-//         case 17+0x7F7F:
-//             res = (arg0->unk163 & 0x18) >> 3;
-//             break;
-//         case 18+0x7F7F: // get mass?
-//             res = arg0->unk46;
-//             break;
-//         case 19+0x7F7F:
-//             res = D_803F2D30.score;
-//             break;
-//         case 20+0x7F7F:
-//             res = arg0->unk3E;
-//             break;
-//         case 21+0x7F7F:
-//             res = arg0->state;
-//             break;
-//         case 22+0x7F7F:
-//             res = D_803F2CD8 * D_803F2CD6;
-//             break;
-//         case 23+0x7F7F:
-//             res = D_803A05B0_7B1C60 >> 6;
-//             break;
-//         case 24+0x7F7F:
-//             if ((gControllerInput->stick_x < -8) || (gControllerInput->stick_x > 8)) {
-//                 res = gControllerInput->stick_x;
-//             } else {
-//                 res = 0;
-//             }
-//             break;
-//         case 25+0x7F7F:
-//             if ((gControllerInput->stick_y < -8) || (gControllerInput->stick_y > 8)) {
-//                 res = gControllerInput->stick_y;
-//             } else {
-//                 res = 0;
-//             }
-//             break;
-//         case 26+0x7F7F:
-//             if ((gControllerInput->button & A_BUTTON)) {
-//                 res = 1;
-//             } else {
-//                 res = 0;
-//             }
-//             break;
-//         case 27+0x7F7F:
-//             if ((gControllerInput->button & B_BUTTON)) {
-//                 res = 1;
-//             } else {
-//                 res = 0;
-//             }
-//             break;
-//         case 28+0x7F7F:
-//             res = D_803E4D2C;
-//             break;
-//         case 29+0x7F7F:
-//             res = D_803F2D50.unkE0 * 100.0f;
-//             break;
-//         case 30+0x7F7F:
-//             res = D_803E4D30;
-//             break;
-//         case 31+0x7F7F:
-//             res = D_803E4D38[0];
-//             break;
-//         case 32+0x7F7F:
-//             res = arg0->unk16C->objectType;
-//             break;
-//         case 33+0x7F7F:
-//             res = D_801546E0;
-//             break;
-//         case 34+0x7F7F:
-//             res = D_801546D8;
-//             break;
-//         case 35+0x7F7F:
-//             res = D_803E4D38[1];
-//             break;
-//         case 36+0x7F7F:
-//             res = D_803E4D28;
-//             break;
-//         default:
-//             res = D_803C4DAC_7D645C[arg1];
-//         }
-//     }
-//     return res;
-// }
+s32 func_80314F0C_7265BC(Animal *arg0, s32 arg1) {
+    s32 res;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_803152A4_726954.s")
-// rodata should be correct
-// s32 func_803152A4_726954(s32 arg0, u8 arg1, s32 arg2) {
-//     switch (arg1) {
-//     case 1:
-//         arg0 = arg0 + arg2;
-//         break;
-//     case 2:
-//         arg0 = arg0 - arg2;
-//         break;
-//     case 3:
-//         arg0 = arg0 * arg2;
-//         break;
-//     case 4:
-//         arg0 = arg0 / arg2;
-//         break;
-//     case 5:
-//         arg0 = arg0 & arg2;
-//         break;
-//     case 6:
-//         arg0 = arg0 | arg2;
-//         break;
-//     case 7:
-//         arg0 = arg0 % arg2;
-//         break;
-//     case 8:
-//         arg0 = arg0 >> arg2;
-//         break;
-//     case 9:
-//         arg0 = arg0 << arg2;
-//         break;
-//     case 0:
-//         // arg0 = arg0;
-//         break;
-//     }
-//     return arg0;
-// }
+    if (arg1 < 0x7F7F) {
+        res = arg1;
+    } else {
+        switch (arg1) { // arg1 - 0x7F7F
+        case 0+0x7F7F:
+        case 1+0x7F7F:
+        case 2+0x7F7F:
+            // FIXME!
+            res = (arg0 - 133)->pad33C[arg1];
+            // res = *(s32*)&D_FFFE0400[(s32)(((s32*)&arg0->xPos.h) + arg1)];
+            break;
+        case 3+0x7F7F:
+            res = arg0->unk158;
+            break;
+        case 4+0x7F7F:
+            res = arg0->health;
+            break;
+        case 5+0x7F7F:
+            res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
+            break;
+        case 6+0x7F7F:
+            res = arg0->xPos.h;
+            break;
+        case 7+0x7F7F:
+            res = arg0->zPos.h;
+            break;
+        case 8+0x7F7F:
+            res = arg0->yPos.h;
+            break;
+        case 9+0x7F7F:
+            res = arg0->unk40;
+            break;
+        case 10+0x7F7F:
+            if (D_803F2CD6 < 0) {
+                res = D_803F2CD2;
+            } else {
+                res = D_803F2CD2 - 1;
+                if ((D_803F2CD8 >> 1) < D_803F2CD4) {
+                    res += 1;
+                }
+            }
+            break;
+        case 11+0x7F7F:
+            res = arg0->xVelocity.w >> 5;
+            break;
+        case 12+0x7F7F:
+            res = arg0->zVelocity.w >> 5;
+            break;
+        case 13+0x7F7F:
+            res = arg0->yVelocity.w >> 5;
+            break;
+        case 14+0x7F7F:
+            if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
+                res = (arg0->zRotation * 360) / 256;
+            } else {
+                res = arg0->zRotation;
+            }
+            break;
+        case 15+0x7F7F:
+            if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
+                res = (arg0->yRotation * 360) / 256;
+            } else {
+                res = arg0->yRotation;
+            }
+            break;
+        case 16+0x7F7F:
+            res = arg0->unk1CC;
+            break;
+        case 17+0x7F7F:
+            res = (arg0->unk163 & 0x18) >> 3;
+            break;
+        case 18+0x7F7F: // get mass?
+            res = arg0->unk46;
+            break;
+        case 19+0x7F7F:
+            res = D_803F2D30.score;
+            break;
+        case 20+0x7F7F:
+            res = arg0->unk3E;
+            break;
+        case 21+0x7F7F:
+            res = arg0->state;
+            break;
+        case 22+0x7F7F:
+            res = D_803F2CD8 * D_803F2CD6;
+            break;
+        case 23+0x7F7F:
+            res = D_803A05B0_7B1C60 >> 6;
+            break;
+        case 24+0x7F7F:
+            if ((gControllerInput->stick_x < -8) || (gControllerInput->stick_x > 8)) {
+                res = gControllerInput->stick_x;
+            } else {
+                res = 0;
+            }
+            break;
+        case 25+0x7F7F:
+            if ((gControllerInput->stick_y < -8) || (gControllerInput->stick_y > 8)) {
+                res = gControllerInput->stick_y;
+            } else {
+                res = 0;
+            }
+            break;
+        case 26+0x7F7F:
+            if ((gControllerInput->button & A_BUTTON)) {
+                res = 1;
+            } else {
+                res = 0;
+            }
+            break;
+        case 27+0x7F7F:
+            if ((gControllerInput->button & B_BUTTON)) {
+                res = 1;
+            } else {
+                res = 0;
+            }
+            break;
+        case 28+0x7F7F:
+            res = D_803E4D2C;
+            break;
+        case 29+0x7F7F:
+            res = D_803F2D50.unkE0 * 100.0f;
+            break;
+        case 30+0x7F7F:
+            res = D_803E4D30;
+            break;
+        case 31+0x7F7F:
+            res = D_803E4D38[0];
+            break;
+        case 32+0x7F7F:
+            res = arg0->unk16C->objectType;
+            break;
+        case 33+0x7F7F:
+            res = D_801546E0;
+            break;
+        case 34+0x7F7F:
+            res = D_801546D8;
+            break;
+        case 35+0x7F7F:
+            res = D_803E4D38[1];
+            break;
+        case 36+0x7F7F:
+            res = D_803E4D28;
+            break;
+        default:
+            res = D_803C4DAC_7D645C[arg1];
+        }
+    }
+    return res;
+}
+
+s32 func_803152A4_726954(s32 arg0, u8 arg1, s32 arg2) {
+    switch (arg1) {
+    case 1:
+        arg0 = arg0 + arg2;
+        break;
+    case 2:
+        arg0 = arg0 - arg2;
+        break;
+    case 3:
+        arg0 = arg0 * arg2;
+        break;
+    case 4:
+        arg0 = arg0 / arg2;
+        break;
+    case 5:
+        arg0 = arg0 & arg2;
+        break;
+    case 6:
+        arg0 = arg0 | arg2;
+        break;
+    case 7:
+        arg0 = arg0 % arg2;
+        break;
+    case 8:
+        arg0 = arg0 >> arg2;
+        break;
+    case 9:
+        arg0 = arg0 << arg2;
+        break;
+    case 0:
+        // arg0 = arg0;
+        break;
+    }
+    return arg0;
+}
 
 void func_80315384_726A34(struct069 *arg0, struct069 *arg1) {
     arg1->unk2 = arg0->unk2;

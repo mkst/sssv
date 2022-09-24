@@ -456,7 +456,7 @@ struct Animal {
     /* 0x334 */ u16 unk334;
     /* 0x336 */ u8  pad336[0x2];
     /* 0x338 */ s32 unk338;
-    /* 0x33C */ u8  pad33C[0xC];
+    /* 0x33C */ s32 pad33C[3];
     /* 0x348 */ s16 unk348; // (desert fox) dizziness duration and size
     /* 0x34A */ s16 unk34A; // (desert fox) dizziness recovery delay?
     /* 0x34C */ s16 unk34C;
@@ -492,7 +492,7 @@ struct Animal {
     /* 0x3C0 */ struct113 unk3C0;
     /* 0x3C8 */ struct106 unk3C8;
     /* 0x3D0 */ s16 unk3D2;
-}; // how big is this?
+}; // size 0x3D4
 
 typedef struct {
     s8  unk0;

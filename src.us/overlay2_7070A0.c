@@ -8,7 +8,7 @@ struct071 *func_802F8994_70A044(struct071*);
 
 
 #if 0
-// need to check rodata
+// need to check rodata + bss
 void func_802F59F0_7070A0(void) {
     static s16 D_803A52C4_7B6974;
     gControllerInput = &D_803E1BC4;
@@ -393,8 +393,6 @@ void func_802F68A0_707F50(Animal *arg0) {
     }
 }
 
-#if 0
-// OK but has .rodata
 void func_802F6A5C_70810C(Animal *arg0) {
     s16 phi_a2;
     s16 phi_v0_4;
@@ -457,9 +455,9 @@ void func_802F6A5C_70810C(Animal *arg0) {
         }
 
         if (ABS(phi_v0_4) < 90) {
-            arg0->zRotation -= (s16) (temp_f2 * 0.0008742899988063026); // SSSV_PI / (10 * 360) ? ish D_803BCEE8_7CE598
+            arg0->zRotation -= (s16) (temp_f2 * 0.0008742899988063026); // SSSV_PI / (10 * 360) ?
         } else {
-            arg0->zRotation += (s16) (temp_f2 * 0.0008742899988063026); // D_803BCEF0_7CE5A0
+            arg0->zRotation += (s16) (temp_f2 * 0.0008742899988063026);
         }
 
         while (arg0->zRotation >= 360) {
@@ -477,9 +475,6 @@ void func_802F6A5C_70810C(Animal *arg0) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F6A5C_70810C.s")
-#endif
 
 void func_802F6DEC_70849C(Animal *arg0, s16 arg1) {
     struct077 sp68;
