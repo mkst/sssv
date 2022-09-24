@@ -121,8 +121,6 @@ void func_8032F950_741000(void) {
     }
 }
 
-#if 0
-// TODO: doublecheck rodata
 void func_8032FD0C_7413BC(u8 cameraID, u8 arg1) {
 
     func_80342550_753C00(&D_803F28E0[cameraID]);
@@ -221,9 +219,6 @@ void func_8032FD0C_7413BC(u8 cameraID, u8 arg1) {
         break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032FD0C_7413BC.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032FF94_741644.s")
 
@@ -342,8 +337,6 @@ void func_803378BC_748F6C(u8 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80337ECC_74957C.s")
 
-#if 0
-// needs rodata to match
 void func_80338E1C_74A4CC(u8 cameraID) {
     s32 one = 1; // ehhhh....
     s32 phi_a0;
@@ -429,9 +422,6 @@ block_18:
     }
     D_803F2AC5 = one;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80338E1C_74A4CC.s")
-#endif
 
 void func_803391D0_74A880(u8 arg0) {
     func_80338E1C_74A4CC(arg0);
@@ -780,8 +770,6 @@ extern f64 D_803BE4F0_7CFBA0;
 //             ) * 64.0f;
 // }
 
-#if 0
-// needs rodata
 void func_8033B118_74C7C8(u8 cameraID) {
     f32 phi_f2;
     f32 sp30;
@@ -813,9 +801,6 @@ void func_8033B118_74C7C8(u8 cameraID) {
     gCamera->unk90 = 0.0f;
     gCamera->unk94 = 1.0f;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033B118_74C7C8.s")
-#endif
 
 void func_8033B440_74CAF0(u8 cameraID) {
     f32 temp_f0;
@@ -845,8 +830,6 @@ void func_8033B440_74CAF0(u8 cameraID) {
     gCamera->unk20 = phi_f2;
 }
 
-#if 0
-// rodata
 void func_8033B594_74CC44(u8 arg0) {
     f32 phi_f14;
     f32 phi_f20;
@@ -896,9 +879,6 @@ void func_8033B594_74CC44(u8 arg0) {
     gCamera->unkA8 = 0.0f;
     gCamera->unkA4 = gCamera->unkA8;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033B594_74CC44.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033B9B8_74D068.s")
 // void func_8033B9B8_74D068(u8 arg0) {
@@ -1021,16 +1001,14 @@ void func_8033B594_74CC44(u8 arg0) {
 //     gCamera->unk94 = 1.0f;
 // }
 
-#if 0
-// needs rodata to OK
 void func_8033C054_74D704(u8 arg0) {
     f32 temp_f20;
 
     f64 temp_f22;
     f64 temp_f2;
 
-    temp_f2 = 0.7111111111111111;   // D_803BE5E8_7CFC98
-    temp_f22 = 6.2832;              // D_803BE5F0_7CFCA0
+    temp_f2 = 0.7111111111111111;
+    temp_f22 = 6.2832;
 
     gCamera = &D_803F28E0[arg0];
 
@@ -1038,11 +1016,11 @@ void func_8033C054_74D704(u8 arg0) {
     gCamera->unk78 = gCamera->unkCC->zPos.w / 65536.0;
     gCamera->unk7C = gCamera->unkCC->yPos.w / 65536.0;
 
-    temp_f20 = gCamera->unkCC->unk2C * temp_f2;
+    temp_f20 = gCamera->unkCC->yRotation * temp_f2;
     gCamera->unk20 = temp_f20;
     gCamera->unk24 = temp_f20;
 
-    temp_f20 = gCamera->unkCC->unk2E * temp_f2;
+    temp_f20 = gCamera->unkCC->zRotation * temp_f2;
     gCamera->unk14 = temp_f20;
     gCamera->unk18 = temp_f20;
 
@@ -1060,9 +1038,6 @@ void func_8033C054_74D704(u8 arg0) {
     gCamera->unk9C = gCamera->unkC;
     gCamera->unkA0 = gCamera->unk10;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033C054_74D704.s")
-#endif
 
 void func_8033C320_74D9D0(u8 arg0) {
     D_803F2AC5 = 1;
@@ -1278,17 +1253,14 @@ void func_8033E430_74FAE0(void) {
 
 void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f32 *arg5) {
     f32 tmp0;
-    f32 tmp1;
-    f32 tmp2;
+
     // 6.2832 (2*PI)
-    tmp1 = arg1 * D_803BE5F8_7CFCA8 * (256 / 65536.0);
-    tmp0 = sinf(tmp1);
+    tmp0 = sinf(arg1 * 6.2832 * (256 / 65536.0));
     // 6.2832
-    tmp2 = arg0 * D_803BE600_7CFCB0 * (256 / 65536.0);
-    *arg3 = gCamera->unk8 - cosf(tmp2) * (arg2 * tmp0);
-    tmp0 = cosf(tmp1);
-    *arg4 = gCamera->unkC - cosf(tmp2) * (arg2 * tmp0);
-    *arg5 = gCamera->unk10 + sinf(tmp2) * arg2;
+    *arg3 = gCamera->unk8 - cosf(arg0 * 6.2832 * (256 / 65536.0)) * (arg2 * tmp0);
+    tmp0 = cosf(arg1 * 6.2832 * (256 / 65536.0));
+    *arg4 = gCamera->unkC - cosf(arg0 * 6.2832 * (256 / 65536.0)) * (arg2 * tmp0);
+    *arg5 = gCamera->unk10 + sinf(arg0 * 6.2832 * (256 / 65536.0)) * arg2;
 }
 
 #if 0

@@ -541,7 +541,7 @@
 // }
 
 void func_8031F858_730F08(void) {
-    rmonPrintf(D_803BD9A0_7CF050); // "Helimouse is gone\n"
+    rmonPrintf("Helimouse is gone\n");
 }
 
 void func_8031F87C_730F2C(void) {

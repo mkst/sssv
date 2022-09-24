@@ -57,7 +57,7 @@ segments:
     - [0x10DE0, c, main_10DE0]
     - [0x12400, c, main_12400]  # .text is still 0x20 larger
     # libultra
-    - [0x12FE0, linker, lib]  # fake split here for progress
+    - [0x12FE0, linker_offset, libultra_start]  # marker here for progress
     - [0x12FE0, asm]
     - [0x13270, asm]
     - [0x13540, asm]
@@ -181,7 +181,7 @@ segments:
     - [0x288D0, asm]
     - [0x28920, asm]
   # .data/.rodata
-    - [0x28AB0, linker, data]
+    - [0x28AB0, linker_offset, main_data_start] # marker here for progress
     - [0x28AB0, bin]
     - [0x33C70, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
     - [0x35070, bin] # lib data
@@ -547,7 +547,7 @@ segments:
     - [0x639DA0, c, overlay1_639DA0]
     - [0x63ED30, c, overlay1_63ED30]
     - [0x63F1A0, c, overlay1_63F1A0]
-    - [0x63FB60, linker, data]
+    - [0x63FB60, linker_offset, overlay1_data_start] # marker here for progress
     - [0x63FB60, bin]
     - [0x6409B0, bin, rnc_6409B0] # 37463 => 163840
     - [0x649C10, rnc, img/intro/president_frank_bloke, rgba16, 320, 240]
@@ -673,7 +673,7 @@ segments:
     - [0x7ACA80, asm]
     - [0x7B21B0, asm]
     # .data/.rodata
-    - [0x7B4930, linker, data]
+    - [0x7B4930, linker_offset, overlay2_data_start] # marker here for progress
     - [0x7B4930, bin]
     - [0x7BC978, bin] # in-game objects
     - [0x7C5FFC, bin] # end of in-game objects

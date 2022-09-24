@@ -12,3 +12,15 @@ Gfx D_04002810_CA240[] = {
     gsDPPipeSync(),
     gsSPEndDisplayList(),
 };
+
+Vtx D_04002838_CA268[5] = {
+#include "data/inc/D_04002838_CA268.inc.c"
+};
+
+Gfx D_04002888_CA2B8[] = {
+    gsSPDisplayList(D_01003780_3D050),
+    gsSPVertex(D_04002838_CA268, 5, 0),
+    gsSP2Triangles(0, 2, 4, 0, 1, 3, 4, 0),
+    gsDPPipeSync(),
+    gsSPEndDisplayList(),
+};

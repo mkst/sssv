@@ -802,8 +802,6 @@ void func_802A63C0_6B7A70(void) {
     }
 }
 
-// should match, need to decomp functions in between due to rodata
-#if 0
 void func_802A6400_6B7AB0(void) {
     switch (D_803D5530->state) {
     case 2:
@@ -830,12 +828,7 @@ void func_802A6400_6B7AB0(void) {
         break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A6400_6B7AB0.s")
-#endif
 
-#if 0
-// should match, need to decomp functions in between due to rodata
 s32 func_802A64B0_6B7B60(void) {
     s32 pad;
     s16 sp5A;
@@ -1100,12 +1093,7 @@ block_94:
     D_803D5530->yVelocity.w = (ABS(D_803D5530->yVelocity.w) * var_v1_16) >> 4;
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A64B0_6B7B60.s")
-#endif
 
-#if 0
-// should match, need to decomp functions in between due to rodata
 s32 func_802A7648_6B8CF8(Animal *arg0) {
     s16 pad[1];
     s16 temp_lo;
@@ -1163,9 +1151,6 @@ s32 func_802A7648_6B8CF8(Animal *arg0) {
     arg0->yVelocity.w = ((ABS(arg0->yVelocity.w) * phi_v1) >> 4);
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A7648_6B8CF8.s")
-#endif
 
 #if 0
 void func_802A78CC_6B8F7C(void) {

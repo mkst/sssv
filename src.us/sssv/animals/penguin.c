@@ -67,7 +67,7 @@ void func_80365C28_7772D8(void) {
 void func_80365C7C_77732C(void) {
     if (D_803D552C->unk308 == 0) {
         if (D_803D552C->unk2B4.unk8 != 0) {
-            play_sound_effect_at_location(0xB8, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEF14);
+            play_sound_effect_at_location(0xB8, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
             D_803D552C->unk308 = 80;
         } else {
             func_8032C508_73DBB8(16, 0x7000, 0, 1.3f);
@@ -104,7 +104,7 @@ void penguin_throw_snowball(Animal *arg0) {
 // king penguin attack
 void func_80365E70_777520(s16 arg0) {
     if (D_803D552C->unk308 == 0) {
-        play_sound_effect_at_location(184, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEF18);
+        play_sound_effect_at_location(184, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
         D_803D552C->unk308 = 50;
     }
     D_803D552C->unk2EC = arg0;

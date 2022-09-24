@@ -324,7 +324,6 @@ extern char D_8015ACA4[]; // "%d"
 extern char D_8015AD70[]; // "reset all data - %d\n"
 extern char D_8015AD90[]; // "----------------- Active sounds\n"
 extern char D_8015ADB4[]; // "sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d"
-extern f64  D_8015AE08;
 
 extern s32  D_8015B790; // ucode data start
 extern s32  D_8015C750;
@@ -974,8 +973,6 @@ extern char D_803BC6C0_7CDD70[];
 extern char D_803BC6FC_7CDDAC[];
 extern char D_803BC720_7CDDD0[];
 extern char D_803BC738_7CDDE8[];
-extern f32  D_803BCDD8_7CE488;
-extern f32  D_803BCDDC_7CE48C;
 extern f64  D_803BCF00_7CE5B0; // 0.3
 extern f32  D_803BCF94_7CE644;
 // rabbit
@@ -986,7 +983,6 @@ extern f64  D_803BCFB8_7CE668; // 1.2
 extern f32  D_803BCFC0_7CE670; // -0.35
 // frog
 extern f32  D_803BCFD0_7CE680; // -0.38
-extern f32  D_803BD114_7CE7C4; // 1.1892
 
 extern const s16  D_803BD530_7CEBE0[];
 extern const s16  D_803BD54A_7CEBFA[];
@@ -1007,7 +1003,6 @@ extern f64  D_803BD9C0_7CF070;
 extern f64  D_803BD9C8_7CF078;
 extern f32  D_803BD9D0_7CF080;
 extern f32  D_803BD9D4_7CF084;
-extern char D_803BD9A0_7CF050[]; // "Helimouse is gone\n"
 extern f32  D_803BD9D0_7CF080;
 extern f32  D_803BD9D4_7CF084;
 extern f32  D_803BE13C_7CF7EC;
@@ -1018,9 +1013,6 @@ extern f32  D_803BE148_7CF7F8;
 extern f64  D_803BE5F8_7CFCA8;
 extern f64  D_803BE600_7CFCB0;
 extern char D_803BE920[]; // "load xlui texture - %d\n"
-extern char D_803BE940[]; // "%8d"
-extern char D_803BE944[]; // "%d"
-extern char D_803BE948[]; // "%d:%02d"
 extern f64  D_803BE950;   // 0x3FE3333333333333
 extern char D_803BE9A0[]; // "Sorry, no more space for extra hilites\n"
 extern char D_803BE9F0[];
@@ -1033,26 +1025,17 @@ extern f64  D_803BEAF8_7D01A8;
 extern f32  D_803BEB00_7D01B0;
 extern f32  D_803BEB04_7D01B4;
 extern f32  D_803BEB08_7D01B8;
-extern f32  D_803BEB0C_7D01BC; // 1.7999999523162842
 
 extern s16  D_803BEB70_7D0220[16];
 extern s16  D_803BEB90_7D0240[16];
 extern f32  D_803BEC10;
 extern f32  D_803BEC14;
 extern f32  D_803BEC18;
-extern f32  D_803BEF14;
-extern f32  D_803BEF18;
-extern f32  D_803BEF68;
-extern f32  D_803BEF6C;
-extern f32  D_803BEF90;
 
-extern f32  D_803BF028; // 0x3F333333
-extern f32  D_803BF02C; // 0x3F333333
 extern char D_803BF030[]; // "mapStatus12:%d %d\n"
 extern char D_803BF044[]; // "ATTACK ABANDONED\n"
 extern f64  D_803BF0C8_7D0778; // 0.2
 extern f64  D_803BF0D0_7D0780; // 1.3
-extern f32  D_803BF3E0;
 extern char D_803BFFD4_7D1684[]; // "%s\n"
 
 // 0x803Cxxxx
@@ -1064,18 +1047,12 @@ extern f32  D_803C0160;
 extern f64  D_803C0168;
 extern f32  D_803C0170_7D1820;
 extern f64  D_803C0178;
-extern f32  D_803C0180;
-extern f32  D_803C0184;
 extern char D_803C0190_7D1840[];
 extern char D_803C0194_7D1844[];
 extern char D_803C0198_7D1848[];
 extern char D_803C01B0_7D1860[];
 extern char D_803C01C8_7D1878[];
 
-extern f32  D_803C032C_7D19DC;
-extern f32  D_803C0348_7D19F8;
-extern f32  D_803C034C_7D19FC;
-extern f32  D_803C0388;
 extern f64  D_803C0390_7D1A40;
 extern char D_803C03A0_7D1A50[];
 extern char D_803C03A8_7D1A58[];
@@ -1087,13 +1064,7 @@ extern char D_803C03C8_7D1A78[];
 extern char D_803C03D0_7D1A80[];
 extern char D_803C03D8_7D1A88[];
 extern char D_803C03DC_7D1A8C[];
-extern char D_803C03E0_7D1A90[];
-extern char D_803C03E4_7D1A94[];
-extern char D_803C03E8_7D1A98[];
-extern char D_803C03EC_7D1A9C[];
-extern char D_803C03F0_7D1AA0[];
 
-extern f32 D_803C03F4_7D1AA4; // 0.1f
 extern f32 D_803C03F8_7D1AA8; // 9.7f;
 extern f64 D_803C0400_7D1AB0; // 1.95;
 extern f64 D_803C0408_7D1AB8; // 2.05;

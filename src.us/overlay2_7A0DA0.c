@@ -908,7 +908,7 @@ void func_8038FF68_7A1618(void) {
 #endif
 
 void func_80391A38_7A30E8(void) {
-    func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, D_803C032C_7D19DC);
+    func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, 0.76f);
     if (D_803F66AA == 1) {
         if (RAND(20) == 1) {
             D_803B6880_7C7F30 = (s32) RAND(6);
@@ -931,11 +931,11 @@ void func_80391A38_7A30E8(void) {
             func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 4:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, D_803C0348_7D19F8); // 1.12
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.12f);
             func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 5:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, D_803C034C_7D19FC); // 1.33
+            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.33f);
             func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         }
@@ -2023,7 +2023,7 @@ void func_80395854_7A6F04(void) {
     gSPSegment(D_801D9E7C++, 0x04, osVirtualToPhysical(D_801D9E6C));
     gSPViewport(D_801D9E7C++, &D_803B66F0);
 
-    guPerspective(&D_80204278->unk37410, &D_803C0658, 45.0f, 0.92f, 2.0f, D_803C0388, 1.0f);
+    guPerspective(&D_80204278->unk37410, &D_803C0658, 45.0f, 0.92f, 2.0f, 6000.0f, 1.0f);
     guScale(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
     guScale(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
     guLookAt(&D_80204278->unk37490, D_803B683C.unk0, D_803B683C.unk4, D_803B683C.unk8, D_803B683C.unkC, D_803B683C.unk10, D_803B683C.unk14, 0.0f, 0.0f, 1.0f);
