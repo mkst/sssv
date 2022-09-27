@@ -1026,8 +1026,6 @@ extern f32  D_803BEB00_7D01B0;
 extern f32  D_803BEB04_7D01B4;
 extern f32  D_803BEB08_7D01B8;
 
-extern s16  D_803BEB70_7D0220[16];
-extern s16  D_803BEB90_7D0240[16];
 extern f32  D_803BEC10;
 extern f32  D_803BEC14;
 extern f32  D_803BEC18;
