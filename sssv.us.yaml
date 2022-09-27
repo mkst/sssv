@@ -3859,7 +3859,7 @@ segments:
     - [0x7D0140, .rodata, sssv/animals/tortoise]
     - [0x7D01E0, .rodata, sssv/animals/hyena]
     - [0x7D0210, .rodata, sssv/animals/chameleon]
-    - [0x7D0220, rodata, overlay2_76D850]
+    - [0x7D0220, .rodata, overlay2_76D850]
     - [0x7D02B0, .rodata, sssv/animals/rat]
     - [0x7D02C0, rodata, overlay2_76F7D0]
     - [0x7D02D0, .rodata, sssv/animals/sheep]

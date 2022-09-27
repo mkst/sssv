@@ -296,7 +296,6 @@ gCamera = 0x803F2AD0;
 _fontbufferSegmentStart     = 0x800E1220;
 _fontbufferSegmentEnd       = 0x800EF0D0;
 
-
 // bss
 
 D_803C0420 = 0x803C0420; // defined:true

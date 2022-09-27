@@ -4,6 +4,16 @@
 // evo chip?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76D850/func_8035C1A0_76D850.s")
 
+const s16 D_803BEB70_7D0220[16] = {
+    0, 7, 12, 14, 16, 14, 12, 10,
+    8, 6,  5,  4,  3,  2,  2,  1,
+};
+const s16 D_803BEB90_7D0240[16] = {
+     0, -5, -7, -8, -8, -7, -7, -6,
+    -5, -5, -4, -4, -3, -3, -2, -2,
+};
+
+
 // score: 7330
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76D850/func_8035D120_76E7D0.s")
 // void func_8035D120_76E7D0(void) {
