@@ -1,9 +1,9 @@
 ansiwrap
 attrs
-capstone
 colorama
 cxxfilt
 intervaltree
+n64img
 pycparser
 pylibyaml
 pynacl
@@ -11,8 +11,8 @@ pypng
 python-Levenshtein
 python-ranges
 pyyaml
-rabbitizer==1.2.0
-spimdisasm==1.5.4
+rabbitizer==1.2.1
+spimdisasm==1.6.2
 toml
 tqdm
 watchdog
