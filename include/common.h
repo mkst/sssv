@@ -200,13 +200,6 @@
 #define ATTACK_SHEEP_FLOAT  45
 #define ATTACK_DOG_1        48
 
-// objects
-
-#define OBJECT_CANNONBALL   17
-#define OBJECT_MISSILE      18
-#define OBJECT_SWITCH_ON    24
-
-
 // transitions
 
 #define TRANSITION_1        1

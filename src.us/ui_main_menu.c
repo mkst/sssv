@@ -827,7 +827,7 @@ void func_8039A2DC_7AB98C(void) {
                     play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
                 }
             }
-            // temp_v0_9 = D_803F7DA8.bank;
+
             if (D_803F7DA8.bank == 0) {
                 x_offset = 58;
                 y_offset = 88;
@@ -1278,7 +1278,7 @@ void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1) {
         if (D_803F7D9C == 0) {
             if (RAND(2000) < 10) {
                 D_803F7D9C = 1;
-                func_8032CD20_73E3D0(0x283B, 0x74, 0x4000, 0, 1.0f);
+                func_8032CD20_73E3D0(0x283B, 116, 0x4000, 0, 1.0f);
             }
         } else {
             D_803F7D9C += 1;
@@ -1360,7 +1360,7 @@ void determine_available_levels(void) {
     for (i = 0; i < 31; i++) {
         if (i == 30) {
             if (D_8023F260.evoPartsCollected == (EVO_TORSO | EVO_HEAD | EVO_ARMS | EVO_LEGS)) {
-                D_803F7DE0[i] = 1;
+                D_803F7DE0[i] = 1; // BIG_CELEBRATION_PARADE available
             } else {
                 D_803F7DE0[i] = 0;
             }
@@ -1370,8 +1370,8 @@ void determine_available_levels(void) {
             } else {
                 D_803F7DE0[i] = 0;
             }
-            // if previous level complete, current is available?
             if ((i != 0) && (D_8023F260.level[i-1].completed)) {
+                // eeprom says level completed, so enable it
                 D_803F7DE0[i] = 1;
             }
         }

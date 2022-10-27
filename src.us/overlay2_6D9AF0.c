@@ -122,7 +122,7 @@ void func_802C87E0_6D9E90(void) {
 //                         func_8035E200_76F8B0();
 //                         if (D_803D552C->unk366 == 2) {
 //                             func_802AA1EC_6BB89C();
-//                         } else if (D_803D5524->unk9C != 0x3F) {
+//                         } else if (D_803D5524->unk9C != EVO) {
 //                             if (D_803F2D10.unk0 == 0) {
 //                                 func_802A78CC_6B8F7C();
 //                                 func_802AAAB0_6BC160();
@@ -473,7 +473,7 @@ s32 func_802C9340_6DA9F0(void) {
     phi_v0 = D_801E9EB8.unk0;
     for (i = 0; i < 247; i++) {
         if ((phi_v0->unk18 != 0) && (((s32)phi_v0->unk18 & 0xF0000000) == 0)) {
-            phi_v0->unk18 = D_801D9E74 + (((s32)phi_v0->unk18 & 0xFFFFFF));
+            phi_v0->unk18 = D_801D9E74 + SEGMENT_OFFSET((s32)phi_v0->unk18);
         }
         phi_v0 += 1;
     }
@@ -645,5 +645,58 @@ void func_802C9900_6DAFB0(struct071 *arg0, s32 arg1, u8 arg2) {
 
 // __ll_mul
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9918_6DAFC8.s")
+// void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {
+//     s16 var_t0;
+//     s16 var_t1;
+//     s16 var_t2;
+//
+//     s16 temp_t5;
+//     s32 temp_t8;
+//
+//     if (arg0->unk16C->unk15 != 4) {
+//         arg0->yRotation = arg2;
+//         arg0->zRotation = arg1;
+//         return;
+//     }
+//
+//     temp_t8 = ((s16) ((arg0->zRotation + 45) / 90) & 1) ^ ((s16) ((arg0->yRotation + 45) / 90) & 1);
+//
+//     arg0->zRotation = arg1;
+//     arg0->yRotation = arg2;
+//
+//     if (temp_t8) {
+//         if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
+//             ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
+//             arg0->yPos.h = (arg0->yPos.h - arg0->unk30) + (arg0->unk42 >> 1);
+//         } else {
+//             arg0->yPos.h = (arg0->yPos.h - arg0->unk32) + (arg0->unk42 >> 1);
+//         }
+//     }
+//     var_t1 = arg0->unk16C->unk72;
+//     var_t0 = arg0->unk16C->unk74;
+//     var_t2 = arg0->unk16C->unk7A;
+//
+//     if (((arg0->zRotation >= 45) && (arg0->zRotation < 135)) ||
+//         ((arg0->zRotation >= 225) && (arg0->zRotation < 315))) {
+//         temp_t5 = var_t0;
+//         var_t0 = (var_t2 / 2);
+//         var_t2 = temp_t5 << 1;
+//     }
+//     if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
+//         ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
+//         temp_t5 = var_t1;
+//         var_t1 = var_t0;
+//         var_t0 = temp_t5;
+//     }
+//
+//     arg0->unk30 = var_t1;
+//     arg0->unk32 = var_t0;
+//     arg0->unk42 = var_t2;
+//
+//     arg0->unk30 = ((s64)arg0->unk30 * arg0->unk40) >> 0xB;
+//     arg0->unk32 = ((s64)arg0->unk32 * arg0->unk40) >> 0xB;
+//     arg0->unk42 = ((s64)arg0->unk42 * arg0->unk40) >> 0xB;
+// }
+
 // __ll_mul
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9BA4_6DB254.s")

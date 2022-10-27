@@ -172,8 +172,8 @@ block_23:
     } else {
         func_80303D00_7153B0(D_803D552C, 0x2BEU, 0U);
     }
-    if ((D_803D5524->unk9C == 0xF) && ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5))) {
-        load_animal(0xE);
+    if ((D_803D5524->unk9C == PARROT_ATTACKING) && ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5))) {
+        load_animal(PARROT);
     }
 }
 

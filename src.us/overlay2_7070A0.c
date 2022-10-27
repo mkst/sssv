@@ -702,7 +702,7 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //     }
 // }
 
-// homing missile turret
+// homing missile turret (object63)
 void func_802F8DCC_70A47C(struct071 *arg0) {
     s32 x_dist;
     s32 z_dist;
@@ -756,6 +756,7 @@ void func_802F908C_70A73C(struct071 *arg0) {
     }
 }
 
+// used by dead scientists
 void func_802F90A8_70A758(struct071 *arg0) {
     arg0->xPos.w += arg0->unk1C.w;
     arg0->zPos.w += arg0->unk20.w;
@@ -765,6 +766,7 @@ void func_802F90A8_70A758(struct071 *arg0) {
     func_803136B0_724D60(arg0);
 }
 
+// used by object34
 void func_802F9104_70A7B4(struct071 *arg0) {
     arg0->unk150 = (arg0->unk150 + 4) & 0xFF;
     arg0->unk40 = (((D_80152C78[(arg0->unk150 + 64) & 0xFF] >> 7) * 0x66) >> 8) + 0x533;
@@ -865,6 +867,7 @@ void func_802F92B0_70A960(struct071 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F92B0_70A960.s")
 #endif
 
+// used by object 30
 void func_802F951C_70ABCC(Animal *arg0) {
     u8 red;
     u8 blue;
@@ -899,6 +902,7 @@ void func_802F951C_70ABCC(Animal *arg0) {
     }
 }
 
+// used by OBJECT_FLAME_TORCH
 void func_802F9624_70ACD4(Animal *arg0) {
     if (arg0->state == 1) {
         arg0->unk14E++;
@@ -920,7 +924,7 @@ void func_802F9624_70ACD4(Animal *arg0) {
     }
 }
 
-// used by object 43 (gravity switch)
+// used by OBJECT_GRAVITY_SWITCH
 #ifdef NON_MATCHING
 void func_802F96E0_70AD90(struct071 *arg0) {
     if (arg0->unk150 == 0) {
@@ -958,6 +962,7 @@ void func_802F96E0_70AD90(struct071 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F96E0_70AD90.s")
 #endif
 
+// used by object 45
 void func_802F9880_70AF30(Animal *arg0) {
     if (arg0->state == 1) {
         if (arg0->unk150 == 0) {
@@ -993,6 +998,7 @@ void func_802F9880_70AF30(Animal *arg0) {
     arg0->unk152 %= 360;
 }
 
+// used by OBJECT_WHEEL_SWITCH
 void func_802F9A08_70B0B8(Animal *arg0) {
     if (arg0->state == 1) {
         if (arg0->unk14E == 0) {
@@ -1032,7 +1038,7 @@ void func_802F9A08_70B0B8(Animal *arg0) {
     arg0->yRotation = ((arg0->unk14E * 360) / 128) % 360;
 }
 
-// used by object 42 (button)
+// used by OBJECT_BUTTON
 void func_802F9B4C_70B1FC(struct071 *arg0) {
     if (arg0->unk0 == (u16) 1) {
         add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, 255 /* red */, 0, 0);
@@ -1053,7 +1059,7 @@ void func_802F9B4C_70B1FC(struct071 *arg0) {
     }
 }
 
-// used by object 24 (switch)
+// used by OBJECT_ACTIVE_SWITCH
 void func_802F9C50_70B300(struct071 *arg0) {
     u8 red;
     u8 green;
@@ -2503,7 +2509,7 @@ void func_802FF25C_71090C(void) {
     }
 }
 
-// used by object 141 (speaker)
+// used by OBJECT_SPEAKER
 void func_802FF540_710BF0(struct071 *arg0) {
     s32 dist;
     s32 phi_t2;
@@ -2699,7 +2705,7 @@ void func_802FFF70_711620(struct071 *arg0) {
     func_8032CED0_73E580(&arg0->unk20.h[1], SFX_UNKNOWN_159, 0x3000, 1.0f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0, 0, 0);
 }
 
-// used by objects 58, 59, 60
+// used by OBJECT_ENERGY_BALL*
 void func_802FFFD0_711680(struct071 *arg0) {
     u8 red, green, blue;
 

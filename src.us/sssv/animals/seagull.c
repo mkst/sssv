@@ -306,8 +306,8 @@ void func_80381C60_793310(void) {
             }
         }
         if (D_803D5530->unk162 == 2) {
-            if (D_803D5528->skillBEnergy[0] > 400) {
-                D_803D5528->skillBEnergy[0] -= 400;
+            if (D_803D5528->energy[1].unk0 > 400) {
+                D_803D5528->energy[1].unk0 -= 400;
                 if (func_803224C4_733B74(-58, 0, 0, 29, 20, 0, 0, 11) != 0) {
                     play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     D_803D5530->yVelocity.h += 2;

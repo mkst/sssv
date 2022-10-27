@@ -3,7 +3,6 @@ options:
   target_path: baserom.us.z64
   base_path: .
   compiler: IDO
-  find_file_boundaries: yes
   symbol_addrs_path:   symbol_addrs.us.txt
   undefined_syms_path: undefined_syms.us.txt
   generated_c_preamble: |
@@ -11,9 +10,7 @@ options:
     #include "common.h"
   src_path: src.us
   extensions_path: tools/splat_ext
-  enable_ld_alignment_hack: yes
   lib_path: build/lib
-  hi_lo_max_distance: 32
   migrate_rodata_to_functions: yes
   # workaround regex issue
   create_undefined_funcs_auto: no
@@ -233,7 +230,6 @@ segments:
     - [0x288B0, lib, libultra_rom, yieldthread]
     - [0x28900, lib, libultra_rom, ldiv]
     # .data
-    - [0x28A90, linker_offset, main_data_start] # marker here for progress
     - [0x28A90, bin] # ucode # rspbootTextStart / 0x8014D390
     - [0x28B60, bin] # end of ucode?
     - [0x2BD00, bin] #
@@ -312,7 +308,7 @@ segments:
     - [0x36DF0, lib, libultra_rom, libm_vals, .rodata]
     - [0x36E00, lib, libultra_rom, xldtob, .rodata]
     - [0x36E60, lib, libultra_rom, reverb, .rodata]
-    - [0x36E90, bin]
+    - [0x36E90, bin] # data for ucode (D_8015B790)
     - [0x37100, bin] # data for 2nd ucode
     - [0x380C0, bin] # data for ucode
     - [0x390C0, bin] # F3DEX data
@@ -800,11 +796,11 @@ segments:
     - [0x66900, bin] # 32x32, fan
     - [0x66D00, bin] # 32x32, fan
     - [0x67100, bin] # symbols and stars
-    - [0x688E0, rgba16, img/688E0.rgba16, 32, 32] # D_0102F010
+    - [0x688E0, rgba16, img/D_0102F010_688E0.rgba16, 32, 32] # evo status?
     - [0x690e0, rgba16, img/actors/evo/gold.rgba16, 32, 32]
     - [0x698e0, rgba16, img/actors/evo/bronze.rgba16, 32, 32]
     - [0x6a0e0, rgba16, img/actors/evo/silver.rgba16, 32, 32]
-    - [0x6a8e0, rgba16, img/6A8E0.rgba16, 32, 32]
+    - [0x6a8e0, rgba16, img/D_01031010_6A8E0.rgba16, 32, 32]
     - [0x6b0e0, rgba16, img/6B0E0.rgba16, 32, 32]
     - [0x6b8e0, rgba16, img/6B8E0.rgba16, 32, 32]
     - [0x6c0e0, rgba16, img/6C0E0.rgba16, 32, 32]
@@ -3527,7 +3523,6 @@ segments:
     - [0x63C310, c, overlay1_63C310]
     - [0x63C660, c, overlay1_63C660]
     # .data / .rodata
-    - [0x63CDD0, linker_offset, overlay1_data_start] # marker here for progress
     - [0x63CDD0, bin] # tbd ### D_80299730
     - [0x63D000, bin] # D_80299960_63D000 in overlay1_6384F0
     - [0x63D0E0, bin]
@@ -3733,23 +3728,22 @@ segments:
     - [0x7A9CE0, c, ui_main_menu]
     - [0x7AF410, c, overlay2_7AF410]
     # .data / .rodata
-    - [0x7B1B90, linker_offset, overlay2_data_start] # marker here for progress
     - [0x7B1B90, bin] #
     - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
     - [0x7B1BB0, .data, overlay2_6AB090] # D_803A0500_7B1BB0
-    - [0x7B1BC0, bin] # D_803A0510_7B1BC0 overlay2_6AC360
-    - [0x7B1BE0, bin] # D_803A0530_7B1BE0
-    - [0x7B1C30, bin] # D_803A0580_7B1C30 overlay2_6ACF20
+    - [0x7B1BC0, .data, overlay2_6AC360] # D_803A0510_7B1BC0 overlay2_6AC360
+    - [0x7B1BE0, data] # D_803A0530_7B1BE0
+    - [0x7B1C30, data, overlay2_6ACF20] # D_803A0580_7B1C30 overlay2_6ACF20
     - [0x7B1C60, .data, overlay2_6B5380] # D_803A05B0_7B1C60
     - [0x7B1C70, .data, overlay2_6C5570]
     - [0x7B1C80, .data, sssv/animals/stats] # animal stats (struct089 -> struct035)
     - [0x7B3250, bin] # padding?
-    - [0x7B3260, bin] # some floats (struct098) overlay2_6DCA10
-    - [0x7B3760, bin] # tbd overlay2_6DCA10
-    - [0x7B3770, bin] # D_803A20C0_7B3770 overlay2_6DCA10
-    - [0x7B3860, bin] # D_803A21B0_7B3860 overlay2_6DCA10
-    - [0x7B4440, bin] # overlay2_6EC720
-    - [0x7B5E60, bin] # overlay2_716900
+    - [0x7B3260, data, overlay2_6DCA10]
+    - [0x7B4440, data, overlay2_6EC720]
+    # these are actually defined in 6EFE20 - just used in animals
+    - [0x7B5040, data, overlay2_6EFE20]
+    - [0x7B5B80, .data, sssv/animals/fox]
+    - [0x7B5E60, bin, overlay2_716900_data]
     - [0x7B5F70, .data, sssv/aidata]
     - [0x7B62E0, data, sssv/animals/dog]
     - [0x7B65A0, data, sssv/animals/hippo]
@@ -3798,7 +3792,7 @@ segments:
     - [0x7C7B00, bin]
     # - [0x7C7CB8, bin] # displaylist
     # - [0x7C7D68, bin] # displaylist
-    - [0x7C7D90, bin]
+    - [0x7C7D90, bin] # continued sssv/terminal_background data
     - [0x7C7F40, .data, overlay2_7A8A50] # data for overlay2_7A8A50?
     - [0x7C86B0, bin] # pointers
     # - [0x7C87B8, bin] # pointers to displaylists # 7C87B8

@@ -162,8 +162,106 @@ void func_8039DD90_7AF440(u8 *arg0) {
 //     }
 // }
 
+// grim structs
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7AF410/func_8039E33C_7AF9EC.s")
 
+#ifdef NON_MATCHING
+// just the stack
+void func_8039E6D4_7AFD84(struct114 *arg0) {
+    s16 sp5E;
+    s16 sp5C;
+    s16 sp5A;
+    s16 sp58;
+    s16 temp_v0;
+    Animal *animal;
+    struct077 sp48; // 0x6 big
+    s16 pad;
+    s16 sp44;
+    s16 sp42;
+    s16 sp40;
+    s32 sp38;
+    s32 sp34;
+
+    animal = arg0->unk240;
+    sp40 = animal->zRotation;
+    sp42 = animal->yRotation;
+    sp38 = animal->xVelocity.w >> 8;
+    sp34 = animal->zVelocity.w >> 8;
+
+    if (sp38 | sp34) {
+        sp44 = func_801284B8(
+            -animal->yVelocity.w >> 8,
+            sqrtf((sp38 * sp38) + (sp34 * sp34)));
+        temp_v0 = func_801284B8(sp38, sp34);
+
+        if (animal->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
+            // it's an animal
+            sp42 = (sp42 * 360) / 256;
+            sp40 = (sp40 * 360) / 256;
+        }
+
+        switch (arg0->unk0.state) {
+        case 0:
+            sp5E = (D_80152350.unk384[temp_v0] * arg0->unk5) >> 8;
+            sp5C = (-D_80152350.unk2D0[temp_v0] * arg0->unk5) >> 8;
+            sp5A = 0;
+            break;
+        case 1:
+            func_802F5F44_7075F4(0, 0, arg0->unk5, 360 - sp44, temp_v0, &sp48);
+
+            sp5E = sp48.unk0;
+            sp5C = sp48.unk2;
+            sp5A = sp48.unk4;
+            break;
+        case 2:
+            sp58 = (D_80152C78[(arg0->unk4 + 0x40) & 0xFF] * arg0->unk5) >> 0xF;
+
+            sp5A = (-D_80152C78[arg0->unk4 & 0xFF] * arg0->unk5) >> 0xF;
+            sp5E = (D_80152350.unk384[temp_v0] * sp58) >> 8;
+            sp5C = (D_80152350.unk2D0[temp_v0] * -sp58) >> 8;
+            break;
+        case 3:
+            sp58 = ((D_80152C78[(arg0->unk4 + 0x40) & 0xFF] * arg0->unk5) >> 0xF);
+
+            sp5A = (-D_80152C78[arg0->unk4 & 0xFF] * arg0->unk5) >> 0xF;
+            sp5E = (D_801526D4[(s16) ((s32)func_80128200() % 360)] * sp58) >> 8;
+            sp5C = (D_80152620[(s16) ((s32)func_80128200() % 360)] * -sp58) >> 8;
+            break;
+        default:
+            break;
+        }
+    } else {
+        sp5A = sp5C = sp5E = 0;
+    }
+
+    func_802F5F44_7075F4(arg0->unk238, arg0->unk23A, arg0->unk23C + (animal->unk42 >> 1), sp40, sp42, &sp48);
+
+    arg0->unk38[arg0->unk0.used].unk0 = (animal->xPos.h - sp5E) + sp48.unk0;
+    arg0->unk38[arg0->unk0.used].unk2 = (animal->zPos.h - sp5C) + sp48.unk2;
+    arg0->unk38[arg0->unk0.used].unk4 = (animal->yPos.h - sp5A) + sp48.unk4;
+
+    arg0->unk38[arg0->unk0.used+1].unk0 = animal->xPos.h + sp5E + sp48.unk0;
+    arg0->unk38[arg0->unk0.used+1].unk2 = animal->zPos.h + sp5C + sp48.unk2;
+    arg0->unk38[arg0->unk0.used+1].unk4 = animal->yPos.h + sp5A + sp48.unk4;
+
+    if ((arg0->unk0.used >> 1) & 1) {
+        // odd
+        arg0->unk38[arg0->unk0.used].unk8 = 0x7FF;
+        arg0->unk38[arg0->unk0.used].unkA = 0;
+
+        arg0->unk38[arg0->unk0.used+1].unk8 = 0x7FF;
+        arg0->unk38[arg0->unk0.used+1].unkA = 0x7FF;
+    } else {
+        // even
+        arg0->unk38[arg0->unk0.used].unk8 = 0;
+        arg0->unk38[arg0->unk0.used].unkA = 0;
+
+        arg0->unk38[arg0->unk0.used+1].unk8 = 0;
+        arg0->unk38[arg0->unk0.used+1].unkA = 0x7FF;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7AF410/func_8039E6D4_7AFD84.s")
+#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7AF410/func_8039EBFC_7B02AC.s")

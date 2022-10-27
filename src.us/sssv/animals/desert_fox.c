@@ -2,8 +2,10 @@
 #include "common.h"
 
 
+// ARMED_DESERT_FOX
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_803726E0_783D90.s")
 
+// DESERT_FOX_ATTACKING
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_80373788_784E38.s")
 
 void func_80374470_785B20(void) {
@@ -31,7 +33,7 @@ void func_80374518_785BC8(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_DESERT_FOX_SPIN;
 
-    if (D_803D5528->skillBEnergy[0] < 900) {
+    if (D_803D5528->energy[1].unk0 < 900) {
         D_803D552C->unk348 = 512;
         D_803D552C->unk34A = 50;
     } else {

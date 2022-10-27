@@ -252,7 +252,7 @@ void func_8035DA60_76F110(void) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (50)
+// CURRENT (40)
 void func_8035DEC4_76F574(void) {
     if (D_803D552C->unk366 != 5) {
         if (D_803D552C->unk2EE < 385) {

@@ -14,7 +14,9 @@ extern s16 D_803B4118_7C57C8[];
 extern s16 D_803B4130_7C57E0[];
 extern s16 D_803B4168_7C5818[];
 
+extern Gfx D_040029D0_CA400[];
 extern Gfx D_04002D90_CA7C0[];
+extern Gfx D_04002F28_CA958[];
 extern Gfx D_040032E8_CAD18[];
 extern Gfx D_04003580_EAB30[];
 extern Gfx D_040036B0_CB0E0[];
@@ -77,7 +79,7 @@ void func_8035FE90_771540(void) {
     sp8C = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x5F0, 0, 0x94, 0x94, 0x94, 1, var_v1 == 0); block_17:
     if (sp8C == 0) {
         if (((D_803D5538 != 0) && (D_803D5524->unk9C == SHEEP)) && (D_803D5530->unk162 == 1)) {
-            D_803D552C->skillAEnergy[0] = MIN(0x400, D_803D552C->skillAEnergy[0] + 50);
+            D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 50);
         }
         func_8034B298_75C948(0);
 
@@ -544,50 +546,44 @@ block_64:
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_80360D94_772444.s")
 #endif
 
+#if 0
+void func_803622DC_77398C(void) {
+    s16 temp_s0;
+    s16 temp_s1;
+    s16 temp_s2;
+    s16 temp_v0_3;
+    s16 i;
+
+    Vtx *body1;
+    Vtx *body2;
+
+    static u16 D_803F2EF0;
+
+    if (D_803F2EF0 != D_803D5544) {
+        D_803F2EF0 = D_803D5544;
+
+        body2 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_04002F28_CA958));
+        body1 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_040029D0_CA400));
+
+        for (i = 0; i < 32+20; i++) {
+            body1[i].v.ob[0] = body2[i].v.ob[0] + (((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * body2[i].v.ob[0]) >> 0xC);
+            body1[i].v.ob[1] = body2[i].v.ob[1] + (((D_80152C78[((body2[i].v.ob[1] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * body2[i].v.ob[1]) >> 0xC);
+            body1[i].v.ob[2] = body2[i].v.ob[2] + (((D_80152C78[((body2[i].v.ob[2] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * body2[i].v.ob[2]) >> 0xC);
+
+            temp_s0 = body2[i].v.cn[0] + ((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
+            temp_s1 = body2[i].v.cn[1] + ((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3) + 0x40) & 0xFF] >> 7) >> 2);
+            temp_s2 = body2[i].v.cn[2] - ((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
+
+            temp_v0_3 = sqrtf((temp_s0 * temp_s0) + (temp_s1 * temp_s1) + (temp_s2 * temp_s2));
+            body1->v.cn[0] = (s16) ((temp_s0 * 0x7F) / temp_v0_3);
+            body1->v.cn[1] = (s16) ((temp_s1 * 0x7F) / temp_v0_3);
+            body1->v.cn[2] = (s16) ((temp_s2 * 0x7F) / temp_v0_3);
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_803622DC_77398C.s")
-// NON-MATCHING: miles away
-// void func_803622DC_77398C(void) {
-//
-//     s16 temp_s0;
-//     s16 temp_s1;
-//     s16 temp_s2;
-//
-//     s16 temp_t9;
-//     s16 temp_a3;
-//
-//     Vtx *temp_s3;
-//     Vtx *temp_v1_2;
-//     s16 i;
-//
-//     if (D_803D5544 != D_803F2EF0) {
-//         Vtx **base, **base2;
-//         D_803F2EF0 = D_803D5544;
-//
-//         base = D_801D9EC4 + SEGMENT_OFFSET(D_04002F28_CA958);
-//         base2 = D_801D9EC4 + SEGMENT_OFFSET(D_040029D0_CA400);
-//
-//         for (i = 0; i < 52; i++) {
-//             temp_v1_2 = base[i];
-//             temp_s3 = base2[i];
-//
-//             temp_a3 = temp_v1_2->v.ob[0] * 0x10;
-//
-//             temp_s3->v.ob[0] = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->v.ob[0]) >> 0xC) + temp_v1_2->v.ob[0];
-//             temp_s3->v.ob[1] = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->v.ob[1]) >> 0xC) + temp_v1_2->v.ob[1];
-//             temp_s3->v.ob[2] = ((((D_80152C78[(((temp_a3 + (D_803D5540 * 8)) & 0xFF))]) >> 7) * temp_v1_2->v.ob[2]) >> 0xC) + temp_v1_2->v.ob[2];
-//
-//             temp_s0 = temp_v1_2->v.cn[0] + ((D_80152C78[(temp_a3 + (D_803D5540 * 8)) & 0xFF] >> 7) >> 2);
-//             temp_s1 = temp_v1_2->v.cn[1] + ((D_80152C78[((temp_a3 + (D_803D5540 * 8)) + 64) & 0xFF] >> 7) >> 2);
-//             temp_s2 = temp_v1_2->v.cn[2] - ((D_80152C78[(temp_a3 + (D_803D5540 * 8)) & 0xFF] >> 7) >> 2);
-//
-//             temp_t9 = sqrtf((temp_s0 * temp_s0) + (temp_s1 * temp_s1) + (temp_s2 * temp_s2));
-//
-//             temp_s3->v.cn[0] = (s16) ((temp_s0 * 0x7F) / temp_t9);
-//             temp_s3->v.cn[1] = (s16) ((temp_s1 * 0x7F) / temp_t9);
-//             temp_s3->v.cn[2] = (s16) ((temp_s2 * 0x7F) / temp_t9);
-//         }
-//     }
-// }
+#endif
 
 void func_80362618_773CC8(void) {
     s16 tmp;
@@ -595,7 +591,7 @@ void func_80362618_773CC8(void) {
     if (D_803D552C->unk36D == 7) {
         play_sound_effect_at_location(SFX_SHEEP_FLOAT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
-    if (D_803D552C->skillAEnergy[0] < 15) {
+    if (D_803D552C->energy[0].unk0 < 15) {
         if (D_803D552C->unk365 != ATTACK_SHEEP_FLOAT) {
             tmp = D_803D5530->yPos.h - MAX(func_80310EE4_722594(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->unk160) >> 16, D_803C0740[D_803D5530->xPos.h >> 16][D_803D5530->zPos.h >> 16].unk6 << 2);
             if (tmp > 96) {

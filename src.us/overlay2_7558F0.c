@@ -8,7 +8,6 @@ void func_803458B8_756F68(Gfx **arg0, Vtx *vtx, s16 num) {
     gSPVertex((*arg0)++, K0_TO_PHYS(vtx), num, 0);
 }
 
-
 // a long way to go here
 #if 0
 void func_803458FC_756FAC(Gfx **dl, s32 arg1, s16 arg2) {

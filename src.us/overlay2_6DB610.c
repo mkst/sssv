@@ -299,7 +299,46 @@ void func_802C9F60_6DB610(Animal *arg0) {
 }
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DB610/func_802CA8D4_6DBF84.s")
+void func_802CA8D4_6DBF84(Animal *arg0) {
+    s32 xVel;
+    s32 zVel;
+    s32 multi;
+    s32 var_v1;
+
+    if ((arg0->unk161 == 1) && (arg0->unk6C != NULL)) {
+        var_v1 = 120;
+        if (arg0->unk6C->unk16C->objectType == 2) {
+            xVel = arg0->unk6C->xVelocity.w * 2;
+            zVel = arg0->unk6C->zVelocity.w * 2;
+        } else {
+            xVel = arg0->unk6C->xVelocity.w;
+            zVel = arg0->unk6C->zVelocity.w;
+        }
+    } else {
+        xVel = zVel = 0;
+        if (arg0->unk160 == 2) {
+            var_v1 = D_803E1D30[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk3].unk0;
+        } else {
+            var_v1 = D_803E1D30[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk2].unk0;
+        }
+    }
+    if (arg0->unk16C->objectType == 2) {
+        var_v1 /= 4;
+    }
+    multi = arg0->unk16C->unk7E + (((256 - arg0->unk16C->unk7E) * (16 - var_v1)) >> 4);
+    if (multi < 0) {
+        multi = 0;
+    }
+    if (arg0->unk162 == 6) {
+        multi = 256 - ((256 - multi) >> 1);
+    }
+
+    arg0->xVelocity.w = (((arg0->xVelocity.w - xVel) * multi) >> 8) + xVel;
+    arg0->zVelocity.w = (((arg0->zVelocity.w - zVel) * multi) >> 8) + zVel;
+    if ((ABS(arg0->xVelocity.w) < 0x800) && (ABS(arg0->zVelocity.w) < 0x800)) {
+        arg0->zVelocity.w = arg0->xVelocity.w = 0;
+    }
+}
 
 void func_802CAACC_6DC17C(Animal *arg0, s16 arg1) {
     arg0->yVelocity.w = (arg0->yVelocity.w * 7) / 8;

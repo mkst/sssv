@@ -282,38 +282,40 @@ void func_80321D74_733424(s16 arg0, s16 arg1) {
 //     }
 // }
 
+#ifdef NON_MATCHING
+void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8) {
+    s32 xpos;
+    s32 zpos;
+
+    struct071 *obj;
+
+    xpos = (((arg1 * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7)) + ((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg2)) >> 8);
+    zpos = (((arg1 * (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7)) - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2)) >> 8);
+
+    obj = func_802C9564_6DAC14(
+        id & 0xffff,
+        (D_803D5530->xPos.h + xpos),
+        D_803D5530->zPos.h + zpos,
+        D_803D5530->yPos.h + arg3,
+        D_803D5530->xVelocity.w + arg4,
+        D_803D5530->zVelocity.w + arg5,
+        D_803D5530->yVelocity.w + arg6,
+        0,
+        0,
+        0);
+
+    if (obj != NULL) {
+        D_803D5530->xVelocity.w -= arg4 >> arg7;
+        D_803D5530->zVelocity.w -= arg5 >> arg7;
+        obj->unk168 = D_803D5530;
+        if (arg8 != 0) {
+            obj->unk15E = arg8;
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_8032225C_73390C.s")
-// another junk function
-// void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8) {
-//     s32 xpos;
-//     s32 zpos;
-//
-//     struct071 *obj;
-//
-//     xpos = D_803D5530->xPos.h + ((((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg2) + (arg1 * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7))) >> 8);
-//     zpos = D_803D5530->zPos.h + (((arg1 * (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7)) - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2)) >> 8);
-//
-//     obj = func_802C9564_6DAC14(
-//         id & 0xffff,
-//         xpos & 0xFFFFFFFFFFFFFFFFu,
-//         zpos & 0xFFFFFFFFFFFFFFFFu,
-//         D_803D5530->yPos.h + arg3,
-//         D_803D5530->xVelocity.w + arg4,
-//         D_803D5530->zVelocity.w + arg5,
-//         D_803D5530->yVelocity.w + arg6,
-//         0,
-//         0,
-//         0);
-//
-//     if (obj != NULL) {
-//         D_803D5530->xVelocity.w -= arg4 >> arg7;
-//         D_803D5530->zVelocity.w -= arg5 >> arg7;
-//         obj->unk168 = D_803D5530;
-//         if (arg8 != 0) {
-//             obj->unk15E = arg8;
-//         }
-//     }
-// }
+#endif
 
 void apply_recoil(s16 arg0) {
     s32 temp_t2 = D_80152C78[(u8)D_803D552C->unk302] >> 7;

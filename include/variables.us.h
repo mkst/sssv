@@ -758,8 +758,6 @@ extern u8   D_8039E2E8[];
 // 0x803Axxxx
 
 extern s16  D_803A0500_7B1BB0;
-extern u16  D_803A0510_7B1BC0[]; // tbd
-extern u16  D_803A051A_7B1BCA;
 extern s32  D_803A0594_7B1C44[4]; // rgba
 extern s16  D_803A05C0_7B1C70;
 extern s16  D_803A05C8_7B1C78;
@@ -1097,17 +1095,22 @@ extern s16  D_803C29FE[];
 // 0x803Dxxxx
 
 extern struct054 D_803D2D90;
+
+extern f32       D_803D2DF8;
+extern s16       D_803D2DFC;
+extern s16       D_803D2DFE;
 extern s16       D_803D2E00;
 extern struct059 D_803D2E08;
 
+extern s32        D_803D3428;
+extern s32        D_803D342C;
+
 extern DisplayList* D_803D3434;
 extern s32       *D_803D3438;
-extern struct059  D_803D3448;
-extern s32       D_803D3428;
-extern s32       D_803D342C;
 extern Animal    *D_803D343C;
-extern struct059  D_803D3A20;
-extern struct059  D_803D3FF8;
+extern struct025  D_803D3448;
+extern struct025  D_803D3A20;
+extern struct025  D_803D3FF8;
 extern struct072  D_803D45D0;
 extern struct067  D_803D4BB0;
 extern struct057  D_803D5188[];
@@ -1115,7 +1118,7 @@ extern struct057  D_803D5188[];
 extern s16  D_803D5508;
 extern s16  D_803D5510;
 extern s16  D_803D5512;
-extern struct035 **D_803D5520;
+extern Animal2 *D_803D5520;
 extern struct035 *D_803D5524;
 extern Animal *D_803D5528;
 extern Animal *D_803D552C; // is this *really* Animal? is it World?
@@ -1296,6 +1299,8 @@ extern WaypointData *D_803E8E60[64];
 extern u8   D_803E8F60[1100];
 extern struct063 D_803E93B0[]; // ??
 extern s16  D_803E97C0;
+extern struct042 D_803E97C8;
+
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  D_803E9824; // gCurrentAnimalID

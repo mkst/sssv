@@ -1,9 +1,10 @@
 #include <ultra64.h>
 #include "common.h"
 
-// uses jump table
+// HYENA_BIKER
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/hyena/func_803574E0_768B90.s")
 
+// HYENA
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/hyena/func_80358E3C_76A4EC.s")
 
 // hyena
