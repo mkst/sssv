@@ -26,7 +26,9 @@ extern u8 overlay2_BSS_START[]; // D_803C0420
 extern u8 overlay1_BSS_END[];      // D_803B05A0
 extern u8 fake_overlay2_BSS_END[]; // D_803FDEC0
 
-#ifdef NON_MATCHING
+#if 0
+//ifdef NON_MATCHING
+// VRAM offsets are gone from linker script :(
 // just reg, but something is wrong
 void load_overlay(u8 arg0) {
     s32 pad[2];

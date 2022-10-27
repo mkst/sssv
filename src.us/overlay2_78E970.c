@@ -2,8 +2,6 @@
 #include "common.h"
 #include "pp.h"
 
-void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
-
 
 void func_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
@@ -497,15 +495,13 @@ void func_8037E1C4_78F874(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037E1C4_78F874.s")
 #endif
 
-#ifdef NON_MATCHING
-// stack needs fixing
 void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
     s16 tmp;
+    s16 temp_a2;    // sp74
     s16 temp_v1_2;
     s16 var_a0;
     s16 var_v0;
     s16 temp_a1;
-    s16 temp_a2;
     s16 temp_v1;
     s16 var_s7;
     s16 var_t0;
@@ -513,9 +509,9 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
     s16 var_t2;
     s16 var_t5; // sp48?
     s16 var_t3; // sp74?
+    s16 pad;
     struct065 *var_a3;
     Animal *animal;
-    s16 pad[2];
 
     temp_v1 = arg0 >> 0xA;
     temp_a2 = arg1 >> 0xA;
@@ -562,9 +558,6 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037E6DC_78FD8C.s")
-#endif
 
 Animal *func_8037E9AC_79005C(void) {
     s32 pad2[4];
@@ -917,7 +910,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F6CC_790D7C.s")
 #endif
 
-//missile model (on animal) disappearing and left-right missile selector function
+// missile model (on animal) disappearing and left-right missile selector function
 u8 func_8037FBBC_79126C(void) {
     switch (D_803D5524->unk9C) {
     case RACING_DOG:
@@ -947,43 +940,39 @@ u8 func_8037FBBC_79126C(void) {
     return D_803D552C->missileSide;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037FCA8_791358.s")
-// NON-MATCHING: almost...
-// void func_8037FCA8_791358(void) {
-//     s32 phi_a0;
-//     s16 tmp;
-//
-//     if (D_803D552C->missileScaleLeft != 0) {
-//         D_803D552C->missileScaleLeft = MIN(D_803D552C->missileScaleLeft + 1, 8);
-//     }
-//     if (D_803D552C->missileScaleRight != 0) {
-//         D_803D552C->missileScaleRight = MIN(D_803D552C->missileScaleRight + 1, 8);
-//     }
-//     if (D_803D5524->unk9C == POLAR_TANK) {
-//         phi_a0 = 0;
-//     } else {
-//         phi_a0 = 1;
-//     }
-//     // this isnt right
-//     phi_a0 = (phi_a0 << 2) - phi_a0;
-//     tmp = ((D_803D552C->skillAEnergy[phi_a0 * 2] + (D_803D5524->unkDA[1+phi_a0] * 8)) / D_803D5524->unkDA[0+phi_a0]);
-//     if (tmp == 1) {
-//         if ((D_803D552C->missileScaleLeft == 0) && (D_803D552C->missileScaleRight == 0)) {
-//             if (D_803D552C->missileSide == 0) {
-//                 D_803D552C->missileScaleRight = 1;
-//             } else {
-//                 D_803D552C->missileScaleLeft = 1;
-//             }
-//         }
-//     } else if (tmp >= 2) {
-//         if (D_803D552C->missileScaleLeft == 0) {
-//             D_803D552C->missileScaleLeft += 1;
-//         }
-//         if (D_803D552C->missileScaleRight == 0) {
-//             D_803D552C->missileScaleRight += 1;
-//         }
-//     }
-// }
+void func_8037FCA8_791358(void) {
+    s32 phi_a0;
+    s16 tmp;
+
+    if (D_803D552C->missileScaleLeft != 0) {
+        D_803D552C->missileScaleLeft = MIN(D_803D552C->missileScaleLeft + 1, 8);
+    }
+    if (D_803D552C->missileScaleRight != 0) {
+        D_803D552C->missileScaleRight = MIN(D_803D552C->missileScaleRight + 1, 8);
+    }
+    if (D_803D5524->unk9C == POLAR_TANK) {
+        phi_a0 = 0;
+    } else {
+        phi_a0 = 1;
+    }
+    tmp = ((D_803D552C->energy[phi_a0].unk0 + (D_803D5524->unkDA[phi_a0][1] * 8)) / D_803D5524->unkDA[phi_a0][0]);
+    if (tmp == 1) {
+        if ((D_803D552C->missileScaleLeft == 0) && (D_803D552C->missileScaleRight == 0)) {
+            if (D_803D552C->missileSide == 0) {
+                D_803D552C->missileScaleRight = 1;
+            } else {
+                D_803D552C->missileScaleLeft = 1;
+            }
+        }
+    } else if (tmp >= 2) {
+        if (D_803D552C->missileScaleLeft == 0) {
+            D_803D552C->missileScaleLeft += 1;
+        }
+        if (D_803D552C->missileScaleRight == 0) {
+            D_803D552C->missileScaleRight += 1;
+        }
+    }
+}
 
 void func_8037FE24_7914D4(void) {
     s16 tmp;
@@ -991,7 +980,7 @@ void func_8037FE24_7914D4(void) {
     if (D_803D552C->missileScaleLeft != 0) {
         D_803D552C->missileScaleLeft = MIN(D_803D552C->missileScaleLeft + 1, 8);
     }
-    tmp = ((D_803D552C->skillBEnergy[0] + (D_803D5524->unkE0[1] * 8)) / D_803D5524->unkE0[0]);
+    tmp = ((D_803D552C->energy[1].unk0 + (D_803D5524->unkDA[1][1] * 8)) / D_803D5524->unkDA[1][0]);
     if ((tmp > 0) && (D_803D552C->missileScaleLeft == 0)) {
         D_803D552C->missileScaleLeft = 1;
     }

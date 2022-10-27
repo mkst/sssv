@@ -279,8 +279,8 @@ void func_8036D30C_77E9BC(void) {
                 D_803D552C->yPos.h = MAX(D_803D552C->yPos.h, func_8031124C_7228FC(D_803D552C->xPos.h, D_803D552C->zPos.h) >> 16);
             }
         } else if (D_803D5530->unk162 == 2) {
-            if (D_803D5528->skillBEnergy[0] > 400) {
-                D_803D5528->skillBEnergy[0] -= 400;
+            if (D_803D5528->energy[1].unk0 > 400) {
+                D_803D5528->energy[1].unk0 -= 400;
                 if (func_803224C4_733B74(-62, 0, 0, 15, 20, 0, 0, 19) != 0) {
                     play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     D_803D5530->yVelocity.h += 2;

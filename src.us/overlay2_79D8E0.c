@@ -17,12 +17,11 @@ void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
             D_803D552C->unk35C = D_803D552C->unk35C - (D_803D552C->unk35A >> 4);
             D_803D552C->unk35C = ((D_803D552C->unk35C * 0xF) >> 4);
             if (phi_v1) {}; // regalloc help
-            D_803D552C->unk35A = D_803D552C->unk35A + D_803D552C->unk35C;
+            D_803D552C->unk35A += D_803D552C->unk35C;
         }
 
         func_80128078(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], arg0, (D_803D552C->unk35A * arg4) / 24.0);
-        gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        D_80204278->usedModelViewMtxs += 1;
+        gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     }
 }
 #else
@@ -56,8 +55,7 @@ void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
 //                 D_803D552C->unk35A += D_803D552C->unk35C;
 //             }
 //             func_80128078(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, (D_803D552C->unk35A * arg3) / 24.0);
-//             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-//             D_80204278->usedModelViewMtxs += 1;
+//             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 //         }
 //     } else if ((D_803D5530->unk162 != 4) && (D_803D5530->unk162 != 5) && (D_803D5530->unk162 != 7)) {
 //         D_803D552C->unk35A = arg4;

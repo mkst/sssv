@@ -2,6 +2,7 @@
 #include "common.h"
 
 
+// EVO_SHELLSUIT
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/evo/func_80389B30_79B1E0.s")
 
 // evo shellsuit function?

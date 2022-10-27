@@ -1,8 +1,43 @@
 #include <ultra64.h>
 #include "common.h"
 
-// urgh
+#if 0
+// miles away, structs need to be figured out
+void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
+    s32 sp4C;
+    s32 sp48;
+    s32 sp44;
+    s32 sp40;
+    s32 sp34;
+    s32 sp28;
+
+    s16 temp_t9;
+    s16 temp_t9_2;
+
+    temp_t9 = D_80152C78[(arg0->unk302 + 0x40) & 0xFF] >> 8;
+    temp_t9_2 = D_80152C78[(arg0->unk302 & 0xFF)] >> 8;
+
+    sp4C = ((D_80203FE0[1].unk2 * temp_t9_2) + (D_80203FE0[1].unk0 * temp_t9)) >> 7;
+    sp48 = ((D_80203FE0[1].unk2 * temp_t9) - (D_80203FE0[1].unk0 * temp_t9_2)) >> 7;
+    sp44 = ((D_80203FE0[2].unk2 * temp_t9_2) + (D_80203FE0[2].unk0 * temp_t9)) >> 7;
+    sp40 = ((D_80203FE0[2].unk2 * temp_t9) - (D_80203FE0[2].unk0 * temp_t9_2)) >> 7;
+
+    sp28 = ((D_80203FE0[2].unk4 * 5) + D_80203FE0[1].unk4) / 192;
+    sp34 = (D_80203FE0[2].unk4 + (D_80203FE0[1].unk4 * 5)) / 192;
+
+    arg0->unkC0[arg3][2] = ((sp4C * 5) + sp44) / 192;
+    arg0->unkC0[arg3][4] = ((sp48 * 5) + sp40) / 192;
+    arg0->unkC0[arg3][6] = (arg2 / 32) + sp34;
+    arg0->unkC0[arg3][8] = (arg1 * 7) / 512;
+
+    arg0->unkD0.m[arg3][1] = ((sp44 * 5) + sp4C) / 192;
+    arg0->unkD0.m[arg3][2] = ((sp40 * 5) + sp48) / 192;
+    arg0->unkD0.m[arg3][3] = (arg2 / 32) + sp28;
+    arg0->unkD0.m[arg3][4] = (arg1 * 7) / 512;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714B80/func_803034D0_714B80.s")
+#endif
 
 void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
     s32 tmp0;

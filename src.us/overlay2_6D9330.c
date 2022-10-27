@@ -212,7 +212,7 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     D_803D5528->unk3C8.unk2 = func_802E4B0C_6F61BC(id);
     D_803D552C->unk272 = 0x43F;
     func_802C9BA4_6DB254(D_801D9ED8.animals[phi_t0].animal); //sp24->animal);
-    D_803D552C->skillAEnergy[0] = 0x3FF;
+    D_803D552C->energy[0] = 0x3FF;
     D_803D552C->skillBEnergy[0] = 0x3FF;
     if ((arg6 != 0) && (((D_803F2A98 == 0)) || (D_803F2A98 == 1))) {
         func_803284C4_739B74();

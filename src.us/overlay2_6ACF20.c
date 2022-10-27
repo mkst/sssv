@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
+void func_8029C8F0_6ADFA0(Gfx **dl);
 
 void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
     s32 dist = ((arg0->xPos.h - arg1->xPos.h) * (arg0->xPos.h - arg1->xPos.h)) +
@@ -16,7 +17,7 @@ void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
         D_803D2D90.unk4C = arg1->xPos.h;
         D_803D2D90.unk4E = arg1->zPos.h;
         D_803D2D90.unk50 = arg1->yPos.h;
-        D_803D2D90.unk2 = 0x36;
+        D_803D2D90.unk2 = 54;
         tmp = arg1->unk248[1];
         D_803D2D90.unk60 = tmp;
         D_803D2D90.unk5C = arg1;
@@ -86,7 +87,243 @@ void func_8029BA70_6AD120(Animal *arg0, Animal *arg1) {
     }
 }
 
+#if 0
+// NON_MATCHING but has .rodata
+void func_8029BB94_6AD244(void) {
+    s16 pad;
+    s16 sp8C;
+    s16 var_s7;
+    s16 var_s0;
+    s16 i;
+    s16 sp84;
+
+    if (D_803D2D90.unk64 != 0) {
+        D_803D2D90.unk64--;
+    }
+    if (D_803D2D90.unk0 != 0) {
+        if (D_803D2D90.unk2 == 53) {}; // helps regalloc a bit
+        if (D_803D2D90.unk2 == 54) {
+            add_light_at_location(D_803D2D90.unk5C->xPos.h, D_803D2D90.unk5C->zPos.h, D_803D2D90.unk5C->yPos.h + 0x80, 0xFF, 0, 0, 0);
+            add_light_at_location(D_803D2D90.unk60->xPos.h, D_803D2D90.unk60->zPos.h, D_803D2D90.unk60->yPos.h + 0x80, 0xFF, 0, 0, 0);
+        }
+        if (D_803F2D10.unk0 == 0) {
+            if (D_803D2D90.unk0 == 1) {
+                D_803D2D90.unk0 = 2;
+                D_803D2D90.unk4 = 0;
+                for (i = 0; i < 12; i++) {
+                    D_803D2D90.unk6[i] = 0;
+                    D_803D2D90.unk1E[i] = 0;
+                }
+                D_803D2D90.unk40 = 0;
+                D_803D2D90.unk42 = 0;
+                D_803D2D90.unk44 = 0;
+                D_803D2DFC = 0x4000;
+                D_803D2D90.unk38 = 0.0f;
+                D_803D2D90.unk3C = 0.0f;
+                D_803D2DF8 = 0.25f;
+                do_rumble(0, 40, 8, 0x20, distance_from_player(D_803D2D90.unk4C, D_803D2D90.unk4E, D_803D2D90.unk50));
+            }
+            if (D_803D2D90.unk0 == 3) {
+                D_803D2D90.unk0 = 4;
+                D_803D2D90.unk4 = 0;
+                D_803D2D90.unk46 = D_803D2D90.unk52;
+                D_803D2D90.unk48 = D_803D2D90.unk54;
+                D_803D2D90.unk4A = D_803D2D90.unk56;
+                for (i = 0; i < 12; i++) {
+                    D_803D2D90.unk6[i] = 0;
+                    D_803D2D90.unk1E[i] = 0;
+                }
+                D_803D2D90.unk40 = 0;
+                D_803D2D90.unk44 = 0;
+                D_803D2D90.unk42 = 0;
+                D_803D2DFC = 0x4000;
+                D_803D2D90.unk38 = 0.0f;
+                D_803D2D90.unk3C = 0.0f;
+                D_803D2DF8 = 0.25f;
+                do_rumble(0, 40, 8, 32, distance_from_player(D_803D2D90.unk52, D_803D2D90.unk54, D_803D2D90.unk56));
+            }
+            if (D_803D2D90.unk0 == 2) {
+                D_803D2D90.unk42 += 1;
+                if (D_803D2D90.unk42 < 115) {
+                    if (D_803D2D90.unk42 < 40) {
+                        if (D_803D2DF8 < 0.75) {
+                            D_803D2DF8 += 0.04;
+                        }
+                        D_803D2D90.unk40 -= 1;
+                    } else {
+                        if (D_803D2D90.unk42 == 40) {
+                            do_rumble(0, 0x46, 32, 0x2D, distance_from_player(D_803D2D90.unk4C, D_803D2D90.unk4E, D_803D2D90.unk50));
+                        }
+                        if (D_803D2DF8 < 2.0) {
+                            D_803D2DF8 += func_801283AC(D_803D2D90.unk42 - 0x32) / 8000.0f;
+                            if (D_803D2D90.unk42 < 0x50) {
+                                D_803D2D90.unk40 -= 2;
+                            } else {
+                                D_803D2D90.unk40 -= 4;
+                            }
+                        }
+                    }
+                    if (D_803D2D90.unk42 >= 0x6E) {
+                        D_803D2DFC -= 0x800;
+                    }
+                    D_803D2DFE = 51;
+                    func_8032CD70_73E420(&D_803D2D90, D_803D2DFE, D_803D2DFC, 0, D_803D2DF8, D_803D2D90.unk4C, D_803D2D90.unk4E, D_803D2D90.unk50);
+                }
+                if (D_803D2D90.unk42 == 0x6E) {
+                    play_sound_effect_at_location(0x34, 0x4000, 0x80, D_803D2D90.unk46, D_803D2D90.unk48, D_803D2D90.unk4A, 1.0f);
+                    do_rumble(0, 0x10, 0x2D, 0, distance_from_player(D_803D2D90.unk4C, D_803D2D90.unk4E, D_803D2D90.unk50));
+                }
+                if (D_803D2D90.unk42 < 0x50) {
+                    if ((D_803D2D90.unk42 < 40) && (D_803D2D90.unk38 < 5.0f)) {
+                        D_803D2D90.unk38 += 0.18;
+                    } else {
+                        if (D_803D2D90.unk38 > 1.0f) {
+                            D_803D2D90.unk38 -= 0.18;
+                        }
+                    }
+                    D_803D2D90.unk3C += D_803D2D90.unk38;
+                }
+            }
+            if (D_803D2D90.unk0 == 4) {
+                D_803D2D90.unk44 += 1;
+                if (D_803D2D90.unk44 < 115) {
+                    if (D_803D2D90.unk44 < 40) {
+                        if (D_803D2DF8 < 0.75) {
+                            D_803D2DF8 += 0.04;
+                        }
+                    } else {
+                        if (D_803D2D90.unk44 < 0x50) {
+                            D_803D2D90.unk40 -= 2;
+                        } else {
+                            D_803D2D90.unk40 -= 4;
+                        }
+                        if (D_803D2D90.unk44 == 40) {
+                            do_rumble(0, 0x46, 32, 0x2D, distance_from_player(D_803D2D90.unk52, D_803D2D90.unk54, D_803D2D90.unk56));
+                        }
+                        if (D_803D2DF8 < 2.0) {
+                            D_803D2DF8 += func_801283AC((s16) (D_803D2D90.unk44 - 0x32)) / 8000.0f;
+                        }
+                    }
+                    if (D_803D2D90.unk44 >= 0x6E) {
+                        D_803D2DFC -= 0x800;
+                    }
+                    D_803D2DFE = 0x33;
+                    func_8032CD70_73E420(&D_803D2D90, D_803D2DFE, D_803D2DFC, 0, D_803D2DF8, D_803D2D90.unk52, D_803D2D90.unk54, D_803D2D90.unk56);
+                }
+                if (D_803D2D90.unk44 == 0x6E) {
+                    play_sound_effect_at_location(0x34, 0x4000, 0x80, D_803D2D90.unk46, D_803D2D90.unk48, D_803D2D90.unk4A, 1.0f);
+                    do_rumble(0, 0x10, 0x2D, 0, distance_from_player(D_803D2D90.unk52, D_803D2D90.unk54, D_803D2D90.unk56));
+                }
+                if (D_803D2D90.unk44 < 80) {
+                    if ((D_803D2D90.unk44 < 40) && (D_803D2D90.unk38 < 5.0f)) {
+                        D_803D2D90.unk38 += 0.18;
+                    } else if (D_803D2D90.unk38 > 1.0f) {
+                        D_803D2D90.unk38 -= 0.18;
+                    }
+                    D_803D2D90.unk3C += D_803D2D90.unk38;
+                }
+            }
+
+            if (D_803D2D90.unk42 == 150) {
+                D_803D2D90.unk5C->unk158 = 0;
+                D_803D2D90.unk58->xPos.h = D_803D2D90.unk52;
+                D_803D2D90.unk58->zPos.h = D_803D2D90.unk54;
+                D_803D2D90.unk58->yPos.h = D_803D2D90.unk56 + 8;
+                D_803D2D90.unk58->xVelocity.w = 0;
+                D_803D2D90.unk58->zVelocity.w = 0;
+                D_803D2D90.unk58->yVelocity.w = 0;
+                D_803D2D90.unk58->unk68 = D_803D2D90.unk60;
+                D_803D2D90.unk58->unk70 = NULL;
+                if (D_803D2D90.unk2 != 56) {
+                    D_803D2D90.unk0 = 3;
+                } else {
+                    D_803D2D90.unk0 = 0;
+                    if (D_803F2D50.unkC6 == 0) {
+                        D_803F2D50.unkC6 = 1;
+                    }
+                }
+            }
+            if (D_803D2D90.unk44 == 150) {
+                D_803D2D90.unk0 = 0;
+                D_803D2D90.unk64 = 100;
+                if (1) {};
+                if (D_803D2D90.unk2 == 0x37) {
+                    func_802B34B8_6C4B68(D_801D9ED8.animals[gCurrentAnimalIndex].animal);
+                    D_803D2D90.unk60->state = 0;
+                } else {
+                    func_802B34B8_6C4B68(D_803D2D90.unk58);
+                }
+            }
+            D_803D2D90.unk4 += 2;
+            if (D_803D2D90.unk40 < 0) {
+                D_803D2D90.unk40 = D_803D2D90.unk40 + 0xF;
+            }
+
+            for (sp8C = 0; sp8C < 12; sp8C++) {
+                if (D_803D2D90.unk6[sp8C] < (sp8C * 3)) {
+                    D_803D2D90.unk6[sp8C] = D_803D2D90.unk3C;
+                    var_s7 = D_80152350.unk2D0[(s16) (D_803D2D90.unk3C + (sp8C * 0xA))] >> 3;
+                    D_803D2D90.unk1E[sp8C] = var_s7;
+                } else {
+                    var_s7 = D_803D2D90.unk1E[sp8C];
+                }
+
+                for (var_s0 = 0; var_s0 < 6; var_s0++) {
+                    sp84 = D_80152350.unk2D0[D_803D2D90.unk6[sp8C]];
+                    if ((D_803D2D90.unk44 >= 0x6F) || (D_803D2D90.unk42 >= 0x6F)) {
+                        if (SSSV_RAND(32) == 0) {
+                            create_particle_effect(
+                                D_803D2D90.unk46 + ((D_80152350.unk2D0[(s16)((var_s0 * 60) + 30)] * var_s7) >> 7),
+                                D_803D2D90.unk48 + ((D_80152350.unk384[(s16)((var_s0 * 60) + 30)] * var_s7) >> 7),
+                                D_803D2D90.unk4A + sp84,
+                                35,
+                                (func_8012826C() * 3) - FTOFIX32(1.5),
+                                (func_8012826C() * 3) - FTOFIX32(1.5),
+                                -(func_8012826C() & 0x3FFF),
+                                (SSSV_RAND(2) + 1),
+                                0xFFFF,
+                                0xFFFF,
+                                0);
+                        }
+                        // breathing in & out?
+                        if (D_803D2D90.unk1E[sp8C] >= 2) {
+                            D_803D2D90.unk1E[sp8C] -= 2;
+                        }
+                        if (D_803D2D90.unk6[sp8C] < 100) {
+                            D_803D2D90.unk6[sp8C] += 1;
+                        }
+                    } else if (sp8C < 4) {
+                        var_s7 = 21;
+                    }
+                    if (sp8C == 11) {
+                        var_s7 = 0;
+                    }
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.ob[0] = D_803D2D90.unk46 + ((D_80152350.unk2D0[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.ob[1] = D_803D2D90.unk48 + ((D_80152350.unk384[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.ob[2] = D_803D2D90.unk4A + sp84;
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[0] = (var_s0 * 42) - 0x7F;
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[1] = 0;
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[2] = (D_803D2D90.unk6[sp8C] << 1) - 0x7F;
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[3] = 0xFF;
+                    if (var_s0 != 5) {
+                        D_80204278->unk303F0[(sp8C * 6) + var_s0].v.tc[0] = var_s0 * 170;
+                    } else {
+                        // final iteration
+                        D_80204278->unk303F0[(sp8C * 6) + var_s0].v.tc[0] = 0;
+                    }
+                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.tc[1] = (sp8C * 6) << 5;
+                }
+            }
+        }
+
+        if ((D_803D2D90.unk44 < 120) && (D_803D2D90.unk42 < 120)) {
+            func_8029C8F0_6ADFA0(&D_801D9E7C);
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029BB94_6AD244.s")
+#endif
 
 extern u8  D_01006C60[];
 extern Gfx D_010047D0[];
@@ -863,7 +1100,7 @@ void func_8029E7D0_6AFE80(void) {
 //     D_803D3FF8.unk1 = -1;
 // }
 
-void func_8029EF20_6B05D0(struct059 *arg0, Gfx **dl) {
+void func_8029EF20_6B05D0(struct025 *arg0, Gfx **dl) {
     u8 current_texture;
     u8 loaded_texture;
     s8 i;
@@ -951,7 +1188,7 @@ void func_8029F3CC_6B0A7C(void) {
     D_803D5508 = 0;
 }
 
-void func_8029F464_6B0B14(struct059 *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, s32 arg8) {
+void func_8029F464_6B0B14(struct025 *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, s32 arg8) {
     s8 tmp;
     // arg1 is a 0..63
     if (arg0->unk1 < 59) {

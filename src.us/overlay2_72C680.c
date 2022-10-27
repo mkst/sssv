@@ -5,25 +5,39 @@
 
 extern u8 rnc_637160_ROM_START[], rnc_637160_ROM_END[];
 
+extern u8 rnc_42DCA0_ROM_START[], rnc_42DCA0_ROM_END[];
+extern u8 rnc_435320_ROM_START[], rnc_435320_ROM_END[];
+
+extern u8 rnc_43CB60_ROM_START[], rnc_43CB60_ROM_END[];
+extern u8 rnc_4457F0_ROM_START[], rnc_4457F0_ROM_END[];
+extern u8 empty_rnc_44E790_ROM_START[], empty_rnc_44E790_ROM_END[];
+extern u8 rnc_44E7B0_ROM_START[], rnc_44E7B0_ROM_END[];
 
 // rgba16 mipmapped textures?
 struct066 D_803A5770_7B6E20[] = {
-    { 0x42DCA0, 0x435320, }, // europe
-    { 0x435320, 0x43cb60, }, // ice
-    { 0x43CB60, 0x4457f0, }, // desert
-    { 0x4457F0, 0x44e790, }, // jungle
-    { 0x44E790, 0x44e7b0, }, // empty
-    { 0x44E7B0, 0x4571a0, }, // city / credits
+    { rnc_42DCA0_ROM_START, rnc_42DCA0_ROM_END, }, // europe
+    { rnc_435320_ROM_START, rnc_435320_ROM_END, }, // ice
+    { rnc_43CB60_ROM_START, rnc_43CB60_ROM_END, }, // desert
+    { rnc_4457F0_ROM_START, rnc_4457F0_ROM_END, }, // jungle
+    { empty_rnc_44E790_ROM_START, empty_rnc_44E790_ROM_END, }, // empty
+    { rnc_44E7B0_ROM_START, rnc_44E7B0_ROM_END, }, // city / credits
 };
+
+extern u8 rnc_4571A0_ROM_START[], rnc_4571A0_ROM_END[];
+extern u8 rnc_459590_ROM_START[], rnc_459590_ROM_END[];
+extern u8 rnc_45D550_ROM_START[], rnc_45D550_ROM_END[];
+extern u8 rnc_45EDC0_ROM_START[], rnc_45EDC0_ROM_END[];
+extern u8 rnc_461900_ROM_START[], rnc_461900_ROM_END[];
+extern u8 rnc_461950_ROM_START[], rnc_461950_ROM_END[];
 
 // ia16 textures?
 struct066 D_803A57A0_7B6E50[] = {
-    { 0x4571A0, 0x459590, },
-    { 0x459590, 0x45d550, },
-    { 0x45d550, 0x45edc0, },
-    { 0x45edc0, 0x461900, },
-    { 0x461900, 0x461950, },
-    { 0x461950, 0x461A20, },
+    { rnc_4571A0_ROM_START, rnc_4571A0_ROM_END, },
+    { rnc_459590_ROM_START, rnc_459590_ROM_END, },
+    { rnc_45D550_ROM_START, rnc_45D550_ROM_END, },
+    { rnc_45EDC0_ROM_START, rnc_45EDC0_ROM_END, },
+    { rnc_461900_ROM_START, rnc_461900_ROM_END, },
+    { rnc_461950_ROM_START, rnc_461950_ROM_END, },
     //
     { 0x461A20, 0x465f90, },
     { 0x465f90, 0x46ba30, },
@@ -77,53 +91,99 @@ struct066* D_803A5918_7B6FC8[4] = {
     &D_803A57A0_7B6E50[37],  // 0x803a58c8
 };
 
+extern u8 rnc_4F54D0_ROM_START[], rnc_4F54D0_ROM_END[];
+extern u8 rnc_4F6A70_ROM_START[], rnc_4F6A70_ROM_END[];
+extern u8 rnc_4F8010_ROM_START[], rnc_4F8010_ROM_END[];
+extern u8 rnc_4F95B0_ROM_START[], rnc_4F95B0_ROM_END[];
+extern u8 rnc_4FAF70_ROM_START[], rnc_4FAF70_ROM_END[];
+extern u8 rnc_4FC110_ROM_START[], rnc_4FC110_ROM_END[];
+extern u8 rnc_4FD1E0_ROM_START[], rnc_4FD1E0_ROM_END[];
+extern u8 rnc_4FDF70_ROM_START[], rnc_4FDF70_ROM_END[];
+extern u8 rnc_4FF2B0_ROM_START[], rnc_4FF2B0_ROM_END[];
+extern u8 rnc_500020_ROM_START[], rnc_500020_ROM_END[];
+extern u8 rnc_500050_ROM_START[], rnc_500050_ROM_END[];
+extern u8 rnc_501040_ROM_START[], rnc_501040_ROM_END[];
+extern u8 rnc_502360_ROM_START[], rnc_502360_ROM_END[];
+extern u8 rnc_503930_ROM_START[], rnc_503930_ROM_END[];
+extern u8 rnc_504E70_ROM_START[], rnc_504E70_ROM_END[];
+extern u8 rnc_505F00_ROM_START[], rnc_505F00_ROM_END[];
+extern u8 rnc_505F30_ROM_START[], rnc_505F30_ROM_END[];
+extern u8 rnc_506550_ROM_START[], rnc_506550_ROM_END[];
+extern u8 rnc_506DD0_ROM_START[], rnc_506DD0_ROM_END[];
+extern u8 rnc_507F00_ROM_START[], rnc_507F00_ROM_END[];
+extern u8 rnc_507F30_ROM_START[], rnc_507F30_ROM_END[];
+extern u8 rnc_507F60_ROM_START[], rnc_507F60_ROM_END[];
+extern u8 rnc_507F90_ROM_START[], rnc_507F90_ROM_END[];
+extern u8 rnc_507FC0_ROM_START[], rnc_507FC0_ROM_END[];
+extern u8 rnc_509220_ROM_START[], rnc_509220_ROM_END[];
+extern u8 rnc_509250_ROM_START[], rnc_509250_ROM_END[];
+extern u8 rnc_50A4A0_ROM_START[], rnc_50A4A0_ROM_END[];
+extern u8 rnc_50A4D0_ROM_START[], rnc_50A4D0_ROM_END[];
+extern u8 rnc_50BDB0_ROM_START[], rnc_50BDB0_ROM_END[];
+extern u8 rnc_50D230_ROM_START[], rnc_50D230_ROM_END[];
+extern u8 rnc_50ECD0_ROM_START[], rnc_50ECD0_ROM_END[];
+extern u8 rnc_5106E0_ROM_START[], rnc_5106E0_ROM_END[];
+extern u8 rnc_512240_ROM_START[], rnc_512240_ROM_END[];
+extern u8 rnc_512270_ROM_START[], rnc_512270_ROM_END[];
+extern u8 rnc_5122A0_ROM_START[], rnc_5122A0_ROM_END[];
+extern u8 rnc_5122D0_ROM_START[], rnc_5122D0_ROM_END[];
+extern u8 rnc_5137C0_ROM_START[], rnc_5137C0_ROM_END[];
+extern u8 rnc_514CB0_ROM_START[], rnc_514CB0_ROM_END[];
+extern u8 rnc_515730_ROM_START[], rnc_515730_ROM_END[];
+extern u8 rnc_516C20_ROM_START[], rnc_516C20_ROM_END[];
+extern u8 rnc_518110_ROM_START[], rnc_518110_ROM_END[];
+extern u8 rnc_519600_ROM_START[], rnc_519600_ROM_END[];
+extern u8 rnc_51AAF0_ROM_START[], rnc_51AAF0_ROM_END[];
+extern u8 rnc_51AB20_ROM_START[], rnc_51AB20_ROM_END[];
+extern u8 rnc_51AB50_ROM_START[], rnc_51AB50_ROM_END[];
+
 // different to ROM ordering
 u8* D_803A5928_7B6FD8[45][2] = {
-    { 0x4F54D0, 0x4f6a70, },
-    { 0x4f95b0, 0x4faf70, },
-    { 0x4f8010, 0x4f95b0, },
-    { 0x4f6a70, 0x4f8010, },
-    { 0x4faf70, 0x4fc110, },
-    { 0x4fc110, 0x4fd1e0, },
-    { 0x4fd1e0, 0x4fdf70, },
-    { 0x4fdf70, 0x4ff2b0, },
-    { 0x4ff2b0, 0x500020, },
-    { 0x500020, 0x500050, },
-    { 0x500050, 0x501040, },
-    { 0x501040, 0x502360, },
-    { 0x502360, 0x503930, },
-    { 0x503930, 0x504e70, },
-    { 0x504e70, 0x505f00, },
-    { 0x505f00, 0x505f30, },
-    { 0x505f30, 0x506550, },
-    { 0x506550, 0x506dd0, },
-    { 0x506dd0, 0x507f00, },
-    { 0x507f00, 0x507f30, },
-    { 0x507f30, 0x507f60, },
-    { 0x507f60, 0x507f90, },
-    { 0x507f90, 0x507fc0, },
-    { 0x507fc0, 0x509220, },
-    { 0x509220, 0x509250, },
-    { 0x509250, 0x50a4a0, },
-    { 0x50a4a0, 0x50a4d0, },
-    { 0x50a4d0, 0x50bdb0, },
-    { 0x50bdb0, 0x50d230, },
-    { 0x50d230, 0x50ecd0, },
-    { 0x50ecd0, 0x5106e0, },
-    { 0x5106e0, 0x512240, },
-    { 0x512240, 0x512270, },
-    { 0x512270, 0x5122a0, },
-    { 0x5122a0, 0x5122d0, },
-    { 0x5122d0, 0x5137c0, },
-    { 0x5137c0, 0x514cb0, },
-    { 0x514cb0, 0x515730, },
-    { 0x515730, 0x516c20, },
-    { 0x516c20, 0x518110, },
-    { 0x518110, 0x519600, },
-    { 0x519600, 0x51aaf0, },
-    { 0x51aaf0, 0x51ab20, },
-    { 0x51ab20, 0x51ab50, },
-    { 0x51ab50, 0x51ab80, },
+    { rnc_4F54D0_ROM_START, rnc_4F54D0_ROM_END, },
+    { rnc_4F95B0_ROM_START, rnc_4F95B0_ROM_END, },
+    { rnc_4F8010_ROM_START, rnc_4F8010_ROM_END, },
+    { rnc_4F6A70_ROM_START, rnc_4F6A70_ROM_END, },
+    { rnc_4FAF70_ROM_START, rnc_4FAF70_ROM_END, },
+    { rnc_4FC110_ROM_START, rnc_4FC110_ROM_END, },
+    { rnc_4FD1E0_ROM_START, rnc_4FD1E0_ROM_END, },
+    { rnc_4FDF70_ROM_START, rnc_4FDF70_ROM_END, },
+    { rnc_4FF2B0_ROM_START, rnc_4FF2B0_ROM_END, },
+    { rnc_500020_ROM_START, rnc_500020_ROM_END, },
+    { rnc_500050_ROM_START, rnc_500050_ROM_END, },
+    { rnc_501040_ROM_START, rnc_501040_ROM_END, },
+    { rnc_502360_ROM_START, rnc_502360_ROM_END, },
+    { rnc_503930_ROM_START, rnc_503930_ROM_END, },
+    { rnc_504E70_ROM_START, rnc_504E70_ROM_END, },
+    { rnc_505F00_ROM_START, rnc_505F00_ROM_END, },
+    { rnc_505F30_ROM_START, rnc_505F30_ROM_END, },
+    { rnc_506550_ROM_START, rnc_506550_ROM_END, },
+    { rnc_506DD0_ROM_START, rnc_506DD0_ROM_END, },
+    { rnc_507F00_ROM_START, rnc_507F00_ROM_END, },
+    { rnc_507F30_ROM_START, rnc_507F30_ROM_END, },
+    { rnc_507F60_ROM_START, rnc_507F60_ROM_END, },
+    { rnc_507F90_ROM_START, rnc_507F90_ROM_END, },
+    { rnc_507FC0_ROM_START, rnc_507FC0_ROM_END, },
+    { rnc_509220_ROM_START, rnc_509220_ROM_END, },
+    { rnc_509250_ROM_START, rnc_509250_ROM_END, },
+    { rnc_50A4A0_ROM_START, rnc_50A4A0_ROM_END, },
+    { rnc_50A4D0_ROM_START, rnc_50A4D0_ROM_END, },
+    { rnc_50BDB0_ROM_START, rnc_50BDB0_ROM_END, },
+    { rnc_50D230_ROM_START, rnc_50D230_ROM_END, },
+    { rnc_50ECD0_ROM_START, rnc_50ECD0_ROM_END, },
+    { rnc_5106E0_ROM_START, rnc_5106E0_ROM_END, },
+    { rnc_512240_ROM_START, rnc_512240_ROM_END, },
+    { rnc_512270_ROM_START, rnc_512270_ROM_END, },
+    { rnc_5122A0_ROM_START, rnc_5122A0_ROM_END, },
+    { rnc_5122D0_ROM_START, rnc_5122D0_ROM_END, },
+    { rnc_5137C0_ROM_START, rnc_5137C0_ROM_END, },
+    { rnc_514CB0_ROM_START, rnc_514CB0_ROM_END, },
+    { rnc_515730_ROM_START, rnc_515730_ROM_END, },
+    { rnc_516C20_ROM_START, rnc_516C20_ROM_END, },
+    { rnc_518110_ROM_START, rnc_518110_ROM_END, },
+    { rnc_519600_ROM_START, rnc_519600_ROM_END, },
+    { rnc_51AAF0_ROM_START, rnc_51AAF0_ROM_END, },
+    { rnc_51AB20_ROM_START, rnc_51AB20_ROM_END, },
+    { rnc_51AB50_ROM_START, rnc_51AB50_ROM_END, },
 };
 
 u8* D_803A5A90_7B7140[4] = {

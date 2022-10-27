@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
-// 2400 lines
+// GORILLA, 2400 lines
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/gorilla/func_803791E0_78A890.s")
 
 void func_8037B590_78CC40(void) {

@@ -1,8 +1,10 @@
 #include <ultra64.h>
 #include "common.h"
 
+// POLAR_BEAR
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80365F10_7775C0.s")
 
+// POLAR_TANK
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_803677C4_778E74.s")
 
 // jump-thump animation?
@@ -30,10 +32,9 @@ void func_80368840_779EF0(s16 arg0) {
     phi_a1 = tmp;
 
     for (i = 0; i < 48; i++) {
-        // FIXME: fakematch nonsense
-        temp_s1 = (((0, sp44)) + i)->v.ob[0];
-        temp_s2 = (sp44 + i)->v.ob[1];
-        temp_s3 = (sp44 + i)->v.ob[2];
+        temp_s1 = sp44[i].v.ob[0];
+        temp_s2 = sp44[i].v.ob[1];
+        temp_s3 = sp44[i].v.ob[2];
 
         temp_s1f = temp_s1;
         temp_s2f = temp_s2;
@@ -41,9 +42,9 @@ void func_80368840_779EF0(s16 arg0) {
 
         temp_v0 = (s32) sqrtf((temp_s1f * temp_s1f) + (temp_s2f * temp_s2f) + (temp_s7f * temp_s7f));
 
-        (phi_a1 + i)->v.ob[0] = ((((s16)  ((temp_s1 * 50) / temp_v0)       * arg0) + (temp_s1 * (32 - arg0))) >> 5);
-        (phi_a1 + i)->v.ob[1] = ((((s16)  ((temp_s2 * 50) / temp_v0)       * arg0) + (temp_s2 * (32 - arg0))) >> 5);
-        (phi_a1 + i)->v.ob[2] = ((((s16) (((temp_s7 * 50) / temp_v0) - 15) * arg0) + (temp_s3 * (32 - arg0))) >> 5);
+        phi_a1[i].v.ob[0] = ((((s16)  ((temp_s1 * 50) / temp_v0)       * arg0) + (temp_s1 * (32 - arg0))) >> 5);
+        phi_a1[i].v.ob[1] = ((((s16)  ((temp_s2 * 50) / temp_v0)       * arg0) + (temp_s2 * (32 - arg0))) >> 5);
+        phi_a1[i].v.ob[2] = ((((s16) (((temp_s7 * 50) / temp_v0) - 15) * arg0) + (temp_s3 * (32 - arg0))) >> 5);
     }
 }
 
