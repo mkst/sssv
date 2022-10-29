@@ -8,6 +8,8 @@
 #define MAX_INT                0x7FFFFFFF
 #define MAX_SHORT              0x7FFF
 
+typedef u8 Addr[];
+
 // DMA's interpretation of PI...
 #define SSSV_PI                3.141579
 

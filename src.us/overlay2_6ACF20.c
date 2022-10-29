@@ -87,8 +87,7 @@ void func_8029BA70_6AD120(Animal *arg0, Animal *arg1) {
     }
 }
 
-#if 0
-// NON_MATCHING but has .rodata
+#ifdef NON_MATCHING
 void func_8029BB94_6AD244(void) {
     s16 pad;
     s16 sp8C;
@@ -336,7 +335,7 @@ void func_8029C8F0_6ADFA0(Gfx **dl) {
     s32 var_t3;
 
     gDPPipeSync((*dl)++);
-    gSPDisplayList((*dl)++, D_01004270);
+    gSPDisplayList((*dl)++, D_01004270_3DB40);
     gSPClearGeometryMode((*dl)++, G_CULL_BACK | G_LIGHTING);
     gSPSetGeometryMode((*dl)++, G_SHADE | G_SHADING_SMOOTH);
 

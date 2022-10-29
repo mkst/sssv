@@ -860,7 +860,8 @@ typedef struct {
     /* 0x65 */ s8  unk65;
     /* 0x66 */ s8  unk66;
     /* 0x67 */ u8  unk67;
-    /* 0x68 */ s32 unk68; //[0x4];
+    /* 0x68 */ u8  unk68; //[0x4];
+    /* 0x69 */ u8  pad69[3];
     /* 0x6C */ u8 *unk6C;
     /* 0x70 */ s16 unk70;
     /* 0x71 */ u8  pad72[0x2];
@@ -1824,13 +1825,6 @@ typedef struct {
     u8  pad12[0x2];
     s32 unk14;
 } struct085; // size 0x18
-
-typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-    s16 unk6;
-} struct086; // size 0x8
 
 typedef struct {
     s32 unk0;

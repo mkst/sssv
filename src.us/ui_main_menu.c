@@ -1257,7 +1257,7 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
     gSPViewport((*arg0)++, &D_803B66F0);
     gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
-    gSPDisplayList((*arg0)++, D_01004270);
+    gSPDisplayList((*arg0)++, D_01004270_3DB40);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
     gDPPipeSync((*arg0)++);
 }

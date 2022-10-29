@@ -172,178 +172,181 @@ void func_8037D9D4_78F084(void) {
     D_803D554C = MIN(D_803D554C + 1, 5);
 }
 
-// stack is wrong, has rodata so can't do NON_MATCHING
+#ifdef NON_MATCHING
+// stack is wrong
+void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
+    // s16 spC6;
+    // s16 spC4;
+    s16 spB0;
+    // s16 spAC;
+    s16 spAA;
+    s16 spA8;
+    s16 spA0;
+    // s32 sp7C;
+    // s32 sp78;
+    // s32 sp6C;
+    // s32 sp68;
+    // s32 sp64;
+    s16 temp_a0;
+    s16 temp_fp;
+
+    s16 xPos;
+    s16 zPos;
+
+    s16 temp_s1_2;
+    s16 temp_s2;
+    s16 temp_s7;
+    s16 temp_v0_4;
+    s16 var_a0;
+    s16 var_a0_2;
+    s16 var_s5;
+    s16 var_v0;
+    s16 temp_lo;
+    s16 temp_t1;
+
+    s16 temp_v1;
+    s16 var_t2;
+    s16 var_t3;
+    s16 var_t5;
+
+    Animal *animal;
+    struct065 *var_s6;
+
+    temp_s7 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
+    temp_fp = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 9;
+
+    xPos = D_803D5530->xPos.h;
+    temp_v1 = xPos >> 10;
+    zPos = D_803D5530->zPos.h;
+    temp_t1 = zPos >> 10;
+
+    var_t5 = -1;
+    var_t2 = -1;
+    spA0 = 1;
+    var_t3 = 1;
+
+    if ((temp_v1 + 1) >= 5) {
+        var_t3 = 0;
+    }
+    if (temp_v1 <= 0) {
+        var_t2 = 0;
+    }
+
+    if ((temp_t1 + 1) >= 8) {
+        spA0 = 0;
+    }
+    // temp_v0_2 = (s16) temp_v1 + var_t2;
+    if (temp_t1 <= 0) {
+        var_t5 = 0;
+    }
+
+    for (spAA = temp_v1 + var_t2; spAA <= (temp_v1 + var_t3); spAA++) {
+        spB0 = var_s5; // pointless assignment
+        for (spA8 = temp_t1 + var_t5; spA8 <= temp_t1 + spA0; spA8++) {
+            for (var_s6 = D_803DA110[(s16) (spAA + (spA8 * 5))].next; var_s6 != NULL; var_s6 = var_s6->next) {
+                if ((var_s6 == (&var_s6->animal->unk11C)) && (D_803D5530 != var_s6->animal)) {
+                    animal = var_s6->animal;
+
+                    temp_s1_2 = xPos - animal->xPos.h;
+                    temp_s2 = zPos - animal->zPos.h;
+
+                    var_a0 = ABS(temp_s1_2);
+                    var_v0 = ABS(temp_s2);
+
+                    temp_v0_4 = MAX(var_a0, var_v0) + (MIN(var_a0, var_v0) >> 1);
+                    if (temp_v0_4 < arg1 * 2) {
+                        if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1 / 2) {
+                            var_a0_2 = sqrtf((f32) ((temp_s1_2 * temp_s1_2) + (temp_s2 * temp_s2)));
+                            if (var_a0_2 == 0) {
+                                var_a0_2 = 1;
+                            }
+                            temp_lo = -((temp_s1_2 * temp_s7) + (temp_s2 * temp_fp)) / var_a0_2;
+                            if (temp_lo > 0) {
+                                if (animal->unk16C->unk80.bit) { // & 0x2000) {
+                                    if (animal->unk16C->unk9C != EVO_TRANSFER) {
+                                        if (temp_v0_4 < arg1) {
+                                            animal->unk57 = 1;
+                                            animal->xVelocity.w += temp_lo * 2 * temp_s7 * arg0;
+                                            animal->zVelocity.w += temp_lo * 2 * temp_fp * arg0;
+                                            if (temp_lo >= 33) {
+                                                switch (animal->unk16C->unkE6) {
+                                                case 0:
+                                                    var_s5 = 0;
+                                                    animal->yVelocity.h += SSSV_RAND(16) - 8;
+                                                    break;
+                                                case 1:
+                                                    var_s5 = 0;
+                                                    animal->yVelocity.h += SSSV_RAND(8) - 4;
+                                                    break;
+                                                case 2:
+                                                    var_s5 = 1;
+                                                    break;
+                                                case 3:
+                                                    var_s5 = 3;
+                                                    break;
+                                                case 4:
+                                                    var_s5 = 7;
+                                                    break;
+                                                }
+                                                if (!(D_803D5544 & var_s5)) {
+                                                    if ((animal->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
+                                                        (animal->unk16C->unk9C != TORTOISE_TANK_DEFENDING)) {
+                                                        animal->health = MAX(animal->health - damage, 0);
+                                                        func_80349280_75A930(animal, damage);
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            animal->xVelocity.w += temp_lo * temp_s7 * arg0;
+                                            animal->zVelocity.w += temp_lo * temp_fp * arg0;
+                                        }
+                                    }
+                                } else if ((temp_v0_4 < arg1) && (temp_lo >= 33)) {
+                                    animal->unk57 = 1;
+                                    //  << 0x1A
+                                    if ((animal->unk4A == 0) && (animal->unk4C.unk26 == 0)) {
+                                        animal->health = MAX(0, animal->health - 1);
+                                    }
+                                    //  & 8
+                                    if ((animal->unk4A == 0) && (animal->unk4C.unk28 != 0)) {
+                                        if (animal->unk44 < 50) {
+                                            animal->xVelocity.w += (temp_lo * temp_s7 * arg0) >> 1;
+                                            animal->zVelocity.w += (temp_lo * temp_fp * arg0) >> 1;
+                                        } else if (animal->unk44 < 100){
+                                            animal->xVelocity.w += (temp_lo * temp_s7 * arg0);
+                                            animal->zVelocity.w += (temp_lo * temp_fp * arg0);
+                                        }
+                                        animal->unk4C.unk25 = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // regalloc helper
+                    if (1) {};
+                }
+            }
+        }
+    }
+    D_803D5530->xVelocity.w -= temp_s7 << 0xA;
+    D_803D5530->zVelocity.w -= temp_fp << 0xA;
+
+    create_particle_effect(
+        D_803D5530->xPos.h + temp_s7,
+        D_803D5530->zPos.h + temp_fp,
+        D_803D5530->yPos.h + ((D_803D5530->unk42 * 3) >> 2),
+        0x23,
+        ((SSSV_RAND(32) + temp_s7) - 16) << 0xE,
+        ((SSSV_RAND(32) + temp_fp) - 16) << 0xE,
+        (SSSV_RAND(32) - 16) << 0xE,
+        3,
+        0,
+        0,
+        0);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037DA08_78F0B8.s")
-// void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
-//     // s16 spC6;
-//     // s16 spC4;
-//     s16 spB0;
-//     // s16 spAC;
-//     s16 spAA;
-//     s16 spA8;
-//     s16 spA0;
-//     // s32 sp7C;
-//     // s32 sp78;
-//     // s32 sp6C;
-//     // s32 sp68;
-//     // s32 sp64;
-//     s16 temp_a0;
-//     s16 temp_fp;
-//
-//     s16 xPos;
-//     s16 zPos;
-//
-//     s16 temp_s1_2;
-//     s16 temp_s2;
-//     s16 temp_s7;
-//     s16 temp_v0_4;
-//     s16 var_a0;
-//     s16 var_a0_2;
-//     s16 var_s5;
-//     s16 var_v0;
-//     s16 temp_lo;
-//     s16 temp_t1;
-//
-//     s16 temp_v1;
-//     s16 var_t2;
-//     s16 var_t3;
-//     s16 var_t5;
-//
-//     Animal *animal;
-//     struct065 *var_s6;
-//
-//     temp_s7 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
-//     temp_fp = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 9;
-//
-//     xPos = D_803D5530->xPos.h;
-//     temp_v1 = xPos >> 10;
-//     zPos = D_803D5530->zPos.h;
-//     temp_t1 = zPos >> 10;
-//
-//     var_t5 = -1;
-//     var_t2 = -1;
-//     spA0 = 1;
-//     var_t3 = 1;
-//
-//     if ((temp_v1 + 1) >= 5) {
-//         var_t3 = 0;
-//     }
-//     if (temp_v1 <= 0) {
-//         var_t2 = 0;
-//     }
-//
-//     if ((temp_t1 + 1) >= 8) {
-//         spA0 = 0;
-//     }
-//     // temp_v0_2 = (s16) temp_v1 + var_t2;
-//     if (temp_t1 <= 0) {
-//         var_t5 = 0;
-//     }
-//
-//     for (spAA = temp_v1 + var_t2; spAA <= (temp_v1 + var_t3); spAA++) {
-//         spB0 = var_s5; // pointless assignment
-//         for (spA8 = temp_t1 + var_t5; spA8 <= temp_t1 + spA0; spA8++) {
-//             for (var_s6 = D_803DA110[(s16) (spAA + (spA8 * 5))].next; var_s6 != NULL; var_s6 = var_s6->next) {
-//                 if ((var_s6 == (&var_s6->animal->unk11C)) && (D_803D5530 != var_s6->animal)) {
-//                     animal = var_s6->animal;
-//
-//                     temp_s1_2 = xPos - animal->xPos.h;
-//                     temp_s2 = zPos - animal->zPos.h;
-//
-//                     var_a0 = ABS(temp_s1_2);
-//                     var_v0 = ABS(temp_s2);
-//
-//                     temp_v0_4 = MAX(var_a0, var_v0) + (MIN(var_a0, var_v0) >> 1);
-//                     if (temp_v0_4 < arg1 * 2) {
-//                         if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1 / 2) {
-//                             var_a0_2 = sqrtf((f32) ((temp_s1_2 * temp_s1_2) + (temp_s2 * temp_s2)));
-//                             if (var_a0_2 == 0) {
-//                                 var_a0_2 = 1;
-//                             }
-//                             temp_lo = -((temp_s1_2 * temp_s7) + (temp_s2 * temp_fp)) / var_a0_2;
-//                             if (temp_lo > 0) {
-//                                 if (animal->unk16C->unk80.bit) { // & 0x2000) {
-//                                     if (animal->unk16C->unk9C != EVO_TRANSFER) {
-//                                         if (temp_v0_4 < arg1) {
-//                                             animal->unk57 = 1;
-//                                             animal->xVelocity.w += temp_lo * 2 * temp_s7 * arg0;
-//                                             animal->zVelocity.w += temp_lo * 2 * temp_fp * arg0;
-//                                             if (temp_lo >= 33) {
-//                                                 switch (animal->unk16C->unkE6) {
-//                                                 case 0:
-//                                                     var_s5 = 0;
-//                                                     animal->yVelocity.h += SSSV_RAND(16) - 8;
-//                                                     break;
-//                                                 case 1:
-//                                                     var_s5 = 0;
-//                                                     animal->yVelocity.h += SSSV_RAND(8) - 4;
-//                                                     break;
-//                                                 case 2:
-//                                                     var_s5 = 1;
-//                                                     break;
-//                                                 case 3:
-//                                                     var_s5 = 3;
-//                                                     break;
-//                                                 case 4:
-//                                                     var_s5 = 7;
-//                                                     break;
-//                                                 }
-//                                                 if (!(D_803D5544 & var_s5)) {
-//                                                     if ((animal->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
-//                                                         (animal->unk16C->unk9C != TORTOISE_TANK_DEFENDING)) {
-//                                                         animal->health = MAX(animal->health - damage, 0);
-//                                                         func_80349280_75A930(animal, damage);
-//                                                     }
-//                                                 }
-//                                             }
-//                                         } else {
-//                                             animal->xVelocity.w += temp_lo * temp_s7 * arg0;
-//                                             animal->zVelocity.w += temp_lo * temp_fp * arg0;
-//                                         }
-//                                     }
-//                                 } else if ((temp_v0_4 < arg1) && (temp_lo >= 33)) {
-//                                     animal->unk57 = 1;
-//                                     //  << 0x1A
-//                                     if ((animal->unk4A == 0) && (animal->unk4C.unk26 == 0)) {
-//                                         animal->health = MAX(0, animal->health - 1);
-//                                     }
-//                                     //  & 8
-//                                     if ((animal->unk4A == 0) && (animal->unk4C.unk28 != 0)) {
-//                                         if (animal->unk44 < 50) {
-//                                             animal->xVelocity.w += (temp_lo * temp_s7 * arg0) >> 1;
-//                                             animal->zVelocity.w += (temp_lo * temp_fp * arg0) >> 1;
-//                                         } else if (animal->unk44 < 100){
-//                                             animal->xVelocity.w += (temp_lo * temp_s7 * arg0);
-//                                             animal->zVelocity.w += (temp_lo * temp_fp * arg0);
-//                                         }
-//                                         animal->unk4C.unk25 = 1;
-//                                     }
-//                                 }
-//                             }
-//                         }
-//                     }
-//                     // regalloc helper
-//                     if (1) {};
-//                 }
-//             }
-//         }
-//     }
-//     D_803D5530->xVelocity.w -= temp_s7 << 0xA;
-//     D_803D5530->zVelocity.w -= temp_fp << 0xA;
-//
-//     create_particle_effect(
-//         D_803D5530->xPos.h + temp_s7,
-//         D_803D5530->zPos.h + temp_fp,
-//         D_803D5530->yPos.h + ((D_803D5530->unk42 * 3) >> 2),
-//         0x23,
-//         ((SSSV_RAND(32) + temp_s7) - 16) << 0xE,
-//         ((SSSV_RAND(32) + temp_fp) - 16) << 0xE,
-//         (SSSV_RAND(32) - 16) << 0xE,
-//         3,
-//         0,
-//         0,
-//         0);
-// }
+#endif
 
 #if 0
 // not quite there...

@@ -163,7 +163,6 @@ extern u8 D_01029DD0[];
 
 // osd_draw_score
 void func_803491F0_75A8A0(void) {
-    // "%8d"
     sprintf(D_803F2D3E, "%8d", D_803F2D30.score);
     select_font(0, FONT_LCD, 1, 0);
     display_score(&D_801D9E7C, D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
@@ -390,9 +389,9 @@ void osd_draw_timer(s16 arg0) {
     time = D_803F2CD2;
     if (time > 0) {
         if (time < 60) {
-            sprintf(D_803A8344, "%d", time); // "%d"
+            sprintf(D_803A8344, "%d", time);
         } else {
-            sprintf(D_803A8344, "%d:%02d", time / 60, time % 60); // "%d:%02d"
+            sprintf(D_803A8344, "%d:%02d", time / 60, time % 60);
         }
     }
 

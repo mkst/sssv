@@ -1,13 +1,13 @@
 #include <ultra64.h>
 #include "common.h"
 
+u8 bss_padding_chameleon_pre[0x220];
 
 extern u8 D_04009BF0_FAC50[]; // palette
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/chameleon/func_8035A5F0_76BCA0.s")
 
-#if 0
-// TODO: has bss
+
 void func_8035BDC0_76D470(void) {
     static u16 D_803F2EA0; // .bss
     u16 *palette;
@@ -30,9 +30,6 @@ void func_8035BDC0_76D470(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/chameleon/func_8035BDC0_76D470.s")
-#endif
 
 void func_8035C018_76D6C8(void) {
     D_803D552C->unk32A = D_803D5544;
@@ -64,3 +61,5 @@ void func_8035C10C_76D7BC(void) {
 void func_8035C180_76D830(s16 arg0) {
     D_803D552C->unk2EC = arg0;
 }
+
+u8 bss_padding_chameleon_post[0x28930];

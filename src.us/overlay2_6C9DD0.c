@@ -295,7 +295,7 @@ void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
     *arg1 = temp_t7;
 }
 
-void func_802B9130_6CA7E0(struct086 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+void func_802B9130_6CA7E0(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 sp36;
     s16 sp34;
     s16 sp28;

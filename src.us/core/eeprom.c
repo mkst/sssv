@@ -99,7 +99,7 @@ s32 eeprom_checksum(u8 *eeprom) {
     return res;
 }
 
-#ifdef NON_MATCHING_WITH_RODATA // almost JUSTREG, two instructions out of place
+#ifdef NON_MATCHING
 void func_80130E44(void) {
     s16 res_s16;
     s16 i;
@@ -157,7 +157,7 @@ void func_80130E44(void) {
         } while (res && i < 4);
 
         if ((res_s16 != 0) || (requireReset == 1)) {
-            rmonPrintf("reset all data - %d\n", bank); // D_8015AD70
+            rmonPrintf("reset all data - %d\n", bank);
             j = 0;
             if (bank != 4) {
                 memset_bytes((u8*)&D_8023F260, 0, 64);

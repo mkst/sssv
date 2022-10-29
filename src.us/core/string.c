@@ -24,7 +24,7 @@ void strcat(u8 *dst, u8 *src) {
         dst[i] = src[j];
         i++, j++;
     }
-    dst[i] = 0; // NUL terminate
+    dst[i] = '\0'; // NUL terminate
 }
 
 void strcpy(u8* dst, u8 *src) {
@@ -33,7 +33,7 @@ void strcpy(u8* dst, u8 *src) {
         dst[i] = src[i];
         i++;
     }
-    dst[i] = 0; // NUL terminate
+    dst[i] = '\0'; // NUL terminate
 }
 
 void strncpy(u8 *dst, u8 *src, s16 num) {
@@ -42,7 +42,7 @@ void strncpy(u8 *dst, u8 *src, s16 num) {
         dst[i] = src[i];
         i++;
     }
-    dst[i] = 0;
+    dst[i] = '\0';
 }
 
 s32 strcmp(u8 *str1, u8 *str2) {

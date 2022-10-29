@@ -355,7 +355,7 @@ void func_802F13B8_702A68(void) {
         gSPViewport(D_801D9E7C++, &D_803A50C0_7B6770);
 
         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
-        gSPDisplayList(D_801D9E7C++, D_01004270);
+        gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
         gSPTexture(D_801D9E7C++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
         gDPSetCombineLERP(D_801D9E7C++,
             SHADE, 0, PRIMITIVE, 0,

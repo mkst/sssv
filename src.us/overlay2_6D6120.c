@@ -466,7 +466,8 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C58E4_6D6F94.s")
 #endif
 
-#ifdef NON_MATCHING_TODO // JUSTREG?
+#ifdef NON_MATCHING
+// JUSTREG?
 void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {
     D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
     D_80203FE0[19].unk2 = D_80203FE0[1].unk2;

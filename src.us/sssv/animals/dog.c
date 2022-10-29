@@ -69,7 +69,7 @@ s16 junk = 0x0; // unecessary?;
 // DOG
 #if 0
 void func_802ED108_6FE7B8(void) {
-    struct086 spB8;
+    struct061 spB8;
     s16 spB6;
     s16 spB4;
     s16 spB2;

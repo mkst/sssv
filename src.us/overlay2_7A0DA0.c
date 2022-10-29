@@ -264,8 +264,7 @@ void func_8038FF48_7A15F8(void) {
     D_803F6714 = 0;
 }
 
-#if 0
-// almost regalloc but has rodata due to jump table
+#ifdef NON_MATCHING
 void func_8038FF68_7A1618(void) {
     s16 pad;
     s16 sp3C;
@@ -302,7 +301,7 @@ void func_8038FF68_7A1618(void) {
 
         D_803B6870_7C7F20 += 1;
         if (D_803F6680.unk2B != 0) {
-            gSPDisplayList(D_801D9E8C++, D_01004270);
+            gSPDisplayList(D_801D9E8C++, D_01004270_3DB40);
             gDPPipeSync(D_801D9E8C++);
 
             gDPSetCycleType(D_801D9E8C++, G_CYC_2CYCLE);
@@ -327,7 +326,7 @@ void func_8038FF68_7A1618(void) {
             func_80397F5C_7A960C(FTOFIX32(1030.0), FTOFIX32(1170.0), FTOFIX32(1021.0), 0, 0, 0xEA60, 0, 0);
         }
         if (D_803F6680.unk2B == 0) {
-            gSPDisplayList(D_801D9E8C++, D_01004270);
+            gSPDisplayList(D_801D9E8C++, D_01004270_3DB40);
             gDPPipeSync(D_801D9E8C++);
 
             gDPSetCycleType(D_801D9E8C++, G_CYC_2CYCLE);
@@ -967,7 +966,7 @@ void func_80391A38_7A30E8(void) {
 //     s16 phi_s1;
 //     s16 phi_t2;
 //
-//     gSPDisplayList((*dl)++, D_01004270);
+//     gSPDisplayList((*dl)++, D_01004270_3DB40);
 //     gDPPipeSync((*dl)++);
 //
 //     gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
@@ -2006,7 +2005,7 @@ void func_80395480_7A6B30(void) {
     gSPFogPosition(D_801D9E7C++, 995, 999);
     gDPSetFogColor(D_801D9E7C++, 0xFF, 0xFF, 0xFF, 0x00);
 
-    gSPDisplayList(D_801D9E7C++, D_01004270);
+    gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
     gSPClearGeometryMode(D_801D9E7C++, G_FOG);
     gSPClipRatio(D_801D9E7C++, FRUSTRATIO_3);
 
@@ -2029,7 +2028,7 @@ void func_80395854_7A6F04(void) {
     guLookAt(&D_80204278->unk37490, D_803B683C.unk0, D_803B683C.unk4, D_803B683C.unk8, D_803B683C.unkC, D_803B683C.unk10, D_803B683C.unk14, 0.0f, 0.0f, 1.0f);
     func_80299AA8_6AB158(D_80204278, &D_801D9E7C);
 
-    gSPDisplayList(D_801D9E7C++, D_01004270);
+    gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
     gSPClearGeometryMode(D_801D9E7C++, G_FOG);
     gSPClipRatio(D_801D9E7C++, FRUSTRATIO_3);
 

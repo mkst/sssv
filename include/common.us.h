@@ -8,5 +8,6 @@
 
 #include "functions.us.h"
 #include "variables.us.h"
+#include "ld_symbols.us.h"
 
 #endif

@@ -5,9 +5,8 @@ extern Gfx D_01033190_6CA60[];
 extern Gfx D_040000A0_E7650[];
 extern Gfx D_040006F0_E7CA0[];
 
-#if 0
+#ifdef NON_MATCHING
 // 99.9% there
-// cannot "ifdef NON_MATCHING" as has rodata
 void func_8036C0B0_77D760(void) {
     s32 sp94;
     s32 sp90;
@@ -18,9 +17,8 @@ void func_8036C0B0_77D760(void) {
     s16 sp86;
     s16 sp84;
     s16 sp82;
-    s16 tmp3;
 
-    s16 pad[3];
+    s16 pad[4];
 
     if (D_803D553A == 4) {
         play_sound_effect_at_location(SFX_UNKNOWN_2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0 - (MIN(256, D_803D552C->unk30E) * 0.0009765625));
@@ -136,8 +134,9 @@ done:
             D_80203FE0[14].unk4 += D_803D552C->unk308 << 5;
         }
 
+
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
-            (D_803F2EDA != 0) && ((tmp2 = D_803D5538, (tmp2)) || ((tmp3 = D_803F2AA2, tmp3 == 0)) || (tmp3 == 2) || ((tmp3 == 1) && (D_803F2AA3 >= 11))) &&
+            (D_803F2EDA != 0) && ((tmp2 = D_803D5538, (tmp2)) || ((D_803F2AA2 == 0)) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 >= 11))) &&
             ((D_803F2C18[0] != 0) || (tmp2 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
             func_80127640(
