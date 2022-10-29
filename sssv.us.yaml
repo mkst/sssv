@@ -1,4 +1,5 @@
 options:
+  platform: n64
   basename: sssv
   target_path: baserom.us.z64
   base_path: .
