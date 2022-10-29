@@ -5,14 +5,8 @@
 s32 D_803A05B0_7B1C60 = FTOFIX32(2.0);
 s32 D_803A05B4_7B1C64 = FTOFIX32(4.0);
 
-void func_802A4278_6B5928(u16 arg0, u16 arg1, s16 arg2);
-void func_802A467C_6B5D2C(s8 arg0);
-void func_802A6400_6B7AB0(void);
-void func_802AC158_6BD808(u16 arg0, s32 *arg1, s32 *arg2);
-s32  func_802A64B0_6B7B60(void);
-void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1);
+
 s32  func_8030AAE0_71C190(Animal*);
-s32  func_8035E344_76F9F4(struct037 *, s32);
 
 void func_802A3CD0_6B5380(void) {
     s16 xVel, zVel;
@@ -1832,7 +1826,7 @@ void func_802A935C_6BAA0C(void) {
             }
             D_803D5530->yVelocity.w = (D_803D5530->yPos.w - sp58);
             func_802B2964_6C4014();
-            func_802A4220_6B58D0(&D_803D5530->xVelocity.w, &D_803D5530->zVelocity.w, 0xD2, D_803D5530);
+            func_802A4220_6B58D0(&D_803D5530->xVelocity.w, &D_803D5530->zVelocity.w, 210);
             func_802A403C_6B56EC(D_803D5530, 3);
             func_802A4184_6B5834();
             D_803D5530->unk10 = (D_803D5530->xPos.w + D_803D5530->xVelocity.w);

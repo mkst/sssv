@@ -135,7 +135,7 @@ void func_80294E50_6A6500(void) {
         func_80129430(&D_801D9E7C);
 
         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
-        gSPDisplayList(D_801D9E7C++, D_01004270);
+        gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
 
         gSPClipRatio(D_801D9E7C++, FRUSTRATIO_3);
 

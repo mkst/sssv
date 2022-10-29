@@ -629,7 +629,7 @@ extern Gfx D_04004590_CBFC0[];
 // RACING_FOX
 #if 0
 void func_802E7394_6F8A44(void) {
-    struct086 spB0;
+    struct061 spB0;
     s16 spAE;
     s16 spAA;
     s16 spA8;

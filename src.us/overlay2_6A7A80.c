@@ -614,6 +614,7 @@ s16 func_802990A4_6AA754(s16 arg0, s16 arg1) {
 
 #ifdef NON_MATCHING
 void func_80299140_6AA7F0(void) {
+    s32 pad[2];
     s32 sp5C;
     s32 sp58;
     s32 sp54;
@@ -656,7 +657,7 @@ void func_80299140_6AA7F0(void) {
 
     for (i = minX; i <= maxX; i += 3) {
         for (j = minZ; j <= maxZ; j += 3) {
-            temp_a3 = D_803C0740[i][j].unk6 * 4;
+            temp_a3 = D_803C0740[i][j].unk6 << 2;
             if (temp_a3 != 0) {
                 zDistance = ABS((j << 6) - (s16) D_803F28E0[D_803F2A98].unk78);
                 xDistance = ABS((i << 6) - (s16) D_803F28E0[D_803F2A98].unk74);
@@ -686,7 +687,7 @@ void func_80299140_6AA7F0(void) {
                                D_803C0740[((u16)D_803F28E0[D_803F2A98].unk74 >> 6) + 1][((u16)D_803F28E0[D_803F2A98].unk78 >> 6) + 1].unk6));
 
             if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < (s16) (phi_a1_2 << 2)) {
-                func_8032CD70_73E420(&D_803C0634, 0xC, 0x4718, 0, D_803BAD00_7CC3B0, sp5C, sp58, sp54); // 0.28f
+                func_8032CD70_73E420(&D_803C0634, 0xC, 0x4718, 0, 0.28f, sp5C, sp58, sp54); // D_803BAD00_7CC3B0
             } else {
                 func_8032CD70_73E420(&D_803C0634, 0xC, 0x2800, 0, 1.0f, sp5C, sp58, sp54);
             }

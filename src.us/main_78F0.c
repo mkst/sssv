@@ -2,43 +2,6 @@
 #include "common.h"
 #include "pp.h"
 
-extern u8 lang_lang1_dat_rnc_ROM_START[], lang_lang1_dat_rnc_ROM_END[];
-extern u8 lang_lang2_dat_rnc_ROM_START[], lang_lang2_dat_rnc_ROM_END[];
-extern u8 lang_lang3_dat_rnc_ROM_START[], lang_lang3_dat_rnc_ROM_END[];
-extern u8 lang_lang4_dat_rnc_ROM_START[], lang_lang4_dat_rnc_ROM_END[];
-extern u8 lang_lang5_dat_rnc_ROM_START[], lang_lang5_dat_rnc_ROM_END[];
-extern u8 lang_lang6_dat_rnc_ROM_START[], lang_lang6_dat_rnc_ROM_END[];
-extern u8 lang_lang7_dat_rnc_ROM_START[], lang_lang7_dat_rnc_ROM_END[];
-extern u8 lang_lang8_dat_rnc_ROM_START[], lang_lang8_dat_rnc_ROM_END[];
-extern u8 lang_lang9_dat_rnc_ROM_START[], lang_lang9_dat_rnc_ROM_END[];
-extern u8 lang_lang10_dat_rnc_ROM_START[], lang_lang10_dat_rnc_ROM_END[];
-extern u8 lang_lang11_dat_rnc_ROM_START[], lang_lang11_dat_rnc_ROM_END[];
-extern u8 lang_lang12_dat_rnc_ROM_START[], lang_lang12_dat_rnc_ROM_END[];
-extern u8 lang_lang13_dat_rnc_ROM_START[], lang_lang13_dat_rnc_ROM_END[];
-extern u8 lang_lang14_dat_rnc_ROM_START[], lang_lang14_dat_rnc_ROM_END[];
-extern u8 lang_lang15_dat_rnc_ROM_START[], lang_lang15_dat_rnc_ROM_END[];
-extern u8 lang_lang16_dat_rnc_ROM_START[], lang_lang16_dat_rnc_ROM_END[];
-extern u8 lang_lang17_dat_rnc_ROM_START[], lang_lang17_dat_rnc_ROM_END[];
-extern u8 lang_lang18_dat_rnc_ROM_START[], lang_lang18_dat_rnc_ROM_END[];
-extern u8 lang_lang19_dat_rnc_ROM_START[], lang_lang19_dat_rnc_ROM_END[];
-extern u8 lang_lang20_dat_rnc_ROM_START[], lang_lang20_dat_rnc_ROM_END[];
-extern u8 lang_lang21_dat_rnc_ROM_START[], lang_lang21_dat_rnc_ROM_END[];
-extern u8 lang_lang22_dat_rnc_ROM_START[], lang_lang22_dat_rnc_ROM_END[];
-extern u8 lang_lang23_dat_rnc_ROM_START[], lang_lang23_dat_rnc_ROM_END[];
-extern u8 lang_lang24_dat_rnc_ROM_START[], lang_lang24_dat_rnc_ROM_END[];
-extern u8 lang_lang25_dat_rnc_ROM_START[], lang_lang25_dat_rnc_ROM_END[];
-extern u8 lang_lang26_dat_rnc_ROM_START[], lang_lang26_dat_rnc_ROM_END[];
-extern u8 lang_lang27_dat_rnc_ROM_START[], lang_lang27_dat_rnc_ROM_END[];
-extern u8 lang_lang28_dat_rnc_ROM_START[], lang_lang28_dat_rnc_ROM_END[];
-extern u8 lang_lang29_dat_rnc_ROM_START[], lang_lang29_dat_rnc_ROM_END[];
-extern u8 lang_lang30_dat_rnc_ROM_START[], lang_lang30_dat_rnc_ROM_END[];
-extern u8 lang_lang31_dat_rnc_ROM_START[], lang_lang31_dat_rnc_ROM_END[];
-extern u8 lang_lang32_dat_rnc_ROM_START[], lang_lang32_dat_rnc_ROM_END[];
-extern u8 lang_lang33_dat_rnc_ROM_START[], lang_lang33_dat_rnc_ROM_END[];
-extern u8 lang_lang34_dat_rnc_ROM_START[], lang_lang34_dat_rnc_ROM_END[];
-extern u8 lang_lang35_dat_rnc_ROM_START[], lang_lang35_dat_rnc_ROM_END[];
-extern u8 lang_lang36_dat_rnc_ROM_START[], lang_lang36_dat_rnc_ROM_END[];
-
 // language file offsets at ROM 0x2fc00
 u8* D_80154500[36][2] = {
     {lang_lang1_dat_rnc_ROM_START, lang_lang1_dat_rnc_ROM_END},

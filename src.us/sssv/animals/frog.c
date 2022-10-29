@@ -2,29 +2,27 @@
 #include "common.h"
 
 
-#if 0
 void func_80302200_7138B0(void) {
-    s16 tmp;
+    s16 temp_t5;
     s16 sp74;
     s16 sp72;
     s16 sp70;
     s16 sp6E;
-    s16 tmp2;
-    s16 tmp3;
-    s16 tmp4;
-    s16 temp_t5;
+    s16 tmp;
     s16 phi_v1;
     s16 phi_t0;
-    s16 phi_v0;
+    u8  phi_v0;
+    u8  tmp2;
+    s16 pad[2];
 
     if (D_803D5538 != 0) {
         if ((D_803D5524->biome == D_803F2D50.segment) ||
             ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            tmp4 = 1;
+            phi_v0 = 1;
         } else {
-            tmp4 = 0;
+            phi_v0 = 0;
         }
-        if (tmp4 != 0) {
+        if (phi_v0 != 0) {
             sp70 = 0;
             D_803F2EDD = 0;
             goto done;
@@ -87,10 +85,10 @@ done:
             func_802DB8DC_6ECF8C();
             switch (D_803F2ECE) {
             case 1:
-                func_802DB670_6ECD20(D_803A5520_7B6BD0, D_803A5524_7B6BD4, D_803A5528_7B6BD8, &D_803A5530_7B6BE0);
+                func_802DB670_6ECD20(D_803A5520_7B6BD0, D_803A5524_7B6BD4, D_803A5528_7B6BD8, D_803A5530_7B6BE0);
                 break;
             case 2:
-                func_802DB670_6ECD20(D_803A5520_7B6BD0, D_803A5524_7B6BD4, D_803A5528_7B6BD8, &D_803A5544_7B6BF4);
+                func_802DB670_6ECD20(D_803A5520_7B6BD0, D_803A5524_7B6BD4, D_803A5528_7B6BD8, D_803A5544_7B6BF4);
                 break;
             }
         }
@@ -98,8 +96,8 @@ done:
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) &&
-            ((tmp2 = D_803D5538, (tmp2)) || (tmp3 = D_803F2AA2, tmp3 == 0) || (tmp3 == 2) || ((tmp3 == 1) && (D_803F2AA3 >= 0xB))) &&
-            ((D_803F2C18[0] != 0) || (tmp2 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            ((D_803D5538 != 0) || ((tmp2 = D_803F2AA2) == 0) || (tmp2 == 2) || ((tmp2 == 1) && (D_803F2AA3 >= 0xB))) &&
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
@@ -136,10 +134,10 @@ done:
             } else {
                 sp6E = 0;
             }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 14, FTOFIX32(0.71875), FTOFIX32(0.71875), ((0x10000 + (sp72 << 5)) * 0x2E) >> 6, D_803F2ED0, sp6E, 0, 0, D_040088F0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 14, FTOFIX32(0.71875), FTOFIX32(0.71875), ((0x10000 + (sp72 << 5)) * 0x2E) >> 6, D_803F2ED0, sp6E, 0, 0, D_040088F0_F9950); }
             D_80203FE0[2].unk4 += sp72 * 3;
             D_80203FE0[1].unk4 += sp72 * 3;
-            if (D_803F2ED8 != 0) { func_802C78B0_6D8F60(1, 2, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) + (sp72 << 6)) * 0x2E) >> 6, D_803F2ED0, 0, 0, 0, D_040089E0); }
+            if (D_803F2ED8 != 0) { func_802C78B0_6D8F60(1, 2, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) + (sp72 << 6)) * 0x2E) >> 6, D_803F2ED0, 0, 0, 0, D_040089E0_108730); }
             load_1_tile(D_04008C10, D_04008A10);
             func_802C78B0_6D8F60(1, 2, ((0x10000 - (sp72 << 5)) * 0x2E) >> 6, ((0x10000 - (sp72 << 5)) * 0x2E) >> 6, ((0x10000 + (sp72 << 6)) * 0x2E) >> 6, D_803F2ED0, 0, 0, 0, D_04008290);
 
@@ -154,16 +152,15 @@ done:
             if ((D_803D552C->unk366 == 5) || (D_803D552C->unk366 == 2)) {
                 phi_t0 = 0xFF;
             }
-            D_80203FE0[1].unk4 += (((((((((phi_t0 * 4) - phi_t0) * 4) - phi_t0) * 4) + phi_t0) * 8) - phi_t0) * 8) >> 0xC;
-            D_80203FE0[2].unk4 += (((((((((phi_t0 * 4) - phi_t0) * 4) - phi_t0) * 4) + phi_t0) * 8) - phi_t0) * 8) >> 0xC;
+            D_80203FE0[1].unk4 += (phi_t0 * 0xB38) >> 0xC;
+            D_80203FE0[2].unk4 += (phi_t0 * 0xB38) >> 0xC;
             if (phi_t0 < 256) {
-                s32 tmp;
                 func_802C78B0_6D8F60(
                     1,
                     2,
                     ((D_803F2EC8 - (sp72 << 5)) * 0x2E) >> 6,
                     ((D_803F2EC8 - (sp72 << 5)) * 0x2E) >> 6,
-                    (tmp = (((D_803F2EC8 + (sp72 << 6)) * (0x100 - phi_t0)) >> 8) * 0x2E) >> 6,
+                    ((((0x100 - phi_t0) * (D_803F2EC8 + (sp72 << 6))) >> 8) * 0x2E) >> 6,
                     D_803F2ED0,
                     0,
                     0,
@@ -187,9 +184,6 @@ done:
         func_80303D00_7153B0(D_803D552C, 0x21A, 0x262);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/frog/func_80302200_7138B0.s")
-#endif
 
 void func_80302D5C_71440C(void) {
     D_803D552C->unk32A = D_803D5544;

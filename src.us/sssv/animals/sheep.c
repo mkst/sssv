@@ -31,7 +31,7 @@ void func_8038C484_79DB34(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4);
 void func_8035FE90_771540(void) {
     u8  var_v1;
     u8  temp_v0_11;
-    s16 sp94;   // pretty sure this should be struct086
+    s16 sp94;   // pretty sure this should be struct061
     s16 sp92;
     s16 sp90;
     s16 sp8E;
@@ -228,7 +228,7 @@ extern Gfx D_040039E0_CB410[];
 #if 0
 // load_springy_thing_or_springy_ram
 void func_80360D94_772444(void) {
-    s16 spB4; // struct086
+    s16 spB4; // struct061
     s16 spB2;
     s16 spB0;
     s16 spAE;

@@ -552,8 +552,8 @@ void func_802DE890_6EFF40(s16 arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 
     D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk14 = arg7;
 }
 
-void func_802DE914_6EFFC4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
-    struct051 *tmp = &D_803E00C0[arg0];
+void func_802DE914_6EFFC4(s16 idx, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
+    struct051 *tmp = &D_803E00C0[idx];
     tmp->unk20 = arg1;
     tmp->unk24 = arg2;
     tmp->unk28 = arg3;

@@ -40,7 +40,7 @@ void func_8032E150_73F800(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
 void func_80368DD0_77A480(void) {
     s32 spA8;
     s16 spA2;
-    struct086 sp98;
+    struct061 sp98; // too big
     s16 sp96;
     s16 sp94;
     s16 sp92;
@@ -54,7 +54,6 @@ void func_80368DD0_77A480(void) {
     u8 var_t0;
     u8 var_v0;
 
-    u8 temp_a0_4;
     u8 temp_v0_6;
 
     if (D_803D5538 != 0) {
@@ -150,7 +149,7 @@ block_9:
         }
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((temp_a0_4 = D_803D5538, (temp_a0_4)) || (temp_v0_6 = D_803F2AA2, (temp_v0_6 == 0)) || (temp_v0_6 == 2) || ((temp_v0_6 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (temp_a0_4 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((temp_v0_6 = D_803F2AA2) == 0) || (temp_v0_6 == 2) || ((temp_v0_6 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, (s32) D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -271,7 +270,7 @@ extern Gfx D_04004850_E1E10[];
 
 #if 0
 void func_8036A05C_77B70C(void) {
-    struct086 sp104;
+    struct061 sp104;
     s16 sp102;
     s16 sp100;
     s16 spFE;

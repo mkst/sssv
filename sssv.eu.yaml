@@ -4,17 +4,15 @@ options:
   target_path: baserom.eu.z64
   base_path: .
   compiler: IDO
-  find_file_boundaries: yes
-  symbol_addrs_path :   symbol_addrs.eu.txt
-  undefined_syms_path:  undefined_syms.eu.txt
+  symbol_addrs_path : symbol_addrs.eu.txt
+  undefined_syms_path: undefined_syms.eu.txt
+  ld_symbol_header_path: include/ld_symbols.eu.h
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
   src_path: src.eu
   extensions_path: tools/splat_ext
-  enable_ld_alignment_hack: yes
   lib_path: build/lib
-  hi_lo_max_distance: 32
   migrate_rodata_to_functions: no
   # workaround regex issue
   create_undefined_funcs_auto: no

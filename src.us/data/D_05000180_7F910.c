@@ -5,7 +5,7 @@ Vtx D_05000000_7F790[24] = {
 #include "data/inc/D_05000000_7F790.inc.c"
 };
 
-Gfx D_5000180_7F910[] = {
+Gfx D_05000180_7F910[] = {
     gsSPVertex(D_05000000_7F790, 24, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 7, 9, 10, 0),

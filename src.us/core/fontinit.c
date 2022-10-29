@@ -5,9 +5,6 @@
 #include "pp.h"
 
 
-extern u8  fonts_ROM_START[];
-extern u8  fonts_ROM_END[];
-
 void font_init(void) {
     s32 pad;
     u32 len = fonts_ROM_END - fonts_ROM_START;

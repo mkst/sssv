@@ -2,27 +2,6 @@
 #include "common.h"
 
 
-extern u8  data_7F790_ROM_START[];      // dan
-extern u8  data_7F790_ROM_END[];
-
-extern u8  europe_biome_ROM_START[];
-extern u8  europe_biome_ROM_END[];
-
-extern u8  ice_biome_ROM_START[];
-extern u8  ice_biome_ROM_END[];
-
-extern u8  desert_biome_ROM_START[];
-extern u8  desert_biome_ROM_END[];
-
-extern u8  jungle_biome_ROM_START[];
-extern u8  jungle_biome_ROM_END[];
-
-extern u8  city_biome_ROM_START[];
-extern u8  city_biome_ROM_END[];
-
-extern u8  data_116BD0_ROM_START[];     // menu
-extern u8  data_116BD0_ROM_END[];
-
 extern u8  _gfxanimSegmentStart[];      // D_80099600
 extern u8  _gfxanimSegmentEnd[];        // D_800B0B20
 

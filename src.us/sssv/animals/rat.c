@@ -29,7 +29,7 @@ void func_8035E430_76FAE0(void) {
     // s32 spBC;
     // s32 spB8;
     // s32 spB4;
-    struct086 spA8;
+    struct061 spA8;
     s16 spA6;
     u16 spA4;
     s16 spA2;

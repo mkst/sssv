@@ -1,26 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-void func_8032FD0C_7413BC(u8 cameraID, u8 arg1);
-void func_8032FF94_741644(u8);
-void func_80332444_743AF4(u8);
-void func_80334470_745B20(u8, u8);
-void func_8033641C_747ACC(u8, u8, u8);
-void func_803378BC_748F6C(u8);
-void func_80337ECC_74957C(u8);
-void func_80338E1C_74A4CC(u8);
-void func_803391D0_74A880(u8);
-void func_80339238_74A8E8(u8);
-void func_803392A0_74A950(u8);
-void func_803394E4_74AB94(u8, u8);
-void func_80339B84_74B234(u8, f32);
-void func_8033AAC8_74C178(u8);
-void func_8033B118_74C7C8(u8);
-void func_8033B594_74CC44(u8);
-void func_8033B9B8_74D068(u8);
-void func_8033C054_74D704(u8);
-void func_8033C320_74D9D0(u8);
-void func_80342550_753C00(Camera *camera);
 
 // .data
 extern f32 D_803A6CC4_7B8374; // 1.0f
@@ -32,11 +12,9 @@ extern f64 D_803BE558_7CFC08; // 360.0
 extern f64 D_803BE560_7CFC10; // 360.0
 extern f64 D_803BE568_7CFC18; // 360.0
 
-// BSS starts at 0x803C0420
-//  0x803F2C18 - 0x803C0420 => 0x327f8
 
 s16  D_803F2C18[3]; // BSS
-// static u16 D_803F2C72;
+u8   overlay2_74100_bss_pad[0x1d6ea];
 
 void func_8032F950_741000(void) {
     s16 i;
@@ -278,23 +256,23 @@ void func_803378BC_748F6C(u8 arg0) {
 
     if (ABSF(temp_f14) <= ABSF(temp_f16)) {
         if (temp_f14 > 0.0f) {
-            // 90.0
-            gCamera->unk20 = D_803BE448_7CFAF8 - (f32) func_8012844C((temp_f16 * 64.0f) / temp_f14);
+            // D_803BE448_7CFAF8
+            gCamera->unk20 = 90.0 - (f32) func_8012844C((temp_f16 * 64.0f) / temp_f14);
         } else if (temp_f14 < 0.0f) {
-            // 270.0
-            gCamera->unk20 = D_803BE450_7CFB00 + (f32) func_8012844C((temp_f16 * 64.0f) / -temp_f14);
+            // D_803BE450_7CFB00
+            gCamera->unk20 = 270.0 + (f32) func_8012844C((temp_f16 * 64.0f) / -temp_f14);
         }
     } else {
         if (temp_f16 > 0.0f) {
             gCamera->unk20 = func_8012844C((temp_f14 * 64.0f) / temp_f16);
         } else if (temp_f16 < 0.0f) {
-            // 180.0
-            gCamera->unk20 = (D_803BE458_7CFB08 - (f32) func_8012844C((temp_f14 * 64.0f) / -temp_f16));
+            // D_803BE458_7CFB08
+            gCamera->unk20 = (180.0 - (f32) func_8012844C((temp_f14 * 64.0f) / -temp_f16));
         }
     }
 
-    //360.0
-    gCamera->unk20 = (gCamera->unk20 * 256.0) / D_803BE460_7CFB10;
+    //D_803BE460_7CFB10
+    gCamera->unk20 = (gCamera->unk20 * 256.0) / 360.0;
 
     if (gCamera->unk64 != 5) {
         f64 factor = 128.0;
@@ -1263,9 +1241,8 @@ void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f3
     *arg5 = gCamera->unk10 + sinf(arg0 * 6.2832 * (256 / 65536.0)) * arg2;
 }
 
-#if 0
 void func_8033E7C8_74FE78(OSContPad *cont) {
-    static u16 D_803F2C72; // I guess it is static
+    static u16 D_803F2C72;
     s16 phi_v0;
     u16 button = cont->button;
 
@@ -1412,9 +1389,6 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
     }
     D_803F2C72 = cont->button;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033E7C8_74FE78.s")
-#endif
 
 void func_8033EF94_750644(OSContPad *cont, u16 prevButtonState) {
     u8 res = 0;

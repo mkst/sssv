@@ -6,11 +6,13 @@
 u8 func_802F8658_709D08(Animal *arg0, struct071 *arg1, f32 arg2, f32 arg3, struct077 *arg4);
 struct071 *func_802F8994_70A044(struct071*);
 
+s32 D_803A52C0_7B6970 = 0;
+s16 D_803A52C4_7B6974 = 0;
 
 #if 0
-// need to check rodata + bss
+// TODO: get this to OK
 void func_802F59F0_7070A0(void) {
-    static s16 D_803A52C4_7B6974;
+    static s16 D_803A52C4_7B6974 = 0;
     gControllerInput = &D_803E1BC4;
 
     switch (D_803E1BC0) {
