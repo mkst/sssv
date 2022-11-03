@@ -6,11 +6,6 @@
 extern f32 D_803A6CC4_7B8374; // 1.0f
 extern f32 D_803A6CC8_7B8378; // 45.0f
 extern f32 D_803A6CCC_7B837C; // 1.0f
-// .rodata
-extern f64 D_803BE550_7CFC00; // 6.2832
-extern f64 D_803BE558_7CFC08; // 360.0
-extern f64 D_803BE560_7CFC10; // 360.0
-extern f64 D_803BE568_7CFC18; // 360.0
 
 
 s16  D_803F2C18[3]; // BSS
@@ -256,22 +251,18 @@ void func_803378BC_748F6C(u8 arg0) {
 
     if (ABSF(temp_f14) <= ABSF(temp_f16)) {
         if (temp_f14 > 0.0f) {
-            // D_803BE448_7CFAF8
             gCamera->unk20 = 90.0 - (f32) func_8012844C((temp_f16 * 64.0f) / temp_f14);
         } else if (temp_f14 < 0.0f) {
-            // D_803BE450_7CFB00
             gCamera->unk20 = 270.0 + (f32) func_8012844C((temp_f16 * 64.0f) / -temp_f14);
         }
     } else {
         if (temp_f16 > 0.0f) {
             gCamera->unk20 = func_8012844C((temp_f14 * 64.0f) / temp_f16);
         } else if (temp_f16 < 0.0f) {
-            // D_803BE458_7CFB08
             gCamera->unk20 = (180.0 - (f32) func_8012844C((temp_f14 * 64.0f) / -temp_f16));
         }
     }
 
-    //D_803BE460_7CFB10
     gCamera->unk20 = (gCamera->unk20 * 256.0) / 360.0;
 
     if (gCamera->unk64 != 5) {
@@ -338,7 +329,7 @@ void func_80338E1C_74A4CC(u8 cameraID) {
         gCamera->unk34 = gCamera->unk50 + ((gCamera->unk64 * gCamera->unk50) / 2);
     }
 
-    phi_f0 = (gCamera->unk34 - gCamera->unk30) * 0.18; // D_803BE4D0_7CFB80
+    phi_f0 = (gCamera->unk34 - gCamera->unk30) * 0.18;
 
     if (!(ABSF(phi_f0) > ABSF(gCamera->unk38))) {
         if (phi_f0 < 0.0f) {
@@ -765,15 +756,14 @@ void func_8033B118_74C7C8(u8 cameraID) {
     gCamera->unkC = (f64) (f32) *(s32*)&D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h / 65536.0;
     gCamera->unk10 = ((f64) (f32) *(s32*)&D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h / 65536.0) + ((f64) (f32)D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 * 0.5);
 
-    // temp_f20 = 6.2832; // D_803BE550_7CFC00
     temp_f22 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkD4;
     temp_f22 = temp_f22 * D_803A6CC4_7B8374;
     temp_f22 = (temp_f22 * 75.0f) / D_803F2D50.unkE0;
-    sp30 = cosf((D_803A6CC8_7B8378 * 6.2832) / 360.0); // D_803BE558_7CFC08
+    sp30 = cosf((D_803A6CC8_7B8378 * 6.2832) / 360.0);
     gCamera->unk74 = (gCamera->unk8 - (sinf((gCamera->unk20 * 6.2832 * 0.00390625)) * (temp_f22 * sp30)));
-    sp30 = cosf((D_803A6CC8_7B8378 * 6.2832) / 360.0); // D_803BE560_7CFC10
+    sp30 = cosf((D_803A6CC8_7B8378 * 6.2832) / 360.0);
     gCamera->unk78 = (gCamera->unkC - (cosf((gCamera->unk20 * 6.2832 * 0.00390625)) * (temp_f22 * sp30)));
-    gCamera->unk7C = ((sinf(((D_803A6CC8_7B8378 * 6.2832) / 360.0)) * temp_f22) + gCamera->unk10); // D_803BE568_7CFC18
+    gCamera->unk7C = ((sinf(((D_803A6CC8_7B8378 * 6.2832) / 360.0)) * temp_f22) + gCamera->unk10);
 
     gCamera->unk8C = 0.0f;
     gCamera->unk90 = 0.0f;
@@ -813,7 +803,7 @@ void func_8033B594_74CC44(u8 arg0) {
     f32 phi_f20;
     f32 sp2C;
 
-    rmonPrintf("ca_UpdateCamera_Watch_TV.\n"); //&D_803BE1B0_7CF860);
+    rmonPrintf("ca_UpdateCamera_Watch_TV.\n");
     gCamera = &D_803F28E0[arg0];
     D_803F6468 += 1;
 
@@ -828,12 +818,11 @@ void func_8033B594_74CC44(u8 arg0) {
             phi_f14 = 30.0 - (D_803F6468 * 0.5);
         }
 
-        phi_f20 = ((f32)D_803F6464->unk40 * phi_f20) / 4915.2; // D_803BE578_7CFC28
+        phi_f20 = ((f32)D_803F6464->unk40 * phi_f20) / 4915.2;
     } else {
-        // temp_f0 = D_803F6468;
         phi_f20 = (f32) ((2.0 * D_803F6468) + 22.0f);
-        phi_f20 = ((f32)D_803F6464->unk40 * phi_f20) / 4915.2; // D_803BE580_7CFC30
-        phi_f14 = (D_803F6468 * 0.7); // D_803BE588_7CFC38
+        phi_f20 = ((f32)D_803F6464->unk40 * phi_f20) / 4915.2;
+        phi_f14 = (D_803F6468 * 0.7);
     }
     gCamera->unk30 = phi_f20;
     gCamera->unk34 = phi_f20;
@@ -844,12 +833,12 @@ void func_8033B594_74CC44(u8 arg0) {
 
     gCamera->unk8 = (f64) (f32) *(s32*)&D_803F6464->xPos.h / 65536.0;
     gCamera->unkC = (f64) (f32) *(s32*)&D_803F6464->zPos.h / 65536.0;
-    gCamera->unk10 = ((f64) (f32) *(s32*)&D_803F6464->yPos.h / 65536.0) + ((f32)D_803F6464->unk42 * 0.73); // D_803BE590_7CFC40
-    // temp_f12 = ((phi_f14 * 6.2832) / 360.0); //D_803BE598_7CFC48,  D_803BE5A0_7CFC50
+    gCamera->unk10 = ((f64) (f32) *(s32*)&D_803F6464->yPos.h / 65536.0) + ((f32)D_803F6464->unk42 * 0.73);
+
     sp2C = cosf(((phi_f14 * 6.2832) / 360.0));
-    gCamera->unk74 = (gCamera->unk8 - (sinf((gCamera->unk20 * 6.2832 * 0.00390625)) * (phi_f20 * sp2C))); // D_803BE5A8_7CFC58
+    gCamera->unk74 = (gCamera->unk8 - (sinf((gCamera->unk20 * 6.2832 * 0.00390625)) * (phi_f20 * sp2C)));
     sp2C = cosf(((phi_f14 * 6.2832) / 360.0));
-    gCamera->unk78 = (gCamera->unkC - (cosf((gCamera->unk20 * 6.2832 * 0.00390625)) * (phi_f20 * sp2C))); // D_803BE5B0_7CFC60
+    gCamera->unk78 = (gCamera->unkC - (cosf((gCamera->unk20 * 6.2832 * 0.00390625)) * (phi_f20 * sp2C)));
     gCamera->unk7C = ((sinf(((phi_f14 * 6.2832) / 360.0)) * phi_f20) + gCamera->unk10);
     gCamera->unk8C = 0.0f;
     gCamera->unk90 = 0.0f;
@@ -1232,9 +1221,7 @@ void func_8033E430_74FAE0(void) {
 void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f32 *arg5) {
     f32 tmp0;
 
-    // 6.2832 (2*PI)
     tmp0 = sinf(arg1 * 6.2832 * (256 / 65536.0));
-    // 6.2832
     *arg3 = gCamera->unk8 - cosf(arg0 * 6.2832 * (256 / 65536.0)) * (arg2 * tmp0);
     tmp0 = cosf(arg1 * 6.2832 * (256 / 65536.0));
     *arg4 = gCamera->unkC - cosf(arg0 * 6.2832 * (256 / 65536.0)) * (arg2 * tmp0);

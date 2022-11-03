@@ -96,9 +96,9 @@ block_9:
         }
 
         switch (D_803D552C->unk365) {
-        case 0:
+        case ATTACK_NONE:
             break;
-        case 8:
+        case ATTACK_ROAR:
             if (D_803D5530->unk4A != 0) {
                 D_803D552C->unk32A += 1;
             } else {
@@ -119,7 +119,7 @@ block_9:
             }
             break;
         default:
-            D_803D552C->unk365 = 0;
+            D_803D552C->unk365 = ATTACK_NONE;
             break;
         }
 
@@ -234,7 +234,7 @@ block_9:
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spC2, &spC0);
                 func_8031A278_72B928(&D_803D552C->unk326, &spC2, &spC0);
-                if (D_803D552C->unk365 == 8) {
+                if (D_803D552C->unk365 == ATTACK_ROAR) {
                     spC0 = spC2 = 2;
                 }
                 spC2 = D_803BD5CC_7CEC7C[spC2]; spC0 = D_803BD684_7CED34[spC0];

@@ -837,7 +837,7 @@ extern s16  D_803A6CEC_7B839C;
 extern u8   D_803A6CF3_7B83A3[];
 extern struct105 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
-extern s16  D_803A7B3C_7B91EC[][2];
+// extern s16  D_803A7B3C_7B91EC[][2];
 extern s16  D_803A8340;
 extern u8   D_803A8344[]; // timer string written here
 extern s8   D_803A8350_7B9A00[];

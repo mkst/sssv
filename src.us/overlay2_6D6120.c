@@ -677,8 +677,8 @@ void func_802C7600_6D8CB0(s16 arg0, s16 arg1) {
     }
 }
 
-void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *dl) {
-    if (func_80126388(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
+void func_802C78B0_6D8F60(u16 joint1, u16 joint2, s32 scaleX, s32 scaleZ, s32 scaleY, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *dl) {
+    if (func_80126388(joint1, joint2, scaleX, scaleZ, scaleY, arg5, arg6, arg7, arg8, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         gSPDisplayList(D_801D9E88++, dl);
         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
