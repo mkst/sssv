@@ -52,7 +52,7 @@ void func_803574E0_768B90(void) {
     s16 temp_t6_4;
     s16 temp_t7_2;
     s16 var_a0;
-    s16 var_t1_4;
+    s32 var_t1_4;
     s16 var_t2;
     s16 var_v0;
     s16 var_v0_4;

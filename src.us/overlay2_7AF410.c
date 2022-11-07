@@ -224,8 +224,8 @@ void func_8039E6D4_7AFD84(struct114 *arg0) {
             sp58 = ((D_80152C78[(arg0->unk4 + 0x40) & 0xFF] * arg0->unk5) >> 0xF);
 
             sp5A = (-D_80152C78[arg0->unk4 & 0xFF] * arg0->unk5) >> 0xF;
-            sp5E = (D_801526D4[(s16) ((s32)func_80128200() % 360)] * sp58) >> 8;
-            sp5C = (D_80152620[(s16) ((s32)func_80128200() % 360)] * -sp58) >> 8;
+            sp5E = (D_80152350.unk384[(s16) ((s32)func_80128200() % 360)] * sp58) >> 8;
+            sp5C = (D_80152350.unk2D0[(s16) ((s32)func_80128200() % 360)] * -sp58) >> 8;
             break;
         default:
             break;

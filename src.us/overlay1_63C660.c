@@ -1,7 +1,14 @@
 #include <ultra64.h>
 #include "common.h"
 
-u8 overlay1_bss_padding[0xad730]; // 0x10 in overlay1_6384F0
+
+s16  D_803B0400[20];
+s16  D_803B0590;
+s16  D_803B0592;
+s16  D_803B0594;
+s16  D_803B0596;
+
+u8 overlay1_63C660_pad[0x168]; // pad to end of overlay1 bss
 
 u8 language_select_menu(s16 arg0) {
     s16 used;
@@ -45,25 +52,25 @@ u8 language_select_menu(s16 arg0) {
     // current selection
     switch (D_803B0590) {
     case 0:
-        flagTexture = (uSprite *)D_80301520_6A4BC0; // Dutch
+        flagTexture = (uSprite *)img_flags_dutch_rgba16_rgba16__png; // Dutch
         break;
     case 1:
-        flagTexture = (uSprite *)D_802FD920_6A0FC0; // English
+        flagTexture = (uSprite *)img_flags_english_rgba16_rgba16__png; // English
         break;
     case 2:
-        flagTexture = (uSprite *)D_802FE520_6A1BC0; // French
+        flagTexture = (uSprite *)img_flags_french_rgba16_rgba16__png; // French
         break;
     case 3:
-        flagTexture = (uSprite *)D_802FF120_6A27C0; // German
+        flagTexture = (uSprite *)img_flags_german_rgba16_rgba16__png; // German
         break;
     case 4:
-        flagTexture = (uSprite *)D_802FFD20_6A33C0; // Italian
+        flagTexture = (uSprite *)img_flags_italian_rgba16_rgba16__png; // Italian
         break;
     case 5:
-        flagTexture = (uSprite *)D_80300920_6A3FC0; // Portugese
+        flagTexture = (uSprite *)img_flags_portugese_rgba16_rgba16__png; // Portugese
         break;
     case 6:
-        flagTexture = (uSprite *)D_80302120_6A57C0; // Spanish
+        flagTexture = (uSprite *)img_flags_spanish_rgba16_rgba16__png; // Spanish
         break;
     }
     func_801366BC(&D_801D9E7C, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
@@ -80,25 +87,25 @@ u8 language_select_menu(s16 arg0) {
     // previous selection?
     switch (D_803B0596) {
     case 0: // Dutch
-        flagTexture = (uSprite *)D_80301520_6A4BC0;
+        flagTexture = (uSprite *)img_flags_dutch_rgba16_rgba16__png;
         break;
     case 1: // English
-        flagTexture = (uSprite *)D_802FD920_6A0FC0;
+        flagTexture = (uSprite *)img_flags_english_rgba16_rgba16__png;
         break;
     case 2: // French
-        flagTexture = (uSprite *)D_802FE520_6A1BC0;
+        flagTexture = (uSprite *)img_flags_french_rgba16_rgba16__png;
         break;
     case 3: // German
-        flagTexture = (uSprite *)D_802FF120_6A27C0;
+        flagTexture = (uSprite *)img_flags_german_rgba16_rgba16__png;
         break;
     case 4: // Italian
-        flagTexture = (uSprite *)D_802FFD20_6A33C0;
+        flagTexture = (uSprite *)img_flags_italian_rgba16_rgba16__png;
         break;
     case 5: // Portugese
-        flagTexture = (uSprite *)D_80300920_6A3FC0;
+        flagTexture = (uSprite *)img_flags_portugese_rgba16_rgba16__png;
         break;
     case 6: // Spanish
-        flagTexture = (uSprite *)D_80302120_6A57C0;
+        flagTexture = (uSprite *)img_flags_spanish_rgba16_rgba16__png;
         break;
     }
 

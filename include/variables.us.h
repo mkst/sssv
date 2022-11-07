@@ -241,16 +241,17 @@ extern u16  D_80151434; // kinda random number?
 extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 
 
+extern f32  D_80151C38[];
 extern s16  D_80152040[];
 extern s16  D_80152212[];
 extern s8   D_80152248[];
 extern struct013 D_80152350;
-extern s16  D_80152620[]; // these are D_80152350.unk2D0
-extern s16  D_801526D4[]; // these are D_80152350.unk384
-extern f32  D_80151C38[];
-extern s16  D_80152C78[];
-extern u32  D_80152E80; // gRandomSeed
-extern u8   D_80152E90;
+// extern s16  D_80152620[]; // these are D_80152350.unk2D0
+// extern s16  D_801526D4[]; // these are D_80152350.unk384
+extern s16  D_80152C78[256];
+
+// thread6
+extern u8   D_80152E90; // 0x2E590
 extern u8   D_80152E98;
 extern s16  D_80152E9C;
 extern s16  D_80152EA0;
@@ -258,6 +259,7 @@ extern s16  D_80152EA4;
 extern Vp   D_80152EA8;
 extern u16  D_80152EB8; // frame buffer id?
 extern u16  D_80152EBC;
+
 extern s32  D_801542D0; // Gfx[] ?
 extern u8   D_80154370[];
 
@@ -371,6 +373,8 @@ extern s16  D_801D9ED4; // either 10 or 6 - input debounce?
 extern struct050 D_801D9ED8;
 
 extern s32  D_801DD800;
+extern s32  D_801DD8EC;
+
 // D_801DDD88 is D_801D9ED8.animals
 // D_801DDD8C[x] is D_801D9ED8.animals[x].animal
 
@@ -646,7 +650,6 @@ extern s8   D_80299E24;
 
 // 0x802Axxxx
 extern s32  D_802A23D0;
-extern u8   D_802AFBD0[];
 extern u8   D_802AA7B0_64DE50[];
 
 extern f32 D_80299DB8_63D458;
@@ -692,18 +695,12 @@ extern s16 D_80299E40_63D4E0;
 extern u8  D_80299E44_63D4E4[];
 
 // 0x802Bxxxx
-extern u8   D_802B12D0[];
-extern u8   D_802B2930[];
-extern u8   D_802B3F90[];
 extern u8   D_802B58A0[];
 extern u8   D_802B5CA0[];
 extern u8   D_802B60A0[];
-extern u8   D_802B64A0[]; // ROM 0x659b40
-extern u8   D_802BC430[];
 extern u8   D_802BF170_662810[]; // 200_credz
 // 0x802Cxxxx
 
-extern u8   D_802C11C0[];
 extern u8   D_802A37E0_646E80[];
 extern u8   D_802C6C90_66A330[];
 extern u8   D_802D00F0_673790[];
@@ -715,7 +712,6 @@ extern const Gfx  D_802F3C20_6972C0[]; // N64 controller model
 
 // 0x802Fxxxx
 
-extern u8   D_802F4CA0[];
 extern u8   D_802FD920_6A0FC0[]; // English language flag
 extern u8   D_802FE520_6A1BC0[]; // French language flag
 extern u8   D_802FF120_6A27C0[]; // German language flag
@@ -730,33 +726,14 @@ extern f32  D_80302D20_6A63C0; // 15000.0f
 
 // BSS (overlay1)
 
-extern u8   D_80302E70;
-extern u8   D_80302E71;
-extern struct026 *D_80302E74;
-extern u8   D_80302E88[];
-
-// 0x8032xxxx
-
-extern u8   D_8032AE88[];
-
-// 0x8033xxxx
-
-extern u8   D_80338688[];
-extern u8   D_8033CE88[];
-
-extern s32  D_80352E88;
-
+// extern u8   D_8033CE88[]; // D_80302E88 + 0x3A000
+// extern u8   D_80352E88[]; // D_80302E88 + 0x50000
 // 0x8036xxxx
-
-extern s32  D_80364E88;
-
+// extern u8   D_80364E88[]; // D_80302E88 + 0x62000
 // 0x8037xxxx
-
-extern u8   D_80376ED8[];
-
+// extern u8   D_80376ED8[]; // D_80302E88 + 0x74050
 // 0x8039xxxx
-
-extern u8   D_8039E2E8[];
+// extern u8   D_8039E2E8[];
 
 // 0x803Axxxx
 
@@ -776,11 +753,7 @@ extern u8   D_803A38D8[];
 extern s32  D_803A3B4C_7B51FC;
 extern s32  D_803A3BAC_7B525C;
 extern struct028 D_803A50C0_7B6770;
-extern s16  D_803A5520_7B6BD0[];
-extern u8   D_803A5524_7B6BD4[];
-extern u8   D_803A5528_7B6BD8[];
-extern u8   D_803A5530_7B6BE0[];
-extern u8   D_803A5544_7B6BF4[];
+
 extern s16  D_803A5560_7B6C10[4];
 extern s16  D_803A5568_7B6C18[];
 extern s16  D_803A5570_7B6C20[];
@@ -837,7 +810,7 @@ extern s16  D_803A6CEC_7B839C;
 extern u8   D_803A6CF3_7B83A3[];
 extern struct105 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
-// extern s16  D_803A7B3C_7B91EC[][2];
+extern s16  D_803A7B3C_7B91EC[][2];
 extern s16  D_803A8340;
 extern u8   D_803A8344[]; // timer string written here
 extern s8   D_803A8350_7B9A00[];
@@ -865,12 +838,6 @@ extern u8   D_803A4B38_7B61E8[MAX_DESERT_ANIMALS][MAX_DESERT_ANIMALS]; // desert
 // extern u8   D_803A4B78_7B6228[];
 
 // 0x803Bxxxx
-
-extern s16  D_803B0400[20];
-extern s16  D_803B0590;
-extern s16  D_803B0592;
-extern s16  D_803B0594;
-extern s16  D_803B0596;
 
 extern s16 D_803B1BAC[];
 extern DemoInput D_803B1F20_7C35D0[];
@@ -944,7 +911,6 @@ extern s8   D_803B71D0[][5];
 extern struct066 D_803B7268_7C8918[32];
 extern struct066 D_803B7368_7C8A18[32];
 extern f32  D_803B7468;
-extern char D_803B7480_7C8B30[]; // Europe, Ice, Jungle, Dessert
 extern f32  D_803B74AC_7C8B5C;
 extern f32  D_803B74B0_7C8B60;
 extern f32  D_803B74B4_7C8B64;
@@ -1072,8 +1038,6 @@ extern s16  D_803C0426;
 extern s16  D_803C0428;
 extern s16  D_803C042A;
 extern struct053 D_803C0430;
-
-// overlay2_6AB090
 extern u16  D_803C0634;
 extern u16  D_803C063A;
 extern u8   D_803C063C;
@@ -1121,6 +1085,7 @@ extern Animal *D_803D5528;
 extern Animal *D_803D552C; // is this *really* Animal? is it World?
 extern Animal *D_803D5530; // pointer to first animal?
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
+extern s16  D_803D5536; // tmp animal idx?
 extern u8   D_803D5538;
 extern s16  D_803D553A;
 extern s16  D_803D553C;
@@ -1420,7 +1385,7 @@ extern char D_803F2D3E[]; // score as a string, e.g. "       0"
 
 extern struct000 D_803F2D50;
 
-extern s16  D_803F2D70;
+// extern s16  D_803F2D70; D_803F2D50.segment
 extern s16  D_803F2DA2;
 
 

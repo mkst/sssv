@@ -202,10 +202,10 @@ block_14:
                     (SSSV_RAND(32) + 10));
 
                 if (D_803D5530->unk4A == 0) {
-                    func_8032CD70_73E420(D_803D5530, 0x30, 0x5000, 0, (((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) / 1000.0) + 2.25), D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h);
+                    func_8032CD70_73E420(D_803D5530, SFX_UNKNOWN_48, 0x5000, 0, (((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) / 1000.0) + 2.25), D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h);
                 }
                 if (SSSV_RAND(64) == 0x35) {
-                    play_sound_effect_at_location(0x6D, 0x5000, 0, D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_HIPPO_DROP_MINE, 0x5000, 0, D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, 1.0f);
                 }
                 func_8037F6CC_790D7C(0x10, 0x100, 1);
                 break;
@@ -382,7 +382,7 @@ void func_8035FB10_7711C0(void) {
             play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEC10);
             D_803D552C->unk308 = 80;
         } else {
-            func_8032C508_73DBB8(16, 0x7000, 0, 1.3f);
+            func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x7000, 0, 1.3f);
             D_803D552C->unk308 = 80;
         }
     }

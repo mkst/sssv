@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "frog.h"
+
 
 void func_80302200_7138B0(void) {
     s16 temp_t5;
@@ -68,7 +70,7 @@ done:
                     }
                 }
                 if (phi_v1 & 2) {
-                    play_sound_effect_at_location(68, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                 }
             }
             break;

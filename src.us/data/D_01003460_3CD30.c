@@ -15,3 +15,8 @@ Gfx D_01003498_3CD68[] = {
     gsDPSetCycleType(G_CYC_2CYCLE),
     gsSPEndDisplayList(),
 };
+
+Gfx D_010034B0_3CD80[] = {
+    gsSPDisplayList(D_01003460_3CD30),
+    gsSPEndDisplayList(),
+};

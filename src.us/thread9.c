@@ -1,11 +1,11 @@
 #include <ultra64.h>
-#include "PR/os.h"
-
 #include "common.h"
 
-extern s32 numControllers;
+s16 D_80158540 = 0;
+s32 numControllers = 0;
 
-#ifdef NON_MATCHING // NON-MATCHING: almost REGALLOC
+#ifdef NON_MATCHING
+// swapped instructions
 s32 init_controllers(void) {
     s16 i;
     s32 ret;

@@ -303,8 +303,29 @@ _fontbufferSegmentEnd       = 0x800EF0D0;
 // bss
 
 D_803C0420 = 0x803C0420; // defined:true
-//D_803F2C18 = 0x803F2C18; // defined:true
+D_803F2C18 = 0x803F2C18; // defined:true size:0x6
 
+// overlay1
+D_80302E60 = 0x80302E60; // defined:true
+D_80302E64 = 0x80302E64; // defined:true
+D_80302E70 = 0x80302E70; // defined:true
+D_80302E74 = 0x80302E74; // defined:true
+D_80302E88 = 0x80302E88; // size:0xAB630 defined:true
+
+D_803B0400 = 0x803B0400; // defined:true
+D_803B0590 = 0x803B0590; // defined:true
+D_803B0592 = 0x803B0592; // defined:true
+D_803B0594 = 0x803B0594; // defined:true
+D_803B0595 = 0x803B0595; // defined:true
+D_803B0596 = 0x803B0596; // defined:true
+
+// overlay2
+D_803C0422 = 0x803C0422; // defined:true
+D_803C0424 = 0x803C0424; // defined:true
+D_803C0426 = 0x803C0426; // defined:true
+D_803C0428 = 0x803C0428; // defined:true
+D_803C042A = 0x803C042A; // defined:true
+D_803C0430 = 0x803C0430; // defined:true
 
 // libultra functions
 

@@ -147,6 +147,9 @@ void perform_screen_transition(void);
 // sssv/animals/lion (overlay2_702DE0)
 void lion_roar(void);
 
+// overlay2_7041D0
+void add_single_light(Gfx** dl);
+
 // overlay2_7070A0
 void fire_homing_missile(s16 x, s16 z, s16 y, s16 arg3, s16 rotation, Animal* target, s16 arg6, s16 arg7, f32 scale, s16 lifetime, s16 argA, s16 xVel, s16 zVel, s16 yVel, Animal* owner);
 void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal *owner, s16 arg6, u8 id);

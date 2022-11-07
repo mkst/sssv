@@ -260,7 +260,7 @@ $(TARGET).z64: $(TARGET).bin
 $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 	@mkdir -p $$(dirname $@)
 	@cp $< $@
-	@$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
+	@$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py --quiet $@
 
 rnc/%.bin: %.bin
 	@mkdir -p rnc/assets/levels
@@ -279,7 +279,7 @@ $(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 # language files
 %.dat.rnc.json: %.dat.rnc
 	@mkdir -p $$(dirname $@)
-	$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@
+	@$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@
 	@printf "[$(YELLOW)  lang  $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/%.dat: %.dat.rnc.json

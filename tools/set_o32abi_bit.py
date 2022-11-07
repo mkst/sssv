@@ -35,15 +35,16 @@ def patch_elf(f):
     return patched
 
 
-def patch_elf_wrapper(f, name):
+def patch_elf_wrapper(f, name, quiet=False):
     res = patch_elf(f)
-    if res is True:
-        print("EF_MIPS_ABI_O32 bit successfully patched in %s" % name)
-    elif res is False:
-        print("EF_MIPS_ABI_O32 bit already patched in %s" % name)
+    if not quiet:
+        if res is True:
+            print("EF_MIPS_ABI_O32 bit successfully patched in %s" % name)
+        elif res is False:
+            print("EF_MIPS_ABI_O32 bit already patched in %s" % name)
 
 
-def patch_ar(f):
+def patch_ar(f, quiet=False):
     assert (header := f.read(len(ARCH_MAGIC))) == ARCH_MAGIC
 
     while obj_header := f.read(ARCH_HEADER_LENGTH):
@@ -55,7 +56,7 @@ def patch_ar(f):
         size = int(size.rstrip().decode("utf8"))
 
         if id.endswith(".o"):
-            patch_elf_wrapper(f, id)
+            patch_elf_wrapper(f, id, quiet=quiet)
 
         # skip over payload
         f.seek(size + size % 2, 1) # 1 means relative to current position
@@ -64,9 +65,10 @@ def patch_ar(f):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("file", help="input file", type=argparse.FileType("r+b"))
+    parser.add_argument("--quiet", action="store_true", default=False)
     args = parser.parse_args()
 
     if args.file.name.endswith(".a"):
-        patch_ar(args.file)
+        patch_ar(args.file, args.quiet)
     else:
-        patch_elf_wrapper(args.file, args.file.name)
+        patch_elf_wrapper(args.file, args.file.name, args.quiet)

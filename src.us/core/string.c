@@ -125,13 +125,10 @@ u8 *memset_bytes(u8 *dst, u8 c, u32 len) {
 }
 
 u16 rand(void) {
-      u32 *tmp = &D_80152E80;
-      if (0) {
-          // debug?
-      }
+    static u32 D_80152E80 = 1;
 
-      D_80152E80 = (*tmp * 0x41c64e6d + 12345) ;
-      return (*tmp >> 16) & 0x7fff;
+    D_80152E80 = (D_80152E80 * 0x41c64e6d + 12345);
+    return (D_80152E80 >> 16) & 0x7fff;
 }
 
 u8 *memcpy_sssv(u8 *src, u8 *dst, u32 len) {
@@ -144,11 +141,14 @@ u8 *memcpy_sssv(u8 *src, u8 *dst, u32 len) {
     return dst;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80129198.s")
 // matches with -O2 -g3
-// s16 func_80129198(s16 arg0) {
-//     // huh? is this swallowed up by func_801291A4
-// }
+#if 0
+s16 func_80129198(s16 arg0) {
+    // huh? is this swallowed up by func_801291A4
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80129198.s")
+#endif
 
 u8 *func_801291A4(u8 *x) {
     u8 *_x = x;

@@ -244,7 +244,7 @@ void func_8031D624_72ECD4(void) {
             if (D_803D5530->unk4A == 0) {
                 func_8032CD70_73E420(
                     D_803D5530,
-                    100,
+                    SFX_UNKNOWN_100,
                     (((D_803D554C / 60.0) + 0.7) * 14848.0), // D_803BD9B8_7CF068
                     0,
                     (f32) ((D_803D554C / 30.0) + 1.0),
@@ -556,7 +556,7 @@ done:
             D_803E00C0[D_803D5528->unk3C8.unk2].unk2E = 5;
         }
         if ((D_803D552C->unk365 == ATTACK_NONE) && (SSSV_RAND(32) == 0xC)) {
-            D_803D552C->unk365 = 46;
+            D_803D552C->unk365 = ATTACK_MOUSE_3;
             D_803D552C->unk32A = D_803D5544;
         }
         func_803224C4_733B74(5, 5, 0, 0x10, 0, 0, 0, 0x10);
@@ -567,7 +567,7 @@ done:
             spA8 = D_803D5544 - D_803D552C->unk32A;
             spAA = spA8 * 21;
             if (spA8 >= 6) {
-                D_803D552C->unk365 = 46;
+                D_803D552C->unk365 = ATTACK_MOUSE_3;
                 D_803D552C->unk32A = (u16) D_803D5544;
             }
             break;
@@ -604,7 +604,7 @@ done:
                     GPACK_RGBA5551(248, 248, 128, 1), // pale yellow
                     0);
             } else {
-                D_803D552C->unk365 = 0;
+                D_803D552C->unk365 = ATTACK_NONE;
             }
             break;
         }
