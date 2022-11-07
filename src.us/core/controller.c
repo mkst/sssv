@@ -2,6 +2,8 @@
 
 #include "common.h"
 
+#include "controller.h"
+
 
 u32 func_80128200(void) {
     u32 temp_v1;

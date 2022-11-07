@@ -2,6 +2,34 @@
 
 #include "common.h"
 
+
+u8 D_80152E90 = 1; // current overlay
+u8 D_80152E94 = 1; // unused?
+u8 D_80152E98 = 1;
+
+s16 D_80152E9C = 0;
+s16 D_80152EA0 = 0; // some flag
+s16 D_80152EA4 = 3; // only used once?
+
+Vp D_80152EA8 = {{
+    {
+        640,
+        480,
+        511,
+        0,
+    },
+    {
+        640,
+        480,
+        511,
+        0,
+    }
+}};
+
+u16 D_80152EB8 = 0; // framebuffer id
+u16 D_80152EBC = 0;
+
+
 // thread 6
 void thread6(s32 arg0) {
     unsigned long long  i;

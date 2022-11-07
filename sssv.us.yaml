@@ -29,7 +29,6 @@ segments:
     start: 0x00001000
     vram:  0x80125900
     symbol_name_format: $VRAM
-    subalign: 8
     subsegments:
     - [0x1000, asm, entrypoint]                     # handwritten
     - [0x1050, c, main_1050]                        # -O1
@@ -235,25 +234,26 @@ segments:
     - [0x28A90, bin] # ucode # rspbootTextStart / 0x8014D390
     - [0x28B60, bin] # end of ucode?
     - [0x2BD00, bin] #
-    - [0x2DD20, .data, screen_transition]
-    - [0x2DFF0, bin] # lookup tables? 0x801528F0
-    - [0x2E580, bin]
-    - [0x2E590, bin]
+    - [0x2D740, .data, core/controller]
+    - [0x2DA50, .data, mtx]
+    - [0x2E580, .data, core/string]
+    - [0x2E590, .data, thread6] # thread6
+    - [0x2E5C0, data] # tbd
     - [0x2E9D0, rgba16, img/2E9D0.rgba16, 32, 32] # spaceship texture
     - [0x2F1D0, rgba16, img/2F1D0.rgba16, 32, 32] # spaceship texture
-    - [0x2F9D0, .data, data/2F9D0] # load spaceship textures
-    - [0x2FA30, .data, data/2FA30] # displaylist
-    - [0x02FA70, bin] # tbd
+    - [0x2F9D0, .data, data/D_801542D0] # load spaceship textures
+    - [0x2FA30, .data, data/D_80154330] # displaylist
+    - [0x2FA70, data] # tbd
     - [0x2FC00, .data, main_78F0]
-    - [0x2FD80, bin] #
+    - [0x2FD80, data] #
     # - [0x02FD80, .data, core/audiomgr] # .data for audiomgr
-    - [0x2FDD0, bin] # audio lookups D_801546D0
+    - [0x2FDD0, data] # audio lookups D_801546D0
     # - [0x2FDE8, bin] # main_E3C0 rodata
     - [0x30860, bin] # CH.10 textures
-    - [0x339C0, .data, data/339C0] # D_801582C0
-    - [0x33B20, .data, data/33B20] # D_80158420
-    - [0x33BA0, .data, data/33BA0] # D_801584A0
-    - [0x33C40, bin] # alignment?
+    - [0x339C0, .data, data/D_801582C0]
+    - [0x33B20, .data, data/D_80158420]
+    - [0x33BA0, .data, data/D_801584A0]
+    - [0x33C40, .data, thread9]
     - [0x33C50, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
     - [0x35050, lib, libultra_rom, initialize, .data]
     - [0x35070, lib, libultra_rom, sched, .data]
@@ -342,7 +342,6 @@ segments:
     vram: 0x01000000
     start: 0x398D0
     exclusive_ram_id: ovl_01
-    subalign: 8
     subsegments:
     - [0x398D0, bin] # CI4 textures
     - [0x39ED0, bin] # CI4 textures
@@ -354,13 +353,12 @@ segments:
     - [0x3C530, rgba16, img/D_01002C60_3C530.rgba16, 32, 32]
     # display lists
     - [0x03CD30, .data, data/D_01003460_3CD30]
-    - [0x03CD80, .data, data/3CD80]
     - [0x03CD90, .data, data/D_010034C0_3CD90]
-    - [0x03CF20, .data, data/3CF20]
-    - [0x03CF60, .data, data/3CF60]
-    - [0x03CFA0, .data, data/3CFA0]
-    - [0x03D010, .data, data/3D010]
-    - [0x03D050, .data, data/3D050]
+    - [0x03CF20, .data, data/D_01003650_3CF20]
+    - [0x03CF60, .data, data/D_01003690_3CF60]
+    - [0x03CFA0, .data, data/D_010036D0_3CFA0]
+    - [0x03D010, .data, data/D_01003740_3D010]
+    - [0x03D050, .data, data/D_01003780_3D050]
     - [0x03D0C0, .data, data/D_010037F0_3D0C0]
     - [0x03D110, .data, data/D_01003840_3D110]
     - [0x03D120, .data, data/D_01003850_3D120]
@@ -431,18 +429,18 @@ segments:
     - [0x3F720, .data, data/D_01005E50_3F720] # evo robot arm
     - [0x3F830, sssv_vtx, data/inc/D_01005F60_3F830]
     - [0x3F890, .data, data/D_01005FC0_3F890] # prism?
-    - [0x03F8C0, .data, data/3FB30]  # evo maybe?
+    - [0x03F8C0, .data, data/D_01006260_3FB30]  # evo maybe?
     - [0x03F8C0, sssv_vtx, data/inc/D_01005FF0_3F8C0]
     - [0x03FAC0, sssv_vtx, data/inc/D_010061F0_3FAC0]
     - [0x03FB30] # end of 0x03F8C0
     - [0x03FBE0, sssv_vtx, data/inc/D_01006310_3FBE0]
-    - [0x03FD00, .data, data/3FD00]  # evo maybe?
+    - [0x03FD00, .data, data/D_01006430_3FD00]  # evo maybe?
     - [0x03FD80, sssv_vtx, data/inc/D_010064B0_3FD80]
     - [0x03FDE0, sssv_vtx, data/inc/D_01006510_3FDE0]
-    - [0x03FE40, .data, data/3FE40]  # more evo? arm?
+    - [0x03FE40, .data, data/D_01006570_3FE40]  # more evo? arm?
     - [0x03FE90, sssv_vtx, data/inc/D_010065C0_3FE90]
     - [0x03FEF0, sssv_vtx, data/inc/D_01006620_3FEF0]
-    - [0x03FF50, .data, data/3FF50]  # more evo? arm 2?
+    - [0x03FF50, .data, data/D_01006680_3FF50]  # more evo? arm 2?
     - [0x03FFA0, sssv_vtx, data/inc/D_010066D0_3FFA0]
     - [0x040020, sssv_vtx, data/inc/D_01006750_40020]
     - [0x0402A0, .data, data/D_010069D0_402A0] # evo laserbeam
@@ -459,7 +457,7 @@ segments:
     - [0x040D30, bin] # more textures
     - [0x040D70, rgba16, img/hud/unused_powerbar.rgba16, 128, 16]
     - [0x041D70, bin] # rgba16 mix of stuff?
-    - [0x043DA0, .data, data/43FA0]
+    - [0x043DA0, .data, data/D_0100A6D0_43FA0]
     - [0x043DA0, sssv_vtx, data/inc/D_0100A4D0_43DA0]
     - [0x043E20, sssv_vtx, data/inc/D_0100A550_43E20]
     - [0x043FA0] # end of 43FA0
@@ -467,11 +465,11 @@ segments:
     - [0x044400, sssv_vtx, data/inc/D_0100AB30_44400]
     - [0x0445F0, sssv_vtx, data/inc/D_0100AD20_445F0]
     - [0x044760, sssv_vtx, data/inc/D_0100AE90_44760]
-    - [0x44860, .data, data/44860] # gun turret base
+    - [0x44860, .data, data/D_0100AF90_44860] # gun turret base
     - [0x044910, sssv_vtx, data/inc/D_0100B040_44910]
     - [0x044B10, sssv_vtx, data/inc/D_0100B240_44B10]
     - [0x044B50, sssv_vtx, data/inc/D_0100B280_44B50]
-    - [0x044B90, .data, data/44B90] # gun turrent gun
+    - [0x044B90, .data, data/D_0100B2C0_44B90] # gun turrent gun
     - [0x44C00, sssv_vtx, data/inc/D_0100B330_44C00]
     - [0x44C80, sssv_vtx, data/inc/D_0100B3B0_44C80]
     - [0x44E80, sssv_vtx, data/inc/D_0100B5B0_44E80]
@@ -497,7 +495,7 @@ segments:
     - [0x47810, sssv_vtx, data/inc/D_0100DF40_47810]
     - [0x47A10, sssv_vtx, data/inc/D_0100E140_47A10]
     - [0x47C00, sssv_vtx, data/inc/D_0100E330_47C00]
-    - [0x47C60, .data, data/47C60] # mine from SOMETHING_FISHY?
+    - [0x47C60, .data, data/D_0100E390_47C60] # mine from SOMETHING_FISHY?
     - [0x47F90, sssv_vtx, data/inc/D_0100E6C0_47F90]
     - [0x48170, .data, data/D_0100E8A0_48170] # cog?
     - [0x48200, sssv_vtx, data/inc/D_0100E930_48200]
@@ -667,7 +665,7 @@ segments:
     - [0x54C70, sssv_vtx, data/inc/D_0101B3A0_54C70]
     - [0x54E50, sssv_vtx, data/inc/D_0101B580_54E50]
     - [0x54F30, sssv_vtx, data/inc/D_0101B660_54F30]
-    - [0x54FD0, .data, data/54FD0] # pipe (RAT_O_MATIC?)
+    - [0x54FD0, .data, data/D_0101B700_54FD0] # pipe (RAT_O_MATIC?)
     - [0x55140, sssv_vtx, data/inc/D_0101B870_55140]
     - [0x551C0, sssv_vtx, data/inc/D_0101B8F0_551C0]
     - [0x552A0, .data, data/D_0101B9D0_552A0]
@@ -677,7 +675,7 @@ segments:
     - [0x555E0, .data, data/D_0101BD10_555E0]
     - [0x55690, sssv_vtx, data/inc/D_0101BDC0_55690]
     - [0x55710, sssv_vtx, data/inc/D_0101BE40_55710]
-    - [0x558D0, .data, data/558D0] # pipe corner (RAT_O_MATIC?)
+    - [0x558D0, .data, data/D_0101C000_558D0] # pipe corner (RAT_O_MATIC?)
     - [0x55980, sssv_vtx, data/inc/D_0101C0B0_55980]
     - [0x55A00, sssv_vtx, data/inc/D_0101C130_55A00]
     - [0x55B20, .data, data/D_0101C250_55B20]
@@ -854,7 +852,6 @@ segments:
     type: code
     vram: 0x05000000
     start: 0x7F790
-    subalign: 8
     exclusive_ram_id: ovl_05
     subsegments:
     - [0x7F790, sssv_vtx, data/inc/D_05000000_7F790]
@@ -1089,7 +1086,6 @@ segments:
     vram: 0x05000000
     start: 0x97020
     exclusive_ram_id: ovl_05
-    subalign: 8
     subsegments:
     - [0x97020, .data, data/DMA_INTRO_D.D_05000880_978A0]
     - [0x97020, sssv_vtx, data/inc/D_05000000_97020]
@@ -1612,7 +1608,6 @@ segments:
     vram: 0x05000000
     start: 0xBD0D0
     exclusive_ram_id: ovl_05
-    subalign: 8
     subsegments:
     - [0xBD0D0, sssv_vtx, data/inc/D_05000000_BD0D0]
     - [0xBD150, sssv_vtx, data/inc/D_05000080_BD150]
@@ -1722,7 +1717,6 @@ segments:
     vram: 0x05000000
     start: 0xC47B0
     exclusive_ram_id: ovl_05
-    subalign: 8
     subsegments:
     - [0xC47B0, sssv_vtx, data/inc/D_05000000_C47B0]
     - [0xC4830, sssv_vtx, data/inc/D_05000080_C4830]
@@ -1781,7 +1775,6 @@ segments:
     vram: 0x04000000
     start: 0xC7A30
     exclusive_ram_id: ovl_04
-    subalign: 8
     subsegments:
     - [0xC7A30, sssv_vtx, data/inc/D_04000000_C7A30]
     - [0xC7BD0, .data, data/D_040001A0_C7BD0] # dog's body?
@@ -1823,15 +1816,18 @@ segments:
     - [0xC93D0, sssv_vtx, data/inc/D_040019A0_C93D0]
     - [0xC9410, sssv_vtx, data/inc/D_040019E0_C9410]
     - [0xC9450, .data, data/D_04001A20_C9450] # tbd, eyes? teeth?
-    - [0xC9490, bin] # padding?
+    - [0xC9490, bin] # D_04001A60_C9490
     - [0xC94A0, bin] # texture
     - [0xC95A0, bin] # tbd
     - [0xC95D0, bin] # texture?
-    - [0xC96B0, bin] # 32x32 CI4
-    - [0xC98B0, bin] # palettes?
-    - [0xC98E0, bin] # 48x32 CI4
+    - [0xC9690, bin] # D_04001C60_C9690 (palette)
+    - [0xC96B0, bin] # D_04001C80_C96B0 32x32 CI4
+    - [0xC98B0, bin] # palette
+    - [0xC98C0, bin] # D_04001E90_C98C0 palette
+    - [0xC98E0, bin] # 48x32 CI4 # D_04001EB0_C98E0
     - [0xC9BE0, bin] # 48x32 CI4
-    - [0xC9EE0, bin] # tbd
+    - [0xC9EE0, bin] # D_040024B0_C9EE0
+    - [0xC9F00, bin] # D_040024D0_C9F00
     - [0xC9F20, sssv_vtx, data/inc/D_040024F0_C9F20]
     - [0xCA120, sssv_vtx, data/inc/D_040026F0_CA120]
     - [0xCA150, .data, data/D_04002720_CA150] # missile
@@ -1841,7 +1837,7 @@ segments:
     - [0xCA2B8] # end of D_04003780_CA268
     - [0xCA2E0, .data, data/D_04002910_CA340]
     - [0xCA2E0, sssv_vtx, data/inc/D_040028B0_CA2E0]
-    - [0xCA340]
+    - [0xCA340] # end of display list
     - [0xCA370, sssv_vtx, data/inc/D_04002940_CA370]
     - [0xCA3D0, .data, data/D_040029A0_CA3D0]
     - [0xCA400, sssv_vtx, data/inc/D_040029D0_CA400]
@@ -2102,7 +2098,6 @@ segments:
     vram: 0x04000000
     start: 0xDD5C0
     exclusive_ram_id: ovl_04
-    subalign: 8
     subsegments:
     - [0xDD5C0, sssv_vtx, data/inc/D_04000000_DD5C0]
     - [0xDD6A0, .data, data/D_040000E0_DD6A0]
@@ -2333,7 +2328,6 @@ segments:
     vram: 0x04000000
     start: 0xE75B0
     exclusive_ram_id: ovl_04
-    subalign: 8
     subsegments:
     - [0xE75B0, sssv_vtx, data/inc/D_04000000_E75B0]
     - [0xE75F0, sssv_vtx, data/inc/D_04000040_E75F0]
@@ -2528,7 +2522,6 @@ segments:
     vram: 0x04000000
     start: 0xF1060
     exclusive_ram_id: ovl_04
-    subalign: 8
     subsegments:
     - [0xF1060, sssv_vtx, data/inc/D_04000000_F1060]
     - [0xF1100, sssv_vtx, data/inc/D_040000A0_F1100]
@@ -2802,7 +2795,6 @@ segments:
     vram: 0x04000000
     start: 0xFFD50
     exclusive_ram_id: ovl_04
-    subalign: 8
     subsegments:
     - [0x0FFD50, sssv_vtx, data/inc/D_04000000_FFD50]
     - [0x0FFEF0, .data, data/FFEF0] # tbd
@@ -3099,7 +3091,6 @@ segments:
     vram: 0x04000000
     start: 0x116BD0
     exclusive_ram_id: ovl_04
-    subalign: 8
     subsegments:
     - [0x116BD0, rnc, img/menu/powercell, rgba16, 32, 32]
     # spaceship interior textures
@@ -3519,7 +3510,6 @@ segments:
     vram: 0x80294E50
     start: 0x006384F0
     exclusive_ram_id: ovl_80
-    subalign: 8
     subsegments:
     - [0x6384F0, c, overlay1_6384F0]
     - [0x63C310, c, overlay1_63C310]
@@ -3531,7 +3521,7 @@ segments:
     # - [0x63D4E4, bin] # "C" texture 10x11 rgba16
     # - [0x63D5D8, bin] # dl
     - [0x63D660, .data, overlay1_6384F0] # D_80299FC0_63D660
-    - [0x63D6F0, bin]
+    - [0x63D6F0, bin] # zeroes
     # - [0x63D6A4, bin] # D_8029A004_63D6A4
     - [0x63D700, sssv_vtx, data/inc/D_8029A060_63D700]
     - [0x63D880, sssv_vtx, data/inc/D_8029A1E0_63D880]
@@ -3554,7 +3544,7 @@ segments:
     - [0x66A330, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
     - [0x673790, rnc, img/intro/professor_cheese, rgba16, 320, 240]
     - [0x67DFA0, rnc, img/intro/space_station, rgba16, 320, 240]
-    - [0x690FE0, .data, data/6921C0] # spaceship
+    - [0x690FE0, .data, data/D_802EEB20_6921C0] # spaceship
     - [0x690FE0, sssv_vtx, data/inc/D_802ED940_690FE0]
     - [0x6911E0, sssv_vtx, data/inc/D_802EDB40_6911E0]
     - [0x6913C0, sssv_vtx, data/inc/D_802EDD20_6913C0]
@@ -3609,7 +3599,7 @@ segments:
     - [0x696E60, sssv_vtx, data/inc/D_802F37C0_696E60]
     - [0x696F70, sssv_vtx, data/inc/D_802F38D0_696F70]
     - [0x697160, sssv_vtx, data/inc/D_802F3AC0_697160]
-    - [0x6972C0, .data, data/6972C0] # N64 controller model
+    - [0x6972C0, .data, data/D_802F3C20_6972C0] # N64 controller model
     - [0x698340, rnc, img/menu/trademark, rgba16, 320, 240]
     - [0x6A0FC0, rgba16, img/flags/english.rgba16, 48, 32]
     - [0x6A1BC0, rgba16, img/flags/french.rgba16, 48, 32]
@@ -3622,14 +3612,13 @@ segments:
     - [0x6A63C0, .rodata, overlay1_6384F0]
     - [0x6A64A0, .rodata, overlay1_63C660]
     # bss
-    - [0x6A6500, .bss, overlay1_6384F0] # , 0xAD740 // should be D_80302E60
+    - [0x6A6500, .bss, overlay1_6384F0]
     - [0x6A6500, .bss, overlay1_63C660]
   - type: code
     name: overlay2 # sssv game code
     vram: 0x80294E50
     start: 0x006A6500
     exclusive_ram_id: ovl_80
-    subalign: 4 # for incomplete rodata
     subsegments:
     - [0x6A6500, c, overlay2_6A6500]
     - [0x6A7A80, c, overlay2_6A7A80]
@@ -3730,7 +3719,7 @@ segments:
     - [0x7A9CE0, c, ui_main_menu]
     - [0x7AF410, c, overlay2_7AF410]
     # .data / .rodata
-    - [0x7B1B90, bin] #
+    - [0x7B1B90, data] #
     - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
     - [0x7B1BB0, .data, overlay2_6AB090] # D_803A0500_7B1BB0
     - [0x7B1BC0, .data, overlay2_6AC360] # D_803A0510_7B1BC0 overlay2_6AC360
@@ -3739,25 +3728,25 @@ segments:
     - [0x7B1C60, .data, overlay2_6B5380] # D_803A05B0_7B1C60
     - [0x7B1C70, .data, overlay2_6C5570]
     - [0x7B1C80, .data, sssv/animals/stats] # animal stats (struct089 -> struct035)
-    - [0x7B3250, bin] # padding?
+    - [0x7B3250, data] # padding?
     - [0x7B3260, data, overlay2_6DCA10]
     - [0x7B4440, data, overlay2_6EC720]
     # these are actually defined in 6EFE20 - just used in animals
     - [0x7B5040, data, overlay2_6EFE20]
     - [0x7B5B80, .data, sssv/animals/fox]
-    - [0x7B5E60, bin, overlay2_716900_data]
+    - [0x7B5E60, bin, overlay2_716900_data] # ?
     - [0x7B5F70, .data, sssv/aidata]
-    - [0x7B62E0, data, sssv/animals/dog]
+    - [0x7B62E0, .data, sssv/animals/dog]
     - [0x7B65A0, data, sssv/animals/hippo]
     - [0x7B6780, data, sssv/animals/lion]
     - [0x7B6970, .data, overlay2_7070A0]
     - [0x7B6980, data, overlay2_7070A0]
     - [0x7B6A90, data, sssv/animals/rabbit]
-    - [0x7B6BD0, data, sssv/animals/frog]
+    - [0x7B6BD0, .data, sssv/animals/frog]
     - [0x7B6C10, data, overlay2_716900] # overlay2_716900
     - [0x7B6C30, .data, overlay2_716900]
     - [0x7B6C40, data, overlay2_716900_cont] # overlay2_716900 data continued
-    - [0x7B6D60, data, sssv/animals/parrot]
+    - [0x7B6D60, .data, sssv/animals/parrot]
     - [0x7B6E00, .data, overlay2_72B100]
     - [0x7B6E10, .data, overlay2_72B800]
     - [0x7B6E20, .data, overlay2_72C680]
@@ -3772,7 +3761,7 @@ segments:
     - [0x7B8370, data]
     - [0x7B83A0, bin]
     - [0x7B83D0, bin] # something else
-    - [0x7B9580, .data, data/7B9940] # green crib??
+    - [0x7B9580, .data, data/D_803A8290_7B9940] # green crib??
     - [0x7B9580, sssv_vtx, data/inc/D_803A7ED0]
     - [0x7B9780, sssv_vtx, data/inc/D_803A80D0]
     - [0x7B9940] # end of vtx
@@ -3795,12 +3784,12 @@ segments:
     - [0x7C79D0, .data, sssv/terminal_background]
     - [0x7C7DA0, data] # tbd
     - [0x7C7F40, .data, overlay2_7A8A50] # data for overlay2_7A8A50?
-    - [0x7C86B0, bin] # pointers
+    - [0x7C86B0, data] # pointers
     # - [0x7C87B8, bin] # pointers to displaylists # 7C87B8
     - [0x7C8880, bin] # D_803B71D0
     # - [0x7C8918, bin] # D_803B7268_7C8918
     # - [0x7C8A18, bin] # D_803B7368_7C8A18
-    - [0x7C8B30, bin] # tbd, contains "Europe", "Ice", "Jungle", "Desert" text
+    - [0x7C8B30, .data, ui_main_menu]
     - [0x7C8B80, rgba16, img/butterfly_thing.rgba16, 32, 32]
     - [0x7C9380, rgba16, img/butterfly1a.rgba16, 32, 32]
     - [0x7C9B80, rgba16, img/butterfly1b.rgba16, 32, 32]

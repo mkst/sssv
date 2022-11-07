@@ -95,21 +95,21 @@ void func_8035FE90_771540(void) {
         }
 
         switch (D_803D552C->unk365) {                        /* irregular */
-        case 0:
+        case ATTACK_NONE:
             break;
         default:
-            D_803D552C->unk365 = 0U;
+            D_803D552C->unk365 = ATTACK_NONE;
             break;
-        case 3:
+        case ATTACK_SHEEP_HEADBUTT:
             func_802DCCAC_6EE35C(16);
             if (((D_803D5544 - D_803D552C->unk32A) == 4) && (func_803224C4_733B74(27, 46, 0, 20, 12, 0, 0, 16))) {
                 play_sound_effect_at_location(SFX_UNKNOWN_72, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             }
             break;
-        case 45:
+        case ATTACK_SHEEP_FLOAT:
             temp_t7 = (D_803D5544 - D_803D552C->unk32A);
             if (temp_t7 > 15) {
-                D_803D552C->unk365 = 0;
+                D_803D552C->unk365 = ATTACK_NONE;
             } else {
                 D_803F2ECE = 1;
                 D_803F2ECC = D_803B41D8_7C5888[temp_t7];
@@ -181,7 +181,7 @@ void func_8035FE90_771540(void) {
             if ((D_803D5524->unk9C == SHEEP) && (D_803F2EDD == 0)) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp90, &sp8E);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp90, &sp8E);
-                if (D_803D552C->unk365 == 0x2D) {
+                if (D_803D552C->unk365 == ATTACK_SHEEP_FLOAT) {
                     sp90 = sp8E = 6;
                 }
                 sp90 = D_803BD54A_7CEBFA[sp90]; sp8E = D_803BD602_7CECB2[sp8E];
@@ -299,7 +299,7 @@ void func_80360D94_772444(void) {
             func_802DBA58_6ED108(5, D_803D552C);
 
             D_803D5530->yVelocity.h = MAX(0xE, D_803D5530->yVelocity.h + 9);
-            play_sound_effect_at_location(32, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
     } else {
         D_803D552C->unk369 = 0;
@@ -360,9 +360,9 @@ block_64:
             func_8037FEDC_79158C();
         }
         switch (D_803D552C->unk365) {
-        case 0:
+        case ATTACK_NONE:
             break;
-        case 3:
+        case ATTACK_SHEEP_HEADBUTT:
             func_802DCCAC_6EE35C(16);
             if (((D_803D5544 - D_803D552C->unk32A) == 4) && (func_803224C4_733B74(0x2E, 0x2E, 0, 0x14, 0xC, 0, 0, 0x10))) {
                 play_sound_effect_at_location(SFX_UNKNOWN_72, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -372,7 +372,7 @@ block_64:
             }
             break;
         default:
-            D_803D552C->unk365 = 0;
+            D_803D552C->unk365 = ATTACK_NONE;
             break;
         }
 
@@ -408,7 +408,7 @@ block_64:
                 if (D_803D5530->unk4A == 0) {
                     func_8032CD70_73E420(
                         D_803D5530,
-                        0x1F,
+                        SFX_UNKNOWN_31,
                         0x5000,
                         0,
                         ((D_80152C78[(D_803D5540 << 5) & 0xFF] >> 7) * 0.001953125) + 1.2,
@@ -461,7 +461,7 @@ block_64:
                             GPACK_RGBA5551(248, 248, 0, 1),
                             GPACK_RGBA5551(200, 200, 96, 1),
                             0);
-                        play_sound_effect_at_location(0x48, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                        play_sound_effect_at_location(SFX_UNKNOWN_72, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     }
                 }
             } else {
@@ -551,33 +551,40 @@ void func_803622DC_77398C(void) {
     s16 temp_s0;
     s16 temp_s1;
     s16 temp_s2;
-    s16 temp_v0_3;
+    s16 temp_f6;
+
     s16 i;
 
-    Vtx *body1;
-    Vtx *body2;
+    Vtx *vtx1;
+    Vtx *vtx2;
 
     static u16 D_803F2EF0;
 
     if (D_803F2EF0 != D_803D5544) {
         D_803F2EF0 = D_803D5544;
 
-        body2 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_04002F28_CA958));
-        body1 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_040029D0_CA400));
+        vtx1 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_04002F28_CA958));
+        vtx2 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_040029D0_CA400));
 
-        for (i = 0; i < 32+20; i++) {
-            body1[i].v.ob[0] = body2[i].v.ob[0] + (((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * body2[i].v.ob[0]) >> 0xC);
-            body1[i].v.ob[1] = body2[i].v.ob[1] + (((D_80152C78[((body2[i].v.ob[1] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * body2[i].v.ob[1]) >> 0xC);
-            body1[i].v.ob[2] = body2[i].v.ob[2] + (((D_80152C78[((body2[i].v.ob[2] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * body2[i].v.ob[2]) >> 0xC);
+        for (i = 0; i < 0x34; i++) {
+            // to check
+            // vtx2[i].v.ob[0] = vtx1[i].v.ob[0] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[0]) >> 0xC);
+            // vtx2[i].v.ob[1] = vtx1[i].v.ob[1] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[1]) >> 0xC);
+            // vtx2[i].v.ob[2] = vtx1[i].v.ob[2] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[2]) >> 0xC);
 
-            temp_s0 = body2[i].v.cn[0] + ((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
-            temp_s1 = body2[i].v.cn[1] + ((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3) + 0x40) & 0xFF] >> 7) >> 2);
-            temp_s2 = body2[i].v.cn[2] - ((D_80152C78[((body2[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
+            vtx2[i].v.ob[0] = vtx1[i].v.ob[0] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[0]) >> 0xC);
+            vtx2[i].v.ob[1] = vtx1[i].v.ob[1] + (((D_80152C78[((vtx1[i].v.ob[1] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[1]) >> 0xC);
+            vtx2[i].v.ob[2] = vtx1[i].v.ob[2] + (((D_80152C78[((vtx1[i].v.ob[2] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[2]) >> 0xC);
 
-            temp_v0_3 = sqrtf((temp_s0 * temp_s0) + (temp_s1 * temp_s1) + (temp_s2 * temp_s2));
-            body1->v.cn[0] = (s16) ((temp_s0 * 0x7F) / temp_v0_3);
-            body1->v.cn[1] = (s16) ((temp_s1 * 0x7F) / temp_v0_3);
-            body1->v.cn[2] = (s16) ((temp_s2 * 0x7F) / temp_v0_3);
+            temp_s0 = vtx1[i].v.cn[0] + ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
+            temp_s1 = vtx1[i].v.cn[1] + ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3) + 0x40) & 0xFF] >> 7) >> 2);
+            temp_s2 = vtx1[i].v.cn[2] - ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
+
+            temp_f6 = sqrtf((temp_s0 * temp_s0) + (temp_s1 * temp_s1) + (temp_s2 * temp_s2));;
+
+            vtx2[i].v.cn[0] = (s16) ((temp_s0 * 0x7F) / temp_f6);
+            vtx2[i].v.cn[1] = (s16) ((temp_s1 * 0x7F) / temp_f6);
+            vtx2[i].v.cn[2] = (s16) ((temp_s2 * 0x7F) / temp_f6);
         }
     }
 }

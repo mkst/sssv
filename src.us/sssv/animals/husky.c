@@ -30,9 +30,6 @@ extern Gfx D_04005830[];
 extern Gfx D_01003548_3CE18[];
 
 // TBD
-void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, s16 *arg13, s16 *arg14, s16 *arg15, s16 *arg16, s16 arg17);
-void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2);
-void func_802DD244_6EE8F4(s16 arg0, s16 *arg1);
 void func_8032E150_73F800(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
 
 #ifdef NON_MATCHING

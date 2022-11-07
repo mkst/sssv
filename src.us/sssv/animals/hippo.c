@@ -40,7 +40,7 @@ extern struct076 D_803A506C_7B671C[];
 
 #ifdef NON_MATCHING
 void func_802EF0C0_700770(void) {
-    struct061 sp100; // should be struct061
+    struct061 sp100;
     s16 spFE;
     s16 spFC;
     s16 spFA;
@@ -51,10 +51,12 @@ void func_802EF0C0_700770(void) {
     s16 spF0;
     s16 spEE;
 
+    u8 var_v0;
+    u8 var_v1;
+
     s32 sp78 = FTOFIX32(1.0);
 
-    u8 var_v1;
-    u8 var_v0;
+
 
     if (D_803D5538 != 0) {
         if ((D_803D5524->biome == D_803F2D50.segment) ||
@@ -78,7 +80,7 @@ void func_802EF0C0_700770(void) {
     spFA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x15E0, 5, 0x99, 0x46, 0x46, 1, var_v1 == 0);
 
 done:
-    if (D_803D552C->unk365 == 0x11) {
+    if (D_803D552C->unk365 == ATTACK_SPIT) {
         spFA = 0;
     }
     if (spFA == 0) {
@@ -87,20 +89,20 @@ done:
         func_8035D734_76EDE4();
 
         spF8 = 0;
-        if (D_803D552C->unk365 == 0x11) {
+        if (D_803D552C->unk365 == ATTACK_SPIT) {
             D_803D5528->unk3C0.unk0 = 0;
             spF6 = D_803D5544 - D_803D552C->unk32A;
             if (spF6 == 1) {
-                play_sound_effect_at_location(157, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                play_sound_effect_at_location(SFX_UNKNOWN_157, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             } else if (spF6 == 10) {
-                play_sound_effect_at_location(30, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 0.71f);
+                play_sound_effect_at_location(SFX_UNKNOWN_30, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 0.71f);
             }
 
             func_802DC6A4_6EDD54(0x10);
             if (spF6 >= 9) {
                 spF8 = MAX(0, 0xB2 - (spF6 * 0x10));
             } else if (spF6 >= 3) {
-                spF8 = (spF6 * 0xC) - 0x18;
+                spF8 = (spF6 - 2) * 0xC;
             }
             if (spF6 == 0xA) {
                 apply_recoil(3);
@@ -134,9 +136,9 @@ done:
                             GPACK_RGBA5551(96, 216, 96, 1),
                             0);
                     }
-                    D_803D552C->unk365 = 0U;
+                    D_803D552C->unk365 = ATTACK_NONE;
                     spF6 = 0;
-                    play_sound_effect_at_location(0x1D, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_29, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                 }
             }
             if (spF6 >= 0xA) {
@@ -173,11 +175,11 @@ done:
                 gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
             }
         } else {
-            D_803D552C->unk365 = 0;
+            D_803D552C->unk365 = ATTACK_NONE;
         }
         if ((spF8 == 0) && (D_803D5540 < 64)) {
             // wrong
-            var_v1 = (D_803D5540 << 4) ;
+            var_v1 = (D_803D5540 << 4);
             spF8 = (D_80152C78[var_v1] >> 7) >> 6;
         }
         if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
@@ -309,7 +311,7 @@ void func_802F03B8_701A68(void) {
         zPos = D_803D5530->zPos.h - ((((D_80152C78[(((D_803D552C->unk302 + 64) & 0xFF))]) >> 7) << 6) >> 8);
         yPos = D_803D5530->yPos.h;
         spawn_temporary_object(xPos, zPos, yPos, 1228, 180, D_803D5530, 40, 78);
-        play_sound_effect_at_location(0x6D, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_HIPPO_DROP_MINE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 
         for (i = 0; i < 4; i++) {
             create_particle_effect(
@@ -341,7 +343,7 @@ void drop_sticky_mine(void) {
         zPos = D_803D5530->zPos.h - ((((D_80152C78[(((D_803D552C->unk302 + 64) & 0xFF))]) >> 7) << 6) >> 8);
         yPos = D_803D5530->yPos.h;
         spawn_temporary_object(xPos, zPos, yPos, 1228, 220, D_803D5530, 40, 78);
-        play_sound_effect_at_location(0x6D, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_HIPPO_DROP_MINE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 
         for (i = 0; i < 4; i++) {
             create_particle_effect(

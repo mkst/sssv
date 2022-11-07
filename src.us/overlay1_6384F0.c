@@ -13,6 +13,18 @@ s16 D_80299FC8_63D668 = 0;
 u16  D_80302E60[2];
 u8*  D_80302E64;
 
+u8   D_80302E68[0x8]; // pad
+
+u8   D_80302E70;
+u8   D_80302E71;
+
+struct026 *D_80302E74;
+
+u8   D_80302E78[0x10]; // pad
+
+u8   D_80302E88[0xad578]; // 710008 ?
+
+
 void func_80298F1C_63C5BC(s32 *arg0, s32 *arg1);
 
 void func_80294E50_6384F0(void) {
@@ -46,14 +58,14 @@ void func_802950B8_638758(void) {
     if (gRegion == REGION_EU) {
         language_select_menu(0);
     }
-    UnpackRNC((RNC_fileptr)D_802B64A0, D_80302E88); // newscaster "video"
-    UnpackRNC((RNC_fileptr)D_802AFBD0, D_80302E88 + 0x9B460);
-    UnpackRNC((RNC_fileptr)D_802B12D0, D_80302E88 + 0xA0A50);
-    UnpackRNC((RNC_fileptr)D_802B2930, D_80302E88 + 0xA6040);
-    UnpackRNC((RNC_fileptr)D_802B3F90, D_80302E88 + 0x35800);
-    UnpackRNC((RNC_fileptr)D_802C11C0, D_80302E88 + 0x3A000); // newsflash?
-    UnpackRNC((RNC_fileptr)D_802BC430, D_80302E88 + 0x28000); // splash space_background
-    UnpackRNC((RNC_fileptr)D_802F4CA0, D_80302E88 + 0x74050);
+    UnpackRNC((RNC_fileptr)rnc_659B40_bin, D_80302E88); // newscaster "video"
+    UnpackRNC((RNC_fileptr)rnc_653270_bin, D_80302E88 + 0x9B460);
+    UnpackRNC((RNC_fileptr)rnc_654970_bin, D_80302E88 + 0xA0A50);
+    UnpackRNC((RNC_fileptr)rnc_655FD0_bin, D_80302E88 + 0xA6040);
+    UnpackRNC((RNC_fileptr)rnc_657630_bin, D_80302E88 + 0x35800);
+    UnpackRNC((RNC_fileptr)rnc_664860_bin, D_80302E88 + 0x3A000); // newsflash?
+    UnpackRNC((RNC_fileptr)img_space_background_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x28000);
+    UnpackRNC((RNC_fileptr)img_menu_trademark_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x74050);
 
     // load "lang34.dat"
     load_level_text_data(D_8023F2A0.language, 33, D_80231AA0, D_80231D5C);
@@ -198,13 +210,13 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
 
     switch (arg0) {
     case 1:
-        D_80302E64 = D_8039E2E8;
+        D_80302E64 = D_80302E88 + 0x9B460;
         break;
     case 2:
-        D_80302E64 = D_803A38D8;
+        D_80302E64 = D_80302E88 + 0xA0A50;
         break;
     case 3:
-        D_80302E64 = D_803A8EC8;
+        D_80302E64 = D_80302E88 + 0xA6040;
         break;
     }
 
@@ -212,7 +224,7 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
         func_80135CD8(112, 20, 96, 96, &D_801D9E7C, D_80302E64);
     }
     if (arg1) {
-        func_80135CD8(112, 131, 96, 96, &D_801D9E7C, D_80338688);
+        func_80135CD8(112, 131, 96, 96, &D_801D9E7C, D_80302E88 + 0x35800);
     }
 
     if ((D_80299E14 >= D_80299C84[2]) && ((D_80299C84[2] + 7) >= D_80299E14)) {
@@ -238,7 +250,7 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
 // draw_space_background_image_at_x
 void func_80295EB0_639550(s32 x) {
     func_801366BC(&D_801D9E7C, 0xFF, 0xFF, 0xFF, 0xFF);
-    draw_sprite(&D_801D9E7C, (uSprite *)D_8032AE88, 160, 128, 320, 241, 0, 0, x, 0, 16);
+    draw_sprite(&D_801D9E7C, (uSprite *)(D_80302E88 + 0x28000), 160, 128, 320, 241, 0, 0, x, 0, 16);
     func_80129594(&D_801D9E7C, D_80204278);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);
@@ -394,7 +406,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
                 if ((D_80299E08_63D4A8 >= 11) && (D_80299E08_63D4A8 < 249)) {
                     spC7 = 0xFF;
                     if (D_80299E08_63D4A8 > 160) {
-                        spC7 = (0xFF - (*(s16*)&D_80152212 + (D_80299E08_63D4A8 ))); // * 2 & 0xFF;
+                        spC7 = (0xFF - (*(s16*)&D_80152212 + (D_80299E08_63D4A8 ))); // * 2 & 0xFF; (D_80152040[D_80299E08_63D4A8 + 233]?)
                     }
                     if (spC7 == 0) {
                         D_80299E08_63D4A8 = 260;
@@ -957,7 +969,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
                 D_8029A028_63D6C8 = D_8029A028_63D6C8 + 4;
             }
 
-            D_8029A024_63D6C4 = ABS(D_80152620[(s16)(s32)D_8029A02C_63D6CC] / (s32) D_8029A028_63D6C8);
+            D_8029A024_63D6C4 = ABS(D_80152350.unk2D0[(s16)(s32)D_8029A02C_63D6CC] / (s32) D_8029A028_63D6C8);
             if (D_8029A028_63D6C8 < 5) {
                 D_8029A02C_63D6CC = D_8029A02C_63D6CC + 6.0f;
             }

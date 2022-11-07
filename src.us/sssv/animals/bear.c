@@ -402,20 +402,17 @@ block_9:
 
 // CRAZY_BEAR
 #if 0
-// CURRENT (5565)
+// CURRENT (4968)
 void func_803250A8_736758(void) {
+    s16 spC6; // pad
     s16 spC4;
     s16 spC2;
+    s16 spC0; // pad
     s32 spBC;
     s32 spB8;
     s32 spB4;
-
-    s16 temp_a0;
-    s16 temp_t4;
-    s16 temp_t4_2;
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v0_33;
+    s32 spB0; // pad
+    s32 spCC; // pad
 
     s16 var_v1_2;
 
@@ -444,7 +441,7 @@ void func_803250A8_736758(void) {
     } else {
         var_v1 = 0;
     }
-    spC2 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x18A4, (u8) 6, (s16) 0x6D, (s16) 0x27, (s16) 0, (s8) 2, (u8) (var_v1 == 0));
+    spC2 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x18A4, 6, 0x6D, 0x27, 0, 2, var_v1 == 0);
 
 block_9:
     if (spC2 == 0) {
@@ -486,8 +483,8 @@ block_9:
         D_80203FE0[27].unk2 = D_80203FE0[20].unk2;
         D_80203FE0[27].unk4 = D_80203FE0[20].unk4;
 
-        D_80203FE0[27].unk4 += ((0x100 + (D_80152C78[(s16)((D_803D5540 << 4) % 255) & 0xFF] >> 7) * -0x30A)) >> 0xC;
-        D_80203FE0[20].unk4 -= ((0x100 + (D_80152C78[(s16)((D_803D5540 << 4) % 255) & 0xFF] >> 7) * -0x30A)) >> 0xC;
+        D_80203FE0[27].unk4 += (((0x100 - (D_80152C78[(s16)((D_803D5540 << 4) % 255) & 0xFF] >> 7)) * 0x30A)) >> 0xC;
+        D_80203FE0[20].unk4 -= (((0x100 - (D_80152C78[(s16)((D_803D5540 << 4) % 255) & 0xFF] >> 7)) * 0x30A)) >> 0xC;
 
         if ((D_803D552C->unk366 == 1) || (D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) {
             if (D_803D5530->unk4A == 0) {
@@ -528,7 +525,7 @@ block_9:
             func_802C78B0_6D8F60(0xA, 0xB, 0x29800, 0x29800, 0x29800, D_803F2ED0, (s16) 0, (u8) 1, (u8) 0, &D_040077C0_CF1F0);
             func_8034B008_75C6B8(1, 0x14, 0x5C, &spBC, &spB8, &spB4);
 
-            if (1) {};
+            if (1) {}; // regalloc helper
 
             gDPLoadTextureBlock2(
             /* pkt */    D_801D9E88++,
@@ -563,6 +560,7 @@ block_9:
             func_8032E150_73F800(&D_801D9EB8, spBC - (D_80152C78[(s16)((D_803D5540 << 3) + 0x40) & 0xFF] * 10), spB8 - (D_80152C78[(s16)((D_803D5540 << 3) + 0x80) & 0xFF] * 11), spB4 - (D_80152C78[(s16)((D_803D5540 << 4) + 0   ) & 0xFF] * 4), 0x10, 0x10, 0x898);
             func_8032E150_73F800(&D_801D9EB8, spBC + (D_80152C78[(s16)((D_803D5540 << 3) + 0)    & 0xFF] * 11), spB8 + (D_80152C78[(s16)((D_803D5540 << 3) + 0   ) & 0xFF] * 10), spB4 + (D_80152C78[(s16)((D_803D5540 << 5) + 0x40) & 0xFF] * 3), 0x10, 0x10, 0x898);
             func_8032E150_73F800(&D_801D9EB8, spBC - (D_80152C78[(s16)((D_803D5540 << 3) + 0x40) & 0xFF] * 10), spB8 - (D_80152C78[(s16)((D_803D5540 << 3) + 0x40) & 0xFF] * 10), spB4 + (D_80152C78[(s16)((D_803D5540 << 4) + 0x80) + 0x40 & 0xFF] * 4), 0x10, 0x10, 0x898);
+
             if (!(D_803D5540 & 3) && (SSSV_RAND(8)) == 0) {
                 create_particle_effect(
                     spBC >> 16,

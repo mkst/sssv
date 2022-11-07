@@ -1277,7 +1277,7 @@ void func_802A78CC_6B8F7C(void) {
                     sp8A += sp8A >> 1;
                 }
             }
-            if (D_803F2D70 == 1) {
+            if (D_803F2D50.segment == 1) {
                 if (D_803D5530->unk6C == NULL) {
                     if ((D_803D5524->unk9C != WALRUS) && ((D_803D5524->unk9C != SKI_HUSKY) || (D_803D552C->unk310 != 0))) {
 
@@ -3615,14 +3615,14 @@ void func_802AE488_6BFB38(void) {
 //             D_803D5530->yVelocity.w += MAX(-FTOFIX32(0.75), var_a3 - D_803D5530->yVelocity.w);
 //         }
 //
-//         if (D_803D552C->unk365 == 0x2F) {
+//         if (D_803D552C->unk365 == ATTACK_FOX_4) {
 //             if ((temp_v0 < 0x9E0) || (D_803D5530->yVelocity.h < -8)) {
-//                 D_803D552C->unk365 = 0U;
+//                 D_803D552C->unk365 = ATTACK_NONE;
 //             }
 //             D_803D5530->yVelocity.h -= 2;
 //         } else if ((temp_v0 > 0x9F6) && (D_803D5530->yVelocity.w > 0)) {
 //             D_803D552C->unk32A = D_803D5544;
-//             D_803D552C->unk365 = 47;
+//             D_803D552C->unk365 = ATTACK_FOX_4;
 //         }
 //     }
 // }
@@ -3775,7 +3775,7 @@ void func_802AEE18_6C04C8(void) {
                 D_803D5530->unk162 = 3;
                 play_sound_effect_at_location(SFX_UNKNOWN_42, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             } else if (D_803D5524->unk9C != PIRANA) {
-                func_8032C508_73DBB8(16, 0x4000, 0, 1.0f);
+                func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
             }
         }
         break;

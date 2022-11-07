@@ -23,6 +23,8 @@ void func_8037D320_78E9D0(s32 arg0, s32 arg1) {
 void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 }
 
+// file split?
+
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037D340_78E9F0.s")
 // almost just regalloc
 // void func_8037D340_78E9F0(s16 arg0, s16 arg1) {

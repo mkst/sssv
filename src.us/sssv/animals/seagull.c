@@ -71,7 +71,7 @@ done:
         func_8035D120_76E7D0();
         if ((D_803D5524->unk9C == SEAGULL2) && (((D_803D552C->unk320 == NULL)) ||
             ((D_803D552C->unk320 != NULL) && (D_803D552C->unk320->unk26C != 0)))) {
-            play_sound_effect_at_location(99, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
+            play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
             D_803D552C->unk320 = NULL;
             D_803D552C->yPos.h += D_803D552C->unk308;
             D_803D552C->unk18.h += D_803D552C->unk308;

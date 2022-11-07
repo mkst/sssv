@@ -93,17 +93,17 @@ done:
         }
 
         sp76 = ((D_80152C78[(s16)(D_803D5540 << 4) & 0xFF] >> 7) + 256) >> 6;
-        if (D_803D552C->unk365 == 18) {
+        if (D_803D552C->unk365 == ATTACK_BITE) {
             sp76 = ((D_80152C78[(s16)(D_803D5540 << 5) & 0xFF] >> 7) + 256) >> 3;
             if ((D_803D5540 & 7) == 0) {
                 if (func_803224C4_733B74(0, 0x1F, 0, 0x1F, 6, 0, 0, 0xD)) {
-                    play_sound_effect_at_location(7, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                 } else {
-                    play_sound_effect_at_location(6, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_6, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                 }
             }
         } else {
-            D_803D552C->unk365 = 0;
+            D_803D552C->unk365 = ATTACK_NONE;
         }
 
         if (D_803F2ECC != 0) {
@@ -193,11 +193,11 @@ done:
             D_803D5538);
     }
     if (D_803D5538 == 0) {
-        if (D_803D552C->unk365 == 0x12) {
+        if (D_803D552C->unk365 == ATTACK_BITE) {
             if (D_803D552C->unk2EC > 0) {
                 D_803D552C->unk2EC--;
             } else {
-                D_803D552C->unk365 = 0U;
+                D_803D552C->unk365 = ATTACK_NONE;
             }
         }
     }

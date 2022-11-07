@@ -252,7 +252,7 @@ struct Animal {
     /* 0x128 */ u8  pad128[0x24];
     /* 0x14C */ s16 health;
     /* 0x14E */ s16 unk14E;
-    /* 0x150 */ s16 unk150;
+    /* 0x150 */ s16 unk150; // Info.Counter2 ?
     /* 0x152 */ s16 unk152;
     /* 0x154 */ u8  unk154;
     /* 0x156 */ u8  pad155[0x3];
@@ -1617,9 +1617,11 @@ struct struct071 {
     /* 0x11A */ s16 unk11A;
     /* 0x11C */ u8  pad11C[0x30];
     /* 0x14C */ s16 unk14C;
-    /* 0x14E */ s16 unk14E;
-    /* 0x150 */ s16 unk150;
-    /* 0x152 */ s16 unk152;
+                struct {
+    /* 0x14E */     s16 unk14E;
+    /* 0x150 */     s16 Counter2; // inferred from ESA decomp
+    /* 0x152 */     s16 unk152;
+                } Info; // TBD how large this is
     /* 0x154 */ u8  unk154;
     /* 0x155 */ u8  pad155[0x3];
     /* 0x158 */ s32 unk158;

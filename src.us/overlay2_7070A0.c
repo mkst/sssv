@@ -665,8 +665,8 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //     s16 sp4C[1];
 //     struct077 sp48; // probably a bigger struct?
 //
-//     if (arg0->unk150 > 0) {
-//         arg0->unk150 -= 2;
+//     if (arg0->Info.Counter2 > 0) {
+//         arg0->Info.Counter2 -= 2;
 //     }
 //     if ((arg0->unk0 == 1)) {
 //         obj = func_802F8994_70A044(arg0);
@@ -682,11 +682,11 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //                     arg0->zRotation = 90;
 //                 }
 //             }
-//             if (arg0->unk14E <= 0) {
-//                 if (arg0->unk152 > 0) {
-//                     arg0->unk152 -= 1;
-//                     arg0->unk150 = 256;
-//                     if (((arg0->unk152 & 1) == 1)) {
+//             if (arg0->Info.unk14E <= 0) {
+//                 if (arg0->Info.unk152 > 0) {
+//                     arg0->Info.unk152 -= 1;
+//                     arg0->Info.Counter2 = 256;
+//                     if (((arg0->Info.unk152 & 1) == 1)) {
 //                         play_sound_effect_at_location(SFX_UNKNOWN_74, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
 //                         obj = func_802F62E4_707994(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) (arg0->unk40 * 6) >> 0xB)), 0x26, 0, (arg0->unk40 * 40) >> 11, 0, temp_t0, angle, 0x10, (s32) (arg0->unk40 << 0xB) >> 0xB);
 //                         if (obj != NULL) {
@@ -694,11 +694,11 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 //                         }
 //                     }
 //                 } else {
-//                     arg0->unk14E = (s16) ((func_80128200() & 0x1F) + arg0->unk158 + 0x18);
-//                     arg0->unk152 = 6;
+//                     arg0->Info.unk14E = (s16) ((func_80128200() & 0x1F) + arg0->unk158 + 0x18);
+//                     arg0->Info.unk152 = 6;
 //                 }
 //             } else {
-//                 arg0->unk14E -= 1;
+//                 arg0->Info.unk14E -= 1;
 //             }
 //         }
 //     }
@@ -715,14 +715,14 @@ void func_802F8DCC_70A47C(struct071 *arg0) {
     s16 pad[2];
     struct071 *obj; // target, animal?
 
-    if (arg0->unk150 > 0) {
-        arg0->unk150 -= 2;
+    if (arg0->Info.Counter2 > 0) {
+        arg0->Info.Counter2 -= 2;
     }
     if (arg0->unk0 == 1) {
         obj = func_802F8994_70A044(arg0);
         if (obj != NULL) {
-            if (arg0->unk14E > 0) {
-                arg0->unk14E -= 1;
+            if (arg0->Info.unk14E > 0) {
+                arg0->Info.unk14E -= 1;
             }
             x_dist = obj->xPos.h - arg0->xPos.h;
             z_dist = obj->zPos.h - arg0->zPos.h;
@@ -738,9 +738,9 @@ void func_802F8DCC_70A47C(struct071 *arg0) {
                 }
                 arg0->yRotation = func_802F649C_707B4C((sp56 + 180) % 360, arg0->yRotation, 6);
                 arg0->zRotation = func_802F649C_707B4C(90 - phi_t0       , arg0->zRotation, 6);
-                if (arg0->unk14E <= 0) {
-                    arg0->unk14E = arg0->unk158 + 250;
-                    arg0->unk150 = 256;
+                if (arg0->Info.unk14E <= 0) {
+                    arg0->Info.unk14E = arg0->unk158 + 250;
+                    arg0->Info.Counter2 = 256;
                     play_sound_effect_at_location(SFX_UNKNOWN_74, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
                     func_802FED68_710418(arg0, obj, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((arg0->unk40 * 6) >> 11), NULL, (arg0->unk40 * 40) >> 11, 0, phi_t0, sp56, 0, (f32)arg0->unk40 / 2048 * 0.3, 10); // 0.3
                 }
@@ -770,8 +770,8 @@ void func_802F90A8_70A758(struct071 *arg0) {
 
 // used by object34
 void func_802F9104_70A7B4(struct071 *arg0) {
-    arg0->unk150 = (arg0->unk150 + 4) & 0xFF;
-    arg0->unk40 = (((D_80152C78[(arg0->unk150 + 64) & 0xFF] >> 7) * 0x66) >> 8) + 0x533;
+    arg0->Info.Counter2 = (arg0->Info.Counter2 + 4) & 0xFF;
+    arg0->unk40 = (((D_80152C78[(arg0->Info.Counter2 + 64) & 0xFF] >> 7) * 0x66) >> 8) + 0x533;
     func_802C9BA4_6DB254(arg0);
 }
 
@@ -835,8 +835,8 @@ void func_802F92B0_70A960(struct071 *arg0) {
         sp50 = (s16) sqrtf((x_dist * x_dist) + (z_dist * z_dist));
         sp4E = func_801284B8(x_dist, z_dist);
         sp4C = func_801284B8(sp54, sp50);
-        if (arg0->unk150 != 0) {
-            phi_a2 = arg0->unk150;
+        if (arg0->Info.Counter2 != 0) {
+            phi_a2 = arg0->Info.Counter2;
         } else {
             phi_a2 = 7;
         }
@@ -844,14 +844,14 @@ void func_802F92B0_70A960(struct071 *arg0) {
         arg0->zRotation = func_802F649C_707B4C(sp4C, arg0->zRotation, MAX((phi_a2 * 3) / 4, 1));
     }
 
-    if (arg0->unk152 != 0) {
-        phi_a1 = arg0->unk152;
+    if (arg0->Info.unk152 != 0) {
+        phi_a1 = arg0->Info.unk152;
     } else {
         phi_a1 = 18;
     }
 
     if (sp47 != 0) {
-        arg0->yRotation += (D_80152620[(s16) ((arg0->unk14E * 16) % 360)]) >> 5;
+        arg0->yRotation += (D_80152350.unk2D0[(s16) ((arg0->Info.unk14E * 16) % 360)]) >> 5;
     }
     if (arg0->yRotation >= 360) {
         arg0->yRotation -= 360;
@@ -859,11 +859,11 @@ void func_802F92B0_70A960(struct071 *arg0) {
         arg0->yRotation += 360;
     }
     func_802F6DEC_70849C(arg0, phi_a1);
-    arg0->unk14E += 1;
+    arg0->Info.unk14E += 1;
     if (arg0->unk154 == 0) {
         arg0->unk154 = 160;
     }
-    func_8032CED0_73E580(arg0, 0x67, 0x4000, 0.4f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
+    func_8032CED0_73E580(arg0, SFX_UNKNOWN_103, 0x4000, 0.4f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F92B0_70A960.s")
@@ -928,36 +928,35 @@ void func_802F9624_70ACD4(Animal *arg0) {
 
 // used by OBJECT_GRAVITY_SWITCH
 #ifdef NON_MATCHING
-void func_802F96E0_70AD90(struct071 *arg0) {
-    if (arg0->unk150 == 0) {
-        arg0->unk150 = arg0->unk40;
-        arg0->unk152 = (func_80128200() & 0xFF);
+// esa: func_80051F98
+void func_802F96E0_70AD90(struct071 *psMoveObj) {
+    if (psMoveObj->Info.Counter2 == 0) {
+        psMoveObj->Info.Counter2 = psMoveObj->unk40;
+        psMoveObj->Info.unk152 = (func_80128200() & 0xFF);
     }
 
-    if (arg0->unk0 == 1) {
-        if (arg0->unk14E < 256) {
-            arg0->unk14E += 8;
-            if (arg0->unk14E > 256) {
-                arg0->unk14E = 256;
+    if (psMoveObj->unk0 == 1) {
+        if (psMoveObj->Info.unk14E < 256) {
+            psMoveObj->Info.unk14E += 8;
+            if (psMoveObj->Info.unk14E > 256) {
+                psMoveObj->Info.unk14E = 256;
             }
         }
     } else {
-        if (arg0->unk14E > 0) {
-            arg0->unk14E -= 8;
-            if (arg0->unk14E < 0) {
-                arg0->unk14E = 0;
+        if (psMoveObj->Info.unk14E > 0) {
+            psMoveObj->Info.unk14E -= 8;
+            if (psMoveObj->Info.unk14E < 0) {
+                psMoveObj->Info.unk14E = 0;
             }
         }
     }
 
-    if (arg0->unk14E > 0) {
-        s16 tmp;
-        arg0->unk152 += 4;
-        arg0->unk152 &= 0xFF;
+    if (psMoveObj->Info.unk14E > 0) {
+        psMoveObj->Info.unk152 += 4;
+        psMoveObj->Info.unk152 &= 0xFF;
         // regalloc here...
-        // tmp = ((s16) (arg0->unk152 + 64)) & 0xFFFF;
-        arg0->unk40 = (arg0->unk150 + ((D_80152C78[(((s16)(arg0->unk152 + 64)) & 0xFFFF) & 0xFF] >> 7) / 1.5));
-        func_802C9BA4_6DB254(arg0);
+        psMoveObj->unk40 = (psMoveObj->Info.Counter2 + ((D_80152C78[(((s16)(psMoveObj->Info.unk152 + 64)) & 0xFFFF) & 0xFF] >> 7) / 1.5));
+        func_802C9BA4_6DB254(psMoveObj);
     }
 }
 #else
@@ -1044,20 +1043,20 @@ void func_802F9A08_70B0B8(Animal *arg0) {
 void func_802F9B4C_70B1FC(struct071 *arg0) {
     if (arg0->unk0 == (u16) 1) {
         add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, 255 /* red */, 0, 0);
-        if (arg0->unk14E == 0) {
-            arg0->unk14E = 1;
-            if (arg0->unk152 != 0) {
+        if (arg0->Info.unk14E == 0) {
+            arg0->Info.unk14E = 1;
+            if (arg0->Info.unk152 != 0) {
                 play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
             }
         }
-    } else if (arg0->unk14E == 1) {
-        arg0->unk14E = 0;
-        if (arg0->unk152 != 0) {
+    } else if (arg0->Info.unk14E == 1) {
+        arg0->Info.unk14E = 0;
+        if (arg0->Info.unk152 != 0) {
             play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f);
         }
     }
-    if (arg0->unk152 == 0) {
-        arg0->unk152 = 1;
+    if (arg0->Info.unk152 == 0) {
+        arg0->Info.unk152 = 1;
     }
 }
 
@@ -1071,24 +1070,24 @@ void func_802F9C50_70B300(struct071 *arg0) {
 
     if (arg0->unk0 == 1) { // is active? enable-able?
         red = 255; green = 0; blue = 0;
-        if (arg0->unk14E == 0) {
-            arg0->unk14E = 1; // enabled?
-            if (arg0->unk152 != 0) {
+        if (arg0->Info.unk14E == 0) {
+            arg0->Info.unk14E = 1; // enabled?
+            if (arg0->Info.unk152 != 0) {
                 play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
             }
         }
     } else {
         red = 0; green = 0; blue = 255;
-        if (arg0->unk14E == 1) {
-            arg0->unk14E = 0; // disabled
-            if (arg0->unk152 != 0) {
+        if (arg0->Info.unk14E == 1) {
+            arg0->Info.unk14E = 0; // disabled
+            if (arg0->Info.unk152 != 0) {
                 play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f); // 0.8f
             }
         }
     }
 
-    if (arg0->unk152 == 0) {
-        arg0->unk152 = 1;
+    if (arg0->Info.unk152 == 0) {
+        arg0->Info.unk152 = 1;
     }
 
     add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, red, green, blue);
@@ -2397,12 +2396,12 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
     if (obj != NULL) {
         obj->unk15C = 15;
         obj->unk168 = owner;
-        obj->unk150 = arg6;
-        obj->unk152 = arg7;
+        obj->Info.Counter2 = arg6;
+        obj->Info.unk152 = arg7;
         obj->unk188 = target;
         obj->unk154 = lifetime;
         obj->unk15E = argA;
-        obj->unk14E = func_80128200();
+        obj->Info.unk14E = func_80128200();
         if (arg7 < 20) {
             func_8039DDA4_7AF454(obj, 2, (obj->unk40 * 25) >> 11, 16, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0xB9, 0, 0, 0, 0, 2, 1, 0);
         } else {
@@ -2672,7 +2671,7 @@ void func_802FFD50_711400(struct071 *arg0) {
 
 // used by objects 74 & 180
 void func_802FFE94_711544(struct071 *arg0) {
-    arg0->unk14E = (arg0->unk14E + 1) & 0x1F;
+    arg0->Info.unk14E = (arg0->Info.unk14E + 1) & 0x1F;
     if ((arg0->unk200 & 1) != 0) {
         func_802FFD50_711400(arg0);
     }
@@ -2688,12 +2687,12 @@ void func_802FFED0_711580(struct071 *arg0) {
 // used by object 151
 void func_802FFEFC_7115AC(struct071 *arg0) {
     if (arg0->unk0 == 1) {
-        if (arg0->unk14E == 0) {
-            arg0->unk14E = 1;
+        if (arg0->Info.unk14E == 0) {
+            arg0->Info.unk14E = 1;
             func_8034419C_75584C(arg0);
         }
-    } else if (arg0->unk14E == 1) {
-        arg0->unk14E = 0;
+    } else if (arg0->Info.unk14E == 1) {
+        arg0->Info.unk14E = 0;
     }
 }
 

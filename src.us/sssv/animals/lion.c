@@ -105,7 +105,7 @@ block_9:
                 func_802DC3F4_6EDAA4(0x50, &spB2, &spB0);
                 var_v0_3 = D_803D5544 - D_803D552C->unk32A;
                 if (var_v0_3 == 0x14) {
-                    play_sound_effect_at_location(0x76, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_118, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     do_rumble(0, 0x3C, 0x3C, 0x14, distance_from_player(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h));
                     // ??
                     var_v0_3 = D_803D5544 - D_803D552C->unk32A;
@@ -156,7 +156,7 @@ block_9:
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (u32) ((s32) D_803F2EB8 / 4), (s16) (s32) D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, D_803BCE70_7CE520);
+            func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.22f);
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0x0, 0xFF);
 

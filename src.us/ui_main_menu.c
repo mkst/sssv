@@ -3,6 +3,17 @@
 
 #include "pp.h"
 
+char D_803B7480_7C8B30[4][10] = {
+    "Europe",
+    "Ice",
+    "Jungle",
+    "Desert",
+};
+
+f32 D_803B74A8_7C8B58 = 0.0f; // junk/padding/alignment
+
+
+
 
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
@@ -76,6 +87,16 @@ void func_80398A00_7AA0B0(void) {
     D_803F7DD8 = 0;
 }
 
+
+// .data
+f32 D_803B74AC_7C8B5C = 11.0f;
+f32 D_803B74B0_7C8B60 = 16.0f;
+f32 D_803B74B4_7C8B64 = 10.5f;
+f32 D_803B74B8_7C8B68 = 12.84000015258789f;
+f32 D_803B74BC_7C8B6C = 12.0f;
+f32 D_803B74C0_7C8B70 = 16.0f;
+f32 D_803B74C4_7C8B74 = 12.0f;
+
 #if 0
 void display_zone_select_screen(void) {
     char ascii[50];
@@ -128,8 +149,7 @@ void display_zone_select_screen(void) {
     D_803F7DA8.unk0 = func_8039CDE8_7AE498(D_803F7DA8.unk0, 94.0f);
     D_803F7DA8.unk4 = func_8039CDE8_7AE498(D_803F7DA8.unk4, 134.0f);
     D_803F7DA8.unk8 += (2.0 - D_803F7DA8.unk8) / 16;
-    // 1.95 and 2.05
-    if ((D_803C0400_7D1AB0 < D_803F7DA8.unk8) && (D_803F7DA8.unk8 < D_803C0408_7D1AB8)) {
+    if ((1.95 < D_803F7DA8.unk8) && (D_803F7DA8.unk8 < 2.05)) {
         D_803F7DA8.unk8 = 2.0f;
     }
 
@@ -370,7 +390,7 @@ void display_zone_select_screen(void) {
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
         var_a3 = D_803F7DD5;
-        vertical_offset += D_803B74B0_7C8B60 + 1.0f;
+        vertical_offset += 1.0f + D_803B74B0_7C8B60;
     }
 
     old_current_level = var_a3;
@@ -389,9 +409,9 @@ void display_zone_select_screen(void) {
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, D_803C03A0_7D1A50, mins, secs); // "%d:0%d"
+                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03A0_7D1A50
                 } else {
-                    sprintf(ascii, D_803C03A8_7D1A58, mins, secs); // "%d:%d"
+                    sprintf(ascii, "%d:%d", mins, secs); // D_803C03A8_7D1A58
                 }
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -402,9 +422,9 @@ void display_zone_select_screen(void) {
             if (D_8023F260.unk30 & 0xFF) {
                 seconds_to_mins_secs(D_8023F260.unk30 & 0xFF, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, D_803C03B0_7D1A60, mins, secs); // "%d:0%d"
+                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03B0_7D1A60
                 } else {
-                    sprintf(ascii, D_803C03B8_7D1A68, mins, secs); // "%d:%d"
+                    sprintf(ascii, "%d:%d", mins, secs); // D_803C03B8_7D1A68
                 }
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -418,7 +438,7 @@ void display_zone_select_screen(void) {
         if (old_current_level == EVOS_ESCAPE) {
             score = (D_8023F260.unk30 >> 24) * 100;
             if (score) {
-                sprintf(ascii, D_803C03C0_7D1A70, score); //  "%d"
+                sprintf(ascii, "%d", score); // D_803C03C0_7D1A70
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -427,7 +447,7 @@ void display_zone_select_screen(void) {
         if (old_current_level == PUNCHUP_PYRAMID) {
             u16 rounds = (D_8023F260.unk30 >> 8) & 0x1F;
             if (rounds) {
-                sprintf(ascii, D_803C03C4_7D1A74, rounds); //  "%d"
+                sprintf(ascii, "%d", rounds); // D_803C03C4_7D1A74
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -438,9 +458,9 @@ void display_zone_select_screen(void) {
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, D_803C03C8_7D1A78, mins, secs); // "%d:0%d"
+                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03C8_7D1A78
                 } else {
-                    sprintf(ascii, D_803C03D0_7D1A80, mins, secs); // "%d:%d"
+                    sprintf(ascii, "%d:%d", mins, secs); // D_803C03D0_7D1A80
                 }
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -449,13 +469,13 @@ void display_zone_select_screen(void) {
         }
         if (old_current_level == SECRET_LEVEL) {
             score = (D_8023F260.unk34 >> 21) & 0x7FF;
-            sprintf(ascii, D_803C03D8_7D1A88, score * 100); // "%d"
+            sprintf(ascii, "%d", score * 100); // D_803C03D8_7D1A88
             prepare_text((u8*)ascii, wide_text);
             display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 240, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
     } else {
-        sprintf(ascii, D_803C03DC_7D1A8C, D_8023F260.level[var_a3].powercells, var_a3); //  "%2d"
+        sprintf(ascii, "%2d", D_8023F260.level[var_a3].powercells, var_a3); // D_803C03DC_7D1A8C
         prepare_text((u8*)ascii, wide_text);
         display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 
@@ -500,8 +520,8 @@ void func_8039A2DC_7AB98C(void) {
 
     load_default_display_list(&D_801D9E7C);
 
-    select_font(0U, FONT_COMIC_SANS, 0U, 0U);
-    set_menu_text_color(0xFF, 0xFF, 0U, 0xFF);
+    select_font(0, FONT_COMIC_SANS, 0, 0);
+    set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     if (D_8023F2A0.language == LANG_FRENCH) {
         func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_BANK_SELECT), 24, 31, 22.0f, 16.0f, -1);
         D_803B74AC_7C8B5C = 11.0f; // glyph height
@@ -528,7 +548,7 @@ void func_8039A2DC_7AB98C(void) {
     } else {
         get_player_progress((PlayerEeprom *) &D_8023F2E0[D_803F7DA8.bank], (s16*)&progress);
     }
-    set_menu_text_color(0xFFU, 0xFFU, 0U, 0xFFU);
+    set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
 
     if (D_802912E4 == 1) {
         D_803F7DA3 = 0;
@@ -707,26 +727,26 @@ void func_8039A2DC_7AB98C(void) {
 
         draw_rectangle(&D_801D9E7C, x_offset - 38, y_offset - 24, x_offset + 36, y_offset + 20, 0, 0, 0, 0xA8);
         load_default_display_list(&D_801D9E7C);
-        select_font(0U, FONT_COMIC_SANS, 0U, 0U);
+        select_font(0, FONT_COMIC_SANS, 0, 0);
 
         if (D_803F7DA8.unk30 == 0) { // SELECT
-            set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU); // white
+            set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF); // white
         } else {
-            set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU); // grey
+            set_menu_text_color(0x80, 0x80, 0x80, 0xFF); // grey
         }
         display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_SELECT), x_offset, (y_offset - 0x12), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         if (D_803F7DA8.unk30 == 1) { // COPY
-            set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
+            set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         } else {
-            set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
+            set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
         }
         display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_COPY), x_offset, (y_offset - 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         if (D_803F7DA8.unk30 == 2) { // DELETE
-            set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
+            set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         } else {
-            set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
+            set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
         }
         display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_DELETE), x_offset, (y_offset + 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
@@ -736,7 +756,7 @@ void func_8039A2DC_7AB98C(void) {
             ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
             func_80395074_7A6724(0);
             memcpy_sssv((u8 *) &D_8023F2E0[D_803F7DA8.bank], (u8 *) &D_8023F2E0[D_803F7DA8.unk31], 64);
-            memcpy_sssv((u8 *) &D_8023F2E0[D_803F7DA8.bank], (u8 *) &D_8023F260, 0x40U);
+            memcpy_sssv((u8 *) &D_8023F2E0[D_803F7DA8.bank], (u8 *) &D_8023F260, 0x40);
             write_eeprom((s16) D_803F7DA8.unk31);
             D_803F7DA8.unk2F = 0;
             play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
@@ -793,8 +813,8 @@ void func_8039A2DC_7AB98C(void) {
             }
             draw_rectangle(&D_801D9E7C, (x_offset - 0x1E), (y_offset - 0x18), (x_offset + 0x1C), (s16) (y_offset + 0x14), (u8) 0, (u8) 0, (u8) 0, (u8) 0xA8);
             load_default_display_list(&D_801D9E7C);
-            select_font(0U, FONT_COMIC_SANS, 0U, 0U);
-            set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
+            select_font(0, FONT_COMIC_SANS, 0, 0);
+            set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
             display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_COPY2), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
             display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_TO), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
         }
@@ -808,8 +828,8 @@ void func_8039A2DC_7AB98C(void) {
                 D_803F7DA8.unk2F = 0;
             } // else
             if (D_803F7DA8.unk30 == 1) { // COPY
-                memset_bytes((u8 *) &D_8023F260, 0U, 0x40U);
-                memset_bytes((u8 *) &D_8023F2E0[D_803F7DA8.bank], 0U, 0x40U);
+                memset_bytes((u8 *) &D_8023F260, 0, 0x40);
+                memset_bytes((u8 *) &D_8023F2E0[D_803F7DA8.bank], 0, 0x40);
                 write_eeprom((s16) D_803F7DA8.bank);
                 D_803F7DA8.unk2F = 0;
             }
@@ -848,19 +868,19 @@ void func_8039A2DC_7AB98C(void) {
             load_default_display_list(&D_801D9E7C);
             gDPSetAlphaCompare(D_801D9E7C++, G_AC_NONE);
 
-            select_font(0U, FONT_COMIC_SANS, 0U, 0U);
+            select_font(0, FONT_COMIC_SANS, 0, 0);
 
             if (D_803F7DA8.unk30 == 0) { // SELECT
-                set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
+                set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
             } else {
-                set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
+                set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
             }
             display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
             if (D_803F7DA8.unk30 == 1) { // COPY
-                set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
+                set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
             } else {
-                set_menu_text_color(0x80U, 0x80U, 0x80U, 0xFFU);
+                set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
             }
             display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_DELETE2), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
         }
@@ -868,15 +888,15 @@ void func_8039A2DC_7AB98C(void) {
     }
 
     load_default_display_list(&D_801D9E7C);
-    select_font(0U, FONT_COMIC_SANS, 1U, 0U);
-    set_menu_text_color(0xFFU, 0xFFU, 0xFFU, 0xFFU);
+    select_font(0, FONT_COMIC_SANS, 1, 0);
+    set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
 
     if ((D_8023F2A0.language == LANG_FRENCH) || (D_8023F2A0.language == LANG_SPANISH)) {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17U, 0xD0U, 15.2f, 16.0f, -1);
+        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 15.2f, 16.0f, -1);
     } else if ((D_8023F2A0.language == LANG_PORTUGESE) || (D_8023F2A0.language == LANG_JAPANESE)) {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17U, 0xD0U, 10.0f, 16.0f, -1);
+        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 10.0f, 16.0f, -1);
     } else {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17U, 0xD0U, 16.0f, 16.0f, -1);
+        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 16.0f, 16.0f, -1);
     }
 
     vertical_offset = 56;
@@ -899,12 +919,12 @@ void func_8039A2DC_7AB98C(void) {
     func_8012D374(&D_801D9E7C, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
 
     // write ":" for "Species Encountered"
-    vertical_offset += D_803B74B0_7C8B60 + 6;
+    vertical_offset += D_803B74B0_7C8B60 + 6.0f;
     vertical_offset += D_803B74B0_7C8B60;
     func_8012D374(&D_801D9E7C, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
 
     // write ":" for Powercell icon
-    vertical_offset += D_803B74B0_7C8B60 + 6;
+    vertical_offset += D_803B74B0_7C8B60 + 6.0f;
     func_8012D374(&D_801D9E7C, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
 
     // write levels
@@ -913,7 +933,7 @@ void func_8039A2DC_7AB98C(void) {
     prepare_text((u8 *) ascii, wide_text);
     display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
-    vertical_offset += D_803B74B0_7C8B60 + 6;
+    vertical_offset += D_803B74B0_7C8B60 + 6.0f;
     vertical_offset += D_803B74B0_7C8B60;
 
     // write species
@@ -922,7 +942,7 @@ void func_8039A2DC_7AB98C(void) {
     display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
     // write powercells
-    vertical_offset += D_803B74B0_7C8B60 + 6;
+    vertical_offset += D_803B74B0_7C8B60 + 6.0f;
     sprintf(ascii, "%3d", progress[2]); // powercells
     prepare_text((u8 *) ascii, wide_text);
     display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);

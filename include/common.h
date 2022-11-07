@@ -4,6 +4,7 @@
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
 #define ABSD(x) ((x)<0.0 ? -(x) : (x))
+#define SQ(x) (x*x)
 
 #define MAX_INT                0x7FFFFFFF
 #define MAX_SHORT              0x7FFF
@@ -172,6 +173,8 @@ typedef u8 Addr[];
 #define ATTACK_SCORPION_1   6
 #define ATTACK_CHAMELEON_TONGUE 7
 #define ATTACK_ROAR         8
+#define ATTACK_UNKNOWN_9    9
+#define ATTACK_UNKNOWN_10   10
 #define ATTACK_GRAB         11
 #define ATTACK_HOLD         12
 #define ATTACK_BEAR_2       14
@@ -190,7 +193,9 @@ typedef u8 Addr[];
 #define ATTACK_POLAR_BEAR_3 28
 #define ATTACK_RABBIT_1     29
 #define ATTACK_SNOWBALL     32
-#define ATTACK_KANGAROO_3   35
+#define ATTACK_KANGAROO_3   33
+#define ATTACK_KANGAROO_4   34
+#define ATTACK_KANGAROO_5   35
 #define ATTACK_DESERT_FOX_1 36
 #define ATTACK_DESERT_FOX_SPIN 37
 #define ATTACK_SCORPION_2   38
@@ -199,7 +204,10 @@ typedef u8 Addr[];
 #define ATTACK_MOUSE_2      41
 #define ATTACK_FOX_TAIL     42
 #define ATTACK_FOX_3        43
+#define ATTACK_DOG_2        44
 #define ATTACK_SHEEP_FLOAT  45
+#define ATTACK_MOUSE_3      46
+#define ATTACK_FOX_4        47
 #define ATTACK_DOG_1        48
 
 // transitions
