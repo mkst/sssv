@@ -96,69 +96,51 @@
 // }
 
 // spawn animal?
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9330/spawn_animal.s")
 #if 0
 struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s16 id, s8 arg6) {
-    s16 sp2A;
-    struct050 *sp24;
     void *sp20;
     Animal *sp1C;
-    s16 temp_v0;
-    s16 temp_v0_8;
-    s16 temp_v1;
-    s32 temp_v1_3;
-    s16 temp_v1_4;
-    u8 temp_v0_3;
-    void *temp_a0;
-    void *temp_a0_2;
-    struct035 *temp_v0_2;
-    void *temp_v0_4;
-    void *temp_v0_5;
-    void *temp_v0_6;
-    void *temp_v0_7;
-    void *temp_v1_2;
-    s16 phi_v0;
-    s16 used;
-    s16 phi_t0;
+    s16 temp_v1_3;
+
+    s16 var_t0;
     s16 i;
 
-    used = 0;
-    for (i = 0; i < D_803D553E; i++) {
+    // FIXME!
+    i = 0;
+    for (; i < D_803D553E; ) {
         if (D_801D9ED8.animals[i].animal->unk366 != 6) {
-            used = i; //++;
+            i++;
         }
     }
 
-    if (used == D_803D553E) {
+    if (i == D_803D553E) {
         D_803D553E++;
-        phi_t0 = D_803D553E;
+        var_t0 = D_803D553E;
     } else {
-        phi_t0 = used;
+        var_t0 = i;
     }
 
-    // temp_v0_2 = &D_801D9ED8.unk0[phi_t0]; // + (phi_t0 * 8);
-    // temp_a0 = &D_801D9ED8.animals[phi_t0]; //temp_v0_2->unk3EB0; // &D_801D9ED8.animals[phi_t0]
-    // sp20 = temp_a0;
-    // sp24 = temp_v0_2;
-    // sp2A = phi_t0;
-    memset_bytes(&D_801D9ED8.animals[phi_t0], 0, 8); //, &D_801D9ED8);
-    // temp_a0_2 = &D_801D9ED8.unk4040[phi_t0]; // * 0x3D4) + 0x4040;
-    // sp1C = temp_a0_2;
-    memset_bytes(&D_801D9ED8.unk4040[phi_t0], 0, 0x3D4); //, &D_801D9ED8);
-    // temp_v1_2 = &D_801D9ED8.unk0[id]; // + (id * 0xEC);
-    D_801D9ED8.animals[phi_t0].unk0 = &D_801D9ED8.unk0[id]; // = temp_v1_2;
-    D_801D9ED8.animals[phi_t0].animal = &D_801D9ED8.unk4040[phi_t0]; //animal->unk0 = sp1C;
-    D_803D5520 = &D_801D9ED8.animals[phi_t0];
+    memset_bytes(&D_801D9ED8.animals[var_t0], 0, sizeof(Animal2));
+    memset_bytes(&D_801D9ED8.unk4040[var_t0], 0, 0x3D4); // should be sizeof(Animal)
+
+    // setup pointer
+    D_801D9ED8.animals[var_t0].unk0 = &D_801D9ED8.unk0[id];
+    D_801D9ED8.animals[var_t0].animal = &D_801D9ED8.unk4040[var_t0];
+
+    sp20 = &D_801D9ED8.animals[var_t0];
+    D_803D5520 = sp20;
     D_803D5524 = &D_801D9ED8.unk0[id]; //temp_v1_2;
-    D_803D5530 = &D_801D9ED8.unk4040[phi_t0];
-    D_803D552C = &D_801D9ED8.unk4040[phi_t0];
-    D_803D5528 = &D_801D9ED8.unk4040[phi_t0];
-    if (phi_t0 == gCurrentAnimalIndex) {
+
+    sp1C = D_803D5530 = &D_801D9ED8.unk4040[var_t0];
+    D_803D552C = sp1C;
+    D_803D5528 = sp1C;
+
+    if (var_t0 == gCurrentAnimalIndex) {
         D_803D5538 = 1;
     } else {
         D_803D5538 = 0;
     }
-    D_803D553C = phi_t0;
+    D_803D553C = var_t0;
     D_803D553A = 0;
     if (arg6 != 0) {
         sp1C->unk366 = 1;
@@ -167,6 +149,7 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     } else {
         sp1C->unk366 = 5;
     }
+
     D_803D552C->unk31A = 0;
     D_803D5530->yRotation = rotation;
     D_803D552C->unk302 = rotation;
@@ -179,46 +162,46 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     D_803D5530->unk160 = 0;
     D_803D5530->unk16C = D_803D5524;
     D_803D5530->health = MIN(health, D_803D5524->unk8A);
-#if 0
-    D_803D5530->unk4F = (u8) (D_803D5530->unk4F | 0x10);
-    D_803D5530->unk4F = (u8) (D_803D5530->unk4F | 8);
-    D_803D5530->unk4F = (u8) (D_803D5530->unk4F | 4);
-#endif
-    D_803D552C->unk31C = func_801282C4(); //1, arg3, &D_803D5530, &D_801D9ED8);
+    D_803D5530->unk4C.unk27 = 1; // = (u8) (D_803D5530->unk4F | 0x10);
+    D_803D5530->unk4C.unk28 = 1; // = (u8) (D_803D5530->unk4F | 8);
+    D_803D5530->unk4C.unk29 = 1; // = (u8) (D_803D5530->unk4F | 4);
+    D_803D552C->unk31C = func_801282C4();
 
     temp_v1_3 = func_8031124C_7228FC(arg0, arg1) >> 0x10;
-    if (arg2 < (s16)temp_v1_3) {
+    if (arg2 < temp_v1_3) {
         arg2 = temp_v1_3;
     }
 
     temp_v1_3 = func_80310F58_722608(arg0, arg1) >> 0x10;
-    if ((s16) temp_v1_3 == 0x4000) {
+    if (temp_v1_3 == 0x4000) {
         D_803D5530->unk160 = 0;
-    } else if (arg2 >= (s16) temp_v1_3) {
+    } else if (arg2 >= temp_v1_3) {
         D_803D5530->unk160 = 2;
     } else {
         D_803D5530->unk160 = 1;
     }
+
     func_802B2EA8_6C4558();
-    D_803D5530->xPos.h = arg0 << 16;
-    D_803D5530->zPos.h = arg1 << 16;
-    D_803D5530->yPos.h = arg2 << 16;
+    D_803D5530->xPos.w = arg0 << 16;
+    D_803D5530->zPos.w = arg1 << 16;
+    D_803D5530->yPos.w = arg2 << 16;
     D_803D5530->xVelocity.w = 0;
     D_803D5530->zVelocity.w = 0;
     D_803D5530->yVelocity.w = -1;
-    // temp_v0_7 = D_803D5530;
     D_803D5530->unk46 = D_803D5530->unk16C->mass;
-    func_802DADA0_6EC450(D_801D9ED8.animals[phi_t0].animal); //sp24->animal);
+    func_802DADA0_6EC450(D_801D9ED8.animals[var_t0].animal);
     D_803D5528->unk3C8.unk2 = func_802E4B0C_6F61BC(id);
     D_803D552C->unk272 = 0x43F;
-    func_802C9BA4_6DB254(D_801D9ED8.animals[phi_t0].animal); //sp24->animal);
-    D_803D552C->energy[0] = 0x3FF;
-    D_803D552C->skillBEnergy[0] = 0x3FF;
+    func_802C9BA4_6DB254(D_801D9ED8.animals[var_t0].animal);
+    D_803D552C->energy[0].unk0 = 0x3FF;
+    D_803D552C->energy[1].unk0 = 0x3FF;
     if ((arg6 != 0) && (((D_803F2A98 == 0)) || (D_803F2A98 == 1))) {
         func_803284C4_739B74();
     }
     return sp20;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9330/spawn_animal.s")
 #endif
 
 void func_802C83CC_6D9A7C(Animal *arg0) {

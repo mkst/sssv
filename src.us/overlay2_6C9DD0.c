@@ -862,103 +862,102 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
 }
 
 // used by vulture, seagull, parrot
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802BB1F0_6CC8A0.s")
-// void func_802BB1F0_6CC8A0(u16 arg0, u16 arg1) {
-//     s16 temp_a3;
-//     s16 temp_a3_4;
-//     s16 temp_a3_5;
-//     s16 temp_t6_2;
-//     s16 temp_t8_2;
-//     s32 temp_t6;
-//     s32 temp_t7;
-//     u16 phi_v1_2;
-//     s32 phi_a0;
-//     s16 phi_v0_2;
-//     s16 phi_v1_3;
-//
-//     temp_t6 = arg0; // & 0xFFFF;
-//     temp_t7 = arg1; // & 0xFFFF;
-//     phi_a0 = arg0;
-//
-//     if ((D_803D5528->unk3C0.unk4 != 0) && (D_803F2D10.unk0 == 0)) {
-//         D_803D5528->unk3C0.unk6 += 1;
-//     }
-//
-//     switch (D_803D5528->unk3C0.unk4) {                               /* implicit */
-//     default:
-//         D_803D5528->unk3C0.unk4 = 0U;
-//         temp_a3 = (((D_80152C78[(((D_803D5540 * 4) & 0xFF))]) >> 7) >> 4) + 90;
-//         phi_v0_2 = temp_a3;
-//         phi_v1_3 = temp_a3;
-//         break;
-//     case 9:
-//     case 13:
-//     case 14:
-//         phi_v1_2 = D_803D5528->unk3C0.unk6;
-//         if (D_803D5528->unk3C0.unk4 == 0xD) {
-//             phi_v1_2 = (phi_v1_2 * 2);
-//         }
-//         if (D_803D5528->unk3C0.unk4 == 0xE) {
-//             phi_v1_2 = (phi_v1_2 * 8);
-//             if (phi_v1_2 >= 0x25) {
-//                 phi_v1_2 = (phi_v1_2 - 0x24) ;
-//             }
-//             if (phi_v1_2 >= 37) {
-//                 phi_v1_2 = (phi_v1_2 - 0x24) ;
-//             }
-//             if (phi_v1_2 >= 37) {
-//                 phi_v1_2 = (phi_v1_2 - 0x24) ;
-//             }
-//         }
-//         if (phi_v1_2 < 5) {
-//             phi_v0_2 = (((phi_v1_2 * 130) / 4) + 40);
-//             phi_v1_3 = (((phi_v1_2 * 100) / 4) + 60);
-//         } else if (phi_v1_2 < 13) {
-//             phi_v0_2 = 170 - (((phi_v1_2 * 100) - 400) / 8);
-//             phi_v1_3 = 160 - (((phi_v1_2 * 40) - 160) / 8);
-//         } else if (phi_v1_2 < 21) {
-//             phi_v0_2 = 70 - (((phi_v1_2 * 60) - 720) / 8);
-//             phi_v1_3 = 120 - (((phi_v1_2 * 90) - 1080) / 8);
-//         } else {
-//             if (phi_v1_2 < 37) {
-//                 phi_v0_2 = (((phi_v1_2 * 80) - 1600) / 16) + 10;
-//                 phi_v1_3 = (((phi_v1_2 * 60) - 1200) / 16) + 30;
-//             } else {
-//                 D_803D5528->unk3C0.unk4 = 0U;
-//                 phi_v0_2 = 90;
-//                 phi_v1_3 = 90;
-//             }
-//         }
-//         break;
-//     case 12:
-//         if (D_803D5528->unk3C0.unk6 > 20) {
-//             D_803D5528->unk3C0.unk6 = 20;
-//         }
-//         phi_a0 = (arg0 - ((arg0 * D_803D5528->unk3C0.unk6) / 40));
-//         phi_v0_2 = 0x28 - ((D_803D5528->unk3C0.unk6 * 0x1E) / 20);
-//         phi_v1_3 = ((D_803D5528->unk3C0.unk6 * 0x6E) / 20) + 0x3C;
-//         break;
-//     }
-//     // temp_t2 = (phi_v0_2 * 2) + &D_80152350;
-//     // temp_t0 = D_80203FE0[0].unk2;
-//     D_80203FE0[22].unk2 = D_80203FE0[0].unk2;
-//     D_80203FE0[24].unk2 = D_80203FE0[0].unk2;
-//     D_80203FE0[23].unk2 = D_80203FE0[0].unk2;
-//     temp_a3_4 = D_80203FE0[0].unk0 + ((phi_a0 * D_80152350.unk2D0[phi_v0_2]) / 256);
-//     D_80203FE0[22].unk0 = temp_a3_4;
-//     // temp_t4 = (phi_v1_3 * 2) + &D_80152350;
-//     D_80203FE0[24].unk0 = (s16) -(s32) temp_a3_4;
-//     temp_t8_2 = D_80203FE0[0].unk4 + ((phi_a0 * D_80152350.unk384[phi_v0_2]) / 256);
-//     D_80203FE0[22].unk4 = temp_t8_2;
-//     D_80203FE0[24].unk4 = temp_t8_2;
-//     temp_a3_5 = temp_a3_4 + ((temp_t7 * D_80152350.unk2D0[phi_v1_3]) / 256);
-//     D_80203FE0[23].unk0 = temp_a3_5;
-//     D_80203FE0[25].unk2 = D_80203FE0[0].unk2;
-//     temp_t6_2 = temp_t8_2 + ((temp_t7 * D_80152350.unk384[phi_v1_3]) / 256);
-//     D_80203FE0[23].unk4 = temp_t6_2;
-//     D_80203FE0[25].unk4 = temp_t6_2;
-//     D_80203FE0[25].unk0 = (s16) -(s32) temp_a3_5;
-// }
+void func_802BB1F0_6CC8A0(u16 arg0, u16 arg1) {
+    s16 temp_a3;
+    s16 temp_t0;
+    s16 temp_t8;
+    s16 var_v0;
+    s16 var_v1;
+    struct113 *temp_a2_2;
+    u16 var_v1_2;
+    s32 tmp;
+
+    temp_a2_2 = &D_803D5528->unk3C0.unk4; // er?
+    if ((temp_a2_2->unk0 != 0) && (D_803F2D10.unk0 == 0)) {
+        temp_a2_2->unk2++;
+    }
+
+    switch (temp_a2_2->unk0) {
+    default:
+        tmp = 90 + ((D_80152C78[(s16)(D_803D5540 << 2) & 0xFF] >> 7) >> 4);
+        var_v1 = var_v0 = tmp;
+        temp_a2_2->unk0 = 0;
+        break;
+    case 9:
+    case 13:
+    case 14:
+        var_v1_2 = temp_a2_2->unk2;
+        if (temp_a2_2->unk0 == 0xD) {
+            var_v1_2 = var_v1_2 << 1;
+        }
+
+        if (temp_a2_2->unk0 == 0xE) {
+            var_v1_2 = var_v1_2 << 3;
+            if (var_v1_2 > 36) {
+                var_v1_2 -= 36;
+            }
+            if (var_v1_2 > 36) {
+                var_v1_2 -= 36;
+            }
+            if (var_v1_2 > 36) {
+                var_v1_2 -= 36;
+            }
+        }
+
+        if (var_v1_2 < 5) {
+            var_v0 = 40 + ((var_v1_2 * 130) / 4);
+            var_v1 = 60 + ((var_v1_2 * 100) / 4);
+        } else if (var_v1_2 < 13) {
+            var_v0 = 170 - (((var_v1_2 - 4) * 100) / 8);
+            var_v1 = 160 - (((var_v1_2 - 4) * 40) / 8);
+        } else if (var_v1_2 < 21) {
+            var_v0 = 70 - (((var_v1_2 - 12) * 60) / 8);
+            var_v1 = 120 - (((var_v1_2 - 12) * 90) / 8);
+        } else if (var_v1_2 < 37) {
+            var_v0 = 10 + (((var_v1_2 - 20) * 80) / 16);
+            var_v1 = 30 + (((var_v1_2 - 20) * 60) / 16);
+        } else {
+            temp_a2_2->unk0 = 0;
+            var_v0 = 90;
+            var_v1 = 0x5A;
+        }
+        break;
+    case 12:
+        if (temp_a2_2->unk2 > 20) {
+            temp_a2_2->unk2 = 20;
+        }
+        var_v0 = 40 - ((temp_a2_2->unk2 * 0x1E) / 20);
+        var_v1 = ((temp_a2_2->unk2 * 0x6E) / 20) + 0x3C;
+        arg0 -= (arg0 * temp_a2_2->unk2) / 40;
+        break;
+    }
+
+    temp_a3 = D_80203FE0[0].unk0;
+    temp_t0 = D_80203FE0[0].unk2;
+    temp_t8 = D_80203FE0[0].unk4;
+
+    temp_a3 += ((arg0 * D_80152350.unk2D0[var_v0]) / 256);
+    temp_t8 += ((arg0 * D_80152350.unk384[var_v0]) / 256);
+
+    D_80203FE0[22].unk0 = temp_a3;
+    D_80203FE0[22].unk2 = temp_t0;
+    D_80203FE0[22].unk4 = temp_t8;
+
+    D_80203FE0[24].unk0 = -temp_a3;
+    D_80203FE0[24].unk2 = temp_t0;
+    D_80203FE0[24].unk4 = temp_t8;
+
+    temp_a3 += (arg1 * D_80152350.unk2D0[var_v1]) / 256;
+    temp_t8 += (arg1 * D_80152350.unk384[var_v1]) / 256;
+
+    D_80203FE0[23].unk0 = temp_a3;
+    D_80203FE0[23].unk2 = temp_t0;
+    D_80203FE0[23].unk4 = temp_t8;
+
+    D_80203FE0[25].unk0 = -temp_a3;
+    D_80203FE0[25].unk2 = temp_t0;
+    D_80203FE0[25].unk4 = temp_t8;
+}
 
 #ifdef NON_MATCHING // JUSTREG
 // CURRENT (10)
