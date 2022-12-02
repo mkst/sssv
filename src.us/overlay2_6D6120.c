@@ -609,8 +609,8 @@ void func_802C6468_6D7B18(s16 arg0, s16 arg1, s16 arg2) {
     D_80203FE0[22].unk2 = D_80203FE0[23].unk2 = (D_80203FE0[1].unk2 + arg1) - arg1;
     D_80203FE0[19].unk2 = D_80203FE0[1].unk2;
     D_80203FE0[19].unk0 = D_80203FE0[20].unk0 = D_80203FE0[1].unk0;
-    D_80203FE0[22].unk4 = D_80203FE0[23].unk4 = (D_80203FE0[1].unk4 + arg0) + (arg2 >> 1);
     D_80203FE0[23].unk0 = D_80203FE0[1].unk0 + (arg2 >> 1);
+    D_80203FE0[22].unk4 = D_80203FE0[23].unk4 = (D_80203FE0[1].unk4 + arg0) + (arg2 >> 1);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6468_6D7B18.s")

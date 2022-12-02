@@ -4,22 +4,6 @@
 #include "mtx.h"
 
 
-typedef struct {
-    union {
-        struct {
-            s32 unk0;
-            s32 unk4;
-        } w;
-        struct {
-            u16 unk0;
-            u16 unk2;
-            u16 unk4;
-            u16 unk6;
-        } h;
-    }; // unnamed
-} FracIntHelper;
-
-
 void func_80125980(Mtx *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9) {
     s64 spC0;
     s64 spB8;

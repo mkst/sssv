@@ -100,15 +100,15 @@ void func_802A4184_6B5834(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4220_6B58D0.s")
 // what???
-// void func_802A4220_6B58D0(s32 *arg0, s32 *arg1, u16 arg2) {
-//     s32 temp_v0;
-//     s32 temp_v1;
+// void func_802A4220_6B58D0(s32 *xVelocity, s32 *zVelocity, u16 arg2) {
+//     s32 xVel;
+//     s32 zVel;
 //
-//     temp_v0 = ABS(*arg0);
-//     temp_v1 = ABS(*arg1);
+//     xVel = ABS(*xVelocity);
+//     zVel = ABS(*zVelocity);
 //
-//     *arg0 = (*arg0 * temp_v0) >> 8;
-//     *arg1 = (*arg1 * temp_v1) >> 8;
+//     *xVelocity = (xVel * arg2) >> 8;
+//     *zVelocity = (zVel * arg2) >> 8;
 // }
 
 // miles away: CURRENT (1000)
@@ -2861,7 +2861,8 @@ void func_802AC5CC_6BDC7C(s32 *arg0, s32 *arg1) {
     }
 }
 
-#ifdef NON_MATCHING // JUSTREG
+#ifdef NON_MATCHING
+// CURRENT (20)
 void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
     *arg0 = 0;
 
@@ -2870,7 +2871,8 @@ void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
     } else if (D_801D9ED8.unkFFDA > 0) {
         *arg1 = D_803D5524->unkA4 * 640;
     } else {
-        *arg1 = 0;
+        s32 tmp = D_803D5524->unkA4;
+        *arg1 = tmp * 0;
     }
 
     func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
@@ -3714,6 +3716,7 @@ void func_802AEBB0_6C0260(void) {
 }
 
 #ifdef NON_MATCHING
+// CURRENT (1065)
 void func_802AEE18_6C04C8(void) {
 
     switch (D_803D5530->state) {
@@ -3722,7 +3725,7 @@ void func_802AEE18_6C04C8(void) {
         D_803D5530->yRotation &= 0xFF;
         D_803D5530->unk28 = D_801D9ED8.unkFFDE;
         D_803D5530->yVelocity.w = ((D_803D5530->yVelocity.w * 7) >> 3) + (D_803D5530->unk28 * 0x500);
-        D_803D5530->yVelocity.w += (D_80152C78[(D_803D5540 << 2) & 0xFF] >> 7) << 6;
+        D_803D5530->yVelocity.w += (D_80152C78[(s16)(D_803D5540 << 2) & 0xFF] >> 7) << 6;
 
         if ((D_801D9ED8.unkFFDC != 0) || ((D_803D552C->unk30C != 0))) {
             D_803D552C->unk30E = MIN(16, D_803D552C->unk30E + 1);
@@ -3762,14 +3765,14 @@ void func_802AEE18_6C04C8(void) {
         }
 
         D_803D5530->xVelocity.w += (D_803D552C->unk30C * D_80152C78[D_803D552C->unk302 & 0xFF]) / 110;
-        D_803D5530->zVelocity.w += (D_803D552C->unk30C * D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF]) / 110;
+        D_803D5530->zVelocity.w += (D_803D552C->unk30C * D_80152C78[(s16)(D_803D552C->unk302 + 0x40) & 0xFF]) / 110;
         if ((D_803D552C->unk365 == 0) && (D_801D9ED8.unkFFB6 != 0) && (D_801D9ED8.unkFFBC == 0)) {
             if ((D_803D5530->yPos.h - func_80298F78_6AA628(D_803D5530->xPos.h, D_803D5530->zPos.h)) >= -0x3F) {
                 D_803D552C->unk369 = 0;
                 D_803D5530->yPos.h += 23;
                 D_803D5530->yVelocity.h += 23;
                 D_803D5530->xVelocity.w += D_80152C78[D_803D552C->unk302 & 0xFF] * 6;
-                D_803D5530->zVelocity.w += D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] * 6;
+                D_803D5530->zVelocity.w += D_80152C78[(s16)(D_803D552C->unk302 + 0x40) & 0xFF] * 6;
                 D_803D552C->unk308 = 0;
                 D_803D5530->state = 0x3FU;
                 D_803D5530->unk162 = 3;
@@ -3789,7 +3792,6 @@ void func_802AEE18_6C04C8(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AEE18_6C04C8.s")
 #endif
 
-#ifdef NON_MATCHING
 void func_802AF308_6C09B8(void) {
     u16 rotation = D_803D5530->yRotation;
 
@@ -3851,8 +3853,7 @@ void func_802AF308_6C09B8(void) {
                 func_802A5778_6B6E28(MAX(0, D_801D9ED8.unkFFDA), 1);
                 D_803D552C->unk30A += 32;
                 D_803D5530->unk162 = 3;
-                // FUUUUUU
-                D_803D5530->yPos.h = MAX(D_803D5530->yPos.h, ((4 * MAX(MAX(D_803C0740[(D_803D5530->xPos.h >> 6) + 0][(D_803D5530->zPos.h >> 6) + 0].unk6, D_803C0740[(D_803D5530->xPos.h >> 6) + 1][(D_803D5530->zPos.h >> 6) + 0].unk6), MAX(D_803C0740[(D_803D5530->xPos.h >> 6) + 0][(D_803D5530->zPos.h >> 6) + 1].unk6, D_803C0740[(D_803D5530->xPos.h >> 6) + 1][(D_803D5530->zPos.h >> 6) + 1].unk6))) - D_803D5524->unkB8 + 12));
+                D_803D5530->yPos.h = MIN(D_803D5530->yPos.h, ((MAX(MAX(D_803C0740[(D_803D5530->xPos.h >> 6) + 0][(D_803D5530->zPos.h >> 6) + 0].unk6, D_803C0740[(D_803D5530->xPos.h >> 6) + 1][(D_803D5530->zPos.h >> 6) + 0].unk6), MAX(D_803C0740[(D_803D5530->xPos.h >> 6) + 0][(D_803D5530->zPos.h >> 6) + 1].unk6, D_803C0740[(D_803D5530->xPos.h >> 6) + 1][(D_803D5530->zPos.h >> 6) + 1].unk6)) * 4) - D_803D5524->unkB8 + 12));
             }
         }
     }
@@ -3861,9 +3862,6 @@ void func_802AF308_6C09B8(void) {
         D_803D552C->unk30C--;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AF308_6C09B8.s")
-#endif
 
 void func_802AF7E4_6C0E94(void) {
     if ((D_803D5540 & 1) == 0) {

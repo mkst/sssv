@@ -178,7 +178,7 @@ void func_80305250_716900(struct079_inner *arg0, Animal *animal, s16 arg2, u8 ar
 //                     // its an animal
 //
 //                     if ((animal->yPos.h < sp58) && (sp56 < animal->yPos.h)) {
-//                         if ((func_80362B00_7741B0(animal) != 0) || ((func_80362B38_7741E8(D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
+//                         if ((func_80362B00_7741B0(animal) != 0) || ((can_swim(D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
 //                             var_a1 = 0;
 //                         } else {
 //                             var_a1 = func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
@@ -1795,7 +1795,7 @@ void func_80311554_722C04(s16 arg0, s16 arg1, s32 *arg2, s32 *arg3) {
     }
     if (temp_t3 >= 0x80) {
         *arg2 = 0x40000000;
-        *arg3 = D_803C0740[temp_v0][0].unk1 << 0x13;
+        *arg3 = D_803C0740[temp_v0+1][-1].unk1 << 0x13;
         return;
     }
 

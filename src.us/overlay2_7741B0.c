@@ -10,8 +10,7 @@ s32 func_80362B00_7741B0(Animal *a) {
     }
 }
 
-// can_swim?
-s32 func_80362B38_7741E8(Animal *a) {
+s32 can_swim(Animal *a) {
     if (a->unk16C->waterClass & WATER_SWIM) {
         return 1;
     } else {
@@ -28,8 +27,7 @@ s32 func_80362B60_774210(Animal *a) {
     }
 }
 
-// water_hurts?
-s32 func_80362B9C_77424C(Animal *a) {
+s32 water_hurts(Animal *a) {
     if (a->unk16C->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2)) {
         return 1;
     } else {
@@ -37,8 +35,7 @@ s32 func_80362B9C_77424C(Animal *a) {
     }
 }
 
-// can_fly?
-s32 func_80362BC4_774274(Animal *a) {
+s32 can_fly(Animal *a) {
     if (a->unk16C->class & (CLASS_BIRD | CLASS_FLYING | CLASS_HELI)) {
         return 1;
     } else {
@@ -286,7 +283,7 @@ void func_803633C4_774A74(Animal *arg0) {
         } else {
             arg0->unk278 = arg0->unk2AC->xPos.h;
             arg0->unk27A = arg0->unk2AC->zPos.h;
-            if ((func_80362BC4_774274(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
+            if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
                 arg0->unk27C = (arg0->unk2AC->yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
             }
         }
@@ -307,7 +304,7 @@ void func_803633C4_774A74(Animal *arg0) {
         } else {
             arg0->unk278 = arg0->unk2AC->xPos.h;
             arg0->unk27A = arg0->unk2AC->zPos.h;
-            if ((func_80362BC4_774274(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
+            if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
                 arg0->unk27C = (arg0->unk2AC->yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
             }
         }
@@ -334,7 +331,7 @@ void func_803633C4_774A74(Animal *arg0) {
         } else {
             arg0->unk278 = arg0->unk2AC->xPos.h;
             arg0->unk27A = arg0->unk2AC->zPos.h;
-            if ((func_80362BC4_774274(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
+            if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
                 arg0->unk27C = ((arg0->unk2AC->yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget);
             }
             if (((arg0->unk5C & 5) != 0) && (arg0->unk60 == arg0->unk2AC)) {
@@ -520,7 +517,7 @@ void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = arg1->xPos.h;
     arg0->unk27A = arg1->zPos.h;
-    if (func_80362BC4_774274(arg1) || func_80362B60_774210(arg1)) {
+    if (can_fly(arg1) || func_80362B60_774210(arg1)) {
         arg0->unk27C = arg1->yPos.h + (arg1->unk42 >> 1) + arg2;
     } else {
         arg0->unk27C = arg2;
@@ -536,7 +533,7 @@ void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = arg1->xPos.h;
     arg0->unk27A = arg1->zPos.h;
-    if (func_80362BC4_774274(arg1) || func_80362B60_774210(arg0->unk2AC)) {
+    if (can_fly(arg1) || func_80362B60_774210(arg0->unk2AC)) {
         arg0->unk27C = arg1->yPos.h + (arg1->unk42 >> 1) + arg2;
     } else {
         arg0->unk27C = arg2;
@@ -565,7 +562,7 @@ void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *arg2) {
     arg0->unk27A = arg2->zPos.h;
     arg0->unk274 = 3;
     arg0->unk275 = 16;
-    if (func_80362BC4_774274(arg2) || func_80362B60_774210(arg2)) {
+    if (can_fly(arg2) || func_80362B60_774210(arg2)) {
         arg0->unk27C = arg2->yPos.h + (arg2->unk42 >> 1) + arg1;
     } else {
         arg0->unk27C = arg1;

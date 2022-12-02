@@ -347,9 +347,9 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
         a = temp_t8->animal;
         if ((a != D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
             // TODO: FIXME
-            if (a->unkD0.m[0][0] != 0) {
+            if (a->unkC0.a.unkD0.m[0][0] != 0) {
                 // TODO: FIXME
-                phi_s2 = (struct044*)&a->unkC0[0][2];
+                phi_s2 = (struct044*)&a->unkC0.a.unkC0[0][2];
                 do {
                     if ((ABS((a->xPos.h + phi_s2->unk0) - arg0) < phi_s2->unkC + arg3) &&
                         (ABS((a->zPos.h + phi_s2->unk4) - arg1) < phi_s2->unkC + arg3) &&
@@ -393,8 +393,64 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
     return ret;
 }
 
-// delay slot
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80322D68_734418.s")
+s32 func_80322D68_734418(s16 xPos0, s16 zPos0, s16 yPos0, s16 xPos1, s16 zPos1, s16 yPos1, s16 *arg6, s16 *arg7, s16 *arg8, s16 arg9, s16 damage, u8 argB, u8 argC) {
+
+    s32 pad;
+    s32 ret;
+
+    s32 var_v1;
+    s32 var_t0;
+    s32 var_t1;
+
+    s16 i;
+    s16 distance;
+
+    s32 var_s5;
+    s32 var_s4;
+    s32 var_s3;
+
+    Animal *sp68;
+
+    ret = 0;
+
+    var_v1 = xPos1 - xPos0;
+    var_t0 = zPos1 - zPos0;
+    var_t1 = yPos1 - yPos0;
+
+    distance = sqrtf(SQ((f32)var_v1) + SQ((f32)var_t0) + SQ((f32)var_t1));
+    distance = (distance / ((arg9 * 3) >> 1)) + 1;
+
+    var_v1 = (var_v1 << 0x10) / (distance + 1);
+    var_t0 = (var_t0 << 0x10) / (distance + 1);
+    var_t1 = (var_t1 << 0x10) / (distance + 1);
+
+    var_s3 = (xPos0 << 0x10) + (var_v1 >> 1);
+    var_s4 = (zPos0 << 0x10) + (var_t0 >> 1);
+    var_s5 = (yPos0 << 0x10) + (var_t1 >> 1);
+
+    for (i = 0; i < distance; i++) {
+        if (func_80322A58_734108(var_s3 >> 0x10, var_s4 >> 0x10, var_s5 >> 0x10, arg9, damage, &sp68, sp68, argC)) {
+            *arg6 = var_s3 >> 0x10;
+            *arg7 = var_s4 >> 0x10;
+            *arg8 = var_s5 >> 0x10;
+            if (sp68->unk16C->unk80.bit) {
+                ret = 2;
+              } else {
+                ret = 1;
+            }
+
+            // every animal except EVO?
+            if (!argB) {
+                break;
+            }
+
+        }
+        var_s3 += var_v1;
+        var_s4 += var_t0;
+        var_s5 += var_t1;
+    }
+    return ret;
+}
 
 Animal *func_80323040_7346F0(void) {
     s16 temp_fp;

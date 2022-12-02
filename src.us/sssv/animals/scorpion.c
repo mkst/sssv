@@ -5,7 +5,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/scorpion/func_80376D40_7883F0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/scorpion/func_80378B84_78A234.s")
-// NON-MATCHING: middle section needs work + regalloc
+// miles away
 // void func_80378B84_78A234(s16 arg0, s16 *arg1, s16 *arg2, s16 *arg3, s16 *arg4, Animal *arg5) {
 //     s16 sp44;
 //     s16 sp3C;
@@ -25,10 +25,10 @@
 //
 //
 //     temp_t2 = (D_80203FE0[2].unk2 >> 2) + D_80203FE0[2].unk2;
-//     temp_t7 = D_80152C78[(u8)D_803D552C->unk302] >> 7;
-//     temp_t9 = D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7;
-//     temp_t7_3 = (((temp_t7 * temp_t2) / 32) + ((temp_t9 * ((D_80203FF0[2].unk0 >> 2) + D_80203FF0[2].unk0)) / 32)) >> 7;
-//     temp_t7_4 = (((temp_t9 * temp_t2) / 32) - ((temp_t7 * ((D_80203FF0[2].unk0 >> 2) + D_80203FF0[2].unk0)) / 32)) >> 7;
+//     temp_t7 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 7;
+//     temp_t9 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7;
+//     temp_t7_3 = (((temp_t7 * temp_t2) / 32) + ((temp_t9 * ((D_80203FE0[4].unk0 >> 2) + D_80203FE0[4].unk0)) / 32)) >> 7;
+//     temp_t7_4 = (((temp_t9 * temp_t2) / 32) - ((temp_t7 * ((D_80203FE0[4].unk0 >> 2) + D_80203FE0[4].unk0)) / 32)) >> 7;
 //
 //     temp_s0 = D_803D552C->xPos.h - temp_t7_3;
 //     temp_s1 = D_803D552C->zPos.h - temp_t7_4;
@@ -40,6 +40,7 @@
 //     sp30 = arg5->xPos.h;
 //     sp2E = arg5->zPos.h;
 //     sp2C = D_803D552C->unk30C;
+//
 //     if (arg0 < 5) {
 //         *arg2 = temp_s0 + (((sp3C - temp_s0) * arg0) / 4);
 //         *arg3 = temp_s1 + (((sp3A - temp_s1) * arg0) / 4);

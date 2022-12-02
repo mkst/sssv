@@ -299,8 +299,8 @@ void func_8036A05C_77B70C(void) {
             0,
             (func_8012826C() + 0x30000) & 0x7FFF,
             0x1E,
-            1,
-            1,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
             0);
         if (D_803D552C->unk2EC-- <= 0) {
             D_803D552C->unk36E = 0;

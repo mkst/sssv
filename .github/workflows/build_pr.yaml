@@ -48,10 +48,12 @@ jobs:
 
     # build NON_MATCHING ROM
 
-    - name: Delete build/ directory
+    - name: Touch NON_MATCHING files
       uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
       with:
-        args: make clean
+        args: grep -R src.${ROM} NON_MATCHING | xargs touch
 
     - name: Perform make NON_MATCHING
       uses: docker://ghcr.io/mkst/sssv:latest

@@ -43,8 +43,7 @@ f32 get_magnitude(Vertex *v) {
     return ret;
 }
 
-// divide by magnitude?
-void func_8032D494_73EB44(Vertex *x, Vertex *res) {
+void normalize_vector(Vertex *x, Vertex *res) {
     f32 mag = get_magnitude(x);
     if (mag != 0.0) {
         vector_divide_by(x, mag, res);
@@ -69,7 +68,7 @@ void cross_product(Vertex *x, Vertex *y, Vertex *res) {
     res->z = x->x * y->y - x->y * y->x;
 }
 
-s16 func_8032D5A4_73EC54(Vertex *x, Vertex *y) {
+s16 get_angle_between_vectors(Vertex *x, Vertex *y) {
     s32 pad;
     f32 mm;
     f32 tmp;

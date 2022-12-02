@@ -68,6 +68,7 @@ s16 func_8012835C(s16 idx) {
     }
 }
 
+// get_angle_in_degrees?
 s16 func_801283AC(s16 arg0) {
     if (arg0 >= 0) {
         return 90 - D_80152040[arg0];

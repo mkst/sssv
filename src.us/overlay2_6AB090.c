@@ -167,7 +167,7 @@ u16 func_8029A52C_6ABBDC(u8 arg0) {
     struct038 *s;
     u16 tmp = arg0 & 0x3F;
 
-    s = &D_800BB210[tmp];
+    s = &D_800BB210[tmp]; // list of images 0xAB8 each
     tmp = s->unk0;
     return tmp;
 }

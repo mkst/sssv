@@ -204,9 +204,11 @@ vector_add             = 0x8032D380; // rom:0x73EA30
 vector_subtract        = 0x8032D3B4; // rom:0x73EA64
 vector_multiply_by     = 0x8032D3E8; // rom:0x73EA98
 vector_divide_by       = 0x8032D414; // rom:0x73EAC4
+normalize_vector       = 0x8032D494; // rom:0x73EB44
 get_magnitude          = 0x8032D440; // rom:0x73EAF0
 dot_product            = 0x8032D504; // rom:0x73EBB4
 cross_product          = 0x8032D534; // rom:0x73EBE4
+get_angle_between_vectors = 0x8032D5A4; // rom:0x73EC54
 
 osd_draw_timer           = 0x80349B84; // rom:0x75B234
 show_osd                 = 0x80349748; // rom:0x75ADF8
@@ -225,6 +227,10 @@ racing_tortoise_turbo    = 0x803563C8; // rom:0x767A78
 load_1_tile              = 0x80356410; // rom:0x767AC0
 load_2_tiles             = 0x803565D4; // rom:0x767C84
 load_3_tiles             = 0x80356870; // rom:0x767F20
+
+can_swim                 = 0x80362B38; // rom:0x7741E8
+water_hurts              = 0x80362B9C; // rom:0x77424C
+can_fly                  = 0x80362BC4; // rom:0x774274
 
 biker_hyena_fire_missile = 0x8035A420; // rom:0x76BAD0
 recharge_skill           = 0x8035E3E8; // rom:0x76FA98

@@ -22,6 +22,7 @@ extern Gfx D_040073B0_CEDE0[];
 extern Gfx D_040073D8_CEE08[];
 
 #if 0
+// CURRENT (9055)
 void func_8035E430_76FAE0(void) {
     // s16 spD6;
     // s32 spC4;
@@ -34,6 +35,7 @@ void func_8035E430_76FAE0(void) {
     u16 spA4;
     s16 spA2;
     s16 spA0;
+
     // u16 sp70;
     // u16 sp6E;
     // u16 sp6C;
@@ -58,12 +60,9 @@ void func_8035E430_76FAE0(void) {
     s32 temp_t3;
     s32 temp_t5;
     s32 temp_t8_2;
-    s32 var_t9;
+    s16 var_t9;
 
     u8 var_v1;
-    u8 var_v1_2;
-
-    u8 temp_a0_4;
     u8 temp_v0_9;
 
     switch (D_803D5524->unk9C) {
@@ -103,7 +102,8 @@ void func_8035E430_76FAE0(void) {
         D_803D552C->xPos.w,
         D_803D552C->zPos.w,
         D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
-        (spA0 * 0x6180 * 4) / 32,
+        ((s16)(spA0 * 4) * 0x6180) / 32, // help
+        // ((s16)(spA0 << 4) * 780) / 32,
         7,
         50,
         50,
@@ -159,7 +159,7 @@ block_14:
         switch (D_803D5524->unk9C) {
         case RAT:
             switch (D_803D552C->unk365) {
-            case 18:
+            case ATTACK_BITE:
                 D_803D5528->unk3C0.unk0 = 0;
                 temp_t0 = D_803D5544 - D_803D552C->unk32A;
                 if (temp_t0 == 2) {
@@ -169,33 +169,32 @@ block_14:
                         play_sound_effect_at_location(SFX_UNKNOWN_6, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
                     }
                 } else if (temp_t0 >= 6) {
-                    D_803D552C->unk365 = 0;
+                    D_803D552C->unk365 = ATTACK_NONE;
                 }
                 if (temp_t0 < 3) {
-                    var_t9 = temp_t0 << 0x13;
+                    var_t9 = temp_t0 << 3;
                 } else {
-                    var_t9 = (6 - temp_t0) << 0x12;
+                    var_t9 = (6 - temp_t0) << 2;
                 }
-                D_80203FE0[1].unk2 += ((var_t9 >> 0x10) * 0x196) >> 5;
-                D_80203FE0[2].unk2 += ((var_t9 >> 0x10) * 0x196) >> 5;
+                D_80203FE0[1].unk2 += ((var_t9) * 0x196) >> 5;
+                D_80203FE0[2].unk2 += ((var_t9) * 0x196) >> 5;
                 break;
             default:
-                D_803D552C->unk365 = 0;
+                D_803D552C->unk365 = ATTACK_NONE;
                 break;
             }
             break;
-        case 13: // KING_RAT
+        case KING_RAT:
             switch (D_803D552C->unk365) {
-            case 25:
-                // fart cloud
+            case ATTACK_FART_CLOUD:
                 create_particle_effect(
-                    (SSSV_RAND(32) + D_803D5530->xPos.h) - 16,
-                    (SSSV_RAND(32) + D_803D5530->zPos.h) - 16,
+                    D_803D5530->xPos.h + (SSSV_RAND(32) - 16),
+                    D_803D5530->zPos.h + (SSSV_RAND(32) - 16),
                     D_803D5530->yPos.h + 8,
                     (SSSV_RAND(2) + 25),
                     (func_8012826C() - FTOFIX32(0.6103515625)),
                     (func_8012826C() - FTOFIX32(0.6103515625)),
-                    func_8012826C() * 2,
+                    func_8012826C() << 1,
                     SSSV_RAND(4),
                     GPACK_RGBA5551(128, (SSSV_RAND(64) + 192), 0, 1), // // ((((SSSV_RAND(64) + 0xC0) << 3) & 0x7C0) | 0x8001),
                     GPACK_RGBA5551((SSSV_RAND(16) + 65), 160, 72, 1), // ((((SSSV_RAND(16) + 0x41) << 8) & 0xF800) | 0x513),
@@ -209,10 +208,10 @@ block_14:
                 }
                 func_8037F6CC_790D7C(0x10, 0x100, 1);
                 break;
-            case 39:
+            case ATTACK_KING_RAT:
                 break;
             default:
-                D_803D552C->unk365 = 0;
+                D_803D552C->unk365 = ATTACK_NONE;
                 break;
             }
         }
@@ -220,10 +219,10 @@ block_14:
             func_802DB8DC_6ECF8C();
             switch (D_803F2ECE) {
             case 1:
-                func_802DB670_6ECD20(&D_803B3F50_7C5600, &D_803B3F60_7C5610, &D_803B3F70_7C5620, &D_803B3F8C_7C563C);
+                func_802DB670_6ECD20(D_803B3F50_7C5600, D_803B3F60_7C5610, D_803B3F70_7C5620, D_803B3F8C_7C563C);
                 break;
             case 2:
-                func_802DB670_6ECD20(&D_803B3F50_7C5600, &D_803B3F60_7C5610, &D_803B3F70_7C5620, &D_803B3FCC_7C567C);
+                func_802DB670_6ECD20(D_803B3F50_7C5600, D_803B3F60_7C5610, D_803B3F70_7C5620, D_803B3FCC_7C567C);
                 break;
             }
         }
@@ -318,21 +317,25 @@ block_14:
     }
 
     if ((D_803D5538 == 0) && (D_803D5524->unk9C == KING_RAT)) {
-        if (D_803D552C->unk365 != 19) {
-            if (D_803D552C->unk365 != 39) {
-                D_803D552C->unk365 = 0;
-            } else if (D_803D552C->unk2EC <= 0) {
-                D_803D552C->unk365 = 0;
-                D_803D552C->unk2B4.unk4 = 1; //(u8) (D_803D552C->unk2B4.unk0 & 0xFFF1);
-            } else {
-                D_803D552C->unk2EC--;
-            }
-        } else {
+        switch (D_803D552C->unk365) {
+        case ATTACK_FART_CLOUD:
             if (D_803D552C->unk2EC <= 0) {
-                D_803D552C->unk365 = 0;
+                D_803D552C->unk365 = ATTACK_NONE;
             } else {
                 D_803D552C->unk2EC--;
             }
+            break;
+        case ATTACK_KING_RAT:
+            if (D_803D552C->unk2EC <= 0) {
+                D_803D552C->unk365 = ATTACK_NONE;
+                D_803D552C->unk2B4.unk4 = 0;
+            } else {
+                D_803D552C->unk2EC--;
+            }
+            break;
+        default:
+            D_803D552C->unk365 = ATTACK_NONE;
+            break;
         }
     }
 }
@@ -363,12 +366,12 @@ void func_8035FA84_771134(void) {
         func_8035FAEC_77119C();
     } else {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = ATTACK_FART;
+        D_803D552C->unk365 = ATTACK_FART_CLOUD;
     }
 }
 
 void func_8035FAEC_77119C(void) {
-    if (D_803D552C->unk365 == ATTACK_FART) {
+    if (D_803D552C->unk365 == ATTACK_FART_CLOUD) {
         D_803D552C->unk365 = ATTACK_NONE;
     }
 }
@@ -379,7 +382,7 @@ void func_8035FB10_7711C0(void) {
 
     if (D_803D552C->unk308 == 0) {
         if (D_803D552C->unk2B4.unk8 != 0) {
-            play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEC10);
+            play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
             D_803D552C->unk308 = 80;
         } else {
             func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x7000, 0, 1.3f);
@@ -421,12 +424,12 @@ void rat_drop_mine(void) {
 void rat_bite(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_BITE;
-    play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEC14);
+    play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
 }
 
 void king_rat_bugel_call(s16 arg0) {
     if (D_803D552C->unk308 == 0) {
-        play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803BEC18);
+        play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
         D_803D552C->unk308 = 80;
     }
     D_803D552C->unk2EC = arg0;
@@ -436,5 +439,5 @@ void king_rat_bugel_call(s16 arg0) {
 
 void king_rat_fart(s16 arg0) {
     D_803D552C->unk2EC = arg0;
-    D_803D552C->unk365 = ATTACK_FART;
+    D_803D552C->unk365 = ATTACK_FART_CLOUD;
 }

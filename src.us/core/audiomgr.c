@@ -494,9 +494,31 @@ void __clearAudioDMA(void)
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/initialise_audio.s")
 
-void func_80132044(s32 arg0);
-// some kind of de-init? remove sound?
+#ifdef NON_MATCHING
+// CURRENT (130)
+void func_80132044(s32 arg0) {
+    s32 i;
+
+    if (!gAudioInitialized) {
+        return;
+    }
+
+    if (arg0 == -1) {
+        // clear all
+        for (i = 0; i < 20; i++){
+            D_80286388[i] = i;
+            D_802863B0[i] = 0;
+        }
+        D_8015468C = 0;
+    } else {
+        // decrement used?
+        D_80286388[arg0] = arg0;
+        D_8015468C--;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80132044.s")
+#endif
 
 struct017 *func_801320EC(void) {
     s32 i;
@@ -518,7 +540,84 @@ struct017 *func_801320EC(void) {
     return D_80286338[i];
 }
 
+#if 0
+// need to figure out struct copy business
+void func_80132174(struct017 *arg0, s32 arg1, s32 arg2, s32 arg3, struct017 **argD, struct017 **argE) {
+    struct017 *var_t8;
+    struct017 *temp_v0_2;
+    struct017 *var_a0;
+    struct017 *var_t2;
+    struct017 *var_v1;
+
+    if (!gAudioInitialized) {
+      return;
+    }
+
+    var_a0 = *argD;
+
+    if (D_8015468C < 0x14) {
+        D_8015468C++;
+        temp_v0_2 = func_801320EC();
+
+        if (temp_v0_2 != NULL) {
+            var_t8 = &arg0;
+            var_t2 = temp_v0_2;
+            do {
+                // copy 12 bytes of something?
+            //     temp_at = *var_t8;
+            //     var_t8 += 0xC;
+            //     var_t2 += 0xC;
+            //     var_t2->unk-C = temp_at;
+            //     var_t2->unk-8 = (s32) var_t8->unk-8;
+            //     var_t2->unk-4 = (s32) var_t8->unk-4;
+            } while (var_t8 != var_t8->next);
+
+            var_t2->unk0 = var_t8->unk0;
+            temp_v0_2->unk1E = temp_v0_2->unk1E;
+
+            if (*argE == NULL) {
+                temp_v0_2->next = NULL;
+                temp_v0_2->prev = NULL;
+                *argE = temp_v0_2;
+                *argD = temp_v0_2;
+                return;
+            }
+
+            var_v1 = NULL;
+            while (var_a0 != NULL) {
+                var_v1 = var_a0;
+                if ((var_a0->unk0 - temp_v0_2->unk0) < 0) {
+                    var_a0 = var_a0->next;
+                } else {
+                    if (var_a0->prev != NULL) {
+                        // prepend node
+                        var_a0->prev->next = temp_v0_2;
+                        temp_v0_2->next = var_a0;
+                        temp_v0_2->prev = var_a0->prev;
+                        var_a0->prev = temp_v0_2;
+                    } else if ((temp_v0_2->sndID == var_a0->sndID) && (var_a0->sndSlot == -1)) {
+                        func_80132044(temp_v0_2->unk1E);
+                    } else {
+                        // append node
+                        temp_v0_2->next = var_a0;
+                        temp_v0_2->prev = NULL;
+                        var_a0->prev = temp_v0_2;
+                        *argD = temp_v0_2;
+                    }
+                    return;
+                }
+            }
+            // uhh?
+            var_v1->next = temp_v0_2;
+            temp_v0_2->next = NULL;
+            temp_v0_2->prev = var_v1;
+            *argE = temp_v0_2;
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80132174.s")
+#endif
 
 void func_801322EC(struct017 *arg0, struct017 **arg1, struct017 **arg2) {
 
@@ -672,12 +771,12 @@ s32 func_8013266C(s8 arg0) {
 
 #ifdef NON_MATCHING // JUSTREG
 void func_801326A8(s8 arg0, s8 arg1) {
+    s32 pad;
     if (gAudioInitialized == 0) {
         return;
     }
 
     if (func_8013266C(arg1) == 0) {
-        f32 temp_f0;
         s16 volume;
         func_801325E8(arg0, arg1);
         alSeqpSetBank(D_802863C8[arg1], D_802862F8->bankArray[0]);
@@ -686,9 +785,8 @@ void func_801326A8(s8 arg0, s8 arg1) {
         if (D_801546A8[arg1] == 0) {
             volume = D_801550F8[arg0] * gMusicVolume * D_8015517C;
         } else {
-            temp_f0 = D_801550F8[D_8015516C[arg1]];
-            volume = ((D_801546B4[arg1] * temp_f0) +
-                      ((D_801546B8[arg1] * (temp_f0 * D_801546AC[arg1])) / D_801546B0[arg1])) * gMusicVolume * D_8015517C;
+            volume = ((D_801546B4[arg1] * D_801550F8[D_8015516C[arg1]]) +
+                      ((D_801546B8[arg1] * (D_801550F8[D_8015516C[arg1]] * D_801546AC[arg1])) / D_801546B0[arg1])) * gMusicVolume * D_8015517C;
         }
 
         alSeqpSetVol(D_802863C8[arg1], volume * (2048.0f / D_801546D8));
@@ -941,14 +1039,15 @@ extern myStructInner D_80154C4C[100]; // sound effect pointers?
 //     }
 // }
 
+// void play_sound_effect(s16 id, s16 arg1, s16 arg2, f32 speed, u8 arg4);
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/play_sound_effect.s")
-// void play_sound_effect(s16 id, s16 arg1, s16 arg2, f32 speed, u8 arg4) {
 
 // unused? absolutely no idea how to decomp
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80133188.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_8013328C.s")
 
+// unused?
 void func_80133528(u8 id, s16 vol) { // play_sound_by_id_with_volume
     struct017 *snd = get_sound_by_id(id);
     if (snd != NULL) {
@@ -959,6 +1058,7 @@ void func_80133528(u8 id, s16 vol) { // play_sound_by_id_with_volume
     }
 }
 
+// unused?
 void func_8013359C(u8 id) { // play_sound_by_id
     struct017 *snd = get_sound_by_id(id);
     if (snd != NULL) {
@@ -969,6 +1069,7 @@ void func_8013359C(u8 id) { // play_sound_by_id
     }
 }
 
+// used
 void func_80133608(s16 slot) { // play_sound_by_slot
     if (slot >= 0) {
         alSndpSetSound(D_80286310, slot);
@@ -976,6 +1077,7 @@ void func_80133608(s16 slot) { // play_sound_by_slot
     }
 }
 
+// used
 void func_8013364C(void) {
     s8 i;
     for (i = 0; i < 1; i++) {
@@ -1094,12 +1196,12 @@ void func_80133BE4(void) {
 
 #ifdef NON_MATCHING // (almost) JUSTREG
 void func_80133C50(void) {
+    float tmp;
     s16 i;
+    s16 volume;
 
     for (i = 0; i < 1; i++) {
         if ((D_8015516C[i] != 1) && ((u8)D_80155168[i] == -1)) {
-            s16 volume;
-            float tmp;
             tmp = 2048.0f / D_801546D8;
 
             if (D_801546A8[i] == 1) {

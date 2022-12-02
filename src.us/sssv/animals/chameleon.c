@@ -29,7 +29,7 @@ extern Gfx D_04009C10[];
 extern Gfx D_04009E10[];
 
 #if 0
-// 30k+ away still
+// 24k+ away still
 void func_8035A5F0_76BCA0(void) {
     struct061 spD0;
     s16 spCA;
@@ -132,8 +132,8 @@ done:
                                 0,
                                 0,
                                 0x1E,
-                                ((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 0x4001,
-                                ((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 1,
+                                GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
                                 0);
 
                             var_t0 -= 4;
@@ -153,8 +153,8 @@ done:
                             0,
                             0,
                             0x1E,
-                            ((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 0x4001,
-                            ((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 1,
+                            GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                            GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
                             0);
                     } else {
                         load_animal(SNEAKY_CHAMELEON);
@@ -198,8 +198,8 @@ done:
                                 0,
                                 0,
                                 0x1E,
-                                ((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 0x4001,
-                                ((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 1,
+                                GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
                                 0);
                             var_t0 -= 4;
                             var_s0++;
@@ -218,8 +218,8 @@ done:
                             0,
                             0,
                             0x1E,
-                            (((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 0x4001),
-                            (((((SSSV_RAND(4) << 5) + 0x60) * 8) & 0x7C0) | 1),
+                            GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                            GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
                             0);
                     } else {
                         load_animal(CHAMELEON);
@@ -231,9 +231,9 @@ done:
             }
             break;
         }
-        if ((D_803F2ECE == 0) || ((s32) D_803F2ECC < 0x1F)) {
+        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
             D_803F2F00 = 0;
-            func_802B9130_6CA7E0(&spD0, 0x138, 0x177, 0x1F4, (s16) 0x7D);
+            func_802B9130_6CA7E0(&spD0, 0x138, 0x177, 0x1F4, 0x7D);
             func_802BD40C_6CEABC(250, 250, 0, 0x7D, 0, 0x80, 0, 0x80, &D_803B3B60_7C5210, &D_803B3B60_7C5210, &D_803B3C34_7C52E4, 250, 250, 0, 0x7D, 0x40, 0xC0, 0x40, 0xC0, &D_803B3BD4_7C5284, &D_803B3BD4_7C5284, &D_803B3C34_7C52E4, &spD0, 1);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0, 0x2AF, 7);
@@ -314,10 +314,10 @@ done:
             func_802DB8DC_6ECF8C();
             switch (D_803F2ECE) {
             case 1:
-                func_802DB670_6ECD20(&D_803B3C48_7C52F8, &D_803B3C60_7C5310, &D_803B3C78_7C5328, &D_803B3CA0_7C5350);
+                func_802DB670_6ECD20(D_803B3C48_7C52F8, D_803B3C60_7C5310, D_803B3C78_7C5328, D_803B3CA0_7C5350);
                 break;
             case 2:
-                func_802DB670_6ECD20(&D_803B3C48_7C52F8, &D_803B3C60_7C5310, &D_803B3C78_7C5328, &D_803B3CF8_7C53A8);
+                func_802DB670_6ECD20(D_803B3C48_7C52F8, D_803B3C60_7C5310, D_803B3C78_7C5328, D_803B3CF8_7C53A8);
                 break;
             }
         }
@@ -340,7 +340,7 @@ done:
                 // D_801D9E88 = temp_v0_12 + 8;
                 // temp_v0_12->words.w1 = 0;
                 // temp_v0_12->words.w0 = (D_803D5540 & 0xFFF) | 0xF2000000;
-                gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, D_803D5540 * 4, 0, 0); // tbd
+                gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, D_803D5540, 0, 0); // tbd
 
                 func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, &D_04009500_FA560);
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, &D_04008FF0_FA050); }

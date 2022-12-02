@@ -54,7 +54,10 @@ extern u8   D_01021BB0[];
 extern u8   D_01029E10[];
 extern u8   D_0102A210[];
 extern u8   D_0102C810[];
-extern u8   D_0102F010[];
+extern u8   D_0102D810[];
+extern u8   D_0102F010[]; // [64][2048]; ?
+extern u8   D_0102B610[];
+extern u8   D_0102B810[];
 extern u8   D_01030810[];
 extern u8   D_01033190[];
 extern Gfx  D_01037700[];
@@ -408,13 +411,15 @@ extern s16  D_80203FC4;
 extern s16  D_80203FD0; // gScreenWidth
 extern s16  D_80203FD2; // gScreenHeight
 
-// FIXME:
-extern s16 D_80203FF0;
-extern s16 D_80203FF2;
-extern s16 D_80203FF4;
-
 extern struct061 D_80203FE0[34];
 extern struct061 D_802040F0[34];
+
+// extern s16 D_80203FF0;
+// extern s16 D_80203FF2;
+// extern s16 D_80203FF4;
+// extern s16 D_80203FFA; // is D_80203FE0[3].unk2
+// extern s16 D_80204002; // is D_80203FE0[4].unk2
+
 // is this a Mtx?
 extern f32  D_80204200;
 extern f32  D_80204204;
@@ -813,9 +818,9 @@ extern struct074 D_803A7114_7B87C4[128];
 extern s16  D_803A7B3C_7B91EC[][2];
 extern s16  D_803A8340;
 extern u8   D_803A8344[]; // timer string written here
-extern s8   D_803A8350_7B9A00[];
-extern s8   D_803A8358_7B9A08[];
-extern s8   D_803A8360_7B9A10[];
+// extern s8   D_803A8350_7B9A00[];
+// extern s8   D_803A8358_7B9A08[];
+// extern s8   D_803A8360_7B9A10[];
 extern s32  D_803A8374_7B9A24;
 extern s32  D_803A843C;
 extern s32  D_803A8450;
@@ -907,7 +912,7 @@ extern u16  D_803B6870[];
 extern s16  D_803B6870_7C7F20;
 extern struct110 D_803B7000_7C86B0[];
 extern Gfx  D_803B7108_7C87B8[5][10];
-extern s8   D_803B71D0[][5];
+extern s8   D_803B71D0_7C8880[][5];
 extern struct066 D_803B7268_7C8918[32];
 extern struct066 D_803B7368_7C8A18[32];
 extern f32  D_803B7468;
@@ -1065,15 +1070,18 @@ extern struct059 D_803D2E08;
 
 extern s32        D_803D3428;
 extern s32        D_803D342C;
+extern s16        D_803D3430;
+extern s16        D_803D3432;
 
 extern DisplayList* D_803D3434;
 extern s32       *D_803D3438;
 extern Animal    *D_803D343C;
+extern struct035 *D_803D3440;
 extern struct025  D_803D3448;
 extern struct025  D_803D3A20;
 extern struct025  D_803D3FF8;
 extern struct072  D_803D45D0;
-extern struct067  D_803D4BB0;
+extern struct025  D_803D4BB0;
 extern struct057  D_803D5188[];
 
 extern s16  D_803D5508;
@@ -1340,20 +1348,25 @@ extern f32  D_803F2C74;
 extern f32  D_803F2C78;
 extern f32  D_803F2C7C;
 extern struct102 D_803F2C80[]; // [0x34] big?
+extern s16  D_803F2C84;
 extern s16  D_803F2C86;
 extern s16  D_803F2C88;
 extern s16  D_803F2C8A;
 extern s16  D_803F2C8C;
 extern s16  D_803F2C8E;
 extern s16  D_803F2C92;
+extern s16  D_803F2C94;
 extern u8   D_803F2C96;
 extern u8   D_803F2C97;
+extern u8   D_803F2C98;
 extern u8   D_803F2C99;
 extern u8   D_803F2C9A;
 extern u8   D_803F2C9B;
 extern s16  D_803F2CA4;
 extern s16  D_803F2CA6;
 extern s8   D_803F2CA8[][6];
+// extern s64  D_803F2CC0;
+extern s32  D_803F2CC4; // D_803F2CC0.unk4
 extern s16  D_803F2CD0;
 extern s16  D_803F2CD2; // (race?) timer
 extern s16  D_803F2CD4;
@@ -1389,6 +1402,7 @@ extern struct000 D_803F2D50;
 extern s16  D_803F2DA2;
 
 
+// extern s16  D_803F2E1E; // this is D_803F2D50.evoSuitColor
 extern s16  D_803F2EE0[];
 extern u16  D_803F2EF0;
 extern s16  D_803F2E16;

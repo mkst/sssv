@@ -113,8 +113,34 @@ void func_802F5F44_7075F4(s16 x, s16 y, s16 z, s16 yRotation, s16 zRotation, str
     res->unk4 = ((y * temp_v0) + (z * temp_t0)) >> 8;
 }
 
-// more __ll_mul, similar to above but extra arg
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F603C_7076EC.s")
+void func_802F603C_7076EC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, u16 arg5, struct077 *res) {
+    s64 pad;
+    s64 sp70;
+    s64 sp68;
+    s64 sp60;
+    s64 sp58;
+    s64 sp50;
+    s64 sp48;
+    s64 sp40;
+    s64 sp38;
+    s64 sp30;
+
+    sp38 = D_80152350.unk2D0[arg3];
+    sp48 = D_80152350.unk384[arg3];
+
+    sp30 = D_80152350.unk2D0[arg4];
+    sp40 = D_80152350.unk384[arg4];
+
+    sp60 = (arg0 * (s64)arg5) >> 0xB;
+    sp58 = (arg1 * (s64)arg5) >> 0xB;
+    sp50 = (arg2 * (s64)arg5) >> 0xB;
+
+    sp70 = ((sp58 * sp48) - (sp50 * sp38)) >> 8;
+    sp68 = ((sp58 * sp38) + (sp50 * sp48)) >> 8;
+    res->unk0 = (( sp60 * sp40) + (sp70 * sp30)) >> 8;
+    res->unk2 = ((-sp60 * sp30) + (sp70 * sp40)) >> 8;
+    res->unk4 = sp68;
+}
 
 struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 vAngle, s16 rotation, s16 arg9, s32 scale) {
     struct071 *obj;
@@ -568,7 +594,7 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 //     sp38.z = arg1->yVelocity.h;
 //     y = sqrtf((sp38.x * sp38.x) + (sp38.y * sp38.y) + (sp38.z * sp38.z)) / arg2;
 //
-//     temp_v0 = func_8032D5A4_73EC54(&sp44, &sp38); // arg3, arg2,
+//     temp_v0 = get_angle_between_vectors(&sp44, &sp38); // arg3, arg2,
 //     phi_v1 = func_8012835C((sinf((f32)temp_v0 * 0.017453292519943295) * sp50 * 256.0f)); // D_803BCEF8_7CE5A8
 //     // help
 //     if (phi_v1 <= 0.0f) {
@@ -1109,12 +1135,89 @@ void func_802F9C50_70B300(struct071 *arg0) {
         0);
 }
 
-// something with Waypoints
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9E10_70B4C0.s")
+// file split?
+
+void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
+    WaypointData *wpd;
+    wpd = D_803E8E60[arg1];
+
+    arg0->unk170 = 3;
+
+    arg0->unk174.unk8 = arg1;
+    arg0->unk174.unk0 = arg3;
+    arg0->unk172 = (arg2 * arg3);
+    arg0->unk174.unk4 = arg4;
+
+    if (arg5 == 0) {
+        if (arg3 > 0) {
+            arg0->unk176 = 0;
+        } else {
+            arg0->unk176 = (wpd->length + 1) * 128;
+        }
+    }
+}
+
 // something with Waypoints
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9EB8_70B568.s")
-// something with Waypoints
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FA4F8_70BBA8.s")
+
+void func_802FA4F8_70BBA8(Animal *arg0) {
+    s32 xPos;
+    s32 zPos;
+    s32 yPos;
+    WaypointData *wpd;
+    u8 check;
+
+    wpd = D_803E8E60[(u8)arg0->unk174.unk8];
+
+    switch (arg0->unk174.unk4) {
+    case 1:
+        if (arg0->unk174.unk0 > 0) {
+            check = (arg0->unk176 >= ((wpd->length + 1) * 128));
+        } else {
+            check = arg0->unk176 < 1;
+        }
+        if (check != 0) {
+            arg0->unk170 = 0;
+            arg0->xVelocity.w = 0;
+            arg0->zVelocity.w = 0;
+            if ((arg0->unk4C.unk29 == 0)) {
+                arg0->yVelocity.w = 0;
+            }
+            return;
+        }
+
+        arg0->unk176 += arg0->unk172;
+        if (arg0->unk174.unk0 > 0) {
+            if (arg0->unk176 >= (wpd->length + 1) * 128) {
+                arg0->unk176 = (wpd->length + 1) * 128;
+            }
+        } else if (arg0->unk176 <= 0) {
+            arg0->unk176 = 0;
+        }
+        func_802F9EB8_70B568(&xPos, &zPos, &yPos, wpd, arg0->unk176, 0);
+        break;
+    default:
+        arg0->unk176 += arg0->unk172;
+
+        if (arg0->unk176 < 0) {
+            arg0->unk176 += wpd->length * 128;
+        } else if (arg0->unk176 >= (wpd->length * 128)) {
+            arg0->unk176 -= (wpd->length * 128);
+        }
+
+        func_802F9EB8_70B568(&xPos, &zPos, &yPos, wpd, arg0->unk176, 1);
+        break;
+    }
+
+    if (arg0->unk16C->unk80.bit3 != 0) {
+        yPos = 0;
+    }
+    arg0->xVelocity.w = xPos - arg0->xPos.w;
+    arg0->zVelocity.w = zPos - arg0->zPos.w;
+    if (arg0->unk4C.unk29 == 0) {
+        arg0->yVelocity.w = yPos - arg0->yPos.w;
+    }
+}
 
 void func_802FA6D8_70BD88(void) {
     D_80204278->unk3B308 = 0;
