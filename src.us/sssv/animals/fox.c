@@ -14,10 +14,9 @@ extern Gfx D_04004D10_CC740[];
 extern Gfx D_010037F0_3D0C0[];
 extern Gfx D_01003840_3D110[];
 
-s16 func_8037F07C_79072C(s16 arg0, s32 arg1);
-
 // FOX
 #if 0
+// CURRENT (4321)
 void func_802E5000_6F66B0(void) {
     s16 spC8;
     s16 spC6;
@@ -51,7 +50,6 @@ void func_802E5000_6F66B0(void) {
     s32 temp_t6;
     s16 temp_v0_6;
     s16 temp_v0_9;
-    s16 temp_v1_9;
 
     u8 var_t0;
     u8 temp_v0_10;
@@ -200,9 +198,8 @@ block_9:
                 }
             } else if (temp_a0 < 0x10) {
                 D_803F2EB4 = (temp_a0 * D_803F2EB4) >> 5;
-                temp_v0_9 = 0x40 - (((temp_a0 - 8) * 2) + 0x10);
-                D_803F2EB0 = (temp_v0_9 * D_803F2EB0) >> 5;
-                D_803F2EB8 = (temp_v0_9 * D_803F2EB8) >> 5;
+                D_803F2EB0 = (s16)((0x40 - (((temp_a0 - 8) * 2) + 0x10)) * D_803F2EB0) >> 5;
+                D_803F2EB8 = (s16)((0x40 - (((temp_a0 - 8) * 2) + 0x10)) * D_803F2EB8) >> 5;
             } else {
                 D_803D552C->unk365 = ATTACK_NONE;
                 func_8033F300_7509B0();
@@ -576,7 +573,6 @@ void func_802E7394_6F8A44(void) {
     s32 temp_t4;
     s32 temp_v0_10;
     s32 temp_v0_8;
-    s32 temp_v1_9;
     u8 var_t0;
     u8 temp_a0_4;
     u8 temp_v0_11;
@@ -718,8 +714,8 @@ block_9:
                                         0,
                                         0,
                                         0x28,
-                                        0xF901,
-                                        0xFFFF,
+                                        GPACK_RGBA5551(248, 32, 0, 1), // red
+                                        GPACK_RGBA5551(248, 248, 248, 1), // white
                                         0);
                                     var_s0 -= 1;
                                 } while (var_s0 > 0);

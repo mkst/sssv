@@ -567,7 +567,7 @@ void func_802B9D20_6CB3D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C9DD0/func_802BA220_6CB8D0.s")
-// void func_802BA220_6CB8D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+// void func_802BA220_6CB8D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s32 arg5 /*tbd*/) {
 //     u16 sp1A;
 //     s16 phi_a2;
 //     s16 phi_t4;

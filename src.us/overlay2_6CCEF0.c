@@ -2122,7 +2122,7 @@ void func_802C3188_6D4838(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg
     D_80203FE0[arg3].unk4 += var_t0;
 }
 
-void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, s32 arg5, struct061 *arg6) {
+void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, struct061 *arg6) {
     u16 phi_t2;
     u16 phi_t3;
     u16 temp_v1;

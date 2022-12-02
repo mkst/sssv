@@ -14,7 +14,7 @@ const s16 D_803BEB90_7D0240[16] = {
 };
 
 
-// score: 7330
+// score: 5255
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76D850/func_8035D120_76E7D0.s")
 // void func_8035D120_76E7D0(void) {
 //     s16 idx;

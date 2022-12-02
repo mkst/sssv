@@ -128,8 +128,8 @@ void func_80374C70_786320(void) {
                 ((SSSV_RAND(0x8000) * 2) - FTOFIX32(0.6103515625)),
                 0,
                 (SSSV_RAND(4) + 0x1F),
-                0,
-                0,
+                GPACK_RGBA5551(0, 0, 0, 0),
+                GPACK_RGBA5551(0, 0, 0, 0),
                 (SSSV_RAND(16) + 0x44));
         }
 
@@ -253,7 +253,7 @@ block_63:
                 } else {
                     var_a0 = 360 - func_8012844C((temp_v1_8 << 6) / var_v0_6);
                 }
-                var_v1_5 = ((((((var_a0 - 0x21C) * -0x100)) / 360) & 0xFF) - D_803D552C->unk302) >> 1;
+                var_v1_5 = (((((-(var_a0 - 0x21C) * -0x100)) / 360) & 0xFF) - D_803D552C->unk302) >> 1;
             } else {
                 var_v1_5 = 0;
             }

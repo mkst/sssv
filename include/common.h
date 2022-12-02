@@ -4,6 +4,10 @@
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
 #define ABSD(x) ((x)<0.0 ? -(x) : (x))
+
+// opposite of ABS
+#define NABS(x) ((x)>0 ? -(x) : (x))
+
 #define SQ(x) (x*x)
 
 #define MAX_INT                0x7FFFFFFF
@@ -182,16 +186,18 @@ typedef u8 Addr[];
 #define ATTACK_ELEPHANT_1   16
 #define ATTACK_SPIT         17
 #define ATTACK_BITE         18
-#define ATTACK_FART         19
+#define ATTACK_FART_CLOUD   19
 #define ATTACK_FOX_DASH     20
-#define ATTACK_CAMEL_1      22
-#define ATTACK_CAMEL_2      23
+#define ATTACK_CAMEL_WATER_CANNON 22
+#define ATTACK_CAMEL_DASH   23
 #define ATTACK_CHAMELEON_1  24
 #define ATTACK_CHAMELEON_2  25
 #define ATTACK_POLAR_BEAR_1 26
 #define ATTACK_POLAR_BEAR_2 27
 #define ATTACK_POLAR_BEAR_3 28
 #define ATTACK_RABBIT_1     29
+#define ATTACK_PENGUIN_1    30
+#define ATTACK_PENGUIN_2    31
 #define ATTACK_SNOWBALL     32
 #define ATTACK_KANGAROO_3   33
 #define ATTACK_KANGAROO_4   34

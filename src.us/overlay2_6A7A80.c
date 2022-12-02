@@ -613,6 +613,7 @@ s16 func_802990A4_6AA754(s16 arg0, s16 arg1) {
 }
 
 #ifdef NON_MATCHING
+// tbd if equivalent
 void func_80299140_6AA7F0(void) {
     s32 pad[2];
     s32 sp5C;
@@ -633,7 +634,7 @@ void func_80299140_6AA7F0(void) {
     s32 zDistance;
 
     s32 phi_v0;
-    s32 phi_a1_2;
+    s16 phi_a1_2;
 
     maxPoint = 100000;
 
@@ -681,19 +682,19 @@ void func_80299140_6AA7F0(void) {
 
     if (maxPoint != 100000) {
         if ((D_803F2D50.unk4C == 0) || (D_803F2D50.unk4C == 2)) {
-            phi_a1_2 = MAX(MAX(D_803C0740[((u16)D_803F28E0[D_803F2A98].unk74 >> 6) + 0][((u16)D_803F28E0[D_803F2A98].unk78 >> 6) + 0].unk6,
+            phi_a1_2 = 4 * MAX(MAX(D_803C0740[((u16)D_803F28E0[D_803F2A98].unk74 >> 6) + 0][((u16)D_803F28E0[D_803F2A98].unk78 >> 6) + 0].unk6,
                                D_803C0740[((u16)D_803F28E0[D_803F2A98].unk74 >> 6) + 1][((u16)D_803F28E0[D_803F2A98].unk78 >> 6) + 0].unk6),
                            MAX(D_803C0740[((u16)D_803F28E0[D_803F2A98].unk74 >> 6) + 0][((u16)D_803F28E0[D_803F2A98].unk78 >> 6) + 1].unk6,
                                D_803C0740[((u16)D_803F28E0[D_803F2A98].unk74 >> 6) + 1][((u16)D_803F28E0[D_803F2A98].unk78 >> 6) + 1].unk6));
 
-            if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < (s16) (phi_a1_2 << 2)) {
-                func_8032CD70_73E420(&D_803C0634, 0xC, 0x4718, 0, 0.28f, sp5C, sp58, sp54); // D_803BAD00_7CC3B0
+            if (phi_a1_2 > (D_803F28E0[D_803F2A98].unk7C - 12.0f)) {
+                func_8032CD70_73E420(&D_803C0634, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, sp5C, sp58, sp54); // D_803BAD00_7CC3B0
             } else {
-                func_8032CD70_73E420(&D_803C0634, 0xC, 0x2800, 0, 1.0f, sp5C, sp58, sp54);
+                func_8032CD70_73E420(&D_803C0634, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, sp5C, sp58, sp54);
             }
         }
         if (D_803F2D50.unk4C == 1) {
-            func_8032CD70_73E420(&D_803C0634, 0x40, 0x7FFF, 0, 0.25f, sp5C, sp58, sp54);
+            func_8032CD70_73E420(&D_803C0634, SFX_UNKNOWN_64, 0x7FFF, 0, 0.25f, sp5C, sp58, sp54);
         }
     }
 }

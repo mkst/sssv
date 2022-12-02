@@ -708,13 +708,13 @@ Animal *func_8037ED1C_7903CC(void) {
 
 // used by fox + camel (warp?)
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F07C_79072C.s")
-// s16 func_8037F07C_79072C(s16 arg0, s32 arg1) {
+// s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
 //     s16 sp88;
 //     s16 sp86;
 //     s16 zPos; // sp7C
 //     s16 sp7A;
-//     s16 sp76;
-//     s16 sp74;
+//     s16 sp76; // xVel
+//     s16 sp74; // zVel
 //     s16 sp72;
 //     s16 temp_a2;
 //     s16 xPos;
@@ -724,12 +724,8 @@ Animal *func_8037ED1C_7903CC(void) {
 //     s16 var_s3;
 //     s16 var_s4;
 //     s16 var_s5;
-//     s16 var_v0;
-//     u8 temp_s1;
 //     s16 temp_v1_2;
-//     s16 var_v0_3;
-//     u8 temp_v0_3;
-//     u8 temp_v1;
+//     u8 temp_s1;
 //
 //     sp88 = D_80152C78[arg1 & 0xFF] >> 7;
 //     sp86 = D_80152C78[(arg1 + 0x40) & 0xFF] >> 7;
@@ -775,8 +771,9 @@ Animal *func_8037ED1C_7903CC(void) {
 //     }
 //
 //     temp_v0_5 = var_s5 - 0x30;
+//
 //     var_s5 = arg0;
-//     if (temp_v0_5 < arg0) {
+//     if (temp_v0_5 < var_s5) {
 //         var_s5 = temp_v0_5;
 //     }
 //
@@ -797,16 +794,15 @@ Animal *func_8037ED1C_7903CC(void) {
 //             var_a3 = MAX(sp7A, func_8031124C_7228FC(var_s3, var_s4) >> 0x10);
 //         }
 //
-//         temp_a2 = var_a3 + 0x10;
 //         D_803D5530->xPos.h = var_s3;
 //         D_803D5530->zPos.h = var_s4;
-//         D_803D5530->yPos.h = temp_a2;
+//         D_803D5530->yPos.h = var_a3 + 0x10;
 //
 //         D_803D5530->xVelocity.h = 0;
 //         D_803D5530->zVelocity.h = 0;
 //         D_803D5530->yVelocity.h = 0;
 //
-//         D_803D5530->unk160 = func_803136FC_724DAC(var_s3, var_s4, temp_a2);
+//         D_803D5530->unk160 = func_803136FC_724DAC(var_s3, var_s4, var_a3 + 0x10);
 //         return var_s5;
 //     }
 //     return 0;

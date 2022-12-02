@@ -566,19 +566,19 @@ void func_803622DC_77398C(void) {
         vtx1 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_04002F28_CA958));
         vtx2 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_040029D0_CA400));
 
-        for (i = 0; i < 0x34; i++) {
+        for (i = 0; i < 52; i++) {
             // to check
             // vtx2[i].v.ob[0] = vtx1[i].v.ob[0] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[0]) >> 0xC);
             // vtx2[i].v.ob[1] = vtx1[i].v.ob[1] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[1]) >> 0xC);
             // vtx2[i].v.ob[2] = vtx1[i].v.ob[2] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[2]) >> 0xC);
 
-            vtx2[i].v.ob[0] = vtx1[i].v.ob[0] + (((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[0]) >> 0xC);
-            vtx2[i].v.ob[1] = vtx1[i].v.ob[1] + (((D_80152C78[((vtx1[i].v.ob[1] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[1]) >> 0xC);
-            vtx2[i].v.ob[2] = vtx1[i].v.ob[2] + (((D_80152C78[((vtx1[i].v.ob[2] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7) * vtx1[i].v.ob[2]) >> 0xC);
+            vtx2[i].v.ob[0] = vtx1[i].v.ob[0] + ((vtx1[i].v.ob[0] * (D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7)) >> 0xC);
+            vtx2[i].v.ob[1] = vtx1[i].v.ob[1] + ((vtx1[i].v.ob[1] * (D_80152C78[((vtx1[i].v.ob[1] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7)) >> 0xC);
+            vtx2[i].v.ob[2] = vtx1[i].v.ob[2] + ((vtx1[i].v.ob[2] * (D_80152C78[((vtx1[i].v.ob[2] << 4) + (D_803D5540 << 3)) & 0xFF] >> 7)) >> 0xC);
 
-            temp_s0 = vtx1[i].v.cn[0] + ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
-            temp_s1 = vtx1[i].v.cn[1] + ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3) + 0x40) & 0xFF] >> 7) >> 2);
-            temp_s2 = vtx1[i].v.cn[2] - ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
+            temp_s0 = (s8)vtx1[i].v.cn[0] + ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
+            temp_s1 = (s8)vtx1[i].v.cn[1] + ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3) + 0x40) & 0xFF] >> 7) >> 2);
+            temp_s2 = (s8)vtx1[i].v.cn[2] - ((D_80152C78[((vtx1[i].v.ob[0] << 4) + (D_803D5540 << 3)       ) & 0xFF] >> 7) >> 2);
 
             temp_f6 = sqrtf((temp_s0 * temp_s0) + (temp_s1 * temp_s1) + (temp_s2 * temp_s2));;
 

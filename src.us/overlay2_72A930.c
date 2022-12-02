@@ -48,9 +48,9 @@
 //         sp3C = 1;
 //     }
 //     vector_subtract(arg4, arg1, &sp68);
-//     func_8032D494_73EB44(&sp68, &sp74);
-//     sp5A = func_8032D5A4_73EC54(&sp74, arg2);
-//     sp58 = func_8032D5A4_73EC54(&sp74, arg5);
+//     normalize_vector(&sp68, &sp74);
+//     sp5A = get_angle_between_vectors(&sp74, arg2);
+//     sp58 = get_angle_between_vectors(&sp74, arg5);
 //
 //     if ((sp5A == 1000) || (sp5A == 0)) {
 //         sp8C.x = 0.0f;
@@ -59,7 +59,7 @@
 //     } else {
 //         cross_product(&sp74, arg2, &sp68);
 //         cross_product(&sp68, &sp74, &sp8C);
-//         func_8032D494_73EB44(&sp8C, &sp68);
+//         normalize_vector(&sp8C, &sp68);
 //         sp8C = sp68;
 //     }
 //
@@ -70,7 +70,7 @@
 //     } else {
 //         cross_product(&sp74, arg5, &sp68);
 //         cross_product(&sp68, &sp74, &sp80);
-//         func_8032D494_73EB44(&sp80, &sp68);
+//         normalize_vector(&sp80, &sp68);
 //         sp80 = sp68;
 //     }
 //

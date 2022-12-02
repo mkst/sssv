@@ -3,11 +3,10 @@
 
 
 void func_8032C2D0_73D980(s16 id, s16 arg1, f32 arg2) {
-    s16 *tmp;
+    s32 pad;
 
     if (id != 255) {
-        tmp = &D_803A69F0[id];
-        if ((*tmp == 8) || (get_used_sound_count() < *tmp)) {
+        if ((D_803A69F0[id] == 8) || (get_used_sound_count() < D_803A69F0[id])) {
             play_sound_effect(id, 0, arg1, arg2, 64);
         }
     }

@@ -107,8 +107,8 @@ done:
                                 (SSSV_RAND(16) - 7) << 0xF,
                                 SSSV_RAND(16) << 0xF,
                                 SSSV_RAND(4) + 4,
-                                0xFFFF,
-                                0xCE73,
+                                GPACK_RGBA5551(248, 248, 248, 1),
+                                GPACK_RGBA5551(200, 200, 200, 1), // grey
                                 0);
                         }
 
@@ -121,8 +121,8 @@ done:
                             0,
                             0x20000,
                             0x32,
-                            0x9CE7,
-                            0x6319,
+                            GPACK_RGBA5551(152, 152, 152, 1), // dark grey
+                            GPACK_RGBA5551(96, 96, 96, 1), // darker grey
                             0);
                         if ((D_803D552C->unk366 != 1) && (D_803D552C->unk366 != 3)) {
                             D_803D552C->unk365 = 0;

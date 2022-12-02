@@ -89,8 +89,8 @@ void func_802EA7F0_6FBEA0(void) {
             (SSSV_RAND(32768) * 2) + FTOFIX32(-0.6103515625),
             0,
             (SSSV_RAND(16) + 0xF),
-            1,
-            1,
+            GPACK_RGBA5551(0, 0, 0, 1),
+            GPACK_RGBA5551(0, 0, 0, 1),
             (SSSV_RAND(32) + 0xF));
 
         if (D_803D552C->unk2EC-- <= 0) {
@@ -484,8 +484,8 @@ done:
                           (SSSV_RAND(16) - 7) << 0x10,
                           SSSV_RAND(16) << 0x10,
                           SSSV_RAND(4) + 4,
-                          0xFC01,
-                          0xFC01,
+                          GPACK_RGBA5551(248, 128, 0, 1), // orange
+                          GPACK_RGBA5551(248, 128, 0, 1), // orange
                           0);
                     }
 
@@ -694,8 +694,8 @@ done:
                     ((SSSV_RAND(64) - 32) << 0xC) + D_803D5530->zVelocity.w,
                     D_803D5530->yVelocity.w + FTOFIX32(6.0),
                     SSSV_RAND(4) + 2,
-                    0,
-                    0,
+                    GPACK_RGBA5551(0, 0, 0, 0),
+                    GPACK_RGBA5551(0, 0, 0, 0),
                     0);
                 D_803D5530->xVelocity.w += (SSSV_RAND(64) - 32) << 12;
                 D_803D5530->zVelocity.w += (SSSV_RAND(64) - 32) << 12;

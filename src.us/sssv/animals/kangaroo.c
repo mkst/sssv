@@ -484,8 +484,8 @@ done:
                                 (SSSV_RAND(16) - 7) << 0x10,
                                 SSSV_RAND(16) << 0x10,
                                 SSSV_RAND(4) + 4,
-                                0xFFC1,
-                                0x8401,
+                                GPACK_RGBA5551(248, 248, 0, 1), // yellow
+                                GPACK_RGBA5551(128, 128, 0, 1), // greenish yellow
                                 0);
                         }
                     }

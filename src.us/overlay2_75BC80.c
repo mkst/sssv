@@ -2,6 +2,10 @@
 #include "common.h"
 
 
+s8 D_803A8350_7B9A00[8] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFA, 0xFF, 0xFF, 0xFF, }; // reds
+s8 D_803A8358_7B9A08[8] = { 0xFF, 0xFF, 0xC8, 0xFF, 0xFA, 0xFF, 0xC8, 0xFF, }; // greens
+s8 D_803A8360_7B9A10[8] = { 0x00, 0x80, 0x64, 0xB4, 0x00, 0x64, 0xC8, 0xD4, }; // blues
+
 void func_8034A5D0_75BC80(void) {
     func_802D760C_6E8CBC(
         D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h,
@@ -180,7 +184,7 @@ void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1) {
 void func_8034B000_75C6B0(s32 arg0) {
 }
 
-// matrix
+// grim matrix
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75BC80/func_8034B008_75C6B8.s")
 
 void func_8034B298_75C948(s16 arg0) {

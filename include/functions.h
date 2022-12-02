@@ -193,8 +193,10 @@ void vector_subtract(Vertex *x, Vertex *y, Vertex *res);
 void vector_multiply_by(Vertex *x, f32 c, Vertex *res);
 void vector_divide_by(Vertex *x, f32 c, Vertex *res);
 f32  get_magnitude(Vertex *v);
+void normalize_vector(Vertex *x, Vertex *res);
 f32  dot_product(Vertex *x, Vertex *y);
 void cross_product(Vertex *x, Vertex *y, Vertex *res);
+s16  get_angle_between_vectors(Vertex *x, Vertex *y);
 
 // sssv/osd.c
 void show_osd(void);
@@ -227,6 +229,11 @@ void king_rat_fart(s16 arg0);
 
 // sssv/animals/sheep
 void ram_headbutt(void);
+
+// overlay2_7741B0
+s32 can_swim(Animal *a);
+s32 water_hurts(Animal *a);
+s32 can_fly(Animal *a);
 
 // sssv/animals/penguin (overlay2_775E30)
 void penguin_throw_snowball(Animal *arg0);
