@@ -124,7 +124,7 @@ s16 func_8012C3D8(s16 *text) {
     while (*text != EOM) {
         tmp = *text;
         if (*text == TEXT_CONTROL_CHAR) {
-            text += 1;
+            text++;
             if (*text == TEXT_TIMER) {
                 // parse timer text
                 time[0] = text[1];
@@ -154,13 +154,13 @@ s16 func_8012C3D8(s16 *text) {
                 res += D_8023F1F8;
                 break;
             }
-            text += 1;
+            text++;
         }
     }
     return res;
 }
 
-s32 func_8012C678(s16 *text, u16 x, u16 y) {
+s16 func_8012C678(s16 *text, u16 x, u16 y) {
     u8  spD8[80];
     s16 sp30[84];
 
@@ -392,7 +392,6 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
                 chr_width = (((s32) D_8023F1F8 - func_8012C314(*(D_8023F1E0.unk0 + chr))) * D_8023F1F4);
 
                 if (D_8023F1F5) {
-
                     gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
                     gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
 
@@ -459,7 +458,17 @@ void draw_glyph(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     func_8012FA78(dl);
     load_glyph(dl, *text);
 
-    gSPTextureRectangle((*dl)++, x * 4, y * 4, (x + (s32) D_8023F1F8) * 4, (y + (s32) D_8023F1FC) * 4, G_TX_RENDERTILE, 0, 0, 16384.0f / D_8023F1F8, 16384.0f / D_8023F1FC);
+    gSPTextureRectangle(
+    /* pkt  */  (*dl)++,
+    /* xl   */  x << 2,
+    /* yl   */  y << 2,
+    /* xh   */  (x + (s32) D_8023F1F8) << 2,
+    /* yh   */  (y + (s32) D_8023F1FC) << 2,
+    /* tile */  G_TX_RENDERTILE,
+    /* s    */  0,
+    /* t    */  0,
+    /* dsdx */  16384.0f / D_8023F1F8,
+    /* dtdy */  16384.0f / D_8023F1FC);
     gDPPipeSync((*dl)++);
 }
 
@@ -486,9 +495,8 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
 
         chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
 
-        // add drop shadow?
+        // add drop shadow
         if (D_8023F1F5) {
-
             gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
             gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
 
@@ -541,7 +549,8 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     gDPPipeSync((*dl)++);
 }
 
-s32 func_8012E724(s16 *text, s32 arg1, s32 arg2) {
+// get_char_type
+s16 func_8012E724(s16 *text, u16 arg1, u16 arg2) {
     if (*text == TEXT_CONTROL_CHAR) {
         // next char
         text++;
@@ -556,12 +565,389 @@ s32 func_8012E724(s16 *text, s32 arg1, s32 arg2) {
     return 0;
 }
 
+#ifdef NON_MATCHING
+// just the stack
+s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
+    s16 xPos;
+    u16 xPos2;
+    u16 var_s1;
+    u16 xStart;
+
+    s16 wchr;
+    u8 chr;
+    s32 shouldBreak;
+
+    s16 *tmp;
+    s16 xPos3;
+    s16 yPos;
+    u16 numLines;
+
+    D_8023F1F8 = fontWidth;   // current font width / scale
+    D_8023F1FC = fontHeight;  // current font height / scale
+
+    xPos = 0;
+    yPos = 0;
+    numLines = 0;
+    xStart = 0;
+    xPos3 = 0;
+
+    while (*text != EOM) {
+        switch (func_8012E724(text, xPos3, yPos)) {
+        case 1:  // TEXT_TIMER
+            xPos += 20;
+            text += 4;  // skip over timer info
+            break;
+        case 2:  // TEXT_COLOR
+            text += 3;  // skip over color info
+            break;
+        case 0: // normal text
+            wchr = *text;
+            D_8023F1E0.unk0 += wchr;
+
+            xPos += func_8012C314(*D_8023F1E0.unk0);
+
+            if (fontWidth < 14.0f) {
+                xPos++;
+            }
+            xPos2 = xPos - 1;
+
+            shouldBreak = 0;
+            if (*text == TILESET_SPACE) {
+                var_s1 = xPos2;
+                tmp = text + 1;
+
+                while ((*tmp != TILESET_SPACE) && (*tmp != EOM) && (!shouldBreak) && (*tmp != NEWLINE)) {
+                    chr = *tmp;
+                    D_8023F1E0.unk0 += chr;
+
+                    var_s1 += func_8012C314(*D_8023F1E0.unk0);
+
+                    if (var_s1 >= (gScreenWidth - 50)) {
+                        // reset cursor position
+                        xPos2 = xStart;
+                        yPos += lineHeight;
+                        xPos = xStart;
+                        shouldBreak = 1;
+                        numLines++;
+                    }
+                    D_8023F1E0.unk0 -= chr;
+                    tmp++;
+                }
+            }
+
+            if ((D_8023F2A0.language == LANG_JAPANESE) && (xPos2 >= (gScreenWidth - 60))) {
+                yPos += lineHeight;
+                xPos = xStart;
+            }
+
+            text++;
+
+            xPos3 = xPos;
+
+            // consume leading whitespace
+            while ((*text == TILESET_SPACE) && (xPos == xStart)) { text++; }
+
+            D_8023F1E0.unk0 -= wchr;
+            break;
+        case 3: // NEWLINE
+            yPos += lineHeight;
+            xPos = xStart;
+
+            numLines++;
+            text++;
+
+            // consume leading whitespace
+            while ((*text == TILESET_SPACE) && (xPos == xStart)) { text++; }
+            break;
+        }
+    }
+
+    numLines++;
+    return numLines * lineHeight;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012E78C.s")
+#endif
 
-// contains delay slot
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012EB4C.s")
+void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
+    s16 wchr;       // sp256
+    u8  sp154[0x102];
 
+    u16 xPos2;
+    u16 sp150;
+    s16 *tmp;
+    s16 *sp148;
+
+    s16 pad[2];
+    s16 pad4;
+
+    s16 wchr2;
+    s16 pad2;
+    s16 xPos; // sp144?
+    s16 yPos; // sp142
+
+    s16 pad3;
+
+    s16 sp124[10]; // col starts?
+    s16 sp110[10]; // row starts?
+    s16 numLines; // sp10E
+
+    s16 var_s4;
+    s16 var_s7;
+    s16 xPos3;
+    s16 i;
+    s16 msgLength;
+    u16 var_s1;
+
+    s16 sp68[0x4C];
+
+    s32 shouldBreak;
+    s16 j;
+
+    sp148 = text;
+
+    xPos = 0;
+    yPos = 0;
+
+    bzero_sssv((u8*)&sp124, sizeof(sp124));
+    bzero_sssv((u8*)&sp110, sizeof(sp110));
+
+    var_s7 = 0;
+    numLines = 0;
+    xPos3 = 0;
+    sp150 = xPos * 0; // bollox
+
+    D_8023F1F8 = arg4;
+    D_8023F1FC = arg5;
+
+    while (*text != EOM) {
+        switch (func_8012E724(text, xPos3, yPos)) {                      /* irregular */
+        case 1:  // TEXT_TIMER
+            xPos += 20;
+            var_s7 += 4;
+            text += 4;
+            sp124[numLines] += 4;
+            break;
+        case 2:  // TEXT_COLOR
+            var_s7 += 3;
+            text += 3;
+            sp124[numLines] += 3;
+            break;
+        case 0:  // normal text
+            wchr = *text;
+            D_8023F1E0.unk0 += wchr;
+
+            xPos += func_8012C314(*D_8023F1E0.unk0);
+
+            xPos2 = xPos - 1;
+
+            shouldBreak = 0;
+            if (*text == TILESET_SPACE) {
+                var_s1 = xPos2;
+                tmp = text + 1;
+
+                D_8023F1E0.unk0 -= wchr;
+
+                while ((*tmp != TILESET_SPACE) && (*tmp != EOM) && (shouldBreak == 0) && (*tmp != NEWLINE)) {
+                    wchr2 = *tmp;
+                    D_8023F1E0.unk0 += wchr2;
+
+                    var_s1 += func_8012C314(*D_8023F1E0.unk0);
+
+                    if (var_s1 >= (gScreenWidth - 50)) {
+                        xPos2 = 0; // xStart?
+                        yPos += lineHeight;
+                        xPos = sp150;
+                        shouldBreak = 1;
+                        numLines++;
+                    }
+                    D_8023F1E0.unk0 -= wchr2;
+                    *tmp++;
+                }
+                D_8023F1E0.unk0 += wchr;
+            }
+
+            // force correct register with temp var (a1/s3)
+            tmp = text + 1;
+            if ((D_8023F2A0.language == LANG_JAPANESE) && (xPos2 >= (gScreenWidth - 58)) && (*tmp != EOM)) {
+                yPos += lineHeight;
+                xPos = sp150;
+            }
+
+            xPos3 = xPos;
+
+            var_s7++;
+            text++;
+            sp124[numLines]++;
+
+            while ((*text == TILESET_SPACE) && (xPos == sp150)) {
+                var_s7++;
+                text++;
+                sp124[numLines]++;
+            }
+
+            D_8023F1E0.unk0 -= wchr;
+            if (xPos == sp150) {
+                sp110[numLines] = var_s7;
+            }
+            break;
+        case 3:
+            yPos += lineHeight;
+            xPos = sp150;
+
+            numLines++;
+            text++;
+            var_s7++;
+
+            while ((*text == TILESET_SPACE) && (xPos == sp150)) {
+                text++;
+                var_s7++;
+            }
+
+            sp110[numLines] = var_s7;
+            break;
+        }
+    }
+
+    numLines++;
+    var_s4 = yStart - ((numLines - 1) * lineHeight);
+
+    for (j = 0; j < numLines; j++) {
+
+        memcpy_sssv((u8 *) &sp148[sp110[j]], (u8*)&sp68, sp124[j] * 2);
+        sp68[sp124[j]] = EOM;
+
+        // count spaces
+        for (i = 0; sp68[i] == TILESET_SPACE; i++) {};
+
+        // fill in spaces with EOMs
+        msgLength = sp124[j] - 1;
+        while ((i < msgLength) && (sp68[msgLength] == TILESET_SPACE)) {
+            sp68[msgLength--] = EOM;
+        }
+
+        display_text_centered(arg0, &sp68[i], xStart, var_s4, arg4, arg5);
+
+        var_s4 += lineHeight;
+    }
+}
+
+#if 0
+// unused? but still a long way away
+void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 arg7) {
+    s16 *tmp;
+    s16 wchr;
+    s16 chr;
+
+    s16 shouldBreak;
+
+    u16 xPos;
+    u16 yPos;
+
+    u16 xPos2;
+
+    D_8023F1F8 = fontWidth;
+    D_8023F1FC = fontHeight;
+
+    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+    xPos = x; // xStart ?
+    yPos = y;
+
+    func_8012FA78(dl);
+
+    while (*text != EOM) {
+        switch (func_8012C678(text, xPos, yPos)) {
+        case 1: // timer
+            x += func_8012C3D8(D_8023F248);
+            text += 4;
+            break;
+        case 2: // color change
+            text += 3;
+            break;
+        case 0: // regular character
+            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+            wchr = *text;
+            D_8023F1E0.unk0 += wchr;
+            load_glyph(dl, wchr);
+
+            // add drop-shadow
+            if (D_8023F1F5) {
+                gDPSetPrimColor((*dl)++, 0, 0, 0x00, 0x00, 0x00, 0xFF);
+                gDPSetEnvColor((*dl)++,        0x00, 0x00, 0x00, 0x00);
+
+                gSPTextureRectangle(
+                /* pkt  */  (*dl)++,
+                /* xl   */  (x + 1) << 2,
+                /* yl   */  (yPos + 1) << 2,
+                /* xh   */  ((x + 1) + (s32) D_8023F1F8) << 2,
+                /* yh   */  ((yPos + 1) + (s32) D_8023F1FC) << 2,
+                /* tile */  G_TX_RENDERTILE,
+                /* s    */  0,
+                /* t    */  0,
+                /* dsdx */  16384.0f / D_8023F1F8,
+                /* dtdy */  16384.0f / D_8023F1FC);
+
+                gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            }
+
+            gSPTextureRectangle(
+            /* pkt  */  (*dl)++,
+            /* xl   */  x << 2,
+            /* yl   */  yPos << 2,
+            /* xh   */  (x + (s32) D_8023F1F8) << 2,
+            /* yh   */  (yPos + (s32) D_8023F1FC) << 2,
+            /* tile */  G_TX_RENDERTILE,
+            /* s    */  0,
+            /* t    */  0,
+            /* dsdx */  16384.0f / D_8023F1F8,
+            /* dtdy */  16384.0f / D_8023F1FC);
+
+            x += func_8012C314(*D_8023F1E0.unk0);
+
+            shouldBreak = 0;
+            if (*text == TILESET_SPACE) {
+
+                xPos2 = x - 1;
+                tmp = text + 1;
+                while ((*tmp != TILESET_SPACE) && (*tmp != EOM) && (shouldBreak == 0)) {
+                    chr = *tmp;
+                    D_8023F1E0.unk0 += chr;
+
+                    xPos2 += func_8012C314(*D_8023F1E0.unk0);
+
+                    if (xPos2 >= maxWidth) {
+                        x = xPos; // reset xpos
+                        yPos += arg7;
+                        shouldBreak = 1;
+                    }
+                    D_8023F1E0.unk0 -= chr;
+                    tmp++;
+                }
+            }
+
+            text++;
+
+            // consume leading whitespace
+            while ((*text == TILESET_SPACE) && (x == xPos) && (*text != EOM)) { text++; }
+
+            D_8023F1E0.unk0 -= wchr;
+            break;
+        case 3: // NEWLINE
+            text++;
+            break;
+        }
+    }
+
+    gDPPipeSync((*dl)++);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012F160.s")
+#endif
 
 void func_8012FA78(Gfx **dl) {
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE,   0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -570,129 +956,136 @@ void func_8012FA78(Gfx **dl) {
 }
 
 void func_8012FAD4(Gfx **dl, s32 arg1) {
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, arg1 & 0x1FFFFFFF);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, K0_TO_PHYS(arg1));
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 63, 2048);
     gDPPipeSync((*dl)++);
 }
 
 void load_glyph(Gfx **dl, s16 tileId) {
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (tileId * D_8023F1E0.glyphBytes + (s32)D_8023F1E0.fontAddress) & 0x1FFFFFFF);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, K0_TO_PHYS(tileId * D_8023F1E0.glyphBytes + (s32)D_8023F1E0.fontAddress));
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 63, 2048);
     gDPPipeSync((*dl)++);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_text_wrapped.s")
+#if 0
 // NON-MATCHING: quite a long way to go here...
 // returns updated vertical offset
-// s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 xs, f32 ys, u16 maxWidth, u8 lineSpacing) {
-//     u8 end;
-//     u16 chr;
-//     u16 x_start;
-//
-//     D_8023F1F8 = xs;
-//     D_8023F1FC = ys;
-//
-//     gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//     gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//
-//     func_8012FA78(dl);
-//
-//     x_start = x;
-//     while (*text != EOM) {
-//         switch (func_8012C678(text, (s16)x, (s16)y)) {
-//         case 2: // color
-//             text += 3;
-//             break;
-//         case 0: // normal char
-//             gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//             gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//
-//             chr = *text;
-//             load_glyph(dl, chr);
-//
-//             if (D_8023F1F5) { // drop shadow
-//                 gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
-//                 gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
-//
-//                 gSPTextureRectangle(
-//                     (*dl)++,
-//                     (x + 1) << 2,
-//                     (y + 1) << 2,
-//                     (x + 1 + (s32) D_8023F1F8) << 2,
-//                     (y + 1 + (s32) D_8023F1FC) << 2,
-//                     G_TX_RENDERTILE,
-//                     0,
-//                     0,
-//                     (16384.0f / D_8023F1F8),
-//                     (16384.0f / D_8023F1FC)
-//                 );
-//
-//                 gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//                 gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-//             }
-//
-//             gSPTextureRectangle(
-//                 (*dl)++,
-//                 x << 2,
-//                 y << 2,
-//                 (x + (s32) D_8023F1F8) << 2,
-//                 (y + (s32) D_8023F1FC) << 2,
-//                 G_TX_RENDERTILE,
-//                 0,
-//                 0,
-//                 (16384.0f / D_8023F1F8),
-//                 (16384.0f / D_8023F1FC)
-//             );
-//
-//             D_8023F1E0.unk0 += chr;
-//             x += func_8012C314(*D_8023F1E0.unk0);
-//             D_8023F1E0.unk0 -= chr;
-//
-//             if (xs < 13.0f) {
-//                 x += 1;
-//             }
-//
-//             if (chr == TILESET_SPACE) {
-//                 text += 1;
-//                 end = 0;
-//                 while ((*text != TILESET_SPACE) && (*text != EOM) && (end == 0)) {
-//                     chr = *text;
-//                     D_8023F1E0.unk0 += chr;
-//                     x += func_8012C314(*D_8023F1E0.unk0);
-//                     // if we have exceeded desired line length, wrap
-//                     if (x >= maxWidth) {
-//                         end = 1;
-//                         x = x_start; //x_start; // 0?
-//                         y += lineSpacing;
-//                     }
-//                     text += 1;
-//                     D_8023F1E0.unk0 -= chr;
-//                 }
-//             }
-//
-//             text += 1;
-//
-//             if (D_8023F2A0.language == LANG_JAPANESE) {
-//                 if (x >= (maxWidth - 10)) {
-//                     if (*text != EOM) {
-//                         y += lineSpacing;
-//                         x = x_start; // 0?
-//                     }
-//                 }
-//             }
-//             break;
-//         case 3: // newline
-//             text += 1;
-//             break;
-//         }
-//     }
-//
-//     gDPPipeSync((*dl)++);
-//
-//     return y;
-// }
+s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 lineHeight) {
+    u8 shouldBreak;
+    s16 wchr;
+    s16 chr;
+    s16 xStart;
+    u16 xPos2;
+    s16 *tmp;
+
+    D_8023F1F8 = fontWidth;
+    D_8023F1FC = fontHeight;
+
+    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+    func_8012FA78(dl);
+
+    xStart = x;
+
+    while (*text != EOM) {
+        switch (func_8012C678(text, x, y)) {
+        case 2: // color
+            text += 3;
+            break;
+        case 0: // normal char
+            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+
+            wchr = *text;
+            load_glyph(dl, wchr);
+
+            // add drop-shadow
+            if (D_8023F1F5) {
+                gDPSetPrimColor((*dl)++, 0, 0, 0x00, 0x00, 0x00, 0xFF);
+                gDPSetEnvColor((*dl)++,        0x00, 0x00, 0x00, 0x00);
+
+                gSPTextureRectangle(
+                /* pkt  */  (*dl)++,
+                /* xl   */  (x + 1) << 2,
+                /* yl   */  (y + 1) << 2,
+                /* xh   */  ((x + 1) + (s32) D_8023F1F8) << 2,
+                /* yh   */  ((y + 1) + (s32) D_8023F1FC) << 2,
+                /* tile */  G_TX_RENDERTILE,
+                /* s    */  0,
+                /* t    */  0,
+                /* dsdx */  (16384.0f / D_8023F1F8),
+                /* dtdy */  (16384.0f / D_8023F1FC)
+                );
+
+                gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            }
+
+            gSPTextureRectangle(
+            /* pkt  */  (*dl)++,
+            /* xl   */  x << 2,
+            /* yl   */  y << 2,
+            /* xh   */  (x + (s32) D_8023F1F8) << 2,
+            /* yh   */  (y + (s32) D_8023F1FC) << 2,
+            /* tile */  G_TX_RENDERTILE,
+            /* s    */  0,
+            /* t    */  0,
+            /* dsdx */  (16384.0f / D_8023F1F8),
+            /* dtdy */  (16384.0f / D_8023F1FC)
+            );
+
+            D_8023F1E0.unk0 += wchr;
+            x += func_8012C314(*D_8023F1E0.unk0);
+            D_8023F1E0.unk0 -= wchr;
+
+            if (fontWidth < 13.0f) {
+                x++;
+            }
+            xPos2 = x - 1;
+
+            shouldBreak = 0;
+            if (*text == TILESET_SPACE) {
+
+                tmp = text + 1;
+                while ((*tmp != TILESET_SPACE) && (*tmp != EOM) && (shouldBreak == 0)) {
+                    chr = *tmp;
+                    D_8023F1E0.unk0 += chr;
+                    xPos2 += func_8012C314(*D_8023F1E0.unk0);
+                    // wrap if we have exceeded desired line length
+                    if (xPos2 >= maxWidth) {
+                        x = xStart;
+                        y += lineHeight;
+                        shouldBreak = 1;
+                    }
+                    D_8023F1E0.unk0 -= chr;
+                    tmp++;
+                }
+            }
+
+            if ((D_8023F2A0.language == LANG_JAPANESE) && (x >= (maxWidth - 10)) && (*text != EOM)) {
+                y += lineHeight;
+                x = xStart;
+            }
+
+            text++;
+
+            break;
+        case 3: // newline
+            text++;
+            break;
+        }
+    }
+
+    gDPPipeSync((*dl)++);
+
+    return y;
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_text_wrapped.s")
+#endif
 
 void display_score(Gfx **dl, u8 *score, u16 x_offset, u16 y_offset) {
     u8 digit;
@@ -765,7 +1158,7 @@ void prepare_text(u8 *src, s16 *dst) {
     u8 tmp;
     while (*src != NULL) {
         tmp = *src;
-        *dst++ = tmp + 272;
+        *dst++ = tmp + TILESET_ASCII_OFFSET;
         src++;
     }
 

@@ -1874,7 +1874,7 @@ segments:
     - [0xCBD60, .data, data/D_04004330_CBD60]
     - [0xCBDC0, sssv_vtx, data/inc/D_04004390_CBDC0]
     - [0xCBEC0, sssv_vtx, data/inc/D_04004490_CBEC0]
-    - [0xCBFC0, .data, data/D_04004590_CBFC0]
+    - [0xCBFC0, .data, data/D_04004590_CBFC0] # racng fox (wheel?)
     - [0xCC080, sssv_vtx, data/inc/D_04004650_CC080]
     - [0xCC0C0, sssv_vtx, data/inc/D_04004690_CC0C0]
     - [0xCC100, .data, data/D_040046D0_CC100]

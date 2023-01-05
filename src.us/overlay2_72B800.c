@@ -33,7 +33,7 @@ const s16 D_803BD602_7CECB2[] = {
     1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11,  0,
 };
 
-void func_8031A150_72B800(s16 arg0, u16 *leftEye, u16 *rightEye) {
+void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye) {
     s16 temp_v1;
     s16 temp_v1_2;
     s32 temp_v0;

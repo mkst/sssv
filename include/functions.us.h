@@ -58,9 +58,9 @@ void func_8012AD08(void);
 // main_78F0
 s16  func_8012C314(f32 arg0);
 s16  func_8012C3D8(s16 *arg0);
-s32  func_8012C678(s16 *arg0, u16 arg1, u16 arg2);
-s32  func_8012E724(s16 *arg0, s32 arg1, s32 arg2);
-s32  func_8012E78C(u8*, f32, f32, s32);
+s16  func_8012C678(s16 *arg0, u16 arg1, u16 arg2);
+s16  func_8012E724(s16 *arg0, u16 arg1, u16 arg2);
+s16  func_8012E78C(s16*, f32, f32, u8);
 void func_8012FA78(Gfx **arg0);
 void func_8012FAD4(Gfx **dl, s32 arg1);
 
@@ -698,7 +698,7 @@ void func_80303F90_715640(Animal *arg0, DisplayList *arg1);
 // overlay2_715820
 void func_80304170_715820(void);
 void func_80304194_715844(void);
-void func_803041FC_7158AC(Gfx **);
+void func_803041FC_7158AC(void);
 
 // overlay2_716530
 s32  func_80304E80_716530(struct039 *arg0);
@@ -794,7 +794,7 @@ u8   func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
 u16  func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6);
 
 // overlay2_72B800
-void func_8031A150_72B800(s16 arg0, u16 *leftEye, u16 *rightEye);
+void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye);
 void func_8031A278_72B928(s16 *arg0, s16 *arg1, s16 *arg2);
 void func_8031A370_72BA20(void);
 void func_8031A4E0_72BB90(void);
@@ -1001,7 +1001,7 @@ void func_8034B848_75CEF8(s16 arg0);
 void func_8034BB38_75D1E8(u8 arg0);
 
 // overlay2_75D3D0
-void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, Gfx *arg4, s16 arg5, s16 arg6, s16 arg7, s32 arg8, s32 arg9, s32 argA, s16 argB, s16 argC);
+void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 arg7, s32 arg8, s32 arg9, s32 argA, s16 argB, s16 argC);
 void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, s16 argB, u8 argC);
 void func_80351390_762A40(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s32 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC);
 void func_80351A44_7630F4(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue);

@@ -81,7 +81,7 @@ void func_803574E0_768B90(void) {
     var_v1 = (s8) (D_803D552C->unk310 >> 8);
     temp_t0 = D_803D552C->unk310;
     if (D_803D5538 != 0) {
-        var_v0 = D_801E9EB2;
+        var_v0 = D_801D9ED8.unkFFDA;
     } else {
         var_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -311,14 +311,13 @@ done:
                   D_803D5530->zPos.h + ((s32) (((s32) (-sp8C * 0x1644) / 304) + (sp8A * var_t2)) >> 8),
                   D_803D5530->yPos.h + 0x2C,
                   0x15,
-                  (s16)
                   0,
-                  (s16) 0,
+                  0,
                   (func_8012826C() + 0x30000) & 0x7FFF,
-                  (s16) 30,
+                  30,
                   GPACK_RGBA5551(0, 0, 0, 1),
                   GPACK_RGBA5551(0, 0, 0, 1),
-                  (s16) 0);
+                  0);
             }
 
             var_t1_4 = MAX(ABS(D_803D5530->xVelocity.h), ABS(D_803D5530->zVelocity.h));

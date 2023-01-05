@@ -356,7 +356,7 @@ block_9:
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s16) (s32) -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s16) (s32) D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((s16) ((s32) (D_803D5524->unkBA * 0xC) / 5), 2, 3, 3, 0.19f);
+            func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.19f);
 
             D_803F2EBC = FTOFIX32(1.0) + ((D_803F2EBC - FTOFIX32(1.0)) >> 2);
             D_803F2EC0 = FTOFIX32(1.0) + ((D_803F2EC0 - FTOFIX32(1.0)) >> 2);
@@ -436,7 +436,7 @@ block_9:
             func_802C78B0_6D8F60(0x11, 0x12, 0x19000, 0x19000, 0x19000, D_803F2ED0, (s16) 0, (u8) 1, (u8) 0, D_04001650_E8C00);
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spDE, &spDC);
-                func_8031A278_72B928(&D_803D552C->unk326, (s16 *) &spDE, (s16 *) &spDC);
+                func_8031A278_72B928(&D_803D552C->unk326, &spDE, &spDC);
 #pragma _permuter sameline start
                 spDE = D_803BD54A_7CEBFA[spDE]; spDC = D_803BD602_7CECB2[spDC];
 #pragma _permuter sameline end
