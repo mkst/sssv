@@ -1731,14 +1731,14 @@ struct struct071 {
 }; // game object, size 0x270
 
 typedef struct {
-    s8 unk0;
-    s8 unk1;
-    s16 unk2;
-    s32 unk4;   // 10.2 format
-    s32 unk8;   // 10.2 format
-    s32 unkC;
-    s32 unk10;
-    s32 unk14;  // displaylist?
+    /* 0x0  */ u8  unk0;
+    /* 0x1  */ s8  unk1;
+    /* 0x2  */ s16 unk2;   // index?
+    /* 0x4  */ s32 unk4;   // 10.2 format
+    /* 0x8  */ s32 unk8;   // 10.2 format
+    /* 0xC  */ s32 unkC;   // 10.2 format
+    /* 0x10 */ s32 unk10;  // 10.2 format
+    /* 0x14 */ Gfx *unk14;
 } struct073; // size 0x18
 
 typedef struct {
@@ -2029,14 +2029,46 @@ typedef struct {
 } struct100;
 
 typedef struct {
-  s16  unk0;
-  u8   unk2;
-  s8   unk3;
-} struct102_inner;
+  u16  unk0;  // flags
+  u8   unk2;  // ?
+  s8   unk3;  // tris?
+} struct102_inner; // size 0x4
 
 typedef struct {
-  struct102_inner unk0[13];
+    s16 unk0; // tc0
+    s16 unk2; // tc1
+    u8  unk4; // cn[0] / r
+    u8  unk5; // cn[1] / g
+    u8  unk6; // cn[2] / b
+    s8  unk7; // x
+    s16 unk8; // y
+    s8  unkA; // z
+    u8  unkB; // cn[3] / a
+} struct102_payload; // size 0xC
+
+typedef struct {
+  /* 0x00 */ struct102_inner unk0;
+  /* 0x04 */ struct102_payload unk4[4];
 } struct102; // size 0x34?
+
+typedef struct {
+    s16  unk0;
+    u8   unk2;
+    s8   unk3;
+} struct117_inner;
+
+typedef struct {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+} struct117_payload; // size 0x8
+
+typedef struct {
+    /* 0x00 */ struct117_inner unk0;
+    /* 0x04 */ struct117_payload unk4[4];
+} struct117; // size 0x24
+
 
 typedef struct {
     s16 unk0;
@@ -2321,5 +2353,10 @@ typedef struct {
     s16 unk0;
     u8  pad2[0x22];
 } struct115;
+
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+} struct116; // size 0x8
 
 #endif

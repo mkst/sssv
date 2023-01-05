@@ -59,7 +59,7 @@ extern u8   D_0102F010[]; // [64][2048]; ?
 extern u8   D_0102B610[];
 extern u8   D_0102B810[];
 extern u8   D_01030810[];
-extern u8   D_01033190[];
+extern u8   D_01033190[]; // D_01033190_6CA60?
 extern Gfx  D_01037700[];
 extern u8   D_01037750_71020[];
 extern Gfx  D_01037A20[];
@@ -469,6 +469,10 @@ extern struct012 D_80205400;
 extern s16       D_8020540C; // D_80205400.unkC does not match?
 extern Gfx  *D_80205410[][6];
 
+extern s32 D_80205470;
+
+extern Vtx  D_80210FF0[];
+
 // 0x8021xxxx
 extern Vtx  D_8021A5A0[]; // level vtx?
 
@@ -476,9 +480,13 @@ extern Vtx  D_8021A5A0[]; // level vtx?
 
 extern Vtx  D_802294D0[]; // unknown size
 
-extern Gfx  *D_802255F0[][6];
+extern Gfx  *D_802255F0[][6]; // 2 triangles?
 
+extern Gfx  *D_80225650;
 extern Gfx  *D_80225658;
+
+extern Vtx  D_80224870[2222]; // tbd
+extern Vtx  D_8022D350[];
 
 extern s16  D_8022E3F0[]; // scratch area for RNC decompression
 extern s16  D_8022E3F2;
@@ -1100,7 +1108,7 @@ extern s16  D_803D553C;
 extern s16  D_803D553E; // number of animals in level?
 extern s16  D_803D5540; // timer
 extern s16  D_803D5542; // timer
-extern u16  D_803D5544; // timer (for attacks? everything?)
+extern u16  D_803D5544; // timer (for attacks? everything?) gCurrentTick
 extern s16  D_803D5546;
 extern s16  D_803D5548;
 extern s8   D_803D554A;
@@ -1218,9 +1226,11 @@ extern u16  D_803E1D2A;
 extern u8   D_803E1D2C;
 extern struct064 D_803E1D30[]; // additional layer for level data
 extern struct073 D_803E3130[];
+extern u8   D_803E4930[];
+extern u8   D_803E4998[];
+extern u16  D_803E4A00[]; // u16?
 extern s16  D_803E4AC8;
-extern u8   D_803E4AD0[];
-extern s16  D_803E4BD4;
+extern s8   D_803E4AD0[];
 extern struct079 D_803E4BE0;
 extern Animal *D_803E4C38;
 extern s32  D_803E4C3C;
@@ -1347,13 +1357,14 @@ extern s16  D_803F2C70;
 extern f32  D_803F2C74;
 extern f32  D_803F2C78;
 extern f32  D_803F2C7C;
-extern struct102 D_803F2C80[]; // [0x34] big?
+extern struct102 *D_803F2C80; // [0x34] big?
 extern s16  D_803F2C84;
 extern s16  D_803F2C86;
 extern s16  D_803F2C88;
 extern s16  D_803F2C8A;
 extern s16  D_803F2C8C;
 extern s16  D_803F2C8E;
+extern s16  D_803F2C90;
 extern s16  D_803F2C92;
 extern s16  D_803F2C94;
 extern u8   D_803F2C96;
@@ -1362,10 +1373,14 @@ extern u8   D_803F2C98;
 extern u8   D_803F2C99;
 extern u8   D_803F2C9A;
 extern u8   D_803F2C9B;
+extern s16  D_803F2C9C;
+extern s16  D_803F2C9E;
+extern s16  D_803F2CA0;
+extern s16  D_803F2CA2;
 extern s16  D_803F2CA4;
 extern s16  D_803F2CA6;
 extern s8   D_803F2CA8[][6];
-// extern s64  D_803F2CC0;
+extern s64  D_803F2CC0;
 extern s32  D_803F2CC4; // D_803F2CC0.unk4
 extern s16  D_803F2CD0;
 extern s16  D_803F2CD2; // (race?) timer
@@ -1400,7 +1415,7 @@ extern struct000 D_803F2D50;
 
 // extern s16  D_803F2D70; D_803F2D50.segment
 extern s16  D_803F2DA2;
-
+extern u8   D_803F2DAC[][6]; //tbd
 
 // extern s16  D_803F2E1E; // this is D_803F2D50.evoSuitColor
 extern s16  D_803F2EE0[];

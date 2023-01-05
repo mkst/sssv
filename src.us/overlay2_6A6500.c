@@ -126,7 +126,7 @@ void func_80294E50_6A6500(void) {
         gDPSetColorDither(D_801D9E90++, G_CD_NOISE);
         gDPSetAlphaDither(D_801D9E90++, G_AD_DISABLE);
 
-        func_803041FC_7158AC(&D_801D9E90);
+        func_803041FC_7158AC();
         load_segments(&D_801D9E7C, D_80204278);
         func_80380490_791B40(&D_801D9E7C, D_80204278);
 

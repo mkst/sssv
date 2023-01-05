@@ -181,6 +181,7 @@ typedef u8 Addr[];
 #define ATTACK_UNKNOWN_10   10
 #define ATTACK_GRAB         11
 #define ATTACK_HOLD         12
+#define ATTACK_BEAR_1       13
 #define ATTACK_BEAR_2       14
 #define ATTACK_BEAR_3       15
 #define ATTACK_ELEPHANT_1   16

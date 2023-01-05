@@ -135,17 +135,53 @@ def unpack_datatype_7(data):
             "unk8": unk8,
             "unkA": unkA,
             "unkC": unkC,
-            "unkE": unkE,
+            "unkE": unkE,     # start object?
             "unk10": unk10,
             "unk12": unk12,
             "unk14": unk14,
-            "unk16": unk16,
+            "unk16": unk16,   # end object?
             "unk18": unk18,
             "unk19": unk19,
         }
         res.append(entry)
     return res
 
+def unpack_datatype_10(data):
+    res = []
+    length = struct.unpack(">i", data[0:4])
+    print("length?", length)
+
+    ptr = 4
+    while ptr < len(data):
+        # if ptr >= len(data):
+            # break
+        # read flags
+        flags = struct.unpack(">bbbb", data[ptr:ptr+4])
+        ptr += 4
+
+        count = 3 if flags[0] & 1 else 4
+        # print("numVtxs", count)
+        if (flags[0] & 0x20) or (flags[0] & 0x10) or (flags[0] & 0x200) or (flags[0] & 0x8000):
+            for i in range(count):
+                t0, t1, r, g, b, x, y, z, a = struct.unpack(">hhbbbbhbb", data[ptr:ptr+0xC])
+                x = (x << 6) + 0x100
+                y = y << 3
+                z = (z << 6) + 0x200
+                res.append([x, y, z, t0, t1, r, g, b, a])
+                print([x, y, z, t0, t1, r, g, b, a])
+                ptr += 0xC
+        else:
+            ptr += 0x30
+
+    return res
+
+
+def unpack_datatype_11(data):
+    datatype_11_format = "bbbbbbbbbbbb" # 0xC big
+    res = []
+    for entry in struct.iter_unpack(">" + datatype_11_format, data):
+        res.append(entry)
+    return res
 
 def unpack_datatype_12(data):
     datatype_12_format = (
@@ -307,16 +343,19 @@ def unpack_data(datatype, data):
         for i, s in enumerate(struct.iter_unpack(">BBBBBBBB", data)):
             res.append(s)
     elif datatype == 10:
-        print("[10] - Unknown TEN (vtx data?)", len(data))
+        print("[10] - Unknown, vtx data?", len(data), (len(data) - 4)/0x34)
         # print("data length: ", len(data))
         # with open("datatype10", "wb") as o:
             # o.write(data)
         # size 0x34
         # print((len(data) - 4) / 0x34) # ?
+        # res = unpack_datatype_10(data)
+        pass
     elif datatype == 11:
         print("[11] - Unknown, e.g. level01.mat")
         # 3072 bytes
         # straight copy into D_803E1D30, what is this?
+        res = unpack_datatype_11(data)
     elif datatype == 12:
         print("[12] - Game state (struct000), e.g. level01.dat")
         res = unpack_datatype_12(data)
