@@ -301,7 +301,7 @@ struct Animal {
     /* 0x15C */ u8  unk15C;
     /* 0x15D */ u8  pad15D;
     /* 0x15E */ s16 unk15E;
-    /* 0x160 */ u8  unk160; // 0, 1 or 2
+    /* 0x160 */ u8  unk160; // 0, 1 or 2 (mapStatus12)
     /* 0x161 */ u8  unk161;
     /* 0x162 */ u8  unk162;
     /* 0x163 */ u8  unk163;
@@ -429,7 +429,7 @@ struct Animal {
                     s8  b;
                 } unk29A;
     /* 0x29C */ u8 *unk29C;
-    /* 0x2A0 */ s8  unk2A0;
+    /* 0x2A0 */ u8  unk2A0;
     /* 0x2A1 */ s8  unk2A1;
     /* 0x2A2 */ u8  unk2A2;
     /* 0x2A3 */ u8  pad2A3;
@@ -1350,9 +1350,9 @@ typedef struct {
     /* 0xE */  s16 unkE;
     /* 0x10 */ s16 unk10;
     /* 0x12 */ s16 unk12;
-    /* 0x14 */ s16 unk14;
+    /* 0x14 */ s16 unk14; // numSegments
     /* 0x16 */ s16 unk16;
-    /* 0x18 */ s32 unk18;
+    /* 0x18 */ s32 unk18; // length
     /* 0x1C */ s16 unk1C;
     /* 0x1E */ u8  pad1E[2];
     /* 0x20 */ s32 unk20;
@@ -1363,7 +1363,7 @@ typedef struct {
     /* 0x2F */ s8  unk2F;
     /* 0x30 */ s8  unk30;
     /* 0x31 */ u8  pad31;
-    /* 0x32 */ s8  unk32;
+    /* 0x32 */ u8  unk32;
     /* 0x33 */ s8  unk33;
     /* 0x34 */ s8  unk34;
     /* 0x35 */ s8  unk35;
@@ -2358,5 +2358,11 @@ typedef struct {
     s32 unk0;
     s32 unk4;
 } struct116; // size 0x8
+
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+} struct118;
 
 #endif

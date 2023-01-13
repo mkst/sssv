@@ -283,10 +283,10 @@ void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) 
 //         temp_t8 = ((arg0->unk180 + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
 //         temp_t5 = ((arg0->unk182 + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
 //
-//         arg0->xVelocity.w = temp_t6 - *(s32*)&arg0->xPos.h;
-//         arg0->zVelocity.w = temp_t8 - *(s32*)&arg0->zPos.h;
+//         arg0->xVelocity.w = temp_t6 - arg0->xPos.w;
+//         arg0->zVelocity.w = temp_t8 - arg0->zPos.w;
 //         if (arg0->unk4C.unk29 == 0) {
-//             arg0->yVelocity.w = temp_t5 - *(s32*)&arg0->yPos.h;
+//             arg0->yVelocity.w = temp_t5 - arg0->yPos.w;
 //         }
 //     }
 // }

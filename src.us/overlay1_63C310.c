@@ -2,20 +2,25 @@
 
 #include "common.h"
 
-
+extern u8 D_80302E88[];
 // miles and miles away...
+
+typedef struct {
+    u8 img[0x800];
+} NewscasterTile;
+
 #if 0
 void func_80298C70_63C310(u8 arg0) {
     u8 *sp54;
-    u8 sp53;
-    u8 sp52;
+    u8 j;
+    u8 i;
     s32 sp4C;
     u8 sp4B;
 
     s32 pad[2];
 
-    sp53 = 0; // x
-    sp52 = 0; // y
+    i = 0; // y
+    j = 0; // x
     sp4C = 0; // image offset
 
     gSPDisplayList(D_801D9E7C++, &D_801582C0);
@@ -31,33 +36,33 @@ void func_80298C70_63C310(u8 arg0) {
         1.0f,
         8);
 
-    for (sp52 = 0; sp52 < 8; sp52++) {
-        for (sp53 = 0; sp53 < 10; sp53++) {
+    for (i = 0; i < 8; i++) {
+        for (j = 0; j < 10; j++) {
             // draw black rectangle
             gDPSetPrimColor(D_801D9E7C++, 0, 0, 0, 0, 0, 255);
             gDPFillRectangle(D_801D9E7C++,
-                (((sp53 << 5) - arg0 / 2) + 15),
-                (((sp52 << 5) - arg0 / 2) + 15),
-                (((sp53 << 5) - arg0 / 2) + arg0 + 17),
-                (((sp52 << 5) - arg0 / 2) + arg0 + 17)
+            /* ulx */ (((j << 5) - arg0 / 2) + 15),
+            /* uly */ (((i << 5) - arg0 / 2) + 15),
+            /* lrx */ (((j << 5) - arg0 / 2) + arg0 + 17),
+            /* lry */ (((i << 5) - arg0 / 2) + arg0 + 17)
             );
 
-            sp4B = -1 - -arg0*8;
+            sp4B = (arg0 << 3) - 1;
             gDPSetPrimColor(D_801D9E7C++, 0, 0, sp4B, sp4B, sp4B, 0xFF);
 
-            sp54 = D_80302E88 + 0x62000 + sp4C;
+            // sp54 = D_80302E88 + 0x62000 + sp4C;
             func_801356C0(
-                ((sp53 << 5) - arg0 / 2) + 16,
-                ((sp52 << 5) - arg0 / 2) + 16,
+                ((j << 5) - arg0 / 2) + 16,
+                ((i << 5) - arg0 / 2) + 16,
                 arg0,
                 arg0,
                 &D_801D9E7C,
-                sp54,
+                D_80302E88 + 0x62000 + sp4C,
                 arg0,
                 arg0,
                 16);
 
-            sp4C += 0x800;
+            sp4C += sizeof(NewscasterTile);
         }
     }
 

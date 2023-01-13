@@ -85,7 +85,7 @@ void func_80362CC4_774374(Animal *arg0) {
     case 0:
         break;
     case 1:
-        if ((u8)arg0->unk2A0 == 0) {
+        if (arg0->unk2A0 == 0) {
             temp_t8 = arg0->unk294.h[1] >> 0xC;
             // temp_t8 = tmp >> 12; // what?
             if (temp_t8 > 0) {
@@ -117,12 +117,12 @@ void func_80362CC4_774374(Animal *arg0) {
         }
         break;
     case 2:
-        if ((u8) arg0->unk2A0 == 0) {
+        if (arg0->unk2A0 == 0) {
             func_803638E8_774F98(arg0);
         }
         break;
     case 3:
-        if ((u8) arg0->unk2A0 == 0) {
+        if (arg0->unk2A0 == 0) {
             temp_t7 = (D_803E93B0[arg0->unk294.ub[0]].unk3 - D_803E93B0[arg0->unk294.ub[0]].unk0) >> 2;
             temp_t3 = (D_803E93B0[arg0->unk294.ub[0]].unk4 - D_803E93B0[arg0->unk294.ub[0]].unk1) >> 2;
             switch (arg0->unk290) {
@@ -183,14 +183,14 @@ void func_80362CC4_774374(Animal *arg0) {
             }
         }
 
-        if ((u8) arg0->unk2A0 == 0) {
+        if (arg0->unk2A0 == 0) {
             arg0->unk290 = SSSV_RAND(64) + 60;
             arg0->unk28E = 1;
             func_80363CC8_775378(arg0);
         }
         break;
     case 5:
-        if ((u8) arg0->unk2A0 == 0) {
+        if (arg0->unk2A0 == 0) {
             func_803638E8_774F98(arg0);
         }
         break;
@@ -226,7 +226,7 @@ void func_80362CC4_774374(Animal *arg0) {
         } else {
             switch (arg0->unk28E) {
             case 0:
-                if ((u8) arg0->unk2A0 == 0) {
+                if (arg0->unk2A0 == 0) {
                     if ((sp28->xVelocity.h | sp28->zVelocity.h | sp28->yVelocity.h) == 0) {
                         func_80363E88_775538(arg0, sp28);
                         arg0->unk28E = 1;

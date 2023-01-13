@@ -265,7 +265,416 @@ void func_8032FD0C_7413BC(u8 cameraID, u8 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80334470_745B20.s")
 
+#if 0
+extern f32 D_803F2E30;
+// million miles
+void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
+    f32 spD0;
+    f32 spCC;
+    f32 spC8;
+    f32 spC4;
+    f32 spC0;
+    f32 spBC;
+    s16 spAC;
+    f32 spA0;
+    f32 sp9C;
+    f32 sp98;
+    // f32 sp90;
+    f32 sp8C;
+    f32 sp78;
+    f32 sp74;
+    f32 sp70;
+    f64 sp48;
+
+    f32 temp_f0;
+    f32 temp_f0_11;
+    f32 temp_f0_2;
+    f32 temp_f0_3;
+    f32 temp_f12;
+    f32 temp_f12_4;
+    f32 temp_f14;
+    f32 temp_f18;
+    f32 temp_f2;
+    f32 temp_f2_10;
+    f32 temp_f2_3;
+    f32 temp_f2_6;
+    f32 temp_f2_9;
+    f32 temp_f4;
+    f32 temp_f6;
+    f32 temp_f8;
+    f32 var_f0;
+    f32 var_f0_2;
+    f32 var_f0_3;
+    f32 var_f12;
+    f32 var_f14;
+    f32 var_f14_3;
+    f32 var_f16;
+    f32 var_f16_3;
+    f32 var_f16_4;
+    f32 var_f18;
+
+    f32 var_f2;
+    f32 var_f2_2;
+    f64 temp_f0_7;
+    f64 temp_f0_8;
+    f64 temp_f10;
+    f64 temp_f2_2;
+    f64 temp_f2_8;
+    f64 temp_f2_7;
+    f64 var_f0_11;
+    f64 var_f0_14;
+    f64 var_f0_9;
+    f64 var_f12_2;
+    f64 var_f2_3;
+    s16 temp_a0_2;
+    s16 temp_t2;
+    s16 temp_v1;
+    s16 temp_v1_2;
+    s16 temp_v1_4;
+    s16 var_v1;
+    s16 var_v1_2;
+    s16 var_v1_3;
+
+    s32 var_a0;
+    s32 var_v1_4;
+
+    gCamera = &D_803F28E0[arg0];
+    if (gCamera->unkD6 == 1) {
+        gCamera->unk50 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC8;
+        gCamera->unk4E = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkCA;
+    } else {
+        gCamera->unk50 = 0x190;
+        gCamera->unk4E = 0x20;
+    }
+    if (gCamera->unk4 != -1) {
+        gCamera->unk4E = gCamera->unk4;
+    }
+
+    gCamera->unk34 = (D_803A6CF3_7B83A3[gCamera->unk64] * gCamera->unk50) >> 4;
+    gCamera->unk34 = (gCamera->unk34 * 75.0f) / MAX(D_803F2E30, 5.0f);
+
+    var_v1 = (s16) ((s32) ((D_803A6D0B_7B83BB[gCamera->unk64]) * gCamera->unk52) >> 4);
+    if (var_v1 == 0) {
+        var_v1 = 0xA;
+    }
+
+    sp48 = var_v1;
+
+    var_f0_2 = MIN(var_v1 * 0.025, 0.95);
+
+    temp_f18 = gCamera->unk98;
+    spCC = gCamera->unk9C;
+    D_803F2AC5 = 1;
+    temp_f8 = (f32) ((f64) (D_803A7B2A_7B91DA[gCamera->unk64]) + (gCamera->unkA0 + 4.0));
+    spC8 = temp_f8;
+    var_f14 = (var_f0_2 * temp_f18) - (var_f0_2 * gCamera->unk8);
+    var_f2 = (var_f0_2 * spCC) - (var_f0_2 * gCamera->unkC);
+    var_f16 = (var_f0_2 * temp_f8) - (var_f0_2 * gCamera->unk10);
+
+    if (ABS(var_f14) < 0.1) {
+        var_f14 = 0.0f;
+    }
+    if (ABS(var_f2) < 0.1) {
+        var_f2 = 0.0f;
+    }
+    if (ABS(var_f16) < 0.1) {
+        var_f16 = 0.0f;
+    }
+
+    spD0 = temp_f18;
+    spC4 = var_f14;
+    spC0 = var_f2;
+    spBC = var_f16;
+
+    if (ABS(spC4) < ABS(gCamera->unk80)) {
+        spA0 = 0.0f;
+    } else {
+      spA0 = spC4 - gCamera->unk80;
+    }
+
+    if (ABS(spC0) < ABS(gCamera->unk84)) {
+        sp9C = 0.0f;
+    } else {
+        sp9C = spC0 - gCamera->unk84;
+    }
+
+    if (ABS(spBC) < ABS(gCamera->unk88)) {
+        sp98 = 0.0f;
+    } else {
+        sp98 = spBC - gCamera->unk88;
+    }
+
+    arg2 &= 0xFF;
+
+    temp_f0 = sqrtf((spA0 * spA0) + (sp9C * sp9C) + (sp98 * sp98));
+    if (temp_f0 > 0.0) {
+        temp_f2_6 = (f32) (sp48 * 0.05);
+        if ((temp_f2_6 / temp_f0) < 1.0) {
+            if (spA0 != 0.0) {
+                spC4 = gCamera->unk80 + ((spA0 * temp_f2_6) / temp_f0);
+            }
+            if (sp9C != 0.0) {
+                spC0 = gCamera->unk84 + ((sp9C * temp_f2_6) / temp_f0);
+            }
+            if (sp98 != 0.0) {
+                spBC = gCamera->unk88 + ((sp98 * temp_f2_6) / temp_f0);
+            }
+        }
+    }
+    gCamera->unk80 = spC4;
+    gCamera->unk84 = spC0;
+    gCamera->unk88 = spBC;
+
+    gCamera->unk8 += spC4;
+    gCamera->unkC += spC0;
+    gCamera->unk10 += spBC;
+
+    if (D_803F2AA6 != 0) {
+        gCamera->unk8 = spD0;
+        gCamera->unkC = spCC;
+        gCamera->unk10 = spC8;
+        gCamera->unk88 = 0.0f;
+
+        gCamera->unk80 = gCamera->unk84 = gCamera->unk88;
+    }
+
+    if (gCamera->unkD6 == 1) {
+        temp_v1_2 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC6;
+        if (temp_v1_2 & 1) {
+            gCamera->unk8 = gCamera->unk98;
+            gCamera->unkC = gCamera->unk9C;
+            gCamera->unk10 = gCamera->unkA0 + 4.0;
+
+            gCamera->unk88 = 0.0f;
+            gCamera->unk80 = gCamera->unk84 = gCamera->unk88;
+        } else if (temp_v1_2 & 4) {
+            gCamera->unk8 = gCamera->unk98;
+            gCamera->unkC = gCamera->unk9C;
+
+            gCamera->unk84 = 0.0f;
+            gCamera->unk80 = gCamera->unk84;
+            if (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk162 == 2) {
+                gCamera->unk10 = ((f64) ((s16)D_803A7B2A_7B91DA[gCamera->unk64 * 2]) + (gCamera->unkA0 + 4.0)); // s16?
+                gCamera->unk88 = 0.0f;
+            }
+        }
+    }
+
+    switch (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C) {
+    case EVO:
+        break;
+    case WALRUS:
+        if (arg2 == 0) {
+
+            var_f0_9 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation - gCamera->unk24;
+            if (var_f0_9 < -128.0) {
+                var_f0_9 += 256.0;
+            }
+            if (var_f0_9 > 128.0) {
+                var_f0_9 -= 256.0;
+            }
+            gCamera->unk24 += var_f0_9 / 5.0;
+        }
+        break;
+    default:
+        if (arg2 == 0) {
+            gCamera->unk24 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation;
+        }
+        break;
+    }
+
+
+    if (gCamera->unk24 < 0.0) {
+        gCamera->unk24 += 256.0;
+
+    }
+    if (gCamera->unk24 >= 256.0) {
+        gCamera->unk24 -= 256.0;
+    }
+
+    var_f16_3 = (f32) gCamera->unk4E;
+    var_v1_2 = 0;
+    var_f12 = (f32) ((f64) (D_803A6CF3_7B83A3[gCamera->unk64] * gCamera->unk50) * 0.0625);
+
+    switch (arg1) {                                 /* irregular */
+    case 0:
+        sp8C = var_f12;
+        spAC = 0;
+        var_v1_3 = 0;
+
+        while (func_8033C814_74DEC4((s16) (s32) gCamera->unk98, (s16) (s32) gCamera->unk9C, (s16) (s32) ((f64) (s16) (s32) gCamera->unkA0 + 4.0), var_f16_3, gCamera->unk24, var_f12, gCamera->unkA4, gCamera->unkA8, (u8) 0) != 0) {
+            // Error: Unable to determine a value for double-precision register $f0 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
+            // At instruction: div.d $f8, $f10, $f0
+            if (M2C_ERROR()) {
+              // D_803BE3C0_7CFA70 -> 63.0
+              // D_803BE3C8_7CFA78 -> 0.93
+                sp8C = var_f12;
+                spAC = var_v1_3;
+            }
+        }
+
+        if (var_v1_3 != 0) {
+            var_f16_3 = (f32) ((f64) var_f16_3 + 6.5);
+            var_f12 = (f32) ((f64) var_f12 * 0.93);
+        }
+        break;
+    case 1:
+        var_f0_11 = (f64) var_f12;
+        if (var_f0_11 > 64.0) {
+            sp8C = var_f12;
+            sp48 = var_f0_11;
+            spAC = 0;
+            var_v1_2 = 0;
+            while (func_8033C814_74DEC4((s16) (s32) gCamera->unk98, (s16) (s32) gCamera->unk9C, (s16) (s32) ((f64) (s16) (s32) gCamera->unkA0 + 4.0), var_f16_3, gCamera->unk24, var_f12, gCamera->unkA4, gCamera->unkA8, (u8) 0) != 0) {
+                // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
+                // At instruction: c.lt.d $f14, $f0
+                if (M2C_ERROR()) {
+                    // D_803BE3D0_7CFA80 -> 0.93
+                    // D_803BE3D8_7CFA88 -> 63.0
+                    // D_803BE3E0_7CFA90 -> 0.93
+                    // D_803BE3E8_7CFA98 -> 63.0
+
+                    sp8C = var_f12;
+                    sp48 = var_f0_11;
+                    spAC = var_v1_2;
+                }
+            }
+        }
+
+        if (var_v1_2 != 0) {
+            var_f12 = (f32) (var_f0_11 * 0.93);
+        }
+        break;
+    }
+
+    gCamera->unk18 = MIN(63.0, var_f16_3);
+    gCamera->unk34 = var_f12;
+
+    var_f14_3 = (gCamera->unk18 * 0.26) - (0.26 * gCamera->unk14);
+
+    if (ABS(var_f14_3) < 0.05) {
+        var_f14_3 = 0.0f;
+    }
+
+    if (ABS(gCamera->unk1C) < ABS(var_f14_3)) {
+        if (var_f14_3 > 0.0f) {
+            var_f14_3 = MIN(gCamera->unk1C + 0.4, var_f14_3);
+        } else {
+            var_f14_3 = MAX(gCamera->unk1C - 0.4, var_f14_3);
+        }
+    }
+
+    gCamera->unk1C = var_f14_3;
+    gCamera->unk14 += var_f14_3;
+
+    var_f0_14 = gCamera->unk24 - gCamera->unk20;
+    if (var_f0_14 > 128.0) {
+        var_f0_14 -= 256.0;
+    }
+    if (var_f0_14 < -128.0) {
+        var_f0_14 += 256.0;
+    }
+
+    var_f2_2 = (f32) (var_f0_14 * 0.35);
+    if (ABS(var_f2_2) < 0.1) {
+        var_f2_2 = 0.0f;
+    }
+
+    if (ABS(gCamera->unk28) < ABS(var_f2_2)) {
+        if (var_f2_2 > 0.0f) {
+            var_f2_2 = MIN(gCamera->unk28 + 4.0, var_f2_2);
+        } else {
+            var_f2_2 = MAX(gCamera->unk28 - 4.0, var_f2_2);
+        }
+    }
+
+    gCamera->unk28 = var_f2_2;
+    gCamera->unk20 += var_f2_2;
+
+    if (gCamera->unk20 >= 256.0) {
+        gCamera->unk20 -= 256.0;
+    }
+    if (gCamera->unk20 < 0.0) {
+        gCamera->unk20 += 256.0;
+    }
+
+    var_f16_4 = (gCamera->unk34 - gCamera->unk30) * 0.28;
+    if (ABS(var_f16_4) < 0.5) {
+        var_f16_4 = 0.0f;
+    }
+
+    if (!(ABS(gCamera->unk38) < ABS(var_f16_4))) {
+        var_a0 = 1;
+        var_v1_4 = 1;
+        if (var_f16_4 < 0.0f) {
+            var_a0 = -1;
+        }
+        if (gCamera->unk38 < 0.0f) {
+            var_v1_4 = -1;
+        }
+        if (var_v1_4 != var_a0) {
+            goto block_169;
+        }
+    } else {
+block_169:
+        if (var_f16_4 > 0.0f) {
+            var_f16_4 = MIN(gCamera->unk38 + 10.0, var_f16_4);
+        } else {
+            var_f16_4 = MAX(gCamera->unk38 - 10.0, var_f16_4);
+        }
+    }
+
+    gCamera->unk38 = var_f16_4;
+    temp_f2_9 = gCamera->unk30;
+    gCamera->unk30 = temp_f2_9 + var_f16_4;
+    gCamera->unkAC *= gCamera->unk30 / temp_f2_9;
+    gCamera->unkB0 *= gCamera->unk30 / temp_f2_9;
+    gCamera->unkB4 *= gCamera->unk30 / temp_f2_9;
+    gCamera->unkB8 *= gCamera->unk30 / temp_f2_9;
+
+    func_8033E6B8_74FD68(gCamera->unk14, gCamera->unk20, gCamera->unk30, &gCamera->unk74, &gCamera->unk78, &gCamera->unk7C);
+
+    if (gCamera->unk52 != gCamera->unk58) {
+        if (gCamera->unk52 < gCamera->unk58) {
+            gCamera->unk52++;
+        } else {
+            gCamera->unk52--;
+        }
+    }
+
+    gCamera->unk8C = 0.0f;
+    gCamera->unk90 = 0.0f;
+    gCamera->unk94 = 1.0f;
+
+    if ((gCamera->unkD6 == 1) && (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC6 & 2)) {
+        func_8033E6B8_74FD68(gCamera->unk14, gCamera->unk20, gCamera->unk30, &sp78, &sp74, &sp70);
+
+        sp78 = sp78 - gCamera->unk8;
+        sp74 = sp74 - gCamera->unkC;
+        sp70 = sp70 - gCamera->unk10;
+
+        temp_f0_11 = sqrtf((sp78 * sp78) + (sp74 * sp74) + (sp70 * sp70));
+        temp_f6 = sp74 / temp_f0_11;
+        temp_f12_4 = sp78 / temp_f0_11;
+        // sp78 = temp_f12_4;
+        // sp74 = temp_f6;
+        temp_f2_10 = (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk30C / 240.0);
+
+        gCamera->unk8C += temp_f2_10 * -temp_f6;
+        gCamera->unk90 += temp_f2_10 * temp_f12_4;
+    }
+    if (D_803F2AA6 != 0) {
+        gCamera->unk20 = gCamera->unk24;
+        gCamera->unk28 = 0.0f;
+        gCamera->unk14 = gCamera->unk18;
+        gCamera->unk1C = 0.0f;
+        gCamera->unk30 = gCamera->unk34;
+        gCamera->unk38 = 0.0f;
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033641C_747ACC.s")
+#endif
 
 extern f64 D_803BE448_7CFAF8;
 extern f64 D_803BE450_7CFB00;
@@ -1198,7 +1607,7 @@ void func_8033C334_74D9E4(void) {
 }
 #endif
 
-void func_8033C814_74DEC4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 arg8) {
+s32 func_8033C814_74DEC4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 arg8) {
     f32 sp3C;
     f32 sp38;
     f32 sp34;
@@ -1206,10 +1615,10 @@ void func_8033C814_74DEC4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 
     func_8033E6B8_74FD68(arg3, arg4, arg5 + 10.0, &sp3C, &sp38, &sp34);
     sp3C += arg6;
     sp38 += arg7;
-    func_8033C9CC_74E07C(arg0, arg1, arg2, 127, sp3C, sp38, sp34, 127, 1, arg8);
+    return func_8033C9CC_74E07C(arg0, arg1, arg2, 127, sp3C, sp38, sp34, 127, 1, arg8);
 }
 
-void func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+s32 func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     f32 sp3C;
     f32 sp38;
     f32 sp34;
@@ -1217,7 +1626,7 @@ void func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 
     func_8033E6B8_74FD68(arg3, arg4, arg5 + 10.0, &sp3C, &sp38, &sp34);
     sp3C += arg6;
     sp38 += arg7;
-    func_8033C9CC_74E07C(arg0, arg1, arg2, 127, sp3C, sp38, (s16)sp34 + 34, 127, 1, 0);
+    return func_8033C9CC_74E07C(arg0, arg1, arg2, 127, sp3C, sp38, (s16)sp34 + 34, 127, 1, 0);
 }
 
 #ifdef NON_MATCHING
