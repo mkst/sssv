@@ -855,7 +855,7 @@ extern u8   D_803A4B38_7B61E8[MAX_DESERT_ANIMALS][MAX_DESERT_ANIMALS]; // desert
 
 // 0x803Bxxxx
 
-extern s16 D_803B1BAC[];
+extern u16 D_803B1BAC_7C325C[];
 extern DemoInput D_803B1F20_7C35D0[];
 extern DemoInput D_803B2580_7C3C30[];
 extern DemoInput D_803B29D8_7C4088[];
@@ -1141,7 +1141,7 @@ extern s16  D_803D5860[360];
 extern s16  D_803D5B30[360];
 extern s16  D_803D5E00[360];
 
-extern s32  (D_803D60D0)();
+extern s32  (D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
 extern u8   D_803D60D4[];
 extern s32  D_803D60D8;
 extern struct043 *D_803D60DC;
@@ -1281,7 +1281,8 @@ extern u8   D_803E8E57;
 extern u8   D_803E8E58;
 extern WaypointData *D_803E8E60[64];
 extern u8   D_803E8F60[1100];
-extern struct063 D_803E93B0[]; // ??
+extern struct067 D_803E93B0[65];
+extern s64  D_803E95B8[];
 extern s16  D_803E97C0;
 extern struct042 D_803E97C8;
 
@@ -1423,6 +1424,8 @@ extern u8   D_803F2DAC[][6]; //tbd
 
 // extern s16  D_803F2E1E; // this is D_803F2D50.evoSuitColor
 extern s16  D_803F2EE0[];
+extern s32  D_803F2E0C;
+extern s32  D_803F2E10;
 extern u16  D_803F2EF0;
 extern s16  D_803F2E16;
 

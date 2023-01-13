@@ -35,7 +35,7 @@ void func_80313790_724E40(void) {
 
     if (D_803D5530->state == 0x6A) {
         if (D_803D5530->unk4A == 0) {
-            func_8032CED0_73E580(D_803D5530, 0x80, 0x5800, 1.0f, (s16) 0, (s16) (s32) D_803D5538, (s16) (s32) D_803D552C->xPos.h, (s16) (s32) D_803D552C->zPos.h, (s16) (s32) D_803D552C->yPos.h, (s16) D_803D552C->xVelocity.w, (s16) D_803D552C->zVelocity.w, (s16) D_803D552C->yVelocity.w);
+            func_8032CED0_73E580(D_803D5530, SFX_UNKNOWN_128, 0x5800, 1.0f, 0, D_803D5538, D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h, D_803D552C->xVelocity.w,  D_803D552C->zVelocity.w, D_803D552C->yVelocity.w);
         }
 
         if (func_803224C4_733B74(0, 0, 0, MAX(4, -D_803D5530->yVelocity.h), (s16) 0x20, (s16) 0, (s16) 0, (u8) 0xB) != 0) {

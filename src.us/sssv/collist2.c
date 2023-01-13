@@ -152,18 +152,19 @@ void func_802DAF5C_6EC60C(void) {
     D_803DA2F4 = NULL;
 }
 
-void func_802DAFAC_6EC65C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
+// update_object_floor_collision ?
+void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd) {
     struct071 *obj;
-    s32 a0 = arg0;
-    s32 a1 = arg1;
-    s32 a2 = arg2;
-    s32 a3 = arg3;
+    s32 x0 = xStart;
+    s32 y0 = yStart;
+    s32 x1 = xEnd;
+    s32 y1 = yEnd;
 
     for (obj = D_803DA2F4; obj != NULL; obj = obj->unk198) {
-        if (((s16)((a0 + a2 + 1) << 6) >= obj->xPos.h) &&
-            ((s16)((a0         ) << 6) <= obj->xPos.h) &&
-            ((s16)((a1 + a3 + 1) << 6) >= obj->zPos.h) &&
-            ((s16)((a1         ) << 6) <= obj->zPos.h)) {
+        if (((s16)((x0 + x1 + 1) << 6) >= obj->xPos.h) &&
+            ((s16)((x0         ) << 6) <= obj->xPos.h) &&
+            ((s16)((y0 + y1 + 1) << 6) >= obj->zPos.h) &&
+            ((s16)((y0         ) << 6) <= obj->zPos.h)) {
               obj->unk4C.unk26 = 1;
         }
     }

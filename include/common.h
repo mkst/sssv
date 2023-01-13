@@ -49,6 +49,7 @@ typedef u8 Addr[];
 #include "levels.h"
 #include "animals.h"
 #include "objects.h"
+#include "states.h"
 
 // evo suit colors
 #define EVO_BRONZE_SHELLSUIT        0
@@ -177,8 +178,8 @@ typedef u8 Addr[];
 #define ATTACK_SCORPION_1   6
 #define ATTACK_CHAMELEON_TONGUE 7
 #define ATTACK_ROAR         8
-#define ATTACK_UNKNOWN_9    9
-#define ATTACK_UNKNOWN_10   10
+#define ATTACK_EVO_CHIP_1   9
+#define ATTACK_EVO_CHIP_2   10
 #define ATTACK_GRAB         11
 #define ATTACK_HOLD         12
 #define ATTACK_BEAR_1       13

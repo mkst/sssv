@@ -372,7 +372,7 @@ block_9:
         if ((D_803D5538 != 0) || (D_803F2D50.segment != 0)) {
             func_8032CED0_73E580(
                 D_803D5530,
-                0x67,
+                SFX_UNKNOWN_103,
                 var_v0_3,
                 0.3f, // 0.30000001192092896f
                 0,
@@ -610,7 +610,7 @@ block_9:
             if (D_803D5530->unk4A == 0) {
                 func_8032CED0_73E580(
                     D_803D5530,
-                    0xD,
+                    SFX_UNKNOWN_14,
                     (12288.0f * var_f0) / 2.0,
                     temp_f2_2 * 2.0,
                     0,

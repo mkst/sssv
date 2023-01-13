@@ -63,13 +63,13 @@ u16 get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y) {
 }
 
 void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5) {
-    struct063 *tmp;
+    struct067 *tmp;
     u8 i;
 
-    i = 0;
-
     *arg4 = 0;
-    tmp = &D_803E93B0[0];
+
+    i = 0;
+    tmp = &D_803E93B0[i];
 
     while ((tmp->unk2 != 245) && (*arg4 < 4)) {
         if ((arg0 >= tmp->unk0) && (tmp->unk3 >= arg0) &&
@@ -124,7 +124,7 @@ void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5
 }
 
 u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
-    struct063 *tmp;
+    struct067 *tmp;
     u8 ret;
 
     ret = 0;

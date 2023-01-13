@@ -119,7 +119,7 @@ void set_fog_position_and_color(Gfx **dl);
 s16  distance_from_player(s16 x, s16 z, s16 y);
 
 // overlay2_6D9330
-struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s16 id, s8 arg6); // tbd
+struct050 *spawn_animal(s16 x, s16 z, s16 y, s16 rotation, s16 health, s16 id, s8 arg6);
 
 // overlay2_6DCA10
 s32  create_particle_effect(s32 x, s32 z, s32 y, s16 id, s16, s16, s32, s16 size, u16 color1, u16 color2, s16); // TBD

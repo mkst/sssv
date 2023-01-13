@@ -161,4 +161,30 @@ void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s1
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72A930/func_803198B0_72AF60.s")
+void func_803198B0_72AF60(void) {
+    s16 temp_s3;
+    s16 temp_s6;
+    s16 temp_s7;
+    s16 temp_v1;
+
+    s16 k;
+    s16 j;
+    s16 i; // sp42
+
+    for (i = 0; i < 65; i++){
+        D_803E95B8[i] = 0;
+    }
+
+    for (i = 0; D_803E93B0[i].unk2 != 245; i++) {
+        temp_v1 = D_803E93B0[i].unk0;
+        temp_s7 = D_803E93B0[i].unk3;
+        temp_s6 = D_803E93B0[i].unk1;
+        temp_s3 = D_803E93B0[i].unk4;
+
+        for (j = temp_v1; j <= temp_s7; j++) {
+            for (k = temp_s6; k <= temp_s3; k++) {
+                D_803E95B8[i] |= (s64)1 << (s16)((j >> 4) + ((k >> 4) * 5));
+            }
+        }
+    }
+}

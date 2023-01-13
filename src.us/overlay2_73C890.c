@@ -3,12 +3,6 @@
 
 #if 0
 
-typedef struct {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-} fixme;
-
 s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
     s16 sp92;
     // s32 *sp88;
@@ -24,7 +18,7 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
     s32 sp50;
     s32 sp38;
     s32 sp30;
-    // fixme *sp2C;
+    // struct035_ptr *sp2C;
     Animal *sp20;
     s16 temp_a0;
     // s16 temp_a1;
@@ -53,9 +47,9 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
     s16 var_v1_5;
     s16 var_v1_6;
     s16 var_v1_7;
-    fixme *temp_ra;
-    fixme *temp_t7;
-    fixme *temp_t9;
+    struct035_ptr *temp_ra;
+    struct035_ptr *temp_t7;
+    struct035_ptr *temp_t9;
     s32 temp_a1_2;
     s32 temp_a1_3;
     s32 temp_a1_4;
@@ -332,7 +326,7 @@ block_89:
     return 0;
 }
 #else
-  #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73C890/func_8032B1E0_73C890.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73C890/func_8032B1E0_73C890.s")
 #endif
 
 // check some flag?

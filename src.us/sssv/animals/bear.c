@@ -693,7 +693,7 @@ block_9:
             if (D_803D5530->unk4A == 0) {
                 func_8032CED0_73E580(
                     D_803D5530,
-                    0xD,
+                    SFX_UNKNOWN_14,
                     (12288.0f * var_f0) / 2.0,
                     2.0 * temp_f2_2,
                     0,

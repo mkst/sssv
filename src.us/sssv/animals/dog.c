@@ -307,7 +307,7 @@ void func_802EBB34_6FD1E4(void) {
 
     if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
         if ((D_803D5530->unk162 == 3) && (D_803D5530->unk4A == 0)) {
-            func_8032CED0_73E580((u8*)D_803D5530 + 3, 0x80, (MIN(1.0, ABS(D_803D5530->yVelocity.w) / 655360.0) * 28672.0), 1.6f, 0, D_803D5538, D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h, D_803D552C->xVelocity.w, D_803D552C->zVelocity.w, D_803D552C->yVelocity.w);
+            func_8032CED0_73E580((u8*)D_803D5530 + 3, SFX_UNKNOWN_128, (MIN(1.0, ABS(D_803D5530->yVelocity.w) / 655360.0) * 28672.0), 1.6f, 0, D_803D5538, D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h, D_803D552C->xVelocity.w, D_803D552C->zVelocity.w, D_803D552C->yVelocity.w);
         }
     }
     var_a2 = 0x5000;
@@ -328,7 +328,7 @@ void func_802EBB34_6FD1E4(void) {
     }
     if ((D_803D5538 != 0) || (D_803F2D50.segment != 0)) {
         if (D_803D5530->unk4A == 0) {
-            func_8032CED0_73E580(D_803D5530, 0x7D, var_a2, spB0, 0, D_803D5538, D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h, D_803D552C->xVelocity.w, D_803D552C->zVelocity.w, D_803D552C->yVelocity.w);
+            func_8032CED0_73E580(D_803D5530, SFX_UNKNOWN_125, var_a2, spB0, 0, D_803D5538, D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h, D_803D552C->xVelocity.w, D_803D552C->zVelocity.w, D_803D552C->yVelocity.w);
         }
     }
 
