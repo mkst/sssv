@@ -1107,7 +1107,7 @@ void func_802F9C50_70B300(struct071 *arg0) {
         if (arg0->Info.unk14E == 1) {
             arg0->Info.unk14E = 0; // disabled
             if (arg0->Info.unk152 != 0) {
-                play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f); // 0.8f
+                play_sound_effect_at_location(82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f);
             }
         }
     }
@@ -1399,7 +1399,7 @@ void func_802FADBC_70C46C(Animal *arg0) {
         if (arg0->unk241 & 1) {
             func_8032CED0_73E580(
                 arg0,
-                arg0->unk23C,
+                arg0->unk23C,  // sound effect id ?
                 var_t0,
                 var_f0,
                 0,
@@ -2145,6 +2145,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
     }
 }
 
+// set_floor_level
 void func_802FD190_70E840(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     s16 i, j;
 
@@ -2190,7 +2191,7 @@ s32 func_802FD3B8_70EA68(Animal *arg0) {
     return 0;
 }
 
-// is this animal or object?
+// is_target_of ?
 s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {

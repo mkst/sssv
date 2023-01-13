@@ -272,7 +272,7 @@ void func_80360D94_772444(void) {
                 // D_803BEC48_7D02F8
                 func_8032CED0_73E580(
                     D_803D5530,
-                    0x7D,
+                    SFX_UNKNOWN_125,
                     temp_f12_2 * 23040.0f,
                     MAX(0.1, ABS(D_803D552C->unk30C / 40.0)) / 3.0,
                     0,

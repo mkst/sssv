@@ -330,7 +330,96 @@ void apply_recoil(s16 arg0) {
     }
 }
 
+#ifdef NON_MATCHING
+// stack + regalloc
+s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7) {
+
+    s16 var_t3;
+    s16 var_t4;
+    s16 var_t5;
+    s16 var_t0;
+    s32 temp_t6_2;
+    struct044 *var_a1;
+    struct065 *var_ra;
+    s32 temp_t6;
+    Animal *animal; // sp34
+    s16 ret;
+
+    ret = 0;
+
+    temp_t6 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7;
+    temp_t6_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 7;
+
+    var_t3 = ((temp_t6 * arg2) >> 8) + D_803D5530->xPos.h + ((temp_t6_2 * arg1) >> 8);
+    var_t4 = (D_803D5530->zPos.h + ((temp_t6 * arg1) >> 8)) - ((temp_t6_2 * arg2) >> 8);
+    var_t5 = D_803D5530->yPos.h + arg0;
+
+    for (var_ra = D_803DA110[(s16) ((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
+        animal = var_ra->animal;
+        if ((animal != D_803D5530) && (animal != D_803D5530->unk6C) && (((animal->unk16C->unk80.bit != 0) && ((animal == D_801D9ED8.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (animal->unk16C->unk9C != D_803D5524->unk9C))) || ((animal->unk16C->unk80.bit == 0) && (animal->unk16C->objectType != 0x40)))) {
+            // is this offset right?
+            for (var_a1 = (struct044*)&animal->unkC0.a.unkC0[0][2]; var_a1->unkC != 0; var_a1++) {
+                if (ABS((animal->xPos.h + var_a1->unk0) - var_t3) < (var_a1->unkC + arg3) &&
+                    ABS((animal->zPos.h + var_a1->unk4) - var_t4) < (var_a1->unkC + arg3) &&
+                    ABS((animal->yPos.h + var_a1->unk8) - var_t5) < (var_a1->unkC + arg3)) {
+
+                    var_t0 = 0;
+                    if (arg7 != 0) {
+                        animal->unk57 = arg7;
+                    }
+                    if (D_803D5530->unk44 < animal->unk44) {
+                        var_t0 = 1;
+                    }
+                    if ((D_803D5530->unk44 * 2) < animal->unk44) {
+                        var_t0++;
+                    }
+                    if ((D_803D5530->unk44 * 3) < animal->unk44) {
+                        var_t0++;
+                    }
+
+                    if ((animal->unk4C.unk27 == 0) || (D_803D5524->unk9C == HARD_MOUSE) || ((animal->unk16C->unk80.bit == 0) && (D_803D5530->unk44 < animal->unk44))) {
+                        var_t0 = 8;
+                    }
+
+                    if (animal->unk16C->unk80.bit != 0) {
+                        func_802B356C_6C4C1C(animal, arg4, D_803D5524->unkE6, 1);
+                        ret = 2;
+                        if (D_803D5538 != 0) {
+                            animal->unk2EB++;
+                        }
+                    } else if (animal->unk4C.unk26 == 0) {
+                        if (animal->unk4A == 0) {
+                            animal->health = MAX(0, animal->health - MAX(1, arg4 >> var_t0));
+                            if (ret == 0) {
+                                ret = 1;
+                            }
+                        }
+                    }
+
+                    func_802FD674_70ED24(D_803D5530, animal);
+                    if (var_t0 < 6) {
+                        animal->xVelocity.h += (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) >> (var_t0 + 6);
+                        animal->zVelocity.h += (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) >> (var_t0 + 6);
+
+                        animal->unk65 = MIN(100, animal->unk65 + (20 >> var_t0));
+                    }
+
+                    animal->unk4C.unk25 = 1;
+
+                    if ((animal->unk16C->unk80.bit != 0) && ((animal->unk366 == 1) || (animal->unk366 == 3) || (animal->unk366 == 4))) {
+                        animal->unk348 = MAX(animal->unk348, arg6);
+                        animal->unk34A = MAX(animal->unk34A, arg5);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return ret;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_803224C4_733B74.s")
+#endif
 
 u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Animal **arg5, Animal *arg6, u8 arg7) {
     s32 pad[2];
@@ -342,53 +431,47 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
     Animal *a;
 
     ret = 0;
-    temp_t8 = D_803DA110[(s16)((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next;
-    while (temp_t8 != NULL) {
+
+    for (temp_t8 = D_803DA110[(s16)((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; temp_t8 != NULL; temp_t8 = temp_t8->next) {
         a = temp_t8->animal;
         if ((a != D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
             // TODO: FIXME
-            if (a->unkC0.a.unkD0.m[0][0] != 0) {
-                // TODO: FIXME
-                phi_s2 = (struct044*)&a->unkC0.a.unkC0[0][2];
-                do {
-                    if ((ABS((a->xPos.h + phi_s2->unk0) - arg0) < phi_s2->unkC + arg3) &&
-                        (ABS((a->zPos.h + phi_s2->unk4) - arg1) < phi_s2->unkC + arg3) &&
-                        (ABS((a->yPos.h + phi_s2->unk8) - arg2) < phi_s2->unkC + arg3)) {
-                        ret = 1;
-                        if (arg7 != 0) {
-                            a->unk57 = arg7;
-                        }
-                        if (arg5 != NULL) {
-                            *arg5 = a;
-                        }
-                        if (a->unk16C->unk80.bit) {
-                            func_802FD674_70ED24(D_803D5530, a);
-                            phi_s1 = 0;
-                            if (D_803D5530->unk44 < a->unk44) {
-                                phi_s1 = 1;
-                            }
-                            if ((D_803D5530->unk44 * 2) < a->unk44) {
-                                phi_s1 += 1;
-                            }
-                            if ((D_803D5530->unk44 * 3) < a->unk44) {
-                                phi_s1 += 1;
-                            }
-                            // apply fall damage between animals?
-                            func_802B356C_6C4C1C(a, damage, D_803D5524->unkE6, 1);
-                            if (D_803D5538 != 0) {
-                                a->unk2EB += 1;
-                            }
-                            a->unk65 = MIN(100, a->unk65 + (0x14 >> phi_s1));
-                            a->unk4C.unk25 = 1;
-                        } else if ((a->unk4A == 0) && (a->unk4C.unk26 == 0)) {
-                            a->health = MAX(0, a->health);
-                        }
+            for (phi_s2 = (struct044*)&a->unkC0.a.unkC0[0][2]; phi_s2->unkC != 0; phi_s2++) {
+                if ((ABS((a->xPos.h + phi_s2->unk0) - arg0) < phi_s2->unkC + arg3) &&
+                    (ABS((a->zPos.h + phi_s2->unk4) - arg1) < phi_s2->unkC + arg3) &&
+                    (ABS((a->yPos.h + phi_s2->unk8) - arg2) < phi_s2->unkC + arg3)) {
+                    ret = 1;
+                    if (arg7 != 0) {
+                        a->unk57 = arg7;
                     }
-                    phi_s2++;
-                } while (phi_s2->unkC != 0);
+                    if (arg5 != NULL) {
+                        *arg5 = a;
+                    }
+                    if (a->unk16C->unk80.bit) {
+                        func_802FD674_70ED24(D_803D5530, a);
+                        phi_s1 = 0;
+                        if (D_803D5530->unk44 < a->unk44) {
+                            phi_s1 = 1;
+                        }
+                        if ((D_803D5530->unk44 * 2) < a->unk44) {
+                            phi_s1 += 1;
+                        }
+                        if ((D_803D5530->unk44 * 3) < a->unk44) {
+                            phi_s1 += 1;
+                        }
+                        // apply fall damage between animals?
+                        func_802B356C_6C4C1C(a, damage, D_803D5524->unkE6, 1);
+                        if (D_803D5538 != 0) {
+                            a->unk2EB += 1;
+                        }
+                        a->unk65 = MIN(100, a->unk65 + (0x14 >> phi_s1));
+                        a->unk4C.unk25 = 1;
+                    } else if ((a->unk4A == 0) && (a->unk4C.unk26 == 0)) {
+                        a->health = MAX(0, a->health);
+                    }
+                }
             }
         }
-        temp_t8 = temp_t8->next;
     }
     return ret;
 }

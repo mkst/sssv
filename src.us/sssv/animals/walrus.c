@@ -315,7 +315,7 @@ block_63:
 
             if (spFC == 0.0) {
                 if ((D_803D5530->unk4A == 0) && ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 1))) {
-                    func_8032CED0_73E580(D_803D5530, 0x1F, (spFC * 14336.0f), MAX(0.1, ABS(D_803D552C->unk308 / 40.0)), (s16) 0, (s16) (s32) D_803D5538, (s16) (s32) D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, (s16) D_803D5530->xVelocity.w, (s16) D_803D5530->zVelocity.w, (s16) D_803D5530->yVelocity.w);
+                    func_8032CED0_73E580(D_803D5530, SFX_UNKNOWN_31, (spFC * 14336.0f), MAX(0.1, ABS(D_803D552C->unk308 / 40.0)), (s16) 0, (s16) (s32) D_803D5538, (s16) (s32) D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, (s16) D_803D5530->xVelocity.w, (s16) D_803D5530->zVelocity.w, (s16) D_803D5530->yVelocity.w);
                 }
             }
             if (spFC != 0.0) {

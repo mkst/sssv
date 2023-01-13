@@ -378,15 +378,554 @@ void load_level_data(u8 level) {
         D_803A5BF8_7B72A8[(s16)level].start,
         &D_80100000,
         D_803A5BF8_7B72A8[(s16)level].end - D_803A5BF8_7B72A8[(s16)level].start);
-    func_8031B400_72CAB0();
+    load_level_data_sections();
     func_8031C48C_72DB3C();
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level_data.s")
 #endif
 
-// load all level data sections
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B400_72CAB0.s")
+#if 0
+
+extern s16 D_803A5750_7B6E00; // number of waypoints?
+extern u8  D_803B1D20_7C33D0[];
+extern u8  D_803E2930[];
+
+typedef struct {
+  u16 count;
+  u8  payload[1];
+} DataSectionUnsigned;
+
+typedef struct {
+  s16 count;
+  u8  payload[1];
+} DataSectionSigned;
+
+void *func_802C93E8_6DAA98(s32); // mismatch
+
+void load_level_data_sections(void) {
+
+    struct071 *obj;
+    struct071 *var_a1;
+    struct071 *var_s1;
+    struct071 *object1;
+    struct071 *object2;
+
+    struct092 *joi;
+    struct097 *cha;
+    struct090 *cob;
+    struct091 *can;
+
+    u8 *buf;
+    u8 *base;
+
+    u8 *paf;
+    u8 *paf2;
+
+    Animal *temp_s1;
+
+    u16 pafBytesUsed;
+    u16 j;
+
+    s32 temp_v0;
+    s16 i;
+
+    u8  done; // sp85
+    s32 tmp;
+    s16 length;
+    u16 count;
+    u16 sp7A;
+
+    base = &D_80100000;
+
+    copy_or_extract(base, gFramebuffer, 0x25800);
+    buf = gFramebuffer;
+
+    sp7A = D_803D553E;
+    done = 0;
+
+    do {
+        temp_v0 = *buf++; // payloadType
+
+        switch (temp_v0) {
+        case 0: /* .cob */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            length = ((DataSectionSigned*)base)->count;
+            cob = (struct090*) ((DataSectionSigned*)base)->payload;
+
+            while (length-- > 0) {
+                if (D_801E9EB8.unk0[cob->id].unk15 == 5) {
+                    cob->unk8 = 0;
+                    cob->angle = (cob->angle + 720) % 360; // force positive
+
+                    if ((cob->angle >= 45) && (cob->angle < 135)) {
+                        cob->angle = 90;
+                    } else if ((cob->angle >= 135) && (cob->angle < 225)) {
+                        cob->angle = 180;
+                    } else if ((cob->angle >= 225) && (cob->angle < 315)) {
+                        cob->angle = 270;
+                    } else {
+                        cob->angle = 0;
+                    }
+                }
+
+                obj = func_802C9564_6DAC14(
+                    cob->id,
+                    cob->x,
+                    cob->z,
+                    cob->y,
+                    0,
+                    0,
+                    0,
+                    cob->unk8,
+                    cob->angle,
+                    cob->scale);
+
+                if (cob->id == OBJECT_TELEPORTER_ACTIVE_NO_TRIGGER) {
+                    D_803F2E0C = obj;
+                } else if (cob->id == OBJECT_TELEPORTER_ACTIVE) {
+                    D_803F2E10 = obj;
+                }
+
+                obj->unk3E = cob->unkC;
+
+                if (cob->unk10 != 0) { // referenceId
+                    func_803153B0_726A60(
+                        (Animal *) obj,
+                        (struct069 *) (&D_803E4D40[cob->unk10] - 1),
+                        cob->unk14);
+                }
+                obj->unk246 = cob->unk12;
+                cob++;
+            }
+            break;
+
+        case 1: /* .can */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            length = ((DataSectionSigned*)base)->count;
+            can = (struct091*) ((DataSectionSigned*)base)->payload;
+
+            while (length-- > 0) {
+                spawn_animal(
+                    can->x,
+                    can->z,
+                    can->y,
+                    can->rotation,
+                    can->health,
+                    can->id,
+                    0);
+
+                temp_s1 = D_801D9ED8.animals[D_803D553E - 1].animal;
+                if (can->unkC != 0) {
+                    func_803153B0_726A60(
+                        temp_s1,
+                        (struct069 *) (&D_803E4D40[can->unkC] - 1),
+                        0U);
+                }
+
+                temp_s1->unk246 = can->unkE;
+                can++;
+            }
+            break;
+
+        case 2: /* .joi */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            length = ((DataSectionUnsigned*)base)->count;
+            joi = (struct092*) ((DataSectionSigned*)base)->payload;
+
+            while (length-- > 0) {
+                if (joi->unk0 >= 1000) {
+                    // var_s1 = (&D_801D9ED8 + (temp_a0 * 8) + ((u16) sp7A * 8))->unk1F74;
+                    var_s1 = D_801D9ED8.animals[(joi->unk0 - 1000) + sp7A].animal;
+                } else {
+                    var_s1 = func_802C93E8_6DAA98(joi->unk0);
+                }
+                if (joi->unk2 >= 1000) {
+                    // var_a1 = (&D_801D9ED8 + (temp_a0_2 * 8) + ((u16) sp7A * 8))->unk1F74;
+                    var_a1 = D_801D9ED8.animals[(joi->unk2 - 1000) + sp7A].animal;
+                } else {
+                    var_a1 = func_802C93E8_6DAA98(joi->unk2);
+                }
+                func_802C9900_6DAFB0(var_s1, var_a1, joi->unk5);
+                joi++;
+            }
+            break;
+        case 3:  /* end of data sentinel */
+            done = 1;
+            break;
+        case 4:  /* .cmd */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            count = ((DataSectionUnsigned*)base)->count;
+            tmp = sizeof(struct112);
+
+            func_80314788_725E38(); // zero out D_803E4D40 amongst other things
+            memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)D_803E4D40, count);
+
+            D_803E8E54 = count / (u32)tmp;
+            for (j = 0; (s16)j < D_803E8E54; j++) {
+                tmp = D_803E4D40[j].type;
+                if (tmp == 24) {
+                    rmonPrintf(
+                        "Partcle State: %d F $%X Fq %d Time %d S %d\n",
+                        D_803E4D40[j].unk4,  // State
+                        D_803E4D40[j].id,    // F
+                        D_803E4D40[j].unk5,  // Fq
+                        D_803E4D40[j].unk8,  // Time
+                        D_803E4D40[j].unk6); // S
+                }
+            }
+            break;
+        case 5: /* .rng */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            length = ((DataSectionUnsigned*)base)->count;
+
+            memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)&D_803E93B0, length * sizeof(struct067));
+
+            D_803E93B0[length].unk2 = 245;
+            D_803E93B0[length].unk5 = 245;
+
+            func_803198B0_72AF60();
+            break;
+
+        case 6: /* .paf */
+
+
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            paf = base + 2;
+            paf2 = base + 2;
+
+            count = *((s16*)base + 0); // number of entries
+
+            pafBytesUsed = 0;
+            for (i = 0; i < count; i++) {
+                // record the start of each waypoint in D_803E8E60
+                D_803E8E60[i] = (Waypoint*)&D_803E8F60[pafBytesUsed];
+                // each waypoint starts with the count followed by count*xyz entries, e.g.
+                //    B BBB BBB BBB ... =>
+                //    3 123 456 789
+                pafBytesUsed += (paf[0] * 3) + 1;
+                // move pointer along
+                paf = paf2 + pafBytesUsed;
+            }
+
+            rmonPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
+            // no boundary check here!
+            memcpy_sssv(paf2, (u8*)D_803E8F60, pafBytesUsed);
+            D_803A5750_7B6E00 = i;
+            break;
+
+        case 7: /* .cha */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            cha = (struct097*) ((DataSectionSigned*)base)->payload;
+            length = ((DataSectionUnsigned*)base)->count;
+
+            while (length-- > 0) {
+                object1 = NULL;
+                object2 = NULL;
+                if (cha->unkE != -1) {
+                    object1 = func_802C93E8_6DAA98(cha->unkE);
+                }
+                if (cha->unk16 != -1) {
+                    object2 = func_802C93E8_6DAA98(cha->unk16);
+                }
+
+                switch (cha->unk0) {
+                case 6:
+                    func_802DD090_6EE740(
+                        8,
+                        FTOFIX32(31.25),
+                        1U,
+                        6,
+                        0,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        0,
+                        0,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 7:
+                    func_802DD090_6EE740(
+                        16,
+                        FTOFIX32(31.25),
+                        1U,
+                        7,
+                        0,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        0,
+                        0,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 19:
+                case 20:
+                case 21:
+                    func_802DD090_6EE740(
+                        0x10,
+                        FTOFIX32(31.25),
+                        0U,
+                        cha->unk0,
+                        1,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        cha->unk18,
+                        cha->unk19,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 22:
+                case 23:
+                case 24:
+                case 36:
+                    func_802DD090_6EE740(
+                        0x10,
+                        FTOFIX32(31.25),
+                        0U,
+                        cha->unk0,
+                        0,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        cha->unk18,
+                        cha->unk19,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 25:
+                case 26:
+                case 27:
+                    func_802DD090_6EE740(
+                        8,
+                        FTOFIX32(31.25),
+                        0,
+                        cha->unk0,
+                        1,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        cha->unk18,
+                        cha->unk19,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 28:
+                case 29:
+                case 30:
+                case 37:
+                    func_802DD090_6EE740(
+                        8,
+                        FTOFIX32(31.25),
+                        0,
+                        cha->unk0,
+                        0,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        cha->unk18,
+                        cha->unk19,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 9:
+                    func_802DD090_6EE740(
+                        4,
+                        FTOFIX32(9.375),
+                        0,
+                        9,
+                        0,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        cha->unk18,
+                        cha->unk19,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 10:
+                    func_802DD090_6EE740(
+                        4,
+                        FTOFIX32(9.375),
+                        0,
+                        cha->unk0, // was 10
+                        0,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        cha->unk18,
+                        cha->unk19,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                case 8:
+                    func_802DD090_6EE740(
+                        0x10,
+                        FTOFIX32(10.828125),
+                        0,
+                        8,
+                        0,
+                        cha->unk2 << 0x10,
+                        cha->unk4 << 0x10,
+                        cha->unk6 << 0x10,
+                        cha->unk18,
+                        cha->unk19,
+                        object2,
+                        object1,
+                        cha->unk10,
+                        cha->unk12,
+                        cha->unk14,
+                        cha->unk8,
+                        cha->unkA,
+                        cha->unkC);
+                    break;
+                }
+                cha++;
+            }
+            break;
+        case 8: /* ignored */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+            break;
+        case 9: /* level collision */
+            func_80296544_6A7BF4();
+
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            if (1) { } if (1) { } if (1) { }
+
+            func_8029ACC8_6AC378();
+            break;
+        case 10: /* level geo */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            func_80344240_7558F0();
+            break;
+        case 11: /* .mat */
+            func_80304170_715820();
+
+            tmp = get_uncompressed_size(buf);
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            memcpy_sssv(base, (u8*)&D_803E1D30, tmp);
+            break;
+        case 12: /* .dat */
+            func_80304194_715844();
+
+            tmp = get_uncompressed_size(buf);
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            memcpy_sssv(base, (u8*)&D_803F2D50, tmp);
+            D_803F2D50.unkE0 = D_803F2D50.unk40;
+            func_8031B174_72C824(D_803F2D50.segment, D_803F2D50.unk52);
+            break;
+        case 13: /* .cam */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            length = ((DataSectionUnsigned*)base)->count;
+
+            bzero_sssv((u8*)&D_803A6D14_7B83C4, sizeof(D_803A6D14_7B83C4));
+            bzero_sssv((u8*)&D_803A7114_7B87C4, sizeof(D_803A7114_7B87C4));
+
+            tmp = sizeof(struct105);
+            tmp = length * tmp;
+
+            memcpy_sssv(((DataSectionSigned*)base)->payload,              (u8*)&D_803A6D14_7B83C4, tmp);
+            memcpy_sssv(((DataSectionSigned*)base)->payload + (tmp << 1), (u8*)&D_803A7114_7B87C4, length * sizeof(struct074));
+
+            func_8034401C_7556CC();
+            break;
+        case 14: /* tbd */
+            tmp = get_uncompressed_size(buf);
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+            memcpy_sssv(base, (u8*)&D_803E2930,  tmp);
+            break;
+        case 15: /* tbd */
+            copy_or_extract(buf, base, 0x25800);
+            buf += get_compressed_size(buf);
+
+            length = ((DataSectionUnsigned*)base)->count;
+            memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)&D_803B1D20_7C33D0, length * 8);
+            break;
+        default:
+            done = 1;
+            break;
+        }
+    } while (!done);
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level_data_sections.s")
+#endif
 
 void func_8031C304_72D9B4(void) {
     func_8012A400(); // receive messages, synchronization?

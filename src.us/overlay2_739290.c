@@ -632,7 +632,7 @@ void func_80328ACC_73A17C(void) {
                 D_803D5530->xPos.h = D_803D552C->unk308;
                 D_803D5530->zPos.h = D_803D552C->unk30A;
                 D_803D5530->yPos.h = D_803D552C->unk30C;
-                D_803D552C->unk365 = ATTACK_UNKNOWN_10;
+                D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
                 D_803D552C->unk32A = D_803D5544;
                 D_803D552C->unk320 = D_801D9ED8.animals[sp80].animal;
                 D_803D552C->unk30E = sp80;
@@ -671,7 +671,7 @@ void func_80328ACC_73A17C(void) {
             D_803D552C->unk308 = D_801D9ED8.animals[0].animal->xPos.h;
             D_803D552C->unk30A = D_801D9ED8.animals[0].animal->zPos.h;
             D_803D552C->unk30C = (D_801D9ED8.animals[0].unk0->unkBA / 2) + D_801D9ED8.animals[0].animal->yPos.h;
-            D_803D552C->unk365 = ATTACK_UNKNOWN_10;
+            D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
             D_803D552C->unk32A = D_803D5544;
             D_803D552C->unk320 = D_801D9ED8.animals[sp80].animal;
             D_803D552C->unk30E = sp80;
@@ -788,7 +788,7 @@ void func_80328ACC_73A17C(void) {
                 D_801D9ED8.animals[0].animal->unk160 = D_801D9ED8.animals[D_803D5536].animal->unk160;
                 D_801D9ED8.animals[0].animal->unk68 = D_801D9ED8.animals[D_803D5536].animal->unk68;
                 D_801D9ED8.animals[0].animal->unk70 = D_801D9ED8.animals[D_803D5536].animal->unk70;
-                D_803D552C->unk365 = ATTACK_UNKNOWN_9;
+                D_803D552C->unk365 = ATTACK_EVO_CHIP_1;
                 D_803D552C->unk32A = D_803D5544;
                 D_803D5530->yRotation = (D_801D9ED8.animals[D_803D5536].animal->yRotation + 0x96) & 0xFF;
                 D_803D552C->unk302 = (D_801D9ED8.animals[D_803D5536].animal->unk302 + 0x96) & 0xFF;

@@ -268,7 +268,7 @@ void func_8031D624_72ECD4(void) {
             if (D_803D5530->unk4A == 0) {
                 func_8032CED0_73E580(
                     D_803D5530,
-                    13,
+                    SFX_UNKNOWN_13,
                     (12288.0f * phi_f0) * 0.5,
                     2.0 * temp_f12,
                     0,

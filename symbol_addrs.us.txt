@@ -96,6 +96,7 @@ write_eeprom           = 0x80130C30;
 read_eeprom            = 0x80130CD4;
 eeprom_checksum        = 0x80130E10;
 load_level_text_data   = 0x801308E8;
+load_level_data_sections = 0x8031B400; //rom:0x72CAB0
 
 amCreateAudioMgr       = 0x80131290;
 __amHandleFrameMsg     = 0x80131700;
@@ -187,6 +188,10 @@ heli_rabbit_drop_bomb  = 0x80302120; // rom:0x7137D0
 frog_croak             = 0x80302DD0; // rom:0x714480
 animal_jump            = 0x8030A958; // rom:0x71C008
 parrot_fly             = 0x80314600; // rom:0x725CB0
+
+set_game_state         = 0x80314874; // rom:0x725F24
+get_game_state         = 0x80314F0C; // rom:0x7265BC
+copy_command_struct    = 0x80315384; // rom:0x726A34
 
 get_closest_waypoint_index = 0x80319B4C; // rom:0x72B1FC
 

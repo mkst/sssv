@@ -225,3 +225,86 @@ void func_8032CD70_73E420(void *arg0, s16 id, s16 arg2, s16 arg3, f32 arg4, s16 
         }
     }
 }
+
+void func_8032CED0_73E580(void *arg0, s16 soundId, s16 arg2, f32 arg3, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel) {
+    f32 temp_f0;
+    s16 var_t0;
+    f32 temp_f14;
+    f32 temp_f16;
+    f32 temp_f18;
+    f32 temp_f12;
+
+    s32 temp_v1;
+    s32 temp_a0;
+    s32 temp_v0;
+    s32 temp_f10;
+
+    u8 var_v0;
+    s16 var_a2;
+
+    f32 temp_f2;
+
+
+    if (soundId != 0xFF) {
+        temp_v0 = xPos - (s16) D_803F2C44;
+        temp_v1 = zPos - (s16) D_803F2C48;
+        temp_a0 = yPos - (s16) D_803F2C4C;
+        temp_f10 = sqrtf(SQ(temp_v0) + SQ(temp_v1) + SQ(temp_a0));
+
+        if (temp_f10 < D_803A6730_7B7DE0[soundId]) {
+            var_t0 = 256 - ((temp_f10 << 8) / D_803A6730_7B7DE0[soundId]);
+        } else {
+            var_t0 = 0;
+        }
+
+        if (var_t0 != 0) {
+            if ((u8)arg5 != 0) {
+                if ((D_803F28E0[D_803F2A98].cameraMode != 2) && (D_803F28E0[D_803F2A98].cameraMode != 12)) {
+                    var_v0 = 0;
+                } else {
+                    var_v0 = 1;
+                }
+            } else {
+                var_v0 = 1;
+            }
+
+            temp_f14 = xPos - D_803F2C44;
+            temp_f16 = zPos - D_803F2C48;
+            temp_f18 = yPos - D_803F2C4C;
+
+            temp_f0 = sqrtf(SQ(temp_f14) + SQ(temp_f16) + SQ(temp_f18));
+            temp_f14 = temp_f14 / temp_f0;
+            temp_f16 = temp_f16 / temp_f0;
+            temp_f18 = temp_f18 / temp_f0;
+
+            temp_f2 = (D_80204218 * temp_f14) + (D_8020421C * temp_f16) + (D_80204220 * temp_f18);
+            temp_f12 = (D_8020422C * temp_f14) + (D_80204230 * temp_f16) + (D_80204234 * temp_f18);
+
+            if (ABS(temp_f12) > ABS(temp_f2)) {
+                if (temp_f12 > 0.0f) {
+                    var_a2 = 127;
+                } else {
+                    var_a2 = 0;
+                }
+            } else if (temp_f2 == 0.0) {
+                var_a2 = 64;
+            } else {
+                var_a2 = ((temp_f12 / ABS(temp_f2)) * 63.0) + 64.0;
+            }
+            if (var_v0 != 0) {
+                temp_f12 = ((temp_f14 * ((f32) xVel / 65536.0)) + (temp_f16 * ((f32) zVel / 65536.0)) + (temp_f18 * ((f32) yVel / 65536.0)));
+                if (temp_f12 > 75.0f) {
+                    temp_f12 = 75.0f;
+                }
+                if (temp_f12 < -75.0f) {
+                    temp_f12 = -75.0f;
+                }
+                temp_f0 = (1.0 - (temp_f12 / 150.0f));
+            } else {
+                temp_f0 = 1.0f;
+            }
+
+            func_8013328C(arg0, soundId, var_a2, arg3 * temp_f0, (var_t0 * arg2) >> 8, arg4);
+        }
+    }
+}

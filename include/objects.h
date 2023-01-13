@@ -13,6 +13,7 @@
 #define OBJECT_BUTTON               42
 #define OBJECT_GRAVITY_SWITCH       43
 #define OBJECT_FLAME_TORCH          50
+#define OBJECT_TELEPORTER_ACTIVE_NO_TRIGGER 55
 #define OBJECT_TELEPORTER_ACTIVE    56
 #define OBJECT_ENERGY_BALL_PURPLE   58
 #define OBJECT_ENERGY_BALL_PURPLE_2 59
@@ -27,5 +28,7 @@
 #define OBJECT_DOOR                 97
 
 #define OBJECT_SPEAKER              141
+
+#define OBJECT_TV_SCREEN            242
 
 #endif

@@ -1556,7 +1556,7 @@ void func_80309EDC_71B58C(Animal *arg0) {
 }
 
 void func_80309F38_71B5E8(void) {
-    struct063 *tmp;
+    struct067 *tmp;
 
     if (D_803D552C->unk2C4 > 0) {
         D_803D552C->unk2C4--;

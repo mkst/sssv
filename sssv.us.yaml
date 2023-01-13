@@ -3460,10 +3460,10 @@ segments:
   - [0x5F9410, bin, levels/SHIFTING_SANDS]
   - [0x603210, bin, levels/PUNCHUP_PYRAMID]
   - [0x607440, bin, levels/BIG_CELEBRATION_PARADE]
-  - [0x60E920, bin, levels/rnc_60E920] # 5795 => 5889
-  - [0x60FFD0, bin, levels/rnc_60FFD0] # 1227 => 1413
-  - [0x6104A0, bin, levels/rnc_6104A0] # 1322 => 1513
-  - [0x6109D0, bin, levels/rnc_6109D0] # 25055 => 25120 # no animals... credits?
+  - [0x60E920, bin, levels/rnc_60E920] # 5795 => 5889 # EMPTY_LEVEL_1
+  - [0x60FFD0, bin, levels/rnc_60FFD0] # 1227 => 1413 # EMPTY_LEVEL_2
+  - [0x6104A0, bin, levels/rnc_6104A0] # 1322 => 1513 # EMPTY_LEVEL_3
+  - [0x6109D0, bin, levels/rnc_6109D0] # 25055 => 25120 # BIG_CELEBRATION_PARADE_CREDITS
   - [0x616BB0, bin, levels/INTRO]
   ## language files (matches EU ROM from here..)
   - [0x617C30, rnc, lang/lang1.dat]
@@ -3666,8 +3666,7 @@ segments:
     - [0x734D30, c, sssv/animals/bear]
     - [0x739290, c, overlay2_739290]
     - [0x73C890, c, overlay2_73C890]
-    - [0x73D980, c, overlay2_73D980]
-    - [0x73E580, c, overlay2_73E580]
+    - [0x73D980, c, overlay2_73D980] # sssv/sfx ?
     - [0x73EA30, c, overlay2_73EA30]
     - [0x73ED30, c, overlay2_73ED30]
     - [0x741000, c, overlay2_741000]
@@ -3835,7 +3834,6 @@ segments:
     - [0x7CF120, .rodata, sssv/animals/bear]
     - [0x7CF180, .rodata, overlay2_739290]
     - [0x7CF530, .rodata, overlay2_73D980]
-    - [0x7CF800, .rodata, overlay2_73E580]
     - [0x7CF810, .rodata, overlay2_73ED30]
     - [0x7CF860, .rodata, overlay2_741000]
     - [0x7CFFD0, .rodata, overlay2_7558F0]
