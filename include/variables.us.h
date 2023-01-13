@@ -379,7 +379,7 @@ extern s32  D_801DD800;
 extern s32  D_801DD8EC;
 
 // D_801DDD88 is D_801D9ED8.animals
-// D_801DDD8C[x] is D_801D9ED8.animals[x].animal
+// D_801DDD8C[gCurrentAnimalIndex] is D_801D9ED8.animals[gCurrentAnimalIndex].animal
 
 // 0x801Exxxx
 
@@ -821,8 +821,10 @@ extern s16  D_803A6CE8_7B8398;
 extern s16  D_803A6CEC;
 extern s16  D_803A6CEC_7B839C;
 extern u8   D_803A6CF3_7B83A3[];
+extern u8   D_803A6D0B_7B83BB[]; //?
 extern struct105 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
+extern u8   D_803A7B2A_7B91DA[];
 extern s16  D_803A7B3C_7B91EC[][2];
 extern s16  D_803A8340;
 extern u8   D_803A8344[]; // timer string written here
@@ -844,6 +846,7 @@ extern s16  D_803A8518_7B9BC8[];
 extern struct068 D_803A8528_7B9BD8[247]; // 0x9C each
 extern u8   D_803A8EC8[];
 extern u16  D_803A4638_7B5CE8[];
+extern u8   D_803A47F4_7B5EA4[]; // 68 big?
 extern u8   D_803A48C0_7B5F70[MAX_EUROPE_ANIMALS][MAX_EUROPE_ANIMALS]; // europe
 extern u8   D_803A4ABC_7B616C[MAX_ICE_ANIMALS][MAX_ICE_ANIMALS]; // ice
 extern u8   D_803A4A2C_7B60DC[MAX_JUNGLE_ANIMALS][MAX_JUNGLE_ANIMALS]; // jungle
@@ -1251,6 +1254,7 @@ extern s16  D_803E4C72;
 extern s16  D_803E4C74;
 extern s16  D_803E4C76;
 extern u8   D_803E4C78;
+extern u8   D_803E4C79;
 extern u8   D_803E4C7A;
 extern s32  D_803E4C7C;
 extern s32  D_803E4C80;

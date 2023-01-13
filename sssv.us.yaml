@@ -2480,7 +2480,7 @@ segments:
     - [0xED650, sssv_vtx, data/inc/D_040060A0_ED650]
     - [0xED6F0, .data, data/D_04006140_ED6F0]
     - [0xED740, bin] # what is this
-    - [0xEDBC0, .data, data/D_04006610_EDBC0] # draw triangles displaylists
+    - [0xEDBC0, .data, data/D_04006610_EDBC0] # draw triangles displaylists (scorpion attack?)
     - [0xEDC30, .data, data/D_04006D00_EE2B0] # palm tree
     - [0xEDC30, sssv_vtx, data/inc/D_04006680_EDC30]
     - [0xEDCB0, sssv_vtx, data/inc/D_04006700_EDCB0]
