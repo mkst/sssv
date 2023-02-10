@@ -11,8 +11,6 @@ extern u8  D_040063C0[];
 extern u8  D_040067C0[];
 extern u8  D_040067E0[];
 
-extern Gfx D_803A39C0_7B5070[];
-
 extern s32 D_803B55B0_7C6C60;
 extern struct077 D_803B55E0_7C6C90;
 extern struct077 D_803B5610_7C6CC0;

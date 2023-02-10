@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern s16 D_803A3C0C_7B52BC[];
 extern s16 D_803A50D0_7B6780[];
 extern s16 D_803A5100_7B67B0[];
 extern s16 D_803A5130_7B67E0[];

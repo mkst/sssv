@@ -173,7 +173,7 @@ block_23:
 }
 
 void func_803144F8_725BA8(void) {
-    if ((D_803D5530->unk162 != 1) && (func_803224C4_733B74(0, 0, 0, 0, 32, 0, 0, 11) == 0) && (func_802B2580_6C3C30() >= 49)) {
+    if ((D_803D5530->unk162 != 1) && (func_803224C4_733B74(0, 0, 0, 0, 32, 0, 0, 11) == 0) && (get_distance_from_ground() >= 49)) {
         load_animal(PARROT_ATTACKING);
         func_802A61EC_6B789C(D_803D5530->yRotation);
         D_803D552C->unk2EE = 0;

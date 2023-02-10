@@ -8,7 +8,6 @@ typedef struct struct065 struct065;
 typedef struct struct069 struct069;
 typedef struct struct070 struct070;
 typedef struct struct071 struct071;
-typedef struct struct101 struct101;
 typedef struct struct103 struct103;
 typedef struct struct044 struct044;
 typedef struct Animal Animal;
@@ -1129,6 +1128,28 @@ typedef struct {
 } struct037;
 
 typedef struct {
+  /* 0x0  */ s64 unk0;  // x
+  /* 0x8  */ s64 unk8;  // z
+  /* 0x10 */ s64 unk10; // y
+
+  /* 0x18 */ s16 unk18; // argA
+  /* 0x1A */ u8  unk1A;
+  /* 0x1C */ s16 size;
+  /* 0x20 */ s32 unk20; // arg4
+  /* 0x24 */ s32 unk24; // arg5
+  /* 0x28 */ s32 unk28; // arg6
+  /* 0x2C */ u8  id;
+  /* 0x2D */ u8  unk2D;
+  /* 0x2E */ s8  unk2E;
+  /* 0x30 */ u16 primaryColor;
+  /* 0x32 */ u16 envColor;
+  /* 0x34 */ u16 unk34; // also argA
+  /* 0x36 */ s16 unk36;
+  /* 0x38 */ s8  unk38; // flags
+  /* 0x38 */ u8  pad39[0x7];
+} struct036; // size 0x40
+
+typedef struct {
     s16 unk0;
     u8  pad2[0xab6];
 } struct038; // size 0xAB8
@@ -1372,16 +1393,16 @@ typedef struct {
     /* 0x18 */ s32 unk18; // length
     /* 0x1C */ s16 unk1C;
     /* 0x1E */ u8  pad1E[2];
-    /* 0x20 */ s32 unk20;
-    /* 0x24 */ s32 unk24;
-    /* 0x28 */ s32 unk28;
+    /* 0x20 */ s32 unk20; // xPos
+    /* 0x24 */ s32 unk24; // zPos
+    /* 0x28 */ s32 unk28; // yPos
     /* 0x2C */ s16 unk2C;
     /* 0x2E */ s8  unk2E;
     /* 0x2F */ s8  unk2F;
     /* 0x30 */ s8  unk30;
-    /* 0x31 */ u8  pad31;
+    /* 0x31 */ s8  unk31;
     /* 0x32 */ u8  unk32;
-    /* 0x33 */ s8  unk33;
+    /* 0x33 */ u8  unk33;
     /* 0x34 */ s8  unk34;
     /* 0x35 */ s8  unk35;
     /* 0x36 */ u8  pad36[0x2];
@@ -1565,7 +1586,17 @@ typedef struct {
     u8 unk4; // flags
     u8 unk5; // also flags
     u8 unk6; // water?
+
+#if 0
+    union {
+      u8 unk0 : 1; // ((x >> 4) & 8) >> 2
+      u8 unk1 : 3; // ((x & 0xF0) >> 4) & 7
+      u8 unk4 : 1; // (x & 8) >> 2
+      u8 unk5 : 3; // (x & 7)
+    } unk7; // bitfield?
+#else
     u8 unk7;
+#endif
 } struct063; // size 0x8
 
 typedef struct {
@@ -1873,38 +1904,12 @@ typedef struct {
     ALBank *unk4;
 } struct083;
 
-struct struct101 {
-    u8  unk0;
-    u8  pad1[0x3];
-    s32 unk4;
-    s32 *unk8;
-    s32 unkC;
-    s32 unk10;
-    s32 unk14;
-    s16 unk18;
-    s16 unk1A;
-    s32 unk1C;
-    s16 unk20;
-    u8  unk22;
-    u8  pad23; //
-    s32 unk24;
-    s32 unk28;
-    u8  unk2C;
-    u8  unk2D;
-    s8  unk2E;
-    u8  pad2F;
-    s16 unk30;
-    s16 unk32;
-    s16 unk34;
-    s16 unk36;
-    s8  unk38;
-    u8  pad39[0x3];
-    s32 unk3C;
-}; // size 0x40
 
 typedef struct {
-    /* 0x00 */   struct101 unk0[255];
-    /* 0x3FC0 */ u8  pad3FC0[8];
+    u8           used;
+    u8           pad[0x7];
+    /* 0x00 */   struct036 particles[255];
+    // /* 0x3FC0 */ u8  pad3FC0[8];
     /* 0x3FC8 */ s8  unk3FC8[8]; // is displaylist enabled?
     /* 0x3FD0 */ u16 unk3FD0;
     /* 0x3FD2 */ s16 unk3FD2;
@@ -2046,14 +2051,18 @@ typedef struct {
 } struct098; // size 0x8
 
 typedef struct {
-    u16 unk0; // particle type?
-    u8  unk2;
-    u8  pad3;
-    s16 unk4;
-    u8  pad6[0x8];
-    u16 unkE;
-    u16 unk10;
-    u8  unk12[0x6];
+    /* 0x0  */ u16 unk0; // particle type (flags)
+    /* 0x2  */ u8  unk2; // defaultSize
+    /* 0x3  */ u8  pad3;
+    /* 0x4  */ s16 unk4;
+    /* 0x6  */ u8  unk6;
+    /* 0x7  */ u8  pad7[0x4];
+    /* 0xB  */ u8  unkB;
+    /* 0xC  */ u8  unkC;
+    /* 0xD  */ u8  unkD;
+    /* 0xE  */ u16 unkE;  // defaultPrimaryColor
+    /* 0x10 */ u16 unk10; // defaultEnvColor
+    /* 0x12 */ u8  unk12[0x6];
 } struct099; // particle, size 0x18?
 
 typedef struct {
@@ -2396,6 +2405,6 @@ typedef struct {
     s32 unk0;
     s32 unk4;
     s32 unk8;
-} struct118;
+} struct118; // size 0xC
 
 #endif

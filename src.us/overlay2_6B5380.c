@@ -2665,9 +2665,118 @@ void func_802AB8EC_6BCF9C(u8 rotation, s8 arg1, s16 yOffset) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802ABB10_6BD1C0.s")
+void func_802ABB10_6BD1C0(u16 traction, s32 *arg1, s32 *arg2) {
+    s32 xVel;
+    s32 zVel;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC158_6BD808.s")
+    s32 xVelDelta; // uninitialised?
+    s32 zVelDelta; // uninitialised?
+
+    s32 temp_t0;
+    s32 var_a2;
+    s32 temp_a3;
+    s32 temp_v1;
+
+    s16 temp_a1;
+
+    xVel = D_803D5530->xVelocity.w;
+    zVel = D_803D5530->zVelocity.w;
+
+    if (D_803D5530->unk161 == 1) {
+        if (D_803D5530->unk68 != NULL) {
+            if ((D_803D5530->unk68->unk16C->unk2 == 5) && (D_803D5530->unk68->unk16C->unkE6 >= D_803D5530->unk16C->unkE6)) {
+                D_803D552C->unk304 = D_803D552C->unk302;
+                temp_a1 = D_803D5530->unk68->unk302 - D_803D5530->unk68->unk304;
+                D_803D552C->unk302 = (D_803D552C->unk302 + temp_a1) & 0xFF;
+                D_803D5530->yRotation = (D_803D5530->yRotation + temp_a1) & 0xFF;
+                if (temp_a1 != 0) {
+                    temp_t0 = D_803D5530->xPos.w - D_803D5530->unk68->xPos.w;
+                    temp_a3 = D_803D5530->zPos.w - D_803D5530->unk68->zPos.w;
+                    D_803D5530->xPos.w = D_803D5530->unk68->xPos.w + ((temp_t0 >> 8) * (D_80152C78[(temp_a1 + 0x40) & 0xFF] >> 7)) + ((temp_a3 >> 8) * (D_80152C78[temp_a1 & 0xFF] >> 7));
+                    D_803D5530->zPos.w = D_803D5530->unk68->zPos.w + ((temp_a3 >> 8) * (D_80152C78[(temp_a1 + 0x40) & 0xFF] >> 7)) - ((temp_t0 >> 8) * (D_80152C78[temp_a1 & 0xFF] >> 7));
+                }
+            }
+
+            if (D_803D5530->unk68->unk16C->objectType == OBJECT_BOULDER) {
+                xVelDelta = (*arg1 + (D_803D5530->unk68->xVelocity.w * 2)) - xVel;
+                zVelDelta = (*arg2 + (D_803D5530->unk68->zVelocity.w * 2)) - zVel;
+            } else {
+                xVelDelta = (*arg1 + D_803D5530->unk68->xVelocity.w) - xVel;
+                zVelDelta = (*arg2 + D_803D5530->unk68->zVelocity.w) - zVel;
+            }
+        }
+#if AVOID_UB
+        else {
+            // uninitialised!!
+            xVelDelta = *arg1 - xVel;
+            zVelDelta = *arg2 - zVel;
+        }
+#endif
+    } else {
+        xVelDelta = *arg1 - xVel;
+        zVelDelta = *arg2 - zVel;
+    }
+
+    if (D_803D5530->unk161 == 1) {
+        var_a2 = traction * 60;
+    } else if (D_803D5530->unk160 == 2) {
+        var_a2 = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk3].unk0 * traction;
+    } else {
+        var_a2 = D_803E1D30[D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk2].unk0 * traction;
+    }
+
+    // tracked animals have more grip?
+    if ((D_803D5524->unk9C == POLAR_TANK) || (D_803D5524->unk9C == TORTOISE_TANK)) {
+        if (var_a2 == 0) {
+            var_a2 = 90;
+        } else if (var_a2 < 451) {
+            var_a2 = 450;
+        }
+    }
+
+    temp_v1 = func_802AC928_6BDFD8(xVelDelta, zVelDelta) >> 8;
+    if (temp_v1 == 0) {
+        *arg1 = xVel + xVelDelta;
+        *arg2 = zVel + zVelDelta;
+        return;
+    }
+    if (temp_v1 < var_a2) {
+        *arg1 = xVel + xVelDelta;
+        *arg2 = zVel + zVelDelta;
+        return;
+    }
+
+    if (temp_v1 < (var_a2 * 5)) {
+        xVelDelta = ((xVelDelta >> 8) * var_a2) / temp_v1;
+        zVelDelta = ((zVelDelta >> 8) * var_a2) / temp_v1;
+
+        *arg1 = xVel + (xVelDelta << 8);
+        *arg2 = zVel + (zVelDelta << 8);
+
+        if (((xVel * xVelDelta) > 0) || ((zVel * zVelDelta) > 0)) {
+            // kick up dust behind animal?
+            func_8034AE34_75C4E4(xVel - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) << 0xA), zVel - ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) << 0xA));
+        } else {
+            // kick up dust with no momentum?
+            func_8034AE34_75C4E4(0, 0);
+        }
+    } else {
+        xVelDelta = ((xVelDelta >> 8) * var_a2) / temp_v1;
+        zVelDelta = ((zVelDelta >> 8) * var_a2) / temp_v1;
+
+        *arg1 = xVel + (xVelDelta << 8);
+        *arg2 = zVel + (zVelDelta << 8);
+
+        if (((xVel * xVelDelta) > 0) || ((zVel * zVelDelta) > 0)) {
+            // kick up bigger dust behind animal?
+            func_8034AF0C_75C5BC(xVel - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) << 0xA), zVel - ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) << 0xA));
+        } else {
+            // kick up bigger dust with no momentum
+            func_8034AF0C_75C5BC(0, 0);
+        }
+    }
+}
+
 #if 0
 // miles away
 void func_802AC158_6BD808(u16 arg0, s32 *arg1, s32 *arg2) {
@@ -2744,6 +2853,8 @@ void func_802AC158_6BD808(u16 arg0, s32 *arg1, s32 *arg2) {
         *arg2 = (tmpz << 8) + sp40;
     }
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802AC158_6BD808.s")
 #endif
 
 void func_802AC484_6BDB34(u16 arg0, s32 *arg1, s32 *arg2) {
@@ -3576,7 +3687,7 @@ void func_802AE488_6BFB38(void) {
 //         }
 //
 //         var_a3 = D_803D5530->unk28 << 0xF;
-//         temp_v0 = func_802B2580_6C3C30();
+//         temp_v0 = get_distance_from_ground();
 //
 //         if ((temp_v0 > 0xA80) && (var_a3 >= FTOFIX32(-1.0))) {
 //             var_a3 = FTOFIX32(-1.0);
@@ -3666,7 +3777,7 @@ void func_802AE9C4_6C0074(void) {
 }
 
 void func_802AEBB0_6C0260(void) {
-    s32 temp_v0_3;
+    s32 airHeight;
 
     if (D_803D552C->unk30E >= 5) {
         D_803D552C->unk30E--;
@@ -3696,14 +3807,15 @@ void func_802AEBB0_6C0260(void) {
             D_803D552C->unk368 = 0;
         }
         if (D_801D9ED8.unkFFB2 != 0) {
-            temp_v0_3 = func_802B2580_6C3C30();
-            if (temp_v0_3 < 0x100) {
+            airHeight = get_distance_from_ground();
+            if (airHeight < 256) {
                 D_803D5530->yVelocity.w += D_803A05B0_7B1C60 >> 3;
-            } else if (temp_v0_3 < 0x180) {
+            } else if (airHeight < 384) {
                 if (D_803D5530->yVelocity.w > FTOFIX32(-1.5)) {
                     D_803D5530->yVelocity.w -= D_803A05B0_7B1C60 >> 5;
                 }
             } else {
+                // cap height
                 D_803D5530->yVelocity.w -= D_803A05B0_7B1C60 >> 3;
             }
             D_803D552C->unk30E = MIN(100, D_803D552C->unk30E + 4);
@@ -4498,7 +4610,7 @@ void func_802B1654_6C2D04(s16 rotation, s16 arg1, s16 yOffset) {
             var_a3 = yOffset - D_803D5530->yPos.h;
         }
         var_a3 = var_a3 >> 2;
-        if ((func_802B2580_6C3C30() >= 2369) && (var_a3 > 0)) {
+        if ((get_distance_from_ground() >= 2369) && (var_a3 > 0)) {
             var_a3 = 0;
         }
         if (var_a3 > 40) {
@@ -4754,7 +4866,7 @@ void func_802B1E28_6C34D8(s16 rotation, s16 arg1, s16 yOffset) {
                 (D_803D5524->unk9C == VULTURE) ||
                 (D_803D5524->unk9C == SEAGULL) ||
                 (D_803D5524->unk9C == SEAGULL2)) {
-                airHeight = func_802B2580_6C3C30();
+                airHeight = get_distance_from_ground();
                 if ((D_803D5524->unk9C == VULTURE) ||
                     (D_803D5524->unk9C == SEAGULL2)) {
                     airHeight += airHeight >> 1;
@@ -4771,7 +4883,7 @@ void func_802B1E28_6C34D8(s16 rotation, s16 arg1, s16 yOffset) {
                     }
                 }
             } else {
-                airHeight = func_802B2580_6C3C30();
+                airHeight = get_distance_from_ground();
                 if (D_803D5530->yVelocity.w < FTOFIX32(10.0)) {
                     if (airHeight > 640) {
                         D_803D5530->yVelocity.w += FTOFIX32(0.25);
@@ -4828,7 +4940,7 @@ void func_802B1E28_6C34D8(s16 rotation, s16 arg1, s16 yOffset) {
 }
 
 // get_distance_from_ground
-s16 func_802B2580_6C3C30(void) {
+s16 get_distance_from_ground(void) {
     return D_803D5530->yPos.h - func_802B25B4_6C3C64(1);
 }
 

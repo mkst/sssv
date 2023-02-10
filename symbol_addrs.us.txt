@@ -160,6 +160,8 @@ D_803A0510_7B1BC0      = 0x803A0510; //rom:0x7B1BC0 size:0x20
 set_fog_factor_and_color   = 0x8029A5B4; // rom:0x6ABC64
 set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4
 
+get_distance_from_ground = 0x802B2580; // rom:0x6C3C30
+
 black_out_screen       = 0x802958B8; // rom:0x638F58
 language_select_menu   = 0x80298FC0; // rom:0x63C660
 get_evo_suit_color     = 0x80296320; // rom:0x6A79D0

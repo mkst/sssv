@@ -58,10 +58,18 @@ extern u8   D_0102D810[];
 extern u8   D_0102F010[]; // [64][2048]; ?
 extern u8   D_0102B610[];
 extern u8   D_0102B810[];
+extern u8   D_0102BA10[];
 extern u8   D_01030810[];
 extern u8   D_01033190[]; // D_01033190_6CA60?
+extern u8   D_01035190[];
+extern u8   D_01035990[];
+extern u8   D_01036190[];
 extern Gfx  D_01037700[];
 extern u8   D_01037750_71020[];
+extern Gfx  D_01037950[];
+extern Gfx  D_01037998[];
+extern Gfx  D_010379D8[];
+extern Gfx  D_01037A00[];
 extern Gfx  D_01037A20[];
 extern u8   D_0103B6F0[];
 extern Gfx  D_0103B880[];
@@ -99,6 +107,19 @@ extern u8   D_04005B60_11C730[]; // spaceship interior
 extern u8   D_04006D00_11D8D0[]; // tv body
 extern u8   D_04006EC0[];
 extern Gfx  D_04007500_E4AC0[];
+
+extern Gfx D_04003580_EAB30[];
+extern Gfx D_04003640_EABF0[];
+extern Gfx D_040036D0_EAC80[];
+extern Gfx D_04003930_E0EF0[];
+extern Gfx D_040039C0_E0F80[];
+extern Gfx D_04005F70_ED520[];
+extern Gfx D_04006050_ED600[];
+extern Gfx D_04006C00_CE630[];
+extern Gfx D_04006200[]; // maybe here 0xED740 or 0x0F6DB0?
+extern Gfx D_040062C0[]; // maybe here 0xED740 or 0x0F6DB0?
+extern Gfx D_04000E70[];
+extern Gfx D_04000EF0[];
 
 // mouse
 extern Gfx  D_04005480_1051D0[];
@@ -763,8 +784,33 @@ extern u16  D_803A20B0_7B3760[]; // colors
 extern struct099 D_803A20C0_7B3770[];
 extern struct076 D_803A2D90_7B4440[];
 extern u8   D_803A38D8[];
-extern s32  D_803A3B4C_7B51FC;
-extern s32  D_803A3BAC_7B525C;
+
+extern struct118 D_803A3990_7B5040;
+extern struct118 D_803A39C0_7B5070;
+extern struct118 D_803A39FC_7B50AC;
+extern struct118 D_803A3A38_7B50E8;
+extern struct118 D_803A3A74_7B5124;
+extern struct118 D_803A3AC8_7B5178;
+extern struct118 D_803A3B1C_7B51CC;
+extern struct118 D_803A3B4C_7B51FC;
+extern struct118 D_803A3BAC_7B525C;
+extern struct118 D_803A3C0C_7B52BC;
+extern struct118 D_803A3C3C_7B52EC;
+extern struct118 D_803A3C9C_7B534C[16];
+extern struct118 D_803A3D5C_7B540C[16];
+extern struct118 D_803A3E1C_7B54CC[16];
+extern struct118 D_803A3EDC_7B558C[16];
+extern struct118 D_803A3F9C_7B564C[16];
+extern struct118 D_803A411C_7B57CC;
+extern struct118 D_803A41DC_7B588C;
+extern struct118 D_803A429C_7B594C;
+extern struct118 D_803A435C_7B5A0C;
+extern struct118 D_803A4398_7B5A48;
+extern struct118 D_803A43D4_7B5A84;
+extern struct118 D_803A4410_7B5AC0;
+extern struct118 D_803A444C_7B5AFC;
+extern struct118 D_803A4488_7B5B38;
+
 extern struct028 D_803A50C0_7B6770;
 
 extern s16  D_803A5560_7B6C10[4];
@@ -1147,7 +1193,6 @@ extern s32  D_803D60D8;
 extern struct043 *D_803D60DC;
 extern s16  D_803D6110;
 extern struct084 D_803D6120; // size 0x3FD8
-
 extern struct065 D_803DA110[40];
 extern Animal *D_803DA2F0;
 extern Animal *D_803DA2F4; // not animal, script
@@ -1158,7 +1203,7 @@ extern struct088 D_803DA300[1000];
 extern struct051 D_803E00C0[120];
 extern s16  D_803E1B00; // counter, max 1000
 extern s16  D_803E1B02; // another counter, max 120
-extern u16  D_803E1B04;
+extern s16  D_803E1B04; // used vtx for dynamic tails?
 extern u16  D_803E1B06;
 extern s16  D_803E1B08;
 extern ScreenTransition D_803E1B10;

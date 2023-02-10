@@ -16,13 +16,13 @@ jobs:
       fail-fast: False
     steps:
     - name: Checkout this repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: recursive
         ref: ${{ github.event.pull_request.head.ref }}
         repository: ${{ github.event.pull_request.head.repo.full_name }}
     - name: Checkout baserom
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: mkst/sssv-private
         token: ${{ secrets.PRIVATE_REPO_ACCESS }}
@@ -53,7 +53,7 @@ jobs:
       env:
         ROM: ${{ matrix.version }}
       with:
-        args: grep -R src.${ROM} NON_MATCHING | xargs touch
+        args: grep -Rl src.${ROM} NON_MATCHING | xargs touch
 
     - name: Perform make NON_MATCHING
       uses: docker://ghcr.io/mkst/sssv:latest

@@ -122,7 +122,7 @@ s16  distance_from_player(s16 x, s16 z, s16 y);
 struct050 *spawn_animal(s16 x, s16 z, s16 y, s16 rotation, s16 health, s16 id, s8 arg6);
 
 // overlay2_6DCA10
-s32  create_particle_effect(s32 x, s32 z, s32 y, s16 id, s16, s16, s32, s16 size, u16 color1, u16 color2, s16); // TBD
+s32  create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32, s32, s32, s16 size, u16 color1, u16 color2, u16); // TBD
 
 // sssv/animals/fox (overlay2_6F66B0)
 void fire_fox_fire_missile(Animal *animal);

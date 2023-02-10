@@ -551,7 +551,6 @@ done:
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_8031540C_726ABC.s")
 #endif
 
-#if 1
 u8 func_80315658_726D08(s16 arg0, s32 func(Animal *, s16), s16 arg2) {
     u64 sp50;
     s32 pad; // sp
@@ -582,9 +581,6 @@ u8 func_80315658_726D08(s16 arg0, s32 func(Animal *, s16), s16 arg2) {
 done:
     return ret;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80315658_726D08.s")
-#endif
 
 s32 func_80315870_726F20(s32 arg0, s32 arg1) {
     return 1;
@@ -632,195 +628,289 @@ s32 func_803159B0_727060(s16 arg0) {
     return func_80315658_726D08(arg0, &func_80315984_727034, 0);
 }
 
+
+// regalloc is really off...
+#if 0
+
+typedef struct {
+    u8  unk0;
+    u8  unk1;
+    u8  unk2;
+    u8  unk3;
+    u8  unk4;
+    u8  unk5;
+    u16 alignment;
+} DefaultCmd;
+
+typedef struct {
+    u16 unk0;
+    s16 unk2;
+    s16 unk4;
+    u16 alignment;
+} Cmd4;
+
+
+u8 func_803159E4_727094(Animal *arg0, DefaultCmd *arg1) {
+    u16 res;
+    u16 sp3C;
+    s16 sp26;
+    s32 water_level;
+    u8  pad[0xC];
+
+    res = 0;
+
+    sp3C = arg1->unk0 & 0x80;     // 10000000
+
+    switch (arg1->unk0 & ~0xC0) { // 00111111
+    case 0:
+        if (arg1->unk2 & 8) {
+            if (func_80315880_726F30(arg1->unk3)) {
+                res = 1;
+                break;
+            }
+        }
+        if (arg1->unk2 & 1) {
+            if (func_803159B0_727060(arg1->unk3)) {
+                res = 1;
+                break;
+            }
+        }
+        if (arg1->unk2 & 2) {
+            res = 1;
+            break;
+        }
+        if (arg1->unk2 & 0x10) {
+            if (func_80319E1C_72B4CC(
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6,
+                arg1->unk3,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160)) {
+
+                res = 1;
+                break;
+            }
+        }
+        if (arg1->unk2 & 4) {
+            if (func_80315950_727000(arg1->unk3)) {
+                res = 1;
+                break;
+            }
+        }
+        if (arg1->unk2 & 0x20) {
+            if (func_803158E4_726F94(arg1->unk3, arg1->unk5 + OB_TYPE_ANIMAL_OFFSET)) {
+                res = 1;
+                break;
+            }
+        }
+        if (arg1->unk2 & 0x40) {
+            if (func_803158E4_726F94(arg1->unk3, arg1->unk4)) {
+                res = 1;
+                break;
+            }
+        }
+        break;
+
+    case 1:
+        if ((arg0->unk162 != 4) && (arg0->unk162 != 5) && (arg0->unk162 != 6) && (arg0->unk162 != 7)) {
+
+            if (1) {}; // ?
+
+            water_level = GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h);
+
+            if (arg0->yPos.h < (water_level * 4)) {
+                res = 1;
+                break;
+            }
+        }
+        // m2c things there is an else here?
+        break;
+    case 2:
+        if (((Cmd4*)arg1)->unk2 == arg0->state) {
+            res = 1;
+        }
+        break;
+    case 3:
+        water_level = GET_WATER_LEVEL(D_803C0740, arg1->unk4 << 6, arg1->unk5 << 6);
+        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) < (water_level * 4)) {
+            res = 1;
+        }
+        break;
+    case 4:
+        // state matches?
+        if ((arg1->unk2 & 8) && (arg0->unk5C & 8)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 1) && (arg0->unk5C & 1)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 2) && (arg0->unk5C & 2)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x10) && (arg0->unk5C & 0x10)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 4) && (arg0->unk5C & 4)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x20) && (arg0->unk5C & 4) && (arg0->unk5D == arg1->unk5)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x40) && (arg0->unk5C & 1) && (arg0->unk5D == arg1->unk4)) {
+            res = 1;
+            break;
+        }
+        break;
+
+    case 5:
+        if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
+            // it's an animal
+            if (arg0->unk28C == 0) {
+                res = 1;
+            }
+        } else if (arg0->unk170 == 0) {
+            res = 1;
+        }
+        break;
+    case 6:
+        if ((arg0 != NULL) && (arg0->unk26C != 1)) {
+            res = 1;
+        }
+        break;
+    case 7:
+    case 8:
+        if (D_803F2AA4 != 0) {
+            res = 1;
+        }
+        break;
+
+    case 9:
+        sp26 = func_802FD5DC_70EC8C(arg0);
+        if (sp26 >= get_game_state(arg0, ((Cmd4*)arg1)->unk2)) {
+            res = 1;
+        }
+        break;
+    case 11:
+        if ((arg1->unk2 & 8) && (func_802FD3B8_70EA68(arg0))) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 1) && (func_802FD4D0_70EB80(arg0))) {
+            res = 1;
+            break;
+        }
+        if (((arg1->unk2 & 0x10) && ((func_802FD40C_70EABC(arg0, D_801D9ED8.animals[gCurrentAnimalIndex].animal)))) || (func_802FD538_70EBE8(arg0))) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 4) && (func_802FD468_70EB18(arg0))) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x20) && (func_802FD348_70E9F8(arg0, (arg1->unk5 + OB_TYPE_ANIMAL_OFFSET)))) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x40) && (func_802FD348_70E9F8(arg0, arg1->unk4))) {
+            res = 1;
+            break;
+        }
+        break;
+    case 14:
+        if (D_803A52B8_7B6968 != 0) {
+            res = 1;
+        }
+        break;
+    case 15:
+        if (arg0->unk22C == 0) {
+            res = 1;
+        }
+        break;
+    case 16:
+        if (func_80319E1C_72B4CC(
+              arg0->xPos.h >> 6,
+              arg0->zPos.h >> 6,
+              arg0->yPos.h >> 6,
+              arg1->unk3,
+              arg0->unk160)) {
+            res = 1;
+        }
+        break;
+
+    case 17:
+        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) <  get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+            res = 1;
+        }
+        break;
+    case 18:
+        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) <= get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+            res = 1;
+        }
+        break;
+    case 19:
+        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) == get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+            res = 1;
+        }
+        break;
+    case 20:
+        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) >= get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+            res = 1;
+        }
+        break;
+    case 21:
+        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) >  get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+            res = 1;
+        }
+        break;
+    case 22:
+        if ((arg1->unk2 & 1) && (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x10) && (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 4) && (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET)) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x20) && (arg0->unk16C->objectType == (arg1->unk5 + OB_TYPE_ANIMAL_OFFSET))) {
+            res = 1;
+            break;
+        }
+        if ((arg1->unk2 & 0x40) && (arg0->unk16C->objectType == arg1->unk4)) {
+            res = 1;
+            break;
+        }
+        if (arg1->unk2 & 8) {
+            res = 1;
+            break;
+        }
+        break;
+    case 23:
+        if (((Cmd4*)arg1)->unk2 == arg0->unk5F) {
+            res = 1;
+        }
+        break;
+    }
+
+    if (sp3C) {
+        res ^= 1; // & 0xFFFF;
+    }
+
+    return res; // & 0xFF;
+}
+
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_803159E4_727094.s")
-// u8 func_803159E4_727094(Animal *arg0, struct070 *arg1) {
-//     u16 changed;
-//     u16 sp3C;
-//     s32 phi_v1;
-//
-//     sp3C = arg1->unk0 & 0x80;
-//
-//     changed = 0;
-//
-//     switch (arg1->unk0 & ~0xC0) {
-//     case 0:
-//         if ((arg1->unk2.b[0] & 8) && (func_80315880_726F30(arg1->unk2.b[1]))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 1) && (func_803159B0_727060(arg1->unk2.b[1]))) {
-//             changed = 1;
-//         } else if (arg1->unk2.b[0] & 2) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 16) && (func_80319E1C_72B4CC(
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6,
-//                     arg1->unk2.b[1],
-//                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 4) && (func_80315950_727000(arg1->unk2.b[1]))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 32) && (func_803158E4_726F94(arg1->unk2.b[1], (arg1->unk4.b[1] + 0x100)))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 64) && (func_803158E4_726F94(arg1->unk2.b[1], arg1->unk4.b[0]))) {
-//             changed = 1;
-//         }
-//         break;
-//     case 1:
-//         if ((arg0->unk162 != 4) && (arg0->unk162 != 5) && (arg0->unk162 != 6) && (arg0->unk162 != 7)) {
-//             phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6),
-//                          MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6));
-//
-//             if (arg0->yPos.h < (phi_v1 * 4)) {
-//                 changed = 1;
-//             }
-//         } else {
-//             // wrong?
-//             changed = 1;
-//         }
-//         break;
-//     case 2:
-//         if (arg1->unk2.h == arg0->state) {
-//             changed = 1;
-//         }
-//         break;
-//     case 3:
-//         phi_v1 = MIN(MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6),
-//                      MIN(D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6, D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6));
-//         if (get_game_state(arg0, arg1->unk2.h) < (phi_v1 * 4)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 4:
-//         if ((arg1->unk2.b[0] & 8) && ((arg0->unk5C & 8))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 1) && (arg0->unk5C & 1)) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 2) && (arg0->unk5C & 2)) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 16) && ((arg0->unk5C & 16))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 4) && (arg0->unk5C & 4)) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 32) && (arg0->unk5C & 4) && (arg0->unk5D == arg1->unk4.b[1])) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 64) && (arg0->unk5C & 1) && (arg0->unk5D == arg1->unk4.b[0])) {
-//             changed = 1;
-//         }
-//         break;
-//     case 5:
-//         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-//             if (arg0->unk28C == 0) {
-//                 changed = 1;
-//             }
-//         } else if ((u8)arg0->unk170 == 0) {
-//             changed = 1;
-//         }
-//         break;
-//     case 6:
-//         if ((arg0 != NULL) && (arg0->unk26C != 1)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 7:
-//     case 8:
-//         if (D_803F2AA4 != 0) {
-//             changed = 1;
-//         }
-//         break;
-//     case 9:
-//         if (func_802FD5DC_70EC8C(arg0) >= get_game_state(arg0, arg1->unk2.h)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 11:
-//         if ((arg1->unk2.b[0] & 8) && (func_802FD3B8_70EA68(arg0))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 1) && (func_802FD4D0_70EB80(arg0))) {
-//             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 16) && (func_802FD40C_70EABC(arg0, D_801D9ED8.animals[gCurrentAnimalIndex].animal))) || (func_802FD538_70EBE8(arg0))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 4) && (func_802FD468_70EB18(arg0))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 32) && (func_802FD348_70E9F8(arg0, (arg1->unk4.b[1] + 0x100)))) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 64) && (func_802FD348_70E9F8(arg0, arg1->unk4.b[0]))) {
-//             changed = 1;
-//         }
-//         break;
-//     case 14:
-//         if (D_803A52B8_7B6968 != 0) {
-//             changed = 1;
-//         }
-//         break;
-//     case 15:
-//         if (arg0->unk22C == 0) {
-//             changed = 1;
-//         }
-//         break;
-//     case 16:
-//         if (func_80319E1C_72B4CC(
-//                 arg0->xPos.h >> 6,
-//                 arg0->zPos.h >> 6,
-//                 arg0->yPos.h >> 6,
-//                 arg1->unk2.b[1],
-//                 arg0->unk160)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 17:
-//         if (get_game_state(arg0, arg1->unk2.h) < get_game_state(arg0, arg1->xPos.h)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 18:
-//         if (get_game_state(arg0, arg1->unk2.h) >= get_game_state(arg0, arg1->xPos.h)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 19:
-//         if (get_game_state(arg0, arg1->unk2.h) == get_game_state(arg0, arg1->xPos.h)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 20:
-//         if (get_game_state(arg0, arg1->unk2.h) >= get_game_state(arg0, arg1->xPos.h)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 21:
-//         if (get_game_state(arg0, arg1->unk2.h) < get_game_state(arg0, arg1->xPos.h)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 22:
-//         if (((arg1->unk2.b[0] & 1)) && (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET)) {
-//             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 0x10)) && (arg0 == (D_801D9ED8.animals[gCurrentAnimalIndex].animal))) {
-//             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 4)) && (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET)) {
-//             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 32)) && ((arg1->unk4.b[1] + 0x100) == arg0->unk16C->objectType)) {
-//             changed = 1;
-//         } else if (((arg1->unk2.b[0] & 64)) && (arg1->xPos.h == arg0->unk16C->objectType)) {
-//             changed = 1;
-//         } else if ((arg1->unk2.b[0] & 8)) {
-//             changed = 1;
-//         }
-//         break;
-//     case 23:
-//         if (arg1->unk2.h == arg0->unk5F) {
-//             changed = 1;
-//             break;
-//         }
-//         break;
-//     }
-//
-//     if (sp3C) {
-//         // invert result?
-//         changed ^= 1;
-//     }
-//     return changed;
-// }
+#endif
 
 // absolutely huge function
 #if 0
