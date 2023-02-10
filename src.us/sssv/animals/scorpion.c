@@ -20,7 +20,6 @@ extern Gfx D_04006638_EDBE8[];
 extern Gfx D_04006658_EDC08[];
 extern Gfx D_04005E60_ED410[];
 
-extern s16 D_803A3A74_7B5124[];
 extern s16 D_803B5160_7C6810[];
 extern s16 D_803B5190_7C6840[];
 extern s16 D_803B51C0_7C6870[];

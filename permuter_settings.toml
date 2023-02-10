@@ -1,7 +1,7 @@
 compiler_type = "ido"
 
 [preserve_macros]
-"g[DS]P.*" = "void"
+"_?g[DS]P.*" = "void"
 "G_IM_SIZ_.*" = "int"
 "G_[AC]C.*" = "int"
 "G_MTX_.*" = "int"
@@ -17,6 +17,7 @@ compiler_type = "ido"
 "GPACK_RGBA5551" =" int"
 "OS_K0_TO_PHYSICAL" = "int"
 "SSSV_RAND" = "int"
+"SQ" = "int"
 
 [decompme.compilers]
 "tools/ido5.3_recomp/cc" = "ido5.3"

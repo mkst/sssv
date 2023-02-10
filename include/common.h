@@ -236,6 +236,11 @@ typedef u8 Addr[];
 #define AI_LEADER           7
 #define AI_INVISIBLE        8
 
+//
+
+#define GET_WATER_LEVEL(COLLISION, X, Z) \
+    MAX(MAX(COLLISION[((X) >> 6) + 0][((Z) >> 6) + 0].unk6, COLLISION[((X) >> 6) + 1][((Z) >> 6) + 0].unk6), MAX(COLLISION[((X) >> 6) + 0][((Z) >> 6) + 1].unk6, COLLISION[((X) >> 6) + 1][((Z) >> 6) + 1].unk6))
+
 // custom ASSERT
 
 #define SSSV_ASSERT(TEST, FILE, LINE) \
@@ -266,5 +271,11 @@ typedef u8 Addr[];
       ((width)-1) << G_TEXTURE_IMAGE_FRAC, \
       ((height)-1) << G_TEXTURE_IMAGE_FRAC) \
 }
+
+#define	gDPSetPrimColorRGBA5551CustomAlpha(pkt, m, l, rgba5551, alpha) \
+    gDPSetPrimColor(pkt, m, l, ((rgba5551 & 0xF800) >> 8), (((rgba5551 & 0x7C0) >> 3)), (((rgba5551 & 0x3E) << 2)), alpha)
+
+#define gDPSetEnvColorRGBA5551CustomAlpha(pkt, rbga5551, alpha) \
+    gDPSetEnvColor(pkt, ((rbga5551 & 0xF800) >> 8), (((rbga5551 & 0x7C0) >> 3)), (((rbga5551 & 0x3E) << 2)), alpha)
 
 #endif

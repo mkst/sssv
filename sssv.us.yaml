@@ -743,14 +743,15 @@ segments:
     - [0x5A190, sssv_vtx, data/inc/D_010208C0_5A190]
     - [0x5A220, .data, data/D_01020950_5A220]
     - [0x5A280, bin] # I4, 128x16, lightning bolt?
-    - [0x5A680, bin] # bunch of textures/palettes
+    - [0x5A680, bin] # D_01020DB0_5A680 bunch of textures/palettes
+    - [0x5AE80, bin] # D_010215B0_5AE80
     - [0x5B480, bin] # D_01021BB0 I4
-    - [0x5BFA0, bin] # 16x16 I4
+    - [0x5BFA0, bin] # D_010226D0_5BFA0 16x16 I4
     - [0x5C020, bin] # 16x16 I4
     - [0x5C0A0, bin] # 16x16 I4 100, 200, 500
-    - [0x5C7A0, bin] # 16x16 I4
+    - [0x5C7A0, bin] # D_01022ED0_5C7A0 16x16 I4
     - [0x5CEA0, bin] # D_010235D0_5CEA0 16x16 I4 "Z" (polar bear)
-    - [0x5CF20, bin] # more 16x16 I4 images...
+    - [0x5CF20, bin] # D_01023550_5CE20 more 16x16 I4 images...
     - [0x5CFA0, bin]
     - [0x5D020, bin]
     - [0x5D0A0, bin]
@@ -764,7 +765,7 @@ segments:
     - [0x5D4A0, bin]
     - [0x5D520, bin]
     - [0x5D5A0, bin]
-    - [0x5D620, bin]
+    - [0x5D620, bin] # D_01023D50_5D620
     - [0x5D6A0, bin]
     - [0x5D720, bin]
     - [0x5D7A0, bin]
@@ -781,6 +782,11 @@ segments:
     - [0x5DD20, bin]
     - [0x5DDA0, bin]
     - [0x5DE20, bin] # bunch more images - particles mostly?
+    - [0x5F020, bin] # D_01025750_5F020
+    - [0x60220, bin] # D_01026950_60220
+    - [0x61420, bin] # D_01027B50_61420
+    - [0x62620, bin] # D_01028D50_62620
+    - [0x62E20, bin] # D_01029550_62E20
     - [0x63700, bin] # I8?
     - [0x63AE0, bin] # D_0102A210_63AE0, 32x32 I8
     - [0x63F00, bin] # I8?
@@ -789,8 +795,10 @@ segments:
     - [0x64B00, bin] # I8, music note, pinball blizzard?
     - [0x64F00, bin] # I4, 32x32
     - [0x65100, bin] #
+    - [0x65AE0, bin] # D_0102C210_65AE0
     - [0x660E0, bin] # D_0102C810 ?
     - [0x66100, bin] # 32x32, fan
+    - [0x662E0, bin] # D_0102CA10_662E0
     - [0x66500, bin] # 32x32, fan
     - [0x66900, bin] # 32x32, fan
     - [0x66D00, bin] # 32x32, fan
@@ -3637,6 +3645,7 @@ segments:
     - [0x6EBEA0, c, sssv/collist2]
     - [0x6EC720, c, overlay2_6EC720]
     - [0x6ED230, c, overlay2_6ED230]
+    - [0x6EE6F0, c, overlay2_6EE6F0]
     - [0x6F66B0, c, sssv/animals/fox]
     - [0x6FA0A0, c, overlay2_6FA0A0]
     - [0x6FBA90, c, sssv/aidata]
@@ -3729,8 +3738,7 @@ segments:
     - [0x7B3250, data] # padding?
     - [0x7B3260, data, overlay2_6DCA10]
     - [0x7B4440, data, overlay2_6EC720]
-    # these are actually defined in 6EFE20 - just used in animals
-    - [0x7B5040, data, overlay2_6EFE20]
+    - [0x7B5040, data, overlay2_6EE6F0]  # dynamic tail data
     - [0x7B5B80, .data, sssv/animals/fox]
     - [0x7B5E60, bin, overlay2_716900_data] # ?
     - [0x7B5F70, .data, sssv/aidata]
@@ -3752,7 +3760,7 @@ segments:
     - [0x7B7550, data, sssv/animals/bear]
     - [0x7B7720, data, overlay2_739290] # D_803A6070_7B7720
     - [0x7B7A60, bin] # D_803A63B0_7B7A60
-    - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table?
+    - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table? wrong place?
     - [0x7B7C80, bin] # animal sounds lookup
     - [0x7B7D30, bin] # animal sounds lookup
     - [0x7B7DE0, bin] #
@@ -3811,6 +3819,7 @@ segments:
     - [0x7CD9E0, .rodata, overlay2_6DCA10]
     - [0x7CDD70, .rodata, sssv/collist2]
     - [0x7CDE00, .rodata, overlay2_6ED230]
+    - [0x7CDE40, .rodata, overlay2_6EE6F0]
     - [0x7CE0B0, .rodata, sssv/animals/fox]
     - [0x7CE100, .rodata, overlay2_6FA0A0]
     - [0x7CE120, .rodata, sssv/aidata]

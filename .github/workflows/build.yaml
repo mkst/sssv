@@ -18,11 +18,11 @@ jobs:
       fail-fast: False
     steps:
     - name: Checkout this repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: recursive
     - name: Checkout baserom
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: mkst/sssv-private
         token: ${{ secrets.PRIVATE_REPO_ACCESS }}
@@ -56,10 +56,10 @@ jobs:
       id: vars
       shell: bash
       run: |
-        echo "::set-output name=progress_filename::$(echo ${GITHUB_SHA}.$(git show -s --format=%at ${GITHUB_SHA}).csv)"
+        echo "progress_filename=$(echo ${GITHUB_SHA}.$(git show -s --format=%at ${GITHUB_SHA}).csv)" >> $GITHUB_ENV
 
     - name: Rename progress.csv
-      run: mv progress.csv "${{ steps.vars.outputs.progress_filename }}"
+      run: mv progress.csv "${{ env.progress_filename }}"
 
     - name: Push progress.csv to sssv-website repo
       if: ${{ github.event_name == 'push' && matrix.version == 'us' }}
@@ -67,7 +67,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.WEBSITE_REPO_ACCESS }}
       with:
-        source_file: "${{ steps.vars.outputs.progress_filename }}"
+        source_file: "${{ env.progress_filename }}"
         destination_repo: 'mkst/sssv-website'
         destination_folder: 'progress/data'
         user_email: 'streetster@gmail.com'
