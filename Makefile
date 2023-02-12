@@ -92,6 +92,7 @@ GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
 RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
 SPLAT    = $(TOOLS_DIR)/splat/split.py
+N64CRC   = $(TOOLS_DIR)/n64crc.py
 
 IMG_CONVERT = $(PYTHON) $(TOOLS_DIR)/image_converter.py
 # Flags
@@ -185,7 +186,8 @@ verify: $(TARGET).z64
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $(TARGET).z64" | sha1sum --check
 
 no_verify: $(TARGET).z64
-	@echo "Skipping SHA1SUM check!"
+	@echo "Skipping SHA1SUM check, updating CRC"
+	@$(PYTHON) $(N64CRC) $(TARGET).z64
 
 progress: dirs $(VERIFY) progress.csv
 
