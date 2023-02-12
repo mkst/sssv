@@ -166,6 +166,7 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
 
     temp_v1_3 = func_8031124C_7228FC(arg0, arg1) >> 0x10;
     if (arg2 < temp_v1_3) {
+        // dont spawn below ground level
         arg2 = temp_v1_3;
     }
 
@@ -204,8 +205,10 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
 
 void func_802C83CC_6D9A7C(Animal *arg0) {
     if (arg0->unk320 != 0) {
+        // decrement linked animal reference id?
         func_802B34B8_6C4B68(arg0->unk320);
     }
+    // unload dynamic tail if applicable
     if (arg0->unk3C8.unk2 != 0) {
         func_802E4EB4_6F6564(arg0->unk3C8.unk2);
         arg0->unk3C8.unk2 = 0;

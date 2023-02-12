@@ -213,7 +213,7 @@ f32 D_803B74BC_7C8B6C = 12.0f;
 f32 D_803B74C0_7C8B70 = 16.0f;
 f32 D_803B74C4_7C8B74 = 12.0f;
 
-#if 0
+#ifdef NON_MATCHING
 void display_zone_select_screen(void) {
     char ascii[50];
     s16  wide_text[24]; // 0x118 - 0xE4 => 52
@@ -248,7 +248,7 @@ void display_zone_select_screen(void) {
         (D_8023F2A0.language == LANG_FRENCH) ||
         (D_8023F2A0.language == LANG_SPANISH) ||
         (D_8023F2A0.language == LANG_PORTUGESE)) {
-        D_803B74C4_7C8B74 = D_803C03F8_7D1AA8; // 9.7f
+        D_803B74C4_7C8B74 = 9.7f; //D_803C03F8_7D1AA8;
     }
 
     func_8039CE38_7AE4E8(&D_801D9E7C);

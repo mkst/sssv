@@ -156,4 +156,59 @@ void func_80303F90_715640(Animal *arg0, DisplayList *arg1) {
     }
 }
 
+#ifdef NON_MATCHING
+s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
+    s32 temp_t2;
+    s32 temp_t3;
+    s16 i;
+    struct119 *var_t0;
+    struct119 *var_t1;
+
+    s16 tmp1, tmp2;
+
+    s16 x;
+    s16 z;
+    s16 dist;
+
+    s32 res;
+
+    *arg4 = 0x40000000;
+    *arg3 = 0;
+
+    var_t0 = (struct119*)&arg0->unkC0.b.unkD4; // fuuuu
+
+    x = arg1 - arg0->xPos.h;
+    z = arg2 - arg0->zPos.h;
+
+    if (1) {} // slightly helpful, not much
+
+    i = 1;
+    res = 0;
+
+    while ((i < 5) && (var_t0->unkC != 0)) {
+        tmp1 = x - var_t0->unk0;
+        tmp2 = z - var_t0->unk4;
+        dist = SQ(tmp1) + SQ(tmp2);
+
+        if (dist < SQ(var_t0->unkC)) {
+            temp_t2 = (arg0->yPos.w + var_t0->unk8) + (var_t0->unkC << 0x10);
+            temp_t3 = (arg0->yPos.w + var_t0->unk8) - (var_t0->unkC << 0x10);
+
+            if (res != 0) {
+                *arg3 = MAX(*arg3, temp_t2);
+                *arg4 = MAX(*arg4, temp_t3);
+            } else {
+                *arg3 = temp_t2;
+                *arg4 = temp_t3;
+                res = 1;
+            }
+        }
+        var_t0++;
+        i++;
+    }
+
+    return res;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714B80/func_8030400C_7156BC.s")
+#endif

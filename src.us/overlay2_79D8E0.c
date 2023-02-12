@@ -2,7 +2,7 @@
 #include "common.h"
 
 
-#ifdef NON_MATCHING // JUSTREG
+#ifdef NON_MATCHING
 void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
     s16 phi_v1;
 

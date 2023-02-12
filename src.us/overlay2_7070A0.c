@@ -2158,7 +2158,7 @@ void func_802FD190_70E840(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     func_802DAFAC_6EC65C(xStart, yStart, xEnd, yEnd);
 }
 
-// set water level?
+// set_water_level
 void func_802FD26C_70E91C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     s16 i, j;
 

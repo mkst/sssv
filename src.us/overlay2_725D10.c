@@ -1313,8 +1313,10 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return;
     case 0x13:                                      /* switch 1 */
         if ((s32) temp_s1->unk16C->objectType >= 0x100) {
+            // remove animal? maybe?
             func_802C83CC_6D9A7C(temp_s1);
         } else {
+            // destroy object? maybe?
             func_802FC990_70E040(temp_s1);
         }
         if (arg0 == temp_s1) {

@@ -145,7 +145,7 @@ struct struct103 {
 }; // size 0x14
 
 typedef struct  {
-    /* 0x3C8 */ s16 unk0; //unk3C8;
+    /* 0x3C8 */ s16 unk0; //unk3C8; dynamicTailIndex
     /* 0x3CA */ s16 unk2; //unk3CA;
     /* 0x3CC */ s16 unk4; //unk3CC;
     /* 0x3CE */ u16 unk6; //unk3CE;
@@ -229,7 +229,7 @@ struct Animal {
     /* 0x44 */  u16 unk44;
     /* 0x46 */  u16 unk46;
     /* 0x48 */  u16 unk48;
-    /* 0x4A */  s8  unk4A;
+    /* 0x4A */  s8  unk4A; // reference counter?
     /* 0x4B */  u8  unk4B;
     /* 0x4C */  struct {
                     s8  pad0  : 8;  // 0x4C
@@ -1060,7 +1060,7 @@ struct struct035 {
   /* 0x84 */  void (*unk84)(void *);
   /* 0x88 */  u8  unk88;
   /* 0x89 */  u8  pad89;
-  /* 0x8A */  u8  unk8A;
+  /* 0x8A */  u8  unk8A; // health?
   /* 0x8B */  u8  armour;
   /* 0x8C */  u8  unk8C;
   /* 0x8D */  u8  unk8D;
@@ -1090,9 +1090,9 @@ struct struct035 {
               u16 unkA8;
               u16 unkAA; // scaling?
               u16 unkAC; // scaling?
-  /* 0xAE */  s16 fallDistance; // fall distance
+  /* 0xAE */  s16 fallDistance;
               s16 unkB0;
-              u16 traction; // traction
+              u16 traction;
               s16 unkB4;
               s16 unkB6;
               u16 unkB8;
@@ -2406,5 +2406,15 @@ typedef struct {
     s32 unk4;
     s32 unk8;
 } struct118; // size 0xC
+
+typedef struct {
+    s16 unk0;
+    s16 pad2;
+    s16 unk4;
+    s16 pad6;
+    s32 unk8;
+    s32 unkC;
+} struct119;
+
 
 #endif

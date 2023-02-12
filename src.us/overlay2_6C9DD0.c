@@ -959,7 +959,7 @@ void func_802BB1F0_6CC8A0(u16 arg0, u16 arg1) {
     D_80203FE0[25].unk4 = temp_t8;
 }
 
-#ifdef NON_MATCHING // JUSTREG
+#ifdef NON_MATCHING
 // CURRENT (10)
 void func_802BB70C_6CCDBC(s16 arg0, s16 arg1) {
     u16 tmp = (arg0 + arg1);

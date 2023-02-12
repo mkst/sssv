@@ -580,7 +580,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     s16 *tmp;
     s16 xPos3;
     s16 yPos;
-    u16 numLines;
+    s16 numLines;
 
     D_8023F1F8 = fontWidth;   // current font width / scale
     D_8023F1FC = fontHeight;  // current font height / scale
