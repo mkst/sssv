@@ -35,7 +35,7 @@ extern u8  D_803B5298_7C6948[];
 void func_80378B84_78A234(s16 arg0, s16 *arg1, s16 *arg2, s16 *arg3, s16 *arg4, Animal *arg5);
 
 #if 0
-// CURRENT (12893)
+// CURRENT (5463)
 void func_80376D40_7883F0(void) {
     struct061 sp120;
     s16 sp11E;
@@ -50,7 +50,7 @@ void func_80376D40_7883F0(void) {
     s16 sp104;
     Vtx *spF8;
     u32 spF4;
-    s16 tmp;
+    s32 tailIndex;
     u16 sp8C;
     u16 sp8A;
     u16 sp88;
@@ -234,9 +234,9 @@ block_9:
                                     spF8[var_s2].v.ob[1] = sp110;
                                     spF8[var_s2].v.ob[2] = sp10E;
                                     spF8[var_s2].v.tc[0] = 0;
-                                    spF8[var_s2].v.cn[0] = -1;
-                                    spF8[var_s2].v.cn[1] = -1;
-                                    spF8[var_s2].v.cn[2] = -1;
+                                    spF8[var_s2].n.n[0] = -1;
+                                    spF8[var_s2].n.n[1] = -1;
+                                    spF8[var_s2].n.n[2] = -1;
                                     spF8[var_s2].v.cn[3] = 0xFF;
                                     var_s2++;
                                 } else {
@@ -245,9 +245,9 @@ block_9:
                                     spF8[var_s2].v.ob[1] = (((SSSV_RAND(16) - 7) * sp114) >> 4) + sp110;
                                     spF8[var_s2].v.ob[2] = (((SSSV_RAND(16) - 7) * sp114) >> 4) + sp10E;
                                     spF8[var_s2].v.tc[0] = 0;
-                                    spF8[var_s2].v.cn[0] = 0xFF;
-                                    spF8[var_s2].v.cn[1] = 0xFF;
-                                    spF8[var_s2].v.cn[2] = 0xFF;
+                                    spF8[var_s2].n.n[0] = 0xFF;
+                                    spF8[var_s2].n.n[1] = 0xFF;
+                                    spF8[var_s2].n.n[2] = 0xFF;
                                     spF8[var_s2].v.cn[3] = 0xFF;
                                     var_s2++;
 
@@ -255,9 +255,9 @@ block_9:
                                     spF8[var_s2].v.ob[1] = (((SSSV_RAND(16) - 7) * sp114) >> 4) + sp110;
                                     spF8[var_s2].v.ob[2] = (((SSSV_RAND(16) - 7) * sp114) >> 4) + sp10E;
                                     spF8[var_s2].v.tc[0] = 0;
-                                    spF8[var_s2].v.cn[0] = 0xFF;
-                                    spF8[var_s2].v.cn[1] = 0xFF;
-                                    spF8[var_s2].v.cn[2] = 0xFF;
+                                    spF8[var_s2].n.n[0] = 0xFF;
+                                    spF8[var_s2].n.n[1] = 0xFF;
+                                    spF8[var_s2].n.n[2] = 0xFF;
                                     spF8[var_s2].v.cn[3] = 0xFF;
                                     var_s2++;
                                 }
@@ -413,6 +413,7 @@ block_9:
             D_80203FE0[25].unk0 -= ((((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) + 0x100) >> 4) * 250) >> 6;
 
             gSPDisplayList(D_801D9E88++, D_01003548);
+
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(22, 23, (D_803F2EC8 * 0x28) >> 6, (D_803F2EC8 * 0x28) >> 6, (D_803F2EC8 * 0x28) >> 6, D_803F2ED0, 0, 0, 0, D_04005D70_ED320); }
 
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
@@ -439,8 +440,8 @@ block_9:
         func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (D_803D552C->yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->unk302, &D_01033190, (s16) 0x12, (s16) 0xF, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
 
-    tmp = D_803D5528->unk3C8.unk2;
-    if (tmp != 0) {
+    tailIndex = D_803D5528->unk3C8.unk2;
+    if (tailIndex != 0) {
         if ((sp11A == 0) && (D_803F2EDB != 0)) {
             temp_t1_2 = (D_80203FE0[2].unk2 >> 2) + D_80203FE0[2].unk2;
             temp_t2 = D_80152C78[D_803D552C->unk302 & 0xFF];
@@ -448,7 +449,7 @@ block_9:
             temp_t5 = D_80203FE0[2].unk0 + (D_80203FE0[2].unk0 >> 2);
 
             func_802DE914_6EFFC4(
-                tmp,
+                tailIndex,
                 (D_803D5530->xPos.w + ((temp_t1_2 * temp_t2) / 16)) + ((temp_t3 * temp_t5) / 16),
                 (D_803D5530->zPos.w + ((temp_t3 * temp_t1_2) / 16)) - ((temp_t5 * temp_t2) / 16),
                 D_803D5530->yPos.w + ((D_80203FE0[2].unk4 << 0x10) / 32),

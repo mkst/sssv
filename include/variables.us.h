@@ -1204,7 +1204,7 @@ extern struct051 D_803E00C0[120];
 extern s16  D_803E1B00; // counter, max 1000
 extern s16  D_803E1B02; // another counter, max 120
 extern s16  D_803E1B04; // used vtx for dynamic tails?
-extern u16  D_803E1B06;
+extern s16  D_803E1B06;
 extern s16  D_803E1B08;
 extern ScreenTransition D_803E1B10;
 extern u8   D_803E1B1A; // r

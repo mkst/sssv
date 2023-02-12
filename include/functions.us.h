@@ -701,6 +701,7 @@ void func_80303D00_7153B0(Animal *arg0, u16 arg1, u16 arg2);
 void func_80303D50_715400(Animal *arg0, u16 arg1);
 void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2);
 void func_80303F90_715640(Animal *arg0, DisplayList *arg1);
+s32  func_8030400C_7156BC(Animal*, s16, s16, s32*, s32*);
 
 // overlay2_715820
 void func_80304170_715820(void);

@@ -29,7 +29,7 @@ extern u8 D_01036E90[];
 
 // TORTOISE_TANK
 #if 0
-// 59k away
+// 57k away
 void func_80352380_763A30(void) {
     s32 sp14C;
     s32 sp148;
@@ -140,7 +140,7 @@ void func_80352380_763A30(void) {
     }
 
     if ((var_a2 + 80) < var_a1) {
-        var_a0 -= ((var_a1 - var_a2) - 80) / 5;
+        var_a0 -= ((var_a1 - var_a2) - 80) / 5U; // help
     }
     if (var_a1 < 20) {
         var_a0 += (20 - var_a1) / 2;

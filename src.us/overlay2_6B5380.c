@@ -5279,8 +5279,8 @@ void func_802B3400_6C4AB0(Animal *a) {
 }
 
 void func_802B342C_6C4ADC(void) {
-  D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A += 1;
-  D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk304 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk302;
+    D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A += 1;
+    D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk304 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk302;
 }
 
 void func_802B3474_6C4B24(void) {
@@ -5288,6 +5288,7 @@ void func_802B3474_6C4B24(void) {
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk304 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk302;
 }
 
+// reference counter?
 void func_802B34B8_6C4B68(Animal *a) {
     a->unk4A = MAX(0, a->unk4A - 1);
 }

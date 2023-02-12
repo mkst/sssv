@@ -434,7 +434,7 @@ block_13:
                 func_8034B008_75C6B8(0x13, 0x14, 0x96, &spF4, &spF0, &spEC);
 
                 gDPLoadTextureBlock2(
-                    /* pkt    */ D_801D9E88++,
+                    /* pkt    */ D_801D9EB8++,
                     /* timg   */ D_803B4888_7C5F38,
                     /* fmt    */ G_IM_FMT_CI,
                     /* line   */ 1,
@@ -450,15 +450,15 @@ block_13:
                     /* shiftt */ G_TX_NOLOD
                 );
 
-                gSPDisplayList(D_801D9E88++, &D_010039F8_3D2C8);
+                gSPDisplayList(D_801D9EB8++, &D_010039F8_3D2C8);
 
                 gDPLoadTLUT_pal16(
-                    /* pkt  */ D_801D9E88++,
+                    /* pkt  */ D_801D9EB8++,
                     /* pal  */ 0,
                     /* dram */ D_803B4908_7C5FB8
                 );
 
-                gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+                gDPSetPrimColor(D_801D9EB8++, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
 
                 func_8032E150_73F800(
                     &D_801D9EB8,

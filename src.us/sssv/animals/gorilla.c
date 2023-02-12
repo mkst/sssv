@@ -20,7 +20,7 @@ extern s16 D_803B54CC_7C6B7C[];
 extern s16 D_803B552C_7C6BDC[];
 extern s16 D_803B5544_7C6BF4[];
 
-extern Gfx D_040044B0[];
+extern Gfx D_040044B0_F5510[];
 extern Gfx D_04004820_F5880[];
 extern Gfx D_04004A50_F5AB0[];
 extern Gfx D_04004B20[];
@@ -37,10 +37,17 @@ extern u8 D_010025A0[];
 
 extern Gfx D_01003548[];
 
-// GORILLA, 2400 lines
-#if 0
+// GORILLA
+#ifdef NON_MATCHING
+// just the stack
 void func_803791E0_78A890(void) {
-    s16 spFA;
+    Animal *temp_v0_15;
+    Animal *temp_v1;
+    s16 temp_s0_5;
+    s16 temp_t6;
+    s32 temp_t9;
+
+    // s16 spFA;
     s16 spF0;
     s16 spEE;
     s16 spEC;
@@ -58,37 +65,19 @@ void func_803791E0_78A890(void) {
     // Animal *spA8;
     s16 *spA4;
 
-    Animal *temp_s0;
-    Animal *temp_t0_2;
-    Animal *temp_v0_15;
-    Animal *temp_v1;
-
-    s16 temp_a0_2;
-    s16 temp_a1;
-    s16 temp_s0_5;
-    s16 temp_t6;
     u8  temp_t6_2;
     s16 temp_v0_14;
-    s16 temp_v0_16;
-    s16 var_t4_2;
+    s16 i;
     s16 var_v0_7;
     s32 temp_t7;
     s32 temp_t7_2;
-    s32 temp_t7_3;
-    s32 temp_t7_4;
-    u16 ticks_remaining;
-    s32 temp_t9;
-    s32 temp_t9_2;
     s32 var_v0_3;
-    s32 var_v0_4;
+    u16 ticks_remaining;
 
-    u16 temp_v0;
+    u16 rand;
 
     u8 temp_v0_18;
-    u8 temp_v0_2;
-    u8 temp_v0_3;
 
-    temp_s0 = D_803D552C;
     spC2 = 0;
     spC6 = 0x2B;
     spC4 = 0x35;
@@ -119,12 +108,11 @@ void func_803791E0_78A890(void) {
                     D_803D5530->yVelocity.h = MAX(9, MIN(12, D_803D5530->yVelocity.h + 9));
 
                     func_802DBA58_6ED108(0xF, D_803D552C);
-                    for (var_t4_2 = 0; var_t4_2< 20; var_t4_2++) {
-                        // spFA = var_t4;
-                        temp_v0 = func_8012826C();
-                        temp_t7 = (temp_v0 & 0x1F) << 1;
-                        temp_t9 = (temp_v0 & 0x3E0) >> 4;
-                        temp_t7_2 = (temp_v0 & 0xFC00) >> 9;
+                    for (i = 0; i < 20; i++) {
+                        rand = func_8012826C();
+                        temp_t7 = (rand & 0x1F) << 1;
+                        temp_t9 = (rand & 0x3E0) >> 4;
+                        temp_t7_2 = (rand & 0xFC00) >> 9;
                         create_particle_effect(
                             (D_803D5530->xPos.h + temp_t7) - 0x20,
                             (D_803D5530->zPos.h + temp_t9) - 0x20,
@@ -137,21 +125,20 @@ void func_803791E0_78A890(void) {
                             0x681F,
                             0x8065,
                             0);
-                    } //while (var_t4 < 0x14);
+                    }
                 }
             } else if (D_803D5530->unk54 & 1) {
-                // goto block_38;
                 D_803D552C->unk369 = 0;
             }
         } else if ((D_803D552C->unk369 == 1) && (D_803D552C->yVelocity.h < -2)) {
             D_803D552C->unk369 = 2;
             D_803D5530->yVelocity.h = MAX(14, D_803D5530->yVelocity.h + 9);
             func_802DBA58_6ED108(0xF, D_803D552C);
-            for (var_t4_2 = 0; var_t4_2 < 20; var_t4_2++) {
-                temp_v0 = func_8012826C();
-                temp_t7 = (temp_v0 & 0x1F) << 1;     // 0000 0000 0001 1111 << 1 -> 0000 0000 0011 1110
-                temp_t9 = (temp_v0 & 0x3E0) >> 4;    // 0000 0011 1110 0000 >> 4 -> 0000 0000 0011 1110
-                temp_t7_2 = (temp_v0 & 0xFC00) >> 9; // 1111 1100 0000 0000 >> 9 -> 0000 0000 0111 1110
+            for (i = 0; i < 20; i++) {
+                rand = func_8012826C();
+                temp_t7 = (rand & 0x1F) << 1;     // 0000 0000 0001 1111 << 1 -> 0000 0000 0011 1110
+                temp_t9 = (rand & 0x3E0) >> 4;    // 0000 0011 1110 0000 >> 4 -> 0000 0000 0011 1110
+                temp_t7_2 = (rand & 0xFC00) >> 9; // 1111 1100 0000 0000 >> 9 -> 0000 0000 0111 1110
                 create_particle_effect(
                     (D_803D5530->xPos.h + temp_t7) - 0x20,
                     (D_803D5530->zPos.h + temp_t9) - 0x20,
@@ -204,10 +191,10 @@ block_48:
         func_8034BB38_75D1E8(0x96);
 
         if (D_803F2ECC == 0) {
-            temp_t6 = (D_803D5544 & 0x7FF);
-            if (temp_t6 < 0x100) {
+            if ((D_803D5544 & 0x7FF) < 0x100) {
                 if ((D_803D552C->unk366 != 2) && (D_803D552C->unk366 != 5)) {
                     if ((D_803D5530->state != 0x8D) && (D_803D5530->state != 0xDD) && (D_803D5530->state != 0x8E) && (D_803D5530->state != 0x90) && (D_803D5530->state != 0x8F)) {
+                        temp_t6 = (D_803D5544 & 0x7FF);
                         if (temp_t6 < 8) {
                             D_803F2ECC = temp_t6 << 2;
                             D_803F2ECE = 5;
@@ -290,13 +277,13 @@ block_48:
             }
             if (ticks_remaining < 0x14) {
                 temp_v0_14 = ticks_remaining << 2;
-                spC4 += ((D_80152C78[temp_v0_14 & 0xFF] >> 7) * spC6) >> 8;
+                spC4 = spC4 + (((D_80152C78[temp_v0_14 & 0xFF] >> 7) * spC6) >> 8); // different regalloc with +=
                 spC6 = (((D_80152C78[(temp_v0_14 + 0x40) & 0xFF] >> 7) * spC6) >> 8);
                 D_803F2ECE = 8;
                 D_803F2ECC = MAX(1, (ticks_remaining << 5) / 20);
             } else if (ticks_remaining < 0x19) {
                 temp_v0_14 = (40 - ticks_remaining) << 2;
-                spC4 += ((D_80152C78[temp_v0_14 & 0xFF] >> 7) * spC6) >> 8;
+                spC4 = spC4 + (((D_80152C78[temp_v0_14 & 0xFF] >> 7) * spC6) >> 8); // different regalloc with +=
                 spC6 = (((D_80152C78[(temp_v0_14 + 0x40) & 0xFF] >> 7) * spC6) >> 8);
                 D_803F2ECE = 8;
                 D_803F2ECC = MAX(1, 32 - (((ticks_remaining << 5) - 0x280) / 4));
@@ -307,12 +294,12 @@ block_48:
                         func_802A4390_6B5A40();
                     }
 
-                    func_80321920_732FD0(temp_v0_15, 0x14, 2);
+                    func_80321920_732FD0(D_803D552C->unk320, 0x14, 2);
                     temp_v0_15->unk10 += temp_v0_15->xVelocity.w;
                     temp_v0_15->unk14 += temp_v0_15->zVelocity.w;
                     temp_v0_15->unk18.w += temp_v0_15->yVelocity.w;
-                    temp_v0_15->unk15C = 6;
                     temp_v0_15->unk168 = D_803D5530;
+                    temp_v0_15->unk15C = 6;
                 }
             } else if (ticks_remaining < 0x2C) {
                 D_803F2ECE = 7;
@@ -326,14 +313,9 @@ block_48:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
             if (ticks_remaining == 4) {
 
-                temp_t0_2 = D_803D552C->unk320;
-                temp_v0_16 = D_803D5530->yPos.h;
-                temp_a0_2 = D_803D5530->xPos.h;
-                temp_a1 = D_803D5530->zPos.h;
+                if (1) {}; // regalloc helper
 
-                if (1) {}; // help some regalloc, can probably go
-
-                if (func_8033C9CC_74E07C(temp_a0_2, temp_a1, (temp_v0_16 + (D_803D5524->unkBA >> 1)), D_803D5530->unk160, (((temp_t0_2->xPos.h * 3) >> 1) - (temp_a0_2 >> 1)), (((temp_t0_2->zPos.h * 3) >> 1) - (temp_a1 >> 1)), ((( (temp_t0_2->yPos.h * 3) >> 1) - (temp_v0_16 >> 1)) + (temp_t0_2->unk42 >> 1)), 0x7F, 0, 0) == 0) {
+                if (func_8033C9CC_74E07C(D_803D5530->xPos.h, D_803D5530->zPos.h, (D_803D5530->yPos.h + (D_803D5524->unkBA >> 1)), D_803D5530->unk160, (((D_803D552C->unk320->xPos.h * 3) >> 1) - (D_803D5530->xPos.h >> 1)), (((D_803D552C->unk320->zPos.h * 3) >> 1) - (D_803D5530->zPos.h >> 1)), ((( (D_803D552C->unk320->yPos.h * 3) >> 1) - (D_803D5530->yPos.h >> 1)) + (D_803D552C->unk320->unk42 >> 1)), 0x7F, 0, 0) == 0) {
                     func_80321920_732FD0(D_803D552C->unk320, 0, 0);
                     if (D_803D5530->state < 8) {
                         func_802A4390_6B5A40();
@@ -494,7 +476,7 @@ block_48:
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xE6, 0x87, 0xB0, 0xFF); // pink
 
             func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004820_F5880);
-            func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x9A) >> 6, (D_803F2EC0 * 0x9A) >> 6, (D_803F2EC4 * 0x9A) >> 6, D_803F2ED0,0, 0, 1, D_040044B0);
+            func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x9A) >> 6, (D_803F2EC0 * 0x9A) >> 6, (D_803F2EC4 * 0x9A) >> 6, D_803F2ED0,0, 0, 1, D_040044B0_F5510);
 
             gSPDisplayList(D_801D9E88++, D_01003548);
 
