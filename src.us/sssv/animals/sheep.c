@@ -225,7 +225,7 @@ extern s16 D_803B41C4_7C5874[];
 extern Gfx D_040032E8_CAD18[];
 extern Gfx D_040039E0_CB410[];
 
-#if 0
+#ifdef NON_MATCHING
 // load_springy_thing_or_springy_ram
 void func_80360D94_772444(void) {
     s16 spB4; // struct061

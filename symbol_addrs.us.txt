@@ -308,6 +308,14 @@ load_level_title            = 0x8039DBC8; // rom:0x7AF278
 get_biome_for_level         = 0x8039DCC0; // rom:0x7AF370
 D_803BD52C_7CEB7C           = 0x803BD52C; // rom:0x7CEB7C
 
+reset_trails                = 0x8039DD60; // rom:0x7AF410
+add_regular_trail           = 0x8039DDA4; // rom:0x7AF454
+add_walrus_wake             = 0x8039DFD4; // rom:0x7AF684
+add_simple_trail            = 0x8039E20C; // rom:0x7AF8BC
+display_trails              = 0x8039EBFC; // rom:0x7B02AC
+
+gTrails = 0x803F7E10;
+
 gCamera = 0x803F2AD0;
 
 _fontbufferSegmentStart     = 0x800E1220;

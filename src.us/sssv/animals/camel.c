@@ -31,7 +31,7 @@ extern Gfx D_04002840_E9DF0[];
 extern Gfx D_040029C0_E9F70[];
 
 extern u8 D_04002780[];
-extern u8 D_04002560[];
+extern u8 D_04002560_E9B10[];
 
 #if 0
 // CURRENT (18788)
@@ -370,7 +370,7 @@ block_9:
                     gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
                 }
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_040029C0_E9F70);
-                load_1_tile(D_04002780, (s32) D_04002560);
+                load_1_tile(D_04002780, (s32) D_04002560_E9B10);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04001300_E88B0);
                 break;
             case CANNON_CAMEL:                                /* switch 1 */

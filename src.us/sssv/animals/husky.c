@@ -19,8 +19,8 @@ extern Gfx D_04004AE0_E20A0[];
 extern Gfx D_04004E60_E2420[];
 extern Gfx D_04005120_E26E0[];
 extern Gfx D_04005220_E27E0[];
-extern Gfx D_04005260_E2820[];
-extern Gfx D_04005460_E2A20[];
+extern u8  D_04005260_E2820[];
+extern u8  D_04005460_E2A20[]; // palette
 extern Gfx D_04005500_E2AC0[];
 extern Gfx D_04005520_E2AE0[];
 extern Gfx D_04005830[];
@@ -149,7 +149,7 @@ block_9:
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.1f);
-            load_1_tile(&D_04005460_E2A20, &D_04005260_E2820);
+            load_1_tile(D_04005460_E2A20, D_04005260_E2820);
             func_802C78B0_6D8F60(2,   1, (D_803F2EBC * 0x46) >> 6, (D_803F2EC0 * 0x46) >> 6, (D_803F2EC4 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, &D_04004AE0_E20A0);
             func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, &D_04004E60_E2420);
 

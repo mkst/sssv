@@ -66,53 +66,55 @@ void func_80362C10_7742C0(Animal *arg0) {
     }
 }
 
-#if 0
+#ifdef NON_MATCHING
+// stack + 1 regalloc
 void func_80362CC4_774374(Animal *arg0) {
+    s16 pad;
     s16 sp54;
     s16 sp52;
-    Animal *sp28;
     s16 temp_t3;
     s16 temp_t7;
-    s32 temp_t8;
-    u8 *temp_v0;
-    u8 phi_v0;
+    s16 tmp1;
+    s16 tmp2;
     s16 phi_v1;
     s16 phi_t0;
-    s16 tmp;
+    s16 *new_var;
+    u8 length;
+    s32 xPos;
+    s32 zPos;
+    s16 pad2[2];
+    Animal *sp28; // help!
 
-    // temp_t6 = arg0->unk28C;
-    switch (arg0->unk28C) {
+    switch (arg0->waypointType) {
     case 0:
         break;
     case 1:
         if (arg0->unk2A0 == 0) {
-            temp_t8 = arg0->unk294.h[1] >> 0xC;
-            // temp_t8 = tmp >> 12; // what?
-            if (temp_t8 > 0) {
-                phi_v0 = ((arg0->unk294.b[1] >= *arg0->unk29C));
+            if (arg0->unk294.type1.unk2.unk0 > 0) {
+                length = (arg0->unk294.type1.unk1 >= arg0->unk29C->length);
             } else {
-                phi_v0 = (arg0->unk294.b[1] < 0);
+                length = (arg0->unk294.type1.unk1 < 0);
             }
-            if (phi_v0 != 0) {
-                if ((((u8) arg0->unk294.h[1]) & 0xF) == 1) {
+
+            if (length != 0) {
+                if (arg0->unk294.type1.unk2.unk4 == 1) {
                     func_80363CC8_775378(arg0);
-                    arg0->unk28C = 0;
-                } else if (temp_t8 > 0) {
-                    arg0->unk294.b[1] = 0;
+                    arg0->waypointType = 0;
+                } else if (arg0->unk294.type1.unk2.unk0 > 0) {
+                    arg0->unk294.type1.unk1 = 0;
                 } else {
-                    arg0->unk294.b[1] = (s8) (*arg0->unk29C - 1);
+                    arg0->unk294.type1.unk1 = arg0->unk29C->length - 1;
                 }
             } else {
-                temp_v0 = arg0->unk29C + (arg0->unk294.b[1] * 3);
                 func_80363C48_7752F8(
                     arg0,
-                    (temp_v0[1] << 6) + 32,
-                    (temp_v0[2] << 6) + 32,
-                    (temp_v0[3] << 6) + 32,
-                    (s8) (s32) (s8) arg0->unk298.ub[0],
-                    arg0->unk294.ub[3]
+                    (arg0->unk29C->waypoint[arg0->unk294.type1.unk1].x << 6) + 32,
+                    (arg0->unk29C->waypoint[arg0->unk294.type1.unk1].z << 6) + 32,
+                    (arg0->unk29C->waypoint[arg0->unk294.type1.unk1].y << 6) + 32,
+                    arg0->unk294.type1.unk4,
+                    arg0->unk294.type1.unk3
                     );
-                arg0->unk294.b[1] += arg0->unk294.h[1] >> 12;
+                arg0->unk294.type1.unk1 += arg0->unk294.type1.unk2.unk0;
             }
         }
         break;
@@ -123,24 +125,24 @@ void func_80362CC4_774374(Animal *arg0) {
         break;
     case 3:
         if (arg0->unk2A0 == 0) {
-            temp_t7 = (D_803E93B0[arg0->unk294.ub[0]].unk3 - D_803E93B0[arg0->unk294.ub[0]].unk0) >> 2;
-            temp_t3 = (D_803E93B0[arg0->unk294.ub[0]].unk4 - D_803E93B0[arg0->unk294.ub[0]].unk1) >> 2;
+            temp_t7 = (D_803E93B0[arg0->unk294.type3.unk0].unk3 - D_803E93B0[arg0->unk294.type3.unk0].unk0) >> 2;
+            temp_t3 = (D_803E93B0[arg0->unk294.type3.unk0].unk4 - D_803E93B0[arg0->unk294.type3.unk0].unk1) >> 2;
             switch (arg0->unk290) {
             case 0:
-                sp54 = D_803E93B0[arg0->unk294.ub[0]].unk0 + temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.ub[0]].unk1 + temp_t3;
+                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk0 + temp_t7;
+                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk1 + temp_t3;
                 break;
             case 1:
-                sp54 = D_803E93B0[arg0->unk294.ub[0]].unk3 - temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.ub[0]].unk1 + temp_t3;
+                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk3 - temp_t7;
+                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk1 + temp_t3;
                 break;
             case 2:
-                sp54 = D_803E93B0[arg0->unk294.ub[0]].unk3 - temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.ub[0]].unk4 - temp_t3;
+                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk3 - temp_t7;
+                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk4 - temp_t3;
                 break;
             case 3:
-                sp54 = D_803E93B0[arg0->unk294.ub[0]].unk0 + temp_t7;
-                sp52 = D_803E93B0[arg0->unk294.ub[0]].unk4 - temp_t3;
+                sp54 = D_803E93B0[arg0->unk294.type3.unk0].unk0 + temp_t7;
+                sp52 = D_803E93B0[arg0->unk294.type3.unk0].unk4 - temp_t3;
                 break;
             }
 
@@ -154,26 +156,26 @@ void func_80362CC4_774374(Animal *arg0) {
             arg0->unk290 += 1;
             arg0->unk290 &= 3;
         }
-        // Duplicate return node #63. Try simplifying control flow for better match
         break;
     case 4:
         switch (arg0->unk28E) {
-        case 0:
-            break;
+
         case 1:
             if (arg0->unk290 == 0) {
-                phi_v1 = ((D_803E93B0[arg0->unk294.ub[0]].unk3 - D_803E93B0[arg0->unk294.ub[0]].unk0) - 1) << 6;
-                phi_t0 = ((D_803E93B0[arg0->unk294.ub[0]].unk4 - D_803E93B0[arg0->unk294.ub[0]].unk1) - 1) << 6;
+                phi_v1 = ((D_803E93B0[arg0->unk294.type4.unk0].unk3 - D_803E93B0[arg0->unk294.type4.unk0].unk0) - 1) << 6;
+                phi_t0 = ((D_803E93B0[arg0->unk294.type4.unk0].unk4 - D_803E93B0[arg0->unk294.type4.unk0].unk1) - 1) << 6;
                 if (phi_v1 <= 0) {
                     phi_v1 = 1;
                 }
                 if (phi_t0 <= 0) {
                     phi_t0 = 1;
                 }
+                tmp1 = (((D_803E93B0[arg0->unk294.type4.unk0].unk0) + 1) << 6) + (func_8012826C() % phi_v1);
+                tmp2 = (((D_803E93B0[arg0->unk294.type4.unk0].unk1) + 1) << 6) + (func_8012826C() % phi_t0);
                 func_80363C48_7752F8(
                     arg0,
-                    (func_8012826C() % phi_v1) + (((D_803E93B0[arg0->unk294.ub[0]].unk0) + 1) << 6),
-                    (func_8012826C() % phi_t0) + (((D_803E93B0[arg0->unk294.ub[0]].unk1) + 1) << 6),
+                    tmp1,
+                    tmp2,
                     -1,
                     10,
                     32);
@@ -181,12 +183,14 @@ void func_80362CC4_774374(Animal *arg0) {
             } else {
                 arg0->unk290 -= 1;
             }
-        }
-
-        if (arg0->unk2A0 == 0) {
-            arg0->unk290 = SSSV_RAND(64) + 60;
-            arg0->unk28E = 1;
-            func_80363CC8_775378(arg0);
+            break;
+        case 0:
+            if (arg0->unk2A0 == 0) {
+              arg0->unk290 = SSSV_RAND(64) + 60;
+              arg0->unk28E = 1;
+              func_80363CC8_775378(arg0);
+            }
+            break;
         }
         break;
     case 5:
@@ -195,59 +199,60 @@ void func_80362CC4_774374(Animal *arg0) {
         }
         break;
     case 6:
-        if (arg0->yRotation == ((arg0->unk294.h[0] * 256) / 360)) {
+        new_var = &arg0->unk294.type6.unk0;
+        if (arg0->yRotation == (((*new_var) * 256) / 360)) {
             func_803638E8_774F98(arg0);
         }
         break;
     case 7:
-        tmp = func_801284B8(
-            arg0->unk294.w->xPos.h - arg0->xPos.h,
-            arg0->unk294.w->zPos.h - arg0->zPos.h) * 256 / 360;
-        if (func_803051F0_7168A0((s16) tmp, arg0->yRotation) < 6) {
+        xPos = arg0->unk294.type7.unk0->xPos.h - arg0->xPos.h;
+        zPos = arg0->unk294.type7.unk0->zPos.h - arg0->zPos.h;
+        if (func_803051F0_7168A0((func_801284B8(xPos, zPos) << 8) / 360, arg0->yRotation) < 6) {
             func_803638E8_774F98(arg0);
         }
         break;
     case 8:
-        if ((u8) arg0->unk29A.b != 0) {
-            arg0->unk294.w = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+        if (arg0->unk294.type8.unk6 != 0) {
+            arg0->unk294.type8.unk0 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
             arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
             arg0->unk2CC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (func_803099BC_71B06C() == 0) {
             func_803638E8_774F98(arg0);
         }
-        // Duplicate return node #63. Try simplifying control flow for better match
         break;
     case 9:
-        sp28 = arg0->unk294.w;
+        sp28 = arg0->unk294.type9.unk0;
         if (sp28->unk26C != 0) {
             func_803153B0_726A60(arg0, NULL, 0U);
             func_803638E8_774F98(arg0);
-        } else {
-            switch (arg0->unk28E) {
-            case 0:
-                if (arg0->unk2A0 == 0) {
-                    if ((sp28->xVelocity.h | sp28->zVelocity.h | sp28->yVelocity.h) == 0) {
-                        func_80363E88_775538(arg0, sp28);
-                        arg0->unk28E = 1;
-                    } else {
-                        func_80363DB4_775464(arg0, sp28, -1, arg0->unk298.h);
-                    }
+            break;
+          }
+        switch (arg0->unk28E) {
+        case 0:
+            if (arg0->unk2A0 == 0) {
+                if ((sp28->xVelocity.h | sp28->zVelocity.h | sp28->yVelocity.h) == 0) {
+                    func_80363E88_775538(arg0, sp28);
+                    arg0->unk28E = 1;
+                } else {
+                    func_80363DB4_775464(arg0, sp28, -1, arg0->unk294.type9.unk4);
                 }
-                break;
-            case 1:
-                if (func_803051F0_7168A0((s16) ((s32) (func_801284B8((s16) (sp28->xPos.h - arg0->xPos.h), (s16) (sp28->zPos.h - arg0->zPos.h)) << 8) / 360), arg0->yRotation) < 4) {
-                    func_8037B754_78CE04(arg0, arg0->unk294.w);
-                    arg0->unk290 = 0;
-                    arg0->unk28E = 2;
-                }
-                break;
-            case 2:
-                if (++arg0->unk290 > 20) {
-                    func_803638E8_774F98(arg0);
-                }
-                break;
             }
+            break;
+        case 1:
+            xPos = sp28->xPos.h - arg0->xPos.h;
+            zPos = sp28->zPos.h - arg0->zPos.h;
+            if (func_803051F0_7168A0(((func_801284B8(xPos, zPos) << 8) / 360), arg0->yRotation) < 4) {
+                func_8037B754_78CE04(arg0, arg0->unk294.type9.unk0);
+                arg0->unk290 = 0;
+                arg0->unk28E = 2;
+            }
+            break;
+        case 2:
+            if (++arg0->unk290 > 20) {
+                func_803638E8_774F98(arg0);
+            }
+            break;
         }
         break;
     case 10:
@@ -345,9 +350,9 @@ void func_803633C4_774A74(Animal *arg0) {
 void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
     if (arg0->unk320 == 0) {
         arg0->unk28E = 0;
-        arg0->unk28C = 9;
-        arg0->unk298.h = arg2;
-        arg0->unk294.w = arg1;
+        arg0->waypointType = 9;
+        arg0->unk294.type9.unk4 = arg2;
+        arg0->unk294.type9.unk0 = arg1;
         func_80363DB4_775464(arg0, arg1, -1, arg2);
     } else {
         func_803638E8_774F98(arg0);
@@ -355,132 +360,123 @@ void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
 }
 
 void func_8036379C_774E4C(Animal *arg0) {
-    arg0->unk28C = 10;
+    arg0->waypointType = 10;
     arg0->unk290 = 0;
     func_8037B784_78CE34(arg0);
     arg0->unk2AC = arg0->unk320;
 }
 
 void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2) {
-    arg0->unk28C = 8;
-    arg0->unk298.h = arg2;
-    arg0->unk294.w = arg1;
-    arg0->unk29A.b = D_801D9ED8.animals[gCurrentAnimalIndex].animal == arg1;
+    arg0->waypointType = 8;
+    arg0->unk294.type8.unk4 = arg2;
+    arg0->unk294.type8.unk0 = arg1;
+    arg0->unk294.type8.unk6 = D_801D9ED8.animals[gCurrentAnimalIndex].animal == arg1;
     func_80363CC8_775378(arg0);
     func_80309E4C_71B4FC(arg1);
     arg0->unk270 = 1;
 }
 
 void func_80363844_774EF4(Animal *arg0, s16 arg1) {
-    arg0->unk28C = 6;
-    arg0->unk294.h[0] = arg1;
+    arg0->waypointType = 6;
+    arg0->unk294.type6.unk0 = arg1;
     func_80363FB8_775668(arg0, arg1, -0x80, -1);
 }
 
 void func_80363880_774F30(Animal *arg0, Animal *arg1) {
-    arg0->unk28C = 7;
-    arg0->unk294.w = arg1;
+    arg0->waypointType = 7;
+    arg0->unk294.type7.unk0 = arg1;
     func_80363E88_775538(arg0, arg1);
 }
 
 void func_803638A8_774F58(Animal *arg0, Animal *arg1, s16 arg2) {
-    arg0->unk28C = 5;
-    arg0->unk294.w = arg1;
-    arg0->unk298.h = arg2;
+    arg0->waypointType = 5;
+    arg0->unk294.type5.unk0 = arg1;
+    arg0->unk294.type5.unk4 = arg2;
     func_80363DB4_775464(arg0, arg1, -1, arg2);
 }
 
 void func_803638E8_774F98(Animal *arg0) {
-    arg0->unk28C = 0;
+    arg0->waypointType = 0;
     arg0->unk2CC = 0;
     func_80363CC8_775378(arg0);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_8036390C_774FBC.s")
-// void func_8036390C_774FBC(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
-//     s16 temp_t4;
-//     s16 phi_t1;
-//     WaypointData *wp_data;
-//
-//     wp_data = D_803E8E60[arg1];
-//     if (arg3 < 0) {
-//         phi_t1 = wp_data->length - 2;
-//     } else {
-//         do { } while (0);
-//         phi_t1 = 1;
-//     }
-//     arg0->unk28C = 1;
-//     arg0->unk294.b[0] = arg1;
-//     temp_t4 = (arg3 << 4) | (arg0->unk294.b[2] & 0xFF0F); // unk296
-//     arg0->unk294.h[1] = temp_t4; // unk296
-//     arg0->unk298.h = arg2;
-//     arg0->unk294.b[2] = (arg4 & 0xF) | (temp_t4 & 0xF0); // unk296
-//     arg0->unk294.b[3] = arg5; // unk297
-//     arg0->unk29C = wp_data;
-//     arg0->unk294.b[1] = phi_t1; // unk295
-//     func_80363C48_7752F8(
-//         arg0,
-//         (wp_data->waypoint[0].x << 6) + 32,
-//         (wp_data->waypoint[0].z << 6) + 32,
-//         (wp_data->waypoint[0].y << 6) + 32,
-//         arg2,
-//         arg5);
-// }
+void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
+    WaypointData *wp_data;
+    s16 next_wp_idx;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80363A0C_7750BC.s")
-// void func_80363A0C_7750BC(Animal *arg0, s16 pathId, s16 arg2, s16 arg3, s8 arg4, u8 arg5) {
-//     s32 sp2C;
-//     s16 temp_t4;
-//     u16 next_wp_idx;
-//     s8 temp_t6;
-//     WaypointData *wp_data;
-//
-//     wp_data = D_803E8E60[pathId];
-//     // sp2C = waypoint;
-//     next_wp_idx = get_closest_waypoint_index(wp_data, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h);
-//     arg0->unk28C = (u16)1;
-//     // temp_t4 = next_wp_idx;
-//     arg0->unk294.b[0] = (s8) next_wp_idx;
-//     arg0->unk294.h[0] = pathId;
-//     temp_t6 = (arg3 * 0x10) | (arg0->unk294.h[1] & 0xFF0F);
-//     arg0->unk294.b[2] = temp_t6;
-//     arg0->unk298.h = arg2;
-//     arg0->unk294.b[2] = (s8) ((arg4 & 0xF) | (temp_t6 & 0xF0));
-//     arg0->unk294.b[3] = arg5;
-//     arg0->unk29C = wp_data;
-//     // wp_data = sp2C + (temp_t4 * 3);
-//     func_80363C48_7752F8(
-//         arg0,
-//         (wp_data->waypoint[next_wp_idx].x << 6) + 32,
-//         (wp_data->waypoint[next_wp_idx].z << 6) + 32,
-//         (wp_data->waypoint[next_wp_idx].y << 6) + 32,
-//         arg2,
-//         arg5);
-//     arg0->unk294.b[1] += arg3; //(s8) (arg0->unk295 + arg3);
-// }
+    wp_data = D_803E8E60[pathId];
+    if (arg3 < 0) {
+        next_wp_idx = wp_data->length - 2;
+    } else {
+        next_wp_idx = 1;
+    }
+    arg0->waypointType = 1;
+    arg0->unk294.type1.pathId = pathId;
+    arg0->unk294.type1.unk1 = next_wp_idx;
+    arg0->unk294.type1.unk2.unk0 = arg3;
+    arg0->unk294.type1.unk4 = arg2;
+    arg0->unk294.type1.unk2.unk4 = arg4;
+    arg0->unk294.type1.unk3 = arg5;
+    arg0->unk29C = wp_data;
+
+    func_80363C48_7752F8(
+        arg0,
+        (wp_data->waypoint[next_wp_idx].x << 6) + 32,
+        (wp_data->waypoint[next_wp_idx].z << 6) + 32,
+        (wp_data->waypoint[next_wp_idx].y << 6) + 32,
+        arg2,
+        arg5);
+}
+
+void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
+    WaypointData *wp_data;
+    s16 next_wp_idx;
+
+    wp_data = D_803E8E60[pathId];
+    next_wp_idx = get_closest_waypoint_index(wp_data, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h);
+
+    arg0->waypointType = 1;
+    arg0->unk294.type1.pathId = pathId;
+    arg0->unk294.type1.unk1 = next_wp_idx;
+    arg0->unk294.type1.unk2.unk0 = arg3;
+    arg0->unk294.type1.unk4 = arg2;
+    arg0->unk294.type1.unk2.unk4 = arg4;
+    arg0->unk294.type1.unk3 = arg5;
+    arg0->unk29C = wp_data;
+
+    func_80363C48_7752F8(
+        arg0,
+        (wp_data->waypoint[next_wp_idx].x << 6) + 32,
+        (wp_data->waypoint[next_wp_idx].z << 6) + 32,
+        (wp_data->waypoint[next_wp_idx].y << 6) + 32,
+        arg2,
+        arg5);
+    arg0->unk294.type1.unk1 += arg3;
+}
 
 void func_80363B34_7751E4(Animal *arg0, u16 arg1) {
-    arg0->unk28C = 3;
-    arg0->unk294.b[0] = arg1;
+    arg0->waypointType = 3;
+    arg0->unk294.type3.unk0 = arg1;
     func_80363C48_7752F8(arg0, arg0->xPos.h, arg0->zPos.h, -1, 10, 32);
     arg0->unk290 = SSSV_RAND(4);
 }
 
-void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5) {
-    arg0->unk28C = 2;
-    arg0->unk294.h[1] = xPos;
-    arg0->unk298.h = zPos;
-    arg0->unk29A.h = arg3;
-    arg0->unk294.b[0] = arg4;
-    arg0->unk294.b[1] = arg5;
-    func_80363C48_7752F8(arg0, xPos, zPos, arg3, arg4, arg5);
+void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u8 arg5) {
+    arg0->waypointType = 2;
+    arg0->unk294.type2.xPos = xPos;
+    arg0->unk294.type2.zPos = zPos;
+    arg0->unk294.type2.yPos = yPos;
+    arg0->unk294.type2.unk0 = arg4;
+    arg0->unk294.type2.unk1 = arg5;
+    func_80363C48_7752F8(arg0, xPos, zPos, yPos, arg4, arg5);
 }
 
 void func_80363C0C_7752BC(Animal *arg0, u8 arg1) {
-    arg0->unk28C = 4;
+    arg0->waypointType = 4;
     arg0->unk28E = 1;
     arg0->unk290 = 30;
-    arg0->unk294.b[0] = arg1;
+    arg0->unk294.type4.unk0 = arg1;
     func_80363CC8_775378(arg0);
 }
 
@@ -542,12 +538,12 @@ void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->unk275 = arg3;
 }
 
-void func_80363E88_775538(Animal *arg0, Animal *arg1) {
-    arg0->unk2AC = arg1;
+void func_80363E88_775538(Animal *arg0, Animal *leader) {
+    arg0->unk2AC = leader;
     arg0->unk2A0 = 3;
-    arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = arg1->xPos.h;
-    arg0->unk27A = arg1->zPos.h;
+    arg0->unk2B0 = leader == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->unk278 = leader->xPos.h;
+    arg0->unk27A = leader->zPos.h;
     arg0->unk274 = 2;
     arg0->unk275 = -1;
 }
@@ -581,36 +577,36 @@ void func_80363FB8_775668(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
 }
 
 void func_80363FF0_7756A0(Animal *arg0) {
-    switch (arg0->unk28C) {
+    switch (arg0->waypointType) {
     case 0:
         func_803638E8_774F98(arg0);
         break;
     case 1:
-        func_80363A0C_7750BC(arg0, arg0->unk294.ub[0], arg0->unk298.ub[0], (s8)(arg0->unk294.h[1] >> 12), arg0->unk294.ub[2] & 0xF, arg0->unk294.ub[3]);
+        func_80363A0C_7750BC(arg0, arg0->unk294.type1.pathId, arg0->unk294.type1.unk4, arg0->unk294.type1.unk2.unk0, arg0->unk294.type1.unk2.unk4, arg0->unk294.type1.unk3);
         break;
     case 2:
-        func_80363B98_775248(arg0, arg0->unk294.h[1], arg0->unk298.h, arg0->unk29A.h, arg0->unk294.b[0], arg0->unk294.ub[1]);
+        func_80363B98_775248(arg0, arg0->unk294.type2.xPos, arg0->unk294.type2.zPos, arg0->unk294.type2.yPos, arg0->unk294.type2.unk0, arg0->unk294.type2.unk1);
         break;
     case 3:
-        func_80363B34_7751E4(arg0, arg0->unk294.ub[0]);
+        func_80363B34_7751E4(arg0, arg0->unk294.type3.unk0);
         break;
     case 4:
-        func_80363C0C_7752BC(arg0, arg0->unk294.ub[0]);
+        func_80363C0C_7752BC(arg0, arg0->unk294.type4.unk0);
         break;
     case 5:
-        func_803638A8_774F58(arg0, arg0->unk294.w, arg0->unk298.h);
+        func_803638A8_774F58(arg0, arg0->unk294.type5.unk0, arg0->unk294.type5.unk4);
         break;
     case 6:
-        func_80363844_774EF4(arg0, arg0->unk294.h[0]);
+        func_80363844_774EF4(arg0, arg0->unk294.type6.unk0);
         break;
     case 7:
-        func_80363880_774F30(arg0, arg0->unk294.w);
+        func_80363880_774F30(arg0, arg0->unk294.type7.unk0); // follow leader
         break;
     case 8:
-        func_803637D4_774E84(arg0, arg0->unk294.w, arg0->unk298.h);
+        func_803637D4_774E84(arg0, arg0->unk294.type8.unk0, arg0->unk294.type8.unk4);
         break;
     case 9:
-        func_80363738_774DE8(arg0, arg0->unk294.w, arg0->unk298.h);
+        func_80363738_774DE8(arg0, arg0->unk294.type9.unk0, arg0->unk294.type9.unk4);
         break;
     case 10:
         func_803638E8_774F98(arg0);

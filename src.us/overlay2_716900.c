@@ -1406,7 +1406,7 @@ s32 func_803098F0_71AFA0(void) {
 }
 
 s32 func_803099BC_71B06C(void) {
-    if (D_803D552C->unk28C == 8) {
+    if (D_803D552C->waypointType == 8) {
         if (D_803D552C->unk272 & 1) {
             if (D_803D552C->unk2CC != 0) {
                 if ((D_803D5524->unk9C != EVO_TRANSFER) &&
@@ -1612,7 +1612,7 @@ void func_80309F38_71B5E8(void) {
 
     switch (D_803D552C->unk270) {
     case 0:
-        if (D_803D552C->unk28C != 8) {
+        if (D_803D552C->waypointType != 8) {
             if (func_80309868_71AF18() != 0) {
                 func_80309E4C_71B4FC(D_803E4C38);
                 D_803D552C->unk270 = 1;
@@ -1650,7 +1650,7 @@ void func_80309F38_71B5E8(void) {
         break;
     case 1:
         if (func_803099BC_71B06C() != 0) {
-            if (((D_803D552C->unk28C != 8) && (D_803E4C38 != D_803D552C->unk2CC)) && (func_80309868_71AF18() != 0)) {
+            if (((D_803D552C->waypointType != 8) && (D_803E4C38 != D_803D552C->unk2CC)) && (func_80309868_71AF18() != 0)) {
                 func_80309EDC_71B58C(D_803E4C38);
             }
         } else {
@@ -1862,7 +1862,7 @@ s32 func_8030AA90_71C140(struct071 *arg0) {
 //         // phi_t0 = D_803E4C54;
 //     } else {
 //         D_803E4C5C = (arg0->xPos.w + arg0->unk18);
-//         D_803E4C60 = (arg0->zPos.w + arg0->unk1C);
+//         D_803E4C60 = (arg0->zPos.w + arg0->unk1C.w);
 //         D_803E4C64 = (arg0->yPos.w + arg0->unk20.w);
 //         D_803E4C56 = D_803E4C5C >> 0x10;
 //         D_803E4C58 = D_803E4C60 >> 0x10;
@@ -1878,7 +1878,7 @@ s32 func_8030AA90_71C140(struct071 *arg0) {
 //     D_803E4C74 = (D_803E4C56 & 0x3F);
 //     D_803E4C76 = (D_803E4C58 & 0x3F);
 //
-//     D_803E4C7C = arg0->unk1C;
+//     D_803E4C7C = arg0->unk1C.w;
 //     D_803E4C80 = arg0->unk20.w;
 //     D_803E4C78 = D_803E4C94->unk160;
 //
@@ -1914,9 +1914,9 @@ s32 func_8030AA90_71C140(struct071 *arg0) {
 //                (sp2A != 2) &&
 //                (sp28 != 2)) {
 //
-//         D_803E4C5C = (D_803E4C94->xPos.w + D_803E4C94->unk18);
+//         D_803E4C5C = (D_803E4C94->xPos.w + D_803E4C94->unk18.w);
 //         D_803E4C60 = D_803E4C94->zPos.w;
-//         D_803E4C7C = D_803E4C94->unk18;
+//         D_803E4C7C = D_803E4C94->unk18.w;
 //         D_803E4C80 = 0;
 //         D_803E4C56 = D_803E4C5C >> 0x10;
 //         D_803E4C58 = D_803E4C60 >> 0x10;
@@ -1977,9 +1977,9 @@ s32 func_8030AA90_71C140(struct071 *arg0) {
 //                (sp2A != 1) &&
 //                (sp28 != 1)) {
 //
-//         D_803E4C5C = (D_803E4C94->xPos.w + D_803E4C94->unk18);
+//         D_803E4C5C = (D_803E4C94->xPos.w + D_803E4C94->unk18.w);
 //         D_803E4C60 = D_803E4C94->zPos.w;
-//         D_803E4C7C = D_803E4C94->unk18;
+//         D_803E4C7C = D_803E4C94->unk18.w;
 //         D_803E4C80 = 0;
 //         D_803E4C56 = (D_803E4C5C >> 0x10);
 //         D_803E4C58 = (D_803E4C60 >> 0x10);
@@ -4325,7 +4325,7 @@ void func_803136B0_724D60(Animal *arg0) {
     arg0->unk160 = func_803136FC_724DAC(arg0->xPos.h, arg0->zPos.h, (arg0->yPos.h + (arg0->unk42 >> 1)));
 }
 
-s32 func_803136FC_724DAC(s16 x, s16 z, s16 y) {
+u8 func_803136FC_724DAC(s16 x, s16 z, s16 y) {
     if (D_803C0740[x >> 6][z >> 6].unk3 == 0) {
         return 0;
     }

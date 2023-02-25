@@ -151,7 +151,7 @@ done:
             } else {
                 func_8038C230_79D8E0((D_803D5524->unkBA * 12) / 5, 2, 3, 3, 0.1f);
             }
-            load_1_tile(D_04000D10, D_04000B10);
+            load_1_tile(D_04000D10_E82C0, D_04000B10_E80C0);
 
             gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
 

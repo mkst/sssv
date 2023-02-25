@@ -16,7 +16,7 @@ extern Gfx D_01003840_3D110[];
 
 // FOX
 #ifdef NON_MATCHING
-// CURRENT (178)
+// CURRENT (449)
 void func_802E5000_6F66B0(void) {
 
     s16 spC8;
@@ -300,8 +300,8 @@ extern f32 D_803BCA28_7CE0D8; // 0.22
 extern Gfx D_040046F0_CC120[];
 extern Gfx D_04004A20_CC450[];
 extern Gfx D_04005030_CCA60[];
-extern Gfx D_040050D0_CCB00[];
-extern Gfx D_040052D0_CCD00[];
+extern u8  D_040050D0_CCB00[];
+extern u8  D_040052D0_CCD00[];
 
 // FIRE_FOX
 #if 0

@@ -707,106 +707,111 @@ Animal *func_8037ED1C_7903CC(void) {
 }
 
 // used by fox + camel (warp?)
+#if 0
+// CURRENT (3491)
+s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
+    s16 sp88;
+    s16 sp86;
+    s16 zPos; // sp7C
+    s16 sp7A;
+    s16 sp76; // xVel
+    s16 sp74; // zVel
+    s16 sp72;
+    s16 temp_a2;
+    s16 xPos;
+    s32 temp_v0_5;
+    s32 var_a3;
+    s16 var_s0;
+    s16 xPosNew;
+    s16 zPosNew;
+    s16 var_s5;
+    s16 temp_v1_2;
+    u8 temp_s1;
+
+
+    sp88 = D_80152C78[arg1 & 0xFF] >> 7;
+    sp86 = D_80152C78[(arg1 + 0x40) & 0xFF] >> 7;
+
+    xPos = D_803D5530->xPos.h;
+    zPos = D_803D5530->zPos.h;
+    sp7A = D_803D5530->yPos.h;
+
+    for (var_s5 = 0x20; var_s5 < arg0; var_s5 += 0x20) {
+        if (D_803D5530->unk162 != 1) {
+            xPosNew = xPos + ((sp88 * var_s5) >> 8);
+            zPosNew = zPos + ((sp86 * var_s5) >> 8);
+            var_s0 = MIN(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10) + 8;
+        } else {
+            if ((D_803D5530->unk160 == 0) || (D_803D5530->unk160 == 1)) {
+                xPosNew = xPos + ((sp88 * var_s5) >> 8);
+                zPosNew = zPos + ((sp86 * var_s5) >> 8);
+                var_s0 = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
+            } else {
+                xPosNew = xPos + ((sp88 * var_s5) >> 8);
+                zPosNew = zPos + ((sp86 * var_s5) >> 8);
+                temp_v1_2 = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
+                if (temp_v1_2 == 0x4000) {
+                    var_s0 = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
+                } else {
+                    var_s0 = temp_v1_2 + 8;
+                }
+            }
+        }
+
+        temp_s1 = func_803136FC_724DAC(xPosNew, zPosNew, var_s0);
+        if (((temp_s1 == 1) && (D_803D5530->unk160 == 2)) || ((temp_s1 == 2) && (D_803D5530->unk160 == 1))) {
+
+            func_80311A2C_7230DC(xPosNew, zPosNew, &sp76, &sp74, temp_s1);
+
+            if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, xPosNew, zPosNew, var_s0, temp_s1, 0, 0) == 0) {
+                if (((ABS(var_s0 - sp7A) < 0x50) && (func_802B75CC_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, var_s0 << 0x10, &sp72, 1) == 0)) &&
+                    ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
+                    break;
+                }
+            }
+        }
+    }
+
+    temp_v0_5 = var_s5 - 0x30;
+
+    var_s5 = arg0;
+    if (temp_v0_5 < var_s5) {
+        var_s5 = temp_v0_5;
+    }
+
+    if (var_s5 > 16) {
+        if (D_803D5530->unk160 == 2) {
+            xPosNew = xPos + ((sp88 * var_s5) >> 8);
+            zPosNew = zPos + ((sp86 * var_s5) >> 8);
+
+            temp_v1_2 = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
+            if (temp_v1_2 == 0x4000) {
+                var_a3 = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10);
+            } else {
+                var_a3 = MAX(temp_v1_2, sp7A);
+            }
+        } else {
+            xPosNew = xPos + ((sp88 * var_s5) >> 8);
+            zPosNew = zPos + ((sp86 * var_s5) >> 8);
+            var_a3 = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10);
+        }
+
+        D_803D5530->xPos.h = xPosNew;
+        D_803D5530->zPos.h = zPosNew;
+        D_803D5530->yPos.h = var_a3 + 0x10;
+
+        D_803D5530->xVelocity.w = 0;
+        D_803D5530->zVelocity.w = 0;
+        D_803D5530->yVelocity.w = 0;
+
+        D_803D5530->unk160 = func_803136FC_724DAC(xPosNew, zPosNew, var_a3 + 0x10);
+        return var_s5;
+    }
+    return 0;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F07C_79072C.s")
-// s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
-//     s16 sp88;
-//     s16 sp86;
-//     s16 zPos; // sp7C
-//     s16 sp7A;
-//     s16 sp76; // xVel
-//     s16 sp74; // zVel
-//     s16 sp72;
-//     s16 temp_a2;
-//     s16 xPos;
-//     s16 temp_v0_5;
-//     s16 var_a3;
-//     s16 var_s0;
-//     s16 var_s3;
-//     s16 var_s4;
-//     s16 var_s5;
-//     s16 temp_v1_2;
-//     u8 temp_s1;
-//
-//     sp88 = D_80152C78[arg1 & 0xFF] >> 7;
-//     sp86 = D_80152C78[(arg1 + 0x40) & 0xFF] >> 7;
-//
-//     xPos = D_803D5530->xPos.h;
-//     zPos = D_803D5530->zPos.h;
-//     sp7A = D_803D5530->yPos.h;
-//
-//     for (var_s5 = 0x20; var_s5 < arg0; var_s5 += 0x20) {
-//         if (D_803D5530->unk162 != 1) {
-//             var_s3 = xPos + ((sp88 * var_s5) >> 8);
-//             var_s4 = zPos + ((sp86 * var_s5) >> 8);
-//             var_s0 = MIN(sp7A, func_8031124C_7228FC(var_s3, var_s4) >> 0x10) + 8;
-//         } else {
-//             if ((D_803D5530->unk160 == 0) || (D_803D5530->unk160 == 1)) {
-//                 var_s3 = xPos + ((sp88 * var_s5) >> 8);
-//                 var_s4 = zPos + ((sp86 * var_s5) >> 8);
-//                 var_s0 = (func_8031124C_7228FC(var_s3, var_s4) + 8) >> 0x10;
-//             } else {
-//                 var_s3 = xPos + ((sp88 * var_s5) >> 8);
-//                 var_s4 = zPos + ((sp86 * var_s5) >> 8);
-//                 temp_v1_2 = func_80310F58_722608(var_s3, var_s4) >> 0x10;
-//                 if (temp_v1_2 == 0x4000) {
-//                     var_s0 = (func_8031124C_7228FC(var_s3, var_s4) + 8) >> 0x10;
-//                 } else {
-//                     var_s0 = temp_v1_2 + 8;
-//                 }
-//             }
-//         }
-//
-//         temp_s1 = func_803136FC_724DAC(var_s3, var_s4, var_s0); // & 0xFF;
-//         if (((temp_s1 == 1) && (D_803D5530->unk160 == 2)) ||
-//             ((temp_s1 == 2) && (D_803D5530->unk160 == 1))) {
-//
-//             func_80311A2C_7230DC(var_s3, var_s4, &sp76, &sp74, temp_s1);
-//
-//             if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, var_s3, var_s4, var_s0, temp_s1, 0, 0) == 0) {
-//                 if (((ABS(var_s0 - sp7A) < 0x50) && (func_802B75CC_6C8C7C(D_803D5530, 0, var_s3 << 0x10, var_s4 << 0x10, var_s0 << 0x10, &sp72, 1) == 0)) && ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
-//                     break;
-//                 }
-//             }
-//         }
-//     }
-//
-//     temp_v0_5 = var_s5 - 0x30;
-//
-//     var_s5 = arg0;
-//     if (temp_v0_5 < var_s5) {
-//         var_s5 = temp_v0_5;
-//     }
-//
-//     if (var_s5 > 16) {
-//         if (D_803D5530->unk160 == 2) {
-//             var_s3 = xPos + ((sp88 * var_s5) >> 8);
-//             var_s4 = zPos + ((sp86 * var_s5) >> 8);
-//
-//             temp_v1_2 = func_80310F58_722608(var_s3, var_s4) >> 0x10;
-//             if (temp_v1_2 == 0x4000) {
-//                 var_a3 = MAX(sp7A, func_8031124C_7228FC(var_s3, var_s4) >> 0x10);
-//             } else {
-//                 var_a3 = MAX(temp_v1_2, sp7A);
-//             }
-//         } else {
-//             var_s3 = xPos + ((sp88 * var_s5) >> 8);
-//             var_s4 = zPos + ((sp86 * var_s5) >> 8);
-//             var_a3 = MAX(sp7A, func_8031124C_7228FC(var_s3, var_s4) >> 0x10);
-//         }
-//
-//         D_803D5530->xPos.h = var_s3;
-//         D_803D5530->zPos.h = var_s4;
-//         D_803D5530->yPos.h = var_a3 + 0x10;
-//
-//         D_803D5530->xVelocity.h = 0;
-//         D_803D5530->zVelocity.h = 0;
-//         D_803D5530->yVelocity.h = 0;
-//
-//         D_803D5530->unk160 = func_803136FC_724DAC(var_s3, var_s4, var_a3 + 0x10);
-//         return var_s5;
-//     }
-//     return 0;
-// }
+#endif
 
 // used by rat
 #ifdef NON_MATCHING

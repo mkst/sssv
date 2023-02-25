@@ -7,8 +7,8 @@ extern Gfx D_04005FB0[];
 extern Gfx D_04006130[];
 extern Gfx D_04006380[];
 extern Gfx D_040063A0[];
-extern u8  D_040063C0[];
-extern u8  D_040067C0[];
+extern u8  D_040063C0_F7420[];
+extern u8  D_040067C0_F7820[];
 extern u8  D_040067E0[];
 
 extern s32 D_803B55B0_7C6C60;
@@ -281,7 +281,7 @@ block_33:
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0xA0) >> 6, (D_803F2EC0 * 0xA0) >> 6, (D_803F2EC4 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_040053F0);
             func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04005B10_F6B70);
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0xA0) >> 6, (D_803F2EC0 * 0xA0) >> 6, (D_803F2EC4 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04006130); }
-            load_2_tiles(D_040067C0, D_040067E0, D_040063C0);
+            load_2_tiles(D_040067C0_F7820, D_040067E0, D_040063C0_F7420);
             gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
 
             func_802C78B0_6D8F60(3,  7, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 0, 0, D_04005FB0);

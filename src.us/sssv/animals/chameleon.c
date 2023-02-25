@@ -23,10 +23,10 @@ extern Gfx D_04008FF0_FA050[];
 extern Gfx D_04009500_FA560[];
 extern Gfx D_04009870[];
 extern Gfx D_040099B0[];
-extern u8  D_040099F0[];
+extern u8  D_040099F0_FAA50[];
 extern u8  D_04009BF0_FAC50[]; // palette
-extern Gfx D_04009C10[];
-extern Gfx D_04009E10[];
+extern u8  D_04009C10_FAC70[];
+extern u8  D_04009E10_FAE70[];
 
 #if 0
 // 33k+ away still
@@ -335,10 +335,10 @@ done:
             if (D_803D5524->unk9C == CHAMELEON) {
                 gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
 
-                load_1_tile(D_04009BF0_FAC50, D_040099F0);
+                load_1_tile(D_04009BF0_FAC50, D_040099F0_FAA50);
                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x50) >> 6, (D_803F2EC0 * 0x50) >> 6, (D_803F2EC4 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04008C70_F9CD0);
                 func_802C78B0_6D8F60(2, 0x1A, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04009870);
-                load_1_tile(D_04009E10, D_04009C10);
+                load_1_tile(D_04009E10_FAE70, D_04009C10_FAC70);
 
                 // temp_v0_12 = D_801D9E88;
                 // D_801D9E88 = temp_v0_12 + 8;

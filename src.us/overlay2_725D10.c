@@ -771,7 +771,7 @@ u8 func_803159E4_727094(Animal *arg0, DefaultCmd *arg1) {
     case 5:
         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             // it's an animal
-            if (arg0->unk28C == 0) {
+            if (arg0->waypointType == 0) {
                 res = 1;
             }
         } else if (arg0->unk170 == 0) {
@@ -960,7 +960,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
     s32 sp74;
     s32 temp_t2;
     Animal *temp_a0;
-    Animal *temp_a0_2;
+    Wake *temp_a0_2;
     Animal *temp_a1_3;
     Animal *temp_s1;
     Animal *temp_s1_2;
@@ -1377,22 +1377,22 @@ s32 func_80316408_727AB8(Animal *arg0) {
         case 0x8C:                                  /* switch 4 */
             temp_v0_7 = temp_s1->unk226;
             temp_v1_4 = temp_s1->unk228;
-            temp_s1->unk248[8] = func_8039DDA4_7AF454((struct071 *) temp_s1, 0U, temp_s1->unk222, temp_s1->unk223, (s16) (s32) temp_s1->unk212, (s16) (s32) temp_s1->unk213, (s16) (s32) temp_s1->unk214, (u8) (((s32) temp_v0_7 >> 8) & 0xF8), (u8) (((s32) temp_v0_7 >> 3) & 0xF8), (u8) ((temp_v0_7 * 4) & 0xF8), (u8) (((s32) temp_v1_4 >> 8) & 0xF8), (u8) (((s32) temp_v1_4 >> 3) & 0xF8), (u8) ((temp_v1_4 * 4) & 0xF8), (u8) 0, (u8) 0, (u8) 0, (u8) 1, (u8) 0, 0);
+            temp_s1->unk248[8] = add_regular_trail((struct071 *) temp_s1, 0U, temp_s1->unk222, temp_s1->unk223, (s16) (s32) temp_s1->unk212, (s16) (s32) temp_s1->unk213, (s16) (s32) temp_s1->unk214, (u8) (((s32) temp_v0_7 >> 8) & 0xF8), (u8) (((s32) temp_v0_7 >> 3) & 0xF8), (u8) ((temp_v0_7 * 4) & 0xF8), (u8) (((s32) temp_v1_4 >> 8) & 0xF8), (u8) (((s32) temp_v1_4 >> 3) & 0xF8), (u8) ((temp_v1_4 * 4) & 0xF8), (u8) 0, (u8) 0, (u8) 0, (u8) 1, (u8) 0, 0);
             return;
         case 0x8D:                                  /* switch 4 */
             temp_v0_8 = temp_s1->unk226;
             temp_v1_5 = temp_s1->unk228;
-            temp_s1->unk248[8] = func_8039DDA4_7AF454((struct071 *) temp_s1, 1U, temp_s1->unk222, temp_s1->unk223, (s16) (s32) temp_s1->unk212, (s16) (s32) temp_s1->unk213, (s16) (s32) temp_s1->unk214, (u8) (((s32) temp_v0_8 >> 8) & 0xF8), (u8) (((s32) temp_v0_8 >> 3) & 0xF8), (u8) ((temp_v0_8 * 4) & 0xF8), (u8) (((s32) temp_v1_5 >> 8) & 0xF8), (u8) (((s32) temp_v1_5 >> 3) & 0xF8), (u8) ((temp_v1_5 * 4) & 0xF8), (u8) 0, (u8) 0, (u8) 0, (u8) 1, (u8) 0, 0);
+            temp_s1->unk248[8] = add_regular_trail((struct071 *) temp_s1, 1U, temp_s1->unk222, temp_s1->unk223, (s16) (s32) temp_s1->unk212, (s16) (s32) temp_s1->unk213, (s16) (s32) temp_s1->unk214, (u8) (((s32) temp_v0_8 >> 8) & 0xF8), (u8) (((s32) temp_v0_8 >> 3) & 0xF8), (u8) ((temp_v0_8 * 4) & 0xF8), (u8) (((s32) temp_v1_5 >> 8) & 0xF8), (u8) (((s32) temp_v1_5 >> 3) & 0xF8), (u8) ((temp_v1_5 * 4) & 0xF8), (u8) 0, (u8) 0, (u8) 0, (u8) 1, (u8) 0, 0);
             return;
         case 0x8E:                                  /* switch 4 */
             temp_v0_9 = temp_s1->unk226;
             temp_v1_6 = temp_s1->unk228;
-            temp_s1->unk248[8] = func_8039DDA4_7AF454((struct071 *) temp_s1, 2U, temp_s1->unk222, temp_s1->unk223, (s16) (s32) temp_s1->unk212, (s16) (s32) temp_s1->unk213, (s16) (s32) temp_s1->unk214, (u8) (((s32) temp_v0_9 >> 8) & 0xF8), (u8) (((s32) temp_v0_9 >> 3) & 0xF8), (u8) ((temp_v0_9 * 4) & 0xF8), (u8) (((s32) temp_v1_6 >> 8) & 0xF8), (u8) (((s32) temp_v1_6 >> 3) & 0xF8), (u8) ((temp_v1_6 * 4) & 0xF8), (u8) 0, (u8) 0, (u8) 0, (u8) 1, (u8) 0, 0);
+            temp_s1->unk248[8] = add_regular_trail((struct071 *) temp_s1, 2U, temp_s1->unk222, temp_s1->unk223, (s16) (s32) temp_s1->unk212, (s16) (s32) temp_s1->unk213, (s16) (s32) temp_s1->unk214, (u8) (((s32) temp_v0_9 >> 8) & 0xF8), (u8) (((s32) temp_v0_9 >> 3) & 0xF8), (u8) ((temp_v0_9 * 4) & 0xF8), (u8) (((s32) temp_v1_6 >> 8) & 0xF8), (u8) (((s32) temp_v1_6 >> 3) & 0xF8), (u8) ((temp_v1_6 * 4) & 0xF8), (u8) 0, (u8) 0, (u8) 0, (u8) 1, (u8) 0, 0);
             return;
         case 0x91:                                  /* switch 4 */
             temp_v0_10 = temp_s1->unk226;
             temp_v1_7 = temp_s1->unk228;
-            temp_s1->unk248[8] = func_8039E20C_7AF8BC(temp_s1, 2, temp_s1->unk222, 0x20, (s32) temp_s1->unk212, (s32) temp_s1->unk213, (s32) temp_s1->unk214, ((s32) temp_v0_10 >> 8) & 0xF8, ((s32) temp_v0_10 >> 3) & 0xF8, (temp_v0_10 * 4) & 0xF8, ((s32) temp_v1_7 >> 8) & 0xF8, ((s32) temp_v1_7 >> 3) & 0xF8, (temp_v1_7 * 4) & 0xF8, 1);
+            temp_s1->unk248[8] = add_simple_trail(temp_s1, 2, temp_s1->unk222, 0x20, (s32) temp_s1->unk212, (s32) temp_s1->unk213, (s32) temp_s1->unk214, ((s32) temp_v0_10 >> 8) & 0xF8, ((s32) temp_v0_10 >> 3) & 0xF8, (temp_v0_10 * 4) & 0xF8, ((s32) temp_v1_7 >> 8) & 0xF8, ((s32) temp_v1_7 >> 3) & 0xF8, (temp_v1_7 * 4) & 0xF8, 1);
             return;
         default:                                    /* switch 4 */
             func_802FA730_70BDE0(temp_s1);

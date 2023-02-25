@@ -148,6 +148,7 @@ void perform_screen_transition(void);
 void lion_roar(void);
 
 // overlay2_7041D0
+void add_multiple_lights(void);
 void add_single_light(Gfx** dl);
 
 // overlay2_7070A0
@@ -313,5 +314,12 @@ s16  get_next_available_level(s16 current_level, s16 offset);
 void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs);
 void load_level_title(void);
 s16  get_biome_for_level(s16 arg0);
+
+// trails
+void reset_trails(void);
+Trail *add_regular_trail(struct071 *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, u8 argA, u8 argB, u8 argC, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12);
+Trail *add_walrus_wake(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, u8 argA, u8 argB, u8 argC, u8 argD, u8 argE, s32 argF);
+Trail *add_simple_trail(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, u8 argA, u8 argB, u8 argC, u8 argD);
+void display_trails(void);
 
 #endif

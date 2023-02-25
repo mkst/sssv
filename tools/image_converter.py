@@ -202,7 +202,7 @@ if __name__ == "__main__":
         "ci4", "ci8",
         "i4", "i8",
         "ia4", "ia8", "ia16",
-        "pallete",
+        "palette",
     ]
     parser = argparse.ArgumentParser()
 

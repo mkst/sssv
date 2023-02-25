@@ -90,9 +90,9 @@ extern Gfx  D_04000840_DDE00[];
 extern Gfx  D_04000900_DDEC0[];
 extern Gfx  D_040009D0_E7F80[];
 extern Gfx  D_04000AE0_DE0A0[];
-extern u8   D_04000B10[];
+extern u8   D_04000B10_E80C0[];
 extern Gfx  D_04000B40_DE100[];
-extern u8   D_04000D10[];
+extern u8   D_04000D10_E82C0[];
 extern u8   D_04000DB0[]; // tortoise?
 extern u8   D_04000DD0[];
 extern Gfx  D_040005A0_DDB60[];
@@ -101,8 +101,8 @@ extern Gfx  D_04002630_DFBF0[]; // polar bear
 extern Gfx  D_04002930_DFEF0[]; // polar bear
 extern u8   D_040029D0[];
 extern u8   D_04002F28[];
-extern u8   D_04003850[];
-extern u8   D_04003A50[];
+extern u8   D_04003850_F48B0[];
+extern u8   D_04003A50_F4AB0[];
 extern u8   D_04005B60_11C730[]; // spaceship interior
 extern u8   D_04006D00_11D8D0[]; // tv body
 extern u8   D_04006EC0[];
@@ -135,7 +135,7 @@ extern u8   D_01002100[];
 extern Gfx  D_01003840_3D110[];
 
 extern Gfx  D_040077E0_E4DA0[];
-extern u8   D_04007BD0[];
+extern u8   D_04007BD0_E5190[];
 extern u8   D_04007700[];
 extern u8   D_040077A0[];
 extern u8   D_040078C0[];
@@ -144,7 +144,7 @@ extern Gfx  D_04007AE0_E50A0[];
 extern u8   D_04007B40[];
 extern u8   D_04007C60[];
 extern u8   D_04007D90[];
-extern u8   D_04007DD0[];
+extern u8   D_04007DD0_E5390[];
 extern u8   D_04007E70[];
 extern u8   D_04007E90[];
 extern u8   D_04007EC0[];
@@ -153,16 +153,16 @@ extern u8   D_04008290[];
 extern u8   D_04008420[];
 extern u8   D_040088F0_F9950[];
 extern u8   D_040089E0_108730[];
-extern u8   D_04008A10[];
-extern u8   D_04008C10[];
+extern u8   D_04008A10_108760[];
+extern u8   D_04008C10_108960[];
 extern u8   D_0400A9E0_1215B0[];
 extern Gfx  D_0400BD00_FCD60[];
 extern Gfx  D_0400C260_FD2C0[];
-extern Gfx  D_0400C280[];
-extern Gfx  D_0400C480[];
-extern Gfx  D_0400C6A0[];
-extern Gfx  D_0400C6C0[];
-extern Gfx  D_0400C8C0[];
+extern u8   D_0400C280_FD2E0[];
+extern u8   D_0400C480[];
+extern u8   D_0400C6A0_FD700[];
+extern u8   D_0400C6C0_FD720[];
+extern u8   D_0400C8C0_FD920[];
 extern Gfx  D_0400C010_FD070[];
 extern Gfx  D_0400C170_FD1D0[];
 extern Gfx  D_0400C240_FD2A0[];
@@ -176,8 +176,8 @@ extern Gfx  D_04003140[];
 extern Gfx  D_040033C0[];
 extern Gfx  D_04003530[];
 extern Gfx  D_04003650[];
-extern Gfx  D_04003E70[];
-extern Gfx  D_04004070[];
+extern u8   D_04003E70_F4ED0[];
+extern u8   D_04004070_F50D0[];
 
 extern Gfx  D_05006170[];
 
@@ -867,6 +867,7 @@ extern s16  D_803A6CE8_7B8398;
 extern s16  D_803A6CEC;
 extern s16  D_803A6CEC_7B839C;
 extern u8   D_803A6CF3_7B83A3[];
+extern u8   D_803A6CFF_7B83AF[];
 extern u8   D_803A6D0B_7B83BB[]; //?
 extern struct105 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
@@ -1473,6 +1474,8 @@ extern s32  D_803F2E0C;
 extern s32  D_803F2E10;
 extern u16  D_803F2EF0;
 extern s16  D_803F2E16;
+extern f32  D_803F2E30; // D_803F2D50.unkE0 ?
+
 
 extern s32  D_803F2EB0;
 extern s32  D_803F2EB4;
@@ -1575,7 +1578,7 @@ extern s16  D_803F7E00; // europe levels completed
 extern s16  D_803F7E02; // levels
 extern s16  D_803F7E04; // levels
 extern s16  D_803F7E06; // levels
-extern struct045  D_803F7E10[30];
-extern u16  D_803FDEA0;
+extern Trail gTrails[30]; // D_803F7E10
+extern s16  D_803FDEA0;
 
 #endif

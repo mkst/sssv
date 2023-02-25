@@ -31,9 +31,9 @@ void func_80380920_791FD0(void) {
     s16 temp_t1;
     s16 temp_t2;
 
-    s16 temp_v1;
-    s16 var_a0;
     s16 var_a0_2;
+
+    s16 var_a0; // er?
     s32 var_t0;
     s16 var_v0;
     u8 temp_v0_10;
@@ -100,7 +100,9 @@ done:
         } else {
             sp94 = FTOFIX32(1.0);
         }
-        var_a0 = 0x138;
+
+        // var_a0 = 0x138;
+
         if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
             func_802BAD60_6CC410(0x138, 0x32C);
             func_802C5F34_6D75E4(0x232, 0x177, 1);
@@ -112,28 +114,30 @@ done:
 
             temp_a1 = D_80203FE0[19].unk0;
             temp_a3 = D_80203FE0[19].unk2;
+            var_a0_2 = D_80203FE0[20].unk0 - temp_a1;
             temp_a2 = D_80203FE0[20].unk2 - temp_a3;
-            var_a0 = D_80203FE0[20].unk0 - temp_a1;
-            // temp_t0_2 = (D_803D552C->unk316 * 2) + &D_80152350;
             temp_t1 = D_80152350.unk2D0[D_803D552C->unk316];
             temp_t2 = D_80152350.unk384[D_803D552C->unk316];
-            D_80203FE0[20].unk0 = temp_a1 + (((s32) (temp_t1 * temp_a2) >> 8) + ((s32) (var_a0 * temp_t2) >> 8));
-            D_80203FE0[20].unk2 = temp_a3 + (((s32) (temp_a2 * temp_t2) >> 8) - ((s32) (temp_t1 * var_a0) >> 8));
+
+            D_80203FE0[20].unk0 = D_80203FE0[19].unk0;
+            D_80203FE0[20].unk0 += (((temp_t1 * temp_a2) >> 8) + ((var_a0_2 * temp_t2) >> 8)); // + D_80203FE0[19].unk0;
+            D_80203FE0[20].unk2 = D_80203FE0[19].unk2;
+            D_80203FE0[20].unk2 += (((temp_a2 * temp_t2) >> 8) - ((temp_t1 * var_a0_2) >> 8));
         }
 
         if (D_803F2ECC != 0) {
             func_802DB8DC_6ECF8C();
-            switch (D_803F2ECE) {                    /* switch 2; irregular */
-            case 1:                                 /* switch 2 */
+            switch (D_803F2ECE) {
+            case 1:
                 func_802DB670_6ECD20(D_803B5770_7C6E20, D_803B5784_7C6E34, D_803B5798_7C6E48, D_803B57BC_7C6E6C);
                 break;
-            case 2:                                 /* switch 2 */
+            case 2:
                 func_802DB670_6ECD20(D_803B5770_7C6E20, D_803B5784_7C6E34, D_803B5798_7C6E48, D_803B580C_7C6EBC);
                 break;
             }
         }
         func_8038064C_791CFC();
-        if (D_803D5524->unk9C == 25) {
+        if (D_803D5524->unk9C == SEAGULL2) {
             D_80203FE0[0].unk4 += D_803D552C->unk308 << 5;
             D_80203FE0[1].unk4 += D_803D552C->unk308 << 5;
             D_80203FE0[2].unk4 += D_803D552C->unk308 << 5;
@@ -188,11 +192,17 @@ done:
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x50) >> 6, (D_803F2EC0 * 0x50) >> 6, (D_803F2EC4 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04001D70_DF330);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0x7D, 0x33, 0xFF, 0xFF);
 
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04001F80_DF540); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 26, 0x14000, 0x14000, 0x14000, D_803F2ED0, 0, 0, 0, D_040021C0_DF780); }
+#pragma _permuter sameline end
 
             if (sp94 != 0) {
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0, 0x16, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002320_DF8E0); }
+#pragma _permuter sameline end
                 func_802C78B0_6D8F60(0, 0x18, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, D_803F2ED0, 0, 1, 0, D_04002320_DF8E0);
             }
             if (D_803D5524->unk9C == SEAGULL2) {
@@ -201,57 +211,75 @@ done:
                 var_t0 = FTOFIX32(1.0);
             }
 
-            var_a0_2 = 0;
+            var_a0 = 0;
             if (D_803D552C->unk365 == ATTACK_BITE) {
 
                 switch (D_803D5544 - D_803D552C->unk32A) {
                 case 1:
                 case 5:
                     var_t0 = FTOFIX32(2.0);
-                    var_a0_2 = 468;
+                    var_a0 = 468;
                     break;
                 case 2:
                 case 4:
                     var_t0 = FTOFIX32(2.5);
-                    var_a0_2 = 781;
+                    var_a0 = 781;
                     break;
                 case 3:
                     var_t0 = FTOFIX32(3.0);
-                    var_a0_2 = 937;
+                    var_a0 = 937;
                     break;
                 }
             }
-            D_80203FE0[3].unk4 -= var_a0_2;
-            D_80203FE0[7].unk4 -= var_a0_2;
-            D_80203FE0[8].unk4 -= var_a0_2;
-            D_80203FE0[9].unk4 -= var_a0_2;
-            D_80203FE0[13].unk4 -= var_a0_2;
-            D_80203FE0[4].unk4 -= var_a0_2;
-            D_80203FE0[10].unk4 -= var_a0_2;
-            D_80203FE0[11].unk4 -= var_a0_2;
-            D_80203FE0[12].unk4 -= var_a0_2;
-            D_80203FE0[14].unk4 -= var_a0_2;
+            D_80203FE0[3].unk4 -= var_a0;
+            D_80203FE0[7].unk4 -= var_a0;
+            D_80203FE0[8].unk4 -= var_a0;
+            D_80203FE0[9].unk4 -= var_a0;
+            D_80203FE0[13].unk4 -= var_a0;
+            D_80203FE0[4].unk4 -= var_a0;
+            D_80203FE0[10].unk4 -= var_a0;
+            D_80203FE0[11].unk4 -= var_a0;
+            D_80203FE0[12].unk4 -= var_a0;
+            D_80203FE0[14].unk4 -= var_a0;
 
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 0xD, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040025D0_DFB90); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+#pragma _permuter sameline end
+
             func_802C78B0_6D8F60(3, 8, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0);
+
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 9, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xE, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040025D0_DFB90); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xA, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+#pragma _permuter sameline end
             func_802C78B0_6D8F60(4, 0xB, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0);
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xC, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+#pragma _permuter sameline end
 
             if (D_803D5524->unk9C == SEAGULL) {
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 5, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04002090_DF650); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 27, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04002090_DF650); }
+#pragma _permuter sameline end
             }
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
-                // same line for regalloc
+#pragma _permuter sameline start
                 sp86 = D_803BD54A_7CEBFA[sp86]; sp84 = D_803BD602_7CECB2[sp84];
+#pragma _permuter sameline end
                 func_80356BD8_768288(&D_01000CA0, &D_01000620, sp86);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040024F0_DFAB0);
                 func_80356BD8_768288(&D_01000CA0, &D_01000620, sp84);

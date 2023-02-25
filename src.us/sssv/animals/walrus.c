@@ -11,7 +11,7 @@ extern s16 D_803B5080_7C6730[];
 
 extern Gfx D_04005E50_E3410[];
 extern  u8 D_04006DE0[];
-extern  u8 D_04006BD0[];
+extern  u8 D_04006BD0_E4190[];
 
 extern Gfx D_04006860[];
 extern Gfx D_040070F0_E46B0[];
@@ -230,7 +230,7 @@ block_63:
                 gDPSetPrimColor(D_801D9E88++, 0, 0, 0x5C, 0x5C, 0xD7, 0xFF);
             }
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x62) >> 6, (D_803F2EC0 * 0x62) >> 6, (D_803F2EC4 * 0x62) >> 6, D_803F2ED0, 0, 0, 0, &D_04005E50_E3410);
-            load_1_tile(&D_04006DE0, &D_04006BD0);
+            load_1_tile(D_04006DE0, D_04006BD0_E4190);
             func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x62) >> 6, (D_803F2EC8 * 0x62) >> 6, (D_803F2EC8 * 0x62) >> 6, D_803F2ED0, 0, 0, 0, &D_04006860);
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EBC) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EC0) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EC4) >> 4) * 0x62) >> 6, D_803F2ED0, 0, 0, 0, &D_040070F0_E46B0); }
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleRight + 8) * D_803F2EBC) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC0) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC4) >> 4) * 0x62) >> 6, D_803F2ED0, 0, 1, 0, &D_040070F0_E46B0); }
@@ -339,8 +339,8 @@ block_63:
             temp_a1_2 = ((D_803C0430.unk0[((xPos * zPos) & 7)][((D_803C0430.unk204 + (((xPos * zPos) + (xPos * xPos)) * 8)) & 0x3F)]) + (var_v0_12 * 4)) - D_803D5530->yPos.h;
 
             if (ABS(temp_a1_2) < 0x30) {
-                func_8039DFD4_7AF684(D_803D5530, 1, 0xA, 0x10, 0, -0xA, 0, 0xFF, 0xFF, 0xFF, 0, 0xB9, 0xFF, 1, 2, D_803D5530);
-                func_8039DFD4_7AF684(D_803D5530, 2, 0xA, 0x10, 0, -0xA, 0, 0xFF, 0xFF, 0xFF, 0, 0xB9, 0xFF, 1, 2, (Animal *) &D_803D5530->unk270);
+                add_walrus_wake(D_803D5530, 1, 0xA, 0x10, 0, -0xA, 0, 0xFF, 0xFF, 0xFF, 0, 0xB9, 0xFF, 1, 2, D_803D5530);
+                add_walrus_wake(D_803D5530, 2, 0xA, 0x10, 0, -0xA, 0, 0xFF, 0xFF, 0xFF, 0, 0xB9, 0xFF, 1, 2, (Animal *) &D_803D5530->unk270);
             }
         }
         func_8035D6A0_76ED50();
@@ -401,8 +401,8 @@ void func_803766E8_787D98(void) {
         tmp = D_803C0430.unk0[(D_803D5530->xPos.h * D_803D5530->zPos.h) & 7][(u16)(D_803C0430.unk204 + (((D_803D5530->xPos.h * D_803D5530->zPos.h) + (D_803D5530->xPos.h * D_803D5530->xPos.h)) << 3)) & 63] + (4 * phi_v1);
         phi_v1 = ABS(tmp - D_803D5530->yPos.h);
         if (phi_v1 < 48) {
-            func_8039DFD4_7AF684(D_803D5530, 1, 10, 16, 0, -10, 0, 0xFF, 0xFF, 0xFF, 0, 185, 0xFF, 1, 2, D_803D5530);
-            func_8039DFD4_7AF684(D_803D5530, 2, 10, 16, 0, -10, 0, 0xFF, 0xFF, 0xFF, 0, 185, 0xFF, 1, 2, ((struct071*)D_803D5530) + 1);
+            add_walrus_wake(D_803D5530, 1, 10, 16, 0, -10, 0, 0xFF, 0xFF, 0xFF, 0, 185, 0xFF, 1, 2, D_803D5530);
+            add_walrus_wake(D_803D5530, 2, 10, 16, 0, -10, 0, 0xFF, 0xFF, 0xFF, 0, 185, 0xFF, 1, 2, ((struct071*)D_803D5530) + 1);
         }
     }
 }

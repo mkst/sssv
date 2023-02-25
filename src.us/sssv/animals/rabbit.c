@@ -301,19 +301,16 @@ void func_80301248_7128F8(void) {
         phi_v1 == 0);
 
 done:
-
     if ((sp84 != 4) && (sp84 != 1) && ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 1) || (D_803D552C->unk366 == 4))) {
         temp_f16 = D_803D552C->unk30E / 100.0;
-        if (temp_f16 < 0.6) { // 0.6 (D_803BCFA8_7CE658)
-            temp_f14 = (temp_f16 * 1.666); // 1.666 (D_803BCFB0_7CE660)
+        if (temp_f16 < 0.6) {
+            temp_f14 = (temp_f16 * 1.666);
         } else {
             temp_f14 = 1.0f;
         }
         if (temp_f14 > 0.0) {
-            temp_f14 = 20480.0f * temp_f14;
-            temp_f12 = 1.2 * temp_f16; // 1.2 (D_803BCFB8_7CE668)
-            func_8013328C(D_803D5530,     SFX_UNKNOWN_31, 64, 1.2 * temp_f16, (temp_f14 * (((1.0 - temp_f16) * 0.5) + .5)), 0);
-            func_8013328C((u8*)D_803D5530 + 2, SFX_UNKNOWN_28, 64, 1.2 * temp_f16, ((temp_f14 * temp_f16) / 3.0), 0);
+            func_8013328C(D_803D5530,          SFX_UNKNOWN_31, 64, temp_f16 * 1.2,  (20480.0f * temp_f14) * (0.5 + ((1.0 - temp_f16) / 2.0)), 0);
+            func_8013328C((u8*)D_803D5530 + 2, SFX_UNKNOWN_28, 64, temp_f16 * 1.2, ((20480.0f * temp_f14) * temp_f16) / 3.0, 0);
         }
     }
     if (sp84 == 0) {
@@ -351,7 +348,6 @@ done:
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, D_803BCFC0_7CE670);
 
             if ((D_803D5530->state == 0x7A) || (D_803D5530->state == 0x7B)) {
-                // s16 idx = -(s16)((D_803D552C->unk302 * 360) / 256);
                 x_scale = -(((D_803D5530->xVelocity.w * D_80152350.unk384[-((D_803D552C->unk302 * 360) / 256)]) + (D_803D5530->zVelocity.w * D_80152350.unk2D0[-((D_803D552C->unk302 * 360) / 256)])) / 4194304); // 2^22
                 z_scale = -(((D_803D5530->zVelocity.w * D_80152350.unk384[-((D_803D552C->unk302 * 360) / 256)]) - (D_803D5530->xVelocity.w * D_80152350.unk2D0[-((D_803D552C->unk302 * 360) / 256)])) / 4194304);
 

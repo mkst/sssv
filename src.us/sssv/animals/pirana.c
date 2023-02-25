@@ -137,7 +137,7 @@ done:
 
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            load_2_tiles(D_0400C480, D_0400C6A0, D_0400C280);
+            load_2_tiles(D_0400C480, D_0400C6A0_FD700, D_0400C280_FD2E0);
 
             D_80203FE0[1].unk4 += ((sp76 * 1000) >> 9) + ((sp76 * 1000) >> 12);
             D_80203FE0[2].unk4 -= ((sp76 * 3000) >> 11) + ((sp76 * 1000) >> 12);
@@ -159,7 +159,7 @@ done:
             D_80203FE0[1].unk2 -= ((sp76 * 1000) >> 8);
             D_80203FE0[2].unk2 -= ((sp76 * 1000) >> 8);
 
-            load_1_tile(D_0400C8C0, D_0400C6C0);
+            load_1_tile(D_0400C8C0_FD920, D_0400C6C0_FD720);
             func_802C78B0_6D8F60(2, 3, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C170_FD1D0);
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp74, &sp72);

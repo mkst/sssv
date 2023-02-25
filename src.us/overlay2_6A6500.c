@@ -236,7 +236,7 @@ void func_80294E50_6A6500(void) {
         func_803572F0_7689A0(); // check health?
         func_80357480_768B30();
         func_80357438_768AE8();
-        func_8039EBFC_7B02AC();
+        display_trails();
         func_802FF25C_71090C();
 
         if (D_803F63C2 != 0) {

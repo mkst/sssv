@@ -9,7 +9,7 @@ extern s16 D_803B4218_7C58C8[];
 extern s16 D_803B4230_7C58E0[];
 
 extern u8 D_04001750[];
-extern u8 D_04001330[];
+extern u8 D_04001330_DE8F0[];
 extern u8 D_04001730[];
 
 extern Gfx D_04001010_DE5D0[];
@@ -289,7 +289,7 @@ block_15:
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.4f);
-            load_2_tiles(&D_04001730, &D_04001750, (s32) &D_04001330);
+            load_2_tiles(&D_04001730, &D_04001750, (s32) &D_04001330_DE8F0);
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, (s16) (s32) D_803F2ED0, (s16) 0, (u8) 0, (u8) 1, &D_04001010_DE5D0);
             if (D_803F2EDD == 0) {
                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, (s16) (s32) D_803F2ED0, (s16) 0, (u8) 0, (u8) 1, &D_04001220_C8C50);
