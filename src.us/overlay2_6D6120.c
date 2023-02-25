@@ -235,13 +235,14 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         break;
     }
 
-    // this section is complete junk
-
     var_a1_2 = D_80203FE0[1].unk0;
-    temp_v0 = D_80203FE0[1].unk2 + ((arg0 * D_80152350.unk2D0[var_t2]) / 256);
-    var_a0_2 = D_80203FE0[1].unk4 + ((arg0 * D_80152350.unk384[var_t2]) / 256);
+    temp_v0 = D_80203FE0[1].unk2;
+    var_a0_2 = D_80203FE0[1].unk4;
 
-    D_80203FE0[19].unk0 = var_a1_2;
+    temp_v0 += ((arg0 * D_80152350.unk2D0[var_t2]) / 256);
+    var_a0_2 += ((arg0 * D_80152350.unk384[var_t2]) / 256);
+
+    D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
     D_80203FE0[19].unk2 = temp_v0;
     D_80203FE0[19].unk4 = var_a0_2;
 
@@ -249,8 +250,8 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         var_a1_2 += (arg1 * D_80152350.unk2D0[var_t1]) / 256;
         temp_v0 += (arg1 * D_80152350.unk384[var_t1]) / 256;
     } else {
-        var_a0_2 += (arg1 * D_80152350.unk384[var_t3]) / 256;
         temp_v0 += (arg1 * D_80152350.unk2D0[var_t3]) / 256;
+        var_a0_2 += (arg1 * D_80152350.unk384[var_t3]) / 256;
     }
 
     D_80203FE0[20].unk0 = var_a1_2;

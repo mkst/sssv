@@ -2507,9 +2507,9 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
         obj->unk15E = argA;
         obj->Info.unk14E = func_80128200();
         if (arg7 < 20) {
-            func_8039DDA4_7AF454(obj, 2, (obj->unk40 * 25) >> 11, 16, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0xB9, 0, 0, 0, 0, 2, 1, 0);
+            add_regular_trail(obj, 2, (obj->unk40 * 25) >> 11, 16, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0xB9, 0, 0, 0, 0, 2, 1, 0);
         } else {
-            func_8039DDA4_7AF454(obj, 2, (obj->unk40 * 25) >> 11, 8, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0x9B, 0, 0, 0, 0, 1, 1, 0);
+            add_regular_trail(obj, 2, (obj->unk40 * 25) >> 11, 8, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0x9B, 0, 0, 0, 0, 1, 1, 0);
         }
     }
 }
@@ -2685,8 +2685,8 @@ void func_802FF828_710ED8(struct071 *arg0) {
         func_802FC990_70E040(arg0);
     }
 
-    func_8039DDA4_7AF454(arg0, 0, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
-    func_8039DDA4_7AF454(arg0, 1, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
+    add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
+    add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
 }
 
 // used by object 39
@@ -2703,8 +2703,8 @@ void func_802FFA20_7110D0(struct071 *arg0) {
     if (arg0->unk154 == 0) {
         arg0->unk154 = 100;
     }
-    func_8039DDA4_7AF454(arg0, 0, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
-    func_8039DDA4_7AF454(arg0, 1, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
+    add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
+    add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
 }
 
 // used by object 168

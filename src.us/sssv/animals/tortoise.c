@@ -271,7 +271,7 @@ done:
             }
             // sp14C = sp14C;
             // sp148 = var_t3;
-            load_1_tile(&D_04003A50, &D_04003850);
+            load_1_tile(&D_04003A50_F4AB0, &D_04003850_F48B0);
             func_802C78B0_6D8F60(2, 1, (s32) (D_803F2EBC * 0x3A) >> 6, (s32) (D_803F2EC0 * 0x3A) >> 6, (s32) (D_803F2EC4 * 0x3A) >> 6,D_803F2ED0, 0, 0, 0, &D_04002D70);
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6,D_803F2ED0, 0, 0, 0, &D_04003140); }
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6,D_803F2ED0, 0, 1, 0, &D_04003140); }
@@ -318,7 +318,7 @@ done:
             D_80203FE0[0].unk4 -= 0x38;
             D_80203FE0[2].unk2 += sp12A;
             D_80203FE0[1].unk2 += sp12A;
-            load_1_tile(&D_0103AC20, (s32) &D_0103AA20);
+            load_1_tile(D_0103AC20_744F0, D_0103AA20_742F0);
             // temp_t3_7 = D_803D552C;
             // temp_v0_8 = D_803D552C->unk30A;
             // temp_v1_10 = D_803D552C->unk366;
@@ -534,7 +534,6 @@ done:
 
 // racing tortoise
 #ifdef NON_MATCHING
-// just the stack?
 void func_80354188_765838(void) {
 
     struct061 sp90;
@@ -810,7 +809,7 @@ block_57:
                     0);
             }
 
-            load_1_tile(D_04003A50, D_04003850);
+            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
             func_802C78B0_6D8F60(
                 2,
                 1,
@@ -830,7 +829,7 @@ block_57:
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BOTH);
 
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_04003530); }
-            load_1_tile(D_04004070, D_04003E70);
+            load_1_tile(D_04004070_F50D0, D_04003E70_F4ED0);
 
             gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
             gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD);
@@ -975,7 +974,7 @@ done:
                 D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            load_1_tile(D_04003A50, D_04003850);
+            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70);
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 

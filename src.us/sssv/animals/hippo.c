@@ -9,8 +9,8 @@ extern Gfx D_0400A4E0[];
 extern Gfx D_0400A720[];
 extern Gfx D_0400A840[];
 extern Gfx D_0400ACE0[];
-extern u8  D_0400AD80[];
-extern Gfx D_0400AF80[];
+extern u8  D_0400AD80_FBDE0[];
+extern u8  D_0400AF80_FBFE0[];
 extern Gfx D_0400B020[];
 extern Gfx D_0400B040[];
 extern Gfx D_0400B420[];
@@ -19,11 +19,11 @@ extern Gfx D_0400B4C0[];
 extern Gfx D_0400B510[];
 extern Gfx D_0400B560[];
 extern Gfx D_0400B5B0[];
-extern u8 D_0400B600[];
-extern Gfx D_0400B800[];
+extern u8 D_0400B600_FC660[];
+extern u8 D_0400B800_FC860[];
 
-extern u8 D_0400B820[];
-extern Gfx D_0400BA20[];
+extern u8 D_0400B820_FC880[];
+extern u8 D_0400BA20_FCA80[];
 
 extern s16 D_803A4EF0_7B65A0[];
 extern s16 D_803A4F20_7B65D0[];
@@ -213,16 +213,16 @@ done:
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            load_1_tile(D_0400BA20, D_0400B820);
+            load_1_tile(D_0400BA20_FCA80, D_0400B820_FC880);
             func_802C78B0_6D8F60(0x14, 1, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_0400A4E0);
             D_80203FE0[20].unk4 -= ((spF8 * 0x445) >> 5);
 #pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0x14, 1, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400ACE0); }
 #pragma _permuter sameline end
             D_80203FE0[20].unk4 += ((spF8 * 0x445) >> 5);
-            load_1_tile(D_0400AF80, D_0400AD80);
+            load_1_tile(D_0400AF80_FBFE0, D_0400AD80_FBDE0);
             func_802C78B0_6D8F60(1, 2, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400A720);
-            load_1_tile(D_0400B800, D_0400B600);
+            load_1_tile(D_0400B800_FC860, D_0400B600_FC660);
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x71, 0x7B, 0xFF);
 #pragma _permuter sameline start

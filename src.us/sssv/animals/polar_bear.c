@@ -1,8 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern u8  D_0103AA20[];
-extern u8  D_0103AC20[];
+extern u8  D_0103AA20_742F0[];
+extern u8  D_0103AC20_744F0[];
 extern u8  D_0103B440[];
 extern u8  D_0103AC40[];
 
@@ -615,7 +615,7 @@ block_49:
 
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x99) >> 6, (D_803F2EC0 * 0x99) >> 6, (D_803F2EC4 * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04002C30_E01F0);
             func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x99) >> 6, (D_803F2EC8 * 0x99) >> 6, (D_803F2EC8 * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04003250_E0810);
-            load_1_tile(D_0103AC20, D_0103AA20);
+            load_1_tile(D_0103AC20_744F0, D_0103AA20_742F0);
 
             var_t0 = (D_803D552C->unk30A >> 8) & 0xFF;
             var_t1 = D_803D552C->unk30A & 0xFF;

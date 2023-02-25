@@ -60,12 +60,12 @@ extern u8 D_01029DD0[];
 //         gDPSetTextureFilter(D_801D9E7C++, G_TF_POINT);
 //
 //         gDPLoadTextureBlock(D_801D9E7C++, D_0103D520, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-//         gSPTextureRectangle(D_801D9E7C++, D_803F2CEC + 0x2C, D_803F2CF0 + 4, D_803F2CEC + (((animal->energy[0] / 16) * 12) / 16) + 0x2C, D_803F2CF0 + 0x30, G_TX_RENDERTILE, 0, 0, 1024, 1024);
+//         gSPTextureRectangle(D_801D9E7C++, D_803F2CEC + 0x2C, D_803F2CF0 + 4, D_803F2CEC + (((animal->energy[0].unk0 / 16) * 12) / 16) + 0x2C, D_803F2CF0 + 0x30, G_TX_RENDERTILE, 0, 0, 1024, 1024);
 //         // temp_v0_43->unk0 = (s32) ((((D_803F2CEC + (s16) ((s32) (s16) ((s16) ((s32) temp_ra->unk2E0 / 0x10) * 0xC) / 0x10) + 0x2C) & 0xFFF) << 0xC) | 0xE4000000 | ((D_803F2CF0 + 0x30) & 0xFFF));
 //         // temp_v0_43->unk4 = (s32) ((((D_803F2CEC + 0x2C) & 0xFFF) << 0xC) | ((D_803F2CF0 + 4) & 0xFFF));
 //
 //         gDPLoadTextureBlock(D_801D9E7C++, D_0103D320, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-//         gSPTextureRectangle(D_801D9E7C++, D_803F2CEC + 0x14, D_803F2CF0 - 0x30, D_803F2CEC + (((animal->skillBEnergy[0] / 16) * 12) / 16) + 0x14, D_803F2CF0 - 4, G_TX_RENDERTILE, 0, 0, 1024, 1024);
+//         gSPTextureRectangle(D_801D9E7C++, D_803F2CEC + 0x14, D_803F2CF0 - 0x30, D_803F2CEC + (((animal->energy[1].unk0 / 16) * 12) / 16) + 0x14, D_803F2CF0 - 4, G_TX_RENDERTILE, 0, 0, 1024, 1024);
 //         // temp_v0_53->unk0 = (s32) ((((D_803F2CEC + ((s32) (s16) ((s16) ((s32) temp_ra->unk2E4 / 0x10) * 0xC) / 0x10) + 0x14) & 0xFFF) << 0xC) | 0xE4000000 | ((D_803F2CF0 - 4) & 0xFFF));
 //         // temp_v0_53->unk4 = (s32) ((((D_803F2CEC + 0x14) & 0xFFF) << 0xC) | ((D_803F2CF0 - 0x30) & 0xFFF));
 //

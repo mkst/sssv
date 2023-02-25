@@ -272,7 +272,7 @@ typedef u8 Addr[];
       ((height)-1) << G_TEXTURE_IMAGE_FRAC) \
 }
 
-#define	gDPSetPrimColorRGBA5551CustomAlpha(pkt, m, l, rgba5551, alpha) \
+#define gDPSetPrimColorRGBA5551CustomAlpha(pkt, m, l, rgba5551, alpha) \
     gDPSetPrimColor(pkt, m, l, ((rgba5551 & 0xF800) >> 8), (((rgba5551 & 0x7C0) >> 3)), (((rgba5551 & 0x3E) << 2)), alpha)
 
 #define gDPSetEnvColorRGBA5551CustomAlpha(pkt, rbga5551, alpha) \

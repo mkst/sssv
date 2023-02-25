@@ -59,13 +59,17 @@ I4_RNC_O_FILES      = $(foreach file,$(I4_RNC_FILES),$(BUILD_DIR)/$(file:.i4.rnc
 
 RGBA16_FILES        = $(shell find assets/img/ -name "*.rgba16.png" 2> /dev/null)
 I4_FILES            = $(shell find assets/img/ -name "*.i4.png" 2> /dev/null)
+CI4_FILES           = $(shell find assets/img/ -name "*.ci4.png" 2> /dev/null)
+
 
 RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 I4_O_FILES          = $(foreach file,$(I4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
+CI4_O_FILES         = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
+CI4_PAL_O_FILES     = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.ci4.png=.ci4.pal.o))
 
 # All Images
 
-IMAGE_O_FILES       = $(RGBA16_RNC_O_FILES) $(I4_RNC_O_FILES) $(RGBA16_O_FILES) $(I4_O_FILES)
+IMAGE_O_FILES       = $(RGBA16_RNC_O_FILES) $(I4_RNC_O_FILES) $(RGBA16_O_FILES) $(I4_O_FILES) $(CI4_O_FILES) $(CI4_PAL_O_FILES)
 
 # Generic RNC compressed files
 RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
@@ -311,10 +315,26 @@ $(BUILD_DIR)/%.i4.png: %.i4.png
 	@$(IMG_CONVERT) i4 $< $@
 	@printf "[$(GREEN)   i4   $(NO_COL)]  $<\n"
 
+$(BUILD_DIR)/%.ci4.png: %.ci4.png
+	@mkdir -p $$(dirname $@)
+	@$(IMG_CONVERT) ci4 $< $@
+	@printf "[$(GREEN)  ci4   $(NO_COL)]  $<\n"
+
+$(BUILD_DIR)/%.ci4.pal: %.ci4.png
+	@mkdir -p $$(dirname $@)
+	@$(IMG_CONVERT) palette $< $@
+	@printf "[$(GREEN)  pal $(NO_COL)]  $<\n"
+
+
 # BUILD_DIR prefix to suppress circular dependency
 $(BUILD_DIR)/%.png.o: $(BUILD_DIR)/%.png
 	@$(LD) -r -b binary -o $@ $<
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
+
+$(BUILD_DIR)/%.pal.o: $(BUILD_DIR)/%.pal
+	@$(LD) -r -b binary -o $@ $<
+	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
+
 
 # rnc compress
 %.rnc: %

@@ -523,95 +523,99 @@ void func_802C9500_6DABB0(struct071 *obj) {
     D_801E9EB8.unk1A114--;
 }
 
+#if 0
+// need to fix the bitfields
+struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s16 arg4, s32 arg5, s32 arg6, s16 zRotation, s16 yRotation, u16 scale) {
+    s16 temp_v1;
+    s32 temp_v1_2;
+    u8 temp_t1;
+    u8 temp_t1_2;
+    struct071 *temp_a0;
+    struct071 *obj;
+    struct071 *temp_v0;
+    struct035 *temp_v0_2;
+    s16 phi_a3;
+    s16 phi_a3_2;
+
+    obj = func_802C9488_6DAB38();
+    if (obj == 0) {
+        return NULL;
+    }
+
+    bzero_sssv((u8 *) obj, sizeof(struct071));
+
+    temp_v0_2 = &D_801E9EB8.unk0[id];
+    obj->unk16C = temp_v0_2;
+    if (temp_v0_2->unk70 != 0) {
+        scale = temp_v0_2->unk70;
+    }
+
+    obj->unk40 = scale;
+
+    obj->unk4C.unk29 = temp_v0_2->unk80.bit4;
+    obj->unk4C.unk30 = temp_v0_2->unk80.bit2;
+    obj->unk4C.unk28 = temp_v0_2->unk80.bit3;
+
+#if 0
+    temp_t1 = ((((u32) (temp_v0_2->unk80 << 0x14) >> 0x1F) * 8) & 8) | (obj->unk4F & 0xFFF7); // 1111 0111
+    obj->unk4F = temp_t1;
+    temp_t1_2 = ((((u32) (temp_v0_2->unk80 << 0x15) >> 0x1F) * 4) & 4) | (temp_t1 & 0xFB); // 1111 1011
+    obj->unk4F = temp_t1_2;
+    obj->unk4F = (u8) (((((u32) (temp_v0_2->unk80 << 0x13) >> 0x1F) * 0x10) & 0x10) | (temp_t1_2 & 0xEF)); // 1110 1111
+#endif
+
+    obj->unk14C = temp_v0_2->unk8A;
+    obj->unk164 = temp_v0_2->unk89;
+
+    if (temp_v0_2->unk80.bit4) {
+        temp_v1 = func_8031124C_7228FC(x, z) >> 0x10;
+        if (y < temp_v1) {
+            y = temp_v1;
+        }
+    }
+    temp_v1 = func_80310F58_722608(x, z) >> 0x10;
+    if (temp_v1 == 0x4000) {
+        obj->unk160 = 0;
+    } else if (y >= temp_v1) {
+        obj->unk160 = 2;
+    } else {
+        obj->unk160 = 1;
+    }
+
+    obj->unk0 = 1;
+    obj->unk17E = x;
+    obj->unk182 = y;
+    obj->unk180 = z;
+    obj->unk1C.w = arg4;
+    obj->unk20.w = arg5;
+    obj->zRotation = zRotation;
+    obj->unk24.w = arg6;
+    obj->unk4C.unk26 = 1; // obj->unk4F = (u8) (obj->unk4F | 0x40);
+    obj->yRotation = yRotation;
+    obj->unk114 = 0x7FFF;
+    obj->unk116 = 0x7FFF;
+    obj->unk118 = 0x7FFF;
+    obj->unk11A = 0x7FFF;
+    obj->unk46 = obj->unk16C->mass;
+
+    func_802C9BA4_6DB254(obj);
+    if ((obj->unk16C->unk15 == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
+        y = (s16) ((y + obj->unk32) - (obj->unk42 >> 1));
+    }
+    obj->xPos.h = x;
+    obj->yPos.h = y;
+    obj->zPos.w = z;
+    obj->unk10.w = x << 0x10;
+    obj->unk18 = y << 0x10;
+    obj->unk14.w = z << 0x10;
+    func_802DADA0_6EC450(obj);
+    func_802F5C60_707310(obj);
+    obj->unk162 = 3;
+    return obj;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9564_6DAC14.s")
-// struct071 *func_802C9564_6DAC14(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8, u16 arg9) {
-//     s32 temp_v1;
-//     s32 temp_v1_2;
-//     u8 temp_t1;
-//     u8 temp_t1_2;
-//     struct071 *temp_a0;
-//     struct071 *obj;
-//     struct071 *temp_v0;
-//     struct068 *temp_v0_2;
-//     s16 phi_a3;
-//     s16 phi_a3_2;
-//
-//     arg3 = arg3;
-//     temp_v0 = func_802C9488_6DAB38();
-//     obj = temp_v0;
-//     if (temp_v0 == 0) {
-//         return NULL;
-//     }
-//     temp_a0 = obj;
-//     arg3 = arg3;
-//     bzero_sssv(temp_a0, 0x270);
-//     temp_v0_2 = &D_801E9EB8.unk0[arg0]; // (arg0 * 0x9C) +
-//     obj->unk16C = temp_v0_2;
-//     phi_a3 = arg3;
-//     if (temp_v0_2->unk70 != 0) {
-//         arg9 = temp_v0_2->unk70;
-//     }
-//     obj->unk40 = arg9;
-// #if 0
-//     temp_t1 = ((((u32) (temp_v0_2->unk80 << 0x14) >> 0x1F) * 8) & 8) | (obj->unk4F & 0xFFF7);
-//     obj->unk4F = temp_t1;
-//     temp_t1_2 = ((((u32) (temp_v0_2->unk80 << 0x15) >> 0x1F) * 4) & 4) | (temp_t1 & 0xFB);
-//     obj->unk4F = temp_t1_2;
-//     obj->unk4F = (u8) (((((u32) (temp_v0_2->unk80 << 0x13) >> 0x1F) * 0x10) & 0x10) | (temp_t1_2 & 0xEF));
-// #endif
-//     obj->unk14C = (s16) temp_v0_2->unk8A;
-//     obj->unk164 = (u8) temp_v0_2->unk89;
-//     if ((temp_v0_2->unk82 & 1) != 0) {
-//         arg3 = arg3;
-//         temp_v1 = func_8031124C_7228FC(arg1, arg2) >> 0x10;
-//         phi_a3 = arg3;
-//         if ((s32) arg3 < (s32) (s16) temp_v1) {
-//             phi_a3 = (s16) temp_v1;
-//         }
-//     }
-//     arg3 = phi_a3;
-//     temp_v1_2 = func_80310F58_722608(arg1, arg2) >> 0x10;
-//     if ((s16) temp_v1_2 == 0x4000) {
-//         obj->unk160 = 0;
-//     } else if ((s32) arg3 >= (s32) (s16) temp_v1_2) {
-//         obj->unk160 = 2;
-//     } else {
-//         obj->unk160 = 1;
-//     }
-//     obj->unk0 = 1;
-//     obj->unk17E = arg1;
-//     obj->unk182 = arg3;
-//     obj->unk180 = arg2;
-//     obj->unk1C.w = arg4;
-//     obj->unk20.w = arg5;
-//     obj->unk2E = arg7;
-//     obj->unk24 = arg6;
-// #if 0
-//     obj->unk4F = (u8) (obj->unk4F | 0x40);
-// #endif
-//     obj->unk2C = arg8;
-//     obj->unk114 = 0x7FFF;
-//     obj->unk116 = 0x7FFF;
-//     obj->unk118 = 0x7FFF;
-//     obj->unk11A = 0x7FFF;
-//     obj->unk46 = (u16) obj->unk16C->mass;
-//     arg3 = arg3;
-//     func_802C9BA4_6DB254(obj);
-//     phi_a3_2 = arg3;
-//     if ((obj->unk16C->unk15 == 4) && ((((s32) arg7 >= 0xE1) && ((s32) arg7 < 0x13B)) || (((s32) arg7 >= 0x2D) && ((s32) arg7 < 0x87)))) {
-//         phi_a3_2 = (s16) ((arg3 + obj->unk32) - ((s32) obj->unk42 >> 1));
-//     }
-//     obj->xPos.h = arg1;
-//     obj->yPos.h = phi_a3_2;
-//     obj->zPos.w = arg2;
-//     obj->unk10.w = (s32) (arg1 << 0x10);
-//     obj->unk18 = (s32) (phi_a3_2 << 0x10);
-//     obj->unk14.w = (s32) (arg2 << 0x10);
-//     func_802DADA0_6EC450(obj);
-//     func_802F5C60_707310(obj);
-//     obj->unk162 = 3;
-//     return obj;
-// }
+#endif
 
 void func_802C9834_6DAEE4(void) {
     func_802C9884_6DAF34();
@@ -639,60 +643,126 @@ void func_802C9900_6DAFB0(struct071 *arg0, s32 arg1, u8 arg2) {
     arg0->unk24C[arg2] = arg1;
 }
 
-// __ll_mul
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9918_6DAFC8.s")
-// void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {
-//     s16 var_t0;
-//     s16 var_t1;
-//     s16 var_t2;
-//
-//     s16 temp_t5;
-//     s32 temp_t8;
-//
-//     if (arg0->unk16C->unk15 != 4) {
-//         arg0->yRotation = arg2;
-//         arg0->zRotation = arg1;
-//         return;
-//     }
-//
-//     temp_t8 = ((s16) ((arg0->zRotation + 45) / 90) & 1) ^ ((s16) ((arg0->yRotation + 45) / 90) & 1);
-//
-//     arg0->zRotation = arg1;
-//     arg0->yRotation = arg2;
-//
-//     if (temp_t8) {
-//         if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
-//             ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
-//             arg0->yPos.h = (arg0->yPos.h - arg0->unk30) + (arg0->unk42 >> 1);
-//         } else {
-//             arg0->yPos.h = (arg0->yPos.h - arg0->unk32) + (arg0->unk42 >> 1);
-//         }
-//     }
-//     var_t1 = arg0->unk16C->unk72;
-//     var_t0 = arg0->unk16C->unk74;
-//     var_t2 = arg0->unk16C->unk7A;
-//
-//     if (((arg0->zRotation >= 45) && (arg0->zRotation < 135)) ||
-//         ((arg0->zRotation >= 225) && (arg0->zRotation < 315))) {
-//         temp_t5 = var_t0;
-//         var_t0 = (var_t2 / 2);
-//         var_t2 = temp_t5 << 1;
-//     }
-//     if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
-//         ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
-//         temp_t5 = var_t1;
-//         var_t1 = var_t0;
-//         var_t0 = temp_t5;
-//     }
-//
-//     arg0->unk30 = var_t1;
-//     arg0->unk32 = var_t0;
-//     arg0->unk42 = var_t2;
-//
-//     arg0->unk30 = ((s64)arg0->unk30 * arg0->unk40) >> 0xB;
-//     arg0->unk32 = ((s64)arg0->unk32 * arg0->unk40) >> 0xB;
-//     arg0->unk42 = ((s64)arg0->unk42 * arg0->unk40) >> 0xB;
-// }
+void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {
+    s16 var_t0;
+    s16 var_t1;
+    s16 var_t2;
 
-// __ll_mul
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9AF0/func_802C9BA4_6DB254.s")
+    s16 temp_t5;
+    s32 temp_t8;
+    s32 temp_t9;
+
+    if (arg0->unk16C->unk15 != 4) {
+        arg0->yRotation = arg2;
+        arg0->zRotation = arg1;
+        return;
+    }
+
+    temp_t8 = ((s16) ((arg1 + 45) / 90));
+    temp_t9 = ((s16) ((arg0->zRotation + 45) / 90));
+
+    arg0->yRotation = arg2;
+    arg0->zRotation = arg1;
+
+    if ((temp_t8 & 1) ^ (temp_t9 & 1)) {
+        if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
+            ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
+            arg0->yPos.h = (arg0->yPos.h - arg0->unk30) + (arg0->unk42 >> 1);
+        } else {
+            arg0->yPos.h = (arg0->yPos.h - arg0->unk32) + (arg0->unk42 >> 1);
+        }
+    }
+
+    var_t1 = arg0->unk16C->unk72;
+    var_t0 = arg0->unk16C->unk74;
+    var_t2 = arg0->unk16C->unk7A;
+
+    if (((arg0->zRotation >= 45) && (arg0->zRotation < 135)) ||
+        ((arg0->zRotation >= 225) && (arg0->zRotation < 315))) {
+        temp_t5 = var_t0;
+        var_t0 = (var_t2 / 2);
+        var_t2 = temp_t5 << 1;
+    }
+    if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
+        ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
+        temp_t5 = var_t1;
+        var_t1 = var_t0;
+        var_t0 = temp_t5;
+    }
+
+    arg0->unk30 = var_t1;
+    arg0->unk32 = var_t0;
+    arg0->unk42 = var_t2;
+
+    arg0->unk30 = ((s64)arg0->unk30 * arg0->unk40) >> 0xB;
+    arg0->unk32 = ((s64)arg0->unk32 * arg0->unk40) >> 0xB;
+    arg0->unk42 = ((s64)arg0->unk42 * arg0->unk40) >> 0xB;
+}
+
+void func_802C9BA4_6DB254(struct071 *arg0) {
+    s16 temp_t9;
+    s16 i;
+    s16 var_t1;
+    s16 var_t2;
+    s16 var_v1;
+
+    if (arg0->unk40 == 0) {
+        arg0->unk40 = 0x800;
+    }
+
+    var_t1 = arg0->unk16C->unk72;
+    var_v1 = arg0->unk16C->unk74;
+    var_t2 = arg0->unk16C->unk7A;
+
+    if ((arg0->unk16C->unk15 == 4)) {
+        if (((arg0->zRotation >= 0x2E) && (arg0->zRotation < 0x88)) || ((arg0->zRotation >= 0xE2) && (arg0->zRotation < 0x13C))) {
+            temp_t9 = var_v1;
+            var_v1 = var_t2 / 2;
+            var_t2 = temp_t9 * 2;
+        }
+    }
+
+    if (((arg0->yRotation >= 0x2E) && (arg0->yRotation < 0x88)) || ((arg0->yRotation >= 0xE2) && (arg0->yRotation < 0x13C))) {
+        temp_t9 = var_t1;
+        var_t1 = var_v1;
+        var_v1 = temp_t9;
+    }
+
+    arg0->unk30 = var_t1;
+    arg0->unk32 = var_v1;
+    arg0->unk42 = var_t2;
+
+    arg0->unk34 = arg0->unk16C->unk76;
+    arg0->unk36 = arg0->unk16C->unk78;
+
+    arg0->unk34 = ((s64)arg0->unk34 * arg0->unk40) >> 11;
+    arg0->unk36 = ((s64)arg0->unk36 * arg0->unk40) >> 11;
+
+    if ((arg0->unk16C->objectType >= 0x80) && (((((Animal*) arg0)->unk366 == 5)) || (((Animal*) arg0)->unk366 == 2))) {
+        arg0->unk42 = arg0->unk16C->unkBC;
+    }
+
+    arg0->unk44 = arg0->unk46;
+
+    arg0->unk4C.pad0 = arg0->unk16C->mass / 2;
+
+    arg0->unk30 = ((s64)arg0->unk30 * arg0->unk40) >> 11;
+    arg0->unk32 = ((s64)arg0->unk32 * arg0->unk40) >> 11;
+
+    arg0->unk42 = ((s64)arg0->unk42 * arg0->unk40) >> 11;
+    arg0->unk44 = ((s64)arg0->unk44 * arg0->unk40) >> 11;
+
+    arg0->unk4C.pad0 = ((s64)arg0->unk4C.pad0 * arg0->unk40) >> 11;
+
+    for (i = 0; i < 5; i++) {
+        arg0->unk74[i][0] = arg0->unk16C->unk20[i][0] << 0x10;
+        arg0->unk74[i][1] = arg0->unk16C->unk20[i][1] << 0x10;
+        arg0->unk74[i][2] = arg0->unk16C->unk20[i][2] << 0x10;
+        arg0->unk74[i][3] = arg0->unk16C->unk20[i][3];
+
+        arg0->unk74[i][0] = ((s64)arg0->unk74[i][0] * arg0->unk40) >> 11;
+        arg0->unk74[i][1] = ((s64)arg0->unk74[i][1] * arg0->unk40) >> 11;
+        arg0->unk74[i][2] = ((s64)arg0->unk74[i][2] * arg0->unk40) >> 11;
+        arg0->unk74[i][3] = ((s64)arg0->unk74[i][3] * arg0->unk40) >> 11;
+    }
+}

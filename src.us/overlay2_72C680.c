@@ -981,7 +981,7 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 id) {
 //     func_8033C334_74D9E4();
 //     func_802F2DF8_7044A8();
 //     func_802FE4C4_70FB74();
-//     func_8039DD60_7AF410(); // reset used objects, zero out memory
+//     reset_trails();
 //     func_802C85EC_6D9C9C();
 //
 //     // all game objects

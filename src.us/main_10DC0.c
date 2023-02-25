@@ -3,110 +3,49 @@
 #include "common.h"
 
 #if 0
-void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *arg5, f32 sizeX, f32 sizeY, u8 depth) {
-    f32 var_f0;
-    f32 var_f2;
-    s16 temp_t2;
-    s16 temp_t6;
-    s16 temp_t7;
-    s16 temp_t9;
-    s16 var_a0;
-    s16 var_a0_2;
-    s16 var_v1;
-    s16 var_v1_2;
-    s32 temp_f10;
-    s32 temp_f16;
-    s32 temp_t6_2;
-    s32 temp_t6_3;
-    s32 temp_t8;
-    s32 temp_t8_2;
-    s32 var_t0;
-    s32 var_t6;
-    s32 var_v1_3;
-    s32 var_v1_4;
-    s32 var_v1_5;
+void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 sizeX, f32 sizeY, u8 depth) {
+
+    s16 xl;
+    s16 yl;
 
     gDPPipeSync((*dl)++);
 
     switch (depth) {
     case 16:
-        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, arg5);
+        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img);
         gDPLoadSync((*dl)++);
 
-        gDPLoadTextureBlock((*dl)++, arg5, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0,
+        gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0,
             G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP,
             G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         break;
     case 8:
         gDPLoadSync((*dl)++);
-        gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 1, arg5);
+        gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 1, img);
 
-        gDPLoadTextureBlock((*dl)++, arg5, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0,
+        gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0,
             G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP,
             G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         break;
     default:
-        rmonPrintf("Wrong texture size"); //D_8015B050);
+        rmonPrintf("Wrong texture size");
     }
 
-    temp_t9 = x << 2;
-    temp_t2 = y << 2;
-    temp_t7 = (x + x_size) << 2;
-    temp_t6 = (y + y_size) << 2;
 
-#if 0
-    if (temp_t9 < 0) {
-        var_f2 = 16384.0f / (sizeX / 2.0f);
-        if ((s16) var_f2 < 0) {
-            var_t0 = MAX(0, (s32) (temp_t9 * (s16) var_f2) >> 7);
-        } else {
-            var_t0 = MIN(0, (s32) (temp_t9 * (s16) var_f2) >> 7);
-        }
-    } else {
-        var_t0 = 0;
-        var_f2 = 16384.0f / (sizeX / 2.0f);
-    }
+    xl = x * 4;
+    yl = y * 4;
 
-    if (temp_t2 < 0) {
-        var_f0 = 16384.0f / (sizeY / 2.0f);
-        if ((s16) var_f0 < 0) {
-            var_v1_4 = MAX(0, (s32) (temp_t2 * (s16) var_f0) >> 7);
-        } else {
-            var_v1_4 = MIN(0, (s32) (temp_t2 * (s16) var_f0) >> 7);
-        }
-    } else {
-        var_v1_4 = 0;
-        var_f0 = 16384.0f / (sizeY / 2.0f);
-    }
-#endif
-
-    gSPTextureRectangle(
-    /* pkt  */ (*dl)++,
-    /* xl   */ MAX(0, temp_t9),
-    /* yl   */ MAX(0, temp_t2),
-    /* xh   */ MAX(0, temp_t7),
-    /* yh   */ MAX(0, temp_t6),
+    gSPScisTextureRectangle(
+    /* gdl  */ (*dl)++,
+    /* xl   */ xl,
+    /* yl   */ yl,
+    /* xh   */ (x + x_size) * 4,
+    /* yh   */ (y + y_size) * 4,
     /* tile */ G_TX_RENDERTILE,
-    /* s    */ -((temp_t9 < 0) ? ((16384.0f / (sizeY / 2.0f)) < 0 ? MAX(0, (s32) (temp_t2 * (s16) var_f0) >> 7) : MIN(0, (s32) (temp_t2 * (s16) var_f0) >> 7)) : 0),
-    /* t    */ -((temp_t2 < 0) ? ((16384.0f / (sizeY / 2.0f)) < 0 ? MAX(0, (s32) (temp_t2 * (s16) var_f0) >> 7) : MIN(0, (s32) (temp_t2 * (s16) var_f0) >> 7)) : 0),
-    /* dsdx */ 16384.0f / (sizeX / 2.0f),
-    /* dtdy */ 16384.0f / (sizeY / 2.0f));
-
-#if 0
-    // this is also *completely* wrong
-    gSPTextureRectangle(
-        (*dl)++,
-        MAX(x * 4, 0),
-        MAX(y * 4, 0),
-        MAX((x + x_size) * 4, 0),
-        MAX((y + y_size) * 4, 0),
-        G_TX_RENDERTILE,
-        MAX(MAX(x * 4, 0) * (s16)(16384.0f / (sizeX / 2.0f)) >> 7, 0),
-        MAX(MAX(y * 4, 0) * (s16)(16384.0f / (sizeY / 2.0f)) >> 7, 0),
-        16384.0f / (sizeX / 2.0f),
-        16384.0f / (sizeY / 2.0f)
-        );
-#endif
+    /* s    */ 0,
+    /* t    */ 0,
+    /* dsdx */ 16384.0f / (sizeX / 2),
+    /* dtdy */ 16384.0f / (sizeY / 2));
 
     gDPPipeSync((*dl)++);
     gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
@@ -117,41 +56,49 @@ void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *arg5, f32
 
 // draw chunked images (e.g. 200 credz)
 #if 0
-// miles away
-void func_80135CD8(u32 arg0, u32 arg1, u32 arg2, u32 arg3, Gfx **dl, u8 *arg5) {
+// CURRENT (2725)
+void func_80135CD8(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *img) {
     u32 sp8C;
 
     s32 yOffset;
-    s16 var_v1_4;
 
-    s16 tmpx;
-    s16 tmpy;
+    s32 xx;
+    s32 yy;
+    s16 xh, yh;
+    s16 xl, yl;
 
     s32 x;
     s32 y;
     void *imgAddr;
 
+    s32 foo;
+    s32 bar;
+
     gDPPipeSync((*dl)++);
 
-    y = arg1;
-    sp8C = arg2 >> 5;
+    y = startY;
+    sp8C = width / 32;
 
-    while (y < (arg1 + arg3)) {
+    while (y < (startY + height)) {
 
-        if ((arg1 + arg3) < (y + 32)) {
-            yOffset = (arg1 - y) + arg3;
+        if ((startY + height) < (y + 32)) {
+            yOffset = (startY - y) + height;
         } else {
             yOffset = 32;
         }
 
-        x = arg0;
-        while (x < (arg0 + arg2)) {
-            s32 xx;
-            s32 yy;
-            xx = x - arg0;
-            yy = y - arg1;
+        for (x = startX; x < (startX + width); x += 0x20) {
 
-            imgAddr = arg5 + (((((s8) (yy / 32) * sp8C) + ((xx * x) / 32) & 0xFF)) << 0xB);
+            xl = (x*4);
+            yl = (y*4);
+
+            xh = ((x + 32) * 4);
+            yh = ((y + yOffset) * 4);
+
+            xx = x - startX;
+            yy = y - startY;
+
+            imgAddr = img + (((((s8) (yy / 32) * sp8C) + ((xx * x) / 32) & 0xFF)) * 32 * 32);
 
             gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, imgAddr);
             gDPLoadSync((*dl)++);
@@ -171,22 +118,18 @@ void func_80135CD8(u32 arg0, u32 arg1, u32 arg2, u32 arg3, Gfx **dl, u8 *arg5) {
             /* shifts */ G_TX_NOLOD,
             /* shiftt */ G_TX_NOLOD);
 
-            tmpx = x << 2;
-            tmpy = y << 2;
-
-            gSPTextureRectangle(
+            gSPScisTextureRectangle(
             /* pkt  */  (*dl)++,
-            /* xl   */  MIN(0, tmpx),
-            /* yl   */  MIN(0, y << 2), // urgh
-            /* xh   */  MIN(0, tmpx),
-            /* yh   */  MIN(0, ((y + yOffset) << 2)),
+            /* xl   */  xl,
+            /* yl   */  yl,
+            /* xh   */  xh,
+            /* yh   */  yh,
             /* tile */  G_TX_RENDERTILE,
-            /* s    */  -((tmpx < 0) ? MAX(0, (tmpx << 0xA) >> 7) : 0),
-            /* t    */  -((tmpy < 0) ? MAX(0, (tmpy << 0xA) >> 7) : 0),
+            /* s    */  0,
+            /* t    */  0,
             /* dsdx */  0x400,
             /* dtdy */  0x400);
 
-            x += 0x20;
         }
         y += 0x20;
     }
