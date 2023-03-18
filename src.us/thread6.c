@@ -63,7 +63,7 @@ void thread6(s32 arg0) {
     // stack (1)?
     D_80162658[i].unk3BBA8 = 6;
     D_80162658[i].unk3BBC8 = 2;
-    D_80162658[i].unk3BBE8 = gFramebuffer[0];
+    D_80162658[i].framebuffer = gFramebuffer[0];
     // stack (2)?
     D_8019A658[0].unk3F798 = 6;
     D_8019A658[0].unk3F7B8 = 2;
@@ -123,7 +123,7 @@ void func_80129DC0(void) {
             stop_all_sounds();
             func_801328F8();
             D_80204290 = 1;
-            D_8028645C = 0;
+            D_8028645C = NO_MUSIC;
 
             phi_s1 = 1;
             switch (D_80204284) {
@@ -193,7 +193,7 @@ void func_80129DC0(void) {
                 func_8013107C(
                     &D_80162658[D_80152EB8],
                     D_80162658[D_80152EB8].unk4E0,
-                    (D_801D9E7C - D_80162658[D_80152EB8].unk4E0) * sizeof(Gfx),
+                    (D_801D9E7C - D_80162658[D_80152EB8].unk4E0) * sizeof(s64),
                     3,
                     &D_80162658[D_80152EB8].unk3BBC8,
                     99);
@@ -297,7 +297,7 @@ void func_8012A588(void) {
         if (D_80152E9C == 1) {
             func_80137840();
             func_8012A400();
-            memcpy_sssv(D_80162658[D_80152EB8].unk3BBE8, D_80162658[D_80152EB8 ^ 1].unk3BBE8, sizeof(gFramebuffer[0]));
+            memcpy_sssv(D_80162658[D_80152EB8].framebuffer, D_80162658[D_80152EB8 ^ 1].framebuffer, sizeof(gFramebuffer[0]));
         }
         if (D_80152E9C == 2) {
             set_tv_mode_normal();
@@ -307,7 +307,7 @@ void func_8012A588(void) {
         // fakematch
         if (tmp = D_80152E9C != 0) {}
 
-        gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+        gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
 
         D_80152E9C = D_80152E9C + D_80204290;

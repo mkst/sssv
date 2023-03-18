@@ -26,9 +26,9 @@ extern Gfx D_04000130_F1190[];
 extern Gfx D_04000350_F13B0[];
 extern Gfx D_04000500_F1560[];
 extern Gfx D_04000A00_F1A60[];
-extern Gfx D_04000D70[];
-extern Gfx D_04000F60[];
-extern Gfx D_04000FC0[];
+extern Gfx D_04000D70_F1DD0[];
+extern Gfx D_04000F60_F1FC0[];
+extern Gfx D_04000FC0_F2020[];
 
 
 #ifdef NON_MATCHING
@@ -200,7 +200,7 @@ block_9:
             D_80203FE0[1].unk2  += (spB0 * 600) >> 5;
             D_80203FE0[20].unk2 += (spB0 * 600) >> 5;
 
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0x14, 1, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000D70); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0x14, 1, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000D70_F1DD0); }
 
             D_80203FE0[20].unk4 += (spB2 * 600) >> 5;
             D_80203FE0[1].unk4  -= (spB0 * 600) >> 3;
@@ -239,9 +239,9 @@ block_9:
                 spC2 = D_803BD5CC_7CEC7C[spC2]; spC0 = D_803BD684_7CED34[spC0];
                 func_80356BD8_768288(&D_01002C20, &D_010025A0, spC2);
                 gSPDisplayList(D_801D9E88++, D_010037F0_3D0C0);
-                func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000F60);
+                func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000F60_F1FC0);
                 func_80356BD8_768288(&D_01002C20, &D_010025A0, spC0);
-                func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000FC0);
+                func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000FC0_F2020);
 
                 gSPDisplayList(D_801D9E88++, D_01003840_3D110);
             }

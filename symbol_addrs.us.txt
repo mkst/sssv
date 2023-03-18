@@ -16,6 +16,11 @@ osTvType          = 0x80000300;
 osResetType       = 0x8000030C;
 osAppNMIBuffer    = 0x8000031C;
 
+gFramebuffer      = 0x80000400;
+
+_fontbufferSegmentStart     = 0x800E1220;
+_fontbufferSegmentEnd       = 0x800EF0D0;
+
 gMusicVolume      = 0x801546D0;
 gSfxVolume        = 0x801546D4;
 gAudioInitialized = 0x80155154;
@@ -30,7 +35,6 @@ gThread1          = 0x802868D0;
 gThread9          = 0x80286A80;
 gControllerConnected = 0x802912D8;
 
-gFramebuffer           = 0x80000400;
 gControllerInput       = 0x802910D0;
 gControllerStatus      = 0x802910D8;
 gCurrentAnimalIndex    = 0x803D5534;
@@ -183,6 +187,8 @@ add_light_at_location  = 0x802F2B54; // rom:0x704204
 add_multiple_lights    = 0x802F5088; // rom:0x706738
 add_single_light       = 0x802F5964; // rom:0x707014
 
+get_controller_input   = 0x802F59F0; // rom:0x7070A0
+
 fire_homing_missile    = 0x802FEE98; // rom:0x710548
 spawn_temporary_object = 0x802FF0A4; // rom:0x710754
 
@@ -194,6 +200,7 @@ parrot_fly             = 0x80314600; // rom:0x725CB0
 set_game_state         = 0x80314874; // rom:0x725F24
 get_game_state         = 0x80314F0C; // rom:0x7265BC
 copy_command_struct    = 0x80315384; // rom:0x726A34
+load_commands_into_object = 0x803153B0; // rom:0x726A60
 
 get_closest_waypoint_index = 0x80319B4C; // rom:0x72B1FC
 
@@ -235,9 +242,7 @@ load_1_tile              = 0x80356410; // rom:0x767AC0
 load_2_tiles             = 0x803565D4; // rom:0x767C84
 load_3_tiles             = 0x80356870; // rom:0x767F20
 
-can_swim                 = 0x80362B38; // rom:0x7741E8
-water_hurts              = 0x80362B9C; // rom:0x77424C
-can_fly                  = 0x80362BC4; // rom:0x774274
+set_music_track          = 0x803572B0; // rom:0x768960
 
 biker_hyena_fire_missile = 0x8035A420; // rom:0x76BAD0
 recharge_skill           = 0x8035E3E8; // rom:0x76FA98
@@ -245,7 +250,12 @@ rat_drop_mine            = 0x8035FC2C; // rom:0x7712DC
 rat_bite                 = 0x8035FD4C; // rom:0x7713FC
 king_rat_bugel_call      = 0x8035FDC0; // rom:0x771470
 king_rat_fart            = 0x8035FE6C; // rom:0x77151C
+
+can_swim                 = 0x80362B38; // rom:0x7741E8
+water_hurts              = 0x80362B9C; // rom:0x77424C
+can_fly                  = 0x80362BC4; // rom:0x774274
 ram_headbutt             = 0x80362A84; // rom:0x774134
+
 penguin_throw_snowball   = 0x80365D8C; // rom:0x77743C
 polar_tank_drop_mine     = 0x80368C50; // rom:0x77A300
 polar_tank_fire_cannon   = 0x80368CF0; // rom:0x77A3A0
@@ -317,9 +327,6 @@ display_trails              = 0x8039EBFC; // rom:0x7B02AC
 gTrails = 0x803F7E10;
 
 gCamera = 0x803F2AD0;
-
-_fontbufferSegmentStart     = 0x800E1220;
-_fontbufferSegmentEnd       = 0x800EF0D0;
 
 // bss
 

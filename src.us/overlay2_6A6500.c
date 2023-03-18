@@ -35,7 +35,7 @@ void func_80294E50_6A6500(void) {
             func_80137840(); // initialise rumble pack ?
             func_8012A400();
             // copy framebuffer?
-            func_803925D0_7A3C80(D_8020428C->unk3BBE8, (u16*)D_800C5A40);
+            func_803925D0_7A3C80(D_8020428C->framebuffer, (u16*)D_800C5A40);
             D_803F6680.unk0 = 1;
             D_803F6714 = 0;
             D_803C0422 = 0;
@@ -71,8 +71,8 @@ void func_80294E50_6A6500(void) {
         func_8012A400(); // receive some messages?
         // swap frame buffer
         memcpy_sssv(
-            D_80162658[D_80152EB8].unk3BBE8,
-            D_80162658[D_80152EB8 ^ 1].unk3BBE8,
+            D_80162658[D_80152EB8].framebuffer,
+            D_80162658[D_80152EB8 ^ 1].framebuffer,
             sizeof(gFramebuffer[0]));
         trigger_mission_brief_screen();
         // unset flag
@@ -110,10 +110,11 @@ void func_80294E50_6A6500(void) {
         gScreenWidth = D_803F2D50.unkDA;
         gScreenHeight = 240;
 
-        func_802F59F0_7070A0();
+        get_controller_input();
         if (gControllerInput != NULL) {
             func_802C8FC0_6DA670(gControllerInput);
         }
+
         func_802FDA44_70F0F4();
         func_802FE5E8_70FC98();
         func_802F30A4_704754();
@@ -134,7 +135,7 @@ void func_80294E50_6A6500(void) {
 
         func_80129430(&D_801D9E7C);
 
-        gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+        gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
         gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
 
         gSPClipRatio(D_801D9E7C++, FRUSTRATIO_3);
@@ -291,7 +292,7 @@ void func_80294E50_6A6500(void) {
         if (D_8028645A == 0) {
             D_8015517C = 0.0f;
         }
-        if ((D_8028645C == 9) || (D_8028645C == 5) || (D_8028645C == 24)) {
+        if ((D_8028645C == MUSIC_TRACK_LEVEL_FAILED) || (D_8028645C == MUSIC_TRACK_LEVEL_PASSED) || (D_8028645C == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
             D_8015517C = 1.0f;
             D_801546D8 = (u16)0x800;
         }
@@ -307,7 +308,7 @@ void func_80294E50_6A6500(void) {
                 if (D_803C042A == 1) {
                     D_803C0426 = 13;
                 }
-                D_8028645C = 0;
+                D_8028645C = NO_MUSIC;
                 D_803C0426 += 1;
             } else if (++D_803C0426 > 16) {
                 D_80204284 = 3;
@@ -324,7 +325,7 @@ void func_80294E50_6A6500(void) {
                 if (++D_803C0424 > 13) {
                     D_80204284 = 3;
                     D_80152E90 = 1; // select menu overlay
-                    D_8028645C = 0;
+                    D_8028645C = NO_MUSIC;
                 }
             }
         }
@@ -339,7 +340,7 @@ void func_80294E50_6A6500(void) {
     if ((D_803F2D30.level == END_CREDITS) && (D_803F6680.unk0 == 0)) {
         if (D_803C0428 != 0) {
             if (++D_803C0428 > 19) {
-                D_8028645C = 0;
+                D_8028645C = NO_MUSIC;
                 D_80204284 = 3;
                 D_80152E90 = 1; // select menu overlay
             }
@@ -386,7 +387,7 @@ void func_802961D4_6A7884(void) {
     D_803F6680.unk4 = 0;
     D_8028645A = 0;
     D_8015517C = 0.0f;
-    D_8028645C = 0;
+    D_8028645C = NO_MUSIC;
     D_803F2D50.unkDA = 320;
     D_803F2D50.unkDC = 0;
     // these 3 are 64bit

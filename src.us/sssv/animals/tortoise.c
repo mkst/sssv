@@ -11,25 +11,30 @@ extern s16 D_803A83A0_7B9A50[];
 extern s16 D_803A83BC_7B9A6C[];
 extern s16 D_803A83FC_7B9AAC[];
 
-extern Gfx D_0103AA20[];
-extern Gfx D_0103AC20[];
-extern Gfx D_0103AC40[];
-extern Gfx D_0103B440[];
-extern Gfx D_04003030_EA5E0[];
-extern Gfx D_040032B0[];
-extern Gfx D_040037C0[];
-extern Gfx D_040041D0_F5230[];
 extern Gfx D_01003AD0_3D3A0[];
+extern u8  D_0103AA20_742F0[];
+extern u8  D_0103AC20_744F0[];
+extern u8  D_0103AC40[];
+extern u8  D_0103B440[];
+
+extern Gfx D_04002D70_F3DD0[];
+extern Gfx D_04003030_F4090[];
+extern Gfx D_04003140_F41A0[];
+extern Gfx D_040032B0_F4310[];
+extern Gfx D_040033C0_F4420[];
+extern Gfx D_04003530_F4590[];
+extern Gfx D_04003650_F46B0[];
+extern Gfx D_040037C0_F4820[];
+extern Gfx D_040041D0_F5230[];
 
 extern u8 D_01036C90[];
 extern u8 D_01036D90[];
 extern u8 D_01036E90[];
 
 
-
 // TORTOISE_TANK
 #if 0
-// 57k away
+// CURRENT (24576)
 void func_80352380_763A30(void) {
     s32 sp14C;
     s32 sp148;
@@ -140,7 +145,7 @@ void func_80352380_763A30(void) {
     }
 
     if ((var_a2 + 80) < var_a1) {
-        var_a0 -= ((var_a1 - var_a2) - 80) / 5U; // help
+        var_a0 -= ((var_a1 - var_a2) - 80) / 5U; // help but stil wrong
     }
     if (var_a1 < 20) {
         var_a0 += (20 - var_a1) / 2;
@@ -253,11 +258,12 @@ done:
 
 
             if (sp136 != 0) {
-                play_sound_effect_at_location(SFX_UNKNOWN_71, 0x2800, 0, D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, 1.0f);
+                play_sound_effect_at_location(SFX_UNKNOWN_71, 0x2800, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                 sp13A = D_80152C78[((temp_t9_3 = -D_803D552C->unk302) + 0x40) & 0xFF] >> 7;
                 sp138 = D_80152C78[temp_t9_3 & 0xFF] >> 7;
+
                 create_particle_effect(
-                  D_803D5530->xPos.h + ((((sp138 * 0xA9E) / 232) + (sp13A * sp136)) >> 8),
+                  D_803D5530->xPos.h + (((( sp138 * 0xA9E) / 232) + (sp13A * sp136)) >> 8),
                   D_803D5530->zPos.h + ((((-sp13A * 0xA9E) / 232) + (sp138 * sp136)) >> 8),
                   D_803D5530->yPos.h + 0xC,
                   0x15,
@@ -269,12 +275,11 @@ done:
                   GPACK_RGBA5551(96, 96, 96, 1), // grey
                   0);
             }
-            // sp14C = sp14C;
-            // sp148 = var_t3;
-            load_1_tile(&D_04003A50_F4AB0, &D_04003850_F48B0);
-            func_802C78B0_6D8F60(2, 1, (s32) (D_803F2EBC * 0x3A) >> 6, (s32) (D_803F2EC0 * 0x3A) >> 6, (s32) (D_803F2EC4 * 0x3A) >> 6,D_803F2ED0, 0, 0, 0, &D_04002D70);
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6,D_803F2ED0, 0, 0, 0, &D_04003140); }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6,D_803F2ED0, 0, 1, 0, &D_04003140); }
+
+            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
+            func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6,D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6,D_803F2ED0, 0, 0, 0, D_04003140_F41A0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6,D_803F2ED0, 0, 1, 0, D_04003140_F41A0); }
             if (D_803F2D10.unk0 == 0) {
                 D_803D552C->unk308 -= 1;
             }
@@ -309,22 +314,22 @@ done:
             func_803032DC_71498C(2, 0, sp126);
             func_803032DC_71498C(26, 0, sp126);
             func_803032DC_71498C(27, 0, sp126);
-            func_802C78B0_6D8F60(2, 1, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, &D_04003030_EA5E0);
-            func_802C78B0_6D8F60(27, 26, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, &D_040041D0_F5230);
-            func_803032DC_71498C(1, 0, sp126 * -1);
-            func_803032DC_71498C(2, 0, sp126 * -1); //unksp5E);
-            func_803032DC_71498C(0x1A, 0, sp126 * -1); //unksp5E);
-            func_803032DC_71498C(0x1B, 0, sp126 * -1); //unksp5E);
+            func_802C78B0_6D8F60(2, 1, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, D_04003030_F4090);
+            func_802C78B0_6D8F60(27, 26, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_040041D0_F5230);
+            func_803032DC_71498C(1, 0, -sp126);
+            func_803032DC_71498C(2, 0, -sp126); //unksp5E);
+            func_803032DC_71498C(0x1A, 0, -sp126); //unksp5E);
+            func_803032DC_71498C(0x1B, 0, -sp126); //unksp5E);
+
             D_80203FE0[0].unk4 -= 0x38;
             D_80203FE0[2].unk2 += sp12A;
             D_80203FE0[1].unk2 += sp12A;
-            load_1_tile(D_0103AC20_744F0, D_0103AA20_742F0);
-            // temp_t3_7 = D_803D552C;
-            // temp_v0_8 = D_803D552C->unk30A;
-            // temp_v1_10 = D_803D552C->unk366;
 
+            load_1_tile(D_0103AC20_744F0, D_0103AA20_742F0);
+
+            // div/mod 256
             var_t1 = (D_803D552C->unk30A >> 8) & 0xFF;
-            var_t2 = D_803D552C->unk30A & 0xFF;
+            var_t2 = D_803D552C->unk30A & 0xFF; // get remainder
 
             if ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4) || (D_803D552C->unk366 == 1)) {
                 if (D_803D5530->unk4A == 0) {
@@ -370,18 +375,18 @@ done:
             D_803D552C->unk30A = (var_t1 << 8) | var_t2;
 
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, var_t1, 0, 0); // tbd
-            func_802C78B0_6D8F60(8, 0xE, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, &D_040032B0);
+            func_802C78B0_6D8F60(8, 0xE, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, D_040032B0_F4310);
 
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, var_t2, 0, 0); // tbd
-            func_802C78B0_6D8F60(0xB, 0x11, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, &D_040032B0);
+            func_802C78B0_6D8F60(0xB, 0x11, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, D_040032B0_F4310);
 
             func_80356D84_768434(D_0103B440, D_0103AC40);
 
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(31));
             gDPSetTileSize(D_801D9E88++, 1, 0, 0, 4*(63), 4*(31));
 
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(8, 0xE, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, &D_040037C0); }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xB, 0x11, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, &D_040037C0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(8, 0xE, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, D_040037C0_F4820); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xB, 0x11, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, D_040037C0_F4820); }
 
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
         }
@@ -390,7 +395,7 @@ done:
         func_8035D6D0_76ED80();
     }
     if ((sp128 == 0) || (sp128 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->unk302, &D_01033190, (s16) 0x19, (s16) 0x19, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     // draw crosshair?
@@ -428,49 +433,33 @@ done:
         gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, 0, 4*(15), 4*(15));
         gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_8b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
 
-        xl = ((((gScreenWidth >> 1) - sp134) + sp132) - 24) << 2;
-        yl = (D_803D552C->unk30C + 112) << 2;
-        xh = ((sp132 - sp134) + 112 + 32 + 7) << 2;
-        yh = ((gScreenHeight >> 1) + D_803D552C->unk30C + 7) << 2;
-
-        s = MAX(0, ((((gScreenWidth >> 1) - sp134) + sp132) - 24) << 2);
-        t = MAX(0, (D_803D552C->unk30C + 112) << 2);
-
-        gSPTextureRectangle(
+        gSPScisTextureRectangle(
             /* pkt  */ D_801D9EB8++,
-            /* xl   */ MAX(0, xl),
-            /* yl   */ MAX(0, yl),
-            /* xh   */ MAX(0, xh),
-            /* yh   */ MAX(0, yh),
+            /* xl   */ ((((gScreenWidth >> 1) - sp134) + sp132) - 24) << 2,
+            /* yl   */ (D_803D552C->unk30C + 112) << 2,
+            /* xh   */ ((sp132 - sp134) + 112 + 32 + 7) << 2,
+            /* yh   */ ((gScreenHeight >> 1) + D_803D552C->unk30C + 7) << 2,
             /* tile */ G_TX_RENDERTILE,
-            /* s    */ MAX(0, (s >> 0xA) >> 7),
-            /* t    */ MAX(0, (t >> 0xA) >> 7),
+            /* s    */ 0,
+            /* t    */ 0,
             /* dsdx */ 0x400,
             /* dtdy */ 0x400
         );
 
-        xl = ((gScreenWidth >> 1) + sp134 + sp132 + 8) * 4;
-        yl = (D_803D552C->unk30C + 112) * 4;
-        xh = (sp134 + sp132 + 112 + 32 + 7 + 32) * 4;
-        yh = ((gScreenHeight >> 1) + D_803D552C->unk30C + 7) * 4;
-        s = MAX(0, ((gScreenWidth >> 1) + sp134 + sp132 + 8) * 4);
-        t = MAX(0, (D_803D552C->unk30C + 0x70) * 4);
-
-        gSPTextureRectangle(
+        gSPScisTextureRectangle(
             /* pkt  */ D_801D9EB8++,
-            /* xl   */ MAX(0, xl),
-            /* yl   */ MAX(0, yl),
-            /* xh   */ MAX(0, xh),
-            /* yh   */ MAX(0, yh),
+            /* xl   */ ((gScreenWidth >> 1) + sp134 + sp132 + 8) << 2,
+            /* yl   */ (D_803D552C->unk30C + 112) << 2,
+            /* xh   */ (sp134 + sp132 + 112 + 32 + 7 + 32) << 2,
+            /* yh   */ ((gScreenHeight >> 1) + D_803D552C->unk30C + 7) << 2,
             /* tile */ G_TX_RENDERTILE,
-            /* s    */ -MAX(0, (s << 0xA) >> 7),
-            /* t    */ -MAX(0, (t << 0xA) >> 7),
+            /* s    */ 0,
+            /* t    */ 0,
             /* dsdx */ 0x400,
             /* dtdy */ 0x400
         );
 
         // TODO: replace with single gDPLoadTextureBlock
-
         gDPSetTextureImage(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (s32)D_01036D90 & 0x1FFFFFFF);
         gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync(D_801D9E88++);
@@ -480,42 +469,28 @@ done:
         gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, 0, 4*(15), 4*(15));
         gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_8b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
 
-        xl = (((gScreenWidth >> 1) + sp132) - 8) * 4;
-        yl = ((96 - sp134) + D_803D552C->unk30C) * 4;
-        xh = (sp132 + 128 + 7 + 32) * 4;
-        yh = ((((gScreenHeight >> 1) + D_803D552C->unk30C) - sp134) - 9) * 4;
-        s = MAX(0, (((gScreenWidth >> 1) + sp132) - 8) * 4);
-        t = MAX(0, (96 - sp134 + D_803D552C->unk30C) * 4);
-
-        gSPTextureRectangle(
-            /* pkt  */ D_801D9E88++,
-            /* xl   */ MAX(0, xl),
-            /* yl   */ MAX(0, yl),
-            /* yh   */ MAX(0, xh),
-            /* xh   */ MAX(0, yh),
+        gSPScisTextureRectangle(
+            /* pkt  */ D_801D9EB8++,
+            /* xl   */ (((gScreenWidth >> 1) + sp132) - 8) << 2,
+            /* yl   */ ((96 - sp134) + D_803D552C->unk30C) << 2,
+            /* xh   */ (sp132 + 128 + 7 + 32) << 2,
+            /* yh   */ ((((gScreenHeight >> 1) + D_803D552C->unk30C) - sp134) - 9) << 2,
             /* tile */ G_TX_RENDERTILE,
-            /* s    */ MAX(0, (s << 0xA) >> 7),
-            /* t    */ MAX(0, (t << 0xA) >> 7),
+            /* s    */ 0,
+            /* t    */ 0,
             /* dsdx */ 0x400,
             /* dtdy */ 0x400
         );
 
-        xl = (((gScreenWidth >> 1) + sp132) - 8) * 4;
-        yl = (sp134 + D_803D552C->unk30C + 128) * 4;
-        xh = (sp132 + 128 + 7 + 32) * 4;
-        yh = ((gScreenHeight >> 1) + sp134 + D_803D552C->unk30C + 23) * 4;
-        s = MAX(0, (((gScreenWidth >> 1) + sp132) - 8) * 4);
-        t = MAX(0, (sp134 + D_803D552C->unk30C + 128) * 4);
-
-        gSPTextureRectangle(
+        gSPScisTextureRectangle(
             /* pkt  */ D_801D9EB8++,
-            /* xl   */ MAX(0, xl),
-            /* yl   */ MAX(0, yl),
-            /* xh   */ MAX(0, xh),
-            /* yh   */ MAX(0, yh),
+            /* xl   */ (((gScreenWidth >> 1) + sp132) - 8) << 2,
+            /* yl   */ (sp134 + D_803D552C->unk30C + 128) << 2,
+            /* xh   */ (sp132 + 128 + 7 + 32) << 2,
+            /* yh   */ ((gScreenHeight >> 1) + sp134 + D_803D552C->unk30C + 23) << 2,
             /* tile */ G_TX_RENDERTILE,
-            /* s    */ -MAX(0, (s << 0xA) >> 7),
-            /* t    */ -MAX(0, (t << 0xA) >> 7),
+            /* s    */ 0,
+            /* t    */ 0,
             /* dsdx */ 0x400,
             /* dtdy */ 0x400
         );
@@ -820,25 +795,25 @@ block_57:
                 0,
                 0,
                 0,
-                D_04002D70);
+                D_04002D70_F3DD0);
 
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (phi_t0 * 58) >> 6, (phi_t0 * 58) >> 6, (phi_t0 * 58) >> 6, D_803F2ED0, 0, 0, 0, D_04003140); }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (phi_t3 * 58) >> 6, (phi_t3 * 58) >> 6, (phi_t3 * 58) >> 6, D_803F2ED0, 0, 1, 0, D_04003140); }
-            func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_040033C0);
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (phi_t0 * 58) >> 6, (phi_t0 * 58) >> 6, (phi_t0 * 58) >> 6, D_803F2ED0, 0, 0, 0, D_04003140_F41A0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (phi_t3 * 58) >> 6, (phi_t3 * 58) >> 6, (phi_t3 * 58) >> 6, D_803F2ED0, 0, 1, 0, D_04003140_F41A0); }
+            func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_040033C0_F4420);
 
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BOTH);
 
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_04003530); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_04003530_F4590); }
             load_1_tile(D_04004070_F50D0, D_04003E70_F4ED0);
 
             gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
             gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD);
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
 
-            func_802C78B0_6D8F60(7,   8, FTOFIX32(0.90625),   FTOFIX32(0.90625),   FTOFIX32(0.90625),   D_803F2ED0, 0, 0, 0, D_04003650);
-            func_802C78B0_6D8F60(10, 11, FTOFIX32(0.90625),   FTOFIX32(0.90625),   FTOFIX32(0.90625),   D_803F2ED0, 0, 0, 0, D_04003650);
-            func_802C78B0_6D8F60(13, 14, FTOFIX32(1.1328125), FTOFIX32(1.1328125), FTOFIX32(1.1328125), D_803F2ED0, 0, 0, 0, D_04003650);
-            func_802C78B0_6D8F60(16, 17, FTOFIX32(1.1328125), FTOFIX32(1.1328125), FTOFIX32(1.1328125), D_803F2ED0, 0, 0, 0, D_04003650);
+            func_802C78B0_6D8F60(7,   8, FTOFIX32(0.90625),   FTOFIX32(0.90625),   FTOFIX32(0.90625),   D_803F2ED0, 0, 0, 0, D_04003650_F46B0);
+            func_802C78B0_6D8F60(10, 11, FTOFIX32(0.90625),   FTOFIX32(0.90625),   FTOFIX32(0.90625),   D_803F2ED0, 0, 0, 0, D_04003650_F46B0);
+            func_802C78B0_6D8F60(13, 14, FTOFIX32(1.1328125), FTOFIX32(1.1328125), FTOFIX32(1.1328125), D_803F2ED0, 0, 0, 0, D_04003650_F46B0);
+            func_802C78B0_6D8F60(16, 17, FTOFIX32(1.1328125), FTOFIX32(1.1328125), FTOFIX32(1.1328125), D_803F2ED0, 0, 0, 0, D_04003650_F46B0);
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
         }
         func_8035D6A0_76ED50();
@@ -975,7 +950,7 @@ done:
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
-            func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70);
+            func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
             func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + D_803D5524->unkBA), D_803D552C->unk302, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);

@@ -141,8 +141,8 @@ void func_802C8878_6D9F28(void) {
                         func_802A935C_6BAA0C();
                         func_802AA0A0_6BB750();
                     }
-                    D_803D5530->unk10 = D_803D5530->xPos.w + D_803D5530->xVelocity.w;
-                    D_803D5530->unk14 = D_803D5530->zPos.w + D_803D5530->zVelocity.w;
+                    D_803D5530->unk10.w = D_803D5530->xPos.w + D_803D5530->xVelocity.w;
+                    D_803D5530->unk14.w = D_803D5530->zPos.w + D_803D5530->zVelocity.w;
                     D_803D5530->unk18.w = D_803D5530->yPos.w + D_803D5530->yVelocity.w;
                     func_80328520_739BD0();
                 }
@@ -478,14 +478,14 @@ s32 func_802C9340_6DA9F0(void) {
 }
 
 struct071 *func_802C93E8_6DAA98(u16 arg0) {
-    return &D_801E9EB8.unk4[MAX_OBJECTS - arg0];
+    return &D_801E9EB8.objects[MAX_OBJECTS - arg0];
 }
 
 void func_802C941C_6DAACC(void) {
     s16 i;
 
     for (i = 0; i < 170; i++) {
-        D_801E9EB8.unk19E64[i] = &D_801E9EB8.unk4[i];
+        D_801E9EB8.unk19E64[i] = &D_801E9EB8.objects[i];
     }
     D_801E9EB8.unk1A110 = MAX_OBJECTS;
     D_801E9EB8.unk1A112 = MAX_OBJECTS;
@@ -524,18 +524,10 @@ void func_802C9500_6DABB0(struct071 *obj) {
 }
 
 #if 0
-// need to fix the bitfields
-struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s16 arg4, s32 arg5, s32 arg6, s16 zRotation, s16 yRotation, u16 scale) {
+struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s32 arg4, s32 arg5, s32 arg6, s16 zRotation, s16 yRotation, u16 scale) {
     s16 temp_v1;
-    s32 temp_v1_2;
-    u8 temp_t1;
-    u8 temp_t1_2;
-    struct071 *temp_a0;
     struct071 *obj;
-    struct071 *temp_v0;
-    struct035 *temp_v0_2;
-    s16 phi_a3;
-    s16 phi_a3_2;
+    struct068 *tmp;
 
     obj = func_802C9488_6DAB38();
     if (obj == 0) {
@@ -544,30 +536,23 @@ struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s16 arg4, s32 arg5, 
 
     bzero_sssv((u8 *) obj, sizeof(struct071));
 
-    temp_v0_2 = &D_801E9EB8.unk0[id];
-    obj->unk16C = temp_v0_2;
-    if (temp_v0_2->unk70 != 0) {
-        scale = temp_v0_2->unk70;
-    }
+    tmp = &D_801E9EB8.unk0[id]; // this is wrong
+    obj->unk16C = (struct035 *)tmp;
 
+    if (obj->unk16C->unk70 != 0) {
+        scale = obj->unk16C->unk70;
+    }
+    // help
     obj->unk40 = scale;
 
-    obj->unk4C.unk29 = temp_v0_2->unk80.bit4;
-    obj->unk4C.unk30 = temp_v0_2->unk80.bit2;
-    obj->unk4C.unk28 = temp_v0_2->unk80.bit3;
+    obj->unk4C.unk29 = obj->unk16C->unk80.unk14;
+    obj->unk4C.unk30 = obj->unk16C->unk80.unk15;
+    obj->unk4C.unk28 = obj->unk16C->unk80.unk13;
 
-#if 0
-    temp_t1 = ((((u32) (temp_v0_2->unk80 << 0x14) >> 0x1F) * 8) & 8) | (obj->unk4F & 0xFFF7); // 1111 0111
-    obj->unk4F = temp_t1;
-    temp_t1_2 = ((((u32) (temp_v0_2->unk80 << 0x15) >> 0x1F) * 4) & 4) | (temp_t1 & 0xFB); // 1111 1011
-    obj->unk4F = temp_t1_2;
-    obj->unk4F = (u8) (((((u32) (temp_v0_2->unk80 << 0x13) >> 0x1F) * 0x10) & 0x10) | (temp_t1_2 & 0xEF)); // 1110 1111
-#endif
+    obj->unk14C = obj->unk16C->unk8A;
+    obj->unk164 = obj->unk16C->unk89;
 
-    obj->unk14C = temp_v0_2->unk8A;
-    obj->unk164 = temp_v0_2->unk89;
-
-    if (temp_v0_2->unk80.bit4) {
+    if (obj->unk16C->unk80.unk17) {
         temp_v1 = func_8031124C_7228FC(x, z) >> 0x10;
         if (y < temp_v1) {
             y = temp_v1;
@@ -584,30 +569,33 @@ struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s16 arg4, s32 arg5, 
 
     obj->unk0 = 1;
     obj->unk17E = x;
-    obj->unk182 = y;
     obj->unk180 = z;
+    obj->unk182 = y;
     obj->unk1C.w = arg4;
     obj->unk20.w = arg5;
-    obj->zRotation = zRotation;
     obj->unk24.w = arg6;
-    obj->unk4C.unk26 = 1; // obj->unk4F = (u8) (obj->unk4F | 0x40);
+    obj->zRotation = zRotation;
     obj->yRotation = yRotation;
+    obj->unk4C.unk26 = 1;
+
+    obj->unk46 = obj->unk16C->mass;
+
     obj->unk114 = 0x7FFF;
     obj->unk116 = 0x7FFF;
     obj->unk118 = 0x7FFF;
     obj->unk11A = 0x7FFF;
-    obj->unk46 = obj->unk16C->mass;
 
     func_802C9BA4_6DB254(obj);
     if ((obj->unk16C->unk15 == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
-        y = (s16) ((y + obj->unk32) - (obj->unk42 >> 1));
+        y = (y + obj->unk32) - (obj->unk42 >> 1);
     }
     obj->xPos.h = x;
+    obj->zPos.h = z;
     obj->yPos.h = y;
-    obj->zPos.w = z;
     obj->unk10.w = x << 0x10;
-    obj->unk18 = y << 0x10;
     obj->unk14.w = z << 0x10;
+    obj->unk18 = y << 0x10;
+
     func_802DADA0_6EC450(obj);
     func_802F5C60_707310(obj);
     obj->unk162 = 3;
@@ -634,13 +622,14 @@ void func_802C9884_6DAF34(void) {
     func_802C941C_6DAACC();
 
     for (i = 0; i <= MAX_OBJECTS; i++) {
-        bzero_sssv(&D_801E9EB8.unk4[i], sizeof(struct071));
+        bzero_sssv(&D_801E9EB8.objects[i], sizeof(struct071));
     }
     func_8029F3CC_6B0A7C();
 }
 
-void func_802C9900_6DAFB0(struct071 *arg0, s32 arg1, u8 arg2) {
-    arg0->unk24C[arg2] = arg1;
+// add_reference_to_object
+void func_802C9900_6DAFB0(struct071 *parent, struct071 *child, u8 idx) {
+    parent->unk24C[idx] = child;
 }
 
 void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {

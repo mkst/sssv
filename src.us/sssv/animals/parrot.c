@@ -4,14 +4,14 @@
 #include "parrot.h"
 
 
-extern Gfx D_04001250[];
-extern Gfx D_040015D0[];
-extern Gfx D_040016F0[];
+extern Gfx D_04001250_F22B0[];
+extern Gfx D_040015D0_F2630[];
+extern Gfx D_040016F0_F2750[];
 extern Gfx D_04001760_E8D10[];
-extern Gfx D_040019E0[];
-extern Gfx D_04001AC0[];
-extern Gfx D_04001B30[];
-extern Gfx D_04001C10[];
+extern Gfx D_040019E0_F2A40[];
+extern Gfx D_04001AC0_F2B20[];
+extern Gfx D_04001B30_F2B90[];
+extern Gfx D_04001C10_F2C70[];
 extern Gfx D_040020C0_F3120[];
 extern Gfx D_04002720_CA150[];
 
@@ -132,20 +132,20 @@ block_23:
                 create_particle_effect((s32) D_803D5530->xPos.h, (s32) D_803D5530->zPos.h, (s32) D_803D5530->yPos.h, 0x15, (s16) 0, (s16) 0, 0x30000, (s16) 0x1E, (u16) GPACK_RGBA5551(248, 248, 0, 1), (u16) GPACK_RGBA5551(120, 48, 248, 1), (s16) 0);
                 D_803D552C->unk2EE += 1;
             } else {
-                func_802C78B0_6D8F60(1, 2, (s32) (D_803F2EBC * 0x3C) >> 6, (s32) (D_803F2EC0 * 0x3C) >> 6, (s32) (D_803F2EC4 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_04001250);
-                func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_040015D0);
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_040016F0); }
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_04001B30); }
+                func_802C78B0_6D8F60(1, 2, (s32) (D_803F2EBC * 0x3C) >> 6, (s32) (D_803F2EC0 * 0x3C) >> 6, (s32) (D_803F2EC4 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_04001250_F22B0);
+                func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_040015D0_F2630);
+                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_040016F0_F2750); }
+                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, (D_803F2EC8 * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_04001B30_F2B90); }
 
                 gSPDisplayList(D_801D9E88++, &D_01003618_3CEE8);
 
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 0x1A, 0xF000, 0xF000, 0xF000, D_803F2ED0, 0, 0, 0, &D_04001760_E8D10); }
-                func_802C78B0_6D8F60(2, 0x1A, 0xF000, 0xF000, 0xF000, D_803F2ED0, 0, 0, 0, &D_04001C10);
+                func_802C78B0_6D8F60(2, 0x1A, 0xF000, 0xF000, 0xF000, D_803F2ED0, 0, 0, 0, &D_04001C10_F2C70);
                 if (sp6C != 0) {
-                    if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0, 0x16, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_040019E0); }
-                    func_802C78B0_6D8F60(0x16, 0x17, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_04001AC0);
-                    if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0, 0x18, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 1, 0, &D_040019E0); }
-                    func_802C78B0_6D8F60(0x18, 0x19, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 1, 0, &D_04001AC0);
+                    if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0, 0x16, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_040019E0_F2A40); }
+                    func_802C78B0_6D8F60(0x16, 0x17, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 0, 0, &D_04001AC0_F2B20);
+                    if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0, 0x18, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 1, 0, &D_040019E0_F2A40); }
+                    func_802C78B0_6D8F60(0x18, 0x19, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 1, 0, &D_04001AC0_F2B20);
                 }
                 if ((D_803D5530->unk162 == 1) && (D_803F2EDD == 0)) {
                     func_802C78B0_6D8F60(0, 5, 0xF000, 0xF000, 0xF000, D_803F2ED0, 0, 0, 0, &D_040020C0_F3120);

@@ -341,7 +341,7 @@ void func_80328520_739BD0(void) {
                 break;
             }
             if (D_803D5530->unk246 != 0) {
-                func_803153B0_726A60(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
+                load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
                 func_803191B0_72A860(D_803D5530);
             }
         } else if (D_803D5524->unkD8 >= D_803D5530->health) {
@@ -376,7 +376,7 @@ void func_80328520_739BD0(void) {
                 }
             }
             if (D_803D5530->unk246 != 0) {
-                func_803153B0_726A60(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
+                load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
                 func_803191B0_72A860(D_803D5530);
             }
         }
@@ -526,7 +526,7 @@ void func_80328ACC_73A17C(void) {
         ((D_803F2D50.unk52 != 4) || (D_803F2D50.segment != 1)) &&
         (D_803F2D50.segment != 5) &&
         (sp40 = gCurrentAnimalIndex, animalId = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C, (animalId != EVO)) &&
-        ((currentAnimal = D_801D9ED8.animals[gCurrentAnimalIndex].animal, temp_v0_2 = currentAnimal->unk320, (temp_v0_2 == NULL)) || ((temp_v0_2->unk16C->unk80.bit == 0))) &&
+        ((currentAnimal = D_801D9ED8.animals[gCurrentAnimalIndex].animal, temp_v0_2 = currentAnimal->unk320, (temp_v0_2 == NULL)) || ((temp_v0_2->unk16C->unk80.unk12 == 0))) &&
         (animalId != VULTURE) && (animalId != SEAGULL2) && (animalId != POLAR_BEAR_DEFENDING) && (animalId != PARROT_ATTACKING) && (animalId != HARD_MOUSE) && (animalId != CRAZY_BEAR) && (animalId != TORTOISE_TANK_DEFENDING) && (animalId != CRAZY_HUSKY) && (animalId != CROW_DIVER) && (animalId != DESERT_FOX_ATTACKING) && (animalId != SNEAKY_CHAMELEON) && (animalId != 0x41) && ((currentAnimal->unk4A <= 0))) {
 
         yPos = currentAnimal->yPos.h;

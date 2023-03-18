@@ -96,7 +96,6 @@ extern u8   D_04000D10_E82C0[];
 extern u8   D_04000DB0[]; // tortoise?
 extern u8   D_04000DD0[];
 extern Gfx  D_040005A0_DDB60[];
-extern u8   D_04002D70[];
 extern Gfx  D_04002630_DFBF0[]; // polar bear
 extern Gfx  D_04002930_DFEF0[]; // polar bear
 extern u8   D_040029D0[];
@@ -118,8 +117,8 @@ extern Gfx D_04006050_ED600[];
 extern Gfx D_04006C00_CE630[];
 extern Gfx D_04006200[]; // maybe here 0xED740 or 0x0F6DB0?
 extern Gfx D_040062C0[]; // maybe here 0xED740 or 0x0F6DB0?
-extern Gfx D_04000E70[];
-extern Gfx D_04000EF0[];
+extern Gfx D_04000E70_F1ED0[]; // to double-check
+extern Gfx D_04000EF0_F1F50[]; // to double-check
 
 // mouse
 extern Gfx  D_04005480_1051D0[];
@@ -172,10 +171,6 @@ extern u8   D_04013060[];
 extern u8   D_040131B0[];
 extern u8   D_040133C0[];
 extern u8   D_04013580[];
-extern Gfx  D_04003140[];
-extern Gfx  D_040033C0[];
-extern Gfx  D_04003530[];
-extern Gfx  D_04003650[];
 extern u8   D_04003E70_F4ED0[];
 extern u8   D_04004070_F50D0[];
 
@@ -226,11 +221,15 @@ extern u8   D_800C4240[];
 extern u8   D_800C4A40[];
 extern u8   D_800C5240[];
 extern u8   D_800C5A40[]; // current frame?
+extern u8   D_800C7DC0[]; // level ia16 textures
+extern u8   D_800CFE60[]; // biome ia16 textures
+extern u8   D_800D5420[]; // level textures
+extern u8   D_800D7C20[]; // biome textures
 
 // 0x800Dxxxx
 
 extern u8   D_800DCC20[][512]; // water texture location?
-extern u8   D_800DEE20[]; // tbd
+extern u64  D_800DEE20[0x80]; // dram stack
 extern Star D_800DF220[1024]; // could just be [x][4] s16 array
 
 // 0x800Exxxx
@@ -238,9 +237,10 @@ extern Star D_800DF220[1024]; // could just be [x][4] s16 array
 extern u8  _fontbufferSegmentStart[]; // D_800E1220
 extern u8  _fontbufferSegmentEnd[];   // D_800EF0D0
 
-// 0x800Fxxxx
+#define GFX_RDP_OUTPUT_SIZE 0x2000
+extern u64 D_800EF0D0[GFX_RDP_OUTPUT_SIZE];
 
-extern u8   D_800FF0D0[];
+// 0x800Fxxxx
 
 // 0x8010xxxx
 
@@ -260,9 +260,9 @@ extern s32  D_8014F1D0; // ucode text start
 // 0x8015xxxx
 
 extern u8   D_80150600[];
-extern u32  D_80151430;
+// extern u32  D_80151430;
 extern u16  D_80151434; // kinda random number?
-extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
+// extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 
 
 extern f32  D_80151C38[];
@@ -516,7 +516,7 @@ extern s16  D_8022E3F2;
 
 extern u16  D_80231AA0[];
 extern s16  D_80231D5C[];
-extern s32  D_80235410[];
+extern u8   D_80235410[];
 extern struct023 D_8023F1E0;
 extern u8   D_8023F1F0; // r
 extern u8   D_8023F1F1; // g
@@ -574,7 +574,7 @@ extern ALCSeq *D_802863CC[];
 
 extern u8   D_80286458;
 extern s16  D_8028645A;
-extern s16  D_8028645C;
+extern s16  D_8028645C; // current music track?
 extern ALCSeqMarker D_80286460;
 
 extern s16  D_8028654C;
@@ -785,31 +785,31 @@ extern struct099 D_803A20C0_7B3770[];
 extern struct076 D_803A2D90_7B4440[];
 extern u8   D_803A38D8[];
 
-extern struct118 D_803A3990_7B5040;
-extern struct118 D_803A39C0_7B5070;
-extern struct118 D_803A39FC_7B50AC;
-extern struct118 D_803A3A38_7B50E8;
-extern struct118 D_803A3A74_7B5124;
-extern struct118 D_803A3AC8_7B5178;
-extern struct118 D_803A3B1C_7B51CC;
-extern struct118 D_803A3B4C_7B51FC;
-extern struct118 D_803A3BAC_7B525C;
-extern struct118 D_803A3C0C_7B52BC;
-extern struct118 D_803A3C3C_7B52EC;
+extern struct118 D_803A3990_7B5040[];
+extern struct118 D_803A39C0_7B5070[];
+extern struct118 D_803A39FC_7B50AC[];
+extern struct118 D_803A3A38_7B50E8[];
+extern struct118 D_803A3A74_7B5124[];
+extern struct118 D_803A3AC8_7B5178[];
+extern struct118 D_803A3B1C_7B51CC[];
+extern struct118 D_803A3B4C_7B51FC[];
+extern struct118 D_803A3BAC_7B525C[];
+extern struct118 D_803A3C0C_7B52BC[];
+extern struct118 D_803A3C3C_7B52EC[];
 extern struct118 D_803A3C9C_7B534C[16];
 extern struct118 D_803A3D5C_7B540C[16];
 extern struct118 D_803A3E1C_7B54CC[16];
 extern struct118 D_803A3EDC_7B558C[16];
 extern struct118 D_803A3F9C_7B564C[16];
-extern struct118 D_803A411C_7B57CC;
-extern struct118 D_803A41DC_7B588C;
-extern struct118 D_803A429C_7B594C;
-extern struct118 D_803A435C_7B5A0C;
-extern struct118 D_803A4398_7B5A48;
-extern struct118 D_803A43D4_7B5A84;
-extern struct118 D_803A4410_7B5AC0;
-extern struct118 D_803A444C_7B5AFC;
-extern struct118 D_803A4488_7B5B38;
+extern struct118 D_803A411C_7B57CC[];
+extern struct118 D_803A41DC_7B588C[];
+extern struct118 D_803A429C_7B594C[];
+extern struct118 D_803A435C_7B5A0C[];
+extern struct118 D_803A4398_7B5A48[];
+extern struct118 D_803A43D4_7B5A84[];
+extern struct118 D_803A4410_7B5AC0[];
+extern struct118 D_803A444C_7B5AFC[];
+extern struct118 D_803A4488_7B5B38[];
 
 extern struct028 D_803A50C0_7B6770;
 
@@ -971,8 +971,8 @@ extern s16  D_803B6870_7C7F20;
 extern struct110 D_803B7000_7C86B0[];
 extern Gfx  D_803B7108_7C87B8[5][10];
 extern s8   D_803B71D0_7C8880[][5];
-extern struct066 D_803B7268_7C8918[32];
-extern struct066 D_803B7368_7C8A18[32];
+extern u8  *D_803B7268_7C8918[64];
+extern u8  *D_803B7368_7C8A18[64];
 extern f32  D_803B7468;
 extern f32  D_803B74AC_7C8B5C;
 extern f32  D_803B74B0_7C8B60;
@@ -1155,7 +1155,7 @@ extern s16  D_803D5536; // tmp animal idx?
 extern u8   D_803D5538;
 extern s16  D_803D553A;
 extern s16  D_803D553C;
-extern s16  D_803D553E; // number of animals in level?
+extern s16  D_803D553E; // number of animals in level? gNumAnimals
 extern s16  D_803D5540; // timer
 extern s16  D_803D5542; // timer
 extern u16  D_803D5544; // timer (for attacks? everything?) gCurrentTick
@@ -1179,9 +1179,9 @@ extern s16  D_803D5570;
 extern u16  D_803D5572;
 extern s16  D_803D5574; // .data or .bss
 extern u8   D_803D5575; // controller maginitude?
-extern s16  D_803D5578;
-extern s16  D_803D557A;
-extern s16  D_803D557C;
+// extern s16  D_803D5578;
+// extern s16  D_803D557A;
+// extern s16  D_803D557C;
 extern f32  D_803D5580;
 extern s16  D_803D5590[360];
 extern s16  D_803D5860[360];
@@ -1189,8 +1189,8 @@ extern s16  D_803D5B30[360];
 extern s16  D_803D5E00[360];
 
 extern s32  (D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
-extern u8   D_803D60D4[];
-extern s32  D_803D60D8;
+extern u8   D_803D60D4;
+extern struct043 *D_803D60D8;
 extern struct043 *D_803D60DC;
 extern s16  D_803D6110;
 extern struct084 D_803D6120; // size 0x3FD8
@@ -1221,11 +1221,11 @@ extern s16  D_803E1B70[5];
 extern s16  D_803E1B80[5];
 
 extern s16  D_803E1B8A;
-extern u16  D_803E1B8C;
-extern u16  D_803E1B8E;
-extern u16  D_803E1B90;
-extern u16  D_803E1B92;
-extern u16  D_803E1B94;
+extern s16  D_803E1B8C;
+extern s16  D_803E1B8E;
+extern s16  D_803E1B90;
+extern s16  D_803E1B92;
+extern s16  D_803E1B94;
 extern u8   D_803E1B96;
 extern u8   D_803E1B97;
 extern u8   D_803E1B98;
@@ -1235,16 +1235,15 @@ extern u8   D_803E1B9B;
 extern u16  D_803E1BA2;
 extern u16  D_803E1BA4;
 extern u8   D_803E1BA6;
-extern u16  D_803E1BA8;
-extern u16  D_803E1BAA;
-extern u16  D_803E1BAC;
-extern u16  D_803E1BAE;
-extern u16  D_803E1BB0;
-extern u16  D_803E1BB0;
-extern u16  D_803E1BB2;
-extern u16  D_803E1BB4;
-extern u16  D_803E1BB6;
-extern u16  D_803E1BB8;
+extern s16  D_803E1BA8;
+extern s16  D_803E1BAA;
+extern s16  D_803E1BAC;
+extern s16  D_803E1BAE;
+extern s16  D_803E1BB0;
+extern s16  D_803E1BB2;
+extern s16  D_803E1BB4;
+extern s16  D_803E1BB6;
+extern s16  D_803E1BB8;
 extern u8   D_803E1BBA; // env r
 extern u8   D_803E1BBB; // env g
 extern u8   D_803E1BBC; // env b
@@ -1274,6 +1273,7 @@ extern u16  D_803E1D28;
 extern u16  D_803E1D2A;
 extern u8   D_803E1D2C;
 extern struct064 D_803E1D30[]; // additional layer for level data
+extern struct116 D_803E2930[];
 extern struct073 D_803E3130[];
 extern u8   D_803E4930[];
 extern u8   D_803E4998[];
@@ -1320,7 +1320,7 @@ extern s32  D_803E4D2C; // completed tasks?
 extern s32  D_803E4D30;
 extern s32  D_803E4D38[2];
 extern s32  D_803E4D3C;
-extern struct112 D_803E4D40[1666]; // tbd what this is 0x4114
+extern struct112 D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
 extern u16  D_803E8E54;
 extern u8   D_803E8E56;
 extern u8   D_803E8E57;
@@ -1542,7 +1542,7 @@ extern s16  D_803F6706;
 extern s16  D_803F6708;
 extern s16  D_803F670A;
 extern s16  D_803F670C;
-extern u16  D_803F670E;
+extern s16  D_803F670E;
 extern u16  D_803F6714;
 extern s16  D_803F6716; // current sfx volume
 extern s16  D_803F6718; // current music volume

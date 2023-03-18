@@ -2,7 +2,8 @@
 #include "common.h"
 
 #if 0
-// miles away, structs need to be figured out
+// not equivalent?
+// CURRENT (1578)
 void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
     s32 sp4C;
     s32 sp48;
@@ -14,26 +15,32 @@ void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
     s16 temp_t9;
     s16 temp_t9_2;
 
+    s16 new_var;
+
     temp_t9 = D_80152C78[(arg0->unk302 + 0x40) & 0xFF] >> 8;
     temp_t9_2 = D_80152C78[(arg0->unk302 & 0xFF)] >> 8;
 
-    sp4C = ((D_80203FE0[1].unk2 * temp_t9_2) + (D_80203FE0[1].unk0 * temp_t9)) >> 7;
-    sp48 = ((D_80203FE0[1].unk2 * temp_t9) - (D_80203FE0[1].unk0 * temp_t9_2)) >> 7;
-    sp44 = ((D_80203FE0[2].unk2 * temp_t9_2) + (D_80203FE0[2].unk0 * temp_t9)) >> 7;
+    new_var = D_80203FE0[1].unk0;
+
+    sp4C = ((D_80203FE0[1].unk2 * temp_t9_2) + (new_var * temp_t9)) >> 7;
+    sp48 = ((D_80203FE0[1].unk2 * temp_t9) - (new_var * temp_t9_2)) >> 7;
+
+    sp44 = ((D_80203FE0[2].unk0 * temp_t9) + (D_80203FE0[2].unk2 * temp_t9_2)) >> 7;
     sp40 = ((D_80203FE0[2].unk2 * temp_t9) - (D_80203FE0[2].unk0 * temp_t9_2)) >> 7;
 
-    sp28 = ((D_80203FE0[2].unk4 * 5) + D_80203FE0[1].unk4) / 192;
+
+    sp28 = (D_80203FE0[1].unk4 + (D_80203FE0[2].unk4 * 5)) / 192;
     sp34 = (D_80203FE0[2].unk4 + (D_80203FE0[1].unk4 * 5)) / 192;
 
-    arg0->unkC0.a.unkC0[arg3][2] = ((sp4C * 5) + sp44) / 192;
-    arg0->unkC0.a.unkC0[arg3][4] = ((sp48 * 5) + sp40) / 192;
-    arg0->unkC0.a.unkC0[arg3][6] = (arg2 / 32) + sp34;
-    arg0->unkC0.a.unkC0[arg3][8] = (arg1 * 7) / 512;
+    arg0->unkC4[arg3].unk0.h = ((sp4C * 5) + sp44) / 192;
+    arg0->unkC4[arg3].unk4.h = ((sp48 * 5) + sp40) / 192;
+    arg0->unkC4[arg3].unk8.h = (arg2 / 32) + sp34;
+    arg0->unkC4[arg3].unkC = (arg1 * 7) / 512;
 
-    arg0->unkC0.a.unkD0.m[arg3][1] = ((sp44 * 5) + sp4C) / 192;
-    arg0->unkC0.a.unkD0.m[arg3][2] = ((sp40 * 5) + sp48) / 192;
-    arg0->unkC0.a.unkD0.m[arg3][3] = (arg2 / 32) + sp28;
-    arg0->unkC0.a.unkD0.m[arg3][4] = (arg1 * 7) / 512;
+    arg0->unkC4[arg3+1].unk0.h = ((sp44 * 5) + sp4C) / 192;
+    arg0->unkC4[arg3+1].unk4.h = ((sp40 * 5) + sp48) / 192;
+    arg0->unkC4[arg3+1].unk8.h = (arg2 / 32) + sp28;
+    arg0->unkC4[arg3+1].unkC = (arg1 * 7) / 512;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714B80/func_803034D0_714B80.s")
@@ -56,11 +63,11 @@ void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) 
 
     tmp4 = tmp4 / 32;
 
-    arg0->unkC0.a.unkC0[arg4][2] = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
-    arg0->unkC0.a.unkC0[arg4][4] = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
-    arg0->unkC0.a.unkC0[arg4][6] = tmp4;
+    arg0->unkC4[arg4].unk0.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg4].unk4.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg4].unk8.h = tmp4;
 
-    arg0->unkC0.a.unkD0.m[arg4][0] = arg3 / 32;
+    arg0->unkC4[arg4].unkC = arg3 / 32;
 }
 
 void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6) {
@@ -80,11 +87,11 @@ void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, 
 
     tmp4 = tmp4 / 32;
 
-    arg0->unkC0.a.unkC0[arg6][2] = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
-    arg0->unkC0.a.unkC0[arg6][4] = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
-    arg0->unkC0.a.unkC0[arg6][6] = tmp4;
+    arg0->unkC4[arg6].unk0.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg6].unk4.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg6].unk8.h = tmp4;
 
-    arg0->unkC0.a.unkD0.m[arg6][0] = arg5 / 32;
+    arg0->unkC4[arg6].unkC = arg5 / 32;
 }
 
 void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4) {
@@ -104,42 +111,42 @@ void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4) 
 
     tmp4 = tmp4 / 32;
 
-    arg0->unkC0.a.unkC0[arg4][2] = (((temp_t2 * tmp0) + (tmp2 * temp_t7)) >> 7) / 32;
-    arg0->unkC0.a.unkC0[arg4][4] = (((temp_t2 * tmp2) - (tmp0 * temp_t7)) >> 7) / 32;
-    arg0->unkC0.a.unkC0[arg4][6] = tmp4;
-    arg0->unkC0.a.unkD0.m[arg4][0] = arg3 / 32;
+    arg0->unkC4[arg4].unk0.h = (((temp_t2 * tmp0) + (tmp2 * temp_t7)) >> 7) / 32;
+    arg0->unkC4[arg4].unk4.h = (((temp_t2 * tmp2) - (tmp0 * temp_t7)) >> 7) / 32;
+    arg0->unkC4[arg4].unk8.h = tmp4;
+    arg0->unkC4[arg4].unkC = arg3 / 32;
 }
 
 void func_80303C44_7152F4(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
     Animal *temp_v0 = D_803D552C->unk320;
-    arg0->unkC0.a.unkC0[arg1][2] = ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2) >> 8;
-    arg0->unkC0.a.unkC0[arg1][4] = ((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg2) >> 8;
-    arg0->unkC0.a.unkC0[arg1][6] = temp_v0->unk7C + arg3;
-    arg0->unkC0.a.unkD0.m[arg1][0] = (temp_v0->unk80 * 3) >> 2;
+    arg0->unkC4[arg1].unk0.h = ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2) >> 8;
+    arg0->unkC4[arg1].unk4.h = ((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg2) >> 8;
+    arg0->unkC4[arg1].unk8.h = temp_v0->unk74[0].unk8.h + arg3;
+    arg0->unkC4[arg1].unkC = (temp_v0->unk74[0].unkC * 3) >> 2;
 }
 
 void func_80303D00_7153B0(Animal *arg0, u16 arg1, u16 arg2) {
-    arg0->unkC0.a.unkC0[0][2] = 0;
-    arg0->unkC0.a.unkC0[0][4] = 0;
-    arg0->unkC0.a.unkC0[0][6] = arg2 / 32;
-    arg0->unkC0.a.unkD0.m[0][0] = arg1 / 32;
-    arg0->unkC0.a.unkD0.m[1][0] = 0;
+    arg0->unkC4[0].unk0.h = 0;
+    arg0->unkC4[0].unk4.h = 0;
+    arg0->unkC4[0].unk8.h = arg2 / 32;
+    arg0->unkC4[0].unkC = arg1 / 32;
+    arg0->unkC4[1].unkC = 0;
 }
 
 void func_80303D50_715400(Animal *arg0, u16 arg1) {
-    arg0->unkC0.a.unkD0.m[arg1][0] = 0;
+    arg0->unkC4[arg1].unkC = 0;
 }
 
 void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
     guTranslate(
         &arg2->modelViewMtx[arg2->usedModelViewMtxs],
-        arg0->unkC0.a.unkC0[arg1][2] + arg0->xPos.h,
-        arg0->unkC0.a.unkC0[arg1][4] + arg0->zPos.h,
-        arg0->unkC0.a.unkC0[arg1][6] + arg0->yPos.h);
+        arg0->unkC4[arg1].unk0.h + arg0->xPos.h,
+        arg0->unkC4[arg1].unk4.h + arg0->zPos.h,
+        arg0->unkC4[arg1].unk8.h + arg0->yPos.h);
 
     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-    guScale(&arg2->modelViewMtx[arg2->usedModelViewMtxs], (f64)arg0->unkC0.a.unkD0.m[arg1][0] * 1.0f, (f64)arg0->unkC0.a.unkD0.m[arg1][0] * 1.0f, (f64)arg0->unkC0.a.unkD0.m[arg1][0] * 1.0f);
+    guScale(&arg2->modelViewMtx[arg2->usedModelViewMtxs], (f64)arg0->unkC4[arg1].unkC * 1.0f, (f64)arg0->unkC4[arg1].unkC * 1.0f, (f64)arg0->unkC4[arg1].unkC * 1.0f);
 
     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -151,20 +158,21 @@ void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
 
 void func_80303F90_715640(Animal *arg0, DisplayList *arg1) {
     s16 i;
-    for (i = 0; (i < 5) && (arg0->unkC0.a.unkD0.m[i][0] != 0); i++) {
+    for (i = 0; (i < 5) && (arg0->unkC4[i].unkC != 0); i++) {
         func_80303D68_715418(arg0, i, arg1);
     }
 }
 
 #ifdef NON_MATCHING
+// CURRENT (115)
 s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
     s32 temp_t2;
     s32 temp_t3;
     s16 i;
-    struct119 *var_t0;
-    struct119 *var_t1;
+    struct043 *var_t0;
 
-    s16 tmp1, tmp2;
+    s16 tmp1;
+    s16 tmp2;
 
     s16 x;
     s16 z;
@@ -172,27 +180,27 @@ s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
     s32 res;
 
+    res = 0;
+
     *arg4 = 0x40000000;
     *arg3 = 0;
-
-    var_t0 = (struct119*)&arg0->unkC0.b.unkD4; // fuuuu
 
     x = arg1 - arg0->xPos.h;
     z = arg2 - arg0->zPos.h;
 
-    if (1) {} // slightly helpful, not much
+    if (1) { } // bumps score from 220->115
 
     i = 1;
-    res = 0;
+    var_t0 = &arg0->unkC4[i];
 
     while ((i < 5) && (var_t0->unkC != 0)) {
-        tmp1 = x - var_t0->unk0;
-        tmp2 = z - var_t0->unk4;
+        tmp1 = x - var_t0->unk0.h;
+        tmp2 = z - var_t0->unk4.h;
         dist = SQ(tmp1) + SQ(tmp2);
 
         if (dist < SQ(var_t0->unkC)) {
-            temp_t2 = (arg0->yPos.w + var_t0->unk8) + (var_t0->unkC << 0x10);
-            temp_t3 = (arg0->yPos.w + var_t0->unk8) - (var_t0->unkC << 0x10);
+            temp_t2 = (arg0->yPos.w + var_t0->unk8.w) + (var_t0->unkC << 0x10);
+            temp_t3 = (arg0->yPos.w + var_t0->unk8.w) - (var_t0->unkC << 0x10);
 
             if (res != 0) {
                 *arg3 = MAX(*arg3, temp_t2);

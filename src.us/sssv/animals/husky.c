@@ -98,7 +98,9 @@ block_9:
                 func_802C1830_6D2EE0(0x2FD, (struct061 *) &sp98);
             } else {
                 D_803D552C->unk310 = 1;
-                func_802BF3C0_6D0A70(0x2FD, 0x6D, 0x80, 0, 0x80, 0, &D_803B45D8_7C5C88, &D_803B4608_7C5CB8, &D_803B4638_7C5CE8, 0x2FD, 0x6D, 0x80, 0, 0x80, 0, &D_803B464C_7C5CFC, &D_803B467C_7C5D2C, &D_803B46AC_7C5D5C, &sp98);
+                func_802BF3C0_6D0A70(0x2FD, 0x6D, 0x80, 0, 0x80, 0, &D_803B45D8_7C5C88, &D_803B4608_7C5CB8, &D_803B4638_7C5CE8,
+                                     0x2FD, 0x6D, 0x80, 0, 0x80, 0, &D_803B464C_7C5CFC, &D_803B467C_7C5D2C, &D_803B46AC_7C5D5C,
+                                     &sp98);
 
 #pragma _permuter sameline start
                 D_80203FE0[8].unk0 = D_80203FE0[7].unk0;D_80203FE0[8].unk2 = D_80203FE0[7].unk2;D_80203FE0[8].unk4 = D_80203FE0[7].unk4;

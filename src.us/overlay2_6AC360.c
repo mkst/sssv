@@ -63,130 +63,127 @@ extern struct063 D_80100000_X[][0x81];
 s32 func_8030400C_7156BC(Animal*, s16, s16, s32*, s32*);
 s32 func_8032B1E0_73C890(Animal*, s16, s16, s32*, s32*);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B000_6AC6B0.s")
 #if 0
-u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 arg2, Animal *arg3, void *arg4, void **arg5, s32 *arg6, void *arg7, void **arg8, s32 *arg9) {
+// absolute shambles.
+u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, Animal **arg5, s32 *arg6,
+                                                                    Animal *arg7, Animal **arg8, s32 *arg9) {
     s32 sp9C;
     s32 sp98;
-    s32 sp64;
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v0_3;
-    s16 temp_v0_6;
-    s16 temp_v0_7;
-    s16 temp_v1;
-    s16 temp_v1_3;
-    s16 temp_v1_4;
-    s32 temp_t5;
-    s32 temp_v0_5;
+    s32 pad[6];
+
     s32 temp_v1_2;
-    u8 temp_a0;
-    u8 temp_a0_2;
-    u8 temp_v0_4;
+    s32 temp_v0_5;
+    s32 temp_t5;
+    s16 temp_v0;
+    Animal *animal;
+    s32 minDist;
+    s32 do_check;
+    s32 maxDist;
+
+    struct065 *var_s2;
     struct035 *temp_a1;
-    Animal *temp_s0;
-    struct065 *phi_s2;
-    u8 phi_a0;
-    s32 phi_a3;
-    s32 phi_s5;
-    s32 phi_s6;
+    struct035 *tmp;
 
     *arg6 = -1;
     *arg9 = -1;
+
     *arg5 = NULL;
     *arg8 = NULL;
-    phi_s5 = 0;
-    phi_s6 = 0x40000000; // FTOFIX32(16384.0) ?
 
-    temp_v0 = (s16)(arg0 >> 0xA) + ((s16) (arg1 >> 0xA)) * 5;
+    maxDist = 0;
+    minDist = 0x40000000;
+
+    temp_v0 = (s16)(arg0 >> 0xA) + ((s16) (arg1 >> 0xA) * 5);
+    var_s2 = D_803DA110[temp_v0].next;
+
     if ((temp_v0 < 0) || (temp_v0 >= 40)) {
         return 0;
     }
 
-    for (phi_s2 = D_803DA110[temp_v0].next; phi_s2 != NULL; phi_s2 = phi_s2->next) { // + (temp_v0 * 0xC));
-        temp_s0 = phi_s2->animal;
-        if (temp_s0 != arg3) {
-            temp_a1 = arg3->unk16C;
-            temp_t5 = temp_a1->objectType;
-            if ((temp_t5 == OB_TYPE_ANIMAL_OFFSET + EVO) && (arg3->unk365 == 9)) {
-                // temp_a1->unk2 somehow?
-                if ((D_803A0510_7B1BC0[5] & (1 << (0xF - temp_s0->unk16C->unk2)))) {
-                    goto block_13;
-                }
-            } else {
-                if ((D_803A0510_7B1BC0[temp_a1->unk2] & (1 << (0xF - temp_s0->unk16C->unk2))) == 0) {
+    for (; var_s2 != NULL; var_s2 = var_s2->next) {
+        animal = var_s2->animal;
+
+        if (animal == arg3) {
+            if ((arg3->unk16C->objectType != (256+63)) || (arg3->unk365 != 9)) {
+
+                temp_a1 = arg3->unk16C;
+                tmp = animal->unk16C;
+                temp_t5 = tmp->unk2;
+
+                if (((D_803A0510_7B1BC0[5]             & (1 << (0xF - tmp->unk2))) != 0) ||
+                    ((D_803A0510_7B1BC0[temp_a1->unk2] & (1 << (0xF - temp_t5))) == 0)) {
+
+                    var_s2 = var_s2->next; // not correct... urgh
+
+                } else if ((temp_a1->unk2 == 5) && (animal == arg3->unk320)) {
+
+                    var_s2 = var_s2->next; // not correct... urgh
+
+                } else if (((animal->unk15C != 0) && (arg3 == animal->unk168)) ||
+                           ((arg3->unk15C != 0) && (animal == arg3->unk168))) {
+
+                     var_s2 = var_s2->next; // not correct... urgh
 
                 } else {
-block_13:
-                    if ((temp_a1->unk2 == 5) && (temp_s0 == arg3->unk320)) {
-
-                    } else if (((temp_s0->unk15C != 0) && (arg3 == temp_s0->unk168)) || ((arg3->unk15C != 0) && (temp_s0 == arg3->unk168))) {
-                        phi_s6 = sp98; // regalloc?
-                    } else {
-                        phi_a3 = 0;
-                        if ((temp_s0->unk16C->unk2 == 5) && (temp_a1->unk2 == 5)) {
-                            if ((temp_s0->unk16C->unkE6 < temp_a1->unkE6) || (func_8030AA08_71C0B8(temp_s0, arg3) != 0) || (temp_s0->unk366 == 5) || (arg3->unk366 == 5)) {
-                                if (temp_s0->unk16C->unkE6 >= arg3->unk16C->unkE6) {
-                                    if ((arg0 >= (temp_s0->xPos.h - temp_s0->unk34)) && (arg0 < (temp_s0->xPos.h + temp_s0->unk34))) {
-                                        if ((arg1 >= (temp_s0->zPos.h - temp_s0->unk34)) && (arg1 < (temp_s0->zPos.h + temp_s0->unk34))) {
-                                            phi_a3 = func_8030400C_7156BC(temp_s0, arg0, arg1, &sp9C, &sp98);
-                                        }
-                                    }
-                                } else if ((((arg3->unk162 != 1) || (arg3->unk68 != 0)) && (arg3->yVelocity.w < -FTOFIX32(6.0))) || (temp_s0->unk366 == 5) || (temp_s0->unk366 == 2)) {
-                                    temp_t5 = temp_s0->unk30 * 2;
-                                    temp_v0_5 = arg0 - temp_s0->xPos.h;
-                                    temp_v1_2 = arg1 - temp_s0->zPos.h;
-                                    if ((temp_t5 * temp_t5) >= ((temp_v0_5 * temp_v0_5) + (temp_v1_2 * temp_v1_2))) {
-                                        sp9C = *(s32*)&temp_s0->yPos.h + (temp_s0->unk42 << 0x10);
-                                        sp98 = *(s32*)&temp_s0->yPos.h;
-                                        phi_a3 = 1;
-                                    }
+                    do_check = 0;
+                    if ((tmp->unk2 == 5) && (temp_a1->unk2 == 5)) {
+                        if ((tmp->unkE6 < temp_a1->unkE6) || (func_8030AA08_71C0B8(animal, arg3) != 0) || (animal->unk366 == 5) || (arg3->unk366 == 5)) {
+                            if (animal->unk16C->unkE6 >= arg3->unk16C->unkE6) {
+                                if (((arg0 >= (animal->xPos.h - animal->unk34)) && (arg0 < (animal->xPos.h + animal->unk34))) &&
+                                    ((arg1 >= (animal->zPos.h - animal->unk34)) && (arg1 < (animal->zPos.h + animal->unk34)))) {
+                                    do_check = func_8030400C_7156BC(animal, arg0, arg1, &sp9C, &sp98);
                                 }
-                            }
-                        } else {
-                            if ((arg0 >= (temp_s0->xPos.h - temp_s0->unk30)) && (arg0 < (temp_s0->xPos.h + temp_s0->unk30))) {
-                                if ((arg1 >= (temp_s0->zPos.h - temp_s0->unk32)) && (arg1 < (temp_s0->zPos.h + temp_s0->unk32))) {
-                                    phi_a3 = func_8032B1E0_73C890(temp_s0, arg0, arg1, &sp9C, &sp98);
+                            } else if ((((arg3->unk162 != 1) || (arg3->unk68 != NULL)) && (arg3->yVelocity.w < FTOFIX32(-6.0))) || ((animal->unk366 == 5)) || (animal->unk366 == 2)) {
+
+                                temp_v0_5 = arg0 - animal->xPos.h;
+                                temp_v1_2 = arg1 - animal->zPos.h;
+                                temp_t5 = animal->unk30 * 2;
+
+                                if ((SQ(temp_v0_5) + SQ(temp_v1_2)) <= SQ(temp_t5)) {
+                                    do_check = 1;
+                                    sp9C = animal->yPos.w + (animal->unk42 << 0x10);
+                                    sp98 = animal->yPos.w;
                                 }
                             }
                         }
-                        if (phi_a3 != 0) {
-                            temp_s0->unk4C.unk25 = 1;
-                            if (temp_s0 == arg4) {
-                                if (sp9C >= phi_s5) {
-                                    *arg6 = sp9C;
-                                    *arg5 = arg4;
-                                    phi_s5 = sp9C;
-                                }
-                            } else if (temp_s0 == arg7) {
-                                if (phi_s6 >= sp98) {
-                                    *arg9 = sp98;
-                                    *arg8 = arg7;
-                                    phi_s6 = sp98;
-                                }
-                            } else if (arg3 == temp_s0->unk68) {
-                                if (sp98 < phi_s6) {
-                                    *arg9 = sp98;
-                                    *arg8 = temp_s0;
-                                    phi_s6 = sp98;
-                                }
-                            } else if (arg3 == temp_s0->unk70) {
-                                if (phi_s5 < sp9C) {
-                                    *arg6 = sp9C;
-                                    *arg5 = temp_s0;
-                                    phi_s5 = sp9C;
-                                }
-                            } else if (arg2 < ((sp98 + sp9C) >> 1)) {
-                                if (sp98 < phi_s6) {
-                                    *arg9 = sp98;
-                                    *arg8 = temp_s0;
-                                    phi_s6 = sp98;
-                                }
-                            } else if (phi_s5 < sp9C) {
-                                *arg6 = sp9C;
-                                *arg5 = temp_s0;
-                                phi_s5 = sp9C;
+                    } else {
+                        if (((arg0 >= (animal->xPos.h - animal->unk30)) && (arg0 < (animal->xPos.h + animal->unk30))) &&
+                           ((arg1 >= (animal->zPos.h - animal->unk32)) && (arg1 < (animal->zPos.h + animal->unk32)))) {
+                            do_check = func_8032B1E0_73C890(animal, arg0, arg1, &sp9C, &sp98);
+                        }
+                    }
+
+                    if (do_check != 0) {
+
+                        animal->unk4C.unk25 = 1;
+                        if (animal == arg4) {
+                            if (sp9C >= maxDist) {
+                                maxDist = *arg6 = sp9C;
+                                *arg5 = arg4;
                             }
+                        } else if (animal == arg7) {
+                            if (minDist >= sp98) {
+                                *arg9 = minDist = sp98;
+                                *arg8 = arg7;
+                            }
+                        } else if (arg3 == animal->unk68) {
+                            if (sp98 < minDist) {
+                                *arg9 = minDist = sp98;
+                                *arg8 = animal;
+                            }
+                        } else if (arg3 == animal->unk70) {
+                            if (maxDist < sp9C) {
+                                maxDist = *arg6 = sp9C;
+                                *arg5 = animal;
+                            }
+                        } else if (yPos < ((sp98 + sp9C) >> 1)) {
+                            if (sp98 < minDist) {
+                                *arg9 = minDist = sp98;
+                                *arg8 = animal;
+                            }
+                        } else if (maxDist < sp9C) {
+                            maxDist = *arg6 = sp9C;
+                            *arg5 = animal;
                         }
                     }
                 }
@@ -194,8 +191,10 @@ block_13:
         }
     }
 
-    return *arg5 != 0;
+    return (*arg5 != NULL);
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B000_6AC6B0.s")
 #endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B56C_6ACC1C.s")

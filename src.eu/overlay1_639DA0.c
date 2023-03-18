@@ -773,7 +773,7 @@ void func_80296590_63B4C0(struct018 *arg0) {
                 D_8029B4EC_64041C = 0;
             } else {
                 func_801337FC(0, 10.0f, 20.0f, 0);
-                func_8029A144_63F074(arg0->unk3BBE8, D_80304388 + 0x62000);
+                func_8029A144_63F074(arg0->framebuffer, D_80304388 + 0x62000);
                 D_8029B2FC_64022C = 0xA;
                 D_8029B4F8_640428 = 0;
                 D_8029B304_640234 = 1;
@@ -1003,7 +1003,6 @@ extern Vp D_80152EC8;
 extern struct018 *D_80204294;
 extern struct018 D_80162678[2];
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_639DA0/func_802998D0_63E800.s")
 void func_802998D0_63E800(void) {
     gScreenWidth = 320;
     gScreenHeight = 240;
@@ -1012,7 +1011,7 @@ void func_802998D0_63E800(void) {
     func_80129430(&D_801D9E9C);
 
     gSPViewport(D_801D9E9C++, &D_80152EC8);
-    gDPSetColorImage(D_801D9E9C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204294->unk3BBE8));
+    gDPSetColorImage(D_801D9E9C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204294->framebuffer));
     gDPPipeSync(D_801D9E9C++);
 
     D_80152EC8.vp.vscale[0] = gScreenWidth * 2;

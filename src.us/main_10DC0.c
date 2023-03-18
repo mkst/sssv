@@ -156,7 +156,7 @@ void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, 
 void func_80136418(Gfx **dl, u8 color) {
     gSPLoadUcodeEx((*dl)++, &D_8014E300, &D_8015C750, 2048);
     gDPPipeSync((*dl)++);
-    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
 
     gSPViewport((*dl)++, &D_80152EA8);
     gSPSetGeometryMode((*dl)++, G_ZBUFFER);
@@ -180,7 +180,7 @@ void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a) {
 
     load_segments(dl, D_80204278);
 
-    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
     gSPViewport((*dl)++, &D_80152EA8);
     gSPClipRatio((*dl)++, FRUSTRATIO_4);
 
