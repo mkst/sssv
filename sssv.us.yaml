@@ -229,11 +229,13 @@ segments:
     - [0x28860, lib, libultra_rom, setglobalintmask]
     - [0x288B0, lib, libultra_rom, yieldthread]
     - [0x28900, lib, libultra_rom, ldiv]
+    # ucode
+    - [0x28A90, bin, rspbootText] # rspbootTextStart / 0x8014D390
+    - [0x28B60, bin, gspFast3DText]
+    - [0x2A8D0, bin, gspF3DEX_fifoText]
+    - [0x2BD00, bin, aspMainText]
     # .data
-    - [0x28A90, bin] # ucode # rspbootTextStart / 0x8014D390
-    - [0x28B60, bin] # end of ucode?
-    - [0x2BD00, bin] #
-    - [0x2D740, .data, core/controller]
+    - [0x2CB30, .data, core/controller]
     - [0x2DA50, .data, mtx]
     - [0x2E580, .data, core/string]
     - [0x2E590, .data, thread6] # thread6
@@ -248,7 +250,11 @@ segments:
     # - [0x02FD80, .data, core/audiomgr] # .data for audiomgr
     - [0x2FDD0, data] # audio lookups D_801546D0
     # - [0x2FDE8, bin] # main_E3C0 rodata
-    - [0x30860, bin] # CH.10 textures
+    - [0x309C0, rgba16, img/309C0.rgba16, 32, 64] # CH # D_801552C0
+    - [0x319C0, rgba16, img/319C0.rgba16, 32, 32] # .  # D_801562C0
+    - [0x321C0, rgba16, img/321C0.rgba16, 32, 32] # |  # D_80156AC0
+    - [0x329C0, rgba16, img/329C0.rgba16, 32, 32] # 1  # D_801572C0
+    - [0x331C0, rgba16, img/331C0.rgba16, 32, 32] # 0  # D_80157AC0
     - [0x339C0, .data, data/D_801582C0]
     - [0x33B20, .data, data/D_80158420]
     - [0x33BA0, .data, data/D_801584A0]
@@ -309,11 +315,10 @@ segments:
     - [0x36DF0, lib, libultra_rom, libm_vals, .rodata]
     - [0x36E00, lib, libultra_rom, xldtob, .rodata]
     - [0x36E60, lib, libultra_rom, reverb, .rodata]
-    - [0x36E90, bin] # data for ucode (D_8015B790)
-    - [0x37100, bin] # data for 2nd ucode
-    - [0x380C0, bin] # data for ucode
-    - [0x390C0, bin] # F3DEX data
-    - [0x39610, bin] #
+    # ucode data
+    - [0x36E90, bin, gspFast3DData]
+    - [0x38E10, bin, gspF3DEX_fifoData]
+    - [0x39610, bin, aspMainData]
     # bss
     - [0x398D0, .bss, core/audiomgr]
     # lots more bss here
@@ -1216,7 +1221,7 @@ segments:
     - [0xA0E40, sssv_vtx, data/inc/D_05000000_A0E40]
     - [0xA0EC0, sssv_vtx, data/inc/D_05000080_A0EC0]
     - [0xA1000, .data, data/ROCKY_HARD_PLACE_trophy.D_050001C0_A1000]
-  - name: data_A10C0
+  - name: FAT_BEAR_MOUNTAIN
     type: code
     vram: 0x05000000
     start: 0xA10C0
@@ -1366,7 +1371,7 @@ segments:
     - [0xB0230, .data, data/D_050058F0_B0230] # limpit
     - [0xB0270, sssv_vtx, data/inc/D_05005930_B0270]
     - [0xB0450, .data, data/D_05005B10_B0450] # starfish
-  - name: HOPPA_CHOPPA
+  - name: ICE_N_EASY_DOES_IT
     type: code
     vram: 0x05000000
     start: 0xB0490
@@ -1376,8 +1381,8 @@ segments:
     - [0xB04C0, sssv_vtx, data/inc/D_05000030_B04C0]
     - [0xB06C0, sssv_vtx, data/inc/D_05000230_B06C0]
     - [0xB08C0, sssv_vtx, data/inc/D_05000430_B08C0]
-    - [0xB0A20, .data, data/D_05000590_B0A20] # HOPPA_CHOPPA head?
-  - name: PENGUIN_PLAYPEN
+    - [0xB0A20, .data, data/D_05000590_B0A20]
+  - name: PINBALL_BLIZZARD
     type: code
     vram: 0x05000000
     start: 0xB0B90
@@ -1396,13 +1401,13 @@ segments:
     - [0xB1F20, sssv_vtx, data/inc/D_05001390_B1F20]
     - [0xB2060, sssv_vtx, data/inc/D_050014D0_B2060]
     - [0xB2240, sssv_vtx, data/inc/D_050016B0_B2240]
-    - [0xB2270, .data, data/D_050016E0_B2270] # PENGUIN_PLAYPEN ufo
+    - [0xB2270, .data, data/D_050016E0_B2270] # PINBALL_BLIZZARD ufo
     - [0xB2630, sssv_vtx, data/inc/D_05001AA0_B2630]
     - [0xB2760, .data, data/D_05001BD0_B2760] # ufo glass dome
     - [0xB2810, sssv_vtx, data/inc/D_05001C80_B2810]
     - [0xB2A00, sssv_vtx, data/inc/D_05001E70_B2A00]
     - [0xB2BF0, sssv_vtx, data/inc/D_05002060_B2BF0]
-    - [0xB2DA0, .data, data/D_05002210_B2DA0] # PENGUIN_PLAYPEN trophy (musical notes)
+    - [0xB2DA0, .data, data/D_05002210_B2DA0] # PINBALL_BLIZZARD trophy (musical notes)
   - name: WALRACE_64
     type: code
     vram: 0x05000000
@@ -1425,42 +1430,42 @@ segments:
     - [0xB3B00, sssv_vtx, data/inc/D_05000C30_B3B00]
     - [0xB3B60, sssv_vtx, data/inc/D_05000C90_B3B60]
     - [0xB3CF0, .data, data/D_05000E20_B3CF0] # wallrace buoy
-  - name: data_B3D70
+  - name: PENGUIN_PLAYPEN
     type: code
     vram: 0x05000000
     start: 0xB3D70
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xB3D70, .rodata, data/D_05000000_B3D70]
-  - name: data_B3D80
+  - name: SNOW_JOKE
     type: code
     vram: 0x05000000
     start: 0xB3D80
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xB3D80, .rodata, data/D_05000000_B3D80]
-  - name: data_B3D90
+  - name: UNUSED_ICE_SLOT_7
     type: code
     vram: 0x05000000
     start: 0xB3D90
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xB3D90, .rodata, data/D_05000000_B3D90]
-  - name: data_B3DA0
+  - name: HOPPA_CHOPPA
     type: code
     vram: 0x05000000
     start: 0xB3DA0
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xB3DA0, .rodata, data/D_05000000_B3DA0]
-  - name: data_B3DB0
+  - name: UNUSED_ICE_SLOT_9
     type: code
     vram: 0x05000000
     start: 0xB3DB0
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xB3DB0, .rodata, data/D_05000000_B3DB0]
-  - name: data_B3DC0
+  - name: UNUSED_ICE_SLOT_10
     type: code
     vram: 0x05000000
     start: 0xB3DC0
@@ -1476,14 +1481,14 @@ segments:
     - [0xB3DD0, sssv_vtx, data/inc/D_05000000_B3DD0]
     - [0xB3FD0, sssv_vtx, data/inc/D_05000200_B3FD0]
     - [0xB4020, .data, data/WEIGHT_FOR_IT_trophy.D_05000250_B4020]
-  - name: data_B40C0
+  - name: UNUSED_JUNGLE_SLOT_2
     type: code
     vram: 0x05000000
     start: 0xB40C0
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xB40C0, .rodata, data/D_05000000_B40C0]
-  - name: JUNGLE_JUMPS # ?
+  - name: JUNGLE_JUMPS
     type: code
     vram: 0x05000000
     start: 0xB40D0
@@ -1491,8 +1496,8 @@ segments:
     subsegments:
     - [0xB40D0, sssv_vtx, data/inc/D_05000000_B40D0]
     - [0xB4150, sssv_vtx, data/inc/D_05000080_B4150]
-    - [0xB42D0, .data, data/D_05000200_B42D0] # JUNGLE_JUMPS key?
-  - name: JUNGLE_JAPES
+    - [0xB42D0, .data, data/D_05000200_B42D0] # trophy
+  - name: SWAMP_OF_ETERNAL_STENCH
     type: code
     vram: 0x05000000
     start: 0xB43A0
@@ -1501,8 +1506,8 @@ segments:
     - [0xB43A0, sssv_vtx, data/inc/D_05000000_B43A0]
     - [0xB4590, sssv_vtx, data/inc/D_050001F0_B4590]
     - [0xB4790, sssv_vtx, data/inc/D_050003F0_B4790]
-    - [0xB47E0, .data, data/D_05000440_B47E0] # JUNGLE_JAPES trophy
-  - name: data_B48C0
+    - [0xB47E0, .data, data/D_05000440_B47E0] # SWAMP_OF_ETERNAL_STENCH trophy
+  - name: JUNGLE_DOLDRUMS
     type: code
     vram: 0x05000000
     start: 0xB48C0
@@ -1587,35 +1592,35 @@ segments:
     - [0xBCAC0, sssv_vtx, data/inc/D_050081F0_BCAC0]
     - [0xBCCB0, sssv_vtx, data/inc/D_050083E0_BCCB0]
     - [0xBCE70, .data, data/EVOS_ESCAPE_trophy.D_050085A0_BCE70]  # evo arms)
-  - name: data_BD090
+  - name: JUNGLE_JAPES
     type: code
     vram: 0x05000000
     start: 0xBD090
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xBD090, .rodata, data/D_05000000_BD090]
-  - name: data_BD0A0
+  - name: UNUSED_JUNGLE_SLOT_8
     type: code
     vram: 0x05000000
     start: 0xBD0A0
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xBD0A0, .rodata, data/D_05000000_BD0A0]
-  - name: data_BD0B0
+  - name: UNUSED_JUNGLE_SLOT_9
     type: code
     vram: 0x05000000
     start: 0xBD0B0
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xBD0B0, .rodata, data/D_05000000_BD0B0]
-  - name: data_BD0C0
+  - name: UNUSED_JUNGLE_SLOT_10
     type: code
     vram: 0x05000000
     start: 0xBD0C0
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xBD0C0, .rodata, data/D_05000000_BD0C0]
-  - name: data_BD0D0
+  - name: FUN_IN_THE_SUN
     type: code
     vram: 0x05000000
     start: 0xBD0D0
@@ -1701,14 +1706,14 @@ segments:
     - [0xC3F70, sssv_vtx, data/inc/D_05004330_C3F70]
     - [0xC4160, sssv_vtx, data/inc/D_05004520_C4160]
     - [0xC4280, .data, data/D_05004640_C4280] # evo's arms
-  - name: data_C4500
+  - name: STING_IN_THE_TAIL
     type: code
     vram: 0x05000000
     start: 0xC4500
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xC4500, .rodata, data/D_05000000_C4500]
-  - name: data_C4510
+  - name: SHIFTING_SANDS
     type: code
     vram: 0x05000000
     start: 0xC4510
@@ -1717,14 +1722,14 @@ segments:
     - [0xC4510, sssv_vtx, data/inc/D_05000000_C4510]
     - [0xC4590, sssv_vtx, data/inc/D_05000080_C4590]
     - [0xC46E0, .data, data/D_050001D0_C46E0]  # tbd
-  - name: data_C47A0
+  - name: WHIRLWIND_TOUR
     type: code
     vram: 0x05000000
     start: 0xC47A0
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xC47A0, .rodata, data/D_05000000_C47A0]
-  - name: data_C47B0
+  - name: BORASSIC_PARK
     type: code
     vram: 0x05000000
     start: 0xC47B0
@@ -1761,21 +1766,21 @@ segments:
     - [0xC77A0, .data, data/D_05002FF0_C77A0]
     - [0xC7910, sssv_vtx, data/inc/D_05003160_C7910]
     - [0xC79A0, .data, data/D_050031F0_C79A0]
-  - name: data_C7A00
+  - name: UNUSED_DESERT_SLOT_8
     type: code
     vram: 0x05000000
     start: 0xC7A00
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xC7A00, .rodata, data/D_05000000_C7A00]
-  - name: data_C7A10
+  - name: UNUSED_DESERT_SLOT_9
     type: code
     vram: 0x05000000
     start: 0xC7A10
     exclusive_ram_id: ovl_05
     subsegments:
     - [0xC7A10, .rodata, data/D_05000000_C7A10]
-  - name: data_C7A20
+  - name: UNUSED_DESERT_SLOT_10
     type: code
     vram: 0x05000000
     start: 0xC7A20
@@ -2253,7 +2258,7 @@ segments:
     - [0xE2B00, sssv_vtx, data/inc/D_04005540_E2B00]
     - [0xE2B40, sssv_vtx, data/inc/D_04005580_E2B40]
     - [0xE2B80, .data, data/D_040055C0_E2B80]
-    - [0xE2BC0, .data, data/E2DF0] # walrus missile ?
+    - [0xE2BC0, .data, data/D_04005830_E2DF0] # walrus missile ?
     - [0xE2BC0, sssv_vtx, data/inc/D_04005600_E2BC0]
     - [0xE2DC0, sssv_vtx, data/inc/D_04005800_E2DC0]
     - [0xE2DF0] # end of walrus missile
@@ -2553,27 +2558,48 @@ segments:
     - [0xF19A0, sssv_vtx, data/inc/D_04000940_F19A0]
     - [0xF1A00, sssv_vtx, data/inc/D_040009A0_F1A00]
     - [0xF1A60, .data, data/D_04000A00_F1A60] # lion head
-    - [0x0F1C10, bin]
-    - [0x0F1E70, bin]
-    - [0x0F1F00, bin]
-    - [0x0F1F80, bin]
-    - [0x0F1FE0, bin]
-    - [0x0F2040, bin]
-    - [0x0F2380, bin]
-    - [0x0F2700, bin]
-    - [0x0F2780, bin]
-    - [0x0F27F0, bin]
-    - [0x0F2A00, bin]
-    - [0x0F2A60, bin]
-    - [0x0F2B50, bin]
-    - [0x0F2BB0, bin]
+    - [0xF1C10, sssv_vtx, data/inc/D_04000BB0_F1C10]
+    - [0xF1C60, sssv_vtx, data/inc/D_04000C00_F1C60]
+    - [0xF1D20, sssv_vtx, data/inc/D_04000CC0_F1D20]
+    - [0xF1DD0, .data, data/D_04000D70_F1DD0]
+    - [0xF1E70, sssv_vtx, data/inc/D_04000E10_F1E70]
+    - [0xF1ED0, .data, data/D_04000E70_F1ED0]
+    - [0xF1F00, sssv_vtx, data/inc/D_04000EA0_F1F00]
+    - [0xF1F50, .data, data/D_04000EF0_F1F50]
+    - [0xF1F80, sssv_vtx, data/inc/D_04000F20_F1F80]
+    - [0xF1FC0, .data, data/D_04000F60_F1FC0]
+    - [0xF1FE0, sssv_vtx, data/inc/D_04000F80_F1FE0]
+    - [0xF2020, .data, data/D_04000FC0_F2020]
+    - [0xF2040, sssv_vtx, data/inc/D_04000FE0_F2040]
+    - [0xF2140, sssv_vtx, data/inc/D_040010E0_F2140]
+    - [0xF2220, sssv_vtx, data/inc/D_040011C0_F2220]
+    - [0xF22B0, .data, data/D_04001250_F22B0]
+    - [0xF2380, sssv_vtx, data/inc/D_04001320_F2380]
+    - [0xF2480, sssv_vtx, data/inc/D_04001420_F2480]
+    - [0xF2580, sssv_vtx, data/inc/D_04001520_F2580]
+    - [0xF2630, .data, data/D_040015D0_F2630]
+    - [0xF2700, sssv_vtx, data/inc/D_040016A0_F2700]
+    - [0xF2750, .data, data/D_040016F0_F2750]
+    - [0xF2780, sssv_vtx, data/inc/D_04001720_F2780]
+    - [0xF27C0, .data, data/D_04001760_F27C0]
+    - [0xF27F0, sssv_vtx, data/inc/D_04001790_F27F0]
+    - [0xF28F0, sssv_vtx, data/inc/D_04001890_F28F0]
+    - [0xF2990, .data, data/D_04001930_F2990]
+    - [0xF2A00, sssv_vtx, data/inc/D_040019A0_F2A00]
+    - [0xF2A40, .data, data/D_040019E0_F2A40]
+    - [0xF2A60, sssv_vtx, data/inc/D_04001A00_F2A60]
+    - [0xF2B20, .data, data/D_04001AC0_F2B20]
+    - [0xF2B50, sssv_vtx, data/inc/D_04001AF0_F2B50]
+    - [0xF2B90, .data, data/D_04001B30_F2B90]
+    - [0xF2BB0, sssv_vtx, data/inc/D_04001B50_F2BB0]
+    - [0xF2C70, .data, data/D_04001C10_F2C70]
     - [0xF2CA0, sssv_vtx, data/inc/D_04001C40_F2CA0]
     - [0xF2DA0, sssv_vtx, data/inc/D_04001D40_F2DA0]
     - [0xF2E20, sssv_vtx, data/inc/D_04001DC0_F2E20]
     - [0xF2F20, sssv_vtx, data/inc/D_04001EC0_F2F20]
     - [0xF2FA0, sssv_vtx, data/inc/D_04001F40_F2FA0]
     - [0xF30A0, sssv_vtx, data/inc/D_04002040_F30A0]
-    - [0xF3120, .data, data/D_040020C0_F3120] # (something yellow)
+    - [0xF3120, .data, data/D_040020C0_F3120] # part of parrot
     - [0xF3200, sssv_vtx, data/inc/D_040021A0_F3200]
     - [0xF3300, sssv_vtx, data/inc/D_040022A0_F3300]
     - [0xF3400, sssv_vtx, data/inc/D_040023A0_F3400]
@@ -2585,14 +2611,30 @@ segments:
     - [0xF36D0, sssv_vtx, data/inc/D_04002670_F36D0]
     - [0xF3700, sssv_vtx, data/inc/D_040026A0_F3700]
     - [0xF3780, .data, data/D_04002720_F3780] # dive-bombing parrot
-    - [0x0F3960, bin]
-    - [0x0F3FA0, bin]
-    - [0x0F40E0, bin]
-    - [0x0F4210, bin]
-    - [0x0F4360, bin]
-    - [0x0F4490, bin]
-    - [0x0F45D0, bin]
-    - [0xF4720, bin]
+    - [0xF3960, sssv_vtx, data/inc/D_04002900_F3960]
+    - [0xF3B50, sssv_vtx, data/inc/D_04002AF0_F3B50]
+    - [0xF3D30, sssv_vtx, data/inc/D_04002CD0_F3D30]
+    - [0xF3DD0, .data, data/D_04002D70_F3DD0]
+    - [0xF3FA0, sssv_vtx, data/inc/D_04002F40_F3FA0]
+    - [0xF4090, .data, data/D_04003030_F4090]
+    - [0xF40E0, sssv_vtx, data/inc/D_04003080_F40E0]
+    - [0xF41A0, .data, data/D_04003140_F41A0]
+    - [0xF4210, sssv_vtx, data/inc/D_040031B0_F4210]
+    - [0xF4250, sssv_vtx, data/inc/D_040031F0_F4250]
+    - [0xF4290, sssv_vtx, data/inc/D_04003230_F4290]
+    - [0xF42D0, sssv_vtx, data/inc/D_04003270_F42D0]
+    - [0xF4310, .data, data/D_040032B0_F4310]
+    - [0xF4360, sssv_vtx, data/inc/D_04003300_F4360]
+    - [0xF4420, .data, data/D_040033C0_F4420]
+    - [0xF4490, sssv_vtx, data/inc/D_04003430_F4490]
+    - [0xF4590, .data, data/D_04003530_F4590]
+    - [0xF45D0, sssv_vtx, data/inc/D_04003570_F45D0]
+    - [0xF46B0, .data, data/D_04003650_F46B0]
+    - [0xF4720, sssv_vtx, data/inc/D_040036C0_F4720]
+    - [0xF4760, sssv_vtx, data/inc/D_04003700_F4760]
+    - [0xF47A0, sssv_vtx, data/inc/D_04003740_F47A0]
+    - [0xF47E0, sssv_vtx, data/inc/D_04003780_F47E0]
+    - [0xF4820, .data, data/D_040037C0_F4820] # tank track sides
     - [0xF48B0, ci4, img/tortoise_tank.D_04003850_F48B0.ci4, 32, 32]
     - [0xF4AB0, palette, img/tortoise_tank.D_04003850_F48B0.ci4] # D_04003A50_F4AB0
     - [0xF4AD0, i4, img/D_04003A70_F4AD0.i4, 32, 32] #
@@ -2617,20 +2659,26 @@ segments:
     - [0xF59A0, sssv_vtx, data/inc/D_04004940_F59A0]
     - [0xF5A20, sssv_vtx, data/inc/D_040049C0_F5A20]
     - [0xF5AB0, .data, data/D_04004A50_F5AB0]
-    - [0x0F5B20, bin]
-    - [0x0F5BB0, bin]
-    - [0x0F5C40, bin]
+    - [0xF5B20, sssv_vtx, data/inc/D_04004AC0_F5B20]
+    - [0xF5B80, .data, data/D_04004B20_F5B80]
+    - [0xF5BB0, sssv_vtx, data/inc/D_04004B50_F5BB0]
+    - [0xF5C10, .data, data/D_04004BB0_F5C10]
+    - [0xF5C40, sssv_vtx, data/inc/D_04004BE0_F5C40]
+    - [0xF5CA0, .data, data/D_04004C40_F5CA0]
     - [0xF5CD0, sssv_vtx, data/inc/D_04004C70_F5CD0]
     - [0xF5D10, .data, data/D_04004CB0_F5D10] # something yellow
     - [0xF5D30, sssv_vtx, data/inc/D_04004CD0_F5D30]
     - [0xF5D70, .data, data/D_04004D10_F5D70]
-    - [0x0F5D90, bin]
-    - [0x0F5EA0, bin]
-    - [0x0F5FF0, bin]
+    - [0xF5D90, sssv_vtx, data/inc/D_04004D30_F5D90]
+    - [0xF5E40, .data, data/D_04004DE0_F5E40]
+    - [0xF5EA0, sssv_vtx, data/inc/D_04004E40_F5EA0]
+    - [0xF5F90, .data, data/D_04004F30_F5F90]
+    - [0xF5FF0, sssv_vtx, data/inc/D_04004F90_F5FF0]
+    - [0xF6050, .data, data/D_04004FF0_F6050]
     - [0xF6080, ci4, img/D_04005020_F6080.ci4, 32, 32] # 32x32 I4?
     - [0xF6280, palette, img/D_04005020_F6080.ci4] # palette?
-    - [0xF62A0, bin] # sssv_vtx, data/inc/D_04005240_F62A0]
-    - [0xF6450, bin] # .data, data/D_04005400_F6460]
+    - [0xF62A0, sssv_vtx, data/inc/D_04005240_F62A0]
+    - [0xF6450, .data, data/D_040053F0_F6450]
     - [0xF6570, sssv_vtx, data/inc/D_04005510_F6570]
     - [0xF6620, sssv_vtx, data/inc/D_040055C0_F6620]
     - [0xF66D0, sssv_vtx, data/inc/D_04005670_F66D0]
@@ -2638,30 +2686,45 @@ segments:
     - [0xF6AB0, sssv_vtx, data/inc/D_04005A50_F6AB0]
     - [0xF6B10, sssv_vtx, data/inc/D_04005AB0_F6B10]
     - [0xF6B70, .data, data/D_04005B10_F6B70]  # elephant head
-    - [0x0F6DB0, bin]
-    - [0x0F70E0, bin]
-    - [0x0F71E0, bin]
-    - [0x0F72A0, bin]
-    - [0x0F7360, bin]
-    - [0x0F7400, bin]
-    - [0x0F7420, bin] # elephant.D_040063C0_F7420
-    - [0x0F7620, bin] # texture  D_040065C0_F7620
+    - [0xF6DB0, sssv_vtx, data/inc/D_04005D50_F6DB0]
+    - [0xF6E70, sssv_vtx, data/inc/D_04005E10_F6E70]
+    - [0xF6F10, sssv_vtx, data/inc/D_04005EB0_F6F10]
+    - [0xF6FD0, sssv_vtx, data/inc/D_04005F70_F6FD0]
+    - [0xF7010, .data, data/D_04005FB0_F7010]  # elephant body?
+    - [0xF70E0, sssv_vtx, data/inc/D_04006080_F70E0]
+    - [0xF7190, .data, data/D_04006130_F7190]
+    - [0xF71E0, sssv_vtx, data/inc/D_04006180_F71E0]
+    - [0xF7260, .data, data/D_04006200_F7260]
+    - [0xF72A0, sssv_vtx, data/inc/D_04006240_F72A0]
+    - [0xF7320, .data, data/D_040062C0_F7320]
+    - [0xF7360, sssv_vtx, data/inc/D_04006300_F7360]
+    - [0xF73A0, sssv_vtx, data/inc/D_04006340_F73A0]
+    - [0xF73E0, .data, data/D_04006380_F73E0]
+    - [0x0F7420, bin] # elephant.D_040063C0_F7420 ci4
+    - [0x0F7620, bin] # texture  D_040065C0_F7620 i4 ?
     - [0x0F7820, bin] # palette  D_040067C0_F7820
-    - [0x0F7840, bin] # palette
+    - [0x0F7840, bin] # palette  D_040067E0_F7840
     - [0xF7860, sssv_vtx, data/inc/D_04006800_F7860]
     - [0xF78D0, sssv_vtx, data/inc/D_04006870_F78D0]
-    - [0xF7950, .data, data/D_040068F0_F7950]
-    - [0x0F79C0, bin]
-    - [0x0F7A70, bin]
-    - [0x0F7B70, bin]
-    - [0x0F7D30, bin]
-    - [0x0F7E20, bin]
-    - [0x0F7ED0, bin]
+    - [0xF7950, .data, data/D_040068F0_F7950] # hyena foot?
+    - [0xF79C0, sssv_vtx, data/inc/D_04006960_F79C0]
+    - [0xF7A30, .data, data/D_040069D0_F7A30]
+    - [0xF7A70, sssv_vtx, data/inc/D_04006A10_F7A70]
+    - [0xF7B20, .data, data/D_04006AC0_F7B20]
+    - [0xF7B70, sssv_vtx, data/inc/D_04006B10_F7B70]
+    - [0xF7C20, sssv_vtx, data/inc/D_04006BC0_F7C20]
+    - [0xF7CB0, .data, data/D_04006C50_F7CB0]
+    - [0xF7D30, sssv_vtx, data/inc/D_04006CD0_F7D30]
+    - [0xF7DD0, .data, data/D_04006D70_F7DD0]
+    - [0xF7E20, sssv_vtx, data/inc/D_04006DC0_F7E20]
+    - [0xF7E90, .data, data/D_04006E30_F7E90]
+    - [0xF7ED0, sssv_vtx, data/inc/D_04006E70_F7ED0]
+    - [0xF7F40, .data, data/D_04006EE0_F7F40]
     - [0xF7F80, sssv_vtx, data/inc/D_04006F20_F7F80]
     - [0xF8090, sssv_vtx, data/inc/D_04007030_F8090]
     - [0xF8130, sssv_vtx, data/inc/D_040070D0_F8130]
     - [0xF8180, sssv_vtx, data/inc/D_04007120_F8180]
-    - [0xF8220, .data, data/D_040071C0_F8220]
+    - [0xF8220, .data, data/D_040071C0_F8220] # hyena head
     - [0xF8320, sssv_vtx, data/inc/D_040072C0_F8320]
     - [0xF83A0, sssv_vtx, data/inc/D_04007340_F83A0]
     - [0xF8420, .data, data/D_040073C0_F8420] # hyena jaw
@@ -2672,7 +2735,7 @@ segments:
     - [0xF8640, sssv_vtx, data/inc/D_040075E0_F8640]
     - [0xF86C0, sssv_vtx, data/inc/D_04007660_F86C0]
     - [0xF8740, .data, data/D_040076E0_F8740] # hyena tail
-    - [0xF87E0, ci4, img/hyena_body.D_04007780_F87E0.ci4, 32, 32] # texture
+    - [0xF87E0, ci4, img/hyena_body.D_04007780_F87E0.ci4, 32, 32]
     - [0xF89E0, palette, img/hyena_body.D_04007780_F87E0.ci4]
     - [0xF8A00, sssv_vtx, data/inc/D_040079A0_F8A00]
     - [0xF8A40, sssv_vtx, data/inc/D_040079E0_F8A40]
@@ -2726,8 +2789,10 @@ segments:
     - [0xFA500, sssv_vtx, data/inc/D_040094A0_FA500]
     - [0xFA530, sssv_vtx, data/inc/D_040094D0_FA530]
     - [0xFA560, .data, data/chameleon_head.D_04009500_FA560] # chameleon head
-    - [0x0FA720, bin]
-    - [0x0FA9B0, bin]
+    - [0xFA720, sssv_vtx, data/inc/D_040096C0_FA720]
+    - [0xFA8D0, .data, data/D_04009870_FA8D0]
+    - [0xFA9B0, sssv_vtx, data/inc/D_04009950_FA9B0]
+    - [0xFAA10, .data, data/D_040099B0_FAA10]
     - [0xFAA50, ci4, img/chamelon.D_040099F0_FAA50.ci4, 32, 32]
     - [0xFAC50, palette, img/chamelon.D_040099F0_FAA50.ci4]
     - [0xFAC70, ci4, img/D_04009C10_FAC70.ci4, 32, 32]
@@ -2812,7 +2877,7 @@ segments:
     exclusive_ram_id: ovl_04
     subsegments:
     - [0x0FFD50, sssv_vtx, data/inc/D_04000000_FFD50]
-    - [0x0FFEF0, .data, data/FFEF0] # tbd
+    - [0x0FFEF0, .data, data/D_040001A0_FFEF0] # tbd
     - [0x0FFFD0, bin]
     - [0x100250, bin]
     - [0x1006E0, sssv_vtx, data/inc/D_04000990_1006E0]
@@ -3342,6 +3407,7 @@ segments:
   - [0x502360, bin, rnc_502360] # 5575 => 10240
   - [0x503930, bin, rnc_503930] # 5433 => 10240
   - [0x504E70, bin, rnc_504E70] # 4232 => 10240
+
   - [0x505F00, bin, rnc_505F00] # 39 => 10240
   - [0x505F30, bin, rnc_505F30] # 1553 => 10240
   - [0x506550, bin, rnc_506550] # 2168 => 10240
@@ -3352,6 +3418,7 @@ segments:
   - [0x507F90, bin, rnc_507F90] # 39 => 10240
   - [0x507FC0, bin, rnc_507FC0] # 4700 => 10240
   - [0x509220, bin, rnc_509220] # 39 => 10240
+
   - [0x509250, bin, rnc_509250] # 4680 => 10240
   - [0x50A4A0, bin, rnc_50A4A0] # 39 => 10240
   - [0x50A4D0, bin, rnc_50A4D0] # 6360 => 10240
@@ -3362,6 +3429,7 @@ segments:
   - [0x512240, bin, rnc_512240] # 39 => 10240 # empty?
   - [0x512270, bin, rnc_512270] # 39 => 10240
   - [0x5122A0, bin, rnc_5122A0] # 39 => 10240
+
   - [0x5122D0, bin, rnc_5122D0] # 5348 => 10240 # cactus
   - [0x5137C0, bin, rnc_5137C0] # 5348 => 10240
   - [0x514CB0, bin, rnc_514CB0] # 2674 => 10240
@@ -3662,7 +3730,8 @@ segments:
     - [0x701E80, c, screen_transition]
     - [0x702DE0, c, sssv/animals/lion]
     - [0x7041D0, c, overlay2_7041D0]
-    - [0x7070A0, c, overlay2_7070A0]
+    - [0x7070A0, c, sssv/input]
+    - [0x707310, c, overlay2_707310]
     - [0x7117E0, c, overlay2_7117E0]
     - [0x7118C0, c, sssv/animals/rabbit]
     - [0x7138B0, c, sssv/animals/frog]
@@ -3699,7 +3768,8 @@ segments:
     - [0x7689A0, c, overlay2_7689A0]
     - [0x768B90, c, sssv/animals/hyena]
     - [0x76BCA0, c, sssv/animals/chameleon]
-    - [0x76D850, c, overlay2_76D850]
+    - [0x76D850, c, sssv/animals/evo_microchip]
+    - [0x76E7D0, c, overlay2_76E7D0]
     - [0x76F7D0, c, overlay2_76F7D0]
     - [0x76FAE0, c, sssv/animals/rat]
     - [0x771540, c, sssv/animals/sheep]
@@ -3732,7 +3802,7 @@ segments:
     - [0x7A0DA0, c, overlay2_7A0DA0]
     - [0x7A8A50, c, overlay2_7A8A50]
     - [0x7A9CE0, c, ui_main_menu]
-    - [0x7AF410, c, overlay2_7AF410]
+    - [0x7AF410, c, trails]
     # .data / .rodata
     - [0x7B1B90, data] #
     - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
@@ -3753,8 +3823,8 @@ segments:
     - [0x7B62E0, .data, sssv/animals/dog]
     - [0x7B65A0, data, sssv/animals/hippo]
     - [0x7B6780, data, sssv/animals/lion]
-    - [0x7B6970, .data, overlay2_7070A0]
-    - [0x7B6980, data, overlay2_7070A0]
+    - [0x7B6970, .data, sssv/input]
+    - [0x7B6980, data, overlay2_707310]
     - [0x7B6A90, data, sssv/animals/rabbit]
     - [0x7B6BD0, .data, sssv/animals/frog]
     - [0x7B6C10, data, overlay2_716900] # overlay2_716900
@@ -3836,7 +3906,8 @@ segments:
     - [0x7CE4B0, .rodata, screen_transition]
     - [0x7CE520, .rodata, sssv/animals/lion]
     - [0x7CE530, .rodata, overlay2_7041D0]
-    - [0x7CE560, .rodata, overlay2_7070A0]
+    - [0x7CE560, .rodata, sssv/input]
+    - [0x7CE580, .rodata, overlay2_707310]
     - [0x7CE650, .rodata, sssv/animals/rabbit]
     - [0x7CE680, .rodata, sssv/animals/frog]
     - [0x7CE690, .rodata, overlay2_715820]
@@ -3861,7 +3932,8 @@ segments:
     - [0x7D0140, .rodata, sssv/animals/tortoise]
     - [0x7D01E0, .rodata, sssv/animals/hyena]
     - [0x7D0210, .rodata, sssv/animals/chameleon]
-    - [0x7D0220, .rodata, overlay2_76D850]
+    # - [0x7D0220, .rodata, sssv/animals/evo_microchip]
+    - [0x7D0220, .rodata, overlay2_76E7D0]
     - [0x7D02B0, .rodata, sssv/animals/rat]
     - [0x7D02C0, .rodata, sssv/animals/rat]
     - [0x7D02D0, .rodata, sssv/animals/sheep]

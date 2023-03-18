@@ -251,11 +251,11 @@ struct110 D_803B7000_7C86B0[33] = {
     { D_803FF440, NULL, },
 };
 
-extern Gfx D_0400BBC0[];
-extern Gfx D_0400BF20[];
+extern Gfx D_0400BBC0_D35F0[];
+extern Gfx D_0400BBC0_D35F0D_0400BF20_D3950[];
 extern Gfx D_0400CD48[];
-extern Gfx D_0400DFA0[];
-extern Gfx D_0400E750[];
+extern Gfx D_0400DFA0_D59D0[];
+extern Gfx D_0400E750_D6180[];
 extern Gfx D_0400E920[];
 extern Gfx D_0400EA20[];
 extern Gfx D_0400EA20[];
@@ -281,29 +281,29 @@ extern Gfx D_04010710[];
 extern Gfx D_04010A70[];
 extern Gfx D_04011868[];
 extern Gfx D_04012400[];
-extern Gfx D_05000180[];
-extern Gfx D_050004E0[];
-extern Gfx D_05000880[];
-extern Gfx D_05000F90[];
-extern Gfx D_05001308[];
-extern Gfx D_05001390[];
-extern Gfx D_050016D0[];
-extern Gfx D_05001A30[];
+extern Gfx D_05000180_7F910[];
+extern Gfx D_050004E0_7FC70[];
+extern Gfx D_05000880_978A0[];
+extern Gfx D_05000F90_97FB0[];
+extern Gfx D_05001308_80A98[];
+extern Gfx D_05001390_983B0[];
+extern Gfx D_050016D0_80E60[];
+extern Gfx D_05001A30_811C0[];
 extern Gfx D_05002828[];
-extern Gfx D_050033C0[];
-extern Gfx D_05004650[];
-extern Gfx D_05004E00[];
-extern Gfx D_05004FD0[];
+extern Gfx D_050033C0_82B50[];
+extern Gfx D_05004650_83DE0[];
+extern Gfx D_05004E00_84590[];
+extern Gfx D_05004FD0_84760[];
 
 // Dan Danger display lists
 Gfx D_803B7108_7C87B8[5][10] = {
     {
-        D_05000180, D_050004E0, D_05001308, D_050016D0, D_05001A30,
-        D_05002828, D_050033C0, D_05004650, D_05004E00, D_05004FD0,
+        D_05000180_7F910, D_050004E0_7FC70, D_05001308_80A98, D_050016D0_80E60, D_05001A30_811C0,
+        D_05002828, D_050033C0_82B50, D_05004650_83DE0, D_05004E00_84590, D_05004FD0_84760,
     },
     {
-        D_0400BBC0, D_0400BF20, D_0400CD48, D_04010710, D_04010A70,
-        D_04011868, D_04012400, D_0400DFA0, D_0400E750, D_0400E920,
+        D_0400BBC0_D35F0, D_0400BBC0_D35F0D_0400BF20_D3950, D_0400CD48, D_04010710, D_04010A70,
+        D_04011868, D_04012400, D_0400DFA0_D59D0, D_0400E750_D6180, D_0400E920,
     },
     {
         D_0400EB60, D_0400ED28, D_0400F0A0, D_0400F1E0, D_0400F398,
@@ -316,7 +316,7 @@ Gfx D_803B7108_7C87B8[5][10] = {
     // this is the DMA dude (A, M, D)
     {
                  0,          0,          0,          0,          0,
-                 0, D_05001390, D_05000F90,          0, D_05000880,
+                 0, D_05001390_983B0, D_05000F90_97FB0,          0, D_05000880_978A0,
     },
 };
 #endif

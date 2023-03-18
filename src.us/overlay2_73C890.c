@@ -2,7 +2,7 @@
 #include "common.h"
 
 #if 0
-
+// revisit once unk8 struct is figured out
 s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
     s16 sp92;
     // s32 *sp88;

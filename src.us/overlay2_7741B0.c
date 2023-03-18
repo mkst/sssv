@@ -224,7 +224,7 @@ void func_80362CC4_774374(Animal *arg0) {
     case 9:
         sp28 = arg0->unk294.type9.unk0;
         if (sp28->unk26C != 0) {
-            func_803153B0_726A60(arg0, NULL, 0U);
+            load_commands_into_object(arg0, NULL, 0);
             func_803638E8_774F98(arg0);
             break;
           }

@@ -1,18 +1,18 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern s16 D_803B41D8_7C5888[];
-extern s16 D_803B4010_7C56C0[];
-extern s16 D_803B4040_7C56F0[];
-extern s16 D_803B4070_7C5720[];
+extern struct077 D_803B4010_7C56C0[];
+extern struct077 D_803B4040_7C56F0[];
+extern struct077 D_803B4070_7C5720[];
+extern s16 D_803B4084_7C5734[];
 extern s16 D_803B40B4_7C5764[];
 extern s16 D_803B40E4_7C5794[];
-extern s16 D_803B40F8_7C57A8[];
-extern s16 D_803B4084_7C5734[];
-extern s16 D_803B4108_7C57B8[];
+extern u8  D_803B40F8_7C57A8[];
+extern u8  D_803B4108_7C57B8[];
 extern s16 D_803B4118_7C57C8[];
 extern s16 D_803B4130_7C57E0[];
 extern s16 D_803B4168_7C5818[];
+extern s16 D_803B41D8_7C5888[];
 
 extern Gfx D_040029D0_CA400[];
 extern Gfx D_04002D90_CA7C0[];
@@ -119,7 +119,9 @@ void func_8035FE90_771540(void) {
 
         if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
             func_802B9130_6CA7E0(&sp94, 178, 118, 831, 0);
-            func_802BF3C0_6D0A70(831, 0, 0, 0x80, 0, 0x80, D_803B4010_7C56C0, D_803B4040_7C56F0, D_803B4070_7C5720, 831, 0, 0, 0x80, 0x80, 0, D_803B4084_7C5734, D_803B40B4_7C5764, D_803B40E4_7C5794, &sp94);
+            func_802BF3C0_6D0A70(831, 0, 0, 0x80,    0, 0x80, D_803B4010_7C56C0, D_803B4040_7C56F0, D_803B4070_7C5720,
+                                 831, 0, 0, 0x80, 0x80,    0, D_803B4084_7C5734, D_803B40B4_7C5764, D_803B40E4_7C5794,
+                                 &sp94);
             func_802B964C_6CACFC();
 
             D_80203FE0[26].unk0 = D_80203FE0[27].unk0 = D_80203FE0[0].unk0;
@@ -185,9 +187,9 @@ void func_8035FE90_771540(void) {
                     sp90 = sp8E = 6;
                 }
                 sp90 = D_803BD54A_7CEBFA[sp90]; sp8E = D_803BD602_7CECB2[sp8E];
-                func_80356BD8_768288(D_01000CC0, &D_01000620, sp90);
+                func_80356BD8_768288(D_01000CC0, D_01000620, sp90);
                 func_802C78B0_6D8F60(0x1A, 0x1B, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 0, 0, D_040037A0_CB1D0);
-                func_80356BD8_768288(D_01000CC0, &D_01000620, sp8E);
+                func_80356BD8_768288(D_01000CC0, D_01000620, sp8E);
                 func_802C78B0_6D8F60(0x1A, 0x1B, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 0, 0, D_040037C0_CB1F0);
             }
             if ((D_803D5530->state == 0x8E) || (D_803D5530->state == 0x8F) || (D_803D5530->state == 0x8D)) {
@@ -202,7 +204,7 @@ void func_8035FE90_771540(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp8C == 0) || (sp8C == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (D_803D552C->yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->unk302, &D_01033190, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (D_803D552C->yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->unk302, D_01033190, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp8C == 0) {
         func_80303820_714ED0(D_803D552C, 1, 2, 593, 0);
@@ -511,9 +513,9 @@ block_64:
 #pragma _permuter sameline start
                     spB0 = D_803BD54A_7CEBFA[spB0]; spAE = D_803BD602_7CECB2[spAE];
 #pragma _permuter sameline end
-                    func_80356BD8_768288(&D_01000CC0, &D_01000620, spB0);
+                    func_80356BD8_768288(D_01000CC0, D_01000620, spB0);
                     func_802C78B0_6D8F60(1, 2, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, (((spB2 << 5) + D_803F2EC8) * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_040037A0_CB1D0);
-                    func_80356BD8_768288(&D_01000CC0, &D_01000620, spAE);
+                    func_80356BD8_768288(D_01000CC0, D_01000620, spAE);
                     func_802C78B0_6D8F60(1, 2, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, (((spB2 << 5) + D_803F2EC8) * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_040037C0_CB1F0);
                 }
                 break;

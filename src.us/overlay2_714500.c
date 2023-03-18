@@ -86,7 +86,7 @@ void func_8030322C_7148DC(s16 idx, s16 angle) {
     temp_v0->unk4 = ((temp_t2 * temp_v1) - (temp_t6 * temp_v0->unk2)) >> 8;
 }
 
-
+// sheep & tortoise
 void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2) {
     s16 temp_v0;
     s16 temp_t1;
@@ -104,6 +104,7 @@ void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2) {
     D_80203FE0[arg0].unk4 = D_80203FE0[arg1].unk4 + ((tmp=(temp_t1 * temp_t9) - (temp_t8 * temp_v0)) >> 8);
 }
 
+// chameleon & fox
 void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2) {
     s16 temp_t1;
     s16 temp_v0;

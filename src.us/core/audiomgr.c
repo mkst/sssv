@@ -878,7 +878,7 @@ void func_801326A8(s8 arg0, s8 arg1) {
 //     }
 //     if (D_8028645C != D_80155188) {
 //         D_80155188 = D_8028645C;
-//         if (D_8028645C == 0) {
+//         if (D_8028645C == NO_MUSIC) {
 //             // stop / reset
 //             func_8013364C();
 //         } else {
@@ -1106,7 +1106,7 @@ void stop_all_sounds(void) {
             }
         }
         func_8013364C();
-        D_8028645C = (u16)0;
+        D_8028645C = NO_MUSIC;
     }
 }
 
@@ -1226,7 +1226,7 @@ void func_80133E44(void) {
 }
 
 void func_80133E84(void) {
-    if ((D_80155180 == D_8028645C) && (D_8028645C != 0)) {
+    if ((D_80155180 == D_8028645C) && (D_8028645C != NO_MUSIC)) {
         if (++D_80155184 >= 3) {
             alCSeqSetLoc(D_802863CC[0], &D_80286460);
             D_80155180 = 0;

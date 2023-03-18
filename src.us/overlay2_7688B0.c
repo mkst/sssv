@@ -4,7 +4,7 @@
 
 void func_80357200_7688B0(void) {
     if (D_8028645C <= 100) {
-        if ((D_8028645C != 9) && (D_8028645C != 5) && (D_8028645C != 24)) {
+        if ((D_8028645C != MUSIC_TRACK_LEVEL_FAILED) && (D_8028645C != MUSIC_TRACK_LEVEL_PASSED) && (D_8028645C != MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
             D_8028645C = D_803F2D23;
         } else {
             Animal *a;
@@ -23,14 +23,15 @@ void func_80357200_7688B0(void) {
     }
 }
 
-void func_803572B0_768960(s8 arg0) {
+// set_music_track
+void set_music_track(s8 arg0) {
     D_803F2D23 = arg0;
 }
 
 s32 func_803572C0_768970(void) {
     D_803F2D20 = 0;
     D_803F2D22 = 1;
-    D_803F2D23 = 1;
-    D_8028645C = 1;
+    D_803F2D23 = MUSIC_TRACK_1;
+    D_8028645C = MUSIC_TRACK_1;
     return 1;
 }

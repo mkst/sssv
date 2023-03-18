@@ -23,14 +23,14 @@ extern s16 D_803B5544_7C6BF4[];
 extern Gfx D_040044B0_F5510[];
 extern Gfx D_04004820_F5880[];
 extern Gfx D_04004A50_F5AB0[];
-extern Gfx D_04004B20[];
-extern Gfx D_04004BB0[];
-extern Gfx D_04004C40[];
+extern Gfx D_04004B20_F5B80[];
+extern Gfx D_04004BB0_F5C10[];
+extern Gfx D_04004C40_F5CA0[];
 extern Gfx D_04004CB0_F5D10[];
 extern Gfx D_04004D10_CC740[];
-extern Gfx D_04004DE0[];
-extern Gfx D_04004F30[];
-extern Gfx D_04004FF0[];
+extern Gfx D_04004DE0_F5E40[];
+extern Gfx D_04004F30_F5F90[];
+extern Gfx D_04004FF0_F6050[];
 
 extern u8 D_01002C40[];
 extern u8 D_010025A0[];
@@ -295,8 +295,8 @@ block_48:
                     }
 
                     func_80321920_732FD0(D_803D552C->unk320, 0x14, 2);
-                    temp_v0_15->unk10 += temp_v0_15->xVelocity.w;
-                    temp_v0_15->unk14 += temp_v0_15->zVelocity.w;
+                    temp_v0_15->unk10.w += temp_v0_15->xVelocity.w;
+                    temp_v0_15->unk14.w += temp_v0_15->zVelocity.w;
                     temp_v0_15->unk18.w += temp_v0_15->yVelocity.w;
                     temp_v0_15->unk168 = D_803D5530;
                     temp_v0_15->unk15C = 6;
@@ -481,39 +481,39 @@ block_48:
             gSPDisplayList(D_801D9E88++, D_01003548);
 
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004F30); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004F30_F5F90); }
 #pragma _permuter sameline end
-            func_802C78B0_6D8F60(7, 8, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004DE0);
+            func_802C78B0_6D8F60(7, 8, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004DE0_F5E40);
 
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(5, 0xD, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004FF0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(5, 0xD, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004FF0_F6050); }
 #pragma _permuter sameline end
             func_802C78B0_6D8F60(0xD, 0xE, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004A50_F5AB0);
 
             if (D_803D5524->unk9C == GORILLA) {
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spE0 * 0x9A) >> 6, (spE0 * 0x9A) >> 6, (spE0 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004B20); }
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spD8 * 0x9A) >> 6, (spD8 * 0x9A) >> 6, (spD8 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004BB0); }
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spDC * 0x9A) >> 6, (spDC * 0x9A) >> 6, (spDC * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004C40); }
+                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spE0 * 0x9A) >> 6, (spE0 * 0x9A) >> 6, (spE0 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004B20_F5B80); }
+                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spD8 * 0x9A) >> 6, (spD8 * 0x9A) >> 6, (spD8 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004BB0_F5C10); }
+                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spDC * 0x9A) >> 6, (spDC * 0x9A) >> 6, (spDC * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004C40_F5CA0); }
             }
 
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xA, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004F30); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xA, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004F30_F5F90); }
 #pragma _permuter sameline end
-            func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004DE0);
+            func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004DE0_F5E40);
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(6, 0x10, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004FF0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(6, 0x10, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004FF0_F6050); }
 #pragma _permuter sameline end
             func_802C78B0_6D8F60(0x10, 0x11, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004A50_F5AB0);
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004B20); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004B20_F5B80); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004BB0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004BB0_F5C10); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004C40); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004C40_F5CA0); }
 #pragma _permuter sameline end
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spEE, &spEC);

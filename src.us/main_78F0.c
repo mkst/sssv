@@ -3,43 +3,43 @@
 #include "pp.h"
 
 // language file offsets at ROM 0x2fc00
-u8* D_80154500[36][2] = {
-    {lang_lang1_dat_rnc_ROM_START, lang_lang1_dat_rnc_ROM_END},
-    {lang_lang2_dat_rnc_ROM_START, lang_lang2_dat_rnc_ROM_END},
-    {lang_lang3_dat_rnc_ROM_START, lang_lang3_dat_rnc_ROM_END},
-    {lang_lang4_dat_rnc_ROM_START, lang_lang4_dat_rnc_ROM_END},
-    {lang_lang5_dat_rnc_ROM_START, lang_lang5_dat_rnc_ROM_END},
-    {lang_lang6_dat_rnc_ROM_START, lang_lang6_dat_rnc_ROM_END},
-    {lang_lang7_dat_rnc_ROM_START, lang_lang7_dat_rnc_ROM_END},
-    {lang_lang8_dat_rnc_ROM_START, lang_lang8_dat_rnc_ROM_END},
-    {lang_lang9_dat_rnc_ROM_START, lang_lang9_dat_rnc_ROM_END},
-    {lang_lang10_dat_rnc_ROM_START, lang_lang10_dat_rnc_ROM_END},
-    {lang_lang11_dat_rnc_ROM_START, lang_lang11_dat_rnc_ROM_END},
-    {lang_lang12_dat_rnc_ROM_START, lang_lang12_dat_rnc_ROM_END},
-    {lang_lang13_dat_rnc_ROM_START, lang_lang13_dat_rnc_ROM_END},
-    {lang_lang14_dat_rnc_ROM_START, lang_lang14_dat_rnc_ROM_END},
-    {lang_lang15_dat_rnc_ROM_START, lang_lang15_dat_rnc_ROM_END},
-    {lang_lang16_dat_rnc_ROM_START, lang_lang16_dat_rnc_ROM_END},
-    {lang_lang17_dat_rnc_ROM_START, lang_lang17_dat_rnc_ROM_END},
-    {lang_lang18_dat_rnc_ROM_START, lang_lang18_dat_rnc_ROM_END},
-    {lang_lang19_dat_rnc_ROM_START, lang_lang19_dat_rnc_ROM_END},
-    {lang_lang20_dat_rnc_ROM_START, lang_lang20_dat_rnc_ROM_END},
-    {lang_lang21_dat_rnc_ROM_START, lang_lang21_dat_rnc_ROM_END},
-    {lang_lang22_dat_rnc_ROM_START, lang_lang22_dat_rnc_ROM_END},
-    {lang_lang23_dat_rnc_ROM_START, lang_lang23_dat_rnc_ROM_END},
-    {lang_lang24_dat_rnc_ROM_START, lang_lang24_dat_rnc_ROM_END},
-    {lang_lang25_dat_rnc_ROM_START, lang_lang25_dat_rnc_ROM_END},
-    {lang_lang26_dat_rnc_ROM_START, lang_lang26_dat_rnc_ROM_END},
-    {lang_lang27_dat_rnc_ROM_START, lang_lang27_dat_rnc_ROM_END},
-    {lang_lang28_dat_rnc_ROM_START, lang_lang28_dat_rnc_ROM_END},
-    {lang_lang29_dat_rnc_ROM_START, lang_lang29_dat_rnc_ROM_END},
-    {lang_lang30_dat_rnc_ROM_START, lang_lang30_dat_rnc_ROM_END},
-    {lang_lang31_dat_rnc_ROM_START, lang_lang31_dat_rnc_ROM_END},
-    {lang_lang32_dat_rnc_ROM_START, lang_lang32_dat_rnc_ROM_END},
-    {lang_lang33_dat_rnc_ROM_START, lang_lang33_dat_rnc_ROM_END},
-    {lang_lang34_dat_rnc_ROM_START, lang_lang34_dat_rnc_ROM_END},
-    {lang_lang35_dat_rnc_ROM_START, lang_lang35_dat_rnc_ROM_END},
-    {lang_lang36_dat_rnc_ROM_START, lang_lang36_dat_rnc_ROM_END},
+u8* D_80154500[36*2] = {
+    lang_lang1_dat_rnc_ROM_START, lang_lang1_dat_rnc_ROM_END,
+    lang_lang2_dat_rnc_ROM_START, lang_lang2_dat_rnc_ROM_END,
+    lang_lang3_dat_rnc_ROM_START, lang_lang3_dat_rnc_ROM_END,
+    lang_lang4_dat_rnc_ROM_START, lang_lang4_dat_rnc_ROM_END,
+    lang_lang5_dat_rnc_ROM_START, lang_lang5_dat_rnc_ROM_END,
+    lang_lang6_dat_rnc_ROM_START, lang_lang6_dat_rnc_ROM_END,
+    lang_lang7_dat_rnc_ROM_START, lang_lang7_dat_rnc_ROM_END,
+    lang_lang8_dat_rnc_ROM_START, lang_lang8_dat_rnc_ROM_END,
+    lang_lang9_dat_rnc_ROM_START, lang_lang9_dat_rnc_ROM_END,
+    lang_lang10_dat_rnc_ROM_START, lang_lang10_dat_rnc_ROM_END,
+    lang_lang11_dat_rnc_ROM_START, lang_lang11_dat_rnc_ROM_END,
+    lang_lang12_dat_rnc_ROM_START, lang_lang12_dat_rnc_ROM_END,
+    lang_lang13_dat_rnc_ROM_START, lang_lang13_dat_rnc_ROM_END,
+    lang_lang14_dat_rnc_ROM_START, lang_lang14_dat_rnc_ROM_END,
+    lang_lang15_dat_rnc_ROM_START, lang_lang15_dat_rnc_ROM_END,
+    lang_lang16_dat_rnc_ROM_START, lang_lang16_dat_rnc_ROM_END,
+    lang_lang17_dat_rnc_ROM_START, lang_lang17_dat_rnc_ROM_END,
+    lang_lang18_dat_rnc_ROM_START, lang_lang18_dat_rnc_ROM_END,
+    lang_lang19_dat_rnc_ROM_START, lang_lang19_dat_rnc_ROM_END,
+    lang_lang20_dat_rnc_ROM_START, lang_lang20_dat_rnc_ROM_END,
+    lang_lang21_dat_rnc_ROM_START, lang_lang21_dat_rnc_ROM_END,
+    lang_lang22_dat_rnc_ROM_START, lang_lang22_dat_rnc_ROM_END,
+    lang_lang23_dat_rnc_ROM_START, lang_lang23_dat_rnc_ROM_END,
+    lang_lang24_dat_rnc_ROM_START, lang_lang24_dat_rnc_ROM_END,
+    lang_lang25_dat_rnc_ROM_START, lang_lang25_dat_rnc_ROM_END,
+    lang_lang26_dat_rnc_ROM_START, lang_lang26_dat_rnc_ROM_END,
+    lang_lang27_dat_rnc_ROM_START, lang_lang27_dat_rnc_ROM_END,
+    lang_lang28_dat_rnc_ROM_START, lang_lang28_dat_rnc_ROM_END,
+    lang_lang29_dat_rnc_ROM_START, lang_lang29_dat_rnc_ROM_END,
+    lang_lang30_dat_rnc_ROM_START, lang_lang30_dat_rnc_ROM_END,
+    lang_lang31_dat_rnc_ROM_START, lang_lang31_dat_rnc_ROM_END,
+    lang_lang32_dat_rnc_ROM_START, lang_lang32_dat_rnc_ROM_END,
+    lang_lang33_dat_rnc_ROM_START, lang_lang33_dat_rnc_ROM_END,
+    lang_lang34_dat_rnc_ROM_START, lang_lang34_dat_rnc_ROM_END,
+    lang_lang35_dat_rnc_ROM_START, lang_lang35_dat_rnc_ROM_END,
+    lang_lang36_dat_rnc_ROM_START, lang_lang36_dat_rnc_ROM_END,
 };
 
 u8 *D_80154620[2] = {0, 0}; /* might just be alignment? */
@@ -1165,68 +1165,70 @@ void prepare_text(u8 *src, s16 *dst) {
     *dst = EOM;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/load_level_text_data.s")
-// NON-MATCHING: language file offsets :(
-// s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
-//     s16 copied;
-//     s16 msg_length;
-//     s16 i;
-//     s16 *src;
-//     s16 num_msgs;
-//
-//     if (gRegion == REGION_EU) {
-//         if (language < LANG_MIN) {
-//             language = LANG_ENGLISH;
-//         }
-//         if (language > LANG_MAX) {
-//             language = LANG_ENGLISH;
-//         }
-//         // pointless check?
-//         if (language == LANG_DEFAULT) {
-//             language = LANG_ENGLISH;
-//         }
-//     }
-//     if (gRegion == REGION_US) {
-//         language = LANG_ENGLISH;
-//     }
-//     if (gRegion == REGION_JP) {
-//         language = LANG_JAPANESE;
-//     }
-//
-//     // D_8022E3F0 is a scratch area:
-//     // 1. read into D_8022E3F0
-//     // 2. decompress from D_8022E3F0 into D_80235410
-//     // 3. copy 12000 bytes from D_80235410 into D_8022E3F0
-//
-//     // each langXX.dat starts with header
-//     // the header contains 9 s16s that indicate the start of each language segment
-//     // each language segment starts with an s16 containing the number of messages
-//     // each message starts with an s16 containing the message length in bytes
-//     // each message ends with 0x7350 (30000)
-//
-//     dma_read(D_80154500[level][0], D_8022E3F0, D_80154500[level][1] - D_80154500[level][0]);
-//
-//     UnpackRNC((RNC_fileptr)D_8022E3F0, (u8*)D_80235410);
-//     memcpy_sssv((u8*)D_80235410 + D_80235410[language], (u8*)D_8022E3F0, 12000);
-//
-//     src = &D_8022E3F0[1]; // first message in segment
-//     copied = 0;
-//
-//     // first s16 contains number of messages in segment
-//     num_msgs = D_8022E3F0[0];
-//     for (i = 0; i < num_msgs; i++) {
-//         // first field is message length
-//         msg_length = *src++;
-//         // update offset as end of previous message
-//         msg_offsets[i] = copied;
-//         memcpy_sssv((u8*)src, &dst[copied], msg_length);
-//         copied += msg_length;
-//         // message length is in bytes but source is shorts
-//         src += msg_length / 2;
-//     }
-//
-//     return num_msgs;
-// }
+s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
+    s16 copied;
+    s16 msg_length;
+    s16 i;
+    s16 *src;
+    s16 num_msgs;
+    u8 **lang;
+    u8 (*new_var)[];
+
+    if (gRegion == REGION_EU) {
+        if (language < LANG_MIN) {
+            language = LANG_ENGLISH;
+        }
+        if (language > LANG_MAX) {
+            language = LANG_ENGLISH;
+        }
+        // pointless check?
+        if (language == LANG_DEFAULT) {
+            language = LANG_ENGLISH;
+        }
+    }
+    if (gRegion == REGION_US) {
+        language = LANG_ENGLISH;
+    }
+    if (gRegion == REGION_JP) {
+        language = LANG_JAPANESE;
+    }
+
+    // D_8022E3F0 is a scratch area:
+    // 1. read into D_8022E3F0
+    // 2. decompress from D_8022E3F0 into D_80235410
+    // 3. copy 12000 bytes from D_80235410 into D_8022E3F0
+
+    // each langXX.dat starts with header
+    // the header contains 9 s32s that indicate the start of each language segment
+    // each language segment starts with an s16 containing the number of messages
+    // each message starts with an s16 containing the message length in bytes
+    // each message ends with 0x7350 (30000)
+
+    lang = &D_80154500[level+level];
+    dma_read(lang[0], D_8022E3F0, lang[1] - lang[0]);
+    UnpackRNC((RNC_fileptr)D_8022E3F0, D_80235410);
+
+    // TODO: can this be replaced with a cast?
+    new_var = &D_80235410;
+    memcpy_sssv(((s32*)D_80235410)[language] + *new_var, (u8*)D_8022E3F0, 12000);
+
+    num_msgs = D_8022E3F0[0];
+    src = &D_8022E3F0[1]; // first message in segment
+
+    // first s16 contains number of messages in segment
+    for (i = 0, copied = 0; i < num_msgs; i++) {
+        // first field is message length
+        msg_length = *src++;
+        // update offset as end of previous message
+        msg_offsets[i] = copied;
+        memcpy_sssv((u8*)src, (u8*)&dst[copied], msg_length);
+        copied += msg_length;
+        // message length is in bytes but source is characters (i.e. s16s)
+        src += msg_length / 2;
+    }
+
+    return num_msgs;
+}
 
 // ========== file split? ========== //
 

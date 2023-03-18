@@ -365,7 +365,7 @@ void func_8038DA70_79F120(void) {
     func_80299AA8_6AB158(D_80204278, &D_801D9E7C);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);
-    gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+    gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
     gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 
     gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
@@ -640,7 +640,7 @@ u8 func_8038E80C_79FEBC(void) {
 //     gSPViewport(D_801D9E7C++, &D_80152EA8);
 //     func_80129430(&D_801D9E7C);
 //
-//     gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+//     gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
 //     gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 //     gSPFogPosition(D_801D9E7C++, -3026, -3067); // use gSPFogFactor
 //     gDPSetFogColor(D_801D9E7C++, 0x00, 0x00, 0x00, 0x00);
@@ -712,12 +712,12 @@ u8 func_8038E80C_79FEBC(void) {
 //         for (i = 0; i < 6; i++) {
 //             temp_v0_5 = (((i * 4) + i) * 8) + sp68;
 //
-//             gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8 + (temp_v0_5 * 0x280)));
+//             gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer + (temp_v0_5 * 0x280)));
 //             gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, (gScreenHeight - temp_v0_5) - 9);
 //             gSPDisplayList(D_801D9E7C++, D_801D9E90);
 //         }
 //
-//         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+//         gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
 //         gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 //
 //         func_8038D004_79E6B4(&D_801D9E90, D_803B6310);

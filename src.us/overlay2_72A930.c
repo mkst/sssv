@@ -30,7 +30,7 @@ s32 func_80319280_72A930(Animal *arg0, Vertex *arg1, Vertex *arg2,
     temp_t0 = arg0->unk44;
     temp_t1 = arg3->unk44;
 
-    if ((arg0->unk16C->unk80.bit) && (arg3->unk16C->unk80.bit)) {
+    if ((arg0->unk16C->unk80.unk12) && (arg3->unk16C->unk80.unk12)) {
         if ((arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || (arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING))) {
             temp_t0 *= 3;
         }

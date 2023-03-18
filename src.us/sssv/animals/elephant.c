@@ -1,15 +1,15 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern Gfx D_040053F0[];
+extern Gfx D_040053F0_F6450[];
 extern Gfx D_04005B10_F6B70[];
-extern Gfx D_04005FB0[];
-extern Gfx D_04006130[];
-extern Gfx D_04006380[];
-extern Gfx D_040063A0[];
+extern Gfx D_04005FB0_F7010[];
+extern Gfx D_04006130_F7190[];
+extern Gfx D_04006380_F73E0[];
+extern Gfx D_040063A0_F7400[];
 extern u8  D_040063C0_F7420[];
 extern u8  D_040067C0_F7820[];
-extern u8  D_040067E0[];
+extern u8  D_040067E0_F7840[];
 
 extern s32 D_803B55B0_7C6C60;
 extern struct077 D_803B55E0_7C6C90;
@@ -190,8 +190,8 @@ block_33:
                     sp94 = D_803D552C->unk320;
                     D_803D552C->unk320->unk40 = D_803D552C->unk308;
                     func_80321920_732FD0(D_803D552C->unk320, 0x1E, 0);
-                    sp94->unk10 += sp94->xVelocity.w;
-                    sp94->unk14 += sp94->zVelocity.w;
+                    sp94->unk10.w += sp94->xVelocity.w;
+                    sp94->unk14.w += sp94->zVelocity.w;
                     sp94->unk18.w += sp94->yVelocity.w;
                     if ((D_803D5530->state < 0xB5) || (D_803D5530->state >= 0xBB)) {
                         play_sound_effect_at_location(SFX_ELEPHANT_TRUMP, 0x6000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -244,7 +244,9 @@ block_33:
             D_80203FE0[6].unk4 += (temp_t6 * 6) >> 5;
             D_80203FE0[2].unk4 += (temp_t6 * 6) >> 5;
 
-            func_802BF3C0_6D0A70(0xB3B, 0x64, 0x80, 0xB4, 0x80, 0xA0, &D_803B55B0_7C6C60, &D_803B55E0_7C6C90, &D_803B5610_7C6CC0, 0xB3B, 0x64, 0xE4, 0x64, 0xE4, 4, &D_803B5624_7C6CD4, &D_803B5654_7C6D04, &D_803B5684_7C6D34, &spB0);
+            func_802BF3C0_6D0A70(0xB3B, 0x64, 0x80, 0xB4, 0x80, 0xA0, &D_803B55B0_7C6C60, &D_803B55E0_7C6C90, &D_803B5610_7C6CC0,
+                                 0xB3B, 0x64, 0xE4, 0x64, 0xE4,    4, &D_803B5624_7C6CD4, &D_803B5654_7C6D04, &D_803B5684_7C6D34,
+                                 &spB0);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0xFA, 0x2EE, 8);
             func_802C56D0_6D6D80(0x37);
@@ -278,28 +280,28 @@ block_33:
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s16) (s32) -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4 / 3);
 
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-            func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0xA0) >> 6, (D_803F2EC0 * 0xA0) >> 6, (D_803F2EC4 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_040053F0);
+            func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0xA0) >> 6, (D_803F2EC0 * 0xA0) >> 6, (D_803F2EC4 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_040053F0_F6450);
             func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04005B10_F6B70);
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0xA0) >> 6, (D_803F2EC0 * 0xA0) >> 6, (D_803F2EC4 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04006130); }
-            load_2_tiles(D_040067C0_F7820, D_040067E0, D_040063C0_F7420);
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0xA0) >> 6, (D_803F2EC0 * 0xA0) >> 6, (D_803F2EC4 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04006130_F7190); }
+            load_2_tiles(D_040067C0_F7820, D_040067E0_F7840, D_040063C0_F7420);
             gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
 
-            func_802C78B0_6D8F60(3,  7, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 0, 0, D_04005FB0);
-            func_802C78B0_6D8F60(5, 13, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 0, 0, D_04005FB0);
+            func_802C78B0_6D8F60(3,  7, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 0, 0, D_04005FB0_F7010);
+            func_802C78B0_6D8F60(5, 13, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 0, 0, D_04005FB0_F7010);
 
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
 
-            func_802C78B0_6D8F60(4, 10, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 1, 0, D_04005FB0);
-            func_802C78B0_6D8F60(6, 16, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 1, 0, D_04005FB0);
+            func_802C78B0_6D8F60(4, 10, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 1, 0, D_04005FB0_F7010);
+            func_802C78B0_6D8F60(6, 16, 0x28000, 0x28000, 0x28000, D_803F2ED0, 0, 1, 0, D_04005FB0_F7010);
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spAE, &spAC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spAE, &spAC);
                 spAE = D_803BD5B2_7CEC62[spAE]; spAC = D_803BD66A_7CED1A[spAC];
                 func_80356BD8_768288(&D_01000CA0, &D_01002100, spAE);
-                func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04006380);
+                func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04006380_F73E0);
                 func_80356BD8_768288(&D_01000CA0, &D_01002100, spAC);
-                func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_040063A0);
+                func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_040063A0_F7400);
             }
 
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -347,7 +349,7 @@ block_33:
     if (spAA == 0) {
         func_803034D0_714B80(D_803D552C, 0xE09, -0x271, 1);
         func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2EE, 0);
-        D_803D5530->unkC0.a.unkC0[0][6] -= 0xA;
+        D_803D5530->unkC4[0].unk8.h -= 0xA;
         func_80303D50_715400(D_803D552C, 3);
     } else {
         func_80303D00_7153B0(D_803D552C, 0x4E2, 0xFA);

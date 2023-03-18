@@ -8,6 +8,9 @@
 // opposite of ABS
 #define NABS(x) ((x)>0 ? -(x) : (x))
 
+#define SIGNUM(x) ((x)<0 ? -1 : 1)
+#define SIGNUMF(x) ((x)<0.0f ? -1 : 1)
+
 #define SQ(x) (x*x)
 
 #define MAX_INT                0x7FFFFFFF
@@ -44,6 +47,7 @@ typedef u8 Addr[];
 #include "common.eu.h"
 #endif
 
+#include "music.h"
 #include "sfx.h"
 #include "messages.h"
 #include "levels.h"

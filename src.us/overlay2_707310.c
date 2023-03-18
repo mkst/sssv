@@ -3,95 +3,63 @@
 
 #pragma intrinsic sqrtf
 
+
 u8 func_802F8658_709D08(Animal *arg0, struct071 *arg1, f32 arg2, f32 arg3, struct077 *arg4);
-struct071 *func_802F8994_70A044(struct071*);
 
-s32 D_803A52C0_7B6970 = 0;
-s16 D_803A52C4_7B6974 = 0;
+void func_802F5C60_707310(Animal *arg0) {
 
-#if 0
-// TODO: get this to OK
-void func_802F59F0_7070A0(void) {
-    static s16 D_803A52C4_7B6974 = 0;
-    gControllerInput = &D_803E1BC4;
+    s64 x;
 
-    switch (D_803E1BC0) {
-    case 0:
-        // user input
-        D_803E1BC4.button =  D_802910E8[D_801D9ED0].button;
-        D_803E1BC4.stick_x = D_802910E8[D_801D9ED0].stick_x;
-        D_803E1BC4.stick_y = D_802910E8[D_801D9ED0].stick_y;
-        break;
-    case 2:
-        // no input
-        D_803E1BC4.button =  0;
-        D_803E1BC4.stick_x = 0;
-        D_803E1BC4.stick_y = 0;
-        break;
-    case 1:
-        // demo input
-        if (D_803A52C0_7B6970 == 0) {
-            D_80151434 = 0xB57; // 2903?
-            func_8012822C(1); // set game time to 1
+    s64 temp_ret_3;
+    s64 temp_ret_6;
 
-            switch (D_803F2D50.segment) {
-            case 0:
-                D_803E1BD4 = D_803B1F20_7C35D0;
-                break;
-            case 1:
-                if (D_803F2D50.unk52 == 1) {
-                    D_803E1BD4 = D_803B2580_7C3C30;
-                } else {
-                    D_803E1BD4 = D_803B29D8_7C4088;
-                }
-                break;
-            case 2:
-                D_803E1BD4 = D_803B30D0_7C4780;
-                break;
-            case 5:
-                D_803E1BD4 = D_803B384C_7C4EFC; // this one is empty
-                break;
-            case 3:
-            default:
-                D_803E1BD4 = D_803B3388_7C4A38;
-                break;
-            }
-            D_803A52C4_7B6974 = 0;
-        }
-        D_803A52C4_7B6974--;
-        if (D_803A52C4_7B6974 < 0) {
-            if (1) {};
-            // read next input
-            if (D_803E1BD4->button != END_DEMO) {
-                D_803E1BC4.button  = D_803E1BD4->button;
-                D_803E1BC4.stick_x = D_803E1BD4->stick_x;
-                D_803E1BC4.stick_y = D_803E1BD4->stick_y;
-                D_803A52C4_7B6974 = D_803E1BD4->count;
-                D_803E1BD4++; // next!
-            } else {
-                // end of demo input
-                D_803E1BC4.button  = 0;
-                D_803E1BC4.stick_x = D_803E1BC4.stick_y = 0;
-                // no more input...
-                D_803E1BC0 = 2;
-            }
-        }
-        // start pressed
-        if ((D_802910E8[D_801D9ED0].button & CONT_START)) {
-            // no more input...
-            D_803E1BC0 = 2;
-        }
-        break;
+    s64 temp_t3;
+    s64 temp_t1;
+    s64 temp_t6;
+    s64 temp_t4;
+
+    s16 i;
+    struct043 *var_s1;
+
+    if (arg0->unk16C->unk15 != 1) {
+        arg0->unkC4[0].unk0.w = arg0->unk74[0].unk0.w;
+        arg0->unkC4[0].unk4.w = arg0->unk74[0].unk4.w;
+        arg0->unkC4[0].unk8.w = arg0->unk74[0].unk8.w;
+        arg0->unkC4[0].unkC = arg0->unk74[0].unkC;
+        return;
     }
 
-    D_803A52C0_7B6970++;
-}
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F59F0_7070A0.s")
-#endif
+    if (arg0->unk16C->unk15 == 1) {
+        temp_t3 = D_80152350.unk2D0[arg0->zRotation];
+        temp_t6 = D_80152350.unk384[arg0->zRotation];
 
-// contains a bunch of __ll_mul
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F5C60_707310.s")
+        temp_t1 = D_80152350.unk2D0[arg0->yRotation];
+        temp_t4 = D_80152350.unk384[arg0->yRotation];
+
+        i = 0;
+        var_s1 = &arg0->unk74;
+
+        while ((i < 5) && (var_s1->unkC != 0)) {
+            x = var_s1->unk0.w;
+
+            temp_ret_3 = ((var_s1->unk4.w * temp_t6) - (var_s1->unk8.w * temp_t3)) >> 8;
+            temp_ret_6 = ((var_s1->unk4.w * temp_t3) + (var_s1->unk8.w * temp_t6)) >> 8;
+
+            arg0->unkC4[i].unk0.w = (( x * temp_t4) + (temp_ret_3 * temp_t1)) >> 8;
+            arg0->unkC4[i].unk4.w = ((-x * temp_t1) + (temp_ret_3 * temp_t4)) >> 8;
+            arg0->unkC4[i].unk8.w = (arg0->unk42 << 0xF) + temp_ret_6;
+            arg0->unkC4[i].unkC = var_s1->unkC;
+
+            i++;
+            var_s1++;
+        }
+
+        while (i < 5) {
+            // clear others
+            arg0->unkC4[i++].unkC = 0;
+        }
+    }
+}
 
 void func_802F5F44_7075F4(s16 x, s16 y, s16 z, s16 yRotation, s16 zRotation, struct077 *res) {
     s16 temp_t0;
@@ -108,7 +76,7 @@ void func_802F5F44_7075F4(s16 x, s16 y, s16 z, s16 yRotation, s16 zRotation, str
 
     temp_t7 = ((y * temp_t0) - (z * temp_v0)) >> 8;
 
-    res->unk0 = ((x * temp_t3) + (temp_t7 * temp_t1)) >> 8;
+    res->unk0 = (( x * temp_t3) + (temp_t7 * temp_t1)) >> 8;
     res->unk2 = ((-x * temp_t1) + (temp_t7 * temp_t3)) >> 8;
     res->unk4 = ((y * temp_v0) + (z * temp_t0)) >> 8;
 }
@@ -233,63 +201,66 @@ void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) 
     arg0->unk184 = 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F65BC_707C6C.s")
 // CURRENT (190)
-// void func_802F65BC_707C6C(Animal *arg0) {
-//     s32 new_var;
-//     s32 temp_t5;
-//     s32 temp_t6;
-//     s32 temp_t8;
-//
-//     s32 phi_t2;
-//
-//     u16 new_var2;
-//
-//     if (arg0->unk184 >= 256) {
-//         arg0->unk170 = 0;
-//         arg0->xVelocity.w = 0;
-//         arg0->zVelocity.w = 0;
-//         if ((arg0->unk4C.unk29 == 0)) {
-//             arg0->yVelocity.w = 0;
-//         }
-//     } else if (arg0->state == 0) {
-//         arg0->xVelocity.w = 0;
-//         arg0->zVelocity.w = 0;
-//         if ((arg0->unk4C.unk29 == 0)) {
-//             arg0->yVelocity.w = 0;
-//         }
-//     } else {
-//         arg0->unk184 += arg0->unk172;
-//
-//         temp_t6 = (arg0->unk178 - arg0->unk17E) >> 1;
-//         temp_t8 = (arg0->unk17A - arg0->unk180) >> 1;
-//         temp_t5 = (arg0->unk17C - arg0->unk182) >> 1;
-//
-//         if (arg0->unk184 >= 256) {
-//             phi_t2 = -FTOFIX32(0.5);
-//         } else if (arg0->unk184 == 0) {
-//             phi_t2 = FTOFIX32(0.5);
-//         } else {
-//             phi_t2 = D_80152C78[((arg0->unk184 >> 1) + 64) & 0xFF];
-//         }
-//
-//         // this is wrong ...
-//         new_var2 = arg0->unk184;
-//         if (new_var2 & 1) { // odd?
-//             phi_t2 = (D_80152C78[(((new_var2 >> 1) + 64) + 1) & 0xFF] + phi_t2) >> 1;
-//         }
-//
-//         temp_t6 = ((arg0->unk17E + temp_t6) << 16) - (temp_t6 * 2 * phi_t2);
-//         temp_t8 = ((arg0->unk180 + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
-//         temp_t5 = ((arg0->unk182 + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
-//
-//         arg0->xVelocity.w = temp_t6 - arg0->xPos.w;
-//         arg0->zVelocity.w = temp_t8 - arg0->zPos.w;
-//         if (arg0->unk4C.unk29 == 0) {
-//             arg0->yVelocity.w = temp_t5 - arg0->yPos.w;
-//         }
-//     }
-// }
+#if 0
+void func_802F65BC_707C6C(Animal *arg0) {
+    s32 temp_t5;
+    s32 temp_t6;
+    s32 temp_t8;
+
+    s32 phi_t2;
+
+    u8 new_var;
+
+    if (arg0->unk184 >= 256) {
+        arg0->unk170 = 0;
+        arg0->xVelocity.w = 0;
+        arg0->zVelocity.w = 0;
+        if ((arg0->unk4C.unk29 == 0)) {
+            arg0->yVelocity.w = 0;
+        }
+    } else if (arg0->state == 0) {
+        arg0->xVelocity.w = 0;
+        arg0->zVelocity.w = 0;
+        if ((arg0->unk4C.unk29 == 0)) {
+            arg0->yVelocity.w = 0;
+        }
+    } else {
+
+        arg0->unk184 += arg0->unk172;
+
+        temp_t6 = (arg0->unk178 - arg0->unk17E) >> 1;
+        temp_t8 = (arg0->unk17A - arg0->unk180) >> 1;
+        temp_t5 = (arg0->unk17C - arg0->unk182) >> 1;
+
+        if (arg0->unk184 >= 256) {
+            phi_t2 = FTOFIX32(-0.5);
+        } else if (arg0->unk184 == 0) {
+            phi_t2 = FTOFIX32(0.5);
+        } else {
+            phi_t2 = D_80152C78[((arg0->unk184 >> 1) + 64) & 0xFF];
+        }
+
+        // WRONG
+        new_var = arg0->unk184;
+        if ((new_var & 1)) { // odd?
+            phi_t2 = (D_80152C78[(((new_var >> 1) + 65)) & 0xFF] + phi_t2) >> 1;
+        }
+
+        temp_t6 = ((arg0->unk17E + temp_t6) << 16) - (temp_t6 * 2 * phi_t2);
+        temp_t8 = ((arg0->unk180 + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
+        temp_t5 = ((arg0->unk182 + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
+
+        arg0->xVelocity.w = temp_t6 - arg0->xPos.w;
+        arg0->zVelocity.w = temp_t8 - arg0->zPos.w;
+        if (arg0->unk4C.unk29 == 0) {
+            arg0->yVelocity.w = temp_t5 - arg0->yPos.w;
+        }
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F65BC_707C6C.s")
+#endif
 
 void func_802F6750_707E00(Animal *arg0) {
     s32 temp_a2;
@@ -447,13 +418,13 @@ void func_802F6A5C_70810C(Animal *arg0) {
         if (sqrtf((phi_f14 * phi_f14) + (phi_f2 * phi_f2)) == 0.0) {
             phi_f16 = 0.0f;
         } else {
-            temp_f14 = 360.0; // D_803BCED0_7CE580;
-            phi_f16 = func_801286B8(-phi_f2, phi_f14) + 90.0; //D_803BCED8_7CE588);
+            temp_f14 = 360.0;
+            phi_f16 = func_801286B8(-phi_f2, phi_f14) + 90.0;
             if (temp_f14 < phi_f16) {
                 phi_f16 -= temp_f14;
             }
         }
-        temp_f14 = 500.0; //D_803BCEE0_7CE590;
+        temp_f14 = 500.0;
         temp_f2 = sqrt;
         if (temp_f14 < temp_f2) {
             phi_v0_4 = phi_f16;
@@ -538,10 +509,211 @@ void func_802F6DEC_70849C(Animal *arg0, s16 arg1) {
 void func_802F7054_708704(s32 arg0) {
 }
 
-// 3-deep loops
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F705C_70870C.s")
+// miles away
+#if 0
+void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u16 flags) {
+    s16 sp13A;
+    s16 sp138;
+
+    Vertex spD4;
+
+    // f32 spC8.z;
+    // f32 spC8.y;
+    Vertex spC8;
+
+    f32 spC0;
+    s32 spA4;
+    s32 spA0;
+    s32 sp9C;
+    s32 sp98;
+    Animal *temp_s0;
+    Vertex *var_s1;
+    f32 temp_f0;
+    f32 temp_f0_2;
+    f32 temp_f0_3;
+    f32 temp_f12;
+    f32 temp_f12_2;
+    f32 temp_f14;
+    f32 temp_f14_2;
+    f32 temp_f16;
+    f32 temp_f16_2;
+    f32 temp_f2;
+    f32 temp_f2_2;
+    f32 temp_f2_3;
+    f32 temp_f2_4;
+    f32 temp_f4_2;
+    f32 var_f0;
+    f32 var_f0_2;
+    f32 var_f0_3;
+    f32 var_f12;
+    f32 var_f18;
+    f32 var_f20;
+    f32 var_f22;
+    f32 var_f28;
+    f32 var_f2;
+    f32 var_f30;
+    f32 var_f6;
+    s16 *temp_a0;
+    s16 *temp_v0_2;
+    s16 temp_a1;
+    s16 temp_s7;
+    s16 temp_t9_2;
+    s16 temp_t9_3;
+    s16 var_t0;
+    s16 var_t1;
+    s16 var_t2;
+    s16 var_t3;
+    s32 temp_f10;
+    s32 temp_f4;
+    s32 temp_t4;
+    s16 temp_t6;
+    s16 temp_t9;
+    s32 temp_v0;
+    s32 temp_v0_3;
+    s32 var_v0;
+    struct065 *var_s3;
+    u16 temp_v0_4;
+
+    if (arg4 != 0) {
+        temp_v0 = flags & 0x200;
+        if (temp_v0 != 0) {
+            var_f18 = -(arg4 / 2048.0f);
+        } else if (flags & 0x100) {
+            var_f18 = arg4 / 2048.0f;
+        } else {
+            var_f18 = 0.0f;
+        }
+
+        if (temp_v0 != 0) {
+            var_f30 = -(arg4 / 2048.0f);
+        } else if (flags & 0x100) {
+            var_f30 = arg4 / 2048.0f;
+        } else {
+            var_f30 = 0.0f;
+        }
+
+        if (arg6 == 0) {
+            var_f28 = (arg4 / 2048.0f) * 64.0f;
+        } else {
+            var_f28 = arg6;
+        }
+
+        temp_f0 = var_f28 / 1024.0f;
+        temp_t6 = (s16) arg0->xPos.h >> 0xA;
+        temp_t9 = (s16) arg0->zPos.h >> 0xA;
+        temp_f4 = (s32) temp_f0;
+        temp_f10 = (s32) -temp_f0;
+        var_t2 = (s16) temp_f10;
+        var_t0 = (s16) temp_f10;
+        var_t3 = (s16) temp_f4;
+        var_t1 = (s16) temp_f4;
+
+        if ((temp_t6 + 1) >= 5) {
+            var_t1 = temp_f4 - 1;
+        }
+        if (temp_t6 <= 0) {
+            var_t0 = temp_f10 + 1;
+        }
+        if ((temp_t9 + 1) >= 8) {
+            var_t3 = temp_f4 - 1;
+        }
+        if (temp_t9 <= 0) {
+            var_t2 = temp_f10 + 1;
+        }
+
+        spD4.z = D_80152350.unk2D0[arg1] / 256.0f;
+        temp_f4_2 = D_80152350.unk384[arg1] / 256.0f;
+        spD4.y = temp_f4_2;
+        spD4.x = (D_80152350.unk2D0[arg2] * temp_f4_2) / 256.0f;
+        spD4.y = (D_80152350.unk384[arg2] * temp_f4_2) / 256.0f;
+
+        sp13A = temp_t6 + var_t0;
+        spA4 = temp_t6 + var_t1;
+        if (sp13A <= spA4) {
+            spA0 = (s16) temp_t9 + var_t2;
+            sp9C = (s16) temp_t9 + var_t3;
+
+            sp98 = (s32) spA0; //unkspA2;
+            do {
+                sp138 = (s16) spA0;
+                if (sp98 <= sp9C) {
+                    do {
+                        temp_s7 = sp13A + (sp138 * 5);
+
+                        for (var_s3 = D_803DA110[temp_s7].next; var_s3 != NULL; var_s3 = var_s3->next) {
+                            temp_s0 = var_s3->animal;
+                            if (temp_s0 != arg0) {
+                                // temp_v0_3 = temp_s0->unk4C;
+                                if ((temp_s0->unk4C.unk27) && (temp_s0->unk4C.unk28) && (temp_s7 == temp_s0->unk114[0])) {
+                                    temp_f12 = temp_s0->xPos.h - arg0->xPos.h;
+                                    temp_f14 = temp_s0->zPos.h - arg0->zPos.h;
+                                    temp_f16 = (temp_s0->yPos.h - arg0->yPos.h) - arg3;
+                                    temp_f0_2 = sqrtf((temp_f12 * temp_f12) + (temp_f14 * temp_f14) + (temp_f16 * temp_f16));
+                                    if (!(var_f28 > temp_f0_2) && (temp_f0_2 != 0.0f)) {
+
+                                        spC8.x = temp_f12 / temp_f0_2;
+                                        spC8.z = temp_f16 / temp_f0_2;
+                                        spC8.y = temp_f14 / temp_f0_2;
+
+                                        if ((flags & 8) == 0) {
+                                            var_f22 = temp_f0_2;
+                                            var_s1 = &spC8;
+                                            var_v0 = flags & (0x200|0x100);
+                                            var_f2 = (f32) D_80152350.unk384[(s16)(arg5 >> 1)] / 256.0f;
+                                            goto block_38;
+                                        }
+                                        // OR ... ?
+                                        temp_f2 = (temp_f12 * spD4.x) + (temp_f14 * spD4.y) + (temp_f16 * spD4.z);
+                                        if (!(var_f28 < temp_f2) && !(temp_f2 <= 0.0f)) {
+                                            var_f22 = temp_f2;
+                                            var_s1 = &spD4;
+                                            var_v0 = flags & (0x200|0x100);
+                                            temp_f12_2 = (arg0->xPos.h + (temp_f2 * spD4.x)) - temp_s0->xPos.h;
+                                            temp_f14_2 = (arg0->zPos.h + (temp_f2 * spD4.y)) - temp_s0->zPos.h;
+                                            temp_f16_2 = (arg0->yPos.h + (temp_f2 * spD4.z) + arg3) - (f32) temp_s0->yPos.h;
+                                            if (!(arg5 < sqrtf((temp_f12_2 * temp_f12_2) + (temp_f14_2 * temp_f14_2) + (temp_f16_2 * temp_f16_2)))) {
+                                                var_f2 = 0.0f; // something - something else ?
+
+block_38:
+                                                if ((((var_v0 != 0) && (var_f2 <= ((spC8.x * spD4.x) + (spC8.y * spD4.y) + (spC8.z * spD4.z))) && (var_f20 = var_f18, (var_f18 != 0.0f))) || ((flags & 3) && (((spC8.x * spD4.x) + (spC8.y * spD4.y) + (spC8.z * spD4.z)) <= -var_f2) && (var_f20 = var_f30, (var_f30 != 0.0f)))) && (!(flags & 4) || (spC0 = var_f18, (func_8033C9CC_74E07C(temp_s0->xPos.h, temp_s0->zPos.h, temp_s0->yPos.h, 0U, (s16) (s32) arg0->xPos.h, (s16) (s32) arg0->zPos.h, (s16) (arg0->yPos.h + arg3), 0, 0, 0) == 0)))) {
+
+                                                    temp_f0_3 = ((var_f20 / 4.0f) * (var_f28 - var_f22)) / var_f28;
+                                                    if (temp_s0->unk44 != 0) {
+                                                        temp_f0_3 = (temp_f0_3 * 100.0f) / temp_s0->unk44;
+                                                    }
+                                                    if (((var_s1->x > 0.0f) && ((temp_s0->xVelocity.w < (var_f20 * 65536.0f)))) ||
+                                                        ((var_s1->x < 0.0f) && ((-(var_f20 * 65536.0f) < temp_s0->xVelocity.w)))) {
+                                                        temp_s0->xVelocity.w += temp_f0_3 * var_s1->x * 65536.0f;
+                                                    }
+                                                    if (((var_s1->y > 0.0f) && ((temp_s0->zVelocity.w < (var_f20 * 65536.0f)))) ||
+                                                        ((var_s1->y < 0.0f) && ((-(var_f20 * 65536.0f) < temp_s0->zVelocity.w)))) {
+                                                        temp_s0->zVelocity.w += temp_f0_3 * var_s1->y * 65536.0f;
+                                                    }
+                                                    if (((var_s1->z > 0.0f) && ((temp_s0->yVelocity.w < (var_f20 * 65536.0f)))) ||
+                                                        ((var_s1->z < 0.0f) && ((-(var_f20 * 65536.0f) < temp_s0->yVelocity.w)))) {
+                                                        temp_s0->yVelocity.w += temp_f0_3 * var_s1->z * 65536.0f;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        sp138++;
+                    } while (sp138 <= sp9C);
+                }
+                sp13A++;
+            } while (sp13A <= spA4);
+        }
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F705C_70870C.s")
+#endif
+
 // more loops
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F7940_708FF0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F7940_708FF0.s")
 
 s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 temp_f18;
@@ -563,10 +735,10 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     return func_8012844C(phi_f18 * 64.0f);
 }
 
-// gotos
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8160_709810.s")
+// goto hell
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8160_709810.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8658_709D08.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8658_709D08.s")
 // so far away.
 // s32 func_802F8658_709D08(Animal *arg0, struct071 *arg1, f32 arg2, f32 arg3, struct077 *arg4) {
 //     f32 y;
@@ -637,98 +809,105 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8994_70A044.s")
-// regalloc is wrong,
-// struct071 *func_802F8994_70A044(struct071 *arg0) {
-//     s16 i;
-//     s16 phi_v1;
-//     s16 phi_a0;
-//
-//     s16 distance;
-//     s16 temp_s0;
-//
-//     Animal *animal;
-//     struct071 *ret;
-//
-//     distance = MAX_SHORT;
-//     ret = NULL;
-//
-//     for (i = 0; i < D_803D553E; i++) {
-//         animal = D_801D9ED8.animals[i].animal;
-//         if (animal != NULL) {
-//             if ((animal->unk366 != 6) && (animal->unk366 != 2) && (animal->unk366 != 5)) {
-//                 if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-//                     (D_801D9ED8.animals[i].unk0->unk9C != EVO)) {
-//
-//                     ret = arg0; // not this but similar?
-//                     phi_a0 = ABS(arg0->xPos.h - animal->xPos.h);
-//                     phi_v1 = ABS(arg0->zPos.h - animal->zPos.h);
-//                     temp_s0 = MAX(phi_a0, phi_v1) + (MIN(phi_a0, phi_v1) >> 1);
-//
-//                     if ((temp_s0 < distance) && func_802F8918_709FC8(arg0, animal)) {
-//                         // found a new closer animal?
-//                         distance = temp_s0;
-//                         ret = animal;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     return ret;
-// }
+// find_closest_animal
+struct071 *func_802F8994_70A044(struct071 *arg0) {
+    s16 i;
+    s16 zDist;
+    s16 xDist;
+
+    s16 best_distance;
+    s16 distance;
+
+    Animal *animal;
+    struct071 *ret;
+
+    best_distance = MAX_SHORT;
+    ret = NULL;
+
+    for (i = 0; i < D_803D553E; i++) {
+        if (D_801D9ED8.animals[i].animal != NULL) {
+            if ((D_801D9ED8.animals[i].animal->unk366 != 6) && (D_801D9ED8.animals[i].animal->unk366 != 2) && (D_801D9ED8.animals[i].animal->unk366 != 5)) {
+                if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
+                    (D_801D9ED8.animals[i].unk0->unk9C != EVO)) {
+
+                    animal = D_801D9ED8.animals[i].animal;
+
+                    xDist = ABS(arg0->xPos.h - animal->xPos.h);
+                    zDist = ABS(arg0->zPos.h - animal->zPos.h);
+                    distance = MAX(xDist, zDist) + (MIN(xDist, zDist) >> 1);
+
+                    if ((distance < best_distance) && func_802F8918_709FC8(arg0, animal)) {
+                        // found a new closer animal
+                        best_distance = distance;
+                        ret = animal;
+                    }
+                }
+            }
+        }
+    }
+    return ret;
+}
 
 // gun turret
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F8B4C_70A1FC.s")
-// void func_802F8B4C_70A1FC(struct071 *arg0) {
-//     s16 pad2[8];
-//     s16 angle;
-//     struct071 *obj;
-//     s16 temp_t0;
-//     s16 pad[3];
-//     // s16 z;
-//     // s32 x;
-//     // s16 sp4A;
-//     s16 sp4C[1];
-//     struct077 sp48; // probably a bigger struct?
-//
-//     if (arg0->Info.Counter2 > 0) {
-//         arg0->Info.Counter2 -= 2;
-//     }
-//     if ((arg0->unk0 == 1)) {
-//         obj = func_802F8994_70A044(arg0);
-//         if ((obj != NULL) && func_802F8658_709D08(arg0, obj, 16.0f, 512.0f, &sp48)) {
-//             // something missing here...
-//             angle = func_801284B8(sp48.unk0 - arg0->xPos.h, sp48.unk2 - arg0->zPos.h);
-//             temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f64) (f32) D_803A05B0_7B1C60 / (512 * 1024));
-//             arg0->unk2C = ((angle + 180) % 360) & 0xffff;
-//             if (temp_t0 != -1) {
-//                 if (temp_t0 <= 90) {
-//                     arg0->zRotation = 90 - temp_t0;
-//                 } else {
-//                     arg0->zRotation = 90;
-//                 }
-//             }
-//             if (arg0->Info.unk14E <= 0) {
-//                 if (arg0->Info.unk152 > 0) {
-//                     arg0->Info.unk152 -= 1;
-//                     arg0->Info.Counter2 = 256;
-//                     if (((arg0->Info.unk152 & 1) == 1)) {
-//                         play_sound_effect_at_location(SFX_UNKNOWN_74, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
-//                         obj = func_802F62E4_707994(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) (arg0->unk40 * 6) >> 0xB)), 0x26, 0, (arg0->unk40 * 40) >> 11, 0, temp_t0, angle, 0x10, (s32) (arg0->unk40 << 0xB) >> 0xB);
-//                         if (obj != NULL) {
-//                             obj->unk154 = 200;
-//                         }
-//                     }
-//                 } else {
-//                     arg0->Info.unk14E = (s16) ((func_80128200() & 0x1F) + arg0->unk158 + 0x18);
-//                     arg0->Info.unk152 = 6;
-//                 }
-//             } else {
-//                 arg0->Info.unk14E -= 1;
-//             }
-//         }
-//     }
-// }
+#ifdef NON_MATCHING
+void func_802F8B4C_70A1FC(struct071 *arg0) {
+    s16 pad[8];
+    s16 angle;
+    s16 temp_t0;
+    struct071 *obj;
+
+    s32 x;
+    s32 z;
+
+    struct077 sp48; // probably a bigger struct?
+
+    if (arg0->Info.Counter2 > 0) {
+        arg0->Info.Counter2 -= 2;
+    }
+    if ((arg0->unk0 == 1)) {
+        obj = func_802F8994_70A044(arg0);
+        if ((obj != NULL) && (func_802F8658_709D08(arg0, obj, 16.0f, 512.0f, &sp48) != 0)) {
+            x = sp48.unk0 - arg0->xPos.h;
+            z = sp48.unk2 - arg0->zPos.h;
+
+            // helps regalloc due to missing multu instructions
+            if (((x*x) < (z*z)) || (x*x) > (z*z)) {};
+
+            angle = (u64)func_801284B8(x, z);
+
+            temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f32) D_803A05B0_7B1C60 / (512.0 * 1024));
+            arg0->yRotation = ((angle + 180) % 360);
+            if (temp_t0 != -1) {
+                if (temp_t0 <= 90) {
+                    arg0->zRotation = 90 - temp_t0;
+                } else {
+                    arg0->zRotation = 90;
+                }
+            }
+            if (arg0->Info.unk14E <= 0) {
+                if (arg0->Info.unk152 > 0) {
+                    arg0->Info.unk152 -= 1;
+                    arg0->Info.Counter2 = 256;
+                    if (((arg0->Info.unk152 & 1) == 1)) {
+                        play_sound_effect_at_location(SFX_UNKNOWN_74, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+                        obj = func_802F62E4_707994(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) (arg0->unk40 * 6) >> 0xB)), 0x26, 0, (arg0->unk40 * 40) >> 11, 0, temp_t0, angle, 0x10, (s32) (arg0->unk40 << 0xB) >> 0xB);
+                        if (obj != NULL) {
+                            obj->unk154 = 200;
+                        }
+                    }
+                } else {
+                    arg0->Info.unk14E = (s16) ((func_80128200() & 0x1F) + arg0->unk158 + 0x18);
+                    arg0->Info.unk152 = 6;
+                }
+            } else {
+                arg0->Info.unk14E -= 1;
+            }
+        }
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8B4C_70A1FC.s")
+#endif
 
 // homing missile turret (object63)
 void func_802F8DCC_70A47C(struct071 *arg0) {
@@ -837,37 +1016,39 @@ s32 func_802F9178_70A828(struct071 *arg0) {
 #ifdef NON_MATCHING
 // justreg
 // used by missile
+// CURRENT (155)
 void func_802F92B0_70A960(struct071 *arg0) {
-    s32 pad[2];
-    s16 phi_a2;
+    s32 pad[4];
     s32 x_dist;
     s32 z_dist;
-    s16 phi_a1;
 
     s32 sp54;
     s32 sp50;
     s16 sp4E;
     s16 sp4C;
-    s16 pad4A;
+    s16 phi_a1;
     s16 sp48;
     u8  sp47;
+    Animal *a;
 
     sp47 = func_802F9178_70A828(arg0);
 
     if (arg0->unk188 != NULL) {
-        x_dist = arg0->unk188->xPos.h - arg0->xPos.h;
-        z_dist = arg0->unk188->zPos.h - arg0->zPos.h;
-        sp54 = (arg0->unk188->yPos.h - arg0->yPos.h) + (arg0->unk188->unk42 >> 1);
+        a = arg0->unk188;
+        x_dist = a->xPos.h - arg0->xPos.h;
+        z_dist = a->zPos.h - arg0->zPos.h;
+        sp54 = (a->yPos.h - arg0->yPos.h) + (a->unk42 >> 1);
         sp50 = (s16) sqrtf((x_dist * x_dist) + (z_dist * z_dist));
         sp4E = func_801284B8(x_dist, z_dist);
         sp4C = func_801284B8(sp54, sp50);
+
         if (arg0->Info.Counter2 != 0) {
-            phi_a2 = arg0->Info.Counter2;
+            sp48 = arg0->Info.Counter2;
         } else {
-            phi_a2 = 7;
+            sp48 = 7;
         }
-        arg0->yRotation = func_802F649C_707B4C(sp4E, arg0->yRotation, phi_a2);
-        arg0->zRotation = func_802F649C_707B4C(sp4C, arg0->zRotation, MAX((phi_a2 * 3) / 4, 1));
+        arg0->yRotation = func_802F649C_707B4C(sp4E, arg0->yRotation, sp48);
+        arg0->zRotation = func_802F649C_707B4C(sp4C, arg0->zRotation, MAX((sp48 * 3) / 4, 1));
     }
 
     if (arg0->Info.unk152 != 0) {
@@ -877,7 +1058,7 @@ void func_802F92B0_70A960(struct071 *arg0) {
     }
 
     if (sp47 != 0) {
-        arg0->yRotation += (D_80152350.unk2D0[(s16) ((arg0->Info.unk14E * 16) % 360)]) >> 5;
+        arg0->yRotation += D_80152350.unk2D0[(s16) ((arg0->Info.unk14E * 16) % 360)] >> 5;
     }
     if (arg0->yRotation >= 360) {
         arg0->yRotation -= 360;
@@ -885,14 +1066,14 @@ void func_802F92B0_70A960(struct071 *arg0) {
         arg0->yRotation += 360;
     }
     func_802F6DEC_70849C(arg0, phi_a1);
-    arg0->Info.unk14E += 1;
+    arg0->Info.unk14E++;
     if (arg0->unk154 == 0) {
         arg0->unk154 = 160;
     }
     func_8032CED0_73E580(arg0, SFX_UNKNOWN_103, 0x4000, 0.4f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F92B0_70A960.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F92B0_70A960.s")
 #endif
 
 // used by object 30
@@ -986,7 +1167,7 @@ void func_802F96E0_70AD90(struct071 *psMoveObj) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F96E0_70AD90.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F96E0_70AD90.s")
 #endif
 
 // used by object 45
@@ -1008,7 +1189,7 @@ void func_802F9880_70AF30(Animal *arg0) {
         if (arg0->unk150 == 1) {
             arg0->unk150 = 0;
             if (arg0->unk152 != 0) {
-                play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f); //D_803BCF08_7CE5B8
+                play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0.8f);
             }
         }
         if (arg0->unk14E > 0) {
@@ -1067,7 +1248,7 @@ void func_802F9A08_70B0B8(Animal *arg0) {
 
 // used by OBJECT_BUTTON
 void func_802F9B4C_70B1FC(struct071 *arg0) {
-    if (arg0->unk0 == (u16) 1) {
+    if (arg0->unk0 == 1) {
         add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, 255 /* red */, 0, 0);
         if (arg0->Info.unk14E == 0) {
             arg0->Info.unk14E = 1;
@@ -1157,8 +1338,145 @@ void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 a
     }
 }
 
-// something with Waypoints
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802F9EB8_70B568.s")
+#if 0
+// embarassingly far away...
+// CURRENT (25874)
+void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s16 arg4, u8 arg5) {
+    s16 sp5E;
+    s16 sp5C;
+    s16 sp5A;
+    s16 sp58;
+
+    f32 sp28;
+    f32 sp24;
+    f32 sp20;
+
+    f32 sp14;
+
+    f32 sp8;
+    f32 sp4;
+    f32 sp0;
+
+    f32 temp_f10;
+    f32 temp_f10_2;
+    f32 temp_f10_3;
+    f32 temp_f18;
+    f32 temp_f4;
+    f32 temp_f4_2;
+    f32 temp_f6;
+    f32 temp_f6_2;
+    f32 temp_f6_3;
+    f32 temp_f8;
+    f32 temp_f8_2;
+    f32 temp_f8_3;
+    f32 var_f4;
+    f32 var_f4_2;
+    f32 var_f6;
+    f32 var_f6_2;
+    f32 var_f6_3;
+    f32 var_f6_4;
+    f32 var_f8;
+    f32 var_f8_2;
+    f32 var_f8_3;
+    f32 var_f8_4;
+    f64 temp_f14;
+    f64 temp_f16;
+
+    s16 temp_t0;
+    s16 temp_t1;
+    s16 var_v1;
+
+    if (arg5 != 0) {
+        var_v1 = arg4 / 128;
+        temp_t0 = var_v1 - 1;
+
+        if ((temp_t0 - 1) < 0) {
+            sp58 = (arg3->length + temp_t0) - 1;
+        } else {
+            sp58 = (temp_t0 - 1);
+        }
+
+        if (temp_t0 < 0) {
+            sp5A = arg3->length + temp_t0;
+        } else {
+            if (temp_t0 >= arg3->length) {
+                sp5A = temp_t0 - arg3->length;
+            } else {
+                sp5A = temp_t0;
+            }
+        }
+
+        if ((temp_t0 + 1) < 0) {
+            sp5C = arg3->length + (temp_t0 + 1);
+        } else {
+            if ((temp_t0 + 1) < arg3->length) {
+                sp5C = (temp_t0 - arg3->length) + 1;
+            } else {
+                sp5C = (temp_t0 + 1);
+            }
+        }
+
+        if ((temp_t0 + 2) >= arg3->length) {
+            sp5E = (temp_t0 - arg3->length) + 2;
+        } else {
+            sp5E = (temp_t0 + 2);
+        }
+    } else {
+        var_v1 = arg4 / 128;
+        temp_t0 = var_v1 - 1;
+
+        sp58 = MAX(0, temp_t0 - 1);
+        sp5A = MAX(0, MIN(arg3->length - 1, temp_t0));
+        sp5C = MAX(0, MIN(arg3->length - 1, temp_t0 + 1));
+        sp5E = MIN(arg3->length - 1, temp_t0 + 2);
+    }
+
+    temp_f18 = (s16) (arg4 - (var_v1 << 7)) / 128.0f;
+    sp24 = temp_f18 * temp_f18;
+    sp20 = temp_f18 * sp24;
+
+    sp14 = (f32) (sp20 / 6.0);
+    temp_f14 = 3.0 * sp24;
+    temp_f16 = 3.0 * temp_f18;
+    sp28 = (((-sp20 + temp_f14) - temp_f16) + 1.0) / 6.0;
+    sp24 = (((sp20 * 3.0) - (6.0 * sp24)) + 4.0) / 6.0;
+    sp20 = ((sp20 * -3.0) + temp_f14 + temp_f16 + 1.0) / 6.0;
+
+    sp0 = sp14;
+    sp4 = sp24;
+    temp_f8_2 = sp4;
+    sp4 = sp20;
+    sp8 = sp28;
+    temp_f10_2 = sp4;
+    sp4 = temp_f8_2;
+
+    *arg0 = (s32) (((arg3->waypoint[sp5E].x * sp0) +
+                   ((sp28 * arg3->waypoint[sp58].x) + (temp_f8_2 * arg3->waypoint[sp5A].x) + (temp_f10_2 * arg3->waypoint[sp5C].x))) * 4194304.0f) + 0x200000;
+
+    temp_f8_3 = sp8;
+    sp8 = temp_f10_2;
+
+    sp28 = sp4;
+    sp4 = sp0;
+    sp0 = temp_f8_3;
+
+    temp_f10_3 = sp8;
+    sp8 = sp28;
+
+    temp_f4_2 = sp4;
+    *arg1 = (s32) (((arg3->waypoint[sp5E].z * temp_f4_2) +
+                    ((temp_f8_3 * arg3->waypoint[sp58].z) + (sp28 * arg3->waypoint[sp5A].z) + (temp_f10_3 * arg3->waypoint[sp5C].z))) * 4194304.0f) + 0x200000;
+
+    sp4 = temp_f10_3;
+    sp28 = sp8;
+    sp8 = temp_f4_2;
+
+    *arg2 = (((arg3->waypoint[sp5E].y * sp8) +
+             ((sp0 * arg3->waypoint[sp58].y) + (sp28 * arg3->waypoint[sp5A].y) + (sp4 * arg3->waypoint[sp5C].y))) * 4194304.0f);
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F9EB8_70B568.s")
+#endif
 
 void func_802FA4F8_70BBA8(Animal *arg0) {
     s32 xPos;
@@ -1209,7 +1527,7 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
         break;
     }
 
-    if (arg0->unk16C->unk80.bit3 != 0) {
+    if (arg0->unk16C->unk80.unk10 != 0) {
         yPos = 0;
     }
     arg0->xVelocity.w = xPos - arg0->xPos.w;
@@ -1373,7 +1691,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FA730_70BDE0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802FA730_70BDE0.s")
 #endif
 
 void func_802FADBC_70C46C(Animal *arg0) {
@@ -1423,7 +1741,8 @@ void func_802FADBC_70C46C(Animal *arg0) {
 
     if ((arg0->unk20C != 0) && (arg0->unk16C->objectType != 5)) {
         func_802F705C_70870C(
-            arg0, arg0->zRotation,
+            arg0,
+            arg0->zRotation,
             arg0->yRotation,
             arg0->unk42 >> 1,
             arg0->unk158,
@@ -1493,12 +1812,12 @@ void func_802FB270_70C920(Animal *arg0) {
     if ((arg0->unk4C.unk28 == 0) || (arg0->unk4C.unk29 == 0)) {
         func_802F90A8_70A758(arg0);
     }
-    if (arg0->unk1A8 != 0) {
+    if (arg0->unk1A8 != NULL) {
         func_803191B0_72A860(arg0);
     }
     func_802FADBC_70C46C(arg0);
-    arg0->unk10 = arg0->xPos.w + arg0->xVelocity.w;
-    arg0->unk14 = arg0->zPos.w + arg0->zVelocity.w;
+    arg0->unk10.w = arg0->xPos.w + arg0->xVelocity.w;
+    arg0->unk14.w = arg0->zPos.w + arg0->zVelocity.w;
     arg0->unk18.w = arg0->yPos.w + arg0->yVelocity.w;
     func_802F5C60_707310(arg0);
 
@@ -1561,7 +1880,6 @@ void func_802FB49C_70CB4C(struct071 *arg0) {
 void func_802FB4C0_70CB70(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
-    s32 phi_v1;
     s16 phi_a1;
 
     if (arg0->unk15E == 0) {
@@ -1569,19 +1887,14 @@ void func_802FB4C0_70CB70(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0x32, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 0x20;
     } else {
         phi_a1 = 1;
@@ -1590,7 +1903,6 @@ void func_802FB4C0_70CB70(Animal *arg0) {
 }
 
 void func_802FB680_70CD30(Animal *arg0) {
-    s32 phi_v1_2;
     s16 phi_v1;
     s16 phi_v0;
     s16 phi_a3;
@@ -1604,19 +1916,14 @@ void func_802FB680_70CD30(Animal *arg0) {
     } else {
         phi_v0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
         phi_v1 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v1 = -1;
     }
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_v0, phi_v1);
 
-    phi_v1_2 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                   MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1_2 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 4 | 2 | 1;
@@ -1625,7 +1932,6 @@ void func_802FB680_70CD30(Animal *arg0) {
 }
 
 void func_802FB85C_70CF0C(Animal *arg0) {
-    s32 phi_v1_2;
     s16 phi_v1;
     s16 phi_v0;
     s16 phi_a1;
@@ -1639,7 +1945,7 @@ void func_802FB85C_70CF0C(Animal *arg0) {
         phi_v0 = arg0->unk15E;
     }
 
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
         phi_v1 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v1 = -1;
@@ -1657,12 +1963,7 @@ void func_802FB85C_70CF0C(Animal *arg0) {
         phi_v0,
         phi_v1);
 
-    phi_v1_2 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                   MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                       D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1_2 << 2)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 4 | 2 | 1;
@@ -1683,7 +1984,6 @@ void func_802FB85C_70CF0C(Animal *arg0) {
 void func_802FBA40_70D0F0(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
-    s32 phi_v1;
     s16 phi_a1;
 
     if (arg0->unk15E == 0) {
@@ -1691,19 +1991,14 @@ void func_802FBA40_70D0F0(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->yRotation, 0x5A, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 1;
@@ -1714,7 +2009,6 @@ void func_802FBA40_70D0F0(Animal *arg0) {
 void func_802FBBF8_70D2A8(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
-    s32 phi_v1;
     s16 phi_a1;
 
     if (arg0->unk15E == 0) {
@@ -1723,7 +2017,7 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
         phi_t0 = arg0->unk15E;
     }
 
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -1731,12 +2025,7 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
 
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 1;
@@ -1747,7 +2036,6 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
 void func_802FBDA8_70D458(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
-    s32 phi_v1;
     s16 phi_a1;
 
     if (arg0->unk15E == 0) {
@@ -1755,19 +2043,15 @@ void func_802FBDA8_70D458(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
+
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 2 | 1;
@@ -1778,7 +2062,6 @@ void func_802FBDA8_70D458(Animal *arg0) {
 void func_802FBF58_70D608(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
-    s32 phi_v1;
     s16 phi_a1;
 
     if (arg0->unk15E == 0) {
@@ -1786,7 +2069,7 @@ void func_802FBF58_70D608(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -1794,12 +2077,7 @@ void func_802FBF58_70D608(Animal *arg0) {
 
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 4 | 1;
@@ -1811,26 +2089,20 @@ void func_802FC108_70D7B8(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
     s16 phi_a1;
-    s32 phi_v1;
 
     if (arg0->unk15E == 0) {
         phi_t0 = (arg0->unk40 << 5) >> 11;
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && ((arg0->unk168->unk16C->unk80.bit))) {
+    if ((arg0->unk168 != NULL) && ((arg0->unk168->unk16C->unk80.unk12))) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
     func_802FF184_710834(arg0, 1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0x64, phi_t0, phi_v0);
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32;
     } else {
         phi_a1 = 4 | 2 | 1;
@@ -1890,14 +2162,8 @@ void func_802FC438_70DAE8(s16 x, s16 z, s16 y) {
 
 void func_802FC5C0_70DC70(Animal *arg0) {
     s16 phi_a1;
-    s32 phi_v1;
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 32 | 8;
     } else {
         phi_a1 = 8 | 1;
@@ -1907,14 +2173,8 @@ void func_802FC5C0_70DC70(Animal *arg0) {
 
 void func_802FC6E4_70DD94(Animal *arg0) {
     s16 phi_a1;
-    s32 phi_v1;
 
-    phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                 MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                     D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         phi_a1 = 64 | 32 | 8;
     } else {
         phi_a1 = 64 | 8;
@@ -1947,7 +2207,7 @@ void func_802FC808_70DEB8(Animal *arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7070A0/func_802FC808_70DEB8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802FC808_70DEB8.s")
 #endif
 
 void func_802FC8F4_70DFA4(Animal *arg0) {
@@ -1970,13 +2230,13 @@ void func_802FC970_70E020(Animal *arg0) {
     func_802FCA08_70E0B8(arg0, arg0->unk164);
 }
 
+// run_commands?
 void func_802FC990_70E040(Animal *arg0) {
     if (arg0->unk26C != 1) {
         func_802FCA08_70E0B8(arg0, arg0->unk164);
         arg0->unk26C = 1;
         if (arg0->unk246 != 0) {
-            struct069 *tmp = &D_803E4D40[arg0->unk246 - 1];
-            func_803153B0_726A60(arg0, tmp, 0);
+            load_commands_into_object(arg0, &D_803E4D40[arg0->unk246 - 1], 0);
             func_803191B0_72A860(arg0);
         }
     }
@@ -2113,7 +2373,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         } else {
             phi_v0 = arg0->unk15E;
         }
-        if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.bit)) {
+        if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
             phi_v1 = arg0->unk168->unk16C->unkE6;
         } else {
             phi_v1 = -1;
@@ -2154,7 +2414,6 @@ void func_802FD190_70E840(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
             D_803C0740[xStart + i][yStart + j].unk0 = value;
         }
     }
-
     func_802DAFAC_6EC65C(xStart, yStart, xEnd, yEnd);
 }
 
@@ -2167,7 +2426,6 @@ void func_802FD26C_70E91C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
             D_803C0740[xStart + i][yStart + j].unk6 = value;
         }
     }
-
     func_802DAFAC_6EC65C(xStart, yStart, xEnd, yEnd);
 }
 
@@ -2509,7 +2767,7 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
         if (arg7 < 20) {
             add_regular_trail(obj, 2, (obj->unk40 * 25) >> 11, 16, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0xB9, 0, 0, 0, 0, 2, 1, 0);
         } else {
-            add_regular_trail(obj, 2, (obj->unk40 * 25) >> 11, 8, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0x9B, 0, 0, 0, 0, 1, 1, 0);
+            add_regular_trail(obj, 2, (obj->unk40 * 25) >> 11,  8, 0, (obj->unk40 * -30) >> 11, 0, 0xFF, 0, 0, 0xFF, 0x9B, 0, 0, 0, 0, 1, 1, 0);
         }
     }
 }
@@ -2676,12 +2934,8 @@ void func_802FF7D4_710E84(struct071 *arg0) {
 
 // used by object 79
 void func_802FF828_710ED8(struct071 *arg0) {
-    s32 phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                         D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                     MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                         D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    // trigger if below water?
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         func_802FC990_70E040(arg0);
     }
 
@@ -2691,12 +2945,7 @@ void func_802FF828_710ED8(struct071 *arg0) {
 
 // used by object 39
 void func_802FFA20_7110D0(struct071 *arg0) {
-    s32 phi_v1 = MAX(MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 0].unk6,
-                         D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 0].unk6),
-                     MAX(D_803C0740[(arg0->xPos.h >> 6) + 0][(arg0->zPos.h >> 6) + 1].unk6,
-                         D_803C0740[(arg0->xPos.h >> 6) + 1][(arg0->zPos.h >> 6) + 1].unk6));
-
-    if (arg0->yPos.h < (phi_v1 * 4)) {
+    if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
         func_802FC990_70E040(arg0);
         return;
     }
@@ -2805,7 +3054,7 @@ void func_802FFF50_711600(struct071 *arg0) {
     func_802FFED0_711580(arg0);
 }
 
-// used by object 142 and 242
+// used by OBJECT_RED_TV and OBJECT_TV_SCREEN
 void func_802FFF70_711620(struct071 *arg0) {
     func_8032CED0_73E580(&arg0->unk20.h[1], SFX_UNKNOWN_159, 0x3000, 1.0f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0, 0, 0);
 }

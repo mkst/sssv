@@ -215,23 +215,23 @@ void func_8029A720_6ABDD0(void) {
     } else if (D_803F28DC & 2) {
         func_80127ED4(&D_80204278->unk37510, (D_803F28DC & 0xFFC) << 1);
 
-        D_80204278->unk3B6B0.l.col[0]  = D_80204278->unk3B638.l.col[0] >> 1;
-        D_80204278->unk3B6B0.l.col[1]  = D_80204278->unk3B638.l.col[1] >> 1;
-        D_80204278->unk3B6B0.l.col[2]  = D_80204278->unk3B638.l.col[2] >> 1;
-        D_80204278->unk3B6B0.l.colc[0] = D_80204278->unk3B638.l.colc[0] >> 1;
-        D_80204278->unk3B6B0.l.colc[1] = D_80204278->unk3B638.l.colc[1] >> 1;
-        D_80204278->unk3B6B0.l.colc[2] = D_80204278->unk3B638.l.colc[2] >> 1;
+        D_80204278->unk3B6B0.l.col[0]  = D_80204278->lights.a.l.col[0] >> 1;
+        D_80204278->unk3B6B0.l.col[1]  = D_80204278->lights.a.l.col[1] >> 1;
+        D_80204278->unk3B6B0.l.col[2]  = D_80204278->lights.a.l.col[2] >> 1;
+        D_80204278->unk3B6B0.l.colc[0] = D_80204278->lights.a.l.colc[0] >> 1;
+        D_80204278->unk3B6B0.l.colc[1] = D_80204278->lights.a.l.colc[1] >> 1;
+        D_80204278->unk3B6B0.l.colc[2] = D_80204278->lights.a.l.colc[2] >> 1;
 
-        D_80204278->unk3B6B8.l.col[0]  = D_80204278->unk3B640[0].l.col[0] >> 2;
-        D_80204278->unk3B6B8.l.col[1]  = D_80204278->unk3B640[0].l.col[1] >> 2;
-        D_80204278->unk3B6B8.l.col[2]  = D_80204278->unk3B640[0].l.col[2] >> 2;
-        D_80204278->unk3B6B8.l.colc[0] = D_80204278->unk3B640[0].l.col[0] >> 2;
-        D_80204278->unk3B6B8.l.colc[1] = D_80204278->unk3B640[0].l.col[1] >> 2;
-        D_80204278->unk3B6B8.l.colc[2] = D_80204278->unk3B640[0].l.col[2] >> 2;
+        D_80204278->unk3B6B8.l.col[0]  = D_80204278->lights.l[0].l.col[0] >> 2;
+        D_80204278->unk3B6B8.l.col[1]  = D_80204278->lights.l[0].l.col[1] >> 2;
+        D_80204278->unk3B6B8.l.col[2]  = D_80204278->lights.l[0].l.col[2] >> 2;
+        D_80204278->unk3B6B8.l.colc[0] = D_80204278->lights.l[0].l.col[0] >> 2;
+        D_80204278->unk3B6B8.l.colc[1] = D_80204278->lights.l[0].l.col[1] >> 2;
+        D_80204278->unk3B6B8.l.colc[2] = D_80204278->lights.l[0].l.col[2] >> 2;
 
-        D_80204278->unk3B6B8.l.dir[0] = D_80204278->unk3B640[0].l.dir[0];
-        D_80204278->unk3B6B8.l.dir[1] = D_80204278->unk3B640[0].l.dir[1];
-        D_80204278->unk3B6B8.l.dir[2] = D_80204278->unk3B640[0].l.dir[2];
+        D_80204278->unk3B6B8.l.dir[0] = D_80204278->lights.l[0].l.dir[0];
+        D_80204278->unk3B6B8.l.dir[1] = D_80204278->lights.l[0].l.dir[1];
+        D_80204278->unk3B6B8.l.dir[2] = D_80204278->lights.l[0].l.dir[2];
 
         gSPNumLights(D_801D9E7C++, 1);
         gSPLight(D_801D9E7C++, &D_80204278->unk3B6B8, 1);
@@ -241,8 +241,8 @@ void func_8029A720_6ABDD0(void) {
         gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
 
         gSPNumLights(D_801D9E7C++, 1);
-        gSPLight(D_801D9E7C++, &D_80204278->unk3B640, 1);
-        gSPLight(D_801D9E7C++, &D_80204278->unk3B638, 2);
+        gSPLight(D_801D9E7C++, &D_80204278->lights.l, 1);
+        gSPLight(D_801D9E7C++, &D_80204278->lights.a, 2);
 
         gSPPopMatrix(D_801D9E7C++, G_MTX_MODELVIEW);
 

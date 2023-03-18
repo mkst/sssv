@@ -5,13 +5,13 @@ datatype_0_format = {
     "x": "h",
     "z": "h",
     "y": "h",
-    "unk8": "h",
+    "zRotation": "h",
     "angle": "h",
     "unkC": "H",
     "scale": "H",
-    "unk10": "h", # referenceId ?
+    "commandReferenceIdx": "h", # referenceId ?
     "unk12": "h",
-    "unk14": "B",
+    "commandsLength": "B",
     "unk15": "B",
 }
 
@@ -29,10 +29,9 @@ datatype_1_format = {
 
 # .joi
 datatype_2_format = {
-    "unk0": "h",
-    "unk2": "h",
-    "unk4": "b",
-    "unk5": "b",
+    "unk0": "H",
+    "unk2": "H",
+    "referenceIdx": "H",
 }
 
 # .cmd
@@ -204,8 +203,10 @@ datatype_12_format = {
     "unk73": "b",
     "unk74": "b",
     "unk75": "b",
-    "unk76": "h",
-    "unk78": "h",
+    "unk76": "b",  # lights (dir x)
+    "unk77": "b",  # lights (dir y)
+    "unk78": "b",  # lights (dir z)
+    "unk79": "b",  # tbd
     "unk7A": "h",
     "unk7C": "h",
     "unk7E": "h",

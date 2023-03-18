@@ -254,7 +254,7 @@ void func_80295EB0_639550(s32 x) {
     func_80129594(&D_801D9E7C, D_80204278);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);
-    gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+    gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
 }
 
 // TODO: this isnt quite right offset-wise?
@@ -460,7 +460,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         break;
     case 1:                                         /* switch 1 */
         if (D_80299E08_63D4A8 == 20) {
-            D_8028645C = 0;
+            D_8028645C = NO_MUSIC;
             func_801337DC(0, 2.0f, 1.0f, 20.0f);
             func_8013385C(2.0f, 1.0f, 20.0f);
         }
@@ -508,7 +508,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
             D_801546D8 = 1936; // volume related
-            D_8028645C = 18;
+            D_8028645C = MUSIC_TRACK_NEWSCASTER;
             // dupe?
             D_8015517C = 1.0f;
             D_801546D8 = 1936;
@@ -749,7 +749,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
             D_801546D8 = 2048;
-            D_8028645C = 19;
+            D_8028645C = MUSIC_TRACK_TITLE_SCREEN;
             // dupe
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
@@ -812,12 +812,12 @@ void func_80295FAC_63964C(struct018 *arg0) {
                 D_80299FEC_63D68C = 0;
             } else {
                 func_801337DC(0, 10.0f, 20.0f, 0);
-                func_80298F1C_63C5BC(arg0->unk3BBE8, D_80302E88 + 0x62000);
+                func_80298F1C_63C5BC(arg0->framebuffer, D_80302E88 + 0x62000);
                 D_80299DFC_63D49C = 10;
                 D_80299FF8_63D698 = 0;
                 D_80299E04_63D4A4 = 1;
                 D_8029A00C_63D6AC = 32;
-                D_8028645C = 0;
+                D_8028645C = NO_MUSIC;
             }
         }
         break;
@@ -826,7 +826,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         D_8015517C = 1.0f;
         D_801546E0 = 2048;
         D_801546D8 = 1;
-        D_8028645C = 18;
+        D_8028645C = MUSIC_TRACK_NEWSCASTER;
         D_80299E10_63D4B0 = 0xFF;
         if (D_80299DC4_63D464 == -2616.0f) {
             UnpackRNC(&D_802AA7B0_64DE50, D_80302E88 + 0x50000); // sssv_logo
@@ -873,7 +873,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         if (D_80299E1C_63D4BC == 0) {
             D_80299E10_63D4B0 = 0;
         }
-        D_8028645C = 0;
+        D_8028645C = NO_MUSIC;
         D_80204290 = 1;
         D_80299E28_63D4C8 = 0;
         D_80299E1C_63D4BC = 0;
@@ -1010,7 +1010,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         D_80299FF8_63D698 = 0;
         D_80299E04_63D4A4 = 1;
         D_8029A00C_63D6AC = 32;
-        D_8028645C = 0;
+        D_8028645C = NO_MUSIC;
         D_80204288 = 0;
     }
     if ((D_80299E04_63D4A4 > 0) && (D_80299E04_63D4A4 < 5)) {
@@ -1054,7 +1054,7 @@ void func_802988E8_63BF88(void) {
     func_80129430(&D_801D9E7C);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);
-    gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->unk3BBE8));
+    gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
     gDPPipeSync(D_801D9E7C++);
 
     D_80152EA8.vp.vscale[0] = gScreenWidth * 2;

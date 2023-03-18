@@ -21,8 +21,8 @@ extern Gfx D_04008D70_F9DD0[];
 extern Gfx D_04008EF0_F9F50[];
 extern Gfx D_04008FF0_FA050[];
 extern Gfx D_04009500_FA560[];
-extern Gfx D_04009870[];
-extern Gfx D_040099B0[];
+extern Gfx D_04009870_FA8D0[];
+extern Gfx D_040099B0_FAA10[];
 extern u8  D_040099F0_FAA50[];
 extern u8  D_04009BF0_FAC50[]; // palette
 extern u8  D_04009C10_FAC70[];
@@ -337,7 +337,7 @@ done:
 
                 load_1_tile(D_04009BF0_FAC50, D_040099F0_FAA50);
                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x50) >> 6, (D_803F2EC0 * 0x50) >> 6, (D_803F2EC4 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04008C70_F9CD0);
-                func_802C78B0_6D8F60(2, 0x1A, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04009870);
+                func_802C78B0_6D8F60(2, 0x1A, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04009870_FA8D0);
                 load_1_tile(D_04009E10_FAE70, D_04009C10_FAC70);
 
                 // temp_v0_12 = D_801D9E88;
@@ -361,7 +361,7 @@ done:
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0x10, 0x11, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 1, 0, D_04008AD0_F9B30); }
             }
             if (D_803F2ED8 != 0) {
-                func_802C78B0_6D8F60(1, 0x14, ((D_803F2ED8 << 0xB) * 0x50) >> 6, ((D_803F2ED8 << 0xB) * 0x50) >> 6, ((D_803F2ED8 << 0xB) * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040099B0);
+                func_802C78B0_6D8F60(1, 0x14, ((D_803F2ED8 << 0xB) * 0x50) >> 6, ((D_803F2ED8 << 0xB) * 0x50) >> 6, ((D_803F2ED8 << 0xB) * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040099B0_FAA10);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
         }
@@ -385,12 +385,12 @@ done:
         if (D_803D552C->unk2EC <= 0) {
             if ((D_803D552C->unk365 != ATTACK_CHAMELEON_1) && (D_803D552C->unk365 != ATTACK_CHAMELEON_2) && (D_803D5524->unk9C != CHAMELEON)) {
                 D_803D552C->unk32A = D_803D5544;
-                D_803D552C->unk365 = 0x19;
+                D_803D552C->unk365 = ATTACK_CHAMELEON_2;
             }
         } else {
             if ((D_803D552C->unk365 != ATTACK_CHAMELEON_1) && (D_803D552C->unk365 != ATTACK_CHAMELEON_2)) {
                 D_803D552C->unk32A = D_803D5544;
-                D_803D552C->unk365 = 0x18;
+                D_803D552C->unk365 = ATTACK_CHAMELEON_1;
                 D_803D552C->unk2EC = D_803D552C->unk2EC;
             }
             D_803D552C->unk2EC--;

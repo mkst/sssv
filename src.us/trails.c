@@ -325,7 +325,7 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7AF410/func_8039E6D4_7AFD84.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/trails/func_8039E6D4_7AFD84.s")
 #endif
 
 #if 0
@@ -757,5 +757,5 @@ void display_trails(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7AF410/display_trails.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/trails/display_trails.s")
 #endif
