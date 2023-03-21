@@ -43,7 +43,7 @@ void func_8037FCA8_791358(void);
 
 // RACING_DOG
 #ifdef NON_MATCHING
-// CURRENT (179) - stack and regalloc
+// CURRENT (132) - stack
 void func_802EA7F0_6FBEA0(void) {
     struct061 sp98;
     s16 sp96;
@@ -52,12 +52,9 @@ void func_802EA7F0_6FBEA0(void) {
     s16 sp90;
     s16 sp8E;
 
-    s32 pad[3];
-
-    u8 var_v0;
+    s16 pad[4];
     u8 temp_v0_7;
-    f32 tmp;
-    f32 var_f0;
+
 
 
     if (((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) && (SSSV_RAND(256) == 0x9C) && (D_803F6450 != 0)) {
@@ -93,34 +90,21 @@ void func_802EA7F0_6FBEA0(void) {
             (SSSV_RAND(32) + 0xF));
 
         if (D_803D552C->unk2EC-- <= 0) {
+
             D_803D552C->unk36E = 0;
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v0 = 1;
-        } else {
-            var_v0 = 0;
-        }
-        if (var_v0 != 0) {
-            sp92 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0 = 1;
+    if ((D_803D5538 != 0) && ((((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? 1 : 0) != 0)) {
+        D_803F2EDD = sp92 = 0;
     } else {
-        var_v0 = 0;
+        // regalloc helper
+        sp92 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x800, 0, 0x9E, 0x9E, 0x4F, 1, (0, (((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? (1) : (0)) == 0));
     }
-    sp92 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x800, 0, 0x9E, 0x9E, 0x4F, 1, var_v0 == 0);
 
-done:
     if ((sp92 != 4) && (sp92 != 1) && (D_803D5530->unk162 == 1)) {
+        f32 var_f0;
+        f32 tmp;
         var_f0 = sqrtf(SQ((f32)D_803D552C->xVelocity.w) + SQ((f32)D_803D552C->zVelocity.w)) / (D_803D5524->unkA4 << 0xA);
         if (var_f0 < 0.2) {
             tmp = 0.0f;
@@ -188,6 +172,7 @@ done:
         }
         if (D_803F2ECC != 0) {
             func_802DB8DC_6ECF8C();
+
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803A4DB0_7B6460, D_803A4DC4_7B6474, D_803A4DD8_7B6488, D_803A4DF8_7B64A8);
@@ -200,7 +185,7 @@ done:
         func_8038064C_791CFC();
 
         if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_7 = D_803F2AA2, (temp_v0_7 == 0)) || (temp_v0_7 == 2) || ((temp_v0_7 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s16) (s32) -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s16) (s32) D_803F2ED2, D_803F2ED4);
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s16) (s32) D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.15f);
@@ -232,9 +217,9 @@ done:
 #pragma _permuter sameline start
                 sp96 = D_803BD54A_7CEBFA[sp96]; sp94 = D_803BD602_7CECB2[sp94];
 #pragma _permuter sameline end
-                func_80356BD8_768288(&D_01000CC0, &D_01000620, sp96);
+                func_80356BD8_768288(D_01000CC0, D_01000620, sp96);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A20_C9450);
-                func_80356BD8_768288(&D_01000CC0, &D_01000620, sp94);
+                func_80356BD8_768288(D_01000CC0, D_01000620, sp94);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A40_C9470);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -244,7 +229,7 @@ done:
         func_8035D6D0_76ED80();
     }
     if ((sp92 == 0) || (sp92 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, &D_01033190, 0x19, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, D_01033190, 0x19, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp92 == 0) {
         if ((D_803D5528->unk3C0.unk0 == 16) && (D_803D5528->unk3C0.unk2 < 17)) {
@@ -500,9 +485,9 @@ done:
                 func_8031A150_72B800(D_803D552C->unk326++, &spDE, &spDC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spDE, &spDC);
                 spDE = D_803BD54A_7CEBFA[spDE]; spDC = D_803BD602_7CECB2[spDC];
-                func_80356BD8_768288(&D_01000D00, &D_01000620, spDE);
+                func_80356BD8_768288(D_01000D00, D_01000620, spDE);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A20_C9450);
-                func_80356BD8_768288(&D_01000D00, &D_01000620, spDC);
+                func_80356BD8_768288(D_01000D00, D_01000620, spDC);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A40_C9470);
             }
 
@@ -548,40 +533,24 @@ void func_802ED108_6FE7B8(void) {
     s16 spAC;
     s16 spAA;
 
-    u8 var_v0;
-    u8 tmp;
     u16 temp_t6;
-    u16 temp_t8; // sp78?
+    u16 ticks_remaining; // sp78?
+    u8 tmp;
     s16 pad[4];
 
     if (((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) && (SSSV_RAND(256) == 0x9C) && (D_803F6450 != 0)) {
         play_sound_effect_at_location(SFX_UNKNOWN_182, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v0 = 1;
-        } else {
-            var_v0 = 0;
-        }
-        if (var_v0 != 0) {
-            spB2 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
+    if ((D_803D5538 != 0) && ((((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? 1 : 0) != 0)) {
+        spB2 = 0;
+        D_803F2EDD = 0;
+    } else {
+        spB2 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x800, 0, 0x9E, 0x9E, 0x4F, 1, (((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? 1 : 0) == 0);
     }
 
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0 = 1;
-    } else {
-        var_v0 = 0;
-    }
-    spB2 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x800, 0, 0x9E, 0x9E, 0x4F, 1, var_v0 == 0);
-done:
     if (spB2 == 0) {
-        temp_t6 = (D_803D5544 - D_803D552C->unk35E);
+        temp_t6 = D_803D5544 - D_803D552C->unk35E;
         if ((D_803F6450 != 0) && (D_803F2D10.unk0 == 0) && (D_803D5530->unk4A == 0) && (temp_t6 != 0) && ((D_803D552C->unk366 == 1) || (D_803D552C->unk366 == 3))) {
             if (D_803D552C->unk30A != 0) {
                 D_803D552C->unk30A--;
@@ -639,8 +608,8 @@ done:
         switch (D_803D552C->unk365) {
         case ATTACK_BITE:
             D_803D5528->unk3C0.unk0 = 0;
-            temp_t8 = D_803D5544 - D_803D552C->unk32A;
-            if (temp_t8 == 4) {
+            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            if (ticks_remaining == 4) {
                 if (func_803224C4_733B74(0x1E, 0x45, 0, 0x22, 7, 0, 0, 0xE) != 0) {
                     // enemy close enough to bite
                     play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -648,16 +617,16 @@ done:
                     // bark?
                     play_sound_effect_at_location(SFX_UNKNOWN_182, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                 }
-            } else if (temp_t8 >= 12) {
+            } else if (ticks_remaining >= 12) {
                 D_803D552C->unk365 = ATTACK_NONE;
             }
-            if (temp_t8 < 5) {
-                spB0 = temp_t8 * 4;
-                if (temp_t8 == 1) {
+            if (ticks_remaining < 5) {
+                spB0 = ticks_remaining * 4;
+                if (ticks_remaining == 1) {
                     apply_recoil(-3); // push dog forward as part of bark
                 }
             } else {
-                spB0 = (12 - temp_t8) << 1;
+                spB0 = (12 - ticks_remaining) << 1;
             }
 
             D_80203FE0[19].unk2 += (spB0 * 0x22C) >> 4;
@@ -667,15 +636,15 @@ done:
             D_80203FE0[20].unk4 -= (spB0 * 0x22C) >> 6;
             break;
         case ATTACK_DOG_2:
-            temp_t8 = D_803D5544 - D_803D552C->unk32A;
-            if (temp_t8 == 1) {
+            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            if (ticks_remaining == 1) {
                 play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
             }
-            if (temp_t8 < 60) {
-                if ((D_803D5538 != 0) && (temp_t8 == 1)) {
+            if (ticks_remaining < 60) {
+                if ((D_803D5538 != 0) && (ticks_remaining == 1)) {
                     D_803D554A++;
                 }
-                spAC = (D_80152C78[(s16)(temp_t8 << 5) & 0xFF] >> 7) >> 2;
+                spAC = (D_80152C78[(s16)(ticks_remaining << 5) & 0xFF] >> 7) >> 2;
 
                 create_particle_effect(
                     (SSSV_RAND(32) + D_803D5530->xPos.h) - 0x10,
@@ -782,9 +751,9 @@ done:
 #pragma _permuter sameline start
                 spB6 = D_803BD54A_7CEBFA[spB6]; spB4 = D_803BD602_7CECB2[spB4];
 #pragma _permuter sameline end
-                func_80356BD8_768288(&D_01000CC0, &D_01000620, spB6);
+                func_80356BD8_768288(D_01000CC0, D_01000620, spB6);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A20_C9450);
-                func_80356BD8_768288(&D_01000CC0, &D_01000620, spB4);
+                func_80356BD8_768288(D_01000CC0, D_01000620, spB4);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A40_C9470);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -794,7 +763,7 @@ done:
         func_8035D6D0_76ED80();
     }
     if ((spB2 == 0) || (spB2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, &D_01033190, 0x15, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, D_01033190, 0x15, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spB2 == 0) {
         if ((D_803D5528->unk3C0.unk0 == 0x10) && (D_803D5528->unk3C0.unk2 < 9)) {

@@ -40,7 +40,7 @@ extern Gfx D_01006AE8[];
 
 // EVO_SHELLSUIT
 #ifdef NON_MATCHING
-// CURRENT (3258)
+// CURRENT (3234)
 // justreg + stack
 void func_80389B30_79B1E0(void) {
 
@@ -70,11 +70,11 @@ void func_80389B30_79B1E0(void) {
 
     s16 temp_s0;
     s16 var_v1_2;
-    s16 var_t3;
-    s16 var_v1;
-    Animal *target;
 
     s32 sp10C;
+    Animal *target;
+    s16 var_t3;
+    s16 var_v1;
 
     s16 temp_v0_17;
     s16 tmp;
@@ -238,10 +238,10 @@ void func_80389B30_79B1E0(void) {
             }
 
             sp130 = 0;
-            if (func_80322D68_734418(sp128, sp126, sp124, sp122, sp120, sp11E, &sp11C, &sp11A, &sp118, 0xF, sp12E, 1, 0xA) != 0) {
+            if (func_80322D68_734418(sp128, sp126, sp124, sp122, sp120, sp11E, &sp11C, &sp11A, &sp118, 0xF, sp12E, 1, 0xA)) {
                 sp130 = 1;
 
-                for (sp132 = 0; (sp132 < 1); sp132++) {
+                for (sp132 = 0; sp132 < 1; sp132++) {
                     create_particle_effect(
                         sp11C,
                         sp11A,
@@ -258,8 +258,7 @@ void func_80389B30_79B1E0(void) {
             }
         }
 
-
-        gDPSetTextureImage(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_0102F010 + (sp138 << 11));
+        gDPSetTextureImage(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (sp138 * 2048) + D_0102F010);
 
         gDPSetTile(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(D_801D9E88++);

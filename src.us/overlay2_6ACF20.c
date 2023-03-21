@@ -477,8 +477,6 @@ void func_8029CEF0_6AE5A0(s32 xPos, s32 zPos, s32 yPos, u16 size, u8 arg4, struc
     }
 }
 
-void func_8032E150_73F800(void **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
-
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029D0A8_6AE758.s")
 // void func_8029D0A8_6AE758(void) {
 //     u8 sp56;

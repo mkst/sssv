@@ -306,7 +306,6 @@ block_48:
                 D_803F2ECC = 32 - (((ticks_remaining << 5) - 0x300) / 20);
             } else {
                 D_803D552C->unk365 = ATTACK_NONE;
-                // goto block_136;
             }
             break;
         case ATTACK_BEAR_3:                                    /* switch 1 */
@@ -315,7 +314,18 @@ block_48:
 
                 if (1) {}; // regalloc helper
 
-                if (func_8033C9CC_74E07C(D_803D5530->xPos.h, D_803D5530->zPos.h, (D_803D5530->yPos.h + (D_803D5524->unkBA >> 1)), D_803D5530->unk160, (((D_803D552C->unk320->xPos.h * 3) >> 1) - (D_803D5530->xPos.h >> 1)), (((D_803D552C->unk320->zPos.h * 3) >> 1) - (D_803D5530->zPos.h >> 1)), ((( (D_803D552C->unk320->yPos.h * 3) >> 1) - (D_803D5530->yPos.h >> 1)) + (D_803D552C->unk320->unk42 >> 1)), 0x7F, 0, 0) == 0) {
+                if (func_8033C9CC_74E07C(
+                    D_803D5530->xPos.h,
+                    D_803D5530->zPos.h,
+                    D_803D5530->yPos.h + (D_803D5524->unkBA >> 1),
+                    D_803D5530->unk160,
+                    ((D_803D552C->unk320->xPos.h * 3) >> 1) - (D_803D5530->xPos.h >> 1),
+                    ((D_803D552C->unk320->zPos.h * 3) >> 1) - (D_803D5530->zPos.h >> 1),
+                    (((D_803D552C->unk320->yPos.h * 3) >> 1) - (D_803D5530->yPos.h >> 1)) + (D_803D552C->unk320->unk42 >> 1),
+                    0x7F,
+                    0,
+                    0) == 0) {
+
                     func_80321920_732FD0(D_803D552C->unk320, 0, 0);
                     if (D_803D5530->state < 8) {
                         func_802A4390_6B5A40();
@@ -354,7 +364,6 @@ block_48:
         }
         if (D_803F2ECC != 0) {
             func_802DB8DC_6ECF8C();
-            // temp_t8 = D_803F2ECE;
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803B5330_7C69E0, D_803B5344_7C69F4, D_803B5358_7C6A08, D_803B5378_7C6A28);
