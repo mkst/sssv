@@ -1205,7 +1205,7 @@ void func_802A78CC_6B8F7C(void) {
 
         switch (D_803D5530->unk162 & 0xF) {                          /* switch 1 */
         case 1:                                     /* switch 1 */
-            D_803D5530->yVelocity.w =  D_803D5530->yVelocity.w - D_803A05B4_7B1C64;
+            D_803D5530->yVelocity.w -= D_803A05B4_7B1C64;
             switch (func_8030AAE0_71C190(D_803D5530)) {                    /* switch 3; irregular */
             case 1:
                 D_803D5530->unk162 = 3;

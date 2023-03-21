@@ -63,7 +63,7 @@ Place `baserom.eu.z64` in the root of the repository, and suffix each `make` com
 
 ## Building `NON_MATCHING` Version
 
-A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **10%** ahead of the fully matching build. In order to build/test the non-matching, add `NON_MATCHING=1` argument to the `make` commands.
+A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **14%** ahead of the fully matching build. In order to build/test the non-matching, add `NON_MATCHING=1` argument to the `make` commands.
 
 # ROM Versions
 
@@ -104,8 +104,6 @@ Overlay2 contains the core Space Station Silicon Valley game logic.
 Uses [RNC](https://segaretro.org/Rob_Northen_compression) for a number of assets.
 
 Compression is almost completely matching; 261/263 files match after compression. `rnc_461900` and `rnc_63DC20` are still a problem.
-
-A handful of files are compressed twice; these appear to be the game level data.
 
 In order to decompress the game assets run `make decompress` after you have performed the `make extract` step. This will be done automatically when matching compression has been figured out.
 

@@ -768,7 +768,6 @@ void func_80332444_743AF4(u8 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80334470_745B20.s")
 
 #if 0
-extern f32 D_803F2D50.unkE0;
 // million miles
 void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
     f32 spD0;
