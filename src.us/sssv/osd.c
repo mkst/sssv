@@ -175,7 +175,7 @@ void func_80349280_75A930(Animal *arg0, s16 arg1) {
     s32 temp_a2;
     s32 temp_v1;
 
-    if ((arg0->unk16C->unk80.unk12) &&
+    if ((arg0->unk16C->unk82.unk2) &&
         ((arg0->unk366== 3) || (arg0->unk366 == 4) || (arg0->unk366 == 1))) {
         if (arg1 != 0) {
             temp_a2 = arg1 >> 2;

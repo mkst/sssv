@@ -1527,7 +1527,7 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
         break;
     }
 
-    if (arg0->unk16C->unk80.unk10 != 0) {
+    if (arg0->unk16C->unk82.unk0 != 0) {
         yPos = 0;
     }
     arg0->xVelocity.w = xPos - arg0->xPos.w;
@@ -1887,7 +1887,7 @@ void func_802FB4C0_70CB70(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -1916,7 +1916,7 @@ void func_802FB680_70CD30(Animal *arg0) {
     } else {
         phi_v0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
         phi_v1 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v1 = -1;
@@ -1945,7 +1945,7 @@ void func_802FB85C_70CF0C(Animal *arg0) {
         phi_v0 = arg0->unk15E;
     }
 
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
         phi_v1 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v1 = -1;
@@ -1991,7 +1991,7 @@ void func_802FBA40_70D0F0(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -2017,7 +2017,7 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
         phi_t0 = arg0->unk15E;
     }
 
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -2043,7 +2043,7 @@ void func_802FBDA8_70D458(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -2069,7 +2069,7 @@ void func_802FBF58_70D608(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -2095,7 +2095,7 @@ void func_802FC108_70D7B8(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && ((arg0->unk168->unk16C->unk80.unk12))) {
+    if ((arg0->unk168 != NULL) && ((arg0->unk168->unk16C->unk82.unk2))) {
         phi_v0 = arg0->unk168->unk16C->unkE6;
     } else {
         phi_v0 = -1;
@@ -2373,7 +2373,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         } else {
             phi_v0 = arg0->unk15E;
         }
-        if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk80.unk12)) {
+        if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
             phi_v1 = arg0->unk168->unk16C->unkE6;
         } else {
             phi_v1 = -1;

@@ -99,7 +99,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                             temp_a0_2 = MAX(phi_a0, phi_v0) + (MIN(phi_a0, phi_v0) >> 1);
                             if (ABS(D_803D5530->yPos.h - animal->yPos.h) < 128) {
                                 if (temp_a0_2 < arg1) {
-                                    if (animal->unk16C->unk80.unk12) {
+                                    if (animal->unk16C->unk82.unk2) {
                                         if ((animal->unk16C->unk9C != EVO_TRANSFER) &&
                                             (animal->unk16C->unk9C != D_803D5524->unk9C) &&
                                             (animal->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
@@ -264,7 +264,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                             }
                             temp_lo = -((temp_s1_2 * temp_s7) + (temp_s2 * temp_fp)) / var_a0_2;
                             if (temp_lo > 0) {
-                                if (animal->unk16C->unk80.unk12) { // & 0x2000) {
+                                if (animal->unk16C->unk82.unk2) { // & 0x2000) {
                                     if (animal->unk16C->unk9C != EVO_TRANSFER) {
                                         if (temp_v0_4 < arg1) {
                                             animal->unk57 = 1;
@@ -435,7 +435,7 @@ void func_8037E1C4_78F874(void) {
 
                             temp_a2 = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
                             if (temp_a2 < 0x200) {
-                                if (animal->unk16C->unk80.unk12) { //} & 0x2000) {
+                                if (animal->unk16C->unk82.unk2) { //} & 0x2000) {
                                     if ((animal->unk366 != 2) && (animal->unk366 != 5)) {
                                         if ((animal->unk16C->unk9C != EVO_TRANSFER) &&
                                             (animal->unk16C->unk9C != HYENA) &&
@@ -878,7 +878,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                         var_v1 = ABS(temp_a3_2);
 
                         temp_v1 = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
-                        if (animal->unk16C->unk80.unk12) {
+                        if (animal->unk16C->unk82.unk2) {
                             if ((animal->unk16C->unk9C != EVO_TRANSFER) && (animal->unk16C->unk9C != KING_RAT) && (animal->unk16C->unk9C != RAT)) {
                                 if (temp_v1 < arg1 * 2) {
                                     if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1) {

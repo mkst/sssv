@@ -5,18 +5,15 @@ extern Gfx D_01033190_6CA60[];
 extern Gfx D_040000A0_E7650[];
 extern Gfx D_040006F0_E7CA0[];
 
-#ifdef NON_MATCHING
-// 99.9% there
 void func_8036C0B0_77D760(void) {
     s32 sp94;
     s32 sp90;
     s32 pad2;
     s16 phi_v1;
-    u8  var_v1;
     u8  tmp;
     s16 sp86;
     s16 sp84;
-    s16 sp82;
+    s16 offscreen;
 
     u8  var_v0;
     s16 pad[3];
@@ -25,30 +22,24 @@ void func_8036C0B0_77D760(void) {
         play_sound_effect_at_location(SFX_UNKNOWN_2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0 - (MIN(256, D_803D552C->unk30E) * 0.0009765625));
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v1 = 1;
-        } else {
-            var_v1 = 0;
-        }
-        if (var_v1) {
-            sp82 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        offscreen = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v0 = 0;
+        offscreen = func_802E89F0_6FA0A0(
+            D_803D552C->xPos.w,
+            D_803D552C->zPos.w,
+            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            0x800,
+            0,
+            20,
+            20,
+            20,
+            1,
+            CHECK_SEGMENT == 0);
     }
-    sp82 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x800, 0, 20, 20, 20, 1, var_v0 == 0);
 
-done:
-    if (sp82 == 0) {
+    if (!offscreen) {
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         if ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) {
@@ -57,7 +48,7 @@ done:
             }
         }
         if (D_803D5524->unk9C == VULTURE) {
-            if ((D_803D552C->unk320 == 0) || ((D_803D552C->unk320 != 0) && (D_803D552C->unk320->unk26C != 0))) {
+            if ((D_803D552C->unk320 == NULL) || ((D_803D552C->unk320 != NULL) && (D_803D552C->unk320->unk26C != 0))) {
                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
                 D_803D552C->unk320 = 0;
                 D_803D552C->yPos.h += D_803D552C->unk308;
@@ -70,17 +61,17 @@ done:
         default:
             D_803D552C->unk365 = ATTACK_NONE;
             break;
-        case ATTACK_VULTURE: // 1
+        case ATTACK_VULTURE:
             func_802DCCAC_6EE35C(16);
             D_803F2ECC = D_803F2ED8;
             D_803F2ECE = 3;
             break;
-        case ATTACK_BITE: // 18
+        case ATTACK_BITE:
             if ((D_803D5544 - D_803D552C->unk32A) >= 9) {
                 D_803D552C->unk365 = ATTACK_NONE;
             }
             break;
-        case ATTACK_NONE: // 0
+        case ATTACK_NONE:
             break;
         }
 
@@ -134,9 +125,8 @@ done:
             D_80203FE0[14].unk4 += D_803D552C->unk308 << 5;
         }
 
-
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
-            (D_803F2EDA != 0) && ((D_803D5538 != 0) || (((tmp = D_803F2AA2) == 0)) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 11))) &&
+            (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((tmp = D_803F2AA2) == 0) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 11))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
             func_80127640(
@@ -159,13 +149,8 @@ done:
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0x7D, 0x33, 0xFF, 0xFF); // purple
 
             func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000230_E77E0);
-            // same line for regalloc
-#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 19, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000370_E7920); }
-#pragma _permuter sameline end
-#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 26, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040004B0_E7A60); }
-#pragma _permuter sameline end
             if (sp94 != 0) {
                 func_802C78B0_6D8F60(0, 22, (sp94 << 6) >> 6, (sp94 << 6) >> 6, (sp94 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000600_E7BB0); // wing 1
                 func_802C78B0_6D8F60(0, 24, (sp94 << 6) >> 6, (sp94 << 6) >> 6, (sp94 << 6) >> 6, D_803F2ED0, 0, 1, 0, D_04000600_E7BB0); // wing 2
@@ -220,10 +205,7 @@ done:
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
-#pragma _permuter sameline start
-                // same line for regalloc
                 sp86 = D_803BD54A_7CEBFA[sp86]; sp84 = D_803BD602_7CECB2[sp84];
-#pragma _permuter sameline end
                 func_80356BD8_768288(D_01000CC0, D_01000620, sp86);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000DB0);
                 func_80356BD8_768288(D_01000CC0, D_01000620, sp84);
@@ -243,7 +225,7 @@ done:
     func_8034BD20_75D3D0(
         D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1),
         D_803D552C->unk302, D_01033190_6CA60, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
-    if (sp82 == 0) {
+    if (!offscreen) {
         func_80303820_714ED0(D_803D552C, 0, 1, 750, 1);
         func_80303820_714ED0(D_803D552C, 1, 19, 0x177, 0);
         if (D_803D552C->unk320 != 0) {
@@ -261,9 +243,6 @@ done:
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/vulture/func_8036C0B0_77D760.s")
-#endif
 
 void func_8036D30C_77E9BC(void) {
     if (D_803D552C->unk320 == NULL) {

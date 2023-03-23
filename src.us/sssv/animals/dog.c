@@ -524,29 +524,41 @@ done:
 #ifdef NON_MATCHING
 // just the stack
 void func_802ED108_6FE7B8(void) {
+
     struct061 spB8;
     s16 spB6;
     s16 spB4;
     s16 spB2;
     s16 spB0;
-    s16 spAE;
+    // s16 spAE;
+    u16 temp_t6;
     s16 spAC;
     s16 spAA;
 
-    u16 temp_t6;
+    s32 pad;
+
     u16 ticks_remaining; // sp78?
     u8 tmp;
-    s16 pad[4];
 
     if (((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) && (SSSV_RAND(256) == 0x9C) && (D_803F6450 != 0)) {
         play_sound_effect_at_location(SFX_UNKNOWN_182, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     }
 
-    if ((D_803D5538 != 0) && ((((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? 1 : 0) != 0)) {
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spB2 = 0;
         D_803F2EDD = 0;
     } else {
-        spB2 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x800, 0, 0x9E, 0x9E, 0x4F, 1, (((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? 1 : 0) == 0);
+        spB2 = func_802E89F0_6FA0A0(
+            D_803D552C->xPos.w,
+            D_803D552C->zPos.w,
+            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            0x800,
+            0,
+            0x9E,
+            0x9E,
+            0x4F,
+            1,
+            CHECK_SEGMENT == 0);
     }
 
     if (spB2 == 0) {
@@ -727,9 +739,9 @@ void func_802ED108_6FE7B8(void) {
             D_80203FE0[1].unk0 -= spAA;
 
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0x14, 0x14, 0x14, 0xFF);
-
+#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 19, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04001220_C8C50); }
-
+#pragma _permuter sameline end
             gSPDisplayList(D_801D9E88++, &D_01003548);
 
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7,  FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000FB0_C89E0); }

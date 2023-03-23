@@ -51,33 +51,16 @@ void func_8035A5F0_76BCA0(void) {
     s16 temp_t6;
     s16 temp_t8;
     u16 var_t0;
-    u8 var_v1;
     u8 temp_v0_8;
 
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v1 = 1;
-        } else {
-            var_v1 = 0;
-        }
-        if (var_v1 != 0) {
-            spCA = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v1 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        spCA = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v1 = 0;
+        spCA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
     }
-    spCA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, var_v1 == 0);
 
-done:
     if (spCA == 0) {
         func_8035BDC0_76D470();
         func_8035D120_76E7D0();

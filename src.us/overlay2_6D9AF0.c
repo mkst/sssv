@@ -545,14 +545,14 @@ struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s32 arg4, s32 arg5, 
     // help
     obj->unk40 = scale;
 
-    obj->unk4C.unk29 = obj->unk16C->unk80.unk14;
-    obj->unk4C.unk30 = obj->unk16C->unk80.unk15;
-    obj->unk4C.unk28 = obj->unk16C->unk80.unk13;
+    obj->unk4C.unk29 = obj->unk16C->unk82.unk4;
+    obj->unk4C.unk30 = obj->unk16C->unk82.unk5;
+    obj->unk4C.unk28 = obj->unk16C->unk82.unk3;
 
     obj->unk14C = obj->unk16C->unk8A;
     obj->unk164 = obj->unk16C->unk89;
 
-    if (obj->unk16C->unk80.unk17) {
+    if (obj->unk16C->unk82.unk7) {
         temp_v1 = func_8031124C_7228FC(x, z) >> 0x10;
         if (y < temp_v1) {
             y = temp_v1;

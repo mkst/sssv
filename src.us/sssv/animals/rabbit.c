@@ -10,7 +10,8 @@ extern s16 D_803A5398_7B6A48[];
 extern Gfx D_040001F0_DD7B0[];
 
 // RABBIT
-#ifdef NON_MATCHING
+#if 0
+// def NON_MATCHING
 void func_80300210_7118C0(void) {
     s16 sp9A;
     s16 sp98; // pad
@@ -30,33 +31,16 @@ void func_80300210_7118C0(void) {
     s16 temp_a3;
     s16 temp_t8;
     s16 temp_v1_6;
-    u16 temp_t5;
+    u16 ticks_remaining;
     u8 var_a0;
-    u8 var_v0;
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_a0 = 1;
-        } else {
-            var_a0 = 0;
-        }
-        if (var_a0 != 0) {
-            sp88 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp88 = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v0 = 0;
+        sp88 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x900, 6, 0x9B, 0x9B, 0x9B, 1, CHECK_SEGMENT == 0);
     }
-    sp88 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x900, (u8) 6, (s16) 0x9B, (s16) 0x9B, (s16) 0x9B, (s8) 1, var_v0 == 0);
 
-done:
     if (sp88 == 0) {
         func_8038C768_79DE18();
         func_8034B298_75C948(0);
@@ -70,27 +54,28 @@ done:
 
         if (D_803D552C->unk365 == ATTACK_RABBIT_1) {
             if (D_803D5530->unk162 == 1) {
-                temp_t5 = D_803D5544 - D_803D552C->unk32A;
-                if (temp_t5 < 0xA) {
+                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                if (ticks_remaining < 0xA) {
                     temp_t8 = SSSV_RAND(512) << 5;
-                    sp86 = MAX(0, temp_t5 - 2) + 8;
+                    sp86 = MAX(0, ticks_remaining - 2) + 8;
                     D_803F2EB0 += temp_t8;
                     D_803F2EB4 += temp_t8;
                     D_803F2EB8 += temp_t8;
-                    if (temp_t5 == 1) {
+                    if (ticks_remaining == 1) {
                         play_sound_effect_at_location(SFX_UNKNOWN_83, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     }
-                } else if (temp_t5 == 0xA) {
+                } else if (ticks_remaining == 0xA) {
                     D_803D5528->unk398.unk10 = 1;
                     D_803D5528->unk398.unk12 = 0;
                 } else if ((D_803D5528->unk398.unk10 == 1) && (D_803D5530->unk162 == 1)) {
+                    ticks_remaining -= 10;
                     sp86 = 0x10;
-                    if (((temp_t5 - 0xA) & 7) == 0) { // b00000111
+                    if ((ticks_remaining & 7) == 0) { // b00000111
                         func_8037D340_78E9F0(9, 0x100);
                         play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 
-                        temp_v1_6 = D_80203FE0[15].unk2;
                         temp_a1 = D_80152C78[D_803D552C->unk302 & 0xFF];
+                        temp_v1_6 = D_80203FE0[15].unk2;
                         temp_a2 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF];
                         temp_a3 = D_80203FE0[15].unk0;
 
@@ -261,46 +246,29 @@ void func_80301248_7128F8(void) {
     s32 x_scale;
     s16 phi_t0;
 
-    u8  phi_v0;
-    u8 phi_v1;
     u8 tmp;
 
     f32 temp_f12;
     f32 temp_f14;
     f32 temp_f16;
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            phi_v0 = 1;
-        } else {
-            phi_v0 = 0;
-        }
-        if (phi_v0 != 0) {
-            sp84 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        phi_v1 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp84 = 0;
+        D_803F2EDD = 0;
     } else {
-        phi_v1 = 0;
+      sp84 = func_802E89F0_6FA0A0(
+          D_803D552C->xPos.w,
+          D_803D552C->zPos.w,
+          D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+          0x900,
+          6,
+          0x9B,
+          0x9B,
+          0x9B,
+          1,
+          CHECK_SEGMENT == 0);
     }
-    sp84 = func_802E89F0_6FA0A0(
-        D_803D552C->xPos.w,
-        D_803D552C->zPos.w,
-        D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
-        0x900,
-        6,
-        0x9B,
-        0x9B,
-        0x9B,
-        1,
-        phi_v1 == 0);
 
-done:
     if ((sp84 != 4) && (sp84 != 1) && ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 1) || (D_803D552C->unk366 == 4))) {
         temp_f16 = D_803D552C->unk30E / 100.0;
         if (temp_f16 < 0.6) {

@@ -2,6 +2,7 @@
 #include "common.h"
 
 
+// is animal off screen?
 s32 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
         if (func_8029A334_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {

@@ -2,7 +2,6 @@
 #include "common.h"
 
 
-
 #if 0
 
 extern u16 D_803A0510_7B1BC0[];
@@ -115,18 +114,18 @@ void func_802B4D20_6C63D0(void) {
                                         spD4.y = animal2->zVelocity.w / 65536.0;
                                         spD4.z = animal2->yVelocity.w / 65536.0;
 
-                                        if ((((temp_s2 == 5) || (temp_s2 == 4)) && (D_803D60E8 == 1) && (((animal1->unk16C->unk80.unk12 != 0)) || (animal2->unk16C->unk80.unk12 != 0))) ||
+                                        if ((((temp_s2 == 5) || (temp_s2 == 4)) && (D_803D60E8 == 1) && (((animal1->unk16C->unk82.unk2 != 0)) || (animal2->unk16C->unk82.unk2 != 0))) ||
                                             (((temp_s2 == 1) || (temp_s2 == 2)) && (D_803D60DC->unk8.w == 0) &&
-                                              (((animal1->unk16C->unk80.unk12 != 0) && (((animal2->yPos.h < (animal1->yPos.h + (animal1->unk42 >> 1))))) && ((animal1->yPos.h + (animal1->unk42 >> 1)) < (animal2->yPos.h + animal2->unk42))) ||
-                                               ((animal2->unk16C->unk80.unk12 != 0) && (((animal1->yPos.h < (animal2->yPos.h + (animal2->unk42 >> 1))))) && ((animal2->yPos.h + (animal2->unk42 >> 1)) < (animal1->yPos.h + animal1->unk42)))))) {
+                                              (((animal1->unk16C->unk82.unk2 != 0) && (((animal2->yPos.h < (animal1->yPos.h + (animal1->unk42 >> 1))))) && ((animal1->yPos.h + (animal1->unk42 >> 1)) < (animal2->yPos.h + animal2->unk42))) ||
+                                               ((animal2->unk16C->unk82.unk2 != 0) && (((animal1->yPos.h < (animal2->yPos.h + (animal2->unk42 >> 1))))) && ((animal2->yPos.h + (animal2->unk42 >> 1)) < (animal1->yPos.h + animal1->unk42)))))) {
                                             var_f2 = 0.125f;
                                             var_s5 = 1;
                                         } else {
                                             var_s5 = 0;
                                         }
 
-                                        if (((animal1->unk16C->unk80.unk12 != 0) && (animal1->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal2->unk4C.unk27 != 0) && (animal2->unk16C->unk80.unk12 == 0)) ||
-                                            ((animal2->unk16C->unk80.unk12 != 0) && (animal2->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal1->unk4C.unk27 != 0) && (animal1->unk16C->unk80.unk12 == 0))) {
+                                        if (((animal1->unk16C->unk82.unk2 != 0) && (animal1->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal2->unk4C.unk27 != 0) && (animal2->unk16C->unk82.unk2 == 0)) ||
+                                            ((animal2->unk16C->unk82.unk2 != 0) && (animal2->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal1->unk4C.unk27 != 0) && (animal1->unk16C->unk82.unk2 == 0))) {
 
                                             var_s3 = animal1->unk44;
                                             var_s4 = animal2->unk44;
@@ -137,7 +136,7 @@ void func_802B4D20_6C63D0(void) {
                                                 var_s4 = 0;
                                             }
 
-                                            if ((animal1->unk16C->unk80.unk12 != 0) && (animal2->unk16C->unk80.unk12 != 0)) { // & 0x2000
+                                            if ((animal1->unk16C->unk82.unk2 != 0) && (animal2->unk16C->unk82.unk2 != 0)) { // & 0x2000
                                                 if ((animal1->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || (animal1->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING))) {
                                                     var_s3 *= 3;
                                                     play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, animal1->xPos.h, animal1->zPos.h, animal1->yPos.h, 1.0f);
@@ -164,10 +163,10 @@ void func_802B4D20_6C63D0(void) {
                                             if (var_s5 == 0) {
                                                 temp_v1_6 = animal1->yVelocity.w;
                                                 temp_a0_6 = animal2->yVelocity.w;
-                                                if ((animal1->unk4C.unk27 != 0) && (animal1->unk16C->unk80.unk11 == 0)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
+                                                if ((animal1->unk4C.unk27 != 0) && (animal1->unk16C->unk82.unk1 == 0)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
                                                     animal1->yVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
                                                 }
-                                                if ((animal2->unk4C.unk27 != 0) && (animal2->unk16C->unk80.unk11 == 0)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
+                                                if ((animal2->unk4C.unk27 != 0) && (animal2->unk16C->unk82.unk1 == 0)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
                                                     animal2->yVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
                                                 }
                                             }
@@ -180,7 +179,7 @@ void func_802B4D20_6C63D0(void) {
                                             }
                                             func_80319280_72A930(animal1, &spF8, &spEC, animal2, &spE0, &spD4, var_f2 * 0.6, var_f2 * 0.8);
 
-                                            if ((animal1->unk4C.unk27) && (animal1->unk16C->unk80.unk11 == 0)) { // unk4C & 0x10 ... unk80 & 0x4000
+                                            if ((animal1->unk4C.unk27) && (animal1->unk16C->unk82.unk1 == 0)) { // unk4C & 0x10 ... unk80 & 0x4000
                                                 animal1->xVelocity.w = spEC.x * 65536.0f;
                                                 animal1->zVelocity.w = spEC.y * 65536.0f;
                                                 if (var_s5 == 0) {
@@ -190,7 +189,7 @@ void func_802B4D20_6C63D0(void) {
                                                     func_802B8304_6C99B4(animal1, animal2);
                                                 }
                                             }
-                                            if ((animal2->unk4C.unk27) && (animal2->unk16C->unk80.unk11 == 0)) { // unk4C & 0x10 ... unk80 & 0x4000
+                                            if ((animal2->unk4C.unk27) && (animal2->unk16C->unk82.unk1 == 0)) { // unk4C & 0x10 ... unk80 & 0x4000
                                                 animal2->xVelocity.w = spD4.x * 65536.0f;
                                                 animal2->zVelocity.w = spD4.y * 65536.0f;
                                                 if (var_s5 == 0) {
@@ -202,11 +201,11 @@ void func_802B4D20_6C63D0(void) {
                                             }
                                         }
 
-                                        if ((animal1->unk16C->unk80.unk12) && (animal1->unkC4 == D_803D60D8) && ((animal2->unk16C->unk80.unk11) || ((animal2->unk16C->unk18 != NULL) && (animal2->unk40 > 0x1000))) && ((animal1->unk16C->unk9C == HYENA) || (animal1->unk16C->unk9C == HYENA_BIKER) || (animal1->unk16C->unk9C == DOG) || (animal1->unk16C->unk9C == RACING_DOG)) && (animal1->unk3C0.unk0 != 0x10)) {
+                                        if ((animal1->unk16C->unk82.unk2) && (animal1->unkC4 == D_803D60D8) && ((animal2->unk16C->unk82.unk1) || ((animal2->unk16C->unk18 != NULL) && (animal2->unk40 > 0x1000))) && ((animal1->unk16C->unk9C == HYENA) || (animal1->unk16C->unk9C == HYENA_BIKER) || (animal1->unk16C->unk9C == DOG) || (animal1->unk16C->unk9C == RACING_DOG)) && (animal1->unk3C0.unk0 != 0x10)) {
                                             animal1->unk3C0.unk0 = 0x10;
                                             animal1->unk3C0.unk2 = 0;
                                         }
-                                        if ((animal2->unk16C->unk80.unk12) && (animal2->unkC4 == D_803D60DC) && (animal1->unk16C->unk80.unk11) && (((animal2->unk16C->unk9C == HYENA)) || (animal2->unk16C->unk9C == HYENA_BIKER) || (animal2->unk16C->unk9C == DOG) || (animal2->unk16C->unk9C == RACING_DOG)) && (animal2->unk3C0.unk0 != 0x10)) {
+                                        if ((animal2->unk16C->unk82.unk2) && (animal2->unkC4 == D_803D60DC) && (animal1->unk16C->unk82.unk1) && (((animal2->unk16C->unk9C == HYENA)) || (animal2->unk16C->unk9C == HYENA_BIKER) || (animal2->unk16C->unk9C == DOG) || (animal2->unk16C->unk9C == RACING_DOG)) && (animal2->unk3C0.unk0 != 0x10)) {
                                             animal2->unk3C0.unk0 = 0x10;
                                             animal2->unk3C0.unk2 = 0;
                                         }
@@ -1013,7 +1012,7 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
         z2 = spC4.z * 65536.0;
     }
 
-    if ((arg0->unk16C->unk80.unk11 != 0) || (arg0->unk4C.unk27 == 0) || (arg0->unk4A != 0) || ((x1 == 0) && (y1 == 0) && (z1 == 0))) {
+    if ((arg0->unk16C->unk82.unk1 != 0) || (arg0->unk4C.unk27 == 0) || (arg0->unk4A != 0) || ((x1 == 0) && (y1 == 0) && (z1 == 0))) {
         var_a1 = 0;
     } else {
         var_a1 = 1;
@@ -1021,7 +1020,7 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
 
     var_s3 = 1;
 
-    if ((arg1->unk16C->unk80.unk11 != 0) || (arg1->unk4C.unk27 == 0) || (arg1->unk4A != 0) || ((x2 == 0) && (y2 == 0) && (z2 == 0))) {
+    if ((arg1->unk16C->unk82.unk1 != 0) || (arg1->unk4C.unk27 == 0) || (arg1->unk4A != 0) || ((x2 == 0) && (y2 == 0) && (z2 == 0))) {
         var_s3 = 0;
     }
     if (arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {

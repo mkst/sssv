@@ -1235,35 +1235,19 @@ struct struct035 { // TODO: merge with struct068?
               s16 unk78;
               s16 unk7A;
   /* 0x7C */  u16 mass;
-              s16 unk7E;
-  /* 0x80 */  struct {
-                s16  unk0   : 16;
-                // u8  unk1   : 1;
-                // u8  unk2   : 1;
-                // u8  unk3   : 1;
-                // u8  unk4   : 1;
-                // u8  unk5   : 1;
-                // u8  unk6   : 1;
-                // u8  unk7   : 1;
-                // u8  unk8   : 1;
-                // u8  unk9   : 1;
-                // u8  unkA   : 1;
-                // u8  unkB   : 1;
-                // u8  unkC   : 1;
-                // u8  unkD   : 1;
-                // u8  unkE   : 1;
-                // u8  unkF   : 1; // u8  bit4   : 1;
-                u8  unk10  : 1; // u8  bit3   : 1;
-                u8  unk11  : 1; // u8  bit2   : 1; // unk80 << 0x11 // 0x4000 ?
-                u8  unk12  : 1; // (unk80 << 0x12) >> 0x1F *or* & 0x2000
-                u8  unk13  : 1;
-                u8  unk14  : 1;
-                u8  unk15  : 1;
-                u8  unk16  : 1;
-                u8  unk17  : 1;
-
-                u8  pad18  : 8;
-              } unk80;
+  /* 0x7E */  s16 unk7E;
+  /* 0x80 */  s16 unk80;
+  /* 0x82 */  struct {
+                  u8  unk0  : 1;
+                  u8  unk1  : 1;
+                  u8  unk2  : 1;
+                  u8  unk3  : 1;
+                  u8  unk4  : 1;
+                  u8  unk5  : 1;
+                  u8  unk6  : 1;
+                  u8  unk7  : 1;
+              } unk82;
+  /* 0x83 */  u8 unk83;
   /* 0x84 */  void (*unk84)(void *);
   /* 0x88 */  u8  unk88;
   /* 0x89 */  u8  unk89;
@@ -2279,6 +2263,18 @@ typedef struct {
     s16 unk6;
     s16 overlayTV;
 } ScreenTransition;
+
+typedef struct {
+    u16 unk0;
+    u8  unk2;
+    u8  pad3[0x5];
+} struct101; // size 0x8
+
+typedef struct {
+    u8 unk0;
+    u8 unk1;
+    s16 pad2;
+} struct114;
 
 typedef struct {
     u8 unk0;
