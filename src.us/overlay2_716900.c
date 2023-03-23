@@ -156,7 +156,7 @@ void func_80305250_716900(struct079_inner *arg0, Animal *animal, s16 distance, u
 //
 //                     // it's an object
 //
-//                     if ((temp_v1_4->unk80.unk11 == 0) && (temp_v1_4->objectType != 0x36) && (temp_v1_4->objectType != 0x37) && (temp_v1_4->objectType != 0x38)) {
+//                     if ((temp_v1_4->unk82.unk1 == 0) && (temp_v1_4->objectType != 0x36) && (temp_v1_4->objectType != 0x37) && (temp_v1_4->objectType != 0x38)) {
 //                         if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2)) {
 //                             if ((animal != D_803D552C->unk2AC) && (animal != D_803D552C->unk320)) {
 //                                 temp_s0 = (ABS(animal->xPos.h - temp_t4) + ABS(animal->zPos.h - temp_fp)) - D_803D5524->unkBE;
@@ -445,7 +445,7 @@ void func_80305250_716900(struct079_inner *arg0, Animal *animal, s16 distance, u
 //
 //     for (var_a1_4 = D_803DA110[(s16) ((arg0 >> 0xA) + ((arg1 >> 0xA) * 5))].next; var_a1_4 != NULL; var_a1_4 = var_a1_4->next) {
 //         animal = var_a1_4->animal;
-//         if ((animal->unk16C->unk80.unk11) && (animal != sp50) && (animal->xVelocity.h == 0) && (animal->zVelocity.h == 0) && (animal->yVelocity.h == 0)) {
+//         if ((animal->unk16C->unk82.unk1) && (animal != sp50) && (animal->xVelocity.h == 0) && (animal->zVelocity.h == 0) && (animal->yVelocity.h == 0)) {
 //
 //             if (ABS((animal->yPos.w + (animal->unk42 << 0x10)) - arg2) <= FTOFIX32(16.0)) {
 //                 switch (arg4) {
@@ -487,7 +487,7 @@ s16 func_803064BC_717B6C(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {
     Animal *temp_v0;
 
     temp_v0 = D_803D5530->unk6C;
-    if ((temp_v0 != NULL) && (temp_v0->unk16C->unk80.unk11) && ((temp_v0->xVelocity.w | temp_v0->zVelocity.w | (temp_v0->yVelocity.w != 0)) != 0)) {
+    if ((temp_v0 != NULL) && (temp_v0->unk16C->unk82.unk1) && ((temp_v0->xVelocity.w | temp_v0->zVelocity.w | (temp_v0->yVelocity.w != 0)) != 0)) {
         return 0xF;
     }
 
@@ -509,7 +509,7 @@ s16 func_803064BC_717B6C(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {
 // logic nightmare...
 s32 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u16 arg4) {
 
-    if ((arg3 != 0x40) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk80.unk11))) { //  & 0x4000
+    if ((arg3 != 0x40) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk82.unk1))) { //  & 0x4000
         return 0;
     }
 
@@ -865,7 +865,7 @@ void func_803071BC_71886C(void) {
     }
 
     if ((D_803D5524->class != CLASS_FLYING) && (D_803D5524->class != CLASS_BIRD) && (D_803D5524->class != CLASS_HELI) && (D_803D552C->unk272 & 0x30)) {
-        if ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk80.unk11)) { //  & 0x4000
+        if ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk82.unk1)) { //  & 0x4000
             temp_t5 = D_803D5530->unk6C->unk30 * 2;
             sp86 = temp_t5;
             sp84 = temp_t5 - 1;
@@ -882,7 +882,7 @@ void func_803071BC_71886C(void) {
 
         var_v1_3 = func_803064BC_717B6C(var_s1, var_s0, D_803D5530->yPos.w, D_803D5530->unk160, sp86); // & 0xFF;
 
-        if ((D_803D5530->unk6C == NULL) || ((D_803D5530->unk6C->unk16C->unk80.unk12))) { //  << 0x11 >= 0
+        if ((D_803D5530->unk6C == NULL) || ((D_803D5530->unk6C->unk16C->unk82.unk2))) { //  << 0x11 >= 0
             temp_v0_17 = func_803065F0_717CA0(var_s1, var_s0, D_803D5530->yPos.w, sp86, var_v1_3);
             if (temp_v0_17 != 0) {
                 sp86 = 0x48;
@@ -4138,7 +4138,7 @@ void func_80312D94_724444(void) {
         }
     }
 
-    if ((ABS(D_803E4C94->xVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->unk80.unk12)) {
+    if ((ABS(D_803E4C94->xVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->unk82.unk2)) {
         func_802DBA58_6ED108(8, D_803D552C);
         func_8034ABA4_75C254();
     }
@@ -4174,7 +4174,7 @@ void func_80313064_724714(void) {
         }
     }
 
-    if ((ABS(D_803E4C94->zVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->unk80.unk12)) {
+    if ((ABS(D_803E4C94->zVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->unk82.unk2)) {
         func_802DBA58_6ED108(9, D_803D552C);
         func_8034ABA4_75C254();
     }

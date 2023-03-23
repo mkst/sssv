@@ -34,7 +34,7 @@ extern u8 D_01036E90[];
 
 // TORTOISE_TANK
 #if 0
-// CURRENT (24576)
+// CURRENT (22494)
 void func_80352380_763A30(void) {
     s32 sp14C;
     s32 sp148;
@@ -63,9 +63,6 @@ void func_80352380_763A30(void) {
 
     s32 var_a1;
     s32 var_a2;
-    s32 var_t0;
-    s32 var_t8;
-    s32 var_t9;
     s32 var_v1;
 
     s8 var_a0;
@@ -145,7 +142,7 @@ void func_80352380_763A30(void) {
     }
 
     if ((var_a2 + 80) < var_a1) {
-        var_a0 -= ((var_a1 - var_a2) - 80) / 5U; // help but stil wrong
+        var_a0 -= ((var_a1 - var_a2) - 80) / 5; // help but stil wrong
     }
     if (var_a1 < 20) {
         var_a0 += (20 - var_a1) / 2;
@@ -168,29 +165,14 @@ void func_80352380_763A30(void) {
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v1 = 1;
-        } else {
-            var_v1 = 0;
-        }
-        if (var_v1 != 0) {
-            sp128 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp128 = 0;
+        D_803F2EDD = 0;
+    }
+    else {
+        sp128 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x740, 0, 0, 0x5A, 0, 1, CHECK_SEGMENT == 0);
     }
 
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_t0 = 1;
-    } else {
-        var_t0 = 0;
-    }
-    sp128 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x740, (u8) 0, (s16) 0, (s16) 0x5A, (s16) 0, (s8) 1, var_t0 == 0);
-
-done:
     if (sp128 == 0) {
         func_8034B45C_75CB0C();
         func_8035D120_76E7D0();
@@ -209,11 +191,11 @@ done:
         if (D_803F2ECC != 0) {
             func_802DB8DC_6ECF8C();
 
-            switch (D_803F2ECE) {                    /* switch 1; irregular */
-            case 1:                                 /* switch 1 */
+            switch (D_803F2ECE) {
+            case 1:
                 func_802DB670_6ECD20(D_803A8380_7B9A30, D_803A8390_7B9A40, D_803A83A0_7B9A50, D_803A83BC_7B9A6C);
                 break;
-            case 2:                                 /* switch 1 */
+            case 2:
                 func_802DB670_6ECD20(D_803A8380_7B9A30, D_803A8390_7B9A40, D_803A83A0_7B9A50, D_803A83FC_7B9AAC);
                 break;
             }
@@ -511,26 +493,26 @@ done:
 #ifdef NON_MATCHING
 void func_80354188_765838(void) {
 
+    u8 temp_t1;
+    s8  var_v1;
+    s16 phi_a1;
+    s32 phi_t0; // scaling?
+    s32 phi_t3; // scaling?
+    s16 phi_t4;
+    s16 tmp;
+    s16 phi_v0;
+    s16 temp_t9_3;
+
     struct061 sp90;
     s16 sp8C;
     s16 sp88;
+    s16 var_v1_6; // sp86 ?
 
     s32 phi_t1;
     s32 new_var;
     s32 temp_t0;
-    s16 phi_v0;
-    s16 temp_t9_3;
     s16 var_v0_2;
 
-    s16 phi_a1;
-    s16 var_v1_6; // sp86 ?
-    u8 temp_t1;
-    s8  var_v1;
-    s16 phi_v0_3;
-    s16 phi_t4;
-    s32 phi_t3; // scaling?
-    s32 phi_t0; // scaling?
-    s16 tmp;
 
     if ((D_803D5538 == 0) && (D_803D552C->unk36E != 0)) {
         if ((D_803D5540 & 1) == 0) {
@@ -646,39 +628,23 @@ void func_80354188_765838(void) {
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v1 = 1;
-        } else {
-            var_v1 = 0;
-        }
-        if (var_v1 != 0) {
-            sp88 = 0;
-            D_803F2EDD = 0;
-            goto block_57;
-        }
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp88 = 0;
+        D_803F2EDD = 0;
+    }  else {
+        sp88 = func_802E89F0_6FA0A0(
+            D_803D552C->xPos.w,
+            D_803D552C->zPos.w,
+            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            0x740,
+            0,
+            0,
+            0x5A,
+            0,
+            1,
+            CHECK_SEGMENT == 0);
     }
 
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        phi_v0_3 = 1;
-    } else {
-        phi_v0_3 = 0;
-    }
-    sp88 = func_802E89F0_6FA0A0(
-        D_803D552C->xPos.w,
-        D_803D552C->zPos.w,
-        D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
-        0x740,
-        0,
-        0,
-        0x5A,
-        0,
-        1,
-        phi_v0_3 == 0);
-
-block_57:
     if (sp88 == 0) {
         func_8034B45C_75CB0C();
         func_8035D120_76E7D0();
@@ -847,21 +813,19 @@ block_57:
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/tortoise/func_80354188_765838.s")
 #endif
 
-#ifdef NON_MATCHING
 // TORTOISE_TANK_DEFENDING/RACING_TORTOISE_DEFENDING
 void func_80355130_7667E0(void) {
     struct061 sp88;
-    s16 sp86;
+    s16 offscreen;
     f32 temp_f0;
     u8 tmp;
-    u8 tmp2;
 
     if (D_803D5524->unk9C == TORTOISE_TANK_DEFENDING) {
         func_8032CD70_73E420(D_803D5530, SFX_UNKNOWN_175, 0x6000, 0, 1.0f, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h);
     }
 
     if (D_803D5530->unk162 == 1) {
-        temp_f0 = ((0, ABS(D_803D5530->xVelocity.w)) + ABS(D_803D5530->zVelocity.w)) / (65536.0 * 10);
+        temp_f0 = (ABS(D_803D5530->xVelocity.w) + ABS(D_803D5530->zVelocity.w)) / (65536.0 * 10);
         if (temp_f0 > 0.2) {
             func_8032CD70_73E420(
                 (u8*)D_803D5530 + 0x22, // unaligned?
@@ -875,42 +839,24 @@ void func_80355130_7667E0(void) {
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            tmp = 1;
-        } else {
-            tmp = 0;
-        }
-
-        if (D_803F2D50.segment) {}; // helps a little but messes things up too
-
-        if (tmp) {
-            sp86 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        tmp = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        offscreen = 0;
+        D_803F2EDD = 0;
     } else {
-        tmp = 0;
+        offscreen = func_802E89F0_6FA0A0(
+            D_803D552C->xPos.w,
+            D_803D552C->zPos.w,
+            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            0x740,
+            0,
+            0,
+            0x5A,
+            0,
+            1,
+            CHECK_SEGMENT == 0);
     }
-    sp86 = func_802E89F0_6FA0A0(
-        D_803D552C->xPos.w,
-        D_803D552C->zPos.w,
-        D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
-        0x740,
-        0,
-        0,
-        0x5A,
-        0,
-        1,
-        tmp == 0);
-done:
-    if (sp86 == 0) {
+
+    if (!offscreen) {
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
@@ -933,8 +879,8 @@ done:
         func_8038064C_791CFC();
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
-            (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((tmp2 = D_803F2AA2, tmp2 == 0)) || (tmp2 == 2) || ((tmp2 == 1) && (D_803F2AA3 >= 11))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((tmp = D_803F2AA2, tmp == 0)) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 11))) &&
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
             func_80127640(
                 &D_80204278->modelViewMtx[(D_80204278->usedModelViewMtxs)],
@@ -953,13 +899,13 @@ done:
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
-            func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + D_803D5524->unkBA), D_803D552C->unk302, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + D_803D5524->unkBA, D_803D552C->unk302, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
         func_8035D6A0_76ED50();
     } else {
         func_8035D6D0_76ED80();
     }
-    if (sp86 == 0) {
+    if (!offscreen) {
         func_803034D0_714B80(D_803D552C, 0x7F6, 0, 0);
         func_80303D50_715400(D_803D552C, 2);
     } else {
@@ -974,7 +920,7 @@ done:
                 load_animal(RACING_TORTOISE);
             }
         } else {
-            D_803D552C->unk2EC -= 1;
+            D_803D552C->unk2EC--;
         }
     }
     if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
@@ -985,9 +931,6 @@ done:
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/tortoise/func_80355130_7667E0.s")
-#endif
 
 #ifdef NON_MATCHING
 // is this equivalent?

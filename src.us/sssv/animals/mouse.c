@@ -216,6 +216,7 @@ done:
 #ifdef NON_MATCHING
 // RACING_MOUSE
 void func_8031D624_72ECD4(void) {
+
     s16 spAE;
     s32 temp_t4;
     s32 temp_t5;
@@ -230,13 +231,13 @@ void func_8031D624_72ECD4(void) {
     f32 phi_f0;
     f32 temp_f12;
 
+    s16 phi_a1;
+    u8 tmp;
     s16 temp_t0;
     s16 temp_t1;
     s16 temp_t2;
     s16 temp_t3;
 
-    s16 phi_a1;
-    u8 tmp;
     s32 pad[2];
 
     if (D_803D552C->unk366 == 1) {
@@ -301,39 +302,23 @@ void func_8031D624_72ECD4(void) {
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            phi_a1 = 1;
-        } else {
-            phi_a1 = 0;
-        }
-        if (phi_a1 != 0) {
-            sp92 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        phi_a1 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp92 = 0;
+        D_803F2EDD = 0;
     } else {
-        phi_a1 = 0;
+        sp92 = func_802E89F0_6FA0A0(
+            D_803D552C->xPos.w,
+            D_803D552C->zPos.w,
+            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            0x640,
+            7,
+            0x3F,
+            0x51,
+            0x9E,
+            1,
+            CHECK_SEGMENT == 0);
     }
-    sp92 = func_802E89F0_6FA0A0(
-        D_803D552C->xPos.w,
-        D_803D552C->zPos.w,
-        D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
-        0x640,
-        7,
-        0x3F,
-        0x51,
-        0x9E,
-        1,
-        phi_a1 == 0);
 
-done:
     if (sp92 == 0) {
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -496,8 +481,13 @@ done:
 #ifdef NON_MATCHING
 // HARD_MOUSE
 void func_8031E6A0_72FD50(void) {
+    s16 temp_t0;
+    s16 temp_t1;
     s32 temp_t2;
     s32 temp_t3;
+    s16 phi_t6;
+    u8 tmp;
+
     s16 spC6;
     s32 temp_t4; // spC0 ?
     s32 temp_t5; // spBC ?
@@ -508,46 +498,25 @@ void func_8031E6A0_72FD50(void) {
     s16 spAA;
     s16 spA8;
     s16 spA6;
-    s16 temp_t0;
-    s16 temp_t1;
 
-    s16 phi_t6;
-    u8 phi_v0;
-    u8 tmp;
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            phi_v0 = 1;
-        } else {
-            phi_v0 = 0;
-        }
-        if (phi_v0 != 0) {
-            spA6 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        phi_v0 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        spA6 = 0;
+        D_803F2EDD = 0;
     } else {
-        phi_v0 = 0;
+        spA6 = func_802E89F0_6FA0A0(
+            D_803D552C->xPos.w,
+            D_803D552C->zPos.w,
+            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            0x640,
+            7,
+            0x3F,
+            0x51,
+            0x9E,
+            1,
+            CHECK_SEGMENT == 0);
     }
-    spA6 = func_802E89F0_6FA0A0(
-        D_803D552C->xPos.w,
-        D_803D552C->zPos.w,
-        D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
-        0x640,
-        7,
-        0x3F,
-        0x51,
-        0x9E,
-        1,
-        phi_v0 == 0);
 
-done:
     if (spA6 == 0) {
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -646,14 +615,10 @@ done:
             func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04005A50_CD480); // mouse head
 
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF);
-#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0); } // racing mouse wheel
-#pragma _permuter sameline end
             func_802C78B0_6D8F60(10, 11, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0); // racing mouse wheel
             func_802C78B0_6D8F60(13, 14, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0); // racing mouse wheel
-#pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(16, 17, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0); } // racing mouse wheel
-#pragma _permuter sameline end
             func_802C78B0_6D8F60(19, 22, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_040053D0_CCE00); // mouse ear
             func_802C78B0_6D8F60(19, 23, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 1, 0, D_040053D0_CCE00); // mouse ear
 
@@ -710,6 +675,8 @@ done:
     spC6 = D_803D5528->unk3C8.unk2;
     if (spC6 != 0) {
         if ((spA6 == 0) && (D_803F2EDB != 0)) {
+
+            // FIXME: remove these vars to free up the stack
             temp_t0 = D_80152C78[D_803D552C->unk302 & 0xFF];
             temp_t1 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF];
             temp_t2 = -D_80203FE0[26].unk2;

@@ -115,7 +115,6 @@ void func_803574E0_768B90(void) {
         break;
     }
 
-
     if (var_v1 < var_v0_2) {
         var_v1 = MIN(var_v1 + 5, var_v0_2);
     } else if (var_v0_2 < var_v1) {
@@ -167,11 +166,11 @@ void func_803574E0_768B90(void) {
         }
     }
 
-    if ((D_803D5538 != 0) && ((((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? 1 : 0) != 0)) {
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp96 = 0;
         D_803F2EDD = 0;
     } else {
-        sp96 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x980, 0, 0x8A, 0x43, 0x5A, 1, (((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? 1 : 0) == 0);
+        sp96 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x980, 0, 0x8A, 0x43, 0x5A, 1, CHECK_SEGMENT == 0);
     }
 
     if (sp96 == 0) {
@@ -257,9 +256,6 @@ void func_803574E0_768B90(void) {
                 break;
             case 22:
             case 24:
-                // regalloc helper
-                // if ((D_803D5524 && D_803D5524) && D_803D5524) {};
-
                 spA8 = ((D_803D5540 << 4) & 0xFF) << 5;
                 spA4 = (((D_803D5540 << 4) + 0x80) & 0xFF) << 5;
                 if (spA8 == 0) {
@@ -414,7 +410,6 @@ void func_80358E3C_76A4EC(void) {
 
     s16 i;
     s16 var_v1;
-    u8 var_v0;
     u8 temp_v0_5;
 
     s32 scale = FTOFIX32(1.1875);
@@ -438,29 +433,13 @@ void func_80358E3C_76A4EC(void) {
             D_803D552C->unk36E = 0;
         }
     }
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v0 = 1;
-        } else {
-            var_v0 = 0;
-        }
-        if (var_v0 != 0) {
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
             spA2 = 0;
             D_803F2EDD = 0;
-            goto done;
-          }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0 = 1;
     } else {
-        var_v0 = 0;
+        spA2 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x980, 0, 0x8A, 0x43, 0x5A, 1, CHECK_SEGMENT == 0);
     }
-    spA2 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x980, 0, 0x8A, 0x43, 0x5A, 1, var_v0 == 0);
 
-done:
     if (spA2 == 0) {
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();

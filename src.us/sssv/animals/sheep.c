@@ -4,9 +4,9 @@
 extern struct077 D_803B4010_7C56C0[];
 extern struct077 D_803B4040_7C56F0[];
 extern struct077 D_803B4070_7C5720[];
-extern s16 D_803B4084_7C5734[];
-extern s16 D_803B40B4_7C5764[];
-extern s16 D_803B40E4_7C5794[];
+extern struct077 D_803B4084_7C5734[];
+extern struct077 D_803B40B4_7C5764[];
+extern struct077 D_803B40E4_7C5794[];
 extern u8  D_803B40F8_7C57A8[];
 extern u8  D_803B4108_7C57B8[];
 extern s16 D_803B4118_7C57C8[];
@@ -37,7 +37,7 @@ void func_8035FE90_771540(void) {
     s16 sp8E;
     s16 sp8C;
 
-    u16 temp_t7;
+    u16 ticks_remaining;
     s16 pad[2];
 
     // only sheep can float
@@ -55,28 +55,13 @@ void func_8035FE90_771540(void) {
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v1 = 1;
-        } else {
-            var_v1 = 0;
-        }
-
-        if (var_v1 != 0) {
-            sp8C = 0;
-            D_803F2EDD = 0;
-            goto block_17;
-        }
-    }
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v1 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp8C = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v1 = 0;
+        sp8C = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x5F0, 0, 0x94, 0x94, 0x94, 1, CHECK_SEGMENT == 0);
     }
-    // label has to be on this line for regalloc!
-    sp8C = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x5F0, 0, 0x94, 0x94, 0x94, 1, var_v1 == 0); block_17:
+
     if (sp8C == 0) {
         if (((D_803D5538 != 0) && (D_803D5524->unk9C == SHEEP)) && (D_803D5530->unk162 == 1)) {
             D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 50);
@@ -107,12 +92,12 @@ void func_8035FE90_771540(void) {
             }
             break;
         case ATTACK_SHEEP_FLOAT:
-            temp_t7 = (D_803D5544 - D_803D552C->unk32A);
-            if (temp_t7 > 15) {
+            ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+            if (ticks_remaining > 15) {
                 D_803D552C->unk365 = ATTACK_NONE;
             } else {
                 D_803F2ECE = 1;
-                D_803F2ECC = D_803B41D8_7C5888[temp_t7];
+                D_803F2ECC = D_803B41D8_7C5888[ticks_remaining];
             }
             break;
         }

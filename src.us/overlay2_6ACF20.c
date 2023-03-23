@@ -8,7 +8,7 @@ void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
                ((arg0->zPos.h - arg1->zPos.h) * (arg0->zPos.h - arg1->zPos.h));
     if ((arg1->state == 1) &&
         (D_803D2D90.unk0 == 0) && (D_803D2D90.unk64 == 0) &&
-        (dist < 800) && (arg0->unk16C->unk80.unk12) &&
+        (dist < 800) && (arg0->unk16C->unk82.unk2) &&
         (arg1->unk248[1] != NULL) && (arg0->unk320 == 0)) {
         Animal *tmp;
         arg1->unk158 = 1;
@@ -1394,7 +1394,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
             D_803D3440 = D_803D343C->unk16C;
             D_803D3438 = &D_803D3440->unk4;
 
-            if (((D_803D3440->unk80.unk12 == 0)) && (var_a1 == &D_803D343C->unk11C[0])) {
+            if (((D_803D3440->unk82.unk2 == 0)) && (var_a1 == &D_803D343C->unk11C[0])) {
                 temp_t6_2 = D_803D343C->unk3E & 0x3F;
                 if (temp_t6_2 != 40) {
                     switch (D_803D3440->unk3) {

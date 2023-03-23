@@ -41,42 +41,46 @@ extern Gfx D_01003548[];
 #ifdef NON_MATCHING
 // just the stack
 void func_803791E0_78A890(void) {
-    Animal *temp_v0_15;
-    Animal *temp_v1;
-    s16 temp_s0_5;
-    s16 temp_t6;
-    s32 temp_t9;
 
-    // s16 spFA;
+    u8 temp_v0_18;
+    u8  temp_t6_2;
+    s16 i; // spFA
+    s16 spF8; // pad
+
     s16 spF0;
     s16 spEE;
     s16 spEC;
     s16 spEA;
+
+    u16 rand;
+
     s32 spE0;
     s32 spDC;
     s32 spD8;
-    // u16 spD6;
+
+    s16 temp_s0_5; // spD6;
+    u16 ticks_remaining;
+    s16 spD2; // pad
+
     s32 spD0;
     s32 spCC;
     s32 spC8;
     s16 spC6;
     s16 spC4;
     s16 spC2;
-    // Animal *spA8;
-    s16 *spA4;
 
-    u8  temp_t6_2;
-    s16 temp_v0_14;
-    s16 i;
+    s32 temp_t9;
+
     s16 var_v0_7;
-    s32 temp_t7;
+    s16 temp_v0_14;
+
+    s16 temp_t6;
     s32 temp_t7_2;
-    s32 var_v0_3;
-    u16 ticks_remaining;
+    s32 temp_t7;
 
-    u16 rand;
-
-    u8 temp_v0_18;
+    Animal *temp_v0_15; // spA8 ?
+    s16 *spA4;
+    Animal *temp_v1;
 
     spC2 = 0;
     spC6 = 0x2B;
@@ -157,29 +161,13 @@ void func_803791E0_78A890(void) {
         D_803D552C->unk369 = 0;
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v0_3 = 1;
-        } else {
-            var_v0_3 = 0;
-        }
-        if (var_v0_3 != 0) {
-            spEA = 0;
-            D_803F2EDD = 0;
-            goto block_48;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0_3 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        spEA = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v0_3 = 0;
+        spEA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x1340, 6, 0x49, 0, 0x54, 1, CHECK_SEGMENT == 0);
     }
-    spEA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x1340, 6, 0x49, 0, 0x54, 1, (var_v0_3 == 0));
 
-block_48:
     if (spEA == 0) {
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();

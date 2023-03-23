@@ -1335,8 +1335,8 @@ extern struct042 D_803E97C8;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  D_803E9824; // gCurrentAnimalID
-extern struct105 *D_803E9828;
-extern struct104 *D_803E982C;
+extern struct101 *D_803E9828;
+extern struct114 *D_803E982C;
 extern u16  D_803E9836;
 extern u16  D_803E9838;
 extern u16  D_803E983A;

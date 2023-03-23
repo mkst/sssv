@@ -7,8 +7,8 @@ s16 D_803B58A8_7C6F58[4] = { 500, 500, 500, 0 };
 s16 D_803B58B0_7C6F60[10] = { 0, 360, 310,  90,  254, 90, 176, 78, 112, 0 };
 s16 D_803B58C4_7C6F74[10] = { 0, 640, 1310, 130, 180, 90, 180, 48, 180, 0 };
 
-// 99.8% of the way there... just the stack
 #ifdef NON_MATCHING
+// CURRENT (323)
 void func_80382CF0_7943A0(void) {
     s32 phi_a2;
     s32 phi_a4;
@@ -63,37 +63,23 @@ void func_80382CF0_7943A0(void) {
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            phi_a4 = 1;
-        } else {
-            phi_a4 = 0;
-        }
-        if (phi_a4 != 0) {
-            sp8A = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        phi_a2 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp8A = 0;
+        D_803F2EDD = 0;
     } else {
-        phi_a2 = 0;
+        sp8A = func_802E89F0_6FA0A0(
+            D_803D552C->xPos.w,
+            D_803D552C->zPos.w,
+            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            0x800,
+            0,
+            60,
+            60,
+            120,
+            1,
+            CHECK_SEGMENT == 0);
     }
-    sp8A = func_802E89F0_6FA0A0(
-        D_803D552C->xPos.w,
-        D_803D552C->zPos.w,
-        (0, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF)), // regalloc
-        0x800,
-        0,
-        60,
-        60,
-        120,
-        1,
-        phi_a2 == 0);
-done:
+
     if (sp8A == 0) {
         func_8034B45C_75CB0C();
         func_8035D120_76E7D0();
@@ -102,13 +88,8 @@ done:
         if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
             func_80302E50_714500(500, 500, 500);
             if (D_803D5530->state == 0x3F) {
-                // same regalloc fix as PIRANA
-                if (phi_a2 = (D_803D552C->unk308++) > 40) {
-                    phi_a4 = 40;
-                } else {
-                    phi_a4 = D_803D552C->unk308++;
-                }
-
+                // help
+                phi_a4 = MIN(40, phi_a2 = D_803D552C->unk308++);
                 // stack is wrong here :(
                 sp68 = (40 - (phi_a4 * 2));
                 func_8030322C_7148DC(0, -sp68);

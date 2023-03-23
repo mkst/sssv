@@ -35,7 +35,7 @@ extern u8  D_803B5298_7C6948[];
 void func_80378B84_78A234(s16 arg0, s16 *arg1, s16 *arg2, s16 *arg3, s16 *arg4, Animal *arg5);
 
 #if 0
-// CURRENT (5463)
+// CURRENT (3799)
 void func_80376D40_7883F0(void) {
     struct061 sp120;
     s16 sp11E;
@@ -51,13 +51,6 @@ void func_80376D40_7883F0(void) {
     Vtx *spF8;
     u32 spF4;
     s32 tailIndex;
-    u16 sp8C;
-    u16 sp8A;
-    u16 sp88;
-    u16 sp84;
-    s32 sp80;                                       /* compiler-managed */
-    Gfx *sp7C;
-    s32 sp74;
 
     s16 temp_s1;
     s16 temp_t2;
@@ -70,33 +63,14 @@ void func_80376D40_7883F0(void) {
     s32 temp_t1_2;
     s32 temp_t5;
     u16 ticks_remaining;
-    s32 var_v0;
-    s32 var_v1;
     u8 temp_v0_17;
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v1 = 1;
-        } else {
-            var_v1 = 0;
-        }
-        if (var_v1 != 0) {
-            sp11A = 0;
-            D_803F2EDD = 0;
-            goto block_9;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v1 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp11A = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v1 = 0;
+        sp11A = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x780, 5, 0x99, 0, 0, 1, CHECK_SEGMENT == 0);
     }
-    sp11A = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x780, 5, 0x99, 0, 0, 1, (var_v1 == 0));
-
-block_9:
 
     if (D_803D552C->unk365 == ATTACK_SCORPION_2) {
         sp11A = 0;
@@ -214,9 +188,7 @@ block_9:
                         var_s3 = MAX(0, ticks_remaining - 4);
                         sp108 = MIN(20, ticks_remaining + 2);
 
-                        var_v0 = sp108 - var_s3;
-
-                        if (var_v0 >= 3) {
+                        if ((sp108 - var_s3) >= 3) {
                             for (sp106 = var_s3; sp106 < sp108; sp106++) {
                                 func_80378B84_78A234(sp106, &sp114, &sp112, &sp110, &sp10E, D_803D552C->unk330);
 
@@ -255,7 +227,7 @@ block_9:
                                 }
                             }
 
-                            switch (var_v0) {
+                            switch (sp108 - var_s3) {
                             case 3:
                                 gSPVertex(D_801D9E88++, spF4, 4, 0);
                                 gSPDisplayList(D_801D9E88++, D_04006610_EDBC0);
@@ -398,7 +370,6 @@ block_9:
 
             func_802C78B0_6D8F60(0x18, 0x19, (D_803F2EC8 * 0x28) >> 6, (D_803F2EC8 * 0x28) >> 6, (D_803F2EC8 * 0x28) >> 6, D_803F2ED0, 0, 1, 0, D_04006140_ED6F0);
 
-            // var_v0_2 = (((s32) ((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) + 0x100) >> 4) * 0xFA) >> 6;
             D_80203FE0[22].unk0 += ((((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) + 0x100) >> 4) * 250) >> 6;
             D_80203FE0[23].unk0 += ((((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) + 0x100) >> 4) * 250) >> 6;
             D_80203FE0[24].unk0 -= ((((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) + 0x100) >> 4) * 250) >> 6;
@@ -442,8 +413,8 @@ block_9:
 
             func_802DE914_6EFFC4(
                 tailIndex,
-                (D_803D5530->xPos.w + ((temp_t1_2 * temp_t2) / 16)) + ((temp_t3 * temp_t5) / 16),
-                (D_803D5530->zPos.w + ((temp_t3 * temp_t1_2) / 16)) - ((temp_t5 * temp_t2) / 16),
+                D_803D5530->xPos.w + ((temp_t1_2 * temp_t2) / 16) + ((temp_t3 * temp_t5) / 16),
+                D_803D5530->zPos.w + ((temp_t3 * temp_t1_2) / 16) - ((temp_t5 * temp_t2) / 16),
                 D_803D5530->yPos.w + ((D_80203FE0[2].unk4 << 0x10) / 32),
                 D_803D552C->unk302);
 
@@ -523,7 +494,7 @@ block_9:
 //         *arg3 = sp2E;
 //         *arg4 = sp2C;
 //     }
-//     *arg1 = D_803B52FC[arg0];
+//     *arg1 = D_803B52FC_7C69AC[arg0];
 // }
 
 void func_80378FF8_78A6A8(void) {

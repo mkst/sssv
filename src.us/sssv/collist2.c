@@ -170,7 +170,7 @@ void func_802DADA0_6EC450(Animal *arg0) {
     Animal **phi_v0;
     s16 i;
 
-    if (arg0->unk16C->unk80.unk11) {
+    if (arg0->unk16C->unk82.unk1) {
         phi_v0 = &D_803DA2F0;
         arg0->unk26D = 1;
     } else {

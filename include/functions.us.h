@@ -894,6 +894,7 @@ void func_80327B94_739244(s16 arg0);
 void func_80327BE0_739290(void);
 void func_80327DA0_739450(void);
 void func_80327DA8_739458(void);
+void func_80328258_739908(s16 arg0);
 void func_803283DC_739A8C(void);
 Camera* func_803284C4_739B74(void);
 void func_80328520_739BD0(void);

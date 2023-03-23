@@ -2625,7 +2625,7 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
     for (var_t1 = D_803DA110[(s16) (arg6 + (arg7 * 5))].next; var_t1 != NULL; var_t1 = var_t1->next) {
         temp_s2 = var_t1->animal;
-        if ((temp_s2->unk16C->unk80.unk16) && ((temp_s2->unk3E < 0x40) || (temp_s2->unk3E >= 0xC0)) && (temp_s2->unk3E != 0x28)) {
+        if ((temp_s2->unk16C->unk82.unk6) && ((temp_s2->unk3E < 0x40) || (temp_s2->unk3E >= 0xC0)) && (temp_s2->unk3E != 0x28)) {
 
             temp_s3 = temp_s2->yPos.h + temp_s2->unk42;
             xPos = temp_s2->xPos.h;zPos = temp_s2->zPos.h;yPos = temp_s2->yPos.h;

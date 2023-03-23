@@ -82,7 +82,7 @@ void func_802C7C80_6D9330(void) {
         D_801D9ED8.unk0[i].unkCA = temp_v1->unk32;
         // D_801D9ED8.unk0[i].unk82 = (u8) (D_801D9ED8.unk0[i].unk82 | 0x20);
 
-        D_801D9ED8.unk0[i].unk80.unk12 = 1;
+        D_801D9ED8.unk0[i].unk82.unk2 = 1;
         D_801D9ED8.unk0[i].unkDA[0][1] = temp_v1->unk44;
 
         D_801D9ED8.unk0[i].unkDA[0][0] = temp_v1->unk42;
@@ -96,10 +96,10 @@ void func_802C7C80_6D9330(void) {
 
         D_801D9ED8.unk0[i].unk9C = i;
 
-        D_801D9ED8.unk0[i].unk80.unk13 = 1;
-        D_801D9ED8.unk0[i].unk80.unk14 = 1;
-        D_801D9ED8.unk0[i].unk80.unk15 = 1;
-        D_801D9ED8.unk0[i].unk80.unk16 = 0;
+        D_801D9ED8.unk0[i].unk82.unk3 = 1;
+        D_801D9ED8.unk0[i].unk82.unk4 = 1;
+        D_801D9ED8.unk0[i].unk82.unk5 = 1;
+        D_801D9ED8.unk0[i].unk82.unk6 = 0;
 
         D_801D9ED8.unk0[i].unkE9 = temp_v1->unk4F;
         D_801D9ED8.unk0[i].unkEA = temp_v1->unk50;

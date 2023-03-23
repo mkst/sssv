@@ -1232,7 +1232,7 @@ void func_802A78CC_6B8F7C(void) {
                     D_803D5530->yVelocity.w = MAX(D_803D5530->yPos.w - spB4, 0x40000);
                 }
             }
-            if ((D_803D5530->unk162 == 3) && ((D_803D552C->unk360 != 0) || ((D_803D5524->canJump & 1) && ((D_803D5544 - D_803D555A) < 3) && (D_803D552C->unk367 == 0) && ((D_803D5560 == NULL) || (D_803D5560->unk16C->unk80.unk11))))) {
+            if ((D_803D5530->unk162 == 3) && ((D_803D552C->unk360 != 0) || ((D_803D5524->canJump & 1) && ((D_803D5544 - D_803D555A) < 3) && (D_803D552C->unk367 == 0) && ((D_803D5560 == NULL) || (D_803D5560->unk16C->unk82.unk1))))) {
                 if (D_803D552C->yVelocity.w < 0) {
                     if (D_803D552C->yVelocity.w < D_803A05B4_7B1C64) {
                         D_803D5530->yVelocity.w += D_803A05B4_7B1C64;
@@ -1412,7 +1412,7 @@ void func_802A78CC_6B8F7C(void) {
                 D_803D5530->xVelocity.w = spC8;
                 D_803D5530->zVelocity.w = spC4;
             }
-            if ((D_803D552C->unk360 == 0) && ((((D_803D5524->canJump & 1) == 0)) || (D_803D5524->class == 8) || (((D_803D5544 - D_803D555A) & 0xFFFF) >= 3) || (D_803D552C->unk367 != 0) || ((D_803D5560 != NULL) && (D_803D5560->unk16C->unk80.unk11 == 0)))) {
+            if ((D_803D552C->unk360 == 0) && ((((D_803D5524->canJump & 1) == 0)) || (D_803D5524->class == 8) || (((D_803D5544 - D_803D555A) & 0xFFFF) >= 3) || (D_803D552C->unk367 != 0) || ((D_803D5560 != NULL) && (D_803D5560->unk16C->unk82.unk1 == 0)))) {
                 D_803D5530->yVelocity.w -= D_803A05B0_7B1C60;
             }
             D_803D5530->unk10.w = D_803D5530->xPos.w + D_803D5530->xVelocity.w;
@@ -5234,14 +5234,14 @@ void func_802B3230_6C48E0(void) {
 
 void func_802B33D0_6C4A80(Animal *a) {
     a->unk4A += 1;
-    if (a->unk16C->unk80.unk12) {
+    if (a->unk16C->unk82.unk2) {
         a->unk304 = a->unk302;
     }
 }
 
 void func_802B3400_6C4AB0(Animal *a) {
     a->unk4A = 1;
-    if (a->unk16C->unk80.unk12) {
+    if (a->unk16C->unk82.unk2) {
         a->unk304 = a->unk302;
     }
 }
@@ -5290,7 +5290,7 @@ void func_802B356C_6C4C1C(Animal *arg0, s16 damage, s16 arg2, u8 arg3) {
         damage = 0;
     }
 
-    if (arg0->unk16C->unk80.unk12 == 0) {
+    if (arg0->unk16C->unk82.unk2 == 0) {
         arg0->health = MAX(0, arg0->health - (damage >> 4));
     }
 
@@ -5315,7 +5315,7 @@ void func_802B356C_6C4C1C(Animal *arg0, s16 damage, s16 arg2, u8 arg3) {
         break;
     }
 
-    if ((arg2 >= 0) && (arg0->unk16C->unk80.unk12) && (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+    if ((arg2 >= 0) && (arg0->unk16C->unk82.unk2) && (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
         temp_v1_2 = arg0->unk16C->unkE6 - arg2;
         switch (temp_v1_2) {
         case 2:
@@ -5337,7 +5337,7 @@ void func_802B356C_6C4C1C(Animal *arg0, s16 damage, s16 arg2, u8 arg3) {
         }
     }
 
-    if ((arg0->unk16C->unk80.unk12) && (arg3 != 0) && ((arg0->health - hpDrop) > 0)) {
+    if ((arg0->unk16C->unk82.unk2) && (arg3 != 0) && ((arg0->health - hpDrop) > 0)) {
         if (hpDrop > 480) {
             func_802DBA58_6ED108(14, arg0);
             func_802D9C64_6EB314(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 33, GPACK_RGBA5551(224, 224, 0, 1));
@@ -5374,7 +5374,7 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 damage, s16 arg2, u8 stars) {
         damage = 0;
     }
     hpDrop = damage;
-    if ((arg2 >= 0) && (arg0->unk16C->unk80.unk12) && (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+    if ((arg2 >= 0) && (arg0->unk16C->unk82.unk2) && (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
         temp_v0 = arg0->unk16C->unkE6 - arg2;
         switch (temp_v0) {
         case 2:
@@ -5394,7 +5394,7 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 damage, s16 arg2, u8 stars) {
         }
     }
 
-    if ((arg0->unk16C->unk80.unk12) && (stars != 0) && ((arg0->health - hpDrop) > 0)) {
+    if ((arg0->unk16C->unk82.unk2) && (stars != 0) && ((arg0->health - hpDrop) > 0)) {
         if (hpDrop > 480) {
             func_802DBA58_6ED108(14, arg0);
             func_8034A684_75BD34(); // lots of stars

@@ -76,7 +76,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
                     arg0->yVelocity.w = arg0->yPos.w - sp2C;
                     break;
                 case 1:
-                    if (arg0->unk16C->unk80.unk10) {
+                    if (arg0->unk16C->unk82.unk0) {
                         arg0->unk162 = 5;
                     } else {
                         arg0->unk162 = 7;
@@ -131,7 +131,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 func_802A3E70_6B5520(arg0, &arg0->xVelocity, &arg0->zVelocity);
             }
             if ((arg0->unk4C.unk28) && ((arg0->yPos.h + (arg0->unk42 >> 1)) < sp2A)) {
-                if (arg0->unk16C->unk80.unk10) {
+                if (arg0->unk16C->unk82.unk0) {
                     arg0->unk162 = 5;
                 } else {
                     arg0->unk162 = 7;
@@ -147,7 +147,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
                     arg0->yVelocity.w -= D_803A05B0_7B1C60;
                 }
                 if ((arg0->yPos.h + (arg0->unk42 >> 1)) < tmp) {
-                    if (arg0->unk16C->unk80.unk10) {
+                    if (arg0->unk16C->unk82.unk0) {
                         arg0->unk162 = 5;
                     } else {
                         arg0->unk162 = 7;
@@ -253,7 +253,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
             if (1) {};
         }
 
-        if ((arg0->unk4C.unk24 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk80.unk10 == 0))) && (arg0->unk68 == 0) && (arg0->unk70 == 0) && (arg0->unk1A8 == 0)) {
+        if ((arg0->unk4C.unk24 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == 0) && (arg0->unk70 == 0) && (arg0->unk1A8 == 0)) {
             if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->unk154 == 0)) {
                 arg0->unk4C.unk25  = 0;
             }
@@ -320,25 +320,25 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 
     arg0->unk65 = arg1->unk65 = 0U;
 
-    if ((arg0->unk16C->unk80.unk12) && (!arg1->unk16C->unk80.unk12)) {
+    if ((arg0->unk16C->unk82.unk2) && (!arg1->unk16C->unk82.unk2)) {
         if ((ABS(arg5) < 9) && (ABS(arg6) < 9) && (ABS(arg7) < 9)) {
             phi_t1 = 1;
         }
     }
 
-    if ((arg1->unk16C->unk80.unk12) && (!arg0->unk16C->unk80.unk12)) {
+    if ((arg1->unk16C->unk82.unk2) && (!arg0->unk16C->unk82.unk2)) {
         if ((ABS(arg2) < 9) && (ABS(arg3) < 9) && (ABS(arg4) < 9)) {
             phi_t1 = 1;
         }
     }
 
-    if (((arg0->unk16C->unk80.unk12) && (!arg1->unk16C->unk80.unk12)) || ((arg1->unk16C->unk80.unk12) && (!arg0->unk16C->unk80.unk12))) {
+    if (((arg0->unk16C->unk82.unk2) && (!arg1->unk16C->unk82.unk2)) || ((arg1->unk16C->unk82.unk2) && (!arg0->unk16C->unk82.unk2))) {
         if ((ABS(arg2 - arg5) < 9) && (ABS(arg3 - arg6) < 9) && (ABS(arg4 - arg7) < 9)) {
             phi_t1 = 1;
         }
     }
 
-    if (((arg0->unk16C->unk80.unk12) && (arg1->unk16C->unk80.unk12)) &&
+    if (((arg0->unk16C->unk82.unk2) && (arg1->unk16C->unk82.unk2)) &&
         (((arg0->unk366 == 5)) || (arg0->unk366 == 2) || ((arg1->unk366 == 5)) || (arg1->unk366 == 2))) {
         phi_t1 = 1;
     }
@@ -357,17 +357,17 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
         sp38 = 0;
     }
 
-    if ((arg1->unk16C->unk80.unk12) &&
+    if ((arg1->unk16C->unk82.unk2) &&
         ((arg1->unk16C->unk9C == DESERT_FOX_ATTACKING) ||
          (arg1->unk16C->unk9C == RACING_TORTOISE_DEFENDING) ||
          (arg1->unk16C->unk9C == POLAR_BEAR_DEFENDING) ||
          (arg1->unk16C->unk9C == HARD_MOUSE))) {
         func_802B3B48_6C51F8(arg0, arg1, &sp38);
-        if ((arg0->unk16C->unk80.unk12) && (arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg0->unk16C->unk82.unk2) && (arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             arg0->unk2EB += 1;
         }
     }
-    if (arg0->unk16C->unk80.unk12) {
+    if (arg0->unk16C->unk82.unk2) {
         sp38 += func_802B3C9C_6C534C(arg1->unk16C->unk8D, arg0);
     } else {
         sp38 += arg1->unk16C->unk8D;
@@ -392,17 +392,17 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
         sp38 = 0;
     }
 
-    if ((arg0->unk16C->unk80.unk12) &&
+    if ((arg0->unk16C->unk82.unk2) &&
         ((arg0->unk16C->unk9C == DESERT_FOX_ATTACKING) ||
          (arg0->unk16C->unk9C == RACING_TORTOISE_DEFENDING) ||
          (arg0->unk16C->unk9C == POLAR_BEAR_DEFENDING) ||
          (arg0->unk16C->unk9C == HARD_MOUSE))) {
         func_802B3B48_6C51F8(arg1, arg0, &sp38);
-        if ((arg1->unk16C->unk80.unk12) && (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg1->unk16C->unk82.unk2) && (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             arg1->unk2EB += 1;
         }
     }
-    if (arg1->unk16C->unk80.unk12) {
+    if (arg1->unk16C->unk82.unk2) {
         sp38 += func_802B3C9C_6C534C(arg0->unk16C->unk8D, arg1);
     } else {
         sp38 += arg0->unk16C->unk8D;
