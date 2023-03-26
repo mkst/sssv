@@ -63,12 +63,13 @@ jobs:
 
     - name: Push progress.csv to sssv-website repo
       if: ${{ github.event_name == 'push' && matrix.version == 'us' }}
-      uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+      uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
       env:
         API_TOKEN_GITHUB: ${{ secrets.WEBSITE_REPO_ACCESS }}
       with:
         source_file: "${{ env.progress_filename }}"
-        destination_repo: 'mkst/sssv-website'
-        destination_folder: 'progress/data'
-        user_email: 'streetster@gmail.com'
-        user_name: 'mkst'
+        destination_repo: mkst/sssv-website
+        destination_folder: progress/data
+        user_email: streetster@gmail.com
+        user_name: mkst
+        destination_branch: master
