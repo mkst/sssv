@@ -3,7 +3,7 @@ attrs
 colorama
 cxxfilt
 intervaltree
-n64img
+n64img==0.2.1
 pycparser
 pylibyaml
 pynacl
@@ -11,8 +11,8 @@ pypng
 python-Levenshtein
 python-ranges
 pyyaml
-rabbitizer==1.3.1
-spimdisasm==1.7.3
+rabbitizer==1.5.10
+spimdisasm==1.12.0
 toml
 tqdm
 watchdog
