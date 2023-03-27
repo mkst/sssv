@@ -16,6 +16,7 @@ options:
   # workaround regex issue
   create_undefined_funcs_auto: no
   symbol_name_format: $VRAM_$ROM
+  asm_jtbl_label_macro: jlabel
 segments:
   - name:  header
     type:  header
@@ -3334,6 +3335,23 @@ segments:
     # - [0x42c49c, bin]
   # rgba16 textures (mipmap)
   - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880        # europe
+  # - start: 0x42DCA0
+  #   type: rnc
+  #   name: img/europe
+  #   subtype: mipmap
+  #   subsegments:
+  #     - ["00", rgba16, 32, 32]
+  #     - ["01", rgba16, 32, 32]
+  #     - ["02", rgba16, 32, 32]
+  #     - ["03", rgba16, 32, 32]
+  #     - ["04", rgba16, 32, 32]
+  #     - ["05", rgba16, 32, 32]
+  #     - ["06", rgba16, 32, 32]
+  #     - ["07", rgba16, 32, 32]
+  #     - ["08", rgba16, 32, 32]
+  #     - ["09", rgba16, 32, 32]
+  #     - ["0A", rgba16, 32, 32]
+  #     - ["0B", rgba16, 32, 32]
   - [0x435320, bin, rnc_435320] # 30784 => 54880        # ice
   - [0x43CB60, bin, rnc_43CB60] # 35981 => 54880        # desert
   - [0x4457F0, bin, rnc_4457F0] # 36755 => 57624        # jungle
@@ -3927,7 +3945,7 @@ segments:
     - [0x7CE6C0, .rodata, overlay2_716900]
     - [0x7CE7C0, .rodata, sssv/animals/parrot]
     - [0x7CE7D0, .rodata, overlay2_725D10]
-    - [0x7CEB80, .rodata, overlay2_72B100]
+    - [0x7CEBA0, .rodata, overlay2_72B100]
     - [0x7CEBE0, .rodata, overlay2_72B800]
     - [0x7CEF30, .rodata, overlay2_72C680]
     - [0x7CF050, .rodata, sssv/animals/mouse]

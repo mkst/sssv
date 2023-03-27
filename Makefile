@@ -95,6 +95,7 @@ XGCC     = mips-linux-gnu-gcc
 GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
 RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
+RNCU     = $(PYTHON) $(TOOLS_DIR)/rncu.py
 SPLAT    = $(TOOLS_DIR)/splat/split.py
 N64CRC   = $(TOOLS_DIR)/n64crc.py
 
@@ -270,14 +271,8 @@ $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 
 rnc/%.bin: %.bin
 	@mkdir -p rnc/assets/levels
-	@$(RNC64) u $< $@ >/dev/null
+	@$(RNCU) $< $@
 	@printf "[$(RED) rnc u. $(NO_COL)]  $<\n"
-
-$(BUILD_DIR)/%.bin: rnc/%.bin
-	# $(RNC64) p $< $@ /f >/dev/null
-	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
-	@mv $@.pad $@
-	@printf "[$(RED) rnc p. $(NO_COL)]  $<\n"
 
 $(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64

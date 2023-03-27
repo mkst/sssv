@@ -1,5 +1,3 @@
-import subprocess
-
 from pathlib import Path
 from typing import Optional
 
@@ -8,6 +6,21 @@ from segtypes.n64.rgba16 import N64SegRgba16
 from segtypes.n64.i4 import N64SegI4
 
 from util import options, log
+
+import sys
+sys.path.append(str(options.opts.base_path / "tools"))
+
+from rncu import RncUnpackerMethod1
+
+
+IMAGE_FORMAT_LOOKUP = {
+    "rgba16": N64SegRgba16,
+    "i4": N64SegI4,
+}
+
+def get_mipmap_size(width, height, typ):
+    # FIXME
+    return 0xab8
 
 
 class N64SegRnc(N64Segment):
@@ -22,6 +35,16 @@ class N64SegRnc(N64Segment):
                 self.height = self.args[2]
                 # append type to filename
                 self.name += f".{self.subtype}"
+            else:
+                log.error(f"Error: 'rnc' segment only supports 'i4' and 'rgba16' subtypes in list form")
+        elif isinstance(yaml, dict):
+            self.subtype = yaml["subtype"]
+            if self.subtype == "mipmap":
+                log.write("mipmap found")
+                self.name += f".{self.subtype}"
+                self.subsegments = yaml["subsegments"]
+            else:
+                log.error(f"Error: 'rnc' segment only supports 'mipmap' subtype in list form")
         else:
             self.subtype = None
         # append .rnc
@@ -34,29 +57,42 @@ class N64SegRnc(N64Segment):
         # stage 1: decompression
         path = self.out_path()
         path.parent.mkdir(parents=True, exist_ok=True)
-        # create path to temporary file
-        tmp_path = path.parent / (path.name + ".tmp")
-        # write out RNC file
-        with open(tmp_path, "wb") as f:
-            f.write(rom_bytes[self.rom_start:self.rom_end])
-        # build path to rnc64 binary
-        rnc64 = options.opts.base_path / "tools" / "rnc_propack_source" / "rnc64"
-        # run rnc64
-        args = [rnc64, "u", tmp_path, path]
-        subprocess.run(args, capture_output=True, check=True)
-        # remove temporary file
-        tmp_path.unlink()
+        rnc_unpacker = RncUnpackerMethod1(rom_bytes[self.rom_start:self.rom_end])
+        unpacked = rnc_unpacker.unpack()
+        with path.open("wb") as f:
+            f.write(unpacked)
+
         # stage 2: decoding
         if self.subtype is not None:
-            with open(path, "rb") as infile:
-                data = infile.read()
             if self.subtype == "rgba16":
                 yaml = [None, None, None, self.width, self.height]
-                seg = N64SegRgba16(0, len(data), self.subtype, self.name, self.vram_start, [], yaml)
+                seg = N64SegRgba16(0, len(unpacked), self.subtype, self.name, self.vram_start, [], yaml)
+                seg.split(unpacked)
             elif self.subtype == "i4":
                 yaml = [None, None, None, self.width, self.height]
-                seg = N64SegI4(0, len(data), self.subtype, self.name, self.vram_start, [], yaml)
+                seg = N64SegI4(0, len(unpacked), self.subtype, self.name, self.vram_start, [], yaml)
+                seg.split(unpacked)
+            elif self.subtype == "mipmap":
+                offset = 0
+                print(self.yaml)
+                for subsegment in self.subsegments:
+                    print("subsegment!", subsegment)
+                    id, typ, width, height = subsegment
+                    expected_len = get_mipmap_size(width, height, typ)
+                    yaml = {
+                        "width": width,
+                        "height": height,
+                        "mipmap": True,
+                    }
+
+                    name = self.name + f".{id}.{typ}"
+
+                    img_func = IMAGE_FORMAT_LOOKUP.get(typ, None)
+                    if img_func is None:
+                        log.error(f"Error: Unexpected image format for mipmap: {typ}")
+
+                    seg = img_func(0, expected_len, typ, name, self.vram_start, [], yaml)
+                    seg.split(unpacked[offset:offset+expected_len])
+                    offset += expected_len
             else:
                 log.error(f"Error: Unsupported subtype: {self.subtype}")
-            seg.split(data)
-            path.unlink()
