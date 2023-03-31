@@ -74,9 +74,7 @@ class N64SegRnc(N64Segment):
                 seg.split(unpacked)
             elif self.subtype == "mipmap":
                 offset = 0
-                print(self.yaml)
                 for subsegment in self.subsegments:
-                    print("subsegment!", subsegment)
                     id, typ, width, height = subsegment
                     expected_len = get_mipmap_size(width, height, typ)
                     yaml = {
