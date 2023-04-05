@@ -631,42 +631,35 @@ void func_8029D89C_6AEF4C(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029D8D8_6AEF88.s")
-// void func_8029D8D8_6AEF88(Gfx **arg0, s16 arg1) {
-//     u8 *phi_a2;
-//     u8 *phi_v1;
-//     s32 phi_at;
-//     // this is currently nonsense
-//     if (arg1 < 8) {
-//         // offset is 120000
-//         phi_a2 = &D_800BA760->unk1D4C0[arg1]; //  << 0xB
-//         phi_v1 = &D_800BA760 + (arg1 << 9);
-//         phi_at = 0x214C0;
-//     } else {
-//         // 2048 size?
-//         arg1 = arg1 - 8;
-//         // offset is 109760
-//         phi_a2 = &D_800BA760->unk1ACC0[arg1]; //  << 0xB
-//         phi_v1 = &D_800BA760 + (arg1 << 9); // 512 size?
-//         phi_at = 0x1CCC0;
-//     }
-//
-//     gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, (s32)phi_a2 + 0x80000000);
-//     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-//     gDPLoadSync((*arg0)++);
-//     gDPLoadTile((*arg0)++, G_TX_LOADTILE, 0, 0, 4*31, 4*31);
-//     gDPPipeSync((*arg0)++);
-//     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-//     gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 4*31, 4*31);
-//
-//     gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, (s32)phi_v1 + phi_at + 0x80000000);
-//     gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-//     gDPLoadSync((*arg0)++);
-//     gDPLoadTile((*arg0)++, G_TX_LOADTILE, 0, 0, 62, 4*31);
-//     gDPPipeSync((*arg0)++);
-//     gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-//     gDPSetTileSize((*arg0)++, 1, 0, 0, 4*31, 4*31);
-// }
+void func_8029D8D8_6AEF88(Gfx **arg0, s16 arg1) {
+    u8 *img1;
+    u8 *img2;
+
+    if (arg1 < 8) {
+        img1 = (u8*)D_800BA760 + 0x1D4C0 + (arg1 << 11); // 2048 bytes per image
+        img2 = (u8*)D_800BA760 + 0x214C0 + (arg1 << 9);  // 512 bytes per image
+    } else {
+        arg1 = arg1 - 8;
+        img1 = (u8*)D_800BA760 + 0x1ACC0 + (arg1 << 11); // 2048 bytes per image
+        img2 = (u8*)D_800BA760 + 0x1CCC0 + (arg1 << 9);  // 512 bytes per image
+    }
+
+    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, OS_K0_TO_PHYSICAL(img1));
+    gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPLoadSync((*arg0)++);
+    gDPLoadTile((*arg0)++, G_TX_LOADTILE, 0, 0, 4*31, 4*31);
+    gDPPipeSync((*arg0)++);
+    gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 4*31, 4*31);
+
+    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, OS_K0_TO_PHYSICAL(img2));
+    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPLoadSync((*arg0)++);
+    gDPLoadTile((*arg0)++, G_TX_LOADTILE, 0, 0, 62, 4*31);
+    gDPPipeSync((*arg0)++);
+    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTileSize((*arg0)++, 1, 0, 0, 4*31, 4*31);
+}
 
 void func_8029DB20_6AF1D0(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, s32 arg7) {
     s32 temp_f10;
@@ -777,6 +770,8 @@ typedef struct {
     u8 a;
 } RGBA32;
 
+extern RGBA32 D_803A0594_7B1C44[4];
+
 #if 0
 {
     // 007b1bf0
@@ -806,7 +801,7 @@ typedef struct {
     { 0x00, 0x00, 0x00, 0x6e }, // #000000
 }
 
-RGBA D_803A0594_7B1C44[4] = {
+RGBA32 D_803A0594_7B1C44[4] = {
     { 0xff, 0xff, 0xff, 0x00 }, // #ffffff
     { 0xff, 0xff, 0xff, 0x00 }, // #ffffff
     { 0x5e, 0x72, 0xff, 0x00 }, // #5e72ff
@@ -815,108 +810,78 @@ RGBA D_803A0594_7B1C44[4] = {
 
 #endif
 
+#if 0
+extern Gfx D_010049E8_3E2B8[];
+// CURRENT (1865)
+void func_8029E100_6AF7B0(void) {
+    static u16 D_803A05A4_7B1C54 = 0;
+
+    Gfx *dl;
+
+    s16 j;
+    s16 i;
+    s16 vtx_index;
+    u16 color_index;
+    u8 num_vtxs;
+    RGBA32 *rgba;
+
+    gSPDisplayList(D_801D9E90++, D_010049E8_3E2B8);
+
+    vtx_index = 0;
+
+    dl = D_803D3434->unk3B318;
+
+    for (i = 0; i < D_803E97C0; i++) {
+        gSPDisplayList(D_801D9E90++, dl);
+
+        num_vtxs = D_803D3434->unk3B30A[i]; //pad0[i].unk3B30A;
+        gSPVertex(dl++, &D_803D3434->unk39C88[vtx_index], num_vtxs, 0);
+        gSPCullDisplayList(dl++, 0, 7);
+
+        color_index = SSSV_RAND(4);
+        gDPSetEnvColor(dl++, 0x00, 0x00, 0x50, 0x00);
+        gDPSetPrimColor(dl++, 0, 0, D_803A0594_7B1C44[color_index].r, D_803A0594_7B1C44[color_index].g, D_803A0594_7B1C44[color_index].b, D_803A0594_7B1C44[color_index].a);
+
+        for (j = 0; j < num_vtxs - 9; j += 4) {
+            s32 uls, ult, lrs, lrt;
+            // temp_v1_2 = -(((D_803A05A4_7B1C54 >> 2) + (j >> 2)) << 7);
+            // dl_2->unk0 = (Gfx *) (((temp_v1_2 & 0xFFF) << 0xC) | 0xF2000000);
+            // dl_2->unk4 = (s32) ((((temp_v1_2 + 0x7F) & 0xFFF) << 0xC) | 0x3F);
+
+            uls = -(((D_803A05A4_7B1C54 >> 2) + (j >> 2)) << 7);
+            ult = 0;
+            lrs = uls + 0x7F;
+            lrt = ult + 0x3F;
+
+            gDPSetTileSize(
+            /* pkt */ dl++,
+            /* t   */ G_TX_RENDERTILE,
+            /* uls */ uls,
+            /* ult */ ult,
+            /* lrs */ lrs,
+            /* lrt */ lrt);
+
+            // temp_v0 = j * 2;
+            // temp_s1_4->unk0 = (((((temp_v0 + 16) & 0xFF) << 0x10) | (((temp_v0 + 22) & 0xFF) << 8) | ((temp_v0 + 18) & 0xFF) | 0xB1000000);
+            // temp_s1_4->unk4 =  ((((temp_v0 + 16) & 0xFF) << 0x10) | (((temp_v0 + 20) & 0xFF) << 8) | ((temp_v0 + 22) & 0xFF));
+            gSP1Quadrangle(
+            /* pkt  */ dl++,
+            /* v0   */ (j + 9) + 2,
+            /* v1   */ (j + 9) - 1,
+            /* v2   */ (j + 9) + 0,
+            /* v3   */ (j + 9) + 1,
+            /* flag */ 0);
+        }
+        gSPEndDisplayList(dl++);
+        vtx_index += num_vtxs;
+    }
+    D_803A05A4_7B1C54 += 4;
+    D_803A05A4_7B1C54 &= 0xF;
+
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029E100_6AF7B0.s")
-// void func_8029E100_6AF7B0(void) {
-//     s16 temp_s0;
-//     s16 temp_s5;
-//     s32 temp_a2;
-//     s32 temp_t0;
-//     s32 temp_t3;
-//     s32 temp_t7;
-//     s32 temp_v0;
-//     s32 temp_v1_2;
-//     u16 temp_t4;
-//     u8 temp_s4;
-//     void *temp_a1;
-//     void *temp_a1_2;
-//     void *temp_s1;
-//     void *temp_s1_2;
-//     void *temp_s1_3;
-//     void *temp_s1_4;
-//     void *temp_s1_5;
-//     void *temp_s1_6;
-//     RGBA32 *rgba;
-//     void *phi_s1;
-//     s16 phi_s5;
-//     s16 phi_s6;
-//     s32 phi_s0;
-//     void *phi_s1_2;
-//     void *phi_s1_3;
-//
-//     // temp_a1 = D_801D9E90;
-//     // D_801D9E90 = temp_a1 + 8;
-//     // temp_a1->0 -> 06000000;
-//     // temp_a1->4 -> 010049E8;
-//     gSPDisplayList(D_801D9E90++, D_010049E8);
-//
-//     phi_s1 = D_803D3434->unk3B318;
-//     phi_s5 = 0;
-//     phi_s6 = 0;
-//     if ((s32) D_803E97C0 > 0) {
-//         do {
-//             // temp_a1_2 = D_801D9E90;
-//             // D_801D9E90 = temp_a1_2 + 8;
-//             // temp_a1_2->unk4 = phi_s1;
-//             // temp_a1_2->0 -> 06000000;
-//             gSPDisplayList(D_801D9E90++, D_803D3434->unk3B318);
-//
-//             temp_s4 = D_803D3434->unk3B30A[phi_s5];
-//             temp_s1 = phi_s1 + 8;
-//
-//             phi_s1->unk0 = (s32) ((((temp_s4 << 0xA) | ((temp_s4 * 0x10) - 1)) & 0xFFFF) | 0x04000000);
-//             phi_s1->unk4 = (D_803D3434->unk39C88[phi_s6 * 0x10]; // + (phi_s6 * 0x10) );
-//
-//             // temp_s1->0 -> BE000000;
-//             // temp_s1->4 -> E;
-//             gSPCullDisplayList(phi_s1++, 0, 7);
-//             temp_s1_2 = temp_s1 + 8;
-//             temp_s1_3 = temp_s1_2 + 8;
-//             temp_t7 = SSSV_RAND(4) * 4;
-//             // temp_s1_2->4 -> 5000;
-//             // temp_s1_2->0 -> FB000000;
-//             rgba = &D_803A0594_7B1C44[(temp_t7 & 0xFFFF)]; // rgba
-//             gDPSetEnvColor(phi_s1++, 0x00, 0x00, 0x50, 0x00);
-//             gDPSetPrimColor(phi_s1++, 0, 0, rgba->r, rgba->g, rgba->b, rgba->a);
-//
-//             // temp_s1_3->0 -> FA000000;
-//             // temp_s1_3->unk4 = (s32) (D_803D3440->unk3 | (D_803D3440->unk0 << 0x18) | (D_803D3440->unk1 << 0x10) | (D_803D3440->unk2 << 8));
-//             temp_s1_4 = temp_s1_3 + 8;
-//             temp_t0 = temp_s4 - 9;
-//             phi_s0 = 0;
-//             phi_s1_2 = temp_s1_4;
-//             phi_s1_3 = temp_s1_4;
-//             if (temp_t0 > 0) {
-//                 do {
-//                     temp_v1_2 = -(s32) ((((s32) D_803A05A4_7B1C54.unk0 >> 2) + (phi_s0 >> 2)) << 7);
-//                     temp_v0 = phi_s0 * 2;
-//                     phi_s1_2->unk0 = (s32) (((temp_v1_2 & 0xFFF) << 0xC) | 0xF2000000);
-//                     temp_t3 = (temp_v0 + 0x16) & 0xFF;
-//                     temp_a2 = ((temp_v0 + 0x10) & 0xFF) << 0x10;
-//                     phi_s1_2->unk4 = (s32) ((((temp_v1_2 + 0x7F) & 0xFFF) << 0xC) | 0x3F);
-//                     temp_s0 = phi_s0 + 4;
-//                     temp_s1_5 = phi_s1_2 + 8;
-//                     temp_s1_5->unk0 = (s32) (temp_a2 | (temp_t3 << 8) | ((temp_v0 + 0x12) & 0xFF) | 0xB1000000);
-//                     temp_s1_5->unk4 = (s32) (temp_a2 | (((temp_v0 + 0x14) & 0xFF) << 8) | temp_t3);
-//                     temp_s1_6 = temp_s1_5 + 8;
-//                     phi_s0 = (s32) temp_s0;
-//                     phi_s1_2 = temp_s1_6;
-//                     phi_s1_3 = temp_s1_6;
-//                 } while ((s32) temp_s0 < temp_t0);
-//             }
-//             // phi_s1_3->0 -> B8000000;
-//             // phi_s1_3->unk4 = 0;
-//             gSPEndDisplayList(phi_s1++);
-//
-//             phi_s5 = phi_s5 + 1;
-//             // phi_s1 = phi_s1_3 + 8;
-//             // phi_s5 = phi_s5;
-//             phi_s6 = (s16) (phi_s6 + temp_s4);
-//         } while (phi_s5 < D_803E97C0);
-//     }
-//     temp_t4 = D_803A05A4_7B1C54.unk0 + 4;
-//     D_803A05A4_7B1C54.unk0 = temp_t4;
-//     D_803A05A4_7B1C54.unk5A4 = (s16) (temp_t4 & 0xF);
-// }
+#endif
 
 void func_8029E3CC_6AFA7C(void) {
     if (D_803D3434->usedModelViewMtxs < 250) {
@@ -1024,75 +989,76 @@ void func_8029E7D0_6AFE80(void) {
     D_803D45D0.unk0 = -1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029EAAC_6B015C.s")
-// what is this junk
-// void func_8029EAAC_6B015C(void) {
-//     u8 current_texture;
-//     u8 loaded_texture;
-//     s8 i;
-//
-//     gSPDisplayList(D_801D9E8C++, &D_01004AF8);
-//     gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
-//
-//     i = 0;
-//     current_texture = 0xFF;
-//     loaded_texture = 0xFF;
-//
-//     for (; i != -1; i = D_803D3FF8.unk6E[i])  {
-//         current_texture = D_803D3FF8.unk32[i] & 0x3F;
-//         if (current_texture != loaded_texture) {
-//             if (loaded_texture != 0xFF) {
-//                 D_803D3FF8.unk2[current_texture] = -1;
-//                 loaded_texture = D_803D3FF8.unk32[i] & 0x3F;
-//             }
-//
-//             gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (s32)D_0102F010 + 2048 * current_texture);
-//             gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-//             gDPLoadSync(D_801D9E8C++);
-//             gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 1023, 256);
-//             gDPPipeSync(D_801D9E8C++);
-//             gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-//             gDPSetTileSize(D_801D9E8C++, G_TX_RENDERTILE, 0, 0, 124, 124);
-//         }
-//
-//         if (D_803D3434->usedModelViewMtxs >= 250) {
-//             break;
-//         }
-//
-//         func_80125FE0(
-//             &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-//             D_803D3FF8.unk124[i].unk0,
-//             D_803D3FF8.unk124[i].unk4,
-//             D_803D3FF8.unk124[i].unk8,
-//             D_803D3FF8.unk3F4[i].unk0,
-//             D_803D3FF8.unk3F4[i].unk2,
-//             D_803D3FF8.unkAA[i] << 5,
-//             D_803D3FF8.unkAA[i] << 5,
-//             D_803D3FF8.unkAA[i] << 5);
-//
-//         guLookAtReflect(
-//             &D_803D3434->unk38CD0[D_803D3434->unk39310],
-//             &D_803D3434->unk38A50[D_803D3434->unk39310],
-//             D_803F2C44, D_803F2C48, D_803F2C4C,
-//             D_803D3FF8.unk124[i].unk0 / 65536.0f,
-//             D_803D3FF8.unk124[i].unk4 / 65536.0f,
-//             D_803D3FF8.unk124[i].unk8 / 65536.0f,
-//             D_80204200,
-//             D_80204204,
-//             D_80204208);
-//
-//         gSPLookAtX(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
-//         gSPLookAtY(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
-//         gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-//         gSPDisplayList(D_801D9E8C++, D_803D3FF8.unk4E4[i]);
-//         gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
-//         D_803D3434->unk39310++;
-//     }
-//
-//     D_803D3FF8.unk0 = -1;
-//     D_803D3FF8.unk1 = -1;
-// }
+#if 0
+void func_8029EAAC_6B015C(void) {
+    u8 current_texture;
+    u8 loaded_texture;
+    s8 i;
 
+    gSPDisplayList(D_801D9E8C++, &D_01004AF8);
+    gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+
+    i = 0;
+    current_texture = -1;
+    loaded_texture = -1;
+
+    for (; i != -1; i = D_803D3FF8.unk6E[i])  {
+        current_texture = D_803D3FF8.unk32[i] & 0x3F;
+        if (current_texture != loaded_texture) {
+            if (loaded_texture != -1) {
+                D_803D3FF8.unk2[current_texture] = -1;
+                loaded_texture = D_803D3FF8.unk32[i] & 0x3F;
+            }
+
+            gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (s32)D_0102F010 + (current_texture << 11));
+            gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+            gDPLoadSync(D_801D9E8C++);
+            gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 1023, 256);
+            gDPPipeSync(D_801D9E8C++);
+            gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+            gDPSetTileSize(D_801D9E8C++, G_TX_RENDERTILE, 0, 0, 124, 124);
+        }
+
+        if (D_803D3434->usedModelViewMtxs >= 250) {
+            break;
+        }
+
+        func_80125FE0(
+            &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
+            D_803D3FF8.unk124[i].unk0,
+            D_803D3FF8.unk124[i].unk4,
+            D_803D3FF8.unk124[i].unk8,
+            D_803D3FF8.unk3F4[i].unk0,
+            D_803D3FF8.unk3F4[i].unk2,
+            D_803D3FF8.unkAA[i] << 5,
+            D_803D3FF8.unkAA[i] << 5,
+            D_803D3FF8.unkAA[i] << 5);
+
+        guLookAtReflect(
+            &D_803D3434->unk38CD0[D_803D3434->unk39310],
+            &D_803D3434->unk38A50[D_803D3434->unk39310],
+            D_803F2C44, D_803F2C48, D_803F2C4C,
+            D_803D3FF8.unk124[i].unk0 / 65536.0f,
+            D_803D3FF8.unk124[i].unk4 / 65536.0f,
+            D_803D3FF8.unk124[i].unk8 / 65536.0f,
+            D_80204200,
+            D_80204204,
+            D_80204208);
+
+        gSPLookAtX(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
+        gSPLookAtY(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
+        gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        gSPDisplayList(D_801D9E8C++, D_803D3FF8.unk4E4[i]);
+        gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
+        D_803D3434->unk39310++;
+    }
+
+    D_803D3FF8.unk0 = -1;
+    D_803D3FF8.unk1 = -1;
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029EAAC_6B015C.s")
+#endif
 
 void func_8029EF20_6B05D0(struct025 *arg0, Gfx **dl) {
     u8 current_texture;

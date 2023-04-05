@@ -565,15 +565,13 @@ s16 func_8012E724(s16 *text, u16 arg1, u16 arg2) {
     return 0;
 }
 
-#ifdef NON_MATCHING
-// just the stack
 s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
+    s16 wchr;
     s16 xPos;
     u16 xPos2;
-    u16 var_s1;
     u16 xStart;
+    u16 var_s1;
 
-    s16 wchr;
     u8 chr;
     s32 shouldBreak;
 
@@ -665,9 +663,6 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     numLines++;
     return numLines * lineHeight;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012E78C.s")
-#endif
 
 void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
     s16 wchr;       // sp256

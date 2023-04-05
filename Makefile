@@ -100,6 +100,9 @@ SPLAT    = $(TOOLS_DIR)/splat/split.py
 N64CRC   = $(TOOLS_DIR)/n64crc.py
 
 IMG_CONVERT = $(PYTHON) $(TOOLS_DIR)/image_converter.py
+
+LIBRNCU  = $(TOOLS_DIR)/librncu.so
+
 # Flags
 
 OPT_FLAGS      = -O2
@@ -183,7 +186,7 @@ all: dirs $(VERIFY)
 dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
-tools: $(RNC64)
+tools: $(RNC64) $(LIBRNCU)
 
 check: .baserom.$(VERSION).ok
 
@@ -276,6 +279,9 @@ rnc/%.bin: %.bin
 
 $(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64
+
+$(LIBRNCU): $(TOOLS_DIR)/rncu.c
+	$(GCC) -o $@ $< --shared -O3 -fPIC
 
 # language files
 %.dat.rnc.json: %.dat.rnc

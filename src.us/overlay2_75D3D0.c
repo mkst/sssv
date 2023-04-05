@@ -968,7 +968,7 @@ void func_8034D830_75EEE0(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 }
 
 #if 0
-// CURRENT (2984)
+// CURRENT (2934)
 void func_8034F3EC_760A9C(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
     s16 temp_t3;
     s16 var_t8;
@@ -1078,9 +1078,9 @@ void func_8034F3EC_760A9C(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
         temp_t3 = var_t4 + var_t0_4;
 
         arg1[*arg4].unk0 = arg6;
-        arg1[*arg4].unk2 = ((var_t0_4 * src->unk2) + (var_t4 * src[i].unk2)) / temp_t3;
-        arg1[*arg4].unk4 = ((var_t0_4 * src->unk4) + (var_t4 * src[i].unk4)) / temp_t3;
-        arg1[*arg4].unk6 = ((var_t0_4 * src->unk6) + (var_t4 * src[i].unk6)) / temp_t3;
+        arg1[*arg4].unk2 = ((var_t0_4 * src->unk2) + (var_t4 * src[i-1].unk2)) / temp_t3;
+        arg1[*arg4].unk4 = ((var_t0_4 * src->unk4) + (var_t4 * src[i-1].unk4)) / temp_t3;
+        arg1[*arg4].unk6 = ((var_t0_4 * src->unk6) + (var_t4 * src[i-1].unk6)) / temp_t3;
 
         arg2[*arg5].unk0 = arg1[*arg4].unk0;
         arg2[*arg5].unk2 = arg1[*arg4].unk2;
@@ -1096,7 +1096,7 @@ void func_8034F3EC_760A9C(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 #endif
 
 #if 0
-// CURRENT (2684)
+// CURRENT (2930)
 void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
     s16 temp_t3;
     s16 var_t8;
@@ -1221,7 +1221,7 @@ void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 #endif
 
 #if 0
-// CURRENT (7181)
+// CURRENT (5382)
 // cant figure out the logic
 void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue, s32 argB, s32 argC, s32 argD, s32 argE) {
     s16 temp_a2;

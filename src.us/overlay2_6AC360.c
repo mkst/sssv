@@ -197,9 +197,6 @@ u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B000_6AC6B0.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029B56C_6ACC1C.s")
-#if 0
-// 3604 (miles) away
 s32 func_8029B56C_6ACC1C(s16 arg0, s16 arg1, s16 *arg2, struct063 arg3[73][129]) {
     s16 temp_t3;
     s16 temp_t5;
@@ -209,23 +206,25 @@ s32 func_8029B56C_6ACC1C(s16 arg0, s16 arg1, s16 *arg2, struct063 arg3[73][129])
     s16 temp_t1;
     s16 temp_v1;
 
-    s16 changed;
+    s32 changed;
 
-    if (((s16)(arg0 >> 6) < 0) || ((((s16)(arg0 >> 6) >= 72))) ||
-        ((s16)(arg1 >> 6) < 0) || ((((s16)(arg1 >> 6) >= 128)))) {
+    s16 a0 = arg0 >> 6;
+    s16 a1 = arg1 >> 6;
+
+    if ((a0 < 0) || (a0 >= 72) || (a1 < 0) || (a1 >= 128)) {
         return 0;
     }
 
-    changed = 0;
-    if (arg3[arg0 >> 6][arg1 >> 6].unk3) { // ->unk3 != 0) {
+    if (arg3[a0][a1].unk3 != 0) {
+        temp_v1 = arg3[(a0) + 0][(a1) + 0].unk1 << 3;
+        temp_a3 = arg3[(a0) + 0][(a1) + 1].unk1 << 3;
+        temp_t0 = arg3[(a0) + 1][(a1) + 1].unk1 << 3;
+        temp_t1 = arg3[(a0) + 1][(a1) + 0].unk1 << 3;
+
         temp_t3 = arg0 & 0x3F;
         temp_t5 = arg1 & 0x3F;
-        temp_v1 = arg3[(arg0 >> 6) + 0][(arg1 >> 6) + 0].unk1 << 3;
-        temp_a3 = arg3[(arg0 >> 6) + 0][(arg1 >> 6) + 1].unk1 << 3;
-        temp_t1 = arg3[(arg0 >> 6) + 1][(arg1 >> 6) + 0].unk1 << 3;
-        temp_t0 = arg3[(arg0 >> 6) + 1][(arg1 >> 6) + 1].unk1 << 3;
 
-        if ((D_803C0740[arg0 >> 6][arg1 >> 6].unk4 & 1)) {
+        if ((D_803C0740[(a0)][(a1)].unk4 & 1)) {
             if (temp_t3 < temp_t5) {
                 *arg2 = temp_v1 + ((((temp_t0 - temp_a3) * temp_t3) + ((temp_a3 - temp_v1) * temp_t5)) >> 6);
             } else {
@@ -238,12 +237,14 @@ s32 func_8029B56C_6ACC1C(s16 arg0, s16 arg1, s16 *arg2, struct063 arg3[73][129])
                 *arg2 = (((temp_t0 << 6) + ((temp_a3 - temp_t0) * (0x40 - temp_t3)) + ((temp_t1 - temp_a3) * (0x40 - temp_t5))) >> 6);
             }
         }
-        *arg2 -= D_803E1D30[D_803C0740[arg0 >> 6][arg1 >> 6].unk3].unk2 << 3;
         changed = 1;
+        *arg2 -= D_803E1D30[D_803C0740[a0][a1].unk3].unk2 << 3;
+    } else {
+        changed = 0;
     }
+
     return changed;
 }
-#endif
 
 s16 distance_from_player(s16 x, s16 z, s16 y) {
     Animal *a = D_801D9ED8.animals[gCurrentAnimalIndex].animal;

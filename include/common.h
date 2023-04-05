@@ -11,7 +11,7 @@
 #define SIGNUM(x) ((x)<0 ? -1 : 1)
 #define SIGNUMF(x) ((x)<0.0f ? -1 : 1)
 
-#define SQ(x) (x*x)
+#define SQ(x) ((x)*(x))
 
 #define MAX_INT                0x7FFFFFFF
 #define MAX_SHORT              0x7FFF

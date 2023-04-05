@@ -7,6 +7,7 @@ void func_8031C48C_72DB3C(void);
 
 // rgba16 mipmapped textures?
 u8 *D_803A5770_7B6E20[] = {
+    // img_europe_mipmap_rnc_ROM_START, img_europe_mipmap_rnc_ROM_END,  // europe
     rnc_42DCA0_ROM_START, rnc_42DCA0_ROM_END,  // europe
     rnc_435320_ROM_START, rnc_435320_ROM_END,  // ice
     rnc_43CB60_ROM_START, rnc_43CB60_ROM_END,  // desert

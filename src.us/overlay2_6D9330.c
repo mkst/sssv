@@ -19,7 +19,7 @@ void func_802C7C80_6D9330(void) {
         temp_v1 = &D_803A05D0_7B1C80[i];
 
         D_801D9ED8.unk0[i].unk7E = 0xCC;
-        D_801D9ED8.unk0[i].unk80.unk0 = 2;
+        D_801D9ED8.unk0[i].unk80 = 2;
         D_801D9ED8.unk0[i].unk8A = 0x7F;
         D_801D9ED8.unk0[i].unkD8 = 0x14;
 
@@ -61,18 +61,18 @@ void func_802C7C80_6D9330(void) {
         D_801D9ED8.unk0[i].unk76 = (D_801D9ED8.unk0[i].unk72 * 7) >> 2;
         D_801D9ED8.unk0[i].unkBC = temp_v1->unk24;
         D_801D9ED8.unk0[i].unkC0 = temp_v1->unk26;
-        temp_a0_2 = temp_v1->unk22 * 5;
+        // temp_a0_2 = temp_v1->unk22 * 5;
         D_801D9ED8.unk0[i].unkC8 = temp_v1->unk30;
         D_801D9ED8.unk0[i].unkC4 = temp_v1->unk2A;
         D_801D9ED8.unk0[i].unkE7 = temp_v1->unk2D;
         D_801D9ED8.unk0[i].unkC6 = temp_v1->unk2E;
         D_801D9ED8.unk0[i].unkCC = temp_v1->unk34;
-        D_801D9ED8.unk0[i].unk78 = (temp_a0_2) >> 3;
+        D_801D9ED8.unk0[i].unk78 = (temp_v1->unk22 * 5) >> 3;
         // temp_a0_2 = i & 0xFFFF;
         D_801D9ED8.unk0[i].unkD0 = temp_v1->unk38;
         D_801D9ED8.unk0[i].unkCE = temp_v1->unk36;
 
-        D_801D9ED8.unk0[i].objectType = i + 0x100;
+        D_801D9ED8.unk0[i].objectType = (u16)(i) + 0x100;
 
         D_801D9ED8.unk0[i].unkE6 = temp_v1->unk2C;
         D_801D9ED8.unk0[i].unkE8 = temp_v1->unk3C;
@@ -116,12 +116,9 @@ void func_802C7C80_6D9330(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9330/func_802C7C80_6D9330.s")
 #endif
 
-// spawn animal?
-#if 0
 struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s16 id, s8 arg6) {
     Animal *sp1C;
     s16 slot;
-    s16 temp_v1_3;
     s16 i;
 
     for (i = 0; i < D_803D553E; i++) {
@@ -134,7 +131,7 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
         slot = D_803D553E;
         D_803D553E++;
     } else {
-        slot = D_803D553E;
+        slot = i;
     }
 
     memset_bytes(&D_801D9ED8.animals[slot], 0, sizeof(Animal2));
@@ -148,8 +145,10 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     D_803D5524 = &D_801D9ED8.unk0[id];
 
     sp1C = D_803D5530 = D_801D9ED8.animals[slot].animal;
-    D_803D5528 = sp1C;
     D_803D552C = sp1C;
+    D_803D5528 = sp1C;
+
+    if (!D_803D5528) {};
 
     if (slot == gCurrentAnimalIndex) {
         D_803D5538 = 1;
@@ -178,21 +177,21 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     D_803D5530->unk160 = 0;
     D_803D5530->unk16C = D_803D5524;
     D_803D5530->health = MIN(health, D_803D5524->unk8A);
-    D_803D5530->unk4C.unk27 = 1; // = (u8) (D_803D5530->unk4F | 0x10);
-    D_803D5530->unk4C.unk28 = 1; // = (u8) (D_803D5530->unk4F | 8);
-    D_803D5530->unk4C.unk29 = 1; // = (u8) (D_803D5530->unk4F | 4);
+    D_803D5530->unk4C.unk27 = 1;
+    D_803D5530->unk4C.unk28 = 1;
+    D_803D5530->unk4C.unk29 = 1;
     D_803D552C->unk31C = func_801282C4();
 
-    temp_v1_3 = func_8031124C_7228FC(arg0, arg1) >> 0x10;
-    if (arg2 < temp_v1_3) {
+    i = func_8031124C_7228FC(arg0, arg1) >> 0x10;
+    if (arg2 < i) {
         // dont spawn below ground level
-        arg2 = temp_v1_3;
+        arg2 = i;
     }
 
-    temp_v1_3 = func_80310F58_722608(arg0, arg1) >> 0x10;
-    if (temp_v1_3 == 0x4000) {
+    i = func_80310F58_722608(arg0, arg1) >> 0x10;
+    if (i == 0x4000) {
         D_803D5530->unk160 = 0;
-    } else if (arg2 >= temp_v1_3) {
+    } else if (arg2 >= i) {
         D_803D5530->unk160 = 2;
     } else {
         D_803D5530->unk160 = 1;
@@ -217,9 +216,6 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     }
     return &D_801D9ED8.animals[slot];
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9330/spawn_animal.s")
-#endif
 
 void func_802C83CC_6D9A7C(Animal *arg0) {
     if (arg0->unk320 != 0) {

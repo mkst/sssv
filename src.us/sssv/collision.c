@@ -540,52 +540,31 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B6088_6C7738.s")
 #endif
 
-#if 0
-// CURRENT (6287)
 s32 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
     s16 i;
     s16 j;
 
-    s32 temp_a3;
-    s32 temp_t0;
-    s32 temp_t1;
+    s16 temp_a3;
+    s16 temp_t0;
+    s16 temp_t1;
     s32 temp_v0;
 
-    s16 var_t6;
-    s16 var_t7;
-    s16 var_t8;
     u8 var_v0;
 
+    i = 0;
     var_v0 = 0;
 
-    for (i = 0; ((var_v0 == 0) && (arg0->unkC4[i].unkC != 0) && (i < 5)); i++) {
-
+    for (; ((var_v0 == 0) && (arg0->unkC4[i].unkC != 0) && (i < 5)); i++) {
         for (j = 0; ((var_v0 == 0) && (arg1->unkC4[j].unkC != 0) && (j < 5)); j++) {
 
-            temp_v0 = arg1->unkC4[j].unkC + arg0->unkC4[i].unkC;
+            temp_a3 = ((arg1->unkC4[j].unk0.w + arg7) - (arg0->unkC4[i].unk0.w + arg4)) / 0x10000;
+            temp_t0 = ((arg1->unkC4[j].unk4.w + arg8) - (arg0->unkC4[i].unk4.w + arg5)) / 0x10000;
+            temp_t1 = ((arg1->unkC4[j].unk8.w + arg9) - (arg0->unkC4[i].unk8.w + arg6)) / 0x10000;
 
-            temp_a3 = ((arg1->unkC4[j].unk0.w + arg7) - arg0->unkC4[i].unk0.w) - arg4;
-            if (temp_a3 < 0) {
-                var_t8 = (temp_a3 + 0xFFFF) >> 0x10;
-            } else {
-                var_t8 = temp_a3 >> 0x10;
-            }
-
-            temp_t0 = ((arg1->unkC4[j].unk4.w + arg8) - arg0->unkC4[i].unk4.w) - arg5;
-            if (temp_t0 < 0) {
-                var_t7 = (temp_t0 + 0xFFFF) >> 0x10;
-            } else {
-                var_t7 = temp_t0 >> 0x10;
-            }
-
-            temp_t1 = ((arg1->unkC4[j].unk8.w + arg9) - arg0->unkC4[i].unk8.w) - arg6;
-            if (temp_t1 < 0) {
-                var_t6 = (temp_t1 + 0xFFFF) >> 0x10;
-            } else {
-                var_t6 = temp_t1 >> 0x10;
-            }
-
-            var_v0 = (u32)(SQ(var_t8) + SQ(var_t7) + SQ(var_t6)) < (u32)SQ(temp_v0);
+            temp_v0 = arg0->unkC4[i].unkC + arg1->unkC4[j].unkC; // required for match
+            temp_v0 = arg0->unkC4[i].unkC + arg1->unkC4[j].unkC;
+            temp_v0 = SQ(temp_v0);
+            var_v0 = ((SQ(temp_a3) + SQ(temp_t0)) + SQ(temp_t1)) < ((u32) temp_v0);
 
             if (var_v0 != 0) {
                 *arg2 = &arg0->unkC4[i];
@@ -596,9 +575,6 @@ s32 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     }
     return var_v0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B6948_6C7FF8.s")
-#endif
 
 #if 0
 // CURRENT (3649)
@@ -877,7 +853,6 @@ s32 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     return 0;
 }
 
-// broken expansion pak function?
 #if 0
 s32 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg5, u16 arg6) {
     Animal *animal2;

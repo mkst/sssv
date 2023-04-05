@@ -1,19 +1,23 @@
 import sys
 
+from pathlib import Path
 from ctypes import (
-    c_int,
-    c_ulong,
-    c_ushort,
     Structure,
+    byref,
+    c_int,
+    c_uint8,
+    c_uint32,
+    c_uint16,
+    cdll,
 )
 
 
 class Huffman(Structure):
     _fields_ = [
-        ("frequency", c_ulong),
-        ("entry_ptr", c_ushort),
-        ("code", c_ulong),
-        ("code_len", c_ushort),
+        ("frequency", c_uint32),
+        ("entry_ptr", c_uint16),
+        ("code", c_uint32),
+        ("code_len", c_uint16),
     ]
 
 
@@ -75,6 +79,13 @@ class RncUnpackerMethod1:
 
         self.uncompressed_size = int.from_bytes(data[4:8], byteorder="big")
         self.input = data[18:]
+        self.output = bytearray(self.uncompressed_size)
+
+        try:
+            self.librncu = cdll.LoadLibrary(Path(__file__).parent / "librncu.so")
+        except Exception as err:
+            print("Could not load librncu.so (%s), falling back to Python!" % err)
+            self.librncu = None
 
     def init_unpack(self):
         self.bit_buff = 0
@@ -130,7 +141,7 @@ class RncUnpackerMethod1:
                 table[i].code_len = self.input_bits(4)
             make_huffman_codes(table, n)
 
-    def unpack(self):
+    def unpack_python(self):
         self.init_unpack()
 
         self.input_bits(2, discard=True)  # ignore lock and key bits
@@ -166,6 +177,17 @@ class RncUnpackerMethod1:
                     | (self.bit_buff & (1 << self.bit_buff_bits) - 1)
                 ) & 0xFFFFFFFF
 
+    def unpack_c(self):
+        packed = (c_uint8 * len(self.input)).from_buffer_copy(self.input, 0)
+        unpacked = (c_uint8 * self.uncompressed_size)()
+        self.librncu.unpack(byref(packed), byref(unpacked), self.uncompressed_size)
+        self.output = bytearray(unpacked)
+
+    def unpack(self):
+        if self.librncu:
+            self.unpack_c()
+        else:
+            self.unpack_python()
         return self.output
 
 

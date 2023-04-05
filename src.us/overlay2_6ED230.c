@@ -325,29 +325,27 @@ void func_802DC6A4_6EDD54(u16 arg0) {
     }
 }
 
-#ifdef NON_MATCHING
-// *almost* just regalloc
 void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
+    s16 new_var1;
+    s16 new_var2;
     s16 phi_v1;
     u16 temp_t0;
-
     temp_t0 = (arg0 << 7) / arg1;
 
     if (temp_t0 < 96) {
         phi_v1 = (temp_t0 * 4) / 3;
-    } else {
-        phi_v1 = (-temp_t0 * 4);
-        phi_v1 += 512;
-         // + 512;
+    }
+    else {
+        phi_v1 = ((-temp_t0) * 4) + 512;
     }
 
-    D_803F2EBC = D_803F2EBC + (phi_v1 * (D_80152C78[(temp_t0 << 3) & 0xFF] >> 7));
-    D_803F2EC0 = D_803F2EC0 + (phi_v1 * (D_80152C78[(temp_t0 << 2) & 0xFF] >> 7));
-    D_803F2EC4 = D_803F2EC4 - (phi_v1 * (D_80152C78[(temp_t0 << 3) & 0xFF] >> 7));
+    new_var1 = temp_t0 << 2;
+    new_var2 = temp_t0 << 3;
+
+    D_803F2EBC = D_803F2EBC + (phi_v1 * (D_80152C78[new_var2 & 0xFF] >> 7));
+    D_803F2EC0 = D_803F2EC0 + (phi_v1 * (D_80152C78[new_var1 & 0xFF] >> 7));
+    D_803F2EC4 = D_803F2EC4 - (phi_v1 * (D_80152C78[new_var2 & 0xFF] >> 7));
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DC854_6EDF04.s")
-#endif
 
 void func_802DC968_6EE018(u16 arg0, s16 arg1) {
     u16 tmp = D_803D5544 - D_803D552C->unk334;

@@ -2449,19 +2449,18 @@ s32 func_802D5B88_6E7238(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, u16 
     return 1;
 }
 
-#ifdef NON_MATCHING
-
 // s16 D_803A231C_7B39CC = 0x26;
 extern s16 D_803A231C_7B39CC;
 
 // arg3 = particle 38 --> Zzzzz...
 s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 arg6, s16 size, u16 color1, u16 color2, u16 argA) {
-    s16 pad[6];
-    s32 tmp;
+    s16 pad[4];
+    s32 tmpy;
+    s32 temp;
     s16 sp3E;
     u8  used;
-    s32 temp_v0;
     struct036 *particle;
+    s32 temp_v0;
 
     if (func_8029A334_6AB9E4(x, z, y) == 0) {
         return 0;
@@ -2469,16 +2468,18 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
 
     sp3E = 0;
 
+    tmpy = y;
     temp_v0 = func_80310F58_722608(x, z);
-    if (temp_v0 < (y << 0x10)) {
+    if (temp_v0 < (tmpy << 0x10)) {
         sp3E = 1;
     }
 
-    if ((D_803A20C0_7B3770[id].unk0 & 0x800) && (temp_v0 != 0x40000000) && (temp_v0 > (y << 0x10))) {
+    temp = D_803A20C0_7B3770[id].unk0;
+    if (((temp) & 0x800) && (temp_v0 != 0x40000000) && (temp_v0 > (y << 0x10))) {
         return 0;
     }
 
-    pad[5] = id; // yuck
+    pad[3] = id; // force stack
     D_803D6120.used++;
     if (D_803D6120.used >= 0xFF) {
         D_803D6120.used = 0;
@@ -2492,9 +2493,8 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
 
     used = D_803D6120.used;
 
-    if ((D_803A20C0_7B3770[id].unk0 & 0x400) == 0) {
-        tmp = func_802EA004_6FB6B4(x << 0x10, z << 0x10, y << 0x10, size);
-        if (tmp == 2) {
+    if ((temp & 0x400) == 0) {
+        if (func_802EA004_6FB6B4(x << 0x10, z << 0x10, y << 0x10, size) == 2) {
             return 0;
         }
     }
@@ -2634,9 +2634,6 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
 
     return 1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/create_particle_effect.s")
-#endif
 
 void func_802D6738_6E7DE8(void) {
     s16 pad1[10];
@@ -2902,8 +2899,8 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     }
 
     for (i = 0; i < tmp0; i++) {
-        temp_s0 = arg0 + ((D_80152350.unk2D0[(s16)(SSSV_RAND(8) + (360 / tmp0 * i))] * arg3) >> 9);
-        temp_s2 = arg1 + ((D_80152350.unk384[(s16)(SSSV_RAND(8) + (360 / tmp0 * i))] * arg3) >> 9);
+        temp_s0 = arg0 + ((D_80152350.unk2D0[(s16)(SSSV_RAND(8) + ((360 / tmp0) * i))] * arg3) >> 9);
+        temp_s2 = arg1 + ((D_80152350.unk384[(s16)(SSSV_RAND(8) + ((360 / tmp0) * i))] * arg3) >> 9);
         phi_v1_4 = MAX(arg2, func_80298E98_6AA548(temp_s0, temp_s2));
         phi_v1_4 = (s16)(phi_v1_4 + 20);
         random = func_8012826C();
@@ -2913,8 +2910,8 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
             temp_s2,
             phi_v1_4,
             24,
-            D_80152350.unk2D0[(s16)(360 / tmp0 * i)] * tmp2 << 4,
-            D_80152350.unk384[(s16)(360 / tmp0 * i)] * tmp2 << 4,
+            D_80152350.unk2D0[(s16)((360 / tmp0) * i)] * tmp2 << 4,
+            D_80152350.unk384[(s16)((360 / tmp0) * i)] * tmp2 << 4,
             ((random & 0x7FFF) << 2) + (phi_v1 << 16),
             2,
             GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),

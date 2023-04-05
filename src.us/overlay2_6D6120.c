@@ -884,25 +884,27 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
 }
 
 #if 0
+// junk
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 var_a0;
     s16 var_a2;
     s16 temp_hi;
+    s16 tmp;
 
     temp_hi = (D_803D5542 + 0x14) % 360;
 
     if (D_803D5542 < 96) {
-        var_a0 = ((D_80152C78[(D_803D5542 << 3) & 0xFF] >> 7) * arg1) >> 9;
+        var_a0 = ((D_80152C78[(s16)(D_803D5542 << 3) & 0xFF] >> 7) * arg1) >> 9;
     } else {
         var_a0 = 0;
     }
     if (temp_hi < 96) {
-        var_a2 = ((D_80152C78[(temp_hi << 3) & 0xFF] >> 7) * arg1) >> 9;
+        var_a2 = ((D_80152C78[(s16)(temp_hi << 3) & 0xFF] >> 7) * arg1) >> 9;
     } else {
         var_a2 = 0;
     }
     if ((D_803D5542 > 0xC0) && (D_803D5542 < 0xD8)) {
-        var_a0 = ((D_80152C78[(D_803D5542 << 2) & 0xFF] >> 7) * arg1) >> 9;
+        var_a0 = ((D_80152C78[(s16)(D_803D5542 << 2) & 0xFF] >> 7) * arg1) >> 9;
     }
 
     if (ABS(var_a0) <= 16) {
@@ -912,21 +914,25 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
         var_a2 = 16;
     }
 
+    // not a switch
     if ((D_803D552C->unk366 == 5) || (D_803D552C->unk366 == 2)) {
         var_a0 = var_a2 = 0;
     }
 
+    tmp = D_80203FE0[19].unk4;
+
     D_80203FE0[27].unk0 = D_80203FE0[26].unk0 = D_80203FE0[19].unk0 - arg0;
     D_80203FE0[29].unk0 = D_80203FE0[28].unk0 = D_80203FE0[19].unk0 + arg0;
 
-    D_80203FE0[27].unk2 = (D_80203FE0[19].unk2 + var_a0);
-    D_80203FE0[27].unk4 = ((D_80203FE0[19].unk4 + arg1) - (var_a0 >> 1));
-    if (!temp_hi){}; // helps a bit...
-    D_80203FE0[29].unk2 = (D_80203FE0[19].unk2 + var_a2);
-    D_80203FE0[29].unk4 = ((D_80203FE0[19].unk4 + arg1) - (var_a2 >> 1));
-
     D_80203FE0[28].unk2 = D_80203FE0[26].unk2 = D_80203FE0[19].unk2;
     D_80203FE0[28].unk4 = D_80203FE0[26].unk4 = D_80203FE0[19].unk4;
+
+    D_80203FE0[27].unk2 = (D_80203FE0[19].unk2 + var_a0);
+    D_80203FE0[27].unk4 = ((tmp + arg1) - (var_a0 >> 1));
+
+    D_80203FE0[29].unk2 = (D_80203FE0[19].unk2 + var_a2);
+    D_80203FE0[29].unk4 = ((tmp + arg1) - (var_a2 >> 1));
+
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6FF4_6D86A4.s")
