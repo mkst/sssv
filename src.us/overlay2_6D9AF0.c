@@ -523,11 +523,13 @@ void func_802C9500_6DABB0(struct071 *obj) {
     D_801E9EB8.unk1A114--;
 }
 
-#if 0
+#ifdef NON_MATCHING
+// spawn_object?
 struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s32 arg4, s32 arg5, s32 arg6, s16 zRotation, s16 yRotation, u16 scale) {
     s16 temp_v1;
     struct071 *obj;
     struct068 *tmp;
+    struct035 *tmp2;
 
     obj = func_802C9488_6DAB38();
     if (obj == 0) {
@@ -537,7 +539,7 @@ struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s32 arg4, s32 arg5, 
     bzero_sssv((u8 *) obj, sizeof(struct071));
 
     tmp = &D_801E9EB8.unk0[id]; // this is wrong
-    obj->unk16C = (struct035 *)tmp;
+    obj->unk16C = tmp2 = (struct035 *)tmp;
 
     if (obj->unk16C->unk70 != 0) {
         scale = obj->unk16C->unk70;
@@ -545,14 +547,14 @@ struct071 *func_802C9564_6DAC14(u8 id, s16 x, s16 z, s16 y, s32 arg4, s32 arg5, 
     // help
     obj->unk40 = scale;
 
-    obj->unk4C.unk29 = obj->unk16C->unk82.unk4;
-    obj->unk4C.unk30 = obj->unk16C->unk82.unk5;
-    obj->unk4C.unk28 = obj->unk16C->unk82.unk3;
+    obj->unk4C.unk29 = tmp2->unk82.unk4;
+    obj->unk4C.unk30 = tmp2->unk82.unk5;
+    obj->unk4C.unk28 = tmp2->unk82.unk3;
 
-    obj->unk14C = obj->unk16C->unk8A;
-    obj->unk164 = obj->unk16C->unk89;
+    obj->unk14C = tmp2->unk8A;
+    obj->unk164 = tmp2->unk89;
 
-    if (obj->unk16C->unk82.unk7) {
+    if (tmp2->unk82.unk7) {
         temp_v1 = func_8031124C_7228FC(x, z) >> 0x10;
         if (y < temp_v1) {
             y = temp_v1;

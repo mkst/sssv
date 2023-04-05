@@ -166,7 +166,7 @@ void func_8029614C_6A77FC(void);
 void func_8029619C_6A784C(void);
 void func_802961D4_6A7884(void);
 void func_80296310_6A79C0(void);
-void func_802963D0_6A7A80(s32 arg0);
+void func_802963D0_6A7A80(DisplayList * arg0); // struct018*
 
 // overlay2_6A7A80
 void func_80296544_6A7BF4(void);
@@ -946,8 +946,8 @@ void func_803392A0_74A950(u8 arg0);
 void func_80339308_74A9B8(u8 arg0);
 void func_803394E4_74AB94(u8, u8);
 void func_80339B84_74B234(u8, f32);
-void func_8033AAC8_74C178(u8);
-void func_8033AC68_74C318(f32 *arg0, f32 *arg1, f32 *arg2, u8 *arg3, s16 arg4); // TBD
+void func_8033AAC8_74C178(u8 cameraID);
+void func_8033AC68_74C318(f32 *arg0, f32 *arg1, f32 *arg2, WaypointData *arg3, s16 arg4); // TBD
 void func_8033B118_74C7C8(u8);
 void func_8033B440_74CAF0(u8 arg0);
 void func_8033B594_74CC44(u8);
@@ -981,7 +981,7 @@ void func_80343438_754AE8(void);
 void func_80343720_754DD0(s16*, s16*, s16*);
 void func_80343A50_755100(void);
 void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE);
-void func_80343C44_7552F4(s16 arg0, s16 *arg1, s16 *arg2);
+void func_80343C44_7552F4(s16 arg0, u16 *arg1, u16 *arg2);
 void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4);
 void func_80343D44_7553F4(struct071 *arg0, s8 arg1);
 void func_80343DC0_755470(void);

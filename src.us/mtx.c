@@ -83,8 +83,6 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     s32 sp2C;
     s32 sp28;
 
-    // s32 sp24;
-    // s32 sp20;
     FracIntHelper sp20;
 
     s32 temp_a0_2;
@@ -96,12 +94,12 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     s32 var_t3;
 
     sp30 = (((D_80203FE0[joint1].unk0 + D_80203FE0[joint0].unk0) >> 1) << 0x10) / 8;
-    sp28.w.unk4 (((D_80203FE0[joint1].unk2 + D_80203FE0[joint0].unk2) >> 1) << 0x10) / 8;
-    sp28.w.unk0 (((D_80203FE0[joint1].unk4 + D_80203FE0[joint0].unk4) >> 1) << 0x10) / 8;
+    sp2C = (((D_80203FE0[joint1].unk2 + D_80203FE0[joint0].unk2) >> 1) << 0x10) / 8;
+    sp28 = (((D_80203FE0[joint1].unk4 + D_80203FE0[joint0].unk4) >> 1) << 0x10) / 8;
 
     sp30 = ((arg5 * sp30) >> 4) + sp30;
-    sp28.w.unk4 ((arg5 * sp2C) >> 4) + sp2C;
-    sp28.w.unk0 ((arg5 * sp28) >> 3) + sp28;
+    sp2C = ((arg5 * sp2C) >> 4) + sp2C;
+    sp28 = ((arg5 * sp28) >> 3) + sp28;
 
     sp6C = D_80203FE0[joint1].unk0 - D_80203FE0[joint0].unk0;
     sp68 = D_80203FE0[joint1].unk2 - D_80203FE0[joint0].unk2;
@@ -111,17 +109,16 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
 
         if (arg8 == 1) {
             sp60 = 0;
-            var_t3 = 0x400;
-            sp54 = 0x400;
+            var_t3 = sp54 = 0x400;
             sp50 = 0;
             sp4C = 0;
         } else {
             sp60 = 0x400;
-            var_t3 = 0;
-            sp54 = 0;
+            var_t3 = sp54 = 0;
             sp50 = -0x400;
             sp4C = 0;
         }
+        // need to reference var_t3
     } else {
         var_t3 = -sp6C;
         sp60 = sp68;
@@ -574,12 +571,12 @@ s32 func_80127994(s32 arg0, s32 arg1, s32 arg2, Mtx *arg3) {
         arg2 = (arg2 << 0xA) / temp_f6;
     }
 
-    temp_v0 = sqrtf(((f32)arg2 * arg2) + ((f32) -arg0 * (f32) -arg0));
-    temp_v1 = (arg2 << 0xA) / temp_v0;
-
+    temp_v0 = sqrtf(SQ((f32)arg2) + SQ((f32)-arg0));
+    temp_v1 = (arg2 * 0x400) / temp_v0;
     sp24.w.unk4 = temp_v1 << 6;
+
     temp_lo = 0 / temp_v0;
-    temp_lo_2 = (arg0 * -0x400) / temp_v0;
+    temp_lo_2 = (-arg0 * 0x400) / temp_v0;
 
     sp24.w.unk0 = temp_lo << 6;
     arg3->m[0][0] = ((sp24.h.unk4 << 0x10) | sp24.h.unk0);

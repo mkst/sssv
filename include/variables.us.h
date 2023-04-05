@@ -772,7 +772,7 @@ extern f32  D_80302D20_6A63C0; // 15000.0f
 // 0x803Axxxx
 
 extern s16  D_803A0500_7B1BB0;
-extern s32  D_803A0594_7B1C44[4]; // rgba
+// extern s32  D_803A0594_7B1C44[4]; // rgba
 extern s16  D_803A05C0_7B1C70;
 extern s16  D_803A05C8_7B1C78;
 extern s32  D_803A05B0;
@@ -1452,7 +1452,7 @@ extern s16  D_803F2CF0;
 extern u8   D_803F2CF2;
 extern struct033 D_803F2CF8; // pointer to an animal+health
 
-extern struct034 D_803F2D04;
+extern s32  D_803F2D04;
 extern struct003 D_803F2D10;
 extern s16  D_803F2D18;
 extern u16  D_803F2D20;

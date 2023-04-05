@@ -3872,6 +3872,7 @@ segments:
     - [0x7B9A20, data]
     - [0x7B9A30, data, sssv/animals/tortoise]
     - [0x7B9BD0, data]
+    # - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     # - [0x7B9BD8, .data, data/objects_7B9BD8] # 0x9C objects x 247  # rodata overlay2_72C680
     # - [0x7C325C, bin] # end of objects
     - [0x7C35D0, .data, data/demo_input] # demo controller input]
@@ -3896,7 +3897,6 @@ segments:
     - [0x7C6F10, data, sssv/animals/pirana]
     - [0x7C6F50, .data, sssv/animals/cool_cod]
     - [0x7C6F90, data] # used in sssv/terminal_background
-    # - [0x7BC970, bin] # "all of the objects in the game (not just in the area you are in)" 0xB0 per item
     - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
     - [0x7C74E0, data, sssv/animals/evo]
     - [0x7C76B0, .data, sssv/credits]

@@ -111,27 +111,30 @@ void func_802A4184_6B5834(void) {
 //     *zVelocity = (zVel * arg2) >> 8;
 // }
 
-// miles away: CURRENT (1000)
+#if 0
+// CURRENT (950)
+void func_802A4278_6B5928(u16 arg0, u16 arg1, s16 arg2) {
+    s16 pad;
+    s32 zVel;
+    s32 temp_t6_2;
+    s32 temp_t7_2;
+    s32 temp_t7_3;
+    s32 xVel;
+
+    xVel = D_803D5530->xVelocity.w;
+    zVel = D_803D5530->zVelocity.w;
+
+    temp_t7_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 5;
+    temp_t6_2 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 5;
+    temp_t7_3 = (((xVel >> 0xA) * temp_t7_2) + ((zVel >> 0xA) * temp_t6_2)) >> 0xA;
+    xVel = xVel - (((((xVel - (temp_t7_2 * temp_t7_3)) >> arg0) + (xVel >> arg1)) * arg2) >> 4);
+    zVel = zVel - (((((zVel - (temp_t6_2 * temp_t7_3)) >> arg0) + (zVel >> arg1)) * arg2) >> 4);
+    D_803D5530->xVelocity.w = xVel;
+    D_803D5530->zVelocity.w = zVel;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A4278_6B5928.s")
-// void func_802A4278_6B5928(u16 arg0, u16 arg1, s16 arg2) {
-//     s16 pad;
-//     s32 zVel;
-//     s32 temp_t6_2;
-//     s32 temp_t7_2;
-//     s32 temp_t7_3;
-//     s32 xVel;
-//
-//     xVel = D_803D5530->xVelocity.w;
-//     zVel = D_803D5530->zVelocity.w;
-//
-//     temp_t7_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 5;
-//     temp_t6_2 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 5;
-//     temp_t7_3 = (((xVel >> 0xA) * temp_t7_2) + ((zVel >> 0xA) * temp_t6_2)) >> 0xA;
-//     xVel = xVel - (((((xVel - (temp_t7_2 * temp_t7_3)) >> arg0) + (xVel >> arg1)) * arg2) >> 4);
-//     zVel = zVel - (((((zVel - (temp_t6_2 * temp_t7_3)) >> arg0) + (zVel >> arg1)) * arg2) >> 4);
-//     D_803D5530->xVelocity.w = xVel;
-//     D_803D5530->zVelocity.w = zVel;
-// }
+#endif
 
 void func_802A4390_6B5A40(void) {
     D_803D5530->state = 2;
@@ -193,25 +196,22 @@ void func_802A459C_6B5C4C(u16 rotation, s8 arg1) {
     func_802B8810_6C9EC0();
 }
 
-// just stack
-#ifdef NON_MATCHING
-// CURRENT (56)
 void func_802A467C_6B5D2C(s8 arg0) {
     s16 xVel;
     s16 zVel;
-    s16 xVel2; // sp5C
+    s16 phi_v0;
     s16 sp60;
     s16 sp5E;
+    s16 xVel2;
+    s16 zVel2;
 
-    s32 yVel;
     s32 phi_t5;
-    s32 yVelOrig;
+    s32 yVel;
 
-    s16 zVel2; // sp5A
-    s16 phi_v0;
-    s16 xPos; // sp4A ?
-    s16 zPos; // sp48 ?
-    s16 groundState; // sp46 ?
+    s32 yVelOrig;
+    s16 xPos;
+    s16 zPos;
+    s16 groundState;
     s16 phi_t0;
 
     Animal *animal;
@@ -342,9 +342,6 @@ void func_802A467C_6B5D2C(s8 arg0) {
         animal->yVelocity.w -= MIN(FTOFIX32(4.0), (D_803D5530->unk44 << 0x13) / animal->unk44);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802A467C_6B5D2C.s")
-#endif
 
 void func_802A4CB8_6B6368(void) {
     D_803D5530->state = 21;
@@ -2996,31 +2993,32 @@ void func_802AC980_6BE030(void) {
     }
 }
 
-#if 0
-// CURRENT (3017)
+#ifdef NON_MATCHING
+// CURRENT (1385)
 void func_802AC9FC_6BE0AC(void) {
     static s16 D_803D5574; // .bss
+    s16 temp_v0;
+    s16 var_v1_2;
     s16 var_a1;
     s16 var_a2;
-    s16 var_v1_2;
-    s16 temp_v0;
 
-    if (ABS(D_801D9ED8.unkFFD8) <= 10) {
+    var_a1 = D_801D9ED8.unkFFD8;
+    var_a2 = D_801D9ED8.unkFFD9;
+
+    if (ABS(var_a1) <= 10) {
         var_a1 = 0;
-    } else if (D_801D9ED8.unkFFD8 > 0) {
-        var_a1 = D_801D9ED8.unkFFD8 - 10;
+    } else if (var_a1 > 0) {
+        var_a1 -= 10;
     } else {
-        var_a1 = D_801D9ED8.unkFFD8 + 10;
+        var_a1 += 10;
     }
 
-    if ((var_a1 && var_a1) && var_a1) {};
-
-    if (ABS(D_801D9ED8.unkFFD9) <= 10) {
+    if (ABS(var_a2) <= 10) {
         var_a2 = 0;
-    } else if (D_801D9ED8.unkFFD9 > 0) {
-        var_a2 = D_801D9ED8.unkFFD9 - 10;
+    } else if (var_a2 > 0) {
+        var_a2 -= 10;
     } else {
-        var_a2 = D_801D9ED8.unkFFD9 + 10;
+        var_a2 += 10;
     }
 
     temp_v0 = sqrtf(SQ((f32)var_a1) + SQ((f32)var_a2));
@@ -3042,7 +3040,7 @@ void func_802AC9FC_6BE0AC(void) {
     if (temp_v0 == 0) {
         D_801D9ED8.unkFFA8 = 0x100;
     } else {
-        if (ABS(var_a2) >= ABS(var_a1)) {
+        if (ABS(var_a1) <= ABS(var_a2)) {
             if (var_a2 >= 0) {
                 var_v1_2 = func_8012840C(((var_a1 << 7) / temp_v0) + 0x80);
             } else {
@@ -3065,7 +3063,7 @@ void func_802AC9FC_6BE0AC(void) {
             D_801D9ED8.unkFFA8 = (D_801D9ED8.unkFFA8 + D_803D5570) & 0xFF;
         }
         if (D_803F28E0[D_803F2A98].cameraMode == 0x1A) {
-            D_801D9ED8.unkFFA8 = (s32) (D_803F28E0[D_803F2A98].unk20 + D_801D9ED8.unkFFA8) & 0xFF;
+            D_801D9ED8.unkFFA8 = (s32) (D_801D9ED8.unkFFA8 + D_803F28E0[D_803F2A98].unk20) & 0xFF;
         }
     }
 
@@ -3073,10 +3071,10 @@ void func_802AC9FC_6BE0AC(void) {
         // whitespace seems to affect codegen
         if (D_801D9ED8.unkFFA8 != 0x100) {
 #pragma _permuter sameline start
-            if (D_801D9ED8.unkFFA8 <= 0x40) { D_801D9ED8.unkFFA8 = (0x20 - ((D_80152C78[((D_801D9ED8.unkFFA8 * 2) + 0x40) & 0xFF] >> 7) >> 3));
-            } else if (D_801D9ED8.unkFFA8 <= 0x80) { D_801D9ED8.unkFFA8 = (0x60 - ((D_80152C78[(((s16)(D_801D9ED8.unkFFA8 - 0x40) * 2) + 0x40) & 0xFF] >> 7) >> 3));
-            } else if (D_801D9ED8.unkFFA8 <= 0xC0) { D_801D9ED8.unkFFA8 = (0xA0 - ((D_80152C78[(((s16)(D_801D9ED8.unkFFA8 - 0x80) * 2) + 0x40) & 0xFF] >> 7) >> 3));
-            } else { D_801D9ED8.unkFFA8 = (0xE0 - ((D_80152C78[(((s16)(D_801D9ED8.unkFFA8 - 0xC0) * 2) + 0x40) & 0xFF] >> 7) >> 3)) & 0xFF;
+            if (D_801D9ED8.unkFFA8 <= 0x40) { D_801D9ED8.unkFFA8 = (0x20 - ((D_80152C78[((D_801D9ED8.unkFFA8 << 1) + 0x40) & 0xFF] >> 7) >> 3));
+            } else if (D_801D9ED8.unkFFA8 <= 0x80) { D_801D9ED8.unkFFA8 = (0x60 - ((D_80152C78[((s16)((s16)(D_801D9ED8.unkFFA8 - 0x40) << 1) + 0x40) & 0xFF] >> 7) >> 3));
+            } else if (D_801D9ED8.unkFFA8 <= 0xC0) { D_801D9ED8.unkFFA8 = (0xA0 - ((D_80152C78[((s16)((s16)(D_801D9ED8.unkFFA8 - 0x80) << 1) + 0x40) & 0xFF] >> 7) >> 3));
+            } else { D_801D9ED8.unkFFA8 = (0xE0 - ((D_80152C78[(((s16)(D_801D9ED8.unkFFA8 - 0xC0) << 1) + 0x40) & 0xFF] >> 7) >> 3)) & 0xFF;
             }
 #pragma _permuter sameline end
         }
@@ -3797,20 +3795,19 @@ void func_802AEBB0_6C0260(void) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (1065)
+// CURRENT (145)
 void func_802AEE18_6C04C8(void) {
-
     switch (D_803D5530->state) {
     case 0x3E:
         D_803D5530->yRotation += (D_801D9ED8.unkFFDC >> 3);
         D_803D5530->yRotation &= 0xFF;
 
-        D_803D5530->unk28 = D_801D9ED8.unkFFDE;
+        D_803D5530->unk28 = D_801D9ED8.unkFFDE & 0xFFFF; // temporary helper
 
-        D_803D5530->yVelocity.w = ((D_803D5530->yVelocity.w * 7) >> 3) + (D_803D5530->unk28 * 0x500);
+        D_803D5530->yVelocity.w = (D_803D5530->unk28 * 0x500) + ((D_803D5530->yVelocity.w * 7) >> 3);
         D_803D5530->yVelocity.w += (D_80152C78[(s16)(D_803D5540 << 2) & 0xFF] >> 7) << 6;
 
-        if ((D_801D9ED8.unkFFDC != 0) || ((D_803D552C->unk30C != 0))) {
+        if ((D_801D9ED8.unkFFDC != 0) || (D_803D552C->unk30C != 0)) {
             D_803D552C->unk30E = MIN(16, D_803D552C->unk30E + 1);
         } else {
             D_803D552C->unk30E = MAX(0, D_803D552C->unk30E - 2);
@@ -3848,14 +3845,14 @@ void func_802AEE18_6C04C8(void) {
         }
 
         D_803D5530->xVelocity.w += (D_803D552C->unk30C * D_80152C78[D_803D552C->unk302 & 0xFF]) / 110;
-        D_803D5530->zVelocity.w += (D_803D552C->unk30C * D_80152C78[(s16)(D_803D552C->unk302 + 0x40) & 0xFF]) / 110;
+        D_803D5530->zVelocity.w += (D_803D552C->unk30C * D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF]) / 110;
         if ((D_803D552C->unk365 == ATTACK_NONE) && (D_801D9ED8.unkFFB6 != 0) && (D_801D9ED8.unkFFBC == 0)) {
             if ((D_803D5530->yPos.h - func_80298F78_6AA628(D_803D5530->xPos.h, D_803D5530->zPos.h)) >= -0x3F) {
                 D_803D552C->unk369 = 0;
                 D_803D5530->yPos.h += 23;
                 D_803D5530->yVelocity.h += 23;
                 D_803D5530->xVelocity.w += D_80152C78[D_803D552C->unk302 & 0xFF] * 6;
-                D_803D5530->zVelocity.w += D_80152C78[(s16)(D_803D552C->unk302 + 0x40) & 0xFF] * 6;
+                D_803D5530->zVelocity.w += D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] * 6;
                 D_803D552C->unk308 = 0;
                 D_803D5530->state = 0x3FU;
                 D_803D5530->unk162 = 3;
@@ -4912,61 +4909,65 @@ s16 get_distance_from_ground(void) {
     return D_803D5530->yPos.h - func_802B25B4_6C3C64(1);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B25B4_6C3C64.s")
+
 // still need to understand collision
-// s16 func_802B25B4_6C3C64(u8 getWaterHeight) {
-//     s16 temp_t0;
-//     s16 temp_t1;
-//
-//     s16 temp_a2;
-//     s16 temp_v1;
-//
-//     s32 phi_t2;
-//     s32 phi_t4;
-//     s32 phi_t3;
-//     s32 phi_t5;
-//
-//     s16 phi_a1;
-//
-//     temp_v1 = D_803D5530->xPos.h >> 6;
-//     temp_a2 = D_803D5530->zPos.h >> 6;
-//     if (D_803D5530->unk160 == 2) {
-//         phi_a1 = MIN(MIN(D_803C0740[temp_v1 + 0][temp_a2 + 0].unk1,
-//                          D_803C0740[temp_v1 + 1][temp_a2 + 0].unk1),
-//                      MIN(D_803C0740[temp_v1 + 0][temp_a2 + 1].unk1,
-//                          D_803C0740[temp_v1 + 1][temp_a2 + 1].unk1));
-//     } else {
-//         temp_t0 = D_803D5530->xPos.h & 0x3F;
-//         temp_t1 = D_803D5530->zPos.h & 0x3F;
-//
-//         if (1) {}; // regalloc helper.. ish
-//
-//         phi_t2 = D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
-//         phi_t4 = D_803C0740[temp_v1 + 1][temp_a2 + 0].unk0;
-//         phi_t3 = D_803C0740[temp_v1 + 0][temp_a2 + 1].unk0;
-//         phi_t5 = D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
-//
-//         if (D_803C0740[temp_v1 + 0][temp_a2 + 0].unk4 & 1) {
-//             if (temp_t0 < temp_t1) {
-//                 phi_t4 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
-//             } else {
-//                 phi_t3 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
-//             }
-//         } else if ((temp_t0 + temp_t1) < 64) {
-//             phi_t5 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
-//         } else {
-//             phi_t2 = (s16) D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
-//         }
-//
-//         phi_a1 = MIN(MIN(phi_t2, phi_t4),
-//                      MIN(phi_t3, phi_t5));
-//     }
-//
-//     if (getWaterHeight) {
-//         return MAX(phi_a1 * 8, D_803C0740[temp_v1 + 0][temp_a2 + 0].unk6 * 4);
-//     } // else return lowest point in terrain?
-//     return (phi_a1 * 8);
-// }
+#if 0
+s16 func_802B25B4_6C3C64(u8 getWaterHeight) {
+    s16 temp_t0;
+    s16 temp_t1;
+
+    s16 temp_a2;
+    s16 temp_v1;
+
+    s32 phi_t2;
+    s32 phi_t4;
+    s32 phi_t3;
+    s32 phi_t5;
+
+    s16 phi_a1;
+
+    temp_v1 = D_803D5530->xPos.h >> 6;
+    temp_a2 = D_803D5530->zPos.h >> 6;
+    if (D_803D5530->unk160 == 2) {
+        phi_a1 = MIN(MIN(D_803C0740[temp_v1 + 0][temp_a2 + 0].unk1,
+                         D_803C0740[temp_v1 + 1][temp_a2 + 0].unk1),
+                     MIN(D_803C0740[temp_v1 + 0][temp_a2 + 1].unk1,
+                         D_803C0740[temp_v1 + 1][temp_a2 + 1].unk1));
+    } else {
+        temp_t0 = D_803D5530->xPos.h & 0x3F;
+        temp_t1 = D_803D5530->zPos.h & 0x3F;
+
+        if (1) {}; // regalloc helper.. ish
+
+        phi_t2 = D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+        phi_t4 = D_803C0740[temp_v1 + 1][temp_a2 + 0].unk0;
+        phi_t3 = D_803C0740[temp_v1 + 0][temp_a2 + 1].unk0;
+        phi_t5 = D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
+
+        if (D_803C0740[temp_v1 + 0][temp_a2 + 0].unk4 & 1) {
+            if (temp_t0 < temp_t1) {
+                phi_t4 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+            } else {
+                phi_t3 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+            }
+        } else if ((temp_t0 + temp_t1) < 64) {
+            phi_t5 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+        } else {
+            phi_t2 = (s16) D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
+        }
+
+        phi_a1 = MIN(MIN(phi_t2, phi_t4),
+                     MIN(phi_t3, phi_t5));
+    }
+
+    if (getWaterHeight) {
+        return MAX(phi_a1 * 8, D_803C0740[temp_v1 + 0][temp_a2 + 0].unk6 * 4);
+    } // else return lowest point in terrain?
+    return (phi_a1 * 8);
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5380/func_802B25B4_6C3C64.s")
+#endif
 
 void func_802B2834_6C3EE4(void) {
     s16 phi_a2;

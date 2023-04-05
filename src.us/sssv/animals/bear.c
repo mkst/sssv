@@ -946,10 +946,12 @@ void func_80326260_737910(void) {
 
 #ifdef NON_MATCHING // JUSTREG
 void func_803277B4_738E64(void) {
-    if ((D_803D552C->unk320 == 0) && (D_803D552C->unk365 != ATTACK_GRAB)) {
-        D_803D552C->unk32A = D_803D5544 & 0xffff; // helps regalloc but unlikely?
+    u8 attack;
+
+    if ((D_803D552C->unk320 == NULL) && ((D_803D552C->unk365 & 0xFF) != ATTACK_GRAB)) {
+        D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_GRAB;
-    } else if ((D_803D552C->unk320 != 0) &&
+    } else if ((D_803D552C->unk320 != NULL) &&
                (D_803D552C->unk365 != ATTACK_BEAR_2) &&
                (D_803D552C->unk365 != ATTACK_BEAR_3) &&
                (D_803D552C->unk318 == 0)) {

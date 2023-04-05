@@ -7,6 +7,7 @@ void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 
 
     s16 xl;
     s16 yl;
+    s16 xh, yh;
 
     gDPPipeSync((*dl)++);
 
@@ -15,17 +16,32 @@ void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 
         gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img);
         gDPLoadSync((*dl)++);
 
-        gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0,
-            G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP,
-            G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+#if 0
+        gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+#else
+        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img);
+        gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
+        gDPLoadSync((*dl)++);
+        gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 1023, 256);
+        gDPPipeSync((*dl)++);
+        gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
+        gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
+#endif
         break;
     case 8:
         gDPLoadSync((*dl)++);
         gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 1, img);
-
-        gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0,
-            G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP,
-            G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+#if 0
+        gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+#else
+        gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
+        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
+        gDPLoadSync((*dl)++);
+        gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
+        gDPPipeSync((*dl)++);
+        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
+        gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
+#endif
         break;
     default:
         rmonPrintf("Wrong texture size");
@@ -35,12 +51,15 @@ void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 
     xl = x * 4;
     yl = y * 4;
 
+    xh = (x + x_size) * 4;
+    yh = (y + y_size) * 4;
+
     gSPScisTextureRectangle(
     /* gdl  */ (*dl)++,
     /* xl   */ xl,
     /* yl   */ yl,
-    /* xh   */ (x + x_size) * 4,
-    /* yh   */ (y + y_size) * 4,
+    /* xh   */ xh,
+    /* yh   */ yh,
     /* tile */ G_TX_RENDERTILE,
     /* s    */ 0,
     /* t    */ 0,

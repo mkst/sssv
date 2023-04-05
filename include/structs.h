@@ -873,16 +873,16 @@ typedef struct {
     /* 0x286E4 */ s16 unk286E4[8];
     /* 0x286F4 */ s16 unk286F4[8];
     /* 0x28704 */ u8  unk28704[0x4bc];
-    /* 0x28BC0 */ s16 unk28BC0;
-    /* 0x28BC2 */ s16 unk28BC2;
-    /* 0x28BC4 */ u8  pad28BC4[0x4];
-    /* 0x28BC8 */ s16 unk28BC8;
-    /* 0x28BCA */ s16 unk28BCA;
-    /* 0x28BCC */ u8  unk28BCC;
-    /* 0x28BCD */ u8  unk28BCD;
-    /* 0x28BCE */ u8  unk28BCE;
-    /* 0x28BCF */ u8  unk28BCF;
-    /* 0x28BD0 */ u8  pad28BD0[0x39a0];
+    /* 0x28BC0 */ Vtx unk28BC0[923];
+    // /* 0x28BC2 */ s16 unk28BC2;
+    // /* 0x28BC4 */ u8  pad28BC4[0x4];
+    // /* 0x28BC8 */ s16 unk28BC8;
+    // /* 0x28BCA */ s16 unk28BCA;
+    // /* 0x28BCC */ u8  unk28BCC;
+    // /* 0x28BCD */ u8  unk28BCD;
+    // /* 0x28BCE */ u8  unk28BCE;
+    // /* 0x28BCF */ u8  unk28BCF;
+    // /* 0x28BD0 */ u8  pad28BD0[0x39a0];
 #else
     /* 0x267A0 */ u8  unk267A0[0x1f40];
     /* 0x286E0 */ Vtx unk286E0[961]; // ???
@@ -921,12 +921,12 @@ typedef struct {
     /* 0x3B308 */ s16 unk3B308;
     /* 0x3B30A */ u8  unk3B30A[6]; // tbd
     /* 0x3B310 */ u8  pad3B310[0x8];
-    /* 0x3B318 */ Gfx *unk3B318[200]; // maybe?
+    /* 0x3B318 */ Gfx unk3B318[100]; // maybe?
     /* 0x3B638 */ Lights7 lights;
     /* 0x3B6B0 */ Ambient unk3B6B0;
     /* 0x3B6B8 */ Light unk3B6B8;
-    // /* 0x3B6C0 */ Ambient unk3B6C0;
-} DisplayList;
+    /* 0x3B6C0 */ u8    pad3B6C0[0x530];
+} DisplayList; // 0x3BBF0 big? merge with struct018?
 
 typedef struct {
   /* 0x00 */ s32 unk0;
@@ -1104,7 +1104,7 @@ typedef struct {
     /* 0x67 */ u8  unk67;
     /* 0x68 */ u8  unk68; //[0x4];
     /* 0x69 */ u8  pad69[3];
-    /* 0x6C */ u8 *unk6C;
+    /* 0x6C */ WaypointData *unk6C;
     /* 0x70 */ s16 unk70;
     /* 0x71 */ u8  pad72[0x2];
     /* 0x74 */ f32 unk74;
@@ -1198,7 +1198,7 @@ typedef struct {
     /* 0x06 */  s16     unk6; // health related too?
     /* 0x08 */  s16     unk8; // ALSO health?
     /* 0x0A */  s16     unkA; // 0x40?
-} struct033;
+} struct033; // size 0xC
 
 typedef struct {
     s32 unk0;
@@ -1225,9 +1225,7 @@ struct struct035 { // TODO: merge with struct068?
   /* 0x18 */  struct035_ptr *unk18; // cmds pointer
   /* 0x1C */  u16 id;
   /* 0x1E */  s16 pad1E;
-  /* 0x20 */  s32 unk20[5][4];
-  // /* 0x2C */  s16 pad2C;
-  // /* 0x2E */  u8  pad2E[0x42];
+  /* 0x20 */  s32 unk20[5][4]; // wrong
   /* 0x70 */  u16 unk70;
   /* 0x72 */  u16 unk72;
               s16 unk74;
@@ -1961,15 +1959,7 @@ typedef struct {
     u16 unkC;
     u16 unkE;
     u16 unk10;
-    union {
-        u16 u;
-        struct {
-            s8 pad0  : 7;
-            s8 unk7  : 1;
-            s8 unk8  : 4;
-            s8 unk12 : 4;
-        } x;
-    } unk12;
+    u16 unk12;
 } struct074; // size 0x14
 
 typedef struct {
