@@ -195,7 +195,7 @@ void func_8029A720_6ABDD0(void);
 void func_8029ABCC_6AC27C(void);
 
 // overlay2_6AC360
-// u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 arg2, Animal *arg3, Animal *arg4, s32 *arg5, s32 *arg6, Animal *arg7, s32 *arg8, s32 *arg9);
+u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 arg2, Animal *arg3, Animal *arg4, s32 *arg5, s32 *arg6, Animal *arg7, s32 *arg8, s32 *arg9);
 void func_8029ACB0_6AC360(void);
 s32  func_8029ACB8_6AC368(s32 arg0, s32 arg1); // function does nothing but return 1, types can be changed
 
@@ -618,6 +618,7 @@ void func_802F6DEC_70849C(Animal *arg0, s16 arg1);
 void func_802F7054_708704(s32 arg0);
 void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u16 arg7); // tbd
 s32  func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
+u8   func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4);
 struct071 *func_802F8994_70A044(struct071 *arg0);
 s32  func_802F8918_709FC8(Animal *arg0, Animal *arg1);
 void func_802F8DCC_70A47C(struct071 *arg0);
@@ -708,7 +709,7 @@ void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2);
 void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2);
 
 // overlay2_714B80
-void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3); // tbd
+void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3);
 void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4);
 void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6);
 void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4);
@@ -868,9 +869,9 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1);
 Animal *func_803218D8_732F88(Animal *arg0);
 void func_80321B70_733220(s16 arg0, s16 arg1, s16 arg2);
 void func_80321D74_733424(s16 arg0, s16 arg1);
-// void func_80321E60_733510(s32, s32, s32, s32, s32, s32, s32, s32);  // fire/drop cannonball?
-void func_80321E60_733510(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);
-void func_80322064_733714(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8);
+void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);  // fire/drop cannonball?
+void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);
+void func_80322064_733714(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8);
 s16  func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7);
 u8   func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Animal **arg5, Animal *arg6, u8 arg7);
 s32 func_80322D68_734418(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 *arg6, s16 *arg7, s16 *arg8, s16 arg9, s16 argA, u8 argB, u8 argC); // tbd
@@ -899,6 +900,7 @@ void func_803283DC_739A8C(void);
 Camera* func_803284C4_739B74(void);
 void func_80328520_739BD0(void);
 void func_80328918_739FC8(void);
+void func_80328ACC_73A17C(void);
 s32  func_80329BAC_73B25C(s16 arg0, s16 arg1);
 void func_80329F44_73B5F4(void);
 s16  func_8032A164_73B814(s16, s16);

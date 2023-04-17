@@ -1,6 +1,11 @@
 #include <ultra64.h>
 #include "common.h"
 
+
+// ========================================================
+// .data
+// ========================================================
+
 char *credits[] = {
     " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
     " ", " ", " ",
@@ -58,9 +63,21 @@ char *credits[] = {
     " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "
 };
 
+// ========================================================
+// .bss (D_803F6400 to D_803F6410)
+// ========================================================
+
+s16  entryOffset; // credit entry offset
+s16  verticalPosition;  // credit vertical position
+
+
+// ========================================================
+// .text
+// ========================================================
+
 void reset_credits_counters(void) {
-    D_803F6400 = 0;
-    D_803F6402 = 0;
+    entryOffset = 0;
+    verticalPosition = 0;
 }
 
 s32 display_credits(void) {
@@ -73,23 +90,23 @@ s32 display_credits(void) {
     select_font(0, FONT_COMIC_SANS, 0, 0);
 
     for (i = 0; i < 16; i++) {
-        sprintf((char*)sp50, "%s", credits[i + D_803F6400]);
+        sprintf((char*)sp50, "%s", credits[i + entryOffset]);
         prepare_text(sp50, sp90);
         if ((sp50[0] == 'E') && (sp50[1] == 'N') && (sp50[2] == 'D')) {
-            D_803F6400 = 0;
+            entryOffset = 0;
             i = 1000; // break
         } else {
-            display_text_centered(&D_801D9E7C, sp90, gScreenWidth / 2, D_803F6402 + (i * 16), 16.0f, 16.0f);
+            display_text_centered(&D_801D9E7C, sp90, gScreenWidth / 2, verticalPosition + (i * 16), 16.0f, 16.0f);
         }
     }
 
-    D_803F6402 -= 1;
-    if (D_803F6402 == -16) {
-        D_803F6400 += 1;
-        D_803F6402 = 0;
+    verticalPosition -= 1;
+    if (verticalPosition == -16) {
+        entryOffset += 1;
+        verticalPosition = 0;
     }
 
-    if (i >= 101) {
+    if (i > 100) {
         return 1; // credits finished
     } else {
         return 0;

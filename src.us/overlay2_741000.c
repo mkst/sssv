@@ -2,16 +2,24 @@
 #include "common.h"
 
 
+// ========================================================
 // .data
+// ========================================================
+
 extern f32 D_803A6CC4_7B8374; // 1.0f
 extern f32 D_803A6CC8_7B8378; // 45.0f
 extern f32 D_803A6CCC_7B837C; // 1.0f
 
-u8   overlay2_74100_bss_pad[0x1d696];
+// ========================================================
+// .bss (D_803F28D0 to D_803F2C18)
+// ========================================================
 
-#if 0
-u8 overlay2_74100_bss_pad_pre[0x1d360];
-Camera D_803F28E0[2]; // 2 values
+u8 overlay2_74100_bss_pad_pre[0x20];
+
+u16  D_803F28D0[6];
+u16  D_803F28DC;
+
+Camera D_803F28E0[2];
 s16  D_803F2A98;
 s16  D_803F2A9A;
 s16  D_803F2A9C;
@@ -33,6 +41,7 @@ f32  D_803F2AB4;
 f32  D_803F2AB8;
 f32  D_803F2ABC;
 
+s32  D_803F2AC0; // unused
 u8   D_803F2AC4; // unused
 u8   D_803F2AC5;
 u8   D_803F2AC6;
@@ -43,13 +52,7 @@ Camera *gCamera; // ptr to current camera (was D_803F2AD0)
 struct062 D_803F2AD8[1];
 struct062 D_803F2AF8[8]; // indexed in with % 8
 struct062 D_803F2BF8;
-#endif
-
-s16  D_803F2C18[3]; // BSS
-
-u8   more_padding[0x52]; // between D_803F2C20 and D_803F2C72
-
-#if 0
+s16  D_803F2C18[3];
 s16  D_803F2C1E;
 s16  D_803F2C20; // struct?
 s16  D_803F2C22;
@@ -75,7 +78,10 @@ u8   D_803F2C6C;
 u8   D_803F2C6D;
 s16  D_803F2C6E;
 s16  D_803F2C70;
-#endif
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_8032F950_741000(void) {
     s16 i;
@@ -2642,7 +2648,7 @@ void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f3
 }
 
 void func_8033E7C8_74FE78(OSContPad *cont) {
-    static u16 D_803F2C72;
+    static u16 D_803F2C72; // .bss
     s16 phi_v0;
     u16 button = cont->button;
 
@@ -2791,6 +2797,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
 }
 
 
+
 void func_8033EF94_750644(OSContPad *cont, u16 prevButtonState) {
     u8 res = 0;
 
@@ -2845,46 +2852,6 @@ void func_8033F300_7509B0(void) {
 }
 
 #if 0
-// .rodata for function
-// const f64 D_803BE688_7CFD38 = 3.1415;
-// const f64 D_803BE690_7CFD40 = 3.141593;
-// const f64 D_803BE698_7CFD48 = 180.0;
-// const f64 D_803BE6A0_7CFD50 = 360.0;
-// const f64 D_803BE6A8_7CFD58 = 180.0;
-// const f64 D_803BE6B0_7CFD60 = 360.0;
-// const f64 D_803BE6B8_7CFD68 = 180.0;
-// const f64 D_803BE6C0_7CFD70 = 360.0;
-// const f64 D_803BE6C8_7CFD78 = -180.0;
-// const f64 D_803BE6D0_7CFD80 = 360.0;
-const f64 D_803BE6D8_7CFD88 = 180.0;
-const f64 D_803BE6E0_7CFD90 = 360.0;
-// const f64 D_803BE6E8_7CFD98 = 0.017453277777777776;
-// const f64 D_803BE6F0_7CFDA0 = 0.017453277777777776;
-// const f64 D_803BE6F8_7CFDA8 = 0.017453277777777776;
-// const f64 D_803BE700_7CFDB0 = 0.017453277777777776;
-// const f64 D_803BE708_7CFDB8 = 0.0012321;
-// const f32 D_803BE710_7CFDC0 = 0.6f;
-// const f64 D_803BE714_7CFDC4 = 0.0f;
-// const f64 D_803BE718_7CFDC8 = 310.0;
-// const f64 D_803BE720_7CFDD0 = 0.0015625;
-// const f64 D_803BE728_7CFDD8 = 310.0;
-// const f64 D_803BE730_7CFDE0 = 0.0015625;
-// const f64 D_803BE738_7CFDE8 = 0.00021;
-// const f64 D_803BE740_7CFDF0 = 0.000013;
-// const f64 D_803BE748_7CFDF8 = 0.00021;
-// const f64 D_803BE750_7CFE00 = 0.000013;
-// const f64 D_803BE758_7CFE08 = 0.00021;
-// const f64 D_803BE760_7CFE10 = 0.000013;
-// const f64 D_803BE768_7CFE18 = 0.00021;
-// const f64 D_803BE770_7CFE20 = 0.000013;
-// const f32 D_803BE778_7CFE28 = 0.7f;
-const f32 D_803BE77C_7CFE2C = 0.0f;
-// const f64 D_803BE780_7CFE30 = 180.0;
-// const f64 D_803BE788_7CFE38 = 360.0;
-const f64 D_803BE790_7CFE40 = 360.0;
-#endif
-
-#if 0
 void func_8033F380_750A30(void) {
     f32 spCC;
     f32 spC8;
@@ -2916,6 +2883,10 @@ void func_8033F380_750A30(void) {
 
     Camera *camera1; // sp64
     Camera *camera2; // sp60
+
+    static f32  D_803F2C74;
+    static f32  D_803F2C78;
+    static f32  D_803F2C7C;
 
     f32 tmp;
 
@@ -3046,11 +3017,12 @@ void func_8033F380_750A30(void) {
             }
         }
         sp74 = cosf(D_803F2C74 * (3.14159 / 180));
+
         sp6C = sinf(D_803F2C74 * (3.14159 / 180));
         sp70 = sinf(D_803F2C78 * (3.14159 / 180)) * -sp74;
-        tmp = (cosf(D_803F2C78 * (3.14159 / 180)) * sp74);
+        sp74 = cosf(D_803F2C78 * (3.14159 / 180)) * sp74; // tbd
 
-        D_803F2C50 = D_803F2C44 + tmp;
+        D_803F2C50 = D_803F2C44 + sp74;
         D_803F2C54 = D_803F2C48 + sp70;
         D_803F2C58 = D_803F2C4C + sp6C;
 
@@ -3170,7 +3142,7 @@ void func_8033F380_750A30(void) {
     D_80204230 = (D_80204200 * D_80204220) - (D_80204208 * D_80204218);
     D_80204234 = (D_80204204 * D_80204218) - (D_80204200 * D_8020421C);
 
-    temp_f0 = sqrtf((D_8020422C * D_8020422C) + (D_80204230 * D_80204230) + (D_80204234 * D_80204234));
+    temp_f0 = sqrtf(SQ(D_8020422C) + SQ(D_80204230) + SQ(D_80204234));
     if (temp_f0 == 0.0f) {
         D_8020422C = 0.6f;
         D_80204230 = 0.6f;
@@ -3235,7 +3207,7 @@ void func_8033F380_750A30(void) {
     D_803F2C5C = D_803F2C50 - D_803F2C44;
     D_803F2C60 = D_803F2C54 - D_803F2C48;
 
-    temp_f0 = sqrtf((D_803F2C5C * D_803F2C5C) + (D_803F2C60 * D_803F2C60));
+    temp_f0 = sqrtf(SQ(D_803F2C5C) + SQ(D_803F2C60));
     if (temp_f0 == 0.0) {
         D_803F2C5C = 0.7f;
         D_803F2C60 = 0.7f;

@@ -2,9 +2,31 @@
 #include "common.h"
 
 
-s16 D_803A04F0_7B1BA0[8] = {0, 0, 0, 0, 1, 0, 0, 0};
+// ========================================================
+// definitions
+// ========================================================
 
 s32 func_802983D0_6A9A80(void);
+
+// ========================================================
+// .data
+// ========================================================
+
+s16 D_803A04F0_7B1BA0[8] = {0, 0, 0, 0, 1, 0, 0, 0};
+
+// ========================================================
+// .bss
+// ========================================================
+
+// FIXME: if these are defined in overlay2_6A6500 then it results in codegen changes
+u64  D_803C0640;
+u64  D_803C0648;
+u64  D_803C0650;
+u16  D_803C0658; // matrix normalise
+
+// ========================================================
+// .text
+// ========================================================
 
 #if 0
 void func_802963D0_6A7A80(DisplayList *arg0) {
@@ -16,7 +38,7 @@ void func_802963D0_6A7A80(DisplayList *arg0) {
     s16 k;
     Vtx *temp_s4;
 
-    D_803C063A = 8;
+    D_803C0430.unk20A = 8;
     if ((D_803F2D50.unk14 != 0) && (D_803F2D50.unk16 != 0)) {
         temp_a3 = D_803F2D50.unk14 + 1;
         for (i = 0; i < 2; i++) {
@@ -164,7 +186,7 @@ void func_80296C8C_6A833C(struct063 **arg0) {
     s32 phi_s2_2;
     u8 new_var;
 
-    D_803C063D = (D_803C063D + 1) & 3;
+    D_803C0430.unk20D = (D_803C0430.unk20D + 1) & 3;
     sp96 = D_803F2D50.unk10 + D_803F2D50.unk14;
     sp78 = D_803F2D50.unk12 + D_803F2D50.unk16;
     sp84 = D_803F2D50.unk10;
@@ -189,7 +211,7 @@ void func_80296C8C_6A833C(struct063 **arg0) {
                     if (temp_v0_2 < temp_v0) {
                         phi_s3 = temp_s3;
                         if (temp_s3 == 0) {
-                            if (D_803C063F == 0) {
+                            if (D_803C0430.unk20F == 0) {
                                 phi_s3 = temp_v0_2;
                             }
                         }
@@ -232,7 +254,7 @@ void func_80296C8C_6A833C(struct063 **arg0) {
                 if (temp_s0 < temp_s2) {
                     temp_v0 = arg0[sp96][sp78+1].unk0; // unk8
                     if (((temp_v0 + 1) * 2) < (s32) temp_s2) {
-                        if ((temp_s0 == 0) && (D_803C063F == 0)) {
+                        if ((temp_s0 == 0) && (D_803C0430.unk20F == 0)) {
                             phi_s0 = (temp_v0 * 2);
                         }
                         temp_a0_2 = arg0[sp96][sp78].unk0;
@@ -1185,13 +1207,13 @@ void func_80299140_6AA7F0(void) {
     if (maxPoint != 100000) {
         if ((D_803F2D50.unk4C == 0) || (D_803F2D50.unk4C == 2)) {
             if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < (s16)(GET_WATER_LEVEL(D_803C0740, (u16)D_803F28E0[D_803F2A98].unk74, (u16)D_803F28E0[D_803F2A98].unk78) * 4)) {
-                func_8032CD70_73E420(&D_803C0634, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, sp5C, sp58, sp54); // D_803BAD00_7CC3B0
+                func_8032CD70_73E420(&D_803C0430.unk204, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, sp5C, sp58, sp54); // D_803BAD00_7CC3B0
             } else {
-                func_8032CD70_73E420(&D_803C0634, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, sp5C, sp58, sp54);
+                func_8032CD70_73E420(&D_803C0430.unk204, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, sp5C, sp58, sp54);
             }
         }
         if (D_803F2D50.unk4C == 1) {
-            func_8032CD70_73E420(&D_803C0634, SFX_UNKNOWN_64, 0x7FFF, 0, 0.25f, sp5C, sp58, sp54);
+            func_8032CD70_73E420(&D_803C0430.unk204, SFX_UNKNOWN_64, 0x7FFF, 0, 0.25f, sp5C, sp58, sp54);
         }
     }
 }

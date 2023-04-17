@@ -1,16 +1,33 @@
 #include <ultra64.h>
-
 #include "common.h"
 
+
+// ========================================================
+// definitions
+// ========================================================
 
 #define TRAIL_TYPE_UNUSED  0
 #define TRAIL_TYPE_REGULAR 1
 #define TRAIL_TYPE_WALRUS  3
 #define TRAIL_TYPE_SIMPLE  4
 
+// ========================================================
+// .data
+// ========================================================
+
+// ========================================================
+// .bss (from D_803F7E10 to D_803FDEC0)
+// ========================================================
+
+Trail gTrails[30];
+s16   trailsUsed;
+
+// ========================================================
+// .text
+// ========================================================
 
 void reset_trails(void) {
-    D_803FDEA0 = 0; // trails used = 0
+    trailsUsed = 0;
     bzero_sssv((u8*)gTrails, sizeof(gTrails)); // 24720
 }
 
@@ -66,7 +83,7 @@ Trail *add_regular_trail(struct071 *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s
 
             gTrails[i].trail.regular.unkF = 0x80 / (arg3 * arg10);
             gTrails[i].trail.regular.unk10 = arg10;
-            D_803FDEA0++;
+            trailsUsed++;
             return &gTrails[i];
         }
     }
@@ -123,7 +140,7 @@ Trail *add_walrus_wake(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 ar
             gTrails[i].trail.walrus.unkC = 0x80 / ((arg3 - 2) * argD);
             gTrails[i].trail.walrus.unkD = argD;
 
-            D_803FDEA0++;
+            trailsUsed++;
             return &gTrails[i];
         }
     }
@@ -162,7 +179,7 @@ Trail *add_simple_trail(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5,
             gTrails[i].trail.simple.envBlue = envBlue;
 
             gTrails[i].trail.simple.unkA = arg3; // only called with 32
-            D_803FDEA0++;
+            trailsUsed++;
             return &gTrails[i];
         }
     }
@@ -391,7 +408,7 @@ void display_trails(void) {
     gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(127));
 
-    if (D_803FDEA0 > 0) {
+    if (trailsUsed > 0) {
         for (i = 0; i < 30; i++) {
             temp_fp = &gTrails[i];
             switch (temp_fp->unk0.trailType) {
@@ -444,7 +461,7 @@ void display_trails(void) {
                       if (trail->unk12[var_s4 >> 1] >= 0x80) {
                           trail->unk2 = (trail->unk2 + 2) & 0x1F;
                           if (trail->unk1 == trail->unk2) {
-                              D_803FDEA0--;
+                              trailsUsed--;
                               temp_fp->unk0.trailType = 0;
                               break;
                           }
@@ -680,7 +697,7 @@ void display_trails(void) {
                             walrusWake->unk2 = (walrusWake->unk2 + 2) & 0x1F; //temp_t9_2;
                             if ((walrusWake->numVtxs == walrusWake->unk2) && (temp_fp->unk1.unk0 != 0)) {
                                   // temp_fp->unk0 = (s8) ((u8) temp_fp->unk0 & 0xFF0F);
-                                  D_803FDEA0--;
+                                  trailsUsed--;
                                   temp_fp->unk0.trailType = 0;
                             } else {
                               // goto block_98;

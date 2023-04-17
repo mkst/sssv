@@ -2,14 +2,38 @@
 #include "common.h"
 
 
-extern u8 D_05005000[];
-extern Gfx D_01004270[];
+// ========================================================
+// externs
+// ========================================================
 
-void func_80392668_7A3D18(void);
-void load_mission_brief_screen(s16);
-void func_80397840_7A8EF0(void);
-void display_zone_select_screen(void);
-void func_8039A2DC_7AB98C(void);
+extern u8  D_05005000[];
+
+// ========================================================
+// .data
+// ========================================================
+
+// ========================================================
+// .bss
+// ========================================================
+
+struct027 D_803F6680;
+struct032 D_803F66B8;
+s16  D_803F6704; // TBD whether these are part of struct032
+s16  D_803F6706;
+s16  D_803F6708;
+s16  D_803F670A;
+s16  D_803F670C;
+s16  D_803F670E;
+s32  D_803F6710; // unused
+u16  D_803F6714;
+s16  D_803F6716; // current sfx volume
+s16  D_803F6718; // current music volume
+s16  D_803F671A; // current language
+s16  D_803F671C;
+
+// ========================================================
+// .text
+// ========================================================
 
 
 #if 0
@@ -33,7 +57,7 @@ void func_8038F708_7A0DB8(void) {
         write_eeprom(4);
         set_music_volume(D_8023F2A0.musicVol);
     }
-    D_803F66A4 = 1;
+    D_803F6680.unk24 = 1;
     reset_screen_transition();
     trigger_screen_transition(TRANSITION_FADE_OUT_BLK);
     D_8028645C = NO_MUSIC;
@@ -284,8 +308,8 @@ void func_8038FF68_7A1618(void) {
     gScreenHeight = 240;
     sp3C = 0;
     func_80392668_7A3D18();
-    D_803C0640_7D1CF0 = 0xFFFFFFFFC8000000;
-    D_803C0648_7D1CF8 = 0x0000000000112038;
+    D_803C0640 = 0xFFFFFFFFC8000000;
+    D_803C0648 = 0x0000000000112038;
 
     func_80391A38_7A30E8();
     if (D_803F6680.unk2A != 0) {
@@ -908,7 +932,7 @@ void func_8038FF68_7A1618(void) {
 
 void func_80391A38_7A30E8(void) {
     func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, 0.76f);
-    if (D_803F66AA == 1) {
+    if (D_803F6680.unk2A == 1) {
         if (RAND(20) == 1) {
             D_803B6880_7C7F30 = (s32) RAND(6);
         }
@@ -2079,7 +2103,7 @@ void func_80395480_7A6B30(void) {
     guScale(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
     guScale(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
 
-    guLookAt(&D_80204278->unk37490, D_803B683C.unk0, (D_803F6700 / 700.0f) + D_803B683C.unk4, D_803B683C.unk8, D_803B683C.unkC, D_803B683C.unk10, D_803B683C.unk14, 0.0f, 0.0f, 1.0f);
+    guLookAt(&D_80204278->unk37490, D_803B683C.unk0, (D_803F66B8.unk48 / 700.0f) + D_803B683C.unk4, D_803B683C.unk8, D_803B683C.unkC, D_803B683C.unk10, D_803B683C.unk14, 0.0f, 0.0f, 1.0f);
     func_80299AA8_6AB158(D_80204278, &D_801D9E7C);
 
     gSPFogPosition(D_801D9E7C++, 995, 999);
@@ -2182,7 +2206,7 @@ void func_80395E98_7A7548(Gfx **dl) {
     gDPPipeSync((*dl)++);
     gSPDisplayList((*dl)++, D_01004AF8);
 
-    gDPSetRenderMode((*dl)++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetRenderMode((*dl)++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
 
     gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01030810);
     gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
@@ -2274,7 +2298,7 @@ s32 func_80396748_7A7DF8(void) {
     if (((gControllerInput->button & CONT_START) && (D_802912DE == 1)) ||
         ((gControllerInput->button & CONT_A) && (D_802912DF == 1))) {
           play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
-          D_803F66AF = (u8)1;
+          D_803F6680.unk2F = 1;
           return 1;
     } else {
         return 0;

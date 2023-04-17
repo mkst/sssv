@@ -3,6 +3,10 @@
 
 #include "pp.h"
 
+
+// ========================================================
+// .data
+// ========================================================
 #if 0
 s8  D_803B71D0_7C8880[30][5] = {
     { 0xE1, 0xF9, 0x09, 0x07, 0x07, },
@@ -130,6 +134,45 @@ char D_803B7480_7C8B30[4][10] = {
 
 f32 D_803B74A8_7C8B58 = 0.0f; // junk/padding/alignment
 
+// .data
+f32 D_803B74AC_7C8B5C = 11.0f;
+f32 D_803B74B0_7C8B60 = 16.0f;
+f32 D_803B74B4_7C8B64 = 10.5f;
+f32 D_803B74B8_7C8B68 = 12.84000015258789f;
+f32 D_803B74BC_7C8B6C = 12.0f;
+f32 D_803B74C0_7C8B70 = 16.0f;
+f32 D_803B74C4_7C8B74 = 12.0f;
+
+// ========================================================
+// .bss (from D_803F7160 to D_803F7E10)
+// ========================================================
+
+u8   D_803F7160[0xC00]; // what is this
+
+s32  D_803F7D60;
+s32  D_803F7D64; // unused
+f32  D_803F7D68;
+f32  D_803F7D6C; // unused
+f32  D_803F7D70;
+struct008 D_803F7D78;
+s16  D_803F7D9C;
+s16  D_803F7D9E;
+s8   D_803F7DA0;
+s8   D_803F7DA1;
+s8   D_803F7DA2;
+s8   D_803F7DA3;
+struct030 D_803F7DA8;
+s8   D_803F7DE0[0x1E]; // levels available
+s8   D_803F7DFE;
+
+s16  D_803F7E00; // europe levels completed
+s16  D_803F7E02; // levels
+s16  D_803F7E04; // levels
+s16  D_803F7E06; // levels
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
@@ -189,32 +232,22 @@ void func_8039895C_7AA00C(void) {
 
     D_803F7D9C = 0;
     D_803F7D9E = 0;
-    D_803F7DD7 = 0;
+    D_803F7DA8.unk2F = 0;
     generate_stars();
 
     for (i = 0; i < 4; i++) {
         read_eeprom(i);
         memcpy_sssv((u8*)&D_8023F260, (u8*) &D_8023F2E0[i], 64);
     }
-    read_eeprom(D_803F7DD6);
+    read_eeprom(D_803F7DA8.bank);
 }
 
 void func_80398A00_7AA0B0(void) {
-    D_803F7DD8 = 0;
+    D_803F7DA8.unk30 = 0;
 }
 
-
-// .data
-f32 D_803B74AC_7C8B5C = 11.0f;
-f32 D_803B74B0_7C8B60 = 16.0f;
-f32 D_803B74B4_7C8B64 = 10.5f;
-f32 D_803B74B8_7C8B68 = 12.84000015258789f;
-f32 D_803B74BC_7C8B6C = 12.0f;
-f32 D_803B74C0_7C8B70 = 16.0f;
-f32 D_803B74C4_7C8B74 = 12.0f;
-
-#ifdef NON_MATCHING
-// CURRENT (2064)
+#if 0
+// CURRENT (2229)
 void display_zone_select_screen(void) {
     char ascii[50];
     s16  wide_text[24]; // 0x118 - 0xE4 => 52
@@ -498,7 +531,7 @@ void display_zone_select_screen(void) {
     if (var_a3 != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
         // write title text
         display_text(&D_801D9E7C, (u8*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
-        var_a3 = D_803F7DD5;
+        var_a3 = D_803F7DA8.currentLevel;
     }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
 
@@ -508,7 +541,7 @@ void display_zone_select_screen(void) {
         } else {
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
-        var_a3 = D_803F7DD5;
+        var_a3 = D_803F7DA8.currentLevel;
         vertical_offset += 1.0f + D_803B74B0_7C8B60;
     }
 
@@ -1402,7 +1435,7 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
 }
 
 void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1) {
-    if (D_803F66A4 == 0) {
+    if (D_803F6680.unk24 == 0) {
         if (D_803F7D9E == 0) {
             if (RAND(1000) < 10) {
                 D_803F7D9E = 1;

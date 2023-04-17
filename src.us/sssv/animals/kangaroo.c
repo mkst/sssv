@@ -121,7 +121,7 @@ done:
                 func_802DCCAC_6EE35C(0xC);
                 if ((D_803D5544 - D_803D552C->unk32A) == 3) {
                     if (func_803224C4_733B74(0x2D, 0x2D, -0xB, 0x16, 0xC, 0, 0, 0x12) != 0) {
-                        if ((D_803D5538 == 0) && (D_803F2DA2 == 3)) {
+                        if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 0.75f);
                         } else {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -135,7 +135,7 @@ done:
                 func_802DCCAC_6EE35C(0xC);
                 if ((D_803D5544 - D_803D552C->unk32A) == 3) {
                     if (func_803224C4_733B74(0x2D, 0x2D, 0xB, 0x16, 0xC, 0, 0, 0x12) != 0) {
-                        if ((D_803D5538 == 0) && (D_803F2DA2 == 3)) {
+                        if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 0.75f);
                         } else {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -220,7 +220,7 @@ done:
             func_8034A320_75B9D0();
             gSPDisplayList(D_801D9E88++, D_01003588);
 
-            if ((D_803D5538 == 0) && (D_803F2DA2 == 3)) {
+            if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
                 gDPSetPrimColor(D_801D9E88++, 0, 0, 0x37, 0x37, 0xFF, 0xFF);
             } else {
                 gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);

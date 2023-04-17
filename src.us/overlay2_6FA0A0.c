@@ -64,7 +64,7 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s16 re
     s64 spD8;
     s64 spD0;
 
-    s32 xh;   // sp38
+    f32 xh;  // sp38
     f32 yh;  // sp34
 
     f32 sp2C;

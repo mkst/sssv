@@ -1,12 +1,76 @@
 #include <ultra64.h>
 #include "common.h"
 
+
+// ========================================================
+// definitions
+// ========================================================
+
+s32  func_8030AAE0_71C190(Animal*);
+
+// ========================================================
 // .data
+// ========================================================
+
 s32 D_803A05B0_7B1C60 = FTOFIX32(2.0);
 s32 D_803A05B4_7B1C64 = FTOFIX32(4.0);
 
+// ========================================================
+// .bss
+// ========================================================
 
-s32  func_8030AAE0_71C190(Animal*);
+s16  D_803D5510;
+s16  D_803D5512;
+
+s32  D_803D5514; // unused
+s32  D_803D5518; // unused
+s32  D_803D551C; // unused
+
+Animal2 *D_803D5520;
+struct035 *D_803D5524;
+Animal *D_803D5528;
+Animal *D_803D552C; // is this *really* Animal? is it World?
+
+Animal *D_803D5530; // pointer to first animal?
+s16  gCurrentAnimalIndex; // current animal (id within level)
+s16  D_803D5536; // tmp animal idx?
+u8   D_803D5538;
+s16  D_803D553A;
+s16  D_803D553C;
+s16  D_803D553E; // number of animals in level? gNumAnimals
+
+s16  D_803D5540; // timer
+s16  D_803D5542; // timer
+u16  D_803D5544; // timer (for attacks? everything?) gCurrentTick
+s16  D_803D5546;
+s16  D_803D5548;
+s8   D_803D554A;
+s8   D_803D554B;
+s8   D_803D554C;
+
+s32  D_803D5550; // unused
+s32  D_803D5554; // unused
+s16  D_803D5558;
+u16  D_803D555A; // timer
+u8   D_803D555C;
+u8   D_803D555D;
+
+Animal *D_803D5560;
+s16  D_803D5564;
+s16  D_803D5566;
+s16  D_803D5568;
+s16  D_803D556A;
+s16  D_803D556C;
+s16  D_803D556E;
+
+s16  D_803D5570;
+u16  D_803D5572;
+s16  D_803D5574; // static in func_802AC9FC_6BE0AC
+
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_802A3CD0_6B5380(void) {
     s16 xVel, zVel;
@@ -1179,7 +1243,7 @@ void func_802A78CC_6B8F7C(void) {
 
     s32 var_v1_7;
 
-    static f32 D_803D5580 = 0.0f; // data?
+    static f32 D_803D5580; // .bss (remove extra padding from collision when matched)
 
     if (D_803D5530->unk4A == 0) {
         D_803D552C->unk2F4 = D_803D552C->unk2F2;
@@ -1255,7 +1319,7 @@ void func_802A78CC_6B8F7C(void) {
             } else if (D_803D5524->unk9C == WALRUS) {
                 func_802A4278_6B5928(2, 0xC, sp8A);
                 if (D_803D554C != 0) {
-                    if (D_803F2DA2 != 2) {
+                    if (D_803F2D50.unk52 != 2) {
                         D_803D5530->xVelocity.w += (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) << 7;
                         D_803D5530->zVelocity.w += (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) << 7;
                     } else {
@@ -2993,7 +3057,7 @@ void func_802AC980_6BE030(void) {
     }
 }
 
-#ifdef NON_MATCHING
+#if 0
 // CURRENT (1385)
 void func_802AC9FC_6BE0AC(void) {
     static s16 D_803D5574; // .bss
@@ -3108,7 +3172,6 @@ void func_802AC9FC_6BE0AC(void) {
 #endif
 
 void func_802AD0FC_6BE7AC(void) {
-    static u8 overlay2_6B5380_padding_1[0x14F36];
     static s16 D_803D5576; // .bss
 
     s16 temp_a3;

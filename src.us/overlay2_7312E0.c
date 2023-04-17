@@ -80,92 +80,92 @@ void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8031FC30_7312E0.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8031FE40_7314F0.s")
 // more of the same
-// void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct087 *arg4) {
-//     u16 temp_v1;
-//     u16 sp34;
-//     u16 sp30; // pad
-//     s8 phi_t0;
-//     u16 phi_a3;
-//
-//     temp_v1 = D_803D552C->unk2F2;
-//
-//     switch (D_803D5530->state) {                        /* implicit */
-//     case 0x3:
-//     case 0x8E:
-//     case 0xB6:
-//         phi_t0 = 1;
-//         phi_a3 = D_803D552C->unk2F6 % 256;
-//         sp34 = ((D_803D552C->unk2F6 + 128) % 256);
-//         break;
-//     case 0x6:
-//     case 0x90:
-//     case 0xB9:
-//         phi_t0 = 1;
-//         phi_a3 = 256 - (D_803D552C->unk2F6 % 256);
-//         sp34 = 256 - ((D_803D552C->unk2F6 + 128) % 256);
-//         break;
-//     case 0x4:
-//     case 0x8F:
-//     case 0xB7:
-//         phi_t0 = 2;
-//         phi_a3 = D_803D552C->unk2F6 % 256;
-//         sp34 = (D_803D552C->unk2F6 + 128) % 256;
-//         break;
-//     default:
-//         phi_t0 = 0;
-//         phi_a3 = sp34 = temp_v1;
-//         break;
-//     }
-//
-//     if (D_803D5524->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2)) {
-//         switch (D_803D5530->unk162) {
-//           case 4:
-//           case 5:
-//           case 6:
-//           case 7:
-//               phi_t0 = 2;
-//               phi_a3 = (D_803D552C->unk2F6 << 4) & 0xFF;
-//               sp34 = ((D_803D552C->unk2F6 << 4) + 128) & 0xFF;
-//               break;
-//         }
-//     } else {
-//       switch (D_803D5530->unk162) {
-//         case 4:
-//         case 5:
-//         case 7:
-//             switch (D_803D5530->state) {
-//             case 0x8E:
-//                 phi_a3 = D_803D552C->unk2F6 & 0xFF;
-//                 sp34 = (D_803D552C->unk2F6 + 128) & 0xFF;
-//                 phi_t0 = 2;
-//                 break;
-//             case 0x8F:
-//                 phi_a3 = (D_803D552C->unk2F6 << 1) & 0xFF;
-//                 sp34 = ((D_803D552C->unk2F6 << 1) + 128) & 0xFF;
-//                 phi_t0 = 2;
-//                 break;
-//             case 0x90:
-//                 phi_a3 = (256 - (D_803D552C->unk2F6 & 0xFF));
-//                 sp34 = 256 - ((D_803D552C->unk2F6 + 128) & 0xFF);
-//                 phi_t0 = 2;
-//                 break;
-//             default:
-//                 phi_a3 = D_803D552C->unk2F6 & 0xFF;
-//                 sp34 = (D_803D552C->unk2F6 + 128) & 0xFF;
-//                 phi_t0 = 2;
-//                 break;
-//             }
-//             break;
-//         }
-//     }
-//     func_8032018C_73183C(&D_803D5528->unk370, 3, 7, phi_a3, arg0, arg1, arg2, arg3, arg4, phi_t0);
-//     func_8032018C_73183C(&D_803D5528->unk384, 4, 10,  sp34, arg0, arg1, arg2, arg3, arg4, phi_t0);
-// }
+#if 0
+void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct087 *arg4) {
+    u16 temp_v1;
+    u16 sp34;
+    u16 sp30; // pad
+    s8 phi_t0;
+    u16 phi_a3;
+
+    temp_v1 = D_803D552C->unk2F2;
+
+    switch (D_803D5530->state) {                        /* implicit */
+    case 0x3:
+    case 0x8E:
+    case 0xB6:
+        phi_t0 = 1;
+        phi_a3 = D_803D552C->unk2F6 % 256;
+        sp34 = ((D_803D552C->unk2F6 + 128) % 256);
+        break;
+    case 0x6:
+    case 0x90:
+    case 0xB9:
+        phi_t0 = 1;
+        phi_a3 = 256 - (D_803D552C->unk2F6 % 256);
+        sp34 = 256 - ((D_803D552C->unk2F6 + 128) % 256);
+        break;
+    case 0x4:
+    case 0x8F:
+    case 0xB7:
+        phi_t0 = 2;
+        phi_a3 = D_803D552C->unk2F6 % 256;
+        sp34 = (D_803D552C->unk2F6 + 128) % 256;
+        break;
+    default:
+        phi_t0 = 0;
+        phi_a3 = sp34 = temp_v1;
+        break;
+    }
+
+    if (D_803D5524->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2)) {
+        switch (D_803D5530->unk162) {
+          case 4:
+          case 5:
+          case 6:
+          case 7:
+              phi_t0 = 2;
+              phi_a3 = (D_803D552C->unk2F6 << 4) & 0xFF;
+              sp34 = ((D_803D552C->unk2F6 << 4) + 128) & 0xFF;
+              break;
+        }
+    } else {
+      switch (D_803D5530->unk162) {
+        case 4:
+        case 5:
+        case 7:
+            switch (D_803D5530->state) {
+            default:
+                phi_a3 = D_803D552C->unk2F6 & 0xFF;
+                sp34 = (D_803D552C->unk2F6 + 128) & 0xFF;
+                break;
+            case 0x8E:
+                phi_a3 = D_803D552C->unk2F6 & 0xFF;
+                sp34 = (D_803D552C->unk2F6 + 128) & 0xFF;
+                break;
+            case 0x8F:
+                phi_a3 = (D_803D552C->unk2F6 << 1) & 0xFF;
+                sp34 = ((D_803D552C->unk2F6 << 1) + 128) & 0xFF;
+                break;
+            case 0x90:
+                phi_a3 = (256 - (D_803D552C->unk2F6 & 0xFF));
+                sp34 = 256 - ((D_803D552C->unk2F6 + 128) & 0xFF);
+                break;
+            }
+            phi_t0 = 2;
+            break;
+        }
+    }
+    func_8032018C_73183C(&D_803D5528->unk370, 3, 7, phi_a3, arg0, arg1, arg2, arg3, arg4, phi_t0);
+    func_8032018C_73183C(&D_803D5528->unk384, 4, 10,  sp34, arg0, arg1, arg2, arg3, arg4, phi_t0);
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8031FE40_7314F0.s")
+#endif
 
 #if 0
-//10000+ away
+// 10000+ away
 void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct087 *arg8, s8 arg9) {
     u16 temp_t5;
     u16 temp_t5_2;
@@ -290,7 +290,7 @@ void func_8032066C_731D1C(s16 arg0, s16 arg1) {
     func_80320828_731ED8(&D_803D5528->unk384, 10, sp24, -arg0, arg1);
 }
 
-#if 0
+#ifdef NON_MATCHING
 void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4) {
     s16 sp2C;
     s16 sp2A;
@@ -325,7 +325,7 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     }
     switch (arg0->unk10) {
     case 1:
-        sp20 = (D_80152C78[((arg0->unk12 << 7) / 100) & 0xFF] >> 7);
+        sp20 = (D_80152C78[(s16)((arg0->unk12 << 7) / 100) & 0xFF] >> 7);
         var_t0 = ((sp20 * arg4) >> 0xC);
         if (arg0->unk12 >= 100) {
           arg0->unk10 = 0;
@@ -361,55 +361,47 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     func_802C7B18_6D91C8(&D_80203FE0[arg1], var_a1);
 
     D_80203FE0[arg1+1].unk0 = D_80203FE0[arg1].unk0;
-    D_80203FE0[arg1+1].unk2 = D_80203FE0[arg1].unk2 + ((s32) (arg4 * temp_a3) / 32);
+    D_80203FE0[arg1+1].unk2 = D_80203FE0[arg1].unk2 + ((arg4 * temp_a3) / 32);
     D_80203FE0[arg1+1].unk4 = (D_80203FE0[arg1].unk4 - arg4) + var_t0;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_80320828_731ED8.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_80320B04_7321B4.s")
-// void func_80320B04_7321B4(s16 arg0, s16 arg1) {
-//     s16 temp_t6;
-//     s32 temp_a3;
-//     s32 temp_t0;
-//     u8 temp_t1;
-//     u8 temp_t4;
-//     s16 phi_v0;
-//
-//     if (D_803D5530->unk4A != 0) {
-//         phi_v0 = 0;
-//     } else {
-//         temp_t4 = (D_803D5540 << 4);
-//         if ((temp_t4 == 0) || (temp_t4 == 0x80)) {
-//             D_803D553A = 3;
-//         }
-//         phi_v0 = D_803D5540;
-//     }
-//
-//     temp_a3 = phi_v0 << 4;
-//     temp_t0 = temp_a3 + 1;
-//
-//     D_80203FE0[7].unk0 = D_80203FE0[1].unk0 + arg0;
-//     D_80203FE0[10].unk0 = D_80203FE0[1].unk0 - arg0;
-//
-//     D_80203FE0[7].unk2 = D_80203FE0[1].unk2;
-//     D_80203FE0[7].unk4 = D_80203FE0[1].unk4;
-//
-//     D_80203FE0[8].unk0 = D_80203FE0[7].unk0;
-//     D_80203FE0[8].unk2 = D_80203FE0[7].unk2 + (((D_80152C78[temp_t0 & 0xFF] >> 7) * arg1) >> 8);
-//
-//     temp_t6 = D_80152C78[(temp_t0 + 64) & 0xFF];
-//     D_80203FE0[8].unk4 = D_80203FE0[7].unk4 + (((temp_t6 >> 7) * arg1) >> 8);
-//
-//     D_80203FE0[10].unk2 = D_80203FE0[1].unk2;
-//     D_80203FE0[10].unk4 = D_80203FE0[1].unk4;
-//
-//     temp_t1 = temp_a3 + 128;
-//     D_80203FE0[11].unk0 = D_80203FE0[10].unk0;
-//     D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((D_80152C78[temp_t1 & 0xFF] >> 7) * arg1) >> 8);
-//     D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((D_80152C78[(temp_t1 + 64) & 0xFF] >> 7) * arg1) >> 8);
-// }
+void func_80320B04_7321B4(s16 arg0, s16 arg1) {
+    s32 temp_a3;
+    u8  tmp;
+    s16 phi_v0;
+
+    if (D_803D5530->unk4A != 0) {
+        phi_v0 = 0;
+    } else {
+        temp_a3 = (u8)(D_803D5540 << 4);
+        if ((temp_a3 == 0) || (temp_a3 == 0x80)) {
+            D_803D553A = 3;
+        }
+        phi_v0 = D_803D5540;
+    }
+
+    tmp = phi_v0 << 4;
+
+    D_80203FE0[7].unk0 = D_80203FE0[1].unk0 + arg0;
+    D_80203FE0[7].unk2 = D_80203FE0[1].unk2;
+    D_80203FE0[7].unk4 = D_80203FE0[1].unk4;
+
+    D_80203FE0[10].unk0 = D_80203FE0[1].unk0 - arg0;
+    D_80203FE0[10].unk2 = D_80203FE0[1].unk2;
+    D_80203FE0[10].unk4 = D_80203FE0[1].unk4;
+
+
+    D_80203FE0[8].unk0 = D_80203FE0[7].unk0;
+    D_80203FE0[8].unk2 = D_80203FE0[7].unk2 + (((D_80152C78[((s16)(tmp + 1) & 0xFF)] >> 7) * arg1) >> 8);
+    D_80203FE0[8].unk4 = D_80203FE0[7].unk4 + (((D_80152C78[((s16)(tmp + 1) + 64) & 0xFF] >> 7) * arg1) >> 8);
+
+    D_80203FE0[11].unk0 = D_80203FE0[10].unk0;
+    D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((D_80152C78[((s16)(tmp + 128) & 0xFF) & 0xFF] >> 7) * arg1) >> 8);
+    D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((D_80152C78[((s16)(tmp + 128) + 64) & 0xFF] >> 7) * arg1) >> 8);
+}
 
 #ifdef NON_MATCHING
 void func_80320C84_732334(s16 arg0, s16 arg1) {
@@ -469,13 +461,13 @@ void func_80320E70_732520(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     case 0x6:
     case 0xB6:
     case 0xB9:
-        sp34 = (D_803D552C->unk2F6 + 0x80) & 0xFF;
         sp36 = D_803D552C->unk2F6 & 0xFF;
+        sp34 = (D_803D552C->unk2F6 + 0x80) & 0xFF;
         break;
     case 0x4:
     case 0xB7:
-        sp34 = (D_803D552C->unk2F6 + 0x80) & 0xFF;
         sp36 = D_803D552C->unk2F6 & 0xFF;
+        sp34 = (D_803D552C->unk2F6 + 0x80) & 0xFF;
         break;
     case 0x8D:
         D_803D552C->unk30E = (D_803D552C->unk30E + 1) & 0xFF;

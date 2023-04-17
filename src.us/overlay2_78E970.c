@@ -3,6 +3,20 @@
 #include "pp.h"
 
 
+// ========================================================
+// .data
+// ========================================================
+
+// ========================================================
+// .bss (D_803F63D0 to D_803F63E0)
+// ========================================================
+
+u16  D_803F63D0;
+
+// ========================================================
+// .text
+// ========================================================
+
 void func_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
@@ -25,29 +39,26 @@ void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 
 // file split?
 
-#ifdef NON_MATCHING
-// just the stack
-// CURRENT (122)
 void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
-    struct065 *phi_s1;
-    s16 temp_t7;
     s16 temp_a0_2;
+    s16 temp_t7;
     s16 sp9A;
     s16 sp98;
-    s32 temp_t3;
     Animal *animal;
+    s16 temp_v0_3;
+    s16 phi_t2;
     s16 sp8E;
     s16 sp8C;
 
-    s16 temp_v0_3;
-    s16 temp_v1_2;
     s16 temp_t5;
-
     s16 phi_a2;
+    s32 temp_t3;
+    s16 temp_v1_2;
+
     s16 phi_a3;
     s16 phi_t0;
-    s16 phi_t2;
     s16 phi_v0;
+    struct065 *phi_s1;
     s16 phi_a0;
 
     if (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk162 == 1) {
@@ -160,9 +171,6 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
     }
     func_8034220C_7538BC(0xF, sp8E, sp8C, D_803D5530->yPos.h);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037D340_78E9F0.s")
-#endif
 
 // velocity related?
 void func_8037D994_78F044(s8 arg0) {
@@ -174,23 +182,7 @@ void func_8037D9D4_78F084(void) {
     D_803D554C = MIN(D_803D554C + 1, 5);
 }
 
-#ifdef NON_MATCHING
-// stack is wrong
 void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
-    // s16 spC6;
-    // s16 spC4;
-    s16 spB0;
-    // s16 spAC;
-    s16 spAA;
-    s16 spA8;
-    s16 spA0;
-    // s32 sp7C;
-    // s32 sp78;
-    // s32 sp6C;
-    // s32 sp68;
-    // s32 sp64;
-    s16 temp_a0;
-    s16 temp_fp;
 
     s16 xPos;
     s16 zPos;
@@ -199,15 +191,21 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     s16 temp_s2;
     s16 temp_s7;
     s16 temp_v0_4;
+    s16 temp_fp;
     s16 var_a0;
     s16 var_a0_2;
+    s16 temp_lo;
+
+    s16 spB0;
     s16 var_s5;
     s16 var_v0;
-    s16 temp_lo;
     s16 temp_t1;
-
+    s16 spAA;
+    s16 spA8;
+    s16 temp_a0;
     s16 temp_v1;
     s16 var_t2;
+    s16 spA0;
     s16 var_t3;
     s16 var_t5;
 
@@ -237,7 +235,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     if ((temp_t1 + 1) >= 8) {
         spA0 = 0;
     }
-    // temp_v0_2 = (s16) temp_v1 + var_t2;
+
     if (temp_t1 <= 0) {
         var_t5 = 0;
     }
@@ -346,9 +344,6 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
         0,
         0);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037DA08_78F0B8.s")
-#endif
 
 #if 0
 // not quite there...
@@ -710,6 +705,15 @@ Animal *func_8037ED1C_7903CC(void) {
 #if 0
 // CURRENT (3491)
 s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
+    s16 xPos;
+    s32 temp_v0_5;
+    s32 var_a3;
+    s16 yPosNew;
+    s16 xPosNew;
+    s16 zPosNew;
+    s16 i;
+    u8 temp_s1;
+
     s16 sp88;
     s16 sp86;
     s16 zPos; // sp7C
@@ -717,17 +721,6 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
     s16 sp76; // xVel
     s16 sp74; // zVel
     s16 sp72;
-    s16 temp_a2;
-    s16 xPos;
-    s32 temp_v0_5;
-    s32 var_a3;
-    s16 var_s0;
-    s16 xPosNew;
-    s16 zPosNew;
-    s16 var_s5;
-    s16 temp_v1_2;
-    u8 temp_s1;
-
 
     sp88 = D_80152C78[arg1 & 0xFF] >> 7;
     sp86 = D_80152C78[(arg1 + 0x40) & 0xFF] >> 7;
@@ -736,35 +729,35 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
     zPos = D_803D5530->zPos.h;
     sp7A = D_803D5530->yPos.h;
 
-    for (var_s5 = 0x20; var_s5 < arg0; var_s5 += 0x20) {
+    for (i = 0x20; i < arg0; i += 0x20) {
         if (D_803D5530->unk162 != 1) {
-            xPosNew = xPos + ((sp88 * var_s5) >> 8);
-            zPosNew = zPos + ((sp86 * var_s5) >> 8);
-            var_s0 = MIN(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10) + 8;
+            xPosNew = xPos + ((sp88 * i) >> 8);
+            zPosNew = zPos + ((sp86 * i) >> 8);
+            yPosNew = MIN(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10) + 8;
         } else {
             if ((D_803D5530->unk160 == 0) || (D_803D5530->unk160 == 1)) {
-                xPosNew = xPos + ((sp88 * var_s5) >> 8);
-                zPosNew = zPos + ((sp86 * var_s5) >> 8);
-                var_s0 = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
+                xPosNew = xPos + ((sp88 * i) >> 8);
+                zPosNew = zPos + ((sp86 * i) >> 8);
+                yPosNew = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
             } else {
-                xPosNew = xPos + ((sp88 * var_s5) >> 8);
-                zPosNew = zPos + ((sp86 * var_s5) >> 8);
-                temp_v1_2 = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
-                if (temp_v1_2 == 0x4000) {
-                    var_s0 = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
+                xPosNew = xPos + ((sp88 * i) >> 8);
+                zPosNew = zPos + ((sp86 * i) >> 8);
+                yPosNew = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
+                if (yPosNew == 0x4000) {
+                    yPosNew = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
                 } else {
-                    var_s0 = temp_v1_2 + 8;
+                    yPosNew = yPosNew + 8;
                 }
             }
         }
 
-        temp_s1 = func_803136FC_724DAC(xPosNew, zPosNew, var_s0);
+        temp_s1 = func_803136FC_724DAC(xPosNew, zPosNew, yPosNew);
         if (((temp_s1 == 1) && (D_803D5530->unk160 == 2)) || ((temp_s1 == 2) && (D_803D5530->unk160 == 1))) {
 
             func_80311A2C_7230DC(xPosNew, zPosNew, &sp76, &sp74, temp_s1);
 
-            if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, xPosNew, zPosNew, var_s0, temp_s1, 0, 0) == 0) {
-                if (((ABS(var_s0 - sp7A) < 0x50) && (func_802B75CC_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, var_s0 << 0x10, &sp72, 1) == 0)) &&
+            if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, xPosNew, zPosNew, yPosNew, temp_s1, 0, 0) == 0) {
+                if (((ABS(yPosNew - sp7A) < 0x50) && (func_802B75CC_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, yPosNew << 0x10, &sp72, 1) == 0)) &&
                     ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
                     break;
                 }
@@ -772,27 +765,27 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
         }
     }
 
-    temp_v0_5 = var_s5 - 0x30;
+    temp_v0_5 = i - 0x30;
 
-    var_s5 = arg0;
-    if (temp_v0_5 < var_s5) {
-        var_s5 = temp_v0_5;
+    i = arg0;
+    if (temp_v0_5 < i) {
+        i = temp_v0_5;
     }
 
-    if (var_s5 > 16) {
+    if (i > 16) {
         if (D_803D5530->unk160 == 2) {
-            xPosNew = xPos + ((sp88 * var_s5) >> 8);
-            zPosNew = zPos + ((sp86 * var_s5) >> 8);
+            xPosNew = xPos + ((sp88 * i) >> 8);
+            zPosNew = zPos + ((sp86 * i) >> 8);
 
-            temp_v1_2 = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
-            if (temp_v1_2 == 0x4000) {
+            yPosNew = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
+            if (yPosNew == 0x4000) {
                 var_a3 = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10);
             } else {
-                var_a3 = MAX(temp_v1_2, sp7A);
+                var_a3 = MAX(yPosNew, sp7A);
             }
         } else {
-            xPosNew = xPos + ((sp88 * var_s5) >> 8);
-            zPosNew = zPos + ((sp86 * var_s5) >> 8);
+            xPosNew = xPos + ((sp88 * i) >> 8);
+            zPosNew = zPos + ((sp86 * i) >> 8);
             var_a3 = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10);
         }
 
@@ -805,7 +798,7 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
         D_803D5530->yVelocity.w = 0;
 
         D_803D5530->unk160 = func_803136FC_724DAC(xPosNew, zPosNew, var_a3 + 0x10);
-        return var_s5;
+        return i;
     }
     return 0;
 }
@@ -814,21 +807,20 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
 #endif
 
 // used by rat
-#ifdef NON_MATCHING
-// just the stack to fix up
 void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
-    s16 pad[4];
+    s16 pad2;
+    s16 temp_a3;
     s16 sp9A;
     s16 sp98;
-    s16 sp90;
-    s16 temp_a2;
+    s16 pad3;
     s16 temp_a3_2;
     s16 temp_v1;
+    s16 sp90;
     s16 var_a0;
     s16 var_t1;
     s16 var_t2;
+    s16 temp_a2;
     s16 var_v1;
-    s16 temp_a3;
     s16 temp_v0;
     s16 var_t3;
     s16 var_t4;
@@ -836,8 +828,8 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
 
     Animal *animal;
     struct065 *var_s2;
+    s32 pad;
 
-    // temp_t0 = D_803D5530;
     var_t1 = D_803D5530->xPos.h;
     temp_v0 = var_t1 >> 0xA;
     var_t2 = D_803D5530->zPos.h;
@@ -912,9 +904,6 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037F6CC_790D7C.s")
-#endif
 
 // missile model (on animal) disappearing and left-right missile selector function
 u8 func_8037FBBC_79126C(void) {

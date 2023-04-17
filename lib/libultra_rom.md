@@ -19,3 +19,15 @@ python3 extract_idb.py /tmp/libultra/dist/ultra.idb \
 
 mv /tmp/libultra/usr/lib/libultra_rom.a libultra_rom.a
 ```
+
+Strip symbols to avoid `.symtab local symbol at index 3 (>= sh_info of 2)` error:
+
+```sh
+mkdir libultra_rom
+
+mips-linux-gnu-ar x --output libultra_rom libultra_rom.a
+
+for f in libultra_rom/*.o; do mips-linux-gnu-strip --strip-unneeded $f; done
+
+mips-linux-gnu-ar r libultra_rom.a libultra_rom/*.o
+```

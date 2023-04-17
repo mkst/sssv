@@ -1,7 +1,85 @@
 #include <ultra64.h>
 #include "common.h"
 
+
+// ========================================================
+// definitions
+// ========================================================
+
 void func_8029C8F0_6ADFA0(Gfx **dl);
+
+// ========================================================
+// externs
+// ========================================================
+
+extern u8  D_01006C60[];
+extern Gfx D_010047D0[];
+extern Gfx D_010049E8_3E2B8[];
+extern Gfx D_01004510_3DDE0[]; // tbd
+extern u8  D_010084A0[];
+extern Gfx D_0100A6D0_43FA0[];
+extern Gfx D_0100A730[];
+extern Gfx D_0100AF90_44860[];  // gun turret base
+extern Gfx D_0100B2C0_44B90[];  // gun turrent gun
+extern Gfx D_0100F4F0_48DC0[];
+extern Gfx D_010106E0_49FB0[];
+extern Gfx D_01011140_4AA10[];
+extern Gfx D_01011AB0_4B380[];
+extern Gfx D_01011B78_4B448[];
+extern Gfx D_01012B80_4C450[];  // teleporter
+
+extern u8  D_01031010_6A8E0[];
+
+extern Gfx D_040148B0_114600[];
+extern Gfx D_04014990_DC3C0[];  // # piece of silicon valley?
+extern Gfx D_04015960_DD390[];
+extern Gfx D_040165E0_116330[]; // # gherkin looking thing
+
+extern Gfx D_050007A0_A1870[];
+extern Gfx D_05001720_8A980[];  // # white/blue capsule thing
+extern Gfx D_05004070_8D2D0[];  // # asteroid
+
+extern s32 D_803A8370_7B9A20[]; // tbd
+
+// ========================================================
+// .data
+// ========================================================
+
+// ========================================================
+// .bss
+// ========================================================
+
+struct054 D_803D2D90;
+
+f32  D_803D2DF8;
+s16  D_803D2DFC;
+s16  D_803D2DFE;
+s16  D_803D2E00;
+
+struct059 D_803D2E08;
+
+s32  D_803D3428;
+s32  D_803D342C;
+s16  D_803D3430;
+s16  D_803D3432;
+DisplayList* D_803D3434;
+s32 *D_803D3438;
+Animal *D_803D343C;
+struct035 *D_803D3440;
+// pad ?
+struct025  D_803D3448; // 0x5d4 + 4 ?
+struct025  D_803D3A20;
+struct025  D_803D3FF8;
+struct072  D_803D45D0;
+struct025  D_803D4BB0;
+struct057  D_803D5188[32];
+s16  D_803D5508;
+
+u8 overlay2_6ACF20_post_padding[0x20];
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
     s32 dist = ((arg0->xPos.h - arg1->xPos.h) * (arg0->xPos.h - arg1->xPos.h)) +
@@ -323,9 +401,6 @@ void func_8029BB94_6AD244(void) {
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ACF20/func_8029BB94_6AD244.s")
 #endif
-
-extern u8  D_01006C60[];
-extern Gfx D_010047D0[];
 
 void func_8029C8F0_6ADFA0(Gfx **dl) {
     s16 k;
@@ -715,7 +790,7 @@ void func_8029DD84_6AF434(void) {
     s16 i;
 
     gSPDisplayList(D_801D9E90++, &D_010049A0_3E270);
-    gSPSetGeometryMode(D_801D9E90++, D_803C0650_7D1D00);
+    gSPSetGeometryMode(D_801D9E90++, D_803C0650);
     gSPDisplayList(D_801D9E90++, &D_01004510);
 
     gDPSetRenderMode(D_801D9E90++, G_RM_PASS, G_RM_ZB_XLU_SURF2);
@@ -811,10 +886,9 @@ RGBA32 D_803A0594_7B1C44[4] = {
 #endif
 
 #if 0
-extern Gfx D_010049E8_3E2B8[];
 // CURRENT (1865)
 void func_8029E100_6AF7B0(void) {
-    static u16 D_803A05A4_7B1C54 = 0;
+    static u16 D_803A05A4_7B1C54 = 0; // .data
 
     Gfx *dl;
 
@@ -905,8 +979,8 @@ void func_8029E528_6AFBD8(void) {
     s16 i;
 
     gSPDisplayList(D_801D9E8C++, &D_010049A0_3E270);
-    gSPSetGeometryMode(D_801D9E8C++, D_803C0650_7D1D00);
-    gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+    gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
+    gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648);
 
     for (i = 0; i <= D_803D4BB0.unk1; i++) {
         if (D_803D3434->usedModelViewMtxs >= 250) {
@@ -930,7 +1004,7 @@ void func_8029E528_6AFBD8(void) {
         // Take Two Interactive Logo ?
         if (D_05006170 == D_803D4BB0.unk4E4[i]) {
             gDPPipeSync(D_801D9E8C++);
-            gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
+            gDPSetRenderMode(D_801D9E8C++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
         }
 
         gSPDisplayList(D_801D9E8C++, D_803D4BB0.unk4E4[i]);
@@ -948,7 +1022,7 @@ void func_8029E7D0_6AFE80(void) {
         SHADE, 0, PRIMITIVE, 0,
         SHADE, 0, PRIMITIVE, 0,
         SHADE, 0, PRIMITIVE, 0);
-    gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+    gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648);
 
     for (i = 0; i <= D_803D45D0.unk0; i++) {
         if (D_803D3434->usedModelViewMtxs >= 250) {
@@ -982,7 +1056,7 @@ void func_8029E7D0_6AFE80(void) {
                 SHADE, 0, PRIMITIVE, 0,
                 SHADE, 0, PRIMITIVE, 0,
                 SHADE, 0, PRIMITIVE, 0);
-            gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+            gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648);
         }
     }
 
@@ -996,7 +1070,7 @@ void func_8029EAAC_6B015C(void) {
     s8 i;
 
     gSPDisplayList(D_801D9E8C++, &D_01004AF8);
-    gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+    gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648);
 
     i = 0;
     current_texture = -1;
@@ -1102,15 +1176,15 @@ void func_8029EF20_6B05D0(struct025 *arg0, Gfx **dl) {
         // tv screen?
         if (D_01017AA0 == arg0->unk4E4[i]) {
             gDPSetCombineMode(D_801D9E8C++, G_CC_TRILERP, G_CC_MODULATEI2);
-            gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+            gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648);
         }
     }
 }
 
 void func_8029F218_6B08C8(void) {
     gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
-    gSPSetGeometryMode(D_801D9E8C++, D_803C0650_7D1D00);
-    gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8);
+    gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
+    gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648);
     gSPDisplayList(D_801D9E8C++, D_01004510);
 
     if (D_803D3448.unk1 != -1) {
@@ -1121,7 +1195,7 @@ void func_8029F218_6B08C8(void) {
         gSPTexture(D_801D9E8C++, 32768, 32768, 1, G_TX_RENDERTILE, G_ON);
         gDPSetAlphaCompare(D_801D9E8C++, G_AC_THRESHOLD);
         gDPSetBlendColor(D_801D9E8C++, 0x00, 0x00, 0x00, 0x00);
-        gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0 , 0x113078);
+        gDPSetRenderMode(D_801D9E8C++, D_803C0640 , 0x113078);
         gDPSetCombineMode(D_801D9E8C++, G_CC_TRILERP, G_CC_MODULATEIDECALA);
         func_8029EF20_6B05D0(&D_803D3A20, &D_801D9E8C);
     }
@@ -1204,30 +1278,6 @@ void func_8029F65C_6B0D0C(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, 
         func_8029F464_6B0B14(&D_803D3448, arg1 & 0x3F, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
     }
 }
-
-extern Gfx D_01004510_3DDE0[]; // tbd
-extern u8  D_010084A0[];
-extern Gfx D_0100A6D0_43FA0[];
-extern Gfx D_0100A730[];
-extern Gfx D_0100AF90_44860[];  // gun turret base
-extern Gfx D_0100B2C0_44B90[];  // gun turrent gun
-extern Gfx D_0100F4F0_48DC0[];
-extern Gfx D_010106E0_49FB0[];
-extern Gfx D_01011140_4AA10[];
-extern Gfx D_01011AB0_4B380[];
-extern Gfx D_01011B78_4B448[];
-extern Gfx D_01012B80_4C450[];  // teleporter
-extern Gfx D_040148B0_114600[];
-extern Gfx D_04014990_DC3C0[];  // # piece of silicon valley?
-extern Gfx D_040165E0_116330[]; // # gherkin looking thing
-extern Gfx D_05001720_8A980[];  // # white/blue capsule thing
-extern Gfx D_05004070_8D2D0[];  // # asteroid
-extern Gfx D_050007A0_A1870[];
-extern Gfx D_04015960_DD390[];
-
-extern u8  D_01031010_6A8E0[];
-
-extern s32 D_803A8370_7B9A20[]; // tbd
 
 #if 0
 s32 D_803A8370_7B9A20[] = {
@@ -1349,8 +1399,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
     D_803D3434 = arg0;
 
     gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
-    gSPSetGeometryMode(D_801D9E8C++, D_803C0654);
-    gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+    gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
+    gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
 
     // var_v0 = D_803DA110;
     // something like this?
@@ -1478,7 +1528,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 gDPSetPrimColor(D_801D9E8C++, 0, 0, 0xEA, 0xE6, 0xFF, 0xFF);
                                 gDPSetTextureLUT(D_801D9E8C++, G_TT_NONE);
                                 gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                                 func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                 gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 // temp_s0_9->words.w0 = 0x06000000;
@@ -1512,7 +1562,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
 
                                 gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
 
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
 
                                 func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                 gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -1580,8 +1630,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                     gDPSetPrimColor(D_801D9E8C++, 0, 0, 0x00, 0x00, 0xFF, 0xFF);
                                 }
                                 gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
-                                gSPSetGeometryMode(D_801D9E8C++, D_803C0654);
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                                 gSPDisplayList(D_801D9E8C++, D_01004510_3DDE0);
                                 gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &D_010084A0[(var_s4 * 0xAB8)]);
                                 gDPTileSync(D_801D9E8C++);
@@ -1622,8 +1672,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
 
                             } else {
                                 gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
-                                gSPSetGeometryMode(D_801D9E8C++, D_803C0654);
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                                 gSPDisplayList(D_801D9E8C++, D_01004510_3DDE0);
                                 gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[D_803D343C->unk3E]);
                                 gDPTileSync(D_801D9E8C++);
@@ -1720,7 +1770,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             } else {
                                 D_803F2D24 = 0;
                             }
-                            gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                            gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                             gDPSetCombineMode(D_801D9E8C++, G_CC_MODULATEIA, G_CC_PASS2); // TBD
 
                             func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, var_s4_2 << 5, var_s4_2 << 5, var_s4_2 << 5);
@@ -1738,11 +1788,11 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             break;
                         case 16:
                             gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
-                            gSPSetGeometryMode(D_801D9E8C++, D_803C0654);
+                            gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
                             if (D_803E4D28 & 4) {
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
                             } else {
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                             }
                             gSPDisplayList(D_801D9E8C++, D_01004510_3DDE0);
                             gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[D_803D343C->unk3E & 0x3F]);
@@ -1823,7 +1873,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             } else {
                                 gDPSetTextureLUT(D_801D9E8C++, G_TT_NONE);
                                 gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                                 if (D_803D343C->state == 1) {
                                     gDPSetPrimColor(D_801D9E8C++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
                                 } else {
@@ -1894,9 +1944,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                         case 21:
                             gSPDisplayList(D_801D9E8C++, D_01004AF8);
                             if (D_803E4D28 & 4) {
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
                             } else {
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                             }
                             gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_0102F010[(D_803D343C->unk3E & 0x3F) << 0xB]); //  << 0xB
                             gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
@@ -1912,8 +1962,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             break;
                         case 23:
                             gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
-                            gSPSetGeometryMode(D_801D9E8C++, D_803C0654);
-                            gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                            gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
+                            gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                             func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                             gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -1937,7 +1987,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             }
                             if (D_803D343C->unk158 == 0) {
                                 gSPDisplayList(D_801D9E8C++, D_01004AF8);
-                                gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, D_803C0648_7D1CF8); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
+                                gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                                 gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &D_01031010_6A8E0);
                                 gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync(D_801D9E8C++);
@@ -1966,8 +2016,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             break;
                         case 24:
                             gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
-                            gSPSetGeometryMode(D_801D9E8C++, D_803C0654);
-                            gDPSetRenderMode(D_801D9E8C++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
+                            gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
+                            gDPSetRenderMode(D_801D9E8C++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
                             gSPDisplayList(D_801D9E8C++, D_01004510_3DDE0);
                             gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[D_803D343C->unk3E & 0x3F]);
                             gDPTileSync(D_801D9E8C++);

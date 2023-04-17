@@ -1,8 +1,10 @@
 #include <ultra64.h>
-
 #include "common.h"
 
-extern f64 D_803BE950_7D0000; // = 0.6;
+
+// ========================================================
+// externs
+// ========================================================
 
 extern u8 D_01004600[];
 extern u8 D_01004650_3DF20[];
@@ -11,6 +13,55 @@ extern u8 D_0103C720[];
 extern u8 D_0103D520[];
 extern u8 D_0103D320[];
 extern u8 D_01029DD0[];
+
+// ========================================================
+// .data
+// ========================================================
+
+extern f64 D_803BE950_7D0000; // = 0.6;
+
+// ========================================================
+// .bss (D_803F2CD0 to D_803F2D50)
+// ========================================================
+
+s16  D_803F2CD0;
+s16  D_803F2CD2; // (race?) timer
+s16  D_803F2CD4;
+s16  D_803F2CD6;
+s16  D_803F2CD8;
+s16  D_803F2CDA;
+s8   D_803F2CDC;
+s8   D_803F2CDD;
+u8   D_803F2CDE;
+u8   D_803F2CDF;
+s16 *D_803F2CE0;
+s16  D_803F2CE4;
+s8   D_803F2CE6;
+u16  D_803F2CE8; // health slider 'animation'
+s32  D_803F2CEC;
+s16  D_803F2CF0;
+u8   D_803F2CF2;
+struct033 D_803F2CF8; // pointer to an animal+health
+s32  D_803F2D04;
+s32  D_803F2D08; // unused
+s32  D_803F2D0C; // unused
+struct003 D_803F2D10;
+s32  D_803F2D14;
+s16  D_803F2D18;
+
+s32  D_803F2D1C; // unused
+u16  D_803F2D20;
+s8   D_803F2D22;
+s8   D_803F2D23;
+s16  D_803F2D24;
+s32  D_803F2D28;
+s32  D_803F2D2C;
+struct001 D_803F2D30;
+
+
+// ========================================================
+// .text
+// ========================================================
 
 // osd_draw_health_and_power_bars
 // 50% there?
@@ -239,9 +290,9 @@ void func_80348230_7598E0(s32 arg0) {
 
 // osd_draw_score
 void func_803491F0_75A8A0(void) {
-    sprintf(D_803F2D3E, "%8d", D_803F2D30.score);
+    sprintf(D_803F2D30.scoreText, "%8d", D_803F2D30.score);
     select_font(0, FONT_LCD, 1, 0);
-    display_score(&D_801D9E7C, D_803F2D3E, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
+    display_score(&D_801D9E7C, D_803F2D30.scoreText, gScreenWidth - 34, ((D_803F2CF0 >> 2) - 10));
 }
 
 void func_80349278_75A928(void) {

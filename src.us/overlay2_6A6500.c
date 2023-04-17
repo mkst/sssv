@@ -1,8 +1,15 @@
 #include <ultra64.h>
-
 #include "common.h"
 
+
+// ========================================================
+// .data
+// ========================================================
+
+// ========================================================
 // .bss
+// ========================================================
+
 s16  D_803C0420;
 u8   D_803C0422;
 s16  D_803C0424;
@@ -11,6 +18,9 @@ s16  D_803C0428;
 s16  D_803C042A;
 struct053 D_803C0430;
 
+// ========================================================
+// .text
+// ========================================================
 
 void func_80294E50_6A6500(void) {
     s16 width;
@@ -22,7 +32,7 @@ void func_80294E50_6A6500(void) {
     // reset a bunch of things
     func_8029F3CC_6B0A7C();
 
-    D_803C0648_7D1CF8 = 0x0000000000112038;
+    D_803C0648 = 0x0000000000112038;
     if (D_803C0422 != 0) {
         D_803C0422++;
         if (D_803C0422 == 2) {
@@ -54,7 +64,7 @@ void func_80294E50_6A6500(void) {
         return;
     }
 
-    if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (D_803F6680.unk0 == 0)) || (D_803F66A6 == 3)) {
+    if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (D_803F6680.unk0 == 0)) || (D_803F6680.unk26 == 3)) {
         if ((D_803E1BC0 == 0) && (D_803C0426 == 0) && (D_8020540C != 1) && (D_803C0422 == 0)) {
             if ((D_803F2D30.unk4 == 0) && (D_803F2E16 == 0) && (D_803F2D30.level != END_CREDITS) && ((D_803E4D28 & 0x10) == 0)) {
                 if ((D_803C0420 == 0) || (D_803C0420 >= 11)) {
@@ -94,7 +104,7 @@ void func_80294E50_6A6500(void) {
         if (D_803F6680.unk2D == 0) { // is menu loaded?
             // load menu displaylists & decompress a bunch of textures
             func_80398630_7A9CE0();
-            D_803F66AD = 1;
+            D_803F6680.unk2D = 1;
         }
         // main menu code
         func_8038FF68_7A1618();
@@ -193,7 +203,7 @@ void func_80294E50_6A6500(void) {
 
         gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
 
-        D_803C0648_7D1CF8 = 0x0000000000110038;
+        D_803C0648 = 0x0000000000110038;
         func_8029F7D4_6B0E84(D_80204278, &D_801E9EB8);
         func_8029A720_6ABDD0();
         set_fog_position_and_color(&D_801D9E7C);
@@ -391,9 +401,9 @@ void func_802961D4_6A7884(void) {
     D_803F2D50.unkDA = 320;
     D_803F2D50.unkDC = 0;
     // these 3 are 64bit
-    D_803C0640_7D1CF0 = 0xFFFFFFFFC8000000; // rendermode mask?
-    D_803C0648_7D1CF8 = 0x0000000000112038;
-    D_803C0650_7D1D00 = 0x0000000000010000;
+    D_803C0640 = 0xFFFFFFFFC8000000; // rendermode mask?
+    D_803C0648 = 0x0000000000112038;
+    D_803C0650 = 0x0000000000010000;
     func_802C9340_6DA9F0();
     func_802C9834_6DAEE4();
     func_80296544_6A7BF4();

@@ -81,7 +81,7 @@ UNDEFINED_SYMS  := osViGetCurrentLine
 
 # Tools
 
-CROSS    = mips-elf-
+CROSS    = mips-linux-gnu-
 
 AS       = $(CROSS)as
 CPP      = cpp

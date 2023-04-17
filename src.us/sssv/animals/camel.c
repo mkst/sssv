@@ -364,7 +364,7 @@ block_9:
 
             switch (D_803D5524->unk9C) {                   /* switch 1; irregular */
             case CAMEL:                                /* switch 1 */
-                if ((D_803D5538 == 0) && (D_803F2DA2 == 3)) {
+                if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
                     gDPSetPrimColor(D_801D9E88++, 0, 0, 0x37, 0x37, 0xFF, 0xFF);
                 } else {
                     gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
@@ -374,7 +374,7 @@ block_9:
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04001300_E88B0);
                 break;
             case CANNON_CAMEL:                                /* switch 1 */
-                if ((D_803D5538 == 0) && (D_803F2DA2 == 3)) {
+                if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
                     gDPSetPrimColor(D_801D9E88++, 0, 0, 0x37, 0x37, 0xFF, 0xFF);
                 } else {
                     gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xF0, 0xA0, 0xFF);

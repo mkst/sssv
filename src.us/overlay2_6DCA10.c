@@ -1,6 +1,37 @@
 #include <ultra64.h>
 #include "common.h"
 
+
+// ========================================================
+// externs
+// ========================================================
+
+extern Gfx D_01004680_3DF50[];
+extern Gfx D_010047D0_3E0A0[];
+extern Gfx D_01004828_3E0F8[];
+extern Gfx D_01004720_3DFF0[];
+
+extern u8  D_01020DB0_5A680[];
+extern u8  D_010215B0_5AE80[];
+extern u8  D_010226D0_5BFA0[];
+extern u8  D_01022ED0_5C7A0[];
+extern u8  D_01023550_5CE20[];
+extern u8  D_01023D50_5D620[];
+extern u8  D_01024550_5DE20[]; // 512 bytes per image
+extern u8  D_01025750_5F020[]; // 512 bytes per image
+extern u8  D_01026950_60220[];
+extern u8  D_01027B50_61420[];
+extern u8  D_01028D50_62620[];
+extern u8  D_01029550_62E20[];
+extern u8  D_0102C210_65AE0[];
+extern u8  D_0102CA10_662E0[];
+
+extern Gfx *D_801D9EB0;
+
+// ========================================================
+// .data
+// ========================================================
+
 #if 0
 struct098 D_803A1BB0_7B3260[16] = {
     { 0.5f, 110, },
@@ -254,6 +285,24 @@ s32 unkfoo[] = {
 
 #endif
 
+extern u8  D_803B74D0_7C8B80[];
+
+
+// ========================================================
+// .bss
+// ========================================================
+
+struct084 D_803D6120; // size 0x3FD8
+
+s32 D_803DA0FC; // could be static?
+s32 D_803DA100; // could be static?
+s32 D_803DA104; // could be static?
+s32 D_803DA108; // could be static?
+
+// ========================================================
+// .text
+// ========================================================
+
 // zero out particle data?
 void func_802CB360_6DCA10(void) {
     D_803D6120.used = 0;
@@ -262,43 +311,6 @@ void func_802CB360_6DCA10(void) {
 }
 
 #if 0
-
-extern u16  D_80151424;
-
-extern struct036 D_803D6128;
-
-extern u8  D_803DA0E8[8];
-extern s32 D_803DA0EE;
-
-extern s32 D_803DA0FC; // could be static?
-extern s32 D_803DA100; // could be static?
-extern s32 D_803DA104; // could be static?
-extern s32 D_803DA108; // could be static?
-
-extern Gfx D_01004680_3DF50[];
-extern Gfx D_010047D0_3E0A0[];
-extern Gfx D_01004828_3E0F8[];
-extern Gfx D_01004720_3DFF0[];
-
-extern u8  D_01020DB0_5A680[];
-extern u8  D_010215B0_5AE80[];
-extern u8  D_010226D0_5BFA0[];
-extern u8  D_01022ED0_5C7A0[];
-extern u8  D_01023550_5CE20[];
-extern u8  D_01023D50_5D620[];
-extern u8  D_01024550_5DE20[]; // 512 bytes per image
-extern u8  D_01025750_5F020[]; // 512 bytes per image
-extern u8  D_01026950_60220[];
-extern u8  D_01027B50_61420[];
-extern u8  D_01028D50_62620[];
-extern u8  D_01029550_62E20[];
-extern u8  D_0102C210_65AE0[];
-extern u8  D_0102CA10_662E0[];
-
-extern u8  D_803B74D0_7C8B80[];
-
-extern Gfx *D_801D9EB0;
-
 
 typedef struct {
   s16 unk0;
@@ -354,10 +366,10 @@ void func_802CB394_6DCA44(s32 arg0) {
         sp7B0[i] = 0;
     }
 
-    var_s1 = &D_803D6128;
+    var_s1 = &D_803D6120.particles; // D_803D6128
 
     for (j = 0; j < 8; j++) {
-        D_803DA0E8[j] = 0;
+        D_803D6120.unk3FC8[j] = 0;
     }
 
     gSPDisplayList(D_801D9E98[0]++, D_01004680_3DF50);
@@ -562,7 +574,7 @@ void func_802CB394_6DCA44(s32 arg0) {
             flags = particle->unk0;
             temp_t0 = particle->unkB; // pad6[5];
 
-            D_803DA0E8[sp7DD] = 1;
+            D_803D6120.unk3FC8[sp7DD] = 1;
             if (var_s1->unk1A == 0) {
                 var_s1->unk18--; // = (s16) (var_s1->unk18 - 1);
             }
@@ -1276,7 +1288,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[6]++, colorEnvRGBA5551, 0xB4);
 
                         func_8032F170_740820(&D_801D9EB0, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
-                        D_803DA0E8[6] = 1;
+                        D_803D6120.unk3FC8[6] = 1;
                     } else {
                         gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x60, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                         gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x70, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);

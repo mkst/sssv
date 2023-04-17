@@ -1,7 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
-u8 bss_padding_chameleon_pre[0x220];
+
+u8 bss_padding_chameleon_pre[0x150];
 
 
 extern s16 D_803B3B60_7C5210[];
@@ -437,5 +438,3 @@ void func_8035C10C_76D7BC(void) {
 void func_8035C180_76D830(s16 arg0) {
     D_803D552C->unk2EC = arg0;
 }
-
-u8 bss_padding_chameleon_post[0xB010];
