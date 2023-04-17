@@ -1,11 +1,10 @@
 #include <ultra64.h>
-
 #include "common.h"
 
-void func_8038DF18_79F5C8(u16 arg0);
 
-// tbd
-u8 func_8038E80C_79FEBC(void);
+// ========================================================
+// .data
+// ========================================================
 
 u8 dna[8] = "AGCT.-01";
 
@@ -148,6 +147,35 @@ void func_8038CF90_79E640(void) {
     gDPSetCombineMode(D_801D9E7C++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gDPSetRenderMode(D_801D9E7C++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 }
+
+// ========================================================
+// .bss (D_803F6460 to D_803F6680)
+// ========================================================
+
+u8   D_803F6460;
+Animal *D_803F6464;
+s16  D_803F6468;
+f32  D_803F646C;
+s16  D_803F6470;
+s8   D_803F6472;
+s16  D_803F6474;
+struct109 D_803F6478;
+s16 *D_803F6500[18];
+s16  D_803F6548[20];
+f32  D_803F6570[32][2]; // tbd
+f32  D_803F6670;
+s16  D_803F6674;
+
+// ========================================================
+// definitions
+// ========================================================
+
+void func_8038DF18_79F5C8(u16 arg0);
+u8 func_8038E80C_79FEBC(void);
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_8038D004_79E6B4(Gfx **dl, u16 intensity) {
     s16 xPos;
@@ -586,10 +614,6 @@ void func_8038E504_79FBB4(u16 arg0) {
     func_8038DF18_79F5C8(arg0);
 }
 
-extern f32 D_803F6570[16][2];
-extern s16 D_803F6674;
-
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038E80C_79FEBC.s")
 #if 0
 u8 func_8038E80C_79FEBC(void) {
     static u8 D_803B66E4_7C7D94 = 0;
@@ -623,6 +647,8 @@ u8 func_8038E80C_79FEBC(void) {
 
     return var_t2;
 }
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038E80C_79FEBC.s")
 #endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038E9F8_7A00A8.s")

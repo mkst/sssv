@@ -360,8 +360,6 @@ s32 func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 a
     return 1;
 }
 
-#ifdef NON_MATCHING
-// offsets are fakematches...
 void func_8032BE28_73D4D8(Animal *arg0) {
     s16 temp_v0;
     s32 *temp_a1;
@@ -371,9 +369,11 @@ void func_8032BE28_73D4D8(Animal *arg0) {
     s16 phi_s0;
     s16 i;
 
-    temp_a1 = arg0->unk16C->unk18;
-    if (temp_a1 != NULL) {
+    if ((arg0->unk16C->unk18) != NULL) {
+
+        temp_a1 = arg0->unk16C->unk18;
         gSPDisplayList(D_801D9E8C++, D_01003548_3CE18);
+
         if (temp_a1 != NULL) {
             x = (D_803D5540 >> 3) % 32;
             for (i = 0; i < 32; i++) {
@@ -406,12 +406,7 @@ void func_8032BE28_73D4D8(Animal *arg0) {
             }
         }
     }
-    // regalloc helper
-    if (temp_a1 && temp_a1) {};
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73C890/func_8032BE28_73D4D8.s")
-#endif
 
 void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
 

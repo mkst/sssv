@@ -651,7 +651,7 @@ void func_8031E6A0_72FD50(void) {
 
             gSPDisplayList(D_801D9E88++, D_01004270_3DB40);
             gSPDisplayList(D_801D9E88++, D_01004AF8);
-            gDPSetRenderMode(D_801D9E88++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
+            gDPSetRenderMode(D_801D9E88++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
             gDPSetTextureImage(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01030810);
             gDPSetTile(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
             gDPLoadSync(D_801D9E88++);

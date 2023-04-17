@@ -3860,7 +3860,7 @@ segments:
     - [0x7B7C80, bin] # animal sounds lookup
     - [0x7B7D30, bin] # animal sounds lookup
     - [0x7B7DE0, bin] #
-    - [0x7B8370, data]
+    - [0x7B8370, data] # overlay2_741000
     - [0x7B83A0, bin]
     - [0x7B83D0, bin] # something else
     - [0x7B9580, .data, data/D_803A8290_7B9940] # green crib??
@@ -3992,9 +3992,46 @@ segments:
     - [0x7D1A50, .rodata, ui_main_menu]
     # bss
     - [0x7D1AD0, .bss, overlay2_6A6500]
+    - [0x7D1AD0, .bss, overlay2_6A7A80]
+    - [0x7D1AD0, .bss, overlay2_6AB090]
+    - [0x7D1AD0, .bss, overlay2_6AC360]
+    - [0x7D1AD0, .bss, overlay2_6ACF20]
     - [0x7D1AD0, .bss, overlay2_6B5380]
+    - [0x7D1AD0, .bss, overlay2_6C5570]
+    - [0x7D1AD0, .bss, sssv/collision]
+    - [0x7D1AD0, .bss, overlay2_6D9AF0]
+    - [0x7D1AD0, .bss, overlay2_6DCA10]
+    - [0x7D1AD0, .bss, sssv/collist2]
+    - [0x7D1AD0, .bss, overlay2_6EE6F0]
+    - [0x7D1AD0, .bss, screen_transition]
+    - [0x7D1AD0, .bss, overlay2_7041D0]
+    - [0x7D1AD0, .bss, sssv/input]
+    - [0x7D1AD0, .bss, overlay2_707310]
+    - [0x7D1AD0, .bss, overlay2_715820]
+    - [0x7D1AD0, .bss, overlay2_716900]
+    - [0x7D1AD0, .bss, overlay2_725D10]
+    - [0x7D1AD0, .bss, overlay2_72B100]
+    - [0x7D1AD0, .bss, overlay2_72B800]
+    - [0x7D1AD0, .bss, overlay2_739290]
     - [0x7D1AD0, .bss, overlay2_741000]
+    - [0x7D1AD0, .bss, overlay2_7558F0]
+    - [0x7D1AD0, .bss, sssv/osd]
     - [0x7D1AD0, .bss, sssv/animals/chameleon]
+    - [0x7D1AD0, .bss, overlay2_76E7D0]
+    - [0x7D1AD0, .bss, overlay2_76F7D0]
+    - [0x7D1AD0, .bss, sssv/animals/sheep]
+    - [0x7D1AD0, .bss, overlay2_785D10]
+    - [0x7D1AD0, .bss, overlay2_78E970]
+    - [0x7D1AD0, .bss, overlay2_791CD0]
+    - [0x7D1AD0, .bss, overlay2_794EE0]
+    - [0x7D1AD0, .bss, sssv/credits]
+    - [0x7D1AD0, .bss, sssv/cheats]
+    - [0x7D1AD0, .bss, overlay2_79DE10]
+    - [0x7D1AD0, .bss, sssv/terminal_background]
+    - [0x7D1AD0, .bss, overlay2_7A0DA0]
+    - [0x7D1AD0, .bss, overlay2_7A8A50]
+    - [0x7D1AD0, .bss, ui_main_menu]
+    - [0x7D1AD0, .bss, trails]
   # - [0x7D1DF0, bin] # D_803C0740_7D1DF0
   - [0x7D1AD0, bin] # referenced in overlay2_7A8A50
   # - [0x7D1AF0, bin] # end of data?

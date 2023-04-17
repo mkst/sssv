@@ -13,14 +13,12 @@ Checkout the [wiki](https://github.com/mkst/sssv/wiki) for more information.
 The instructions below assume that you will be using `Ubuntu 20.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
 Please check the [packages.txt](packages.txt) and [requirements.txt](requirements.txt) for the  prerequisite Linux and Python packages respectively.
 
-**Note:** `mips-elf-ld` version `2.34` or older is required, at the time of writing this must be compiled manually (see [Dockerfile](Dockerfile) for the steps).
-
 ## Natively
 
 Clone the repository; note the `--recursive` flag to fetch submodules at the same time:
 
 ```sh
-git clone git@github.com:mkst/sssv.git --recursive
+git clone --recursive git@github.com:mkst/sssv.git
 ```
 
 Navigate into the freshly cloned repo

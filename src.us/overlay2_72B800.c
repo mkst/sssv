@@ -1,8 +1,12 @@
 #include <ultra64.h>
 #include "common.h"
 
+// ========================================================
+// .data
+// ========================================================
+
 u16  D_803A5760_7B6E10 = 0;
-// s16  D_803A5764_7B6E14 = 0;
+// s16  D_803A5764_7B6E14 = 0; // defined in func_8031AE7C_72C52C
 
 // eyes lookup
 const s16 D_803BD530_7CEBE0[13] = {
@@ -32,6 +36,17 @@ const s16 D_803BD602_7CECB2[] = {
     1,  2,  0,  0,  4,  6,  3,  5,  7,  6,  6,  8,  0,
     1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11,  0,
 };
+
+// ========================================================
+// .bss
+// ========================================================
+
+s16  D_803E97C0;
+struct042 D_803E97C8;
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye) {
     s16 temp_v1;
@@ -127,51 +142,50 @@ void func_8031A370_72BA20(void) {
     s16 temp_t8;
     s16 i;
 
-    struct058 *var_v0 = D_803E97C8.unk0;
+    Animal *var_v0 = D_803E97C8.unk0;
     for (i = 1; i <= D_803E97C8.unkA; i++) {
         if ((i != D_803E97C8.unk4) || (D_803E97C8.unk8 == 0)) {
             temp_t4 = D_803E97C8.unkE + ((D_803E97C8.unk1C * ((i << 6) - 0x10)) >> 8);
-            var_v0->unk4 = temp_t4;
-            var_v0->unk10 = temp_t4;
+            var_v0->xPos.h = temp_t4;
+            var_v0->unk10.h = temp_t4;
 
             temp_t8 = D_803E97C8.unk10 + ((D_803E97C8.unk20 * ((i << 6) - 0x10)) >> 8);
-            var_v0->unk8 = temp_t8;
-            var_v0->unk14 = temp_t8;
+            var_v0->zPos.h = temp_t8;
+            var_v0->unk14.h = temp_t8;
 
             temp_t5 = (D_803E97C8.unk12 + ((D_803E97C8.unk24 * ((i << 6) - 0x10)) >> 8)) - 0x20;
-            var_v0->unkC = temp_t5;
-            var_v0->unk18 = temp_t5;
+            var_v0->yPos.h = temp_t5;
+            var_v0->unk18.h = temp_t5;
 
-            var_v0->unkD0 = 0x1F;
-            var_v0->unkC4 = 0;
-            var_v0->unkC8 = 0;
-            var_v0->unkCC = 0x200000;
+            var_v0->unkC4[0].unkC = 0x1F;
+            var_v0->unkC4[0].unk0.w = 0;
+            var_v0->unkC4[0].unk4.w = 0;
+            var_v0->unkC4[0].unk8.w = 0x200000;
         } else {
             temp_t4 = D_803E97C8.unk14 - ((D_803E97C8.unk1C * (D_803E97C8.unk8 + 0x10)) >> 8);
-            var_v0->unk4 = temp_t4;
-            var_v0->unk10 = temp_t4;
+            var_v0->xPos.h = temp_t4;
+            var_v0->unk10.h = temp_t4;
 
             temp_t8 = D_803E97C8.unk16 - ((D_803E97C8.unk20 * (D_803E97C8.unk8 + 0x10)) >> 8);
-            var_v0->unk8 = temp_t8;
-            var_v0->unk14 = temp_t8;
+            var_v0->zPos.h = temp_t8;
+            var_v0->unk14.h = temp_t8;
 
             temp_t5 = (D_803E97C8.unk18 - D_803E97C8.unk8) - ((D_803E97C8.unk24 * (D_803E97C8.unk8 + 0x10)) >> 8);
-            var_v0->unkC = temp_t5;
-            var_v0->unk18 = temp_t5;
+            var_v0->yPos.h = temp_t5;
+            var_v0->unk18.h = temp_t5;
 
-            var_v0->unkD0 = D_803E97C8.unk8;
-            var_v0->unkC4 = 0;
-            var_v0->unkC8 = 0;
-            var_v0->unkCC = (D_803E97C8.unk8 << 0x10);
+            var_v0->unkC4[0].unkC = D_803E97C8.unk8;
+            var_v0->unkC4[0].unk0.w = 0;
+            var_v0->unkC4[0].unk4.w = 0;
+            var_v0->unkC4[0].unk8.w = (D_803E97C8.unk8 << 0x10);
         }
-        var_v0 = var_v0->next;
+        var_v0 = var_v0->unk248[2];
     }
     D_803E97C8.unk0 = var_v0;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72B800/func_8031A370_72BA20.s")
 #endif
-
 
 #if 0
 // no real idea whats going on here...
@@ -204,7 +218,6 @@ void func_8031A4E0_72BB90(void) {
 
     vtxs = &D_80204278->unk39C88[D_80204278->unk3B308];
     D_80204278->unk3B30A[D_803E97C0] = 8;
-
 
     D_80204278->unk3B308 += 8;
 
@@ -360,16 +373,16 @@ void func_8031A4E0_72BB90(void) {
 
 // used by object 28
 void func_8031AA0C_72C0BC(struct058 *arg0) {
-    struct058 *temp_v0;
+    Animal *temp_v0;
     struct058 *var_v1;
     s16 i;
 
     if (arg0->unk24C != NULL) {
         temp_v0 = arg0->unk24C;
 
-        D_803E97C8.unk28 = temp_v0->unk4 - arg0->unk4;
-        D_803E97C8.unk2C = temp_v0->unk8 - arg0->unk8;
-        D_803E97C8.unk30 = temp_v0->unkC - arg0->unkC;
+        D_803E97C8.unk28 = temp_v0->xPos.h - arg0->unk4;
+        D_803E97C8.unk2C = temp_v0->zPos.h - arg0->unk8;
+        D_803E97C8.unk30 = temp_v0->yPos.h - arg0->unkC;
 
         D_803E97C8.unk34 = ABS(D_803E97C8.unk28);
         D_803E97C8.unk38 = ABS(D_803E97C8.unk2C);
@@ -440,9 +453,9 @@ void func_8031AA0C_72C0BC(struct058 *arg0) {
                 D_803E97C8.unk10 = arg0->unk8;
                 D_803E97C8.unk12 = arg0->unkC + (arg0->unk42 >> 1);
 
-                D_803E97C8.unk14 = temp_v0->unk4;
-                D_803E97C8.unk16 = temp_v0->unk8;
-                D_803E97C8.unk18 = temp_v0->unkC + (arg0->unk42 >> 1);
+                D_803E97C8.unk14 = temp_v0->xPos.h;
+                D_803E97C8.unk16 = temp_v0->zPos.h;
+                D_803E97C8.unk18 = temp_v0->yPos.h + (arg0->unk42 >> 1);
 
                 D_803E97C8.unkA = arg0->unk152;
                 func_8031A370_72BA20();
@@ -456,9 +469,9 @@ void func_8031AA0C_72C0BC(struct058 *arg0) {
                     0.5f,
                     0,
                     0,
-                    (temp_v0->unk4 + arg0->unk4) >> 1,
-                    (temp_v0->unk8 + arg0->unk8) >> 1,
-                    (temp_v0->unkC + arg0->unkC) >> 1,
+                    (temp_v0->xPos.h + arg0->unk4) >> 1,
+                    (temp_v0->zPos.h + arg0->unk8) >> 1,
+                    (temp_v0->yPos.h + arg0->unkC) >> 1,
                     0,
                     0,
                     0);

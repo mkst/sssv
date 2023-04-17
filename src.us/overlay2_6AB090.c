@@ -2,8 +2,21 @@
 
 #include "common.h"
 
+// ========================================================
 // .data
+// ========================================================
+
 s16 D_803A0500_7B1BB0 = 0;
+
+// ========================================================
+// .bss
+// ========================================================
+
+Fog2 D_803C0660[28];
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_802999E0_6AB090(DisplayList *arg0) {
     guPerspective(&arg0->unk37410, &D_803C0658, D_803F2D50.unkE0, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);
@@ -22,7 +35,7 @@ void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1) {
 }
 
 void func_80299B68_6AB218(s32 arg0) {
-    gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[D_803C063C >> 1]);
+    gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[D_803C0430.unk20C >> 1]);
     gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0180, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync(D_801D9E7C++);
     gDPLoadTile(D_801D9E7C++, G_TX_LOADTILE, 0, 0, 4*(15.5), 4*(31));
@@ -71,7 +84,7 @@ void func_80299E84_6AB534(s32 arg0) {
 
         D_803C0660[D_803A0500_7B1BB0].min = 99;
 
-        gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[D_803C063C >> 1]);
+        gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[D_803C0430.unk20C >> 1]);
 
         gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x015E, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(D_801D9E7C++);

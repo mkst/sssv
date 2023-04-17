@@ -2,8 +2,17 @@
 #include "common.h"
 #include "pp.h"
 
+
+// ========================================================
+// definitions
+// ========================================================
+
 void load_level_data_sections(void);
 void func_8031C48C_72DB3C(void);
+
+// ========================================================
+// .data
+// ========================================================
 
 // rgba16 mipmapped textures?
 u8 *D_803A5770_7B6E20[] = {
@@ -239,6 +248,14 @@ u8 *D_803A5BF8_7B72A8[72] = {
 
     levels_INTRO_ROM_START, levels_INTRO_ROM_END
 };
+
+// ========================================================
+// .bss
+// ========================================================
+
+// ========================================================
+// .text
+// ========================================================
 
 s32 get_uncompressed_size(u8 *arg0) {
     if ((arg0[0] == 'R') && (arg0[1] == 'N') && (arg0[2] == 'C')) {
@@ -545,11 +562,11 @@ void load_level_data_sections(void) {
                 if (tmp == 24) {
                     rmonPrintf(
                         "Partcle State: %d F $%X Fq %d Time %d S %d\n",
-                        D_803E4D40[j].type24.State,
-                        D_803E4D40[j].type24.F,
-                        D_803E4D40[j].type24.Fq,
-                        D_803E4D40[j].type24.Time,
-                        D_803E4D40[j].type24.S);
+                        D_803E4D40[j].cmd.type24.State,
+                        D_803E4D40[j].cmd.type24.F,
+                        D_803E4D40[j].cmd.type24.Fq,
+                        D_803E4D40[j].cmd.type24.Time,
+                        D_803E4D40[j].cmd.type24.S);
                 }
             }
             break;
@@ -928,7 +945,7 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 idx) {
             D_803A8528_7B9BD8[i].unk18 = &D_803E9840[D_803F28C2];
         }
     }
-    D_803F28C2 += 1;
+    D_803F28C2++;
 }
 
 #if 0
@@ -989,7 +1006,7 @@ void func_8031C48C_72DB3C(void) {
             id = temp_v0_3->cmdIdx;
             if ((id != 0) && (temp_v0_3->unk18 == NULL)) {
                 // link the command?
-                func_8031C3C0_72DA70(((CmdStack*)gFramebuffer) + (((s16) id - 1)), id);
+                func_8031C3C0_72DA70(((u8*)gFramebuffer) + (((s16) id - 1)), id);
             }
         }
     }
@@ -998,10 +1015,10 @@ void func_8031C48C_72DB3C(void) {
     for (var_s0 = 0; var_s0 < D_803E8E54; var_s0++) {
         if ((D_803E4D40[var_s0].type == 16) || (D_803E4D40[var_s0].type == 17)) {
             // link the command?
-            temp_v0_3 = &D_803A8528_7B9BD8[D_803E4D40[var_s0].type16.id];
+            temp_v0_3 = &D_803A8528_7B9BD8[D_803E4D40[var_s0].cmd.type16.id];
             id = temp_v0_3->cmdIdx;
             if ((id != 0) && (temp_v0_3->unk18 == NULL)) {
-                func_8031C3C0_72DA70(((CmdStack*)gFramebuffer) + (((s16) id - 1)), (s16) id);
+                func_8031C3C0_72DA70(((u8*)gFramebuffer) + (((s16) id - 1)), (s16) id);
             }
         }
     }

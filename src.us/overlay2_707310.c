@@ -1,10 +1,47 @@
 #include <ultra64.h>
 #include "common.h"
 
+// ========================================================
+// definitions
+// ========================================================
+
 #pragma intrinsic sqrtf
 
+// ========================================================
+// .bss
+// ========================================================
 
-u8 func_802F8658_709D08(Animal *arg0, struct071 *arg1, f32 arg2, f32 arg3, struct077 *arg4);
+s32  D_803E1BE0;
+struct085  D_803E1BE8[10];
+
+s32  D_803E1CD8; // unused
+s32  D_803E1CDC; // unused
+
+// -- bss split ? -- //
+
+Fog  D_803E1CE0;
+Fog  D_803E1CE8;
+Fog  D_803E1CF0;
+Fog  D_803E1CF8;
+u16  D_803E1D00;
+u16  D_803E1D02;
+u8   D_803E1D04;
+s16  D_803E1D06;
+s16  D_803E1D08;
+s16  D_803E1D0A;
+s16  D_803E1D0C;
+struct063 D_803E1D10;
+struct063 D_803E1D18;
+struct063 D_803E1D20;
+u16  D_803E1D28;
+u16  D_803E1D2A;
+u8   D_803E1D2C;
+
+struct064 D_803E1D30[256]; // additional layer for level data
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_802F5C60_707310(Animal *arg0) {
 
@@ -201,8 +238,8 @@ void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) 
     arg0->unk184 = 0;
 }
 
-// CURRENT (190)
-#if 0
+// CURRENT (80)
+#ifdef NON_MATCHING
 void func_802F65BC_707C6C(Animal *arg0) {
     s32 temp_t5;
     s32 temp_t6;
@@ -238,13 +275,16 @@ void func_802F65BC_707C6C(Animal *arg0) {
         } else if (arg0->unk184 == 0) {
             phi_t2 = FTOFIX32(0.5);
         } else {
-            phi_t2 = D_80152C78[((arg0->unk184 >> 1) + 64) & 0xFF];
+            new_var = arg0->unk184 >> 1;
+            phi_t2 = D_80152C78[(new_var + 64) & 0xFF];
         }
 
-        // WRONG
-        new_var = arg0->unk184;
-        if ((new_var & 1)) { // odd?
-            phi_t2 = (D_80152C78[(((new_var >> 1) + 65)) & 0xFF] + phi_t2) >> 1;
+        if (((arg0->unk184) & 1)) { // odd?
+
+            if ((((!(&arg0->yPos)) && (!(&arg0->yPos))) && (!(&arg0->yPos))) != 0) {};
+
+            new_var = arg0->unk184 >> 1;
+            phi_t2 = (D_80152C78[(new_var + 65) & 0xFF] + phi_t2) >> 1;
         }
 
         temp_t6 = ((arg0->unk17E + temp_t6) << 16) - (temp_t6 * 2 * phi_t2);
@@ -253,6 +293,7 @@ void func_802F65BC_707C6C(Animal *arg0) {
 
         arg0->xVelocity.w = temp_t6 - arg0->xPos.w;
         arg0->zVelocity.w = temp_t8 - arg0->zPos.w;
+
         if (arg0->unk4C.unk29 == 0) {
             arg0->yVelocity.w = temp_t5 - arg0->yPos.w;
         }
@@ -738,59 +779,69 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 // goto hell
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8160_709810.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8658_709D08.s")
-// so far away.
-// s32 func_802F8658_709D08(Animal *arg0, struct071 *arg1, f32 arg2, f32 arg3, struct077 *arg4) {
-//     f32 y;
-//     f32 z;
-//     f32 sp50;
-//     f32 temp_f0_2;
-//     Vertex sp44;
-//     Vertex sp38;
-//     f32 temp_f0_3;
-//     s16 temp_v0;
-//     s16 phi_v1;
-//     f32 phi_f12;
-//     f32 phi_f2;
-//
-//     sp44.x = arg0->xPos.h - arg1->xPos.h;
-//     sp44.y = arg0->zPos.h - arg1->zPos.h;
-//     sp44.z = (arg0->yPos.h + arg0->unk42) - (arg1->yPos.h + arg1->unk42);
-//     sp50 = sqrtf((sp44.x * sp44.x) + (sp44.y * sp44.y) + (sp44.z * sp44.z));
-//
-//     if (arg3 < sp50) {
-//         return 0;
-//     }
-//     sp38.x = arg1->xVelocity.h;
-//     sp38.y = arg1->zVelocity.h;
-//     sp38.z = arg1->yVelocity.h;
-//     y = sqrtf((sp38.x * sp38.x) + (sp38.y * sp38.y) + (sp38.z * sp38.z)) / arg2;
-//
-//     temp_v0 = get_angle_between_vectors(&sp44, &sp38); // arg3, arg2,
-//     phi_v1 = func_8012835C((sinf((f32)temp_v0 * 0.017453292519943295) * sp50 * 256.0f)); // D_803BCEF8_7CE5A8
-//     // help
-//     if (phi_v1 <= 0.0f) {
-//         phi_v1 = -phi_v1;
-//     }
-//     temp_f0_2 = ((s16) (s32) (D_80152350.unk384[temp_v0] * y) + D_80152350.unk384[phi_v1]) * 256.0f;
-//     if (temp_f0_2 == 0.0f) {
-//         return 0;
-//     }
-//
-//     temp_f0_3 = get_magnitude(&sp38);
-//     if (temp_f0_3 == 0.0f) {
-//         phi_f12 = 0.0f;
-//         phi_f2 = 0.0f;
-//     } else {
-//         phi_f12 = sp38.x / temp_f0_3;
-//         phi_f2 = sp38.y / temp_f0_3;
-//     }
-//     z = sp50 / temp_f0_2;
-//     arg4.unk0 = arg1->xPos.h + (s16) (y * z * phi_f12);
-//     arg4.unk2 = arg1->zPos.h + (s16) (y * z * phi_f2);
-//     arg4.unk4 = arg1->yPos.h + (arg1->unk42 >> 1);
-//     return 1;
-// }
+u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4) {
+    f32 tmp;
+    f32 sp60;
+    f32 sp5C;
+
+    Vertex sp50;
+    Vertex sp44;
+    Vertex sp38;
+
+    s16 temp_v0;
+
+    f32 var_f12;
+    f32 var_f2;
+    s16 sp2A;
+    f32 temp_f0;
+
+
+    sp44.x = (arg0->xPos.h - arg1->xPos.h);
+    sp44.y = (arg0->zPos.h - arg1->zPos.h);
+    sp44.z = (arg0->yPos.h + arg0->unk42) - (arg1->yPos.h + arg1->unk42);
+
+    sp50.x = sqrtf(SQ(sp44.x) + SQ(sp44.y) + SQ(sp44.z));
+
+    if (arg3 < sp50.x) {
+        return 0;
+    }
+
+    sp38.x = arg1->xVelocity.h;
+    sp38.y = arg1->zVelocity.h;
+    sp38.z = arg1->yVelocity.h;
+
+    sp60 = sqrtf(SQ(sp38.x) + SQ(sp38.y) + SQ(sp38.z)) / arg2;
+    sp2A = get_angle_between_vectors(&sp44, &sp38);
+
+    temp_v0 = func_8012835C(sinf((f32) sp2A * (M_PI / 180.0)) * sp60 * 256.0f);
+    // what?
+    tmp = 0;
+    if (tmp > 0.0f) {
+        temp_v0 = -temp_v0;
+    }
+
+    temp_f0 = (f32) (D_80152350.unk384[temp_v0] + (s16) (s32) (D_80152350.unk384[sp2A] * sp60)) / 256;
+
+    if (temp_f0 == 0.0f) {
+        return 0;
+    }
+
+    sp5C = sp50.x / temp_f0;
+    temp_f0 = get_magnitude((Vertex *) &sp38);
+    if (temp_f0 == 0.0f) {
+        var_f2 = 0.0f;
+        var_f12 = 0.0f;
+    } else {
+        var_f12 = sp38.x / temp_f0;
+        var_f2 = sp38.y / temp_f0;
+    }
+
+    temp_f0 = sp60 * sp5C;
+    arg4->unk0 = arg1->xPos.h + (s16)(temp_f0 * var_f12);
+    arg4->unk2 = arg1->zPos.h + (s16)(temp_f0 * var_f2);
+    arg4->unk4 = arg1->yPos.h + ( arg1->unk42 >> 1);
+    return 1;
+}
 
 s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
     u8 i, j;
@@ -1016,12 +1067,12 @@ s32 func_802F9178_70A828(struct071 *arg0) {
 #ifdef NON_MATCHING
 // justreg
 // used by missile
-// CURRENT (155)
+// CURRENT (70)
 void func_802F92B0_70A960(struct071 *arg0) {
-    s32 pad[4];
+    u8 new_var;
+    s32 pad[3];
     s32 x_dist;
     s32 z_dist;
-
     s32 sp54;
     s32 sp50;
     s16 sp4E;
@@ -1048,6 +1099,7 @@ void func_802F92B0_70A960(struct071 *arg0) {
             sp48 = 7;
         }
         arg0->yRotation = func_802F649C_707B4C(sp4E, arg0->yRotation, sp48);
+        if (((!arg0) && (!arg0)) && (!arg0)) {};
         arg0->zRotation = func_802F649C_707B4C(sp4C, arg0->zRotation, MAX((sp48 * 3) / 4, 1));
     }
 
@@ -1067,7 +1119,8 @@ void func_802F92B0_70A960(struct071 *arg0) {
     }
     func_802F6DEC_70849C(arg0, phi_a1);
     arg0->Info.unk14E++;
-    if (arg0->unk154 == 0) {
+
+    if ((new_var = arg0->unk154) == 0) {
         arg0->unk154 = 160;
     }
     func_8032CED0_73E580(arg0, SFX_UNKNOWN_103, 0x4000, 0.4f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
@@ -1547,7 +1600,7 @@ void func_802FA6D8_70BD88(void) {
 }
 
 #ifdef NON_MATCHING
-// 1003 away...
+// 1013 away...
 void func_802FA730_70BDE0(Animal *arg0) {
     struct077 spB8; // size 0x6
 

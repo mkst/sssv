@@ -37,7 +37,6 @@ gControllerConnected = 0x802912D8;
 
 gControllerInput       = 0x802910D0;
 gControllerStatus      = 0x802910D8;
-gCurrentAnimalIndex    = 0x803D5534;
 
 strlen_sssv            = 0x80128DD0;
 strcat                 = 0x80128E18;
@@ -330,14 +329,9 @@ add_walrus_wake             = 0x8039DFD4; // rom:0x7AF684
 add_simple_trail            = 0x8039E20C; // rom:0x7AF8BC
 display_trails              = 0x8039EBFC; // rom:0x7B02AC
 
-gTrails = 0x803F7E10;
-
-gCamera = 0x803F2AD0;
-
-// bss
-
-D_803C0420 = 0x803C0420; // defined:true
-D_803F2C18 = 0x803F2C18; // defined:true size:0x6
+// ========================================================
+// .bss
+// ========================================================
 
 // overlay1
 D_80302E60 = 0x80302E60; // defined:true
@@ -354,14 +348,523 @@ D_803B0595 = 0x803B0595; // defined:true
 D_803B0596 = 0x803B0596; // defined:true
 
 // overlay2
+
+// overlay2_6A6500
+D_803C0420 = 0x803C0420; // defined:true
 D_803C0422 = 0x803C0422; // defined:true
 D_803C0424 = 0x803C0424; // defined:true
 D_803C0426 = 0x803C0426; // defined:true
 D_803C0428 = 0x803C0428; // defined:true
 D_803C042A = 0x803C042A; // defined:true
-D_803C0430 = 0x803C0430; // defined:true
+D_803C0430 = 0x803C0430; // defined:true size:0x210
 
+D_803C0640 = 0x803C0640; // defined:true size:0x8
+D_803C0648 = 0x803C0648; // defined:true size:0x8
+D_803C0650 = 0x803C0650; // defined:true size:0x8
+D_803C0658 = 0x803C0658; // defined:true
+
+// overlay2_6AB090
+D_803C0660 = 0x803C0660; // defined:true size:0xe0
+
+// overlay2_6AC360
+D_803C0740 = 0x803C0740; // defined:true size:0x12648
+
+// overlay2_6ACF20
+D_803D2D90 = 0x803D2D90; // defined:true size:0x66
+D_803D2DF8 = 0x803D2DF8; // defined:true
+D_803D2DFC = 0x803D2DFC; // defined:true
+D_803D2DFE = 0x803D2DFE; // defined:true
+D_803D2E00 = 0x803D2E00; // defined:true
+D_803D2E08 = 0x803D2E08; // defined:true
+
+// overlay2_6B5380
+D_803D5510 = 0x803D5510; // defined:true
+D_803D5512 = 0x803D5512; // defined:true
+D_803D5520 = 0x803D5520; // defined:true
+D_803D5524 = 0x803D5524; // defined:true
+D_803D5528 = 0x803D5528; // defined:true
+D_803D552C = 0x803D552C; // defined:true
+D_803D5530 = 0x803D5530; // defined:true
+gCurrentAnimalIndex = 0x803D5534; // defined:true
+D_803D5536 = 0x803D5536; // defined:true
+D_803D5538 = 0x803D5538; // defined:true
+D_803D553A = 0x803D553A; // defined:true
+D_803D553C = 0x803D553C; // defined:true
+D_803D553E = 0x803D553E; // defined:true
+D_803D5540 = 0x803D5540; // defined:true
+D_803D5542 = 0x803D5542; // defined:true
+D_803D5544 = 0x803D5544; // defined:true
+D_803D5546 = 0x803D5546; // defined:true
+D_803D5548 = 0x803D5548; // defined:true
+D_803D554A = 0x803D554A; // defined:true
+D_803D554B = 0x803D554B; // defined:true
+D_803D554C = 0x803D554C; // defined:true
+D_803D5558 = 0x803D5558; // defined:true
+D_803D555A = 0x803D555A; // defined:true
+D_803D555C = 0x803D555C; // defined:true
+D_803D5560 = 0x803D5560; // defined:true
+D_803D5564 = 0x803D5564; // defined:true
+D_803D5566 = 0x803D5566; // defined:true
+D_803D5568 = 0x803D5568; // defined:true
+D_803D556A = 0x803D556A; // defined:true
+D_803D556C = 0x803D556C; // defined:true
+D_803D556E = 0x803D556E; // defined:true
+D_803D5570 = 0x803D5570; // defined:true
+D_803D5572 = 0x803D5572; // defined:true
+D_803D5574 = 0x803D5574; // defined:true
+
+// overlay2_6C5570
+D_803D5590 = 0x803D5590; // defined:true
+D_803D5860 = 0x803D5860; // defined:true
+D_803D5B30 = 0x803D5B30; // defined:true
+D_803D5E00 = 0x803D5E00; // defined:true
+
+// collision
+D_803D60D0 = 0x803D60D0; // defined:true
+D_803D60D4 = 0x803D60D4; // defined:true
+D_803D60D8 = 0x803D60D8; // defined:true
+D_803D60DC = 0x803D60DC; // defined:true
+D_803D60E0 = 0x803D60E0; // defined:true
+D_803D60E2 = 0x803D60E2; // defined:true
+D_803D60E8 = 0x803D60E8; // defined:true size:0x10
+D_803D60F8 = 0x803D60F8; // defined:true size:0x10
+
+// overlay2_6D9AF0
+D_803D6110 = 0x803D6110; // defined:true
+
+// overlay2_6DCA10
+D_803D6120 = 0x803D6120; // defined:true size:0x3FD8
+
+// collist2
+D_803DA110 = 0x803DA110; // defined:true
+D_803DA2F0 = 0x803DA2F0; // defined:true
+D_803DA2F4 = 0x803DA2F4; // defined:true
+
+// overlay2_6EE6F0
+D_803DA300 = 0x803DA300; // defined:true size:0x5DC0
+D_803E00C0 = 0x803E00C0; // defined:true size:0x1A40
+
+D_803E1B00 = 0x803E1B00; // defined:true
+D_803E1B02 = 0x803E1B02; // defined:true
+D_803E1B04 = 0x803E1B04; // defined:true
+D_803E1B06 = 0x803E1B06; // defined:true
+D_803E1B08 = 0x803E1B08; // defined:true
+
+// screen_transition
+D_803E1B10 = 0x803E1B10; // defined:true size:0xA
+D_803E1B1A = 0x803E1B1A; // defined:true
+D_803E1B1B = 0x803E1B1B; // defined:true
+D_803E1B1C = 0x803E1B1C; // defined:true
+D_803E1B1E = 0x803E1B1E; // defined:true
+
+// overlay2_7041D0
+D_803E1B20 = 0x803E1B20; // defined:true size:0xA
+D_803E1B30 = 0x803E1B30; // defined:true size:0xA
+D_803E1B40 = 0x803E1B40; // defined:true size:0xA
+D_803E1B50 = 0x803E1B50; // defined:true size:0xA
+D_803E1B60 = 0x803E1B60; // defined:true size:0xA
+D_803E1B70 = 0x803E1B70; // defined:true size:0xA
+D_803E1B80 = 0x803E1B80; // defined:true size:0xA
+D_803E1B8A = 0x803E1B8A; // defined:true
+D_803E1B8C = 0x803E1B8C; // defined:true
+D_803E1B8E = 0x803E1B8E; // defined:true
+D_803E1B90 = 0x803E1B90; // defined:true
+D_803E1B92 = 0x803E1B92; // defined:true
+D_803E1B94 = 0x803E1B94; // defined:true
+D_803E1B96 = 0x803E1B96; // defined:true
+D_803E1B97 = 0x803E1B97; // defined:true
+D_803E1B98 = 0x803E1B98; // defined:true
+D_803E1B99 = 0x803E1B99; // defined:true
+D_803E1B9A = 0x803E1B9A; // defined:true
+D_803E1B9B = 0x803E1B9B; // defined:true
+D_803E1BA2 = 0x803E1BA2; // defined:true
+D_803E1BA4 = 0x803E1BA4; // defined:true
+D_803E1BA6 = 0x803E1BA6; // defined:true
+D_803E1BA8 = 0x803E1BA8; // defined:true
+D_803E1BAA = 0x803E1BAA; // defined:true
+D_803E1BAC = 0x803E1BAC; // defined:true
+D_803E1BAE = 0x803E1BAE; // defined:true
+D_803E1BB0 = 0x803E1BB0; // defined:true
+D_803E1BB2 = 0x803E1BB2; // defined:true
+D_803E1BB4 = 0x803E1BB4; // defined:true
+D_803E1BB6 = 0x803E1BB6; // defined:true
+D_803E1BB8 = 0x803E1BB8; // defined:true
+D_803E1BBA = 0x803E1BBA; // defined:true
+D_803E1BBB = 0x803E1BBB; // defined:true
+D_803E1BBC = 0x803E1BBC; // defined:true
+D_803E1BBD = 0x803E1BBD; // defined:true
+D_803E1BBE = 0x803E1BBE; // defined:true
+D_803E1BBF = 0x803E1BBF; // defined:true
+
+// input
+D_803E1BC0 = 0x803E1BC0; // defined:true
+D_803E1BC4 = 0x803E1BC4; // defined:true
+D_803E1BD4 = 0x803E1BD4; // defined:true
+
+// overlay2_707310
+D_803E1BE0 = 0x803E1BE0; // defined:true
+D_803E1BE8 = 0x803E1BE8; // defined:true
+D_803E1CE0 = 0x803E1CE0; // defined:true
+D_803E1CE8 = 0x803E1CE8; // defined:true
+D_803E1CF0 = 0x803E1CF0; // defined:true
+D_803E1CF8 = 0x803E1CF8; // defined:true
+D_803E1D00 = 0x803E1D00; // defined:true
+D_803E1D02 = 0x803E1D02; // defined:true
+D_803E1D04 = 0x803E1D04; // defined:true
+D_803E1D06 = 0x803E1D06; // defined:true
+D_803E1D08 = 0x803E1D08; // defined:true
+D_803E1D0A = 0x803E1D0A; // defined:true
+D_803E1D0C = 0x803E1D0C; // defined:true
+D_803E1D10 = 0x803E1D10; // defined:true
+D_803E1D18 = 0x803E1D18; // defined:true
+D_803E1D20 = 0x803E1D20; // defined:true
+D_803E1D28 = 0x803E1D28; // defined:true
+D_803E1D2A = 0x803E1D2A; // defined:true
+D_803E1D2C = 0x803E1D2C; // defined:true
+D_803E1D30 = 0x803E1D30; // defined:true size:0xC00
+
+// overlay2_715820
+D_803E2930 = 0x803E2930; // defined:true
+D_803E3130 = 0x803E3130; // defined:true
+D_803E4930 = 0x803E4930; // defined:true
+D_803E4998 = 0x803E4998; // defined:true
+D_803E4A00 = 0x803E4A00; // defined:true
+D_803E4AC8 = 0x803E4AC8; // defined:true
+D_803E4AD0 = 0x803E4AD0; // defined:true
+D_803E4BD0 = 0x803E4BD0; // defined:true
+D_803E4BD1 = 0x803E4BD1; // defined:true
+D_803E4BD2 = 0x803E4BD2; // defined:true
+D_803E4BD4 = 0x803E4BD4; // defined:true
+D_803E4BD6 = 0x803E4BD6; // defined:true
+D_803E4BD8 = 0x803E4BD8; // defined:true
+D_803E4BDA = 0x803E4BDA; // defined:true
+
+D_803E4BE0 = 0x803E4BE0; // defined:true size:0x65
+
+D_803E4C52 = 0x803E4C52; // defined:true
+D_803E4C54 = 0x803E4C54; // defined:true
+D_803E4C56 = 0x803E4C56; // defined:true
+D_803E4C58 = 0x803E4C58; // defined:true
+D_803E4C5C = 0x803E4C5C; // defined:true
+D_803E4C60 = 0x803E4C60; // defined:true
+D_803E4C64 = 0x803E4C64; // defined:true
+D_803E4C68 = 0x803E4C68; // defined:true
+D_803E4C6A = 0x803E4C6A; // defined:true
+D_803E4C6C = 0x803E4C6C; // defined:true
+D_803E4C6E = 0x803E4C6E; // defined:true
+D_803E4C70 = 0x803E4C70; // defined:true
+D_803E4C72 = 0x803E4C72; // defined:true
+D_803E4C74 = 0x803E4C74; // defined:true
+D_803E4C76 = 0x803E4C76; // defined:true
+D_803E4C78 = 0x803E4C78; // defined:true
+D_803E4C79 = 0x803E4C79; // defined:true
+D_803E4C7A = 0x803E4C7A; // defined:true
+D_803E4C7C = 0x803E4C7C; // defined:true
+D_803E4C80 = 0x803E4C80; // defined:true
+D_803E4C84 = 0x803E4C84; // defined:true
+D_803E4C86 = 0x803E4C86; // defined:true
+D_803E4C88 = 0x803E4C88; // defined:true
+D_803E4C8C = 0x803E4C8C; // defined:true
+D_803E4C90 = 0x803E4C90; // defined:true
+D_803E4C94 = 0x803E4C94; // defined:true
+
+D_803E4CA0 = 0x803E4CA0; // defined:true
+D_803E4CA4 = 0x803E4CA4; // defined:true
+D_803E4CA5 = 0x803E4CA5; // defined:true
+D_803E4CA6 = 0x803E4CA6; // defined:true
+D_803E4CA8 = 0x803E4CA8; // defined:true
+D_803E4D28 = 0x803E4D28; // defined:true
+D_803E4D2C = 0x803E4D2C; // defined:true
+D_803E4D30 = 0x803E4D30; // defined:true
+D_803E4D38 = 0x803E4D38; // defined:true
+D_803E4D3C = 0x803E4D3C; // defined:true
+D_803E4D40 = 0x803E4D40; // defined:true
+D_803E8E54 = 0x803E8E54; // defined:true
+D_803E8E56 = 0x803E8E56; // defined:true
+D_803E8E57 = 0x803E8E57; // defined:true
+D_803E8E58 = 0x803E8E58; // defined:true
+// TODO: D_803E8E5C = 0x803E8E5C;
+
+// overlay2_72B100
+D_803E8E60 = 0x803E8E60; // defined:true
+D_803E8F60 = 0x803E8F60; // defined:true
+D_803E93B0 = 0x803E93B0; // defined:true size:0x208
+D_803E95B8 = 0x803E95B8; // defined:true size:0x208
+
+// overlay2_72B800
+D_803E97C0 = 0x803E97C0; // defined:true
+D_803E97C8 = 0x803E97C8; // defined:true
+
+// overlay2_739290
+D_803E9820 = 0x803E9820; // defined:true
+D_803E9822 = 0x803E9822; // defined:true
+D_803E9824 = 0x803E9824; // defined:true
+D_803E9828 = 0x803E9828; // defined:true
+D_803E982C = 0x803E982C; // defined:true
+D_803E9836 = 0x803E9836; // defined:true
+D_803E9838 = 0x803E9838; // defined:true
+D_803E983A = 0x803E983A; // defined:true
+D_803E983C = 0x803E983C; // defined:true
+D_803E9840 = 0x803E9840; // defined:true size:0x906C
+
+// FIXME: D_803F28C2
+
+// overlay2_741000
+D_803F28D0 = 0x803F28D0; // defined:true
+D_803F28DC = 0x803F28DC; // defined:true
+D_803F28E0 = 0x803F28E0; // defined:true size:0x1B8
+D_803F2A98 = 0x803F2A98; // defined:true
+D_803F2A9A = 0x803F2A9A; // defined:true
+D_803F2A9C = 0x803F2A9C; // defined:true
+D_803F2A9E = 0x803F2A9E; // defined:true
+D_803F2AA0 = 0x803F2AA0; // defined:true
+D_803F2AA1 = 0x803F2AA1; // defined:true
+D_803F2AA2 = 0x803F2AA2; // defined:true
+D_803F2AA3 = 0x803F2AA3; // defined:true
+D_803F2AA4 = 0x803F2AA4; // defined:true
+D_803F2AA5 = 0x803F2AA5; // defined:true
+D_803F2AA6 = 0x803F2AA6; // defined:true
+D_803F2AA7 = 0x803F2AA7; // defined:true
+D_803F2AA8 = 0x803F2AA8; // defined:true
+D_803F2AAC = 0x803F2AAC; // defined:true
+D_803F2AB0 = 0x803F2AB0; // defined:true
+D_803F2AB4 = 0x803F2AB4; // defined:true
+D_803F2AB8 = 0x803F2AB8; // defined:true
+D_803F2ABC = 0x803F2ABC; // defined:true
+D_803F2AC5 = 0x803F2AC5; // defined:true
+D_803F2AC6 = 0x803F2AC6; // defined:true
+D_803F2AC8 = 0x803F2AC8; // defined:true
+D_803F2ACA = 0x803F2ACA; // defined:true
+D_803F2ACC = 0x803F2ACC; // defined:true
+gCamera    = 0x803F2AD0; // defined:true
+D_803F2AD8 = 0x803F2AD8; // defined:true
+D_803F2AF8 = 0x803F2AF8; // defined:true size:0x100
+D_803F2BF8 = 0x803F2BF8; // defined:true
+
+D_803F2C18 = 0x803F2C18; // defined:true size:0x6
+
+D_803F2C1E = 0x803F2C1E; // defined:true
+
+D_803F2C20 = 0x803F2C20; // defined:true
+D_803F2C22 = 0x803F2C22; // defined:true
+D_803F2C28 = 0x803F2C28; // defined:true
+D_803F2C2C = 0x803F2C2C; // defined:true
+D_803F2C30 = 0x803F2C30; // defined:true
+D_803F2C34 = 0x803F2C34; // defined:true
+D_803F2C38 = 0x803F2C38; // defined:true
+D_803F2C3C = 0x803F2C3C; // defined:true
+D_803F2C40 = 0x803F2C40; // defined:true
+D_803F2C44 = 0x803F2C44; // defined:true
+D_803F2C48 = 0x803F2C48; // defined:true
+D_803F2C4C = 0x803F2C4C; // defined:true
+D_803F2C50 = 0x803F2C50; // defined:true
+D_803F2C54 = 0x803F2C54; // defined:true
+D_803F2C58 = 0x803F2C58; // defined:true
+D_803F2C5C = 0x803F2C5C; // defined:true
+D_803F2C60 = 0x803F2C60; // defined:true
+D_803F2C64 = 0x803F2C64; // defined:true
+D_803F2C68 = 0x803F2C68; // defined:true
+D_803F2C6C = 0x803F2C6C; // defined:true
+D_803F2C6D = 0x803F2C6D; // defined:true
+D_803F2C6E = 0x803F2C6E; // defined:true
+D_803F2C70 = 0x803F2C70; // defined:true
+D_803F2C72 = 0x803F2C72; // defined:true
+
+// overlay2_7558F0
+D_803F2C80 = 0x803F2C80; // defined:true
+D_803F2C84 = 0x803F2C84; // defined:true
+D_803F2C86 = 0x803F2C86; // defined:true
+D_803F2C88 = 0x803F2C88; // defined:true
+D_803F2C8A = 0x803F2C8A; // defined:true
+D_803F2C8C = 0x803F2C8C; // defined:true
+D_803F2C8E = 0x803F2C8E; // defined:true
+D_803F2C90 = 0x803F2C90; // defined:true
+D_803F2C92 = 0x803F2C92; // defined:true
+D_803F2C94 = 0x803F2C94; // defined:true
+D_803F2C96 = 0x803F2C96; // defined:true
+D_803F2C97 = 0x803F2C97; // defined:true
+D_803F2C98 = 0x803F2C98; // defined:true
+D_803F2C99 = 0x803F2C99; // defined:true
+D_803F2C9A = 0x803F2C9A; // defined:true
+D_803F2C9B = 0x803F2C9B; // defined:true
+D_803F2C9C = 0x803F2C9C; // defined:true
+D_803F2C9E = 0x803F2C9E; // defined:true
+D_803F2CA0 = 0x803F2CA0; // defined:true
+D_803F2CA2 = 0x803F2CA2; // defined:true
+D_803F2CA4 = 0x803F2CA4; // defined:true
+D_803F2CA6 = 0x803F2CA6; // defined:true
+D_803F2CA8 = 0x803F2CA8; // defined:true
+D_803F2CC0 = 0x803F2CC0; // defined:true size:0x8
+
+// osd
+D_803F2CD0 = 0x803F2CD0; // defined:true
+D_803F2CD2 = 0x803F2CD2; // defined:true
+D_803F2CD4 = 0x803F2CD4; // defined:true
+D_803F2CD6 = 0x803F2CD6; // defined:true
+D_803F2CD8 = 0x803F2CD8; // defined:true
+D_803F2CDA = 0x803F2CDA; // defined:true
+D_803F2CDC = 0x803F2CDC; // defined:true
+D_803F2CDD = 0x803F2CDD; // defined:true
+D_803F2CDE = 0x803F2CDE; // defined:true
+D_803F2CDF = 0x803F2CDF; // defined:true
+D_803F2CE0 = 0x803F2CE0; // defined:true
+D_803F2CE4 = 0x803F2CE4; // defined:true
+D_803F2CE6 = 0x803F2CE6; // defined:true
+D_803F2CE8 = 0x803F2CE8; // defined:true
+D_803F2CEC = 0x803F2CEC; // defined:true
+D_803F2CF0 = 0x803F2CF0; // defined:true
+D_803F2CF2 = 0x803F2CF2; // defined:true
+D_803F2CF8 = 0x803F2CF8; // defined:true
+D_803F2D04 = 0x803F2D04; // defined:true
+D_803F2D10 = 0x803F2D10; // defined:true
+D_803F2D18 = 0x803F2D18; // defined:true
+D_803F2D20 = 0x803F2D20; // defined:true
+D_803F2D22 = 0x803F2D22; // defined:true
+D_803F2D23 = 0x803F2D23; // defined:true
+D_803F2D24 = 0x803F2D24; // defined:true
+D_803F2D30 = 0x803F2D30; // size:0x20 defined:true
+
+// TODO: D_803F2D50
+
+// overlay2_76E7D0
+D_803F2EB0 = 0x803F2EB0; // defined:true
+D_803F2EB4 = 0x803F2EB4; // defined:true
+D_803F2EB8 = 0x803F2EB8; // defined:true
+D_803F2EBC = 0x803F2EBC; // defined:true
+D_803F2EC0 = 0x803F2EC0; // defined:true
+D_803F2EC4 = 0x803F2EC4; // defined:true
+D_803F2EC8 = 0x803F2EC8; // defined:true
+D_803F2ECC = 0x803F2ECC; // defined:true
+D_803F2ECE = 0x803F2ECE; // defined:true
+D_803F2ED0 = 0x803F2ED0; // defined:true
+D_803F2ED2 = 0x803F2ED2; // defined:true
+D_803F2ED4 = 0x803F2ED4; // defined:true
+D_803F2ED8 = 0x803F2ED8; // defined:true
+D_803F2EDA = 0x803F2EDA; // defined:true
+D_803F2EDB = 0x803F2EDB; // defined:true
+D_803F2EDC = 0x803F2EDC; // defined:true
+D_803F2EDD = 0x803F2EDD; // defined:true
+D_803F2EDE = 0x803F2EDE; // defined:true
+
+// chameleon
+D_803F2EA0 = 0x803F2EA0; // defined:true
+
+// overlay2_76F7D0
+D_803F2EE0 = 0x803F2EE0; // defined:true
+
+// sheep
+D_803F2EF0 = 0x803F2EF0; // defined:true
+
+// overlay2_785D10
+D_803F2F00 = 0x803F2F00; // defined:true
+D_803F2F08 = 0x803F2F08; // defined:true size:0x400
+D_803F3308 = 0x803F3308; // defined:true
+D_803F330A = 0x803F330A; // defined:true
+D_803F330C = 0x803F330C; // defined:true
+D_803F330E = 0x803F330E; // defined:true
+D_803F3310 = 0x803F3310; // defined:true
+D_803F3330 = 0x803F3330; // defined:true
+D_803F34C0 = 0x803F34C0; // defined:true
+D_803F63C0 = 0x803F63C0; // defined:true
+D_803F63C2 = 0x803F63C2; // defined:true
+
+// overlay2_78E970
+D_803F63D0 = 0x803F63D0; // defined:true
+
+// overlay2_791CD0
+D_803F63E0 = 0x803F63E0; // defined:true
+
+// overlay2_794EE0
+D_803F63F0 = 0x803F63F0; // defined:true
+
+// credits
+entryOffset      = 0x803F6400; // defined:true
+verticalPosition = 0x803F6402; // defined:true
+
+// cheats
+D_803F6410 = 0x803F6410; // defined:true
+D_803F6428 = 0x803F6428; // defined:true size:0x1A
+
+// overlay2_79DE10
+D_803F6450 = 0x803F6450; // defined:true
+
+// terminal_background
+D_803F6460 = 0x803F6460; // defined:true
+D_803F6464 = 0x803F6464; // defined:true
+D_803F6468 = 0x803F6468; // defined:true
+D_803F646C = 0x803F646C; // defined:true
+D_803F6470 = 0x803F6470; // defined:true
+D_803F6472 = 0x803F6472; // defined:true
+D_803F6474 = 0x803F6474; // defined:true
+D_803F6478 = 0x803F6478; // defined:true
+D_803F6500 = 0x803F6500; // defined:true
+D_803F6548 = 0x803F6548; // defined:true
+D_803F6570 = 0x803F6570; // defined:true
+D_803F6670 = 0x803F6670; // defined:true
+D_803F6674 = 0x803F6674; // defined:true
+
+// overlay2_7A0DA0
+D_803F6680 = 0x803F6680; // defined:true size:0x37
+D_803F66B8 = 0x803F66B8; // defined:true size:0x4C
+D_803F6704 = 0x803F6704; // defined:true
+D_803F6706 = 0x803F6706; // defined:true
+D_803F6708 = 0x803F6708; // defined:true
+D_803F670A = 0x803F670A; // defined:true
+D_803F670C = 0x803F670C; // defined:true
+D_803F670E = 0x803F670E; // defined:true
+D_803F6714 = 0x803F6714; // defined:true
+D_803F6716 = 0x803F6716; // defined:true
+D_803F6718 = 0x803F6718; // defined:true
+D_803F671A = 0x803F671A; // defined:true
+D_803F671C = 0x803F671C; // defined:true
+
+// overlay2_7A8A50
+D_803F6720 = 0x803F6720; // defined:true
+D_803F70F8 = 0x803F70F8; // defined:true
+D_803F7134 = 0x803F7134; // defined:true
+D_803F713C = 0x803F713C; // defined:true
+D_803F7144 = 0x803F7144; // defined:true
+D_803F714C = 0x803F714C; // defined:true
+
+// overlay2_7A8A50
+D_803F6720 = 0x803F6720; // defined:true
+D_803F70F8 = 0x803F70F8; // defined:true
+D_803F7134 = 0x803F7134; // defined:true
+D_803F713C = 0x803F713C; // defined:true
+D_803F7144 = 0x803F7144; // defined:true
+D_803F714C = 0x803F714C; // defined:true
+
+// ui_main_menu
+D_803F7D60 = 0x803F7D60; // defined:true
+D_803F7D68 = 0x803F7D68; // defined:true
+D_803F7D70 = 0x803F7D70; // defined:true
+D_803F7D78 = 0x803F7D78; // defined:true
+D_803F7D9C = 0x803F7D9C; // defined:true
+D_803F7D9E = 0x803F7D9E; // defined:true
+D_803F7DA0 = 0x803F7DA0; // defined:true
+D_803F7DA1 = 0x803F7DA1; // defined:true
+D_803F7DA2 = 0x803F7DA2; // defined:true
+D_803F7DA3 = 0x803F7DA3; // defined:true
+D_803F7DA8 = 0x803F7DA8; // defined:true
+D_803F7DD4 = 0x803F7DD4; // defined:true
+D_803F7DD5 = 0x803F7DD5; // defined:true
+D_803F7DD6 = 0x803F7DD6; // defined:true
+D_803F7DD7 = 0x803F7DD7; // defined:true
+D_803F7DD8 = 0x803F7DD8; // defined:true
+D_803F7DE0 = 0x803F7DE0; // defined:true
+D_803F7DFE = 0x803F7DFE; // defined:true
+D_803F7E00 = 0x803F7E00; // defined:true
+D_803F7E02 = 0x803F7E02; // defined:true
+D_803F7E04 = 0x803F7E04; // defined:true
+D_803F7E06 = 0x803F7E06; // defined:true
+
+// trails
+gTrails    = 0x803F7E10; // defined:true
+trailsUsed = 0x803FDEA0; // defined:true
+
+// ========================================================
 // libultra functions
+// ========================================================
 
 osInitialize                = 0x801378C0; // defined:true
 

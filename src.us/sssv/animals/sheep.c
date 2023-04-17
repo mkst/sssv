@@ -549,6 +549,7 @@ void func_803622DC_77398C(void) {
     }
 }
 #else
+u16 D_803F2EF0; // .bss
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_803622DC_77398C.s")
 #endif
 

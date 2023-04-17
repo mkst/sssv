@@ -314,6 +314,7 @@ s16  get_next_available_level(s16 current_level, s16 offset);
 void seconds_to_mins_secs(const s16 seconds, s16 *mins, s16 *secs);
 void load_level_title(void);
 s16  get_biome_for_level(s16 arg0);
+void display_zone_select_screen(void);
 
 // trails
 void reset_trails(void);

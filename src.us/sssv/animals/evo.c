@@ -145,7 +145,7 @@ void func_80389B30_79B1E0(void) {
 
         gSPDisplayList(D_801D9E88++, D_01004270_3DB40);
         gSPDisplayList(D_801D9E88++, D_01004AF8);
-        gDPSetRenderMode(D_801D9E88++, D_803C0640_7D1CF0, G_RM_AA_ZB_OPA_SURF2);
+        gDPSetRenderMode(D_801D9E88++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
 
         switch (D_803F2D50.evoSuitColor) {          /* switch 2; irregular */
 

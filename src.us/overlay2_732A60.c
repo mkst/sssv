@@ -197,103 +197,106 @@ void func_80321D74_733424(s16 arg0, s16 arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80321E60_733510.s")
-// long way to go here
-// void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
-//     s32 sp38;
-//     s32 sp34;
-//     s32 sp30;
-//
-//     s32 zpos;
-//     s32 xpos;
-//
-//     s32 temp_t7;
-//     s32 temp_t7_2;
-//
-//     struct071 *obj;
-//
-//     temp_t7 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7;
-//     temp_t7_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 7;
-//
-//     xpos = D_803D5530->xPos.h + (((temp_t7 * arg2) + (arg1 * temp_t7_2)) >> 8);
-//     zpos = D_803D5530->zPos.h + (((arg1 * temp_t7) - (temp_t7_2 * arg2)) >> 8);
-//
-//     sp38 = (temp_t7_2) * (D_80152C78[(arg5 + 64) & 0xFF] >> 7) * arg4;
-//     sp34 = (temp_t7) * (D_80152C78[(arg5 + 64) & 0xFF] >> 7) * arg4;
-//     sp30 = ((D_80152C78[arg5 & 0xFF] >> 7) * arg4) << 8;
-//
-//     obj = func_802C9564_6DAC14(
-//         id & 0xffff,
-//         xpos,
-//         zpos,
-//         D_803D5530->yPos.h + arg3,
-//         D_803D5530->xVelocity.w + sp38,
-//         D_803D5530->zVelocity.w + sp34,
-//         D_803D5530->yVelocity.w + sp30,
-//         0,
-//         0,
-//         0);
-//
-//     if (obj != NULL) {
-//         D_803D5530->xVelocity.w -= sp38 >> arg6;
-//         D_803D5530->zVelocity.w -= sp34 >> arg6;
-//         obj->unk15C = 15;
-//         obj->unk168 = D_803D5530;
-//         if (arg7 != 0) {
-//             obj->unk15E = arg7;
-//         }
-//     }
-// }
+void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
+    s32 sp3C;
+    s32 sp38;
+    s32 sp34;
 
-// how to match these functions??
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_80322064_733714.s")
-// void func_80322064_733714(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8) {
-//     s32 sp38;
-//     s32 sp34;
-//     s32 temp_lo;
-//     s32 temp_t6;
-//     s32 temp_t8;
-//     struct071 *obj;
-//
-//     temp_t8 = D_80152C78[(arg5 + 64) & 0xFF] >> 7;
-//     temp_t6 = D_80152C78[arg5 & 0xFF] >> 7;
-//     sp38 = temp_t6 * (D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4;
-//     sp34 = temp_t8 * (D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4;
-//     obj = func_802C9564_6DAC14(
-//         id,
-//         D_803D5530->xPos.h + (((temp_t8 * arg2) + (arg1 * temp_t6)) >> 8),
-//         D_803D5530->zPos.h + (((arg1 * temp_t8) - (temp_t6 * arg2)) >> 8),
-//         D_803D5530->yPos.h + arg3,
-//         D_803D5530->xVelocity.w + sp38,
-//         D_803D5530->zVelocity.w + sp34,
-//         D_803D5530->yVelocity.w + (((D_80152C78[arg6 & 0xFF] >> 7) * arg4) << 8),
-//         0,
-//         0,
-//         0);
-//     if (obj != NULL) {
-//         D_803D5530->xVelocity.w -= (sp38 >> arg7);
-//         D_803D5530->zVelocity.w -= (sp34 >> arg7);
-//         obj->unk15C = 15;
-//         obj->unk168 = (void *) D_803D5530;
-//         if (arg8 != 0) {
-//             obj->unk15E = arg8;
-//         }
-//     }
-// }
-
-#ifdef NON_MATCHING
-void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8) {
-    s32 xpos;
-    s32 zpos;
+    s16 xpos;
+    s16 zpos;
 
     struct071 *obj;
+
+    s16 _id = id & 0xFFFF;
+
+    xpos = (((arg1 * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7)) + ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * arg2)) >> 8);
+    zpos = (((arg1 * (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7)) - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2)) >> 8);
+
+    sp38 = ((D_80152C78[(arg5 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7);
+    sp34 = ((D_80152C78[(arg5 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7);
+    sp3C = (((D_80152C78[arg5 & 0xFF] >> 7) * arg4) << 8);
+
+
+    obj = func_802C9564_6DAC14(
+        _id,
+        D_803D5530->xPos.h + xpos,
+        D_803D5530->zPos.h + zpos,
+        D_803D5530->yPos.h + arg3,
+        D_803D5530->xVelocity.w + sp38,
+        D_803D5530->zVelocity.w + sp34,
+        D_803D5530->yVelocity.w + sp3C,
+        0,
+        0,
+        0);
+
+    if (obj != NULL) {
+        D_803D5530->xVelocity.w -= sp38 >> arg6;
+        D_803D5530->zVelocity.w -= sp34 >> arg6;
+        obj->unk168 = D_803D5530;
+        obj->unk15C = 0xF;
+        if (arg7 != 0) {
+            obj->unk15E = arg7;
+        }
+    }
+}
+
+void func_80322064_733714(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8) {
+    s32 sp3C;
+    s32 sp38;
+    s32 sp34;
+
+    s16 xpos;
+    s16 zpos;
+    struct071 *obj;
+
+    s16 _id = id & 0xFFFF;
+
+    xpos = ((arg1 * (D_80152C78[arg5 & 0xFF] >> 7)) + ((D_80152C78[(arg5 + 0x40) & 0xFF] >> 7) * arg2)) >> 8;
+    zpos = ((arg1 * (D_80152C78[(arg5 + 0x40) & 0xFF] >> 7)) - ((D_80152C78[arg5 & 0xFF] >> 7) * arg2)) >> 8;
+
+    sp38 = ((D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[arg5 & 0xFF] >> 7);
+    sp34 = ((D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[(arg5 + 0x40) & 0xFF] >> 7);
+    sp3C = ((D_80152C78[arg6 & 0xFF] >> 7) * arg4) << 8;
+
+    obj = func_802C9564_6DAC14(
+        _id,
+        D_803D5530->xPos.h + xpos,
+        D_803D5530->zPos.h + zpos,
+        D_803D5530->yPos.h + arg3,
+        D_803D5530->xVelocity.w + sp38,
+        D_803D5530->zVelocity.w + sp34,
+        D_803D5530->yVelocity.w + sp3C,
+        0,
+        0,
+        0);
+
+    if (obj != NULL) {
+        D_803D5530->xVelocity.w -= sp38 >> arg7;
+        D_803D5530->zVelocity.w -= sp34 >> arg7;
+        obj->unk168 = D_803D5530;
+        obj->unk15C = 0xF;
+        if (arg8 != 0) {
+            obj->unk15E = arg8;
+        }
+    }
+}
+
+void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8) {
+    s16 xpos;
+    s16 zpos;
+
+    short _id;
+
+    struct071 *obj;
+
+    _id = id & 0xffff;
 
     xpos = (((arg1 * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7)) + ((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg2)) >> 8);
     zpos = (((arg1 * (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7)) - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2)) >> 8);
 
     obj = func_802C9564_6DAC14(
-        id & 0xffff,
-        (D_803D5530->xPos.h + xpos),
+        _id,
+        D_803D5530->xPos.h + xpos,
         D_803D5530->zPos.h + zpos,
         D_803D5530->yPos.h + arg3,
         D_803D5530->xVelocity.w + arg4,
@@ -312,9 +315,6 @@ void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_8032225C_73390C.s")
-#endif
 
 void apply_recoil(s16 arg0) {
     s32 temp_t2 = D_80152C78[(u8)D_803D552C->unk302] >> 7;
@@ -332,25 +332,22 @@ void apply_recoil(s16 arg0) {
 #ifdef NON_MATCHING
 // stack + regalloc
 s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7) {
-
     s16 var_t3;
     s16 var_t4;
     s16 var_t5;
     s16 var_t0;
-    s32 temp_t6_2;
-    struct043 *var_a1;
+
+    s32 pad[2];
     struct065 *var_ra;
-    s32 temp_t6;
+    struct043 *var_a1;
+
     Animal *animal; // sp34
     s16 ret;
 
     ret = 0;
 
-    temp_t6 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7;
-    temp_t6_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 7;
-
-    var_t3 = ((temp_t6 * arg2) >> 8) + D_803D5530->xPos.h + ((temp_t6_2 * arg1) >> 8);
-    var_t4 = (D_803D5530->zPos.h + ((temp_t6 * arg1) >> 8)) - ((temp_t6_2 * arg2) >> 8);
+    var_t3 = (D_803D5530->xPos.h + (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg1) >> 8) + (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * arg2) >> 8));
+    var_t4 = (D_803D5530->zPos.h + (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * arg1) >> 8)) - (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2) >> 8);
     var_t5 = D_803D5530->yPos.h + arg0;
 
     for (var_ra = D_803DA110[(s16) ((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
@@ -593,53 +590,56 @@ Animal *func_80323040_7346F0(void) {
     return res;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_803233A0_734A50.s")
 // miles away
-// s32 func_803233A0_734A50(s16 x0, s16 y0, s16 z0, s16 x1, s16 y1, s16 z1) {
-//
-//     s16 temp_v1;
-//
-//     struct065 *temp_a1;
-//     Animal *a;
-//     s32 phi_a2;
-//     s32 phi_a3;
-//     s32 phi_t0;
-//     s16 i;
-//
-//     s32 tmp1 = (x0 - x1);
-//     s32 tmp2 = (y0 - y1);
-//     s32 tmp3 = (z0 - z1);
-//
-//     f32 tmpf1 = tmp1;
-//     f32 tmpf2 = tmp2;
-//     f32 tmpf3 = tmp3;
-//
-//     temp_v1 = ((s16) sqrtf((tmpf1 * tmpf1) + (tmpf2 * tmpf2) + (tmpf3 * tmpf3)) / 10) + 1;
-//
-//     phi_a2 = (x1 << 0x10) + ((tmp1 << 0x10) / (temp_v1 + 1) >> 1);
-//     phi_a3 = (y1 << 0x10) + ((tmp2 << 0x10) / (temp_v1 + 1) >> 1);
-//     phi_t0 = (z1 << 0x10) + ((tmp3 << 0x10) / (temp_v1 + 1) >> 1);
-//
-//     // i = 0;
-//     for (i = 0; i < temp_v1; i++) {
-//         for (temp_a1 = D_803DA110[(s16) ((s16)(phi_a2 >> 0x1A) + ((s16) (phi_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
-//             a = temp_a1->animal;
-//             if (a->unk16C->objectType == 91) {
-//                 if ((a->yPos.h < (phi_t0 >> 0x10)) && ((phi_t0 >> 0x10) < (a->yPos.h + a->unk42))) {
-//                     if (a->unk30 >= ABS((phi_a2 >> 0x10) - a->xPos.h)) {
-//                         if (a->unk32 >= ABS((phi_a3 >> 0x10) - a->zPos.h)) {
-//                             return 1;
-//                         }
-//                     }
-//                 }
-//                 if (1) { } if (1) { } if (1) { } if (1) { } if (1) { }
-//             }
-//         }
-//
-//         phi_a2 += (tmp1 << 0x10) / (temp_v1 + 1);
-//         phi_a3 += (tmp2 << 0x10) / (temp_v1 + 1);
-//         phi_t0 += (tmp3 << 0x10) / (temp_v1 + 1);
-//     }
-//
-//     return 0;
-// }
+#if 0
+s32 func_803233A0_734A50(s16 x0, s16 y0, s16 z0, s16 x1, s16 y1, s16 z1) {
+
+    s16 temp_v1;
+
+    struct065 *temp_a1;
+    Animal *a;
+    s32 phi_a2;
+    s32 phi_a3;
+    s32 phi_t0;
+    s16 i;
+
+    s32 tmp1 = (x0 - x1);
+    s32 tmp2 = (y0 - y1);
+    s32 tmp3 = (z0 - z1);
+
+    f32 tmpf1 = tmp1;
+    f32 tmpf2 = tmp2;
+    f32 tmpf3 = tmp3;
+
+    temp_v1 = ((s16) sqrtf((tmpf1 * tmpf1) + (tmpf2 * tmpf2) + (tmpf3 * tmpf3)) / 10) + 1;
+
+    phi_a2 = (x1 << 0x10) + ((tmp1 << 0x10) / (temp_v1 + 1) >> 1);
+    phi_a3 = (y1 << 0x10) + ((tmp2 << 0x10) / (temp_v1 + 1) >> 1);
+    phi_t0 = (z1 << 0x10) + ((tmp3 << 0x10) / (temp_v1 + 1) >> 1);
+
+    // i = 0;
+    for (i = 0; i < temp_v1; i++) {
+        for (temp_a1 = D_803DA110[(s16) ((s16)(phi_a2 >> 0x1A) + ((s16) (phi_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
+            a = temp_a1->animal;
+            if (a->unk16C->objectType == 91) {
+                if ((a->yPos.h < (phi_t0 >> 0x10)) && ((phi_t0 >> 0x10) < (a->yPos.h + a->unk42))) {
+                    if (a->unk30 >= ABS((phi_a2 >> 0x10) - a->xPos.h)) {
+                        if (a->unk32 >= ABS((phi_a3 >> 0x10) - a->zPos.h)) {
+                            return 1;
+                        }
+                    }
+                }
+                if (1) { } if (1) { } if (1) { } if (1) { } if (1) { }
+            }
+        }
+
+        phi_a2 += (tmp1 << 0x10) / (temp_v1 + 1);
+        phi_a3 += (tmp2 << 0x10) / (temp_v1 + 1);
+        phi_t0 += (tmp3 << 0x10) / (temp_v1 + 1);
+    }
+
+    return 0;
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_803233A0_734A50.s")
+#endif

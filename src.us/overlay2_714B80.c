@@ -1,50 +1,47 @@
 #include <ultra64.h>
 #include "common.h"
 
-#if 0
-// not equivalent?
-// CURRENT (1578)
+
 void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
     s32 sp4C;
     s32 sp48;
     s32 sp44;
     s32 sp40;
+    s32 sp38[2];
     s32 sp34;
-    s32 sp28;
-
     s16 temp_t9;
     s16 temp_t9_2;
-
     s16 new_var;
+    s16 new_var2;
+    s32 sp28;
+    s32 pad;
 
     temp_t9 = D_80152C78[(arg0->unk302 + 0x40) & 0xFF] >> 8;
     temp_t9_2 = D_80152C78[(arg0->unk302 & 0xFF)] >> 8;
 
+    new_var2 = D_80203FE0[1].unk2;
     new_var = D_80203FE0[1].unk0;
 
     sp4C = ((D_80203FE0[1].unk2 * temp_t9_2) + (new_var * temp_t9)) >> 7;
-    sp48 = ((D_80203FE0[1].unk2 * temp_t9) - (new_var * temp_t9_2)) >> 7;
+    sp48 = ((new_var2 * temp_t9) - (new_var * temp_t9_2)) >> 7;
 
     sp44 = ((D_80203FE0[2].unk0 * temp_t9) + (D_80203FE0[2].unk2 * temp_t9_2)) >> 7;
     sp40 = ((D_80203FE0[2].unk2 * temp_t9) - (D_80203FE0[2].unk0 * temp_t9_2)) >> 7;
 
-
     sp28 = (D_80203FE0[1].unk4 + (D_80203FE0[2].unk4 * 5)) / 192;
-    sp34 = (D_80203FE0[2].unk4 + (D_80203FE0[1].unk4 * 5)) / 192;
+    sp34 = ((D_80203FE0[1].unk4 * 5) + D_80203FE0[2].unk4) / 192;
 
     arg0->unkC4[arg3].unk0.h = ((sp4C * 5) + sp44) / 192;
+    if (0) { }
     arg0->unkC4[arg3].unk4.h = ((sp48 * 5) + sp40) / 192;
     arg0->unkC4[arg3].unk8.h = (arg2 / 32) + sp34;
-    arg0->unkC4[arg3].unkC = (arg1 * 7) / 512;
+    arg0->unkC4[arg3].unkC = ((arg1 * 7) / 32) >> 4;
 
     arg0->unkC4[arg3+1].unk0.h = ((sp44 * 5) + sp4C) / 192;
     arg0->unkC4[arg3+1].unk4.h = ((sp40 * 5) + sp48) / 192;
     arg0->unkC4[arg3+1].unk8.h = (arg2 / 32) + sp28;
-    arg0->unkC4[arg3+1].unkC = (arg1 * 7) / 512;
+    arg0->unkC4[arg3+1].unkC = ((arg1 * 7) / 32) >> 4;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714B80/func_803034D0_714B80.s")
-#endif
 
 void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
     s32 tmp0;
