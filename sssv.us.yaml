@@ -53,7 +53,6 @@ segments:
     - [0x10CB0, c, thread1]
     - [0x10DC0, c, main_10DC0]
     - [0x123E0, c, thread9]
-    - [0x12FC0, c, BSS_PADDING_12FC0]
     # libultra
     - [0x12FC0, linker_offset, libultra_start] # marker here for progress
     - [0x12FC0, lib, libultra_rom, initialize]
@@ -247,10 +246,7 @@ segments:
     - [0x2FA30, .data, data/D_80154330] # displaylist
     - [0x2FA70, data] # tbd
     - [0x2FC00, .data, main_78F0]
-    - [0x2FD80, data] #
-    # - [0x02FD80, .data, core/audiomgr] # .data for audiomgr
-    - [0x2FDD0, data] # audio lookups D_801546D0
-    # - [0x2FDE8, bin] # main_E3C0 rodata
+    - [0x2FD80, data] # .data for audiomgr
     - [0x309C0, rgba16, img/309C0.rgba16, 32, 64] # CH # D_801552C0
     - [0x319C0, rgba16, img/319C0.rgba16, 32, 32] # .  # D_801562C0
     - [0x321C0, rgba16, img/321C0.rgba16, 32, 32] # |  # D_80156AC0
@@ -323,7 +319,9 @@ segments:
     # bss
     - [0x398D0, .bss, core/audiomgr]
     # lots more bss here
-    - [0x398D0, .bss, BSS_PADDING_12FC0]            # TODO: 0xADA0 of padding
+    - [0x398D0, .bss, thread1]
+    - [0x398D0, .bss, thread9]
+    # bss padding
     - [0x398D0, lib, libultra_rom, initialize, .bss]
     - [0x398D0, lib, libultra_rom, pimgr, .bss]
     - [0x398D0, lib, libultra_rom, seteventmesg, .bss]
@@ -3288,51 +3286,14 @@ segments:
     - [0x12A390, rnc, img/fonts/comic_sans, i4, 16, 6400]
   - name: sounds
     type:  group
-    subalign: 4
     start: 0x12EDC0
     subsegments:
-    - [0x12EDC0, bin] # "B1" ... sound file
-    - [0x133450, bin] # alBnkfNew loads this
-    - [0x1AE480, bin]
-    - [0x1AE880, bin]
-    - [0x1B6510, bin] # "B1" ...
-    - [0x1C7C80, bin] # alBnkfNew loads this
-    - [0x1E0EB0, bin] # padding?
-    - [0x1E11C0, bin]
-    - [0x3B8F60, bin]
-    - [0x3E2780, bin]
+    - [0x12EDC0, bin, alBankFile1] # .ctl file "B1"
+    - [0x133450, bin, alTable1] # .tbl file (alBnkfNew loads this)
+    - [0x1B6510, bin, alBankFile2] # .ctl file "B1"
+    - [0x1C7C80, bin, alTable2] # tbl file (alBnkfNew loads this)
     # music (all these start with 0044 00 and can be extracted with Soundbank tool)
-    - [0x40B210, bin] # "S1" # 244 bytes long
-    # - [0x40B304, bin] # length 0xE6A
-    - [0x40C170, bin]
-    # - [0x40e52c, bin]
-    # - [0x40f2ec, bin]
-    # - [0x41076c, bin]
-    - [0x410b90, bin]
-    # - [0x411824, bin]
-    # - [0x413c6c, bin]
-    # - [0x4154bc, bin]
-    # - [0x415684, bin]
-    # - [0x4173c4, bin]
-    # - [0x418e9c, bin]
-    # - [0x41bd08, bin]
-    # - [0x41d9e8, bin]
-    # - [0x4200d8, bin]
-    - [0x421720, bin]
-    - [0x4236f0, bin]
-    # - [0x4252e4, bin]
-    - [0x425ab0, bin]
-    # - [0x4265c4, bin]
-    # - [0x426854, bin]
-    # - [0x426c34, bin]
-    # - [0x426dac, bin]
-    # - [0x426eb4, bin]
-    # - [0x427198, bin]
-    - [0x427c40, bin]
-    # - [0x427ff4, bin]
-    # - [0x429ab8, bin]
-    - [0x42b5a0, bin]
-    # - [0x42c49c, bin]
+    - [0x40B210, bin, alSeqFile] # sequences file "S1" # 244 bytes long (alSeqFileNew loads this)
   # rgba16 textures (mipmap)
   - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880        # europe
   # - start: 0x42DCA0
@@ -3616,14 +3577,9 @@ segments:
     - [0x63C310, c, overlay1_63C310]
     - [0x63C660, c, overlay1_63C660]
     # .data / .rodata
-    - [0x63CDD0, bin] # tbd ### D_80299730
-    - [0x63D000, bin] # D_80299960_63D000 in overlay1_6384F0
-    - [0x63D0E0, bin]
-    # - [0x63D4E4, bin] # "C" texture 10x11 rgba16
-    # - [0x63D5D8, bin] # dl
+    - [0x63CDD0, data] # tbd ### D_80299730
     - [0x63D660, .data, overlay1_6384F0] # D_80299FC0_63D660
-    - [0x63D6F0, bin] # zeroes
-    # - [0x63D6A4, bin] # D_8029A004_63D6A4
+    - [0x63D6F0, data] # zeroes
     - [0x63D700, sssv_vtx, data/inc/D_8029A060_63D700]
     - [0x63D880, sssv_vtx, data/inc/D_8029A1E0_63D880]
     - [0x63DA00, .data, data/D_8029A360_63DA00] # rocket flames 1
@@ -3770,7 +3726,7 @@ segments:
     - [0x734D30, c, sssv/animals/bear]
     - [0x739290, c, overlay2_739290]
     - [0x73C890, c, overlay2_73C890]
-    - [0x73D980, c, overlay2_73D980] # sssv/sfx ?
+    - [0x73D980, c, overlay2_73D980] # sssv/sfx ?  # EU ROM suggests extra split at 0x73E580
     - [0x73EA30, c, overlay2_73EA30]
     - [0x73ED30, c, overlay2_73ED30]
     - [0x741000, c, overlay2_741000]
@@ -3780,7 +3736,7 @@ segments:
     - [0x75BC80, c, overlay2_75BC80]
     - [0x75D3D0, c, overlay2_75D3D0]
     - [0x763930, c, sssv/init]
-    - [0x763A30, c, sssv/animals/tortoise]
+    - [0x763A30, c, sssv/animals/tortoise] # EU ROM suggests extra split at 0x7667E0
     - [0x767AC0, c, sssv/overlay2_767AC0]
     - [0x7688B0, c, overlay2_7688B0]
     - [0x7689A0, c, overlay2_7689A0]

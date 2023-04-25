@@ -519,14 +519,14 @@ void func_803250A8_736758(void) {
               /* maskt */  G_TX_NOMASK,
               /* shifts */ G_TX_NOLOD,
               /* shiftt */ G_TX_NOLOD
-            )
+            );
             gSPDisplayList(D_801D9E88++, D_010039F8);
 
             gDPLoadTLUT_pal16(
                 D_801D9E88++,
                 16,
                 D_04009760
-            )
+            );
 
             if (1) {}; // regalloc helper (ish)
 

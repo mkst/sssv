@@ -888,6 +888,14 @@ s32 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *ar
     struct065 *var_s5;
     s32  (*collision_func)(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s32 x1, s32 y1, s32 z1, s32 x2, s32 y2, s32 z2);
 
+#if 0
+    // mempak fix in EU
+    if (arg0->unk114[0] == 0x7FFF) {
+        // ignore?
+        return 0;
+    }
+#endif
+
     for (var_s5 = D_803DA110[arg0->unk114[0]].next; var_s5 != NULL; var_s5 = var_s5->next) {
         if ((arg0 != var_s5->animal) && (arg0 != arg1) && ((D_803B1BAC_7C325C[var_s5->animal->unk16C->unk2]) & (1 << (0xF - arg0->unk16C->unk2)))) {
             // tbd

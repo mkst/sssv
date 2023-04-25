@@ -90,7 +90,7 @@ OBJCOPY  = $(CROSS)objcopy
 PYTHON   = python3
 GCC      = gcc
 
-XGCC     = mips-linux-gnu-gcc
+XGCC     = $(CROSS)gcc
 
 GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc

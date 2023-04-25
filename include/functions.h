@@ -78,17 +78,20 @@ s16  write_eeprom(s16 arg0);
 s32  read_eeprom(s16 slot);
 s32  eeprom_checksum(u8 *arg0);
 
-// core/audio
+// core/audiomgr
 void initialise_audio(s32*);
 struct017 *get_sound_by_slot(s16 slot);
 struct017 *get_sound_by_id(u16 id);
-
-// core/audio2
 s16  get_used_sound_count(void);
-void play_sound_effect(s16, s16, s16, f32, u8);
+void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan);
+void play_sound_by_id_with_volume(u8 id, s16 vol);
+void play_sound_by_id(u8 id);
+void play_sound_by_slot(s16 slot);
 void stop_all_sounds(void);
 void set_sfx_volume(s16 arg0);
 void set_music_volume(s16 arg0);
+void load_sequence(s32 seqArrayIndex, s8 destIndex);
+s32  get_seqp_state(s8 arg0);
 
 // main_10CB0
 void init2(void);
@@ -186,7 +189,7 @@ void apply_recoil(s16 arg0);
 void load_animal(s16 id);
 void check_and_set_species_encountered(s16 arg0);
 void set_species_as_encountered(s16);
-void play_sound_effect_at_location(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, f32 arg6);
+void play_sound_effect_at_location(s16 id, s16 volume, s16 arg2, s16 x, s16 y, s16 z, f32 pitch);
 
 // overlay2_73EA30
 void vector_add(Vertex *x, Vertex *y, Vertex *res);

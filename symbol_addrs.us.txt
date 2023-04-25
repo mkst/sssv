@@ -33,7 +33,6 @@ gThread6          = 0x80286570;
 gThread7          = 0x80286720;
 gThread1          = 0x802868D0;
 gThread9          = 0x80286A80;
-gControllerConnected = 0x802912D8;
 
 gControllerInput       = 0x802910D0;
 gControllerStatus      = 0x802910D8;
@@ -112,8 +111,13 @@ __amMain               = 0x80131554;
 
 get_sound_by_slot      = 0x801323B8;
 get_sound_by_id        = 0x80132414;
+load_sequence          = 0x801325E8;
+get_seqp_state         = 0x8013266C;
 get_used_sound_count   = 0x80132D54;
 play_sound_effect      = 0x8013307C;
+play_sound_by_id_with_volume = 0x80133528;
+play_sound_by_id       = 0x8013359C;
+play_sound_by_slot     = 0x80133608;
 stop_all_sounds        = 0x80133738;
 set_sfx_volume         = 0x80133B74;
 set_music_volume       = 0x80133BA0;
@@ -157,7 +161,9 @@ audDMAIOMesgBuf        = 0x80241D10;
 audDMAMessageQ         = 0x802423D0;
 
 // size hacks
-D_803A0510_7B1BC0      = 0x803A0510; //rom:0x7B1BC0 size:0x20
+D_80299960_63D000      = 0x80299960; // rom:0x63D000 size:0xE0
+D_80299E10_63D4B0      = 0x80299E10; // rom:0x63D4B0 size:0x2
+D_803A0510_7B1BC0      = 0x803A0510; // rom:0x7B1BC0 size:0x20
 // end of size hacks
 
 // forced migrations
@@ -219,6 +225,7 @@ load_animal            = 0x8032AAF0; // rom:0x73C1A0
 check_and_set_species_encountered = 0x8032ABB8; // rom:0x73C268
 set_species_as_encountered = 0x8032AC48; // rom:0x73C2F8
 play_sound_effect_at_location = 0x8032C360; // rom:0x73DA10
+play_footstep_sfx      = 0x8032C5A8; // rom:0x73DC58
 vector_add             = 0x8032D380; // rom:0x73EA30
 vector_subtract        = 0x8032D3B4; // rom:0x73EA64
 vector_multiply_by     = 0x8032D3E8; // rom:0x73EA98
@@ -332,6 +339,28 @@ display_trails              = 0x8039EBFC; // rom:0x7B02AC
 // ========================================================
 // .bss
 // ========================================================
+
+// main
+
+// thread9
+D_80291100 = 0x80291100; // defined:true
+D_80291110 = 0x80291110; // defined:true
+D_802912B0 = 0x802912B0; // defined:true
+D_802912C8 = 0x802912C8; // defined:true
+D_802912CC = 0x802912CC; // defined:true
+D_802912D0 = 0x802912D0; // defined:true
+D_802912D4 = 0x802912D4; // defined:true
+gControllerConnected = 0x802912D8; // defined:true
+D_802912DA = 0x802912DA; // defined:true
+D_802912DC = 0x802912DC; // defined:true
+D_802912DE = 0x802912DE; // defined:true
+D_802912DF = 0x802912DF; // defined:true
+D_802912E0 = 0x802912E0; // defined:true
+D_802912E1 = 0x802912E1; // defined:true
+D_802912E2 = 0x802912E2; // defined:true
+D_802912E3 = 0x802912E3; // defined:true
+D_802912E4 = 0x802912E4; // defined:true
+D_802912E5 = 0x802912E5; // defined:true
 
 // overlay1
 D_80302E60 = 0x80302E60; // defined:true

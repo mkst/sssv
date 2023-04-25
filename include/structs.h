@@ -850,25 +850,29 @@ typedef struct {
 typedef struct struct017 struct017;
 
 struct struct017 {
-    /* 0x00 */ u16 unk0;
+    /* 0x00 */ u16 unk0; // priority?
     /* 0x02 */ u16 sndID;
-    /* 0x04 */ u8  pad4[0x4];
+    /* 0x04 */ u8  sndPan;
     /* 0x08 */ f32 sndPitch;
     /* 0x0C */ s16 sndVolume;
     /* 0x0E */ u16 counter;
     /* 0x10 */ u16 unk10;
-    /* 0x12 */ u8  pad12[0xA];
-    /* 0x1C */ s16 unk1C;
-    /* 0x1E */ s16 unk1E;
+    /* 0x14 */ s32 unk14;
+    /* 0x18 */ s32 unk18;
+    /* 0x1C */ s16 sndArrayIndex;
+    /* 0x1E */ s16 unk1E; // index?
     /* 0x20 */ u16 unk20;
     /* 0x22 */ s16 sndSlot;
     /* 0x24 */ u8  sndState;
     /* 0x25 */ u8  pad25[0x3];
-    /* 0x28 */ s32 unk28; // ptr?
+    /* 0x28 */ s32 object; // ptr?
     /* 0x2C */ struct017 *prev; // maybe
     /* 0x30 */ struct017 *next;
 }; // size 0x34
 
+typedef struct {
+    u8 pad[0x108];
+} struct121; // size 0x108
 
 typedef struct {
     /* 0x00000 */ u8  pad0[0x7D00];
@@ -2364,7 +2368,8 @@ typedef struct {
 
 typedef struct {
     struct120_inner *unk0;
-    s32 pad;
+    s16 unk4;
+    s16 pad;
 } struct120; // size 0x8
 
 typedef struct {

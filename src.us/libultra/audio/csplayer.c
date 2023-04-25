@@ -878,7 +878,7 @@ void func_801352E8(void) {
         if (D_80155164[i] != -1) {
             if (((u8)D_80155168[i] == 1) && (D_80155170 != D_80155164[i])) {
                 func_80132C48(i);
-            } else if (func_8013266C(i) == 0) {
+            } else if (get_seqp_state(i) == 0) {
                 if (i < 2) {
                     if (D_80155170 == D_80155164[i]) {
                         D_80155164[i] = -1; // disable?

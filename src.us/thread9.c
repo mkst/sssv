@@ -1,8 +1,44 @@
 #include <ultra64.h>
 #include "common.h"
 
+// ========================================================
+// .data
+// ========================================================
+
 s16 D_80158540 = 0;
 s32 numControllers = 0;
+
+// ========================================================
+// .bss
+// ========================================================
+
+u8 main_bss_padding[0xabB0];
+
+ControllerMesg D_80291100;
+s32 D_80291108; // unused?
+s32 D_8029110C; // unused?
+
+OSPfs       D_80291110[MAXCONTROLLERS];
+OSMesgQueue D_802912B0;
+OSMesg      D_802912C8;
+OSMesg      D_802912CC;
+s32  D_802912D0;
+s32  D_802912D4;
+s16  gControllerConnected;
+u16  D_802912DA;
+s16  D_802912DC;
+u8   D_802912DE; // start pressed
+u8   D_802912DF; // a pressed
+u8   D_802912E0; // b pressed
+u8   D_802912E1; // d-up pressed
+u8   D_802912E2; // d-down pressed
+u8   D_802912E3; // d-left pressed
+u8   D_802912E4; // d-right pressed
+u8   D_802912E5; // z pressed
+
+// ========================================================
+// .text
+// ========================================================
 
 #ifdef NON_MATCHING
 // swapped instructions
@@ -200,38 +236,41 @@ void thread9(void) {
     while (TRUE);
 }
 
+#if 0
+void do_rumble(s16 cont, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
+    s32 new_var;
+    s32 pad[3];
+    s32 phi_s0;
+
+    phi_s0 = arg4;
+
+    if (!D_80291090.hasRumblePak[cont ^ 0]) {}; // regalloc?
+
+    new_var = phi_s0 >> 6;
+    if ((D_80291090.hasRumblePak[cont]) && ((phi_s0 >> 6) < 21) && (D_80204288 == 0)) {
+        phi_s0 = new_var >> 2;
+        if (phi_s0 == 0) {
+            phi_s0 = 1;
+        }
+
+        if ((D_80291090.state.unk18[cont] == 0) ||
+            (((((((D_80291090.state.unk10[cont] - D_80291090.state.unk8[cont]) * (D_80291090.state.unk18[cont] - D_80291090.state.unk20[cont])) / D_80291090.state.unk18[cont]) >> 1) + D_80291090.state.unk8[cont]) * D_80291090.state.unk20[cont]) >= (s16)((arg1 * (arg2 + arg3)) / (s16)(phi_s0 << 1)))) {
+            D_80291090.state.unk0[cont] = 0;
+            D_80291090.state.unk8[cont] = arg2 / phi_s0;
+            D_80291090.state.unk10[cont] = arg3 / phi_s0;
+            D_80291090.state.unk18[cont] = arg1;
+            D_80291090.state.unk20[cont] = arg1;
+            D_80291090.state.unk28[cont] = 0;
+            D_80291090.state.unk30[cont] = 256;
+            if ((D_80291090.state.unk0[cont]) && ((s16)osMotorStart(&D_80291110[0]) == 0)) {
+                D_80291090.state.unk0[cont] = 1;
+            }
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/thread9/do_rumble.s")
-// void do_rumble(s16 cont, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
-//     s32 new_var;
-//     s32 pad[3];
-//     s32 phi_s0;
-//
-//     phi_s0 = arg4;
-//
-//     if (!D_80291090.hasRumblePak[cont ^ 0]) {}; // regalloc?
-//
-//     new_var = phi_s0 >> 6;
-//     if ((D_80291090.hasRumblePak[cont]) && ((phi_s0 >> 6) < 21) && (D_80204288 == 0)) {
-//         phi_s0 = new_var >> 2;
-//         if (phi_s0 == 0) {
-//             phi_s0 = 1;
-//         }
-//
-//         if ((D_80291090.state.unk18[cont] == 0) ||
-//             (((((((D_80291090.state.unk10[cont] - D_80291090.state.unk8[cont]) * (D_80291090.state.unk18[cont] - D_80291090.state.unk20[cont])) / D_80291090.state.unk18[cont]) >> 1) + D_80291090.state.unk8[cont]) * D_80291090.state.unk20[cont]) >= (s16)((arg1 * (arg2 + arg3)) / (s16)(phi_s0 << 1)))) {
-//             D_80291090.state.unk0[cont] = 0;
-//             D_80291090.state.unk8[cont] = arg2 / phi_s0;
-//             D_80291090.state.unk10[cont] = arg3 / phi_s0;
-//             D_80291090.state.unk18[cont] = arg1;
-//             D_80291090.state.unk20[cont] = arg1;
-//             D_80291090.state.unk28[cont] = 0;
-//             D_80291090.state.unk30[cont] = 256;
-//             if ((D_80291090.state.unk0[cont]) && ((s16)osMotorStart(&D_80291110[0]) == 0)) {
-//                 D_80291090.state.unk0[cont] = 1;
-//             }
-//         }
-//     }
-// }
+#endif
 
 void func_801375E8(s16 cont) {
     s32 tmp;

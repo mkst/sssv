@@ -933,11 +933,11 @@ void func_80355130_7667E0(void) {
 }
 
 #ifdef NON_MATCHING
-// is this equivalent?
 void func_80355918_766FC8(void) {
     s16 temp_t0;
     s16 temp_v1;
     s16 phi_v1;
+    s32 new_var;
 
     if ((D_803F28E0[D_803F2A98].cameraMode == 3) || (D_803F28E0[D_803F2A98].cameraMode == 17)) {
         D_803D552C->unk30E = 0;
@@ -971,25 +971,25 @@ void func_80355918_766FC8(void) {
     } else {
         if ((D_801D9ED8.unkFFB2 == 0) && (D_801D9ED8.unkFFB8 != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
 
-            if (D_803D552C->unk30E < 60) {
+            new_var = D_803D552C->unk30E;
+            if (new_var < 60) {
                 phi_v1 = -D_803D552C->unk30E;
             } else {
-                phi_v1 = (-120 - -D_803D552C->unk30E);
+                phi_v1 = -120 - -D_803D552C->unk30E;
             }
             temp_v1 = phi_v1 - ((D_803D552C->unk312 * 360) >> 8);
             temp_t0 = -temp_v1;
 
-            phi_v1 = (((D_80152C78[(temp_v1 + 64) & 0xFF] >> 7) << 5) >> 8);
-
             func_80321E60_733510(
                 OBJECT_CANNONBALL,
-                (phi_v1),
+                phi_v1 = ((D_80152C78[(temp_v1 + 64) & 0xFF] >> 7) << 5) >> 8,
                 0,
-                (s16) (((((D_80152C78[temp_t0 & 0xFF]) >> 7) << 5) >> 8) + 16),
+                ((((D_80152C78[temp_t0 & 0xFF]) >> 7) << 5) >> 8) + 16,
                 10 - (temp_v1 / 3),
                 temp_t0,
                 2,
                 45);
+
             func_803421E0_753890(17);
 
             D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
@@ -1005,7 +1005,7 @@ void func_80355918_766FC8(void) {
                 func_8032CD70_73E420(&D_803D5530->unk2, SFX_UNKNOWN_85, 0x3C00, 0, 0.7f, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h);
             }
         } else {
-            D_803D552C->unk30E = (u16)0;
+            D_803D552C->unk30E = 0;
         }
     }
 }

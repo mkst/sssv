@@ -2979,7 +2979,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
     s16 temp_s6;
     s16 temp_s7;
 
-    s16 pitch;
+    s16 volume;
     s16 i;      // spAE
     s16 j;
 
@@ -3325,18 +3325,17 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
         }
     }
 
-    // pitch?
     if (spBC == 0) {
-        pitch = 0x5000;
+        volume = 0x5000;
     }
     if (spBC == 1) {
-        pitch = 0x6800;
+        volume = 0x6800;
     }
     if (spBC == 2) {
-        pitch = 0x7FFF;
+        volume = 0x7FFF;
     }
     if ((flags & 0x40) == 0) {
-        play_sound_effect_at_location(SFX_UNKNOWN_75, pitch, 0x80, x, z, y, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_75, volume, 0x80, x, z, y, 1.0f);
     }
 }
 #else
