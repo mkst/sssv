@@ -3,16 +3,20 @@
 
 #include "fox.h"
 
+extern Gfx D_010037F0_3D0C0[];
+extern Gfx D_01003840_3D110[];
 
 extern Gfx D_04004090_CBAC0[];
 extern Gfx D_04004200_CBC30[];
 extern Gfx D_04004330_CBD60[];
+extern Gfx D_04004590_CBFC0[];
 extern Gfx D_040046D0_CC100[];
 extern Gfx D_040046F0_CC120[];
+extern Gfx D_04004A20_CC450[];
 extern Gfx D_04004D10_CC740[];
-
-extern Gfx D_010037F0_3D0C0[];
-extern Gfx D_01003840_3D110[];
+extern Gfx D_04005030_CCA60[];
+extern u8  D_040050D0_CCB00[];
+extern u8  D_040052D0_CCD00[];
 
 // FOX
 #ifdef NON_MATCHING
@@ -276,35 +280,17 @@ void func_802E5000_6F66B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/fox/func_802E5000_6F66B0.s")
 #endif
 
-extern f64 D_803BCA08_7CE0B8; // 0.7111111111111111
-extern f64 D_803BCA10_7CE0C0; // 32767.0
-extern f64 D_803BCA18_7CE0C8; // 0.4
-extern f64 D_803BCA20_7CE0D0; // 0.6
-extern f32 D_803BCA28_7CE0D8; // 0.22
-
-extern Gfx D_040046F0_CC120[];
-extern Gfx D_04004A20_CC450[];
-extern Gfx D_04005030_CCA60[];
-extern u8  D_040050D0_CCB00[];
-extern u8  D_040052D0_CCD00[];
-
 // FIRE_FOX
-#if 0
-// CURRENT (6241)
-// plenty still to figure out
 void func_802E620C_6F78BC(void) {
+    s32 var_v0_3;
+    s16 var_v1;
     s16 sp98;
+    f32 var_f0;
     s16 sp92;
+    u16 ticks_remaining;
     s16 sp8E;
     s16 sp8C;
-
     f32 var_f12;
-
-    f32 var_f0;
-    s16 var_v1;
-    s16 var_v0_3;
-
-    u8 temp_v0_5;
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp98 = 0;
@@ -314,7 +300,6 @@ void func_802E620C_6F78BC(void) {
     }
 
     if ((sp98 != 4) && (sp98 != 1)) {
-        // D_803BCA08_7CE0B8
         var_f0 = (f32) (((D_803F2C3C * 0.7111111111111111) - D_803D5530->yRotation) - 64.0);
 
         while (var_f0 < -128.0) { var_f0 += 256.0; };
@@ -332,9 +317,7 @@ void func_802E620C_6F78BC(void) {
             var_f12 += (func_8012826C() - 32768.0) / 65536.0;
         }
 
-        // D_803BCA10_7CE0C0, D_803BCA20_7CE0D0, D_803BCA18_7CE0C8,
         var_v0_3 = MIN(32767.0, (28672.0f * var_f12) * (0.6 + (0.4 * var_f0 * 0.0078125)));
-
         if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
             var_v0_3 = MAX(0, var_v0_3 - ((D_803D5544 - D_803D552C->unk328) << 9));
         }
@@ -343,7 +326,7 @@ void func_802E620C_6F78BC(void) {
                 D_803D5530,
                 SFX_UNKNOWN_103,
                 var_v0_3,
-                0.3f, // 0.30000001192092896f
+                0.3f,
                 0,
                 D_803D5538,
                 D_803D552C->xPos.h,
@@ -358,9 +341,11 @@ void func_802E620C_6F78BC(void) {
         func_8037FE24_7914D4();
         func_8035D120_76E7D0();
         func_8035D734_76EDE4();
-        // temp_v1_4 = D_803D552C;
-        if ((D_803D552C->unk365 == ATTACK_FOX_4) && (((D_803D5544 - D_803D552C->unk32A) & 0xFFFF) >= 0x33)) {
-            D_803D552C->unk365 = ATTACK_NONE;
+        if ((D_803D552C->unk365 == ATTACK_FOX_4)) {
+            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            if (ticks_remaining >= 0x33) {
+                D_803D552C->unk365 = ATTACK_NONE;
+            }
         }
         if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
             func_802BAA38_6CC0E8(0x186, 0x96);
@@ -380,11 +365,11 @@ void func_802E620C_6F78BC(void) {
         }
 
         func_8038064C_791CFC();
-        if (((D_80204278->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_5 = D_803F2AA2, (temp_v0_5 == 0)) || (temp_v0_5 == 2) || ((temp_v0_5 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+
+        if (((D_80204278->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || ((D_803F2AA2 == 0)) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s32) -D_803D5530->yRotation, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s32) D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            // D_803BCA28_7CE0D8
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.22f);
             func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04004D10_CC740);
             func_802C78B0_6D8F60(1, 2, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_04004090_CBAC0);
@@ -434,25 +419,23 @@ void func_802E620C_6F78BC(void) {
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp8E, &sp8C);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp8E, &sp8C);
-#pragma _permuter sameline start
-                sp8E = D_803BD5B2_7CEC62[sp8E]; sp8C = D_803BD66A_7CED1A[sp8C]; // * 2));
-#pragma _permuter sameline end
+                sp8E = D_803BD5B2_7CEC62[sp8E]; sp8C = D_803BD66A_7CED1A[sp8C];
                 func_80356BD8_768288(D_01000CA0, D_01002100, sp8E);
-                gSPDisplayList(D_801D9E88++, &D_010037F0_3D0C0);
+                gSPDisplayList(D_801D9E88++, D_010037F0_3D0C0);
 
                 func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_040046D0_CC100);
                 func_80356BD8_768288(D_01000CA0, D_01002100, sp8C);
                 func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_040046F0_CC120);
-                gSPDisplayList(D_801D9E88++, &D_01003840_3D110);
+                gSPDisplayList(D_801D9E88++, D_01003840_3D110);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
             if ((D_803F2ECE != 1) || (D_803F2ECC == 0)) {
                 create_particle_effect(
-                    D_803D5530->xPos.h + (((D_80152C78[-D_803D552C->unk302 & 0xFF] >> 7) * 1560) / 14848),
-                    D_803D5530->zPos.h - (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 1560) / 14848),
+                    D_803D5530->xPos.h + ((((D_80152C78[(s16)(-D_803D552C->unk302) & 0xFF] >> 7) * 1560) / 0x3A) >> 8),
+                    D_803D5530->zPos.h - ((((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 1560) / 0x3A) >> 8),
                     D_803D5530->yPos.h + 8,
-                    SSSV_RAND(2) + 25, // pick 1 of 2 particles
+                    25 + SSSV_RAND(2),
                     (SSSV_RAND(32768) * 2) + FTOFIX32(-0.6103515625),
                     (SSSV_RAND(32768) * 2) + FTOFIX32(-0.6103515625),
                     0,
@@ -474,10 +457,10 @@ void func_802E620C_6F78BC(void) {
                     }
 
                     create_particle_effect(
-                        D_803D5530->xPos.h + (((D_80152C78[-D_803D552C->unk302 & 0xFF] >> 7) * 0x618) / 14848),
-                        D_803D5530->zPos.h - (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 0x618) / 14848),
+                        D_803D5530->xPos.h + ((((D_80152C78[(s16)(-D_803D552C->unk302) & 0xFF] >> 7) * 0x618) / 0x3A) >> 8),
+                        D_803D5530->zPos.h - ((((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 0x618) / 0x3A) >> 8),
                         D_803D5530->yPos.h + 8,
-                        SSSV_RAND(2) + 25,
+                        25 + SSSV_RAND(2),
                         SSSV_RAND(32768) * 2,
                         SSSV_RAND(32768) * 2,
                         0,
@@ -503,12 +486,8 @@ void func_802E620C_6F78BC(void) {
         func_80303D00_7153B0(D_803D552C, 0x492, 0x1F4);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/fox/func_802E620C_6F78BC.s")
-#endif
 
-extern Gfx D_04004590_CBFC0[];
-
+// RACING_FOX
 void func_802E7394_6F8A44(void) {
     struct061 spB0;
     s16 spAE;

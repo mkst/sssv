@@ -5,22 +5,19 @@
 #include "audio.h"
 #include "simple.h"
 
+
 u8 bss_padding_audiomgr_c[0xe0fb0];
 
 /****  type define's for structures unique to audiomgr ****/
 typedef union {
-
     struct {
         short     type;
     } gen;
-
     struct {
         short     type;
         struct    AudioInfo_s *info;
     } done;
-
     OSScMsg       app;
-
 } AudioMsg;
 
 typedef struct AudioInfo_s {
@@ -88,6 +85,57 @@ u32             maxFrameSize;
 u32             maxRSPCmds;
 #endif
 
+#if 0
+
+s16 D_8015468C = 0;
+u8  D_80154690[24] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+};
+u8  D_801546A8[1] = {0};
+f32 D_801546AC[1] = {0};
+f32 D_801546B0[1] = {0};
+f32 D_801546B4[1] = {0};
+f32 D_801546B8[1] = {0};
+u8  D_801546BC[1] = {0};
+f32 D_801546C0 = 0;
+f32 D_801546C4 = 0;
+f32 D_801546C8 = 0;
+f32 D_801546CC = 0;
+f32 gMusicVolume = 1.0f;
+f32 gSfxVolume = 1.0f;
+s16 D_801546D8 = 2048;
+s16 D_801546DC = 2048;
+s16 D_801546E0 = 0;
+s32 D_801546E4 = 0;
+#include "pitch.h" // D_801546E8
+#include "unk0.h"  // D_80154C4C
+#include "volume.h" // D_801550F8
+s32 gAudioInitialized = 0;
+s32 D_80155158 = -1;
+s32 D_8015515C = -1;
+s32 D_80155160 = -0;
+s8  D_80155164[1] = {-1}; //, 0, 0, 0};
+u8  D_80155168[1] = {0}; //, 0, 0, 0};
+s16 D_8015516C = -1;
+//8015516E ?
+s8  D_80155170 = -1;
+s8  D_80155174 = -1;
+u8  D_80155178 = 0;
+f32 D_8015517C = 0;
+s16  D_80155180 = 0;
+s16  D_80155184 = 0;
+s16  D_80155188 = -99;
+s32  D_8015518C = 1;
+// D_80155190[] = {};
+// f32  D_8015529C = 110.0f;
+f32  D_801552A0 = 0.0f;
+f32  D_801552A4 = 0.0f;
+u16  D_801552A8 = 100;
+u8   D_801552B0 = 0;
+u8   D_801552B4 = 0;
+#endif
 
 /** Queues and storage for use with audio DMA's ****/
 OSIoMesg        audDMAIOMesgBuf[NUM_DMA_MESSAGES]; // NUM_DMA_MESSAGES
@@ -185,8 +233,6 @@ void amCreateAudioMgr(ALSynConfig *c, OSPri pri, amConfig *amc)
 
 s8 more_bss_padding[0x44044];
 
-#if 1
- // requires BSS
 void __amMain(void *arg)
 {
     u32         validTask;
@@ -251,9 +297,6 @@ void __amMain(void *arg)
     do {} while (TRUE);
 #endif
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/__amMain.s")
-#endif
 
 u32 __amHandleFrameMsg(AudioInfo *info, AudioInfo *lastInfo)
 {
@@ -491,15 +534,123 @@ void __clearAudioDMA(void)
     audFrameCt++;
 }
 
+#ifdef NON_MATCHING
 
+void initialise_audio(s32 *arg0) {
+    s32 pad2[2];
+    ALSynConfig synConfig;   // sp1EC
+    ALSndpConfig sndpConfig; // sp1E0
+    ALSeqpConfig sp170[4];
+    u8 **var_s0_3;
+    s32 i;
+    s16 maxSeqArrayLen;
+    s32 seqCount;
+    s32 pad[4];
+    struct121 params; // sp48
+    int seqBytesNeeded;
+
+    // struct copy
+    params = D_80155190;
+
+    gAudioInitialized = 1;
+
+    for (i = 0; i < (AUDIO_HEAP_SIZE / 4); i++) {
+        D_80242508[i] = 0;
+    }
+    alHeapInit(&D_80286328, D_80242508, AUDIO_HEAP_SIZE);
+
+    D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable1_bin - alBankFile1_bin);
+    dma_read(alBankFile1_bin, D_802862F8, alTable1_bin - alBankFile1_bin);
+    if ((var_s0_3 && var_s0_3) && var_s0_3) {};
+    alBnkfNew(D_802862F8, alTable1_bin);
+
+    D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable2_bin - alBankFile2_bin);
+    dma_read(alBankFile2_bin, D_802862FC, alTable2_bin - alBankFile2_bin);
+    alBnkfNew(D_802862FC, alTable2_bin);
+
+    D_80286300 = D_802862FC->bankArray[0];
+    D_80286304 = D_802862F8->bankArray[0];
+
+    synConfig.maxVVoices = 0x18;
+    synConfig.maxPVoices = 0x14;
+    synConfig.maxUpdates = 0xB4;
+    synConfig.dmaproc = NULL;
+    synConfig.fxType = 6;
+    synConfig.outputRate = osAiSetFrequency(32000);
+    synConfig.heap = &D_80286328;
+    synConfig.params = &params;
+    amCreateAudioMgr(&synConfig, /* priority */ 12);
+
+    for (i = 0; i < 4; i++) {
+        sp170[i].maxVoices = MAX_VOICES;
+        sp170[i].maxEvents = 0x100;
+        sp170[i].maxChannels = 0x10;
+        sp170[i].heap = &D_80286328;
+        sp170[i].initOsc = NULL;
+        sp170[i].updateOsc = NULL;
+        sp170[i].stopOsc = NULL;
+
+        D_802863C8[i] = (ALCSPlayer *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, sizeof(ALCSPlayer));
+        alCSPNew(D_802863C8[i], &sp170[i]);
+        D_802863C8[i]->state = 0;
+
+        D_802863CC[i] = (ALCSeq *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, sizeof(ALCSeq));
+    }
+
+    sndpConfig.maxSounds = 8;
+    sndpConfig.maxEvents = 0x100;
+    sndpConfig.heap = &D_80286328;
+    D_80286310 = alHeapDBAlloc(NULL, 0, &D_80286328, 1, sizeof(ALSndPlayer));
+    alSndpNew(D_80286310, &sndpConfig);
+
+    for (i = 0; i < 20; i++) {
+        D_80286338[i] = (struct017 *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, sizeof(struct017));
+    }
+
+    D_80286320 = D_8028631C = NULL;
+
+    func_80132044(-1);
+
+    D_80286308 = (ALSeqFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, 4); // allocations are aligned to 16 bytes
+    // if (i && i) {};
+    osWritebackDCacheAll();
+    dma_read(alSeqFile_bin, D_80286308, 8);
+
+    seqBytesNeeded = (D_80286308->seqCount << 3) + 4;
+
+    if (!seqBytesNeeded) {};
+
+    D_8028630C = (ALSeqFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, (s16)seqBytesNeeded);
+    osWritebackDCacheAll();
+    dma_read(alSeqFile_bin, D_8028630C, (s16)seqBytesNeeded);
+    alSeqFileNew(D_8028630C, alSeqFile_bin);
+
+    if (!D_8028630C->seqArray[seqCount].len) {};
+
+    maxSeqArrayLen = 0;
+    for (seqCount = 0; seqCount < D_8028630C->seqCount; seqCount++) {
+        if (maxSeqArrayLen < D_8028630C->seqArray[seqCount].len) {
+            maxSeqArrayLen = D_8028630C->seqArray[seqCount].len;
+        }
+    }
+    // align to 2 bytes
+    if (maxSeqArrayLen & 1) {
+        maxSeqArrayLen += 1;
+    }
+    for (i = 0; i < 1; i++) {
+        D_80286314[i] = alHeapDBAlloc(NULL, 0, &D_80286328, 1, maxSeqArrayLen);
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/initialise_audio.s")
+#endif
 
 #ifdef NON_MATCHING
 // CURRENT (130)
 void func_80132044(s32 arg0) {
     s32 i;
 
-    if (!gAudioInitialized) {
+    if (gAudioInitialized == 0) {
         return;
     }
 
@@ -541,77 +692,68 @@ struct017 *func_801320EC(void) {
 }
 
 #if 0
-// need to figure out struct copy business
-void func_80132174(struct017 *arg0, s32 arg1, s32 arg2, s32 arg3, struct017 **argD, struct017 **argE) {
-    struct017 *var_t8;
-    struct017 *temp_v0_2;
+// CURRENT (835)
+void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
+    s32 pad;
+    struct017 *temp_a0;
+    struct017 *cur;
     struct017 *var_a0;
-    struct017 *var_t2;
-    struct017 *var_v1;
+    struct017 *prev_node;
 
-    if (!gAudioInitialized) {
-      return;
+    if (gAudioInitialized == 0) {
+        return;
     }
 
-    var_a0 = *argD;
+    temp_a0 = *arg1;
 
-    if (D_8015468C < 0x14) {
+    if (D_8015468C < 20) {
         D_8015468C++;
-        temp_v0_2 = func_801320EC();
+        cur = func_801320EC();
+        if (cur != NULL) {
+            // struct copy
+            *cur = arg0;
+            cur->unk1E = cur->unk1E; // help
 
-        if (temp_v0_2 != NULL) {
-            var_t8 = &arg0;
-            var_t2 = temp_v0_2;
-            do {
-                // copy 12 bytes of something?
-            //     temp_at = *var_t8;
-            //     var_t8 += 0xC;
-            //     var_t2 += 0xC;
-            //     var_t2->unk-C = temp_at;
-            //     var_t2->unk-8 = (s32) var_t8->unk-8;
-            //     var_t2->unk-4 = (s32) var_t8->unk-4;
-            } while (var_t8 != var_t8->next);
 
-            var_t2->unk0 = var_t8->unk0;
-            temp_v0_2->unk1E = temp_v0_2->unk1E;
-
-            if (*argE == NULL) {
-                temp_v0_2->next = NULL;
-                temp_v0_2->prev = NULL;
-                *argE = temp_v0_2;
-                *argD = temp_v0_2;
+            if (*arg2 == NULL) {
+                cur->next = NULL;
+                cur->prev = NULL;
+                *arg2 = cur;
+                *arg1 = cur;
                 return;
             }
 
-            var_v1 = NULL;
+            var_a0 = temp_a0;
+            prev_node = NULL;
+
+            // shuffle some nodes about?
             while (var_a0 != NULL) {
-                var_v1 = var_a0;
-                if ((var_a0->unk0 - temp_v0_2->unk0) < 0) {
+                prev_node = var_a0;
+                if ((var_a0->unk0 - cur->unk0) < 0) {
                     var_a0 = var_a0->next;
-                } else {
+                } else  {
                     if (var_a0->prev != NULL) {
-                        // prepend node
-                        var_a0->prev->next = temp_v0_2;
-                        temp_v0_2->next = var_a0;
-                        temp_v0_2->prev = var_a0->prev;
-                        var_a0->prev = temp_v0_2;
-                    } else if ((temp_v0_2->sndID == var_a0->sndID) && (var_a0->sndSlot == -1)) {
-                        func_80132044(temp_v0_2->unk1E);
+                        // insert
+                        var_a0->prev->next = cur;
+                        cur->next = var_a0;
+                        cur->prev = var_a0->prev;
+                        var_a0->prev = cur;
+                    } else if ((cur->sndID == var_a0->sndID) && (var_a0->sndSlot == -1)) {
+                        func_80132044(cur->unk1E);
                     } else {
-                        // append node
-                        temp_v0_2->next = var_a0;
-                        temp_v0_2->prev = NULL;
-                        var_a0->prev = temp_v0_2;
-                        *argD = temp_v0_2;
+                        cur->next = var_a0;
+                        cur->prev = NULL;
+                        var_a0->prev = cur;
+                        *arg1 = cur;
                     }
                     return;
                 }
             }
-            // uhh?
-            var_v1->next = temp_v0_2;
-            temp_v0_2->next = NULL;
-            temp_v0_2->prev = var_v1;
-            *argE = temp_v0_2;
+            // simple insertion?
+            prev_node->next = cur;
+            cur->next = NULL;
+            cur->prev = prev_node;
+            *arg2 = cur;
         }
     }
 }
@@ -689,8 +831,7 @@ struct017 *func_80132474(void) {
         return NULL;
     }
 
-    start:
-
+start:
     lastSnd = NULL;
     tmp = 0; // priority?
 
@@ -712,7 +853,7 @@ struct017 *func_80132474(void) {
 
 // used?
 struct017 *func_80132568(void) {
-    // FIXME: fakematch shenanigans
+    // FIXME: fakematch shenanigans, static vars?
     struct017* foo;
     struct017** bar;
 
@@ -733,15 +874,14 @@ struct017 *func_80132580(s32 arg0, s16 id) {
     }
 
     for (snd = D_8028631C; snd != NULL; snd = snd->next) {
-        if ((arg0 == snd->unk28) && (id == snd->sndID)) {
+        if ((arg0 == snd->object) && (id == snd->sndID)) {
             return snd;
         }
     }
     return NULL;
 }
 
-// load_sequence_array ?
-void func_801325E8(s32 seqArrayIndex, s8 destIndex) {
+void load_sequence(s32 seqArrayIndex, s8 destIndex) {
     s32 offset;
     s16 length;
 
@@ -761,8 +901,7 @@ void func_801325E8(s32 seqArrayIndex, s8 destIndex) {
     dma_read(offset, D_80286314[destIndex], length);
 }
 
-// get_seqp_state
-s32 func_8013266C(s8 arg0) {
+s32 get_seqp_state(s8 arg0) {
     if (gAudioInitialized == 0) {
         return 0;
     }
@@ -770,30 +909,30 @@ s32 func_8013266C(s8 arg0) {
 }
 
 #ifdef NON_MATCHING // JUSTREG
-void func_801326A8(s8 arg0, s8 arg1) {
+void func_801326A8(s8 src, s8 dest) {
     s32 pad;
     if (gAudioInitialized == 0) {
         return;
     }
 
-    if (func_8013266C(arg1) == 0) {
+    if (get_seqp_state(dest) == 0) {
         s16 volume;
-        func_801325E8(arg0, arg1);
-        alSeqpSetBank(D_802863C8[arg1], D_802862F8->bankArray[0]);
-        alCSeqNew(D_802863CC[arg1], D_80286314[arg1]);
-        alSeqpSetSeq(D_802863C8[arg1], (ALSeq*)D_802863CC[arg1]);
-        if (D_801546A8[arg1] == 0) {
-            volume = D_801550F8[arg0] * gMusicVolume * D_8015517C;
+        load_sequence(src, dest);
+        alSeqpSetBank(D_802863C8[dest], D_802862F8->bankArray[0]);
+        alCSeqNew(D_802863CC[dest], D_80286314[dest]);
+        alSeqpSetSeq(D_802863C8[dest], (ALSeq*)D_802863CC[dest]);
+        if (D_801546A8[dest] == 0) {
+            volume = D_801550F8[src] * gMusicVolume * D_8015517C;
         } else {
-            volume = ((D_801546B4[arg1] * D_801550F8[D_8015516C[arg1]]) +
-                      ((D_801546B8[arg1] * (D_801550F8[D_8015516C[arg1]] * D_801546AC[arg1])) / D_801546B0[arg1])) * gMusicVolume * D_8015517C;
+            volume = ((D_801546B4[dest] * D_801550F8[D_8015516C[dest]]) +
+                      ((D_801546B8[dest] * (D_801550F8[D_8015516C[dest]] * D_801546AC[dest])) / D_801546B0[dest])) * gMusicVolume * D_8015517C;
         }
 
-        alSeqpSetVol(D_802863C8[arg1], volume * (2048.0f / D_801546D8));
-        alSeqpPlay(D_802863C8[arg1]);
+        alSeqpSetVol(D_802863C8[dest], volume * (2048.0f / D_801546D8));
+        alSeqpPlay(D_802863C8[dest]);
 
-        D_80155168[arg1] = 1;
-        D_8015516C[arg1] = arg0;
+        D_80155168[dest] = 1;
+        D_8015516C[dest] = src;
         D_801546E4 = 0;
     }
 }
@@ -801,91 +940,91 @@ void func_801326A8(s8 arg0, s8 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_801326A8.s")
 #endif
 
-// wrong args to alSndpAllocate
+#if 0
+// need to migrate bss and data
+void func_801328F8(void) {
+    s16 i;
+    s16 temp_v1;
+    s16 volume;
+    s32 used;
+    struct017 *sound;
+    ALInstrument *inst;
+    static f32 D_80286554; // .bss
+    static f32 D_8015529C = 110.0f; // .data
+
+    if (gAudioInitialized == 0) {
+        return;
+    }
+
+    D_80241D0E++;
+
+    used = func_80132D84(D_80286310);
+    if (used < 8) {
+        temp_v1 = 8 - used;
+
+        for (i = 0; i < temp_v1; i++) {
+            sound = func_80132474();
+            if (sound == NULL) {
+                break;
+            }
+
+            inst = D_80286300->instArray[sound->sndID];
+            sound->sndSlot = alSndpAllocate(D_80286310, inst->soundArray[sound->sndArrayIndex]);
+            if (sound->sndSlot >= 0) {
+                D_802863B0[sound->sndSlot] = 1; // used
+                sound->unk20 = D_80241D0E;
+                alSndpSetSound(D_80286310, sound->sndSlot);
+                alSndpSetPitch(D_80286310, sound->sndPitch);
+                if (D_801546BC == 1) {
+                    volume = (((sound->sndVolume * D_801546C8) + ((D_801546CC * (sound->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume);
+                } else {
+                    volume = (sound->sndVolume * gSfxVolume);
+                }
+                alSndpSetVol(D_80286310, volume);
+                alSndpSetFXMix(D_80286310, D_80155178);
+                alSndpPlay(D_80286310);
+                sound->sndState = 9;
+            }
+
+        }
+    }
+
+
+    for (i = 0; i < 1; i++) {
+        if (D_801546A8[i] != 0) {
+            func_801338A8(i);
+        }
+    }
+
+    if (D_801546BC != 0) {
+        func_801339F8();
+    }
+    if (D_801546D8 != D_801546DC) {
+        D_801546DC = D_801546D8;
+        func_80133C50();
+    } else if (D_8015529C != D_8015517C) {
+        D_80286554 = D_8015517C - D_8015529C;
+        if (D_80286554 < 0.0) {
+            D_80286554 = D_80286554 * -1.0;
+        }
+        if (D_80286554 > 0.01) {
+            func_80133C50();
+            D_8015529C = D_8015517C;
+        }
+    }
+
+    if (D_80155188 != D_8028645C) {
+        D_80155188 = D_8028645C;
+        if (D_8028645C == 0) {
+            func_8013364C();
+        } else {
+            func_801337BC(D_8028645C, 1);
+        }
+    }
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_801328F8.s")
-// void func_801328F8(void) {
-//     s16 temp_v1;
-//     s32 used;
-//     s16 slot;
-//     f32 temp_f12;
-//     struct017 *snd;
-//     s16 vol;
-//     s16 i;
-//     s16 phi_s1_2;
-//     f64 phi_f0;
-//
-//     if (gAudioInitialized == 0) {
-//         return;
-//     }
-//
-//     D_80241D0E += 1;
-//     used = func_80132D84(D_80286310);
-//
-//     if (used < 8) {
-//         temp_v1 = 8 - used;
-//         for (i = 0; i < temp_v1; i++) {
-//             snd = func_80132474();
-//             if (snd != 0) {
-//                 // ALSndId alSndpAllocate(ALSndPlayer *sndp, ALSound *sound);
-//                 // ((D_80286300 + (snd->sndID * 4))->unkC + (snd->unk1C * 4))->unk10
-//                 snd->sndSlot = alSndpAllocate(D_80286310, ((struct011*)(D_80286300->unkC[snd->sndID] + snd->unk1C*4))->sound);
-//                 if (snd->sndSlot >= 0) {
-//                     D_802863B0[snd->sndSlot] = 1;
-//                     snd->unk20 = D_80241D0E;
-//                     alSndpSetSound(D_80286310, snd->sndSlot);
-//                     alSndpSetPitch(D_80286310, snd->sndPitch);
-//                     if (D_801546BC == 1) {
-//                         vol = (((snd->sndVolume * D_801546C8) + ((D_801546CC * (snd->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume);
-//                     } else {
-//                         vol = (snd->sndVolume * gSfxVolume);
-//                     }
-//                     alSndpSetVol(D_80286310, vol);
-//                     alSndpSetFXMix(D_80286310, D_80155178);
-//                     alSndpPlay(D_80286310);
-//                     snd->sndState = 9;
-//                 }
-//             }
-//         }
-//     }
-//     phi_s1_2 = 0;
-//     do {
-//         if (D_801546A8[phi_s1_2] != 0) {
-//             func_801338A8(phi_s1_2);
-//         }
-//         phi_s1_2++;
-//     } while (phi_s1_2 <= 0);
-//
-//     if (D_801546BC != 0) {
-//         func_801339F8();
-//     }
-//     if (D_801546DC != D_801546D8) {
-//         D_801546DC = D_801546D8;
-//         func_80133C50();
-//     } else {
-//         if (D_8015529C != D_8015517C) {
-//             // just an ABS?
-//             temp_f12 = D_8015517C - D_8015529C;
-//             phi_f0 = temp_f12;
-//             D_80286554 = temp_f12;
-//             if (phi_f0 < 0) {
-//                 D_80286554 = (phi_f0 * -1.0);
-//             }
-//             if (0.01 < phi_f0) { // D_8015AE08
-//                 func_80133C50();
-//                 D_8015529C = D_8015517C;
-//             }
-//         }
-//     }
-//     if (D_8028645C != D_80155188) {
-//         D_80155188 = D_8028645C;
-//         if (D_8028645C == NO_MUSIC) {
-//             // stop / reset
-//             func_8013364C();
-//         } else {
-//             func_801337BC(D_8028645C, 1);
-//         }
-//     }
-// }
+#endif
 
 void func_80132C48(s8 idx) {
     ALSeqPlayer *seqp;
@@ -903,15 +1042,13 @@ void func_80132C48(s8 idx) {
     }
 }
 
-// more audio funcs
-
 void func_80132CC0(s32 arg0) {
     struct017 *snd = D_8028631C;
     rmonPrintf("----------------- Active sounds\n");
 
     while (snd != NULL) {
         rmonPrintf("sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d.\n",
-            snd->sndState, snd->sndSlot, snd->sndID, snd->unk28, snd->counter, D_802863B0[snd->sndSlot]);
+            snd->sndState, snd->sndSlot, snd->sndID, snd->object, snd->counter, D_802863B0[snd->sndSlot]);
         snd = snd->next;
     }
 }
@@ -942,11 +1079,11 @@ s32 func_80132D84(ALSndPlayer *sndp) {
         } else {
             alSndpSetSound(sndp, snd->sndSlot);
             if (alSndpGetState(sndp) != 0) {
-                if (snd->unk28 != 0) {
+                if (snd->object != 0) {
                     snd->counter -= 1;
                     if (snd->counter == 0) {
-                        func_80133608(snd->sndSlot);
-                        snd->unk28 = 0;
+                        play_sound_by_slot(snd->sndSlot);
+                        snd->object = 0;
                     }
                 }
                 used += 1;
@@ -976,79 +1113,145 @@ s32 func_80132D84(ALSndPlayer *sndp) {
     }
     return used;
 }
-#if 1
-typedef struct {
-    /* 0x0 */ s16 unk0;
-    /* 0x2 */ s16 unk2;
-    /* 0x4 */ s8  unk4;
-    /* 0x8 */ f32 unk8;
-} myStructInner; // size 0xC
 
-typedef struct {
-    myStructInner sp50[5]; // size 0xC
-    s16 sp5C;
-    u8  pad5E[0x2];
-    u16 sp60;
-    u8  pad62[0x2];
-    s16 sp64;
-    u8  pad66[0x2];
-    s32 sp68;
-    s32 sp6C;
-    s16 sp72;
-    u8  sp74[0x6];
-    s32 sp78;
-} myStruct;
+void func_80132F70(s16 id, s16 volume) {
+    s32 pad[3];
+    struct017 sp50;
 
-extern myStructInner D_80154C4C[100]; // sound effect pointers?
+    if (gAudioInitialized == 0) {
+        return;
+    }
+
+    if (id != SFX_INVALID) {
+        sp50.unk0 = D_80154C4C[id];
+        sp50.sndID = id;
+        sp50.unk14 = 0;
+        sp50.unk18 = 0;
+        sp50.sndArrayIndex = 0;
+        sp50.sndPan = 0x40;
+        sp50.sndPitch = D_801546E8[id];
+        if (!(sp50.sndPitch > 2.0f)) {
+            sp50.object = NULL;
+            sp50.sndVolume = volume;
+            sp50.unk10 = D_80241D0E;
+            sp50.sndSlot = -1;
+            func_80132174(sp50, &D_8028631C, &D_80286320);
+        }
+    }
+}
+
+void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan) {
+    struct017 sound;
+
+    if (gAudioInitialized == 0) {
+        return;
+    }
+
+    if (id != SFX_INVALID) {
+
+        if (1) {}; // required!
+
+        sound.unk0 = D_80154C4C[id];
+        sound.sndID = id;
+        sound.sndArrayIndex = arg1;
+        sound.sndPan = pan;
+        sound.sndVolume = volume;
+        sound.unk14 = 0;
+        sound.unk18 = 0;
+        sound.sndPitch = D_801546E8[id] * pitch;
+        sound.object = NULL;
+        sound.unk10 = D_80241D0E;
+        sound.sndSlot = -1;
+        func_80132174(sound, &D_8028631C, &D_80286320);
+    }
+}
+
+void func_80133188(s16 id, s16 volume, s16 arg2) {
+    struct017 sound;
+
+    if (gAudioInitialized == 0) {
+        return;
+    }
+
+    if (id != SFX_INVALID) {
+
+        if (1) {}; // required!
+
+        sound.unk0 = D_80154C4C[id];
+        sound.sndID = id;
+        sound.sndArrayIndex = arg2;
+        sound.unk14 = 0;
+        sound.unk18 = 0;
+        sound.sndPan = 0x40; // middle
+        sound.object = 0;
+        sound.sndPitch = D_801546E8[id];
+        sound.sndVolume = volume;
+        sound.unk10 = D_80241D0E;
+        sound.sndSlot = -1;
+        func_80132174(sound, &D_8028631C, &D_80286320);
+    }
+}
+
+#ifdef NON_MATCHING
+void func_8013328C(void *object, s16 id, s16 pan, f32 pitch, s16 volume, s16 arg5) {
+    struct017 *var_v1;
+    struct017 sp58;
+    s16 vol;
+
+    var_v1 = func_80132580(object, id);
+    if (var_v1 != NULL) {
+        if (var_v1->sndSlot >= 0) {
+
+            alSndpSetSound(D_80286310, var_v1->sndSlot);
+
+            if ((pan != var_v1->sndPan)) {
+                alSndpSetPan(D_80286310, pan);
+                var_v1->sndPan = pan;
+            }
+
+            if ((D_801546E8[id] * pitch) != var_v1->sndPitch) {
+                alSndpSetPitch(D_80286310, (D_801546E8[id] * pitch));
+                var_v1->sndPitch = D_801546E8[id] * pitch;
+            }
+
+            if (!volume) {}; // helps/hinders
+
+            if (var_v1->sndVolume != volume) {
+                if (D_801546BC == 1) {
+                    vol = ((var_v1->sndVolume * D_801546C8) + ((D_801546CC * (var_v1->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume;
+                } else {
+                    vol = var_v1->sndVolume * gSfxVolume;
+                }
+                alSndpSetVol(D_80286310, vol);
+                var_v1->sndVolume = volume;
+            }
+        }
+        var_v1->counter = 6;
+        return;
+    }
+
+    // create a new sound?
+    sp58.unk0 = arg5;
+    sp58.unk14 = 0;
+    sp58.unk18 = 0;
+    sp58.sndPan = pan;
+    sp58.sndPitch = D_801546E8[id] * pitch;
+    if (1) {};
+    sp58.sndArrayIndex = 0;
+    sp58.sndID = id;
+    sp58.sndVolume = volume;
+    sp58.object = object;
+    sp58.counter = 6;
+    sp58.unk10 = D_80241D0E;
+    sp58.sndSlot = -1;
+
+    func_80132174(sp58, &D_8028631C, &D_80286320);
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_8013328C.s")
 #endif
 
-// void func_80132174(s32 arg0, s32 arg1, s32 arg2, s32 arg3, void **argD, void **argE);
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80132F70.s")
-// called with (0x56, 0x5000)
-// pure nonsense
-// void func_80132F70(s16 arg0, s32 arg1) {
-//     myStruct tmp;
-//     s32 i;
-//
-//     if (gAudioInitialized == 0) {
-//         return;
-//     }
-//
-//     if (arg0 != 10000) {
-//         f32 tmpf = D_801546E8[arg0];
-//         tmp.sp64 = 0;
-//         tmp.sp68 = 0;
-//         tmp.sp6C = 0;
-//         tmp.sp50[0].unk0 = D_80154C4C[arg0].unk0;
-//         tmp.sp50[0].unk2 = arg0;
-//         tmp.sp50[0].unk4 = 64;
-//         tmp.sp50[0].unk8 = tmpf;
-//         if (!(tmpf > 2.0f)) {
-//             tmp.sp78 = 0;
-//             tmp.sp72 = -1;
-//             tmp.sp5C = arg1;
-//             tmp.sp60 = D_80241D0E;
-//
-//             for (i = 0; i < 2; i++) {
-//                 tmp.sp50[i] = tmp.sp50[i+1];
-//             }
-//             // tmp.sp50[i].unk0 = tmp.sp50[i+1].unk0;
-//             // subroutine_arg0, subroutine_arg1, subroutine_arg2, subroutine_arg3, &D_8028631C, &D_80286320
-//             func_80132174(tmp.sp50[0].unk0, tmp.sp50[0].unk2, tmp.sp50[0].unk4, tmp.sp50[0].unk8, &D_8028631C, &D_80286320);
-//         }
-//     }
-// }
-
-// void play_sound_effect(s16 id, s16 arg1, s16 arg2, f32 speed, u8 arg4);
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/play_sound_effect.s")
-
-// unused? absolutely no idea how to decomp
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80133188.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_8013328C.s")
-
-// unused?
-void func_80133528(u8 id, s16 vol) { // play_sound_by_id_with_volume
+void play_sound_by_id_with_volume(u8 id, s16 vol) {
     struct017 *snd = get_sound_by_id(id);
     if (snd != NULL) {
         if ((snd->sndSlot >= 0) && (D_802863B0[snd->sndSlot] != 1)) {
@@ -1058,8 +1261,7 @@ void func_80133528(u8 id, s16 vol) { // play_sound_by_id_with_volume
     }
 }
 
-// unused?
-void func_8013359C(u8 id) { // play_sound_by_id
+void play_sound_by_id(u8 id) {
     struct017 *snd = get_sound_by_id(id);
     if (snd != NULL) {
         if ((snd->sndSlot >= 0) && (D_802863B0[snd->sndSlot] != 1)) {
@@ -1069,8 +1271,7 @@ void func_8013359C(u8 id) { // play_sound_by_id
     }
 }
 
-// used
-void func_80133608(s16 slot) { // play_sound_by_slot
+void play_sound_by_slot(s16 slot) {
     if (slot >= 0) {
         alSndpSetSound(D_80286310, slot);
         alSndpStop(D_80286310);
@@ -1099,15 +1300,17 @@ void func_8013364C(void) {
 void stop_all_sounds(void) {
     s8 i;
 
-    if (gAudioInitialized) {
-        for (i = 0; i < 20; i++) {
-            if (get_sound_by_slot(i)) {
-                alSndpStop(D_80286310);
-            }
-        }
-        func_8013364C();
-        D_8028645C = NO_MUSIC;
+    if (gAudioInitialized == 0) {
+        return;
     }
+
+    for (i = 0; i < 20; i++) {
+        if (get_sound_by_slot(i)) {
+            alSndpStop(D_80286310);
+        }
+    }
+    func_8013364C();
+    D_8028645C = NO_MUSIC;
 }
 
 void func_801337BC(s8 arg0, s32 arg1) {
@@ -1154,20 +1357,22 @@ void func_801339F8(void) {
     s16 vol;
     struct017 *snd;
 
-    if (gAudioInitialized != 0) {
-        for (snd = D_8028631C; snd != NULL; snd = snd->next) {
-            if ((snd->sndSlot >= 0) && (D_801546BC == 1)) {
-                vol = ((snd->sndVolume * D_801546C8) + ((D_801546CC * (snd->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume;
-                alSndpSetSound(D_80286310, snd->sndSlot);
-                alSndpSetVol(D_80286310, vol);
-            }
-        }
+    if (gAudioInitialized == 0) {
+        return;
+    }
 
-        if (D_801546C0 == 0.0f) {
-            D_801546BC = 0;
-        } else {
-            D_801546C0 -= 1.0f;
+    for (snd = D_8028631C; snd != NULL; snd = snd->next) {
+        if ((snd->sndSlot >= 0) && (D_801546BC == 1)) {
+            vol = ((snd->sndVolume * D_801546C8) + ((D_801546CC * (snd->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume;
+            alSndpSetSound(D_80286310, snd->sndSlot);
+            alSndpSetVol(D_80286310, vol);
         }
+    }
+
+    if (D_801546C0 == 0.0f) {
+        D_801546BC = 0;
+    } else {
+        D_801546C0 -= 1.0f;
     }
 }
 

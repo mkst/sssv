@@ -884,6 +884,7 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
 }
 
 #if 0
+// only used by rabbit
 // junk
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 var_a0;

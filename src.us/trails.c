@@ -246,8 +246,6 @@ void func_8039E33C_7AF9EC(WalrusWake *arg0) {
     }
 }
 
-#ifdef NON_MATCHING
-// just the stack
 void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     s16 sp5E;
     s16 sp5C;
@@ -260,6 +258,7 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     s16 sp44;
     s16 sp42;
     s16 sp40;
+    float new_var;
     s32 sp38;
     s32 sp34;
 
@@ -270,9 +269,9 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     sp34 = animal->zVelocity.w >> 8;
 
     if (sp38 | sp34) {
+      new_var = sqrtf(SQ(sp38) + SQ(sp34));
         sp44 = func_801284B8(
-            -animal->yVelocity.w >> 8,
-            sqrtf(SQ(sp38) + SQ(sp34)));
+            -animal->yVelocity.w >> 8, new_var);
         temp_v0 = func_801284B8(sp38, sp34);
 
         if (animal->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
@@ -341,9 +340,6 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
         arg0->unk38[arg0->unk1+1].v.tc[1] = 0x7FF;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/trails/func_8039E6D4_7AFD84.s")
-#endif
 
 #if 0
 // so much more to do here...

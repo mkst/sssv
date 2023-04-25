@@ -29,12 +29,14 @@
 
 #define MAX_UPDATES             32
 #define MAX_EVENTS              32
-#define AUDIO_HEAP_SIZE         300000
 
-#define MAX_VOICES              22
 #ifdef SSSV
+#define AUDIO_HEAP_SIZE         300000 - 22000
+#define MAX_VOICES              12
 #define EXTRA_SAMPLES           180
 #else
+#define AUDIO_HEAP_SIZE         300000
+#define MAX_VOICES              22
 #define EXTRA_SAMPLES           80
 #endif
 #define NUM_OUTPUT_BUFFERS      3      /* Need three of these */

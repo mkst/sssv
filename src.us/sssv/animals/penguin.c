@@ -125,21 +125,14 @@ void func_80364780_775E30(void) {
                         if (target != NULL) {
                             temp_f0 = D_803D5530->xPos.h - target->xPos.h;
                             temp_f2 = D_803D5530->zPos.h - target->zPos.h;
-                            sp88 = (f32) (((D_803D5530->yPos.h - target->yPos.h) - (s16) ((s32) (target->unk42 * 3) >> 2)) + 0x14);
+                            sp88 = (((D_803D5530->yPos.h - target->yPos.h) - (s16)((target->unk42 * 3) >> 2)) + 0x14);
                             sp84 = sqrtf(SQ(temp_f0) + SQ(temp_f2));
-                            var_f14 = func_801286B8(-sp88, sp84) + SQ(sp84 / 64.0);
+                            var_f14 = func_801286B8(-sp88, sp84) + SQ(sp84 * 64.0);
 
                             while (var_f14 > 180.0) {
                                 var_f14 -= 360.0;
                             }
-
-                            var_f0_2 = MAX(var_f14, -45.0f);
-
-                            if (var_f0_2 < 45.0f) {
-                                var_f14 = MAX(var_f14, -45.0f);
-                            } else {
-                                var_f14 = 45.0f;
-                            }
+                            var_f14 = MIN(MAX(var_f14, -45.0f), 45.0f);
                         } else {
                             var_f14 = 0.0f;
                         }
@@ -174,13 +167,13 @@ void func_80364780_775E30(void) {
             func_802C23F8_6D3AA8(((spA0 * 0x4E) + 0x2F));
             D_80203FE0[27].unk0 = 0;
             D_80203FE0[1].unk2 += (sp9A * 0x12C) >> 5;
-            D_80203FE0[26].unk4 = 0x96;
             D_80203FE0[0].unk2 += (sp9A * 0x12C) >> 5;
             D_80203FE0[2].unk2 += (sp9A * 0x12C) >> 5;
             D_80203FE0[27].unk2 = -(sp9A * 0x12C) >> 4;
             D_80203FE0[26].unk2 = -(sp9A * 0x12C) >> 4;
             D_80203FE0[27].unk4 += 0x10;
             D_80203FE0[26].unk0 = D_80203FE0[27].unk0;
+            D_80203FE0[26].unk4 = 0x96;
 
             switch (D_803F2F00) {                    /* switch 3; irregular */
             case 1:                                 /* switch 3 */
@@ -246,7 +239,6 @@ void func_80364780_775E30(void) {
         func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + ((s32) (D_803D5524->unkBA * 3) >> 2)), D_803D552C->unk302, &D_01033190, (s16) (s32) (s16) temp_t4, (s16) (s32) (s16) temp_t4, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
     if (spA2 == 0) {
-        sp5C = spA0 * 0x12C;
         func_80303820_714ED0(D_803D552C, 1, 1, ((spA0 * 0x258) >> 1), 0);
         func_80303B18_7151C8(D_803D552C, 1, ((spA0 * 0x5DC) >> 3), ((spA0 * 0x834) >> 3), 1);
         func_80303D50_715400(D_803D552C, 2U);

@@ -214,38 +214,38 @@ segments:
   - [0x9E0F0, bin]      # STINKY_SEWERS
   - [0x9ED30, bin]      # RAT_O_MATIC
   - [0xA0E60, bin]      # ROCKY_HARD_PLACE
-  - [0xA10E0, bin]      # tbd
-  - [0xA10F0, bin]      # BIG_CELEBRATION_PARADE (tbd)
+  - [0xA10E0, bin]      # FAT_BEAR_MOUNTAIN
+  - [0xA10F0, bin]      # BIG_CELEBRATION_PARADE
   - [0xAA960, bin]      # SOMETHING_FISHY
-  - [0xB04B0, bin]      # HOPPA_CHOPPA
-  - [0xB0BB0, bin]      # PENGUIN_PLAYPEN
+  - [0xB04B0, bin]      # ICE_N_EASY_DOES_IT
+  - [0xB0BB0, bin]      # PINBALL_BLIZZARD
   - [0xB2EF0, bin]      # WALRACE_64
-  - [0xb3d90, bin]      # tbd
-  - [0xb3da0, bin]      # tbd
-  - [0xb3db0, bin]      # tbd
-  - [0xb3dc0, bin]      # tbd
-  - [0xb3dd0, bin]      # tbd
-  - [0xb3de0, bin]      # tbd
+  - [0xb3d90, bin]      # PENGUIN_PLAYPEN
+  - [0xb3da0, bin]      # SNOW_JOKE
+  - [0xb3db0, bin]      # UNUSED_ICE_SLOT_7
+  - [0xb3dc0, bin]      # HOPPA_CHOPPA
+  - [0xb3dd0, bin]      # UNUSED_ICE_SLOT_9
+  - [0xb3de0, bin]      # UNUSED_ICE_SLOT_10
   - [0xB3DF0, bin]      # WEIGHT_FOR_IT
-  - [0xb40e0, bin]      # tbd
+  - [0xb40e0, bin]      # UNUSED_JUNGLE_SLOT_2
   - [0xB40F0, bin]      # JUNGLE_JUMPS
-  - [0xB43C0, bin]      # JUNGLE_JAPES
-  - [0xB48E0, bin]      # tbd
+  - [0xB43C0, bin]      # SWAMP_OF_ETERNAL_STENCH
+  - [0xB48E0, bin]      # JUNGLE_DOLDRUMS
   - [0xB48F0, bin]      # EVOS_ESCAPE
-  - [0xBD0b0, bin]      # tbd
-  - [0xBD0c0, bin]      # tbd
-  - [0xBD0d0, bin]      # tbd
-  - [0xBD0e0, bin]      # tbd
-  - [0xBD0F0, bin]      # tbd
+  - [0xBD0b0, bin]      # JUNGLE_JAPES
+  - [0xBD0c0, bin]      # UNUSED_JUNGLE_SLOT_8
+  - [0xBD0d0, bin]      # UNUSED_JUNGLE_SLOT_9
+  - [0xBD0e0, bin]      # UNUSED_JUNGLE_SLOT_10
+  - [0xBD0F0, bin]      # FUN_IN_THE_SUN
   - [0xBD2D0, bin]      # HOT_CROSS_BUNS
   - [0xBFC60, bin]      # PUNCHUP_PYRAMID
-  - [0xC4520, bin]      # tbd
-  - [0xC4530, bin]      # tbd
-  - [0xC47C0, bin]      # tbd
-  - [0xC47D0, bin]      # tbd
-  - [0xC7A20, bin]      # tbd
-  - [0xC7A30, bin]      # tbd
-  - [0xC7A40, bin]      # tbd
+  - [0xC4520, bin]      # STING_IN_THE_TAIL
+  - [0xC4530, bin]      # SHIFTING_SANDS
+  - [0xC47C0, bin]      # WHIRLWIND_TOUR
+  - [0xC47D0, bin]      # BORASSIC_PARK
+  - [0xC7A20, bin]      # UNUSED_DESERT_SLOT_8
+  - [0xC7A30, bin]      # UNUSED_DESERT_SLOT_9
+  - [0xC7A40, bin]      # UNUSED_DESERT_SLOT_10
   - [0xC7A50, bin] # europe_biome
   - [0xDD5E0, bin] # ice_biome
   - [0xE75D0, bin] # desert_biome
@@ -278,11 +278,11 @@ segments:
   # fonts
   - [0x12A3B0, rnc, img/fonts/comic_sans, i4, 16, 6400] # 19014 => 51200 # different to US? extra 0x20 here
   # sounds
-  - [0x12EE00, bin] # "B1" ...
-  - [0x13618C, bin] # tbd?
-  - [0x13658C, bin] # tbd?
-  - [0x37E2B8, bin] # "up" soundeffect in language menu
-  - [0x37E3C0, bin] # "down" soundeffect in language menu
+  - [0x12EE00, bin, alBankFile1]
+  - [0x133490, bin, alTable1]
+  - [0x1B6550, bin, alBankFile2]
+  - [0x1C7CC0, bin, alTable2]
+  - [0x40B250, bin, alSeqFile]
   # end of music
   # we are now 0x40 ahead of US ROM
   - [0x42DCE0, bin, rnc_42DCE0] # 30326 => 54880
@@ -586,11 +586,11 @@ segments:
     - [0x6C9160, asm] # sssv/collision # 0x10 longer than US
     - [0x6CCB70, asm]
     - [0x6CFC90, asm]
-    - [0x6D8EC0, asm] # extra split
+    - [0x6D8EC0, asm]
     - [0x6DC0D0, asm]
     - [0x6DC890, asm]
     - [0x6DE3B0, asm]
-    - [0x6DF7B0, asm] # extra split
+    - [0x6DF7B0, asm]
     - [0x6EEC40, asm]
     - [0x6EF4C0, asm]
     - [0x6EFFD0, asm]
@@ -599,7 +599,7 @@ segments:
     - [0x6FE830, asm]
     - [0x6FEC40, asm]
     - [0x703510, asm]
-    - [0x704C20, asm] # extra split
+    - [0x704C20, asm]
     - [0x705B80, asm]
     - [0x706F70, asm]
     - [0x709E40, asm]
@@ -611,17 +611,17 @@ segments:
     - [0x7185C0, asm]
     - [0x7192D0, asm]
     - [0x7196A0, asm]
-    - [0x727BE0, asm] # extra split
+    - [0x727BE0, asm]
     - [0x728AB0, asm]
-    - [0x72D6D0, asm] # extra split
-    - [0x72DEA0, asm] # extra split
+    - [0x72D6D0, asm]
+    - [0x72DEA0, asm]
     - [0x72F420, asm]
     - [0x730BF0, asm]
     - [0x735800, asm]
     - [0x737AD0, asm]
     - [0x73C030, asm]
-    - [0x73F630, asm] # extra split
-    - [0x740720, asm] # extra split
+    - [0x73F630, asm]
+    - [0x740720, asm]
     - [0x741320, asm] # extra split
     - [0x7417D0, asm]
     - [0x741AD0, asm]
@@ -632,20 +632,20 @@ segments:
     - [0x75EA20, asm]
     - [0x760170, asm]
     - [0x7666D0, asm]
-    - [0x769580, asm] # extra split
-    - [0x76A860, asm] # extra split
+    - [0x769580, asm] # tortoise defending?
+    - [0x76A860, asm]
     - [0x76B650, asm]
     - [0x76B740, asm]
     - [0x76B930, asm]
     - [0x76EA40, asm]
     - [0x7705F0, asm]
     - [0x772570, asm]
-    - [0x772880, asm] # extra split
-    - [0x7742E0, asm] # extra split
+    - [0x772880, asm] # rat
+    - [0x7742E0, asm] # sheep
     - [0x776F50, asm]
     - [0x778BD0, asm]
-    - [0x77A360, asm] # extra split
-    - [0x77D220, asm] # extra split
+    - [0x77A360, asm] # polar_bear
+    - [0x77D220, asm] # husky
     - [0x780500, asm]
     - [0x781B50, asm]
     - [0x783BF0, asm]

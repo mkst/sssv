@@ -224,42 +224,71 @@
 #define SFX_UNKNOWN_217             217
 #define SFX_UNKNOWN_218             218
 #define SFX_UNKNOWN_219             219
-#define SFX_UNKNOWN_220             220
-#define SFX_UNKNOWN_221             221
-#define SFX_UNKNOWN_222             222
-#define SFX_UNKNOWN_223             223
-#define SFX_UNKNOWN_224             224
-#define SFX_UNKNOWN_225             225
-#define SFX_UNKNOWN_226             226
-#define SFX_UNKNOWN_227             227
-#define SFX_UNKNOWN_228             228
-#define SFX_UNKNOWN_229             229
-#define SFX_UNKNOWN_230             230
-#define SFX_UNKNOWN_231             231
-#define SFX_UNKNOWN_232             232
-#define SFX_UNKNOWN_233             233
-#define SFX_UNKNOWN_234             234
-#define SFX_UNKNOWN_235             235
-#define SFX_UNKNOWN_236             236
-#define SFX_UNKNOWN_237             237
-#define SFX_UNKNOWN_238             238
-#define SFX_UNKNOWN_239             239
-#define SFX_UNKNOWN_240             240
-#define SFX_UNKNOWN_241             241
-#define SFX_UNKNOWN_242             242
-#define SFX_UNKNOWN_243             243
-#define SFX_UNKNOWN_244             244
-#define SFX_UNKNOWN_245             245
-#define SFX_UNKNOWN_246             246
-#define SFX_UNKNOWN_247             247
-#define SFX_UNKNOWN_248             248
-#define SFX_UNKNOWN_249             249
-#define SFX_UNKNOWN_250             250
-#define SFX_UNKNOWN_251             251
-#define SFX_UNKNOWN_252             252
-#define SFX_UNKNOWN_253             253
-#define SFX_UNKNOWN_254             254
-#define SFX_NONE                    255
 
+#define SFX_FOOTSTEP_220            220
+// #define SFX_FOOTSTEP_221            221
+// #define SFX_FOOTSTEP_222            222
+// #define SFX_FOOTSTEP_223            223
+// #define SFX_FOOTSTEP_224            224
+// #define SFX_FOOTSTEP_225            225
+// #define SFX_FOOTSTEP_226            226
+// #define SFX_FOOTSTEP_227            227
+// #define SFX_FOOTSTEP_228            228
+// #define SFX_FOOTSTEP_229            229
+// #define SFX_FOOTSTEP_230            230
+// #define SFX_FOOTSTEP_231            231
+#define SFX_FOOTSTEP_232            232
+// #define SFX_FOOTSTEP_233            233
+// #define SFX_FOOTSTEP_234            234
+// #define SFX_FOOTSTEP_235            235
+// #define SFX_FOOTSTEP_236            236
+// #define SFX_FOOTSTEP_237            237
+// #define SFX_FOOTSTEP_238            238
+// #define SFX_FOOTSTEP_239            239
+// #define SFX_FOOTSTEP_240            240
+// #define SFX_FOOTSTEP_241            241
+// #define SFX_FOOTSTEP_242            242
+// #define SFX_FOOTSTEP_243            243
+#define SFX_FOOTSTEP_244            244
+// #define SFX_FOOTSTEP_245            245
+// #define SFX_FOOTSTEP_246            246
+// #define SFX_FOOTSTEP_247            247
+// #define SFX_FOOTSTEP_248            248
+// #define SFX_FOOTSTEP_249            249
+#define SFX_FOOTSTEP_250            250
+// #define SFX_FOOTSTEP_251            251
+// #define SFX_FOOTSTEP_252            252
+// #define SFX_FOOTSTEP_253            253
+// #define SFX_FOOTSTEP_254            254
+// #define SFX_FOOTSTEP_255            255
+// #define SFX_FOOTSTEP_256            256
+#define SFX_FOOTSTEP_257            257
+// #define SFX_FOOTSTEP_258            258
+// #define SFX_FOOTSTEP_259            259
+// #define SFX_FOOTSTEP_260            260
+// #define SFX_FOOTSTEP_261            261
+// #define SFX_FOOTSTEP_262            262
+#define SFX_FOOTSTEP_263            263
+// #define SFX_FOOTSTEP_264            264
+// #define SFX_FOOTSTEP_265            265
+// #define SFX_FOOTSTEP_266            266
+// #define SFX_FOOTSTEP_267            267
+// #define SFX_FOOTSTEP_268            268
+// #define SFX_FOOTSTEP_269            269
+// #define SFX_FOOTSTEP_270            270
+// #define SFX_FOOTSTEP_271            271
+// #define SFX_FOOTSTEP_272            272
+
+#define SFX_FOOTSTEP_273            273
+// #define SFX_FOOTSTEP_274            274
+// #define SFX_FOOTSTEP_275            275
+// #define SFX_FOOTSTEP_276            276
+// #define SFX_FOOTSTEP_277            277
+// #define SFX_FOOTSTEP_278            278
+// #define SFX_FOOTSTEP_279            279
+// #define SFX_FOOTSTEP_280            280
+
+#define SFX_NONE                    255
+#define SFX_INVALID                 10000
 
 #endif

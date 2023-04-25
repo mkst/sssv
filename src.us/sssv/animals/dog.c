@@ -535,10 +535,10 @@ void func_802ED108_6FE7B8(void) {
     s16 spAC;
     s16 spAA;
 
-    s32 pad;
-
     u16 ticks_remaining; // sp78?
+    s32 pad;
     u8 tmp;
+
 
     if (((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) && (SSSV_RAND(256) == 0x9C) && (D_803F6450 != 0)) {
         play_sound_effect_at_location(SFX_UNKNOWN_182, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);

@@ -656,19 +656,19 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E >= 0xE2) && (((D_803D552C->unk2F8 + arg4) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0xE2) && (((D_803D552C->unk2F8 + arg5) % 256) < 0xE2)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0xE2) && (((D_803D552C->unk2F8 + argF) % 256) < 0xE2)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0xE2) && (((D_803D552C->unk2F8 + arg10) % 256) < 0xE2)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -683,19 +683,19 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + arg4) % 256)) >= 0xE1)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4C < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + arg5) % 256)) >= 0xE1)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4A < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + argF) % 256)) >= 0xE1)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp48 < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + arg10) % 256)) >= 0xE1)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -710,19 +710,19 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E >= 0xE2) && (((s32) (D_803D552C->unk2F8 + arg6) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0xE2) && (((D_803D552C->unk2F8 + arg7) % 256) < 0xE2)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0xE2) && (((D_803D552C->unk2F8 + arg11) % 256) < 0xE2)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0xE2) && (((D_803D552C->unk2F8 + arg12) % 256) < 0xE2)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1107,19 +1107,19 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E >= 0x81) && (((D_803D552C->unk2F8 + arg2) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else  if ((sp4C >= 0x81) && (((D_803D552C->unk2F8 + arg3) % 256) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else  if ((sp4A >= 0x81) && (((D_803D552C->unk2F8 + argB) % 256) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0x81) && (((D_803D552C->unk2F8 + argC) % 256) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1135,19 +1135,19 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + arg2) % 256)) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + arg3) % 256)) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + argB) % 256)) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + argC) % 256)) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1163,19 +1163,19 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg4) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0x81) && (((D_803D552C->unk2F8 + arg5) % 256) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0x81) && (((D_803D552C->unk2F8 + argD) % 256) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0x81) && (((D_803D552C->unk2F8 + argE) % 256) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1362,19 +1362,19 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                 if ((sp4E >= 0x81) && (((D_803D552C->unk2F8 + arg2) % 256) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if ((sp4C >= 0x81) && (((D_803D552C->unk2F8 + arg3) % 256) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if ((sp4A >= 0x81) && (((D_803D552C->unk2F8 + argB) % 256) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if ((sp48 >= 0x81) && (((D_803D552C->unk2F8 + argC) % 256) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 }
             }
         }
@@ -1399,18 +1399,18 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                 if (((s32) sp4E >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + arg2) % 256)) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if (((s32) sp44 >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + arg3) % 256)) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
                 } else if (((s32) sp4A >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + argB) % 256)) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if (((s32) sp40 >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + argC) % 256)) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 }
             }
         }
@@ -1434,19 +1434,19 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                 if ((sp4E >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg4) % 256) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if ((sp4C >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg5) % 256) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if ((sp4A >= 0x81) && (((s32) (D_803D552C->unk2F8 + argD) % 256) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 } else if ((sp48 >= 0x81) && (((s32) (D_803D552C->unk2F8 + argE) % 256) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
-                    func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
                 }
             }
         }
@@ -1705,7 +1705,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
             temp_a1_2->unk10 = 0;
         }
         if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
-            func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
         }
         break;
     case 11:
@@ -1717,7 +1717,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
 
             var_t0 += ((s32) (func_8038CCA4_79E354() * arg0) >> 7);
             if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1772,7 +1772,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
             temp_a1_2->unk10 = 0;
         }
         if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
-            func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
         }
         break;
     case 11:
@@ -1783,7 +1783,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
             }
             var_t0 += ((func_8038CCA4_79E354() * arg0) >> 7);
             if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1830,11 +1830,11 @@ void func_802C23F8_6D3AA8(s16 arg0) {
             if ((sp26 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp24 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1848,11 +1848,11 @@ void func_802C23F8_6D3AA8(s16 arg0) {
             if ((sp26 >= 0x81) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((sp24 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 6;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1949,7 +1949,7 @@ void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
             arg0->unk10 = 0;
         }
         if (temp_hi < (((arg0->unk12 * 8) - 8) % 50)) {
-            func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
         }
         break;
     case 11:
@@ -1960,7 +1960,7 @@ void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
             }
             var_t0 += ((func_8038CCA4_79E354() * arg4) >> 7);
             if (func_8038CCC0_79E370() != 0) {
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2000,11 +2000,11 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((var_t2 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2018,11 +2018,11 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((var_t2 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 6;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2088,7 +2088,7 @@ void func_802C3188_6D4838(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg
             }
             var_t0 = (func_8038CCA4_79E354() * arg6) >> 6;
             if (func_8038CCC0_79E370() != 0) {
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2143,11 +2143,11 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
             if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else if ((phi_t3 > 0x80) && (((D_803D552C->unk2F8 + 0x80) % 256) <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2161,12 +2161,12 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
             if ((phi_t2 < 0x80) && ((0x100 - (D_803D552C->unk2F8 % 256)) >= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else
             if ((phi_t3 < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + 0x80) % 256)) >= 0xE1)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2180,12 +2180,12 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
             if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             } else
             if ((phi_t3 > 0x80) && (((D_803D552C->unk2F8 + 0x80) % 256) <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2253,7 +2253,7 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2) && (tmp1 >= 0xB) && (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;
             D_803D553A = 5;
-            func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
         }
         break;
     case 0x4:
@@ -2265,7 +2265,7 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
             (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;
             D_803D553A = 6;
-            func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
         }
         break;
     case 0x8E:

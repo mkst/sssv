@@ -17,26 +17,23 @@ extern Gfx D_040024F0_DFAB0[];
 extern Gfx D_04002510_DFAD0[];
 extern Gfx D_040025D0_DFB90[];
 
-#if 0
+#ifdef NON_MATCHING
 void func_80380920_791FD0(void) {
     s32 sp94;
-    // s32 sp90;
+    s16 temp_a3;
+    s32 var_t0;
+    u8 temp_v0_10;
+    s16 var_a0; // er?
     s16 sp86;
     s16 sp84;
     s16 sp82;
 
-    s16 temp_a1;
     s16 temp_a2;
-    s16 temp_a3;
-    s16 temp_t1;
-    s16 temp_t2;
-
+    s16 temp_a1;
     s16 var_a0_2;
-
-    s16 var_a0; // er?
-    s32 var_t0;
     s16 var_v0;
-    u8 temp_v0_10;
+    s32 pad2;
+
 
     if (D_803D553A == 4) {
         if (D_803D5524->unk9C == SEAGULL2) {
@@ -45,27 +42,14 @@ void func_80380920_791FD0(void) {
             play_sound_effect_at_location(SFX_UNKNOWN_2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
         }
     }
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v0 = 1;
-        } else {
-            var_v0 = 0;
-        }
-        if (var_v0 != 0) {
-            sp82 = 0;
-            D_803F2EDD = 0;
-            goto done;
-        }
-    }
 
-    if ((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp82 = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v0 = 0;
+        sp82 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 20, 20, 20, 1, CHECK_SEGMENT == 0);
     }
-    sp82 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 20, 20, 20, 1, var_v0 == 0);
 
-done:
     if (sp82 == 0) {
         func_8038C98C_79E03C();
         func_8035D120_76E7D0();
@@ -78,16 +62,16 @@ done:
             load_animal(SEAGULL);
         }
 
-        switch (D_803D552C->unk365) {                        /* switch 1; irregular */
+        switch (D_803D552C->unk365) {
         default:
             D_803D552C->unk365 = ATTACK_NONE;
             break;
-        case ATTACK_BITE: // 18                                    /* switch 1 */
+        case ATTACK_BITE: // 18
             if ((D_803D5544 - D_803D552C->unk32A) >= 9) {
                 D_803D552C->unk365 = ATTACK_NONE;
             }
             break;
-        case ATTACK_NONE: // 0                                     /* switch 1 */
+        case ATTACK_NONE: // 0
             break;
         }
 
@@ -101,9 +85,7 @@ done:
             sp94 = FTOFIX32(1.0);
         }
 
-        // var_a0 = 0x138;
-
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((D_803F2ECE == 0) || ((D_803F2ECC < 31))) {
             func_802BAD60_6CC410(0x138, 0x32C);
             func_802C5F34_6D75E4(0x232, 0x177, 1);
             func_802BB1F0_6CC8A0(0x465, 0x7D);
@@ -116,13 +98,11 @@ done:
             temp_a3 = D_80203FE0[19].unk2;
             var_a0_2 = D_80203FE0[20].unk0 - temp_a1;
             temp_a2 = D_80203FE0[20].unk2 - temp_a3;
-            temp_t1 = D_80152350.unk2D0[D_803D552C->unk316];
-            temp_t2 = D_80152350.unk384[D_803D552C->unk316];
 
-            D_80203FE0[20].unk0 = D_80203FE0[19].unk0;
-            D_80203FE0[20].unk0 += (((temp_t1 * temp_a2) >> 8) + ((var_a0_2 * temp_t2) >> 8)); // + D_80203FE0[19].unk0;
-            D_80203FE0[20].unk2 = D_80203FE0[19].unk2;
-            D_80203FE0[20].unk2 += (((temp_a2 * temp_t2) >> 8) - ((temp_t1 * var_a0_2) >> 8));
+            temp_a1 = (((var_a0_2 * D_80152350.unk384[D_803D552C->unk316]) >> 8) + ((D_80152350.unk2D0[D_803D552C->unk316] * temp_a2) >> 8)); // + D_80203FE0[19].unk0;
+            temp_a3 = (((temp_a2 * D_80152350.unk384[D_803D552C->unk316]) >> 8) - ((D_80152350.unk2D0[D_803D552C->unk316] * var_a0_2) >> 8));
+            D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + temp_a1;
+            D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + temp_a3;
         }
 
         if (D_803F2ECC != 0) {

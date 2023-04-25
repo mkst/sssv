@@ -312,6 +312,7 @@ extern s16  D_801546DC;
 extern s16  D_801546E0;
 extern s32  D_801546E4;
 extern f32  D_801546E8[];
+extern s32  D_80154C4C[];
 
 extern s16  D_801550F8[];
 extern s32  gAudioInitialized;
@@ -556,18 +557,25 @@ extern s16  D_80241D0C;
 extern u16  D_80241D0E;
 extern OSMesgQueue D_802423D0;
 extern OSMesg      D_802423E8;
-extern s32  D_80242508; // base of heap
+extern u8  D_80242508[278000]; // base of heap
 // 0x8028xxxx
 
 extern ALBankFile *D_802862F8;
-extern struct002 *D_80286300; // --> 80257D98
+extern ALBank *D_80286300; // --> 80257D98
+extern ALBank *D_80286304;
+extern ALSeqFile *D_80286308;
 extern ALSeqFile *D_8028630C;
 extern ALSndPlayer *D_80286310;
-extern u8 *D_80286314[];
+extern u8 *D_80286314[1];
+extern s32 D_80286318;
+extern struct121 D_80155190; // params data
+extern ALBankFile *D_802862FC;
+extern s32 D_802863D0;
+
 extern struct017 *D_8028631C;
 extern struct017 *D_80286320;
-extern ALHeap D_80286328; // more likely some audio struct.. but whatever
-extern struct017 *D_80286338[];
+extern ALHeap D_80286328;
+extern struct017 *D_80286338[20];
 extern s16  D_80286388[];
 extern u8   D_802863B0[]; // sndSlotState
 extern ALSeqPlayer *D_802863C8[];
@@ -589,7 +597,6 @@ extern OSThread gThread7; // thread ID 7
 extern s32  D_80288E30;
 extern s32  D_8028B030;
 
-
 extern OSMesgQueue D_8028D030;
 extern OSMesgQueue D_8028D048;
 extern OSMesgQueue D_8028D060;
@@ -605,8 +612,8 @@ extern OSMesg      D_8028F640;
 
 // 0x8029xxxx
 
-extern OSMesg D_80290F40;
 extern OSMesg D_802902C0;
+extern OSMesg D_80290F40;
 extern OSMesg D_80290FC8;
 
 extern OSMesg D_80291048;
@@ -616,10 +623,11 @@ extern OSMesg D_80291058;
 extern OSMesg D_8029105C;
 extern OSMesgQueue D_80291060;
 extern OSMesgQueue D_80291078;
+
 extern Controller D_80291090;
 extern OSContPad *gControllerInput;
-extern OSContStatus gControllerStatus[];
-extern OSContPad D_802910E8[4]; // 4?
+extern OSContStatus gControllerStatus[MAXCONTROLLERS];
+extern OSContPad D_802910E8[MAXCONTROLLERS]; // 4?
 extern ControllerMesg D_80291100;
 extern OSPfs       D_80291110[]; // ?
 extern OSMesgQueue D_802912B0;
@@ -855,8 +863,8 @@ extern s16  D_803A6680_7B7D30[];
 extern s16  D_803A6730_7B7DE0[];
 extern s16  D_803A69F0[];
 extern s16  D_803A6CC0_7B8370; // camera distance from player?
-extern f32  D_803A6CC4;
-extern f32  D_803A6CC8;
+extern f32  D_803A6CC4_7B8374;
+extern f32  D_803A6CC8_7B8378;
 extern f32  D_803A6CD0;
 extern f32  D_803A6CD4;
 extern f32  D_803A6CD8;
@@ -948,15 +956,19 @@ extern u16  D_803B62B8;
 extern s16  D_803B62BC;
 extern u8   D_803B62C0;
 extern s16  D_803B62D0[];
-extern u16  D_803B6310;
-extern s16  D_803B6314;
-extern u8   D_803B6318;
-extern u8   D_803B631C;
+extern u16  D_803B6310_7C79C0;
+extern s16  D_803B6314_7C79C4;
+extern u8   D_803B6318_7C79C8;
+// extern u8   D_803B631C_7C79CC;
 
 extern Lights1 D_803B65A8_7C7C58;
 extern Lights1 D_803B65C0_7C7C70;
 extern Lights1 D_803B65D8_7C7C88;
 extern Lights1 D_803B65E8_7C7CA0;
+
+extern Gfx D_0103B880_75150[];
+extern Gfx D_0103BA70_75340[];
+extern Gfx D_0103EC20_784F0[];
 
 extern struct028 D_803B66F0;
 extern struct004 D_803B6700_7C7DB0[2];
@@ -970,7 +982,7 @@ extern f32  D_803B686C_7C7F1C;
 extern u16  D_803B6870[];
 extern s16  D_803B6870_7C7F20;
 extern struct110 D_803B7000_7C86B0[];
-extern Gfx  D_803B7108_7C87B8[5][10];
+extern Gfx **D_803B7108_7C87B8[5][10];
 extern s8   D_803B71D0_7C8880[][5];
 extern u8  *D_803B7268_7C8918[64];
 extern u8  *D_803B7368_7C8A18[64];
@@ -1534,7 +1546,7 @@ extern Animal *D_803F6464;
 extern s16  D_803F6468;
 extern f32  D_803F646C;
 extern s16  D_803F6470;
-extern s8   D_803F6472;
+extern u8   D_803F6472;
 extern s16  D_803F6474;
 extern struct109 D_803F6478;
 extern s16 *D_803F6500[18];

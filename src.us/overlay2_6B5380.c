@@ -1058,7 +1058,7 @@ block_94:
         }
     } else {
         D_803D553A = 1;
-        func_8032C5A8_73DC58(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
+        play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, D_803D5530->unk160);
         if (D_803D5538 != 0) {
             do_rumble(0, 5, 0x2D, 5, 0);
         }

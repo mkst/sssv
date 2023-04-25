@@ -4,6 +4,7 @@
 
 #include "pp.h"
 
+
 // .data
 s16 D_80299FC0_63D660 = 0;
 s16 D_80299FC4_63D664 = 360;
@@ -652,7 +653,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         if (D_80299FF0_63D690 == 0x1C) {
             D_80299FF0_63D690 = 0xFF;
             D_80299E14_63D4B4 = 1;
-            func_80132F70(0x56, 0x5000);
+            func_80132F70(SFX_CHEAT_ENABLED, /* volume */ 0x5000);
             D_80302E70 = 1;
         }
         func_80295C38_6392D8(D_80302E70, D_80302E71);

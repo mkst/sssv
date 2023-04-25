@@ -42,45 +42,43 @@ extern Gfx D_01003548[];
 // just the stack
 void func_803791E0_78A890(void) {
 
+    s16 spFA; // pad
+    s16 i;    // spF8
     u8 temp_v0_18;
     u8  temp_t6_2;
-    s16 i; // spFA
-    s16 spF8; // pad
+    Animal *temp_v1;
 
     s16 spF0;
     s16 spEE;
     s16 spEC;
     s16 spEA;
 
-    u16 rand;
+    s16 temp_s0_5; // spD6;
+    s16 pad;
+    u16 ticks_remaining;
 
     s32 spE0;
     s32 spDC;
     s32 spD8;
-
-    s16 temp_s0_5; // spD6;
-    u16 ticks_remaining;
-    s16 spD2; // pad
-
+    u16 rand;
     s32 spD0;
+    s16 spD2; // pad
     s32 spCC;
     s32 spC8;
     s16 spC6;
     s16 spC4;
     s16 spC2;
 
-    s32 temp_t9;
-
+    s16 temp_t6;
     s16 var_v0_7;
     s16 temp_v0_14;
+    s32 temp_t9;
 
-    s16 temp_t6;
     s32 temp_t7_2;
     s32 temp_t7;
 
     Animal *temp_v0_15; // spA8 ?
     s16 *spA4;
-    Animal *temp_v1;
 
     spC2 = 0;
     spC6 = 0x2B;

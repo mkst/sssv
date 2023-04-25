@@ -90,19 +90,17 @@ void func_80132394(void);
 struct017 *func_80132474(void);
 struct017 *func_80132568(void);
 struct017 *func_80132580(s32 arg0, s16 id);
-void func_801325E8(s32 arg0, s8 arg1);
-s32  func_8013266C(s8 arg0); // get_seqp_state
 void func_801326A8(s8 arg0, s8 arg1);
 void func_801328F8(void);
 void func_80132C48(s8 idx);
 
 // core/audio2
+void func_80132174(struct struct017 arg0, struct017** arg1, struct017** arg2);
 void func_80132CC0(s32 arg0);
 s32  func_80132D84(ALSndPlayer *sndp);
-s16  func_8013328C(Animal *arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4, s16 arg5);
-void func_80133528(u8 arg0, s16 vol);
-void func_8013359C(u8 arg0);
-void func_80133608(s16 arg0);
+void func_80132F70(s16 id, s16 volume);
+void func_80133188(s16 id, s16 volume, s16 arg2);
+void func_8013328C(void *object, s16 id, s16 pan, f32 pitch, s16 volume, s16 arg5);
 void func_8013364C(void);
 void func_801337BC(s8 arg0, s32 arg1);
 void func_801337DC(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
@@ -434,6 +432,7 @@ void func_802C5EF4_6D75A4(s16 arg0, s16 arg1);
 void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2);
 void func_802C6468_6D7B18(s16 arg0, s16 arg1, s16 arg2); // tbd
 void func_802C64E0_6D7B90(s16 arg0);
+void func_802C6FF4_6D86A4(s16 arg0, s16 arg1);
 void func_802C71BC_6D886C(s16*, s16*, s16*, s16);
 void func_802C652C_6D7BDC(s16 arg0, s16 arg1);
 void func_802C6C00_6D82B0(s16 arg0, s16 arg1);
@@ -920,13 +919,13 @@ s32  func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
 void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b);
 
 
-void func_8032C2D0_73D980(s16 arg0, s16 arg1, f32 arg2);
-void func_8032C508_73DBB8(s16 arg0, s16 arg1, s16 arg2, f32 arg3); // sound effect helper?
-void func_8032C5A8_73DC58(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5);
+void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch);
+void func_8032C508_73DBB8(s16 id, s16 volume, s16 unused, f32 pitch); // sound effect helper?
+void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5);
 void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos);
-void func_8032CD20_73E3D0(void* arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4);
-void func_8032CD70_73E420(void* arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4, s16 arg5, s16 arg6, s16 arg7);
-void func_8032CED0_73E580(void*, s16, s16, f32, s16, s16 /* u8 */, s16, s16, s16, s32, s32, s32); // maybe
+void func_8032CD20_73E3D0(void *object, s16 id, s16 volume, s16 arg3, f32 pitch);
+void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch, s16 x, s16 y, s16 z);
+void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
 // overlay2_73ED30
 void func_8032E150_73F800(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6); // tbd
