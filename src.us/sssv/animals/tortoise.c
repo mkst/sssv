@@ -82,7 +82,7 @@ void func_80352380_763A30(void) {
     temp_t0 = D_803D552C->unk310 & 0xFF;
 
     if (D_803D5538 != 0) {
-        var_v0 = D_801E9EB2;
+        var_v0 = D_801D9ED8.unkFFDA;
     } else {
         var_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -538,7 +538,7 @@ void func_80354188_765838(void) {
     temp_t0 = phi_t0 = D_803D552C->unk310 & 0xFF;
 
     if (D_803D5538 != 0) {
-        phi_v0 = D_801E9EB2;
+        phi_v0 = D_801D9ED8.unkFFDA;
     } else {
         phi_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -932,7 +932,6 @@ void func_80355130_7667E0(void) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_80355918_766FC8(void) {
     s16 temp_t0;
     s16 temp_v1;
@@ -952,7 +951,7 @@ void func_80355918_766FC8(void) {
         D_803D552C->unk30C = MIN(100, D_803D552C->unk30C);
 
         if ((D_801D9ED8.unkFFB8 == 0) && (D_801D9ED8.unkFFB2 != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
-            func_80321E60_733510(
+            fire_cannonball_1(
                 OBJECT_CANNONBALL,
                 32,
                 0,
@@ -971,18 +970,18 @@ void func_80355918_766FC8(void) {
     } else {
         if ((D_801D9ED8.unkFFB2 == 0) && (D_801D9ED8.unkFFB8 != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
 
-            new_var = D_803D552C->unk30E;
-            if (new_var < 60) {
-                phi_v1 = -D_803D552C->unk30E;
+            temp_t0 = D_803D552C->unk30E;
+            if (temp_t0 < 60) {
+                temp_v1 = -temp_t0;
             } else {
-                phi_v1 = -120 - -D_803D552C->unk30E;
+                temp_v1 = -120 - -temp_t0;
             }
-            temp_v1 = phi_v1 - ((D_803D552C->unk312 * 360) >> 8);
+            temp_v1 = temp_v1 - ((D_803D552C->unk312 * 360) >> 8);
             temp_t0 = -temp_v1;
 
-            func_80321E60_733510(
+            fire_cannonball_1(
                 OBJECT_CANNONBALL,
-                phi_v1 = ((D_80152C78[(temp_v1 + 64) & 0xFF] >> 7) << 5) >> 8,
+                ((D_80152C78[(temp_v1 + 64) & 0xFF] >> 7) << 5) >> 8,
                 0,
                 ((((D_80152C78[temp_t0 & 0xFF]) >> 7) << 5) >> 8) + 16,
                 10 - (temp_v1 / 3),
@@ -1009,12 +1008,9 @@ void func_80355918_766FC8(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/tortoise/func_80355918_766FC8.s")
-#endif
 
 void func_80355E14_7674C4(void) {
-    func_80321E60_733510(OBJECT_CANNONBALL, 32, 0, 30, 10, 0, 2, 45);
+    fire_cannonball_1(OBJECT_CANNONBALL, 32, 0, 30, 10, 0, 2, 45);
     func_8034220C_7538BC(17, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h);
     D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);
     play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -1080,7 +1076,7 @@ void func_80356134_7677E4(Animal *a) {
     } else {
         rot = (temp_v0 * 256) / 360;
     }
-    func_80322064_733714(OBJECT_CANNONBALL, 32, 0, 20, 30, D_803D5530->yRotation, rot, 2, 45);
+    fire_cannonball_2(OBJECT_CANNONBALL, 32, 0, 20, 30, D_803D5530->yRotation, rot, 2, 45);
     do_rumble(0, 10, 40, 5, distance_from_player(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h));
     func_8034220C_7538BC(14, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h);
     D_803D552C->unk308 = MIN(46, D_803D552C->unk308 + 30);

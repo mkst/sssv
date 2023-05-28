@@ -33,7 +33,207 @@ s32 func_8029ACB8_6AC368(s32 arg0, s32 arg1) {
 extern struct063 D_80100000_X[][0x81];
 
 // loops, initialising vertexes / level data
+#if 0
+void func_8029ACC8_6AC378(void) {
+#if 0
+    ? *var_a0_2;
+    ? *var_s1;
+    s32 *var_s0;
+    s32 var_v0;
+    s32 var_v0_2;
+    s32 var_v1;
+    s8 temp_t7;
+    struct063 (*var_a1)[0x81];
+    struct063 (*var_a1_2)[0x81];
+    struct063 (*var_a2)[0x81];
+    struct063 (*var_v1_2)[0x81];
+    struct063 (*var_v1_3)[0x81];
+    struct063 *temp_a2;
+    struct063 *var_a3;
+    struct063 *var_t0;
+    struct063 *var_t2;
+    struct063 *var_t5;
+    u8 temp_t8;
+    u8 temp_t9;
+    void *var_a0;
+    void *var_t1;
+    void *var_t3;
+    void *var_t4;
+#endif
+
+    struct063 (*var_s0)[97];
+
+    s32 i;
+    s32 j;
+
+#if 0
+    var_a1 = D_803C0740;
+    var_s1 = &D_803C17A0;
+    var_s0 = &D_80100000;
+    var_v1 = 0;
+    do {
+        var_s1->unk4 = (unaligned s32) var_s0->unk4;
+        temp_a2 = &var_a1[0][1];
+        var_a0 = (var_v1 * 8) + 8 + &D_80100000;
+        var_s1->unk0 = (unaligned s32) var_s0->unk0;
+        var_t1 = var_a0 + 8;
+        var_t3 = var_a0 + 0x10;
+        var_t4 = var_a0 + 0x18;
+        var_a3 = temp_a2 + 0x1060;
+        var_t0 = temp_a2 + 0x1068;
+        var_t2 = temp_a2 + 0x1070;
+        var_t5 = temp_a2 + 0x1078;
+        var_v0 = 1;
+    loop_2:
+        var_a3->unk0 = (unaligned s32) var_a0->unk0;
+        var_a3->unk4 = (unaligned s32) var_a0->unk4;
+        var_t0->unk0 = (unaligned s32) var_t1->unk0;
+        var_t0->unk4 = (unaligned s32) var_t1->unk4;
+        var_t2->unk0 = (unaligned s32) var_t3->unk0;
+        var_t2->unk4 = (unaligned s32) var_t3->unk4;
+        var_v0 += 4;
+        var_t5->unk4 = (unaligned s32) var_t4->unk4;
+        var_t5->unk0 = (unaligned s32) var_t4->unk0;
+        var_a0 += 0x20;
+        var_a3 += 0x20;
+        var_t0 += 0x20;
+        var_t1 += 0x20;
+        var_t2 += 0x20;
+        var_t3 += 0x20;
+        var_t4 += 0x20;
+        var_t5 += 0x20;
+        if (var_v0 != 0x61) {
+            goto loop_2;
+        }
+        var_s1 += 0x408;
+        var_v1 += 0x61;
+        var_a1 += 0x408;
+        var_s0 += 0x308;
+    } while ((u32) var_s1 < (u32) &D_803D1DA8);
+#endif
+
+    var_s0 = &D_80100000;
+    for (i = 0; i < 65+8; i++) {
+        for (j = 0; j < (129-32); j++) {
+            D_803C0740[i+4][j+8] = var_s0[i][j];
+        }
+    }
+
+#if 0
+    var_a1_2 = D_803C0740;
+    do {
+        var_v0_2 = 0;
+        var_a2 = var_a1_2;
+    loop_6:
+        var_v0_2 += 1;
+        temp_t7 = var_a2[0][0].unk6 * 2;
+        var_a2 += 8;
+        var_a2->unk-2 = temp_t7;
+        if (var_v0_2 < 0x80) {
+            goto loop_6;
+        }
+        var_a1_2 += 0x408;
+    } while ((u32) var_a1_2 < (u32) &D_803D2980);
+#endif
+
+    for (i = 0; i < 73-1; i++) {
+        for (j = 0; j < 129-1; j++) {
+            D_803C0740[i][j].unk6 = D_803C0740[i][0].unk6 * 2;
+        }
+    }
+
+#if 0
+    var_a0_2 = &D_803D0740;
+    var_v1_2 = D_803C0740;
+    do {
+        var_v1_2[0][0].unk0 = 0xFF;
+        var_v1_2->unk408 = 0xFFU;
+        var_v1_2->unk810 = 0xFFU;
+        var_v1_2->unkC18 = 0xFFU;
+        var_a0_2->unk1628 = 0xFFU;
+        var_a0_2->unk1A30 = 0xFFU;
+        var_a0_2->unk1E38 = 0xFFU;
+        var_a0_2->unk2240 = 0xFFU;
+        var_v1_2->unkC20 = 0xFFU;
+        var_v1_2->unk818 = 0xFFU;
+        var_v1_2->unk410 = 0xFFU;
+        var_v1_2[0][1].unk0 = 0xFF;
+        var_a0_2->unk2248 = 0xFFU;
+        var_a0_2->unk1E40 = 0xFFU;
+        var_a0_2->unk1A38 = 0xFFU;
+        var_a0_2->unk1630 = 0xFFU;
+        var_v1_2->unkC28 = 0xFFU;
+        var_v1_2->unk820 = 0xFFU;
+        var_v1_2->unk418 = 0xFFU;
+        var_v1_2[0][2].unk0 = 0xFF;
+        var_a0_2->unk2250 = 0xFFU;
+        var_a0_2->unk1E48 = 0xFFU;
+        var_a0_2->unk1A40 = 0xFFU;
+        var_a0_2->unk1638 = 0xFFU;
+        var_v1_2->unkC30 = 0xFFU;
+        var_v1_2->unk828 = 0xFFU;
+        var_v1_2->unk420 = 0xFFU;
+        var_v1_2[0][3].unk0 = 0xFF;
+        var_a0_2 += 0x20;
+        var_a0_2->unk2238 = 0xFFU;
+        var_a0_2->unk1E30 = 0xFFU;
+        var_a0_2->unk1A28 = 0xFFU;
+        var_a0_2->unk1620 = 0xFFU;
+        var_v1_2 += 0x20;
+    } while (var_a0_2 != &D_803D0B40);
+    D_803E1D30->unkB41 = 0xFFU;
+    D_803E1D30->unkB42 = 0xFFU;
+    D_803E1D30->unkB4D = 0xFFU;
+    D_803E1D30->unkB59 = 0xFFU;
+    D_803E1D30->unkB5A = 0xFFU;
+    D_803E1D30->unkB4E = 0;
+#endif
+
+    // fuck knows what this is
+    // i thought maybe filling in borders, but...?
+
+#if 0
+var_v1_3 = D_803C0740;
+do {
+    temp_t9 = var_v1_3[0][7].unk5;
+    temp_t8 = var_v1_3[0][0x68].unk5;
+    var_v1_3 += 0x1020;
+    var_v1_3->unk-FE3 = (s8) (temp_t9 | 0x88); // unk2003
+    var_v1_3->unk-CDB = (s8) (temp_t8 | 0x44);
+    var_v1_3->unk-BDB = (u8) (var_v1_3->unk-BDB | 0x88);
+    var_v1_3->unk-8D3 = (u8) (var_v1_3->unk-8D3 | 0x44);
+    var_v1_3->unk-4CB = (u8) (var_v1_3->unk-4CB | 0x44);
+    var_v1_3->unk-7D3 = (u8) (var_v1_3->unk-7D3 | 0x88);
+    var_v1_3->unk-3CB = (u8) (var_v1_3->unk-3CB | 0x88);
+    var_v1_3->unk-C3 = (u8) (var_v1_3->unk-C3 | 0x44);
+    var_v1_3->unk-BD7 = 0x80;
+    var_v1_3->unk-BDD = 0xF0;
+    var_v1_3->unk-8D7 = 0x80;
+    var_v1_3->unk-8D5 = 0xF0;
+    var_v1_3->unk-7CF = 0x80;
+    var_v1_3->unk-7D5 = 0xF0;
+    var_v1_3->unk-4CF = 0x80;
+    var_v1_3->unk-4CD = 0xF0;
+    var_v1_3->unk-3C7 = 0x80;
+    var_v1_3->unk-3CD = 0xF0;
+    var_v1_3->unk-C7 = 0x80;
+    var_v1_3->unk-C5 = 0xF0;
+    var_v1_3->unk-FDF = 0x80;
+    var_v1_3->unk-FE5 = 0xF0;
+    var_v1_3->unk-CDF = 0x80;
+    var_v1_3->unk-CDD = 0xF0;
+} while (var_v1_3 != &D_803D2980);
+#endif
+
+    for (i = 0; i < 73; i++) {
+        // ??
+    }
+
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC360/func_8029ACC8_6AC378.s")
+#endif
+
 // void func_8029ACC8_6AC378(void) {
 //     s32 i, j;
 //
@@ -80,6 +280,7 @@ s32 func_8032B1E0_73C890(Animal*, s16, s16, s32*, s32*);
 
 #if 0
 // absolute shambles.
+// ESA: func_800397B0
 u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, Animal **arg5, s32 *arg6,
                                                                     Animal *arg7, Animal **arg8, s32 *arg9) {
     s32 sp9C;
@@ -134,8 +335,8 @@ u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4
 
                     var_s2 = var_s2->next; // not correct... urgh
 
-                } else if (((animal->unk15C != 0) && (arg3 == animal->unk168)) ||
-                           ((arg3->unk15C != 0) && (animal == arg3->unk168))) {
+                } else if (((animal->unk15C != 0) && (arg3 == animal->owner)) ||
+                           ((arg3->unk15C != 0) && (animal == arg3->owner))) {
 
                      var_s2 = var_s2->next; // not correct... urgh
 
@@ -170,7 +371,7 @@ u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4
 
                     if (do_check != 0) {
 
-                        animal->unk4C.unk25 = 1;
+                        animal->unk4C.unk19 = 1;
                         if (animal == arg4) {
                             if (sp9C >= maxDist) {
                                 maxDist = *arg6 = sp9C;
@@ -259,9 +460,4 @@ s32 func_8029B56C_6ACC1C(s16 arg0, s16 arg1, s16 *arg2, struct063 arg3[73][129])
     }
 
     return changed;
-}
-
-s16 distance_from_player(s16 x, s16 z, s16 y) {
-    Animal *a = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    return ABS(x - a->xPos.h) + ABS(z - a->zPos.h) + ABS(y - a->yPos.h);
 }

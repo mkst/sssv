@@ -5,8 +5,8 @@
 u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, Animal **animal, Animal *arg6, u8 arg7);
 
 
-// try_pickup_animal?
-Animal *func_803213B0_732A60(void) {
+// ESA: func_80081A9C
+Animal *try_pickup_animal(void) {
     Animal *a = D_803D5530->unk6C;
 
     if ((a == NULL) &&
@@ -16,14 +16,14 @@ Animal *func_803213B0_732A60(void) {
     }
 
     if (a != NULL) {
-        if ((a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk27)) {
+        if ((a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk1B)) {
             if ((D_803D5524->unkC0 >= (s32) a->unk44) &&
                 (((a->unk16C->unk82.unk2 == 0) && ((a->state == 0) || (a->state == 1))) || ((a->unk16C->unk82.unk2 != 0) && (a->unk366 == 5))) &&
                 (a->unk4A == 0) && ((a->unk16C->unk82.unk2 == 0) || (a->unk44 < 100))) {
                 D_803D552C->unk324 = a->state;
                 D_803D552C->unk320 = a;
                 a->state = 0x1FU;
-                a->unk4C.unk25 = 1;
+                a->unk4C.unk19 = 1;
                 play_sound_effect_at_location(SFX_UNKNOWN_40, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.5f);
                 if ((a->unk16C->unk82.unk2) == 0) {
                     if (a->unk163 & 8) {
@@ -38,6 +38,7 @@ Animal *func_803213B0_732A60(void) {
     return NULL;
 }
 
+// ESA: func_80081CFC
 Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
     s32 pad[2];
 
@@ -82,13 +83,13 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
         }
         if ((a != D_803D5530) && (a != D_803D5530->unk6C)) {
             if ((a->xPos.h >= temp_s1) && (temp_s3 >= a->xPos.h)) {
-                if ((a->zPos.h >= temp_s2) && (temp_s4 >= a->zPos.h) && (a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk27)) {
+                if ((a->zPos.h >= temp_s2) && (temp_s4 >= a->zPos.h) && (a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk1B)) {
                     if ((a->yPos.h >= temp_t1) && (temp_t2 >= a->yPos.h)) {
                         if ((D_803D5524->unkC0 >= a->unk44) && (a->unk40 <= 3072) && ((a->state == 0) || (a->state == 1)) && (a->unk4A == 0)) {
                             D_803D552C->unk324 = a->state;
                             D_803D552C->unk320 = a;
                             a->state = 30;
-                            a->unk4C.unk25 = 1;
+                            a->unk4C.unk19 = 1;
                             return a;
                         }
                     }
@@ -100,23 +101,25 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
     return NULL;
 }
 
+// ESA: func_80081FE4
 Animal *func_803218D8_732F88(Animal *arg0) {
     if (arg0 != NULL) {
         D_803D552C->unk324 = arg0->state;
         D_803D552C->unk320 = arg0;
         arg0->state = 30;
-        arg0->unk4C.unk25 = 1;
+        arg0->unk4C.unk19 = 1;
         return arg0;
     }
     return NULL;
 }
 
+// ESA: func_8008202C
 void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2) {
     if (arg0 != NULL) {
         arg0->xVelocity.h = D_803D5530->xVelocity.h + (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg1) >> 8);
         arg0->zVelocity.h = D_803D5530->zVelocity.h + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg1) >> 8);
         arg0->yVelocity.h = (D_803D5530->yVelocity.h + arg2) - 1;
-        arg0->unk4C.unk25 = 1;
+        arg0->unk4C.unk19 = 1;
         arg0->unk160 = D_803D5530->unk160;
         if (arg0->unk160 != 0) {
             if (((arg0->unk160 == 1) || (arg0->unk160 == 2)) && (D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk3 == 0)) {
@@ -155,6 +158,7 @@ void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2) {
     }
 }
 
+// ESA: func_80082294
 void func_80321B70_733220(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_t0;
 
@@ -197,7 +201,8 @@ void func_80321D74_733424(s16 arg0, s16 arg1) {
     }
 }
 
-void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
+// ESA: func_800824C0
+void fire_cannonball_1(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
     s32 sp3C;
     s32 sp38;
     s32 sp34;
@@ -217,7 +222,7 @@ void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg
     sp3C = (((D_80152C78[arg5 & 0xFF] >> 7) * arg4) << 8);
 
 
-    obj = func_802C9564_6DAC14(
+    obj = spawn_object(
         _id,
         D_803D5530->xPos.h + xpos,
         D_803D5530->zPos.h + zpos,
@@ -232,7 +237,7 @@ void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg
     if (obj != NULL) {
         D_803D5530->xVelocity.w -= sp38 >> arg6;
         D_803D5530->zVelocity.w -= sp34 >> arg6;
-        obj->unk168 = D_803D5530;
+        obj->owner = D_803D5530;
         obj->unk15C = 0xF;
         if (arg7 != 0) {
             obj->unk15E = arg7;
@@ -240,7 +245,8 @@ void func_80321E60_733510(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg
     }
 }
 
-void func_80322064_733714(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8) {
+// ESA: func_800828D8
+void fire_cannonball_2(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8) {
     s32 sp3C;
     s32 sp38;
     s32 sp34;
@@ -258,7 +264,7 @@ void func_80322064_733714(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg
     sp34 = ((D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[(arg5 + 0x40) & 0xFF] >> 7);
     sp3C = ((D_80152C78[arg6 & 0xFF] >> 7) * arg4) << 8;
 
-    obj = func_802C9564_6DAC14(
+    obj = spawn_object(
         _id,
         D_803D5530->xPos.h + xpos,
         D_803D5530->zPos.h + zpos,
@@ -273,7 +279,7 @@ void func_80322064_733714(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg
     if (obj != NULL) {
         D_803D5530->xVelocity.w -= sp38 >> arg7;
         D_803D5530->zVelocity.w -= sp34 >> arg7;
-        obj->unk168 = D_803D5530;
+        obj->owner = D_803D5530;
         obj->unk15C = 0xF;
         if (arg8 != 0) {
             obj->unk15E = arg8;
@@ -281,7 +287,8 @@ void func_80322064_733714(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg
     }
 }
 
-void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8) {
+// unused?
+void fire_cannonball_3(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7, s16 arg8) {
     s16 xpos;
     s16 zpos;
 
@@ -294,7 +301,7 @@ void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg
     xpos = (((arg1 * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7)) + ((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg2)) >> 8);
     zpos = (((arg1 * (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7)) - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2)) >> 8);
 
-    obj = func_802C9564_6DAC14(
+    obj = spawn_object(
         _id,
         D_803D5530->xPos.h + xpos,
         D_803D5530->zPos.h + zpos,
@@ -309,7 +316,7 @@ void func_8032225C_73390C(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg
     if (obj != NULL) {
         D_803D5530->xVelocity.w -= arg4 >> arg7;
         D_803D5530->zVelocity.w -= arg5 >> arg7;
-        obj->unk168 = D_803D5530;
+        obj->owner = D_803D5530;
         if (arg8 != 0) {
             obj->unk15E = arg8;
         }
@@ -331,6 +338,7 @@ void apply_recoil(s16 arg0) {
 
 #ifdef NON_MATCHING
 // stack + regalloc
+// ESA: func_80082D94
 s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7) {
     s16 var_t3;
     s16 var_t4;
@@ -372,7 +380,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                         var_t0++;
                     }
 
-                    if ((animal->unk4C.unk27 == 0) || (D_803D5524->unk9C == HARD_MOUSE) || ((animal->unk16C->unk82.unk2 == 0) && (D_803D5530->unk44 < animal->unk44))) {
+                    if ((animal->unk4C.unk1B == 0) || (D_803D5524->unk9C == HARD_MOUSE) || ((animal->unk16C->unk82.unk2 == 0) && (D_803D5530->unk44 < animal->unk44))) {
                         var_t0 = 8;
                     }
 
@@ -382,7 +390,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                         if (D_803D5538 != 0) {
                             animal->unk2EB++;
                         }
-                    } else if (animal->unk4C.unk26 == 0) {
+                    } else if (animal->unk4C.unk1A == 0) {
                         if (animal->unk4A == 0) {
                             animal->health = MAX(0, animal->health - MAX(1, arg4 >> var_t0));
                             if (ret == 0) {
@@ -399,7 +407,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                         animal->unk65 = MIN(100, animal->unk65 + (20 >> var_t0));
                     }
 
-                    animal->unk4C.unk25 = 1;
+                    animal->unk4C.unk19 = 1;
 
                     if ((animal->unk16C->unk82.unk2 != 0) && ((animal->unk366 == 1) || (animal->unk366 == 3) || (animal->unk366 == 4))) {
                         animal->unk348 = MAX(animal->unk348, arg6);
@@ -459,8 +467,8 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
                             a->unk2EB += 1;
                         }
                         a->unk65 = MIN(100, a->unk65 + (0x14 >> phi_s1));
-                        a->unk4C.unk25 = 1;
-                    } else if ((a->unk4A == 0) && (a->unk4C.unk26 == 0)) {
+                        a->unk4C.unk19 = 1;
+                    } else if ((a->unk4A == 0) && (a->unk4C.unk1A == 0)) {
                         a->health = MAX(0, a->health);
                     }
                 }
@@ -470,6 +478,7 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
     return ret;
 }
 
+// ESA: func_80083664
 s32 func_80322D68_734418(s16 xPos0, s16 zPos0, s16 yPos0, s16 xPos1, s16 zPos1, s16 yPos1, s16 *arg6, s16 *arg7, s16 *arg8, s16 arg9, s16 damage, u8 argB, u8 argC) {
 
     s32 pad;
@@ -529,6 +538,7 @@ s32 func_80322D68_734418(s16 xPos0, s16 zPos0, s16 yPos0, s16 xPos1, s16 zPos1, 
     return ret;
 }
 
+// ESA: func_800838D4
 Animal *func_80323040_7346F0(void) {
     s16 temp_fp;
     s16 x_dist;

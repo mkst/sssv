@@ -162,11 +162,11 @@ void func_80323680_734D30(void) {
                         func_802A4390_6B5A40();
                     }
                     func_80321920_732FD0(D_803D552C->unk320, 25, 2);
-                    temp_v0_15->unk10.w += temp_v0_15->xVelocity.w;
-                    temp_v0_15->unk14.w += temp_v0_15->zVelocity.w;
-                    temp_v0_15->unk18.w += temp_v0_15->yVelocity.w;
+                    temp_v0_15->newPosition.xPos.w += temp_v0_15->xVelocity.w;
+                    temp_v0_15->newPosition.zPos.w += temp_v0_15->zVelocity.w;
+                    temp_v0_15->newPosition.yPos.w += temp_v0_15->yVelocity.w;
 
-                    temp_v0_15->unk168 = D_803D5530;
+                    temp_v0_15->owner = D_803D5530;
                     temp_v0_15->unk15C = 6;
                 }
             } else if (ticks_remaining < 30) {
@@ -653,7 +653,7 @@ void func_80326260_737910(void) {
     s32 var_a3;
     u8 temp_v0_8;
 
-    func_8037E1C4_78F874();
+    trigger_contagious_laughter();
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spB2 = 0;

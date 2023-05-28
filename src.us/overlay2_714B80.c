@@ -160,9 +160,8 @@ void func_80303F90_715640(Animal *arg0, DisplayList *arg1) {
     }
 }
 
-#ifdef NON_MATCHING
-// CURRENT (115)
-s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
+// ESA: func_8001C944
+s32 func_8030400C_7156BC(Animal *arg0, s16 x, s16 z, s32 *arg3, s32 *arg4) {
     s32 temp_t2;
     s32 temp_t3;
     s16 i;
@@ -171,8 +170,6 @@ s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
     s16 tmp1;
     s16 tmp2;
 
-    s16 x;
-    s16 z;
     s16 dist;
 
     s32 res;
@@ -182,10 +179,8 @@ s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
     *arg4 = 0x40000000;
     *arg3 = 0;
 
-    x = arg1 - arg0->xPos.h;
-    z = arg2 - arg0->zPos.h;
-
-    if (1) { } // bumps score from 220->115
+    x = x - arg0->xPos.h;
+    z = z - arg0->zPos.h;
 
     i = 1;
     var_t0 = &arg0->unkC4[i];
@@ -201,7 +196,7 @@ s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
             if (res != 0) {
                 *arg3 = MAX(*arg3, temp_t2);
-                *arg4 = MAX(*arg4, temp_t3);
+                *arg4 = MIN(*arg4, temp_t3);
             } else {
                 *arg3 = temp_t2;
                 *arg4 = temp_t3;
@@ -214,6 +209,3 @@ s32 func_8030400C_7156BC(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
     return res;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714B80/func_8030400C_7156BC.s")
-#endif

@@ -26,6 +26,7 @@ extern s32 D_801DDD8C;
 
 
 // EVO_MICROCHIP
+// ESA: func_8001D3D4
 void func_8035C1A0_76D850(void) {
     s32 pad[3];
     u8 tmp;
@@ -38,7 +39,7 @@ void func_8035C1A0_76D850(void) {
     s32 var_v1;
 
     if ((D_803D5524->unk9C == EVO_MICROCHIP) && ((D_803D5540 & 0xF) == 0) && (D_803F2D10.unk0 == 0)) {
-        if ((D_803D5530->unk4C.unk26 == 0) && (D_803D5530->unk4A == 0)) {
+        if ((D_803D5530->unk4C.unk1A == 0) && (D_803D5530->unk4A == 0)) {
             D_803D5530->health = MAX(0, D_803D5530->health - 1);
         }
         if (SSSV_RAND(4)) {

@@ -3,12 +3,30 @@
 
 #include "pp.h"
 
+// ========================================================
+// structs
+// ========================================================
+
+typedef struct {
+    s8 xPos;
+    s8 yPos;
+    u8 width;
+    u8 height;
+    u8 idx;
+} LevelRingPosition;
+
+// ========================================================
+// externs
+// ========================================================
+
+extern LevelRingPosition D_803B71D0_7C8880[];
 
 // ========================================================
 // .data
 // ========================================================
+
 #if 0
-s8  D_803B71D0_7C8880[30][5] = {
+LevelRingPosition D_803B71D0_7C8880[30] = {
     { 0xE1, 0xF9, 0x09, 0x07, 0x07, },
     { 0xE2, 0xF3, 0x0A, 0x09, 0x06, },
     { 0xE4, 0xED, 0x0A, 0x0B, 0x05, },
@@ -138,7 +156,7 @@ f32 D_803B74A8_7C8B58 = 0.0f; // junk/padding/alignment
 f32 D_803B74AC_7C8B5C = 11.0f;
 f32 D_803B74B0_7C8B60 = 16.0f;
 f32 D_803B74B4_7C8B64 = 10.5f;
-f32 D_803B74B8_7C8B68 = 12.84000015258789f;
+f32 D_803B74B8_7C8B68 = 12.84f;
 f32 D_803B74BC_7C8B6C = 12.0f;
 f32 D_803B74C0_7C8B70 = 16.0f;
 f32 D_803B74C4_7C8B74 = 12.0f;
@@ -147,9 +165,9 @@ f32 D_803B74C4_7C8B74 = 12.0f;
 // .bss (from D_803F7160 to D_803F7E10)
 // ========================================================
 
-u8   D_803F7160[0xC00]; // what is this
+u8   D_803F7160[0xC00]; // what is this?
 
-s32  D_803F7D60;
+s32  D_803F7D60; // static in draw_level_rings_segment
 s32  D_803F7D64; // unused
 f32  D_803F7D68;
 f32  D_803F7D6C; // unused
@@ -511,15 +529,15 @@ void display_zone_select_screen(void) {
     gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 
     // big celebration parade
-    func_8039BE98_7AD548(180, 180, 180, 128, 30, 30, &D_8023F260,                              spE0,                                spDC, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
+    draw_level_rings_segment(180, 180, 180, 128, 30, 30, &D_8023F260,                              spE0,                                spDC, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
     // europe
-    func_8039BE98_7AD548(180,  40, 120, 128, 0,   9, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unkC,  D_803F7DA8.unk4 + D_803F7DA8.unk10, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
+    draw_level_rings_segment(180,  40, 120, 128, 0,   9, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unkC,  D_803F7DA8.unk4 + D_803F7DA8.unk10, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
     // ice
-    func_8039BE98_7AD548(0,   180, 255, 128, 10, 16, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unk24, D_803F7DA8.unk4 + D_803F7DA8.unk28, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
+    draw_level_rings_segment(0,   180, 255, 128, 10, 16, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unk24, D_803F7DA8.unk4 + D_803F7DA8.unk28, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
     // jungle
-    func_8039BE98_7AD548(0,   160,   0, 128, 17, 22, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unk1C, D_803F7DA8.unk4 + D_803F7DA8.unk20, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
+    draw_level_rings_segment(0,   160,   0, 128, 17, 22, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unk1C, D_803F7DA8.unk4 + D_803F7DA8.unk20, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
     // desert
-    func_8039BE98_7AD548(200, 200,   0, 128, 23, 29, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unk14, D_803F7DA8.unk4 + D_803F7DA8.unk18, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
+    draw_level_rings_segment(200, 200,   0, 128, 23, 29, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unk14, D_803F7DA8.unk4 + D_803F7DA8.unk18, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
 
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
@@ -643,7 +661,7 @@ void display_zone_select_screen(void) {
     func_8039D034_7AE6E4(&D_801D9E7C, 0);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/display_zone_select_screen.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/ui_main_menu/display_zone_select_screen.s")
 #endif
 
 void func_8039A2DC_7AB98C(void) {
@@ -689,10 +707,10 @@ void func_8039A2DC_7AB98C(void) {
 
     gSPDisplayList(D_801D9E7C++, D_801584A0);
 
-    func_8039C5F8_7ADCA8(56, 88, 1.0f, (PlayerEeprom*)&D_8023F2E0[0], (D_803F7DA8.bank == 0) || (D_803F7DA8.unk31 == 0));
-    func_8039C5F8_7ADCA8(0x84, 88, 1.0f, (PlayerEeprom*)&D_8023F2E0[1], (D_803F7DA8.bank == 1) || (D_803F7DA8.unk31 == 1));
-    func_8039C5F8_7ADCA8(56, 164, 1.0f, (PlayerEeprom*)&D_8023F2E0[2], (D_803F7DA8.bank == 2) || (D_803F7DA8.unk31 == 2));
-    func_8039C5F8_7ADCA8(0x84, 164, 1.0f, (PlayerEeprom*)&D_8023F2E0[3], (D_803F7DA8.bank == 3) || (D_803F7DA8.unk31 == 3));
+    func_8039C5F8_7ADCA8(56,   88, 1.0f, (PlayerEeprom*)&D_8023F2E0[0], (D_803F7DA8.bank == 0) || (D_803F7DA8.unk31 == 0));
+    func_8039C5F8_7ADCA8(132,  88, 1.0f, (PlayerEeprom*)&D_8023F2E0[1], (D_803F7DA8.bank == 1) || (D_803F7DA8.unk31 == 1));
+    func_8039C5F8_7ADCA8(56,  164, 1.0f, (PlayerEeprom*)&D_8023F2E0[2], (D_803F7DA8.bank == 2) || (D_803F7DA8.unk31 == 2));
+    func_8039C5F8_7ADCA8(132, 164, 1.0f, (PlayerEeprom*)&D_8023F2E0[3], (D_803F7DA8.bank == 3) || (D_803F7DA8.unk31 == 3));
 
     // get user progress
     if (D_803F7DA8.unk2F == 2) {
@@ -1189,20 +1207,23 @@ void func_8039BBB8_7AD268(void) {
     }
 }
 
-// NON-MATCHING: final function needs some love
 #if 0
-void func_8039BE98_7AD548(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 end, PlayerEeprom *eeprom, s16 xRot, s16 yRot, f32 scale, u8 currentLevel) {
-
-    f32 temp_f22;
-    s32 phi_t4;
-    s32 phi_t5;
+void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 end, PlayerEeprom *eeprom, s16 xRot, s16 yRot, f32 scale, u8 currentLevel) {
+    u8 flipx;
+    u8 flipy;
+    u8 idx;
+    u16 img;
     s16 i;
-    s8 *temp_t0;
+    f32 scale2;
+    f32 xPos;
+    f32 yPos;
+    static s32 D_803F7D60;
 
-    D_803F7D60 = (D_803F7D60 + 1) % 100; // pulse
+    D_803F7D60 += 1;
+    D_803F7D60 = D_803F7D60 % 100; // pulse
 
     if (start == 30) {
-        if (currentLevel == 30) {
+        if (currentLevel == (i = 30)) {
             if (eeprom->level[30].completed == 1) {
                 if (D_803F7D60 < 50) {
                     gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
@@ -1216,7 +1237,7 @@ void func_8039BE98_7AD548(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 en
                     gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240); // orange (selected)
                 }
             }
-        } else if ((D_803F7DFE == 0) && (currentLevel != 0xff)) {
+        } else if ((D_803F7DFE == 0) && (currentLevel != 0xFF)) {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         } else if (currentLevel == 0xFF) {
             if (eeprom->level[30].completed == 1) {
@@ -1233,23 +1254,24 @@ void func_8039BE98_7AD548(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 en
         }
         func_8039C834_7ADEE4(&D_801D9E7C, D_800BA760, 43, 43, scale, scale, 0, 0, xRot, yRot);
     } else {
-        // temp_f22 = scale / 2.0f;
 
-        for (i = start; i < end; i++) {
+        scale2 = scale / 2;
 
-            temp_t0 = &D_803B71D0_7C8880[i];
-            if (temp_t0[0] < 0) {
-                phi_t4 = 1;
-            } else {
-                phi_t4 = 0;
+        for (i = start; i <= end; i++) {
+            flipy = flipx = 0;
+            idx = i;
+
+            img = D_803B71D0_7C8880[idx].idx * 0x4B0; // sizeof(RingSegment)
+
+            if (D_803B71D0_7C8880[idx].xPos < 0) {
+                flipx = 1;
             }
-            if (temp_t0[1] < -1) {
-                phi_t5 = 1;
-            } else {
-                phi_t5 = 0;
+            if (D_803B71D0_7C8880[idx].yPos < -1) {
+                flipy = 1;
             }
+
             if (i == currentLevel) {
-                if (eeprom->level[i].completed == 1) {
+                if (eeprom->level[idx].completed == 1) {
                     if (D_803F7D60 < 50) {
                         gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
                     } else {
@@ -1262,41 +1284,46 @@ void func_8039BE98_7AD548(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 en
                         gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240);
                     }
                 }
-            } else if ((D_803F7DE0[i] == 0) && (currentLevel != 0xFF)) {
+            } else if ((D_803F7DE0[idx] == 0) && (currentLevel != 0xFF)) {
                 gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
             } else if (currentLevel == 0xFF) {
-                if (eeprom->level[i].completed == 1) {
+                if (eeprom->level[idx].completed == 1) {
                     gDPSetPrimColor(D_801D9E7C++, 0, 0, red + 15, 0, 0, 255);
                 } else {
                     gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 255);
                 }
             } else {
-                if (eeprom->level[i].completed == 1) {
+                if (eeprom->level[idx].completed == 1) {
                     gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
                 } else {
                     gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 70);
                 }
             }
-            func_8039C834_7ADEE4(&D_801D9E7C,
-                /* img  */ D_800BB700 + ((temp_t0[4] * 0x4B0)) , // + 0xFA0 + &D_800BA760
-                /* width */ temp_t0[2] << 1,
-                /* height */ temp_t0[3] << 1,
-                /* xscale */ scale / 2.0f,
-                /* yscale */ scale / 2.0f,
-                /* flipx*/ phi_t4,
-                /* flipy*/ phi_t5,
-                /* xpos */ (s16) (s32) (xRot + ((f32) temp_t0[0] * scale)),
-                /* ypos */ (s16) (s32) (yRot + ((f32) temp_t0[1] * scale))
+
+            yPos = (D_803B71D0_7C8880[idx].yPos * scale);
+            xPos = (D_803B71D0_7C8880[idx].xPos * scale);
+
+            func_8039C834_7ADEE4(
+                /* dl     */ &D_801D9E7C,
+                /* img    */ (u8*)D_800BA760 + 0xFA0 + img,
+                /* width  */ (D_803B71D0_7C8880[idx].width << 1),
+                /* height */ (D_803B71D0_7C8880[idx].height << 1),
+                /* xscale */ scale2,
+                /* yscale */ scale2,
+                /* flipx  */ flipx,
+                /* flipy  */ flipy,
+                /* xpos   */ (s16) (s32) (xRot + xPos),
+                /* ypos   */ (s16) (s32) (yRot + yPos)
             );
         }
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/ui_main_menu/func_8039BE98_7AD548.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/ui_main_menu/draw_level_rings_segment.s")
 #endif
 
-void func_8039C5F8_7ADCA8(s16 arg0, s16 arg1, f32 arg2, PlayerEeprom *eeprom, s16 active) {
-    s32 tmp0, tmp1;
+void func_8039C5F8_7ADCA8(s16 xRot, s16 yRot, f32 scale, PlayerEeprom *eeprom, s16 active) {
+    s32 xRot2, yRot2;
     u8 evo_r, evo_g, evo_b, col;
 
     if (active == 1) {
@@ -1312,18 +1339,18 @@ void func_8039C5F8_7ADCA8(s16 arg0, s16 arg1, f32 arg2, PlayerEeprom *eeprom, s1
     }
     gDPSetPrimColor(D_801D9E7C++, 0, 0, col, col, col, 255);
 
-    tmp0 = arg0 - (21.5f * arg2);
-    tmp1 = arg1 - (21.5f * arg2);
+    xRot2 = xRot - (21.5f * scale);
+    yRot2 = yRot - (21.5f * scale);
     // BIG_CELEBRATION_PARADE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 30, 30, eeprom, tmp0, tmp1, arg2, -1);
+    draw_level_rings_segment(evo_r, evo_g, evo_b, 128, 30, 30, eeprom, xRot2, yRot2, scale, -1);
     // EUROPE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128,  0,  9, eeprom, arg0, arg1, arg2, -1);
+    draw_level_rings_segment(evo_r, evo_g, evo_b, 128,  0,  9, eeprom, xRot, yRot, scale, -1);
     // ICE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 10, 16, eeprom, arg0, arg1, arg2, -1);
+    draw_level_rings_segment(evo_r, evo_g, evo_b, 128, 10, 16, eeprom, xRot, yRot, scale, -1);
     // JUNGLE
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 17, 22, eeprom, arg0, arg1, arg2, -1);
+    draw_level_rings_segment(evo_r, evo_g, evo_b, 128, 17, 22, eeprom, xRot, yRot, scale, -1);
     // DESERT
-    func_8039BE98_7AD548(evo_r, evo_g, evo_b, 128, 23, 29, eeprom, arg0, arg1, arg2, -1);
+    draw_level_rings_segment(evo_r, evo_g, evo_b, 128, 23, 29, eeprom, xRot, yRot, scale, -1);
 }
 
 // draw sprite

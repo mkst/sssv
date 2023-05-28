@@ -39,6 +39,7 @@ void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 
 // file split?
 
+// ESA: func_80076864
 void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
     s16 temp_a0_2;
     s16 temp_t7;
@@ -149,18 +150,18 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                                             }
                                         }
                                     } else {
-                                        if ((animal->unk4A == 0) && animal->unk4C.unk29) {
+                                        if ((animal->unk4A == 0) && animal->unk4C.unk1D) {
                                             animal->yVelocity.w += FTOFIX32(10.0);
-                                            animal->unk4C.unk25 = 1;
+                                            animal->unk4C.unk19 = 1;
                                         }
-                                        if ((animal->unk4A == 0) && (animal->unk4C.unk26 == 0)) {
+                                        if ((animal->unk4A == 0) && (animal->unk4C.unk1A == 0)) {
                                             animal->health = MAX(0, animal->health - 1);
                                         }
                                     }
                                     animal->unk57 = 21;
-                                } else if ((temp_a0_2 < (arg1 * 2)) && (animal->unk4A == 0) && animal->unk4C.unk29) {
+                                } else if ((temp_a0_2 < (arg1 * 2)) && (animal->unk4A == 0) && animal->unk4C.unk1D) {
                                     animal->yVelocity.w += FTOFIX32(6.0);
-                                    animal->unk4C.unk25 = 1;
+                                    animal->unk4C.unk19 = 1;
                                 }
                             }
                         }
@@ -173,15 +174,18 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
 }
 
 // velocity related?
+// ESA: func_80076D60
 void func_8037D994_78F044(s8 arg0) {
     D_803D554B = arg0;
     D_803D554C = MIN(D_803D554C + 2, 20);
 }
 
+// ESA: func_80076D94
 void func_8037D9D4_78F084(void) {
     D_803D554C = MIN(D_803D554C + 1, 5);
 }
 
+// ESA: func_80076DC4
 void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
 
     s16 xPos;
@@ -304,11 +308,11 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                 } else if ((temp_v0_4 < arg1) && (temp_lo >= 33)) {
                                     animal->unk57 = 1;
                                     //  << 0x1A
-                                    if ((animal->unk4A == 0) && (animal->unk4C.unk26 == 0)) {
+                                    if ((animal->unk4A == 0) && (animal->unk4C.unk1A == 0)) {
                                         animal->health = MAX(0, animal->health - 1);
                                     }
                                     //  & 8
-                                    if ((animal->unk4A == 0) && (animal->unk4C.unk28 != 0)) {
+                                    if ((animal->unk4A == 0) && (animal->unk4C.unk1C != 0)) {
                                         if (animal->unk44 < 50) {
                                             animal->xVelocity.w += (temp_lo * temp_s7 * arg0) >> 1;
                                             animal->zVelocity.w += (temp_lo * temp_fp * arg0) >> 1;
@@ -316,7 +320,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                             animal->xVelocity.w += (temp_lo * temp_s7 * arg0);
                                             animal->zVelocity.w += (temp_lo * temp_fp * arg0);
                                         }
-                                        animal->unk4C.unk25 = 1;
+                                        animal->unk4C.unk19 = 1;
                                     }
                                 }
                             }
@@ -345,44 +349,41 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
         0);
 }
 
-#if 0
+#ifdef NON_MATCHING
 // not quite there...
-void func_8037E1C4_78F874(void) {
-    // s16 spB4;
+// ESA: func_800775B8
+void trigger_contagious_laughter(void) {
+
+    s16 temp_t8;
     s16 i; // spB2
     s16 j; // spB0
-    // s16 spA8;
-    s16 sp9A;
-    s16 sp98;
-    // s32 sp7C;
-    // s32 sp78;
-    // s32 sp68;
-    // s32 sp64;
-    // s32 sp60;
-    s16 temp_a1;
-    s16 temp_a2;
 
+    s16 temp_a2;
+    s16 temp_t6;
     s16 temp_v0_5;
     s16 var_a0;
     s16 var_t2;
     s16 var_v1;
-
-    s16 temp_t6;
-    s16 temp_t8;
-    s16 var_a0_2;
     s16 var_a2;
-    s16 var_a3;
+    s16 temp_a1;
+
     s16 var_t0;
+    s16 do_laughter;
+    s16 var_a3;
 
-    struct035 *temp_t0;
+    s16 sp9A;
+    s16 sp98;
 
-    Animal *animal;
     struct065 *var_s1;
+    struct035 *temp_t0;
+    s32 animalId;
+    Animal *animal;
+
 
     if (D_803D5524->unk9C != MYSTERY_BEAR) {
         func_8032CD70_73E420(
             (u8*)D_803D5530 + 0x15,
-            0x77,
+            SFX_CONTAGIOUS_LAUGHTER,
             0x7000,
             0,
             1.0f,
@@ -391,17 +392,16 @@ void func_8037E1C4_78F874(void) {
             D_803D5530->yPos.h);
     }
 
+    sp9A = D_803D5530->xPos.h;
+    sp98 = D_803D5530->zPos.h;
+    temp_t6 = sp9A >> 0xA;
+    temp_t8 = sp98 >> 0xA;
+
     var_t0 = -1;
     var_a2 = -1;
     var_t2 = 1;
     var_a3 = 1;
 
-    sp9A = D_803D5530->xPos.h;
-    temp_t6 = sp9A >> 0xA;
-    sp98 = D_803D5530->zPos.h;
-    temp_t8 = sp98 >> 0xA;
-
-    // spB4 = temp_t8;
     if ((temp_t6 + 1) >= 5) {
         var_a3 = 0;
     }
@@ -430,26 +430,28 @@ void func_8037E1C4_78F874(void) {
 
                             temp_a2 = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
                             if (temp_a2 < 0x200) {
-                                if (animal->unk16C->unk82.unk2) { //} & 0x2000) {
+                                if (animal->unk16C->unk82.unk2) {
                                     if ((animal->unk366 != 2) && (animal->unk366 != 5)) {
-                                        if ((animal->unk16C->unk9C != EVO_TRANSFER) &&
-                                            (animal->unk16C->unk9C != HYENA) &&
-                                            (animal->unk16C->unk9C != HYENA_BIKER)) {
-                                            var_a0_2 = 0;
+                                        animalId = animal->unk16C->unk9C;
+                                        if ((animalId != EVO_TRANSFER) &&
+                                            (animalId != HYENA) &&
+                                            (animalId != HYENA_BIKER)) {
+
+                                            do_laughter = 0;
                                             if (D_801D9ED8.animals[gCurrentAnimalIndex].animal == animal) {
-                                                if (D_803D5544 != D_803F63D0) {
-                                                    if (1) { }
-                                                    D_803F63D0 = D_803D5544;
-                                                    var_a0_2 = 1;
+                                                if (D_803F63D0 != D_803D5544) {
+                                                    do { D_803F63D0 = D_803D5544; } while (0);
+                                                    do_laughter = 1;
                                                 }
                                             } else {
-                                                var_a0_2 = 1;
+                                                do_laughter = 1;
                                             }
-                                            if ((var_a0_2 != 0) &&
-                                                (animal->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
-                                                (animal->unk16C->unk9C != TORTOISE_TANK_DEFENDING) &&
-                                                (animal->unk16C->unk9C != HYENA) &&
-                                                (animal->unk16C->unk9C != HYENA_BIKER)) {
+
+                                            if ((do_laughter != 0) &&
+                                                (animalId != RACING_TORTOISE_DEFENDING) &&
+                                                (animalId != TORTOISE_TANK_DEFENDING) &&
+                                                (animalId != HYENA) &&
+                                                (animalId != HYENA_BIKER)) {
 
                                                 if (animal->unk358 < 100) {
                                                     animal->unk358++;
@@ -457,15 +459,15 @@ void func_8037E1C4_78F874(void) {
                                                         animal->unk358++;
                                                     }
                                                 }
+
                                                 temp_t0 = animal->unk16C;
                                                 if (animal->unk358 > 80) {
                                                     animal->unk363 = 1;
                                                     func_8032CD70_73E420(
                                                         (u8*)animal + 0x17,
-                                                        0x78,
+                                                        SFX_LAUGHTER,
                                                         ((temp_t0->unkE6 << 0xB) + 0x5000),
                                                         0,
-                                                        // D_803BF0D0_7D0780 D_803BF0C8_7D0778
                                                         (1.3 - (temp_t0->unkE6 * 0.2)),
                                                         D_803D5530->xPos.h,
                                                         D_803D5530->zPos.h,
@@ -476,7 +478,7 @@ void func_8037E1C4_78F874(void) {
                                                     }
                                                 }
                                             }
-                                            if (1) {};
+                                            goto dummy_label_101032; dummy_label_101032: ;
                                         }
                                     }
                                 }
@@ -492,7 +494,7 @@ void func_8037E1C4_78F874(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/func_8037E1C4_78F874.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/trigger_contagious_laughter.s")
 #endif
 
 void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
@@ -559,6 +561,7 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
     }
 }
 
+// ESA: func_800779AC
 Animal *func_8037E9AC_79005C(void) {
     s32 pad2[4];
     s16 sp56;
@@ -629,6 +632,7 @@ Animal *func_8037E9AC_79005C(void) {
     return ret;
 }
 
+// ESA: func_80077CD8
 Animal *func_8037ED1C_7903CC(void) {
     s32 pad[4];
     s16 temp_fp;
@@ -703,7 +707,8 @@ Animal *func_8037ED1C_7903CC(void) {
 
 // used by fox + camel (warp?)
 #if 0
-// CURRENT (3491)
+// CURRENT (3067)
+// ESA: func_80077FD0
 s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
     s16 xPos;
     s32 temp_v0_5;
@@ -756,12 +761,11 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
 
             func_80311A2C_7230DC(xPosNew, zPosNew, &sp76, &sp74, temp_s1);
 
-            if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, xPosNew, zPosNew, yPosNew, temp_s1, 0, 0) == 0) {
-                if (((ABS(yPosNew - sp7A) < 0x50) && (func_802B75CC_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, yPosNew << 0x10, &sp72, 1) == 0)) &&
-                    ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
-                    break;
-                }
+            if ((func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, xPosNew, zPosNew, yPosNew, temp_s1, 0, 0) == 0) && (ABS(yPosNew - sp7A) < 0x50) &&
+                (func_802B75CC_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, yPosNew << 0x10, &sp72, 1) == 0) && ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
+                break;
             }
+
         }
     }
 
@@ -906,6 +910,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
 }
 
 // missile model (on animal) disappearing and left-right missile selector function
+// ESA: func_80078478
 u8 func_8037FBBC_79126C(void) {
     switch (D_803D5524->unk9C) {
     case RACING_DOG:
@@ -982,6 +987,7 @@ void func_8037FE24_7914D4(void) {
 }
 
 // used by sheep
+// ESA: func_80078550
 void func_8037FEDC_79158C(void) {
     s16 i;
     s16 zPosDelta;

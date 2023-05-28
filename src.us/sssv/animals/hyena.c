@@ -572,7 +572,7 @@ void func_80358E3C_76A4EC(void) {
     }
 
     if ((D_803D5538 == 0) && (D_803D552C->unk2EC > 0)) {
-        func_8037E1C4_78F874();
+        trigger_contagious_laughter();
         func_80380620_791CD0(D_803D552C, 15, 12, 40, 10);
         D_803D552C->unk2EC--;
     }
@@ -580,7 +580,7 @@ void func_80358E3C_76A4EC(void) {
 
 // hyena
 void func_8035A130_76B7E0(void) {
-    func_8037E1C4_78F874();
+    trigger_contagious_laughter();
     func_80380620_791CD0(D_803D552C, 15, 12, 40, 10);
 }
 

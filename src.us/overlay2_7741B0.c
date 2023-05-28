@@ -2,6 +2,7 @@
 #include "common.h"
 
 
+// ESA: func_80060D74
 s32 func_80362B00_7741B0(Animal *a) {
     if ((a->unk4A != 0) || (a->unk366 == 5) || (a->unk366 == 2)) {
         return 1;
@@ -18,6 +19,7 @@ s32 can_swim(Animal *a) {
     }
 }
 
+// ESA: func_80060DC8
 s32 func_80362B60_774210(Animal *a) {
     s32 tmp = a->unk162 & 0xF;
     if ((tmp == 4) || (tmp == 5) || (tmp == 6) || (tmp == 7)) {
@@ -51,6 +53,7 @@ s32 func_80362BEC_77429C(Animal *a) {
     }
 }
 
+// ESA: func_80060DFC
 void func_80362C10_7742C0(Animal *arg0) {
     if (func_80305084_716734(arg0->xPos.h - arg0->xPosTarget, arg0->zPos.h - arg0->zPosTarget, arg0->unk2D4, arg0->unk2D8) > 100) {
         if (arg0->unk2DC == 0) {
@@ -66,6 +69,7 @@ void func_80362C10_7742C0(Animal *arg0) {
     }
 }
 
+// ESA: func_80060EB0
 #ifdef NON_MATCHING
 // stack + 1 regalloc
 void func_80362CC4_774374(Animal *arg0) {
@@ -266,6 +270,7 @@ void func_80362CC4_774374(Animal *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80362CC4_774374.s")
 #endif
 
+// ESA: func_80061318
 void func_803633C4_774A74(Animal *arg0) {
     s32 tmp0, tmp1;
 
@@ -347,6 +352,7 @@ void func_803633C4_774A74(Animal *arg0) {
     }
 }
 
+// ESA: func_80061610
 void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
     if (arg0->unk320 == 0) {
         arg0->unk28E = 0;
@@ -359,6 +365,7 @@ void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
     }
 }
 
+// ESA: func_80061670
 void func_8036379C_774E4C(Animal *arg0) {
     arg0->waypointType = 10;
     arg0->unk290 = 0;
@@ -366,6 +373,7 @@ void func_8036379C_774E4C(Animal *arg0) {
     arg0->unk2AC = arg0->unk320;
 }
 
+// ESA: func_80061688
 void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2) {
     arg0->waypointType = 8;
     arg0->unk294.type8.unk4 = arg2;
@@ -376,18 +384,21 @@ void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2) {
     arg0->unk270 = 1;
 }
 
+// ESA: func_80061700
 void func_80363844_774EF4(Animal *arg0, s16 arg1) {
     arg0->waypointType = 6;
     arg0->unk294.type6.unk0 = arg1;
     func_80363FB8_775668(arg0, arg1, -0x80, -1);
 }
 
+// ESA: func_8006173C
 void func_80363880_774F30(Animal *arg0, Animal *arg1) {
     arg0->waypointType = 7;
     arg0->unk294.type7.unk0 = arg1;
     func_80363E88_775538(arg0, arg1);
 }
 
+// ESA: func_80061764
 void func_803638A8_774F58(Animal *arg0, Animal *arg1, s16 arg2) {
     arg0->waypointType = 5;
     arg0->unk294.type5.unk0 = arg1;
@@ -395,12 +406,14 @@ void func_803638A8_774F58(Animal *arg0, Animal *arg1, s16 arg2) {
     func_80363DB4_775464(arg0, arg1, -1, arg2);
 }
 
+// ESA: func_8006179C
 void func_803638E8_774F98(Animal *arg0) {
     arg0->waypointType = 0;
     arg0->unk2CC = 0;
     func_80363CC8_775378(arg0);
 }
 
+// ESA: func_800617C0
 void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
     WaypointData *wp_data;
     s16 next_wp_idx;
@@ -429,6 +442,7 @@ void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
         arg5);
 }
 
+// ESA: func_800618C0
 void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
     WaypointData *wp_data;
     s16 next_wp_idx;
@@ -455,6 +469,7 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     arg0->unk294.type1.unk1 += arg3;
 }
 
+// ESA: func_800619FC
 void func_80363B34_7751E4(Animal *arg0, u16 arg1) {
     arg0->waypointType = 3;
     arg0->unk294.type3.unk0 = arg1;
@@ -462,6 +477,7 @@ void func_80363B34_7751E4(Animal *arg0, u16 arg1) {
     arg0->unk290 = SSSV_RAND(4);
 }
 
+// ESA: func_80061A58
 void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u8 arg5) {
     arg0->waypointType = 2;
     arg0->unk294.type2.xPos = xPos;
@@ -472,6 +488,7 @@ void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u
     func_80363C48_7752F8(arg0, xPos, zPos, yPos, arg4, arg5);
 }
 
+// ESA: func_80061AB8
 void func_80363C0C_7752BC(Animal *arg0, u8 arg1) {
     arg0->waypointType = 4;
     arg0->unk28E = 1;
@@ -480,6 +497,7 @@ void func_80363C0C_7752BC(Animal *arg0, u8 arg1) {
     func_80363CC8_775378(arg0);
 }
 
+// ESA: func_80061AF0
 void func_80363C48_7752F8(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u8 arg5) {
     arg0->unk2A0 = 1;
     arg0->xPosTarget = xPos;
@@ -498,6 +516,7 @@ void func_80363C48_7752F8(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u
     arg0->unk2DC = 0;
 }
 
+// ESA: func_80061B68
 void func_80363CC8_775378(Animal *arg0) {
     arg0->unk2A0 = 0;
     arg0->unk2A1 = 0;
@@ -506,6 +525,7 @@ void func_80363CC8_775378(Animal *arg0) {
     arg0->unk275 = 0;
 }
 
+// ESA: func_80061B80
 void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
     arg0->unk2AC = arg1;
@@ -522,6 +542,7 @@ void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->unk275 = arg3;
 }
 
+// ESA: func_80061C60
 void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
     arg0->unk2AC = arg1;
@@ -538,6 +559,7 @@ void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
     arg0->unk275 = arg3;
 }
 
+// ESA: func_80061D44
 void func_80363E88_775538(Animal *arg0, Animal *leader) {
     arg0->unk2AC = leader;
     arg0->unk2A0 = 3;
@@ -548,6 +570,7 @@ void func_80363E88_775538(Animal *arg0, Animal *leader) {
     arg0->unk275 = -1;
 }
 
+// ESA: func_80061D9C
 void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *arg2) {
     arg0->yPosTarget = arg1;
     arg0->unk2AC = arg2;
@@ -565,6 +588,7 @@ void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *arg2) {
     }
 }
 
+// ESA: func_80061E74
 void func_80363FB8_775668(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
     arg0->unk2A1 = arg3;
@@ -576,6 +600,7 @@ void func_80363FB8_775668(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
     arg0->unk274 = 1;
 }
 
+// ESA: func_80061EB0
 void func_80363FF0_7756A0(Animal *arg0) {
     switch (arg0->waypointType) {
     case 0:

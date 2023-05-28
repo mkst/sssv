@@ -97,7 +97,7 @@ void select_lcd_font(void) {
     D_8023F1E0.glyphBytes = 512; // 16*16*2
 }
 
-s16 func_8012C314(f32 arg0) {
+s16 get_glyph_width(f32 arg0) {
     f32 a = arg0 / D_8023F1E0.width;
     s16 res = D_8023F1F8 * a;
     return res;
@@ -113,8 +113,7 @@ u8 convert_text_to_int(s16 *arg0) {
     return ret;
 }
 
-// get_message_width?
-s16 func_8012C3D8(s16 *text) {
+s16 get_message_width(s16 *text) {
     u16 res = 0;
     s16 time[4];
     char spFC[80];
@@ -133,7 +132,7 @@ s16 func_8012C3D8(s16 *text) {
 
                 sprintf(spFC, "%d", D_8023F206[convert_text_to_int(time)]);
                 prepare_text((u8*)spFC, sp5C);
-                res += func_8012C3D8(sp5C);
+                res += get_message_width(sp5C);
                 text += 3;
             } else if (*text == TEXT_COLOR) {
                 text += 2;
@@ -142,7 +141,7 @@ s16 func_8012C3D8(s16 *text) {
             switch (D_8023F1F4) {
             case 0:
                 D_8023F1E0.unk0 += tmp;
-                res += func_8012C314(*D_8023F1E0.unk0);
+                res += get_glyph_width(*D_8023F1E0.unk0);
                 D_8023F1E0.unk0 -= tmp;
                 // if font width less than 14px?
                 if (D_8023F1F8 < 14.0f) {
@@ -257,9 +256,9 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
     D_8023F1FC = height;
 
     // calculate half the width of the text
-    msg_width = func_8012C3D8(text) / 2;
+    msg_width = get_message_width(text) / 2;
 
-    chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+    chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
     xpos = (x - msg_width) + (chr_width / 2);
     ypos = y;
 
@@ -273,7 +272,7 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
         switch (func_8012C678(text, xpos, ypos)) {
         case 1: // timer
             // increment xpos by length of timer text
-            x += func_8012C3D8(D_8023F248);
+            x += get_message_width(D_8023F248);
             text += 4; // skip over 4 chars
             break;
         case 2: // color change
@@ -288,7 +287,7 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
             D_8023F1E0.unk0 += chr;
             load_glyph(dl, chr);
 
-            chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+            chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
 
             // add drop shadow?
             if (D_8023F1F5) {
@@ -330,7 +329,7 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
 
             switch (D_8023F1F4) {
             case 0:
-                x += func_8012C314(*D_8023F1E0.unk0);
+                x += get_glyph_width(*D_8023F1E0.unk0);
                 if (width < 14.0f) {
                     x += 1;
                 }
@@ -365,7 +364,7 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
     gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
     gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
 
-    chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+    chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
 
     xpos = x + (chr_width / 2);
 
@@ -374,7 +373,7 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
     while ((*text != EOM) && (maxChars != 0)) {
         switch (func_8012C678(text, xpos, y)) {
         case 1: // timer
-            x += func_8012C3D8(D_8023F248); // write out time
+            x += get_message_width(D_8023F248); // write out time
             text += 4;
             break;
         case 2: // change color
@@ -389,7 +388,7 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
             if (chr != TILESET_SPACE) {
 
                 load_glyph(dl, chr);
-                chr_width = (((s32) D_8023F1F8 - func_8012C314(*(D_8023F1E0.unk0 + chr))) * D_8023F1F4);
+                chr_width = (((s32) D_8023F1F8 - get_glyph_width(*(D_8023F1E0.unk0 + chr))) * D_8023F1F4);
 
                 if (D_8023F1F5) {
                     gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
@@ -428,7 +427,7 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
 
             switch (D_8023F1F4) {
             case 0:
-                x += func_8012C314(*(D_8023F1E0.unk0 + chr));
+                x += get_glyph_width(*(D_8023F1E0.unk0 + chr));
                 if (width < 14.0f) {
                     x += 1;
                 }
@@ -483,7 +482,7 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
     gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
 
-    msg_width = func_8012C3D8(text);
+    msg_width = get_message_width(text);
 
     // load tile
     func_8012FA78(dl);
@@ -493,7 +492,7 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
         D_8023F1E0.unk0 += chr;
         load_glyph(dl, chr);
 
-        chr_width = ((s32) D_8023F1F8 - func_8012C314(*D_8023F1E0.unk0)) * D_8023F1F4;
+        chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
 
         // add drop shadow
         if (D_8023F1F5) {
@@ -532,7 +531,7 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
 
         switch (D_8023F1F4) {
         case 0:
-            x += func_8012C314(*D_8023F1E0.unk0);
+            x += get_glyph_width(*D_8023F1E0.unk0);
             if (width < 14.0f) {
                 x += 1;
             }
@@ -549,8 +548,7 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     gDPPipeSync((*dl)++);
 }
 
-// get_char_type
-s16 func_8012E724(s16 *text, u16 arg1, u16 arg2) {
+s16 get_char_type(s16 *text, u16 arg1, u16 arg2) {
     if (*text == TEXT_CONTROL_CHAR) {
         // next char
         text++;
@@ -590,7 +588,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     xPos3 = 0;
 
     while (*text != EOM) {
-        switch (func_8012E724(text, xPos3, yPos)) {
+        switch (get_char_type(text, xPos3, yPos)) {
         case 1:  // TEXT_TIMER
             xPos += 20;
             text += 4;  // skip over timer info
@@ -602,7 +600,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
             wchr = *text;
             D_8023F1E0.unk0 += wchr;
 
-            xPos += func_8012C314(*D_8023F1E0.unk0);
+            xPos += get_glyph_width(*D_8023F1E0.unk0);
 
             if (fontWidth < 14.0f) {
                 xPos++;
@@ -618,7 +616,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
                     chr = *tmp;
                     D_8023F1E0.unk0 += chr;
 
-                    var_s1 += func_8012C314(*D_8023F1E0.unk0);
+                    var_s1 += get_glyph_width(*D_8023F1E0.unk0);
 
                     if (var_s1 >= (gScreenWidth - 50)) {
                         // reset cursor position
@@ -716,7 +714,7 @@ void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 
     D_8023F1FC = arg5;
 
     while (*text != EOM) {
-        switch (func_8012E724(text, xPos3, yPos)) {                      /* irregular */
+        switch (get_char_type(text, xPos3, yPos)) {                      /* irregular */
         case 1:  // TEXT_TIMER
             xPos += 20;
             var_s7 += 4;
@@ -732,7 +730,7 @@ void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 
             wchr = *text;
             D_8023F1E0.unk0 += wchr;
 
-            xPos += func_8012C314(*D_8023F1E0.unk0);
+            xPos += get_glyph_width(*D_8023F1E0.unk0);
 
             xPos2 = xPos - 1;
 
@@ -747,7 +745,7 @@ void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 
                     wchr2 = *tmp;
                     D_8023F1E0.unk0 += wchr2;
 
-                    var_s1 += func_8012C314(*D_8023F1E0.unk0);
+                    var_s1 += get_glyph_width(*D_8023F1E0.unk0);
 
                     if (var_s1 >= (gScreenWidth - 50)) {
                         xPos2 = 0; // xStart?
@@ -855,7 +853,7 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
     while (*text != EOM) {
         switch (func_8012C678(text, xPos, yPos)) {
         case 1: // timer
-            x += func_8012C3D8(D_8023F248);
+            x += get_message_width(D_8023F248);
             text += 4;
             break;
         case 2: // color change
@@ -902,7 +900,7 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
             /* dsdx */  16384.0f / D_8023F1F8,
             /* dtdy */  16384.0f / D_8023F1FC);
 
-            x += func_8012C314(*D_8023F1E0.unk0);
+            x += get_glyph_width(*D_8023F1E0.unk0);
 
             shouldBreak = 0;
             if (*text == TILESET_SPACE) {
@@ -913,7 +911,7 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
                     chr = *tmp;
                     D_8023F1E0.unk0 += chr;
 
-                    xPos2 += func_8012C314(*D_8023F1E0.unk0);
+                    xPos2 += get_glyph_width(*D_8023F1E0.unk0);
 
                     if (xPos2 >= maxWidth) {
                         x = xPos; // reset xpos
@@ -1033,7 +1031,7 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
             );
 
             D_8023F1E0.unk0 += wchr;
-            x += func_8012C314(*D_8023F1E0.unk0);
+            x += get_glyph_width(*D_8023F1E0.unk0);
             D_8023F1E0.unk0 -= wchr;
 
             if (fontWidth < 13.0f) {
@@ -1048,7 +1046,7 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
                 while ((*tmp != TILESET_SPACE) && (*tmp != EOM) && (shouldBreak == 0)) {
                     chr = *tmp;
                     D_8023F1E0.unk0 += chr;
-                    xPos2 += func_8012C314(*D_8023F1E0.unk0);
+                    xPos2 += get_glyph_width(*D_8023F1E0.unk0);
                     // wrap if we have exceeded desired line length
                     if (xPos2 >= maxWidth) {
                         x = xStart;

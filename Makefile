@@ -350,7 +350,7 @@ $(BUILD_DIR)/%.pal.o: $(BUILD_DIR)/%.pal
 
 # progress
 progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.overlay2.csv
-	cat $^ > $@
+	@awk "(NR == 1) || (FNR > 1)" $^ > $@
 
 progress.main.csv: $(TARGET).elf
 	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map main_TEXT_START main_libultra_start_OFFSET main --version $(VERSION) $(PROGRESS_NONMATCHING) > $@

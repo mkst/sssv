@@ -124,6 +124,9 @@ s16  distance_from_player(s16 x, s16 z, s16 y);
 // overlay2_6D9330
 struct050 *spawn_animal(s16 x, s16 z, s16 y, s16 rotation, s16 health, s16 id, s8 arg6);
 
+// overlay2_6D9AF0
+struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s16 zRotation, s16 yRotation, u16 scale);
+
 // overlay2_6DCA10
 s32  create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32, s32, s32, s16 size, u16 color1, u16 color2, u16); // TBD
 
@@ -169,6 +172,10 @@ void animal_jump(void);
 
 // sssv/animals/parrot
 void parrot_fly(void);
+
+// overlay2_725D10
+void set_game_state(Animal *arg0, s16 arg1, s32 arg2);
+s32 get_game_state(Animal *arg0, s32 arg1);
 
 // overlay2_72B100
 u16  get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y);

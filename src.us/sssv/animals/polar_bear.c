@@ -421,7 +421,7 @@ void func_803677C4_778E74(void) {
     var_v1 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
-        var_v0 = D_801E9EB2;
+        var_v0 = D_801D9ED8.unkFFDA;
     } else {
         var_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -539,7 +539,7 @@ void func_803677C4_778E74(void) {
             if (ticks_remaining < 6) {
                 D_803D552C->unk308 -= 3;
                 if (ticks_remaining == 5) {
-                    func_80321E60_733510(0x11, 0x5A, 0, 0x34, 0x17, 0, 2, 0x1E);
+                    fire_cannonball_1(0x11, 0x5A, 0, 0x34, 0x17, 0, 2, 0x1E);
                     D_803D552C->unk308 = MIN(0x2E, D_803D552C->unk308 + 0x1E);
                     func_803421E0_753890(0x14);
                     play_sound_effect_at_location(SFX_UNKNOWN_27, 0x7FFF, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);

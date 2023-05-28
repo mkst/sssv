@@ -20,6 +20,35 @@ s64  D_803E95B8[65];
 // .text
 // ========================================================
 
+// ESA: func_8004C944
+void func_803198B0_72AF60(void) {
+    s16 temp_s3;
+    s16 temp_s6;
+    s16 temp_s7;
+    s16 temp_v1;
+
+    s16 k;
+    s16 j;
+    s16 i; // sp42
+
+    for (i = 0; i < 65; i++){
+        D_803E95B8[i] = 0;
+    }
+
+    for (i = 0; D_803E93B0[i].unk2 != 245; i++) {
+        temp_v1 = D_803E93B0[i].unk0;
+        temp_s7 = D_803E93B0[i].unk3;
+        temp_s6 = D_803E93B0[i].unk1;
+        temp_s3 = D_803E93B0[i].unk4;
+
+        for (j = temp_v1; j <= temp_s7; j++) {
+            for (k = temp_s6; k <= temp_s3; k++) {
+                D_803E95B8[i] |= (s64)1 << (s16)((j >> 4) + ((k >> 4) * 5));
+            }
+        }
+    }
+}
+
 void func_80319A50_72B100(void) {
     bzero_sssv((u8*)D_803E8F60, 1100); // raw waypoint data
     bzero_sssv((u8*)D_803E8E60, 256);  // pointers to waypoints
@@ -27,6 +56,7 @@ void func_80319A50_72B100(void) {
     D_803A5750_7B6E00 = 0;
 }
 
+// ESA: func_8004CAEC
 void func_80319AA0_72B150(u8 *arg0, u8 arg1) {
     *(arg0 + *arg0 + 1) = arg1;
     *(arg0 + 5) = arg1;
@@ -34,6 +64,7 @@ void func_80319AA0_72B150(u8 *arg0, u8 arg1) {
 }
 
 // might be waypoint too?
+// ESA: func_8004CB10
 void func_80319AC4_72B174(u8 *arg0, u8 arg1) {
     s8 i;
     s32 idx; // regalloc
@@ -79,6 +110,7 @@ u16 get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y) {
     return res;
 }
 
+// ESA: func_8004CCCC
 void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5) {
     struct067 *tmp;
     u8 i;
@@ -140,6 +172,7 @@ void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5
     }
 }
 
+// ESA: func_8004CE44
 u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
     struct067 *tmp;
     u8 ret;
@@ -186,6 +219,7 @@ u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
     return ret;
 }
 
+// ESA: func_8004CF6C
 u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6) {
     u16 ret;
     struct105 *phi_t0;

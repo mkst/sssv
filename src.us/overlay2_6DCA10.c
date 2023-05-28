@@ -304,6 +304,7 @@ s32 D_803DA108; // could be static?
 // ========================================================
 
 // zero out particle data?
+// ESA: func_800A3C98
 void func_802CB360_6DCA10(void) {
     D_803D6120.used = 0;
     memset_bytes((u8*)&D_803D6120, 0, sizeof(D_803D6120));
@@ -639,7 +640,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                 // } else {
                 //   var_s4 = var_s1->unk2D;
                 // }
-                var_s4 = MAX(particle->unkC, var_s1->unk2D);
+                var_s4 = (s16)MAX(particle->unkC, var_s1->unk2D);
             } else {
                 var_s4 = 0;
             }
@@ -708,7 +709,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                             D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk6 += var_s1->unk34;
 
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 (var_s1->unk10 >> 0x10) + 20,
@@ -811,7 +812,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                 case 0x4:
                 case 0x5:
                     if ((var_s1->id == 2) && (SSSV_RAND(16) == 1)) {
-                        func_802D5B88_6E7238(
+                        create_particle_effect_2(
                             (var_s1->unk0 >> 0x10) + SSSV_RAND(64) - 0x20,
                             var_s1->unk8 >> 0x10,
                             (var_s1->unk10 >> 0x10) - (SSSV_RAND(64) + 0x20),
@@ -883,7 +884,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                 case 0x7:
                 case 0x8:
                     if ((var_s1->id == 2) && (SSSV_RAND(16) == 1)) {
-                        func_802D5B88_6E7238(
+                        create_particle_effect_2(
                             (var_s1->unk0 >> 0x10) + SSSV_RAND(64) - 0x20,
                             var_s1->unk8 >> 0x10,
                             (var_s1->unk10 >> 0x10) - (SSSV_RAND(64) + 0x20),
@@ -1073,7 +1074,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk18 = 0;
                         var_s1->unk10 = var_s2 << 0x10;
                         if (SSSV_RAND(2) == 1) {
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 var_s1->unk10 >> 0x10,
@@ -1108,7 +1109,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk18 = 0;
                         var_s1->unk10 = var_s2 << 0x10;
                         if (SSSV_RAND(2) == 1) {
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 var_s1->unk10 >> 0x10,
@@ -1124,7 +1125,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         } else {
                             if ((var_s1->unk10 < func_80310F58_722608(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10)) && (var_s1->unk38 & 1)) {
                                 var_s1->unk18 = 0;
-                                func_802D5B88_6E7238(
+                                create_particle_effect_2(
                                     var_s1->unk0 >> 0x10,
                                     var_s1->unk8 >> 0x10,
                                     sp7C0 + 8,
@@ -1162,9 +1163,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // help
                     var_s1->unk24 = (((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 7) * (1 - ((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 8) >> 2))) << 0x10);
 
-                    var_s1->unk0 += var_s1->unk20;
                     var_s1->unk8 += var_s1->unk24;
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (temp_fp << 8), (s32) (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
+                    var_s1->unk0 += var_s1->unk20;
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (temp_fp << 8), (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x14:
@@ -1193,7 +1194,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if ((var_s1->unk10 >> 0x10) < var_s2) {
                         var_s1->unk18 = 0;
                         var_s1->unk10 = var_s2 << 0x10;
-                        func_802D5B88_6E7238(
+                        create_particle_effect_2(
                             var_s1->unk0 >> 0x10,
                             var_s1->unk8 >> 0x10,
                             var_s1->unk10 >> 0x10,
@@ -1206,7 +1207,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         sp7C0 = func_802D7434_6E8AE4(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
                         if (((var_s1->unk10 >> 0x10) + 0x12) < sp7C0) {
                             var_s1->unk18 = 0;
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 sp7C0 + 8,
@@ -1218,7 +1219,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         } else {
                             if ((var_s1->unk10 < func_80310F58_722608(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10)) && (var_s1->unk38 & 1)) {
                                 var_s1->unk18 = 0;
-                                func_802D5B88_6E7238(
+                                create_particle_effect_2(
                                     var_s1->unk0 >> 0x10,
                                     var_s1->unk8 >> 0x10,
                                     sp7C0 + 8,
@@ -1267,7 +1268,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if ((var_s1->unk10 >> 0x10) < var_s2) {
                         var_s1->unk18 = 0;
                         var_s1->unk10 = var_s2 << 0x10;
-                        func_802D5B88_6E7238(
+                        create_particle_effect_2(
                             var_s1->unk0 >> 0x10,
                             var_s1->unk8 >> 0x10,
                             var_s1->unk10 >> 0x10,
@@ -1388,7 +1389,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                 case 0x28:
                     if (SSSV_RAND(4) == 0) {
-                        func_802D5B88_6E7238(
+                        create_particle_effect_2(
                             var_s1->unk0 >> 0x10,
                             var_s1->unk8 >> 0x10,
                             var_s1->unk10 >> 0x10,
@@ -1601,7 +1602,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk18 = 0;
                         var_s1->unk10 = var_s2 << 0x10;
                         if (SSSV_RAND(2) == 1) {
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 var_s1->unk10 >> 0x10,
@@ -1640,7 +1641,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk18 = 0;
                         var_s1->unk10 = var_s2 << 0x10;
                         if (SSSV_RAND(2) == 1) {
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 var_s1->unk10 >> 0x10,
@@ -1650,7 +1651,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                                 GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
                                 0);
 
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 (var_s1->unk10 + 0x19) >> 0x10, //(s32) (u32) (u64) __ll_rshift(var_s1->unk10 + (temp_a1_2 < 0x19U), temp_a1_2, 0, 0x10),
@@ -1723,7 +1724,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk10 = var_s2 << 0x10;
 
                         if (SSSV_RAND(2) == 1) {
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 var_s1->unk10 >> 0x10,
@@ -1733,7 +1734,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                                 GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
                                 0);
 
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 ((var_s1->unk10 + 0x19) >> 0x10),
@@ -1748,7 +1749,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                         if (((var_s1->unk10 >> 0x10) + 0x12) < sp7C0) {
                             var_s1->unk18 = 0;
-                            func_802D5B88_6E7238(
+                            create_particle_effect_2(
                                 var_s1->unk0 >> 0x10,
                                 var_s1->unk8 >> 0x10,
                                 sp7C0 + 8,
@@ -1763,7 +1764,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                                 if ((var_s1->unk10 < sp7C0) && (var_s1->unk38 & 1)) {
                                     var_s1->unk18 = 0;
-                                    func_802D5B88_6E7238(
+                                    create_particle_effect_2(
                                         var_s1->unk0 >> 0x10,
                                         var_s1->unk8 >> 0x10,
                                         (sp7C0 >> 0x10) + 8,
@@ -2337,7 +2338,8 @@ void func_802D5AD8_6E7188(s16 start, s16 end) {
 }
 
 // create_particle_effect_2 ?
-s32 func_802D5B88_6E7238(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, u16 color2, u16 arg7) {
+// ESA: func_800A3CC4
+s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, u16 color2, u16 arg7) {
     u8 used; // sp3F
     u16 rand;
 
@@ -2647,6 +2649,7 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
     return 1;
 }
 
+// ESA: func_800A4668
 void func_802D6738_6E7DE8(void) {
     s16 pad1[10];
     s16 sp7A;
@@ -2759,12 +2762,12 @@ void func_802D6738_6E7DE8(void) {
         sp7A = RAND(63) + 4;
         sp78 = RAND(127) + 8;
         if (((D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A + 1][sp78 + 1].unk0) || (D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740[sp7A][sp78].unk6 == 0)) {
-            func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
+            create_particle_effect_2(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
         } else {
             sp7A = RAND(63) + 4;
             sp78 = RAND(127) + 8;
             if (((D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A + 1][sp78 + 1].unk0) || (D_803C0740[sp7A][sp78].unk0 != D_803C0740[sp7A - 1][sp78 - 1].unk0)) && (D_803C0740[sp7A][sp78].unk6 == 0)) {
-                func_802D5B88_6E7238(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
+                create_particle_effect_2(sp7A << 6, sp78 << 6, D_803C0740[sp7A][sp78].unk0 << 3, 53, 0, 0, 0, 5);
             }
         }
     }
@@ -2782,7 +2785,7 @@ void func_802D6738_6E7DE8(void) {
             sp78 += RAND(960) * 2;
             sp76 = func_80298818_6A9EC8(sp7A, sp78);
             if ((sp76 != 0) && ((func_802D7434_6E8AE4(sp7A, sp78) + 64) < sp76)) {
-                func_802D5B88_6E7238(
+                create_particle_effect_2(
                     sp7A,
                     sp78,
                     sp76,
@@ -2824,12 +2827,13 @@ void func_802D6738_6E7DE8(void) {
             sp78 += RAND(960) * 2;
             sp76 = func_80298818_6A9EC8(sp7A, sp78);
             if ((sp76 != 0) && ((func_802D7434_6E8AE4(sp7A, sp78) + 64) < sp76)) {
-                func_802D5B88_6E7238(sp7A, sp78, sp76, 106, RAND(15) + 10, 0, 0, 0);
+                create_particle_effect_2(sp7A, sp78, sp76, 106, RAND(15) + 10, 0, 0, 0);
             }
         }
     }
 }
 
+// ESA: func_800A88BC
 s16 func_802D7434_6E8AE4(s16 arg0, s16 arg1) {
     s16 temp_t2;
     s16 temp_t4;
@@ -2869,7 +2873,7 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 tmp0;
     s16 tmp1;
     s16 tmp2;
-    s16 tmp3;
+    s16 volume;
     s16 temp_s0;
     s16 temp_s2;
     s16 phi_v1;
@@ -2931,31 +2935,32 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
             0);
     }
     if (tmp1 == 0) {
-        tmp3 = 0x5000;
+        volume = 0x5000;
     }
     if (tmp1 == 1) {
-        tmp3 = 0x7FFF;
+        volume = 0x7FFF;
     }
     if (tmp1 == 2) {
-        tmp3 = 0x5000;
+        volume = 0x5000;
     }
-    // this seems weird
+
     if (tmp1 < 2) {
         play_sound_effect_at_location(SFX_UNKNOWN_165, 0x7FFF, 0x80, arg0, arg1, arg2, 1.0f);
     } else {
-        play_sound_effect_at_location(SFX_UNKNOWN_76, tmp3, 0x80, arg0, arg1, arg2, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_76, volume, 0x80, arg0, arg1, arg2, 1.0f);
     }
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D760C_6E8CBC.s")
 #endif
 
+// ESA: func_800A8A00
 void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {
     s16 i;
     s16 tmp = (arg3 * 3) + 1;
 
     for (i = 0; i < tmp; i++) {
-        func_802D5B88_6E7238(
+        create_particle_effect_2(
             SSSV_RAND(8) + x,
             SSSV_RAND(8) + z,
             y,
@@ -2968,6 +2973,7 @@ void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {
 }
 
 #ifdef NON_MATCHING
+// ESA: func_800A8AF0
 void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 color) {
 
     s16 spBE;
@@ -3009,7 +3015,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
     }
 
     if (flags & 1) {
-        func_802D5B88_6E7238(
+        create_particle_effect_2(
             x,
             z,
             y,
@@ -3036,7 +3042,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
 
         if (flags & 0x20) {
             for (j = 0; j < 4; j++) {
-                func_802D5B88_6E7238(
+                create_particle_effect_2(
                     (SSSV_RAND(16) + temp_s6) - 6,
                     (SSSV_RAND(16) + temp_s5) - 6,
                     (SSSV_RAND(16) + temp_s4) - 6,
@@ -3050,7 +3056,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
 
         if (flags & 1) {
             if (SSSV_RAND(4) == 0) {
-                func_802D5B88_6E7238(
+                create_particle_effect_2(
                     temp_s6,
                     temp_s5,
                     temp_s4,
@@ -3060,7 +3066,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                     GPACK_RGBA5551(255, SSSV_RAND(128) + 60, 0, 0),
                     SSSV_RAND(8));
             } else {
-                func_802D5B88_6E7238(
+                create_particle_effect_2(
                     temp_s6,
                     temp_s5,
                     temp_s4,
@@ -3404,6 +3410,7 @@ void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
     play_sound_effect_at_location(SFX_UNKNOWN_77, tmp3, 0x80, x, z, y, 1.0f);
 }
 
+// ESA: func_800AAD34
 void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
     s16 phi_s0;
     u16 temp_v1;

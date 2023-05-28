@@ -3,6 +3,7 @@
 
 void func_802CB180_6DC830(Animal *arg0);
 
+// ESA: func_80063178
 void func_802C9F60_6DB610(Animal *arg0) {
     s32 sp34;
     s32 sp30;
@@ -22,7 +23,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
         sp30 = arg0->zPos.w;
         sp2C = arg0->yPos.w;
 
-        if (arg0->unk4C.unk29) {
+        if (arg0->unk4C.unk1D) {
             switch (arg0->unk162) {
             case 1:
                 arg0->yVelocity.w -= D_803A05B0_7B1C60;
@@ -111,7 +112,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
 
         switch (arg0->unk162) {
         case 1:
-            if (arg0->unk4C.unk28 != 0) {
+            if (arg0->unk4C.unk1C != 0) {
                 if (arg0->unk161 != 1) {
                     func_80311A2C_7230DC(arg0->xPos.h, arg0->zPos.h, &D_803D5510, &D_803D5512, arg0->unk160);
                     if (D_803D5510 > 0x18) {
@@ -130,7 +131,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 func_802CA8D4_6DBF84(arg0);
                 func_802A3E70_6B5520(arg0, &arg0->xVelocity, &arg0->zVelocity);
             }
-            if ((arg0->unk4C.unk28) && ((arg0->yPos.h + (arg0->unk42 >> 1)) < sp2A)) {
+            if ((arg0->unk4C.unk1C) && ((arg0->yPos.h + (arg0->unk42 >> 1)) < sp2A)) {
                 if (arg0->unk16C->unk82.unk0) {
                     arg0->unk162 = 5;
                 } else {
@@ -140,7 +141,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
             }
             break;
         case 3:
-            if (arg0->unk4C.unk29) {
+            if (arg0->unk4C.unk1D) {
                 if ((arg0->unk16C->objectType == 38) || (arg0->unk16C->objectType == 177)) {
                     arg0->yVelocity.w -= ((s32) D_803A05B0_7B1C60 >> 3);
                 } else {
@@ -157,15 +158,15 @@ void func_802C9F60_6DB610(Animal *arg0) {
             }
             break;
         case 5:
-            if (arg0->unk4C.unk28) {
+            if (arg0->unk4C.unk1C) {
                 func_802A403C_6B56EC(arg0, 4);
             }
-            if (arg0->unk4C.unk29) {
+            if (arg0->unk4C.unk1D) {
                 func_802CAACC_6DC17C(arg0, sp2A);
             }
             break;
         case 6:
-            if (arg0->unk4C.unk28) {
+            if (arg0->unk4C.unk1C) {
                 func_802A403C_6B56EC(arg0, 3);
                 if (arg0->unk161 != 1) {
                     func_80311A2C_7230DC(arg0->xPos.h, arg0->zPos.h, &D_803D5510, &D_803D5512, (s32) arg0->unk160);
@@ -191,10 +192,10 @@ void func_802C9F60_6DB610(Animal *arg0) {
             func_802CB180_6DC830(arg0);
             break;
         case 7:
-            if (arg0->unk4C.unk28) {
+            if (arg0->unk4C.unk1C) {
                 func_802A403C_6B56EC(arg0, 3);
             }
-            if (arg0->unk4C.unk29) {
+            if (arg0->unk4C.unk1D) {
                 arg0->yVelocity.w -= (s32) D_803A05B0_7B1C60 >> 2;
                 if (sp2A < (arg0->yPos.h + (arg0->unk42 >> 1))) {
                     arg0->unk162 = 3;
@@ -225,12 +226,12 @@ void func_802C9F60_6DB610(Animal *arg0) {
             arg0->unk54 |= 0xA;
         }
         if ((sp34 != arg0->xPos.w) || (sp30 != arg0->zPos.w) || (sp2C != arg0->yPos.w)) {
-            arg0->unk4C.unk24 = 1;
+            arg0->unk4C.unk18 = 1;
         } else {
-            arg0->unk4C.unk24 = 0;
+            arg0->unk4C.unk18 = 0;
         }
 
-        if (arg0->unk4C.unk24 != 0) {
+        if (arg0->unk4C.unk18 != 0) {
             arg0->unk28 += arg0->unk38;
             arg0->unk2A += arg0->unk3A;
             arg0->yRotation += arg0->unk3C;
@@ -253,14 +254,15 @@ void func_802C9F60_6DB610(Animal *arg0) {
             if (1) {};
         }
 
-        if ((arg0->unk4C.unk24 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == 0) && (arg0->unk70 == 0) && (arg0->unk1A8 == 0)) {
+        if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == 0) && (arg0->unk70 == 0) && (arg0->commands.unk1A8 == 0)) {
             if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->unk154 == 0)) {
-                arg0->unk4C.unk25  = 0;
+                arg0->unk4C.unk19  = 0;
             }
         }
     }
 }
 
+// ESA: func_80063AE8
 void func_802CA8D4_6DBF84(Animal *arg0) {
     s32 xVel;
     s32 zVel;
@@ -302,11 +304,13 @@ void func_802CA8D4_6DBF84(Animal *arg0) {
     }
 }
 
+// ESA: func_80063CEC
 void func_802CAACC_6DC17C(Animal *arg0, s16 arg1) {
     arg0->yVelocity.w = (arg0->yVelocity.w * 7) / 8;
     arg0->yVelocity.w -= ((arg0->yPos.h + (arg0->unk42 >> 1)) - arg1) << 10;
 }
 
+// ESA: func_80063D34
 void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
     s16 phi_a0;
     s16 phi_a1;
@@ -411,6 +415,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     arg1->unk65 += sp38;
 }
 
+// ESA: func_800643F4
 void func_802CB180_6DC830(Animal *arg0) {
     if (func_80298E08_6AA4B8(arg0->xPos.h, arg0->zPos.h)) {
         s8 tmp;

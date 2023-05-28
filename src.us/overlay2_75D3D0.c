@@ -275,6 +275,7 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_8034C8F8_75DFA8.s")
 #endif
 
+// ESA: func_8006C6E8
 void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6) {
     struct061 spC8[10];
     struct061 sp78[10];
@@ -321,6 +322,8 @@ void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 arg3, s16 a
 }
 
 #if 0
+
+// ESA: func_8006C8DC
 // plenty to still figure out here
 void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7) {
     struct061 sp1F0;
@@ -544,6 +547,7 @@ void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_8034CE88_75E538.s")
 #endif
 
+// ESA:func_8006D384
 void func_8034D830_75EEE0(struct061 *src, struct061 *arg1, struct061 *arg2, s16 arg3, s16 *arg4, s16 *arg5, s16 arg6, s16 arg7, s32 arg8, s8 arg9) {
     s32 pad2;
     s16 temp_a0;
@@ -968,6 +972,8 @@ void func_8034D830_75EEE0(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 }
 
 #if 0
+
+// ESA: func_8006EBD0
 // CURRENT (2934)
 void func_8034F3EC_760A9C(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
     s16 temp_t3;
@@ -1096,6 +1102,7 @@ void func_8034F3EC_760A9C(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 #endif
 
 #if 0
+// ESA: func_8006F408
 // CURRENT (2930)
 void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
     s16 temp_t3;
@@ -1220,9 +1227,12 @@ void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_8034FCFC_7613AC.s")
 #endif
 
+// file split ?
+
 #if 0
 // CURRENT (5382)
 // cant figure out the logic
+// ESA: func_8006FC24
 void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue, s32 argB, s32 argC, s32 argD, s32 argE) {
     s16 temp_a2;
     s16 i;
@@ -1323,6 +1333,7 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_80350600_761CB0.s")
 #endif
 
+// ESA: func_80070190
 void func_80351390_762A40(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s32 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC) {
     s16 spD6;
     s16 spD4;
@@ -1385,6 +1396,7 @@ void func_80351390_762A40(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s1
     }
 }
 
+// ESA: func_800704EC (tbd)
 void func_80351A44_7630F4(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue) {
     s16 pad[2];
 
@@ -1450,6 +1462,7 @@ void func_80351A44_7630F4(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s1
     }
 }
 
+// ESA: func_8007080C (tbd)
 void func_80351EE8_763598(s16 numVtxs, struct061 arg1[], s16 arg2, s16 alpha, s16 red, s16 green, s16 blue) {
     s16 var_a3;
     s32 var_v1;

@@ -44,7 +44,7 @@ void func_8036D700_77EDB0(void) {
     s16 spCC;
     s16 spC8;
     s16 spC6;
-    u16 sp80;
+    u16 ticks_remaining;
 
     Animal *temp_v0_6;
     Animal *var_v1;
@@ -108,9 +108,9 @@ block_9:
         case CANNON_CAMEL:
             switch (D_803D552C->unk365) {
             case ATTACK_CAMEL_DASH:
-                sp80 = (D_803D5544 - D_803D552C->unk32A);
-                if (sp80 <= 0x40) {
-                    if (sp80 == 0x20) {
+                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+                if (ticks_remaining <= 0x40) {
+                    if (ticks_remaining == 0x20) {
                         if (D_803D5538 != 0) {
                             func_8037F07C_79072C(0x200, D_803D552C->unk302);
                         } else {
@@ -118,23 +118,23 @@ block_9:
                         }
                         play_sound_effect_at_location(SFX_FOX_DASH, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     }
-                    if (sp80 > 0x20) {
-                        sp80 = (0x40 - sp80);
+                    if (ticks_remaining > 0x20) {
+                        ticks_remaining = (0x40 - ticks_remaining);
                     }
                     if (D_803D5530->unk4A == 0) {
                         func_8032CD70_73E420(
                             D_803D5530,
                             SFX_UNKNOWN_51,
-                            (((sp80 * -0x7000) + 0xE0000) >> 5),
+                            (((ticks_remaining * -0x7000) + 0xE0000) >> 5),
                             0,
-                            (((sp80 * sp80) * 0.03125) + 1.0),
+                            (((ticks_remaining * ticks_remaining) * 0.03125) + 1.0),
                             D_803D5530->xPos.h,
                             D_803D5530->zPos.h,
                             D_803D5530->yPos.h);
                     }
-                    if ((s16)sp80 >= 9) {
+                    if ((s16)ticks_remaining >= 9) {
                         var_s1 = 1;
-                        for (spC8 = sp80; spC8 > 8; spC8 -= 8) {
+                        for (spC8 = ticks_remaining; spC8 > 8; spC8 -= 8) {
                             create_particle_effect(
                                 D_803D5530->xPos.h + (s16)(((SSSV_RAND(256) - 0x80) * var_s1) >> 3),
                                 D_803D5530->zPos.h + (s16)(((SSSV_RAND(256) - 0x80) * var_s1) >> 3),
@@ -152,9 +152,9 @@ block_9:
                     }
 
                     create_particle_effect(
-                        D_803D5530->xPos.h + (s16) (((D_80152C78[(SSSV_RAND(32) + ((sp80 & 7) << 5)) & 0xFF] >> 7) * sp80) >> 8),
-                        D_803D5530->zPos.h + (s16) (((D_80152C78[(SSSV_RAND(32) + ((sp80 & 7) << 5) + 0x40) & 0xFF] >> 7) * sp80) >> 8),
-                        D_803D5530->yPos.h + ((sp80 * D_803D5530->unk42) >> 5),
+                        D_803D5530->xPos.h + (s16) (((D_80152C78[(SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) & 0xFF] >> 7) * ticks_remaining) >> 8),
+                        D_803D5530->zPos.h + (s16) (((D_80152C78[(SSSV_RAND(32) + ((ticks_remaining & 7) << 5) + 0x40) & 0xFF] >> 7) * ticks_remaining) >> 8),
+                        D_803D5530->yPos.h + ((ticks_remaining * D_803D5530->unk42) >> 5),
                         0x15,
                         0,
                         0,
@@ -180,19 +180,19 @@ block_9:
             switch (D_803D552C->unk365) {
             case ATTACK_CAMEL_WATER_CANNON:
                 D_803D5528->unk3C0.unk0 = 0;
-                sp80 = (D_803D5544 - D_803D552C->unk32A); // & 0xFFFF;
+                ticks_remaining = (D_803D5544 - D_803D552C->unk32A); // & 0xFFFF;
                 func_802DC6A4_6EDD54(0x10);
-                if (sp80 == 1) {
+                if (ticks_remaining == 1) {
                     play_sound_effect_at_location(SFX_UNKNOWN_62, 0x4800, 0, D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, 1.0f);
                 }
-                if (sp80 == 11) {
+                if (ticks_remaining == 11) {
                     play_sound_effect_at_location(SFX_UNKNOWN_30, 0x5000, 0, D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, 1.0f);
                 }
-                if (sp80 == 0xC) {
+                if (ticks_remaining == 12) {
                     if (D_803D5538 != 0) {
                         for (i = 0; i < 4; i++) {
-                            func_80322064_733714(
-                                0x27,
+                            fire_cannonball_2(
+                                OBJECT_WATER_CANNON_1,
                                 0x3C,
                                 0,
                                 0x50,
@@ -203,8 +203,8 @@ block_9:
                                 8);
                         }
                         for (i = 0; i < 4; i++) {
-                            func_80322064_733714(
-                                0x27,
+                            fire_cannonball_2(
+                                OBJECT_WATER_CANNON_1,
                                 0x3C,
                                 0,
                                 0x50,
@@ -216,8 +216,8 @@ block_9:
                         }
                     } else {
                         for (i = 0; i < 4; i++) {
-                            func_80322064_733714(
-                                0x27,
+                            fire_cannonball_2(
+                                OBJECT_WATER_CANNON_1,
                                 0x3C,
                                 0,
                                 0x50,
@@ -228,8 +228,8 @@ block_9:
                                 8);
                         }
                         for (i = 0; i < 4; i++) {
-                            func_80322064_733714(
-                                0x27,
+                            fire_cannonball_2(
+                                OBJECT_WATER_CANNON_1,
                                 0x3C,
                                 0,
                                 0x50,
@@ -480,7 +480,7 @@ void func_8036F3AC_780A5C(void) {
 }
 
 void func_8036F404_780AB4(void) {
-    func_80322064_733714(OBJECT_CANNONBALL, 60, 0, 60, 22, D_803D552C->unk308, 4, 1, 20);
+    fire_cannonball_2(OBJECT_CANNONBALL, 60, 0, 60, 22, D_803D552C->unk308, 4, 1, 20);
     D_803D552C->unk30A = MIN(38, D_803D552C->unk30A + 25);
     func_803421E0_753890(17);
     play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -515,7 +515,7 @@ void camel_cannon_fire_cannon(Animal *arg0) {
         tmp = (s16) ((tmp * 256) / 360);
     }
     // fire cannon
-    func_80322064_733714(OBJECT_CANNONBALL, 60, 0, 60, 22, D_803D552C->unk308, tmp, 1, 20);
+    fire_cannonball_2(OBJECT_CANNONBALL, 60, 0, 60, 22, D_803D552C->unk308, tmp, 1, 20);
     D_803D552C->unk30A = MIN(38, D_803D552C->unk30A + 25);
     func_803421E0_753890(17);
     play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);

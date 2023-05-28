@@ -1,4 +1,4 @@
-func_80294E50 = 0x80294E50;
+func_80294E50 = overlay1_VRAM;
 
 aspMainTextStart = _binary_assets_aspMainText_bin_start;
 aspMainDataStart = _binary_assets_aspMainData_bin_start;
@@ -12,6 +12,49 @@ gspF3DEX_fifoDataEnd = _binary_assets_gspF3DEX_fifoData_bin_end;
 gspFast3DTextStart = _binary_assets_gspFast3DText_bin_start;
 gspFast3DDataStart = _binary_assets_gspFast3DData_bin_start;
 gspF3DEX_fifoTextStart = _binary_assets_gspF3DEX_fifoText_bin_start;
+
+_gfxanimSegmentStart     = 0x80099600;
+_gfxanimSegmentEnd       = 0x800B0B20;
+_gfxspecificSegmentStart = 0x800B0B20;
+_gfxspecificSegmentEnd   = 0x800BA760;
+
+D_803FDEC0 = overlay2_BSS_END;
+
+D_803FDFC0 = overlay2_BSS_END + _binary_assets_7D9F20_bin_size;
+D_803FE050 = overlay2_BSS_END + _binary_assets_7D4830_bin_size;
+D_803FE160 = overlay2_BSS_END + _binary_assets_7D64D0_bin_size;
+D_803FE1A0 = overlay2_BSS_END + _binary_assets_7D61F0_bin_size;
+D_803FE230 = overlay2_BSS_END + _binary_assets_7D5620_bin_size;
+D_803FE2A0 = overlay2_BSS_END + _binary_assets_7D5240_bin_size;
+D_803FE2C0 = overlay2_BSS_END + _binary_assets_7D5990_bin_size;
+D_803FE2D0 = overlay2_BSS_END + _binary_assets_7D2F50_bin_size;
+D_803FE300 = overlay2_BSS_END + _binary_assets_7D8EA0_bin_size;
+D_803FE320 = overlay2_BSS_END + _binary_assets_7D5D90_bin_size;
+D_803FE3F0 = overlay2_BSS_END + _binary_assets_7D7570_bin_size;
+D_803FE440 = overlay2_BSS_END + _binary_assets_7D92E0_bin_size;
+D_803FE450 = overlay2_BSS_END + _binary_assets_7D8350_bin_size;
+D_803FE480 = overlay2_BSS_END + _binary_assets_7D4270_bin_size;
+D_803FE480 = overlay2_BSS_END + _binary_assets_7D88E0_bin_size;
+D_803FE580 = overlay2_BSS_END + _binary_assets_7D6770_bin_size;
+D_803FE580 = overlay2_BSS_END + _binary_assets_7D9860_bin_size;
+D_803FE600 = overlay2_BSS_END + _binary_assets_7D6E30_bin_size;
+D_803FE610 = overlay2_BSS_END + _binary_assets_7D3360_bin_size;
+D_803FE680 = overlay2_BSS_END + _binary_assets_7D3AB0_bin_size;
+D_803FE740 = overlay2_BSS_END + _binary_assets_7D49C0_bin_size;
+D_803FE770 = overlay2_BSS_END + _binary_assets_7D7AA0_bin_size;
+D_803FF340 = overlay2_BSS_END + _binary_assets_7D1AD0_bin_size;
+
+D_803FF440 = D_803FF340 + _binary_assets_7DA020_bin_size;
+D_803FF6C0 = D_803FF340 + _binary_assets_7DA120_bin_size;
+D_803FF830 = D_803FF340 + _binary_assets_7DA4A0_bin_size;
+D_803FF7A0 = D_803FF340 + _binary_assets_7DA990_bin_size;
+D_803FF8D0 = D_803FF340 + _binary_assets_7DADF0_bin_size;
+D_803FFB80 = D_803FF340 + _binary_assets_7DB380_bin_size;
+D_803FF9D0 = D_803FF340 + _binary_assets_7DBBC0_bin_size;
+D_803FF670 = D_803FF340 + _binary_assets_7DC250_bin_size;
+D_803FF750 = D_803FF340 + _binary_assets_7DC580_bin_size;
+D_803FF4A0 = D_803FF340 + _binary_assets_7DC990_bin_size;
+
 
 D_800EF0D0 = 0x800EF0D0;
 
@@ -45,6 +88,21 @@ D_01037A00 = 0x01037A00;
 
 D_010224B0_5BD80 = 0x010224B0;
 D_010226B0_5BF80 = 0x010226B0;
+
+D_01020DB0_5A680 = 0x01020DB0;
+D_010215B0_5AE80 = 0x010215B0;
+D_010226D0_5BFA0 = 0x010226D0;
+D_01022ED0_5C7A0 = 0x01022ED0;
+D_01023550_5CE20 = 0x01023550;
+D_01023D50_5D620 = 0x01023D50;
+D_01024550_5DE20 = 0x01024550;
+D_01025750_5F020 = 0x01025750;
+D_01026950_60220 = 0x01026950;
+D_01027B50_61420 = 0x01027B50;
+D_01028D50_62620 = 0x01028D50;
+D_01029550_62E20 = 0x01029550;
+D_0102C210_65AE0 = 0x0102C210;
+D_0102CA10_662E0 = 0x0102CA10;
 
 D_01006A40 = 0x01006A40;
 D_01006A78 = 0x01006A78;
@@ -286,7 +344,7 @@ D_803A6CD4 = 0x803A6CD4;
 D_803A6CD8 = 0x803A6CD8;
 D_803A6CE4 = 0x803A6CE4;
 D_803A6CEC = 0x803A6CEC;
-D_803A8340 = 0x803A8340;
+D_803A8340_7B99F0 = 0x803A8340;
 D_803A8344 = 0x803A8344;
 D_803A8350_7B9A00 = 0x803A8350;
 D_803A8358_7B9A08 = 0x803A8358;
@@ -384,39 +442,6 @@ D_803E1B1B = 0x803E1B1B;
 D_803E1BAC = 0x803E1BAC;
 
 D_803F6698 = 0x803F6698;
-
-D_803FDFC0 = 0x803FDFC0;
-D_803FE050 = 0x803FE050;
-D_803FE160 = 0x803FE160;
-D_803FE1A0 = 0x803FE1A0;
-D_803FE230 = 0x803FE230;
-D_803FE2A0 = 0x803FE2A0;
-D_803FE2C0 = 0x803FE2C0;
-D_803FE2D0 = 0x803FE2D0;
-D_803FE300 = 0x803FE300;
-D_803FE320 = 0x803FE320;
-D_803FE3F0 = 0x803FE3F0;
-D_803FE440 = 0x803FE440;
-D_803FE450 = 0x803FE450;
-D_803FE480 = 0x803FE480;
-D_803FE480 = 0x803FE480;
-D_803FE580 = 0x803FE580;
-D_803FE580 = 0x803FE580;
-D_803FE600 = 0x803FE600;
-D_803FE610 = 0x803FE610;
-D_803FE680 = 0x803FE680;
-D_803FE740 = 0x803FE740;
-D_803FE770 = 0x803FE770;
-D_803FF440 = 0x803FF440;
-D_803FF4A0 = 0x803FF4A0;
-D_803FF670 = 0x803FF670;
-D_803FF6C0 = 0x803FF6C0;
-D_803FF750 = 0x803FF750;
-D_803FF7A0 = 0x803FF7A0;
-D_803FF830 = 0x803FF830;
-D_803FF8D0 = 0x803FF8D0;
-D_803FF9D0 = 0x803FF9D0;
-D_803FFB80 = 0x803FFB80;
 
 D_803F7DD4 = 0x803F7DD4;
 D_803F7DD5 = 0x803F7DD5;
@@ -657,33 +682,25 @@ D_803B0595 = 0x803B0595;
 D_803B0596 = 0x803B0596;
 D_803B05A0 = 0x803B05A0;
 
+D_803B65B0_7C7C60 = 0x803B65B0;
+D_803B65E0_7C7C90 = 0x803B65E0;
+D_803B65F0_7C7CA0 = 0x803B65F0;
+D_803B65F8_7C7CA8 = 0x803B65F8;
+D_803B66E4_7C7D94 = 0x803B66E4;
+
 D_803C03F4_7D1AA4 = 0x803C03F4;
 D_803C0400_7D1AB0 = 0x803C0400;
+
+D_803C4DAC_7D645C = 0x803C4DAC;
 
 audDMAIOMesgBuf        = 0x80241D10;
 
 __am                   = 0x8023F410;
 
-_gfxanimSegmentStart   = 0x80099600;
-_gfxanimSegmentEnd     = 0x800B0B20;
-_gfxspecificSegmentStart = 0x800B0B20;
-_gfxspecificSegmentEnd = 0x800BA760;
-
-D_803FF340 = 0x803FF340;
-
 D_80100000_X = 0x80100000;
-
 
 D_01004360_3DC30 = 0x01004360;
 D_01003A58 = 0x01003A58;
 D_803B5764 = 0x803B5764;
 
 D_FFFE0400 = 0xFFFE0400;
-D_803C4DAC_7D645C = 0x803C4DAC;
-
-
-D_803B65B0_7C7C60 = 0x803B65B0;
-D_803B65E0_7C7C90 = 0x803B65E0;
-D_803B65F0_7C7CA0 = 0x803B65F0;
-D_803B65F8_7C7CA8 = 0x803B65F8;
-D_803B66E4_7C7D94 = 0x803B66E4;

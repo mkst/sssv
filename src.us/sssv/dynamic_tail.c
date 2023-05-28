@@ -28,6 +28,7 @@ s16  D_803E1B08;
 // .text
 // ========================================================
 
+// ESA: func_800849B8
 void func_802DD040_6EE6F0(s32 arg0) {
     s16 i;
     for (i = 0; i < 120; i++) {
@@ -37,6 +38,7 @@ void func_802DD040_6EE6F0(s32 arg0) {
     D_803E1B02 = 1;
 }
 
+// ESA: func_800849EC
 s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 arg3, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, Animal *argA, Animal *argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11) {
     u16 i;
     s32 res;
@@ -85,6 +87,7 @@ s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 arg3, s8 arg4,
     }
 }
 
+// ESA: func_80084BE4
 // used by kangaroo, husky, lion, elephant, mouse, scorpion and rat
 void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
     struct051 *temp_s1;
@@ -137,6 +140,7 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
 
 #if 0
 // miles away
+// ESA: func_80084E58
 void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
 
     Animal *temp_v0;
@@ -211,10 +215,11 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6EE6F0/func_802DD548_6EEBF8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802DD548_6EEBF8.s")
 #endif
 
 #if 0
+// ESA: func_80085274 (TBD)
 // long way away
 void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 sp1E6;
@@ -436,9 +441,10 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         var_t5[arg4].unk8 >> 0x10);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6EE6F0/func_802DD994_6EF044.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802DD994_6EF044.s")
 #endif
 
+// ESA: func_80086120
 void func_802DE770_6EFE20(s16 arg0, s16 arg1, s32 xVelocity, s32 zVelocity, s32 yVelocity) {
     D_803DA300[D_803E00C0[arg0].unk16 + arg1].unkC += xVelocity;
     D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk10 += zVelocity;
@@ -455,6 +461,7 @@ void func_802DE7F4_6EFEA4(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
 }
 
+// ESA: func_800861AC
 void func_802DE890_6EFF40(s16 arg0, s16 arg1, s32 xPos, s32 zPos, s32 yPos, s32 xVelocity, s32 zVelocity, s32 yVelocity) {
     D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk0 = xPos;
     D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk4 = zPos;
@@ -464,6 +471,7 @@ void func_802DE890_6EFF40(s16 arg0, s16 arg1, s32 xPos, s32 zPos, s32 yPos, s32 
     D_803DA300[D_803E00C0[arg0].unk16 + arg1].unk14 = yVelocity;
 }
 
+// ESA: func_80086234
 void func_802DE914_6EFFC4(s16 idx, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
     struct051 *tmp = &D_803E00C0[idx];
     tmp->unk20 = arg1;
@@ -689,7 +697,7 @@ void func_802DE950_6F0000(void) {
                     temp_s2->unk0->zVelocity.w = tmpZ - temp_s2->unk0->zPos.w;
                     temp_s2->unk0->yVelocity.w = tmpY - temp_s2->unk0->yPos.w;
 
-                    temp_s2->unk0->unk4C.unk25 = 1;
+                    temp_s2->unk0->unk4C.unk19 = 1;
                     temp_s2->unk0->yPos.w = tmpY;
                 }
 
@@ -785,7 +793,7 @@ void func_802DE950_6F0000(void) {
                     temp_s2->unk0->xVelocity.w = tmpX - temp_s2->unk0->xPos.w;
                     temp_s2->unk0->zVelocity.w = tmpZ - temp_s2->unk0->zPos.w;
                     temp_s2->unk0->yVelocity.w = tmpY - temp_s2->unk0->yPos.w;
-                    temp_s2->unk0->unk4C.unk25 = 1;
+                    temp_s2->unk0->unk4C.unk19 = 1;
                 }
                 if ((D_803E1B04 + (temp_s2->unk14 * 2)) < 0x181) {
                     vtx = func_802E3C88_6F5338(temp_s2);
@@ -885,7 +893,7 @@ void func_802DE950_6F0000(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6EE6F0/func_802DE950_6F0000.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802DE950_6F0000.s")
 #endif
 
 // only called with 0 or 1
@@ -1281,6 +1289,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
 }
 
 #if 0
+// ESA: func_80087738
 // not quite there yet...
 u32 func_802E3C88_6F5338(struct051* arg0) {
     s32 x;
@@ -1355,11 +1364,12 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
     return OS_K0_TO_PHYSICAL(vtx);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6EE6F0/func_802E3C88_6F5338.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802E3C88_6F5338.s")
 #endif
 
 #if 0
 // needs some love
+// ESA: func_80087AD0
 s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
     f32 temp_f0;
     f32 temp_f14;
@@ -1493,7 +1503,7 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
     return 0;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6EE6F0/func_802E414C_6F57FC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802E414C_6F57FC.s")
 #endif
 
 void func_802E497C_6F602C(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
@@ -1512,12 +1522,14 @@ void func_802E497C_6F602C(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     }
 }
 
+// ESA: func_8008822C
 void func_802E4A78_6F6128(s16 arg0) {
     D_803E00C0[arg0].unk2F = 1;
     D_803E1B06 = 15;
     D_803E1B08 = arg0;
 }
 
+// ESA: func_80088268
 void func_802E4AB8_6F6168(void) {
     s16 i;
     for (i = 0; i < 120; i++) {

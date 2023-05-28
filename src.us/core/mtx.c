@@ -268,7 +268,7 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     return 1;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80126388.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/core/mtx/func_80126388.s")
 #endif
 
 // unused?
@@ -498,7 +498,7 @@ s32 func_80126FD4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     return 1;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80126FD4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/core/mtx/func_80126FD4.s")
 #endif
 
 void func_80127640(Mtx *arg0, s32 xPos, s32 zPos, s32 yPos, s16 arg4, s32 arg5, s32 arg6, s32 arg7, s16 arg8, s32 arg9) {
@@ -616,7 +616,7 @@ s32 func_80127994(s32 arg0, s32 arg1, s32 arg2, Mtx *arg3) {
     return 1;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/mtx/func_80127994.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/core/mtx/func_80127994.s")
 #endif
 
 void func_80127D30(Mtx *arg0, s16 arg1) {

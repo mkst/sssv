@@ -136,9 +136,9 @@ void func_80364780_775E30(void) {
                         } else {
                             var_f14 = 0.0f;
                         }
-                        func_80321E60_733510(0x3D, 0xA, 0, 0x14, 0x19, (var_f14 * 256.0f) / 360.0f, 2, 6);
+                        fire_cannonball_1(0x3D, 0xA, 0, 0x14, 0x19, (var_f14 * 256.0f) / 360.0f, 2, 6);
                     } else {
-                        func_80322064_733714(0x3D, 0xA, 0, 0x14, 0x23, D_803D5530->yRotation, D_803D552C->unk338, 2, 6);
+                        fire_cannonball_2(0x3D, 0xA, 0, 0x14, 0x23, D_803D5530->yRotation, D_803D552C->unk338, 2, 6);
                     }
                     D_803D552C->unk365 = ATTACK_NONE;
                 }

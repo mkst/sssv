@@ -52,7 +52,7 @@ void func_8036C0B0_77D760(void) {
                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
                 D_803D552C->unk320 = 0;
                 D_803D552C->yPos.h += D_803D552C->unk308;
-                D_803D552C->unk18.h += D_803D552C->unk308;
+                D_803D552C->newPosition.yPos.h += D_803D552C->unk308;
                 load_animal(VULTURE2);
             }
         }
@@ -246,7 +246,7 @@ void func_8036C0B0_77D760(void) {
 
 void func_8036D30C_77E9BC(void) {
     if (D_803D552C->unk320 == NULL) {
-        D_803D552C->unk320 = func_803213B0_732A60();
+        D_803D552C->unk320 = try_pickup_animal();
         if (D_803D552C->unk320 != NULL) {
             D_803D552C->unk308 = D_803D552C->unk320->unk42;
             load_animal(VULTURE);
@@ -275,7 +275,7 @@ void func_8036D30C_77E9BC(void) {
         play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
         func_80321920_732FD0(D_803D552C->unk320, 0, 0);
         D_803D552C->yPos.h += D_803D552C->unk308;
-        D_803D552C->unk18.h += D_803D552C->unk308;
+        D_803D552C->newPosition.yPos.h += D_803D552C->unk308;
         load_animal(VULTURE2);
     }
 }

@@ -4,6 +4,7 @@
 #include "aidata.h"
 
 // animal X vs animal Y
+// ESA: func_80062668
 s16 func_802EA3E0_6FBA90(u16 X, u16 Y) {
     s16 res;
 

@@ -3,6 +3,7 @@
 
 #if 0
 // revisit once unk8 struct is figured out
+// ESA: func_8007E6A0
 s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
     s16 sp92;
     // s32 *sp88;
@@ -330,6 +331,7 @@ block_89:
 #endif
 
 // check some flag?
+// ESA: func_8007EFB0
 u8 func_8032BCF8_73D3A8(s32 arg0, s16 arg1) {
     if (arg1 >= 0) {
         while ((2 << arg1) & arg0) {
@@ -341,6 +343,7 @@ u8 func_8032BCF8_73D3A8(s32 arg0, s16 arg1) {
     return (arg1 + 1) == 0;
 }
 
+// ESA: func_8007F010
 s32 func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5) {
     if (arg0 == 0) {
         if ((func_8032BCF8_73D3A8(arg1, arg4) == 0) || (func_8032BCF8_73D3A8(arg2, arg5) == 0)) {

@@ -5,7 +5,6 @@ extern Gfx D_801582E0[];
 extern u8  D_80304388[];
 
 void func_801356E0(s32 x, s32 y, u8 x_size, u8 y_size, Gfx **dl, u8 *arg5, f32 arg6, f32 arg7, u8 arg8);
-
 typedef struct {
     u8 img[0x800];
 } NewscasterTile;
@@ -36,28 +35,29 @@ void func_80299E00_63ED30(u8 arg0) {
             // paint a black rectangle
             gDPSetPrimColor(D_801D9E9C++, 0, 0, 0, 0, 0, 255);
             gDPFillRectangle(D_801D9E9C++,
-            /* ulx */ (((sp53 << 5) - arg0 / 2) + 15),
-            /* uly */ (((sp52 << 5) - arg0 / 2) + 15),
-            /* lrx */ (((sp53 << 5) - arg0 / 2) + arg0 + 17),
-            /* lry */ (((sp52 << 5) - arg0 / 2) + arg0 + 17)
+            /* ulx */ (((sp53 * 32) - (arg0 / 2)) + 15),
+            /* uly */ (((sp52 * 32) - (arg0 / 2)) + 15),
+            /* lrx */ (((sp53 * 32) - (arg0 / 2)) + arg0 + 17),
+            /* lry */ (((sp52 * 32) - (arg0 / 2)) + arg0 + 17)
             );
 
-            sp4B = -1 - -arg0*8;
+            sp4B = (s8)0xFF - -arg0*8;
             gDPSetPrimColor(D_801D9E9C++, 0, 0, sp4B, sp4B, sp4B, 0xFF);
 
             sp54 = D_80304388 + 0x62000 + sp4C;
             func_801356E0(
-                (((sp53 << 5) - arg0 / 2) + 15) + 1,
-                (((sp52 << 5) - arg0 / 2) + 15) + 1,
+                (((sp53 * 32) - (arg0 / 2)) + 15) + 1,
+                (((sp52 * 32) - (arg0 / 2)) + 15) + 1,
                 arg0,
                 arg0,
                 &D_801D9E9C,
                 sp54,
                 arg0,
-                arg0,
+                arg0, // & 0xFFu,
                 16);
 
             sp4C += sizeof(NewscasterTile);
+
         }
     }
 

@@ -290,7 +290,7 @@ s32 copy_or_extract(u8 *src, u8 *dst, s32 unused) {
 
 // load_level_texture_data()
 // CURRENT (30)
-void func_8031B174_72C824(u8 arg0, u8 arg1) {
+void load_level_texture_data(u8 arg0, u8 arg1) {
     u8 **temp_v0;
 
     s32 pad[2];
@@ -353,7 +353,7 @@ void func_8031B174_72C824(u8 arg0, u8 arg1) {
     dma_read(temp_v0[0], D_801D9E78, temp_v0[1] - temp_v0[0]);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031B174_72C824.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level_texture_data.s")
 #endif
 
 void load_level_data(u8 level) {
@@ -459,14 +459,14 @@ void load_level_data_sections(void) {
                     }
                 }
 
-                obj = func_802C9564_6DAC14(
+                obj = spawn_object(
                     cob->id,
                     cob->x,
                     cob->z,
                     cob->y,
-                    0,
-                    0,
-                    0,
+                    0, // xVel
+                    0, // zVel
+                    0, // yVel
                     cob->zRotation,
                     cob->angle,
                     cob->scale);
@@ -869,7 +869,7 @@ void load_level_data_sections(void) {
 
             memcpy_sssv(base, (u8*)&D_803F2D50, tmp);
             D_803F2D50.unkE0 = D_803F2D50.unk40;
-            func_8031B174_72C824(D_803F2D50.segment, D_803F2D50.unk52);
+            load_level_texture_data(D_803F2D50.segment, D_803F2D50.unk52);
             break;
         case 13: /* .cam */
             copy_or_extract(buf, base, 0x25800);
@@ -934,6 +934,7 @@ void func_8031C374_72DA24() {
     D_803F2D50.unkBC = NULL;
 }
 
+// ESA: func_8005BE44 (tbd)
 void func_8031C3C0_72DA70(u8 *arg0, s16 idx) {
     s16 i;
 

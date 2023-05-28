@@ -75,6 +75,8 @@ MakeHuffmanTable       = 0x8012BCEC;
 FindLowest             = 0x8012BF5C;
 SwapBits               = 0x8012C010;
 
+initialise_tv_mode     = 0x8012A870;
+set_screen_scaling     = 0x8012AB94
 set_tv_mode_widescreen = 0x8012ABF0;
 set_tv_mode_normal     = 0x8012AC40;
 load_overlay           = 0x8012C070;
@@ -83,10 +85,13 @@ set_menu_text_color    = 0x8012C214;
 select_font            = 0x8012C248;
 select_comic_sans_font = 0x8012C2A4;
 select_lcd_font        = 0x8012C2E4;
+get_glyph_width        = 0x8012C314;
 convert_text_to_int    = 0x8012C360;
+get_message_width      = 0x8012C3D8;
 display_text_centered  = 0x8012C978;
 draw_glyph             = 0x8012DCA8;
 display_text           = 0x8012DEF8;
+get_char_type          = 0x8012E724;
 load_glyph             = 0x8012FB4C;
 display_text_wrapped   = 0x8012FBEC;
 display_score          = 0x801304EC;
@@ -182,6 +187,8 @@ language_select_menu   = 0x80298FC0; // rom:0x63C660
 get_evo_suit_color     = 0x80296320; // rom:0x6A79D0
 distance_from_player   = 0x8029B7D0; // rom:0x6ACE80
 spawn_animal           = 0x802C7F88; // rom:0x6D9638
+spawn_object           = 0x802C9564; // rom:0x6DAC14
+create_particle_effect_2 = 0x802D5B88; // rom:0x6E7238
 create_particle_effect = 0x802D5F4C; // rom:0x6E75FC
 fire_fox_fire_missile  = 0x802E87B8; // rom:0x6F9E68
 fox_warp               = 0x802E89AC; // rom:0x6FA05C
@@ -199,27 +206,48 @@ add_multiple_lights    = 0x802F5088; // rom:0x706738
 add_single_light       = 0x802F5964; // rom:0x707014
 
 get_controller_input   = 0x802F59F0; // rom:0x7070A0
+find_closest_animal    = 0x802F8994; // rom:0x70A044
+
+run_commands           = 0x802FC990; // rom:0x70E040
+set_floor_level        = 0x802FD190; // rom:0x70E840
+set_water_level        = 0x802FD26C; // rom:0x70E91C
 
 fire_homing_missile    = 0x802FEE98; // rom:0x710548
 spawn_temporary_object = 0x802FF0A4; // rom:0x710754
 
 heli_rabbit_drop_bomb  = 0x80302120; // rom:0x7137D0
 frog_croak             = 0x80302DD0; // rom:0x714480
+calculate_hypotenuse   = 0x80304E80; // rom:0x716530
 animal_jump            = 0x8030A958; // rom:0x71C008
 parrot_fly             = 0x80314600; // rom:0x725CB0
-
 set_game_state         = 0x80314874; // rom:0x725F24
 get_game_state         = 0x80314F0C; // rom:0x7265BC
 copy_command_struct    = 0x80315384; // rom:0x726A34
 load_commands_into_object = 0x803153B0; // rom:0x726A60
+do_maths_op            = 0x803152A4; // rom:0x726954
+run_single_command     = 0x803159E4; // rom:0x727094
+
+is_object_type_helper  = 0x803158B4; // rom:0x726F64
+is_object_type         = 0x803158E4; // rom:0x726F94
+
+is_animal_helper       = 0x80315924; // rom:0x726FD4
+is_animal              = 0x80315950; // rom:0x727000
+
+is_object_helper       = 0x80315984; // rom:0x727034
+is_object              = 0x803159B0; // rom:0x727060
 
 get_closest_waypoint_index = 0x80319B4C; // rom:0x72B1FC
+
+load_level_texture_data = 0x8031B174; // rom:0x72C824
 
 get_uncompressed_size  = 0x8031AFD0; // rom:0x72C680
 get_compressed_size    = 0x8031B058; // rom:0x72C708
 copy_or_extract        = 0x8031B0E8; // rom:0x72C798
 load_level_data        = 0x8031B390; // rom:0x72CA40
 racing_mouse_turbo     = 0x8031FBE8; // rom:0x731298
+fire_cannonball_1      = 0x80321E60; // rom:0x733510
+fire_cannonball_2      = 0x80322064; // rom:0x733714
+fire_cannonball_3      = 0x8032225C; // rom:0x73390C
 apply_recoil           = 0x803223F4; // rom:0x733AA4
 load_animal            = 0x8032AAF0; // rom:0x73C1A0
 check_and_set_species_encountered = 0x8032ABB8; // rom:0x73C268
@@ -235,7 +263,10 @@ get_magnitude          = 0x8032D440; // rom:0x73EAF0
 dot_product            = 0x8032D504; // rom:0x73EBB4
 cross_product          = 0x8032D534; // rom:0x73EBE4
 get_angle_between_vectors = 0x8032D5A4; // rom:0x73EC54
+try_pickup_animal        = 0x803213B0; // rom:0x732A60
 
+osd_draw_health_and_power_bars = 0x80348230; // rom:0x7598E0
+osd_draw_score           = 0x803491F0; // rom:0x75A8A0
 osd_draw_timer           = 0x80349B84; // rom:0x75B234
 show_osd                 = 0x80349748; // rom:0x75ADF8
 hide_osd                 = 0x80349778; // rom:0x75AE28
@@ -247,6 +278,10 @@ flying_dog_fire_gun      = 0x802EEF9C; // rom:0x70064C
 flying_dog_drop_bomb     = 0x802EEFEC; // rom:0x70069C
 load_ingame_objects      = 0x80352280; // rom:0x763930
 load_water_texture       = 0x80352310; // rom:0x7639C0
+
+spawn_dizzy_stars_big    = 0x8034A684; // rom:0x75BD34
+spawn_dizzy_stars_medium = 0x8034A914; // rom:0x75BFC4
+spawn_dizzy_starts_small = 0x8034ABA4; // rom:0x75C254
 
 racing_tortoise_turbo    = 0x803563C8; // rom:0x767A78
 
@@ -279,6 +314,8 @@ walrus_fire_missile      = 0x80376B88; // rom:0x788238
 walrus_turbo             = 0x80376CF8; // rom:0x7883A8
 load_data_section        = 0x803800F0; // rom:0x7917A0
 
+trigger_contagious_laughter     = 0x8037E1C4; // rom:0x78F874
+
 perform_behavior_lion           = 0x803839F0; // rom:0x7950A0
 perform_behavior_hippo          = 0x80383BE4; // rom:0x795294
 perform_behavior_racing_hippo   = 0x80383E38; // rom:0x7954E8
@@ -287,6 +324,7 @@ perform_behavior_flying_dog     = 0x80384060; // rom:0x795710
 perform_behavior_fox            = 0x8038448C; // rom:0x795B3C
 perform_behavior_fire_fox       = 0x803846BC; // rom:0x795D6C
 perform_behavior_frog           = 0x80384858; // rom:0x795F08
+perform_behavior_polar_bear_defending = 0x803892DC; // rom:0x79A98C
 perform_behavior_rabbit         = 0x80384A8C; // rom:0x79613C
 perform_behavior_heli_rabbit    = 0x80384CB8; // rom:0x796368
 perform_behavior_cod            = 0x80384F14; // rom:0x7965C4
@@ -294,6 +332,11 @@ perform_behavior_parrot         = 0x80384F1C; // rom:0x7965CC
 perform_behavior_mouse          = 0x80385080; // rom:0x796730
 perform_behavior_racing_mouse   = 0x80385088; // rom:0x796738
 perform_behavior_heli_mouse     = 0x803852C0; // rom:0x796970
+perform_behavior_bear           = 0x803852C8; // rom:0x796978
+perform_behavior_bear_attacking = 0x80385480; // rom:0x796B30
+perform_behavior_mystery_bear   = 0x80385488; // rom:0x796B38
+perform_behavior_seagull2       = 0x8038951C; // rom:0x79ABCC
+perform_behavior_racing_fox     = 0x80385490; // rom:0x796B40
 perform_behavior_king_rat       = 0x80385DF0; // rom:0x7974A0
 perform_behavior_rat            = 0x80385F90; // rom:0x797640
 perform_behavior_sheep          = 0x80386454; // rom:0x797B04
@@ -320,6 +363,7 @@ render_tv_body              = 0x803951BC; // rom:0x7A686C
 render_tv_glass             = 0x80395314; // rom:0x7A69C4
 render_spaceship_interior   = 0x803960F4; // rom:0x7A77A4
 display_zone_select_screen  = 0x80398A0C; // rom:0x7AA0BC
+draw_level_rings_segment    = 0x8039BE98; // rom:0x7AD548
 get_player_progress         = 0x8039CCBC; // rom:0x7AE36C
 render_stars                = 0x8039D30C; // rom:0x7AE9BC
 generate_stars              = 0x8039D580; // rom:0x7AEC30
