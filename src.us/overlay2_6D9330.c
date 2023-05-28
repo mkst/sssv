@@ -2,6 +2,7 @@
 #include "common.h"
 
 #if 0
+// ESA: func_8005F8F8
 void func_802C7C80_6D9330(void) {
     s32 temp_a0_2;
     struct035 *temp_v0;
@@ -13,7 +14,7 @@ void func_802C7C80_6D9330(void) {
     u8 temp_t8;
     u8 temp_t9_2;
 
-    memset_bytes((u8 *) &D_801D9ED8, 0U, 0x3EB0U);
+    memset_bytes((u8 *) &D_801D9ED8, 0U, 0x3EB0U); // D_801D9ED8.unk0 ?
 
     for (i = 0; i < 0x44; i++) {
         temp_v1 = &D_803A05D0_7B1C80[i];
@@ -177,9 +178,9 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     D_803D5530->unk160 = 0;
     D_803D5530->unk16C = D_803D5524;
     D_803D5530->health = MIN(health, D_803D5524->unk8A);
-    D_803D5530->unk4C.unk27 = 1;
-    D_803D5530->unk4C.unk28 = 1;
-    D_803D5530->unk4C.unk29 = 1;
+    D_803D5530->unk4C.unk1B = 1;
+    D_803D5530->unk4C.unk1C = 1;
+    D_803D5530->unk4C.unk1D = 1;
     D_803D552C->unk31C = func_801282C4();
 
     i = func_8031124C_7228FC(arg0, arg1) >> 0x10;
@@ -217,6 +218,7 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     return &D_801D9ED8.animals[slot];
 }
 
+// ESA: func_800600E0
 void func_802C83CC_6D9A7C(Animal *arg0) {
     if (arg0->unk320 != 0) {
         // decrement linked animal reference id?

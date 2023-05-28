@@ -281,10 +281,10 @@ void func_803791E0_78A890(void) {
                     }
 
                     func_80321920_732FD0(D_803D552C->unk320, 0x14, 2);
-                    temp_v0_15->unk10.w += temp_v0_15->xVelocity.w;
-                    temp_v0_15->unk14.w += temp_v0_15->zVelocity.w;
-                    temp_v0_15->unk18.w += temp_v0_15->yVelocity.w;
-                    temp_v0_15->unk168 = D_803D5530;
+                    temp_v0_15->newPosition.xPos.w += temp_v0_15->xVelocity.w;
+                    temp_v0_15->newPosition.zPos.w += temp_v0_15->zVelocity.w;
+                    temp_v0_15->newPosition.yPos.w += temp_v0_15->yVelocity.w;
+                    temp_v0_15->owner = D_803D5530;
                     temp_v0_15->unk15C = 6;
                 }
             } else if (ticks_remaining < 0x2C) {

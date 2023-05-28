@@ -91,7 +91,7 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     perform_behavior_fox,
     perform_behavior_fire_fox,
     perform_behavior_frog,
-    func_803892DC_79A98C, // 9 POLAR_BEAR_DEFENDING
+    perform_behavior_polar_bear_defending, // 9 POLAR_BEAR_DEFENDING
     perform_behavior_rabbit,
     perform_behavior_heli_rabbit,
     perform_behavior_cod,
@@ -104,11 +104,11 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     func_803892EC_79A99C,
     func_803852B8_796968,
     perform_behavior_heli_mouse,   // 21 HELI_MOUSE
-    func_803852C8_796978, // 22 BEAR
-    func_80385480_796B30, // 23 BEAR_ATTACKING
-    func_80385488_796B38,
-    func_8038951C_79ABCC,
-    func_80385490_796B40, // 26 RACING_FOX
+    perform_behavior_bear, // 22 BEAR
+    perform_behavior_bear_attacking, // 23 BEAR_ATTACKING
+    perform_behavior_mystery_bear,
+    perform_behavior_seagull2,
+    perform_behavior_racing_fox, // 26 RACING_FOX
     func_80385710_796DC0, // TORTOISE_TANK
     func_80385A0C_7970BC,
     func_803859D4_797084,
@@ -161,6 +161,7 @@ s16  D_803F63F0;
 // .text
 // ========================================================
 
+// ESA: func_80064DC4
 s32 func_80383830_794EE0(u16 arg0) {
     Animal *a = D_803D552C->unk2CC;
     if (arg0 < func_803051F0_7168A0((func_801284B8(a->xPos.h - D_803D5530->xPos.h, a->zPos.h - D_803D5530->zPos.h) * 256) / 360, D_803D5530->yRotation)) {
@@ -170,6 +171,7 @@ s32 func_80383830_794EE0(u16 arg0) {
     }
 }
 
+// ESA: func_80064E6C
 s32 func_803838C8_794F78(u16 rotation, u16 arg1) {
     Animal *a = D_803D552C->unk2CC;
 
@@ -180,6 +182,7 @@ s32 func_803838C8_794F78(u16 rotation, u16 arg1) {
     }
 }
 
+// ESA: func_80064F18
 s16 func_8038395C_79500C(void) {
     f32 xVel;
     f32 zVel;
@@ -196,6 +199,7 @@ s16 func_8038395C_79500C(void) {
 
 // all animal behaviours
 
+// ESA: func_80064FB4
 void perform_behavior_lion(void) {
     if (1) {}; // needed for regalloc
 
@@ -230,6 +234,7 @@ void perform_behavior_lion(void) {
     }
 }
 
+// ESA: func_8006521C
 void perform_behavior_hippo(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
@@ -623,7 +628,7 @@ void func_803852B8_796968(void) {
 void perform_behavior_heli_mouse(void) {
 }
 
-void func_803852C8_796978(void) {
+void perform_behavior_bear(void) {
     if (1) {};
 
     switch (D_803D552C->unk2B4.state) {
@@ -658,13 +663,13 @@ void func_803852C8_796978(void) {
     }
 }
 
-void func_80385480_796B30(void) {
+void perform_behavior_bear_attacking(void) {
 }
 
-void func_80385488_796B38(void) {
+void perform_behavior_mystery_bear(void) {
 }
 
-void func_80385490_796B40(void) {
+void perform_behavior_racing_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -846,6 +851,7 @@ void func_80385BE0_797290(void) {
     }
 }
 
+// ESA: func_800676D4
 void perform_behavior_king_rat(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
@@ -1810,7 +1816,7 @@ void func_80389160_79A810(void) {
 void func_803892D4_79A984(void) {
 }
 
-void func_803892DC_79A98C(void) {
+void perform_behavior_polar_bear_defending(void) {
 }
 
 void func_803892E4_79A994(void) {
@@ -1856,7 +1862,7 @@ void perform_behavior_seagull(void) {
     }
 }
 
-void func_8038951C_79ABCC(void) {
+void perform_behavior_seagull2(void) {
 }
 
 void func_80389524_79ABD4(void) {
@@ -1908,10 +1914,13 @@ void func_8038975C_79AE0C(void) {
     // no behaviour for cool cod
 }
 
+// ESA: func_8006B844
 void func_80389764_79AE14(u8 arg0) {
     D_803F63F0 = arg0;
     D_803B5D20[D_803D5524->unk9C]();
 }
+
+// file split ?
 
 s32 func_803897B0_79AE60(u8 arg0) {
     s16 phi_a3;
@@ -1960,26 +1969,4 @@ s32 func_803897B0_79AE60(u8 arg0) {
         }
     }
     return 0;
-}
-
-// file boundary?
-void func_803899E0_79B090(Animal *arg0) {
-    s32 phi_v0;
-
-    if (arg0->unk6C == NULL) {
-        if (arg0->unk160 == 2) {
-            phi_v0 = D_803E1D30[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk3].unkB;
-        } else {
-            phi_v0 = D_803E1D30[D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk2].unkB;
-        }
-        if (phi_v0 != arg0->unk4C.unk16) {
-            if (phi_v0 < arg0->unk4C.unk16) {
-                if ((ABS(arg0->xVelocity.w) > 32768) || (ABS(arg0->zVelocity.w) > 32768) || (ABS(arg0->yVelocity.w) > 327680)) {
-                    arg0->unk4C.unk16 -= 1;
-                }
-            } else {
-                arg0->unk4C.unk16 += 1;
-            }
-        }
-    }
 }

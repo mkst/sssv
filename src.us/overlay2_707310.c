@@ -43,6 +43,7 @@ struct064 D_803E1D30[256]; // additional layer for level data
 // .text
 // ========================================================
 
+// ESA: func_8004E918
 void func_802F5C60_707310(Animal *arg0) {
 
     s64 x;
@@ -98,6 +99,7 @@ void func_802F5C60_707310(Animal *arg0) {
     }
 }
 
+// ESA: func_8004EE24
 void func_802F5F44_7075F4(s16 x, s16 y, s16 z, s16 yRotation, s16 zRotation, struct077 *res) {
     s16 temp_t0;
     s16 temp_t1;
@@ -118,6 +120,7 @@ void func_802F5F44_7075F4(s16 x, s16 y, s16 z, s16 yRotation, s16 zRotation, str
     res->unk4 = ((y * temp_v0) + (z * temp_t0)) >> 8;
 }
 
+// ESA: func_8004EF24
 void func_802F603C_7076EC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, u16 arg5, struct077 *res) {
     s64 pad;
     s64 sp70;
@@ -147,6 +150,7 @@ void func_802F603C_7076EC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, u16 
     res->unk4 = sp68;
 }
 
+// ESA: func_8004F3C0
 struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 vAngle, s16 rotation, s16 arg9, s32 scale) {
     struct071 *obj;
     struct077 sp3C;
@@ -154,7 +158,7 @@ struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, 
 
     func_802F5F44_7075F4(arg4,      arg5, arg6, vAngle, rotation, &sp3C);
     func_802F5F44_7075F4(0,    arg9 << 8,    0, vAngle, rotation, &sp34);
-    obj = func_802C9564_6DAC14(
+    obj = spawn_object(
         id,
         x + sp3C.unk0,
         z + sp3C.unk2,
@@ -173,6 +177,7 @@ struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, 
     return obj;
 }
 
+// ESA: func_8004F6EC
 s16 func_802F63F8_707AA8(s16 arg0, s16 arg1, s16 arg2) {
     s16 diff;
 
@@ -195,6 +200,7 @@ s16 func_802F63F8_707AA8(s16 arg0, s16 arg1, s16 arg2) {
     return -arg2;
 }
 
+// ESA: func_8004F780
 s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
     s16 diff;
 
@@ -227,6 +233,7 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
     return arg1;
 }
 
+// ESA: func_8004F828
 void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     arg0->unk178 = arg1;
     arg0->unk17A = arg2;
@@ -238,8 +245,7 @@ void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) 
     arg0->unk184 = 0;
 }
 
-// CURRENT (80)
-#ifdef NON_MATCHING
+// ESA: func_8004F85C
 void func_802F65BC_707C6C(Animal *arg0) {
     s32 temp_t5;
     s32 temp_t6;
@@ -247,19 +253,21 @@ void func_802F65BC_707C6C(Animal *arg0) {
 
     s32 phi_t2;
 
-    u8 new_var;
+    s32 xVel, zVel, yVel;
+
+    s16 new_var;
 
     if (arg0->unk184 >= 256) {
         arg0->unk170 = 0;
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
-        if ((arg0->unk4C.unk29 == 0)) {
+        if ((arg0->unk4C.unk1D == 0)) {
             arg0->yVelocity.w = 0;
         }
     } else if (arg0->state == 0) {
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
-        if ((arg0->unk4C.unk29 == 0)) {
+        if ((arg0->unk4C.unk1D == 0)) {
             arg0->yVelocity.w = 0;
         }
     } else {
@@ -275,34 +283,28 @@ void func_802F65BC_707C6C(Animal *arg0) {
         } else if (arg0->unk184 == 0) {
             phi_t2 = FTOFIX32(0.5);
         } else {
-            new_var = arg0->unk184 >> 1;
-            phi_t2 = D_80152C78[(new_var + 64) & 0xFF];
+            phi_t2 = D_80152C78[((s16)(arg0->unk184 >> 1) + 64) & 0xFF];
         }
 
         if (((arg0->unk184) & 1)) { // odd?
-
-            if ((((!(&arg0->yPos)) && (!(&arg0->yPos))) && (!(&arg0->yPos))) != 0) {};
-
-            new_var = arg0->unk184 >> 1;
-            phi_t2 = (D_80152C78[(new_var + 65) & 0xFF] + phi_t2) >> 1;
+            new_var = arg0->unk184;
+            phi_t2 = (phi_t2 + D_80152C78[((((s16) (new_var >> 1))) + 65) & 0xFF]) >> 1;
         }
 
-        temp_t6 = ((arg0->unk17E + temp_t6) << 16) - (temp_t6 * 2 * phi_t2);
-        temp_t8 = ((arg0->unk180 + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
-        temp_t5 = ((arg0->unk182 + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
+        xVel = ((arg0->unk17E + temp_t6) << 16) - (temp_t6 * 2 * phi_t2);
+        zVel = ((arg0->unk180 + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
+        yVel = ((arg0->unk182 + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
 
-        arg0->xVelocity.w = temp_t6 - arg0->xPos.w;
-        arg0->zVelocity.w = temp_t8 - arg0->zPos.w;
+        arg0->xVelocity.w = xVel - arg0->xPos.w;
+        arg0->zVelocity.w = zVel - arg0->zPos.w;
 
-        if (arg0->unk4C.unk29 == 0) {
-            arg0->yVelocity.w = temp_t5 - arg0->yPos.w;
+        if (arg0->unk4C.unk1D == 0) {
+            arg0->yVelocity.w = yVel - arg0->yPos.w;
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F65BC_707C6C.s")
-#endif
 
+// ESA: func_8004FA08
 void func_802F6750_707E00(Animal *arg0) {
     s32 temp_a2;
     s32 temp_t1;
@@ -316,13 +318,13 @@ void func_802F6750_707E00(Animal *arg0) {
         arg0->unk170 = 0;
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
-        if (arg0->unk4C.unk29 == 0) {
+        if (arg0->unk4C.unk1D == 0) {
             arg0->yVelocity.w = 0;
         }
     } else if (arg0->state == 0) {
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
-        if (arg0->unk4C.unk29 == 0) {
+        if (arg0->unk4C.unk1D == 0) {
             arg0->yVelocity.w = 0;
         }
     } else {
@@ -352,28 +354,29 @@ void func_802F6750_707E00(Animal *arg0) {
         }
         arg0->xVelocity.w = xVel - arg0->xPos.w;
         arg0->zVelocity.w = zVel - arg0->zPos.w;
-        if (arg0->unk4C.unk29 == 0) {
+        if (arg0->unk4C.unk1D == 0) {
             arg0->yVelocity.w = yVel - arg0->yPos.w;
         }
     }
 }
 
+// ESA: func_8004FB78
 void func_802F68A0_707F50(Animal *arg0) {
     s32 x, z, y;
 
     if ((arg0->xPos.h == arg0->unk178) &&
         (arg0->zPos.h == arg0->unk17A) &&
-        ((arg0->unk4C.unk29 != 0) || (arg0->yPos.h == arg0->unk17C))) {
+        ((arg0->unk4C.unk1D != 0) || (arg0->yPos.h == arg0->unk17C))) {
         arg0->unk170 = 0;
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
-        if (arg0->unk4C.unk29 == 0) {
+        if (arg0->unk4C.unk1D == 0) {
             arg0->yVelocity.w = 0;
         }
     } else if (arg0->state == 0) {
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
-        if (arg0->unk4C.unk29 == 0) {
+        if (arg0->unk4C.unk1D == 0) {
             arg0->yVelocity.w = 0;
         }
     } else {
@@ -427,12 +430,13 @@ void func_802F68A0_707F50(Animal *arg0) {
 
         arg0->xVelocity.w = (x << 16) - arg0->xPos.w;
         arg0->zVelocity.w = (z << 16) - arg0->zPos.w;
-        if (arg0->unk4C.unk29 == 0) {
+        if (arg0->unk4C.unk1D == 0) {
             arg0->yVelocity.w = (y << 16) - arg0->yPos.w;
         }
     }
 }
 
+// ESA: func_8004FD48
 void func_802F6A5C_70810C(Animal *arg0) {
     s16 phi_a2;
     s16 phi_v0_4;
@@ -516,6 +520,7 @@ void func_802F6A5C_70810C(Animal *arg0) {
     }
 }
 
+// ESA: func_80050148
 void func_802F6DEC_70849C(Animal *arg0, s16 arg1) {
     struct077 sp68;
     s16 temp_f4;
@@ -547,11 +552,13 @@ void func_802F6DEC_70849C(Animal *arg0, s16 arg1) {
     }
 }
 
+// ESA: func_800502E8
 void func_802F7054_708704(s32 arg0) {
 }
 
 // miles away
 #if 0
+// not in ESA?
 void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u16 flags) {
     s16 sp13A;
     s16 sp138;
@@ -685,7 +692,7 @@ void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, 
                             temp_s0 = var_s3->animal;
                             if (temp_s0 != arg0) {
                                 // temp_v0_3 = temp_s0->unk4C;
-                                if ((temp_s0->unk4C.unk27) && (temp_s0->unk4C.unk28) && (temp_s7 == temp_s0->unk114[0])) {
+                                if ((temp_s0->unk4C.unk1B) && (temp_s0->unk4C.unk1C) && (temp_s7 == temp_s0->unk114[0])) {
                                     temp_f12 = temp_s0->xPos.h - arg0->xPos.h;
                                     temp_f14 = temp_s0->zPos.h - arg0->zPos.h;
                                     temp_f16 = (temp_s0->yPos.h - arg0->yPos.h) - arg3;
@@ -753,9 +760,191 @@ block_38:
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F705C_70870C.s")
 #endif
 
-// more loops
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F7940_708FF0.s")
+// CURRENT (9250)
+#if 0
+// ESA: func_80050BF0
+void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 enabled, s16 arg5, s16 arg6, s16 arg7) {
+    s16 spD2;
+    s16 spD0;
+    s16 spC8;
+    s32 sp88;
+    u16 sp68;
 
+    Animal *a;
+    s16 x;
+    s16 z;
+    s16 y;
+
+    s16 var_s1;
+    s16 var_s3;
+    s32 temp_s2;
+    s32 temp_s4;
+    s32 temp_t3_2;
+    s16 temp_t6;
+    s16 temp_t8;
+    s16 temp_v0_10;
+    s32 temp_v1_2;
+    s32 temp_v1_3;
+    s32 var_a2;
+    s32 var_a3;
+    s32 var_s2;
+    s32 var_s4;
+    s32 var_t0;
+    s32 var_v1;
+    struct065 *var_s7;
+    struct035 *temp_v1;
+    Animal *owner;
+
+    temp_t6 = xPos >> 0xA;
+    temp_t8 = zPos >> 0xA;
+
+    if (enabled != 0) {
+        var_t0 = -1;
+        var_a3 = -1;
+        spC8 = 1;
+        var_a2 = 1;
+        if ((temp_t6 + 1) >= 5) {
+            var_a2 = 0;
+        }
+        if (temp_t6 <= 0) {
+            var_a3 = 0;
+        }
+        if ((temp_t8 + 1) >= 8) {
+            spC8 = 0;
+        }
+        if (temp_t8 <= 0) {
+            var_t0 = 0;
+        }
+
+        // determine if owner is user's current animal?
+        owner = arg0->owner;
+        if (sp88 = owner != NULL) {
+            temp_v1 = owner->unk16C;
+            if (sp88 = temp_v1 != NULL) {
+                if (sp88 = (temp_v1->objectType >= 0x100)) {
+                    sp88 = owner == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+                }
+            }
+        }
+
+        for (spD2 = temp_t6 + var_a3; spD2 <= (temp_t6 + var_a2); spD2++) {
+
+            for (spD0 = temp_t8 + var_t0; spD0 <= (temp_t8 + spC8); spD0++) {
+
+                sp68 = (spD2 + (spD0 * 5));
+                for (var_s7 = D_803DA110[sp68].next; var_s7 != NULL; var_s7 = var_s7->next) {
+                    a = var_s7->animal;
+                    if ((sp68 == a->unk114[0]) && (a->unk16C->objectType != OBJECT_ROCKET) && (a != arg0) && (a != arg0->owner)) {
+                        x = a->xPos.h;
+                        y = a->yPos.h;
+                        z = a->zPos.h;
+
+                        temp_t3_2 = a->unk42 >> 1;
+                        temp_s2 = x - xPos;
+                        temp_s4 = z - zPos;
+                        temp_v1_2 = (y + temp_t3_2) - yPos;
+
+                        if (temp_s2 > 0) {
+                            var_s2 = MAX(0, temp_s2 - a->unk30);
+                        } else {
+                            var_s2 = MIN(0, a->unk30 + temp_s2);
+                        }
+
+                        if (temp_s4 > 0) {
+                            var_s4 = MAX(0, temp_s4 - a->unk32);
+                        } else {
+                            var_s4 = MIN(0, a->unk32 + temp_s4);
+                        }
+
+                        if (temp_v1_2 > 0) {
+                            var_v1 = MAX(0, temp_v1_2 - temp_t3_2);
+                        } else {
+                            var_v1 = MIN(0, temp_t3_2 + temp_v1_2);
+                        }
+
+                        var_s3 = sqrtf((SQ(var_s2) + SQ(var_s4) + SQ(var_v1)));
+                        if (var_s3 <= 0) {
+                            var_s3 = 1;
+                        }
+                        var_s1 = ABS(var_s3);
+                        if ((var_s1 < arg6) && (arg5 < var_s1) && (func_8033C9CC_74E07C(xPos, zPos, yPos, arg0->unk160, x, z, y, a->unk160, 0, 0) == 0) && (func_8033C9CC_74E07C(xPos, zPos, (yPos + (arg0->unk42 * 2)), arg0->unk160, a->xPos.h, a->zPos.h,a->yPos.h + a->unk42, a->unk160, 0, 0) == 0)) {
+                            if ((a->unk16C->objectType == OBJECT_MINE) || (a->unk16C->objectType == 0x4D) || (a->unk16C->objectType == 0x4E)) {
+                                temp_v0_10 = var_s1 >> 4;
+                                if ((temp_v0_10) < a->unk154) {
+                                    if ((temp_v0_10) >= 2) {
+                                        a->unk154 = (temp_v0_10);
+                                    } else {
+                                        a->unk154 = 2;
+                                    }
+                                }
+                            } else {
+                                if (enabled != 0) { // not this?
+                                    func_802B356C_6C4C1C(a, enabled, arg7, 1);
+                                }
+                                if ((sp88 != 0) && (a->unk16C->objectType >= 0x100)) {
+                                    // is animal
+                                    a->unk2EB += 1;
+                                }
+
+                                if ((a->unk4C.unk1B != 0) && (a->unk4C.unk1C != 0)) {
+                                    if (a->unk44 > 0) {
+                                        if (a->unk44 <= 100) {
+                                            temp_v1_3 = 100 - a->unk44;
+                                            var_s2 = ((((var_s2 << 0x10) / var_s3) * 4) * temp_v1_3) / 100;
+                                            var_s4 = ((((var_s4 << 0x10) / var_s3) * 4) * temp_v1_3) / 100;
+
+                                            if ((var_s2 < 0)) {
+                                                if (var_s2 < a->xVelocity.w) {
+                                                    a->xVelocity.w = a->xVelocity.w + var_s2;
+                                                    if (a->xVelocity.w < var_s2) {
+                                                        a->xVelocity.w = var_s2;
+                                                    }
+                                                }
+                                            } else if (var_s2 > 0) {
+                                                if (a->xVelocity.w < var_s2) {
+                                                    a->xVelocity.w = a->xVelocity.w + var_s2;
+                                                    if (var_s2 < a->xVelocity.w) {
+                                                        a->xVelocity.w = var_s2;
+                                                    }
+                                                }
+                                            }
+
+                                            if (var_s4 < 0) {
+                                                if (var_s4 < a->zVelocity.w) {
+                                                    a->zVelocity.w = a->zVelocity.w + var_s4;
+                                                    if (a->zVelocity.w < var_s4) {
+                                                        a->zVelocity.w = var_s4;
+                                                    }
+                                                }
+                                            } else if (var_s4 > 0) {
+                                                if (a->zVelocity.w < var_s4) {
+                                                    a->zVelocity.w = a->zVelocity.w + var_s4;
+                                                    if (var_s4 < a->zVelocity.w) {
+                                                        a->zVelocity.w = var_s4;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                a->unk58 = NULL;
+                                a->unk4C.unk19 = 1;
+                                a->unk54 |= 9;
+                                a->unk55 = arg0->unk16C->objectType;
+                                a->unk56 = 0xA;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+#else
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F7940_708FF0.s")
+#endif
+
+// ESA: func_800509BC
 s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 temp_f18;
     f32 phi_f18;
@@ -777,8 +966,10 @@ s32 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 }
 
 // goto hell
+// ESA: func_80050BF0
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8160_709810.s")
 
+// ESA: func_80050EA4
 u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4) {
     f32 tmp;
     f32 sp60;
@@ -843,6 +1034,7 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
     return 1;
 }
 
+// ESA: func_80051334
 s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
     u8 i, j;
 
@@ -860,8 +1052,8 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
     return 0;
 }
 
-// find_closest_animal
-struct071 *func_802F8994_70A044(struct071 *arg0) {
+// ESA: func_800513C0
+struct071 *find_closest_animal(struct071 *arg0) {
     s16 i;
     s16 zDist;
     s16 xDist;
@@ -901,6 +1093,7 @@ struct071 *func_802F8994_70A044(struct071 *arg0) {
 
 // gun turret
 #ifdef NON_MATCHING
+// ESA: func_80051544
 void func_802F8B4C_70A1FC(struct071 *arg0) {
     s16 pad[8];
     s16 angle;
@@ -916,7 +1109,7 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
         arg0->Info.Counter2 -= 2;
     }
     if ((arg0->unk0 == 1)) {
-        obj = func_802F8994_70A044(arg0);
+        obj = find_closest_animal(arg0);
         if ((obj != NULL) && (func_802F8658_709D08(arg0, obj, 16.0f, 512.0f, &sp48) != 0)) {
             x = sp48.unk0 - arg0->xPos.h;
             z = sp48.unk2 - arg0->zPos.h;
@@ -961,6 +1154,7 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
 #endif
 
 // homing missile turret (object63)
+// ESA: func_800517C8
 void func_802F8DCC_70A47C(struct071 *arg0) {
     s32 x_dist;
     s32 z_dist;
@@ -975,7 +1169,7 @@ void func_802F8DCC_70A47C(struct071 *arg0) {
         arg0->Info.Counter2 -= 2;
     }
     if (arg0->unk0 == 1) {
-        obj = func_802F8994_70A044(arg0);
+        obj = find_closest_animal(arg0);
         if (obj != NULL) {
             if (arg0->Info.unk14E > 0) {
                 arg0->Info.unk14E -= 1;
@@ -1005,9 +1199,11 @@ void func_802F8DCC_70A47C(struct071 *arg0) {
     }
 }
 
+// ESA: func_80051A8C
 void func_802F9084_70A734(s32 arg0) {
 }
 
+// ESA: func_80051A94
 void func_802F908C_70A73C(struct071 *arg0) {
     if (arg0->unk154 == 0) {
         arg0->unk154 = 100;
@@ -1015,16 +1211,18 @@ void func_802F908C_70A73C(struct071 *arg0) {
 }
 
 // used by dead scientists
+// ESA: func_80051AB0
 void func_802F90A8_70A758(struct071 *arg0) {
     arg0->xPos.w += arg0->unk1C.w;
     arg0->zPos.w += arg0->unk20.w;
-    if (!arg0->unk4C.unk30) {
+    if (!arg0->unk4C.unk1D) {
         arg0->yPos.w += arg0->unk24.w;
     }
     func_803136B0_724D60(arg0);
 }
 
 // used by object34
+// ESA: func_80051B1C
 void func_802F9104_70A7B4(struct071 *arg0) {
     arg0->Info.Counter2 = (arg0->Info.Counter2 + 4) & 0xFF;
     arg0->unk40 = (((D_80152C78[(arg0->Info.Counter2 + 64) & 0xFF] >> 7) * 0x66) >> 8) + 0x533;
@@ -1032,6 +1230,7 @@ void func_802F9104_70A7B4(struct071 *arg0) {
 }
 
 // mouse radar?
+// ESA: func_80051B8C
 s32 func_802F9178_70A828(struct071 *arg0) {
     Animal *target;
     s16 zDist;
@@ -1067,10 +1266,11 @@ s32 func_802F9178_70A828(struct071 *arg0) {
 #ifdef NON_MATCHING
 // justreg
 // used by missile
-// CURRENT (70)
+// CURRENT (40)
+// ESA: func_80051CD0
 void func_802F92B0_70A960(struct071 *arg0) {
-    u8 new_var;
     s32 pad[3];
+    s16 new_var;
     s32 x_dist;
     s32 z_dist;
     s32 sp54;
@@ -1084,8 +1284,8 @@ void func_802F92B0_70A960(struct071 *arg0) {
 
     sp47 = func_802F9178_70A828(arg0);
 
-    if (arg0->unk188 != NULL) {
-        a = arg0->unk188;
+    if (arg0->target != NULL) {
+        a = arg0->target;
         x_dist = a->xPos.h - arg0->xPos.h;
         z_dist = a->zPos.h - arg0->zPos.h;
         sp54 = (a->yPos.h - arg0->yPos.h) + (a->unk42 >> 1);
@@ -1099,7 +1299,7 @@ void func_802F92B0_70A960(struct071 *arg0) {
             sp48 = 7;
         }
         arg0->yRotation = func_802F649C_707B4C(sp4E, arg0->yRotation, sp48);
-        if (((!arg0) && (!arg0)) && (!arg0)) {};
+        if (1) {};
         arg0->zRotation = func_802F649C_707B4C(sp4C, arg0->zRotation, MAX((sp48 * 3) / 4, 1));
     }
 
@@ -1110,7 +1310,7 @@ void func_802F92B0_70A960(struct071 *arg0) {
     }
 
     if (sp47 != 0) {
-        arg0->yRotation += D_80152350.unk2D0[(s16) ((arg0->Info.unk14E * 16) % 360)] >> 5;
+        arg0->yRotation += D_80152350.unk2D0[(s16) ((arg0->Info.unk14E << 4) % 360)] >> 5;
     }
     if (arg0->yRotation >= 360) {
         arg0->yRotation -= 360;
@@ -1118,9 +1318,10 @@ void func_802F92B0_70A960(struct071 *arg0) {
         arg0->yRotation += 360;
     }
     func_802F6DEC_70849C(arg0, phi_a1);
-    arg0->Info.unk14E++;
 
-    if ((new_var = arg0->unk154) == 0) {
+    new_var = arg0->Info.unk14E;
+    arg0->Info.unk14E = new_var + 1;
+    if ((arg0->unk154) == 0) {
         arg0->unk154 = 160;
     }
     func_8032CED0_73E580(arg0, SFX_UNKNOWN_103, 0x4000, 0.4f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
@@ -1130,6 +1331,7 @@ void func_802F92B0_70A960(struct071 *arg0) {
 #endif
 
 // used by object 30
+// stubbed out in ESA
 void func_802F951C_70ABCC(Animal *arg0) {
     u8 red;
     u8 blue;
@@ -1137,9 +1339,9 @@ void func_802F951C_70ABCC(Animal *arg0) {
     s16 pad[3];
 
     if (arg0->state == 1) {
-        red = arg0->unk200;
-        blue = arg0->unk204;
-        green = arg0->unk208;
+        red = arg0->unk200[0];
+        blue = arg0->unk200[1];
+        green = arg0->unk200[2];
         if ((red != 0) || (blue != 0) || (green != 0)) {
             add_light_at_location(
                 arg0->xPos.h,
@@ -1165,6 +1367,7 @@ void func_802F951C_70ABCC(Animal *arg0) {
 }
 
 // used by OBJECT_FLAME_TORCH
+// ESA: func_80051F00
 void func_802F9624_70ACD4(Animal *arg0) {
     if (arg0->state == 1) {
         arg0->unk14E++;
@@ -1187,7 +1390,6 @@ void func_802F9624_70ACD4(Animal *arg0) {
 }
 
 // used by OBJECT_GRAVITY_SWITCH
-#ifdef NON_MATCHING
 // esa: func_80051F98
 void func_802F96E0_70AD90(struct071 *psMoveObj) {
     if (psMoveObj->Info.Counter2 == 0) {
@@ -1214,16 +1416,13 @@ void func_802F96E0_70AD90(struct071 *psMoveObj) {
     if (psMoveObj->Info.unk14E > 0) {
         psMoveObj->Info.unk152 += 4;
         psMoveObj->Info.unk152 &= 0xFF;
-        // regalloc here...
-        psMoveObj->unk40 = (psMoveObj->Info.Counter2 + ((D_80152C78[(((s16)(psMoveObj->Info.unk152 + 64)) & 0xFFFF) & 0xFF] >> 7) / 1.5));
+        psMoveObj->unk40 = psMoveObj->Info.Counter2 + (((D_80152C78[((s16)(psMoveObj->Info.unk152 & 0xFFFF) + 64) & 0xFF] >> 7)) / 1.5);
         func_802C9BA4_6DB254(psMoveObj);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F96E0_70AD90.s")
-#endif
 
 // used by object 45
+// ESA: func_800520C4
 void func_802F9880_70AF30(Animal *arg0) {
     if (arg0->state == 1) {
         if (arg0->unk150 == 0) {
@@ -1260,16 +1459,17 @@ void func_802F9880_70AF30(Animal *arg0) {
 }
 
 // used by OBJECT_WHEEL_SWITCH
+// ESA: func_80052250
 void func_802F9A08_70B0B8(Animal *arg0) {
     if (arg0->state == 1) {
         if (arg0->unk14E == 0) {
-            arg0->unk23C = 13;
-            arg0->unk23D = 128;
-            arg0->unk23E = 128;
-            arg0->unk23F = 96;
-            arg0->unk240 = 128;
-            arg0->unk241 = 5;
-            arg0->unk242 = 64;
+            arg0->unk23C.unknown2.unk0 = 13;
+            arg0->unk23C.unknown2.unk1 = 128;
+            arg0->unk23C.unknown2.unk2 = 128;
+            arg0->unk23C.unknown2.unk3 = 96;
+            arg0->unk23C.unknown2.unk4 = 128;
+            arg0->unk23C.unknown2.unk5 = 5;
+            arg0->unk23C.unknown2.unk6 = 64;
             arg0->unk244 = 0;
         }
         if (arg0->unk14E < 0xFF) {
@@ -1280,13 +1480,13 @@ void func_802F9A08_70B0B8(Animal *arg0) {
         }
     } else {
         if (arg0->unk14E >= 0xFF) {
-            arg0->unk23C = 13;
-            arg0->unk23D = 128;
-            arg0->unk23E = 128;
-            arg0->unk23F = 128;
-            arg0->unk240 = 96;
-            arg0->unk241 = 5;
-            arg0->unk242 = 64;
+            arg0->unk23C.unknown2.unk0 = 13;
+            arg0->unk23C.unknown2.unk1 = 128;
+            arg0->unk23C.unknown2.unk2 = 128;
+            arg0->unk23C.unknown2.unk3 = 128;
+            arg0->unk23C.unknown2.unk4 = 96;
+            arg0->unk23C.unknown2.unk5 = 5;
+            arg0->unk23C.unknown2.unk6 = 64;
             arg0->unk244 = 0;
         }
         if (arg0->unk14E > 0) {
@@ -1300,6 +1500,7 @@ void func_802F9A08_70B0B8(Animal *arg0) {
 }
 
 // used by OBJECT_BUTTON
+// ESA: func_80052324
 void func_802F9B4C_70B1FC(struct071 *arg0) {
     if (arg0->unk0 == 1) {
         add_light_at_location(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 0xFF, 255 /* red */, 0, 0);
@@ -1321,6 +1522,7 @@ void func_802F9B4C_70B1FC(struct071 *arg0) {
 }
 
 // used by OBJECT_ACTIVE_SWITCH
+// ESA: func_800523EC
 void func_802F9C50_70B300(struct071 *arg0) {
     u8 red;
     u8 green;
@@ -1369,8 +1571,7 @@ void func_802F9C50_70B300(struct071 *arg0) {
         0);
 }
 
-// file split?
-
+// ESA: func_800524A4
 void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
     WaypointData *wpd;
     wpd = D_803E8E60[arg1];
@@ -1394,6 +1595,7 @@ void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 a
 #if 0
 // embarassingly far away...
 // CURRENT (25874)
+// ESA: func_80052548
 void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s16 arg4, u8 arg5) {
     s16 sp5E;
     s16 sp5C;
@@ -1531,6 +1733,7 @@ void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F9EB8_70B568.s")
 #endif
 
+// ESA: func_80052C74
 void func_802FA4F8_70BBA8(Animal *arg0) {
     s32 xPos;
     s32 zPos;
@@ -1551,7 +1754,7 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
             arg0->unk170 = 0;
             arg0->xVelocity.w = 0;
             arg0->zVelocity.w = 0;
-            if ((arg0->unk4C.unk29 == 0)) {
+            if ((arg0->unk4C.unk1D == 0)) {
                 arg0->yVelocity.w = 0;
             }
             return;
@@ -1585,11 +1788,12 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
     }
     arg0->xVelocity.w = xPos - arg0->xPos.w;
     arg0->zVelocity.w = zPos - arg0->zPos.w;
-    if (arg0->unk4C.unk29 == 0) {
+    if (arg0->unk4C.unk1D == 0) {
         arg0->yVelocity.w = yPos - arg0->yPos.w;
     }
 }
 
+// ESA: func_80052E6C
 void func_802FA6D8_70BD88(void) {
     D_80204278->unk3B308 = 0;
     D_803E97C0 = 0;
@@ -1601,6 +1805,7 @@ void func_802FA6D8_70BD88(void) {
 
 #ifdef NON_MATCHING
 // 1013 away...
+// ESA: func_80052EA4
 void func_802FA730_70BDE0(Animal *arg0) {
     struct077 spB8; // size 0x6
 
@@ -1617,15 +1822,15 @@ void func_802FA730_70BDE0(Animal *arg0) {
 
     s16 i;
 
-    if (arg0->unk21E & 0x10) {
-        arg0->unk224--;
-        if (arg0->unk224 == 0) {
-            arg0->unk21E = 0U;
+    if (arg0->unk21E.type24.F & 0x10) {
+        arg0->unk21E.type24.Time--;
+        if (arg0->unk21E.type24.Time == 0) {
+            arg0->unk21E.type24.F = 0;
             return;
         }
     }
 
-    if (arg0->unk21E & 8) {
+    if (arg0->unk21E.type24.F & 8) {
         if (arg0->unk22A > 0) {
             arg0->unk22A--;
             return;
@@ -1637,15 +1842,15 @@ void func_802FA730_70BDE0(Animal *arg0) {
             i = -arg0->unk22A;
         }
 
-        if (arg0->unk21E & 4) {
+        if (arg0->unk21E.type24.F & 4) {
             if (arg0->unk158 == 0) {
-                arg0->unk22A = arg0->unk221;
+                arg0->unk22A = arg0->unk21E.type24.Fq;
                 return;
             } else {
-                arg0->unk22A = (arg0->unk221 << 0xB) / arg0->unk158;
+                arg0->unk22A = (arg0->unk21E.type24.Fq << 0xB) / arg0->unk158;
             }
         } else {
-            arg0->unk22A = arg0->unk221;
+            arg0->unk22A = arg0->unk21E.type24.Fq;
         }
     } else {
         i = 1;
@@ -1669,7 +1874,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
         if (arg0->unk217 != 0) {
             spB8.unk4 += ((s16) (((s32)func_80128200() >> 4) % ((s16) arg0->unk217 * 2))) - arg0->unk217;
         }
-        if ((arg0->unk21E & 0x40) && ((spB8.unk0 | spB8.unk2 | spB8.unk4) != 0)) {
+        if ((arg0->unk21E.type24.F & 0x40) && ((spB8.unk0 | spB8.unk2 | spB8.unk4) != 0)) {
             func_802F5F44_7075F4(
                 spB8.unk0,
                 spB8.unk2,
@@ -1678,7 +1883,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
                 arg0->yRotation,
                 &spB8);
         }
-        if (arg0->unk21E & 0x80) {
+        if (arg0->unk21E.type24.F & 0x80) {
             spB8.unk0 = (spB8.unk0 * arg0->unk40) >> 0xB;
             spB8.unk2 = (spB8.unk2 * arg0->unk40) >> 0xB;
             spB8.unk4 = (spB8.unk4 * arg0->unk40) >> 0xB;
@@ -1702,12 +1907,12 @@ void func_802FA730_70BDE0(Animal *arg0) {
             var_s3 = ((((s32)func_80128200() >> 4) % ((s16) arg0->unk21C * 2)) + var_s3) - arg0->unk21C;
         }
 
-        if (arg0->unk21E & 0x20) {
+        if (arg0->unk21E.type24.F & 0x20) {
             var_s2 += (arg0->zRotation << 8) / 360;
             var_s3 += (arg0->yRotation << 8) / 360;
         }
 
-        if (arg0->unk21E & 2)  {
+        if (arg0->unk21E.type24.F & 2)  {
             if (arg0->unk158 != 0) {
                 var_s1 = (var_s1 * arg0->unk158) >> 2;
             } else {
@@ -1723,30 +1928,31 @@ void func_802FA730_70BDE0(Animal *arg0) {
         tmp2 = (D_80152C78[(var_s3 + 0x40) & 0xFF] * temp_t7) >> 0xF;
         tmp1 = (D_80152C78[var_s3 & 0xFF] * temp_t7) >> 0xF;
 
-        if (arg0->unk21E & 0x80) {
-            var_v0 = (arg0->unk222 * arg0->unk40) >> 0xB;
+        if (arg0->unk21E.type24.F & 0x80) {
+            var_v0 = (arg0->unk21E.type24.S * arg0->unk40) >> 0xB;
         } else {
-            var_v0 = arg0->unk222;
+            var_v0 = arg0->unk21E.type24.S;
         }
 
         create_particle_effect(
             spB8.unk0,
             spB8.unk2,
             spB8.unk4,
-            arg0->unk220, // particle id
+            arg0->unk21E.type24.State, // particle id
             tmp1 << 8,
             tmp2 << 8,
             tmp3 << 8,
             var_v0,       // size
             arg0->unk226, // rgba16 color
             arg0->unk228, // rgba16 color
-            arg0->unk223);
+            arg0->unk21E.type24.unk5);
     }
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802FA730_70BDE0.s")
 #endif
 
+// ESA: func_80053494
 void func_802FADBC_70C46C(Animal *arg0) {
     s32 pad[2];
 
@@ -1757,20 +1963,21 @@ void func_802FADBC_70C46C(Animal *arg0) {
     s32 var_t0;
     f32 var_f0;
 
-    if ((arg0->unk241 & 4)) {
+    if ((arg0->unk23C.unknown2.unk5 & 4)) {
         f32 factor = 128.0f;
-        if (arg0->unk242 > 0) {
-            var_t0 = ((((arg0->unk23E - arg0->unk23D) * arg0->unk244) / arg0->unk242) + arg0->unk23D) << 7;
-            var_f0 = ((((arg0->unk240 - arg0->unk23F) * arg0->unk244) / arg0->unk242) + arg0->unk23F + 1) / factor;
+
+        if (arg0->unk23C.unknown2.unk6 > 0) {
+            var_t0 = ((((arg0->unk23C.unknown2.unk2 - arg0->unk23C.unknown2.unk1) * arg0->unk244) / arg0->unk23C.unknown2.unk6) + arg0->unk23C.unknown2.unk1 + 0) << 7;
+            var_f0 = ((((arg0->unk23C.unknown2.unk4 - arg0->unk23C.unknown2.unk3) * arg0->unk244) / arg0->unk23C.unknown2.unk6) + arg0->unk23C.unknown2.unk3 + 1) / factor;
         } else {
-            var_t0 = arg0->unk23D << 7;
-            var_f0 = (arg0->unk23F + 1) / factor;
+            var_t0 = (arg0->unk23C.unknown2.unk1 + 0) << 7;
+            var_f0 = (arg0->unk23C.unknown2.unk3 + 1) / factor;
         }
 
-        if (arg0->unk241 & 1) {
+        if (arg0->unk23C.unknown2.unk5 & 1) {
             func_8032CED0_73E580(
                 arg0,
-                arg0->unk23C,  // sound effect id ?
+                arg0->unk23C.unknown2.unk0,  // sound effect id ?
                 var_t0,
                 var_f0,
                 0,
@@ -1782,12 +1989,12 @@ void func_802FADBC_70C46C(Animal *arg0) {
                 arg0->zVelocity.w,
                 arg0->yVelocity.w);
         } else {
-            func_8032CD20_73E3D0(arg0, arg0->unk23C, var_t0, 0, var_f0);
+            func_8032CD20_73E3D0(arg0, arg0->unk23C.unknown2.unk0, var_t0, 0, var_f0);
         }
 
-        if (arg0->unk242 >= 0) {
-            if (arg0->unk244++ >= arg0->unk242) {
-                arg0->unk241 = 0;
+        if (arg0->unk23C.unknown2.unk6 >= 0) {
+            if (arg0->unk244++ >= arg0->unk23C.unknown2.unk6) {
+                arg0->unk23C.unknown2.unk5 = 0;
             }
         }
     }
@@ -1816,7 +2023,7 @@ void func_802FADBC_70C46C(Animal *arg0) {
         func_802F68A0_707F50(arg0);
     }
 
-    if (arg0->unk21E & 1) {
+    if (arg0->unk21E.type24.F & 1) {
         func_802FA730_70BDE0(arg0);
     }
 
@@ -1857,49 +2064,50 @@ void func_802FADBC_70C46C(Animal *arg0) {
 }
 
 // used in collist2
+// ESA: func_800537C4
 void func_802FB270_70C920(Animal *arg0) {
 
-    if ((arg0->unk4C.unk28 != 0) || (arg0->unk4C.unk29 != 0)) {
+    if ((arg0->unk4C.unk1C != 0) || (arg0->unk4C.unk1D != 0)) {
         func_802C9F60_6DB610(arg0);
     }
-    if ((arg0->unk4C.unk28 == 0) || (arg0->unk4C.unk29 == 0)) {
+    if ((arg0->unk4C.unk1C == 0) || (arg0->unk4C.unk1D == 0)) {
         func_802F90A8_70A758(arg0);
     }
-    if (arg0->unk1A8 != NULL) {
+    if (arg0->commands.unk1A8 != NULL) {
         func_803191B0_72A860(arg0);
     }
     func_802FADBC_70C46C(arg0);
-    arg0->unk10.w = arg0->xPos.w + arg0->xVelocity.w;
-    arg0->unk14.w = arg0->zPos.w + arg0->zVelocity.w;
-    arg0->unk18.w = arg0->yPos.w + arg0->yVelocity.w;
+    arg0->newPosition.xPos.w = arg0->xPos.w + arg0->xVelocity.w;
+    arg0->newPosition.zPos.w = arg0->zPos.w + arg0->zVelocity.w;
+    arg0->newPosition.yPos.w = arg0->yPos.w + arg0->yVelocity.w;
     func_802F5C60_707310(arg0);
 
-    if (arg0->unk4C.unk26 == 0) {
+    if (arg0->unk4C.unk1A == 0) {
         switch (arg0->unk16C->unk88) {
         case 0:
             if (arg0->health <= 0) {
-                func_802FC990_70E040(arg0);
+                run_commands(arg0);
             }
             break;
         case 1:
             if ((arg0->unk5C & 4) && (arg0->unk60 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
-                func_802FC990_70E040(arg0);
+                run_commands(arg0);
             }
             break;
         case 3:
             if (arg0->unk5C & 8) {
-                func_802FC990_70E040(arg0);
+                run_commands(arg0);
             }
             break;
         case 4:
             if (arg0->unk5C & (1|4)) {
-                func_802FC990_70E040(arg0);
+                run_commands(arg0);
             }
             break;
         case 5:
             if (((arg0->unk5C & 1) && (arg0->unk5D != arg0->unk16C->objectType)) ||
                  (arg0->unk5C & (2|4))) {
-                func_802FC990_70E040(arg0);
+                run_commands(arg0);
             }
             break;
         }
@@ -1908,10 +2116,10 @@ void func_802FB270_70C920(Animal *arg0) {
         }
     }
 
-    if ((arg0->unk4C.unk26 == 0) && (arg0->unk154 != 0)) {
+    if ((arg0->unk4C.unk1A == 0) && (arg0->unk154 != 0)) {
         arg0->unk154--;
         if (arg0->unk154 == 1) {
-            func_802FC990_70E040(arg0);
+            run_commands(arg0);
         }
     }
     func_802FB49C_70CB4C(arg0);
@@ -1921,6 +2129,7 @@ void func_802FB270_70C920(Animal *arg0) {
     }
 }
 
+// ESA: func_80053A0C
 void func_802FB49C_70CB4C(struct071 *arg0) {
     arg0->unk5C = arg0->unk54;
 
@@ -1930,6 +2139,7 @@ void func_802FB49C_70CB4C(struct071 *arg0) {
     arg0->unk54.unk3 = 0;
 }
 
+// ESA: func_80053A30
 void func_802FB4C0_70CB70(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
@@ -1940,8 +2150,8 @@ void func_802FB4C0_70CB70(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+        phi_v0 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
@@ -1955,6 +2165,7 @@ void func_802FB4C0_70CB70(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), (s32) arg0->unk30 >> 2, 0);
 }
 
+// ESA: func_80053D34
 void func_802FB680_70CD30(Animal *arg0) {
     s16 phi_v1;
     s16 phi_v0;
@@ -1969,8 +2180,8 @@ void func_802FB680_70CD30(Animal *arg0) {
     } else {
         phi_v0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-        phi_v1 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+        phi_v1 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v1 = -1;
     }
@@ -1984,6 +2195,7 @@ void func_802FB680_70CD30(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + ((s32) arg0->unk42 >> 1), arg0->unk30 >> 2, 0);
 }
 
+// ESA: func_80054084
 void func_802FB85C_70CF0C(Animal *arg0) {
     s16 phi_v1;
     s16 phi_v0;
@@ -1998,8 +2210,8 @@ void func_802FB85C_70CF0C(Animal *arg0) {
         phi_v0 = arg0->unk15E;
     }
 
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-        phi_v1 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+        phi_v1 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v1 = -1;
     }
@@ -2034,6 +2246,7 @@ void func_802FB85C_70CF0C(Animal *arg0) {
         0);
 }
 
+// ESA: func_800543AC
 void func_802FBA40_70D0F0(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
@@ -2044,8 +2257,8 @@ void func_802FBA40_70D0F0(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+        phi_v0 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
@@ -2059,6 +2272,7 @@ void func_802FBA40_70D0F0(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 4, 0);
 }
 
+// ESA: func_8005471C
 void func_802FBBF8_70D2A8(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
@@ -2070,8 +2284,8 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
         phi_t0 = arg0->unk15E;
     }
 
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+        phi_v0 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
@@ -2086,6 +2300,7 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, (s32) arg0->unk30 >> 2, 0);
 }
 
+// ESA: func_80054A0C (tbd)
 void func_802FBDA8_70D458(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
@@ -2096,8 +2311,8 @@ void func_802FBDA8_70D458(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+        phi_v0 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
@@ -2112,6 +2327,7 @@ void func_802FBDA8_70D458(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, (s32) arg0->unk30 >> 2, 0);
 }
 
+// ESA: func_80054CFC (tbd)
 void func_802FBF58_70D608(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
@@ -2122,8 +2338,8 @@ void func_802FBF58_70D608(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+        phi_v0 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
@@ -2138,6 +2354,7 @@ void func_802FBF58_70D608(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 2, 0);
 }
 
+// ESA: func_80054FEC (tbd)
 void func_802FC108_70D7B8(Animal *arg0) {
     s16 phi_t0;
     s16 phi_v0;
@@ -2148,8 +2365,8 @@ void func_802FC108_70D7B8(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->unk168 != NULL) && ((arg0->unk168->unk16C->unk82.unk2))) {
-        phi_v0 = arg0->unk168->unk16C->unkE6;
+    if ((arg0->owner != NULL) && ((arg0->owner->unk16C->unk82.unk2))) {
+        phi_v0 = arg0->owner->unk16C->unkE6;
     } else {
         phi_v0 = -1;
     }
@@ -2163,6 +2380,7 @@ void func_802FC108_70D7B8(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30 >> 2, 0);
 }
 
+// ESA: func_800552DC
 void func_802FC2B8_70D968(s16 x, s16 z, s16 y) {
     s32 temp_s1;
     s32 temp_s2;
@@ -2188,6 +2406,7 @@ void func_802FC2B8_70D968(s16 x, s16 z, s16 y) {
     }
 }
 
+// ESA: func_80055430
 void func_802FC438_70DAE8(s16 x, s16 z, s16 y) {
     s32 temp_s1;
     s32 temp_s2;
@@ -2213,6 +2432,7 @@ void func_802FC438_70DAE8(s16 x, s16 z, s16 y) {
     }
 }
 
+// ESA: func_8005558C
 void func_802FC5C0_70DC70(Animal *arg0) {
     s16 phi_a1;
 
@@ -2224,6 +2444,7 @@ void func_802FC5C0_70DC70(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
 }
 
+// ESA: func_80055814
 void func_802FC6E4_70DD94(Animal *arg0) {
     s16 phi_a1;
 
@@ -2236,28 +2457,28 @@ void func_802FC6E4_70DD94(Animal *arg0) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (10)
+// CURRENT (100)
+// ESA: func_80055A9C
 void func_802FC808_70DEB8(Animal *arg0) {
-    s16 i;
-    s32 tmp = (arg0->unk40 * 18) >> 11;
-    s32 color = GPACK_RGBA5551(176, 176, 176, 0);
-    s32 new_var;
+  s16 var_s2;
+  s32 temp_s4;
 
-    for (i = 0; i < 10; i++) {
-        new_var = arg0->unk40 & 0xFFFF;
-        create_particle_effect(
-            arg0->xPos.h,
-            arg0->zPos.h,
-            arg0->yPos.h + ((arg0->unk42) >> 1),
-            23,
-            ((arg0->unk40 & 0xFFFF) * D_803A52E8_7B6998[i].unk0) >> 11,
-            ((arg0->unk40 & 0xFFFF) * D_803A52E8_7B6998[i].unk4) >> 11,
-            0,
-            tmp,
-            color,
-            color,
-            0);
-    }
+  temp_s4 = (arg0->unk40 * 18) >> 0xB;
+
+  for (var_s2 = 0; var_s2 < 10; var_s2++) {
+      create_particle_effect(
+          arg0->xPos.h,
+          arg0->zPos.h,
+          arg0->yPos.h + (arg0->unk42 >> 1),
+          0x17,
+          (arg0->unk40 * D_803A52E8_7B6998[var_s2].unk0) >> 0xB,
+          (arg0->unk40 * D_803A52E8_7B6998[var_s2].unk4) >> 0xB,
+          0,
+          temp_s4,
+          GPACK_RGBA5551(176, 176, 176, 0),
+          GPACK_RGBA5551(176, 176, 176, 0),
+          0);
+  }
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802FC808_70DEB8.s")
@@ -2283,8 +2504,7 @@ void func_802FC970_70E020(Animal *arg0) {
     func_802FCA08_70E0B8(arg0, arg0->unk164);
 }
 
-// run_commands?
-void func_802FC990_70E040(Animal *arg0) {
+void run_commands(Animal *arg0) {
     if (arg0->unk26C != 1) {
         func_802FCA08_70E0B8(arg0, arg0->unk164);
         arg0->unk26C = 1;
@@ -2295,6 +2515,7 @@ void func_802FC990_70E040(Animal *arg0) {
     }
 }
 
+// ESA: func_80055C04
 void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
     u32 tmp;
     s16 tmp2;
@@ -2396,7 +2617,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         func_802D760C_6E8CBC(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), arg0->unk30, 8);
         break;
     case 12: // small explosion
-        func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0, 0, 0);
+        create_particle_effect_2(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0, 0, 0, 0, 0);
         break;
     case 13: // explosion
         func_802FB680_70CD30(arg0);
@@ -2426,8 +2647,8 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         } else {
             phi_v0 = arg0->unk15E;
         }
-        if ((arg0->unk168 != NULL) && (arg0->unk168->unk16C->unk82.unk2)) {
-            phi_v1 = arg0->unk168->unk16C->unkE6;
+        if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
+            phi_v1 = arg0->owner->unk16C->unkE6;
         } else {
             phi_v1 = -1;
         }
@@ -2438,7 +2659,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 5);
         break;
     case 21: // big splash?
-        func_802D5B88_6E7238(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0x3A, arg0->unk30 << 2, 0, 0, 0);
+        create_particle_effect_2(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h + (arg0->unk42 >> 1), 0x3A, arg0->unk30 << 2, 0, 0, 0);
         break;
     case 22: // objective no sound?
         func_802D9FC4_6EB674(arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 6);
@@ -2458,8 +2679,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
     }
 }
 
-// set_floor_level
-void func_802FD190_70E840(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
+void set_floor_level(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     s16 i, j;
 
     for (i = 0; i <= xEnd; i++) {
@@ -2470,8 +2690,7 @@ void func_802FD190_70E840(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     func_802DAFAC_6EC65C(xStart, yStart, xEnd, yEnd);
 }
 
-// set_water_level
-void func_802FD26C_70E91C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
+void set_water_level(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     s16 i, j;
 
     for (i = 0; i <= xEnd; i++) {
@@ -2482,6 +2701,7 @@ void func_802FD26C_70E91C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd, s16 value) {
     func_802DAFAC_6EC65C(xStart, yStart, xEnd, yEnd);
 }
 
+// ESA: func_80056474
 s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
@@ -2492,6 +2712,7 @@ s32 func_802FD348_70E9F8(Animal *arg0, u16 arg1) {
     return 0;
 }
 
+// ESA: func_800564F4
 s32 func_802FD3B8_70EA68(Animal *arg0) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
@@ -2503,6 +2724,7 @@ s32 func_802FD3B8_70EA68(Animal *arg0) {
 }
 
 // is_target_of ?
+// ESA: func_8005655C
 s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
@@ -2513,6 +2735,7 @@ s32 func_802FD40C_70EABC(Animal *arg0, Animal *arg1) {
     return 0;
 }
 
+// ESA: func_800565BC
 s32 func_802FD468_70EB18(Animal *arg0) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
@@ -2523,6 +2746,7 @@ s32 func_802FD468_70EB18(Animal *arg0) {
     return 0;
 }
 
+// ESA: func_80056640
 s32 func_802FD4D0_70EB80(Animal *arg0) {
     struct065 *tmp;
     for (tmp = D_803DA110[arg0->unk114[0]].next; tmp != NULL; tmp = tmp->next) {
@@ -2533,6 +2757,7 @@ s32 func_802FD4D0_70EB80(Animal *arg0) {
     return 0;
 }
 
+// ESA: func_800566C4
 s32 func_802FD538_70EBE8(Animal *arg0) {
     s16 i;
 
@@ -2547,6 +2772,7 @@ s32 func_802FD538_70EBE8(Animal *arg0) {
     return 0;
 }
 
+// stubbed out in ESA
 s16 func_802FD5DC_70EC8C(Animal *arg0) {
     struct065 *tmp;
     s16 res;
@@ -2562,6 +2788,7 @@ s16 func_802FD5DC_70EC8C(Animal *arg0) {
     return res;
 }
 
+// ESA: func_80056774
 void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
     s16 tmp;
 
@@ -2586,7 +2813,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
                 arg0->unk58 = arg1;
                 arg0->unk56 = tmp;
             }
-            if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg1->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+            if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg1->owner == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
                 arg0->unk2EB++;
             }
         }
@@ -2613,7 +2840,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
                 arg1->unk56 = tmp;
             }
             if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) &&
-                (arg0->unk168 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+                (arg0->owner == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
                 arg1->unk2EB++;
             }
         }
@@ -2780,6 +3007,7 @@ void func_802FE5E8_70FC98(void) {
     }
 }
 
+// ESA: func_80056A2C
 void func_802FED68_710418(struct071 *arg0, Animal *target, s16 x, s16 z, s16 y, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, f32 argB, u8 argC) {
     struct077 sp50;
     struct077 sp48;
@@ -2806,14 +3034,14 @@ void func_802FED68_710418(struct071 *arg0, Animal *target, s16 x, s16 z, s16 y, 
 
 void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* target, s16 arg6, s16 arg7, f32 scale, s16 lifetime, s16 argA, s16 xVel, s16 zVel, s16 yVel, Animal* owner) {
     // spawn missile
-    struct071 *obj = func_802C9564_6DAC14(18, x, z, y, xVel << 16, zVel << 16, yVel << 16, vAngle, rotation, (s32) (s16) (scale * 2048.0f));
+    struct071 *obj = spawn_object(18, x, z, y, xVel << 16, zVel << 16, yVel << 16, vAngle, rotation, (s32) (s16) (scale * 2048.0f));
 
     if (obj != NULL) {
         obj->unk15C = 15;
-        obj->unk168 = owner;
+        obj->owner = owner;
         obj->Info.Counter2 = arg6;
         obj->Info.unk152 = arg7;
-        obj->unk188 = target;
+        obj->target = target;
         obj->unk154 = lifetime;
         obj->unk15E = argA;
         obj->Info.unk14E = func_80128200();
@@ -2826,10 +3054,10 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
 }
 
 void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal *owner, s16 arg6, u8 id) {
-    struct071 *obj = func_802C9564_6DAC14(id, x, z, func_80310EE4_722594(x, z, owner->unk160) >> 16, 0, 0, 0, 0, 0, scale);
+    struct071 *obj = spawn_object(id, x, z, func_80310EE4_722594(x, z, owner->unk160) >> 16, 0, 0, 0, 0, 0, scale);
     if (obj != NULL) {
         obj->unk15C = 50;
-        obj->unk168 = owner;
+        obj->owner = owner;
         obj->unk154 = lifetime;
         obj->unk15E = arg6 * 8;
     }
@@ -2846,6 +3074,7 @@ void func_802FF140_7107F0(void) {
 }
 
 // add <thing>
+// ESA: func_80056F70
 void func_802FF184_710834(Animal *arg0, s16 used, s16 x, s16 y, s16 z, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
     s16 i;
 
@@ -2926,6 +3155,7 @@ void func_802FF25C_71090C(void) {
 }
 
 // used by OBJECT_SPEAKER
+// ESA: func_8005764C
 void func_802FF540_710BF0(struct071 *arg0) {
     s32 dist;
     s32 phi_t2;
@@ -2970,6 +3200,7 @@ void func_802FF540_710BF0(struct071 *arg0) {
 }
 
 // used by object 140
+// ESA: func_800578EC
 void func_802FF7D4_710E84(struct071 *arg0) {
     create_particle_effect(
         arg0->xPos.h,
@@ -2986,10 +3217,11 @@ void func_802FF7D4_710E84(struct071 *arg0) {
 }
 
 // used by object 79
+// ESA: func_8005793C
 void func_802FF828_710ED8(struct071 *arg0) {
     // trigger if below water?
     if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
-        func_802FC990_70E040(arg0);
+        run_commands(arg0);
     }
 
     add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
@@ -2997,9 +3229,10 @@ void func_802FF828_710ED8(struct071 *arg0) {
 }
 
 // used by object 39
+// ESA: func_80057D0C
 void func_802FFA20_7110D0(struct071 *arg0) {
     if (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4)) {
-        func_802FC990_70E040(arg0);
+        run_commands(arg0);
         return;
     }
     if (arg0->unk154 == 0) {
@@ -3010,6 +3243,7 @@ void func_802FFA20_7110D0(struct071 *arg0) {
 }
 
 // used by object 168
+// stubbed out in ESA?
 void func_802FFC34_7112E4(struct071 *arg0) {
     s32 pad;
     s32 phi_v1;
@@ -3046,6 +3280,7 @@ void func_802FFC34_7112E4(struct071 *arg0) {
     }
 }
 
+// ESA: func_80058048
 void func_802FFD50_711400(struct071 *arg0) {
     f32 sp34;
     f32 sp1C; // pad
@@ -3076,6 +3311,7 @@ void func_802FFD50_711400(struct071 *arg0) {
 }
 
 // used by objects 74 & 180
+// ESA: func_800581DC
 void func_802FFE94_711544(struct071 *arg0) {
     arg0->Info.unk14E = (arg0->Info.unk14E + 1) & 0x1F;
     if ((arg0->unk200 & 1) != 0) {
@@ -3084,6 +3320,7 @@ void func_802FFE94_711544(struct071 *arg0) {
 }
 
 // used by objects 200, 201, 202, 203, 204, 205, 206, 207, 225, 226
+// ESA: func_80058218
 void func_802FFED0_711580(struct071 *arg0) {
     if (arg0->unk158 != 0) {
         func_802FFD50_711400(arg0);
@@ -3091,6 +3328,7 @@ void func_802FFED0_711580(struct071 *arg0) {
 }
 
 // used by object 151
+// ESA: func_80058248
 void func_802FFEFC_7115AC(struct071 *arg0) {
     if (arg0->unk0 == 1) {
         if (arg0->Info.unk14E == 0) {
@@ -3103,6 +3341,7 @@ void func_802FFEFC_7115AC(struct071 *arg0) {
 }
 
 // used by object 177
+// ESA: func_800582A0
 void func_802FFF50_711600(struct071 *arg0) {
     func_802FFED0_711580(arg0);
 }

@@ -997,6 +997,7 @@ void func_8029877C_6A9E2C(void) {
     D_803C0430.unk20C &= 0x1F;
 }
 
+// ESA: func_8002082C
 s16 func_80298818_6A9EC8(s16 arg0, s16 arg1) {
     s16 phi_v1;
     s16 phi_t3;
@@ -1082,6 +1083,7 @@ void func_80298D44_6AA3F4(Animal *arg0) {
     }
 }
 
+// ESA: func_80020B38
 s32 func_80298E08_6AA4B8(s16 arg0, s16 arg1) {
     // equivalent to dividing by 64
     arg0 >>= 6;
@@ -1097,6 +1099,7 @@ s32 func_80298E08_6AA4B8(s16 arg0, s16 arg1) {
     return 1;
 }
 
+// ESA: func_80020BB4
 s16 func_80298E98_6AA548(s16 arg0, s16 arg1) {
     s16 tmp;
     s16 res;
@@ -1111,6 +1114,7 @@ s16 func_80298E98_6AA548(s16 arg0, s16 arg1) {
     }
 }
 
+// ESA: func_80020C8C
 s16 func_80298F78_6AA628(s16 arg0, s16 arg1) {
     s16 sp36;
     s16 sp34;
@@ -1139,13 +1143,13 @@ s16 func_802990A4_6AA754(s16 arg0, s16 arg1) {
     return tmp0 + tmp1;
 }
 
-#if 0
-// tbd if equivalent
+#ifdef NON_MATCHING
+// CURRENT (110)
 void func_80299140_6AA7F0(void) {
     s32 pad[2];
-    s32 sp5C;
-    s32 sp58;
-    s32 sp54;
+    s32 xPos; //sp5C;
+    s32 zPos; //sp58;
+    s32 yPos; //sp54;
     s16 i, j;
     s32 maxPoint;
     s16 temp_a3;
@@ -1158,6 +1162,8 @@ void func_80299140_6AA7F0(void) {
     s32 xDistance;
     s32 zDistance;
 
+    s32 new_var;
+    s16 water_level;
     s32 phi_v0;
 
     maxPoint = 100000;
@@ -1166,6 +1172,8 @@ void func_80299140_6AA7F0(void) {
     minZ = ((s32)D_803F28E0[D_803F2A98].unk78 >> 6) - 25;
     maxX = ((s32)D_803F28E0[D_803F2A98].unk74 >> 6) + 25;
     maxZ = ((s32)D_803F28E0[D_803F2A98].unk78 >> 6) + 25;
+
+    if (1) { }
 
     if (minX < 4) {
         minX = 4;
@@ -1185,8 +1193,11 @@ void func_80299140_6AA7F0(void) {
             temp_a3 = D_803C0740[i][j].unk6 << 2;
             if (temp_a3 != 0) {
                 zDistance = ABS((j << 6) - (s16) D_803F28E0[D_803F2A98].unk78);
-                xDistance = ABS((i << 6) - (s16) D_803F28E0[D_803F2A98].unk74);
-                yDistance = ABS(temp_a3 - (s16) D_803F28E0[D_803F2A98].unk7C);
+                new_var = ABS((i << 6) - ((s16) D_803F28E0[D_803F2A98].unk74));
+                xDistance = new_var;
+                yDistance = ABS(temp_a3 - (s16) D_803F28E0[D_803F2A98].unk7C) ^ 0;
+
+                if (0) {};
 
                 // why is this not just ABS...
                 phi_v0 = (yDistance + xDistance + zDistance);
@@ -1196,9 +1207,9 @@ void func_80299140_6AA7F0(void) {
 
                 if (phi_v0 < maxPoint) {
                     maxPoint = phi_v0;
-                    sp5C = (i << 6); // new x
-                    sp58 = (j << 6); // new z
-                    sp54 = temp_a3;  // new y
+                    xPos = (i << 6);
+                    zPos = (j << 6);
+                    yPos = temp_a3;
                 }
             }
         }
@@ -1206,14 +1217,16 @@ void func_80299140_6AA7F0(void) {
 
     if (maxPoint != 100000) {
         if ((D_803F2D50.unk4C == 0) || (D_803F2D50.unk4C == 2)) {
-            if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < (s16)(GET_WATER_LEVEL(D_803C0740, (u16)D_803F28E0[D_803F2A98].unk74, (u16)D_803F28E0[D_803F2A98].unk78) * 4)) {
-                func_8032CD70_73E420(&D_803C0430.unk204, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, sp5C, sp58, sp54); // D_803BAD00_7CC3B0
+            new_var = (GET_WATER_LEVEL(D_803C0740, (u16)D_803F28E0[D_803F2A98].unk74, (u16)D_803F28E0[D_803F2A98].unk78));
+            water_level = (new_var << 2);
+            if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < water_level) {
+                func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, xPos, zPos, yPos); // D_803BAD00_7CC3B0
             } else {
-                func_8032CD70_73E420(&D_803C0430.unk204, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, sp5C, sp58, sp54);
+                func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, xPos, zPos, yPos);
             }
         }
         if (D_803F2D50.unk4C == 1) {
-            func_8032CD70_73E420(&D_803C0430.unk204, SFX_UNKNOWN_64, 0x7FFF, 0, 0.25f, sp5C, sp58, sp54);
+            func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_64, 0x7FFF, 0, 0.25f, xPos, zPos, yPos);
         }
     }
 }
@@ -1224,6 +1237,7 @@ void func_80299140_6AA7F0(void) {
 #if 0
 // no idea
 // CURRENT (2975)
+// ESA: func_80020D84
 void func_80299640_6AACF0(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3, s16 *arg4, s16 *arg5) {
     s16 temp_a0;
     s16 temp_a1;

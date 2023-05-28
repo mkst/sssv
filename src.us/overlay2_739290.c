@@ -101,6 +101,7 @@ s16  D_803F28C2; // TBD
 // .text
 // ========================================================
 
+// ESA: func_8007F0E0
 void func_80327BE0_739290(void) {
     s16 i;
     s16 tmp;
@@ -131,6 +132,7 @@ void func_80327BE0_739290(void) {
 void func_80327DA0_739450(void) {
 }
 
+// ESA: func_8007F278
 void func_80327DA8_739458(void) {
     switch (D_803E9820 - 1) {
     case 0:
@@ -265,6 +267,7 @@ void func_80327DA8_739458(void) {
 }
 
 #ifdef NON_MATCHING
+// ESA: func_8007F540
 void func_80328258_739908(s16 arg0) {
     u8 sp1F;
     struct114 *ptr;
@@ -273,11 +276,12 @@ void func_80328258_739908(s16 arg0) {
     func_8032AA94_73C144();
 
     new_var = D_803E9828;
-    ptr = &D_803E982C[new_var[D_803E9822].unk2[arg0]];
+
+    ptr = &D_803E982C[D_803E9828[D_803E9822].unk2[arg0]];
     sp1F = ptr->unk1;
 
     D_803E9822 = ptr->unk0;
-    D_803E9824 = new_var[D_803E9822].unk0;
+    D_803E9824 = D_803E9828[D_803E9822].unk0;
     D_803D5520->unk0 = &D_801D9ED8.unk0[D_803E9824];
     D_803D5524 = D_803D5520->unk0;
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C = &D_801D9ED8.unk0[D_803E9824];
@@ -301,6 +305,7 @@ void func_80328258_739908(s16 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328258_739908.s")
 #endif
 
+// ESA: func_8007F684
 void func_803283DC_739A8C(void) {
     func_803284C4_739B74();
 
@@ -331,6 +336,7 @@ void func_803283DC_739A8C(void) {
     }
 }
 
+// ESA: func_8007F78C
 Camera* func_803284C4_739B74(void) {
     struct035 *temp_v1;
     Camera *temp_v0;
@@ -345,6 +351,7 @@ Camera* func_803284C4_739B74(void) {
     return temp_v0;
 }
 
+// ESA: func_8007F7F4
 void func_80328520_739BD0(void) {
     switch (D_803D552C->unk366) {
     case 1:
@@ -430,6 +437,7 @@ void func_80328520_739BD0(void) {
     }
 }
 
+// ESA: func_8007FB40
 void func_80328918_739FC8(void) {
     D_803D552C->unk328 = D_803D5544;
     D_803D552C->unk36A = 1;
@@ -506,6 +514,7 @@ void func_80328918_739FC8(void) {
 }
 
 #if 0
+// ESA: func_8007FD90
 void func_80328ACC_73A17C(void) {
     // s16 sp8E;
     s16 sp8C;
@@ -617,8 +626,8 @@ void func_80328ACC_73A17C(void) {
                 // D_801D9ED8.animals[0].animal->unk4F = (u8) (((((u32) (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C << 0x1A) >> 0x1F) << 5) & 0x20) | (D_801D9ED8.animals[0].animal->unk4F & 0xFFDF));
                 // temp_t0_6 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
                 // D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4F = (u8) (((((u32) (D_801D9ED8.animals[0].animal->unk4C << 0x1A) >> 0x1F) << 5) & 0x20) | (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4F & 0xFFDF));
-                D_801D9ED8.animals[0].animal->unk4C.unk26 |= D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk26;
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk26 |= D_801D9ED8.animals[0].animal->unk4C.unk26;
+                D_801D9ED8.animals[0].animal->unk4C.unk1A |= D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A |= D_801D9ED8.animals[0].animal->unk4C.unk1A;
 
                 sp40 = (s32) gCurrentAnimalIndex;
                 D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex];
@@ -763,10 +772,10 @@ void func_80328ACC_73A17C(void) {
                 // temp_a1_3 = D_801D9ED8.animals[0].animal;
                 // temp_a1_3->unk4F = (u8) (((((u32) (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C << 0x1A) >> 0x1F) << 5) & 0x20) | (temp_a1_3->unk4F & 0xFFDF));
 
-                D_801D9ED8.animals[0].animal->unk4C.unk26 |= D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk26;
+                D_801D9ED8.animals[0].animal->unk4C.unk1A |= D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
                 // temp_t0_13 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
                 // temp_t0_13->unk4F = (u8) (((((u32) (temp_a1_3->unk4C << 0x1A) >> 0x1F) << 5) & 0x20) | (temp_t0_13->unk4F & 0xFFDF));
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk26 |= D_801D9ED8.animals[0].animal->unk4C.unk26;
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A |= D_801D9ED8.animals[0].animal->unk4C.unk1A;
                 // temp_t8_5 = gCurrentAnimalIndex;
 
                 sp40 = (s32) gCurrentAnimalIndex;
@@ -843,6 +852,7 @@ void func_80328ACC_73A17C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328ACC_73A17C.s")
 #endif
 
+// ESA: func_80080C0C
 s32 func_80329BAC_73B25C(s16 arg0, s16 arg1) {
     s16 sp66;
     s16 sp64;
@@ -905,6 +915,7 @@ s32 func_80329BAC_73B25C(s16 arg0, s16 arg1) {
     return 0;
 }
 
+// ESA: func_80080EB0
 void func_80329F44_73B5F4(void) {
     s32 phi_a0;
     s32 phi_a1;
@@ -959,6 +970,7 @@ void func_80329F44_73B5F4(void) {
     D_801D9ED8.animals[0].animal->unk30A = phi_a0 >> 8;
 }
 
+// ESA: func_80081044
 s16 func_8032A164_73B814(s16 arg0, s16 arg1) {
     s32 pad;
     s16 sp62;
@@ -1054,6 +1066,7 @@ s16 func_8032A164_73B814(s16 arg0, s16 arg1) {
 }
 
 #if 0
+// ESA: func_800813C8
 void func_8032A710_73BDC0(void) {
     Animal *a;
 
@@ -1087,9 +1100,9 @@ void func_8032A710_73BDC0(void) {
 #endif
 
     // ?
-    temp_v1 = D_801D9ED8.animals[temp_t0].animal->unk4C.unk26;
-    D_801D9ED8.animals[temp_t0].animal->unk4C.unk26 = D_801D9ED8.animals[0].animal->unk4C.unk26;
-    D_801D9ED8.animals[0].animal->unk4C.unk26 = temp_v1;
+    temp_v1 = D_801D9ED8.animals[temp_t0].animal->unk4C.unk1A;
+    D_801D9ED8.animals[temp_t0].animal->unk4C.unk1A = D_801D9ED8.animals[0].animal->unk4C.unk1A;
+    D_801D9ED8.animals[0].animal->unk4C.unk1A = temp_v1;
 
     D_803D5520 = &D_801D9ED8.animals;
     D_803D5524 = D_801D9ED8.animals[0].unk0;

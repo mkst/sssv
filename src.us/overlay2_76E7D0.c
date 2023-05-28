@@ -44,6 +44,7 @@ u8   D_803F2EDE;
 
 // CURRENT (4205)
 #if 0
+// ESA: func_800A0ADC
 void func_8035D120_76E7D0(void) {
     s16 idx;
 #if 0
@@ -192,6 +193,7 @@ void func_8035D6D0_76ED80(void) {
     }
 }
 
+// ESA: func_800A0F8C
 void func_8035D734_76EDE4(void) {
     s32 temp_v0_3;
 
@@ -245,6 +247,7 @@ void func_8035D734_76EDE4(void) {
     }
 }
 
+// ESA: func_800A1294
 void func_8035DA60_76F110(void) {
     if (D_803D552C->unk366 == 4) {
         D_803F2EBC += D_80152C78[(s16)((D_803D552C->unk2EE % 16) << 4) & 0xFF] >> 1;
@@ -293,22 +296,21 @@ void func_8035DA60_76F110(void) {
     }
 }
 
+// ESA: func_800A15BC
 // used by dog
-#ifdef NON_MATCHING
-// CURRENT (40)
 void func_8035DEC4_76F574(void) {
     if (D_803D552C->unk366 != 5) {
         if (D_803D552C->unk2EE < 385) {
-            D_803F2EBC += D_80152C78[((s16)(D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
-            D_803F2EC0 += D_80152C78[((s16)(D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
-            D_803F2EC4 += D_80152C78[((s16)(D_803D552C->unk2EE << 4) & 0xff) & 0xff] >> 2;
+            D_803F2EBC += D_80152C78[(s16)((D_803D552C->unk2EE & 0xF) << 4) & 0xFF] >> 2;
+            D_803F2EC0 += D_80152C78[(s16)((D_803D552C->unk2EE & 0xF) << 4) & 0xFF] >> 2;
+            D_803F2EC4 += D_80152C78[(s16)((D_803D552C->unk2EE & 0xF) << 4) & 0xFF] >> 2;
         } else {
-            D_803F2EBC += D_80152C78[((s16)(D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
-            D_803F2EC0 += D_80152C78[((s16)(D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
-            D_803F2EC4 += D_80152C78[((s16)(D_803D552C->unk2EE << 3) & 0xff) & 0xff] >> 2;
+            D_803F2EBC += D_80152C78[(s16)((D_803D552C->unk2EE & 0x1F) << 3) & 0xFF] >> 2;
+            D_803F2EC0 += D_80152C78[(s16)((D_803D552C->unk2EE & 0x1F) << 3) & 0xFF] >> 2;
+            D_803F2EC4 += D_80152C78[(s16)((D_803D552C->unk2EE & 0x1F) << 3) & 0xFF] >> 2;
         }
         if (D_803F2D10.unk0 == 0) {
-            D_803D552C->unk2EE += 1;
+            D_803D552C->unk2EE++;
         }
         if (D_803D5530->state == 23) {
             D_803D552C->unk2EE %= 64;
@@ -324,6 +326,3 @@ void func_8035DEC4_76F574(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76E7D0/func_8035DEC4_76F574.s")
-#endif

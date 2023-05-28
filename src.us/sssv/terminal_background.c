@@ -223,6 +223,7 @@ void func_8038D004_79E6B4(Gfx **dl, u16 intensity) {
     gSPEndDisplayList((*dl)++);
 }
 
+// ESA: func_8001F200
 void func_8038D258_79E908(void) {
     Animal *a;
     s16 i;
@@ -358,7 +359,7 @@ void func_8038D258_79E908(void) {
     func_8012D374(&D_801D9E7C, wide, 25, 0, 14.0f, 16.0f, 0);
 
     for (i = 0; i < 13; i++) {
-        D_803F6548[i] = (gScreenWidth - func_8012C3D8(D_803B6560_7C7C10[i])) - 14;
+        D_803F6548[i] = (gScreenWidth - get_message_width(D_803B6560_7C7C10[i])) - 14;
     }
 
     for (i = 0; i < 13; i++) {
@@ -701,8 +702,8 @@ void func_8038E9F8_7A00A8(void) {
         D_803F646C += 0.016; //D_803C0168_7D1818; -> 1 / 62.5
     }
     gScreenHeight = 240;
-    D_803A6CC4_7B8374 = ((((s32) D_80152C78[D_803F6472] >> 7) / 3200.0) + 0.7); // D_803C0170_7D1820
-    D_803A6CC8_7B8378 = ((((s32) D_80152C78[D_803F6472] >> 7) / 15.0) + 45.0); // D_803C0178_7D1828
+    D_803A6CC4_7B8374 = (((D_80152C78[D_803F6472] >> 7) / 3200.0) + 0.7); // D_803C0170_7D1820
+    D_803A6CC8_7B8378 = (((D_80152C78[D_803F6472] >> 7) / 15.0) + 45.0); // D_803C0178_7D1828
     D_803F6472 += 1;
 
     D_80152EA8.vp.vscale[0] = gScreenWidth  << 1;

@@ -18,6 +18,7 @@ compiler_type = "ido"
 "OS_K0_TO_PHYSICAL" = "int"
 "SSSV_RAND" = "int"
 "SQ" = "int"
+"NULL" = "int"
 
 [decompme.compilers]
 "tools/ido5.3_recomp/cc" = "ido5.3"

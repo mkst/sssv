@@ -32,14 +32,14 @@ segments:
     subsegments:
     - [0x1000, asm, entrypoint]                     # handwritten
     - [0x1050, c, main_1050]                        # -O1
-    - [0x1080, c, mtx]
+    - [0x1080, c, core/mtx]
     - [0x3900, c, core/controller]
     - [0x44D0, c, core/string]
-    - [0x4910, c, dma]
-    - [0x4A00, c, segments]
+    - [0x4910, c, core/dma]
+    - [0x4A00, c, core/segments]
     - [0x51D0, c, main_51D0]
-    - [0x5210, c, thread6]
-    - [0x5F70, c, tv]
+    - [0x5210, c, core/thread6]
+    - [0x5F70, c, core/tv]
     - [0x67F0, c, core/rnc]
     - [0x7770, c, main_7770]
     - [0x7890, c, main_7890]
@@ -50,9 +50,9 @@ segments:
     - [0xC770, c, main_C770]
     - [0xC990, c, core/audiomgr]                    # from ultra64demos
     - [0xF600, c, libultra/audio/csplayer]          # customised
-    - [0x10CB0, c, thread1]
+    - [0x10CB0, c, core/thread1]
     - [0x10DC0, c, main_10DC0]
-    - [0x123E0, c, thread9]
+    - [0x123E0, c, core/thread9]
     # libultra
     - [0x12FC0, linker_offset, libultra_start] # marker here for progress
     - [0x12FC0, lib, libultra_rom, initialize]
@@ -236,9 +236,9 @@ segments:
     - [0x2BD00, bin, aspMainText]
     # .data
     - [0x2CB30, .data, core/controller]
-    - [0x2DA50, .data, mtx]
+    - [0x2DA50, .data, core/mtx]
     - [0x2E580, .data, core/string]
-    - [0x2E590, .data, thread6] # thread6
+    - [0x2E590, .data, core/thread6] # thread6
     - [0x2E5C0, data] # tbd
     - [0x2E9D0, rgba16, img/2E9D0.rgba16, 32, 32] # spaceship texture
     - [0x2F1D0, rgba16, img/2F1D0.rgba16, 32, 32] # spaceship texture
@@ -255,7 +255,7 @@ segments:
     - [0x339C0, .data, data/D_801582C0]
     - [0x33B20, .data, data/D_80158420]
     - [0x33BA0, .data, data/D_801584A0]
-    - [0x33C40, .data, thread9]
+    - [0x33C40, .data, core/thread9]
     - [0x33C50, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
     - [0x35050, lib, libultra_rom, initialize, .data]
     - [0x35070, lib, libultra_rom, sched, .data]
@@ -319,8 +319,8 @@ segments:
     # bss
     - [0x398D0, .bss, core/audiomgr]
     # lots more bss here
-    - [0x398D0, .bss, thread1]
-    - [0x398D0, .bss, thread9]
+    - [0x398D0, .bss, core/thread1]
+    - [0x398D0, .bss, core/thread9]
     # bss padding
     - [0x398D0, lib, libultra_rom, initialize, .bss]
     - [0x398D0, lib, libultra_rom, pimgr, .bss]
@@ -788,7 +788,7 @@ segments:
     - [0x5DCA0, bin]
     - [0x5DD20, bin]
     - [0x5DDA0, bin]
-    - [0x5DE20, bin] # bunch more images - particles mostly?
+    - [0x5DE20, bin] # D_01024550_5DE20, bunch more images - particles mostly?
     - [0x5F020, bin] # D_01025750_5F020
     - [0x60220, bin] # D_01026950_60220
     - [0x61420, bin] # D_01027B50_61420
@@ -3673,37 +3673,44 @@ segments:
     - [0x6A6500, .bss, overlay1_63C660]
   - type: code
     name: overlay2 # sssv game code
-    vram: 0x80294E50
+    vram:  0x80294E50
     start: 0x006A6500
+    # bss_size: 0x3DAA0
     exclusive_ram_id: ovl_80
     subsegments:
     - [0x6A6500, c, overlay2_6A6500]
     - [0x6A7A80, c, overlay2_6A7A80]
     - [0x6AB090, c, overlay2_6AB090]
     - [0x6AC360, c, overlay2_6AC360]
+    - [0x6ACE80, c, overlay2_6ACE80]
     - [0x6ACF20, c, overlay2_6ACF20]
     - [0x6B5380, c, overlay2_6B5380]
+    - [0x6B5A40, c, overlay2_6B5A40]
     - [0x6C5570, c, overlay2_6C5570]
     - [0x6C63D0, c, sssv/collision]
     - [0x6C9DD0, c, overlay2_6C9DD0]
+    - [0x6CA7E0, c, overlay2_6CA7E0]
     - [0x6CCEF0, c, overlay2_6CCEF0]
     - [0x6D6120, c, overlay2_6D6120]
     - [0x6D9330, c, overlay2_6D9330]
     - [0x6D9AF0, c, overlay2_6D9AF0]
+    - [0x6DA670, c, overlay2_6DA670]
+    - [0x6DA9F0, c, sssv/objects] # sssv/objects
     - [0x6DB610, c, overlay2_6DB610]
     - [0x6DCA10, c, overlay2_6DCA10]
     - [0x6EBEA0, c, sssv/collist2]
     - [0x6EC720, c, overlay2_6EC720]
+    - [0x6ECFF0, c, overlay2_6ECFF0]
     - [0x6ED230, c, overlay2_6ED230]
-    - [0x6EE6F0, c, overlay2_6EE6F0]
+    - [0x6EE6F0, c, sssv/dynamic_tail]
     - [0x6F66B0, c, sssv/animals/fox]
     - [0x6FA0A0, c, overlay2_6FA0A0]
     - [0x6FBA90, c, sssv/aidata]
     - [0x6FBEA0, c, sssv/animals/dog]
     - [0x700770, c, sssv/animals/hippo]
-    - [0x701E80, c, screen_transition]
+    - [0x701E80, c, sssv/screen_transition]
     - [0x702DE0, c, sssv/animals/lion]
-    - [0x7041D0, c, overlay2_7041D0]
+    - [0x7041D0, c, sssv/lights]
     - [0x7070A0, c, sssv/input]
     - [0x707310, c, overlay2_707310]
     - [0x7117E0, c, overlay2_7117E0]
@@ -3714,11 +3721,13 @@ segments:
     - [0x715820, c, overlay2_715820]
     - [0x716530, c, overlay2_716530]
     - [0x716900, c, overlay2_716900]
+    - [0x71C140, c, overlay2_71C140]
     - [0x724E40, c, sssv/animals/parrot]
     - [0x725D10, c, overlay2_725D10]
     - [0x72A930, c, overlay2_72A930]
-    - [0x72B100, c, overlay2_72B100]
+    - [0x72AF60, c, overlay2_72AF60]
     - [0x72B800, c, overlay2_72B800]
+    - [0x72BA20, c, overlay2_72BA20]
     - [0x72C680, c, overlay2_72C680]
     - [0x72DE50, c, sssv/animals/mouse]
     - [0x7312E0, c, overlay2_7312E0]
@@ -3727,9 +3736,9 @@ segments:
     - [0x739290, c, overlay2_739290]
     - [0x73C890, c, overlay2_73C890]
     - [0x73D980, c, overlay2_73D980] # sssv/sfx ?  # EU ROM suggests extra split at 0x73E580
-    - [0x73EA30, c, overlay2_73EA30]
+    - [0x73EA30, c, sssv/vector]
     - [0x73ED30, c, overlay2_73ED30]
-    - [0x741000, c, overlay2_741000]
+    - [0x741000, c, sssv/camera]
     - [0x7558F0, c, overlay2_7558F0]
     - [0x7598E0, c, sssv/osd]
     - [0x75B9D0, c, sssv/hilites]
@@ -3737,7 +3746,7 @@ segments:
     - [0x75D3D0, c, overlay2_75D3D0]
     - [0x763930, c, sssv/init]
     - [0x763A30, c, sssv/animals/tortoise] # EU ROM suggests extra split at 0x7667E0
-    - [0x767AC0, c, sssv/overlay2_767AC0]
+    - [0x767AC0, c, sssv/tile]
     - [0x7688B0, c, overlay2_7688B0]
     - [0x7689A0, c, overlay2_7689A0]
     - [0x768B90, c, sssv/animals/hyena]
@@ -3766,7 +3775,8 @@ segments:
     - [0x791FD0, c, sssv/animals/seagull]
     - [0x793700, c, sssv/animals/pirana]
     - [0x7943A0, c, sssv/animals/cool_cod]
-    - [0x794EE0, c, overlay2_794EE0]
+    - [0x794EE0, c, sssv/behaviours]
+    - [0x79B090, c, overlay2_79B090]
     - [0x79B1E0, c, sssv/animals/evo]
     - [0x79CEF0, c, sssv/credits]
     - [0x79D0E0, c, sssv/cheats]
@@ -3775,8 +3785,8 @@ segments:
     - [0x79E640, c, sssv/terminal_background]
     - [0x7A0DA0, c, overlay2_7A0DA0]
     - [0x7A8A50, c, overlay2_7A8A50]
-    - [0x7A9CE0, c, ui_main_menu]
-    - [0x7AF410, c, trails]
+    - [0x7A9CE0, c, sssv/ui_main_menu]
+    - [0x7AF410, c, sssv/trails]
     # .data / .rodata
     - [0x7B1B90, data] #
     - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
@@ -3784,13 +3794,13 @@ segments:
     - [0x7B1BC0, .data, overlay2_6AC360] # D_803A0510_7B1BC0 overlay2_6AC360
     - [0x7B1BE0, data] # D_803A0530_7B1BE0
     - [0x7B1C30, data, overlay2_6ACF20] # D_803A0580_7B1C30 overlay2_6ACF20
-    - [0x7B1C60, .data, overlay2_6B5380] # D_803A05B0_7B1C60
+    - [0x7B1C60, .data, overlay2_6B5A40] # D_803A05B0_7B1C60
     - [0x7B1C70, .data, overlay2_6C5570]
     - [0x7B1C80, .data, sssv/animals/stats] # animal stats (struct089 -> struct035)
     - [0x7B3250, data] # padding?
     - [0x7B3260, data, overlay2_6DCA10]
     - [0x7B4440, data, overlay2_6EC720]
-    - [0x7B5040, data, overlay2_6EE6F0]  # dynamic tail data
+    - [0x7B5040, data, sssv/dynamic_tail]  # dynamic tail data
     - [0x7B5B80, .data, sssv/animals/fox]
     - [0x7B5E60, bin, overlay2_716900_data] # ?
     - [0x7B5F70, .data, sssv/aidata]
@@ -3805,8 +3815,8 @@ segments:
     - [0x7B6C30, .data, overlay2_716900]
     - [0x7B6C40, data, overlay2_716900_cont] # overlay2_716900 data continued
     - [0x7B6D60, .data, sssv/animals/parrot]
-    - [0x7B6E00, .data, overlay2_72B100]
-    - [0x7B6E10, .data, overlay2_72B800]
+    - [0x7B6E00, .data, overlay2_72AF60]
+    - [0x7B6E10, .data, overlay2_72BA20]
     - [0x7B6E20, .data, overlay2_72C680]
     - [0x7B73D0, data, sssv/animals/mouse]
     - [0x7B7550, data, sssv/animals/bear]
@@ -3816,7 +3826,7 @@ segments:
     - [0x7B7C80, bin] # animal sounds lookup
     - [0x7B7D30, bin] # animal sounds lookup
     - [0x7B7DE0, bin] #
-    - [0x7B8370, data] # overlay2_741000
+    - [0x7B8370, data] # sssv/camera
     - [0x7B83A0, bin]
     - [0x7B83D0, bin] # something else
     - [0x7B9580, .data, data/D_803A8290_7B9940] # green crib??
@@ -3853,7 +3863,7 @@ segments:
     - [0x7C6F10, data, sssv/animals/pirana]
     - [0x7C6F50, .data, sssv/animals/cool_cod]
     - [0x7C6F90, data] # used in sssv/terminal_background
-    - [0x7C73D0, .data, overlay2_794EE0] # list of all behaviours
+    - [0x7C73D0, .data, sssv/behaviours] # list of all behaviours
     - [0x7C74E0, data, sssv/animals/evo]
     - [0x7C76B0, .data, sssv/credits]
     - [0x7C7960, data] # tbd
@@ -3863,8 +3873,8 @@ segments:
     - [0x7C7F40, .data, overlay2_7A8A50] # data for overlay2_7A8A50?
     - [0x7C86B0, data] # overlay2_7A8A50 pointers
     # - [0x7C87B8, bin] # pointers to displaylists # 7C87B8
-    - [0x7C8880, data, ui_main_menu] # D_803B71D0
-    - [0x7C8B30, .data, ui_main_menu]
+    - [0x7C8880, data, sssv/ui_main_menu] # D_803B71D0
+    - [0x7C8B30, .data, sssv/ui_main_menu]
     - [0x7C8B80, rgba16, img/butterfly_thing.rgba16, 32, 32]
     - [0x7C9380, rgba16, img/butterfly1a.rgba16, 32, 32]
     - [0x7C9B80, rgba16, img/butterfly1b.rgba16, 32, 32]
@@ -3875,7 +3885,7 @@ segments:
     # rodata
     - [0x7CC380, .rodata, overlay2_6A7A80]
     - [0x7CC3C0, .rodata, overlay2_6ACF20]
-    - [0x7CC470, .rodata, overlay2_6B5380]
+    - [0x7CC470, .rodata, overlay2_6B5A40]
     - [0x7CD5B0, .rodata, sssv/collision]
     - [0x7CD610, .rodata, overlay2_6CCEF0]
     - [0x7CD7D0, .rodata, overlay2_6D6120]
@@ -3884,25 +3894,27 @@ segments:
     - [0x7CD9E0, .rodata, overlay2_6DCA10]
     - [0x7CDD70, .rodata, sssv/collist2]
     - [0x7CDE00, .rodata, overlay2_6ED230]
-    - [0x7CDE40, .rodata, overlay2_6EE6F0]
+    - [0x7CDE40, .rodata, sssv/dynamic_tail]
     - [0x7CE0B0, .rodata, sssv/animals/fox]
     - [0x7CE100, .rodata, overlay2_6FA0A0]
     - [0x7CE120, .rodata, sssv/aidata]
     - [0x7CE440, .rodata, sssv/animals/dog]
     - [0x7CE490, .rodata, sssv/animals/hippo]
-    - [0x7CE4B0, .rodata, screen_transition]
+    - [0x7CE4B0, .rodata, sssv/screen_transition]
     - [0x7CE520, .rodata, sssv/animals/lion]
-    - [0x7CE530, .rodata, overlay2_7041D0]
+    - [0x7CE530, .rodata, sssv/lights]
     - [0x7CE560, .rodata, sssv/input]
     - [0x7CE580, .rodata, overlay2_707310]
     - [0x7CE650, .rodata, sssv/animals/rabbit]
     - [0x7CE680, .rodata, sssv/animals/frog]
     - [0x7CE690, .rodata, overlay2_715820]
     - [0x7CE6C0, .rodata, overlay2_716900]
+    - [0x7CE780, .rodata, overlay2_71C140]
     - [0x7CE7C0, .rodata, sssv/animals/parrot]
     - [0x7CE7D0, .rodata, overlay2_725D10]
-    - [0x7CEBA0, .rodata, overlay2_72B100]
+    - [0x7CEBA0, .rodata, overlay2_72AF60]
     - [0x7CEBE0, .rodata, overlay2_72B800]
+    # - [0x7CEDC0, .rodata, overlay2_72BA20]
     - [0x7CEF30, .rodata, overlay2_72C680]
     - [0x7CF050, .rodata, sssv/animals/mouse]
     - [0x7CF090, .rodata, overlay2_7312E0]
@@ -3910,7 +3922,7 @@ segments:
     - [0x7CF180, .rodata, overlay2_739290]
     - [0x7CF530, .rodata, overlay2_73D980]
     - [0x7CF810, .rodata, overlay2_73ED30]
-    - [0x7CF860, .rodata, overlay2_741000]
+    - [0x7CF860, .rodata, sssv/camera]
     - [0x7CFFD0, .rodata, overlay2_7558F0]
     - [0x7CFFF0, .rodata, sssv/osd]
     - [0x7D0050, .rodata, sssv/hilites]
@@ -3937,7 +3949,7 @@ segments:
     - [0x7D0750, .rodata, overlay2_78E970]
     - [0x7D0790, .rodata, sssv/animinit]
     - [0x7D0A70, .rodata, sssv/animals/seagull]
-    - [0x7D0AA0, .rodata, overlay2_794EE0]
+    - [0x7D0AA0, .rodata, sssv/behaviours]
     - [0x7D0B40, .rodata, sssv/animals/evo]
     - [0x7D0B70, .rodata, sssv/credits]
     - [0x7D1150, .rodata, sssv/cheats]
@@ -3945,52 +3957,53 @@ segments:
     - [0x7D1220, .rodata, sssv/terminal_background]
     - [0x7D1840, .rodata, overlay2_7A0DA0]
     - [0x7D1A40, .rodata, overlay2_7A8A50]
-    - [0x7D1A50, .rodata, ui_main_menu]
+    - [0x7D1A50, .rodata, sssv/ui_main_menu]
     # bss
-    - [0x7D1AD0, .bss, overlay2_6A6500]
-    - [0x7D1AD0, .bss, overlay2_6A7A80]
-    - [0x7D1AD0, .bss, overlay2_6AB090]
-    - [0x7D1AD0, .bss, overlay2_6AC360]
-    - [0x7D1AD0, .bss, overlay2_6ACF20]
-    - [0x7D1AD0, .bss, overlay2_6B5380]
-    - [0x7D1AD0, .bss, overlay2_6C5570]
-    - [0x7D1AD0, .bss, sssv/collision]
-    - [0x7D1AD0, .bss, overlay2_6D9AF0]
-    - [0x7D1AD0, .bss, overlay2_6DCA10]
-    - [0x7D1AD0, .bss, sssv/collist2]
-    - [0x7D1AD0, .bss, overlay2_6EE6F0]
-    - [0x7D1AD0, .bss, screen_transition]
-    - [0x7D1AD0, .bss, overlay2_7041D0]
-    - [0x7D1AD0, .bss, sssv/input]
-    - [0x7D1AD0, .bss, overlay2_707310]
-    - [0x7D1AD0, .bss, overlay2_715820]
-    - [0x7D1AD0, .bss, overlay2_716900]
-    - [0x7D1AD0, .bss, overlay2_725D10]
-    - [0x7D1AD0, .bss, overlay2_72B100]
-    - [0x7D1AD0, .bss, overlay2_72B800]
-    - [0x7D1AD0, .bss, overlay2_739290]
-    - [0x7D1AD0, .bss, overlay2_741000]
-    - [0x7D1AD0, .bss, overlay2_7558F0]
-    - [0x7D1AD0, .bss, sssv/osd]
-    - [0x7D1AD0, .bss, sssv/animals/chameleon]
-    - [0x7D1AD0, .bss, overlay2_76E7D0]
-    - [0x7D1AD0, .bss, overlay2_76F7D0]
-    - [0x7D1AD0, .bss, sssv/animals/sheep]
-    - [0x7D1AD0, .bss, overlay2_785D10]
-    - [0x7D1AD0, .bss, overlay2_78E970]
-    - [0x7D1AD0, .bss, overlay2_791CD0]
-    - [0x7D1AD0, .bss, overlay2_794EE0]
-    - [0x7D1AD0, .bss, sssv/credits]
-    - [0x7D1AD0, .bss, sssv/cheats]
-    - [0x7D1AD0, .bss, overlay2_79DE10]
-    - [0x7D1AD0, .bss, sssv/terminal_background]
-    - [0x7D1AD0, .bss, overlay2_7A0DA0]
-    - [0x7D1AD0, .bss, overlay2_7A8A50]
-    - [0x7D1AD0, .bss, ui_main_menu]
-    - [0x7D1AD0, .bss, trails]
-  # - [0x7D1DF0, bin] # D_803C0740_7D1DF0
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6A6500 } # , vram: 0x803C0420 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6A7A80 } # , vram: 0x803C0640 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6AB090 } # , vram: 0x803C0660 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6AC360 } # , vram: 0x803C0740 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6ACF20 } # , vram: 0x803D2D90 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6B5380 } # , vram: 0x803D5510 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6B5A40 } # , vram: 0x803D5520 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6C5570 } # , vram: 0x803D5580 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/collision } # , vram: 0x803D60D0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6DA670 } # , vram: 0x803D6110 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_6DCA10 } # , vram: 0x803D6120 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/collist2 } # , vram: 0x803DA110 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/dynamic_tail } # , vram: 0x803DA300 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/screen_transition } # , vram: 0x803E1B10 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/lights } # , vram: 0x803E1B20 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/input } # , vram: 0x803E1BC0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_707310 } # , vram: 0x803E1BE0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_715820 } # , vram: 0x803E2930 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_716900 } # , vram: 0x803E4BE0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_71C140 } # , vram: 0x803E4C50 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_725D10 } # , vram: 0x803E4CA0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_72AF60 } # , vram: 0x803E8E60 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_72BA20 } # , vram: 0x803E97C0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_739290 } # , vram: 0x803E9810 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/camera } # , vram: 0x803F28B0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_7558F0 } # , vram: 0x803F2C80 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/osd } # , vram: 0x803F2CD0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_7688B0 }  # , vram: 0x803F2D20 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/animals/chameleon } # , vram: 0x803F2D50 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_76E7D0 } # , vram: 0x803F2EB0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_76F7D0 } # , vram: 0x803F2EE0 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/animals/sheep } # , vram: 0x803F2EF0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_785D10 } # , vram: 0x803F2F00 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_78E970 } # , vram: 0x803F63D0 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_791CD0 } # , vram: 0x803F63E0 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/behaviours } # , vram: 0x803F63F0 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/credits } # , vram: 0x803F6400 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/cheats } # , vram: 0x803F6410 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_79DE10 } # , vram: 0x803F6450 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/terminal_background } # , vram: 0x803F6460 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_7A0DA0 } # , vram: 0x803F6680 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_7A8A50 } # , vram: 0x803F6720 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/ui_main_menu } # , vram: 0x803F7160 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/trails } # , vram: 0x803F7E10 }
   - [0x7D1AD0, bin] # referenced in overlay2_7A8A50
-  # - [0x7D1AF0, bin] # end of data?
   - [0x7D2F50, bin] #
   - [0x7D3360, bin] #
   - [0x7D3AB0, bin] #
@@ -4013,6 +4026,7 @@ segments:
   - [0x7D92E0, bin] #
   - [0x7D9860, bin] #
   - [0x7D9F20, bin] #
+  # different data?
   - [0x7DA020, bin] #
   - [0x7DA120, bin] #
   - [0x7DA4A0, bin] #

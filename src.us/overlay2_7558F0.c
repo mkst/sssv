@@ -1120,7 +1120,7 @@ void func_80346878_757F28(Gfx **arg0, u8 arg1) {
 
 // load EVO texture?
 void func_803469D4_758084(Gfx **arg0, u16 arg1) {
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_0102F010 + ((u8)arg1 << 7));
+    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (u8*)D_0102F010 + ((u8)arg1 << 7));
     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*arg0)++);
     gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 31, 256);

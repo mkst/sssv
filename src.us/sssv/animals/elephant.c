@@ -72,13 +72,13 @@ void func_8037B800_78CEB0(void) {
             if (ticks_remaining >= 0xD) {
                 sp92 = D_803D552C->unk302;
                 if (((ticks_remaining & 1) == 1) && ((((D_803D5530->state < 0xB5))) || (D_803D5530->state >= 0xBB))) {
-                    D_803D552C->unk302 = (sp92 - (func_8012826C() & 0xF)) + 8;
-                    func_80321E60_733510(
+                    D_803D552C->unk302 = (sp92 - SSSV_RAND(16)) + 8;
+                    fire_cannonball_1(
                         0x4F,
                         0x5A,
                         0,
                         0x2D,
-                        ((func_8012826C()) & 3) + 0x11,
+                        SSSV_RAND(4) + 17,
                         18 - SSSV_RAND(16),
                         3,
                         3);
@@ -190,9 +190,9 @@ block_33:
                     sp94 = D_803D552C->unk320;
                     D_803D552C->unk320->unk40 = D_803D552C->unk308;
                     func_80321920_732FD0(D_803D552C->unk320, 0x1E, 0);
-                    sp94->unk10.w += sp94->xVelocity.w;
-                    sp94->unk14.w += sp94->zVelocity.w;
-                    sp94->unk18.w += sp94->yVelocity.w;
+                    sp94->newPosition.xPos.w += sp94->xVelocity.w;
+                    sp94->newPosition.zPos.w += sp94->zVelocity.w;
+                    sp94->newPosition.yPos.w += sp94->yVelocity.w;
                     if ((D_803D5530->state < 0xB5) || (D_803D5530->state >= 0xBB)) {
                         play_sound_effect_at_location(SFX_ELEPHANT_TRUMP, 0x6000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
                     }

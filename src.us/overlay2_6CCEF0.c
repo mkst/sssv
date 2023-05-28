@@ -8,77 +8,68 @@ void func_802BB840_6CCEF0(u16 arg0) {
     s16 tmp2;
 
     if (1) {};
+
     tmp0 = D_80203FE0[2].unk0;
     tmp1 = D_80203FE0[2].unk2;
     tmp2 = D_80203FE0[2].unk4;
 
-    D_80203FE0[26].unk0 = tmp0;
-    D_80203FE0[26].unk2 = (tmp1 - arg0) & 0xFFFF; // fakematch shenanigans
-    D_80203FE0[26].unk4 = tmp2;
-}
-
-#if 0
-void func_802BB870_6CCF20(u16 arg) {
-    s16 a = D_80203FE0[2].unk0;
-    s16 b = D_80203FE0[2].unk2;
-    s16 c = D_80203FE0[2].unk4;
-
-    s16 tmp0 = D_80203FE0[2].unk2 - arg; // v1
-    s16 tmp2 = D_80203FE0[2].unk4; // t7
-
-    s16 div = D_80203FE0[0].unk2 - D_80203FE0[2].unk2;
-    if (div == 0) {
-        div = 1;
-    }
-
-    D_80203FE0[26].unk0 = a;
-    D_80203FE0[26].unk2 = tmp0;
-
-    tmp2 += (D_80203FE0[2].unk4 - D_80203FE0[0].unk4) / 2 * arg / div;
-    D_80203FE0[26].unk4 = tmp2;
-}
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BB870_6CCF20.s")
-#endif
-
-// only used by husky
-#if 0
-//more nonsense
-void func_802BB938_6CCFE8(u16 arg0) {
-    s16 temp_a1;
-    s16 temp_t1;
-    s16 temp_v1;
-    s16 var_t1;
-    u16 temp_a3;
-
-    s32 tmp0;
-    s32 tmp1;
-    s32 tmp2;
-
-
-    tmp0 = D_80203FE0[2].unk0;
-    tmp2 = D_80203FE0[2].unk2;
-    tmp1 = D_80203FE0[2].unk4;
-
-    temp_v1 = tmp2 - arg0;
-    temp_t1 = D_80203FE0[0].unk2 - tmp2;
-
-    var_t1 = temp_t1;
-    if (temp_t1 == 0) {
-        var_t1 = 1;
-    }
-
-    temp_a1 = tmp1 + ((arg0 * ((tmp1 - D_80203FE0[0].unk4) / 2)) / var_t1);
-    tmp1 = (temp_a1 - tmp1) + temp_v1;
-    tmp2 = (tmp2 - temp_v1) + temp_a1;
+    tmp1 -= arg0;
 
     D_80203FE0[26].unk0 = tmp0;
     D_80203FE0[26].unk2 = tmp1;
     D_80203FE0[26].unk4 = tmp2;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BB938_6CCFE8.s")
-#endif
+
+void func_802BB870_6CCF20(u16 arg0) {
+    s16 tmp0;
+    s16 tmp1;
+    s16 tmp2;
+    s16 div;
+
+    if (1) { };
+
+    tmp0 = D_80203FE0[2].unk0;
+    tmp1 = D_80203FE0[2].unk2;
+    tmp2 = D_80203FE0[2].unk4;
+
+    tmp1 -= arg0;
+
+    div = D_80203FE0[0].unk2 - D_80203FE0[2].unk2;
+    if (div == 0){
+        div = 1;
+    }
+
+    tmp2 += (((D_80203FE0[2].unk4 - D_80203FE0[0].unk4) / 2) * arg0) / div;
+    D_80203FE0[26].unk0 = tmp0;
+    D_80203FE0[26].unk2 = tmp1;
+    D_80203FE0[26].unk4 = tmp2;
+}
+
+// only used by husky
+void func_802BB938_6CCFE8(u16 arg0) {
+    s16 tmp0;
+    s16 tmp1;
+    s16 tmp2;
+    s16 div;
+
+    if (1) {};
+
+    tmp0 = D_80203FE0[2].unk0;
+    tmp1 = D_80203FE0[2].unk2;
+    tmp2 = D_80203FE0[2].unk4;
+
+    tmp1 -= arg0;
+
+    div = D_80203FE0[0].unk2 - D_80203FE0[2].unk2;
+    if (div == 0) {
+        div = 1;
+    }
+
+    tmp2 += ((((D_80203FE0[2].unk4 - D_80203FE0[0].unk4) / 2) * arg0) / div);
+    D_80203FE0[26].unk0 = tmp0;
+    D_80203FE0[26].unk2 = (tmp2 - D_80203FE0[2].unk4) + tmp1;
+    D_80203FE0[26].unk4 = (D_80203FE0[2].unk2 - tmp1) + tmp2;
+}
 
 // used by fox, called with func_802BBA10_6CD0C0(870)
 void func_802BBA10_6CD0C0(u16 arg0) {
@@ -156,8 +147,7 @@ void func_802BBA10_6CD0C0(u16 arg0) {
 }
 
 // only used by fox
-#if 0
-void func_802BBC90_6CD340(u16 _arg0) {
+void func_802BBC90_6CD340(u16 arg0) {
     s16 temp_a1;
     s16 var_a3;
     s32 var_a2;
@@ -166,10 +156,8 @@ void func_802BBC90_6CD340(u16 _arg0) {
     s16 tmp2;
     s16 tmp3;
     struct106 *temp_v0;
-    u16 arg0;
     u16 tmp;
 
-    arg0 = _arg0;
     temp_v0 = &D_803D5528->unk3C8;
 
     if ((D_803F2D10.unk0 == 0) && (temp_v0->unk6 != 0)) {
@@ -195,7 +183,7 @@ void func_802BBC90_6CD340(u16 _arg0) {
         var_a3 -= 0x100;
     }
 
-    if (ABS(var_a3) < 0x20) {
+    if (ABS(var_a3) < 32) {
         if (var_a3 < 0) {
             temp_v0->unk4 -= 2;
             if (temp_v0->unk4 < 0) {
@@ -212,11 +200,11 @@ void func_802BBC90_6CD340(u16 _arg0) {
         }
     } else {
         if (var_a3 < 0) {
-            var_a3 += 6;
             temp_v0->unk4 -= 6;
             if (temp_v0->unk4 < 0) {
                 temp_v0->unk4 += 256;
             }
+            var_a3 += 6;
             if (var_a3 < -63) {
                 var_a3 = -63;
             }
@@ -233,26 +221,26 @@ void func_802BBC90_6CD340(u16 _arg0) {
         }
     }
 
+    tmp &= 0xFF;
+    var_a3 += D_80152C78[tmp & 0xFF] >> 11;
+
+    var_a2 = var_a2 / 3;
+
+    if (1) {};
+
     tmp1 = D_80203FE0[2].unk0;
     tmp2 = D_80203FE0[2].unk2;
     tmp3 = D_80203FE0[2].unk4;
 
-    idx = (D_80152C78[tmp & 0xFF] >> 11);
-    idx = (var_a3 + idx);
-
-    tmp1 += ((arg0 * D_80152350.unk2D0[idx]) / 256);
-    tmp2 -= ((arg0 * D_80152350.unk384[idx]) / 256);
-    tmp3 -= (((var_a2 / 3) * arg0) / 1024);
+    tmp1 += (D_80152350.unk2D0[var_a3] * arg0) / 256;
+    tmp3 -= (var_a2 * arg0) / 1024;
+    tmp2 -= (arg0 * D_80152350.unk384[var_a3]) / 256;
 
     D_80203FE0[26].unk0 = tmp1;
     D_80203FE0[26].unk2 = tmp2;
     D_80203FE0[26].unk4 = tmp3;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BBC90_6CD340.s")
-#endif
 
-#if 0
 // used by desert_fox
 void func_802BBFA0_6CD650(u16 arg0) {
     s16 var_a0;
@@ -311,20 +299,22 @@ void func_802BBFA0_6CD650(u16 arg0) {
         }
     }
 
+    tmp &= 0xFF;
+    var_a0 += D_80152C78[tmp & 0xFF] >> 11;
+
+    if (1) {};
+
     tmp0 = D_80203FE0[2].unk0;
     tmp1 = D_80203FE0[2].unk2;
     tmp2 = D_80203FE0[2].unk4;
 
-    tmp0 += (arg0 * D_80152350.unk2D0[(s16)(var_a0 + (D_80152C78[tmp & 0xFF] >> 11))]) / 256;
-    tmp1 -= (arg0 * D_80152350.unk384[(s16)(var_a0 + (D_80152C78[tmp & 0xFF] >> 11))]) / 256;
+    tmp0 += (D_80152350.unk2D0[var_a0] * arg0) / 256;
+    tmp1 -= (arg0 * D_80152350.unk384[var_a0]) / 256;
 
     D_80203FE0[26].unk0 = tmp0;
     D_80203FE0[26].unk2 = tmp1;
     D_80203FE0[26].unk4 = tmp2;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BBFA0_6CD650.s")
-#endif
 
 // used by vulture, parrot, seagull
 void func_802BC1F4_6CD8A4(u16 arg0) {
@@ -797,6 +787,9 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 
 #if 0
 void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
+
+    u16 temp_t7;
+    u16 temp_t8;
     s16 sp72;
     s16 sp70;
     s16 sp6E;
@@ -806,43 +799,31 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
     s16 temp_t6;
     s16 temp_t7_3;
     s16 temp_t8_4;
-    s16 temp_t9_2;
+    s16 temp_t9;
     s16 var_v0;
-    s32 temp_a0;
-    u16 temp_t7;
-    u16 temp_t8;
 
-    struct077 *temp_a1;
-    struct077 *temp_v1;
 
     if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
-        arg0->unk12 += 1;
+        arg0->unk12++;
     }
+
     switch (argC) {
     case 1:
         temp_t7 = arg4 / 32;
-        temp_v1 = &arg9[(temp_t7 + 1) % 8];
         temp_t8 = arg4 - (temp_t7 * 32);
-        temp_a0 = 32 - temp_t8;
-        temp_a1 = &arg9[temp_t7];
-        sp72 = ((temp_v1->unk0 * temp_t8) + (temp_a0 * temp_a1->unk0)) / 32;
-        sp70 = ((temp_v1->unk2 * temp_t8) + (temp_a0 * temp_a1->unk2)) / 32;
-        sp6E = ((temp_v1->unk4 * temp_t8) + (temp_a0 * temp_a1->unk4)) / 32;
+        sp72 = (((32 - temp_t8) * arg9[temp_t7].unk0) + (temp_t8 * arg9[(temp_t7 + 1) % 8].unk0)) / 32;
+        sp70 = (((32 - temp_t8) * arg9[temp_t7].unk2) + (temp_t8 * arg9[(temp_t7 + 1) % 8].unk2)) / 32;
+        sp6E = (((32 - temp_t8) * arg9[temp_t7].unk4) + (temp_t8 * arg9[(temp_t7 + 1) % 8].unk4)) / 32;
         break;
     case 2:
         temp_t7 = arg4 / 32;
-        temp_v1 = &argA[(temp_t7 + 1) % 8];
         temp_t8 = arg4 - (temp_t7 * 32);
-        temp_a0 = 32 - temp_t8;
-        temp_a1 = &argA[temp_t7];
-        sp72 = ((temp_v1->unk0 * temp_t8) + (temp_a0 * temp_a1->unk0)) / 32;
-        sp70 = ((temp_v1->unk2 * temp_t8) + (temp_a0 * temp_a1->unk2)) / 32;
-        sp6E = ((temp_v1->unk4 * temp_t8) + (temp_a0 * temp_a1->unk4)) / 32;
+        sp72 = (((32 - temp_t8) * argA[temp_t7].unk0) + (argA[(temp_t7 + 1) % 8].unk0 * temp_t8)) / 32;
+        sp70 = (((32 - temp_t8) * argA[temp_t7].unk2) + (argA[(temp_t7 + 1) % 8].unk2 * temp_t8)) / 32;
+        sp6E = (((32 - temp_t8) * argA[temp_t7].unk4) + (argA[(temp_t7 + 1) % 8].unk4 * temp_t8)) / 32;
         break;
     default:
-        sp6E = 0;
-        sp70 = 0;
-        sp72 = 0;
+        sp72 = sp70 = sp6E = 0;
         break;
     }
 
@@ -871,7 +852,7 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
     if (D_803D552C->unk300 != 0) {
         func_802BCDA0_6CE450(arg0, &sp72, &sp70, &sp6E);
     }
-    // temp_v0 = D_803D5530->state;
+
     switch (D_803D5530->state) {                        /* switch 2; irregular */
     case 0x1:                                       /* switch 2 */
     case 0x3:                                       /* switch 2 */
@@ -903,36 +884,37 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
         break;
     }
 
-    temp_a0_3 = (((u32) ((D_80152350.unk384[sp6E] * arg7) + (arg5 * D_80152350.unk384[sp72]) + (arg6 * D_80152350.unk384[sp70])) >> 8) + arg1) - D_80203FE0[arg2].unk4;
+    temp_a0_3 = (((u32) ((D_80152350.unk384[sp6E] * arg7) +
+                         (D_80152350.unk384[sp72] * arg5) +
+                         (D_80152350.unk384[sp70] * arg6)) >> 8) + arg1) - D_80203FE0[arg2].unk4;
+
     if ((var_v0 * -3) < temp_a0_3) {
         if (var_v0 >= temp_a0_3) {
             D_80203FE0[arg2].unk4 += ((temp_a0_3 + (var_v0 * 3)) / 4);
         } else {
             D_80203FE0[arg2].unk4 += var_v0;
-            func_802BC350_6CDA00(&sp72, &sp70, arg5, arg6, (s16) (s32) (s16) ((D_80203FE0[arg2].unk4 - arg1) - ( (D_80152350.unk384[sp6E] * arg7) / 256)));
+            func_802BC350_6CDA00(&sp72, &sp70, arg5, arg6, (s16) (s32) (s16) ((D_80203FE0[arg2].unk4 - arg1) - ((D_80152350.unk384[sp6E] * arg7) / 256)));
         }
     }
     if (sp70 >= sp6E) {
         sp6E = sp70;
     }
+
+    if (1) {};
+
     // all falls apart here...
-    temp_a1_3 = D_80203FE0[arg2].unk0;
-    temp_t7_3 = D_80203FE0[arg2].unk4 - ((arg5 * D_80152350.unk384[sp72]) / 256);
 
-    D_80203FE0[arg3].unk4 = temp_t7_3;
-    D_80203FE0[arg3].unk0 = temp_a1_3;
-    temp_t8_4 = D_80203FE0[arg2].unk2 - ((arg5 * D_80152350.unk2D0[sp72]) / 256);
-    D_80203FE0[arg3].unk2 = temp_t8_4;
-    temp_t9_2 = temp_t7_3 - ((arg6 * D_80152350.unk384[sp70]) / 256);
-    temp_t6 = temp_t8_4 - ((arg6 * D_80152350.unk2D0[sp70]) / 256);
+    D_80203FE0[arg3].unk0 = D_80203FE0[arg2].unk0;
+    D_80203FE0[arg3].unk2 = D_80203FE0[arg2].unk2 - ((D_80152350.unk2D0[sp72] * arg5) / 256);
+    D_80203FE0[arg3].unk4 = D_80203FE0[arg2].unk4 - ((D_80152350.unk384[sp72] * arg5) / 256);
 
-    D_80203FE0[arg3 + 1].unk4 = temp_t9_2;
-    D_80203FE0[arg3 + 1].unk2 = temp_t6;
-    D_80203FE0[arg3 + 1].unk0 = temp_a1_3;
+    D_80203FE0[arg3 + 1].unk2 = D_80203FE0[arg3].unk2 - ((D_80152350.unk2D0[sp70] * arg6) / 256);
+    D_80203FE0[arg3 + 1].unk0 = D_80203FE0[arg3].unk0;
+    D_80203FE0[arg3 + 1].unk4 = D_80203FE0[arg3].unk4 - ((D_80152350.unk384[sp70] * arg6) / 256);
 
-    D_80203FE0[arg3 + 2].unk0 = temp_a1_3;
-    D_80203FE0[arg3 + 2].unk4 = temp_t9_2 - ((arg7 * D_80152350.unk384[sp6E]) / 256);
-    D_80203FE0[arg3 + 2].unk2 = temp_t6 - ((arg7 * D_80152350.unk2D0[sp6E]) / 256);
+    D_80203FE0[arg3 + 2].unk2 = D_80203FE0[arg3 + 1].unk2 - ((D_80152350.unk2D0[sp6E] * arg7) / 256);
+    D_80203FE0[arg3 + 2].unk0 = D_80203FE0[arg3].unk0;
+    D_80203FE0[arg3 + 2].unk4 = D_80203FE0[arg3 + 1].unk4 - ((D_80152350.unk384[sp6E] * arg7) / 256);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BE1A0_6CF850.s")
@@ -941,10 +923,11 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
 #if 0
 // dupe of func_802BE1A0_6CF850?
 void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
+    u16 temp_t8;
+    u16 temp_t9;
     s16 sp72;
     s16 sp70;
     s16 sp6E;
-    s32 pad[2];
     s16 temp_a0_3;
     s16 temp_a1_3;
     s16 temp_t6;
@@ -953,8 +936,7 @@ void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     s16 temp_t9_2;
     s16 var_t2;
     s16 var_v0;
-    u16 temp_t8;
-    u16 temp_t9;
+    s32 pad[2];
 
     if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
         arg0->unk12++;
@@ -1040,7 +1022,9 @@ void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
         break;
     }
 
-    temp_a0_3 = (((u32) ((D_80152350.unk384[sp6E] * arg7) + (arg5 * D_80152350.unk384[sp72]) + (arg6 * D_80152350.unk384[sp72])) >> 8) + arg1) - var_t2;
+    temp_a0_3 = (((u32) ((D_80152350.unk384[sp6E] * arg7) +
+                         (D_80152350.unk384[sp72] * arg5) +
+                         (D_80152350.unk384[sp72] * arg6)) >> 8) + arg1) - var_t2;
     if ((var_v0 * -3) < temp_a0_3) {
         if (var_v0 >= temp_a0_3) {
             D_80203FE0[arg2].unk4 += ((temp_a0_3 + (var_v0 * 3)) / 4);
@@ -1054,22 +1038,22 @@ void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     }
 
     temp_a1_3 = D_80203FE0[arg2].unk0;
-    temp_t7_3 = D_80203FE0[arg2].unk4 - ((arg5 * D_80152350.unk384[sp72]) / 256);
+    temp_t7_3 = D_80203FE0[arg2].unk4 - ((D_80152350.unk384[sp72] * arg5) / 256);
 
     D_80203FE0[arg3].unk4 = temp_t7_3;
     D_80203FE0[arg3].unk0 = temp_a1_3;
-    temp_t8_4 = D_80203FE0[arg2].unk2 - ((arg5 * D_80152350.unk2D0[sp72]) / 256);
+    temp_t8_4 = D_80203FE0[arg2].unk2 - ((D_80152350.unk2D0[sp72] * arg5) / 256);
     D_80203FE0[arg3].unk2 = temp_t8_4;
-    temp_t9_2 = temp_t7_3 - ((arg6 * D_80152350.unk384[sp70]) / 256);
-    temp_t6 = temp_t8_4 - ((arg6 * D_80152350.unk2D0[sp70]) / 256);
+    temp_t9_2 = temp_t7_3 - ((D_80152350.unk384[sp70] * arg6) / 256);
+    temp_t6 = temp_t8_4 - ((D_80152350.unk2D0[sp70] * arg6) / 256);
 
     D_80203FE0[arg3+1].unk4 = temp_t9_2;
     D_80203FE0[arg3+1].unk2 = temp_t6;
     D_80203FE0[arg3+1].unk0 = temp_a1_3;
 
     D_80203FE0[arg3+2].unk0 = temp_a1_3;
-    D_80203FE0[arg3+2].unk4 = temp_t9_2 - ((arg7 * D_80152350.unk384[sp6E]) / 256);
-    D_80203FE0[arg3+2].unk2 = temp_t6 - ((arg7 * D_80152350.unk2D0[sp6E]) / 256);
+    D_80203FE0[arg3+2].unk4 = temp_t9_2 - ((D_80152350.unk384[sp6E] * arg7) / 256);
+    D_80203FE0[arg3+2].unk2 = temp_t6 - ((D_80152350.unk2D0[sp6E] * arg7) / 256);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BEAB0_6D0160.s")
@@ -1538,6 +1522,7 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     s16 var_a0;
     s16 tmp;
     s16 tmp1, tmp2, tmp3;
+    s16 tmp4;
 
     if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
         arg0->unk12++;
@@ -1602,6 +1587,7 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
 
     tmp1 = D_80203FE0[arg2].unk0;
 
+#if 1
     // all goes wrong from here ...
     switch (arg2) {
     case 3:
@@ -1614,6 +1600,17 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
         tmp1 += (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
         break;
     }
+#else
+    if ((arg2 == 3) || (arg2 == 5) || (arg2 == 8) || (arg2 == 14)) {
+        tmp1 -= (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
+    } else {
+        tmp1 += (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
+    }
+#endif
+
+    tmp4 = ((D_80152C78[arg4 & 0xFF] >> 7) >> 4);
+
+    if (1) {};
 
     tmp2 = D_80203FE0[arg2].unk2;
     tmp3 = D_80203FE0[arg2].unk4;
@@ -1625,8 +1622,10 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     D_80203FE0[arg3].unk2 = tmp2;
     D_80203FE0[arg3].unk4 = tmp3;
 
-    D_80203FE0[arg3].unk2 -= (((D_80152C78[arg4 & 0xFF] >> 7) >> 4) * arg5) >> 8;
-    D_80203FE0[arg2].unk2 -= (((D_80152C78[arg4 & 0xFF] >> 7) >> 4) * arg5) >> 8;
+
+    D_80203FE0[arg3].unk2 -= (tmp4 * arg5) >> 8;
+
+    D_80203FE0[arg2].unk2 -= (tmp4 * arg5) >> 8;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C13E4_6D2A94.s")

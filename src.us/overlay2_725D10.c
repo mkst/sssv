@@ -12,9 +12,7 @@ extern s32 D_803C4DAC_7D645C[];
 // .bss
 // ========================================================
 
-// u8 overlay2_725D10_pre_bss[0xC0];
-
-s32  D_803E4CA0;
+Animal *D_803E4CA0;
 u8   D_803E4CA4;
 u8   D_803E4CA5;
 u8   D_803E4CA6;
@@ -28,13 +26,10 @@ u16  D_803E8E54;
 u8   D_803E8E56;
 u8   D_803E8E57;
 u8   D_803E8E58;
-// static Animal *D_803E8E5C;
 
 // ========================================================
 // .text
 // ========================================================
-
-s32 func_80316408_727AB8(Animal *arg0);
 
 void func_80314660_725D10(void) {
     s16 i;
@@ -43,6 +38,7 @@ void func_80314660_725D10(void) {
     }
 }
 
+// ESA: func_80047108
 Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
     Animal *ret;
 
@@ -65,7 +61,7 @@ Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
     case 9:
         ret = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         break;
-    case 10:
+    case 10: // get_first?
         ret = func_8031540C_726ABC(arg2, 1);
         break;
     case 11:
@@ -78,6 +74,7 @@ Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
     return ret;
 }
 
+// ESA: func_800471D8
 void func_80314788_725E38(void) {
     bzero_sssv((u8*)D_803E4CA8, sizeof(D_803E4CA8));
     bzero_sssv((u8*)D_803E4D40, sizeof(D_803E4D40));
@@ -94,7 +91,7 @@ void func_80314788_725E38(void) {
     D_803E4D38[0] = D_8023F260.unk30;
     D_803E4D38[1] = D_8023F260.unk34;
     D_803E4D28 = 0;
-    D_803E4CA0 = 0;
+    D_803E4CA0 = NULL;
     D_801546E0 = 0x800;
     D_801546D8 = 0x800;
     func_803976E0_7A8D90(); // initialise something...
@@ -103,10 +100,9 @@ void func_80314788_725E38(void) {
 }
 
 #if 0
-// extern s32 D_FFFE0404[];
 extern s32 D_803C4DAC[];
 void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
-    // arg1 gets 0x7F7F added before being passed
+    // arg1 gets 0x7F7F added before being passed in
     s16 temp_v1;
     s32 temp_hi;
     s32 temp_t6;
@@ -122,14 +118,14 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     case 0+0x7F7F:    // 0
     case 1+0x7F7F:    // 1
     case 2+0x7F7F:    // 2
-        (arg0 - 133)->unk248[arg1 - 72] = arg2; // lol what is this shit
+        arg0->unk200[arg1-0x7F7F] = arg2;
         break;
     case 3+0x7F7F:    // 3
         arg0->unk158 = arg2;
         arg0->unk15E = arg2;
         break;
     case ST_SET_HEALTH:    // 4
-        if (!(arg0->unk4C.unk26 /* & 0x20 */) || (arg0->health < arg2)) {
+        if (!(arg0->unk4C.unk1A /* & 0x20 */) || (arg0->health < arg2)) {
             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
                 if (arg2 < arg0->health) {
                     func_80349280_75A930(arg0, arg0->health - arg2);
@@ -188,7 +184,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     case 16+0x7F7F:
         temp_hi = arg2 % 100;
         arg0->unk248[0] = func_803146A8_725D58(arg0, (s16) temp_hi, (arg2 / 100) & 0xFFFF);
-        arg0->unk1CC = (s8) temp_hi;
+        arg0->commands.unk1CC = (s8) temp_hi;
         break;
     case 17+0x7F7F:
         if (arg2 & 1) {
@@ -259,7 +255,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
             for (i = 0; i < D_803D553E; i++) {
                 tmp = D_801D9ED8.animals[i].animal;
                 if ((arg0 == tmp) && (tmp->unk366 != 6)) {
-                    phi_t1 = D_801D9ED8.unk0;
+                    phi_t1 = D_801D9ED8.unk0; // [i] ?
                     break;
                 }
             }
@@ -284,8 +280,6 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
                 func_802B2EA8_6C4558();
                 if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) { // + (gCurrentAnimalIndex * 8))->
                     D_803E9824 = arg2 - OB_TYPE_ANIMAL_OFFSET;
-                    // temp_v0_4 = (D_803E9824 * 2) + &D_803A63B0_7B7A60;
-                    // arg0 = arg0;
                     D_803E9820 = (s16) D_803A63B0_7B7A60[D_803E9824].unk0;
                     D_803E9822 = (s16) D_803A63B0_7B7A60[D_803E9824].unk1;
                     func_80327DA8_739458();
@@ -327,9 +321,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case 0+0x7F7F:
         case 1+0x7F7F:
         case 2+0x7F7F:
-            // FIXME!
-            res = (arg0 - 133)->pad33C[arg1 - 133];
-            // res = *(s32*)&D_FFFE0400[(s32)(((s32*)&arg0->xPos.h) + arg1)];
+            res = arg0->unk200[arg1 - 0x7F7F]; // some color?
             break;
         case 3+0x7F7F:
             res = arg0->unk158;
@@ -386,7 +378,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             }
             break;
         case 16+0x7F7F:
-            res = arg0->unk1CC;
+            res = arg0->commands.unk1CC;
             break;
         case 17+0x7F7F:
             res = (arg0->unk163 & 0x18) >> 3;
@@ -471,7 +463,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
     return res;
 }
 
-s32 func_803152A4_726954(s32 left, u8 op, s32 right) {
+s32 do_maths_op(s32 left, u8 op, s32 right) {
     switch (op) {
     case CMD_ADD:
         left = left + right;
@@ -508,59 +500,61 @@ s32 func_803152A4_726954(s32 left, u8 op, s32 right) {
 }
 
 void copy_command_struct(struct112 *source, struct112 *dest) {
+    dest->cmd.regular.unk0 = source->cmd.regular.unk0;
     dest->cmd.regular.unk2 = source->cmd.regular.unk2;
     dest->cmd.regular.unk4 = source->cmd.regular.unk4;
     dest->cmd.regular.unk6 = source->cmd.regular.unk6;
-    dest->cmd.regular.unk8 = source->cmd.regular.unk8;
     dest->type = source->type;
 }
 
 void load_commands_into_object(Animal *arg0, struct112 cmds[], u8 count) {
-    arg0->unk1A8 = cmds;
-    arg0->unk19C.count = count;
-    arg0->numCommandsToCopy = 0;
-    arg0->unk1CC = 0;
+    arg0->commands.unk1A8 = cmds;
+    arg0->commands.unk19C.count = count;
+    arg0->commands.numCommandsToCopy = 0;
+    arg0->commands.unk1CC = 0;
     arg0->unk248[0] = arg0;
     if (cmds != NULL) {
-        copy_command_struct(&cmds[count], &arg0->unk19C.payload);
+        copy_command_struct(&cmds[count], &arg0->commands.unk19C.payload);
     }
 }
 
-#if 0
-// plenty to figure out here..
+// ESA: func_80047DC4
 Animal *func_8031540C_726ABC(s16 arg0, u8 arg1) {
     u64 sp48;
     s16 j;
     s16 i;
-    Animal *ret; // sp40
-
-    s32 done;
+    Animal *ret;
+    s32 var_s2;
     struct065 *var_s0;
 
     static Animal *D_803E8E5C;
 
-    if (arg1 != 0) {
+    if (arg1) {
         D_803E8E5C = NULL;
-        done = 1;
+        var_s2 = 1;
     } else {
-        done = 0;
+        var_s2 = 0;
     }
 
+    i = 0;
     ret = NULL;
+    sp48 = D_803E95B8[arg0];
 
-    for (sp48 = D_803E95B8[arg0], i = 0; ((i < 40) && (sp48 != 0)); sp48 >>= 8, i += 8) {
+    while ((i < 0x28) && (sp48 != 0)) {
         if (sp48 & 0xFF) {
             for (j = 0; j < 8; j++) {
-                if (sp48 & ((s64)1 << i)) {
+                if (((sp48 & ((s64)1 << j)))) {
                     for (var_s0 = D_803DA110[i+j].next; var_s0 != NULL; var_s0 = var_s0->next) {
-                        if ((var_s0->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s0->animal->unk114[0] == (i + j)) && (var_s0->animal != D_803E8E5C)) {
-                            if ((func_80319E1C_72B4CC(var_s0->animal->xPos.h >> 6, var_s0->animal->zPos.h >> 6, var_s0->animal->yPos.h >> 6, arg0, var_s0->animal->unk160))) {
-                                if (done != 0) {
-                                    ret = var_s0->animal;
+                        if ((var_s0->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == var_s0->animal->unk114[0])) {
+                            if ((D_803E8E5C == var_s0->animal) || (func_80319E1C_72B4CC(var_s0->animal->xPos.h >> 6, var_s0->animal->zPos.h >> 6, var_s0->animal->yPos.h >> 6, arg0 , var_s0->animal->unk160) != 0)) {
+                                if (var_s2 != 0) {
                                     D_803E8E5C = var_s0->animal;
-                                    // goto done;
-                                } else if (D_803E8E5C == var_s0->animal) {
-                                    done = 1;
+                                    ret = var_s0->animal;
+                                    goto done;
+                                } else {
+                                    if (D_803E8E5C == var_s0->animal) {
+                                        var_s2 = 1;
+                                    }
                                 }
                             }
                         }
@@ -568,18 +562,18 @@ Animal *func_8031540C_726ABC(s16 arg0, u8 arg1) {
                 }
             }
         }
+        sp48 = sp48 >> 8;
+        i += 8;
     }
 
+done:
     if (ret == NULL) {
         D_803E8E5C = NULL;
     }
-done:
     return ret;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_8031540C_726ABC.s")
-#endif
 
+// ESA: func_80048040
 u8 func_80315658_726D08(s16 arg0, s32 func(Animal *, s16), s16 arg2) {
     u64 sp50;
     s32 pad; // sp
@@ -611,15 +605,18 @@ done:
     return ret;
 }
 
+// ESA: func_8004826C
 s32 func_80315870_726F20(Animal *arg0, s16 arg1) {
     return 1;
 }
 
+// ESA: func_80048274
 s32 func_80315880_726F30(s16 arg0) {
     return func_80315658_726D08(arg0, &func_80315870_726F20, 0);
 }
 
-s32 func_803158B4_726F64(Animal *arg0, s16 arg1) {
+// ESA: func_800482A4
+s32 is_object_type_helper(Animal *arg0, s16 arg1) {
     if (arg1 == arg0->unk16C->objectType) {
         return 1;
     } else {
@@ -627,12 +624,13 @@ s32 func_803158B4_726F64(Animal *arg0, s16 arg1) {
     }
 }
 
-s32 func_803158E4_726F94(s16 arg0, s16 arg1) {
-    return func_80315658_726D08(arg0, &func_803158B4_726F64, arg1);
+// ESA: func_80048040
+s32 is_object_type(s16 arg0, s16 arg1) {
+    return func_80315658_726D08(arg0, &is_object_type_helper, arg1);
 }
 
-// is_animal_helper
-s32 func_80315924_726FD4(Animal *arg0, s16 arg1) {
+// ESA: func_800482F4
+s32 is_animal_helper(Animal *arg0, s16 arg1) {
     if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
         return 1;
     } else {
@@ -640,13 +638,13 @@ s32 func_80315924_726FD4(Animal *arg0, s16 arg1) {
     }
 }
 
-// is_animal
-s32 func_80315950_727000(s16 arg0) {
-    return func_80315658_726D08(arg0, &func_80315924_726FD4, 0);
+// ESA: func_80048040
+s32 is_animal(s16 arg0) {
+    return func_80315658_726D08(arg0, &is_animal_helper, 0);
 }
 
-// is_object_helper
-s32 func_80315984_727034(Animal *arg0, s16 arg1) {
+// ESA: func_80048340
+s32 is_object_helper(Animal *arg0, s16 arg1) {
     if (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET) {
         return 1;
     } else {
@@ -654,88 +652,63 @@ s32 func_80315984_727034(Animal *arg0, s16 arg1) {
     }
 }
 
-// is_object
-s32 func_803159B0_727060(s16 arg0) {
-    return func_80315658_726D08(arg0, &func_80315984_727034, 0);
+// ESA: func_80048354
+s32 is_object(s16 arg0) {
+    return func_80315658_726D08(arg0, &is_object_helper, 0);
 }
 
-
-// regalloc is really off...
-#if 0
-
-typedef struct {
-    u8  unk0;
-    u8  unk1;
-    u8  unk2;
-    u8  unk3;
-    u8  unk4;
-    u8  unk5;
-    u16 alignment;
-} DefaultCmd;
-
-typedef struct {
-    u16 unk0;
-    s16 unk2;
-    s16 unk4;
-    u16 alignment;
-} Cmd4;
-
-
-u8 func_803159E4_727094(Animal *arg0, DefaultCmd *arg1) {
+u8 run_single_command(Animal *arg0, Cmd *arg1) {
     u16 res;
     u16 sp3C;
-    s16 sp26;
-    s32 water_level;
-    u8  pad[0xC];
 
     res = 0;
 
-    sp3C = arg1->unk0 & 0x80;     // 10000000
+    sp3C = arg1->dummy.unk0 & 0x80;     // 10000000 // is a multi-step command?
 
-    switch (arg1->unk0 & ~0xC0) { // 00111111
+    switch (arg1->dummy.unk0 & ~0xC0) { // 00111111
     case 0:
-        if (arg1->unk2 & 8) {
-            if (func_80315880_726F30(arg1->unk3)) { // always returns true
+        if (arg1->dummy.unk2 & 8) {
+            if (func_80315880_726F30(arg1->dummy.unk3)) { // always returns true
                 res = 1;
                 break;
             }
         }
-        if (arg1->unk2 & 1) {
-            if (func_803159B0_727060(arg1->unk3)) {
+        if (arg1->dummy.unk2 & 1) {
+            if (is_object(arg1->dummy.unk3)) {
                 res = 1;
                 break;
             }
         }
-        if (arg1->unk2 & 2) {
+        if (arg1->dummy.unk2 & 2) {
             res = 1;
             break;
         }
-        if (arg1->unk2 & 0x10) {
+        if (arg1->dummy.unk2 & 0x10) {
             if (func_80319E1C_72B4CC(
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6,
-                arg1->unk3,
+                arg1->dummy.unk3,
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160)) {
 
                 res = 1;
                 break;
             }
         }
-        if (arg1->unk2 & 4) {
-            if (func_80315950_727000(arg1->unk3)) {
+        if (arg1->dummy.unk2 & 4) {
+            if (is_animal(arg1->dummy.unk3)) {
                 res = 1;
                 break;
             }
         }
-        if (arg1->unk2 & 0x20) {
-            if (func_803158E4_726F94(arg1->unk3, arg1->unk5 + OB_TYPE_ANIMAL_OFFSET)) {
+        if (arg1->dummy.unk2 & 0x20) {
+            if (is_object_type(arg1->dummy.unk3, arg1->dummy.unk5 + OB_TYPE_ANIMAL_OFFSET)) {
                 res = 1;
                 break;
             }
         }
-        if (arg1->unk2 & 0x40) {
-            if (func_803158E4_726F94(arg1->unk3, arg1->unk4)) {
+        if (arg1->dummy.unk2 & 0x40) {
+            if (is_object_type(arg1->dummy.unk3, arg1->dummy.unk4)) {
                 res = 1;
                 break;
             }
@@ -743,57 +716,47 @@ u8 func_803159E4_727094(Animal *arg0, DefaultCmd *arg1) {
         break;
 
     case 1:
-        if ((arg0->unk162 != 4) && (arg0->unk162 != 5) && (arg0->unk162 != 6) && (arg0->unk162 != 7)) {
-
-            if (1) {}; // ?
-
-            water_level = GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h);
-
-            if (arg0->yPos.h < (water_level * 4)) {
-                res = 1;
-                break;
-            }
+        if ((arg0->unk162 == 4) || (arg0->unk162 == 5) || (arg0->unk162 == 6) || (arg0->unk162 == 7) || (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4))) {
+            res = 1;
         }
-        // m2c things there is an else here?
         break;
     case 2:
-        if (((Cmd4*)arg1)->unk2 == arg0->state) {
+        if (arg0->state == arg1->regular.unk2) {
             res = 1;
         }
         break;
     case 3:
-        water_level = GET_WATER_LEVEL(D_803C0740, arg1->unk4 << 6, arg1->unk5 << 6);
-        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) < (water_level * 4)) {
+        if ((GET_WATER_LEVEL(D_803C0740, arg1->dummy.unk4 << 6, arg1->dummy.unk5 << 6) * 4) > get_game_state(arg0, arg1->regular.unk2)) {
             res = 1;
         }
         break;
     case 4:
         // state matches?
-        if ((arg1->unk2 & 8) && (arg0->unk5C & 8)) {
+        if ((arg1->dummy.unk2 & 8) && (arg0->unk5C & 8)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 1) && (arg0->unk5C & 1)) {
+        if ((arg1->dummy.unk2 & 1) && (arg0->unk5C & 1)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 2) && (arg0->unk5C & 2)) {
+        if ((arg1->dummy.unk2 & 2) && (arg0->unk5C & 2)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x10) && (arg0->unk5C & 0x10)) {
+        if ((arg1->dummy.unk2 & 0x10) && (arg0->unk5C & 0x10)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 4) && (arg0->unk5C & 4)) {
+        if ((arg1->dummy.unk2 & 4) && (arg0->unk5C & 4)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x20) && (arg0->unk5C & 4) && (arg0->unk5D == arg1->unk5)) {
+        if ((arg1->dummy.unk2 & 0x20) && (arg0->unk5C & 4) && (arg1->dummy.unk5 == arg0->unk5D)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x40) && (arg0->unk5C & 1) && (arg0->unk5D == arg1->unk4)) {
+        if ((arg1->dummy.unk2 & 0x40) && (arg0->unk5C & 1) && (arg1->dummy.unk4 == arg0->unk5D)) {
             res = 1;
             break;
         }
@@ -821,33 +784,32 @@ u8 func_803159E4_727094(Animal *arg0, DefaultCmd *arg1) {
         }
         break;
     case 9:
-        sp26 = func_802FD5DC_70EC8C(arg0);
-        if (sp26 >= get_game_state(arg0, ((Cmd4*)arg1)->unk2)) {
+        if (func_802FD5DC_70EC8C(arg0) >= get_game_state(arg0, arg1->regular.unk2)) {
             res = 1;
         }
         break;
     case 11:
-        if ((arg1->unk2 & 8) && (func_802FD3B8_70EA68(arg0))) {
+        if ((arg1->dummy.unk2 & 8) && (func_802FD3B8_70EA68(arg0))) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 1) && (func_802FD4D0_70EB80(arg0))) {
+        if ((arg1->dummy.unk2 & 1) && (func_802FD4D0_70EB80(arg0))) {
             res = 1;
             break;
         }
-        if (((arg1->unk2 & 0x10) && ((func_802FD40C_70EABC(arg0, D_801D9ED8.animals[gCurrentAnimalIndex].animal)))) || (func_802FD538_70EBE8(arg0))) {
+        if (((arg1->dummy.unk2 & 0x10) && ((func_802FD40C_70EABC(arg0, D_801D9ED8.animals[gCurrentAnimalIndex].animal)))) || (func_802FD538_70EBE8(arg0))) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 4) && (func_802FD468_70EB18(arg0))) {
+        if ((arg1->dummy.unk2 & 4) && (func_802FD468_70EB18(arg0))) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x20) && (func_802FD348_70E9F8(arg0, (arg1->unk5 + OB_TYPE_ANIMAL_OFFSET)))) {
+        if ((arg1->dummy.unk2 & 0x20) && (func_802FD348_70E9F8(arg0, (arg1->dummy.unk5 + OB_TYPE_ANIMAL_OFFSET)))) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x40) && (func_802FD348_70E9F8(arg0, arg1->unk4))) {
+        if ((arg1->dummy.unk2 & 0x40) && (func_802FD348_70E9F8(arg0, arg1->dummy.unk4))) {
             res = 1;
             break;
         }
@@ -867,110 +829,1592 @@ u8 func_803159E4_727094(Animal *arg0, DefaultCmd *arg1) {
               arg0->xPos.h >> 6,
               arg0->zPos.h >> 6,
               arg0->yPos.h >> 6,
-              arg1->unk3,
+              arg1->dummy.unk3,
               arg0->unk160)) {
             res = 1;
         }
         break;
 
     case 17:
-        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) <  get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+        if (get_game_state(arg0, arg1->regular.unk2) <  get_game_state(arg0, arg1->regular.unk4)) {
             res = 1;
         }
         break;
     case 18:
-        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) <= get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+        if (get_game_state(arg0, arg1->regular.unk2) <= get_game_state(arg0, arg1->regular.unk4)) {
             res = 1;
         }
         break;
     case 19:
-        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) == get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+        if (get_game_state(arg0, arg1->regular.unk2) == get_game_state(arg0, arg1->regular.unk4)) {
             res = 1;
         }
         break;
     case 20:
-        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) >= get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+        if (get_game_state(arg0, arg1->regular.unk2) >= get_game_state(arg0, arg1->regular.unk4)) {
             res = 1;
         }
         break;
     case 21:
-        if (get_game_state(arg0, ((Cmd4*)arg1)->unk2) >  get_game_state(arg0, ((Cmd4*)arg1)->unk4)) {
+        if (get_game_state(arg0, arg1->regular.unk2) >  get_game_state(arg0, arg1->regular.unk4)) {
             res = 1;
         }
         break;
     case 22:
-        if ((arg1->unk2 & 1) && (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET)) {
+        if ((arg1->dummy.unk2 & 1) && (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x10) && (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg1->dummy.unk2 & 0x10) && (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 4) && (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET)) {
+        if ((arg1->dummy.unk2 & 4) && (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET)) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x20) && (arg0->unk16C->objectType == (arg1->unk5 + OB_TYPE_ANIMAL_OFFSET))) {
+        if ((arg1->dummy.unk2 & 0x20) && (arg0->unk16C->objectType == (arg1->dummy.unk5 + OB_TYPE_ANIMAL_OFFSET))) {
             res = 1;
             break;
         }
-        if ((arg1->unk2 & 0x40) && (arg0->unk16C->objectType == arg1->unk4)) {
+        if ((arg1->dummy.unk2 & 0x40) && (arg0->unk16C->objectType == arg1->dummy.unk4)) {
             res = 1;
             break;
         }
-        if (arg1->unk2 & 8) {
+        if (arg1->dummy.unk2 & 8) {
             res = 1;
             break;
         }
         break;
     case 23:
-        if (((Cmd4*)arg1)->unk2 == arg0->unk5F) {
+        if (arg1->regular.unk2 == arg0->unk5F) {
             res = 1;
         }
         break;
     }
 
     if (sp3C) {
-        res ^= 1; // & 0xFFFF;
+        // invert result
+        res ^= 1;
     }
 
-    return res; // & 0xFF;
+    return res;
 }
 
+// get_next_command?
+#if 0
+s32 func_80316408_727AB8(Animal *arg0) {
+    struct077 sp148;
+    struct077 sp140;
+    s16 sp13E;
+    s16 sp13C;
+
+    s32 sp138; // pad
+
+    s32 sp134;
+    s32 sp130;
+    s32 sp12C;
+
+    Animal *temp_s1;
+    Commands *temp_s0;
+
+    s16 sp120;
+
+    s32 sp11C; // pad
+    s32 sp118; // pad
+
+    Animal *tmp;
+    Animal2 *var_a2_2;
+
+    s32 sp110;
+    s32 sp10C;
+
+    s32 spF8;
+    s32 spF4;
+
+    s32 spF0; // pad
+    s32 spDC; // pad
+
+    s32 spD8;
+    s32 spD4;
+    s32 spD0;
+    s32 spCC;
+    s32 spC8;
+
+    f32 var_f2;
+    s16 temp_a0_4;
+    s16 temp_a1;
+    s32 temp_s0_35;
+    s16 temp_s2_3;
+    s32 temp_s2_4;
+    s16 temp_v0_14;
+    s16 var_a0_3;
+    s16 var_s1;
+    s16 i;
+    u8 temp_t3;
+    s32 temp_v0_15;
+    s16 var_v0_4;
+    s8 var_a0;
+    s8 var_a2;
+    s8 var_a3_3;
+    s8 var_t0;
+    s8 var_t1;
+    struct050 *temp_v0_26;
+    u8 temp_v0_5;
+    u8 var_a0_2;
+
+    struct077 spA4;
+    struct077 sp9C;
+    s16 sp9A;
+    s16 sp98;
+    s32 sp84;
+
+    s32 sp7C;
+    s32 sp78;
+    s32 sp74;
+
+    temp_s0 = &arg0->commands;
+    temp_s1 = arg0->unk248[0];
+
+    switch (temp_s0->unk19C.payload.type) {
+    case 0:
+        return 69;
+
+    case 0x1:
+
+        if (run_single_command(temp_s1, &temp_s0->unk19C.payload.cmd) != 0) {
+            if ((temp_s0->unk19C.payload.cmd.type1.unk0 & 0x40) == 0) {
+                temp_s0->unk19C.count = temp_s0->unk19C.payload.cmd.type1.unk6;
+            }
+            return 69;
+        }
+
+        if (temp_s0->unk19C.payload.cmd.type1.unk0 & 0x40) {
+            while (arg0->commands.unk1A8[arg0->commands.unk19C.count+1].type == 1) {
+                arg0->commands.unk19C.count++;
+            }
+        }
+        return 69;
+
+    case 0x2:
+        var_a0_2 = temp_s0->numCommandsToCopy;
+        temp_s0->unk1AC[var_a0_2].regular.unk0 = temp_s0->unk19C.payload.cmd.regular.unk0;
+        temp_s0->unk1AC[var_a0_2].regular.unk2 = temp_s0->unk19C.payload.cmd.regular.unk2;
+        temp_s0->unk1AC[var_a0_2].regular.unk4 = temp_s0->unk19C.payload.cmd.regular.unk4;
+        temp_s0->unk1AC[var_a0_2].regular.unk6 = temp_s0->unk19C.payload.cmd.regular.unk6;
+
+        temp_s0->unk1AC[var_a0_2].unknown.unk0.ub[1] = arg0->commands.unk1CC;
+        temp_s0->numCommandsToCopy++;
+        return 69;
+
+    case 0x3:
+        temp_t3 = run_single_command(temp_s1, &temp_s0->unk19C.payload.cmd);
+
+        if (temp_s0->unk1D4 == 0) {
+            if (temp_t3 != 0) {
+                if ((temp_s0->unk19C.payload.cmd.type1.unk0 & 0x40) != 0) {
+                    temp_s0->unk1D4 = temp_s0->unk19C.count + 1; // unk38
+                }
+                return 69;
+            }
+            return 0;
+        } else {
+            if (temp_t3 != 0) {
+                if ((temp_s0->unk19C.payload.cmd.type1.unk0 & 0x40) == 0) {
+                    temp_s0->unk1D4 = 0; // unk38
+                }
+                return 69;
+            }
+
+            temp_s0->unk19C.count = temp_s0->unk1D4 - 1;
+            copy_command_struct(&temp_s0->unk1A8[temp_s0->unk19C.count], &temp_s0->unk19C.payload);
+            return 0;
+        }
+
+    case 0x4:
+        temp_s0->unk1CE = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.simple.unk0);
+        temp_s0->unk1D0 = temp_s0->unk19C.count;
+        return 69;
+
+    case 0x5:
+        if (--temp_s0->unk1CE > 0) {
+            temp_s0->unk19C.count = temp_s0->unk1D0;
+        }
+        return 69;
+
+    case 0x6:
+        if (temp_s0->unk19C.payload.cmd.simple.unk0 != -1) {
+            temp_s0->unk1D2 = get_game_state(arg0, temp_s0->unk19C.payload.cmd.simple.unk0);
+            temp_s0->unk19C.payload.cmd.simple.unk0 = -1;
+        }
+        if (temp_s0->unk1D2-- < 1) {
+            return 69;
+        }
+        return 0;
+
+    case 0x7:
+        return 0;
+
+    case 0x8:
+        temp_s0->unk19C.count = temp_s0->unk19C.payload.cmd.simple.unk0;
+        return 69;
+
+    case 0x9:
+        temp_s0->unk1A8 = NULL;
+        return 0;
+
+    case 0xA:
+        return 0;
+
+    case 0xB:
+        temp_s1->unk158 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.simple.unk0);
+        return 69;
+
+    case 0xC:
+        set_floor_level(
+            temp_s0->unk19C.payload.cmd.type12.xStart + 4,
+            temp_s0->unk19C.payload.cmd.type12.yStart + 8,
+            temp_s0->unk19C.payload.cmd.type12.xEnd,
+            temp_s0->unk19C.payload.cmd.type12.yEnd,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type12.action) >> 3
+            );
+        return 69;
+
+    case 0xD:
+        // out of order?
+        temp_s1->unk20C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type13.unk0);
+        temp_s1->unk210 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type13.unk4);
+        temp_s1->unk20E = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type13.unk2);
+        return 69;
+
+    case 0xE:
+        temp_s1->commands.numCommandsToCopy = 0;
+        temp_s1->commands.unk1CE = 0;
+        temp_s1->commands.unk1D0 = 0;
+        temp_s1->commands.unk1D2 = 0;
+        temp_s1->unk248[0] = temp_s1;
+        temp_s1->commands.unk1A8 = &D_803E4D40[temp_s0->unk19C.payload.cmd.type14.unk0];
+        temp_s1->unk4C.unk19 = 1;
+        if (temp_s1 != arg0) {
+            copy_command_struct(temp_s1->commands.unk1A8, &temp_s1->commands.unk19C.payload);
+            temp_s1->commands.unk19C.count = 0;
+        } else {
+            temp_s1->commands.unk19C.count = 0xFF;
+        }
+        return 69;
+
+    case 0xF:
+        temp_s1->state = temp_s0->unk19C.payload.cmd.regular.unk0;
+        return 69;
+
+    case 0x10:
+        if (temp_s1->unk16C->objectType >= 0x100) { // animal
+            sp13E = (temp_s1->zRotation * 360) >> 8;
+            sp13C = (temp_s1->yRotation * 360) >> 8;
+        } else {
+            sp13E = temp_s1->zRotation;
+            sp13C = temp_s1->yRotation;
+        }
+
+        sp13E += (temp_s0->unk19C.payload.cmd.type16.unk5 * 360) >> 8;
+        sp13C += (temp_s0->unk19C.payload.cmd.type16.unk4 * 360) >> 8;
+
+        if (sp13E >= 360) {
+            sp13E -= 360;
+        } else if (sp13E < 0) {
+            sp13E += 360;
+        }
+
+        if (sp13C >= 360) {
+            sp13C -= 360;
+        } else if (sp13C < 0) {
+            sp13C += 360;
+        }
+
+        func_802F603C_7076EC(
+            temp_s0->unk19C.payload.cmd.type16.unk1,
+            temp_s0->unk19C.payload.cmd.type16.unk2,
+            temp_s0->unk19C.payload.cmd.type16.unk3,
+            sp13E,
+            sp13C,
+            temp_s1->unk40,
+            &sp148);
+
+        func_802F5F44_7075F4(
+            0,
+            temp_s0->unk19C.payload.cmd.type16.unk6 << 8,  // y
+            0,
+            sp13E,
+            sp13C,
+            &sp140);
+
+        arg0->unk248[7] = spawn_object(
+        /* id    */ temp_s0->unk19C.payload.cmd.type16.id,
+        /* xPos  */ temp_s1->xPos.h + sp148.unk0,
+        /* zPos  */ temp_s1->zPos.h + sp148.unk2,
+        /* yPos  */ temp_s1->yPos.h + sp148.unk4,
+        /* xVel  */ sp140.unk0 << 8,
+        /* zVel  */ sp140.unk2 << 8,
+        /* yVel  */ sp140.unk4 << 8,
+        /* zRot  */ sp13E,
+        /* yRot  */ sp13C,
+        /* scale */ 0x800);
+
+        if (arg0->unk248[7] == NULL) {
+            return 0;
+        }
+        return 69;
+
+    case 0x11:
+        arg0->unk248[7] = spawn_object(
+            temp_s0->unk19C.payload.cmd.type17.id,
+            temp_s0->unk19C.payload.cmd.type17.x,
+            temp_s0->unk19C.payload.cmd.type17.z,
+            temp_s0->unk19C.payload.cmd.type17.y,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0x800);
+
+        if (arg0->unk248[7] == NULL) {
+            return 0;
+        }
+        return 69;
+
+    case 0x12:
+        tmp = arg0->unk248[7];
+        func_802FCA08_70E0B8(tmp, tmp->unk164 | 0x4000);
+        return 69;
+
+    case 0x13:
+        if (temp_s1->unk16C->objectType >= 0x100) {
+            func_802C83CC_6D9A7C(temp_s1);
+        } else {
+            run_commands(temp_s1);
+        }
+
+        if (arg0 == temp_s1) {
+            return 0;
+        }
+        return 69;
+
+    case 0x14:
+        arg0->unk248[0] = func_803146A8_725D58(
+            arg0,
+            temp_s0->unk19C.payload.cmd.type20.unk0,
+            temp_s0->unk19C.payload.cmd.type20.unk2);
+
+        arg0->commands.unk1CC = temp_s0->unk19C.payload.cmd.type20.unk0;
+        return 69;
+
+    case 0x15:
+        temp_s1->unk212 = temp_s0->unk19C.payload.cmd.type21.unk0;
+        temp_s1->unk213 = temp_s0->unk19C.payload.cmd.type21.unk1;
+        temp_s1->unk214 = temp_s0->unk19C.payload.cmd.type21.unk2;
+        temp_s1->unk215 = temp_s0->unk19C.payload.cmd.type21.unk3;
+        temp_s1->unk216 = temp_s0->unk19C.payload.cmd.type21.unk4;
+        temp_s1->unk217 = temp_s0->unk19C.payload.cmd.type21.unk5;
+        return 69;
+
+    case 0x16:
+        temp_s1->unk218 = temp_s0->unk19C.payload.cmd.type22.unk0;
+        temp_s1->unk219 = temp_s0->unk19C.payload.cmd.type22.unk1;
+        temp_s1->unk21A = temp_s0->unk19C.payload.cmd.type22.unk2;
+        temp_s1->unk21B = temp_s0->unk19C.payload.cmd.type22.unk3;
+        temp_s1->unk21C = temp_s0->unk19C.payload.cmd.type22.unk4;
+        temp_s1->unk21D = temp_s0->unk19C.payload.cmd.type22.unk5;
+        return 69;
+
+    case 0x17:
+        temp_s1->unk21E.type23.unk0 = temp_s0->unk19C.payload.cmd.type23.unk0;
+        temp_s1->unk21E.type23.unk2 = temp_s0->unk19C.payload.cmd.type23.unk2;
+        temp_s1->unk21E.type23.unk3 = temp_s0->unk19C.payload.cmd.type23.unk3 - 20;
+        temp_s1->unk21E.type23.unk4 = temp_s0->unk19C.payload.cmd.type23.unk4;
+        temp_s1->unk21E.type23.unk5 = temp_s0->unk19C.payload.cmd.type23.unk5;
+        temp_s1->unk21E.type23.unk6 = temp_s0->unk19C.payload.cmd.type23.unk6;
+        temp_s1->unk22A = 0;
+        return 69;
+
+    case 0x18:
+        temp_s1->unk21E = arg0->commands.unk19C.payload.cmd;
+
+        // FIXME: feels more like a bitfield, but cant get it to work...
+        temp_v0_5 = (temp_s1->unk21E.type24.F & 1) == 0; // save top bit
+        temp_s1->unk21E.type24.F &= 0xFFFE;         // clear top bit
+        temp_s1->unk22A = 0;
+
+        if (temp_v0_5) {
+            if (temp_s1->unk248[8] != NULL) {
+                func_8039DD90_7AF440((Trail *) temp_s1->unk248[8]);
+                temp_s1->unk248[8] = NULL;
+                return 69;
+            }
+        }
+
+        // FIXME: can this be done implicitly?
+        if (temp_s1->unk21E.type24.State >= 0x8C) {
+            switch (temp_s1->unk21E.type24.State) { // unk220
+            case 0x8C: // L80316BCC_72827C
+                temp_s1->unk248[8] = add_regular_trail(
+                    temp_s1,
+                    0,
+                    temp_s1->unk21E.type24.S,
+                    temp_s1->unk21E.type24.unk5,
+                    temp_s1->unk212,
+                    temp_s1->unk213,
+                    temp_s1->unk214,
+                    (temp_s1->unk226 >> 8) & 0xF8,
+                    (temp_s1->unk226 >> 3) & 0xF8,
+                    (temp_s1->unk226 << 2) & 0xF8,
+                    (temp_s1->unk228 >> 8) & 0xF8,
+                    (temp_s1->unk228 >> 3) & 0xF8,
+                    (temp_s1->unk228 << 2) & 0xF8,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0);
+                break;
+            case 0x8D: // L80316C70_728320
+                temp_s1->unk248[8] = add_regular_trail(
+                    temp_s1,
+                    1,
+                    temp_s1->unk21E.type24.S,
+                    temp_s1->unk21E.type24.unk5,
+                    temp_s1->unk212,
+                    temp_s1->unk213,
+                    temp_s1->unk214,
+                    (temp_s1->unk226 >> 8) & 0xF8,
+                    (temp_s1->unk226 >> 3) & 0xF8,
+                    (temp_s1->unk226 << 2) & 0xF8,
+                    (temp_s1->unk228 >> 8) & 0xF8,
+                    (temp_s1->unk228 >> 3) & 0xF8,
+                    (temp_s1->unk228 << 2) & 0xF8,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0);
+                break;
+            case 0x8E: // L80316D14_7283C4
+                temp_s1->unk248[8] = add_regular_trail(
+                    temp_s1,
+                    2,
+                    temp_s1->unk21E.type24.S,
+                    temp_s1->unk21E.type24.unk5,
+                    temp_s1->unk212,
+                    temp_s1->unk213,
+                    temp_s1->unk214,
+                    (temp_s1->unk226 >> 8) & 0xF8,
+                    (temp_s1->unk226 >> 3) & 0xF8,
+                    (temp_s1->unk226 << 2) & 0xF8,
+                    (temp_s1->unk228 >> 8) & 0xF8,
+                    (temp_s1->unk228 >> 3) & 0xF8,
+                    (temp_s1->unk228 << 2) & 0xF8,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0);
+                break;
+            case 0x8F: // L80316E50_728500
+            case 0x90: // L80316E50_728500
+                break;
+            case 0x91: // L80316DB8_728468
+                temp_s1->unk248[8] = add_simple_trail(
+                    temp_s1,
+                    2,
+                    temp_s1->unk21E.type24.S,
+                    32,
+                    temp_s1->unk212,
+                    temp_s1->unk213,
+                    temp_s1->unk214,
+                    (temp_s1->unk226 >> 8) & 0xF8,
+                    (temp_s1->unk226 >> 3) & 0xF8,
+                    (temp_s1->unk226 << 2) & 0xF8,
+                    (temp_s1->unk228 >> 8) & 0xF8,
+                    (temp_s1->unk228 >> 3) & 0xF8,
+                    (temp_s1->unk228 << 2) & 0xF8,
+                    1);
+                break;
+            }
+        } else {
+            func_802FA730_70BDE0(temp_s1);
+        }
+        return 69;
+
+    case 0x19:
+        func_802F657C_707C2C(
+            temp_s1,
+            temp_s0->unk19C.payload.cmd.regular.unk0,
+            temp_s0->unk19C.payload.cmd.regular.unk2,
+            temp_s0->unk19C.payload.cmd.regular.unk4,
+            temp_s0->unk19C.payload.cmd.regular.unk6);
+        temp_s1->unk170 = 1;
+        return 69;
+
+    case 0x1A:
+        func_802F657C_707C2C(
+            temp_s1,
+            temp_s0->unk19C.payload.cmd.regular.unk0,
+            temp_s0->unk19C.payload.cmd.regular.unk2,
+            temp_s0->unk19C.payload.cmd.regular.unk4,
+            temp_s0->unk19C.payload.cmd.regular.unk6);
+        temp_s1->unk170 = 2;
+        return 69;
+
+    case 0x1B:
+        sp74 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
+        sp78 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        sp7C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4);
+
+        // FIXME
+        func_802F657C_707C2C(
+            temp_s1,
+            sp74 + temp_s1->xPos.h,
+            sp78 + temp_s1->zPos.h,
+            sp7C + temp_s1->yPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6)
+        );
+        temp_s1->unk170 = 1;
+        return 69;
+
+    case 0x1C:
+        sp74 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
+        sp78 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        sp7C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4);
+
+        // FIXME
+        func_802F657C_707C2C(
+            temp_s1,
+            sp74 + temp_s1->xPos.h,
+            sp78 + temp_s1->zPos.h,
+            sp7C + temp_s1->yPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6)
+        );
+        temp_s1->unk170 = 2;
+        return 69;
+
+    case 0x1D:
+        if (temp_s1->unk16C->objectType < 0x100) {
+
+            if (temp_s1->unk170 != 6) {
+                func_802F9EB8_70B568(
+                    &sp12C,
+                    &sp130,
+                    &sp134,
+                    D_803E8E60[temp_s0->unk19C.payload.cmd.type29.unk0],
+                    0,
+                    !(temp_s0->unk19C.payload.cmd.type29.unk6 == 1)); // unkA
+
+                sp12C = sp12C >> 0x10;
+                sp130 = sp130 >> 0x10;
+                sp134 = sp134 >> 0x10;
+
+                // FIXME - whats wrong here?
+                if (((ABS((temp_s1->xPos.h - sp12C)) > 4) || (ABS(temp_s1->zPos.h - sp130) > 4)) ||
+                    ((temp_s1->unk4C.unk1D == 0) && (ABS(temp_s1->yPos.h - sp134) > 4))) {
+                    temp_s1->unk170 = 6;
+                    func_802F657C_707C2C(
+                        temp_s1,
+                        sp12C,
+                        sp130,
+                        sp134,
+                        temp_s0->unk19C.payload.cmd.type29.unk2);
+                    return 0;
+                } else {
+                    func_802F9E10_70B4C0(
+                        temp_s1,
+                        temp_s0->unk19C.payload.cmd.type29.unk0,
+                        temp_s0->unk19C.payload.cmd.type29.unk2,
+                        temp_s0->unk19C.payload.cmd.type29.unk5,
+                        temp_s0->unk19C.payload.cmd.type29.unk6,
+                        0);
+                    return 1;
+                }
+            }
+            return 0;
+        } else {
+            func_8036390C_774FBC(
+                temp_s1,
+                temp_s0->unk19C.payload.cmd.type29.unk0,
+                temp_s0->unk19C.payload.cmd.type29.unk2,
+                temp_s0->unk19C.payload.cmd.type29.unk5,
+                temp_s0->unk19C.payload.cmd.type29.unk6,
+                temp_s0->unk19C.payload.cmd.type29.unk7);
+
+        }
+        return 69;
+
+    case 0x1E:
+        func_80363B98_775248(
+            temp_s1,
+            temp_s0->unk19C.payload.cmd.type30.unk0,
+            temp_s0->unk19C.payload.cmd.type30.unk2,
+            temp_s0->unk19C.payload.cmd.type30.unk4,
+            temp_s0->unk19C.payload.cmd.type30.unk7,
+            temp_s0->unk19C.payload.cmd.type30.unk6);
+        return 69;
+
+    case 0x1F:
+        func_80363B34_7751E4(temp_s1, temp_s0->unk19C.payload.cmd.simple.unk0);
+        return 69;
+
+    case 0x20:
+        func_80363C0C_7752BC(temp_s1, temp_s0->unk19C.payload.cmd.simple.unk0);
+        return 69;
+
+    case 0x21:
+        func_80319AA0_72B150(&temp_s1->unk18C, temp_s0->unk19C.payload.cmd.simple.unk0);
+        return 69;
+
+    case 0x22:
+        func_80319AC4_72B174(&temp_s1->unk18C, temp_s0->unk19C.payload.cmd.simple.unk0);
+        return 69;
+
+    case 0x24:
+        if (func_80349A14_75B0C4() != 0) {
+            temp_v0_14 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.simple.unk0);
+            if (temp_v0_14 == 0) {
+                func_80349AA0_75B150(0);
+                return 69;
+            }
+
+            if (D_803E4CA5 == 0) {
+                func_80349AA0_75B150(temp_v0_14);
+                D_803E4CA5 = 1;
+                return 0;
+            }
+
+            if (D_803F2CDC == 1) {
+                D_803E4CA5 = 0;
+                return 69;
+            }
+        }
+        return 0;
+
+    case 0x25:
+        // create light? update environment light?
+        func_802F2EEC_70459C(
+            temp_s0->unk19C.payload.cmd.type37.unk0,
+            temp_s0->unk19C.payload.cmd.type37.unk1,
+            temp_s0->unk19C.payload.cmd.type37.unk2,
+            temp_s0->unk19C.payload.cmd.type37.unk3,
+            temp_s0->unk19C.payload.cmd.type37.unk4,
+            temp_s0->unk19C.payload.cmd.type37.unk5,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type37.unk6));
+        return 69;
+
+    case 0x26:
+        if (temp_s0->unk19C.payload.cmd.type38.atLocation != 0) { // unkA
+            play_sound_effect_at_location(
+                temp_s0->unk19C.payload.cmd.type38.id,
+                temp_s0->unk19C.payload.cmd.type38.volume,
+                0,
+                temp_s1->xPos.h,
+                temp_s1->zPos.h,
+                temp_s1->yPos.h,
+                temp_s0->unk19C.payload.cmd.type38.pitch / 32767.0f);
+        } else {
+            func_8032C508_73DBB8(
+                temp_s0->unk19C.payload.cmd.type38.id,
+                temp_s0->unk19C.payload.cmd.type38.volume,
+                0,
+                temp_s0->unk19C.payload.cmd.type38.pitch / 32767.0f);
+        }
+        return 69;
+
+    case 0x27:
+        var_a0 = (arg0->commands.unk19C.payload.cmd.type39.id == -1) ? 1 : arg0->commands.unk19C.payload.cmd.type39.id;
+        set_music_track(var_a0);
+        return 69;
+
+    case 0x28:
+        return 69;
+
+    case 0x29:
+        D_803F2D50.unk1E = get_game_state(temp_s1, (s32) (u16) temp_s0->unk19C.payload.cmd.regular.unk0);
+        return 69;
+
+    case 0x2A:
+        D_803F2D50.unk1C = get_game_state(temp_s1, (s32) (u16) temp_s0->unk19C.payload.cmd.regular.unk0);
+        return 69;
+
+    case 0x2B:
+        D_803F2D30.score += get_game_state(temp_s1, (s32) temp_s0->unk19C.payload.cmd.regular.unk0);
+        return 69;
+
+    case 0x2C:
+        temp_v0_15 = get_game_state(temp_s1, (s32) arg0->commands.unk19C.payload.cmd.regular.unk0);
+        // temp_t6_2 = temp_v0_15 << 0x10;
+        if (!(arg0->unk4C.unk1A) || ((s16)temp_v0_15 > 0)) { // unk4C & 0x20
+            temp_s1->health += (s16)temp_v0_15;
+        }
+        return 69;
+
+    case 0x2E:
+        func_80343AE0_755190(1U, 0, arg0->commands.unk19C.payload.cmd.regular.unk0, NULL, (s16) 0, (s16) 0, (s16) 0, (u8) 0, (u8) 0, (u8) 0, (s16) 0, (u8) 1, (s8) -3, (s8) 5, (u8) 1);
+        return 69;
+
+    case 0x2F:
+        // zoom camera in/out?
+        temp_a0_4 = get_game_state(temp_s1, (s32) temp_s0->unk19C.payload.cmd.regular.unk0);
+        if (temp_s0->unk19C.payload.cmd.regular.unk2 != 0) {
+            func_803421E0_753890(temp_a0_4);
+        } else {
+            func_8034220C_7538BC(temp_a0_4, temp_s1->xPos.h, temp_s1->zPos.h, temp_s1->yPos.h);
+        }
+        return 69;
+
+    case 0x31:
+        // add_thing?
+        sp7C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        func_802FF184_710834(
+            temp_s1,
+            1,
+            temp_s1->xPos.h,
+            temp_s1->zPos.h,
+            temp_s1->yPos.h + (arg0->unk42 >> 1),
+            0,
+            0,
+            sp7C,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0),
+            -1
+        );
+        return 69;
+
+    case 0x23:
+        temp_s1->unk272 = temp_s0->unk19C.payload.cmd.type35.unk0;
+        temp_s1->unk2C8 = temp_s0->unk19C.payload.cmd.type35.unk0;
+        return 69;
+
+    case 0x32:
+        temp_s2_3 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type50.unk2);
+        var_v0_4 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type50.unk6);
+        if (temp_s0->unk19C.payload.cmd.type50.unk0 & 0x20) {
+            if (temp_s0->unk19C.payload.cmd.type50.unk0 & 1) {
+                temp_s1->yRotation = var_v0_4;
+                temp_s1->zRotation = temp_s2_3;
+                // return 69;
+            } else {
+                temp_s1->yRotation += var_v0_4;
+                temp_s1->zRotation += temp_s2_3;
+                temp_s1->yRotation = temp_s1->yRotation % 360;
+                temp_s1->zRotation = temp_s1->zRotation % 360;
+            }
+
+        } else {
+            temp_s1->unk234[1] = 0;
+            temp_s1->unk236 = temp_s1->zRotation;
+            temp_s1->unk23A = temp_s1->yRotation;
+
+            if ((temp_s0->unk19C.payload.cmd.type50.unk0 & 1) && !(temp_s0->unk19C.payload.cmd.type50.unk0 & 0x10)) {
+                temp_s1->unk22E = func_802F63F8_707AA8(temp_s2_3, temp_s1->zRotation, 0xB5);
+                var_v0_4 = func_802F63F8_707AA8(var_v0_4, temp_s1->yRotation, 0xB5);
+            } else {
+                temp_s1->unk22E = temp_s2_3;
+            }
+
+            temp_s1->unk232 = var_v0_4;
+            temp_s1->unk230 = 0;
+            temp_s1->unk22C = temp_s0->unk19C.payload.cmd.type50.unk0;
+            temp_s1->unk22D = temp_s0->unk19C.payload.cmd.type50.unk1;
+        }
+        return 69;
+
+    case 0x33:
+        temp_s1->unk3E = get_game_state(temp_s1, arg0->commands.unk19C.payload.cmd.type51.unk0);
+        return 69;
+
+    case 0x34:
+        if (temp_s1->unk16C->objectType < 0x100) {
+            if (temp_s1->unk170 != 6) {
+                func_802F9E10_70B4C0(
+                    temp_s1,
+                    temp_s0->unk19C.payload.cmd.dummy.unk1,
+                    temp_s0->unk19C.payload.cmd.dummy.unk3,
+                    temp_s0->unk19C.payload.cmd.dummy.unk5,
+                    temp_s0->unk19C.payload.cmd.dummy.unk6,
+                    1);
+                return 1;
+            }
+            return 0;
+        } else {
+            func_80363A0C_7750BC(
+                temp_s1,
+                temp_s0->unk19C.payload.cmd.dummy.unk1,
+                temp_s0->unk19C.payload.cmd.dummy.unk3,
+                temp_s0->unk19C.payload.cmd.dummy.unk5,
+                temp_s0->unk19C.payload.cmd.dummy.unk6,
+                temp_s0->unk19C.payload.cmd.dummy.unk7);
+            return 69;
+        }
+
+        return 69;
+
+    case 0x35:
+        set_water_level(
+            temp_s0->unk19C.payload.cmd.type53.xStart + 4,
+            temp_s0->unk19C.payload.cmd.type53.yStart + 8, // unk5
+            temp_s0->unk19C.payload.cmd.type53.xEnd,
+            temp_s0->unk19C.payload.cmd.type53.yEnd,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type53.action) >> 2
+            );
+        return 69;
+
+    case 0x36:
+        temp_s1->unk40 = arg0->commands.unk19C.payload.cmd.type54.unk0;
+        func_802C9BA4_6DB254((struct071 *) temp_s1);
+        return 69;
+
+    case 0x30: // not here
+        return 69;
+
+    case 0x37:
+        if (arg0 == D_803E4CA0) {
+            D_803E4CA0 = NULL;
+            D_803E4CA4 = 0;
+        }
+        D_803F2CD0 = 0;
+        return 69;
+
+    case 0x38:
+        return 1;
+
+    case 0x39:
+        if (temp_s0->unk19C.payload.cmd.regular.unk6 != 0) {
+            func_80342318_7539C8(
+                (temp_s0->unk19C.payload.cmd.regular.unk0 - temp_s1->xPos.h) << 0x10,
+                (temp_s0->unk19C.payload.cmd.regular.unk2 - temp_s1->zPos.h) << 0x10,
+                (temp_s0->unk19C.payload.cmd.regular.unk4 - temp_s1->yPos.h) << 0x10
+            );
+        }
+        temp_s1->xPos.h = temp_s0->unk19C.payload.cmd.regular.unk0;
+        temp_s1->zPos.h = temp_s0->unk19C.payload.cmd.regular.unk2;
+        temp_s1->yPos.h = temp_s0->unk19C.payload.cmd.regular.unk4;
+        func_80311554_722C04(temp_s1->xPos.h, temp_s1->zPos.h, &sp10C, &sp110);
+        if (((s32) temp_s1->unk16C->objectType >= 0x100) && (temp_s1->yPos.w < sp110)) {
+            temp_s1->yPos.w = sp110;
+        }
+        if (sp10C == 0x40000000) {
+            temp_s1->unk160 = 0;
+        } else if (temp_s1->yPos.w >= sp10C) {
+            temp_s1->unk160 = 2;
+        } else {
+            temp_s1->unk160 = 1;
+        }
+        return 69;
+
+    case 0x3A:
+        func_803638A8_774F58(temp_s1, func_803146A8_725D58(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2, 0U), temp_s0->unk19C.payload.cmd.regular.unk0);
+        return 69;
+    case 0x3B:
+        temp_s1->commands.numCommandsToCopy = 0;
+        return 69;
+
+    case 0x3C:
+        if (temp_s1->unk16C->objectType < 0x100) {
+            temp_s1->unk170 = 4;
+            temp_s1->yVelocity.w = 0;
+            temp_s1->zVelocity.w = 0;
+            temp_s1->xVelocity.w = 0;
+            return 69;
+        } else {
+            func_803638E8_774F98(temp_s1);
+        }
+        return 69;
+
+    case 0x3D:
+
+        if ((temp_s0->unk19C.payload.cmd.type61.unk7.unk0) == 0) {
+            temp_s2_4 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type61.unk0);
+        } else {
+            sp7C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type61.unk0);
+            temp_s2_4 = do_maths_op(
+                sp7C,
+                temp_s0->unk19C.payload.cmd.type61.unk7.unk0,
+                get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type61.unk2)
+            );
+
+            if (temp_s0->unk19C.payload.cmd.type61.unk7.unk4) {
+                temp_s2_4 = do_maths_op(
+                    temp_s2_4,
+                    temp_s0->unk19C.payload.cmd.type61.unk7.unk4,
+                    get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type61.unk4)
+                );
+            }
+        }
+        set_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type61.unk6 + 0x7F7F, temp_s2_4);
+        return 69;
+
+    case 0x3E:
+        if ((D_803E8E56 == 0) && (func_802F1388_702A38() != 0)) {
+            trigger_screen_transition(arg0->commands.unk19C.payload.cmd.regular.unk0);
+            D_803E8E56 = 1;
+        }
+        if (func_802F1388_702A38() != 0) {
+            D_803E8E56 = 0;
+            return 69;
+        }
+        return 0;
+
+    case 0x3F:
+        func_80363844_774EF4(
+            temp_s1,
+            get_game_state(
+                temp_s1,
+                arg0->commands.unk19C.payload.cmd.regular.unk0
+            )
+        );
+        return 69;
+
+    case 0x40:
+        tmp = func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0);
+        if (temp_s1->unk16C->objectType >= 0x100) {
+            // FIXME: whats wrong here?
+            func_80363880_774F30(temp_s1, tmp);
+        } else {
+            temp_s0_35 = tmp->xPos.h - temp_s1->xPos.h;
+            temp_s2_4 = tmp->zPos.h - temp_s1->zPos.h;
+            spF8 = (tmp->yPos.h + (tmp->unk42 >> 1)) - temp_s1->yPos.h;
+            spF4 = (s16) sqrtf(SQ(temp_s0_35) + SQ(temp_s2_4));
+            temp_s1->yRotation = func_801284B8(temp_s0_35, temp_s2_4);
+            temp_s1->zRotation = func_801284B8(spF8, spF4);
+        }
+        return 69;
+
+    case 0x41:
+        // level_passed?
+        func_8035739C_768A4C();
+        return 1;
+
+    case 0x42:
+        func_802B33D0_6C4A80(func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0));
+        return 69;
+
+    case 0x43:
+        func_802B34B8_6C4B68(func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0));
+        return 69;
+
+    case 0x44:
+        if (temp_s0->unk19C.payload.cmd.type68.unk0 >= D_803F63C0) {
+            return 69;
+        }
+        if ((D_803E4CA4 != 0) && (D_803E8E58 != 0)) {
+            if ((arg0 == D_803E4CA0) && (func_80349874_75AF24() != 0)) {
+                D_803E4CA4 = 0;
+                D_803E4CA0 = 0;
+                return 69;
+            }
+        } else if (func_80349874_75AF24() != 0) {
+            D_803E4CA4 = 1;
+            D_803E4CA0 = arg0;
+            func_80314660_725D10();
+            func_80349900_75AFB0(
+                &D_803F34C0[D_803F3330[temp_s0->unk19C.payload.cmd.type68.unk0]],
+                temp_s0->unk19C.payload.cmd.type68.unk2);
+            D_803A8340_7B99F0 = temp_s0->unk19C.payload.cmd.type68.unk0;
+            if (D_803E8E58 == 0) {
+                D_803E4CA4 = 0;
+
+                return 69;
+            }
+        }
+        return 0;
+
+    case 0x45:
+        temp_a1 = temp_s0->unk19C.payload.cmd.regular.unk0;
+        if (temp_a1 == 100) {
+            func_80397734_7A8DE4(temp_s0->unk19C.payload.cmd.regular.unk2, 0);
+        } else if (temp_a1 == 101) {
+            func_80397734_7A8DE4(temp_s0->unk19C.payload.cmd.regular.unk2, 1);
+        } else if (temp_a1 == 102) {
+            func_80397734_7A8DE4(temp_s0->unk19C.payload.cmd.regular.unk2, 2);
+        } else if (temp_a1 == 300) { // 0x12C
+            func_80328ACC_73A17C();
+        } else if (temp_a1 == 400) { // 0x190
+            D_803F6450 = temp_s0->unk19C.payload.cmd.regular.unk2;
+        } else if (temp_a1 == 500) { // 0x1F4
+            D_803F2D50.unk75 = 0;
+            D_803F2D50.unk76 = temp_s0->unk19C.payload.cmd.regular.unk2; // D_803F2DC6
+            D_803F2D50.unk77 = temp_s0->unk19C.payload.cmd.regular.unk4; // D_803F2DC7
+            D_803F2D50.unk78 = temp_s0->unk19C.payload.cmd.regular.unk6; // D_803F2DC8
+        } else if (temp_a1 == 600) { // 0x258
+            D_803F2D50.unk75 = 1;
+        } else if (temp_a1 == 700) { // 0x2BC
+            D_803E8E57 = temp_s0->unk19C.payload.cmd.regular.unk2;
+        } else if (temp_a1 == 800) { // 0x320
+            D_803E8E58 = temp_s0->unk19C.payload.cmd.regular.unk2;
+        } else if (temp_a1 == 900) { // 0x384
+            func_8038B798_79CE48(temp_a1);
+        } else if (temp_a1 == 1000) { // 0x3E8
+            set_game_state(temp_s1, (s16) (temp_s0->unk19C.payload.cmd.regular.unk4 + 0x7FBE), (s32) (cosf((f32) ((f64) (f32) get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2 + 0x7FBE) * 0.017453216666666667)) * 2048.0f));
+        } else if (temp_a1 == 1100) { // 0x44C
+            set_game_state(temp_s1, (s16) (temp_s0->unk19C.payload.cmd.regular.unk4 + 0x7FBE), (s32) (sinf((f32) ((f64) (f32) get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2 + 0x7FBE) * 0.017453216666666667)) * 2048.0f));
+        } else if (temp_a1 == 1200) { // 0x4B0
+            D_803A6CE0_7B8390 = temp_s0->unk19C.payload.cmd.regular.unk2;
+        } else if (temp_a1 == 1300) { // 0x514
+            if (temp_s0->unk19C.payload.cmd.regular.unk2 != 0) {
+                D_803A6CE4_7B8394 |= 4;
+            } else {
+                D_803A6CE4_7B8394 &= ~4;
+            }
+        } else if (temp_a1 == 1400) { // 0x578
+            func_803441FC_7558AC();
+        }
+
+        return 69;
+
+    case 0x46:
+        temp_s1->unk23C.regular.unk0 = temp_s0->unk19C.payload.cmd.regular.unk0;
+        temp_s1->unk23C.regular.unk2 = temp_s0->unk19C.payload.cmd.regular.unk2;
+        temp_s1->unk23C.regular.unk4 = temp_s0->unk19C.payload.cmd.regular.unk4;
+        temp_s1->unk23C.regular.unk6 = temp_s0->unk19C.payload.cmd.regular.unk6;
+        // overwrite?
+        temp_s1->unk23C.regular.unk6 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6);
+        temp_s1->unk244 = 0;
+        temp_s1->unk23C.unknown2.unk5 |= 4; // unk240.ub[1]
+        return 69;
+
+    case 0x47:
+        if (temp_s0->unk19C.payload.cmd.type71.unk4 != 0) {
+            var_f2 = 1.0f;
+        } else {
+            tmp = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            var_f2 = sqrtf(SQ((f32)(temp_s1->xPos.h - tmp->xPos.h)) + SQ((f32)(temp_s1->zPos.h - tmp->zPos.h)) + SQ((f32)(temp_s1->yPos.h - tmp->yPos.h)));
+        }
+
+        do_rumble(
+            0,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type71.unk0),
+            temp_s0->unk19C.payload.cmd.type71.unk2,
+            temp_s0->unk19C.payload.cmd.type71.unk3,
+            var_f2);
+        return 69;
+
+    case 0x48:
+
+        arg0->commands.unk1D5 = arg0->commands.numCommandsToCopy;
+        arg0->commands.unk1D6 = arg0->commands.unk1CE;
+        arg0->commands.unk1D8 = arg0->commands.unk1D0;
+        arg0->commands.unk1D9 = arg0->commands.unk19C.count;
+        arg0->commands.unk1FC = arg0->commands.unk1A8;
+
+        if (arg0->commands.numCommandsToCopy != 0) {
+            for (i = 0; i < 4; i++) {
+                arg0->commands.unk1DA[i] = arg0->commands.unk1AC[i];
+            }
+        }
+        arg0->commands.numCommandsToCopy = 0;
+        arg0->commands.unk1CE = 0;
+        arg0->commands.unk1D0 = 0;
+
+        arg0->unk248[0] = temp_s1;
+        arg0->commands.unk1A8 = &D_803E4D40[arg0->commands.unk19C.payload.cmd.type72.unk0];
+        arg0->unk4C.unk19 = 1;
+        arg0->commands.unk19C.count = 0xFF;
+        return 69;
+
+    case 0x49:
+        arg0->commands.unk19C.count = arg0->commands.unk1D9 + 1;
+        arg0->commands.numCommandsToCopy = arg0->commands.unk1D5;
+
+        arg0->commands.unk1CE = arg0->commands.unk1D6;
+        arg0->commands.unk1D0 = arg0->commands.unk1D8;
+        arg0->commands.unk1A8 = arg0->commands.unk1FC;
+
+        if (arg0->commands.unk1D5 & 0xFF) {
+            for (i = 0; i < 4; i++) {
+                arg0->commands.unk1AC[i].regular.unk0 = arg0->commands.unk1DA[i].regular.unk0;
+                arg0->commands.unk1AC[i].regular.unk2 = arg0->commands.unk1DA[i].regular.unk2;
+                arg0->commands.unk1AC[i].regular.unk4 = arg0->commands.unk1DA[i].regular.unk4;
+                arg0->commands.unk1AC[i].regular.unk6 = arg0->commands.unk1DA[i].regular.unk6;
+            }
+        }
+
+        arg0->unk248[0] = temp_s1;
+        arg0->unk4C.unk19 = 1;
+        arg0->commands.unk19C.count -= 1;
+        return 69;
+
+    case 0x4A:
+        temp_s1->unk246 = arg0->commands.unk19C.payload.cmd.type74.unk0 + 1;
+        return 69;
+
+    case 0x4B:
+        spD0 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
+        spCC = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        spC8 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4);
+        if (temp_s0->unk19C.payload.cmd.regular.unk6 != 0) {
+            func_80342318_7539C8(spD0 << 0x10, spCC << 0x10, spC8 << 0x10);
+        }
+
+        temp_s1->xPos.h += spD0;
+        temp_s1->zPos.h += spCC;
+        temp_s1->yPos.h += spC8;
+        func_80311554_722C04(temp_s1->xPos.h, temp_s1->zPos.h, &spD4, &spD8);
+        if ((temp_s1->unk16C->objectType >= 0x100) && (temp_s1->yPos.w < spD8)) {
+            temp_s1->yPos.w = spD8;
+        }
+        if (spD4 == 0x40000000) {
+            temp_s1->unk160 = 0;
+            return 69;
+        }
+        if (temp_s1->yPos.w >= spD4) {
+            temp_s1->unk160 = 2;
+            return 69;
+        }
+        temp_s1->unk160 = 1;
+        return 69;
+
+    case 0x4C:
+        temp_s2_4 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        temp_v0_15 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4);
+        if ((temp_s2_4 | temp_v0_15) == 0) {
+            D_803E4AD0[temp_s0->unk19C.payload.cmd.regular.unk0] = 0;
+        } else {
+            D_803E4AD0[temp_s0->unk19C.payload.cmd.regular.unk0] = 1;
+            D_803E2930[temp_s0->unk19C.payload.cmd.regular.unk0].unk0 = temp_s2_4;
+            D_803E2930[temp_s0->unk19C.payload.cmd.regular.unk0].unk4 = temp_v0_15;
+        }
+        return 69;
+
+    case 0x4D:
+
+        if (temp_s1->unk16C->objectType >= 0x100) {
+            var_a0_2 = 2;
+        } else if (temp_s1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+            var_a0_2 = 1;
+        } else {
+            var_a0_2 = 3;
+        }
+
+        if (temp_s0->unk19C.payload.cmd.type77.unk6.unk0 == 0xF) {
+            var_t0 = -3;
+            var_t1 = 5;
+        } else {
+            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0 - 3;
+            var_t1 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0 - 3;
+        }
+        func_80343AE0_755190(
+            var_a0_2,
+            temp_s0->unk19C.payload.cmd.type77.unk0,
+            temp_s0->unk19C.payload.cmd.type77.unk1,
+            temp_s1,
+            0,
+            0,
+            0,
+            temp_s0->unk19C.payload.cmd.type77.unk2,
+            temp_s0->unk19C.payload.cmd.type77.unk3,
+            temp_s0->unk19C.payload.cmd.type77.unk4,
+            temp_s0->unk19C.payload.cmd.type77.unk5,
+            !temp_s0->unk19C.payload.cmd.type77.unk6.unk5,
+            var_t0,
+            var_t1,
+            temp_s0->unk19C.payload.cmd.type77.unk6.unk6);
+
+        return 69;
+
+    case 0x4E:
+
+        if (temp_s0->unk19C.payload.cmd.type77.unk6.unk0 == 0xF) {
+            var_t0 = -3;
+            var_t1 = 5;
+        } else {
+            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0 - 3;
+            var_t1 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0 - 3;
+        }
+
+        func_80343AE0_755190(
+            4U,
+            temp_s0->unk19C.payload.cmd.type77.unk0,
+            temp_s0->unk19C.payload.cmd.type77.unk1,
+            NULL,
+            temp_s0->unk19C.payload.cmd.type77.unk2 << 5,
+            temp_s0->unk19C.payload.cmd.type77.unk3 << 5,
+            temp_s0->unk19C.payload.cmd.type77.unk4 << 5,
+            0,
+            0,
+            0,
+            temp_s0->unk19C.payload.cmd.type77.unk5,
+            !temp_s0->unk19C.payload.cmd.type77.unk6.unk5,
+            var_t0,
+            var_t1,
+            temp_s0->unk19C.payload.cmd.type77.unk6.unk6);
+
+        return 69;
+
+    case 0x4F:
+        if (temp_s0->unk19C.payload.cmd.type77.unk6.unk0 == 0xF) {
+            var_a2 = -3;
+            var_a3_3 = 5;
+        } else {
+            var_a2 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0 - 3;
+            var_a3_3 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0 - 3;
+        }
+        func_80343C74_755324(
+          temp_s0->unk19C.payload.cmd.type77.unk5,
+          !temp_s0->unk19C.payload.cmd.type77.unk6.unk5,
+          var_a2,
+          var_a3_3,
+          temp_s0->unk19C.payload.cmd.type77.unk6.unk6);
+        return 69;
+
+    case 0x50:
+        // camera related
+        func_80343D44_7553F4(
+            &D_803E8E60[temp_s0->unk19C.payload.cmd.dummy.unk0]->length,
+            !temp_s0->unk19C.payload.cmd.dummy.unk1);
+        return 69;
+
+    case 0x51:
+        // not used
+        func_803637D4_774E84(temp_s1, func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk2, 0), 16);
+        return 69;
+
+    case 0x52:
+
+        if (temp_s0->unk19C.payload.cmd.type82.unk0 == 0) {
+            var_a0_3 = 586;
+            var_s1 = 586;
+        } else {
+            var_a0_3 = temp_s0->unk19C.payload.cmd.type82.unk0;
+            var_s1 = 1000;
+        }
+
+        func_802FD94C_70EFFC(
+            var_a0_3, // min
+            var_s1,   // max
+            temp_s0->unk19C.payload.cmd.type82.unk4,
+            temp_s0->unk19C.payload.cmd.type82.unk5,
+            temp_s0->unk19C.payload.cmd.type82.unk6,
+            temp_s0->unk19C.payload.cmd.type82.unk2);
+
+        return 69;
+
+    case 0x53:
+        if (temp_s0->unk19C.payload.cmd.type83.unk0 & 1) {
+            temp_s1->unk4C.unk1A = 1;
+        } else {
+            temp_s1->unk4C.unk1A = 0;
+        }
+        temp_s1->unk163 = (temp_s1->unk163 & 0xFFF8) | temp_s0->unk19C.payload.cmd.type83.unk0;
+        return 69;
+
+    case 0x54:
+        if (temp_s1->unk16C->objectType >= 0x100) {
+            sp74 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
+            sp78 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+            sp7C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4);
+            func_80380620_791CD0(
+                temp_s1,
+                sp74,
+                sp78,
+                sp7C,
+                get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6));
+        }
+        return 69;
+
+    case 0x55:
+        // only used in HOPPA_CHOPPA
+        func_80380644_791CF4(temp_s1);
+        return 69;
+
+    case 0x56:
+        temp_s1 = func_803146A8_725D58(func_803146A8_725D58(arg0, temp_s0->unk19C.payload.cmd.regular.unk4, 0), temp_s0->unk19C.payload.cmd.regular.unk6, 0);
+        tmp = func_803146A8_725D58(arg0, temp_s0->unk19C.payload.cmd.regular.unk0, 0);
+        tmp->unk248[temp_s0->unk19C.payload.cmd.regular.unk2] = temp_s1;
+        return 69;
+
+    case 0x57:
+        // doesn't appear to be bitfields
+        temp_s1->unk4C.unk1B = (temp_s0->unk19C.payload.cmd.regular.unk0 & 1) != 0;
+        temp_s1->unk4C.unk1C = (temp_s0->unk19C.payload.cmd.regular.unk0 & 4) != 0;
+        temp_s1->unk4C.unk1D = (temp_s0->unk19C.payload.cmd.regular.unk0 & 2) != 0;
+        return 69;
+
+    case 0x58:
+        // only used in FUN_IN_THE_SUN
+        D_803F2D50.unkC = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
+        D_803F2D50.unkE = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        return 69;
+
+    case 0x59:
+        // only used in WEIGHT_FOR_IT
+        func_802FE560_70FC10(
+            (temp_s0->unk19C.payload.cmd.type89.unk0.unk1 << 1),
+            (temp_s0->unk19C.payload.cmd.type89.unk1.unk1 << 1),
+            (temp_s0->unk19C.payload.cmd.type89.unk2.unk1 << 1),
+            (temp_s0->unk19C.payload.cmd.type89.unk3.unk1 << 1),
+            (temp_s0->unk19C.payload.cmd.type89.unk4.unk1 << 1),
+            (temp_s0->unk19C.payload.cmd.type89.unk5.unk1 << 1),
+            (temp_s0->unk19C.payload.cmd.type89.unk6.unk1 << 1),
+            (temp_s0->unk19C.payload.cmd.type89.unk7.unk1 << 1),
+            ((temp_s0->unk19C.payload.cmd.type89.unk0.unk0 << 0) |
+             (temp_s0->unk19C.payload.cmd.type89.unk1.unk0 << 1) |
+             (temp_s0->unk19C.payload.cmd.type89.unk2.unk0 << 2) |
+             (temp_s0->unk19C.payload.cmd.type89.unk3.unk0 << 3) |
+             (temp_s0->unk19C.payload.cmd.type89.unk4.unk0 << 4) | // 0x1F
+             (temp_s0->unk19C.payload.cmd.type89.unk5.unk0 << 5) |
+             (temp_s0->unk19C.payload.cmd.type89.unk6.unk0 << 6) |
+             (temp_s0->unk19C.payload.cmd.type89.unk7.unk0 << 7)));
+        return 69;
+
+    case 0x5A:
+        // something camera related
+        func_80343DC0_755470();
+        return 69;
+
+    case 0x5B:
+        temp_s1->unk164 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
+        return 69;
+
+    case 0x5C:
+        // not used
+        func_80363738_774DE8(
+            temp_s1,
+            func_803146A8_725D58(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2, 0),
+            temp_s0->unk19C.payload.cmd.regular.unk0);
+        return 69;
+
+    case 0x5D:
+        // not used
+        func_8036379C_774E4C(temp_s1);
+        return 69;
+
+    case 0x5E:
+        sp74 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
+        sp78 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        sp7C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4);
+        func_802F657C_707C2C(
+            temp_s1,
+            temp_s1->xPos.h + sp74,
+            temp_s1->zPos.h + sp78,
+            temp_s1->yPos.h + sp7C,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6));
+        temp_s1->unk170 = 5;
+        return 69;
+
+    case 0x5F:
+        if (temp_s1->unk16C->objectType >= 0x100) {
+            sp9A = (temp_s1->zRotation * 360) >> 8;
+            sp98 = (temp_s1->yRotation * 360) >> 8;
+        } else {
+            sp9A = temp_s1->zRotation;
+            sp98 = temp_s1->yRotation;
+        }
+
+        sp9A += (temp_s0->unk19C.payload.cmd.type95.unk5 * 360) >> 8;
+        sp98 += (temp_s0->unk19C.payload.cmd.type95.unk4 * 360) >> 8;
+
+        if (sp9A >= 360) {
+            sp9A -= 360;
+        } else if (sp9A < 0) {
+            sp9A += 360;
+        }
+        if (sp98 >= 360) {
+            sp98 -= 360;
+        } else if (sp98 < 0) {
+            sp98 += 360;
+        }
+
+        func_802F5F44_7075F4(
+            temp_s0->unk19C.payload.cmd.type95.unk1,
+            temp_s0->unk19C.payload.cmd.type95.unk2,
+            temp_s0->unk19C.payload.cmd.type95.unk3,
+            sp9A,
+            sp98,
+            &spA4);
+        func_802F5F44_7075F4(
+            0,
+            temp_s0->unk19C.payload.cmd.type95.unk6 << 8,
+            0,
+            sp9A,
+            sp98,
+            &sp9C);
+
+        temp_v0_26 = spawn_animal(
+            temp_s1->xPos.h + spA4.unk0,
+            temp_s1->zPos.h + spA4.unk2,
+            temp_s1->yPos.h + spA4.unk4,
+            (sp98 << 8) / 360,
+            0x7F,
+            temp_s0->unk19C.payload.cmd.type95.unk0,
+            0);
+
+        if (temp_v0_26 != NULL) {
+            arg0->unk248[7] = (Animal *) temp_v0_26->unk0[0].unk4;
+            ((Animal*)temp_v0_26->unk0[0].unk4)->xVelocity.w = sp9C.unk0 << 8;
+            ((Animal*)temp_v0_26->unk0[0].unk4)->zVelocity.w = sp9C.unk2 << 8;
+            ((Animal*)temp_v0_26->unk0[0].unk4)->yVelocity.w = sp9C.unk4 << 8;
+        } else {
+            arg0->unk248[7] = NULL;
+        }
+        if (arg0->unk248[7] == NULL) {
+            return 0;
+        } else {
+            return 69;
+        }
+        break;
+
+    case 0x60:
+        temp_v0_26 = spawn_animal(
+            temp_s0->unk19C.payload.cmd.type96.x,
+            temp_s0->unk19C.payload.cmd.type96.z,
+            temp_s0->unk19C.payload.cmd.type96.y,
+            0,
+            0x7F,
+            temp_s0->unk19C.payload.cmd.type96.id,
+            0);
+
+        if (temp_v0_26 != NULL) {
+            arg0->unk248[7] = (Animal *) temp_v0_26->unk0[0].unk4;
+        } else {
+            arg0->unk248[7] = NULL;
+        }
+
+        if (arg0->unk248[7] == NULL) {
+            return 0;
+        } else {
+            return 69;
+        }
+        break;
+
+    case 0x61:
+        // only used in SMASHING_START and EVOS_ESCAPE
+        func_802F657C_707C2C(
+            temp_s1,
+            temp_s0->unk19C.payload.cmd.regular.unk0,
+            temp_s0->unk19C.payload.cmd.regular.unk2,
+            temp_s0->unk19C.payload.cmd.regular.unk4,
+            temp_s0->unk19C.payload.cmd.regular.unk6);
+        temp_s1->unk170 = 5;
+        return 69;
+
+    case 0x62:
+        // set camera <something>
+        func_80343F58_755608(arg0->commands.unk19C.payload.cmd.regular.unk0);
+        return 69;
+
+    case 0x63:
+        var_a2_2 = NULL;
+
+        for (i = 0; i < D_803D553E; i++) {
+            if (temp_s1 == D_801D9ED8.animals[i].animal) {
+                var_a2_2 = &D_801D9ED8.animals[i];
+                break;
+            }
+        }
+
+        D_803D5520 = var_a2_2;
+        D_803D5524 = var_a2_2->unk0;
+
+        D_803D5528 = var_a2_2->animal;
+        D_803D552C = D_803D5528;
+        D_803D5530 = D_803D5528;
+
+        if (i == gCurrentAnimalIndex) {
+            D_803D5538 = 1;
+        } else {
+            D_803D5538 = 0;
+        }
+
+        D_803D553C = i;
+        D_803D553A = 0;
+
+        sp74 = temp_s0->unk19C.payload.cmd.regular.unk0 == 0; // is B action
+        sp78 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);
+        sp7C = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4);
+        // do_animal_action
+        func_80364120_7757D0(
+            sp74,
+            sp78,
+            sp7C,
+            func_803146A8_725D58(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6, 0));
+        return 69;
+
+    case 0x64:
+        temp_s1->unk226 = ((temp_s0->unk19C.payload.cmd.dummy.unk0 << 8) & 0xF800) | ((temp_s0->unk19C.payload.cmd.dummy.unk1 << 3) & 0x7C0) | ((temp_s0->unk19C.payload.cmd.dummy.unk2 >> 2) & 0x3E);
+        temp_s1->unk228 = ((temp_s0->unk19C.payload.cmd.dummy.unk3 << 8) & 0xF800) | ((temp_s0->unk19C.payload.cmd.dummy.unk4 << 3) & 0x7C0) | ((temp_s0->unk19C.payload.cmd.dummy.unk5 >> 2) & 0x3E);
+
+        // force alpha bit to be set?
+        if (temp_s1->unk228 != 0) {
+            temp_s1->unk228 |= 1;
+        }
+        if (temp_s1->unk226 != 0) {
+            temp_s1->unk226 |= 1;
+        }
+        return 69;
+
+    case 0x65:
+        switch (temp_s0->unk19C.payload.cmd.type101.op) {
+        case 0:
+            sp84 = ABS(get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk2));
+            break;
+        case 1:
+            sp84 = sqrtf(get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk2));
+            break;
+        case 2:
+            sp84 = SIGNUM(get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk2));
+            break;
+        case 3:
+            sp84 = MAX(get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk2), get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk4));
+            break;
+        case 4:
+            sp84 = MIN(get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk2), get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk4));
+            break;
+        case 5:
+            sp84 = ~get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.unk2);
+            break;
+        }
+
+        set_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.action + 0x7F7F, sp84);
+
+        return 69;
+
+    // FIXME!
+    case 0x2D:
+        break;
+    }
+
+    return 0;
+}
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_803159E4_727094.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80316408_727AB8.s")
 #endif
 
-// absolutely huge function
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80316408_727AB8.s")
-
-// unsure how correct this is?
+// ESA: func_8004C7B4
 void func_803190FC_72A7AC(Animal *arg0) {
-    struct070 *cmds;
+    CmdUnknown *cmds;
     s8 i;
 
-    cmds = &arg0->unk1AC;
-    for (i = 0; i < arg0->numCommandsToCopy; i++) {
-        if (func_803159E4_727094(func_803146A8_725D58(arg0, cmds->unk1, 0), cmds) != 0) {
+    cmds = (CmdUnknown*)&arg0->commands.unk1AC;
+    for (i = 0; i < arg0->commands.numCommandsToCopy; i++) {
+        if (run_single_command(func_803146A8_725D58(arg0, cmds->unk0.ub[1], 0), cmds) != 0) {
             // finished?
-            arg0->unk19C.count = cmds->unk6 + 1;
-            copy_command_struct(&arg0->unk1A8[arg0->unk19C.count], &arg0->unk19C.payload);
-            arg0->numCommandsToCopy = 0;
-            arg0->unk1D4 = 0;
+            arg0->commands.unk19C.count = cmds->unk6 + 1;
+            copy_command_struct(&arg0->commands.unk1A8[arg0->commands.unk19C.count], &arg0->commands.unk19C.payload);
+            arg0->commands.numCommandsToCopy = 0;
+            arg0->commands.unk1D4 = 0;
             return;
         }
         cmds++;
     }
 }
 
+// ESA: func_8004C87C
 void func_803191B0_72A860(Animal *arg0) {
     s8 temp_v0;
 
-    if (arg0->unk1CC == 9) {
+    if (arg0->commands.unk1CC == 9) {
         arg0->unk248[0] = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     }
-    if (arg0->numCommandsToCopy != 0) {
+    if (arg0->commands.numCommandsToCopy != 0) {
         func_803190FC_72A7AC(arg0);
     }
 
@@ -978,8 +2422,8 @@ void func_803191B0_72A860(Animal *arg0) {
         // get_next_command?
         temp_v0 = func_80316408_727AB8(arg0);
         if (temp_v0 != 0) {
-            arg0->unk19C.count++;
-            copy_command_struct(&arg0->unk1A8[arg0->unk19C.count], &arg0->unk19C.payload);
+            arg0->commands.unk19C.count++;
+            copy_command_struct(&arg0->commands.unk1A8[arg0->commands.unk19C.count], &arg0->commands.unk19C.payload);
         }
     } while (temp_v0 == 69);
 }

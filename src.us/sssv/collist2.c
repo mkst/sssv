@@ -10,7 +10,6 @@
 // .bss
 // ========================================================
 
-
 struct065 D_803DA110[40];
 
 Animal *D_803DA2F0;
@@ -20,6 +19,7 @@ Animal *D_803DA2F4; // not animal, script
 // .text
 // ========================================================
 
+// ESA: func_800627BC
 void func_802DA7F0_6EBEA0(void) {
     void (*func)(void *);
     Animal *a;
@@ -49,7 +49,7 @@ void func_802DA7F0_6EBEA0(void) {
         if (func != NULL) {
             func(a);
         }
-        if (a->unk4C.unk25) {
+        if (a->unk4C.unk19) {
             func_802FB270_70C920(a);
             tmp = a;
             if (tmp->unk26C != 0) {
@@ -66,6 +66,7 @@ void func_802DA7F0_6EBEA0(void) {
     }
 }
 
+// ESA: func_800628F4
 void func_802DA90C_6EBFBC(Animal *arg0) {
     s16 temp_t6;
     s16 temp_t9;
@@ -161,6 +162,7 @@ void func_802DA90C_6EBFBC(Animal *arg0) {
 }
 
 // delete_objects
+// ESA: func_80062CB4
 void func_802DAD18_6EC3C8(Animal *arg0) {
     struct065 *tmp;
     s16 i;
@@ -183,6 +185,7 @@ void func_802DAD18_6EC3C8(Animal *arg0) {
     }
 }
 
+// ESA: func_80062D38
 void func_802DADA0_6EC450(Animal *arg0) {
     Animal *temp_v0;
     Animal **phi_v0;
@@ -211,6 +214,7 @@ void func_802DADA0_6EC450(Animal *arg0) {
     func_802DA90C_6EBFBC(arg0);
 }
 
+// ESA: func_80062E04
 void func_802DAE5C_6EC50C(struct071 *obj) {
     struct071 **o;
 
@@ -245,6 +249,7 @@ void func_802DAE5C_6EC50C(struct071 *obj) {
     obj->unk26D = 0U;
 }
 
+// ESA: func_80062EB0
 void func_802DAF5C_6EC60C(void) {
     s16 i;
 
@@ -259,6 +264,7 @@ void func_802DAF5C_6EC60C(void) {
 }
 
 // update_object_floor_collision ?
+// ESA: func_80062EF4
 void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd) {
     struct071 *obj;
     s32 x0 = xStart;
@@ -271,7 +277,7 @@ void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd) {
             ((s16)((x0         ) << 6) <= obj->xPos.h) &&
             ((s16)((y0 + y1 + 1) << 6) >= obj->zPos.h) &&
             ((s16)((y0         ) << 6) <= obj->zPos.h)) {
-              obj->unk4C.unk26 = 1;
+              obj->unk4C.unk19 = 1;
         }
     }
 }

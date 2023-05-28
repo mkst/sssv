@@ -320,7 +320,7 @@ void func_802F30A4_704754(void) {
     add_single_light(&D_801D9E7C);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7041D0/func_802F30A4_704754.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/lights/func_802F30A4_704754.s")
 #endif
 
 void add_multiple_lights(void) {

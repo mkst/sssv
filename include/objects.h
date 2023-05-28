@@ -32,6 +32,7 @@
 #define OBJECT_PILLAR               36
 
 #define OBJECT_CANNONBALL_2         38
+#define OBJECT_WATER_CANNON_1       39
 #define OBJECT_SIGNPOST_1           40
 #define OBJECT_WHEEL_SWITCH         41
 #define OBJECT_BUTTON               42

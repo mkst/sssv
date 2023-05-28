@@ -108,6 +108,7 @@ s16 D_803A6520_7B7BD0[88] = {
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 
+// ESA: func_800A1754
 void func_802DBB80_6ED230(u16 arg0) {
     u16 tmp = D_803D5544 - D_803D552C->unk334;
     if (arg0 < tmp) {
@@ -129,6 +130,7 @@ void func_802DBB80_6ED230(u16 arg0) {
     }
 }
 
+// ESA: func_800A186C
 void func_802DBCDC_6ED38C(u16 arg0) {
     s32 phi_v1;
     u16 tmp;
@@ -163,6 +165,7 @@ void func_802DBCDC_6ED38C(u16 arg0) {
     }
 }
 
+// ESA: func_800A1A20
 void func_802DBED8_6ED588(u16 arg0) {
     s32 phi_v1;
     u16 tmp;
@@ -197,6 +200,7 @@ void func_802DBED8_6ED588(u16 arg0) {
     }
 }
 
+// ESA: func_800A1BD4
 void func_802DC0D4_6ED784(u16 arg0) {
     s32 temp_t8;
     u16 ticks_remaining;
@@ -250,6 +254,7 @@ void func_802DC0D4_6ED784(u16 arg0) {
     }
 }
 
+// ESA: func_800A1D78
 void func_802DC2AC_6ED95C(u16 arg0) {
     s32 temp_t8;
     u16 ticks_remaining;
@@ -274,6 +279,7 @@ void func_802DC2AC_6ED95C(u16 arg0) {
     }
 }
 
+// ESA: func_800A1E80
 // used by lion
 void func_802DC3F4_6EDAA4(u16 arg0, s16 *arg1, s16 *arg2) {
     u16 ticks_remaining;
@@ -306,6 +312,7 @@ void func_802DC3F4_6EDAA4(u16 arg0, s16 *arg1, s16 *arg2) {
     }
 }
 
+// ESA: func_800A2074
 // used by hippo and camel (spit?)
 void func_802DC6A4_6EDD54(u16 arg0) {
     u16 temp_t9;
@@ -325,6 +332,7 @@ void func_802DC6A4_6EDD54(u16 arg0) {
     }
 }
 
+// ESA: func_800A21B0
 void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
     s16 new_var1;
     s16 new_var2;
@@ -347,6 +355,7 @@ void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
     D_803F2EC4 = D_803F2EC4 - (phi_v1 * (D_80152C78[new_var2 & 0xFF] >> 7));
 }
 
+// ESA: func_800A22B0
 void func_802DC968_6EE018(u16 arg0, s16 arg1) {
     u16 tmp = D_803D5544 - D_803D552C->unk334;
     if (arg0 < tmp) {
@@ -396,6 +405,7 @@ void func_802DCB90_6EE240(u16 arg0) {
     }
 }
 
+// ESA: func_800A2344
 void func_802DCCAC_6EE35C(u16 arg0) {
     s16 temp_lo;
     u16 temp_t9;
@@ -415,6 +425,7 @@ void func_802DCCAC_6EE35C(u16 arg0) {
 }
 
 #if 0
+// ESA: func_800A23EC
 // a mystery
 void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
     s32 temp_t0;
@@ -463,6 +474,7 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DCD70_6EE420.s")
 #endif
 
+// ESA: func_800A2660
 void func_802DD004_6EE6B4(u16 arg0) {
     u16 tmp = D_803D5544 - D_803D552C->unk334;
     if (arg0 < tmp) {

@@ -31,6 +31,7 @@ void func_8035E120_76F7D0(void) {
 }
 
 #if 0
+// ESA: func_800818D8
 // final if statements need work
 void func_8035E200_76F8B0(void) {
     s16 skillAEnergy, skillBEnergy;
@@ -61,6 +62,7 @@ void func_8035E200_76F8B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E200_76F8B0.s")
 #endif
 
+// ESA: func_800819B0
 s32 func_8035E344_76F9F4(Animal2 *arg0, s16 arg1) {
     if (arg0->unk0->unkDA[arg1][0] < arg0->animal->energy[arg1].unk0) {
         arg0->animal->energy[arg1].unk0 -= arg0->unk0->unkDA[arg1][0];

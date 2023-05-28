@@ -40,18 +40,20 @@ extern Gfx D_01006AE8[];
 
 // EVO_SHELLSUIT
 #ifdef NON_MATCHING
-// CURRENT (3234)
-// justreg + stack
+// CURRENT (172)
 void func_80389B30_79B1E0(void) {
+    s32 pad[2];
 
-    s32 temp_t8;
-    s32 xDelta;
     struct061 sp148;
-    s32 zDelta;
-    s16 pad[6];
+    s32 padd;
+
+    u8 temp_v0_3;
+    s16 tmp;
+    s32 temp_t8;
+    s16 temp_s0;
 
     s16 sp138; // evo texture
-    s16 sp136; // pad
+    s16 sp136;
     s16 sp134;
     s16 sp132;
     s16 sp130;
@@ -67,22 +69,16 @@ void func_80389B30_79B1E0(void) {
     s16 sp11C;
     s16 sp11A;
     s16 sp118;
-
-    s16 temp_s0;
-    s16 var_v1_2;
-
+    s32 zDelta;
+    s32 xDelta;
     s32 sp10C;
+
     Animal *target;
-    s16 var_t3;
     s16 var_v1;
 
-    s16 temp_v0_17;
-    s16 tmp;
-    u8 temp_v0_3;
-
     f32 sp100;
-
-
+    s16 temp_v0_17;
+    s16 var_v1_2;
 
     if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 5)) {
         D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
@@ -258,7 +254,7 @@ void func_80389B30_79B1E0(void) {
             }
         }
 
-        gDPSetTextureImage(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (sp138 * 2048) + D_0102F010);
+        gDPSetTextureImage(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (sp138 * 256) + D_0102F010);
 
         gDPSetTile(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(D_801D9E88++);
@@ -307,13 +303,13 @@ void func_80389B30_79B1E0(void) {
             D_80203FE0[27].unk2 = D_80203FE0[19].unk2 + ((D_80152C78[(D_803D552C->unk310 + 0x40) & 0xFF] >> 7) * 2);
             D_80203FE0[27].unk4 = D_80203FE0[19].unk4 + ((D_80152C78[D_803D552C->unk310 & 0xFF] >> 7) * 2);
 
-            var_t3 = sp12C; // red-ness
+            sp136 = sp12C; // red-ness
             if (SSSV_RAND(16) == 11) {
-                var_t3 = (sp12C / 2);
+                sp136 = (sp12C / 2);
             }
 
             gSPDisplayList(D_801D9E90++, D_01004970_3E240);
-            gDPSetPrimColor(D_801D9E90++, 0, 0, var_t3, 0, 0, sp12A);
+            gDPSetPrimColor(D_801D9E90++, 0, 0, sp136, 0, 0, sp12A);
 
             if (func_80126388(0x13, 0x1B, D_803F2EC8, D_803F2EC8, D_803F2EC8, D_803F2ED0, 0, 0, 0, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]) != 0) {
                 gSPMatrix(D_801D9E90++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);

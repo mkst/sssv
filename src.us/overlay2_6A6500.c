@@ -245,8 +245,8 @@ void func_80294E50_6A6500(void) {
 
         func_8029BB94_6AD244();
         func_803572F0_7689A0(); // check health?
-        func_80357480_768B30();
-        func_80357438_768AE8();
+        func_80357480_768B30(); // check if level failed
+        func_80357438_768AE8(); // load game(?) after delay?
         display_trails();
         func_802FF25C_71090C();
 
@@ -283,15 +283,12 @@ void func_80294E50_6A6500(void) {
                 func_803497DC_75AE8C();
                 func_80349720_75ADD0();
             }
-#ifdef AVOID_UB
-            D_803C0420 = (D_803C0420 + 1) & 0x7F;
-#else
-            D_803C0420 = ++D_803C0420 & 0x7F;
-#endif
+            D_803C0420++;
+            D_803C0420 = D_803C0420 & 0x7F;
         }
         if (D_803F6680.unk27 != 0) {
             load_data_section(D_803F2D50.segment);
-            func_8031B174_72C824(D_803F2D50.segment, D_803F2D50.unk52); // load_texture_bank
+            load_level_texture_data(D_803F2D50.segment, D_803F2D50.unk52);
             load_water_texture();
             D_803F6680.unk27 = 0;
             D_803F6680.unk2D = 0;

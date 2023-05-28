@@ -41,13 +41,13 @@ void thread6(s32 arg0) {
     osCreateMesgQueue(&D_8028D078, &D_80290FC8, 1);
     osCreateMesgQueue(&D_80291060, &D_80291058, 1);
     osCreateMesgQueue(&D_80291078, &D_8029105C, 1);
-    // start thread 7
+
     osStartThread(&gThread7);
 
     read_rom_header();
     set_region();
-    // initialise various tv settings
-    func_8012A870();
+
+    initialise_tv_mode();
 
     osCreateScheduler(&sc, &D_80162658, 20, D_802053E0.VIModeType, 1);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
@@ -112,8 +112,8 @@ void func_80129DC0(void) {
 
     D_801D9EC8 = 0;
     D_801D9EC9 = 0;
-    D_80152EB8 = 0U;
-    D_80152EBC = 0U;
+    D_80152EB8 = 0;
+    D_80152EBC = 0;
     D_802042A8 = 0;
 
     phi_s1 = 0;
@@ -211,9 +211,9 @@ void func_80129DC0(void) {
             break;
         case 2:
             if (D_80204290 == 1) {
-                func_8012AB94();
+                set_screen_scaling();
             } else if (D_80204292 >= (D_80204290 - 1)) {
-                func_8012AB94();
+                set_screen_scaling();
             }
             D_80152EA4 = 0;
             D_802042A8 = 0;

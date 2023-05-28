@@ -4,14 +4,15 @@
 
 #pragma intrinsic sqrtf
 
-// calculate_hypotenuse
-s32 func_80304E80_716530(struct039 *arg0) {
+// ESA: func_80062454
+s32 calculate_hypotenuse(struct039 *arg0) {
     // a^2 + b^2 = c^2
     return sqrtf(arg0->unk0 * arg0->unk0 + arg0->unk4 * arg0->unk4);
 }
 
+// ESA: func_80062494
 void func_80304EC4_716574(struct039 *arg0, struct039 *arg1) {
-    s32 temp_v0 = func_80304E80_716530(arg0);
+    s32 temp_v0 = calculate_hypotenuse(arg0);
     if (temp_v0 == 0) {
         arg1->unk0 = 0;
         arg1->unk4 = 0;
@@ -44,6 +45,7 @@ s16 func_80304F94_716644(struct039 *arg0, struct039 *arg1) {
     return res;
 }
 
+// ESA: func_80062524
 s16 func_80305084_716734(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     f32 tmp;
     s16 res;
@@ -67,6 +69,7 @@ s16 func_80305194_716844(s16 arg0, s16 arg1) {
     return ret;
 }
 
+// ESA: func_80062618
 s16 func_803051F0_7168A0(s16 arg0, s16 arg1) {
     s16 ret = ABS(arg0 - arg1);
     if (ret > 128) {

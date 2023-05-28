@@ -22,6 +22,8 @@
 Trail gTrails[30];
 s16   trailsUsed;
 
+s32   bit_more_padding[4];
+
 // ========================================================
 // .text
 // ========================================================
@@ -35,6 +37,7 @@ void func_8039DD90_7AF440(Trail *arg0) {
     arg0->unk0.unk4 = 2;
 }
 
+// ESA: func_800884F4
 Trail *add_regular_trail(struct071 *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
     s16 i;
 
@@ -149,6 +152,7 @@ Trail *add_walrus_wake(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 ar
 #endif
 }
 
+// ESA: func_800889C4 (TBD)
 Trail *add_simple_trail(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD) {
     s16 i;
 
@@ -246,6 +250,7 @@ void func_8039E33C_7AF9EC(WalrusWake *arg0) {
     }
 }
 
+// ESA: func_80088B00
 void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     s16 sp5E;
     s16 sp5C;
@@ -770,5 +775,5 @@ void display_trails(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/trails/display_trails.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/trails/display_trails.s")
 #endif

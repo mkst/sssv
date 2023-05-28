@@ -24,8 +24,7 @@ void func_8034A648_75BCF8(void) {
         D_803D5530->unk30, D_803D5530->yVelocity.h);
 }
 
-// spawn 'dizzy' stars (lots)
-void func_8034A684_75BD34(void) {
+void spawn_dizzy_stars_big(void) {
     s16 i;
     s16 sp64;
 
@@ -58,8 +57,7 @@ void func_8034A684_75BD34(void) {
     }
 }
 
-// spawn 'dizzy' stars (medium)
-void func_8034A914_75BFC4(void) {
+void spawn_dizzy_stars_medium(void) {
     s16 i;
     s16 sp64;
 
@@ -92,8 +90,7 @@ void func_8034A914_75BFC4(void) {
     }
 }
 
-// spawn 'dizzy' stars (small)
-void func_8034ABA4_75C254(void) {
+void spawn_dizzy_starts_small(void) {
     s16 i;
     s16 sp64;
 
@@ -126,6 +123,7 @@ void func_8034ABA4_75C254(void) {
     }
 }
 
+// ESA: func_800A32EC
 void func_8034AE34_75C4E4(s32 arg0, s32 arg1) {
     s16 temp_v0;
     s16 i;
@@ -149,6 +147,7 @@ void func_8034AE34_75C4E4(s32 arg0, s32 arg1) {
     }
 }
 
+// ESA: func_800A3404
 void func_8034AF0C_75C5BC(s32 arg0, s32 arg1) {
     u16 temp_v0;
     u16 i;
@@ -195,7 +194,7 @@ void func_8034B298_75C948(s16 arg0) {
         if ((D_803D5530->state == 143) || (((D_803D5530->state == 142) || (D_803D5530->state == 144)) && ((D_803D5540 & 1) != 0))) {
             sp2E = ((SSSV_RAND(16) - 7) * (u16)D_803D5524->unkBE) >> 3;
             sp2C = ((SSSV_RAND(16) - 7) * (u16)D_803D5524->unkBE) >> 3;
-            func_802D5B88_6E7238(D_803D5530->xPos.h + sp2E, D_803D5530->zPos.h + sp2C, D_803D5530->yPos.h, 28, SSSV_RAND(4) + 4, 0, 0, 0);
+            create_particle_effect_2(D_803D5530->xPos.h + sp2E, D_803D5530->zPos.h + sp2C, D_803D5530->yPos.h, 28, SSSV_RAND(4) + 4, 0, 0, 0);
         }
     }
 }
@@ -216,6 +215,7 @@ void func_8034B3A8_75CA58(s16 arg0) {
     }
 }
 
+// ESA: func_800A3630
 void func_8034B45C_75CB0C(void) {
     s16 i = 0;
 
@@ -227,7 +227,7 @@ void func_8034B45C_75CB0C(void) {
         s16 tmp2 = (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * D_803D5524->unkBE * 3) >> 9);
 
         for (i = 0; i < 3; i++) {
-            func_802D5B88_6E7238(
+            create_particle_effect_2(
                 (SSSV_RAND(16) + D_803D5530->xPos.h + tmp1) - 8,
                 (SSSV_RAND(16) + D_803D5530->zPos.h + tmp2) - 8,
                  SSSV_RAND(16) + D_803D5530->yPos.h + (D_803D5524->unkBA >> 1),
@@ -240,6 +240,7 @@ void func_8034B45C_75CB0C(void) {
     }
 }
 
+// ESA: func_800A3828
 void func_8034B64C_75CCFC(s16 arg0, s16 arg1, s16 arg2) {
     if ((D_803F2EDE != 0) &&
         (((D_803D5530->unk162 != 4) && (D_803D5530->unk162 == 6)) || (D_803D5530->unk162 != 7)) &&
@@ -297,6 +298,7 @@ void func_8034B848_75CEF8(s16 arg0) {
     }
 }
 
+// ESA: func_800A3A38
 void func_8034BB38_75D1E8(u8 arg0) {
     switch (D_803D5530->unk162) {
     case 1:
@@ -320,7 +322,7 @@ void func_8034BB38_75D1E8(u8 arg0) {
                         0,
                         0);
                 } else {
-                    func_802D5B88_6E7238(
+                    create_particle_effect_2(
                         D_803D5530->xPos.h,
                         D_803D5530->zPos.h,
                         D_803D5530->yPos.h - tmp,

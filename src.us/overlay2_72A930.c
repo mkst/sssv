@@ -2,6 +2,7 @@
 #include "common.h"
 
 
+// ESA: func_800747E0
 s32 func_80319280_72A930(Animal *arg0, Vertex *arg1, Vertex *arg2,
                          Animal *arg3, Vertex *arg4, Vertex *arg5,
                          f32 arg6, f32 arg7) {
@@ -41,12 +42,12 @@ s32 func_80319280_72A930(Animal *arg0, Vertex *arg1, Vertex *arg2,
     if ((temp_t1 * 3) < temp_t0) {
         sp3E = 1;
     } else {
-        sp3E = !arg0->unk4C.unk27;
+        sp3E = !arg0->unk4C.unk1B;
     }
     if ((temp_t0 * 3) < temp_t1) {
         sp3C = 1;
     } else {
-        sp3C = !arg3->unk4C.unk27;
+        sp3C = !arg3->unk4C.unk1B;
     }
     if (arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
         sp3C = 1;
@@ -145,6 +146,7 @@ s32 func_80319280_72A930(Animal *arg0, Vertex *arg1, Vertex *arg2,
     return 1;
 }
 
+// ESA: func_80074D58
 void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s16 arg5, s16 arg6) {
     s32 tmp = arg0 + arg2;
 
@@ -164,33 +166,5 @@ void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s1
         *arg3 = (((arg2 * *arg3) + (((2 * tmp1) - *arg3) * arg0)) * arg4) / tmp;
         *arg1 = *arg1 + tmp2;
         *arg3 = *arg3 + tmp2;
-    }
-}
-
-void func_803198B0_72AF60(void) {
-    s16 temp_s3;
-    s16 temp_s6;
-    s16 temp_s7;
-    s16 temp_v1;
-
-    s16 k;
-    s16 j;
-    s16 i; // sp42
-
-    for (i = 0; i < 65; i++){
-        D_803E95B8[i] = 0;
-    }
-
-    for (i = 0; D_803E93B0[i].unk2 != 245; i++) {
-        temp_v1 = D_803E93B0[i].unk0;
-        temp_s7 = D_803E93B0[i].unk3;
-        temp_s6 = D_803E93B0[i].unk1;
-        temp_s3 = D_803E93B0[i].unk4;
-
-        for (j = temp_v1; j <= temp_s7; j++) {
-            for (k = temp_s6; k <= temp_s3; k++) {
-                D_803E95B8[i] |= (s64)1 << (s16)((j >> 4) + ((k >> 4) * 5));
-            }
-        }
     }
 }

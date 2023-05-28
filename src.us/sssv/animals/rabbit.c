@@ -396,7 +396,7 @@ void func_80302018_7136C8(void) {
 // heli-rabbit
 void func_80302080_713730(void) {
     if (D_803D5530->unk162 != 1) {
-        func_80321E60_733510(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 24);
+        fire_cannonball_1(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 24);
         play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
     } else {
         recharge_skill(1);
@@ -404,7 +404,7 @@ void func_80302080_713730(void) {
 }
 
 void heli_rabbit_drop_bomb(s32 arg0, s32 arg1, s32 arg2) {
-    func_80321E60_733510(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 20);
+    fire_cannonball_1(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 20);
     play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }
 

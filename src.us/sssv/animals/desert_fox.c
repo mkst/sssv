@@ -177,7 +177,7 @@ void func_803726E0_783D90(void) {
                             var_f14 = 0.0f;
                         }
 
-                        func_80321E60_733510(0x26, 0x14, 9, 0x1E, 0x16, ((var_f14 * 256.0f) / 360.0f), 2, 8);
+                        fire_cannonball_1(OBJECT_CANNONBALL_2, 0x14, 9, 0x1E, 0x16, ((var_f14 * 256.0f) / 360.0f), 2, 8);
                         if (ticks_remaining == 1) {
                             D_803D552C->unk302 -= 5;
                         }

@@ -5,11 +5,12 @@
 #include "controller.h"
 
 
+// randu
 u32 func_80128200(void) {
     u32 temp_v1;
     u32 temp_v2;
 
-    temp_v1 = (D_80151430 * 4) + 2;
+    temp_v1 = (D_80151430 << 2) + 2;
     temp_v2 = temp_v1 + 1;
     temp_v1 = (temp_v1 * temp_v2) >> 2;
     D_80151430 = temp_v1;
@@ -60,6 +61,7 @@ s32 func_801282C4(void) {
     func_8012826C();
 }
 
+// ESA: func_8001CED4
 s16 func_8012835C(s16 idx) {
     if (idx >= 0) {
         return D_80152040[idx];
@@ -69,6 +71,7 @@ s16 func_8012835C(s16 idx) {
 }
 
 // get_angle_in_degrees?
+// ESA: func_8001CF24
 s16 func_801283AC(s16 arg0) {
     if (arg0 >= 0) {
         return 90 - D_80152040[arg0];
@@ -77,6 +80,7 @@ s16 func_801283AC(s16 arg0) {
     }
 }
 
+// ESA: func_8001CF7C
 s8 func_8012840C(u8 idx) {
     return D_80152248[idx];
 }
@@ -86,6 +90,7 @@ s8 func_80128424(u8 idx) {
 }
 
 // is this mapping controller input?
+// ESA: func_8001CF98
 s16 func_8012844C(s16 arg0) {
     if (arg0 > 2047) {
         return 89;
@@ -100,6 +105,7 @@ s16 func_8012844C(s16 arg0) {
     }
 }
 
+// ESA: func_8001CFEC
 s16 func_801284B8(s16 arg0, s16 arg1) {
     s16 res;
 
@@ -130,6 +136,7 @@ s16 func_801284B8(s16 arg0, s16 arg1) {
     return res;
 }
 
+// ESA: func_8001D140
 f32 func_801286B8(f32 arg0, f32 arg1) {
     f32 temp_f16;
     f32 temp_f2;
@@ -195,6 +202,7 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
     }
 }
 
+// ESA: func_8001D294
 s16 func_80128C10(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_v0;
     s32 phi_v1;

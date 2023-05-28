@@ -3,27 +3,26 @@
 
 
 #if 0
+// CURRENT (595)
 void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
-    s16 temp_t7_2;
-    s16 temp_t9;
-    s16 temp_v0;
-    s16 var_a0;
-    s16 var_t1; // sp46?
-    s16 var_a0_2;
-    s16 var_a1_2;
-    s16 var_t2;
-    s16 var_t3;
+    u16 temp_t4; // sp4E?
     u16 var_t0;
-
-    struct113 *temp_t0_2;
-    u16 temp_t4;
+    s16 var_t2; // sp4A?
+    s16 var_t3; // sp48?
+    s16 var_t1; // sp46?
+    s16 var_a0;
+    s16 tmp1;
+    s16 tmp2;
+    s16 tmp3;
+    struct113 *temp_t0_2; // sp38 ?
 
     temp_t4 = (D_803D552C->unk2F6 % 256);
 
     temp_t0_2 = &D_803D5528->unk3C0;
     if (temp_t0_2->unk0 != 0) {
-        temp_t0_2->unk2 += 1;
+        temp_t0_2->unk2++;
     }
+
     switch (temp_t0_2->unk0) {                               /* switch 1 */
     case 1:                                         /* switch 1 */
         if (temp_t0_2->unk2 >= 100) {
@@ -67,8 +66,10 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         temp_t0_2->unk0 = 0;
         break;
     }
+
     var_a0 = (D_803D5530->yRotation - D_803D552C->unk302) & 0xFF;
     var_a0 = (var_a0 * 360) >> 8;
+
     if ((var_a0 > 80) && (var_a0 < 280)) {
         if (var_a0 < 180) {
             var_a0 = 80;
@@ -235,39 +236,43 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         break;
     }
 
-    var_a1_2 = D_80203FE0[1].unk0;
-    temp_v0 = D_80203FE0[1].unk2;
-    var_a0_2 = D_80203FE0[1].unk4;
+    if (1) {};
 
-    temp_v0 += ((arg0 * D_80152350.unk2D0[var_t2]) / 256);
-    var_a0_2 += ((arg0 * D_80152350.unk384[var_t2]) / 256);
+    tmp1 = D_80203FE0[1].unk0;
+    tmp2 = D_80203FE0[1].unk2;
+    tmp3 = D_80203FE0[1].unk4;
+
+    tmp2 += ((arg0 * D_80152350.unk2D0[var_t2]) / 256);
+    tmp3 += ((arg0 * D_80152350.unk384[var_t2]) / 256);
 
     D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
-    D_80203FE0[19].unk2 = temp_v0;
-    D_80203FE0[19].unk4 = var_a0_2;
+    D_80203FE0[19].unk2 = tmp2;
+    D_80203FE0[19].unk4 = tmp3;
 
     if (var_t1 != 0) {
-        var_a1_2 += (arg1 * D_80152350.unk2D0[var_t1]) / 256;
-        temp_v0 += (arg1 * D_80152350.unk384[var_t1]) / 256;
+        tmp1 += (arg1 * D_80152350.unk2D0[var_t1]) / 256;
+        tmp2 += (arg1 * D_80152350.unk384[var_t1]) / 256;
     } else {
-        temp_v0 += (arg1 * D_80152350.unk2D0[var_t3]) / 256;
-        var_a0_2 += (arg1 * D_80152350.unk384[var_t3]) / 256;
+        tmp2 += (arg1 * D_80152350.unk2D0[var_t3]) / 256;
+        tmp3 += (arg1 * D_80152350.unk384[var_t3]) / 256;
     }
 
-    D_80203FE0[20].unk0 = var_a1_2;
-    D_80203FE0[20].unk2 = temp_v0;
-    D_80203FE0[20].unk4 = var_a0_2;
+    D_80203FE0[20].unk0 = tmp1;
+    D_80203FE0[20].unk2 = tmp2;
+    D_80203FE0[20].unk4 = tmp3;
 
-    temp_t9 = D_80203FE0[1].unk2 + ((arg0 * D_80152350.unk2D0[20]) / 256);
-    temp_t7_2 = D_80203FE0[1].unk4 + ((arg0 * D_80152350.unk384[20]) / 256);
+    tmp2 = D_80203FE0[1].unk2;
+    tmp2 += ((D_80152350.unk2D0[20] * arg0) / 256);
+    tmp3 = D_80203FE0[1].unk4 + ((arg0 * D_80152350.unk384[20]) / 256);
 
-    D_80203FE0[32].unk0 = var_a1_2;
-    D_80203FE0[32].unk2 = temp_t9;
-    D_80203FE0[32].unk4 = temp_t7_2;
+    D_80203FE0[32].unk0 = tmp1;
+    D_80203FE0[33].unk0 = tmp1;
 
-    D_80203FE0[33].unk0 = var_a1_2;
-    D_80203FE0[33].unk2 = temp_t9 + arg1;
-    D_80203FE0[33].unk4 = temp_t7_2;
+    D_80203FE0[32].unk2 = tmp2;
+    D_80203FE0[33].unk2 = tmp2 + arg1;
+
+    D_80203FE0[32].unk4 = tmp3;
+    D_80203FE0[33].unk4 = tmp3;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C4A70_6D6120.s")
@@ -276,49 +281,47 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
 #if 0
 // bleurgh
 void func_802C56D0_6D6D80(s16 arg0) {
-    s16 temp_a1;
-    s16 temp_a1_2;
-    s16 temp_a3;
-    s16 temp_t1;
-    s16 temp_t4;
-    s16 temp_t4_2;
-    s16 temp_t7_2;
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v1;
-    s16 temp_v1_2;
     s32 temp_t0;
-    s32 temp_t0_2;
     s32 temp_t2;
-    s32 temp_t2_2;
     s32 temp_t7;
     s32 temp_t8;
 
-    temp_v1 = D_80203FE0[19].unk4;
-    temp_a3 = D_80203FE0[1].unk4;
-    temp_t8 = D_80152C78[arg0] >> 7;
-    temp_t0 = D_80203FE0[19].unk4 - temp_a3;
-    temp_v0 = D_80203FE0[19].unk2;
-    temp_t1 = D_80203FE0[1].unk2;
-    temp_t7 = D_80152C78[arg0 + 64] >> 7;
-    temp_t2 = temp_v0 - temp_t1;
-    temp_a1 = ((s32) ((temp_t8 * temp_t0) + (temp_t2 * temp_t7)) >> 8) + temp_t1;
-    D_80203FE0[19].unk2 = temp_a1;
-    temp_t4 = ((s32) ((temp_t0 * temp_t7) - (temp_t8 * temp_t2)) >> 8) + temp_a3;
-    temp_v1_2 = D_80203FE0[32].unk4;
-    temp_v0_2 = D_80203FE0[32].unk2;
-    D_80203FE0[20].unk2 = (s16) ((D_80203FE0[20].unk2 + temp_a1) - temp_v0);
-    temp_t0_2 = temp_v1_2 - temp_a3;
-    temp_t2_2 = temp_v0_2 - temp_t1;
-    D_80203FE0[20].unk4 = (s16) ((D_80203FE0[20].unk4 + temp_t4) - D_80203FE0[19].unk4);
-    D_80203FE0[19].unk4 = temp_t4;
-    temp_a1_2 = ((s32) ((temp_t8 * temp_t0_2) + (temp_t2_2 * temp_t7)) >> 8) + temp_t1;
-    D_80203FE0[32].unk2 = temp_a1_2;
-    temp_t4_2 = ((s32) ((temp_t0_2 * temp_t7) - (temp_t8 * temp_t2_2)) >> 8) + temp_a3;
-    temp_t7_2 = (D_80203FE0[33].unk4 + temp_t4_2) - temp_v1_2;
-    D_80203FE0[32].unk4 = temp_t4_2;
-    D_80203FE0[33].unk2 = (s16) ((D_80203FE0[33].unk2 + temp_a1_2) - temp_v0_2);
-    D_80203FE0[33].unk4 = temp_t7_2;
+    s32 tmp1;
+    s32 tmp2;
+    s32 tmp3;
+    s32 tmp4;
+
+    tmp1 = D_80203FE0[19].unk2;
+    tmp2 = D_80203FE0[19].unk4;
+
+    temp_t8 = D_80152C78[arg0 & 0xFF] >> 7;
+    temp_t7 = D_80152C78[(arg0 + 64) & 0xFF] >> 7;
+
+    temp_t0 = D_80203FE0[19].unk4 - D_80203FE0[1].unk4;
+    temp_t2 = D_80203FE0[19].unk2 - D_80203FE0[1].unk2;
+
+    D_80203FE0[19].unk2 = (((temp_t8 * temp_t0) + (temp_t2 * temp_t7)) >> 8) + D_80203FE0[1].unk2;
+    D_80203FE0[19].unk4 = (((temp_t0 * temp_t7) - (temp_t8 * temp_t2)) >> 8) + D_80203FE0[1].unk4;
+
+    D_80203FE0[20].unk2 = (D_80203FE0[20].unk2 + D_80203FE0[19].unk2) - tmp1;
+    if (1) {};
+    D_80203FE0[20].unk4 = (D_80203FE0[20].unk4 + D_80203FE0[19].unk4) - tmp2;
+
+    tmp3 = D_80203FE0[32].unk2;
+    tmp4 = D_80203FE0[32].unk4;
+
+    temp_t0 = D_80203FE0[32].unk4 - D_80203FE0[1].unk4;
+    temp_t2 = D_80203FE0[32].unk2 - D_80203FE0[1].unk2;
+
+    D_80203FE0[32].unk2 = (((temp_t8 * temp_t0) + (temp_t2 * temp_t7)) >> 8) + D_80203FE0[1].unk2;
+    D_80203FE0[32].unk4 = (((temp_t0 * temp_t7) - (temp_t8 * temp_t2)) >> 8) + D_80203FE0[1].unk4;
+
+    temp_t8 = D_80203FE0[33].unk2;
+    temp_t7 = D_80203FE0[33].unk4;
+
+    D_80203FE0[33].unk2 = (temp_t8 + D_80203FE0[32].unk2) - tmp3;
+    D_80203FE0[33].unk4 = (temp_t7 + D_80203FE0[32].unk4) - tmp4;
+
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C56D0_6D6D80.s")
@@ -463,21 +466,25 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
     D_80203FE0[33].unk4 = D_80203FE0[32].unk4;
 }
 
-#ifdef NON_MATCHING
-// JUSTREG
 void func_802C5EF4_6D75A4(s16 arg0, s16 arg1) {
-    u16 tmp;
-    D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
-    D_80203FE0[19].unk2 = D_80203FE0[1].unk2;
-    D_80203FE0[19].unk4 = (D_80203FE0[1].unk4 + arg0) & 0xFFFF;
+    s16 tmp1;
+    s16 tmp2;
+    s16 tmp3;
 
-    D_80203FE0[20].unk0 = D_80203FE0[1].unk0;
-    D_80203FE0[20].unk2 = (D_80203FE0[1].unk2 + arg1) & 0xFFFF;
-    D_80203FE0[20].unk4 = D_80203FE0[1].unk4 + arg0;
+    tmp1 = D_80203FE0[1].unk0;
+    tmp2 = D_80203FE0[1].unk2;
+    tmp3 = D_80203FE0[1].unk4;
+
+    tmp3 += arg0;
+    D_80203FE0[19].unk0 = tmp1;
+    D_80203FE0[19].unk2 = tmp2;
+    D_80203FE0[19].unk4 = tmp3;
+
+    tmp2 += arg1;
+    D_80203FE0[20].unk0 = tmp1;
+    D_80203FE0[20].unk2 = tmp2;
+    D_80203FE0[20].unk4 = tmp3;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C5EF4_6D75A4.s")
-#endif
 
 // used by vulture, seagull + parrot
 void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
@@ -600,22 +607,48 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
     D_80203FE0[20].unk4 = var_a0;
 }
 
-#if 0
 // used by mouse
 void func_802C6468_6D7B18(s16 arg0, s16 arg1, s16 arg2) {
-    D_80203FE0[19].unk4 = D_80203FE0[20].unk4 = (D_80203FE0[1].unk4 + arg0);
-    D_80203FE0[20].unk2 = (D_80203FE0[1].unk2 + arg1);
-    D_80203FE0[22].unk0 = D_80203FE0[1].unk0 - (arg2 >> 1);
+    s16 temp_t1;
+    s16 temp_t3;
+    s16 temp_t6;
+    s16 temp_t8;
+    s32 temp_t0;
 
-    D_80203FE0[22].unk2 = D_80203FE0[23].unk2 = (D_80203FE0[1].unk2 + arg1) - arg1;
-    D_80203FE0[19].unk2 = D_80203FE0[1].unk2;
-    D_80203FE0[19].unk0 = D_80203FE0[20].unk0 = D_80203FE0[1].unk0;
-    D_80203FE0[23].unk0 = D_80203FE0[1].unk0 + (arg2 >> 1);
-    D_80203FE0[22].unk4 = D_80203FE0[23].unk4 = (D_80203FE0[1].unk4 + arg0) + (arg2 >> 1);
+    s16 tmp1;
+    s16 tmp2;
+    s16 tmp3;
+
+    tmp1 = D_80203FE0[1].unk0;
+    tmp2 = D_80203FE0[1].unk2;
+    tmp3 = D_80203FE0[1].unk4;
+
+    D_80203FE0[19].unk2 = tmp2;
+    D_80203FE0[19].unk0 = tmp1;
+
+    tmp3 += arg0;
+    tmp2 += arg1;
+
+    D_80203FE0[20].unk0 = tmp1;
+    D_80203FE0[19].unk4 = tmp3;
+
+    D_80203FE0[20].unk2 = tmp2;
+    D_80203FE0[20].unk4 = tmp3;
+
+    tmp2 -= arg1;
+
+    temp_t1 = tmp3 + (arg2 >> 1);
+    temp_t3 = tmp2; // needs the extra assignment
+
+    D_80203FE0[22].unk0 = tmp1 - (arg2 >> 1);
+    D_80203FE0[22].unk2 = temp_t3;
+    D_80203FE0[22].unk4 = temp_t1;
+
+    D_80203FE0[23].unk0 = tmp1 + (arg2 >> 1);
+    D_80203FE0[23].unk2 = temp_t3;
+    D_80203FE0[23].unk4 = temp_t1;
+
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6468_6D7B18.s")
-#endif
 
 void func_802C64E0_6D7B90(s16 arg0) {
     s16 tmp0 = D_80203FE0[2].unk0;
@@ -785,23 +818,19 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
     s16 temp_t7_3;
     u16 temp_t9;
     struct113 *temp_a2_2;
-    u16 var_t0;
 
     temp_a2_2 = &D_803D5528->unk3C0;
     if (temp_a2_2->unk0 != 0) {
         temp_a2_2->unk2 += 1;
     }
 
-    var_t0 = temp_a2_2->unk0;
     switch (temp_a2_2->unk0) {
     case 1:
         temp_a2_2->unk0 = 0;
-        var_t0 = 0;
         break;
     case 5:
         if (temp_a2_2->unk2 >= 0x96) {
             temp_a2_2->unk0 = 0;
-            var_t0 = 0;
         }
         break;
     }
@@ -883,29 +912,31 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
     D_80203FE0[26].unk4 = temp_t2 - temp_t7_3;
 }
 
-#if 0
+#ifdef NON_MATCHING
 // only used by rabbit
-// junk
+// CURRENT (440)
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 var_a0;
     s16 var_a2;
     s16 temp_hi;
-    s16 tmp;
+
+    s16 temp_t3;
+    s16 temp_t7;
+    s16 temp_t9;
+
+    u16 tmp1;
+    u16 tmp3;
+
+    s16 new_var;
+
 
     temp_hi = (D_803D5542 + 0x14) % 360;
 
-    if (D_803D5542 < 96) {
-        var_a0 = ((D_80152C78[(s16)(D_803D5542 << 3) & 0xFF] >> 7) * arg1) >> 9;
-    } else {
-        var_a0 = 0;
-    }
-    if (temp_hi < 96) {
-        var_a2 = ((D_80152C78[(s16)(temp_hi << 3) & 0xFF] >> 7) * arg1) >> 9;
-    } else {
-        var_a2 = 0;
-    }
+    var_a0 = (D_803D5542 < 96) ? (arg1 * (D_80152C78[(s16)(D_803D5542 << 3) & 0xFF] >> 7)) >> 9 : 0;
+    var_a2 = (temp_hi < 96) ? (arg1 * (D_80152C78[(s16)(temp_hi << 3) & 0xFF] >> 7)) >> 9 : 0;
+
     if ((D_803D5542 > 0xC0) && (D_803D5542 < 0xD8)) {
-        var_a0 = ((D_80152C78[(s16)(D_803D5542 << 2) & 0xFF] >> 7) * arg1) >> 9;
+        var_a0 = (arg1 * (D_80152C78[(s16)(D_803D5542 << 2) & 0xFF] >> 7)) >> 9;
     }
 
     if (ABS(var_a0) <= 16) {
@@ -920,19 +951,32 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
         var_a0 = var_a2 = 0;
     }
 
-    tmp = D_80203FE0[19].unk4;
+    temp_t3 = D_80203FE0[19].unk4 ^ 0;
+    new_var = D_80203FE0[19].unk2;
+    temp_t7 = D_80203FE0[19].unk0 - arg0;
+    temp_t9 = D_80203FE0[19].unk0 + arg0;
 
-    D_80203FE0[27].unk0 = D_80203FE0[26].unk0 = D_80203FE0[19].unk0 - arg0;
-    D_80203FE0[29].unk0 = D_80203FE0[28].unk0 = D_80203FE0[19].unk0 + arg0;
+    D_80203FE0[26].unk0 = temp_t7;
+    D_80203FE0[26].unk2 = new_var;
+    D_80203FE0[26].unk4 = temp_t3;
 
-    D_80203FE0[28].unk2 = D_80203FE0[26].unk2 = D_80203FE0[19].unk2;
-    D_80203FE0[28].unk4 = D_80203FE0[26].unk4 = D_80203FE0[19].unk4;
+    D_80203FE0[28].unk0 = temp_t9;
+    D_80203FE0[28].unk4 = temp_t3;
 
-    D_80203FE0[27].unk2 = (D_80203FE0[19].unk2 + var_a0);
-    D_80203FE0[27].unk4 = ((tmp + arg1) - (var_a0 >> 1));
+    tmp1 = new_var + var_a0;
+    tmp3 = (temp_t3 + arg1) - (var_a0 >> 1);
+    D_80203FE0[27].unk0 = temp_t7;
+    D_80203FE0[27].unk2 = tmp1;
+    D_80203FE0[27].unk4 = tmp3;
 
-    D_80203FE0[29].unk2 = (D_80203FE0[19].unk2 + var_a2);
-    D_80203FE0[29].unk4 = ((tmp + arg1) - (var_a2 >> 1));
+    tmp1 = new_var + var_a2;
+    tmp3 = (temp_t3 + arg1) - (var_a2 >> 1);
+    D_80203FE0[29].unk0 = temp_t9;
+    D_80203FE0[29].unk2 = tmp1;
+    D_80203FE0[29].unk4 = tmp3;
+
+
+    D_80203FE0[28].unk2 = new_var; // really messes with codegen to move this
 
 }
 #else

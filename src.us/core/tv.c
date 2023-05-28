@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-void func_8012A870(void) {
+void initialise_tv_mode(void) {
     s32 vStart;
     s32 vScale;
 
@@ -91,7 +91,7 @@ void func_8012A870(void) {
     D_8020540C = (u16)0;
 }
 
-void func_8012AB94(void) {
+void set_screen_scaling(void) {
     osViSetXScale(gScreenWidth / 320.0f);
     osViSetYScale(gScreenHeight / 240.0f);
 }

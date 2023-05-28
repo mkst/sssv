@@ -166,6 +166,7 @@ void func_8032F950_741000(void) {
     }
 }
 
+// ESA: func_800214CC
 void func_8032FD0C_7413BC(u8 cameraID, u8 arg1) {
 
     func_80342550_753C00(&D_803F28E0[cameraID]);
@@ -265,7 +266,8 @@ void func_8032FD0C_7413BC(u8 cameraID, u8 arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8032FF94_741644.s")
+// ESA: func_80021750 (tbd)
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8032FF94_741644.s")
 
 #if 0
 // static f64 D_803BE2E0_7CF990[2] = { 95.0, 95.0 };   /* const */
@@ -768,10 +770,10 @@ void func_80332444_743AF4(u8 arg0) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80332444_743AF4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_80332444_743AF4.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80334470_745B20.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_80334470_745B20.s")
 
 #if 0
 // million miles
@@ -1180,7 +1182,7 @@ block_169:
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033641C_747ACC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033641C_747ACC.s")
 #endif
 
 extern f64 D_803BE448_7CFAF8;
@@ -1283,10 +1285,10 @@ void func_803378BC_748F6C(u8 arg0) {
     D_803F2AC5 = 1;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_803378BC_748F6C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_803378BC_748F6C.s")
 #endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80337ECC_74957C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_80337ECC_74957C.s")
 
 void func_80338E1C_74A4CC(u8 cameraID) {
     s32 one = 1; // ehhhh....
@@ -1525,7 +1527,7 @@ void func_803394E4_74AB94(u8 arg0, u8 arg1) {
 }
 
 // fix camera to angle offset
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80339B84_74B234.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_80339B84_74B234.s")
 
 void func_8033AAC8_74C178(u8 cameraID) {
     f32 temp_f0;
@@ -1638,7 +1640,7 @@ void func_8033AC68_74C318(f32 *arg0, f32 *arg1, f32 *arg2, WaypointData *arg3, s
     *arg2 = ((arg3->waypoint[sp4E].y * sp0[2]) + ((sp18[2] * arg3->waypoint[sp48].y) + (sp18[1] * arg3->waypoint[sp4A].y) + (sp18[0] * arg3->waypoint[sp4C].y))) * 64.0f;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033AC68_74C318.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033AC68_74C318.s")
 #endif
 
 
@@ -1910,10 +1912,12 @@ void func_8033C054_74D704(u8 arg0) {
     gCamera->unkA0 = gCamera->unk10;
 }
 
+// ESA: func_8002A3C0
 void func_8033C320_74D9D0(u8 arg0) {
     D_803F2AC5 = 1;
 }
 
+// ESA: func_8002A3D0
 void func_8033C334_74D9E4(void) {
     s32 tmp;
     s16 i;
@@ -2010,6 +2014,7 @@ void func_8033C334_74D9E4(void) {
     D_803A6CEC_7B839C = -1;
 }
 
+// ESA: func_8002A8D4
 s32 func_8033C814_74DEC4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, u8 arg8) {
     f32 sp3C;
     f32 sp38;
@@ -2252,10 +2257,11 @@ s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 ar
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033C9CC_74E07C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033C9CC_74E07C.s")
 #endif
 
 // camera collision checks
+// ESA: func_8002AAC8
 s32 func_8033D604_74ECB4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     f32 spA4;
     f32 spA0;
@@ -2480,6 +2486,7 @@ s32 func_8033D604_74ECB4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
 
 #ifdef NON_MATCHING
 // CURRENT (295)
+// ESA: func_8002B0E4
 s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
     Animal *temp_s2;
     s16 xPos;
@@ -2575,9 +2582,10 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     return 0;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033DF88_74F638.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033DF88_74F638.s")
 #endif
 
+// ESA: func_8002B460
 void func_8033E430_74FAE0(void) {
     Animal *animal;
     s16 xPos;
@@ -2637,6 +2645,7 @@ void func_8033E430_74FAE0(void) {
     }
 }
 
+// ESA: func_8002B6A8
 void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f32 *arg5) {
     f32 tmp0;
 
@@ -2852,6 +2861,7 @@ void func_8033F300_7509B0(void) {
 }
 
 #if 0
+// ESA: func_8002B7B4 (TBD)
 void func_8033F380_750A30(void) {
     f32 spCC;
     f32 spC8;
@@ -3240,9 +3250,10 @@ void func_8033F380_750A30(void) {
     D_803F2A9C = sqrtf((65536.0 - ((f32)D_803A6CC0_7B8370 * D_803A6CC0_7B8370)));
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_8033F380_750A30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033F380_750A30.s")
 #endif
 
+// ESA: func_8002D0CC
 void func_80340E08_7524B8(s16 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s8 arg5, s8 arg6, u8 arg7, s16 arg8) {
     memset_bytes((u8*)&D_803F2BF8, 0, 32);
     D_803F2BF8.unk12 = arg0;
@@ -3421,6 +3432,7 @@ void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
     }
 }
 
+// ESA: func_8002DB28
 void func_803415BC_752C6C(void) {
     u8 sp57;
     u8 sp56;
@@ -3670,12 +3682,14 @@ void func_803415BC_752C6C(void) {
     }
 }
 
+// ESA: func_8002E6A0
 void func_803421E0_753890(s16 arg0) {
     if (D_803F2ACA < arg0) {
         D_803F2ACA = arg0;
     }
 }
 
+// ESA: func_8002E6C4
 void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     s16 tmp = ((ABS(arg1 - (s16)D_803F2C44) +
                 ABS(arg2 - (s16)D_803F2C48) +
@@ -3690,11 +3704,13 @@ void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     }
 }
 
+// ESA: func_8002E78C
 void func_80342318_7539C8(s32 arg0, s32 arg1, s32 arg2) {
     func_803423C4_753A74(0, arg0 / 65536.0, arg1 / 65536.0, arg2 / 65536.0);
     func_803423C4_753A74(1, arg0 / 65536.0, arg1 / 65536.0, arg2 / 65536.0);
 }
 
+// ESA: func_8002E7EC
 void func_803423C4_753A74(s16 cameraID, f32 x, f32 y, f32 z) {
     D_803F28E0[cameraID].unk8 += x;
     D_803F28E0[cameraID].unkC += y;
@@ -4021,6 +4037,7 @@ void func_80343438_754AE8(void) {
     }
 }
 
+// ESA: func_8002F85C
 void func_80343720_754DD0(s16 *arg0, s16 *arg1, s16 *arg2) {
     s32 pad;
     s16 sp1A;
@@ -4104,17 +4121,13 @@ void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4
     }
 }
 
-#ifdef NON_MATCHING
-//CURRENT (40)
+// ESA: func_8002FD44
 void func_80343C44_7552F4(s16 idx, u16 *arg1, u16 *arg2) {
-    s16 *tmp = D_803A7B3C_7B91EC[idx];
-    *arg1 = tmp[0] & 0xFFFF;
-    *arg2 = tmp[1];
+    *arg1 = D_803A7B3C_7B91EC[(idx * 2)];
+    *arg2 = D_803A7B3C_7B91EC[(idx * 2) + 1];
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_741000/func_80343C44_7552F4.s")
-#endif
 
+// ESA: func_8002FD7C
 void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
     memset_bytes((u8*)D_803F2AD8, 0, sizeof(D_803F2AD8));
     D_803F2AD8[0].unk18 = 1;
@@ -4131,15 +4144,16 @@ void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
     }
 }
 
-void func_80343D44_7553F4(struct071 *arg0, s8 arg1) {
-    // FIXME: arg0->unk0 ?
-    func_80343AE0_755190(5, ((*(u8*)arg0) * 32) - 136, 40, arg0, 0, 0, 0, 0, 0, 0, 44, arg1, -2, 0, 1);
+// ESA: func_8002FE74
+void func_80343D44_7553F4(u8 *arg0, s8 arg1) {
+    func_80343AE0_755190(5, ((*arg0) * 32) - 136, 40, arg0, 0, 0, 0, 0, 0, 0, 44, arg1, -2, 0, 1);
 }
 
+// ESA: func_8002FEE4
 void func_80343DC0_755470(void) {
     D_803F2C20 = 0;
     D_803F2C22 = 1;
-    memset_bytes((u8*)&D_803F2AF8, 0, 32);
+    memset_bytes((u8*)&D_803F2AF8, 0, sizeof(D_803F2AF8[0]));
     D_803F2C1E = 0;
     D_803F2C18[0] = 0;
     D_803F2C18[1] = 0;
@@ -4173,6 +4187,7 @@ void func_80343DC0_755470(void) {
     D_803F2AF8[D_803F2C20].unk1B = D_803F28E0[D_803F2A98].unk67;
 }
 
+// ESA: func_80030070
 void func_80343F58_755608(s16 arg0) {
     D_803F2C6E = arg0;
 }
@@ -4193,6 +4208,7 @@ void func_80343F78_755628(void) {
     }
 }
 
+// ESA: func_8003007C
 void func_8034401C_7556CC(void) {
     s16 i, j;
 
@@ -4218,6 +4234,7 @@ void func_8034401C_7556CC(void) {
     }
 }
 
+// ESA: func_80030264
 s16 func_80344158_755808(s16 arg0) {
     switch (arg0) {
     case 3:
@@ -4232,6 +4249,7 @@ s16 func_80344158_755808(s16 arg0) {
     }
 }
 
+// ESA: func_800302AC
 void func_8034419C_75584C(struct071 *arg0) {
     func_80343AE0_755190(4, 0, 30, arg0, 0, 0, 0, 0, 0, 0, 228, 1, 0, 0, 0);
 }
