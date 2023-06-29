@@ -34,7 +34,7 @@ extern u8 D_04002780[];
 extern u8 D_04002560_E9B10[];
 
 #if 0
-// CURRENT (18788)
+// CURRENT (19056)
 void func_8036D700_77EDB0(void) {
     struct061 spE0;
     s16 spDE;
@@ -76,28 +76,13 @@ void func_8036D700_77EDB0(void) {
     u8 temp_a0_6;
     u8 temp_v0_10;
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v0 = 1;
-        } else {
-            var_v0 = 0;
-        }
-        if (var_v0 != 0) {
-            spDA = 0;
-            D_803F2EDD = 0;
-            goto block_9;
-        }
-    }
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_v0 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        spDA = 0;
+        D_803F2EDD = 0;
     } else {
-        var_v0 = 0;
+        spDA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x1900, (u8) 6, (s16) 0x97, (s16) 0x65, (s16) 0x37, (s8) 2, CHECK_SEGMENT == 0);
     }
-    spDA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x1900, (u8) 6, (s16) 0x97, (s16) 0x65, (s16) 0x37, (s8) 2, var_v0 == 0);
 
-block_9:
     if (spDA == 0) {
         func_8038C98C_79E03C();
         func_8035D120_76E7D0();
@@ -125,7 +110,7 @@ block_9:
                         func_8032CD70_73E420(
                             D_803D5530,
                             SFX_UNKNOWN_51,
-                            (((ticks_remaining * -0x7000) + 0xE0000) >> 5),
+                            (((-ticks_remaining * 0x7000) + 0xE0000) >> 5),
                             0,
                             (((ticks_remaining * ticks_remaining) * 0.03125) + 1.0),
                             D_803D5530->xPos.h,
@@ -202,7 +187,7 @@ block_9:
                                 4,
                                 8);
                         }
-                        for (i = 0; i < 4; i++) {
+                        for (i = 0; i < 2; i++) {
                             fire_cannonball_2(
                                 OBJECT_WATER_CANNON_1,
                                 0x3C,
@@ -227,7 +212,7 @@ block_9:
                                 4,
                                 8);
                         }
-                        for (i = 0; i < 4; i++) {
+                        for (i = 0; i < 2; i++) {
                             fire_cannonball_2(
                                 OBJECT_WATER_CANNON_1,
                                 0x3C,

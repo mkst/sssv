@@ -266,25 +266,20 @@ void func_80327DA8_739458(void) {
     }
 }
 
-#ifdef NON_MATCHING
 // ESA: func_8007F540
 void func_80328258_739908(s16 arg0) {
     u8 sp1F;
-    struct114 *ptr;
-    struct101 *new_var;
 
     func_8032AA94_73C144();
 
-    new_var = D_803E9828;
+    sp1F = D_803E982C[D_803E9828[D_803E9822].unk2[arg0]].unk1;
 
-    ptr = &D_803E982C[D_803E9828[D_803E9822].unk2[arg0]];
-    sp1F = ptr->unk1;
-
-    D_803E9822 = ptr->unk0;
+    D_803E9822 = D_803E982C[D_803E9828[D_803E9822].unk2[arg0]].unk0;
     D_803E9824 = D_803E9828[D_803E9822].unk0;
     D_803D5520->unk0 = &D_801D9ED8.unk0[D_803E9824];
     D_803D5524 = D_803D5520->unk0;
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C = &D_801D9ED8.unk0[D_803E9824];
+
     func_803283DC_739A8C();
     func_802B2EA8_6C4558();
     D_803D5530->unk46 = D_803D5530->unk16C->mass;
@@ -301,9 +296,6 @@ void func_80328258_739908(s16 arg0) {
         break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_80328258_739908.s")
-#endif
 
 // ESA: func_8007F684
 void func_803283DC_739A8C(void) {

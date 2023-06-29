@@ -961,7 +961,7 @@ void func_8031C48C_72DB3C(void) {
     struct068 *temp_v0_3;
     struct112 *temp_v0_2;
     u16 id;
-    u16 temp_v1_2;
+    s16 id2;
 
     if (D_803F2D50.unkBC != NULL) {
         func_8029B9B8_6AD068(D_801D9ED8.animals[gCurrentAnimalIndex].animal, D_803F2D50.unkBC);
@@ -984,7 +984,7 @@ void func_8031C48C_72DB3C(void) {
     }
     // animals
     for (var_s0 = 0; var_s0 < D_803D553E; var_s0++) {
-        if (D_801D9ED8.animals[var_s0].animal->unk1A8 != NULL) {
+        if (D_801D9ED8.animals[var_s0].animal->commands.unk1A8 != NULL) {
             // load in commands
             func_803191B0_72A860(D_801D9ED8.animals[var_s0].animal);
         }
@@ -1001,11 +1001,10 @@ void func_8031C48C_72DB3C(void) {
     UnpackRNC(&D_80100000, gFramebuffer);
 
     // objects
-    for (var_s0 = 0; var_s0 < 170; var_s0 += 1) {
-        temp_v0_3 = D_801E9EB8.objects[var_s0].unk16C;
+    for (var_s0 = 0; var_s0 < 170; var_s0++) {
         if ((D_801E9EB8.objects[var_s0].unk16C != NULL) && (D_801E9EB8.objects[var_s0].unk26C == 0)) {
-            id = temp_v0_3->cmdIdx;
-            if ((id != 0) && (temp_v0_3->unk18 == NULL)) {
+            id = D_801E9EB8.objects[var_s0].unk16C->id;
+            if ((id != 0) && (D_801E9EB8.objects[var_s0].unk16C->unk18 == NULL)) {
                 // link the command?
                 func_8031C3C0_72DA70(((u8*)gFramebuffer) + (((s16) id - 1)), id);
             }
@@ -1014,12 +1013,14 @@ void func_8031C48C_72DB3C(void) {
 
     // commands
     for (var_s0 = 0; var_s0 < D_803E8E54; var_s0++) {
+        if (id) {};
+
         if ((D_803E4D40[var_s0].type == 16) || (D_803E4D40[var_s0].type == 17)) {
             // link the command?
-            temp_v0_3 = &D_803A8528_7B9BD8[D_803E4D40[var_s0].cmd.type16.id];
-            id = temp_v0_3->cmdIdx;
-            if ((id != 0) && (temp_v0_3->unk18 == NULL)) {
-                func_8031C3C0_72DA70(((u8*)gFramebuffer) + (((s16) id - 1)), (s16) id);
+            id2 = D_803E4D40[var_s0].cmd.type16.id;
+            id = D_803A8528_7B9BD8[id2].cmdIdx;
+            if ((id != 0) && (D_803A8528_7B9BD8[id2].unk18 == NULL)) {
+                func_8031C3C0_72DA70(((u8*)gFramebuffer) + (((s16) id - 1)), id);
             }
         }
     }

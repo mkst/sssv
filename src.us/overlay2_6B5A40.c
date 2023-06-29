@@ -2876,25 +2876,20 @@ void func_802AC5CC_6BDC7C(s32 *arg0, s32 *arg1) {
     }
 }
 
-#ifdef NON_MATCHING
-// CURRENT (40)
 // ESA: func_80040260
 void func_802AC8A0_6BDF50(s32 *arg0, s32 *arg1) {
     *arg0 = 0;
 
     if (D_801D9ED8.unkFFDA > 2) {
-        *arg1 = D_803D5524->unkA4 * 1024;
+        *arg1 = (D_803D5524->unkA4 * 1024);
     } else if (D_801D9ED8.unkFFDA > 0) {
-        *arg1 = D_803D5524->unkA4 * 640;
+        *arg1 = (D_803D5524->unkA4 * 5) << 7;
     } else {
         *arg1 = 0;
     }
 
     func_802B90A0_6CA750(D_803D5530->yRotation, arg0, arg1);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5A40/func_802AC8A0_6BDF50.s")
-#endif
 
 s32 func_802AC928_6BDFD8(s32 arg0, s32 arg1) {
     arg0 = ABS(arg0);
@@ -4831,8 +4826,6 @@ s16 get_distance_from_ground(void) {
     return D_803D5530->yPos.h - func_802B25B4_6C3C64(1);
 }
 
-// still need to understand collision
-#if 0
 // ESA: func_800459A0
 s16 func_802B25B4_6C3C64(u8 getWaterHeight) {
     s16 temp_t0;
@@ -4859,23 +4852,21 @@ s16 func_802B25B4_6C3C64(u8 getWaterHeight) {
         temp_t0 = D_803D5530->xPos.h & 0x3F;
         temp_t1 = D_803D5530->zPos.h & 0x3F;
 
-        if (1) {}; // regalloc helper.. ish
-
         phi_t2 = D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
-        phi_t4 = D_803C0740[temp_v1 + 1][temp_a2 + 0].unk0;
         phi_t3 = D_803C0740[temp_v1 + 0][temp_a2 + 1].unk0;
+        phi_t4 = D_803C0740[temp_v1 + 1][temp_a2 + 0].unk0;
         phi_t5 = D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
 
         if (D_803C0740[temp_v1 + 0][temp_a2 + 0].unk4 & 1) {
             if (temp_t0 < temp_t1) {
-                phi_t4 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+                phi_t4 = (s16) phi_t2;
             } else {
-                phi_t3 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+                phi_t3 = (s16) phi_t2;
             }
         } else if ((temp_t0 + temp_t1) < 64) {
-            phi_t5 = (s16) D_803C0740[temp_v1 + 0][temp_a2 + 0].unk0;
+            phi_t5 = (s16) phi_t2;
         } else {
-            phi_t2 = (s16) D_803C0740[temp_v1 + 1][temp_a2 + 1].unk0;
+            phi_t2 = (s16) phi_t5;
         }
 
         phi_a1 = MIN(MIN(phi_t2, phi_t4),
@@ -4887,9 +4878,6 @@ s16 func_802B25B4_6C3C64(u8 getWaterHeight) {
     } // else return lowest point in terrain?
     return (phi_a1 * 8);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5A40/func_802B25B4_6C3C64.s")
-#endif
 
 void func_802B2834_6C3EE4(void) {
     s16 phi_a2;

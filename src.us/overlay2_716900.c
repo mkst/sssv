@@ -271,30 +271,24 @@ void func_80305368_716A18(struct079 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80305368_716A18.s")
 #endif
 
-#if 0
+#if 1
 // jank logic again
 // ESA: func_80078EAC
 s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     u8 sp4F;
     u8 sp4E;
 
+    s16 var_v1;
+    s32 sp30;
+    s16 tmp2;
+    s16 tmp1;
     u8 sp43;
 
-    s32 sp30;
-    // void *sp24;
+    s32 temp_t8;
     s32 sp20;
     s32 sp1C;
 
-    s32 temp_a2;
-    s32 temp_a3;
-
-    s32 temp_t3;
-    s32 temp_t5;
-    s32 temp_t8;
-    s32 temp_v0;
-    s16 var_v1;
-
-    switch (arg4) {                                 /* irregular */
+    switch (arg4) {
     case 0:
         sp4F = 3;
         sp4E = 1;
@@ -313,55 +307,45 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
         break;
     }
 
-    temp_a2 = (D_803A5560_7B6C10[arg4] * arg3) + arg0 ;
-    temp_a3 = (D_803A5568_7B6C18[arg4] * arg3) + arg1 ;
+    tmp1 = D_803A5560_7B6C10[arg4] * arg3;
+    tmp2 = D_803A5568_7B6C18[arg4] * arg3;
 
-    if (D_803C0740[temp_a2 >> 6][temp_a3 >> 6].unk3 != 0) {
-        sp20 = temp_a2;
-        sp1C = temp_a3;
+    sp20 = arg0 + tmp1;
+    sp1C = arg1 + tmp2;
 
-        temp_t3 = (arg2 - func_80310F58_722608(sp20, sp1C)) >> 0x10;
+    if (D_803C0740[sp20 >> 6][sp1C >> 6].unk3 != 0) {
+        temp_t8 = (arg2 - func_80310F58_722608(sp20, sp1C)) >> 0x10;
 
-        if (ABS(temp_t3) < 49) {
-            // var_v1 = 0;
-            if (D_803D552C->unk272 & 0x20) {
-                if ((D_803C0740[temp_a2 >> 6][temp_a3 >> 6].unk5 & (0x10 << (sp4F ^ 1))) &&
-                    (D_803C0740[temp_a2 >> 6][temp_a3 >> 6].unk5 & (0x10 << (sp4E ^ 1)))) {
-                    var_v1 = 1;
-                } else {
-                    var_v1 = 0;
-                }
+        if (ABS(temp_t8) < 49) {
+            if ((D_803D552C->unk272 & 0x20) &&
+                (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (0x10 << (sp4F ^ 1))) &&
+                (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (0x10 << (sp4E ^ 1)))) {
+                sp43 = 1;
             } else {
-                var_v1 = 0;
+                sp43 = 0;
             }
-        } else if (D_803D552C->unk272 & 0x20) {
-            if ((D_803C0740[temp_a2 >> 6][temp_a3 >> 6].unk5 & (1 << (sp4F ^ 1))) &&
-                (D_803C0740[temp_a2 >> 6][temp_a3 >> 6].unk5 & (1 << (sp4E ^ 1)))) {
-
-                if (ABS(temp_t3) <= ((D_803E1D30[(D_803C0740[temp_a2 >> 6][temp_a3 >> 6].unk3)].unk2) * 8)) {
-                    sp43 = 1;
-                }
+        } else if ((D_803D552C->unk272 & 0x20) &&
+                   (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (1 << (sp4F ^ 1))) &&
+                   (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (1 << (sp4E ^ 1))) &&
+                   (ABS(temp_t8) <= ((D_803E1D30[(D_803C0740[sp20 >> 6][sp1C >> 6].unk3)].unk2) * 8))) {
+            sp43 = 1;
+        } else {
+            temp_t8 = (func_8031124C_7228FC(sp20, sp1C) - func_8031124C_7228FC(arg0, arg1)) >> 0x10;
+            if (ABS(temp_t8) < 97) {
+                sp43 = 0;
+            } else if ((D_803D552C->unk272 & 0x20) && (temp_t8 < 0)) {
+                sp43 = 1;
             }
-        }
-
-        sp30 = func_8031124C_7228FC(sp20, sp1C);
-        temp_t8 = (sp30 - func_8031124C_7228FC(arg0, arg1)) >> 0x10;
-
+      }
+    } else {
+        temp_t8 = (arg2 - func_8031124C_7228FC(sp20, sp1C)) >> 0x10;
         if (ABS(temp_t8) < 97) {
             sp43 = 0;
-        } else if ((D_803D552C->unk272 & 0x20) && (temp_t8 < 0)) {
+        } else {
             sp43 = 1;
         }
-        var_v1 = sp43;
-    } else {
-        temp_t5 = (arg2 - func_8031124C_7228FC(temp_a2, temp_a3)) >> 0x10;
-        if (ABS(temp_t5) < 97) {
-            var_v1 = 0;
-        } else {
-            var_v1 = 1;
-        }
     }
-    return var_v1;
+    return sp43;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80305A70_717120.s")

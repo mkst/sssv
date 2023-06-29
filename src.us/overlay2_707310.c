@@ -212,7 +212,7 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
     if (diff != 0) {
         if (diff >= 180) {
             if ((diff + arg2) >= 360) {
-                arg1 = ((arg1 - diff) + 360);
+                arg1 = (arg1 - (diff - 360));
             } else {
                 arg1 = (arg1 + arg2);
             }
@@ -1091,15 +1091,13 @@ struct071 *find_closest_animal(struct071 *arg0) {
     return ret;
 }
 
-// gun turret
-#ifdef NON_MATCHING
 // ESA: func_80051544
 void func_802F8B4C_70A1FC(struct071 *arg0) {
-    s16 pad[8];
+    s16 pad[6];
+    struct071 *obj2;
     s16 angle;
     s16 temp_t0;
     struct071 *obj;
-
     s32 x;
     s32 z;
 
@@ -1114,10 +1112,10 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
             x = sp48.unk0 - arg0->xPos.h;
             z = sp48.unk2 - arg0->zPos.h;
 
-            // helps regalloc due to missing multu instructions
-            if (((x*x) < (z*z)) || (x*x) > (z*z)) {};
+            // this is not in the assembly...
+            if (sqrtf((x * x) + (z * z))) {};
 
-            angle = (u64)func_801284B8(x, z);
+            angle = func_801284B8(x, z);
 
             temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f32) D_803A05B0_7B1C60 / (512.0 * 1024));
             arg0->yRotation = ((angle + 180) % 360);
@@ -1130,28 +1128,37 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
             }
             if (arg0->Info.unk14E <= 0) {
                 if (arg0->Info.unk152 > 0) {
-                    arg0->Info.unk152 -= 1;
+                    arg0->Info.unk152--;
                     arg0->Info.Counter2 = 256;
                     if (((arg0->Info.unk152 & 1) == 1)) {
                         play_sound_effect_at_location(SFX_UNKNOWN_74, 0x5000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
-                        obj = func_802F62E4_707994(arg0->xPos.h, arg0->zPos.h, (s16) (arg0->yPos.h + ((s32) (arg0->unk40 * 6) >> 0xB)), 0x26, 0, (arg0->unk40 * 40) >> 11, 0, temp_t0, angle, 0x10, (s32) (arg0->unk40 << 0xB) >> 0xB);
-                        if (obj != NULL) {
-                            obj->unk154 = 200;
+                        obj2 = func_802F62E4_707994(
+                            arg0->xPos.h,
+                            arg0->zPos.h,
+                            arg0->yPos.h + ((arg0->unk40 * 6) >> 0xB),
+                            0x26,
+                            0,
+                            (arg0->unk40 * 40) >> 11,
+                            0,
+                            temp_t0,
+                            angle,
+                            0x10,
+                            (arg0->unk40 << 0xB) >> 0xB);
+
+                        if (obj2 != NULL) {
+                            obj2->unk154 = 200;
                         }
                     }
                 } else {
-                    arg0->Info.unk14E = (s16) ((func_80128200() & 0x1F) + arg0->unk158 + 0x18);
+                    arg0->Info.unk14E = (func_80128200() & 0x1F) + (arg0->unk158 + 0x18);
                     arg0->Info.unk152 = 6;
                 }
             } else {
-                arg0->Info.unk14E -= 1;
+                arg0->Info.unk14E--;
             }
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8B4C_70A1FC.s")
-#endif
 
 // homing missile turret (object63)
 // ESA: func_800517C8
@@ -1264,13 +1271,11 @@ s32 func_802F9178_70A828(struct071 *arg0) {
 }
 
 #ifdef NON_MATCHING
-// justreg
 // used by missile
 // CURRENT (40)
 // ESA: func_80051CD0
 void func_802F92B0_70A960(struct071 *arg0) {
-    s32 pad[3];
-    s16 new_var;
+    s32 pad[4];
     s32 x_dist;
     s32 z_dist;
     s32 sp54;
@@ -1286,10 +1291,14 @@ void func_802F92B0_70A960(struct071 *arg0) {
 
     if (arg0->target != NULL) {
         a = arg0->target;
+
         x_dist = a->xPos.h - arg0->xPos.h;
         z_dist = a->zPos.h - arg0->zPos.h;
+
         sp54 = (a->yPos.h - arg0->yPos.h) + (a->unk42 >> 1);
-        sp50 = (s16) sqrtf((x_dist * x_dist) + (z_dist * z_dist));
+        sp50 = sqrtf((x_dist * x_dist) + (z_dist * z_dist));
+        sp50 = (s16)sp50;
+
         sp4E = func_801284B8(x_dist, z_dist);
         sp4C = func_801284B8(sp54, sp50);
 
@@ -1299,7 +1308,6 @@ void func_802F92B0_70A960(struct071 *arg0) {
             sp48 = 7;
         }
         arg0->yRotation = func_802F649C_707B4C(sp4E, arg0->yRotation, sp48);
-        if (1) {};
         arg0->zRotation = func_802F649C_707B4C(sp4C, arg0->zRotation, MAX((sp48 * 3) / 4, 1));
     }
 
@@ -1317,11 +1325,12 @@ void func_802F92B0_70A960(struct071 *arg0) {
     } else if (arg0->yRotation < 0) {
         arg0->yRotation += 360;
     }
+
     func_802F6DEC_70849C(arg0, phi_a1);
 
-    new_var = arg0->Info.unk14E;
-    arg0->Info.unk14E = new_var + 1;
-    if ((arg0->unk154) == 0) {
+    arg0->Info.unk14E++;
+    // extra var here to help regalloc
+    if (arg0->unk154 == 0) {
         arg0->unk154 = 160;
     }
     func_8032CED0_73E580(arg0, SFX_UNKNOWN_103, 0x4000, 0.4f, 0, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
@@ -1804,7 +1813,7 @@ void func_802FA6D8_70BD88(void) {
 }
 
 #ifdef NON_MATCHING
-// 1013 away...
+// 1003 away...
 // ESA: func_80052EA4
 void func_802FA730_70BDE0(Animal *arg0) {
     struct077 spB8; // size 0x6
@@ -1898,7 +1907,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
         var_s3 = arg0->unk219;
 
         if (arg0->unk21D != 0) {
-            var_s1 = ((((s32)func_80128200() >> 4) % (      arg0->unk21D * 2)) + var_s1) - arg0->unk21D;
+            var_s1 += ((((s32)func_80128200() >> 4) % (     arg0->unk21D * 2))) - arg0->unk21D;
         }
         if (arg0->unk21B != 0) {
             var_s2 = ((((s32)func_80128200() >> 4) % ((s16) arg0->unk21B * 2)) + var_s2) - arg0->unk21B;
@@ -2456,23 +2465,21 @@ void func_802FC6E4_70DD94(Animal *arg0) {
     func_802D7BE0_6E9290(0, phi_a1, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, arg0->unk30, func_8029A52C_6ABBDC(arg0->unk3E));
 }
 
-#ifdef NON_MATCHING
-// CURRENT (100)
 // ESA: func_80055A9C
 void func_802FC808_70DEB8(Animal *arg0) {
-  s16 var_s2;
+  s16 i;
   s32 temp_s4;
 
   temp_s4 = (arg0->unk40 * 18) >> 0xB;
 
-  for (var_s2 = 0; var_s2 < 10; var_s2++) {
+  for (i = 0; i < 10; i++) {
       create_particle_effect(
           arg0->xPos.h,
           arg0->zPos.h,
           arg0->yPos.h + (arg0->unk42 >> 1),
           0x17,
-          (arg0->unk40 * D_803A52E8_7B6998[var_s2].unk0) >> 0xB,
-          (arg0->unk40 * D_803A52E8_7B6998[var_s2].unk4) >> 0xB,
+          (D_803A52E8_7B6998[i*2] * arg0->unk40) >> 0xB,
+          (D_803A52E8_7B6998[i*2+1] * arg0->unk40) >> 0xB,
           0,
           temp_s4,
           GPACK_RGBA5551(176, 176, 176, 0),
@@ -2480,9 +2487,6 @@ void func_802FC808_70DEB8(Animal *arg0) {
           0);
   }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802FC808_70DEB8.s")
-#endif
 
 void func_802FC8F4_70DFA4(Animal *arg0) {
     s32 tmp = (arg0->unk40 * 18) >> 11;

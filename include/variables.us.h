@@ -85,6 +85,8 @@ extern Gfx  D_040002D0_DD890[];
 extern u8   D_04000370_E7920[];
 extern u8   D_040004B0_E7A60[];
 extern u8   D_04000600_E7BB0[];
+extern Gfx  D_04000600_F1660[];
+extern Gfx  D_04000230_F1290[];
 extern u8   D_040006F0[];
 extern Gfx  D_04000840_DDE00[];
 extern Gfx  D_04000900_DDEC0[];
@@ -115,8 +117,8 @@ extern Gfx D_040039C0_E0F80[];
 extern Gfx D_04005F70_ED520[];
 extern Gfx D_04006050_ED600[];
 extern Gfx D_04006C00_CE630[];
-extern Gfx D_04006200[]; // maybe here 0xED740 or 0x0F6DB0?
-extern Gfx D_040062C0[]; // maybe here 0xED740 or 0x0F6DB0?
+extern Gfx D_04006200_F7260[];
+extern Gfx D_040062C0_F7320[];
 extern Gfx D_04000E70_F1ED0[]; // to double-check
 extern Gfx D_04000EF0_F1F50[]; // to double-check
 
@@ -244,7 +246,7 @@ extern u64 D_800EF0D0[GFX_RDP_OUTPUT_SIZE];
 
 // 0x8010xxxx
 
-extern s32  D_80100000;
+extern u64  D_80100000[];
 
 // 0x8012xxxx
 
@@ -270,7 +272,7 @@ extern f32  D_80151C38[];
 extern s16  D_80152040[];
 extern s16  D_80152212[];
 extern s8   D_80152248[];
-extern struct013 D_80152350;
+extern struct013 D_80152350; // likely just an s16 array
 // extern s16  D_80152620[]; // these are D_80152350.unk2D0
 // extern s16  D_801526D4[]; // these are D_80152350.unk384
 extern s16  D_80152C78[256];
@@ -841,7 +843,7 @@ extern u8   D_803A52B8_7B6968;
 // extern s16  D_803A52C4_7B6974;
 extern u8   D_803A52D0_7B6980;
 extern s16  D_803A52D4_7B6984; // a struct in ESA?
-extern struct100 D_803A52E8_7B6998[];
+extern s32  D_803A52E8_7B6998[];
 extern s16  D_803A5330_7B69E0;
 extern u8   D_803A53C4_7B6A74[];
 extern u8   D_803A53CC_7B6A7C[];
@@ -875,6 +877,7 @@ extern s16  D_803A6CE4_7B8394;
 extern s16  D_803A6CE8_7B8398;
 extern s16  D_803A6CEC;
 extern s16  D_803A6CEC_7B839C;
+extern u8   D_803A6CF0_7B83A0[];
 extern u8   D_803A6CF3_7B83A3[];
 extern u8   D_803A6CFF_7B83AF[];
 extern u8   D_803A6D0B_7B83BB[]; //?
@@ -1313,7 +1316,7 @@ extern struct079 D_803E4BE0;
 extern Animal *D_803E4C38;
 extern s32  D_803E4C3C;
 extern Animal *D_803E4C40;
-extern s16  D_803E4C52;
+// extern s16  D_803E4C52;
 extern s16  D_803E4C54;
 extern s16  D_803E4C56;
 extern s16  D_803E4C58;

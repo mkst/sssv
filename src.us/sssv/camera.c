@@ -1185,32 +1185,17 @@ block_169:
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033641C_747ACC.s")
 #endif
 
-extern f64 D_803BE448_7CFAF8;
-extern f64 D_803BE450_7CFB00;
-extern f64 D_803BE458_7CFB08;
-extern f64 D_803BE460_7CFB10;
-
-extern u8 D_803A6CF0_7B83A0[];
-
-#ifdef NON_MATCHING
-// regalloc is completely off
 void func_803378BC_748F6C(u8 arg0) {
-    f32 sp24;
-    f32 sp1C;
-    f32 sp18;
-
+    f32 a, b;
     f32 temp_f0;
-    f32 temp_f0_2;
     f32 temp_f12;
-    f32 temp_f14;
-    f32 temp_f14_2;
-    f32 temp_f16;
-    f32 temp_f16_2;
-    f32 temp_f2;
-    f32 temp_f2_3;
 
-    s32 temp_a1;
-    s32 temp_a1_2;
+    f32 temp_f14;
+    f32 temp_f16;
+    f32 sp24;
+    f32 temp_f2;
+    f32 sp1C;
+    f32 temp_f16_2;
 
     gCamera = &D_803F28E0[arg0];
     if (gCamera->unkD6 == 1) {
@@ -1221,9 +1206,13 @@ void func_803378BC_748F6C(u8 arg0) {
         gCamera->unk4E = 32;
     }
 
-    gCamera->unk8 = gCamera->unk98;
-    gCamera->unkC = gCamera->unk9C;
-    gCamera->unk10 = gCamera->unkA0 + 4.0;
+    a = gCamera->unk98;
+    b = gCamera->unk9C;
+    temp_f12 = gCamera->unkA0 + 4.0;
+
+    gCamera->unk8 = a;
+    gCamera->unkC = b;
+    gCamera->unk10 = temp_f12;
 
     gCamera->unk74 = gCamera->unk5A << 5;
     gCamera->unk78 = gCamera->unk5C << 5;
@@ -1233,7 +1222,7 @@ void func_803378BC_748F6C(u8 arg0) {
     temp_f16 = gCamera->unkC - gCamera->unk78;
     sp24 = gCamera->unk10 - gCamera->unk7C;
 
-    if (ABSF(temp_f14) <= ABSF(temp_f16)) {
+    if ((ABSF(temp_f14) >= ABSF(temp_f16))) {
         if (temp_f14 > 0.0f) {
             gCamera->unk20 = 90.0 - (f32) func_8012844C((temp_f16 * 64.0f) / temp_f14);
         } else if (temp_f14 < 0.0f) {
@@ -1251,20 +1240,17 @@ void func_803378BC_748F6C(u8 arg0) {
 
     if (gCamera->unk64 != 5) {
         f64 factor = 128.0;
-        temp_a1 = gCamera->unk64 * 8;
-        if (gCamera->unk4C < temp_a1) {
+        if (gCamera->unk4C < (gCamera->unk64 * 8)) {
             gCamera->unk4C++;
-        } else if (temp_a1 < gCamera->unk4C) {
+        } else if ((gCamera->unk64 * 8) < gCamera->unk4C) {
             gCamera->unk4C--;
         }
-        // temp_a1_2 = gCamera->unk4C & 7;
-        sp1C = (((D_803A6CF0_7B83A0[(gCamera->unk4C >> 3) + 3] * (8 - (gCamera->unk4C & 7))) +
-                 (D_803A6CF0_7B83A0[(gCamera->unk4C >> 3) + 4] * (gCamera->unk4C & 7))) * gCamera->unk50) / factor;
-        temp_f2 = sp1C / sqrtf((temp_f14 * temp_f14) + (temp_f16 * temp_f16) + (sp24 * sp24));
+        sp1C = (((D_803A6CF0_7B83A0[(gCamera->unk4C >> 3) + 4] * (gCamera->unk4C & 7)) +
+                 (D_803A6CF0_7B83A0[(gCamera->unk4C >> 3) + 3] * (8 - (gCamera->unk4C & 7)))) * gCamera->unk50) / factor;
+        temp_f2 = sp1C / sqrtf(SQ(temp_f14) + SQ(temp_f16) + SQ(sp24));
         if (temp_f2 < 1.0f) {
-            gCamera->unk74 = gCamera->unk8 + (temp_f2 * (gCamera->unk74 - gCamera->unk8));
-            gCamera->unk78 = gCamera->unkC + (temp_f2 * (gCamera->unk78 - gCamera->unkC));
-            do { } while (0);
+            gCamera->unk74 = gCamera->unk8 +  (temp_f2 * (gCamera->unk74 - gCamera->unk8));
+            gCamera->unk78 = gCamera->unkC +  (temp_f2 * (gCamera->unk78 - gCamera->unkC));
             gCamera->unk7C = gCamera->unk10 + (temp_f2 * (gCamera->unk7C - gCamera->unk10));
         }
     }
@@ -1272,21 +1258,15 @@ void func_803378BC_748F6C(u8 arg0) {
     gCamera->unk90 = 0.0f;
     gCamera->unk94 = 1.0f;
 
-    temp_f0_2 = gCamera->unk8 - gCamera->unk74;
-    temp_f2_3 = gCamera->unkC - gCamera->unk78;
-    temp_f14_2 = gCamera->unk10 - gCamera->unk7C;
     temp_f16_2 = gCamera->unk30;
 
-    gCamera->unk30 = sqrtf((temp_f0_2 * temp_f0_2) + (temp_f2_3 * temp_f2_3) + (temp_f14_2 * temp_f14_2));
+    gCamera->unk30 = sqrtf(SQ(gCamera->unk8 - gCamera->unk74) + SQ(gCamera->unkC - gCamera->unk78) + SQ(gCamera->unk10 - gCamera->unk7C));
     gCamera->unkAC *= gCamera->unk30 / temp_f16_2;
     gCamera->unkB0 *= gCamera->unk30 / temp_f16_2;
     gCamera->unkB4 *= gCamera->unk30 / temp_f16_2;
     gCamera->unkB8 *= gCamera->unk30 / temp_f16_2;
     D_803F2AC5 = 1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_803378BC_748F6C.s")
-#endif
 
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_80337ECC_74957C.s")
 

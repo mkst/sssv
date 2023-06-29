@@ -202,7 +202,7 @@ f32 func_801286B8(f32 arg0, f32 arg1) {
     }
 }
 
-// ESA: func_8001D294
+// ESA: func_8001D294 or func_80021044?
 s16 func_80128C10(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp_v0;
     s32 phi_v1;

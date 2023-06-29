@@ -32,22 +32,22 @@ s16  D_803E1B08;
 void func_802DD040_6EE6F0(s32 arg0) {
     s16 i;
     for (i = 0; i < 120; i++) {
-        D_803E00C0[i].unk2E = 0;
+        D_803E00C0[i].tailType = 0;
     }
     D_803E1B00 = 0;
     D_803E1B02 = 1;
 }
 
 // ESA: func_800849EC
-s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 arg3, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, Animal *argA, Animal *argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11) {
+s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 tailType, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, Animal *argA, Animal *argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11) {
     u16 i;
     s32 res;
 
     if (((D_803E1B00 + numSegments) < 1000) && (D_803E1B02 < 120)) {
-        D_803E00C0[D_803E1B02].unk14 = numSegments;
+        D_803E00C0[D_803E1B02].numSegments = numSegments;
         D_803E00C0[D_803E1B02].unk16 = D_803E1B00;
         D_803E00C0[D_803E1B02].unk1C = ((numSegments + 1) * length) >> 0x10;
-        D_803E00C0[D_803E1B02].unk2E = arg3;
+        D_803E00C0[D_803E1B02].tailType = tailType;
         D_803E00C0[D_803E1B02].unk2F = arg4;
         D_803E00C0[D_803E1B02].unk32 = arg8;
         D_803E00C0[D_803E1B02].unk33 = arg9;
@@ -110,7 +110,7 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
     var_s5 = temp_s1->unk28;
 
     // iterate over each segment
-    for (i = 0; i < temp_s1->unk14; i++) {
+    for (i = 0; i < temp_s1->numSegments; i++) {
 
         var_t1[i].unk0 = var_s3; // startx?
         var_t1[i].unk4 = var_s4; // startz?
@@ -120,7 +120,7 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
         var_t1[i].unk14 = 0;
 
         // whilst it's not the final segment
-        if (i < (temp_s1->unk14 - 1)) {
+        if (i < (temp_s1->numSegments - 1)) {
             var_s6 = (( arg1[i+1].unk0 * (D_80152C78[(temp_s1->unk2C + 0x40) & 0xFF] >> 7)) + (arg1[i+1].unk4 * (D_80152C78[temp_s1->unk2C & 0xFF] >> 7))) >> 8;
             var_s2 = ((-arg1[i+1].unk0 * (D_80152C78[temp_s1->unk2C & 0xFF] >> 7)) + (arg1[i+1].unk4 * (D_80152C78[(temp_s1->unk2C + 0x40) & 0xFF] >> 7))) >> 8;
             var_s7 = arg1[i+1].unk8;
@@ -183,7 +183,7 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
         var_s6 = temp_fp->unk24;
         var_s7 = temp_fp->unk28;
 
-        for (i = 1; i < temp_fp->unk14; i++) {
+        for (i = 1; i < temp_fp->numSegments; i++) {
 
             temp_s2 = var_s5 - (var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + (((arg1[i].unk0 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7)) + (arg1[i].unk4 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7))) >> 8));
             temp_s3 = var_s6 - (var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((arg1[i].unk4 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7)) - (arg1[i].unk0 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7))) >> 8));
@@ -354,7 +354,7 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
     var_t5[arg4].unk8 = var_s4;
 
 
-    for (i = arg4 + 1; i < temp_v0->unk14; i++) {
+    for (i = arg4 + 1; i < temp_v0->numSegments; i++) {
         s32 a = var_t5[i].unk0;
         s32 b = var_t5[i].unk4;
         s32 c = var_t5[i].unk8;
@@ -454,7 +454,7 @@ void func_802DE770_6EFE20(s16 arg0, s16 arg1, s32 xVelocity, s32 zVelocity, s32 
 void func_802DE7F4_6EFEA4(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s16 i;
 
-    for (i = D_803E00C0[arg0].unk16; i < D_803E00C0[arg0].unk16 + D_803E00C0[arg0].unk14; i++) {
+    for (i = D_803E00C0[arg0].unk16; i < D_803E00C0[arg0].unk16 + D_803E00C0[arg0].numSegments; i++) {
         D_803DA300[i].unk0 += arg1;
         D_803DA300[i].unk4 += arg2;
         D_803DA300[i].unk8 += arg3;
@@ -511,7 +511,7 @@ void func_802DE950_6F0000(void) {
 
     for (i = 0; i < D_803E1B02; i++) {
         temp_s2 = &D_803E00C0[i];
-        switch (temp_s2->unk2E) {
+        switch (temp_s2->tailType) {
         case 0:
             break;
         case 6:
@@ -550,13 +550,13 @@ void func_802DE950_6F0000(void) {
                     temp_s2->unk31 = (temp_s2->unk31 + 1) % 4;
                 }
 
-                if ((D_803E1B04 + (temp_s2->unk14 * 2)) < 385) {
+                if ((D_803E1B04 + (temp_s2->numSegments * 2)) < 385) {
                     vtx = func_802E3C88_6F5338(temp_s2);
 
                     guScale(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0.25f, 0.25f, 0.25f);
                     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-                    gSPVertex(D_801D9E88++, vtx, temp_s2->unk14 * 2, 0);
+                    gSPVertex(D_801D9E88++, vtx, temp_s2->numSegments * 2, 0);
 
                     gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
@@ -568,7 +568,7 @@ void func_802DE950_6F0000(void) {
                     gSPDisplayList(D_801D9E88++, D_010379D8);
                     gSPDisplayList(D_801D9E88++, D_01037A00);
 
-                    D_803E1B04 += temp_s2->unk14 * 2;
+                    D_803E1B04 += temp_s2->numSegments * 2;
                 }
             } else {
                 temp_s2->unk34 = 1;
@@ -610,13 +610,13 @@ void func_802DE950_6F0000(void) {
                 if (SSSV_RAND(64) == 0) {
                     temp_s2->unk31 = (temp_s2->unk31 + 1) % 4;
                 }
-                if ((D_803E1B04 + (temp_s2->unk14 * 2)) < 385) {
+                if ((D_803E1B04 + (temp_s2->numSegments * 2)) < 385) {
                     vtx = func_802E3C88_6F5338(temp_s2);
                     guScale(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0.25f, 0.25f, 0.25f);
 
                     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-                    gSPVertex(D_801D9E88++, vtx, temp_s2->unk14 * 2, 0);
+                    gSPVertex(D_801D9E88++, vtx, temp_s2->numSegments * 2, 0);
 
                     gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
@@ -627,7 +627,7 @@ void func_802DE950_6F0000(void) {
                     gSPTexture(D_801D9E88++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
                     gSPDisplayList(D_801D9E88++, D_01037950);
                     gSPDisplayList(D_801D9E88++, D_01037998);
-                    D_803E1B04 += (temp_s2->unk14 * 2);
+                    D_803E1B04 += (temp_s2->numSegments * 2);
                 }
             } else {
                 temp_s2->unk34 = 1;
@@ -647,8 +647,8 @@ void func_802DE950_6F0000(void) {
         case 30:                                /* switch 1 */
         case 36:                                /* switch 1 */
         case 37:                                /* switch 1 */
-            if (((temp_s2->unk4 == NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->unk14 + 0x1F)), temp_s2->unk14 * 0x9C4, 0x64, 0, 0, 0, 1, 0) == 0) || (temp_s2->unk2F == 2))) ||
-                ((temp_s2->unk4 != NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->unk14 + 0x1F)), temp_s2->unk14 * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0) ||
+            if (((temp_s2->unk4 == NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x9C4, 0x64, 0, 0, 0, 1, 0) == 0) || (temp_s2->unk2F == 2))) ||
+                ((temp_s2->unk4 != NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0) ||
                                              (func_802E8BBC_6FA26C(temp_s2->unk4->xPos.w, temp_s2->unk4->zPos.w, temp_s2->unk4->yPos.w + (temp_s2->unk4->unk42 << 0xF), (s32) (temp_s2->unk4->unk16C->unk8E * temp_s2->unk4->unk40) >> 7, 0x64, 0, 0, 0, temp_s2->unk4->unk16C->unk8E, 0) != 4)))) {
 
                 if (temp_s2->unk34 == 1) {
@@ -677,9 +677,9 @@ void func_802DE950_6F0000(void) {
 
                 if (temp_s2->unk0 != NULL) {
 
-                    tmpX = D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 1].unk0 + (temp_s2->unk8 << 0x10);
-                    tmpZ = D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 1].unk4 + (temp_s2->unkA << 0x10);
-                    tmpY = D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 1].unk8 + (temp_s2->unkC << 0x10);
+                    tmpX = D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk0 + (temp_s2->unk8 << 0x10);
+                    tmpZ = D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk4 + (temp_s2->unkA << 0x10);
+                    tmpY = D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk8 + (temp_s2->unkC << 0x10);
 
                     if (tmpX < 0x400000) {
                         tmpX = 0x400000;
@@ -701,19 +701,19 @@ void func_802DE950_6F0000(void) {
                     temp_s2->unk0->yPos.w = tmpY;
                 }
 
-                func_8034C8F8_75DFA8(D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 1].unk0 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 1].unk4 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 1].unk8 >> 0x10, 0, D_01033190, 0xC, 0xC, 0x80, 0, 0, 0, 1, 0);
-                func_8034C8F8_75DFA8(D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 2].unk0 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 2].unk4 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 2].unk8 >> 0x10, 0, D_01033190, 0xC, 0xC, 0x5A, 0, 0, 0, 0, 0);
-                func_8034C8F8_75DFA8(D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 3].unk0 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 3].unk4 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->unk14) - 3].unk8 >> 0x10, 0, D_01033190, 0xC, 0xC, 0x32, 0, 0, 0, 0, 0);
+                func_8034C8F8_75DFA8(D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk0 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk4 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk8 >> 0x10, 0, D_01033190, 0xC, 0xC, 0x80, 0, 0, 0, 1, 0);
+                func_8034C8F8_75DFA8(D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 2].unk0 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 2].unk4 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 2].unk8 >> 0x10, 0, D_01033190, 0xC, 0xC, 0x5A, 0, 0, 0, 0, 0);
+                func_8034C8F8_75DFA8(D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 3].unk0 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 3].unk4 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 3].unk8 >> 0x10, 0, D_01033190, 0xC, 0xC, 0x32, 0, 0, 0, 0, 0);
 
-                if ((D_803E1B04 + (temp_s2->unk14 * 2)) < 385) {
+                if ((D_803E1B04 + (temp_s2->numSegments * 2)) < 385) {
                     vtx = func_802E3C88_6F5338(temp_s2);
                     guScale(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0.25f, 0.25f, 0.25f);
                     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                    gSPVertex(D_801D9E88++, vtx, temp_s2->unk14 * 2, 0);
+                    gSPVertex(D_801D9E88++, vtx, temp_s2->numSegments * 2, 0);
 
                     gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
-                    switch (temp_s2->unk2E) {          /* switch 2 */
+                    switch (temp_s2->tailType) {          /* switch 2 */
                     case 19:                    /* switch 2 */
                     case 22:                    /* switch 2 */
                     case 25:                    /* switch 2 */
@@ -746,17 +746,17 @@ void func_802DE950_6F0000(void) {
                         break;
                     }
                     gSPTexture(D_801D9E88++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
-                    if (temp_s2->unk14 == 0x10) {
+                    if (temp_s2->numSegments == 0x10) {
                         gSPDisplayList(D_801D9E88++, D_01037950);
                     } else {
                         gSPDisplayList(D_801D9E88++, D_010379D8);
                     }
-                    if (temp_s2->unk14 == 0x10) {
+                    if (temp_s2->numSegments == 0x10) {
                         gSPDisplayList(D_801D9E88++, D_01037998);
                     } else {
                         gSPDisplayList(D_801D9E88++, D_01037A00);
                     }
-                    D_803E1B04 += (temp_s2->unk14 * 2);
+                    D_803E1B04 += (temp_s2->numSegments * 2);
                 }
             } else {
                 temp_s2->unk34 = 1;
@@ -764,8 +764,8 @@ void func_802DE950_6F0000(void) {
             break;
 
         case 8:                                 /* switch 1 */
-            if (((temp_s2->unk4 == NULL) &&  (func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->unk14 + 0x1F)), temp_s2->unk14 * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0)) ||
-                ((temp_s2->unk4 != NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->unk14 + 0x1F)), temp_s2->unk14 * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0) ||
+            if (((temp_s2->unk4 == NULL) &&  (func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0)) ||
+                ((temp_s2->unk4 != NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0) ||
                                              (func_802E8BBC_6FA26C(temp_s2->unk4->xPos.w, temp_s2->unk4->zPos.w, temp_s2->unk4->yPos.w + (temp_s2->unk4->unk42 << 0xF), (temp_s2->unk4->unk16C->unk8E * temp_s2->unk4->unk40) >> 7,  0x64, 0, 0, 0, temp_s2->unk4->unk16C->unk8E, 0) != 4)))) {
 
                 if (temp_s2->unk34 == 1) {
@@ -795,12 +795,12 @@ void func_802DE950_6F0000(void) {
                     temp_s2->unk0->yVelocity.w = tmpY - temp_s2->unk0->yPos.w;
                     temp_s2->unk0->unk4C.unk19 = 1;
                 }
-                if ((D_803E1B04 + (temp_s2->unk14 * 2)) < 0x181) {
+                if ((D_803E1B04 + (temp_s2->numSegments * 2)) < 0x181) {
                     vtx = func_802E3C88_6F5338(temp_s2);
 
                     guScale(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0.25f, 0.25f, 0.25f);
                     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                    gSPVertex(D_801D9E88++, vtx, temp_s2->unk14 * 2, 0);
+                    gSPVertex(D_801D9E88++, vtx, temp_s2->numSegments * 2, 0);
 
                     gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
@@ -812,7 +812,7 @@ void func_802DE950_6F0000(void) {
                     gSPTexture(D_801D9E88++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
                     gSPDisplayList(D_801D9E88++, D_01037950);
                     gSPDisplayList(D_801D9E88++, D_01037998);
-                    D_803E1B04 += temp_s2->unk14 * 2;
+                    D_803E1B04 += temp_s2->numSegments * 2;
                 }
             } else {
                 temp_s2->unk34 = 1;
@@ -905,7 +905,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
     for (i = 0; i < D_803E1B02; i++) {
         temp_s4 = &D_803E00C0[i];
         if ((*(u8*)&arg0 == 0) || (((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk3C8.unk2 != 0)) && (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk3C8.unk2 == i))) {
-            switch (temp_s4->unk2E) {
+            switch (temp_s4->tailType) {
             case 0:
                 break;
             case 3:
@@ -1173,7 +1173,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
             case 14:
             case 15:
                 if (temp_s4->unk34 == 0) {
-                    if (temp_s4->unk2E == 0xE) {
+                    if (temp_s4->tailType == 0xE) {
                         func_802DD548_6EEBF8(i, D_803A3A74_7B5124, 0x82, 0);
                     } else {
                         func_802DD548_6EEBF8(i, D_803A3AC8_7B5178, 0x64, 0);
@@ -1221,7 +1221,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
             case 18:
             case 31:
                 if (temp_s4->unk34 == 0) {
-                    switch (temp_s4->unk2E) {        /* switch 1; irregular */
+                    switch (temp_s4->tailType) {        /* switch 1; irregular */
                     case 16:                    /* switch 1 */
                         func_802DD548_6EEBF8(i, D_803A39C0_7B5070, 0xA, 0);
                         break;
@@ -1232,28 +1232,28 @@ void func_802E072C_6F1DDC(s8 arg0) {
                         func_802DD548_6EEBF8(i, D_803A3A38_7B50E8, 0x14, 0);
                         break;
                     }
-                    if (temp_s4->unk2E != 0x1F) {
+                    if (temp_s4->tailType != 0x1F) {
                         gSPDisplayList(D_801D9E88++, D_01003618_3CEE8);
 
                         gDPSetPrimColor(D_801D9E88++, 0, 0, 0x94, 0x94, 0x94, 0xFF);
                         if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x9CCC, 0x9CCC, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                            gSPDisplayList(D_801D9E88++, D_04006200);
+                            gSPDisplayList(D_801D9E88++, D_04006200_F7260);
                             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                         }
                         if (func_80126FD4(D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, 0x7000, 0x7000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                            gSPDisplayList(D_801D9E88++, D_04006200);
+                            gSPDisplayList(D_801D9E88++, D_04006200_F7260);
                             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                         }
                         if (func_80126FD4(D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, D_803DA300[temp_s4->unk16+3].unk0, D_803DA300[temp_s4->unk16+3].unk4, D_803DA300[temp_s4->unk16+3].unk8, 0x5999, 0x5999, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                            gSPDisplayList(D_801D9E88++, D_04006200);
+                            gSPDisplayList(D_801D9E88++, D_04006200_F7260);
                             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                         }
                         if (func_80126FD4(D_803DA300[temp_s4->unk16+3].unk0, D_803DA300[temp_s4->unk16+3].unk4, D_803DA300[temp_s4->unk16+3].unk8, D_803DA300[temp_s4->unk16+4].unk0, D_803DA300[temp_s4->unk16+4].unk4, D_803DA300[temp_s4->unk16+4].unk8, 0x5999, 0x5999, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                            gSPDisplayList(D_801D9E88++, D_040062C0);
+                            gSPDisplayList(D_801D9E88++, D_040062C0_F7320);
                             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                         }
                     }
@@ -1288,9 +1288,15 @@ void func_802E072C_6F1DDC(s8 arg0) {
     }
 }
 
+typedef struct {
+  Vtx vtx1;
+  Vtx vtx2;
+} Vtx2;
+
 #if 0
 // ESA: func_80087738
 // not quite there yet...
+// CURRENT (1884)
 u32 func_802E3C88_6F5338(struct051* arg0) {
     s32 x;
     s32 y;
@@ -1305,7 +1311,7 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
     s32 var_s3;
     s32 var_s4;
 
-    Vtx *vtx;
+    Vtx2 *vtx;
     s16 i;
 
     var_a3 = D_803F2C5C * 1024.0;
@@ -1315,16 +1321,18 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
     vtx = &D_80204278->unk31070[D_803E1B04];
 
     // iterate over each tail segment
-    for (i = 0; i < arg0->unk14; i++) {
-        if ((i + 1) == arg0->unk14) {
-            // final piece
-            var_s2 =  ((D_803DA300[arg0->unk16 + arg0->unk14 - 1].unk8 - D_803DA300[arg0->unk16 + arg0->unk14 - 2].unk8) >> 0x10) * temp_fp;
-            var_s3 =  ((D_803DA300[arg0->unk16 + arg0->unk14 - 1].unk8 - D_803DA300[arg0->unk16 + arg0->unk14 - 2].unk8) >> 0x10) * -var_a3;
-            var_s4 = (((D_803DA300[arg0->unk16 + arg0->unk14 - 1].unk4 - D_803DA300[arg0->unk16 + arg0->unk14 - 2].unk4) >> 0x10) * var_a3) - (((D_803DA300[arg0->unk16+15].unk0 - D_803DA300[arg0->unk16 + arg0->unk14 - 2].unk0) * temp_fp) >> 0x10);
+    for (i = 0; i < arg0->numSegments; i++) {
+        if (i == (arg0->numSegments - 1)) {
+            // final pieceq
+            var_s2 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10) * temp_fp;
+            var_s3 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10) * -var_a3;
+            var_s4 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk4 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk4) >> 0x10) * var_a3;
+            var_s4 -= (((D_803DA300[arg0->unk16+15].unk0 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk0) * temp_fp) >> 0x10);
         } else {
             var_s2 =  ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10) * temp_fp;
             var_s3 =  ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10) * -var_a3;
-            var_s4 = (((D_803DA300[arg0->unk16 + i + 1].unk4 - D_803DA300[arg0->unk16 + i + 0].unk4) >> 0x10) * var_a3) - (((D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0) * temp_fp) >> 0x10);
+            var_s4 =  (((D_803DA300[arg0->unk16 + i + 1].unk4 - D_803DA300[arg0->unk16 + i + 0].unk4) >> 0x10) * var_a3);
+            var_s4 -= (((D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0) * temp_fp) >> 0x10);
         }
 
         var_a0 = 2 * sqrtf(SQ((f32)var_s2) + SQ((f32)var_s3) + SQ((f32)var_s4));
@@ -1336,30 +1344,30 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
         y = (var_s3 * (arg0->unk18 >> 0xE)) / var_a0;
         z = (var_s4 * (arg0->unk18 >> 0xE)) / var_a0;
 
-        vtx[i+0].n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) + x;
-        vtx[i+0].n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) + y;
-        vtx[i+0].n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) + z;
+        vtx[i].vtx1.n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) + x;
+        vtx[i].vtx1.n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) + y;
+        vtx[i].vtx1.n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) + z;
 
-        vtx[i+0].n.tc[0] = 0;
+        vtx[i].vtx1.n.tc[0] = 0;
 
-        vtx[i+0].n.n[0] = -1;
-        vtx[i+0].n.n[1] = -1;
-        vtx[i+0].n.n[2] = -1;
-        vtx[i+0].n.n[3] = 0xFF;
+        vtx[i].vtx1.n.n[0] = -1;
+        vtx[i].vtx1.n.n[1] = -1;
+        vtx[i].vtx1.n.n[2] = -1;
+        vtx[i].vtx1.n.n[3] = 0xFF;
 
-        vtx[i+1].n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) - x;
-        vtx[i+1].n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) - y;
-        vtx[i+1].n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) - z;
+        vtx[i].vtx2.n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) - x;
+        vtx[i].vtx2.n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) - y;
+        vtx[i].vtx2.n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) - z;
 
-        vtx[i+1].n.tc[0] = 0x7C0;
+        vtx[i].vtx2.n.tc[0] = 0x7C0;
 
-        vtx[i+1].n.n[0] = -1;
-        vtx[i+1].n.n[1] = -1;
-        vtx[i+1].n.n[2] = -1;
-        vtx[i+1].n.n[3] = 0xFF;
+        vtx[i].vtx2.n.n[0] = -1;
+        vtx[i].vtx2.n.n[1] = -1;
+        vtx[i].vtx2.n.n[2] = -1;
+        vtx[i].vtx2.n.n[3] = 0xFF;
 
-        vtx[i+0].n.tc[1] = ((i << 5) - 0x80) << 6;
-        vtx[i+1].n.tc[1] = ((i << 5) - 0x80) << 6;
+        vtx[i].vtx1.n.tc[1] = ((i << 5) - 0x80) << 6;
+        vtx[i].vtx2.n.tc[1] = ((i << 5) - 0x80) << 6;
     }
     return OS_K0_TO_PHYSICAL(vtx);
 }
@@ -1408,7 +1416,7 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
 
     for (i = 0; i < 120; i++) {
 
-        if ((D_803E00C0[i].unk2E != 0) && (D_803E00C0[i].unk2F == 1) && (i != D_803E1B08)) {
+        if ((D_803E00C0[i].tailType != 0) && (D_803E00C0[i].unk2F == 1) && (i != D_803E1B08)) {
 
             temp_s1 = &D_803E00C0[i];
 
@@ -1420,7 +1428,7 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                 temp_s4 = &D_803DA300[temp_s1->unk16];
                 var_a3 = (temp_s1->unk18 >> 0xA);
 
-                for (var_a2 = 2; var_a2 < temp_s1->unk14; var_a2++) {
+                for (var_a2 = 2; var_a2 < temp_s1->numSegments; var_a2++) {
                     var_a1 = ABS(arg0 - (temp_s4[var_a2].unk0 >> 0x10));
                     var_v1 = ABS(arg1 - (temp_s4[var_a2].unk4 >> 0x10));
                     var_a0 = ABS(arg2 - (temp_s4[var_a2].unk8 >> 0x10));
@@ -1457,7 +1465,7 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                     temp_s7 = D_803DA300[temp_s1->unk16 + var_s5].unk4 - temp_s1->unk24;
                     temp_fp = D_803DA300[temp_s1->unk16 + var_s5].unk8 - temp_s1->unk28;
 
-                    var_f2 = ((f64) (f32) (s32) sqrtf(SQ((f32)temp_s6) + SQ((f32)temp_s7) + SQ((f32)temp_fp)) * 0.00390625);
+                    var_f2 = (f32)(s32)sqrtf(SQ((f32)temp_s6) + SQ((f32)temp_s7) + SQ((f32)temp_fp)) / 256.0;
                     if (((var_s5 * temp_s1->unk18) >> 8) < var_f2) {
                         temp_lo_2 = (var_s5 * temp_s1->unk18) / (s32) var_f2;
                         D_803DA300[temp_s1->unk16 + var_s5].unk0 = temp_s1->unk20 + (((temp_s6 >> 4) * temp_lo_2) >> 4);
@@ -1477,14 +1485,14 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                     temp_s6 = temp_s4[var_s3].unk0 - temp_s4[var_s5].unk0;
                     temp_s7 = temp_s4[var_s3].unk4 - temp_s4[var_s5].unk4;
                     temp_fp = temp_s4[var_s3].unk8 - temp_s4[var_s5].unk8;
-                    var_f2 = sqrtf(SQ((f32)temp_s6) + SQ((f32)temp_s7) + SQ((f32)temp_fp));
 
+                    var_f2 = sqrtf(SQ((f32)temp_s6) + SQ((f32)temp_s7) + SQ((f32)temp_fp));
                     if (var_f2 < 100000.0) {
                         var_f2 = 100000.0f;
                     }
 
-                    temp_t7 = temp_s1->unk18 >> 0xE;
                     temp_f18 = var_f2 / 16;
+                    temp_t7 = temp_s1->unk18 >> 0xE;
 
                     for (var_v1 = var_s5 - 1; var_v1 > var_s3; var_v1--) {
                         temp_s4[var_v1].unk0 = temp_s4[var_v1+1].unk0 + ((temp_t7 * temp_s6) / temp_f18);
@@ -1547,23 +1555,23 @@ s32 func_802E4B0C_6F61BC(s16 animalId) {
     case MOUSE2:
     case HELI_MOUSE:
     case RAT:
-        return func_802DD090_6EE740(6, FTOFIX32(3.125), 1, 3, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(3.125),    1,  3, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case KING_RAT:
-        return func_802DD090_6EE740(6, FTOFIX32(6.25), 1, 32, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(6.25),     1, 32, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case HUSKY:
     case SKI_HUSKY:
-        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 11, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875),    1, 11, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case CRAZY_HUSKY:
-        return func_802DD090_6EE740(4, FTOFIX32(6.875), 1, 12, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875),    1, 12, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case POGO_KANGAROO:
     case BOXING_KANGAROO:
-        return func_802DD090_6EE740(4, FTOFIX32(15.0), 1, 13, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.0),     1, 13, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case SCORPION:
-        return func_802DD090_6EE740(7, FTOFIX32(5.90625), 1, 14, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(7, FTOFIX32(5.90625),  1, 14, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case ELEPHANT:
         return func_802DD090_6EE740(5, FTOFIX32(16.40625), 1, 16, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case LION:
-        return func_802DD090_6EE740(4, FTOFIX32(15.625), 1, 35, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.625),   1, 35, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     default:
         return 0;
     }
@@ -1572,9 +1580,9 @@ s32 func_802E4B0C_6F61BC(s16 animalId) {
 // unload_dynamic_tail ?
 void func_802E4EB4_6F6564(s16 arg0) {
     if (arg0 != 0) {
-        D_803E00C0[arg0].unk2E = 0;
+        D_803E00C0[arg0].tailType = 0;
     }
-    if ((D_803E1B02 >= 2) && D_803E00C0[D_803E1B02 - 1].unk2E == 0) {
+    if ((D_803E1B02 >= 2) && D_803E00C0[D_803E1B02 - 1].tailType == 0) {
         D_803E1B02--;
     }
 }

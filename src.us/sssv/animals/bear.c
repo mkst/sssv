@@ -946,9 +946,9 @@ void func_80326260_737910(void) {
 
 #ifdef NON_MATCHING // JUSTREG
 void func_803277B4_738E64(void) {
-    u8 attack;
+    struct035 *tmp;
 
-    if ((D_803D552C->unk320 == NULL) && ((D_803D552C->unk365 & 0xFF) != ATTACK_GRAB)) {
+    if ((D_803D552C->unk320 == NULL) && (D_803D552C->unk365 != ATTACK_GRAB)) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_GRAB;
     } else if ((D_803D552C->unk320 != NULL) &&
@@ -956,9 +956,10 @@ void func_803277B4_738E64(void) {
                (D_803D552C->unk365 != ATTACK_BEAR_3) &&
                (D_803D552C->unk318 == 0)) {
         D_803D552C->unk32A = D_803D5544;
+        tmp = D_803D552C->unk320->unk16C;
         // object is a bolder or ?
-        if ((D_803D552C->unk320->unk16C->objectType == OBJECT_BOULDER) ||
-            (D_803D552C->unk320->unk16C->objectType == 61)) {
+        if ((tmp->objectType == OBJECT_BOULDER) ||
+            (tmp->objectType == 61)) {
             D_803D552C->unk365 = ATTACK_BEAR_2;
         } else {
             D_803D552C->unk365 = ATTACK_BEAR_3;

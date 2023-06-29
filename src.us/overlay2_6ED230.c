@@ -424,12 +424,9 @@ void func_802DCCAC_6EE35C(u16 arg0) {
     }
 }
 
-#if 0
 // ESA: func_800A23EC
-// a mystery
 void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
     s32 temp_t0;
-    s32 temp_t6;
     u16 remaining_ticks;
     u32 phi_t1;
 
@@ -441,38 +438,29 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
     }
 
     if (phi_t1 < 325) {
-        D_803F2EB0 = ((D_80152C78[(s16)phi_t1 & 0xFF] >> 9) * phi_t1) + FTOFIX32(1.0);
-
-        D_803F2EB4 = ((D_80152C78[((s16)(phi_t1 << 1) + 64) & 0xFF] >> 9) * phi_t1) + FTOFIX32(1.0);
-
-        D_803F2EB8 = D_80152C78[(s16)((phi_t1 * 3) - 30) & 0xFF] >> 9;
-        D_803F2EB8 = FTOFIX32(1.0) - (D_803F2EB8 * phi_t1);
+        D_803F2EB0 = FTOFIX32(1.0) + ((D_80152C78[(s16)phi_t1 & 0xFF] >> 9) * phi_t1);
+        D_803F2EB4 = FTOFIX32(1.0) + ((D_80152C78[((s16)(phi_t1 * 2) + 64) & 0xFF] >> 9) * phi_t1);
+        D_803F2EB8 = FTOFIX32(1.0) - ((D_80152C78[(s16)((phi_t1 * 3) - 30) & 0xFF] >> 9) * phi_t1);
     } else if (phi_t1 < 375) {
-        temp_t0 = (phi_t1 - 325) << 0xA;
-        D_803F2EB0 = ((((D_80152C78[(s16)phi_t1 & 0xFF]) >> 9) * 325) - temp_t0) + FTOFIX32(1.0);
+        temp_t0 = (phi_t1 - 325);
 
-        D_803F2EB4 = ((((D_80152C78[(s16)((phi_t1 << 1) + 64) & 0xFF]) >> 9) * 325) - temp_t0);
-        D_803F2EB4 += FTOFIX32(1.0);
+        D_803F2EB0 = FTOFIX32(1.0) + (((D_80152C78[(s16)phi_t1 & 0xFF]) >> 9) * 325) - (temp_t0 << 0xA);
+        D_803F2EB4 = FTOFIX32(1.0) + (((D_80152C78[((s16)(phi_t1 * 2) + 64) & 0xFF]) >> 9) * 325) - (temp_t0 << 0xA);
+        D_803F2EB8 = FTOFIX32(1.0) - (((D_80152C78[(s16)((phi_t1 * 3) - 30) & 0xFF] >> 9) * phi_t1)) + (temp_t0 << 12);
 
-        D_803F2EB8 = (FTOFIX32(1.0) - ((D_80152C78[(s16)((phi_t1 * 3) - 30) & 0xFF] >> 9) * phi_t1)) + ((phi_t1 - 325) << 12);
         D_803F2EDB = 0;
     } else {
         D_803F2EDB = 0;
         D_803F2EDA = 0;
-        D_803F2EB4 = 0;
-        D_803F2EB8 = 0;
-        D_803F2EB0 = 0;
+        D_803F2EB0 = D_803F2EB8 = D_803F2EB4 = 0; // required for matching
     }
     if ((arg1 != 0) && (remaining_ticks >= (arg0 >> 1))) {
-        D_803D552C->unk334 += 1;
+        D_803D552C->unk334++;
     }
     if (remaining_ticks >= arg0) {
         D_803D552C->unk364 = 0;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6ED230/func_802DCD70_6EE420.s")
-#endif
 
 // ESA: func_800A2660
 void func_802DD004_6EE6B4(u16 arg0) {

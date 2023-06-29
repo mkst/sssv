@@ -19,7 +19,7 @@ u8   D_803D60D4;
 struct043 *D_803D60D8;
 struct043 *D_803D60DC;
 
-s16 D_803D60E0; // unused
+u8  D_803D60E0;
 u16 D_803D60E2;
 s32 D_803D60E4; // unused
 u8  D_803D60E8;
@@ -609,55 +609,39 @@ s32 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     return var_v0;
 }
 
-#if 0
-// CURRENT (3649)
+#ifdef NON_MATCHING
+// CURRENT (310)
 // ESA: func_800726C8
-extern u8 D_803D60E0;
-s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
-    s16 temp_a1_2;
+s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) {
     s16 temp_a2;
     s16 temp_t4;
     s16 temp_t5;
+
     s32 temp_a0;
-    s32 temp_a0_2;
-    s32 temp_a0_3;
-    s32 temp_a0_4;
-    s32 temp_a0_5;
-    s32 temp_a0_6;
     s32 temp_a1;
-    s32 temp_a3;
-    s32 temp_t1;
-    s32 temp_t2;
-    s32 temp_t2_2;
-    s32 temp_t3;
-    s32 temp_t3_2;
-    s32 temp_t6;
+
     s32 temp_v0;
-    s32 temp_v0_5;
-    s32 temp_v0_6;
     s32 temp_v1;
-    s32 temp_v1_5;
-    u8 var_s0;
+    s32 tmp3;
     s32 i;
-    s32 var_v0;
+    u8 var_s0;
     u8 var_v0_2;
 
     *arg2 = NULL;
     D_803D60E0 = 0;
-
     var_s0 = 0;
 
-    for (i = 0; (arg0->unkC4[i].unkC != 0) && (var_s0 == 0) && (i < 5); i++) {
+    for (i = 0; (var_s0 == 0) && (i < 5) && (arg0->unkC4[i].unkC != 0); i++) {
 
         temp_a0 = arg0->unkC4[i].unkC + arg1->unk30;
         temp_a1 = arg0->unkC4[i].unkC + arg1->unk32;
 
-        var_s0 = (((arg0->unkC4[i].unk0.h + arg4) > (arg7 - temp_a0)) &&
-                  ((arg0->unkC4[i].unk0.h + arg4) < (arg7 + temp_a0)) &&
-                  ((arg0->unkC4[i].unk4.h + arg5) > (arg8 - temp_a1)) &&
-                  ((arg0->unkC4[i].unk4.h + arg5) < (arg8 + temp_a1)) &&
-                  ((arg6 + arg0->unkC4[i].unk8.h) > (arg9 - arg0->unkC4[i].unkC)) &&
-                  ((arg6 + arg0->unkC4[i].unk8.h) < (arg9 + arg0->unkC4[i].unkC + arg1->unk42)));
+        var_s0 = (((arg4.xPos.h + arg0->unkC4[i].unk0.h) > (arg5.xPos.h - temp_a0)) &&
+                  ((arg4.xPos.h + arg0->unkC4[i].unk0.h) < (arg5.xPos.h + temp_a0)) &&
+                  ((arg4.zPos.h + arg0->unkC4[i].unk4.h) > (arg5.zPos.h - temp_a1)) &&
+                  ((arg4.zPos.h + arg0->unkC4[i].unk4.h) < (arg5.zPos.h + temp_a1)) &&
+                  ((arg4.yPos.h + arg0->unkC4[i].unk8.h) > (arg5.yPos.h - arg0->unkC4[i].unkC)) &&
+                  ((arg4.yPos.h + arg0->unkC4[i].unk8.h) < (arg5.yPos.h + arg0->unkC4[i].unkC + arg1->unk42)));
 
         if (var_s0 != 0) {
             var_v0_2 = 0;
@@ -666,67 +650,59 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
 
             temp_t5 = arg1->unk30;
             temp_a2 = arg0->unkC4[i].unk0.h;
-            temp_t1 = arg7 - temp_t5;
-            temp_t2_2 = temp_a2 + arg4;
 
-            if (temp_t2_2 < temp_t1) {
+            if ((temp_a2 + arg4.xPos.h) < (arg5.xPos.h - temp_t5)) {
                 var_v0_2 = (0x4 | 0x8);
-            } else if ((arg7 + temp_t5) < temp_t2_2) {
+            } else if ((temp_a2 + arg4.xPos.h) > (arg5.xPos.h + temp_t5)) {
                 var_v0_2 = 0x8;
             }
-            temp_a1_2 = arg0->unkC4[i].unk4.h;
-            temp_t4 = arg1->unk32;
-            temp_t3_2 = temp_a1_2 + arg5;
-            temp_a3 = arg8 - temp_t4;
 
-            if (temp_t3_2 < temp_a3) {
+            temp_a1 = arg0->unkC4[i].unk4.h;
+            temp_t4 = arg1->unk32;
+
+            if ((arg4.zPos.h + temp_a1) < (arg5.zPos.h - temp_t4)) {
                 var_v0_2 |= (0x1 | 0x2);
-            } else if ((arg8 + temp_t4) < temp_t3_2) {
+            } else if ((arg4.zPos.h + temp_a1) > (arg5.zPos.h + temp_t4)) {
                 var_v0_2 |= 0x2;
             }
 
             switch (var_v0_2) {
-            default:
-                break; // tbd
-            case (0x2 | 0x8): // 0xA
+            case (0x1 | 0x2 | 0x4 | 0x8): // 0xF
                 temp_v0 = arg0->unkC4[i].unkC;
-                temp_v1 = ((arg7 + temp_t5) - arg4) + temp_a2;
-                temp_a0_3 = ((arg8 + temp_t4) - arg5) + temp_a1_2;
-                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0_3))) {
-                    var_s0 = 0;
-                }
-                break;
-            case (0x1 | 0x2 | 0x8): // 0xB
-                temp_v0 = arg0->unkC4[i].unkC;
-                temp_v1 = ((arg7 + temp_t5) - arg4) + temp_a2;
-                temp_a0_3 = (temp_a3 - arg5) + temp_a1_2;
-                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0_3))) {
+                temp_v1 = ((arg5.xPos.h - temp_t5) - arg4.xPos.h) + temp_a2;
+                temp_a0 = ((arg5.zPos.h - temp_t4) - arg4.zPos.h) + temp_a1;
+                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
                     var_s0 = 0;
                 }
                 break;
             case (0x2 | 0x4 | 0x8): // 0xE
                 temp_v0 = arg0->unkC4[i].unkC;
-                temp_v1 = (temp_t1 - arg4) + temp_a2;
-                temp_a0_3 = ((arg8 + temp_t4) - arg5) + temp_a1_2;
-                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0_3))) {
+                temp_v1 = ((arg5.xPos.h - temp_t5) - arg4.xPos.h) + temp_a2;
+                temp_a0 = ((arg5.zPos.h + temp_t4) - arg4.zPos.h) + temp_a1;
+                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
                     var_s0 = 0;
                 }
                 break;
-            case (0x1 | 0x2 | 0x4 | 0x8): // 0xF
+            case (0x1 | 0x2 | 0x8): // 0xB
                 temp_v0 = arg0->unkC4[i].unkC;
-                temp_v1 = (temp_t1 - arg4) + temp_a2;
-                temp_a0_3 = (temp_a3 - arg5) + temp_a1_2;
-                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0_3))) {
+                temp_v1 = ((arg5.xPos.h + temp_t5) - arg4.xPos.h) + temp_a2;
+                temp_a0 = ((arg5.zPos.h - temp_t4) - arg4.zPos.h) + temp_a1;
+                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
                     var_s0 = 0;
                 }
                 break;
+            case (0x2 | 0x8):  // 0xA
+                temp_v0 = arg0->unkC4[i].unkC;
+                temp_v1 = ((arg5.xPos.h + temp_t5) - arg4.xPos.h) + temp_a2;
+                temp_a0 = ((arg5.zPos.h + temp_t4) - arg4.zPos.h) + temp_a1;
+                if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
+                    var_s0 = 0;
+                }
             }
 
             if (var_s0 != 0) {
-                temp_t6 = arg1->unk42 >> 1;
-                temp_v0_5 = ((arg0->unkC4[i].unk8.h + arg6) - arg9) - temp_t6;
-
-                if ((ABS(temp_v0_5) - temp_t6) < MAX((ABS(temp_t2_2 - arg7) - temp_t5), (ABS(temp_t3_2 - arg8) - temp_t4))) {
+                // var_v0_2 = ABS(((arg0->unkC4[i].unk8.h + arg4.yPos.h) - arg5.yPos.h) - (arg1->unk42 >> 1)) - (arg1->unk42 >> 1) < MAX(ABS((arg4.xPos.h + temp_a2) - arg5.xPos.h) - temp_t5, ABS((arg4.zPos.h + temp_a1) - arg5.zPos.h) - temp_t4);
+                if (ABS(((arg0->unkC4[i].unk8.h + arg4.yPos.h) - arg5.yPos.h) - (arg1->unk42 >> 1)) - (arg1->unk42 >> 1) < MAX(ABS((arg4.xPos.h + temp_a2) - arg5.xPos.h) - temp_t5, ABS((arg4.zPos.h + temp_a1) - arg5.zPos.h) - temp_t4)) {
                     D_803D60E0 = 1;
                 } else {
                     D_803D60E0 = 0;
@@ -744,8 +720,9 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
 // need to figure out struct035_ptr
 // CURRENT (3500)
 // ESA: func_80072B88
-s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
-    static struct043 D_803D60F8;
+s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) { //s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+    static Position D_803D60F8;
+
     s16 temp_t9;
     s16 temp_v0;
     s16 temp_v1;
@@ -762,15 +739,15 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     ret = 0;
     temp_t4 = arg1->unk16C->unk18;
 
-    D_803D60F8.unk0.w = 0;
-    D_803D60F8.unk4.w = 0;
-    D_803D60F8.unk8.w = 0;
+    D_803D60F8.xPos.w = 0;
+    D_803D60F8.zPos.w = 0;
+    D_803D60F8.yPos.w = 0;
 
     temp_t2 = (arg1->unk40 << 6) >> 0xB;
-    temp_t5 = (((arg0->unk42 << 0xF) + arg6) - arg9) - (arg1->unk42 << 0xF);
+    temp_t5 = (((arg0->unk42 << 0xF) + arg4.yPos.w) - arg5.yPos.w) - (arg1->unk42 << 0xF);
 
-    var_t0 = temp_v0 = (((arg4 - arg7) >> 0xB) / temp_t2) + 0x10;
-    var_t1 = temp_v1 = (((arg5 - arg8) >> 0xB) / temp_t2) + 0x10;
+    var_t0 = temp_v0 = (((arg4.xPos.w - arg5.xPos.w) >> 0xB) / temp_t2) + 0x10;
+    var_t1 = temp_v1 = (((arg4.zPos.w - arg5.zPos.w) >> 0xB) / temp_t2) + 0x10;
 
     var_a0 = MAX(1, ((arg0->unk30 + arg0->unk32) * 0x10) / temp_t2);
 
@@ -795,12 +772,12 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
             temp_v0 = temp_v1 + var_a0;
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t1][var_t0] & (1 << temp_v0))) {
                 ret = 1;
-                D_803D60F8.unk8.h += 2;
+                D_803D60F8.yPos.h += 2;
             }
             temp_v0 = temp_v1 - var_a0;
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t1][var_t0] & (1 << temp_v0))) {
                 ret = 1;
-                D_803D60F8.unk8.h -= 2;
+                D_803D60F8.yPos.h -= 2;
             }
         }
     }
@@ -810,24 +787,24 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
             temp_v0 = var_t1 + var_a0;
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t0][temp_v0] & (1 << temp_v1))) {
                 ret = 1;
-                D_803D60F8.unk4.h += 2;
+                D_803D60F8.zPos.h += 2;
             }
             temp_v0 = var_t1 - var_a0;
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t0][temp_v0] & (1 << temp_v1))) {
                 ret = 1;
-                D_803D60F8.unk4.h -= 2;
+                D_803D60F8.zPos.h -= 2;
             }
         }
         if ((var_t1 >= 0) && (var_t1 < 32)) {
             temp_v0 = var_t0 + var_a0;
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[temp_v0][var_t1] & (1 << temp_v1))) {
                 ret = 1;
-                D_803D60F8.unk0.h += 2;
+                D_803D60F8.xPos.h += 2;
             }
             temp_v0 = var_t0 - var_a0;
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[temp_v0][var_t1] & (1 << temp_v1))) {
                 ret = 1;
-                D_803D60F8.unk0.h -= 2;
+                D_803D60F8.xPos.h -= 2;
             }
         }
     }
@@ -836,20 +813,20 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
         switch (arg1->yRotation) {
         case 90:
             // swap x/y (flip x)
-            temp_t9 = D_803D60F8.unk4.h;
-            D_803D60F8.unk4.h = -D_803D60F8.unk0.h;
-            D_803D60F8.unk0.h = temp_t9;
+            temp_t9 = D_803D60F8.zPos.h;
+            D_803D60F8.zPos.h = -D_803D60F8.xPos.h;
+            D_803D60F8.xPos.h = temp_t9;
             break;
         case 180:
             // invert x/y
-            D_803D60F8.unk0.h = -D_803D60F8.unk0.h;
-            D_803D60F8.unk4.h = -D_803D60F8.unk4.h;
+            D_803D60F8.xPos.h = -D_803D60F8.xPos.h;
+            D_803D60F8.zPos.h = -D_803D60F8.zPos.h;
             break;
         case 270:
             // swap x/y (flip y)
-            temp_t9 = D_803D60F8.unk0.h;
-            D_803D60F8.unk0.h = -D_803D60F8.unk4.h;
-            D_803D60F8.unk4.h = temp_t9;
+            temp_t9 = D_803D60F8.xPos.h;
+            D_803D60F8.xPos.h = -D_803D60F8.zPos.h;
+            D_803D60F8.zPos.h = temp_t9;
             break;
         }
         *arg2 = &D_803D60F8;
@@ -880,7 +857,7 @@ u8 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 
 }
 
 // ESA: func_800730AC
-s32 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+s32 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) {
     return 0;
 }
 
