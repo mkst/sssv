@@ -252,43 +252,40 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     s64 sp58;
     s64 sp50;
     s64 sp48;
-    //
-    s32 sp20;
-    s32 sp1C;
-    s32 sp18;
+
+    s16 width ;
+    s16 height;
 
     s64 temp_v1;
 
-    sp20 = arg0 >> 0x10;
-    sp1C = arg1 >> 0x10;
-    sp18 = arg2 >> 0x10;
-
-    if (func_8029A334_6AB9E4(sp20, sp1C, sp18) == 0) {
+    if (func_8029A334_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
         return 4;
     }
 
-    sp50 = sp1C - (s16) D_803F2C48;
-    sp58 = sp20 - (s16) D_803F2C44;
-    sp48 = sp18 - (s16) D_803F2C4C;
+    sp50 = (arg1 >> 0x10) - (s16) D_803F2C48;
+    sp58 = (arg0 >> 0x10) - (s16) D_803F2C44;
+    sp48 = (arg2 >> 0x10) - (s16) D_803F2C4C;
 
     temp_v1 = (((SQ(sp48) + SQ(sp58) + SQ(sp50)) >> arg4) * D_803F2E30) / 75.0f;
 
-    if ((temp_v1 > 0x4C9000)) {
+    if ((temp_v1 > 0x4C9000)) { // FTOFIX32(76.5625)
         return 4;
     }
-    if ((temp_v1 <= 0x1000)) {
+    if ((temp_v1 <= 0x1000)) { // FTOFIX32(0.0625)
         D_803F2EDD = 0;
         return 0;
     }
 
-    sp6C = (arg0 / 65536.0);
     sp68 = (arg1 / 65536.0);
+    sp6C = (arg0 / 65536.0); // not this
     sp64 = (arg2 / 65536.0);
 
-    temp_f16 = (D_80204278->unk38A10[2][0] * sp6C) +
-               (D_80204278->unk38A10[2][1] * sp68) +
-               (D_80204278->unk38A10[2][2] * sp64) +
-               (D_80204278->unk38A10[2][3]       );
+    // temp_f16 = (D_80204278->unk38A10[2][0] * sp6C) +
+    //            (D_80204278->unk38A10[2][1] * sp68) +
+    //            (D_80204278->unk38A10[2][2] * sp64) +
+    //            (D_80204278->unk38A10[2][3]       );
+
+    temp_f16 = ((D_80204278->unk38A10[2][2] * sp64) + ((D_80204278->unk38A10[2][0] * sp6C) + (D_80204278->unk38A10[2][1] * sp68))) + D_80204278->unk38A10[2][3];
 
     if (temp_f16 <= -3.0) {
         tmp1 = (D_80204278->unk38A10[0][0] * sp6C) +
@@ -301,23 +298,23 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
                (D_80204278->unk38A10[1][2] * sp64) +
                (D_80204278->unk38A10[1][3]       );
 
-        tmp1 = tmp1 * D_80204278->unk38A10[3][0];
-        temp_f14 = (gScreenWidth * 2) + (tmp1 / temp_f16);
-
-        tmp2 = tmp2 * D_80204278->unk38A10[3][1];
-        temp_f6 = (gScreenHeight * 2) + (tmp2 / temp_f16);
+        temp_f14 = ((tmp1 * D_80204278->unk38A10[3][0]) / temp_f16) + ((width = gScreenWidth) * 2);
+        temp_f6 =  ((tmp2 * D_80204278->unk38A10[3][1]) / temp_f16) + ((height = gScreenHeight) * 2);
 
         temp_f0 = (((s32) ((arg3 * 33) / D_803F2E30) << 7) / -temp_f16) / 8.0;
 
-        if ((gScreenHeight * 4) < (temp_f6 - temp_f0)) {
+        if ((height * 4) < (temp_f6 - temp_f0)) {
             return 3;
         }
 
-        if (((gScreenWidth * 4) > (temp_f14 - temp_f0)) && ((temp_f6 + temp_f0) > 0.0f) && ((temp_f14 + temp_f0) > 0.0f)) {
+        if (((width * 4) > (temp_f14 - temp_f0)) &&
+            ((temp_f6 + temp_f0) > 0.0f) &&
+            ((temp_f14 + temp_f0) > 0.0f)) {
             if (temp_v1 < 0xE1000) {
                 if ((temp_v1 < 0x31000)) {
                     D_803F2EDD = 0;
-                    return 0;
+                    // return 0;
+                    return (arg3 * 33) * 0; // lol
                 }
                 D_803F2EDD = 1;
                 return 0;
@@ -332,25 +329,25 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6FA0A0/func_802E9B90_6FB240.s")
 #endif
 
-#if 0
+#ifdef NON_MATCHING
 s32 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
 
-    s64 temp_v1;
+    s64 sp90;
     s64 sp88;
-    s32 pad;
+
+    s32 sp7C; // maybe
     s32 sp78;
 
-    s32 tmp;
+    s32 pad;
     s32 temp_f10;
-
-    f32 temp_f12;
-    f32 temp_f0;
 
     s64 sp68;
     s64 sp60;
     s64 sp58;
 
+    f32 temp_f0;
     f32 temp_f2;
+    f32 temp_f12;
     f32 temp_f14;
 
 
@@ -366,21 +363,26 @@ s32 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     temp_f12 = arg1 / 65536.0;
     temp_f14 = arg2 / 65536.0;
 
-    // temp_f10 = D_80204278->unk38A10[2][3] + ((D_80204278->unk38A10[2][0] * temp_f2) + (D_80204278->unk38A10[2][1] * temp_f12) + (D_80204278->unk38A10[2][2] * temp_f14));
     temp_f10 = D_80204278->unk38A10[2][3] + ((D_80204278->unk38A10[2][2] * temp_f14) + ((D_80204278->unk38A10[2][1] * temp_f12) + (D_80204278->unk38A10[2][0] * temp_f2)));
     if (temp_f10 <= -3.0) {
 
-        tmp =  (((D_80204278->unk38A10[0][0] * temp_f2) + (D_80204278->unk38A10[0][1] * temp_f12)) + (D_80204278->unk38A10[0][2] * temp_f14)) + D_80204278->unk38A10[0][3];
-        sp78 = (((D_80204278->unk38A10[1][0] * temp_f2) + (D_80204278->unk38A10[1][1] * temp_f12)) + (temp_f14 * D_80204278->unk38A10[1][2])) + D_80204278->unk38A10[1][3];
+        sp7C = (D_80204278->unk38A10[0][0] * temp_f2) +
+               (D_80204278->unk38A10[0][1] * temp_f12) +
+               (D_80204278->unk38A10[0][2] * temp_f14) +
+               (D_80204278->unk38A10[0][3]           );
 
-        sp88 = (gScreenWidth * 2) + ((D_80204278->unk38A10[3][0] * tmp) / temp_f10);
-        temp_v1 = (gScreenHeight * 2) + ((D_80204278->unk38A10[3][1] * sp78) / temp_f10);
+        sp78 = (D_80204278->unk38A10[1][0] * temp_f2) +
+               (D_80204278->unk38A10[1][1] * temp_f12) +
+               (temp_f14 * D_80204278->unk38A10[1][2]) +
+               (D_80204278->unk38A10[1][3]           );
 
-        // help!
-        if ((sp88 >= 0) && ((gScreenWidth * 4) < sp88)) {
+        sp88 = ((sp7C * D_80204278->unk38A10[3][0]) / temp_f10) + (gScreenWidth  * 2);
+        sp90 = ((sp78 * D_80204278->unk38A10[3][1]) / temp_f10) + (gScreenHeight * 2);
+
+        if ((sp88 < 0) || ((gScreenWidth * 4) < sp88)) {
             return 2;
         }
-        if ((temp_v1 >= 0) && ((gScreenHeight * 4) < temp_v1)) {
+        if ((sp90 < 0) || ((gScreenHeight * 4) < sp90)) {
             return 3;
         }
         return 0;

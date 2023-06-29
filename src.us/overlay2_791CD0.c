@@ -27,11 +27,7 @@ void func_80380644_791CF4(Animal *arg0) {
     arg0->unk34C = 0;
 }
 
-
-#ifdef NON_MATCHING
-// score: 940, jumbled instructions
 void func_8038064C_791CFC(void) {
-    s32 temp_v0_2 = 0;
     s32 tmp;
 
     if (D_803F2D10.unk0 == 0) {
@@ -42,32 +38,26 @@ void func_8038064C_791CFC(void) {
     }
     if (D_803D552C->unk363 != 0) {
         func_80380620_791CD0(D_803D552C, 150, 15, MIN(50, D_803D552C->unk358 >> 1), 10);
-        if (!temp_v0_2) {} // regalloc helper
+        if (D_803F2D10.unk0) {} // regalloc
     }
     D_803F63E0 = 0;
+
     if ((D_803D552C->unk34C != 0) || (D_803D552C->unk34E != 0)) {
         if (D_803D552C->unk34E != 0) {
-            D_803D552C->unk34E -= 1;
-            tmp = D_80152C78[(((D_803D552C->unk34E << 8) / D_803D552C->unk354) + 64) & 0xFF];
-            temp_v0_2 = (tmp >> 7);
-            temp_v0_2 = (256 - temp_v0_2);
-            temp_v0_2 = ((temp_v0_2 * D_803D552C->unk350) >> 9) + 256;
-            D_803F2EB0 = (D_803F2EB0 * temp_v0_2) >> 8;
-            D_803F2EB4 = (D_803F2EB4 * temp_v0_2) >> 8;
-            D_803F2EB8 = (D_803F2EB8 * temp_v0_2) >> 8;
+            D_803D552C->unk34E--;
+            tmp = (((256 - (D_80152C78[((s16)((D_803D552C->unk34E << 8) / D_803D552C->unk354) + 64) & 0xFF] >> 7)) * D_803D552C->unk350) >> 9) + 256;
+            D_803F2EB0 = (D_803F2EB0 * tmp) >> 8;
+            D_803F2EB4 = (D_803F2EB4 * tmp) >> 8;
+            D_803F2EB8 = (D_803F2EB8 * tmp) >> 8;
 
-            tmp = D_80152C78[(u16)((D_803D552C->unk34E << 8) / D_803D552C->unk354) & 0xFF];
-            D_803F63E0 = ((tmp >> 7) * D_803D552C->unk350) >> 8;
+            D_803F63E0 = ((D_80152C78[(s16)((D_803D552C->unk34E << 8) / D_803D552C->unk354) & 0xFF] >> 7) * D_803D552C->unk350) >> 8;
         } else {
             D_803D552C->unk354 = (((((64 - SSSV_RAND(128)) * D_803D552C->unk362) >> 6) + 64) * D_803D552C->unk352) >> 6;
             D_803D552C->unk34E = D_803D552C->unk354;
             D_803D552C->unk350 = (((((64 - SSSV_RAND(128)) * D_803D552C->unk362) >> 6) + 64) * D_803D552C->unk356) >> 6;
         }
         if (D_803D552C->unk34C > 0) {
-            D_803D552C->unk34C -= 1;
+            D_803D552C->unk34C--;
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_791CD0/func_8038064C_791CFC.s")
-#endif

@@ -692,28 +692,29 @@ struct017 *func_801320EC(void) {
 }
 
 #if 0
-// CURRENT (835)
+// CURRENT (705)
 void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
-    s32 pad;
-    struct017 *temp_a0;
     struct017 *cur;
     struct017 *var_a0;
     struct017 *prev_node;
+    s16 index;
 
     if (gAudioInitialized == 0) {
         return;
     }
 
-    temp_a0 = *arg1;
+    var_a0 = *arg1;
 
     if (D_8015468C < 20) {
         D_8015468C++;
         cur = func_801320EC();
         if (cur != NULL) {
+
+            index = cur->unk1E;
+
             // struct copy
             *cur = arg0;
-            cur->unk1E = cur->unk1E; // help
-
+            cur->unk1E = index;
 
             if (*arg2 == NULL) {
                 cur->next = NULL;
@@ -723,7 +724,6 @@ void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
                 return;
             }
 
-            var_a0 = temp_a0;
             prev_node = NULL;
 
             // shuffle some nodes about?

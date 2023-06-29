@@ -600,56 +600,49 @@ Animal *func_80323040_7346F0(void) {
     return res;
 }
 
-// miles away
-#if 0
 s32 func_803233A0_734A50(s16 x0, s16 y0, s16 z0, s16 x1, s16 y1, s16 z1) {
-
+    s32 sp34;
+    s32 sp30;
+    s32 sp2C;
+    s32 pad[3];
+    s32 var_a2;
+    s32 var_a3;
+    s32 var_t0;
     s16 temp_v1;
-
-    struct065 *temp_a1;
-    Animal *a;
-    s32 phi_a2;
-    s32 phi_a3;
-    s32 phi_t0;
     s16 i;
+    Animal *a;
+    struct065 *temp_a1;
 
-    s32 tmp1 = (x0 - x1);
-    s32 tmp2 = (y0 - y1);
-    s32 tmp3 = (z0 - z1);
+    sp34 = (x0 - x1);
+    sp30 = (y0 - y1);
+    sp2C = (z0 - z1);
 
-    f32 tmpf1 = tmp1;
-    f32 tmpf2 = tmp2;
-    f32 tmpf3 = tmp3;
+    temp_v1 = ((s16) sqrtf(SQ((f32)sp34) + SQ((f32)sp30) + SQ((f32)sp2C)) / 10) + 1;
 
-    temp_v1 = ((s16) sqrtf((tmpf1 * tmpf1) + (tmpf2 * tmpf2) + (tmpf3 * tmpf3)) / 10) + 1;
+    sp34 = (sp34 << 0x10) / (temp_v1 + 1);
+    sp30 = (sp30 << 0x10) / (temp_v1 + 1);
+    sp2C = (sp2C << 0x10) / (temp_v1 + 1);
 
-    phi_a2 = (x1 << 0x10) + ((tmp1 << 0x10) / (temp_v1 + 1) >> 1);
-    phi_a3 = (y1 << 0x10) + ((tmp2 << 0x10) / (temp_v1 + 1) >> 1);
-    phi_t0 = (z1 << 0x10) + ((tmp3 << 0x10) / (temp_v1 + 1) >> 1);
+    var_a2 = (x1 << 0x10) + (sp34 >> 1);
+    var_a3 = (y1 << 0x10) + (sp30 >> 1);
+    var_t0 = (z1 << 0x10) + (sp2C >> 1);
 
-    // i = 0;
     for (i = 0; i < temp_v1; i++) {
-        for (temp_a1 = D_803DA110[(s16) ((s16)(phi_a2 >> 0x1A) + ((s16) (phi_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
+        for (temp_a1 = D_803DA110[(s16) ((s16)(var_a2 >> 0x1A) + ((s16) (var_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
             a = temp_a1->animal;
             if (a->unk16C->objectType == 91) {
-                if ((a->yPos.h < (phi_t0 >> 0x10)) && ((phi_t0 >> 0x10) < (a->yPos.h + a->unk42))) {
-                    if (a->unk30 >= ABS((phi_a2 >> 0x10) - a->xPos.h)) {
-                        if (a->unk32 >= ABS((phi_a3 >> 0x10) - a->zPos.h)) {
-                            return 1;
-                        }
+                if ((a->yPos.h < (var_t0 >> 0x10)) && ((var_t0 >> 0x10) < (a->yPos.h + a->unk42))) {
+                    if (!((a->unk30 < ABS((var_a2 >> 0x10) - a->xPos.h)) || (a->unk32 < ABS((var_a3 >> 0x10) - a->zPos.h)))) {
+                      return 1;
                     }
                 }
-                if (1) { } if (1) { } if (1) { } if (1) { } if (1) { }
             }
         }
 
-        phi_a2 += (tmp1 << 0x10) / (temp_v1 + 1);
-        phi_a3 += (tmp2 << 0x10) / (temp_v1 + 1);
-        phi_t0 += (tmp3 << 0x10) / (temp_v1 + 1);
+        var_a2 += sp34;
+        var_a3 += sp30;
+        var_t0 += sp2C;
     }
 
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_803233A0_734A50.s")
-#endif

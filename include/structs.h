@@ -1211,7 +1211,7 @@ typedef struct {
     /* 0xDAC0 */  Gfx *unkDAC0;
     /* 0xDAC4 */  u8  padDAC4[0x2edc];
     /* 0x109A0 */ Gfx unk109A0[8][1400];
-#if 1
+#if 0
     /* 0x267A0 */ s32 unk267A0;
     /* 0x267A4 */ u8  pad267A4[0x1f40];
     /* 0x286E4 */ s16 unk286E4[8];
@@ -1567,7 +1567,7 @@ struct struct035 { // TODO: merge with struct068?
   /* 0x15 */  u8  unk15; // checked if 2 or 4?
   /* 0x16 */  u8  pad16[0x2];
   /* 0x18 */  struct035_ptr *unk18; // cmds pointer
-  /* 0x1C */  u16 id;
+  /* 0x1C */  u16 id; // cmdIdx?
   /* 0x1E */  s16 pad1E;
   /* 0x20 */  s32 unk20[5][4]; // wrong
   /* 0x70 */  u16 unk70;
@@ -1879,7 +1879,7 @@ typedef struct {
     /* 0xE */  s16 unkE;
     /* 0x10 */ s16 unk10;
     /* 0x12 */ s16 unk12;
-    /* 0x14 */ s16 unk14; // numSegments
+    /* 0x14 */ s16 numSegments;
     /* 0x16 */ s16 unk16;
     /* 0x18 */ s32 unk18; // length
     /* 0x1C */ s16 unk1C;
@@ -1888,7 +1888,7 @@ typedef struct {
     /* 0x24 */ s32 unk24; // zPos
     /* 0x28 */ s32 unk28; // yPos
     /* 0x2C */ s16 unk2C;
-    /* 0x2E */ s8  unk2E;
+    /* 0x2E */ s8  tailType;
     /* 0x2F */ s8  unk2F;
     /* 0x30 */ s8  unk30;
     /* 0x31 */ s8  unk31;
@@ -2532,11 +2532,6 @@ typedef struct {
     /* 0x10 */ u16 unk10; // defaultEnvColor
     /* 0x12 */ u8  unk12[0x6];
 } struct099; // particle, size 0x18?
-
-typedef struct {
-    s32 unk0;
-    s32 unk4;
-} struct100;
 
 typedef struct {
   u16  unk0;  // flags

@@ -348,11 +348,11 @@ void func_802B4D20_6C63D0(void);
 s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Animal *arg0, Animal *arg1, struct043**, struct043**, Position pos1, Position pos2), u8 *arg3);
 
 u8   func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5);
-s32  func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, struct043 ** arg2, struct043 ** arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9);
+s32  func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5);
 u8   func_802B6088_6C7738(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5); //, s32 z1, s32 x2, s32 y2, s32 z2);
 s32  func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5);
-s32  func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9);
-s32  func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9);
+s32  func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5);
+s32  func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5);
 
 s32  func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8*, u16);
 u8   func_802B7BC8_6C9278(Animal *arg0, Animal *arg1);
@@ -857,6 +857,7 @@ void func_8031FB30_7311E0(s16 arg0);
 void func_8031FB78_731228(s16 arg0);
 
 // overlay2_7312E0
+void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4);
 void func_80320C84_732334(s16 arg0, s16 arg1);
 void func_80320DF8_7324A8(s16 arg0, s16 arg1);
 void func_80321224_7328D4(void *arg0, u16 arg1, u16 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6);

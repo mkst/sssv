@@ -1,14 +1,11 @@
 #include <ultra64.h>
 #include "common.h"
 
-#include "structs.h"
-#include "variables.us.h"
-
 
 void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct087 *arg8, s8 arg9);
-void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4);
 
-#if 0
+
+#ifdef NON_MATCHING
 // needs some help... maybe just regalloc?
 void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5) {
     u16 new_var;
@@ -66,7 +63,7 @@ void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     D_80203FE0[arg1 + 1].unk0 = D_80203FE0[arg1].unk0;
     D_80203FE0[arg1 + 1].unk2 = D_80203FE0[arg1].unk2;
     // urgh
-    D_80203FE0[arg1 + 1].unk4 = new_var = D_80203FE0[arg1].unk4 - arg4;;
+    D_80203FE0[arg1 + 1].unk4 = new_var = D_80203FE0[arg1].unk4 - arg4;
 
     D_80203FE0[arg1 + 2].unk0 = D_80203FE0[arg1 + 1].unk0;
     // urgh x2
@@ -80,14 +77,12 @@ void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8031FC30_7312E0.s")
 #endif
 
-// more of the same
-#if 0
 void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct087 *arg4) {
-    u16 temp_v1;
+    u16 pad;
     u16 sp34;
-    u16 sp30; // pad
-    s8 phi_t0;
     u16 phi_a3;
+    s8 phi_t0;
+    s32 temp_v1;
 
     temp_v1 = D_803D552C->unk2F2;
 
@@ -95,27 +90,31 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
     case 0x3:
     case 0x8E:
     case 0xB6:
+        temp_v1 = D_803D552C->unk2F6;
         phi_t0 = 1;
-        phi_a3 = D_803D552C->unk2F6 % 256;
-        sp34 = ((D_803D552C->unk2F6 + 128) % 256);
+        phi_a3 = (temp_v1) % 256;
+        sp34 = ((temp_v1 + 128) % 256);
         break;
     case 0x6:
     case 0x90:
     case 0xB9:
+        temp_v1 = D_803D552C->unk2F6;
         phi_t0 = 1;
-        phi_a3 = 256 - (D_803D552C->unk2F6 % 256);
-        sp34 = 256 - ((D_803D552C->unk2F6 + 128) % 256);
+        phi_a3 = 256 - (temp_v1 % 256);
+        sp34 = 256 - ((temp_v1 + 128) % 256);
         break;
     case 0x4:
     case 0x8F:
     case 0xB7:
+        temp_v1 = D_803D552C->unk2F6;
         phi_t0 = 2;
-        phi_a3 = D_803D552C->unk2F6 % 256;
-        sp34 = (D_803D552C->unk2F6 + 128) % 256;
+        phi_a3 = temp_v1 % 256;
+        sp34 = (temp_v1 + 128) % 256;
         break;
     default:
         phi_t0 = 0;
-        phi_a3 = sp34 = temp_v1;
+        sp34 = temp_v1;
+        phi_a3 = temp_v1;
         break;
     }
 
@@ -131,26 +130,27 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
               break;
         }
     } else {
-      switch (D_803D5530->unk162) {
+        switch (D_803D5530->unk162) {
         case 4:
         case 5:
         case 7:
+            temp_v1 = D_803D552C->unk2F6;
             switch (D_803D5530->state) {
-            default:
-                phi_a3 = D_803D552C->unk2F6 & 0xFF;
-                sp34 = (D_803D552C->unk2F6 + 128) & 0xFF;
-                break;
             case 0x8E:
-                phi_a3 = D_803D552C->unk2F6 & 0xFF;
-                sp34 = (D_803D552C->unk2F6 + 128) & 0xFF;
-                break;
-            case 0x8F:
-                phi_a3 = (D_803D552C->unk2F6 << 1) & 0xFF;
-                sp34 = ((D_803D552C->unk2F6 << 1) + 128) & 0xFF;
+                phi_a3 = temp_v1 & 0xFF;
+                sp34 = (temp_v1 + 128) & 0xFF;
                 break;
             case 0x90:
-                phi_a3 = (256 - (D_803D552C->unk2F6 & 0xFF));
-                sp34 = 256 - ((D_803D552C->unk2F6 + 128) & 0xFF);
+                phi_a3 = (256 - (temp_v1 & 0xFF));
+                sp34 = 256 - ((temp_v1 + 128) & 0xFF);
+                break;
+            case 0x8F:
+                phi_a3 = (temp_v1 << 1) & 0xFF;
+                sp34 = ((temp_v1 << 1) + 128) & 0xFF;
+                break;
+            default:
+                phi_a3 = temp_v1 & 0xFF;
+                sp34 = (temp_v1 + 128) & 0xFF;
                 break;
             }
             phi_t0 = 2;
@@ -160,9 +160,6 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
     func_8032018C_73183C(&D_803D5528->unk370, 3, 7, phi_a3, arg0, arg1, arg2, arg3, arg4, phi_t0);
     func_8032018C_73183C(&D_803D5528->unk384, 4, 10,  sp34, arg0, arg1, arg2, arg3, arg4, phi_t0);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8031FE40_7314F0.s")
-#endif
 
 #if 0
 // 10000+ away
@@ -290,14 +287,12 @@ void func_8032066C_731D1C(s16 arg0, s16 arg1) {
     func_80320828_731ED8(&D_803D5528->unk384, 10, sp24, -arg0, arg1);
 }
 
-#ifdef NON_MATCHING
 void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4) {
     s16 sp2C;
     s16 sp2A;
     s32 sp20;
-    // struct061 *sp1C;
-    s16 temp_a3;
     s16 var_a1;
+    s16 temp_a3;
     s16 var_t0;
 
     var_t0 = 0;
@@ -325,8 +320,7 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     }
     switch (arg0->unk10) {
     case 1:
-        sp20 = (D_80152C78[(s16)((arg0->unk12 << 7) / 100) & 0xFF] >> 7);
-        var_t0 = ((sp20 * arg4) >> 0xC);
+        var_t0 = (((D_80152C78[(s16)((arg0->unk12 << 7) / 100) & 0xFF] >> 7) * arg4) >> 0xC);
         if (arg0->unk12 >= 100) {
           arg0->unk10 = 0;
         }
@@ -342,8 +336,7 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     case 10:
         break;
     case 11:
-        sp20 = -(D_80152C78[(((arg0->unk12 << 8) / 100) + 0x40) & 0xFF] >> 7);
-        var_a1 = (-(sp20 + 256) / 32);
+        var_a1 = -(256 + -(D_80152C78[((s16)((arg0->unk12 << 8) / 100) + 0x40) & 0xFF] >> 7)) / 32;
         if (arg0->unk12 >= 100) {
             arg0->unk10 = 0;
         }
@@ -364,9 +357,6 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     D_80203FE0[arg1+1].unk2 = D_80203FE0[arg1].unk2 + ((arg4 * temp_a3) / 32);
     D_80203FE0[arg1+1].unk4 = (D_80203FE0[arg1].unk4 - arg4) + var_t0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_80320828_731ED8.s")
-#endif
 
 void func_80320B04_7321B4(s16 arg0, s16 arg1) {
     s32 temp_a3;
@@ -403,14 +393,13 @@ void func_80320B04_7321B4(s16 arg0, s16 arg1) {
     D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((D_80152C78[((s16)(tmp + 128) + 64) & 0xFF] >> 7) * arg1) >> 8);
 }
 
-#ifdef NON_MATCHING
 void func_80320C84_732334(s16 arg0, s16 arg1) {
     s16 temp_v0;
     s16 temp_a2;
 
-    // regalloc nonsense
-    temp_v0 = ((D_80152C78[((s16)(((D_803D5540 * 12) + 105) & 0xFFFFFFFFFFFFFFFF)) & 0xFF] >> 7) >> 4) + 80;
-    temp_a2 = ((D_80152C78[((s16)((D_803D5540 * 12) + 190)) & 0xFF] >> 7) >> 4) + 80;
+    // bleurgh
+    temp_v0 = ((D_80152C78[((s16)(  (s16) (D_803D5540 * 12)          + 105)) & 0xFF] >> 7) >> 4) + 80;
+    temp_a2 = ((D_80152C78[((s16)((((s16) (D_803D5540 * 12)) & 0xFF) + 190)) & 0xFF] >> 7) >> 4) + 80;
 
     D_80203FE0[7].unk0 = D_80203FE0[1].unk0 + arg0;
     D_80203FE0[7].unk2 = D_80203FE0[1].unk2;
@@ -428,9 +417,6 @@ void func_80320C84_732334(s16 arg0, s16 arg1) {
     D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((D_80152C78[temp_a2 & 0xFF] >> 7) * arg1) >> 8);
     D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((D_80152C78[(temp_a2 + 64) & 0xFF] >> 7) * arg1) >> 8);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_80320C84_732334.s")
-#endif
 
 void func_80320DF8_7324A8(s16 arg0, s16 arg1) {
     D_80203FE0[3].unk0 = D_80203FE0[1].unk0 - arg0;

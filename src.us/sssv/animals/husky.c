@@ -57,7 +57,7 @@ void func_80368DD0_77A480(void) {
         D_803F2EC4 = ((D_803F2EC4 - FTOFIX32(1.0)) >> 2) + FTOFIX32(1.0);
         func_8035D734_76EDE4();
         if ((D_803D5528->unk3C8.unk2 != 0) && (D_803A6CE4_7B8394 & 8)) {
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk2E = 0x1F;
+            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x1F;
         }
 
         spA8 = 0;
@@ -165,10 +165,10 @@ void func_80368DD0_77A480(void) {
         if ((sp92 == 0) && (D_803F2EDB != 0)) {
             switch (D_803D5524->unk9C) {
             case HUSKY:
-                D_803E00C0[spA2].unk2E = 11;
+                D_803E00C0[spA2].tailType = 11;
                 break;
             case CRAZY_HUSKY:                                /* switch 1 */
-                D_803E00C0[spA2].unk2E = 12;
+                D_803E00C0[spA2].tailType = 12;
                 break;
             }
 
@@ -280,7 +280,7 @@ void func_8036A05C_77B70C(void) {
         }
         func_8035D734_76EDE4();
         if ((D_803D5528->unk3C8.unk2 != 0) && (D_803A6CE4_7B8394 & 8)) {
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk2E = 0x1F;
+            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x1F;
         }
 
         if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
@@ -517,10 +517,10 @@ void func_8036A05C_77B70C(void) {
         if ((spFE == 0) && (D_803F2EDB != 0)) {
             switch (D_803D5524->unk9C) {                   /* switch 4; irregular */
             case HUSKY:                                /* switch 4 */
-                D_803E00C0[spFC].unk2E = 11;
+                D_803E00C0[spFC].tailType = 11;
                 break;
             case CRAZY_HUSKY:                                /* switch 4 */
-                D_803E00C0[spFC].unk2E = 12;
+                D_803E00C0[spFC].tailType = 12;
                 break;
             }
 

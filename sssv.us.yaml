@@ -1943,7 +1943,7 @@ segments:
     - [0xCE550, sssv_vtx, data/inc/D_04006B20_CE550]
     - [0xCE590, .data, data/D_04006B60_CE590]
     - [0xCE5B0, sssv_vtx, data/inc/D_04006B80_CE5B0]
-    - [0xCE630, .data, data/D_04006C00_CE630]
+    - [0xCE630, .data, data/D_04006C00_CE630] # dynamic tail
     - [0xCE670, sssv_vtx, data/inc/D_04006C40_CE670]
     - [0xCE6F0, sssv_vtx, data/inc/D_04006CC0_CE6F0]
     - [0xCE890, sssv_vtx, data/inc/D_04006E60_CE890]
@@ -2202,7 +2202,7 @@ segments:
     - [0xE0E00, sssv_vtx, data/inc/D_04003840_E0E00]
     - [0xE0E40, .data, data/D_04003880_E0E40]
     - [0xE0E90, sssv_vtx, data/inc/D_040038D0_E0E90]
-    - [0xE0EF0, .data, data/D_04003930_E0EF0]
+    - [0xE0EF0, .data, data/D_04003930_E0EF0] # dynamic tail
     - [0xE0F20, sssv_vtx, data/inc/D_04003960_E0F20]
     - [0xE0F80, .data, data/D_040039C0_E0F80]
     - [0xE0FB0, sssv_vtx, data/inc/D_040039F0_E0FB0]
@@ -2428,11 +2428,11 @@ segments:
     - [0xEA990, sssv_vtx, data/inc/D_040033E0_EA990]
     - [0xEAA20, .data, data/D_04003470_EAA20]
     - [0xEAAB0, sssv_vtx, data/inc/D_04003500_EAAB0]
-    - [0xEAB30, .data, data/D_04003580_EAB30]
+    - [0xEAB30, .data, data/D_04003580_EAB30] # dynamic tail
     - [0xEAB70, sssv_vtx, data/inc/D_040035C0_EAB70]
-    - [0xEABF0, .data, data/D_04003640_EABF0]
+    - [0xEABF0, .data, data/D_04003640_EABF0] # dynamic tail
     - [0xEAC30, sssv_vtx, data/inc/D_04003680_EAC30]
-    - [0xEAC80, .data, data/D_040036D0_EAC80]
+    - [0xEAC80, .data, data/D_040036D0_EAC80] # dynamic tail
     - [0xEACB0, sssv_vtx, data/inc/D_04003700_EACB0]
     - [0xEAD30, .data, data/D_04003780_EAD30]
     - [0xEAD60, sssv_vtx, data/inc/D_040037B0_EAD60]
@@ -2490,9 +2490,9 @@ segments:
     - [0xED3F0, .data, data/D_04005E40_ED3F0]
     - [0xED430, sssv_vtx, data/inc/D_04005E80_ED430]
     - [0xED4A0, sssv_vtx, data/inc/D_04005EF0_ED4A0]
-    - [0xED520, .data, data/D_04005F70_ED520]
+    - [0xED520, .data, data/D_04005F70_ED520] # dynamic tail
     - [0xED590, sssv_vtx, data/inc/D_04005FE0_ED590]
-    - [0xED600, .data, data/D_04006050_ED600]
+    - [0xED600, .data, data/D_04006050_ED600] # dynamic tail
     - [0xED650, sssv_vtx, data/inc/D_040060A0_ED650]
     - [0xED6F0, .data, data/D_04006140_ED6F0]
     - [0xED740, bin] # what is this? empty vtxs?
@@ -2538,6 +2538,7 @@ segments:
     start: 0xF1060
     exclusive_ram_id: ovl_04
     subsegments:
+      # lion
     - [0xF1060, sssv_vtx, data/inc/D_04000000_F1060]
     - [0xF1100, sssv_vtx, data/inc/D_040000A0_F1100]
     - [0xF1190, .data, data/D_04000130_F1190] # lion leg?
@@ -2562,9 +2563,9 @@ segments:
     - [0xF1D20, sssv_vtx, data/inc/D_04000CC0_F1D20]
     - [0xF1DD0, .data, data/D_04000D70_F1DD0]
     - [0xF1E70, sssv_vtx, data/inc/D_04000E10_F1E70]
-    - [0xF1ED0, .data, data/D_04000E70_F1ED0]
+    - [0xF1ED0, .data, data/D_04000E70_F1ED0] # lion dynamic tail
     - [0xF1F00, sssv_vtx, data/inc/D_04000EA0_F1F00]
-    - [0xF1F50, .data, data/D_04000EF0_F1F50]
+    - [0xF1F50, .data, data/D_04000EF0_F1F50] # lion dynamic tail
     - [0xF1F80, sssv_vtx, data/inc/D_04000F20_F1F80]
     - [0xF1FC0, .data, data/D_04000F60_F1FC0]
     - [0xF1FE0, sssv_vtx, data/inc/D_04000F80_F1FE0]
@@ -2693,9 +2694,9 @@ segments:
     - [0xF70E0, sssv_vtx, data/inc/D_04006080_F70E0]
     - [0xF7190, .data, data/D_04006130_F7190]
     - [0xF71E0, sssv_vtx, data/inc/D_04006180_F71E0]
-    - [0xF7260, .data, data/D_04006200_F7260]
+    - [0xF7260, .data, data/D_04006200_F7260] # dynamic tail
     - [0xF72A0, sssv_vtx, data/inc/D_04006240_F72A0]
-    - [0xF7320, .data, data/D_040062C0_F7320]
+    - [0xF7320, .data, data/D_040062C0_F7320] # dynamic tail
     - [0xF7360, sssv_vtx, data/inc/D_04006300_F7360]
     - [0xF73A0, sssv_vtx, data/inc/D_04006340_F73A0]
     - [0xF73E0, .data, data/D_04006380_F73E0]
@@ -4003,6 +4004,13 @@ segments:
     - { start: 0x7D1AD0, type: .bss, name: overlay2_7A8A50 } # , vram: 0x803F6720 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/ui_main_menu } # , vram: 0x803F7160 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/trails } # , vram: 0x803F7E10 }
+  # - name: UNKNOWN
+  #   type: code
+  #   vram: 0x803FDEC0
+  #   start: 0x7D1AD0
+  #   exclusive_ram_id: ovl_80
+  #   subsegments:
+  #   - [0x7D1AD0, data] # referenced in overlay2_7A8A50
   - [0x7D1AD0, bin] # referenced in overlay2_7A8A50
   - [0x7D2F50, bin] #
   - [0x7D3360, bin] #

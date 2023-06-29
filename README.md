@@ -130,7 +130,7 @@ tools/
  - [asm-differ](https://github.com/simonlindholm/asm-differ); rapidly diff between source/target assembly
  - [decomp-permuter](https://github.com/simonlindholm/decomp-permuter); tweaks code, rebuilds, scores; helpful for weird regalloc issues
  - [ido-static-recomp](https://github.com/Emill/ido-static-recomp); no need to use qemu-irix anymore!
- - [mips2c](https://github.com/matt-kempster/mips_to_c); assembly to C code translator
+ - [m2c](https://github.com/matt-kempster/m2c); assembly to C code translator
  - [rnc_propack_source](https://github.com/lab313ru/rnc_propack_source); open-source compressor/decompressor for RNC file format
  - [splat](https://github.com/ethteck/splat); successor to n64split
 
