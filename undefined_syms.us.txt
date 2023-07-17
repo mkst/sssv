@@ -55,7 +55,6 @@ D_803FF670 = D_803FF340 + _binary_assets_7DC250_bin_size;
 D_803FF750 = D_803FF340 + _binary_assets_7DC580_bin_size;
 D_803FF4A0 = D_803FF340 + _binary_assets_7DC990_bin_size;
 
-
 D_800EF0D0 = 0x800EF0D0;
 
 D_01000620 = 0x01000620;

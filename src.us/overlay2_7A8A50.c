@@ -428,55 +428,106 @@ void func_80397734_7A8DE4(s16 arg0, u8 arg1) {
     D_803F7134[arg1] = arg0;
 }
 
+#if 0
+// still junk
+void func_80397840_7A8EF0(void) {
+    f32 var_f10;
+    s16 *temp_s0;
+    s16 *temp_s1;
+    s16 *temp_s3;
+    s16 *temp_s6;
+    s16 *temp_s6_2;
+    struct110a *var_v0;
+    s16 temp_a1;
+    s16 i;
+    s32 temp_a0;
+    s32 temp_s7;
+    s16 j;
+    u16 *temp_s2;
+    u16 temp_t8;
+    u16 temp_v1_3;
+    struct110c *temp_t0;
+    struct048 *temp_v0;
+    struct110b *temp_v0_2;
+    struct110b *temp_v1;
+    struct110b *temp_v1_2;
+
+
+    for (i = 0; i < 3; i++) {
+        // temp_s2 = &D_803F713C[i];
+        // temp_s3 = &D_803F7134[i];
+        if (D_803F713C[i] != 0) {
+            // temp_v1 = D_803B7000_7C86B0[D_803F7134[i]].unk4;
+            // temp_s0 = &D_803F7144[i];
+            while ((D_803B7000_7C86B0[D_803F7134[i]].unk4 != NULL) && (D_803B7000_7C86B0[D_803F7134[i]].unk4[D_803F7144[i]].unk0 == D_803F714C[i])) {
+                // temp_s6 = &D_803F714C[i];
+                // while (var_v0->unk0 == D_803F714C[i]) {
+                  // var_v0 = &D_803B7000_7C86B0[D_803F7134[i]].unk4[D_803F7144[i]]; //  * 0xC
+                  // D_803B7000_7C86B0[D_803F7134[i]].unk4[D_803F7144[i]]
+// loop_4:
+                    func_8032C508_73DBB8(var_v0->unk2, var_v0->unk4, 0, var_v0->unk8);
+                    // temp_v1_2 = D_803B7000_7C86B0[D_803F7134[i]].unk4;
+                    D_803F7144[i] += 1;
+                    // if (temp_v1_2 != NULL) {
+                        // var_v0 = temp_v1_2 + (D_803F7144[i] * 0xC);
+                        // if (var_v0->unk0 == D_803F714C[i]) {
+                            // goto loop_4;
+                        // }
+                    // }
+                // }
+            };
+
+#if 1
+            // temp_s6_2 = &D_803F714C[i];
+            // j = 0;
+            // temp_s7 = i & 0xFF;
+            // do {
+            for (j = 0; j < 10; j++) {
+                // temp_v1_3 = *temp_s2;
+                temp_a0 = 1 << j;
+                if (D_803F713C[i] & temp_a0) {
+                    // temp_v0 = &D_803F6720[i][j]; //(i * 0x348) + (j * 0x54) + ;
+                    if (D_803F6720[i][j].unk4C <= D_803F6720[i][j].unk48) {
+                        // temp_s1 = (i * 0x14) + (j * 2) + D_803F70F8;
+                        // temp_s1 = D_803F70F8[i][j];
+                        temp_a1 = D_803F70F8[i][j]; //*temp_s1;
+                        temp_t0 = D_803B7000_7C86B0[D_803F7134[i] + j].unk0; // + (j * 8);
+                        if (D_803F70F8[i][j] >= temp_t0->unk8) {
+                            D_803F713C[i] = D_803F713C[i] & ~temp_a0;
+                        } else {
+                            // temp_v0_2 = &temp_t0->unk4[temp_a1]; // + (temp_a1 * 0xE);
+                            // temp_t8 = temp_v0_2->unkC;
+                            // var_f10 = (f32) temp_t8;
+                            // if ((s32) temp_t8 < 0) {
+                            //     var_f10 += 4294967296.0f;
+                            // }
+                            func_80397C58_7A9308(
+                                 ((temp_t0->unk4[temp_a1].unk4 * 180.0f) / 32768.0f),
+                                -((temp_t0->unk4[temp_a1].unk0 * 180.0f) / 32768.0f),
+                                -((temp_t0->unk4[temp_a1].unk2 * 180.0f) / 32768.0f),
+                                temp_t0->unk4[temp_a1].unk6,
+                                temp_t0->unk4[temp_a1].unk8, // M2C_ERROR(/* Unable to find stack arg 0x10 in block */),
+                                temp_t0->unk4[temp_a1].unkA, // M2C_ERROR(/* Unable to find stack arg 0x14 in block */),
+                                temp_t0->unk4[temp_a1].unkC, // var_f10
+                                j,
+                                i);
+                            // *temp_s1 += 1;
+                            D_803F70F8[i][j]++;
+                        }
+                    }
+                }
+                // j++; //= (s32) (s16) (j + 1);
+            } //while (j < 0xA);
+            func_80397D1C_7A93CC(i);
+            D_803F714C[i] += 1;
+#endif
+        }
+        //i += 1;
+    } //while (i < 3);
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A8A50/func_80397840_7A8EF0.s")
-// junk
-// void func_80397840_7A8EF0(void) {
-//     s16 *temp_v0;
-//     u16 temp_t8;
-//     s16 *temp_v0_4;
-//     s16 i;
-//     s16 j;
-//
-//     i = 0;
-//     for (i = 0; i < 3; i++) {
-//         if (D_803F713C[i] != 0) {
-//             if (D_803B7000_7C86B0[D_803F7134[i]].unk4 != 0) {
-//                 temp_v0 = (u8*)D_803B7000_7C86B0[D_803F7134[i]].unk4 + (D_803F7144[i] * 0xC);
-//                 while (temp_v0[0] == D_803F714C[i]) {
-//                     func_8032C508_73DBB8(temp_v0[1], temp_v0[2], 0, temp_v0[3]);
-//                     temp_v0 = (u8*)D_803B7000_7C86B0[D_803F7134[i]].unk4 + (D_803F7144[i] * 0xC);
-//                     D_803F7144[i] += 1;
-//                 }
-//             }
-//
-//             for (j = 0; j < 10; j++) {
-//                 if ((D_803F713C[i] & (1 << j))) {
-//                     if (D_803F6720[i][j].unk4C <= D_803F6720[i][j].unk48) {
-//                         if (D_803F70F8[i][j] >= D_803B7000_7C86B0[D_803F7134[i] + j + 1].unk0) {
-//                             D_803F713C[i] &= ~(1 << j);
-//                         } else {
-//                             temp_v0_4 = (u8*)D_803B7000_7C86B0[D_803F7134[i] + j].unk4 + (D_803F70F8[i][j] * 0xE);
-//                             temp_t8 = temp_v0_4[6] ;//->unkC;
-//
-//                             func_80397C58_7A9308(
-//                                 (temp_v0_4[2] * 180.0f) / 32768.0f,
-//                                 -((temp_v0_4[0] * 180.0f) / 32768.0f),
-//                                 1 << j,
-//                                 D_803F70F8[i][j],
-//                                 -((temp_v0_4[1] * 180.0f) / 32768.0f),
-//                                 temp_v0_4[3],
-//                                 temp_t8,
-//                                 j,
-//                                 i
-//                             );
-//                         }
-//                     }
-//                 }
-//             }
-//             func_80397D1C_7A93CC(i); // temp_s7 & 0xFF
-//         }
-//     }
-// }
+#endif
 
 void func_80397B84_7A9234(void) {
     s16 i, j, k;

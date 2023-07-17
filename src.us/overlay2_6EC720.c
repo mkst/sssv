@@ -59,7 +59,6 @@ void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 
         phi_a1 = D_803A2D90_7B4440[phi_v1].unk2;
     } else {
         phi_v1 = (temp_t9_2 * 17);
-        // phi_v1 += (32 - foo) & 0xffff;
         phi_v1 = phi_v1 + ((32 - foo) & 0xffff);
         phi_a0 = D_803A2D90_7B4440[phi_v1].unk0;
         phi_a1 = D_803A2D90_7B4440[phi_v1].unk2;

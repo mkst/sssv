@@ -336,21 +336,18 @@ void apply_recoil(s16 arg0) {
     }
 }
 
-#ifdef NON_MATCHING
-// stack + regalloc
 // ESA: func_80082D94
 s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7) {
     s16 var_t3;
     s16 var_t4;
     s16 var_t5;
-    s16 var_t0;
+    s16 ret;
+    s32 pad;
+    s16 damage_factor;
 
-    s32 pad[2];
     struct065 *var_ra;
     struct043 *var_a1;
-
     Animal *animal; // sp34
-    s16 ret;
 
     ret = 0;
 
@@ -358,33 +355,33 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     var_t4 = (D_803D5530->zPos.h + (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * arg1) >> 8)) - (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2) >> 8);
     var_t5 = D_803D5530->yPos.h + arg0;
 
-    for (var_ra = D_803DA110[(s16) ((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
+    for (var_ra = D_803DA110[(s16)((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
         animal = var_ra->animal;
-        if ((animal != D_803D5530) && (animal != D_803D5530->unk6C) && (((animal->unk16C->unk82.unk2 != 0) && ((animal == D_801D9ED8.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (animal->unk16C->unk9C != D_803D5524->unk9C))) || ((animal->unk16C->unk82.unk2 == 0) && (animal->unk16C->objectType != 0x40)))) {
+        if ((animal != D_803D5530) && (D_803D5530->unk6C != animal) && (((animal->unk16C->unk82.unk2) && ((animal == D_801D9ED8.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (D_803D5524->unk9C != animal->unk16C->unk9C))) || ((!animal->unk16C->unk82.unk2) && (animal->unk16C->objectType != 0x40)))) {
             for (var_a1 = animal->unkC4; var_a1->unkC != 0; var_a1++) {
                 if (ABS((animal->xPos.h + var_a1->unk0.h) - var_t3) < (var_a1->unkC + arg3) &&
                     ABS((animal->zPos.h + var_a1->unk4.h) - var_t4) < (var_a1->unkC + arg3) &&
                     ABS((animal->yPos.h + var_a1->unk8.h) - var_t5) < (var_a1->unkC + arg3)) {
 
-                    var_t0 = 0;
+                    damage_factor = 0;
                     if (arg7 != 0) {
                         animal->unk57 = arg7;
                     }
                     if (D_803D5530->unk44 < animal->unk44) {
-                        var_t0 = 1;
+                        damage_factor = 1;
                     }
                     if ((D_803D5530->unk44 * 2) < animal->unk44) {
-                        var_t0++;
+                        damage_factor++;
                     }
                     if ((D_803D5530->unk44 * 3) < animal->unk44) {
-                        var_t0++;
+                        damage_factor++;
                     }
 
-                    if ((animal->unk4C.unk1B == 0) || (D_803D5524->unk9C == HARD_MOUSE) || ((animal->unk16C->unk82.unk2 == 0) && (D_803D5530->unk44 < animal->unk44))) {
-                        var_t0 = 8;
+                    if ((animal->unk4C.unk1B == 0) || (D_803D5524->unk9C == HARD_MOUSE) || ((!animal->unk16C->unk82.unk2) && ((D_803D5530->unk44*3) < animal->unk44))) {
+                        damage_factor = 8;
                     }
 
-                    if (animal->unk16C->unk82.unk2 != 0) {
+                    if (animal->unk16C->unk82.unk2) {
                         func_802B356C_6C4C1C(animal, arg4, D_803D5524->unkE6, 1);
                         ret = 2;
                         if (D_803D5538 != 0) {
@@ -392,7 +389,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                         }
                     } else if (animal->unk4C.unk1A == 0) {
                         if (animal->unk4A == 0) {
-                            animal->health = MAX(0, animal->health - MAX(1, arg4 >> var_t0));
+                            animal->health = MAX(0, animal->health - MAX(1, arg4 >> damage_factor));
                             if (ret == 0) {
                                 ret = 1;
                             }
@@ -400,16 +397,16 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                     }
 
                     func_802FD674_70ED24(D_803D5530, animal);
-                    if (var_t0 < 6) {
-                        animal->xVelocity.h += (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) >> (var_t0 + 6);
-                        animal->zVelocity.h += (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) >> (var_t0 + 6);
+                    if (damage_factor < 6) {
+                        animal->xVelocity.h += (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) >> (damage_factor + 6);
+                        animal->zVelocity.h += (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) >> (damage_factor + 6);
 
-                        animal->unk65 = MIN(100, animal->unk65 + (20 >> var_t0));
+                        animal->unk65 = MIN(100, animal->unk65 + (20 >> damage_factor));
                     }
 
                     animal->unk4C.unk19 = 1;
 
-                    if ((animal->unk16C->unk82.unk2 != 0) && ((animal->unk366 == 1) || (animal->unk366 == 3) || (animal->unk366 == 4))) {
+                    if ((animal->unk16C->unk82.unk2) && ((animal->unk366 == 1) || (animal->unk366 == 3) || (animal->unk366 == 4))) {
                         animal->unk348 = MAX(animal->unk348, arg6);
                         animal->unk34A = MAX(animal->unk34A, arg5);
                     }
@@ -420,9 +417,6 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     }
     return ret;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_732A60/func_803224C4_733B74.s")
-#endif
 
 u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Animal **arg5, Animal *arg6, u8 arg7) {
     s32 pad[2];

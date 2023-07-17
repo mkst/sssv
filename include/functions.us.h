@@ -1041,16 +1041,17 @@ void func_8034B848_75CEF8(s16 arg0);
 void func_8034BB38_75D1E8(u8 arg0);
 
 // overlay2_75D3D0
-void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, s16 argB, u8 argC);
-void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s16 argA, s16 argB, u8 argC);
-void func_8034CCBC_75E36C(struct061 *arg0, s16 numVtxs, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6);
-void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);
+void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC);
+void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC);
+void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
+void func_8034CE88_75E538(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 arg4, s16 red, s16 green, s16 blue);
 void func_8034D830_75EEE0(struct061 *arg0, struct061 *arg1, struct061 *arg2, s16 arg3, s16 *arg4, s16 *arg5, s16 arg6, s16 arg7, s32 arg8, s8 arg9);
 void func_8034F3EC_760A9C(struct061 *arg0, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6);
+void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6);
 void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue, s32 argB, s32 argC, s32 argD, s32 argE);
-void func_80351390_762A40(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s32 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC);
-void func_80351A44_7630F4(s16 numVtxs, struct061 arg1[], s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue);
-void func_80351EE8_763598(s16 numVtxs, struct061 arg1[], s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
+void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16 arg4, u16 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC);
+void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue);
+void func_80351EE8_763598(s16 numVtxs, struct061 *arg1, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
 void func_80355918_766FC8(void);
 
 // chameleon
