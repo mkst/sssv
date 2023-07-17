@@ -6,7 +6,7 @@
 // .data
 // ========================================================
 
-extern s32 D_803C4DAC_7D645C[];
+extern s32 D_803C4DAC_7D645C[]; // is this D_803E4BA8 - 0x7F7F?
 
 // ========================================================
 // .bss
@@ -99,19 +99,9 @@ void func_80314788_725E38(void) {
     D_803E8E58 = 1;
 }
 
-#if 0
-extern s32 D_803C4DAC[];
 void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
-    // arg1 gets 0x7F7F added before being passed in
-    s16 temp_v1;
-    s32 temp_hi;
-    s32 temp_t6;
-    struct035 *temp_v0_3;
-    s32 phi_v0;
-    s16 phi_v1;
-    struct035 *phi_t1;
-    s16 phi_v1_2;
-    Animal *tmp;
+    Animal2 *var_t1;
+    s16 new_var;
     s16 i;
 
     switch (arg1) {
@@ -120,10 +110,12 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     case 2+0x7F7F:    // 2
         arg0->unk200[arg1-0x7F7F] = arg2;
         break;
+
     case 3+0x7F7F:    // 3
         arg0->unk158 = arg2;
         arg0->unk15E = arg2;
         break;
+
     case ST_SET_HEALTH:    // 4
         if (!(arg0->unk4C.unk1A /* & 0x20 */) || (arg0->health < arg2)) {
             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
@@ -134,45 +126,56 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
             arg0->health = MIN(0x7F, MAX(0, arg2));
         }
         break;
+
     case 5+0x7F7F:
         func_8012822C(arg2); // update game time?
         break;
+
     case ST_SET_XPOS:
         arg0->xPos.w = arg2 << 16;
         func_803136B0_724D60(arg0);
         break;
+
     case ST_SET_ZPOS:
         arg0->zPos.w = arg2 << 16;
         func_803136B0_724D60(arg0);
         break;
+
     case ST_SET_YPOS:
         arg0->yPos.w = arg2 << 16;
         func_803136B0_724D60(arg0);
         break;
+
     case 9+0x7F7F:
         arg0->unk40 = arg2;
         func_802C9BA4_6DB254(arg0);
         break;
+
     case 10+0x7F7F:
         func_80349AA0_75B150(arg2);
         break;
+
     case ST_SET_XVEL:
         arg0->xVelocity.w = arg2 << 5;
         break;
+
     case ST_SET_ZVEL:
         arg0->zVelocity.w = arg2 << 5;
         break;
+
     case ST_SET_YVEL:
         arg0->yVelocity.w = arg2 << 5;
         break;
+
     case ST_SET_ZROT:
         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-            arg0->zRotation = (s16) (((s32) (arg2 << 8) / 360) & 0xFF);
+            arg0->zRotation = (s16) (((arg2 << 8) / 360) & 0xFF);
         } else {
             // is 1800 a typo?
-            func_802C9918_6DAFC8(arg0, (s16) ((s32) (arg2 + 1800) % 360), arg0->yRotation);
+            func_802C9918_6DAFC8(arg0, (s16) ((arg2 + 1800) % 360), arg0->yRotation);
         }
         break;
+
     case ST_SET_YROT:
         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             arg0->yRotation = (s16) (((s32) (arg2 * 256) / 360) & 0xFF);
@@ -181,11 +184,12 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
             func_802C9918_6DAFC8(arg0, arg0->zRotation, (s16) ((s32) (arg2 + 1800) % 360));
         }
         break;
+
     case 16+0x7F7F:
-        temp_hi = arg2 % 100;
-        arg0->unk248[0] = func_803146A8_725D58(arg0, (s16) temp_hi, (arg2 / 100) & 0xFFFF);
-        arg0->commands.unk1CC = (s8) temp_hi;
+        arg0->unk248[0] = func_803146A8_725D58(arg0, arg2 % 100, (arg2 / 100));
+        arg0->commands.unk1CC = arg2 % 100;
         break;
+
     case 17+0x7F7F:
         if (arg2 & 1) {
             arg0->unk163 &= ~0x8;
@@ -208,42 +212,58 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
             arg0->unk163 &= ~0x80;
         }
         break;
+
     case 18+0x7F7F: // set mass?
         arg0->unk46 = arg2;
-        arg0->unk44 = (s16) ((s32) ((arg2) * arg0->unk40) >> 0xB);
+        arg0->unk44 = (arg0->unk46 * arg0->unk40) >> 0xB;
         break;
+
     case ST_SET_SCORE:    // 19
         D_803F2D30.score = arg2;
         break;
+
     case 20+0x7F7F:
         arg0->unk3E = arg2;
         break;
+
     case ST_SET_STATE:
         arg0->state = arg2;
         break;
+
     case 22+0x7F7F:
         D_803F2CD8 = ABS(arg2);
-        D_803F2CD6 = arg2 < 0 ? -1 : 1;
+        new_var = SIGNUM(arg2);
+        D_803F2CD6 = new_var;
         break;
+
     case 23+0x7F7F:
-        temp_t6 = arg2 << 6;
-        D_803A05B0_7B1C60 = temp_t6;
-        D_803A05B4_7B1C64 = temp_t6 * 2;
+        D_803A05B0_7B1C60 = arg2 << 6;
+        D_803A05B4_7B1C64 = D_803A05B0_7B1C60 << 1;
         break;
+
+    case 24+0x7F7F:
+    case 25+0x7F7F:
+    case 26+0x7F7F:
+    case 27+0x7F7F:
+        break;
+
     case 28+0x7F7F:
         D_803E4D2C = arg2;
         break;
+
     case 29+0x7F7F:
-        D_803F2D50.unkE0 = (f32) arg2 / 100.0f;
+        D_803F2D50.unkE0 = arg2 / 100.0f;
         break;
+
     case 30+0x7F7F:
         D_803E4D30 = arg2;
         break;
+
     case 31+0x7F7F:
-        D_803E4D38[0] = arg2;
-        D_8023F260.unk30 = arg2;
+        D_8023F260.unk30 = D_803E4D38[0] = arg2;
         write_eeprom(D_803F7DD6);
         break;
+
     case 32+0x7F7F:
         // is arg2 an object ID?
         if (arg2 < OB_TYPE_ANIMAL_OFFSET) {
@@ -251,24 +271,21 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
             func_802C9BA4_6DB254(arg0);
         } else {
             // arg2 is an animal ID
-            phi_t1 = NULL;
+            var_t1 = NULL;
             for (i = 0; i < D_803D553E; i++) {
-                tmp = D_801D9ED8.animals[i].animal;
-                if ((arg0 == tmp) && (tmp->unk366 != 6)) {
-                    phi_t1 = D_801D9ED8.unk0; // [i] ?
+                if ((arg0 == D_801D9ED8.animals[i].animal) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
+                    var_t1 = &D_801D9ED8.animals[i];
                     break;
                 }
             }
-            if (phi_t1 != NULL) {
-                temp_v0_3 = &D_801D9ED8.unk0[arg2]; // + (arg2 * 0xEC) + 0xFFFF1400;
-                phi_t1->objectType = temp_v0_3;
-                arg0->unk16C = temp_v0_3;
-                // help
-                D_803D5520 = &D_801D9ED8.unk0[arg2];
-                D_803D5524 = &D_801D9ED8.unk0; //phi_t1->unk0;
-                D_803D5528 = &D_801D9ED8.animals;  //phi_t1->unk4;
-                D_803D552C = &D_801D9ED8.animals;  //phi_t1->unk4;
-                D_803D5530 = &D_801D9ED8.animals;  //phi_t1->unk4;
+            if (var_t1 != NULL) {
+                arg0->unk16C = var_t1->unk0 = &D_801D9ED8.unk0[arg2-OB_TYPE_ANIMAL_OFFSET];
+
+                D_803D5520 = var_t1;
+                D_803D5524 = var_t1->unk0;
+                D_803D5528 = var_t1->animal;
+                D_803D552C = D_803D5528;
+                D_803D5530 = D_803D5528;
                 if (i == gCurrentAnimalIndex) {
                     D_803D5538 = 1;
                 } else {
@@ -276,12 +293,12 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
                 }
                 D_803D553C = i;
                 D_803D553A = 0;
-                // arg0 = arg0;
+
                 func_802B2EA8_6C4558();
-                if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) { // + (gCurrentAnimalIndex * 8))->
+                if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
                     D_803E9824 = arg2 - OB_TYPE_ANIMAL_OFFSET;
-                    D_803E9820 = (s16) D_803A63B0_7B7A60[D_803E9824].unk0;
-                    D_803E9822 = (s16) D_803A63B0_7B7A60[D_803E9824].unk1;
+                    D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
+                    D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
                     func_80327DA8_739458();
                 }
                 func_802C9BA4_6DB254(arg0);
@@ -289,27 +306,28 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         }
         break;
     case 33+0x7F7F:
-        D_801546E0 = (s16) arg2;
+        D_801546E0 = arg2;
         break;
+
     case 34+0x7F7F:
         D_801546D8 = MAX(arg2, 0);
         break;
+
     case 35+0x7F7F:
-        D_803E4D38[1] = arg2;
-        D_8023F260.unk34 = arg2;
-        write_eeprom(D_803F7DD6); //, arg1, arg0);
+        D_8023F260.unk34 = D_803E4D38[1] = arg2;
+         // arg2;
+        write_eeprom(D_803F7DD6);
         break;
+
     case 36+0x7F7F:
         D_803E4D28 = arg2;
         break;
+
     default:
-        D_803C4DAC[arg1] = arg2; // + (arg1 * 4)) = arg2;
+        D_803C4DAC_7D645C[arg1] = arg2;
         break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/set_game_state.s")
-#endif
 
 s32 get_game_state(Animal *arg0, s32 arg1) {
     s32 res;
@@ -317,7 +335,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
     if (arg1 < 0x7F7F) {
         res = arg1;
     } else {
-        switch (arg1) { // arg1 - 0x7F7F
+        switch (arg1) {
         case 0+0x7F7F:
         case 1+0x7F7F:
         case 2+0x7F7F:
@@ -1417,7 +1435,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
                 sp134 = sp134 >> 0x10;
 
                 // FIXME - whats wrong here?
-                if (((ABS((temp_s1->xPos.h - sp12C)) > 4) || (ABS(temp_s1->zPos.h - sp130) > 4)) ||
+                if ((ABS(temp_s1->xPos.h - sp12C) > 4) ||
+                    (ABS(temp_s1->zPos.h - sp130) > 4) ||
                     ((temp_s1->unk4C.unk1D == 0) && (ABS(temp_s1->yPos.h - sp134) > 4))) {
                     temp_s1->unk170 = 6;
                     func_802F657C_707C2C(
@@ -2376,7 +2395,6 @@ s32 func_80316408_727AB8(Animal *arg0) {
         set_game_state(temp_s1, temp_s0->unk19C.payload.cmd.type101.action + 0x7F7F, sp84);
 
         return 69;
-
     // FIXME!
     case 0x2D:
         break;

@@ -1096,14 +1096,9 @@ void func_8032A710_73BDC0(void) {
     D_801D9ED8.animals[temp_t0].animal->unk4C.unk1A = D_801D9ED8.animals[0].animal->unk4C.unk1A;
     D_801D9ED8.animals[0].animal->unk4C.unk1A = temp_v1;
 
-    D_803D5520 = &D_801D9ED8.animals;
+    D_803D5520 = D_801D9ED8.animals;
     D_803D5524 = D_801D9ED8.animals[0].unk0;
-    a = D_801D9ED8.animals[0].animal;
-    D_803D5528 = a;
-    D_803D552C = a;
-    D_803D5530 = a;
-
-    if (D_803D5528 == NULL) {}
+    D_803D5530 = D_803D552C = D_803D5528 = D_801D9ED8.animals[0].animal;
 
     if (gCurrentAnimalIndex == 0) {
         D_803D5538 = 1;
@@ -1124,7 +1119,7 @@ void func_8032A710_73BDC0(void) {
     D_803D552C = a;
     D_803D5530 = a;
 
-    if (temp_t0 == gCurrentAnimalIndex) {
+    if (gCurrentAnimalIndex == temp_t0) {
         D_803D5538 = 1;
     } else {
         D_803D5538 = 0;
@@ -1143,20 +1138,18 @@ void func_8032A710_73BDC0(void) {
 
     D_803D5530->unk18C = D_801D9ED8.animals[0].animal->unk18C;
     D_803E9824 = D_801D9ED8.animals[temp_t0].unk0->unk9C;
-    animalId = D_803E9824;
-    D_803E9820 = D_803A63B0_7B7A60[animalId].unk0;
-    D_803E9822 = D_803A63B0_7B7A60[animalId].unk1;
-    check_and_set_species_encountered(animalId);
+    D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
+    D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
+    check_and_set_species_encountered(D_803E9824);
     func_80327DA8_739458();
     func_803283DC_739A8C();
     func_802B2EA8_6C4558();
     func_802C9BA4_6DB254((struct071 *) D_803D5530);
+
     D_803D5520 = &D_801D9ED8.animals;
     D_803D5524 = D_801D9ED8.animals[0].unk0;
-    a = D_801D9ED8.animals[0].animal;
-    D_803D5528 = a;
-    D_803D552C = a;
-    D_803D5530 = a;
+    D_803D5530 = D_803D552C = D_803D5528 = D_801D9ED8.animals[0].animal;;
+
     if (gCurrentAnimalIndex == 0) {
         D_803D5538 = 1;
     } else {
@@ -1164,7 +1157,7 @@ void func_8032A710_73BDC0(void) {
     }
     D_803D553C = 0;
     D_803D553A = 0;
-    play_sound_effect_at_location(40, 0x5000, 0, D_803D5530->xPos.h, (s16) (s32) D_803D5530->zPos.h, (s16) (s32) D_803D5530->yPos.h, 1.0f);
+    play_sound_effect_at_location(40, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_739290/func_8032A710_73BDC0.s")

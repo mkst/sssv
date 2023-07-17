@@ -2961,8 +2961,8 @@ void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {
 
     for (i = 0; i < tmp; i++) {
         create_particle_effect_2(
-            SSSV_RAND(8) + x,
-            SSSV_RAND(8) + z,
+            x + SSSV_RAND(8),
+            z + SSSV_RAND(8),
             y,
             28,
             SSSV_RAND(8) + 1,
@@ -2973,7 +2973,7 @@ void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {
 }
 
 #ifdef NON_MATCHING
-// ESA: func_800A8AF0
+// ESA: func_800AB0AC or func_800A8AF0?
 void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 color) {
 
     s16 spBE;
@@ -3348,6 +3348,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D7BE0_6E9290.s")
 #endif
 
+// ESA:func_800AAD34
 void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
     s16 tmp0;
     s16 tmp1;
@@ -3410,7 +3411,7 @@ void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
     play_sound_effect_at_location(SFX_UNKNOWN_77, tmp3, 0x80, x, z, y, 1.0f);
 }
 
-// ESA: func_800AAD34
+// ESA: func_800AB3B8
 void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
     s16 phi_s0;
     u16 temp_v1;

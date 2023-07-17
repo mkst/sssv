@@ -78,187 +78,168 @@ void func_80305250_716900(struct079_inner *arg0, Animal *animal, s16 distance, u
     }
 }
 
-// delay slot + jump table
-#if 0
 // ESA: func_80078890
 void func_80305368_716A18(struct079 *arg0) {
-    s16 sp86;
-    s16 sp84;
-    s16 sp80;
-    s16 sp7A;
-    s16 sp78;
-    s16 sp60;
-    s16 sp58;
-    s16 sp56;
-    // s32 sp40;
 
-    s16 temp_fp;
-    s32 temp_s0;
-    s16 temp_t0;
-    s16 temp_t1;
-    s16 temp_t4;
-    s16 var_a3;
-    s32 var_s0;
-    s16 var_t2;
-    s16 var_t3;
-    s16 i;
-    s16 temp_t7;
-    s16 temp_t9;
-
-    u8 var_a1;
-
+    s16 start_2;
+    s16 end_2;      // sp84
+    s16 start_1;
+    s16 end_1;
+    s32 pad2;
+    s16 k;          // sp7A
+    s16 j;          // sp78
+    u16 idx;
+    s32 dist;
     Animal *animal;
-    struct035 *temp_v1_4;
     struct065 *var_s5;
+    u8 ai_behavior;
+    s16 i;
+    s16 x_pos;
+    s16 z_pos;
+    struct035 *temp_v1_4;
+    s16 pad1;
+    s16 max_height; // sp58
+    s16 min_height; // sp56
+
 
     if ((D_803D5524->class == 0x40) || (D_803D5524->waterClass & WATER_SWIM)) {
-        sp58 = D_803D5530->yPos.h + 0x190;
-        sp56 = D_803D5530->yPos.h - 0x1F4;
+        max_height = D_803D5530->yPos.h + 0x190;
+        min_height = D_803D5530->yPos.h - 0x1F4;
     } else {
-        sp58 = D_803D5530->yPos.h + 0xC8;
-        sp56 = D_803D5530->yPos.h - 0xC8;
+        max_height = D_803D5530->yPos.h + 0xC8;
+        min_height = D_803D5530->yPos.h - 0xC8;
     }
 
-    temp_fp = D_803D5530->xPos.h;
-    temp_t4 = D_803D5530->zPos.h;
+    x_pos = D_803D5530->xPos.h;
+    z_pos = D_803D5530->zPos.h;
 
-    var_t2 = (s16)(temp_fp >> 6) - 1;
-    temp_t0 = (s16)(temp_t4 >> 6) - 1;
+    start_2 = (s16)(x_pos >> 6) - 1;
+    end_2   = (s16)(x_pos >> 6) + 1;
 
-    sp84 = (s16)(temp_fp >> 6) + 1;
-    temp_t1 = (s16)(temp_t4 >> 6) + 1;
+    start_1 = (s16)(z_pos >> 6) - 1;
+    end_1 = (s16)(z_pos >> 6) + 1;
 
-    var_a3 = temp_t0;
-    var_t3 = temp_t1;
-
-    if (var_t2 < 0) {
-        var_t2 = 0;
-    } else if (sp84 > 72) {
-        sp84 = 72;
+    // check within bounds
+    if (start_2 < 0) {
+        start_2 = 0;
+    } else if (end_2 > 72) {
+        end_2 = 72;
+    }
+    if (start_1 < 0) {
+        start_1 = 0;
+    } else if (end_1 > 128) {
+        end_1 = 128;
     }
 
-    if (var_a3 < 0) {
-        var_a3 = 0;
-    } else if (var_t3 > 128) {
-        var_t3 = 128;
-    }
+    start_2 = start_2 >> 4; // start 2
+    end_2 = end_2 >> 4;     // end 2
 
-    var_t2 = var_t2 >> 4;
-    sp84 = sp84 >> 4;
-
-    temp_t9 = (s16)(var_a3 >> 4);
-    temp_t7 = (s16)(var_t3 >> 4);
+    start_1 = start_1 >> 4; // start 1
+    end_1 = end_1 >> 4;     // end 1
 
     for (i = 0; i < 3; i++) {
-        arg0->unk38.distance[i] = MAX_INT;
-        arg0->unk1C.distance[i] = MAX_INT;
-        arg0->unk0.distance[i] = MAX_INT;
+        arg0->unk0.distance[i] = arg0->unk1C.distance[i] = arg0->unk38.distance[i] = MAX_INT;
     }
 
-    arg0->unk38.used = 0;
-    arg0->unk1C.used = 0;
-    arg0->unk0.used = 0;
+    arg0->unk0.used = arg0->unk1C.used = arg0->unk38.used = 0;
+    arg0->unk54 = arg0->unk5C = MAX_INT;
+    arg0->unk60 = arg0->unk58 = NULL;
 
-    arg0->unk5C = MAX_INT;
-    arg0->unk54 = MAX_INT;
-
-    arg0->unk58 = NULL;
-    arg0->unk60 = NULL;
-
-    for (sp78 = temp_t9; sp78 <= temp_t7; sp78++) {
-        for (sp7A = var_t2; sp7A <= sp84; sp7A++) {
-            for (var_s5 = D_803DA110[(sp7A + (sp78 * 5)) & 0xFFFF].next; var_s5 != NULL; var_s5 = var_s5->next) {
+    for (j = start_1; j <= end_1; j++) {
+        for (k = start_2; k <= end_2; k++) {
+            idx = (k + (j * 5));
+            for (var_s5 = D_803DA110[idx].next; var_s5 != NULL; var_s5 = var_s5->next) {
                 animal = var_s5->animal;
                 temp_v1_4 = animal->unk16C;
 
                 if (temp_v1_4->objectType < OB_TYPE_ANIMAL_OFFSET) {
-
                     // it's an object
-
                     if ((temp_v1_4->unk82.unk1 == 0) && (temp_v1_4->objectType != OBJECT_TELEPORTER_BASE) && (temp_v1_4->objectType != OBJECT_TELEPORTER_ACTIVE_NO_TRIGGER) && (temp_v1_4->objectType != OBJECT_TELEPORTER_ACTIVE)) {
-                        if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2)) {
-                            if ((animal != D_803D552C->unk2AC) && (animal != D_803D552C->unk320)) {
-                                temp_s0 = (ABS(animal->xPos.h - temp_t4) + ABS(animal->zPos.h - temp_fp)) - D_803D5524->unkBE;
-                                if (temp_v1_4->unk2 == 2) {
-                                    if ((D_803D5524->unk9C == RAT) || (D_803D5524->unk9C == POLAR_BEAR) || (D_803D5524->unk9C == HIPPO) || (D_803D5524->unk9C == KING_RAT) || (D_803D5524->unk9C == POLAR_TANK)) {
-                                        if (animal->unk15C < 25) {
-                                            func_80305250_716900(&arg0->unk38, animal, (temp_s0 - animal->unk30) - 100, 2);
-                                        }
-                                    } else {
-                                        func_80305250_716900(&arg0->unk1C, animal, (temp_s0 - animal->unk30) - 100, 2);
+                        if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2) && (animal != D_803D552C->unk2AC) && (animal != D_803D552C->unk320)) {
+                            dist = ABS(animal->xPos.h - x_pos) + ABS(animal->zPos.h - z_pos);
+                            dist = dist - D_803D5524->unkBE;
+                            if (temp_v1_4->unk2 == 2) {
+                                if ((D_803D5524->unk9C == RAT) || (D_803D5524->unk9C == POLAR_BEAR) || (D_803D5524->unk9C == HIPPO) || (D_803D5524->unk9C == KING_RAT) || (D_803D5524->unk9C == POLAR_TANK)) {
+                                    if (animal->unk15C < 25) {
+                                        dist = dist - (animal->unk30 + 100);
+                                        func_80305250_716900(&arg0->unk38, animal, dist, 2);
                                     }
                                 } else {
-                                    func_80305250_716900(&arg0->unk38, animal, temp_s0, 2);
+                                    dist = dist - (animal->unk30 + 100);
+                                    func_80305250_716900(&arg0->unk1C, animal, dist, 2);
                                 }
+                            } else {
+                                func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             }
                         }
                     }
                 } else if ((animal != D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) {
-
                     // its an animal
-
-                    if ((animal->yPos.h < sp58) && (sp56 < animal->yPos.h)) {
+                    if ((animal->yPos.h < max_height) && (min_height < animal->yPos.h)) {
                         if ((func_80362B00_7741B0(animal) != 0) || ((can_swim(D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
-                            var_a1 = 0;
+                            ai_behavior = 0;
                         } else {
-                            var_a1 = func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
+                            ai_behavior = func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
                         }
 
-                        // tbd if this is the right order
-                        var_s0 = ((ABS(animal->xPos.h - temp_t4) + ABS(animal->zPos.h - temp_fp)) - D_803D5524->unkBE) - animal->unk16C->unkBE;
-                        if (var_s0 < 0) {
-                            var_s0 = 0;
+                        dist = ABS(animal->xPos.h - x_pos) + ABS(animal->zPos.h - z_pos);
+                        dist = dist - (D_803D5524->unkBE);
+                        dist = dist - animal->unk16C->unkBE;
+                        if (dist < 0) {
+                            dist = 0;
                         }
-                        switch (var_a1) {
-                        case AI_IGNORE:
-                            func_80305250_716900(&arg0->unk38, animal, var_s0, 2);
+
+                        switch (ai_behavior) {
+                        case AI_IGNORE: // 0
+                            func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             break;
-                        case AI_FLEE:
+                        case AI_FLEE: // 1
                             if (D_803D552C->unk272 & 4) {
-                                func_80305250_716900(&arg0->unk1C, animal, var_s0, 2);
+                                func_80305250_716900(&arg0->unk1C, animal, dist, 2);
                             }
-                            func_80305250_716900(&arg0->unk38, animal, var_s0, 2);
+                            func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             break;
-                        case AI_ATTACK:
+                        case AI_ATTACK: // 2
                             if (D_803D552C->unk272 & 1) {
-                                if (var_s0 < arg0->unk54) {
-                                    arg0->unk54 = var_s0;
+                                if (dist < arg0->unk54) {
+                                    arg0->unk54 = dist;
                                     arg0->unk58 = animal;
                                 }
                             } else {
-                                func_80305250_716900(&arg0->unk38, animal, var_s0, 2);
+                                func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             }
                             break;
-                        case AI_SAME_ANIMAL:
-                            func_80305250_716900(&arg0->unk38, animal, var_s0, 2);
+                        case AI_SAME_ANIMAL: // 3
+                            func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             break;
-                        case AI_HERD:
+                        case AI_HERD: // 4
                             if (D_803D552C->unk272 & 8) {
-                                func_80305250_716900(&arg0->unk0, animal, var_s0, 2);
+                                func_80305250_716900(&arg0->unk0, animal, dist, 2);
                             } else {
-                                func_80305250_716900(&arg0->unk38, animal, var_s0, 2);
+                                func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             }
                             break;
-                        case AI_LEAD_HERD:
+                        case AI_LEAD_HERD: // 5
                             if (D_803D552C->unk272 & 8) {
-                                if (var_s0 < arg0->unk5C) {
-                                    arg0->unk5C = var_s0;
+                                if (dist < arg0->unk5C) {
+                                    arg0->unk5C = dist;
                                     arg0->unk60 = animal;
-                                    arg0->unk64 = 0;
+                                    arg0->unk64 = 0; // isFollowing?
                                 }
                             } else {
-                                func_80305250_716900(&arg0->unk38, animal, var_s0, 2);
+                                func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             }
                             break;
-                        case AI_FOLLOWER:
-                            if (var_s0 < arg0->unk5C) {
-                                arg0->unk5C = var_s0;
+                        case AI_FOLLOWER: // 6
+                            if (dist < arg0->unk5C) {
+                                arg0->unk5C = dist;
                                 arg0->unk60 = animal;
-                                arg0->unk64 = 1;
+                                arg0->unk64 = 1; // isFollowing?
                             }
                             break;
-                        case AI_LEADER:
-                        case AI_INVISIBLE:
+                        case AI_LEADER: // 7
+                            break;
+                        case AI_INVISIBLE: // 8
                             break;
                         }
                     }
@@ -267,12 +248,7 @@ void func_80305368_716A18(struct079 *arg0) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80305368_716A18.s")
-#endif
 
-#if 1
-// jank logic again
 // ESA: func_80078EAC
 s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     u8 sp4F;
@@ -347,9 +323,6 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     }
     return sp43;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80305A70_717120.s")
-#endif
 
 // plenty of work still to do here
 #if 0

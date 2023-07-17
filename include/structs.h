@@ -2660,8 +2660,31 @@ typedef struct {
 } struct111; // size 0xC
 
 typedef struct {
-    s32 unk0; // ?
-    void* unk4;
+    /* 0x0 */ s16 unk0; // id
+    /* 0x2 */ s16 unk2; // volume
+    /* 0x4 */ s16 unk4; // unused
+    /* 0x8 */ f32 unk8; // pitch
+} struct110a; // size 0xC
+
+typedef struct {
+    /* 0x0 */ s16 unk0;
+    /* 0x2 */ s16 unk2;
+    /* 0x4 */ s16 unk4;
+    /* 0x6 */ s16 unk6;
+    /* 0x6 */ s16 unk8;
+    /* 0x6 */ s16 unkA;
+    /* 0xC */ u16 unkC;
+} struct110b; // size 0xE
+
+typedef struct {
+    s32 unk0;
+    struct110b *unk4;
+    s32 unk8;
+} struct110c;
+
+typedef struct {
+    struct110c* unk0;
+    struct110a* unk4;
 } struct110;
 
 typedef struct {

@@ -628,8 +628,8 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     u8 var_v0_2;
 
     *arg2 = NULL;
-    D_803D60E0 = 0;
     var_s0 = 0;
+    D_803D60E0 = 0;
 
     for (i = 0; (var_s0 == 0) && (i < 5) && (arg0->unkC4[i].unkC != 0); i++) {
 

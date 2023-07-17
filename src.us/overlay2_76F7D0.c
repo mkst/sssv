@@ -52,11 +52,15 @@ void func_8035E200_76F8B0(void) {
         if ((D_803D552C->energy && D_803D552C->energy) && D_803D552C->energy) {};
     }
 
+    if (((!D_803D552C->energy) && (!D_803D552C->energy)) && (!D_803D552C->energy)) {
+    }
+
     if ((skillBEnergy < D_803D552C->energy[1].unk0)) {
         if ((D_803D552C->energy && D_803D552C->energy) && D_803D552C->energy) {};
     }
 
     D_803F2EE0[0] = D_803F2EE0[1] = 0;
+
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E200_76F8B0.s")
