@@ -266,7 +266,6 @@ void func_8029A720_6ABDD0(void) {
 }
 
 void func_8029ABCC_6AC27C(void) {
-    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0x1000000, 0x2000000, 0x5780000, 0, 0, 0, 0x20000, 0x20000, 0x20000);
-    gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-    D_80204278->usedModelViewMtxs += 1;
+    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], FTOFIX32(256.0), FTOFIX32(512.0), FTOFIX32(1400.0), 0, 0, 0, FTOFIX32(2.0), FTOFIX32(2.0), FTOFIX32(2.0));
+    gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 }

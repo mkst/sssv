@@ -141,14 +141,10 @@ u8 *memcpy_sssv(u8 *src, u8 *dst, u32 len) {
     return dst;
 }
 
-// matches with -O2 -g3
-#if 0
 s16 func_80129198(s16 arg0) {
-    // huh? is this swallowed up by func_801291A4
+    // junk
+    if ((!arg0) && (!arg0)) {};
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/string/func_80129198.s")
-#endif
 
 u8 *func_801291A4(u8 *x) {
     u8 *_x = x;

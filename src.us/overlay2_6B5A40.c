@@ -1076,11 +1076,15 @@ s32 func_802A7648_6B8CF8(Animal *arg0) {
     return 0;
 }
 
-#if 0
 // ESA: func_8003BF7C
 void func_802A78CC_6B8F7C(void) {
+    f32 var_f12;
+
     s32 spC8;
     s32 spC4;
+
+    s32 var_a0;
+
     s32 spBC;
     s32 spB8;
     s32 spB4;
@@ -1088,27 +1092,24 @@ void func_802A78CC_6B8F7C(void) {
     s32 spAC;
     s32 spA8;
     s32 spA4;
-    // s32 sp8C;
+
+    s32 tmp2;
+    s32 tmp3;
+    s16 pad[6];
+
+    s32 sp8C;
     u16 sp8A;
     s16 sp88;
     s16 sp86;
+    //
+    s32 var_a2;
+    s32 var_a3;
     u8 sp7B;
     Animal *sp74;
-
     s16 sp72;
     s16 sp70;
-    s32 sp6C;
-    f32 var_f12;
-    f64 temp_f0;
-    f64 temp_f2;
-    s32 temp_a0_10;
-    s32 temp_v0;
-    s32 var_a0;
-    s32 var_a2;
 
-    s32 var_v1_7;
-
-    static f32 D_803D5580; // .bss (remove extra padding from collision when matched)
+    static f32 D_803D5580;
 
     if (D_803D5530->unk4A == 0) {
         D_803D552C->unk2F4 = D_803D552C->unk2F2;
@@ -1129,14 +1130,14 @@ void func_802A78CC_6B8F7C(void) {
         }
         spB4 = D_803D552C->yPos.w;
 
-        switch (D_803D5530->unk162 & 0xF) {                          /* switch 1 */
-        case 1:                                     /* switch 1 */
-            D_803D5530->yVelocity.w -= D_803A05B4_7B1C64;
-            switch (func_8030AAE0_71C190(D_803D5530)) {                    /* switch 3; irregular */
+        switch (D_803D5530->unk162 & 0xF) {
+        case 1:
+            D_803D552C->yVelocity.w -= D_803A05B4_7B1C64;
+            switch (func_8030AAE0_71C190(D_803D5530)) {
             case 1:
                 D_803D5530->unk162 = 3;
                 func_802A6400_6B7AB0();
-                D_803D5530->yVelocity.w = (D_803D5530->yVelocity.w + D_803A05B4_7B1C64) - (D_803A05B0_7B1C60 * 2);
+                D_803D552C->yVelocity.w = (D_803D552C->yVelocity.w + D_803A05B4_7B1C64) - (D_803A05B0_7B1C60 * 2);
                 break;
             case 0:
             case 2:
@@ -1150,20 +1151,18 @@ void func_802A78CC_6B8F7C(void) {
                     func_80311A2C_7230DC(D_803D5530->xPos.h, D_803D5530->zPos.h, &sp72, &sp70, D_803D5530->unk160);
                 }
 
-                if ((ABS(sp72) >= 36) || (ABS(sp70) >= 36)) {
-                    if ((D_803D5530->yPos.h - (func_80310EE4_722594(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->unk160) >> 0x10)) > 64) {
-                        D_803D5530->yVelocity.w = D_803D5530->yPos.w - spB4;
-                    }
+                if (((ABS(sp72) < 36) && (ABS(sp70) < 36)) || ((D_803D5530->yPos.h - (func_80310EE4_722594(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->unk160) >> 0x10)) > 64)) {
+                    D_803D5530->yVelocity.w = D_803D5530->yPos.w - spB4;
                 } else {
-                    D_803D5530->yVelocity.w = MAX(D_803D5530->yPos.w - spB4, 0x40000);
+                    D_803D5530->yVelocity.w = MIN(0x40000, D_803D5530->yPos.w - spB4);
                 }
             }
             if ((D_803D5530->unk162 == 3) && ((D_803D552C->unk360 != 0) || ((D_803D5524->canJump & 1) && ((D_803D5544 - D_803D555A) < 3) && (D_803D552C->unk367 == 0) && ((D_803D5560 == NULL) || (D_803D5560->unk16C->unk82.unk1))))) {
                 if (D_803D552C->yVelocity.w < 0) {
                     if (D_803D552C->yVelocity.w < D_803A05B4_7B1C64) {
-                        D_803D5530->yVelocity.w += D_803A05B4_7B1C64;
+                        D_803D552C->yVelocity.w += D_803A05B4_7B1C64;
                     } else {
-                        D_803D5530->yVelocity.w = 0;
+                        D_803D552C->yVelocity.w = 0;
                     }
                 }
             }
@@ -1174,9 +1173,7 @@ void func_802A78CC_6B8F7C(void) {
             if (D_803D5524->unk9C == SKI_HUSKY) {
                 func_802A4278_6B5928(2, 0xC, sp8A);
                 if (D_803D554C != 0) {
-                    temp_f0 = D_803D5530->xVelocity.w / 65536.0;
-                    temp_f2 = D_803D5530->zVelocity.w / 65536.0;
-                    if (((temp_f0 * temp_f0) + (temp_f2 * temp_f2)) < 784.0) {
+                    if ((SQ(D_803D5530->xVelocity.w / 65536.0) + SQ(D_803D5530->zVelocity.w / 65536.0)) < 784.0) {
                         D_803D5530->xVelocity.w += (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * 0xDE;
                         D_803D5530->zVelocity.w += (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 0xDE;
                     }
@@ -1199,43 +1196,36 @@ void func_802A78CC_6B8F7C(void) {
                 var_a2 = ABS(D_803D5530->xVelocity.w);
                 var_a0 = ABS(D_803D5530->zVelocity.w);
 
-                temp_v0 = (MAX(var_a2, var_a0) >> 1) + MIN(var_a2, var_a0);
-                if ((D_803D5524->unkA4 << 11) < temp_v0) {
+                var_a2 = MAX(var_a2, var_a0) + (MIN(var_a2, var_a0) >> 1);
+                if (var_a2 > (D_803D5524->unkA4 << 11)) {
                     sp8A = sp8A / 4;
-                } else if ((D_803D5524->unkA4 << 10) < temp_v0) {
+                } else if (var_a2 > (D_803D5524->unkA4 << 10)) {
                     sp8A = sp8A / 2;
-                } else if (temp_v0 < (D_803D5524->unkA4 << 8)) {
+                } else if (var_a2 < (D_803D5524->unkA4 << 8)) {
                     sp8A += sp8A >> 1;
                 }
             }
-            if (D_803F2D50.segment == 1) {
-                if (D_803D5530->unk6C == NULL) {
-                    if ((D_803D5524->unk9C != WALRUS) && ((D_803D5524->unk9C != SKI_HUSKY) || (D_803D552C->unk310 != 0))) {
+            if ((D_803F2D50.segment == 1) && (D_803D5530->unk6C == NULL) &&
+                ((D_803D5524->unk9C == WALRUS) || ((D_803D5524->unk9C == SKI_HUSKY) && (D_803D552C->unk310 == 0)) ||
+                 ((ABS(spC8) < 0x10000) && (ABS(spC4) < 0x10000) && ((ABS(D_803D5530->xVelocity.w) > 0x20000) || (ABS(D_803D5530->zVelocity.w) > 0x20000))))) {
 
-                        if (((ABS(spC8) < 0x10000) && (ABS(spC4) < 0x10000)) &&
-                            ((ABS(D_803D5530->xVelocity.w) < 0x20000) && (ABS(D_803D5530->zVelocity.w) < 0x20000))) {
-//
-                            var_a0 = MAX(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w));
-
-                            if (var_a0 >= 0x60000) {
-                                var_a0 = 0x60000;
-                            }
-
-                            var_f12 = MIN(1.0, var_a0 / (256 * 1024.0));
-
-                            D_803D5580 = MIN(D_803D5580 + 0.2, var_f12);
-                            func_8032CD70_73E420(
-                                0x6F,
-                                0x3F,
-                                ((20480.0f * D_803D5580) * 0.4),
-                                0,
-                                sqrtf(((var_a0 / 65536.0) + 1.0)) * 0.5,
-                                D_803D5530->xPos.h,
-                                D_803D5530->zPos.h,
-                                D_803D5530->yPos.h);
-                        }
-                    }
+                var_a0 = MAX(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w));
+                if (var_a0 >= 0x60000) {
+                    var_a0 = 0x60000;
                 }
+
+                var_f12 = MIN(1.0, var_a0 / (256 * 1024.0));
+
+                D_803D5580 = MIN(D_803D5580 + 0.2, var_f12);
+                func_8032CD70_73E420(
+                    0x6F,
+                    0x3F,
+                    ((20480.0f * D_803D5580) * 0.4),
+                    0,
+                    sqrtf(((var_a0 / 65536.0) + 1.0)) * 0.5,
+                    D_803D5530->xPos.h,
+                    D_803D5530->zPos.h,
+                    D_803D5530->yPos.h);
             }
             func_802ABB10_6BD1C0(sp8A, &spC8, &spC4);
             func_802A3E70_6B5520(D_803D5530, &spC8, &spC4);
@@ -1268,7 +1258,7 @@ void func_802A78CC_6B8F7C(void) {
                 spC8 += (spC8 * D_803D554B) >> 4;
                 spC4 += (spC4 * D_803D554B) >> 4;
             }
-            func_802AC484_6BDB34((u16)D_803D5520->unk0->unkB6 * 0x64, &spC8, &spC4);
+            func_802AC484_6BDB34((u16)D_803D5520->unk0->unkB6 * 100, &spC8, &spC4);
             D_803D5530->xVelocity.w = spC8;
             D_803D5530->zVelocity.w = spC4;
             D_803D5530->newPosition.xPos.w = D_803D5530->xPos.w + D_803D5530->xVelocity.w;
@@ -1280,12 +1270,7 @@ void func_802A78CC_6B8F7C(void) {
             switch (func_8030AAE0_71C190(D_803D5530)) {
             case 0:
                 if (func_802A64B0_6B7B60() != 0) {
-                    // can this be simplified?
-                    if (MAX(0x40000, D_803D5530->yVelocity.w + 0x40000) < (D_803D5530->yPos.w - spB4)) {
-                        D_803D5530->yVelocity.w = MIN((D_803D5530->yPos.w - spB4), 0x40000);
-                    } else {
-                        D_803D5530->yVelocity.w = (D_803D5530->yPos.w - spB4);
-                    }
+                    D_803D5530->yVelocity.w = MIN(MAX(0x40000, D_803D5530->yVelocity.w + 0x40000), D_803D5530->yPos.w - spB4);
                 }
                 if (D_803D552C->unk364 == 3) {
                     D_803D552C->unk364 = 4;
@@ -1293,10 +1278,8 @@ void func_802A78CC_6B8F7C(void) {
                 }
                 if ((D_803D5544 - D_803D5530->unk48) >= 5) {
                     func_80311A2C_7230DC(D_803D5530->xPos.h, D_803D5530->zPos.h, &sp88, &sp86, D_803D5530->unk160);
-                    if (D_803D5530->yVelocity.h >= -6) {
-                        if ((ABS(sp88) < 24) && (ABS(sp86) < 24)) {
-                            func_802DBA58_6ED108(6, D_803D552C);
-                        }
+                    if ((D_803D5530->yVelocity.h < -6) || ((ABS(sp88) < 24) && (ABS(sp86) < 24))) {
+                        func_802DBA58_6ED108(6, D_803D552C);
                     }
                 }
                 break;
@@ -1313,9 +1296,7 @@ void func_802A78CC_6B8F7C(void) {
                 sp8A = D_803D5520->unk0->traction * 0x10;
                 if (D_803D5524->unk9C == SKI_HUSKY) {
                     if (D_803D554C != 0) {
-                        temp_f0 = D_803D5530->xVelocity.w / 65536.0;
-                        temp_f2 = D_803D5530->zVelocity.w / 65536.0;
-                        if (((temp_f0 * temp_f0) + (temp_f2 * temp_f2)) < 784.0) {
+                        if ((SQ(D_803D5530->xVelocity.w / 65536.0) + SQ(D_803D5530->zVelocity.w / 65536.0)) < 784.0) {
                             D_803D5530->xVelocity.w += ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * 0xDE);
                             D_803D5530->zVelocity.w += ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 0xDE);
                         }
@@ -1327,10 +1308,10 @@ void func_802A78CC_6B8F7C(void) {
                     var_a2 = ABS(D_803D5530->xVelocity.w);
                     var_a0 = ABS(D_803D5530->zVelocity.w);
 
-                    temp_v0 = MAX(var_a2, var_a0) + (MIN(var_a2, var_a0) >> 1);
-                    if ((D_803D5524->unkA4 << 11) < temp_v0) {
+                    var_a2 = MAX(var_a2, var_a0) + (MIN(var_a2, var_a0) >> 1);
+                    if ((D_803D5524->unkA4 << 11) < var_a2) {
                         sp8A = sp8A / 4;
-                    } else if ((D_803D5524->unkA4 << 10) < temp_v0) {
+                    } else if ((D_803D5524->unkA4 << 10) < var_a2) {
                         sp8A = sp8A / 2;
                     }
                 }
@@ -1350,14 +1331,13 @@ void func_802A78CC_6B8F7C(void) {
             spA8 = D_803D5530->zPos.w;
             spA4 = D_803D5530->yPos.w;
 
-            if ((((D_803D5530->yPos.w + D_803D5530->yVelocity.w) >> 0x10) - (s16) (func_8031124C_7228FC((D_803D5530->xPos.w + D_803D5530->xVelocity.w) >> 0x10, (D_803D5530->zPos.w + D_803D5530->zVelocity.w) >> 0x10)) >> 0x10) < 0xA) {
-                sp6C = func_80310EE4_722594(
-                    (D_803D5530->xPos.w + D_803D5530->xVelocity.w) >> 0x10,
-                    (D_803D5530->zPos.w + D_803D5530->zVelocity.w) >> 0x10,
-                    D_803D5530->unk160);
+            tmp3 = D_803D5530->xPos.w + D_803D5530->xVelocity.w;
+            tmp2 = D_803D5530->zPos.w + D_803D5530->zVelocity.w;
+            sp8C = D_803D5530->yPos.w + D_803D5530->yVelocity.w;
 
-                temp_a0_10 = sp6C - func_80310EE4_722594(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->unk160);
-                var_a2 = MAX(0, MIN(temp_a0_10, 0x60000));
+            if (((sp8C >> 0x10) - (s16)(func_8031124C_7228FC(tmp3 >> 0x10, tmp2 >> 0x10) >> 0x10)) < 0xA) {
+                var_a3 = func_80310EE4_722594((D_803D5530->xPos.w + D_803D5530->xVelocity.w) >> 0x10, (D_803D5530->zPos.w + D_803D5530->zVelocity.w) >> 0x10, D_803D5530->unk160) - func_80310EE4_722594(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->unk160);
+                var_a2 = MAX(0, MIN(var_a3, 0x60000));
                 if (D_803D5530->yVelocity.w < var_a2) {
                     D_803D5530->yVelocity.w = var_a2;
                 }
@@ -1369,6 +1349,8 @@ void func_802A78CC_6B8F7C(void) {
                     D_803D5530->zPos.w = spA8;
                     D_803D5530->yPos.w = spA4;
                 }
+            default:
+                break;
             case 1:
                 break;
             case 2:
@@ -1410,8 +1392,8 @@ void func_802A78CC_6B8F7C(void) {
             if (D_803D5524->unk9C == WALRUS) {
                 func_802A4278_6B5928(2, 0xC, sp8A);
                 if (D_803D554C != 0) {
-                    D_803D5530->xVelocity.w += ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * 0xC0);
-                    D_803D5530->zVelocity.w += ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 0xC0);
+                    D_803D5530->xVelocity.w += (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * 3) << 6);
+                    D_803D5530->zVelocity.w += (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * 3) << 6);
                 }
             } else {
                 if (D_803D554C != 0) {
@@ -1469,7 +1451,7 @@ void func_802A78CC_6B8F7C(void) {
                     D_803D5530->yVelocity.w = D_803D5530->yPos.w - spB4;
                     if ((D_803D5544 - D_803D5530->unk48) >= 5) {
                         if (D_803D552C->unk364 == 3) {
-                            D_803D552C->unk364 = 4U;
+                            D_803D552C->unk364 = 4;
                             D_803D552C->unk334 = D_803D5544;
                         } else {
                             func_802DBA58_6ED108(6, D_803D552C);
@@ -1589,9 +1571,6 @@ void func_802A78CC_6B8F7C(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5A40/func_802A78CC_6B8F7C.s")
-#endif
 
 void func_802A935C_6BAA0C(void) {
     s32 sp7C;
@@ -4145,8 +4124,8 @@ void func_802B066C_6C1D1C(void) {
         D_803D552C->unk30A = 58;
     }
 
-    if (((D_803E00C0[sp36].unk14 - 1) << 4) < D_803D552C->unk30A) {
-        D_803D552C->unk30A = ((D_803E00C0[sp36].unk14 - 1) << 4);
+    if (((D_803E00C0[sp36].numSegments - 1) << 4) < D_803D552C->unk30A) {
+        D_803D552C->unk30A = ((D_803E00C0[sp36].numSegments - 1) << 4);
     }
 
     sp34 = D_803D552C->unk30A >> 4;
@@ -4178,9 +4157,12 @@ void func_802B066C_6C1D1C(void) {
         D_803D5530->zPos.w = D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk4;
         D_803D5530->yPos.w = D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk8;
     } else {
-        D_803D5530->xPos.w = (((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk0 >> 4) + (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk0 >> 4) * temp_t2));
-        D_803D5530->zPos.w = (((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk4 >> 4) + (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk4 >> 4) * temp_t2));
-        D_803D5530->yPos.w = (((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk8 >> 4) + (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk8 >> 4) * temp_t2));
+        D_803D5530->xPos.w = ((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk0 >> 4) +
+                              (     temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk0 >> 4));
+        D_803D5530->zPos.w = ((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk4 >> 4) +
+                              (     temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk4 >> 4));
+        D_803D5530->yPos.w = ((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk8 >> 4) +
+                              (     temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk8 >> 4));
     }
 
     func_803136B0_724D60(D_803D5530);
