@@ -536,9 +536,10 @@ void func_802ED108_6FE7B8(void) {
     s16 spAA;
 
     u16 ticks_remaining; // sp78?
-    s32 pad;
     u8 tmp;
+    s32 pad;
 
+    spB0 = ticks_remaining * 4; // what?
 
     if (((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) && (SSSV_RAND(256) == 0x9C) && (D_803F6450 != 0)) {
         play_sound_effect_at_location(SFX_UNKNOWN_182, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
@@ -633,7 +634,7 @@ void func_802ED108_6FE7B8(void) {
                 D_803D552C->unk365 = ATTACK_NONE;
             }
             if (ticks_remaining < 5) {
-                spB0 = ticks_remaining * 4;
+                spB0 = ticks_remaining << 2;
                 if (ticks_remaining == 1) {
                     apply_recoil(-3); // push dog forward as part of bark
                 }

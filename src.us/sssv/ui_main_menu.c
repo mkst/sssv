@@ -1442,10 +1442,10 @@ f32 func_8039CDE8_7AE498(f32 arg0, f32 arg1) {
 }
 
 void func_8039CE38_7AE4E8(Gfx **arg0) {
-    D_803B66F0.unk0 = 640;
-    D_803B66F0.unk2 = 480;
-    D_803B66F0.unk8 = 640;
-    D_803B66F0.unkA = 480;
+    D_803B66F0_7C7DA0.vp.vscale[0] = 640;
+    D_803B66F0_7C7DA0.vp.vscale[1] = 480;
+    D_803B66F0_7C7DA0.vp.vtrans[0] = 640;
+    D_803B66F0_7C7DA0.vp.vtrans[1] = 480;
 
     gDPPipeSync((*arg0)++);
     gSPLoadUcode((*arg0)++, &D_8014E300, &D_8015C750);
@@ -1453,7 +1453,7 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
 
     load_segments(arg0, D_80204278);
 
-    gSPViewport((*arg0)++, &D_803B66F0);
+    gSPViewport((*arg0)++, &D_803B66F0_7C7DA0);
     gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
     gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
     gSPDisplayList((*arg0)++, D_01004270_3DB40);

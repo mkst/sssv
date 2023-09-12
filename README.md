@@ -61,7 +61,7 @@ Place `baserom.eu.z64` in the root of the repository, and suffix each `make` com
 
 ## Building `NON_MATCHING` Version
 
-A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **11%** ahead of the fully matching build. In order to build/test the non-matching, add `NON_MATCHING=1` argument to the `make` commands.
+A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **12%** ahead of the fully matching build. In order to build/test the non-matching, add `NON_MATCHING=1` argument to the `make` commands.
 
 # ROM Versions
 
@@ -75,7 +75,7 @@ There are 5 known versions of the ROM:
 | P - European      | `FC70E272/08FFE7AA` | `23710541bb3394072740b0f0236a7cb1a7d41531` | EU              | `1.37`  |
 | ???               | ???                 | ???                                        | [NES World](http://www.nesworld.com/prototype-details.php?system=n64&data=124) | `1.26B` |
 
-Only US and EU versions were released. If you are in possession of a beta/prototype ROM, please let me know - `mkst#4741`.
+Only US and EU versions were released to the public. If you are in possession of a beta/prototype ROM, please let me know - `mkst#4741`.
 
 # ROM Info
 
