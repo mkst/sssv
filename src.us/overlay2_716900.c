@@ -249,7 +249,7 @@ void func_80305368_716A18(struct079 *arg0) {
     }
 }
 
-// ESA: func_80078EAC
+// ESA: func_80305A70_717120
 s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     u8 sp4F;
     u8 sp4E;
@@ -326,7 +326,7 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
 
 // plenty of work still to do here
 #if 0
-// ESA: func_800791C4
+// ESA: func_80305DA4_717454
 s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     Animal *sp50;
     s32 sp4C;
@@ -493,10 +493,8 @@ s16 func_803064BC_717B6C(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {
     return res;
 }
 
-#if 0
-// logic nightmare...
 // ESA: func_80079A84
-s32 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u16 arg4) {
+s16 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {
 
     if ((arg3 != 0x40) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk82.unk1))) { //  & 0x4000
         return 0;
@@ -516,15 +514,16 @@ s32 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u16 arg4) {
         if ((func_80305A70_717120(arg0, arg1, arg2, arg3, 2) == 0) && (func_80305A70_717120(arg0, arg1, arg2, arg3, 0) != 0) && (func_80305DA4_717454(arg0 - arg3, arg1, arg2, arg3, 0) != 0) && (func_80305DA4_717454(arg0, arg1 - arg3, arg2, arg3, 2) != 0)) {
             return 0xA;
         }
-        return 0;
+        return 0; // !!
+        break;
     case 1:
         if (func_80305DA4_717454(arg0 + arg3, arg1, arg2, arg3, 1) != 0) {
             return 1;
         }
-        if ((func_80305DA4_717454(arg0, (s16) (arg1 + arg3), arg2, arg3, 3) != 0) && (func_80305A70_717120(arg0 + arg3, arg1, arg2, arg3, 1) != 0)) {
+        else if ((func_80305DA4_717454(arg0, (s16) (arg1 + arg3), arg2, arg3, 3) != 0) && (func_80305A70_717120(arg0 + arg3, arg1, arg2, arg3, 1) != 0)) {
             return 5;
         }
-        if ((func_80305DA4_717454(arg0, (s16) (arg1 - arg3), arg2, arg3, 2) != 0) && (func_80305A70_717120(arg0 + arg3, arg1, arg2, arg3, 0) != 0)) {
+        else if ((func_80305DA4_717454(arg0, (s16) (arg1 - arg3), arg2, arg3, 2) != 0) && (func_80305A70_717120(arg0 + arg3, arg1, arg2, arg3, 0) != 0)) {
             return 9;
         }
         break;
@@ -560,9 +559,10 @@ s32 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u16 arg4) {
         break;
     case 6:
         if ((func_80305A70_717120(arg0, arg1, arg2, arg3, 3) != 0) || (((func_80305DA4_717454(arg0 - arg3, arg1 + arg3, arg2, arg3, 0) == 0)) && (func_80305DA4_717454(arg0 - arg3, arg1 + arg3, arg2, arg3, 3) == 0))) {
-            // return 0;
+            // fallthrough to case 7?
+        } else {
+            break;
         }
-        break;
     case 7:
         return 0;
         break;
@@ -578,15 +578,18 @@ s32 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u16 arg4) {
         }
         break;
     case 9:
-        if ((func_80305A70_717120(arg0, arg1, arg2, arg3, 1) != 0) || (((func_80305DA4_717454(arg0 + arg3, arg1 - arg3, arg2, arg3, 1) == 0)) && (func_80305DA4_717454(arg0 + arg3, arg1 - arg3, arg2, arg3, 2) != 0))) {
-            // ?
+        if ((func_80305A70_717120(arg0, arg1, arg2, arg3, 1) != 0) || (((func_80305DA4_717454(arg0 + arg3, arg1 - arg3, arg2, arg3, 1) == 0)) && (func_80305DA4_717454(arg0 + arg3, arg1 - arg3, arg2, arg3, 2) == 0))) {
+            // fallthrough to case 10
+        } else {
+            break; // break also works
         }
     case 10:
-        // fall through?
+    // fallthrough
         if ((func_80305A70_717120(arg0, arg1, arg2, arg3, 2) != 0) || (((func_80305DA4_717454(arg0 - arg3, arg1 - arg3, arg2, arg3, 0) == 0)) && (func_80305DA4_717454(arg0 - arg3, arg1 - arg3, arg2, arg3, 2) == 0))) {
-            // ?
+            // else fallthrough
+        } else {
+            break;
         }
-        break;
     case 11:
         return 0;
     case 12:
@@ -597,15 +600,11 @@ s32 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u16 arg4) {
         return 0;
     case 15:
         return 0;
-    // default:
-    //     break;
     }
-    return 0;
 
+    return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_803065F0_717CA0.s")
-#endif
+
 
 #if 0
 // ESA: func_8007A280

@@ -44,7 +44,7 @@ void func_803574E0_768B90(void) {
     s16 i;
     s32 var_t1;
 
-    s32 spAC;
+    s32 spAC; // unused
     s32 spA8;
     s32 spA4;
     struct061 sp9C;
@@ -53,24 +53,24 @@ void func_803574E0_768B90(void) {
     s16 sp96;
     s16 sp94;
     s16 sp92;
-    s16 sp8C;
-    s16 sp8A;
-    // s16 sp88;
-    s16 sp86;
-
+    // ?
     s16 var_v1_2;
     s16 var_a1;
-    s16 var_v0;
-    s16 temp_t7_2;
-    s16 var_a0;
+    s16 sp8C;
+    s16 sp8A;
     s16 var_t2;
+    s16 sp86;
+
+    s16 temp_t7_2;
+    s16 var_v0;
+    s16 var_a0;
 
     u8 temp_t1;
     s8 var_v1;
     s32 temp_t0;
 
-    temp_t0 = D_803D552C->unk310 & 0xFF;
     var_v1 = (D_803D552C->unk310 >> 8);
+    temp_t0 = D_803D552C->unk310 & 0xFF;
 
     if (D_803D5538 != 0) {
         var_v0 = D_801D9ED8.unkFFDA;
@@ -186,7 +186,7 @@ void func_803574E0_768B90(void) {
                 sp86 = 0;
             }
 
-            func_802B9130_6CA7E0(&sp9C, 0x1DB, 0x128, 0x607, (s16) 0);
+            func_802B9130_6CA7E0(&sp9C, 0x1DB, 0x128, 0x607, 0);
             func_802C1830_6D2EE0(0x607, &sp9C);
             func_802B964C_6CACFC();
             D_80203FE0[7].unk4 += sp86;

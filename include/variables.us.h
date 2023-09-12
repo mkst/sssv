@@ -150,8 +150,8 @@ extern u8   D_04007E70[];
 extern u8   D_04007E90[];
 extern u8   D_04007EC0[];
 extern u8   D_04007FA0[];
-extern u8   D_04008290[];
-extern u8   D_04008420[];
+extern u8   D_04008290_107FE0[];
+extern u8   D_04008420_108170[];
 extern u8   D_040088F0_F9950[];
 extern u8   D_040089E0_108730[];
 extern u8   D_04008A10_108760[];
@@ -974,17 +974,15 @@ extern Gfx D_0103B880_75150[];
 extern Gfx D_0103BA70_75340[];
 extern Gfx D_0103EC20_784F0[];
 
-extern struct028 D_803B66F0;
-extern struct004 D_803B6700_7C7DB0[2];
-extern struct004 D_803B6730_7C7DE0;
-extern struct004 D_803B683C;
+extern Vp  D_803B66F0_7C7DA0;
+extern struct004 D_803B6700_7C7DB0[13]; // needs to be 13 big at least
 extern struct004 D_803B683C_7C7EEC;
-extern s32  D_803B6880_7C7F30;
-extern struct004 D_803B6790;
-extern f32  D_803B6868_7C7F18;
-extern f32  D_803B686C_7C7F1C;
+extern f32       D_803B6868_7C7F18;
+extern f32       D_803B686C_7C7F1C;
+extern s32       D_803B6880_7C7F30;
+
 extern u16  D_803B6870[];
-extern s16  D_803B6870_7C7F20;
+extern s16  D_803B6870_7C7F20[];
 extern struct110 D_803B7000_7C86B0[];
 extern Gfx **D_803B7108_7C87B8[5][10];
 // extern s8   D_803B71D0_7C8880[][5];
@@ -1201,7 +1199,7 @@ extern s16  D_803D5B30[360];
 extern s16  D_803D5E00[360];
 
 // collision
-extern s32  (*D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
+// extern s32  (*D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
 extern u8   D_803D60D4;
 extern struct043 *D_803D60D8;
 extern struct043 *D_803D60DC;

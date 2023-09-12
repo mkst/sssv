@@ -3870,7 +3870,7 @@ segments:
     - [0x7C7960, data] # tbd
     - [0x7C79C0, data] # D_803B6310_7C79C0
     - [0x7C79D0, .data, sssv/terminal_background]
-    - [0x7C7DA0, data] # overlay2_7A0DA0?
+    - [0x7C7DA0, .data, overlay2_7A0DA0] # overlay2_7A0DA0?
     - [0x7C7F40, .data, overlay2_7A8A50] # data for overlay2_7A8A50?
     - [0x7C86B0, data] # overlay2_7A8A50 pointers
     # - [0x7C87B8, bin] # pointers to displaylists # 7C87B8

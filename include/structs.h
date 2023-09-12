@@ -384,6 +384,7 @@ typedef struct {
                 s8  unk0 : 5;
                 u8  unk5 : 1;
                 u8  unk6 : 1;
+                u8  pad7 : 1;
             } unk6;
   /* 0x7 */ struct {
                 u8  unk0 : 5;
@@ -1526,7 +1527,7 @@ typedef struct {
 typedef struct {
     s16 unk0;
     s16 unk2;
-    u8  pad4[0x4];
+    s32 unk4;
     s16 unk8;
     s16 unkA;
 } struct028;

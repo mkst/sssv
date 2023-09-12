@@ -139,35 +139,34 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
 }
 
 #if 0
-// miles away
+// 246
 // ESA: func_80084E58
 void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
-
-    Animal *temp_v0;
-    f32 temp_f0_2;
-    s16 temp_a0;
-    s16 i;
+    s32 var_t4; // sp8C ?
+    s32 a;
+    s32 b;
+    s32 c;
+    f32 sqrt;
     s32 temp_s2;
     s32 temp_s3;
     s32 temp_s4;
-    s32 temp_t6;
-    s32 temp_t8_2;
-    s32 var_a1;
-    s32 var_a2;
     s32 var_s5;
     s32 var_s6;
     s32 var_s7;
-    s32 var_t4;
+    s32 tmp;
+    u16 var_a1;
+    s16 i; // temp_s1
 
     struct051 *temp_fp;
     struct088 *var_t5;
+
 
     if (D_803F2D10.unk0 == 0) {
         temp_fp = &D_803E00C0[arg0];
         var_t5 = &D_803DA300[temp_fp->unk16];
 
         if (temp_fp->unk4 != NULL) {
-            temp_fp->unk20 = temp_fp->unk4->xPos.w + (temp_fp->unkE << 0x10);
+            temp_fp->unk20 = temp_fp->unk4->xPos.w + (temp_fp->unkE  << 0x10);
             temp_fp->unk24 = temp_fp->unk4->zPos.w + (temp_fp->unk10 << 0x10);
             temp_fp->unk28 = temp_fp->unk4->yPos.w + (temp_fp->unk12 << 0x10);
         }
@@ -176,7 +175,7 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
         var_t5->unk8 = temp_fp->unk28;
 
         if (arg3 == 1) {
-            var_t4 = MAX(temp_fp->unk28, ((D_803C0740[temp_fp->unk20 >> 0x16][temp_fp->unk24 >> 0x16].unk6 * 4) - 0x20) << 0x10);
+            var_t4 = MAX(temp_fp->unk28, ((D_803C0740[temp_fp->unk20 >> 0x16][temp_fp->unk24 >> 0x16].unk6 << 2) - 0x20) << 0x10);
         }
 
         var_s5 = temp_fp->unk20;
@@ -185,32 +184,44 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
 
         for (i = 1; i < temp_fp->numSegments; i++) {
 
-            temp_s2 = var_s5 - (var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + (((arg1[i].unk0 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7)) + (arg1[i].unk4 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7))) >> 8));
-            temp_s3 = var_s6 - (var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((arg1[i].unk4 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7)) - (arg1[i].unk0 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7))) >> 8));
+            temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7)) + (arg1[i].unk4 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7))) >> 8);
+            temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7)) + (arg1[i].unk4 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7))) >> 8);
+            temp_s4 = var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256) + arg1[i].unk8;
 
-            var_a2 = arg1[i].unk8 + var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256);
-            if ((arg3 == 1) && (var_t4 < var_a2)) {
-                var_a2 = var_t4;
+            if (arg3 == 1) {
+                if (var_t4 < temp_s4) {
+                    temp_s4 = var_t4;
+                }
             }
-            temp_s4 = var_s7 - var_a2;
 
-            temp_f0_2 = sqrtf(SQ((f32)temp_s2) + SQ((f32)temp_s3) + SQ((f32)temp_s4));
-            if (temp_f0_2 != 0.0f) {
-                var_a1 = temp_fp->unk18 / (s32) (temp_f0_2 / 1024.0);
+            a = var_s5 - temp_s2;
+            b = var_s6 - temp_s3;
+            c = var_s7 - temp_s4;
+
+            sqrt = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
+            if (sqrt != 0.0f) {
+                if ((i && i) && i) {}
+                tmp = (temp_fp->unk18 / (s32)(sqrt / 1024.0));
+                var_a1 = tmp;
             } else {
                 var_a1 = 1;
             }
-            var_s5 = var_s5 - ((temp_s2 * var_a1) >> 0xA);
-            var_s6 = var_s6 - ((temp_s3 * var_a1) >> 0xA);
-            var_s7 = var_s7 - ((temp_s4 * var_a1) >> 0xA);
 
-            var_t5[i].unkC  = var_s5 - var_t5[i].unk0;
-            var_t5[i].unk10 = var_s6 - var_t5[i].unk4;
-            var_t5[i].unk14 = var_s7 - var_t5[i].unk8;
+            a = var_s5 - ((var_a1 * a) >> 0xA);
+            b = var_s6 - ((var_a1 * b) >> 0xA);
+            c = var_s7 - ((var_a1 * c) >> 0xA);
 
-            var_t5[i].unk0 = var_s5;
-            var_t5[i].unk4 = var_s6;
-            var_t5[i].unk8 = var_s7;
+            var_t5[i].unkC  = a - var_t5[i].unk0;
+            var_t5[i].unk10 = b - var_t5[i].unk4;
+            var_t5[i].unk14 = c - var_t5[i].unk8;
+
+            var_t5[i].unk0 = a;
+            var_t5[i].unk4 = b;
+            var_t5[i].unk8 = c;
+
+            var_s5 = a;
+            var_s6 = b;
+            var_s7 = c;
         }
     }
 }

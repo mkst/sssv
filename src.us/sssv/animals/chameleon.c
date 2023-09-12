@@ -30,30 +30,24 @@ extern u8  D_04009C10_FAC70[];
 extern u8  D_04009E10_FAE70[];
 
 #if 0
-// 33k+ away still
+// 5299
 void func_8035A5F0_76BCA0(void) {
     struct061 spD0;
     s16 spCA;
     s16 spC4;
     s16 spC2;
     s16 spC0;
-    u16 sp8C;
-    s32 sp7C;
-
-    s16 temp_t3;
+    // u16 sp8C;
+    u16 ticks_remaining; // sp7C
 
     s16 var_a0;
     s32 var_s0;
     s16 var_s0_3;
     s16 var_s1;
     s16 var_s2;
+    s16 var_s3;
     s16 var_v1_3;
-    s32 temp_s0;
-    s16 temp_t6;
-    s16 temp_t8;
-    u16 var_t0;
     u8 temp_v0_8;
-
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spCA = 0;
@@ -74,9 +68,6 @@ void func_8035A5F0_76BCA0(void) {
         switch (D_803D5524->unk9C) {                        /* irregular */
         case CHAMELEON:
             switch (D_803D552C->unk365) {                    /* switch 1; irregular */
-            default:
-                D_803D552C->unk365 = ATTACK_NONE;
-                break;
             case ATTACK_CHAMELEON_TONGUE:                                 /* switch 1 */
                 func_802DCCAC_6EE35C(16);
                 if (D_803D5544 - D_803D552C->unk32A == 4) {
@@ -89,50 +80,65 @@ void func_8035A5F0_76BCA0(void) {
                 if (D_803D5530->unk4A != 0) {
                     D_803D552C->unk32A++;
                 } else {
-                    var_t0 = D_803D5544 - D_803D552C->unk32A; // & 0xFFFF;
-                    if (var_t0 < 17) {
+                    ticks_remaining = D_803D5544 - D_803D552C->unk32A; // & 0xFFFF;
+                    if (ticks_remaining < 17) {
                         if (D_803D5530->unk4A == 0) {
                             func_8032CD70_73E420(
                                 D_803D5530,
                                 SFX_UNKNOWN_51,
-                                (-(var_t0 - 0x10) * 0x7000) >> 4,
+                                ((16 - ticks_remaining) * 0x7000) >> 4,
                                 0,
-                                ((var_t0 * var_t0) * 0.0625) + 1.0,
+                                ((ticks_remaining * ticks_remaining) / 16.0) + 1.0,
                                 D_803D5530->xPos.h,
                                 D_803D5530->zPos.h,
                                 D_803D5530->yPos.h);
                         }
-                        sp7C = var_t0;
-                        var_s0 = 1;
-                        while (var_t0 > 4) {
-                            spC4 = (((SSSV_RAND(256) - 0x80) * var_s0) >> 3);
-                            spC2 = (((SSSV_RAND(256) - 0x80) * var_s0) >> 3);
-                            spC0 = ((SSSV_RAND(32) + (var_s0 << 5)) * D_803D5530->unk42) >> 6;
-                            create_particle_effect(
-                                D_803D5530->xPos.h + spC4,
-                                D_803D5530->zPos.h + spC2,
-                                D_803D5530->yPos.h + spC0,
-                                0x15,
-                                0,
-                                0,
-                                0,
-                                0x1E,
-                                GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                0);
 
-                            var_t0 -= 4;
-                            var_s0++;
+                        var_s3 = ticks_remaining;
+                        if (var_s3 > 4) {
+                            var_s0 = 0;
+                            do {
+                                var_s3 -= 4;
+
+                                spC4 = SSSV_RAND(256) - 0x80;
+                                spC2 = SSSV_RAND(256) - 0x80;
+
+                                var_s0++; // er???
+
+                                spC4 = (spC4 * (var_s0+1)) >> 3;
+                                spC2 = (spC2 * (var_s0+1)) >> 3;
+
+                                spC0 = SSSV_RAND(32);
+                                spC0 = (spC0 + ((var_s0+1) << 5));
+                                spC0 = (spC0 * D_803D5530->unk42) >> 6;
+
+                                create_particle_effect(
+                                    D_803D5530->xPos.h + spC4,
+                                    D_803D5530->zPos.h + spC2,
+                                    D_803D5530->yPos.h + spC0,
+                                    0x15,
+                                    0,
+                                    0,
+                                    0,
+                                    0x1E,
+                                    GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                    GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                    0);
+
+                            } while (var_s3 > 4);
                         }
 
-                        temp_s0 = (sp7C & 7) << 5;
-                        spC4 = ((D_80152C78[(SSSV_RAND(32) + temp_s0) & 0xFF] >> 7) * sp7C) >> 6;
-                        spC2 = ((D_80152C78[(SSSV_RAND(32) + temp_s0 + 0x40) & 0xFF] >> 7) * sp7C) >> 6;
-                        spC0 = (sp7C * D_803D5530->unk42) >> 1;
+                        spC4 = D_80152C78[     ((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0   ) & 0xFF] >> 7;
+                        spC2 = D_80152C78[(s16)((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0x40) & 0xFF] >> 7;
+
+                        // fake, helps score but nothing really
+                        spC4 = ((spC4 * ticks_remaining) >> 6)  & 0xFFFFFFFFFFFFFFFF;
+                        spC2 = (spC2 * ticks_remaining) >> 6;
+
                         create_particle_effect(
                             D_803D5530->xPos.h + spC4,
                             D_803D5530->zPos.h + spC2,
-                            D_803D5530->yPos.h + spC0,
+                            D_803D5530->yPos.h + ((ticks_remaining * D_803D5530->unk42) >> 1),
                             0x15,
                             0,
                             0,
@@ -147,6 +153,9 @@ void func_8035A5F0_76BCA0(void) {
                     }
                 }
                 break;
+            default:
+                D_803D552C->unk365 = ATTACK_NONE;
+                break;
             }
             break;
         case SNEAKY_CHAMELEON:
@@ -155,50 +164,66 @@ void func_8035A5F0_76BCA0(void) {
                 if (D_803D5530->unk4A != 0) {
                     D_803D552C->unk32A++;
                 } else {
-                    var_t0 = D_803D5544 - D_803D552C->unk32A;
-                    if (var_t0 < 17) {
+                    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                    if (ticks_remaining < 17) {
                         if (D_803D5530->unk4A == 0) {
                             func_8032CD70_73E420(
                                 D_803D5530,
                                 SFX_UNKNOWN_51,
-                                (var_t0 * 0x7000) >> 4,
+                                (ticks_remaining * 0x7000) >> 4,
                                 0,
-                                ((var_t0 * var_t0) * 0.0625) + 1.0,
+                                ((ticks_remaining * ticks_remaining) / 16.0) + 1.0,
                                 D_803D5530->xPos.h,
                                 D_803D5530->zPos.h,
                                 D_803D5530->yPos.h);
                         }
-                        sp7C = var_t0;
-                        var_t0 = (16 - var_t0);
-                        var_s0 = 1;
-                        while (var_t0 > 4) {
-                            spC4 = ((SSSV_RAND(256) - 0x80) * var_s0) >> 3;
-                            spC2 = ((SSSV_RAND(256) - 0x80) * var_s0) >> 3;
-                            spC0 = ((SSSV_RAND(32) + (var_s0 << 5)) * D_803D5530->unk42) >> 6;
-                            create_particle_effect(
-                                D_803D5530->xPos.h + spC4,
-                                D_803D5530->zPos.h + spC2,
-                                D_803D5530->yPos.h + spC0,
-                                0x15,
-                                0,
-                                0,
-                                0,
-                                0x1E,
-                                GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                0);
-                            var_t0 -= 4;
-                            var_s0++;
+
+                        ticks_remaining = (16 - ticks_remaining);
+                        var_s3 = ticks_remaining;
+
+                        if (var_s3 > 4) {
+                            var_s0 = 0;
+                            do {
+                                var_s3 -= 4;
+
+                                spC4 = SSSV_RAND(256) - 0x80;
+                                spC2 = SSSV_RAND(256) - 0x80;
+
+                                var_s0++;
+
+                                spC4 = spC4 * (var_s0+1) >> 3;
+                                spC2 = spC2 * (var_s0+1) >> 3;
+
+                                spC0 = SSSV_RAND(32);
+                                spC0 = (spC0 + ((var_s0+1) << 5));
+                                spC0 = (spC0 * D_803D5530->unk42) >> 6;
+
+
+                                create_particle_effect(
+                                    D_803D5530->xPos.h + spC4,
+                                    D_803D5530->zPos.h + spC2,
+                                    D_803D5530->yPos.h + spC0,
+                                    0x15,
+                                    0,
+                                    0,
+                                    0,
+                                    0x1E,
+                                    GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                    GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                    0);
+                            } while (var_s3 > 4);
                         }
 
-                        temp_s0 = (sp7C & 7) << 5;
-                        spC4 = ((D_80152C78[(SSSV_RAND(32) + temp_s0) & 0xFF] >> 7) * sp7C) >> 6;
-                        spC2 = ((D_80152C78[(SSSV_RAND(32) + temp_s0 + 0x40) & 0xFF] >> 7) * sp7C) >> 6;
-                        spC0 = (sp7C * D_803D5530->unk42) >> 1;
+                        spC4 = D_80152C78[     ((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0   ) & 0xFF] >> 7;
+                        spC2 = D_80152C78[(s16)((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0x40) & 0xFF] >> 7;
+
+                        spC4 = (spC4 * ticks_remaining) >> 6;
+                        spC2 = (spC2 * ticks_remaining) >> 6;
+
                         create_particle_effect(
                             D_803D5530->xPos.h + spC4,
                             D_803D5530->zPos.h + spC2,
-                            D_803D5530->yPos.h + spC0,
+                            D_803D5530->yPos.h + ((ticks_remaining * D_803D5530->unk42) >> 1),
                             0x15,
                             0,
                             0,
@@ -229,20 +254,22 @@ void func_8035A5F0_76BCA0(void) {
 
             if (((D_803D5530->state == 3) || (D_803D5530->state == 6)) && ((D_803D552C->unk366 != 5)) && (D_803D552C->unk366 != 2)) {
                 var_s1 = D_803D552C->unk2F6;
-                var_s2 = (D_80152C78[(var_s1 + 0x40) & 0xFF] >> 7) / 16;
-                var_s0_3 = ((D_80152C78[(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
+                var_s2 = (s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) / 16;
+                var_s0_3 = ((s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
             } else if ((D_803D5530->state == 4) && ((D_803D552C->unk366 != 5)) && (D_803D552C->unk366 != 2)) {
                 var_s1 = D_803D552C->unk2F6;
-                var_s2 = (D_80152C78[(var_s1 + 0x40) & 0xFF] >> 7) / 12;
-                var_s0_3 = ((D_80152C78[(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
+                var_s2 = (s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) / 12;
+                var_s0_3 = ((s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
             } else {
-                var_s1 = -1;
-                var_s0_3 = 0;
-                var_s2 = 0;
+
                 if ((D_803D5530->unk162 == 5) && (D_803D552C->unk366 != 2)) {
                     var_s1 = (D_803D5540 << 5) & 0xFF;
-                    var_s2 = (D_80152C78[(var_s1 + 0x40) & 0xFF] >> 7) / 12;
-                    var_s0_3 = ((D_80152C78[(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
+                    var_s2 = (s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) / 12;
+                    var_s0_3 = ((s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
+                } else {
+                    var_s1 = -1;
+                    var_s0_3 = 0;
+                    var_s2 = 0;
                 }
             }
             func_803033D4_714A84(0x14, 1, var_s2);
@@ -311,12 +338,13 @@ void func_8035A5F0_76BCA0(void) {
         }
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s16) (s32) -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (u32) ((s32) D_803F2EB8 / 4), (s16) (s32) D_803F2ED2, D_803F2ED4);
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s16) (s32) -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.09f);
             if (D_803D5524->unk9C == CHAMELEON) {
+
                 gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
 
                 load_1_tile(D_04009BF0_FAC50, D_040099F0_FAA50);
@@ -331,21 +359,47 @@ void func_8035A5F0_76BCA0(void) {
                 gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, D_803D5540, 0, 0); // tbd
 
                 func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04009500_FA560);
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04008FF0_FA050); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04008EF0_F9F50); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(5, 0xD, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04008D70_F9DD0); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xD, 0xE, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04008AD0_F9B30); }
+#pragma _permuter sameline end
 
                 gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
                 gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
 
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xA, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 1, 0, D_04008FF0_FA050); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 1, 0, D_04008EF0_F9F50); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(6, 0x10, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 1, 0, D_04008D70_F9DD0); }
+#pragma _permuter sameline end
+#pragma _permuter sameline start
                 if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0x10, 0x11, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 1, 0, D_04008AD0_F9B30); }
+#pragma _permuter sameline end
             }
             if (D_803F2ED8 != 0) {
-                func_802C78B0_6D8F60(1, 0x14, ((D_803F2ED8 << 0xB) * 0x50) >> 6, ((D_803F2ED8 << 0xB) * 0x50) >> 6, ((D_803F2ED8 << 0xB) * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040099B0_FAA10);
+                func_802C78B0_6D8F60(
+                    1,
+                    0x14,
+                    ((D_803F2ED8 << 0xB) * 0x50) >> 6,
+                    ((D_803F2ED8 << 0xB) * 0x50) >> 6,
+                    ((D_803F2ED8 << 0xB) * 0x50) >> 6,
+                    D_803F2ED0,
+                    0,
+                    0,
+                    0,
+                    D_040099B0_FAA10);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
         }
@@ -355,7 +409,7 @@ void func_8035A5F0_76BCA0(void) {
     }
     if ((spCA == 0) || (spCA == 2)) {
         if (D_803D5524->unk9C != SNEAKY_CHAMELEON) {
-            func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + D_803D5524->unkBA), D_803D552C->unk302, &D_01033190, (s16) 0x19, (s16) 0xC, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (D_803D552C->yPos.h + D_803D5524->unkBA), D_803D552C->unk302, &D_01033190, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
     }
     if (spCA == 0) {
@@ -375,7 +429,6 @@ void func_8035A5F0_76BCA0(void) {
             if ((D_803D552C->unk365 != ATTACK_CHAMELEON_1) && (D_803D552C->unk365 != ATTACK_CHAMELEON_2)) {
                 D_803D552C->unk32A = D_803D5544;
                 D_803D552C->unk365 = ATTACK_CHAMELEON_1;
-                D_803D552C->unk2EC = D_803D552C->unk2EC;
             }
             D_803D552C->unk2EC--;
         }
