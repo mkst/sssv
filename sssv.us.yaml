@@ -6,6 +6,7 @@ options:
   compiler: IDO
   symbol_addrs_path: symbol_addrs.us.txt
   ld_symbol_header_path: include/ld_symbols.us.h
+  ld_legacy_generation: yes
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
@@ -3579,7 +3580,7 @@ segments:
     - [0x63C660, c, overlay1_63C660]
     # .data / .rodata
     - [0x63CDD0, data] # tbd ### D_80299730
-    - [0x63D660, .data, overlay1_6384F0] # D_80299FC0_63D660
+    - [0x63D4B0, .data, overlay1_6384F0] # D_80299FC0_63D660
     - [0x63D6F0, data] # zeroes
     - [0x63D700, sssv_vtx, data/inc/D_8029A060_63D700]
     - [0x63D880, sssv_vtx, data/inc/D_8029A1E0_63D880]
