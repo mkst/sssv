@@ -6,6 +6,7 @@ options:
   compiler: IDO
   symbol_addrs_path : symbol_addrs.eu.txt
   ld_symbol_header_path: include/ld_symbols.eu.h
+  ld_legacy_generation: yes
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"

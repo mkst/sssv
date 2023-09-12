@@ -649,9 +649,7 @@ extern u8   D_802912E3; // d-left pressed
 extern u8   D_802912E4; // d-right pressed
 extern u8   D_802912E5; // z pressed
 
-extern struct120 D_80299960_63D000[];
-extern struct014 D_80299964_63D004[]; // size tbd
-// extern s32 D_80299964_63D004;
+extern Subtitle D_80299960_63D000[]; // size tbd
 extern s32 D_80299A40_63D0E0;
 extern s32 D_80299A58_63D0F8;
 extern s32 D_80299A88_63D128;

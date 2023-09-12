@@ -1129,12 +1129,6 @@ typedef struct {
 } struct013;
 
 typedef struct {
-    s16 id;
-    s16 pad;
-    s32 ptr;
-} struct014; // size 0x8
-
-typedef struct {
     s16 unk0;
     s16 unk2;
     s16 unk4;
@@ -2706,16 +2700,16 @@ typedef struct {
 } DemoInput;
 
 typedef struct {
-    u16 unk0;
-    s16 unk2;
-    s16 unk4;
-} struct120_inner; // size 0x6
+    u16 startTime;
+    s16 pad2;
+    s16 sfx;
+} SubtitleText; // size 0x6
 
 typedef struct {
-    struct120_inner *unk0;
-    s16 unk4;
+    SubtitleText *msg;
+    s16 id;
     s16 pad;
-} struct120; // size 0x8
+} Subtitle; // size 0x8
 
 typedef struct {
     u8 unk0;
