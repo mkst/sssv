@@ -105,7 +105,8 @@ void func_80374C70_786320(void) {
     if (D_803D5538 != 0) {
         if ((D_803D5530->unk162 == 5) && (D_803D5530->unk4A == 0)) {
 
-            temp_f0_2 = (f32)((MAX(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) / 2) + MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w))) / 1000000.0;
+            temp_f0_2 = (f32)((MAX(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) / 2) + MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)));
+            temp_f0_2 = temp_f0_2 / 1000000.0;
             func_8032CD70_73E420(
                 (u8*) D_803D5530 + 0x14,
                 0xC,
@@ -138,29 +139,13 @@ void func_80374C70_786320(void) {
         }
     }
 
-    if (D_803D5538 != 0) {
-        if ((D_803D5524->biome == D_803F2D50.segment) ||
-            ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-            var_v0_3 = 1;
-        } else {
-            var_v0_3 = 0;
-        }
-        if (var_v0_3 != 0) {
-            sp11E = 0;
-            D_803F2EDD = 0;
-            goto block_63;
-        }
-    }
-
-    if ((D_803D5524->biome == D_803F2D50.segment) ||
-        ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
-        var_t1_3 = 1;
+    if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
+        sp11E = 0;
+        D_803F2EDD = 0;
     } else {
-        var_t1_3 = 0;
+        sp11E = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x1570, (u8) 5, (s16) 0x32, (s16) 0x32, (s16) 0x78, (s8) 1, CHECK_SEGMENT == 0);
     }
-    sp11E = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x1570, (u8) 5, (s16) 0x32, (s16) 0x32, (s16) 0x78, (s8) 1, var_t1_3 == 0);
 
-block_63:
     if (sp11E == 0) {
         func_8037FCA8_791358();
         func_8035D120_76E7D0();
@@ -171,7 +156,7 @@ block_63:
         D_803F2EC4 = ((D_803F2EB8 - FTOFIX32(1.0)) >> 2) + FTOFIX32(1.0);
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(200);
-        if ((D_803F2ECE == 0) || ((s32) D_803F2ECC < 0x1F)) {
+        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp120, 0x23E, 0x132, 0x2FD, (s16) 0);
             func_802C1830_6D2EE0(0x2FD, &sp120);
             func_802B964C_6CACFC();

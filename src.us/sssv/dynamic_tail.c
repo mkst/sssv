@@ -138,28 +138,33 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
     }
 }
 
-#if 0
-// 246
 // ESA: func_80084E58
 void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
+
     s32 var_t4; // sp8C ?
-    s32 a;
-    s32 b;
-    s32 c;
-    f32 sqrt;
+
+    s32 v1;
+    s32 a0;
+    s32 v0;
+
     s32 temp_s2;
     s32 temp_s3;
     s32 temp_s4;
+
     s32 var_s5;
     s32 var_s6;
     s32 var_s7;
-    s32 tmp;
-    u16 var_a1;
+
+    s32 var_a1;
+
+    f32 sqrt;
+
     s16 i; // temp_s1
 
-    struct051 *temp_fp;
     struct088 *var_t5;
+    struct051 *temp_fp;
 
+    s32 pad;
 
     if (D_803F2D10.unk0 == 0) {
         temp_fp = &D_803E00C0[arg0];
@@ -194,40 +199,35 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
                 }
             }
 
-            a = var_s5 - temp_s2;
-            b = var_s6 - temp_s3;
-            c = var_s7 - temp_s4;
+            v0 = var_s5 - temp_s2;
+            v1 = var_s6 - temp_s3;
+            a0 = var_s7 - temp_s4;
 
-            sqrt = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
+            sqrt = sqrtf(SQ((f32)v0) + SQ((f32)v1) + SQ((f32)a0));
             if (sqrt != 0.0f) {
-                if ((i && i) && i) {}
-                tmp = (temp_fp->unk18 / (s32)(sqrt / 1024.0));
-                var_a1 = tmp;
+                var_a1 = temp_fp->unk18 / (s32)(sqrt / 1024.0);
             } else {
                 var_a1 = 1;
             }
 
-            a = var_s5 - ((var_a1 * a) >> 0xA);
-            b = var_s6 - ((var_a1 * b) >> 0xA);
-            c = var_s7 - ((var_a1 * c) >> 0xA);
+            temp_s2 = var_s5 - ((v0 * var_a1) >> 0xA);
+            temp_s3 = var_s6 - ((v1 * var_a1) >> 0xA);
+            temp_s4 = var_s7 - ((a0 * var_a1) >> 0xA);
 
-            var_t5[i].unkC  = a - var_t5[i].unk0;
-            var_t5[i].unk10 = b - var_t5[i].unk4;
-            var_t5[i].unk14 = c - var_t5[i].unk8;
+            var_t5[i].unkC  = temp_s2 - var_t5[i].unk0;
+            var_t5[i].unk10 = temp_s3 - var_t5[i].unk4;
+            var_t5[i].unk14 = temp_s4 - var_t5[i].unk8;
 
-            var_t5[i].unk0 = a;
-            var_t5[i].unk4 = b;
-            var_t5[i].unk8 = c;
+            var_t5[i].unk0 = temp_s2;
+            var_t5[i].unk4 = temp_s3;
+            var_t5[i].unk8 = temp_s4;
 
-            var_s5 = a;
-            var_s6 = b;
-            var_s7 = c;
+            var_s5 = temp_s2;
+            var_s6 = temp_s3;
+            var_s7 = temp_s4;
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802DD548_6EEBF8.s")
-#endif
 
 #if 0
 // ESA: func_80085274 (TBD)
@@ -1386,35 +1386,31 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802E3C88_6F5338.s")
 #endif
 
-#if 0
-// needs some love
 // ESA: func_80087AD0
 s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
-    f32 temp_f0;
-    f32 temp_f14;
-    f32 temp_f2;
     f32 var_f2;
 
-    s16 temp_t9; // tmp var
-
-    s16 temp_v0;
+    s32 f0;
+    s32 f1;
 
     s16 var_a0;
+    s16 var_s5;
+    s32 f2;
+    s16 var_s3;
     s16 var_a1;
     s16 var_a2;
     s16 var_a3;
-    s16 var_s3;
-    s16 var_s5;
 
     s16 i;
+    s16 temp_v0;
     s16 var_v1;
 
-    s32 temp_f18;
+    s32 temp_s7;
+    s16 temp_t9; // tmp var
     s32 temp_fp;
     s32 temp_lo_2;
     s32 temp_s6;
-    s32 temp_s7;
-    s32 temp_t7;
+
 
     struct051 *temp_s1;
     struct088 *temp_s4;
@@ -1444,16 +1440,16 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                     var_v1 = ABS(arg1 - (temp_s4[var_a2].unk4 >> 0x10));
                     var_a0 = ABS(arg2 - (temp_s4[var_a2].unk8 >> 0x10));
 
+// sameline for regalloc
+#define SWAP(A, B, TMP) { TMP = A; A = B; B = TMP; }
                     if (var_a1 < var_v1) {
-                        // sameline for regalloc
-                        temp_t9 = var_a1;var_a1 = var_v1;var_v1 = temp_t9;
+                        SWAP(var_a1, var_v1, temp_t9);
                     }
                     if (var_v1 < var_a0) {
                         var_v1 = var_a0;
                     }
                     if (var_a1 < var_v1) {
-                        // sameline for regalloc
-                        temp_t9 = var_a1;var_a1 = var_v1;var_v1 = temp_t9;
+                        SWAP(var_a1, var_v1, temp_t9);
                     }
 
                     temp_v0 = var_a1 + (var_v1 >> 1);
@@ -1485,11 +1481,12 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                     }
 
                     for (var_s3 = var_s5 - 1; var_s3 >= 0; var_s3--) {
-                        temp_f0 = temp_s4[var_s3].unk0 - temp_s4[var_s5].unk0;
-                        temp_f2 = temp_s4[var_s3].unk4 - temp_s4[var_s5].unk4;
-                        temp_f14 = temp_s4[var_s3].unk8 - temp_s4[var_s5].unk8;
+                        // appears we need these temps?
+                        f0 = temp_s4[var_s3].unk0 - temp_s4[var_s5].unk0;
+                        f1 = (temp_s4[var_s3].unk4 - temp_s4[var_s5].unk4);
+                        f2 = temp_s4[var_s3].unk8 - temp_s4[var_s5].unk8;
 
-                        if ((temp_s1->unk18 * (var_s5 - var_s3)) <= sqrtf(SQ(temp_f0) + SQ(temp_f2) + SQ(temp_f14))) {
+                        if (sqrtf(SQ((f32)f0) + SQ((f32)f1) + SQ((f32)f2)) <= (temp_s1->unk18 * (var_s5 - var_s3))) {
                             break;
                         }
                     }
@@ -1502,13 +1499,16 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                         var_f2 = 100000.0f;
                     }
 
-                    temp_f18 = var_f2 / 16;
-                    temp_t7 = temp_s1->unk18 >> 0xE;
+                    var_f2 = var_f2 / 16;
+
+                    temp_s6 = (s32)((temp_s1->unk18 >> 0xE) * temp_s6) / (s32)var_f2;
+                    temp_s7 = (s32)((temp_s1->unk18 >> 0xE) * temp_s7) / (s32)var_f2;
+                    temp_fp = (s32)((temp_s1->unk18 >> 0xE) * temp_fp) / (s32)var_f2;
 
                     for (var_v1 = var_s5 - 1; var_v1 > var_s3; var_v1--) {
-                        temp_s4[var_v1].unk0 = temp_s4[var_v1+1].unk0 + ((temp_t7 * temp_s6) / temp_f18);
-                        temp_s4[var_v1].unk4 = temp_s4[var_v1+1].unk4 + ((temp_t7 * temp_s7) / temp_f18);
-                        temp_s4[var_v1].unk8 = temp_s4[var_v1+1].unk8 + ((temp_t7 * temp_fp) / temp_f18);
+                        temp_s4[var_v1].unk0 = temp_s4[var_v1+1].unk0 + temp_s6;
+                        temp_s4[var_v1].unk4 = temp_s4[var_v1+1].unk4 + temp_s7;
+                        temp_s4[var_v1].unk8 = temp_s4[var_v1+1].unk8 + temp_fp;
 
                         temp_s4[var_v1].unkC = 0;
                         temp_s4[var_v1].unk10 = 0;
@@ -1521,9 +1521,6 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
     }
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802E414C_6F57FC.s")
-#endif
 
 void func_802E497C_6F602C(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     struct088 *tmp;

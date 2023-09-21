@@ -626,7 +626,7 @@ void func_803250A8_736758(void) {
 
 // MYSTERY_BEAR
 #if 0
-// CURRENT (5255)
+// CURRENT (6031)
 void func_80326260_737910(void) {
     s16 spC8;
     s32 spBC;
@@ -674,8 +674,8 @@ void func_80326260_737910(void) {
         }
         if (var_f0 > 0.0) {
             // temp regalloc hack
-            var_a3 = D_803D5530->unk4A;
-            if (var_a3 == 0) {
+            // var_a3 = D_803D5530->unk4A;
+            if (D_803D5530->unk4A == 0) {
                 func_8032CED0_73E580(
                     D_803D5530,
                     SFX_UNKNOWN_13,
@@ -704,17 +704,18 @@ void func_80326260_737910(void) {
             func_802B9A5C_6CB10C(&spC8, 0x510);
 
             var_a2 = D_80152C78[(D_803D5540 << 3) & 0xFF] >> 7;
-
             switch (D_803D5530->state) {
             case 0x16:
             case 0x17:
-                temp_lo = (MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) * -0x400) / ((D_803D5524->unkA4 << 0x10) >> 6);
+                temp_lo = MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w));
+                temp_lo = (temp_lo * -0x400) / ((D_803D5524->unkA4 << 0x10) >> 6);
                 if (temp_lo < var_a2) {
                     var_a2 = temp_lo;
                 }
                 break;
             case 0x15:
-                temp_lo = (MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) * 0x400) / ((D_803D5524->unkA4 << 0x10) >> 6);
+                temp_lo = MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w));
+                temp_lo = (temp_lo * 0x400) / ((D_803D5524->unkA4 << 0x10) >> 6);
                 if ((var_a2 < temp_lo) && (temp_lo != 0)) {
                     var_a2 = temp_lo;
                 }
@@ -795,8 +796,8 @@ void func_80326260_737910(void) {
             }
         }
         func_8038064C_791CFC();
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s16) (s32) -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s16) (s32) D_803F2ED2, D_803F2ED4);
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.22f);
@@ -879,8 +880,6 @@ void func_80326260_737910(void) {
                     0xFF,
                     0xFF);
 
-
-                var_t0_5 = D_803D5540; // spB4?
                 spB8 = D_80152C78[(s16)((temp_t8 = -D_803D552C->unk302) + 0x40) & 0xFF] >> 7;
                 spBC = D_80152C78[temp_t8 & 0xFF] >> 7;
 
@@ -905,8 +904,8 @@ void func_80326260_737910(void) {
                     }
 
                     // help
-                    tmp1 = ((D_80152C78[(s16)(var_t0_5 << 3) & 0xFF] >> 7) * 0xA6) ;
-                    tmp2 =  ((D_80152C78[(s16)(var_t0_5 << 2) & 0xFF] >> 7) * 0xA6) ;
+                    tmp1 = ((D_80152C78[(s16)(var_t0_5 << 3) & 0xFF] >> 7) * 0xA6);
+                    tmp2 =  ((D_80152C78[(s16)(var_t0_5 << 2) & 0xFF] >> 7) * 0xA6);
 
                     tmp1 = (tmp1 * 0x180) / 4;
                     tmp2 = (tmp2 / 4);
