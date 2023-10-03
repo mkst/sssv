@@ -827,6 +827,7 @@ extern s16  D_803A5568_7B6C18[];
 extern s16  D_803A5570_7B6C20[];
 extern s16  D_803A5578_7B6C28[];
 extern s32  D_803A5590_7B6C40[];
+extern u16  D_803A5750_7B6E00; // number of waypoints?
 extern u16  D_803A5760_7B6E10;
 extern s16  D_803A5764_7B6E14;
 // extern u8  *D_803A5BF8_7B72A8[36][2];
@@ -912,8 +913,9 @@ extern u8   D_803A4B38_7B61E8[MAX_DESERT_ANIMALS][MAX_DESERT_ANIMALS]; // desert
 // extern u8   D_803A4B78_7B6228[];
 
 // 0x803Bxxxx
-
 extern u16 D_803B1BAC_7C325C[];
+extern u8  D_803B1D20_7C33D0[];
+
 extern DemoInput D_803B1F20_7C35D0[];
 extern DemoInput D_803B2580_7C3C30[];
 extern DemoInput D_803B29D8_7C4088[];
@@ -1199,8 +1201,8 @@ extern s16  D_803D5E00[360];
 // collision
 // extern s32  (*D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
 extern u8   D_803D60D4;
-extern struct043 *D_803D60D8;
-extern struct043 *D_803D60DC;
+extern Position **D_803D60D8;
+extern Position *D_803D60DC;
 
 // overlay2_6D9AF0
 extern s16  D_803D6110;
@@ -1376,7 +1378,7 @@ extern u16  D_803E9836;
 extern u16  D_803E9838;
 extern u16  D_803E983A;
 extern u16  D_803E983C;
-extern Particle D_803E9840[];
+extern Collision D_803E9840[];
 // 0x803Fxxxx
 
 // TODO:

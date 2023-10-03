@@ -76,7 +76,7 @@ FindLowest             = 0x8012BF5C;
 SwapBits               = 0x8012C010;
 
 initialise_tv_mode     = 0x8012A870;
-set_screen_scaling     = 0x8012AB94
+set_screen_scaling     = 0x8012AB94;
 set_tv_mode_widescreen = 0x8012ABF0;
 set_tv_mode_normal     = 0x8012AC40;
 load_overlay           = 0x8012C070;
@@ -890,14 +890,6 @@ D_803F6716 = 0x803F6716; // defined:true
 D_803F6718 = 0x803F6718; // defined:true
 D_803F671A = 0x803F671A; // defined:true
 D_803F671C = 0x803F671C; // defined:true
-
-// overlay2_7A8A50
-D_803F6720 = 0x803F6720; // defined:true
-D_803F70F8 = 0x803F70F8; // defined:true
-D_803F7134 = 0x803F7134; // defined:true
-D_803F713C = 0x803F713C; // defined:true
-D_803F7144 = 0x803F7144; // defined:true
-D_803F714C = 0x803F714C; // defined:true
 
 // overlay2_7A8A50
 D_803F6720 = 0x803F6720; // defined:true

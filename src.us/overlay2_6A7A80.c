@@ -29,36 +29,42 @@ u16  D_803C0658; // matrix normalise
 // ========================================================
 
 #if 0
+// CURRENT (2379)
 void func_802963D0_6A7A80(DisplayList *arg0) {
-    s16 temp_a3;
-    s16 temp_t8;
-    s16 temp_t9;
-    s16 j;
     s16 i;
+    s16 j;
     s16 k;
-    Vtx *temp_s4;
+
+    u16 a;
+    u16 b;
+    s16 c;
+    s16 d;
+    s32 c2;
 
     D_803C0430.unk20A = 8;
-    if ((D_803F2D50.unk14 != 0) && (D_803F2D50.unk16 != 0)) {
-        temp_a3 = D_803F2D50.unk14 + 1;
+
+    a = D_803F2D50.unk10;
+    b = D_803F2D50.unk12;
+    c = D_803F2D50.unk14;
+    d = D_803F2D50.unk16;
+
+    if ((c != 0) && (d != 0)) {
         for (i = 0; i < 2; i++) {
-            for (j = 0; j < temp_a3; j++) {
-                for (k = 0; k < D_803F2D50.unk16; k++) {
-                    temp_s4 = &arg0[i].unk28BC0[(k * temp_a3)+j];
+            c2 = c + 1;
+            for (j = 0; j < (c + 1); j++) {
 
-                    temp_t9 = (j + D_803F2D50.unk10) << 6;
-                    temp_t8 = (k + D_803F2D50.unk12) << 6;
+                for (k = 0; k < d; k++) {
 
-                    temp_s4->v.ob[0] = temp_t9;
-                    temp_s4->v.ob[1] = temp_t8;
+                    arg0[i].unk28BC0[(k * c2) + j].v.ob[0] = (j + a) << 6;
+                    arg0[i].unk28BC0[(k * c2) + j].v.ob[1] = (k + b) << 6;
 
-                    temp_s4->v.tc[0] = j << 9;
-                    temp_s4->v.tc[1] = k << 9;
+                    arg0[i].unk28BC0[(k * c2) + j].v.tc[0] = j << 9;
+                    arg0[i].unk28BC0[(k * c2) + j].v.tc[1] = k << 9;
 
-                    temp_s4->v.cn[0] = 0;
-                    temp_s4->v.cn[1] = 0;
-                    temp_s4->v.cn[2] = 0x7F;
-                    temp_s4->v.cn[3] = 0x80;
+                    arg0[i].unk28BC0[(k * c2) + j].v.cn[0] = 0;
+                    arg0[i].unk28BC0[(k * c2) + j].v.cn[1] = 0;
+                    arg0[i].unk28BC0[(k * c2) + j].v.cn[2] = 0x7F;
+                    arg0[i].unk28BC0[(k * c2) + j].v.cn[3] = 0x80;
                 }
             }
         }

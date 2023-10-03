@@ -46,6 +46,14 @@ typedef struct {
     }; // unnamed
 } FracIntHelper;
 
+typedef struct {
+  s16 unk0; // tbd
+  s16 unk2; // tbd
+  s16 unk4; // tbd
+  s16 unk6; // tbd
+  s32 data[32*32];
+  s32 unk1008; // tbd
+} Collision; // size 0x100C
 
 typedef struct {
     /* 0x0  */ u16 unk0;
@@ -1206,30 +1214,13 @@ typedef struct {
     /* 0xDAC0 */  Gfx *unkDAC0;
     /* 0xDAC4 */  u8  padDAC4[0x2edc];
     /* 0x109A0 */ Gfx unk109A0[8][1400];
-#if 0
-    /* 0x267A0 */ s32 unk267A0;
-    /* 0x267A4 */ u8  pad267A4[0x1f40];
-    /* 0x286E4 */ s16 unk286E4[8];
-    /* 0x286F4 */ s16 unk286F4[8];
-    /* 0x28704 */ u8  unk28704[0x4bc];
-    /* 0x28BC0 */ Vtx unk28BC0[923];
-    // /* 0x28BC2 */ s16 unk28BC2;
-    // /* 0x28BC4 */ u8  pad28BC4[0x4];
-    // /* 0x28BC8 */ s16 unk28BC8;
-    // /* 0x28BCA */ s16 unk28BCA;
-    // /* 0x28BCC */ u8  unk28BCC;
-    // /* 0x28BCD */ u8  unk28BCD;
-    // /* 0x28BCE */ u8  unk28BCE;
-    // /* 0x28BCF */ u8  unk28BCF;
-    // /* 0x28BD0 */ u8  pad28BD0[0x39a0];
-#else
     /* 0x267A0 */ u8  unk267A0[0x1f40];
-    /* 0x286E0 */ Vtx unk286E0[961]; // ???
+    /* 0x286E0 */ Vtx unk286E0[78]; // ???
+    /* 0x28BC0 */ Vtx unk28BC0[883];
     /* 0x2C2F0 */ Vtx unk2C2F0[40];
-#endif
     /* 0x2C570 */ Vtx unk2C570[1000];
     /* 0x303F0 */ Vtx unk303F0[200];
-    /* 0x31070 */ Vtx unk31070[30]; // might be bigger
+    /* 0x31070 */ Vtx unk31070[30]; // might be bigger, treated as pairs
     /* 0x31250 */ Vtx unk31250[2];
     /* 0x31270 */ u8  pad31270[0x1600];
     /* 0x32870 */ uSprite sprites[140]; // maybe more/less
@@ -1545,12 +1536,6 @@ typedef struct {
     s32 unk2D04;
 } struct034;
 
-typedef struct {
-    /* 0x0 */ s32 unk0;
-    /* 0x4 */ s32 unk4;
-    /* 0x8 */ s32 unk8[32][32];
-} struct035_ptr;
-
 struct struct035 { // TODO: merge with struct068?
   /* 0x00 */  u16 objectType;
   /* 0x02 */  u8  unk2;
@@ -1561,8 +1546,8 @@ struct struct035 { // TODO: merge with struct068?
   /* 0x014 */ u8  unk14;
   /* 0x15 */  u8  unk15; // checked if 2 or 4?
   /* 0x16 */  u8  pad16[0x2];
-  /* 0x18 */  struct035_ptr *unk18; // cmds pointer
-  /* 0x1C */  u16 id; // cmdIdx?
+  /* 0x18 */  Collision *collision;
+  /* 0x1C */  u16 id; // collisionIndex?
   /* 0x1E */  s16 pad1E;
   /* 0x20 */  s32 unk20[5][4]; // wrong
   /* 0x70 */  u16 unk70;
@@ -2097,15 +2082,6 @@ typedef struct {
   u16 alignment;
 } struct067; // size 0x8
 
-// complete guess
-typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-    s16 pad6[0x3];
-    u8  padC[0x1000];
-} Particle; // size 0x100C
-
 typedef struct {
     /* 0x00 */ u16 id;
     /* 0x02 */ u16 type;            // flags OR'd together
@@ -2116,8 +2092,8 @@ typedef struct {
     /* 0x14 */ u8  unk14;
     /* 0x15 */ u8  unk15;
     /* 0x16 */ u16 unk16;
-    /* 0x18 */ Particle* unk18;
-    /* 0x1C */ u16 cmdIdx;
+    /* 0x18 */ Collision* collision;
+    /* 0x1C */ u16 collisionIndex;
     /* 0x1E */ u8 pad1E[0x52];
     /* 0x70 */ s32 unk70;
     /* 0x74 */ u8  pad74[0xC];
@@ -2127,7 +2103,6 @@ typedef struct {
     /* 0x89 */ u8  unk89;
     /* 0x8A */ u8  unk8A;
     /* 0x8B */ u8  pad8B[0x11];
-
 } struct068; // size 0x9C
 
 typedef struct {

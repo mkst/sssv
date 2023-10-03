@@ -7,8 +7,17 @@
 // definitions
 // ========================================================
 
-void load_level_data_sections(void);
-void func_8031C48C_72DB3C(void);
+void *func_802C93E8_6DAA98(s32); // mismatch / missing?
+
+typedef struct {
+  u16 count;
+  u8  payload[1];
+} DataSectionUnsigned;
+
+typedef struct {
+  s16 count;
+  s16 payload[1];
+} DataSectionSigned;
 
 // ========================================================
 // .data
@@ -257,7 +266,7 @@ u8 *D_803A5BF8_7B72A8[72] = {
 // .text
 // ========================================================
 
-s32 get_uncompressed_size(u8 *arg0) {
+u32 get_uncompressed_size(u8 *arg0) {
     if ((arg0[0] == 'R') && (arg0[1] == 'N') && (arg0[2] == 'C')) {
         // return uncompressed length length
         return arg0[7] | (arg0[6] << 8) | (arg0[5] << 16) | (arg0[4] << 24);
@@ -373,24 +382,7 @@ void load_level_data(u8 level) {
     func_8031C48C_72DB3C();
 }
 
-#if 0
-extern s16 D_803A5750_7B6E00; // number of waypoints?
-extern u8  D_803B1D20_7C33D0[];
-// extern u8  D_803E2930[];
-
-typedef struct {
-  u16 count;
-  u8  payload[1];
-} DataSectionUnsigned;
-
-typedef struct {
-  s16 count;
-  u8  payload[1];
-} DataSectionSigned;
-
-
-void *func_802C93E8_6DAA98(s32); // mismatch
-
+#ifdef NON_MATCHING
 void load_level_data_sections(void) {
 
     struct071 *obj;
@@ -413,16 +405,17 @@ void load_level_data_sections(void) {
     Animal *temp_s1;
 
     u16 pafBytesUsed;
-    u16 j;
+    s16 j;
 
     s32 temp_v0;
     s16 i;
 
     u8  done; // sp85
-    s32 tmp;
+    s32 length2;
     s16 length;
     u16 count;
     u16 sp7A;
+    s16 *payload;
 
     base = &D_80100000;
 
@@ -551,22 +544,21 @@ void load_level_data_sections(void) {
             buf += get_compressed_size(buf);
 
             count = ((DataSectionUnsigned*)base)->count;
-            tmp = sizeof(struct112);
+            length2 = sizeof(struct112);
 
             func_80314788_725E38(); // zero out D_803E4D40 amongst other things
             memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)D_803E4D40, count);
 
-            D_803E8E54 = count / (u32)tmp; // gNumCommands
-            for (j = 0; (s16)j < D_803E8E54; j++) {
-                tmp = D_803E4D40[j].type;
-                if (tmp == 24) {
+            D_803E8E54 = count / (u32)length2; // gNumCommands
+            for (j = 0; j < D_803E8E54; j++) {
+                if (D_803E4D40[(u32)j].type == 24) {
                     rmonPrintf(
                         "Partcle State: %d F $%X Fq %d Time %d S %d\n",
-                        D_803E4D40[j].cmd.type24.State,
-                        D_803E4D40[j].cmd.type24.F,
-                        D_803E4D40[j].cmd.type24.Fq,
-                        D_803E4D40[j].cmd.type24.Time,
-                        D_803E4D40[j].cmd.type24.S);
+                        D_803E4D40[(u32)j].cmd.type24.State,
+                        D_803E4D40[(u32)j].cmd.type24.F,
+                        D_803E4D40[(u32)j].cmd.type24.Fq,
+                        D_803E4D40[(u32)j].cmd.type24.Time,
+                        D_803E4D40[(u32)j].cmd.type24.S);
                 }
             }
             break;
@@ -587,8 +579,8 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            paf = base + 2;
-            paf2 = base + 2;
+            paf = ((DataSectionSigned*)base)->payload;
+            paf2 = ((DataSectionSigned*)base)->payload;
 
             count = *((s16*)base + 0); // number of entries
 
@@ -603,6 +595,8 @@ void load_level_data_sections(void) {
                 // move pointer along
                 paf = paf2 + pafBytesUsed;
             }
+
+            if (!base) {};
 
             rmonPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
             // no boundary check here!
@@ -841,8 +835,6 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            if (1) { } if (1) { } if (1) { }
-
             func_8029ACC8_6AC378();
             break;
         case 10: /* level geo */
@@ -854,20 +846,20 @@ void load_level_data_sections(void) {
         case 11: /* .mat */
             func_80304170_715820();
 
-            tmp = get_uncompressed_size(buf);
+            length2 = get_uncompressed_size(buf);
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            memcpy_sssv(base, (u8*)&D_803E1D30, tmp);
+            memcpy_sssv(base, (u8*)&D_803E1D30, length2);
             break;
         case 12: /* .dat */
             func_80304194_715844();
 
-            tmp = get_uncompressed_size(buf);
+            length2 = get_uncompressed_size(buf);
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            memcpy_sssv(base, (u8*)&D_803F2D50, tmp);
+            memcpy_sssv(base, (u8*)&D_803F2D50, length2);
             D_803F2D50.unkE0 = D_803F2D50.unk40;
             load_level_texture_data(D_803F2D50.segment, D_803F2D50.unk52);
             break;
@@ -875,31 +867,31 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length = ((DataSectionUnsigned*)base)->count;
+            payload = ((DataSectionSigned*)base)->payload;
+            length2 = ((DataSectionSigned*)base)->count;
 
             bzero_sssv((u8*)&D_803A6D14_7B83C4, sizeof(D_803A6D14_7B83C4));
             bzero_sssv((u8*)&D_803A7114_7B87C4, sizeof(D_803A7114_7B87C4));
 
-            tmp = sizeof(struct105);
-            tmp = length * tmp;
-
-            memcpy_sssv(((DataSectionSigned*)base)->payload,              (u8*)&D_803A6D14_7B83C4, tmp);
-            memcpy_sssv(((DataSectionSigned*)base)->payload + (tmp << 1), (u8*)&D_803A7114_7B87C4, length * sizeof(struct074));
+            memcpy_sssv(payload,                                        (u8*)&D_803A6D14_7B83C4, length2 * sizeof(struct105));
+            memcpy_sssv(payload + ((length2 * sizeof(struct105)) >> 1), (u8*)&D_803A7114_7B87C4, length2 * sizeof(struct074));
 
             func_8034401C_7556CC();
             break;
         case 14: /* tbd */
-            tmp = get_uncompressed_size(buf);
+            length2 = get_uncompressed_size(buf);
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
-            memcpy_sssv(base, (u8*)&D_803E2930,  tmp);
+            memcpy_sssv(base, (u8*)&D_803E2930,  length2);
             break;
         case 15: /* tbd */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length = ((DataSectionUnsigned*)base)->count;
-            memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)&D_803B1D20_7C33D0, length * 8);
+            payload = ((DataSectionSigned*)base)->payload;
+            length2 = ((DataSectionSigned*)base)->count;
+
+            memcpy_sssv(payload, (u8*)D_803B1D20_7C33D0, length2 * 8U);
             break;
         default:
             done = 1;
@@ -938,12 +930,11 @@ void func_8031C374_72DA24() {
 void func_8031C3C0_72DA70(u8 *arg0, s16 idx) {
     s16 i;
 
-    memcpy_sssv(arg0, (u8*)&D_803E9840[D_803F28C2], sizeof(Particle));
+    memcpy_sssv(arg0, (u8*)&D_803E9840[D_803F28C2], sizeof(Collision));
 
     for (i = 0; i < 247; i++) {
-        if (idx == D_803A8528_7B9BD8[i].cmdIdx) {
-            // link object?
-            D_803A8528_7B9BD8[i].unk18 = &D_803E9840[D_803F28C2];
+        if (idx == D_803A8528_7B9BD8[i].collisionIndex) {
+            D_803A8528_7B9BD8[i].collision = &D_803E9840[D_803F28C2];
         }
     }
     D_803F28C2++;
@@ -951,15 +942,9 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 idx) {
 
 #if 0
 void func_8031C48C_72DB3C(void) {
-    Animal *temp_a0;
-    s16 var_s0;
-    s16 var_s0_2;
-    s16 var_s0_3;
-    s16 var_s0_4;
-    s32 temp_lo;
-    struct035 *temp_v1;
-    struct068 *temp_v0_3;
-    struct112 *temp_v0_2;
+    int offset;
+
+    s16 i;
     u16 id;
     s16 id2;
 
@@ -976,52 +961,69 @@ void func_8031C48C_72DB3C(void) {
     func_802C85EC_6D9C9C();
 
     // objects
-    for (var_s0 = 0; var_s0 < 170; var_s0++) {
-        if (D_801E9EB8.objects[var_s0].unk1A8 != 0) {
+    for (i = 0; i < 170; i++) {
+        if (D_801E9EB8.objects[i].unk1A8 != 0) {
             // load in commands
-            func_803191B0_72A860((Animal *) &D_801E9EB8.objects[var_s0]);
+            func_803191B0_72A860((Animal *) &D_801E9EB8.objects[i]);
         }
     }
+
     // animals
-    for (var_s0 = 0; var_s0 < D_803D553E; var_s0++) {
-        if (D_801D9ED8.animals[var_s0].animal->commands.unk1A8 != NULL) {
+    for (i = 0; i < D_803D553E; i++) {
+
+        if (D_801D9ED8.animals[i].animal->commands.unk1A8 != NULL) {
             // load in commands
-            func_803191B0_72A860(D_801D9ED8.animals[var_s0].animal);
+            func_803191B0_72A860(D_801D9ED8.animals[i].animal);
         }
     }
     //
-    for (var_s0 = 0; var_s0 < 247; var_s0++) {
-        D_803A8528_7B9BD8[var_s0].unk18 = NULL;
+    for (i = 0; i < 247; i++) {
+        // reset collision link
+        D_803A8528_7B9BD8[i].collision = NULL;
     }
 
     D_803F28C2 = 0;
 
     osWritebackDCacheAll();
-    dma_read(rnc_637160_ROM_START, &D_80100000, rnc_637160_ROM_START - rnc_637160_ROM_START);
-    UnpackRNC(&D_80100000, gFramebuffer);
+    dma_read(rnc_637160_ROM_START, D_80100000, rnc_637160_ROM_END - rnc_637160_ROM_START);
+    UnpackRNC(D_80100000, gFramebuffer);
+
+    offset = 1;
 
     // objects
-    for (var_s0 = 0; var_s0 < 170; var_s0++) {
-        if ((D_801E9EB8.objects[var_s0].unk16C != NULL) && (D_801E9EB8.objects[var_s0].unk26C == 0)) {
-            id = D_801E9EB8.objects[var_s0].unk16C->id;
-            if ((id != 0) && (D_801E9EB8.objects[var_s0].unk16C->unk18 == NULL)) {
-                // link the command?
-                func_8031C3C0_72DA70(((u8*)gFramebuffer) + (((s16) id - 1)), id);
+    for (i = 0; i < 170; i++) {
+        if ((D_801E9EB8.objects[i].unk16C != NULL) && (D_801E9EB8.objects[i].unk26C == 0)) {
+            id = D_801E9EB8.objects[i].unk16C->id;
+            if ((id != 0) && (D_801E9EB8.objects[i].unk16C->collision == NULL)) {
+                // link the collision?
+                s32 idx = (((s16) id - offset));
+                func_8031C3C0_72DA70(((Collision*)gFramebuffer) + idx, id);
             }
         }
     }
 
     // commands
-    for (var_s0 = 0; var_s0 < D_803E8E54; var_s0++) {
-        if (id) {};
+    for (i = 0; i < D_803E8E54; i++) {
 
-        if ((D_803E4D40[var_s0].type == 16) || (D_803E4D40[var_s0].type == 17)) {
-            // link the command?
-            id2 = D_803E4D40[var_s0].cmd.type16.id;
-            id = D_803A8528_7B9BD8[id2].cmdIdx;
-            if ((id != 0) && (D_803A8528_7B9BD8[id2].unk18 == NULL)) {
-                func_8031C3C0_72DA70(((u8*)gFramebuffer) + (((s16) id - 1)), id);
+        s32 at = 17;
+
+        struct112 *cmd;
+
+        cmd = &D_803E4D40[i];
+
+        if ((cmd->type != 16) && (cmd->type != 17)) {
+
+        } else {
+            // object has custom collision
+            id2 = D_803E4D40[i].cmd.type16.id;
+            id = D_803A8528_7B9BD8[id2].collisionIndex;
+            if ((id != 0) && (D_803A8528_7B9BD8[id2].collision == NULL)) {
+                s32 idx = (((s16) id - offset));
+                func_8031C3C0_72DA70(((Collision*)gFramebuffer) + idx, id);
             }
+
+            if (0) {};
+
         }
     }
 

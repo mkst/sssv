@@ -625,8 +625,6 @@ void func_80397D1C_7A93CC(u8 arg0) {
 void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7) {
     s16 phi_s2;
     s16 i;
-    s32 tmp;
-
 
     if (arg7 == 2) {
         // if (1) {};
@@ -634,7 +632,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
             (arg0 >> 16) + D_803F6720[arg7][0].unk0.unkC[0],
             (arg1 >> 16) + D_803F6720[arg7][0].unk0.unkC[1],
             (arg2 >> 16) + D_803F6720[arg7][0].unk0.unkC[2],
-            ((arg4 - D_803F6720[arg7][0].unk0.unk0[2]) * 256.0f) / 360.0f,
+            ((arg4 - D_803F6720[arg7][0].unk0.unk0[2]) * 256) / 360,
             D_803A8374_7B9A24, // 0x1034190
             (arg5 << 3) >> 0x10,
             (arg5 << 4) >> 0x10,
@@ -646,7 +644,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
             1);
     }
     // tmp = (arg5 >> 2) - arg5; // whaat
-    tmp = arg5 / 5;
+    // tmp = arg5 / 5;
     func_80125FE0(
         &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
         arg0,
@@ -654,9 +652,9 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         arg2,
         arg3,
         arg4,
-        tmp,
-        tmp,
-        tmp);
+        arg5 / 5,
+        arg5 / 5,
+        arg5 / 5);
 
     gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 

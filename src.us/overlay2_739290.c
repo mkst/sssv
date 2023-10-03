@@ -94,7 +94,7 @@ u16  D_803E983A;
 u16  D_803E983C;
 
 // FIXME: are these defined in overlay2_72C680?
-Particle D_803E9840[9];
+Collision D_803E9840[9];
 s16  D_803F28C2; // TBD
 
 // ========================================================

@@ -181,10 +181,11 @@ s32 get_game_state(Animal *arg0, s32 arg1);
 u16  get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y);
 
 // overlay2_72C680
-s32  get_uncompressed_size(u8 *arg0);
+u32  get_uncompressed_size(u8 *arg0);
 s32  get_compressed_size(u8 *arg0);
 s32  copy_or_extract(u8 *src, u8 *dst, s32 unused);
 void load_level_data(u8);
+void load_level_data_sections(void);
 
 // sssv/animals/mouse (overlay2_72DE50)
 void racing_mouse_turbo(s16 arg0);
