@@ -15,8 +15,8 @@ s32 func_802C9340_6DA9F0(void) {
 
     phi_v0 = D_801E9EB8.unk0;
     for (i = 0; i < 247; i++) {
-        if ((phi_v0->unk18 != 0) && (((s32)phi_v0->unk18 & 0xF0000000) == 0)) {
-            phi_v0->unk18 = D_801D9E74 + SEGMENT_OFFSET((s32)phi_v0->unk18);
+        if ((phi_v0->collision != NULL) && (((s32)phi_v0->collision & 0xF0000000) == 0)) {
+            phi_v0->collision = D_801D9E74 + SEGMENT_OFFSET((s32)phi_v0->collision);
         }
         phi_v0 += 1;
     }

@@ -205,7 +205,7 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
 
             sqrt = sqrtf(SQ((f32)v0) + SQ((f32)v1) + SQ((f32)a0));
             if (sqrt != 0.0f) {
-                var_a1 = temp_fp->unk18 / (s32)(sqrt / 1024.0);
+                var_a1 = temp_fp->unk18 / (s32) (sqrt / 1024.0);
             } else {
                 var_a1 = 1;
             }
@@ -234,6 +234,7 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
 // long way away
 void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 sp1E6;
+
     f32 sp1B8;
     f32 sp1B4;
     f32 sp1B0;
@@ -264,6 +265,9 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
     s16 var_s1;
 
     s32 temp_s2;
+    s32 temp_s3;
+    s32 temp_s4;
+
     s32 temp_s5;
     s32 temp_s6;
     s32 temp_s7;
@@ -280,11 +284,10 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
     var_t5 = &D_803DA300[temp_v0->unk16];
 
     if (temp_v0->unk4 != NULL) {
-        temp_v0->unk20 = temp_v0->unk4->xPos.w + (temp_v0->unkE << 0x10);
+        temp_v0->unk20 = temp_v0->unk4->xPos.w + (temp_v0->unkE  << 0x10);
         temp_v0->unk24 = temp_v0->unk4->zPos.w + (temp_v0->unk10 << 0x10);
         temp_v0->unk28 = temp_v0->unk4->yPos.w + (temp_v0->unk12 << 0x10);
     }
-
     var_t5->unk0 = temp_v0->unk20;
     var_t5->unk4 = temp_v0->unk24;
     var_t5->unk8 = temp_v0->unk28;
@@ -294,36 +297,42 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
     var_s4 = temp_v0->unk28;
 
     for (i = 1; i < arg4; i++) {
-        s32 a = var_t5[i].unk0;
-        s32 b = var_t5[i].unk4;
-        s32 c = var_t5[i].unk8;
+        s32 a, b, c;
 
-        sp130[i] = a; //  var_t5[i].unk0;
-        spF0[i]  = b; // var_t5[i].unk4;
-        spB0[i]  = c; // var_t5[i].unk8;
+        sp130[i] = var_t5[i].unk0;
+        spF0[i]  = var_t5[i].unk4;
+        spB0[i]  = var_t5[i].unk8;
 
-        temp_s5 = var_s2 - ((((D_80152C78[temp_v0->unk2C & 0xFF] * arg1[i].unk4) + (arg1[i].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF) + a + ((var_t5[i].unkC * arg2) / 256));
-        temp_s6 = var_s3 - ((((D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF] * arg1[i].unk4) + (-arg1[i].unk0 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF) + b + ((var_t5[i].unk10 * arg2) / 256));
-        temp_s7 = var_s4 - (arg1[i].unk8 + c + ((var_t5[i].unk14 * arg2) / 256));
+        temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF]) + (arg1[i].unk4 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF);
+        temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * D_80152C78[temp_v0->unk2C & 0xFF]) + (arg1[i].unk4 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF);
+        temp_s4 = var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256) + arg1[i].unk8;
 
-        temp_f0 = sqrtf(SQ((f32)temp_s5) + SQ((f32)temp_s6) + SQ((f32)temp_s7));
+        a = var_s2 - temp_s2;
+        b = var_s3 - temp_s3;
+        c = var_s4 - temp_s4;
+
+        temp_f0 = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
         if (temp_f0 != 0.0f) {
             var_v1 = temp_v0->unk18 / (s32) (temp_f0 / 1024.0);
         } else {
             var_v1 = 1;
         }
 
-        var_s2 -= (temp_s5 * var_v1) >> 0xA;
-        var_s3 -= (temp_s6 * var_v1) >> 0xA;
-        var_s4 -= (temp_s7 * var_v1) >> 0xA;
+        temp_s2 = var_s2 - ((a * var_v1) >> 0xA);
+        temp_s3 = var_s3 - ((b * var_v1) >> 0xA);
+        temp_s4 = var_s4 - ((c * var_v1) >> 0xA);
 
-        var_t5[i].unkC = var_s2 - var_t5[i].unk0;
-        var_t5[i].unk10 = var_s3 - var_t5[i].unk4;
-        var_t5[i].unk14 = var_s4 - var_t5[i].unk8;
+        var_t5[i].unkC  = temp_s2 - var_t5[i].unk0;
+        var_t5[i].unk10 = temp_s3 - var_t5[i].unk4;
+        var_t5[i].unk14 = temp_s4 - var_t5[i].unk8;
 
-        var_t5[i].unk0 = var_s2;
-        var_t5[i].unk4 = var_s3;
-        var_t5[i].unk8 = var_s4;
+        var_t5[i].unk0 = temp_s2;
+        var_t5[i].unk4 = temp_s3;
+        var_t5[i].unk8 = temp_s4;
+
+        var_s2 = temp_s2;
+        var_s3 = temp_s3;
+        var_s4 = temp_s4;
     }
 
     if (temp_v0->unk32 & 2) {
@@ -334,9 +343,9 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         }
     }
 
-    sp194 = ((((D_80152C78[temp_v0->unk2C & 0xFF] * arg1[arg4].unk4) + ( arg1[arg4].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF) + var_t5[arg4].unk0 + ((var_t5[arg4].unkC * arg3) / 256));
-    sp190 = ((((D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF] * arg1[arg4].unk4) + (-arg1[arg4].unk0 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF) + var_t5[arg4].unk4 + ((var_t5[arg4].unk10 * arg3) / 256));
-    sp18C = arg1[arg4].unk8 + var_t5[arg4].unk8 + ((var_t5[arg4].unk14 * arg3) / 256);
+    sp194 = var_t5[arg4].unk0 + ((var_t5[arg4].unkC  * arg3) / 256) + ((( arg1[arg4].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF]) + (arg1[arg4].unk4 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF);
+    sp190 = var_t5[arg4].unk4 + ((var_t5[arg4].unk10 * arg3) / 256) + (((-arg1[arg4].unk0 * D_80152C78[temp_v0->unk2C & 0xFF]) + (arg1[arg4].unk4 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF);
+    sp18C = var_t5[arg4].unk8 + ((var_t5[arg4].unk14 * arg3) / 256) + arg1[arg4].unk8;
 
     sp1B8 = sp194 - temp_v0->unk20;
     sp1B4 = sp190 - temp_v0->unk24;
@@ -352,46 +361,52 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         sp1E6 = 0;
     }
 
+    var_t5[arg4].unkC  = sp194 - var_t5[arg4].unk0;
+    var_t5[arg4].unk10 = sp190 - var_t5[arg4].unk4;
+    var_t5[arg4].unk14 = sp18C - var_t5[arg4].unk8;
+
+    var_t5[arg4].unk0 = sp194;
+    var_t5[arg4].unk4 = sp190;
+    var_t5[arg4].unk8 = sp18C;
+
     var_s2 = sp194;
     var_s3 = sp190;
     var_s4 = sp18C;
 
-    var_t5[arg4].unkC = var_s2 - (f32) var_t5[arg4].unk0;
-    var_t5[arg4].unk10 = var_s3 - (f32) var_t5[arg4].unk4;
-    var_t5[arg4].unk14 = var_s4 - (f32) var_t5[arg4].unk8;
-
-    var_t5[arg4].unk0 = var_s2;
-    var_t5[arg4].unk4 = var_s3;
-    var_t5[arg4].unk8 = var_s4;
-
+    if (!sp1B4) {}; // fake
 
     for (i = arg4 + 1; i < temp_v0->numSegments; i++) {
-        s32 a = var_t5[i].unk0;
-        s32 b = var_t5[i].unk4;
-        s32 c = var_t5[i].unk8;
+        s32 a, b, c;
+        temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF]) + (arg1[i].unk4 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF);
+        temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * D_80152C78[temp_v0->unk2C & 0xFF]) + (arg1[i].unk4 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF);
+        temp_s4 = var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256) + arg1[i].unk8;
 
-        temp_s5 = var_s2 - ((((D_80152C78[temp_v0->unk2C & 0xFF] * arg1[i].unk4) + ( arg1[i].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF) + a + ((var_t5[i].unkC * arg2) / 256));
-        temp_s6 = var_s3 - ((((D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF] * arg1[i].unk4) + (-arg1[i].unk0 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF) + b + ((var_t5[i].unk10 * arg2) / 256));
-        temp_s7 = var_s4 - (arg1[i].unk8 + c + ((var_t5[i].unk14 * arg2) / 256));
+        a = var_s2 - temp_s2;
+        b = var_s3 - temp_s3;
+        c = var_s4 - temp_s4;
 
-        temp_f2 = sqrtf(SQ((f32)temp_s5) + SQ((f32)temp_s6) + SQ((f32)temp_s7));
-        if (temp_f2 != 0.0) {
-            var_v1 = temp_v0->unk18 / (s32) (temp_f2 / 1024.0);
+        temp_f0 = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
+        if (temp_f0 != 0.0) {
+            var_v1 = temp_v0->unk18 / (s32) (temp_f0 / 1024.0);
         } else {
             var_v1 = 1;
         }
 
-        var_s2 -= (temp_s5 * var_v1) >> 0xA;
-        var_s3 -= (temp_s6 * var_v1) >> 0xA;
-        var_s4 -= (temp_s7 * var_v1) >> 0xA;
+        temp_s2 = var_s2 - ((a * var_v1) >> 0xA);
+        temp_s3 = var_s3 - ((b * var_v1) >> 0xA);
+        temp_s4 = var_s4 - ((c * var_v1) >> 0xA);
 
-        var_t5[i].unkC = var_s2 - var_t5[i].unk0;
-        var_t5[i].unk10 = var_s3 - var_t5[i].unk4;
-        var_t5[i].unk14 = var_s4 - var_t5[i].unk8;
+        var_t5[i].unkC  = temp_s2 - var_t5[i].unk0;
+        var_t5[i].unk10 = temp_s3 - var_t5[i].unk4;
+        var_t5[i].unk14 = temp_s4 - var_t5[i].unk8;
 
-        var_t5[i].unk0 = var_s2;
-        var_t5[i].unk4 = var_s3;
-        var_t5[i].unk8 = var_s4;
+        var_t5[i].unk0 = temp_s2;
+        var_t5[i].unk4 = temp_s3;
+        var_t5[i].unk8 = temp_s4;
+
+        var_s2 = temp_s2;
+        var_s3 = temp_s3;
+        var_s4 = temp_s4;
     }
 
     if (sp1E6 != 0) {
@@ -401,13 +416,11 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
             temp_f0 = var_t5[var_s1].unk0 - var_t5[arg4].unk0;
             temp_f2 = var_t5[var_s1].unk4 - var_t5[arg4].unk4;
             temp_f14 = var_t5[var_s1].unk8 - var_t5[arg4].unk8;
-            if ((sqrtf((temp_f0 * temp_f0) + (temp_f2 * temp_f2) + (temp_f14 * temp_f14)) <= (f32) (temp_v0->unk18 * (arg4 - var_s1)))) {
+            if ((sqrtf(SQ(temp_f0) + SQ(temp_f2) + SQ(temp_f14)) <= (temp_v0->unk18 * (arg4 - var_s1)))) {
                 break;
             }
         }
     }
-
-    temp_s2 = arg4 - var_s1;
 
     temp_f2 = var_t5[var_s1].unk0 - var_t5[arg4].unk0;
     temp_f14 = var_t5[var_s1].unk4 - var_t5[arg4].unk4;
@@ -418,10 +431,10 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         var_f12 = 1.0;
     }
 
-    if (var_f12 < temp_v0->unk18 * temp_s2) {
-        var_f2 = temp_f2 / temp_s2;
-        var_f14 = temp_f14 / temp_s2;
-        var_f16 = temp_f16 / temp_s2;
+    if (var_f12 < temp_v0->unk18 * (arg4 - var_s1)) {
+        var_f2 = temp_f2 / (arg4 - var_s1);
+        var_f14 = temp_f14 / (arg4 - var_s1);
+        var_f16 = temp_f16 / (arg4 - var_s1);
     } else {
         var_f2 = (temp_v0->unk18 * temp_f2) / var_f12;
         var_f14 = (temp_v0->unk18 * temp_f14) / var_f12;
@@ -438,15 +451,15 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         var_t5[i].unk14 = var_t5[i].unk8 - spB0[i];
     }
 
-    temp_f0_10 = (ABS(var_t5[arg4].unkC) + ABS(var_t5[arg4].unk10) + ABS(var_t5[arg4].unk14)) / 1310720.0;
-    var_f12_2 = MIN(1.0, temp_f0_10 / 2.0);
+    temp_f0 = (ABS(var_t5[arg4].unkC) + ABS(var_t5[arg4].unk10) + ABS(var_t5[arg4].unk14)) / 1310720.0;
+    var_f12_2 = MIN(1.0, temp_f0 / 2.0);
 
     func_8032CD70_73E420(
         temp_v0,
         SFX_UNKNOWN_35,
         var_f12_2 * 28672.0,
         0,
-        (temp_f0_10 / 1.5) + 0.7,
+        (temp_f0 / 1.5) + 0.7,
         var_t5[arg4].unk0 >> 0x10,
         var_t5[arg4].unk4 >> 0x10,
         var_t5[arg4].unk8 >> 0x10);
@@ -1309,6 +1322,7 @@ typedef struct {
 // not quite there yet...
 // CURRENT (1884)
 u32 func_802E3C88_6F5338(struct051* arg0) {
+
     s32 x;
     s32 y;
     s32 z;
@@ -1329,21 +1343,22 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
     temp_fp = D_803F2C60 * 1024.0;
 
     // start of next available Vtxs
-    vtx = &D_80204278->unk31070[D_803E1B04];
+    vtx = (Vtx2*)&D_80204278->unk31070[D_803E1B04];
 
     // iterate over each tail segment
     for (i = 0; i < arg0->numSegments; i++) {
+
         if (i == (arg0->numSegments - 1)) {
-            // final pieceq
+            // final piece
             var_s2 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10) * temp_fp;
             var_s3 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10) * -var_a3;
             var_s4 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk4 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk4) >> 0x10) * var_a3;
-            var_s4 -= (((D_803DA300[arg0->unk16+15].unk0 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk0) * temp_fp) >> 0x10);
+            var_s4 -= ((D_803DA300[arg0->unk16+15].unk0 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk0) * temp_fp) >> 0x10;
         } else {
             var_s2 =  ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10) * temp_fp;
             var_s3 =  ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10) * -var_a3;
-            var_s4 =  (((D_803DA300[arg0->unk16 + i + 1].unk4 - D_803DA300[arg0->unk16 + i + 0].unk4) >> 0x10) * var_a3);
-            var_s4 -= (((D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0) * temp_fp) >> 0x10);
+            var_s4 =  ((D_803DA300[arg0->unk16 + i + 1].unk4 - D_803DA300[arg0->unk16 + i + 0].unk4) >> 0x10) * var_a3;
+            var_s4 -= ((D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0) * temp_fp) >> 0x10;
         }
 
         var_a0 = 2 * sqrtf(SQ((f32)var_s2) + SQ((f32)var_s3) + SQ((f32)var_s4));

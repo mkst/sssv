@@ -16,27 +16,20 @@ extern u16 D_803A0510_7B1BC0[];
 s32  (*D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
 u8   D_803D60D4;
 
-struct043 *D_803D60D8;
-struct043 *D_803D60DC;
+Position **D_803D60D8;
+Position *D_803D60DC;
 
 u8  D_803D60E0;
 u16 D_803D60E2;
-s32 D_803D60E4; // unused
-u8  D_803D60E8;
 
-s32 D_803D60F0; // unused
-s32 D_803D60F4; // unused
+// Position D_803D60E8;
 
-struct043 D_803D60F8;
-
-s32 D_803D6104; // unused
 
 // ========================================================
 // .text
 // ========================================================
 
 #if 0
-
 // CURRENT (15670)
 // ESA: func_80070A6C
 void func_802B4D20_6C63D0(void) {
@@ -69,7 +62,7 @@ void func_802B4D20_6C63D0(void) {
     u16 var_s3;
     u16 var_s4;
 
-    s32  (*collision_func)(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s32 x1, s32 y1, s32 z1, s32 x2, s32 y2, s32 z2);
+    s32  (*collision_func)(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, s32 x1, s32 y1, s32 z1, s32 x2, s32 y2, s32 z2);
 
     for (i = 0; i < 40; i++) {
         for (sp130 = D_803DA110[i].next; sp130 != NULL; sp130 = sp130->next) {
@@ -101,8 +94,8 @@ void func_802B4D20_6C63D0(void) {
 
                                 collision_func = D_803D60D0;
 
-                                if (((D_803D60D4 != 0) && (collision_func(animal2, animal1, D_803D60D8, D_803D60DC, animal2->newPosition.xPos.w, animal2->newPosition.zPos.w, animal2->newPosition.yPos.w, animal1->newPosition.xPos.w, animal1->newPosition.zPos.w, animal1->newPosition.yPos.w) != 0)) ||
-                                    ((D_803D60D4 == 0) && (collision_func(animal1, animal2, D_803D60D8, D_803D60DC, animal1->newPosition.xPos.w, animal1->newPosition.zPos.w, animal1->newPosition.yPos.w, animal2->newPosition.xPos.w, animal2->newPosition.zPos.w, animal2->newPosition.yPos.w) != 0))) {
+                                if (((D_803D60D4 != 0) && (collision_func(animal2, animal1, &D_803D60D8, &D_803D60DC, animal2->newPosition.xPos.w, animal2->newPosition.zPos.w, animal2->newPosition.yPos.w, animal1->newPosition.xPos.w, animal1->newPosition.zPos.w, animal1->newPosition.yPos.w) != 0)) ||
+                                    ((D_803D60D4 == 0) && (collision_func(animal1, animal2, &D_803D60D8, &D_803D60DC, animal1->newPosition.xPos.w, animal1->newPosition.zPos.w, animal1->newPosition.yPos.w, animal2->newPosition.xPos.w, animal2->newPosition.zPos.w, animal2->newPosition.yPos.w) != 0))) {
 
                                     animal1->unk4C.unk19 = 1;
                                     animal2->unk4C.unk19 = 1;
@@ -144,8 +137,8 @@ void func_802B4D20_6C63D0(void) {
                                         spD4.y = animal2->zVelocity.w / 65536.0;
                                         spD4.z = animal2->yVelocity.w / 65536.0;
 
-                                        if ((((temp_s2 == 5) || (temp_s2 == 4)) && (D_803D60E8 == 1) && (((animal1->unk16C->unk82.unk2 != 0)) || (animal2->unk16C->unk82.unk2 != 0))) ||
-                                            (((temp_s2 == 1) || (temp_s2 == 2)) && (D_803D60DC->unk8.w == 0) &&
+                                        if ((((temp_s2 == 5) || (temp_s2 == 4)) && (D_803D60E0 == 1) && (((animal1->unk16C->unk82.unk2 != 0)) || (animal2->unk16C->unk82.unk2 != 0))) ||
+                                            (((temp_s2 == 1) || (temp_s2 == 2)) && (D_803D60DC->yPos.w == 0) &&
                                               (((animal1->unk16C->unk82.unk2 != 0) && (((animal2->yPos.h < (animal1->yPos.h + (animal1->unk42 >> 1))))) && ((animal1->yPos.h + (animal1->unk42 >> 1)) < (animal2->yPos.h + animal2->unk42))) ||
                                                ((animal2->unk16C->unk82.unk2 != 0) && (((animal1->yPos.h < (animal2->yPos.h + (animal2->unk42 >> 1))))) && ((animal2->yPos.h + (animal2->unk42 >> 1)) < (animal1->yPos.h + animal1->unk42)))))) {
                                             var_f2 = 0.125f;
@@ -154,8 +147,8 @@ void func_802B4D20_6C63D0(void) {
                                             var_s5 = 0;
                                         }
 
-                                        if (((animal1->unk16C->unk82.unk2 != 0) && (animal1->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal2->unk4C.unk1B != 0) && (animal2->unk16C->unk82.unk2 == 0)) ||
-                                            ((animal2->unk16C->unk82.unk2 != 0) && (animal2->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal1->unk4C.unk1B != 0) && (animal1->unk16C->unk82.unk2 == 0))) {
+                                        if (((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal2->unk4C.unk1B != 0) && (animal2->unk16C->unk82.unk2 == 0)) ||
+                                            ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal1->unk4C.unk1B != 0) && (animal1->unk16C->unk82.unk2 == 0))) {
 
                                             var_s3 = animal1->unk44;
                                             var_s4 = animal2->unk44;
@@ -231,11 +224,11 @@ void func_802B4D20_6C63D0(void) {
                                             }
                                         }
 
-                                        if ((animal1->unk16C->unk82.unk2) && (animal1->unkC4 == D_803D60D8) && ((animal2->unk16C->unk82.unk1) || ((animal2->unk16C->unk18 != NULL) && (animal2->unk40 > 0x1000))) && ((animal1->unk16C->unk9C == HYENA) || (animal1->unk16C->unk9C == HYENA_BIKER) || (animal1->unk16C->unk9C == DOG) || (animal1->unk16C->unk9C == RACING_DOG)) && (animal1->unk3C0.unk0 != 0x10)) {
+                                        if ((animal1->unk16C->unk82.unk2) && ((Position*)animal1->unkC4 == D_803D60D8) && ((animal2->unk16C->unk82.unk1) || ((animal2->unk16C->collision != NULL) && (animal2->unk40 > 0x1000))) && ((animal1->unk16C->unk9C == HYENA) || (animal1->unk16C->unk9C == HYENA_BIKER) || (animal1->unk16C->unk9C == DOG) || (animal1->unk16C->unk9C == RACING_DOG)) && (animal1->unk3C0.unk0 != 0x10)) {
                                             animal1->unk3C0.unk0 = 0x10;
                                             animal1->unk3C0.unk2 = 0;
                                         }
-                                        if ((animal2->unk16C->unk82.unk2) && (animal2->unkC4 == D_803D60DC) && (animal1->unk16C->unk82.unk1) && (((animal2->unk16C->unk9C == HYENA)) || (animal2->unk16C->unk9C == HYENA_BIKER) || (animal2->unk16C->unk9C == DOG) || (animal2->unk16C->unk9C == RACING_DOG)) && (animal2->unk3C0.unk0 != 0x10)) {
+                                        if ((animal2->unk16C->unk82.unk2) && ((Position*)animal2->unkC4 == D_803D60DC) && (animal1->unk16C->unk82.unk1) && (((animal2->unk16C->unk9C == HYENA)) || (animal2->unk16C->unk9C == HYENA_BIKER) || (animal2->unk16C->unk9C == DOG) || (animal2->unk16C->unk9C == RACING_DOG)) && (animal2->unk3C0.unk0 != 0x10)) {
                                             animal2->unk3C0.unk0 = 0x10;
                                             animal2->unk3C0.unk2 = 0;
                                         }
@@ -255,16 +248,16 @@ block_157:
                                         }
                                         func_802CAB20_6DC1D0(animal1, animal2, sp11C, sp114, (s16) (s32) (s16) sp10C, (s16) (s32) (s16) sp118, (s16) (s32) (s16) sp110, (s16) (s32) (s16) sp108);
 
-                                        animal1->unk10.w = animal1->xPos.w + animal1->xVelocity.w;
-                                        animal1->unk14.w = animal1->zPos.w + animal1->zVelocity.w;
-                                        animal1->unk18.w = animal1->yPos.w + animal1->yVelocity.w;
+                                        animal1->newPosition.xPos.w = animal1->xPos.w + animal1->xVelocity.w;
+                                        animal1->newPosition.zPos.w = animal1->zPos.w + animal1->zVelocity.w;
+                                        animal1->newPosition.yPos.w = animal1->yPos.w + animal1->yVelocity.w;
 
-                                        animal2->unk10.w = animal2->xPos.w + animal2->xVelocity.w;
-                                        animal2->unk14.w = animal2->zPos.w + animal2->zVelocity.w;
-                                        animal2->unk18.w = animal2->yPos.w + animal2->yVelocity.w;
+                                        animal2->newPosition.xPos.w = animal2->xPos.w + animal2->xVelocity.w;
+                                        animal2->newPosition.zPos.w = animal2->zPos.w + animal2->zVelocity.w;
+                                        animal2->newPosition.yPos.w = animal2->yPos.w + animal2->yVelocity.w;
 
-                                        if (((D_803D60D4 != 0) && (collision_func(animal2, animal1, D_803D60D8, D_803D60DC, animal2->xPos.w, animal2->zPos.w, animal2->yPos.w, animal1->xPos.w, animal1->zPos.w, animal1->yPos.w) == 0)) ||
-                                            ((D_803D60D4 == 0) && (collision_func(animal1, animal2, D_803D60D8, D_803D60DC, animal1->xPos.w, animal1->zPos.w, animal1->yPos.w, animal2->xPos.w, animal2->zPos.w, animal2->yPos.w) != 0))) {
+                                        if (((D_803D60D4 != 0) && (collision_func(animal2, animal1, &D_803D60D8, &D_803D60DC, animal2->xPos.w, animal2->zPos.w, animal2->yPos.w, animal1->xPos.w, animal1->zPos.w, animal1->yPos.w) == 0)) ||
+                                            ((D_803D60D4 == 0) && (collision_func(animal1, animal2, &D_803D60D8, &D_803D60DC, animal1->xPos.w, animal1->zPos.w, animal1->yPos.w, animal2->xPos.w, animal2->zPos.w, animal2->yPos.w) != 0))) {
                                             func_802B7BC8_6C9278(animal1, animal2);
                                         }
                                     }
@@ -282,7 +275,7 @@ block_157:
 #endif
 
 // ESA: func_80071AC0
-s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Animal *arg0, Animal *arg1, struct043**, struct043**, Position pos1, Position pos2), u8 *arg3) {
+s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Animal *arg0, Animal *arg1, Position**, Position**, Position pos1, Position pos2), u8 *arg3) {
     struct035 *a0; // arg0
     struct035 *a1; // arg1
     s32 res = 0;
@@ -295,7 +288,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Anim
             res = 6;
             *collision_func = func_802B750C_6C8BBC;
             *arg3 = 0;
-        } else if (a1->unk18 != 0) {
+        } else if (a1->collision != NULL) {
             if (arg1->unkC4[0].unkC != 0) {
                 res = 7;
                 *collision_func = func_802B6F6C_6C861C;
@@ -312,7 +305,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Anim
                 *arg3 = 1;
             }
         }
-    } else if (a0->unk18 != 0) {
+    } else if (a0->collision != NULL) {
         a1 = arg1->unk16C;
         if (a1->unk15 == 4) {
             if (arg1->unkC4[0].unkC != 0) {
@@ -324,7 +317,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Anim
                 *collision_func = func_802B6F6C_6C861C;
                 *arg3 = 1;
             }
-        } else if (a1->unk18 != 0) {
+        } else if (a1->collision != NULL) {
             if ((arg0->unkC4[0].unkC != 0) && (arg1->unkC4[0].unkC != 0)) {
                 res = 1;
                 *collision_func = func_802B6088_6C7738;
@@ -361,7 +354,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Anim
                 res = 4;
                 *collision_func = func_802B6B5C_6C820C;
                 *arg3 = 0;
-            } else if (a1->unk18 != 0) {
+            } else if (a1->collision != NULL) {
                 res = 1;
                 *collision_func = func_802B6088_6C7738;
                 *arg3 = 0;
@@ -384,11 +377,10 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Anim
     return res;
 }
 
-#if 0
 // ESA: func_80071CBC
-u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) {
+u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, Position arg4, Position arg5) {
 
-    static struct043 D_803D60E8;
+    static Position D_803D60E8;
 
     s16 temp_a0_2;
     s16 temp_a3;
@@ -400,39 +392,37 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 
     s16 var_t1;
     s16 var_t3;
     s16 var_t6;
-    s32 temp_a0;
-    struct035_ptr *temp_t2;
-    s32 temp_t5;
 
-    u8 changed;
-    s32 i;
+    s32 temp_a0;
+    s32 temp_t5;
+    Collision *collision;
+
+    s32 i = 0;
+    u8 changed = 0;
 
     *arg2 = *arg3 = NULL;
 
-    temp_t2 = arg1->unk16C->unk18;
+    collision = arg1->unk16C->collision;
 
-    D_803D60E8.unk0.w = 0;
-    D_803D60E8.unk4.w = 0;
-    D_803D60E8.unk8.w = 0;
+    D_803D60E8.xPos.w = 0;
+    D_803D60E8.zPos.w = 0;
+    D_803D60E8.yPos.w = 0;
 
-    changed = 0;
+    for (;((changed == 0) && (arg0->unkC4[i].unkC != 0) && (i < 5));) {
 
-    for (i = 0; ((arg0->unkC4[i].unkC != 0) && (i < 5)); i++) {
-
-        temp_a0 =  (arg1->unk40 << 6) >> 0xB;
-
+        temp_a0 = (arg1->unk40 << 6) >> 0xB;
         temp_t5 = ((arg0->unkC4[i].unk8.w + arg4.yPos.w) - arg5.yPos.w) - (arg1->unk42 << 0xF);
 
         var_a2 = ((((arg0->unkC4[i].unk0.w + arg4.xPos.w) - arg5.xPos.w) >> 0xB) / (temp_a0)) + 16;
         var_a1 = ((((arg0->unkC4[i].unk4.w + arg4.zPos.w) - arg5.zPos.w) >> 0xB) / (temp_a0)) + 16;
+        temp_a3 = ((temp_t5 >> 0xB) / temp_a0) + 16;
 
         var_t1 = MAX(1, (arg0->unkC4[i].unkC << 5) / (temp_a0));
         var_t3 = MAX(1, (var_t1 * 3) >> 2);
 
-        // increment i here?
-
         if ((arg1->unk28 == 0) && (arg1->unk2A == 0)) {
             switch (arg1->yRotation) {
+
             case 90:
                 var_t6 = var_a2;
                 var_a2 = 32 - var_a1;
@@ -444,74 +434,72 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 
                 var_a1 = var_t6;
                 break;
             case 270:
-                var_t6 = 32 - var_a2;
+                var_t6 = var_a2;
                 var_a2 = var_a1;
-                var_a1 = var_t6;
+                var_a1 = 32 - var_t6;
                 break;
             }
         }
 
-        temp_a3 = ((temp_t5 >> 0xB) / temp_a0) + 0x10;
         if ((var_a2 >= 0) && (var_a2 < 32) && (var_a1 >= 0) && (var_a1 < 32)) {
             temp_v0 = temp_a3 + var_t1;
-            // ((temp_t2 + (temp_a0_3 * 4) + (temp_v1_2 << 7))->unk8
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[var_a2][var_a1] & (1 << temp_v0))) {
-                D_803D60E8.unk8.h += 2;
+            if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (var_a1 * 32)] & (1 << temp_v0))) {
+                D_803D60E8.yPos.h += 2;
                 changed = 1;
-                *arg2 = arg0->unkC4;
+                *arg2 = &arg0->unkC4[i];
             }
             temp_v0 = temp_a3 - var_t1;
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[var_a2][var_a1] & (1 << temp_v0))) {
-                D_803D60E8.unk8.h -= 2;
+            if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (var_a1 * 32)] & (1 << temp_v0))) {
+                D_803D60E8.yPos.h -= 2;
                 changed = 1;
-                *arg2 = arg0->unkC4;
+                *arg2 = &arg0->unkC4[i];
             }
         }
 
         if ((temp_a3 >= 0) && (temp_a3 < 32)) {
             if ((var_a2 >= 0) && (var_a2 < 32)) {
                 temp_v0 = var_a1 + var_t1;
-                if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[var_a2][temp_v0] & (1 << temp_a3))) {
-                    D_803D60E8.unk4.h += 2;
+                if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (temp_v0 * 32)] & (1 << temp_a3))) {
+                    D_803D60E8.zPos.h += 2;
                     changed = 1;
-                    *arg2 = arg0->unkC4;
+                    *arg2 = &arg0->unkC4[i];
                 }
                 temp_v0 = var_a1 - var_t1;
-                if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[var_a2][temp_v0] & (1 << temp_a3))) {
-                    D_803D60E8.unk4.h -= 2;
+                if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (temp_v0 * 32)] & (1 << temp_a3))) {
+                    D_803D60E8.zPos.h -= 2;
                     changed = 1;
-                    *arg2 = arg0->unkC4;
+                    *arg2 = &arg0->unkC4[i];
                 }
             }
             if ((var_a1 >= 0) && (var_a1 < 32)) {
                 temp_v0 = var_a2 + var_t1;
-                if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[temp_v0][var_a1] & (1 << temp_a3))) {
-                    D_803D60E8.unk0.h += 2;
+                if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_v0 + (var_a1 * 32)] & (1 << temp_a3))) {
+                    D_803D60E8.xPos.h += 2;
                     changed = 1;
-                    *arg2 = arg0->unkC4; // var_t0 + 0xC4;
+                    *arg2 = &arg0->unkC4[i];
                 }
                 temp_v0 = var_a2 - var_t1;
-                if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[temp_v0][var_a1] & (1 << temp_a3))) {
-                    D_803D60E8.unk0.h -= 2 ;
+                if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_v0 + (var_a1 * 32)] & (1 << temp_a3))) {
+                    D_803D60E8.xPos.h -= 2;
                     changed = 1;
-                    *arg2 = arg0->unkC4;
+                    *arg2 = &arg0->unkC4[i];
                 }
             }
             if (changed == 0) {
                 temp_a0_2 = var_a2 + var_t3;
                 if ((temp_a0_2 >= 0) && (temp_a0_2 < 32)) {
                     temp_v0 = var_a1 + var_t3;
-                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[temp_a0_2][temp_v0] & (1 << temp_a3))) {
-                        D_803D60E8.unk0.h += 2;
-                        D_803D60E8.unk4.h += 2;
-                        *arg2 = arg0->unkC4; // var_t0 + 0xC4;
+                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
+                        D_803D60E8.xPos.h += 2;
+                        D_803D60E8.zPos.h += 2;
+                        *arg2 = &arg0->unkC4[i];
                         changed = 1;
                     }
                     temp_v0 = var_a1 - var_t3;
-                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[temp_a0_2][temp_v0] & (1 << temp_a3))) {
-                        D_803D60E8.unk0.h += 2;
-                        D_803D60E8.unk4.h -= 2;
-                        *arg2 = arg0->unkC4;
+                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
+                        D_803D60E8.xPos.h += 2;
+                        D_803D60E8.zPos.h -= 2;
+                        *arg2 = &arg0->unkC4[i];
                         changed = 1;
                     }
                 }
@@ -519,61 +507,59 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 
                 temp_a0_2 = var_a2 - var_t3;
                 if ((temp_a0_2 >= 0) && (temp_a0_2 < 32)) {
                     temp_v0 = var_a1 + var_t3;
-                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[temp_a0_2][temp_v0] & (1 << temp_a3))) {
-                        D_803D60E8.unk0.h -= 2;
-                        D_803D60E8.unk4.h += 2;
-                        *arg2 = arg0->unkC4;
+                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
+                        D_803D60E8.xPos.h -= 2;
+                        D_803D60E8.zPos.h += 2;
+                        *arg2 = &arg0->unkC4[i];
                         changed = 1;
                     }
                     temp_v0 = var_a1 - var_t3;
-                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t2->unk8[temp_a0_2][temp_v0] & (1 << temp_a3))) {
-                        D_803D60E8.unk0.h -= 2;
-                        D_803D60E8.unk4.h -= 2;
-                        *arg2 = arg0->unkC4;
+                    if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
+                        D_803D60E8.xPos.h -= 2;
+                        D_803D60E8.zPos.h -= 2;
+                        *arg2 = &arg0->unkC4[i];
                         changed = 1;
                     }
                 }
             }
         }
 
-        if (changed != 0) {
-            break;
-        }
+        i++;
     }
 
     if (changed != 0) {
         switch (arg1->yRotation) {
         case 90:
-            temp_t9 = D_803D60E8.unk4.h;
-            D_803D60E8.unk4.h = -D_803D60E8.unk0.h;
-            D_803D60E8.unk4.h = temp_t9;
+            // x becomes z, z becomes -x
+            temp_t9 = D_803D60E8.xPos.h;
+            D_803D60E8.xPos.h = D_803D60E8.zPos.h;
+            D_803D60E8.zPos.h = -temp_t9;
             break;
         case 180:
-            D_803D60E8.unk0.h = -D_803D60E8.unk0.h;
-            D_803D60E8.unk0.h = -D_803D60E8.unk4.h;
+            // x becomes -x, z becomes -z
+            D_803D60E8.xPos.h = -D_803D60E8.xPos.h;
+            D_803D60E8.zPos.h = -D_803D60E8.zPos.h;
             break;
         case 270:
-            temp_t9 = D_803D60E8.unk0.h;
-            D_803D60E8.unk0.h = -D_803D60E8.unk4.h;
-            D_803D60E8.unk0.h = temp_t9;
+            // x becomes -z, z becomes x
+            temp_t9 = D_803D60E8.xPos.h;
+            D_803D60E8.xPos.h = -D_803D60E8.zPos.h;
+            D_803D60E8.zPos.h = temp_t9;
             break;
         }
 
         // randomise collision?
-        if ((D_803D60E8.unk0.h == 0) && (D_803D60E8.unk4.h == 0) && (D_803D60E8.unk8.h == 0)) {
-            D_803D60E8.unk0.w = (SSSV_RAND(256) - 128) << 0xA;
-            D_803D60E8.unk4.w = (SSSV_RAND(256) - 128) << 0xA;
+        if ((D_803D60E8.xPos.h == 0) && (D_803D60E8.zPos.h == 0) && (D_803D60E8.yPos.h == 0)) {
+            D_803D60E8.xPos.w = (SSSV_RAND(256) - 128) << 0xA;
+            D_803D60E8.zPos.w = (SSSV_RAND(256) - 128) << 0xA;
         }
         *arg3 = &D_803D60E8;
     }
     return changed;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B6088_6C7738.s")
-#endif
 
 // ESA: func_800724D4
-s32 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) {
+u8 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, Position arg4, Position arg5) {
     s16 i;
     s16 j;
 
@@ -612,7 +598,7 @@ s32 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
 #ifdef NON_MATCHING
 // CURRENT (310)
 // ESA: func_800726C8
-s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) {
+u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, Position arg4, Position arg5) {
     s16 temp_a2;
     s16 temp_t4;
     s16 temp_t5;
@@ -622,29 +608,33 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
 
     s32 temp_v0;
     s32 temp_v1;
-    s32 tmp3;
+
     s32 i;
-    u8 var_s0;
-    u8 var_v0_2;
+
+    u8 changed;
+    u8 flags;
+
+    i = 0;
+    changed = 0;
 
     *arg2 = NULL;
-    var_s0 = 0;
+
     D_803D60E0 = 0;
 
-    for (i = 0; (var_s0 == 0) && (i < 5) && (arg0->unkC4[i].unkC != 0); i++) {
+    for (; (changed == 0) && (i < 5) && (arg0->unkC4[i].unkC != 0); ) {
 
         temp_a0 = arg0->unkC4[i].unkC + arg1->unk30;
         temp_a1 = arg0->unkC4[i].unkC + arg1->unk32;
 
-        var_s0 = (((arg4.xPos.h + arg0->unkC4[i].unk0.h) > (arg5.xPos.h - temp_a0)) &&
-                  ((arg4.xPos.h + arg0->unkC4[i].unk0.h) < (arg5.xPos.h + temp_a0)) &&
-                  ((arg4.zPos.h + arg0->unkC4[i].unk4.h) > (arg5.zPos.h - temp_a1)) &&
-                  ((arg4.zPos.h + arg0->unkC4[i].unk4.h) < (arg5.zPos.h + temp_a1)) &&
-                  ((arg4.yPos.h + arg0->unkC4[i].unk8.h) > (arg5.yPos.h - arg0->unkC4[i].unkC)) &&
-                  ((arg4.yPos.h + arg0->unkC4[i].unk8.h) < (arg5.yPos.h + arg0->unkC4[i].unkC + arg1->unk42)));
+        changed = (((arg4.xPos.h + arg0->unkC4[i].unk0.h) > (arg5.xPos.h - temp_a0)) &&
+                   ((arg4.xPos.h + arg0->unkC4[i].unk0.h) < (arg5.xPos.h + temp_a0)) &&
+                   ((arg4.zPos.h + arg0->unkC4[i].unk4.h) > (arg5.zPos.h - temp_a1)) &&
+                   ((arg4.zPos.h + arg0->unkC4[i].unk4.h) < (arg5.zPos.h + temp_a1)) &&
+                   ((arg4.yPos.h + arg0->unkC4[i].unk8.h) > (arg5.yPos.h - arg0->unkC4[i].unkC)) &&
+                   ((arg4.yPos.h + arg0->unkC4[i].unk8.h) < (arg5.yPos.h + arg0->unkC4[i].unkC + arg1->unk42)));
 
-        if (var_s0 != 0) {
-            var_v0_2 = 0;
+        if (changed != 0) {
+            flags = 0;
 
             *arg2 = &arg0->unkC4[i];
 
@@ -652,27 +642,27 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
             temp_a2 = arg0->unkC4[i].unk0.h;
 
             if ((temp_a2 + arg4.xPos.h) < (arg5.xPos.h - temp_t5)) {
-                var_v0_2 = (0x4 | 0x8);
+                flags = (0x4 | 0x8);
             } else if ((temp_a2 + arg4.xPos.h) > (arg5.xPos.h + temp_t5)) {
-                var_v0_2 = 0x8;
+                flags = 0x8;
             }
 
             temp_a1 = arg0->unkC4[i].unk4.h;
             temp_t4 = arg1->unk32;
 
             if ((arg4.zPos.h + temp_a1) < (arg5.zPos.h - temp_t4)) {
-                var_v0_2 |= (0x1 | 0x2);
+                flags |= (0x1 | 0x2);
             } else if ((arg4.zPos.h + temp_a1) > (arg5.zPos.h + temp_t4)) {
-                var_v0_2 |= 0x2;
+                flags |= 0x2;
             }
 
-            switch (var_v0_2) {
+            switch (flags) {
             case (0x1 | 0x2 | 0x4 | 0x8): // 0xF
                 temp_v0 = arg0->unkC4[i].unkC;
                 temp_v1 = ((arg5.xPos.h - temp_t5) - arg4.xPos.h) + temp_a2;
                 temp_a0 = ((arg5.zPos.h - temp_t4) - arg4.zPos.h) + temp_a1;
                 if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
-                    var_s0 = 0;
+                    changed = 0;
                 }
                 break;
             case (0x2 | 0x4 | 0x8): // 0xE
@@ -680,7 +670,7 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
                 temp_v1 = ((arg5.xPos.h - temp_t5) - arg4.xPos.h) + temp_a2;
                 temp_a0 = ((arg5.zPos.h + temp_t4) - arg4.zPos.h) + temp_a1;
                 if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
-                    var_s0 = 0;
+                    changed = 0;
                 }
                 break;
             case (0x1 | 0x2 | 0x8): // 0xB
@@ -688,7 +678,7 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
                 temp_v1 = ((arg5.xPos.h + temp_t5) - arg4.xPos.h) + temp_a2;
                 temp_a0 = ((arg5.zPos.h - temp_t4) - arg4.zPos.h) + temp_a1;
                 if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
-                    var_s0 = 0;
+                    changed = 0;
                 }
                 break;
             case (0x2 | 0x8):  // 0xA
@@ -696,12 +686,11 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
                 temp_v1 = ((arg5.xPos.h + temp_t5) - arg4.xPos.h) + temp_a2;
                 temp_a0 = ((arg5.zPos.h + temp_t4) - arg4.zPos.h) + temp_a1;
                 if (SQ(temp_v0) < (SQ(temp_v1) + SQ(temp_a0))) {
-                    var_s0 = 0;
+                    changed = 0;
                 }
             }
 
-            if (var_s0 != 0) {
-                // var_v0_2 = ABS(((arg0->unkC4[i].unk8.h + arg4.yPos.h) - arg5.yPos.h) - (arg1->unk42 >> 1)) - (arg1->unk42 >> 1) < MAX(ABS((arg4.xPos.h + temp_a2) - arg5.xPos.h) - temp_t5, ABS((arg4.zPos.h + temp_a1) - arg5.zPos.h) - temp_t4);
+            if (changed != 0) {
                 if (ABS(((arg0->unkC4[i].unk8.h + arg4.yPos.h) - arg5.yPos.h) - (arg1->unk42 >> 1)) - (arg1->unk42 >> 1) < MAX(ABS((arg4.xPos.h + temp_a2) - arg5.xPos.h) - temp_t5, ABS((arg4.zPos.h + temp_a1) - arg5.zPos.h) - temp_t4)) {
                     D_803D60E0 = 1;
                 } else {
@@ -709,19 +698,19 @@ s32 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
                 }
             }
         }
+        i++;
     }
-    return var_s0;
+    return changed;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B6B5C_6C820C.s")
 #endif
 
-#if 0
-// need to figure out struct035_ptr
-// CURRENT (3500)
 // ESA: func_80072B88
-s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) { //s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+u8 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, Position arg4, Position arg5) {
     static Position D_803D60F8;
+
+    Collision *collision;
 
     s16 temp_t9;
     s16 temp_v0;
@@ -729,15 +718,18 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     s16 var_a0;
     s16 var_t0;
     s16 var_t1;
-    struct035_ptr *temp_t4;
+
     s32 temp_t2;
     s32 temp_t5;
-    s32 ret;
 
-    s32 pad[2];
+    u8 ret;
+    s16 pad[3];
+
+    s16 var_t6;
 
     ret = 0;
-    temp_t4 = arg1->unk16C->unk18;
+
+    collision = arg1->unk16C->collision;
 
     D_803D60F8.xPos.w = 0;
     D_803D60F8.zPos.w = 0;
@@ -746,65 +738,66 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     temp_t2 = (arg1->unk40 << 6) >> 0xB;
     temp_t5 = (((arg0->unk42 << 0xF) + arg4.yPos.w) - arg5.yPos.w) - (arg1->unk42 << 0xF);
 
-    var_t0 = temp_v0 = (((arg4.xPos.w - arg5.xPos.w) >> 0xB) / temp_t2) + 0x10;
-    var_t1 = temp_v1 = (((arg4.zPos.w - arg5.zPos.w) >> 0xB) / temp_t2) + 0x10;
+    var_t0 = (((arg4.xPos.w - arg5.xPos.w) >> 0xB) / temp_t2) + 0x10;
+    var_t1 = (((arg4.zPos.w - arg5.zPos.w) >> 0xB) / temp_t2) + 0x10;
+    temp_v1 = ((temp_t5 >> 0xB) / temp_t2) + 0x10;
 
     var_a0 = MAX(1, ((arg0->unk30 + arg0->unk32) * 0x10) / temp_t2);
 
     switch (arg1->yRotation) {                              /* irregular */
     case 90:
-        var_t0 = 32 - temp_v1;
-        var_t1 = temp_v0;
+        var_t6 = var_t0;
+        var_t0 = 32 - var_t1;
+        var_t1 = var_t6;
         break;
     case 180:
-        var_t0 = 32 - temp_v0;
-        var_t1 = 32 - temp_v1;
+        var_t6 = 32 - var_t1;
+        var_t0 = 32 - var_t0;
+        var_t1 = var_t6;
         break;
     case 270:
-        var_t0 = temp_v1;
-        var_t1 = 32 - temp_v0;
+        var_t6 = var_t0;
+        var_t0 = var_t1;
+        var_t1 = 32 - var_t6;
         break;
     }
 
-    temp_v1 = ((temp_t5 >> 0xB) / temp_t2) + 0x10;
-    if ((var_t0 >= 0) && (var_t0 < 32)) {
-        if ((var_t1 >= 0) && (var_t1 < 32)) {
-            temp_v0 = temp_v1 + var_a0;
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t1][var_t0] & (1 << temp_v0))) {
-                ret = 1;
-                D_803D60F8.yPos.h += 2;
-            }
-            temp_v0 = temp_v1 - var_a0;
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t1][var_t0] & (1 << temp_v0))) {
-                ret = 1;
-                D_803D60F8.yPos.h -= 2;
-            }
+    if ((var_t0 >= 0) && (var_t0 < 32) && (var_t1 >= 0) && (var_t1 < 32)) {
+        temp_v0 = temp_v1 + var_a0;
+        if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_t0 + (var_t1 << 5)] & (1 << temp_v0))) {
+            D_803D60F8.yPos.h += 2;
+            ret = 1;
+        }
+        temp_v0 = temp_v1 - var_a0;
+        if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_t0 + (var_t1 << 5)] & (1 << temp_v0))) {
+            D_803D60F8.yPos.h -= 2;
+            ret = 1;
         }
     }
 
     if ((temp_v1 >= 0) && (temp_v1 < 32)) {
         if ((var_t0 >= 0) && (var_t0 < 32)) {
             temp_v0 = var_t1 + var_a0;
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t0][temp_v0] & (1 << temp_v1))) {
-                ret = 1;
+            if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_t0 + (temp_v0 << 5)] & (1 << temp_v1))) {
                 D_803D60F8.zPos.h += 2;
+                ret = 1;
             }
             temp_v0 = var_t1 - var_a0;
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[var_t0][temp_v0] & (1 << temp_v1))) {
-                ret = 1;
+            if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_t0 + (temp_v0 << 5)] & (1 << temp_v1))) {
                 D_803D60F8.zPos.h -= 2;
+                ret = 1;
             }
         }
         if ((var_t1 >= 0) && (var_t1 < 32)) {
             temp_v0 = var_t0 + var_a0;
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[temp_v0][var_t1] & (1 << temp_v1))) {
-                ret = 1;
+            if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_v0 + (var_t1 << 5)] & (1 << temp_v1))) {
                 D_803D60F8.xPos.h += 2;
+                ret = 1;
             }
             temp_v0 = var_t0 - var_a0;
-            if ((temp_v0 >= 0) && (temp_v0 < 32) && (temp_t4->unk8[temp_v0][var_t1] & (1 << temp_v1))) {
-                ret = 1;
+            if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_v0 + (var_t1 << 5)] & (1 << temp_v1))) {
                 D_803D60F8.xPos.h -= 2;
+                ret = 1;
             }
         }
     }
@@ -813,9 +806,9 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
         switch (arg1->yRotation) {
         case 90:
             // swap x/y (flip x)
-            temp_t9 = D_803D60F8.zPos.h;
-            D_803D60F8.zPos.h = -D_803D60F8.xPos.h;
-            D_803D60F8.xPos.h = temp_t9;
+            temp_t9 = D_803D60F8.xPos.h;
+            D_803D60F8.xPos.h = D_803D60F8.zPos.h;
+            D_803D60F8.zPos.h = -temp_t9;
             break;
         case 180:
             // invert x/y
@@ -834,12 +827,9 @@ s32 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
     }
     return ret;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B6F6C_6C861C.s")
-#endif
 
 // ESA: func_80072FF4
-u8 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) {
+u8 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, Position arg4, Position arg5) {
     u8 check0;
     u8 check1;
     s32 velocity0;
@@ -857,7 +847,7 @@ u8 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 
 }
 
 // ESA: func_800730AC
-s32 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, Position arg4, Position arg5) {
+u8 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, Position arg4, Position arg5) {
     return 0;
 }
 
@@ -866,7 +856,7 @@ s32 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, struct043 **arg2, struct043
 s32 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg5, u16 arg6) {
     Animal *animal2;
     struct065 *var_s5;
-    s32  (*collision_func)(Animal *arg0, Animal *arg1, struct043 **arg2, struct043 **arg3, s32 x1, s32 y1, s32 z1, s32 x2, s32 y2, s32 z2);
+    s32  (*collision_func)(Animal *arg0, Animal *arg1, Position **arg2, Position **arg3, s32 x1, s32 y1, s32 z1, s32 x2, s32 y2, s32 z2);
 
 #if 0
     // mempak fix in EU
@@ -965,16 +955,16 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
 
     if ((void*)D_803D60D0 == (void*)func_802B6088_6C7738) {
         if (D_803D60D4 != 0) {
-            x1 = D_803D60DC->unk0.w;
-            y1 = D_803D60DC->unk4.w;
-            z1 = D_803D60DC->unk8.w;
+            x1 = D_803D60DC->xPos.w;
+            y1 = D_803D60DC->zPos.w;
+            z1 = D_803D60DC->yPos.w;
             x2 = -x1;
             y2 = -y1;
             z2 = -z1;
         } else {
-            x2 = D_803D60DC->unk0.w;
-            y2 = D_803D60DC->unk4.w;
-            z1 = D_803D60DC->unk8.w; // is this correct?
+            x2 = D_803D60DC->xPos.w;
+            y2 = D_803D60DC->zPos.w;
+            z1 = D_803D60DC->yPos.w; // is this correct?
             x1 = -x2;
             y1 = -y2;
             z2 = -z1;
@@ -1079,16 +1069,16 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
 
         if (((void*)D_803D60D0 == (void*)func_802B6088_6C7738) && (var_v0 != 0)) {
             if (D_803D60D4 != 0) {
-                x1 = D_803D60DC->unk0.w;
-                y1 = D_803D60DC->unk4.w;
-                z1 = D_803D60DC->unk8.w;
+                x1 = D_803D60DC->xPos.w;
+                y1 = D_803D60DC->zPos.w;
+                z1 = D_803D60DC->yPos.w;
                 x2 = -x1;
                 y2 = -y1;
                 z2 = -z1;
             } else {
-                x2 = D_803D60DC->unk0.w;
-                y2 = D_803D60DC->unk4.w;
-                z1 = D_803D60DC->unk8.w;
+                x2 = D_803D60DC->xPos.w;
+                y2 = D_803D60DC->zPos.w;
+                z1 = D_803D60DC->yPos.w;
                 x1 = -x2;
                 y1 = -y2;
                 z2 = -z1;
@@ -1123,15 +1113,15 @@ void func_802B8304_6C99B4(Animal *arg0, Animal *arg1) {
     f32 var_f12;
     s16 var_v1;
 
-    if (arg1->unk16C->unk18 != NULL) {
+    if (arg1->unk16C->collision != NULL) {
         var_v1 = MAX(0x800, arg1->unk40);
         if (((arg0->yPos.h + (arg0->unk42 >> 1)) < (arg1->yPos.h + (arg1->unk42 >> 1)))) {
             var_v1 = MIN(var_v1, 0x800);
         }
 
-        arg0->xVelocity.w -= (D_803D60DC->unk0.w * var_v1) >> 0xB;
-        arg0->zVelocity.w -= (D_803D60DC->unk4.w * var_v1) >> 0xB;
-        arg0->yVelocity.w -= (D_803D60DC->unk8.w * var_v1) >> 0xB;
+        arg0->xVelocity.w -= (D_803D60DC->xPos.w * var_v1) >> 0xB;
+        arg0->zVelocity.w -= (D_803D60DC->zPos.w * var_v1) >> 0xB;
+        arg0->yVelocity.w -= (D_803D60DC->yPos.w * var_v1) >> 0xB;
         return;
     }
 

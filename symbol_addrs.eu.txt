@@ -13,7 +13,6 @@ osRecvMesg        = 0x80138010;
 osContStartReadData = 0x80138E50;
 osContGetReadData   = 0x80138EDC;
 osSendMesg        = 0x80139070;
-osRecvMesg        = 0x80138010;
 
 gControllerInput  = 0x802910F0;
 
