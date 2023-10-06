@@ -876,13 +876,12 @@ extern s16  D_803A6CE4_7B8394;
 extern s16  D_803A6CE8_7B8398;
 extern s16  D_803A6CEC;
 extern s16  D_803A6CEC_7B839C;
-extern u8   D_803A6CF0_7B83A0[];
-extern u8   D_803A6CF3_7B83A3[];
-extern u8   D_803A6CFF_7B83AF[];
-extern u8   D_803A6D0B_7B83BB[]; //?
+extern u8   D_803A6CF0_7B83A0[0xC];
+extern u8   D_803A6CFC_7B83AC[0xC];
+extern u8   D_803A6D08_7B83B8[0xC];
 extern struct105 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
-extern u8   D_803A7B2A_7B91DA[];
+extern s16  D_803A7B2A_7B91DA[];
 extern s16  D_803A7B3C_7B91EC[];
 extern s16  D_803A8340;
 extern s16  D_803A8340_7B99F0;

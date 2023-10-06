@@ -210,6 +210,9 @@ f32  dot_product(Vertex *x, Vertex *y);
 void cross_product(Vertex *x, Vertex *y, Vertex *res);
 s16  get_angle_between_vectors(Vertex *x, Vertex *y);
 
+// sssv/camera.c
+void fix_camera_to_angle_offset(u8 id, f32 angle);
+
 // sssv/osd.c
 void show_osd(void);
 void hide_osd(void);

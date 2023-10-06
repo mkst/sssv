@@ -1408,7 +1408,7 @@ typedef struct {
     /* 0x20 */ f32 unk20;
     /* 0x24 */ f32 unk24;
     /* 0x28 */ f32 unk28;
-    /* 0x2C */ u8  pad2C[0x4];
+    /* 0x2C */ f32 unk2C; // used in Z-mode
     /* 0x30 */ f32 unk30;
     /* 0x34 */ f32 unk34;
     /* 0x38 */ f32 unk38;
@@ -1630,7 +1630,7 @@ struct struct035 { // TODO: merge with struct068?
   /* 0xDA */  s16 unkDA[2][3]; // skill A/B (drainRate;unknown;unknown)
   /* 0xE6 */  s8  unkE6; // animal class / value?
   /* 0xE7 */  s8  unkE7;
-  /* 0xE8 */  u8  unkE8;
+  /* 0xE8 */  s8  unkE8;
   /* 0xE8 */  s8  unkE9;
   /* 0xE8 */  s8  unkEA;
   /* 0xEB */  s8  unkEB;
