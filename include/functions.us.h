@@ -949,7 +949,6 @@ void func_80339238_74A8E8(u8 arg0);
 void func_803392A0_74A950(u8 arg0);
 void func_80339308_74A9B8(u8 arg0);
 void func_803394E4_74AB94(u8, u8);
-void func_80339B84_74B234(u8, f32);
 void func_8033AAC8_74C178(u8 cameraID);
 void func_8033AC68_74C318(f32 *arg0, f32 *arg1, f32 *arg2, WaypointData *arg3, s16 arg4); // TBD
 void func_8033B118_74C7C8(u8);

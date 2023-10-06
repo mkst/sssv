@@ -169,6 +169,13 @@ audDMAMessageQ         = 0x802423D0;
 D_80299960_63D000      = 0x80299960; // rom:0x63D000 size:0xE0
 D_80299E10_63D4B0      = 0x80299E10; // rom:0x63D4B0 size:0x2
 D_803A0510_7B1BC0      = 0x803A0510; // rom:0x7B1BC0 size:0x20
+
+D_803A6CF0_7B83A0      = 0x803A6CF0; // rom:0x7B83A0 size:0xC
+D_803A6CFC_7B83AC      = 0x803A6CFC; // rom:0x7B83AC size:0xC
+D_803A6D08_7B83B8      = 0x803A6D08; // rom:0x7B83B8 size:0xC
+D_803A6D14_7B83C4      = 0x803A6D14; // rom:0x7B83C4 size:0xC
+D_803A7B24_7B91D4      = 0x803A7B24; // rom:0x7B91D4 size:0x14
+
 // end of size hacks
 
 // forced migrations
@@ -264,6 +271,8 @@ dot_product            = 0x8032D504; // rom:0x73EBB4
 cross_product          = 0x8032D534; // rom:0x73EBE4
 get_angle_between_vectors = 0x8032D5A4; // rom:0x73EC54
 try_pickup_animal        = 0x803213B0; // rom:0x732A60
+
+fix_camera_to_angle_offset = 0x80339B84; // rom:0x74B234
 
 osd_draw_health_and_power_bars = 0x80348230; // rom:0x7598E0
 osd_draw_score           = 0x803491F0; // rom:0x75A8A0
