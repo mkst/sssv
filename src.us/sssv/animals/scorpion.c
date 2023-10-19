@@ -32,7 +32,7 @@ extern u8  D_803B5298_7C6948[];
 extern s16 D_803B52FC_7C69AC[];
 
 
-void func_80378B84_78A234(s16 arg0, s16 *arg1, s16 *arg2, s16 *arg3, s16 *arg4, Animal *arg5);
+void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *target);
 
 void func_80376D40_7883F0(void) {
 
@@ -446,22 +446,23 @@ void func_80376D40_7883F0(void) {
 }
 
 #if 0
-void func_80378B84_78A234(s16 arg0, s16 *arg1, s16 *arg2, s16 *arg3, s16 *arg4, Animal *arg5) {
+void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *target) {
     s16 temp_t7_3;
     s16 temp_t7_4;
 
     s32 pad[3];
 
     s16 sp44;
+
     s16 sp3C;
     s16 sp3A;
     s16 sp38;
+    s16 temp_s0;
+    s16 temp_s1;
     s16 sp32;
     s16 sp30;
     s16 sp2E;
     volatile s16 sp2C;
-    s16 temp_s0;
-    s16 temp_s1;
 
     temp_t7_3 = ((((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * ((D_80203FE0[4].unk0 >> 2) + D_80203FE0[4].unk0)) / 32) + (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * (D_80203FE0[2].unk2 + (D_80203FE0[2].unk2 >> 2))) / 32)) >> 7;
     temp_t7_4 = ((((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * ((D_80203FE0[2].unk2 >> 2) + D_80203FE0[2].unk2)) / 32) - (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * (D_80203FE0[4].unk0 + (D_80203FE0[4].unk0 >> 2))) / 32)) >> 7;
@@ -474,28 +475,28 @@ void func_80378B84_78A234(s16 arg0, s16 *arg1, s16 *arg2, s16 *arg3, s16 *arg4, 
     sp3A = D_803D552C->zPos.h + (temp_t7_4);
     sp38 = D_803D552C->yPos.h;
     sp32 = D_803D552C->yPos.h + D_803D5524->unkBA;
-    sp30 = arg5->xPos.h;
-    sp2E = arg5->zPos.h;
+    sp30 = target->xPos.h;
+    sp2E = target->zPos.h;
     sp2C = D_803D552C->unk30C;
 
-    if (arg0 < 5) {
-        *arg2 = temp_s0 + (((sp3C - temp_s0) * arg0) / 4);
-        *arg3 = temp_s1 + (((sp3A - temp_s1) * arg0) / 4);
-        *arg4 = sp44 + (((sp38 - sp44) * arg0) / 4);
-    } else if (arg0 < 11) {
-        *arg2 = sp3C + (((temp_s0 - sp3C) * (arg0 - 4)) / 6);
-        *arg3 = sp3A + (((temp_s1 - sp3A) * (arg0 - 4)) / 6);
-        *arg4 = sp38 + (((sp32 - sp38) * (arg0 - 4)) / 6);
-    } else if (arg0 < 17) {
-        *arg2 = temp_s0 + (((sp2E - temp_s0) * (arg0 - 10)) / 6);
-        *arg3 = temp_s1 + (((sp2E - temp_s1) * (arg0 - 10)) / 6);
-        *arg4 = sp32 + (((sp2C - sp32) * (arg0 - 10)) / 6);
+    if (i < 5) {
+        *x = temp_s0 + (((sp3C - temp_s0) * i) / 4);
+        *y = temp_s1 + (((sp3A - temp_s1) * i) / 4);
+        *z = sp44 + (((sp38 - sp44) * i) / 4);
+    } else if (i < 11) {
+        *x = sp3C + (((temp_s0 - sp3C) * (i - 4)) / 6);
+        *y = sp3A + (((temp_s1 - sp3A) * (i - 4)) / 6);
+        *z = sp38 + (((sp32 - sp38) * (i - 4)) / 6);
+    } else if (i < 17) {
+        *x = temp_s0 + (((sp2E - temp_s0) * (i - 10)) / 6);
+        *y = temp_s1 + (((sp2E - temp_s1) * (i - 10)) / 6);
+        *z = sp32 + (((sp2C - sp32) * (i - 10)) / 6);
     } else {
-        *arg2 = sp30;
-        *arg3 = sp2E;
-        *arg4 = sp2C;
+        *x = sp30;
+        *y = sp2E;
+        *z = sp2C;
     }
-    *arg1 = D_803B52FC_7C69AC[arg0];
+    *arg1 = D_803B52FC_7C69AC[i];
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/scorpion/func_80378B84_78A234.s")

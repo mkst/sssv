@@ -407,7 +407,7 @@ done:
             }
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.22f);
-            load_1_tile(D_04001C60_C9690, D_04001A60_C9490);
+            load_1_tile(D_04001C60_C9690, (s32)D_04001A60_C9490);
             func_802C78B0_6D8F60(2, 1, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040001A0_C7BD0);
             func_802C78B0_6D8F60(0x13, 0x14, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000DD0_C8800);
 
@@ -423,7 +423,7 @@ done:
             D_80203FE0[1].unk4 -= spDA;
             func_802C78B0_6D8F60(1, 0x13, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04001320_C8D50);
             D_80203FE0[1].unk4 += spDA;
-            func_80356F64_768614(D_040024B0_C9EE0, D_040024D0_C9F00, D_04001EB0_C98E0);
+            func_80356F64_768614(D_040024B0_C9EE0, D_040024D0_C9F00, (s32)D_04001EB0_C98E0);
             func_802C78B0_6D8F60(0, 0x17, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040018B0_C92E0);
             func_802C78B0_6D8F60(0, 0x19, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040018B0_C92E0);
 
@@ -499,15 +499,15 @@ done:
     }
     if ((spD8 == 0) || (spD8 == 2)) {
         if (ABS(D_803D552C->unk30C) > 52) {
-            dl = &D_0103A220;
+            dl = D_0103A220;
         } else if (ABS(D_803D552C->unk30C) > 37) {
-            dl = &D_01039A20;
+            dl = D_01039A20;
         } else if (ABS(D_803D552C->unk30C) > 22) {
-            dl = &D_01039220;
+            dl = D_01039220;
         } else if (ABS(D_803D552C->unk30C) > 7) {
-            dl = &D_01038A20;
+            dl = D_01038A20;
         } else {
-            dl = &D_01038220;
+            dl = D_01038220;
         }
         func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, dl, 37 - ((ABS(D_803D5530->unk28) * 0x25) / 100), 0x25, 0x9B, 0, 0, 0, 0, D_803D5538);
     }

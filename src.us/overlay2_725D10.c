@@ -1813,7 +1813,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         tmp2 = func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0);
 
         if (temp_s1->unk16C->objectType >= 0x100) {
-            func_80363880_774F30(temp_s1, tmp2);
+            set_waypoint_follow_target(temp_s1, tmp2);
         } else {
             // object
             temp_s0_35 = tmp2->xPos.h - temp_s1->xPos.h;

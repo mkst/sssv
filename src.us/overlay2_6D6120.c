@@ -278,54 +278,36 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C4A70_6D6120.s")
 #endif
 
-#if 0
-// bleurgh
 void func_802C56D0_6D6D80(s16 arg0) {
-    s32 temp_t0;
-    s32 temp_t2;
-    s32 temp_t7;
-    s32 temp_t8;
-
-    s32 tmp1;
-    s32 tmp2;
-    s32 tmp3;
-    s32 tmp4;
+    s16 tmp1;
+    s16 tmp2;
+    s16 tmp3;
+    s16 tmp4;
 
     tmp1 = D_80203FE0[19].unk2;
     tmp2 = D_80203FE0[19].unk4;
 
-    temp_t8 = D_80152C78[arg0 & 0xFF] >> 7;
-    temp_t7 = D_80152C78[(arg0 + 64) & 0xFF] >> 7;
+    tmp3 = D_80203FE0[1].unk2 + ((((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) + ((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
+    tmp4 = D_80203FE0[1].unk4 + ((((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) - ((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
+    D_80203FE0[19].unk2 = tmp3;
+    D_80203FE0[19].unk4 = tmp4;
 
-    temp_t0 = D_80203FE0[19].unk4 - D_80203FE0[1].unk4;
-    temp_t2 = D_80203FE0[19].unk2 - D_80203FE0[1].unk2;
+    D_80203FE0[20].unk2 = (D_80203FE0[20].unk2 + tmp3) - tmp1;
+    D_80203FE0[20].unk4 = (D_80203FE0[20].unk4 + tmp4) - tmp2;
 
-    D_80203FE0[19].unk2 = (((temp_t8 * temp_t0) + (temp_t2 * temp_t7)) >> 8) + D_80203FE0[1].unk2;
-    D_80203FE0[19].unk4 = (((temp_t0 * temp_t7) - (temp_t8 * temp_t2)) >> 8) + D_80203FE0[1].unk4;
+    tmp1 = D_80203FE0[32].unk2;
+    tmp2 = D_80203FE0[32].unk4;
 
-    D_80203FE0[20].unk2 = (D_80203FE0[20].unk2 + D_80203FE0[19].unk2) - tmp1;
-    if (1) {};
-    D_80203FE0[20].unk4 = (D_80203FE0[20].unk4 + D_80203FE0[19].unk4) - tmp2;
+    tmp3 = D_80203FE0[1].unk2 + ((((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) + ((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
+    tmp4 = D_80203FE0[1].unk4 + ((((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) - ((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
 
-    tmp3 = D_80203FE0[32].unk2;
-    tmp4 = D_80203FE0[32].unk4;
+    D_80203FE0[32].unk2 = tmp3;
+    D_80203FE0[32].unk4 = tmp4;
 
-    temp_t0 = D_80203FE0[32].unk4 - D_80203FE0[1].unk4;
-    temp_t2 = D_80203FE0[32].unk2 - D_80203FE0[1].unk2;
-
-    D_80203FE0[32].unk2 = (((temp_t8 * temp_t0) + (temp_t2 * temp_t7)) >> 8) + D_80203FE0[1].unk2;
-    D_80203FE0[32].unk4 = (((temp_t0 * temp_t7) - (temp_t8 * temp_t2)) >> 8) + D_80203FE0[1].unk4;
-
-    temp_t8 = D_80203FE0[33].unk2;
-    temp_t7 = D_80203FE0[33].unk4;
-
-    D_80203FE0[33].unk2 = (temp_t8 + D_80203FE0[32].unk2) - tmp3;
-    D_80203FE0[33].unk4 = (temp_t7 + D_80203FE0[32].unk4) - tmp4;
+    D_80203FE0[33].unk2 = (D_80203FE0[33].unk2 + tmp3) - tmp1;
+    D_80203FE0[33].unk4 = (D_80203FE0[33].unk4 + tmp4) - tmp2;
 
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C56D0_6D6D80.s")
-#endif
 
 void func_802C5824_6D6ED4(s16 arg0, s16 arg1, s16 arg2) {
     D_80203FE0[19].unk0 = D_80203FE0[1].unk0;

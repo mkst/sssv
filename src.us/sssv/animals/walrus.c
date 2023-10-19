@@ -188,10 +188,10 @@ void func_80374C70_786320(void) {
 
             switch (D_803F2ECE) {                    /* irregular */
             case 1:
-                func_802DB670_6ECD20(&D_803B5028_7C66D8, &D_803B5034_7C66E4, &D_803B5040_7C66F0, &D_803B5054_7C6704);
+                func_802DB670_6ECD20(D_803B5028_7C66D8, D_803B5034_7C66E4, D_803B5040_7C66F0, D_803B5054_7C6704);
                 break;
             case 2:
-                func_802DB670_6ECD20(&D_803B5028_7C66D8, &D_803B5034_7C66E4, &D_803B5040_7C66F0, &D_803B5080_7C6730);
+                func_802DB670_6ECD20(D_803B5028_7C66D8, D_803B5034_7C66E4, D_803B5040_7C66F0, D_803B5080_7C6730);
                 break;
             }
         }
@@ -214,11 +214,11 @@ void func_80374C70_786320(void) {
             } else {
                 gDPSetPrimColor(D_801D9E88++, 0, 0, 0x5C, 0x5C, 0xD7, 0xFF);
             }
-            func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x62) >> 6, (D_803F2EC0 * 0x62) >> 6, (D_803F2EC4 * 0x62) >> 6, D_803F2ED0, 0, 0, 0, &D_04005E50_E3410);
+            func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x62) >> 6, (D_803F2EC0 * 0x62) >> 6, (D_803F2EC4 * 0x62) >> 6, D_803F2ED0, 0, 0, 0, D_04005E50_E3410);
             load_1_tile(D_04006DE0, D_04006BD0_E4190);
-            func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x62) >> 6, (D_803F2EC8 * 0x62) >> 6, (D_803F2EC8 * 0x62) >> 6, D_803F2ED0, 0, 0, 0, &D_04006860);
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EBC) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EC0) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EC4) >> 4) * 0x62) >> 6, D_803F2ED0, 0, 0, 0, &D_040070F0_E46B0); }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleRight + 8) * D_803F2EBC) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC0) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC4) >> 4) * 0x62) >> 6, D_803F2ED0, 0, 1, 0, &D_040070F0_E46B0); }
+            func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x62) >> 6, (D_803F2EC8 * 0x62) >> 6, (D_803F2EC8 * 0x62) >> 6, D_803F2ED0, 0, 0, 0, D_04006860);
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EBC) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EC0) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EC4) >> 4) * 0x62) >> 6, D_803F2ED0, 0, 0, 0, D_040070F0_E46B0); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleRight + 8) * D_803F2EBC) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC0) >> 4) * 0x62) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC4) >> 4) * 0x62) >> 6, D_803F2ED0, 0, 1, 0, D_040070F0_E46B0); }
 
             if ((ABS(D_803D5530->xVelocity.h) + ABS(D_803D5530->zVelocity.h)) >= 3) {
 
@@ -254,12 +254,12 @@ void func_80374C70_786320(void) {
             if (D_803D552C->unk30C < -32) {
                 D_803D552C->unk30C = -32;
             }
-            func_802C78B0_6D8F60(1, 0x1A, 0x18800, 0x18800, 0x18800, D_803F2ED0, (-D_803D552C->unk30C & 0xFF), 0, 0, &D_040062D0_E3890);
-            func_802C78B0_6D8F60(5, 0xE, 0x18800, 0x18800, 0x18800, D_803F2ED0, 0, 0, 0, &D_04006170_E3730);
+            func_802C78B0_6D8F60(1, 0x1A, 0x18800, 0x18800, 0x18800, D_803F2ED0, (-D_803D552C->unk30C & 0xFF), 0, 0, D_040062D0_E3890);
+            func_802C78B0_6D8F60(5, 0xE, 0x18800, 0x18800, 0x18800, D_803F2ED0, 0, 0, 0, D_04006170_E3730);
 
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
-            func_802C78B0_6D8F60(6, 0x11, 0x18800, 0x18800, 0x18800, D_803F2ED0, 0, 1, 0, &D_04006170_E3730);
+            func_802C78B0_6D8F60(6, 0x11, 0x18800, 0x18800, 0x18800, D_803F2ED0, 0, 1, 0, D_04006170_E3730);
 
             switch (D_803D5530->state) {                   /* switch 1; irregular */
             case 0x16:                              /* switch 1 */
@@ -292,7 +292,7 @@ void func_80374C70_786320(void) {
             sp106 = D_803D552C->unk30A;
 
             D_803D552C->unk30A += (ABS(D_803D552C->unk308) >> 2);
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 2, 0x18800, 0x18800, 0x18800, D_803F2ED0, D_803D552C->unk30A, (u8) 0, (u8) 0, &D_04006B80_E4140); }
+            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 2, 0x18800, 0x18800, 0x18800, D_803F2ED0, D_803D552C->unk30A, (u8) 0, (u8) 0, D_04006B80_E4140); }
 
             // Error: Unable to determine a value for double-precision register $f16 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
             // At instruction: c.eq.d $f16, $f12

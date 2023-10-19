@@ -272,7 +272,7 @@ void func_80362CC4_774374(Animal *arg0) {
 
 // ESA: func_80061318
 void func_803633C4_774A74(Animal *arg0) {
-    s32 tmp0, tmp1;
+    s32 xDist, zDist;
 
     switch (arg0->unk2A0) {
     case 0:
@@ -285,7 +285,7 @@ void func_803633C4_774A74(Animal *arg0) {
         }
         break;
     case 2:
-        if (arg0->unk2B0 != 0) {
+        if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
@@ -299,14 +299,14 @@ void func_803633C4_774A74(Animal *arg0) {
         }
         break;
     case 3:
-        if (arg0->unk2B0 != 0) {
+        if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         arg0->unk278 = arg0->unk2AC->xPos.h;
         arg0->unk27A = arg0->unk2AC->zPos.h;
         break;
     case 4:
-        if (arg0->unk2B0 != 0) {
+        if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
@@ -322,10 +322,10 @@ void func_803633C4_774A74(Animal *arg0) {
     case 5:
         break;
     case 6:
-        tmp0 = arg0->xPosTarget - arg0->xPos.h;
-        tmp1 = arg0->zPosTarget - arg0->zPos.h;
+        xDist = arg0->xPosTarget - arg0->xPos.h;
+        zDist = arg0->zPosTarget - arg0->zPos.h;
 
-        if (func_803051F0_7168A0((func_801284B8(tmp0, tmp1) << 8) / 360, arg0->yRotation) < 6) {
+        if (func_803051F0_7168A0((func_801284B8(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
             arg0->unk2A0 = 1;
             arg0->unk275 = arg0->unk2A1;
         }
@@ -333,7 +333,7 @@ void func_803633C4_774A74(Animal *arg0) {
     case 7:
         break;
     case 8:
-        if (arg0->unk2B0 != 0) {
+        if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
@@ -392,10 +392,10 @@ void func_80363844_774EF4(Animal *arg0, s16 arg1) {
 }
 
 // ESA: func_8006173C
-void func_80363880_774F30(Animal *arg0, Animal *arg1) {
+void set_waypoint_follow_target(Animal *arg0, Animal *target) {
     arg0->waypointType = 7;
-    arg0->unk294.type7.unk0 = arg1;
-    func_80363E88_775538(arg0, arg1);
+    arg0->unk294.type7.unk0 = target;
+    func_80363E88_775538(arg0, target);
 }
 
 // ESA: func_80061764
@@ -526,15 +526,15 @@ void func_80363CC8_775378(Animal *arg0) {
 }
 
 // ESA: func_80061B80
-void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
+void func_80363CE0_775390(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
-    arg0->unk2AC = arg1;
+    arg0->unk2AC = target;
     arg0->unk2A0 = 2;
-    arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = arg1->xPos.h;
-    arg0->unk27A = arg1->zPos.h;
-    if (can_fly(arg1) || func_80362B60_774210(arg1)) {
-        arg0->unk27C = arg1->yPos.h + (arg1->unk42 >> 1) + arg2;
+    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->unk278 = target->xPos.h;
+    arg0->unk27A = target->zPos.h;
+    if (can_fly(target) || func_80362B60_774210(target)) {
+        arg0->unk27C = target->yPos.h + (target->unk42 >> 1) + arg2;
     } else {
         arg0->unk27C = arg2;
     }
@@ -543,15 +543,15 @@ void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
 }
 
 // ESA: func_80061C60
-void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
+void func_80363DB4_775464(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
-    arg0->unk2AC = arg1;
+    arg0->unk2AC = target;
     arg0->unk2A0 = 8;
-    arg0->unk2B0 = arg1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = arg1->xPos.h;
-    arg0->unk27A = arg1->zPos.h;
-    if (can_fly(arg1) || func_80362B60_774210(arg0->unk2AC)) {
-        arg0->unk27C = arg1->yPos.h + (arg1->unk42 >> 1) + arg2;
+    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->unk278 = target->xPos.h;
+    arg0->unk27A = target->zPos.h;
+    if (can_fly(target) || func_80362B60_774210(arg0->unk2AC)) {
+        arg0->unk27C = target->yPos.h + (target->unk42 >> 1) + arg2;
     } else {
         arg0->unk27C = arg2;
     }
@@ -560,29 +560,29 @@ void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3) {
 }
 
 // ESA: func_80061D44
-void func_80363E88_775538(Animal *arg0, Animal *leader) {
-    arg0->unk2AC = leader;
+void func_80363E88_775538(Animal *arg0, Animal *target) {
+    arg0->unk2AC = target;
     arg0->unk2A0 = 3;
-    arg0->unk2B0 = leader == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = leader->xPos.h;
-    arg0->unk27A = leader->zPos.h;
+    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->unk278 = target->xPos.h;
+    arg0->unk27A = target->zPos.h;
     arg0->unk274 = 2;
     arg0->unk275 = -1;
 }
 
 // ESA: func_80061D9C
-void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *arg2) {
+void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *target) {
     arg0->yPosTarget = arg1;
-    arg0->unk2AC = arg2;
+    arg0->unk2AC = target;
     arg0->unk2A0 = 4;
     arg0->unk2A1 = 16;
-    arg0->unk2B0 = arg2 == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = arg2->xPos.h;
-    arg0->unk27A = arg2->zPos.h;
+    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->unk278 = target->xPos.h;
+    arg0->unk27A = target->zPos.h;
     arg0->unk274 = 3;
     arg0->unk275 = 16;
-    if (can_fly(arg2) || func_80362B60_774210(arg2)) {
-        arg0->unk27C = arg2->yPos.h + (arg2->unk42 >> 1) + arg1;
+    if (can_fly(target) || func_80362B60_774210(target)) {
+        arg0->unk27C = target->yPos.h + (target->unk42 >> 1) + arg1;
     } else {
         arg0->unk27C = arg1;
     }
@@ -625,7 +625,7 @@ void func_80363FF0_7756A0(Animal *arg0) {
         func_80363844_774EF4(arg0, arg0->unk294.type6.unk0);
         break;
     case 7:
-        func_80363880_774F30(arg0, arg0->unk294.type7.unk0); // follow leader
+        set_waypoint_follow_target(arg0, arg0->unk294.type7.unk0); // follow leader/target
         break;
     case 8:
         func_803637D4_774E84(arg0, arg0->unk294.type8.unk0, arg0->unk294.type8.unk4);

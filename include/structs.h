@@ -977,7 +977,7 @@ struct Animal {
     /* 0x2A8 */ s16 yPosTarget;
     /* 0x2AA */ u8  pad2AA[0x2];
     /* 0x2AC */ Animal* unk2AC;
-    /* 0x2B0 */ u8  unk2B0;
+    /* 0x2B0 */ u8  targetIsPlayer;
     /* 0x2B1 */ u8  pad2B1[0x3];
     /* 0x2B4 */ struct {
                     u8  state : 4; // 0xFF0F => 0
@@ -993,7 +993,7 @@ struct Animal {
     /* 0x2C8 */ u16 unk2C8;
     /* 0x2CA */ u8  pad2CA;
     /* 0x2CC */ Animal* unk2CC; // target for missiles?
-    /* 0x2D0 */ s16 unk2D0;
+    /* 0x2D0 */ s16 targetDistance;
     /* 0x2D2 */ u8  pad2D2[0x2];
     /* 0x2D4 */ s32 unk2D4;
     /* 0x2D8 */ s32 unk2D8;
@@ -1004,11 +1004,11 @@ struct Animal {
     /* 0x2E9 */ u8  missileScaleRight; // scale factor for 'right' side missile
     /* 0x2EA */ u8  missileSide; // selector for missile 1 or 2
     /* 0x2EB */ s8  unk2EB;
-    /* 0x2EC */ s16 unk2EC; // (husky) bite energy?
+    /* 0x2EC */ s16 unk2EC; // (husky) bite energy? stamina?
     /* 0x2EE */ u16 unk2EE;
     // /* 0x2EE */ struct {
-    //                 s16  unk0  : 10;
-    //                 u16  unk10 : 6;
+    //                 s16  unk0 : 10;
+    //                 u16  unkA : 6;
     //             } unk2EE;
     /* 0x2F0 */ u8  pad2F0[0x2];
     /* 0x2F2 */ u16 unk2F2;
@@ -1324,8 +1324,18 @@ typedef struct {
     /* 0x04 */ Progress level[32];
     /* 0x24 */ u8  pad24[0x4];
     /* 0x28 */ u8  speciesSeen[0x8];
+#if 0
+    /* 0x30 */ struct {
+                  u16 evosEscapeScore : 8; // 11111111 00000000 00000000 00000000 | (x >> 24)
+                  u16 unused          : 2; // 00000000 11000000 00000000 00000000
+                  u16 gadabTime       : 9; // 00000000 00111111 11100000 00000000 | (x >> 13) & 0x1FF
+                  u16 punchupTime     : 5; // 00000000 00000000 00011111 00000000 | (x >>  8) & 0x1F)
+                  u16 wallraceTime    : 8; // 00000000 00000000 00000000 11111111 | (x      ) & 0xFF)
+               } unk30;
+#else
     /* 0x30 */ u32 unk30;
-    /* 0x34 */ u32 unk34;
+#endif
+    /* 0x34 */ u32 unk34; // tbd if this is a bitfield
     /* 0x38 */ u8  pad38[0x3];
     /* 0x3B */ s8  evoPartsCollected;
     /* 0x3C */ s32 score;

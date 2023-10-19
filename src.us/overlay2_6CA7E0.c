@@ -1,6 +1,17 @@
 #include <ultra64.h>
 #include "common.h"
 
+// ========================================================
+// definitions
+// ========================================================
+
+// incorrect, it's a void, but this silences the "implicit declaratio" warning and still OKs:
+s32  func_802C7A7C_6D912C(struct061 *arg0, s16 arg1);
+
+
+// ========================================================
+// .text
+// ========================================================
 
 void func_802B9130_6CA7E0(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 sp36;
@@ -661,10 +672,8 @@ void func_802BB1F0_6CC8A0(u16 arg0, u16 arg1) {
     D_80203FE0[25].unk4 = temp_t8;
 }
 
-#ifdef NON_MATCHING
-// CURRENT (10)
-void func_802BB70C_6CCDBC(s16 arg0, s16 arg1) {
-    // u16 tmp = (arg0 + arg1);
+void func_802BB70C_6CCDBC(s16 arg0, u16 arg1) {
+    s16 tmp = arg0 + arg1;
     D_80203FE0[22].unk0 = arg0;
     D_80203FE0[22].unk2 = 0;
     D_80203FE0[22].unk4 = 0;
@@ -673,11 +682,11 @@ void func_802BB70C_6CCDBC(s16 arg0, s16 arg1) {
     D_80203FE0[24].unk2 = 0;
     D_80203FE0[24].unk4 = 0;
 
-    D_80203FE0[23].unk0 = (arg0 + arg1) & 0xFFFF;
+    D_80203FE0[23].unk0 = tmp;
     D_80203FE0[23].unk2 = 0;
     D_80203FE0[23].unk4 = 0;
 
-    D_80203FE0[25].unk0 = -(arg0 + arg1);
+    D_80203FE0[25].unk0 = -tmp;
     D_80203FE0[25].unk2 = 0;
     D_80203FE0[25].unk4 = 0;
     if (D_803F2D10.unk0 == 0) {
@@ -693,6 +702,3 @@ void func_802BB70C_6CCDBC(s16 arg0, s16 arg1) {
     D_80203FE0[24].unk4 += D_80203FE0[0].unk4;
     D_80203FE0[25].unk4 += D_80203FE0[0].unk4;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CA7E0/func_802BB70C_6CCDBC.s")
-#endif

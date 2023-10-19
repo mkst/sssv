@@ -3286,16 +3286,12 @@ segments:
     start: 0x12A390
     subsegments:
     - [0x12A390, rnc, img/fonts/comic_sans, i4, 16, 6400]
-  - name: sounds
-    type:  group
-    start: 0x12EDC0
-    subsegments:
-    - [0x12EDC0, bin, alBankFile1] # .ctl file "B1"
-    - [0x133450, bin, alTable1] # .tbl file (alBnkfNew loads this)
-    - [0x1B6510, bin, alBankFile2] # .ctl file "B1"
-    - [0x1C7C80, bin, alTable2] # tbl file (alBnkfNew loads this)
-    # music (all these start with 0044 00 and can be extracted with Soundbank tool)
-    - [0x40B210, bin, alSeqFile] # sequences file "S1" # 244 bytes long (alSeqFileNew loads this)
+  - [0x12EDC0, bin, alBankFile1] # .ctl file "B1"
+  - [0x133450, bin, alTable1] # .tbl file (alBnkfNew loads this)
+  - [0x1B6510, bin, alBankFile2] # .ctl file "B1"
+  - [0x1C7C80, bin, alTable2] # tbl file (alBnkfNew loads this)
+  # music (all these start with 0044 00 and can be extracted with Soundbank tool)
+  - [0x40B210, bin, alSeqFile] # sequences file "S1" # 244 bytes long (alSeqFileNew loads this)
   # rgba16 textures (mipmap)
   - [0x42DCA0, bin, rnc_42DCA0] # 30326 => 54880        # europe
   # - start: 0x42DCA0

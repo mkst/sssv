@@ -58,18 +58,15 @@ s16  D_803F2D18;
 // 50% there?
 #if 0
 void osd_draw_health_and_power_bars(s32 arg0) {
-    s16 temp_t0_2;
-    s16 temp_t4;
-    s16 temp_t6;
-    Animal *animal;
-
     s16 tmp1;
     s16 tmp2;
+    s16 temp_t4;
+    Animal *animal;
 
     static s32 D_803F2D04; // tbd
 
-    D_803F2D04 += 1;
-    D_803F2D04 &= 0xF; //(D_803F2D04.unk0 + 1) & 0xF;
+    D_803F2D04++;
+    D_803F2D04 = 0xF; //(D_803F2D04.unk0 + 1) & 0xF;
     D_803F2CEC = 0x60;
     D_803F2CF0 = arg0 * 4;
 
@@ -117,14 +114,19 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             1024);
         gDPPipeSync(D_801D9E7C++);
 
+        tmp1 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->energy[0].unk0 / 16;
+        tmp2 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->energy[1].unk0 / 16;
+
+        tmp1 = (tmp1 * 12);
+        tmp1 = tmp1 / 16;
+
+        tmp2 = (tmp2 * 12);
+        tmp2 = tmp2 / 16;
 
         gDPPipeSync(D_801D9E7C++);
 
         gDPSetRenderMode(D_801D9E7C++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
         gDPSetTextureFilter(D_801D9E7C++, G_TF_POINT);
-
-        animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-        tmp1 = ((s16)((s16)(animal->energy[0].unk0 / 16) * 12) / 16);
 
         gDPLoadTextureBlock(D_801D9E7C++, D_0103D520, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gSPTextureRectangle(
@@ -139,8 +141,6 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             1024,
             1024);
 
-        animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-        tmp2 = (s16)((s16)((s16)(animal->energy[1].unk0 / 16) * 12) / 16);
         gDPLoadTextureBlock(D_801D9E7C++, D_0103D320, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gSPTextureRectangle(D_801D9E7C++,
             D_803F2CEC + 0x14,

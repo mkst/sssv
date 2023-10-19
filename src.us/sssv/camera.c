@@ -270,7 +270,7 @@ void func_8032FD0C_7413BC(u8 cameraID, u8 arg1) {
 
 // ESA: func_80021750 (tbd)
 #if 0
-// CURRENT (5200)
+// CURRENT (4410)
 void func_8032FF94_741644(u8 arg0) {
     s32 pad2[4];
     f32 spDC;
@@ -307,7 +307,6 @@ void func_8032FF94_741644(u8 arg0) {
     f32 sp90;
     f32 sp8C;
     f32 sp88;
-
 
     u8 sp83;
 
@@ -433,7 +432,6 @@ void func_8032FF94_741644(u8 arg0) {
 
     sp94 = 0.0f;
     spB0 = 0;
-
     if (func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, gCamera->unk24, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) != 0) {
         spB0 = 1;
         spB2 = 4;
@@ -580,10 +578,10 @@ void func_8032FF94_741644(u8 arg0) {
                         var_f2_3 -= 256.0;
                     }
 
-                    if (118.0 <= ABSF(var_f2_3)) {
+                    if (ABSF(var_f2_3) >= 118.0) {
                         var_f12_2 = 0.5f;
                     } else {
-                        if (78.0 <= ABSF(var_f2_3)) {
+                        if (ABSF(var_f2_3) >= 78.0) {
                             var_f12_2 = ((118.0 - ABSF(var_f2_3)) * 0.05) + 0.5; // x / 20.0, but doesnt match (yet?)
                         } else if (ABSF(var_f2_3) >= 32.0) {
                             var_f12_2 = 2.5f;
@@ -602,11 +600,11 @@ void func_8032FF94_741644(u8 arg0) {
                     }
 
                     if (ABSF(var_f2_3) < var_f12_2) {
-                        gCamera->unk24 = gCamera->unk24 + var_f2_3;
+                        gCamera->unk24 += var_f2_3;
                     } else if (var_f2_3 < 0.0) {
-                        gCamera->unk24 = gCamera->unk24 - var_f12_2;
+                        gCamera->unk24 -= var_f12_2;
                     } else {
-                        gCamera->unk24 = gCamera->unk24 + var_f12_2;
+                        gCamera->unk24 += var_f12_2;
                     }
                 }
             }
@@ -631,7 +629,7 @@ void func_8032FF94_741644(u8 arg0) {
     if (ABSF(var_f12_2) < 0.05) {
         var_f12_2 = 0.0f;
     }
-    if (ABSF(gCamera->unk1C) < ABSF(var_f12_2)) {
+    if (ABSF(var_f12_2) > ABSF(gCamera->unk1C)) {
         if (var_f12_2 > 0.0f) {
             var_f12_2 = MIN(var_f12_2, gCamera->unk1C + 0.4);
         } else {
@@ -644,7 +642,7 @@ void func_8032FF94_741644(u8 arg0) {
     if (gCamera->unk24 < 0.0) {
         gCamera->unk24 = gCamera->unk24 + 256.0;
     }
-    if (gCamera->unk24 >= 0.0) {
+    if (gCamera->unk24 >= 256.0) {
         gCamera->unk24 = gCamera->unk24 - 256.0;
     }
 
@@ -659,7 +657,7 @@ void func_8032FF94_741644(u8 arg0) {
     if (ABSF(var_f2_3) < 0.1) {
         var_f2_3 = 0.0f;
     }
-    if (ABSF(gCamera->unk28) < ABSF(var_f2_3)) {
+    if (ABSF(var_f2_3) > ABSF(gCamera->unk28)) {
         if (var_f2_3 > 0.0f) {
             var_f2_3 = MIN(var_f2_3, gCamera->unk28 + spB2);
         } else {
@@ -669,7 +667,7 @@ void func_8032FF94_741644(u8 arg0) {
 
     gCamera->unk28 = var_f2_3;
     gCamera->unk20 += var_f2_3;
-    if (gCamera->unk20 >= 0.0) {
+    if (gCamera->unk20 >= 256.0) {
         gCamera->unk20 -= 256.0;
     }
 
@@ -700,9 +698,9 @@ void func_8032FF94_741644(u8 arg0) {
 
     if (gCamera->unk52 != gCamera->unk58) {
         if (gCamera->unk52 < gCamera->unk58) {
-            gCamera->unk52 = gCamera->unk52 + 1;
+            gCamera->unk52++;
         } else {
-            gCamera->unk52 = gCamera->unk52 - 1;
+            gCamera->unk52--;
         }
     }
 
@@ -711,7 +709,7 @@ void func_8032FF94_741644(u8 arg0) {
     gCamera->unk94 = 1.0f;
 
     sp5C = (gCamera->unk24 + 32.0) + 20.0;
-    if (sp5C >= 0.0) {
+    if (sp5C >= 256.0) {
         sp5C = sp5C - 256.0; //0.0; // ???
     }
 
@@ -724,7 +722,7 @@ void func_8032FF94_741644(u8 arg0) {
 
     sp5C = (gCamera->unk24 - 32.0) - 20.0;
     if (sp5C < 0.0) {
-        sp5C = sp5C + 256.0; //0.0); // ???
+        sp5C = sp5C + 256.0;
     }
     sp66 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, gCamera->unkA0 + 4.0, gCamera->unk18, sp5C, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0);
     if ((func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, gCamera->unkA0 + 4.0, gCamera->unk18, sp5C, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp66) == 0) {
@@ -746,8 +744,8 @@ void func_8032FF94_741644(u8 arg0) {
 #endif
 
 #if 0
-// CURRENT (17865)
-// ESA: func_80021750
+// CURRENT (12140)
+// ESA: none (they use func_80334470_745B20 instead)
 void func_80332444_743AF4(u8 arg0) {
     f32 spDC;
     f32 spD8;
@@ -755,51 +753,43 @@ void func_80332444_743AF4(u8 arg0) {
     f32 spD0;
     f32 spCC;
     f32 spC8;
-    s16 spBA;
-    f32 spAC;
+    // s16 spBA;
+    // f32 spAC;
     s16 spAA;
-    s16 spA8;
-    s16 spA6;
+    // s16 spA8;
+    // s16 spA6;
     s16 spA4;
-    f32 sp98;
+    // f32 sp98;
     f32 sp94;
     f32 sp90;
     f32 sp8C;
     f32 sp84;
-    s8 sp82;
-    s8 sp81;
-    s8 sp80;
+    // s8 sp82;
+    // s8 sp81;
+    // s8 sp80;
     s16 sp72;
     // f64 sp58;
     // f64 sp50;
 
-    // Camera *temp_v1;
     f32 temp_f0_2;
-
     f32 temp_f2_5;
     f32 temp_f2_8;
-
     f32 var_f12_2;
     f32 var_f12_3;
     f32 var_f14;
-
     f32 var_f16_3;
-
     f32 var_f20;
 
     f32 var_f2_2;
     f32 var_f2_3;
 
-    f64 var_f0_16;
-
-    s16 temp_t1;
+    f32 var_f0_16;
     s16 temp_t8;
     s16 temp_v0_2;
     s16 var_t0;
     s16 i;
     s16 var_t0_5;
     s16 var_v0;
-    s32 temp_v0_3;
 
     s8 temp_t0;
 
@@ -811,6 +801,7 @@ void func_80332444_743AF4(u8 arg0) {
     gCamera = &D_803F28E0[arg0];
 
     spAA = 2;
+
     if (gCamera->unkD6 == 1) {
         gCamera->unk50 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC8;
         gCamera->unk4E = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkCA;
@@ -831,8 +822,7 @@ void func_80332444_743AF4(u8 arg0) {
         var_v0 = 10;
     }
 
-    // sp58 = var_v0 * 0.025;
-    var_f14 = MIN(var_v0 * 0.025, 0.95);
+    var_f14 = MIN(0.95, var_v0 * 0.025);
 
     spDC = gCamera->unk98;
     spD8 = gCamera->unk9C;
@@ -876,8 +866,8 @@ void func_80332444_743AF4(u8 arg0) {
         sp8C = spC8 - gCamera->unk88;
     }
 
-    temp_f2_5 = ((var_v0 * 0.025)) * 0.05;
     temp_f0_2 = sqrtf(SQ(sp94) + SQ(sp90) + SQ(sp8C));
+    temp_f2_5 = (var_v0 * 0.025) * 0.05;
     if ((temp_f0_2 > 0.0) && ((temp_f2_5 / temp_f0_2) < 1.0)) {
         if (sp94 != 0.0) {
             spD0 = gCamera->unk80 + ((sp94 * temp_f2_5) / temp_f0_2);
@@ -924,8 +914,8 @@ void func_80332444_743AF4(u8 arg0) {
         }
     }
 
-    var_t0 = 0;
     sp84 = 0.0f;
+    var_t0 = 0;
     if (func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, gCamera->unk24, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) != 0) {
         var_t0 = 1;
         spAA = 4;
@@ -940,7 +930,7 @@ void func_80332444_743AF4(u8 arg0) {
 
     if (var_t0 != 0) {
         for (i = 0; i < 25; i++) {
-            if ((i % 2)) {
+            if (i % 2) {
                 var_f20 = gCamera->unk24 + (((i / 2) + 1) * 10.0);
             } else {
                 var_f20 = gCamera->unk24 - (((i / 2) + 1) * 10.0);
@@ -955,7 +945,6 @@ void func_80332444_743AF4(u8 arg0) {
             if ((func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34 + sp84, gCamera->unkA4, gCamera->unkA8, 0) == 0) &&
                 (func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34 + sp84, gCamera->unkA4, gCamera->unkA8) == 0)){
                   gCamera->unk24 = var_f20;
-                  // break loop
                   i = 1000;
             }
         }
@@ -973,36 +962,34 @@ void func_80332444_743AF4(u8 arg0) {
         }
 
         sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0);
-        temp_v0_3 = func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8);
-        temp_t8 = temp_v0_3 | sp72;
+        temp_v0_2 = func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8);
+        temp_t8 = temp_v0_2 | sp72;
         if ((spA4 == 0) && (temp_t8 != 0)) {
             var_f20 = gCamera->unk24 - 40.0;
             if (var_f20 < 0.0) {
-                var_f20 = var_f20 + 256.0;
+                var_f20 += 256.0;
             }
             if ((func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) == 0) &&
                 (func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0)) {
                 gCamera->unk24 = gCamera->unk24 - 2.0;
                 if (gCamera->unk24 < 0.0) {
-                    gCamera->unk24 = gCamera->unk24 + 256.0;
+                    gCamera->unk24 += 256.0;
                 }
             }
         } else if ((spA4 != 0) && (temp_t8 == 0)) {
             var_f20 = gCamera->unk24 + 40.0;
             if (var_f20 >= 256.0) {
-                var_f20 = var_f20 - 256.0;
+                var_f20 -= 256.0;
             }
             if ((func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) == 0) &&
                 (func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0)) {
                 gCamera->unk24 = gCamera->unk24 + 2.0;
                 if (gCamera->unk24 > 256.0) {
-                    gCamera->unk24 = gCamera->unk24 - 256.0;
-                    // goto block_145;
-                    // gCamera->unk24 = var_f8;
+                    gCamera->unk24 -= 256.0;
                 }
             }
-        } else if ((spA4 == 0) && ((temp_v0_3 | sp72) == 0)) {
-            // temp_f14 = 95.0; //0.95; //*D_803BE2E0_7CF990;
+        } else if ((spA4 == 0) && (temp_t8 == 0)) {
+
             var_t0_4 = 0;
             var_a0 = 0;
             var_t2 = 0;
@@ -1015,14 +1002,13 @@ void func_80332444_743AF4(u8 arg0) {
                     var_f20 += 256.0;
                 }
 
-                var_t1 = var_a0; // backup previous?
-
                 temp_t0 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 1);
                 var_f20 = gCamera->unk24 + var_f12_2;
                 if (var_f20 >= 256.0) {
                     var_f20 -= 256.0;
                 }
 
+                var_t1 = var_a0; // backup previous?
                 var_a0 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 1);
                 var_t2 = var_t0_4;
                 var_t0_4 = temp_t0;
@@ -1046,16 +1032,15 @@ void func_80332444_743AF4(u8 arg0) {
     }
 
     if (gCamera->unk24 < 0.0) {
-        gCamera->unk24 = (f32) (gCamera->unk24 + 256.0); // ???
+        gCamera->unk24 = gCamera->unk24 + 256.0; // ???
     }
-    if (gCamera->unk24 >= 0.0) {
-        gCamera->unk24 = (f32) (gCamera->unk24 - 256.0); // ???
+    if (gCamera->unk24 >= 256.0) {
+        gCamera->unk24 = gCamera->unk24 - 256.0; // ???
     }
 
     var_t0_5 = 4;
     var_f2_2 = ((D_803A6CFC_7B83AC[gCamera->unk64+3]) * gCamera->unk4E) >> 4;
     gCamera->unk18 = var_f2_2;
-
     while (var_f2_2 > -20.0) {
         if (func_8033C8EC_74DF9C(gCamera->unk98, gCamera->unk9C, gCamera->unkA0 + 4.0, var_f2_2, gCamera->unk24, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0) {
             if ((var_f2_2 == gCamera->unk18) || (gCamera->unk14 < var_f2_2)) {
@@ -1094,13 +1079,13 @@ void func_80332444_743AF4(u8 arg0) {
     if (var_f0_16 < -128.0) {
         var_f0_16 = var_f0_16 + 256.0; // $f22 ???
     }
-    var_f2_3 =  (var_f0_16 * (0.09 * spAA));
 
+    var_f2_3 =  (var_f0_16 * (0.09 * spAA));
     if (ABSF(var_f2_3) < 0.1) {
         var_f2_3 = 0.0f;
     }
 
-    if (ABSF(gCamera->unk28) < ABSF(var_f2_3)) {
+    if (ABSF(var_f2_3) > ABSF(gCamera->unk28)) {
         if (var_f2_3 > 0.0f) {
             var_f2_3 = MIN(var_f2_3, gCamera->unk28 + spAA);
         } else {
@@ -1109,11 +1094,11 @@ void func_80332444_743AF4(u8 arg0) {
     }
     gCamera->unk28 = var_f2_3;
     gCamera->unk20 += var_f2_3;
-    if (gCamera->unk20 >= 0.0) {
-        gCamera->unk20 = gCamera->unk20 - 256.0; // ???
+    if (gCamera->unk20 >= 256.0) {
+        gCamera->unk20 -= 256.0;
     }
     if (gCamera->unk20 < 0.0) {
-        gCamera->unk20 = gCamera->unk20 + 256.0; // ???
+        gCamera->unk20 += 256.0;
     }
 
     var_f16_3 = (gCamera->unk34 - gCamera->unk30) * 0.18;
@@ -1140,9 +1125,9 @@ void func_80332444_743AF4(u8 arg0) {
 
     if (gCamera->unk52 != gCamera->unk58) {
         if (gCamera->unk52 < gCamera->unk58) {
-            gCamera->unk52 += 1;
+            gCamera->unk52++;
         } else {
-            gCamera->unk52 -= 1;
+            gCamera->unk52--;
         }
     }
 
@@ -1151,10 +1136,10 @@ void func_80332444_743AF4(u8 arg0) {
     gCamera->unk94 = 1.0f;
 
     var_f20 = gCamera->unk24 + 32.0;
-    if (var_f20 >= 0.0) {
-        var_f20 = (f32) (var_f20 - 256.0); // ???
+    if (var_f20 >= 256.0) {
+        var_f20 = var_f20 - 256.0; // ???
     }
-    sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, (u8) 1);
+    sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 1);
     if ((func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp72) == 0) {
         gCamera->unkD7 = 1;
     } else {
@@ -1164,7 +1149,7 @@ void func_80332444_743AF4(u8 arg0) {
     if (var_f20 < 0.0) {
         var_f20 = var_f20 + 256.0; // ???
     }
-    sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, (u8) 1);
+    sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 1);
     if ((func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp72) == 0) {
         gCamera->unkD8 = 1;
     } else {
@@ -1185,7 +1170,7 @@ void func_80332444_743AF4(u8 arg0) {
 #endif
 
 #if 0
-// CURRENT (19213)
+// CURRENT (17588)
 // ESA: func_80023020
 void func_80334470_745B20(u8 arg0, u8 arg1) {
     f32 sp100;
@@ -1253,6 +1238,7 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
     gCamera = &D_803F28E0[arg0];
 
     spC2 = 2;
+
     if (gCamera->unkD6 == 1) {
         gCamera->unk50 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC8;
         gCamera->unk4E = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkCA;
@@ -1260,7 +1246,7 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         gCamera->unk50 = 0x190;
         gCamera->unk4E = 0x20;
     }
-    // temp_v0 = gCamera->unk4;
+
     if (gCamera->unk4 != -1) {
         gCamera->unk4E = gCamera->unk4;
     }
@@ -1315,20 +1301,17 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         spAC = spE0 - gCamera->unk88;
     }
 
-
     temp_f0_2 = sqrtf(SQ(spB4) + SQ(spB0) + SQ(spAC));
-    if (temp_f0_2 > 0.0) {
-        temp_f2_5 = (f32) ((var_v0 * 0.025) * 0.05);
-        if ((temp_f2_5 / temp_f0_2) < 1.0) {
-            if (spB4 != 0.0) {
-                spE8 = gCamera->unk80 + ((spB4 * temp_f2_5) / temp_f0_2);
-            }
-            if (spB0 != 0.0) {
-                spE4 = gCamera->unk84 + ((spB0 * temp_f2_5) / temp_f0_2);
-            }
-            if (spAC != 0.0) {
-                spE0 = gCamera->unk88 + ((spAC * temp_f2_5) / temp_f0_2);
-            }
+    temp_f2_5 = (var_v0 * 0.025) * 0.05;
+    if ((temp_f0_2 > 0.0) && ((temp_f2_5 / temp_f0_2) < 1.0)) {
+        if (spB4 != 0.0) {
+            spE8 = gCamera->unk80 + ((spB4 * temp_f2_5) / temp_f0_2);
+        }
+        if (spB0 != 0.0) {
+            spE4 = gCamera->unk84 + ((spB0 * temp_f2_5) / temp_f0_2);
+        }
+        if (spAC != 0.0) {
+            spE0 = gCamera->unk88 + ((spAC * temp_f2_5) / temp_f0_2);
         }
         if (0) {}; // tbd
     }
@@ -1381,83 +1364,66 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
     }
 
     if (spC0 != 0) {
-        for(i = 0; i < 0x19; i++) {
-            if ((i % 2)) {
+        for (i = 0; i < 25; i++) {
+            if (i % 2) {
                 var_f2 =  gCamera->unk24 + (((i / 2) + 1) * 10.0);
             } else {
                 var_f2 =  gCamera->unk24 - (((i / 2) + 1) * 10.0);
             }
-
-            // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-            // At instruction: c.le.d $f14, $f0
-            // if (M2C_ERROR()) {
             if (var_f2 >= 256.0) {
                 var_f2 -= 256.0;
             }
-                // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-                // At instruction: sub.d $f4, $f0, $f14
-            // }
-            // if (var_f0_10 < gCamera->unk24) {
-                // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-                // At instruction: add.d $f8, $f0, $f14
-            // }
             if (var_f2 < 0.0) {
                 var_f2 += 256.0;
             }
-            // spCC = var_f2;
-            // spD2 = i;
-            // var_v1_3 = i;
             if (func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f2, gCamera->unk34 + spA4, gCamera->unkA4, gCamera->unkA8, 0) == 0) {
-                // spCC = var_f2;
-                // spD2 = var_v1_3;
                 if (func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f2, gCamera->unk34 + spA4, gCamera->unkA4, gCamera->unkA8) == 0) {
-                    i = 0x3E8;
                     gCamera->unk24 = var_f2;
+                    i = 1000;
                 }
             }
-            // i = var_v1_3 + 1;
         }
     } else {
         spCC = gCamera->unk24 - 20.0;
         if (spCC < 0.0) {
-            spCC = (f32) (spCC + 256.0);
+            spCC += 256.0;
         }
         sp76 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0);
         spBC = func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp76;
 
         spCC = gCamera->unk24 + 20.0;
         if (spCC >= 256.0) {
-            spCC = spCC - 256.0;
+            spCC -= 256.0;
         }
         sp76 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0);
         temp_v0_3 = func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8);
-        if ((spBC == 0) && ( (temp_v0_3 | sp76) != 0)) {
+        if ((spBC == 0) && ((temp_v0_3 | sp76) != 0)) {
             spCC = gCamera->unk24 - 40.0;
             if (spCC < 0.0) {
-                spCC = spCC + 256.0;
+                spCC += 256.0;
             }
             if ((func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) == 0) &&
                 (func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0)) {
-                gCamera->unk24 = gCamera->unk24 - 2.0;
+                gCamera->unk24 -= 2.0;
                 if (gCamera->unk24 < 0.0) {
-                    gCamera->unk24 = (f32) (gCamera->unk24 + 256.0);
+                    gCamera->unk24 += 256.0;
                 }
             }
         } else if ((spBC != 0) && ((temp_v0_3 | sp76) == 0)) {
             spCC = gCamera->unk24 + 40.0;
             if (spCC >= 256.0) {
-                spCC = spCC - 256.0;
+                spCC -= 256.0;
             }
             if ((func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) == 0) &&
                 (func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0)) {
-                gCamera->unk24 = gCamera->unk24 + 2.0;
+                gCamera->unk24 += 2.0;
                 if (gCamera->unk24 > 256.0) {
-                    gCamera->unk24 = gCamera->unk24 - 256.0;
+                    gCamera->unk24 -= 256.0;
                 }
             }
-        } else if ((spBC == 0) && ((s16) (temp_v0_3 | sp76) == 0)) {
-            if (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C != 0x3F) {
-                sp100 =  D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation - gCamera->unk24;
+        } else if ((spBC == 0) && ((temp_v0_3 | sp76) == 0)) {
+            if (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C != EVO) {
+                sp100 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation - gCamera->unk24;
             } else {
                 sp100 = 0.0f;
             }
@@ -1488,21 +1454,19 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         }
     }
 
-    // var_f0_13 = (f64) gCamera->unk24;
     if (gCamera->unk24 < 0.0) {
-        gCamera->unk24 = (f32) (gCamera->unk24 + 256.0);
-        // var_f0_13 = (f64) gCamera->unk24;
+        gCamera->unk24 += 256.0;
     }
-    if (gCamera->unk24 >= 0.0) {
-        gCamera->unk24 = (f32) (gCamera->unk24 - 256.0);
+    if (gCamera->unk24 >= 256.0) {
+        gCamera->unk24 -= 256.0;
     }
 
-    if (func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, gCamera->unk20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, (u8) 0) != 0) {
+    if (func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, gCamera->unk20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) != 0) {
         spC2 = 4;
     }
 
     var_v1_4 = 4;
-    var_f2_7 = (f32) ((s32) (D_803A6CFC_7B83AC[gCamera->unk64+3] * gCamera->unk4E) >> 4);
+    var_f2_7 = (D_803A6CFC_7B83AC[gCamera->unk64+3] * gCamera->unk4E) >> 4;
     gCamera->unk18 = var_f2_7;
     while (var_f2_7 > -20.0) {
         if (func_8033C8EC_74DF9C(gCamera->unk98, gCamera->unk9C, gCamera->unkA0 + 4.0, var_f2_7, gCamera->unk24, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0) {
@@ -1520,7 +1484,7 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         var_f12_3 = 0.0f;
     }
 
-    if (ABSF(gCamera->unk1C) < ABSF(var_f12_3)) {
+    if (ABSF(var_f12_3) > ABSF(gCamera->unk1C)) {
         if (var_f12_3 > 0.0f) {
             var_f12_3 = MIN(var_f12_3, gCamera->unk1C + 0.4);
         } else {
@@ -1529,26 +1493,22 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
     }
     gCamera->unk1C = var_f12_3;
     gCamera->unk14 += var_f12_3;
-    var_f0_18 = (f64) (gCamera->unk24 - gCamera->unk20);
+    var_f0_18 = gCamera->unk24 - gCamera->unk20;
     if (var_f0_18 > 128.0) {
-        // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-        // At instruction: sub.d $f8, $f0, $f14
         var_f0_18 = var_f0_18 - 256.0;
     }
     if (var_f0_18 < -128.0) {
-        // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-        // At instruction: add.d $f6, $f0, $f14
         var_f0_18 = var_f0_18 + 256.0;
     }
 
     var_f12_4 = MIN(spC2 * 0.25, 0.7);
-    var_f2_9 = (f32) (var_f0_18 * var_f12_4);
+    var_f2_9 = var_f0_18 * var_f12_4;
 
     if (ABSF(var_f2_9) < 0.1) {
         var_f2_9 = 0.0f;
     }
 
-    if (ABSF(gCamera->unk28) < ABSF(var_f2_9)) {
+    if (ABSF(var_f2_9) > ABSF(gCamera->unk28)) {
         if (var_f2_9 > 0.0f) {
             var_f2_9 = MIN(var_f2_9, gCamera->unk28 + spC2);
         } else {
@@ -1560,16 +1520,10 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
     gCamera->unk28 = var_f2_9;
     gCamera->unk20 += var_f2_9;
 
-    // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-    // At instruction: c.le.d $f14, $f0
     if (gCamera->unk20 >= 256.0) {
-        // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-        // At instruction: sub.d $f8, $f0, $f14
         gCamera->unk20 -= 256.0;
     }
     if (gCamera->unk20 < 0.0) {
-        // Error: Unable to determine a value for double-precision register $f14 whose second half is non-static. This is a m2c restriction which may be lifted in the future.
-        // At instruction: add.d $f8, $f0, $f14
         gCamera->unk20 += 256.0;
     }
 
@@ -1596,9 +1550,9 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
     func_8033E6B8_74FD68(gCamera->unk14, gCamera->unk20, gCamera->unk30, &gCamera->unk74, &gCamera->unk78, &gCamera->unk7C);
     if (gCamera->unk52 != gCamera->unk58) {
         if (gCamera->unk52 < gCamera->unk58) {
-            gCamera->unk52 = gCamera->unk52 + 1;
+            gCamera->unk52++;
         } else {
-            gCamera->unk52 = gCamera->unk52 - 1;
+            gCamera->unk52--;
         }
     }
     gCamera->unk8C = 0.0f;
@@ -2692,6 +2646,7 @@ void fix_camera_to_angle_offset(u8 id, f32 angle) {
     }
 }
 
+// ESA: func_800292B8
 void func_8033AAC8_74C178(u8 cameraID) {
     f32 temp_f0;
     f32 temp_f14;
@@ -2731,81 +2686,40 @@ void func_8033AAC8_74C178(u8 cameraID) {
     gCamera->unk20 = var_f2;
 }
 
-#if 0
-// absolute junk
+// ESA: func_80029438
 void func_8033AC68_74C318(f32 *arg0, f32 *arg1, f32 *arg2, WaypointData *arg3, s16 arg4) {
-    s16 sp4E;
-    s16 sp4C;
-    s16 sp4A;
-    s16 sp48;
 
-    f32 sp18[3];
-    f32 spC[3]; // unused?
-    f32 sp0[3];
+    s16 sp48[4]; // why!?
 
-    f32 temp_f10;
-    f32 temp_f18;
+    s16 tmp;
+    f32 temp_f0;
     f32 temp_f4;
-    f32 temp_f4_2;
     f32 temp_f6;
     f32 temp_f8;
-    f32 var_f10;
-    f32 var_f10_2;
-    f32 var_f10_3;
-    f32 var_f4;
-    f32 var_f4_2;
-    f32 var_f6;
-    f32 var_f8;
-    f32 var_f8_2;
-    f32 var_f8_3;
-    f32 var_f8_4;
-    f64 temp_f0;
-    f64 temp_f12;
-    f64 temp_f14;
-    f64 temp_f16;
-    s16 temp_t0;
-    s16 temp_t0_2;
-    s16 temp_v1;
-    s16 temp_v1_2;
-    s16 temp_v1_3;
-    s16 temp_t7;
-    u8 temp_t1;
-    u8 temp_t2;
-    u8 temp_t3;
-    u8 temp_t4;
-    u8 temp_t5;
-    u8 temp_t6;
-    u8 temp_t7_2;
-    u8 temp_t7_3;
-    u8 temp_t8;
-    u8 temp_t9;
+    f32 temp_f10;
+    f32 temp_f12;
+    f32 temp_f18;
 
-    temp_t7 = arg4 / 32;
+    tmp = arg4 / 32;
 
-    sp48 = MAX(0, temp_t7 - 1);
-    sp4A = temp_t7;
-    sp4C = MIN(arg3->length - 1, temp_t7 + 1);
-    sp4E = MIN(arg3->length - 1, temp_t7 + 2);
+    sp48[0] = MAX(0, tmp - 1);                // previous
+    sp48[1] = tmp;                            // current
+    sp48[2] = MIN(arg3->length - 1, tmp + 1); // next
+    sp48[3] = MIN(arg3->length - 1, tmp + 2); // next + 1
 
-    temp_f18 = (f32) (s16) (arg4 - (temp_t7 << 5)) / 32.0f;
-    sp18[1] = temp_f18 * temp_f18;
-    sp18[0] = temp_f18 * sp18[1];
-    sp0[2] =  (sp18[0] / 6.0);
-    temp_f14 = 3.0 * sp18[1];
-    temp_f16 = 3.0 * temp_f18;
+    temp_f18 = (f32)((s16) (arg4 - (tmp * 32))) / 32;
+    temp_f12 = temp_f18 * temp_f18;
+    temp_f0 = temp_f18 * temp_f12;
+    temp_f10 = (temp_f0 / 6.0);
 
-    sp18[2] = (f32) (((((f64) -sp18[0] + temp_f14) - temp_f16) + 1.0) / 6.0);
-    sp18[1] = (f32) ((((sp18[0] * 3.0) - (6.0 * sp18[1])) + 4.0) / 6.0);
-    sp18[0] = (f32) (((sp18[0] * -3.0) + temp_f14 + temp_f16 + 1.0) / 6.0);
+    temp_f4 = ((-temp_f0       ) + (3.0 * temp_f12) - (3.0 * temp_f18) + 1.0) / 6.0;
+    temp_f6 = (( temp_f0 *  3.0) - (6.0 * temp_f12) + (4.0           )      ) / 6.0;
+    temp_f8 = (( temp_f0 * -3.0) + (3.0 * temp_f12) + (3.0 * temp_f18) + 1.0) / 6.0;
 
-    *arg0 = ((arg3->waypoint[sp4E].x * sp0[2]) + ((sp18[2] * arg3->waypoint[sp48].x) + (sp18[1] * arg3->waypoint[sp4C].x) + (sp18[0] * arg3->waypoint[sp4C].x))) * 64.0f;
-    *arg1 = ((arg3->waypoint[sp4E].z * sp0[2]) + ((sp18[2] * arg3->waypoint[sp48].z) + (sp18[1] * arg3->waypoint[sp4A].z) + (sp18[0] * arg3->waypoint[sp4C].z))) * 64.0f;
-    *arg2 = ((arg3->waypoint[sp4E].y * sp0[2]) + ((sp18[2] * arg3->waypoint[sp48].y) + (sp18[1] * arg3->waypoint[sp4A].y) + (sp18[0] * arg3->waypoint[sp4C].y))) * 64.0f;
+    *arg0 = ((temp_f4 * arg3->waypoint[sp48[0]].x) + (temp_f6 * arg3->waypoint[sp48[1]].x) + (temp_f8 * arg3->waypoint[sp48[2]].x) + (temp_f10 * (arg3->waypoint + sp48[3])->x)) * 64.0f;
+    *arg1 = ((temp_f4 * arg3->waypoint[sp48[0]].z) + (temp_f6 * arg3->waypoint[sp48[1]].z) + (temp_f8 * arg3->waypoint[sp48[2]].z) + (temp_f10 * (arg3->waypoint + sp48[3])->z)) * 64.0f;
+    *arg2 = ((temp_f4 * arg3->waypoint[sp48[0]].y) + (temp_f6 * arg3->waypoint[sp48[1]].y) + (temp_f8 * arg3->waypoint[sp48[2]].y) + (temp_f10 * (arg3->waypoint + sp48[3])->y)) * 64.0f;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033AC68_74C318.s")
-#endif
-
 
 void func_8033B118_74C7C8(u8 cameraID) {
     f32 phi_f2;
@@ -3081,7 +2995,7 @@ void func_8033C320_74D9D0(u8 arg0) {
 }
 
 // ESA: func_8002A3D0
-void func_8033C334_74D9E4(void) {
+void reset_camera(void) {
     s32 tmp;
     s16 i;
 
@@ -3201,23 +3115,23 @@ s32 func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
 }
 
 #ifdef NON_MATCHING
-// stack is off and need to fix the volatile
-s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9) {
+// stack is off & wrong instructions
+// CURRENT (989)
+  s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9) {
+
     s16 sp78;
     s16 sp76;
 
-    s16 var_a0;
-    s16 var_a1;
+    s32 pad;
     s16 var_s0;
     s16 var_s1;
     s16 var_s7;
     s32 var_s3;
     s32 var_s4;
     u8 var_a2;
-    s16 var_s5;
+    u8 var_s5;
 
-    s32 sp5C;
-    volatile int sp58; // eh, not this...
+    s32 sp58[2]; // hmm
     s16 sp50;
     s16 sp4C;
 
@@ -3271,63 +3185,59 @@ s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 ar
         var_s7 = MAX((func_8031124C_7228FC(arg0, arg1) >> 0x10) + 4, var_s7);
     }
 
-    var_a1 = arg0 - arg4;
-    var_a0 = arg1 - arg5;
+    sp78 = arg0 - arg4;
+    sp76 = arg1 - arg5;
 
-    if (var_a1 == 0) {
-        var_a1 = 1;
+    if (sp78 == 0) {
+        sp78 = 1;
     }
-    if (var_a0 == 0) {
-        var_a0 = 1;
+    if (sp76 == 0) {
+        sp76 = 1;
     }
-    if (var_a1 >= 0) {
-        if (var_a0 >= 0) {
+    if (sp78 >= 0) {
+        if (sp76 >= 0) {
             var_s5 = 0;
         } else {
             var_s5 = 1;
         }
     } else {
-        if (var_a0 >= 0) {
+        if (sp76 >= 0) {
             var_s5 = 2;
         } else {
             var_s5 = 3;
         }
     }
 
-    sp76 = var_a0;
-    sp78 = var_a1;
-
     switch (var_s5) {
     case 0:
-        var_s3 = ((0x40 - (arg4 & 0x3F)) << 0xE) / var_a1;
-        sp5C = 0x100000 / var_a1;
-        var_s4 = ((0x40 - (arg5 & 0x3F)) << 0xE) / var_a0;
-        sp58 = 0x100000 / var_a0;
+        var_s3 = ((0x40 - (arg4 & 0x3F)) << 0xE) / sp78;
+        sp58[1] = 0x100000 / sp78;
+        var_s4 = ((0x40 - (arg5 & 0x3F)) << 0xE) / sp76;
+        sp58[0] = 0x100000 / sp76;
         break;
     case 1:
-        var_s3 = ((0x40 - (arg4 & 0x3F)) << 0xE) / var_a1;
-        sp5C = 0x100000 / var_a1;
-        var_s4 = ((       (arg5 & 0x3F)) << 0xE) / -var_a0;
-        sp58 = 0x100000 / -var_a0;
+        var_s3 = ((0x40 - (arg4 & 0x3F)) << 0xE) / sp78;
+        sp58[1] = 0x100000 / sp78;
+        var_s4 = ((       (arg5 & 0x3F)) << 0xE) / -sp76;
+        sp58[0] = 0x100000 / -sp76;
         break;
     case 2:
-        var_s3 = ((       (arg4 & 0x3F)) << 0xE) / -var_a1;
-        sp5C = 0x100000 / -var_a1;
-        var_s4 = ((0x40 - (arg5 & 0x3F)) << 0xE) / var_a0;
-        sp58 = 0x100000 / var_a0;
+        var_s3 = ((       (arg4 & 0x3F)) << 0xE) / -sp78;
+        sp58[1] = 0x100000 / -sp78;
+        var_s4 = ((0x40 - (arg5 & 0x3F)) << 0xE) / sp76;
+        sp58[0] = 0x100000 / sp76;
         break;
     case 3:
-        var_s3 = (((arg4 & 0x3F) << 0xE)) / -var_a1;
-        sp5C = 0x100000 / -var_a1;
-        var_s4 = (((arg5 & 0x3F) << 0xE)) / -var_a0;
-        sp58 = 0x100000 / -var_a0;
+        var_s3 = (((arg4 & 0x3F) << 0xE)) / -sp78;
+        sp58[1] = 0x100000 / -sp78;
+        var_s4 = (((arg5 & 0x3F) << 0xE)) / -sp76;
+        sp58[0] = 0x100000 / -sp76;
         break;
     }
 
 
     var_s0 = sp50;
     var_s1 = sp4C;
-
     while ((var_s4 < (256*64)) || (var_s3 < (256*64))) {
 
         if (var_s4 <= var_s3) {
@@ -3368,7 +3278,7 @@ s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 ar
                 break;
 
             }
-            var_s4 += sp58;
+            var_s4 += sp58[0];
         } else {
             switch (var_s5) {
             case 0:
@@ -3407,7 +3317,7 @@ s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 ar
                 }
                 break;
             }
-            var_s3 += sp5C;
+            var_s3 += sp58[1];
         }
     }
 

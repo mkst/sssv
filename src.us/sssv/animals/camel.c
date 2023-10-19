@@ -327,10 +327,10 @@ void func_8036D700_77EDB0(void) {
 
             switch (D_803F2ECE) {                    /* irregular */
             case 1:
-                func_802DB670_6ECD20(&D_803B4B08_7C61B8, &D_803B4B20_7C61D0, &D_803B4B38_7C61E8, &D_803B4B64_7C6214);
+                func_802DB670_6ECD20(D_803B4B08_7C61B8, D_803B4B20_7C61D0, D_803B4B38_7C61E8, D_803B4B64_7C6214);
                 break;
             case 2:
-                func_802DB670_6ECD20(&D_803B4B08_7C61B8, &D_803B4B20_7C61D0, &D_803B4B38_7C61E8, &D_803B4BC4_7C6274);
+                func_802DB670_6ECD20(D_803B4B08_7C61B8, D_803B4B20_7C61D0, D_803B4B38_7C61E8, D_803B4BC4_7C6274);
                 break;
             }
         }

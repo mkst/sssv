@@ -1427,7 +1427,7 @@ s32 func_803099BC_71B06C(void) {
     if (D_803D552C->unk272 & 1) {
         if ((D_803D552C->unk2CC != 0) &&
             (D_803D552C->unk2CC->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+SNEAKY_CHAMELEON)) &&
-            (D_803D552C->unk2D0 < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType])) {
+            (D_803D552C->targetDistance < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType])) {
             return func_80309798_71AE48(D_803D552C->unk2CC);
         }
     }
@@ -1601,12 +1601,12 @@ void func_80309F38_71B5E8(void) {
     func_80305368_716A18(&D_803E4BE0);
 
     if (D_803D552C->unk2CC != NULL) {
-        D_803D552C->unk2D0 = sqrtf(
+        D_803D552C->targetDistance = sqrtf(
             ((D_803D552C->unk2CC->xPos.h - D_803D5530->xPos.h) * (D_803D552C->unk2CC->xPos.h - D_803D5530->xPos.h)) +
             ((D_803D552C->unk2CC->zPos.h - D_803D5530->zPos.h) * (D_803D552C->unk2CC->zPos.h - D_803D5530->zPos.h)));
-        D_803D552C->unk2D0 = ((D_803D552C->unk2D0 - D_803D5524->unkBE) - D_803D552C->unk2CC->unk30);
-        if (D_803D552C->unk2D0 < 0) {
-            D_803D552C->unk2D0 = 1;
+        D_803D552C->targetDistance = ((D_803D552C->targetDistance - D_803D5524->unkBE) - D_803D552C->unk2CC->unk30);
+        if (D_803D552C->targetDistance < 0) {
+            D_803D552C->targetDistance = 1;
         }
     }
 
@@ -1750,7 +1750,7 @@ void func_80309F38_71B5E8(void) {
 
         D_803D552C->unk280->unk2B4.unk8++;
 
-        if ((D_803D552C->unk280->unk2D0 > 320) ||
+        if ((D_803D552C->unk280->targetDistance > 320) ||
             (D_803E4BE0.unk5C > 490) ||
             (func_80362B00_7741B0(D_803D552C->unk2CC))) {
             D_803D552C->unk270 = 3;

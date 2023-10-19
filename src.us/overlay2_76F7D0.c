@@ -61,6 +61,8 @@ void func_8035E200_76F8B0(void) {
 
     D_803F2EE0[0] = D_803F2EE0[1] = 0;
 
+    // return D_803D5524;
+
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E200_76F8B0.s")

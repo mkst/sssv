@@ -21,39 +21,35 @@ extern Gfx D_04004330_CBD60[];
 
 // ARMED_DESERT_FOX
 #ifdef NON_MATCHING
-//CURRENT (1596)
+//CURRENT (88)
 void func_803726E0_783D90(void) {
-    s16 spB4;
-    s16 spB0[2]; // pad
+    s32 pad[4];
+
+    s32 spB4; // tbd
+    s16 spB0[2];
     s16 spAE;
+    s16 spAC; // pad
     s16 spAA;
     s16 var_a1; // spA8 ?
-    f32 sp88;
-    // f32 sp84;
-    // s32 sp58;
-    Animal *target;
 
-    f32 xDist;
-    f32 yDist;
-
-    f32 var_f14;
-    f32 var_f0;
+    Animal *target; // sp58
 
     s16 temp_a1;
-    s16 temp_t0;
-    s16 temp_t1;
-    s32 temp_t3;
-    s16 temp_t6_2;
-    s16 temp_t9;
-    s16 temp_t7;
+    s16 temp_t3;
+    s16 temp_t6;
     s32 temp_t8;
+
+    u8 temp_v0_9;
     s16 temp_v0;
     s16 var_a0;
     u16 ticks_remaining;
-    u8 temp_v0_9;
 
-    s16 tmp1;
-    s16 tmp2;
+    f32 var_f14;
+    f32 sp88;
+    f32 var_f0;
+    f32 xDist;
+    f32 yDist;
+
 
     if (D_803D552C->unk348 >= 0x191) {
         if (D_803D5530->unk4A == 0) {
@@ -113,6 +109,7 @@ void func_803726E0_783D90(void) {
                     D_803F2ECC = ticks_remaining * 4;
                     spAA = ticks_remaining * 8;
                 } else {
+                    if (1) {};
                     D_803D552C->unk365 = ATTACK_NONE;
                     load_animal(DESERT_FOX_ATTACKING);
                     D_803D552C->unk30A = D_803D552C->unk348;
@@ -203,24 +200,16 @@ void func_803726E0_783D90(void) {
             D_80203FE0[28].unk2 = D_80203FE0[27].unk2 + (((D_80152C78[var_a1 & 0xFF] >> 7) * 0x24E) >> 0xA);
             D_80203FE0[28].unk4 = D_80203FE0[27].unk4 + (((D_80152C78[(var_a1 + 0x40) & 0xFF] >> 7) * 0x24E) >> 0xA);
             break;
-        default:
-            break;
         }
 
         temp_v0 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
         temp_a1 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
 
-        temp_t0 = D_80152350.unk2D0[D_803D552C->unk316];
-        temp_t1 = D_80152350.unk384[D_803D552C->unk316];
+        temp_t3 = (((temp_v0 * D_80152350.unk384[D_803D552C->unk316]) >> 8) + ((D_80152350.unk2D0[D_803D552C->unk316] * temp_a1) >> 8));
+        temp_t6 = (((temp_a1 * D_80152350.unk384[D_803D552C->unk316]) >> 8) - ((D_80152350.unk2D0[D_803D552C->unk316] * temp_v0) >> 8));
 
-        temp_t3 = (((temp_t0 * temp_a1) >> 8) + ((temp_v0 * temp_t1) >> 8));
-        temp_t6_2 = ((temp_a1 * temp_t1) >> 8) - (u16)((temp_t0 * temp_v0) >> 8);
-
-        temp_t9 = D_80203FE0[19].unk0 + temp_t3;
-        temp_t7 = D_80203FE0[19].unk2 + temp_t6_2;
-
-        D_80203FE0[20].unk0 = temp_t9;
-        D_80203FE0[20].unk2 = temp_t7;
+        D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + temp_t3;
+        D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + temp_t6;
 
         if (D_803F2ECC != 0) {
             func_802DB8DC_6ECF8C();
@@ -320,7 +309,7 @@ void func_80373788_784E38(void) {
         D_803D552C->unk348 = 0x200;
         D_803D552C->unk34A = 0x32;
     }
-    if (D_803D5538) {
+    if (D_803D5538 != 0) {
         if ((D_803D5524->biome == D_803F2D50.segment) ||
             ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) {
             var_v0 = 1;
@@ -339,7 +328,7 @@ void func_80373788_784E38(void) {
     } else {
         var_v1 = 0;
     }
-    sp72 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0xB28, (u8) 6, (s16) 0x66, (s16) 0x33, (s16) 0, (s8) 0, (u8) (var_v1 == 0));
+    sp72 = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0xB28, 6, 0x66, 0x33, 0, 0, var_v1 == 0);
 
 block_15:
     if (sp72 == 0) {
