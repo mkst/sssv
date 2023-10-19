@@ -1601,146 +1601,77 @@ void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 a
     }
 }
 
-#if 0
-// embarassingly far away...
-// CURRENT (25874)
 // ESA: func_80052548
+// similar to SSSV: func_8033AC68_74C318
 void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s16 arg4, u8 arg5) {
-    s16 sp5E;
-    s16 sp5C;
-    s16 sp5A;
-    s16 sp58;
+    s16 sp58[4];
 
-    f32 sp28;
-    f32 sp24;
-    f32 sp20;
-
-    f32 sp14;
-
-    f32 sp8;
-    f32 sp4;
-    f32 sp0;
+    s16 var_v1;
+    s16 tmp;
 
     f32 temp_f10;
-    f32 temp_f10_2;
-    f32 temp_f10_3;
     f32 temp_f18;
     f32 temp_f4;
-    f32 temp_f4_2;
     f32 temp_f6;
-    f32 temp_f6_2;
-    f32 temp_f6_3;
     f32 temp_f8;
-    f32 temp_f8_2;
-    f32 temp_f8_3;
-    f32 var_f4;
-    f32 var_f4_2;
-    f32 var_f6;
-    f32 var_f6_2;
-    f32 var_f6_3;
-    f32 var_f6_4;
-    f32 var_f8;
-    f32 var_f8_2;
-    f32 var_f8_3;
-    f32 var_f8_4;
-    f64 temp_f14;
-    f64 temp_f16;
 
-    s16 temp_t0;
-    s16 temp_t1;
-    s16 var_v1;
+    f32 temp_f0;
+    f32 temp_f12;
+
+
+    var_v1 = arg4 / 128;
+    tmp = var_v1 - 1;
 
     if (arg5 != 0) {
-        var_v1 = arg4 / 128;
-        temp_t0 = var_v1 - 1;
 
-        if ((temp_t0 - 1) < 0) {
-            sp58 = (arg3->length + temp_t0) - 1;
+        if (tmp - 1 < 0) {
+            sp58[0] = arg3->length + tmp - 1;
         } else {
-            sp58 = (temp_t0 - 1);
+            sp58[0] = tmp - 1;
         }
 
-        if (temp_t0 < 0) {
-            sp5A = arg3->length + temp_t0;
+        if (tmp < 0) {
+            sp58[1] = arg3->length + tmp;
+        } else if (tmp >= arg3->length) {
+            sp58[1] = tmp - arg3->length;
         } else {
-            if (temp_t0 >= arg3->length) {
-                sp5A = temp_t0 - arg3->length;
-            } else {
-                sp5A = temp_t0;
-            }
+            sp58[1] = tmp;
         }
 
-        if ((temp_t0 + 1) < 0) {
-            sp5C = arg3->length + (temp_t0 + 1);
+        if (tmp + 1 < 0) {
+            sp58[2] = arg3->length + tmp + 1;
+        } else if (tmp + 1 >= arg3->length) {
+            sp58[2] = (tmp + 1) - arg3->length;
         } else {
-            if ((temp_t0 + 1) < arg3->length) {
-                sp5C = (temp_t0 - arg3->length) + 1;
-            } else {
-                sp5C = (temp_t0 + 1);
-            }
+            sp58[2] = tmp + 1;
         }
 
-        if ((temp_t0 + 2) >= arg3->length) {
-            sp5E = (temp_t0 - arg3->length) + 2;
+        if (tmp + 2 >= arg3->length) {
+            sp58[3] = (tmp - arg3->length) + 2;
         } else {
-            sp5E = (temp_t0 + 2);
+            sp58[3] = tmp + 2;
         }
     } else {
-        var_v1 = arg4 / 128;
-        temp_t0 = var_v1 - 1;
-
-        sp58 = MAX(0, temp_t0 - 1);
-        sp5A = MAX(0, MIN(arg3->length - 1, temp_t0));
-        sp5C = MAX(0, MIN(arg3->length - 1, temp_t0 + 1));
-        sp5E = MIN(arg3->length - 1, temp_t0 + 2);
+        sp58[0] = MAX(0, tmp - 1);
+        sp58[1] = MAX(0, MIN(arg3->length - 1, tmp));
+        sp58[2] = MAX(0, MIN(arg3->length - 1, tmp + 1));
+        sp58[3] = MIN(arg3->length - 1, tmp + 2);
     }
 
-    temp_f18 = (s16) (arg4 - (var_v1 << 7)) / 128.0f;
-    sp24 = temp_f18 * temp_f18;
-    sp20 = temp_f18 * sp24;
 
-    sp14 = (f32) (sp20 / 6.0);
-    temp_f14 = 3.0 * sp24;
-    temp_f16 = 3.0 * temp_f18;
-    sp28 = (((-sp20 + temp_f14) - temp_f16) + 1.0) / 6.0;
-    sp24 = (((sp20 * 3.0) - (6.0 * sp24)) + 4.0) / 6.0;
-    sp20 = ((sp20 * -3.0) + temp_f14 + temp_f16 + 1.0) / 6.0;
+    temp_f18 = (f32) ((s16) (arg4 - (var_v1 * 128))) / 128;
+    temp_f12 = temp_f18 * temp_f18;
+    temp_f0 = temp_f18 * temp_f12;
+    temp_f8 = temp_f0 / 6.0;
 
-    sp0 = sp14;
-    sp4 = sp24;
-    temp_f8_2 = sp4;
-    sp4 = sp20;
-    sp8 = sp28;
-    temp_f10_2 = sp4;
-    sp4 = temp_f8_2;
+    temp_f6 =  ((-temp_f0       ) + (3.0 * temp_f12) - (3.0 *  temp_f18) + 1.0) / 6.0;
+    temp_f10 = (( temp_f0 *  3.0) - (6.0 * temp_f12) + (4.0            )      ) / 6.0;
+    temp_f4 =  (( temp_f0 * -3.0) + (3.0 * temp_f12) + (3.0 *  temp_f18) + 1.0) / 6.0;
 
-    *arg0 = (s32) (((arg3->waypoint[sp5E].x * sp0) +
-                   ((sp28 * arg3->waypoint[sp58].x) + (temp_f8_2 * arg3->waypoint[sp5A].x) + (temp_f10_2 * arg3->waypoint[sp5C].x))) * 4194304.0f) + 0x200000;
-
-    temp_f8_3 = sp8;
-    sp8 = temp_f10_2;
-
-    sp28 = sp4;
-    sp4 = sp0;
-    sp0 = temp_f8_3;
-
-    temp_f10_3 = sp8;
-    sp8 = sp28;
-
-    temp_f4_2 = sp4;
-    *arg1 = (s32) (((arg3->waypoint[sp5E].z * temp_f4_2) +
-                    ((temp_f8_3 * arg3->waypoint[sp58].z) + (sp28 * arg3->waypoint[sp5A].z) + (temp_f10_3 * arg3->waypoint[sp5C].z))) * 4194304.0f) + 0x200000;
-
-    sp4 = temp_f10_3;
-    sp28 = sp8;
-    sp8 = temp_f4_2;
-
-    *arg2 = (((arg3->waypoint[sp5E].y * sp8) +
-             ((sp0 * arg3->waypoint[sp58].y) + (sp28 * arg3->waypoint[sp5A].y) + (sp4 * arg3->waypoint[sp5C].y))) * 4194304.0f);
+    *arg0 = (s32) (((temp_f6 * arg3->waypoint[sp58[0]].x) + (temp_f10 * arg3->waypoint[sp58[1]].x) + (temp_f4 * arg3->waypoint[sp58[2]].x) + (temp_f8 * (arg3->waypoint + sp58[3])->x)) * FTOFIX32(64.0)) + FTOFIX32(32.0);
+    *arg1 = (s32) (((temp_f6 * arg3->waypoint[sp58[0]].z) + (temp_f10 * arg3->waypoint[sp58[1]].z) + (temp_f4 * arg3->waypoint[sp58[2]].z) + (temp_f8 * (arg3->waypoint + sp58[3])->z)) * FTOFIX32(64.0)) + FTOFIX32(32.0);
+    *arg2 = (s32) (((temp_f6 * arg3->waypoint[sp58[0]].y) + (temp_f10 * arg3->waypoint[sp58[1]].y) + (temp_f4 * arg3->waypoint[sp58[2]].y) + (temp_f8 * (arg3->waypoint + sp58[3])->y)) * FTOFIX32(64.0));
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F9EB8_70B568.s")
-#endif
 
 // ESA: func_80052C74
 void func_802FA4F8_70BBA8(Animal *arg0) {
@@ -3105,7 +3036,7 @@ void func_802FF184_710834(Animal *arg0, s16 used, s16 x, s16 y, s16 z, s16 arg5,
 
 void func_802FF25C_71090C(void) {
     s16 i;
-    s16 phi_v0;
+    s16 enabled;
     s32 temp_t4;
 
     for (i = 0; i < 10; i++) {
@@ -3133,9 +3064,9 @@ void func_802FF25C_71090C(void) {
             gSPPopMatrix(D_801D9E90++, G_MTX_MODELVIEW);
 
             if (D_803E1BE8[i].unk1 == 0) {
-                phi_v0 = D_803E1BE8[i].unkE;
+                enabled = D_803E1BE8[i].unkE;
             } else {
-                phi_v0 = 0;
+                enabled = 0;
             }
 
             func_802F7940_708FF0(
@@ -3143,7 +3074,7 @@ void func_802FF25C_71090C(void) {
                 D_803E1BE8[i].x,
                 D_803E1BE8[i].y,
                 D_803E1BE8[i].z,
-                phi_v0,
+                enabled,
                 0,
                 D_803E1BE8[i].unkC,
                 D_803E1BE8[i].unk10);

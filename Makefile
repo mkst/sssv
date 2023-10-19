@@ -138,17 +138,18 @@ VERIFY = no_verify
 PROGRESS_NONMATCHING = --non-matching
 endif
 
-CFLAGS := -G 0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
+CFLAGS := -G0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
 CFLAGS += $(DEFINES)
 # ignore compiler warnings about anonymous structs
 CFLAGS += -woff 649,838
 CFLAGS += $(INCLUDE_CFLAGS)
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
+# CHECK_WARNINGS += -Wdouble-promotion
 CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 -m32 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
 
 GCC_FLAGS := $(INCLUDE_CFLAGS) $(DEFINES)
-GCC_FLAGS += -G 0 -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
+GCC_FLAGS += -G0 -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
 GCC_FLAGS += -mdivide-breaks -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -mno-abicalls -fno-strict-aliasing -fno-inline-functions -ffreestanding -fwrapv
 GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
 
@@ -170,7 +171,6 @@ ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
 
 ### Optimisation Overrides
 $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/$(SRC_DIR)/core/string.c.o: OPT_FLAGS := -O2
 # $(BUILD_DIR)/$(SRC_DIR)/core/eeprom.c.o: OPT_FLAGS := -O2
 
 $(BUILD_DIR)/$(SRC_DIR)/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
@@ -324,8 +324,7 @@ $(BUILD_DIR)/%.ci4.png: %.ci4.png
 $(BUILD_DIR)/%.ci4.pal: %.ci4.png
 	@mkdir -p $$(dirname $@)
 	@$(IMG_CONVERT) palette $< $@
-	@printf "[$(GREEN)  pal $(NO_COL)]  $<\n"
-
+	@printf "[$(GREEN)  pal   $(NO_COL)]  $<\n"
 
 # BUILD_DIR prefix to suppress circular dependency
 $(BUILD_DIR)/%.png.o: $(BUILD_DIR)/%.png
@@ -351,6 +350,7 @@ $(BUILD_DIR)/%.pal.o: $(BUILD_DIR)/%.pal
 # progress
 progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.overlay2.csv
 	@awk "(NR == 1) || (FNR > 1)" $^ > $@
+	@rm $^
 
 progress.main.csv: $(TARGET).elf
 	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map main_TEXT_START main_libultra_start_OFFSET main --version $(VERSION) $(PROGRESS_NONMATCHING) > $@

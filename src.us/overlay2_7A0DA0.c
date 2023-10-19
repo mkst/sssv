@@ -1667,11 +1667,12 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             }
             func_803967D4_7A7E84(224, 110, suit_red, suit_green, suit_blue, D_8023F260.evoPartsCollected & EVO_HEAD, D_8023F260.evoPartsCollected & EVO_TORSO, D_8023F260.evoPartsCollected & EVO_ARMS, D_8023F260.evoPartsCollected & EVO_LEGS, 1);
         } else {
+            cnt = 0;
+
             gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
             gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 
             // print rows of powercells (non-collected)
-            cnt = 0;
             for (row = 0; row < 3; row++) {
                 for (col = 0; col < 5; col++) {
                     func_803962EC_7A799C(&D_801D9E7C,
@@ -1693,8 +1694,8 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             gDPSetBlendColor(D_801D9E7C++, 0x00, 0x00, 0x00, 0x80);
             gDPPipeSync(D_801D9E7C++);
 
-            // fill in collected powercells
             cnt = 0;
+            // fill in collected powercells
             for (row = 0; row < 3; row++) {
                 for (col = 0; col < 5; col++) {
                     if (cnt < D_803F2D30.powercells) {
@@ -1731,7 +1732,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
     gDPPipeSync(D_801D9E7C++);
 
     gSPDisplayList(D_801D9E7C++, &D_801584A0);
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, alpha); // CHECK
+    gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, alpha);
     gDPSetDepthSource(D_801D9E7C++, G_ZS_PRIM);
     gDPSetRenderMode(D_801D9E7C++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
     gDPSetAlphaCompare(D_801D9E7C++, G_AC_NONE);
@@ -1802,7 +1803,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 }
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
 
-                if (D_803F6680.unk36 == 1) { // confirm active
+                if (D_803F6680.unk36 == 1U) { // confirm active
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
                 } else {
                     set_menu_text_color(0x80, 0x80, 0x80, alpha);
@@ -1828,7 +1829,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 }
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
 
-                if (D_803F6680.unk32 == 1) {
+                if (D_803F6680.unk32 == 1U) {
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
                 } else {
                     set_menu_text_color(0x80, 0x80, 0x80, alpha);
@@ -1847,7 +1848,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             set_menu_text_color(0x80, 0x80, 0x80, alpha);
         }
         // "[ <<<<<<<<<<<<<<<<<<<<" // 91 + 272 => 363 => ♫
-        sprintf((char*)sp174, D_803C0198_7D1848);
+        sprintf((char*)sp174, "[ <<<<<<<<<<<<<<<<<<<<");
         // fill out "|"
         sp174[D_8023F2A0.musicVol + 2] = '>';
         prepare_text(sp174, spFC);
@@ -1860,7 +1861,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             set_menu_text_color(0x80, 0x80, 0x80, alpha);
         }
         // "%c <<<<<<<<<<<<<<<<<<<<"
-        sprintf((char*)sp174, D_803C01B0_7D1860, 92); // 92 + 272 => 364 => 🔊
+        sprintf((char*)sp174, "%c <<<<<<<<<<<<<<<<<<<<", 92); // 92 + 272 => 364 => 🔊
         // fill out "|"
         sp174[D_8023F2A0.sfxVol + 2] = '>';
         prepare_text(sp174, spFC);
@@ -1875,7 +1876,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 set_menu_text_color(0x80, 0x80, 0x80, alpha);
             }
             // "%d"
-            sprintf((char*)sp174, D_803C01C8_7D1878, D_8023F2A0.language);
+            sprintf((char*)sp174, "%d", D_8023F2A0.language);
             display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_LANGUAGE), 94, vertical_offset, font_width, 16.0f);
             vertical_offset += 18;
         }
@@ -1892,7 +1893,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 }
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
 
-                if (D_803F6680.unk34 == 1) {
+                if (D_803F6680.unk34 == 1U) {
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
                 } else {
                     set_menu_text_color(0x80, 0x80, 0x80, alpha);
@@ -1912,17 +1913,17 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
             D_801D9ED4 = 0xA;
 
-            D_803F6680.unk14 -= 1;
+            D_803F6680.unk14--;
             if (gRegion == REGION_US) {
                 // skip over language option
                 if (D_803F6680.unk14 == PAUSE_MENU_OPTION_LANGUAGE) {
-                    D_803F6680.unk14 -= 1;
+                    D_803F6680.unk14--;
                 }
             }
             // no mission brief for credits/secret level?
             if ((D_803F7DD5 == 30) || (D_803F7DD5 == 31)) {
                 if (D_803F6680.unk14 == PAUSE_MENU_OPTION_MISSION_BRIEF) {
-                    D_803F6680.unk14 -= 1;
+                    D_803F6680.unk14--;
                 }
             }
             func_80395074_7A6724(0);
@@ -1953,7 +1954,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         // reset state
         if ((gControllerInput->button & CONT_B) &&
             (D_802912E0 == 1) &&
-            ((D_803F6680.unk31 != 0) || (D_803F6680.unk35 != 0) || (D_803F6680.unk33 != 0))) {
+            !((D_803F6680.unk31 == 0) && (D_803F6680.unk35 == 0) && (D_803F6680.unk33 == 0))) {
             play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
             D_803F6680.unk31 = 0;
             D_803F6680.unk35 = 0;
@@ -2137,7 +2138,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     D_803E4D2C = 0;
                     play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
                     func_8039264C_7A3CFC();
-                    D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+                    D_803B683C_7C7EEC = D_803B6700_7C7DB0[2]; // struct copy
                     D_803F6680.unk2A = 1;
                     D_803F6680.unk2C = 1;
                     func_8039661C_7A7CCC(1, 8, 1);

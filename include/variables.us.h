@@ -84,7 +84,7 @@ extern Gfx  D_04000230_E77E0[];
 extern Gfx  D_040002D0_DD890[];
 extern u8   D_04000370_E7920[];
 extern u8   D_040004B0_E7A60[];
-extern u8   D_04000600_E7BB0[];
+extern Gfx  D_04000600_E7BB0[];
 extern Gfx  D_04000600_F1660[];
 extern Gfx  D_04000230_F1290[];
 extern u8   D_040006F0[];
@@ -95,15 +95,14 @@ extern Gfx  D_04000AE0_DE0A0[];
 extern u8   D_04000B10_E80C0[];
 extern Gfx  D_04000B40_DE100[];
 extern u8   D_04000D10_E82C0[];
-extern u8   D_04000DB0[]; // tortoise?
-extern u8   D_04000DD0[];
+extern Gfx  D_04000DB0_E8360[];
+extern u8   D_04000DD0_E8380[];
 extern Gfx  D_040005A0_DDB60[];
 extern Gfx  D_04002630_DFBF0[]; // polar bear
 extern Gfx  D_04002930_DFEF0[]; // polar bear
 extern u8   D_040029D0[];
 extern u8   D_04002F28[];
-extern u8   D_04003850_F48B0[];
-extern u8   D_04003A50_F4AB0[];
+
 extern u8   D_04005B60_11C730[]; // spaceship interior
 extern u8   D_04006D00_11D8D0[]; // tv body
 extern u8   D_04006EC0[];
@@ -560,6 +559,7 @@ extern u16  D_80241D0E;
 extern OSMesgQueue D_802423D0;
 extern OSMesg      D_802423E8;
 extern u8  D_80242508[278000]; // base of heap
+
 // 0x8028xxxx
 
 extern ALBankFile *D_802862F8;
@@ -580,8 +580,8 @@ extern ALHeap D_80286328;
 extern struct017 *D_80286338[20];
 extern s16  D_80286388[];
 extern u8   D_802863B0[]; // sndSlotState
-extern ALSeqPlayer *D_802863C8[];
-extern ALCSeq *D_802863CC[];
+extern ALSeqPlayer *D_802863C8[1];
+extern ALCSeq *D_802863CC[1];
 
 extern u8   D_80286458;
 extern s16  D_8028645A;
@@ -890,17 +890,7 @@ extern u8   D_803A8344[]; // timer string written here
 // extern s8   D_803A8358_7B9A08[];
 // extern s8   D_803A8360_7B9A10[];
 extern s32  D_803A8374_7B9A24;
-extern s32  D_803A843C;
-extern s32  D_803A8450;
-extern s32  D_803A8464;
-extern s16  D_803A8464_7B9B14[];
-extern s32  D_803A8484;
-extern s16  D_803A8484_7B9B34[];
-extern s32  D_803A84CC;
-extern s16  D_803A84CC_7B9B7C[];
-extern s32  D_803A8514;
-extern s16  D_803A8514_7B9BC4[];
-extern s16  D_803A8518_7B9BC8[];
+
 extern struct068 D_803A8528_7B9BD8[247]; // 0x9C each
 extern u8   D_803A8EC8[];
 extern u16  D_803A4638_7B5CE8[];
@@ -924,11 +914,11 @@ extern DemoInput D_803B384C_7C4EFC[];
 
 extern s16  D_803B4F30;
 extern s16  D_803B4F34;
+extern u8   D_803B4930_7C5FE0[];
 extern u8   D_803B4944_7C5FF4[];
 extern s16  D_803B4958_7C6008[];
-extern s32  D_803B49CC_7C607C;
-extern u8   D_803B4930_7C5FE0[];
-extern s32  D_803B497C_7C602C;
+extern s16  D_803B497C_7C602C[];
+extern s16  D_803B49CC_7C607C[];
 
 extern s16  D_803B52FC[];
 extern u8   D_803B5498_7C6B48[];
@@ -1438,7 +1428,7 @@ extern f32  D_803F2C60;
 extern f32  D_803F2C64;
 extern f32  D_803F2C68;
 extern u8   D_803F2C6C;
-extern u8   D_803F2C6D;
+
 extern s16  D_803F2C6E;
 extern s16  D_803F2C70;
 // extern u16  D_803F2C72;

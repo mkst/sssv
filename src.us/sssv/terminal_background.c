@@ -3,6 +3,13 @@
 
 
 // ========================================================
+// definitions
+// ========================================================
+
+extern s8  D_803F2C6D; // mismatch camera.c
+extern u8  D_803B631C_7C79CC; // tbd
+
+// ========================================================
 // .data
 // ========================================================
 
@@ -106,6 +113,7 @@ s16 *D_803B6560_7C7C10[18] = {
     0, 0,
 };
 
+#ifndef PERMUTER
 Lights1 D_803B65A8_7C7C58 = gdSPDefLights1(0x00, 0x0A, 0x00, 0x00, 0x64, 0x00, 0x04, 0x00, 0x08);
 Lights1 D_803B65C0_7C7C70 = gdSPDefLights1(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x04, 0x00, 0x08);
 Lights1 D_803B65D8_7C7C88 = gdSPDefLights1(0x19, 0x32, 0x00, 0x64, 0xC8, 0x00, 0x04, 0x00, 0x08);
@@ -140,7 +148,7 @@ Gfx D_803B66B8_7C7D68[] = {
     gsDPPipeSync(),
     gsSPEndDisplayList(),
 };
-
+#endif
 
 void func_8038CF90_79E640(void) {
     gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
@@ -164,7 +172,7 @@ s16 *D_803F6500[18];
 s16  D_803F6548[20];
 f32  D_803F6570[16][4]; // tbd
 f32  D_803F6670;
-s16  D_803F6674;
+
 
 // ========================================================
 // definitions
@@ -616,53 +624,51 @@ void func_8038E504_79FBB4(u16 arg0) {
 }
 
 #if 0
+extern u8 D_803B66E4_7C7D94;
 u8 func_8038E80C_79FEBC(void) {
-    static u8 D_803B66E4_7C7D94 = 0;
-    static s16  D_803F6674; // tbd
-    s16 temp_a0;
+    f32 temp_f16;
     s16 i;
-
-    u16 temp_v0_2;
+    u16 rand;
     u8 var_t2;
-    // u8 var_v0;
+    u8 var_v0;
+    static s16 D_803F6674;
 
     D_803F6674 = (D_803F6674 + 1) & 0x1FF;
     if (D_803B66E4_7C7D94 != 0) {
-        D_803B66E4_7C7D94 = 0;
+        var_v0 = 0;
         var_t2 = 1;
     } else {
-        D_803B66E4_7C7D94 = 1;
+        var_v0 = 1;
         var_t2 = 0;
     }
 
+    D_803B66E4_7C7D94 = var_v0;
+
     for (i = 0; i < 16; i++) {
-        D_803F6570[i][D_803B66E4_7C7D94+1] = ((((f32) ((D_803F6570[(i + 1) & 0xF][D_803B66E4_7C7D94] + (D_803F6570[(i - 1) & 0xF][D_803B66E4_7C7D94])) * 0.5) - D_803F6570[i][D_803B66E4_7C7D94+0]) * 0.1) + (D_803F6570[i][D_803B66E4_7C7D94+1] * 0.995));
-        D_803F6570[i][D_803B66E4_7C7D94+0] += D_803F6570[i][D_803B66E4_7C7D94+1];
+
+        temp_f16 = (D_803F6570[(i + 1) & 0xF][(D_803B66E4_7C7D94*2) + 0] +  D_803F6570[(((i - 1) & 0xF))][(D_803B66E4_7C7D94*2) + 0]) * 0.5;
+        D_803F6570[(i + 0)][(var_t2*2) + 1] = ((temp_f16 - D_803F6570[(i + 0)][(D_803B66E4_7C7D94*2) + 0]) * 0.1) + (D_803F6570[(i + 0)][(D_803B66E4_7C7D94*2) + 1] * 0.995);
+        D_803F6570[(i + 0)][(var_t2*2) + 0] =  D_803F6570[(i + 0)][(var_t2*2) + 1] +  D_803F6570[(i + 0)][(D_803B66E4_7C7D94*2) + 0];
     }
 
-    temp_v0_2 = func_8012826C();
-    if ((temp_v0_2 & 0xFF00) == 0x3400) {
-        D_803F6570[temp_v0_2 & 0xF][var_t2+1] += (f32) ((f64) D_803F6570[temp_v0_2 & 0xF][var_t2+1] + ((f64) (((temp_v0_2 >> 4) & 0xF) - 7) * 10.0));
+    rand = func_8012826C();
+    if ((rand & 0xFF00) == 0x3400) {
+        D_803F6570[(rand & 0xF)][(var_t2*2) + 1] = (D_803F6570[(rand & 0xF)][(var_t2*2) + 1] + ((((rand >> 4) & 0xF) - 7) * 10.0));
     }
-
-    D_803F6570[8][var_t2+1] += ((D_80152C78[(D_803F6674 >> 1) & 0xFF] >> 7) / 200.0); // unk84
+    D_803F6570[8][(var_t2*2) + 1] += (D_80152C78[(D_803F6674 >> 1) & 0xFF] >> 7) / 200.0; //->unk84
 
     return var_t2;
 }
 #else
+s16  D_803F6674;
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038E80C_79FEBC.s")
 #endif
 
-// lots to do here
-#if 0
 void func_8038E9F8_7A00A8(void) {
+    s32 test;
+    s16 i; // sp6A
     s16 sp68;
-    s16 temp_a0;
-    s16 temp_v0_2;
-    s16 temp_v0_5;
-    s16 i;
-
-    static u8  D_803B631C_7C79CC = 0; // tbd
+    s16 sp66;
 
     load_segments(&D_801D9E7C, D_80204278);
     func_80380490_791B40(&D_801D9E7C, D_80204278);
@@ -672,7 +678,7 @@ void func_8038E9F8_7A00A8(void) {
 
     gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
     gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
-    gSPFogPosition(D_801D9E7C++, -3026, -3067); // use gSPFogFactor
+    gSPFogFactor(D_801D9E7C++, -3072, -22016);
     gDPSetFogColor(D_801D9E7C++, 0x00, 0x00, 0x00, 0x00);
 
     if (D_803B6314_7C79C4 == 0) {
@@ -692,19 +698,21 @@ void func_8038E9F8_7A00A8(void) {
     }
     if (D_803B6314_7C79C4 < 2) {
         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 0xFF);
-        D_803B6314_7C79C4 += 1;
+        D_803B6314_7C79C4++;
     }
     func_8032CD20_73E3D0(0x45, SFX_UNKNOWN_132, 6144.0f * D_803F646C, 0, 1.0f);
-    func_8032CD20_73E3D0(0xA9, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 0.7f); // 0.6999999881, D_803C0160_7D1810
+    func_8032CD20_73E3D0(0xA9, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 0.7f);
     func_8032CD20_73E3D0(0x171, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 1.0f);
     func_8032CD20_73E3D0(0x10D, SFX_UNKNOWN_134, 21760.0f * D_803F646C, 0, 1.0f);
+
     if (D_803F646C < 1.0) {
-        D_803F646C += 0.016; //D_803C0168_7D1818; -> 1 / 62.5
+        D_803F646C += 0.016;
     }
+
     gScreenHeight = 240;
-    D_803A6CC4_7B8374 = (((D_80152C78[D_803F6472] >> 7) / 3200.0) + 0.7); // D_803C0170_7D1820
-    D_803A6CC8_7B8378 = (((D_80152C78[D_803F6472] >> 7) / 15.0) + 45.0); // D_803C0178_7D1828
-    D_803F6472 += 1;
+    D_803A6CC4_7B8374 = ((D_80152C78[(s16)(D_803F6472 * 2) & 0xFF] >> 7) / 3200.0) + 0.7; // D_803C0170_7D1820
+    D_803A6CC8_7B8378 = ((D_80152C78[(s16)D_803F6472 & 0xFF] >> 7) / 15.0) + 45.0; // D_803C0178_7D1828
+    D_803F6472++;
 
     D_80152EA8.vp.vscale[0] = gScreenWidth  << 1;
     D_80152EA8.vp.vscale[1] = gScreenHeight << 1;
@@ -721,12 +729,12 @@ void func_8038E9F8_7A00A8(void) {
     switch (D_803B6318_7C79C8) {
     case 0:
         if (gScreenWidth < 320) {
-            gScreenWidth += 2;
+            gScreenWidth = gScreenWidth + 2;
         }
         func_8038D920_79EFD0(0xFF);
         func_8038DA70_79F120();
-        D_803B6310_7C79C0 += 1;
-        if (D_803B6310_7C79C0 > 40) {
+
+        if (D_803B6310_7C79C0++ > 40) {
             D_803B631C_7C79CC = 1;
             D_803B6310_7C79C0 = 0;
             D_803B6318_7C79C8 = 1;
@@ -738,12 +746,13 @@ void func_8038E9F8_7A00A8(void) {
         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         select_font(0, FONT_COMIC_SANS, 1, 0);
         func_8038D920_79EFD0(0xFF);
+
         sp68 = SSSV_RAND(8);
         for (i = 0; i < 6; i++) {
-            temp_v0_5 = (((i * 4) + i) * 8) + sp68;
+            sp66 = i*40 + sp68;
 
-            gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer + (temp_v0_5 * 0x280)));
-            gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, (gScreenHeight - temp_v0_5) - 9);
+            gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer + ((sp66 * 10) << 6)));
+            gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, (gScreenHeight - sp66 - 1) - 8);
             gSPDisplayList(D_801D9E7C++, D_801D9E90);
         }
 
@@ -757,15 +766,16 @@ void func_8038E9F8_7A00A8(void) {
         set_menu_text_color(0x80, 0xFF, 0, 0xFF);
         select_font(0, FONT_COMIC_SANS, 1, 0);
         func_8038DBE0_79F290(0xE, 0x10);
-        if (++D_803B6310_7C79C0 > 65000) {
-            D_803B6310_7C79C0 = 200U;
+        if (D_803B6310_7C79C0++ > 65000) {
+            D_803B6310_7C79C0 = 200;
         }
         if ((gControllerInput->button & A_BUTTON) || (gControllerInput->button & B_BUTTON)) {
+            // exit screen?
             if (D_803B631C_7C79CC == 0) {
                 func_801337DC(0, 25.0f, 0, 20.0f);
                 D_803B6314_7C79C4 = 0;
                 D_803B631C_7C79CC = 1;
-                D_803B6310_7C79C0 = 0U;
+                D_803B6310_7C79C0 = 0;
                 D_803F2D10.unk0 = 0;
                 D_803F2C6C = D_803F2C6D = 0;
                 D_803B6318_7C79C8 = 0;
@@ -784,6 +794,7 @@ void func_8038E9F8_7A00A8(void) {
         break;
     case 2:
         func_8038D920_79EFD0(0xFF);
+        if (D_803B6310_7C79C0 && D_803B6310_7C79C0) {} // permuter
         func_8038DA70_79F120();
         if (D_803B6310_7C79C0 == 1) {
             func_802F2EEC_70459C(80, 80, 80, 200, 200, 200, 10);
@@ -800,15 +811,13 @@ void func_8038E9F8_7A00A8(void) {
     }
 
     if (D_803B631C_7C79CC != 0) {
-        D_803B631C_7C79CC += 1;
-        if ((D_803B631C_7C79CC ^ 7) == 0) {
+        test = D_803B631C_7C79CC ^ 7;
+        D_803B631C_7C79CC = D_803B631C_7C79CC + 1;
+        if (test == 0) {
             D_803B631C_7C79CC = 0;
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038E9F8_7A00A8.s")
-#endif
 
 void func_8038F414_7A0AC4(void) {
     switch (D_803F2AA2) {

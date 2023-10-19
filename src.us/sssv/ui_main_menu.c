@@ -265,31 +265,28 @@ void func_80398A00_7AA0B0(void) {
 }
 
 #if 0
-// CURRENT (2229)
+// CURRENT (1029)
 void display_zone_select_screen(void) {
-    char ascii[50];
+    char ascii[42];
     s16  wide_text[24]; // 0x118 - 0xE4 => 52
 
     f32 spE0;
     f32 spDC;
 
     s16 vertical_offset;   // spDA
-    s16 old_current_level; // spD2
     s16 var_a3;
-
-    s16 temp_a2;
-
     s16 secs;
     s16 mins;
+    s16 level; // spD2
+
+    s32 score;
+    s32 time;
 
     u8 evo_r;
     u8 evo_b;
     u8 evo_g;
 
-    u8 **img;
-    s32 score;
-    s32 time;
-
+    volatile s16 var_t9; // yuck
 
     D_803E4D2C = 0;
     if (D_8028645C != MUSIC_TRACK_MAIN_THEME) {
@@ -346,13 +343,11 @@ void display_zone_select_screen(void) {
 
     if (D_803F7DA8.lastLevel != D_803F7DA8.currentLevel) {
         // level thumbnails
-        img = &D_803B7268_7C8918[D_803F7DA8.currentLevel*2];
-        dma_read(img[0], D_800B0B20, img[1] - img[0]);
+        dma_read(D_803B7268_7C8918[D_803F7DA8.currentLevel*2], D_800B0B20, D_803B7268_7C8918[D_803F7DA8.currentLevel*2+1] - D_803B7268_7C8918[D_803F7DA8.currentLevel*2]);
         UnpackRNC(D_800B0B20, D_800B49A0);
         D_803F7DA8.lastLevel = D_803F7DA8.currentLevel;
         // trophy images
-        img = &D_803B7368_7C8A18[D_803F7DA8.currentLevel*2];
-        dma_read(img[0], D_800B0B20, img[1] - img[0]);
+        dma_read(D_803B7368_7C8A18[D_803F7DA8.currentLevel*2], D_800B0B20, D_803B7368_7C8A18[D_803F7DA8.currentLevel*2+1] - D_803B7368_7C8A18[D_803F7DA8.currentLevel*2]);
         UnpackRNC(D_800B0B20, D_800B68E0);
 
         D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
@@ -371,13 +366,13 @@ void display_zone_select_screen(void) {
     gDPSetCombineMode(D_801D9E7C++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
     gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0x1A);
 
-    temp_a2 = D_803F7DA8.currentLevel + 1;
+    level = D_803F7DA8.currentLevel + 1;
 
-    if ((temp_a2 == GIVE_A_DOG_A_BONUS) ||
-        (temp_a2 == WALRACE_64) ||
-        (temp_a2 == EVOS_ESCAPE) ||
-        (temp_a2 == PUNCHUP_PYRAMID) ||
-        (temp_a2 == BIG_CELEBRATION_PARADE)) {
+    if ((level == GIVE_A_DOG_A_BONUS) ||
+        (level == WALRACE_64) ||
+        (level == EVOS_ESCAPE) ||
+        (level == PUNCHUP_PYRAMID) ||
+        (level == BIG_CELEBRATION_PARADE)) {
         switch (D_803F2D50.evoSuitColor) {
         case EVO_BRONZE_SHELLSUIT:
             evo_r = 200;
@@ -421,10 +416,10 @@ void display_zone_select_screen(void) {
             D_803F7DA0--;
         }
 
-        old_current_level = D_803F7DA8.currentLevel;
+        level = D_803F7DA8.currentLevel;
         D_803F7DA2 = D_803F7DA0;
         D_803F7DA8.currentLevel = get_next_available_level(D_803F7DA8.currentLevel, -1);
-        if (old_current_level != D_803F7DA8.currentLevel) {
+        if (level != D_803F7DA8.currentLevel) {
             if (D_803F7DA8.currentLevel == PUNCHUP_PYRAMID) {
                 play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
             } else if (get_biome_for_level(D_803F7DA8.currentLevel) != D_803F7DA8.biome) {
@@ -433,7 +428,7 @@ void display_zone_select_screen(void) {
                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
             }
         }
-        if (old_current_level != D_803F7DA8.currentLevel) {
+        if (level != D_803F7DA8.currentLevel) {
             func_80395074_7A6724(0);
         } else {
             func_80395074_7A6724(1);
@@ -445,10 +440,10 @@ void display_zone_select_screen(void) {
         } else {
             D_803F7DA1 -= 1;
         }
-        old_current_level = D_803F7DA8.currentLevel;
+        level = D_803F7DA8.currentLevel;
         D_803F7DA3 = D_803F7DA1;
         D_803F7DA8.currentLevel = get_next_available_level(D_803F7DA8.currentLevel, 1);
-        if (old_current_level != D_803F7DA8.currentLevel) {
+        if (level != D_803F7DA8.currentLevel) {
             if (D_803F7DA8.currentLevel == PUNCHUP_PYRAMID) {
                 play_sound_effect(SFX_UNKNOWN_146, 0, 0x5000, 1.0f, 64);
             } else if (get_biome_for_level(D_803F7DA8.currentLevel) != D_803F7DA8.biome) {
@@ -457,7 +452,7 @@ void display_zone_select_screen(void) {
                 play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
             }
         }
-        if (old_current_level != D_803F7DA8.currentLevel) {
+        if (level != D_803F7DA8.currentLevel) {
             func_80395074_7A6724(0);
         } else {
             func_80395074_7A6724(1);
@@ -549,7 +544,7 @@ void display_zone_select_screen(void) {
     if (var_a3 != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
         // write title text
         display_text(&D_801D9E7C, (u8*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
-        var_a3 = D_803F7DA8.currentLevel;
+        var_a3 = D_803F7DD5;
     }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
 
@@ -559,22 +554,23 @@ void display_zone_select_screen(void) {
         } else {
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
-        var_a3 = D_803F7DA8.currentLevel;
-        vertical_offset += 1.0f + D_803B74B0_7C8B60;
+        vertical_offset += D_803B74B0_7C8B60 + 1.0f;
+        var_a3 = D_803F7DD5;
     }
 
-    old_current_level = var_a3;
-    if (D_803F7DA8.biome) {} ; // nonsense but helps some regalloc
-    old_current_level += 1;
+    var_t9 = var_a3 + 1;
+    level = var_t9;
 
-    if ((old_current_level == GIVE_A_DOG_A_BONUS) ||
-        (old_current_level == WALRACE_64) ||
-        (old_current_level == EVOS_ESCAPE) ||
-        (old_current_level == PUNCHUP_PYRAMID) ||
-        (old_current_level == BIG_CELEBRATION_PARADE) ||
-        (old_current_level == SECRET_LEVEL)) {
+    if (1) { }
 
-        if (old_current_level == GIVE_A_DOG_A_BONUS) {
+    if ((level == GIVE_A_DOG_A_BONUS) ||
+        (level == WALRACE_64) ||
+        (level == EVOS_ESCAPE) ||
+        (level == PUNCHUP_PYRAMID) ||
+        (level == BIG_CELEBRATION_PARADE) ||
+        (level == SECRET_LEVEL)) {
+
+        if (level == GIVE_A_DOG_A_BONUS) {
             time = (D_8023F260.unk30 >> 13) & 0x1FF;
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
@@ -588,7 +584,7 @@ void display_zone_select_screen(void) {
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (old_current_level == WALRACE_64) {
+        if (level == WALRACE_64) {
             if (D_8023F260.unk30 & 0xFF) {
                 seconds_to_mins_secs(D_8023F260.unk30 & 0xFF, &mins, &secs);
                 if (secs < 10) {
@@ -605,7 +601,7 @@ void display_zone_select_screen(void) {
                 }
             }
         }
-        if (old_current_level == EVOS_ESCAPE) {
+        if (level == EVOS_ESCAPE) {
             score = (D_8023F260.unk30 >> 24) * 100;
             if (score) {
                 sprintf(ascii, "%d", score); // D_803C03C0_7D1A70
@@ -614,16 +610,16 @@ void display_zone_select_screen(void) {
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (old_current_level == PUNCHUP_PYRAMID) {
-            u16 rounds = (D_8023F260.unk30 >> 8) & 0x1F;
-            if (rounds) {
-                sprintf(ascii, "%d", rounds); // D_803C03C4_7D1A74
+        if (level == PUNCHUP_PYRAMID) {
+            score = (D_8023F260.unk30 >> 8) & 0x1F;
+            if (score) {
+                sprintf(ascii, "%d", score); // D_803C03C4_7D1A74
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (old_current_level == BIG_CELEBRATION_PARADE) {
+        if (level == BIG_CELEBRATION_PARADE) {
             time = (D_8023F260.unk34 >> 8) & 0x1FF;
             if (time) {
                 seconds_to_mins_secs(time, &mins, &secs);
@@ -637,8 +633,8 @@ void display_zone_select_screen(void) {
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
-        if (old_current_level == SECRET_LEVEL) {
-            score = (D_8023F260.unk34 >> 21) & 0x7FF;
+        if (level == SECRET_LEVEL) {
+            score = ((D_8023F260.unk34 >> 21) & 0x7FF) ;
             sprintf(ascii, "%d", score * 100); // D_803C03D8_7D1A88
             prepare_text((u8*)ascii, wide_text);
             display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);

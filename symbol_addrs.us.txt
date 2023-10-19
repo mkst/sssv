@@ -116,6 +116,7 @@ __amMain               = 0x80131554;
 
 get_sound_by_slot      = 0x801323B8;
 get_sound_by_id        = 0x80132414;
+get_sound_by_object_and_id = 0x80132580;
 load_sequence          = 0x801325E8;
 get_seqp_state         = 0x8013266C;
 get_used_sound_count   = 0x80132D54;
@@ -273,6 +274,7 @@ get_angle_between_vectors = 0x8032D5A4; // rom:0x73EC54
 try_pickup_animal        = 0x803213B0; // rom:0x732A60
 
 fix_camera_to_angle_offset = 0x80339B84; // rom:0x74B234
+reset_camera               = 0x8033C334; // rom:0x74D9E4
 
 osd_draw_health_and_power_bars = 0x80348230; // rom:0x7598E0
 osd_draw_score           = 0x803491F0; // rom:0x75A8A0
@@ -312,6 +314,8 @@ water_hurts              = 0x80362B9C; // rom:0x77424C
 can_fly                  = 0x80362BC4; // rom:0x774274
 ram_headbutt             = 0x80362A84; // rom:0x774134
 
+set_waypoint_follow_target = 0x80363880; // rom:0x774F30
+
 penguin_throw_snowball   = 0x80365D8C; // rom:0x77743C
 polar_tank_drop_mine     = 0x80368C50; // rom:0x77A300
 polar_tank_fire_cannon   = 0x80368CF0; // rom:0x77A3A0
@@ -325,39 +329,6 @@ load_data_section        = 0x803800F0; // rom:0x7917A0
 
 trigger_contagious_laughter     = 0x8037E1C4; // rom:0x78F874
 
-perform_behavior_lion           = 0x803839F0; // rom:0x7950A0
-perform_behavior_hippo          = 0x80383BE4; // rom:0x795294
-perform_behavior_racing_hippo   = 0x80383E38; // rom:0x7954E8
-perform_behavior_racing_dog     = 0x80383E40; // rom:0x7954F0
-perform_behavior_flying_dog     = 0x80384060; // rom:0x795710
-perform_behavior_fox            = 0x8038448C; // rom:0x795B3C
-perform_behavior_fire_fox       = 0x803846BC; // rom:0x795D6C
-perform_behavior_frog           = 0x80384858; // rom:0x795F08
-perform_behavior_polar_bear_defending = 0x803892DC; // rom:0x79A98C
-perform_behavior_rabbit         = 0x80384A8C; // rom:0x79613C
-perform_behavior_heli_rabbit    = 0x80384CB8; // rom:0x796368
-perform_behavior_cod            = 0x80384F14; // rom:0x7965C4
-perform_behavior_parrot         = 0x80384F1C; // rom:0x7965CC
-perform_behavior_mouse          = 0x80385080; // rom:0x796730
-perform_behavior_racing_mouse   = 0x80385088; // rom:0x796738
-perform_behavior_heli_mouse     = 0x803852C0; // rom:0x796970
-perform_behavior_bear           = 0x803852C8; // rom:0x796978
-perform_behavior_bear_attacking = 0x80385480; // rom:0x796B30
-perform_behavior_mystery_bear   = 0x80385488; // rom:0x796B38
-perform_behavior_seagull2       = 0x8038951C; // rom:0x79ABCC
-perform_behavior_racing_fox     = 0x80385490; // rom:0x796B40
-perform_behavior_king_rat       = 0x80385DF0; // rom:0x7974A0
-perform_behavior_rat            = 0x80385F90; // rom:0x797640
-perform_behavior_sheep          = 0x80386454; // rom:0x797B04
-perform_behavior_penguin        = 0x80386A48; // rom:0x7980F8
-perform_behavior_scorpion       = 0x80388480; // rom:0x799B30
-perform_behavior_gorilla        = 0x80388744; // rom:0x799DF4
-perform_behavior_elephant       = 0x803888F0; // rom:0x799FA0
-perform_behavior_seagull        = 0x803892F4; // rom:0x79A9A4
-
-reset_cheats                = 0x8038BA30; // rom:0x79D0E0
-check_cheats                = 0x8038BAC0; // rom:0x79D170
-check_cheat_code            = 0x8038C13C; // rom:0x79D7EC
 reset_credits_counters      = 0x8038B840; // rom:0x79CEF0
 display_credits             = 0x8038B854; // rom:0x79CF04
 load_level                  = 0x8038FB94; // rom:0x7A1244

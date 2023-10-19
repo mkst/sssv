@@ -81,7 +81,7 @@ struct107 D_803B58E0_7C6F90[68] = {
 };
 #endif
 
-void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
+void (*behaviour_lut[AID_MAX_ANIMALS])(void) = {
     perform_behavior_seagull,
     perform_behavior_lion,
     perform_behavior_hippo,
@@ -91,71 +91,71 @@ void (*D_803B5D20[AID_MAX_ANIMALS])(void) = {
     perform_behavior_fox,
     perform_behavior_fire_fox,
     perform_behavior_frog,
-    perform_behavior_polar_bear_defending, // 9 POLAR_BEAR_DEFENDING
+    perform_behavior_polar_bear_defending,
     perform_behavior_rabbit,
     perform_behavior_heli_rabbit,
     perform_behavior_cod,
-    perform_behavior_king_rat, // KING_RAT
-    perform_behavior_parrot,   // PARROT
-    func_80385078_796728,
-    perform_behavior_mouse,   // 16 MOUSE
-    func_803892E4_79A994,
-    perform_behavior_racing_mouse,   // 18 RACING_MOUSE
-    func_803892EC_79A99C,
-    func_803852B8_796968,
-    perform_behavior_heli_mouse,   // 21 HELI_MOUSE
-    perform_behavior_bear, // 22 BEAR
-    perform_behavior_bear_attacking, // 23 BEAR_ATTACKING
+    perform_behavior_king_rat,
+    perform_behavior_parrot,
+    perform_behavior_parrot_attacking,
+    perform_behavior_mouse,
+    perform_behavior_hard_mouse,
+    perform_behavior_racing_mouse,
+    perform_behavior_vulture,
+    perform_behavior_mouse2,
+    perform_behavior_heli_mouse,
+    perform_behavior_bear,
+    perform_behavior_bear_attacking,
     perform_behavior_mystery_bear,
     perform_behavior_seagull2,
-    perform_behavior_racing_fox, // 26 RACING_FOX
-    func_80385710_796DC0, // TORTOISE_TANK
-    func_80385A0C_7970BC,
-    func_803859D4_797084,
-    func_80389524_79ABD4,
-    func_80385BE0_797290,
-    perform_behavior_rat, // RAT
+    perform_behavior_racing_fox,
+    perform_behavior_tortoise_tank,
+    perform_behavior_racing_tortoise,
+    perform_behavior_tortoise_tank_defending,
+    perform_behavior_pirana,
+    perform_behavior_dog,
+    perform_behavior_rat,
     perform_behavior_sheep,
-    func_803865A0_797C50,
-    func_803867B8_797E68,
-    func_803867C0_797E70,
-    perform_behavior_penguin, // PENGUIN
-    func_80386BB8_798268,
-    func_80386D80_798430,
-    func_80386F84_798634,
-    func_8038710C_7987BC,
-    func_80387114_7987C4,
-    func_8038974C_79ADFC,
-    func_80387330_7989E0, // 44 WALRUS
-    func_8038754C_798BFC,
-    func_80387780_798E30,
-    func_803879A4_799054, // 47 CANNON_CAMEL
-    func_80389754_79AE04,
-    func_80387BF4_7992A4,
-    func_80387DE0_799490, // 50 BOXING_KANGAROO
-    func_8038801C_7996CC,
-    func_80388248_7998F8,
-    perform_behavior_scorpion, // 53 SCORPION
-    perform_behavior_gorilla, // 54 GORILLA
-    func_8038801C_7996CC,
-    perform_behavior_elephant, // 56 ELEPHANT
-    func_80388B0C_79A1BC,
-    func_80388CC8_79A378, // HYENA_BIKER
-    func_80388F10_79A5C0,
-    func_80389150_79A800,
-    func_80389158_79A808,
-    func_80389158_79A808,
-    func_80389158_79A808,
-    func_80389160_79A810, // KING_PENGUIN
-    func_803892D4_79A984,
-    func_8038975C_79AE0C,
-    func_80389158_79A808
+    perform_behavior_ram,
+    perform_behavior_springy_thingy,
+    perform_behavior_springy_ram,
+    perform_behavior_penguin,
+    perform_behavior_polar_bear,
+    perform_behavior_polar_tank,
+    perform_behavior_husky,
+    perform_behavior_crazy_husky,
+    perform_behavior_ski_husky,
+    perform_behavior_crow,
+    perform_behavior_walrus,
+    perform_behavior_vulture2,
+    perform_behavior_camel,
+    perform_behavior_cannon_camel,
+    perform_behavior_crow_diver,
+    perform_behavior_pogo_kangaroo,
+    perform_behavior_boxing_kangaroo,
+    perform_behavior_desert_fox,
+    perform_behavior_armed_desert_fox,
+    perform_behavior_scorpion,
+    perform_behavior_gorilla,
+    perform_behavior_desert_fox,
+    perform_behavior_elephant,
+    perform_behavior_hyena,
+    perform_behavior_hyena_biker,
+    perform_behavior_chameleon,
+    perform_behavior_sneaky_chameleon,
+    perform_behavior_evo,
+    perform_behavior_evo,
+    perform_behavior_evo,
+    perform_behavior_king_penguin,
+    perform_behavior_racing_tortoise_defending,
+    perform_behavior_cool_cod,
+    perform_behavior_evo
 };
 
 // ========================================================
 // .bss (D_803F63F0 to D_803F6400)
 // ========================================================
-s16  D_803F63F0;
+s16  D_803F63F0; // only used by RAT
 
 // ========================================================
 // .text
@@ -163,8 +163,8 @@ s16  D_803F63F0;
 
 // ESA: func_80064DC4
 s32 func_80383830_794EE0(u16 arg0) {
-    Animal *a = D_803D552C->unk2CC;
-    if (arg0 < func_803051F0_7168A0((func_801284B8(a->xPos.h - D_803D5530->xPos.h, a->zPos.h - D_803D5530->zPos.h) * 256) / 360, D_803D5530->yRotation)) {
+    Animal *target = D_803D552C->unk2CC;
+    if (arg0 < func_803051F0_7168A0((func_801284B8(target->xPos.h - D_803D5530->xPos.h, target->zPos.h - D_803D5530->zPos.h) * 256) / 360, D_803D5530->yRotation)) {
         return 0;
     } else {
         return 1;
@@ -209,14 +209,14 @@ void perform_behavior_lion(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 100) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 100) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 111) && (D_803D552C->unk2C0 != 0)) {
+        } else if ((D_803D552C->targetDistance >= 111) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 101) && (func_80383830_794EE0(5) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 101) && (func_80383830_794EE0(5) != 0)) {
             lion_roar();
             D_803D552C->unk2C4 = (func_8012826C() % 40) + 50;
         } else if (D_803D552C->unk2C4 <= 0) {
@@ -226,7 +226,7 @@ void perform_behavior_lion(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 200) || (D_803D552C->unk2B8++ >= 61)) {
+        if ((D_803D552C->targetDistance >= 200) || (D_803D552C->unk2B8++ >= 61)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
@@ -243,14 +243,14 @@ void perform_behavior_hippo(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 100) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 100) && (D_803D552C->unk2C0 == 0)) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2C0 = 1;
-        } else if ((D_803D552C->unk2D0 >= 121) && (D_803D552C->unk2C0 == 1)) {
+        } else if ((D_803D552C->targetDistance >= 121) && (D_803D552C->unk2C0 == 1)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2C0 = 0;
         }
-        if ((func_80383830_794EE0(5) != 0) && (D_803D552C->unk2D0 < 350) && (D_803D552C->unk2C4 <= 0)) {
+        if ((func_80383830_794EE0(5) != 0) && (D_803D552C->targetDistance < 350) && (D_803D552C->unk2C4 <= 0)) {
             if (D_803D552C->unk2B8 >= 2) {
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
                 D_803D552C->unk2B8 = 0;
@@ -267,7 +267,7 @@ void perform_behavior_hippo(void) {
             drop_sticky_mine();
             D_803D552C->unk2C4 = 60;
         }
-        if ((D_803D552C->unk2D0 >= 401) || (D_803D552C->unk2B8++ >= 60)) {
+        if ((D_803D552C->targetDistance >= 401) || (D_803D552C->unk2B8++ >= 60)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2B8 = 0;
             D_803D552C->unk2B4.state = 1;
@@ -287,7 +287,7 @@ void perform_behavior_racing_dog(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 401) {
+        if (D_803D552C->targetDistance < 401) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
@@ -296,10 +296,10 @@ void perform_behavior_racing_dog(void) {
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 -= 1;
         }
-        if (D_803D552C->unk2D0 >= 441) {
+        if (D_803D552C->targetDistance >= 441) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if ((D_803D552C->unk2D0 < 300) && (D_803D552C->unk2C0 <= 0)) {
+        } else if ((D_803D552C->targetDistance < 300) && (D_803D552C->unk2C0 <= 0)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0) ){
@@ -308,7 +308,7 @@ void perform_behavior_racing_dog(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 351) || (D_803D552C->unk2C0++ >= 61) ) {
+        if ((D_803D552C->targetDistance >= 351) || (D_803D552C->unk2C0++ >= 61) ) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
@@ -327,11 +327,11 @@ void perform_behavior_flying_dog(void) {
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
-            if (D_803D552C->unk2D0 < 100) {
+            if (D_803D552C->targetDistance < 100) {
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2B4.state = 2;
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
-            } else if ((func_80383830_794EE0(5) != 0) && (D_803D552C->unk2D0 < 220) && (D_803D552C->unk2C4 == 0)) {
+            } else if ((func_80383830_794EE0(5) != 0) && (D_803D552C->targetDistance < 220) && (D_803D552C->unk2C4 == 0)) {
                 D_803D552C->unk2C4 = 140;
             }
             if ((D_803D552C->unk2C4 > 0) && (D_803D552C->unk2C4 >= 100) && ((D_803D552C->unk2C4 & 3) == 0)) {
@@ -339,7 +339,7 @@ void perform_behavior_flying_dog(void) {
             }
             break;
         case 2:
-            if ((D_803D552C->unk2C4 == 0) && (D_803D552C->unk2D0 > 250)) {
+            if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance > 250)) {
                 D_803D552C->unk2B4.state = 1;
                 D_803D552C->unk2C0 = 0;
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
@@ -352,10 +352,10 @@ void perform_behavior_flying_dog(void) {
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
-            if (D_803D552C->unk2D0 < 64) {
+            if (D_803D552C->targetDistance < 64) {
                 D_803D552C->unk2B4.state = 3;
                 func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -180, 16);
-            } else if ((D_803D552C->unk2C4 == 0) && (func_80383830_794EE0(10) != 0) && (D_803D552C->unk2D0 < 200)) {
+            } else if ((D_803D552C->unk2C4 == 0) && (func_80383830_794EE0(10) != 0) && (D_803D552C->targetDistance < 200)) {
                 D_803D552C->unk2C4 = 80;
                 D_803D552C->unk2B4.state = 2;
                 func_80363FB8_775668(D_803D5530, (D_803D5530->yRotation * 360) >> 8, -180, 16);
@@ -371,7 +371,7 @@ void perform_behavior_flying_dog(void) {
             }
             break;
         case 3:
-            if ((D_803D552C->unk2D0 >= 0x119) || (D_803D552C->unk2C4 == 0)) {
+            if ((D_803D552C->targetDistance >= 0x119) || (D_803D552C->unk2C4 == 0)) {
                 D_803D552C->unk2B4.state = 1;
                 D_803D552C->unk2C0 = 0;
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -180, 16);
@@ -396,7 +396,7 @@ void perform_behavior_fox(void) {
             D_803D552C->unk2C0 = 40;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 51) && (func_80383830_794EE0(5) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 51) && (func_80383830_794EE0(5) != 0)) {
             func_802E88C0_6F9F70(100);
             D_803D552C->unk2C4 = SSSV_RAND(8) + 25;
             D_803D552C->unk2BC += 1;
@@ -408,7 +408,7 @@ void perform_behavior_fox(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 100) || (++D_803D552C->unk2C0 >= 0x1F)) {
+        if ((D_803D552C->targetDistance >= 100) || (++D_803D552C->unk2C0 >= 0x1F)) {
             D_803D552C->unk2B4.state = 1;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
@@ -424,11 +424,11 @@ void perform_behavior_fire_fox(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0x78) {
+        if (D_803D552C->targetDistance < 0x78) {
             D_803D552C->unk2B4.state = 2;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
         }
-        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->unk2D0 < 200) && (func_80383830_794EE0(20) != 0)) {
+        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance < 200) && (func_80383830_794EE0(20) != 0)) {
             fire_fox_fire_missile(D_803D552C->unk2CC);
             D_803D552C->unk2C4 = 0x96;
             D_803D552C->unk2B4.state = 2;
@@ -436,7 +436,7 @@ void perform_behavior_fire_fox(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->unk2D0 >= 0xF1)) {
+        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance >= 0xF1)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -70, 16);
@@ -451,13 +451,13 @@ void perform_behavior_frog(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 61) {
+        if (D_803D552C->targetDistance < 61) {
             D_803D552C->unk2B4.state = 2;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 61) && (D_803D552C->unk2BC < 4)) {
+        if ((D_803D552C->targetDistance >= 61) && (D_803D552C->unk2BC < 4)) {
             D_803D552C->unk2B4.state = 1;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
@@ -474,7 +474,7 @@ void perform_behavior_frog(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 250) || (++D_803D552C->unk2C0 >= 0x29)) {
+        if ((D_803D552C->targetDistance >= 250) || (++D_803D552C->unk2C0 >= 0x29)) {
             D_803D552C->unk2B4.state = 1;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
@@ -489,7 +489,7 @@ void perform_behavior_rabbit(void) {
         D_803D552C->unk2C0 = 0;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 201) {
+        if (D_803D552C->targetDistance < 201) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
@@ -498,10 +498,10 @@ void perform_behavior_rabbit(void) {
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 -= 1;
         }
-        if ((D_803D552C->unk2C0 == 0) && (D_803D552C->unk2D0 >= 0xFB)) {
+        if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance >= 0xFB)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
             D_803D552C->unk2B4.state = 1;
-        } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->unk2D0 < 100)) {
+        } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance < 100)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
@@ -510,7 +510,7 @@ void perform_behavior_rabbit(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 301) || (D_803D552C->unk2C0++ >= 101)) {
+        if ((D_803D552C->targetDistance >= 301) || (D_803D552C->unk2C0++ >= 101)) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 100;
@@ -525,10 +525,10 @@ void perform_behavior_heli_rabbit(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 64) {
+        if (D_803D552C->targetDistance < 64) {
             D_803D552C->unk2B4.state = 3;
             func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
-        } else if ((func_80383830_794EE0(10) != 0) && (D_803D552C->unk2D0 < 180)) {
+        } else if ((func_80383830_794EE0(10) != 0) && (D_803D552C->targetDistance < 180)) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C4 = 80;
             func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
@@ -543,7 +543,7 @@ void perform_behavior_heli_rabbit(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 0xC9) || ((D_803D552C->unk2C4 == 0))) {
+        if ((D_803D552C->targetDistance >= 0xC9) || ((D_803D552C->unk2C4 == 0))) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -180, 16);
@@ -561,14 +561,14 @@ void perform_behavior_parrot(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 5) {
+        if (D_803D552C->targetDistance < 5) {
             func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -240, 16);
             D_803D552C->unk2B4.state = 2;
             parrot_fly();
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 351) || ((++D_803D552C->unk2C0 >= 151))) {
+        if ((D_803D552C->targetDistance >= 351) || ((++D_803D552C->unk2C0 >= 151))) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -240, 16);
@@ -576,7 +576,7 @@ void perform_behavior_parrot(void) {
     }
 }
 
-void func_80385078_796728(void) {
+void perform_behavior_parrot_attacking(void) {
 }
 
 void perform_behavior_mouse(void) {
@@ -592,14 +592,14 @@ void perform_behavior_racing_mouse(void) {
         if ((D_803D552C->unk2C4 == 0) && (func_80383830_794EE0(2) != 0)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2B4.state = 2;
-        } else if ((D_803D552C->unk2C4 != 0) && (D_803D552C->unk2D0 < 70)) {
+        } else if ((D_803D552C->unk2C4 != 0) && (D_803D552C->targetDistance < 70)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 4;
             D_803D552C->unk2B8 = 0;
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 < 70) && (D_803D552C->unk2C4 == 0)) {
+        if ((D_803D552C->targetDistance < 70) && (D_803D552C->unk2C4 == 0)) {
             if (func_8038395C_79500C() >= 10) {
                 D_803D552C->unk2C4 = 70;
                 D_803D552C->unk2B4.state = 3;
@@ -613,7 +613,7 @@ void perform_behavior_racing_mouse(void) {
         D_803D552C->unk2B8 = 0;
         break;
     case 4:
-        if ((D_803D552C->unk2D0 >= 0xFA) || (D_803D552C->unk2B8++ >= 0x1F) || (D_803D552C->unk2C4 == 0)) {
+        if ((D_803D552C->targetDistance >= 0xFA) || (D_803D552C->unk2B8++ >= 0x1F) || (D_803D552C->unk2C4 == 0)) {
             D_803D552C->unk2B4.state = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
@@ -622,7 +622,7 @@ void perform_behavior_racing_mouse(void) {
     }
 }
 
-void func_803852B8_796968(void) {
+void perform_behavior_mouse2(void) {
 }
 
 void perform_behavior_heli_mouse(void) {
@@ -637,12 +637,12 @@ void perform_behavior_bear(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((func_80383830_794EE0(0xA) != 0) && (D_803D552C->unk2D0 < 0x2E)) {
+        if ((func_80383830_794EE0(0xA) != 0) && (D_803D552C->targetDistance < 0x2E)) {
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case 2:
-        if (D_803D552C->unk2D0 >= 0x38) {
+        if (D_803D552C->targetDistance >= 0x38) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 20);
             D_803D552C->unk2B4.state = 1;
         } else {
@@ -656,7 +656,7 @@ void perform_behavior_bear(void) {
         D_803D552C->unk2B4.state = 4;
         // fallthru
     case 4:
-        if ((D_803D552C->unk2D0 >= 0xC8) || (D_803D552C->unk2B8++ >= 0x3D)) {
+        if ((D_803D552C->targetDistance >= 0xC8) || (D_803D552C->unk2B8++ >= 0x3D)) {
             D_803D552C->unk2B4.state = 1;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 20);
         }
@@ -691,7 +691,7 @@ void perform_behavior_racing_fox(void) {
                 }
             }
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 51)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 51)) {
             if (func_80383830_794EE0(5) != 0) {
                 D_803D552C->unk2BC += 1;
                 if (D_803D552C->unk2BC < 4) {
@@ -714,7 +714,7 @@ void perform_behavior_racing_fox(void) {
                  fox_warp();
             }
         } else {
-            if (D_803D552C->unk2D0 >= 250) {
+            if (D_803D552C->targetDistance >= 250) {
                 D_803D552C->unk2B4.state = 1;
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
             }
@@ -722,7 +722,7 @@ void perform_behavior_racing_fox(void) {
     }
 }
 
-void func_80385710_796DC0(void) {
+void perform_behavior_tortoise_tank(void) {
     rmonPrintf("state %d\n", D_803D552C->unk2B4.state);
 
     switch (D_803D552C->unk2B4.state) {
@@ -731,20 +731,20 @@ void func_80385710_796DC0(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 501) {
+        if (D_803D552C->targetDistance < 501) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case 2:
         if (D_803D552C->unk2B8 > 0) {
-            D_803D552C->unk2B8 -= 1;
+            D_803D552C->unk2B8--;
         }
-        if (D_803D552C->unk2D0 >= 441) {
+        if (D_803D552C->targetDistance >= 441) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if (((D_803D552C->unk2D0 < 280) && (D_803D552C->unk2B8 <= 0)) ||
-                   (D_803D552C->unk2D0 < 120)) {
+        } else if (((D_803D552C->targetDistance < 280) && (D_803D552C->unk2B8 <= 0)) ||
+                   (D_803D552C->targetDistance < 120)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2B8 = 0;
@@ -754,7 +754,7 @@ void func_80385710_796DC0(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 351) || (D_803D552C->unk2B8++ >= 100)) {
+        if ((D_803D552C->targetDistance >= 351) || (D_803D552C->unk2B8++ >= 100)) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
             if (D_803D552C->unk2B8 >= 90) {
@@ -762,7 +762,7 @@ void func_80385710_796DC0(void) {
             } else {
                 D_803D552C->unk2B8 = 0;
             }
-        } else if (D_803D552C->unk2D0 < 0x78) {
+        } else if (D_803D552C->targetDistance < 0x78) {
             func_803562C8_767978(32000);
         }
     }
@@ -772,13 +772,13 @@ void func_80385710_796DC0(void) {
     }
 }
 
-void func_803859D4_797084(void) {
-    if (D_803D552C->unk2D0 >= 131) {
+void perform_behavior_tortoise_tank_defending(void) {
+    if (D_803D552C->targetDistance >= 131) {
         func_803562C8_767978(0);
     }
 }
 
-void func_80385A0C_7970BC(void) {
+void perform_behavior_racing_tortoise(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
@@ -796,7 +796,7 @@ void func_80385A0C_7970BC(void) {
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2B8 = 0;
         }
-        if ((D_803D552C->unk2D0 < 70) && (func_80383830_794EE0(5) != 0) && (func_8038395C_79500C() >= 12)) {
+        if ((D_803D552C->targetDistance < 70) && (func_80383830_794EE0(5) != 0) && (func_8038395C_79500C() >= 12)) {
             func_80356348_7679F8(20);
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
@@ -804,30 +804,30 @@ void func_80385A0C_7970BC(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 300) || (D_803D552C->unk2B8++ >= 91)) {
+        if ((D_803D552C->targetDistance >= 300) || (D_803D552C->unk2B8++ >= 91)) {
             D_803D552C->unk2B4.state = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
     }
 }
 
-void func_80385BE0_797290(void) {
+void perform_behavior_dog(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0x28) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 0x28) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if (D_803D552C->unk2D0 >= 0x33) {
+        } else if (D_803D552C->targetDistance >= 0x33) {
             if (D_803D552C->unk2C0 != 0) {
                 D_803D552C->unk2C0 = 0;
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
             }
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x33)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
             if (func_80383830_794EE0(5) != 0) {
                 D_803D552C->unk2BC = (D_803D552C->unk2BC + 1);
                 if (D_803D552C->unk2BC < 4) {
@@ -843,7 +843,7 @@ void func_80385BE0_797290(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 200) || (D_803D552C->unk2C0++ >= 61)) {
+        if ((D_803D552C->targetDistance >= 200) || (D_803D552C->unk2C0++ >= 61)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
@@ -859,7 +859,7 @@ void perform_behavior_king_rat(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0xFB) {
+        if (D_803D552C->targetDistance < 0xFB) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 2;
@@ -869,17 +869,17 @@ void perform_behavior_king_rat(void) {
         }
         break;
     case 2:
-        if (D_803D552C->unk2D0 >= 401) {
+        if (D_803D552C->targetDistance >= 401) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 1;
-        } else if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->unk2D0 < 200)) {
+        } else if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->targetDistance < 200)) {
             king_rat_fart(60);
             D_803D552C->unk2B8 = 180;
         }
     }
 
     if (D_803D552C->unk2B8 > 0) {
-        D_803D552C->unk2B8 -= 1;
+        D_803D552C->unk2B8--;
     }
 }
 
@@ -891,7 +891,7 @@ void perform_behavior_rat(void) {
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
-            if (D_803D552C->unk2D0 < 0x65) {
+            if (D_803D552C->targetDistance < 0x65) {
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2B4.state = 2;
@@ -903,7 +903,7 @@ void perform_behavior_rat(void) {
                 D_803D552C->unk2C4 = 0x3C;
             }
             if (D_803D552C->unk2C0 > 0) {
-                if (D_803D552C->unk2D0 < 0x96) {
+                if (D_803D552C->targetDistance < 0x96) {
                     func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
                     D_803D552C->unk2C0 = 0;
                 } else if (--D_803D552C->unk2C0 <= 0) {
@@ -911,7 +911,7 @@ void perform_behavior_rat(void) {
                     D_803D552C->unk2C0 = 0;
                     D_803D552C->unk2B4.state = 1;
                 }
-            } else if (D_803D552C->unk2D0 >= 0x12C) {
+            } else if (D_803D552C->targetDistance >= 0x12C) {
                 func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
                 D_803D552C->unk2C0 = ((guRandom() & 0x3F) + 0x96);
             }
@@ -930,7 +930,7 @@ void perform_behavior_rat(void) {
             }
             break;
         case 2:
-            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x29) && (func_80383830_794EE0(15) != 0)) {
+            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x29) && (func_80383830_794EE0(15) != 0)) {
                 rat_bite();
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 D_803D552C->unk2BC += 1;
@@ -957,7 +957,7 @@ void perform_behavior_rat(void) {
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
-            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x47) && (func_80383830_794EE0(15) != 0)) {
+            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x47) && (func_80383830_794EE0(15) != 0)) {
                 rat_bite();
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 if (++D_803D552C->unk2BC >= 6) {
@@ -1003,21 +1003,21 @@ void perform_behavior_sheep(void) {
     }
 }
 
-void func_803865A0_797C50(void) {
+void perform_behavior_ram(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 40) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 40) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 0x33) && (D_803D552C->unk2C0 != 0)){
+        } else if ((D_803D552C->targetDistance >= 0x33) && (D_803D552C->unk2C0 != 0)){
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x33)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
             if (func_80383830_794EE0(5) != 0) {
                 if (++D_803D552C->unk2BC < 4) {
                     ram_headbutt();
@@ -1032,7 +1032,7 @@ void func_803865A0_797C50(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 200) || (++D_803D552C->unk2C0 >= 0x1E)) {
+        if ((D_803D552C->targetDistance >= 200) || (++D_803D552C->unk2C0 >= 0x1E)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
@@ -1040,24 +1040,24 @@ void func_803865A0_797C50(void) {
     }
 }
 
-void func_803867B8_797E68(void) {
+void perform_behavior_springy_thingy(void) {
 }
 
-void func_803867C0_797E70(void) {
+void perform_behavior_springy_ram(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0x28) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 0x28) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 0x33) && (D_803D552C->unk2C0 != 0)) {
+        } else if ((D_803D552C->targetDistance >= 0x33) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0x33)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
             if (func_80383830_794EE0(5) != 0) {
                 if (++D_803D552C->unk2BC < 5) {
                     ram_headbutt();
@@ -1072,7 +1072,7 @@ void func_803867C0_797E70(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 200) || (++D_803D552C->unk2C0 >= 0x33)) {
+        if ((D_803D552C->targetDistance >= 200) || (++D_803D552C->unk2C0 >= 0x33)) {
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2C0 = 0;
             func_80363CC8_775378(D_803D5530);
@@ -1094,12 +1094,12 @@ void perform_behavior_penguin(void) {
         // fallthru
     case 1:
         if (D_803D552C->unk2C0 == 1) {
-            if (D_803D552C->unk2D0 >= 351) {
+            if (D_803D552C->targetDistance >= 351) {
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
                 D_803D552C->unk2B4.state = 1;
                 D_803D552C->unk2C0 = 0;
             }
-        } else if (D_803D552C->unk2D0 < 250) {
+        } else if (D_803D552C->targetDistance < 250) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2C0 = 1;
         }
@@ -1110,7 +1110,7 @@ void perform_behavior_penguin(void) {
     }
 }
 
-void func_80386BB8_798268(void) {
+void perform_behavior_polar_bear(void) {
     if (1) {}; // regalloc
 
     switch (D_803D552C->unk2B4.state) {
@@ -1119,7 +1119,7 @@ void func_80386BB8_798268(void) {
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0x32) && (D_803D552C->unk2C0 <= 0) && (D_803D552C->unk2B8 >= 2)) {
+        if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 <= 0) && (D_803D552C->unk2B8 >= 2)) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 0;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
@@ -1133,7 +1133,7 @@ void func_80386BB8_798268(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 0xAB) || (D_803D552C->unk2C0++ >= 61)) {
+        if ((D_803D552C->targetDistance >= 0xAB) || (D_803D552C->unk2C0++ >= 61)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2B8 = 0;
             D_803D552C->unk2C0 = 80;
@@ -1142,23 +1142,23 @@ void func_80386BB8_798268(void) {
     }
 }
 
-void func_80386D80_798430(void) {
+void perform_behavior_polar_tank(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 301) {
+        if (D_803D552C->targetDistance < 301) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case 2:
-        if (D_803D552C->unk2D0 >= 301) {
+        if (D_803D552C->targetDistance >= 301) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if (D_803D552C->unk2D0 < 200) {
+        } else if (D_803D552C->targetDistance < 200) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if (D_803D552C->unk2C4 <= 0) {
@@ -1173,21 +1173,21 @@ void func_80386D80_798430(void) {
             polar_tank_drop_mine();
             D_803D552C->unk2C4 = (guRandom() & 0xF) + 70;
         }
-        if (D_803D552C->unk2D0 >= 0xFB) {
+        if (D_803D552C->targetDistance >= 0xFB) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
     }
 }
 
-void func_80386F84_798634(void) {
+void perform_behavior_husky(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->unk2D0 < 0x53) && (func_80383830_794EE0(5) != 0)) {
+        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance < 0x53) && (func_80383830_794EE0(5) != 0)) {
             func_8036C014_77D6C4(0x1E);
             D_803D552C->unk2C4 = 60;
             D_803D552C->unk2B4.state = 2;
@@ -1200,7 +1200,7 @@ void func_80386F84_798634(void) {
         // fallthru
     case 3:
         if (D_803D552C->unk2C4 == 0) {
-            if ((D_803D552C->unk2D0 >= 200) || (D_803D552C->unk2C0++ >= 0x1E)) {
+            if ((D_803D552C->targetDistance >= 200) || (D_803D552C->unk2C0++ >= 0x1E)) {
                 D_803D552C->unk2B4.state = 1;
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
             }
@@ -1208,17 +1208,17 @@ void func_80386F84_798634(void) {
     }
 }
 
-void func_8038710C_7987BC(void) {
+void perform_behavior_crazy_husky(void) {
 }
 
-void func_80387114_7987C4(void) {
+void perform_behavior_ski_husky(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 401) {
+        if (D_803D552C->targetDistance < 401) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
@@ -1227,10 +1227,10 @@ void func_80387114_7987C4(void) {
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 -= 1;
         }
-        if (D_803D552C->unk2D0 >= 441) {
+        if (D_803D552C->targetDistance >= 441) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if ((D_803D552C->unk2D0 < 250) && (D_803D552C->unk2C0 <= 0)) {
+        } else if ((D_803D552C->targetDistance < 250) && (D_803D552C->unk2C0 <= 0)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else {
@@ -1243,21 +1243,21 @@ void func_80387114_7987C4(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 351) || (D_803D552C->unk2C0++ >= 71)) {
+        if ((D_803D552C->targetDistance >= 351) || (D_803D552C->unk2C0++ >= 71)) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
     }
 }
 
-void func_80387330_7989E0(void) {
+void perform_behavior_walrus(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0x191) {
+        if (D_803D552C->targetDistance < 0x191) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
@@ -1266,10 +1266,10 @@ void func_80387330_7989E0(void) {
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 = (D_803D552C->unk2C0 - 1);
         }
-        if (D_803D552C->unk2D0 >= 441) {
+        if (D_803D552C->targetDistance >= 441) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if ((D_803D552C->unk2D0 < 0xFA) && (D_803D552C->unk2C0 <= 0)) {
+        } else if ((D_803D552C->targetDistance < 0xFA) && (D_803D552C->unk2C0 <= 0)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(0x14) != 0)) {
@@ -1278,14 +1278,14 @@ void func_80387330_7989E0(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 0x15F) || (D_803D552C->unk2C0++ >= 0x47)) {
+        if ((D_803D552C->targetDistance >= 0x15F) || (D_803D552C->unk2C0++ >= 0x47)) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
     }
 }
 
-void func_8038754C_798BFC(void) {
+void perform_behavior_vulture2(void) {
     if (1) {}; // regalloc
 
     switch (D_803D552C->unk2B4.state) {
@@ -1294,7 +1294,7 @@ void func_8038754C_798BFC(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 2) {
+        if (D_803D552C->targetDistance < 2) {
             func_80363CC8_775378(D_803D5530);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2B8 = 0;
@@ -1315,7 +1315,7 @@ void func_8038754C_798BFC(void) {
         }
         break;
     case 4:
-        if ((D_803D552C->unk2D0 >= 0xC9) || (++D_803D552C->unk2C0 >= 0x79)) {
+        if ((D_803D552C->targetDistance >= 0xC9) || (++D_803D552C->unk2C0 >= 0x79)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, (-0x50 - D_803D552C->unk2CC->unk42), 16);
@@ -1323,17 +1323,17 @@ void func_8038754C_798BFC(void) {
     }
 }
 
-void func_80387780_798E30(void) {
+void perform_behavior_camel(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0xE6) && (D_803D552C->unk2C0 != 1)) {
+        if ((D_803D552C->targetDistance < 0xE6) && (D_803D552C->unk2C0 != 1)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 0xFB) && (D_803D552C->unk2C0 != 0)) {
+        } else if ((D_803D552C->targetDistance >= 0xFB) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
@@ -1343,7 +1343,7 @@ void func_80387780_798E30(void) {
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2B4.state = 2;
             }
-        } else if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0xFB)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0xFB)) {
             if (func_80383830_794EE0(5) != 0) {
                 func_8036F50C_780BBC(D_803D552C->unk2CC);
                 D_803D552C->unk2C4 = 20;
@@ -1351,7 +1351,7 @@ void func_80387780_798E30(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 0x172) || ((++D_803D552C->unk2C0 >= 0x3C))) {
+        if ((D_803D552C->targetDistance >= 0x172) || ((++D_803D552C->unk2C0 >= 0x3C))) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2BC = 0;
@@ -1360,57 +1360,57 @@ void func_80387780_798E30(void) {
     }
 }
 
-void func_803879A4_799054(void) {
+void perform_behavior_cannon_camel(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2C0 != 2) && (D_803D552C->unk2D0 < 0xFA)) {
+        if ((D_803D552C->unk2C0 != 2) && (D_803D552C->targetDistance < 0xFA)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2C0 = 2;
-        } else if ((D_803D552C->unk2C0 != 1) && (D_803D552C->unk2D0 < 300) && (D_803D552C->unk2D0 >= 251)) {
+        } else if ((D_803D552C->unk2C0 != 1) && (D_803D552C->targetDistance < 300) && (D_803D552C->targetDistance >= 251)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2C0 != 0) && (D_803D552C->unk2D0 >= 0x15F)) {
+        } else if ((D_803D552C->unk2C0 != 0) && (D_803D552C->targetDistance >= 0x15F)) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
 
-        if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->unk2D0 < 70)) {
+        if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->targetDistance < 70)) {
             func_8036F740_780DF0((func_801284B8(D_803D552C->unk2CC->xPos.h - D_803D5530->xPos.h, D_803D552C->unk2CC->zPos.h - D_803D5530->zPos.h) * 256) / 360);
             D_803D552C->unk2B8 = 0x14A;
         }
         if ((D_803D552C->unk2C4 <= 0) && (func_803838C8_794F78(D_803D552C->unk308, 5) != 0)) {
-            if (D_803D552C->unk2D0 < 0x17D) {
+            if (D_803D552C->targetDistance < 0x17D) {
                 camel_cannon_fire_cannon(D_803D552C->unk2CC);
                 D_803D552C->unk2C4 = (RAND(0x24) + 25);
             }
         }
         if (D_803D552C->unk2B8 > 0) {
-            D_803D552C->unk2B8 -= 1;
+            D_803D552C->unk2B8--;
         }
     }
 }
 
-void func_80387BF4_7992A4(void) {
+void perform_behavior_pogo_kangaroo(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0x12D) {
+        if (D_803D552C->targetDistance < 0x12D) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case 2:
-        if (D_803D552C->unk2D0 >= 0x15F) {
+        if (D_803D552C->targetDistance >= 0x15F) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if (D_803D552C->unk2D0 < 0x96) {
+        } else if (D_803D552C->targetDistance < 0x96) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
@@ -1419,31 +1419,31 @@ void func_80387BF4_7992A4(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 0xB5) || (++D_803D552C->unk2C0 >= 0x3D)) {
+        if ((D_803D552C->targetDistance >= 0xB5) || (++D_803D552C->unk2C0 >= 0x3D)) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
     }
 }
 
-void func_80387DE0_799490(void) {
+void perform_behavior_boxing_kangaroo(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0x28) {
+        if (D_803D552C->targetDistance < 0x28) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 < 0x28) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 0x28) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 0x3D) && (D_803D552C->unk2C0 != 0)) {
+        } else if ((D_803D552C->targetDistance >= 0x3D) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
@@ -1465,14 +1465,14 @@ void func_80387DE0_799490(void) {
     }
 }
 
-void func_8038801C_7996CC(void) {
+void perform_behavior_desert_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 251) && (func_80383830_794EE0(20) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 251) && (func_80383830_794EE0(20) != 0)) {
             func_803745C4_785C74(0x78); // attack?
             D_803D552C->unk2C4 = 0xB4;
         } else if (D_803D552C->unk2C4 > 0) {
@@ -1486,19 +1486,19 @@ void func_8038801C_7996CC(void) {
         break;
     case 2:
         if (D_803D552C->unk2C0 == 0) {
-            if (D_803D552C->unk2D0 >= 0x15F) {
+            if (D_803D552C->targetDistance >= 0x15F) {
                 D_803D552C->unk2C0 = 1U;
                 func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             }
         } else if (D_803D552C->unk2C0 == 1) {
-            if (D_803D552C->unk2D0 < 0x12C) {
+            if (D_803D552C->targetDistance < 0x12C) {
                 D_803D552C->unk2C0 = 0U;
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
-            } else if (D_803D552C->unk2D0 >= 0x1C3) {
+            } else if (D_803D552C->targetDistance >= 0x1C3) {
                 D_803D552C->unk2C0 = 2;
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             }
-        } else if (D_803D552C->unk2D0 < 0x190) {
+        } else if (D_803D552C->targetDistance < 0x190) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
@@ -1509,28 +1509,28 @@ void func_8038801C_7996CC(void) {
     }
 }
 
-void func_80388248_7998F8(void) {
+void perform_behavior_armed_desert_fox(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0x64) && (D_803D552C->unk2B8 <= 0)) {
+        if ((D_803D552C->targetDistance < 0x64) && (D_803D552C->unk2B8 <= 0)) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2BC = 0;
             D_803D552C->unk2C0 = 0;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 < 0xC8) && (D_803D552C->unk2C0 == 0)) {
+        } else if ((D_803D552C->targetDistance < 0xC8) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 0x12D) && (1 == D_803D552C->unk2C0)) {
+        } else if ((D_803D552C->targetDistance >= 0x12D) && (1 == D_803D552C->unk2C0)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2C0 = 0;
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 0xFB) || (++D_803D552C->unk2C0 >= 0x29)) {
+        if ((D_803D552C->targetDistance >= 0xFB) || (++D_803D552C->unk2C0 >= 0x29)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B8 = 0x14;
@@ -1540,9 +1540,9 @@ void func_80388248_7998F8(void) {
     }
 
     if (D_803D552C->unk2B8 > 0) {
-        D_803D552C->unk2B8 -= 1;
+        D_803D552C->unk2B8--;
     }
-    if (D_803D552C->unk2D0 < 0x191) {
+    if (D_803D552C->targetDistance < 0x191) {
         if (D_803D552C->unk2C4 <= 0) {
             if (func_80383830_794EE0(0xA) != 0) {
                 func_8037460C_785CBC();
@@ -1559,19 +1559,19 @@ void perform_behavior_scorpion(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0x32) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if (D_803D552C->unk2D0 >= 0x3D) {
+        } else if (D_803D552C->targetDistance >= 0x3D) {
             if (D_803D552C->unk2C0 == 1) {
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
                 D_803D552C->unk2C0 = 0;
             }
         }
-        if ((D_803D552C->unk2D0 < 0xFB) && (D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(2) != 0)) {
+        if ((D_803D552C->targetDistance < 0xFB) && (D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(2) != 0)) {
             func_80379148_78A7F8(D_803D552C->unk2CC);
             D_803D552C->unk2C4 = (RAND(0x32) + 0x96);
-        } else if ((D_803D552C->unk2D0 < 0x3D) && (D_803D552C->unk2B8 <= 0)) {
+        } else if ((D_803D552C->targetDistance < 0x3D) && (D_803D552C->unk2B8 <= 0)) {
             if ((D_803D552C->unk2BC < 6) && (D_803D552C->unk2C4 < 0x33)) {
                 func_803791AC_78A85C();
                 D_803D552C->unk2B8 = RAND(8) + 9;
@@ -1586,7 +1586,7 @@ void perform_behavior_scorpion(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 401) || (D_803D552C->unk2C0++ >= 90)) { // regalloc here
+        if ((D_803D552C->targetDistance >= 401) || (D_803D552C->unk2C0++ >= 90)) { // regalloc here
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 1;
@@ -1595,7 +1595,7 @@ void perform_behavior_scorpion(void) {
     }
 
     if (D_803D552C->unk2B8 > 0) {
-        D_803D552C->unk2B8 -= 1;
+        D_803D552C->unk2B8--;
     }
 }
 
@@ -1606,7 +1606,7 @@ void perform_behavior_gorilla(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0x32) && (D_803D552C->unk2C0 <= 0)) {
+        if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 <= 0)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 0;
@@ -1619,7 +1619,7 @@ void perform_behavior_gorilla(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 0xAB) || (D_803D552C->unk2C0++ >= 0x1F)) {
+        if ((D_803D552C->targetDistance >= 0xAB) || (D_803D552C->unk2C0++ >= 0x1F)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0x50;
@@ -1634,13 +1634,13 @@ void perform_behavior_elephant(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0xFB) {
+        if (D_803D552C->targetDistance < 0xFB) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case 2:
-        if (D_803D552C->unk2D0 >= 0x137) {
+        if (D_803D552C->targetDistance >= 0x137) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
@@ -1652,7 +1652,7 @@ void perform_behavior_elephant(void) {
         break;
     case 3:
         if ((D_803D552C->unk2C4 < 0x3D)) {
-            if (( D_803D552C->unk2D0 < 0x96)) {
+            if (( D_803D552C->targetDistance < 0x96)) {
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
                 D_803D552C->unk2B8 = 0;
                 D_803D552C->unk2B4.state = 4;
@@ -1663,7 +1663,7 @@ void perform_behavior_elephant(void) {
         }
         break;
     case 4:
-        if ((D_803D552C->unk2D0 >= 0xAB) || (D_803D552C->unk2B8++ >= 0x3D)) {
+        if ((D_803D552C->targetDistance >= 0xAB) || (D_803D552C->unk2B8++ >= 0x3D)) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
@@ -1671,7 +1671,7 @@ void perform_behavior_elephant(void) {
     }
 }
 
-void func_80388B0C_79A1BC(void) {
+void perform_behavior_hyena(void) {
     if (1) {}; // regalloc
 
     switch (D_803D552C->unk2B4.state) {
@@ -1682,24 +1682,24 @@ void func_80388B0C_79A1BC(void) {
         // fallthru
     case 1:
         if (D_803D552C->unk2C0 == 0) {
-            if (D_803D552C->unk2D0 >= 0xA1) {
+            if (D_803D552C->targetDistance >= 0xA1) {
                 D_803D552C->unk2C0 = 1;
                 func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             }
         } else if (D_803D552C->unk2C0 == 1) {
-            if (D_803D552C->unk2D0 < 0x64) {
+            if (D_803D552C->targetDistance < 0x64) {
                 D_803D552C->unk2C0 = 0U;
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
-            } else if (D_803D552C->unk2D0 >= 0xB5) {
+            } else if (D_803D552C->targetDistance >= 0xB5) {
                 D_803D552C->unk2C0 = 2U;
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             }
-        } else if (D_803D552C->unk2D0 < 0xA0) {
+        } else if (D_803D552C->targetDistance < 0xA0) {
             D_803D552C->unk2C0 = 1U;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
 
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2D0 < 0xC9)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0xC9)) {
             func_8035A590_76BC40(0x10E);
             D_803D552C->unk2C4 = 0x1E0;
         }
@@ -1707,7 +1707,7 @@ void func_80388B0C_79A1BC(void) {
     }
 }
 
-void func_80388CC8_79A378(void) {
+void perform_behavior_hyena_biker(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -1715,7 +1715,7 @@ void func_80388CC8_79A378(void) {
         D_803D552C->unk2C0 = 0;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0x1F5) {
+        if (D_803D552C->targetDistance < 0x1F5) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
         }
@@ -1724,10 +1724,10 @@ void func_80388CC8_79A378(void) {
         if (D_803D552C->unk2C0 > 0) {
             D_803D552C->unk2C0 -= 1;
         }
-        if ((D_803D552C->unk2C0 == 0) && (D_803D552C->unk2D0 >= 0x227)) {
+        if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance >= 0x227)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->unk2D0 < 0x12C)) {
+        } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance < 0x12C)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
@@ -1736,7 +1736,7 @@ void func_80388CC8_79A378(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 0x15F) || (D_803D552C->unk2C0++ >= 0x47)){
+        if ((D_803D552C->targetDistance >= 0x15F) || (D_803D552C->unk2C0++ >= 0x47)){
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 70;
@@ -1744,7 +1744,7 @@ void func_80388CC8_79A378(void) {
     }
 }
 
-void func_80388F10_79A5C0(void) {
+void perform_behavior_chameleon(void) {
     if (1) {}; // regalloc
 
     switch (D_803D552C->unk2B4.state) {
@@ -1753,14 +1753,14 @@ void func_80388F10_79A5C0(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2D0 < 0x32) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 0x32) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 0x3D) && (D_803D552C->unk2C0 == 1)) {
+        } else if ((D_803D552C->targetDistance >= 0x3D) && (D_803D552C->unk2C0 == 1)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2C0 = 0;
         }
-        if ((D_803D552C->unk2D0 < 0x3D) && (D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2BC < 3)) {
+        if ((D_803D552C->targetDistance < 0x3D) && (D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2BC < 3)) {
             func_8035C10C_76D7BC();
             D_803D552C->unk2C4 = RAND(8) + 9;
             D_803D552C->unk2BC += 1;
@@ -1772,7 +1772,7 @@ void func_80388F10_79A5C0(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 >= 0xC9) || (D_803D552C->unk2C0++ >= 0x5A)) {
+        if ((D_803D552C->targetDistance >= 0xC9) || (D_803D552C->unk2C0++ >= 0x5A)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 1;
@@ -1780,20 +1780,20 @@ void func_80388F10_79A5C0(void) {
     }
 }
 
-void func_80389150_79A800(void) {
+void perform_behavior_sneaky_chameleon(void) {
 }
 
-void func_80389158_79A808(void) {
+void perform_behavior_evo(void) {
 }
 
-void func_80389160_79A810(void) {
+void perform_behavior_king_penguin(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0xFB) {
+        if (D_803D552C->targetDistance < 0xFB) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2C0 = 0;
             D_803D552C->unk2B4.state = 2;
@@ -1803,7 +1803,7 @@ void func_80389160_79A810(void) {
         }
         break;
     case 2:
-        if (D_803D552C->unk2D0 >= 0x191) {
+        if (D_803D552C->targetDistance >= 0x191) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 1;
         } else if (D_803D552C->unk2C4 <= 0) {
@@ -1813,16 +1813,16 @@ void func_80389160_79A810(void) {
     }
 }
 
-void func_803892D4_79A984(void) {
+void perform_behavior_racing_tortoise_defending(void) {
 }
 
 void perform_behavior_polar_bear_defending(void) {
 }
 
-void func_803892E4_79A994(void) {
+void perform_behavior_hard_mouse(void) {
 }
 
-void func_803892EC_79A99C(void) {
+void perform_behavior_vulture(void) {
 }
 
 void perform_behavior_seagull(void) {
@@ -1832,7 +1832,7 @@ void perform_behavior_seagull(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 2) {
+        if (D_803D552C->targetDistance < 2) {
             func_80363CC8_775378(D_803D5530);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2B8 = 0;
@@ -1854,7 +1854,7 @@ void perform_behavior_seagull(void) {
         }
         break;
     case 4:
-        if ((D_803D552C->unk2D0 >= 0xC9) || (++D_803D552C->unk2C0 >= 0x79)) {
+        if ((D_803D552C->targetDistance >= 0xC9) || (++D_803D552C->unk2C0 >= 0x79)) {
             D_803D552C->unk2B4.state = 1;
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -0x50 - D_803D552C->unk2CC->unk42, 16);
@@ -1865,14 +1865,14 @@ void perform_behavior_seagull(void) {
 void perform_behavior_seagull2(void) {
 }
 
-void func_80389524_79ABD4(void) {
+void perform_behavior_pirana(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (D_803D552C->unk2D0 < 0x28) {
+        if (D_803D552C->targetDistance < 0x28) {
             func_80382CC0_794370(0x96);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C4 = 0x96;
@@ -1881,10 +1881,10 @@ void func_80389524_79ABD4(void) {
         }
         break;
     case 2:
-        if ((D_803D552C->unk2D0 < 0x1E) && (D_803D552C->unk2C0 == 0)) {
+        if ((D_803D552C->targetDistance < 0x1E) && (D_803D552C->unk2C0 == 0)) {
             D_803D552C->unk2C0 = 1;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2D0 >= 0x3D) && (D_803D552C->unk2C0 != 0)) {
+        } else if ((D_803D552C->targetDistance >= 0x3D) && (D_803D552C->unk2C0 != 0)) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
@@ -1895,74 +1895,73 @@ void func_80389524_79ABD4(void) {
         }
         break;
     case 3:
-        if ((D_803D552C->unk2D0 >= 0xC8) || (++D_803D552C->unk2C0 >= 0x5B)) {
+        if ((D_803D552C->targetDistance >= 0xC8) || (++D_803D552C->unk2C0 >= 0x5B)) {
             D_803D552C->unk2B4.state = 1;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
     }
 }
 
-void func_8038974C_79ADFC(void) {
+void perform_behavior_crow(void) {
     // no behavior for crow
 }
 
-void func_80389754_79AE04(void) {
+void perform_behavior_crow_diver(void) {
     // no behavior for pogo kangaroo
 }
 
-void func_8038975C_79AE0C(void) {
+void perform_behavior_cool_cod(void) {
     // no behaviour for cool cod
 }
 
 // ESA: func_8006B844
 void func_80389764_79AE14(u8 arg0) {
     D_803F63F0 = arg0;
-    D_803B5D20[D_803D5524->unk9C]();
+    behaviour_lut[D_803D5524->unk9C]();
 }
 
 // file split ?
 
 s32 func_803897B0_79AE60(u8 arg0) {
     s16 phi_a3;
-    s16 phi_a0;
-    s16 sp22;
+    s16 delay;
+    s16 allowJump;
 
     if (arg0 == 1) {
         phi_a3 = 10;
-        phi_a0 = 20;
-        sp22 = 0;
+        delay = 20;
+        allowJump = 0;
     } else {
         phi_a3 = 16;
-        phi_a0 = 15;
-        sp22 = 1;
+        delay = 15;
+        allowJump = 1;
     }
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
-        func_80363FB8_775668(D_803D5530, (guRandom() %  360), -180, phi_a3);
+        func_80363FB8_775668(D_803D5530, guRandom() % 360, -180, phi_a3);
         D_803D552C->unk2B8 = (guRandom() & 0xF) + 20;
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
         if (--D_803D552C->unk2B8 <= 0) {
-            func_80363FB8_775668(D_803D5530, (guRandom() %  360), -128, -1);
+            func_80363FB8_775668(D_803D5530, guRandom() % 360, -128, -1);
             D_803D552C->unk2B8 = 0;
             D_803D552C->unk2BC = (guRandom() & 3) + 4;
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case 2:
-        if (++D_803D552C->unk2B8 >= phi_a0) {
-            func_80363FB8_775668(D_803D5530, (guRandom() %  360), -128, -1);
+        if (++D_803D552C->unk2B8 >= delay) {
+            func_80363FB8_775668(D_803D5530, guRandom() % 360, -128, -1);
             D_803D552C->unk2B8 = 0;
-            D_803D552C->unk2BC -= 1;
-            if (D_803D552C->unk2BC <= 0) {
+            if (--D_803D552C->unk2BC <= 0) {
                 return 1;
             }
         }
     }
 
-    if (sp22 != 0) {
+    if (allowJump) {
         if (--D_803D552C->unk2C0 <= 0) {
             animal_jump();
             D_803D552C->unk2C0 = (guRandom() & 0xF) + 70;

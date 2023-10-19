@@ -1,10 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-// TODO:
-void func_802BA220_6CB8D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s32 arg5); // tbd
-void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct087 *arg4);
-
 
 // TBD figure out types
 extern struct077 D_803B5E30_7C74E0[];

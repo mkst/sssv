@@ -117,10 +117,10 @@ void func_80300210_7118C0(void) {
             func_802DB8DC_6ECF8C();
             switch (D_803F2ECE) {
             case 1:
-                func_802DB670_6ECD20(&D_803A5340_7B69F0, &D_803A534C_7B69FC, &D_803A5358_7B6A08, &D_803A536C_7B6A1C);
+                func_802DB670_6ECD20(D_803A5340_7B69F0, D_803A534C_7B69FC, D_803A5358_7B6A08, D_803A536C_7B6A1C);
                 break;
             case 2:
-                func_802DB670_6ECD20(&D_803A5340_7B69F0, &D_803A534C_7B69FC, &D_803A5358_7B6A08, &D_803A5398_7B6A48);
+                func_802DB670_6ECD20(D_803A5340_7B69F0, D_803A534C_7B69FC, D_803A5358_7B6A08, D_803A5398_7B6A48);
                 break;
             }
         }
@@ -201,7 +201,7 @@ void func_80300210_7118C0(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp88 == 0) || (sp88 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->unk302, &D_01033190, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (s16) (D_803D552C->yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->unk302, D_01033190, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp88 == 0) {
         func_80303820_714ED0(D_803D552C, 1, 1, 0x177, 1);

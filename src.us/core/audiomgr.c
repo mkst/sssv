@@ -118,8 +118,7 @@ s32 D_8015515C = -1;
 s32 D_80155160 = -0;
 s8  D_80155164[1] = {-1}; //, 0, 0, 0};
 u8  D_80155168[1] = {0}; //, 0, 0, 0};
-s16 D_8015516C = -1;
-//8015516E ?
+s16 D_8015516C[2] = {-1, 0};
 s8  D_80155170 = -1;
 s8  D_80155174 = -1;
 u8  D_80155178 = 0;
@@ -534,39 +533,37 @@ void __clearAudioDMA(void)
     audFrameCt++;
 }
 
-#ifdef NON_MATCHING
-
 void initialise_audio(s32 *arg0) {
     s32 pad2[2];
-    ALSynConfig synConfig;   // sp1EC
-    ALSndpConfig sndpConfig; // sp1E0
-    ALSeqpConfig sp170[4];
-    u8 **var_s0_3;
+    ALSynConfig  synConfig;   // sp1EC
+    ALSndpConfig sndpConfig;  // sp1E0
+    ALSeqpConfig sp170[4];    // we only use 1!
+    u8 **fake;
     s32 i;
     s16 maxSeqArrayLen;
     s32 seqCount;
-    s32 pad[4];
+    s32 pad[3];
+    s32 tmp;
     struct121 params; // sp48
-    int seqBytesNeeded;
 
     // struct copy
     params = D_80155190;
 
     gAudioInitialized = 1;
-
-    for (i = 0; i < (AUDIO_HEAP_SIZE / 4); i++) {
+    
+    for (i = 0; i < AUDIO_HEAP_SIZE; i++) {
         D_80242508[i] = 0;
     }
     alHeapInit(&D_80286328, D_80242508, AUDIO_HEAP_SIZE);
 
-    D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable1_bin - alBankFile1_bin);
-    dma_read(alBankFile1_bin, D_802862F8, alTable1_bin - alBankFile1_bin);
-    if ((var_s0_3 && var_s0_3) && var_s0_3) {};
-    alBnkfNew(D_802862F8, alTable1_bin);
+    D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable1_ROM_START - alBankFile1_ROM_START);
+    dma_read(alBankFile1_ROM_START, D_802862F8, alTable1_ROM_START - alBankFile1_ROM_START);
+    if ((fake && fake) && fake) {};
+    alBnkfNew(D_802862F8, alTable1_ROM_START);
 
-    D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable2_bin - alBankFile2_bin);
-    dma_read(alBankFile2_bin, D_802862FC, alTable2_bin - alBankFile2_bin);
-    alBnkfNew(D_802862FC, alTable2_bin);
+    D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable2_ROM_START - alBankFile2_ROM_START);
+    dma_read(alBankFile2_ROM_START, D_802862FC, alTable2_ROM_START - alBankFile2_ROM_START);
+    alBnkfNew(D_802862FC, alTable2_ROM_START);
 
     D_80286300 = D_802862FC->bankArray[0];
     D_80286304 = D_802862F8->bankArray[0];
@@ -581,7 +578,7 @@ void initialise_audio(s32 *arg0) {
     synConfig.params = &params;
     amCreateAudioMgr(&synConfig, /* priority */ 12);
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 1; i++) {
         sp170[i].maxVoices = MAX_VOICES;
         sp170[i].maxEvents = 0x100;
         sp170[i].maxChannels = 0x10;
@@ -607,23 +604,22 @@ void initialise_audio(s32 *arg0) {
         D_80286338[i] = (struct017 *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, sizeof(struct017));
     }
 
-    D_80286320 = D_8028631C = NULL;
+    D_8028631C = D_80286320 = NULL;
 
     func_80132044(-1);
 
     D_80286308 = (ALSeqFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, 4); // allocations are aligned to 16 bytes
-    // if (i && i) {};
+
     osWritebackDCacheAll();
-    dma_read(alSeqFile_bin, D_80286308, 8);
+    dma_read(alSeqFile_ROM_START, D_80286308, 8);
 
-    seqBytesNeeded = (D_80286308->seqCount << 3) + 4;
+    tmp = (D_80286308->seqCount << 3) + 4;
+    maxSeqArrayLen = (D_80286308->seqCount << 3) + 4;
 
-    if (!seqBytesNeeded) {};
-
-    D_8028630C = (ALSeqFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, (s16)seqBytesNeeded);
+    D_8028630C = (ALSeqFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, tmp);
     osWritebackDCacheAll();
-    dma_read(alSeqFile_bin, D_8028630C, (s16)seqBytesNeeded);
-    alSeqFileNew(D_8028630C, alSeqFile_bin);
+    dma_read(alSeqFile_ROM_START, D_8028630C, maxSeqArrayLen);
+    alSeqFileNew(D_8028630C, alSeqFile_ROM_START);
 
     if (!D_8028630C->seqArray[seqCount].len) {};
 
@@ -633,6 +629,7 @@ void initialise_audio(s32 *arg0) {
             maxSeqArrayLen = D_8028630C->seqArray[seqCount].len;
         }
     }
+    
     // align to 2 bytes
     if (maxSeqArrayLen & 1) {
         maxSeqArrayLen += 1;
@@ -641,9 +638,6 @@ void initialise_audio(s32 *arg0) {
         D_80286314[i] = alHeapDBAlloc(NULL, 0, &D_80286328, 1, maxSeqArrayLen);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/initialise_audio.s")
-#endif
 
 #ifdef NON_MATCHING
 // CURRENT (130)
@@ -653,7 +647,6 @@ void func_80132044(s32 arg0) {
     if (gAudioInitialized == 0) {
         return;
     }
-
     if (arg0 == -1) {
         // clear all
         for (i = 0; i < 20; i++){
@@ -691,8 +684,6 @@ struct017 *func_801320EC(void) {
     return D_80286338[i];
 }
 
-#if 0
-// CURRENT (705)
 void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
     struct017 *cur;
     struct017 *var_a0;
@@ -728,17 +719,18 @@ void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
 
             // shuffle some nodes about?
             while (var_a0 != NULL) {
-                prev_node = var_a0;
-                if ((var_a0->unk0 - cur->unk0) < 0) {
+                s32 diff = var_a0->unk0 - cur->unk0;
+                if (diff < 0) {
+                    prev_node = var_a0;
                     var_a0 = var_a0->next;
-                } else  {
+                } else {
                     if (var_a0->prev != NULL) {
                         // insert
                         var_a0->prev->next = cur;
                         cur->next = var_a0;
                         cur->prev = var_a0->prev;
                         var_a0->prev = cur;
-                    } else if ((cur->sndID == var_a0->sndID) && (var_a0->sndSlot == -1)) {
+                    } else if ((var_a0->sndID == cur->sndID) && (var_a0->sndSlot == -1)) {
                         func_80132044(cur->unk1E);
                     } else {
                         cur->next = var_a0;
@@ -749,6 +741,7 @@ void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
                     return;
                 }
             }
+
             // simple insertion?
             prev_node->next = cur;
             cur->next = NULL;
@@ -757,9 +750,6 @@ void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80132174.s")
-#endif
 
 void func_801322EC(struct017 *arg0, struct017 **arg1, struct017 **arg2) {
 
@@ -866,7 +856,7 @@ struct017 *func_80132568(void) {
     return *bar;
 }
 
-struct017 *func_80132580(s32 arg0, s16 id) {
+struct017 *get_sound_by_object_and_id(s32 arg0, s16 id) {
     struct017 *snd;
 
     if (gAudioInitialized == 0) {
@@ -908,27 +898,29 @@ s32 get_seqp_state(s8 arg0) {
     return D_802863C8[arg0]->state;
 }
 
-#ifdef NON_MATCHING // JUSTREG
 void func_801326A8(s8 src, s8 dest) {
-    s32 pad;
+    f32 tmp;
+    s16 volume;
+    
     if (gAudioInitialized == 0) {
         return;
     }
 
     if (get_seqp_state(dest) == 0) {
-        s16 volume;
         load_sequence(src, dest);
         alSeqpSetBank(D_802863C8[dest], D_802862F8->bankArray[0]);
         alCSeqNew(D_802863CC[dest], D_80286314[dest]);
         alSeqpSetSeq(D_802863C8[dest], (ALSeq*)D_802863CC[dest]);
         if (D_801546A8[dest] == 0) {
-            volume = D_801550F8[src] * gMusicVolume * D_8015517C;
+            volume = (D_801550F8[src] * gMusicVolume) * D_8015517C;
         } else {
-            volume = ((D_801546B4[dest] * D_801550F8[D_8015516C[dest]]) +
-                      ((D_801546B8[dest] * (D_801550F8[D_8015516C[dest]] * D_801546AC[dest])) / D_801546B0[dest])) * gMusicVolume * D_8015517C;
+            volume = (((D_801546B4[dest] * D_801550F8[D_8015516C[dest]]) +
+                      ((D_801546B8[dest] * (D_801550F8[D_8015516C[dest]] * D_801546AC[dest])) / D_801546B0[dest])) * gMusicVolume) * D_8015517C;
         }
 
-        alSeqpSetVol(D_802863C8[dest], volume * (2048.0f / D_801546D8));
+        tmp = D_801546D8 / (1 * 2048.0f);
+        volume *= tmp;
+        alSeqpSetVol(D_802863C8[dest], volume);
         alSeqpPlay(D_802863C8[dest]);
 
         D_80155168[dest] = 1;
@@ -936,9 +928,6 @@ void func_801326A8(s8 src, s8 dest) {
         D_801546E4 = 0;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_801326A8.s")
-#endif
 
 #if 0
 // need to migrate bss and data
@@ -1192,64 +1181,56 @@ void func_80133188(s16 id, s16 volume, s16 arg2) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_8013328C(void *object, s16 id, s16 pan, f32 pitch, s16 volume, s16 arg5) {
-    struct017 *var_v1;
-    struct017 sp58;
+    struct017 *snd;
+    struct017 newSnd;
     s16 vol;
 
-    var_v1 = func_80132580(object, id);
-    if (var_v1 != NULL) {
-        if (var_v1->sndSlot >= 0) {
+    snd = get_sound_by_object_and_id(object, id);
+    if (snd != NULL) {
+        if (snd->sndSlot > -1) {
 
-            alSndpSetSound(D_80286310, var_v1->sndSlot);
+            alSndpSetSound(D_80286310, snd->sndSlot);
 
-            if ((pan != var_v1->sndPan)) {
+            if (snd->sndPan != pan) {
                 alSndpSetPan(D_80286310, pan);
-                var_v1->sndPan = pan;
+                snd->sndPan = pan;
             }
 
-            if ((D_801546E8[id] * pitch) != var_v1->sndPitch) {
+            if (snd->sndPitch != (D_801546E8[id] * pitch)) {
                 alSndpSetPitch(D_80286310, (D_801546E8[id] * pitch));
-                var_v1->sndPitch = D_801546E8[id] * pitch;
+                snd->sndPitch = D_801546E8[id] * pitch;
             }
 
-            if (!volume) {}; // helps/hinders
-
-            if (var_v1->sndVolume != volume) {
+            if (snd->sndVolume != volume) {
                 if (D_801546BC == 1) {
-                    vol = ((var_v1->sndVolume * D_801546C8) + ((D_801546CC * (var_v1->sndVolume * D_801546C0)) / D_801546C4)) * gSfxVolume;
+                    vol = ((volume * D_801546C8) + ((D_801546CC * (volume * D_801546C0)) / D_801546C4)) * gSfxVolume;
                 } else {
-                    vol = var_v1->sndVolume * gSfxVolume;
+                    vol = volume * gSfxVolume;
                 }
                 alSndpSetVol(D_80286310, vol);
-                var_v1->sndVolume = volume;
+                snd->sndVolume = volume;
             }
         }
-        var_v1->counter = 6;
-        return;
+        snd->counter = 6;
+    } else {
+        // create a new sound
+        newSnd.unk0 = arg5;
+        newSnd.unk14 = 0;
+        newSnd.unk18 = 0;
+        newSnd.sndPan = pan;
+        newSnd.sndPitch = D_801546E8[id] * pitch;
+        newSnd.sndArrayIndex = 0;
+        newSnd.sndID = id;
+        newSnd.sndVolume = volume;
+        newSnd.object = object;
+        newSnd.counter = 6;
+        newSnd.unk10 = D_80241D0E;
+        newSnd.sndSlot = -1;
+
+        func_80132174(newSnd, &D_8028631C, &D_80286320);
     }
-
-    // create a new sound?
-    sp58.unk0 = arg5;
-    sp58.unk14 = 0;
-    sp58.unk18 = 0;
-    sp58.sndPan = pan;
-    sp58.sndPitch = D_801546E8[id] * pitch;
-    if (1) {};
-    sp58.sndArrayIndex = 0;
-    sp58.sndID = id;
-    sp58.sndVolume = volume;
-    sp58.object = object;
-    sp58.counter = 6;
-    sp58.unk10 = D_80241D0E;
-    sp58.sndSlot = -1;
-
-    func_80132174(sp58, &D_8028631C, &D_80286320);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_8013328C.s")
-#endif
 
 void play_sound_by_id_with_volume(u8 id, s16 vol) {
     struct017 *snd = get_sound_by_id(id);
@@ -1399,15 +1380,14 @@ void func_80133BE4(void) {
     }
 }
 
-#ifdef NON_MATCHING // (almost) JUSTREG
 void func_80133C50(void) {
     float tmp;
     s16 i;
     s16 volume;
 
     for (i = 0; i < 1; i++) {
-        if ((D_8015516C[i] != 1) && ((u8)D_80155168[i] == -1)) {
-            tmp = 2048.0f / D_801546D8;
+        if ((D_8015516C[i] != -1) && ((u8)D_80155168[i] == 1)) {
+            tmp = D_801546D8 / (1 * 2048.0f); // urgh
 
             if (D_801546A8[i] == 1) {
                 volume = ((D_801546B4[i] * D_801550F8[D_8015516C[i]]) + ((D_801546B8[i] * (D_801550F8[D_8015516C[i]] * D_801546AC[i])) / D_801546B0[i])) * gMusicVolume * D_8015517C;
@@ -1420,9 +1400,6 @@ void func_80133C50(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80133C50.s")
-#endif
 
 void func_80133E44(void) {
     alCSeqGetLoc(D_802863CC[0], &D_80286460);
