@@ -19,8 +19,8 @@ void func_8013107C(struct018 *arg0, s32 data_ptr, s32 data_size, s8 type, s32 ms
             task->list.t.data_ptr = (u64*)data_ptr;
             task->list.t.data_size = data_size;
             task->list.t.flags = 0;
-            task->list.t.ucode = (u64*)gspFast3DTextStart;
-            task->list.t.ucode_data = (u64*)gspFast3DDataStart;
+            task->list.t.ucode = (u64*)gspSprite2DTextStart;
+            task->list.t.ucode_data = (u64*)gspSprite2DDataStart;
             task->list.t.output_buff = NULL;
             task->list.t.output_buff_size = NULL;
             task->list.t.yield_data_ptr = NULL;

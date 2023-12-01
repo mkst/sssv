@@ -39,34 +39,34 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
     collision = arg0->unk16C->collision;
     if (collision == NULL) {
-        *arg3 = arg0->yPos.w + (arg0->unk42 << 0x10);
-        *arg4 = arg0->yPos.w;
+        *arg3 = arg0->position.yPos.w + (arg0->unk42 << 0x10);
+        *arg4 = arg0->position.yPos.w;
         return 1;
     }
 
     temp_t6 = (arg0->unk40 << 6) >> 0xC;
 
-    if ((arg1 >= (arg0->xPos.h - temp_t6)) && (arg1 < (arg0->xPos.h + temp_t6)) &&
-        (arg2 >= (arg0->zPos.h - temp_t6)) && (arg2 < (arg0->zPos.h + temp_t6))) {
+    if ((arg1 >= (arg0->position.xPos.h - temp_t6)) && (arg1 < (arg0->position.xPos.h + temp_t6)) &&
+        (arg2 >= (arg0->position.zPos.h - temp_t6)) && (arg2 < (arg0->position.zPos.h + temp_t6))) {
 
         temp_t1 = temp_t6 * 2;
 
         switch (arg0->yRotation) {              /* irregular */
         case 90:
-            var_a0 = (arg0->zPos.h + temp_t6) - arg2;
-            var_a2 = (arg1 - arg0->xPos.h) + temp_t6;
+            var_a0 = (arg0->position.zPos.h + temp_t6) - arg2;
+            var_a2 = (arg1 - arg0->position.xPos.h) + temp_t6;
             break;
         case 180:
-            var_a0 = (arg0->xPos.h + temp_t6) - arg1;
-            var_a2 = (arg0->zPos.h + temp_t6) - arg2;
+            var_a0 = (arg0->position.xPos.h + temp_t6) - arg1;
+            var_a2 = (arg0->position.zPos.h + temp_t6) - arg2;
             break;
         case 270:
-            var_a0 = (arg2 - arg0->zPos.h) + temp_t6;
-            var_a2 = (arg0->xPos.h + temp_t6) - arg1;
+            var_a0 = (arg2 - arg0->position.zPos.h) + temp_t6;
+            var_a2 = (arg0->position.xPos.h + temp_t6) - arg1;
             break;
         default:
-            var_a0 = (arg1 - arg0->xPos.h) + temp_t6;
-            var_a2 = (arg2 - arg0->zPos.h) + temp_t6;
+            var_a0 = (arg1 - arg0->position.xPos.h) + temp_t6;
+            var_a2 = (arg2 - arg0->position.zPos.h) + temp_t6;
             break;
         }
 
@@ -86,14 +86,14 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                     for (i = 31; (collision->data[index] & (1 << i)) == 0; i--);
 
                     sp68 = i;
-                    sp78 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
+                    sp78 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
                 } else {
-                    sp78 = arg0->yPos.w;
+                    sp78 = arg0->position.yPos.w;
                     sp68 = 0;
                 }
 
                 if ((temp_lo_2 + 1) >= 0x20) {
-                    var_t0 = arg0->yPos.w;
+                    var_t0 = arg0->position.yPos.w;
                     var_t5 = 0;
                     sp54 = 0;
                 } else {
@@ -102,17 +102,17 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
                     if (collision->data[index] != 0) {
                         for (i = 31; (collision->data[index] & (1 << i)) == 0; i--);
-                        var_t0 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
+                        var_t0 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
                         var_t5 = i;
                     } else {
-                        var_t0 = arg0->yPos.w;
+                        var_t0 = arg0->position.yPos.w;
                         var_t5 = 0;
                     }
                 }
 
                 if (((temp_lo + 1) >= 0x20) || ((temp_lo_2 + 1) >= 0x20)) {
                     var_t1 = 0;
-                    var_t3 = arg0->yPos.w;
+                    var_t3 = arg0->position.yPos.w;
                     sp50 = 0;
                 } else {
                     index = temp_lo + ((temp_lo_2 + 1) << 5) + 1;
@@ -122,9 +122,9 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                         for (i = 31; (collision->data[index] & (1 << i)) == 0; i--);
 
                         var_t1 = i;
-                        var_t3 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
+                        var_t3 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
                     } else {
-                        var_t3 = arg0->yPos.w;
+                        var_t3 = arg0->position.yPos.w;
                         var_t1 = 0;
                     }
                 }
@@ -143,7 +143,7 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                 if (collision->data[index] != 0) {
                     for (j = 0; (collision->data[index] & (1 << j)) == 0; j++);
 
-                    *arg4 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((j - 16) * temp_t1) << 0xB);
+                    *arg4 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((j - 16) * temp_t1) << 0xB);
                 } else {
                     return 0;
                 }
@@ -155,15 +155,15 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                     for (i = 31; (collision->data[index] & (1 << i)) == 0; i--);
 
                     sp68 = i;
-                    sp78 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
+                    sp78 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
                 } else {
-                    sp78 = arg0->yPos.w;
+                    sp78 = arg0->position.yPos.w;
                     sp68 = 0;
                 }
 
                 if (((temp_lo + 1) >= 0x20) || ((temp_lo_2 + 1) >= 0x20)) {
                     var_t1 = 0;
-                    var_t3 = arg0->yPos.w;
+                    var_t3 = arg0->position.yPos.w;
                     sp50 = 0;
                 } else {
                     index = (temp_lo + 1) + ((temp_lo_2 + 1) << 5) ;
@@ -172,16 +172,16 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                     if (collision->data[index] != 0) {
                         for (i = 31; (collision->data[index] & (1 << i)) == 0; i--);
 
-                        var_t3 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
+                        var_t3 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
                         var_t1 = i;
                     } else {
-                        var_t3 = arg0->yPos.w;
+                        var_t3 = arg0->position.yPos.w;
                         var_t1 = 0;
                     }
                 }
 
                 if ((temp_lo + 1) >= 0x20) {
-                    var_t0 = arg0->yPos.w;
+                    var_t0 = arg0->position.yPos.w;
                     sp6C = 0;
                 } else {
                     index = (temp_lo + 1) + (temp_lo_2 << 5);
@@ -189,10 +189,10 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
                     if (collision->data[index] != 0) {
                         for (i = 0x1F; (collision->data[index] & (1 << i)) == 0; i--);
-                        var_t0 = arg0->yPos.w + (arg0->unk42 << 0xF);
+                        var_t0 = arg0->position.yPos.w + (arg0->unk42 << 0xF);
                         var_t0 += (((i - 0xF) * temp_t1) << 0xB);
                     } else {
-                        var_t0 = arg0->yPos.w;
+                        var_t0 = arg0->position.yPos.w;
                     }
                 }
 
@@ -210,7 +210,7 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                 if (collision->data[index] != 0) {
                     for (j = 0; (collision->data[index] & (1 << j)) == 0; j++);
 
-                    *arg4 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((j - 16) * temp_t1) << 0xB);
+                    *arg4 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((j - 16) * temp_t1) << 0xB);
                 } else {
                     return 0;
                 }
@@ -225,8 +225,8 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
             for (i = 31; (collision->data[index] & (1 << i)) == 0; i--);
             for (j = 0;  (collision->data[index] & (1 << j)) == 0; j++);
 
-            *arg3 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
-            *arg4 = arg0->yPos.w + (arg0->unk42 << 0xF) + (((j - 16) * temp_t1) << 0xB);
+            *arg3 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
+            *arg4 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((j - 16) * temp_t1) << 0xB);
             return 1;
         } else {
             return 0;

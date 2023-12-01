@@ -61,9 +61,9 @@ void func_8035E430_76FAE0(void) {
     } else {
 
         spA2 = func_802E89F0_6FA0A0(
-            D_803D552C->xPos.w,
-            D_803D552C->zPos.w,
-            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.xPos.w,
+            D_803D552C->position.zPos.w,
+            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
             (((((scale * 15)) << 7) * 52)) / 32,
             7,
             50,
@@ -125,9 +125,9 @@ void func_8035E430_76FAE0(void) {
                 ticks_remaining = D_803D5544 - D_803D552C->unk32A;
                 if (ticks_remaining == 2) {
                     if (func_803224C4_733B74(6, 25, 0, 22, 6, 40, 300, 7)) {
-                        play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
+                        play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.3f);
                     } else {
-                        play_sound_effect_at_location(SFX_UNKNOWN_6, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
+                        play_sound_effect_at_location(SFX_UNKNOWN_6, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.3f);
                     }
                 } else if (ticks_remaining >= 6) {
                     D_803D552C->unk365 = ATTACK_NONE;
@@ -149,9 +149,9 @@ void func_8035E430_76FAE0(void) {
             switch (D_803D552C->unk365) {
             case ATTACK_FART_CLOUD:
                 create_particle_effect(
-                    D_803D5530->xPos.h + (SSSV_RAND(32) - 16),
-                    D_803D5530->zPos.h + (SSSV_RAND(32) - 16),
-                    D_803D5530->yPos.h + 8,
+                    D_803D5530->position.xPos.h + (SSSV_RAND(32) - 16),
+                    D_803D5530->position.zPos.h + (SSSV_RAND(32) - 16),
+                    D_803D5530->position.yPos.h + 8,
                     (SSSV_RAND(2) + 25),
                     (SSSV_RAND(0x10000) - FTOFIX32(0.6103515625)),
                     (SSSV_RAND(0x10000) - FTOFIX32(0.6103515625)),
@@ -167,13 +167,13 @@ void func_8035E430_76FAE0(void) {
                         SFX_UNKNOWN_48,
                         0x5000,
                         0,
-                        ((D_80152C78[(s16)(D_803D5540 << 3) & 0xFF] >> 7) / 1000.0) + 2.25,
-                        D_803D5530->xPos.h,
-                        D_803D5530->zPos.h,
-                        D_803D5530->yPos.h);
+                        ((SIN(D_803D5540 << 3) >> 7) / 1000.0) + 2.25,
+                        D_803D5530->position.xPos.h,
+                        D_803D5530->position.zPos.h,
+                        D_803D5530->position.yPos.h);
                 }
                 if (SSSV_RAND(64) == 0x35) {
-                    play_sound_effect_at_location(SFX_HIPPO_DROP_MINE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_HIPPO_DROP_MINE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
                 func_8037F6CC_790D7C(0x10, 0x100, 1);
                 break;
@@ -200,7 +200,7 @@ void func_8035E430_76FAE0(void) {
             (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_9 = D_803F2AA2, (temp_v0_9 == 0)) || (temp_v0_9 == 2) || ((temp_v0_9 == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->unk302, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x80, 0x80, 0xFF);
@@ -229,11 +229,11 @@ void func_8035E430_76FAE0(void) {
             func_802C78B0_6D8F60(2, 1, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_040073D8_CEE08);
 
             temp_a3 = (((D_80203FE0[1].unk4 << 0xF) / 16) * 2) - FTOFIX32(22.0);
-            temp_t5 = D_803D5530->xPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7));
-            temp_t1 = D_803D5530->zPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7));
-            temp_t8_2 = D_803D5530->yPos.w + (scale * 0x90000) + (scale * temp_a3);
-            temp_lo = (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * (scale * 0x300);
-            temp_t3 = -((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * (scale * 0x300));
+            temp_t5 = D_803D5530->position.xPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (SIN(D_803D552C->unk302) >> 7));
+            temp_t1 = D_803D5530->position.zPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (COS(D_803D552C->unk302) >> 7));
+            temp_t8_2 = D_803D5530->position.yPos.w + (scale * 0x90000) + (scale * temp_a3);
+            temp_lo = (COS(D_803D552C->unk302) >> 7) * (scale * 0x300);
+            temp_t3 = -((SIN(D_803D552C->unk302) >> 7) * (scale * 0x300));
 
             if ((spA6 != 5) && (D_803F2AA2 == 0)) {
                 func_8029CEF0_6AE5A0(
@@ -266,16 +266,16 @@ void func_8035E430_76FAE0(void) {
         func_8035D6D0_76ED80();
     }
     if ((spA2 == 0) || (spA2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + D_803D5524->unkBA, D_803D552C->unk302, &D_01033190, (scale * 0x28A) / 32, (scale * 0x177) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->unk302, &D_01033190, (scale * 0x28A) / 32, (scale * 0x177) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     tailIndex = D_803D5528->unk3C8.unk2;
     if (tailIndex != 0) {
         if ((spA2 == 0) && (D_803F2EDB)) {
 
-            a1 = D_803D5530->xPos.w + ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] * (scale * (D_80203FE0[2].unk0       ))) / 16) + ((D_80152C78[D_803D552C->unk302 & 0xFF] * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16);
-            a2 = D_803D5530->zPos.w + ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16) - ((D_80152C78[D_803D552C->unk302 & 0xFF] * D_80203FE0[2].unk0 * scale) / 16);
-            a3 = D_803D5530->yPos.w + (((D_80203FE0[2].unk4 * scale) << 0xF) / 16);
+            a1 = D_803D5530->position.xPos.w + ((COS(D_803D552C->unk302) * (scale * (D_80203FE0[2].unk0       ))) / 16) + ((SIN(D_803D552C->unk302) * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16);
+            a2 = D_803D5530->position.zPos.w + ((COS(D_803D552C->unk302) * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16) - ((SIN(D_803D552C->unk302) * D_80203FE0[2].unk0 * scale) / 16);
+            a3 = D_803D5530->position.yPos.w + (((D_80203FE0[2].unk4 * scale) << 0xF) / 16);
 
             func_802DE914_6EFFC4(
                 tailIndex,
@@ -338,11 +338,11 @@ void func_8035E430_76FAE0(void) {
 void func_8035F92C_770FDC(void) {
     if (((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(
-            D_803D5530->xPos.h - (((D_80152C78[(u8)(D_803D552C->unk302)] >> 7) * 20) >> 8),
-            D_803D5530->zPos.h - (((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * 20) >> 8),
-            D_803D5530->yPos.h,
+            D_803D5530->position.xPos.h - (((SIN(D_803D552C->unk302) >> 7) * 20) >> 8),
+            D_803D5530->position.zPos.h - (((COS(D_803D552C->unk302) >> 7) * 20) >> 8),
+            D_803D5530->position.yPos.h,
             552, 110, D_803D5530, 3, 33);
-        play_sound_effect_at_location(SFX_DROP_MINE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_DROP_MINE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     } else {
         recharge_skill(0);
     }
@@ -374,7 +374,7 @@ void func_8035FB10_7711C0(void) {
 
     if (D_803D552C->unk308 == 0) {
         if (D_803D552C->unk2B4.unk8 != 0) {
-            play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
+            play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.3f);
             D_803D552C->unk308 = 80;
         } else {
             func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x7000, 0, 1.3f);
@@ -400,15 +400,15 @@ void rat_drop_mine(void) {
     if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) {
         if (D_803D5530->unk6C == 0) {
             spawn_temporary_object(
-                D_803D5530->xPos.h - (((D_80152C78[(u8)(D_803D552C->unk302)] >> 7) * 20) >> 8),
-                D_803D5530->zPos.h - (((D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7) * 20) >> 8),
-                D_803D5530->yPos.h,
+                D_803D5530->position.xPos.h - (((SIN(D_803D552C->unk302) >> 7) * 20) >> 8),
+                D_803D5530->position.zPos.h - (((COS(D_803D552C->unk302) >> 7) * 20) >> 8),
+                D_803D5530->position.yPos.h,
                 552,
                 150,
                 D_803D5530,
                 3,
                 33);
-            play_sound_effect_at_location(SFX_DROP_MINE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_DROP_MINE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 }
@@ -416,12 +416,12 @@ void rat_drop_mine(void) {
 void rat_bite(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_BITE;
-    play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
+    play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.3f);
 }
 
 void king_rat_bugel_call(s16 arg0) {
     if (D_803D552C->unk308 == 0) {
-        play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.3f);
+        play_sound_effect_at_location(SFX_BUGEL_CALL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.3f);
         D_803D552C->unk308 = 80;
     }
     D_803D552C->unk2EC = arg0;

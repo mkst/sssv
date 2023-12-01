@@ -38,8 +38,8 @@ void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_ret;
 
     if (((D_803D5530->unk162 & 0xF) == 1) && (D_803D5530->unk161 != 1)) {
-        temp_t2 = (D_803D552C->xPos.w + (arg0 * D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * 2)) + (D_80152C78[D_803D552C->unk302 & 0xFF] * arg1 * 2);
-        temp_t3 = (D_803D552C->zPos.w + (arg1 * D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * 2)) - (D_80152C78[D_803D552C->unk302 & 0xFF] * arg0 * 2);
+        temp_t2 = (D_803D552C->position.xPos.w + (arg0 * COS(D_803D552C->unk302) * 2)) + (SIN(D_803D552C->unk302) * arg1 * 2);
+        temp_t3 = (D_803D552C->position.zPos.w + (arg1 * COS(D_803D552C->unk302) * 2)) - (SIN(D_803D552C->unk302) * arg0 * 2);
         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160);
         D_803F2F08[D_803B4F30].unk0 = temp_t2;
         D_803F2F08[D_803B4F30].unk4 = temp_t3;
@@ -92,7 +92,7 @@ void func_803747F4_785EA4(void) {
         gDPPipeSync(D_801D9E90++);
         gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
-        gSPDisplayList(D_801D9E90++, D_01003A58);
+        gSPDisplayList(D_801D9E90++, D_01003A58_3D328);
 
         // could this be replaced with a for loop?
         phi_s2 = (D_803B4F30 - D_803B4F34) & 0x3F;

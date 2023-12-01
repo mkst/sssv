@@ -59,7 +59,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
             temp_t0_2->unk0 = 0;
         }
         if (temp_t0_2->unk2 == 5) {
-            play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
         break;
     default:                                        /* switch 1 */
@@ -165,7 +165,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         case 17:                                    /* switch 2 */
             var_t2 = 0x14;
             var_t3 = 0x5A;
-            var_t1 = (D_80152C78[(s16)(temp_t0_2->unk2 << 6) & 0xFF] >> 7) >> 2;
+            var_t1 = (SIN(temp_t0_2->unk2 << 6) >> 7) >> 2;
             break;
         default:                                    /* switch 2 */
             temp_t0_2->unk0 = 0;
@@ -183,10 +183,10 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     case 8:
         var_t0 = (D_803D5544 - D_803D552C->unk334);
         if (var_t0 == 5) {
-            play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
         if (var_t0 > 10) {
-            var_t1 = D_80152C78[(s16)((var_t0 - 0xA) << 5) & 0xFF] >> 9;
+            var_t1 = SIN((var_t0 - 0xA) << 5) >> 9;
         }
         break;
     }
@@ -287,8 +287,8 @@ void func_802C56D0_6D6D80(s16 arg0) {
     tmp1 = D_80203FE0[19].unk2;
     tmp2 = D_80203FE0[19].unk4;
 
-    tmp3 = D_80203FE0[1].unk2 + ((((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) + ((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
-    tmp4 = D_80203FE0[1].unk4 + ((((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) - ((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
+    tmp3 = D_80203FE0[1].unk2 + ((((tmp1 - D_80203FE0[1].unk2) * (COS(arg0) >> 7)) + ((tmp2 - D_80203FE0[1].unk4) * (SIN(arg0) >> 7))) >> 8);
+    tmp4 = D_80203FE0[1].unk4 + ((((tmp2 - D_80203FE0[1].unk4) * (COS(arg0) >> 7)) - ((tmp1 - D_80203FE0[1].unk2) * (SIN(arg0) >> 7))) >> 8);
     D_80203FE0[19].unk2 = tmp3;
     D_80203FE0[19].unk4 = tmp4;
 
@@ -298,8 +298,8 @@ void func_802C56D0_6D6D80(s16 arg0) {
     tmp1 = D_80203FE0[32].unk2;
     tmp2 = D_80203FE0[32].unk4;
 
-    tmp3 = D_80203FE0[1].unk2 + ((((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) + ((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
-    tmp4 = D_80203FE0[1].unk4 + ((((tmp2 - D_80203FE0[1].unk4) * (D_80152C78[(arg0 + 64) & 0xFF] >> 7)) - ((tmp1 - D_80203FE0[1].unk2) * (D_80152C78[arg0 & 0xFF] >> 7))) >> 8);
+    tmp3 = D_80203FE0[1].unk2 + ((((tmp1 - D_80203FE0[1].unk2) * (COS(arg0) >> 7)) + ((tmp2 - D_80203FE0[1].unk4) * (SIN(arg0) >> 7))) >> 8);
+    tmp4 = D_80203FE0[1].unk4 + ((((tmp2 - D_80203FE0[1].unk4) * (COS(arg0) >> 7)) - ((tmp1 - D_80203FE0[1].unk2) * (SIN(arg0) >> 7))) >> 8);
 
     D_80203FE0[32].unk2 = tmp3;
     D_80203FE0[32].unk4 = tmp4;
@@ -552,7 +552,7 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
     case 8:
         temp_t9_2 = (D_803D552C->unk334 - D_803D5544);
         if (temp_t9_2 > 10) {
-            var_a1 = D_80152C78[(s16)((temp_t9_2 - 10) << 5) & 0xFF] >> 9;
+            var_a1 = SIN((temp_t9_2 - 10) << 5) >> 9;
         }
         break;
     }
@@ -763,7 +763,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
     case 8:
         temp_t7 = D_803D552C->unk334 - D_803D5544;
         if (temp_t7 > 10) {
-            var_a0 = D_80152C78[(s16)((temp_t7 - 10) << 5) & 0xFF] >> 9;
+            var_a0 = SIN((temp_t7 - 10) << 5) >> 9;
         }
     }
 
@@ -851,7 +851,7 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
     case 8:
         temp_t9 = (D_803D552C->unk334 - D_803D5544);
         if (temp_t9 > 10) {
-            var_v0_2 = D_80152C78[(s16)((temp_t9 - 0xA) << 5) & 0xFF] >> 9;
+            var_v0_2 = SIN((temp_t9 - 0xA) << 5) >> 9;
         }
         break;
     }
@@ -883,7 +883,7 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
 
     temp_t7 = (D_80152350.unk2D0[var_v0_2] * arg1) / 256;
     temp_t7_2 = (D_80152350.unk384[var_v0_2] * arg1) / 256;
-    temp_t7_3 = ((D_80152C78[(s16)(D_803D552C->unk310 >> 3) & 0xFF] >> 7) * arg1) >> 8;
+    temp_t7_3 = ((SIN(D_803D552C->unk310 >> 3) >> 7) * arg1) >> 8;
 
     D_80203FE0[20].unk0 = temp_t0_3 + temp_t7;
     D_80203FE0[20].unk2 = temp_t1 + temp_t7_2;
@@ -914,11 +914,11 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
 
     temp_hi = (D_803D5542 + 0x14) % 360;
 
-    var_a0 = (D_803D5542 < 96) ? (arg1 * (D_80152C78[(s16)(D_803D5542 << 3) & 0xFF] >> 7)) >> 9 : 0;
-    var_a2 = (temp_hi < 96) ? (arg1 * (D_80152C78[(s16)(temp_hi << 3) & 0xFF] >> 7)) >> 9 : 0;
+    var_a0 = (D_803D5542 < 96) ? (arg1 * (SIN(D_803D5542 << 3) >> 7)) >> 9 : 0;
+    var_a2 = (temp_hi < 96) ? (arg1 * (SIN(temp_hi << 3) >> 7)) >> 9 : 0;
 
     if ((D_803D5542 > 0xC0) && (D_803D5542 < 0xD8)) {
-        var_a0 = (arg1 * (D_80152C78[(s16)(D_803D5542 << 2) & 0xFF] >> 7)) >> 9;
+        var_a0 = (arg1 * (SIN(D_803D5542 << 2) >> 7)) >> 9;
     }
 
     if (ABS(var_a0) <= 16) {
@@ -966,9 +966,9 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
 #endif
 
 void func_802C71BC_6D886C(s16 *arg0, s16 *arg1, s16 *arg2, s16 arg3) {
-    *arg0 = D_803D5530->xPos.h + ((((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * (D_80203FE0[20].unk0 + 0   )) / 32) + ((D_80152C78[(D_803D552C->unk302 + 0) & 0xFF] * (D_80203FE0[20].unk2 + arg3)) / 32)) >> 0xF);
-    *arg1 = D_803D5530->zPos.h + ((((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * (D_80203FE0[20].unk2 + arg3)) / 32) - ((D_80152C78[(D_803D552C->unk302 + 0) & 0xFF] * (D_80203FE0[20].unk0 + 0   )) / 32)) >> 0xF);
-    *arg2 = D_803D5530->yPos.h + (D_80203FE0[19].unk4 / 32);
+    *arg0 = D_803D5530->position.xPos.h + ((((COS(D_803D552C->unk302) * (D_80203FE0[20].unk0 + 0   )) / 32) + ((SIN(D_803D552C->unk302) * (D_80203FE0[20].unk2 + arg3)) / 32)) >> 0xF);
+    *arg1 = D_803D5530->position.zPos.h + ((((COS(D_803D552C->unk302) * (D_80203FE0[20].unk2 + arg3)) / 32) - ((SIN(D_803D552C->unk302) * (D_80203FE0[20].unk0 + 0   )) / 32)) >> 0xF);
+    *arg2 = D_803D5530->position.yPos.h + (D_80203FE0[19].unk4 / 32);
 }
 
 void func_802C7310_6D89C0(void) {
@@ -980,9 +980,9 @@ void func_802C7310_6D89C0(void) {
     s16 sp64;
     s16 i;
 
-    temp_s2 = D_803D5530->xPos.h;
-    temp_s3 = D_803D5530->zPos.h;
-    temp_s4 = (D_80203FE0[0].unk4 / 32) + D_803D5530->yPos.h;
+    temp_s2 = D_803D5530->position.xPos.h;
+    temp_s3 = D_803D5530->position.zPos.h;
+    temp_s4 = (D_80203FE0[0].unk4 / 32) + D_803D5530->position.yPos.h;
 
     func_802C56D0_6D6D80(-D_803D552C->unk318 * 3);
     func_802C71BC_6D886C(&sp68, &sp66, &sp64, 0);
@@ -1032,9 +1032,9 @@ void func_802C7600_6D8CB0(s16 arg0, s16 arg1) {
     s16 sp64;
     s16 yPos;
 
-    xPos = D_803D5530->xPos.h;
-    zPos = D_803D5530->zPos.h;
-    yPos = (D_80203FE0[0].unk4 / 32) + D_803D5530->yPos.h;
+    xPos = D_803D5530->position.xPos.h;
+    zPos = D_803D5530->position.zPos.h;
+    yPos = (D_80203FE0[0].unk4 / 32) + D_803D5530->position.yPos.h;
 
     func_802C75A4_6D8C54(D_803D552C->unk318);
     func_802C71BC_6D886C(&sp68, &sp66, &sp64, arg0);

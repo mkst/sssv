@@ -128,6 +128,9 @@ stop_all_sounds        = 0x80133738;
 set_sfx_volume         = 0x80133B74;
 set_music_volume       = 0x80133BA0;
 init2                  = 0x801355B0;
+
+draw_chunked_image     = 0x80135CD8;
+
 init_controllers       = 0x80136CE0;
 draw_sprite            = 0x80136938;
 
@@ -149,14 +152,22 @@ SecondEntry            = 0x8022E3E8;
 dmaState = 0x80241758;
 dmaBuffs = 0x80241768;
 
-rspbootTextStart       = 0x8014D390;
-rspbootTextEnd         = 0x8014D460;
+rspbootTextStart       = 0x8014D390; // size:0xD0 name_end:rspbootTextEnd
+gspSprite2DTextStart   = 0x8014D460; // size:0xea0 name_end:gspSprite2DTextEnd
+gspSprite2D_fifoTextStart = 0x8014E300; // size:0xed0 name_end:gspSprite2D_fifoTextEnd
+gspF3DEX_fifoTextStart = 0x8014F1D0; // size:0x1430 name_end:gspF3DEX_fifoTextEnd
+aspMainTextStart       = 0x80150600; // size:0xE30 name_end:aspMainTextEnd
+
 
 nextDMA                = 0x80154684;
 audFrameCt             = 0x80154680;
 curAcmdList            = 0x80154688;
-aspMainTextStart       = 0x80150600;
-aspMainDataStart       = 0x8015DF10;
+
+gspSprite2DDataStart     = 0x8015B790; // size:0xfc0 name_end:gspSprite2DDataEnd
+gspSprite2D_fifoDataStart = 0x8015C750; // size:0xfc0 name_end:gspSprite2D_fifoDataEnd
+gspF3DEX_fifoDataStart = 0x8015D710; // size:0x800 name_end:gspF3DEX_fifoDataEnd
+aspMainDataStart       = 0x8015DF10; // size:0x2C0 name_end:aspMainDataEnd
+
 
 sc                     = 0x801603D0;
 
@@ -627,7 +638,7 @@ D_803E4CA5 = 0x803E4CA5; // defined:true
 D_803E4CA6 = 0x803E4CA6; // defined:true
 D_803E4CA8 = 0x803E4CA8; // defined:true
 D_803E4D28 = 0x803E4D28; // defined:true
-D_803E4D2C = 0x803E4D2C; // defined:true
+gTasksCompleted = 0x803E4D2C; // defined:true
 D_803E4D30 = 0x803E4D30; // defined:true
 D_803E4D38 = 0x803E4D38; // defined:true
 D_803E4D3C = 0x803E4D3C; // defined:true

@@ -30,7 +30,7 @@ extern u8  D_04009C10_FAC70[];
 extern u8  D_04009E10_FAE70[];
 
 #if 0
-// 5299
+// CURRENT (5624)
 void func_8035A5F0_76BCA0(void) {
     struct061 spD0;
     s16 spCA;
@@ -53,7 +53,7 @@ void func_8035A5F0_76BCA0(void) {
         spCA = 0;
         D_803F2EDD = 0;
     } else {
-        spCA = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
+        spCA = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
     }
 
     if (spCA == 0) {
@@ -89,56 +89,54 @@ void func_8035A5F0_76BCA0(void) {
                                 ((16 - ticks_remaining) * 0x7000) >> 4,
                                 0,
                                 ((ticks_remaining * ticks_remaining) / 16.0) + 1.0,
-                                D_803D5530->xPos.h,
-                                D_803D5530->zPos.h,
-                                D_803D5530->yPos.h);
+                                D_803D5530->position.xPos.h,
+                                D_803D5530->position.zPos.h,
+                                D_803D5530->position.yPos.h);
                         }
 
+                        // same issues as camel
+
+                        var_s0 = 0;
                         var_s3 = ticks_remaining;
-                        if (var_s3 > 4) {
-                            var_s0 = 0;
-                            do {
-                                var_s3 -= 4;
+                        while (var_s3 > 4) {
+                            var_s3 -= 4;
 
-                                spC4 = SSSV_RAND(256) - 0x80;
-                                spC2 = SSSV_RAND(256) - 0x80;
+                            spC4 = SSSV_RAND(256) - 0x80;
+                            spC2 = SSSV_RAND(256) - 0x80;
 
-                                var_s0++; // er???
+                            var_s0++; // er???
 
-                                spC4 = (spC4 * (var_s0+1)) >> 3;
-                                spC2 = (spC2 * (var_s0+1)) >> 3;
+                            spC4 = (spC4 * (var_s0+1)) >> 3;
+                            spC2 = (spC2 * (var_s0+1)) >> 3;
 
-                                spC0 = SSSV_RAND(32);
-                                spC0 = (spC0 + ((var_s0+1) << 5));
-                                spC0 = (spC0 * D_803D5530->unk42) >> 6;
+                            spC0 = SSSV_RAND(32);
+                            spC0 = (spC0 + ((var_s0+1) << 5));
+                            spC0 = (spC0 * D_803D5530->unk42) >> 6;
 
-                                create_particle_effect(
-                                    D_803D5530->xPos.h + spC4,
-                                    D_803D5530->zPos.h + spC2,
-                                    D_803D5530->yPos.h + spC0,
-                                    0x15,
-                                    0,
-                                    0,
-                                    0,
-                                    0x1E,
-                                    GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                    GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                    0);
-
-                            } while (var_s3 > 4);
+                            create_particle_effect(
+                                D_803D5530->position.xPos.h + spC4,
+                                D_803D5530->position.zPos.h + spC2,
+                                D_803D5530->position.yPos.h + spC0,
+                                0x15,
+                                0,
+                                0,
+                                0,
+                                0x1E,
+                                GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                0);
                         }
 
-                        spC4 = D_80152C78[     ((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0   ) & 0xFF] >> 7;
-                        spC2 = D_80152C78[(s16)((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0x40) & 0xFF] >> 7;
+                        spC4 = SIN((SSSV_RAND(32) + ((ticks_remaining & 7) << 5))) >> 7;
+                        spC2 = COS((SSSV_RAND(32) + ((ticks_remaining & 7) << 5))) >> 7;
 
-                        // fake, helps score but nothing really
-                        spC4 = ((spC4 * ticks_remaining) >> 6)  & 0xFFFFFFFFFFFFFFFF;
+                        spC4 = (spC4 * ticks_remaining) >> 6;
                         spC2 = (spC2 * ticks_remaining) >> 6;
 
                         create_particle_effect(
-                            D_803D5530->xPos.h + spC4,
-                            D_803D5530->zPos.h + spC2,
-                            D_803D5530->yPos.h + ((ticks_remaining * D_803D5530->unk42) >> 1),
+                            D_803D5530->position.xPos.h + spC4,
+                            D_803D5530->position.zPos.h + spC2,
+                            D_803D5530->position.yPos.h + ((ticks_remaining * D_803D5530->unk42) >> 1),
                             0x15,
                             0,
                             0,
@@ -173,57 +171,54 @@ void func_8035A5F0_76BCA0(void) {
                                 (ticks_remaining * 0x7000) >> 4,
                                 0,
                                 ((ticks_remaining * ticks_remaining) / 16.0) + 1.0,
-                                D_803D5530->xPos.h,
-                                D_803D5530->zPos.h,
-                                D_803D5530->yPos.h);
+                                D_803D5530->position.xPos.h,
+                                D_803D5530->position.zPos.h,
+                                D_803D5530->position.yPos.h);
                         }
 
                         ticks_remaining = (16 - ticks_remaining);
+
+                        var_s0 = 0;
                         var_s3 = ticks_remaining;
+                        while (var_s3 > 4) {
+                            var_s3 -= 4;
 
-                        if (var_s3 > 4) {
-                            var_s0 = 0;
-                            do {
-                                var_s3 -= 4;
+                            spC4 = SSSV_RAND(256) - 0x80;
+                            spC2 = SSSV_RAND(256) - 0x80;
 
-                                spC4 = SSSV_RAND(256) - 0x80;
-                                spC2 = SSSV_RAND(256) - 0x80;
+                            var_s0++;
 
-                                var_s0++;
+                            spC4 = spC4 * (var_s0+1) >> 3;
+                            spC2 = spC2 * (var_s0+1) >> 3;
 
-                                spC4 = spC4 * (var_s0+1) >> 3;
-                                spC2 = spC2 * (var_s0+1) >> 3;
+                            spC0 = SSSV_RAND(32);
+                            spC0 = (spC0 + ((var_s0+1) << 5));
+                            spC0 = (spC0 * D_803D5530->unk42) >> 6;
 
-                                spC0 = SSSV_RAND(32);
-                                spC0 = (spC0 + ((var_s0+1) << 5));
-                                spC0 = (spC0 * D_803D5530->unk42) >> 6;
-
-
-                                create_particle_effect(
-                                    D_803D5530->xPos.h + spC4,
-                                    D_803D5530->zPos.h + spC2,
-                                    D_803D5530->yPos.h + spC0,
-                                    0x15,
-                                    0,
-                                    0,
-                                    0,
-                                    0x1E,
-                                    GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                    GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
-                                    0);
-                            } while (var_s3 > 4);
+                            create_particle_effect(
+                                D_803D5530->position.xPos.h + spC4,
+                                D_803D5530->position.zPos.h + spC2,
+                                D_803D5530->position.yPos.h + spC0,
+                                0x15,
+                                0,
+                                0,
+                                0,
+                                0x1E,
+                                GPACK_RGBA5551(64, ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                GPACK_RGBA5551(0,  ((SSSV_RAND(4) << 5) + 0x60), 0, 1),
+                                0);
                         }
 
-                        spC4 = D_80152C78[     ((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0   ) & 0xFF] >> 7;
-                        spC2 = D_80152C78[(s16)((SSSV_RAND(32) + ((ticks_remaining & 7) << 5)) + 0x40) & 0xFF] >> 7;
+                        spC4 = SIN((SSSV_RAND(32) + ((ticks_remaining & 7) << 5))) >> 7;
+                        spC2 = COS((SSSV_RAND(32) + ((ticks_remaining & 7) << 5))) >> 7;
 
                         spC4 = (spC4 * ticks_remaining) >> 6;
                         spC2 = (spC2 * ticks_remaining) >> 6;
 
                         create_particle_effect(
-                            D_803D5530->xPos.h + spC4,
-                            D_803D5530->zPos.h + spC2,
-                            D_803D5530->yPos.h + ((ticks_remaining * D_803D5530->unk42) >> 1),
+                            D_803D5530->position.xPos.h + spC4,
+                            D_803D5530->position.zPos.h + spC2,
+                            D_803D5530->position.yPos.h + ((ticks_remaining * D_803D5530->unk42) >> 1),
                             0x15,
                             0,
                             0,
@@ -254,18 +249,18 @@ void func_8035A5F0_76BCA0(void) {
 
             if (((D_803D5530->state == 3) || (D_803D5530->state == 6)) && ((D_803D552C->unk366 != 5)) && (D_803D552C->unk366 != 2)) {
                 var_s1 = D_803D552C->unk2F6;
-                var_s2 = (s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) / 16;
-                var_s0_3 = ((s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
+                var_s2 = (s16)(COS(var_s1) >> 7) / 16;
+                var_s0_3 = ((s16)(COS(var_s1) >> 7) * 250) >> 9;
             } else if ((D_803D5530->state == 4) && ((D_803D552C->unk366 != 5)) && (D_803D552C->unk366 != 2)) {
                 var_s1 = D_803D552C->unk2F6;
-                var_s2 = (s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) / 12;
-                var_s0_3 = ((s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
+                var_s2 = (s16)(COS(var_s1) >> 7) / 12;
+                var_s0_3 = ((s16)(COS(var_s1) >> 7) * 250) >> 9;
             } else {
 
                 if ((D_803D5530->unk162 == 5) && (D_803D552C->unk366 != 2)) {
                     var_s1 = (D_803D5540 << 5) & 0xFF;
-                    var_s2 = (s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) / 12;
-                    var_s0_3 = ((s16)(D_80152C78[(s16)(var_s1 + 0x40) & 0xFF] >> 7) * 250) >> 9;
+                    var_s2 = (s16)(COS(var_s1) >> 7) / 12;
+                    var_s0_3 = ((s16)(COS(var_s1) >> 7) * 250) >> 9;
                 } else {
                     var_s1 = -1;
                     var_s0_3 = 0;
@@ -276,8 +271,8 @@ void func_8035A5F0_76BCA0(void) {
             func_803033D4_714A84(0x1A, 2, -var_s2);
 
             if (var_s1 >= 0) {
-                var_a0 = MAX(0, ((D_80152C78[var_s1 & 0xFF] >> 7) * 250) >> 8);
-                var_v1_3 = MAX(0, (-(D_80152C78[var_s1 & 0xFF] >> 7) * 250) >> 8);
+                var_a0 = MAX(0, ((SIN(var_s1) >> 7) * 250) >> 8);
+                var_v1_3 = MAX(0, (-(SIN(var_s1) >> 7) * 250) >> 8);
             } else {
                 var_v1_3 = 0;
                 var_a0 = 0;
@@ -339,7 +334,7 @@ void func_8035A5F0_76BCA0(void) {
         func_8038064C_791CFC();
 
         if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, (s16) (s32) -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.09f);
@@ -409,7 +404,7 @@ void func_8035A5F0_76BCA0(void) {
     }
     if ((spCA == 0) || (spCA == 2)) {
         if (D_803D5524->unk9C != SNEAKY_CHAMELEON) {
-            func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (D_803D552C->yPos.h + D_803D5524->unkBA), D_803D552C->unk302, &D_01033190, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->unkBA), D_803D552C->unk302, &D_01033190, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
     }
     if (spCA == 0) {
@@ -450,8 +445,8 @@ void func_8035BDC0_76D470(void) {
 
         palette = (u16*)(D_801D9EC4 + SEGMENT_OFFSET(D_04009BF0_FAC50));
 
-        temp_t7 = ((D_80152C78[D_803D5540 & 0xFF] >> 7) + 0x100) >> 1;
-        temp_t8 = ((D_80152C78[((s16)(((D_803D5544 & 0xFFF) * 7) >> 3) + 0x40) & 0xFF] >> 7) + 0x100) >> 1;
+        temp_t7 = ((SIN(D_803D5540) >> 7) + 0x100) >> 1;
+        temp_t8 = ((COS(((D_803D5544 & 0xFFF) * 7) >> 3) >> 7) + 0x100) >> 1;
 
         for (i = 0; i < 7; i++) {
             // rgba16
@@ -464,7 +459,7 @@ void func_8035BDC0_76D470(void) {
 void func_8035C018_76D6C8(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_CHAMELEON_TONGUE;
-    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }
 
 void func_8035C08C_76D73C(void) {
@@ -485,7 +480,7 @@ void func_8035C0CC_76D77C(void) {
 void func_8035C10C_76D7BC(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_CHAMELEON_TONGUE;
-    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+    play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }
 
 void func_8035C180_76D830(s16 arg0) {

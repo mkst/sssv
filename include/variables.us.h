@@ -33,7 +33,7 @@ extern Gfx  D_01003548_3CE18[];
 extern Gfx  D_01003618_3CEE8[];
 extern Gfx  D_010037F0_3D0C0[];
 extern Gfx  D_01003998_3D268[];
-extern Gfx  D_01003A58[];
+extern Gfx  D_01003A58_3D328[];
 extern Gfx  D_01003B70_3D440[];
 extern Gfx  D_01004270_3DB40[];
 extern Gfx  D_01004308[];
@@ -631,7 +631,7 @@ extern OSContPad *gControllerInput;
 extern OSContStatus gControllerStatus[MAXCONTROLLERS];
 extern OSContPad D_802910E8[MAXCONTROLLERS]; // 4?
 extern ControllerMesg D_80291100;
-extern OSPfs       D_80291110[]; // ?
+extern OSPfs       D_80291110[MAXCONTROLLERS];
 extern OSMesgQueue D_802912B0;
 extern OSMesg      D_802912C8;
 extern OSMesg      D_802912CC;
@@ -957,7 +957,7 @@ extern u8   D_803B6318_7C79C8;
 extern Lights1 D_803B65A8_7C7C58;
 extern Lights1 D_803B65C0_7C7C70;
 extern Lights1 D_803B65D8_7C7C88;
-extern Lights1 D_803B65E8_7C7CA0;
+extern Lights1 D_803B65F0_7C7CA0;
 
 extern Gfx D_0103B880_75150[];
 extern Gfx D_0103BA70_75340[];
@@ -1190,7 +1190,7 @@ extern s16  D_803D5E00[360];
 // collision
 // extern s32  (*D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
 extern u8   D_803D60D4;
-extern Position **D_803D60D8;
+extern Position *D_803D60D8;
 extern Position *D_803D60DC;
 
 // overlay2_6D9AF0
@@ -1337,7 +1337,7 @@ extern u8   D_803E4CA5;
 extern u8   D_803E4CA6;
 extern s32  D_803E4CA8[32];
 extern s32  D_803E4D28;
-extern s32  D_803E4D2C; // completed tasks?
+extern s32  gTasksCompleted; // completed tasks?
 extern s32  D_803E4D30;
 extern s32  D_803E4D38[2];
 extern s32  D_803E4D3C;

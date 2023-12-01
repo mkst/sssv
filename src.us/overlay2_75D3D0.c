@@ -64,8 +64,8 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         gDPSetCombineLERP(D_801D9E90++, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
         gDPPipeSync(D_801D9E90++);
 
-        temp_a0_2 = (D_80152C78[arg3 & 0xFF] >> 7) + 1;
-        temp_a1 = (D_80152C78[(arg3 + 0x40) & 0xFF] >> 7) + 1;
+        temp_a0_2 = (SIN(arg3) >> 7) + 1;
+        temp_a1 = (COS(arg3) >> 7) + 1;
 
         vtxs[0][0].unk0 = (arg0 + ((arg5 * temp_a0_2) >> 8)) + ((arg6 * temp_a1) >> 8);
         vtxs[0][0].unk2 = (arg1 + ((arg5 * temp_a1) >> 8)) - ((arg6 * temp_a0_2) >> 8);
@@ -101,11 +101,11 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         for (var_a2 = D_803DA110[(s16) ((arg0 >> 0xA) + ((arg1 >> 0xA) * 5))].next; var_a2 != NULL; var_a2 = var_a2->next) {
             animal = var_a2->animal;
             if ((animal != D_803D5530) && ((animal->unk3E & 0x3F) != 0x28) &&
-                ((animal->unk16C->unk15 == 4) || ((animal->unk16C->objectType == 93)) || (animal->unk16C->objectType == 94)) && !(animal->unk163 & 0x10) && ((arg2 << 0x10) >= (animal->yPos.w + (animal->unk42 << 0x10)))) {
-                if ((((animal->xPos.h + animal->unk30) >= sp23A) && (sp238 >= (animal->xPos.h - animal->unk30))) &&
-                    (((animal->zPos.h + animal->unk32) >= sp236) && (sp234 >= (animal->zPos.h - animal->unk32)))) {
+                ((animal->unk16C->unk15 == 4) || ((animal->unk16C->objectType == 93)) || (animal->unk16C->objectType == 94)) && !(animal->unk163 & 0x10) && ((arg2 << 0x10) >= (animal->position.yPos.w + (animal->unk42 << 0x10)))) {
+                if ((((animal->position.xPos.h + animal->unk30) >= sp23A) && (sp238 >= (animal->position.xPos.h - animal->unk30))) &&
+                    (((animal->position.zPos.h + animal->unk32) >= sp236) && (sp234 >= (animal->position.zPos.h - animal->unk32)))) {
 
-                    new_distance = ABS(animal->xPos.h - arg0) + ABS(animal->zPos.h - arg1);
+                    new_distance = ABS(animal->position.xPos.h - arg0) + ABS(animal->position.zPos.h - arg1);
                     if (new_distance < best_distance) {
                         best_distance = new_distance;
                         var_ra = animal;
@@ -119,14 +119,14 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
             return;
         }
 
-        temp_t1_2 = var_ra->xPos.h - var_ra->unk30;
-        temp_t0 = var_ra->xPos.h + var_ra->unk30;
-        sp22C = var_ra->zPos.h - var_ra->unk32;
-        sp22E = var_ra->zPos.h + var_ra->unk32;
+        temp_t1_2 = var_ra->position.xPos.h - var_ra->unk30;
+        temp_t0 = var_ra->position.xPos.h + var_ra->unk30;
+        sp22C = var_ra->position.zPos.h - var_ra->unk32;
+        sp22E = var_ra->position.zPos.h + var_ra->unk32;
 
         if ((sp23A >= temp_t1_2) && (temp_t0 >= sp238)) {
             if ((sp236 >= sp22C) && (sp22E >= sp234)) {
-                func_80351EE8_763598(4, vtxs[0], var_ra->yPos.h + var_ra->unk42, alpha, red, green, blue);
+                func_80351EE8_763598(4, vtxs[0], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
                 idx = -1;
             } else {
                 idx = 0;
@@ -155,7 +155,7 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
                     func_8034CCBC_75E36C(vtxs[4], numVtxs[4], arg2, alpha, red, green, blue);
                 }
                 if (numVtxs[3] >= 3) {
-                    func_80351EE8_763598(numVtxs[3], vtxs[3], (s16) (var_ra->yPos.h + var_ra->unk42), alpha, red, green, blue);
+                    func_80351EE8_763598(numVtxs[3], vtxs[3], (s16) (var_ra->position.yPos.h + var_ra->unk42), alpha, red, green, blue);
                 }
             } else if ((sp22C >= sp236) && (sp234 >= sp22C)) {
                 func_8034FCFC_7613AC(vtxs[idx], vtxs[3], vtxs[4], numVtxs[idx], &numVtxs[3], &numVtxs[4], sp22C);
@@ -163,11 +163,11 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
                     func_8034CCBC_75E36C(vtxs[3], numVtxs[3], arg2, alpha, red, green, blue);
                 }
                 if (numVtxs[4] >= 3) {
-                    func_80351EE8_763598(numVtxs[4], vtxs[4], var_ra->yPos.h + var_ra->unk42, alpha, red, green, blue);
+                    func_80351EE8_763598(numVtxs[4], vtxs[4], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
                 }
             } else {
                 if (numVtxs[idx] >= 3) {
-                    func_80351EE8_763598(numVtxs[idx], vtxs[idx], var_ra->yPos.h + var_ra->unk42, alpha, red, green, blue);
+                    func_80351EE8_763598(numVtxs[idx], vtxs[idx], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
                 }
             }
         }
@@ -179,17 +179,15 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 
 #if 0
 void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC) {
-    s32 pad[2];
+    s32 pad[8];
 
     struct061 vtx[4];
 
-    s16 temp_v0_12;
+    s16 temp_v0;
     s16 temp_v1_2;
 
-    s32 temp_t7;
     s32 temp_t2;
     s32 temp_t4;
-    s32 temp_t6;
     s32 temp_t3;
     s32 temp_t0;
     s32 temp_t9;
@@ -206,9 +204,9 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         temp_a0 = arg1 - (s16) D_803F28E0[D_803F2A98].unk78;
 
         if (argB >= 0) {
-            var_v0 = ((temp_v1 * temp_v1) + (temp_a0 * temp_a0)) >> argB;
+            var_v0 = (SQ(temp_v1) + SQ(temp_a0)) >> argB;
         } else if (argB < 0) {
-            var_v0 = ((temp_v1 * temp_v1) + (temp_a0 * temp_a0)) << -argB;
+            var_v0 = (SQ(temp_v1) + SQ(temp_a0)) << -argB;
         }
 
         if (var_v0 < 0x51000) {
@@ -236,35 +234,35 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
             TEXEL0, 0, SHADE, 0);
         gDPPipeSync(D_801D9E90++);
 
-        temp_v0_12 = (D_80152C78[arg3 & 0xFF] >> 7) + 1;
-        temp_v1_2 = (D_80152C78[(arg3 + 64) & 0xFF] >> 7) + 1;
+        temp_v0 = (SIN(arg3) >> 7) + 1;
+        temp_v1_2 = (COS(arg3) >> 7) + 1;
 
-        temp_t2 = arg0 + ((arg5 * temp_v0_12) >> 8);
-        temp_t3 = arg1 + ((arg5 * temp_v1_2) >> 8);
-        temp_t4 = arg0 - ((arg5 * temp_v0_12) >> 8);
-        temp_t0 = arg1 - ((arg5 * temp_v1_2) >> 8);
-        temp_t9 = (arg6 * temp_v1_2) >> 8;
-        temp_t8 = -(arg6 * temp_v0_12) >> 8;
+        temp_t2 =  (arg5 * temp_v0) >> 8;
+        temp_t9 =  (arg6 * temp_v1_2) >> 8;
 
-        vtx[0].unk0 = temp_t2 + temp_t9;
-        vtx[0].unk2 = temp_t3 + temp_t8;
+        temp_t3 =  (arg5 * temp_v1_2) >> 8;
+        temp_t8 = -(arg6 * temp_v0) >> 8;
+
+        temp_t4 =  (arg5 * temp_v0) >> 8;
+        temp_t0 =  (arg5 * temp_v1_2) >> 8;
+
+        vtx[0].unk0 = arg0 + temp_t2 + temp_t9;
+        vtx[0].unk2 = arg1 + temp_t3 + temp_t8;
         vtx[0].unk4 = 0xFC0;
         vtx[0].unk6 = 0xFC0;
 
-        if (1) {};
-
-        vtx[1].unk0 = temp_t4 + temp_t9;
-        vtx[1].unk2 = temp_t0 + temp_t8;
+        vtx[1].unk0 = arg0 - temp_t4 + temp_t9;
+        vtx[1].unk2 = arg1 - temp_t0 + temp_t8;
         vtx[1].unk4 = 0;
         vtx[1].unk6 = 0xFC0;
 
-        vtx[2].unk0 = temp_t4 - temp_t9;
-        vtx[2].unk2 = temp_t0 - temp_t8;
+        vtx[2].unk0 = arg0 - temp_t4 - temp_t9;
+        vtx[2].unk2 = arg1 - temp_t0 - temp_t8;
         vtx[2].unk4 = 0;
         vtx[2].unk6 = 0;
 
-        vtx[3].unk0 = temp_t2 - temp_t9;
-        vtx[3].unk2 = temp_t3 - temp_t8;
+        vtx[3].unk0 = arg0 + temp_t2 - temp_t9;
+        vtx[3].unk2 = arg1 + temp_t3 - temp_t8;
         vtx[3].unk4 = 0xFC0;
         vtx[3].unk6 = 0;
 

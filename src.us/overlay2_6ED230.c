@@ -117,7 +117,7 @@ void func_802DBB80_6ED230(u16 arg0) {
     }
     if (tmp == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
-            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
@@ -142,14 +142,14 @@ void func_802DBCDC_6ED38C(u16 arg0) {
     }
     if (tmp == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
-            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
     if (((tmp << 7) / arg0) < 16) {
         phi_v1 = ((tmp << 7) / arg0) << 11;
     } else {
-        phi_v1 = D_80152C78[((s16)((((tmp << 7) / arg0) -16) << 2) + 64) & 0xFF] / (((tmp << 7) / arg0) >> 4);
+        phi_v1 = COS((((tmp << 7) / arg0) -16) << 2) / (((tmp << 7) / arg0) >> 4);
     }
     D_803F2EB0 = D_803F2EB0 + phi_v1;
     D_803F2EB4 = D_803F2EB4 - phi_v1;
@@ -177,14 +177,14 @@ void func_802DBED8_6ED588(u16 arg0) {
     }
     if (tmp == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
-            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
     if (((tmp << 7) / arg0) < 16) {
         phi_v1 = ((tmp << 7) / arg0) << 11;
     } else {
-        phi_v1 = D_80152C78[((s16)((((tmp << 7) / arg0) -16) << 2) + 64) & 0xFF] / (((tmp << 7) / arg0) >> 4);
+        phi_v1 = COS((((tmp << 7) / arg0) -16) << 2) / (((tmp << 7) / arg0) >> 4);
     }
     D_803F2EB0 = D_803F2EB0 - phi_v1;
     D_803F2EB4 = D_803F2EB4 + phi_v1;
@@ -231,14 +231,14 @@ void func_802DC0D4_6ED784(u16 arg0) {
         case SEAGULL2:
         case RACING_FOX:
         default:
-            play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             break;
         case RACING_TORTOISE_DEFENDING:
             break;
         }
     }
 
-    temp_t8 = (-D_80152C78[((s16)(((ticks_remaining << 7) / arg0) << 2) + 64) & 0xFF] * (128 - ((ticks_remaining << 7) / arg0))) >> 7;
+    temp_t8 = (-COS(((ticks_remaining << 7) / arg0) << 2) * (128 - ((ticks_remaining << 7) / arg0))) >> 7;
     D_803F2EB0 += temp_t8;
     D_803F2EB4 += temp_t8;
     D_803F2EB8 += temp_t8;
@@ -264,7 +264,7 @@ void func_802DC2AC_6ED95C(u16 arg0) {
         D_803D552C->unk364 = 0;
         return;
     }
-    temp_t8 = (D_80152C78[(s16) ((ticks_remaining << 7) / arg0) & 0xFF] / (((ticks_remaining << 7) / arg0) + 16)) << 5;
+    temp_t8 = (SIN((ticks_remaining << 7) / arg0) / (((ticks_remaining << 7) / arg0) + 16)) << 5;
     D_803F2EB0 += temp_t8;
     D_803F2EB4 += temp_t8;
     D_803F2EB8 -= temp_t8;
@@ -334,25 +334,20 @@ void func_802DC6A4_6EDD54(u16 arg0) {
 
 // ESA: func_800A21B0
 void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
-    s16 new_var1;
-    s16 new_var2;
     s16 phi_v1;
     u16 temp_t0;
-    temp_t0 = (arg0 << 7) / arg1;
 
+    temp_t0 = (arg0 << 7) / arg1;
     if (temp_t0 < 96) {
         phi_v1 = (temp_t0 * 4) / 3;
     }
     else {
-        phi_v1 = ((-temp_t0) * 4) + 512;
+        phi_v1 = (128 - temp_t0) * 4;
     }
 
-    new_var1 = temp_t0 << 2;
-    new_var2 = temp_t0 << 3;
-
-    D_803F2EBC = D_803F2EBC + (phi_v1 * (D_80152C78[new_var2 & 0xFF] >> 7));
-    D_803F2EC0 = D_803F2EC0 + (phi_v1 * (D_80152C78[new_var1 & 0xFF] >> 7));
-    D_803F2EC4 = D_803F2EC4 - (phi_v1 * (D_80152C78[new_var2 & 0xFF] >> 7));
+    D_803F2EBC = D_803F2EBC + (phi_v1 * (SIN(temp_t0 << 3) >> 7));
+    D_803F2EC0 = D_803F2EC0 + (phi_v1 * (SIN(temp_t0 << 2) >> 7));
+    D_803F2EC4 = D_803F2EC4 - (phi_v1 * (SIN(temp_t0 << 3) >> 7));
 }
 
 // ESA: func_800A22B0
@@ -361,7 +356,7 @@ void func_802DC968_6EE018(u16 arg0, s16 arg1) {
     if (arg0 < tmp) {
         D_803D552C->unk364 = 0;
     } else {
-        D_803F2ED0 = ((D_80152C78[(s16)((tmp << 7) / arg0) & 0xFF] >> 7) * arg1) >> 8;
+        D_803F2ED0 = ((SIN((tmp << 7) / arg0) >> 7) * arg1) >> 8;
     }
 }
 
@@ -371,7 +366,7 @@ void func_802DCA28_6EE0D8(u16 arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
     } else {
-        D_803F2ED8 = (D_80152C78[(s16)((tmp << 7) / arg0) & 0xFF] >> 7) >> 3;
+        D_803F2ED8 = (SIN((tmp << 7) / arg0) >> 7) >> 3;
     }
 }
 
@@ -381,7 +376,7 @@ void func_802DCAD4_6EE184(u16 arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
     } else {
-        D_803F2ED8 = 16 - (((D_80152C78[((s16)((temp_t9 << 8) / arg0) + 64) & 0xFF]) >> 7) >> 4);
+        D_803F2ED8 = 16 - ((COS((temp_t9 << 8) / arg0) >> 7) >> 4);
     }
 }
 
@@ -396,11 +391,11 @@ void func_802DCB90_6EE240(u16 arg0) {
     } else {
         temp_lo = (temp_t9 << 7) / arg0;
         if (temp_lo < 32) {
-            D_803F2ED8 = 16 - ((D_80152C78[((s16)(temp_lo << 2) + 64) & 0xFF] >> 7) >> 4);
+            D_803F2ED8 = 16 - ((COS(temp_lo << 2) >> 7) >> 4);
         } else if (temp_lo < 96) {
             D_803F2ED8 = 32;
         } else {
-            D_803F2ED8 = ((D_80152C78[((s16)((temp_lo - 96) << 2) + 64) & 0xFF] >> 7) >> 4) + 16;
+            D_803F2ED8 = ((COS((temp_lo - 96) << 2) >> 7) >> 4) + 16;
         }
     }
 }
@@ -438,15 +433,15 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
     }
 
     if (phi_t1 < 325) {
-        D_803F2EB0 = FTOFIX32(1.0) + ((D_80152C78[(s16)phi_t1 & 0xFF] >> 9) * phi_t1);
-        D_803F2EB4 = FTOFIX32(1.0) + ((D_80152C78[((s16)(phi_t1 * 2) + 64) & 0xFF] >> 9) * phi_t1);
-        D_803F2EB8 = FTOFIX32(1.0) - ((D_80152C78[(s16)((phi_t1 * 3) - 30) & 0xFF] >> 9) * phi_t1);
+        D_803F2EB0 = FTOFIX32(1.0) + ((SIN(phi_t1) >> 9) * phi_t1);
+        D_803F2EB4 = FTOFIX32(1.0) + ((COS(phi_t1 * 2) >> 9) * phi_t1);
+        D_803F2EB8 = FTOFIX32(1.0) - ((SIN((phi_t1 * 3) - 30) >> 9) * phi_t1);
     } else if (phi_t1 < 375) {
         temp_t0 = (phi_t1 - 325);
 
-        D_803F2EB0 = FTOFIX32(1.0) + (((D_80152C78[(s16)phi_t1 & 0xFF]) >> 9) * 325) - (temp_t0 << 0xA);
-        D_803F2EB4 = FTOFIX32(1.0) + (((D_80152C78[((s16)(phi_t1 * 2) + 64) & 0xFF]) >> 9) * 325) - (temp_t0 << 0xA);
-        D_803F2EB8 = FTOFIX32(1.0) - (((D_80152C78[(s16)((phi_t1 * 3) - 30) & 0xFF] >> 9) * phi_t1)) + (temp_t0 << 12);
+        D_803F2EB0 = FTOFIX32(1.0) + (((SIN(phi_t1)) >> 9) * 325) - (temp_t0 << 0xA);
+        D_803F2EB4 = FTOFIX32(1.0) + (((COS(phi_t1 * 2)) >> 9) * 325) - (temp_t0 << 0xA);
+        D_803F2EB8 = FTOFIX32(1.0) - (((SIN((phi_t1 * 3) - 30) >> 9) * phi_t1)) + (temp_t0 << 12);
 
         D_803F2EDB = 0;
     } else {

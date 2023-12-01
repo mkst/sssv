@@ -6,7 +6,6 @@ options:
   compiler: IDO
   symbol_addrs_path: symbol_addrs.us.txt
   ld_symbol_header_path: include/ld_symbols.us.h
-  ld_legacy_generation: yes
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
@@ -231,10 +230,11 @@ segments:
     - [0x288B0, lib, libultra_rom, yieldthread]
     - [0x28900, lib, libultra_rom, ldiv]
     # ucode
-    - [0x28A90, bin, rspbootText] # rspbootTextStart / 0x8014D390
-    - [0x28B60, bin, gspFast3DText]
-    - [0x2A8D0, bin, gspF3DEX_fifoText]
-    - [0x2BD00, bin, aspMainText]
+    - [0x28A90, textbin, rspbootText] # rspbootTextStart / 0x8014D390
+    - [0x28B60, textbin, gspSprite2DText]
+    - [0x29A00, textbin, gspSprite2D_fifoText]
+    - [0x2A8D0, textbin, gspF3DEX_fifoText]
+    - [0x2BD00, textbin, aspMainText]
     # .data
     - [0x2CB30, .data, core/controller]
     - [0x2DA50, .data, core/mtx]
@@ -314,9 +314,10 @@ segments:
     - [0x36E00, lib, libultra_rom, xldtob, .rodata]
     - [0x36E60, lib, libultra_rom, reverb, .rodata]
     # ucode data
-    - [0x36E90, bin, gspFast3DData]
-    - [0x38E10, bin, gspF3DEX_fifoData]
-    - [0x39610, bin, aspMainData]
+    - [0x36E90, rodatabin, gspSprite2DData]
+    - [0x37E50, rodatabin, gspSprite2D_fifoData]
+    - [0x38E10, rodatabin, gspF3DEX_fifoData]
+    - [0x39610, rodatabin, aspMainData]
     # bss
     - [0x398D0, .bss, core/audiomgr]
     # lots more bss here

@@ -25,7 +25,7 @@ void func_80129430(Gfx **arg0) {
 
 void func_80129594(Gfx **dl, DisplayList *ddl) {
     gDPPipeSync((*dl)++);
-    gSPLoadUcodeEx((*dl)++, &D_8014F1D0, &D_8015D710, 2048);
+    gSPLoadUcodeEx((*dl)++, &gspF3DEX_fifoTextStart, &gspF3DEX_fifoDataStart, 2048);
     gDPPipeSync((*dl)++);
 
     load_segments(dl, ddl);

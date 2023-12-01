@@ -345,26 +345,26 @@ u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4
                     if ((tmp->unk2 == 5) && (temp_a1->unk2 == 5)) {
                         if ((tmp->unkE6 < temp_a1->unkE6) || (func_8030AA08_71C0B8(animal, arg3) != 0) || (animal->unk366 == 5) || (arg3->unk366 == 5)) {
                             if (animal->unk16C->unkE6 >= arg3->unk16C->unkE6) {
-                                if (((arg0 >= (animal->xPos.h - animal->unk34)) && (arg0 < (animal->xPos.h + animal->unk34))) &&
-                                    ((arg1 >= (animal->zPos.h - animal->unk34)) && (arg1 < (animal->zPos.h + animal->unk34)))) {
+                                if (((arg0 >= (animal->position.xPos.h - animal->unk34)) && (arg0 < (animal->position.xPos.h + animal->unk34))) &&
+                                    ((arg1 >= (animal->position.zPos.h - animal->unk34)) && (arg1 < (animal->position.zPos.h + animal->unk34)))) {
                                     do_check = func_8030400C_7156BC(animal, arg0, arg1, &sp9C, &sp98);
                                 }
                             } else if ((((arg3->unk162 != 1) || (arg3->unk68 != NULL)) && (arg3->yVelocity.w < FTOFIX32(-6.0))) || ((animal->unk366 == 5)) || (animal->unk366 == 2)) {
 
-                                temp_v0_5 = arg0 - animal->xPos.h;
-                                temp_v1_2 = arg1 - animal->zPos.h;
+                                temp_v0_5 = arg0 - animal->position.xPos.h;
+                                temp_v1_2 = arg1 - animal->position.zPos.h;
                                 temp_t5 = animal->unk30 * 2;
 
                                 if ((SQ(temp_v0_5) + SQ(temp_v1_2)) <= SQ(temp_t5)) {
                                     do_check = 1;
-                                    sp9C = animal->yPos.w + (animal->unk42 << 0x10);
-                                    sp98 = animal->yPos.w;
+                                    sp9C = animal->position.yPos.w + (animal->unk42 << 0x10);
+                                    sp98 = animal->position.yPos.w;
                                 }
                             }
                         }
                     } else {
-                        if (((arg0 >= (animal->xPos.h - animal->unk30)) && (arg0 < (animal->xPos.h + animal->unk30))) &&
-                           ((arg1 >= (animal->zPos.h - animal->unk32)) && (arg1 < (animal->zPos.h + animal->unk32)))) {
+                        if (((arg0 >= (animal->position.xPos.h - animal->unk30)) && (arg0 < (animal->position.xPos.h + animal->unk30))) &&
+                           ((arg1 >= (animal->position.zPos.h - animal->unk32)) && (arg1 < (animal->position.zPos.h + animal->unk32)))) {
                             do_check = func_8032B1E0_73C890(animal, arg0, arg1, &sp9C, &sp98);
                         }
                     }

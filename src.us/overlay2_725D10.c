@@ -18,8 +18,8 @@ u8   D_803E4CA5;
 u8   D_803E4CA6;
 s32  D_803E4CA8[32];
 s32  D_803E4D28;
-s32  D_803E4D2C; // completed tasks?
-s32  D_803E4D30;
+s32  gTasksCompleted;
+s32  D_803E4D30;  // just a temp var?
 s32  D_803E4D38[2];
 struct112 D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
 u16  D_803E8E54;
@@ -86,7 +86,7 @@ void func_80314788_725E38(void) {
     func_803497DC_75AE8C(); // initialise ...something osd related
     D_803A05B0_7B1C60 = 0x20000;
     D_803A05B4_7B1C64 = D_803A05B0_7B1C60 * 2;
-    D_803E4D2C = 0;
+    gTasksCompleted = 0;
     D_803E4D30 = 16;
     D_803E4D38[0] = D_8023F260.unk30;
     D_803E4D38[1] = D_8023F260.unk34;
@@ -132,17 +132,17 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_XPOS:
-        arg0->xPos.w = arg2 << 16;
+        arg0->position.xPos.w = arg2 << 16;
         func_803136B0_724D60(arg0);
         break;
 
     case ST_SET_ZPOS:
-        arg0->zPos.w = arg2 << 16;
+        arg0->position.zPos.w = arg2 << 16;
         func_803136B0_724D60(arg0);
         break;
 
     case ST_SET_YPOS:
-        arg0->yPos.w = arg2 << 16;
+        arg0->position.yPos.w = arg2 << 16;
         func_803136B0_724D60(arg0);
         break;
 
@@ -247,8 +247,8 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     case 27+0x7F7F:
         break;
 
-    case 28+0x7F7F:
-        D_803E4D2C = arg2;
+    case ST_SET_TASKS_COMPLETED:
+        gTasksCompleted = arg2;
         break;
 
     case 29+0x7F7F:
@@ -351,13 +351,13 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
             break;
         case ST_GET_XPOS:
-            res = arg0->xPos.h;
+            res = arg0->position.xPos.h;
             break;
         case ST_GET_ZPOS:
-            res = arg0->zPos.h;
+            res = arg0->position.zPos.h;
             break;
         case ST_GET_YPOS:
-            res = arg0->yPos.h;
+            res = arg0->position.yPos.h;
             break;
         case 9+0x7F7F:
             res = arg0->unk40;
@@ -447,8 +447,8 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
                 res = 0;
             }
             break;
-        case 28+0x7F7F:
-            res = D_803E4D2C;
+        case ST_GET_TASKS_COMPLETED:
+            res = gTasksCompleted;
             break;
         case 29+0x7F7F:
             res = D_803F2D50.unkE0 * 100.0f;
@@ -564,7 +564,7 @@ Animal *func_8031540C_726ABC(s16 arg0, u8 arg1) {
                 if (((sp48 & ((s64)1 << j)))) {
                     for (var_s0 = D_803DA110[i+j].next; var_s0 != NULL; var_s0 = var_s0->next) {
                         if ((var_s0->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == var_s0->animal->unk114[0])) {
-                            if ((D_803E8E5C == var_s0->animal) || (func_80319E1C_72B4CC(var_s0->animal->xPos.h >> 6, var_s0->animal->zPos.h >> 6, var_s0->animal->yPos.h >> 6, arg0 , var_s0->animal->unk160) != 0)) {
+                            if ((D_803E8E5C == var_s0->animal) || (func_80319E1C_72B4CC(var_s0->animal->position.xPos.h >> 6, var_s0->animal->position.zPos.h >> 6, var_s0->animal->position.yPos.h >> 6, arg0 , var_s0->animal->unk160) != 0)) {
                                 if (var_s2 != 0) {
                                     D_803E8E5C = var_s0->animal;
                                     ret = var_s0->animal;
@@ -608,7 +608,7 @@ u8 func_80315658_726D08(s16 arg0, s32 func(Animal *, s16), s16 arg2) {
                 if (sp50 & ((s64)1 << j)) {
                     for (var_s1 = D_803DA110[i + j].next; var_s1 != NULL; var_s1 = var_s1->next) {
                         if ((var_s1->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s1->animal->unk114[0] == (i + j)) && (func(var_s1->animal, arg2))) {
-                            if (func_80319E1C_72B4CC(var_s1->animal->xPos.h >> 6, var_s1->animal->zPos.h >> 6, var_s1->animal->yPos.h >> 6, arg0, var_s1->animal->unk160) != 0) {
+                            if (func_80319E1C_72B4CC(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, arg0, var_s1->animal->unk160) != 0) {
                                 ret = 1;
                                 goto done;
                             }
@@ -703,9 +703,9 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         }
         if (arg1->dummy.unk2 & 0x10) {
             if (func_80319E1C_72B4CC(
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
+                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6,
                 arg1->dummy.unk3,
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160)) {
 
@@ -734,7 +734,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         break;
 
     case 1:
-        if ((arg0->unk162 == 4) || (arg0->unk162 == 5) || (arg0->unk162 == 6) || (arg0->unk162 == 7) || (arg0->yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->xPos.h, arg0->zPos.h) * 4))) {
+        if ((arg0->unk162 == 4) || (arg0->unk162 == 5) || (arg0->unk162 == 6) || (arg0->unk162 == 7) || (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4))) {
             res = 1;
         }
         break;
@@ -844,9 +844,9 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         break;
     case 16:
         if (func_80319E1C_72B4CC(
-              arg0->xPos.h >> 6,
-              arg0->zPos.h >> 6,
-              arg0->yPos.h >> 6,
+              arg0->position.xPos.h >> 6,
+              arg0->position.zPos.h >> 6,
+              arg0->position.yPos.h >> 6,
               arg1->dummy.unk3,
               arg0->unk160)) {
             res = 1;
@@ -981,10 +981,11 @@ s32 func_80316408_727AB8(Animal *arg0) {
     s8 var_a2;
     s8 var_a3;
 
-    u8 temp_v0_5; // unused
     u8 var_a0_2;
     s8 var_t0;
     s8 var_t1;
+
+    s32 sp78; // help!
 
     struct077 spA4;
     struct077 sp9C;
@@ -993,7 +994,6 @@ s32 func_80316408_727AB8(Animal *arg0) {
     s32 sp84;
 
     s32 sp7C;
-    s32 sp78;
     s32 sp74;
 
     temp_s0 = &arg0->commands;
@@ -1173,9 +1173,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
         arg0->unk248[7] = spawn_object(
         /* id    */ temp_s0->unk19C.payload.cmd.type16.id,
-        /* xPos  */ temp_s1->xPos.h + sp148.unk0,
-        /* zPos  */ temp_s1->zPos.h + sp148.unk2,
-        /* yPos  */ temp_s1->yPos.h + sp148.unk4,
+        /* xPos  */ temp_s1->position.xPos.h + sp148.unk0,
+        /* zPos  */ temp_s1->position.zPos.h + sp148.unk2,
+        /* yPos  */ temp_s1->position.yPos.h + sp148.unk4,
         /* xVel  */ sp140.unk0 << 8,
         /* zVel  */ sp140.unk2 << 8,
         /* yVel  */ sp140.unk4 << 8,
@@ -1394,9 +1394,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
     case 0x1B:
         func_802F657C_707C2C(
             temp_s1,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0) + temp_s1->xPos.h,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2) + temp_s1->zPos.h,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4) + temp_s1->yPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0) + temp_s1->position.xPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2) + temp_s1->position.zPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4) + temp_s1->position.yPos.h,
             get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6));
 
         temp_s1->unk170 = 1;
@@ -1405,9 +1405,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
     case 0x1C:
         func_802F657C_707C2C(
             temp_s1,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0) + temp_s1->xPos.h,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2) + temp_s1->zPos.h,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4) + temp_s1->yPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0) + temp_s1->position.xPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2) + temp_s1->position.zPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4) + temp_s1->position.yPos.h,
             get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6));
 
         temp_s1->unk170 = 2;
@@ -1430,9 +1430,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
                 sp134 = sp134 >> 0x10;
 
                 // compiler managed temps or what?
-                if ((ABS(temp_s1->xPos.h - sp12C) > 4) ||
-                    (sp7C = ABS(temp_s1->zPos.h - sp130), sp7C > 4) ||
-                    ((temp_s1->unk4C.unk1D == 0) && (sp78 = ABS(temp_s1->yPos.h - sp134), sp78 > 4))) {
+                if ((ABS(temp_s1->position.xPos.h - sp12C) > 4) ||
+                    (sp7C = ABS(temp_s1->position.zPos.h - sp130), sp7C > 4) ||
+                    ((temp_s1->unk4C.unk1D == 0) && (sp78 = ABS(temp_s1->position.yPos.h - sp134), sp78 > 4))) {
                     temp_s1->unk170 = 6;
                     func_802F657C_707C2C(
                         temp_s1,
@@ -1530,9 +1530,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
                 temp_s0->unk19C.payload.cmd.type38.id,
                 temp_s0->unk19C.payload.cmd.type38.volume,
                 0,
-                temp_s1->xPos.h,
-                temp_s1->zPos.h,
-                temp_s1->yPos.h,
+                temp_s1->position.xPos.h,
+                temp_s1->position.zPos.h,
+                temp_s1->position.yPos.h,
                 temp_s0->unk19C.payload.cmd.type38.pitch / 32767.0f);
         } else {
             func_8032C508_73DBB8(
@@ -1605,7 +1605,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         if (temp_s0->unk19C.payload.cmd.regular.unk2 != 0) {
             func_803421E0_753890(temp_a1);
         } else {
-            func_8034220C_7538BC(temp_a1, temp_s1->xPos.h, temp_s1->zPos.h, temp_s1->yPos.h);
+            func_8034220C_7538BC(temp_a1, temp_s1->position.xPos.h, temp_s1->position.zPos.h, temp_s1->position.yPos.h);
         }
         return 69;
 
@@ -1615,9 +1615,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
         func_802FF184_710834(
             temp_s1,
             1,
-            temp_s1->xPos.h,
-            temp_s1->zPos.h,
-            temp_s1->yPos.h + (arg0->unk42 >> 1),
+            temp_s1->position.xPos.h,
+            temp_s1->position.zPos.h,
+            temp_s1->position.yPos.h + (arg0->unk42 >> 1),
             0,
             0,
             sp7C,
@@ -1727,21 +1727,21 @@ s32 func_80316408_727AB8(Animal *arg0) {
     case 0x39:
         if (temp_s0->unk19C.payload.cmd.regular.unk6 != 0) {
             func_80342318_7539C8(
-                (temp_s0->unk19C.payload.cmd.regular.unk0 - temp_s1->xPos.h) << 0x10,
-                (temp_s0->unk19C.payload.cmd.regular.unk2 - temp_s1->zPos.h) << 0x10,
-                (temp_s0->unk19C.payload.cmd.regular.unk4 - temp_s1->yPos.h) << 0x10
+                (temp_s0->unk19C.payload.cmd.regular.unk0 - temp_s1->position.xPos.h) << 0x10,
+                (temp_s0->unk19C.payload.cmd.regular.unk2 - temp_s1->position.zPos.h) << 0x10,
+                (temp_s0->unk19C.payload.cmd.regular.unk4 - temp_s1->position.yPos.h) << 0x10
             );
         }
-        temp_s1->xPos.h = temp_s0->unk19C.payload.cmd.regular.unk0;
-        temp_s1->zPos.h = temp_s0->unk19C.payload.cmd.regular.unk2;
-        temp_s1->yPos.h = temp_s0->unk19C.payload.cmd.regular.unk4;
-        func_80311554_722C04(temp_s1->xPos.h, temp_s1->zPos.h, &sp10C, &sp110);
-        if ((temp_s1->unk16C->objectType >= 0x100) && (temp_s1->yPos.w < sp110)) {
-            temp_s1->yPos.w = sp110;
+        temp_s1->position.xPos.h = temp_s0->unk19C.payload.cmd.regular.unk0;
+        temp_s1->position.zPos.h = temp_s0->unk19C.payload.cmd.regular.unk2;
+        temp_s1->position.yPos.h = temp_s0->unk19C.payload.cmd.regular.unk4;
+        func_80311554_722C04(temp_s1->position.xPos.h, temp_s1->position.zPos.h, &sp10C, &sp110);
+        if ((temp_s1->unk16C->objectType >= 0x100) && (temp_s1->position.yPos.w < sp110)) {
+            temp_s1->position.yPos.w = sp110;
         }
         if (sp10C == 0x40000000) {
             temp_s1->unk160 = 0;
-        } else if (temp_s1->yPos.w >= sp10C) {
+        } else if (temp_s1->position.yPos.w >= sp10C) {
             temp_s1->unk160 = 2;
         } else {
             temp_s1->unk160 = 1;
@@ -1816,9 +1816,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
             set_waypoint_follow_target(temp_s1, tmp2);
         } else {
             // object
-            temp_s0_35 = tmp2->xPos.h - temp_s1->xPos.h;
-            sp78 = tmp2->zPos.h - temp_s1->zPos.h;
-            spF8 = (tmp2->yPos.h + (tmp2->unk42 >> 1)) - temp_s1->yPos.h;
+            temp_s0_35 = tmp2->position.xPos.h - temp_s1->position.xPos.h;
+            sp78 = tmp2->position.zPos.h - temp_s1->position.zPos.h;
+            spF8 = (tmp2->position.yPos.h + (tmp2->unk42 >> 1)) - temp_s1->position.yPos.h;
             spF4 = (s16) sqrtf(SQ(temp_s0_35) + SQ(sp78));
             temp_s1->yRotation = func_801284B8(temp_s0_35, sp78);
             temp_s1->zRotation = func_801284B8(spF8, spF4);
@@ -1923,7 +1923,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
             var_f2 = 1.0f;
         } else {
             tmp3 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-            var_f2 = sqrtf(SQ((f32)(temp_s1->xPos.h - tmp3->xPos.h)) + SQ((f32)(temp_s1->zPos.h - tmp3->zPos.h)) + SQ((f32)(temp_s1->yPos.h - tmp3->yPos.h)));
+            var_f2 = sqrtf(SQ((f32)(temp_s1->position.xPos.h - tmp3->position.xPos.h)) + SQ((f32)(temp_s1->position.zPos.h - tmp3->position.zPos.h)) + SQ((f32)(temp_s1->position.yPos.h - tmp3->position.yPos.h)));
         }
 
         do_rumble(
@@ -1992,18 +1992,18 @@ s32 func_80316408_727AB8(Animal *arg0) {
             func_80342318_7539C8(spD0 << 0x10, spCC << 0x10, spC8 << 0x10);
         }
 
-        temp_s1->xPos.h += spD0;
-        temp_s1->zPos.h += spCC;
-        temp_s1->yPos.h += spC8;
-        func_80311554_722C04(temp_s1->xPos.h, temp_s1->zPos.h, &spD4, &spD8);
-        if ((temp_s1->unk16C->objectType >= 0x100) && (temp_s1->yPos.w < spD8)) {
-            temp_s1->yPos.w = spD8;
+        temp_s1->position.xPos.h += spD0;
+        temp_s1->position.zPos.h += spCC;
+        temp_s1->position.yPos.h += spC8;
+        func_80311554_722C04(temp_s1->position.xPos.h, temp_s1->position.zPos.h, &spD4, &spD8);
+        if ((temp_s1->unk16C->objectType >= 0x100) && (temp_s1->position.yPos.w < spD8)) {
+            temp_s1->position.yPos.w = spD8;
         }
         if (spD4 == 0x40000000) {
             temp_s1->unk160 = 0;
             return 69;
         }
-        if (temp_s1->yPos.w >= spD4) {
+        if (temp_s1->position.yPos.w >= spD4) {
             temp_s1->unk160 = 2;
             return 69;
         }
@@ -2036,8 +2036,10 @@ s32 func_80316408_727AB8(Animal *arg0) {
             var_t0 = -3;
             var_t1 = 5;
         } else {
-            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0 - 3;
-            var_t1 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0 - 3;
+            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0;
+            var_t1 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0;
+            var_t0 -= 3;
+            var_t1 -= 3;
         }
         func_80343AE0_755190(
             var_a0_2,
@@ -2094,10 +2096,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
             var_a2 = -3;
             var_a3 = 5;
         } else {
-            var_a2 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0;
-            var_a3 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0;
-            var_a2 = var_a2 - 3;
-            var_a3 = var_a3 - 3;
+            var_a2 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0 - 3;
+            var_a3 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0 - 3;
         }
         func_80343C74_755324(
           temp_s0->unk19C.payload.cmd.type77.unk5,
@@ -2232,9 +2232,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
     case 0x5E:
         func_802F657C_707C2C(
             temp_s1,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0) + temp_s1->xPos.h,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2) + temp_s1->zPos.h,
-            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4) + temp_s1->yPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0) + temp_s1->position.xPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2) + temp_s1->position.zPos.h,
+            get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk4) + temp_s1->position.yPos.h,
             get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk6));
 
         temp_s1->unk170 = 5;
@@ -2279,9 +2279,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
             &sp9C);
 
         temp_v0_26 = spawn_animal(
-            temp_s1->xPos.h + spA4.unk0,
-            temp_s1->zPos.h + spA4.unk2,
-            temp_s1->yPos.h + spA4.unk4,
+            temp_s1->position.xPos.h + spA4.unk0,
+            temp_s1->position.zPos.h + spA4.unk2,
+            temp_s1->position.yPos.h + spA4.unk4,
             (sp98 << 8) / 360,
             0x7F,
             temp_s0->unk19C.payload.cmd.type95.unk0,

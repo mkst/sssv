@@ -103,15 +103,15 @@ void func_80305368_716A18(struct079 *arg0) {
 
 
     if ((D_803D5524->class == 0x40) || (D_803D5524->waterClass & WATER_SWIM)) {
-        max_height = D_803D5530->yPos.h + 0x190;
-        min_height = D_803D5530->yPos.h - 0x1F4;
+        max_height = D_803D5530->position.yPos.h + 0x190;
+        min_height = D_803D5530->position.yPos.h - 0x1F4;
     } else {
-        max_height = D_803D5530->yPos.h + 0xC8;
-        min_height = D_803D5530->yPos.h - 0xC8;
+        max_height = D_803D5530->position.yPos.h + 0xC8;
+        min_height = D_803D5530->position.yPos.h - 0xC8;
     }
 
-    x_pos = D_803D5530->xPos.h;
-    z_pos = D_803D5530->zPos.h;
+    x_pos = D_803D5530->position.xPos.h;
+    z_pos = D_803D5530->position.zPos.h;
 
     start_2 = (s16)(x_pos >> 6) - 1;
     end_2   = (s16)(x_pos >> 6) + 1;
@@ -156,7 +156,7 @@ void func_80305368_716A18(struct079 *arg0) {
                     // it's an object
                     if ((temp_v1_4->unk82.unk1 == 0) && (temp_v1_4->objectType != OBJECT_TELEPORTER_BASE) && (temp_v1_4->objectType != OBJECT_TELEPORTER_ACTIVE_NO_TRIGGER) && (temp_v1_4->objectType != OBJECT_TELEPORTER_ACTIVE)) {
                         if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2) && (animal != D_803D552C->unk2AC) && (animal != D_803D552C->unk320)) {
-                            dist = ABS(animal->xPos.h - x_pos) + ABS(animal->zPos.h - z_pos);
+                            dist = ABS(animal->position.xPos.h - x_pos) + ABS(animal->position.zPos.h - z_pos);
                             dist = dist - D_803D5524->unkBE;
                             if (temp_v1_4->unk2 == 2) {
                                 if ((D_803D5524->unk9C == RAT) || (D_803D5524->unk9C == POLAR_BEAR) || (D_803D5524->unk9C == HIPPO) || (D_803D5524->unk9C == KING_RAT) || (D_803D5524->unk9C == POLAR_TANK)) {
@@ -175,14 +175,14 @@ void func_80305368_716A18(struct079 *arg0) {
                     }
                 } else if ((animal != D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) {
                     // its an animal
-                    if ((animal->yPos.h < max_height) && (min_height < animal->yPos.h)) {
+                    if ((animal->position.yPos.h < max_height) && (min_height < animal->position.yPos.h)) {
                         if ((func_80362B00_7741B0(animal) != 0) || ((can_swim(D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
                             ai_behavior = 0;
                         } else {
                             ai_behavior = func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
                         }
 
-                        dist = ABS(animal->xPos.h - x_pos) + ABS(animal->zPos.h - z_pos);
+                        dist = ABS(animal->position.xPos.h - x_pos) + ABS(animal->position.zPos.h - z_pos);
                         dist = dist - (D_803D5524->unkBE);
                         dist = dist - animal->unk16C->unkBE;
                         if (dist < 0) {
@@ -432,29 +432,29 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
         animal = var_a1_4->animal;
         if ((animal->unk16C->unk82.unk1) && (animal != sp50) && (animal->xVelocity.h == 0) && (animal->zVelocity.h == 0) && (animal->yVelocity.h == 0)) {
 
-            if (ABS((animal->yPos.w + (animal->unk42 << 0x10)) - arg2) <= FTOFIX32(16.0)) {
+            if (ABS((animal->position.yPos.w + (animal->unk42 << 0x10)) - arg2) <= FTOFIX32(16.0)) {
                 switch (arg4) {
                 case 0:
-                    if ((ABS(animal->zPos.h - arg1) < (animal->unk32 >> 1)) &&
-                        ((arg0 - (arg3 >> 1)) < (animal->xPos.h + animal->unk30 + 2))) {
+                    if ((ABS(animal->position.zPos.h - arg1) < (animal->unk32 >> 1)) &&
+                        ((arg0 - (arg3 >> 1)) < (animal->position.xPos.h + animal->unk30 + 2))) {
                         return 0;
                     }
                     break;
                 case 1:
-                    if ((ABS(animal->zPos.h - arg1) < (animal->unk32 >> 1)) &&
-                        ((arg0 + (arg3 >> 1)) > ((animal->xPos.h - animal->unk30) - 2))) {
+                    if ((ABS(animal->position.zPos.h - arg1) < (animal->unk32 >> 1)) &&
+                        ((arg0 + (arg3 >> 1)) > ((animal->position.xPos.h - animal->unk30) - 2))) {
                         return 0;
                     }
                     break;
                 case 2:
-                    if ((ABS(animal->xPos.h - arg0) < (animal->unk30 >> 1)) &&
-                        ((arg1 - (arg3 >> 1)) < (animal->zPos.h + animal->unk32 + 2))) {
+                    if ((ABS(animal->position.xPos.h - arg0) < (animal->unk30 >> 1)) &&
+                        ((arg1 - (arg3 >> 1)) < (animal->position.zPos.h + animal->unk32 + 2))) {
                         return 0;
                     }
                     break;
                 case 3:
-                    if ((ABS(animal->xPos.h - arg0) < (animal->unk30 >> 1)) &&
-                        ((arg1 + (arg3 >> 1)) > ((animal->zPos.h - animal->unk32) - 2))) {
+                    if ((ABS(animal->position.xPos.h - arg0) < (animal->unk30 >> 1)) &&
+                        ((arg1 + (arg3 >> 1)) > ((animal->position.zPos.h - animal->unk32) - 2))) {
                         return 0;
                     }
                     break;
@@ -645,15 +645,15 @@ void func_803071BC_71886C(void) {
 
     new_var = &D_803E4BE0;
 
-    xPos = D_803D5530->xPos.h;
-    zPos = D_803D5530->zPos.h;
+    xPos = D_803D5530->position.xPos.h;
+    zPos = D_803D5530->position.zPos.h;
 
     var_t1 = 0;
     var_t2 = 0;
 
     if (D_803D5524->waterClass & WATER_SWIM) {
         var_s5 = 10;
-        yOffset = ((GET_WATER_LEVEL(D_803C0740, D_803D5530->xPos.h, D_803D5530->zPos.h) * 4) + (func_80310EE4_722594(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->unk160) >> 0x10)) >> 1;
+        yOffset = ((GET_WATER_LEVEL(D_803C0740, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) * 4) + (func_80310EE4_722594(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->unk160) >> 0x10)) >> 1;
     } else if (D_803D5524->class & CLASS_FLYING) {
         var_s5 = 10;
         yOffset = -200;
@@ -718,8 +718,8 @@ void func_803071BC_71886C(void) {
 
     if ((D_803D552C->unk2A0 != 3) && ((D_803D552C->unk2A0 != 5) || (D_803D552C->unk2A1 != -1)) && ((new_var->unk5C < 0x280) && (D_803D552C->unk272 & 8))) {
         if (new_var->unk60 != D_803D552C->unk2CC) {
-            spBC.unk0 = new_var->unk60->xPos.h - xPos;
-            spBC.unk4 = new_var->unk60->zPos.h - zPos;
+            spBC.unk0 = new_var->unk60->position.xPos.h - xPos;
+            spBC.unk4 = new_var->unk60->position.zPos.h - zPos;
 
             if (new_var->unk5C < 12) {
                 func_80304EC4_716574(&spBC, &spB4);
@@ -759,8 +759,8 @@ void func_803071BC_71886C(void) {
                 continue;
             } else {
                 temp_v1_2 = new_var->unk0.distance[i];
-                spBC.unk0 = animal->xPos.h - xPos;
-                spBC.unk4 = animal->zPos.h - zPos;
+                spBC.unk0 = animal->position.xPos.h - xPos;
+                spBC.unk4 = animal->position.zPos.h - zPos;
                 if (temp_v1_2 < 0x140) {
                     if (temp_v1_2 < 0x40) {
                         func_80304EC4_716574(&spBC, &spB4);
@@ -803,8 +803,8 @@ void func_803071BC_71886C(void) {
             animal = new_var->unk1C.animal[i];
             if (animal != D_803D552C->unk2CC) {
                 temp_v1_2 = new_var->unk1C.distance[i];
-                spBC.unk0 = animal->xPos.h - xPos;
-                spBC.unk4 = animal->zPos.h - zPos;
+                spBC.unk0 = animal->position.xPos.h - xPos;
+                spBC.unk4 = animal->position.zPos.h - zPos;
                 if (temp_v1_2 < 0x180) {
                     D_803D552C->unk28A = 1;
                     func_80304EC4_716574(&spBC, &spB4);
@@ -826,8 +826,8 @@ void func_803071BC_71886C(void) {
                 continue;
             } else {
                 temp_v1_2 = new_var->unk38.distance[i];
-                spBC.unk0 = animal->xPos.h - xPos;
-                spBC.unk4 = animal->zPos.h - zPos;
+                spBC.unk0 = animal->position.xPos.h - xPos;
+                spBC.unk4 = animal->position.zPos.h - zPos;
                 if (temp_v1_2 < 0x80) {
                     func_80304EC4_716574(&spBC, &spB4);
 
@@ -848,8 +848,8 @@ void func_803071BC_71886C(void) {
             sp86 = D_803D5530->unk6C->unk30 * 2;
             sp84 = (D_803D5530->unk6C->unk30 * 2) - 1;
             maxDist = ((sp86 * 5) >> 6);
-            var_s1 = D_803D5530->unk6C->xPos.h;
-            var_s0 = D_803D5530->unk6C->zPos.h;
+            var_s1 = D_803D5530->unk6C->position.xPos.h;
+            var_s0 = D_803D5530->unk6C->position.zPos.h;
         } else {
             sp86 = 0x40;
             sp84 = 0x3F;
@@ -859,10 +859,10 @@ void func_803071BC_71886C(void) {
             var_s0 = (zPos & ~0x3F) + 0x20;
         }
 
-        var_v1_3 = func_803064BC_717B6C(var_s1, var_s0, D_803D5530->yPos.w, D_803D5530->unk160, sp86);
+        var_v1_3 = func_803064BC_717B6C(var_s1, var_s0, D_803D5530->position.yPos.w, D_803D5530->unk160, sp86);
 
         if ((D_803D5530->unk6C == NULL) || ((!D_803D5530->unk6C->unk16C->unk82.unk1))) { //  << 0x11 >= 0
-            temp_v0_17 = func_803065F0_717CA0(var_s1, var_s0, D_803D5530->yPos.w, sp86, var_v1_3);
+            temp_v0_17 = func_803065F0_717CA0(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, var_v1_3);
             if (temp_v0_17 != 0) {
                 sp86 = 0x48;
                 sp84 = 0x47;
@@ -877,7 +877,7 @@ void func_803071BC_71886C(void) {
                 if (temp_v0_17 & 1) {
                     var_s1 += 64;
                 }
-                var_v1_3 = func_803064BC_717B6C(var_s1, var_s0, D_803D5530->yPos.w, D_803D5530->unk160, sp86);
+                var_v1_3 = func_803064BC_717B6C(var_s1, var_s0, D_803D5530->position.yPos.w, D_803D5530->unk160, sp86);
             }
         }
     } else {
@@ -896,8 +896,8 @@ void func_803071BC_71886C(void) {
         break;
 
     case 1:
-        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 0)) ||
-            (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 1))) {
+        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 0)) ||
+            (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 1))) {
             if ((yRotation2 >= 0x60) || (yRotation2 < 0x21)) {
                 goto case_3;
             } else {
@@ -918,8 +918,8 @@ void func_803071BC_71886C(void) {
         break;
 
     case 2:
-        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 3) != 0) ||
-            (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 2) != 0)) {
+        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 3) != 0) ||
+            (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 2) != 0)) {
             if ((yRotation2 < 0xA0) || (yRotation2 >= 0xE0)) {
                 goto case_3;
             } else {
@@ -958,8 +958,8 @@ case_3:
         break;
 
     case 4:
-        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 3) != 0) ||
-            (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 0) != 0)) {
+        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 3) != 0) ||
+            (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 0) != 0)) {
             if ((yRotation2 >= 0x20) && (yRotation2 < 0xE0)) {
                 goto case_12;
             } else {
@@ -979,7 +979,7 @@ case_3:
         break;
 
     case 5:
-        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 0) != 0) {
+        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 0) != 0) {
             if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
                 if ((yRotation2 < 0x20) || (yRotation2 >= 0xA0)) {
                     var_s2 = 0;
@@ -1027,7 +1027,7 @@ case_3:
         break;
 
     case 6:
-        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 3) != 0) {
+        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 3) != 0) {
             if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
                 if ((yRotation2 < 0x60) || (yRotation2 >= 0xE0)) {
                     var_s2 = 0;
@@ -1089,8 +1089,8 @@ case_7:
 
     case 8:
 
-        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 2) != 0) ||
-            (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 1) != 0)) {
+        if ((func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 2) != 0) ||
+            (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 1) != 0)) {
             if ((yRotation2 < 0x60) || (yRotation2 >= 0xA0)) {
                 goto case_12;
             } else {
@@ -1110,7 +1110,7 @@ case_7:
         break;
 
     case 9:
-        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 1) != 0) {
+        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 1) != 0) {
             if (((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist))) {
                 if ((yRotation2 < 0x60) || (yRotation2 >= 0xE0)) {
                     var_s2 = 0x40;
@@ -1158,7 +1158,7 @@ case_7:
         break;
 
     case 10:
-        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->yPos.w, sp86, 2) != 0) {
+        if (func_80305A70_717120(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, 2) != 0) {
             if ((ABS(xPos - var_s1) < maxDist) && (ABS(zPos - var_s0) < maxDist)) {
                 if ((yRotation2 < 0x20) || (yRotation2 >= 0xA0)) {
                     var_s2 = 0xC0;
@@ -1288,15 +1288,15 @@ case_14:
     }
 
     if (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C == MOUSE2) {
-        curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h - D_803D5530->xPos.h);
+        curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h - D_803D5530->position.xPos.h);
         if (curDiff < 0x280) {
             minDist = curDiff;
-            curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h - D_803D5530->zPos.h);
+            curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h - D_803D5530->position.zPos.h);
             if (curDiff < 0x280) {
                 if (curDiff >= minDist) {
                     minDist = curDiff;
                 }
-                curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h - D_803D5530->yPos.h);
+                curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h - D_803D5530->position.yPos.h);
                 if (curDiff < 0x280) {
 
                     if (curDiff >= minDist) {
@@ -1313,7 +1313,7 @@ case_14:
         }
     }
 
-    yRotation2 += (((D_803D5528->unk348 >> 2) * (D_80152C78[(s16)(D_803D5540 << 2) & 0xFF] >> 7)) >> 0xA);
+    yRotation2 += (((D_803D5528->unk348 >> 2) * (SIN(D_803D5540 << 2) >> 7)) >> 0xA);
     yRotation = D_803D5530->yRotation;
     var_a0 = (D_803D5530->yRotation - yRotation2) & 0xFF;
 
@@ -1397,8 +1397,8 @@ s32 func_80309868_71AF18(void) {
 
 // ESA: func_8007BF20
 s32 func_803098F0_71AFA0(void) {
-    s32 xDist = ABS(D_803D5530->xPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h);
-    s32 zDist = ABS(D_803D5530->zPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h);
+    s32 xDist = ABS(D_803D5530->position.xPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h);
+    s32 zDist = ABS(D_803D5530->position.zPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h);
 
     if ((D_803D552C->unk272 & 1)) {
         if ((s16) (zDist + xDist) < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType]) {
@@ -1466,13 +1466,13 @@ s32 func_80309BA0_71B250(void) {
         a = D_803E4BE0.unk58;
         if (a != NULL) {
             a2 = a;
-            phi_a3 = ABS(D_803D552C->unk280->xPos.h - a2->xPos.h);
-            phi_v1 = ABS(D_803D552C->unk280->zPos.h - a2->zPos.h);
+            phi_a3 = ABS(D_803D552C->unk280->position.xPos.h - a2->position.xPos.h);
+            phi_v1 = ABS(D_803D552C->unk280->position.zPos.h - a2->position.zPos.h);
 
             // typo? function looks completely different without the double assignment
-            phi_a3 = ABS(D_803D552C->unk280->xPos.h - a2->xPos.h);
+            phi_a3 = ABS(D_803D552C->unk280->position.xPos.h - a2->position.xPos.h);
             if ((D_803D552C->unk280 && D_803D552C->unk280) && D_803D552C->unk280) {}; // fakematch/regalloc fix
-            phi_v1 = ABS(D_803D552C->unk280->zPos.h - a2->zPos.h);
+            phi_v1 = ABS(D_803D552C->unk280->position.zPos.h - a2->position.zPos.h);
 
             phi_v0 = (phi_v1 + phi_a3) - (D_803D552C->unk280->unk30 + a2->unk30);
             phi_v0 = MAX(1, phi_v0);
@@ -1573,9 +1573,9 @@ void func_80309F38_71B5E8(void) {
     }
 
     func_80319C38_72B2E8(
-        D_803D5530->xPos.h >> 6,
-        D_803D5530->zPos.h >> 6,
-        D_803D5530->yPos.h >> 6,
+        D_803D5530->position.xPos.h >> 6,
+        D_803D5530->position.zPos.h >> 6,
+        D_803D5530->position.yPos.h >> 6,
         D_803D5530->unk193,
         &D_803D5530->unk192,
         D_803D5530->unk160);
@@ -1602,8 +1602,8 @@ void func_80309F38_71B5E8(void) {
 
     if (D_803D552C->unk2CC != NULL) {
         D_803D552C->targetDistance = sqrtf(
-            ((D_803D552C->unk2CC->xPos.h - D_803D5530->xPos.h) * (D_803D552C->unk2CC->xPos.h - D_803D5530->xPos.h)) +
-            ((D_803D552C->unk2CC->zPos.h - D_803D5530->zPos.h) * (D_803D552C->unk2CC->zPos.h - D_803D5530->zPos.h)));
+            ((D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h) * (D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h)) +
+            ((D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h) * (D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h)));
         D_803D552C->targetDistance = ((D_803D552C->targetDistance - D_803D5524->unkBE) - D_803D552C->unk2CC->unk30);
         if (D_803D552C->targetDistance < 0) {
             D_803D552C->targetDistance = 1;
@@ -1612,8 +1612,8 @@ void func_80309F38_71B5E8(void) {
 
     if (D_803D552C->unk280 != NULL) {
         D_803D552C->unk284 = sqrtf(
-            ((D_803D552C->unk280->xPos.h - D_803D5530->xPos.h) * (D_803D552C->unk280->xPos.h - D_803D5530->xPos.h)) +
-            ((D_803D552C->unk280->zPos.h - D_803D5530->zPos.h) * (D_803D552C->unk280->zPos.h - D_803D5530->zPos.h)));
+            ((D_803D552C->unk280->position.xPos.h - D_803D5530->position.xPos.h) * (D_803D552C->unk280->position.xPos.h - D_803D5530->position.xPos.h)) +
+            ((D_803D552C->unk280->position.zPos.h - D_803D5530->position.zPos.h) * (D_803D552C->unk280->position.zPos.h - D_803D5530->position.zPos.h)));
         D_803D552C->unk284 = ((D_803D552C->unk284 - D_803D5524->unkBE) - D_803D552C->unk280->unk30);
         if (D_803D552C->unk284 < 0) {
             D_803D552C->unk284 = 1;
@@ -1794,7 +1794,7 @@ void func_80309F38_71B5E8(void) {
 // ESA: func_8007CE7C
 void func_8030A8EC_71BF9C(void) {
     Animal *animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    func_80319C38_72B2E8(animal->xPos.h >> 6, animal->zPos.h >> 6, animal->yPos.h >> 6,
+    func_80319C38_72B2E8(animal->position.xPos.h >> 6, animal->position.zPos.h >> 6, animal->position.yPos.h >> 6,
                          animal->unk193, &animal->unk192, animal->unk160);
 }
 

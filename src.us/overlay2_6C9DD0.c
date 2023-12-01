@@ -2,9 +2,6 @@
 #include "common.h"
 
 
-u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, s32 *arg5, s32 *arg6, Animal *arg7, s32 *arg8, s32 *arg9);
-
-
 void func_802B8720_6C9DD0(void) {
     D_803D5528->unk370.unk10 = 0;
     D_803D5528->unk384.unk10 = 0;
@@ -172,8 +169,8 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
     sp5C = arg1 / 32;
     func_802B901C_6CA6CC(D_803D552C->unk302, &sp5E, &sp5C);
 
-    sp5E += (u16)D_803D5530->xPos.h;
-    sp5C += (u16)D_803D5530->zPos.h;
+    sp5E += (u16)D_803D5530->position.xPos.h;
+    sp5C += (u16)D_803D5530->position.zPos.h;
 
     switch (D_803D5530->unk160) {
     default:
@@ -181,14 +178,14 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
     case 0:
         sp58 = func_80310F58_722608(sp5E, sp5C);
         sp58 = sp58 - (D_803D5530->unk4C.unk10 << 16);
-        if (D_803D5530->yPos.w + FTOFIX32(10.0) < sp58) {
+        if (D_803D5530->position.yPos.w + FTOFIX32(10.0) < sp58) {
             sp58 = func_8031124C_7228FC(sp5E, sp5C) - (D_803D5530->unk4C.unk10 << 16);
         }
-        if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
+        if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->position.yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
             if (sp58 < sp54) {
                 sp58 = sp54;
                 if (D_803D5530->unk161 == 1) {
-                    sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
+                    sp44 = D_803D5530->position.yPos.w - FTOFIX32(10.0);
                     if (sp44 >= sp58) {
                         sp58 = sp44;
                     }
@@ -196,7 +193,7 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
             }
         }
         if (D_803D5530->unk161 == 1) {
-            sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
+            sp44 = D_803D5530->position.yPos.w - FTOFIX32(10.0);
             if (sp44 >= sp58) {
                 sp58 = sp44;
             }
@@ -204,13 +201,13 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         break;
     case 1:
         sp58 = func_8031124C_7228FC(sp5E, sp5C) - (D_803D5530->unk4C.unk10 << 0x10);
-        if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
+        if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->position.yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
             if (sp58 < sp54) {
                 sp58 = sp54;
             }
         }
         if (D_803D5530->unk161 == 1) {
-            sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
+            sp44 = D_803D5530->position.yPos.w - FTOFIX32(10.0);
             if (sp44 >= sp58) {
                 sp58 = sp44;
             }
@@ -223,21 +220,21 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
 
             if (1) {}; // regalloc
 
-            if ((func_80310F58_722608(D_803D5530->xPos.h, D_803D5530->zPos.h) - FTOFIX32(5.0)) < sp40) {
+            if ((func_80310F58_722608(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) - FTOFIX32(5.0)) < sp40) {
                 sp58 = func_8031124C_7228FC(sp5E, sp5C);
             } else {
-                sp58 = func_80310F58_722608(D_803D5530->xPos.h, D_803D5530->zPos.h) - FTOFIX32(5.0);
+                sp58 = func_80310F58_722608(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) - FTOFIX32(5.0);
             }
         }
         sp58 = sp58 - (D_803D5530->unk4C.unk10 << 0x10);
-        if ((func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50))) {
+        if ((func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->position.yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50))) {
             if (sp58 < sp54) {
                 sp58 = sp54;
             }
         }
 
         if (D_803D5530->unk161 == 1) {
-            sp44 = D_803D5530->yPos.w - FTOFIX32(10.0);
+            sp44 = D_803D5530->position.yPos.w - FTOFIX32(10.0);
             if (sp44 >= sp58) {
                 sp58 = sp44;
             }
@@ -245,7 +242,7 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         // regalloc helper
         if (1) {};
     }
-    sp58 = sp58 - D_803D5530->yPos.w;
+    sp58 = sp58 - D_803D5530->position.yPos.w;
     return sp58;
 }
 
@@ -258,8 +255,8 @@ s32 func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
     s32 temp_t8;
     s32 temp_t7;
 
-    temp_v0 = D_80152C78[(arg0 & 0xFF) & 0xFF];
-    temp_a3 = D_80152C78[(arg0 + 64) & 0xFF];
+    temp_v0 = SIN(arg0);
+    temp_a3 = COS(arg0);
 
     temp_t7 = *arg2;
     temp_t1 = temp_t7;
@@ -283,8 +280,8 @@ void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
     s32 temp_t8;
     s32 temp_t7;
 
-    temp_v0 = D_80152C78[(arg0 & 0xFF) & 0xFF] >> 7;
-    temp_a3 = D_80152C78[(arg0 + 64) & 0xFF] >> 7;
+    temp_v0 = SIN(arg0) >> 7;
+    temp_a3 = COS(arg0) >> 7;
 
     temp_t7 = *arg2;
     temp_t1 = temp_t7;

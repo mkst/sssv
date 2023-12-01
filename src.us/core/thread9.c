@@ -74,7 +74,7 @@ s32 init_controllers(void) {
     osContSetCh(1);
 
     osCreateMesgQueue(&D_802912B0, &D_802912C8, 1);
-    osCreateThread(&gThread9, 9, (void *)thread9, 0, &D_8028E230, 9);
+    osCreateThread(&gThread9, 9, (void (*)(void *)) thread9, NULL, &D_8028E230, 9);
     osStartThread(&gThread9);
 
     for (i = 0; i < MAXCONTROLLERS; i++) {
@@ -83,18 +83,14 @@ s32 init_controllers(void) {
             if ((gControllerStatus[i].type & CONT_JOYPORT) &&
                 (gControllerStatus[i].status & CONT_CARD_ON)) {
 
-                ret = osPfsInit(&D_8028D0A8, &D_80291110[i], i);
+                ret = osPfsInit(&D_8028D0A8, (s32)&D_80291110[i], i);
                 // bad?
                 if ((ret == PFS_ERR_ID_FATAL) || (ret == PFS_ERR_DEVICE)) {
-                    // regalloc help
-                    if (!gControllerStatus[i].status) {}
                     // try to enable rumblepak
-                    if (osMotorInit(&D_8028D0A8, &D_80291110[i], i) == 0) {
-                        D_80291090.hasRumblePak[i] = (u8)1;
+                    if (osMotorInit(&D_8028D0A8, (s32)&D_80291110[i], i) == 0) {
+                        D_80291090.hasRumblePak[i] = 1;
                     }
                 }
-                // regalloc
-                if (ret) {};
             }
         }
     }

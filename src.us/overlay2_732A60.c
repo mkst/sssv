@@ -10,7 +10,7 @@ Animal *try_pickup_animal(void) {
     Animal *a = D_803D5530->unk6C;
 
     if ((a == NULL) &&
-        (func_80322A58_734108(D_803D5530->xPos.h, D_803D5530->zPos.h, (s16) (D_803D5530->yPos.h - 0x10), 0x10, 0, &a, D_803D5530, 0)) &&
+        (func_80322A58_734108(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, (s16) (D_803D5530->position.yPos.h - 0x10), 0x10, 0, &a, D_803D5530, 0)) &&
         (!(a->unk16C->unk82.unk2) || (a->unk366 != 5) || ((a->unk160 == 1) && (D_803D5530->unk160 == 2)))) {
         a = NULL;
     }
@@ -24,7 +24,7 @@ Animal *try_pickup_animal(void) {
                 D_803D552C->unk320 = a;
                 a->state = 0x1FU;
                 a->unk4C.unk19 = 1;
-                play_sound_effect_at_location(SFX_UNKNOWN_40, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.5f);
+                play_sound_effect_at_location(SFX_UNKNOWN_40, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.5f);
                 if ((a->unk16C->unk82.unk2) == 0) {
                     if (a->unk163 & 8) {
                         a->unk163 |= 32;
@@ -57,24 +57,24 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
     struct065 *temp_v1;
 
 
-    temp_a2 = D_803D5530->xPos.h;
-    temp_a2 += ((((s16) D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg0) >> 8);
-    temp_v0 = D_803D5530->zPos.h;
-    temp_v0 += ((((s16) D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg0) >> 8);
+    temp_a2 = D_803D5530->position.xPos.h;
+    temp_a2 += (((SIN(D_803D552C->unk302) >> 7) * arg0) >> 8);
+    temp_v0 = D_803D5530->position.zPos.h;
+    temp_v0 += (((COS(D_803D552C->unk302) >> 7) * arg0) >> 8);
 
     temp_s1 = temp_a2 - arg1; // x min
     temp_s2 = temp_v0 - arg1; // z min
     temp_s3 = temp_a2 + arg1; // x max
     temp_s4 = temp_v0 + arg1; // z max
 
-    temp_t1 = D_803D5530->yPos.h - 64;     // y min
-    temp_t2 = D_803D5530->yPos.h + 64 + D_803D5524->unkBA; // y max
+    temp_t1 = D_803D5530->position.yPos.h - 64;     // y min
+    temp_t2 = D_803D5530->position.yPos.h + 64 + D_803D5524->unkBA; // y max
 
     for (temp_v1 = D_803DA110[(s16) ((s16)(temp_a2 >> 0xA) + ((s16)(temp_v0 >> 0xA) * 5))].next; temp_v1 != NULL; temp_v1 = temp_v1->next) {
         a = temp_v1->animal;
-        if ((a->xPos.h >= temp_s1) && (temp_s3 >= a->xPos.h)) {
-            if ((a->zPos.h >= temp_s2) && (temp_s4 >= a->zPos.h)) {
-                if ((a->yPos.h >= temp_t1) && (temp_t2 >= a->yPos.h)) {
+        if ((a->position.xPos.h >= temp_s1) && (temp_s3 >= a->position.xPos.h)) {
+            if ((a->position.zPos.h >= temp_s2) && (temp_s4 >= a->position.zPos.h)) {
+                if ((a->position.yPos.h >= temp_t1) && (temp_t2 >= a->position.yPos.h)) {
                     if ((D_803D5524->unk9C == ELEPHANT) && (a->unk16C->objectType != 2)) {
                         return NULL;
                     }
@@ -82,9 +82,9 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
             }
         }
         if ((a != D_803D5530) && (a != D_803D5530->unk6C)) {
-            if ((a->xPos.h >= temp_s1) && (temp_s3 >= a->xPos.h)) {
-                if ((a->zPos.h >= temp_s2) && (temp_s4 >= a->zPos.h) && (a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk1B)) {
-                    if ((a->yPos.h >= temp_t1) && (temp_t2 >= a->yPos.h)) {
+            if ((a->position.xPos.h >= temp_s1) && (temp_s3 >= a->position.xPos.h)) {
+                if ((a->position.zPos.h >= temp_s2) && (temp_s4 >= a->position.zPos.h) && (a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk1B)) {
+                    if ((a->position.yPos.h >= temp_t1) && (temp_t2 >= a->position.yPos.h)) {
                         if ((D_803D5524->unkC0 >= a->unk44) && (a->unk40 <= 3072) && ((a->state == 0) || (a->state == 1)) && (a->unk4A == 0)) {
                             D_803D552C->unk324 = a->state;
                             D_803D552C->unk320 = a;
@@ -116,18 +116,18 @@ Animal *func_803218D8_732F88(Animal *arg0) {
 // ESA: func_8008202C
 void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2) {
     if (arg0 != NULL) {
-        arg0->xVelocity.h = D_803D5530->xVelocity.h + (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg1) >> 8);
-        arg0->zVelocity.h = D_803D5530->zVelocity.h + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg1) >> 8);
+        arg0->xVelocity.h = D_803D5530->xVelocity.h + (((SIN(D_803D552C->unk302) >> 7) * arg1) >> 8);
+        arg0->zVelocity.h = D_803D5530->zVelocity.h + (((COS(D_803D552C->unk302) >> 7) * arg1) >> 8);
         arg0->yVelocity.h = (D_803D5530->yVelocity.h + arg2) - 1;
         arg0->unk4C.unk19 = 1;
         arg0->unk160 = D_803D5530->unk160;
         if (arg0->unk160 != 0) {
-            if (((arg0->unk160 == 1) || (arg0->unk160 == 2)) && (D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk3 == 0)) {
+            if (((arg0->unk160 == 1) || (arg0->unk160 == 2)) && (D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk3 == 0)) {
                 arg0->unk160 = 0U;
             }
         } else {
-            if (D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk3 != 0) {
-                if ((func_80310F58_722608(arg0->xPos.h, arg0->zPos.h) >> 0x10) < arg0->yPos.h) {
+            if (D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk3 != 0) {
+                if ((func_80310F58_722608(arg0->position.xPos.h, arg0->position.zPos.h) >> 0x10) < arg0->position.yPos.h) {
                     arg0->unk160 = 2U;
                 } else {
                     arg0->unk160 = 1U;
@@ -164,9 +164,9 @@ void func_80321B70_733220(s16 arg0, s16 arg1, s16 arg2) {
 
     Animal *a = D_803D552C->unk320;
     if (a != 0) {
-        a->xPos.h = (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg1) >> 8) + (D_803D5530->xPos.h + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg0) >> 8));
-        a->zPos.h = D_803D5530->zPos.h + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg1) >> 8) - (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg0) >> 8);
-        a->yPos.h = D_803D5530->yPos.h + arg2;
+        a->position.xPos.h = (((SIN(D_803D552C->unk302) >> 7) * arg1) >> 8) + (D_803D5530->position.xPos.h + (((COS(D_803D552C->unk302) >> 7) * arg0) >> 8));
+        a->position.zPos.h = D_803D5530->position.zPos.h + (((COS(D_803D552C->unk302) >> 7) * arg1) >> 8) - (((SIN(D_803D552C->unk302) >> 7) * arg0) >> 8);
+        a->position.yPos.h = D_803D5530->position.yPos.h + arg2;
         a->unk160 = D_803D5530->unk160;
         a->xVelocity.w = D_803D5530->xVelocity.w;
         a->zVelocity.w = D_803D5530->zVelocity.w;
@@ -192,9 +192,9 @@ void func_80321B70_733220(s16 arg0, s16 arg1, s16 arg2) {
 void func_80321D74_733424(s16 arg0, s16 arg1) {
     Animal *a = D_803D552C->unk320;
     if (a != NULL) {
-        a->xPos.h = D_803D5530->xPos.h + (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg0) >> 8);
-        a->zPos.h = D_803D5530->zPos.h + (((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg0) >> 8);
-        a->yPos.h = D_803D5530->yPos.h + arg1;
+        a->position.xPos.h = D_803D5530->position.xPos.h + (((SIN(D_803D552C->unk302) >> 7) * arg0) >> 8);
+        a->position.zPos.h = D_803D5530->position.zPos.h + (((COS(D_803D552C->unk302) >> 7) * arg0) >> 8);
+        a->position.yPos.h = D_803D5530->position.yPos.h + arg1;
         a->xVelocity.w = D_803D5530->xVelocity.w;
         a->zVelocity.w = D_803D5530->zVelocity.w;
         a->yVelocity.w = D_803D5530->yVelocity.w;
@@ -214,19 +214,19 @@ void fire_cannonball_1(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, 
 
     s16 _id = id & 0xFFFF;
 
-    xpos = (((arg1 * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7)) + ((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * arg2)) >> 8);
-    zpos = (((arg1 * (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7)) - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2)) >> 8);
+    xpos = (((arg1 * (SIN(D_803D552C->unk302) >> 7)) + ((COS(D_803D552C->unk302) >> 7) * arg2)) >> 8);
+    zpos = (((arg1 * (COS(D_803D552C->unk302) >> 7)) - ((SIN(D_803D552C->unk302) >> 7) * arg2)) >> 8);
 
-    sp38 = ((D_80152C78[(arg5 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7);
-    sp34 = ((D_80152C78[(arg5 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7);
-    sp3C = (((D_80152C78[arg5 & 0xFF] >> 7) * arg4) << 8);
+    sp38 = ((COS(arg5) >> 7) * arg4) * (SIN(D_803D552C->unk302) >> 7);
+    sp34 = ((COS(arg5) >> 7) * arg4) * (COS(D_803D552C->unk302) >> 7);
+    sp3C = (((SIN(arg5) >> 7) * arg4) << 8);
 
 
     obj = spawn_object(
         _id,
-        D_803D5530->xPos.h + xpos,
-        D_803D5530->zPos.h + zpos,
-        D_803D5530->yPos.h + arg3,
+        D_803D5530->position.xPos.h + xpos,
+        D_803D5530->position.zPos.h + zpos,
+        D_803D5530->position.yPos.h + arg3,
         D_803D5530->xVelocity.w + sp38,
         D_803D5530->zVelocity.w + sp34,
         D_803D5530->yVelocity.w + sp3C,
@@ -257,18 +257,18 @@ void fire_cannonball_2(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, 
 
     s16 _id = id & 0xFFFF;
 
-    xpos = ((arg1 * (D_80152C78[arg5 & 0xFF] >> 7)) + ((D_80152C78[(arg5 + 0x40) & 0xFF] >> 7) * arg2)) >> 8;
-    zpos = ((arg1 * (D_80152C78[(arg5 + 0x40) & 0xFF] >> 7)) - ((D_80152C78[arg5 & 0xFF] >> 7) * arg2)) >> 8;
+    xpos = ((arg1 * (SIN(arg5) >> 7)) + ((COS(arg5) >> 7) * arg2)) >> 8;
+    zpos = ((arg1 * (COS(arg5) >> 7)) - ((SIN(arg5) >> 7) * arg2)) >> 8;
 
-    sp38 = ((D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[arg5 & 0xFF] >> 7);
-    sp34 = ((D_80152C78[(arg6 + 0x40) & 0xFF] >> 7) * arg4) * (D_80152C78[(arg5 + 0x40) & 0xFF] >> 7);
-    sp3C = ((D_80152C78[arg6 & 0xFF] >> 7) * arg4) << 8;
+    sp38 = ((COS(arg6) >> 7) * arg4) * (SIN(arg5) >> 7);
+    sp34 = ((COS(arg6) >> 7) * arg4) * (COS(arg5) >> 7);
+    sp3C = ((SIN(arg6) >> 7) * arg4) << 8;
 
     obj = spawn_object(
         _id,
-        D_803D5530->xPos.h + xpos,
-        D_803D5530->zPos.h + zpos,
-        D_803D5530->yPos.h + arg3,
+        D_803D5530->position.xPos.h + xpos,
+        D_803D5530->position.zPos.h + zpos,
+        D_803D5530->position.yPos.h + arg3,
         D_803D5530->xVelocity.w + sp38,
         D_803D5530->zVelocity.w + sp34,
         D_803D5530->yVelocity.w + sp3C,
@@ -298,14 +298,14 @@ void fire_cannonball_3(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, 
 
     _id = id & 0xffff;
 
-    xpos = (((arg1 * (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7)) + ((D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7) * arg2)) >> 8);
-    zpos = (((arg1 * (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 7)) - ((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2)) >> 8);
+    xpos = (((arg1 * (SIN(D_803D552C->unk302) >> 7)) + ((COS(D_803D552C->unk302) >> 7) * arg2)) >> 8);
+    zpos = (((arg1 * (COS(D_803D552C->unk302) >> 7)) - ((SIN(D_803D552C->unk302) >> 7) * arg2)) >> 8);
 
     obj = spawn_object(
         _id,
-        D_803D5530->xPos.h + xpos,
-        D_803D5530->zPos.h + zpos,
-        D_803D5530->yPos.h + arg3,
+        D_803D5530->position.xPos.h + xpos,
+        D_803D5530->position.zPos.h + zpos,
+        D_803D5530->position.yPos.h + arg3,
         D_803D5530->xVelocity.w + arg4,
         D_803D5530->zVelocity.w + arg5,
         D_803D5530->yVelocity.w + arg6,
@@ -324,8 +324,8 @@ void fire_cannonball_3(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, 
 }
 
 void apply_recoil(s16 arg0) {
-    s32 temp_t2 = D_80152C78[(u8)D_803D552C->unk302] >> 7;
-    s32 temp_t7 = D_80152C78[(u8)(D_803D552C->unk302 + 64)] >> 7;
+    s32 temp_t2 = SIN(D_803D552C->unk302) >> 7;
+    s32 temp_t7 = COS(D_803D552C->unk302) >> 7;
 
     if (arg0 < 0) {
         D_803D5530->xVelocity.w += temp_t2 << (8 - arg0);
@@ -351,17 +351,17 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
     ret = 0;
 
-    var_t3 = (D_803D5530->xPos.h + (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg1) >> 8) + (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * arg2) >> 8));
-    var_t4 = (D_803D5530->zPos.h + (((D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) * arg1) >> 8)) - (((D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) * arg2) >> 8);
-    var_t5 = D_803D5530->yPos.h + arg0;
+    var_t3 = D_803D5530->position.xPos.h + (((SIN(D_803D552C->unk302) >> 7) * arg1) >> 8) + (((COS(D_803D552C->unk302) >> 7) * arg2) >> 8);
+    var_t4 = D_803D5530->position.zPos.h + (((COS(D_803D552C->unk302) >> 7) * arg1) >> 8) - (((SIN(D_803D552C->unk302) >> 7) * arg2) >> 8);
+    var_t5 = D_803D5530->position.yPos.h + arg0;
 
     for (var_ra = D_803DA110[(s16)((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
         animal = var_ra->animal;
         if ((animal != D_803D5530) && (D_803D5530->unk6C != animal) && (((animal->unk16C->unk82.unk2) && ((animal == D_801D9ED8.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (D_803D5524->unk9C != animal->unk16C->unk9C))) || ((!animal->unk16C->unk82.unk2) && (animal->unk16C->objectType != 0x40)))) {
             for (var_a1 = animal->unkC4; var_a1->unkC != 0; var_a1++) {
-                if (ABS((animal->xPos.h + var_a1->unk0.h) - var_t3) < (var_a1->unkC + arg3) &&
-                    ABS((animal->zPos.h + var_a1->unk4.h) - var_t4) < (var_a1->unkC + arg3) &&
-                    ABS((animal->yPos.h + var_a1->unk8.h) - var_t5) < (var_a1->unkC + arg3)) {
+                if (ABS((animal->position.xPos.h + var_a1->unk0.h) - var_t3) < (var_a1->unkC + arg3) &&
+                    ABS((animal->position.zPos.h + var_a1->unk4.h) - var_t4) < (var_a1->unkC + arg3) &&
+                    ABS((animal->position.yPos.h + var_a1->unk8.h) - var_t5) < (var_a1->unkC + arg3)) {
 
                     damage_factor = 0;
                     if (arg7 != 0) {
@@ -398,8 +398,8 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
                     func_802FD674_70ED24(D_803D5530, animal);
                     if (damage_factor < 6) {
-                        animal->xVelocity.h += (D_80152C78[D_803D552C->unk302 & 0xFF] >> 7) >> (damage_factor + 6);
-                        animal->zVelocity.h += (D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 7) >> (damage_factor + 6);
+                        animal->xVelocity.h += (SIN(D_803D552C->unk302) >> 7) >> (damage_factor + 6);
+                        animal->zVelocity.h += (COS(D_803D552C->unk302) >> 7) >> (damage_factor + 6);
 
                         animal->unk65 = MIN(100, animal->unk65 + (20 >> damage_factor));
                     }
@@ -433,9 +433,9 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
         a = temp_t8->animal;
         if ((a != D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
             for (phi_s2 = a->unkC4; phi_s2->unkC != 0; phi_s2++) {
-                if ((ABS((a->xPos.h + phi_s2->unk0.h) - arg0) < phi_s2->unkC + arg3) &&
-                    (ABS((a->zPos.h + phi_s2->unk4.h) - arg1) < phi_s2->unkC + arg3) &&
-                    (ABS((a->yPos.h + phi_s2->unk8.h) - arg2) < phi_s2->unkC + arg3)) {
+                if ((ABS((a->position.xPos.h + phi_s2->unk0.h) - arg0) < phi_s2->unkC + arg3) &&
+                    (ABS((a->position.zPos.h + phi_s2->unk4.h) - arg1) < phi_s2->unkC + arg3) &&
+                    (ABS((a->position.yPos.h + phi_s2->unk8.h) - arg2) < phi_s2->unkC + arg3)) {
                     ret = 1;
                     if (arg7 != 0) {
                         a->unk57 = arg7;
@@ -557,14 +557,14 @@ Animal *func_80323040_7346F0(void) {
     s16 x;
     s16 y;
 
-    x = (D_803D5530->xPos.h >> 0xA);
-    y = (D_803D5530->zPos.h >> 0xA);
+    x = (D_803D5530->position.xPos.h >> 0xA);
+    y = (D_803D5530->position.zPos.h >> 0xA);
 
     res = NULL;
     best = 320;
 
-    temp_s7 = (D_80152C78[D_803D552C->unk302 & 0xFF]) >> 9;
-    temp_fp = (D_80152C78[(D_803D552C->unk302 + 64) & 0xFF]) >> 9;
+    temp_s7 = (SIN(D_803D552C->unk302)) >> 9;
+    temp_fp = (COS(D_803D552C->unk302)) >> 9;
 
     for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;
@@ -572,9 +572,9 @@ Animal *func_80323040_7346F0(void) {
                                         ((temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) &&
                                         (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER) &&
                                         (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO)) || (temp_s3->unk16C->objectType == 145))) {
-            x_dist = D_803D5530->xPos.h - temp_s3->xPos.h;
-            z_dist = D_803D5530->zPos.h - temp_s3->zPos.h;
-            y_dist = D_803D5530->yPos.h - temp_s3->yPos.h;
+            x_dist = D_803D5530->position.xPos.h - temp_s3->position.xPos.h;
+            z_dist = D_803D5530->position.zPos.h - temp_s3->position.zPos.h;
+            y_dist = D_803D5530->position.yPos.h - temp_s3->position.yPos.h;
 
             phi_a2 = ABS(x_dist);
             phi_a0 = ABS(z_dist);
@@ -625,8 +625,8 @@ s32 func_803233A0_734A50(s16 x0, s16 y0, s16 z0, s16 x1, s16 y1, s16 z1) {
         for (temp_a1 = D_803DA110[(s16) ((s16)(var_a2 >> 0x1A) + ((s16) (var_a3 >> 0x1A) * 5))].next; temp_a1 != NULL; temp_a1 = temp_a1->next) {
             a = temp_a1->animal;
             if (a->unk16C->objectType == 91) {
-                if ((a->yPos.h < (var_t0 >> 0x10)) && ((var_t0 >> 0x10) < (a->yPos.h + a->unk42))) {
-                    if (!((a->unk30 < ABS((var_a2 >> 0x10) - a->xPos.h)) || (a->unk32 < ABS((var_a3 >> 0x10) - a->zPos.h)))) {
+                if ((a->position.yPos.h < (var_t0 >> 0x10)) && ((var_t0 >> 0x10) < (a->position.yPos.h + a->unk42))) {
+                    if (!((a->unk30 < ABS((var_a2 >> 0x10) - a->position.xPos.h)) || (a->unk32 < ABS((var_a3 >> 0x10) - a->position.zPos.h)))) {
                       return 1;
                     }
                 }

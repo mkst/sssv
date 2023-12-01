@@ -2,103 +2,75 @@
 
 #include "common.h"
 
-#if 0
 void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 sizeX, f32 sizeY, u8 depth) {
 
-    s16 xl;
-    s16 yl;
-    s16 xh, yh;
+    s32 xl, yl;
+    s32 xh, yh;
+    f32 dsdx, dtdy;
 
     gDPPipeSync((*dl)++);
+
+    xl = x;
+    yl = y;
 
     switch (depth) {
     case 16:
         gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img);
         gDPLoadSync((*dl)++);
-
-#if 0
         gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-#else
-        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img);
-        gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
-        gDPLoadSync((*dl)++);
-        gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 1023, 256);
-        gDPPipeSync((*dl)++);
-        gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
-        gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
-#endif
         break;
     case 8:
         gDPLoadSync((*dl)++);
         gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 1, img);
-#if 0
         gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-#else
-        gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
-        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
-        gDPLoadSync((*dl)++);
-        gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
-        gDPPipeSync((*dl)++);
-        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
-        gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
-#endif
         break;
     default:
-        rmonPrintf("Wrong texture size");
+        rmonPrintf("Wrong texture size\n");
     }
 
+    xh = (xl + x_size);
+    yh = (yl + y_size);
 
-    xl = x * 4;
-    yl = y * 4;
-
-    xh = (x + x_size) * 4;
-    yh = (y + y_size) * 4;
+    dsdx = 16384.0f / (sizeX / 2);
+    dtdy = 16384.0f / (sizeY / 2);
 
     gSPScisTextureRectangle(
     /* gdl  */ (*dl)++,
-    /* xl   */ xl,
-    /* yl   */ yl,
-    /* xh   */ xh,
-    /* yh   */ yh,
+    /* xl   */ xl << 2,
+    /* yl   */ yl << 2,
+    /* xh   */ xh << 2,
+    /* yh   */ yh << 2,
     /* tile */ G_TX_RENDERTILE,
     /* s    */ 0,
     /* t    */ 0,
-    /* dsdx */ 16384.0f / (sizeX / 2),
-    /* dtdy */ 16384.0f / (sizeY / 2));
+    /* dsdx */ dsdx,
+    /* dtdy */ dtdy);
 
     gDPPipeSync((*dl)++);
     gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_10DC0/func_801356C0.s")
-#endif
 
+#ifdef NON_MATCHING
+// CURRENT (16)
 // draw chunked images (e.g. 200 credz)
-#if 0
-// CURRENT (2725)
-void func_80135CD8(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *img) {
-    u32 sp8C;
+void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *img) {
 
     s32 yOffset;
-
-    s32 xx;
-    s32 yy;
-    s16 xh, yh;
-    s16 xl, yl;
-
-    s32 x;
-    s32 y;
+    s32 xx, yy;
     void *imgAddr;
-
-    s32 foo;
-    s32 bar;
+    u32 sp8C;
+    s32 x, y;
 
     gDPPipeSync((*dl)++);
 
+    x = startX;
     y = startY;
+
     sp8C = width / 32;
 
     while (y < (startY + height)) {
+
+        x = startX;
 
         if ((startY + height) < (y + 32)) {
             yOffset = (startY - y) + height;
@@ -106,18 +78,12 @@ void func_80135CD8(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *
             yOffset = 32;
         }
 
-        for (x = startX; x < (startX + width); x += 0x20) {
-
-            xl = (x*4);
-            yl = (y*4);
-
-            xh = ((x + 32) * 4);
-            yh = ((y + yOffset) * 4);
+        while (x < (startX + width)) {
 
             xx = x - startX;
             yy = y - startY;
 
-            imgAddr = img + (((((s8) (yy / 32) * sp8C) + ((xx * x) / 32) & 0xFF)) * 32 * 32);
+            imgAddr = (0, img) + (((u8) (((s8) (yy / 32) * sp8C) + (s16)(xx / 32))) * (32 * 32 * 2));
 
             gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, imgAddr);
             gDPLoadSync((*dl)++);
@@ -139,24 +105,25 @@ void func_80135CD8(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *
 
             gSPScisTextureRectangle(
             /* pkt  */  (*dl)++,
-            /* xl   */  xl,
-            /* yl   */  yl,
-            /* xh   */  xh,
-            /* yh   */  yh,
+            /* xl   */  x << 2,
+            /* yl   */  y << 2,
+            /* xh   */  (x + 32) << 2,
+            /* yh   */  (y + yOffset) << 2,
             /* tile */  G_TX_RENDERTILE,
             /* s    */  0,
             /* t    */  0,
             /* dsdx */  0x400,
             /* dtdy */  0x400);
 
+            x += 32;
         }
-        y += 0x20;
+        y += 32;
     }
     gDPPipeSync((*dl)++);
     gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_10DC0/func_80135CD8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/main_10DC0/draw_chunked_image.s")
 #endif
 
 void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z) {
@@ -173,7 +140,7 @@ void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, 
 }
 
 void func_80136418(Gfx **dl, u8 color) {
-    gSPLoadUcodeEx((*dl)++, &D_8014E300, &D_8015C750, 2048);
+    gSPLoadUcodeEx((*dl)++, &gspSprite2D_fifoTextStart, &gspSprite2D_fifoDataStart, 2048);
     gDPPipeSync((*dl)++);
     gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
 
@@ -194,7 +161,7 @@ void func_80136418(Gfx **dl, u8 color) {
 void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a) {
     gDPPipeSync((*dl)++);
 
-    gSPLoadUcodeEx((*dl)++, &D_8014E300, &D_8015C750, 2048);
+    gSPLoadUcodeEx((*dl)++, &gspSprite2D_fifoTextStart, &gspSprite2D_fifoDataStart, 2048);
     gDPPipeSync((*dl)++);
 
     load_segments(dl, D_80204278);

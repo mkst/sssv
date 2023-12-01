@@ -36,7 +36,7 @@ void func_802C85EC_6D9C9C(void) {
         D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
         gCurrentAnimalIndex = D_803D553E;
         a = D_801D9ED8.animals[0].animal;
-        spawn_animal(a->xPos.h, a->zPos.h, a->yPos.h, 0, 0x7F, D_803E9824, 1);
+        spawn_animal(a->position.xPos.h, a->position.zPos.h, a->position.yPos.h, 0, 0x7F, D_803E9824, 1);
         func_80327DA8_739458();
         D_801D9ED8.animals[0].animal->unk366 = 3;
         D_801D9ED8.animals[0].unk0 = &D_801DD800;
@@ -144,9 +144,9 @@ void func_802C8878_6D9F28(void) {
                         func_802A935C_6BAA0C();
                         func_802AA0A0_6BB750();
                     }
-                    D_803D5530->newPosition.xPos.w = D_803D5530->xPos.w + D_803D5530->xVelocity.w;
-                    D_803D5530->newPosition.zPos.w = D_803D5530->zPos.w + D_803D5530->zVelocity.w;
-                    D_803D5530->newPosition.yPos.w = D_803D5530->yPos.w + D_803D5530->yVelocity.w;
+                    D_803D5530->newPosition.xPos.w = D_803D5530->position.xPos.w + D_803D5530->xVelocity.w;
+                    D_803D5530->newPosition.zPos.w = D_803D5530->position.zPos.w + D_803D5530->zVelocity.w;
+                    D_803D5530->newPosition.yPos.w = D_803D5530->position.yPos.w + D_803D5530->yVelocity.w;
                     func_80328520_739BD0();
                 }
             }

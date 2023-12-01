@@ -21,9 +21,9 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
 
     if (D_803D552C->unk30E != 0) {
         if ((D_803D5538 != 0) && (D_803D552C->unk310 < temp_a3)) {
-            play_sound_effect_at_location(SFX_UNKNOWN_9, D_803D552C->unk30E << 0xA, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_9, D_803D552C->unk30E << 0xA, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         } else if ((D_803D5538 != 0) && (D_803D552C->unk310 > 0x200) && (temp_a3 <= 0x200)) {
-            play_sound_effect_at_location(SFX_UNKNOWN_10, D_803D552C->unk30E << 0xA, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_10, D_803D552C->unk30E << 0xA, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
         new_var = (D_803D552C->unk310 >> 2);
         temp_lo = (D_80152C78[new_var & 0xFF]) >> 7;
@@ -79,8 +79,8 @@ void func_8030322C_7148DC(s16 idx, s16 angle) {
 
     temp_v0 = &D_80203FE0[idx];
     // sameline for regalloc
-    temp_v1 = temp_v0->unk4; temp_t6 = D_80152C78[angle & 0xFF] >> 7;
-    temp_t2 = D_80152C78[(angle + 0x40) & 0xFF] >> 7;
+    temp_v1 = temp_v0->unk4; temp_t6 = SIN(angle) >> 7;
+    temp_t2 = COS(angle) >> 7;
 
     temp_v0->unk2 = ((temp_v1 * (fakematch = temp_t6)) + (temp_v0->unk2 * temp_t2)) >> 8;
     temp_v0->unk4 = ((temp_t2 * temp_v1) - (temp_t6 * temp_v0->unk2)) >> 8;
@@ -97,8 +97,8 @@ void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2) {
     temp_v0 = D_80203FE0[arg0].unk2 - D_80203FE0[arg1].unk2;
     temp_t1 = D_80203FE0[arg0].unk4 - D_80203FE0[arg1].unk4;
 
-    temp_t8 = D_80152C78[arg2 & 0xFF] >> 7;
-    temp_t9 = D_80152C78[(arg2 + 64) & 0xFF] >> 7;
+    temp_t8 = SIN(arg2) >> 7;
+    temp_t9 = COS(arg2) >> 7;
     // fake match to coerce regalloc
     D_80203FE0[arg0].unk2 = D_80203FE0[arg1].unk2 + (((temp_t1 * (temp_t8 = temp_t8)) + (temp_v0 * temp_t9)) >> 8);
     D_80203FE0[arg0].unk4 = D_80203FE0[arg1].unk4 + ((tmp=(temp_t1 * temp_t9) - (temp_t8 * temp_v0)) >> 8);
@@ -114,8 +114,8 @@ void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2) {
 
     temp_v0 = D_80203FE0[arg0].unk0 - D_80203FE0[arg1].unk0;
     temp_t1 = D_80203FE0[arg0].unk2 - D_80203FE0[arg1].unk2;
-    temp_t8 = D_80152C78[arg2 & 0xFF] >> 7;
-    temp_t9 = D_80152C78[(arg2 + 64) & 0xFF] >> 7;
+    temp_t8 = SIN(arg2) >> 7;
+    temp_t9 = COS(arg2) >> 7;
     // fake match to coerce regalloc
     D_80203FE0[arg0].unk0 = D_80203FE0[arg1].unk0 + (((temp_t1 * (temp_t8 = temp_t8)) + (temp_v0 * temp_t9)) >> 8);
     D_80203FE0[arg0].unk2 = D_80203FE0[arg1].unk2 + ((tmp = (temp_t1 * temp_t9) - (temp_t8 * temp_v0)) >> 8);
