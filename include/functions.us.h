@@ -114,7 +114,6 @@ void func_80133E84(void);
 
 // main_10DC0
 void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **arg4, u8 *arg5, f32 arg6, f32 arg7, u8 arg8);
-void func_80135CD8(u32 arg0, u32 arg1, u32 arg2, u32 arg3, Gfx **arg4, u8 *arg5);
 void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z);
 void func_80136418(Gfx **dl, u8 color);
 void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
@@ -136,7 +135,7 @@ void func_80139330(f32);
 void func_80296544_6A7BF4(void);
 void func_8029726C_6A891C(struct063 arg0[73][129]);
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1);
-void func_80296C8C_6A833C(struct063**);
+void func_80296C8C_6A833C(struct063 arg0[73][129]);
 
 // overlay1_6384F0.c
 void func_80294E50(void);
@@ -193,7 +192,7 @@ void func_8029A720_6ABDD0(void);
 void func_8029ABCC_6AC27C(void);
 
 // overlay2_6AC360
-u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 arg2, Animal *arg3, Animal *arg4, s32 *arg5, s32 *arg6, Animal *arg7, s32 *arg8, s32 *arg9);
+u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, Animal **arg5, s32 *arg6, Animal *arg7, Animal **arg8, s32 *arg9);
 void func_8029ACB0_6AC360(void);
 s32  func_8029ACB8_6AC368(s32 arg0, s32 arg1); // function does nothing but return 1, types can be changed
 void func_8029ACC8_6AC378(void);
@@ -624,7 +623,7 @@ void func_802F6DEC_70849C(Animal *arg0, s16 arg1);
 void func_802F7054_708704(s32 arg0);
 void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u16 arg7); // tbd
 void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 enabled, s16 arg5, s16 arg6, s16 arg7);
-s32  func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
+s16  func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
 u8   func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4);
 struct071 *find_closest_animal(struct071 *arg0);
 s32  func_802F8918_709FC8(Animal *arg0, Animal *arg1);
@@ -1048,7 +1047,7 @@ void func_8034AFE0_75C690(void);
 void func_8034AFE8_75C698(s32 arg0, Animal *arg1);
 void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1);
 void func_8034B000_75C6B0(s32 arg0);
-void func_8034B008_75C6B8(s32, s32, s32, s32*, s32*, s32*); // tbd
+void func_8034B008_75C6B8(u8, u8, s16, s32*, s32*, s32*); // tbd
 void func_8034B298_75C948(s16 arg0);
 void func_8034B3A8_75CA58(s16 arg0);
 void func_8034B45C_75CB0C(void);
@@ -1099,9 +1098,9 @@ void func_80355F64_767614(void);
 void func_80355FFC_7676AC(void);
 void func_80356064_767714(void);
 void func_803560CC_76777C(void);
-void func_80356134_7677E4(Animal *arg0);
-void func_803562C8_767978(s16 arg0);
-void func_80356348_7679F8(s16 arg0);
+void tortoise_tank_attack(Animal *arg0);
+void tortoise_tank_defend(s16 arg0);
+void racing_tortoise_defend(s16 arg0);
 
 // overlay2_767AC0
 void func_80356BD8_768288(u8 *arg0, u8* arg1, s16 arg2);
@@ -1297,7 +1296,7 @@ Animal *func_8037E9AC_79005C(void);
 Animal *func_8037ED1C_7903CC(void);
 void trigger_contagious_laughter();
 s16  func_8037F07C_79072C(s16 arg0, s16 arg1);
-u8   func_8037FBBC_79126C(void);
+u8   get_missile_side(void);
 void func_8037FCA8_791358(void);
 void func_8037FE24_7914D4(void);
 void func_8037FEDC_79158C(void);

@@ -1,18 +1,5 @@
 func_80294E50 = overlay1_VRAM;
 
-aspMainTextStart = _binary_assets_aspMainText_bin_start;
-aspMainDataStart = _binary_assets_aspMainData_bin_start;
-
-rspbootTextStart = _binary_assets_rspbootText_bin_start;
-rspbootTextEnd   = _binary_assets_rspbootText_bin_end;
-
-gspF3DEX_fifoDataStart = _binary_assets_gspF3DEX_fifoData_bin_start;
-gspF3DEX_fifoDataEnd = _binary_assets_gspF3DEX_fifoData_bin_end;
-
-gspFast3DTextStart = _binary_assets_gspFast3DText_bin_start;
-gspFast3DDataStart = _binary_assets_gspFast3DData_bin_start;
-gspF3DEX_fifoTextStart = _binary_assets_gspF3DEX_fifoText_bin_start;
-
 _gfxanimSegmentStart     = 0x80099600;
 _gfxanimSegmentEnd       = 0x800B0B20;
 _gfxspecificSegmentStart = 0x800B0B20;
@@ -256,6 +243,7 @@ D_05001AA0_94690 = 0x05001AA0;
 D_05007970_A8A40 = 0x05007970;
 
 D_801532D0 = 0x801532D0;
+D_80151424 = 0x80151424;
 
 D_801E1ED8 = 0x801E1ED8;
 

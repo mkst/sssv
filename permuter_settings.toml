@@ -20,6 +20,8 @@ compiler_type = "ido"
 "SSSV_RAND" = "int"
 "SQ" = "int"
 "NULL" = "int"
+"SIN" = "int"
+"COS" = "int"
 
 [decompme.compilers]
 "tools/ido5.3_recomp/cc" = "ido5.3"

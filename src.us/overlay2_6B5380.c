@@ -24,9 +24,9 @@ void func_802A3CD0_6B5380(void) {
     s16 xVel, zVel;
 
     if (D_803D5530->unk160 == 2) {
-        func_80311AA8_723158(D_803D5530->xPos.h, D_803D5530->zPos.h, &D_803D5510, &D_803D5512);
+        func_80311AA8_723158(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, &D_803D5510, &D_803D5512);
     } else {
-        func_80311BF8_7232A8(D_803D5530->xPos.h, D_803D5530->zPos.h, &D_803D5510, &D_803D5512);
+        func_80311BF8_7232A8(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, &D_803D5510, &D_803D5512);
     }
 
     if (D_803D5530->unk161 == 0) {
@@ -72,8 +72,8 @@ void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2) {
 
 // ESA: func_80064930
 void func_802A3F68_6B5618(s32 *arg0, s32 *arg1) {
-    *arg0 += ((((D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk7 & 0xF0) >> 4) & 7   ) * (1 - (((D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk7 >> 4) & 8) >> 2))) << 17;
-    *arg1 += ((((D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk7 & 7)        ) & 0xFF) * (1 - (((D_803C0740[D_803D5530->xPos.h >> 6][D_803D5530->zPos.h >> 6].unk7     ) & 8) >> 2))) << 17;
+    *arg0 += ((((D_803C0740[D_803D5530->position.xPos.h >> 6][D_803D5530->position.zPos.h >> 6].unk7 & 0xF0) >> 4) & 7   ) * (1 - (((D_803C0740[D_803D5530->position.xPos.h >> 6][D_803D5530->position.zPos.h >> 6].unk7 >> 4) & 8) >> 2))) << 17;
+    *arg1 += ((((D_803C0740[D_803D5530->position.xPos.h >> 6][D_803D5530->position.zPos.h >> 6].unk7 & 7)        ) & 0xFF) * (1 - (((D_803C0740[D_803D5530->position.xPos.h >> 6][D_803D5530->position.zPos.h >> 6].unk7     ) & 8) >> 2))) << 17;
 }
 
 // ESA: func_80064A14
@@ -83,7 +83,7 @@ void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
     s32 temp_a2;
 
     temp_v0 = arg0->xVelocity.w;
-    temp_a2 = D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk7;
+    temp_a2 = D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk7;
     temp_v1 = arg0->zVelocity.w;
 
     temp_v0 = temp_v0 - (((1 - (((temp_a2 >> 4) & 8) >> 2)) * (((temp_a2 & 0xF0) >> 4) & 7)) << 17);
@@ -102,12 +102,12 @@ void func_802A40EC_6B579C(void) {
         tmp = D_803D5524->unkB8;
     }
     D_803D5530->yVelocity.w = (D_803D5530->yVelocity.w * 7) >> 3;
-    D_803D5530->yVelocity.w -= ((D_803D5530->yPos.h + tmp) - func_80298F78_6AA628(D_803D5530->xPos.h, D_803D5530->zPos.h)) << 10;
+    D_803D5530->yVelocity.w -= ((D_803D5530->position.yPos.h + tmp) - func_80298F78_6AA628(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h)) << 10;
 }
 
 // ESA: func_80064B5C
 void func_802A4184_6B5834(void) {
-    s16 tmp = (D_803D5530->yPos.h + D_803D5524->unkBA) - func_80298F78_6AA628(D_803D5530->xPos.h, D_803D5530->zPos.h);
+    s16 tmp = (D_803D5530->position.yPos.h + D_803D5524->unkBA) - func_80298F78_6AA628(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
     if (tmp >= 0) {
         D_803D5530->yVelocity.w -= D_803A05B0;
     } else if (tmp >= -15) {
@@ -137,8 +137,8 @@ void func_802A4278_6B5928(u16 arg0, u16 arg1, s16 arg2) {
     xVel = D_803D5530->xVelocity.w;
     zVel = D_803D5530->zVelocity.w;
 
-    temp_t7_2 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 5;
-    temp_t6_2 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 5;
+    temp_t7_2 = SIN(D_803D552C->unk302) >> 5;
+    temp_t6_2 = COS(D_803D552C->unk302) >> 5;
     temp_t7_3 = (((xVel >> 0xA) * temp_t7_2) + ((zVel >> 0xA) * temp_t6_2)) >> 0xA;
 
     temp_t7_2 = (temp_t7_2 * temp_t7_3);

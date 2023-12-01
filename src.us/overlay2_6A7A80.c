@@ -12,7 +12,10 @@ s32 func_802983D0_6A9A80(void);
 // .data
 // ========================================================
 
-s16 D_803A04F0_7B1BA0[8] = {0, 0, 0, 0, 1, 0, 0, 0};
+s16 D_803A04F0_7B1BA0 = 0;
+s16 D_803A04F2_7B1BA2 = 0; // unused?
+s16 D_803A04F8_7B1BA8 = 1; // unused?
+
 
 // ========================================================
 // .bss
@@ -144,164 +147,133 @@ void func_80296544_6A7BF4(void) {
     }
 }
 
-// million miles away
-#if 0
-void func_80296C8C_6A833C(struct063 **arg0) {
-    s16 sp96;
-    s16 sp84;
-    s16 sp80;
-    s16 sp78;
-    // u32 sp64;
-    // s32 sp60;
-    s16 temp_s0_2;
-    s16 temp_s2;
-    // s16 temp_s2_2;
-    s16 temp_s2_4;
-    s32 temp_s3_2;
-    s16 temp_s4_2;
-    s16 temp_s7;
-    s16 temp_t0;
-    // s16 temp_t8;
-    s16 temp_v1_3;
-    s32 temp_s4;
-    s32 temp_s5;
-    s32 temp_t6;
-    s32 temp_t6_2;
-    s32 temp_v0_2;
-    s32 temp_v0_4;
-    u16 temp_a1;
-    u16 temp_v1;
-    u8 temp_a0;
-    u8 temp_a0_2;
-    u8 temp_a0_3;
-    u8 temp_s0;
-    u8 temp_s2_3;
-    u8 temp_s3;
-    u8 temp_v0;
-    // u8 temp_v0_3;
-    u8 temp_v1_2;
-    u8 temp_v1_4;
-    s16 phi_s7;
-    s32 phi_s3;
-    s16 phi_v1;
-    s16 phi_v1_2;
-    u8 phi_s2;
-    s32 phi_s0;
-    s16 phi_v1_3;
-    // s32 phi_v1_4;
-    s32 phi_s2_2;
-    u8 new_var;
+#ifdef NON_MATCHING
+// CURRENT (2199)
+void func_80296C8C_6A833C(struct063 arg0[73][129]) {
+    s16 xPos;
+    s16 nextWater;
+    s16 curWater;
+    s16 zPos;
+    s32 pad[2];
 
-    D_803C0430.unk20D = (D_803C0430.unk20D + 1) & 3;
-    sp96 = D_803F2D50.unk10 + D_803F2D50.unk14;
-    sp78 = D_803F2D50.unk12 + D_803F2D50.unk16;
+    u32 sp96;
+    u32 sp84;
+    u32 sp80;
+    u32 sp78;
+
+    s16 temp_a0;
+    s16 temp_s4;
+    s32 pad3;
+    s16 temp_v1;
+
+    sp96 = D_803F2D50.unk14 + D_803F2D50.unk10;
+    sp78 = D_803F2D50.unk16 + D_803F2D50.unk12;
+
     sp84 = D_803F2D50.unk10;
     sp80 = D_803F2D50.unk12;
 
-    while (sp84 < sp96) {
-        while (sp80 < sp78) {
-            temp_v0 = arg0[sp96][sp78].unk6;
-            arg0[sp96][sp78].unk7 = 0U;
-            if (temp_v0 != 0) {
-                temp_s3 = arg0[sp96+1][sp78].unk6; //.unk40E;
+    D_803C0430.unk20D = (D_803C0430.unk20D + 1) & 3;
+
+    for (xPos = sp96; xPos > sp84; xPos--) {
+        for (zPos = sp78; zPos > sp80; zPos--) {
+            arg0[xPos][zPos].unk7 = 0; // clear terrain flags?
+
+            if (arg0[xPos][zPos].unk6 != 0) {
+                curWater = arg0[xPos][zPos].unk6;
+                nextWater = arg0[xPos+1][zPos].unk6; //.unk40E; (408 + 6)
                 if (SSSV_RAND(128) == 20) {
                     func_802D7AD4_6E9184(
-                        (SSSV_RAND(64) + (sp96 << 6)),
-                        (SSSV_RAND(64) + (sp78 << 6)),
-                        (D_803C0740[sp96][sp78].unk0) * 8,
+                        (SSSV_RAND(64) + (xPos << 6)),
+                        (SSSV_RAND(64) + (s16)(zPos << 6)),
+                        D_803C0740[xPos][zPos].unk0 << 3,
                         0);
                 }
-                if (temp_s3 < temp_v0) {
-                    temp_v1_2 = arg0[sp96+1][sp78].unk0; //unk408;
-                    temp_v0_2 = temp_v1_2 * 2;
-                    if (temp_v0_2 < temp_v0) {
-                        phi_s3 = temp_s3;
-                        if (temp_s3 == 0) {
-                            if (D_803C0430.unk20F == 0) {
-                                phi_s3 = temp_v0_2;
+                if (nextWater < curWater) {
+                    temp_v1 = arg0[xPos+1][zPos].unk0; //unk408; (408 + 0)
+                    if ((temp_v1 << 1) < curWater) {
+                        if ((nextWater == 0) && (D_803C0430.unk20F == 0)) {
+                            nextWater = (temp_v1 << 1);
+                        }
+                        if ((temp_v1 < (arg0[xPos][zPos].unk0 - 0x10)) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
+                            temp_v1 = 0;
+                        } else {
+                            temp_v1 = (curWater - nextWater) / 2;
+                            if (temp_v1 > 1) {
+                                temp_v1 += SSSV_RAND(2);
                             }
                         }
-                        temp_a0 = arg0[sp96][sp78].unk0;
-                        if ((temp_v1_2 < (temp_a0 - 0x10)) && (phi_s3 < (temp_a0 * 2))) {
-                            phi_v1 = 0;
-                        } else {
-                            phi_v1 = (temp_v0 - phi_s3) / 2;
-                            if (phi_v1 >= 2) {
-                                phi_v1 += SSSV_RAND(2);
-                            }
+                        if (temp_v1 < 0) {
+                            temp_v1 = 0;
                         }
-                        if (phi_v1 < 0) {
-                            phi_v1 = 0;
-                        }
-                        temp_s2 = temp_v0 - phi_v1;
-                        temp_s3_2 = phi_s3 + phi_v1;
-                        arg0[sp96][sp78].unk7 = (u8) ((arg0[sp96][sp78].unk7 & 0xF) + ((phi_v1 & 7) * 0x10));
-                        phi_s2 = temp_s2;
-                        if ((arg0[sp96][sp78].unk0 * 2) >= temp_s2) {
-                            phi_s2 = 0U;
-                        }
-                        if ((arg0[sp96+1][sp78].unk6 == 0) && (temp_s3_2 != 0)) { // unk40E
-                            arg0[sp96+1][sp78].unk4 |= 2;
-                        } else {
-                            arg0[sp96+1][sp78].unk4 &= ~2;
-                        }
-                        if ((arg0[sp96][sp78].unk6 != 0) && (phi_s2 == 0)) {
-                            arg0[sp96][sp78].unk4 |= 4;
-                        } else {
-                            arg0[sp96][sp78].unk4 &= ~4;
-                        }
-                        arg0[sp96][sp78].unk6 = phi_s2;
-                        arg0[sp96+1][sp78].unk6 = (u8) temp_s3_2; // unk40E
-                    }
-                }
-                temp_s2 = arg0[sp96][sp78].unk6;
-                temp_s0 = arg0[sp96][sp78+1].unk6; // unkE ?
-                phi_s0 = temp_s0;
-                if (temp_s0 < temp_s2) {
-                    temp_v0 = arg0[sp96][sp78+1].unk0; // unk8
-                    if (((temp_v0 + 1) * 2) < (s32) temp_s2) {
-                        if ((temp_s0 == 0) && (D_803C0430.unk20F == 0)) {
-                            phi_s0 = (temp_v0 * 2);
-                        }
-                        temp_a0_2 = arg0[sp96][sp78].unk0;
-                        temp_v0_4 = temp_a0_2 * 2;
-                        if ((temp_v0 < temp_a0_2) && (phi_s0 < temp_v0_4)) {
-                            phi_v1_3 = (temp_s2 - temp_v0_4);
-                        } else {
-                            phi_v1_3 = (temp_s2 - phi_s0) / 2;
-                            // phi_v1_3 = (s32) (s16) temp_t6_2;
-                            if (phi_v1_3 >= 2) {
-                                phi_v1_3 += SSSV_RAND(2);
-                            }
-                        }
-                        // phi_v1_3 = phi_v1_3;
-                        if (phi_v1_3 <= 0) {
-                            phi_v1_3 = 0;
-                        }
-                        temp_s2 = temp_s2 - phi_v1_3;
-                        arg0[sp96][sp78].unk7 = ((arg0[sp96][sp78].unk7 & 0xF0) + (phi_v1_3 & 7));
-                        phi_s2_2 = (u8) temp_s2;
-                        if ((arg0[sp96][sp78].unk0 * 2) >= temp_s2) {
-                            phi_s2_2 = 0U;
-                        }
-                        arg0[sp96][sp78+1].unk6 = (s16) (phi_s0 + phi_v1_3); // unkE
-                        arg0[sp96][sp78].unk6 = phi_s2_2;
-                    }
-                }
-                if (((guRandom() % 31) == 4)) {
-                    temp_s4_2 = (guRandom() % 63) + (sp96 << 6);
-                    temp_s0_2 = (guRandom() % 63) + (sp78 << 6);
+                        curWater = curWater - temp_v1;
+                        nextWater = nextWater + temp_v1;
+                        arg0[xPos][zPos].unk7 = (s16)(arg0[xPos][zPos].unk7 & 0xF) + ((temp_v1 & 7) << 4);
 
-                    if (((((1 - (((D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7 & 0xF0) >> 4) & 7)))) ||
-                         (((1 -  ((D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7       & 8) >> 2)) *   (D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7               & 7)))) {
+                        if ((arg0[xPos][zPos].unk0 << 1) >= curWater) {
+                            curWater = 0;
+                        }
+                        if ((arg0[xPos+1][zPos].unk6 == 0) && (nextWater != 0)) { // unk40E (408 + 6)
+                            arg0[xPos+1][zPos].unk4 |= 2; // unk40C (408 + 4)
+                        } else {
+                            arg0[xPos+1][zPos].unk4 &= ~2; // unk40C (408 + 4)
+                        }
+                        if ((arg0[xPos][zPos].unk6 != 0) && (curWater == 0)) {
+                            arg0[xPos][zPos].unk4 |= 4;
+                        } else {
+                            arg0[xPos][zPos].unk4 &= ~4;
+                        }
+                        arg0[xPos][zPos].unk6 = curWater;
+                        arg0[xPos+1][zPos].unk6 = nextWater; // unk40E
+                    }
+                }
+
+                curWater = arg0[xPos][zPos].unk6;
+                nextWater = arg0[xPos][zPos+1].unk6; // unkE
+                if (nextWater < curWater) {
+                    temp_v1 = arg0[xPos][zPos+1].unk0; // unk8
+                    if (((temp_v1 + 1) << 1) < curWater) {
+                        if ((nextWater == 0) && (D_803C0430.unk20F == 0)) {
+                            nextWater = (temp_v1 << 1);
+                        }
+                        if ((temp_v1 < arg0[xPos][zPos].unk0) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
+                            temp_v1 = (curWater - (arg0[xPos][zPos].unk0 << 1));
+                        } else {
+                            temp_v1 = (curWater - nextWater) / 2;
+                            if (temp_v1 > 1) {
+                                temp_v1 += SSSV_RAND(2);
+                            }
+                        }
+                        if (temp_v1 <= 0) {
+                            temp_v1 = 0;
+                        }
+                        curWater = curWater - temp_v1;
+                        nextWater = nextWater + temp_v1;
+                        arg0[xPos][zPos].unk7 = (arg0[xPos][zPos].unk7 & 0xF0) + (temp_v1 & 7);
+                        if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
+                            curWater = 0;
+                        }
+                        arg0[xPos][zPos+1].unk6 = nextWater; // unkE
+                        arg0[xPos][zPos].unk6 = curWater;
+                    }
+                }
+
+                if (((guRandom() % 31) == 4)) {
+
+                    temp_s4 = ((guRandom() % 63) + (xPos << 6));
+                    temp_a0 = ((guRandom() % 63) + (zPos << 6));
+
+                    temp_v1 = 6; // permuter hacks
+
+                    if (((1 - (((D_803C0740[temp_s4 >> temp_v1][temp_a0 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 & 0xF0) >> 4) & 7)) ||
+                        ((1 -  ((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7       & 8) >> 2)) * (  D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7               & 7))) {
 
                         create_particle_effect(
-                            temp_s4_2,
-                            temp_s0_2,
+                            temp_s4,
+                            temp_a0,
                             0,
-                            0xD,
-                            ((1 - (((D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7 & 0xF0) >> 4) & 7)) << 0x10,
-                            ((1 - ( (D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7       & 8) >> 2)) *  ( D_803C0740[temp_s4_2 >> 6][temp_s0_2 >> 6].unk7               & 7)) << 0x10,
+                            13,
+                            (s16)((1 - (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 & 0xF0) >> 4) & 7)) << 0x10,
+                            (s16)((1 -  ((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7       & 8) >> 2)) * (  D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7               & 7)) << 0x10,
                             0,
                             SSSV_RAND(4) + 4,
                             0,
@@ -310,12 +282,10 @@ void func_80296C8C_6A833C(struct063 **arg0) {
                     }
                 }
             }
-            if ((arg0[sp96][sp78].unk0 * 2) >= (s32) arg0[sp96][sp78].unk6) {
-                arg0[sp96][sp78].unk6 = 0U;
+            if ((arg0[xPos][zPos].unk0 * 2) >= arg0[xPos][zPos].unk6) {
+                arg0[xPos][zPos].unk6 = 0;
             }
-            sp78--;
         }
-        sp96--;
     }
 }
 #else
@@ -323,99 +293,99 @@ void func_80296C8C_6A833C(struct063 **arg0) {
 #endif
 
 #if 0
-// CURRENT (4545), something needs to change...
+// CURRENT (4186), something needs to change...
 void func_8029726C_6A891C(struct063 arg0[73][129]) {
-    // s32 sp54;
-    u32 sp50;
+    u32 sp58;
+    u32 sp54;
+    volatile u32 sp50;
     u32 sp4C;
-    // u32 sp44;
 
-    s16 zPos;
     s16 xPos;
+    s16 zPos;
 
-    s16 var_v1;
-
-    u32 temp_v0;
-    u32 temp_v1;
+    s16 temp_v1;
 
     s16 curWater;
     s16 prevWater;
 
     sp50 = D_803F2D50.unk14 + D_803F2D50.unk10;
     sp4C = D_803F2D50.unk16 + D_803F2D50.unk12;
-    temp_v0 = D_803F2D50.unk10;
-    temp_v1 = D_803F2D50.unk12;
 
-    for (xPos = temp_v0; xPos < sp50; xPos++) {
-        for (zPos = temp_v1; zPos <= sp4C; zPos++) {
-            if (arg0[xPos + 0][zPos + 0].unk6 != 0) {
-                prevWater = arg0[xPos - 1][zPos + 0].unk6;
-                curWater = arg0[xPos + 0][zPos + 0].unk6;
-                  if (prevWater < curWater) {
-                    if ((arg0[xPos - 1][zPos + 0].unk0 * 2) < curWater) {
+    sp58 = D_803F2D50.unk10;
+    sp54 = D_803F2D50.unk12;
+
+    for (xPos = sp58; xPos < sp50; xPos++) {
+        for (zPos = sp54; zPos <= sp4C; zPos++) {
+
+            if (arg0[xPos][zPos].unk6 != 0) {
+                curWater = arg0[xPos][zPos].unk6;
+                prevWater = arg0[xPos - 1][zPos].unk6; // unk-402
+
+                if (prevWater < curWater) {
+                    if ((arg0[xPos - 1][zPos].unk0 << 1) < curWater) {
                         if ((prevWater == 0) && (D_803C0430.unk20F == 0)) {
-                            prevWater = (arg0[xPos - 1][zPos + 0].unk0 * 2);
+                            prevWater = (arg0[xPos - 1][zPos].unk0 << 1);
                         }
 
-                        if ((arg0[xPos - 1][zPos + 0].unk0 < (arg0[xPos + 0][zPos + 0].unk0 - 16)) &&
-                            (prevWater < (arg0[xPos + 0][zPos + 0].unk0 * 2))) {
-                            var_v1 = (curWater - (arg0[xPos + 0][zPos + 0].unk0 * 2)) / 2;
-                            if (var_v1 <= 0) {
-                                var_v1 = 0;
+                        if ((arg0[xPos - 1][zPos].unk0 < (arg0[xPos][zPos].unk0 - 16)) && (prevWater < (arg0[xPos][zPos].unk0 << 1))) {
+                            temp_v1 = (curWater - (arg0[xPos][zPos].unk0 << 1)) / 2;
+                            if (temp_v1 < 1) {
+                                temp_v1 = 0;
                             }
                         } else {
-                            var_v1 = ((curWater - prevWater) + (xPos & 1)) / 2;
-                            if (var_v1 > 1) {
-                                var_v1 = var_v1 + SSSV_RAND(2);
+                            temp_v1 = ((curWater - prevWater) + (xPos & 1)) / 2;
+                            if (temp_v1 > 1) {
+                                temp_v1 += SSSV_RAND(2);
                             }
                         }
-                        curWater -= var_v1;
+
+                        prevWater += temp_v1;
+                        curWater -= temp_v1;
                         // 1xxx____
-                        arg0[xPos + 0][zPos + 0].unk7 = (((arg0[xPos + 0][zPos + 0].unk7 & 0xF) + ((var_v1 & 7) << 4)) | 0x80);
-                        if (curWater <= (arg0[xPos + 0][zPos + 0].unk0 * 2)) {
+                        arg0[xPos][zPos].unk7 = ((arg0[xPos][zPos].unk7 & 0xF) + ((temp_v1 & 7) << 4)) | 0x80;
+                        if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
                             curWater = 0;
                         }
-                        arg0[xPos + 0][zPos + 0].unk6 = curWater;
-                        arg0[xPos - 1][zPos + 0].unk6 = prevWater + var_v1;
+                        arg0[xPos][zPos].unk6 = curWater;
+                        arg0[xPos - 1][zPos].unk6 = prevWater;
                     }
                 }
 
-                prevWater = arg0[xPos + 0][zPos - 1].unk6;
+                curWater = arg0[xPos][zPos].unk6;
+                prevWater = arg0[xPos][zPos - 1].unk6; // unk-2
                 if (prevWater < curWater) {
-                    if ((arg0[xPos + 0][zPos - 1].unk0 * 2) < curWater) {
+                    if ((arg0[xPos][zPos - 1].unk0 << 1) < curWater) {
                         if ((prevWater == 0) && (D_803C0430.unk20F == 0)) {
-                            prevWater = (arg0[xPos + 0][zPos - 1].unk0 * 2);
+                            prevWater = (arg0[xPos][zPos - 1].unk0 << 1);
                         }
 
-                        if (((arg0[xPos + 0][zPos - 1].unk0 + 4) < arg0[xPos + 0][zPos + 0].unk0) &&
-                            (prevWater <= (arg0[xPos + 0][zPos + 0].unk0 * 2))) {
-                            var_v1 = (curWater - (arg0[xPos + 0][zPos + 0].unk0 * 2)) / 2;
-                            if (var_v1 < 2) {
-                                var_v1 = 2;
+                        if (((arg0[xPos][zPos - 1].unk0 + 4) < arg0[xPos][zPos].unk0) && (prevWater <= (arg0[xPos][zPos].unk0 << 1))) {
+                            temp_v1 = (curWater - (arg0[xPos][zPos].unk0 << 1)) / 2;
+                            if (temp_v1 < 2) {
+                                temp_v1 = 2;
                             }
-                            curWater -= var_v1;
-                            var_v1 = 0;
+                            curWater -= temp_v1;
+                            temp_v1 = 0;
                         } else {
-                            var_v1 = ((curWater + (zPos & 1)) - prevWater) / 2;
-                            if (var_v1 > 1) {
-                                var_v1 = var_v1 + SSSV_RAND(2);
+                            temp_v1 = ((curWater + (zPos & 1)) - prevWater) / 2;
+                            if (temp_v1 > 1) {
+                                temp_v1 += SSSV_RAND(2);
                             }
                         }
-                        if (var_v1 < 0) {
-                            var_v1 = 0;
+                        if (temp_v1 < 0) {
+                            temp_v1 = 0;
                         }
 
-                        curWater -= var_v1;
+                        curWater -= temp_v1;
+                        prevWater += temp_v1;
                         // ____1xxx
-                        arg0[xPos + 0][zPos + 0].unk7 = (((arg0[xPos + 0][zPos + 0].unk7 & 0xF0) + (var_v1 & 7)) | 8);
-                        if (curWater <= (arg0[xPos + 0][zPos + 0].unk0 * 2)) {
+                        arg0[xPos][zPos].unk7 = ((s16)(arg0[xPos][zPos].unk7 & 0xF0) + (temp_v1 & 7)) | 8;
+                        if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
                             curWater = 0;
                         }
 
-                        if ((sp50 && sp50) && sp50){}; // helps regalloc a bit...
-
-                        arg0[xPos + 0][zPos + 0].unk6 = curWater;
-                        arg0[xPos + 0][zPos - 1].unk6 = prevWater + var_v1;
+                        arg0[xPos][zPos].unk6 = curWater;
+                        arg0[xPos][zPos - 1].unk6 = prevWater;
                     }
                 }
             }
@@ -429,6 +399,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
 #if 0
 extern Gfx D_010045A0_3DE70[];
 
+// CURRENT (42671)
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     u16 sp190;
     u16 sp17A;
@@ -582,13 +553,13 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                             if (temp_t9 != 0) {
                                 temp_t1 = var_t0 + sp164;
                                 temp_a0 = sp190 + sp160;
-                                // temp_v1_2 = D_803C0740[temp_t1 - 1] ; // D_803C0740[temp_t1] - 0x408;
+                                // temp_v1 = D_803C0740[temp_t1 - 1] ; // D_803C0740[temp_t1] - 0x408;
                                 // temp_a1 = (temp_a0 * 8) - 8;
                                 // temp_s7 = var_t0 * 0x10;
-                                // temp_t7_4 = (temp_v1_2 + temp_a1)->unk6 * 4;
+                                // temp_t7_4 = (temp_v1 + temp_a1)->unk6 * 4;
                                 sp17A = D_803C0740[temp_t1 - 1][temp_a0 - 1].unk6 * 4;
                                 temp_f24 = 64.0f / 64.0f;
-                                // sp178 = temp_v1_2[temp_a0].unkE * 4;
+                                // sp178 = temp_v1[temp_a0].unkE * 4;
                                 sp178 = D_803C0740[temp_t1 - 1][temp_a0 + 1].unk6 * 4;
                                 // temp_v0 = D_803C0740[temp_t1];
                                 // sp176 = temp_v0[temp_a0].unk416 * 4;
@@ -743,8 +714,8 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                             // temp_t6_4->unk2C2F2 = (s16) ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
                             // temp_t6_4->unk2C2F4 = sp132;
 
-                            arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);;
-                            arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);;
+                            arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
+                            arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
                             arg1->unk2C2F0[sp136].v.ob[2] = sp132;
                             sp136++;
 
@@ -1056,8 +1027,8 @@ void func_80298D44_6AA3F4(Animal *arg0) {
     s32 tmp;
     s32 tmp2;
 
-    x = (((D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk7 & 0xF0) >> 4) & 7) * (1 - (((D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk7 >> 4) & 8) >> 2));
-    z = (u16)(((D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk7       )     ) & 7) * (1 - (((D_803C0740[arg0->xPos.h >> 6][arg0->zPos.h >> 6].unk7     ) & 8) >> 2));
+    x = (((D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk7 & 0xF0) >> 4) & 7) * (1 - (((D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk7 >> 4) & 8) >> 2));
+    z = (u16)(((D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk7       )     ) & 7) * (1 - (((D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk7     ) & 8) >> 2));
 
     if (x != 0) {
         tmp = (arg0->xVelocity.w - (x << 17));

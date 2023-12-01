@@ -27,9 +27,9 @@ void func_80382CF0_7943A0(void) {
         phi_a2 = ABS(D_803D5530->xVelocity.h);
         phi_a4 = ABS(D_803D5530->zVelocity.h);
         if ((phi_a4 + phi_a2) > 10) {
-            if ((D_803D5530->yPos.h + 0x60) < (func_8031124C_7228FC(
-                D_803D5530->xPos.h + ((D_803D5530->xVelocity.h * 3) >> 1),
-                D_803D5530->zPos.h + ((D_803D5530->zVelocity.h * 3) >> 1)) >> 16)) {
+            if ((D_803D5530->position.yPos.h + 0x60) < (func_8031124C_7228FC(
+                D_803D5530->position.xPos.h + ((D_803D5530->xVelocity.h * 3) >> 1),
+                D_803D5530->position.zPos.h + ((D_803D5530->zVelocity.h * 3) >> 1)) >> 16)) {
                 D_803D5530->xVelocity.h = -D_803D5530->xVelocity.h >> 1;
                 D_803D5530->zVelocity.h = -D_803D5530->zVelocity.h >> 1;
                 do_rumble(0, 0xD, 0x19, 5, 0);
@@ -37,10 +37,10 @@ void func_80382CF0_7943A0(void) {
         }
     }
     if (D_803D553A == 8) {
-        play_sound_effect_at_location(SFX_UNKNOWN_9, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_9, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
     if (D_803D553A == 9) {
-        play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
     if ((D_803D5530->unk162 == 3) && (D_803D5538 != 0)) {
         if (D_803D552C->unk369 == 0) {
@@ -49,8 +49,8 @@ void func_80382CF0_7943A0(void) {
             }
         } else if ((D_803D552C->unk369 == 1) && (D_801E9E8E != 0) && (D_803D5530->yVelocity.h < 5)) {
             D_803D552C->unk369 = 2;
-            D_803D5530->xVelocity.w += D_80152C78[D_803D552C->unk302 & 0xFF] * 19;
-            D_803D5530->zVelocity.w += D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] * 19;
+            D_803D5530->xVelocity.w += SIN(D_803D552C->unk302) * 19;
+            D_803D5530->zVelocity.w += COS(D_803D552C->unk302) * 19;
             temp_f2 = sqrtf((D_803D5530->xVelocity.w / 65536.0) * (D_803D5530->xVelocity.w / 65536.0) + (D_803D5530->zVelocity.w / 65536.0) * (D_803D5530->zVelocity.w / 65536.0));
             if (temp_f2 > 20.0) {
                 D_803D5530->xVelocity.w = (D_803D5530->xVelocity.w * 20.0) / temp_f2;
@@ -59,7 +59,7 @@ void func_80382CF0_7943A0(void) {
             D_803D5530->yVelocity.h = MAX(7, D_803D5530->yVelocity.h + 4);
             D_803D552C->unk308 = MAX(0, D_803D552C->unk308 - 25);
 
-            play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
@@ -68,9 +68,9 @@ void func_80382CF0_7943A0(void) {
         D_803F2EDD = 0;
     } else {
         sp8A = func_802E89F0_6FA0A0(
-            D_803D552C->xPos.w,
-            D_803D552C->zPos.w,
-            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.xPos.w,
+            D_803D552C->position.zPos.w,
+            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
             0x800,
             0,
             60,
@@ -116,9 +116,9 @@ void func_80382CF0_7943A0(void) {
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
-                D_803D5530->xPos.w,
-                D_803D5530->zPos.w,
-                D_803D5530->yPos.w,
+                D_803D5530->position.xPos.w,
+                D_803D5530->position.zPos.w,
+                D_803D5530->position.yPos.w,
                 -D_803D552C->unk302,
                 D_803F2EB0 / 4,
                 D_803F2EB4 / 4,
@@ -151,9 +151,9 @@ void func_80382CF0_7943A0(void) {
     }
     if ((sp8A == 0) || (sp8A == 2)) {
         func_8034BD20_75D3D0(
-            D_803D552C->xPos.h,
-            D_803D552C->zPos.h,
-            (D_803D552C->yPos.h + D_803D5524->unkBA),
+            D_803D552C->position.xPos.h,
+            D_803D552C->position.zPos.h,
+            (D_803D552C->position.yPos.h + D_803D5524->unkBA),
             D_803D552C->unk302,
             D_01033190,
             21,

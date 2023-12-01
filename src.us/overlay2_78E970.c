@@ -64,14 +64,14 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
 
     if (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk162 == 1) {
         if (arg0 > 20) {
-            do_rumble(0, 25, 55, 5, distance_from_player(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h)); //, temp_a3));
+            do_rumble(0, 25, 55, 5, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h)); //, temp_a3));
         } else {
-            do_rumble(0, 13, 25, 5, distance_from_player(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h)); //, temp_a3_2));
+            do_rumble(0, 13, 25, 5, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h)); //, temp_a3_2));
         }
     }
-    sp8E = D_803D5530->xPos.h;
-    sp8C = D_803D5530->zPos.h;
-    func_80374C38_7862E8(sp8E, sp8C, D_803D5530->yPos.h);
+    sp8E = D_803D5530->position.xPos.h;
+    sp8C = D_803D5530->position.zPos.h;
+    func_80374C38_7862E8(sp8E, sp8C, D_803D5530->position.yPos.h);
 
     temp_t5 = sp8E >> 0xA;
     temp_t7 = sp8C >> 0xA;
@@ -102,14 +102,14 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
 
                         animal = phi_s1->animal;
                         if ((animal->unk162 == 6) || (animal->unk162 == 1)) {
-                            temp_v0_3 = sp8E - animal->xPos.h;
-                            temp_v1_2 = sp8C - animal->zPos.h;
+                            temp_v0_3 = sp8E - animal->position.xPos.h;
+                            temp_v1_2 = sp8C - animal->position.zPos.h;
 
                             phi_a0 = ABS(temp_v0_3);
                             phi_v0 = ABS(temp_v1_2);
 
                             temp_a0_2 = MAX(phi_a0, phi_v0) + (MIN(phi_a0, phi_v0) >> 1);
-                            if (ABS(D_803D5530->yPos.h - animal->yPos.h) < 128) {
+                            if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < 128) {
                                 if (temp_a0_2 < arg1) {
                                     if (animal->unk16C->unk82.unk2) {
                                         if ((animal->unk16C->unk9C != EVO_TRANSFER) &&
@@ -170,7 +170,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
             }
         }
     }
-    func_8034220C_7538BC(0xF, sp8E, sp8C, D_803D5530->yPos.h);
+    func_8034220C_7538BC(0xF, sp8E, sp8C, D_803D5530->position.yPos.h);
 }
 
 // velocity related?
@@ -216,12 +216,12 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     Animal *animal;
     struct065 *var_s6;
 
-    temp_s7 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
-    temp_fp = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 9;
+    temp_s7 = SIN(D_803D552C->unk302) >> 9;
+    temp_fp = COS(D_803D552C->unk302) >> 9;
 
-    xPos = D_803D5530->xPos.h;
+    xPos = D_803D5530->position.xPos.h;
     temp_v1 = xPos >> 10;
-    zPos = D_803D5530->zPos.h;
+    zPos = D_803D5530->position.zPos.h;
     temp_t1 = zPos >> 10;
 
     var_t5 = -1;
@@ -251,15 +251,15 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                 if ((var_s6 == (&var_s6->animal->unk11C[0])) && (D_803D5530 != var_s6->animal)) {
                     animal = var_s6->animal;
 
-                    temp_s1_2 = xPos - animal->xPos.h;
-                    temp_s2 = zPos - animal->zPos.h;
+                    temp_s1_2 = xPos - animal->position.xPos.h;
+                    temp_s2 = zPos - animal->position.zPos.h;
 
                     var_a0 = ABS(temp_s1_2);
                     var_v0 = ABS(temp_s2);
 
                     temp_v0_4 = MAX(var_a0, var_v0) + (MIN(var_a0, var_v0) >> 1);
                     if (temp_v0_4 < arg1 * 2) {
-                        if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1 / 2) {
+                        if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < arg1 / 2) {
                             var_a0_2 = sqrtf((f32) ((temp_s1_2 * temp_s1_2) + (temp_s2 * temp_s2)));
                             if (var_a0_2 == 0) {
                                 var_a0_2 = 1;
@@ -336,9 +336,9 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     D_803D5530->zVelocity.w -= temp_fp << 0xA;
 
     create_particle_effect(
-        D_803D5530->xPos.h + temp_s7,
-        D_803D5530->zPos.h + temp_fp,
-        D_803D5530->yPos.h + ((D_803D5530->unk42 * 3) >> 2),
+        D_803D5530->position.xPos.h + temp_s7,
+        D_803D5530->position.zPos.h + temp_fp,
+        D_803D5530->position.yPos.h + ((D_803D5530->unk42 * 3) >> 2),
         0x23,
         ((SSSV_RAND(32) + temp_s7) - 16) << 0xE,
         ((SSSV_RAND(32) + temp_fp) - 16) << 0xE,
@@ -387,13 +387,13 @@ void trigger_contagious_laughter(void) {
             0x7000,
             0,
             1.0f,
-            D_803D5530->xPos.h,
-            D_803D5530->zPos.h,
-            D_803D5530->yPos.h);
+            D_803D5530->position.xPos.h,
+            D_803D5530->position.zPos.h,
+            D_803D5530->position.yPos.h);
     }
 
-    sp9A = D_803D5530->xPos.h;
-    sp98 = D_803D5530->zPos.h;
+    sp9A = D_803D5530->position.xPos.h;
+    sp98 = D_803D5530->position.zPos.h;
     temp_t6 = sp9A >> 0xA;
     temp_t8 = sp98 >> 0xA;
 
@@ -421,9 +421,9 @@ void trigger_contagious_laughter(void) {
                 if (var_s1 == (&var_s1->animal->unk11C[0])) {
                     if (D_803D5530 != var_s1->animal) {
                         animal = var_s1->animal;
-                        if (ABS(animal->yPos.h - D_803D5530->yPos.h) < 192) {
-                            temp_v0_5 = sp9A - animal->xPos.h;
-                            temp_a1 = sp98 - animal->zPos.h;
+                        if (ABS(animal->position.yPos.h - D_803D5530->position.yPos.h) < 192) {
+                            temp_v0_5 = sp9A - animal->position.xPos.h;
+                            temp_a1 = sp98 - animal->position.zPos.h;
 
                             var_a0 = ABS(temp_v0_5);
                             var_v1 = ABS(temp_a1);
@@ -469,9 +469,9 @@ void trigger_contagious_laughter(void) {
                                                         ((temp_t0->unkE6 << 0xB) + 0x5000),
                                                         0,
                                                         (1.3 - (temp_t0->unkE6 * 0.2)),
-                                                        D_803D5530->xPos.h,
-                                                        D_803D5530->zPos.h,
-                                                        D_803D5530->yPos.h);
+                                                        D_803D5530->position.xPos.h,
+                                                        D_803D5530->position.zPos.h,
+                                                        D_803D5530->position.yPos.h);
                                                     if (!(D_803D5540 & 3)) {
                                                         animal->health = MAX(animal->health - 1, 0);
                                                         func_80349280_75A930(animal, 1);
@@ -542,13 +542,13 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
                 if (var_a3 == &var_a3->animal->unk11C[0]) {
                     if (var_a3->animal != D_803D5530) {
                         animal = var_a3->animal;
-                        temp_v1_2 = arg0 - animal->xPos.h;
-                        temp_a1 = arg1 - animal->zPos.h;
+                        temp_v1_2 = arg0 - animal->position.xPos.h;
+                        temp_a1 = arg1 - animal->position.zPos.h;
                         var_a0 = ABS(temp_v1_2);
                         var_v0 = ABS(temp_a1);
                         tmp = (MAX(var_a0, var_v0) + (MIN(var_a0, var_v0) >> 1));
 
-                        if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg3) {
+                        if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < arg3) {
                             if (tmp < arg3) {
                                 animal->unk57 = arg4;
                             }
@@ -587,11 +587,11 @@ Animal *func_8037E9AC_79005C(void) {
     ret = NULL;
     phi_s5 = 0; // best distance?
 
-    xPos = D_803D5530->xPos.h;
-    zPos = D_803D5530->zPos.h;
+    xPos = D_803D5530->position.xPos.h;
+    zPos = D_803D5530->position.zPos.h;
 
-    sp56 = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
-    sp54 = D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] >> 9;
+    sp56 = SIN(D_803D552C->unk302) >> 9;
+    sp54 = COS(D_803D552C->unk302) >> 9;
 
     for (i = 0; i < D_803D553E; i++) {
         if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER)) {
@@ -600,8 +600,8 @@ Animal *func_8037E9AC_79005C(void) {
 
                     a = D_801D9ED8.animals[i].animal;
 
-                    xPosDelta = xPos - a->xPos.h;
-                    zPosDelta = zPos - a->zPos.h;
+                    xPosDelta = xPos - a->position.xPos.h;
+                    zPosDelta = zPos - a->position.zPos.h;
 
                     phi_v0 = ABS(xPosDelta);
                     phi_v1 = ABS(zPosDelta);
@@ -661,25 +661,25 @@ Animal *func_8037ED1C_7903CC(void) {
     var_s4 = 0;
     ret = NULL;
 
-    xPos = D_803D5530->xPos.h;
-    zPos = D_803D5530->zPos.h;
+    xPos = D_803D5530->position.xPos.h;
+    zPos = D_803D5530->position.zPos.h;
 
-    temp_fp = D_80152C78[D_803D552C->unk302 & 0xFF] >> 9;
-    var_a3 = D_80152C78[(D_803D552C->unk302 + 64) & 0xFF] >> 9;
+    temp_fp = SIN(D_803D552C->unk302) >> 9;
+    var_a3 = COS(D_803D552C->unk302) >> 9;
 
     for (i = 0; i < D_803D553E; i++) {
         if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
             if (D_803D5530 != D_801D9ED8.animals[i].animal) {
 
                 animal = D_801D9ED8.animals[i].animal;
-                xPosDelta = xPos - animal->xPos.h;
-                zPosDelta = zPos - animal->zPos.h;
+                xPosDelta = xPos - animal->position.xPos.h;
+                zPosDelta = zPos - animal->position.zPos.h;
 
                 var_a0 = ABS(xPosDelta);
                 var_v0 = ABS(zPosDelta);
 
                 if ((s16) ((MAX(var_a0, var_v0)) + (MIN(var_a0, var_v0) >> 1)) < 320) {
-                    if (ABS(D_803D5530->yPos.h - animal->yPos.h) < 320) {
+                    if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < 320) {
                         temp_f6 = sqrtf((xPosDelta * xPosDelta) + (zPosDelta * zPosDelta));
                         var_v1_3 = temp_f6;
                         if (temp_f6 == 0) {
@@ -727,12 +727,12 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
     s16 sp74; // zVel
     s16 sp72;
 
-    sp88 = D_80152C78[arg1 & 0xFF] >> 7;
-    sp86 = D_80152C78[(arg1 + 0x40) & 0xFF] >> 7;
+    sp88 = SIN(arg1) >> 7;
+    sp86 = COS(arg1) >> 7;
 
-    xPos = D_803D5530->xPos.h;
-    zPos = D_803D5530->zPos.h;
-    sp7A = D_803D5530->yPos.h;
+    xPos = D_803D5530->position.xPos.h;
+    zPos = D_803D5530->position.zPos.h;
+    sp7A = D_803D5530->position.yPos.h;
 
     for (i = 0x20; i < arg0; i += 0x20) {
         xPosNew = xPos + ((sp88 * i) >> 8);
@@ -786,9 +786,9 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
             sp7A = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10) + 0x10;
         }
 
-        D_803D5530->xPos.h = xPosNew;
-        D_803D5530->zPos.h = zPosNew;
-        D_803D5530->yPos.h = sp7A;
+        D_803D5530->position.xPos.h = xPosNew;
+        D_803D5530->position.zPos.h = zPosNew;
+        D_803D5530->position.yPos.h = sp7A;
 
         D_803D5530->xVelocity.w = 0;
         D_803D5530->zVelocity.w = 0;
@@ -824,9 +824,9 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
     struct065 *var_s2;
     s32 pad;
 
-    var_t1 = D_803D5530->xPos.h;
+    var_t1 = D_803D5530->position.xPos.h;
     temp_v0 = var_t1 >> 0xA;
-    var_t2 = D_803D5530->zPos.h;
+    var_t2 = D_803D5530->position.zPos.h;
     temp_a3 = var_t2 >> 0xA;
 
     var_t5 = -1;
@@ -857,8 +857,8 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
 
                         if (1) { } if (1) { } // regalloc!
 
-                        temp_a2 = var_t1 - animal->xPos.h;
-                        temp_a3_2 = var_t2 - animal->zPos.h;
+                        temp_a2 = var_t1 - animal->position.xPos.h;
+                        temp_a3_2 = var_t2 - animal->position.zPos.h;
 
                         var_a0 = ABS(temp_a2);
                         var_v1 = ABS(temp_a3_2);
@@ -867,7 +867,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                         if (animal->unk16C->unk82.unk2) {
                             if ((animal->unk16C->unk9C != EVO_TRANSFER) && (animal->unk16C->unk9C != KING_RAT) && (animal->unk16C->unk9C != RAT)) {
                                 if (temp_v1 < arg1 * 2) {
-                                    if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1) {
+                                    if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < arg1) {
                                         if (temp_v1 < arg1) {
                                             animal->xVelocity.w -= (temp_a2 << 0x10) / temp_v1;
                                             animal->zVelocity.w -= (temp_a3_2 << 0x10) / temp_v1;
@@ -888,7 +888,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                             }
                         }
                         if (temp_v1 < arg1 * 2) {
-                            if (ABS(D_803D5530->yPos.h - animal->yPos.h) < arg1) {
+                            if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < arg1) {
                                 animal->unk57 = 6;
                             }
                         }
@@ -901,7 +901,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
 
 // missile model (on animal) disappearing and left-right missile selector function
 // ESA: func_80078478
-u8 func_8037FBBC_79126C(void) {
+u8 get_missile_side(void) {
     switch (D_803D5524->unk9C) {
     case RACING_DOG:
     case SKI_HUSKY:
@@ -983,7 +983,7 @@ void func_8037FEDC_79158C(void) {
     s16 zPosDelta;
     s16 xPosDelta;
 
-    play_sound_effect_at_location(SFX_SHEEP_BAA, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+    play_sound_effect_at_location(SFX_SHEEP_BAA, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 
     // iterate over all animals in the level
     for (i = 0; i < D_803D553E; i++) {
@@ -993,9 +993,9 @@ void func_8037FEDC_79158C(void) {
             (D_801D9ED8.animals[i].animal != D_803D5530) &&
             ((u8)D_801D9ED8.animals[i].animal->unk2A0 == 0) &&
             ((D_801D9ED8.animals[i].unk0->unk9C == SHEEP) || (D_801D9ED8.animals[i].unk0->unk9C == SPRINGY_THINGY))) {
-            xPosDelta = ABS(D_801D9ED8.animals[i].animal->xPos.h - D_803D5530->xPos.h);
+            xPosDelta = ABS(D_801D9ED8.animals[i].animal->position.xPos.h - D_803D5530->position.xPos.h);
             if (xPosDelta < 200) {
-                zPosDelta = ABS(D_801D9ED8.animals[i].animal->zPos.h - D_803D5530->zPos.h);
+                zPosDelta = ABS(D_801D9ED8.animals[i].animal->position.zPos.h - D_803D5530->position.zPos.h);
                 if (zPosDelta < 200) {
                     if ((D_801D9ED8.animals[i].animal->unk287 == 0) && (D_803D552C->unk28A == 0)) {
                         D_801D9ED8.animals[i].animal->unk287 = 1;
@@ -1008,5 +1008,5 @@ void func_8037FEDC_79158C(void) {
             }
         }
     }
-    func_8037E6DC_78FD8C(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 200, 15);
+    func_8037E6DC_78FD8C(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 200, 15);
 }

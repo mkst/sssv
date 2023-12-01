@@ -730,18 +730,7 @@ states:
 struct Animal {
     /* 0x00 */  u16 state; // state? standing, walking, jumping,
     /* 0x02 */  u16 unk2;
-    /* 0x04 */  union {
-                    s16 h;
-                    s32 w;
-                } xPos;
-    /* 0x08 */  union {
-                    s16 h;
-                    s32 w;
-                } zPos;
-    /* 0x0C */  union {
-                    s16 h;
-                    s32 w;
-                } yPos;
+                Position position;
                 Position newPosition;
     /* 0x1C */  union {
                     s32 w;
@@ -1407,7 +1396,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ s16 cameraMode; // camera mode?
     /* 0x02 */ s16 unk2;
-    /* 0x04 */ s16 unk4;
+    /* 0x04 */ s16 unk4; // nextCameraMode?
     /* 0x06 */ s16 unk6;
     /* 0x08 */ f32 unk8;
     /* 0x0C */ f32 unkC;
@@ -2052,11 +2041,14 @@ typedef struct {
 
 #if 0
     union {
-      u8 unk0 : 1; // ((x >> 4) & 8) >> 2
-      u8 unk1 : 3; // ((x & 0xF0) >> 4) & 7
-      u8 unk4 : 1; // (x & 8) >> 2
-      u8 unk5 : 3; // (x & 7)
-    } unk7; // bitfield?
+        struct {
+          u8 unk0 : 1; // ((x >> 4) & 8) >> 2
+          u8 unk1 : 3; // ((x & 0xF0) >> 4) & 7
+          u8 unk4 : 1; // (x & 8) >> 2
+          u8 unk5 : 3; // (x & 7)
+        } bits; // bitfield?
+        u8 ub;
+    } unk7;
 #else
     u8 unk7;
 #endif
@@ -2126,18 +2118,7 @@ typedef struct {
 struct struct071 {
     /* 0x0 */   u16 unk0;
     /* 0x2 */   u8  pad2[0x2];
-    /* 0x4 */   union {
-                    s16 h;
-                    s32 w;
-                } xPos;
-    /* 0x8 */   union {
-                    s16 h;
-                    s32 w;
-                } zPos;
-    /* 0xC */   union {
-                    s16 h;
-                    s32 w;
-                } yPos;
+    /* 0x4 */   Position position;
     /* 0x10 */  union {
                     s16 h;
                     s32 w;

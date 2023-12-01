@@ -6,6 +6,15 @@ import subprocess
 
 from pathlib import Path
 
+# do not include these files matching these names towards progress
+IGNORE_LIST = [
+    "rspbootText",
+    "gspSprite2DText",
+    "gspSprite2D_fifoText",
+    "gspF3DEX_fifoText",
+    "aspMainText",
+]
+
 def update_previous(entries, vram_end):
     if len(entries) > 0:
         last_entry = entries[-1]
@@ -147,6 +156,9 @@ def create_progress(basedir, mapfile, target_start, target_end, section_name, ve
     for file in files:
         file_funcs = file["functions"]
         filename = file["filename"]
+        if any([re.search(ignore, filename) for ignore in IGNORE_LIST]):
+            sys.stderr.write(f"Skipping {filename}\n")
+            continue
         c_functions = parse_file(basedir, filename, file_funcs, includes, non_matching)
         for file_func in file_funcs:
             file_func["filename"] = filename
@@ -162,7 +174,7 @@ def create_progress(basedir, mapfile, target_start, target_end, section_name, ve
             all_functions.append(file_func)
 
     csv = generate_csv(all_functions, version, section_name)
-    print(csv)
+    sys.stdout.write(csv)
 
 
 def main():

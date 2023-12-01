@@ -83,26 +83,26 @@ u8 overlay2_6ACF20_post_padding[0x20];
 
 // ESA: func_800750E0
 void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
-    s32 dist = ((arg0->xPos.h - arg1->xPos.h) * (arg0->xPos.h - arg1->xPos.h)) +
-               ((arg0->zPos.h - arg1->zPos.h) * (arg0->zPos.h - arg1->zPos.h));
+    s32 dist = ((arg0->position.xPos.h - arg1->position.xPos.h) * (arg0->position.xPos.h - arg1->position.xPos.h)) +
+               ((arg0->position.zPos.h - arg1->position.zPos.h) * (arg0->position.zPos.h - arg1->position.zPos.h));
     if ((arg1->state == 1) &&
         (D_803D2D90.unk0 == 0) && (D_803D2D90.unk64 == 0) &&
         (dist < 800) && (arg0->unk16C->unk82.unk2) &&
         (arg1->unk248[1] != NULL) && (arg0->unk320 == 0)) {
         Animal *tmp;
         arg1->unk158 = 1;
-        arg0->xPos.h = arg1->xPos.h;
-        arg0->zPos.h = arg1->zPos.h;
-        D_803D2D90.unk4C = arg1->xPos.h;
-        D_803D2D90.unk4E = arg1->zPos.h;
-        D_803D2D90.unk50 = arg1->yPos.h;
+        arg0->position.xPos.h = arg1->position.xPos.h;
+        arg0->position.zPos.h = arg1->position.zPos.h;
+        D_803D2D90.unk4C = arg1->position.xPos.h;
+        D_803D2D90.unk4E = arg1->position.zPos.h;
+        D_803D2D90.unk50 = arg1->position.yPos.h;
         D_803D2D90.unk2 = 54;
         tmp = arg1->unk248[1];
         D_803D2D90.unk60 = tmp;
         D_803D2D90.unk5C = arg1;
-        D_803D2D90.unk52 = tmp->xPos.h;
-        D_803D2D90.unk54 = tmp->zPos.h;
-        D_803D2D90.unk56 = tmp->yPos.h;
+        D_803D2D90.unk52 = tmp->position.xPos.h;
+        D_803D2D90.unk54 = tmp->position.zPos.h;
+        D_803D2D90.unk56 = tmp->position.yPos.h;
         D_803D2D90.unk58 = arg0;
         D_803D2D90.unk0 = 1;
         D_803D2D90.unk46 = D_803D2D90.unk4C;
@@ -118,13 +118,13 @@ void func_8029B870_6ACF20(Animal *arg0, Animal *arg1) {
 void func_8029B9B8_6AD068(Animal *arg0, Animal *arg1) {
     D_803D2D90.unk5C = 0;
     D_803D2D90.unk60 = arg1;
-    D_803D2D90.unk52 = arg1->xPos.h;
-    D_803D2D90.unk54 = arg1->zPos.h;
-    D_803D2D90.unk56 = arg1->yPos.h;
+    D_803D2D90.unk52 = arg1->position.xPos.h;
+    D_803D2D90.unk54 = arg1->position.zPos.h;
+    D_803D2D90.unk56 = arg1->position.yPos.h;
     D_803D2D90.unk58 = arg0;
-    D_803D2D90.unk58->xPos.h = D_803D2D90.unk52;
-    D_803D2D90.unk58->zPos.h = D_803D2D90.unk54;
-    D_803D2D90.unk58->yPos.h = D_803D2D90.unk56 + 8;
+    D_803D2D90.unk58->position.xPos.h = D_803D2D90.unk52;
+    D_803D2D90.unk58->position.zPos.h = D_803D2D90.unk54;
+    D_803D2D90.unk58->position.yPos.h = D_803D2D90.unk56 + 8;
     D_803D2D90.unk58->xVelocity.w = 0;
     D_803D2D90.unk58->zVelocity.w = 0;
     D_803D2D90.unk58->yVelocity.w = 0;
@@ -140,24 +140,24 @@ void func_8029B9B8_6AD068(Animal *arg0, Animal *arg1) {
 // ESA: func_80075310
 void func_8029BA70_6AD120(Animal *arg0, Animal *arg1) {
     if (arg1->state != 0) {
-        s32 dist = ((arg0->xPos.h - arg1->xPos.h) * (arg0->xPos.h - arg1->xPos.h)) +
-                   ((arg0->zPos.h - arg1->zPos.h) * (arg0->zPos.h - arg1->zPos.h));
+        s32 dist = ((arg0->position.xPos.h - arg1->position.xPos.h) * (arg0->position.xPos.h - arg1->position.xPos.h)) +
+                   ((arg0->position.zPos.h - arg1->position.zPos.h) * (arg0->position.zPos.h - arg1->position.zPos.h));
         if ((D_803D2D90.unk0 == 0) && (D_803D2D90.unk64 == 0) && (dist < 0x320)) {
             arg1->unk158 = 1;
             D_803D2D90.unk5C = arg1;
             D_803D2D90.unk60 = 0;
-            D_803D2D90.unk4C = arg1->xPos.h;
-            D_803D2D90.unk4E = arg1->zPos.h;
-            D_803D2D90.unk50 = arg1->yPos.h;
+            D_803D2D90.unk4C = arg1->position.xPos.h;
+            D_803D2D90.unk4E = arg1->position.zPos.h;
+            D_803D2D90.unk50 = arg1->position.yPos.h;
             D_803D2D90.unk46 = D_803D2D90.unk4C;
             D_803D2D90.unk48 = D_803D2D90.unk4E;
             D_803D2D90.unk4A = D_803D2D90.unk50;
-            D_803D2D90.unk52 = arg1->xPos.h;
-            D_803D2D90.unk54 = arg1->zPos.h;
-            D_803D2D90.unk56 = arg1->yPos.h;
+            D_803D2D90.unk52 = arg1->position.xPos.h;
+            D_803D2D90.unk54 = arg1->position.zPos.h;
+            D_803D2D90.unk56 = arg1->position.yPos.h;
             D_803D2D90.unk58 = arg0;
-            arg0->xPos.h = arg1->xPos.h;
-            arg0->zPos.h = arg1->zPos.h;
+            arg0->position.xPos.h = arg1->position.xPos.h;
+            arg0->position.zPos.h = arg1->position.zPos.h;
             D_803D2D90.unk0 = 1;
             D_803D2D90.unk2 = 56;
             func_802B33D0_6C4A80(arg0);
@@ -184,8 +184,8 @@ void func_8029BB94_6AD244(void) {
     if (D_803D2D90.unk0 != 0) {
         if (D_803D2D90.unk2 == 53) {}; // helps regalloc a bit
         if (D_803D2D90.unk2 == 54) {
-            add_light_at_location(D_803D2D90.unk5C->xPos.h, D_803D2D90.unk5C->zPos.h, D_803D2D90.unk5C->yPos.h + 0x80, 0xFF, 0, 0, 0);
-            add_light_at_location(D_803D2D90.unk60->xPos.h, D_803D2D90.unk60->zPos.h, D_803D2D90.unk60->yPos.h + 0x80, 0xFF, 0, 0, 0);
+            add_light_at_location(D_803D2D90.unk5C->position.xPos.h, D_803D2D90.unk5C->position.zPos.h, D_803D2D90.unk5C->position.yPos.h + 0x80, 0xFF, 0, 0, 0);
+            add_light_at_location(D_803D2D90.unk60->position.xPos.h, D_803D2D90.unk60->position.zPos.h, D_803D2D90.unk60->position.yPos.h + 0x80, 0xFF, 0, 0, 0);
         }
         if (D_803F2D10.unk0 == 0) {
             if (D_803D2D90.unk0 == 1) {
@@ -307,9 +307,9 @@ void func_8029BB94_6AD244(void) {
 
             if (D_803D2D90.unk42 == 150) {
                 D_803D2D90.unk5C->unk158 = 0;
-                D_803D2D90.unk58->xPos.h = D_803D2D90.unk52;
-                D_803D2D90.unk58->zPos.h = D_803D2D90.unk54;
-                D_803D2D90.unk58->yPos.h = D_803D2D90.unk56 + 8;
+                D_803D2D90.unk58->position.xPos.h = D_803D2D90.unk52;
+                D_803D2D90.unk58->position.zPos.h = D_803D2D90.unk54;
+                D_803D2D90.unk58->position.yPos.h = D_803D2D90.unk56 + 8;
                 D_803D2D90.unk58->xVelocity.w = 0;
                 D_803D2D90.unk58->zVelocity.w = 0;
                 D_803D2D90.unk58->yVelocity.w = 0;
@@ -974,9 +974,9 @@ void func_8029E3CC_6AFA7C(void) {
     if (D_803D3434->usedModelViewMtxs < 250) {
         func_80125FE0(
             &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
-            D_803D343C->xPos.w,
-            D_803D343C->zPos.w,
-            D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF),
+            D_803D343C->position.xPos.w,
+            D_803D343C->position.zPos.w,
+            D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
             D_803D343C->zRotation,
             D_803D343C->yRotation,
             D_803D343C->unk40 << 5,
@@ -1350,17 +1350,15 @@ extern fixme3 * D_803B1CDC_7C338C[];
 
 
 #if 0
-// CURRENT (63897)
+// CURRENT (54678)
 void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
     // ? *sp480;                                       /* compiler-managed */
+    u8        pad[0x68];
     struct077 sp318;
     struct077 sp2AC;
     s32 sp2A8;
     // s32 sp2A4;
     // s32 sp298;
-    struct077 sp210;
-    // s8 sp1AC;
-
     f32 temp_f20;
 
     fixme3 *var_s0;
@@ -1400,6 +1398,11 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
 
     u8 var_s0_2;
 
+    struct077 sp210;
+
+    // s8 sp1AC;
+
+
     D_803D3430 = D_803D3430 + 1;
     D_803D3430 = D_803D3430 % 5;
 
@@ -1429,9 +1432,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                         // get rgba16 color (first u16 of image?)
                         color = func_8029A52C_6ABBDC(temp_t6_2);
                         var_v1 = func_802E8BBC_6FA26C(
-                            D_803D343C->xPos.w,
-                            D_803D343C->zPos.w,
-                            D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF),
+                            D_803D343C->position.xPos.w,
+                            D_803D343C->position.zPos.w,
+                            D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
                             (D_803D3440->unk8E * D_803D343C->unk40) >> 0xB,
                             D_803D3440->unk90,
                             (((color & 0xF800) >> 9) & 0xFF), // red
@@ -1442,9 +1445,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             break;
                     default:
                         var_v1 = func_802E8BBC_6FA26C(
-                            D_803D343C->xPos.w,
-                            D_803D343C->zPos.w,
-                            D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF),
+                            D_803D343C->position.xPos.w,
+                            D_803D343C->position.zPos.w,
+                            D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
                             (D_803D3440->unk8E * D_803D343C->unk40) >> 0xB,
                             D_803D3440->unk90,
                             D_803D3440->unk91, // red
@@ -1462,9 +1465,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             // temp_t8 = D_803D3440->unk96.a; // >> 12;
                             if (D_803D3440->unk96.a == 1) {
                                 func_8034C8F8_75DFA8(
-                                    D_803D343C->xPos.h,
-                                    D_803D343C->zPos.h,
-                                    (D_803D343C->yPos.h + (D_803D343C->unk42 >> 1)),
+                                    D_803D343C->position.xPos.h,
+                                    D_803D343C->position.zPos.h,
+                                    (D_803D343C->position.yPos.h + (D_803D343C->unk42 >> 1)),
                                     ((D_803D343C->yRotation << 8) / 360),
                                     D_803A8370_7B9A20[D_803D3440->unk96.c], // & 0xF],
                                     ((D_803D3440->unk96.c * D_803D343C->unk40) >> 0xB),
@@ -1477,9 +1480,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                     0);
                             } else if (D_803D3440->unk96.a == 2) {
                                 func_8034BD20_75D3D0(
-                                    D_803D343C->xPos.h,
-                                    D_803D343C->zPos.h,
-                                    (D_803D343C->yPos.h + (D_803D343C->unk42 >> 1)),
+                                    D_803D343C->position.xPos.h,
+                                    D_803D343C->position.zPos.h,
+                                    (D_803D343C->position.yPos.h + (D_803D343C->unk42 >> 1)),
                                     ((D_803D343C->yRotation << 8) / 360),
                                     D_803A8370_7B9A20[D_803D3440->unk96.c], // & 0xF],
                                     ((D_803D3440->unk96.c * D_803D343C->unk40) >> 0xB),
@@ -1498,8 +1501,20 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                     switch (var_v1) {
                     case 0:
                         switch (D_803D3440->unk4) {
+                        case 0:
+                            break; // not this
                         case 1:
-                            func_8029CEF0_6AE5A0(D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->unk40, (u8) (D_803D3440->unk14 + D_803D343C->unk64), &D_803D2E08, (s8) (s32) D_803D3440->objectType, (u8) 0, (u8) 0, (u8) 0);
+                            func_8029CEF0_6AE5A0(
+                                D_803D343C->position.xPos.w,
+                                D_803D343C->position.zPos.w,
+                                D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
+                                D_803D343C->unk40,
+                                D_803D3440->unk14 + D_803D343C->unk64,
+                                &D_803D2E08,
+                                D_803D3440->objectType,
+                                0,
+                                0,
+                                0);
                             break;
                         case 2:
                             if (D_803D4BB0.unk1 < 60) {
@@ -1509,9 +1524,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk0 = D_803D343C->zRotation;
                                 D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk2 = D_803D343C->yRotation;
                                 D_803D4BB0.unkAA[D_803D4BB0.unk1] = D_803D343C->unk40;
-                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk0 = D_803D343C->xPos.w;
-                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk4 = D_803D343C->zPos.w;
-                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk8 = D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF);
+                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk0 = D_803D343C->position.xPos.w;
+                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk4 = D_803D343C->position.zPos.w;
+                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk8 = D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF);
                                 D_803D4BB0.unk6E[D_803D4BB0.unk1] = -1;
                             }
                             break;
@@ -1522,9 +1537,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 D_803D45D0.unk34C[D_803D45D0.unk0].unk0 = D_803D343C->zRotation;
                                 D_803D45D0.unk34C[D_803D45D0.unk0].unk2 = D_803D343C->yRotation;
                                 D_803D45D0.unk2[D_803D45D0.unk0] = D_803D343C->unk40;
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk0 = D_803D343C->xPos.w;
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk4 = D_803D343C->zPos.w;
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk8 = D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF);
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk0 = D_803D343C->position.xPos.w;
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk4 = D_803D343C->position.zPos.w;
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk8 = D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF);
                                 D_803D45D0.unk52C[D_803D45D0.unk0].r = 0;
                                 D_803D45D0.unk52C[D_803D45D0.unk0].g = 0;
                                 D_803D45D0.unk52C[D_803D45D0.unk0].b = 0;
@@ -1539,7 +1554,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 gDPSetTextureLUT(D_801D9E8C++, G_TT_NONE);
                                 gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
                                 gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                 gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 // temp_s0_9->words.w0 = 0x06000000;
                                 // temp_s0_9->words.w1 = (u32) D_803D3438->unk0;
@@ -1552,9 +1567,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                     var_v0_3 = 5;
                                 }
                                 func_8029CEF0_6AE5A0(
-                                    D_803D343C->xPos.w,
-                                    D_803D343C->zPos.w,
-                                    D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF) + (D_803D343C->unk40 * 0x6E0),
+                                    D_803D343C->position.xPos.w,
+                                    D_803D343C->position.zPos.w,
+                                    D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF) + (D_803D343C->unk40 * 0x6E0),
                                     (s32)(D_803D343C->unk40 * 0.6),
                                     var_v0_3,
                                     &D_803D2E08,
@@ -1566,7 +1581,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             break;
                         case 5:
                             if ((D_803D3434->usedModelViewMtxs + 2) >= 0xFA) {
-
+                                continue; // ?
                             } else {
                                 gSPTexture(D_801D9E8C++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
 
@@ -1574,7 +1589,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
 
                                 gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
 
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                 gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
                                 gSPDisplayList(D_801D9E8C++, D_803D3438[0]);
@@ -1592,18 +1607,18 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             }
                             break;
                         case 6:
-                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
                             break;
                         case 7:
                             if ((D_803D3434->usedModelViewMtxs + 1) >= 0xFA) {
-                                // debug stub?
+                                continue; // ?
                             } else {
                                 if (D_803D343C->state == 1) {
-                                    func_8032CD70_73E420(D_803D343C, 0x83, 0x2AAA, 0, 1.0f, (s16) (s32) D_803D343C->xPos.h, (s16) (s32) D_803D343C->zPos.h, (s16) (s32) D_803D343C->yPos.h);
+                                    func_8032CD70_73E420(D_803D343C, 0x83, 0x2AAA, 0, 1.0f, (s16) (s32) D_803D343C->position.xPos.h, (s16) (s32) D_803D343C->position.zPos.h, (s16) (s32) D_803D343C->position.yPos.h);
                                     gDPSetPrimColor(D_801D9E8C++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
 
                                     var_s4 = (D_803D3430 / 2);
-                                    temp_v0_5 = distance_from_player(D_803D343C->xPos.h, D_803D343C->zPos.h, D_803D343C->yPos.h + D_803D343C->unk42 + 2);
+                                    temp_v0_5 = distance_from_player(D_803D343C->position.xPos.h, D_803D343C->position.zPos.h, D_803D343C->position.yPos.h + D_803D343C->unk42 + 2);
                                     if (temp_v0_5 >= 512) {
                                         var_t4 = 0xFF;
                                         var_t5 = 0x7F;
@@ -1643,14 +1658,14 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
                                 gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                                 gSPDisplayList(D_801D9E8C++, D_01004510_3DDE0);
-                                gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &D_010084A0[(var_s4 * 0xAB8)]);
+                                gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_010084A0 + (var_s4 * 0xAB8));
                                 gDPTileSync(D_801D9E8C++);
                                 gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                                 gDPTileSync(D_801D9E8C++);
                                 gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 1372, 0);
                                 gDPTileSync(D_801D9E8C++);
                                 gSPTexture(D_801D9E8C++, 0x8000, 0x8000, 5, G_TX_RENDERTILE, G_ON);
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF) + 0x20000, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF) + 0x20000, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                 gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(D_801D9E8C++, D_01012B80_4C450);
                                 gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
@@ -1661,25 +1676,35 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             break;
                         case 8:
                             if (D_803D343C->unk16C->unk4 != 0) {
-                                func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                                func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->unk4);
                             }
                             for (var_s0 = D_803B1CDC_7C338C[D_803D3440->unk14]; var_s0->unk0 != 9999; var_s0 += 1) {
                                 func_802F603C_7076EC(var_s0->unk0 << 6, var_s0->unk2 << 6, var_s0->unk4 << 6, D_803D343C->zRotation, (s32) D_803D343C->yRotation, (s32) D_803D343C->unk40, &sp318);
-                                func_8029CEF0_6AE5A0(D_803D343C->xPos.w + (sp318.unk0 << 0xA), D_803D343C->zPos.w + (sp318.unk2 << 0xA), D_803D343C->yPos.w + (sp318.unk4 << 0xA) + (D_803D343C->unk42 << 0xF), ((s32) (var_s0->unk6 * D_803D343C->unk40) >> 0xB) , (u8) (s32) var_s0->unk8, &D_803D2E08, (s8) (s32) D_803D343C->unk3E, (u8) D_803D343C->unk200[0], (u8) D_803D343C->unk200[1], (u8) D_803D343C->unk200[2]);
+                                func_8029CEF0_6AE5A0(
+                                    D_803D343C->position.xPos.w + (sp318.unk0 << 0xA),
+                                    D_803D343C->position.zPos.w + (sp318.unk2 << 0xA),
+                                    D_803D343C->position.yPos.w + (sp318.unk4 << 0xA) + (D_803D343C->unk42 << 0xF),
+                                    ((var_s0->unk6 * D_803D343C->unk40) >> 0xB) ,
+                                    var_s0->unk8,
+                                    &D_803D2E08,
+                                    D_803D343C->unk3E,
+                                    D_803D343C->unk200[0],
+                                    D_803D343C->unk200[1],
+                                    D_803D343C->unk200[2]);
                             }
                             break;
                         case 9:
-                            func_8029F464_6B0B14(&D_803D3FF8, D_803D343C->unk3E & 0x3F, (s32) D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                            func_8029F464_6B0B14(&D_803D3FF8, D_803D343C->unk3E & 0x3F, (s32) D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
                             break;
                         case 10:
                             temp_v0_7 = 0x100 - D_803D343C->unk150;
-                            temp_f20 = (1.0f - (((f32) D_80152C78[((temp_v0_7 << 3) + 0x40) & 0xFF] / ((f32) temp_v0_7 + 16.0f)) / 16383.0f)) * (D_803D343C->unk40 / 2048.0f);
-                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) 0, (s16) 0, (s32) &D_0100AF90_44860);
-                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, (temp_f20 * 2048.0f), D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, (s32) &D_0100B2C0_44B90);
+                            temp_f20 = (1.0f - ((COS(temp_v0_7 << 3) / (temp_v0_7 + 16.0f)) / 16383.0f)) * (D_803D343C->unk40 / 2048.0f);
+                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, 0, 0, D_0100AF90_44860);
+                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, (temp_f20 * 2048.0f), D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_0100B2C0_44B90);
                             break;
                         case 11:
                             if (D_803D3434->usedModelViewMtxs >= 248) {
-
+                                continue; // ?
                             } else {
                                 gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
                                 gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
@@ -1691,7 +1716,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 gDPTileSync(D_801D9E8C++);
                                 gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 1372, 0);
                                 gDPTileSync(D_801D9E8C++);
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                 gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(D_801D9E8C++, D_803D3438[0]);
                                 guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], 0.0f, 8.0f, 10.0f);
@@ -1709,30 +1734,30 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             } else {
                                 var_s0_2 = 0x40;
                             }
-                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
-                            func_802F5F44_7075F4(0, 0, (s16) ((s32) (D_803D343C->unk40 * ((s16) D_80152C78[(D_803D343C->unk14E + 0x40) & 0xFF] >> 9)) >> 0xB), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, &sp2AC);
+                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                            func_802F5F44_7075F4(0, 0, (s16) ((s32) (D_803D343C->unk40 * ((s16) COS(D_803D343C->unk14E) >> 9)) >> 0xB), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, &sp2AC);
                             if (D_803D45D0.unk0 < 60) {
                                 D_803D45D0.unk0++;
                                 D_803D45D0.unk43C[D_803D45D0.unk0] = D_803D343C->unk16C->unk8;
                                 D_803D45D0.unk34C[D_803D45D0.unk0].unk0 = D_803D343C->zRotation;
                                 D_803D45D0.unk34C[D_803D45D0.unk0].unk2 = D_803D343C->yRotation;
                                 D_803D45D0.unk2[D_803D45D0.unk0] = D_803D343C->unk40;
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk0 = D_803D343C->xPos.w + (sp2AC.unk0 << 0xD);
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk4 = D_803D343C->zPos.w + (sp2AC.unk2 << 0xD);
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk8 = D_803D343C->yPos.w + (sp2AC.unk4 << 0xD) + (D_803D343C->unk42 << 0xF);
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk0 = D_803D343C->position.xPos.w + (sp2AC.unk0 << 0xD);
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk4 = D_803D343C->position.zPos.w + (sp2AC.unk2 << 0xD);
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk8 = D_803D343C->position.yPos.w + (sp2AC.unk4 << 0xD) + (D_803D343C->unk42 << 0xF);
                                 D_803D45D0.unk52C[D_803D45D0.unk0].r = var_s0_2;
                                 D_803D45D0.unk52C[D_803D45D0.unk0].g = 0;
                                 D_803D45D0.unk52C[D_803D45D0.unk0].b = 0;
                             }
                             func_802F603C_7076EC(0xF, 4, 0, D_803D343C->zRotation, (s32) D_803D343C->yRotation, (s32) D_803D343C->unk40, &sp2AC);
-                            func_8029CEF0_6AE5A0(D_803D343C->xPos.w + ((s16) sp2AC.unk0 << 0x10), D_803D343C->zPos.w + (sp2AC.unk2 << 0x10), D_803D343C->yPos.w + (sp2AC.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), ((s32) D_803D343C->unk40 >> 2), (u8) 0x20, &D_803D2E08, (s8) 0, (u8) (s32) var_s0_2, (u8) 0, (u8) 0);
+                            func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w + ((s16) sp2AC.unk0 << 0x10), D_803D343C->position.zPos.w + (sp2AC.unk2 << 0x10), D_803D343C->position.yPos.w + (sp2AC.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), ((s32) D_803D343C->unk40 >> 2), (u8) 0x20, &D_803D2E08, (s8) 0, (u8) (s32) var_s0_2, (u8) 0, (u8) 0);
                             break;
                         case 13:
-                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
-                            sp2A8 = (D_803D343C->yPos.h + (D_803D343C->unk42 * 0.6));
-                            temp_t7_2 = ((D_80152C78[(D_803D343C->unk152 + 0x40) & 0xFF] >> 7) * (D_803D343C->unk42 >> 2)) >> 8;
+                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                            sp2A8 = (D_803D343C->position.yPos.h + (D_803D343C->unk42 * 0.6));
+                            temp_t7_2 = ((COS(D_803D343C->unk152) >> 7) * (D_803D343C->unk42 >> 2)) >> 8;
                             temp_t8_3 = (D_803D343C->unk14E * (s32) ((D_803D343C->unk40 << 5) * 0.125)) >> 8;
-                            temp_t8_4 = D_80152C78[D_803D343C->unk152 & 0xFF] >> 7;
+                            temp_t8_4 = SIN(D_803D343C->unk152) >> 7;
 
                             var_t3 = (ABS(temp_t8_4) * temp_t8_3) >> 8;
                             var_t1 = var_t3;
@@ -1751,14 +1776,14 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 gDPPipeSync(D_801D9E90++);
                                 gSPDisplayList(D_801D9E90++, D_01004970_3E240);
                                 gDPSetPrimColor(D_801D9E90++, 0, 0, (0xFF - red), (0xFF - green), 0xFF, 0xA0);
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, (sp2A8 + temp_t7_2) << 0x10, (s16) 0x14, (s16) ((s32) (D_803D343C->unk152 * 0x168) >> 8), var_t1, var_t1, var_t1);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, (sp2A8 + temp_t7_2) << 0x10, (s16) 0x14, (s16) ((s32) (D_803D343C->unk152 * 0x168) >> 8), var_t1, var_t1, var_t1);
                                 gSPMatrix(D_801D9E90++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(D_801D9E90++, D_0101B000_548D0);
                                 gSPPopMatrix(D_801D9E90++, G_MTX_MODELVIEW);
 
                                 gDPSetPrimColor(D_801D9E90++, 0, 0, red, green + 0x80, 0xFF, 0xA0);
 
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, (sp2A8 - temp_t7_2) << 0x10, (s16) -0x14, (s16) ((s32) (D_803D343C->unk152 * 0x168) >> 8), var_t3, var_t3, var_t3);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, (sp2A8 - temp_t7_2) << 0x10, (s16) -0x14, (s16) ((s32) (D_803D343C->unk152 * 0x168) >> 8), var_t3, var_t3, var_t3);
                                 gSPMatrix(D_801D9E90++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(D_801D9E90++, D_0101B000_548D0);
                                 gSPPopMatrix(D_801D9E90++, G_MTX_MODELVIEW);
@@ -1769,10 +1794,10 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 var_v0_3 = 5;
                             }
 
-                            func_8029CEF0_6AE5A0(D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk40 * 0x600), (s32) (D_803D343C->unk40 * 0.2), (u8) var_v0_3, &D_803D2E08, (s8) (s32) D_803D343C->unk3E, (u8) 0, (u8) 0, (u8) 0);
+                            func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk40 * 0x600), (s32) (D_803D343C->unk40 * 0.2), (u8) var_v0_3, &D_803D2E08, (s8) (s32) D_803D343C->unk3E, (u8) 0, (u8) 0, (u8) 0);
                             break;
                         case 15:
-                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                            func_8029F65C_6B0D0C(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
                             var_s4_2 = D_803D343C->unk40;
                             if (D_801552B0 != 0) {
                                 var_s4_2 += guRandom() % 600;
@@ -1783,7 +1808,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
                             gDPSetCombineMode(D_801D9E8C++, G_CC_MODULATEIA, G_CC_PASS2); // TBD
 
-                            func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, var_s4_2 << 5, var_s4_2 << 5, var_s4_2 << 5);
+                            func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, var_s4_2 << 5, var_s4_2 << 5, var_s4_2 << 5);
                             gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                             gSPDisplayList(D_801D9E8C++, D_010106E0_49FB0);
                             gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
@@ -1791,7 +1816,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             if (D_801552B4 != 0) {
                                 var_s4_2 += guRandom() % 600;
                             }
-                            func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, var_s4_2 << 5, var_s4_2 << 5, var_s4_2 << 5);
+                            func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, var_s4_2 << 5, var_s4_2 << 5, var_s4_2 << 5);
                             gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                             gSPDisplayList(D_801D9E8C++, D_01011140_4AA10);
                             gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
@@ -1811,17 +1836,17 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             gDPTileSync(D_801D9E8C++);
                             gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 1372, 0);
                             gDPTileSync(D_801D9E8C++);
-                            func_80397F5C_7A960C(D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 1, (u8) 0);
+                            func_80397F5C_7A960C(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, 1, 0);
                             break;
                         case 17:
-                            func_8029F464_6B0B14(&D_803D3FF8, D_803D343C->unk3E & 0x3F, (s32) D_803D343C->unk40, D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                            func_8029F464_6B0B14(&D_803D3FF8, D_803D343C->unk3E & 0x3F, (s32) D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->unk4);
                             if (D_803D343C->unk200[0] & 2) {
                                 func_802F603C_7076EC(D_803A0580_7B1C30.unk0, D_803A0580_7B1C30.unk2, D_803A0580_7B1C30.unk4, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                func_8029CEF0_6AE5A0(D_803D343C->xPos.w + (sp210.unk0 << 0x10), D_803D343C->zPos.w + (sp210.unk2 << 0x10), D_803D343C->yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), (u8) 0x20, &D_803D2E08, (s8) 0, (u8) 0xFF, (u8) 0x64, (u8) 0x64);
+                                func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), 0x20, &D_803D2E08, 0, 0xFF, 0x64, 0x64);
                             }
                             if (D_803D343C->unk200[0] & 4) {
                                 func_802F603C_7076EC(-D_803A0580_7B1C30.unk0, D_803A0580_7B1C30.unk2, D_803A0580_7B1C30.unk4, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                func_8029CEF0_6AE5A0(D_803D343C->xPos.w + (sp210.unk0 << 0x10), D_803D343C->zPos.w + (sp210.unk2 << 0x10), D_803D343C->yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), (u8) 0x20, &D_803D2E08, (s8) 0, (u8) 0xFF, (u8) 0x64, (u8) 0x64);
+                                func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), 0x20, &D_803D2E08, 0, 0xFF, 0x64, 0x64);
                             }
                             if (D_803D343C->unk200[0] & 0x18) {
                                 if (D_803D343C->unk200[0] & 8) {
@@ -1830,9 +1855,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                     var_s0_3 = 0;
                                 }
                                 func_802F603C_7076EC(D_803A0580_7B1C30.unk6, D_803A0580_7B1C30.unk8, D_803A0580_7B1C30.unkA, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                func_8029CEF0_6AE5A0(D_803D343C->xPos.w + (sp210.unk0 << 0x10), D_803D343C->zPos.w + (sp210.unk2 << 0x10), D_803D343C->yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), (u8) 0x20, &D_803D2E08, (s8) 0, (u8) 0xFF, var_s0_3, (u8) 0);
+                                func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), 0x20, &D_803D2E08, 0, 0xFF, var_s0_3, 0);
                                 func_802F603C_7076EC(-D_803A0580_7B1C30.unk6, D_803A0580_7B1C30.unk8, D_803A0580_7B1C30.unkA, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                func_8029CEF0_6AE5A0(D_803D343C->xPos.w + (sp210.unk0 << 0x10), D_803D343C->zPos.w + (sp210.unk2 << 0x10), D_803D343C->yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), (u8) 0x20, &D_803D2E08, (s8) 0, (u8) 0xFF, var_s0_3, (u8) 0);
+                                func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (u32) (D_803D343C->unk40 / 2.6), 0x20, &D_803D2E08, 0, 0xFF, var_s0_3, 0);
                             }
                             if (D_803D343C->unk200[0] & 0x20) {
                                 func_802F603C_7076EC(D_803A0580_7B1C30.unkC, D_803A0580_7B1C30.unkE, D_803A0580_7B1C30.unk10, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
@@ -1843,21 +1868,21 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk0 = D_803D343C->zRotation;
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk2 = D_803D343C->yRotation;
                                     D_803D4BB0.unkAA[D_803D4BB0.unk1] = D_803D343C->unk40;
-                                    D_803D4BB0.unk124[D_803D4BB0.unk1].unk0 = D_803D343C->xPos.w + (sp210.unk0 << 0x10);
-                                    D_803D4BB0.unk124[D_803D4BB0.unk1].unk4 = D_803D343C->zPos.w + (sp210.unk2 << 0x10);
-                                    D_803D4BB0.unk124[D_803D4BB0.unk1].unk8 = D_803D343C->yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF);
+                                    D_803D4BB0.unk124[D_803D4BB0.unk1].unk0 = D_803D343C->position.xPos.w + (sp210.unk0 << 0x10);
+                                    D_803D4BB0.unk124[D_803D4BB0.unk1].unk4 = D_803D343C->position.zPos.w + (sp210.unk2 << 0x10);
+                                    D_803D4BB0.unk124[D_803D4BB0.unk1].unk8 = D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF);
                                     D_803D4BB0.unk6E[D_803D4BB0.unk1] = -1;
                                 }
                             }
                             break;
                         case 18:
                             if (D_803D343C->state == 1) {
-                                func_8029CEF0_6AE5A0(D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->unk40, (u8) (s32) D_803D343C->unk3E, &D_803D2E08, (s8) 0, (u8) D_803D343C->unk200[0], (u8) D_803D343C->unk200[1], (u8) D_803D343C->unk200[2]);
+                                func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->unk40, D_803D343C->unk3E, &D_803D2E08, 0, D_803D343C->unk200[0], D_803D343C->unk200[1], D_803D343C->unk200[2]);
                             }
                             break;
                         case 22:
                             if (D_803D343C->state == 1) {
-                                func_8029CEF0_6AE5A0(D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->unk40, (u8) (s32) D_803D343C->unk3E, &D_803D2E08, (s8) 0x7F, (u8) D_803D343C->unk200[0], (u8) D_803D343C->unk200[1], (u8) D_803D343C->unk200[2]);
+                                func_8029CEF0_6AE5A0(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->unk40, D_803D343C->unk3E, &D_803D2E08, 0x7F, D_803D343C->unk200[0], D_803D343C->unk200[1], D_803D343C->unk200[2]);
                             }
                             break;
                         case 19:
@@ -1873,13 +1898,13 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk0 = D_803D343C->zRotation;
                                 D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk2 = D_803D343C->yRotation;
                                 D_803D4BB0.unkAA[D_803D4BB0.unk1] = var_s4_6;
-                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk0 = D_803D343C->xPos.w;
-                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk4 = D_803D343C->zPos.w;
-                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk8 = D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF);
+                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk0 = D_803D343C->position.xPos.w;
+                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk4 = D_803D343C->position.zPos.w;
+                                D_803D4BB0.unk124[D_803D4BB0.unk1].unk8 = D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF);
                                 D_803D4BB0.unk6E[D_803D4BB0.unk1] = -1;
                             }
                             if ((D_803D3434->usedModelViewMtxs + 2) >= 0xFA) {
-
+                                continue; // ?
                             } else {
                                 gDPSetTextureLUT(D_801D9E8C++, G_TT_NONE);
                                 gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
@@ -1889,7 +1914,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 } else {
                                     gDPSetPrimColor(D_801D9E8C++, 0, 0, 0x40, 0x00, 0x00, 0xFF);
                                 }
-                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, var_s4_6 << 5, var_s4_6 << 5, var_s4_6 << 5);
+                                func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, var_s4_6 << 5, var_s4_6 << 5, var_s4_6 << 5);
                                 gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                 gSPDisplayList(D_801D9E8C++, D_01011B78_4B448);
                                 gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
@@ -1905,7 +1930,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                     gDPSetRenderMode(D_801D9E90++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
                                     gDPSetPrimColor(D_801D9E90++, 0, 0, 0xFF, 0x00, 0x00, 0xA0);
 
-                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, temp_t8_6, temp_t8_6, temp_t8_6);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, temp_t8_6, temp_t8_6, temp_t8_6);
                                     gSPMatrix(D_801D9E90++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                                     gSPDisplayList(D_801D9E90++, D_01011AB0_4B380);
                                     gSPPopMatrix(D_801D9E90++, G_MTX_MODELVIEW);
@@ -1923,16 +1948,16 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 D_803D45D0.unk34C[D_803D45D0.unk0].unk0 = D_803D343C->zRotation;
                                 D_803D45D0.unk34C[D_803D45D0.unk0].unk2 = D_803D343C->yRotation;
                                 D_803D45D0.unk2[D_803D45D0.unk0] = D_803D343C->unk40;
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk0 = D_803D343C->xPos.w;
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk4 = D_803D343C->zPos.w;
-                                D_803D45D0.unk7C[D_803D45D0.unk0].unk8 = D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF);
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk0 = D_803D343C->position.xPos.w;
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk4 = D_803D343C->position.zPos.w;
+                                D_803D45D0.unk7C[D_803D45D0.unk0].unk8 = D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF);
                                 D_803D45D0.unk52C[D_803D45D0.unk0].r = 0;
                                 D_803D45D0.unk52C[D_803D45D0.unk0].g = 0 ; //sp1AD;
                                 D_803D45D0.unk52C[D_803D45D0.unk0].b = 0 ; //sp1AE;
                             }
                             if (D_803D343C->state == 1) {
                                 if (D_803D3434->usedModelViewMtxs >= 0xFA) {
-
+                                    continue; // ?
                                 } else {
                                     gDPPipeSync(D_801D9E90++);
                                     gDPSetDepthSource(D_801D9E90++, G_ZS_PIXEL);
@@ -1942,9 +1967,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                     gSPClearGeometryMode(D_801D9E90++, G_FOG);
                                     gDPSetCombineLERP(D_801D9E90++, 0, 0, 0, PRIMITIVE, 0, 0, 0, SHADE, 0, 0, 0, PRIMITIVE, 0, 0, 0, SHADE);
                                     gDPSetRenderMode(D_801D9E90++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
-                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                                    func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                                     gSPMatrix(D_801D9E90++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-
                                     gSPDisplayList(D_801D9E90++, D_0100F4F0_48DC0);
                                     gSPPopMatrix(D_801D9E90++, G_MTX_MODELVIEW);
                                     gSPSetGeometryMode(D_801D9E90++, G_FOG);
@@ -1965,33 +1989,24 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             gDPPipeSync(D_801D9E8C++);
                             gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                             gDPSetTileSize(D_801D9E8C++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31)); // qu102
-                            guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], D_803F2C44, D_803F2C48, D_803F2C4C, (f32) D_803D343C->xPos.w / 65536.0f, (f32) D_803D343C->zPos.w / 65536.0f, (f32) D_803D343C->yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
+                            guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], D_803F2C44, D_803F2C48, D_803F2C4C, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
                             gSPLookAtX(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
                             gSPLookAtY(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
-                            func_80397F5C_7A960C(D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 3, (u8) 1);
+                            func_80397F5C_7A960C(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 3, (u8) 1);
                             break;
                         case 23:
                             gSPDisplayList(D_801D9E8C++, D_010049A0_3E270);
                             gSPSetGeometryMode(D_801D9E8C++, D_803C0650);
                             gDPSetRenderMode(D_801D9E8C++, D_803C0640, D_803C0648); // gDPSetRenderMode(D_801D9E8C++, D_803C0644, D_803C064C);
-                            func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
+                            func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), (s16) (s32) D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5, D_803D343C->unk40 << 5);
                             gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-
-                            if (D_803D343C->unk16C->objectType == 0xF5) {
-                                gSPDisplayList(D_801D9E8C++, D_040165E0_116330);
-                            } else {
-                                gSPDisplayList(D_801D9E8C++, D_05001720_8A980);
-                            }
+                            gSPDisplayList(D_801D9E8C++, D_803D343C->unk16C->objectType == 0xF5 ? D_040165E0_116330 : D_05001720_8A980);
 
                             if (D_803D343C->unk158 == 0) {
                                 for (i = 0; i < 3; i++) {
                                     func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], 0, 0, 0, 0, i * 120, 0x10000, 0x10000, 0x10000);
                                     gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                                    if (D_803D343C->unk16C->objectType == 0xF5) {
-                                        gSPDisplayList(D_801D9E8C++, D_040148B0_114600);
-                                    } else {
-                                        gSPDisplayList(D_801D9E8C++, D_04014990_DC3C0);
-                                    }
+                                    gSPDisplayList(D_801D9E8C++, D_803D343C->unk16C->objectType == 0xF5 ? D_040148B0_114600 : D_04014990_DC3C0);
                                     gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
                                 }
                             }
@@ -2006,7 +2021,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPSetTileSize(D_801D9E8C++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
 
-                                guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], D_803F2C44, D_803F2C48, D_803F2C4C, (f32) D_803D343C->xPos.w / 65536.0f, (f32) D_803D343C->zPos.w / 65536.0f, (f32) D_803D343C->yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
+                                guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], D_803F2C44, D_803F2C48, D_803F2C4C, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
                                 gSPLookAtX(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
                                 gSPLookAtY(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
                                 D_803D3434->unk39310++;
@@ -2014,11 +2029,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                                 for (i = 0; i < 3; i++) {
                                     func_80125FE0(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], 0, 0, 0, 0, i * 120, 0x10000, 0x10000, 0x10000);
                                     gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                                    if (D_803D343C->unk16C->objectType == 0xF5) {
-                                        gSPDisplayList(D_801D9E8C++, D_050007A0_A1870);
-                                    } else {
-                                        gSPDisplayList(D_801D9E8C++, D_04015960_DD390);
-                                    }
+                                    gSPDisplayList(D_801D9E8C++, D_803D343C->unk16C->objectType == 0xF5 ? D_050007A0_A1870 : D_04015960_DD390);
                                     gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
                                 }
                                 gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
@@ -2035,7 +2046,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1) {
                             gDPTileSync(D_801D9E8C++);
                             gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 1372, 0);
                             gDPTileSync(D_801D9E8C++);
-                            func_80397F5C_7A960C(D_803D343C->xPos.w, D_803D343C->zPos.w, D_803D343C->yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 4, (u8) 2);                                break;
+                            func_80397F5C_7A960C(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 4, (u8) 2);                                break;
                         }
                         break;
                     default:

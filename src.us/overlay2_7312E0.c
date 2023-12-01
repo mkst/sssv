@@ -16,12 +16,12 @@ void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     case 0x90:
     case 0xB6:
     case 0xB9:
-        tmp1 = (D_80152C78[sp24 & 0xFF] >> 7) / 10;
+        tmp1 = (SIN(sp24) >> 7) / 10;
         break;
     case 0x4:
     case 0x8F:
     case 0xB7:
-        tmp1 = (D_80152C78[sp24 & 0xFF] >> 7) / 6;
+        tmp1 = (SIN(sp24) >> 7) / 6;
         break;
     default:
         tmp1 = 0;
@@ -296,12 +296,12 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     case 0x90:                                      /* switch 1 */
     case 0xB6:                                      /* switch 1 */
     case 0xB9:                                      /* switch 1 */
-        var_a1 = ((D_80152C78[(s16)arg2 & 0xFF] >> 7) / 20);
+        var_a1 = ((SIN(arg2) >> 7) / 20);
         break;
     case 0x4:                                       /* switch 1 */
     case 0x8F:                                      /* switch 1 */
     case 0xB7:                                      /* switch 1 */
-        var_a1 = ((D_80152C78[(s16)arg2 & 0xFF] >> 7) / 12);
+        var_a1 = ((SIN(arg2) >> 7) / 12);
         break;
     default:                                        /* switch 1 */
         var_a1 = 0;
@@ -309,7 +309,7 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     }
     switch (arg0->unk10) {
     case 1:
-        var_t0 = (((D_80152C78[(s16)((arg0->unk12 << 7) / 100) & 0xFF] >> 7) * arg4) >> 0xC);
+        var_t0 = (((SIN((arg0->unk12 << 7) / 100) >> 7) * arg4) >> 0xC);
         if (arg0->unk12 >= 100) {
           arg0->unk10 = 0;
         }
@@ -325,7 +325,7 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     case 10:
         break;
     case 11:
-        var_a1 = -(256 + -(D_80152C78[((s16)((arg0->unk12 << 8) / 100) + 0x40) & 0xFF] >> 7)) / 32;
+        var_a1 = -(256 + -(COS((arg0->unk12 << 8) / 100) >> 7)) / 32;
         if (arg0->unk12 >= 100) {
             arg0->unk10 = 0;
         }
@@ -348,21 +348,16 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
 }
 
 void func_80320B04_7321B4(s16 arg0, s16 arg1) {
-    s32 temp_a3;
-    u8  tmp;
     s16 phi_v0;
 
     if (D_803D5530->unk4A != 0) {
         phi_v0 = 0;
     } else {
-        temp_a3 = (u8)(D_803D5540 << 4);
-        if ((temp_a3 == 0) || (temp_a3 == 0x80)) {
+        if ((((D_803D5540 << 4) & 0xFF) == 0) || (((D_803D5540 << 4) & 0xFF) == 0x80)) {
             D_803D553A = 3;
         }
         phi_v0 = D_803D5540;
     }
-
-    tmp = phi_v0 << 4;
 
     D_80203FE0[7].unk0 = D_80203FE0[1].unk0 + arg0;
     D_80203FE0[7].unk2 = D_80203FE0[1].unk2;
@@ -372,14 +367,14 @@ void func_80320B04_7321B4(s16 arg0, s16 arg1) {
     D_80203FE0[10].unk2 = D_80203FE0[1].unk2;
     D_80203FE0[10].unk4 = D_80203FE0[1].unk4;
 
-
     D_80203FE0[8].unk0 = D_80203FE0[7].unk0;
-    D_80203FE0[8].unk2 = D_80203FE0[7].unk2 + (((D_80152C78[((s16)(tmp + 1) & 0xFF)] >> 7) * arg1) >> 8);
-    D_80203FE0[8].unk4 = D_80203FE0[7].unk4 + (((D_80152C78[((s16)(tmp + 1) + 64) & 0xFF] >> 7) * arg1) >> 8);
+    D_80203FE0[8].unk2 = D_80203FE0[7].unk2 + (((SIN(((phi_v0 << 4) & 0xFF) + 1) >> 7) * arg1) >> 8);
+    D_80203FE0[8].unk4 = D_80203FE0[7].unk4 + (((COS(((phi_v0 << 4) & 0xFF) + 1) >> 7) * arg1) >> 8);
 
     D_80203FE0[11].unk0 = D_80203FE0[10].unk0;
-    D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((D_80152C78[((s16)(tmp + 128) & 0xFF) & 0xFF] >> 7) * arg1) >> 8);
-    D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((D_80152C78[((s16)(tmp + 128) + 64) & 0xFF] >> 7) * arg1) >> 8);
+    // TODO: how to use SIN() macro here?
+    D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((D_80152C78[((s16)(((phi_v0 << 4) & 0xFF) + 128) & 0xFF) & 0xFF] >> 7) * arg1) >> 8);
+    D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((COS(((phi_v0 << 4) & 0xFF) + 128) >> 7) * arg1) >> 8);
 }
 
 void func_80320C84_732334(s16 arg0, s16 arg1) {
@@ -387,8 +382,8 @@ void func_80320C84_732334(s16 arg0, s16 arg1) {
     s16 temp_a2;
 
     // bleurgh
-    temp_v0 = ((D_80152C78[((s16)(  (s16) (D_803D5540 * 12)          + 105)) & 0xFF] >> 7) >> 4) + 80;
-    temp_a2 = ((D_80152C78[((s16)((((s16) (D_803D5540 * 12)) & 0xFF) + 190)) & 0xFF] >> 7) >> 4) + 80;
+    temp_v0 = ((SIN((s16) (D_803D5540 * 12) + 105) >> 7) >> 4) + 80;
+    temp_a2 = ((COS((s16) (D_803D5540 * 12) + 126) >> 7) >> 4) + 80;
 
     D_80203FE0[7].unk0 = D_80203FE0[1].unk0 + arg0;
     D_80203FE0[7].unk2 = D_80203FE0[1].unk2;
@@ -399,12 +394,12 @@ void func_80320C84_732334(s16 arg0, s16 arg1) {
     D_80203FE0[10].unk4 = D_80203FE0[1].unk4;
 
     D_80203FE0[8].unk0 = D_80203FE0[7].unk0;
-    D_80203FE0[8].unk2 = D_80203FE0[7].unk2 + (((D_80152C78[temp_v0 & 0xFF] >> 7) * arg1) >> 8);
-    D_80203FE0[8].unk4 = D_80203FE0[7].unk4 + (((D_80152C78[(temp_v0 + 64) & 0xFF] >> 7) * arg1) >> 8);
+    D_80203FE0[8].unk2 = D_80203FE0[7].unk2 + (((SIN(temp_v0) >> 7) * arg1) >> 8);
+    D_80203FE0[8].unk4 = D_80203FE0[7].unk4 + (((COS(temp_v0) >> 7) * arg1) >> 8);
 
     D_80203FE0[11].unk0 = D_80203FE0[10].unk0;
-    D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((D_80152C78[temp_a2 & 0xFF] >> 7) * arg1) >> 8);
-    D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((D_80152C78[(temp_a2 + 64) & 0xFF] >> 7) * arg1) >> 8);
+    D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((SIN(temp_a2) >> 7) * arg1) >> 8);
+    D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((COS(temp_a2) >> 7) * arg1) >> 8);
 }
 
 void func_80320DF8_7324A8(s16 arg0, s16 arg1) {
@@ -513,12 +508,12 @@ void func_80321224_7328D4(struct103 *arg0, u16 src, u16 dst, u16 arg3, s16 arg4,
     s16 phi_v1;
 
     D_80203FE0[dst].unk0 = D_80203FE0[src].unk0;
-    D_80203FE0[dst].unk2 = D_80203FE0[src].unk2 + (((D_80152C78[arg6 & 0xFF] >> 7) * arg4) >> 8);
-    D_80203FE0[dst].unk4 = D_80203FE0[src].unk4 - (((D_80152C78[(arg6 + 64) & 0xFF] >> 7) * arg4) >> 8);
+    D_80203FE0[dst].unk2 = D_80203FE0[src].unk2 + (((SIN(arg6) >> 7) * arg4) >> 8);
+    D_80203FE0[dst].unk4 = D_80203FE0[src].unk4 - (((COS(arg6) >> 7) * arg4) >> 8);
 
     D_80203FE0[dst + 1].unk0 = D_80203FE0[dst].unk0;
-    D_80203FE0[dst + 1].unk2 = D_80203FE0[dst].unk2 + (((D_80152C78[arg6 & 0xFF] >> 7) * arg5) >> 8);
-    D_80203FE0[dst + 1].unk4 = D_80203FE0[dst].unk4 - (((D_80152C78[(arg6 + 64) & 0xFF] >> 7) * arg5) >> 8);
+    D_80203FE0[dst + 1].unk2 = D_80203FE0[dst].unk2 + (((SIN(arg6) >> 7) * arg5) >> 8);
+    D_80203FE0[dst + 1].unk4 = D_80203FE0[dst].unk4 - (((COS(arg6) >> 7) * arg5) >> 8);
 
     phi_v1 = ((func_802B8C50_6CA300(D_80203FE0[dst + 1].unk0, D_80203FE0[dst + 1].unk2) >> 16) << 5) - D_80203FE0[dst + 1].unk4;
     phi_v1 = MAX(0, phi_v1);

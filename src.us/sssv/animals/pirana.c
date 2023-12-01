@@ -16,10 +16,10 @@ void func_80382050_793700(void) {
     s16 sp6E; // pad
 
     if (D_803D553A == 8) {
-        play_sound_effect_at_location(SFX_UNKNOWN_9, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_9, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
     if (D_803D553A == 9) {
-        play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+        play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
     if ((D_803D5530->unk162 == 3) && (D_803D5538 != 0)) {
         if (D_803D552C->unk369 == 0) {
@@ -28,12 +28,12 @@ void func_80382050_793700(void) {
             }
         } else if ((D_803D552C->unk369 == 1) && (D_801E9E8E != 0) && (D_803D5530->yVelocity.h < 5)) {
             D_803D552C->unk369 = 2U;
-            D_803D5530->xVelocity.w += D_80152C78[D_803D552C->unk302 & 0xFF] * 0x13;
-            D_803D5530->zVelocity.w += D_80152C78[(D_803D552C->unk302 + 0x40) & 0xFF] * 0x13;
+            D_803D5530->xVelocity.w += SIN(D_803D552C->unk302) * 0x13;
+            D_803D5530->zVelocity.w += COS(D_803D552C->unk302) * 0x13;
             D_803D5530->yVelocity.h = MAX(7, D_803D5530->yVelocity.h + 4);
 
             D_803D552C->unk308 = MAX(0, D_803D552C->unk308 - 25);
-            play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
@@ -58,9 +58,9 @@ void func_80382050_793700(void) {
         phi_a2 = 0;
     }
     sp7A = func_802E89F0_6FA0A0(
-        D_803D552C->xPos.w,
-        D_803D552C->zPos.w,
-        (0, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF)),
+        D_803D552C->position.xPos.w,
+        D_803D552C->position.zPos.w,
+        (0, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF)),
         0x800,
         0,
         62,
@@ -92,14 +92,14 @@ done:
             }
         }
 
-        sp76 = ((D_80152C78[(s16)(D_803D5540 << 4) & 0xFF] >> 7) + 256) >> 6;
+        sp76 = ((SIN(D_803D5540 << 4) >> 7) + 256) >> 6;
         if (D_803D552C->unk365 == ATTACK_BITE) {
-            sp76 = ((D_80152C78[(s16)(D_803D5540 << 5) & 0xFF] >> 7) + 256) >> 3;
+            sp76 = ((SIN(D_803D5540 << 5) >> 7) + 256) >> 3;
             if ((D_803D5540 & 7) == 0) {
                 if (func_803224C4_733B74(0, 0x1F, 0, 0x1F, 6, 0, 0, 0xD)) {
-                    play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 } else {
-                    play_sound_effect_at_location(SFX_UNKNOWN_6, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_6, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
             }
         } else {
@@ -125,9 +125,9 @@ done:
              ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
-                D_803D5530->xPos.w,
-                D_803D5530->zPos.w,
-                D_803D5530->yPos.w,
+                D_803D5530->position.xPos.w,
+                D_803D5530->position.zPos.w,
+                D_803D5530->position.yPos.w,
                 -D_803D552C->unk302,
                 D_803F2EB0 / 4,
                 D_803F2EB4 / 4,
@@ -178,9 +178,9 @@ done:
     }
     if ((sp7A == 0) || (sp7A == 2)) {
         func_8034BD20_75D3D0(
-            D_803D552C->xPos.h,
-            D_803D552C->zPos.h,
-            D_803D552C->yPos.h + ((D_803D5524->unkBA * 3) >> 2),
+            D_803D552C->position.xPos.h,
+            D_803D552C->position.zPos.h,
+            D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
             D_803D552C->unk302,
             D_01033190,
             28,

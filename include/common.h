@@ -18,8 +18,11 @@
 
 typedef u8 Addr[];
 
-// TODO: EU version of this
+// TODO: EU version of these
 #define CHECK_SEGMENT          (0, (((D_803D5524->biome == D_803F2D50.segment) || ((D_803D5524->biome == 0) && ((D_803F2D50.segment == 4) || (D_803F2D50.segment == 5)))) ? (1) : (0)))
+
+#define SIN(x)                 D_80152C78[((s16)(x)       ) & 0xFF]
+#define COS(x)                 D_80152C78[((s16)(x) + 0x40) & 0xFF]
 
 // DMA's interpretation of PI...
 #define SSSV_PI                3.141579

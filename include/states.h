@@ -23,6 +23,7 @@
 #define ST_GET_CONT_STICK_Y   25+0x7F7F
 #define ST_GET_CONT_BUTTON_A  26+0x7F7F
 #define ST_GET_CONT_BUTTON_B  27+0x7F7F
+#define ST_GET_TASKS_COMPLETED 28+0x7F7F
 #define ST_GET_OBJECT_TYPE    32+0x7F7F
 
 // setters
@@ -41,6 +42,8 @@
 
 #define ST_SET_SCORE          19+0x7F7F
 #define ST_SET_STATE          21+0x7F7F
+
+#define ST_SET_TASKS_COMPLETED 28+0x7F7F
 
 // commands
 

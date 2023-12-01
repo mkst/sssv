@@ -169,7 +169,7 @@ void func_80294E50_6A6500(void) {
                 D_803F671C = 0;
             }
         }
-        func_802B3EC0_6C5570(&D_801D9E7C, ((D_803F28D0[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h, D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h);
+        func_802B3EC0_6C5570(&D_801D9E7C, ((D_803F28D0[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h);
         if ((D_803C0422 == 0) && (D_803E1BC0 == 0) && (D_803F2D30.level != DMA_INTRO)) {
             func_80349DCC_75B47C(1);
         }
@@ -219,7 +219,7 @@ void func_80294E50_6A6500(void) {
         }
         func_80297628_6A8CD8(&D_803C0740, D_80204278);
 
-        gSPDisplayList(D_801D9E7C++, D_01003A58);
+        gSPDisplayList(D_801D9E7C++, D_01003A58_3D328);
         gDPSetTextureLOD(D_801D9E7C++, G_TL_TILE);
         gSPTexture(D_801D9E7C++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
@@ -415,7 +415,7 @@ void func_802961D4_6A7884(void) {
     D_803F2D50.evoSuitColor = get_evo_suit_color();
     D_803F2D50.unkDC = 1;
     set_tv_mode_normal();
-    D_803E4D2C = 0;
+    gTasksCompleted = 0;
 }
 
 void func_80296310_6A79C0(void) {

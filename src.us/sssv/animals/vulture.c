@@ -19,7 +19,7 @@ void func_8036C0B0_77D760(void) {
     s16 pad[3];
 
     if (D_803D553A == 4) {
-        play_sound_effect_at_location(SFX_UNKNOWN_2, 0x3700, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0 - (MIN(256, D_803D552C->unk30E) * 0.0009765625));
+        play_sound_effect_at_location(SFX_UNKNOWN_2, 0x3700, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0 - (MIN(256, D_803D552C->unk30E) * 0.0009765625));
     }
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
@@ -27,9 +27,9 @@ void func_8036C0B0_77D760(void) {
         D_803F2EDD = 0;
     } else {
         offscreen = func_802E89F0_6FA0A0(
-            D_803D552C->xPos.w,
-            D_803D552C->zPos.w,
-            D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.xPos.w,
+            D_803D552C->position.zPos.w,
+            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
             0x800,
             0,
             20,
@@ -44,14 +44,14 @@ void func_8036C0B0_77D760(void) {
         func_8035D120_76E7D0();
         if ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4)) {
             if (SSSV_RAND(256) == 156) {
-                play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             }
         }
         if (D_803D5524->unk9C == VULTURE) {
             if ((D_803D552C->unk320 == NULL) || ((D_803D552C->unk320 != NULL) && (D_803D552C->unk320->unk26C != 0))) {
-                play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
+                play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.1892f);
                 D_803D552C->unk320 = 0;
-                D_803D552C->yPos.h += D_803D552C->unk308;
+                D_803D552C->position.yPos.h += D_803D552C->unk308;
                 D_803D552C->newPosition.yPos.h += D_803D552C->unk308;
                 load_animal(VULTURE2);
             }
@@ -131,7 +131,7 @@ void func_8036C0B0_77D760(void) {
 
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
-                D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302,
+                D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->unk302,
                 D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
 
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -223,7 +223,7 @@ void func_8036C0B0_77D760(void) {
         D_803D552C->unk320->unk70 = D_803D5530;
     }
     func_8034BD20_75D3D0(
-        D_803D552C->xPos.h, D_803D552C->zPos.h, D_803D552C->yPos.h + (D_803D5524->unkBA >> 1),
+        D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1),
         D_803D552C->unk302, D_01033190_6CA60, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     if (!offscreen) {
         func_80303820_714ED0(D_803D552C, 0, 1, 750, 1);
@@ -250,20 +250,20 @@ void func_8036D30C_77E9BC(void) {
         if (D_803D552C->unk320 != NULL) {
             D_803D552C->unk308 = D_803D552C->unk320->unk42;
             load_animal(VULTURE);
-            D_803D552C->yPos.h -= D_803D552C->unk308;
+            D_803D552C->position.yPos.h -= D_803D552C->unk308;
             if (D_803D5530->unk160 == 2) {
-                D_803D552C->yPos.h = MAX(D_803D552C->yPos.h, func_80310F58_722608(D_803D552C->xPos.h, D_803D552C->zPos.h) >> 16);
+                D_803D552C->position.yPos.h = MAX(D_803D552C->position.yPos.h, func_80310F58_722608(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h) >> 16);
             } else {
-                D_803D552C->yPos.h = MAX(D_803D552C->yPos.h, func_8031124C_7228FC(D_803D552C->xPos.h, D_803D552C->zPos.h) >> 16);
+                D_803D552C->position.yPos.h = MAX(D_803D552C->position.yPos.h, func_8031124C_7228FC(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h) >> 16);
             }
         } else if (D_803D5530->unk162 == 2) {
             if (D_803D5528->energy[1].unk0 > 400) {
                 D_803D5528->energy[1].unk0 -= 400;
                 if (func_803224C4_733B74(-62, 0, 0, 15, 20, 0, 0, 19) != 0) {
-                    play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     D_803D5530->yVelocity.h += 2;
                 } else {
-                    play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
                 if (D_803D552C->unk365 == ATTACK_NONE) {
                     D_803D552C->unk365 = ATTACK_BITE;
@@ -272,9 +272,9 @@ void func_8036D30C_77E9BC(void) {
             }
         }
     } else {
-        play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.1892f);
+        play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.1892f);
         func_80321920_732FD0(D_803D552C->unk320, 0, 0);
-        D_803D552C->yPos.h += D_803D552C->unk308;
+        D_803D552C->position.yPos.h += D_803D552C->unk308;
         D_803D552C->newPosition.yPos.h += D_803D552C->unk308;
         load_animal(VULTURE2);
     }
@@ -284,10 +284,10 @@ void func_8036D5CC_77EC7C(void) {
     // check object is an animal?
     if ((D_803D5530->unk162 == 2) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET))) {
         if (func_803224C4_733B74(-62, 0, 0, 46, 20, 0, 0, 19) != 0) {
-            play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             D_803D5530->yVelocity.h += 2;
         } else {
-            play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
         if (D_803D552C->unk365 == ATTACK_NONE) {
             D_803D552C->unk365 = ATTACK_BITE;

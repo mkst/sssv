@@ -141,9 +141,9 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
     if ((obj->unk16C->unk15 == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
         y = (y + obj->unk32) - (obj->unk42 >> 1);
     }
-    obj->xPos.h = x;
-    obj->zPos.h = z;
-    obj->yPos.h = y;
+    obj->position.xPos.h = x;
+    obj->position.zPos.h = z;
+    obj->position.yPos.h = y;
     obj->unk10.w = x << 0x10;
     obj->unk14.w = z << 0x10;
     obj->unk18 = y << 0x10;
@@ -211,9 +211,9 @@ void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {
     if ((temp_t8 & 1) ^ (temp_t9 & 1)) {
         if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
             ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
-            arg0->yPos.h = (arg0->yPos.h - arg0->unk30) + (arg0->unk42 >> 1);
+            arg0->position.yPos.h = (arg0->position.yPos.h - arg0->unk30) + (arg0->unk42 >> 1);
         } else {
-            arg0->yPos.h = (arg0->yPos.h - arg0->unk32) + (arg0->unk42 >> 1);
+            arg0->position.yPos.h = (arg0->position.yPos.h - arg0->unk32) + (arg0->unk42 >> 1);
         }
     }
 

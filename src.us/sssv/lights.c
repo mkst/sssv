@@ -75,9 +75,9 @@ void add_light_at_location(s16 x, s16 y, s16 z, s16 intensity, s16 r, s16 g, s16
 
     a = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 
-    delta = ABS(a->xPos.h - x) +
-            ABS(a->zPos.h - y) +
-            ABS(a->yPos.h - z);
+    delta = ABS(a->position.xPos.h - x) +
+            ABS(a->position.zPos.h - y) +
+            ABS(a->position.yPos.h - z);
 
     if ((delta < 320) && (delta != 0)) {
         if (delta <= 192) {
@@ -102,9 +102,9 @@ void add_light_at_location(s16 x, s16 y, s16 z, s16 intensity, s16 r, s16 g, s16
             D_803E1B40[next] = (g * _intensity) >> 8;
             D_803E1B50[next] = (b * _intensity) >> 8;
 
-            D_803E1B60[next] = ((x - a->xPos.h) * 120) / delta; // direction x
-            D_803E1B70[next] = ((y - a->zPos.h) * 120) / delta; // direction y
-            D_803E1B80[next] = ((z - a->yPos.h) * 120) / delta; // direction z
+            D_803E1B60[next] = ((x - a->position.xPos.h) * 120) / delta; // direction x
+            D_803E1B70[next] = ((y - a->position.zPos.h) * 120) / delta; // direction y
+            D_803E1B80[next] = ((z - a->position.yPos.h) * 120) / delta; // direction z
         }
     }
 }

@@ -59,7 +59,7 @@ void select_comic_sans_font(void);
 void select_lcd_font(void);
 u8   convert_text_to_int(s16 *arg0);
 void draw_glyph(Gfx **arg0, s16 *arg1, u16 x, u16 y, f32 width, f32 height);
-s16  display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 xs, f32 ys, u16 arg6, u8 arg7); // tbd
+s16 display_text_wrapped(Gfx **dl, s16 *text, u16 xStart, u16 yStart, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 lineHeight);
 void load_glyph(Gfx **arg0, s16 arg1);
 void display_score(Gfx **arg0, u8 *arg1, u16 x_offset, u16 y_offset);
 void prepare_text(u8 *src, s16 *dst);
@@ -99,6 +99,7 @@ void thread1(void);
 
 // main_10DC0
 void draw_sprite(Gfx **dl, uSprite *sprite, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u8 depth);
+void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *img);
 
 // main_123E0.c
 s32  init_controllers(void);

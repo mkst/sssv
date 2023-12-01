@@ -214,8 +214,8 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     }
 
     if (arg6 != 0) {
-        temp_t7_3 = D_80152C78[arg6 & 0xFF] >> 7;
-        temp_t8_4 = D_80152C78[(arg6 + 0x40) & 0xFF] >> 7;
+        temp_t7_3 = SIN(arg6) >> 7;
+        temp_t8_4 = COS(arg6) >> 7;
         temp_a0_2 = sp60;
         temp_a1 = sp5C;
         temp_t5_2 = sp58;
@@ -509,11 +509,11 @@ void func_80127640(Mtx *arg0, s32 xPos, s32 zPos, s32 yPos, s16 arg4, s32 arg5, 
 
     FracIntHelper sp38;
 
-    sp58 = (s64)(D_80152C78[arg4 & 0xFF] >> 7) << 8;
-    sp50 = (s64)(D_80152C78[(arg4 + 0x40) & 0xFF] >> 7) << 8;
+    sp58 = (s64)(SIN(arg4) >> 7) << 8;
+    sp50 = (s64)(COS(arg4) >> 7) << 8;
 
-    sp48 = (s64)(D_80152C78[((s16)((arg4 + arg8) & 0xFF)) & 0xFF] >> 7) << 8;
-    sp40 = (s64)(D_80152C78[(((s16)((arg4 + arg8) & 0xFF)) + 0x40) & 0xFF] >> 7) << 8;
+    sp48 = (s64)(SIN((arg4 + arg8) & 0xFF) >> 7) << 8;
+    sp40 = (s64)(COS((arg4 + arg8) & 0xFF) >> 7) << 8;
 
     sp38.w.unk4 = (sp50 * arg5) >> 16;
     sp38.w.unk0 = (sp58 * arg5) >> 16;

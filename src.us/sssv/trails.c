@@ -211,23 +211,23 @@ void func_8039E33C_7AF9EC(WalrusWake *arg0) {
     zVel = -zVel;
 
     if (arg0->unk0.state == 1) {
-        arg0->unkBE[arg0->numVtxs >> 1] += D_80152C78[(arg0->unk4 + 0x40) & 0xFF] >> 0xC;
+        arg0->unkBE[arg0->numVtxs >> 1] += COS(arg0->unk4) >> 0xC;
         arg0->unkBE[arg0->numVtxs >> 1] += 40;
         if (arg0->unkBE[arg0->numVtxs >> 1] >= 360) {
             arg0->unkBE[arg0->numVtxs >> 1] -= 360;
         }
     } else if (arg0->unk0.state == 2) {
-        arg0->unkBE[arg0->numVtxs >> 1] -= D_80152C78[(arg0->unk4 + 0x40) & 0xFF] >> 0xC;
+        arg0->unkBE[arg0->numVtxs >> 1] -= COS(arg0->unk4) >> 0xC;
         arg0->unkBE[arg0->numVtxs >> 1] -= 40;
         if (arg0->unkBE[arg0->numVtxs >> 1] < 0) {
             arg0->unkBE[arg0->numVtxs >> 1] += 360;
         }
     }
 
-    arg0->unk5E[arg0->numVtxs >> 1][0] = animal->xPos.h;
+    arg0->unk5E[arg0->numVtxs >> 1][0] = animal->position.xPos.h;
     if (1) {};
-    arg0->unk5E[arg0->numVtxs >> 1][1] = animal->zPos.h;
-    arg0->unk5E[arg0->numVtxs >> 1][2] = animal->yPos.h;
+    arg0->unk5E[arg0->numVtxs >> 1][1] = animal->position.zPos.h;
+    arg0->unk5E[arg0->numVtxs >> 1][2] = animal->position.yPos.h;
 
     arg0->unkDE[arg0->numVtxs >> 1][0] = -D_80152350.unk2D0[arg0->unkBE[arg0->numVtxs >> 1]];
     arg0->unkDE[arg0->numVtxs >> 1][1] = -D_80152350.unk384[arg0->unkBE[arg0->numVtxs >> 1]];
@@ -299,16 +299,14 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
             sp5A = sp48.unk4;
             break;
         case 2:
-            sp58 = (D_80152C78[(arg0->unk4 + 0x40) & 0xFF] * arg0->unk5) >> 0xF;
-
-            sp5A = (-D_80152C78[arg0->unk4 & 0xFF] * arg0->unk5) >> 0xF;
+            sp58 = (COS(arg0->unk4) * arg0->unk5) >> 0xF;
+            sp5A = (-SIN(arg0->unk4) * arg0->unk5) >> 0xF;
             sp5E = (D_80152350.unk384[temp_v0] * sp58) >> 8;
             sp5C = (D_80152350.unk2D0[temp_v0] * -sp58) >> 8;
             break;
         case 3:
-            sp58 = ((D_80152C78[(arg0->unk4 + 0x40) & 0xFF] * arg0->unk5) >> 0xF);
-
-            sp5A = (-D_80152C78[arg0->unk4 & 0xFF] * arg0->unk5) >> 0xF;
+            sp58 = ((COS(arg0->unk4) * arg0->unk5) >> 0xF);
+            sp5A = (-SIN(arg0->unk4) * arg0->unk5) >> 0xF;
             sp5E = (D_80152350.unk384[(s16) ((s32)func_80128200() % 360)] * sp58) >> 8;
             sp5C = (D_80152350.unk2D0[(s16) ((s32)func_80128200() % 360)] * -sp58) >> 8;
             break;
@@ -321,13 +319,13 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
 
     func_802F5F44_7075F4(arg0->unk238, arg0->unk23A, arg0->unk23C + (animal->unk42 >> 1), sp40, sp42, &sp48);
 
-    arg0->unk38[arg0->unk1].v.ob[0] = (animal->xPos.h - sp5E) + sp48.unk0;
-    arg0->unk38[arg0->unk1].v.ob[1] = (animal->zPos.h - sp5C) + sp48.unk2;
-    arg0->unk38[arg0->unk1].v.ob[2] = (animal->yPos.h - sp5A) + sp48.unk4;
+    arg0->unk38[arg0->unk1].v.ob[0] = (animal->position.xPos.h - sp5E) + sp48.unk0;
+    arg0->unk38[arg0->unk1].v.ob[1] = (animal->position.zPos.h - sp5C) + sp48.unk2;
+    arg0->unk38[arg0->unk1].v.ob[2] = (animal->position.yPos.h - sp5A) + sp48.unk4;
 
-    arg0->unk38[arg0->unk1+1].v.ob[0] = animal->xPos.h + sp5E + sp48.unk0;
-    arg0->unk38[arg0->unk1+1].v.ob[1] = animal->zPos.h + sp5C + sp48.unk2;
-    arg0->unk38[arg0->unk1+1].v.ob[2] = animal->yPos.h + sp5A + sp48.unk4;
+    arg0->unk38[arg0->unk1+1].v.ob[0] = animal->position.xPos.h + sp5E + sp48.unk0;
+    arg0->unk38[arg0->unk1+1].v.ob[1] = animal->position.zPos.h + sp5C + sp48.unk2;
+    arg0->unk38[arg0->unk1+1].v.ob[2] = animal->position.yPos.h + sp5A + sp48.unk4;
 
     if ((arg0->unk1 >> 1) & 1) {
         // odd
@@ -347,6 +345,7 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
 }
 
 #if 0
+// CURRENT (36235)
 // so much more to do here...
 extern Gfx D_01004A70_3E340[];
 extern u8  D_01044CB0_7E580[];
@@ -525,9 +524,9 @@ void display_trails(void) {
                 }
                 // if (((u8) temp_fp->unk0 & 0xF) != 2) {
                 if (temp_fp->unk0.unk4 != 2) {
-                    simpleTrail->unk2C = animal->xPos.h;
-                    simpleTrail->unk2E = animal->zPos.h;
-                    simpleTrail->unk30 = animal->yPos.h + (animal->unk42 >> 1);
+                    simpleTrail->unk2C = animal->position.xPos.h;
+                    simpleTrail->unk2E = animal->position.zPos.h;
+                    simpleTrail->unk30 = animal->position.yPos.h + (animal->unk42 >> 1);
                     goto block_55;
                 }
 
@@ -539,6 +538,7 @@ void display_trails(void) {
                 } else {
   block_55:
                     for (var_a3 = 0; var_a3 < simpleTrail->unkA; var_a3 += 2) {
+                        s16 tmp1, tmp2;
                     // if ((s32) simpleTrail->unkA > 0) {
                         // do {
                         temp_t0 = var_a3 >> 1;
@@ -548,17 +548,21 @@ void display_trails(void) {
                             var_v1 = -(D_80152C78[(simpleTrail->unk1 + 0x40) & 0xFF] << 5) >> 0xF;
                         }
                         // temp_a0 = temp_s5->unk40;
+                        tmp1 = D_80152350.unk2D0[(s16) (((var_a3 >> 1) * 360) / (simpleTrail->unkA >> 1))];
+                        tmp2 = D_80152350.unk384[(s16) (((var_a3 >> 1) * 360) / (simpleTrail->unkA >> 1))];
+
                         temp_t8_3 = ((var_v1 + 0x100) * animal->unk40) >> 0xB;
                         temp_a1 = ((simpleTrail->unk3 * 8 * animal->unk40) >> 0xB) + temp_t8_3;
+
                         // temp_v0 = trail + (var_a3 * 0x10);
                         // temp_a2 = &D_80152350.unk0[(s16) ((s32) (temp_t0 * 0x168) / (s32) ((s32) simpleTrail->unkA >> 1))];
                         simpleTrail->unk38[var_a3+0].v.ob[1] = 0;
-                        simpleTrail->unk38[var_a3+0].v.ob[0] = (s16) ((s32) (D_80152350.unk384[(s16) (((var_a3 >> 1) * 360) / (simpleTrail->unkA >> 1))] * temp_t8_3) >> 8);
-                        simpleTrail->unk38[var_a3+0].v.ob[2] = (s16) ((s32) (D_80152350.unk2D0[(s16) (((var_a3 >> 1) * 360) / (simpleTrail->unkA >> 1))] * temp_t8_3) >> 8);
+                        simpleTrail->unk38[var_a3+0].v.ob[0] = (tmp2 * temp_t8_3) >> 8;
+                        simpleTrail->unk38[var_a3+0].v.ob[2] = (tmp1 * temp_t8_3) >> 8;
 
                         simpleTrail->unk38[var_a3+1].v.ob[1] = 0;
-                        simpleTrail->unk38[var_a3+1].v.ob[0] = (s16) ((s32) (D_80152350.unk384[(s16) (((var_a3 >> 1) * 360) / (simpleTrail->unkA >> 1))] * temp_a1) >> 8);
-                        simpleTrail->unk38[var_a3+1].v.ob[2] = (s16) ((s32) (D_80152350.unk2D0[(s16) (((var_a3 >> 1) * 360) / (simpleTrail->unkA >> 1))] * temp_a1) >> 8);
+                        simpleTrail->unk38[var_a3+1].v.ob[0] = (tmp2 * temp_a1) >> 8;
+                        simpleTrail->unk38[var_a3+1].v.ob[2] = (tmp1 * temp_a1) >> 8;
 
                         simpleTrail->unk38[var_a3+0].v.cn[3] = 0xC0 - simpleTrail->unk2;
                         simpleTrail->unk38[var_a3+1].v.cn[3] = 0xC0 - simpleTrail->unk2;
@@ -586,8 +590,10 @@ void display_trails(void) {
                         guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], (f32) simpleTrail->unk2C, (f32) simpleTrail->unk2E, (f32) simpleTrail->unk30);
                         gSPMatrix(D_801D9E90++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-                        temp_f2 = ((simpleTrail->unk2 / 64.0f) * 0.125f) + 0.125;
-                        guScale(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], temp_f2, temp_f2, temp_f2);
+                        // 0x4280 -> 64.0
+                        // 0x4100 -> 8.0
+                        temp_f2 = ((simpleTrail->unk2 / (1 / 0.015625f)) / (1 / 0.125f));
+                        guScale(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], temp_f2 + 0.125, temp_f2 + 0.125, temp_f2 + 0.125);
                         gSPMatrix(D_801D9E90++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
                         guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], animal->yRotation, 0.0f, 0.0f, 1.0f);

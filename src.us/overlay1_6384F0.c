@@ -354,7 +354,7 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
     gSPDisplayList(D_801D9E7C++, &D_801582C0);
     gDPSetPrimColor(D_801D9E7C++, 0, 0, D_80299E10, D_80299E10, D_80299E10, 0xFF);
 
-    func_80135CD8(0, 0, 320, 256, &D_801D9E7C, D_80302E88);
+    draw_chunked_image(0, 0, 320, 256, &D_801D9E7C, D_80302E88);
 
     switch (arg0) {
     case 1:
@@ -369,10 +369,10 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
     }
 
     if (arg0) {
-        func_80135CD8(112, 20, 96, 96, &D_801D9E7C, D_80302E64);
+        draw_chunked_image(112, 20, 96, 96, &D_801D9E7C, D_80302E64);
     }
     if (arg1) {
-        func_80135CD8(112, 131, 96, 96, &D_801D9E7C, D_80302E88 + 0x35800);
+        draw_chunked_image(112, 131, 96, 96, &D_801D9E7C, D_80302E88 + 0x35800);
     }
 
     if ((D_80299E14 >= D_80299C84[2]) && ((D_80299C84[2] + 7) >= D_80299E14)) {
@@ -669,7 +669,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
             }
             D_80299E10_63D4B0 = D_80299E10_63D4B0 - 5;
             gDPSetPrimColor(D_801D9E7C++, 0, 0, D_80299E10_63D4B0, 125, 125, 255);
-            func_80135CD8(0, 0, 0x140, 0x100, &D_801D9E7C, D_80302E88 + 0x3A000);
+            draw_chunked_image(0, 0, 0x140, 0x100, &D_801D9E7C, D_80302E88 + 0x3A000);
             if ((s32)D_80299E08_63D4A8 < 0x140) {
                 gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
                 for (D_8029A004_63D6A4 = 30.0f; D_8029A004_63D6A4 <= 260.0f; D_8029A004_63D6A4 += 8.0f) {
@@ -879,10 +879,10 @@ void func_80295FAC_63964C(struct018 *arg0) {
 
         D_80299E10_63D4B0 += D_8029A010_63D6B0;
         // newsflash
-        func_80135CD8(0, 0, 0x140, 0x100, &D_801D9E7C, D_80302E88 + 0x3A000);
+        draw_chunked_image(0, 0, 0x140, 0x100, &D_801D9E7C, D_80302E88 + 0x3A000);
         if (D_80299E0C_63D4AC++ > 20) {
             // show 200 credz popup
-            func_80135CD8(0xDC, 0x8C, 0x40, 0x40, &D_801D9E7C, &D_802BF170_662810); // 200_credz
+            draw_chunked_image(0xDC, 0x8C, 0x40, 0x40, &D_801D9E7C, &D_802BF170_662810); // 200_credz
             if (D_80299E0C_63D4AC == 40) {
                 D_80299E0C_63D4AC = 0;
             }

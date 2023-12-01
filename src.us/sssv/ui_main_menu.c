@@ -288,7 +288,7 @@ void display_zone_select_screen(void) {
 
     volatile s16 var_t9; // yuck
 
-    D_803E4D2C = 0;
+    gTasksCompleted = 0;
     if (D_8028645C != MUSIC_TRACK_MAIN_THEME) {
         D_8028645C = MUSIC_TRACK_MAIN_THEME;
         D_801546D8 = 1600; // volume related
@@ -1444,7 +1444,7 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
     D_803B66F0_7C7DA0.vp.vtrans[1] = 480;
 
     gDPPipeSync((*arg0)++);
-    gSPLoadUcode((*arg0)++, &D_8014E300, &D_8015C750);
+    gSPLoadUcode((*arg0)++, &gspSprite2D_fifoTextStart, &gspSprite2D_fifoDataStart);
     gDPPipeSync((*arg0)++);
 
     load_segments(arg0, D_80204278);

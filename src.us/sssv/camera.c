@@ -269,8 +269,8 @@ void func_8032FD0C_7413BC(u8 cameraID, u8 arg1) {
 }
 
 // ESA: func_80021750 (tbd)
-#if 0
-// CURRENT (4410)
+#ifdef NON_MATCHING
+// CURRENT (3610)
 void func_8032FF94_741644(u8 arg0) {
     s32 pad2[4];
     f32 spDC;
@@ -562,10 +562,11 @@ void func_8032FF94_741644(u8 arg0) {
                 }
                 gCamera->unk24 += gCamera->unkC4;
             } else {
-                if (gCamera->unkC4 < 0.0f) {
-                    gCamera->unkC4 = MIN(gCamera->unkC4 + 3.0, 0.0f);
+                var_f14 = 0.0f;
+                if (gCamera->unkC4 < var_f14) {
+                    gCamera->unkC4 = MIN(gCamera->unkC4 + 3.0, var_f14);
                 } else {
-                    gCamera->unkC4 = MAX(gCamera->unkC4 - 3.0, 0.0f);
+                    gCamera->unkC4 = MAX(gCamera->unkC4 - 3.0, var_f14);
                 }
                 gCamera->unk24 += gCamera->unkC4;
 
@@ -958,7 +959,7 @@ void func_80332444_743AF4(u8 arg0) {
         spA4 = func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp72;
         var_f20 = gCamera->unk24 + 20.0;
         if (var_f20 >= 256.0) {
-            var_f20 = var_f20 - 256.0;
+            var_f20 -= 256.0;
         }
 
         sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0);
@@ -1032,10 +1033,10 @@ void func_80332444_743AF4(u8 arg0) {
     }
 
     if (gCamera->unk24 < 0.0) {
-        gCamera->unk24 = gCamera->unk24 + 256.0; // ???
+        gCamera->unk24 += 256.0;
     }
     if (gCamera->unk24 >= 256.0) {
-        gCamera->unk24 = gCamera->unk24 - 256.0; // ???
+        gCamera->unk24 -= 256.0;
     }
 
     var_t0_5 = 4;
@@ -1074,10 +1075,10 @@ void func_80332444_743AF4(u8 arg0) {
 
     var_f0_16 = gCamera->unk24 - gCamera->unk20;
     if (var_f0_16 > 128.0) {
-        var_f0_16 = var_f0_16 - 256.0; // $f22 ???
+        var_f0_16 -= 256.0; // $f22 ???
     }
     if (var_f0_16 < -128.0) {
-        var_f0_16 = var_f0_16 + 256.0; // $f22 ???
+        var_f0_16 += 256.0; // $f22 ???
     }
 
     var_f2_3 =  (var_f0_16 * (0.09 * spAA));
@@ -1137,7 +1138,7 @@ void func_80332444_743AF4(u8 arg0) {
 
     var_f20 = gCamera->unk24 + 32.0;
     if (var_f20 >= 256.0) {
-        var_f20 = var_f20 - 256.0; // ???
+        var_f20 -= 256.0; // ???
     }
     sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 1);
     if ((func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp72) == 0) {
@@ -1147,7 +1148,7 @@ void func_80332444_743AF4(u8 arg0) {
     }
     var_f20 = gCamera->unk24 - 32.0;
     if (var_f20 < 0.0) {
-        var_f20 = var_f20 + 256.0; // ???
+        var_f20 += 256.0; // ???
     }
     sp72 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 1);
     if ((func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, var_f20, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp72) == 0) {
@@ -1170,9 +1171,9 @@ void func_80332444_743AF4(u8 arg0) {
 #endif
 
 #if 0
-// CURRENT (17588)
+// CURRENT (8924)
 // ESA: func_80023020
-void func_80334470_745B20(u8 arg0, u8 arg1) {
+void func_80334470_745B20(u8 id, u8 arg1) {
     f32 sp100;
     f32 spFC;
     f32 spF4;
@@ -1181,61 +1182,43 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
     f32 spE8;
     f32 spE4;
     f32 spE0;
-    s16 spD2;
+    // s16 spD2;
     f32 spCC;
-    f32 spC4;
+    // f32 spC4;
+    f32 temp_f2;
+
     s16 spC2;
     s16 spC0;
-    s16 spBE;
+    // s16 spBE;
     s16 spBC;
+
+    f32 temp_f0;
+
     f32 spB4;
     f32 spB0;
     f32 spAC;
+
+    f32 var_f12;
+
     f32 spA4;
+
+    f32 var_f14;
+    f32 var_f16;
+    f32 var_f2;
+    f32 var_f0;
+
     f32 sp94;
     f32 sp90;
     f32 sp8C;
-    s16 sp76;
-    // f64 sp50;
 
-    f32 temp_f0_17;
-    f32 temp_f0_2;
-
-    f32 temp_f12_2;
-
-    f32 temp_f2_5;
-    f32 temp_f2_7;
-    f32 temp_f2_8;
-
-    f32 var_f0_19;
-    f32 var_f0_20;
-    f32 var_f0_21;
-
-    f32 var_f12_3;
-    f32 var_f14;
-
-    f32 var_f16_3;
-
-    f32 var_f18_7;
-    f32 var_f2;
-
-    f32 var_f2_7;
-    f32 var_f2_9;
-
-    f64 temp_f2_6;
-
-    f64 var_f0_13;
-
-    f64 var_f0_18;
-    f64 var_f0_22;
-    f64 var_f12_4;
-    s16 temp_v0_2;
+    s16 temp_v0;
     s16 var_v0;
     s16 i;
-    s16 var_v1_4;
-    s16 temp_v0_3; // tbd
+    s16 var_v1;
+    s16 temp_v0_3;
+    s16 sp76;
 
-    gCamera = &D_803F28E0[arg0];
+    gCamera = &D_803F28E0[id];
 
     spC2 = 2;
 
@@ -1243,8 +1226,8 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         gCamera->unk50 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC8;
         gCamera->unk4E = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkCA;
     } else {
-        gCamera->unk50 = 0x190;
-        gCamera->unk4E = 0x20;
+        gCamera->unk50 = 400;
+        gCamera->unk4E = 32;
     }
 
     if (gCamera->unk4 != -1) {
@@ -1256,10 +1239,9 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
     var_v0 = gCamera->unk52;
     var_v0 = (D_803A6D08_7B83B8[gCamera->unk64+3] * var_v0) >> 4;
     if (var_v0 == 0) {
-        var_v0 = 0xA;
+        var_v0 = 10;
     }
-
-    var_f14 = MIN(0.95, var_v0 * 0.025);
+    var_f14 = MIN(0.95, var_v0 * 0.025); // not quite right
 
     spF4 = gCamera->unk98;
     spF0 = gCamera->unk9C;
@@ -1301,17 +1283,19 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         spAC = spE0 - gCamera->unk88;
     }
 
-    temp_f0_2 = sqrtf(SQ(spB4) + SQ(spB0) + SQ(spAC));
-    temp_f2_5 = (var_v0 * 0.025) * 0.05;
-    if ((temp_f0_2 > 0.0) && ((temp_f2_5 / temp_f0_2) < 1.0)) {
-        if (spB4 != 0.0) {
-            spE8 = gCamera->unk80 + ((spB4 * temp_f2_5) / temp_f0_2);
-        }
-        if (spB0 != 0.0) {
-            spE4 = gCamera->unk84 + ((spB0 * temp_f2_5) / temp_f0_2);
-        }
-        if (spAC != 0.0) {
-            spE0 = gCamera->unk88 + ((spAC * temp_f2_5) / temp_f0_2);
+    temp_f0 = sqrtf(SQ(spB4) + SQ(spB0) + SQ(spAC));
+    temp_f2 = var_v0 * (0.025 * 0.05);
+    if (temp_f0 > 0.0) {
+        if ((temp_f2 / temp_f0) < 1.0) {
+            if (spB4 != 0.0) {
+                spE8 = gCamera->unk80 + ((spB4 * temp_f2) / temp_f0);
+            }
+            if (spB0 != 0.0) {
+                spE4 = gCamera->unk84 + ((spB0 * temp_f2) / temp_f0);
+            }
+            if (spAC != 0.0) {
+                spE0 = gCamera->unk88 + ((spAC * temp_f2) / temp_f0);
+            }
         }
         if (0) {}; // tbd
     }
@@ -1331,14 +1315,14 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         gCamera->unk80 = gCamera->unk84 = gCamera->unk88 = 0.0f;
     }
     if (gCamera->unkD6 == 1) {
-        temp_v0_2 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC6;
-        if (temp_v0_2 & 1) {
+        temp_v0 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkC6;
+        if (temp_v0 & 1) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk10 = gCamera->unkA0 + 4.0;
             gCamera->unk80 = gCamera->unk84 = gCamera->unk88 = 0.0f;
 
-        } else if (temp_v0_2 & 4) {
+        } else if (temp_v0 & 4) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
@@ -1396,8 +1380,8 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
             spCC -= 256.0;
         }
         sp76 = func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0);
-        temp_v0_3 = func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8);
-        if ((spBC == 0) && ((temp_v0_3 | sp76) != 0)) {
+        temp_v0_3 = func_8033D604_74ECB4(gCamera->unk98, gCamera->unk9C, (s16) gCamera->unkA0 + 4.0, gCamera->unk18, spCC, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) | sp76;
+        if ((spBC == 0) && (temp_v0_3 != 0)) {
             spCC = gCamera->unk24 - 40.0;
             if (spCC < 0.0) {
                 spCC += 256.0;
@@ -1409,7 +1393,7 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
                     gCamera->unk24 += 256.0;
                 }
             }
-        } else if ((spBC != 0) && ((temp_v0_3 | sp76) == 0)) {
+        } else if ((spBC != 0) && (temp_v0_3 == 0)) {
             spCC = gCamera->unk24 + 40.0;
             if (spCC >= 256.0) {
                 spCC -= 256.0;
@@ -1421,7 +1405,7 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
                     gCamera->unk24 -= 256.0;
                 }
             }
-        } else if ((spBC == 0) && ((temp_v0_3 | sp76) == 0)) {
+        } else if ((spBC == 0) && (temp_v0_3 == 0)) {
             if (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C != EVO) {
                 sp100 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation - gCamera->unk24;
             } else {
@@ -1431,10 +1415,10 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
                 sp100 = 0.0f;
             }
             if (sp100 < -128.0) {
-                sp100 = sp100 + 256.0;
+                sp100 += 256.0;
             }
             if (sp100 > 128.0) {
-                sp100 = sp100 - 256.0;
+                sp100 -= 256.0;
             }
             if (sp100 > 0.0) {
                 spFC = 20.0f;
@@ -1465,60 +1449,58 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         spC2 = 4;
     }
 
-    var_v1_4 = 4;
-    var_f2_7 = (D_803A6CFC_7B83AC[gCamera->unk64+3] * gCamera->unk4E) >> 4;
-    gCamera->unk18 = var_f2_7;
-    while (var_f2_7 > -20.0) {
-        if (func_8033C8EC_74DF9C(gCamera->unk98, gCamera->unk9C, gCamera->unkA0 + 4.0, var_f2_7, gCamera->unk24, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0) {
-            if ((var_f2_7 == gCamera->unk18) || (gCamera->unk14 < var_f2_7)) {
-                var_v1_4 = 1;
+    var_v1 = 4;
+    var_f2 = (D_803A6CFC_7B83AC[gCamera->unk64+3] * gCamera->unk4E) >> 4;
+    gCamera->unk18 = var_f2;
+    while (var_f2 > -20.0) {
+        if (func_8033C8EC_74DF9C(gCamera->unk98, gCamera->unk9C, gCamera->unkA0 + 4.0, var_f2, gCamera->unk24, gCamera->unk34, gCamera->unkA4, gCamera->unkA8) == 0) {
+            if ((var_f2 == gCamera->unk18) || (gCamera->unk14 < var_f2)) {
+                var_v1 = 1;
             }
-            gCamera->unk18 = var_f2_7;
-            var_f2_7 = -400.0;
+            gCamera->unk18 = var_f2;
+            var_f2 = -400.0;
         }
-        var_f2_7 -= 4.0;
+        var_f2 -= 4.0;
     }
 
-    var_f12_3 = ((var_v1_4 * 0.06) * gCamera->unk18) - ((var_v1_4 * 0.06) * gCamera->unk14);
-    if (ABSF(var_f12_3) < 0.05) {
-        var_f12_3 = 0.0f;
+    var_f12 = ((var_v1 * 0.06) * gCamera->unk18) - ((var_v1 * 0.06) * gCamera->unk14);
+    if (ABSF(var_f12) < 0.05) {
+        var_f12 = 0.0f;
     }
 
-    if (ABSF(var_f12_3) > ABSF(gCamera->unk1C)) {
-        if (var_f12_3 > 0.0f) {
-            var_f12_3 = MIN(var_f12_3, gCamera->unk1C + 0.4);
+    if (ABSF(var_f12) > ABSF(gCamera->unk1C)) {
+        if (var_f12 > 0.0f) {
+            var_f12 = MIN(var_f12, gCamera->unk1C + 0.4);
         } else {
-            var_f12_3 = MAX(var_f12_3, gCamera->unk1C - 0.4);
+            var_f12 = MAX(var_f12, gCamera->unk1C - 0.4);
         }
     }
-    gCamera->unk1C = var_f12_3;
-    gCamera->unk14 += var_f12_3;
-    var_f0_18 = gCamera->unk24 - gCamera->unk20;
-    if (var_f0_18 > 128.0) {
-        var_f0_18 = var_f0_18 - 256.0;
+    gCamera->unk1C = var_f12;
+    gCamera->unk14 += var_f12;
+    var_f0 = gCamera->unk24 - gCamera->unk20;
+    if (var_f0 > 128.0) {
+        var_f0 -= 256.0;
     }
-    if (var_f0_18 < -128.0) {
-        var_f0_18 = var_f0_18 + 256.0;
-    }
-
-    var_f12_4 = MIN(spC2 * 0.25, 0.7);
-    var_f2_9 = var_f0_18 * var_f12_4;
-
-    if (ABSF(var_f2_9) < 0.1) {
-        var_f2_9 = 0.0f;
+    if (var_f0 < -128.0) {
+        var_f0 += 256.0;
     }
 
-    if (ABSF(var_f2_9) > ABSF(gCamera->unk28)) {
-        if (var_f2_9 > 0.0f) {
-            var_f2_9 = MIN(var_f2_9, gCamera->unk28 + spC2);
+    var_f2 = var_f0 * MIN(spC2 * 0.25, 0.7);
+    if (ABSF(var_f2) < 0.1) {
+        var_f2 = 0.0f;
+    }
+
+    if (ABSF(var_f2) > ABSF(gCamera->unk28)) {
+        if (var_f2 > 0.0f) {
+            var_f2 = MIN(var_f2, gCamera->unk28 + spC2);
         } else {
-            // TBD
-            var_f2_9 = MAX(var_f2_9, gCamera->unk28 - spC2);
+            // help
+            var_f2 = MAX(var_f2, gCamera->unk28 - spC2);
         }
     }
 
-    gCamera->unk28 = var_f2_9;
-    gCamera->unk20 += var_f2_9;
+    gCamera->unk28 = var_f2;
+    gCamera->unk20 += var_f2;
 
     if (gCamera->unk20 >= 256.0) {
         gCamera->unk20 -= 256.0;
@@ -1527,26 +1509,26 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         gCamera->unk20 += 256.0;
     }
 
-    var_f16_3 = (gCamera->unk34 - gCamera->unk30) * 0.18;
-    if (ABSF(var_f16_3) < 0.5) {
-        var_f16_3 = 0.0f;
+    var_f16 = (gCamera->unk34 - gCamera->unk30) * 0.18;
+    if (ABSF(var_f16) < 0.5) {
+        var_f16 = 0.0f;
     }
 
-    if ((ABSF(var_f16_3) > ABSF(gCamera->unk38)) || (SIGNUMF(var_f16_3) != SIGNUMF(gCamera->unk38))) {
-        if (var_f16_3 > 0.0f) {
-            var_f16_3 = MIN(var_f16_3, gCamera->unk38 + 10.0);
+    if ((ABSF(var_f16) > ABSF(gCamera->unk38)) || (SIGNUMF(var_f16) != SIGNUMF(gCamera->unk38))) {
+        if (var_f16 > 0.0f) {
+            var_f16 = MIN(var_f16, gCamera->unk38 + 10.0);
         } else {
-            var_f16_3 = MAX(var_f16_3, gCamera->unk38 - 10.0);
+            var_f16 = MAX(var_f16, gCamera->unk38 - 10.0);
         }
     }
 
-    gCamera->unk38 = var_f16_3;
-    temp_f2_7 = gCamera->unk30;
-    gCamera->unk30 = temp_f2_7 + var_f16_3;
-    gCamera->unkAC *= gCamera->unk30 / temp_f2_7;
-    gCamera->unkB0 *= gCamera->unk30 / temp_f2_7;
-    gCamera->unkB4 *= gCamera->unk30 / temp_f2_7;
-    gCamera->unkB8 *= gCamera->unk30 / temp_f2_7;
+    gCamera->unk38 = var_f16;
+    temp_f2 = gCamera->unk30;
+    gCamera->unk30 = temp_f2 + var_f16;
+    gCamera->unkAC *= gCamera->unk30 / temp_f2;
+    gCamera->unkB0 *= gCamera->unk30 / temp_f2;
+    gCamera->unkB4 *= gCamera->unk30 / temp_f2;
+    gCamera->unkB8 *= gCamera->unk30 / temp_f2;
     func_8033E6B8_74FD68(gCamera->unk14, gCamera->unk20, gCamera->unk30, &gCamera->unk74, &gCamera->unk78, &gCamera->unk7C);
     if (gCamera->unk52 != gCamera->unk58) {
         if (gCamera->unk52 < gCamera->unk58) {
@@ -1565,13 +1547,14 @@ void func_80334470_745B20(u8 arg0, u8 arg1) {
         sp90 = sp90 - gCamera->unkC;
         sp8C = sp8C - gCamera->unk10;
 
-        temp_f0_17 = sqrtf(SQ(sp94) + SQ(sp90) + SQ(sp8C));
-        sp94 = sp94 / temp_f0_17;
-        sp90 = sp90 / temp_f0_17;
-        temp_f2_8 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk30C / 240.0;
-        gCamera->unk8C += temp_f2_8 * -sp90;
-        gCamera->unk90 += temp_f2_8 * sp94;
+        temp_f0 = sqrtf(SQ(sp94) + SQ(sp90) + SQ(sp8C));
+        sp94 = sp94 / temp_f0;
+        sp90 = sp90 / temp_f0;
+        temp_f2 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk30C / 240.0;
+        gCamera->unk8C += temp_f2 * -sp90;
+        gCamera->unk90 += temp_f2 * sp94;
     }
+
     if (D_803F2AA6 != 0) {
         gCamera->unk20 = gCamera->unk24;
         gCamera->unk28 = 0.0f;
@@ -1890,7 +1873,7 @@ void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
         sp78 = sp78 / temp_f0;
         sp74 = sp74 / temp_f0;
         new_var = sp78;
-        var_f2_2 = (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk30C / 240.0);
+        var_f2_2 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk30C / 240.0;
 
         gCamera->unk8C += var_f2_2 * -sp74;
         gCamera->unk90 += var_f2_2 * new_var;
@@ -2117,9 +2100,9 @@ void func_80337ECC_74957C(u8 id) {
         }
     }
 
-    spB0 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.w / 65536.0;
-    spAC = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.w / 65536.0;
-    spA8 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.w / 65536.0;
+    spB0 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.w / 65536.0;
+    spAC = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.w / 65536.0;
+    spA8 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.w / 65536.0;
 
     spA4 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 / 2.0;
     gCamera->unk74 = spB0;
@@ -2159,9 +2142,9 @@ void func_80337ECC_74957C(u8 id) {
         break;
     case 2:
     case 3:
-        gCamera->unk8 = gCamera->unkCC->xPos.w / 65536.0;
-        gCamera->unkC = gCamera->unkCC->zPos.w / 65536.0;
-        gCamera->unk10 = gCamera->unkCC->yPos.w / 65536.0;
+        gCamera->unk8 = gCamera->unkCC->position.xPos.w / 65536.0;
+        gCamera->unkC = gCamera->unkCC->position.zPos.w / 65536.0;
+        gCamera->unk10 = gCamera->unkCC->position.yPos.w / 65536.0;
         break;
     case 4:
         gCamera->unk8 = gCamera->unkD0;
@@ -2734,9 +2717,9 @@ void func_8033B118_74C7C8(u8 cameraID) {
     }
     gCamera->unk24 = gCamera->unk20;
 
-    gCamera->unk8 = (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.w / 65536.0;
-    gCamera->unkC = (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.w / 65536.0;
-    gCamera->unk10 = ((f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.w / 65536.0) + ((f32)D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 * 0.5);
+    gCamera->unk8 = (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.w / 65536.0;
+    gCamera->unkC = (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.w / 65536.0;
+    gCamera->unk10 = ((f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.w / 65536.0) + ((f32)D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 * 0.5);
 
     temp_f22 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkD4;
     temp_f22 = temp_f22 * D_803A6CC4_7B8374;
@@ -2813,9 +2796,9 @@ void func_8033B594_74CC44(u8 arg0) {
     gCamera->unk20 = ((((s32) (D_803F6464->yRotation * 256) / 360) + 128) & 0xFF);
     gCamera->unk24 = gCamera->unk20;
 
-    gCamera->unk8 = (f32)D_803F6464->xPos.w / 65536.0;
-    gCamera->unkC = (f32)D_803F6464->zPos.w / 65536.0;
-    gCamera->unk10 = ((f32)D_803F6464->yPos.w / 65536.0) + ((f32)D_803F6464->unk42 * 0.73);
+    gCamera->unk8 = (f32)D_803F6464->position.xPos.w / 65536.0;
+    gCamera->unkC = (f32)D_803F6464->position.zPos.w / 65536.0;
+    gCamera->unk10 = ((f32)D_803F6464->position.yPos.w / 65536.0) + ((f32)D_803F6464->unk42 * 0.73);
 
     sp2C = cosf(((phi_f14 * 6.2832) / 360.0));
     gCamera->unk74 = (gCamera->unk8 - (sinf((gCamera->unk20 * 6.2832 * 0.00390625)) * (phi_f20 * sp2C)));
@@ -2962,9 +2945,9 @@ void func_8033C054_74D704(u8 arg0) {
 
     gCamera = &D_803F28E0[arg0];
 
-    gCamera->unk74 = gCamera->unkCC->xPos.w / 65536.0;
-    gCamera->unk78 = gCamera->unkCC->zPos.w / 65536.0;
-    gCamera->unk7C = gCamera->unkCC->yPos.w / 65536.0;
+    gCamera->unk74 = gCamera->unkCC->position.xPos.w / 65536.0;
+    gCamera->unk78 = gCamera->unkCC->position.zPos.w / 65536.0;
+    gCamera->unk7C = gCamera->unkCC->position.yPos.w / 65536.0;
 
     temp_f20 = gCamera->unkCC->yRotation * temp_f2;
     gCamera->unk20 = temp_f20;
@@ -3017,7 +3000,7 @@ void reset_camera(void) {
     D_803A6CE0_7B8390 = 0;
     D_803A6CE4_7B8394 = 0;
     D_803A6CE8_7B8398 = 0;
-    gCamera = &D_803F28E0;
+    gCamera = &D_803F28E0[0];
     D_803F2C20 = 0;
     D_803F2C22 = 1;
     D_803F2AF8[0].unk12 = 0;
@@ -3029,9 +3012,9 @@ void reset_camera(void) {
 
     func_80319F58_72B608(
         &D_803A6D14_7B83C4,
-        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6),
-        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6),
-        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6),
+        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6),
+        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6),
+        (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6),
         D_803F2C38,
         &D_803F2C6C,
         &D_803F2C6D);
@@ -3051,15 +3034,15 @@ void reset_camera(void) {
     D_803F28E0[0].unk64 = D_803F28E0[1].unk64 = ((D_803F28E0[0].unk65 + D_803F28E0[0].unk66) - 1) >> 1;
 
     D_803F28E0[0].unk2 = D_803F2C6C;
-    func_80343C44_7552F4(D_803F2C6C, &D_803F28E0, &D_803F28E0[0].unk4);
+    func_80343C44_7552F4(D_803F2C6C, &D_803F28E0[0].cameraMode, &D_803F28E0[0].unk4);
     D_803F28E0[0].unk30 = D_803F28E0[0].unk34 = D_803F28E0[0].unk50 = 0xC8;
     D_803F28E0[0].unk62 = 0xA;
 
     D_803F2C1E = 0;
 
-    D_803F28E0[0].unk8 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h;
-    D_803F28E0[0].unkC = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h;
-    D_803F28E0[0].unk10 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h;
+    D_803F28E0[0].unk8 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h;
+    D_803F28E0[0].unkC = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h;
+    D_803F28E0[0].unk10 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h;
 
     D_803F28E0[0].unk30 = D_803F28E0[0].unk34 = D_803F28E0[0].unk50 = 0xFA;
     D_803F28E0[0].unk4E = D_803F28E0[0].unk18 = D_803F28E0[0].unk14 = 25.0f;
@@ -3609,9 +3592,9 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
         temp_s2 = var_t1->animal;
         if ((temp_s2->unk16C->unk82.unk6) && ((temp_s2->unk3E < 0x40) || (temp_s2->unk3E >= 0xC0)) && (temp_s2->unk3E != 0x28)) {
 
-            temp_s3 = temp_s2->yPos.h + temp_s2->unk42;
+            temp_s3 = temp_s2->position.yPos.h + temp_s2->unk42;
 #pragma _permuter sameline start
-            xPos = temp_s2->xPos.h; zPos = temp_s2->zPos.h; yPos = temp_s2->yPos.h;
+            xPos = temp_s2->position.xPos.h; zPos = temp_s2->position.zPos.h; yPos = temp_s2->position.yPos.h;
 #pragma _permuter sameline end
             temp_lo = temp_s2->unk30 * temp_s2->unk30;
 
@@ -3663,7 +3646,7 @@ void func_8033E430_74FAE0(void) {
     Animal *animal;
     s16 xPos;
     s16 yPos;
-    s16 temp_f16;
+    s16 pad;
     s16 temp_a0_2;
     s16 sp32;
     s16 phi_v0_2;
@@ -3675,21 +3658,20 @@ void func_8033E430_74FAE0(void) {
 
     animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     if ((animal->unk162 & 0xF) == 1) {
-        temp_f16 = animal->yRotation + gCamera->unk24;
-        xPos = animal->xPos.h + (((D_80152C78[temp_f16 & 0xFF] >> 7) << 7) >> 8);
-        yPos = animal->zPos.h + (((D_80152C78[(temp_f16 + 0x40) & 0xFF] >> 7) << 7) >> 8);
+        xPos = animal->position.xPos.h + (((SIN(animal->yRotation + gCamera->unk24) >> 7) << 7) >> 8);
+        yPos = animal->position.zPos.h + (((COS(animal->yRotation + gCamera->unk24) >> 7) << 7) >> 8);
 
         sp32 = (func_80310F58_722608(xPos, yPos) >> 0x10);
         temp_a0_2 = func_8031124C_7228FC(xPos, yPos) >> 0x10;
         if (sp32 == 0x4000) {
-            phi_v0_2 = temp_a0_2 - animal->yPos.h;
+            phi_v0_2 = temp_a0_2 - animal->position.yPos.h;
         } else {
             if (animal->unk160 == 2) {
-                phi_v0_2 = sp32 - animal->yPos.h;
+                phi_v0_2 = sp32 - animal->position.yPos.h;
             } else if (func_8033C9CC_74E07C(
-                    animal->xPos.h,
-                    animal->zPos.h,
-                    D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkBA + animal->yPos.h,
+                    animal->position.xPos.h,
+                    animal->position.zPos.h,
+                    D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unkBA + animal->position.yPos.h,
                     animal->unk160,
                     xPos,
                     yPos,
@@ -3697,9 +3679,9 @@ void func_8033E430_74FAE0(void) {
                     0x7F,
                     1,
                     0) == 0) {
-                phi_v0_2 = temp_a0_2 - animal->yPos.h;
+                phi_v0_2 = temp_a0_2 - animal->position.yPos.h;
             } else {
-                phi_v0_2 = sp32 - animal->yPos.h;
+                phi_v0_2 = sp32 - animal->position.yPos.h;
             }
         }
         // clamp
@@ -4586,10 +4568,10 @@ void func_803415BC_752C6C(void) {
                             (D_803F28E0[D_803F2A98].unk66 != D_803F2AD8[0].unk1A) ||
                             (D_803F28E0[D_803F2A98].unk67 != D_803F2AD8[0].unk1B)) {
                             if (D_803F2AF8[D_803F2C20].unkA >= 0) {
-                                func_80340EA4_752554(&D_803F2AD8, D_803F2AF8[D_803F2C20].unkA);
+                                func_80340EA4_752554(D_803F2AD8, D_803F2AF8[D_803F2C20].unkA);
                                 D_803F2AF8[D_803F2C20].unkA = -1;
                             } else {
-                                func_80340EA4_752554(&D_803F2AD8, -1);
+                                func_80340EA4_752554(D_803F2AD8, -1);
                             }
                             D_803F2C6C = D_803F2C6D = 0;
                         } else {
@@ -4606,18 +4588,18 @@ void func_803415BC_752C6C(void) {
                                 D_803A6CE8_7B8398 = 25;
                                 func_80319F58_72B608(
                                     D_803A6D14_7B83C4,
-                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
-                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
-                                    (D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h + ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 * 3) >> 2)) >> 6,
+                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
+                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
+                                    (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h + ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 * 3) >> 2)) >> 6,
                                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160,
                                     &sp55,
                                     &sp54);
                             } else {
                                 func_80319F58_72B608(
                                     D_803A6D14_7B83C4,
-                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
-                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
-                                    (D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h + ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 * 3) >> 2)) >> 6,
+                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
+                                    D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
+                                    (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h + ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk42 * 3) >> 2)) >> 6,
                                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160,
                                     &sp57,
                                     &sp56);
@@ -4643,9 +4625,9 @@ void func_803415BC_752C6C(void) {
                                     if (phi_t0 == 0) {
                                         func_80319F58_72B608(
                                             D_803A6D14_7B83C4,
-                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
-                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
-                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6,
+                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
+                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
+                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6,
                                             D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160,
                                             &D_803F2C6C,
                                             &D_803F2C6D);
@@ -4677,9 +4659,9 @@ void func_803415BC_752C6C(void) {
                                     if (phi_t0 == 0) {
                                         func_80319F58_72B608(
                                             D_803A6D14_7B83C4,
-                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h >> 6,
-                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h >> 6,
-                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.h >> 6,
+                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
+                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
+                                            D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6,
                                             D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160,
                                             &D_803F2C6C,
                                             &D_803F2C6D);
@@ -4865,17 +4847,17 @@ void func_80342550_753C00(Camera *arg0) {
 
     switch (arg0->unkD6) {
     case 1:
-        arg0->unk98 = ((f64) (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.w) / 65536;
-        arg0->unk9C = ((f64) (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.w) / 65536;
-        arg0->unkA0 = ((f64) (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->yPos.w) / 65536;
+        arg0->unk98 = ((f64) (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.w) / 65536;
+        arg0->unk9C = ((f64) (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.w) / 65536;
+        arg0->unkA0 = ((f64) (f32) D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.w) / 65536;
         if (arg0->unk67 != 0) {
             phi_f0 = (arg0->unk60 * arg0->unk30 * D_803F2D50.unkE0) / 1200.0;
         } else {
             phi_f0 = 0.0f;
         }
         temp_v0_3 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk302;
-        phi_f14 = ((D_80152C78[temp_v0_3 & 0xFF] >> 7) * phi_f0) / 600.0;
-        phi_f16 = ((D_80152C78[(temp_v0_3 + 0x40) & 0xFF] >> 7) * phi_f0) / 600.0;
+        phi_f14 = ((SIN(temp_v0_3) >> 7) * phi_f0) / 600.0;
+        phi_f16 = ((COS(temp_v0_3) >> 7) * phi_f0) / 600.0;
 
         arg0->unkA0 += arg0->unk62;
         arg0->unkC8 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160;
@@ -4886,9 +4868,9 @@ void func_80342550_753C00(Camera *arg0) {
         }
         break;
     case 2:
-        arg0->unk98 = (f64) (f32) arg0->unkCC->xPos.w / 65536;
-        arg0->unk9C = (f64) (f32) arg0->unkCC->zPos.w / 65536;
-        arg0->unkA0 = (f64) (f32) arg0->unkCC->yPos.w / 65536;
+        arg0->unk98 = (f64) (f32) arg0->unkCC->position.xPos.w / 65536;
+        arg0->unk9C = (f64) (f32) arg0->unkCC->position.zPos.w / 65536;
+        arg0->unkA0 = (f64) (f32) arg0->unkCC->position.yPos.w / 65536;
         arg0->unkA0 += arg0->unk62;
         arg0->unkC8 = (u8) arg0->unkCC->unk160;
 
@@ -4902,8 +4884,8 @@ void func_80342550_753C00(Camera *arg0) {
 
             }
             temp_v0_3 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk302;
-            phi_f14 = ((D_80152C78[temp_v0_3 & 0xFF] >> 7) * phi_f0) / 600.0;
-            phi_f16 = ((D_80152C78[(temp_v0_3 + 0x40) & 0xFF] >> 7) * phi_f0) / 600.0;
+            phi_f14 = ((SIN(temp_v0_3) >> 7) * phi_f0) / 600.0;
+            phi_f16 = ((COS(temp_v0_3) >> 7) * phi_f0) / 600.0;
 
             if ((D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C == VULTURE) ||
                 (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C == SEAGULL2)) {
@@ -4912,9 +4894,9 @@ void func_80342550_753C00(Camera *arg0) {
         }
         break;
     case 3:
-        arg0->unk98 = ((f64) (f32) arg0->unkCC->xPos.w / 65536.0);
-        arg0->unk9C = ((f64) (f32) arg0->unkCC->zPos.w / 65536.0);
-        arg0->unkA0 = ((f64) (f32) arg0->unkCC->yPos.w / 65536.0);
+        arg0->unk98 = ((f64) (f32) arg0->unkCC->position.xPos.w / 65536.0);
+        arg0->unk9C = ((f64) (f32) arg0->unkCC->position.zPos.w / 65536.0);
+        arg0->unkA0 = ((f64) (f32) arg0->unkCC->position.yPos.w / 65536.0);
         arg0->unkA0 += arg0->unk62;
         arg0->unkC8 = arg0->unkCC->unk160;
 
@@ -5657,8 +5639,8 @@ s16 D_803A7B3C_7B91EC[] = {
 };
 
 // ESA: func_8002FD44
-void func_80343C44_7552F4(s16 idx, u16 *arg1, u16 *arg2) {
-    *arg1 = D_803A7B3C_7B91EC[(idx * 2)];
+void func_80343C44_7552F4(s16 idx, u16 *cameraMode, u16 *arg2) {
+    *cameraMode = D_803A7B3C_7B91EC[(idx * 2)];
     *arg2 = D_803A7B3C_7B91EC[(idx * 2) + 1];
 }
 

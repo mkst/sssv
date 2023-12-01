@@ -85,10 +85,10 @@ void func_802DA90C_6EBFBC(Animal *arg0) {
     var_v0 = 0;
     var_t1 = 0;
 
-    temp_a2 = arg0->xPos.h >> 0xA;
-    temp_a3 = arg0->zPos.h >> 0xA;
-    temp_t6 = (arg0->xPos.h >> 6) & 0xF;
-    temp_t9 = (arg0->zPos.h >> 6) & 0xF;
+    temp_a2 = arg0->position.xPos.h >> 0xA;
+    temp_a3 = arg0->position.zPos.h >> 0xA;
+    temp_t6 = (arg0->position.xPos.h >> 6) & 0xF;
+    temp_t9 = (arg0->position.zPos.h >> 6) & 0xF;
 
 
     if ((temp_a2 >= 0) && (temp_a2 < 5) && (temp_a3 >= 0) && (temp_a3 < 8)) {
@@ -239,7 +239,7 @@ void func_802DAE5C_6EC50C(struct071 *obj) {
 
         if (*o == NULL) {
             rmonPrintf("collist2. Object has been deleted but was not in list. %d.\n", obj->unk26D);
-            rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", obj, obj->unk16C->objectType, obj->xPos.h, obj->zPos.h, obj->yPos.h);
+            rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", obj, obj->unk16C->objectType, obj->position.xPos.h, obj->position.zPos.h, obj->position.yPos.h);
             SSSV_ASSERT(FALSE, "../src/collist2.c", 436);
         } else {
             *o = obj->unk198;
@@ -273,10 +273,10 @@ void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd) {
     s32 y1 = yEnd;
 
     for (obj = D_803DA2F4; obj != NULL; obj = obj->unk198) {
-        if (((s16)((x0 + x1 + 1) << 6) >= obj->xPos.h) &&
-            ((s16)((x0         ) << 6) <= obj->xPos.h) &&
-            ((s16)((y0 + y1 + 1) << 6) >= obj->zPos.h) &&
-            ((s16)((y0         ) << 6) <= obj->zPos.h)) {
+        if (((s16)((x0 + x1 + 1) << 6) >= obj->position.xPos.h) &&
+            ((s16)((x0         ) << 6) <= obj->position.xPos.h) &&
+            ((s16)((y0 + y1 + 1) << 6) >= obj->position.zPos.h) &&
+            ((s16)((y0         ) << 6) <= obj->position.zPos.h)) {
               obj->unk4C.unk19 = 1;
         }
     }

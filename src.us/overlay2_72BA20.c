@@ -30,18 +30,18 @@ void func_8031A370_72BA20(void) {
 
     for (i = 1; i <= D_803E97C8.unkA; i++) {
         if ((i != D_803E97C8.unk4) || (D_803E97C8.unk8 == 0)) {
-            var_v0->newPosition.xPos.h = var_v0->xPos.h = D_803E97C8.unkE + ((D_803E97C8.unk1C * ((i << 6) - 0x10)) >> 8);
-            var_v0->newPosition.zPos.h = var_v0->zPos.h =D_803E97C8.unk10 + ((D_803E97C8.unk20 * ((i << 6) - 0x10)) >> 8);
-            var_v0->newPosition.yPos.h = var_v0->yPos.h = (D_803E97C8.unk12 + ((D_803E97C8.unk24 * ((i << 6) - 0x10)) >> 8)) - 0x20;
+            var_v0->newPosition.xPos.h = var_v0->position.xPos.h = D_803E97C8.unkE + ((D_803E97C8.unk1C * ((i << 6) - 0x10)) >> 8);
+            var_v0->newPosition.zPos.h = var_v0->position.zPos.h =D_803E97C8.unk10 + ((D_803E97C8.unk20 * ((i << 6) - 0x10)) >> 8);
+            var_v0->newPosition.yPos.h = var_v0->position.yPos.h = (D_803E97C8.unk12 + ((D_803E97C8.unk24 * ((i << 6) - 0x10)) >> 8)) - 0x20;
 
             var_v0->unkC4[0].unkC = 0x1F;
             var_v0->unkC4[0].unk0.w = 0;
             var_v0->unkC4[0].unk4.w = 0;
             var_v0->unkC4[0].unk8.w = 0x200000;
         } else {
-            var_v0->newPosition.xPos.h = var_v0->xPos.h  = D_803E97C8.unk14 - ((D_803E97C8.unk1C * (D_803E97C8.unk8 + 0x10)) >> 8);
-            var_v0->newPosition.zPos.h = var_v0->zPos.h = D_803E97C8.unk16 - ((D_803E97C8.unk20 * (D_803E97C8.unk8 + 0x10)) >> 8);
-            var_v0->newPosition.yPos.h = var_v0->yPos.h = (D_803E97C8.unk18 - D_803E97C8.unk8) - ((D_803E97C8.unk24 * (D_803E97C8.unk8 + 0x10)) >> 8);
+            var_v0->newPosition.xPos.h = var_v0->position.xPos.h  = D_803E97C8.unk14 - ((D_803E97C8.unk1C * (D_803E97C8.unk8 + 0x10)) >> 8);
+            var_v0->newPosition.zPos.h = var_v0->position.zPos.h = D_803E97C8.unk16 - ((D_803E97C8.unk20 * (D_803E97C8.unk8 + 0x10)) >> 8);
+            var_v0->newPosition.yPos.h = var_v0->position.yPos.h = (D_803E97C8.unk18 - D_803E97C8.unk8) - ((D_803E97C8.unk24 * (D_803E97C8.unk8 + 0x10)) >> 8);
 
             var_v0->unkC4[0].unkC = D_803E97C8.unk8;
             var_v0->unkC4[0].unk0.w = 0;
@@ -169,7 +169,7 @@ void func_8031A4E0_72BB90(void) {
             temp_s7 = (D_803A5760_7B6E10 + (i * 0x10));
             y2 = (temp_s5 + SSSV_RAND(32)) - 16;
             x2 = (temp_s4 + SSSV_RAND(32)) - 16;
-            z2 = (temp_s2 + SSSV_RAND(32)) - 8 + ((D_80152C78[(temp_s7 + 0x40) & 0xFF] * 8) >> 0xF);
+            z2 = (temp_s2 + SSSV_RAND(32)) - 8 + ((COS(temp_s7) * 8) >> 0xF);
         }
 
         // .. because.. of course whitespace affects regalloc
@@ -247,9 +247,9 @@ void func_8031AA0C_72C0BC(struct058 *arg0) {
     if (arg0->unk24C != NULL) {
         temp_v0 = arg0->unk24C;
 
-        D_803E97C8.unk28 = temp_v0->xPos.h - arg0->unk4;
-        D_803E97C8.unk2C = temp_v0->zPos.h - arg0->unk8;
-        D_803E97C8.unk30 = temp_v0->yPos.h - arg0->unkC;
+        D_803E97C8.unk28 = temp_v0->position.xPos.h - arg0->unk4;
+        D_803E97C8.unk2C = temp_v0->position.zPos.h - arg0->unk8;
+        D_803E97C8.unk30 = temp_v0->position.yPos.h - arg0->unkC;
 
         D_803E97C8.unk34 = ABS(D_803E97C8.unk28);
         D_803E97C8.unk38 = ABS(D_803E97C8.unk2C);
@@ -320,9 +320,9 @@ void func_8031AA0C_72C0BC(struct058 *arg0) {
                 D_803E97C8.unk10 = arg0->unk8;
                 D_803E97C8.unk12 = arg0->unkC + (arg0->unk42 >> 1);
 
-                D_803E97C8.unk14 = temp_v0->xPos.h;
-                D_803E97C8.unk16 = temp_v0->zPos.h;
-                D_803E97C8.unk18 = temp_v0->yPos.h + (arg0->unk42 >> 1);
+                D_803E97C8.unk14 = temp_v0->position.xPos.h;
+                D_803E97C8.unk16 = temp_v0->position.zPos.h;
+                D_803E97C8.unk18 = temp_v0->position.yPos.h + (arg0->unk42 >> 1);
 
                 D_803E97C8.unkA = arg0->unk152;
                 func_8031A370_72BA20();
@@ -336,9 +336,9 @@ void func_8031AA0C_72C0BC(struct058 *arg0) {
                     0.5f,
                     0,
                     0,
-                    (temp_v0->xPos.h + arg0->unk4) >> 1,
-                    (temp_v0->zPos.h + arg0->unk8) >> 1,
-                    (temp_v0->yPos.h + arg0->unkC) >> 1,
+                    (temp_v0->position.xPos.h + arg0->unk4) >> 1,
+                    (temp_v0->position.zPos.h + arg0->unk8) >> 1,
+                    (temp_v0->position.yPos.h + arg0->unkC) >> 1,
                     0,
                     0,
                     0);
@@ -359,7 +359,7 @@ void func_8031AE7C_72C52C(Animal *arg0) {
         arg0->unk5C = 0;
         if (D_803A5764_7B6E14 <= 0) {
             D_803A5764_7B6E14 = (guRandom() & 0xF) + 0x3C;
-            play_sound_effect_at_location(SFX_UNKNOWN_77, 0x6000, 0, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h, 1.0f);
+            play_sound_effect_at_location(SFX_UNKNOWN_77, 0x6000, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 1.0f);
         }
 
         for (i = 0; i < 3; i++) {
@@ -367,9 +367,9 @@ void func_8031AE7C_72C52C(Animal *arg0) {
             s32 temp_s2 = (SSSV_RAND(8) - 4) << 16;
             s32 temp_s3 = (SSSV_RAND(8) - 2) << 16;
             create_particle_effect(
-                arg0->xPos.h,
-                arg0->zPos.h,
-                arg0->yPos.h,
+                arg0->position.xPos.h,
+                arg0->position.zPos.h,
+                arg0->position.yPos.h,
                 35,
                 temp_s1,
                 temp_s2,

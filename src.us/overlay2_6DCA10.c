@@ -313,18 +313,22 @@ void func_802CB360_6DCA10(void) {
 
 #if 0
 
+// CURRENT (46949)
+
 typedef struct {
   s16 unk0;
   s16 unk2;
   s16 unk4;
 } tmp;
 // could be a struct size 0x6?
-extern tmp D_803A2C00_7B42B0[3][32];
+extern tmp D_803A2C00_7B42B0[32];
 
 void func_8032F170_740820(Gfx **arg0, s32 x, s32 z, s32 y, s16 arg4, s16 arg5, s32 arg6, s32 arg7, u8 arg8, s16 arg9);
 
 void func_802CB394_6DCA44(s32 arg0) {
+    s32 pad2[2];
     s16 sp806;
+    s32 pad[3];
     u16 sp7E2;
     u8  sp7DD;
     s16 sp7DA;
@@ -332,19 +336,13 @@ void func_802CB394_6DCA44(s32 arg0) {
     struct036 *var_s1;
     Gfx **dl;
 
-    s32 sp7C0;
-    s16 sp7B0[8];
-
     s16 var_s0;
     s16 var_s2;
     s16 temp_a0_4;
 
     u16 temp_fp;
 
-    s32 temp_t4_48;
-
-    s32 temp_v0_88;
-    s32 temp_v1_36;
+    u16 temp_t4_48;
 
     u16 k;
     u8  i;
@@ -357,8 +355,13 @@ void func_802CB394_6DCA44(s32 arg0) {
     u16 colorEnvRGBA5551;
 
     s16 temp_t0; // tbd
-
     s16 var_s4;
+
+    s32 sp7C0;
+    s16 sp7B0[8];
+
+    s32 temp_v0_88;
+    s32 temp_v1_36;
 
     sp806 = 0;
     func_8012826C();
@@ -479,7 +482,7 @@ void func_802CB394_6DCA44(s32 arg0) {
     /* shiftt */  G_TX_NOLOD
     );
 
-    gSPDisplayList(D_801D9E98[3]++, D_01003A58);
+    gSPDisplayList(D_801D9E98[3]++, D_01003A58_3D328);
     gSPDisplayList(D_801D9E98[3]++, D_010047D0_3E0A0);
 
     gSPDisplayList(D_801D9E98[4]++, D_01004828_3E0F8);
@@ -535,6 +538,7 @@ void func_802CB394_6DCA44(s32 arg0) {
     /* shiftt */  G_TX_NOLOD
     );
 
+
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
     /* timg   */  D_01029550_62E20,
@@ -551,9 +555,11 @@ void func_802CB394_6DCA44(s32 arg0) {
     /* shiftt */  G_TX_NOLOD
     );
 
+    if (1) {};
+
     gSPDisplayList(D_801D9E98[7]++, D_01004828_3E0F8);
 
-    gSPDisplayList(D_801D9E98[1]++, D_01003A58);
+    gSPDisplayList(D_801D9E98[1]++, D_01003A58_3D328);
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
     gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102A210));
@@ -573,65 +579,31 @@ void func_802CB394_6DCA44(s32 arg0) {
             particle = &D_803A20C0_7B3770[var_s1->id];
             sp7DD = particle->unkD; //>pad6[7];
             flags = particle->unk0;
-            temp_t0 = particle->unkB; // pad6[5];
+            sp7DA = particle->unkB; // pad6[5];
 
             D_803D6120.unk3FC8[sp7DD] = 1;
             if (var_s1->unk1A == 0) {
-                var_s1->unk18--; // = (s16) (var_s1->unk18 - 1);
+                var_s1->unk18--;
             }
 
-            // TODO: try as a switch
+            // doesnt seem to be a switch
             if (particle->unk6 != 0) {
                 if (particle->unk6 == 2) {
-
-                    // temp_t9_3 = ((s32) ((var_s1->unk18 + sp7E2) & 0x3F) >> 1) * 6;
-                    // temp_t7 = (&D_803A2C00_7B42B0 + (particle->unk6 * 0x60 * 2) + temp_t9_3)->unk-C0 << 8;
-                    // temp_t7_2 = var_s1->unk4;
-                    // temp_t9_4 = temp_t7 + temp_t7_2;
-                    // var_s1->unk0 = (s32) ((temp_t9_4 < temp_t7_2) + (temp_t7 >> 0x1F) + var_s1->unk0);
-                    // var_s1->unk4 = temp_t9_4;
-                    var_s1->unk0  += D_803A2C00_7B42B0[particle->unk6 - 1][(((var_s1->unk18 + sp7E2) & 0x3F) >> 1) + 0].unk0 << 8;
-
-                    // temp_t9_5 = var_s1->unkC;
-                    // temp_t8_3 = (&D_803A2C00_7B42B0 + (particle->unk6 * 0x60 * 2) + temp_t9_3)->unk-BE << 8;
-                    // temp_t7_3 = temp_t8_3 + temp_t9_5;
-                    // var_s1->unk8 = (s32) ((temp_t7_3 < temp_t9_5) + (temp_t8_3 >> 0x1F) + var_s1->unk8);
-                    // var_s1->unkC = temp_t7_3;
-                    var_s1->unk8  += D_803A2C00_7B42B0[particle->unk6 - 1][(((var_s1->unk18 + sp7E2) & 0x3F) >> 1) + 0].unk2 << 8;
-
-                    // temp_t7_4 = var_s1->unk14;
-                    // temp_t6_2 = (&D_803A2C00_7B42B0 + (particle->unk6 * 0x60 * 2) + temp_t9_3)->unk-BC << 8;
-                    // var_t9 = temp_t6_2 + temp_t7_4;
-                    // var_s1->unk10 = (s32) ((var_t9 < temp_t7_4) + (temp_t6_2 >> 0x1F) + var_s1->unk10);
-                    // var_s1->unk14 = var_t9;
-                    var_s1->unk10 += D_803A2C00_7B42B0[particle->unk6 - 1][(((var_s1->unk18 + sp7E2) & 0x3F) >> 1) + 0].unk4 << 8;
+                    var_s1->unk0  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)].unk0 << 8;
+                    var_s1->unk8  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)].unk2 << 8;
+                    var_s1->unk10 += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)].unk4 << 8;
                 } else {
-                    // temp_t8_4 = ((var_s1->unk18 + sp7E2) & 0x1F) * 6;
-                    // temp_t7_5 = var_s1->unk4;
-                    // temp_t6_3 = (&D_803A2C00_7B42B0 + (particle->unk6 * 0x60 * 2) + temp_t8_4)->unk-C0 << 8;
-                    // temp_t9_6 = temp_t6_3 + temp_t7_5;
-                    // var_s1->unk0 = (s32) ((temp_t9_6 < temp_t7_5) + (temp_t6_3 >> 0x1F) + var_s1->unk0);
-                    // var_s1->unk4 = temp_t9_6;
-                    var_s1->unk0  += D_803A2C00_7B42B0[particle->unk6 - 1][((var_s1->unk18 + sp7E2) & 0x1F) + 0].unk0 << 8;
-
-                    // temp_t9_7 = var_s1->unkC;
-                    // temp_t8_5 = (&D_803A2C00_7B42B0 + (particle->unk6 * 0x60 * 2) + temp_t8_4)->unk-BE << 8;
-                    // temp_t7_6 = temp_t8_5 + temp_t9_7;
-                    // var_s1->unk8 = (s32) ((temp_t7_6 < temp_t9_7) + (temp_t8_5 >> 0x1F) + var_s1->unk8);
-                    // var_s1->unkC = temp_t7_6;
-                    var_s1->unk8  += D_803A2C00_7B42B0[particle->unk6 - 1][((var_s1->unk18 + sp7E2) & 0x1F) + 0].unk2 << 8;
-
-                    // temp_t7_7 = var_s1->unk14;
-                    // temp_t6_4 = (&D_803A2C00_7B42B0 + (particle->unk6 * 0x60 * 2) + temp_t8_4)->unk-BC << 8;
-                    // var_t9 = temp_t6_4 + temp_t7_7;
-                    // var_s1->unk10 = (s32) ((var_t9 < temp_t7_7) + (temp_t6_4 >> 0x1F) + var_s1->unk10);
-                    // var_s1->unk14 = var_t9;
-                    var_s1->unk10 += D_803A2C00_7B42B0[particle->unk6 - 1][((var_s1->unk18 + sp7E2) & 0x1F) + 0].unk4 << 8;
+                    // article->unk6 == 1 ?
+                    var_s1->unk0  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)].unk0 << 8;
+                    var_s1->unk8  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)].unk2 << 8;
+                    var_s1->unk10 += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)].unk4 << 8;
                 }
             }
 
+            // TBD
+            var_s4 = 0;
             if (flags & 2) {
-                if (temp_t0 == ((var_s1->unk18 % temp_t0) + 1)) {
+                if (sp7DA == ((var_s1->unk18 % sp7DA) + 1)) {
                     var_s1->unk2D++; // = (u8) (var_s1->unk2D + 1);
                 }
                 // temp_v0_53 = particle->unkC;
@@ -640,12 +612,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                 // } else {
                 //   var_s4 = var_s1->unk2D;
                 // }
-                var_s4 = (s16)MAX(particle->unkC, var_s1->unk2D);
-            } else {
-                var_s4 = 0;
+                var_s4 = MAX(particle->unkC, var_s1->unk2D);
             }
 
-            sp7DA = (s16) temp_t0;
             if (flags & 0x10) {
                 if (flags & 8) {
                     if (var_s1->unk28 > FTOFIX32(-12.0)) {
@@ -745,7 +714,7 @@ void func_802CB394_6DCA44(s32 arg0) {
             lodFraction = ((0x100 / sp7DA) * ((sp7DA - (var_s1->unk18 % sp7DA)) - 1));
 
             // this needs some finesse, >> 8 is /8 which is the size of a Gfx command
-            if (((s32) (((s32)*dl - (s32)D_8020428C) + -(sp7DD * 0x2BC0) - 0x10e80) >> 3) < 1390) {
+            if (((s32) (((s32)*dl - (s32)D_8020428C) + -((sp7DD + 6) * 0x2BC0) - 2048) >> 3) < 1390) {
 
                 switch (var_s1->id) {
                 case 0x0:
@@ -1163,8 +1132,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // help
                     var_s1->unk24 = (((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 7) * (1 - ((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 8) >> 2))) << 0x10);
 
-                    var_s1->unk8 += var_s1->unk24;
                     var_s1->unk0 += var_s1->unk20;
+                    var_s1->unk8 += var_s1->unk24;
+
                     func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (temp_fp << 8), (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
                     break;
 
@@ -1265,7 +1235,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                 case 0x1C:
                     var_s2 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
-                    if ((var_s1->unk10 >> 0x10) < var_s2) {
+                    if (var_s2 < (var_s1->unk10 >> 0x10)) {
                         var_s1->unk18 = 0;
                         var_s1->unk10 = var_s2 << 0x10;
                         create_particle_effect_2(
@@ -1451,12 +1421,12 @@ void func_802CB394_6DCA44(s32 arg0) {
                     break;
 
                 case 0x2C:
-                    temp_v1_36 = var_s1->unk18 << 4;
                     temp_a0_4 = (var_s1->unk18 + 0x10) << 3;
+                    temp_v1_36 = var_s1->unk18 << 4;
 
-                    var_s1->unk0 += ((D_80152C78[temp_v1_36 & 0xFF] >> 6) - (D_80152C78[temp_a0_4 & 0xFF] >> 6)) << 9;
-                    var_s1->unk8 += ((D_80152C78[(temp_v1_36 + 0x40) & 0xFF] >> 6) - (D_80152C78[(temp_a0_4 + 0x40) & 0xFF] >> 6)) << 9;
-                    var_s1->unk10 += ((D_80152C78[((var_s1->unk18 << 3) + 0x40) & 0xFF] >> 6) - (D_80152C78[(((var_s1->unk18 + 0x1F) << 2) + 0x40) & 0xFF] >> 6)) << 8;
+                    var_s1->unk0 += ((SIN(temp_v1_36) >> 6) - (SIN(temp_a0_4) >> 6)) << 9;
+                    var_s1->unk8 += ((COS(temp_v1_36) >> 6) - (COS(temp_a0_4) >> 6)) << 9;
+                    var_s1->unk10 += ((COS(var_s1->unk18 << 3) >> 6) - (COS((var_s1->unk18 + 0x1F) << 2) >> 6)) << 8;
 
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
@@ -1809,10 +1779,10 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = D_80152C78[(var_s1->unk34 << 4) & 0xFF] * (D_80152C78[(var_s1->unk34 << 2) & 0xFF] >> 0xA);
-                    D_803DA100 = D_80152C78[((var_s1->unk34 << 4) + 0x40) & 0xFF] * (D_80152C78[(var_s1->unk34 << 2) & 0xFF] >> 0xA);
-                    D_803DA104 = D_80152C78[((var_s1->unk34 << 2) + 0x40) & 0xFF] + ((D_80152C78[((var_s1->unk34 << 1) + 0x40) & 0xFF] >> 0xA) * D_80152C78[((var_s1->unk34 << 3) + 0x40) & 0xFF]);
-                    D_803DA108 = D_80152C78[((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F] >> 3;
+                    D_803DA0FC = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
+                    D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
+                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
@@ -1831,10 +1801,10 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = D_80152C78[((var_s1->unk34 << 4) + 0x40) & 0xFF] * (D_80152C78[((var_s1->unk34 << 3) + 0x40) & 0xFF] >> 0xA);
-                    D_803DA100 = D_80152C78[((var_s1->unk34 & 0xF) << 3) & 0xFF] * (D_80152C78[(var_s1->unk34 << 2) & 0xFF] >> 0xA);
-                    D_803DA104 = D_80152C78[((var_s1->unk34 << 2) + 0x40) & 0xFF] + ((D_80152C78[((var_s1->unk34 * 6) + 0x40) & 0xFF] >> 0xA) * D_80152C78[(var_s1->unk34 << 3) & 0xFF]);
-                    D_803DA108 = D_80152C78[((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F] >> 3;
+                    D_803DA0FC = (COS(var_s1->unk34 << 3) >> 0xA) * COS(var_s1->unk34 << 4);
+                    D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 & 0xF) << 3);
+                    D_803DA104 = ((COS(var_s1->unk34 * 6) >> 0xA) * SIN(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
@@ -1869,16 +1839,17 @@ void func_802CB394_6DCA44(s32 arg0) {
                     break;
 
                 case 0x41:
+                    lodFraction = (var_s1->unk34 << 3);
 
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0180, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, (var_s1->unk34 * 8), colorPriRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
 
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
-                    D_803DA108 = D_80152C78[(s16)(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) & 0xFF] >> 2;
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 2;
 
-                    var_s1->unk34++; // = (u16) (var_s1->unk34 + 1);
+                    var_s1->unk34++;
                     func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, D_803DA108, D_803DA108, 0, 0);
                     break;
 
@@ -1978,7 +1949,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                     func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
-                        var_s1->unk2D = 0U;
+                        var_s1->unk2D = 0;
                     }
                     break;
 
@@ -2064,9 +2035,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // temp_t4_45 = temp_fp << 8;
                     func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
 
-                    D_803DA0FC = D_80152C78[(var_s1->unk34 << 4) & 0xFF] * (D_80152C78[(var_s1->unk34 << 2) & 0xFF] >> 0xA);
-                    D_803DA100 = D_80152C78[((var_s1->unk34 << 4) + 0x40) & 0xFF] * (D_80152C78[(var_s1->unk34 << 2) & 0xFF] >> 0xA);
-                    D_803DA104 = D_80152C78[((var_s1->unk34 << 2) + 0x40) & 0xFF] + ((D_80152C78[((var_s1->unk34 << 1) + 0x40) & 0xFF] >> 0xA) * D_80152C78[((var_s1->unk34 << 3) + 0x40) & 0xFF]);
+                    D_803DA0FC = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
+                    D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
+                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
 
                     D_803DA0FC = var_s1->unk0 >> 0x10; // (u32) (u64) __ll_rshift(var_s1->unk0, var_s1->unk4, 0, 0x10);
                     D_803DA100 = var_s1->unk8 >> 0x10; // (u32) (u64) __ll_rshift(var_s1->unk8, var_s1->unkC, 0, 0x10);
@@ -2104,12 +2075,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    temp_a0_4 = (sp7E2 & 7) * 50;
-                    temp_v0_88 = (sp7E2 & 7) * 20;
-
-                    D_803DA0FC = D_80152C78[((var_s1->unk34 + temp_v0_88) << 4) & 0xFF] * (D_80152C78[temp_a0_4 & 0xFF] >> 0xA);
-                    D_803DA100 = D_80152C78[(((var_s1->unk34 + temp_v0_88) << 4) + 0x40) & 0xFF] * (D_80152C78[temp_a0_4 & 0xFF] >> 0xA);
-                    D_803DA104 = D_80152C78[(((var_s1->unk34 + temp_v0_88) << 3) + 0x40) & 0xFF] * (D_80152C78[(temp_a0_4 + 0x40) & 0xFF] >> 0xA);
+                    D_803DA0FC = (SIN((sp7E2 & 7) * 50) >> 0xA) * SIN((var_s1->unk34 + ((sp7E2 & 7) * 20)) << 4);
+                    D_803DA100 = (SIN((sp7E2 & 7) * 50) >> 0xA) * COS((var_s1->unk34 + ((sp7E2 & 7) * 20)) << 4);
+                    D_803DA104 = (COS((sp7E2 & 7) * 50) >> 0xA) * COS((var_s1->unk34 + ((sp7E2 & 7) * 20)) << 3);
 
                     var_s1->unk10 += 0x20000;
 
@@ -2118,8 +2086,8 @@ void func_802CB394_6DCA44(s32 arg0) {
                     } else {
                         var_s1->unk18 = 0;
                     }
-                    temp_t4_48 = ((var_s1->unk34 + var_s1->size) & 0xFFFF) << 8;
-                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, temp_t4_48, temp_t4_48, 0, 0);
+                    temp_fp = var_s1->unk34 + var_s1->size;
+                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, temp_fp << 8, temp_fp << 8, 0, 0);
                     break;
                 case 0x5A:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2204,10 +2172,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                 case 0x66:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0030, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    D_803DA0FC = D_80152C78[(guRandom() % 255) & 0xFF] * 0xA;
-                    D_803DA100 = D_80152C78[((guRandom() % 255) + 0x40) & 0xFF] * 0xA;
-                    D_803DA104 = D_80152C78[((guRandom() % 255) + 0x40) & 0xFF] * 0xA;
-
+                    D_803DA0FC = SIN(guRandom() % 255) * 10;
+                    D_803DA100 = COS(guRandom() % 255) * 10;
+                    D_803DA104 = COS(guRandom() % 255) * 10;
 
                     for (var_s0 = 0; var_s0 < 5; var_s0++) {
                         create_particle_effect(
@@ -2273,6 +2240,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
                     break;
                 case 0x6E:
+                    lodFraction = (var_s1->unk18 << 4);
                     // *temp_s0 = temp_t0_3 + 8;
                     // temp_t0_3->words.w0 = 0xF5880800;
                     // temp_t0_3->words.w1 = 0;
@@ -2286,7 +2254,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // *temp_s0 = temp_t0_263 + 8;
                     // temp_t0_263->words.w0 = ((var_s1->unk18 * 0x10) & 0xFF & 0xFF) | 0xFA000000;
                     // temp_t0_263->words.w1 = (((s32) (colorPriRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorPriRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorPriRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, (var_s1->unk18 * 0x10), colorPriRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
 
                     // temp_t0_264 = *temp_s0;
                     // *temp_s0 = temp_t0_264 + 8;
@@ -2294,10 +2262,10 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // temp_t0_264->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = D_80152C78[(var_s1->unk34 << 4) & 0xFF] * (D_80152C78[(var_s1->unk34 << 2) & 0xFF] >> 0xA);
-                    D_803DA100 = D_80152C78[((var_s1->unk34 << 4) + 0x40) & 0xFF] * (D_80152C78[(var_s1->unk34 << 2) & 0xFF] >> 0xA);
-                    D_803DA104 = D_80152C78[((var_s1->unk34 << 2) + 0x40) & 0xFF] + ((D_80152C78[((var_s1->unk34 << 1) + 0x40) & 0xFF] >> 0xA) * D_80152C78[((var_s1->unk34 << 3) + 0x40) & 0xFF]);
-                    D_803DA108 = D_80152C78[((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F] >> 3;
+                    D_803DA0FC = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
+                    D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
+                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
                     // temp_t9_42 = var_s1->unk14 + 0x80000U;
 
                     // var_s1->unk14 = temp_t9_42;
@@ -2773,8 +2741,8 @@ void func_802D6738_6E7DE8(void) {
     }
     if ((D_803F2D50.unk4C == 0) || (D_803F2D50.unk4C == 3)) {
         for (i = 0; i < 5; i++) {
-            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h - 960;
-            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h - 960;
+            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h - 960;
+            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h - 960;
             if (sp7A < 0) {
                 sp7A = 0;
             }
@@ -2798,8 +2766,8 @@ void func_802D6738_6E7DE8(void) {
         }
 
         if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < func_80298818_6A9EC8((u16) D_803F28E0[D_803F2A98].unk74, (u16) D_803F28E0[D_803F2A98].unk78)) {
-            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h - 512;
-            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h - 512;
+            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h - 512;
+            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h - 512;
             if (sp7A < 0) {
                 sp7A = 0;
             }
@@ -2815,8 +2783,8 @@ void func_802D6738_6E7DE8(void) {
         }
     } else if (D_803F2D50.unk4C != 2) {
         for (i = 0; i < 4; i++) {
-            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->xPos.h - 960;
-            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->zPos.h - 960;
+            sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h - 960;
+            sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h - 960;
             if (sp7A < 0) {
                 sp7A = 0;
             }

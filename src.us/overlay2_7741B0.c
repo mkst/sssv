@@ -55,11 +55,11 @@ s32 func_80362BEC_77429C(Animal *a) {
 
 // ESA: func_80060DFC
 void func_80362C10_7742C0(Animal *arg0) {
-    if (func_80305084_716734(arg0->xPos.h - arg0->xPosTarget, arg0->zPos.h - arg0->zPosTarget, arg0->unk2D4, arg0->unk2D8) > 100) {
+    if (func_80305084_716734(arg0->position.xPos.h - arg0->xPosTarget, arg0->position.zPos.h - arg0->zPosTarget, arg0->unk2D4, arg0->unk2D8) > 100) {
         if (arg0->unk2DC == 0) {
             arg0->unk275 = 10;
-            arg0->unk2D4 = arg0->xPos.h - arg0->xPosTarget;
-            arg0->unk2D8 = arg0->zPos.h - arg0->zPosTarget;
+            arg0->unk2D4 = arg0->position.xPos.h - arg0->xPosTarget;
+            arg0->unk2D8 = arg0->position.zPos.h - arg0->zPosTarget;
             arg0->unk2DC = 1;
         } else {
             arg0->unk2A0 = 6;
@@ -209,8 +209,8 @@ void func_80362CC4_774374(Animal *arg0) {
         }
         break;
     case 7:
-        xPos = arg0->unk294.type7.unk0->xPos.h - arg0->xPos.h;
-        zPos = arg0->unk294.type7.unk0->zPos.h - arg0->zPos.h;
+        xPos = arg0->unk294.type7.unk0->position.xPos.h - arg0->position.xPos.h;
+        zPos = arg0->unk294.type7.unk0->position.zPos.h - arg0->position.zPos.h;
         if (func_803051F0_7168A0((func_801284B8(xPos, zPos) << 8) / 360, arg0->yRotation) < 6) {
             func_803638E8_774F98(arg0);
         }
@@ -244,8 +244,8 @@ void func_80362CC4_774374(Animal *arg0) {
             }
             break;
         case 1:
-            xPos = sp28->xPos.h - arg0->xPos.h;
-            zPos = sp28->zPos.h - arg0->zPos.h;
+            xPos = sp28->position.xPos.h - arg0->position.xPos.h;
+            zPos = sp28->position.zPos.h - arg0->position.zPos.h;
             if (func_803051F0_7168A0(((func_801284B8(xPos, zPos) << 8) / 360), arg0->yRotation) < 4) {
                 func_8037B754_78CE04(arg0, arg0->unk294.type9.unk0);
                 arg0->unk290 = 0;
@@ -278,7 +278,7 @@ void func_803633C4_774A74(Animal *arg0) {
     case 0:
         break;
     case 1:
-        if ((ABS(arg0->xPosTarget - arg0->xPos.h) < arg0->unk2A2) && (ABS(arg0->zPosTarget - arg0->zPos.h) < arg0->unk2A2)) {
+        if ((ABS(arg0->xPosTarget - arg0->position.xPos.h) < arg0->unk2A2) && (ABS(arg0->zPosTarget - arg0->position.zPos.h) < arg0->unk2A2)) {
             func_80363CC8_775378(arg0);
         } else {
             func_80362C10_7742C0(arg0);
@@ -291,10 +291,10 @@ void func_803633C4_774A74(Animal *arg0) {
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
         } else {
-            arg0->unk278 = arg0->unk2AC->xPos.h;
-            arg0->unk27A = arg0->unk2AC->zPos.h;
+            arg0->unk278 = arg0->unk2AC->position.xPos.h;
+            arg0->unk27A = arg0->unk2AC->position.zPos.h;
             if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
-                arg0->unk27C = (arg0->unk2AC->yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
+                arg0->unk27C = (arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
             }
         }
         break;
@@ -302,8 +302,8 @@ void func_803633C4_774A74(Animal *arg0) {
         if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
         }
-        arg0->unk278 = arg0->unk2AC->xPos.h;
-        arg0->unk27A = arg0->unk2AC->zPos.h;
+        arg0->unk278 = arg0->unk2AC->position.xPos.h;
+        arg0->unk27A = arg0->unk2AC->position.zPos.h;
         break;
     case 4:
         if (arg0->targetIsPlayer != 0) {
@@ -312,18 +312,18 @@ void func_803633C4_774A74(Animal *arg0) {
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
         } else {
-            arg0->unk278 = arg0->unk2AC->xPos.h;
-            arg0->unk27A = arg0->unk2AC->zPos.h;
+            arg0->unk278 = arg0->unk2AC->position.xPos.h;
+            arg0->unk27A = arg0->unk2AC->position.zPos.h;
             if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
-                arg0->unk27C = (arg0->unk2AC->yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
+                arg0->unk27C = (arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
             }
         }
         break;
     case 5:
         break;
     case 6:
-        xDist = arg0->xPosTarget - arg0->xPos.h;
-        zDist = arg0->zPosTarget - arg0->zPos.h;
+        xDist = arg0->xPosTarget - arg0->position.xPos.h;
+        zDist = arg0->zPosTarget - arg0->position.zPos.h;
 
         if (func_803051F0_7168A0((func_801284B8(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
             arg0->unk2A0 = 1;
@@ -339,10 +339,10 @@ void func_803633C4_774A74(Animal *arg0) {
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
         } else {
-            arg0->unk278 = arg0->unk2AC->xPos.h;
-            arg0->unk27A = arg0->unk2AC->zPos.h;
+            arg0->unk278 = arg0->unk2AC->position.xPos.h;
+            arg0->unk27A = arg0->unk2AC->position.zPos.h;
             if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
-                arg0->unk27C = ((arg0->unk2AC->yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget);
+                arg0->unk27C = ((arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget);
             }
             if (((arg0->unk5C & 5) != 0) && (arg0->unk60 == arg0->unk2AC)) {
                 func_80363CC8_775378(arg0);
@@ -448,7 +448,7 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     s16 next_wp_idx;
 
     wp_data = D_803E8E60[pathId];
-    next_wp_idx = get_closest_waypoint_index(wp_data, arg0->xPos.h, arg0->zPos.h, arg0->yPos.h);
+    next_wp_idx = get_closest_waypoint_index(wp_data, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h);
 
     arg0->waypointType = 1;
     arg0->unk294.type1.pathId = pathId;
@@ -473,7 +473,7 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
 void func_80363B34_7751E4(Animal *arg0, u16 arg1) {
     arg0->waypointType = 3;
     arg0->unk294.type3.unk0 = arg1;
-    func_80363C48_7752F8(arg0, arg0->xPos.h, arg0->zPos.h, -1, 10, 32);
+    func_80363C48_7752F8(arg0, arg0->position.xPos.h, arg0->position.zPos.h, -1, 10, 32);
     arg0->unk290 = SSSV_RAND(4);
 }
 
@@ -511,8 +511,8 @@ void func_80363C48_7752F8(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u
     arg0->unk278 = xPos;
     arg0->unk27A = zPos;
     arg0->unk27C = yPos;
-    arg0->unk2D4 = arg0->xPos.h - xPos;
-    arg0->unk2D8 = arg0->zPos.h - zPos;
+    arg0->unk2D4 = arg0->position.xPos.h - xPos;
+    arg0->unk2D8 = arg0->position.zPos.h - zPos;
     arg0->unk2DC = 0;
 }
 
@@ -531,10 +531,10 @@ void func_80363CE0_775390(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
     arg0->unk2AC = target;
     arg0->unk2A0 = 2;
     arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->xPos.h;
-    arg0->unk27A = target->zPos.h;
+    arg0->unk278 = target->position.xPos.h;
+    arg0->unk27A = target->position.zPos.h;
     if (can_fly(target) || func_80362B60_774210(target)) {
-        arg0->unk27C = target->yPos.h + (target->unk42 >> 1) + arg2;
+        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + arg2;
     } else {
         arg0->unk27C = arg2;
     }
@@ -548,10 +548,10 @@ void func_80363DB4_775464(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
     arg0->unk2AC = target;
     arg0->unk2A0 = 8;
     arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->xPos.h;
-    arg0->unk27A = target->zPos.h;
+    arg0->unk278 = target->position.xPos.h;
+    arg0->unk27A = target->position.zPos.h;
     if (can_fly(target) || func_80362B60_774210(arg0->unk2AC)) {
-        arg0->unk27C = target->yPos.h + (target->unk42 >> 1) + arg2;
+        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + arg2;
     } else {
         arg0->unk27C = arg2;
     }
@@ -564,8 +564,8 @@ void func_80363E88_775538(Animal *arg0, Animal *target) {
     arg0->unk2AC = target;
     arg0->unk2A0 = 3;
     arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->xPos.h;
-    arg0->unk27A = target->zPos.h;
+    arg0->unk278 = target->position.xPos.h;
+    arg0->unk27A = target->position.zPos.h;
     arg0->unk274 = 2;
     arg0->unk275 = -1;
 }
@@ -577,12 +577,12 @@ void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *target) {
     arg0->unk2A0 = 4;
     arg0->unk2A1 = 16;
     arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->xPos.h;
-    arg0->unk27A = target->zPos.h;
+    arg0->unk278 = target->position.xPos.h;
+    arg0->unk27A = target->position.zPos.h;
     arg0->unk274 = 3;
     arg0->unk275 = 16;
     if (can_fly(target) || func_80362B60_774210(target)) {
-        arg0->unk27C = target->yPos.h + (target->unk42 >> 1) + arg1;
+        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + arg1;
     } else {
         arg0->unk27C = arg1;
     }
@@ -815,10 +815,10 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             func_802E88C0_6F9F70(arg1);
             break;
         case TORTOISE_TANK:
-            func_803562C8_767978(arg1);
+            tortoise_tank_defend(arg1);
             break;
         case RACING_TORTOISE:
-            func_80356348_7679F8(arg1);
+            racing_tortoise_defend(arg1);
             break;
         case PIRANA:
             func_80382CC0_794370(arg1);

@@ -121,8 +121,8 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
 
         // whilst it's not the final segment
         if (i < (temp_s1->numSegments - 1)) {
-            var_s6 = (( arg1[i+1].unk0 * (D_80152C78[(temp_s1->unk2C + 0x40) & 0xFF] >> 7)) + (arg1[i+1].unk4 * (D_80152C78[temp_s1->unk2C & 0xFF] >> 7))) >> 8;
-            var_s2 = ((-arg1[i+1].unk0 * (D_80152C78[temp_s1->unk2C & 0xFF] >> 7)) + (arg1[i+1].unk4 * (D_80152C78[(temp_s1->unk2C + 0x40) & 0xFF] >> 7))) >> 8;
+            var_s6 = (( arg1[i+1].unk0 * (COS(temp_s1->unk2C) >> 7)) + (arg1[i+1].unk4 * (SIN(temp_s1->unk2C) >> 7))) >> 8;
+            var_s2 = ((-arg1[i+1].unk0 * (SIN(temp_s1->unk2C) >> 7)) + (arg1[i+1].unk4 * (COS(temp_s1->unk2C) >> 7))) >> 8;
             var_s7 = arg1[i+1].unk8;
 
             var_a0 = sqrtf(SQ((f32)var_s6) + SQ((f32)var_s2) + SQ((f32)var_s7));
@@ -171,9 +171,9 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
         var_t5 = &D_803DA300[temp_fp->unk16];
 
         if (temp_fp->unk4 != NULL) {
-            temp_fp->unk20 = temp_fp->unk4->xPos.w + (temp_fp->unkE  << 0x10);
-            temp_fp->unk24 = temp_fp->unk4->zPos.w + (temp_fp->unk10 << 0x10);
-            temp_fp->unk28 = temp_fp->unk4->yPos.w + (temp_fp->unk12 << 0x10);
+            temp_fp->unk20 = temp_fp->unk4->position.xPos.w + (temp_fp->unkE  << 0x10);
+            temp_fp->unk24 = temp_fp->unk4->position.zPos.w + (temp_fp->unk10 << 0x10);
+            temp_fp->unk28 = temp_fp->unk4->position.yPos.w + (temp_fp->unk12 << 0x10);
         }
         var_t5->unk0 = temp_fp->unk20;
         var_t5->unk4 = temp_fp->unk24;
@@ -189,8 +189,8 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
 
         for (i = 1; i < temp_fp->numSegments; i++) {
 
-            temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7)) + (arg1[i].unk4 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7))) >> 8);
-            temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * (D_80152C78[temp_fp->unk2C & 0xFF] >> 7)) + (arg1[i].unk4 * (D_80152C78[(temp_fp->unk2C + 0x40) & 0xFF] >> 7))) >> 8);
+            temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * (COS(temp_fp->unk2C) >> 7)) + (arg1[i].unk4 * (SIN(temp_fp->unk2C) >> 7))) >> 8);
+            temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * (SIN(temp_fp->unk2C) >> 7)) + (arg1[i].unk4 * (COS(temp_fp->unk2C) >> 7))) >> 8);
             temp_s4 = var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256) + arg1[i].unk8;
 
             if (arg3 == 1) {
@@ -284,9 +284,9 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
     var_t5 = &D_803DA300[temp_v0->unk16];
 
     if (temp_v0->unk4 != NULL) {
-        temp_v0->unk20 = temp_v0->unk4->xPos.w + (temp_v0->unkE  << 0x10);
-        temp_v0->unk24 = temp_v0->unk4->zPos.w + (temp_v0->unk10 << 0x10);
-        temp_v0->unk28 = temp_v0->unk4->yPos.w + (temp_v0->unk12 << 0x10);
+        temp_v0->unk20 = temp_v0->unk4->position.xPos.w + (temp_v0->unkE  << 0x10);
+        temp_v0->unk24 = temp_v0->unk4->position.zPos.w + (temp_v0->unk10 << 0x10);
+        temp_v0->unk28 = temp_v0->unk4->position.yPos.w + (temp_v0->unk12 << 0x10);
     }
     var_t5->unk0 = temp_v0->unk20;
     var_t5->unk4 = temp_v0->unk24;
@@ -303,8 +303,8 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         spF0[i]  = var_t5[i].unk4;
         spB0[i]  = var_t5[i].unk8;
 
-        temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF]) + (arg1[i].unk4 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF);
-        temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * D_80152C78[temp_v0->unk2C & 0xFF]) + (arg1[i].unk4 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF);
+        temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * COS(temp_v0->unk2C)) + (arg1[i].unk4 * SIN(temp_v0->unk2C))) >> 0xF);
+        temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * SIN(temp_v0->unk2C)) + (arg1[i].unk4 * COS(temp_v0->unk2C))) >> 0xF);
         temp_s4 = var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256) + arg1[i].unk8;
 
         a = var_s2 - temp_s2;
@@ -343,8 +343,8 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         }
     }
 
-    sp194 = var_t5[arg4].unk0 + ((var_t5[arg4].unkC  * arg3) / 256) + ((( arg1[arg4].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF]) + (arg1[arg4].unk4 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF);
-    sp190 = var_t5[arg4].unk4 + ((var_t5[arg4].unk10 * arg3) / 256) + (((-arg1[arg4].unk0 * D_80152C78[temp_v0->unk2C & 0xFF]) + (arg1[arg4].unk4 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF);
+    sp194 = var_t5[arg4].unk0 + ((var_t5[arg4].unkC  * arg3) / 256) + ((( arg1[arg4].unk0 * COS(temp_v0->unk2C)) + (arg1[arg4].unk4 * SIN(temp_v0->unk2C))) >> 0xF);
+    sp190 = var_t5[arg4].unk4 + ((var_t5[arg4].unk10 * arg3) / 256) + (((-arg1[arg4].unk0 * SIN(temp_v0->unk2C)) + (arg1[arg4].unk4 * COS(temp_v0->unk2C))) >> 0xF);
     sp18C = var_t5[arg4].unk8 + ((var_t5[arg4].unk14 * arg3) / 256) + arg1[arg4].unk8;
 
     sp1B8 = sp194 - temp_v0->unk20;
@@ -377,8 +377,8 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
 
     for (i = arg4 + 1; i < temp_v0->numSegments; i++) {
         s32 a, b, c;
-        temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF]) + (arg1[i].unk4 * D_80152C78[temp_v0->unk2C & 0xFF])) >> 0xF);
-        temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * D_80152C78[temp_v0->unk2C & 0xFF]) + (arg1[i].unk4 * D_80152C78[(temp_v0->unk2C + 0x40) & 0xFF])) >> 0xF);
+        temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * COS(temp_v0->unk2C)) + (arg1[i].unk4 * SIN(temp_v0->unk2C))) >> 0xF);
+        temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * SIN(temp_v0->unk2C)) + (arg1[i].unk4 * COS(temp_v0->unk2C))) >> 0xF);
         temp_s4 = var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256) + arg1[i].unk8;
 
         a = var_s2 - temp_s2;
@@ -673,7 +673,7 @@ void func_802DE950_6F0000(void) {
         case 37:                                /* switch 1 */
             if (((temp_s2->unk4 == NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x9C4, 0x64, 0, 0, 0, 1, 0) == 0) || (temp_s2->unk2F == 2))) ||
                 ((temp_s2->unk4 != NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0) ||
-                                             (func_802E8BBC_6FA26C(temp_s2->unk4->xPos.w, temp_s2->unk4->zPos.w, temp_s2->unk4->yPos.w + (temp_s2->unk4->unk42 << 0xF), (s32) (temp_s2->unk4->unk16C->unk8E * temp_s2->unk4->unk40) >> 7, 0x64, 0, 0, 0, temp_s2->unk4->unk16C->unk8E, 0) != 4)))) {
+                                             (func_802E8BBC_6FA26C(temp_s2->unk4->position.xPos.w, temp_s2->unk4->position.zPos.w, temp_s2->unk4->position.yPos.w + (temp_s2->unk4->unk42 << 0xF), (s32) (temp_s2->unk4->unk16C->unk8E * temp_s2->unk4->unk40) >> 7, 0x64, 0, 0, 0, temp_s2->unk4->unk16C->unk8E, 0) != 4)))) {
 
                 if (temp_s2->unk34 == 1) {
                     func_802DD244_6EE8F4(i, D_803A41DC_7B588C);
@@ -717,12 +717,12 @@ void func_802DE950_6F0000(void) {
                     if (tmpZ > 0x1FFFFFFF) {
                         tmpZ = 0x1FFFFFFF;
                     }
-                    temp_s2->unk0->xVelocity.w = tmpX - temp_s2->unk0->xPos.w;
-                    temp_s2->unk0->zVelocity.w = tmpZ - temp_s2->unk0->zPos.w;
-                    temp_s2->unk0->yVelocity.w = tmpY - temp_s2->unk0->yPos.w;
+                    temp_s2->unk0->xVelocity.w = tmpX - temp_s2->unk0->position.xPos.w;
+                    temp_s2->unk0->zVelocity.w = tmpZ - temp_s2->unk0->position.zPos.w;
+                    temp_s2->unk0->yVelocity.w = tmpY - temp_s2->unk0->position.yPos.w;
 
                     temp_s2->unk0->unk4C.unk19 = 1;
-                    temp_s2->unk0->yPos.w = tmpY;
+                    temp_s2->unk0->position.yPos.w = tmpY;
                 }
 
                 func_8034C8F8_75DFA8(D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk0 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk4 >> 0x10, D_803DA300[(temp_s2->unk16 + temp_s2->numSegments) - 1].unk8 >> 0x10, 0, D_01033190, 0xC, 0xC, 0x80, 0, 0, 0, 1, 0);
@@ -790,7 +790,7 @@ void func_802DE950_6F0000(void) {
         case 8:                                 /* switch 1 */
             if (((temp_s2->unk4 == NULL) &&  (func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0)) ||
                 ((temp_s2->unk4 != NULL) && ((func_802E8BBC_6FA26C(temp_s2->unk20, temp_s2->unk24, temp_s2->unk28 - (temp_s2->unk1C << (temp_s2->numSegments + 0x1F)), temp_s2->numSegments * 0x7D0, 0x64, 0, 0, 0, 1, 0) == 0) ||
-                                             (func_802E8BBC_6FA26C(temp_s2->unk4->xPos.w, temp_s2->unk4->zPos.w, temp_s2->unk4->yPos.w + (temp_s2->unk4->unk42 << 0xF), (temp_s2->unk4->unk16C->unk8E * temp_s2->unk4->unk40) >> 7,  0x64, 0, 0, 0, temp_s2->unk4->unk16C->unk8E, 0) != 4)))) {
+                                             (func_802E8BBC_6FA26C(temp_s2->unk4->position.xPos.w, temp_s2->unk4->position.zPos.w, temp_s2->unk4->position.yPos.w + (temp_s2->unk4->unk42 << 0xF), (temp_s2->unk4->unk16C->unk8E * temp_s2->unk4->unk40) >> 7,  0x64, 0, 0, 0, temp_s2->unk4->unk16C->unk8E, 0) != 4)))) {
 
                 if (temp_s2->unk34 == 1) {
                     func_802DD244_6EE8F4(i, D_803A41DC_7B588C);
@@ -814,9 +814,9 @@ void func_802DE950_6F0000(void) {
                     if (tmpZ > 0x1FFFFFFF) {
                         tmpZ = 0x1FFFFFFF;
                     }
-                    temp_s2->unk0->xVelocity.w = tmpX - temp_s2->unk0->xPos.w;
-                    temp_s2->unk0->zVelocity.w = tmpZ - temp_s2->unk0->zPos.w;
-                    temp_s2->unk0->yVelocity.w = tmpY - temp_s2->unk0->yPos.w;
+                    temp_s2->unk0->xVelocity.w = tmpX - temp_s2->unk0->position.xPos.w;
+                    temp_s2->unk0->zVelocity.w = tmpZ - temp_s2->unk0->position.zPos.w;
+                    temp_s2->unk0->yVelocity.w = tmpY - temp_s2->unk0->position.yPos.w;
                     temp_s2->unk0->unk4C.unk19 = 1;
                 }
                 if ((D_803E1B04 + (temp_s2->numSegments * 2)) < 0x181) {
@@ -1137,7 +1137,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                     func_802DD548_6EEBF8(i, D_803A3990_7B5040, 0x96, 0);
 
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((D_80152C78[(s16)(D_803D5540 * 0x10) & 0xFF] >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((SIN((D_803D5540 * 0x10)) >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
 
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -1145,7 +1145,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                     }
 
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((D_80152C78[(s16)((D_803D5540 * 0x10) + 0x55) & 0xFF] >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((SIN(((D_803D5540 * 0x10) + 0x55)) >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
 
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -1153,7 +1153,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                     }
 
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((D_80152C78[(s16)((D_803D5540 * 0x10) + 0xAA) & 0xFF] >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((SIN(((D_803D5540 * 0x10) + 0xAA)) >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
                     if (D_803D5540 & 8) {
                         if (func_80126FD4(D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, D_803DA300[temp_s4->unk16+3].unk0, D_803DA300[temp_s4->unk16+3].unk4, D_803DA300[temp_s4->unk16+3].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -1481,7 +1481,7 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
                     temp_s1->unk2F = 2;
                     temp_s1->unk30 = var_s5;
                     temp_s1->unk35 = 2;
-                    func_802DE890_6EFF40(i, var_s5, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, D_803D5530->xVelocity.w, D_803D5530->zVelocity.w, D_803D5530->yVelocity.w);
+                    func_802DE890_6EFF40(i, var_s5, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, D_803D5530->xVelocity.w, D_803D5530->zVelocity.w, D_803D5530->yVelocity.w);
 
                     temp_s6 = D_803DA300[temp_s1->unk16 + var_s5].unk0 - temp_s1->unk20;
                     temp_s7 = D_803DA300[temp_s1->unk16 + var_s5].unk4 - temp_s1->unk24;
@@ -1542,9 +1542,9 @@ void func_802E497C_6F602C(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
 
     tmp = &D_803DA300[D_803E00C0[arg0].unk16];
 
-    *arg1 = (tmp->unk0 - D_803D5530->xPos.w) >> 14;
-    *arg2 = (tmp->unk4 - D_803D5530->zPos.w) >> 14;
-    *arg3 = (tmp->unk8 - D_803D5530->yPos.w) >> 14;
+    *arg1 = (tmp->unk0 - D_803D5530->position.xPos.w) >> 14;
+    *arg2 = (tmp->unk4 - D_803D5530->position.zPos.w) >> 14;
+    *arg3 = (tmp->unk8 - D_803D5530->position.yPos.w) >> 14;
 
     if ((ABS(*arg3) < 100) &&
         (ABS(*arg1) < 100) &&
@@ -1578,23 +1578,23 @@ s32 func_802E4B0C_6F61BC(s16 animalId) {
     case MOUSE2:
     case HELI_MOUSE:
     case RAT:
-        return func_802DD090_6EE740(6, FTOFIX32(3.125),    1,  3, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(3.125),    1,  3, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case KING_RAT:
-        return func_802DD090_6EE740(6, FTOFIX32(6.25),     1, 32, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(6, FTOFIX32(6.25),     1, 32, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case HUSKY:
     case SKI_HUSKY:
-        return func_802DD090_6EE740(4, FTOFIX32(6.875),    1, 11, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875),    1, 11, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case CRAZY_HUSKY:
-        return func_802DD090_6EE740(4, FTOFIX32(6.875),    1, 12, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(6.875),    1, 12, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case POGO_KANGAROO:
     case BOXING_KANGAROO:
-        return func_802DD090_6EE740(4, FTOFIX32(15.0),     1, 13, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.0),     1, 13, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case SCORPION:
-        return func_802DD090_6EE740(7, FTOFIX32(5.90625),  1, 14, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(7, FTOFIX32(5.90625),  1, 14, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case ELEPHANT:
-        return func_802DD090_6EE740(5, FTOFIX32(16.40625), 1, 16, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(5, FTOFIX32(16.40625), 1, 16, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     case LION:
-        return func_802DD090_6EE740(4, FTOFIX32(15.625),   1, 35, 0, D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        return func_802DD090_6EE740(4, FTOFIX32(15.625),   1, 35, 0, D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     default:
         return 0;
     }

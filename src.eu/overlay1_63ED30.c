@@ -9,63 +9,63 @@ typedef struct {
     u8 img[0x800];
 } NewscasterTile;
 
-#if 0
-void func_80299E00_63ED30(u8 arg0) {
-    u8 *sp54;
-    u8 sp53 = 0;    // x
-    u8 sp52 = 0;    // y
-    s32 sp4C = 0;   // image offset
-    u8 sp4B;
+void func_80299E00_63ED30(u8 size) {
+  u8 *sp54;
+  u8 j;
+  u8 i;
+  s32 sp4C;
+  u8 sp4B;
 
-    gSPDisplayList(D_801D9E9C++, &D_801582E0);
+  j = 0; // x
+  i = 0; // y
+  sp4C = 0; // image offset
 
-    func_801356E0(
-        1,
-        1,
-        1,
-        1,
-        &D_801D9E9C,
-        D_80304388 + 0x62000 + 0,
-        1.0f,
-        1.0f,
-        8);
+  gSPDisplayList(D_801D9E9C++, &D_801582E0);
 
-    for (sp52 = 0; sp52 < 8; sp52++) {
-        for (sp53 = 0; sp53 < 10; sp53++) {
-            // paint a black rectangle
-            gDPSetPrimColor(D_801D9E9C++, 0, 0, 0, 0, 0, 255);
-            gDPFillRectangle(D_801D9E9C++,
-            /* ulx */ (((sp53 * 32) - (arg0 / 2)) + 15),
-            /* uly */ (((sp52 * 32) - (arg0 / 2)) + 15),
-            /* lrx */ (((sp53 * 32) - (arg0 / 2)) + arg0 + 17),
-            /* lry */ (((sp52 * 32) - (arg0 / 2)) + arg0 + 17)
-            );
+  func_801356E0(
+      1,
+      1,
+      1,
+      1,
+      &D_801D9E9C,
+      D_80304388 + 0x62000 + 0, // newscaster
+      1.0f,
+      1.0f,
+      8);
 
-            sp4B = (s8)0xFF - -arg0*8;
-            gDPSetPrimColor(D_801D9E9C++, 0, 0, sp4B, sp4B, sp4B, 0xFF);
+  for (i = 0; i < 8; i++) {
+      for (j = 0; j < 10; j++) {
+          // draw black rectangle
+          gDPSetPrimColor(D_801D9E9C++, 0, 0, 0, 0, 0, 255);
+          gDPFillRectangle(D_801D9E9C++,
+          /* ulx */ (j << 5) + (15 - (size / 2)),
+          /* uly */ (i << 5) + (15 - (size / 2)),
+          /* lrx */ (j << 5) + (17 - (size / 2)) + size,
+          /* lry */ (i << 5) + (17 - (size / 2)) + size
+          );
 
-            sp54 = D_80304388 + 0x62000 + sp4C;
-            func_801356E0(
-                (((sp53 * 32) - (arg0 / 2)) + 15) + 1,
-                (((sp52 * 32) - (arg0 / 2)) + 15) + 1,
-                arg0,
-                arg0,
-                &D_801D9E9C,
-                sp54,
-                arg0,
-                arg0, // & 0xFFu,
-                16);
+          // sp4B = (size << 3) - 1;
+          sp4B = (-1) - ((-size) << 3);
+          gDPSetPrimColor(D_801D9E9C++, 0, 0, sp4B, sp4B, sp4B, 0xFF);
 
-            sp4C += sizeof(NewscasterTile);
+          sp54 = D_80304388 + 0x62000 + sp4C;
+          func_801356E0(
+              (j << 5) + (16 - (size / 2)),
+              (i << 5) + (16 - (size / 2)),
+              size,
+              size,
+              &D_801D9E9C,
+              sp54,
+              size,
+              size,
+              16);
 
-        }
-    }
+          sp4C += sizeof(NewscasterTile);
+      }
+  }
 
-    gDPSetPrimColor(D_801D9E9C++, 0, 0, 255, 255, 255, 255);
+  gDPSetPrimColor(D_801D9E9C++, 0, 0, 255, 255, 255, 255);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay1_63ED30/func_80299E00_63ED30.s")
-#endif
 
 void func_8029A144_63F074(s32 *arg0, s32 *arg1) {
     u8 spF;

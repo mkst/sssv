@@ -45,7 +45,7 @@ void func_8035C1A0_76D850(void) {
         if (SSSV_RAND(4)) {
             func_80349280_75A930(D_803D5530, 4);
         } else {
-            func_802D9C64_6EB314(D_803D5530->xPos.h, D_803D5530->zPos.h, D_803D5530->yPos.h, 0xA, GPACK_RGBA5551(224, 224, 128, 1));
+            func_802D9C64_6EB314(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0xA, GPACK_RGBA5551(224, 224, 128, 1));
         }
     }
 
@@ -62,10 +62,10 @@ void func_8035C1A0_76D850(void) {
 
         ticks_remaining = D_803D5544 - D_803D552C->unk32A;
 
-        D_803D552C->xPos.w = (D_803D552C->unk308 << 0x10) + (((D_803D552C->unk320->xPos.w - (D_803D552C->unk308 << 0x10)) / 40) * ticks_remaining);
-        D_803D552C->zPos.w = (D_803D552C->unk30A << 0x10) + (((D_803D552C->unk320->zPos.w - (D_803D552C->unk30A << 0x10)) / 40) * ticks_remaining);
+        D_803D552C->position.xPos.w = (D_803D552C->unk308 << 0x10) + (((D_803D552C->unk320->position.xPos.w - (D_803D552C->unk308 << 0x10)) / 40) * ticks_remaining);
+        D_803D552C->position.zPos.w = (D_803D552C->unk30A << 0x10) + (((D_803D552C->unk320->position.zPos.w - (D_803D552C->unk30A << 0x10)) / 40) * ticks_remaining);
         // fixme
-        D_803D552C->yPos.w = (((D_803B3EEC_7C559C[ticks_remaining] << 0x10) >> 3) + (D_803D552C->unk30C << 0x10)) + ((((D_803D552C->unk320->yPos.w + ((D_801D9ED8.animals + D_803D552C->unk30E)->unk0->unkBA << 0xF)) - (D_803D552C->unk30C << 0x10)) / 40) * ticks_remaining);
+        D_803D552C->position.yPos.w = (((D_803B3EEC_7C559C[ticks_remaining] << 0x10) >> 3) + (D_803D552C->unk30C << 0x10)) + ((((D_803D552C->unk320->position.yPos.w + ((D_801D9ED8.animals + D_803D552C->unk30E)->unk0->unkBA << 0xF)) - (D_803D552C->unk30C << 0x10)) / 40) * ticks_remaining);
 
         if (D_803F2D10.unk0 == 0) {
           D_803D552C->unk302 = (D_803D552C->unk302 + 5) & 0xFF;
@@ -118,7 +118,7 @@ void func_8035C1A0_76D850(void) {
         sp9A = 0;
         D_803F2EDD = 0;
     } else {
-        sp9A = func_802E89F0_6FA0A0(D_803D552C->xPos.w, D_803D552C->zPos.w, D_803D552C->yPos.w + (D_803D5524->unkBA << 0xF), 0x4B0, 5, 0x99, 0, 0, 1, 0);
+        sp9A = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x4B0, 5, 0x99, 0, 0, 1, 0);
     }
 
     if (sp9A == 0) {
@@ -168,7 +168,7 @@ void func_8035C1A0_76D850(void) {
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (tmp = D_803F2AA2, (tmp == 0)) || (tmp == 2) || ((tmp == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->xPos.w, D_803D5530->zPos.w, D_803D5530->yPos.w, -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8034A320_75B9D0();
@@ -206,7 +206,7 @@ void func_8035C1A0_76D850(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp9A == 0) || (sp9A == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->xPos.h, D_803D552C->zPos.h, (D_803D552C->yPos.h + ((D_803D5524->unkBA * 3) >> 1)), D_803D552C->unk302, &D_01033190, 9, 6, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 1)), D_803D552C->unk302, &D_01033190, 9, 6, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp9A == 0) {
         func_803034D0_714B80(D_803D552C, 0x138, 0, 0);
