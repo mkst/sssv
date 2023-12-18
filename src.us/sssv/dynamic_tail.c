@@ -561,11 +561,11 @@ void func_802DE950_6F0000(void) {
                 }
 
                 temp_v0_2 = D_803C0740[((temp_s2->unk20 >> 0x10) >> 6)][((temp_s2->unk24 >> 0x10) >> 6)].unk7;
-                temp_a2 = ((1 - (((temp_v0_2 >> 4) & 8) >> 2)) * (((temp_v0_2 & 0xF0) >> 4) & 7)) << 0xB;
+                temp_a2 = ((1 - (((temp_v0_2 >> 4) & 8) >> 2)) * (((temp_v0_2 & 0xF0) >> 4) & 7));
 
                 for (j = 0; j < 8; j++) {
-                    D_803A3F9C_7B564C[j].unk0 = var_a3[j].unk0 + temp_a2;
-                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + temp_a2;
+                    D_803A3F9C_7B564C[j].unk0 = var_a3[j].unk0 + (temp_a2 << 0xB);
+                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + (temp_a2 << 0xB);
                     D_803A3F9C_7B564C[j].unk8 = var_a3[j].unk8;
                 }
 
@@ -622,11 +622,11 @@ void func_802DE950_6F0000(void) {
                 }
 
                 temp_v0_2 = D_803C0740[((temp_s2->unk20 >> 0x10) >> 6)][((temp_s2->unk24 >> 0x10) >> 6)].unk7;
-                temp_a2 = ((1 - (((temp_v0_2 >> 4) & 8) >> 2)) * (((temp_v0_2 & 0xF0) >> 4) & 7)) << 0xB;
+                temp_a2 = ((1 - (((temp_v0_2 >> 4) & 8) >> 2)) * (((temp_v0_2 & 0xF0) >> 4) & 7));
 
                 for (j = 0; j < 16; j++) {
-                    D_803A3F9C_7B564C[j].unk0 = var_a3[j].unk0 + temp_a2;
-                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + temp_a2;
+                    D_803A3F9C_7B564C[j].unk0 = var_a3[j].unk0 + (temp_a2 << 0xB);
+                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + (temp_a2 << 0xB);
                     D_803A3F9C_7B564C[j].unk8 = var_a3[j].unk8;
                 }
 

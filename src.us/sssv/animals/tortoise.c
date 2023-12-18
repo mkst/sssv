@@ -40,7 +40,7 @@ extern u8  D_01036E90[];
 
 // TORTOISE_TANK
 #if 0
-// CURRENT (22494)
+// CURRENT (18794)
 void func_80352380_763A30(void) {
     s32 sp14C;
     s32 sp148;
@@ -63,15 +63,15 @@ void func_80352380_763A30(void) {
     s16 var_t2;
 
     s16 var_v0;
-    s32 temp_t0;
     u8  temp_t8;
     s32 temp_t8_4;
 
-    s32 var_a1;
+    u8  var_a1;
+    s8  var_a0;
+
     s32 var_a2;
     s32 var_v1;
 
-    s8 var_a0;
     u8 temp_v0_4;
 
     s32 xl;
@@ -83,7 +83,7 @@ void func_80352380_763A30(void) {
 
     D_803D552C->unk312 = 0;
 
-    temp_t0 = D_803D552C->unk310 & 0xFF;
+    var_a1 = D_803D552C->unk310;
     var_a0 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
@@ -96,22 +96,18 @@ void func_80352380_763A30(void) {
     case 0:
         var_v0 = -5;
         var_a2 = 0;
-        var_a1 = temp_t0;
         break;
     case 1:
         var_v0 = 2;
         var_a2 = 0;
-        var_a1 = temp_t0;
         break;
     case 2:
         var_v0 = 5;
         var_a2 = 10;
-        var_a1 = temp_t0;
         break;
     case 3:
         var_v0 = 8;
         var_a2 = 20;
-        var_a1 = temp_t0;
         if (var_a1 < 70) {
             var_a1 = 70;
         }
@@ -120,7 +116,6 @@ void func_80352380_763A30(void) {
     default:
         var_v0 = 11;
         var_a2 = 30;
-        var_a1 = temp_t0;
         if (var_a1 < 80) {
             var_a1 = 80;
         }
@@ -134,36 +129,36 @@ void func_80352380_763A30(void) {
     }
 
     if (var_a0 > 3) {
-        var_a0--;
+        var_a0 -= 1;
     }
     if (var_a0 > 6) {
-        var_a0--;
+        var_a0 -= 1;
     }
     if (var_a0 < -3) {
-        var_a0++;
+        var_a0 += 1;
     }
     if (var_a0 < -6) {
-        var_a0++;
+        var_a0 += 1;
     }
 
     if ((var_a2 + 80) < var_a1) {
-        var_a0 -= ((var_a1 - var_a2) - 80) / 5; // help but stil wrong
+        var_a0 -= ((var_a1 - (var_a2 + 80))) / 5;
     }
     if (var_a1 < 20) {
         var_a0 += (20 - var_a1) / 2;
     }
 
-    temp_t8 = (var_a1 & 0xFF) + var_a0;
-    D_803D552C->unk310 = (var_a0 << 8) | temp_t8;
+    var_a1 = var_a1 + var_a0;
+    D_803D552C->unk310 = ((var_a0 & 0xFF) << 8) | var_a1;
 
     if ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 1) || (D_803D552C->unk366 == 4)) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
                 SFX_UNKNOWN_129,
-                ((temp_t8 / 300.0) + 0.3) * 16384.0,
+                ((var_a1 / 300.0) + 0.3) * 16384.0,
                 0,
-                (temp_t8 / 200.0) + 0.3,
+                (var_a1 / 200.0) + 0.3,
                 D_803D5530->position.xPos.h,
                 D_803D5530->position.zPos.h,
                 D_803D5530->position.yPos.h);
@@ -505,29 +500,22 @@ void func_80352380_763A30(void) {
 #endif
 
 // racing tortoise
-#ifdef NON_MATCHING
 void func_80354188_765838(void) {
-
-    u8 temp_t1;
-    s8  var_v1;
-    s16 phi_a1;
     s32 phi_t0; // scaling?
     s32 phi_t3; // scaling?
-    s16 phi_t4;
-    s16 tmp;
-    s16 phi_v0;
-    s16 sp8E;
 
     struct061 sp90;
+    s16 sp8E;
     s16 sp8C;
+    s16 sp8A;
     s16 sp88;
     s16 var_v1_6; // sp86 ?
+    s16 phi_a1;
+    s8 var_v1;
+    u8 phi_t1;
+    s16 phi_v0;
 
-    s32 phi_t1;
-    s32 new_var;
-    s32 temp_t0;
-    s16 var_v0_2;
-
+    s32 pad[2];
 
     if ((D_803D5538 == 0) && (D_803D552C->unk36E != 0)) {
         if ((D_803D5540 & 1) == 0) {
@@ -549,8 +537,8 @@ void func_80354188_765838(void) {
         }
     }
 
+    phi_t1 = D_803D552C->unk310;
     var_v1 = D_803D552C->unk310 >> 8;
-    temp_t0 = phi_t0 = D_803D552C->unk310 & 0xFF;
 
     if (D_803D5538 != 0) {
         phi_v0 = D_801D9ED8.unkFFDA;
@@ -560,45 +548,38 @@ void func_80354188_765838(void) {
 
     switch (phi_v0) {
     case 0:
-        if (!sp8E) {}; // urgh
-        var_v0_2 = -5;
+        phi_v0 = -5;
         phi_a1 = 0;
-        phi_t1 = temp_t0;
         break;
     case 1:
-        var_v0_2 = 2;
+        phi_v0 = 2;
         phi_a1 = 0;
-        phi_t1 = temp_t0;
         break;
     case 2:
-        var_v0_2 = 5;
+        phi_v0 = 5;
         phi_a1 = 10;
-        phi_t1 = temp_t0;
         break;
     case 3:
-        var_v0_2 = 8;
+        phi_v0 = 8;
         phi_a1 = 20;
-        phi_t1 = temp_t0;
         if (phi_t1 < 95) {
             phi_t1 = 95;
         }
         break;
     case 4:
     default:
-        var_v0_2 = 11;
+        phi_v0 = 11;
         phi_a1 = 30;
-        phi_t1 = temp_t0;
         if (phi_t1 < 110) {
             phi_t1 = 110;
         }
         break;
     }
-    new_var = phi_t1;
 
-    if (var_v1 < var_v0_2) {
-        var_v1 = MIN(var_v1 + 5, var_v0_2);
-    } else if (var_v0_2 < var_v1) {
-        var_v1 = MAX(var_v1 - 1, var_v0_2);
+    if (var_v1 < phi_v0) {
+        var_v1 = MIN(var_v1 + 5, phi_v0);
+    } else if (phi_v0 < var_v1) {
+        var_v1 = MAX(var_v1 - 1, phi_v0);
     }
 
     if (var_v1 > 3) {
@@ -614,18 +595,18 @@ void func_80354188_765838(void) {
         var_v1 += 1;
     }
 
-    if ((phi_a1 + 110) < new_var) {
-        var_v1 -= ((new_var - phi_a1) - 110) / 5;
+    if ((phi_a1 + 110) < phi_t1) {
+        var_v1 -= ((phi_t1 - phi_a1) - 110) / 5;
     }
-    if (new_var < 20) {
-        var_v1 += (20 - new_var) / 2;
+    if (phi_t1 < 20) {
+        var_v1 += (20 - phi_t1) / 2;
     }
 
-    temp_t1 = (new_var & 0xFF) + var_v1;
-    D_803D552C->unk310 = (var_v1 << 8) | temp_t1;
+    phi_t1 = phi_t1 + var_v1;
+    D_803D552C->unk310 = ((var_v1 & 0xFF) << 8) | phi_t1;
 
     if (D_803D5538 != 0) {
-        var_v1_6 = D_803D554C << 1; // (s32) (D_803D554C << 17) >> 16;
+        var_v1_6 = D_803D554C << 1;
     } else {
         var_v1_6 = 0;
     }
@@ -634,9 +615,9 @@ void func_80354188_765838(void) {
             func_8032CD70_73E420(
                 D_803D5530,
                 100,
-                ((temp_t1 / 300.0) + 0.3) * 20480.0,
+                ((phi_t1 / 300.0) + 0.3) * 20480.0,
                 0,
-                ((temp_t1 + var_v1_6) / 200.0) + 0.3,
+                ((phi_t1 + var_v1_6) / 200.0) + 0.3,
                 D_803D5530->position.xPos.h,
                 D_803D5530->position.zPos.h,
                 D_803D5530->position.yPos.h);
@@ -714,17 +695,17 @@ void func_80354188_765838(void) {
                 D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            phi_t4 = 0;
+            sp8A = 0;
             switch (D_803D5530->state) {
             case 22:
             case 24:
                 phi_t0 = ((D_803D5540 << 3) & 0xFF) << 5;
                 phi_t3 = (((D_803D5540 << 3) + 0x80) & 0xFF) << 5;
                 if (phi_t0 == 0) {
-                    phi_t4 = -5;
+                    sp8A = -5;
                 }
                 if (phi_t3 == 0) {
-                    phi_t4 = 5;
+                    sp8A = 5;
                 }
                 phi_t0 += FTOFIX32(1.0);
                 phi_t3 += FTOFIX32(1.0);
@@ -734,10 +715,10 @@ void func_80354188_765838(void) {
                 phi_t3 = (((D_803D5540 << 4) + 0x80) & 0xFF) << 6;
 
                 if (phi_t0 == 0) {
-                    phi_t4 = -5;
+                    sp8A = -5;
                 }
                 if (phi_t3 == 0) {
-                    phi_t4 = 5;
+                    sp8A = 5;
                 }
                 phi_t0 += FTOFIX32(1.0);
                 phi_t3 += FTOFIX32(1.0);
@@ -747,13 +728,13 @@ void func_80354188_765838(void) {
                 break;
             }
 
-            if (phi_t4 != 0) {
+            if (sp8A != 0) {
                 sp8E = COS(-D_803D552C->unk302) >> 7;
                 sp8C = SIN(-D_803D552C->unk302) >> 7;
 
                 create_particle_effect(
-                    D_803D5530->position.xPos.h + (((( sp8C * 0xA9E) / 0xE8) + (sp8E * phi_t4)) >> 8),
-                    D_803D5530->position.zPos.h + ((((-sp8E * 0xA9E) / 0xE8) + (sp8C * phi_t4)) >> 8),
+                    D_803D5530->position.xPos.h + (((( sp8C * 0xA9E) / 0xE8) + (sp8E * sp8A)) >> 8),
+                    D_803D5530->position.zPos.h + ((((-sp8E * 0xA9E) / 0xE8) + (sp8C * sp8A)) >> 8),
                     D_803D5530->position.yPos.h + 0xC,
                     21,
                     0,
@@ -824,9 +805,6 @@ void func_80354188_765838(void) {
         func_80303D00_7153B0(D_803D552C, 1359, 453);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/tortoise/func_80354188_765838.s")
-#endif
 
 // TORTOISE_TANK_DEFENDING/RACING_TORTOISE_DEFENDING
 void func_80355130_7667E0(void) {

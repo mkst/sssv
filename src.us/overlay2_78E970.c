@@ -497,6 +497,7 @@ void trigger_contagious_laughter(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/trigger_contagious_laughter.s")
 #endif
 
+// only used by MOUSE2
 void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
     s16 tmp;
     s16 temp_a2;    // sp74
@@ -632,6 +633,7 @@ Animal *func_8037E9AC_79005C(void) {
     return ret;
 }
 
+// only used by scorpion
 // ESA: func_80077CD8
 Animal *func_8037ED1C_7903CC(void) {
     s32 pad[4];
