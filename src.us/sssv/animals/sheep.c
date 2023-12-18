@@ -1,18 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern struct077 D_803B4010_7C56C0[];
-extern struct077 D_803B4040_7C56F0[];
-extern struct077 D_803B4070_7C5720[];
-extern struct077 D_803B4084_7C5734[];
-extern struct077 D_803B40B4_7C5764[];
-extern struct077 D_803B40E4_7C5794[];
-extern u8  D_803B40F8_7C57A8[];
-extern u8  D_803B4108_7C57B8[];
-extern s16 D_803B4118_7C57C8[];
-extern s16 D_803B4130_7C57E0[];
-extern s16 D_803B4168_7C5818[];
-extern s16 D_803B41D8_7C5888[];
+#include "sheep.h"
 
 extern Gfx D_040029D0_CA400[];
 extern Gfx D_04002D90_CA7C0[];
@@ -23,8 +12,6 @@ extern Gfx D_040036B0_CB0E0[];
 extern Gfx D_040037A0_CB1D0[];
 extern Gfx D_040037C0_CB1F0[];
 extern Gfx D_04003DE0_CB810[];
-
-void func_8038C484_79DB34(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4);
 
 
 // load_sheep_or_ram
@@ -199,20 +186,10 @@ void func_8035FE90_771540(void) {
     }
 }
 
-extern f64 D_803BEC48_7D02F8;
-extern f64 D_803BEC50_7D0300;
-extern f32 D_803BEC58_7D0308;
-
-extern s16 D_803B41A0_7C5850[];
-extern s16 D_803B41A4_7C5854[];
-extern s16 D_803B41A8_7C5858[];
-extern s16 D_803B41B0_7C5860[];
-extern s16 D_803B41C4_7C5874[];
 
 extern Gfx D_040032E8_CAD18[];
 extern Gfx D_040039E0_CB410[];
 
-#ifdef NON_MATCHING
 // load_springy_thing_or_springy_ram
 void func_80360D94_772444(void) {
 
@@ -328,7 +305,8 @@ void func_80360D94_772444(void) {
         case ATTACK_NONE:
             break;
         case ATTACK_SHEEP_HEADBUTT:
-            func_802DCCAC_6EE35C(16);
+            // stack hack
+            func_802DCCAC_6EE35C((0, 16));
             if (((D_803D5544 - D_803D552C->unk32A) == 4) && (func_803224C4_733B74(0x2E, 0x2E, 0, 0x14, 0xC, 0, 0, 0x10))) {
                 play_sound_effect_at_location(SFX_UNKNOWN_72, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             }
@@ -502,9 +480,6 @@ void func_80360D94_772444(void) {
         func_80303D00_7153B0(D_803D552C, 890, 1009);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_80360D94_772444.s")
-#endif
 
 #if 0
 void func_803622DC_77398C(void) {

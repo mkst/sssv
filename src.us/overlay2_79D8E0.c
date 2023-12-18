@@ -24,6 +24,11 @@ void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
     }
 }
 
+// 'boing'? used by SPRINGY_THINGY/SPRINGY_RAM, FROG and POGO_KANGAROO
+// e.g.
+// func_8038C484_79DB34(2, 1, 3, -0.38f, 3000);  // SPRINGY_THINGY
+// func_8038C484_79DB34(2, 1, 3, -0.18f, 0);      // POGO_KANGAROO
+// func_8038C484_79DB34(2, 1, 3, -0.38f, -3000); // FROG
 void func_8038C484_79DB34(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4) {
     s16 phi_v1;
 

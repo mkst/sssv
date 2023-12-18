@@ -3565,7 +3565,7 @@ segments:
   - [0x6370C0, rnc, lang/lang35.dat]
   - [0x637110, rnc, lang/lang36.dat]
   # end of languages
-  - [0x637160, bin, rnc_637160] # 5000 => 115024 # 28 * 0x100C particles?
+  - [0x637160, bin, rnc_637160] # 5000 => 115024 # 28 * 0x100C custom model collision
   - type:  code
     name:  overlay1
     vram: 0x80294E50
@@ -3694,7 +3694,7 @@ segments:
     - [0x6D9330, c, overlay2_6D9330]
     - [0x6D9AF0, c, overlay2_6D9AF0]
     - [0x6DA670, c, overlay2_6DA670]
-    - [0x6DA9F0, c, sssv/objects] # sssv/objects
+    - [0x6DA9F0, c, sssv/objects]
     - [0x6DB610, c, overlay2_6DB610]
     - [0x6DCA10, c, overlay2_6DCA10]
     - [0x6EBEA0, c, sssv/collist2]
@@ -3722,7 +3722,7 @@ segments:
     - [0x716900, c, overlay2_716900]
     - [0x71C140, c, overlay2_71C140]
     - [0x724E40, c, sssv/animals/parrot]
-    - [0x725D10, c, overlay2_725D10]
+    - [0x725D10, c, overlay2_725D10] # sssv/commands
     - [0x72A930, c, overlay2_72A930]
     - [0x72AF60, c, overlay2_72AF60]
     - [0x72B800, c, overlay2_72B800]
@@ -3732,7 +3732,7 @@ segments:
     - [0x7312E0, c, overlay2_7312E0]
     - [0x732A60, c, overlay2_732A60]
     - [0x734D30, c, sssv/animals/bear]
-    - [0x739290, c, overlay2_739290]
+    - [0x739290, c, overlay2_739290] # sssv/bonus?
     - [0x73C890, c, overlay2_73C890]
     - [0x73D980, c, overlay2_73D980] # sssv/sfx ?  # EU ROM suggests extra split at 0x73E580
     - [0x73EA30, c, sssv/vector]
@@ -3840,11 +3840,11 @@ segments:
     # - [0x7C325C, bin] # end of objects
     - [0x7C35D0, .data, data/demo_input] # demo controller input]
     # could/should this all just be "animals.h" data?
-    - [0x7C4F10, data, sssv/animals/hyena]
+    - [0x7C4F10, .data, sssv/animals/hyena]
     - [0x7C5210, data, sssv/animals/chameleon]
     - [0x7C5400, data, sssv/animals/evo_microchip]
     - [0x7C5600, data, sssv/animals/rat]
-    - [0x7C56C0, data, sssv/animals/sheep]
+    - [0x7C56C0, .data, sssv/animals/sheep]
     - [0x7C58B0, data, sssv/animals/penguin]
     - [0x7C5900, data, sssv/animals/polar_bear]
     - [0x7C5BD0, data, sssv/animals/husky] # tbd

@@ -20,6 +20,7 @@ extern Gfx D_04006170_E3730[];
 extern Gfx D_04006B80_E4140[];
 
 #if 0
+// CURRENT (4692)
 void func_80374C70_786320(void) {
     struct061 sp120;
     s16 sp11E;
@@ -28,17 +29,6 @@ void func_80374C70_786320(void) {
 
     f32 temp_f0_2;
     f32 var_f16;
-    f64 temp_f0;
-
-    s16 temp_a0_2;
-    s16 temp_a0_3;
-
-    s16 xPos;
-    s16 temp_t2_2;
-    s16 zPos;
-    s16 temp_t5;
-
-    s16 temp_v0_5;
 
     s16 temp_v1_8;
     s32 var_a0;
@@ -49,17 +39,8 @@ void func_80374C70_786320(void) {
 
     s32 temp_a1_2;
 
-    s32 temp_t5_2;
-    s32 temp_t7;
-    s32 temp_t9;
-
-    s32 var_t1_3;
-    s32 var_v0_3;
-
     u8 temp_v0_7;
     u8 temp_v1_5;
-    s32 var_v0_12;
-
 
 
     if ((ABS(D_803D5530->xVelocity.h) + ABS(D_803D5530->zVelocity.h)) > 10) {
@@ -93,9 +74,9 @@ void func_80374C70_786320(void) {
                 func_8032CD70_73E420(
                   (u8*)D_803D5530 + 0x13,
                   100,
-                  ((D_803D554C / 60.0) + .7) * 20992.0,
+                  (0.7 + (D_803D554C / 60.0)) * 20992.0,
                   0,
-                  (((SIN(D_803D5540 << 5) >> 7) / 2048.0) + (0.7 + (D_803D554C / 30.0))) / 1.5,
+                  ((.7 + (D_803D554C / 30.0)) + ((SIN(D_803D5540 << 5) >> 7) / 2048.0)) / 1.5,
                   D_803D5530->position.xPos.h,
                   D_803D5530->position.zPos.h,
                   D_803D5530->position.yPos.h);
@@ -104,8 +85,7 @@ void func_80374C70_786320(void) {
     }
     if (D_803D5538 != 0) {
         if ((D_803D5530->unk162 == 5) && (D_803D5530->unk4A == 0)) {
-
-            temp_f0_2 = (f32)((MAX(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) / 2) + MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)));
+            temp_f0_2 = (f32)(MAX(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) + (MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) / 2));
             temp_f0_2 = temp_f0_2 / 1000000.0;
             func_8032CD70_73E420(
                 (u8*) D_803D5530 + 0x14,
@@ -157,7 +137,7 @@ void func_80374C70_786320(void) {
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(200);
         if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
-            func_802B9130_6CA7E0(&sp120, 0x23E, 0x132, 0x2FD, (s16) 0);
+            func_802B9130_6CA7E0(&sp120, 0x23E, 0x132, 0x2FD, 0);
             func_802C1830_6D2EE0(0x2FD, &sp120);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x396, 0x264, 6);
@@ -183,6 +163,7 @@ void func_80374C70_786320(void) {
             D_80203FE0[26].unk2 += (D_80203FE0[1].unk4 - D_80203FE0[2].unk4) >> 1;
             D_80203FE0[1].unk2 -= (D_80203FE0[1].unk4 - D_80203FE0[2].unk4) >> 1;
         }
+
         if (D_803F2ECC != 0) {
             func_802DB8DC_6ECF8C();
 
@@ -298,9 +279,9 @@ void func_80374C70_786320(void) {
             // At instruction: c.eq.d $f16, $f12
             // if (M2C_ERROR()) {
 
-            if (spFC == 0.0) {
+            if (spFC != 0.0) {
                 if ((D_803D5530->unk4A == 0) && ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 1))) {
-                    func_8032CED0_73E580(D_803D5530, SFX_UNKNOWN_31, (spFC * 14336.0f), MAX(0.1, ABS(D_803D552C->unk308 / 40.0)), (s16) 0, (s16) (s32) D_803D5538, (s16) (s32) D_803D5530->position.xPos.h, (s16) (s32) D_803D5530->position.zPos.h, (s16) (s32) D_803D5530->position.yPos.h, (s16) D_803D5530->xVelocity.w, (s16) D_803D5530->zVelocity.w, (s16) D_803D5530->yVelocity.w);
+                    func_8032CED0_73E580(D_803D5530, SFX_UNKNOWN_31, (spFC * 14336.0f), MAX(0.1, ABS(D_803D552C->unk308 / 40.0)), 0, D_803D5538, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->xVelocity.w, D_803D5530->zVelocity.w, D_803D5530->yVelocity.w);
                 }
             }
             if (spFC != 0.0) {
@@ -315,13 +296,7 @@ void func_80374C70_786320(void) {
 
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
-            xPos = D_803D5530->position.xPos.h;
-            zPos = D_803D5530->position.zPos.h;
-
-            var_v0_12 = MAX(MAX(D_803C0740[(xPos >> 6) + 0][(zPos >> 6) + 0].unk6, D_803C0740[(xPos >> 6) + 1][(zPos >> 6) + 0].unk6),
-                            MAX(D_803C0740[(xPos >> 6) + 0][(zPos >> 6) + 1].unk6, D_803C0740[(xPos >> 6) + 1][(zPos >> 6) + 1].unk6));
-
-            temp_a1_2 = ((D_803C0430.unk0[((xPos * zPos) & 7)][((D_803C0430.unk204 + (((xPos * zPos) + (xPos * xPos)) * 8)) & 0x3F)]) + (var_v0_12 * 4)) - D_803D5530->position.yPos.h;
+            temp_a1_2 = ((GET_WATER_LEVEL(D_803C0740, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) * 4) + (D_803C0430.unk0[((D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) & 7)][((D_803C0430.unk204 + (((D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) + (D_803D5530->position.xPos.h * D_803D5530->position.xPos.h)) * 8)) & 0x3F)])) - D_803D5530->position.yPos.h;
 
             if (ABS(temp_a1_2) < 0x30) {
                 add_walrus_wake(D_803D5530, 1, 0xA, 0x10, 0, -0xA, 0, 0xFF, 0xFF, 0xFF, 0, 0xB9, 0xFF, 1, 2, D_803D5530);

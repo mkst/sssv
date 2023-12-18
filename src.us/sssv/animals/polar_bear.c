@@ -397,9 +397,6 @@ block_39:
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80365F10_7775C0.s")
 #endif
 
-// POLAR_TANK
-#ifdef NON_MATCHING
-// CURRENT (175)
 void func_803677C4_778E74(void) {
     struct061 sp98;
     s16 sp96;
@@ -408,16 +405,17 @@ void func_803677C4_778E74(void) {
     s16 var_t0;
     s16 var_t1;
 
-    s32 temp_t0;
-    s32 var_a0;
-    s32 var_a2;
+    s32 pad;
+
+    u8 var_a2;
+    u8 var_a0;
     s16 var_v0;
     u16 ticks_remaining;
-    u8 var_v1_2;
+    s16 pad2;
     s8 var_v1;
     u8 temp_v0_8;
 
-    temp_t0 = D_803D552C->unk310 & 0xFF;
+    var_a0 = D_803D552C->unk310;
     var_v1 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
@@ -430,23 +428,19 @@ void func_803677C4_778E74(void) {
     case 0: // L80367848_778EF8
         var_v0 = -5;
         var_a2 = 0;
-        var_a0 = temp_t0;
         break;
     case 1: // L80367858_778F08
         var_v0 = 2;
         var_a2 = 0;
-        var_a0 = temp_t0;
         break;
     case 2: // L80367868_778F18
         var_v0 = 5;
         var_a2 = 10;
-        var_a0 = temp_t0;
         break;
     case 3: // L80367878_778F28
         var_v0 = 8;
         var_a2 = 20;
-        var_a0 = temp_t0;
-        if (temp_t0 < 70) {
+        if (var_a0 < 70) {
             var_a0 = 70;
         }
         break;
@@ -454,13 +448,11 @@ void func_803677C4_778E74(void) {
     default:
         var_v0 = 11;
         var_a2 = 30;
-        var_a0 = temp_t0;
-        if (temp_t0 < 80) {
+        if (var_a0 < 80) {
             var_a0 = 80;
         }
         break;
     }
-
 
     if (var_v1 < var_v0) {
         var_v1 = MIN(var_v1 + 5, var_v0);
@@ -471,8 +463,6 @@ void func_803677C4_778E74(void) {
     if (var_v1 > 3) {
         var_v1 -= 1;
     }
-
-    if (((!var_a0) && (!var_a0)) && (!var_a0)) {};
 
     if (var_v1 > 6) {
         var_v1 -= 1;
@@ -485,23 +475,23 @@ void func_803677C4_778E74(void) {
     }
 
     if ((var_a2 + 80) < var_a0) {
-        var_v1 -= ((var_a0 - var_a2) - 80) / 5;
+        var_v1 -= ((var_a0 - (var_a2 + 80))) / 5;
     }
     if (var_a0 < 20) {
         var_v1 += (20 - var_a0) / 2;
     }
 
-    var_v1_2 = (var_a0 & 0xFF) + var_v1;
-    D_803D552C->unk310 = (var_v1 << 8) | (var_v1_2);
+    var_a0 = var_a0 + var_v1;
+    D_803D552C->unk310 = ((var_v1 & 0xFF) << 8) | var_a0;
 
     if ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 1) || (D_803D552C->unk366 == 4)) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
                 SFX_UNKNOWN_129,
-                ((var_v1_2 / 250.0) + 0.4) * 16384.0,
+                ((var_a0 / 250.0) + 0.4) * 16384.0,
                 0,
-                (var_v1_2 / 300.0) + 0.2,
+                (var_a0 / 300.0) + 0.2,
                 D_803D5530->position.xPos.h,
                 D_803D5530->position.zPos.h,
                 D_803D5530->position.yPos.h);
@@ -575,10 +565,9 @@ void func_803677C4_778E74(void) {
         }
         func_8038064C_791CFC();
 
-        temp_t0 = D_80204278->usedModelViewMtxs;
-        if (((temp_t0 + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
 
-            func_80127640(&D_80204278->modelViewMtx[temp_t0], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  (-D_803D552C->unk302) & 0xFF, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s16) (s32) D_803F2ED2, D_803F2ED4);
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  (-D_803D552C->unk302) & 0xFF, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s16) (s32) D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x99) >> 6, (D_803F2EC0 * 0x99) >> 6, (D_803F2EC4 * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04002C30_E01F0);
@@ -686,9 +675,6 @@ void func_803677C4_778E74(void) {
         func_80303D00_7153B0(D_803D552C, 0x3BC, 0x344);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_803677C4_778E74.s")
-#endif
 
 // jump-thump animation?
 void func_80368840_779EF0(s16 arg0) {

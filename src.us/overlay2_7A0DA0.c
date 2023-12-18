@@ -548,7 +548,7 @@ void func_8038FF68_7A1618(void) {
             func_8039661C_7A7CCC(12, 4, 0);
 
             D_803F6680.unk18++;
-            // diff around here
+            // diff starts around here
             D_803F6680.unk2C = 1;
             D_803F6680.unk2A = 1;
             func_80397734_7A8DE4(10, 0);

@@ -273,7 +273,7 @@ void func_8036F7A0_780E50(void) {
 
 // POGO_KANGAROO
 #if 0
-// 39k away
+// CURRENT (35610)
 // esa: func_8009A794 ?
 void func_80370C84_782334(void) {
     s16 spE8;
@@ -310,6 +310,7 @@ void func_80370C84_782334(void) {
 
     s16 tmp1;
     s16 tmp2;
+    s16 tmp3;
 
     u8 temp_v0_15;
 
@@ -336,10 +337,11 @@ void func_80370C84_782334(void) {
             func_80320DF8_7324A8(0x1E7, 0x32C);
             func_802BB840_6CCEF0(0x196);
 
-            D_80203FE0[26].unk4 + 0x16D;
 
             temp_v0 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
+            D_80203FE0[26].unk4 = D_80203FE0[26].unk4 + 0x16D;
             temp_a0 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
+
 
             tmp1 = (((temp_v0 * D_80152350.unk384[D_803D552C->unk316]) >> 8) + ((D_80152350.unk2D0[D_803D552C->unk316] * temp_a0) >> 8));
             tmp2 = (((temp_a0 * D_80152350.unk384[D_803D552C->unk316]) >> 8) - ((D_80152350.unk2D0[D_803D552C->unk316] * temp_v0) >> 8));
@@ -349,9 +351,6 @@ void func_80370C84_782334(void) {
         }
 
         switch (D_803D552C->unk365) {                        /* irregular */
-        default:
-            D_803D552C->unk365 = ATTACK_NONE;
-            break;
         case ATTACK_KANGAROO_5:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
             if (ticks_remaining < 8) {
@@ -369,19 +368,30 @@ void func_80370C84_782334(void) {
 
                 func_8032CD70_73E420(D_803D5530, 0x1F, 0x5000, 0, (((SIN(ticks_remaining << 3) >> 7) / 400.0) + 1.0), D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 if ((D_80204278->usedModelViewMtxs + 6) < 0xFA) {
-
+                    // var_s1 = spC8;
+                    // var_s2 = spC4;
                     for (spD8 = 0; spD8 < 6; spD8++) {
-                      temp_t1 = (ticks_remaining + spD8) - 6;
-                      if ((temp_t1 >= 0) && (temp_t1 < 0x20)) {
-                          temp_t0_3 = D_803D552C->unk32C - (temp_t1 << 3);
-                          var_s1 = (((SIN(D_803D552C->unk32C) >> 7) - (SIN(temp_t0_3) >> 7)) * 0x15) >> 5;
-                          var_s2 = (((COS(D_803D552C->unk32C) >> 7) - (COS(temp_t0_3) >> 7)) * 0x15) >> 5;
-                          func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w + (var_s1 << 0x10), D_803D5530->position.zPos.w + (var_s2 << 0x10), D_803D5530->position.yPos.w + (D_803D5524->unkBA * 0xC000), ((temp_t1 * 0x10) & 0xFF), 0x4000, 0x4000, 0x4000, 0, 0);
-                          gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                          gDPSetPrimColor(D_801D9E88++, 0, 0, ((spD8 << 5) + 0x40), ((spD8 << 5) + 0x40), 0, 0xFF); // which variable is the color?
-                          gSPDisplayList(D_801D9E88++, D_04003EB0_EB460);
-                          gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
-                      }
+                        temp_t1 = (ticks_remaining + spD8) - 6;
+                        if ((temp_t1 >= 0) && (temp_t1 < 0x20)) {
+                            temp_t0_3 = D_803D552C->unk32C - (temp_t1 << 3);
+                            var_s1 = (((SIN(D_803D552C->unk32C) >> 7) - (SIN(temp_t0_3) >> 7)) * 0x15) >> 5;
+                            var_s2 = (((COS(D_803D552C->unk32C) >> 7) - (COS(temp_t0_3) >> 7)) * 0x15) >> 5;
+                            func_80127640(
+                                &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
+                                D_803D5530->position.xPos.w + (var_s1 << 0x10),
+                                D_803D5530->position.zPos.w + (var_s2 << 0x10),
+                                D_803D5530->position.yPos.w + (D_803D5524->unkBA * 0xC000),
+                                (temp_t1 << 4) & 0xFF,
+                                0x4000,
+                                0x4000,
+                                0x4000,
+                                0,
+                                0);
+                            gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+                            gDPSetPrimColor(D_801D9E88++, 0, 0, ((spD8 << 5) + 0x40), ((spD8 << 5) + 0x40), 0, 0xFF); // which variable is the color?
+                            gSPDisplayList(D_801D9E88++, D_04003EB0_EB460);
+                            gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
+                        }
                   }
 
                   spBF = 0;
@@ -447,9 +457,9 @@ void func_80370C84_782334(void) {
         case 34:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
             if (ticks_remaining < 0x10) {
-                func_8013328C(D_803D5530, 0x1F, 0x40, (((SIN(-ticks_remaining << 3) >> 7) / 400.0) + 1.0), (s16) 0x5000, (s16) 0);
+                func_8013328C(D_803D5530, 0x1F, 0x40, (((SIN(-ticks_remaining << 3) >> 7) / 400.0) + 1.0), 0x5000, 0);
                 if ((D_80204278->usedModelViewMtxs + 6) < 0xFA) {
-                    for(spD8 = 0; spD8 < 6; spD8++) {
+                    for (spD8 = 0; spD8 < 6; spD8++) {
                         temp_t3 = (ticks_remaining + spD8) - 3;
                         if ((temp_t3 >= 0) && (temp_t3 < 0x10)) {
                             temp_t8_2 = D_803D552C->unk32C;
@@ -477,7 +487,9 @@ void func_80370C84_782334(void) {
                 D_803D552C->unk35A = -0x9C4;
             }
             break;
-
+        default:
+            D_803D552C->unk365 = ATTACK_NONE;
+            break;
         }
         if (D_803F2ECC != 0) {
             func_802DB8DC_6ECF8C();

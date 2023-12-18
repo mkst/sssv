@@ -110,23 +110,23 @@ s16 D_803A6520_7B7BD0[88] = {
 
 // ESA: func_800A1754
 void func_802DBB80_6ED230(u16 arg0) {
-    u16 tmp = D_803D5544 - D_803D552C->unk334;
-    if (arg0 < tmp) {
+    u16 ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
         return;
     }
-    if (tmp == 1) {
+    if (ticks_remaining == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
             play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
-    if (((tmp << 7) / arg0) < 17) {
-        D_803F2ECC = ((tmp << 7) / arg0) * 2;
-    } else if (((tmp << 7) / arg0) < 97) {
+    if (((ticks_remaining << 7) / arg0) < 17) {
+        D_803F2ECC = ((ticks_remaining << 7) / arg0) * 2;
+    } else if (((ticks_remaining << 7) / arg0) < 97) {
         D_803F2ECC = 32;
     } else {
-        D_803F2ECC = 128 - ((tmp << 7) / arg0);
+        D_803F2ECC = 128 - ((ticks_remaining << 7) / arg0);
     }
 }
 
@@ -168,23 +168,23 @@ void func_802DBCDC_6ED38C(u16 arg0) {
 // ESA: func_800A1A20
 void func_802DBED8_6ED588(u16 arg0) {
     s32 phi_v1;
-    u16 tmp;
+    u16 ticks_remaining;
 
-    tmp = D_803D5544 - D_803D552C->unk334;
-    if (arg0 < tmp) {
+    ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
         return;
     }
-    if (tmp == 1) {
+    if (ticks_remaining == 1) {
         if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
             play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
-    if (((tmp << 7) / arg0) < 16) {
-        phi_v1 = ((tmp << 7) / arg0) << 11;
+    if (((ticks_remaining << 7) / arg0) < 16) {
+        phi_v1 = ((ticks_remaining << 7) / arg0) << 11;
     } else {
-        phi_v1 = COS((((tmp << 7) / arg0) -16) << 2) / (((tmp << 7) / arg0) >> 4);
+        phi_v1 = COS((((ticks_remaining << 7) / arg0) -16) << 2) / (((ticks_remaining << 7) / arg0) >> 4);
     }
     D_803F2EB0 = D_803F2EB0 - phi_v1;
     D_803F2EB4 = D_803F2EB4 + phi_v1;
@@ -352,44 +352,44 @@ void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
 
 // ESA: func_800A22B0
 void func_802DC968_6EE018(u16 arg0, s16 arg1) {
-    u16 tmp = D_803D5544 - D_803D552C->unk334;
-    if (arg0 < tmp) {
+    u16 ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
     } else {
-        D_803F2ED0 = ((SIN((tmp << 7) / arg0) >> 7) * arg1) >> 8;
+        D_803F2ED0 = ((SIN((ticks_remaining << 7) / arg0) >> 7) * arg1) >> 8;
     }
 }
 
 void func_802DCA28_6EE0D8(u16 arg0) {
-    u16 tmp = D_803D552C->unk32A - D_803D5544;
+    u16 ticks_remaining = D_803D552C->unk32A - D_803D5544;
     if (D_803D552C->unk32A >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
     } else {
-        D_803F2ED8 = (SIN((tmp << 7) / arg0) >> 7) >> 3;
+        D_803F2ED8 = (SIN((ticks_remaining << 7) / arg0) >> 7) >> 3;
     }
 }
 
 void func_802DCAD4_6EE184(u16 arg0) {
-    u16 temp_t9 = (D_803D5544 - D_803D552C->unk32A);
-    if (temp_t9 >= arg0) {
+    u16 ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
     } else {
-        D_803F2ED8 = 16 - ((COS((temp_t9 << 8) / arg0) >> 7) >> 4);
+        D_803F2ED8 = 16 - ((COS((ticks_remaining << 8) / arg0) >> 7) >> 4);
     }
 }
 
 void func_802DCB90_6EE240(u16 arg0) {
     s16 temp_lo;
-    u16 temp_t9;
+    u16 ticks_remaining;
 
-    temp_t9 = D_803D5544 - D_803D552C->unk32A;
-    if (temp_t9 >= arg0) {
+    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
     } else {
-        temp_lo = (temp_t9 << 7) / arg0;
+        temp_lo = (ticks_remaining << 7) / arg0;
         if (temp_lo < 32) {
             D_803F2ED8 = 16 - ((COS(temp_lo << 2) >> 7) >> 4);
         } else if (temp_lo < 96) {
@@ -403,14 +403,14 @@ void func_802DCB90_6EE240(u16 arg0) {
 // ESA: func_800A2344
 void func_802DCCAC_6EE35C(u16 arg0) {
     s16 temp_lo;
-    u16 temp_t9;
+    u16 ticks_remaining;
 
-    temp_t9 = D_803D5544 - D_803D552C->unk32A;
-    if (temp_t9 >= arg0) {
+    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
     } else {
-        temp_lo = (temp_t9 << 7) / arg0;
+        temp_lo = (ticks_remaining << 7) / arg0;
         if (temp_lo < 32) {
             D_803F2ED8 = temp_lo;
         } else {
@@ -422,12 +422,12 @@ void func_802DCCAC_6EE35C(u16 arg0) {
 // ESA: func_800A23EC
 void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
     s32 temp_t0;
-    u16 remaining_ticks;
+    u16 ticks_remaining;
     u32 phi_t1;
 
-    remaining_ticks = D_803D5544 - D_803D552C->unk334;
+    ticks_remaining = D_803D5544 - D_803D552C->unk334;
 
-    phi_t1 = (remaining_ticks << 0xA) / arg0;
+    phi_t1 = (ticks_remaining << 0xA) / arg0;
     if (phi_t1 > 512) {
         phi_t1 = 1024 - phi_t1;
     }
@@ -449,10 +449,10 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
         D_803F2EDA = 0;
         D_803F2EB0 = D_803F2EB8 = D_803F2EB4 = 0; // required for matching
     }
-    if ((arg1 != 0) && (remaining_ticks >= (arg0 >> 1))) {
+    if ((arg1 != 0) && (ticks_remaining >= (arg0 >> 1))) {
         D_803D552C->unk334++;
     }
-    if (remaining_ticks >= arg0) {
+    if (ticks_remaining >= arg0) {
         D_803D552C->unk364 = 0;
     }
 }

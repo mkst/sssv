@@ -190,8 +190,7 @@ void func_8035D734_76EDE4(void) {
 
     if (D_803D552C->unk366 == 5) {
         if (D_803D552C->unk36A == 1) {
-            temp_v0_3 = (D_803D5544 - D_803D552C->unk328) & 0xFFFF;
-            D_803F2ECC = MIN(temp_v0_3, 32);
+            D_803F2ECC = MIN((D_803D5544 - D_803D552C->unk328) & 0xFFFF, 32);
             if (D_803F2ECC >= 32) {
                 D_803D552C->unk36A = 0;
             }
