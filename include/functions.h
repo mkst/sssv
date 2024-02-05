@@ -264,7 +264,7 @@ void ski_husky_fire_missile(Animal *arg0);
 void ski_husky_turbo(s16 arg0);
 
 // sssv/animals/camel (overlay2_77EDB0)
-void camel_cannon_fire_cannon(Animal *arg0);
+void cannon_camel_fire_cannon(Animal *arg0);
 
 // sssv/animals/walrus (overlay2_786320)
 void walrus_fire_missile(Animal * arg0);

@@ -26,19 +26,19 @@ void func_8012822C(s32 time) {
 }
 
 u16 func_8012826C(void) {
-    u16 temp_a0 = D_80151434;
+    u16 temp_a0 = gSeed;
 
-    D_80151434 <<= 1;
+    gSeed <<= 1;
     if (temp_a0 & CONT_A) {
-        D_80151434 ^= 1;
+        gSeed ^= 1;
     }
     if (temp_a0 & Z_TRIG) {
-        D_80151434 ^= 1;
+        gSeed ^= 1;
     }
     if (temp_a0 & R_TRIG) {
-        D_80151434 ^= 1;
+        gSeed ^= 1;
     }
-    return D_80151434;
+    return gSeed;
 }
 
 // is this some pseudo-random number generator?

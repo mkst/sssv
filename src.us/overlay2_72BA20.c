@@ -13,7 +13,7 @@ u16  D_803A5760_7B6E10 = 0;
 // ========================================================
 
 s16  D_803E97C0;
-struct042 D_803E97C8;
+static struct042 D_803E97C8;
 
 // ========================================================
 // .text
@@ -355,8 +355,8 @@ void func_8031AE7C_72C52C(Animal *arg0) {
     if (D_803A5764_7B6E14 > 0) {
         D_803A5764_7B6E14--;
     }
-    if (arg0->unk5C & 8) {
-        arg0->unk5C = 0;
+    if (arg0->unk5C.unk0 & 8) {
+        arg0->unk5C.unk0 = 0;
         if (D_803A5764_7B6E14 <= 0) {
             D_803A5764_7B6E14 = (guRandom() & 0xF) + 0x3C;
             play_sound_effect_at_location(SFX_UNKNOWN_77, 0x6000, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 1.0f);

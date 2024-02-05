@@ -11,7 +11,7 @@
 // .bss (D_803F63D0 to D_803F63E0)
 // ========================================================
 
-u16  D_803F63D0;
+static u16  D_803F63D0; // laughter check?
 
 // ========================================================
 // .text
@@ -53,7 +53,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
 
     s16 temp_t5;
     s16 phi_a2;
-    s32 temp_t3;
+    s32 damage;
     s16 temp_v1_2;
 
     s16 phi_a3;
@@ -120,29 +120,29 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                                             animal->yVelocity.w += FTOFIX32(10.0);
                                             switch (animal->unk16C->unkE6) {
                                             case 0:
-                                                temp_t3 = (arg0 * 8) >> 3;
-                                                animal->health = MAX(animal->health - temp_t3, 0);
-                                                func_80349280_75A930(animal, temp_t3);
+                                                damage = (arg0 * 8) >> 3;
+                                                animal->health = MAX(animal->health - damage, 0);
+                                                func_80349280_75A930(animal, damage);
                                                 break;
                                             case 1:
-                                                temp_t3 = (arg0 * 6) >> 3;
-                                                animal->health = MAX(animal->health - temp_t3, 0);
-                                                func_80349280_75A930(animal, temp_t3);
+                                                damage = (arg0 * 6) >> 3;
+                                                animal->health = MAX(animal->health - damage, 0);
+                                                func_80349280_75A930(animal, damage);
                                                 break;
                                             case 2:
-                                                temp_t3 = (arg0 * 4) >> 3;
-                                                animal->health = MAX(animal->health - temp_t3, 0);
-                                                func_80349280_75A930(animal, temp_t3);
+                                                damage = (arg0 * 4) >> 3;
+                                                animal->health = MAX(animal->health - damage, 0);
+                                                func_80349280_75A930(animal, damage);
                                                 break;
                                             case 3:
-                                                temp_t3 = (arg0 * 3) >> 3;
-                                                animal->health = MAX(animal->health - temp_t3, 0);
-                                                func_80349280_75A930(animal, temp_t3);
+                                                damage = (arg0 * 3) >> 3;
+                                                animal->health = MAX(animal->health - damage, 0);
+                                                func_80349280_75A930(animal, damage);
                                                 break;
                                             case 4:
-                                                temp_t3 = (arg0 * 2) >> 3;
-                                                animal->health = MAX(animal->health - temp_t3, 0);
-                                                func_80349280_75A930(animal, temp_t3);
+                                                damage = (arg0 * 2) >> 3;
+                                                animal->health = MAX(animal->health - damage, 0);
+                                                func_80349280_75A930(animal, damage);
                                                 break;
                                             }
                                             if (D_803D5538 != 0) {
@@ -158,7 +158,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                                             animal->health = MAX(0, animal->health - 1);
                                         }
                                     }
-                                    animal->unk57 = 21;
+                                    animal->unk54.unk3 = 21;
                                 } else if ((temp_a0_2 < (arg1 * 2)) && (animal->unk4A == 0) && animal->unk4C.unk1D) {
                                     animal->yVelocity.w += FTOFIX32(6.0);
                                     animal->unk4C.unk19 = 1;
@@ -175,8 +175,8 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
 
 // velocity related?
 // ESA: func_80076D60
-void func_8037D994_78F044(s8 arg0) {
-    D_803D554B = arg0;
+void set_target_speed(s8 speed) {
+    D_803D554B = speed;
     D_803D554C = MIN(D_803D554C + 2, 20);
 }
 
@@ -216,8 +216,8 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     Animal *animal;
     struct065 *var_s6;
 
-    temp_s7 = SIN(D_803D552C->unk302) >> 9;
-    temp_fp = COS(D_803D552C->unk302) >> 9;
+    temp_s7 = SIN(D_803D552C->heading) >> 9;
+    temp_fp = COS(D_803D552C->heading) >> 9;
 
     xPos = D_803D5530->position.xPos.h;
     temp_v1 = xPos >> 10;
@@ -269,7 +269,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                 if (animal->unk16C->unk82.unk2) { // & 0x2000) {
                                     if (animal->unk16C->unk9C != EVO_TRANSFER) {
                                         if (temp_v0_4 < arg1) {
-                                            animal->unk57 = 1;
+                                            animal->unk54.unk3 = 1;
                                             animal->xVelocity.w += temp_lo * 2 * temp_s7 * arg0;
                                             animal->zVelocity.w += temp_lo * 2 * temp_fp * arg0;
                                             if (temp_lo >= 33) {
@@ -306,7 +306,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                         }
                                     }
                                 } else if ((temp_v0_4 < arg1) && (temp_lo >= 33)) {
-                                    animal->unk57 = 1;
+                                    animal->unk54.unk3 = 1;
                                     //  << 0x1A
                                     if ((animal->unk4A == 0) && (animal->unk4C.unk1A == 0)) {
                                         animal->health = MAX(0, animal->health - 1);
@@ -453,16 +453,16 @@ void trigger_contagious_laughter(void) {
                                                 (animalId != HYENA) &&
                                                 (animalId != HYENA_BIKER)) {
 
-                                                if (animal->unk358 < 100) {
-                                                    animal->unk358++;
+                                                if (animal->laughterThreshold < 100) {
+                                                    animal->laughterThreshold++;
                                                     if (temp_a2 < 256) {
-                                                        animal->unk358++;
+                                                        animal->laughterThreshold++;
                                                     }
                                                 }
 
                                                 temp_t0 = animal->unk16C;
-                                                if (animal->unk358 > 80) {
-                                                    animal->unk363 = 1;
+                                                if (animal->laughterThreshold > 80) {
+                                                    animal->isLaughing = 1;
                                                     func_8032CD70_73E420(
                                                         (u8*)animal + 0x17,
                                                         SFX_LAUGHTER,
@@ -472,6 +472,7 @@ void trigger_contagious_laughter(void) {
                                                         D_803D5530->position.xPos.h,
                                                         D_803D5530->position.zPos.h,
                                                         D_803D5530->position.yPos.h);
+
                                                     if (!(D_803D5540 & 3)) {
                                                         animal->health = MAX(animal->health - 1, 0);
                                                         func_80349280_75A930(animal, 1);
@@ -483,7 +484,7 @@ void trigger_contagious_laughter(void) {
                                     }
                                 }
                                 if (animal->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+HYENA) {
-                                    animal->unk57 = 0x16;
+                                    animal->unk54.unk3 = 0x16;
                                 }
                             }
                         }
@@ -551,7 +552,7 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
 
                         if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < arg3) {
                             if (tmp < arg3) {
-                                animal->unk57 = arg4;
+                                animal->unk54.unk3 = arg4;
                             }
                         }
                     }
@@ -591,13 +592,13 @@ Animal *func_8037E9AC_79005C(void) {
     xPos = D_803D5530->position.xPos.h;
     zPos = D_803D5530->position.zPos.h;
 
-    sp56 = SIN(D_803D552C->unk302) >> 9;
-    sp54 = COS(D_803D552C->unk302) >> 9;
+    sp56 = SIN(D_803D552C->heading) >> 9;
+    sp54 = COS(D_803D552C->heading) >> 9;
 
     for (i = 0; i < D_803D553E; i++) {
         if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER)) {
             if ((D_801D9ED8.animals[i].animal->unk366 != 6) && (D_801D9ED8.animals[i].animal->unk366 != 2) && (D_801D9ED8.animals[i].animal->unk366 != 5)) {
-                if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, D_801D9ED8.animals[i].animal->unk16C->objectType) != 7)) {
+                if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (get_ai_behaviour(D_803D5530->unk16C->objectType, D_801D9ED8.animals[i].animal->unk16C->objectType) != AI_LEADER)) {
 
                     a = D_801D9ED8.animals[i].animal;
 
@@ -666,8 +667,8 @@ Animal *func_8037ED1C_7903CC(void) {
     xPos = D_803D5530->position.xPos.h;
     zPos = D_803D5530->position.zPos.h;
 
-    temp_fp = SIN(D_803D552C->unk302) >> 9;
-    var_a3 = COS(D_803D552C->unk302) >> 9;
+    temp_fp = SIN(D_803D552C->heading) >> 9;
+    var_a3 = COS(D_803D552C->heading) >> 9;
 
     for (i = 0; i < D_803D553E; i++) {
         if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
@@ -802,7 +803,7 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
     return 0;
 }
 
-// used by rat
+// used by rat, poisonous gas cloud?
 void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
     s16 pad2;
     s16 temp_a3;
@@ -891,7 +892,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                         }
                         if (temp_v1 < arg1 * 2) {
                             if (ABS(D_803D5530->position.yPos.h - animal->position.yPos.h) < arg1) {
-                                animal->unk57 = 6;
+                                animal->unk54.unk3 = 6;
                             }
                         }
                     }
@@ -980,7 +981,7 @@ void func_8037FE24_7914D4(void) {
 
 // used by sheep
 // ESA: func_80078550
-void func_8037FEDC_79158C(void) {
+void sheep_follow_leader(void) {
     s16 i;
     s16 zPosDelta;
     s16 xPosDelta;

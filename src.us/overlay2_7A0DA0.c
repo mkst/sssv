@@ -177,15 +177,15 @@ s32 D_803B6880_7C7F30 = 0;
 // ========================================================
 
 struct027 D_803F6680;
-struct032 D_803F66B8;
-s16  D_803F6704; // TBD whether these are part of struct032
-s16  D_803F6706;
-s16  D_803F6708;
-s16  D_803F670A;
-s16  D_803F670C;
-s16  D_803F670E; // static in func_80395B58_7A7208
-s32  D_803F6710; // unused
-u16  D_803F6714;
+static struct032 D_803F66B8;
+s16  D_803F6704;
+static s16  D_803F6706;
+static s16  D_803F6708;
+static s16  D_803F670A;
+static s16  D_803F670C;
+static s16  D_803F670E; // static in func_80395B58_7A7208
+static s32  D_803F6710; // unused
+u16  D_803F6714; // effectively unused, always 0
 s16  D_803F6716; // current sfx volume
 s16  D_803F6718; // current music volume
 s16  D_803F671A; // current language
@@ -212,16 +212,16 @@ void func_8038F6F0_7A0DA0(void) {
 }
 
 void func_8038F708_7A0DB8(void) {
-    if ((D_803F6716 != D_8023F2A0.sfxVol) ||
-        (D_803F6718 != D_8023F2A0.musicVol) ||
-        (D_803F671A != D_8023F2A0.language)) {
+    if ((D_803F6716 != gEepromGlobal.sfxVol) ||
+        (D_803F6718 != gEepromGlobal.musicVol) ||
+        (D_803F671A != gEepromGlobal.language)) {
         write_eeprom(4);
-        set_music_volume(D_8023F2A0.musicVol);
+        set_music_volume(gEepromGlobal.musicVol);
     }
     D_803F6680.unk24 = 1;
     reset_screen_transition();
     trigger_screen_transition(TRANSITION_FADE_OUT_BLK);
-    D_8028645C = NO_MUSIC;
+    gCurrentMusicTrack = NO_MUSIC;
 }
 
 void trigger_pause_menu(void) {
@@ -250,11 +250,11 @@ void trigger_pause_menu(void) {
     D_803F6708 = 0;
     D_803F670A = 0x500;
     D_803F670C = 960;
-    D_803C0422 = 1;
+    gInitialisationState = 1;
     D_801D9ED4 = 6;
-    D_803F6716 = D_8023F2A0.sfxVol;
-    D_803F6718 = D_8023F2A0.musicVol;
-    D_803F671A = D_8023F2A0.language;
+    D_803F6716 = gEepromGlobal.sfxVol;
+    D_803F6718 = gEepromGlobal.musicVol;
+    D_803F671A = gEepromGlobal.language;
 }
 
 void trigger_mission_brief_screen(void) {
@@ -287,7 +287,7 @@ void func_8038F968_7A1018(void) {
     D_803F2CE4 = func_8012E78C(D_803F2CE0, 10.0f, 10.0f, 12) - 12;
     D_803F6680.unk0 = 0;
     D_803F6680.unk27 = 1;
-    set_music_volume(D_8023F2A0.musicVol);
+    set_music_volume(gEepromGlobal.musicVol);
     D_803F671C = 1;
 }
 
@@ -307,7 +307,7 @@ void trigger_level_failed(void) {
     D_803F6680.unk1A = 0;
     D_801D9ED4 = 6;
     D_803F6680.unk24 = 0;
-    D_803C0422 = 1;
+    gInitialisationState = 1;
 }
 
 void func_8038FAB4_7A1164(void) {
@@ -316,7 +316,7 @@ void func_8038FAB4_7A1164(void) {
     D_803F6680.unk24 = 0;
     D_803F6680.unk2D = 0;
     D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
-    D_803F6680.unk8 = 0xC;
+    D_803F6680.unk8 = 12;
     D_803F6680.unk6 = 2;
     D_803F6680.unk29 = 1;
     D_803F6680.unk18 = 30;
@@ -326,7 +326,7 @@ void func_8038FAB4_7A1164(void) {
     D_803F6680.unk2C = 1;
     D_803F6680.unk1A = 0;
     D_801D9ED4 = 6;
-    D_803C0422 = 1;
+    gInitialisationState = 1;
 }
 
 void func_8038FB68_7A1218(void) {
@@ -335,31 +335,31 @@ void func_8038FB68_7A1218(void) {
     D_803F6680.unk0 = 0;
     D_803F6680.unk2C = 0;
     D_803F6680.unk2A = 0;
-    D_803C0422 = 0;
+    gInitialisationState = 0;
 }
 
-void load_level(s16 arg0) {
+void load_level(s16 level) {
     D_803F671C = 0;
     D_803F6680.unk2D = 1;
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
-    D_803C0422 = 0;
-    D_803F2D30.level = arg0;
+    gInitialisationState = 0;
+    D_803F2D30.level = level;
     func_802961D4_6A7884();
-    func_8029614C_6A77FC();
+    reset_player_progress();
     trigger_screen_transition(TRANSITION_FADE_IN);
     D_80152E98 = 0;
-    D_803E1BC0 = 1;
+    gInputMode = INPUT_MODE_DEMO;
 }
 
 void load_intro(void) {
     D_803F6680.unk2D = 1;
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
-    D_803C0422 = 0;
+    gInitialisationState = 0;
     D_803F2D30.level = DMA_INTRO;
     func_802961D4_6A7884();
-    func_8029614C_6A77FC();
+    reset_player_progress();
     D_80152E98 = 0;
 }
 
@@ -367,14 +367,14 @@ void func_8038FC58_7A1308(void) {
     D_803F6680.unk2D = 1;
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
-    D_803C0422 = 0;
+    gInitialisationState = 0;
     func_802961D4_6A7884();
-    func_8029614C_6A77FC();
-    if (D_803F7DD5 != 0) {
+    reset_player_progress();
+    if (D_803F7DA8.currentLevel != 0) {
         trigger_screen_transition(TRANSITION_FADE_IN);
     }
     D_80152E98 = 0;
-    D_8028645C = NO_MUSIC;
+    gCurrentMusicTrack = NO_MUSIC;
     D_80204290 = 2;
     func_801337DC(0, 60.0f, 0, 20.0f);
     func_8013385C(60.0f, 0, 20.0f);
@@ -385,7 +385,7 @@ void load_smashing_start(void) {
     func_801337DC(0, 5.0f, 20.0f, 0);
     D_803F2D30.level = SMASHING_START;
     D_803F7DA8.currentLevel = 0;
-    D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
+    gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
     func_8038FC58_7A1308();
 }
 
@@ -393,19 +393,19 @@ void load_smashing_start(void) {
 void func_8038FD74_7A1424(void) {
     reset_cheats();
     D_803F671C = 0;
-    set_sfx_volume(D_8023F2A0.sfxVol);
-    set_music_volume(D_8023F2A0.musicVol);
-    D_803E1BC0 = 0;
+    set_sfx_volume(gEepromGlobal.sfxVol);
+    set_music_volume(gEepromGlobal.musicVol);
+    gInputMode = INPUT_MODE_USER;
     D_803C0424 = 0;
     D_803C0426 = 0;
 
     reset_credits_counters();
     // load lang33.dat
-    load_level_text_data(D_8023F2A0.language, 32, D_80231AA0, D_80231D5C);
+    load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D5C);
     generate_stars();
 
     D_803F6704 = 0;
-    D_803F7DD4 = 0;
+    D_803F7DA8.biome = 0;
     D_803F6680.unk2E = 0;
 
     load_ingame_objects();
@@ -424,11 +424,11 @@ void func_8038FD74_7A1424(void) {
     D_803F6680.unk2A = 0;
     D_803F6680.unk2B = 0;
     D_803F6680.unk2C = 0;
-    D_803F7DD6 = 0;
-    D_803C0422 = 0;
+    D_803F7DA8.bank = 0;
+    gInitialisationState = 0;
     D_803F2D30.score = 0;
     D_801D9ED4 = 6;
-    D_8028645C = MUSIC_TRACK_MAIN_THEME;
+    gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
     D_801546D8 = 1600;
     D_801546E0 = 2048;
     D_8015517C = 1.0f;
@@ -469,8 +469,8 @@ void func_8038FF68_7A1618(void) {
     gScreenHeight = 240;
     sp3C = 0;
     func_80392668_7A3D18();
-    D_803C0640 = 0xFFFFFFFFC8000000;
-    D_803C0648 = 0x0000000000112038;
+    gRenderMode1 = 0xFFFFFFFFC8000000;
+    gRenderMode2 = 0x0000000000112038;
 
     func_80391A38_7A30E8();
     if (D_803F6680.unk2A != 0) {
@@ -609,6 +609,7 @@ void func_8038FF68_7A1618(void) {
             func_8039A2DC_7AB98C();
             break;
         case 4:
+            // this is set to 1 when the user has already seen the intro cutscene
             if ((D_8023F260.unk34 & 1) == 0) {
                 load_smashing_start();
             }
@@ -633,7 +634,7 @@ void func_8038FF68_7A1618(void) {
             D_803F6680.unk1A++;
             D_803F6680.unk2C = 1;
             if (D_803F6680.unk1A >= 0xB) {
-                if ((D_803F7DD5 == 30) || (D_803F7DD5 == 31)) {
+                if ((D_803F7DA8.currentLevel == 30) || (D_803F7DA8.currentLevel == 31)) {
                     D_803F6680.unk18++;
                     func_8039661C_7A7CCC(2, 4, 1);
                 } else {
@@ -679,7 +680,7 @@ void func_8038FF68_7A1618(void) {
             break;
         case 10:
             if (D_803F6680.unk1A == 0) {
-                D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DD5, D_803F3330, D_803F34C0);
+                gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
                 D_803F6704 = 0;
                 D_803F6680.unk2C = 0;
                 D_803F6680.unk1A = 1;
@@ -806,7 +807,7 @@ void func_8038FF68_7A1618(void) {
                 D_80204290 = 2;
                 D_803F6680.unk0 = 0;
                 D_803F6680.unk27 = 1;
-                set_music_volume(D_8023F2A0.musicVol);
+                set_music_volume(gEepromGlobal.musicVol);
             }
             break;
         }
@@ -1009,8 +1010,8 @@ void func_8038FF68_7A1618(void) {
         case 31:
             if ((D_803F713C[0] == 0) || (func_80396748_7A7DF8())) {
                 func_8039264C_7A3CFC();
-                if (D_803F7DD5 == 34) {
-                    D_803F2D30.level = D_803F7DD5 + 1;
+                if (D_803F7DA8.currentLevel == 34) {
+                    D_803F2D30.level = D_803F7DA8.currentLevel + 1;
                     D_803F6680.unk18 = 40;
                     D_803F6680.unk1A = 0;
                     func_8039661C_7A7CCC(2, 16, 0);
@@ -1412,7 +1413,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
     vertical_offset = _vertical_offset + 52;
     horizontal_offset = 23;
 
-    if (D_8023F2A0.language == LANG_JAPANESE) {
+    if (gEepromGlobal.language == LANG_JAPANESE) {
         charWidth = 14.0f;
         charHeight = 15.0f;
     }
@@ -1428,7 +1429,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
 
     select_font(0, FONT_COMIC_SANS, 0, 0);
 
-    for (i = 0; i < D_803F63C0; i++) {
+    for (i = 0; i < gLoadedMessageCount; i++) {
         // load mission task text
         mission_brief_text = &D_803F34C0[D_803F3330[i]];
 
@@ -1529,14 +1530,14 @@ void load_pause_menu(s32 arg0, s16 arg1) {
 
 
     font_width = 16;
-    if ((D_8023F2A0.language == LANG_ITALIAN) ||
-        (D_8023F2A0.language == LANG_SPANISH)) {
+    if ((gEepromGlobal.language == LANG_ITALIAN) ||
+        (gEepromGlobal.language == LANG_SPANISH)) {
         font_width = 10;
     }
-    if ((D_8023F2A0.language == LANG_FRENCH) ||
-        (D_8023F2A0.language == LANG_GERMAN) ||
-        (D_8023F2A0.language == LANG_DUTCH) ||
-        (D_8023F2A0.language == LANG_PORTUGESE)) {
+    if ((gEepromGlobal.language == LANG_FRENCH) ||
+        (gEepromGlobal.language == LANG_GERMAN) ||
+        (gEepromGlobal.language == LANG_DUTCH) ||
+        (gEepromGlobal.language == LANG_PORTUGESE)) {
         font_width = 12;
     }
 
@@ -1557,9 +1558,9 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         alpha = 0xFF;
 
         // update eeprom if volume or language changed
-        if ((D_803F6680.unk22 == 1) && ((D_803F6716 != D_8023F2A0.sfxVol) || (D_803F6718 != D_8023F2A0.musicVol) || (D_803F671A != D_8023F2A0.language))) {
+        if ((D_803F6680.unk22 == 1) && ((D_803F6716 != gEepromGlobal.sfxVol) || (D_803F6718 != gEepromGlobal.musicVol) || (D_803F671A != gEepromGlobal.language))) {
             write_eeprom(4);
-            set_music_volume(D_8023F2A0.musicVol);
+            set_music_volume(gEepromGlobal.musicVol);
         }
         if (D_803F6680.unk22 < 0xFF) {
             D_803F6680.unk22++;
@@ -1595,7 +1596,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_OPTIONS), 24, 31, 24.0f, 16.0f, -1);
 
-    level = D_803F7DD5 + 1;
+    level = D_803F7DA8.currentLevel + 1;
     if (level != SECRET_LEVEL) {
         gDPPipeSync(D_801D9E7C++);
 
@@ -1608,7 +1609,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 30);
         gDPPipeSync(D_801D9E7C++);
 
-        level = D_803F7DD5 + 1;
+        level = D_803F7DA8.currentLevel + 1;
         if ((level == GIVE_A_DOG_A_BONUS) ||
             (level == WALRACE_64) ||
             (level == EVOS_ESCAPE) ||
@@ -1726,7 +1727,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         240);                        // height?
 
     if ((D_803F6680.unk22 == 0) && (D_803F6680.unk24 == 0)) {
-        if (D_803F7DD5 != 31) {
+        if (D_803F7DA8.currentLevel != 31) {
             // draw the grey box for level title
             draw_rectangle(&D_801D9E7C, 20, 204, 300, 224, 80, 80, 80, 45);
         }
@@ -1735,7 +1736,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         load_default_display_list(&D_801D9E7C);
         select_font(0, FONT_COMIC_SANS, 1, 0);
         set_menu_text_color(160, 160, 160, 0xFF);
-        if (D_803F7DD5 != 31) {
+        if (D_803F7DA8.currentLevel != 31) {
             // write level title
             display_text_centered(&D_801D9E7C, D_803F2D50.titleText, 160, 208, 16.0f, 16.0f);
         }
@@ -1752,7 +1753,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_CONTINUE), 94, vertical_offset, font_width, 16.0f);
         vertical_offset += 18;
 
-        if ((D_803F7DD5 != 30) && (D_803F7DD5 != 31)) {
+        if ((D_803F7DA8.currentLevel != 30) && (D_803F7DA8.currentLevel != 31)) {
             if (D_803F6680.unk14 == 1U) {
                 set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
             } else {
@@ -1824,7 +1825,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         // "[ <<<<<<<<<<<<<<<<<<<<" // 91 + 272 => 363 => ♫
         sprintf((char*)sp174, "[ <<<<<<<<<<<<<<<<<<<<");
         // fill out "|"
-        sp174[D_8023F2A0.musicVol + 2] = '>';
+        sp174[gEepromGlobal.musicVol + 2] = '>';
         prepare_text(sp174, spFC);
         display_text_centered(&D_801D9E7C, spFC, 94, vertical_offset, 16.0f, 16.0f);
         vertical_offset += 18;
@@ -1837,7 +1838,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         // "%c <<<<<<<<<<<<<<<<<<<<"
         sprintf((char*)sp174, "%c <<<<<<<<<<<<<<<<<<<<", 92); // 92 + 272 => 364 => 🔊
         // fill out "|"
-        sp174[D_8023F2A0.sfxVol + 2] = '>';
+        sp174[gEepromGlobal.sfxVol + 2] = '>';
         prepare_text(sp174, spFC);
         display_text_centered(&D_801D9E7C, spFC, 94, vertical_offset, 16.0f, 16.0f);
         vertical_offset += 18;
@@ -1850,7 +1851,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 set_menu_text_color(0x80, 0x80, 0x80, alpha);
             }
             // "%d"
-            sprintf((char*)sp174, "%d", D_8023F2A0.language);
+            sprintf((char*)sp174, "%d", gEepromGlobal.language);
             display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_LANGUAGE), 94, vertical_offset, font_width, 16.0f);
             vertical_offset += 18;
         }
@@ -1896,7 +1897,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 }
             }
             // no mission brief for credits/secret level?
-            if ((D_803F7DD5 == 30) || (D_803F7DD5 == 31)) {
+            if ((D_803F7DA8.currentLevel == 30) || (D_803F7DA8.currentLevel == 31)) {
                 if (D_803F6680.unk14 == PAUSE_MENU_OPTION_MISSION_BRIEF) {
                     D_803F6680.unk14--;
                 }
@@ -1919,7 +1920,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     D_803F6680.unk14++;
                 }
             }
-            if ((D_803F7DD5 == 30) || (D_803F7DD5 == 31)) {
+            if ((D_803F7DA8.currentLevel == 30) || (D_803F7DA8.currentLevel == 31)) {
                 if (D_803F6680.unk14 == PAUSE_MENU_OPTION_MISSION_BRIEF) {
                     D_803F6680.unk14++;
                 }
@@ -1946,12 +1947,12 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         if (user_selection != 0) {
             switch (D_803F6680.unk14) {
             case PAUSE_MENU_OPTION_MUSIC:
-                D_8023F2A0.musicVol += user_selection;
-                if (D_8023F2A0.musicVol < MIN_AUDIO_VOLUME) {
-                    D_8023F2A0.musicVol = MIN_AUDIO_VOLUME;
+                gEepromGlobal.musicVol += user_selection;
+                if (gEepromGlobal.musicVol < MIN_AUDIO_VOLUME) {
+                    gEepromGlobal.musicVol = MIN_AUDIO_VOLUME;
                 }
-                if (D_8023F2A0.musicVol > MAX_AUDIO_VOLUME) {
-                    D_8023F2A0.musicVol = MAX_AUDIO_VOLUME;
+                if (gEepromGlobal.musicVol > MAX_AUDIO_VOLUME) {
+                    gEepromGlobal.musicVol = MAX_AUDIO_VOLUME;
                 }
 
                 if (user_selection == -1) {
@@ -1962,12 +1963,12 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 }
                 break;
             case PAUSE_MENU_OPTION_SFX:
-                D_8023F2A0.sfxVol += user_selection;
-                if (D_8023F2A0.sfxVol < MIN_AUDIO_VOLUME) {
-                    D_8023F2A0.sfxVol = MIN_AUDIO_VOLUME;
+                gEepromGlobal.sfxVol += user_selection;
+                if (gEepromGlobal.sfxVol < MIN_AUDIO_VOLUME) {
+                    gEepromGlobal.sfxVol = MIN_AUDIO_VOLUME;
                 }
-                if (D_8023F2A0.sfxVol > MAX_AUDIO_VOLUME) {
-                    D_8023F2A0.sfxVol = MAX_AUDIO_VOLUME;
+                if (gEepromGlobal.sfxVol > MAX_AUDIO_VOLUME) {
+                    gEepromGlobal.sfxVol = MAX_AUDIO_VOLUME;
                 }
                 if (user_selection == -1) {
                     play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
@@ -1976,7 +1977,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
                 }
                 func_80395074_7A6724(0);
-                set_sfx_volume(D_8023F2A0.sfxVol);
+                set_sfx_volume(gEepromGlobal.sfxVol);
                 break;
 
             case PAUSE_MENU_OPTION_REPLAY_ZONE:
@@ -2028,41 +2029,41 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 }
                 break;
             case PAUSE_MENU_OPTION_LANGUAGE:
-                D_8023F2A0.language += user_selection;
+                gEepromGlobal.language += user_selection;
                 // wraparound
-                if (D_8023F2A0.language > LANG_MAX) {
-                    D_8023F2A0.language = LANG_MIN;
+                if (gEepromGlobal.language > LANG_MAX) {
+                    gEepromGlobal.language = LANG_MIN;
                 }
-                if (D_8023F2A0.language < LANG_MIN) {
-                    D_8023F2A0.language = LANG_MAX;
+                if (gEepromGlobal.language < LANG_MIN) {
+                    gEepromGlobal.language = LANG_MAX;
                 }
 
                 if (user_selection == 1) {
                     // Spanish -> American -> Dutch
-                    if (D_8023F2A0.language == LANG_AMERICAN) {
-                        D_8023F2A0.language = LANG_DUTCH;
+                    if (gEepromGlobal.language == LANG_AMERICAN) {
+                        gEepromGlobal.language = LANG_DUTCH;
                     }
                     // Italian -> Japanese -> Portugese
-                    if (D_8023F2A0.language == LANG_JAPANESE) {
-                        D_8023F2A0.language = LANG_PORTUGESE;
+                    if (gEepromGlobal.language == LANG_JAPANESE) {
+                        gEepromGlobal.language = LANG_PORTUGESE;
                     }
                 }
 
                 // Dutch -> American -> Spanish
-                if (D_8023F2A0.language == LANG_AMERICAN) {
-                    D_8023F2A0.language = LANG_SPANISH;
+                if (gEepromGlobal.language == LANG_AMERICAN) {
+                    gEepromGlobal.language = LANG_SPANISH;
                 }
                 // Portugese -> Japanese -> Italian
-                if (D_8023F2A0.language == LANG_JAPANESE) {
-                    D_8023F2A0.language = LANG_ITALIAN;
+                if (gEepromGlobal.language == LANG_JAPANESE) {
+                    gEepromGlobal.language = LANG_ITALIAN;
                 }
 
                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
                 func_80395074_7A6724(0);
                 // load menu text
-                load_level_text_data(D_8023F2A0.language, 32, D_80231AA0, D_80231D5C);
+                load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D5C);
                 // load level specific text
-                D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DD5, D_803F3330, D_803F34C0);
+                gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
                 load_level_title();
                 break;
             }
@@ -2126,11 +2127,11 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     D_803F6680.unk2C = 1;
                     D_803F6680.unk29 = 0;
                     D_803F2D30.score = 0;
-                    if ((D_803F6716 != D_8023F2A0.sfxVol) || (D_803F6718 != D_8023F2A0.musicVol) || (D_803F671A != D_8023F2A0.language)) {
+                    if ((D_803F6716 != gEepromGlobal.sfxVol) || (D_803F6718 != gEepromGlobal.musicVol) || (D_803F671A != gEepromGlobal.language)) {
                         write_eeprom(4);
-                        set_music_volume(D_8023F2A0.musicVol);
+                        set_music_volume(gEepromGlobal.musicVol);
                     }
-                    if ((D_803F7DD5 == 30) || (D_803F7DD5 == 31)) {
+                    if ((D_803F7DA8.currentLevel == 30) || (D_803F7DA8.currentLevel == 31)) {
                         D_803F6680.unk18 = 7;
                         D_803F6680.unk2A = 1;
                         func_8039661C_7A7CCC(2, 8, 1);
@@ -2152,9 +2153,9 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     D_803F6680.unk18 = 30;
                     D_803F6680.unk29 = 0;
                     D_803F2D30.score = 0;
-                    if ((D_803F6716 != D_8023F2A0.sfxVol) || (D_803F6718 != D_8023F2A0.musicVol) || (D_803F671A != D_8023F2A0.language)) {
+                    if ((D_803F6716 != gEepromGlobal.sfxVol) || (D_803F6718 != gEepromGlobal.musicVol) || (D_803F671A != gEepromGlobal.language)) {
                         write_eeprom(4);
-                        set_music_volume(D_8023F2A0.musicVol);
+                        set_music_volume(gEepromGlobal.musicVol);
                     }
                 } else {
                     play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
@@ -2341,7 +2342,7 @@ void func_80395E98_7A7548(Gfx **dl) {
     gDPPipeSync((*dl)++);
     gSPDisplayList((*dl)++, D_01004AF8);
 
-    gDPSetRenderMode((*dl)++, D_803C0640, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
 
     gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01030810);
     gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);

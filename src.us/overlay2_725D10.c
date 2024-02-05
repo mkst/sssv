@@ -12,20 +12,20 @@ extern s32 D_803C4DAC_7D645C[]; // is this D_803E4BA8 - 0x7F7F?
 // .bss
 // ========================================================
 
-Animal *D_803E4CA0;
-u8   D_803E4CA4;
-u8   D_803E4CA5;
-u8   D_803E4CA6;
-s32  D_803E4CA8[32];
+static Animal *D_803E4CA0;
+static u8   D_803E4CA4;
+static u8   D_803E4CA5;
+static u8   D_803E4CA6;
+static s32  D_803E4CA8[32];
 s32  D_803E4D28;
 s32  gTasksCompleted;
 s32  D_803E4D30;  // just a temp var?
-s32  D_803E4D38[2];
-struct112 D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
+static s32  D_803E4D38[2];
+CmdWrapper D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
 u16  D_803E8E54;
-u8   D_803E8E56;
+static u8   D_803E8E56;
 u8   D_803E8E57;
-u8   D_803E8E58;
+static u8   D_803E8E58;
 
 // ========================================================
 // .text
@@ -56,7 +56,7 @@ Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
         ret = arg0->unk248[arg1];
         break;
     case 8:
-        ret = arg0->unk60;
+        ret = arg0->unk5C.unk4;
         break;
     case 9:
         ret = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
@@ -179,7 +179,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     case ST_SET_YROT:
         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             arg0->yRotation = (s16) (((s32) (arg2 * 256) / 360) & 0xFF);
-            arg0->unk302 = (s16) arg0->yRotation;
+            arg0->heading = (s16) arg0->yRotation;
         } else {
             func_802C9918_6DAFC8(arg0, arg0->zRotation, (s16) ((s32) (arg2 + 1800) % 360));
         }
@@ -252,7 +252,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case 29+0x7F7F:
-        D_803F2D50.unkE0 = arg2 / 100.0f;
+        D_803F2D50.fovY = arg2 / 100.0f;
         break;
 
     case 30+0x7F7F:
@@ -261,7 +261,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
 
     case 31+0x7F7F:
         D_8023F260.unk30 = D_803E4D38[0] = arg2;
-        write_eeprom(D_803F7DD6);
+        write_eeprom(D_803F7DA8.bank);
         break;
 
     case 32+0x7F7F:
@@ -296,9 +296,9 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
 
                 func_802B2EA8_6C4558();
                 if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
-                    D_803E9824 = arg2 - OB_TYPE_ANIMAL_OFFSET;
-                    D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
-                    D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
+                    gCurrentAnimalId = arg2 - OB_TYPE_ANIMAL_OFFSET;
+                    D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
+                    D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
                     func_80327DA8_739458();
                 }
                 func_802C9BA4_6DB254(arg0);
@@ -316,7 +316,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     case 35+0x7F7F:
         D_8023F260.unk34 = D_803E4D38[1] = arg2;
          // arg2;
-        write_eeprom(D_803F7DD6);
+        write_eeprom(D_803F7DA8.bank);
         break;
 
     case 36+0x7F7F:
@@ -451,12 +451,13 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = gTasksCompleted;
             break;
         case 29+0x7F7F:
-            res = D_803F2D50.unkE0 * 100.0f;
+            res = D_803F2D50.fovY * 100.0f;
             break;
         case 30+0x7F7F:
             res = D_803E4D30;
             break;
         case 31+0x7F7F:
+            // get eeprom scores part 1
             res = D_803E4D38[0];
             break;
         case ST_GET_OBJECT_TYPE:
@@ -469,6 +470,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = D_801546D8;
             break;
         case 35+0x7F7F:
+            // get eeprom scores part 2
             res = D_803E4D38[1];
             break;
         case 36+0x7F7F:
@@ -517,7 +519,7 @@ s32 do_maths_op(s32 left, u8 op, s32 right) {
     return left;
 }
 
-void copy_command_struct(struct112 *source, struct112 *dest) {
+void copy_command_struct(CmdWrapper *source, CmdWrapper *dest) {
     dest->cmd.regular.unk0 = source->cmd.regular.unk0;
     dest->cmd.regular.unk2 = source->cmd.regular.unk2;
     dest->cmd.regular.unk4 = source->cmd.regular.unk4;
@@ -525,7 +527,7 @@ void copy_command_struct(struct112 *source, struct112 *dest) {
     dest->type = source->type;
 }
 
-void load_commands_into_object(Animal *arg0, struct112 cmds[], u8 count) {
+void load_commands_into_object(Animal *arg0, CmdWrapper cmds[], u8 count) {
     arg0->commands.unk1A8 = cmds;
     arg0->commands.unk19C.count = count;
     arg0->commands.numCommandsToCopy = 0;
@@ -750,31 +752,31 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         break;
     case 4:
         // state matches?
-        if ((arg1->dummy.unk2 & 8) && (arg0->unk5C & 8)) {
+        if ((arg1->dummy.unk2 & 8) && (arg0->unk5C.unk0 & 8)) {
             res = 1;
             break;
         }
-        if ((arg1->dummy.unk2 & 1) && (arg0->unk5C & 1)) {
+        if ((arg1->dummy.unk2 & 1) && (arg0->unk5C.unk0 & 1)) {
             res = 1;
             break;
         }
-        if ((arg1->dummy.unk2 & 2) && (arg0->unk5C & 2)) {
+        if ((arg1->dummy.unk2 & 2) && (arg0->unk5C.unk0 & 2)) {
             res = 1;
             break;
         }
-        if ((arg1->dummy.unk2 & 0x10) && (arg0->unk5C & 0x10)) {
+        if ((arg1->dummy.unk2 & 0x10) && (arg0->unk5C.unk0 & 0x10)) {
             res = 1;
             break;
         }
-        if ((arg1->dummy.unk2 & 4) && (arg0->unk5C & 4)) {
+        if ((arg1->dummy.unk2 & 4) && (arg0->unk5C.unk0 & 4)) {
             res = 1;
             break;
         }
-        if ((arg1->dummy.unk2 & 0x20) && (arg0->unk5C & 4) && (arg1->dummy.unk5 == arg0->unk5D)) {
+        if ((arg1->dummy.unk2 & 0x20) && (arg0->unk5C.unk0 & 4) && (arg1->dummy.unk5 == arg0->unk5C.unk1)) {
             res = 1;
             break;
         }
-        if ((arg1->dummy.unk2 & 0x40) && (arg0->unk5C & 1) && (arg1->dummy.unk4 == arg0->unk5D)) {
+        if ((arg1->dummy.unk2 & 0x40) && (arg0->unk5C.unk0 & 1) && (arg1->dummy.unk4 == arg0->unk5C.unk1)) {
             res = 1;
             break;
         }
@@ -905,7 +907,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         }
         break;
     case 23:
-        if (arg1->regular.unk2 == arg0->unk5F) {
+        if (arg1->regular.unk2 == arg0->unk5C.unk3) {
             res = 1;
         }
         break;
@@ -935,9 +937,11 @@ s32 func_80316408_727AB8(Animal *arg0) {
     s32 sp130;
     s32 sp12C;
 
-    s32 sp124[6]; // pad
+    s32 sp124[2]; // pad
 
     s16 sp120;
+
+    s32 sp114[3]; // pad
 
     s32 sp110;
     s32 sp10C;
@@ -1718,7 +1722,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
             D_803E4CA0 = NULL;
             D_803E4CA4 = 0;
         }
-        D_803F2CD0 = 0;
+        D_803F2CD0 = 0; // reset osd timer
         return 69;
 
     case 0x38:
@@ -1839,13 +1843,13 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x44:
-        if (temp_s0->unk19C.payload.cmd.type68.unk0 >= D_803F63C0) {
+        if (temp_s0->unk19C.payload.cmd.type68.unk0 >= gLoadedMessageCount) {
             return 69;
         }
         if ((D_803E4CA4 != 0) && (D_803E8E58 != 0)) {
             if ((arg0 == D_803E4CA0) && (func_80349874_75AF24() != 0)) {
                 D_803E4CA4 = 0;
-                D_803E4CA0 = 0;
+                D_803E4CA0 = NULL;
                 return 69;
             }
         } else if (func_80349874_75AF24() != 0) {
@@ -1873,6 +1877,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         } else if (temp_s0->unk19C.payload.cmd.regular.unk0 == 102) {
             func_80397734_7A8DE4(temp_s0->unk19C.payload.cmd.regular.unk2, 2);
         } else if (temp_s0->unk19C.payload.cmd.regular.unk0 == 300) { // 0x12C
+            // try_swap_animal() ?
             func_80328ACC_73A17C();
         } else if (temp_s0->unk19C.payload.cmd.regular.unk0 == 400) { // 0x190
             D_803F6450 = temp_s0->unk19C.payload.cmd.regular.unk2;
@@ -2036,11 +2041,12 @@ s32 func_80316408_727AB8(Animal *arg0) {
             var_t0 = -3;
             var_t1 = 5;
         } else {
-            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0;
             var_t1 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0;
-            var_t0 -= 3;
-            var_t1 -= 3;
+            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0;
+            var_t0 = var_t0 - 3;
+            var_t1 = var_t1 - 3;
         }
+
         func_80343AE0_755190(
             var_a0_2,
             temp_s0->unk19C.payload.cmd.type77.unk0,
@@ -2066,8 +2072,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
             var_t0 = -3;
             var_t1 = 5;
         } else {
-            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0;
             var_t1 = temp_s0->unk19C.payload.cmd.type77.unk7.unk0;
+            var_t0 = temp_s0->unk19C.payload.cmd.type77.unk6.unk0;
             var_t0 = var_t0 - 3;
             var_t1 = var_t1 - 3;
         }
@@ -2092,6 +2098,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x4F:
+
         if (temp_s0->unk19C.payload.cmd.type77.unk6.unk0 == 0xF) {
             var_a2 = -3;
             var_a3 = 5;

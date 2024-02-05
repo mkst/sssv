@@ -35,7 +35,7 @@ void func_803198B0_72AF60(void) {
         D_803E95B8[i] = 0;
     }
 
-    for (i = 0; D_803E93B0[i].unk2 != 245; i++) {
+    for (i = 0; D_803E93B0[i].unk2 != WAYPOINT_END; i++) {
         temp_v1 = D_803E93B0[i].unk0;
         temp_s7 = D_803E93B0[i].unk3;
         temp_s6 = D_803E93B0[i].unk1;
@@ -49,10 +49,10 @@ void func_803198B0_72AF60(void) {
     }
 }
 
-void func_80319A50_72B100(void) {
+void reset_waypoints(void) {
     bzero_sssv((u8*)D_803E8F60, 1100); // raw waypoint data
     bzero_sssv((u8*)D_803E8E60, 256);  // pointers to waypoints
-    D_803E93B0[0].unk5 = D_803E93B0[0].unk2 = 245;
+    D_803E93B0[0].unk5 = D_803E93B0[0].unk2 = WAYPOINT_END;
     D_803A5750_7B6E00 = 0;
 }
 
@@ -67,11 +67,9 @@ void func_80319AA0_72B150(u8 *arg0, u8 arg1) {
 // ESA: func_8004CB10
 void func_80319AC4_72B174(u8 *arg0, u8 arg1) {
     s8 i;
-    s32 idx; // regalloc
 
     for (i = 0; i < arg0[0]; i++) {
-        idx = i + 1;
-        if (arg1 == arg0[idx]) {
+        if (arg1 == *(arg0 + 1 + i)) {
             break;
         }
     }
@@ -79,8 +77,7 @@ void func_80319AC4_72B174(u8 *arg0, u8 arg1) {
     arg0[0]--;
 
     for (; i < arg0[0]; i++) {
-        idx = i + 2;
-        arg0[i + 1] = arg0[idx];
+        *(arg0 + 1 + i) = *(arg0 + 2 + i);
     }
 }
 
@@ -120,7 +117,7 @@ void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5
     i = 0;
     tmp = &D_803E93B0[i];
 
-    while ((tmp->unk2 != 245) && (*arg4 < 4)) {
+    while ((tmp->unk2 != WAYPOINT_END) && (*arg4 < 4)) {
         if ((arg0 >= tmp->unk0) && (tmp->unk3 >= arg0) &&
             (arg1 >= tmp->unk1) && (tmp->unk4 >= arg1)) {
             switch (tmp->unk2) {
@@ -227,7 +224,7 @@ u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8
     ret = 0;
     phi_t0 = arg0;
 
-    while (phi_t0->unk2 != 245) {
+    while (phi_t0->unk2 != WAYPOINT_END) {
         if ((arg1 >= phi_t0->unk0) && (phi_t0->unk3 >= arg1) &&
             (arg2 >= phi_t0->unk1) && (phi_t0->unk4 >= arg2)) {
             switch (phi_t0->unk2) {

@@ -110,7 +110,7 @@ s16 D_803A6520_7B7BD0[88] = {
 
 // ESA: func_800A1754
 void func_802DBB80_6ED230(u16 arg0) {
-    u16 ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    u16 ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
         return;
@@ -135,7 +135,7 @@ void func_802DBCDC_6ED38C(u16 arg0) {
     s32 phi_v1;
     u16 tmp;
 
-    tmp = D_803D5544 - D_803D552C->unk334;
+    tmp = D_803D5544 - D_803D552C->attackTimer;
     if (arg0 < tmp) {
         D_803D552C->unk364 = 0;
         return;
@@ -170,7 +170,7 @@ void func_802DBED8_6ED588(u16 arg0) {
     s32 phi_v1;
     u16 ticks_remaining;
 
-    ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
         return;
@@ -205,7 +205,7 @@ void func_802DC0D4_6ED784(u16 arg0) {
     s32 temp_t8;
     u16 ticks_remaining;
 
-    ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
         return;
@@ -259,7 +259,7 @@ void func_802DC2AC_6ED95C(u16 arg0) {
     s32 temp_t8;
     u16 ticks_remaining;
 
-    ticks_remaining = (D_803D5544 - D_803D552C->unk334);
+    ticks_remaining = (D_803D5544 - D_803D552C->attackTimer);
     if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
         return;
@@ -315,20 +315,20 @@ void func_802DC3F4_6EDAA4(u16 arg0, s16 *arg1, s16 *arg2) {
 // ESA: func_800A2074
 // used by hippo and camel (spit?)
 void func_802DC6A4_6EDD54(u16 arg0) {
-    u16 temp_t9;
+    u16 ticks_remaining;
     u16 phi_v0;
 
-    temp_t9 = (D_803D5544 - D_803D552C->unk32A);
-    if (temp_t9 >= arg0) {
+    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
     } else {
-        phi_v0 = (temp_t9 << 7) / arg0;
+        phi_v0 = (ticks_remaining << 7) / arg0;
         if (phi_v0 > 96) {
             phi_v0 = ((96 * 4) - (phi_v0 * 3));
         }
-        D_803F2EB0 = ((((D_803F2EB0 >> 8) * phi_v0) / 96) << 6) + D_803F2EB0;
-        D_803F2EB4 -= (((D_803F2EB0 >> 8) * phi_v0) / 96) << 6;
-        D_803F2EB8 = ((((D_803F2EB8 >> 8) * phi_v0) / 96) << 6) + D_803F2EB8;
+        D_803F2EB0 = D_803F2EB0 + ((((D_803F2EB0 >> 8) * phi_v0) / 96) << 6);
+        D_803F2EB4 = D_803F2EB4 - ((((D_803F2EB0 >> 8) * phi_v0) / 96) << 6);
+        D_803F2EB8 = D_803F2EB8 + ((((D_803F2EB8 >> 8) * phi_v0) / 96) << 6);
     }
 }
 
@@ -352,7 +352,7 @@ void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
 
 // ESA: func_800A22B0
 void func_802DC968_6EE018(u16 arg0, s16 arg1) {
-    u16 ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    u16 ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
     } else {
@@ -425,7 +425,7 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
     u16 ticks_remaining;
     u32 phi_t1;
 
-    ticks_remaining = D_803D5544 - D_803D552C->unk334;
+    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
 
     phi_t1 = (ticks_remaining << 0xA) / arg0;
     if (phi_t1 > 512) {
@@ -450,7 +450,7 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
         D_803F2EB0 = D_803F2EB8 = D_803F2EB4 = 0; // required for matching
     }
     if ((arg1 != 0) && (ticks_remaining >= (arg0 >> 1))) {
-        D_803D552C->unk334++;
+        D_803D552C->attackTimer++;
     }
     if (ticks_remaining >= arg0) {
         D_803D552C->unk364 = 0;
@@ -459,7 +459,7 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
 
 // ESA: func_800A2660
 void func_802DD004_6EE6B4(u16 arg0) {
-    u16 tmp = D_803D5544 - D_803D552C->unk334;
+    u16 tmp = D_803D5544 - D_803D552C->attackTimer;
     if (arg0 < tmp) {
         D_803D552C->unk364 = 0;
     }

@@ -19,10 +19,10 @@
 // .bss (from D_803F7E10 to D_803FDEC0)
 // ========================================================
 
-Trail gTrails[30];
-s16   trailsUsed;
+static Trail gTrails[30];
+static s16   trailsUsed;
 
-s32   bit_more_padding[4];
+static s32   bit_more_padding[4];
 
 // ========================================================
 // .text

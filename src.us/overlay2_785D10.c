@@ -13,19 +13,10 @@
 s16  D_803F2F00;
 struct060 D_803F2F08[64];
 
-s16  D_803F3308;
-s16  D_803F330A;
-s16  D_803F330C;
-s16  D_803F330E;
-s16  D_803F3310;
-
-u8   D_803F3312[0x18]; // padding
-
-// FIXME: I don't think these are really declared here
-s16  D_803F3330[200];
-s16  D_803F34C0[0x1780];
-s16  D_803F63C0;
-u8   D_803F63C2;
+static s16  D_803F3308;
+static s16  D_803F330A;
+static s16  D_803F330C;
+static s16  D_803F330E;
 
 // ========================================================
 // .text
@@ -38,8 +29,8 @@ void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_ret;
 
     if (((D_803D5530->unk162 & 0xF) == 1) && (D_803D5530->unk161 != 1)) {
-        temp_t2 = (D_803D552C->position.xPos.w + (arg0 * COS(D_803D552C->unk302) * 2)) + (SIN(D_803D552C->unk302) * arg1 * 2);
-        temp_t3 = (D_803D552C->position.zPos.w + (arg1 * COS(D_803D552C->unk302) * 2)) - (SIN(D_803D552C->unk302) * arg0 * 2);
+        temp_t2 = (D_803D552C->position.xPos.w + (arg0 * COS(D_803D552C->heading) * 2)) + (SIN(D_803D552C->heading) * arg1 * 2);
+        temp_t3 = (D_803D552C->position.zPos.w + (arg1 * COS(D_803D552C->heading) * 2)) - (SIN(D_803D552C->heading) * arg0 * 2);
         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160);
         D_803F2F08[D_803B4F30].unk0 = temp_t2;
         D_803F2F08[D_803B4F30].unk4 = temp_t3;

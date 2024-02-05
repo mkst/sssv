@@ -72,9 +72,13 @@ CI4_PAL_O_FILES     = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.ci4.png=.
 IMAGE_O_FILES       = $(RGBA16_RNC_O_FILES) $(I4_RNC_O_FILES) $(RGBA16_O_FILES) $(I4_O_FILES) $(CI4_O_FILES) $(CI4_PAL_O_FILES)
 
 # Generic RNC compressed files
-RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
-RNC_EXTRACTED   := $(foreach file,$(RNC_FILES),rnc/$(file))
-RNC_COMPRESSED  := $(foreach file,$(RNC_FILES),build/$(file))
+ALL_RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
+ALL_RNC_EXTRACTED   := $(foreach file,$(ALL_RNC_FILES),rnc/$(file))
+ALL_RNC_COMPRESSED  := $(foreach file,$(ALL_RNC_FILES),build/$(file))
+
+RNC_FILES       := $(shell find assets/ -name "*.rnc" 2> /dev/null)
+RNC_O_FILES     := $(foreach file,$(RNC_FILES),$(BUILD_DIR)/$(file:.rnc=.rnc.o))
+
 
 # function is not included unless explicitly undefined
 UNDEFINED_SYMS  := osViGetCurrentLine
@@ -204,9 +208,9 @@ splat: $(SPLAT)
 extract: splat check tools
 	$(PYTHON) $(SPLAT) $(BASENAME).$(VERSION).yaml
 
-decompress: $(RNC_EXTRACTED)
+decompress: $(ALL_RNC_EXTRACTED)
 
-compress: dirs $(RNC_COMPRESSED)
+compress: dirs $(ALL_RNC_COMPRESSED)
 	# DO NOT UNCOMMENT NEXT LINE UNTIL COMPRESSION IS MATCHING
 	#cp $(BUILD_DIR)/assets/rnc*.bin assets/
 
@@ -225,7 +229,7 @@ distclean: clean
 	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $<" | sha1sum --check
 	@touch $@
 
-$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
+$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES) $(RNC_O_FILES)
 	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
 
@@ -338,6 +342,12 @@ $(BUILD_DIR)/%.pal.o: $(BUILD_DIR)/%.pal
 
 # rnc compress
 %.rnc: %
+	@$(RNC64) p $< $@ /f >/dev/null
+	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
+	@mv $@.pad $@
+	@printf "[$(RED) rnc p. $(NO_COL)]  $<\n"
+
+$(BUILD_DIR)/%.collision.rnc: %.collision.rnc
 	@$(RNC64) p $< $@ /f >/dev/null
 	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
 	@mv $@.pad $@

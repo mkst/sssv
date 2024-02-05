@@ -142,7 +142,7 @@ void func_80305368_716A18(struct079 *arg0) {
     }
 
     arg0->unk0.used = arg0->unk1C.used = arg0->unk38.used = 0;
-    arg0->unk54 = arg0->unk5C = MAX_INT;
+    arg0->unk54 = arg0->distance = MAX_INT;
     arg0->unk60 = arg0->unk58 = NULL;
 
     for (j = start_1; j <= end_1; j++) {
@@ -154,7 +154,7 @@ void func_80305368_716A18(struct079 *arg0) {
 
                 if (temp_v1_4->objectType < OB_TYPE_ANIMAL_OFFSET) {
                     // it's an object
-                    if ((temp_v1_4->unk82.unk1 == 0) && (temp_v1_4->objectType != OBJECT_TELEPORTER_BASE) && (temp_v1_4->objectType != OBJECT_TELEPORTER_ACTIVE_NO_TRIGGER) && (temp_v1_4->objectType != OBJECT_TELEPORTER_ACTIVE)) {
+                    if ((temp_v1_4->unk82.unk1 == 0) && (temp_v1_4->objectType != OBJECT_TELEPORTER_BASE) && (temp_v1_4->objectType != OBJECT_ENTRANCE_TELEPORTER) && (temp_v1_4->objectType != OBJECT_EXIT_TELEPORTER)) {
                         if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2) && (animal != D_803D552C->unk2AC) && (animal != D_803D552C->unk320)) {
                             dist = ABS(animal->position.xPos.h - x_pos) + ABS(animal->position.zPos.h - z_pos);
                             dist = dist - D_803D5524->unkBE;
@@ -179,7 +179,7 @@ void func_80305368_716A18(struct079 *arg0) {
                         if ((func_80362B00_7741B0(animal) != 0) || ((can_swim(D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
                             ai_behavior = 0;
                         } else {
-                            ai_behavior = func_802EA3E0_6FBA90(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
+                            ai_behavior = get_ai_behaviour(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
                         }
 
                         dist = ABS(animal->position.xPos.h - x_pos) + ABS(animal->position.zPos.h - z_pos);
@@ -221,8 +221,8 @@ void func_80305368_716A18(struct079 *arg0) {
                             break;
                         case AI_LEAD_HERD: // 5
                             if (D_803D552C->unk272 & 8) {
-                                if (dist < arg0->unk5C) {
-                                    arg0->unk5C = dist;
+                                if (dist < arg0->distance) {
+                                    arg0->distance = dist;
                                     arg0->unk60 = animal;
                                     arg0->unk64 = 0; // isFollowing?
                                 }
@@ -231,8 +231,8 @@ void func_80305368_716A18(struct079 *arg0) {
                             }
                             break;
                         case AI_FOLLOWER: // 6
-                            if (dist < arg0->unk5C) {
-                                arg0->unk5C = dist;
+                            if (dist < arg0->distance) {
+                                arg0->distance = dist;
                                 arg0->unk60 = animal;
                                 arg0->unk64 = 1; // isFollowing?
                             }
@@ -716,30 +716,30 @@ void func_803071BC_71886C(void) {
         }
     }
 
-    if ((D_803D552C->unk2A0 != 3) && ((D_803D552C->unk2A0 != 5) || (D_803D552C->unk2A1 != -1)) && ((new_var->unk5C < 0x280) && (D_803D552C->unk272 & 8))) {
+    if ((D_803D552C->unk2A0 != 3) && ((D_803D552C->unk2A0 != 5) || (D_803D552C->unk2A1 != -1)) && ((new_var->distance < 0x280) && (D_803D552C->unk272 & 8))) {
         if (new_var->unk60 != D_803D552C->unk2CC) {
             spBC.unk0 = new_var->unk60->position.xPos.h - xPos;
             spBC.unk4 = new_var->unk60->position.zPos.h - zPos;
 
-            if (new_var->unk5C < 12) {
+            if (new_var->distance < 12) {
                 func_80304EC4_716574(&spBC, &spB4);
 
                 var_t2 -= ((spB4.unk0 * 192) >> 8);
                 var_t1 -= ((spB4.unk4 * 192) >> 8);
 
-                var_a0 = (((12 - new_var->unk5C) * 16) / 12); // aka * 1.3333333333333333
+                var_a0 = (((12 - new_var->distance) * 16) / 12); // aka * 1.3333333333333333
 
                 if (var_s5 < var_a0) {
                     var_s5 = var_a0;
                 }
-            } else if ((D_803D552C->unk274 == 0) && (new_var->unk5C > 76)) {
+            } else if ((D_803D552C->unk274 == 0) && (new_var->distance > 76)) {
                 s32 tmp;
                 func_80304EC4_716574(&spBC, &spB4);
 
                 var_t2 += ((spB4.unk0 * 160) >> 8);
                 var_t1 += ((spB4.unk4 * 160) >> 8);
 
-                tmp = (new_var->unk5C - 76);
+                tmp = (new_var->distance - 76);
                 var_a0 = ((tmp * 6) / 141) + 14;
                 if (var_a0 > 20) {
                     var_a0 = 20;
@@ -1437,7 +1437,7 @@ s32 func_803099BC_71B06C(void) {
 // ESA: func_8007C164
 s32 func_80309ACC_71B17C(void) {
     if (D_803E4BE0.unk64 != 0) {
-        if ((D_803E4BE0.unk60 != NULL) && ((D_803D552C->unk272 & 8) != 0) && (D_803E4BE0.unk5C < 0x280)) {
+        if ((D_803E4BE0.unk60 != NULL) && ((D_803D552C->unk272 & 8) != 0) && (D_803E4BE0.distance < 0x280)) {
             return func_80309798_71AE48(D_803E4BE0.unk60);
         }
     }
@@ -1496,7 +1496,7 @@ void func_80309C8C_71B33C(void) {
     case 0:
         break;
     case 1:
-        if ((D_803D552C->unk28A != 0) || (D_803E4BE0.unk5C < 640)) {
+        if ((D_803D552C->unk28A != 0) || (D_803E4BE0.distance < 640)) {
             D_803D552C->unk287 = 0;
             func_80363CC8_775378(D_803D5530);
             break;
@@ -1505,7 +1505,7 @@ void func_80309C8C_71B33C(void) {
         if (D_803D552C->unk288 <= 0) {
             // do "sheep follow leader" every 4 iterations
             if ((D_803A5580_7B6C30++ & 3) == 0) {
-                func_8037FEDC_79158C();
+                sheep_follow_leader();
             }
             D_803D552C->unk287 = 2;
             D_803D552C->unk288 = 0;
@@ -1704,7 +1704,7 @@ void func_80309F38_71B5E8(void) {
             break;
         }
         if ((D_803D552C->unk280->unk2B4.unk4 != 0) && (D_803D552C->unk284 < 480)) {
-            func_80309E4C_71B4FC(D_803D552C->unk280->unk2CC); // , &D_803E4BE0
+            func_80309E4C_71B4FC(D_803D552C->unk280->unk2CC);
             D_803D552C->unk270 = 4;
         }
         func_803633C4_774A74(D_803D5530);
@@ -1751,7 +1751,7 @@ void func_80309F38_71B5E8(void) {
         D_803D552C->unk280->unk2B4.unk8++;
 
         if ((D_803D552C->unk280->targetDistance > 320) ||
-            (D_803E4BE0.unk5C > 490) ||
+            (D_803E4BE0.distance > 490) ||
             (func_80362B00_7741B0(D_803D552C->unk2CC))) {
             D_803D552C->unk270 = 3;
             D_803D552C->unk272 = D_803D552C->unk2C8;
@@ -1825,9 +1825,8 @@ s32 func_8030AA08_71C0B8(Animal *arg0, Animal *arg1) {
     }
     if ((arg1->unk272 & 1) || (arg1->unk272 & 4)) {
         // get behaviour
-        s16 tmp = func_802EA3E0_6FBA90(arg1->unk16C->objectType, arg0->unk16C->objectType);
-        // attack or flee
-        if ((tmp == 2) || (tmp == 1))
+        s16 ai_behavior = get_ai_behaviour(arg1->unk16C->objectType, arg0->unk16C->objectType);
+        if ((ai_behavior == AI_ATTACK) || (ai_behavior == AI_FLEE))
             return 0;
     }
     return 1;

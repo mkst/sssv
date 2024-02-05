@@ -72,7 +72,7 @@ void load_data_section(u8 segment) {
 
 // file split
 
-void func_80380490_791B40(Gfx **arg0, DisplayList *arg1) {
+void switch_to_current_segment(Gfx **arg0, DisplayList *arg1) {
     switch (D_803F2D50.segment) {
     case SEGMENT_CITY:
         gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E5C));

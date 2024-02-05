@@ -95,7 +95,7 @@ void func_80362CC4_774374(Animal *arg0) {
     case 1:
         if (arg0->unk2A0 == 0) {
             if (arg0->unk294.type1.unk2.unk0 > 0) {
-                length = (arg0->unk294.type1.unk1 >= arg0->unk29C->length);
+                length = (arg0->unk294.type1.unk1 >= arg0->waypointData->length);
             } else {
                 length = (arg0->unk294.type1.unk1 < 0);
             }
@@ -107,14 +107,14 @@ void func_80362CC4_774374(Animal *arg0) {
                 } else if (arg0->unk294.type1.unk2.unk0 > 0) {
                     arg0->unk294.type1.unk1 = 0;
                 } else {
-                    arg0->unk294.type1.unk1 = arg0->unk29C->length - 1;
+                    arg0->unk294.type1.unk1 = arg0->waypointData->length - 1;
                 }
             } else {
                 func_80363C48_7752F8(
                     arg0,
-                    (arg0->unk29C->waypoint[arg0->unk294.type1.unk1].x << 6) + 32,
-                    (arg0->unk29C->waypoint[arg0->unk294.type1.unk1].z << 6) + 32,
-                    (arg0->unk29C->waypoint[arg0->unk294.type1.unk1].y << 6) + 32,
+                    (arg0->waypointData->waypoint[arg0->unk294.type1.unk1].x << 6) + 32,
+                    (arg0->waypointData->waypoint[arg0->unk294.type1.unk1].z << 6) + 32,
+                    (arg0->waypointData->waypoint[arg0->unk294.type1.unk1].y << 6) + 32,
                     arg0->unk294.type1.unk4,
                     arg0->unk294.type1.unk3
                     );
@@ -344,7 +344,7 @@ void func_803633C4_774A74(Animal *arg0) {
             if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
                 arg0->unk27C = ((arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget);
             }
-            if (((arg0->unk5C & 5) != 0) && (arg0->unk60 == arg0->unk2AC)) {
+            if (((arg0->unk5C.unk0 & (0x4|0x1)) != 0) && (arg0->unk5C.unk4 == arg0->unk2AC)) {
                 func_80363CC8_775378(arg0);
             }
         }
@@ -431,7 +431,7 @@ void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     arg0->unk294.type1.unk4 = arg2;
     arg0->unk294.type1.unk2.unk4 = arg4;
     arg0->unk294.type1.unk3 = arg5;
-    arg0->unk29C = wp_data;
+    arg0->waypointData = wp_data;
 
     func_80363C48_7752F8(
         arg0,
@@ -457,7 +457,7 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     arg0->unk294.type1.unk4 = arg2;
     arg0->unk294.type1.unk2.unk4 = arg4;
     arg0->unk294.type1.unk3 = arg5;
-    arg0->unk29C = wp_data;
+    arg0->waypointData = wp_data;
 
     func_80363C48_7752F8(
         arg0,
@@ -730,7 +730,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             animal_jump();
             break;
         case CANNON_CAMEL:
-            func_8036F740_780DF0(D_803D5530->yRotation);
+            cannon_camel_dash(D_803D5530->yRotation);
             break;
         case POGO_KANGAROO:
             animal_jump();
@@ -760,7 +760,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             func_8035A5A4_76BC54(arg1);
             break;
         case CHAMELEON:
-            func_8035C10C_76D7BC();
+            chameleon_attack_2();
             break;
         case COOL_COD:
             break;
@@ -830,7 +830,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             rat_bite();
             break;
         case SHEEP:
-            func_8037FEDC_79158C();
+            sheep_follow_leader();
             break;
         case RAM:
             ram_headbutt();
@@ -857,10 +857,10 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             walrus_fire_missile(arg3);
             break;
         case CAMEL:
-            func_8036F50C_780BBC(arg3);
+            camel_fire_water_cannon(arg3);
             break;
         case CANNON_CAMEL:
-            camel_cannon_fire_cannon(arg3);
+            cannon_camel_fire_cannon(arg3);
             break;
         case POGO_KANGAROO:
             func_80372698_783D48();

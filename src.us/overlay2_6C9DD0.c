@@ -167,7 +167,7 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
 
     sp5E = arg0 / 32;
     sp5C = arg1 / 32;
-    func_802B901C_6CA6CC(D_803D552C->unk302, &sp5E, &sp5C);
+    func_802B901C_6CA6CC(D_803D552C->heading, &sp5E, &sp5C);
 
     sp5E += (u16)D_803D5530->position.xPos.h;
     sp5C += (u16)D_803D5530->position.zPos.h;

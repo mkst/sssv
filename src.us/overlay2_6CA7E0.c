@@ -5,7 +5,7 @@
 // definitions
 // ========================================================
 
-// incorrect, it's a void, but this silences the "implicit declaratio" warning and still OKs:
+// incorrect, it's a void, but this silences the "implicit declaration" warning and still OKs:
 s32  func_802C7A7C_6D912C(struct061 *arg0, s16 arg1);
 
 
@@ -377,7 +377,7 @@ void func_802BA614_6CBCC4(s16 *arg0, s16 arg1) {
     }
 
     if (D_803D552C->unk364 == 7) {
-        u8 x = D_803D5544 - D_803D552C->unk334;
+        u8 x = D_803D5544 - D_803D552C->attackTimer;
         D_80203FE0[2].unk4 += (arg1 * (SIN((u8)(x << 4) >> 1) >> 7)) >> 8;
     }
     D_80203FE0[1].unk4 = (D_80203FE0[2].unk4 + (arg1 * 2));
@@ -506,10 +506,10 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
 
     phi_s0 = 0;
 
-    tmp = D_803D552C->unk320->position.xPos.h + (SIN(D_803D552C->unk302) >> 10);
+    tmp = D_803D552C->unk320->position.xPos.h + (SIN(D_803D552C->heading) >> 10);
     if (func_8033C9CC_74E07C(
         tmp,
-        D_803D552C->unk320->position.zPos.h + (COS(D_803D552C->unk302) >> 10),
+        D_803D552C->unk320->position.zPos.h + (COS(D_803D552C->heading) >> 10),
         D_803D552C->unk320->position.yPos.h,
         0x7F,
         temp_s5,
@@ -524,10 +524,10 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
             *arg1 += 1;
 
             func_80321D74_733424(*arg0, *arg1);
-            tmp = D_803D552C->unk320->position.xPos.h + (SIN(D_803D552C->unk302) >> 10);
+            tmp = D_803D552C->unk320->position.xPos.h + (SIN(D_803D552C->heading) >> 10);
             if (func_8033C9CC_74E07C(
                 tmp,
-                D_803D552C->unk320->position.zPos.h + (COS(D_803D552C->unk302) >> 10),
+                D_803D552C->unk320->position.zPos.h + (COS(D_803D552C->heading) >> 10),
                 D_803D552C->unk320->position.yPos.h,
                 0x7F,
                 temp_s5,
@@ -551,10 +551,10 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
             *arg1 += -1;
 
             func_80321D74_733424(*arg0, *arg1);
-            tmp = D_803D552C->unk320->position.xPos.h + (SIN(D_803D552C->unk302) >> 10);
+            tmp = D_803D552C->unk320->position.xPos.h + (SIN(D_803D552C->heading) >> 10);
             if (func_8033C9CC_74E07C(
                 tmp,
-                D_803D552C->unk320->position.zPos.h + (COS(D_803D552C->unk302) >> 10),
+                D_803D552C->unk320->position.zPos.h + (COS(D_803D552C->heading) >> 10),
                 D_803D552C->unk320->position.yPos.h,
                 0x7F,
                 temp_s5,
@@ -688,9 +688,11 @@ void func_802BB70C_6CCDBC(s16 arg0, u16 arg1) {
     D_80203FE0[25].unk0 = -tmp;
     D_80203FE0[25].unk2 = 0;
     D_80203FE0[25].unk4 = 0;
+
     if (D_803F2D10.unk0 == 0) {
-        func_802DB9E8_6ED098(&D_803D552C->unk30C, (s16)(D_803D552C->unk306 * 15), 4);
+        func_802DB9E8_6ED098(&D_803D552C->unk30C, D_803D552C->unk306 * 15, 4);
     }
+
     func_802C7A7C_6D912C(&D_80203FE0[22], D_803D552C->unk30C);
     func_802C7A7C_6D912C(&D_80203FE0[23], D_803D552C->unk30C);
     func_802C7A7C_6D912C(&D_80203FE0[24], D_803D552C->unk30C);

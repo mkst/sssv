@@ -137,8 +137,8 @@ void func_802A4278_6B5928(u16 arg0, u16 arg1, s16 arg2) {
     xVel = D_803D5530->xVelocity.w;
     zVel = D_803D5530->zVelocity.w;
 
-    temp_t7_2 = SIN(D_803D552C->unk302) >> 5;
-    temp_t6_2 = COS(D_803D552C->unk302) >> 5;
+    temp_t7_2 = SIN(D_803D552C->heading) >> 5;
+    temp_t6_2 = COS(D_803D552C->heading) >> 5;
     temp_t7_3 = (((xVel >> 0xA) * temp_t7_2) + ((zVel >> 0xA) * temp_t6_2)) >> 0xA;
 
     temp_t7_2 = (temp_t7_2 * temp_t7_3);

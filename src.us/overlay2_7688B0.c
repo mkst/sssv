@@ -3,26 +3,22 @@
 
 
 // ========================================================
-// .bss (D_803F2D20 to D_803F2D50)
+// .bss (D_803F2D20 to D_803F2D30)
 // ========================================================
-u16  D_803F2D20;
-s8   D_803F2D22;
-s8   D_803F2D23;
-s16  D_803F2D24;
-s32  D_803F2D28;
-s32  D_803F2D2C;
 
-// bss split?
-struct001 D_803F2D30;
+static u16  D_803F2D20;        // effectively unused
+static s8   D_803F2D22;        // effectively unused
+static s8   targetMusicTrack;
+s16  D_803F2D24;        // set in func_8029F7D4_6B0E84 but effectively unused
 
 // ========================================================
 // .text
 // ========================================================
 
 void func_80357200_7688B0(void) {
-    if (D_8028645C <= 100) {
-        if ((D_8028645C != MUSIC_TRACK_LEVEL_FAILED) && (D_8028645C != MUSIC_TRACK_LEVEL_PASSED) && (D_8028645C != MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
-            D_8028645C = D_803F2D23;
+    if (gCurrentMusicTrack <= 100) {
+        if ((gCurrentMusicTrack != MUSIC_TRACK_LEVEL_FAILED) && (gCurrentMusicTrack != MUSIC_TRACK_LEVEL_PASSED) && (gCurrentMusicTrack != MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
+            gCurrentMusicTrack = targetMusicTrack;
         } else {
             Animal *a;
             D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex];
@@ -41,13 +37,13 @@ void func_80357200_7688B0(void) {
 }
 
 void set_music_track(s8 arg0) {
-    D_803F2D23 = arg0;
+    targetMusicTrack = arg0;
 }
 
 s32 func_803572C0_768970(void) {
     D_803F2D20 = 0;
     D_803F2D22 = 1;
-    D_803F2D23 = MUSIC_TRACK_1;
-    D_8028645C = MUSIC_TRACK_1;
+    targetMusicTrack = MUSIC_TRACK_1;
+    gCurrentMusicTrack = MUSIC_TRACK_1;
     return 1;
 }

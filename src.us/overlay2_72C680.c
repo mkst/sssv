@@ -250,10 +250,12 @@ u8 *D_803A5BF8_7B72A8[72] = {
 
     levels_BIG_CELEBRATION_PARADE_ROM_START, levels_BIG_CELEBRATION_PARADE_ROM_END,
 
-    levels_rnc_60E920_ROM_START, levels_rnc_60E920_ROM_END,
-    levels_rnc_60FFD0_ROM_START, levels_rnc_60FFD0_ROM_END,
-    levels_rnc_6104A0_ROM_START, levels_rnc_6104A0_ROM_END,
-    levels_rnc_6109D0_ROM_START, levels_rnc_6109D0_ROM_END,
+    levels_SECRET_LEVEL_ROM_START, levels_SECRET_LEVEL_ROM_END,
+
+    levels_EMPTY_LEVEL_1_ROM_START, levels_EMPTY_LEVEL_1_ROM_END,
+    levels_EMPTY_LEVEL_2_ROM_START, levels_EMPTY_LEVEL_2_ROM_END,
+
+    levels_CREDITS_ROM_START, levels_CREDITS_ROM_END,
 
     levels_INTRO_ROM_START, levels_INTRO_ROM_END
 };
@@ -296,8 +298,6 @@ s32 copy_or_extract(u8 *src, u8 *dst, s32 unused) {
 
 
 #ifdef NON_MATCHING
-
-// load_level_texture_data()
 // CURRENT (30)
 void load_level_texture_data(u8 arg0, u8 arg1) {
     u8 **temp_v0;
@@ -327,17 +327,17 @@ void load_level_texture_data(u8 arg0, u8 arg1) {
     arg1 -= 1; // level index?
 
     // load rgba16 mipmapped textures
-    temp_v0 = &D_803A5770_7B6E20[(u16)(var_v0 + var_v0)];
+    temp_v0 = &D_803A5770_7B6E20[(var_v0 + var_v0) & 0xFFFF];
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800BA760);
 
     // load ia16 textures
-    temp_v0 = &D_803A57A0_7B6E50[(u16)(var_v0 + var_v0)];
+    temp_v0 = &D_803A57A0_7B6E50[(var_v0 + var_v0) & 0xFFFF];
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800CFE60);
 
     // load biome textures (?)
-    temp_v0 = &D_803A5928_7B6FD8[(u16)(var_t0 + var_t0)];
+    temp_v0 = &D_803A5928_7B6FD8[(var_t0 + var_t0) & 0xFFFF];
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800D7C20);
 
@@ -348,17 +348,17 @@ void load_level_texture_data(u8 arg0, u8 arg1) {
     // load level objects
     sp30 = D_803A5BE8_7B7298[arg0];
 
-    temp_v0 = &sp38[(u16)(arg1 + arg1)];
+    temp_v0 = &sp38[(arg1 + arg1) & 0xFFFF];
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800C7DC0);
 
-    temp_v0 = &sp34[(u16)(arg1 + arg1)];
+    temp_v0 = &sp34[(arg1 + arg1) & 0xFFFF];
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800D5420);
 
     D_801D9E78 = D_800B0B20;
 
-    temp_v0 = &sp30[(u16)(arg1 + arg1)];
+    temp_v0 = &sp30[(arg1 + arg1) & 0xFFFF];
     dma_read(temp_v0[0], D_801D9E78, temp_v0[1] - temp_v0[0]);
 }
 #else
@@ -366,7 +366,7 @@ void load_level_texture_data(u8 arg0, u8 arg1) {
 #endif
 
 void load_level_data(u8 level) {
-    u8 **tmp;
+    u8 **rom_addr;
     s32 len;
 
     func_8031C374_72DA24();
@@ -374,17 +374,16 @@ void load_level_data(u8 level) {
     // 0-indexed so subtract 1
     level = level - 1;
 
-    tmp = &D_803A5BF8_7B72A8[level+level];
-    len = tmp[1] - tmp[0];
+    rom_addr = &D_803A5BF8_7B72A8[level+level];
+    len = rom_addr[1] - rom_addr[0];
 
-    dma_read(tmp[0], &D_80100000, len);
+    dma_read(rom_addr[0], &D_80100000, len);
     load_level_data_sections();
     func_8031C48C_72DB3C();
 }
 
 #ifdef NON_MATCHING
 void load_level_data_sections(void) {
-
     struct071 *obj;
     struct071 *child;
     struct071 *parent;
@@ -395,40 +394,39 @@ void load_level_data_sections(void) {
     struct097 *cha;
     struct090 *cob;
     struct091 *can;
-
     u8 *buf;
-    u8 *base;
 
+    s16 i;
+    u8  done; // sp85
+    s16 j;
+
+    u16 count;
+    s16 length;
+    s16 new_var;
+    u16 sp7A;
+    s16 *payload;
+
+    s32 length_s32;
+    s32 payloadType;
+
+    u16 pafBytesUsed;
     u8 *paf;
     u8 *paf2;
 
-    Animal *temp_s1;
-
-    u16 pafBytesUsed;
-    s16 j;
-
-    s32 temp_v0;
-    s16 i;
-
-    u8  done; // sp85
-    s32 length2;
-    s16 length;
-    u16 count;
-    u16 sp7A;
-    s16 *payload;
+    u8 *base;
 
     base = &D_80100000;
 
     copy_or_extract(base, gFramebuffer, 0x25800);
     buf = gFramebuffer;
 
-    sp7A = D_803D553E;
+    sp7A = D_803D553E; // animals in level
     done = 0;
 
     do {
-        temp_v0 = *buf++; // payloadType
+        payloadType = *buf++;
 
-        switch (temp_v0) {
+        switch (payloadType) {
         case 0: /* .cob */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
@@ -464,10 +462,10 @@ void load_level_data_sections(void) {
                     cob->angle,
                     cob->scale);
 
-                if (cob->id == OBJECT_TELEPORTER_ACTIVE_NO_TRIGGER) {
-                    D_803F2E0C = obj;
-                } else if (cob->id == OBJECT_TELEPORTER_ACTIVE) {
-                    D_803F2E10 = obj;
+                if (cob->id == OBJECT_ENTRANCE_TELEPORTER) {
+                    D_803F2D50.entranceTeleporter = obj;
+                } else if (cob->id == OBJECT_EXIT_TELEPORTER) {
+                    D_803F2D50.exitTeleporter = obj;
                 }
 
                 obj->unk3E = cob->unkC;
@@ -501,15 +499,15 @@ void load_level_data_sections(void) {
                     can->id,
                     0);
 
-                temp_s1 = D_801D9ED8.animals[D_803D553E - 1].animal;
+                obj = D_801D9ED8.animals[D_803D553E - 1].animal;
                 if (can->unkC != 0) {
                     load_commands_into_object(
-                        temp_s1,
+                        obj,
                         &D_803E4D40[can->unkC] - 1,
                         0U);
                 }
 
-                temp_s1->unk246 = can->unkE;
+                obj->unk246 = can->unkE;
                 can++;
             }
             break;
@@ -536,7 +534,7 @@ void load_level_data_sections(void) {
                 joi++;
             }
             break;
-        case 3:  /* end of data sentinel */
+        case 3:  /* "end of data" sentinel */
             done = 1;
             break;
         case 4:  /* .cmd */
@@ -544,12 +542,12 @@ void load_level_data_sections(void) {
             buf += get_compressed_size(buf);
 
             count = ((DataSectionUnsigned*)base)->count;
-            length2 = sizeof(struct112);
+            length_s32 = sizeof(CmdWrapper);
 
             func_80314788_725E38(); // zero out D_803E4D40 amongst other things
             memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)D_803E4D40, count);
 
-            D_803E8E54 = count / (u32)length2; // gNumCommands
+            D_803E8E54 = count / (u32)length_s32; // gNumCommands
             for (j = 0; j < D_803E8E54; j++) {
                 if (D_803E4D40[(u32)j].type == 24) {
                     rmonPrintf(
@@ -579,10 +577,8 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            paf = ((DataSectionSigned*)base)->payload;
-            paf2 = ((DataSectionSigned*)base)->payload;
-
-            count = *((s16*)base + 0); // number of entries
+            count = ((DataSectionUnsigned*)base)->count;
+            paf2 = paf = ((DataSectionSigned*)base)->payload;
 
             pafBytesUsed = 0;
             for (i = 0; i < count; i++) {
@@ -596,11 +592,13 @@ void load_level_data_sections(void) {
                 paf = paf2 + pafBytesUsed;
             }
 
-            if (!base) {};
-
             rmonPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
-            // no boundary check here!
+
+            // NOTE: no boundary check that pafBytesUsed < sizeof(D_803E8F60)!
             memcpy_sssv(paf2, (u8*)D_803E8F60, pafBytesUsed);
+
+            if (1) { } // improves score by 30, but is likely unhelpful overall
+
             D_803A5750_7B6E00 = i;
             break;
 
@@ -608,8 +606,8 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            cha = (struct097*) ((DataSectionSigned*)base)->payload;
             length = ((DataSectionUnsigned*)base)->count;
+            cha = (struct097*) ((DataSectionSigned*)base)->payload;
 
             while (length-- > 0) {
                 object1 = NULL;
@@ -846,54 +844,57 @@ void load_level_data_sections(void) {
         case 11: /* .mat */
             func_80304170_715820();
 
-            length2 = get_uncompressed_size(buf);
+            length_s32 = get_uncompressed_size(buf);
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            memcpy_sssv(base, (u8*)&D_803E1D30, length2);
+            memcpy_sssv(base, (u8*)&D_803E1D30, length_s32);
             break;
         case 12: /* .dat */
             func_80304194_715844();
 
-            length2 = get_uncompressed_size(buf);
+            length_s32 = get_uncompressed_size(buf);
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            memcpy_sssv(base, (u8*)&D_803F2D50, length2);
-            D_803F2D50.unkE0 = D_803F2D50.unk40;
+            memcpy_sssv(base, (u8*)&D_803F2D50, length_s32);
+            D_803F2D50.fovY = D_803F2D50.unk40;
             load_level_texture_data(D_803F2D50.segment, D_803F2D50.unk52);
             break;
         case 13: /* .cam */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
+            length_s32 = ((DataSectionSigned*)base)->count;
             payload = ((DataSectionSigned*)base)->payload;
-            length2 = ((DataSectionSigned*)base)->count;
 
             bzero_sssv((u8*)&D_803A6D14_7B83C4, sizeof(D_803A6D14_7B83C4));
             bzero_sssv((u8*)&D_803A7114_7B87C4, sizeof(D_803A7114_7B87C4));
 
-            memcpy_sssv(payload,                                        (u8*)&D_803A6D14_7B83C4, length2 * sizeof(struct105));
-            memcpy_sssv(payload + ((length2 * sizeof(struct105)) >> 1), (u8*)&D_803A7114_7B87C4, length2 * sizeof(struct074));
+            memcpy_sssv(payload, (u8*)&D_803A6D14_7B83C4, length_s32 * sizeof(struct105));
+            payload += ((length_s32 * sizeof(struct105)) >> 1);
+            memcpy_sssv(payload, (u8*)&D_803A7114_7B87C4, length_s32 * sizeof(struct074));
 
             func_8034401C_7556CC();
             break;
         case 14: /* tbd */
-            length2 = get_uncompressed_size(buf);
+            length_s32 = get_uncompressed_size(buf);
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
-            memcpy_sssv(base, (u8*)&D_803E2930,  length2);
+            memcpy_sssv(base, (u8*)&D_803E2930,  length_s32);
             break;
         case 15: /* tbd */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
+            new_var = ((DataSectionSigned*)base)->count;
             payload = ((DataSectionSigned*)base)->payload;
-            length2 = ((DataSectionSigned*)base)->count;
+            length = new_var;
 
-            memcpy_sssv(payload, (u8*)D_803B1D20_7C33D0, length2 * 8U);
+            memcpy_sssv(payload, (u8*)D_803B1D20_7C33D0, length * sizeof(u64));
             break;
         default:
+            // unknown type
             done = 1;
             break;
         }
@@ -923,7 +924,7 @@ void func_8031C374_72DA24() {
     D_803E1B10.unk2 = 100;
     D_803E1B10.unk6 = 8;
     D_803E1B10.transitionId = 5; // square-folding transition
-    D_803F2D50.unkBC = NULL;
+    D_803F2D50.entranceTeleporter = NULL; // clear entrance teleporter pointer?
 }
 
 // ESA: func_8005BE44 (tbd)
@@ -948,8 +949,8 @@ void func_8031C48C_72DB3C(void) {
     u16 id;
     s16 id2;
 
-    if (D_803F2D50.unkBC != NULL) {
-        func_8029B9B8_6AD068(D_801D9ED8.animals[gCurrentAnimalIndex].animal, D_803F2D50.unkBC);
+    if (D_803F2D50.entranceTeleporter != NULL) {
+        func_8029B9B8_6AD068(D_801D9ED8.animals[gCurrentAnimalIndex].animal, D_803F2D50.entranceTeleporter);
     }
 
     load_data_section(D_803F2D50.segment);
@@ -985,7 +986,7 @@ void func_8031C48C_72DB3C(void) {
     D_803F28C2 = 0;
 
     osWritebackDCacheAll();
-    dma_read(rnc_637160_ROM_START, D_80100000, rnc_637160_ROM_END - rnc_637160_ROM_START);
+    dma_read(model_collision_rnc_ROM_START, D_80100000, model_collision_rnc_ROM_END - model_collision_rnc_ROM_START);
     UnpackRNC(D_80100000, gFramebuffer);
 
     offset = 1;
@@ -1004,27 +1005,27 @@ void func_8031C48C_72DB3C(void) {
 
     // commands
     for (i = 0; i < D_803E8E54; i++) {
+        int new_var;
+        CmdWrapper *cmdWrapper = &D_803E4D40[i];
 
-        s32 at = 17;
+        // this is what M2C reckons, but its still wrong ( as is ((x==16)||(x==17)) )
+        if (cmdWrapper->type == 16) {
+            goto custom;
+        }
 
-        struct112 *cmd;
-
-        cmd = &D_803E4D40[i];
-
-        if ((cmd->type != 16) && (cmd->type != 17)) {
-
-        } else {
+        if (cmdWrapper->type == 17) {
+custom:
             // object has custom collision
-            id2 = D_803E4D40[i].cmd.type16.id;
+            id2 = cmdWrapper->cmd.type16.id;
+
             id = D_803A8528_7B9BD8[id2].collisionIndex;
             if ((id != 0) && (D_803A8528_7B9BD8[id2].collision == NULL)) {
                 s32 idx = (((s16) id - offset));
                 func_8031C3C0_72DA70(((Collision*)gFramebuffer) + idx, id);
             }
-
-            if (0) {};
-
-        }
+            // ???
+            continue; // seems to be required?
+        };
     }
 
     func_8031C32C_72D9DC();

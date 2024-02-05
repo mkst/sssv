@@ -38,7 +38,7 @@ extern u8 D_010025A0[];
 extern Gfx D_01003548[];
 
 // GORILLA
-void func_803791E0_78A890(void) {
+void update_gorilla(void) {
     u8 temp_v0_18;
     s16 spFA; // pad
     s16 i;    // spF8
@@ -124,7 +124,7 @@ void func_803791E0_78A890(void) {
                             0);
                     }
                 }
-            } else if (D_803D5530->unk54 & 1) {
+            } else if (D_803D5530->unk54.unk0 & 1) {
                 D_803D552C->unk369 = 0;
             }
         } else if ((D_803D552C->unk369 == 1) && (D_803D552C->yVelocity.h < -2)) {
@@ -191,8 +191,8 @@ void func_803791E0_78A890(void) {
                                     0x3C00,
                                     0,
                                     D_803D5530->position.xPos.h,
-                                    D_803D5530->position.zPos.h, //M2C_ERROR(Unable to find stack arg 0x10 in block),
-                                    D_803D5530->position.yPos.h, //M2C_ERROR(Unable to find stack arg 0x14 in block),
+                                    D_803D5530->position.zPos.h,
+                                    D_803D5530->position.yPos.h,
                                     (func_8012826C() / 655360.0) + 0.5);
                             }
                         }
@@ -217,11 +217,11 @@ void func_803791E0_78A890(void) {
             D_803D552C->unk32A = D_803D5544;
         }
 
-        switch (D_803D552C->unk365) {                       /* switch 1; irregular */
-        default:                                    /* switch 1 */
+        switch (D_803D552C->unk365) {
+        default:
             D_803D552C->unk365 = ATTACK_NONE;
             break;
-        case ATTACK_GRAB:                                    /* switch 1 */
+        case ATTACK_GRAB:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
             D_803F2ECE = 7;
             D_803F2ECC = ticks_remaining << 2;
@@ -229,7 +229,7 @@ void func_803791E0_78A890(void) {
                 if (D_803D5538 != 0) {
                     D_803D552C->unk320 = func_803215DC_732C8C(0x32, 0x32);
                 } else {
-                    D_803D552C->unk320 = func_803218D8_732F88(D_803D552C->unk330); // tbd var_s0->unk0);
+                    D_803D552C->unk320 = func_803218D8_732F88(D_803D552C->unk330);
                 }
 
                 if (D_803D552C->unk320 == NULL) {
@@ -243,7 +243,7 @@ void func_803791E0_78A890(void) {
                 }
             }
             break;
-        case ATTACK_HOLD:                                    /* switch 1 */
+        case ATTACK_HOLD:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
             D_803F2ECE = 7;
             D_803F2ECC = 0x20 - (ticks_remaining << 1);
@@ -251,7 +251,7 @@ void func_803791E0_78A890(void) {
                 D_803D552C->unk365 = ATTACK_NONE;
             }
             break;
-        case ATTACK_BEAR_2:                                    /* switch 1 */
+        case ATTACK_BEAR_2:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
             if (ticks_remaining == 0x16) {
                 play_sound_effect_at_location(0x3D, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -289,7 +289,7 @@ void func_803791E0_78A890(void) {
                 D_803D552C->unk365 = ATTACK_NONE;
             }
             break;
-        case ATTACK_BEAR_3:                                    /* switch 1 */
+        case ATTACK_BEAR_3:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
             if (ticks_remaining == 4) {
                 if (func_8033C9CC_74E07C(
@@ -342,7 +342,7 @@ void func_803791E0_78A890(void) {
             func_802BAE24_6CC4D4(&spC6, &spC4, 0x1E);
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803B5330_7C69E0, D_803B5344_7C69F4, D_803B5358_7C6A08, D_803B5378_7C6A28);
@@ -358,7 +358,7 @@ void func_803791E0_78A890(void) {
                 D_803F2ECC = 0x20;
                 func_802DB670_6ECD20(D_803B5330_7C69E0, D_803B5344_7C69F4, D_803B5358_7C6A08, D_803B5450_7C6B00);
                 D_803F2ECC = spD6;
-                func_802DB8DC_6ECF8C();
+                backup_joint_positions();
                 func_802DB670_6ECD20(D_803B5330_7C69E0, D_803B5344_7C69F4, D_803B5358_7C6A08, D_803B5408_7C6AB8);
                 break;
             case 5:
@@ -369,7 +369,7 @@ void func_803791E0_78A890(void) {
                 D_803F2ECC = 0x20;
                 func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B54B4_7C6B64);
                 D_803F2ECC = spD6;
-                func_802DB8DC_6ECF8C();
+                backup_joint_positions();
                 func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B54CC_7C6B7C);
                 break;
             case 7:
@@ -380,7 +380,7 @@ void func_803791E0_78A890(void) {
                 D_803F2ECC = 0x20;
                 func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, spA4);
                 D_803F2ECC = spD6;
-                func_802DB8DC_6ECF8C();
+                backup_joint_positions();
                 func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B552C_7C6BDC);
                 break;
             case 9:
@@ -388,7 +388,7 @@ void func_803791E0_78A890(void) {
                 D_803F2ECC = 0x20;
                 func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, spA4);
                 D_803F2ECC = spD6;
-                func_802DB8DC_6ECF8C();
+                backup_joint_positions();
                 func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B5544_7C6BF4);
                 break;
             case 10:
@@ -411,7 +411,7 @@ void func_803791E0_78A890(void) {
         }
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_18 = D_803F2AA2, (temp_v0_18 == 0)) || (temp_v0_18 == 2) || ((temp_v0_18 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_18 = D_803F2AA2, (temp_v0_18 == 0)) || (temp_v0_18 == 2) || ((temp_v0_18 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             if (D_803D5530->state == 0xDD) {
                 func_802E497C_6F602C(D_803D552C->unk308, &spD0, &spCC, &spC8);
                 guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], (D_803D5530->position.xPos.w / 65536.0), (D_803D5530->position.zPos.w / 65536.0), (D_803D5530->position.yPos.w / 65536.0));
@@ -429,7 +429,7 @@ void func_803791E0_78A890(void) {
             } else {
                 var_v0_7 = 0;
             }
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) ((var_v0_7 - D_803D552C->unk302) & 0xFF), D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) ((var_v0_7 - D_803D552C->heading) & 0xFF), D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             if (D_803D5530->state != 0xDD) {
                 gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             } else {
@@ -511,7 +511,7 @@ void func_803791E0_78A890(void) {
         func_80321B70_733220(spC2, spC6, spC4);
     }
     if ((spEA == 0) || (spEA == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->unk302, D_01033190, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spEA == 0) {
         func_80303820_714ED0(D_803D552C, 1, 2, 0x467, 1);
@@ -556,7 +556,7 @@ void func_8037B660_78CD10(void) {
              func_802A623C_6B78EC(sp2E, sp2D);
         }
     } else if (D_803D5530->state == 0xDD) {
-        if ((D_801D9ED8.unkFFB8 == 0) && (D_801D9ED8.unkFFB2 != 0)) {
+        if ((D_801D9ED8.prevAButton == 0) && (D_801D9ED8.curAButton != 0)) {
             func_802A628C_6B793C();
         }
     }
@@ -569,11 +569,11 @@ void func_8037B70C_78CDBC(void) {
     }
 }
 
-void func_8037B754_78CE04(Animal *arg0, Animal *arg1) {
-    if (arg0->unk365 != ATTACK_GRAB) {
-        arg0->unk330 = arg1;
-        arg0->unk32A = D_803D5544;
-        arg0->unk365 = ATTACK_GRAB;
+void func_8037B754_78CE04(Animal *animal, Animal *object) {
+    if (animal->unk365 != ATTACK_GRAB) {
+        animal->unk330 = object;
+        animal->unk32A = D_803D5544;
+        animal->unk365 = ATTACK_GRAB;
     }
 }
 

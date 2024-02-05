@@ -30,6 +30,7 @@ void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 
     tmp3 = (D_80152350.unk2D0[arg3] * tmp1) / 256;
     tmp1 = (D_80152350.unk384[arg3] * tmp1) / 256;
 
+    // diff = prev joint location?
     sp40 = D_802040F0[arg1].unk0 - D_802040F0[arg0].unk0;
     sp3E = D_802040F0[arg1].unk2 - D_802040F0[arg0].unk2;
     sp3C = D_802040F0[arg1].unk4 - D_802040F0[arg0].unk4;
@@ -130,7 +131,7 @@ void func_802DB7C4_6ECE74(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3) {
     }
 }
 
-void func_802DB8DC_6ECF8C(void) {
+void backup_joint_positions(void) {
     u16 i;
 
     if (D_803F2ECC < 31) {

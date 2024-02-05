@@ -49,8 +49,8 @@ void func_80382CF0_7943A0(void) {
             }
         } else if ((D_803D552C->unk369 == 1) && (D_801E9E8E != 0) && (D_803D5530->yVelocity.h < 5)) {
             D_803D552C->unk369 = 2;
-            D_803D5530->xVelocity.w += SIN(D_803D552C->unk302) * 19;
-            D_803D5530->zVelocity.w += COS(D_803D552C->unk302) * 19;
+            D_803D5530->xVelocity.w += SIN(D_803D552C->heading) * 19;
+            D_803D5530->zVelocity.w += COS(D_803D552C->heading) * 19;
             temp_f2 = sqrtf((D_803D5530->xVelocity.w / 65536.0) * (D_803D5530->xVelocity.w / 65536.0) + (D_803D5530->zVelocity.w / 65536.0) * (D_803D5530->zVelocity.w / 65536.0));
             if (temp_f2 > 20.0) {
                 D_803D5530->xVelocity.w = (D_803D5530->xVelocity.w * 20.0) / temp_f2;
@@ -99,7 +99,7 @@ void func_80382CF0_7943A0(void) {
             }
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
                 case 1:
                     func_802DB670_6ECD20(D_803B58A0_7C6F50, D_803B58A4_7C6F54, D_803B58A8_7C6F58, D_803B58B0_7C6F60);
@@ -113,13 +113,13 @@ void func_80382CF0_7943A0(void) {
         if ((((D_80204278->usedModelViewMtxs + 30) < 250)) &&
             (D_803F2EDA != 0) &&
             (((D_803D5538 != 0)) || (D_803F2AA2 == 0) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 >= 0xB))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
                 D_803D5530->position.xPos.w,
                 D_803D5530->position.zPos.w,
                 D_803D5530->position.yPos.w,
-                -D_803D552C->unk302,
+                -D_803D552C->heading,
                 D_803F2EB0 / 4,
                 D_803F2EB4 / 4,
                 D_803F2EB8 / 4,
@@ -154,7 +154,7 @@ void func_80382CF0_7943A0(void) {
             D_803D552C->position.xPos.h,
             D_803D552C->position.zPos.h,
             (D_803D552C->position.yPos.h + D_803D5524->unkBA),
-            D_803D552C->unk302,
+            D_803D552C->heading,
             D_01033190,
             21,
             9,

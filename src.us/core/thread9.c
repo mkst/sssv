@@ -322,8 +322,7 @@ void func_801375E8(s16 cont) {
     }
 }
 
-// initialise rumble pack
-void func_80137840(void) {
+void init_rumble_pak(void) {
     if (D_80291090.hasRumblePak[0] != 0) {
         if (osMotorInit(&D_8028D0A8, D_80291110, 0) == 0) {
             D_80291090.hasRumblePak[0] = 1;

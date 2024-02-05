@@ -13,9 +13,9 @@ void func_802C9F60_6DB610(Animal *arg0) {
 
     if (arg0->unk4A == 0) {
         if ((arg0->state == 0x1E) || (arg0->state == 0x1F)) {
-            arg0->unk6C = 0;
-            arg0->unk70 = 0;
-            arg0->unk68 = 0;
+            arg0->unk6C = NULL;
+            arg0->unk70 = NULL;
+            arg0->unk68 = NULL;
             return;
         }
 
@@ -208,22 +208,22 @@ void func_802C9F60_6DB610(Animal *arg0) {
         if (arg0->position.xPos.h < 64) {
             arg0->position.xPos.h = 64;
             arg0->xVelocity.w = 0;
-            arg0->unk54 |= 0xA;
+            arg0->unk54.unk0 |= (0x8|0x2);
         }
         if (arg0->position.zPos.h < 64) {
             arg0->position.zPos.h = 64;
             arg0->zVelocity.w = 0;
-            arg0->unk54 |= 0xA;
+            arg0->unk54.unk0 |= (0x8|0x2);
         }
         if (arg0->position.xPos.h > 0x11BF) {
             arg0->position.xPos.h = 0x11BF; // 4543
             arg0->xVelocity.w = 0;
-            arg0->unk54 |= 0xA;
+            arg0->unk54.unk0 |= (0x8|0x2);
         }
         if (arg0->position.zPos.h > 0x1FBF) {
             arg0->position.zPos.h = 0x1FBF; // 8127
             arg0->zVelocity.w = 0;
-            arg0->unk54 |= 0xA;
+            arg0->unk54.unk0 |= (0x8|0x2);
         }
         if ((sp34 != arg0->position.xPos.w) || (sp30 != arg0->position.zPos.w) || (sp2C != arg0->position.yPos.w)) {
             arg0->unk4C.unk18 = 1;
@@ -254,7 +254,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
             if (1) {};
         }
 
-        if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == 0) && (arg0->unk70 == 0) && (arg0->commands.unk1A8 == 0)) {
+        if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == NULL) && (arg0->unk70 == 0) && (arg0->commands.unk1A8 == 0)) {
             if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->unk154 == 0)) {
                 arg0->unk4C.unk19  = 0;
             }

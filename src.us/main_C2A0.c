@@ -11,7 +11,7 @@ void func_80130BA0(void) {
 }
 
 // junk out eeprom?
-void func_80130BC4(void) {
+void junk_eeprom(void) {
     s16 i;
     u16 c;
     u8 *e;
@@ -25,7 +25,7 @@ void func_80130BC4(void) {
     }
 }
 
-void func_80130C04(void) {
+void clear_player_eeprom_state(void) {
     // zero out Eeprom?
     memset_bytes((u8*)&D_8023F260, 0, 64);
 }

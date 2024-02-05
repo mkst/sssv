@@ -400,7 +400,7 @@ void func_8038D920_79EFD0(u8 arg0) {
 }
 
 void func_8038DA70_79F120(void) {
-    func_80380490_791B40(&D_801D9E7C, D_80204278);
+    switch_to_current_segment(&D_801D9E7C, D_80204278);
     func_802999E0_6AB090(D_80204278);
     func_80299AA8_6AB158(D_80204278, &D_801D9E7C);
 
@@ -655,7 +655,7 @@ void func_8038E9F8_7A00A8(void) {
     s16 sp66;
 
     load_segments(&D_801D9E7C, D_80204278);
-    func_80380490_791B40(&D_801D9E7C, D_80204278);
+    switch_to_current_segment(&D_801D9E7C, D_80204278);
 
     gSPViewport(D_801D9E7C++, &D_80152EA8);
     func_80129430(&D_801D9E7C);
@@ -764,7 +764,7 @@ void func_8038E9F8_7A00A8(void) {
                 D_803F2C6C = D_803F2C6D = 0;
                 D_803B6318_7C79C8 = 0;
                 D_803F6460 = 100;
-                D_803D6110 = 18;
+                gControllerDebounce = 18;
                 draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 0xFF);
                 if (D_803F2AA2 == 4) {
                     D_803F2AA2 = 2;
@@ -852,7 +852,7 @@ void func_8038F5F8_7A0CA8(Animal *arg0) {
     if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO) &&
         (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
         if (D_803F6460 == 0) {
-            D_803D6110 = 100;
+            gControllerDebounce = 100;
             D_803F2AA2 = 1;
             D_803F6464 = arg0;
             D_803F6468 = 0;
@@ -863,7 +863,8 @@ void func_8038F5F8_7A0CA8(Animal *arg0) {
     }
 }
 
-void func_8038F694_7A0D44(void) {
+// NOTE: there is a bug if paused is pressed during transition to NAC
+void trigger_new_animal_cutscene(void) {
     D_803F2AA2 = 0;
     D_803F2AA3 = 25;
     func_801337DC(0, 135.0f, 20.0f, 0);

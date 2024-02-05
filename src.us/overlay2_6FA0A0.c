@@ -3,7 +3,7 @@
 
 
 // is animal off screen?
-s32 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
+s32 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
         if (func_8029A334_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
             return 0;
@@ -11,25 +11,27 @@ s32 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 ar
             return 4;
         }
     }
-    if (D_803F28DC & 3) {
-        if (D_803F28DC & 1) {
-            if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28DC & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+    if (D_803F28D0[6] & 3) {
+        if (D_803F28D0[6] & 1) {
+            if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28D0[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
                 return 0;
             } else {
-                return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+                return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
             }
         }
-        if ((func_802E9B90_6FB240(((D_803F28DC & 0xFFC) << 0x12) -xPos, zPos, yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+        if ((func_802E9B90_6FB240(((D_803F28D0[6] & 0xFFC) << 0x12) -xPos, zPos, yPos, arg3, arg8) == 0) && (arg9 == 0)) {
             return 0;
         } else {
-            return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+            return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
         }
     } else {
-        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
     }
 }
 
-s32 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
+
+// only used by dynamic objects / tails
+s32 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
         if (func_8029A334_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
             return 0;
@@ -37,13 +39,13 @@ s32 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 arg4, s16 ar
             return 4;
         }
     }
-    if (D_803F28DC & 1) {
-        if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28DC & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+    if (D_803F28D0[6] & 1) {
+        if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28D0[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
             return 0;
         }
-        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
     } else {
-        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
     }
 }
 
@@ -52,7 +54,7 @@ extern Gfx D_01003A28[];
 extern Gfx D_01003A40_3D310[];
 extern u8  D_01003BD0[];
 // 14878
-s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9) {
+s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9) {
     f32 sp144;
     f32 sp140;
     f32 sp12C;
@@ -91,11 +93,11 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s16 re
         return 4;
     }
 
-    spE0 = (arg0 >> 0x10) - (s16) D_803F2C44;
-    spD8 = (arg1 >> 0x10) - (s16) D_803F2C48;
-    spD0 = (arg2 >> 0x10) - (s16) D_803F2C4C;
+    spE0 = (arg0 >> 0x10) - (s16) D_803F2C44; // x distance to camera
+    spD8 = (arg1 >> 0x10) - (s16) D_803F2C48; // z distance to camera
+    spD0 = (arg2 >> 0x10) - (s16) D_803F2C4C; // y distance to camera
 
-    temp_v1 = (((SQ(spD0) + SQ(spD8) + SQ(spE0)) >> arg8) * D_803F2E30) / 75.0f;
+    temp_v1 = (((SQ(spD0) + SQ(spD8) + SQ(spE0)) >> arg8) * D_803F2D50.fovY) / 75.0f;
 
     if (temp_v1 > 0x4C9000) {
         return 4;
@@ -129,7 +131,7 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s16 re
         sp12C = ((D_80204278->unk38A10[3][0] * sp144) / temp_f16) + (gScreenWidth  * 2);
         sp128 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f16) + (gScreenHeight * 2);
 
-        sp2C = (((s32) ((arg3 * 33) / D_803F2D50.unkE0) << 7) / -temp_f16) / 8.0;
+        sp2C = (((s32) ((arg3 * 33) / D_803F2D50.fovY) << 7) / -temp_f16) / 8.0;
 
         yl = sp128 - sp2C;
         if ((gScreenHeight * 4) < yl) {
@@ -154,9 +156,9 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s16 re
                         return 0;
                     }
 
-                    if (arg4 != 0x64) {
+                    if (fovImageIdx != 100) {
 
-                        gDPSetTextureImage(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &D_01003BD0[(arg4 << 7)]);
+                        gDPSetTextureImage(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &D_01003BD0[(fovImageIdx << 7)]);
                         gDPSetTile(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                         gDPLoadSync(D_801D9EB8++);
                         gDPLoadBlock(D_801D9EB8++, G_TX_LOADTILE, 0, 0, 63, 2048);
@@ -278,7 +280,7 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     sp58 = (arg0 >> 0x10) - (s16) D_803F2C44;
     sp48 = (arg2 >> 0x10) - (s16) D_803F2C4C;
 
-    temp_v1 = (((SQ(sp48) + SQ(sp58) + SQ(sp50)) >> arg4) * D_803F2E30) / 75.0f;
+    temp_v1 = (((SQ(sp48) + SQ(sp58) + SQ(sp50)) >> arg4) * D_803F2D50.fovY) / 75.0f;
 
     if ((temp_v1 > 0x4C9000)) { // FTOFIX32(76.5625)
         return 4;
@@ -311,7 +313,7 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
         temp_f14 = ((D_80204278->unk38A10[3][0] * tmp1) / temp_f16) + ((width = gScreenWidth) * 2);
         temp_f6 =  ((D_80204278->unk38A10[3][1] * tmp2) / temp_f16) + ((height = gScreenHeight) * 2);
 
-        temp_f0 = (((s32) ((arg3 * 33) / D_803F2E30) << 7) / -temp_f16) / 8.0;
+        temp_f0 = (((s32) ((arg3 * 33) / D_803F2D50.fovY) << 7) / -temp_f16) / 8.0;
 
         if ((height * 4) < (temp_f6 - temp_f0)) {
             return 3;
@@ -364,7 +366,7 @@ s32 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     sp60 = (arg1 >> 0x10) - (s16) D_803F2C48;
     sp58 = (arg2 >> 0x10) - (s16) D_803F2C4C;
 
-    if ((s64)((((SQ(sp58) + SQ(sp60) + SQ(sp68)) >> arg3) * D_803F2E30) / 75.0f) > 0xE1000) {
+    if ((s64)((((SQ(sp58) + SQ(sp60) + SQ(sp68)) >> arg3) * D_803F2D50.fovY) / 75.0f) > 0xE1000) {
         return 1;
     }
 

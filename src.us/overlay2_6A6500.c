@@ -11,7 +11,7 @@
 // ========================================================
 
 s16  D_803C0420;
-u8   D_803C0422;
+u8   gInitialisationState;
 s16  D_803C0424;
 s16  D_803C0426;
 s16  D_803C0428;
@@ -32,23 +32,23 @@ void func_80294E50_6A6500(void) {
     // reset a bunch of things
     func_8029F3CC_6B0A7C();
 
-    D_803C0648 = 0x0000000000112038;
-    if (D_803C0422 != 0) {
-        D_803C0422++;
-        if (D_803C0422 == 2) {
+    gRenderMode2 = 0x0000000000112038;
+    if (gInitialisationState != 0) {
+        gInitialisationState++;
+        if (gInitialisationState == 2) {
             draw_rectangle(&D_801D9E7C,                0,                 0,            8, 240, 0, 0, 0, 0xFF);
             draw_rectangle(&D_801D9E7C, gScreenWidth - 8,                 0, gScreenWidth, 240, 0, 0, 0, 0xFF);
             draw_rectangle(&D_801D9E7C,                0,                 0, gScreenWidth,   8, 0, 0, 0, 0xFF);
             draw_rectangle(&D_801D9E7C,                0, gScreenHeight - 8, gScreenWidth, 240, 0, 0, 0, 0xFF);
         }
-        if (D_803C0422 == 3) {
-            func_80137840(); // initialise rumble pack ?
+        if (gInitialisationState == 3) {
+            init_rumble_pak();
             func_8012A400();
             // copy framebuffer?
             func_803925D0_7A3C80(D_8020428C->framebuffer, (u16*)D_800C5A40);
             D_803F6680.unk0 = 1;
             D_803F6714 = 0;
-            D_803C0422 = 0;
+            gInitialisationState = 0;
             D_803F6680.unk26 = 0;
             D_803F6680.unk2D = 0;
             D_803F6704 = D_8020540C;
@@ -65,8 +65,8 @@ void func_80294E50_6A6500(void) {
     }
 
     if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (D_803F6680.unk0 == 0)) || (D_803F6680.unk26 == 3)) {
-        if ((D_803E1BC0 == 0) && (D_803C0426 == 0) && (D_8020540C != 1) && (D_803C0422 == 0)) {
-            if ((D_803F2D30.unk4 == 0) && (D_803F2E16 == 0) && (D_803F2D30.level != END_CREDITS) && ((D_803E4D28 & 0x10) == 0)) {
+        if ((gInputMode == INPUT_MODE_USER) && (D_803C0426 == 0) && (D_8020540C != 1) && (gInitialisationState == 0)) {
+            if ((D_803F2D30.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (D_803F2D30.level != END_CREDITS) && ((D_803E4D28 & 0x10) == 0)) {
                 if ((D_803C0420 == 0) || (D_803C0420 >= 11)) {
                     play_sound_effect(SFX_UNKNOWN_127, 0, 0x5000, 1.0f, 64);
                     D_801D9ED4 = 10;
@@ -77,7 +77,7 @@ void func_80294E50_6A6500(void) {
     }
 
     if (D_803E4D28 & 0x40) {
-        func_80137840(); // initialise rumble packs?
+        init_rumble_pak();
         func_8012A400(); // receive some messages?
         // swap frame buffer
         memcpy_sssv(
@@ -95,7 +95,7 @@ void func_80294E50_6A6500(void) {
     }
 
     if ((gControllerInput->button & START_BUTTON) &&
-        (1 == D_802912DE) && (D_803C0426 == 0) && (D_80204288 == 10) && ((D_8023F2A0.unk8 & 1) == 0)) {
+        (1 == D_802912DE) && (D_803C0426 == 0) && (D_80204288 == 10) && ((gEepromGlobal.unk8 & 1) == 0)) {
         D_803C0426 = 1;
         D_803C042A = 1;
     }
@@ -112,7 +112,7 @@ void func_80294E50_6A6500(void) {
         func_8038F414_7A0AC4();
         D_80204290 = 2;
         width = 320;
-        if (D_803F6428.unk4 == 0) {
+        if (gCheats.unk4 == 0) {
             D_803F2D50.unkDA = D_802053E0.screenWidth;
         } else {
             D_803F2D50.unkDA = width;
@@ -122,7 +122,7 @@ void func_80294E50_6A6500(void) {
 
         get_controller_input();
         if (gControllerInput != NULL) {
-            func_802C8FC0_6DA670(gControllerInput);
+            read_controller_input(gControllerInput);
         }
 
         func_802FDA44_70F0F4();
@@ -139,7 +139,7 @@ void func_80294E50_6A6500(void) {
 
         func_803041FC_7158AC();
         load_segments(&D_801D9E7C, D_80204278);
-        func_80380490_791B40(&D_801D9E7C, D_80204278);
+        switch_to_current_segment(&D_801D9E7C, D_80204278);
 
         gSPViewport(D_801D9E7C++, &D_80152EA8);
 
@@ -170,7 +170,7 @@ void func_80294E50_6A6500(void) {
             }
         }
         func_802B3EC0_6C5570(&D_801D9E7C, ((D_803F28D0[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h);
-        if ((D_803C0422 == 0) && (D_803E1BC0 == 0) && (D_803F2D30.level != DMA_INTRO)) {
+        if ((gInitialisationState == 0) && (gInputMode == INPUT_MODE_USER) && (D_803F2D30.level != DMA_INTRO)) {
             func_80349DCC_75B47C(1);
         }
 
@@ -203,7 +203,7 @@ void func_80294E50_6A6500(void) {
 
         gSPDisplayList(D_801D9E7C++, &D_80204278->unk9600);
 
-        D_803C0648 = 0x0000000000110038;
+        gRenderMode2 = 0x0000000000110038;
         func_8029F7D4_6B0E84(D_80204278, &D_801E9EB8);
         func_8029A720_6ABDD0();
         set_fog_position_and_color(&D_801D9E7C);
@@ -251,10 +251,11 @@ void func_80294E50_6A6500(void) {
         func_802FF25C_71090C();
 
         if (D_803F63C2 != 0) {
+            // this function is empty
             func_8037D32C_78E9DC(&D_803B5764, D_803F63C2 + 1, 25, gScreenWidth - 25, gScreenHeight - 100);
         }
-        if (D_803C0422 == 0) {
-            if (D_803E1BC0 == 0) {
+        if (gInitialisationState == 0) {
+            if (gInputMode == INPUT_MODE_USER) {
                 if (D_803F2D30.level != DMA_INTRO) {
                     func_80349DCC_75B47C(0);
                 }
@@ -299,7 +300,7 @@ void func_80294E50_6A6500(void) {
         if (D_8028645A == 0) {
             D_8015517C = 0.0f;
         }
-        if ((D_8028645C == MUSIC_TRACK_LEVEL_FAILED) || (D_8028645C == MUSIC_TRACK_LEVEL_PASSED) || (D_8028645C == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
+        if ((gCurrentMusicTrack == MUSIC_TRACK_LEVEL_FAILED) || (gCurrentMusicTrack == MUSIC_TRACK_LEVEL_PASSED) || (gCurrentMusicTrack == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
             D_8015517C = 1.0f;
             D_801546D8 = (u16)0x800;
         }
@@ -315,14 +316,14 @@ void func_80294E50_6A6500(void) {
                 if (D_803C042A == 1) {
                     D_803C0426 = 13;
                 }
-                D_8028645C = NO_MUSIC;
+                gCurrentMusicTrack = NO_MUSIC;
                 D_803C0426 += 1;
             } else if (++D_803C0426 > 16) {
                 D_80204284 = 3;
                 D_80152E90 = 1; // select menu overlay
             }
         }
-        if (D_803E1BC0 == 2) {
+        if (gInputMode == INPUT_MODE_DISABLED) {
             if (D_803C0424 == 0) {
                 func_8013385C(8.0f, 20.0f, 0);
                 func_801337DC(0, 8.0f, 20.0f, 0);
@@ -332,7 +333,7 @@ void func_80294E50_6A6500(void) {
                 if (++D_803C0424 > 13) {
                     D_80204284 = 3;
                     D_80152E90 = 1; // select menu overlay
-                    D_8028645C = NO_MUSIC;
+                    gCurrentMusicTrack = NO_MUSIC;
                 }
             }
         }
@@ -347,7 +348,7 @@ void func_80294E50_6A6500(void) {
     if ((D_803F2D30.level == END_CREDITS) && (D_803F6680.unk0 == 0)) {
         if (D_803C0428 != 0) {
             if (++D_803C0428 > 19) {
-                D_8028645C = NO_MUSIC;
+                gCurrentMusicTrack = NO_MUSIC;
                 D_80204284 = 3;
                 D_80152E90 = 1; // select menu overlay
             }
@@ -362,8 +363,8 @@ void func_80294E50_6A6500(void) {
     D_801552B0 = 0;
 }
 
-void func_8029614C_6A77FC(void) {
-    D_803F2D30.unkA = 3;
+void reset_player_progress(void) {
+    D_803F2D30.unkA = 3; // only place this value is used?
     D_803F2D30.unk4 = 0;
 
     D_803F2D10.unk0 = 0;
@@ -380,7 +381,7 @@ void func_8029614C_6A77FC(void) {
 }
 
 // unused?
-void func_8029619C_6A784C(void) {
+void reset_player_health(void) {
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = 0x7F;
     D_803F2CE8 = 0;
     D_8020427C = 1;
@@ -390,23 +391,24 @@ void func_802961D4_6A7884(void) {
     func_8012A400(); // synchronise?
     load_ingame_objects();
     load_water_texture();
-    D_803C0422 = 0;
+    gInitialisationState = 0;
     D_803F6680.unk4 = 0;
     D_8028645A = 0;
     D_8015517C = 0.0f;
-    D_8028645C = NO_MUSIC;
+    gCurrentMusicTrack = NO_MUSIC;
     D_803F2D50.unkDA = 320;
     D_803F2D50.unkDC = 0;
-    // these 3 are 64bit
-    D_803C0640 = 0xFFFFFFFFC8000000; // rendermode mask?
-    D_803C0648 = 0x0000000000112038;
-    D_803C0650 = 0x0000000000010000;
-    func_802C9340_6DA9F0();
+
+    gRenderMode1 = 0xFFFFFFFFC8000000;
+    gRenderMode2 = 0x0000000000112038;
+    gGeometryMode = G_FOG;
+
+    load_objects();
     func_802C9834_6DAEE4();
-    func_80296544_6A7BF4();
-    func_802CB360_6DCA10();
-    func_80304170_715820();
-    func_80304194_715844(); // zero out something
+    func_80296544_6A7BF4(); // init_cosine_tables
+    reset_particles();
+    func_80304170_715820(); // empty function
+    func_80304194_715844(); // zero out texture size data?
     load_level_data(D_803F2D30.level);
     D_80204280 = D_803F2D30.level;
     D_803F2D30.unk4 = 0;

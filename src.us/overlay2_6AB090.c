@@ -19,7 +19,7 @@ Fog2 D_803C0660[28];
 // ========================================================
 
 void func_802999E0_6AB090(DisplayList *arg0) {
-    guPerspective(&arg0->unk37410, &D_803C0658, D_803F2D50.unkE0, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);
+    guPerspective(&arg0->unk37410, &D_803C0658, D_803F2D50.fovY, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);
     guScale(&arg0->unk37450, 0.5f, 0.5f, 0.5f);
     guScale(&arg0->unk374D0, 1.0f, 1.0f, 1.0f);
     func_8033F380_750A30();
@@ -53,7 +53,7 @@ void func_80299B68_6AB218(s32 arg0) {
 
     gSPDisplayList(D_801D9E7C++, D_010043A0_3DC70);
 
-    func_8029A3B0_6ABA60(D_803F28E0[D_803F2A98].unk74, D_803F28E0[D_803F2A98].unk78, D_803F28E0[D_803F2A98].unk7C);
+    func_8029A3B0_6ABA60(gCameras[gCameraId].unk74, gCameras[gCameraId].unk78, gCameras[gCameraId].unk7C);
 
     for (D_803A0500_7B1BB0 = 0; D_803C0660[D_803A0500_7B1BB0].min != 99; D_803A0500_7B1BB0++) {
         gSPDisplayList(D_801D9E7C++, D_80205410[D_803C0660[D_803A0500_7B1BB0].min][D_803C0660[D_803A0500_7B1BB0].max]);
@@ -214,8 +214,8 @@ void set_fog_position_and_color(Gfx **dl) {
 }
 
 void func_8029A720_6ABDD0(void) {
-    if (D_803F28DC & 1) {
-        func_80127D30(&D_80204278->unk37510, (D_803F28DC & 0xFFC) << 1);
+    if (D_803F28D0[6] & 1) {
+        func_80127D30(&D_80204278->unk37510, (D_803F28D0[6] & 0xFFC) << 1);
 
         gSPMatrix(D_801D9E7C++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
         gSPDisplayList(D_801D9E7C++, &D_80204278->unkBB80);
@@ -225,8 +225,8 @@ void func_8029A720_6ABDD0(void) {
         gSPMatrix(D_801D9E7C++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
         gSPMatrix(D_801D9E7C++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
         gSPMatrix(D_801D9E7C++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-    } else if (D_803F28DC & 2) {
-        func_80127ED4(&D_80204278->unk37510, (D_803F28DC & 0xFFC) << 1);
+    } else if (D_803F28D0[6] & 2) {
+        func_80127ED4(&D_80204278->unk37510, (D_803F28D0[6] & 0xFFC) << 1);
 
         D_80204278->unk3B6B0.l.col[0]  = D_80204278->lights.a.l.col[0] >> 1;
         D_80204278->unk3B6B0.l.col[1]  = D_80204278->lights.a.l.col[1] >> 1;

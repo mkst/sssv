@@ -3,6 +3,7 @@
 
 #include "pp.h"
 
+
 // ========================================================
 // structs
 // ========================================================
@@ -97,38 +98,38 @@ u8 *D_803B7268_7C8918[32*2] = {
 };
 
 u8 *D_803B7368_7C8A18[32] = {
-    img_trophies_SMASHING_START_rgba16_rnc_ROM_START,     img_trophies_SMASHING_START_rgba16_rnc_ROM_END
-    img_trophies_HAVE_A_NICE_DAY_rgba16_rnc_ROM_START,    img_trophies_HAVE_A_NICE_DAY_rgba16_rnc_ROM_END
-    img_trophies_HONEYMOON_LAGOON_rgba16_rnc_ROM_START,   img_trophies_HONEYMOON_LAGOON_rgba16_rnc_ROM_END
-    img_trophies_THE_BATTERY_FARM_rgba16_rnc_ROM_START,   img_trophies_THE_BATTERY_FARM_rgba16_rnc_ROM_END
-    img_trophies_THE_ENGINE_ROOM_rgba16_rnc_ROM_START,    img_trophies_THE_ENGINE_ROOM_rgba16_rnc_ROM_END
-    img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rnc_ROM_START,  img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rnc_ROM_END
-    img_trophies_ROCKY_HARD_PLACE_rgba16_rnc_ROM_START,   img_trophies_ROCKY_HARD_PLACE_rgba16_rnc_ROM_END
-    img_trophies_STINKY_SEWERS_rgba16_rnc_ROM_START,      img_trophies_STINKY_SEWERS_rgba16_rnc_ROM_END
-    img_trophies_RAT_O_MATIC_rgba16_rnc_ROM_START,        img_trophies_RAT_O_MATIC_rgba16_rnc_ROM_END
-    img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rnc_ROM_START, img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rnc_ROM_END
-    img_trophies_SNOW_JOKE_rgba16_rnc_ROM_START,          img_trophies_SNOW_JOKE_rgba16_rnc_ROM_END
-    img_trophies_ICE_N_EASY_DOES_IT_rgba16_rnc_ROM_START, img_trophies_ICE_N_EASY_DOES_IT_rgba16_rnc_ROM_END
-    img_trophies_PENGUIN_PLAYPEN_rgba16_rnc_ROM_START,    img_trophies_PENGUIN_PLAYPEN_rgba16_rnc_ROM_END
-    img_trophies_PINBALL_BLIZZARD_rgba16_rnc_ROM_START,   img_trophies_PINBALL_BLIZZARD_rgba16_rnc_ROM_END
-    img_trophies_HOPPA_CHOPPA_rgba16_rnc_ROM_START,       img_trophies_HOPPA_CHOPPA_rgba16_rnc_ROM_END
-    img_trophies_SOMETHING_FISHY_rgba16_rnc_ROM_START,    img_trophies_SOMETHING_FISHY_rgba16_rnc_ROM_END
-    img_trophies_WALRACE_64_rgba16_rnc_ROM_START,         img_trophies_WALRACE_64_rgba16_rnc_ROM_END
-    img_trophies_JUNGLE_JAPES_rgba16_rnc_ROM_START,       img_trophies_JUNGLE_JAPES_rgba16_rnc_ROM_END
-    img_trophies_JUNGLE_DOLDRUMS_rgba16_rnc_ROM_START,    img_trophies_JUNGLE_DOLDRUMS_rgba16_rnc_ROM_END
-    img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rnc_ROM_START, img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rnc_ROM_END
-    img_trophies_WEIGHT_FOR_IT_rgba16_rnc_ROM_START,      img_trophies_WEIGHT_FOR_IT_rgba16_rnc_ROM_END
-    img_trophies_JUNGLE_JUMPS_rgba16_rnc_ROM_START,       img_trophies_JUNGLE_JUMPS_rgba16_rnc_ROM_END
-    img_trophies_EVOS_ESCAPE_rgba16_rnc_ROM_START,        img_trophies_EVOS_ESCAPE_rgba16_rnc_ROM_END
-    img_trophies_FUN_IN_THE_SUN_rgba16_rnc_ROM_START,     img_trophies_FUN_IN_THE_SUN_rgba16_rnc_ROM_END
-    img_trophies_HOT_CROSS_BUNS_rgba16_rnc_ROM_START,     img_trophies_HOT_CROSS_BUNS_rgba16_rnc_ROM_END
-    img_trophies_STING_IN_THE_TAIL_rgba16_rnc_ROM_START,  img_trophies_STING_IN_THE_TAIL_rgba16_rnc_ROM_END
-    img_trophies_BORASSIC_PARK_rgba16_rnc_ROM_START,      img_trophies_BORASSIC_PARK_rgba16_rnc_ROM_END
-    img_trophies_WHIRLWIND_TOUR_rgba16_rnc_ROM_START,     img_trophies_WHIRLWIND_TOUR_rgba16_rnc_ROM_END
-    img_trophies_SHIFTING_SANDS_rgba16_rnc_ROM_START,     img_trophies_SHIFTING_SANDS_rgba16_rnc_ROM_END
-    img_trophies_PUNCHUP_PYRAMID_rgba16_rnc_ROM_START,    img_trophies_PUNCHUP_PYRAMID_rgba16_rnc_ROM_END
-    img_trophies_BIG_CELEBRATION_PARADE_rgba16_rnc_ROM_START, img_trophies_BIG_CELEBRATION_PARADE_rgba16_rnc_ROM_END
-    img_trophies_END_CREDITS_rgba16_rnc_ROM_START,        img_trophies_END_CREDITS_rgba16_rnc_ROM_END
+    img_trophies_SMASHING_START_rgba16_rnc_ROM_START,     img_trophies_SMASHING_START_rgba16_rnc_ROM_END,
+    img_trophies_HAVE_A_NICE_DAY_rgba16_rnc_ROM_START,    img_trophies_HAVE_A_NICE_DAY_rgba16_rnc_ROM_END,
+    img_trophies_HONEYMOON_LAGOON_rgba16_rnc_ROM_START,   img_trophies_HONEYMOON_LAGOON_rgba16_rnc_ROM_END,
+    img_trophies_THE_BATTERY_FARM_rgba16_rnc_ROM_START,   img_trophies_THE_BATTERY_FARM_rgba16_rnc_ROM_END,
+    img_trophies_THE_ENGINE_ROOM_rgba16_rnc_ROM_START,    img_trophies_THE_ENGINE_ROOM_rgba16_rnc_ROM_END,
+    img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rnc_ROM_START,  img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rnc_ROM_END,
+    img_trophies_ROCKY_HARD_PLACE_rgba16_rnc_ROM_START,   img_trophies_ROCKY_HARD_PLACE_rgba16_rnc_ROM_END,
+    img_trophies_STINKY_SEWERS_rgba16_rnc_ROM_START,      img_trophies_STINKY_SEWERS_rgba16_rnc_ROM_END,
+    img_trophies_RAT_O_MATIC_rgba16_rnc_ROM_START,        img_trophies_RAT_O_MATIC_rgba16_rnc_ROM_END,
+    img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rnc_ROM_START, img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rnc_ROM_END,
+    img_trophies_SNOW_JOKE_rgba16_rnc_ROM_START,          img_trophies_SNOW_JOKE_rgba16_rnc_ROM_END,
+    img_trophies_ICE_N_EASY_DOES_IT_rgba16_rnc_ROM_START, img_trophies_ICE_N_EASY_DOES_IT_rgba16_rnc_ROM_END,
+    img_trophies_PENGUIN_PLAYPEN_rgba16_rnc_ROM_START,    img_trophies_PENGUIN_PLAYPEN_rgba16_rnc_ROM_END,
+    img_trophies_PINBALL_BLIZZARD_rgba16_rnc_ROM_START,   img_trophies_PINBALL_BLIZZARD_rgba16_rnc_ROM_END,
+    img_trophies_HOPPA_CHOPPA_rgba16_rnc_ROM_START,       img_trophies_HOPPA_CHOPPA_rgba16_rnc_ROM_END,
+    img_trophies_SOMETHING_FISHY_rgba16_rnc_ROM_START,    img_trophies_SOMETHING_FISHY_rgba16_rnc_ROM_END,
+    img_trophies_WALRACE_64_rgba16_rnc_ROM_START,         img_trophies_WALRACE_64_rgba16_rnc_ROM_END,
+    img_trophies_JUNGLE_JAPES_rgba16_rnc_ROM_START,       img_trophies_JUNGLE_JAPES_rgba16_rnc_ROM_END,
+    img_trophies_JUNGLE_DOLDRUMS_rgba16_rnc_ROM_START,    img_trophies_JUNGLE_DOLDRUMS_rgba16_rnc_ROM_END,
+    img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rnc_ROM_START, img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rnc_ROM_END,
+    img_trophies_WEIGHT_FOR_IT_rgba16_rnc_ROM_START,      img_trophies_WEIGHT_FOR_IT_rgba16_rnc_ROM_END,
+    img_trophies_JUNGLE_JUMPS_rgba16_rnc_ROM_START,       img_trophies_JUNGLE_JUMPS_rgba16_rnc_ROM_END,
+    img_trophies_EVOS_ESCAPE_rgba16_rnc_ROM_START,        img_trophies_EVOS_ESCAPE_rgba16_rnc_ROM_END,
+    img_trophies_FUN_IN_THE_SUN_rgba16_rnc_ROM_START,     img_trophies_FUN_IN_THE_SUN_rgba16_rnc_ROM_END,
+    img_trophies_HOT_CROSS_BUNS_rgba16_rnc_ROM_START,     img_trophies_HOT_CROSS_BUNS_rgba16_rnc_ROM_END,
+    img_trophies_STING_IN_THE_TAIL_rgba16_rnc_ROM_START,  img_trophies_STING_IN_THE_TAIL_rgba16_rnc_ROM_END,
+    img_trophies_BORASSIC_PARK_rgba16_rnc_ROM_START,      img_trophies_BORASSIC_PARK_rgba16_rnc_ROM_END,
+    img_trophies_WHIRLWIND_TOUR_rgba16_rnc_ROM_START,     img_trophies_WHIRLWIND_TOUR_rgba16_rnc_ROM_END,
+    img_trophies_SHIFTING_SANDS_rgba16_rnc_ROM_START,     img_trophies_SHIFTING_SANDS_rgba16_rnc_ROM_END,
+    img_trophies_PUNCHUP_PYRAMID_rgba16_rnc_ROM_START,    img_trophies_PUNCHUP_PYRAMID_rgba16_rnc_ROM_END,
+    img_trophies_BIG_CELEBRATION_PARADE_rgba16_rnc_ROM_START, img_trophies_BIG_CELEBRATION_PARADE_rgba16_rnc_ROM_END,
+    img_trophies_SECRET_LEVEL_rgba16_rnc_ROM_START,       img_trophies_SECRET_LEVEL_rgba16_rnc_ROM_END,
 };
 
 #if 0
@@ -168,25 +169,24 @@ f32 D_803B74C4_7C8B74 = 12.0f;
 u8   D_803F7160[0xC00]; // what is this?
 
 s32  D_803F7D60; // static in draw_level_rings_segment
-s32  D_803F7D64; // unused
-f32  D_803F7D68;
-f32  D_803F7D6C; // unused
-f32  D_803F7D70;
-struct008 D_803F7D78;
-s16  D_803F7D9C;
-s16  D_803F7D9E;
-s8   D_803F7DA0;
-s8   D_803F7DA1;
-s8   D_803F7DA2;
-s8   D_803F7DA3;
+static s32  D_803F7D64; // unused
+static f32  D_803F7D68;
+static f32  D_803F7D6C; // unused
+static f32  D_803F7D70;
+static struct008 D_803F7D78;
+static s16  D_803F7D9C;
+static s16  D_803F7D9E;
+static s8   D_803F7DA0;
+static s8   D_803F7DA1;
+static s8   D_803F7DA2;
+static s8   D_803F7DA3;
 struct030 D_803F7DA8;
-s8   D_803F7DE0[0x1E]; // levels available
-s8   D_803F7DFE;
-
-s16  D_803F7E00; // europe levels completed
-s16  D_803F7E02; // levels
-s16  D_803F7E04; // levels
-s16  D_803F7E06; // levels
+static s8   D_803F7DE0[0x1E]; // levels available
+static s8   D_803F7DFE;
+static s16  D_803F7E00; // europe levels completed
+static s16  D_803F7E02; // levels
+static s16  D_803F7E04; // levels
+static s16  D_803F7E06; // levels
 
 // ========================================================
 // .text
@@ -219,7 +219,7 @@ void func_8039884C_7A9EFC(void) {
     s16 sp18[44];
 
     determine_available_levels();
-    D_803F7DA8.lastLevel = 99;
+    D_803F7DA8.previousLevel = 99;
     D_803F7D78.unk0 = 0;
     D_803F7D78.unk4 = 0;
     D_803F7D78.unk8 = 0;
@@ -264,42 +264,39 @@ void func_80398A00_7AA0B0(void) {
     D_803F7DA8.unk30 = 0;
 }
 
-#if 0
-// CURRENT (1029)
 void display_zone_select_screen(void) {
-    char ascii[42];
-    s16  wide_text[24]; // 0x118 - 0xE4 => 52
+    char ascii[38];
+    s16  wide_text[26];
 
     f32 spE0;
     f32 spDC;
 
-    s16 vertical_offset;   // spDA
-    s16 var_a3;
+    s16 vertical_offset;
+    s32 score;
+    s16 level;
+    s16 pad1;
+
     s16 secs;
     s16 mins;
-    s16 level; // spD2
-
-    s32 score;
-    s32 time;
+    s32 pad2;
 
     u8 evo_r;
     u8 evo_b;
     u8 evo_g;
-
-    volatile s16 var_t9; // yuck
+    s32 pad3;
 
     gTasksCompleted = 0;
-    if (D_8028645C != MUSIC_TRACK_MAIN_THEME) {
-        D_8028645C = MUSIC_TRACK_MAIN_THEME;
+    if (gCurrentMusicTrack != MUSIC_TRACK_MAIN_THEME) {
+        gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
         D_801546D8 = 1600; // volume related
         D_801546E0 = 2048;
         D_8015517C = 1.0f;
     }
     D_803B74C4_7C8B74 = 12.0f; // font scale
-    if ((D_8023F2A0.language == LANG_ITALIAN) ||
-        (D_8023F2A0.language == LANG_FRENCH) ||
-        (D_8023F2A0.language == LANG_SPANISH) ||
-        (D_8023F2A0.language == LANG_PORTUGESE)) {
+    if ((gEepromGlobal.language == LANG_ITALIAN) ||
+        (gEepromGlobal.language == LANG_FRENCH) ||
+        (gEepromGlobal.language == LANG_SPANISH) ||
+        (gEepromGlobal.language == LANG_PORTUGESE)) {
         D_803B74C4_7C8B74 = 9.7f; //D_803C03F8_7D1AA8;
     }
 
@@ -331,7 +328,7 @@ void display_zone_select_screen(void) {
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_ZONE_SELECT), 0x18, 0x1F, 24.0f, 16.0f, -1);
 
-    gSPDisplayList(D_801D9E7C++, &D_801584A0);
+    gSPDisplayList(D_801D9E7C++, D_801584A0);
 
     gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
@@ -341,16 +338,16 @@ void display_zone_select_screen(void) {
     // decompress ZONE SELECT image
     UnpackRNC(SEGMENT_OFFSET(D_04012B20_1296F0) + D_801D9E6C, D_800DD3F0); // ZONE_SELECT rgba16
 
-    if (D_803F7DA8.lastLevel != D_803F7DA8.currentLevel) {
+    if (D_803F7DA8.previousLevel != D_803F7DA8.currentLevel) {
         // level thumbnails
         dma_read(D_803B7268_7C8918[D_803F7DA8.currentLevel*2], D_800B0B20, D_803B7268_7C8918[D_803F7DA8.currentLevel*2+1] - D_803B7268_7C8918[D_803F7DA8.currentLevel*2]);
         UnpackRNC(D_800B0B20, D_800B49A0);
-        D_803F7DA8.lastLevel = D_803F7DA8.currentLevel;
+        D_803F7DA8.previousLevel = D_803F7DA8.currentLevel;
         // trophy images
         dma_read(D_803B7368_7C8A18[D_803F7DA8.currentLevel*2], D_800B0B20, D_803B7368_7C8A18[D_803F7DA8.currentLevel*2+1] - D_803B7368_7C8A18[D_803F7DA8.currentLevel*2]);
         UnpackRNC(D_800B0B20, D_800B68E0);
 
-        D_803F63C0 = load_level_text_data(D_8023F2A0.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
+        gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
         load_level_title();
     }
     gDPPipeSync(D_801D9E7C++);
@@ -394,7 +391,7 @@ void display_zone_select_screen(void) {
         func_803967D4_7A7E84(276, 102, evo_r, evo_g, evo_b, D_8023F260.evoPartsCollected & EVO_HEAD, D_8023F260.evoPartsCollected & EVO_TORSO, D_8023F260.evoPartsCollected & EVO_ARMS, D_8023F260.evoPartsCollected & EVO_LEGS, 0);
     } else if (D_8023F260.level[D_803F7DA8.currentLevel].trophy) {
         gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-        func_803962EC_7A799C(&D_801D9E7C, 1072, 448, 1200, 576, &D_800B68E0, 32, 31);
+        func_803962EC_7A799C(&D_801D9E7C, 1072, 448, 1200, 576, D_800B68E0, 32, 31);
     }
 
     if (D_803F7DA2 != 0) {
@@ -540,28 +537,22 @@ void display_zone_select_screen(void) {
 
     vertical_offset = 60;
 
-    var_a3 = D_803F7DA8.currentLevel;
-    if (var_a3 != SECRET_LEVEL-1) { // hidden or BIG_CELEBRATION_PARADE ?
+    if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) {
         // write title text
-        display_text(&D_801D9E7C, (u8*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
-        var_a3 = D_803F7DD5;
+        display_text(&D_801D9E7C, (s16*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
     }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
 
-    if (var_a3 != SECRET_LEVEL-1) {
-        if (D_8023F260.level[var_a3].completed == 1) {
+    if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) {
+        if (D_8023F260.level[D_803F7DA8.currentLevel].completed == 1) {
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_SECURED), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         } else {
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
         vertical_offset += D_803B74B0_7C8B60 + 1.0f;
-        var_a3 = D_803F7DD5;
     }
 
-    var_t9 = var_a3 + 1;
-    level = var_t9;
-
-    if (1) { }
+    level = D_803F7DA8.currentLevel + 1;
 
     if ((level == GIVE_A_DOG_A_BONUS) ||
         (level == WALRACE_64) ||
@@ -571,13 +562,13 @@ void display_zone_select_screen(void) {
         (level == SECRET_LEVEL)) {
 
         if (level == GIVE_A_DOG_A_BONUS) {
-            time = (D_8023F260.unk30 >> 13) & 0x1FF;
-            if (time) {
-                seconds_to_mins_secs(time, &mins, &secs);
+            score = (D_8023F260.unk30 >> 13) & 0x1FF;
+            if (score) {
+                seconds_to_mins_secs(score, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03A0_7D1A50
+                    sprintf(ascii, "%d:0%d", mins, secs);
                 } else {
-                    sprintf(ascii, "%d:%d", mins, secs); // D_803C03A8_7D1A58
+                    sprintf(ascii, "%d:%d", mins, secs);
                 }
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -585,16 +576,17 @@ void display_zone_select_screen(void) {
             }
         }
         if (level == WALRACE_64) {
-            if (D_8023F260.unk30 & 0xFF) {
-                seconds_to_mins_secs(D_8023F260.unk30 & 0xFF, &mins, &secs);
+            score = D_8023F260.unk30 & 0xFF;
+            if (score) {
+                seconds_to_mins_secs(score, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03B0_7D1A60
+                    sprintf(ascii, "%d:0%d", mins, secs);
                 } else {
-                    sprintf(ascii, "%d:%d", mins, secs); // D_803C03B8_7D1A68
+                    sprintf(ascii, "%d:%d", mins, secs);
                 }
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                if ((D_8023F2A0.language == LANG_ITALIAN) || (D_8023F2A0.language == LANG_FRENCH)) {
+                if ((gEepromGlobal.language == LANG_ITALIAN) || (gEepromGlobal.language == LANG_FRENCH)) {
                     display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 } else {
                     display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 270, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -604,7 +596,7 @@ void display_zone_select_screen(void) {
         if (level == EVOS_ESCAPE) {
             score = (D_8023F260.unk30 >> 24) * 100;
             if (score) {
-                sprintf(ascii, "%d", score); // D_803C03C0_7D1A70
+                sprintf(ascii, "%d", score);
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -613,20 +605,20 @@ void display_zone_select_screen(void) {
         if (level == PUNCHUP_PYRAMID) {
             score = (D_8023F260.unk30 >> 8) & 0x1F;
             if (score) {
-                sprintf(ascii, "%d", score); // D_803C03C4_7D1A74
+                sprintf(ascii, "%d", score);
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 display_text(&D_801D9E7C, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (level == BIG_CELEBRATION_PARADE) {
-            time = (D_8023F260.unk34 >> 8) & 0x1FF;
-            if (time) {
-                seconds_to_mins_secs(time, &mins, &secs);
+            score = (D_8023F260.unk34 >> 8) & 0x1FF;
+            if (score) {
+                seconds_to_mins_secs(score, &mins, &secs);
                 if (secs < 10) {
-                    sprintf(ascii, "%d:0%d", mins, secs); // D_803C03C8_7D1A78
+                    sprintf(ascii, "%d:0%d", mins, secs);
                 } else {
-                    sprintf(ascii, "%d:%d", mins, secs); // D_803C03D0_7D1A80
+                    sprintf(ascii, "%d:%d", mins, secs);
                 }
                 prepare_text((u8*)ascii, wide_text);
                 display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
@@ -634,18 +626,18 @@ void display_zone_select_screen(void) {
             }
         }
         if (level == SECRET_LEVEL) {
-            score = ((D_8023F260.unk34 >> 21) & 0x7FF) ;
-            sprintf(ascii, "%d", score * 100); // D_803C03D8_7D1A88
+            score = ((D_8023F260.unk34 >> 21) & 0x7FF) * 100;
+            sprintf(ascii, "%d", score );
             prepare_text((u8*)ascii, wide_text);
             display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
             display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 240, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
     } else {
-        sprintf(ascii, "%2d", D_8023F260.level[var_a3].powercells, var_a3); // D_803C03DC_7D1A8C
+        sprintf(ascii, "%2d", D_8023F260.level[D_803F7DA8.currentLevel].powercells);
         prepare_text((u8*)ascii, wide_text);
         display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 
-        gSPDisplayList(D_801D9E7C++, &D_801584A0);
+        gSPDisplayList(D_801D9E7C++, D_801584A0);
 
         gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
         gDPSetAlphaCompare(D_801D9E7C++, G_AC_THRESHOLD);
@@ -656,9 +648,6 @@ void display_zone_select_screen(void) {
     }
     func_8039D034_7AE6E4(&D_801D9E7C, 0);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/ui_main_menu/display_zone_select_screen.s")
-#endif
 
 void func_8039A2DC_7AB98C(void) {
     s8 ascii[26];
@@ -688,7 +677,7 @@ void func_8039A2DC_7AB98C(void) {
 
     select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
-    if (D_8023F2A0.language == LANG_FRENCH) {
+    if (gEepromGlobal.language == LANG_FRENCH) {
         func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_BANK_SELECT), 24, 31, 22.0f, 16.0f, -1);
         D_803B74AC_7C8B5C = 11.0f; // glyph height
         D_803B74B0_7C8B60 = 16.0f; // glyph width
@@ -1057,9 +1046,9 @@ void func_8039A2DC_7AB98C(void) {
     select_font(0, FONT_COMIC_SANS, 1, 0);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
 
-    if ((D_8023F2A0.language == LANG_FRENCH) || (D_8023F2A0.language == LANG_SPANISH)) {
+    if ((gEepromGlobal.language == LANG_FRENCH) || (gEepromGlobal.language == LANG_SPANISH)) {
         func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 15.2f, 16.0f, -1);
-    } else if ((D_8023F2A0.language == LANG_PORTUGESE) || (D_8023F2A0.language == LANG_JAPANESE)) {
+    } else if ((gEepromGlobal.language == LANG_PORTUGESE) || (gEepromGlobal.language == LANG_JAPANESE)) {
         func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 10.0f, 16.0f, -1);
     } else {
         func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 16.0f, 16.0f, -1);
@@ -1376,7 +1365,7 @@ void func_8039CAB8_7AE168(s16 arg0) {
         draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 40);
     }
 
-    gSPDisplayList(D_801D9E7C++, &D_801584A0);
+    gSPDisplayList(D_801D9E7C++, D_801584A0);
     gDPPipeSync(D_801D9E7C++);
     gDPSetAlphaCompare(D_801D9E7C++, G_AC_THRESHOLD);
 
@@ -1647,30 +1636,30 @@ void determine_available_levels(void) {
     }
 
     // check cheats / overrides
-    if (D_803F6428.europe) {
+    if (gCheats.europe) {
         for (i = 0; i < 10; i++) {
             D_803F7DE0[i] = 1;
         }
     }
-    if (D_803F6428.ice) {
+    if (gCheats.ice) {
         for (i = 10; i < 17; i++) {
             D_803F7DE0[i] = 1;
         }
     }
-    if (D_803F6428.jungle) {
+    if (gCheats.jungle) {
         for (i = 17; i < 23; i++) {
             D_803F7DE0[i] = 1;
         }
     }
-    if (D_803F6428.desert) {
+    if (gCheats.desert) {
         for (i = 23; i < 30; i++) {
             D_803F7DE0[i] = 1;
         }
     }
-    if (D_803F6428.final) {
+    if (gCheats.bcp) {
         D_803F7DE0[30] = 1;
     }
-    if (D_803F6428.hidden) {
+    if (gCheats.hidden) {
         D_803F7DE0[31] = 1;
     }
 }
@@ -1718,7 +1707,7 @@ void load_level_title(void) {
 
     found = 0;
     // iterate over each message
-    for (i = 0; i < D_803F63C0; i++) {
+    for (i = 0; i < gLoadedMessageCount; i++) {
         msg = &D_803F34C0[(s16)D_803F3330[i]];
         if ((msg[0] == TEXT_CONTROL_CHAR) &&
             (msg[1] == TEXT_NEWLINE)) {

@@ -35,8 +35,8 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 
     switch (argC) {
     case 0:
-        temp_v1 = arg0 - (s16) D_803F28E0[D_803F2A98].unk74;
-        temp_a0 = arg1 - (s16) D_803F28E0[D_803F2A98].unk78;
+        temp_v1 = arg0 - (s16) gCameras[gCameraId].unk74;
+        temp_a0 = arg1 - (s16) gCameras[gCameraId].unk78;
         if (argB >= 0) {
             sp74 = ((temp_v1 * temp_v1) + (temp_a0 * temp_a0)) >> argB;
         } else if (argB < 0) {
@@ -200,8 +200,8 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
     // argC is either 0 or 1 (I think?)
     switch (argC) {
     case 0:
-        temp_v1 = arg0 - (s16) D_803F28E0[D_803F2A98].unk74;
-        temp_a0 = arg1 - (s16) D_803F28E0[D_803F2A98].unk78;
+        temp_v1 = arg0 - (s16) gCameras[gCameraId].unk74;
+        temp_a0 = arg1 - (s16) gCameras[gCameraId].unk78;
 
         if (argB >= 0) {
             var_v0 = (SQ(temp_v1) + SQ(temp_a0)) >> argB;
@@ -439,7 +439,7 @@ void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 alpha, s16 ar
             spA8 = MIN(0xFF, ((arg2 + 0x20) - var_a0) << 4);
         }
 
-        if (ABS((s16)D_803F28E0[D_803F2A98].unk7C - var_a0)) {
+        if (ABS((s16)gCameras[gCameraId].unk7C - var_a0)) {
             // debug?
         }
 
@@ -1201,7 +1201,7 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
     s32 var_t0;
     s16 temp_t9;
 
-    temp_t9 = ((ABS((s16) D_803F28E0[D_803F2A98].unk7C - (s16) ((argB + argE) >> 1)) * 2) + 0x200) >> 8;
+    temp_t9 = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((argB + argE) >> 1)) * 2) + 0x200) >> 8;
     if (temp_t9 > 4) {
         temp_t9 = (temp_t9 >> 1) + 2;
     }
@@ -1309,7 +1309,7 @@ void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
     if (numVtxs >= 3) {
         if (ABS(MAX(MAX(arg9, argC), MAX(argA, argB)) - MIN(MIN(arg9, argC), MIN(argA, argB))) <= 192) {
 
-            var_t1 = ((ABS((s16) D_803F28E0[D_803F2A98].unk7C - (s16) ((arg9 + argC) >> 1)) * 2) + 0x200) >> 8;
+            var_t1 = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((arg9 + argC) >> 1)) * 2) + 0x200) >> 8;
             if (var_t1 > 4) {
                 var_t1 = (var_t1 >> 1) + 2;
             }
@@ -1431,7 +1431,7 @@ void func_80351EE8_763598(s16 numVtxs, struct061 *arg1, s16 arg2, s16 alpha, s16
 
     s16 i;
 
-    var_v1 = ABS((s16) (s32) D_803F28E0[D_803F2A98].unk7C - arg2);
+    var_v1 = ABS((s16) (s32) gCameras[gCameraId].unk7C - arg2);
     var_a3 = ((var_v1 * 2) + 0x80) >> 7;
     if (var_a3 > 4) {
         var_a3 = (var_a3 / 2) + 4;

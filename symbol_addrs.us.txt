@@ -34,6 +34,8 @@ gThread7          = 0x80286720;
 gThread1          = 0x802868D0;
 gThread9          = 0x80286A80;
 
+gEepromGlobal     = 0x8023F2A0;
+
 gControllerInput       = 0x802910D0;
 gControllerStatus      = 0x802910D8;
 
@@ -133,6 +135,7 @@ draw_chunked_image     = 0x80135CD8;
 
 init_controllers       = 0x80136CE0;
 draw_sprite            = 0x80136938;
+init_rumble_pak        = 0x80137840;
 
 gRegion                = 0x80204260;
 gRefreshRate           = 0x80204294;
@@ -148,6 +151,7 @@ BitBuffM2              = 0x8022E0D0;
 FirstEntry             = 0x8022E3E6;
 SecondEntry            = 0x8022E3E8;
 
+backup_joint_positions = 0x802DB8DC; // rom:0x6ECF8C
 
 dmaState = 0x80241758;
 dmaBuffs = 0x80241768;
@@ -177,6 +181,9 @@ maxFrameSize           = 0x80241D0C;
 audDMAIOMesgBuf        = 0x80241D10;
 audDMAMessageQ         = 0x802423D0;
 
+gCurrentMusicTrack     = 0x8028645C;
+
+
 // size hacks
 D_80299960_63D000      = 0x80299960; // rom:0x63D000 size:0xE0
 D_80299E10_63D4B0      = 0x80299E10; // rom:0x63D4B0 size:0x2
@@ -196,49 +203,22 @@ D_803BE2E0_7CF990      = 0x803BE2E0; // rom:0x7CF990 force_migration:true
 D_803BE6D0_7CFD80      = 0x803BE6D0; // rom:0x7CFD80 force_migration:true
 // end of force migrations
 
-set_fog_factor_and_color   = 0x8029A5B4; // rom:0x6ABC64
-set_fog_position_and_color = 0x8029A624; // rom:0x6ABCD4
-
-get_distance_from_ground = 0x802B2580; // rom:0x6C3C30
-
 black_out_screen       = 0x802958B8; // rom:0x638F58
 language_select_menu   = 0x80298FC0; // rom:0x63C660
-get_evo_suit_color     = 0x80296320; // rom:0x6A79D0
 distance_from_player   = 0x8029B7D0; // rom:0x6ACE80
 spawn_animal           = 0x802C7F88; // rom:0x6D9638
 spawn_object           = 0x802C9564; // rom:0x6DAC14
 create_particle_effect_2 = 0x802D5B88; // rom:0x6E7238
 create_particle_effect = 0x802D5F4C; // rom:0x6E75FC
-fire_fox_fire_missile  = 0x802E87B8; // rom:0x6F9E68
-fox_warp               = 0x802E89AC; // rom:0x6FA05C
-drop_sticky_mine       = 0x802F05A4; // rom:0x701C54
-hippo_spit             = 0x802F0780; // rom:0x701E30
 reset_screen_transition   = 0x802F07D0; // rom:0x701E80
 trigger_screen_transition = 0x802F07E8; // rom:0x701E98
-perform_screen_transition = 0x802F0918; // rom:0x701FC8
-
-lion_roar              = 0x802F2AA0; // rom:0x704150
-
-clear_used_lights      = 0x802F2B20; // rom:0x7041D0
 add_light_at_location  = 0x802F2B54; // rom:0x704204
-add_multiple_lights    = 0x802F5088; // rom:0x706738
 add_single_light       = 0x802F5964; // rom:0x707014
-
-get_controller_input   = 0x802F59F0; // rom:0x7070A0
-find_closest_animal    = 0x802F8994; // rom:0x70A044
 
 run_commands           = 0x802FC990; // rom:0x70E040
 set_floor_level        = 0x802FD190; // rom:0x70E840
 set_water_level        = 0x802FD26C; // rom:0x70E91C
 
-fire_homing_missile    = 0x802FEE98; // rom:0x710548
-spawn_temporary_object = 0x802FF0A4; // rom:0x710754
-
-heli_rabbit_drop_bomb  = 0x80302120; // rom:0x7137D0
-frog_croak             = 0x80302DD0; // rom:0x714480
-calculate_hypotenuse   = 0x80304E80; // rom:0x716530
-animal_jump            = 0x8030A958; // rom:0x71C008
-parrot_fly             = 0x80314600; // rom:0x725CB0
 set_game_state         = 0x80314874; // rom:0x725F24
 get_game_state         = 0x80314F0C; // rom:0x7265BC
 copy_command_struct    = 0x80315384; // rom:0x726A34
@@ -246,107 +226,39 @@ load_commands_into_object = 0x803153B0; // rom:0x726A60
 do_maths_op            = 0x803152A4; // rom:0x726954
 run_single_command     = 0x803159E4; // rom:0x727094
 
-is_object_type_helper  = 0x803158B4; // rom:0x726F64
-is_object_type         = 0x803158E4; // rom:0x726F94
-
-is_animal_helper       = 0x80315924; // rom:0x726FD4
-is_animal              = 0x80315950; // rom:0x727000
-
-is_object_helper       = 0x80315984; // rom:0x727034
-is_object              = 0x803159B0; // rom:0x727060
-
-get_closest_waypoint_index = 0x80319B4C; // rom:0x72B1FC
-
 load_level_texture_data = 0x8031B174; // rom:0x72C824
 
 get_uncompressed_size  = 0x8031AFD0; // rom:0x72C680
 get_compressed_size    = 0x8031B058; // rom:0x72C708
 copy_or_extract        = 0x8031B0E8; // rom:0x72C798
 load_level_data        = 0x8031B390; // rom:0x72CA40
-racing_mouse_turbo     = 0x8031FBE8; // rom:0x731298
 fire_cannonball_1      = 0x80321E60; // rom:0x733510
 fire_cannonball_2      = 0x80322064; // rom:0x733714
-fire_cannonball_3      = 0x8032225C; // rom:0x73390C
 apply_recoil           = 0x803223F4; // rom:0x733AA4
 load_animal            = 0x8032AAF0; // rom:0x73C1A0
 check_and_set_species_encountered = 0x8032ABB8; // rom:0x73C268
-set_species_as_encountered = 0x8032AC48; // rom:0x73C2F8
 play_sound_effect_at_location = 0x8032C360; // rom:0x73DA10
-play_footstep_sfx      = 0x8032C5A8; // rom:0x73DC58
-vector_add             = 0x8032D380; // rom:0x73EA30
 vector_subtract        = 0x8032D3B4; // rom:0x73EA64
 vector_multiply_by     = 0x8032D3E8; // rom:0x73EA98
-vector_divide_by       = 0x8032D414; // rom:0x73EAC4
 normalize_vector       = 0x8032D494; // rom:0x73EB44
-get_magnitude          = 0x8032D440; // rom:0x73EAF0
-dot_product            = 0x8032D504; // rom:0x73EBB4
-cross_product          = 0x8032D534; // rom:0x73EBE4
-get_angle_between_vectors = 0x8032D5A4; // rom:0x73EC54
-try_pickup_animal        = 0x803213B0; // rom:0x732A60
 
-fix_camera_to_angle_offset = 0x80339B84; // rom:0x74B234
 reset_camera               = 0x8033C334; // rom:0x74D9E4
 
 osd_draw_health_and_power_bars = 0x80348230; // rom:0x7598E0
-osd_draw_score           = 0x803491F0; // rom:0x75A8A0
-osd_draw_timer           = 0x80349B84; // rom:0x75B234
-show_osd                 = 0x80349748; // rom:0x75ADF8
-hide_osd                 = 0x80349778; // rom:0x75AE28
-
-racing_dog_turbo         = 0x802EF074; // rom:0x700724
-racing_dog_fire_missile  = 0x802EEDE0; // rom:0x700490
-dog_bite                 = 0x802EEF74; // rom:0x700624
-flying_dog_fire_gun      = 0x802EEF9C; // rom:0x70064C
-flying_dog_drop_bomb     = 0x802EEFEC; // rom:0x70069C
-load_ingame_objects      = 0x80352280; // rom:0x763930
-load_water_texture       = 0x80352310; // rom:0x7639C0
-
-spawn_dizzy_stars_big    = 0x8034A684; // rom:0x75BD34
-spawn_dizzy_stars_medium = 0x8034A914; // rom:0x75BFC4
-spawn_dizzy_starts_small = 0x8034ABA4; // rom:0x75C254
-
-racing_tortoise_turbo    = 0x803563C8; // rom:0x767A78
 
 load_1_tile              = 0x80356410; // rom:0x767AC0
 load_2_tiles             = 0x803565D4; // rom:0x767C84
-load_3_tiles             = 0x80356870; // rom:0x767F20
 
 set_music_track          = 0x803572B0; // rom:0x768960
 
-biker_hyena_fire_missile = 0x8035A420; // rom:0x76BAD0
-recharge_skill           = 0x8035E3E8; // rom:0x76FA98
-rat_drop_mine            = 0x8035FC2C; // rom:0x7712DC
-rat_bite                 = 0x8035FD4C; // rom:0x7713FC
-king_rat_bugel_call      = 0x8035FDC0; // rom:0x771470
-king_rat_fart            = 0x8035FE6C; // rom:0x77151C
-
-can_swim                 = 0x80362B38; // rom:0x7741E8
-water_hurts              = 0x80362B9C; // rom:0x77424C
-can_fly                  = 0x80362BC4; // rom:0x774274
-ram_headbutt             = 0x80362A84; // rom:0x774134
-
 set_waypoint_follow_target = 0x80363880; // rom:0x774F30
 
-penguin_throw_snowball   = 0x80365D8C; // rom:0x77743C
-polar_tank_drop_mine     = 0x80368C50; // rom:0x77A300
-polar_tank_fire_cannon   = 0x80368CF0; // rom:0x77A3A0
-polar_bear_jump_thump    = 0x80368D18; // rom:0x77A3C8
-ski_husky_fire_missile   = 0x8036BEA4; // rom:0x77D554
-ski_husky_turbo          = 0x8036C05C; // rom:0x77D70C
-camel_cannon_fire_cannon = 0x8036F5F4; // rom:0x780CA4
-walrus_fire_missile      = 0x80376B88; // rom:0x788238
-walrus_turbo             = 0x80376CF8; // rom:0x7883A8
 load_data_section        = 0x803800F0; // rom:0x7917A0
 
 trigger_contagious_laughter     = 0x8037E1C4; // rom:0x78F874
 
 reset_credits_counters      = 0x8038B840; // rom:0x79CEF0
-display_credits             = 0x8038B854; // rom:0x79CF04
 load_level                  = 0x8038FB94; // rom:0x7A1244
-load_intro                  = 0x8038FC04; // rom:0x7A12B4
-trigger_pause_menu          = 0x8038F794; // rom:0x7A0E44
-trigger_mission_brief_screen = 0x8038F8C8; // rom:0x7A0F78
-trigger_level_failed        = 0x8038FA00; // rom:0x7A10B0
 load_smashing_start         = 0x8038FCF8; // rom:0x7A13A8
 load_pause_menu             = 0x80393238; // rom:0x7A48E8
 load_mission_brief_screen   = 0x803929FC; // rom:0x7A40AC
@@ -357,13 +269,12 @@ display_zone_select_screen  = 0x80398A0C; // rom:0x7AA0BC
 draw_level_rings_segment    = 0x8039BE98; // rom:0x7AD548
 get_player_progress         = 0x8039CCBC; // rom:0x7AE36C
 render_stars                = 0x8039D30C; // rom:0x7AE9BC
-generate_stars              = 0x8039D580; // rom:0x7AEC30
 determine_available_levels  = 0x8039D6A4; // rom:0x7AED54
 get_next_available_level    = 0x8039DAAC; // rom:0x7AF15C
 seconds_to_mins_secs        = 0x8039DB60; // rom:0x7AF210
 load_level_title            = 0x8039DBC8; // rom:0x7AF278
 get_biome_for_level         = 0x8039DCC0; // rom:0x7AF370
-D_803BD52C_7CEB7C           = 0x803BD52C; // rom:0x7CEB7C
+//D_803BD52C_7CEB7C           = 0x803BD52C; // rom:0x7CEB7C
 
 reset_trails                = 0x8039DD60; // rom:0x7AF410
 add_regular_trail           = 0x8039DDA4; // rom:0x7AF454
@@ -422,9 +333,9 @@ D_803C0428 = 0x803C0428; // defined:true
 D_803C042A = 0x803C042A; // defined:true
 D_803C0430 = 0x803C0430; // defined:true size:0x210
 
-D_803C0640 = 0x803C0640; // defined:true size:0x8
-D_803C0648 = 0x803C0648; // defined:true size:0x8
-D_803C0650 = 0x803C0650; // defined:true size:0x8
+gRenderMode1  = 0x803C0640; // defined:true size:0x8
+gRenderMode2  = 0x803C0648; // defined:true size:0x8
+gGeometryMode = 0x803C0650; // defined:true size:0x8
 D_803C0658 = 0x803C0658; // defined:true
 
 // overlay2_6AB090
@@ -662,7 +573,7 @@ D_803E97C8 = 0x803E97C8; // defined:true
 // overlay2_739290
 D_803E9820 = 0x803E9820; // defined:true
 D_803E9822 = 0x803E9822; // defined:true
-D_803E9824 = 0x803E9824; // defined:true
+gCurrentAnimalId = 0x803E9824; // defined:true
 D_803E9828 = 0x803E9828; // defined:true
 D_803E982C = 0x803E982C; // defined:true
 D_803E9836 = 0x803E9836; // defined:true
@@ -676,8 +587,8 @@ D_803E9840 = 0x803E9840; // defined:true size:0x906C
 // overlay2_741000
 D_803F28D0 = 0x803F28D0; // defined:true
 D_803F28DC = 0x803F28DC; // defined:true
-D_803F28E0 = 0x803F28E0; // defined:true size:0x1B8
-D_803F2A98 = 0x803F2A98; // defined:true
+gCameras = 0x803F28E0; // defined:true size:0x1B8
+gCameraId = 0x803F2A98; // defined:true
 D_803F2A9A = 0x803F2A9A; // defined:true
 D_803F2A9C = 0x803F2A9C; // defined:true
 D_803F2A9E = 0x803F2A9E; // defined:true
@@ -829,7 +740,7 @@ D_803F330E = 0x803F330E; // defined:true
 D_803F3310 = 0x803F3310; // defined:true
 D_803F3330 = 0x803F3330; // defined:true
 D_803F34C0 = 0x803F34C0; // defined:true
-D_803F63C0 = 0x803F63C0; // defined:true
+gLoadedMessageCount = 0x803F63C0; // defined:true
 D_803F63C2 = 0x803F63C2; // defined:true
 
 // overlay2_78E970
@@ -847,7 +758,6 @@ verticalPosition = 0x803F6402; // defined:true
 
 // cheats
 D_803F6410 = 0x803F6410; // defined:true
-D_803F6428 = 0x803F6428; // defined:true size:0x1A
 
 // overlay2_79DE10
 D_803F6450 = 0x803F6450; // defined:true

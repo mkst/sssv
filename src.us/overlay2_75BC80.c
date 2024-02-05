@@ -124,7 +124,7 @@ void spawn_dizzy_starts_small(void) {
 }
 
 // ESA: func_800A32EC
-void func_8034AE34_75C4E4(s32 arg0, s32 arg1) {
+void kick_up_dust_small(s32 arg0, s32 arg1) {
     s16 temp_v0;
     s16 i;
 
@@ -148,7 +148,7 @@ void func_8034AE34_75C4E4(s32 arg0, s32 arg1) {
 }
 
 // ESA: func_800A3404
-void func_8034AF0C_75C5BC(s32 arg0, s32 arg1) {
+void kick_up_dust_big(s32 xVelocity, s32 zVelocity) {
     u16 temp_v0;
     u16 i;
 
@@ -160,8 +160,8 @@ void func_8034AF0C_75C5BC(s32 arg0, s32 arg1) {
                 (D_803D5530->position.zPos.h + ((temp_v0 & 0xF0) >> 4)) - 8,
                 D_803D5530->position.yPos.h,
                 20,
-                arg0,
-                arg1,
+                xVelocity,
+                zVelocity,
                 0x8000,
                 7,
                 GPACK_RGBA5551(120, 120, 96, 1),
@@ -183,7 +183,7 @@ void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1) {
 void func_8034B000_75C6B0(s32 arg0) {
 }
 
-// used by husky and bear
+// used by husky and bear, foaming mouth particle locations?
 void func_8034B008_75C6B8(u8 arg0, u8 arg1, s16 arg2, s32 *arg3, s32 *arg4, s32 *arg5) {
     s32 sp44;
     s32 sp40;
@@ -193,12 +193,12 @@ void func_8034B008_75C6B8(u8 arg0, u8 arg1, s16 arg2, s32 *arg3, s32 *arg4, s32 
     s32 sp34;
     s32 sp30;
 
-    sp44 = D_803D5530->position.xPos.w + ((COS(D_803D552C->unk302) * D_80203FE0[arg0].unk0) / 16) + ((SIN(D_803D552C->unk302) * D_80203FE0[arg0].unk2) / 16);
-    sp40 = D_803D5530->position.zPos.w + ((COS(D_803D552C->unk302) * D_80203FE0[arg0].unk2) / 16) - ((SIN(D_803D552C->unk302) * D_80203FE0[arg0].unk0) / 16);
+    sp44 = D_803D5530->position.xPos.w + ((COS(D_803D552C->heading) * D_80203FE0[arg0].unk0) / 16) + ((SIN(D_803D552C->heading) * D_80203FE0[arg0].unk2) / 16);
+    sp40 = D_803D5530->position.zPos.w + ((COS(D_803D552C->heading) * D_80203FE0[arg0].unk2) / 16) - ((SIN(D_803D552C->heading) * D_80203FE0[arg0].unk0) / 16);
     sp3C = D_803D5530->position.yPos.w + ((D_80203FE0[arg0].unk4 << 0xF) / 16);
 
-    sp38 = D_803D5530->position.xPos.w + ((COS(D_803D552C->unk302) * D_80203FE0[arg1].unk0) / 16) + ((SIN(D_803D552C->unk302) * D_80203FE0[arg1].unk2) / 16);
-    sp34 = D_803D5530->position.zPos.w + ((COS(D_803D552C->unk302) * D_80203FE0[arg1].unk2) / 16) - ((SIN(D_803D552C->unk302) * D_80203FE0[arg1].unk0) / 16);
+    sp38 = D_803D5530->position.xPos.w + ((COS(D_803D552C->heading) * D_80203FE0[arg1].unk0) / 16) + ((SIN(D_803D552C->heading) * D_80203FE0[arg1].unk2) / 16);
+    sp34 = D_803D5530->position.zPos.w + ((COS(D_803D552C->heading) * D_80203FE0[arg1].unk2) / 16) - ((SIN(D_803D552C->heading) * D_80203FE0[arg1].unk0) / 16);
     sp30 = D_803D5530->position.yPos.w + ((D_80203FE0[arg1].unk4 << 0xF) / 16);
 
     *arg3 = sp44 + (((sp38 - sp44) * arg2) >> 6);
@@ -243,8 +243,8 @@ void func_8034B45C_75CB0C(void) {
         ((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 6) || (D_803D5530->unk162 == 7)) &&
         ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4) || (D_803D552C->unk366 == 1))) {
 
-        s16 tmp1 = (((SIN(D_803D552C->unk302) >> 7) * D_803D5524->unkBE * 3) >> 9);
-        s16 tmp2 = (((COS(D_803D552C->unk302) >> 7) * D_803D5524->unkBE * 3) >> 9);
+        s16 tmp1 = (((SIN(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
+        s16 tmp2 = (((COS(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
 
         for (i = 0; i < 3; i++) {
             create_particle_effect_2(
@@ -265,15 +265,15 @@ void func_8034B64C_75CCFC(s16 arg0, s16 arg1, s16 arg2) {
     if ((D_803F2EDE != 0) &&
         (((D_803D5530->unk162 != 4) && (D_803D5530->unk162 == 6)) || (D_803D5530->unk162 != 7)) &&
         ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4) || (D_803D552C->unk366 == 1))) {
-        s16 tmp1 = ((((SIN(D_803D552C->unk302)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
-        s16 tmp2 = ((((COS(D_803D552C->unk302)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
+        s16 tmp1 = ((((SIN(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
+        s16 tmp2 = ((((COS(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
         create_particle_effect(
             D_803D5530->position.xPos.h + tmp1,
             D_803D5530->position.zPos.h + tmp2,
             D_803D5530->position.yPos.h + ((D_803D5524->unkBA * arg2) >> 4),
             25,
-            (SIN(D_803D552C->unk302) >> 7) << 8,
-            (COS(D_803D552C->unk302) >> 7) << 8,
+            (SIN(D_803D552C->heading) >> 7) << 8,
+            (COS(D_803D552C->heading) >> 7) << 8,
             -0x8000,
             1,
             GPACK_RGBA5551(248, 248, 248, 0),
@@ -297,8 +297,8 @@ void func_8034B848_75CEF8(s16 arg0) {
             phi_t3 = 1;
         }
         if (phi_t3 != 0) {
-            temp_a3 = -((SIN(D_803D552C->unk302)) >> 7);
-            temp_t7 = -((COS(D_803D552C->unk302)) >> 7);
+            temp_a3 = -((SIN(D_803D552C->heading)) >> 7);
+            temp_t7 = -((COS(D_803D552C->heading)) >> 7);
             sp4E = (temp_a3 * D_803D5524->unkBE) >> 8;
             sp4C = (temp_t7 * D_803D5524->unkBE) >> 8;
 

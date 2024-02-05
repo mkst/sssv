@@ -28,8 +28,8 @@ void func_80382050_793700(void) {
             }
         } else if ((D_803D552C->unk369 == 1) && (D_801E9E8E != 0) && (D_803D5530->yVelocity.h < 5)) {
             D_803D552C->unk369 = 2U;
-            D_803D5530->xVelocity.w += SIN(D_803D552C->unk302) * 0x13;
-            D_803D5530->zVelocity.w += COS(D_803D552C->unk302) * 0x13;
+            D_803D5530->xVelocity.w += SIN(D_803D552C->heading) * 0x13;
+            D_803D5530->zVelocity.w += COS(D_803D552C->heading) * 0x13;
             D_803D5530->yVelocity.h = MAX(7, D_803D5530->yVelocity.h + 4);
 
             D_803D552C->unk308 = MAX(0, D_803D552C->unk308 - 25);
@@ -107,7 +107,7 @@ done:
         }
 
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803B5860_7C6F10, D_803B5864_7C6F14, D_803B5868_7C6F18, D_803B5870_7C6F20);
@@ -122,13 +122,13 @@ done:
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
              (D_803F2EDA != 0) &&
              ((D_803D5538 != 0) || (D_803F2AA2 == 0) || ((phi_a3 = D_803F2AA2) == 2) || ((phi_a3 == 1) && (D_803F2AA3 >= 0xB))) &&
-             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
                 D_803D5530->position.xPos.w,
                 D_803D5530->position.zPos.w,
                 D_803D5530->position.yPos.w,
-                -D_803D552C->unk302,
+                -D_803D552C->heading,
                 D_803F2EB0 / 4,
                 D_803F2EB4 / 4,
                 D_803F2EB8 / 4,
@@ -181,7 +181,7 @@ done:
             D_803D552C->position.xPos.h,
             D_803D552C->position.zPos.h,
             D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
-            D_803D552C->unk302,
+            D_803D552C->heading,
             D_01033190,
             28,
             9,

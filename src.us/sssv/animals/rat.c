@@ -185,7 +185,7 @@ void func_8035E430_76FAE0(void) {
             }
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803B3F50_7C5600, D_803B3F60_7C5610, D_803B3F70_7C5620, D_803B3F8C_7C563C);
@@ -198,9 +198,9 @@ void func_8035E430_76FAE0(void) {
         func_8038064C_791CFC();
         if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) &&
             (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_9 = D_803F2AA2, (temp_v0_9 == 0)) || (temp_v0_9 == 2) || ((temp_v0_9 == 1) && (D_803F2AA3 >= 0xB))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
 
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->unk302, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x80, 0x80, 0xFF);
@@ -229,11 +229,11 @@ void func_8035E430_76FAE0(void) {
             func_802C78B0_6D8F60(2, 1, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_040073D8_CEE08);
 
             temp_a3 = (((D_80203FE0[1].unk4 << 0xF) / 16) * 2) - FTOFIX32(22.0);
-            temp_t5 = D_803D5530->position.xPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (SIN(D_803D552C->unk302) >> 7));
-            temp_t1 = D_803D5530->position.zPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (COS(D_803D552C->unk302) >> 7));
+            temp_t5 = D_803D5530->position.xPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (SIN(D_803D552C->heading) >> 7));
+            temp_t1 = D_803D5530->position.zPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (COS(D_803D552C->heading) >> 7));
             temp_t8_2 = D_803D5530->position.yPos.w + (scale * 0x90000) + (scale * temp_a3);
-            temp_lo = (COS(D_803D552C->unk302) >> 7) * (scale * 0x300);
-            temp_t3 = -((SIN(D_803D552C->unk302) >> 7) * (scale * 0x300));
+            temp_lo = (COS(D_803D552C->heading) >> 7) * (scale * 0x300);
+            temp_t3 = -((SIN(D_803D552C->heading) >> 7) * (scale * 0x300));
 
             if ((spA6 != 5) && (D_803F2AA2 == 0)) {
                 func_8029CEF0_6AE5A0(
@@ -266,15 +266,15 @@ void func_8035E430_76FAE0(void) {
         func_8035D6D0_76ED80();
     }
     if ((spA2 == 0) || (spA2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->unk302, &D_01033190, (scale * 0x28A) / 32, (scale * 0x177) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->heading, &D_01033190, (scale * 0x28A) / 32, (scale * 0x177) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     tailIndex = D_803D5528->unk3C8.unk2;
     if (tailIndex != 0) {
         if ((spA2 == 0) && (D_803F2EDB)) {
 
-            a1 = D_803D5530->position.xPos.w + ((COS(D_803D552C->unk302) * (scale * (D_80203FE0[2].unk0       ))) / 16) + ((SIN(D_803D552C->unk302) * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16);
-            a2 = D_803D5530->position.zPos.w + ((COS(D_803D552C->unk302) * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16) - ((SIN(D_803D552C->unk302) * D_80203FE0[2].unk0 * scale) / 16);
+            a1 = D_803D5530->position.xPos.w + ((COS(D_803D552C->heading) * (scale * (D_80203FE0[2].unk0       ))) / 16) + ((SIN(D_803D552C->heading) * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16);
+            a2 = D_803D5530->position.zPos.w + ((COS(D_803D552C->heading) * (scale * (D_80203FE0[2].unk2 - 0xCB))) / 16) - ((SIN(D_803D552C->heading) * D_80203FE0[2].unk0 * scale) / 16);
             a3 = D_803D5530->position.yPos.w + (((D_80203FE0[2].unk4 * scale) << 0xF) / 16);
 
             func_802DE914_6EFFC4(
@@ -282,7 +282,7 @@ void func_8035E430_76FAE0(void) {
                 a1,
                 a2,
                 a3,
-                D_803D552C->unk302);
+                D_803D552C->heading);
 
             if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {
                 if ((D_803E00C0[D_803D5528->unk3C8.unk2].tailType == 3) ||
@@ -338,8 +338,8 @@ void func_8035E430_76FAE0(void) {
 void func_8035F92C_770FDC(void) {
     if (((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(
-            D_803D5530->position.xPos.h - (((SIN(D_803D552C->unk302) >> 7) * 20) >> 8),
-            D_803D5530->position.zPos.h - (((COS(D_803D552C->unk302) >> 7) * 20) >> 8),
+            D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) * 20) >> 8),
+            D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) * 20) >> 8),
             D_803D5530->position.yPos.h,
             552, 110, D_803D5530, 3, 33);
         play_sound_effect_at_location(SFX_DROP_MINE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -400,8 +400,8 @@ void rat_drop_mine(void) {
     if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) {
         if (D_803D5530->unk6C == 0) {
             spawn_temporary_object(
-                D_803D5530->position.xPos.h - (((SIN(D_803D552C->unk302) >> 7) * 20) >> 8),
-                D_803D5530->position.zPos.h - (((COS(D_803D552C->unk302) >> 7) * 20) >> 8),
+                D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) * 20) >> 8),
+                D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) * 20) >> 8),
                 D_803D5530->position.yPos.h,
                 552,
                 150,

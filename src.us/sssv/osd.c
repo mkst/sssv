@@ -9,7 +9,8 @@
 extern u8 D_01004600[];
 extern u8 D_01004650_3DF20[];
 extern u8 D_0103BB20[];
-extern u8 D_0103C720[];
+extern u8 D_0103BB20[];
+extern u8 D_0103C720[]; // D_0103BB20 + 0xC00
 extern u8 D_0103D520[];
 extern u8 D_0103D320[];
 extern u8 D_01029DD0[];
@@ -24,55 +25,53 @@ extern f64 D_803BE950_7D0000; // = 0.6;
 // .bss (D_803F2CD0 to D_803F2D20)
 // ========================================================
 
-s16  D_803F2CD0;
+s16  D_803F2CD0; // other timer
 s16  D_803F2CD2; // (race?) timer
 s16  D_803F2CD4;
 s16  D_803F2CD6;
 s16  D_803F2CD8;
-s16  D_803F2CDA;
+static s16  D_803F2CDA;
 s8   D_803F2CDC;
-s8   D_803F2CDD;
-u8   D_803F2CDE;
-u8   D_803F2CDF;
+static s8   D_803F2CDD;
+static u8   D_803F2CDE;
+static u8   D_803F2CDF;
 s16 *D_803F2CE0;
 s16  D_803F2CE4;
-s8   D_803F2CE6;
-u16  D_803F2CE8; // health slider 'animation'
-s32  D_803F2CEC;
-s16  D_803F2CF0;
-u8   D_803F2CF2;
-struct033 D_803F2CF8; // pointer to an animal+health
-s32  D_803F2D04;
-s32  D_803F2D08; // unused
-s32  D_803F2D0C; // unused
-
-// bss split?
-struct003 D_803F2D10;
-s32  D_803F2D14;
-s16  D_803F2D18;
+u8   D_803F2CE6;
+s16  D_803F2CE8; // health slider 'animation'
+static s32  D_803F2CEC; // xpos for texture
+static s16  D_803F2CF0;
+static u8   D_803F2CF2;    // effectively unused, always 1
+static struct033 D_803F2CF8; // pointer to an animal+health
 
 // ========================================================
 // .text
 // ========================================================
 
-// 50% there?
-#if 0
-void osd_draw_health_and_power_bars(s32 arg0) {
-    s16 tmp1;
+void osd_draw_health_and_power_bars(s16 arg0) {
+    s16 new_var;
+    s16 foo;
+    s16 health;
     s16 tmp2;
-    s16 temp_t4;
-    Animal *animal;
+    s16 tmp1;
+    s16 temp_t7;
 
-    static s32 D_803F2D04; // tbd
+    static s32  D_803F2D04;
 
     D_803F2D04++;
-    D_803F2D04 = 0xF; //(D_803F2D04.unk0 + 1) & 0xF;
+    D_803F2D04 = D_803F2D04 & 0xF;
+
     D_803F2CEC = 0x60;
-    D_803F2CF0 = arg0 * 4;
+    D_803F2CF0 = arg0 << 2;
 
     if ((D_803F2CF0 >> 2) < gScreenHeight) {
 
+        // maybe an if statement about energy? seems to be required to get correct regalloc
+        tmp1 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->energy[0].unk0 / 16;
+        tmp2 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->energy[1].unk0 / 16;
+
         gSPDisplayList(D_801D9E7C++, D_01004650_3DF20);
+
         gDPSetCycleType(D_801D9E7C++, G_CYC_1CYCLE);
 
         gDPSetRenderMode(D_801D9E7C++, G_RM_AA_ZB_TEX_EDGE, G_RM_AA_ZB_TEX_EDGE2);
@@ -83,6 +82,7 @@ void osd_draw_health_and_power_bars(s32 arg0) {
         gDPPipeSync(D_801D9E7C++);
 
         gDPLoadTextureBlock(D_801D9E7C++, D_0103BB20, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
         gDPPipeSync(D_801D9E7C++);
 
         gSPTextureRectangle(
@@ -101,6 +101,8 @@ void osd_draw_health_and_power_bars(s32 arg0) {
         gDPLoadTextureBlock(D_801D9E7C++, D_0103C720, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gDPPipeSync(D_801D9E7C++);
 
+        new_var = 0x7000; // fuuuu
+
         gSPTextureRectangle(
             D_801D9E7C++,
             D_803F2CEC + 192,
@@ -118,14 +120,21 @@ void osd_draw_health_and_power_bars(s32 arg0) {
         tmp2 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->energy[1].unk0 / 16;
 
         tmp1 = (tmp1 * 12);
-        tmp1 = tmp1 / 16;
-
         tmp2 = (tmp2 * 12);
+
+        tmp1 = tmp1 / 16;
         tmp2 = tmp2 / 16;
 
         gDPPipeSync(D_801D9E7C++);
 
+#if 0
         gDPSetRenderMode(D_801D9E7C++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+#else
+        gDPSetRenderMode(D_801D9E7C++,
+            ((((new_var | 0x8) | (0 << 30)) | (3 << 26)) | (0 << 22)) | (2 << 18),
+            ((((new_var | 0x8) | (0 << 28)) | (3 << 24)) | (0 << 20)) | (2 << 16));
+#endif
+
         gDPSetTextureFilter(D_801D9E7C++, G_TF_POINT);
 
         gDPLoadTextureBlock(D_801D9E7C++, D_0103D520, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -133,7 +142,7 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             D_801D9E7C++,
             D_803F2CEC + 0x2C,
             D_803F2CF0 + 4,
-            D_803F2CEC + 0x2C + tmp1,
+            D_803F2CEC + 44 + tmp1,
             D_803F2CF0 + 0x30,
             G_TX_RENDERTILE,
             0,
@@ -142,10 +151,11 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             1024);
 
         gDPLoadTextureBlock(D_801D9E7C++, D_0103D320, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-        gSPTextureRectangle(D_801D9E7C++,
+        gSPTextureRectangle(
+            D_801D9E7C++,
             D_803F2CEC + 0x14,
             D_803F2CF0 - 0x30,
-            D_803F2CEC + 0x14 + tmp2,
+            D_803F2CEC + 20 + tmp2,
             D_803F2CF0 - 4,
             G_TX_RENDERTILE,
             0,
@@ -165,26 +175,28 @@ void osd_draw_health_and_power_bars(s32 arg0) {
         gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD);
         gDPSetTileSize(D_801D9E7C++, G_TX_RENDERTILE, 0, 0, 4*(15), 4*(7));
 
-        animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-        if (animal->health < D_803F2CE8) {
-            if ((animal->health + 1) < D_803F2CE8) {
+        health = D_801D9ED8.animals[gCurrentAnimalIndex].animal->health;
+        if (D_803F2CE8 > D_801D9ED8.animals[gCurrentAnimalIndex].animal->health) {
+            if (D_803F2CE8 > (D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 1)) {
                 D_803F2CE8 -= 2;
             } else {
-                D_803F2CE8 -= 1;
+                D_803F2CE8--;
             }
         }
 
-        if (D_803F2CE8 < animal->health) {
+        if (D_803F2CE8 < D_801D9ED8.animals[gCurrentAnimalIndex].animal->health) {
             if (D_803F2CE6 != 0) {
-                func_8032CD20_73E3D0(0xC, 0x72, (D_803F2CE8 * 0x10) + 0x3000, 0, (f32) ((D_803F2CE8 / 200.0) + 0.6));
+                func_8032CD20_73E3D0((void*)0xC, SFX_UNKNOWN_114, (D_803F2CE8 << 4) + 0x3000, 0, (f32) ((D_803F2CE8 / 200.0) + 0.6));
             }
-            D_803F2CE8 += 1;
+            D_803F2CE8++;
         } else {
             D_803F2CE6 = 1;
         }
 
-        temp_t4 = animal->health << 1;
-        if (animal->health >= 17) {
+        temp_t7 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->health;
+        temp_t7 = temp_t7 << 1;
+
+        if (health >= 17) {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, 0x08, 0x5F, 0x00, 0xD2);
             gDPSetEnvColor(D_801D9E7C++, 0x23, 0xDC, 0x00, 0xD2);
         } else if (D_803F2D04 < 8) {
@@ -195,13 +207,14 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             gDPSetEnvColor(D_801D9E7C++, 0x23, 0xFA, 0x00, 0xD2);
         }
 
-        if (animal->health < D_803F2CE8) {
-            if (temp_t4 > 0) {
+        if (D_803F2CE8 > D_801D9ED8.animals[gCurrentAnimalIndex].animal->health) {
+            foo = ((D_803F2CE8 - D_801D9ED8.animals[gCurrentAnimalIndex].animal->health) << 1);
+            if (temp_t7 > 0) {
                 gSPTextureRectangle(
                     D_801D9E7C++,
-                    D_803F2CEC + 0x54,
+                    (D_803F2CEC + 0x54),
                     D_803F2CF0 - 0x1C,
-                    D_803F2CEC + 0x54 + temp_t4,
+                    temp_t7 + (D_803F2CEC + 0x54),
                     D_803F2CF0 - 8,
                     G_TX_RENDERTILE,
                     0,
@@ -214,9 +227,9 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             gDPSetEnvColor(D_801D9E7C++, 0xEB, 0x00, 0x00, 0x78);
             gSPTextureRectangle(
                 D_801D9E7C++,
-                D_803F2CEC + 0x54 + temp_t4,
+                temp_t7 + (D_803F2CEC + 0x54),
                 D_803F2CF0 - 0x1C,
-                D_803F2CEC + 0x54 + temp_t4 + ((D_803F2CE8 - animal->health) << 1) ,
+                temp_t7 + (D_803F2CEC + 0x54) + foo,
                 D_803F2CF0 - 8,
                 G_TX_RENDERTILE,
                 0,
@@ -226,13 +239,14 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             gDPPipeSync(D_801D9E7C++);
         }
 
-        if (D_803F2CE8 < animal->health) {
-            if (temp_t4 > 0) {
+        if (D_803F2CE8 < D_801D9ED8.animals[gCurrentAnimalIndex].animal->health) {
+            foo = (D_803F2CE8 << 1);
+            if (temp_t7 > 0) {
                 gSPTextureRectangle(
                     D_801D9E7C++,
-                    D_803F2CEC + 0x54,
-                    D_803F2CF0 - 0x1C,
-                    D_803F2CEC + 0x54 + (D_803F2CE8 << 1),
+                    (D_803F2CEC + 0x54),
+                    (D_803F2CF0 - 0x1C),
+                    foo + (D_803F2CEC + 0x54),
                     D_803F2CF0 - 8,
                     G_TX_RENDERTILE,
                     0,
@@ -245,9 +259,9 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, 0x08, 0x5F, 0x00, 0x78);
             gDPSetEnvColor(D_801D9E7C++, 0x23, 0xDC, 0x00, 0x78);
             gSPTextureRectangle(D_801D9E7C++,
-                D_803F2CEC + 0x54 + (D_803F2CE8 << 1),
+                foo + (D_803F2CEC + 0x54),
                 D_803F2CF0 - 0x1C,
-                D_803F2CEC + 0x54 + (D_803F2CE8 << 1),
+                temp_t7 + (D_803F2CEC + 0x54),
                 D_803F2CF0 - 8,
                 G_TX_RENDERTILE,
                 0,
@@ -257,27 +271,25 @@ void osd_draw_health_and_power_bars(s32 arg0) {
             gDPPipeSync(D_801D9E7C++);
         }
 
-        animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-        if ((D_803F2CE8 == animal->health) && (temp_t4 > 0)) {
-            gSPTextureRectangle(
-                D_801D9E7C++,
-                D_803F2CEC + 0x54,
-                D_803F2CF0 - 0x1C,
-                D_803F2CEC + 0x54 + temp_t4,
-                D_803F2CF0 - 8,
-                G_TX_RENDERTILE,
-                0,
-                0,
-                2,
-                1723);
-            gDPPipeSync(D_801D9E7C++);
+        if (D_803F2CE8 == D_801D9ED8.animals[gCurrentAnimalIndex].animal->health) {
+            if (temp_t7 > 0) {
+                gSPTextureRectangle(
+                    D_801D9E7C++,
+                    (D_803F2CEC + 0x54),
+                    D_803F2CF0 - 0x1C,
+                    temp_t7 + (D_803F2CEC + 0x54),
+                    D_803F2CF0 - 8,
+                    G_TX_RENDERTILE,
+                    0,
+                    0,
+                    2,
+                    1723);
+                gDPPipeSync(D_801D9E7C++);
+            }
         }
         func_803493C8_75AA78();
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/osd/osd_draw_health_and_power_bars.s")
-#endif
 
 // ESA: func_8007D9D4
 void osd_draw_score(void) {
@@ -290,26 +302,20 @@ void func_80349278_75A928(void) {
 }
 
 // ESA: func_8007DA18
-void func_80349280_75A930(Animal *arg0, s16 arg1) {
-    s32 temp_a2;
-    s32 temp_v1;
-
+void func_80349280_75A930(Animal *arg0, s16 damage) {
     if ((arg0->unk16C->unk82.unk2) &&
-        ((arg0->unk366== 3) || (arg0->unk366 == 4) || (arg0->unk366 == 1))) {
-        if (arg1 != 0) {
-            temp_a2 = arg1 >> 2;
-            temp_v1 = temp_a2 + 4;
-            temp_a2 = arg0->unk36B + temp_a2;
-            arg0->unk36B = MAX(temp_a2, temp_v1);
+        ((arg0->unk366 == 3) || (arg0->unk366 == 4) || (arg0->unk366 == 1))) {
+        if (damage != 0) {
+            arg0->lastHpLost = MAX(arg0->lastHpLost + (damage >> 2), (damage >> 2) + 4);
         }
         if (arg0 != D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
             if (arg0 == D_803F2CF8.animal) {
-                D_803F2CF8.unk6 = MAX(0, arg0->health - arg1);
+                D_803F2CF8.unk6 = MAX(0, arg0->health - damage);
                 D_803F2CF8.unkA = 64;
-            } else if ((D_803F2CF8.animal == NULL) || ((arg1 != 0) && ((D_803F2CF8.unk8 == D_803F2CF8.unk6) || (D_803F2CF8.animal->unk16C->mass < arg0->unk16C->mass)))) {
+            } else if ((D_803F2CF8.animal == NULL) || ((damage != 0) && ((D_803F2CF8.unk8 == D_803F2CF8.unk6) || (D_803F2CF8.animal->unk16C->mass < arg0->unk16C->mass)))) {
                 D_803F2CF8.animal = arg0;
                 D_803F2CF8.health = arg0->health;
-                D_803F2CF8.unk6 = MAX(0, arg0->health - arg1);
+                D_803F2CF8.unk6 = MAX(0, arg0->health - damage);
                 D_803F2CF8.unk8 = D_803F2CF8.health;
                 D_803F2CF8.unkA = 64;
             }
@@ -436,7 +442,7 @@ void func_803497DC_75AE8C(void) {
     D_803F2CDA = 0;
     D_803F2CDE = 1;
     D_803F2CDF = 1;
-    D_803F2CE0 = 0;
+    D_803F2CE0 = NULL;
     D_803F2CF2 = 1;
     bzero_sssv(&D_803F2CF8, 12);
 }
@@ -452,8 +458,8 @@ u8 func_80349874_75AF24(void) {
 }
 
 // ESA: func_8007DEA4
-void func_80349900_75AFB0(s16 *arg0, u16 arg1) {
-    D_803F2CE0 = arg0;
+void func_80349900_75AFB0(s16 *text, u16 arg1) {
+    D_803F2CE0 = text;
     D_803F2CD0 = arg1 * 30;
     D_803F2CD4 = 0;
     D_803F2CDA = 0;

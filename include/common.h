@@ -167,6 +167,24 @@ typedef u8 Addr[];
 
 #define END_DEMO 0xFFFF
 
+// controller related
+
+#define NO_TRIGGER 0
+#define L_TRIGGER  1
+#define R_TRIGGER  2
+
+// input modes
+
+#define INPUT_MODE_USER 0
+#define INPUT_MODE_DEMO 1
+#define INPUT_MODE_DISABLED 2
+
+
+// waypoint related
+
+#define WAYPOINT_END    245
+
+// pause menu
 
 #define PAUSE_MENU_OPTION_CONTINUE  0
 #define PAUSE_MENU_OPTION_MISSION_BRIEF 1
@@ -202,8 +220,8 @@ typedef u8 Addr[];
 #define ATTACK_FOX_DASH     20
 #define ATTACK_CAMEL_WATER_CANNON 22
 #define ATTACK_CAMEL_DASH   23
-#define ATTACK_CHAMELEON_1  24
-#define ATTACK_CHAMELEON_2  25
+#define ATTACK_CHAMELEON_HIDE   24
+#define ATTACK_CHAMELEON_UNHIDE 25
 #define ATTACK_POLAR_BEAR_1 26
 #define ATTACK_POLAR_BEAR_2 27
 #define ATTACK_POLAR_BEAR_3 28
@@ -245,6 +263,22 @@ typedef u8 Addr[];
 #define AI_FOLLOWER         6
 #define AI_LEADER           7
 #define AI_INVISIBLE        8
+
+// fov masks
+
+#define FOV_CIRCLE          0
+#define FOV_TREE            1
+#define FOV_HEXAGON         2
+#define FOV_HORIZONTAL_BAR  3
+#define FOV_VERTICAL_BAR    4
+#define FOV_HORIZONTAL_DIAMOND 5
+#define FOV_VERTICAL_DIAMOND 6
+#define FOV_HORIZONTAL_OVAL 7
+#define FOV_VERTICAL_OVAL   8
+#define FOV_TEARDROP        9
+#define FOV_TEARDROP_THIN   10
+#define FOV_HORIZONTAL_DIAMOND_2 11
+#define FOV_THIN_CONE       12
 
 //
 

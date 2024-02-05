@@ -102,7 +102,7 @@ void func_8032DACC_73F17C(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
             sp80 =  (gScreenWidth * 2) + ((D_80204278->unk38A10[3][0] * temp_f8) / temp_f0);
             sp7C = (gScreenHeight * 2) + ((D_80204278->unk38A10[3][1] * temp_f6) / temp_f0);
 
-            tmp1 = ((arg6 * 33) / D_803F2D50.unkE0);
+            tmp1 = ((arg6 * 33) / D_803F2D50.fovY);
             var_f12 = (tmp1 * 32) / -temp_f0;
             var_f12 = MIN(16383.0f, var_f12);
 
@@ -188,7 +188,7 @@ void func_8032E150_73F800(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
             spA0 = (gScreenWidth  * 2) + ((D_80204278->unk38A10[3][0] * ((D_80204278->unk38A10[0][0] * sp64) + (D_80204278->unk38A10[0][1] * sp60) + (D_80204278->unk38A10[0][2] * sp5C) + D_80204278->unk38A10[0][3])) / temp_f0);
             sp9C = (gScreenHeight * 2) + ((D_80204278->unk38A10[3][1] * ((D_80204278->unk38A10[1][0] * sp64) + (D_80204278->unk38A10[1][1] * sp60) + (D_80204278->unk38A10[1][2] * sp5C) + D_80204278->unk38A10[1][3])) / temp_f0);
 
-            sp94 = ((s32) ((arg6 * 33) / D_803F2D50.unkE0) << 5) / -temp_f0;
+            sp94 = ((s32) ((arg6 * 33) / D_803F2D50.fovY) << 5) / -temp_f0;
 
             if (sp94 > 16383.0f) {
                 sp94 = 16383.0f;
@@ -296,8 +296,8 @@ void func_8032E9E4_740094(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
             sp88 = (gScreenWidth  * 2) + ((D_80204278->unk38A10[3][0] * temp_f8) / temp_f0);
             sp84 = (gScreenHeight * 2) + ((D_80204278->unk38A10[3][1] * temp_f6) / temp_f0);
 
-            var_v1 = ((s32) ((arg6 * 33) / D_803F2D50.unkE0) * 32) / -temp_f0;
-            var_a0 = ((s32) ((arg7 * 33) / D_803F2D50.unkE0) * 32) / -temp_f0;
+            var_v1 = ((s32) ((arg6 * 33) / D_803F2D50.fovY) * 32) / -temp_f0;
+            var_a0 = ((s32) ((arg7 * 33) / D_803F2D50.fovY) * 32) / -temp_f0;
 
             if (var_v1 > 16383) {
                 var_v1 = 16383;
@@ -401,8 +401,8 @@ void func_8032F170_740820(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
             sp78 = ((D_80204278->unk38A10[3][0] * temp_f8) / temp_f2) + (gScreenWidth  * 2);
             sp7C = ((D_80204278->unk38A10[3][1] * temp_f6) / temp_f2) + (gScreenHeight * 2);
 
-            tmp2 = ((s32) ((arg6 * 33) / D_803F2D50.unkE0));
-            tmp1 = ((s32) ((arg7 * 33) / D_803F2D50.unkE0));
+            tmp2 = ((s32) ((arg6 * 33) / D_803F2D50.fovY));
+            tmp1 = ((s32) ((arg7 * 33) / D_803F2D50.fovY));
 
             var_a3 = (tmp2 * 32) / -temp_f2;
             var_t1 = (tmp1 * 32) / -temp_f2;
