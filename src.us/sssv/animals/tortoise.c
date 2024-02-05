@@ -189,7 +189,7 @@ void func_80352380_763A30(void) {
             D_803D552C->unk312 = func_8012844C((((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 5) / (s32) (D_80203FE0[1].unk2 - D_80203FE0[2].unk2)));
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_position();
 
             switch (D_803F2ECE) {
             case 1:
@@ -666,7 +666,7 @@ void func_80354188_765838(void) {
             func_8038CCF0_79E3A0(90, 20, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803A843C_7B9AEC, D_803A8450_7B9B00, D_803A8464_7B9B14, D_803A8484_7B9B34);
@@ -680,14 +680,14 @@ void func_80354188_765838(void) {
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
              (D_803F2EDA != 0) &&
              (((D_803D5538 != 0)) || ((D_803F2AA2 == 0)) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 > 10))) &&
-             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].unk64 != -3))) {
 
             func_80127640(
                 &D_80204278->modelViewMtx[(D_80204278->usedModelViewMtxs)],
                 D_803D5530->position.xPos.w,
                 D_803D5530->position.zPos.w,
                 D_803D5530->position.yPos.w,
-                -D_803D552C->unk302,
+                -D_803D552C->heading,
                 D_803F2EB0 / 4,
                 D_803F2EB4 / 4,
                 D_803F2EB8 / 4,
@@ -729,8 +729,8 @@ void func_80354188_765838(void) {
             }
 
             if (sp8A != 0) {
-                sp8E = COS(-D_803D552C->unk302) >> 7;
-                sp8C = SIN(-D_803D552C->unk302) >> 7;
+                sp8E = COS(-D_803D552C->heading) >> 7;
+                sp8C = SIN(-D_803D552C->heading) >> 7;
 
                 create_particle_effect(
                     D_803D5530->position.xPos.h + (((( sp8C * 0xA9E) / 0xE8) + (sp8E * sp8A)) >> 8),
@@ -787,7 +787,7 @@ void func_80354188_765838(void) {
             D_803D552C->position.xPos.h,
             D_803D552C->position.zPos.h,
             (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)),
-            D_803D552C->unk302,
+            D_803D552C->heading,
             D_01033190,
             25,
             25,
@@ -858,7 +858,7 @@ void func_80355130_7667E0(void) {
             func_802B964C_6CACFC();
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803A8514_7B9BC4, D_803A8518_7B9BC8, D_803A8464_7B9B14, D_803A8484_7B9B34);
@@ -873,14 +873,14 @@ void func_80355130_7667E0(void) {
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((tmp = D_803F2AA2, tmp == 0)) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 11))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((D_803F28E0[D_803F2A98].cameraMode != 3) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].unk64 != -3))) {
 
             func_80127640(
                 &D_80204278->modelViewMtx[(D_80204278->usedModelViewMtxs)],
                 D_803D5530->position.xPos.w,
                 D_803D5530->position.zPos.w,
                 D_803D5530->position.yPos.w,
-                -D_803D552C->unk302,
+                -D_803D552C->heading,
                 D_803F2EB0 / 4,
                 D_803F2EB4 / 4,
                 D_803F2EB8 / 4,
@@ -892,7 +892,7 @@ void func_80355130_7667E0(void) {
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
-            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->unk302, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->heading, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
         func_8035D6A0_76ED50();
     } else {
@@ -929,19 +929,19 @@ void func_80355918_766FC8(void) {
     s16 temp_t0;
     s16 temp_v1;
 
-    if ((D_803F28E0[D_803F2A98].cameraMode == 3) || (D_803F28E0[D_803F2A98].cameraMode == 17)) {
+    if ((gCameras[gCameraId].cameraMode == 3) || (gCameras[gCameraId].cameraMode == 17)) {
         D_803D552C->unk30E = 0;
-        if (D_801D9ED8.unkFFC6 != 0) {
+        if (D_801D9ED8.curCButtonUp != 0) {
             D_803D552C->unk30C -= 4;
         }
-        if (D_801D9ED8.unkFFC8 != 0) {
+        if (D_801D9ED8.curCButtonDown != 0) {
             D_803D552C->unk30C += 4;
         }
 
         D_803D552C->unk30C = MAX(-100, D_803D552C->unk30C);
         D_803D552C->unk30C = MIN(100, D_803D552C->unk30C);
 
-        if ((D_801D9ED8.unkFFB8 == 0) && (D_801D9ED8.unkFFB2 != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
+        if ((D_801D9ED8.prevAButton == 0) && (D_801D9ED8.curAButton != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
             fire_cannonball_1(
                 OBJECT_CANNONBALL,
                 32,
@@ -959,7 +959,7 @@ void func_80355918_766FC8(void) {
             do_rumble(0, 10, 40, 5, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h));
         }
     } else {
-        if ((D_801D9ED8.unkFFB2 == 0) && (D_801D9ED8.unkFFB8 != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
+        if ((D_801D9ED8.curAButton == 0) && (D_801D9ED8.prevAButton != 0) && (func_8035E344_76F9F4(D_803D5520, 0))) {
 
             temp_t0 = D_803D552C->unk30E;
             if (temp_t0 < 60) {
@@ -986,12 +986,12 @@ void func_80355918_766FC8(void) {
             play_sound_effect_at_location(SFX_UNKNOWN_75, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             do_rumble(0, 10, 40, 5, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h));
         }
-        if (D_801D9ED8.unkFFB2 != 0) {
+        if (D_801D9ED8.curAButton != 0) {
             D_803D552C->unk30E = ((D_803D552C->unk30E + 1) % 120);
             if ((D_803D552C->unk30E < 60) && (D_803D5530->unk4A == 0)) {
-                func_8032CD70_73E420(&D_803D5530->unk2, SFX_UNKNOWN_85, 0x3C00, 0, 0.8f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CD70_73E420((u8*)D_803D5530 + 2, SFX_UNKNOWN_85, 0x3C00, 0, 0.8f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             } else {
-                func_8032CD70_73E420(&D_803D5530->unk2, SFX_UNKNOWN_85, 0x3C00, 0, 0.7f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CD70_73E420((u8*)D_803D5530 + 2, SFX_UNKNOWN_85, 0x3C00, 0, 0.7f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
         } else {
             D_803D552C->unk30E = 0;
@@ -1020,7 +1020,7 @@ void func_80355EFC_7675AC(void) {
 }
 
 void func_80355F64_767614(void) {
-    func_8037D994_78F044(20);
+    set_target_speed(20);
     if ((D_803D5540 & 1) == 0) {
         create_particle_effect(
             D_803D5530->position.xPos.h,

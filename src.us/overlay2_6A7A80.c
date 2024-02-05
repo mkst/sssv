@@ -22,9 +22,9 @@ s16 D_803A04F8_7B1BA8 = 1; // unused?
 // ========================================================
 
 // FIXME: if these are defined in overlay2_6A6500 then it results in codegen changes
-u64  D_803C0640;
-u64  D_803C0648;
-u64  D_803C0650;
+u64  gRenderMode1;
+u64  gRenderMode2;
+u64  gGeometryMode;
 u16  D_803C0658; // matrix normalise
 
 // ========================================================
@@ -510,7 +510,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
         var_a0 = D_803F2D50.unk16; //(u16 *) D_803F2D66;
         if (temp_a2 != 0) {
             if (var_a0 != 0) {
-                if (*D_803F28D0 & 0x20) {
+                if (D_803F28D0[0] & 0x20) {
                     var_v1 = 0;
 
                     D_803A04F0_7B1BA0 += 2;
@@ -904,7 +904,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
 s32 func_802983D0_6A9A80(void) {
     s32 new_var;
-    s32 water_level = GET_WATER_LEVEL(D_803C0740, ((u16)D_803F28E0[D_803F2A98].unk74), ((u16)D_803F28E0[D_803F2A98].unk78));
+    s32 water_level = GET_WATER_LEVEL(D_803C0740, ((u16)gCameras[gCameraId].unk74), ((u16)gCameras[gCameraId].unk78));
     // needed!
     new_var = water_level;
     return 0;
@@ -1126,10 +1126,10 @@ void func_80299140_6AA7F0(void) {
 
     maxPoint = 100000;
 
-    minX = ((s32)D_803F28E0[D_803F2A98].unk74 >> 6) - 25;
-    minZ = ((s32)D_803F28E0[D_803F2A98].unk78 >> 6) - 25;
-    maxX = ((s32)D_803F28E0[D_803F2A98].unk74 >> 6) + 25;
-    maxZ = ((s32)D_803F28E0[D_803F2A98].unk78 >> 6) + 25;
+    minX = ((s32)gCameras[gCameraId].unk74 >> 6) - 25;
+    minZ = ((s32)gCameras[gCameraId].unk78 >> 6) - 25;
+    maxX = ((s32)gCameras[gCameraId].unk74 >> 6) + 25;
+    maxZ = ((s32)gCameras[gCameraId].unk78 >> 6) + 25;
 
     if (1) { }
 
@@ -1150,10 +1150,10 @@ void func_80299140_6AA7F0(void) {
         for (j = minZ; j <= maxZ; j += 3) {
             temp_a3 = D_803C0740[i][j].unk6 << 2;
             if (temp_a3 != 0) {
-                zDistance = ABS((j << 6) - (s16) D_803F28E0[D_803F2A98].unk78);
-                new_var = ABS((i << 6) - ((s16) D_803F28E0[D_803F2A98].unk74));
+                zDistance = ABS((j << 6) - (s16) gCameras[gCameraId].unk78);
+                new_var = ABS((i << 6) - ((s16) gCameras[gCameraId].unk74));
                 xDistance = new_var;
-                yDistance = ABS(temp_a3 - (s16) D_803F28E0[D_803F2A98].unk7C) ^ 0;
+                yDistance = ABS(temp_a3 - (s16) gCameras[gCameraId].unk7C) ^ 0;
 
                 if (0) {};
 
@@ -1175,9 +1175,9 @@ void func_80299140_6AA7F0(void) {
 
     if (maxPoint != 100000) {
         if ((D_803F2D50.unk4C == 0) || (D_803F2D50.unk4C == 2)) {
-            new_var = (GET_WATER_LEVEL(D_803C0740, (u16)D_803F28E0[D_803F2A98].unk74, (u16)D_803F28E0[D_803F2A98].unk78));
+            new_var = (GET_WATER_LEVEL(D_803C0740, (u16)gCameras[gCameraId].unk74, (u16)gCameras[gCameraId].unk78));
             water_level = (new_var << 2);
-            if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < water_level) {
+            if ((gCameras[gCameraId].unk7C - 12.0f) < water_level) {
                 func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, xPos, zPos, yPos); // D_803BAD00_7CC3B0
             } else {
                 func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, xPos, zPos, yPos);

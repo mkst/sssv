@@ -158,16 +158,17 @@ void (*behaviour_lut[AID_MAX_ANIMALS])(void) = {
 // ========================================================
 // .bss (D_803F63F0 to D_803F6400)
 // ========================================================
-s16  D_803F63F0; // only used by RAT
+
+static s16  D_803F63F0; // only used by RAT
 
 // ========================================================
 // .text
 // ========================================================
 
 // ESA: func_80064DC4
-s32 func_80383830_794EE0(u16 arg0) {
+s32 target_within_current_fov(u16 fov) {
     Animal *target = D_803D552C->unk2CC;
-    if (arg0 < func_803051F0_7168A0((func_801284B8(target->position.xPos.h - D_803D5530->position.xPos.h, target->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360, D_803D5530->yRotation)) {
+    if (fov < func_803051F0_7168A0((func_801284B8(target->position.xPos.h - D_803D5530->position.xPos.h, target->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360, D_803D5530->yRotation)) {
         return 0;
     } else {
         return 1;
@@ -175,11 +176,11 @@ s32 func_80383830_794EE0(u16 arg0) {
 }
 
 // ESA: func_80064E6C
-s32 func_803838C8_794F78(u16 rotation, u16 arg1) {
+s32 target_within_custom_fov(u16 rotation, u16 fov) {
     Animal *a = D_803D552C->unk2CC;
 
-    if (arg1 < func_803051F0_7168A0(((func_801284B8(a->position.xPos.h - D_803D5530->position.xPos.h, a->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360), rotation)) {
-        return  0;
+    if (fov < func_803051F0_7168A0(((func_801284B8(a->position.xPos.h - D_803D5530->position.xPos.h, a->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360), rotation)) {
+        return 0;
     } else {
         return 1;
     }
@@ -219,7 +220,7 @@ void perform_behavior_lion(void) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 101) && (func_80383830_794EE0(5) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 101) && (target_within_current_fov(5) != 0)) {
             lion_roar();
             D_803D552C->unk2C4 = (func_8012826C() % 40) + 50;
         } else if (D_803D552C->unk2C4 <= 0) {
@@ -253,7 +254,7 @@ void perform_behavior_hippo(void) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2C0 = 0;
         }
-        if ((func_80383830_794EE0(5) != 0) && (D_803D552C->targetDistance < 350) && (D_803D552C->unk2C4 <= 0)) {
+        if ((target_within_current_fov(5) != 0) && (D_803D552C->targetDistance < 350) && (D_803D552C->unk2C4 <= 0)) {
             if (D_803D552C->unk2B8 >= 2) {
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
                 D_803D552C->unk2B8 = 0;
@@ -266,7 +267,7 @@ void perform_behavior_hippo(void) {
         }
         break;
     case BEHAVIOUR_DEFEND:
-        if ((func_80383830_794EE0(80) == 0) && (D_803D552C->unk2C4 <= 0)) {
+        if ((target_within_current_fov(80) == 0) && (D_803D552C->unk2C4 <= 0)) {
             drop_sticky_mine();
             D_803D552C->unk2C4 = 60;
         }
@@ -305,7 +306,7 @@ void perform_behavior_racing_dog(void) {
         } else if ((D_803D552C->targetDistance < 300) && (D_803D552C->unk2C0 <= 0)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0) ){
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0) ){
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
             racing_dog_fire_missile(D_803D552C->unk2CC);
         }
@@ -334,7 +335,7 @@ void perform_behavior_flying_dog(void) {
                 D_803D552C->unk2C0 = 0;
                 D_803D552C->unk2B4.state = 2;
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
-            } else if ((func_80383830_794EE0(5) != 0) && (D_803D552C->targetDistance < 220) && (D_803D552C->unk2C4 == 0)) {
+            } else if ((target_within_current_fov(5) != 0) && (D_803D552C->targetDistance < 220) && (D_803D552C->unk2C4 == 0)) {
                 D_803D552C->unk2C4 = 140;
             }
             if ((D_803D552C->unk2C4 > 0) && (D_803D552C->unk2C4 >= 100) && ((D_803D552C->unk2C4 & 3) == 0)) {
@@ -358,7 +359,7 @@ void perform_behavior_flying_dog(void) {
             if (D_803D552C->targetDistance < 64) {
                 D_803D552C->unk2B4.state = 3;
                 func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -180, 16);
-            } else if ((D_803D552C->unk2C4 == 0) && (func_80383830_794EE0(10) != 0) && (D_803D552C->targetDistance < 200)) {
+            } else if ((D_803D552C->unk2C4 == 0) && (target_within_current_fov(10) != 0) && (D_803D552C->targetDistance < 200)) {
                 D_803D552C->unk2C4 = 80;
                 D_803D552C->unk2B4.state = 2;
                 func_80363FB8_775668(D_803D5530, (D_803D5530->yRotation * 360) >> 8, -180, 16);
@@ -395,11 +396,11 @@ void perform_behavior_fox(void) {
             if (D_803D552C->unk2C0 == 0) {
                 func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
             }
-        } else if ((D_803D552C->unk2C0 == 0) && ((D_803D5530->unk5C & 4) != 0) && (D_803D5530->unk60 == D_803D552C->unk2CC)) {
+        } else if ((D_803D552C->unk2C0 == 0) && ((D_803D5530->unk5C.unk0 & 4) != 0) && (D_803D5530->unk5C.unk4 == D_803D552C->unk2CC)) {
             D_803D552C->unk2C0 = 40;
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
         }
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 51) && (func_80383830_794EE0(5) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 51) && (target_within_current_fov(5) != 0)) {
             func_802E88C0_6F9F70(100);
             D_803D552C->unk2C4 = SSSV_RAND(8) + 25;
             D_803D552C->unk2BC += 1;
@@ -431,7 +432,7 @@ void perform_behavior_fire_fox(void) {
             D_803D552C->unk2B4.state = 2;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
         }
-        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance < 200) && (func_80383830_794EE0(20) != 0)) {
+        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance < 200) && (target_within_current_fov(20) != 0)) {
             fire_fox_fire_missile(D_803D552C->unk2CC);
             D_803D552C->unk2C4 = 0x96;
             D_803D552C->unk2B4.state = 2;
@@ -463,7 +464,7 @@ void perform_behavior_frog(void) {
         if ((D_803D552C->targetDistance >= 61) && (D_803D552C->unk2BC < 4)) {
             D_803D552C->unk2B4.state = 1;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2BC += 1;
             if (D_803D552C->unk2BC < 4) {
                 frog_croak();
@@ -507,7 +508,7 @@ void perform_behavior_rabbit(void) {
         } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance < 100)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             func_803021A8_713858();
             D_803D552C->unk2C4 = SSSV_RAND(32) + 40;
         }
@@ -531,7 +532,7 @@ void perform_behavior_heli_rabbit(void) {
         if (D_803D552C->targetDistance < 64) {
             D_803D552C->unk2B4.state = 3;
             func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
-        } else if ((func_80383830_794EE0(10) != 0) && (D_803D552C->targetDistance < 180)) {
+        } else if ((target_within_current_fov(10) != 0) && (D_803D552C->targetDistance < 180)) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C4 = 80;
             func_80363FB8_775668(D_803D5530, ((D_803D5530->yRotation * 360) >> 8), -200, 16);
@@ -592,7 +593,7 @@ void perform_behavior_racing_mouse(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2C4 == 0) && (func_80383830_794EE0(2) != 0)) {
+        if ((D_803D552C->unk2C4 == 0) && (target_within_current_fov(2) != 0)) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2B4.state = 2;
         } else if ((D_803D552C->unk2C4 != 0) && (D_803D552C->targetDistance < 70)) {
@@ -640,7 +641,7 @@ void perform_behavior_bear(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((func_80383830_794EE0(0xA) != 0) && (D_803D552C->targetDistance < 0x2E)) {
+        if ((target_within_current_fov(0xA) != 0) && (D_803D552C->targetDistance < 0x2E)) {
             D_803D552C->unk2B4.state = 2;
         }
         break;
@@ -686,8 +687,8 @@ void perform_behavior_racing_fox(void) {
             }
         } else {
             if (D_803D552C->unk2C0 == 0) {
-                if ((D_803D5530->unk5C & 4) != 0) {
-                    if (D_803D5530->unk60 == D_803D552C->unk2CC) {
+                if ((D_803D5530->unk5C.unk0 & 4) != 0) {
+                    if (D_803D5530->unk5C.unk4 == D_803D552C->unk2CC) {
                         D_803D552C->unk2C0 = 40;
                         func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
                     }
@@ -695,7 +696,7 @@ void perform_behavior_racing_fox(void) {
             }
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 51)) {
-            if (func_80383830_794EE0(5) != 0) {
+            if (target_within_current_fov(5) != 0) {
                 D_803D552C->unk2BC += 1;
                 if (D_803D552C->unk2BC < 4) {
                     func_802E88C0_6F9F70(100);
@@ -711,7 +712,7 @@ void perform_behavior_racing_fox(void) {
         }
         break;
     case BEHAVIOUR_DEFEND:
-        if ((D_803D552C->unk2B8 == 0) && (func_80383830_794EE0(80) == 0)) {
+        if ((D_803D552C->unk2B8 == 0) && (target_within_current_fov(80) == 0)) {
             D_803D552C->unk2B8 = 1;
             if ((guRandom() & 3) == 0) {
                  fox_warp();
@@ -751,7 +752,7 @@ void perform_behavior_tortoise_tank(void) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2B8 = 0;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
             tortoise_tank_attack(D_803D552C->unk2CC);
         }
@@ -788,18 +789,18 @@ void perform_behavior_racing_tortoise(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if (func_80383830_794EE0(2) != 0) {
+        if (target_within_current_fov(2) != 0) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, -1, 16);
             D_803D552C->unk2B4.state = 2;
         }
         break;
     case BEHAVIOUR_DEFEND:
-        if (((D_803D5530->unk5C & 4) != 0) && (D_803D5530->unk60 == D_803D552C->unk2CC)) {
+        if (((D_803D5530->unk5C.unk0 & 4) != 0) && (D_803D5530->unk5C.unk4 == D_803D552C->unk2CC)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2B8 = 0;
         }
-        if ((D_803D552C->targetDistance < 70) && (func_80383830_794EE0(5) != 0) && (func_8038395C_79500C() >= 12)) {
+        if ((D_803D552C->targetDistance < 70) && (target_within_current_fov(5) != 0) && (func_8038395C_79500C() >= 12)) {
             racing_tortoise_defend(20);
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
@@ -831,7 +832,7 @@ void perform_behavior_dog(void) {
             }
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
-            if (func_80383830_794EE0(5) != 0) {
+            if (target_within_current_fov(5) != 0) {
                 D_803D552C->unk2BC = (D_803D552C->unk2BC + 1);
                 if (D_803D552C->unk2BC < 4) {
                     dog_bite();
@@ -901,7 +902,7 @@ void perform_behavior_rat(void) {
             }
             break;
         case BEHAVIOUR_DEFEND:
-            if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(80) == 0)) {
+            if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(80) == 0)) {
                 rat_drop_mine();
                 D_803D552C->unk2C4 = 0x3C;
             }
@@ -933,7 +934,7 @@ void perform_behavior_rat(void) {
             }
             break;
         case BEHAVIOUR_DEFEND:
-            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x29) && (func_80383830_794EE0(15) != 0)) {
+            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x29) && (target_within_current_fov(15) != 0)) {
                 rat_bite();
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 D_803D552C->unk2BC += 1;
@@ -945,7 +946,7 @@ void perform_behavior_rat(void) {
             }
             break;
         case 3:
-            if (D_803E4C3C < 101) {
+            if (D_803E4BE0.distance < 101) {
                 func_80363CC8_775378(D_803D5530);
                 D_803D552C->unk2B4.state = 4;
                 break;
@@ -960,7 +961,7 @@ void perform_behavior_rat(void) {
             D_803D552C->unk2B4.state = 1;
             // fallthru
         case 1:
-            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x47) && (func_80383830_794EE0(15) != 0)) {
+            if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x47) && (target_within_current_fov(15) != 0)) {
                 rat_bite();
                 D_803D552C->unk2C4 = SSSV_RAND(4) + 5;
                 if (++D_803D552C->unk2BC >= 6) {
@@ -1021,7 +1022,7 @@ void perform_behavior_ram(void) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
-            if (func_80383830_794EE0(5) != 0) {
+            if (target_within_current_fov(5) != 0) {
                 if (++D_803D552C->unk2BC < 4) {
                     ram_headbutt();
                 }
@@ -1061,7 +1062,7 @@ void perform_behavior_springy_ram(void) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0x33)) {
-            if (func_80383830_794EE0(5) != 0) {
+            if (target_within_current_fov(5) != 0) {
                 if (++D_803D552C->unk2BC < 5) {
                     ram_headbutt();
                 }
@@ -1106,7 +1107,7 @@ void perform_behavior_penguin(void) {
             func_80363E88_775538(D_803D5530, D_803D552C->unk2CC);
             D_803D552C->unk2C0 = 1;
         }
-        if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
             penguin_throw_snowball(D_803D552C->unk2CC);
         }
@@ -1126,7 +1127,7 @@ void perform_behavior_polar_bear(void) {
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 0;
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(24) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(24) != 0)) {
             polar_bear_jump_thump();
             D_803D552C->unk2C4 = ((guRandom() & 60) + 25);
             D_803D552C->unk2B8 += 1;
@@ -1165,7 +1166,7 @@ void perform_behavior_polar_tank(void) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
         } else if (D_803D552C->unk2C4 <= 0) {
-            if (func_80383830_794EE0(5) != 0) {
+            if (target_within_current_fov(5) != 0) {
                 D_803D552C->unk2C4 = ((guRandom() >> 8) % 20) + 20;
                 polar_tank_fire_cannon();
             }
@@ -1190,7 +1191,7 @@ void perform_behavior_husky(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance < 0x53) && (func_80383830_794EE0(5) != 0)) {
+        if ((D_803D552C->unk2C4 == 0) && (D_803D552C->targetDistance < 0x53) && (target_within_current_fov(5) != 0)) {
             func_8036C014_77D6C4(0x1E);
             D_803D552C->unk2C4 = 60;
             D_803D552C->unk2B4.state = 2;
@@ -1238,7 +1239,7 @@ void perform_behavior_ski_husky(void) {
             D_803D552C->unk2B4.state = 3;
         } else {
             if (D_803D552C->unk2C4 <= 0) {
-                if (func_80383830_794EE0(20) != 0) {
+                if (target_within_current_fov(20) != 0) {
                     D_803D552C->unk2C4 = RAND(20) + 20;
                     ski_husky_fire_missile(D_803D552C->unk2CC);
                 }
@@ -1275,7 +1276,7 @@ void perform_behavior_walrus(void) {
         } else if ((D_803D552C->targetDistance < 0xFA) && (D_803D552C->unk2C0 <= 0)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(0x14) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(0x14) != 0)) {
             D_803D552C->unk2C4 = (RAND(30) + 30);
             walrus_fire_missile(D_803D552C->unk2CC);
         }
@@ -1347,8 +1348,8 @@ void perform_behavior_camel(void) {
                 D_803D552C->unk2B4.state = 2;
             }
         } else if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 0xFB)) {
-            if (func_80383830_794EE0(5) != 0) {
-                func_8036F50C_780BBC(D_803D552C->unk2CC);
+            if (target_within_current_fov(5) != 0) {
+                camel_fire_water_cannon(D_803D552C->unk2CC);
                 D_803D552C->unk2C4 = 20;
             }
         }
@@ -1382,12 +1383,12 @@ void perform_behavior_cannon_camel(void) {
         }
 
         if ((D_803D552C->unk2B8 <= 0) && (D_803D552C->targetDistance < 70)) {
-            func_8036F740_780DF0((func_801284B8(D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360);
+            cannon_camel_dash((func_801284B8(D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h) * 256) / 360);
             D_803D552C->unk2B8 = 0x14A;
         }
-        if ((D_803D552C->unk2C4 <= 0) && (func_803838C8_794F78(D_803D552C->unk308, 5) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (target_within_custom_fov(D_803D552C->unk308, 5) != 0)) {
             if (D_803D552C->targetDistance < 0x17D) {
-                camel_cannon_fire_cannon(D_803D552C->unk2CC);
+                cannon_camel_fire_cannon(D_803D552C->unk2CC);
                 D_803D552C->unk2C4 = (RAND(0x24) + 25);
             }
         }
@@ -1416,7 +1417,7 @@ void perform_behavior_pogo_kangaroo(void) {
         } else if (D_803D552C->targetDistance < 0x96) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             func_80372698_783D48();
             D_803D552C->unk2C4 = RAND(0x14) + 0x5A;
         }
@@ -1450,7 +1451,7 @@ void perform_behavior_boxing_kangaroo(void) {
             D_803D552C->unk2C0 = 0;
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
         }
-        if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(40) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(40) != 0)) {
             func_80372604_783CB4();
             D_803D552C->unk2C4 = ((func_8012826C() % 4)) + 5;
             if (++D_803D552C->unk2BC >= 9) {
@@ -1475,7 +1476,7 @@ void perform_behavior_desert_fox(void) {
         D_803D552C->unk2B4.state = 1;
         // fallthru
     case 1:
-        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 251) && (func_80383830_794EE0(20) != 0)) {
+        if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 251) && (target_within_current_fov(20) != 0)) {
             func_803745C4_785C74(0x78); // attack?
             D_803D552C->unk2C4 = 0xB4;
         } else if (D_803D552C->unk2C4 > 0) {
@@ -1547,7 +1548,7 @@ void perform_behavior_armed_desert_fox(void) {
     }
     if (D_803D552C->targetDistance < 0x191) {
         if (D_803D552C->unk2C4 <= 0) {
-            if (func_80383830_794EE0(0xA) != 0) {
+            if (target_within_current_fov(0xA) != 0) {
                 func_8037460C_785CBC();
                 D_803D552C->unk2C4 = (RAND(5) + 0x11);
             }
@@ -1571,7 +1572,7 @@ void perform_behavior_scorpion(void) {
                 D_803D552C->unk2C0 = 0;
             }
         }
-        if ((D_803D552C->targetDistance < 0xFB) && (D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(2) != 0)) {
+        if ((D_803D552C->targetDistance < 0xFB) && (D_803D552C->unk2C4 <= 0) && (target_within_current_fov(2) != 0)) {
             func_80379148_78A7F8(D_803D552C->unk2CC);
             D_803D552C->unk2C4 = (RAND(0x32) + 0x96);
         } else if ((D_803D552C->targetDistance < 0x3D) && (D_803D552C->unk2B8 <= 0)) {
@@ -1613,7 +1614,7 @@ void perform_behavior_gorilla(void) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
             D_803D552C->unk2C0 = 0;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(32) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(32) != 0)) {
             func_8037B70C_78CDBC();
             D_803D552C->unk2C4 = RAND(0x14) + 0x1E;
         }
@@ -1646,7 +1647,7 @@ void perform_behavior_elephant(void) {
         if (D_803D552C->targetDistance >= 0x137) {
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 10);
             D_803D552C->unk2B4.state = 1;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             func_8037D268_78E918(0x5A);
             D_803D552C->unk2B4.state = 3;
             D_803D552C->unk2C4 = (guRandom() & 0xF) + 0x5A;
@@ -1733,7 +1734,7 @@ void perform_behavior_hyena_biker(void) {
         } else if ((D_803D552C->unk2C0 == 0) && (D_803D552C->targetDistance < 0x12C)) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 3;
-        } else if ((D_803D552C->unk2C4 <= 0) && (func_80383830_794EE0(5) != 0)) {
+        } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 0x14) + 0x14;
             biker_hyena_fire_missile(D_803D552C->unk2CC);
         }
@@ -1764,7 +1765,7 @@ void perform_behavior_chameleon(void) {
             D_803D552C->unk2C0 = 0;
         }
         if ((D_803D552C->targetDistance < 0x3D) && (D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2BC < 3)) {
-            func_8035C10C_76D7BC();
+            chameleon_attack_2();
             D_803D552C->unk2C4 = RAND(8) + 9;
             D_803D552C->unk2BC += 1;
         } else if (D_803D552C->unk2BC >= 3) {

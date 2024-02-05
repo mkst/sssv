@@ -479,23 +479,23 @@ void func_80320E70_732520(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     case 0x90:
         // take copy of D_803F2ECC
         sp30 = D_803F2ECC;
-        func_802DB8DC_6ECF8C();
+        backup_joint_positions();
         D_803F2ECC = 32;
         temp_v0_2 = sp36;
         if (temp_v0_2 < 85) {
             func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B555C_7C6C0C);
             D_803F2ECC = (temp_v0_2 << 5) / 85;
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B5574_7C6C24);
         } else if (temp_v0_2 < 170) {
             func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B5574_7C6C24);
             D_803F2ECC = ((temp_v0_2 << 5) - (85 << 5)) / 85;
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B558C_7C6C3C);
         } else {
             func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B558C_7C6C3C);
             D_803F2ECC = ((temp_v0_2 << 5) - (85 << 6)) / 85;
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B555C_7C6C0C);
         }
         // restore D_803F2ECC

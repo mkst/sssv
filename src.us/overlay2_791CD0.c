@@ -10,7 +10,7 @@
 // .bss (D_803F63E0 to D_803F63F0)
 // ========================================================
 
-s16  D_803F63E0; // TODO: is this static inside of func_8038064C_791CFC?
+s16  D_803F63E0; // used by elephant and hyena
 
 // ========================================================
 // .text
@@ -31,17 +31,17 @@ void func_8038064C_791CFC(void) {
     s32 tmp;
 
     if (D_803F2D10.unk0 == 0) {
-        D_803D552C->unk358 = MAX(0, D_803D552C->unk358 - 1);
-        if (D_803D552C->unk358 <= 0) {
-            D_803D552C->unk363 = 0;
+        D_803D552C->laughterThreshold = MAX(0, D_803D552C->laughterThreshold - 1);
+        if (D_803D552C->laughterThreshold <= 0) {
+            D_803D552C->isLaughing = 0;
         }
     }
-    if (D_803D552C->unk363 != 0) {
-        func_80380620_791CD0(D_803D552C, 150, 15, MIN(50, D_803D552C->unk358 >> 1), 10);
+    if (D_803D552C->isLaughing != 0) {
+        func_80380620_791CD0(D_803D552C, 150, 15, MIN(50, D_803D552C->laughterThreshold >> 1), 10);
         if (D_803F2D10.unk0) {} // regalloc
     }
-    D_803F63E0 = 0;
 
+    D_803F63E0 = 0;
     if ((D_803D552C->unk34C != 0) || (D_803D552C->unk34E != 0)) {
         if (D_803D552C->unk34E != 0) {
             D_803D552C->unk34E--;

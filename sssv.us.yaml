@@ -3,7 +3,7 @@ options:
   basename: sssv
   target_path: baserom.us.z64
   base_path: .
-  compiler: IDO
+  # compiler: IDO
   symbol_addrs_path: symbol_addrs.us.txt
   ld_symbol_header_path: include/ld_symbols.us.h
   generated_c_preamble: |
@@ -12,7 +12,7 @@ options:
   src_path: src.us
   extensions_path: tools/splat_ext
   lib_path: build/lib
-  migrate_rodata_to_functions: yes
+  # migrate_rodata_to_functions: yes
   # workaround regex issue
   create_undefined_funcs_auto: no
   symbol_name_format: $VRAM_$ROM
@@ -376,19 +376,19 @@ segments:
     - [0x03D3A0, .data, data/D_01003AD0_3D3A0]
     - [0x03D3E0, .data, data/D_01003B10_3D3E0]
     - [0x03D440, .data, data/D_01003B70_3D440]
-    - [0x3D4A0, i4, img/3D4A0.i4, 16, 16]
-    - [0x3D520, i4, img/3D520.i4, 16, 16]
-    - [0x3D5A0, i4, img/3D5A0.i4, 16, 16]
-    - [0x3D620, i4, img/3D620.i4, 16, 16]
-    - [0x3D6A0, i4, img/3D6A0.i4, 16, 16]
-    - [0x3D720, i4, img/3D720.i4, 16, 16]
-    - [0x3D7A0, i4, img/3D7A0.i4, 16, 16]
-    - [0x3D820, i4, img/3D820.i4, 16, 16]
-    - [0x3D8A0, i4, img/3D8A0.i4, 16, 16]
-    - [0x3D920, i4, img/3D920.i4, 16, 16]
-    - [0x3D9A0, i4, img/3D9A0.i4, 16, 16]
-    - [0x3DA20, i4, img/3DA20.i4, 16, 16]
-    - [0x3DAA0, i4, img/3DAA0.i4, 16, 16]
+    - [0x3D4A0, i4, img/D_01003BD0_3D4A0.i4, 16, 208] # 0 - circle
+    # - [0x3D520, i4, img/D_01003C50_3D520.i4, 16, 16] # 1 - christmas tree
+    # - [0x3D5A0, i4, img/D_01003CD0_3D5A0.i4, 16, 16] # 2 - hexagon
+    # - [0x3D620, i4, img/D_01003D50_3D620.i4, 16, 16] # 3 - horizontal bar (-), lowish
+    # - [0x3D6A0, i4, img/D_01003DD0_3D6A0.i4, 16, 16] # 4 - vertical bar
+    # - [0x3D720, i4, img/D_01003E50_3D720.i4, 16, 16] # 5 - horizontal diamond
+    # - [0x3D7A0, i4, img/D_01003ED0_3D7A0.i4, 16, 16] # 6 - vertical diamond
+    # - [0x3D820, i4, img/D_01003F50_3D820.i4, 16, 16] # 7 - horizontal squashed circle, middle
+    # - [0x3D8A0, i4, img/D_01003FD0_3D8A0.i4, 16, 16] # 8 - vertical squashed circle, middle
+    # - [0x3D920, i4, img/D_01004050_3D920.i4, 16, 16] # 9 - teardrop, high
+    # - [0x3D9A0, i4, img/D_010040D0_3D9A0.i4, 16, 16] # 10 - thin teardrop, high
+    # - [0x3DA20, i4, img/D_01004150_3DA20.i4, 16, 16] # 11 - squashed teardrop, high
+    # - [0x3DAA0, i4, img/D_010041D0_3DAA0.i4, 16, 16] # 12 - thin cone /\
     - [0x3DB20, bin] # palette?
     - [0x3DB40, .data, data/D_01004270_3DB40] # evo?
     - [0x3DC30, .data, data/D_01004360_3DC30]
@@ -828,10 +828,10 @@ segments:
     - [0x6C9E0, .data, data/D_01033110_6C9E0]
     - [0x6CA00, sssv_vtx, data/inc/D_01033130_6CA00]
     - [0x6CA40, .data, data/D_01033170_6CA40]
-    - [0x6CA60, bin] # 64x64, I4 (IA4?)
-    - [0x6D260, bin] # 64x64, I4 (IA4?)
-    - [0x6DA60, bin] # 32x32 rgba16?
-    - [0x6E260, bin] # 64x64, I4 (IA4?)
+    - [0x6CA60, i4, img/D_01033190_6CA60.i4, 64, 64] # 64x64, I4 (IA4?) D_01033190
+    - [0x6D260, i4, img/D_01033990_6D260.i4, 64, 64] # 64x64, I4 (IA4?)
+    - [0x6DA60, i4, img/D_01034190_6DA60.i4, 64, 64] # 32x32 rgba16?
+    - [0x6E260, i4, img/D_01034990_6E260.i4, 64, 64] # 64x64, I4 (IA4?)
     - [0x6EA60, bin] # tbd
     - [0x70760, bin] # D_01036E90_70760 palette?
     - [0x71020, bin] # D_01037750_71020
@@ -3486,10 +3486,10 @@ segments:
   - [0x5446B0, rnc, img/trophies/SHIFTING_SANDS, rgba16, 32, 32]
   - [0x544930, rnc, img/trophies/PUNCHUP_PYRAMID, rgba16, 32, 32]
   - [0x544960, rnc, img/trophies/BIG_CELEBRATION_PARADE, rgba16, 32, 32]
-  - [0x544990, rnc, img/trophies/END_CREDITS, rgba16, 32, 32]
+  - [0x544990, rnc, img/trophies/SECRET_LEVEL, rgba16, 32, 32]
   #
   - [0x5449C0, bin] # I4 water texture (0x2200)
-  - [0x546BC0, bin] # tbd
+  - [0x546BC0, bin] # tbd, palette?
   # game levels (nested RNC compressed) (differ from EU ROM)
   - [0x546D00, bin, levels/SMASHING_START]
   - [0x54F0D0, bin, levels/HAVE_A_NICE_DAY]
@@ -3522,10 +3522,10 @@ segments:
   - [0x5F9410, bin, levels/SHIFTING_SANDS]
   - [0x603210, bin, levels/PUNCHUP_PYRAMID]
   - [0x607440, bin, levels/BIG_CELEBRATION_PARADE]
-  - [0x60E920, bin, levels/rnc_60E920] # 5795 => 5889 # EMPTY_LEVEL_1
-  - [0x60FFD0, bin, levels/rnc_60FFD0] # 1227 => 1413 # EMPTY_LEVEL_2
-  - [0x6104A0, bin, levels/rnc_6104A0] # 1322 => 1513 # EMPTY_LEVEL_3
-  - [0x6109D0, bin, levels/rnc_6109D0] # 25055 => 25120 # BIG_CELEBRATION_PARADE_CREDITS
+  - [0x60E920, bin, levels/SECRET_LEVEL]
+  - [0x60FFD0, bin, levels/EMPTY_LEVEL_1]
+  - [0x6104A0, bin, levels/EMPTY_LEVEL_2]
+  - [0x6109D0, bin, levels/CREDITS]
   - [0x616BB0, bin, levels/INTRO]
   ## language files (matches EU ROM from here..)
   - [0x617C30, rnc, lang/lang1.dat]
@@ -3565,7 +3565,7 @@ segments:
   - [0x6370C0, rnc, lang/lang35.dat]
   - [0x637110, rnc, lang/lang36.dat]
   # end of languages
-  - [0x637160, bin, rnc_637160] # 5000 => 115024 # 28 * 0x100C custom model collision
+  - [0x637160, rnc, model.collision] # 5000 => 115024 # 28 * 0x100C custom model collision
   - type:  code
     name:  overlay1
     vram: 0x80294E50
@@ -3752,7 +3752,7 @@ segments:
     - [0x76BCA0, c, sssv/animals/chameleon]
     - [0x76D850, c, sssv/animals/evo_microchip]
     - [0x76E7D0, c, overlay2_76E7D0]
-    - [0x76F7D0, c, overlay2_76F7D0]
+    - [0x76F7D0, c, overlay2_76F7D0] # sssv/energy
     - [0x76FAE0, c, sssv/animals/rat]
     - [0x771540, c, sssv/animals/sheep]
     - [0x7741B0, c, overlay2_7741B0]
@@ -3983,12 +3983,15 @@ segments:
     - { start: 0x7D1AD0, type: .bss, name: sssv/camera } # , vram: 0x803F28B0 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_7558F0 } # , vram: 0x803F2C80 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/osd } # , vram: 0x803F2CD0 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/init }  # , vram: 0x803F2D10 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_7688B0 }  # , vram: 0x803F2D20 }
+    - { start: 0x7D1AD0, type: .bss, name: overlay2_7689A0 }  # , vram: 0x803F2D30 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/animals/chameleon } # , vram: 0x803F2D50 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_76E7D0 } # , vram: 0x803F2EB0 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_76F7D0 } # , vram: 0x803F2EE0 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/animals/sheep } # , vram: 0x803F2EF0 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_785D10 } # , vram: 0x803F2F00 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/animals/scorpion } # , vram: 0x803F3310 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_78E970 } # , vram: 0x803F63D0 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_791CD0 } # , vram: 0x803F63E0 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/behaviours } # , vram: 0x803F63F0 }

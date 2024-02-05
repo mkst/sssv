@@ -10,139 +10,142 @@
 // .bss
 // ========================================================
 
-s16  D_803D6110;
+s16  gControllerDebounce;
 
 // ========================================================
 // .text
 // ========================================================
 
-void func_802C8FC0_6DA670(OSContPad *cont) {
+void read_controller_input(OSContPad *cont) {
 
-    if (D_803D6110 != 0) {
-        D_803D6110--;
+    if (gControllerDebounce != 0) {
+        gControllerDebounce--;
     }
 
     if (D_803F2D10.unk0 == 0) {
         // save current controller input
-        D_801D9ED8.unkFFBA = D_801D9ED8.unkFFB4;
-        D_801D9ED8.unkFFBC = D_801D9ED8.unkFFB6;
-        D_801D9ED8.unkFFB8 = D_801D9ED8.unkFFB2;
-        D_801D9ED8.unkFFD0 = D_801D9ED8.unkFFC2;
-        D_801D9ED8.unkFFD2 = D_801D9ED8.unkFFC4;
-        D_801D9ED8.unkFFD4 = D_801D9ED8.unkFFBE;
-        D_801D9ED8.unkFFD6 = D_801D9ED8.unkFFC0;
+        D_801D9ED8.prevLRTrigger = D_801D9ED8.curLRTrigger;
+        D_801D9ED8.prevBButton = D_801D9ED8.curBButton;
+        D_801D9ED8.prevAButton = D_801D9ED8.curAButton;
+        D_801D9ED8.prevDPadLeft = D_801D9ED8.curDPadLeft;
+        D_801D9ED8.prevDPadRight = D_801D9ED8.curDPadRight;
+        D_801D9ED8.prevDPadUp = D_801D9ED8.curDPadUp;
+        D_801D9ED8.prevDPadDown = D_801D9ED8.curDPadDown;
     }
-    if ((D_803F2D10.unk0 != 0) || (D_803D6110 != 0) || (D_803F2AA3 != 0) ||
+
+    if ((D_803F2D10.unk0 != 0) || (gControllerDebounce != 0) || (D_803F2AA3 != 0) ||
         (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk364 == 17)) {
-        D_801D9ED8.unkFFB2 = 0U;
-        D_801D9ED8.unkFFB6 = 0U;
-        D_801D9ED8.unkFFB4 = 0U;
-        D_801D9ED8.unkFFBE = 0U;
-        D_801D9ED8.unkFFC0 = 0U;
-        D_801D9ED8.unkFFC2 = 0U;
-        D_801D9ED8.unkFFC4 = 0U;
-        D_801D9ED8.unkFFD8 = 0;
-        D_801D9ED8.unkFFD9 = 0;
-        D_801D9ED8.unkFFC6 = 0;
-        D_801D9ED8.unkFFC8 = 0;
-        D_801D9ED8.unkFFCA = 0;
-        D_801D9ED8.unkFFCC = 0;
+        D_801D9ED8.curAButton = 0;
+        D_801D9ED8.curBButton = 0;
+        D_801D9ED8.curLRTrigger = NO_TRIGGER;
+        D_801D9ED8.curDPadUp = 0;
+        D_801D9ED8.curDPadDown = 0;
+        D_801D9ED8.curDPadLeft = 0;
+        D_801D9ED8.curDPadRight = 0;
+        D_801D9ED8.stickX = 0;
+        D_801D9ED8.stickY = 0;
+        D_801D9ED8.curCButtonUp = 0;
+        D_801D9ED8.curCButtonDown = 0;
+        D_801D9ED8.curCButtonLeft = 0;
+        D_801D9ED8.curCButtonRight = 0;
         return;
     }
 
     if (cont->button & A_BUTTON) {
-        D_801D9ED8.unkFFB2 = 1U;
+        D_801D9ED8.curAButton = 1;
     } else {
-        D_801D9ED8.unkFFB2 = 0U;
+        D_801D9ED8.curAButton = 0;
     }
     if (cont->button & B_BUTTON) {
-        D_801D9ED8.unkFFB6 = 1U;
+        D_801D9ED8.curBButton = 1;
     } else {
-        D_801D9ED8.unkFFB6 = 0U;
+        D_801D9ED8.curBButton = 0;
     }
     if (cont->button & CONT_UP) {
-        D_801D9ED8.unkFFBE = 1U;
+        D_801D9ED8.curDPadUp = 1;
     } else {
-        D_801D9ED8.unkFFBE = 0U;
+        D_801D9ED8.curDPadUp = 0;
     }
     if (cont->button & CONT_DOWN) {
-        D_801D9ED8.unkFFC0 = 1U;
+        D_801D9ED8.curDPadDown = 1;
     } else {
-        D_801D9ED8.unkFFC0 = 0U;
+        D_801D9ED8.curDPadDown = 0;
     }
     if (cont->button & CONT_LEFT) {
-        D_801D9ED8.unkFFC2 = 1U;
+        D_801D9ED8.curDPadLeft = 1;
     } else {
-        D_801D9ED8.unkFFC2 = 0U;
+        D_801D9ED8.curDPadLeft = 0;
     }
     if (cont->button & CONT_RIGHT) {
-        D_801D9ED8.unkFFC4 = 1U;
+        D_801D9ED8.curDPadRight = 1;
     } else {
-        D_801D9ED8.unkFFC4 = 0U;
+        D_801D9ED8.curDPadRight = 0;
     }
 
     if ((D_803F2AA2 == 0) && (D_803F2AA3 == 0)) {
         if (cont->button & L_TRIG) {
-            D_801D9ED8.unkFFB4 = 1U;
+            D_801D9ED8.curLRTrigger = L_TRIGGER;
         } else if (cont->button & R_TRIG) {
-            D_801D9ED8.unkFFB4 = 2U;
+            D_801D9ED8.curLRTrigger = R_TRIGGER;
         } else {
-            D_801D9ED8.unkFFB4 = 0U;
+            D_801D9ED8.curLRTrigger = NO_TRIGGER;
         }
     }
 
+    // adjust camera based on user input
     func_8033E7C8_74FE78(cont);
 
-    D_801D9ED8.unkFFD8 = cont->stick_x;
-    D_801D9ED8.unkFFD9 = cont->stick_y;
+    D_801D9ED8.stickX = cont->stick_x;
+    D_801D9ED8.stickY = cont->stick_y;
 
     if (cont->button & U_CBUTTONS) {
-        D_801D9ED8.unkFFC6 = 1;
+        D_801D9ED8.curCButtonUp = 1;
     } else {
-        D_801D9ED8.unkFFC6 = 0;
+        D_801D9ED8.curCButtonUp = 0;
     }
     if (cont->button & D_CBUTTONS) {
-        D_801D9ED8.unkFFC8 = 1;
+        D_801D9ED8.curCButtonDown = 1;
     } else {
-        D_801D9ED8.unkFFC8 = 0;
+        D_801D9ED8.curCButtonDown = 0;
     }
     if (cont->button & L_CBUTTONS) {
-        D_801D9ED8.unkFFCA = 1;
+        D_801D9ED8.curCButtonLeft = 1;
     } else {
-        D_801D9ED8.unkFFCA = 0;
+        D_801D9ED8.curCButtonLeft = 0;
     }
     if (cont->button & R_CBUTTONS) {
-        D_801D9ED8.unkFFCC = 1;
+        D_801D9ED8.curCButtonRight = 1;
     } else {
-        D_801D9ED8.unkFFCC = 0;
+        D_801D9ED8.curCButtonRight = 0;
     }
 
     if (D_803F2D30.unk4) {
-        // reset inputs
-        D_801D9ED8.unkFFB2 = 0U;
-        D_801D9ED8.unkFFB6 = 0U;
-        D_801D9ED8.unkFFB4 = 0U;
-        D_801D9ED8.unkFFBE = 0U;
-        D_801D9ED8.unkFFC0 = 0U;
-        D_801D9ED8.unkFFC2 = 0U;
-        D_801D9ED8.unkFFC4 = 0U;
-        D_801D9ED8.unkFFD8 = 0;
-        D_801D9ED8.unkFFD9 = 0;
-        D_801D9ED8.unkFFC6 = 0;
-        D_801D9ED8.unkFFC8 = 0;
-        D_801D9ED8.unkFFCA = 0;
-        D_801D9ED8.unkFFCC = 0;
+        // reset all inputs
+        D_801D9ED8.curAButton = 0;
+        D_801D9ED8.curBButton = 0;
+        D_801D9ED8.curLRTrigger = 0;
+        D_801D9ED8.curDPadUp = 0;
+        D_801D9ED8.curDPadDown = 0;
+        D_801D9ED8.curDPadLeft = 0;
+        D_801D9ED8.curDPadRight = 0;
+        D_801D9ED8.stickX = 0;
+        D_801D9ED8.stickY = 0;
+        D_801D9ED8.curCButtonUp = 0;
+        D_801D9ED8.curCButtonDown = 0;
+        D_801D9ED8.curCButtonLeft = 0;
+        D_801D9ED8.curCButtonRight = 0;
     }
+    // only relevant to dog?
     if (D_803D554A) {
         // reset inputs
-        D_801D9ED8.unkFFB2 = 0U;
-        D_801D9ED8.unkFFB6 = 0U;
-        D_801D9ED8.unkFFB4 = 0U;
-        D_801D9ED8.unkFFBE = 0U;
-        D_801D9ED8.unkFFC0 = 0U;
-        D_801D9ED8.unkFFC2 = 0U;
-        D_801D9ED8.unkFFC4 = 0U;
-        D_801D9ED8.unkFFD8 = 0;
-        D_801D9ED8.unkFFD9 = 0;
+        D_801D9ED8.curAButton = 0;
+        D_801D9ED8.curBButton = 0;
+        D_801D9ED8.curLRTrigger = 0;
+        D_801D9ED8.curDPadUp = 0;
+        D_801D9ED8.curDPadDown = 0;
+        D_801D9ED8.curDPadLeft = 0;
+        D_801D9ED8.curDPadRight = 0;
+        D_801D9ED8.stickX = 0;
+        D_801D9ED8.stickY = 0;
     }
 }

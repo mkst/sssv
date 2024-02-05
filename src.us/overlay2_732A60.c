@@ -58,9 +58,9 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
 
 
     temp_a2 = D_803D5530->position.xPos.h;
-    temp_a2 += (((SIN(D_803D552C->unk302) >> 7) * arg0) >> 8);
+    temp_a2 += (((SIN(D_803D552C->heading) >> 7) * arg0) >> 8);
     temp_v0 = D_803D5530->position.zPos.h;
-    temp_v0 += (((COS(D_803D552C->unk302) >> 7) * arg0) >> 8);
+    temp_v0 += (((COS(D_803D552C->heading) >> 7) * arg0) >> 8);
 
     temp_s1 = temp_a2 - arg1; // x min
     temp_s2 = temp_v0 - arg1; // z min
@@ -116,8 +116,8 @@ Animal *func_803218D8_732F88(Animal *arg0) {
 // ESA: func_8008202C
 void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2) {
     if (arg0 != NULL) {
-        arg0->xVelocity.h = D_803D5530->xVelocity.h + (((SIN(D_803D552C->unk302) >> 7) * arg1) >> 8);
-        arg0->zVelocity.h = D_803D5530->zVelocity.h + (((COS(D_803D552C->unk302) >> 7) * arg1) >> 8);
+        arg0->xVelocity.h = D_803D5530->xVelocity.h + (((SIN(D_803D552C->heading) >> 7) * arg1) >> 8);
+        arg0->zVelocity.h = D_803D5530->zVelocity.h + (((COS(D_803D552C->heading) >> 7) * arg1) >> 8);
         arg0->yVelocity.h = (D_803D5530->yVelocity.h + arg2) - 1;
         arg0->unk4C.unk19 = 1;
         arg0->unk160 = D_803D5530->unk160;
@@ -164,18 +164,18 @@ void func_80321B70_733220(s16 arg0, s16 arg1, s16 arg2) {
 
     Animal *a = D_803D552C->unk320;
     if (a != 0) {
-        a->position.xPos.h = (((SIN(D_803D552C->unk302) >> 7) * arg1) >> 8) + (D_803D5530->position.xPos.h + (((COS(D_803D552C->unk302) >> 7) * arg0) >> 8));
-        a->position.zPos.h = D_803D5530->position.zPos.h + (((COS(D_803D552C->unk302) >> 7) * arg1) >> 8) - (((SIN(D_803D552C->unk302) >> 7) * arg0) >> 8);
+        a->position.xPos.h = (((SIN(D_803D552C->heading) >> 7) * arg1) >> 8) + (D_803D5530->position.xPos.h + (((COS(D_803D552C->heading) >> 7) * arg0) >> 8));
+        a->position.zPos.h = D_803D5530->position.zPos.h + (((COS(D_803D552C->heading) >> 7) * arg1) >> 8) - (((SIN(D_803D552C->heading) >> 7) * arg0) >> 8);
         a->position.yPos.h = D_803D5530->position.yPos.h + arg2;
         a->unk160 = D_803D5530->unk160;
         a->xVelocity.w = D_803D5530->xVelocity.w;
         a->zVelocity.w = D_803D5530->zVelocity.w;
         a->yVelocity.w = D_803D5530->yVelocity.w;
 
-        temp_t0 = D_803D552C->unk302 - D_803D552C->unk304;
+        temp_t0 = D_803D552C->heading - D_803D552C->previousHeading;
         if (a->unk16C->unk82.unk2 != 0) {
             a->yRotation = ((a->yRotation + temp_t0) & 0xFF);
-            a->unk302 = a->yRotation;
+            a->heading = a->yRotation;
         } else {
             temp_t0 = (temp_t0 * 360) / 256;
             a->yRotation += temp_t0;
@@ -192,8 +192,8 @@ void func_80321B70_733220(s16 arg0, s16 arg1, s16 arg2) {
 void func_80321D74_733424(s16 arg0, s16 arg1) {
     Animal *a = D_803D552C->unk320;
     if (a != NULL) {
-        a->position.xPos.h = D_803D5530->position.xPos.h + (((SIN(D_803D552C->unk302) >> 7) * arg0) >> 8);
-        a->position.zPos.h = D_803D5530->position.zPos.h + (((COS(D_803D552C->unk302) >> 7) * arg0) >> 8);
+        a->position.xPos.h = D_803D5530->position.xPos.h + (((SIN(D_803D552C->heading) >> 7) * arg0) >> 8);
+        a->position.zPos.h = D_803D5530->position.zPos.h + (((COS(D_803D552C->heading) >> 7) * arg0) >> 8);
         a->position.yPos.h = D_803D5530->position.yPos.h + arg1;
         a->xVelocity.w = D_803D5530->xVelocity.w;
         a->zVelocity.w = D_803D5530->zVelocity.w;
@@ -214,11 +214,11 @@ void fire_cannonball_1(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, 
 
     s16 _id = id & 0xFFFF;
 
-    xpos = (((arg1 * (SIN(D_803D552C->unk302) >> 7)) + ((COS(D_803D552C->unk302) >> 7) * arg2)) >> 8);
-    zpos = (((arg1 * (COS(D_803D552C->unk302) >> 7)) - ((SIN(D_803D552C->unk302) >> 7) * arg2)) >> 8);
+    xpos = (((arg1 * (SIN(D_803D552C->heading) >> 7)) + ((COS(D_803D552C->heading) >> 7) * arg2)) >> 8);
+    zpos = (((arg1 * (COS(D_803D552C->heading) >> 7)) - ((SIN(D_803D552C->heading) >> 7) * arg2)) >> 8);
 
-    sp38 = ((COS(arg5) >> 7) * arg4) * (SIN(D_803D552C->unk302) >> 7);
-    sp34 = ((COS(arg5) >> 7) * arg4) * (COS(D_803D552C->unk302) >> 7);
+    sp38 = ((COS(arg5) >> 7) * arg4) * (SIN(D_803D552C->heading) >> 7);
+    sp34 = ((COS(arg5) >> 7) * arg4) * (COS(D_803D552C->heading) >> 7);
     sp3C = (((SIN(arg5) >> 7) * arg4) << 8);
 
 
@@ -298,8 +298,8 @@ void fire_cannonball_3(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, 
 
     _id = id & 0xffff;
 
-    xpos = (((arg1 * (SIN(D_803D552C->unk302) >> 7)) + ((COS(D_803D552C->unk302) >> 7) * arg2)) >> 8);
-    zpos = (((arg1 * (COS(D_803D552C->unk302) >> 7)) - ((SIN(D_803D552C->unk302) >> 7) * arg2)) >> 8);
+    xpos = (((arg1 * (SIN(D_803D552C->heading) >> 7)) + ((COS(D_803D552C->heading) >> 7) * arg2)) >> 8);
+    zpos = (((arg1 * (COS(D_803D552C->heading) >> 7)) - ((SIN(D_803D552C->heading) >> 7) * arg2)) >> 8);
 
     obj = spawn_object(
         _id,
@@ -324,8 +324,8 @@ void fire_cannonball_3(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, 
 }
 
 void apply_recoil(s16 arg0) {
-    s32 temp_t2 = SIN(D_803D552C->unk302) >> 7;
-    s32 temp_t7 = COS(D_803D552C->unk302) >> 7;
+    s32 temp_t2 = SIN(D_803D552C->heading) >> 7;
+    s32 temp_t7 = COS(D_803D552C->heading) >> 7;
 
     if (arg0 < 0) {
         D_803D5530->xVelocity.w += temp_t2 << (8 - arg0);
@@ -351,8 +351,8 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
     ret = 0;
 
-    var_t3 = D_803D5530->position.xPos.h + (((SIN(D_803D552C->unk302) >> 7) * arg1) >> 8) + (((COS(D_803D552C->unk302) >> 7) * arg2) >> 8);
-    var_t4 = D_803D5530->position.zPos.h + (((COS(D_803D552C->unk302) >> 7) * arg1) >> 8) - (((SIN(D_803D552C->unk302) >> 7) * arg2) >> 8);
+    var_t3 = D_803D5530->position.xPos.h + (((SIN(D_803D552C->heading) >> 7) * arg1) >> 8) + (((COS(D_803D552C->heading) >> 7) * arg2) >> 8);
+    var_t4 = D_803D5530->position.zPos.h + (((COS(D_803D552C->heading) >> 7) * arg1) >> 8) - (((SIN(D_803D552C->heading) >> 7) * arg2) >> 8);
     var_t5 = D_803D5530->position.yPos.h + arg0;
 
     for (var_ra = D_803DA110[(s16)((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
@@ -365,7 +365,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
                     damage_factor = 0;
                     if (arg7 != 0) {
-                        animal->unk57 = arg7;
+                        animal->unk54.unk3 = arg7;
                     }
                     if (D_803D5530->unk44 < animal->unk44) {
                         damage_factor = 1;
@@ -398,8 +398,8 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
                     func_802FD674_70ED24(D_803D5530, animal);
                     if (damage_factor < 6) {
-                        animal->xVelocity.h += (SIN(D_803D552C->unk302) >> 7) >> (damage_factor + 6);
-                        animal->zVelocity.h += (COS(D_803D552C->unk302) >> 7) >> (damage_factor + 6);
+                        animal->xVelocity.h += (SIN(D_803D552C->heading) >> 7) >> (damage_factor + 6);
+                        animal->zVelocity.h += (COS(D_803D552C->heading) >> 7) >> (damage_factor + 6);
 
                         animal->unk65 = MIN(100, animal->unk65 + (20 >> damage_factor));
                     }
@@ -438,7 +438,7 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
                     (ABS((a->position.yPos.h + phi_s2->unk8.h) - arg2) < phi_s2->unkC + arg3)) {
                     ret = 1;
                     if (arg7 != 0) {
-                        a->unk57 = arg7;
+                        a->unk54.unk3 = arg7;
                     }
                     if (arg5 != NULL) {
                         *arg5 = a;
@@ -563,8 +563,8 @@ Animal *func_80323040_7346F0(void) {
     res = NULL;
     best = 320;
 
-    temp_s7 = (SIN(D_803D552C->unk302)) >> 9;
-    temp_fp = (COS(D_803D552C->unk302)) >> 9;
+    temp_s7 = (SIN(D_803D552C->heading)) >> 9;
+    temp_fp = (COS(D_803D552C->heading)) >> 9;
 
     for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;

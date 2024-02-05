@@ -2,25 +2,24 @@
 #include "common.h"
 
 
-// DMA intro
 // ESA: func_8006013C
-void func_802C8440_6D9AF0(void) {
+void init_and_spawn_evo_microchip(void) {
     func_803572C0_768970();
     func_803747CC_785E7C();
-    func_802DD040_6EE6F0(0);
+    reset_dynamic_tails(0);
     memset_bytes((u8 *)&D_801D9ED8.animals, 0U, sizeof(D_801D9ED8.animals));
     memset_bytes((u8 *)&D_801D9ED8.unk4040, 0U, sizeof(D_801D9ED8.unk4040));
     D_803D553E = 0;
     func_802C7C80_6D9330(); // load all stats
     D_803E9820 = 27;
     D_803E9822 = 0;
-    D_803E9824 = EVO_MICROCHIP;
+    gCurrentAnimalId = EVO_MICROCHIP;
     gCurrentAnimalIndex = 0;
     func_80327DA8_739458(); // waypoints?
     spawn_animal(0, 0, 0, 0, 0x7F, EVO_MICROCHIP, 1);
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A = 1;
     D_803D5548 = D_803D554A = 0;
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk302 = (D_803F2D50.unk4E * 256) / 360;
+    D_801D9ED8.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.unk4E * 256) / 360;
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.unk4E * 256) / 360;
     D_803F6450 = 1;
     D_803F2CE6 = 0;
@@ -31,20 +30,20 @@ void func_802C85EC_6D9C9C(void) {
     Animal *a;
 
     if (D_803F2D50.animalId != EVO_MICROCHIP) {
-        D_803E9824 = D_803F2D50.animalId;
-        D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
-        D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
+        gCurrentAnimalId = D_803F2D50.animalId;
+        D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
+        D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
         gCurrentAnimalIndex = D_803D553E;
         a = D_801D9ED8.animals[0].animal;
-        spawn_animal(a->position.xPos.h, a->position.zPos.h, a->position.yPos.h, 0, 0x7F, D_803E9824, 1);
+        spawn_animal(a->position.xPos.h, a->position.zPos.h, a->position.yPos.h, 0, 0x7F, gCurrentAnimalId, 1);
         func_80327DA8_739458();
         D_801D9ED8.animals[0].animal->unk366 = 3;
-        D_801D9ED8.animals[0].unk0 = &D_801DD800;
-        D_801D9ED8.animals[0].animal->unk16C = &D_801DD800;
+        D_801D9ED8.animals[0].unk0 = &D_801D9ED8.unk0[62];           // weird offset?
+        D_801D9ED8.animals[0].animal->unk16C = &D_801D9ED8.unk0[62]; // weird offset?
         D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A = 1;
         D_801D9ED8.animals[0].animal->unk4A = 0;
     }
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk302 = (D_803F2D50.unk4E << 8) / 360;
+    D_801D9ED8.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.unk4E << 8) / 360;
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.unk4E << 8) / 360;
     D_801D9ED8.unkFFA8 = (D_803F2D50.unk4E << 8) / 360;
     D_803F2AA3 = 0;
@@ -55,7 +54,7 @@ void func_802C87E0_6D9E90(void) {
     D_80204278->usedHilites = 0;
     D_80204278->usedVtxs = 0;
     D_803E1B04 = 0;
-    D_803F3310 = 0;
+    gScorpionVtxIdx = 0;
     if (D_803F2D10.unk0 == 0) {
         D_803D5540 = (D_803D5540 + 1) & 0xFF;
         D_803D5542 = (D_803D5542 + 1) % 360;
@@ -128,7 +127,7 @@ void func_802C8878_6D9F28(void) {
                                 func_802AAAB0_6BC160();
                                 func_8038C760_79DE10();
                             }
-                        } else if ((D_803F2D10.unk0 == 0) && (D_803D552C->unk365 != 0xA)) {
+                        } else if ((D_803F2D10.unk0 == 0) && (D_803D552C->unk365 != ATTACK_EVO_CHIP_2)) {
                             func_802AA424_6BBAD4();
                         }
                     } else if ((D_803D5530->xVelocity.w != 0) || (D_803D5530->zVelocity.w != 0) || (D_803D5530->yVelocity.w != 0) || (D_803D5530->unk68 != 0) || (D_803D5530->unk70 != 0) || (D_803D5530->unk162 != 1)) {
@@ -156,7 +155,7 @@ void func_802C8878_6D9F28(void) {
                     func_802F1730_702DE0();
                     break;
                 case HIPPO:
-                    func_802EF0C0_700770();
+                    update_hippo();
                     break;
                 case RACING_HIPPO:
                     func_802F036C_701A1C();
@@ -165,7 +164,7 @@ void func_802C8878_6D9F28(void) {
                     func_802EA7F0_6FBEA0();
                     break;
                 case FLYING_DOG:
-                    func_802EBB34_6FD1E4();
+                    update_flying_dog();
                     break;
                 case FOX:
                     func_802E5000_6F66B0();
@@ -203,7 +202,7 @@ void func_802C8878_6D9F28(void) {
                     func_80323680_734D30();
                     break;
                 case CRAZY_BEAR:
-                    func_803250A8_736758();
+                    update_crazy_bear();
                     break;
                 case MYSTERY_BEAR:
                     func_80326260_737910();
@@ -230,11 +229,11 @@ void func_802C8878_6D9F28(void) {
                     break;
                 case SHEEP:
                 case RAM:
-                    func_8035FE90_771540();
+                    update_sheep_or_ram();
                     break;
                 case SPRINGY_THINGY:
                 case SPRINGY_RAM:
-                    func_80360D94_772444();
+                    update_springy_thingy_or_springy_ram();
                     break;
                 case PENGUIN:
                 case KING_PENGUIN:
@@ -279,10 +278,10 @@ void func_802C8878_6D9F28(void) {
                     func_80376D40_7883F0();
                     break;
                 case GORILLA:
-                    func_803791E0_78A890();
+                    update_gorilla();
                     break;
                 case ELEPHANT:
-                    func_8037B800_78CEB0();
+                    update_elephant();
                     break;
                 case HYENA:
                     func_80358E3C_76A4EC();
@@ -296,7 +295,7 @@ void func_802C8878_6D9F28(void) {
                     break;
                 case EVO_MICROCHIP:
                 case EVO:
-                    func_8035C1A0_76D850();
+                    update_evo_microchip();
                     break;
                 case SEAGULL:
                 case SEAGULL2:
@@ -309,7 +308,7 @@ void func_802C8878_6D9F28(void) {
                     func_80382CF0_7943A0();
                     break;
                 case DESERT_FOX_ATTACKING:
-                    func_80373788_784E38();
+                    update_desert_fox_attacking();
                     break;
                 case EVO_SHELLSUIT:
                     func_80389B30_79B1E0();

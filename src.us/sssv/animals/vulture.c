@@ -93,7 +93,7 @@ void func_8036C0B0_77D760(void) {
             func_8038CCF0_79E3A0(-125, 26, -1, -1, -1, -1);
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803B4930_7C5FE0, D_803B4944_7C5FF4, D_803B4958_7C6008, D_803B497C_7C602C);
@@ -127,11 +127,11 @@ void func_8036C0B0_77D760(void) {
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((tmp = D_803F2AA2) == 0) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 11))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 17)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].unk64 != -3))) {
 
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
-                D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->unk302,
+                D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading,
                 D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
 
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -224,7 +224,7 @@ void func_8036C0B0_77D760(void) {
     }
     func_8034BD20_75D3D0(
         D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1),
-        D_803D552C->unk302, D_01033190_6CA60, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
+        D_803D552C->heading, D_01033190_6CA60, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     if (!offscreen) {
         func_80303820_714ED0(D_803D552C, 0, 1, 750, 1);
         func_80303820_714ED0(D_803D552C, 1, 19, 0x177, 0);

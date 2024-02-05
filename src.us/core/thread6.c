@@ -88,8 +88,8 @@ void thread6(s32 arg0) {
         D_80204284 = 0;
     }
     // eeprom stuff
-    func_80130C04();
-    func_80130E44();
+    clear_player_eeprom_state();
+    func_80130E44(); // read_eeprom
 
     D_80204288 = 0;
 
@@ -103,11 +103,11 @@ void thread6(s32 arg0) {
 
     while (TRUE) {
         // this has a while loop anyway.. *shrug*
-        func_80129DC0();
+        thread6_loop();
     }
 }
 
-void func_80129DC0(void) {
+void thread6_loop(void) {
     s8 phi_s1;
 
     D_801D9EC8 = 0;
@@ -123,7 +123,7 @@ void func_80129DC0(void) {
             stop_all_sounds();
             func_801328F8();
             D_80204290 = 1;
-            D_8028645C = NO_MUSIC;
+            gCurrentMusicTrack = NO_MUSIC;
 
             phi_s1 = 1;
             switch (D_80204284) {
@@ -154,9 +154,9 @@ void func_80129DC0(void) {
             func_801328F8();
             func_801328F8();
         }
-        osRecvMesg(&D_8028D060, &D_80204298, OS_MESG_BLOCK);
+        osRecvMesg(&D_8028D060, (OSMesg *)&D_80204298, OS_MESG_BLOCK);
 
-        switch (D_80204298.unk0->unk0) {
+        switch (D_80204298->type) {
         case 1:
             D_80204292 += 1;
             if (phi_s1 != 0) {
@@ -166,7 +166,7 @@ void func_80129DC0(void) {
                 D_801D9ED4 -= 1;
             }
             if ((D_80152EBC < 2) && (phi_s1 == 0) && (D_80204292 >= D_80204290)) {
-                func_80136F64(); // debounce input?
+                func_80136F64(); // read input
                 if (gControllerConnected != 0) {
                     func_801370F4();
                     osContStartReadData(&D_8028D0A8);
@@ -188,7 +188,7 @@ void func_80129DC0(void) {
                 no_controller_message();
                 end_display_lists();
                 D_801D9EC8 = 0;
-                func_80131070();
+                reset_task_list();
 
                 func_8013107C(
                     &D_80162658[D_80152EB8],
@@ -267,7 +267,7 @@ void func_8012A400(void) {
 
     for (i = 0; i < 4; i++) {
         osRecvMesg(&D_8028D060, (OSMesg *)&D_80204298, OS_MESG_BLOCK);
-        if (D_80204298.unk0->unk0 == 2) {
+        if (D_80204298->type == 2) {
             i = 100; // thats more than 4!
         }
     }
@@ -295,7 +295,7 @@ void func_8012A588(void) {
     if (D_80152E9C != 0) {
         D_80204290 = 1;
         if (D_80152E9C == 1) {
-            func_80137840();
+            init_rumble_pak();
             func_8012A400();
             memcpy_sssv(D_80162658[D_80152EB8].framebuffer, D_80162658[D_80152EB8 ^ 1].framebuffer, sizeof(gFramebuffer[0]));
         }

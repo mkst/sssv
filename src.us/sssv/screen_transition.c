@@ -10,10 +10,10 @@
 // ========================================================
 
 ScreenTransition D_803E1B10;
-u8   D_803E1B1A; // r
-u8   D_803E1B1B; // g
-u8   D_803E1B1C; // b
-u16  D_803E1B1E;
+static u8   D_803E1B1A; // r
+static u8   D_803E1B1B; // g
+static u8   D_803E1B1C; // b
+static u16  D_803E1B1E; // perspective
 
 // ========================================================
 // .text
@@ -61,7 +61,7 @@ void trigger_screen_transition(s16 id) {
 void perform_screen_transition(void) {
     s32 phi_v1;
     s32 alpha;
-    s8 phi_t1;
+    s8 size;
     u16 i, j;
 
     alpha = 0xff;
@@ -204,9 +204,9 @@ void perform_screen_transition(void) {
             }
             break;
         case 5:
-            phi_t1 = D_803E1B10.unk6;
-            if (phi_t1 > 8) {
-                phi_t1 = 8;
+            size = D_803E1B10.unk6;
+            if (size > 8) {
+                size = 8;
             }
             gDPPipeSync(D_801D9E7C++);
             gDPSetCycleType(D_801D9E7C++, G_CYC_1CYCLE);
@@ -222,10 +222,10 @@ void perform_screen_transition(void) {
                 for (j = 0; j <= gScreenHeight; j += 16) {
                     gDPFillRectangle(
                         D_801D9E7C++,
-                        i - phi_t1 + 8,
-                        j - phi_t1 + 8,
-                        i + phi_t1 + 8,
-                        j + phi_t1 + 8
+                        i - size + 8,
+                        j - size + 8,
+                        i + size + 8,
+                        j + size + 8
                     );
                 }
             }
@@ -237,9 +237,9 @@ void perform_screen_transition(void) {
             D_803E1B10.unk2 += 1;
             break;
         case 4: // square-folding transition
-            phi_t1 = 8 - D_803E1B10.unk6;
-            if (phi_t1 < 0) {
-                phi_t1 = 0;
+            size = 8 - D_803E1B10.unk6;
+            if (size < 0) {
+                size = 0;
             }
             gDPPipeSync(D_801D9E7C++);
             gDPSetCycleType(D_801D9E7C++, G_CYC_1CYCLE);
@@ -255,10 +255,10 @@ void perform_screen_transition(void) {
                 for (j = 0; j <= gScreenHeight; j += 16) {
                     gDPFillRectangle(
                         D_801D9E7C++,
-                        i - phi_t1 + 8,
-                        j - phi_t1 + 8,
-                        i + phi_t1 + 8,
-                        j + phi_t1 + 8
+                        i - size + 8,
+                        j - size + 8,
+                        i + size + 8,
+                        j + size + 8
                     );
                 }
             }
@@ -328,7 +328,7 @@ void func_802F13B8_702A68(void) {
         gSPPerspNormalize(D_801D9E7C++, D_803E1B1E);
 
         load_segments(&D_801D9E7C, D_80204278);
-        func_80380490_791B40(&D_801D9E7C, D_80204278);
+        switch_to_current_segment(&D_801D9E7C, D_80204278);
 
         gSPViewport(D_801D9E7C++, &D_803A50C0_7B6770);
 

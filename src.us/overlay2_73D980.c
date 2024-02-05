@@ -259,7 +259,7 @@ void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4,
 
         if (var_t0 != 0) {
             if ((u8)arg5 != 0) {
-                if ((D_803F28E0[D_803F2A98].cameraMode != 2) && (D_803F28E0[D_803F2A98].cameraMode != 12)) {
+                if ((gCameras[gCameraId].cameraMode != 2) && (gCameras[gCameraId].cameraMode != 12)) {
                     var_v0 = 0;
                 } else {
                     var_v0 = 1;

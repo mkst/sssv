@@ -2,26 +2,37 @@
 #include "common.h"
 
 
+// ========================================================
+// .bss (D_803F2D30 to D_803F2D50)
+// ========================================================
+
+LevelProgress D_803F2D30;
+
+// ========================================================
+// .text
+// ========================================================
+
 // ESA: func_80058368
 void func_803572F0_7689A0(void) {
     if (D_803F2D10.unk0 == 0) {
         if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->health <= 0) &&
-            (D_803F2D30.unk4 == 0) && (D_803F2E16 == 0)) {
+            (D_803F2D30.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
             D_803F2D30.unk4 = 1;
-            D_8028645C = MUSIC_TRACK_LEVEL_FAILED;
+            gCurrentMusicTrack = MUSIC_TRACK_LEVEL_FAILED;
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
             D_801546D8 = 2048;
         }
         if (D_803F2D30.unk4 != 0) {
-            D_803F2D30.unk4 += 1;
+            D_803F2D30.unk4++;
         }
     }
 }
 
 // ESA: func_80058404
+// set_level_passed_music
 void func_8035739C_768A4C(void) {
-    D_803F2E16 = 1;
+    D_803F2D50.unkC6 = 1;
     D_8015517C = 1.0f;
     D_801546E0 = 2048;
     D_801546D8 = 2048;
@@ -31,12 +42,12 @@ void func_8035739C_768A4C(void) {
         (D_803F2D30.level == EVOS_ESCAPE) ||
         (D_803F2D30.level == PUNCHUP_PYRAMID)) {
         if (D_803E4D28 & 2) {
-            D_8028645C = MUSIC_TRACK_LEVEL_PASSED;
+            gCurrentMusicTrack = MUSIC_TRACK_LEVEL_PASSED;
         } else {
-            D_8028645C = MUSIC_TRACK_BOSS_LEVEL_PASSED;
+            gCurrentMusicTrack = MUSIC_TRACK_BOSS_LEVEL_PASSED;
         }
     } else {
-        D_8028645C = MUSIC_TRACK_LEVEL_PASSED;
+        gCurrentMusicTrack = MUSIC_TRACK_LEVEL_PASSED;
     }
 }
 

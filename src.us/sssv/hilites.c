@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
-void func_8034A320_75B9D0(void) {
+void add_hilite(void) {
     Mtx m;
 
     if (D_80204278->usedHilites < 100) {

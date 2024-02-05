@@ -67,7 +67,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         break;
     }
 
-    var_a0 = (D_803D5530->yRotation - D_803D552C->unk302) & 0xFF;
+    var_a0 = (D_803D5530->yRotation - D_803D552C->heading) & 0xFF;
     var_a0 = (var_a0 * 360) >> 8;
 
     if ((var_a0 > 80) && (var_a0 < 280)) {
@@ -181,7 +181,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     case 0:
         break;
     case 8:
-        var_t0 = (D_803D5544 - D_803D552C->unk334);
+        var_t0 = (D_803D5544 - D_803D552C->attackTimer);
         if (var_t0 == 5) {
             play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
@@ -349,7 +349,7 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
         break;
     }
 
-    var_a0 = (D_803D5530->yRotation - D_803D552C->unk302) & 0xFF;
+    var_a0 = (D_803D5530->yRotation - D_803D552C->heading) & 0xFF;
     var_a0 = (var_a0 * 360) >> 8;
 
     if ((var_a0 > 80) && (var_a0 < 280)) {
@@ -487,7 +487,7 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
     if (temp_v1_2->unk0 != 0) {
         temp_v1_2->unk2++;
     }
-    var_t1 = (D_803D5530->yRotation - D_803D552C->unk302) & 0xFF;
+    var_t1 = (D_803D5530->yRotation - D_803D552C->heading) & 0xFF;
     var_t1 = (var_t1 * 360) >> 8;
 
     if ((var_t1 > 80) && (var_t1 < 280)) {
@@ -550,7 +550,7 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
     case 0:
         break;
     case 8:
-        temp_t9_2 = (D_803D552C->unk334 - D_803D5544);
+        temp_t9_2 = (D_803D552C->attackTimer - D_803D5544);
         if (temp_t9_2 > 10) {
             var_a1 = SIN((temp_t9_2 - 10) << 5) >> 9;
         }
@@ -668,7 +668,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
         temp_a2_2->unk2++;
     }
 
-    var_a1 = (D_803D5530->yRotation - D_803D552C->unk302) & 0xFF;
+    var_a1 = (D_803D5530->yRotation - D_803D552C->heading) & 0xFF;
     var_a1 = (var_a1 * 360) >> 8;
     if ((var_a1 >= 0x51) && (var_a1 < 0x118)) {
         if (var_a1 < 0xB4) {
@@ -761,7 +761,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
     case 0:
         break;
     case 8:
-        temp_t7 = D_803D552C->unk334 - D_803D5544;
+        temp_t7 = D_803D552C->attackTimer - D_803D5544;
         if (temp_t7 > 10) {
             var_a0 = SIN((temp_t7 - 10) << 5) >> 9;
         }
@@ -817,7 +817,7 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
         break;
     }
 
-    var_v0_2 = (((D_803D5530->yRotation - D_803D552C->unk302) & 0xFF));
+    var_v0_2 = (((D_803D5530->yRotation - D_803D552C->heading) & 0xFF));
     var_v0_2 = (var_v0_2 * 360) >> 8;
     if ((var_v0_2 >= 0x51) && (var_v0_2 < 0x118)) {
         if (var_v0_2 < 0xB4) {
@@ -849,7 +849,7 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
     case 0:
         break;
     case 8:
-        temp_t9 = (D_803D552C->unk334 - D_803D5544);
+        temp_t9 = (D_803D552C->attackTimer - D_803D5544);
         if (temp_t9 > 10) {
             var_v0_2 = SIN((temp_t9 - 0xA) << 5) >> 9;
         }
@@ -966,8 +966,8 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
 #endif
 
 void func_802C71BC_6D886C(s16 *arg0, s16 *arg1, s16 *arg2, s16 arg3) {
-    *arg0 = D_803D5530->position.xPos.h + ((((COS(D_803D552C->unk302) * (D_80203FE0[20].unk0 + 0   )) / 32) + ((SIN(D_803D552C->unk302) * (D_80203FE0[20].unk2 + arg3)) / 32)) >> 0xF);
-    *arg1 = D_803D5530->position.zPos.h + ((((COS(D_803D552C->unk302) * (D_80203FE0[20].unk2 + arg3)) / 32) - ((SIN(D_803D552C->unk302) * (D_80203FE0[20].unk0 + 0   )) / 32)) >> 0xF);
+    *arg0 = D_803D5530->position.xPos.h + ((((COS(D_803D552C->heading) * (D_80203FE0[20].unk0 + 0   )) / 32) + ((SIN(D_803D552C->heading) * (D_80203FE0[20].unk2 + arg3)) / 32)) >> 0xF);
+    *arg1 = D_803D5530->position.zPos.h + ((((COS(D_803D552C->heading) * (D_80203FE0[20].unk2 + arg3)) / 32) - ((SIN(D_803D552C->heading) * (D_80203FE0[20].unk0 + 0   )) / 32)) >> 0xF);
     *arg2 = D_803D5530->position.yPos.h + (D_80203FE0[19].unk4 / 32);
 }
 
@@ -1050,7 +1050,7 @@ void func_802C7600_6D8CB0(s16 arg0, s16 arg1) {
                 i++;
             } else {
                 func_802C56D0_6D6D80(3);
-                return;
+                break;
             }
         }
     } else {
@@ -1060,7 +1060,7 @@ void func_802C7600_6D8CB0(s16 arg0, s16 arg1) {
 
             if (func_8033C9CC_74E07C(sp68, sp66, sp64, 0x7F, xPos, zPos, yPos, D_803D5530->unk160, 0, 0)) {
                 func_802C56D0_6D6D80(-3);
-                return;
+                break;
             } else {
                 D_803D552C->unk318--;
                 i++;

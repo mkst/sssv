@@ -3,22 +3,21 @@
 
 
 // ESA: func_8004D0E8
-s32 func_802C9340_6DA9F0(void) {
-    struct068 *phi_v0;
+s32 load_objects(void) {
+    ObjectData *obj;
     s16 i;
 
     bzero_sssv(&D_801E9EB8, sizeof(D_801E9EB8));
 
     D_801E9EB8.unk0 = D_803A8528_7B9BD8;
+    D_801E9EB8.total= 247;
 
-    D_80203FC4 = 247; // 247 objects
-
-    phi_v0 = D_801E9EB8.unk0;
+    obj = D_801E9EB8.unk0;
     for (i = 0; i < 247; i++) {
-        if ((phi_v0->collision != NULL) && (((s32)phi_v0->collision & 0xF0000000) == 0)) {
-            phi_v0->collision = D_801D9E74 + SEGMENT_OFFSET((s32)phi_v0->collision);
+        if ((obj->collision != NULL) && (((s32)obj->collision & 0xF0000000) == 0)) {
+            obj->collision = D_801D9E74 + SEGMENT_OFFSET((s32)obj->collision);
         }
-        phi_v0 += 1;
+        obj++;
     }
 
     return 1;
@@ -34,34 +33,34 @@ void func_802C941C_6DAACC(void) {
     s16 i;
 
     for (i = 0; i < 170; i++) {
-        D_801E9EB8.unk19E64[i] = &D_801E9EB8.objects[i];
+        D_801E9EB8.objectsPtr[i] = &D_801E9EB8.objects[i];
     }
     D_801E9EB8.unk1A110 = MAX_OBJECTS;
     D_801E9EB8.unk1A112 = MAX_OBJECTS;
-    D_801E9EB8.unk1A114 = 0;
+    D_801E9EB8.used = 0;
 }
 
 // ESA: func_8004D1B8
 struct071 *func_802C9488_6DAB38(void) {
     struct071 *obj;
 
-    if (D_801E9EB8.unk1A114 > MAX_OBJECTS) {
+    if (D_801E9EB8.used > MAX_OBJECTS) {
         return NULL;
     }
-    obj = D_80203D1C[D_801E9EB8.unk1A110--];
+    obj = D_801E9EB8.objectsPtr[D_801E9EB8.unk1A110--];
 
     if (D_801E9EB8.unk1A110 < 0) {
         D_801E9EB8.unk1A110 = MAX_OBJECTS;
     }
-    D_801E9EB8.unk1A114 += 1; // used?
+    D_801E9EB8.used++;
 
-    obj->unk26C = 0; // initialised?
+    obj->unk26C = 0; // is initialised?
     return obj;
 }
 
 // ESA: func_8004D228
 void func_802C9500_6DABB0(struct071 *obj) {
-    D_80203D1C[D_801E9EB8.unk1A112] = obj;
+    D_801E9EB8.objectsPtr[D_801E9EB8.unk1A112] = obj;
 
     // regalloc fix
     do {
@@ -71,25 +70,27 @@ void func_802C9500_6DABB0(struct071 *obj) {
     if (D_801E9EB8.unk1A112 < 0) {
         D_801E9EB8.unk1A112 = MAX_OBJECTS;
     }
-    D_801E9EB8.unk1A114--;
+    D_801E9EB8.used--;
 }
 
-#ifdef NON_MATCHING
 struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s16 zRotation, s16 yRotation, u16 scale) {
     s16 temp_v1;
     struct071 *obj;
-    struct068 *tmp;
-    struct035 *tmp2;
+    ObjectData *objData;
+    struct035 *foo;
 
     obj = func_802C9488_6DAB38();
-    if (obj == 0) {
+    if (obj == NULL) {
         return NULL;
     }
 
     bzero_sssv((u8 *) obj, sizeof(struct071));
 
-    tmp = &D_801E9EB8.unk0[id]; // this is wrong
-    obj->unk16C = tmp2 = (struct035 *)tmp;
+    objData = &D_801E9EB8.unk0[id]; // pointer to 'raw' object data?
+
+    foo = (struct035 *)objData;
+
+    obj->unk16C = foo;
 
     if (obj->unk16C->unk70 != 0) {
         scale = obj->unk16C->unk70;
@@ -97,14 +98,15 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
     // help
     obj->unk40 = scale;
 
-    obj->unk4C.unk1C = tmp2->unk82.unk4;
-    obj->unk4C.unk1D = tmp2->unk82.unk5;
-    obj->unk4C.unk1B = tmp2->unk82.unk3;
+    // fixes regalloc somehow...
+    obj->unk4C.unk1C = foo->unk82.unk4 & 0xFFFFFFFF;
+    obj->unk4C.unk1D = foo->unk82.unk5 & 0xFFFFFFFF;
+    obj->unk4C.unk1B = foo->unk82.unk3 & 0xFFFFFFFF;
 
-    obj->unk14C = tmp2->unk8A;
-    obj->unk164 = tmp2->unk89;
+    obj->unk14C = foo->unk8A;
+    obj->unk164 = foo->unk89;
 
-    if (tmp2->unk82.unk7) {
+    if (foo->unk82.unk7) {
         temp_v1 = func_8031124C_7228FC(x, z) >> 0x10;
         if (y < temp_v1) {
             y = temp_v1;
@@ -132,10 +134,10 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
 
     obj->unk46 = obj->unk16C->mass;
 
-    obj->unk114 = 0x7FFF;
-    obj->unk116 = 0x7FFF;
-    obj->unk118 = 0x7FFF;
-    obj->unk11A = 0x7FFF;
+    obj->unk114[0] = 0x7FFF;
+    obj->unk114[1] = 0x7FFF;
+    obj->unk114[2] = 0x7FFF;
+    obj->unk114[3] = 0x7FFF;
 
     func_802C9BA4_6DB254(obj);
     if ((obj->unk16C->unk15 == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
@@ -148,27 +150,27 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
     obj->unk14.w = z << 0x10;
     obj->unk18 = y << 0x10;
 
-    func_802DADA0_6EC450(obj);
-    func_802F5C60_707310(obj);
+    func_802DADA0_6EC450((Animal*)obj);
+    func_802F5C60_707310((Animal*)obj);
+
     obj->unk162 = 3;
+
     return obj;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/objects/spawn_object.s")
-#endif
 
 void func_802C9834_6DAEE4(void) {
-    func_802C9884_6DAF34();
-    func_802C8440_6D9AF0();
+    reset_objects_state();
+    init_and_spawn_evo_microchip();
 }
 
+// unused, dupe of func_802C9834_6DAEE4
 void func_802C985C_6DAF0C(void) {
-    func_802C9884_6DAF34();
-    func_802C8440_6D9AF0();
+    reset_objects_state();
+    init_and_spawn_evo_microchip();
 }
 
 // ESA: func_8004D558
-void func_802C9884_6DAF34(void) {
+void reset_objects_state(void) {
     u16 i;
 
     func_802DAF5C_6EC60C();

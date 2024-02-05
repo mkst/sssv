@@ -155,7 +155,7 @@ void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
             sp70 = (gScreenWidth  * 2) + ((D_80204278->unk38A10[3][0] * sp7C) / temp_f0);
             sp6C = ((new_var2 = gScreenHeight) * 2) + ((D_80204278->unk38A10[3][1] * sp78) / temp_f0);
 
-            new_var = (arg6 * 33) / D_803F2D50.unkE0;
+            new_var = (arg6 * 33) / D_803F2D50.fovY;
             phi_f2 = ((new_var) << 5) / -temp_f0;
 
             if (phi_f2 > 15.0f) {

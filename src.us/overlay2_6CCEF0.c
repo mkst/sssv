@@ -91,7 +91,7 @@ void func_802BBA10_6CD0C0(u16 arg0) {
         phi_a0 = ((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 0xA) / (s32) temp_v1;
     }
 
-    phi_a1_2 = D_803D552C->unk302 - tmp->unk4;
+    phi_a1_2 = D_803D552C->heading - tmp->unk4;
     while (phi_a1_2 < -128) {
         phi_a1_2 += 256;
     };
@@ -175,7 +175,7 @@ void func_802BBC90_6CD340(u16 arg0) {
         var_a2 = ((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) << 0xA) / temp_a1;
     }
 
-    var_a3 = D_803D552C->unk302 - temp_v0->unk4;
+    var_a3 = D_803D552C->heading - temp_v0->unk4;
     while (var_a3 < -0x80) {
         var_a3 += 0x100;
     }
@@ -258,7 +258,7 @@ void func_802BBFA0_6CD650(u16 arg0) {
     }
     tmp = temp_v0->unk0;
 
-    var_a0 = D_803D552C->unk302 - temp_v0->unk4;
+    var_a0 = D_803D552C->heading - temp_v0->unk4;
     while (var_a0 < -128) {
         var_a0 += 256;
     }

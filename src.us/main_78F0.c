@@ -42,7 +42,7 @@ u8* D_80154500[36*2] = {
     lang_lang36_dat_rnc_ROM_START, lang_lang36_dat_rnc_ROM_END,
 };
 
-u8 *D_80154620[2] = {0, 0}; /* might just be alignment? */
+s32 D_80154620 = 0; // alignment?
 
 // at ROM 0x2fd28
 Gfx D_80154628[] = {
@@ -631,7 +631,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
                 }
             }
 
-            if ((D_8023F2A0.language == LANG_JAPANESE) && (xPos2 >= (gScreenWidth - 60))) {
+            if ((gEepromGlobal.language == LANG_JAPANESE) && (xPos2 >= (gScreenWidth - 60))) {
                 yPos += lineHeight;
                 xPos = xStart;
             }
@@ -762,7 +762,7 @@ void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 
 
             // force correct register with temp var (a1/s3)
             tmp = text + 1;
-            if ((D_8023F2A0.language == LANG_JAPANESE) && (xPos2 >= (gScreenWidth - 58)) && (*tmp != EOM)) {
+            if ((gEepromGlobal.language == LANG_JAPANESE) && (xPos2 >= (gScreenWidth - 58)) && (*tmp != EOM)) {
                 yPos += lineHeight;
                 xPos = sp150;
             }
@@ -1074,7 +1074,7 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
                 }
             }
 
-            if ((D_8023F2A0.language == LANG_JAPANESE) && (xPos2 >= (maxWidth - 10)) && (*text != EOM)) {
+            if ((gEepromGlobal.language == LANG_JAPANESE) && (xPos2 >= (maxWidth - 10)) && (*text != EOM)) {
                 y += lineHeight;
                 x = xStart;
             }

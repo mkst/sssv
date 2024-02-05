@@ -1,6 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+typedef struct struct017 struct017;
 typedef struct struct035 struct035;
 typedef struct struct049 struct049;
 typedef struct struct065 struct065;
@@ -16,19 +17,15 @@ typedef struct {
     /* 0x08 */ f32 z;
 } Vertex;
 
+typedef union {
+    s16 h;
+    s32 w;
+} Pos;
+
 typedef struct {
-  /* 0x0 */   union {
-                  s16 h;
-                  s32 w;
-              } xPos;
-  /* 0x4 */   union {
-                  s16 h;
-                  s32 w;
-              } zPos;
-  /* 0x8 */   union {
-                  s16 h;
-                  s32 w;
-              } yPos;
+  /* 0x0 */   Pos xPos;
+  /* 0x4 */   Pos zPos;
+  /* 0x8 */   Pos yPos;
 } Position; // size 0xC
 
 typedef struct {
@@ -75,7 +72,7 @@ typedef struct {
     /* 0x20 */ s16 segment; // not quite equal to biome
     /* 0x22 */ s16 unk22;
     /* 0x24 */ u8  pad24[0x1C];
-    /* 0x40 */ s16 unk40;
+    /* 0x40 */ s16 unk40;   // sourceFovY ?
     /* 0x42 */ s16 unk42;
     /* 0x44 */ u8  pad44[0x8];
     /* 0x4C */ s16 unk4C;
@@ -100,46 +97,30 @@ typedef struct {
 
     // NOTE: level .dat ends at 0xA0
 
-    /* 0xA0 */ u8  padA0[0x2];
-    /* 0xA7 */ u8  unkA2;
-    /* 0xA7 */ u8  unkA3;
-    /* 0xA7 */ u8  padA4[0x3];
-    /* 0xA7 */ u8  unkA7;
-    /* 0xA0 */ u8  padA8[0x14];
+    /* 0xA0 */ u8  padA0[0x1C];
 
-    /* 0xBC */ Animal *unkBC;
-    /* 0xC0 */ s32 unkC0; // pointer, object?
+    /* 0xBC */ Animal *entranceTeleporter;
+    /* 0xC0 */ Animal *exitTeleporter;
     /* 0xC4 */ u16 unkC4;
     /* 0xC6 */ s16 unkC6;
     /* 0xC8 */ u8  unkC8[0x6];
     /* 0xCE */ s16 evoSuitColor;
-    /* 0xD0 */ u8  unkD0[0xA];
+    /* 0xD0 */ u8  padD0[0xA];
     /* 0xDA */ s16 unkDA;  // scissor? width?
     /* 0xDC */ u16 unkDC;  // initialised?
-    /* 0xDE */ u8  padDE[0x2];
-    /* 0xE0 */ f32 unkE0;  // used for perspective
+    /* 0xE0 */ f32 fovY;  // used for perspective (copied from unk40)
     /* 0xE4 */ u16 titleText[42];
-} struct000;
+} LevelConfig;
 
 typedef struct {
     /* 0x0 */ s32 score;
-    /* 0x4 */ s16 unk4; // if 0 can increase health? paused?
-    /* 0x6 */ s16 unk6; // also incremented when powercell collected?
-    /* 0x8 */ s16 level; // level index
-    /* 0xA */ u16 unkA;
-    /* 0xC */ s16 powercells; // powercells collected
+    /* 0x4 */ s16 unk4;         // if 0 can increase health? paused?
+    /* 0x6 */ s16 powercells2;  // also incremented when a powercell is collected
+    /* 0x8 */ s16 level;        // level index
+    /* 0xA */ u16 unkA;         // only ever set to 3
+    /* 0xC */ s16 powercells;   // number of powercells collected
     /* 0xE */ char scoreText[18];
-} struct001; // size 0x20
-
-typedef struct {
-    u8  pad0[0xC];
-    s32 unkC[4];
-} struct002;
-
-typedef struct {
-    /* 0x0 */  u8 pad0[0x10];
-    /* 0x10 */ ALSound *sound;
-} struct011;
+} LevelProgress; // size 0x20
 
 struct struct065 {
     /* 0x0 */ struct065 *next;
@@ -178,7 +159,6 @@ typedef struct {
 typedef struct {
     /* 0x0 */ s16 unk0;
 } CmdSimple;
-
 
 typedef struct {
     /* 0x0 */ u8  unk0;  // lbu a0,4(s0)
@@ -519,16 +499,16 @@ typedef struct {
 typedef struct {
     /* 0x0 */ u16 type;
     /* 0x2 */ Cmd cmd;
-} struct112; // size 0xA
+} CmdWrapper; // size 0xA
 
 typedef struct {
-  u8 count;
-  struct112 payload;
-} struct045;
+  /* 0x0 */ u8 count;
+  /* 0x4 */ CmdWrapper payload;
+} CmdsWrapper;
 
 typedef struct {
-    /* 0x0   AKA 0x19C */ struct045 unk19C;
-    /* 0xC   AKA 0x1A8 */ struct112 *unk1A8; // ptr to list of commands
+    /* 0x0   AKA 0x19C */ CmdsWrapper unk19C;
+    /* 0xC   AKA 0x1A8 */ CmdWrapper *unk1A8; // ptr to list of commands
     /* 0x10  AKA 0x1AC */ Cmd unk1AC[4];
     /* 0x30  AKA 0x1CC */ u8  unk1CC;
     /* 0x31  AKA 0x1CD */ u8  numCommandsToCopy;
@@ -541,7 +521,7 @@ typedef struct {
     /* 0x3C  AKA 0x1D8 */ u8  unk1D8;
     /* 0x3D  AKA 0x1D9 */ u8  unk1D9;
     /* 0x3E  AKA 0x1DA */ Cmd unk1DA[4]; // tbd
-    /* 0x60  AKA 0x1FC */ struct112 * unk1FC;
+    /* 0x60  AKA 0x1FC */ CmdWrapper * unk1FC;
 } Commands;
 
 struct struct103 {
@@ -712,8 +692,16 @@ typedef struct {
       s32 w;
       s16 h;
     } unk8;  // yPos
-    s32 unkC; // unkD0
+    s32 unkC; // unkD0, size?
 } struct043; // size 0x10
+
+typedef struct {
+    u8  unk0;
+    u8  unk1;
+    u8  unk2;
+    u8  unk3;
+    Animal *unk4;
+} struct071_inner;
 
 /*
 states:
@@ -729,42 +717,31 @@ states:
 */
 struct Animal {
     /* 0x00 */  u16 state; // state? standing, walking, jumping,
-    /* 0x02 */  u16 unk2;
-                Position position;
-                Position newPosition;
-    /* 0x1C */  union {
-                    s32 w;
-                    s16 h;
-                } xVelocity; // are these really unions or?
-    /* 0x20 */  union {
-                    s32 w;
-                    s16 h;
-                } zVelocity;
-    /* 0x24 */  union {
-                    s32 w;
-                    s16 h;
-                } yVelocity;
-    /* 0x28 */  s16 unk28;
-    /* 0x2A */  s16 unk2A;
+    /* 0x04 */  Position position;
+    /* 0x10 */  Position newPosition;
+    /* 0x1C */  Pos xVelocity; // are these really unions or?
+    /* 0x20 */  Pos zVelocity;
+    /* 0x24 */  Pos yVelocity;
+    /* 0x28 */  s16 unk28; // 0..360
+    /* 0x2A */  s16 unk2A; // 0..360
     /* 0x2C */  s16 yRotation;
     /* 0x2E */  s16 zRotation;
     /* 0x30 */  s16 unk30;
     /* 0x32 */  s16 unk32;
-    /* 0x34 */  s16 unk34;
+    /* 0x34 */  s16 unk34; // used in collision
     /* 0x36 */  s16 unk36;
     /* 0x38 */  s8  unk38;
     /* 0x39 */  u8  pad39;
     /* 0x3A */  s8  unk3A;
     /* 0x3B */  u8  pad3B;
     /* 0x3C */  s8  unk3C;
-    /* 0x3D */  u8  pad3D;
     /* 0x3E */  u16 unk3E; // evo type (bronze/silver/gold?)
     /* 0x40 */  u16 unk40;
     /* 0x42 */  u16 unk42; // height?
     /* 0x44 */  u16 unk44;
     /* 0x46 */  u16 unk46;
     /* 0x48 */  u16 unk48;
-    /* 0x4A */  s8  unk4A; // reference counter?
+    /* 0x4A */  s8  unk4A; // 0 => player can move animal, 1 => player cannot move animal, 2 => unknown
     /* 0x4B */  u8  unk4B;
     /* 0x4C */  struct {
                     s8  pad0  : 8;  // 0x4C
@@ -778,37 +755,25 @@ struct Animal {
                     u8  unk1D : 1;  // unk29 //  // (unk4C << 0x1D) >> 0x1F OR & 4
                     u8  pad1E : 2;  // pad30 //
                 } unk4C;
-    /* 0x50 */  u16 unk50;
-    /* 0x52 */  u8  pad52[0x2];
-    /* 0x54 */  u8  unk54;
-    /* 0x55 */  u8  unk55;
-    /* 0x55 */  u8  unk56;
-    /* 0x55 */  u8  unk57;
-    /* 0x55 */  Animal *unk58;
-    /* 0x5C */  u8  unk5C;
-    /* 0x5D */  u8  unk5D;
-    /* 0x5E */  u8  pad5E;
-    /* 0x5E */  u8  unk5F;
-    /* 0x60 */  Animal* unk60;
+    /* 0x50 */  u8  pad50[0x4];
+    /* 0x54 */  struct071_inner unk54;
+    /* 0x54 */  struct071_inner unk5C;
     /* 0x64 */  u8  unk64;
     /* 0x65 */  u8  unk65;
-    /* 0x66 */  u8  pad66[0x2];
-    /* 0x68 */  Animal *unk68;
+    /* 0x68 */  Animal *unk68; // carry-ee (e.g. what seagull is carrying)
     /* 0x6C */  Animal *unk6C;
-    /* 0x70 */  Animal *unk70;
+    /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
     /* 0x74 */  struct043 unk74[5];
-    /* 0xC4 */  struct043 unkC4[5];
-    /* 0x114 */ s16 unk114[4];
+    /* 0xC4 */  struct043 unkC4[5]; // hitboxes?
+    /* 0x114 */ s16 unk114[4];  // fixme, just an s16?
     /* 0x11C */ struct065 unk11C[4];
     /* 0x14C */ s16 health;
     /* 0x14E */ s16 unk14E;
     /* 0x150 */ s16 unk150; // Info.Counter2 ?
     /* 0x152 */ s16 unk152;
     /* 0x154 */ u8  unk154; // lifetime
-    /* 0x156 */ u8  pad155[0x3];
     /* 0x158 */ s32 unk158;
     /* 0x15C */ u8  unk15C;
-    /* 0x15D */ u8  pad15D;
     /* 0x15E */ s16 unk15E;
     /* 0x160 */ u8  unk160; // 0, 1 or 2 (mapStatus12)
     /* 0x161 */ u8  unk161;
@@ -819,22 +784,20 @@ struct Animal {
     /* 0x168 */ Animal *owner; // owner
     /* 0x16C */ struct035* unk16C;
     /* 0x170 */ u8  unk170;
-    /* 0x171 */ u8  pad171;
     /* 0x172 */ s16 unk172;
     /* 0x174 */ struct {
                     s8 unk0 : 4;
                     s8 unk4 : 4;
                     s8 unk8 : 8;
                 } unk174;
-    /* 0x174 */ s16 unk176;
-    /* 0x178 */ s16 unk178;
-    /* 0x17A */ s16 unk17A;
-    /* 0x17C */ s16 unk17C;
-    /* 0x17E */ s16 unk17E;
-    /* 0x180 */ s16 unk180;
-    /* 0x182 */ s16 unk182;
-    /* 0x184 */ s16 unk184;
-    /* 0x186 */ u8  pad186[0x2];
+    /* 0x174 */ s16 unk176; // waypoint related
+    /* 0x178 */ s16 unk178; // targetXPos for waypoint?
+    /* 0x17A */ s16 unk17A; // targetZPos for waypoint?
+    /* 0x17C */ s16 unk17C; // targetYPos for waypoint
+    /* 0x17E */ s16 unk17E; // initialXPos for waypoint?
+    /* 0x180 */ s16 unk180; // initialZPos for waypoint?
+    /* 0x182 */ s16 unk182; // initialYPos for waypoint?
+    /* 0x184 */ s16 unk184; // some kind of speed factor for waypoints?
     /* 0x188 */ Animal *target;
     /* 0x18C */ u8  unk18C;
     /* 0x18D */ u8  unk18D[5];
@@ -859,13 +822,6 @@ struct Animal {
     /* 0x21C */ u8  unk21C;
     /* 0x21D */ u8  unk21D;
     /* 0x21E */ Cmd unk21E;
-    // /* 0x21E */ u16 unk21E;
-    // /* 0x220 */ u8  unk220; // particle id
-    // /* 0x221 */ s8  unk221;
-    // /* 0x222 */ u8  unk222; // particle size factor?
-    // /* 0x223 */ u8  unk223;
-    // /* 0x224 */ u16 unk224;
-
     /* 0x226 */ u16 unk226; // particle color1
     /* 0x228 */ u16 unk228; // particle color2
     /* 0x22A */ s8  unk22A;
@@ -886,6 +842,9 @@ struct Animal {
     /* 0x26C */ u8  unk26C;
     /* 0x26D */ u8  unk26D;
     /* 0x26E */ u8  pad26E[0x2];
+
+    // end of Object/Animal shared fields?
+
     /* 0x270 */ u8  unk270;
     /* 0x271 */ u8  unk271;
     /* 0x272 */ u16 unk272; // flagged state, 1, 4, 8...
@@ -895,7 +854,6 @@ struct Animal {
     /* 0x278 */ s16 unk278;
     /* 0x27A */ s16 unk27A;
     /* 0x27C */ s16 unk27C;
-    /* 0x27E */ u8  pad27E[0x2];
     /* 0x280 */ Animal *unk280; // another one? is this a repeating array?
     /* 0x284 */ s16 unk284;
     /* 0x286 */ u8  pad286;
@@ -907,12 +865,7 @@ struct Animal {
     /* 0x28E */ u8  unk28E;
     /* 0x28F */ u8  pad28F;
     /* 0x290 */ s16 unk290;
-    /* 0x292 */ u8  pad292[0x2];
     /* 0x294 */ union {
-                    Animal *w;
-                    s16 h[3];
-                    s8  b[8];
-                    u8  ub[8];
                     struct {
                       s8 pathId;
                       s8 unk1;
@@ -956,7 +909,7 @@ struct Animal {
                       s16 unk4;
                     } type9;
                 } unk294;
-    /* 0x29C */ WaypointData *unk29C; // WaypointData* ?
+    /* 0x29C */ WaypointData *waypointData;
     /* 0x2A0 */ u8  unk2A0;
     /* 0x2A1 */ s8  unk2A1;
     /* 0x2A2 */ u8  unk2A2;
@@ -964,10 +917,8 @@ struct Animal {
     /* 0x2A4 */ s16 xPosTarget;
     /* 0x2A6 */ s16 zPosTarget;
     /* 0x2A8 */ s16 yPosTarget;
-    /* 0x2AA */ u8  pad2AA[0x2];
     /* 0x2AC */ Animal* unk2AC;
     /* 0x2B0 */ u8  targetIsPlayer;
-    /* 0x2B1 */ u8  pad2B1[0x3];
     /* 0x2B4 */ struct {
                     u8  state : 4; // 0xFF0F => 0
                     u8  unk4  : 3; // 0xFFF1 => 0
@@ -980,20 +931,18 @@ struct Animal {
     /* 0x2C0 */ s32 unk2C0;
     /* 0x2C4 */ s32 unk2C4; // "FC" ?
     /* 0x2C8 */ u16 unk2C8;
-    /* 0x2CA */ u8  pad2CA;
     /* 0x2CC */ Animal* unk2CC; // target for missiles?
     /* 0x2D0 */ s16 targetDistance;
-    /* 0x2D2 */ u8  pad2D2[0x2];
     /* 0x2D4 */ s32 unk2D4;
     /* 0x2D8 */ s32 unk2D8;
     /* 0x2DC */ s16 unk2DC;
     /* 0x2DE */ u8  unk2DE[0x2];
-    /* 0x2E0 */ Energy energy[2]; // seems to be an array?
-    /* 0x2E8 */ u8  missileScaleLeft;  // scale factor for 'left' side missile
-    /* 0x2E9 */ u8  missileScaleRight; // scale factor for 'right' side missile
-    /* 0x2EA */ u8  missileSide; // selector for missile 1 or 2
+    /* 0x2E0 */ Energy energy[2];       // seems to be an array?
+    /* 0x2E8 */ u8  missileScaleLeft;   // scale factor for 'left' side missile
+    /* 0x2E9 */ u8  missileScaleRight;  // scale factor for 'right' side missile
+    /* 0x2EA */ u8  missileSide;        // selector for missile 1 or 2
     /* 0x2EB */ s8  unk2EB;
-    /* 0x2EC */ s16 unk2EC; // (husky) bite energy? stamina?
+    /* 0x2EC */ s16 unk2EC;             // (husky) bite energy? stamina? another attackTimer?
     /* 0x2EE */ u16 unk2EE;
     // /* 0x2EE */ struct {
     //                 s16  unk0 : 10;
@@ -1008,8 +957,8 @@ struct Animal {
     /* 0x2FC */ u16 unk2FC;
     /* 0x2FE */ u16 unk2FE;
     /* 0x300 */ u16 unk300;
-    /* 0x302 */ s16 unk302; // heading? facing?
-    /* 0x304 */ s16 unk304;
+    /* 0x302 */ s16 heading;
+    /* 0x304 */ s16 previousHeading;
     /* 0x306 */ s16 unk306;
     /* 0x308 */ s16 unk308;
     /* 0x30A */ s16 unk30A;
@@ -1022,17 +971,14 @@ struct Animal {
     /* 0x318 */ s16 unk318;
     /* 0x31A */ s16 unk31A;
     /* 0x31C */ u16 unk31C;
-    /* 0x31E */ u8  pad31E[0x2];
     /* 0x320 */ Animal *unk320;
     /* 0x324 */ u16 unk324;
     /* 0x326 */ s16 unk326;
     /* 0x328 */ u16 unk328;
     /* 0x32A */ u16 unk32A;
     /* 0x32C */ s16 unk32C;
-    /* 0x32E */ u8  pad32E[0x2];
     /* 0x330 */ Animal *unk330;
-    /* 0x334 */ u16 unk334;
-    /* 0x336 */ u8  pad336[0x2];
+    /* 0x334 */ u16 attackTimer;
     /* 0x338 */ s32 unk338;
     /* 0x33C */ s32 pad33C[3];
     /* 0x348 */ s16 unk348; // (desert fox) dizziness duration and size
@@ -1043,14 +989,14 @@ struct Animal {
     /* 0x352 */ s16 unk352;
     /* 0x354 */ s16 unk354;
     /* 0x356 */ s16 unk356;
-    /* 0x358 */ s16 unk358;
+    /* 0x358 */ s16 laughterThreshold; // what is a better name, if this is above 80, animal will start laughing
     /* 0x35A */ s16 unk35A;
     /* 0x35C */ s16 unk35C;
     /* 0x35E */ u16 unk35E;
     /* 0x360 */ s8  unk360;
     /* 0x361 */ s8  unk361;
     /* 0x362 */ u8  unk362;
-    /* 0x363 */ u8  unk363;
+    /* 0x363 */ u8  isLaughing;
     /* 0x364 */ u8  unk364;
     /* 0x365 */ u8  unk365; // current attack
     /* 0x366 */ u8  unk366;
@@ -1058,10 +1004,10 @@ struct Animal {
     /* 0x368 */ s8  unk368;
     /* 0x369 */ u8  unk369;
     /* 0x36A */ s8  unk36A;
-    /* 0x36B */ s8  unk36B;
+    /* 0x36B */ s8  lastHpLost;
     /* 0x36C */ u8  unk36C;
-    /* 0x36D */ u8  unk36D; // sheep only?
-    /* 0x36E */ s8  unk36E;
+    /* 0x36D */ u8  unk36D;
+    /* 0x36E */ s8  unk36E; // boost speed?
     /* 0x36F */ s8  unk36F;
     /* 0x370 */ struct103 unk370;
     /* 0x384 */ struct103 unk384; // s16 x 7
@@ -1087,21 +1033,6 @@ typedef struct {
 } RomHeader;
 
 typedef struct {
-    s16 unk0;
-} struct010;
-
-typedef struct {
-    struct010 *unk0;
-    s32 unk4;
-} struct006; // OSMesg
-
-typedef struct {
-    Acmd *unk0;
-    u8  unk4[0x8];
-    s32 unk8; // pointer to some audio struct
-} struct007;
-
-typedef struct {
     /* 0x0 */     u8  pad0[0x3F798];
     /* 0x3F798 */ u16 unk3F798;
     /* 0x3F79A */ u8  pad3F79A[0x1E];
@@ -1115,26 +1046,13 @@ typedef struct {
     /* 0x4 */ s32 yScale;
     /* 0x8 */ s16 VIModeType;
     /* 0xA */ s16 screenWidth;
-    /* 0xC */ u16 unkC;
-    /* 0xE */ u8  padE[0x2]; // padding/alignment?
-} struct012; // size 0x10
+} VIData; // size 0xC
 
 typedef struct {
     s16 unk0[360];
     s16 unk2D0[90];
     s16 unk384[90]; // ?
 } struct013;
-
-typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-} struct015;
-
-typedef struct {
-    s32 unk0;
-    s32 unk4;
-} struct016;
 
 typedef struct {
     s16 length;
@@ -1164,8 +1082,6 @@ typedef struct {
     /* 0x3C */ u16 unk3C;
     /* 0x3E */ u8  pad3E[0x2A];
 } Controller; // size 0x68;
-
-typedef struct struct017 struct017;
 
 struct struct017 {
     /* 0x00 */ u16 unk0; // priority?
@@ -1296,9 +1212,7 @@ typedef struct {
     /* 0x0C */ s8  musicVol;
     /* 0x0D */ s8  sfxVol;
     /* 0x0E */ s8  language;  // chosen language, e.g. LANG_ENGLISH
-    /* 0x0F */ u8  padF[0x17];
-    /* 0x26 */ s16 unk26;
-    /* 0x28 */ u8  pad28[0x18];
+    /* 0x10 */ s32 pad10[0xC];
 } Eeprom; // size 0x40 - Game settings?
 
 typedef struct {
@@ -1535,7 +1449,7 @@ typedef struct {
     s32 unk2D04;
 } struct034;
 
-struct struct035 { // TODO: merge with struct068?
+struct struct035 { // TODO: merge with ObjectData?
   /* 0x00 */  u16 objectType;
   /* 0x02 */  u8  unk2;
   /* 0x03 */  u8  unk3;
@@ -1559,14 +1473,14 @@ struct struct035 { // TODO: merge with struct068?
   /* 0x7E */  s16 unk7E;
   /* 0x80 */  s16 unk80;
   /* 0x82 */  struct {
-                  u8  unk0  : 1;
-                  u8  unk1  : 1;
-                  u8  unk2  : 1;
-                  u8  unk3  : 1;
-                  u8  unk4  : 1;
-                  u8  unk5  : 1;
-                  u8  unk6  : 1;
-                  u8  unk7  : 1;
+                  u8  unk0  : 1; // 0x80
+                  u8  unk1  : 1; // 0x40
+                  u8  unk2  : 1; // 0x20
+                  u8  unk3  : 1; // 0x10
+                  u8  unk4  : 1; // 0x8
+                  u8  unk5  : 1; // 0x4
+                  u8  unk6  : 1; // 0x2
+                  u8  unk7  : 1; // 0x1
               } unk82;
   /* 0x83 */  u8 unk83;
   /* 0x84 */  void (*unk84)(void *);
@@ -1610,7 +1524,7 @@ struct struct035 { // TODO: merge with struct068?
               s16 unkB6;
               u16 unkB8;
               u16 unkBA;
-              u16 unkBC;
+              u16 unkBC; // height
               u16 unkBE;
               s16 unkC0;
               s16 unkC2; // scaling?
@@ -1706,11 +1620,11 @@ typedef struct {
     /* 0xC */ s16 ice;
     /* 0xE */ s16 jungle;
     /* 0x10 */ s16 desert;
-    /* 0x12 */ s16 final;
+    /* 0x12 */ s16 bcp;
     /* 0x14 */ s16 hidden;
     /* 0x16 */ s16 unk16;
     /* 0x18 */ s16 unk18;
-} struct005; // size 0x1A
+} Cheats; // size 0x1A
 
 typedef struct {
     /* 0x0 */ f32 unk0;     // x offset
@@ -1730,7 +1644,7 @@ typedef struct {
     /* 0x2F */ s8  unk2F;
     /* 0x30 */ s8  unk30;
     /* 0x31 */ s8  unk31;
-    /* 0x32 */ s8  lastLevel; // previously selected level
+    /* 0x32 */ s8  previousLevel; // previously selected level
 } struct030; // size 0x33 ?
 
 typedef struct {
@@ -1818,32 +1732,32 @@ typedef struct {
 } Animal2; // size 0x8
 
 typedef struct {
-    /* 0x0000 */ struct035 unk0[68];    // each 0xEC so 0x3EB0 total
+    /* 0x0000 */ struct035 unk0[68];        // each 0xEC so 0x3EB0 total
     /* 0x3EB0 */ Animal2   animals[50];
-    /* 0x4040 */ u8        unk4040[50][0x3D4]; // D_801DDF18
-    /* 0xFFA8 */ s16       unkFFA8; // D_801E9E80
+    /* 0x4040 */ u8        unk4040[50][0x3D4]; // D_801DDF18, should be array of 50 * Animal structs
+    /* 0xFFA8 */ s16       unkFFA8;         // D_801E9E80
     /* 0xFFAA */ u8        padFFAA[0x8];
-    /* 0xFFB2 */ u16       unkFFB2; // A pressed
-    /* 0xFFB4 */ u16       unkFFB4; // L/R Trigger (1 or 2)
-    /* 0xFFB6 */ u16       unkFFB6; // B pressed
-    /* 0xFFB8 */ u16       unkFFB8; // D_801E9E90
-    /* 0xFFBA */ u16       unkFFBA;
-    /* 0xFFBC */ u16       unkFFBC;
-    /* 0xFFBE */ u16       unkFFBE; // D-PAD Up pressed
-    /* 0xFFC0 */ u16       unkFFC0; // D-PAD Down pressed
-    /* 0xFFC2 */ u16       unkFFC2; // D-PAD Left pressed
-    /* 0xFFC4 */ u16       unkFFC4; // D-PAD Right pressed
-    /* 0xFFC6 */ u16       unkFFC6; // C-button Up
-    /* 0xFFC8 */ u16       unkFFC8; // C-button Down
-    /* 0xFFCA */ u16       unkFFCA; // C-button Left
-    /* 0xFFCA */ u16       unkFFCC; // C-button Right
+    /* 0xFFB2 */ u16       curAButton;      // A pressed
+    /* 0xFFB4 */ u16       curLRTrigger;    // L/R Trigger (1 or 2)
+    /* 0xFFB6 */ u16       curBButton;      // B pressed
+    /* 0xFFB8 */ u16       prevAButton;     // D_801E9E90, prev a pressed?
+    /* 0xFFBA */ u16       prevLRTrigger;
+    /* 0xFFBC */ u16       prevBButton;
+    /* 0xFFBE */ u16       curDPadUp;       // D-PAD Up pressed
+    /* 0xFFC0 */ u16       curDPadDown;     // D-PAD Down pressed
+    /* 0xFFC2 */ u16       curDPadLeft;     // D-PAD Left pressed
+    /* 0xFFC4 */ u16       curDPadRight;    // D-PAD Right pressed
+    /* 0xFFC6 */ u16       curCButtonUp;    // C-button Up
+    /* 0xFFC8 */ u16       curCButtonDown;  // C-button Down
+    /* 0xFFCA */ u16       curCButtonLeft;  // C-button Left
+    /* 0xFFCA */ u16       curCButtonRight; // C-button Right
     /* 0xFFCE */ u16       unkFFCE;
-    /* 0xFFD0 */ u16       unkFFD0; // Previous D-PAD Left pressed
-    /* 0xFFD2 */ u16       unkFFD2; // Previous D-PAD Right pressed
-    /* 0xFFD4 */ u16       unkFFD4; // Previous D-PAD Up pressed
-    /* 0xFFD6 */ u16       unkFFD6; // Previous D-PAD Down pressed
-    /* 0xFFD8 */ s8        unkFFD8; // stick x
-    /* 0xFFD8 */ s8        unkFFD9; // stick y
+    /* 0xFFD0 */ u16       prevDPadLeft; // Previous D-PAD Left pressed
+    /* 0xFFD2 */ u16       prevDPadRight; // Previous D-PAD Right pressed
+    /* 0xFFD4 */ u16       prevDPadUp; // Previous D-PAD Up pressed
+    /* 0xFFD6 */ u16       prevDPadDown; // Previous D-PAD Down pressed
+    /* 0xFFD8 */ s8        stickX; // stick x
+    /* 0xFFD8 */ s8        stickY; // stick y
     /* 0xFFDA */ s16       unkFFDA; // D_801E9EB2
     /* 0xFFDC */ s16       unkFFDC; // D_801E9EB4
     /* 0xFFDE */ s16       unkFFDE; // D_801E9EB6
@@ -1908,30 +1822,29 @@ typedef struct {
 } struct053; // size 0x210
 
 typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-    s16 unk6[12];
-    s16 unk1E[12];
-    u8  pad36[0x2];
-    f32 unk38;
-    f32 unk3C;
-    s16 unk40;
-    s16 unk42;
-    s16 unk44;
-    s16 unk46;
-    s16 unk48;
-    s16 unk4A;
-    s16 unk4C;
-    s16 unk4E;
-    s16 unk50;
-    s16 unk52;
-    s16 unk54;
-    s16 unk56;
-    Animal *unk58;
-    Animal *unk5C;
-    Animal *unk60;
-    s16 unk64;
+    /* 0x0  */ s16 unk0;
+    /* 0x2  */ s16 unk2;
+    /* 0x4  */ s16 unk4;
+    /* 0x6  */ s16 unk6[12];
+    /* 0x1E */ s16 unk1E[12];
+    /* 0x38 */ f32 unk38;
+    /* 0x3C */ f32 unk3C;
+    /* 0x40 */ s16 unk40;
+    /* 0x42 */ s16 unk42;
+    /* 0x44 */ s16 unk44;
+    /* 0x46 */ s16 unk46;
+    /* 0x48 */ s16 unk48;
+    /* 0x4A */ s16 unk4A;
+    /* 0x4C */ s16 unk4C;
+    /* 0x4E */ s16 unk4E;
+    /* 0x50 */ s16 unk50;
+    /* 0x52 */ s16 unk52;
+    /* 0x54 */ s16 unk54;
+    /* 0x56 */ s16 unk56;
+    /* 0x58 */ Animal *unk58;
+    /* 0x5C */ Animal *unk5C;
+    /* 0x60 */ Animal *unk60;
+    /* 0x64 */ s16 unk64;
 } struct054; // size 0x66
 
 typedef struct {
@@ -2100,24 +2013,25 @@ typedef struct {
     /* 0x70 */ s32 unk70;
     /* 0x74 */ u8  pad74[0xC];
     /* 0x80 */ s16 unk80;
-    /* 0x82 */ s16 unk82;
+  /* 0x82 */  struct {
+                  u8  unk0  : 1; // 0x80
+                  u8  unk1  : 1; // 0x40
+                  u8  unk2  : 1; // 0x20
+                  u8  unk3  : 1; // 0x10
+                  u8  unk4  : 1; // 0x8
+                  u8  unk5  : 1; // 0x4
+                  u8  unk6  : 1; // 0x2
+                  u8  unk7  : 1; // 0x1
+              } unk82;
+              u8 pad83;
     /* 0x84 */ u8  pad84[0x5];
     /* 0x89 */ u8  unk89;
     /* 0x8A */ u8  unk8A;
     /* 0x8B */ u8  pad8B[0x11];
-} struct068; // size 0x9C
-
-typedef struct {
-    u8  unk0;
-    u8  unk1;
-    u8  unk2;
-    u8  unk3;
-    u32 unk4;
-} struct071_inner;
+} ObjectData; // size 0x9C, ObjectData ?
 
 struct struct071 {
     /* 0x0 */   u16 unk0;
-    /* 0x2 */   u8  pad2[0x2];
     /* 0x4 */   Position position;
     /* 0x10 */  union {
                     s16 h;
@@ -2159,14 +2073,13 @@ struct struct071 {
                     s8   pad0  : 8;  // 0x4C
                     s8   pad8  : 8;  // 0x4D
                     s8   unk10 : 8;  // 0x4E
-                    s32  unk18 : 1; // x111 1111
-                    u32  unk19 : 1; // 1x11 1111
-                    u32  unk1A : 1; // 11x1 1111
-                    u32  unk1B : 1; // 111x 1111
-                    u32  unk1C : 1; // 1111 x111
-                    u32  unk1D : 1; // 1111 1x11
-                    s32  pad1E : 1; // 1111 11x1
-                    s32  pad1F : 1; // 1111 111x
+                    u8  unk18 : 1; // x111 1111
+                    u8  unk19 : 1; // 1x11 1111
+                    u8  unk1A : 1; // 11x1 1111
+                    u8  unk1B : 1; // 111x 1111
+                    u8  unk1C : 1; // 1111 x111
+                    u8  unk1D : 1; // 1111 1x11
+                    s32  pad1E : 2; // 1111 11x1
                 } unk4C;
     /* 0x50 */  u8  pad50[0x4];
     /* 0x54 */  struct071_inner unk54;
@@ -2178,10 +2091,10 @@ struct struct071 {
     /* 0x70 */  Animal *unk70; // or struct071?
     /* 0x74 */  s32 unk74[5][4];
     /* 0xC4 */  u8  padC4[0x50];
-    /* 0x114 */ s16 unk114;
-    /* 0x116 */ s16 unk116;
-    /* 0x118 */ s16 unk118;
-    /* 0x11A */ s16 unk11A;
+    /* 0x114 */ s16 unk114[4];
+    // /* 0x116 */ s16 unk116;
+    // /* 0x118 */ s16 unk118;
+    // /* 0x11A */ s16 unk11A;
     /* 0x11C */ u8  pad11C[0x30];
     /* 0x14C */ s16 unk14C;
                 struct {
@@ -2203,7 +2116,7 @@ struct struct071 {
     /* 0x165 */ u8  unk165[0x3];
     /* 0x168 */ Animal *owner;
     /* 0x16C */ struct035* unk16C;
-    /* 0x170 */ struct068 *unk170;
+    /* 0x170 */ ObjectData *unk170;
     /* 0x174 */ u8  pad174[0x4];
     /* 0x178 */ s16 unk178;
     /* 0x17A */ s16 unk17A;
@@ -2234,13 +2147,13 @@ struct struct071 {
 
 typedef struct {
     /* 0x0  */ u8  unk0;
-    /* 0x1  */ s8  unk1;
+    /* 0x1  */ s8  type;
     /* 0x2  */ s16 unk2;   // index?
-    /* 0x4  */ s32 unk4;   // 10.2 format
-    /* 0x8  */ s32 unk8;   // 10.2 format
-    /* 0xC  */ s32 unkC;   // 10.2 format
-    /* 0x10 */ s32 unk10;  // 10.2 format
-    /* 0x14 */ Gfx *unk14;
+    /* 0x4  */ s32 uls;    // Texture tile's upper-left s coordinate (10.2, 0.0~1023.75).
+    /* 0x8  */ s32 ult;    // Texture tile's upper-left t coordinate (10.2, 0.0~1023.75).
+    /* 0xC  */ s32 uls2;   // 10.2 format
+    /* 0x10 */ s32 ult2;   // 10.2 format
+    /* 0x14 */ Gfx *displayList;
 } struct073; // size 0x18
 
 typedef struct {
@@ -2298,7 +2211,7 @@ typedef struct {
     /* 0x38 */ struct079_inner unk38;
     /* 0x54 */ s32 unk54;
     /* 0x58 */ Animal *unk58; // Animal? or Object?
-    /* 0x5C */ s32 unk5C;
+    /* 0x5C */ s32 distance;
     /* 0x60 */ Animal *unk60;
     /* 0x64 */ u8  unk64;
 } struct079; // size 0x65 ?
@@ -2649,13 +2562,14 @@ typedef struct {
 } struct110;
 
 typedef struct {
-    /* 0x0     */ struct068 *unk0;
+    /* 0x0     */ ObjectData *unk0;
     /* 0x4     */ struct071  objects[170]; // 0x270 each
-    /* 0x19E64 */ struct071 *unk19E64[170];
-    /* 0x1A10C */ u8  pad[0x4];
-    /* 0x1A110 */ s16 unk1A110;
-    /* 0x1A112 */ s16 unk1A112;
-    /* 0x1A114 */ s16 unk1A114; // used objects
+    /* 0x19E64 */ struct071 *objectsPtr[170];
+    /* 0x1A10C */ s16 total; // total objects
+    /* 0x1A10E */ s16 pad1A10E;
+    /* 0x1A110 */ s16 unk1A110; // current object?
+    /* 0x1A112 */ s16 unk1A112; // current object2?
+    /* 0x1A114 */ s16 used;
 } Objects; // 0x1A118 big
 
 typedef struct {

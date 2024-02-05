@@ -24,7 +24,7 @@ extern s16 D_803B56B8_7C6D68[];
 extern s16 D_803B56D0_7C6D80[];
 extern s16 D_803B5708_7C6DB8[];
 
-void func_8037B800_78CEB0(void) {
+void update_elephant(void) {
     s32 pad2[2];
     s16 temp_t6;
     s32 var_v0;
@@ -70,9 +70,9 @@ void func_8037B800_78CEB0(void) {
                 D_803D5530->position.yPos.h);
 
             if (ticks_remaining >= 0xD) {
-                sp92 = D_803D552C->unk302;
+                sp92 = D_803D552C->heading;
                 if (((ticks_remaining & 1) == 1) && ((((D_803D5530->state < 0xB5))) || (D_803D5530->state >= 0xBB))) {
-                    D_803D552C->unk302 = (sp92 - SSSV_RAND(16)) + 8;
+                    D_803D552C->heading = (sp92 - SSSV_RAND(16)) + 8;
                     fire_cannonball_1(
                         0x4F,
                         0x5A,
@@ -83,7 +83,7 @@ void func_8037B800_78CEB0(void) {
                         3,
                         3);
                 }
-                D_803D552C->unk302 = sp92;
+                D_803D552C->heading = sp92;
             }
             if (D_803D5538 == 0) {
                 if (D_803D552C->unk2EC > 0) {
@@ -261,7 +261,7 @@ block_33:
             }
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
 
             switch (D_803F2ECE) {
             case 1:
@@ -276,8 +276,8 @@ block_33:
         D_80203FE0[19].unk4 += (D_803F63E0 * 0x2EE) >> 7;
         D_80203FE0[20].unk4 += (D_803F63E0 * 0x2EE) >> 7;
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_17 = D_803F2AA2, (temp_v0_17 == 0)) || (temp_v0_17 == 2) || ((temp_v0_17 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->unk302, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4 / 3);
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_17 = D_803F2AA2, (temp_v0_17 == 0)) || (temp_v0_17 == 2) || ((temp_v0_17 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->heading, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4 / 3);
 
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0xA0) >> 6, (D_803F2EC0 * 0xA0) >> 6, (D_803F2EC4 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_040053F0_F6450);
@@ -312,7 +312,7 @@ block_33:
     }
 
     if ((spAA == 0) || (spAA == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, &D_01033190, 0x25, 0x25,  0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, &D_01033190, 0x25, 0x25,  0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     spA8 = D_803D5528->unk3C8.unk2;
@@ -329,10 +329,10 @@ block_33:
 
             func_802DE914_6EFFC4(
                 spA8,
-                D_803D5530->position.xPos.w + ((COS(D_803D552C->unk302) * D_80203FE0[20].unk0) / 16) + ((SIN(D_803D552C->unk302) * D_80203FE0[20].unk2) / 16),
-                D_803D5530->position.zPos.w + ((COS(D_803D552C->unk302) * D_80203FE0[20].unk2) / 16) - ((SIN(D_803D552C->unk302) * D_80203FE0[20].unk0) / 16),
+                D_803D5530->position.xPos.w + ((COS(D_803D552C->heading) * D_80203FE0[20].unk0) / 16) + ((SIN(D_803D552C->heading) * D_80203FE0[20].unk2) / 16),
+                D_803D5530->position.zPos.w + ((COS(D_803D552C->heading) * D_80203FE0[20].unk2) / 16) - ((SIN(D_803D552C->heading) * D_80203FE0[20].unk0) / 16),
                 D_803D5530->position.yPos.w + ((D_80203FE0[20].unk4 << 0x10) / 32) + 0xFFE4A800,
-                D_803D552C->unk302);
+                D_803D552C->heading);
 
             if (D_803F2D10.unk0 == 0) {
                 func_802DE7F4_6EFEA4(spA8, D_803D5530->xVelocity.w, D_803D5530->zVelocity.w, D_803D5530->yVelocity.w);

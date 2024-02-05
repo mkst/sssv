@@ -1,5 +1,4 @@
 import argparse
-import sys
 import struct
 
 
@@ -15,10 +14,10 @@ def patch_elf(f):
     patched = None
     elf_start = f.tell()
 
-    assert (elf_header := f.read(len(ELF_MAGIC))) == ELF_MAGIC
+    assert f.read(len(ELF_MAGIC)) == ELF_MAGIC
 
     f.seek(elf_start + ELF_FLAG_OFFSET)
-    flags, = struct.unpack(">I", f.read(4))
+    (flags,) = struct.unpack(">I", f.read(4))
     if flags & 0xF0001000 == 0x20000000:
         # set EF_MIPS_ABI_O32 flag
         flags |= 0x00001000
@@ -45,7 +44,7 @@ def patch_elf_wrapper(f, name, quiet=False):
 
 
 def patch_ar(f, quiet=False):
-    assert (header := f.read(len(ARCH_MAGIC))) == ARCH_MAGIC
+    assert f.read(len(ARCH_MAGIC)) == ARCH_MAGIC
 
     while obj_header := f.read(ARCH_HEADER_LENGTH):
         id, _, _, _, _, size, end = struct.unpack(">16s12s6s6s8s10s2s", obj_header)
@@ -59,7 +58,7 @@ def patch_ar(f, quiet=False):
             patch_elf_wrapper(f, id, quiet=quiet)
 
         # skip over payload
-        f.seek(size + size % 2, 1) # 1 means relative to current position
+        f.seek(size + size % 2, 1)  # 1 means relative to current position
 
 
 if __name__ == "__main__":

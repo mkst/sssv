@@ -10,32 +10,31 @@
 // .bss (D_803F6410 to D_803F6450)
 // ========================================================
 
-u8   D_803F6410[20];
-struct005  D_803F6428;
+static u8   D_803F6410[20];
+Cheats  gCheats;
 
 // ========================================================
 // .text
 // ========================================================
 
-void reset_cheats(void)
-{
+void reset_cheats(void) {
     D_803B62B0 = 0;
     D_803B62B4 = 0;
     D_803B62B8 = 0;
     D_803B62BC = 0;
-    D_803F6428.unk0 = 0;
-    D_803F6428.unk2 = 0;
-    D_803F6428.unk4 = 0;
-    D_803F6428.debugMode = 0;
-    D_803F6428.unk8 = 0;
-    D_803F6428.europe = 0;
-    D_803F6428.ice = 0;
-    D_803F6428.jungle = 0;
-    D_803F6428.desert = 0;
-    D_803F6428.final = 0;
-    D_803F6428.hidden = 0;
-    D_803F6428.unk16 = 0;
-    D_803F6428.unk18 = 0;
+    gCheats.unk0 = 0;      // unused?
+    gCheats.unk2 = 0;      // unused
+    gCheats.unk4 = 0;      // always 0? checked in func_80294E50_6A6500
+    gCheats.debugMode = 0;
+    gCheats.unk8 = 0;      // unused
+    gCheats.europe = 0;
+    gCheats.ice = 0;
+    gCheats.jungle = 0;
+    gCheats.desert = 0;
+    gCheats.bcp = 0;
+    gCheats.hidden = 0;
+    gCheats.unk16 = 0;     // unused
+    gCheats.unk18 = 0;     // unused
     sprintf((char*)D_803F6410, "%9d", 111111111);
 }
 
@@ -45,11 +44,11 @@ void check_cheats(OSContPad *contPad) {
     u32 butDown2;
     s16 sp28[60]; // long enough...
 
-    if (D_803F6428.debugMode != 0) {
+    if (gCheats.debugMode != 0) {
         load_default_display_list(&D_801D9E7C);
         set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
         select_font(0, FONT_DEFAULT, 0, 0);
-        if ((D_803F6428.debugMode != 0) && (D_803F6680.unk0 == 0)) {
+        if ((gCheats.debugMode != 0) && (D_803F6680.unk0 == 0)) {
             // print debug location
             sprintf(D_802042B0, "(%3d  %3d  %4d)",
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
@@ -142,32 +141,32 @@ void check_cheats(OSContPad *contPad) {
     }
     if (check_cheat_code(D_803F6410, "UDIZDUZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        D_803F6428.europe = 1 - D_803F6428.europe;
+        gCheats.europe = 1 - gCheats.europe;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDZIDEZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        D_803F6428.ice = 1 - D_803F6428.ice;
+        gCheats.ice = 1 - gCheats.ice;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDIZDWZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        D_803F6428.jungle = 1 - D_803F6428.jungle;
+        gCheats.jungle = 1 - gCheats.jungle;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDIZDLZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        D_803F6428.desert = 1 - D_803F6428.desert;
+        gCheats.desert = 1 - gCheats.desert;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UDIZDRZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        D_803F6428.final = 1 - D_803F6428.final;
+        gCheats.bcp = 1 - gCheats.bcp;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "DUZIDLZD")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        D_803F6428.hidden = 1 - D_803F6428.hidden;
+        gCheats.hidden = 1 - gCheats.hidden;
         D_803B62B0 = 0;
     }
     if (check_cheat_code(D_803F6410, "UIZDLZDU")) {

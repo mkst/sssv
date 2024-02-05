@@ -13,7 +13,7 @@
 struct065 D_803DA110[40];
 
 Animal *D_803DA2F0;
-Animal *D_803DA2F4; // not animal, script
+static Animal *D_803DA2F4; // object?
 
 // ========================================================
 // .text
@@ -141,7 +141,7 @@ void func_802DA90C_6EBFBC(Animal *arg0) {
     }
 
     if (var_a1 != 4) {
-        func_802DAD18_6EC3C8(arg0); // delete
+        remove_collision_list(arg0); // delete
 
         for (var_a1 = 0; var_a1 < 4; var_a1++) {
             if (sp48[var_a1] != 0x7FFF) { // used
@@ -161,9 +161,8 @@ void func_802DA90C_6EBFBC(Animal *arg0) {
     }
 }
 
-// delete_objects
 // ESA: func_80062CB4
-void func_802DAD18_6EC3C8(Animal *arg0) {
+void remove_collision_list(Animal *arg0) {
     struct065 *tmp;
     s16 i;
 
@@ -187,21 +186,20 @@ void func_802DAD18_6EC3C8(Animal *arg0) {
 
 // ESA: func_80062D38
 void func_802DADA0_6EC450(Animal *arg0) {
-    Animal *temp_v0;
-    Animal **phi_v0;
+    Animal **animal;
     s16 i;
 
     if (arg0->unk16C->unk82.unk1) {
-        phi_v0 = &D_803DA2F0;
+        animal = &D_803DA2F0;
         arg0->unk26D = 1;
     } else {
-        phi_v0 = &D_803DA2F4;
+        animal = &D_803DA2F4;
         arg0->unk26D = 2;
     }
 
     if (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET) {
-        arg0->unk198 = *phi_v0;
-        *phi_v0 = arg0;
+        arg0->unk198 = *animal;
+        *animal = arg0;
     }
 
     for (i = 0; i < 4; i++) {
@@ -218,7 +216,7 @@ void func_802DADA0_6EC450(Animal *arg0) {
 void func_802DAE5C_6EC50C(struct071 *obj) {
     struct071 **o;
 
-    func_802DAD18_6EC3C8(obj);
+    remove_collision_list(obj);
     switch (obj->unk26D) {
     case 1:
         o = &D_803DA2F0;

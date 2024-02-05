@@ -10,7 +10,7 @@ Checkout the [wiki](https://github.com/mkst/sssv/wiki) for more information.
 
 # Building
 
-The instructions below assume that you will be using `Ubuntu 20.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
+The instructions below assume that you will be using `Ubuntu 22.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
 Please check the [packages.txt](packages.txt) and [requirements.txt](requirements.txt) for the  prerequisite Linux and Python packages respectively.
 
 ## Natively

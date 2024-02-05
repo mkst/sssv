@@ -51,9 +51,9 @@ void func_80129DC0(void) {
             func_80132918();
             func_80132918();
         }
-        osRecvMesg(&D_8028D080, &D_802042B8, OS_MESG_BLOCK);
+        osRecvMesg(&D_8028D080, (OSMesg *)&D_802042B8, OS_MESG_BLOCK);
 
-        switch (D_802042B8.unk0->unk0) {
+        switch (D_802042B8->type) {
         case 1:
             D_802042B2 += 1;
             if (phi_s1 != 0) {

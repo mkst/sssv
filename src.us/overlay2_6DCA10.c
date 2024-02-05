@@ -305,7 +305,7 @@ s32 D_803DA108; // could be static?
 
 // zero out particle data?
 // ESA: func_800A3C98
-void func_802CB360_6DCA10(void) {
+void reset_particles(void) {
     D_803D6120.used = 0;
     memset_bytes((u8*)&D_803D6120, 0, sizeof(D_803D6120));
     D_803D6120.unk3FD4 = 0; // ?
@@ -1251,7 +1251,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s4 >= 3) {
                         var_s4 = 0;
                     }
-                    if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < (f32) var_s2) {
+                    if ((gCameras[gCameraId].unk7C - 12.0f) < (f32) var_s2) {
                         gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xC0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                         gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xD0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
@@ -2305,7 +2305,6 @@ void func_802D5AD8_6E7188(s16 start, s16 end) {
     }
 }
 
-// create_particle_effect_2 ?
 // ESA: func_800A3CC4
 s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, u16 color2, u16 arg7) {
     u8 used; // sp3F
@@ -2765,7 +2764,7 @@ void func_802D6738_6E7DE8(void) {
             }
         }
 
-        if ((D_803F28E0[D_803F2A98].unk7C - 12.0f) < func_80298818_6A9EC8((u16) D_803F28E0[D_803F2A98].unk74, (u16) D_803F28E0[D_803F2A98].unk78)) {
+        if ((gCameras[gCameraId].unk7C - 12.0f) < func_80298818_6A9EC8((u16) gCameras[gCameraId].unk74, (u16) gCameras[gCameraId].unk78)) {
             sp7A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h - 512;
             sp78 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h - 512;
             if (sp7A < 0) {
@@ -3317,7 +3316,7 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
 #endif
 
 // ESA:func_800AAD34
-void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
+void create_sparks(s16 x, s16 z, s16 y, s16 size, u16 color) {
     s16 tmp0;
     s16 tmp1;
     s16 tmp2;
@@ -3325,15 +3324,15 @@ void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
     s32 pad[3];
     s16 i;
 
-    if (arg3 < 2) {
-        arg3 = 2;
+    if (size < 2) {
+        size = 2;
     }
 
-    if (arg3 < 17) {
+    if (size < 17) {
         tmp1 = 0;
-    } else if ((arg3 > 16) && (arg3 < 33)) {
+    } else if ((size > 16) && (size < 33)) {
         tmp1 = 1;
-    } else if (arg3 > 31) {
+    } else if (size > 31) {
         tmp1 = 2;
     }
 
@@ -3342,7 +3341,7 @@ void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
         tmp0 = 12;
     }
 
-    tmp2 = arg3 / 4;
+    tmp2 = size / 4;
     if (tmp2 < 4) {
         tmp2 = 4;
     }
@@ -3380,7 +3379,7 @@ void func_802D9C64_6EB314(s16 x, s16 z, s16 y, s16 arg3, u16 color) {
 }
 
 // ESA: func_800AB3B8
-void func_802D9FC4_6EB674(s16 x, s16 z, s16 y, s16 arg3) {
+void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3) {
     s16 phi_s0;
     u16 temp_v1;
     s16 i;

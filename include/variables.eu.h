@@ -1,6 +1,7 @@
 #ifndef VARIABLES_EU_H
 #define VARIABLES_EU_H
 
+#include "PR/sched.h"
 
 extern u8   D_80152EB0;
 extern u8   D_80152EB8;
@@ -27,7 +28,7 @@ extern s16  D_802042B2;
 
 extern s16  D_8028647C;
 extern s16  D_8020429C;
-extern struct006 D_802042B8;
+extern OSScMsg * D_802042B8;
 extern s32  D_8020430C;
 
 extern OSMesgQueue D_80291080;
@@ -35,7 +36,7 @@ extern OSMesgQueue D_80291098;
 extern OSMesgQueue D_8028D080;
 extern OSMesgQueue D_8028D0C8;
 
-extern struct006 *D_80291074;
+extern OSMesg *D_80291074;
 extern OSContPad *gControllerInput;
 
 extern OSContPad D_80291108[4];

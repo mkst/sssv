@@ -168,7 +168,7 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
 
     D_803D552C->unk31A = 0;
     D_803D5530->yRotation = rotation;
-    D_803D552C->unk302 = rotation;
+    D_803D552C->heading = rotation;
     D_803D552C->unk2F2 = 0;
     D_803D552C->unk2F4 = 0;
     D_803D552C->unk2F6 = 0;
@@ -207,12 +207,12 @@ struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, 
     D_803D5530->yVelocity.w = -1;
     D_803D5530->unk46 = D_803D5530->unk16C->mass;
     func_802DADA0_6EC450(D_801D9ED8.animals[slot].animal);
-    D_803D5528->unk3C8.unk2 = func_802E4B0C_6F61BC(id);
+    D_803D5528->unk3C8.unk2 = load_dynamic_tail(id);
     D_803D552C->unk272 = 0x43F;
     func_802C9BA4_6DB254(D_801D9ED8.animals[slot].animal);
     D_803D552C->energy[0].unk0 = 0x3FF;
     D_803D552C->energy[1].unk0 = 0x3FF;
-    if ((arg6 != 0) && (((D_803F2A98 == 0)) || (D_803F2A98 == 1))) {
+    if ((arg6 != 0) && (((gCameraId == 0)) || (gCameraId == 1))) {
         func_803284C4_739B74();
     }
     return &D_801D9ED8.animals[slot];
@@ -226,10 +226,10 @@ void func_802C83CC_6D9A7C(Animal *arg0) {
     }
     // unload dynamic tail if applicable
     if (arg0->unk3C8.unk2 != 0) {
-        func_802E4EB4_6F6564(arg0->unk3C8.unk2);
+        unload_dynamic_tail(arg0->unk3C8.unk2);
         arg0->unk3C8.unk2 = 0;
     }
     // delete objects
-    func_802DAD18_6EC3C8(arg0);
+    remove_collision_list(arg0);
     arg0->unk366 = 6;
 }

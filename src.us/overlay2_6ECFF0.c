@@ -50,15 +50,15 @@ void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 delta) {
 void func_802DBA58_6ED108(u8 arg0, Animal *animal) {
 
     if (arg0 == 8) { // xVelocity related
-        if (((animal->unk302 > 32) && (animal->unk302 < 92)) ||
-            ((animal->unk302 > 160) && (animal->unk302 < 224))) {
+        if (((animal->heading > 32) && (animal->heading < 92)) ||
+            ((animal->heading > 160) && (animal->heading < 224))) {
             arg0 = 8;
         } else {
             arg0 = 9;
         }
     } else if (arg0 == 9) { // zVelocity related
-        if (((animal->unk302 > 32) && (animal->unk302 < 92)) ||
-            ((animal->unk302 > 160) && (animal->unk302 < 224))) {
+        if (((animal->heading > 32) && (animal->heading < 92)) ||
+            ((animal->heading > 160) && (animal->heading < 224))) {
             arg0 = 9;
         } else {
             arg0 = 8;
@@ -66,12 +66,12 @@ void func_802DBA58_6ED108(u8 arg0, Animal *animal) {
     }
     if (animal->unk364 != arg0) {
         if (animal->unk364 == 0) {
-            func_802DBB64_6ED214(&animal->unk364, &animal->unk334, arg0);
+            func_802DBB64_6ED214(&animal->unk364, &animal->attackTimer, arg0);
         } else if (arg0 > animal->unk364) {
-            func_802DBB64_6ED214(&animal->unk364, &animal->unk334, arg0);
+            func_802DBB64_6ED214(&animal->unk364, &animal->attackTimer, arg0);
         }
     } else if (arg0 == 6) {
-        func_802DBB64_6ED214(&animal->unk364, &animal->unk334, arg0);
+        func_802DBB64_6ED214(&animal->unk364, &animal->attackTimer, arg0);
     }
 }
 

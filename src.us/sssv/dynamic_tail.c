@@ -29,7 +29,7 @@ s16  D_803E1B08;
 // ========================================================
 
 // ESA: func_800849B8
-void func_802DD040_6EE6F0(s32 arg0) {
+void reset_dynamic_tails(s32 arg0) {
     s16 i;
     for (i = 0; i < 120; i++) {
         D_803E00C0[i].tailType = 0;
@@ -39,6 +39,7 @@ void func_802DD040_6EE6F0(s32 arg0) {
 }
 
 // ESA: func_800849EC
+// hanging objects
 s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 tailType, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, Animal *argA, Animal *argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11) {
     u16 i;
     s32 res;
@@ -88,7 +89,7 @@ s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 tailType, s8 a
 }
 
 // ESA: func_80084BE4
-// used by kangaroo, husky, lion, elephant, mouse, scorpion and rat
+// tails: used by kangaroo, husky, lion, elephant, mouse, scorpion and rat
 void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
     struct051 *temp_s1;
     struct088 *var_t1;
@@ -1570,8 +1571,7 @@ void func_802E4AB8_6F6168(void) {
     }
 }
 
-// load_dynamic_tail
-s32 func_802E4B0C_6F61BC(s16 animalId) {
+s32 load_dynamic_tail(s16 animalId) {
     switch (animalId) {
     case MOUSE:
     case RACING_MOUSE:
@@ -1600,8 +1600,7 @@ s32 func_802E4B0C_6F61BC(s16 animalId) {
     }
 }
 
-// unload_dynamic_tail ?
-void func_802E4EB4_6F6564(s16 arg0) {
+void unload_dynamic_tail(s16 arg0) {
     if (arg0 != 0) {
         D_803E00C0[arg0].tailType = 0;
     }

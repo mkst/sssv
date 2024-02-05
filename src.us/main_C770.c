@@ -3,8 +3,8 @@
 
 #include "sched.h"
 
-// reset_task_list
-void func_80131070(void) {
+
+void reset_task_list(void) {
     D_8023F3E0 = 0;
 }
 

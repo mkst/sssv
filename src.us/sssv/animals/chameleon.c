@@ -76,7 +76,7 @@ void func_8035A5F0_76BCA0(void) {
                     func_803224C4_733B74(0x13, 0x18, 0, 0x10, 0xB, 0, 0, 0x17);
                 }
                 break;
-            case ATTACK_CHAMELEON_1:                                /* switch 1 */
+            case ATTACK_CHAMELEON_HIDE:                                /* switch 1 */
                 if (D_803D5530->unk4A != 0) {
                     D_803D552C->unk32A++;
                 } else {
@@ -158,7 +158,7 @@ void func_8035A5F0_76BCA0(void) {
             break;
         case SNEAKY_CHAMELEON:
             switch (D_803D552C->unk365) {
-            case ATTACK_CHAMELEON_2:
+            case ATTACK_CHAMELEON_UNHIDE:
                 if (D_803D5530->unk4A != 0) {
                     D_803D552C->unk32A++;
                 } else {
@@ -321,7 +321,7 @@ void func_8035A5F0_76BCA0(void) {
             }
         }
         if (D_803F2ECC != 0) {
-            func_802DB8DC_6ECF8C();
+            backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803B3C48_7C52F8, D_803B3C60_7C5310, D_803B3C78_7C5328, D_803B3CA0_7C5350);
@@ -333,8 +333,8 @@ void func_8035A5F0_76BCA0(void) {
         }
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((D_803F28E0[D_803F2A98].cameraMode != 3)) && (D_803F28E0[D_803F2A98].cameraMode != 0x11)) || (D_803F28E0[D_803F2A98].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->unk302, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = D_803F2AA2, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.09f);
@@ -404,7 +404,7 @@ void func_8035A5F0_76BCA0(void) {
     }
     if ((spCA == 0) || (spCA == 2)) {
         if (D_803D5524->unk9C != SNEAKY_CHAMELEON) {
-            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->unkBA), D_803D552C->unk302, &D_01033190, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->unkBA), D_803D552C->heading, &D_01033190, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
     }
     if (spCA == 0) {
@@ -416,14 +416,14 @@ void func_8035A5F0_76BCA0(void) {
     }
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {
-            if ((D_803D552C->unk365 != ATTACK_CHAMELEON_1) && (D_803D552C->unk365 != ATTACK_CHAMELEON_2) && (D_803D5524->unk9C != CHAMELEON)) {
+            if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE) && (D_803D5524->unk9C != CHAMELEON)) {
                 D_803D552C->unk32A = D_803D5544;
-                D_803D552C->unk365 = ATTACK_CHAMELEON_2;
+                D_803D552C->unk365 = ATTACK_CHAMELEON_UNHIDE;
             }
         } else {
-            if ((D_803D552C->unk365 != ATTACK_CHAMELEON_1) && (D_803D552C->unk365 != ATTACK_CHAMELEON_2)) {
+            if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE)) {
                 D_803D552C->unk32A = D_803D5544;
-                D_803D552C->unk365 = ATTACK_CHAMELEON_1;
+                D_803D552C->unk365 = ATTACK_CHAMELEON_HIDE;
             }
             D_803D552C->unk2EC--;
         }
@@ -456,28 +456,28 @@ void func_8035BDC0_76D470(void) {
     }
 }
 
-void func_8035C018_76D6C8(void) {
+void chameleon_attack(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_CHAMELEON_TONGUE;
     play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }
 
-void func_8035C08C_76D73C(void) {
-    if ((D_803D552C->unk365 != ATTACK_CHAMELEON_1) &&
-        (D_803D552C->unk365 != ATTACK_CHAMELEON_2)) {
+void chameleon_hide(void) {
+    if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) &&
+        (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE)) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = ATTACK_CHAMELEON_1;
+        D_803D552C->unk365 = ATTACK_CHAMELEON_HIDE;
     }
 }
 
-void func_8035C0CC_76D77C(void) {
-    if ((D_803D552C->unk365 != ATTACK_CHAMELEON_1) && (D_803D552C->unk365 != ATTACK_CHAMELEON_2)) {
+void chameleon_unhide(void) {
+    if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE)) {
         D_803D552C->unk32A = D_803D5544;
-        D_803D552C->unk365 = ATTACK_CHAMELEON_2;
+        D_803D552C->unk365 = ATTACK_CHAMELEON_UNHIDE;
     }
 }
 
-void func_8035C10C_76D7BC(void) {
+void chameleon_attack_2(void) {
     D_803D552C->unk32A = D_803D5544;
     D_803D552C->unk365 = ATTACK_CHAMELEON_TONGUE;
     play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);

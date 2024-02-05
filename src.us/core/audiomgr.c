@@ -550,7 +550,7 @@ void initialise_audio(s32 *arg0) {
     params = D_80155190;
 
     gAudioInitialized = 1;
-    
+
     for (i = 0; i < AUDIO_HEAP_SIZE; i++) {
         D_80242508[i] = 0;
     }
@@ -629,7 +629,7 @@ void initialise_audio(s32 *arg0) {
             maxSeqArrayLen = D_8028630C->seqArray[seqCount].len;
         }
     }
-    
+
     // align to 2 bytes
     if (maxSeqArrayLen & 1) {
         maxSeqArrayLen += 1;
@@ -901,7 +901,7 @@ s32 get_seqp_state(s8 arg0) {
 void func_801326A8(s8 src, s8 dest) {
     f32 tmp;
     s16 volume;
-    
+
     if (gAudioInitialized == 0) {
         return;
     }
@@ -1002,12 +1002,12 @@ void func_801328F8(void) {
         }
     }
 
-    if (D_80155188 != D_8028645C) {
-        D_80155188 = D_8028645C;
-        if (D_8028645C == 0) {
+    if (D_80155188 != gCurrentMusicTrack) {
+        D_80155188 = gCurrentMusicTrack;
+        if (gCurrentMusicTrack == 0) {
             func_8013364C();
         } else {
-            func_801337BC(D_8028645C, 1);
+            func_801337BC(gCurrentMusicTrack, 1);
         }
     }
 }
@@ -1291,7 +1291,7 @@ void stop_all_sounds(void) {
         }
     }
     func_8013364C();
-    D_8028645C = NO_MUSIC;
+    gCurrentMusicTrack = NO_MUSIC;
 }
 
 void func_801337BC(s8 arg0, s32 arg1) {
@@ -1403,12 +1403,12 @@ void func_80133C50(void) {
 
 void func_80133E44(void) {
     alCSeqGetLoc(D_802863CC[0], &D_80286460);
-    D_80155180 = D_8028645C;
+    D_80155180 = gCurrentMusicTrack;
     D_80155184 = 0;
 }
 
 void func_80133E84(void) {
-    if ((D_80155180 == D_8028645C) && (D_8028645C != NO_MUSIC)) {
+    if ((D_80155180 == gCurrentMusicTrack) && (gCurrentMusicTrack != NO_MUSIC)) {
         if (++D_80155184 >= 3) {
             alCSeqSetLoc(D_802863CC[0], &D_80286460);
             D_80155180 = 0;

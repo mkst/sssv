@@ -16,8 +16,8 @@ void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
     s32 sp28;
     s32 pad;
 
-    temp_t9 = COS(arg0->unk302) >> 8;
-    temp_t9_2 = SIN(arg0->unk302) >> 8;
+    temp_t9 = COS(arg0->heading) >> 8;
+    temp_t9_2 = SIN(arg0->heading) >> 8;
 
     new_var2 = D_80203FE0[1].unk2;
     new_var = D_80203FE0[1].unk0;
@@ -55,8 +55,8 @@ void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) 
     tmp2 = (D_80203FE0[arg1].unk2 + D_80203FE0[arg2].unk2) >> 1;
     tmp4 = (D_80203FE0[arg1].unk4 + D_80203FE0[arg2].unk4) >> 1;
 
-    temp_t3 = COS(arg0->unk302) >> 8;
-    temp_t6 = SIN(arg0->unk302) >> 8;
+    temp_t3 = COS(arg0->heading) >> 8;
+    temp_t6 = SIN(arg0->heading) >> 8;
 
     tmp4 = tmp4 / 32;
 
@@ -79,8 +79,8 @@ void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, 
     tmp2 = (D_80203FE0[arg1].unk2 + D_80203FE0[arg2].unk2) >> 1;
     tmp4 = (D_80203FE0[arg3].unk4 + D_80203FE0[arg4].unk4) >> 1;
 
-    temp_t3 = COS(arg0->unk302) >> 8;
-    temp_t6 = SIN(arg0->unk302) >> 8;
+    temp_t3 = COS(arg0->heading) >> 8;
+    temp_t6 = SIN(arg0->heading) >> 8;
 
     tmp4 = tmp4 / 32;
 
@@ -103,8 +103,8 @@ void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4) 
     tmp2 = D_80203FE0[arg1].unk2;
     tmp4 = D_80203FE0[arg1].unk4 + arg2;
 
-    temp_t2 = COS(arg0->unk302) >> 8;
-    temp_t7 = SIN(arg0->unk302) >> 8;
+    temp_t2 = COS(arg0->heading) >> 8;
+    temp_t7 = SIN(arg0->heading) >> 8;
 
     tmp4 = tmp4 / 32;
 
@@ -116,8 +116,8 @@ void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4) 
 
 void func_80303C44_7152F4(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
     Animal *temp_v0 = D_803D552C->unk320;
-    arg0->unkC4[arg1].unk0.h = ((SIN(D_803D552C->unk302) >> 7) * arg2) >> 8;
-    arg0->unkC4[arg1].unk4.h = ((COS(D_803D552C->unk302) >> 7) * arg2) >> 8;
+    arg0->unkC4[arg1].unk0.h = ((SIN(D_803D552C->heading) >> 7) * arg2) >> 8;
+    arg0->unkC4[arg1].unk4.h = ((COS(D_803D552C->heading) >> 7) * arg2) >> 8;
     arg0->unkC4[arg1].unk8.h = temp_v0->unk74[0].unk8.h + arg3;
     arg0->unkC4[arg1].unkC = (temp_v0->unk74[0].unkC * 3) >> 2;
 }
@@ -130,8 +130,8 @@ void func_80303D00_7153B0(Animal *arg0, u16 arg1, u16 arg2) {
     arg0->unkC4[1].unkC = 0;
 }
 
-void func_80303D50_715400(Animal *arg0, u16 arg1) {
-    arg0->unkC4[arg1].unkC = 0;
+void func_80303D50_715400(Animal *arg0, u16 idx) {
+    arg0->unkC4[idx].unkC = 0;
 }
 
 void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {

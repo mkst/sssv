@@ -83,17 +83,17 @@ u8 overlay2_739290_padding_pre[0x10];
 
 s16  D_803E9820;
 s16  D_803E9822;
-s16  D_803E9824; // gCurrentAnimalID
+s16  gCurrentAnimalId; // gCurrentAnimalId
 struct101 *D_803E9828;
 struct114 *D_803E982C;
-s32  D_803E9830; // unused
-s16  D_803E9832; // unused
-u16  D_803E9836;
-u16  D_803E9838;
-u16  D_803E983A;
-u16  D_803E983C;
+static s32  D_803E9830; // unused
+static s16  D_803E9832; // unused
+static u16  D_803E9836;
+static u16  D_803E9838;
+static u16  D_803E983A;
+static u16  D_803E983C;
 
-// FIXME: are these defined in overlay2_72C680?
+// FIXME: are these somehow defined in overlay2_72C680? where they are used...?
 Collision D_803E9840[9];
 s16  D_803F28C2; // TBD
 
@@ -106,8 +106,9 @@ void func_80327BE0_739290(void) {
     s16 i;
     s16 tmp;
 
-    // R trigger && <TBD>
-    if ((D_801D9ED8.unkFFB4 == 2) && (D_801D9ED8.unkFFBA == 0)) {
+    // R trigger && previously L/R triggers were not pressed
+    if ((D_801D9ED8.curLRTrigger == R_TRIGGER) && (D_801D9ED8.prevLRTrigger == NO_TRIGGER)) {
+        // try_swap_animal() ?
         func_80328ACC_73A17C();
     }
 
@@ -115,17 +116,17 @@ void func_80327BE0_739290(void) {
         if ((D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk3 == 1) || (D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk3 == 2)) {
             tmp = D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk2;
             if ((tmp != 1) && (tmp != 2) && (tmp == 7) &&
-                (D_801D9ED8.unkFFCE || (D_801D9ED8.unkFFC0 && (D_801D9ED8.unkFFD6 == 0)))) {
+                (D_801D9ED8.unkFFCE || (D_801D9ED8.curDPadDown && (D_801D9ED8.prevDPadDown == 0)))) {
                 func_80328258_739908(i);
                 i = 6; // break out of loop
             }
         }
     }
 
-    D_803E9836 = D_801D9ED8.unkFFBE;
-    D_803E9838 = D_801D9ED8.unkFFC0;
-    D_803E983A = D_801D9ED8.unkFFC2;
-    D_803E983C = D_801D9ED8.unkFFC4;
+    D_803E9836 = D_801D9ED8.curDPadUp;
+    D_803E9838 = D_801D9ED8.curDPadDown;
+    D_803E983A = D_801D9ED8.curDPadLeft;
+    D_803E983C = D_801D9ED8.curDPadRight;
     D_801D9ED8.unkFFCE = 0;
 }
 
@@ -239,7 +240,7 @@ void func_80327DA8_739458(void) {
         D_803E9828 = &D_803A633C_7B79EC; // 0x003B00FF
         D_803E982C = &D_803A634C_7B79FC;
         break;
-    case 26:
+    case 26: // evo microchip?
         D_803E9828 = &D_803A6358_7B7A08; // 0x003DFF00
         D_803E982C = &D_803A6360_7B7A10;
         break;
@@ -267,18 +268,18 @@ void func_80327DA8_739458(void) {
 }
 
 // ESA: func_8007F540
-void func_80328258_739908(s16 arg0) {
+void func_80328258_739908(s16 idx) {
     u8 sp1F;
 
     func_8032AA94_73C144();
 
-    sp1F = D_803E982C[D_803E9828[D_803E9822].unk2[arg0]].unk1;
+    sp1F = D_803E982C[D_803E9828[D_803E9822].unk2[idx]].unk1;
 
-    D_803E9822 = D_803E982C[D_803E9828[D_803E9822].unk2[arg0]].unk0;
-    D_803E9824 = D_803E9828[D_803E9822].unk0;
-    D_803D5520->unk0 = &D_801D9ED8.unk0[D_803E9824];
+    D_803E9822 = D_803E982C[D_803E9828[D_803E9822].unk2[idx]].unk0;
+    gCurrentAnimalId = D_803E9828[D_803E9822].unk0;
+    D_803D5520->unk0 = &D_801D9ED8.unk0[gCurrentAnimalId];
     D_803D5524 = D_803D5520->unk0;
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C = &D_801D9ED8.unk0[D_803E9824];
+    D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk16C = &D_801D9ED8.unk0[gCurrentAnimalId];
 
     func_803283DC_739A8C();
     func_802B2EA8_6C4558();
@@ -308,16 +309,16 @@ void func_803283DC_739A8C(void) {
     D_803D552C->unk30C = 0;
     D_803D552C->unk30E = 0;
 
-    switch (D_803E9824) { // current animal id
+    switch (gCurrentAnimalId) { // current animal id
     case FLYING_DOG:
-        D_803D552C->unk302 = 0;
+        D_803D552C->heading = 0;
         D_803D5530->unk28 = 0;
         D_803D5530->position.yPos.h += 35;
         break;
     case FOX:
         break;
     case FIRE_FOX:
-        D_803D552C->unk302 = 0;
+        D_803D552C->heading = 0;
         D_803D5530->unk28 = 0;
         D_803D5530->position.yPos.h += 35;
         break;
@@ -334,7 +335,7 @@ Camera* func_803284C4_739B74(void) {
     Camera *temp_v0;
 
     temp_v1 = D_803D5524;
-    temp_v0 = &D_803F28E0[D_803F2A98];
+    temp_v0 = &gCameras[gCameraId];
     temp_v0->unk4E = temp_v1->unkCA;
     temp_v0->unk54 = temp_v1->unkD0;
     temp_v0->unk56 = temp_v1->unkD2;
@@ -435,8 +436,8 @@ void func_80328918_739FC8(void) {
     D_803D552C->unk36A = 1;
     D_803D552C->unk348 = 0;
     D_803D552C->unk34A = 0;
-    D_803D552C->unk358 = 0;
-    D_803D552C->unk363 = 0;
+    D_803D552C->laughterThreshold = 0;
+    D_803D552C->isLaughing = 0;
     D_803D552C->unk369 = 0;
     D_803D552C->unk365 = ATTACK_NONE;
     D_803D552C->unk36E = 0;
@@ -656,7 +657,7 @@ void func_80328ACC_73A17C(void) {
                 D_803D552C->unk36A = 2;
                 D_803D5520->unk0 = &D_801DD8EC;
                 D_803D5530->unk16C = &D_801DD8EC;
-                D_803E9824 = EVO;
+                gCurrentAnimalId = EVO;
                 D_803E9820 = 0x1B;
                 D_803E9822 = 2;
                 // sp8E = sp8E;
@@ -702,7 +703,7 @@ void func_80328ACC_73A17C(void) {
             D_803D553A = 0;
             D_803D5520->unk0 = &D_801DD8EC;
             D_803D5530->unk16C = &D_801DD8EC;
-            D_803E9824 = EVO;
+            gCurrentAnimalId = EVO;
             D_803E9820 = 0x1B;
             D_803E9822 = 2;
             func_80327DA8_739458();
@@ -814,7 +815,7 @@ void func_80328ACC_73A17C(void) {
                 D_803D5530->unk18C = D_801D9ED8.animals[D_803D5536].animal->unk18C;
                 D_803D5520->unk0 = &D_801DD8EC;
                 D_803D5530->unk16C = &D_801DD8EC;
-                D_803E9824 = EVO;
+                gCurrentAnimalId = EVO;
                 D_803E9820 = 0x1B;
                 D_803E9822 = 2;
                 func_80327DA8_739458();
@@ -1108,12 +1109,13 @@ void func_8032A710_73BDC0(void) {
 
     D_803D553C = 0;
     D_803D553A = 0;
-    D_803D5520->unk0 = &D_801D9ED8.animals[62]; //(struct035 *) &D_801DD800; // erm
-    D_803D5530->unk16C = &D_801D9ED8.animals[62].unk0; //(struct035 *) &D_801DD800;
+    D_803D5520->unk0 = &D_801D9ED8.unk0[62]; //(struct035 *) &D_801DD800; // erm
+    D_803D5530->unk16C = &D_801D9ED8.unk0[62]; //(struct035 *) &D_801DD800;
 
     gCurrentAnimalIndex = temp_t0;
     D_803D5520 = &D_801D9ED8.animals[temp_t0];
     D_803D5524 = D_801D9ED8.animals[temp_t0].unk0;
+
     a = D_801D9ED8.animals[temp_t0].animal;
     D_803D5528 = a;
     D_803D552C = a;
@@ -1137,10 +1139,10 @@ void func_8032A710_73BDC0(void) {
     }
 
     D_803D5530->unk18C = D_801D9ED8.animals[0].animal->unk18C;
-    D_803E9824 = D_801D9ED8.animals[temp_t0].unk0->unk9C;
-    D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
-    D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
-    check_and_set_species_encountered(D_803E9824);
+    gCurrentAnimalId = D_801D9ED8.animals[temp_t0].unk0->unk9C;
+    D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
+    D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
+    check_and_set_species_encountered(gCurrentAnimalId);
     func_80327DA8_739458();
     func_803283DC_739A8C();
     func_802B2EA8_6C4558();
@@ -1175,23 +1177,25 @@ void load_animal(s16 animalId) {
     D_803D5520->unk0 = &D_801D9ED8.unk0[animalId];
     D_803D5530->unk16C = &D_801D9ED8.unk0[animalId];
 
-    D_803E9824 = animalId;
+    gCurrentAnimalId = animalId;
 
-    D_803E9820 = D_803A63B0_7B7A60[D_803E9824].unk0;
-    D_803E9822 = D_803A63B0_7B7A60[D_803E9824].unk1;
+    D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
+    D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
     func_80327DA8_739458();
     D_803D5530->unk46 = D_803D5530->unk16C->mass;
     func_802C9BA4_6DB254(D_803D5530);
     D_803D5524 = D_803D5520->unk0;
 }
 
-// load animal info screen if first time player is transferring into an animal
+// Load New Animal Cutscene (NAC) if first time player is transferring into an animal
+// NOTE: There is a bug where seen species overlap.
+//       The modulo operation should be % 8, not % 7 to yield 64 possible values (rather than 56)
 void check_and_set_species_encountered(s16 animal_id) {
     if ((D_803E4D28 & 8) == 0) {
         // if first time visiting then load TV info screen
-        if (((D_8023F260.speciesSeen[(s8) (animal_id >> 3)] & (1 << (s8)(animal_id % 7))) == 0) && (D_803E1BC0 == 0)) {
+        if (((D_8023F260.speciesSeen[(s8) (animal_id >> 3)] & (1 << (s8)(animal_id % 7))) == 0) && (gInputMode == INPUT_MODE_USER)) {
             D_8023F260.speciesSeen[(s8) (animal_id >> 3)] |= (1 << (s8)(animal_id % 7));
-            func_8038F694_7A0D44();
+            trigger_new_animal_cutscene();
         }
     }
 }
@@ -1230,7 +1234,7 @@ void func_8032AC98_73C348(void) {
                 func_80380620_791CD0(D_803D552C, 2000, 20, 512, 0);
                 D_803D552C->unk348 = 512;
                 D_803D552C->unk34A = 512;
-                D_803D552C->unk36B = 100;
+                D_803D552C->lastHpLost = 100;
             }
         }
   }

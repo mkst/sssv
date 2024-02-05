@@ -88,7 +88,7 @@ void initialise_tv_mode(void) {
     osViModeTable[D_802053E0.VIModeType].fldRegs[1].vStart = D_80205400.vStart;
     osViModeTable[D_802053E0.VIModeType].fldRegs[0].yScale = D_80205400.yScale;
     osViModeTable[D_802053E0.VIModeType].fldRegs[1].yScale = D_80205400.yScale;
-    D_8020540C = (u16)0;
+    D_8020540C = 0;
 }
 
 void set_screen_scaling(void) {

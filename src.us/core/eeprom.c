@@ -24,7 +24,7 @@ s16 write_eeprom(s16 bank) {
     }
 
     if (bank == 4) {
-        eeprom = &D_8023F2A0;
+        eeprom = &gEepromGlobal;
     } else {
         eeprom = &D_8023F260;
     }
@@ -32,7 +32,7 @@ s16 write_eeprom(s16 bank) {
     eepromBytes = (u8*)eeprom;
     checksum = eeprom_checksum(eepromBytes);
     if (bank == 4) {
-        D_8023F2A0.checksum = checksum;
+        gEepromGlobal.checksum = checksum;
     } else {
         D_8023F260.checksum = checksum;
     }
@@ -50,7 +50,7 @@ s32 read_eeprom(s16 slot) {
         return 0;
     }
     if (slot == 4) {
-        eeprom = &D_8023F2A0;
+        eeprom = &gEepromGlobal;
     } else {
         eeprom = &D_8023F260;
     }
@@ -58,25 +58,25 @@ s32 read_eeprom(s16 slot) {
     eepromBytes = (u8*)eeprom;
     checksum = eeprom_checksum(eepromBytes);
     if (slot == 4) {
-        if (D_8023F2A0.musicVol < MIN_AUDIO_VOLUME) {
-            D_8023F2A0.musicVol = DEFAULT_AUDIO_VOLUME;
+        if (gEepromGlobal.musicVol < MIN_AUDIO_VOLUME) {
+            gEepromGlobal.musicVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.musicVol > MAX_AUDIO_VOLUME) {
-            D_8023F2A0.musicVol = DEFAULT_AUDIO_VOLUME;
+        if (gEepromGlobal.musicVol > MAX_AUDIO_VOLUME) {
+            gEepromGlobal.musicVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.sfxVol < MIN_AUDIO_VOLUME) {
-            D_8023F2A0.sfxVol = DEFAULT_AUDIO_VOLUME;
+        if (gEepromGlobal.sfxVol < MIN_AUDIO_VOLUME) {
+            gEepromGlobal.sfxVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.sfxVol > MAX_AUDIO_VOLUME) {
-            D_8023F2A0.sfxVol = DEFAULT_AUDIO_VOLUME;
+        if (gEepromGlobal.sfxVol > MAX_AUDIO_VOLUME) {
+            gEepromGlobal.sfxVol = DEFAULT_AUDIO_VOLUME;
         }
-        if (D_8023F2A0.language > LANG_MAX) {
-            D_8023F2A0.language = LANG_ENGLISH;
+        if (gEepromGlobal.language > LANG_MAX) {
+            gEepromGlobal.language = LANG_ENGLISH;
         }
-        if (D_8023F2A0.language < LANG_MIN) {
-            D_8023F2A0.language = LANG_ENGLISH;
+        if (gEepromGlobal.language < LANG_MIN) {
+            gEepromGlobal.language = LANG_ENGLISH;
         }
-        if (D_8023F2A0.checksum != checksum) {
+        if (gEepromGlobal.checksum != checksum) {
             return 1;
         }
     } else if (checksum != D_8023F260.checksum) {
@@ -118,26 +118,26 @@ void func_80130E44(void) {
         i++;
     } while (res && i < 4);
 
-    if ((res_s16 != 0) || (i > 3) || (D_8023F2A0.unk4 != 0xCF76F7E)) {
+    if ((res_s16 != 0) || (i > 3) || (gEepromGlobal.unk4 != 0xCF76F7E)) {
         j = 0;
         requireReset = 1;
 
         // bad eeprom, so zero out
-        memset_bytes((u8*)&D_8023F2A0, 0, 64);
+        memset_bytes((u8*)&gEepromGlobal, 0, 64);
 
-        D_8023F2A0.unk4 = 0xCF76F7E;
-        D_8023F2A0.musicVol = DEFAULT_AUDIO_VOLUME;
-        D_8023F2A0.sfxVol = DEFAULT_AUDIO_VOLUME;
+        gEepromGlobal.unk4 = 0xCF76F7E;
+        gEepromGlobal.musicVol = DEFAULT_AUDIO_VOLUME;
+        gEepromGlobal.sfxVol = DEFAULT_AUDIO_VOLUME;
 
         if (gRegion == REGION_US) {
-            D_8023F2A0.language = LANG_ENGLISH;
+            gEepromGlobal.language = LANG_ENGLISH;
         } else {
-            D_8023F2A0.language = LANG_DEFAULT;
+            gEepromGlobal.language = LANG_DEFAULT;
         }
         if (gRegion == REGION_JP) {
-            D_8023F2A0.language = LANG_JAPANESE;
+            gEepromGlobal.language = LANG_JAPANESE;
         }
-        D_8023F2A0.unk8 = 1;
+        gEepromGlobal.unk8 = 1; // isReset?
         // four attempts to write eeprom
         do {
             res = write_eeprom(4);
