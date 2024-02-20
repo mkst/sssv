@@ -1,9 +1,9 @@
+sha1: e5e09205aa743a9e5043a42df72adc379c746b0b
 options:
   platform: n64
   basename: sssv
   target_path: baserom.us.z64
   base_path: .
-  # compiler: IDO
   symbol_addrs_path: symbol_addrs.us.txt
   ld_symbol_header_path: include/ld_symbols.us.h
   generated_c_preamble: |

@@ -33,31 +33,37 @@ def parse_map(mapfile, target_start, target_end):
             break
         # --
         if not in_section:
-            if match := re.match(rf" +(0x[0-9a-fA-F]+) +{target_start} ", line):
+            if match := re.match(rf"\s+(0x[0-9a-fA-F]+)\s+{target_start} ", line):
                 section_vram_start = int(match.group(1), 16)
                 in_section = True
         else:
             # end of section
-            if match := re.match(rf" +(0x[0-9a-fA-F]+) +{target_end} ", line):
+            if match := re.match(rf"\s+(0x[0-9a-fA-F]+)\s+{target_end} ", line):
                 section_vram_end = int(match.group(1), 16)
                 update_previous(files, section_vram_end)
                 in_section = False
                 break
 
+            #                 0x00000000803a04e0                . = ALIGN (., 0x10)
+            if match := re.match(r"\s+(0x[0-9a-fA-F]+)\s+\.\s+=\s+ALIGN.*$", line):
+                file_vram_start = int(match.group(1), 16)
+                update_previous(files, file_vram_start)
+                continue
+
             #  build/lib/libultra_rom.a:initialize.o(.text)
-            if match := re.match(rf" build/(.*\.a):(.*).o\(.text\)", line):
+            if match := re.match(rf"\s+build/(.*\.a):(.*).o\(.text\)", line):
                 lib_path = match.group(1)
                 new_filename = match.group(2)
                 continue
 
             # build/src.us/main_C770.c.o(.text)
-            if match := re.match(rf" build/(.*).o\(.text\)", line):
+            if match := re.match(rf"\s+build/(.*).o\(.text\)", line):
                 lib_path = ""
                 new_filename = match.group(1)
                 continue
 
             # .text          0x00000000801378c0      0x290 build/lib/libultra_rom.a(initialize.o)
-            if match := re.match(rf" .text +(0x[0-9a-fA-F]+) +(0x[0-9a-fA-F]+) build/{lib_path}\({new_filename}.o\)", line):
+            if match := re.match(rf"\s\.text\s+(0x[0-9a-fA-F]+)\s+(0x[0-9a-fA-F]+)\s+build/{lib_path}\({new_filename}.o\)", line):
                 file_vram_start = int(match.group(1), 16)
                 file_size = int(match.group(2), 16)
                 update_previous(files, file_vram_start)
@@ -73,7 +79,7 @@ def parse_map(mapfile, target_start, target_end):
                 files.append(entry)
 
             # .text          0x0000000080131070      0x220 build/src.us/main_C770.c.o
-            if match := re.match(rf" .text +(0x[0-9a-fA-F]+) +(0x[0-9a-fA-F]+) build/{new_filename}", line):
+            if match := re.match(rf"\s+.text\s+(0x[0-9a-fA-F]+)\s+(0x[0-9a-fA-F]+)\s+build/{new_filename}", line):
                 file_vram_start = int(match.group(1), 16)
                 file_size = int(match.group(2), 16)
                 update_previous(files, file_vram_start)
@@ -89,11 +95,15 @@ def parse_map(mapfile, target_start, target_end):
                 files.append(entry)
                 continue
 
-            if match := re.match(rf" +(0x[0-9a-fA-F]+) +L8(.*)", line):
+            if match := re.match(rf"\s+(0x[0-9a-fA-F]+)\s+L8(.*)", line):
+                continue
+
+            # linker entry
+            if match := re.match(f"\s+(0x[0-9a-fA-F]+)\s+.*_OFFSET\s+=\s+\.$", line):
                 continue
 
             # function entry
-            if match := re.match(rf" +(0x[0-9a-fA-F]+) +(.*)", line):
+            if match := re.match(rf"\s+(0x[0-9a-fA-F]+)\s+(.*)", line):
                 function_vram_start = int(match.group(1), 16)
                 function_name = match.group(2)
                 function = dict(

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from util import options
-from segtypes.n64.vtx import N64SegVtx
+from src.splat.util import options
+from src.splat.segtypes.n64.vtx import N64SegVtx
 
 
 class N64SegSssv_vtx(N64SegVtx):
