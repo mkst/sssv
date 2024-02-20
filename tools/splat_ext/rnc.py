@@ -1,11 +1,12 @@
 from pathlib import Path
 from typing import Optional
 
-from segtypes.n64.segment import N64Segment
-from segtypes.n64.rgba16 import N64SegRgba16
-from segtypes.n64.i4 import N64SegI4
+from src.splat.util import options, log
 
-from util import options, log
+from src.splat.segtypes.n64.segment import N64Segment
+from src.splat.segtypes.n64.rgba16 import N64SegRgba16
+from src.splat.segtypes.n64.i4 import N64SegI4
+
 
 import sys
 sys.path.append(str(options.opts.base_path / "tools"))

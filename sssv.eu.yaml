@@ -1,3 +1,4 @@
+sha1: 23710541bb3394072740b0f0236a7cb1a7d41531
 options:
   platform: n64
   basename: sssv
@@ -6,7 +7,6 @@ options:
   compiler: IDO
   symbol_addrs_path : symbol_addrs.eu.txt
   ld_symbol_header_path: include/ld_symbols.eu.h
-  ld_legacy_generation: yes
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
@@ -17,6 +17,7 @@ options:
   # workaround regex issue
   create_undefined_funcs_auto: no
   symbol_name_format: $VRAM_$ROM
+  asm_jtbl_label_macro: jlabel
 segments:
   - name:  header
     type:  header
@@ -181,11 +182,11 @@ segments:
     - [0x28920, asm]
   # .data/.rodata
     - [0x28AB0, linker_offset, main_data_start] # marker here for progress
-    - [0x28AB0, bin]
+    - [0x28AB0, databin]
     - [0x33C70, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
-    - [0x35070, bin] # lib data
-    - [0x36380, bin] # rodata
-    - [0x36790, bin] # lib rodata
+    - [0x35070, databin] # lib data
+    - [0x36380, rodatabin] # rodata
+    - [0x36790, rodatabin] # lib rodata
   - name: segment1 # in-game objects?
     type: code
     vram: 0x01000000
