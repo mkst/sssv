@@ -8,7 +8,6 @@ static s16  D_803B0592;
 static s16  D_803B0594;
 static s16  previousSelection;
 
-// u8 overlay1_63C660_pad[0x168]; // pad to end of overlay1 bss
 
 u8 language_select_menu(s16 arg0) {
     s16 used;
