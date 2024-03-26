@@ -322,7 +322,7 @@ void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b
         guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);
         gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-        gSPDisplayList(D_801D9E8C++, D_0103B6F0);
+        gSPDisplayList(D_801D9E8C++, D_0103B6F0_74FC0);
         gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
     }
 }

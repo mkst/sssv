@@ -308,7 +308,7 @@ void func_80374C70_786320(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp11E == 0) || (sp11E == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->unk302, &D_01033190, (s16) 0x1F, (s16) 0x15, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->unk302, D_01033190_6CA60, (s16) 0x1F, (s16) 0x15, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
     if (sp11E == 0) {
         func_803034D0_714B80(D_803D552C, 0x47C, 0, 1);

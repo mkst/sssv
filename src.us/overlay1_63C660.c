@@ -2,13 +2,13 @@
 #include "common.h"
 
 
-s16  D_803B0400[20];
-s16  D_803B0590;
-s16  D_803B0592;
-s16  D_803B0594;
-s16  D_803B0596;
+static s16  languageBuffer[200];
+static s16  currentSelection;
+static s16  D_803B0592;
+static s16  D_803B0594;
+static s16  previousSelection;
 
-u8 overlay1_63C660_pad[0x168]; // pad to end of overlay1 bss
+// u8 overlay1_63C660_pad[0x168]; // pad to end of overlay1 bss
 
 u8 language_select_menu(s16 arg0) {
     s16 used;
@@ -28,16 +28,16 @@ u8 language_select_menu(s16 arg0) {
 
             if ((lang != LANG_JAPANESE) && (lang != LANG_AMERICAN)) {
                 src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
-                dst = D_803B0400 + used * 20;
+                dst = languageBuffer + used * 20;
                 COPY_MESSAGE(src, dst);
                 used++;
             }
         }
 
-        D_803B0590 = 1;
+        currentSelection = 1; // English
         D_803B0592 = 0;
         D_803B0594 = 0;
-        D_803B0596 = D_803B0590;
+        previousSelection = currentSelection;
         return 0;
     }
 
@@ -50,27 +50,27 @@ u8 language_select_menu(s16 arg0) {
     }
 
     // current selection
-    switch (D_803B0590) {
+    switch (currentSelection) {
     case 0:
-        flagTexture = (uSprite *)img_flags_dutch_rgba16_rgba16__png; // Dutch
+        flagTexture = (uSprite *)img_flags_dutch_rgba16__png; // Dutch
         break;
     case 1:
-        flagTexture = (uSprite *)img_flags_english_rgba16_rgba16__png; // English
+        flagTexture = (uSprite *)img_flags_english_rgba16__png; // English
         break;
     case 2:
-        flagTexture = (uSprite *)img_flags_french_rgba16_rgba16__png; // French
+        flagTexture = (uSprite *)img_flags_french_rgba16__png; // French
         break;
     case 3:
-        flagTexture = (uSprite *)img_flags_german_rgba16_rgba16__png; // German
+        flagTexture = (uSprite *)img_flags_german_rgba16__png; // German
         break;
     case 4:
-        flagTexture = (uSprite *)img_flags_italian_rgba16_rgba16__png; // Italian
+        flagTexture = (uSprite *)img_flags_italian_rgba16__png; // Italian
         break;
     case 5:
-        flagTexture = (uSprite *)img_flags_portugese_rgba16_rgba16__png; // Portugese
+        flagTexture = (uSprite *)img_flags_portugese_rgba16__png; // Portugese
         break;
     case 6:
-        flagTexture = (uSprite *)img_flags_spanish_rgba16_rgba16__png; // Spanish
+        flagTexture = (uSprite *)img_flags_spanish_rgba16__png; // Spanish
         break;
     }
     func_801366BC(&D_801D9E7C, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
@@ -85,27 +85,27 @@ u8 language_select_menu(s16 arg0) {
     draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
 
     // previous selection?
-    switch (D_803B0596) {
+    switch (previousSelection) {
     case 0: // Dutch
-        flagTexture = (uSprite *)img_flags_dutch_rgba16_rgba16__png;
+        flagTexture = (uSprite *)img_flags_dutch_rgba16__png;
         break;
     case 1: // English
-        flagTexture = (uSprite *)img_flags_english_rgba16_rgba16__png;
+        flagTexture = (uSprite *)img_flags_english_rgba16__png;
         break;
     case 2: // French
-        flagTexture = (uSprite *)img_flags_french_rgba16_rgba16__png;
+        flagTexture = (uSprite *)img_flags_french_rgba16__png;
         break;
     case 3: // German
-        flagTexture = (uSprite *)img_flags_german_rgba16_rgba16__png;
+        flagTexture = (uSprite *)img_flags_german_rgba16__png;
         break;
     case 4: // Italian
-        flagTexture = (uSprite *)img_flags_italian_rgba16_rgba16__png;
+        flagTexture = (uSprite *)img_flags_italian_rgba16__png;
         break;
     case 5: // Portugese
-        flagTexture = (uSprite *)img_flags_portugese_rgba16_rgba16__png;
+        flagTexture = (uSprite *)img_flags_portugese_rgba16__png;
         break;
     case 6: // Spanish
-        flagTexture = (uSprite *)img_flags_spanish_rgba16_rgba16__png;
+        flagTexture = (uSprite *)img_flags_spanish_rgba16__png;
         break;
     }
 
@@ -130,26 +130,26 @@ u8 language_select_menu(s16 arg0) {
     select_font(0, FONT_COMIC_SANS, 1, 0);
 
     for (lang = 0; lang < 7; lang++) {
-        if (lang == D_803B0590) {
+        if (lang == currentSelection) {
             set_menu_text_color(255, 255, 255, 255); // selected
         } else {
             set_menu_text_color(128, 128, 128, 255);
         }
-        display_text_centered(&D_801D9E7C, D_803B0400 + lang * 20, 160, verticalOffset, 16.0f, 16.0f);
+        display_text_centered(&D_801D9E7C, languageBuffer + lang * 20, 160, verticalOffset, 16.0f, 16.0f);
         verticalOffset += 16;
     }
 
-    selected = D_803B0590; // save current selection
+    selected = currentSelection; // save current selection
 
     // analogue stick up or dpad up or c-up
     if ((gControllerInput->stick_y > 50) ||
         (gControllerInput->button & CONT_UP) ||
         (gControllerInput->button & U_CBUTTONS)) {
         if (D_801D9ED4 == 0) {
-            if (D_803B0590 > 0) {
+            if (currentSelection > 0) {
                 play_sound_effect(SFX_MENU_NAGIVATE_UP, 0, 0x5000, 1.0f, 64);
                 D_801D9ED4 = 10;
-                D_803B0590--;
+                currentSelection--;
             }
         }
     }
@@ -158,23 +158,23 @@ u8 language_select_menu(s16 arg0) {
         ((gControllerInput->button & CONT_DOWN)) ||
         (gControllerInput->button & D_CBUTTONS)) {
         if (D_801D9ED4 == 0) {
-            if (D_803B0590 < 6) {
+            if (currentSelection < 6) {
                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
                 D_801D9ED4 = 10;
-                D_803B0590++;
+                currentSelection++;
             }
         }
     }
     // change of selection
-    if (D_803B0590 != selected) {
-        D_803B0596 = selected;
+    if (currentSelection != selected) {
+        previousSelection = selected;
         D_803B0592 = 0;
         D_803B0594 = 248;
     }
 
     if ((gControllerInput->button & A_BUTTON) ||
         (gControllerInput->button & START_BUTTON)) {
-        switch (D_803B0590) {
+        switch (currentSelection) {
         case 0: // Dutch
             return LANG_DUTCH;
             break;

@@ -19,13 +19,15 @@
 
 #define ST_GET_SCORE          19+0x7F7F
 #define ST_GET_STATE          21+0x7F7F
+#define ST_GET_GRAVITY        23+0x7F7F
 #define ST_GET_CONT_STICK_X   24+0x7F7F
 #define ST_GET_CONT_STICK_Y   25+0x7F7F
 #define ST_GET_CONT_BUTTON_A  26+0x7F7F
 #define ST_GET_CONT_BUTTON_B  27+0x7F7F
 #define ST_GET_TASKS_COMPLETED 28+0x7F7F
-#define ST_GET_OBJECT_TYPE    32+0x7F7F
-
+#define ST_GET_EEPROM_SCORES_1 31+0x7F7F
+#define ST_GET_OBJECT_TYPE     32+0x7F7F
+#define ST_GET_EEPROM_SCORES_2 35+0x7F7F
 // setters
 
 #define ST_SET_HEALTH         4+0x7F7F
@@ -42,8 +44,11 @@
 
 #define ST_SET_SCORE          19+0x7F7F
 #define ST_SET_STATE          21+0x7F7F
+#define ST_SET_GRAVITY        23+0x7F7F
 
 #define ST_SET_TASKS_COMPLETED 28+0x7F7F
+#define ST_SET_EEPROM_SCORES_1 31+0x7F7F
+#define ST_SET_EEPROM_SCORES_2 35+0x7F7F
 
 // commands
 

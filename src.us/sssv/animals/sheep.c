@@ -33,9 +33,9 @@ void update_sheep_or_ram(void) {
             D_803D5530->yVelocity.w = (((D_803D5530->yVelocity.w * 3) + FTOFIX32(9.0)) >> 2) - FTOFIX32(3.0);
 
             if (D_803D5530->yVelocity.w < 0) {
-                D_803D5530->yVelocity.w += (D_803A05B0_7B1C60 * 0xF) >> 4;
+                D_803D5530->yVelocity.w += (gGravity * 0xF) >> 4;
             } else {
-                D_803D5530->yVelocity.w += D_803A05B0_7B1C60 >> 2;
+                D_803D5530->yVelocity.w += gGravity >> 2;
             }
             D_803D5530->yVelocity.w += (COS(D_803D5540 << 2) >> 7) << 8;
         }
@@ -158,9 +158,9 @@ void update_sheep_or_ram(void) {
                     sp90 = sp8E = 6;
                 }
                 sp90 = D_803BD54A_7CEBFA[sp90]; sp8E = D_803BD602_7CECB2[sp8E];
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp90);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp90);
                 func_802C78B0_6D8F60(0x1A, 0x1B, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 0, 0, D_040037A0_CB1D0);
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp8E);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp8E);
                 func_802C78B0_6D8F60(0x1A, 0x1B, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 0, 0, D_040037C0_CB1F0);
             }
             if ((D_803D5530->state == 0x8E) || (D_803D5530->state == 0x8F) || (D_803D5530->state == 0x8D)) {
@@ -175,7 +175,7 @@ void update_sheep_or_ram(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp8C == 0) || (sp8C == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190_6CA60, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp8C == 0) {
         func_80303820_714ED0(D_803D552C, 1, 2, 593, 0);
@@ -444,9 +444,9 @@ void update_springy_thingy_or_springy_ram(void) {
                     func_8031A150_72B800(D_803D552C->unk326++, &spB0, &spAE);
                     func_8031A278_72B928(&D_803D552C->unk326, &spB0, &spAE);
                     spB0 = D_803BD54A_7CEBFA[spB0]; spAE = D_803BD602_7CECB2[spAE];
-                    func_80356BD8_768288(D_01000CC0, D_01000620, spB0);
+                    func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, spB0);
                     func_802C78B0_6D8F60(1, 2, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, (((spB2 << 5) + D_803F2EC8) * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_040037A0_CB1D0);
-                    func_80356BD8_768288(D_01000CC0, D_01000620, spAE);
+                    func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, spAE);
                     func_802C78B0_6D8F60(1, 2, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, (((spB2 << 5) + D_803F2EC8) * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_040037C0_CB1F0);
                 }
                 break;
@@ -466,7 +466,7 @@ void update_springy_thingy_or_springy_ram(void) {
         func_8035D6D0_76ED80();
     }
     if ((spAC == 0) || (spAC == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, &D_01033190, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spAC == 0) {
         func_80303820_714ED0(D_803D552C, 1, 2, 593, 0);
@@ -547,9 +547,9 @@ void sheep_float(void) {
                 D_803D5530->yVelocity.w = ((((D_803D5530->yVelocity.w + FTOFIX32(3.0)) * 15)) >> 4) - FTOFIX32(3.0);
             }
             if (D_803D5530->yVelocity.w < 0) {
-                D_803D5530->yVelocity.w += (D_803A05B0_7B1C60 * 15) >> 4;
+                D_803D5530->yVelocity.w += (gGravity * 15) >> 4;
             } else {
-                D_803D5530->yVelocity.w += D_803A05B0_7B1C60 >> 2;
+                D_803D5530->yVelocity.w += gGravity >> 2;
             }
             D_803D5530->yVelocity.w += (COS((D_803D5540 - D_803D552C->unk30E) << 2) >> 7) << 8;
             D_803D5530->xVelocity.w += (SIN(D_803D5540 << 3) >> 7) << 8;

@@ -66,7 +66,7 @@ void func_80294E50_6A6500(void) {
 
     if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (D_803F6680.unk0 == 0)) || (D_803F6680.unk26 == 3)) {
         if ((gInputMode == INPUT_MODE_USER) && (D_803C0426 == 0) && (D_8020540C != 1) && (gInitialisationState == 0)) {
-            if ((D_803F2D30.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (D_803F2D30.level != END_CREDITS) && ((D_803E4D28 & 0x10) == 0)) {
+            if ((D_803F2D30.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (D_803F2D30.level != END_CREDITS) && ((D_803E4D28 & 16) == 0)) {
                 if ((D_803C0420 == 0) || (D_803C0420 >= 11)) {
                     play_sound_effect(SFX_UNKNOWN_127, 0, 0x5000, 1.0f, 64);
                     D_801D9ED4 = 10;

@@ -22,10 +22,16 @@ extern u8   D_0007F790[];
 extern u8   D_005449C0[];
 extern u8   D_00546BC0[];
 
-extern u8   D_01000620[];
-extern u8   D_01000CC0[];
-extern u8   D_01000D00[];
-extern u8   D_01000D20[];
+extern u8   D_01000620_39EF0[];
+extern u8   D_01000CA0_3A570[];
+extern u8   D_01000CC0_3A590[];
+extern u8   D_01000D00_3A5D0[];
+extern u8   D_01000D20_3A5F0[];
+extern u8   D_01002100_3B9D0[];
+extern u8   D_010025A0_3BE70[];
+extern u8   D_01002C20_3C4F0[];
+extern u8   D_01002C40_3C510[];
+
 extern Gfx  D_01003460_3CD30[];
 extern Gfx  D_01003498_3CD68[];
 extern Gfx  D_010034C0_3CD90[];
@@ -36,48 +42,54 @@ extern Gfx  D_01003998_3D268[];
 extern Gfx  D_01003A58_3D328[];
 extern Gfx  D_01003B70_3D440[];
 extern Gfx  D_01004270_3DB40[];
-extern Gfx  D_01004308[];
+extern Gfx  D_01004308_3DBD8[];
 extern Gfx  D_01004360_3DC30[];
-extern u8   D_010043A0_3DC70[];
-extern Gfx  D_01004458[];
-extern Gfx  D_01004510[];
+extern Gfx  D_010043A0_3DC70[];
+extern Gfx  D_01004458_3DD28[];
+extern Gfx  D_01004510_3DDE0[];
+extern Gfx  D_01004600_3DED0[];
+extern Gfx  D_01004680_3DF50[];
+extern Gfx  D_010047D0_3E0A0[];
 extern Gfx  D_01004970_3E240[];
 extern Gfx  D_010049A0_3E270[];
-extern Gfx  D_010049A0[];
-extern u8   D_01004AF8[];
-extern Gfx  D_01004B98[];
-extern Gfx  D_0100C120[];
+extern Gfx  D_01004AF8_3E3C8[];
+extern Gfx  D_01004B98_3E468[];
+extern Gfx  D_0100C120_459F0[];
+extern Gfx  D_01011AB0_4B380[];
 extern Gfx  D_01013370_4CC40[];
-extern Gfx  D_01017AA0[];
+extern Gfx  D_01017AA0_51370[];
 extern Gfx  D_0101B000_548D0[];
-extern u8   D_01021BB0[];
-extern u8   D_01029E10[];
-extern u8   D_0102A210[];
-extern u8   D_0102C810[];
+
+extern u8   D_01021BB0_5B480[];
+extern u8   D_01029E10_636E0[];
+extern u8   D_0102A210_63AE0[];
+extern u8   D_0102C810_660E0[];
 extern u8   D_0102D810[];
-extern u64  D_0102F010[]; // [64][2048]; ?
+extern u8   D_0102F010_688E0[]; // [64][2048]; ?
 extern u8   D_0102B610[];
 extern u8   D_0102B810[];
-extern u8   D_0102BA10[];
-extern u8   D_01030810[];
-extern u8   D_01033190[]; // D_01033190_6CA60?
-extern u8   D_01035190[];
-extern u8   D_01035990[];
-extern u8   D_01036190[];
-extern Gfx  D_01037700[];
+extern u8   D_0102BA10_652E0[];
+extern u8   D_01030810_6A0E0[];
+extern u8   D_01033190_6CA60[]; // D_01033190_6CA60?
+extern u8   D_01035190_6EA60[];
+extern u8   D_01035990_6F260[];
+extern u8   D_01036190_6FA60[];
+extern Gfx  D_01037700_70FD0[];
 extern u8   D_01037750_71020[];
-extern Gfx  D_01037950[];
-extern Gfx  D_01037998[];
-extern Gfx  D_010379D8[];
-extern Gfx  D_01037A00[];
-extern Gfx  D_01037A20[];
-extern u8   D_0103B6F0[];
-extern Gfx  D_0103B880[];
+extern Gfx  D_01037950_71220[];
+extern Gfx  D_01037998_71268[];
+extern Gfx  D_010379D8_712A8[];
+extern Gfx  D_01037A00_712D0[];
+extern Gfx  D_01037A20_712F0[];
+extern u8   D_0103AC40_74510[];
+extern u8   D_0103B440_74D10[];
+extern Gfx  D_0103B6F0_74FC0[];
+extern Gfx  D_0103B880_75150[];
 extern Gfx  D_0103BA70[];
 extern Gfx  D_0103EC20[];
-extern u8   D_0103ECB0[];
-extern u8   D_01040CB0[];
-extern u8   D_04000000[];
+extern u8   D_0103ECB0_78580[];
+extern u8   D_01040CB0_7A580[];
+extern u8   D_04000000_116BD0[]; // powercell
 extern u8   D_040000A0[];
 extern Gfx  D_040000E0_DD6A0[];
 extern Gfx  D_04000230_E77E0[];
@@ -105,7 +117,7 @@ extern u8   D_04002F28[];
 
 extern u8   D_04005B60_11C730[]; // spaceship interior
 extern u8   D_04006D00_11D8D0[]; // tv body
-extern u8   D_04006EC0[];
+extern u8   D_04006EC0_11DA90[]; // sssv 43x43
 extern Gfx  D_04007500_E4AC0[];
 
 extern Gfx D_04003580_EAB30[];
@@ -130,14 +142,12 @@ extern Gfx  D_04006040_105D90[];
 extern Gfx  D_04006B00_106850[];
 extern Gfx  D_04006B60_1068B0[];
 
-extern u8   D_01000CA0[];
-extern u8   D_01002100[];
 extern Gfx  D_01003840_3D110[];
 
 extern Gfx  D_040077E0_E4DA0[];
 extern u8   D_04007BD0_E5190[];
-extern u8   D_04007700[];
-extern u8   D_040077A0[];
+extern u8   D_04007700_11E2D0[];
+extern u8   D_040077A0_11E370[];
 extern u8   D_040078C0[];
 extern u8   D_040079F0[];
 extern Gfx  D_04007AE0_E50A0[];
@@ -148,7 +158,7 @@ extern u8   D_04007DD0_E5390[];
 extern u8   D_04007E70[];
 extern u8   D_04007E90[];
 extern u8   D_04007EC0[];
-extern u8   D_04007FA0[];
+extern u8   D_04007FA0_11EB70[];
 extern u8   D_04008290_107FE0[];
 extern u8   D_04008420_108170[];
 extern u8   D_040088F0_F9950[];
@@ -168,10 +178,10 @@ extern Gfx  D_0400C170_FD1D0[];
 extern Gfx  D_0400C240_FD2A0[];
 
 extern u8   D_04012B20_1296F0[];
-extern u8   D_04013060[];
-extern u8   D_040131B0[];
-extern u8   D_040133C0[];
-extern u8   D_04013580[];
+extern u8   D_04013060_129C30[];
+extern u8   D_040131B0_129D80[];
+extern u8   D_040133C0_129F90[];
+extern u8   D_04013580_12A150[];
 extern u8   D_04003E70_F4ED0[];
 extern u8   D_04004070_F50D0[];
 
@@ -253,19 +263,12 @@ extern u64  D_80100000[];
 
 // 0x8014xxxx
 
-// extern u8   D_8014D390[];
-// extern u8   D_8014D460[]; // ucode text start
-extern s32  D_8014E300;
-extern s32  D_8014F1D0; // ucode text start
-
 // 0x8015xxxx
 
-extern u8   D_80150600[];
-// extern u32  D_80151430;
-extern u16  D_80151424;
+extern u16  D_80151424; // 0x2cb24 ??? in aspMainText?
+
 extern u16  gSeed; // kinda random number?
 // extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
-
 
 extern f32  D_80151C38[];
 extern s16  D_80152040[];
@@ -279,18 +282,14 @@ extern s16  D_80152C78[256];
 // thread6
 extern u8   D_80152E90; // 0x2E590
 extern u8   D_80152E98;
-// extern s16  D_80152E9C;
-// extern s16  D_80152EA0;
-// extern s16  D_80152EA4;
 extern Vp   D_80152EA8;
 extern u16  D_80152EB8; // frame buffer id?
-// extern u16  D_80152EBC;
 
 // overlay1_6384F0
-extern s32  D_801542D0; // Gfx[] ?
+extern Gfx  D_801542D0[]; // 0x2F9D0
 
 // main_78F0
-extern u8   D_80154370[];
+extern u8   D_80154370[]; // 0x2FA70
 
 // extern u8*  D_80154500[37][2]; // bunch of offsets to RNC language files
 
@@ -483,10 +482,10 @@ extern s16  gScreenHeight;
 extern VIData D_802053E0;
 extern VIData D_802053F0;
 extern VIData D_80205400;
-extern s16       D_8020540C;
-extern Gfx  *D_80205410[][6];
+extern s16  D_8020540C;
+extern Gfx *D_80205410[][6];
 
-extern s32 D_80205470;
+extern s32  D_80205470;
 
 extern Vtx  D_80210FF0[];
 
@@ -642,7 +641,7 @@ extern u8   D_802912E3; // d-left pressed
 extern u8   D_802912E4; // d-right pressed
 extern u8   D_802912E5; // z pressed
 
-extern Subtitle D_80299960_63D000[]; // size tbd
+extern Subtitle D_80299960_63D000[28];
 extern s32 D_80299A40_63D0E0;
 extern s32 D_80299A58_63D0F8;
 extern s32 D_80299A88_63D128;
@@ -656,7 +655,7 @@ extern s32 D_80299BF0_63D290;
 extern s32 D_80299C20_63D2C0;
 extern s32 D_80299C50_63D2F0;
 extern s32 D_80299C70_63D310;
-extern u16  D_80299C84[3];
+extern u16  D_80299C84_63D324[3];
 extern s32  D_80299CD0_63D370;
 extern Lights1 D_80299D50_63D3F0;
 // extern Light *D_80299D58_63D3F8;
@@ -664,42 +663,23 @@ extern Lights1 D_80299D50_63D3F0;
 extern Lights1 D_80299D90_63D430;
 extern Light D_80299D98_63D438;
 
-extern f32  D_80299DBC;
-extern f32  D_80299DC0;
-extern f32  D_80299DC4;
-extern f32  D_80299DC8;
-extern f32  D_80299DCC;
-extern f32  D_80299DD0;
-extern f32  D_80299DD4;
-extern f32  D_80299DD8;
-extern f32  D_80299DDC;
-extern f32  D_80299DE0;
-extern f32  D_80299DE4;
-extern f32  D_80299DE8;
-extern f32  D_80299DEC;
-extern f32  D_80299DF0;
-extern u16  D_80299E10;
-extern u8   D_80299E14;
-extern u16  D_80299E1C_63D4BC;
-extern s8   D_80299E24;
-// extern u8   D_80299FF0_63D690; // intro text index
-
-// 0x802Axxxx
-extern s32  D_802A23D0;
-extern u8   D_802AA7B0_64DE50[];
-
-extern f32 D_80299DB8_63D458;
-extern f32 D_80299DBC_63D45C;
-extern f32 D_80299DC0_63D460;
-extern f32 D_80299DC4_63D464;
-extern f32 D_80299DC8_63D468;
-extern f32 D_80299DCC_63D46C;
-extern f32 D_80299DD0_63D470;
-extern f32 D_80299DD4_63D474;
-extern f32 D_80299DD8_63D478;
-extern f32 D_80299DE8_63D488;
-extern f32 D_80299DF4_63D494;
-extern u8  D_80299DF8_63D498;
+extern f32  D_80299DB8_63D458;
+extern f32  D_80299DBC_63D45C;
+extern f32  D_80299DC0_63D460;
+extern f32  D_80299DC4_63D464;
+extern f32  D_80299DC8_63D468;
+extern f32  D_80299DCC_63D46C;
+extern f32  D_80299DD0_63D470;
+extern f32  D_80299DD4_63D474;
+extern f32  D_80299DD8_63D478;
+extern f32  D_80299DDC_63D47C;
+extern f32  D_80299DE0_63D480;
+extern f32  D_80299DE4_63D484;
+extern f32  D_80299DE8_63D488;
+extern f32  D_80299DEC_63D48C;
+extern f32  D_80299DF0_63D490;
+extern f32  D_80299DF4_63D494;
+extern u8   D_80299DF8_63D498;
 /*
   1 - NEWSFLASH
   2 - Newscaster
@@ -712,80 +692,53 @@ extern u8  D_80299DF8_63D498;
   9 - NEWSFLASH + 200 credz
   A - black screen
 */
-extern u8  D_80299DFC_63D49C; // intro state
-extern u8  D_80299E04_63D4A4;
-extern u16 D_80299E08_63D4A8;
-extern u16 D_80299E0C_63D4AC;
-extern u16 D_80299E10_63D4B0;
-extern u8  D_80299E11_63D4B1;
-extern s8  D_80299E14_63D4B4;
-extern u8  D_80299E18_63D4B8;
-extern u16 D_80299E1C_63D4BC;
-extern s8  D_80299E20_63D4C0;
-extern s8  D_80299E24_63D4C4;
-extern s8  D_80299E28_63D4C8;
-extern s16 D_80299E2C_63D4CC;
-extern s16 D_80299E34_63D4D4;
-extern s16 D_80299E3C_63D4DC;
-extern s16 D_80299E40_63D4E0;
-extern u8  D_80299E44_63D4E4[];
+extern u8   D_80299DFC_63D49C; // intro state
+extern u8   D_80299E18_63D4B8;
+extern u8   D_80299E04_63D4A4;
+extern u16  D_80299E08_63D4A8;
+extern u16  D_80299E0C_63D4AC;
+extern u16  D_80299E10_63D4B0;
+extern u8   D_80299E14_63D4B4;
+extern u16  D_80299E1C_63D4BC;
+extern s8   D_80299E20_63D4C0;
+extern s8   D_80299E24_63D4C4;
+extern s8   D_80299E28_63D4C8;
+extern s16  D_80299E2C_63D4CC;
+extern s16  D_80299E34_63D4D4;
+extern s16  D_80299E3C_63D4DC;
+extern s16  D_80299E40_63D4E0;
+extern u8   D_80299E44_63D4E4[];
+
+// 0x802Axxxx
+extern u8   D_802A37E0_646E80[]; // img/intro/president_frank_bloke
+extern u8   D_802AA7B0_64DE50[]; // img/sssv_logo
 
 // 0x802Bxxxx
-extern u8   D_802B58A0[];
-extern u8   D_802B5CA0[];
-extern u8   D_802B60A0[];
+extern u8   D_802B58A0_658F40[];
+extern u8   D_802B5CA0_659340[];
+extern u8   D_802B60A0_659740[];
 extern u8   D_802BF170_662810[]; // 200_credz
 // 0x802Cxxxx
 
-extern u8   D_802A37E0_646E80[];
 extern u8   D_802C6C90_66A330[];
 extern u8   D_802D00F0_673790[];
 extern u8   D_802DA900_67DFA0[];
 // 0x802Exxxx
 
 extern const Gfx  D_802EEB20_6921C0[]; // spaceship model
-extern const Gfx  D_802F3C20_6972C0[]; // N64 controller model
-
-// 0x802Fxxxx
-
-extern u8   D_802FD920_6A0FC0[]; // English language flag
-extern u8   D_802FE520_6A1BC0[]; // French language flag
-extern u8   D_802FF120_6A27C0[]; // German language flag
-extern u8   D_802FFD20_6A33C0[]; // Italian language flag
-
-// 0x8030xxxx
-extern u8   D_80300920_6A3FC0[]; // Portugese language flag
-extern u8   D_80301520_6A4BC0[]; // Dutch language flag
-extern u8   D_80302120_6A57C0[]; // Spanish language flag
-extern f32  D_80302D20_6A63C0; // 15000.0f
-// extern f64  D_80302D28;
+extern const Gfx  D_802F3C20_6972C0[527]; // N64 controller model
 
 // BSS (overlay1)
 
-// extern u8   D_8033CE88[]; // D_80302E88 + 0x3A000
-// extern u8   D_80352E88[]; // D_80302E88 + 0x50000
-// 0x8036xxxx
-// extern u8   D_80364E88[]; // D_80302E88 + 0x62000
-// 0x8037xxxx
-// extern u8   D_80376ED8[]; // D_80302E88 + 0x74050
-// 0x8039xxxx
-// extern u8   D_8039E2E8[];
-
-// 0x803Axxxx
-
-extern s16  D_803A0500_7B1BB0;
-// extern s32  D_803A0594_7B1C44[4]; // rgba
-extern s16  D_803A05C0_7B1C70;
-extern s16  D_803A05C8_7B1C78;
-extern s32  D_803A05B0;
-extern s32  D_803A05B0_7B1C60;
+// extern s16  D_803A05C0_7B1C70;
+// extern s16  D_803A05C8_7B1C78;
+extern s32  gGravity; // gravity constant?
 extern s32  D_803A05B4_7B1C64;
 extern struct089 D_803A05D0_7B1C80[68];
 extern struct098 D_803A1BB0_7B3260[];
 extern u16  D_803A20B0_7B3760[]; // colors
 extern struct099 D_803A20C0_7B3770[];
 extern struct076 D_803A2D90_7B4440[];
-extern u8   D_803A38D8[];
 
 extern struct118 D_803A3990_7B5040[];
 extern struct118 D_803A39C0_7B5070[];
@@ -855,19 +808,18 @@ extern s16  D_803A6520_7B7BD0[];
 extern s16  D_803A65D0_7B7C80[];
 extern s16  D_803A6680_7B7D30[];
 extern s16  D_803A6730_7B7DE0[];
-extern s16  D_803A69F0[];
+extern s16  D_803A69F0_7B80A0[];
 extern s16  D_803A6CC0_7B8370; // camera distance from player?
 extern f32  D_803A6CC4_7B8374;
 extern f32  D_803A6CC8_7B8378;
-extern f32  D_803A6CD0;
-extern f32  D_803A6CD4;
-extern f32  D_803A6CD8;
+extern f32  D_803A6CD0_7B8380;
+extern f32  D_803A6CD4_7B8384;
+extern f32  D_803A6CD8_7B8388;
 extern s16  D_803A6CDC_7B838C;
 extern s16  D_803A6CE0_7B8390;
-extern s16  D_803A6CE4;
 extern s16  D_803A6CE4_7B8394;
 extern s16  D_803A6CE8_7B8398;
-extern s16  D_803A6CEC;
+extern s16  D_803A6CEC_7B839C;
 extern s16  D_803A6CEC_7B839C;
 extern u8   D_803A6CF0_7B83A0[0xC];
 extern u8   D_803A6CFC_7B83AC[0xC];
@@ -876,16 +828,14 @@ extern struct105 D_803A6D14_7B83C4[128];
 extern struct074 D_803A7114_7B87C4[128];
 extern s16  D_803A7B2A_7B91DA[];
 extern s16  D_803A7B3C_7B91EC[];
-extern s16  D_803A8340;
 extern s16  D_803A8340_7B99F0;
-extern u8   D_803A8344[]; // timer string written here
+extern u8   D_803A8344_7B99F4[]; // timer string written here
 // extern s8   D_803A8350_7B9A00[];
 // extern s8   D_803A8358_7B9A08[];
 // extern s8   D_803A8360_7B9A10[];
 extern s32  D_803A8374_7B9A24;
 
 extern ObjectData D_803A8528_7B9BD8[247]; // 0x9C each
-extern u8   D_803A8EC8[];
 extern u16  D_803A4638_7B5CE8[];
 extern u8   D_803A47F4_7B5EA4[]; // 68 big?
 extern u8   D_803A48C0_7B5F70[MAX_EUROPE_ANIMALS][MAX_EUROPE_ANIMALS]; // europe
@@ -905,13 +855,13 @@ extern DemoInput D_803B30D0_7C4780[];
 extern DemoInput D_803B3388_7C4A38[];
 extern DemoInput D_803B384C_7C4EFC[];
 
-extern s16  D_803B4F30;
-extern s16  D_803B4F34;
-extern u8   D_803B4930_7C5FE0[];
-extern u8   D_803B4944_7C5FF4[];
 extern s16  D_803B4958_7C6008[];
 extern s16  D_803B497C_7C602C[];
 extern s16  D_803B49CC_7C607C[];
+extern s16  D_803B4F30_7C65E0;
+extern s16  D_803B4F34_7C65E4;
+extern u8   D_803B4930_7C5FE0[];
+extern u8   D_803B4944_7C5FF4[];
 
 extern s16  D_803B52FC[];
 extern u8   D_803B5498_7C6B48[];
@@ -929,12 +879,12 @@ extern u8   D_803B5884_7C6F34[];
 
 extern struct107 D_803B58E0_7C6F90[];
 extern void (*D_803B5D20[])(void);
-extern s16  D_803B62B0;
-extern s16  D_803B62B4;
-extern u16  D_803B62B8;
-extern s16  D_803B62BC;
-extern u8   D_803B62C0;
-extern s16  D_803B62D0[];
+extern s16  D_803B62B0_7C7960;
+extern s16  D_803B62B4_7C7964;
+extern u16  D_803B62B8_7C7968;
+extern s16  D_803B62BC_7C796C;
+extern u8   D_803B62C0_7C7970;
+extern s16  D_803B62D0_7C7980[];
 extern u16  D_803B6310_7C79C0;
 extern s16  D_803B6314_7C79C4;
 extern u8   D_803B6318_7C79C8;
@@ -945,7 +895,6 @@ extern Lights1 D_803B65C0_7C7C70;
 extern Lights1 D_803B65D8_7C7C88;
 extern Lights1 D_803B65F0_7C7CA0;
 
-extern Gfx D_0103B880_75150[];
 extern Gfx D_0103BA70_75340[];
 extern Gfx D_0103EC20_784F0[];
 
@@ -956,14 +905,13 @@ extern f32       D_803B6868_7C7F18;
 extern f32       D_803B686C_7C7F1C;
 extern s32       D_803B6880_7C7F30;
 
-extern u16  D_803B6870[];
 extern s16  D_803B6870_7C7F20[];
 extern struct110 D_803B7000_7C86B0[];
 extern Gfx **D_803B7108_7C87B8[5][10];
 // extern s8   D_803B71D0_7C8880[][5];
 extern u8  *D_803B7268_7C8918[64];
 extern u8  *D_803B7368_7C8A18[64];
-extern f32  D_803B7468;
+extern f32  D_803B7468_7C8B18;
 extern f32  D_803B74AC_7C8B5C;
 extern f32  D_803B74B0_7C8B60;
 extern f32  D_803B74B4_7C8B64;
@@ -971,7 +919,6 @@ extern f32  D_803B74B8_7C8B68;
 extern f32  D_803B74BC_7C8B6C;
 extern f32  D_803B74C0_7C8B70;
 extern f32  D_803B74C4_7C8B74;
-
 
 // rodata starts at 0x803BACD0
 
@@ -1010,26 +957,26 @@ extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
 
 // overlay2_6ACF20
 extern struct054 D_803D2D90;
-extern f32       D_803D2DF8;
-extern s16       D_803D2DFC;
-extern s16       D_803D2DFE;
-extern s16       D_803D2E00;
+// extern f32       D_803D2DF8;
+// extern s16       D_803D2DFC;
+// extern s16       D_803D2DFE;
+// extern s16       D_803D2E00;
 extern struct059 D_803D2E08;
-extern s32        D_803D3428;
-extern s32        D_803D342C;
-extern s16        D_803D3430;
-extern s16        D_803D3432;
+// extern s32        D_803D3428;
+// extern s32        D_803D342C;
+// extern s16        D_803D3430;
+// extern s16        D_803D3432;
 extern DisplayList* D_803D3434;
-extern s32       *D_803D3438;
-extern Animal    *D_803D343C;
-extern struct035 *D_803D3440;
-extern struct025  D_803D3448;
-extern struct025  D_803D3A20;
-extern struct025  D_803D3FF8;
-extern struct072  D_803D45D0;
-extern struct025  D_803D4BB0;
-extern struct057  D_803D5188[];
-extern s16  D_803D5508;
+// extern s32       *D_803D3438;
+// extern Animal    *D_803D343C;
+// extern struct035 *D_803D3440;
+// extern struct025  D_803D3448;
+// extern struct025  D_803D3A20;
+// extern struct025  D_803D3FF8;
+// extern struct072  D_803D45D0;
+// extern struct025  D_803D4BB0;
+// extern struct057  D_803D5188[];
+// extern s16  D_803D5508;
 
 // overlay2_6B5380
 extern s16  D_803D5510;
@@ -1185,8 +1132,6 @@ extern s16  D_803E97C0;
 extern s16  D_803E9820;
 extern s16  D_803E9822;
 extern s16  gCurrentAnimalId;
-extern struct101 *D_803E9828;
-extern struct114 *D_803E982C;
 extern Collision D_803E9840[];
 
 // 0x803Fxxxx

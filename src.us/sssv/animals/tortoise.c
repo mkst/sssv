@@ -18,8 +18,6 @@ extern u8  D_803A8518_7B9BC8[];
 extern Gfx D_01003AD0_3D3A0[];
 extern u8  D_0103AA20_742F0[];
 extern u8  D_0103AC20_744F0[];
-extern u8  D_0103AC40[];
-extern u8  D_0103B440[];
 
 extern Gfx D_04002D70_F3DD0[];
 extern Gfx D_04003030_F4090[];
@@ -364,7 +362,7 @@ void func_80352380_763A30(void) {
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, var_t2, 0, 0); // tbd
             func_802C78B0_6D8F60(11, 17, 0xE800, 0xE800, 0xE800, D_803F2ED0, 0, 0, 0, D_040032B0_F4310);
 
-            func_80356D84_768434(D_0103B440, D_0103AC40);
+            func_80356D84_768434(D_0103B440_74D10, D_0103AC40_74510);
 
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(31));
             gDPSetTileSize(D_801D9E88++, 1, 0, 0, 4*(63), 4*(31));
@@ -379,7 +377,7 @@ void func_80352380_763A30(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp128 == 0) || (sp128 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->unk302, D_01033190_6CA60, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     // draw crosshair?
@@ -788,7 +786,7 @@ void func_80354188_765838(void) {
             D_803D552C->position.zPos.h,
             (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)),
             D_803D552C->heading,
-            D_01033190,
+            D_01033190_6CA60,
             25,
             25,
             155,
@@ -892,7 +890,7 @@ void func_80355130_7667E0(void) {
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
-            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->heading, D_01033190, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->heading, D_01033190_6CA60, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
         func_8035D6A0_76ED50();
     } else {
@@ -1062,7 +1060,7 @@ void tortoise_tank_attack(Animal *a) {
     s32 temp_v0;
     s16 rot;
 
-    temp_v0 = func_802F8160_709810(D_803D5530, a, 32, 20, 30, 0x59, -4, 3, (f32)D_803A05B0 / 65536.0);
+    temp_v0 = func_802F8160_709810(D_803D5530, a, 32, 20, 30, 0x59, -4, 3, (f32)gGravity / 65536.0);
     if (temp_v0 == -1) {
         rot = 32;
     } else {

@@ -817,6 +817,7 @@ void func_803458B8_756F68(Gfx **arg0, Vtx *vtx, s16 num) {
 
 // a long way to go here, probably need to start again
 #if 0
+// CURRENT (28492)
 void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
     s16 sp17A;
     s16 sp178;
@@ -906,7 +907,7 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
                         D_803E3130[D_803F2CA6].unk2 = (s16) sp175;
                         D_803E3130[D_803F2CA6].displayList = (s32 *) *dl;
                         D_803F2CA6 += 1; //D_803F2CA6 + 1;
-                        gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810));
+                        gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810_660E0));
                         gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                         gDPLoadSync((*dl)++);
                         gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
@@ -1062,13 +1063,17 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
                 }
 #endif
             }
-            gSP1Quadrangle((*dl)++,
-                phi_t2->unk4[0].unk0, //->unk4 << 1,
-                phi_t2->unk4[0].unk2, //->unk6 << 1,
-                phi_t2->unk4[0].unk4, //->unk8 << 1,
-                phi_t2->unk4[0].unk6, //->unkA << 1,
-                0); // flag
 
+            gSP2Triangles(
+            /* gdl   */ (*dl)++,
+            /* v00   */ phi_t2->unk4[0].unk4,
+            /* v01   */ phi_t2->unk4[0].unk2,
+            /* v02   */ phi_t2->unk4[0].unk0,
+            /* flag0 */ 0,
+            /* v10   */ phi_t2->unk4[0].unk4,
+            /* v11   */ phi_t2->unk4[0].unk6,
+            /* v12   */ phi_t2->unk4[0].unk2,
+            /* flag1 */ 0);
             sp178 += 1;
         } else {
             for (i = 0; i < 3; i++) {
@@ -1120,7 +1125,7 @@ void func_80346878_757F28(Gfx **arg0, u8 arg1) {
 
 // load EVO texture?
 void func_803469D4_758084(Gfx **arg0, u16 arg1) {
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (u8*)D_0102F010 + ((u8)arg1 << 7));
+    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_0102F010_688E0 + ((arg1 & 0xFF) << 7));
     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*arg0)++);
     gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 31, 256);
@@ -1142,6 +1147,7 @@ void func_80346AB0_758160(Gfx **arg0, u8 arg1) {
 
 // uses delay slot
 #if 0
+//CURRENT (26391)
 void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
     s16 i;    // sp29A
     s16 tris; // sp298
@@ -1334,7 +1340,7 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                             D_803F2CA6++; // = temp_a1_2 + 1;
                             D_803E3130[D_803F2CA6].displayList = *arg0;
                             if (temp_t0_2 == 9) {
-                                gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810 + 0x1000));
+                                gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810_660E0 + 0x1000));
                                 gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync((*arg0)++);
                                 gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 511, 512);
@@ -1343,7 +1349,7 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                                 gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 124, 124);
 
                             } else {
-                                gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810));
+                                gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810_660E0));
                                 gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync((*arg0)++);
                                 gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 511, 512);
@@ -1502,13 +1508,17 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
         }
 
         if ((vtxFlags & 1) == 0) {
-            gSP1Quadrangle((*arg0)++,
-            /* v0   */ tris + 0,
-            /* v1   */ tris + 1,
-            /* v2   */ tris + 2,
-            /* v3   */ tris + 3,
-            /* flag */ 0);
-            tris += 1; // 4 triangles
+            gSP2Triangles(
+            /* gdl   */ (*arg0)++,
+            /* v00   */ tris + 2,
+            /* v01   */ tris + 1,
+            /* v02   */ tris + 0,
+            /* flag0 */ 0,
+            /* v10   */ tris + 2,
+            /* v11   */ tris + 3,
+            /* v12   */ tris + 1,
+            /* flag1 */ 0);
+            tris++; // 4 triangles
         } else {
             gSP1Triangle((*arg0)++,
             /* v0   */ tris + 0,

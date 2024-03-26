@@ -99,7 +99,7 @@ SubtitleText D_80299948_63CFE8[] = {
 
 
 u16 D_80299E10_63D4B0 = 0xFF;
-s8  D_80299E14_63D4B4 = 0;
+u8  D_80299E14_63D4B4 = 0;
 u8  D_80299E18_63D4B8 = 0;
 u16 D_80299E1C_63D4BC = 0;
 s8  D_80299E20_63D4C0 = 0;
@@ -188,9 +188,9 @@ void func_80294EB8_638558(Gfx **dl) {
 
     gSPPerspNormalize((*dl)++, *D_80302E60); // different to debug?
 
-    guScale(&D_80204278->unk37450, D_80299DDC, D_80299DE0, D_80299DE4);
-    guScale(&D_80204278->unk374D0, D_80299DDC, D_80299DE0, D_80299DE4);
-    guLookAt(&D_80204278->unk37490, D_80299DB8_63D458, D_80299DBC, D_80299DC0, 0.0f, 0.0f, 0.0f, D_80299DE8, D_80299DEC, D_80299DF0);
+    guScale(&D_80204278->unk37450, D_80299DDC_63D47C, D_80299DE0_63D480, D_80299DE4_63D484);
+    guScale(&D_80204278->unk374D0, D_80299DDC_63D47C, D_80299DE0_63D480, D_80299DE4_63D484);
+    guLookAt(&D_80204278->unk37490, D_80299DB8_63D458, D_80299DBC_63D45C, D_80299DC0_63D460, 0.0f, 0.0f, 0.0f, D_80299DE8_63D488, D_80299DEC_63D48C, D_80299DF0_63D490);
 
     gSPMatrix((*dl)++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     gSPMatrix((*dl)++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
@@ -231,10 +231,10 @@ void func_80295234_6388D4(void) {
     gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, 312, 232);
     gSPDisplayList(D_801D9E7C++, D_80158368);
 
-    guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_80299DC4_63D464, D_80299DC8_63D468, D_80299DCC);
+    guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_80299DC4_63D464, D_80299DC8_63D468, D_80299DCC_63D46C);
     gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, D_80299DD0, D_80299DD4_63D474, D_80299DD8_63D478, 0x10000, 0x10000, 0x10000);
+    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, 0, D_80299DD0_63D470, D_80299DD4_63D474, D_80299DD8_63D478, 0x10000, 0x10000, 0x10000);
     gSPMatrix(D_801D9E7C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     gSPDisplayList(D_801D9E7C++, &D_801542D0);        // load spaceship texture
@@ -352,7 +352,7 @@ void func_8029597C_63901C(uSprite *sprite, u8 thumbnail) {
 
 void func_80295C38_6392D8(u8 arg0, u8 arg1) {
     gSPDisplayList(D_801D9E7C++, &D_801582C0);
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, D_80299E10, D_80299E10, D_80299E10, 0xFF);
+    gDPSetPrimColor(D_801D9E7C++, 0, 0, D_80299E10_63D4B0, D_80299E10_63D4B0, D_80299E10_63D4B0, 0xFF);
 
     draw_chunked_image(0, 0, 320, 256, &D_801D9E7C, D_80302E88);
 
@@ -375,23 +375,23 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
         draw_chunked_image(112, 131, 96, 96, &D_801D9E7C, D_80302E88 + 0x35800);
     }
 
-    if ((D_80299E14 >= D_80299C84[2]) && ((D_80299C84[2] + 7) >= D_80299E14)) {
-        switch ((D_80299E14 - D_80299C84[2]) / 2) {
+    if ((D_80299E14_63D4B4 >= D_80299C84_63D324[2]) && ((D_80299C84_63D324[2] + 7) >= D_80299E14_63D4B4)) {
+        switch ((D_80299E14_63D4B4 - D_80299C84_63D324[2]) / 2) {
         case 0:
-            D_80302E64 = D_802B58A0;
+            D_80302E64 = D_802B58A0_658F40;
             break;
         case 1:
         case 3:
-            D_80302E64 = D_802B60A0;
+            D_80302E64 = D_802B60A0_659740;
             break;
         case 2:
-            D_80302E64 = D_802B5CA0;
+            D_80302E64 = D_802B5CA0_659340;
             break;
         }
-        func_801356C0(D_80299C84[0], D_80299C84[1], 32, 32, &D_801D9E7C, D_80302E64, 32.0f, 32.0f, 8);
-        D_80299E14 += 1;
+        func_801356C0(D_80299C84_63D324[0], D_80299C84_63D324[1], 32, 32, &D_801D9E7C, D_80302E64, 32.0f, 32.0f, 8);
+        D_80299E14_63D4B4 += 1;
     } else {
-        D_80299E14 = 0;
+        D_80299E14_63D4B4 = 0;
     }
 }
 
@@ -1220,7 +1220,7 @@ void func_802988E8_63BF88(void) {
     D_80204278->usedHilites = 0;
 
     func_80295FAC_63964C(&D_80162658[D_80152EB8]);
-    if (D_80299E24 != 0) {
+    if (D_80299E24_63D4C4 != 0) {
         D_80152E90 = 0;  // select game overlay
         D_80204284 = 4;
     }

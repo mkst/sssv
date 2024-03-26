@@ -298,9 +298,9 @@ block_33:
                 func_8031A150_72B800(D_803D552C->unk326++, &spAE, &spAC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spAE, &spAC);
                 spAE = D_803BD5B2_7CEC62[spAE]; spAC = D_803BD66A_7CED1A[spAC];
-                func_80356BD8_768288(&D_01000CA0, &D_01002100, spAE);
+                func_80356BD8_768288(&D_01000CA0_3A570, D_01002100_3B9D0, spAE);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_04006380_F73E0);
-                func_80356BD8_768288(&D_01000CA0, &D_01002100, spAC);
+                func_80356BD8_768288(&D_01000CA0_3A570, D_01002100_3B9D0, spAC);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, (D_803F2EC8 * 0xA0) >> 6, D_803F2ED0, 0, 0, 0, D_040063A0_F7400);
             }
 
@@ -312,7 +312,7 @@ block_33:
     }
 
     if ((spAA == 0) || (spAA == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, &D_01033190, 0x25, 0x25,  0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x25, 0x25,  0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     spA8 = D_803D5528->unk3C8.unk2;

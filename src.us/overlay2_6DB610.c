@@ -26,7 +26,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
         if (arg0->unk4C.unk1D) {
             switch (arg0->unk162) {
             case 1:
-                arg0->yVelocity.w -= D_803A05B0_7B1C60;
+                arg0->yVelocity.w -= gGravity;
                 switch (func_8030AA90_71C140(arg0)) {
                 case 0:
                     arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
@@ -56,7 +56,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 }
                 break;
             case 5:
-                arg0->yVelocity.w -= (s32) D_803A05B0_7B1C60 >> 4;
+                arg0->yVelocity.w -= (s32) gGravity >> 4;
                 switch (func_8030AA90_71C140(arg0)) {
                 case 0:
                     if (func_802A7648_6B8CF8(arg0) != 0) {
@@ -143,9 +143,9 @@ void func_802C9F60_6DB610(Animal *arg0) {
         case 3:
             if (arg0->unk4C.unk1D) {
                 if ((arg0->unk16C->objectType == 38) || (arg0->unk16C->objectType == 177)) {
-                    arg0->yVelocity.w -= ((s32) D_803A05B0_7B1C60 >> 3);
+                    arg0->yVelocity.w -= ((s32) gGravity >> 3);
                 } else {
-                    arg0->yVelocity.w -= D_803A05B0_7B1C60;
+                    arg0->yVelocity.w -= gGravity;
                 }
                 if ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < tmp) {
                     if (arg0->unk16C->unk82.unk0) {
@@ -196,7 +196,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 func_802A403C_6B56EC(arg0, 3);
             }
             if (arg0->unk4C.unk1D) {
-                arg0->yVelocity.w -= (s32) D_803A05B0_7B1C60 >> 2;
+                arg0->yVelocity.w -= (s32) gGravity >> 2;
                 if (sp2A < (arg0->position.yPos.h + (arg0->unk42 >> 1))) {
                     arg0->unk162 = 3;
                 }

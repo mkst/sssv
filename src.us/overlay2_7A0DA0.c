@@ -1129,6 +1129,7 @@ void func_80391A38_7A30E8(void) {
 
 #if 0
 // unused
+// CURRENT (16833)
 void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
 
     s16 temp_t2;
@@ -1215,7 +1216,7 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
         phi_s1 = 368;
         if (idx == 20) {
-          phi_s1 = 304;
+            phi_s1 = 304;
         }
 
         gDPPipeSync((*dl)++);
@@ -1228,14 +1229,16 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
         gDPPipeSync((*dl)++);
 
-        // tbd
-        gSP1Quadrangle((*dl)++,
-            idx + 0,
-            idx + 2,
-            idx + 4,
-            idx + 6,
-            0);
-
+        gSP2Triangles(
+            /* gdl   */ (*dl)++,
+            /* v00   */ idx + 0,
+            /* v01   */ idx + 2,
+            /* v02   */ idx + 3,
+            /* flag0 */ 0,
+            /* v10   */ idx + 0,
+            /* v11   */ idx + 3,
+            /* v12   */ idx + 1,
+            /* flag1 */ 0);
         gDPPipeSync((*dl)++);
     }
 
@@ -1506,28 +1509,27 @@ void func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 
     gSP1Quadrangle((*dl)++, 0, 1, 2, 3, 0);
 }
 
-#if 0
-// CURRENT (3719)
+#ifdef NON_MATCHING
+// CURRENT (1702)
 void load_pause_menu(s32 arg0, s16 arg1) {
     u8 sp174[60];
     s16 spFC[60];
 
-    s16 row;
     s16 col;
-    s16 user_selection;
-    s16 vertical_offset;
+    s16 row;
+
+    s16 cnt;
+    s16 level;
 
     u8 alpha; // spF3
     u8 suit_red;
-    u8 suit_green;
     u8 suit_blue;
+    u8 suit_green;
+    s16 user_selection;
 
-    s16 level;
-    s16 cnt;
-    s16 pad;
-    s16 pad2;
+    s32 new_var;
+    s16 vertical_offset;
     s16 font_width; // spE6
-
 
     font_width = 16;
     if ((gEepromGlobal.language == LANG_ITALIAN) ||
@@ -1880,8 +1882,9 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_LEAVE_SV), 94, vertical_offset, font_width, 16.0f);
         }
 
-
-        if (((gControllerInput->stick_y > 50) || (gControllerInput->button & CONT_UP) || (gControllerInput->button & U_CBUTTONS)) &&
+        // helper
+        new_var = gControllerInput->stick_y;
+        if (((new_var > 50) || (gControllerInput->button & CONT_UP) || (gControllerInput->button & U_CBUTTONS)) &&
             (D_801D9ED4 == 0) &&
             (D_803F6680.unk31 == 0) &&
             (D_803F6680.unk35 == 0) &&
@@ -2340,11 +2343,11 @@ void func_80395E98_7A7548(Gfx **dl) {
     gDPPipeSync((*dl)++);
     gDPSetCycleType((*dl)++, G_CYC_2CYCLE);
     gDPPipeSync((*dl)++);
-    gSPDisplayList((*dl)++, D_01004AF8);
+    gSPDisplayList((*dl)++, D_01004AF8_3E3C8);
 
     gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
 
-    gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01030810);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01030810_6A0E0);
     gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 1023, 256);

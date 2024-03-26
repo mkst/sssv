@@ -148,34 +148,30 @@ void func_80296544_6A7BF4(void) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (2199)
+// CURRENT (2277)
 void func_80296C8C_6A833C(struct063 arg0[73][129]) {
+
     s16 xPos;
-    s16 nextWater;
-    s16 curWater;
     s16 zPos;
-    s32 pad[2];
-
-    u32 sp96;
-    u32 sp84;
-    u32 sp80;
-    u32 sp78;
-
+    s16 curWater;
+    s16 nextWater;
     s16 temp_a0;
     s16 temp_s4;
-    s32 pad3;
-    s16 temp_v1;
+    s16 delta;
 
-    sp96 = D_803F2D50.unk14 + D_803F2D50.unk10;
-    sp78 = D_803F2D50.unk16 + D_803F2D50.unk12;
+    struct005 sp78;
+    s32 pad[2];
 
-    sp84 = D_803F2D50.unk10;
-    sp80 = D_803F2D50.unk12;
+    sp78.Start2 = D_803F2D50.unk10;
+    sp78.End2 = D_803F2D50.unk10 + D_803F2D50.unk14;
+
+    sp78.Start1 = D_803F2D50.unk12;
+    sp78.End1 = D_803F2D50.unk12 + D_803F2D50.unk16;
 
     D_803C0430.unk20D = (D_803C0430.unk20D + 1) & 3;
 
-    for (xPos = sp96; xPos > sp84; xPos--) {
-        for (zPos = sp78; zPos > sp80; zPos--) {
+    for (xPos = sp78.End2; xPos > sp78.Start2; xPos--) {
+        for (zPos = sp78.End1; zPos > sp78.Start1; zPos--) {
             arg0[xPos][zPos].unk7 = 0; // clear terrain flags?
 
             if (arg0[xPos][zPos].unk6 != 0) {
@@ -189,25 +185,25 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                         0);
                 }
                 if (nextWater < curWater) {
-                    temp_v1 = arg0[xPos+1][zPos].unk0; //unk408; (408 + 0)
-                    if ((temp_v1 << 1) < curWater) {
+                    delta = arg0[xPos+1][zPos].unk0; //unk408; (408 + 0)
+                    if ((delta << 1) < curWater) {
                         if ((nextWater == 0) && (D_803C0430.unk20F == 0)) {
-                            nextWater = (temp_v1 << 1);
+                            nextWater = (delta << 1);
                         }
-                        if ((temp_v1 < (arg0[xPos][zPos].unk0 - 0x10)) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
-                            temp_v1 = 0;
+                        if ((delta < (arg0[xPos][zPos].unk0 - 0x10)) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
+                            delta = 0;
                         } else {
-                            temp_v1 = (curWater - nextWater) / 2;
-                            if (temp_v1 > 1) {
-                                temp_v1 += SSSV_RAND(2);
+                            delta = (curWater - nextWater) / 2;
+                            if (delta > 1) {
+                                delta += SSSV_RAND(2);
                             }
                         }
-                        if (temp_v1 < 0) {
-                            temp_v1 = 0;
+                        if (delta < 0) {
+                            delta = 0;
                         }
-                        curWater = curWater - temp_v1;
-                        nextWater = nextWater + temp_v1;
-                        arg0[xPos][zPos].unk7 = (s16)(arg0[xPos][zPos].unk7 & 0xF) + ((temp_v1 & 7) << 4);
+                        curWater = curWater - delta;
+                        nextWater = nextWater + delta;
+                        arg0[xPos][zPos].unk7 = (s16)(arg0[xPos][zPos].unk7 & 0xF) + ((delta & 7) << 4);
 
                         if ((arg0[xPos][zPos].unk0 << 1) >= curWater) {
                             curWater = 0;
@@ -230,25 +226,25 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                 curWater = arg0[xPos][zPos].unk6;
                 nextWater = arg0[xPos][zPos+1].unk6; // unkE
                 if (nextWater < curWater) {
-                    temp_v1 = arg0[xPos][zPos+1].unk0; // unk8
-                    if (((temp_v1 + 1) << 1) < curWater) {
+                    delta = arg0[xPos][zPos+1].unk0; // unk8
+                    if (((delta + 1) << 1) < curWater) {
                         if ((nextWater == 0) && (D_803C0430.unk20F == 0)) {
-                            nextWater = (temp_v1 << 1);
+                            nextWater = (delta << 1);
                         }
-                        if ((temp_v1 < arg0[xPos][zPos].unk0) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
-                            temp_v1 = (curWater - (arg0[xPos][zPos].unk0 << 1));
+                        if ((delta < arg0[xPos][zPos].unk0) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
+                            delta = (curWater - (arg0[xPos][zPos].unk0 << 1));
                         } else {
-                            temp_v1 = (curWater - nextWater) / 2;
-                            if (temp_v1 > 1) {
-                                temp_v1 += SSSV_RAND(2);
+                            delta = (curWater - nextWater) / 2;
+                            if (delta > 1) {
+                                delta += SSSV_RAND(2);
                             }
                         }
-                        if (temp_v1 <= 0) {
-                            temp_v1 = 0;
+                        if (delta <= 0) {
+                            delta = 0;
                         }
-                        curWater = curWater - temp_v1;
-                        nextWater = nextWater + temp_v1;
-                        arg0[xPos][zPos].unk7 = (arg0[xPos][zPos].unk7 & 0xF0) + (temp_v1 & 7);
+                        curWater = curWater - delta;
+                        nextWater = nextWater + delta;
+                        arg0[xPos][zPos].unk7 = (arg0[xPos][zPos].unk7 & 0xF0) + (delta & 7);
                         if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
                             curWater = 0;
                         }
@@ -262,9 +258,9 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                     temp_s4 = ((guRandom() % 63) + (xPos << 6));
                     temp_a0 = ((guRandom() % 63) + (zPos << 6));
 
-                    temp_v1 = 6; // permuter hacks
+                    delta = 6; // permuter hacks
 
-                    if (((1 - (((D_803C0740[temp_s4 >> temp_v1][temp_a0 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 & 0xF0) >> 4) & 7)) ||
+                    if (((1 - (((D_803C0740[temp_s4 >> delta][temp_a0 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 & 0xF0) >> 4) & 7)) ||
                         ((1 -  ((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7       & 8) >> 2)) * (  D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7               & 7))) {
 
                         create_particle_effect(
@@ -273,7 +269,7 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                             0,
                             13,
                             (s16)((1 - (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 >> 4) & 8) >> 2)) * (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7 & 0xF0) >> 4) & 7)) << 0x10,
-                            (s16)((1 -  ((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7       & 8) >> 2)) * (  D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7               & 7)) << 0x10,
+                            (s16)((1 - (((D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7     ) & 8) >> 2)) * (  D_803C0740[temp_s4 >> 6][temp_a0 >> 6].unk7               & 7)) << 0x10,
                             0,
                             SSSV_RAND(4) + 4,
                             0,
@@ -292,58 +288,72 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_80296C8C_6A833C.s")
 #endif
 
-#if 0
-// CURRENT (4186), something needs to change...
+#ifdef NON_MATCHING
+// update_water_level
 void func_8029726C_6A891C(struct063 arg0[73][129]) {
-    u32 sp58;
-    u32 sp54;
-    volatile u32 sp50;
-    u32 sp4C;
+    struct005 sp4C;
 
     s16 xPos;
     s16 zPos;
 
-    s16 temp_v1;
+    s16 delta;
 
     s16 curWater;
     s16 prevWater;
 
-    sp50 = D_803F2D50.unk14 + D_803F2D50.unk10;
-    sp4C = D_803F2D50.unk16 + D_803F2D50.unk12;
+    s16 var_s5;
 
-    sp58 = D_803F2D50.unk10;
-    sp54 = D_803F2D50.unk12;
+    sp4C.Start2 = D_803F2D50.unk10;
+    sp4C.End2 = D_803F2D50.unk10 + D_803F2D50.unk14;
 
-    for (xPos = sp58; xPos < sp50; xPos++) {
-        for (zPos = sp54; zPos <= sp4C; zPos++) {
+    sp4C.Start1 = D_803F2D50.unk12;
+    sp4C.End1 = D_803F2D50.unk12 + D_803F2D50.unk16;
+
+    if (D_803C0430.unk20F == 0) {
+        // maybe
+    };
+
+    if (arg0[xPos][zPos].unk0 && arg0[xPos][zPos].unk0) {
+        // ??
+    };
+
+    var_s5 = 0;
+
+    for (xPos = sp4C.Start2; xPos < sp4C.End2; xPos++) {
+        for (zPos = sp4C.Start1; zPos <= sp4C.End1; zPos++) {
 
             if (arg0[xPos][zPos].unk6 != 0) {
                 curWater = arg0[xPos][zPos].unk6;
-                prevWater = arg0[xPos - 1][zPos].unk6; // unk-402
+                prevWater = arg0[xPos - 1][zPos].unk6;
 
                 if (prevWater < curWater) {
-                    if ((arg0[xPos - 1][zPos].unk0 << 1) < curWater) {
+                    // adjust water level
+                    if ((arg0[xPos - 1][zPos].unk0 * 2) < curWater) {
                         if ((prevWater == 0) && (D_803C0430.unk20F == 0)) {
-                            prevWater = (arg0[xPos - 1][zPos].unk0 << 1);
+                            prevWater = (arg0[xPos - 1][zPos].unk0 * 2);
                         }
 
-                        if ((arg0[xPos - 1][zPos].unk0 < (arg0[xPos][zPos].unk0 - 16)) && (prevWater < (arg0[xPos][zPos].unk0 << 1))) {
-                            temp_v1 = (curWater - (arg0[xPos][zPos].unk0 << 1)) / 2;
-                            if (temp_v1 < 1) {
-                                temp_v1 = 0;
+                        if ((arg0[xPos - 1][zPos].unk0 < (arg0[xPos][zPos].unk0 - 16)) &&
+                            (prevWater < (arg0[xPos][zPos].unk0 * 2))) {
+
+                            delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
+                            if (delta < 1) {
+                                delta = 0;
                             }
                         } else {
-                            temp_v1 = ((curWater - prevWater) + (xPos & 1)) / 2;
-                            if (temp_v1 > 1) {
-                                temp_v1 += SSSV_RAND(2);
+                            delta = ((curWater - prevWater) + (xPos & 1)) / 2;
+                            if (delta > 1) {
+                                delta += SSSV_RAND(2);
                             }
                         }
 
-                        prevWater += temp_v1;
-                        curWater -= temp_v1;
+                        curWater  -= delta;
+                        prevWater += delta;
+
                         // 1xxx____
-                        arg0[xPos][zPos].unk7 = ((arg0[xPos][zPos].unk7 & 0xF) + ((temp_v1 & 7) << 4)) | 0x80;
-                        if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
+                        arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF) + ((delta & 7) << 4)) | 0x80;
+
+                        if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
                             curWater = 0;
                         }
                         arg0[xPos][zPos].unk6 = curWater;
@@ -352,35 +362,45 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                 }
 
                 curWater = arg0[xPos][zPos].unk6;
-                prevWater = arg0[xPos][zPos - 1].unk6; // unk-2
+                prevWater = arg0[xPos][zPos - 1].unk6;
                 if (prevWater < curWater) {
-                    if ((arg0[xPos][zPos - 1].unk0 << 1) < curWater) {
+                    // adjust water level
+                    if ((arg0[xPos][zPos - 1].unk0 * 2) < curWater) {
                         if ((prevWater == 0) && (D_803C0430.unk20F == 0)) {
-                            prevWater = (arg0[xPos][zPos - 1].unk0 << 1);
+                            prevWater = (arg0[xPos][zPos - 1].unk0 * 2);
                         }
 
-                        if (((arg0[xPos][zPos - 1].unk0 + 4) < arg0[xPos][zPos].unk0) && (prevWater <= (arg0[xPos][zPos].unk0 << 1))) {
-                            temp_v1 = (curWater - (arg0[xPos][zPos].unk0 << 1)) / 2;
-                            if (temp_v1 < 2) {
-                                temp_v1 = 2;
+                        if (((arg0[xPos][zPos - 1].unk0 + 4) < arg0[xPos][zPos].unk0) &&
+                            (prevWater <= (arg0[xPos][zPos].unk0 * 2))) {
+#if 0
+                            delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
+#else
+                            delta = (long long) ((curWater - (arg0[xPos][zPos].unk0 * 2)) / 2);
+#endif
+                            if (delta < 2) {
+                                delta = 2;
                             }
-                            curWater -= temp_v1;
-                            temp_v1 = 0;
+                            var_s5++;
+
+                            curWater -= delta;
+                            delta = 0;
                         } else {
-                            temp_v1 = ((curWater + (zPos & 1)) - prevWater) / 2;
-                            if (temp_v1 > 1) {
-                                temp_v1 += SSSV_RAND(2);
+                            delta = ((curWater + (zPos & 1)) - prevWater) / 2;
+                            if (delta > 1) {
+                                delta += SSSV_RAND(2);
                             }
                         }
-                        if (temp_v1 < 0) {
-                            temp_v1 = 0;
+                        if (delta < 0) {
+                            delta = 0;
                         }
 
-                        curWater -= temp_v1;
-                        prevWater += temp_v1;
+                        curWater  -= delta;
+                        prevWater += delta;
+
                         // ____1xxx
-                        arg0[xPos][zPos].unk7 = ((s16)(arg0[xPos][zPos].unk7 & 0xF0) + (temp_v1 & 7)) | 8;
-                        if (curWater <= (arg0[xPos][zPos].unk0 << 1)) {
+                        arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF0) + (delta & 7)) | 8;
+
+                        if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
                             curWater = 0;
                         }
 
@@ -399,7 +419,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
 #if 0
 extern Gfx D_010045A0_3DE70[];
 
-// CURRENT (42671)
+// CURRENT (39519)
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     u16 sp190;
     u16 sp17A;
@@ -635,6 +655,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                     if ((s16) sp142 > 0) {
                         sp98 = (s16) sp140 - 1;
                         spA4 = (s32)&arg1->unk2C2F0 & 0x1FFFFFFF; // (s32) &arg1->pad28BD0[0x3720] & 0x1FFFFFFF;
+
                         sp136 = 0;
                         do {
                             var_s2 = 1;
@@ -830,42 +851,28 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                                             temp_v0_4 = var_t0 * 2;
                                             if (var_s2 != 0) {
-                                                temp_t8_8 = (var_t0 + var_t1) * 2;
-                                                temp_v0_5 = var_t0 * 2;
-                                                temp_t9_2 = (temp_t8_8 & 0xFF) << 0x10;
-                                                temp_t6_6 = (temp_v0_5 + 2) & 0xFF;
-                                                var_a0 = temp_t8_8;
-                                                #if 0
-                                                temp_a3_12 = D_801D9E94;
-                                                D_801D9E94 = temp_a3_12 + 8;
-                                                temp_a3_12->words.w0 = temp_t9_2 | (temp_t6_6 << 8) | ((s32) (var_a0 + 2) & 0xFF) | 0xB1000000;
-                                                temp_a3_12->words.w1 = temp_t9_2 | ((temp_t9_2 & 0xFF) << 8) | temp_t6_6;
-                                                #endif
-                                                gSP1Quadrangle(
-                                                /* pkt  */  D_801D9E94++,
-                                                /* v2   */  (var_a0 + 2),
-                                                /* v3   */  (var_t0 + var_t1) * 2,
-                                                /* v0   */  temp_t9_2,
-                                                /* v1   */  temp_t6_6,
-                                                /* flag */  0);
+                                                gSP2Triangles(
+                                                /* gdl   */ D_801D9E94++,
+                                                /* v00   */ (var_t0 + var_t1),
+                                                /* v01   */ var_t0 + 1,
+                                                /* v02   */ (var_t0 + var_t1) + 1,
+                                                /* flag0 */ 0,
+                                                /* v10   */ (var_t0 + var_t1),
+                                                /* v11   */ var_t0 + 0,
+                                                /* v12   */ var_t0 + 1,
+                                                /* flag1 */ 0);
+
                                             } else {
-                                                temp_t7_7 = (var_t1 + var_t0) * 2;
-                                                temp_t9_3 = (temp_t7_7 + 2) & 0xFF;
-                                                temp_t6_7 = (temp_v0_4 & 0xFF) << 0x10;
-                                                var_a0 = temp_t7_7;
-                                                #if 0
-                                                temp_a3_13 = D_801D9E94;
-                                                D_801D9E94 = temp_a3_13 + 8;
-                                                temp_a3_13->words.w0 = temp_t6_7 | (temp_t9_3 << 8) | ((temp_v0_4 + 2) & 0xFF) | 0xB1000000;
-                                                temp_a3_13->words.w1 = temp_t6_7 | (((s32) var_a0 & 0xFF) << 8) | temp_t9_3;
-                                                #endif
-                                                // TBD
-                                                gSP1Quadrangle(D_801D9E94++,
-                                                    (temp_t7_7 + 2),
-                                                    (var_t1 + var_t0) * 2,
-                                                    temp_t7_7,
-                                                    temp_v0_4,
-                                                    0);
+                                                gSP2Triangles(
+                                                /* gdl   */ D_801D9E94++,
+                                                /* v00   */ var_t0,
+                                                /* v01   */ (var_t1 + var_t0) + 1,
+                                                /* v02   */ var_t0 + 1,
+                                                /* flag0 */ 0,
+                                                /* v10   */ var_t0,
+                                                /* v11   */ (var_t1 + var_t0),
+                                                /* v12   */ (var_t1 + var_t0) + 1,
+                                                /* flag1 */ 0);
                                             }
                                         }
                                     }

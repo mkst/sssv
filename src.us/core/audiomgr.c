@@ -639,19 +639,15 @@ void initialise_audio(s32 *arg0) {
     }
 }
 
-#ifdef NON_MATCHING
-// CURRENT (130)
 void func_80132044(s32 arg0) {
-    s32 i;
-
     if (gAudioInitialized == 0) {
         return;
     }
     if (arg0 == -1) {
         // clear all
-        for (i = 0; i < 20; i++){
-            D_80286388[i] = i;
-            D_802863B0[i] = 0;
+        for (arg0 = 0; arg0 < 20; arg0++){
+            D_80286388[arg0] = arg0;
+            D_802863B0[arg0] = 0;
         }
         D_8015468C = 0;
     } else {
@@ -660,9 +656,6 @@ void func_80132044(s32 arg0) {
         D_8015468C--;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_80132044.s")
-#endif
 
 struct017 *func_801320EC(void) {
     s32 i;

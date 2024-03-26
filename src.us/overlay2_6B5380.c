@@ -109,9 +109,9 @@ void func_802A40EC_6B579C(void) {
 void func_802A4184_6B5834(void) {
     s16 tmp = (D_803D5530->position.yPos.h + D_803D5524->unkBA) - func_80298F78_6AA628(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
     if (tmp >= 0) {
-        D_803D5530->yVelocity.w -= D_803A05B0;
+        D_803D5530->yVelocity.w -= gGravity;
     } else if (tmp >= -15) {
-        D_803D5530->yVelocity.w -= ((tmp + 16) * D_803A05B0) >> 4;
+        D_803D5530->yVelocity.w -= ((tmp + 16) * gGravity) >> 4;
     }
 }
 

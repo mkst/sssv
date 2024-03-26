@@ -210,9 +210,7 @@ void func_8029DD84_6AF434(void);
 void func_8029E100_6AF7B0(void);
 void func_8029E3CC_6AFA7C(void);
 void func_8029EAAC_6B015C(void);
-void func_8029EF20_6B05D0(struct025*, Gfx**);
 void func_8029F3CC_6B0A7C(void);
-void func_8029F464_6B0B14(struct025 *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, s32 arg8);
 void func_8029F65C_6B0D0C(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, s32 arg8);
 void func_8029F7D4_6B0E84(DisplayList *arg0, s32 arg1);
 
@@ -942,6 +940,7 @@ void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch,
 void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
 // overlay2_73ED30
+void func_8032DACC_73F17C(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
 void func_8032E9E4_740094(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7);
 void func_8032E150_73F800(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6); // tbd
 void func_8032F8C8_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3);

@@ -6,14 +6,12 @@
 // externs
 // ========================================================
 
-extern u8 D_01004600[];
-extern u8 D_01004650_3DF20[];
-extern u8 D_0103BB20[];
-extern u8 D_0103BB20[];
-extern u8 D_0103C720[]; // D_0103BB20 + 0xC00
-extern u8 D_0103D520[];
-extern u8 D_0103D320[];
-extern u8 D_01029DD0[];
+extern Gfx D_01004650_3DF20[];
+extern u8 D_01029DD0_636A0[];
+extern u8 D_0103BB20_753F0[]; // img/hud/energy_bar_left.rgba16
+extern u8 D_0103C720_75FF0[]; // img/hud/energy_bar_right.rgba16
+extern u8 D_0103D320_76BF0[]; // img/hud/power_green.rgba16
+extern u8 D_0103D520_76DF0[]; // img/hud/power_blue.rgba16
 
 // ========================================================
 // .data
@@ -65,7 +63,6 @@ void osd_draw_health_and_power_bars(s16 arg0) {
     D_803F2CF0 = arg0 << 2;
 
     if ((D_803F2CF0 >> 2) < gScreenHeight) {
-
         // maybe an if statement about energy? seems to be required to get correct regalloc
         tmp1 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->energy[0].unk0 / 16;
         tmp2 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->energy[1].unk0 / 16;
@@ -81,7 +78,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
         gDPSetTextureLOD(D_801D9E7C++, G_TL_TILE);
         gDPPipeSync(D_801D9E7C++);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103BB20, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, D_0103BB20_753F0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
         gDPPipeSync(D_801D9E7C++);
 
@@ -98,7 +95,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
             1024);
         gDPPipeSync(D_801D9E7C++);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103C720, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, D_0103C720_75FF0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gDPPipeSync(D_801D9E7C++);
 
         new_var = 0x7000; // fuuuu
@@ -137,7 +134,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
 
         gDPSetTextureFilter(D_801D9E7C++, G_TF_POINT);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103D520, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, D_0103D520_76DF0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gSPTextureRectangle(
             D_801D9E7C++,
             D_803F2CEC + 0x2C,
@@ -150,7 +147,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
             1024,
             1024);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103D320, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, D_0103D320_76BF0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gSPTextureRectangle(
             D_801D9E7C++,
             D_803F2CEC + 0x14,
@@ -164,10 +161,10 @@ void osd_draw_health_and_power_bars(s16 arg0) {
             1024);
 
         gDPSetTextureFilter(D_801D9E7C++, G_TF_BILERP);
-        gSPDisplayList(D_801D9E7C++, D_01004600);
+        gSPDisplayList(D_801D9E7C++, D_01004600_3DED0);
 
         // TODO: replace this with a macro
-        gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01029DD0);
+        gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01029DD0_636A0);
         gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD);
         gDPLoadSync(D_801D9E7C++);
         gDPLoadBlock(D_801D9E7C++, G_TX_LOADTILE, 0, 0, 31, 2048);
@@ -520,13 +517,13 @@ void osd_draw_timer(s16 arg0) {
     time = D_803F2CD2;
     if (time > 0) {
         if (time < 60) {
-            sprintf(D_803A8344, "%d", time);
+            sprintf(D_803A8344_7B99F4, "%d", time);
         } else {
-            sprintf(D_803A8344, "%d:%02d", time / 60, time % 60);
+            sprintf(D_803A8344_7B99F4, "%d:%02d", time / 60, time % 60);
         }
     }
 
-    prepare_text(D_803A8344, str);
+    prepare_text(D_803A8344_7B99F4, str);
     load_default_display_list(&D_801D9E7C);
     set_menu_text_color(255, 255, 0, 255); // yellow
     select_font(0, FONT_DEFAULT, 1, 0);
@@ -568,7 +565,7 @@ void func_80349DCC_75B47C(s16 arg0) {
             D_803F2CD4 += 1;
             if (D_803F2CD4 >= D_803F2CD8) {
                 D_803F2CD4 = 0;
-                D_803F2CD2 +=  D_803F2CD6;
+                D_803F2CD2 += D_803F2CD6;
             }
         }
     }

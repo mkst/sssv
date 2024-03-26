@@ -13,8 +13,8 @@ Vtx D_05001370_86B00[24] = {
 #include "data/inc/D_05001370_86B00.inc.c"
 };
 
-extern u8 img_levels_HAVE_A_NICE_DAY_roof_tile_rgba16_rgba16__png[];
-extern u8 img_levels_HAVE_A_NICE_DAY_floorboard_rgba16_rgba16__png[];
+extern u8 img_levels_HAVE_A_NICE_DAY_roof_tile_rgba16__png[];
+extern u8 img_levels_HAVE_A_NICE_DAY_floorboard_rgba16__png[];
 
 Gfx D_050014F0_86C80[] = {
     gsSPClearGeometryMode(G_LIGHTING),
@@ -27,7 +27,7 @@ Gfx D_050014F0_86C80[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_levels_HAVE_A_NICE_DAY_roof_tile_rgba16_rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_levels_HAVE_A_NICE_DAY_roof_tile_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -41,7 +41,7 @@ Gfx D_050014F0_86C80[] = {
     gsSP2Triangles(10, 9, 12, 0, 13, 14, 9, 0),
     gsSP2Triangles(15, 13, 9, 0, 9, 14, 16, 0),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_levels_HAVE_A_NICE_DAY_floorboard_rgba16_rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_levels_HAVE_A_NICE_DAY_floorboard_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

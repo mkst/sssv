@@ -6,7 +6,7 @@ void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch) {
     s32 pad;
 
     if (id != 255) {
-        if ((D_803A69F0[id] == 8) || (get_used_sound_count() < D_803A69F0[id])) {
+        if ((D_803A69F0_7B80A0[id] == 8) || (get_used_sound_count() < D_803A69F0_7B80A0[id])) {
             play_sound_effect(id, 0, volume, pitch, 64);
         }
     }
@@ -17,7 +17,7 @@ void play_sound_effect_at_location(s16 id, s16 volume, s16 unused, s16 x, s16 y,
     s16 tmp;
 
     if ((D_803F2D10.unk0 == 0) && (id != SFX_NONE)) {
-        if ((D_803A69F0[id] == 8) || (get_used_sound_count() < D_803A69F0[id])) {
+        if ((D_803A69F0_7B80A0[id] == 8) || (get_used_sound_count() < D_803A69F0_7B80A0[id])) {
             sqrt = sqrtf(((x - (s16) D_803F2C44) * (x - (s16) D_803F2C44)) +
                          ((y - (s16) D_803F2C48) * (y - (s16) D_803F2C48)) +
                          ((z - (s16) D_803F2C4C) * (z - (s16) D_803F2C4C)));
@@ -31,7 +31,7 @@ void play_sound_effect_at_location(s16 id, s16 volume, s16 unused, s16 x, s16 y,
 
 void func_8032C508_73DBB8(s16 id, s16 volume, s16 unused, f32 pitch) {
     if (D_803F2D10.unk0 == 0) {
-        if ((D_803A69F0[id] == 8) || (get_used_sound_count() < D_803A69F0[id])) {
+        if ((D_803A69F0_7B80A0[id] == 8) || (get_used_sound_count() < D_803A69F0_7B80A0[id])) {
             if (id != SFX_NONE) {
                 play_sound_effect(id, 0, volume, pitch, 64);
             }

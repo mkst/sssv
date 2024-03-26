@@ -16,7 +16,6 @@ extern s16 D_803B5F2C_7C75DC[];
 
 extern u8  D_803B5F18_7C75C8[];
 
-extern Gfx D_01003548[];
 extern Gfx D_01004F70_3E840[];
 extern Gfx D_01005060_3E930[];
 extern Gfx D_010054C0_3ED90[];
@@ -29,10 +28,10 @@ extern Gfx D_01006570_3FE40[];
 extern Gfx D_01006680_3FF50[];
 extern Gfx D_010069D0_402A0[];
 extern Gfx D_01006A08_402D8[];
-extern Gfx D_01006A40[];
-extern Gfx D_01006A78[];
-extern Gfx D_01006AB0[];
-extern Gfx D_01006AE8[];
+extern Gfx D_01006A40_40310[];
+extern Gfx D_01006A78_40348[];
+extern Gfx D_01006AB0_40380[];
+extern Gfx D_01006AE8_403B8[];
 
 // EVO_SHELLSUIT
 #ifdef NON_MATCHING
@@ -134,7 +133,7 @@ void func_80389B30_79B1E0(void) {
         D_80204278->unk39310++;
 
         gSPDisplayList(D_801D9E88++, D_01004270_3DB40);
-        gSPDisplayList(D_801D9E88++, D_01004AF8);
+        gSPDisplayList(D_801D9E88++, D_01004AF8_3E3C8);
         gDPSetRenderMode(D_801D9E88++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
 
         switch (D_803F2D50.evoSuitColor) {          /* switch 2; irregular */
@@ -246,7 +245,7 @@ void func_80389B30_79B1E0(void) {
             }
         }
 
-        gDPSetTextureImage(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, (sp138 * 256) + D_0102F010);
+        gDPSetTextureImage(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_0102F010_688E0 + ((sp138 << 8) << 3));
 
         gDPSetTile(D_801D9E88++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(D_801D9E88++);
@@ -284,7 +283,7 @@ void func_80389B30_79B1E0(void) {
         func_802C78B0_6D8F60(10, 11, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_01005E50_3F720);
 
         gSPDisplayList(D_801D9E88++, D_01003460_3CD30);
-        gSPDisplayList(D_801D9E88++, D_01003548);
+        gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
         gDPSetPrimColor(D_801D9E88++, 0, 0, (((SIN(D_803D5540 << 4) >> 7) >> 3) + 0xDF), 0, 0, 0xFF);
 
@@ -308,16 +307,16 @@ void func_80389B30_79B1E0(void) {
 
                 switch (sp10C) {
                 case 0:
-                    gSPDisplayList(D_801D9E90++, D_01006AE8);
+                    gSPDisplayList(D_801D9E90++, D_01006AE8_403B8);
                     break;
                 case 1:
-                    gSPDisplayList(D_801D9E90++, D_01006AB0);
+                    gSPDisplayList(D_801D9E90++, D_01006AB0_40380);
                     break;
                 case 2:
-                    gSPDisplayList(D_801D9E90++, D_01006A78);
+                    gSPDisplayList(D_801D9E90++, D_01006A78_40348);
                     break;
                 case 3:
-                    gSPDisplayList(D_801D9E90++, D_01006A40);
+                    gSPDisplayList(D_801D9E90++, D_01006A40_40310);
                     break;
                 case 4:
                     gSPDisplayList(D_801D9E90++, D_01006A08_402D8);
@@ -340,7 +339,7 @@ void func_80389B30_79B1E0(void) {
     }
 
     func_8035D6A0_76ED50();
-    func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190, 0xC, 0x1C, 0x9B, 0, 0, 0, 0, D_803D5538);
+    func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0xC, 0x1C, 0x9B, 0, 0, 0, 0, D_803D5538);
     func_80303820_714ED0(D_803D552C, 1, 2,  0x2BF, 0);
     func_80303820_714ED0(D_803D552C, 2, 2,  0x2BF, 1);
     func_80303820_714ED0(D_803D552C, 1, 19, 0x1D4, 2);

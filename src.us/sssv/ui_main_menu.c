@@ -195,18 +195,18 @@ static s16  D_803F7E06; // levels
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
     // unpack menu graphics
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04006EC0)), D_800BA760); // central piece of SSSV
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007FA0)), D_800BDC80); // "SSSV" Header graphic
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04006EC0_11DA90)), D_800BA760); // central piece of SSSV
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007FA0_11EB70)), D_800BDC80); // "SSSV" Header graphic
     // unpack powercell
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04000000)), D_800DE390); // powercell
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04000000_116BD0)), D_800DE390); // powercell
     // unpack evo bodyparts
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013060)), D_800C3A40); // evo head trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040133C0)), D_800C5240); // evo arms trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040131B0)), D_800C4240); // evo legs trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013580)), D_800C4A40); // evo torso trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013060_129C30)), D_800C3A40); // evo head trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040133C0_129F90)), D_800C5240); // evo arms trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040131B0_129D80)), D_800C4240); // evo legs trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013580_12A150)), D_800C4A40); // evo torso trophy
     // unpack 'silver' level ring pieces
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007700)), D_800BB700); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040077A0)), D_800BBBB0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007700_11E2D0)), D_800BB700); // silver ring piece
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040077A0_11E370)), D_800BBBB0); // silver ring piece
     UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040078C0)), D_800BC060); // silver ring piece
     UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040079F0)), D_800BC510); // silver ring piece
     UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007B40)), D_800BC9C0); // silver ring piece
@@ -232,7 +232,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D70 = 0.1f;
     prepare_text(sp18, (u8*)D_803F2D50.titleText); // zero out title?
     D_803F7DA8.unk8 = 1.0f;
-    D_803B7468 = D_803F7DA8.currentLevel * 12;
+    D_803B7468_7C8B18 = D_803F7DA8.currentLevel * 12;
     D_803F7D68 = D_803F7DA8.currentLevel * 12;
     D_803F7DA8.unk0 = 40.0f;
     D_803F7DA8.unk4 = 30.0f;
@@ -1193,6 +1193,7 @@ void func_8039BBB8_7AD268(void) {
 }
 
 #if 0
+// NEEDS_BSS
 void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 end, PlayerEeprom *eeprom, s16 xRot, s16 yRot, f32 scale, u8 currentLevel) {
     u8 flipx;
     u8 flipy;

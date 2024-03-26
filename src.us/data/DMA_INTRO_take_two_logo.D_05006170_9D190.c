@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-extern u8 img_take_two_logo_D_05001410_98430_rgba16_D_05001410_98430__rgba16__png[];
+extern u8 img_take_two_logo_D_05001410_98430_D_05001410_98430__rgba16__png[];
 
 Vtx D_05001C10_98C30[32] = {
 #include "data/inc/D_05001C10_98C30.inc.c"
@@ -118,7 +118,7 @@ Gfx D_05006170_9D190[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_take_two_logo_D_05001410_98430_rgba16_D_05001410_98430__rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_take_two_logo_D_05001410_98430_D_05001410_98430__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

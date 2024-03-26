@@ -32,21 +32,21 @@ void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
         temp_t2 = (D_803D552C->position.xPos.w + (arg0 * COS(D_803D552C->heading) * 2)) + (SIN(D_803D552C->heading) * arg1 * 2);
         temp_t3 = (D_803D552C->position.zPos.w + (arg1 * COS(D_803D552C->heading) * 2)) - (SIN(D_803D552C->heading) * arg0 * 2);
         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160);
-        D_803F2F08[D_803B4F30].unk0 = temp_t2;
-        D_803F2F08[D_803B4F30].unk4 = temp_t3;
-        D_803F2F08[D_803B4F30].unk8 = temp_ret + FTOFIX32(4.0);
-        D_803F2F08[D_803B4F30].unkC = arg2;
-        D_803F2F08[D_803B4F30].unkE =  D_803D5544;
-        D_803B4F30 = (D_803B4F30 + 1) & 0x3F;
-        if (D_803B4F34 < 64) {
-            D_803B4F34 += 1;
+        D_803F2F08[D_803B4F30_7C65E0].unk0 = temp_t2;
+        D_803F2F08[D_803B4F30_7C65E0].unk4 = temp_t3;
+        D_803F2F08[D_803B4F30_7C65E0].unk8 = temp_ret + FTOFIX32(4.0);
+        D_803F2F08[D_803B4F30_7C65E0].unkC = arg2;
+        D_803F2F08[D_803B4F30_7C65E0].unkE =  D_803D5544;
+        D_803B4F30_7C65E0 = (D_803B4F30_7C65E0 + 1) & 0x3F;
+        if (D_803B4F34_7C65E4 < 64) {
+            D_803B4F34_7C65E4 += 1;
         }
     }
 }
 
 void func_803747CC_785E7C(void) {
-    D_803B4F34 = 0;
-    D_803B4F30 = D_803B4F34;
+    D_803B4F34_7C65E4 = 0;
+    D_803B4F30_7C65E0 = D_803B4F34_7C65E4;
     D_803F330E = -1;
 }
 
@@ -61,7 +61,7 @@ void func_803747F4_785EA4(void) {
             D_803F330A,
             D_803F330C + 0xA,
             0,
-            D_01037A20,
+            D_01037A20_712F0,
             D_803F330E * 30,
             D_803F330E * 30,
             ((12 - D_803F330E) * 0x9B) / 12,
@@ -75,7 +75,7 @@ void func_803747F4_785EA4(void) {
             D_803F330E = -1;
         }
     }
-    if (D_803B4F34 > 0) {
+    if (D_803B4F34_7C65E4 > 0) {
         gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01037750_71020);
         gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(D_801D9E90++);
@@ -86,8 +86,8 @@ void func_803747F4_785EA4(void) {
         gSPDisplayList(D_801D9E90++, D_01003A58_3D328);
 
         // could this be replaced with a for loop?
-        phi_s2 = (D_803B4F30 - D_803B4F34) & 0x3F;
-        phi_s3 = D_803B4F34;
+        phi_s2 = (D_803B4F30_7C65E0 - D_803B4F34_7C65E4) & 0x3F;
+        phi_s3 = D_803B4F34_7C65E4;
 
         while (phi_s3 > 0) {
             temp_t5 = (D_803D5544 - D_803F2F08[phi_s2].unkE);
@@ -98,7 +98,7 @@ void func_803747F4_785EA4(void) {
                     gDPSetEnvColor(D_801D9E90++, 0, 0, 0, 500 - temp_t5);
                 }
                 if (temp_t5 >= 500) {
-                    D_803B4F34 -= 1;
+                    D_803B4F34_7C65E4 -= 1;
                 }
             } else {
                 if (D_803F2D50.segment == SEGMENT_ICE) {

@@ -84,8 +84,8 @@ void func_80314788_725E38(void) {
     D_803E4CA6 = 0;
     D_803E8E56 = 0;
     func_803497DC_75AE8C(); // initialise ...something osd related
-    D_803A05B0_7B1C60 = 0x20000;
-    D_803A05B4_7B1C64 = D_803A05B0_7B1C60 * 2;
+    gGravity = 0x20000;
+    D_803A05B4_7B1C64 = gGravity * 2;
     gTasksCompleted = 0;
     D_803E4D30 = 16;
     D_803E4D38[0] = D_8023F260.unk30;
@@ -236,9 +236,9 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         D_803F2CD6 = new_var;
         break;
 
-    case 23+0x7F7F:
-        D_803A05B0_7B1C60 = arg2 << 6;
-        D_803A05B4_7B1C64 = D_803A05B0_7B1C60 << 1;
+    case ST_SET_GRAVITY:
+        gGravity = arg2 << 6;
+        D_803A05B4_7B1C64 = gGravity << 1;
         break;
 
     case 24+0x7F7F:
@@ -259,7 +259,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         D_803E4D30 = arg2;
         break;
 
-    case 31+0x7F7F:
+    case ST_SET_EEPROM_SCORES_1:
         D_8023F260.unk30 = D_803E4D38[0] = arg2;
         write_eeprom(D_803F7DA8.bank);
         break;
@@ -305,21 +305,24 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
             }
         }
         break;
+
     case 33+0x7F7F:
+        // audio related
         D_801546E0 = arg2;
         break;
 
     case 34+0x7F7F:
+        // audio related
         D_801546D8 = MAX(arg2, 0);
         break;
 
-    case 35+0x7F7F:
+    case ST_SET_EEPROM_SCORES_2:
         D_8023F260.unk34 = D_803E4D38[1] = arg2;
-         // arg2;
         write_eeprom(D_803F7DA8.bank);
         break;
 
     case 36+0x7F7F:
+        // SET_LEVEL_PROGRESS
         D_803E4D28 = arg2;
         break;
 
@@ -416,8 +419,8 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case 22+0x7F7F:
             res = D_803F2CD8 * D_803F2CD6;
             break;
-        case 23+0x7F7F:
-            res = D_803A05B0_7B1C60 >> 6;
+        case ST_GET_GRAVITY:
+            res = gGravity >> 6;
             break;
         case ST_GET_CONT_STICK_X:
             if ((gControllerInput->stick_x < -8) || (gControllerInput->stick_x > 8)) {
@@ -456,8 +459,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case 30+0x7F7F:
             res = D_803E4D30;
             break;
-        case 31+0x7F7F:
-            // get eeprom scores part 1
+        case ST_GET_EEPROM_SCORES_1:
             res = D_803E4D38[0];
             break;
         case ST_GET_OBJECT_TYPE:
@@ -469,11 +471,11 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case 34+0x7F7F:
             res = D_801546D8;
             break;
-        case 35+0x7F7F:
-            // get eeprom scores part 2
+        case ST_GET_EEPROM_SCORES_2:
             res = D_803E4D38[1];
             break;
         case 36+0x7F7F:
+            // ST_GET_LEVEL_PROGRESS
             res = D_803E4D28;
             break;
         default:

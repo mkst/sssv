@@ -7,7 +7,7 @@ Vtx D_01010650_49F20[9] = {
 #include "data/inc/D_01010650_49F20.inc.c"
 };
 
-extern u8 img_objects_49650_rgba16_rgba16__png[];
+extern u8 img_objects_49650_rgba16__png[];
 
 Gfx D_010106E0_49FB0[] = {
     gsDPPipeSync(),
@@ -15,7 +15,7 @@ Gfx D_010106E0_49FB0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_objects_49650_rgba16_rgba16__png), // 0x0100FD80
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_objects_49650_rgba16__png), // 0x0100FD80
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

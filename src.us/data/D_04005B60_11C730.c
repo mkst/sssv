@@ -79,12 +79,12 @@ Vtx D_04005B00_11C6D0[6] = {
 #include "data/inc/D_04005B00_11C6D0.inc.c"
 };
 
-extern u8 img_intro_spaceship_interior_D_04000630_117200_rgba16_D_04000630_117200__rgba16__png[];
-extern u8 img_intro_spaceship_interior_D_04000E30_117A00_rgba16_D_04000E30_117A00__rgba16__png[];
-extern u8 img_intro_spaceship_interior_D_04001630_118200_rgba16_D_04001630_118200__rgba16__png[];
-extern u8 img_intro_spaceship_interior_D_04001E30_118A00_rgba16_D_04001E30_118A00__rgba16__png[];
-extern u8 img_intro_spaceship_interior_D_04002630_119200_rgba16_D_04002630_119200__rgba16__png[];
-extern u8 img_intro_spaceship_interior_D_04002E30_119A00_rgba16_D_04002E30_119A00__rgba16__png[];
+extern u8 img_intro_spaceship_interior_D_04000630_117200_D_04000630_117200__rgba16__png[];
+extern u8 img_intro_spaceship_interior_D_04000E30_117A00_D_04000E30_117A00__rgba16__png[];
+extern u8 img_intro_spaceship_interior_D_04001630_118200_D_04001630_118200__rgba16__png[];
+extern u8 img_intro_spaceship_interior_D_04001E30_118A00_D_04001E30_118A00__rgba16__png[];
+extern u8 img_intro_spaceship_interior_D_04002630_119200_D_04002630_119200__rgba16__png[];
+extern u8 img_intro_spaceship_interior_D_04002E30_119A00_D_04002E30_119A00__rgba16__png[];
 
 Gfx D_04005B60_11C730[] = {
     gsDPPipeSync(),
@@ -92,7 +92,7 @@ Gfx D_04005B60_11C730[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04000630_117200_rgba16_D_04000630_117200__rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04000630_117200_D_04000630_117200__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -182,7 +182,7 @@ Gfx D_04005B60_11C730[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04000E30_117A00_rgba16_D_04000E30_117A00__rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04000E30_117A00_D_04000E30_117A00__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -260,7 +260,7 @@ Gfx D_04005B60_11C730[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04001630_118200_rgba16_D_04001630_118200__rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04001630_118200_D_04001630_118200__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -290,7 +290,7 @@ Gfx D_04005B60_11C730[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04001E30_118A00_rgba16_D_04001E30_118A00__rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04001E30_118A00_D_04001E30_118A00__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -447,7 +447,7 @@ Gfx D_04005B60_11C730[] = {
     gsSP2Triangles(29, 26, 25, 0, 29, 27, 26, 0),
     gsSP2Triangles(29, 28, 27, 0, 29, 24, 28, 0),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04002630_119200_rgba16_D_04002630_119200__rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04002630_119200_D_04002630_119200__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -457,7 +457,7 @@ Gfx D_04005B60_11C730[] = {
     gsSPVertex(D_04005A40_11C610, 4, 0),
     gsSP2Triangles(0, 1, 2, 0, 2, 3, 0, 0),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04002E30_119A00_rgba16_D_04002E30_119A00__rgba16__png),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_spaceship_interior_D_04002E30_119A00_D_04002E30_119A00__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
