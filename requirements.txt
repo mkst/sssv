@@ -14,7 +14,7 @@ python-Levenshtein
 python-ranges
 pyyaml
 rabbitizer==1.9.1
-spimdisasm==1.21.0
+spimdisasm==1.24.1
 toml
 tqdm
 watchdog
