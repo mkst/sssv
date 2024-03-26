@@ -1,7 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern Gfx D_01033190_6CA60[];
 extern Gfx D_040000A0_E7650[];
 extern Gfx D_040006F0_E7CA0[];
 
@@ -206,9 +205,9 @@ void func_8036C0B0_77D760(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
                 sp86 = D_803BD54A_7CEBFA[sp86]; sp84 = D_803BD602_7CECB2[sp84];
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp86);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp86);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000DB0_E8360);
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp84);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp84);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000DD0_E8380);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);

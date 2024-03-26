@@ -3,12 +3,11 @@
 
 #include "dog.h"
 
-extern Gfx D_01003548[];
-extern Gfx D_01038220[];
-extern Gfx D_01038A20[];
-extern Gfx D_01039220[];
-extern Gfx D_01039A20[];
-extern Gfx D_0103A220[];
+extern u8 D_01038220_71AF0[];
+extern u8 D_01038A20_722F0[];
+extern u8 D_01039220_72AF0[];
+extern u8 D_01039A20_732F0[];
+extern u8 D_0103A220_73AF0[];
 
 
 extern Gfx D_040001A0_C7BD0[]; // flying_dog_body
@@ -217,9 +216,9 @@ void func_802EA7F0_6FBEA0(void) {
 #pragma _permuter sameline start
                 sp96 = D_803BD54A_7CEBFA[sp96]; sp94 = D_803BD602_7CECB2[sp94];
 #pragma _permuter sameline end
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp96);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp96);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A20_C9450);
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp94);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp94);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A40_C9470);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -229,7 +228,7 @@ void func_802EA7F0_6FBEA0(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp92 == 0) || (sp92 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190, 0x19, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x19, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp92 == 0) {
         if ((D_803D5528->unk3C0.unk0 == 16) && (D_803D5528->unk3C0.unk2 < 17)) {
@@ -286,7 +285,7 @@ void update_flying_dog(void) {
     u16 ticks_remaining;
     u8 var_v0_4;
 
-    Gfx *dl;
+    u8 *img;
 
     f32 spB0;
 
@@ -485,9 +484,9 @@ done:
                 func_8031A150_72B800(D_803D552C->unk326++, &spDE, &spDC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spDE, &spDC);
                 spDE = D_803BD54A_7CEBFA[spDE]; spDC = D_803BD602_7CECB2[spDC];
-                func_80356BD8_768288(D_01000D00, D_01000620, spDE);
+                func_80356BD8_768288(D_01000D00_3A5D0, D_01000620_39EF0, spDE);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A20_C9450);
-                func_80356BD8_768288(D_01000D00, D_01000620, spDC);
+                func_80356BD8_768288(D_01000D00_3A5D0, D_01000620_39EF0, spDC);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A40_C9470);
             }
 
@@ -498,18 +497,19 @@ done:
         func_8035D6D0_76ED80();
     }
     if ((spD8 == 0) || (spD8 == 2)) {
+        // get barrel roll image
         if (ABS(D_803D552C->unk30C) > 52) {
-            dl = D_0103A220;
+            img = D_0103A220_73AF0;
         } else if (ABS(D_803D552C->unk30C) > 37) {
-            dl = D_01039A20;
+            img = D_01039A20_732F0;
         } else if (ABS(D_803D552C->unk30C) > 22) {
-            dl = D_01039220;
+            img = D_01039220_72AF0;
         } else if (ABS(D_803D552C->unk30C) > 7) {
-            dl = D_01038A20;
+            img = D_01038A20_722F0;
         } else {
-            dl = D_01038220;
+            img = D_01038220_71AF0;
         }
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, dl, 37 - ((ABS(D_803D5530->unk28) * 0x25) / 100), 0x25, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img, 37 - ((ABS(D_803D5530->unk28) * 0x25) / 100), 0x25, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spD8 == 0) {
         func_803034D0_714B80(D_803D552C, 0x258, 0, 1);
@@ -743,7 +743,7 @@ void func_802ED108_6FE7B8(void) {
 #pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 19, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04001220_C8C50); }
 #pragma _permuter sameline end
-            gSPDisplayList(D_801D9E88++, &D_01003548);
+            gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7,  FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000FB0_C89E0); }
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 10, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000FB0_C89E0); }
@@ -764,9 +764,9 @@ void func_802ED108_6FE7B8(void) {
 #pragma _permuter sameline start
                 spB6 = D_803BD54A_7CEBFA[spB6]; spB4 = D_803BD602_7CECB2[spB4];
 #pragma _permuter sameline end
-                func_80356BD8_768288(D_01000CC0, D_01000620, spB6);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, spB6);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A20_C9450);
-                func_80356BD8_768288(D_01000CC0, D_01000620, spB4);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, spB4);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A40_C9470);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -776,7 +776,7 @@ void func_802ED108_6FE7B8(void) {
         func_8035D6D0_76ED80();
     }
     if ((spB2 == 0) || (spB2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190, 0x15, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x15, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spB2 == 0) {
         if ((D_803D5528->unk3C0.unk0 == 0x10) && (D_803D5528->unk3C0.unk2 < 9)) {

@@ -1,3 +1,9 @@
+// main_7770/load_overlay.s
+overlay2_ROM_END   = 0x7D1AD0;
+overlay1_ROM_START = 0x6384F0;
+overlay2_ROM_START = 0x6A6500;
+
+//
 alCSPNew                    = 0x80133F00;
 __CSPVoiceHandler           = 0x8013406C;
 __CSPPostNextSeqEvent       = 0x801345B8;
@@ -811,13 +817,7 @@ D_803F7DA0 = 0x803F7DA0; // defined:true
 D_803F7DA1 = 0x803F7DA1; // defined:true
 D_803F7DA2 = 0x803F7DA2; // defined:true
 D_803F7DA3 = 0x803F7DA3; // defined:true
-D_803F7DA8 = 0x803F7DA8; // defined:true
-D_803F7DD4 = 0x803F7DD4; // defined:true
-D_803F7DD5 = 0x803F7DD5; // defined:true
-D_803F7DD6 = 0x803F7DD6; // defined:true
-D_803F7DD7 = 0x803F7DD7; // defined:true
-D_803F7DD8 = 0x803F7DD8; // defined:true
-D_803F7DE0 = 0x803F7DE0; // defined:true
+D_803F7DA8 = 0x803F7DA8; // defined:true size:0x34
 D_803F7DFE = 0x803F7DFE; // defined:true
 D_803F7E00 = 0x803F7E00; // defined:true
 D_803F7E02 = 0x803F7E02; // defined:true

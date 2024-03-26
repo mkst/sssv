@@ -735,7 +735,7 @@ struct Animal {
     /* 0x3A */  s8  unk3A;
     /* 0x3B */  u8  pad3B;
     /* 0x3C */  s8  unk3C;
-    /* 0x3E */  u16 unk3E; // evo type (bronze/silver/gold?)
+    /* 0x3E */  u16 unk3E;
     /* 0x40 */  u16 unk40;
     /* 0x42 */  u16 unk42; // height?
     /* 0x44 */  u16 unk44;
@@ -972,7 +972,7 @@ struct Animal {
     /* 0x31A */ s16 unk31A;
     /* 0x31C */ u16 unk31C;
     /* 0x320 */ Animal *unk320;
-    /* 0x324 */ u16 unk324;
+    /* 0x324 */ u16 unk324; // temporary state? next state?
     /* 0x326 */ s16 unk326;
     /* 0x328 */ u16 unk328;
     /* 0x32A */ u16 unk32A;
@@ -1024,6 +1024,13 @@ typedef struct {
     u8  unk2;
     u8  unk3;
 } struct003;
+
+typedef struct {
+    u32 End1;
+    u32 End2;
+    u32 Start1;
+    u32 Start2;
+} struct005;
 
 typedef struct {
                 u8  pad0[0x1E];
@@ -1823,7 +1830,7 @@ typedef struct {
 
 typedef struct {
     /* 0x0  */ s16 unk0;
-    /* 0x2  */ s16 unk2;
+    /* 0x2  */ s16 unk2; // teleporter type
     /* 0x4  */ s16 unk4;
     /* 0x6  */ s16 unk6[12];
     /* 0x1E */ s16 unk1E[12];
@@ -1838,9 +1845,9 @@ typedef struct {
     /* 0x4C */ s16 unk4C;
     /* 0x4E */ s16 unk4E;
     /* 0x50 */ s16 unk50;
-    /* 0x52 */ s16 unk52;
-    /* 0x54 */ s16 unk54;
-    /* 0x56 */ s16 unk56;
+    /* 0x52 */ s16 unk52; // xPos
+    /* 0x54 */ s16 unk54; // zPos
+    /* 0x56 */ s16 unk56; // yPos
     /* 0x58 */ Animal *unk58;
     /* 0x5C */ Animal *unk5C;
     /* 0x60 */ Animal *unk60;
@@ -1866,39 +1873,16 @@ typedef struct {
 } struct057; // size 0x1C
 
 typedef struct {
-    s32 unk0;   // xPos
-    s32 unk4;   // zPos
-    s32 unk8;   // yPos (next?)
-} struct025_inner1; // size 0xC
-
-typedef struct {
-    s16 unk0;   // zRotation
-    s16 unk2;   // yRotation
-} struct025_inner2; // size 0x4
-
-typedef struct {
-    /* 0x0 */   s8  unk0;
-    /* 0x1 */   s8  unk1;
-    /* 0x2 */   s8  unk2[48];
-    /* 0x32 */  u8  unk32[60];
-    /* 0x6E */  s8  unk6E[60];
-    /* 0xAA */  u16 unkAA[60];
-    /* 0x124 */ struct025_inner1 unk124[60];
-    /* 0x3F4 */ struct025_inner2 unk3F4[60];
-    /* 0x4E4 */ Gfx *unk4E4[60];
-} struct025; // size 0x5d4 (+4 bytes alignment)
-
-typedef struct {
     /* 0x0 */ s32 unk0;  // x
     /* 0x4 */ s32 unk4;  // y
     /* 0x8 */ s32 unk8;  // z
-    /* 0xC */ u16 unkC;
-    /* 0xE */ s8  unkE;
+    /* 0xC */ u16 size;
+    /* 0xE */ u8  unkE;
     /* 0xF */ s8  unkF;
     /* 0x10 */ s8 unk10; // id?
-    /* 0x11 */ s8 unk11; // red
-    /* 0x12 */ s8 unk12; // green
-    /* 0x13 */ s8 unk13; // blue
+    /* 0x11 */ u8 red;
+    /* 0x12 */ u8 green;
+    /* 0x13 */ u8 blue;
 } struct059a; // size 0x14
 
 typedef struct {
@@ -2458,18 +2442,6 @@ typedef struct {
 } ScreenTransition; // size 0xA
 
 typedef struct {
-    u16 unk0;
-    u8  unk2[6];
-} struct101; // size 0x8
-
-typedef struct {
-    u8 unk0;
-    u8 unk1;
-    u8 unk2;
-    u8 unk3;
-} struct114;
-
-typedef struct {
     u8 unk0;
     u8 unk1;
     u8 unk2;
@@ -2619,33 +2591,6 @@ struct struct044 {
     /* 0xA */ s16 unkA;
     /* 0xC */ s32 unkC;
 }; // size 0x10
-
-typedef struct {
-    s32 unk0; // xPos
-    s32 unk4; // zPos
-    s32 unk8; // yPos
-} struct072_inner1; // size 0xC
-
-typedef struct {
-    s16 unk0; // zRotation
-    s16 unk2; // yRotation
-} struct072_inner2; // size 0x4
-
-typedef struct {
-    u8 r;
-    u8 g;
-    u8 b;
-} struct072_inner3; // size 0x4
-
-typedef struct {
-    /* 0x0 */   s8   unk0;
-    /* 0x1 */   u8   pad1;
-    /* 0x2 */   u16  unk2[60];
-    /* 0x7C */  struct072_inner1 unk7C[60];
-    /* 0x34C */ struct072_inner2 unk34C[60];
-    /* 0x43C */ Gfx *unk43C[60];
-    /* 0x52C */ struct072_inner3 unk52C[45];
-} struct072; // 0x5e0?
 
 typedef struct {
     s16 unk0;

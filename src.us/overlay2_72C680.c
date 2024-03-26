@@ -941,13 +941,12 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 idx) {
     D_803F28C2++;
 }
 
-#if 0
 void func_8031C48C_72DB3C(void) {
     int offset;
 
     s16 i;
-    u16 id;
     s16 id2;
+    s16 idx;
 
     if (D_803F2D50.entranceTeleporter != NULL) {
         func_8029B9B8_6AD068(D_801D9ED8.animals[gCurrentAnimalIndex].animal, D_803F2D50.entranceTeleporter);
@@ -971,7 +970,6 @@ void func_8031C48C_72DB3C(void) {
 
     // animals
     for (i = 0; i < D_803D553E; i++) {
-
         if (D_801D9ED8.animals[i].animal->commands.unk1A8 != NULL) {
             // load in commands
             func_803191B0_72A860(D_801D9ED8.animals[i].animal);
@@ -994,43 +992,36 @@ void func_8031C48C_72DB3C(void) {
     // objects
     for (i = 0; i < 170; i++) {
         if ((D_801E9EB8.objects[i].unk16C != NULL) && (D_801E9EB8.objects[i].unk26C == 0)) {
-            id = D_801E9EB8.objects[i].unk16C->id;
-            if ((id != 0) && (D_801E9EB8.objects[i].unk16C->collision == NULL)) {
+            if ((D_801E9EB8.objects[i].unk16C->id != 0) && (D_801E9EB8.objects[i].unk16C->collision == NULL)) {
+                idx = D_801E9EB8.objects[i].unk16C->id;
                 // link the collision?
-                s32 idx = (((s16) id - offset));
-                func_8031C3C0_72DA70(((Collision*)gFramebuffer) + idx, id);
+                func_8031C3C0_72DA70(((Collision*)gFramebuffer) + (idx - offset), idx);
             }
         }
     }
 
     // commands
     for (i = 0; i < D_803E8E54; i++) {
-        int new_var;
         CmdWrapper *cmdWrapper = &D_803E4D40[i];
 
-        // this is what M2C reckons, but its still wrong ( as is ((x==16)||(x==17)) )
         if (cmdWrapper->type == 16) {
+            id2 = cmdWrapper->cmd.type16.id;
             goto custom;
         }
 
         if (cmdWrapper->type == 17) {
-custom:
             // object has custom collision
             id2 = cmdWrapper->cmd.type16.id;
-
-            id = D_803A8528_7B9BD8[id2].collisionIndex;
-            if ((id != 0) && (D_803A8528_7B9BD8[id2].collision == NULL)) {
-                s32 idx = (((s16) id - offset));
-                func_8031C3C0_72DA70(((Collision*)gFramebuffer) + idx, id);
+custom:
+            if ((D_803A8528_7B9BD8[id2].collisionIndex != 0) && (D_803A8528_7B9BD8[id2].collision == NULL)) {
+                idx = D_803A8528_7B9BD8[id2].collisionIndex;
+                func_8031C3C0_72DA70(((Collision*)gFramebuffer) +  (idx - offset), idx);
             }
-            // ???
-            continue; // seems to be required?
-        };
+        } else {
+            // required!
+        }
     }
 
     func_8031C32C_72D9DC();
     func_802963D0_6A7A80((s32) D_80162658);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/func_8031C48C_72DB3C.s")
-#endif

@@ -253,7 +253,7 @@ void thread7(void) {
 
         D_80204274 = temp_a0;
         if (D_80152E9C == 0) {
-            func_80294E50(); // call overlay func
+            func_80294E50_6384F0(); // call overlay1 entrypoint
         } else {
             func_8012A588();
         }

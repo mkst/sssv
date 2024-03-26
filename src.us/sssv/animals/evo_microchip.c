@@ -14,7 +14,6 @@ extern s16 D_803B3EEC_7C559C[];
 extern s16 D_803BD57E_7CEC2E[];
 extern s16 D_803BD636_7CECE6[];
 
-extern Gfx D_01003548[];
 extern Gfx D_01003588_3CE58[];
 extern Gfx D_01004E60_3E730[];
 extern Gfx D_01004E80_3E750[];
@@ -176,7 +175,7 @@ void update_evo_microchip(void) {
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
 
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x19) >> 6, (D_803F2EC0 * 0x19) >> 6, (D_803F2EC4 * 0x19) >> 6, D_803F2ED0, 0, 0, 0, D_01004D90_3E660);
-            gSPDisplayList(D_801D9E88++, D_01003548);
+            gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
             func_802C78B0_6D8F60(3,  7,  0x6400, 0x6400, 0x6400, D_803F2ED0, 0, 0, 1, D_01004CC0_3E590);
             func_802C78B0_6D8F60(8,  9,  0x6400, 0x6400, 0x6400, D_803F2ED0, 0, 0, 1, D_01004CC0_3E590);
@@ -194,9 +193,9 @@ void update_evo_microchip(void) {
             func_8031A150_72B800(D_803D552C->unk326++, &sp9E, &sp9C);
             func_8031A278_72B928(&D_803D552C->unk326, &sp9E, &sp9C);
             sp9E = D_803BD57E_7CEC2E[sp9E]; sp9C = D_803BD636_7CECE6[sp9C];
-            func_80356BD8_768288(D_01000CC0, D_01000620, sp9E);
+            func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp9E);
             func_802C78B0_6D8F60(1, 2, 0x6400, 0x6400, 0x6400, D_803F2ED0, 0, 0, 0, D_01004E60_3E730);
-            func_80356BD8_768288(D_01000CC0, D_01000620, sp9C);
+            func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp9C);
             func_802C78B0_6D8F60(1, 2, 0x6400, 0x6400, 0x6400, D_803F2ED0, 0, 0, 0, D_01004E80_3E750);
 
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -206,7 +205,7 @@ void update_evo_microchip(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp9A == 0) || (sp9A == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 1)), D_803D552C->heading, &D_01033190, 9, 6, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 1)), D_803D552C->heading, D_01033190_6CA60, 9, 6, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp9A == 0) {
         func_803034D0_714B80(D_803D552C, 0x138, 0, 0);

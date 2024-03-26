@@ -65,7 +65,7 @@ CI4_FILES           = $(shell find assets/img/ -name "*.ci4.png" 2> /dev/null)
 RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 I4_O_FILES          = $(foreach file,$(I4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 CI4_O_FILES         = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
-CI4_PAL_O_FILES     = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.ci4.png=.ci4.pal.o))
+CI4_PAL_O_FILES     = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.ci4.png=.pal.o))
 
 # All Images
 
@@ -325,7 +325,7 @@ $(BUILD_DIR)/%.ci4.png: %.ci4.png
 	@$(IMG_CONVERT) ci4 $< $@
 	@printf "[$(GREEN)  ci4   $(NO_COL)]  $<\n"
 
-$(BUILD_DIR)/%.ci4.pal: %.ci4.png
+$(BUILD_DIR)/%.pal: %.ci4.png
 	@mkdir -p $$(dirname $@)
 	@$(IMG_CONVERT) palette $< $@
 	@printf "[$(GREEN)  pal   $(NO_COL)]  $<\n"

@@ -65,13 +65,16 @@ class N64SegRnc(N64Segment):
 
         # stage 2: decoding
         if self.subtype is not None:
+            path.unlink()
             if self.subtype == "rgba16":
                 yaml = [None, None, None, self.width, self.height]
                 seg = N64SegRgba16(0, len(unpacked), self.subtype, self.name, self.vram_start, [], yaml)
+                seg.image_type_in_extension = False
                 seg.split(unpacked)
             elif self.subtype == "i4":
                 yaml = [None, None, None, self.width, self.height]
                 seg = N64SegI4(0, len(unpacked), self.subtype, self.name, self.vram_start, [], yaml)
+                seg.image_type_in_extension = False
                 seg.split(unpacked)
             elif self.subtype == "mipmap":
                 offset = 0

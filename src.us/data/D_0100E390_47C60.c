@@ -1,7 +1,6 @@
 #include <ultra64.h>
 
-extern u8 D_0100C3E0_45CB0[];
-extern u8 D_0100CBE0_464B0[];
+#include "common.h"
 
 Vtx D_0100D3E0_46CB0[31] = {
 #include "data/inc/D_0100D3E0_46CB0.inc.c"
@@ -37,7 +36,7 @@ Gfx D_0100E390_47C60[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0100C3E0_45CB0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_D_0100C3E0_45CB0_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -100,7 +99,7 @@ Gfx D_0100E390_47C60[] = {
     gsSP2Triangles(18, 19, 7, 0, 7, 20, 21, 0),
     gsSP1Triangle(22, 23, 7, 0),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0100CBE0_464B0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_D_0100CBE0_464B0_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

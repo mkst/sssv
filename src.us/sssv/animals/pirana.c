@@ -165,9 +165,9 @@ done:
                 func_8031A150_72B800(D_803D552C->unk326++, &sp74, &sp72);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp74, &sp72);
                 sp74 = D_803BD54A_7CEBFA[sp74]; sp72 = D_803BD602_7CECB2[sp72];
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp74);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp74);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C240_FD2A0);
-                func_80356BD8_768288(D_01000CC0, D_01000620, sp72);
+                func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp72);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C260_FD2C0);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -182,7 +182,7 @@ done:
             D_803D552C->position.zPos.h,
             D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
             D_803D552C->heading,
-            D_01033190,
+            D_01033190_6CA60,
             28,
             9,
             155,

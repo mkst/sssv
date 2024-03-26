@@ -1,9 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern Gfx D_010025A0[];
-extern Gfx D_01002C20[];
-
 extern Gfx D_04009FC0_FB020[];
 extern Gfx D_0400A4E0[];
 extern Gfx D_0400A720[];
@@ -224,11 +221,11 @@ void update_hippo(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spFE, &spFC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spFE, &spFC);
                 spFE = D_803BD5CC_7CEC7C[spFE]; spFC = D_803BD684_7CED34[spFC];
-                func_80356BD8_768288(D_01002C20, D_010025A0, spFE);
+                func_80356BD8_768288(D_01002C20_3C4F0, D_010025A0_3BE70, spFE);
                 gSPDisplayList(D_801D9E88++, D_010037F0_3D0C0);
 
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_0400B020);
-                func_80356BD8_768288(D_01002C20, D_010025A0, spFC);
+                func_80356BD8_768288(D_01002C20_3C4F0, D_010025A0_3BE70, spFC);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_0400B040);
                 gSPDisplayList(D_801D9E88++, D_01003840_3D110);
             }
@@ -240,7 +237,7 @@ void update_hippo(void) {
         func_8035D6D0_76ED80();
     }
     if ((spFA == 0) || (spFA == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190, 0x3E, 0x2E, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190_6CA60, 0x3E, 0x2E, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spFA == 0) {
         func_803034D0_714B80(D_803D552C, 0xC95, 0, 1);

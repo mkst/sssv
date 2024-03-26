@@ -118,7 +118,7 @@ void func_8038C98C_79E03C(void) {
 }
 
 s16 func_8038CC28_79E2D8(void) {
-    return D_803B62D0[((D_80286560 + 3) & 0x3F) >> 1];
+    return D_803B62D0_7C7980[((D_80286560 + 3) & 0x3F) >> 1];
 }
 
 s16 func_8038CC50_79E300(void) {

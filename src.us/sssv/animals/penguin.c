@@ -246,7 +246,7 @@ void func_80364780_775E30(void) {
         func_8035D6D0_76ED80();
     }
     if ((spA2 == 0) || (spA2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2), D_803D552C->heading, &D_01033190, (scale * 0x15E) / 32, (scale * 0x15E) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2), D_803D552C->heading, D_01033190_6CA60, (scale * 0x15E) / 32, (scale * 0x15E) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spA2 == 0) {
         func_80303820_714ED0(
@@ -364,7 +364,7 @@ void func_80365D74_777424(void) {
 // penguin?
 void penguin_throw_snowball(Animal *arg0) {
     if (D_803D552C->unk365 != ATTACK_SNOWBALL) {
-        s32 tmp = func_802F8160_709810(D_803D5530, arg0, 0xA, 0x14, 0x23, 0x59, 0, 3, (f32) D_803A05B0 / 65536.0);
+        s32 tmp = func_802F8160_709810(D_803D5530, arg0, 0xA, 0x14, 0x23, 0x59, 0, 3, (f32) gGravity / 65536.0);
         if (tmp == -1) {
             tmp = 32;
         } else {

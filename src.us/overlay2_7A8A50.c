@@ -621,17 +621,16 @@ void func_80397D1C_7A93CC(u8 arg0) {
     }
 }
 
-#if 0
 void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7) {
-    s16 phi_s2;
     s16 i;
+    s16 j;
+    s16 var_s2;
 
     if (arg7 == 2) {
-        // if (1) {};
         func_8034C8F8_75DFA8(
-            (arg0 >> 16) + D_803F6720[arg7][0].unk0.unkC[0],
-            (arg1 >> 16) + D_803F6720[arg7][0].unk0.unkC[1],
-            (arg2 >> 16) + D_803F6720[arg7][0].unk0.unkC[2],
+            D_803F6720[arg7][0].unk0.unkC[0] + (arg0 >> 16),
+            D_803F6720[arg7][0].unk0.unkC[1] + (arg1 >> 16),
+            D_803F6720[arg7][0].unk0.unkC[2] + (arg2 >> 16),
             ((arg4 - D_803F6720[arg7][0].unk0.unk0[2]) * 256) / 360,
             D_803A8374_7B9A24, // 0x1034190
             (arg5 << 3) >> 0x10,
@@ -643,8 +642,8 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
             8,
             1);
     }
-    // tmp = (arg5 >> 2) - arg5; // whaat
-    // tmp = arg5 / 5;
+
+    arg5 = arg5 / 5;
     func_80125FE0(
         &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
         arg0,
@@ -652,9 +651,9 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         arg2,
         arg3,
         arg4,
-        arg5 / 5,
-        arg5 / 5,
-        arg5 / 5);
+        arg5,
+        arg5,
+        arg5);
 
     gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -667,52 +666,58 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         D_803F6720[arg7][0].unk0.unk0[1],
         D_803F6720[arg7][0].unk0.unk0[2]
     );
-    gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][6]); // ->unk18
+    gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][6]);
 
     if (arg7 != 2) {
-        phi_s2 = 4;
-        i = 0;
-        // is this a for loop?
-        do {
+        var_s2 = 4;
+        j = 0;
+
+        for (i = 0; i < 2; i++) {
             // push
             func_80397414_7A8AC4(
                 1,
-                D_803F6720[arg7][phi_s2].unk0.unkC[0],
-                D_803F6720[arg7][phi_s2].unk0.unkC[1],
-                D_803F6720[arg7][phi_s2].unk0.unkC[2],
-                D_803F6720[arg7][phi_s2].unk0.unk0[0],
-                D_803F6720[arg7][phi_s2].unk0.unk0[1],
-                D_803F6720[arg7][phi_s2].unk0.unk0[2]
+                D_803F6720[arg7][var_s2].unk0.unkC[0],
+                D_803F6720[arg7][var_s2].unk0.unkC[1],
+                D_803F6720[arg7][var_s2].unk0.unkC[2],
+                D_803F6720[arg7][var_s2].unk0.unk0[0],
+                D_803F6720[arg7][var_s2].unk0.unk0[1],
+                D_803F6720[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][i]); // phi_s3
+            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][j]);
+            var_s2++;
+            j++;
 
             // no push
             func_80397414_7A8AC4(
                 0,
-                D_803F6720[arg7][i].unk0.unkC[0],
-                D_803F6720[arg7][i].unk0.unkC[1],
-                D_803F6720[arg7][i].unk0.unkC[2],
-                D_803F6720[arg7][i].unk0.unk0[0],
-                D_803F6720[arg7][i].unk0.unk0[1],
-                D_803F6720[arg7][i].unk0.unk0[2]
+                D_803F6720[arg7][var_s2].unk0.unkC[0],
+                D_803F6720[arg7][var_s2].unk0.unkC[1],
+                D_803F6720[arg7][var_s2].unk0.unkC[2],
+                D_803F6720[arg7][var_s2].unk0.unk0[0],
+                D_803F6720[arg7][var_s2].unk0.unk0[1],
+                D_803F6720[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][i]);
+            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][j]);
+            var_s2++;
+            j++;
 
             // no push
             func_80397414_7A8AC4(
                 0,
-                D_803F6720[arg7][i].unk0.unkC[0],
-                D_803F6720[arg7][i].unk0.unkC[1],
-                D_803F6720[arg7][i].unk0.unkC[2],
-                D_803F6720[arg7][i].unk0.unk0[0],
-                D_803F6720[arg7][i].unk0.unk0[1],
-                D_803F6720[arg7][i].unk0.unk0[2]
+                D_803F6720[arg7][var_s2].unk0.unkC[0],
+                D_803F6720[arg7][var_s2].unk0.unkC[1],
+                D_803F6720[arg7][var_s2].unk0.unkC[2],
+                D_803F6720[arg7][var_s2].unk0.unk0[0],
+                D_803F6720[arg7][var_s2].unk0.unk0[1],
+                D_803F6720[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][i]);
+            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][j]);
+            var_s2++;
+            j++;
 
             gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
-            phi_s2++;
-        } while (i++ < 2); //?
+
+        }
     }
 
     func_80397414_7A8AC4(
@@ -763,11 +768,9 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         D_803F6720[arg7][3].unk0.unk0[1],
         D_803F6720[arg7][3].unk0.unk0[2]
     );
+
     gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[arg6][9]);
     gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
     gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
     gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A8A50/func_80397F5C_7A960C.s")
-#endif

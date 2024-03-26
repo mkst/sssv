@@ -404,7 +404,7 @@ void func_8035A5F0_76BCA0(void) {
     }
     if ((spCA == 0) || (spCA == 2)) {
         if (D_803D5524->unk9C != SNEAKY_CHAMELEON) {
-            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->unkBA), D_803D552C->heading, &D_01033190, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->unkBA), D_803D552C->heading, D_01033190_6CA60, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
     }
     if (spCA == 0) {

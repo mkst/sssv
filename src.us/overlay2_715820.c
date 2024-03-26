@@ -106,7 +106,7 @@ void func_803041FC_7158AC(void) {
         D_803E4BD1 = guRandom() % 3;
     }
 
-    imgBase = D_0102C810;
+    imgBase = D_0102C810_660E0;
 
     for (i = 0; i < D_803F2CA6; i++) {
         // if free?
@@ -290,7 +290,7 @@ void func_803041FC_7158AC(void) {
                 break;
             case 10:
                 if ((var_t4 != 0) || (var_t5 != 0)) {
-                    gDPSetTextureImage(dl++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(imgBase + (7 << 0xA) + (D_803E4BD1 << 0xA))); // 0x80001C00 + D_0102C810
+                    gDPSetTextureImage(dl++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(imgBase + (7 << 0xA) + (D_803E4BD1 << 0xA))); // 0x80001C00 + D_0102C810_660E0
                     gDPSetTile(dl++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync(dl++);
                     gDPLoadBlock(dl++, G_TX_LOADTILE, 0, 0, 511, 512);
@@ -309,7 +309,7 @@ void func_803041FC_7158AC(void) {
                 break;
             case 9:
                 if ((var_t4 != 0) || (var_t5 != 0)) {
-                    gDPSetTextureImage(dl++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(imgBase + (4 << 0xA) + ((D_803E4BD2 / 3) << 0xA))); // 0x80001000 + D_0102C810)); // OS_PHYSICAL_TO_K0
+                    gDPSetTextureImage(dl++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(imgBase + (4 << 0xA) + ((D_803E4BD2 / 3) << 0xA))); // 0x80001000 + D_0102C810_660E0)); // OS_PHYSICAL_TO_K0
                     gDPSetTile(dl++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync(dl++);
                     gDPLoadBlock(dl++, G_TX_LOADTILE, 0, 0, 511, 512);

@@ -26,8 +26,6 @@ extern u8  D_04008320_F9380[];
 extern u8  D_04008340_F93A0[];
 extern u8  D_04008540_F95A0[];
 
-extern Gfx D_01002C40[];
-extern Gfx D_010025A0[];
 extern Gfx D_04007A20_F8A80[];
 extern Gfx D_04007A40_F8AA0[];
 
@@ -336,9 +334,9 @@ void func_803574E0_768B90(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp9A, &sp98);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp9A, &sp98);
                 sp9A = D_803BD5CC_7CEC7C[sp9A];sp98 = D_803BD684_7CED34[sp98];
-                func_80356BD8_768288(D_01002C40, D_010025A0, sp9A);
+                func_80356BD8_768288(D_01002C40_3C510, D_010025A0_3BE70, sp9A);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A20_F8A80);
-                func_80356BD8_768288(D_01002C40, D_010025A0, sp98);
+                func_80356BD8_768288(D_01002C40_3C510, D_010025A0_3BE70, sp98);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A40_F8AA0);
             }
 
@@ -349,7 +347,7 @@ void func_803574E0_768B90(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp96 == 0) || (sp96 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190, 0x19, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x19, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp96 == 0) {
         if ((D_803D5528->unk3C0.unk0 == 0x10) && (D_803D5528->unk3C0.unk2 < 0x11)) {
@@ -493,9 +491,9 @@ void func_80358E3C_76A4EC(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spA6, &spA4);
                 func_8031A278_72B928(&D_803D552C->unk326,  &spA6,  &spA4);
                 spA6 = D_803BD5CC_7CEC7C[spA6]; spA4 = D_803BD684_7CED34[spA4];
-                func_80356BD8_768288(D_01002C40, D_010025A0, spA6);
+                func_80356BD8_768288(D_01002C40_3C510, D_010025A0_3BE70, spA6);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A20_F8A80);
-                func_80356BD8_768288(D_01002C40, D_010025A0, spA4);
+                func_80356BD8_768288(D_01002C40_3C510, D_010025A0_3BE70, spA4);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A40_F8AA0);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -505,7 +503,7 @@ void func_80358E3C_76A4EC(void) {
         func_8035D6D0_76ED80();
     }
     if ((spA2 == 0) || (spA2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->heading, &D_01033190, (s16) 0x19, (s16) 0xF, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190_6CA60, (s16) 0x19, (s16) 0xF, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
     if (spA2 == 0) {
         func_803034D0_714B80(D_803D552C, 1425, 0, 1);

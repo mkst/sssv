@@ -2751,9 +2751,9 @@ void func_8033B440_74CAF0(u8 cameraID) {
     gCamera->unk78 = D_803F2AAC;
     gCamera->unk7C = D_803F2AB0;
 
-    gCamera->unk8C = D_803A6CD0;
-    gCamera->unk90 = D_803A6CD4;
-    gCamera->unk94 = D_803A6CD8;
+    gCamera->unk8C = D_803A6CD0_7B8380;
+    gCamera->unk90 = D_803A6CD4_7B8384;
+    gCamera->unk94 = D_803A6CD8_7B8388;
     temp_f14 = gCamera->unk8 - gCamera->unk74;
     temp_f0 = gCamera->unkC - gCamera->unk78;
     if ((temp_f0 == 0.0) && (temp_f14 == 0.0)) {
@@ -5722,7 +5722,7 @@ void func_80343F78_755628(void) {
             D_803F2C18[1] = D_803F2C18[2] - D_803F2C18[1];
             gCameraId = (gCameraId + 1) & 1;
             D_803F2AC8 = (D_803F2AC8 + 1) & 1;
-            D_803A6CEC = -1;
+            D_803A6CEC_7B839C = -1;
         }
     }
 }

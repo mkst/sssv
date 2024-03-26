@@ -14,8 +14,6 @@ extern s16 D_803B4B38_7C61E8[];
 extern s16 D_803B4B64_7C6214[];
 extern s16 D_803B4BC4_7C6274[];
 
-extern Gfx D_01003548[];
-
 extern Gfx D_04000F90_E8540[];
 extern Gfx D_04001300_E88B0[];
 extern Gfx D_040014D0_E8A80[];
@@ -396,7 +394,7 @@ void func_8036D700_77EDB0(void) {
                 func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x64) >> 6, (D_803F2EC0 * 0x64) >> 6, (D_803F2EC4 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_040015C0_E8B70);
             }
 
-            gSPDisplayList(D_801D9E88++, D_01003548);
+            gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
 #pragma _permuter sameline start
             if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040020F0_E96A0); }
@@ -438,9 +436,9 @@ void func_8036D700_77EDB0(void) {
 #pragma _permuter sameline start
                 spDE = D_803BD54A_7CEBFA[spDE]; spDC = D_803BD602_7CECB2[spDC];
 #pragma _permuter sameline end
-                func_80356BD8_768288(D_01000CA0, D_01000620, spDE);
+                func_80356BD8_768288(D_01000CA0_3A570, D_01000620_39EF0, spDE);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04002820_E9DD0);
-                func_80356BD8_768288(D_01000CA0, D_01000620, spDC);
+                func_80356BD8_768288(D_01000CA0_3A570, D_01000620_39EF0, spDC);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04002840_E9DF0);
             }
 
@@ -451,7 +449,7 @@ void func_8036D700_77EDB0(void) {
         func_8035D6D0_76ED80();
     }
     if ((spDA == 0) || (spDA == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190, (s16) 0x19, (s16) 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, (s16) 0x19, (s16) 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spDA == 0) {
         func_8034B298_75C948(0);
@@ -493,7 +491,7 @@ void func_8036F4CC_780B7C(void) {
 // water cannon?
 void camel_fire_water_cannon(Animal *arg0) {
     if (D_803D552C->unk365 != ATTACK_CAMEL_WATER_CANNON) {
-        s32 tmp = func_802F8160_709810(D_803D5530, arg0, 60, 80, 18, 80, -80, 3, (f32)D_803A05B0 / 65536.0);
+        s32 tmp = func_802F8160_709810(D_803D5530, arg0, 60, 80, 18, 80, -80, 3, (f32)gGravity / 65536.0);
         if (tmp == -1) {
             tmp = 32;
         } else {
@@ -506,7 +504,7 @@ void camel_fire_water_cannon(Animal *arg0) {
 }
 
 void cannon_camel_fire_cannon(Animal *arg0) {
-    s32 tmp = func_802F8160_709810(D_803D5530, arg0, 60, 60, 22, 32, -12, 0, (f32)D_803A05B0 / 65536.0);
+    s32 tmp = func_802F8160_709810(D_803D5530, arg0, 60, 60, 22, 32, -12, 0, (f32)gGravity / 65536.0);
     if (tmp == -1) {
         tmp = 2;
     } else {

@@ -1199,7 +1199,7 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
 
             angle = func_801284B8(x, z);
 
-            temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f32) D_803A05B0_7B1C60 / (512.0 * 1024));
+            temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f32) gGravity / (512.0 * 1024));
             arg0->yRotation = ((angle + 180) % 360);
             if (temp_t0 != -1) {
                 if (temp_t0 <= 90) {
@@ -1365,10 +1365,8 @@ s32 func_802F9178_70A828(struct071 *arg0) {
     return 0;
 }
 
-#ifdef NON_MATCHING
-// used by missile
-// CURRENT (40)
 // ESA: func_80051CD0
+// used by missile
 void func_802F92B0_70A960(struct071 *arg0) {
     s32 pad[4];
     s32 x_dist;
@@ -1423,16 +1421,15 @@ void func_802F92B0_70A960(struct071 *arg0) {
 
     func_802F6DEC_70849C(arg0, phi_a1);
 
-    arg0->Info.unk14E++;
-    // extra var here to help regalloc
+    if (arg0->Info.unk14E++) {
+        // something debug?
+    }
+
     if (arg0->unk154 == 0) {
         arg0->unk154 = 160;
     }
     func_8032CED0_73E580(arg0, SFX_UNKNOWN_103, 0x4000, 0.4f, 0, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F92B0_70A960.s")
-#endif
 
 // used by object 30
 // stubbed out in ESA
@@ -1664,7 +1661,7 @@ void func_802F9C50_70B300(struct071 *arg0) {
         arg0->position.zPos.h,
         arg0->position.yPos.h + (arg0->unk42 >> 1),
         0,
-        D_01033190,
+        D_01033190_6CA60,
         temp_t3,
         temp_t3,
         0x20,

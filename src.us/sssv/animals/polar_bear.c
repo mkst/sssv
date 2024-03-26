@@ -3,8 +3,6 @@
 
 extern u8  D_0103AA20_742F0[];
 extern u8  D_0103AC20_744F0[];
-extern u8  D_0103B440[];
-extern u8  D_0103AC40[];
 
 
 extern s16 D_803B4250_7C5900[];
@@ -24,7 +22,6 @@ extern s16 D_803B4468_7C5B18[];
 extern s16 D_803B4480_7C5B30[];
 extern s16 D_803B44B8_7C5B68[];
 
-extern Gfx D_01003548[];
 extern Gfx D_04002C30_E01F0[];
 extern Gfx D_04002D78_E0338[];
 extern Gfx D_04003250_E0810[];
@@ -264,7 +261,7 @@ block_39:
                 func_802C78B0_6D8F60(0x13, 0x14, (((s32) (spAE * D_803F2EC8) >> 8) * 0x99) >> 6, (((s32) (spAE * D_803F2EC8) >> 8) * 0x99) >> 6, (((s32) (spAE * D_803F2EC8) >> 8) * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04003250_E0810);
 
                 gDPSetPrimColor(D_801D9E88++, 0, 0, 0x14, 0x14, 0x14, 0xFF);
-                gSPDisplayList(D_801D9E88++, D_01003548);
+                gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
                 func_802C78B0_6D8F60(3, 7, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, D_803F2ED0, 0, 0, 0, D_040034B0_E0A70);
                 func_802C78B0_6D8F60(5, 13, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, D_803F2ED0, 0, 0, 0, D_040034B0_E0A70);
@@ -280,9 +277,9 @@ block_39:
 #pragma _permuter sameline start
                     spB6 = D_803BD5B2_7CEC62[spB6]; spB4 = D_803BD66A_7CED1A[spB4];
 #pragma _permuter sameline end
-                    func_80356BD8_768288(&D_01000CA0, &D_01002100, spB6);
+                    func_80356BD8_768288(&D_01000CA0_3A570, D_01002100_3B9D0, spB6);
                     func_802C78B0_6D8F60(19, 20, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, D_803F2ED0, 0, 0, 0, D_04003740_E0D00);
-                    func_80356BD8_768288(&D_01000CA0, &D_01002100, spB4);
+                    func_80356BD8_768288(&D_01000CA0_3A570, D_01002100_3B9D0, spB4);
                     func_802C78B0_6D8F60(19, 20, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, D_803F2ED0, 0, 0, 0, D_04003760_E0D20);
                 }
                 break;
@@ -302,9 +299,9 @@ block_39:
 #pragma _permuter sameline start
                         spB6 = D_803BD5B2_7CEC62[spB6]; spB4 = D_803BD66A_7CED1A[spB4];
 #pragma _permuter sameline end
-                        func_80356BD8_768288(&D_01000CA0, &D_01002100, spB6);
+                        func_80356BD8_768288(&D_01000CA0_3A570, D_01002100_3B9D0, spB6);
                         func_802C78B0_6D8F60(0x13, 0x14, 0x1CB00, 0x1CB00, 0x1CB00, D_803F2ED0, 0, 0, 0, D_04003740_E0D00);
-                        func_80356BD8_768288(&D_01000CA0, &D_01002100, spB4);
+                        func_80356BD8_768288(&D_01000CA0_3A570, D_01002100_3B9D0, spB4);
                         func_802C78B0_6D8F60(0x13, 0x14, 0x1CB00, 0x1CB00, 0x1CB00, D_803F2ED0, 0, 0, 0, D_04003760_E0D20);
                     }
                 }
@@ -355,7 +352,7 @@ block_39:
         func_8035D6D0_76ED80();
     }
     if ((spB2 == 0) || (spB2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->heading, &D_01033190, (s16) 0x22, (s16) 0x22, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190_6CA60, (s16) 0x22, (s16) 0x22, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
     if (spB2 == 0) {
         D_80203FE0[19].unk0 = D_80203FE0[1].unk0 + ((D_80203FE0[19].unk0 - D_80203FE0[1].unk0) * 3);
@@ -624,7 +621,7 @@ void func_803677C4_778E74(void) {
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, var_t1, 0, 0);
             func_802C78B0_6D8F60(0xB, 0x11, 0x26400, 0x26400, 0x26400, D_803F2ED0, 0, 0, 0, D_04003880_E0E40);
 
-            func_80356D84_768434(D_0103B440, D_0103AC40);
+            func_80356D84_768434(D_0103B440_74D10, D_0103AC40_74510);
 
             gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, 0, 4*63, 4*31);
             gDPSetTileSize(D_801D9E88++, 1, 0, 0, 4*63, 4*31);
@@ -637,9 +634,9 @@ void func_803677C4_778E74(void) {
 #pragma _permuter sameline start
                 sp96 = D_803BD5B2_7CEC62[sp96];sp94 = D_803BD66A_7CED1A[sp94];
 #pragma _permuter sameline end
-                func_80356BD8_768288(D_01000CA0, D_01002100, sp96);
+                func_80356BD8_768288(D_01000CA0_3A570, D_01002100_3B9D0, sp96);
                 func_802C78B0_6D8F60(0x13, 0x14, 0x26400, 0x26400, 0x26400, D_803F2ED0, 0, 0, 0, D_04003740_E0D00);
-                func_80356BD8_768288(D_01000CA0, D_01002100, sp94);
+                func_80356BD8_768288(D_01000CA0_3A570, D_01002100_3B9D0, sp94);
                 func_802C78B0_6D8F60(0x13, 0x14, 0x26400, 0x26400, 0x26400, D_803F2ED0, 0, 0, 0, D_04003760_E0D20);
             }
 
@@ -650,7 +647,7 @@ void func_803677C4_778E74(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp92 == 0) || (sp92 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, (Gfx*)D_01033190, (s16) 0x28, (s16) 0x1F, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, (Gfx*)D_01033190_6CA60, (s16) 0x28, (s16) 0x1F, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
     if (sp92 == 0) {
         D_80203FE0[19].unk0 = ((D_80203FE0[19].unk0 - D_80203FE0[1].unk0) * 4) + D_80203FE0[1].unk0;

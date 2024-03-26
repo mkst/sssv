@@ -87,7 +87,8 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     s16 temp_f10_2;
     s16 dsdx_dtdy;
     u8  var_a0;
-    s64 temp_v1;
+    s64 fov;
+    s32 fov2;
 
     if (func_8029A334_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
         return 4;
@@ -97,12 +98,13 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     spD8 = (arg1 >> 0x10) - (s16) D_803F2C48; // z distance to camera
     spD0 = (arg2 >> 0x10) - (s16) D_803F2C4C; // y distance to camera
 
-    temp_v1 = (((SQ(spD0) + SQ(spD8) + SQ(spE0)) >> arg8) * D_803F2D50.fovY) / 75.0f;
+    fov = ((SQ(spD0) + SQ(spD8) + SQ(spE0)) >> arg8);
+    fov = (fov * D_803F2D50.fovY) / 75.0f;
 
-    if (temp_v1 > 0x4C9000) {
+    if (fov > 0x4C9000) {
         return 4;
     }
-    if ((temp_v1 <= 0x1000) && (arg9 == 0)) {
+    if ((fov <= 0x1000) && (arg9 == 0)) {
         D_803F2EDD = 0;
         return 0;
     }
@@ -111,27 +113,28 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     spF8 = arg1 / 65536.0;
     spF4 = arg2 / 65536.0;
 
-    temp_f16 = (D_80204278->unk38A10[2][0] * spFC) +
-               (D_80204278->unk38A10[2][1] * spF8) +
-               (D_80204278->unk38A10[2][2] * spF4) +
-               (D_80204278->unk38A10[2][3]       );
+    temp_f16 = D_80204278->unk38A10[2][3] +
+             ((D_80204278->unk38A10[2][2] * spF4) +
+             ((D_80204278->unk38A10[2][1] * spF8) +
+              (D_80204278->unk38A10[2][0] * spFC)));
 
     if (temp_f16 <= -3.0) {
 
-        sp144 = (D_80204278->unk38A10[0][0] * spFC) +
-                (D_80204278->unk38A10[0][1] * spF8) +
-                (D_80204278->unk38A10[0][2] * spF4) +
-                (D_80204278->unk38A10[0][3]       );
+        sp144 = D_80204278->unk38A10[2][3] +
+              ((D_80204278->unk38A10[2][2] * spF4) +
+              ((D_80204278->unk38A10[2][1] * spF8) +
+               (D_80204278->unk38A10[2][0] * spFC)));
 
-        sp140 = (D_80204278->unk38A10[1][0] * spFC) +
-                (D_80204278->unk38A10[1][1] * spF8) +
-                (D_80204278->unk38A10[1][2] * spF4) +
-                (D_80204278->unk38A10[1][3]       );
+        sp140 = D_80204278->unk38A10[1][3] +
+              ((D_80204278->unk38A10[1][2] * spF4) +
+              ((D_80204278->unk38A10[1][1] * spF8) +
+               (D_80204278->unk38A10[1][0] * spFC)));
 
-        sp12C = ((D_80204278->unk38A10[3][0] * sp144) / temp_f16) + (gScreenWidth  * 2);
-        sp128 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f16) + (gScreenHeight * 2);
+        sp12C = ((D_80204278->unk38A10[3][0] * sp144) / temp_f16) + (gScreenWidth  * (0, 2));
+        sp128 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f16) + (gScreenHeight * (0, 2));
 
-        sp2C = (((s32) ((arg3 * 33) / D_803F2D50.fovY) << 7) / -temp_f16) / 8.0;
+        fov2 = ((arg3 * 33) / D_803F2D50.fovY);
+        sp2C = ((fov2 * 128) / -temp_f16) / 8.0;
 
         yl = sp128 - sp2C;
         if ((gScreenHeight * 4) < yl) {
@@ -147,12 +150,12 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                 yh = sp12C + sp2C;
                 if (yh > 0.0f) {
 
-                    if ((temp_v1 < 0xE1000) && (arg9 == 0)) {
-                        if (temp_v1 < 0x31000) {
+                    if ((fov < 0xE1000) && (arg9 == 0)) {
+                        if (fov < 0x31000) {
                             D_803F2EDD = 0;
-                            return 0;
+                        } else {
+                            D_803F2EDD = 1;
                         }
-                        D_803F2EDD = 1;
                         return 0;
                     }
 
@@ -216,10 +219,15 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
             }
         }
 
-        temp_f2_4 = (D_80204278->unk38A10[2][0] * spFC) + (D_80204278->unk38A10[2][1] * spF8) + (D_80204278->unk38A10[2][2] * (f32) ((f64) func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0)) + D_80204278->unk38A10[2][3];
+        temp_f2_4 = (D_80204278->unk38A10[2][0] * spFC) +
+                    (D_80204278->unk38A10[2][1] * spF8) +
+                    (D_80204278->unk38A10[2][2] *
+                    (f32) ((f64) func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0)) +
+                    D_80204278->unk38A10[2][3];
+
         if (temp_f2_4 <= -3.0) {
-            temp_f14   = (gScreenWidth  * 2) + ((D_80204278->unk38A10[3][0] * sp144) / temp_f2_4);
-            temp_f14_2 = (gScreenHeight * 2) + ((D_80204278->unk38A10[3][1] * sp140) / temp_f2_4);
+            temp_f14   = ((D_80204278->unk38A10[3][0] * sp144) / temp_f2_4) + (gScreenWidth  * (0, 2));
+            temp_f14_2 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f2_4) + (gScreenHeight * (0, 2));
 
             if (((sp12C + sp2C) < 0.0f) && ((temp_f14 + sp2C) < 0.0f)) {
                 return 3;
@@ -248,19 +256,18 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6FA0A0/func_802E8CF4_6FA3A4.s")
 #endif
 
-#if 0
+#ifdef NON_MATCHING
 s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
+    s32 pad;
+    s32 fov;
 
     f32 tmp1;
     f32 tmp2;
 
     f32 temp_f0;
-    f32 temp_f14;
+    f32 width;
     f32 temp_f16;
-    f32 temp_f6;
-
-    s16 width ;
-    s16 height;
+    f32 height;
 
     s64 temp_v1;
 
@@ -276,12 +283,12 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
         return 4;
     }
 
-    sp50 = (arg1 >> 0x10) - (s16) D_803F2C48;
-    sp58 = (arg0 >> 0x10) - (s16) D_803F2C44;
+    // is this a mistake?
+    sp50 = (arg1 >> 0x10) - (s16) D_803F2C44;
+    sp58 = (arg0 >> 0x10) - (s16) D_803F2C48;
     sp48 = (arg2 >> 0x10) - (s16) D_803F2C4C;
 
     temp_v1 = (((SQ(sp48) + SQ(sp58) + SQ(sp50)) >> arg4) * D_803F2D50.fovY) / 75.0f;
-
     if ((temp_v1 > 0x4C9000)) { // FTOFIX32(76.5625)
         return 4;
     }
@@ -294,79 +301,87 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     sp68 = (arg1 / 65536.0);
     sp64 = (arg2 / 65536.0);
 
-    temp_f16 = (D_80204278->unk38A10[2][0] * sp6C) +
-               (D_80204278->unk38A10[2][1] * sp68) +
-               (D_80204278->unk38A10[2][2] * sp64) +
-               (D_80204278->unk38A10[2][3]       );
+    temp_f16 = D_80204278->unk38A10[2][3] +
+             ((D_80204278->unk38A10[2][2] * sp64) +
+             ((D_80204278->unk38A10[2][1] * sp68) +
+              (D_80204278->unk38A10[2][0] * sp6C)));
 
     if (temp_f16 <= -3.0) {
-        tmp1 = (D_80204278->unk38A10[0][0] * sp6C) +
-               (D_80204278->unk38A10[0][1] * sp68) +
-               (D_80204278->unk38A10[0][2] * sp64) +
-               (D_80204278->unk38A10[0][3]       );
 
-        tmp2 = (D_80204278->unk38A10[1][0] * sp6C) +
-               (D_80204278->unk38A10[1][1] * sp68) +
-               (D_80204278->unk38A10[1][2] * sp64) +
-               (D_80204278->unk38A10[1][3]       );
+        tmp1 = D_80204278->unk38A10[0][3] +
+             ((D_80204278->unk38A10[0][2] * sp64) +
+             ((D_80204278->unk38A10[0][1] * sp68) +
+              (D_80204278->unk38A10[0][0] * sp6C)));
 
-        temp_f14 = ((D_80204278->unk38A10[3][0] * tmp1) / temp_f16) + ((width = gScreenWidth) * 2);
-        temp_f6 =  ((D_80204278->unk38A10[3][1] * tmp2) / temp_f16) + ((height = gScreenHeight) * 2);
+        tmp2 = D_80204278->unk38A10[1][3] +
+             ((D_80204278->unk38A10[1][2] * sp64) +
+             ((D_80204278->unk38A10[1][1] * sp68) +
+              (D_80204278->unk38A10[1][0] * sp6C)));
 
-        temp_f0 = (((s32) ((arg3 * 33) / D_803F2D50.fovY) << 7) / -temp_f16) / 8.0;
+        // replace (0, 2) with temp var assignment? width/height?
+        width = ((D_80204278->unk38A10[3][0] * tmp1) / temp_f16) + (gScreenWidth * (0, 2));
+        height =  ((D_80204278->unk38A10[3][1] * tmp2) / temp_f16) + (gScreenHeight * (0, 2));
 
-        if ((height * 4) < (temp_f6 - temp_f0)) {
+        fov = ((arg3 * 33) / D_803F2D50.fovY);
+        temp_f0 = (fov * 128 / (-temp_f16)) / 8.0;
+
+        if ((gScreenHeight * 4) < (height - temp_f0)) {
             return 3;
         }
 
-        if (((width * 4) > (temp_f14 - temp_f0)) &&
-            ((temp_f6 + temp_f0) > 0.0f) &&
-            ((temp_f14 + temp_f0) > 0.0f)) {
+        if (((gScreenWidth * 4) > (width - temp_f0)) &&
+            ((height + temp_f0) > 0.0f) &&
+            ((width + temp_f0) > 0.0f)) {
+
+            // if (gScreenWidth) {};
+
             if (temp_v1 < 0xE1000) {
                 if ((temp_v1 < 0x31000)) {
                     D_803F2EDD = 0;
-                    return 0;
+                } else {
+                    D_803F2EDD = 1;
                 }
-                D_803F2EDD = 1;
                 return 0;
+            } else {
+                return 1;
             }
-            return 1;
+
+        } else {
+            return 3;
         }
-        return 3;
     }
+    if (!arg2) {};
+
     return 3;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6FA0A0/func_802E9B90_6FB240.s")
 #endif
 
-#ifdef NON_MATCHING
 s32 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
-
-    s64 sp90;
     s64 sp88;
-
-    s32 sp7C; // maybe
+    s64 sp80;
+    s32 sp7C;
     s32 sp78;
-
-    s32 pad;
-    s32 temp_f10;
-
+    s32 sp74;
+    s32 sp70; // unused
     s64 sp68;
     s64 sp60;
     s64 sp58;
 
-    f32 temp_f0;
+    f32 fov;
     f32 temp_f2;
+    s32 pad;
     f32 temp_f12;
     f32 temp_f14;
-
 
     sp68 = (arg0 >> 0x10) - (s16) D_803F2C44;
     sp60 = (arg1 >> 0x10) - (s16) D_803F2C48;
     sp58 = (arg2 >> 0x10) - (s16) D_803F2C4C;
 
-    if ((s64)((((SQ(sp58) + SQ(sp60) + SQ(sp68)) >> arg3) * D_803F2D50.fovY) / 75.0f) > 0xE1000) {
+    sp60 = ((SQ(sp68) + SQ(sp60) + SQ(sp58)) >> arg3);
+    fov = (sp60 * D_803F2D50.fovY) / 75.0f;
+    if ((s64)fov > 0xE1000) {
         return 1;
     }
 
@@ -374,26 +389,30 @@ s32 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     temp_f12 = arg1 / 65536.0;
     temp_f14 = arg2 / 65536.0;
 
-    temp_f10 = D_80204278->unk38A10[2][3] + ((D_80204278->unk38A10[2][2] * temp_f14) + ((D_80204278->unk38A10[2][1] * temp_f12) + (D_80204278->unk38A10[2][0] * temp_f2)));
-    if (temp_f10 <= -3.0) {
+    sp74 = D_80204278->unk38A10[2][3] +
+         ((D_80204278->unk38A10[2][2] * temp_f14) +
+         ((D_80204278->unk38A10[2][1] * temp_f12) +
+          (D_80204278->unk38A10[2][0] * temp_f2)));
 
-        sp7C = (D_80204278->unk38A10[0][0] * temp_f2) +
-               (D_80204278->unk38A10[0][1] * temp_f12) +
-               (D_80204278->unk38A10[0][2] * temp_f14) +
-               (D_80204278->unk38A10[0][3]           );
+    if (sp74 <= -3.0) {
 
-        sp78 = (D_80204278->unk38A10[1][0] * temp_f2) +
-               (D_80204278->unk38A10[1][1] * temp_f12) +
-               (temp_f14 * D_80204278->unk38A10[1][2]) +
-               (D_80204278->unk38A10[1][3]           );
+        sp7C = D_80204278->unk38A10[0][3] +
+             ((D_80204278->unk38A10[0][2] * temp_f14) +
+             ((D_80204278->unk38A10[0][1] * temp_f12) +
+              (D_80204278->unk38A10[0][0] * temp_f2)));
 
-        sp88 = ((sp7C * D_80204278->unk38A10[3][0]) / temp_f10) + (gScreenWidth  * 2);
-        sp90 = ((sp78 * D_80204278->unk38A10[3][1]) / temp_f10) + (gScreenHeight * 2);
+        sp78 = D_80204278->unk38A10[1][3] +
+             ((D_80204278->unk38A10[1][2] * temp_f14) +
+             ((D_80204278->unk38A10[1][1] * temp_f12) +
+              (D_80204278->unk38A10[1][0] * temp_f2)));
+
+        sp88 = ((D_80204278->unk38A10[3][0] * sp7C) / sp74) + (gScreenWidth *  ((0, 2)));
+        sp80 = ((D_80204278->unk38A10[3][1] * sp78) / sp74) + (gScreenHeight * ((0, 2)));
 
         if ((sp88 < 0) || ((gScreenWidth * 4) < sp88)) {
             return 2;
         }
-        if ((sp90 < 0) || ((gScreenHeight * 4) < sp90)) {
+        if ((sp80 < 0) || ((gScreenHeight * 4) < sp80)) {
             return 3;
         }
         return 0;
@@ -401,6 +420,3 @@ s32 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
 
     return 2;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6FA0A0/func_802EA004_6FB6B4.s")
-#endif

@@ -138,9 +138,9 @@ void func_80382CF0_7943A0(void) {
 #pragma _permuter sameline start
                 sp86 = D_803BD54A_7CEBFA[sp86];sp84 = D_803BD602_7CECB2[sp84];
 #pragma _permuter sameline end
-                func_80356BD8_768288(D_01000D00, D_01000620, sp86);
+                func_80356BD8_768288(D_01000D00_3A5D0, D_01000620_39EF0, sp86);
                 func_802C78B0_6D8F60(1, 0, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04007E70);
-                func_80356BD8_768288(D_01000D00, D_01000620, sp84);
+                func_80356BD8_768288(D_01000D00_3A5D0, D_01000620_39EF0, sp84);
                 func_802C78B0_6D8F60(1, 0, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04007E90);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -155,7 +155,7 @@ void func_80382CF0_7943A0(void) {
             D_803D552C->position.zPos.h,
             (D_803D552C->position.yPos.h + D_803D5524->unkBA),
             D_803D552C->heading,
-            D_01033190,
+            D_01033190_6CA60,
             21,
             9,
             155,

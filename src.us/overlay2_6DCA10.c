@@ -6,8 +6,6 @@
 // externs
 // ========================================================
 
-extern Gfx D_01004680_3DF50[];
-extern Gfx D_010047D0_3E0A0[];
 extern Gfx D_01004828_3E0F8[];
 extern Gfx D_01004720_3DFF0[];
 
@@ -313,7 +311,7 @@ void reset_particles(void) {
 
 #if 0
 
-// CURRENT (46949)
+// CURRENT (29458)
 
 typedef struct {
   s16 unk0;
@@ -555,14 +553,12 @@ void func_802CB394_6DCA44(s32 arg0) {
     /* shiftt */  G_TX_NOLOD
     );
 
-    if (1) {};
-
     gSPDisplayList(D_801D9E98[7]++, D_01004828_3E0F8);
 
     gSPDisplayList(D_801D9E98[1]++, D_01003A58_3D328);
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
-    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102A210));
+    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102A210_63AE0));
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync(D_801D9E98[1]++);
     gDPLoadBlock(D_801D9E98[1]++, G_TX_LOADTILE, 0, 0, 2047, 512);
