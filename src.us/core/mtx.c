@@ -320,171 +320,132 @@ void func_80126CC4(s16 arg0, Mtx *arg1) {
     arg1->m[3][2] = (s32) ((sp0.h.unk6 << 0x10) | sp0.h.unk2);
 }
 
-#if 0
-// miles and miles away
-s32 func_80126FD4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, Mtx *arg8) {
-    s32 sp6C;
-    s32 sp68;
-    s32 sp64;
-    s32 sp60;
-    s32 sp5C;
-    s32 sp58;
-    s32 sp54;
-    s32 sp44;
-    s32 sp40;
-    s32 sp38;
-    s32 sp34;
-    s32 sp30;
-    // s32 sp2C;
-    // s32 sp28;
+s32 func_80126FD4(s32 arg0, s32 arg1, s32 arg2,
+                  s32 arg3, s32 arg4, s32 arg5,
+                  s32 arg6, s32 arg7,
+                  Mtx *arg8) {
+
+    s32 sp74, sp70, sp6C;
+    s32 sp68, sp64, sp60;
+    s32 sp5C, sp58, sp54;
+    s32 unused[3];
+    s32 sp44, sp40, sp3C;
+    s32 sp38, sp34, sp30;
     FracIntHelper sp28;
-
-    s32 sp24;
-    s32 sp20;
-    s32 sp1C;
-
-    f32 temp_f0;
-    f32 temp_f14;
-    f32 temp_f14_2;
-    f32 temp_f14_3;
-    f32 temp_f16;
-    f32 temp_f16_2;
-    f32 temp_f2;
-    f32 temp_f2_2;
-    f32 temp_f2_3;
-    s16 temp_a2;
-    s16 temp_f4;
-    s32 temp_lo;
-    s32 temp_ra;
-    s32 temp_t5;
-    s32 temp_t6;
-    s32 temp_t6_2;
-    s32 temp_t8;
-    s32 temp_t9;
-    s32 temp_t9_2;
-    s32 temp_v0;
-    s32 temp_v0_2;
-    s16 temp_v0_3;
-    s32 var_a0;
-    s32 var_a1;
-    s32 var_a3;
-    s32 var_t0;
-    s32 var_t1;
-    s32 var_t2;
-    s32 var_t3;
-    s32 var_t4;
 
     sp38 = (arg0 + arg3) >> 1;
     sp34 = (arg1 + arg4) >> 1;
     sp30 = (arg2 + arg5) >> 1;
 
-    var_a0 = arg0 >> 8;
-    var_a1 = arg1 >> 8;
-    temp_t9 = arg2 >> 8;
-    temp_t9_2 = arg4 >> 8;
-    temp_t8 = (arg3 >> 8) - var_a0;
-    temp_t6 = arg5 >> 8;
+    arg0 = arg0 >> 8;
+    arg1 = arg1 >> 8;
+    arg2 = arg2 >> 8;
+    arg3 = arg3 >> 8;
+    arg4 = arg4 >> 8;
+    arg5 = arg5 >> 8;
 
-    arg4 = temp_t9_2;
-    arg5 = temp_t6;
-    sp24 = temp_t8;
+    sp74 = arg3 - arg0;
+    sp70 = arg4 - arg1;
+    sp6C = arg5 - arg2;
 
-    if ((temp_t8 == 0) && (sp20 = temp_t9_2 - var_a1, sp68 = 0x400, (sp20 == 0))) {
+    if ((sp74 == 0) && (sp70 == 0)) {
+        sp68 = 0x400;
         sp64 = 0;
+        sp60 = 0;
+
         sp5C = 0;
         sp58 = -0x400;
-        sp1C = temp_t6 - temp_t9;
         sp54 = 0;
     } else {
-        sp20 = arg4 - var_a1;
-        temp_v0 = -sp24;
-        sp68 = sp20;
-        sp64 = temp_v0;
-        if (sp20 < 0) {
-            sp68 = -sp20;
-            sp64 = -temp_v0;
+        sp68 = sp70;
+        sp64 = -sp74;
+        sp60 = 0;
+
+        if (sp68 < 0) {
+            sp68 = -sp68;
+            sp64 = -(-sp74);
         }
-        sp1C = (arg5 - temp_t9);
-        sp5C = -((sp64 * sp1C) / 512);
-        var_a0 = sp1C * sp68;
-        sp58 = var_a0 / 512;
-        var_a1 = (sp24 * sp64) - (sp20 * sp68);
-        sp54 = var_a1 / 512;
+
+        sp5C = (sp64 * sp6C) / -512;
+        sp58 = (sp6C * sp68) / 512;
+        sp54 = ((sp74 * sp64) - (sp70 * sp68)) / 512;
+
+
         if (sp5C == 0) {
-            if ((sp64 * sp1C) < 0) {
+            if ((sp64 * sp6C) < 0) {
                 sp5C = 1;
-            } else if ((sp64 * sp1C) > 0) {
+            } else if ((sp64 * sp6C) > 0) {
                 sp5C = -1;
             }
         }
         if (sp58 == 0) {
-            if (var_a0 < 0) {
+            if ((sp6C * sp68) < 0) {
                 sp58 = -1;
-            } else if (var_a0 > 0) {
+            } else if ((sp6C * sp68) > 0) {
                 sp58 = 1;
             }
         }
         if (sp54 == 0) {
-            if (var_a1 < 0) {
+            if (((sp74 * sp64) - (sp70 * sp68)) < 0) {
                 sp54 = -1;
-            } else if (var_a1 > 0) {
+            } else if (((sp74 * sp64) - (sp70 * sp68)) > 0) {
                 sp54 = 1;
             }
         }
     }
 
-    // sp5C = var_a3;
-    // sp58 = var_t0;
-    // sp54 = var_t1;
+    sp44 = sqrtf(SQ((f32) sp74) + SQ((f32) sp70) + SQ((f32) sp6C));
+    sp40 = sqrtf(SQ((f32) sp68) + SQ((f32) sp64) + SQ((f32) sp60));
+    sp3C = sqrtf(SQ((f32) sp5C) + SQ((f32) sp58) + SQ((f32) sp54));
 
-    // sp20 = var_t2;
-    // sp68 = var_t3;
-    // sp64 = var_t4;
-
-    sp60 = 0;
-
-    temp_a2 = (s16) (s32) sqrtf(((f32) sp24 * sp24) + ((f32) sp20 * sp20) + ((f32) sp1C * sp1C));
-    temp_f4 = (s16) (s32) sqrtf(((f32) sp68 * sp68) + ((f32) sp64 * sp64) + (sp60 * sp60));
-    temp_v0_3 = (s16) (s32) sqrtf(((f32) sp5C * sp5C) + ((f32) sp58 * sp58) + ((f32) sp54 * sp54));
-
-    if (temp_a2 == 0) {
-      return 0;
+    if (sp44 == 0) {
+        return 0;
     }
-    if (temp_f4 == 0) {
-      return 0;
+    if (sp40 == 0) {
+        return 0;
     }
-    if (temp_v0_3 == 0) {
+    if (sp3C == 0) {
         return 0;
     }
 
-    sp28.w.unk4 = (s32) (sp24 * arg6) / temp_a2;
-    sp28.w.unk0 = (s32) (sp20 * arg6) / temp_a2;
+    sp74 = (sp74 * arg6) / sp44;
+    sp70 = (sp70 * arg6) / sp44;
+    sp6C = (sp6C * arg6) / sp44;
+
+    sp68 = (sp68 * arg7) / sp40;
+    sp64 = (sp64 * arg7) / sp40;
+    sp60 = (sp60 * arg7) / sp40;
+
+    sp5C = (sp5C * arg7) / sp3C;
+    sp58 = (sp58 * arg7) / sp3C;
+    sp54 = (sp54 * arg7) / sp3C;
+
+    sp28.w.unk4 = sp74;
+    sp28.w.unk0 = sp70;
     arg8->m[0][0] = (sp28.h.unk4 << 0x10) | sp28.h.unk0;
     arg8->m[2][0] = (sp28.h.unk6 << 0x10) | sp28.h.unk2;
 
-    // sp6C = (sp1C * arg6) / temp_a2;
-    sp28.w.unk4 = (sp1C * arg6) / temp_a2;
+    sp28.w.unk4 = sp6C;
     arg8->m[0][1] = sp28.h.unk4 << 0x10;
     arg8->m[2][1] = sp28.h.unk6 << 0x10;
 
-    sp28.w.unk4 = (sp68 * arg7) / temp_f4;
-    sp28.w.unk0 = (sp64 * arg7) / temp_f4;
+    sp28.w.unk4 = sp68;
+    sp28.w.unk0 = sp64;
     arg8->m[0][2] = (sp28.h.unk4 << 0x10) | sp28.h.unk0;
     arg8->m[2][2] = (sp28.h.unk6 << 0x10) | sp28.h.unk2;
 
-    // sp60 = (sp60 * arg7) / temp_f4; // tbd
-    sp28.w.unk4 = (sp60 * arg7) / temp_f4;
+    sp28.w.unk4 = sp60;
     arg8->m[0][3] = sp28.h.unk4 << 0x10;
     arg8->m[2][3] = sp28.h.unk6 << 0x10;
 
-    sp28.w.unk4 = (sp5C * arg7) / temp_v0_3;
-    sp28.w.unk0 = (sp58 * arg7) / temp_v0_3;
+    sp28.w.unk4 = sp5C;
+    sp28.w.unk0 = sp58;
     arg8->m[1][0] = (sp28.h.unk4 << 0x10) | sp28.h.unk0;
     arg8->m[3][0] = (sp28.h.unk6 << 0x10) | sp28.h.unk2;
 
-    sp28.w.unk4 = (sp54 * arg7) / temp_v0_3;
-    arg8->m[1][1] = sp28.h.unk4 << 0x10;
-    arg8->m[3][1] = sp28.h.unk6 << 0x10;
+    sp28.w.unk4 = sp54;
+    arg8->m[1][1] = (sp28.h.unk4 << 0x10);
+    arg8->m[3][1] = (sp28.h.unk6 << 0x10);
 
     sp28.w.unk4 = sp38;
     sp28.w.unk0 = sp34;
@@ -493,13 +454,10 @@ s32 func_80126FD4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
 
     sp28.w.unk4 = sp30;
     arg8->m[1][3] = (sp28.h.unk4 << 0x10) | 1;
-    arg8->m[3][3] = sp28.h.unk6 << 0x10;
+    arg8->m[3][3] = (sp28.h.unk6 << 0x10);
 
     return 1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/mtx/func_80126FD4.s")
-#endif
 
 void func_80127640(Mtx *arg0, s32 xPos, s32 zPos, s32 yPos, s16 arg4, s32 arg5, s32 arg6, s32 arg7, s16 arg8, s32 arg9) {
     s64 sp58;
@@ -554,46 +512,35 @@ void func_80127640(Mtx *arg0, s32 xPos, s32 zPos, s32 yPos, s16 arg4, s32 arg5, 
 // plenty to do
 s32 func_80127994(s32 arg0, s32 arg1, s32 arg2, Mtx *arg3) {
     FracIntHelper sp24;
+    s32 temp_f4;
 
-    s32 temp_f6;
-    s32 temp_lo;
-    s32 temp_lo_2;
-    s32 temp_v0;
-    s32 temp_v1;
-
-    temp_f6 = sqrtf(((f32)arg0 * arg0) + ((f32)arg1 * arg1) + ((f32)arg2 * arg2));
-    if (temp_f6 == 0) {
-        arg0 = arg1 = 0;
-        arg2 = 0x400;
+    temp_f4 = sqrtf(SQ((f32)arg0) + SQ((f32)arg1) + SQ((f32)arg2));
+    if (temp_f4 == 0) {
+        arg0 = arg1 = 0 << 0xA;
+        arg2 = 1 << 0xA;
     } else {
-        arg0 = (arg0 << 0xA) / temp_f6;
-        arg1 = (arg1 << 0xA) / temp_f6;
-        arg2 = (arg2 << 0xA) / temp_f6;
+        arg0 = (arg0 << 0xA) / temp_f4;
+        arg1 = (arg1 << 0xA) / temp_f4;
+        arg2 = (arg2 << 0xA) / temp_f4;
     }
 
-    temp_v0 = sqrtf(SQ((f32)arg2) + SQ((f32)-arg0));
-    temp_v1 = (arg2 * 0x400) / temp_v0;
-    sp24.w.unk4 = temp_v1 << 6;
+    temp_f4 = sqrtf(SQ((f32)arg2) + SQ((f32)-arg0));
 
-    temp_lo = 0 / temp_v0;
-    temp_lo_2 = (-arg0 * 0x400) / temp_v0;
-
-    sp24.w.unk0 = temp_lo << 6;
+    sp24.w.unk4 = (( arg2 << 0xA) / temp_f4) << 6;
+    sp24.w.unk0 = ((    0 << 0xA) / temp_f4) << 6;
     arg3->m[0][0] = ((sp24.h.unk4 << 0x10) | sp24.h.unk0);
     arg3->m[2][0] = ((sp24.h.unk6 << 0x10) | sp24.h.unk2);
 
-    if ((sp24.h.unk4 && sp24.h.unk4) && sp24.h.unk4) {};
-
-    sp24.w.unk4 = temp_lo_2 << 6;
+    sp24.w.unk4 = ((-arg0 << 0xA) / temp_f4) << 6;
     arg3->m[0][1] = sp24.h.unk4 << 0x10;
     arg3->m[2][1] = sp24.h.unk6 << 0x10;
 
-    sp24.w.unk4 = (-((temp_lo * arg2) - (temp_lo_2 * arg1)) >> 0xA) << 6;
-    sp24.w.unk0 = (-((temp_lo_2 * arg0) - (temp_v1 * arg2)) >> 0xA) << 6;
+    sp24.w.unk4 = -((((    0 << 0xA) / temp_f4) * arg2) - (((-arg0 << 0xA) / temp_f4) * arg1)) << 6;
+    sp24.w.unk0 = -((((-arg0 << 0xA) / temp_f4) * arg0) - ((( arg2 << 0xA) / temp_f4) * arg2)) << 6;
     arg3->m[0][2] = (sp24.h.unk4 << 0x10) | sp24.h.unk0;
     arg3->m[2][2] = (sp24.h.unk6 << 0x10) | sp24.h.unk2;
 
-    sp24.w.unk4 = (-((temp_v1 * arg1) - (temp_lo * arg0)) >> 0xA) << 6;
+    sp24.w.unk4 = -(((( arg2 << 0xA) / temp_f4) * arg1) - (((    0 << 0xA) / temp_f4) * arg0)) << 6;
     arg3->m[0][3] = sp24.h.unk4 << 0x10;
     arg3->m[2][3] = sp24.h.unk6 << 0x10;
 
@@ -605,6 +552,7 @@ s32 func_80127994(s32 arg0, s32 arg1, s32 arg2, Mtx *arg3) {
     sp24.w.unk4 = arg2 << 6;
     arg3->m[1][1] = sp24.h.unk4 << 0x10;
     arg3->m[3][1] = sp24.h.unk6 << 0x10;
+
     arg3->m[1][2] = 0;
     arg3->m[3][2] = 0;
 

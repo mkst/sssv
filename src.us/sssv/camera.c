@@ -3102,7 +3102,8 @@ s32 func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
 #ifdef NON_MATCHING
 // stack is off & wrong instructions
 // CURRENT (989)
-  s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9) {
+// esa: func_8001D8F4
+s32 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9) {
 
     s16 sp78;
     s16 sp76;
@@ -3352,7 +3353,6 @@ s32 func_8033D604_74ECB4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
     s32 sp70;
     s32 sp6C;
 
-
     if (D_803F2ACC != 0) {
         return 0;
     }
@@ -3543,19 +3543,16 @@ s32 func_8033D604_74ECB4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
 }
 
 #ifdef NON_MATCHING
-// CURRENT (295)
+// CURRENT (150)
 // ESA: func_8002B0E4
 s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
     Animal *temp_s2;
     s16 xPos;
     s16 zPos;
     s16 yPos;
-    s16 temp_lo;
     s16 temp_s3;
     s16 temp_t6;
 
-    s32 temp_s5;
-    s32 temp_s6;
     s32 var_s4;
 
     s32 var_t2;
@@ -3587,18 +3584,15 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 #pragma _permuter sameline end
     }
 
-    var_t2 = 0;
-
-
-    for (var_t1 = D_803DA110[(s16) (arg6 + (arg7 * 5))].next; var_t1 != NULL; var_t1 = var_t1->next) {
+    for (var_t1 = D_803DA110[(s16) (arg6 + (arg7 * 5))].next, var_t2 = 0; var_t1 != NULL; var_t1 = var_t1->next) {
         temp_s2 = var_t1->animal;
         if ((temp_s2->unk16C->unk82.unk6) && ((temp_s2->unk3E < 0x40) || (temp_s2->unk3E >= 0xC0)) && (temp_s2->unk3E != 0x28)) {
 
             temp_s3 = temp_s2->position.yPos.h + temp_s2->unk42;
 #pragma _permuter sameline start
-            xPos = temp_s2->position.xPos.h; zPos = temp_s2->position.zPos.h; yPos = temp_s2->position.yPos.h;
+            xPos = temp_s2->position.xPos.h; zPos = temp_s2->position.zPos.h;  yPos = temp_s2->position.yPos.h;
 #pragma _permuter sameline end
-            temp_lo = temp_s2->unk30 * temp_s2->unk30;
+            temp_t6 = SQ(temp_s2->unk30);
 
             if ((arg2 < temp_s3) && (yPos < arg5)) {
                 if (arg2 < yPos) {
@@ -3613,7 +3607,7 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                 }
 
                 if (var_t2 == 0) {
-                    var_t2 = ((arg3 - arg0) * (arg3 - arg0)) + ((arg4 - arg1) * (arg4 - arg1));
+                    var_t2 = SQ(arg3 - arg0) + SQ(arg4 - arg1);
                     if (var_t2 == 0) {
                         var_t2++;
                     }
@@ -3627,12 +3621,11 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                     var_s4 = 0x100;
                 }
 
-                temp_s5 = (arg0 + (((arg3 - arg0) * var_s4) >> 8)) - xPos;
-                temp_s6 = (arg1 + (((arg4 - arg1) * var_s4) >> 8)) - zPos;
-                if (((temp_s5 * temp_s5) + (temp_s6 * temp_s6)) < temp_lo) {
-                    if ((((arg8 - xPos) * (arg8 - xPos)) + ((arg9 - zPos) * (arg9 - zPos))) >= temp_lo) {
-                        return 3;
+                if ((SQ((arg0 + (((arg3 - arg0) * var_s4) >> 8)) - xPos) + SQ((arg1 + (((arg4 - arg1) * var_s4) >> 8)) - zPos)) < temp_t6) {
+                    if ((((SQ(arg8 - xPos)) + (SQ(arg9 - zPos))) < temp_t6)) {
+                        continue;
                     }
+                    return 3;
                 }
             }
         }

@@ -765,7 +765,7 @@ struct Animal {
     /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
     /* 0x74 */  struct043 unk74[5];
     /* 0xC4 */  struct043 unkC4[5]; // hitboxes?
-    /* 0x114 */ s16 unk114[4];  // fixme, just an s16?
+    /* 0x114 */ s16 unk114[4];
     /* 0x11C */ struct065 unk11C[4];
     /* 0x14C */ s16 health;
     /* 0x14E */ s16 unk14E;
@@ -1167,7 +1167,7 @@ typedef struct {
     /* 0x3B638 */ Lights7 lights;
     /* 0x3B6B0 */ Ambient unk3B6B0;
     /* 0x3B6B8 */ Light unk3B6B8;
-    /* 0x3B6C0 */ u8    pad3B6C0[0x530];
+    /* 0x3B6C0 */ u8    pad3B6C0[0x528]; // hmm
 } DisplayList; // 0x3BBF0 big? merge with struct018?
 
 typedef struct {

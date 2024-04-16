@@ -2831,7 +2831,6 @@ s16 func_802D7434_6E8AE4(s16 arg0, s16 arg1) {
     return ret;
 }
 
-#ifdef NON_MATCHING
 void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 tmp0;
     s16 tmp1;
@@ -2840,8 +2839,8 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 temp_s0;
     s16 temp_s2;
     s16 phi_v1;
+    s16 phi_v1_4;
     s16 i;
-    s32 phi_v1_4;
     u16 random;
 
     if (arg3 < 2) {
@@ -2878,10 +2877,14 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     }
 
     for (i = 0; i < tmp0; i++) {
-        temp_s0 = arg0 + ((D_80152350.unk2D0[(s16)(SSSV_RAND(8) + ((360 / tmp0) * i))] * arg3) >> 9);
-        temp_s2 = arg1 + ((D_80152350.unk384[(s16)(SSSV_RAND(8) + ((360 / tmp0) * i))] * arg3) >> 9);
-        phi_v1_4 = MAX(arg2, func_80298E98_6AA548(temp_s0, temp_s2));
-        phi_v1_4 = (s16)(phi_v1_4 + 20);
+        random = SSSV_RAND(8) + ((360 / tmp0) * i);
+        temp_s0 = arg0 + ((D_80152350.unk2D0[(s16) random] * arg3) >> 9);
+        random += 0; // fake but works
+        random = SSSV_RAND(8) + ((360 / tmp0) * i);
+        temp_s2 = arg1 + ((D_80152350.unk384[(s16) random] * arg3) >> 9);
+
+        phi_v1_4 = 20;
+        phi_v1_4 += MAX(arg2, func_80298E98_6AA548(temp_s0, temp_s2));
         random = func_8012826C();
         guRandom();
         create_particle_effect(
@@ -2913,9 +2916,6 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
         play_sound_effect_at_location(SFX_UNKNOWN_76, volume, 0x80, arg0, arg1, arg2, 1.0f);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D760C_6E8CBC.s")
-#endif
 
 // ESA: func_800A8A00
 void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {

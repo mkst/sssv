@@ -833,17 +833,20 @@ u8 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, Position** p1, Position** p2
     return 0;
 }
 
-#if 0
 // ESA: func_800730B4
-// CURRENT (7029)
 u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg5, u16 arg6) {
-    Animal *other;
+    s32 pad[2];
     struct065 *var_s5;
-    s32 tmp;
+    Animal *other;
 
-    s32 *tmp1, *tmp2;
+    Pos xx; // sp7C
+    Pos yy; // sp78
+    Pos zz; // sp74
 
-#if 0
+    s16 tmp;
+    tmp = arg0->unk114[0];
+
+#ifdef VERSION_EU
     // extra check only in EU
     if (arg0->unk114[0] == 0x7FFF) {
         // ignore?
@@ -851,36 +854,33 @@ u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg
     }
 #endif
 
-    for (var_s5 = D_803DA110[arg0->unk114[0]].next; var_s5 != NULL; var_s5 = var_s5->next) {
+    for (var_s5 = D_803DA110[tmp].next; var_s5 != NULL; var_s5 = var_s5->next) {
         if ((arg0 != var_s5->animal) && (arg0 != arg1) && ((D_803B1BAC_7C325C[var_s5->animal->unk16C->unk2]) & (1 << (0xF - arg0->unk16C->unk2)))) {
+            xx.w = x;
+            if (ABS(var_s5->animal->position.xPos.h - xx.h) < (var_s5->animal->unk34 + arg0->unk34)) {
+                yy.w = y;
+                if (ABS(var_s5->animal->position.zPos.h - yy.h) < (var_s5->animal->unk34 + arg0->unk34)) {
+                    zz.w = z;
+                    if (ABS((var_s5->animal->position.yPos.h + (var_s5->animal->unk42 >> 1)) - zz.h - (arg0->unk42 >> 1)) < (var_s5->animal->unk36 + arg0->unk36)) {
 
-            if (ABS(var_s5->animal->position.xPos.w - x) < (var_s5->animal->unk34 + arg0->unk34)) {
-                if (ABS(var_s5->animal->position.zPos.w - y) < (var_s5->animal->unk34 + arg0->unk34)) {
+                        if ((var_s5->animal->unk68 != arg0) && (arg0->unk68 != var_s5->animal) && ((var_s5->animal->unk70 != arg0) || (arg0->unk16C->unk15 != 4)) && ((arg0->unk70 != var_s5->animal) || (var_s5->animal->unk16C->unk15 != 4))) {
 
-                    tmp = z;
+                            if ((var_s5->animal->state != 0x1E) && (arg0->state != 0x1E) && (var_s5->animal->state != 0x1F) && (arg0->state != 0x1F) && ((var_s5->animal->unk15C == 0) || (var_s5->animal->owner != arg0)) && ((arg0->unk15C == 0) || (arg0->owner != var_s5->animal)) && ((arg6 == 0) || (var_s5->animal->unk16C->objectType < 0x100))) {
 
-                    if (ABS((var_s5->animal->position.yPos.w + (var_s5->animal->unk42 >> 1)) - z - arg0->unk42 >> 1) < (var_s5->animal->unk36 + arg0->unk36)) {
-
-                        other = var_s5->animal;
-
-                        if ((other->unk68 != arg0) && (arg0->unk68 != other) && ((other->unk70 != arg0) || (arg0->unk16C->unk15 != 4)) && ((arg0->unk70 != other) || (other->unk16C->unk15 != 4))) {
-
-                            if ((other->state != 0x1E) && (arg0->state != 0x1E) && (other->state != 0x1F) && (arg0->state != 0x1F) && ((other->unk15C == 0) || (other->owner != arg0)) && ((arg0->unk15C == 0) || (arg0->owner != other)) && ((arg6 == 0) || (other->unk16C->objectType < 0x100))) {
-
-                                tmp1 = &D_803D60D8;
-                                tmp2 = &D_803D60DC;
-
+                                other = var_s5->animal;
                                 func_802B5E48_6C74F8(other, arg0, &D_803D60D0, &D_803D60D4);
 
-                                if (((D_803D60D4 != 0) && (D_803D60D0(arg0, other, tmp1, tmp2, *(Pos*)&x, *(Pos*)&y, *(Pos*)&z, other->position.xPos, other->position.zPos, other->position.yPos) != 0)) ||
-                                    ((D_803D60D4 == 0) && (D_803D60D0(other, arg0, tmp1, tmp2, other->position.xPos, other->position.zPos, other->position.yPos, *(Pos*)&x, *(Pos*)&y, *(Pos*)&z) != 0)))  {
+                                if (((D_803D60D4 != 0) && (D_803D60D0(arg0, other, &D_803D60D8, &D_803D60DC, xx, yy, zz, other->position.xPos, other->position.zPos, other->position.yPos) != 0)) ||
+                                    ((D_803D60D4 == 0) && (D_803D60D0(other, arg0, &D_803D60D8, &D_803D60DC, other->position.xPos, other->position.zPos, other->position.yPos, xx, yy, zz) != 0))) {
 
-                                    if ((arg0->unk16C->unk2 != 9) && (other->unk16C->unk2 != 9) && (arg0->unk16C->unk2 != 8) && (other->unk16C->unk2 != 8)) {
+                                    if ((arg0->unk16C->unk2 == 9) || (other->unk16C->unk2 == 9) ||
+                                        (arg0->unk16C->unk2 == 8) || (other->unk16C->unk2 == 8)) {
+                                        return 0;
+                                    } else{
+                                        zz.w += D_803A05B4_7B1C64; // gravity*2
 
-                                        tmp += D_803A05B4_7B1C64;
-
-                                        if (((D_803D60D4 != 0) && (D_803D60D0(arg0, other, tmp1, tmp2, *(Pos*)&x, *(Pos*)&y, *(Pos*)&tmp, other->position.xPos, other->position.zPos, other->position.yPos) != 0)) ||
-                                            ((D_803D60D4 == 0) && (D_803D60D0(other, arg0, tmp1, tmp2, other->position.xPos, other->position.zPos, other->position.yPos, *(Pos*)&x, *(Pos*)&y, *(Pos*)&tmp) != 0))) {
+                                        if (((D_803D60D4 != 0) && (D_803D60D0(arg0, other, &D_803D60D8, &D_803D60DC, xx, yy, zz, other->position.xPos, other->position.zPos, other->position.yPos) != 0)) ||
+                                            ((D_803D60D4 == 0) && (D_803D60D0(other, arg0, &D_803D60D8, &D_803D60DC, other->position.xPos, other->position.zPos, other->position.yPos, xx, yy, zz) != 0))) {
                                             *arg5 = 1;
 
                                             if ((arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) && (other->unk16C->objectType == OBJECT_TV_SCREEN)) {
@@ -904,7 +904,6 @@ u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg
                                             return 1;
                                         }
                                     }
-                                    break;
                                 }
                             }
                         }
@@ -913,12 +912,8 @@ u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg
             }
         }
     }
-
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B75CC_6C8C7C.s")
-#endif
 
 // ESA: func_8007374C
 u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
@@ -1075,7 +1070,6 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
 
     return (var_v0 == 0);
 }
-
 
 // ESA: func_80073D48
 void func_802B8304_6C99B4(Animal *arg0, Animal *arg1) {

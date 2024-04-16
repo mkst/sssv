@@ -4092,22 +4092,19 @@ void func_802AF9FC_6C10AC(void) {
     }
 }
 
-#if 0
-// CURRENT (2195)
-// something is definitely not quite right
 // ESA: func_80043E8C
 void func_802B066C_6C1D1C(void) {
     s16 sp36;
     s16 sp34;
-    s16 temp_t2;
+    s16 sp32;
     s16 var_a0;
-    s16 var_v1;
-    s32 pad;
-
+    s32 a2;
+    s32 a3;
 
     sp36 = D_803D552C->unk308;
+
     if (D_801D9ED8.unkFFDE < 0) {
-        var_a0 = (-D_801D9ED8.unkFFDE >> 3) * -1;
+        var_a0 = -(-D_801D9ED8.unkFFDE >> 3);
     } else {
         var_a0 =   D_801D9ED8.unkFFDE >> 3;
     }
@@ -4116,49 +4113,49 @@ void func_802B066C_6C1D1C(void) {
         D_803D552C->unk30A += var_a0;
     }
 
-    if (D_803D552C->unk30A < 0x38) {
+    if (D_803D552C->unk30A < 56) {
         D_803D552C->unk30A = 58;
     }
 
-    if (((D_803E00C0[sp36].numSegments - 1) << 4) < D_803D552C->unk30A) {
+    if (D_803D552C->unk30A > ((D_803E00C0[sp36].numSegments - 1) << 4)) {
         D_803D552C->unk30A = ((D_803E00C0[sp36].numSegments - 1) << 4);
     }
 
     sp34 = D_803D552C->unk30A >> 4;
-    temp_t2 = (D_803D552C->unk30A) & 0xF;
+    sp32 = D_803D552C->unk30A & 0xF;
+    D_803E00C0[sp36].unk30 = sp34;
 
-    D_803E00C0[sp36].unk30 = sp34 & 0xFF;
-
-    var_v1 = D_801D9ED8.unkFFDC;
-    if (var_v1 > 0) {
-        D_803D5530->yRotation = ((s32)gCameras[gCameraId].unk20 + 0x40) & 0xFF;
+    if (D_801D9ED8.unkFFDC > 0) {
+        D_803D5530->yRotation = ((s16)gCameras[gCameraId].unk20 + 0x40) & 0xFF;
     }
-    if (var_v1 < 0) {
-        D_803D5530->yRotation = ((s32)gCameras[gCameraId].unk20 + 0xC0) & 0xFF;
+    if (D_801D9ED8.unkFFDC < 0) {
+        D_803D5530->yRotation = ((s16)gCameras[gCameraId].unk20 + 0xC0) & 0xFF;
     }
 
+    a2 =  D_801D9ED8.unkFFDC * (COS(gCameras[gCameraId].unk20) >> 7);
+    a3 = -D_801D9ED8.unkFFDC * (SIN(gCameras[gCameraId].unk20) >> 7);
     if (D_803E00C0[sp36].unk35 == 0) {
         func_802DE770_6EFE20(
-            sp36,
-            sp34,
-            (COS(gCameras[gCameraId].unk20) >> 7) * var_v1, // xvel
-            (SIN(gCameras[gCameraId].unk20) >> 7) * -var_v1,         // zvel
-            -0x10000);                                            // yvel
+            sp36, // index
+            sp34, // offset
+            a2,
+            a3,
+            -0x10000);
     } else {
         D_803E00C0[sp36].unk35--;
     }
 
-    if (temp_t2 == 0) {
+    if (sp32 == 0) {
         D_803D5530->position.xPos.w = D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk0;
         D_803D5530->position.zPos.w = D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk4;
         D_803D5530->position.yPos.w = D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk8;
     } else {
-        D_803D5530->position.xPos.w = ((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk0 >> 4) +
-                              (     temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk0 >> 4));
-        D_803D5530->position.zPos.w = ((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk4 >> 4) +
-                              (     temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk4 >> 4));
-        D_803D5530->position.yPos.w = ((16 - temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk8 >> 4) +
-                              (     temp_t2) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk8 >> 4));
+        D_803D5530->position.xPos.w = ((16 - sp32) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk0 >> 4) +
+                                       (     sp32) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk0 >> 4));
+        D_803D5530->position.zPos.w = ((16 - sp32) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk4 >> 4) +
+                                       (     sp32) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk4 >> 4));
+        D_803D5530->position.yPos.w = ((16 - sp32) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 0].unk8 >> 4) +
+                                       (     sp32) * (D_803DA300[D_803E00C0[sp36].unk16 + sp34 + 1].unk8 >> 4));
     }
 
     func_803136B0_724D60(D_803D5530);
@@ -4166,9 +4163,6 @@ void func_802B066C_6C1D1C(void) {
     D_803D5530->zVelocity.w = D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk10;
     D_803D5530->yVelocity.w = D_803DA300[D_803E00C0[sp36].unk16 + sp34].unk14;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6B5A40/func_802B066C_6C1D1C.s")
-#endif
 
 void func_802B0B00_6C21B0(s16 arg0, s16 arg1) {
     switch (D_803D5530->state) {

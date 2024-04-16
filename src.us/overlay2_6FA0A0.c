@@ -258,18 +258,15 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
 
 #ifdef NON_MATCHING
 s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
-    s32 pad;
-    s32 fov;
+    s32 pad[0x4];
 
-    f32 tmp1;
-    f32 tmp2;
-
-    f32 temp_f0;
-    f32 width;
-    f32 temp_f16;
     f32 height;
+    f32 width;
 
-    s64 temp_v1;
+    f32 temp_f16;
+    f32 temp_f0;
+    f32 tmp2;
+    f32 tmp1;
 
     f32 sp6C;
     f32 sp68;
@@ -288,11 +285,11 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     sp58 = (arg0 >> 0x10) - (s16) D_803F2C48;
     sp48 = (arg2 >> 0x10) - (s16) D_803F2C4C;
 
-    temp_v1 = (((SQ(sp48) + SQ(sp58) + SQ(sp50)) >> arg4) * D_803F2D50.fovY) / 75.0f;
-    if ((temp_v1 > 0x4C9000)) { // FTOFIX32(76.5625)
+    sp48 = (((SQ(sp48) + SQ(sp58) + SQ(sp50)) >> arg4) * D_803F2D50.fovY) / 75.0f;
+    if ((sp48 > 0x4C9000)) { // FTOFIX32(76.5625)
         return 4;
     }
-    if ((temp_v1 <= 0x1000)) { // FTOFIX32(0.0625)
+    if ((sp48 <= 0x1000)) { // FTOFIX32(0.0625)
         D_803F2EDD = 0;
         return 0;
     }
@@ -322,8 +319,8 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
         width = ((D_80204278->unk38A10[3][0] * tmp1) / temp_f16) + (gScreenWidth * (0, 2));
         height =  ((D_80204278->unk38A10[3][1] * tmp2) / temp_f16) + (gScreenHeight * (0, 2));
 
-        fov = ((arg3 * 33) / D_803F2D50.fovY);
-        temp_f0 = (fov * 128 / (-temp_f16)) / 8.0;
+        arg3 = ((arg3 * 33) / D_803F2D50.fovY);
+        temp_f0 = (arg3 * 128 / (-temp_f16)) / 8.0;
 
         if ((gScreenHeight * 4) < (height - temp_f0)) {
             return 3;
@@ -333,10 +330,8 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
             ((height + temp_f0) > 0.0f) &&
             ((width + temp_f0) > 0.0f)) {
 
-            // if (gScreenWidth) {};
-
-            if (temp_v1 < 0xE1000) {
-                if ((temp_v1 < 0x31000)) {
+            if (sp48 < 0xE1000) {
+                if ((sp48 < 0x31000)) {
                     D_803F2EDD = 0;
                 } else {
                     D_803F2EDD = 1;
@@ -345,12 +340,10 @@ s32 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
             } else {
                 return 1;
             }
-
         } else {
             return 3;
         }
     }
-    if (!arg2) {};
 
     return 3;
 }

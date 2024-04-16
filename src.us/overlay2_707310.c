@@ -929,43 +929,41 @@ void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 enable
 #endif
 
 // ESA: func_800509BC
-s16 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    f32 temp_f18;
+s16 func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 yDelta, f32 arg4) {
+    f32 temp;
     f32 phi_f18;
 
     if (arg1 == 0.0f) {
         return 90;
     }
-    temp_f18 = 1.0 - (((2.0f * arg4) / SQ(arg2)) * (((arg4 * SQ(arg1)) / (2.0f * SQ(arg2))) + arg3));
-    if (temp_f18 < 0.0f) {
+    temp = 1.0 - (((2.0f * arg4) / SQ(arg2)) * (((arg4 * SQ(arg1)) / (2.0f * SQ(arg2))) + yDelta));
+    if (temp < 0.0f) {
         return 9999;
     }
-    temp_f18 = sqrtf(temp_f18);
+    temp = sqrtf(temp);
     if (arg0 != 0) {
-        phi_f18 = ((arg2 * arg2) / (arg4 * arg1)) * (1.0 + temp_f18);
+        phi_f18 = (SQ(arg2) / (arg4 * arg1)) * (1.0 + temp);
     } else {
-        phi_f18 = ((arg2 * arg2) / (arg4 * arg1)) * (1.0 - temp_f18);
+        phi_f18 = (SQ(arg2) / (arg4 * arg1)) * (1.0 - temp);
     }
+    // clamp -2048-2048 to +-90
     return func_8012844C(phi_f18 * 64.0f);
 }
 
-// CURRENT (4165)
 // ESA: func_80050BF0
-#if 0
 s16 func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, f32 arg8) {
+    s32 var_v0;  // pad
     s16 var_a0;
-    s32 var_v0;
 
     f32 xzDiff;
     f32 yDiff;
 
     s16 var_t1;
-    s16 var_v1_2;  // sp4c
-    s16 var_t2;    // sp4a
+    s16 ret;       // sp4C
+    s16 var_t2;    // sp4A
     s16 var_v1;    // sp48
     s16 pad;       // sp46
-
-    u8 sp45;
+    u8  sp45;
 
     xzDiff = sqrtf(SQ((f32) arg0->position.xPos.h - arg1->position.xPos.h) + SQ((f32) arg0->position.zPos.h - arg1->position.zPos.h)) - arg2;
     if (xzDiff < 0) {
@@ -974,8 +972,7 @@ s16 func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg
 
     yDiff = (arg1->position.yPos.h - arg0->position.yPos.h) - arg3;
     if (arg7 == 3) {
-        if (((var_v0 = (yDiff > 32.0f)) == 0) && ((var_v0 = (xzDiff > 256.0f))) && (var_v0 = (func_80128200() & 3) == 1)) {}
-        sp45 = var_v0;
+        sp45 = ((yDiff > 32.0f) || (xzDiff > 256.0f) && ((func_80128200() & 3) == 1));
     } else if (arg7 == 4) {
         sp45 = 0;
     } else {
@@ -990,66 +987,54 @@ s16 func_802F8160_709810(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg
     if (arg5 < var_t1) {
         var_t2 = ABS(var_t1 - arg5);
         var_t1 = arg5;
-        goto block_43;
-    }
-
-    if (var_t1 < arg6) {
+    } else if (var_t1 < arg6) {
         var_t2 = ABS(ABS(var_t1) - ABS(arg6));
         var_t1 = arg6;
-
-block_43:
-        if ((arg7 == 4) && (xzDiff < 70.0f)) {
-            if (var_t1 < 0) {
-                var_t1 += 360;
-            }
-            return var_t1;
-        }
-
-        var_a0 = func_802F804C_7096FC(!sp45, xzDiff, arg4, yDiff, arg8);
-        if (var_a0 == 9999) {
-            return -1;
-        }
-
-        if (arg5 < var_a0) {
-            var_a0 = ABS(var_a0 - arg5);
-            var_v1 = arg5;
-            goto block_73;
-        }
-
-        if (var_a0 < arg6) {
-            var_a0 = ABS(ABS(var_a0) - ABS(arg6));
-            var_v1 = arg6;
-
-block_73:
-            if ((var_t2 < var_a0) && (var_t2 < 5)) {
-                if (var_t1 < 0) {
-                    var_t1 += 360;
-                }
-                return var_t1;
-            }
-            if (var_a0 < 5) {
-                if (var_v1 < 0) {
-                    var_v1 += 360;
-                }
-                return var_v1;
-            }
-            return -1;
-        } else {
-            if (var_a0 < 0) {
-                var_a0 += 360;
-            }
-            return var_a0;
-        }
     } else {
         if (var_t1 < 0) {
             var_t1 += 360;
         }
         return var_t1;
     }
+
+    if ((arg7 == 4) && (xzDiff < 70.0f)) {
+        if (var_t1 < 0) {
+            var_t1 += 360;
+        }
+        return var_t1;
+    }
+
+    var_a0 = func_802F804C_7096FC(!sp45, xzDiff, arg4, yDiff, arg8);
+    if (var_a0 == 9999) {
+        return -1;
+    }
+
+    if (arg5 < var_a0) {
+        var_v1 = ABS(var_a0 - arg5);
+        var_a0 = arg5;
+    } else if (var_a0 < arg6) {
+        var_v1 = ABS(ABS(var_a0) - ABS(arg6));
+        var_a0 = arg6;
+    } else {
+        if (var_a0 < 0) {
+            var_a0 += 360;
+        }
+        return var_a0;
+    }
+
+    if ((var_t2 < var_v1) && (var_t2 < 5)) {
+        ret = var_t1;
+    } else if (var_v1 < 5) {
+        ret = var_a0;
+    } else {
+        return -1;
+    }
+
+    if (ret < 0) {
+        ret += 360;
+    }
+    return ret;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_707310/func_802F8160_709810.s")
-#endif
 
 // ESA: func_80050EA4
 u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4) {

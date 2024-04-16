@@ -2381,7 +2381,7 @@ void func_802C4448_6D5AF8(s16 arg0) {
 
 // ordering of assignments is wrong
 #if 0
-// CURRENT (7422)
+// CURRENT (7447)
 void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     s16 sp42;
     s16 sp40;

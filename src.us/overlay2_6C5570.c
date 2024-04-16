@@ -120,43 +120,51 @@ void func_802B4148_6C57F8(Gfx **arg0) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
     f32 sp7C;
     f32 sp78;
+    f32 temp_f12;
     f32 sp70;
     f32 sp6C;
+    f32 temp_f16;
     f32 temp_f0;
-    f32 temp_f12;
     f32 temp_f14;
+    f32 phi_f2;
     f32 xl;
     f32 yl;
     f32 xh;
     f32 yh;
-    f32 temp_f16;
-    f32 phi_f2;
-    s32 new_var;
-    s16 new_var2;
     s16 dsdx;
+    s32 pad[2];
     s16 dtdy;
 
     temp_f12 = arg1 / 65536.0;
     temp_f14 = arg2 / 65536.0;
     temp_f16 = arg3 / 65536.0;
 
-    temp_f0 = (D_80204278->unk38A10[2][0] * temp_f12) + (D_80204278->unk38A10[2][1] * temp_f14) + (D_80204278->unk38A10[2][2] * temp_f16) + (D_80204278->unk38A10[2][3]);
+    temp_f0 = D_80204278->unk38A10[2][3] +
+            ((D_80204278->unk38A10[2][2] * temp_f16) +
+            ((D_80204278->unk38A10[2][1] * temp_f14) +
+             (D_80204278->unk38A10[2][0] * temp_f12)));
+
     if (temp_f0 <= -3.0) {
-        xl = ((D_80204278->unk38A10[3][2] * temp_f0) + D_80204278->unk38A10[3][3]) / (-temp_f0);
+        xl = (D_80204278->unk38A10[3][3] + (D_80204278->unk38A10[3][2] * temp_f0)) / -temp_f0;
         if (xl > 0.0) {
 
-            sp7C = (D_80204278->unk38A10[0][3]) + ((D_80204278->unk38A10[0][0] * temp_f12) +(D_80204278->unk38A10[0][1] * temp_f14) + (D_80204278->unk38A10[0][2] * temp_f16));
-            sp78 = (D_80204278->unk38A10[1][3]) + ((D_80204278->unk38A10[1][0] * temp_f12) +(D_80204278->unk38A10[1][1] * temp_f14) + (D_80204278->unk38A10[1][2] * temp_f16));
+            sp7C = D_80204278->unk38A10[0][3] +
+                 ((D_80204278->unk38A10[0][2] * temp_f16) +
+                 ((D_80204278->unk38A10[0][1] * temp_f14) +
+                  (D_80204278->unk38A10[0][0] * temp_f12)));
+            sp78 = D_80204278->unk38A10[1][3] +
+              ((    D_80204278->unk38A10[1][2] * temp_f16) +
+                 ((D_80204278->unk38A10[1][1] * temp_f14) +
+                  (D_80204278->unk38A10[1][0] * temp_f12)));
 
-            sp70 = (gScreenWidth  * 2) + ((D_80204278->unk38A10[3][0] * sp7C) / temp_f0);
-            sp6C = ((new_var2 = gScreenHeight) * 2) + ((D_80204278->unk38A10[3][1] * sp78) / temp_f0);
+            sp70 = ((D_80204278->unk38A10[3][0] * sp7C) / temp_f0) + (gScreenWidth  * (0, 2));
+            sp6C = ((D_80204278->unk38A10[3][1] * sp78) / temp_f0) + (gScreenHeight * (0, 2));
 
-            new_var = (arg6 * 33) / D_803F2D50.fovY;
-            phi_f2 = ((new_var) << 5) / -temp_f0;
+            arg6 = (arg6 * 33) / D_803F2D50.fovY;
+            phi_f2 = (arg6 * 32) / -temp_f0;
 
             if (phi_f2 > 15.0f) {
                 phi_f2 = 15.0f;
@@ -166,7 +174,7 @@ void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
             }
 
             if (phi_f2 > 0.0f) {
-                temp_f0 = ((arg4 * phi_f2) / 128.0);
+                temp_f0 = (arg4 * phi_f2) / 128.0;
                 xl = sp70 - temp_f0;
                 xh = sp70 + temp_f0;
                 yl = sp6C - (f32) ((arg5 * phi_f2) / 128.0);
@@ -195,6 +203,3 @@ void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6C5570/func_802B4794_6C5E44.s")
-#endif

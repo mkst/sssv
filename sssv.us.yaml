@@ -3602,18 +3602,18 @@ segments:
     - [0x63DC20, bin, rnc_63DC20] # 37463 => 163840 # chunked   # RNC pack differs
     - [0x646E80, rnc, img/intro/president_frank_bloke, rgba16, 320, 240]
     - [0x64DE50, rnc, img/sssv_logo, rgba16, 256, 128]
-    - [0x653270, bin, rnc_653270] # 5873 => 18432   # newscaster "video"
-    - [0x654970, bin, rnc_654970] # 5717 => 18432   # newscaster "video"
-    - [0x655FD0, bin, rnc_655FD0] # 5713 => 18432   # newscaster "video"
-    - [0x657630, bin, rnc_657630] # 6413 => 18432   # newscaster "video"
+    - [0x653270, rnc, img/intro/newscaster_1, rgba16, 32, 288] # 5873 => 18432
+    - [0x654970, rnc, img/intro/newscaster_2, rgba16, 32, 288] # 5717 => 18432
+    - [0x655FD0, rnc, img/intro/newscaster_3, rgba16, 32, 288] # 5713 => 18432
+    - [0x657630, rnc, img/intro/newscaster_4, rgba16, 32, 288] # 6413 => 18432
     - [0x658F40, bin] # D_802B58A0_658F40 texture(s)? stars?
     - [0x659340, bin] # D_802B5CA0_659340
     - [0x659740, bin] # D_802B60A0_659740
-    - [0x659B40, bin, rnc_659B40] # 24460 => 163840 # D_802B64A0
+    - [0x659B40, rnc, img/intro/newscaster_5, rgba16, 32, 2560] # 24460 => 163840 # D_802B64A0
     - [0x65FAD0, rnc, img/space_background, rgba16, 160, 128]
     - [0x662810, rgba16, img/intro/200_credz, 32, 128] # chunked
     - [0x664810, bin] # tbd
-    - [0x664860, bin, rnc_664860] # 23248 => 163840 # newflash
+    - [0x664860, rnc, img/intro/newsflash, rgba16, 32, 2560] # 23248 => 163840 # newflash (32x32*80)
     - [0x66A330, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
     - [0x673790, rnc, img/intro/professor_cheese, rgba16, 320, 240]
     - [0x67DFA0, rnc, img/intro/space_station, rgba16, 320, 240]

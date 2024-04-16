@@ -379,7 +379,6 @@ void trigger_contagious_laughter(void) {
     s32 animalId;
     Animal *animal;
 
-
     if (D_803D5524->unk9C != MYSTERY_BEAR) {
         func_8032CD70_73E420(
             (u8*)D_803D5530 + 0x15,
@@ -429,7 +428,8 @@ void trigger_contagious_laughter(void) {
                             var_v1 = ABS(temp_a1);
 
                             temp_a2 = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
-                            if (temp_a2 < 0x200) {
+                            if (temp_a2 < 512) {
+
                                 if (animal->unk16C->unk82.unk2) {
                                     if ((animal->unk366 != 2) && (animal->unk366 != 5)) {
                                         animalId = animal->unk16C->unk9C;
@@ -447,7 +447,7 @@ void trigger_contagious_laughter(void) {
                                                 do_laughter = 1;
                                             }
 
-                                            if ((do_laughter != 0) &&
+                                            if ((do_laughter) &&
                                                 (animalId != RACING_TORTOISE_DEFENDING) &&
                                                 (animalId != TORTOISE_TANK_DEFENDING) &&
                                                 (animalId != HYENA) &&
@@ -459,8 +459,8 @@ void trigger_contagious_laughter(void) {
                                                         animal->laughterThreshold++;
                                                     }
                                                 }
-
                                                 temp_t0 = animal->unk16C;
+
                                                 if (animal->laughterThreshold > 80) {
                                                     animal->isLaughing = 1;
                                                     func_8032CD70_73E420(
@@ -479,9 +479,10 @@ void trigger_contagious_laughter(void) {
                                                     }
                                                 }
                                             }
-                                            goto dummy_label_101032; dummy_label_101032: ;
+                                            goto dummy_label_101032; dummy_label_101032: ; // fuuu
                                         }
                                     }
+                                    if (1) { }
                                 }
                                 if (animal->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+HYENA) {
                                     animal->unk54.unk3 = 0x16;
