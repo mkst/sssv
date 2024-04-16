@@ -1321,9 +1321,8 @@ typedef struct {
 #if 0
 // ESA: func_80087738
 // not quite there yet...
-// CURRENT (1884)
+// CURRENT (1726)
 u32 func_802E3C88_6F5338(struct051* arg0) {
-
     s32 x;
     s32 y;
     s32 z;
@@ -1340,6 +1339,8 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
     Vtx2 *vtx;
     s16 i;
 
+    s32 *new_var;
+
     var_a3 = D_803F2C5C * 1024.0;
     temp_fp = D_803F2C60 * 1024.0;
 
@@ -1351,15 +1352,15 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
 
         if (i == (arg0->numSegments - 1)) {
             // final piece
-            var_s2 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10) * temp_fp;
-            var_s3 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10) * -var_a3;
-            var_s4 =  ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk4 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk4) >> 0x10) * var_a3;
-            var_s4 -= ((D_803DA300[arg0->unk16+15].unk0 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk0) * temp_fp) >> 0x10;
+            var_s2 =  temp_fp * ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10);
+            var_s3 =  -var_a3 * ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10);
+            var_s4 =  (var_a3 * ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk4 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk4) >> 0x10)) - ((temp_fp * (D_803DA300[arg0->unk16 + 15].unk0 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk0)) >> 0x10);
+            // var_s4 -= ((D_803DA300[arg0->unk16 + 15].unk0 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk0) * temp_fp) >> 0x10;
         } else {
-            var_s2 =  ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10) * temp_fp;
-            var_s3 =  ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10) * -var_a3;
-            var_s4 =  ((D_803DA300[arg0->unk16 + i + 1].unk4 - D_803DA300[arg0->unk16 + i + 0].unk4) >> 0x10) * var_a3;
-            var_s4 -= ((D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0) * temp_fp) >> 0x10;
+            var_s2 =  temp_fp * ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10);
+            var_s3 =  -var_a3 * ((D_803DA300[arg0->unk16 + i + 1].unk8 - D_803DA300[arg0->unk16 + i + 0].unk8) >> 0x10);
+            var_s4 =  (var_a3 * ((D_803DA300[arg0->unk16 + i + 1].unk4 - D_803DA300[arg0->unk16 + i + 0].unk4) >> 0x10)) - ((temp_fp * (D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0)) >> 0x10);
+            // var_s4 -= ((D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0) * temp_fp) >> 0x10;
         }
 
         var_a0 = 2 * sqrtf(SQ((f32)var_s2) + SQ((f32)var_s3) + SQ((f32)var_s4));
@@ -1391,7 +1392,7 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
         vtx[i].vtx2.n.n[0] = -1;
         vtx[i].vtx2.n.n[1] = -1;
         vtx[i].vtx2.n.n[2] = -1;
-        vtx[i].vtx2.n.n[3] = 0xFF;
+        vtx[i].vtx2.n.n[3] = 0xFFu;
 
         vtx[i].vtx1.n.tc[1] = ((i << 5) - 0x80) << 6;
         vtx[i].vtx2.n.tc[1] = ((i << 5) - 0x80) << 6;

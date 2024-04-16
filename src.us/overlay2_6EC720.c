@@ -2,72 +2,71 @@
 #include "common.h"
 
 
-// NON-MATCHING: almost JUSTREG
 #ifdef NON_MATCHING
 void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 arg5) {
-    s16 tmp1;
-    s16 tmp2;
-    s16 tmp3;
+    s16 sp46;
+    s16 sp44;
+    s16 sp42;
 
     s16 sp40;
     s16 sp3E;
     s16 sp3C;
 
+    s16 phi_a0;
+    s16 phi_a1;
+
+    u16 bar;
+    u16 foo;
+
     s32 phi_v1;
 
     s16 temp_t9_2;
 
-    u16 foo;
-    u16 bar;
     f32 tmp;
 
-    s16 phi_a0;
-    s16 phi_a1;
+    sp44 = (D_80152350.unk2D0[arg2] * arg4) / 256;
+    sp42 = (D_80152350.unk384[arg2] * arg4) / 256;
 
-    tmp1 = (D_80152350.unk2D0[arg2] * arg4) / 256;
-
-    tmp2 = (D_80152350.unk384[arg2] * arg4) / 256;
-    tmp3 = (D_80152350.unk2D0[arg3] * tmp1) / 256;
-    tmp1 = (D_80152350.unk384[arg3] * tmp1) / 256;
+    sp46 = (D_80152350.unk2D0[arg3] * sp44) / 256;
+    sp44 = (D_80152350.unk384[arg3] * sp44) / 256;
 
     // diff = prev joint location?
     sp40 = D_802040F0[arg1].unk0 - D_802040F0[arg0].unk0;
     sp3E = D_802040F0[arg1].unk2 - D_802040F0[arg0].unk2;
     sp3C = D_802040F0[arg1].unk4 - D_802040F0[arg0].unk4;
 
-    tmp = ((f32) tmp3 * tmp3) + ((f32) tmp1 * tmp1) + ((f32) tmp2 * tmp2);
+    tmp = SQ((f32) sp46) + SQ((f32) sp44) + SQ((f32) sp42);
     foo = (s32) sqrtf(tmp);
 
-    tmp = ((f32) sp40 * sp40) + ((f32) sp3E * sp3E) + ((f32) sp3C * sp3C);
+    tmp = SQ((f32) sp40) + SQ((f32) sp3E) + SQ((f32) sp3C);
     bar = (s32) sqrtf(tmp);
 
     phi_v1 = foo * bar;
     if (phi_v1 == 0) {
         phi_v1 = 1;
     }
-    temp_t9_2 = func_801283AC((((tmp3 * sp40) + (tmp1 * sp3E) + (tmp2 * sp3C)) * 256) / phi_v1);
+    temp_t9_2 = func_801283AC((((sp46 * sp40) + (sp44 * sp3E) + (sp42 * sp3C)) * 256) / phi_v1);
 
     if (temp_t9_2 == 180) {
         temp_t9_2 = 179;
     }
-    temp_t9_2 = (temp_t9_2 >> 2);
+    temp_t9_2 = temp_t9_2 >> 2;
 
     // falls apart here
-    foo = arg5;
-    if ((foo < 17) != 0) {
-        phi_v1 = foo + (temp_t9_2 * 17);
+    if ((arg5 < 17) != 0) {
+        phi_v1 = arg5 + (temp_t9_2 * 17);
         phi_a0 = D_803A2D90_7B4440[phi_v1].unk0;
         phi_a1 = D_803A2D90_7B4440[phi_v1].unk2;
     } else {
-        phi_v1 = (temp_t9_2 * 17);
-        phi_v1 = phi_v1 + ((32 - foo) & 0xffff);
-        phi_a0 = D_803A2D90_7B4440[phi_v1].unk0;
-        phi_a1 = D_803A2D90_7B4440[phi_v1].unk2;
+        arg5 = (32 - arg5) & 0xFFFF;
+        phi_v1 = arg5 + (temp_t9_2 * 17);
+        phi_a1 = D_803A2D90_7B4440[phi_v1].unk0; // NOTE: swapped!
+        phi_a0 = D_803A2D90_7B4440[phi_v1].unk2; // NOTE: swapped!
     }
 
-    D_80203FE0[arg1].unk0 = D_80203FE0[arg0].unk0 + (((phi_a0 * tmp3) + (phi_a1 * sp40)) / 256);
-    D_80203FE0[arg1].unk2 = D_80203FE0[arg0].unk2 + (((phi_a0 * tmp1) + (phi_a1 * sp3E)) / 256);
-    D_80203FE0[arg1].unk4 = D_80203FE0[arg0].unk4 + (((phi_a0 * tmp2) + (phi_a1 * sp3C)) / 256);
+    D_80203FE0[arg1].unk0 = D_80203FE0[arg0].unk0 + (((phi_a0 * sp46) + (phi_a1 * sp40)) / 256);
+    D_80203FE0[arg1].unk2 = D_80203FE0[arg0].unk2 + (((phi_a0 * sp44) + (phi_a1 * sp3E)) / 256);
+    D_80203FE0[arg1].unk4 = D_80203FE0[arg0].unk4 + (((phi_a0 * sp42) + (phi_a1 * sp3C)) / 256);
     if ((D_80203FE0[arg1].unk0 == D_80203FE0[arg0].unk0) &&
         (D_80203FE0[arg1].unk2 == D_80203FE0[arg0].unk2) &&
         (D_80203FE0[arg1].unk4 == D_80203FE0[arg0].unk4)) {

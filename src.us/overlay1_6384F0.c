@@ -206,12 +206,12 @@ void func_802950B8_638758(void) {
     if (gRegion == REGION_EU) {
         language_select_menu(0);
     }
-    UnpackRNC((RNC_fileptr)rnc_659B40_bin, D_80302E88); // newscaster "video"
-    UnpackRNC((RNC_fileptr)rnc_653270_bin, D_80302E88 + 0x9B460);
-    UnpackRNC((RNC_fileptr)rnc_654970_bin, D_80302E88 + 0xA0A50);
-    UnpackRNC((RNC_fileptr)rnc_655FD0_bin, D_80302E88 + 0xA6040);
-    UnpackRNC((RNC_fileptr)rnc_657630_bin, D_80302E88 + 0x35800);
-    UnpackRNC((RNC_fileptr)rnc_664860_bin, D_80302E88 + 0x3A000); // newsflash?
+    UnpackRNC((RNC_fileptr)img_intro_newscaster_5_rgba16_rnc_rgba16__rnc, D_80302E88);
+    UnpackRNC((RNC_fileptr)img_intro_newscaster_1_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x9B460);
+    UnpackRNC((RNC_fileptr)img_intro_newscaster_2_rgba16_rnc_rgba16__rnc, D_80302E88 + 0xA0A50);
+    UnpackRNC((RNC_fileptr)img_intro_newscaster_3_rgba16_rnc_rgba16__rnc, D_80302E88 + 0xA6040);
+    UnpackRNC((RNC_fileptr)img_intro_newscaster_4_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x35800);
+    UnpackRNC((RNC_fileptr)img_intro_newsflash_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x3A000);
     UnpackRNC((RNC_fileptr)img_space_background_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x28000);
     UnpackRNC((RNC_fileptr)img_menu_trademark_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x74050);
 

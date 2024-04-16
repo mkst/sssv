@@ -529,7 +529,7 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1);
 void func_802DD004_6EE6B4(u16 arg0);
 void reset_dynamic_tails(s32 arg0);
 s16  func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 arg3, s8 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8, u8 arg9, Animal *argA, Animal *argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11);
-void func_802DE770_6EFE20(s16 arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_802DE770_6EFE20(s16 arg0, s16 arg1, s32 xVel, s32 zVel, s32 yVel);
 void func_802DE7F4_6EFEA4(s16 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_802DE890_6EFF40(s16 arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
 void func_802DE914_6EFFC4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);

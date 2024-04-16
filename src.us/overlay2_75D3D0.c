@@ -135,12 +135,11 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
             func_8034F3EC_760A9C(vtxs[0], vtxs[1], vtxs[2], 4, &numVtxs[1], &numVtxs[2], temp_t0);
             if (numVtxs[2] >= 3) {
                 func_8034CCBC_75E36C(vtxs[2], numVtxs[2], arg2, alpha, red, green, blue);
-            }
-            idx = 1;
-        } else if ((sp23A < temp_t1_2) && (temp_t1_2 < sp238)) {
-            func_8034F3EC_760A9C(vtxs[0], vtxs[1], vtxs[2], 4, &numVtxs[1], &numVtxs[2], temp_t1_2);
-            if (numVtxs[1] >= 3) {
-                func_8034CCBC_75E36C(vtxs[1], numVtxs[1], arg2, alpha, red, green, blue);
+            }            idx  1;
+        } else i ((sp23A < temp_t1_2) && (temp_t1_2 < sp238)) {
+            func8034F3EC_760A9C(vtxs[0], vtxs[1], vtxs[2], 4, &numVtxs[1], &numVtxs[2], temp_t1_2);
+            if (umVtxs[1] >= 3) {
+                unc_8034CCBC_75E36C(vtxs[1], numVtxs[1], arg2, alpha, red, green, blue);
             }
             idx = 2;
         } else {
@@ -186,12 +185,12 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
     s16 temp_v0;
     s16 temp_v1_2;
 
-    s32 temp_t2;
-    s32 temp_t4;
-    s32 temp_t3;
-    s32 temp_t0;
-    s32 temp_t9;
-    s32 temp_t8;
+    s16 temp_t2;
+    s16 temp_t4;
+    s16 temp_t3;
+    s16 temp_t0;
+    s16 temp_t9;
+    s16 temp_t8;
 
     s32 temp_v1;
     s32 var_v0;
@@ -238,13 +237,12 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         temp_v1_2 = (COS(arg3) >> 7) + 1;
 
         temp_t2 =  (arg5 * temp_v0) >> 8;
-        temp_t9 =  (arg6 * temp_v1_2) >> 8;
-
-        temp_t3 =  (arg5 * temp_v1_2) >> 8;
-        temp_t8 = -(arg6 * temp_v0) >> 8;
-
         temp_t4 =  (arg5 * temp_v0) >> 8;
         temp_t0 =  (arg5 * temp_v1_2) >> 8;
+        temp_t3 =  (arg5 * temp_v1_2) >> 8;
+
+        temp_t8 = -(arg6 * temp_v0) >> 8;
+        temp_t9 =  (arg6 * temp_v1_2) >> 8;
 
         vtx[0].unk0 = arg0 + temp_t2 + temp_t9;
         vtx[0].unk2 = arg1 + temp_t3 + temp_t8;

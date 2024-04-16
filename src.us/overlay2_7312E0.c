@@ -151,21 +151,18 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
 }
 
 #if 0
-// CURRENT (10354)
+// CURRENT (4425)
 void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct077 *arg8, s8 arg9) {
     u16 temp_t5;
-    u16 temp_t5_2;
+    u16 tmp;
 
     s16 sp62;
     s16 sp60;
     s16 sp5E;
 
-    s16 temp_a3;
     s16 temp_a1;
-    s16 temp_t0_3;
-    s16 temp_t6_3;
-
-    s16 idx;
+    s16 temp_t0;
+    s16 temp_t6;
 
     if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
         arg0->unk12++;
@@ -174,19 +171,17 @@ void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
     switch (arg9) {
     case 1:
         temp_t5 = (arg3 / 32);
-        temp_t5_2 = (arg3 - (temp_t5 * 32));
-        temp_a3 = 32 - temp_t5_2;
-        idx = ((temp_t5 + 1) % 8);
-        sp62 = ((arg6[idx].unk0 * temp_t5_2) + (temp_a3 * arg6[temp_t5].unk0)) / 32;
-        sp60 = ((arg6[idx].unk2 * temp_t5_2) + (temp_a3 * arg6[temp_t5].unk2)) / 32;
+        tmp = arg3 - (temp_t5 * 32);
+
+        sp62 = (((32 - tmp) * arg6[temp_t5].unk0) + (tmp * arg6[((temp_t5 + 1) % 8)].unk0)) / 32;
+        sp60 = (((32 - tmp) * arg6[temp_t5].unk2) + (tmp * arg6[((temp_t5 + 1) % 8)].unk2)) / 32;
         break;
     case 2:
         temp_t5 = (arg3 / 32);
-        temp_t5_2 = (arg3 - (temp_t5 * 32));
-        temp_a3 = 32 - temp_t5_2;
-        idx = ((temp_t5 + 1) % 8);
-        sp62 = ((arg7[idx].unk0 * temp_t5_2) + (temp_a3 * arg7[temp_t5].unk0)) / 32;
-        sp60 = ((arg7[idx].unk2 * temp_t5_2) + (temp_a3 * arg7[temp_t5].unk2)) / 32;
+        tmp = arg3 - (temp_t5 * 32);
+
+        sp62 = (((32 - tmp) * arg7[temp_t5].unk0) + (tmp * arg7[((temp_t5 + 1) % 8)].unk0)) / 32;
+        sp60 = (((32 - tmp) * arg7[temp_t5].unk2) + (tmp * arg7[((temp_t5 + 1) % 8)].unk2)) / 32;
         break;
     default:
         sp62 = sp60 = 0;
@@ -220,17 +215,20 @@ void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
     if (D_803D552C->unk300 != 0) {
         func_802BCDA0_6CE450(arg0, &sp62, &sp60, &sp5E);
     }
-    temp_t0_3 = D_80203FE0[arg1].unk0;
-    temp_t6_3 = D_80203FE0[arg1].unk2 - ((arg4 * D_80152350.unk2D0[sp62]) / 256);
+
     temp_a1 = D_80203FE0[arg1].unk4 - ((arg4 * D_80152350.unk384[sp62]) / 256);
+    temp_t6 = D_80203FE0[arg1].unk2 - ((arg4 * D_80152350.unk2D0[sp62]) / 256);
+    temp_t0 = D_80203FE0[arg1].unk0;
 
-    D_80203FE0[arg2].unk0 = temp_t0_3;
-    D_80203FE0[arg2].unk2 = temp_t6_3;
     D_80203FE0[arg2].unk4 = temp_a1;
+    D_80203FE0[arg2].unk2 = temp_t6;
+    D_80203FE0[arg2].unk0 = temp_t0;
 
-    D_80203FE0[arg2+1].unk0 = temp_t0_3;
-    D_80203FE0[arg2+1].unk2 = temp_t6_3 - ((arg5 * D_80152350.unk2D0[sp60]) / 256);
-    D_80203FE0[arg2+1].unk4 = temp_a1 - ((arg5 * D_80152350.unk384[sp60]) / 256);
+    arg2 = arg2 + 1;
+
+    D_80203FE0[arg2].unk4 = temp_a1 - ((arg5 * D_80152350.unk384[sp60]) / 256);
+    D_80203FE0[arg2].unk2 = temp_t6 - ((arg5 * D_80152350.unk2D0[sp60]) / 256);
+    D_80203FE0[arg2].unk0 = temp_t0;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8032018C_73183C.s")

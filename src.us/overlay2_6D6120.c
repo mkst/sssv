@@ -896,7 +896,7 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
 
 #ifdef NON_MATCHING
 // only used by rabbit
-// CURRENT (360)
+// CURRENT (370)
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 var_a0;
     s16 var_a2;
