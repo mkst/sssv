@@ -61,7 +61,7 @@ Place `baserom.eu.z64` in the root of the repository, and suffix each `make` com
 
 ## Building `NON_MATCHING` Version
 
-A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **12%** ahead of the fully matching build. In order to build/test the non-matching, pass `NON_MATCHING=1` to the `make` commands.
+A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **11%** ahead of the fully matching build. In order to build/test the non-matching, pass `NON_MATCHING=1` to the `make` commands.
 
 # ROM Versions
 

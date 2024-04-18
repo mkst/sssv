@@ -70,8 +70,6 @@ void func_80362C10_7742C0(Animal *arg0) {
 }
 
 // ESA: func_80060EB0
-#ifdef NON_MATCHING
-// stack + 1 regalloc
 void func_80362CC4_774374(Animal *arg0) {
     s16 pad;
     s16 sp54;
@@ -86,7 +84,8 @@ void func_80362CC4_774374(Animal *arg0) {
     u8 length;
     s32 xPos;
     s32 zPos;
-    s16 pad2[2];
+    s32 xPos2;
+    s32 zPos2;
     Animal *sp28; // help!
 
     switch (arg0->waypointType) {
@@ -244,9 +243,9 @@ void func_80362CC4_774374(Animal *arg0) {
             }
             break;
         case 1:
-            xPos = sp28->position.xPos.h - arg0->position.xPos.h;
-            zPos = sp28->position.zPos.h - arg0->position.zPos.h;
-            if (func_803051F0_7168A0(((func_801284B8(xPos, zPos) << 8) / 360), arg0->yRotation) < 4) {
+            xPos2 = sp28->position.xPos.h - arg0->position.xPos.h;
+            zPos2 = sp28->position.zPos.h - arg0->position.zPos.h;
+            if (func_803051F0_7168A0((func_801284B8(xPos2, zPos2) << 8) / 360, arg0->yRotation) < 4) {
                 func_8037B754_78CE04(arg0, arg0->unk294.type9.unk0);
                 arg0->unk290 = 0;
                 arg0->unk28E = 2;
@@ -266,9 +265,6 @@ void func_80362CC4_774374(Animal *arg0) {
         break;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7741B0/func_80362CC4_774374.s")
-#endif
 
 // ESA: func_80061318
 void func_803633C4_774A74(Animal *arg0) {

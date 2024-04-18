@@ -1,11 +1,12 @@
 #include <ultra64.h>
 #include "common.h"
 
-#ifdef NON_MATCHING
+
 // ESA: func_8007E6A0
-// CURRENT (16), just the stack
 s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
-    s32 pad[3];
+    s32 pad[2];
+    s16 temp_lo_2;
+    s16 temp_t6;
 
     s16 temp_t1; // sp92?
 
@@ -19,18 +20,21 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
     s32 var_t5;
 
     s32 sp78;
-    s32 var_t0; // sp74?
+
+    s32 var_t02;
     s32 var_t3; // sp70 ?
-    s32 sp6C;
+
+    s32 var_t0; // sp74?
+
     s32 sp68;
+
     s16 i;
     s16 j;
 
     s16 var_a2;
     s16 temp_lo;
-    s16 temp_lo_2;
-    s16 temp_t6;
 
+    s32 sp6C;
     s32 sp58;
     s32 sp54;
     s32 sp50;
@@ -93,7 +97,7 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                 }
 
                 if ((temp_lo_2 + 1) >= 0x20) {
-                    var_t0 = arg0->position.yPos.w;
+                    var_t02 = arg0->position.yPos.w;
                     var_t5 = 0;
                     sp54 = 0;
                 } else {
@@ -102,10 +106,10 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
                     if (collision->data[index] != 0) {
                         for (i = 31; (collision->data[index] & (1 << i)) == 0; i--);
-                        var_t0 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
+                        var_t02 = arg0->position.yPos.w + (arg0->unk42 << 0xF) + (((i - 15) * temp_t1) << 0xB);
                         var_t5 = i;
                     } else {
-                        var_t0 = arg0->position.yPos.w;
+                        var_t02 = arg0->position.yPos.w;
                         var_t5 = 0;
                     }
                 }
@@ -136,7 +140,7 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
                         return 0;
                     }
                 } else {
-                    *arg3 = ((((var_t3 - var_t0) * temp_v0) + ((var_t0 - sp78) * temp_v1)) / (temp_t1 >> 5)) + sp78;
+                    *arg3 = ((((var_t3 - var_t02) * temp_v0) + ((var_t02 - sp78) * temp_v1)) / (temp_t1 >> 5)) + sp78;
                 }
 
                 index = temp_lo + (temp_lo_2 << 5);
@@ -235,9 +239,6 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73C890/func_8032B1E0_73C890.s")
-#endif
 
 // check some flag?
 // ESA: func_8007EFB0
