@@ -17,11 +17,12 @@ extern Gfx D_040024F0_DFAB0[];
 extern Gfx D_04002510_DFAD0[];
 extern Gfx D_040025D0_DFB90[];
 
-#ifdef NON_MATCHING
+
 void func_80380920_791FD0(void) {
     s32 sp94;
-    s16 temp_a3;
     s32 var_t0;
+    s16 temp_a3;
+    s16 unused;
     s16 var_a0; // er?
     u8 temp_v0_10;
     s16 sp86;
@@ -292,9 +293,6 @@ void func_80380920_791FD0(void) {
         load_animal(SEAGULL);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/seagull/func_80380920_791FD0.s")
-#endif
 
 void func_80381C60_793310(void) {
     if (D_803D552C->unk320 == NULL) {

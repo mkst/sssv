@@ -2935,22 +2935,22 @@ void func_802D7AD4_6E9184(s16 x, s16 z, s16 y, s16 arg3) {
     }
 }
 
-#ifdef NON_MATCHING
 // ESA: func_800AB0AC or func_800A8AF0?
 void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 color) {
-
     s16 spBE;
     s16 spBC;
     s16 spBA;
+
+    s16 volume;
 
     s16 temp_s4;
     s16 temp_s5;
     s16 temp_s6;
     s16 temp_s7;
 
-    s16 volume;
     s16 i;      // spAE
     s16 j;
+    s32 pad;
 
     if (arg5 < 2) {
         arg5 = 2;
@@ -2997,9 +2997,9 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
 
     for (i = 0; i < spBE; i++) {
 
-        temp_s6 = (((guRandom() % arg5) * 2) + x) - (u16)arg5;
-        temp_s5 = (((guRandom() % arg5) * 2) + z) - (u16)arg5;
-        temp_s4 = (((guRandom() % arg5) * 2) + y) - (u16)arg5;
+        temp_s6 = (((guRandom() % arg5) * 2) + x) - (u32)arg5;
+        temp_s5 = (((guRandom() % arg5) * 2) + z) - (u32)arg5;
+        temp_s4 = (((guRandom() % arg5) * 2) + y) - (u32)arg5;
 
         temp_s7 = ((SSSV_RAND(2)) * 3) + (guRandom() % 3);
 
@@ -3042,8 +3042,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
         }
 
         if (flags & 2) {
-            temp_s6 = (((guRandom() % arg5) * 2) + x) - (u16)arg5;
-            temp_s5 = (((guRandom() % arg5) * 2) + z) - (u16)arg5;
+            temp_s6 = (((guRandom() % arg5) * 2) + x) - (u32)arg5;
+            temp_s5 = (((guRandom() % arg5) * 2) + z) - (u32)arg5;
             temp_s4 = (((guRandom() % arg5) * 2) + y);
 
             create_particle_effect(
@@ -3059,8 +3059,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 GPACK_RGBA5551(SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, SSSV_RAND(64) + 100, 0),
                 SSSV_RAND(16));
 
-            temp_s6 = (((guRandom() % arg5) * 2) + x) - (u16)arg5;
-            temp_s5 = (((guRandom() % arg5) * 2) + z) - (u16)arg5;
+            temp_s6 = (((guRandom() % arg5) * 2) + x) - (u32)arg5;
+            temp_s5 = (((guRandom() % arg5) * 2) + z) - (u32)arg5;
             temp_s4 = (((guRandom() % arg5) * 2) + y);
             create_particle_effect(
                 temp_s6,
@@ -3307,9 +3307,6 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
         play_sound_effect_at_location(SFX_UNKNOWN_75, volume, 0x80, x, z, y, 1.0f);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802D7BE0_6E9290.s")
-#endif
 
 // ESA:func_800AAD34
 void create_sparks(s16 x, s16 z, s16 y, s16 size, u16 color) {
