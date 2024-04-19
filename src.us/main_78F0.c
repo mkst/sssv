@@ -825,20 +825,14 @@ void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 
     }
 }
 
-#if 0
-// unused? but still a long way away
 void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 lineHeight) {
-    s16 *next;
     s16 wchr;
     s16 chr;
-
-    s16 shouldBreak;
-
-    u16 xPos;
-    u16 yPos;
-
     u16 xPos2;
     u16 sp48;
+    s16 shouldBreak;
+    s16 tmp;
+    s16 *next;
 
     sp48 = x;
 
@@ -848,15 +842,15 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
     gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
     gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
 
-    xPos = x; // xStart ?
-    yPos = y;
+    tmp = x;
 
     func_8012FA78(dl);
 
     while (*text != EOM) {
-        switch (func_8012C678(text, xPos, yPos)) {
+
+        switch (func_8012C678(text, tmp, y)) {
         case 1: // timer
-            xPos += get_message_width(D_8023F248);
+            x += get_message_width(D_8023F248);
             text += 4;
             break;
         case 2: // color change
@@ -879,10 +873,10 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
 
                 gSPTextureRectangle(
                 /* pkt  */  (*dl)++,
-                /* xl   */  (xPos + 1) << 2,
-                /* yl   */  (yPos + 1) << 2,
-                /* xh   */  ((xPos + 1) + (s32) D_8023F1F8) << 2,
-                /* yh   */  ((yPos + 1) + (s32) D_8023F1FC) << 2,
+                /* xl   */  (x + 1) << 2,
+                /* yl   */  (y + 1) << 2,
+                /* xh   */  ((x + 1) + (s32) D_8023F1F8) << 2,
+                /* yh   */  ((y + 1) + (s32) D_8023F1FC) << 2,
                 /* tile */  G_TX_RENDERTILE,
                 /* s    */  0,
                 /* t    */  0,
@@ -895,23 +889,22 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
 
             gSPTextureRectangle(
             /* pkt  */  (*dl)++,
-            /* xl   */  xPos << 2,
-            /* yl   */  yPos << 2,
-            /* xh   */  (xPos + (s32) D_8023F1F8) << 2,
-            /* yh   */  (yPos + (s32) D_8023F1FC) << 2,
+            /* xl   */  x << 2,
+            /* yl   */  y << 2,
+            /* xh   */  (x + (s32) D_8023F1F8) << 2,
+            /* yh   */  (y + (s32) D_8023F1FC) << 2,
             /* tile */  G_TX_RENDERTILE,
             /* s    */  0,
             /* t    */  0,
             /* dsdx */  16384.0f / D_8023F1F8,
             /* dtdy */  16384.0f / D_8023F1FC);
 
-            xPos += get_glyph_width(*D_8023F1E0.unk0);
-
+            x += get_glyph_width(*D_8023F1E0.unk0);
 
             // check if next word will fit on current line
             if (*text == TILESET_SPACE) {
-                xPos2 = xPos - 1;
 
+                xPos2 = x - 1;
                 next = text + 1;
                 while ((*next != TILESET_SPACE) && (*next != EOM) && (!shouldBreak)) {
                     chr = *next;
@@ -920,8 +913,8 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
                     xPos2 += get_glyph_width(*D_8023F1E0.unk0);
 
                     if (xPos2 >= maxWidth) {
-                        xPos = sp48; // reset xpos?
-                        yPos += lineHeight;
+                        y += lineHeight;
+                        x = sp48; // reset xpos?
                         shouldBreak = 1;
                     }
                     D_8023F1E0.unk0 -= chr;
@@ -929,10 +922,11 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
                 }
             }
 
+            tmp = x;
             text++;
 
             // consume leading whitespace
-            while ((*text == TILESET_SPACE) && (sp48 == x) && (*text != EOM)) { text++; }
+            while ((*text == TILESET_SPACE) && (x == sp48) && (*text != EOM)) { text++; }
 
             D_8023F1E0.unk0 -= wchr;
             break;
@@ -944,9 +938,6 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
 
     gDPPipeSync((*dl)++);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/func_8012F160.s")
-#endif
 
 void func_8012FA78(Gfx **dl) {
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE,   0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -968,15 +959,15 @@ void load_glyph(Gfx **dl, s16 tileId) {
     gDPPipeSync((*dl)++);
 }
 
-#if 0
-// NON-MATCHING: quite a long way to go here...
+#ifdef NON_MATCHING
+// CURRENT (25)
 // returns updated vertical offset
 s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 lineHeight) {
     u8 shouldBreak;
-    s16 wchr;
+    s16 var_s1;
     u16 chr;
     u16 xStart;
-    u16 var_s1; // fuuuu
+    s16 wchr;
     u16 xPos2, xPos3;
     s16 *next;
 
@@ -993,7 +984,7 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
 
     while (*text != EOM) {
         var_s1 = x;
-        switch (func_8012C678(text, x, y)) {
+        switch (func_8012C678(text, var_s1, y)) {
         case 2: // color
             // no change to xpos
             text += 3;
@@ -1074,7 +1065,7 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
                 }
             }
 
-            if ((gEepromGlobal.language == LANG_JAPANESE) && (xPos2 >= (maxWidth - 10)) && (*text != EOM)) {
+            if ((gEepromGlobal.language == LANG_JAPANESE) && ((maxWidth - 10) <= xPos2) && (*text != EOM)) {
                 y += lineHeight;
                 x = xStart;
             }

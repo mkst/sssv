@@ -540,25 +540,19 @@ void func_802F6DEC_70849C(Animal *arg0, s16 arg1) {
 void func_802F7054_708704(s32 arg0) {
 }
 
-// miles away
 #if 0
+// CURRENT (10500)
 // not in ESA?
 void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, u16 flags) {
     s16 sp13A;
     s16 sp138;
 
     Vertex spD4;
-
-    // f32 spC8.z;
-    // f32 spC8.y;
     Vertex spC8;
 
     f32 spC0;
-    s32 spA4;
-    s32 spA0;
-    s32 sp9C;
-    s32 sp98;
-    Animal *temp_s0;
+
+    Animal *a;
     Vertex *var_s1;
     f32 temp_f0;
     f32 temp_f0_2;
@@ -570,161 +564,133 @@ void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, 
     f32 temp_f16;
     f32 temp_f16_2;
     f32 temp_f2;
-    f32 temp_f2_2;
-    f32 temp_f2_3;
-    f32 temp_f2_4;
-    f32 temp_f4_2;
-    f32 var_f0;
-    f32 var_f0_2;
-    f32 var_f0_3;
-    f32 var_f12;
     f32 var_f18;
     f32 var_f20;
     f32 var_f22;
     f32 var_f28;
     f32 var_f2;
     f32 var_f30;
-    f32 var_f6;
-    s16 *temp_a0;
-    s16 *temp_v0_2;
-    s16 temp_a1;
     s16 temp_s7;
-    s16 temp_t9_2;
-    s16 temp_t9_3;
     s16 var_t0;
     s16 var_t1;
     s16 var_t2;
     s16 var_t3;
-    s32 temp_f10;
-    s32 temp_f4;
-    s32 temp_t4;
-    s16 temp_t6;
-    s16 temp_t9;
-    s32 temp_v0;
-    s32 temp_v0_3;
-    s32 var_v0;
+
+    s16 xPos;
+    s16 zPos;
+
     struct065 *var_s3;
-    u16 temp_v0_4;
 
     if (arg4 != 0) {
-        temp_v0 = flags & 0x200;
-        if (temp_v0 != 0) {
-            var_f18 = -(arg4 / 2048.0f);
+
+        if (flags & 0x200) {
+            var_f18 = -((f32)arg4 / -2048);
         } else if (flags & 0x100) {
-            var_f18 = arg4 / 2048.0f;
+            var_f18 = (f32)arg4 / 2048;
         } else {
             var_f18 = 0.0f;
         }
 
-        if (temp_v0 != 0) {
-            var_f30 = -(arg4 / 2048.0f);
+        if (flags & 0x200) {
+            var_f30 = -((f32)arg4 / 2048);
         } else if (flags & 0x100) {
-            var_f30 = arg4 / 2048.0f;
+            var_f30 = (f32)arg4 / 2048;
         } else {
             var_f30 = 0.0f;
         }
 
         if (arg6 == 0) {
-            var_f28 = (arg4 / 2048.0f) * 64.0f;
+            var_f28 = ((f32)arg4 / 2048) * 64;
         } else {
             var_f28 = arg6;
         }
 
-        temp_f0 = var_f28 / 1024.0f;
-        temp_t6 = (s16) arg0->position.xPos.h >> 0xA;
-        temp_t9 = (s16) arg0->position.zPos.h >> 0xA;
-        temp_f4 = (s32) temp_f0;
-        temp_f10 = (s32) -temp_f0;
-        var_t2 = (s16) temp_f10;
-        var_t0 = (s16) temp_f10;
-        var_t3 = (s16) temp_f4;
-        var_t1 = (s16) temp_f4;
+        xPos = arg0->position.xPos.h >> 0xA;
+        zPos = arg0->position.zPos.h >> 0xA;
 
-        if ((temp_t6 + 1) >= 5) {
-            var_t1 = temp_f4 - 1;
+        temp_f0 = var_f28 / 1024.0f;
+        var_t2 = -temp_f0;
+        var_t0 = -temp_f0;
+        var_t3 = temp_f0;
+        var_t1 = temp_f0;
+
+        if ((xPos + 1) >= 5) {
+            var_t1--;
         }
-        if (temp_t6 <= 0) {
-            var_t0 = temp_f10 + 1;
+        if (xPos < 1) {
+            var_t0++;
         }
-        if ((temp_t9 + 1) >= 8) {
-            var_t3 = temp_f4 - 1;
+        if ((zPos + 1) >= 8) {
+            var_t3--;
         }
-        if (temp_t9 <= 0) {
-            var_t2 = temp_f10 + 1;
+        if (zPos < 1) {
+            var_t2++;
         }
 
         spD4.z = D_80152350.unk2D0[arg1] / 256.0f;
-        temp_f4_2 = D_80152350.unk384[arg1] / 256.0f;
-        spD4.y = temp_f4_2;
-        spD4.x = (D_80152350.unk2D0[arg2] * temp_f4_2) / 256.0f;
-        spD4.y = (D_80152350.unk384[arg2] * temp_f4_2) / 256.0f;
+        spD4.y = D_80152350.unk384[arg1] / 256.0f;
 
-        sp13A = temp_t6 + var_t0;
-        spA4 = temp_t6 + var_t1;
-        if (sp13A <= spA4) {
-            spA0 = (s16) temp_t9 + var_t2;
-            sp9C = (s16) temp_t9 + var_t3;
+        spD4.x = (D_80152350.unk2D0[arg2] * spD4.y) / 256.0f;
+        spD4.y = (D_80152350.unk384[arg2] * spD4.y) / 256.0f;
 
-            sp98 = (s32) spA0; //unkspA2;
-            do {
-                sp138 = (s16) spA0;
-                if (sp98 <= sp9C) {
-                    do {
-                        temp_s7 = sp13A + (sp138 * 5);
+        for (sp13A = xPos + var_t0; sp13A <= (xPos + var_t1); sp13A++) {
+            for (sp138 = (zPos + var_t2); sp138 <= (zPos + var_t3); sp138++) {
 
-                        for (var_s3 = D_803DA110[temp_s7].next; var_s3 != NULL; var_s3 = var_s3->next) {
-                            temp_s0 = var_s3->animal;
-                            if (temp_s0 != arg0) {
-                                // temp_v0_3 = temp_s0->unk4C;
-                                if ((temp_s0->unk4C.unk1B) && (temp_s0->unk4C.unk1C) && (temp_s7 == temp_s0->unk114[0])) {
-                                    temp_f12 = temp_s0->position.xPos.h - arg0->position.xPos.h;
-                                    temp_f14 = temp_s0->position.zPos.h - arg0->position.zPos.h;
-                                    temp_f16 = (temp_s0->position.yPos.h - arg0->position.yPos.h) - arg3;
-                                    temp_f0_2 = sqrtf((temp_f12 * temp_f12) + (temp_f14 * temp_f14) + (temp_f16 * temp_f16));
-                                    if (!(var_f28 > temp_f0_2) && (temp_f0_2 != 0.0f)) {
+                temp_s7 = sp13A + (sp138 * 5);
 
-                                        spC8.x = temp_f12 / temp_f0_2;
-                                        spC8.z = temp_f16 / temp_f0_2;
-                                        spC8.y = temp_f14 / temp_f0_2;
+                for (var_s3 = D_803DA110[temp_s7].next; var_s3 != NULL; var_s3 = var_s3->next) {
+                    a = var_s3->animal;
+                    if (a != arg0) {
+                        if ((a->unk4C.unk1B) && (a->unk4C.unk1C) && (temp_s7 == a->unk114[0])) {
+                            temp_f12 = a->position.xPos.h - arg0->position.xPos.h;
+                            temp_f14 = a->position.zPos.h - arg0->position.zPos.h;
+                            temp_f16 = (a->position.yPos.h - arg0->position.yPos.h) - arg3;
 
-                                        if ((flags & 8) == 0) {
-                                            var_f22 = temp_f0_2;
-                                            var_s1 = &spC8;
-                                            var_v0 = flags & (0x200|0x100);
-                                            var_f2 = (f32) D_80152350.unk384[(s16)(arg5 >> 1)] / 256.0f;
-                                            goto block_38;
-                                        }
-                                        // OR ... ?
-                                        temp_f2 = (temp_f12 * spD4.x) + (temp_f14 * spD4.y) + (temp_f16 * spD4.z);
-                                        if (!(var_f28 < temp_f2) && !(temp_f2 <= 0.0f)) {
-                                            var_f22 = temp_f2;
-                                            var_s1 = &spD4;
-                                            var_v0 = flags & (0x200|0x100);
-                                            temp_f12_2 = (arg0->position.xPos.h + (temp_f2 * spD4.x)) - temp_s0->position.xPos.h;
-                                            temp_f14_2 = (arg0->position.zPos.h + (temp_f2 * spD4.y)) - temp_s0->position.zPos.h;
-                                            temp_f16_2 = (arg0->position.yPos.h + (temp_f2 * spD4.z) + arg3) - (f32) temp_s0->position.yPos.h;
-                                            if (!(arg5 < sqrtf((temp_f12_2 * temp_f12_2) + (temp_f14_2 * temp_f14_2) + (temp_f16_2 * temp_f16_2)))) {
-                                                var_f2 = 0.0f; // something - something else ?
+                            temp_f0_2 = sqrtf(SQ(temp_f12) + SQ(temp_f14) + SQ(temp_f16));
+                            if (!(var_f28 > temp_f0_2) && (temp_f0_2 != 0.0f)) {
+
+                                spC8.x = temp_f12 / temp_f0_2;
+                                spC8.z = temp_f16 / temp_f0_2;
+                                spC8.y = temp_f14 / temp_f0_2;
+
+                                if ((flags & 8) == 0) {
+                                    var_f22 = temp_f0_2;
+                                    var_s1 = &spC8;
+                                    var_f2 = (f32) D_80152350.unk384[(s16)(arg5 >> 1)] / 256.0f;
+                                    goto block_38;
+                                }
+                                // OR ... ?
+                                temp_f2 = (temp_f12 * spD4.x) + (temp_f14 * spD4.y) + (temp_f16 * spD4.z);
+                                if (!(var_f28 < temp_f2) && !(temp_f2 <= 0.0f)) {
+                                    var_f22 = temp_f2;
+                                    var_s1 = &spD4;
+                                    temp_f12_2 = (arg0->position.xPos.h + (temp_f2 * spD4.x)) - a->position.xPos.h;
+                                    temp_f14_2 = (arg0->position.zPos.h + (temp_f2 * spD4.y)) - a->position.zPos.h;
+                                    temp_f16_2 = (arg0->position.yPos.h + (temp_f2 * spD4.z) + arg3) - (f32) a->position.yPos.h;
+
+                                    if (!(arg5 < sqrtf(SQ(temp_f12_2) + SQ(temp_f14_2) + SQ(temp_f16_2)))) {
+                                        var_f2 = 0.0f; // something - something else ?
 
 block_38:
-                                                if ((((var_v0 != 0) && (var_f2 <= ((spC8.x * spD4.x) + (spC8.y * spD4.y) + (spC8.z * spD4.z))) && (var_f20 = var_f18, (var_f18 != 0.0f))) || ((flags & 3) && (((spC8.x * spD4.x) + (spC8.y * spD4.y) + (spC8.z * spD4.z)) <= -var_f2) && (var_f20 = var_f30, (var_f30 != 0.0f)))) && (!(flags & 4) || (spC0 = var_f18, (func_8033C9CC_74E07C(temp_s0->position.xPos.h, temp_s0->position.zPos.h, temp_s0->position.yPos.h, 0U, (s16) (s32) arg0->position.xPos.h, (s16) (s32) arg0->position.zPos.h, (s16) (arg0->position.yPos.h + arg3), 0, 0, 0) == 0)))) {
+                                        if ((((flags & (0x200|0x100)) && (var_f2 <= ((spC8.x * spD4.x) + (spC8.y * spD4.y) + (spC8.z * spD4.z))) && (var_f20 = var_f18, (var_f18 != 0.0f))) ||
+                                            ((flags & 3) && (((spC8.x * spD4.x) + (spC8.y * spD4.y) + (spC8.z * spD4.z)) <= -var_f2) && (var_f20 = var_f30, (var_f30 != 0.0f))))) {
 
-                                                    temp_f0_3 = ((var_f20 / 4.0f) * (var_f28 - var_f22)) / var_f28;
-                                                    if (temp_s0->unk44 != 0) {
-                                                        temp_f0_3 = (temp_f0_3 * 100.0f) / temp_s0->unk44;
-                                                    }
-                                                    if (((var_s1->x > 0.0f) && ((temp_s0->xVelocity.w < (var_f20 * 65536.0f)))) ||
-                                                        ((var_s1->x < 0.0f) && ((-(var_f20 * 65536.0f) < temp_s0->xVelocity.w)))) {
-                                                        temp_s0->xVelocity.w += temp_f0_3 * var_s1->x * 65536.0f;
-                                                    }
-                                                    if (((var_s1->y > 0.0f) && ((temp_s0->zVelocity.w < (var_f20 * 65536.0f)))) ||
-                                                        ((var_s1->y < 0.0f) && ((-(var_f20 * 65536.0f) < temp_s0->zVelocity.w)))) {
-                                                        temp_s0->zVelocity.w += temp_f0_3 * var_s1->y * 65536.0f;
-                                                    }
-                                                    if (((var_s1->z > 0.0f) && ((temp_s0->yVelocity.w < (var_f20 * 65536.0f)))) ||
-                                                        ((var_s1->z < 0.0f) && ((-(var_f20 * 65536.0f) < temp_s0->yVelocity.w)))) {
-                                                        temp_s0->yVelocity.w += temp_f0_3 * var_s1->z * 65536.0f;
-                                                    }
+                                            if (!(flags & 4) || (spC0 = var_f18, (func_8033C9CC_74E07C(a->position.xPos.h, a->position.zPos.h, a->position.yPos.h, 0U, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h + arg3, 0, 0, 0) == 0))) {
+                                                temp_f0_3 = ((var_f20 / 4.0f) * (var_f28 - var_f22)) / var_f28;
+                                                if (a->unk44 != 0) {
+                                                    temp_f0_3 = (temp_f0_3 * 100.0f) / a->unk44;
+                                                }
+                                                if (((var_s1->x > 0.0f) && ((a->xVelocity.w < (var_f20 * 65536.0f)))) ||
+                                                    ((var_s1->x < 0.0f) && ((-(var_f20 * 65536.0f) < a->xVelocity.w)))) {
+                                                    a->xVelocity.w += temp_f0_3 * var_s1->x * 65536.0f;
+                                                }
+                                                if (((var_s1->y > 0.0f) && ((a->zVelocity.w < (var_f20 * 65536.0f)))) ||
+                                                    ((var_s1->y < 0.0f) && ((-(var_f20 * 65536.0f) < a->zVelocity.w)))) {
+                                                    a->zVelocity.w += temp_f0_3 * var_s1->y * 65536.0f;
+                                                }
+                                                if (((var_s1->z > 0.0f) && ((a->yVelocity.w < (var_f20 * 65536.0f)))) ||
+                                                    ((var_s1->z < 0.0f) && ((-(var_f20 * 65536.0f) < a->yVelocity.w)))) {
+                                                    a->yVelocity.w += temp_f0_3 * var_s1->z * 65536.0f;
                                                 }
                                             }
                                         }
@@ -732,11 +698,9 @@ block_38:
                                 }
                             }
                         }
-                        sp138++;
-                    } while (sp138 <= sp9C);
+                    }
                 }
-                sp13A++;
-            } while (sp13A <= spA4);
+            }
         }
     }
 }

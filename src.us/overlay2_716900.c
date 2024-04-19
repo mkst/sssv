@@ -249,7 +249,7 @@ void func_80305368_716A18(struct079 *arg0) {
     }
 }
 
-// ESA: func_80305A70_717120
+// ESA: func_80078EAC
 s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     u8 sp4F;
     u8 sp4E;
@@ -324,106 +324,99 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     return sp43;
 }
 
-// plenty of work still to do here
-#if 0
-// ESA: func_80305DA4_717454
+// ESA: func_800791C4
 s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
-    Animal *sp50;
-    s32 sp4C;
+    s32 pad;
 
     s32 sp28;
     s32 sp24;
-    s16 temp_t0;
-
-    s32 temp_t6;
-    s32 temp_t6_2;
-    s32 temp_t7;
-    s32 temp_t8;
+    s32 var_a1;
     s32 temp_t9;
-    s32 temp_t9_2;
-    s32 var_a1_2;
-    s32 var_a1_3;
-    u16 temp_a0;
+    s16 tmp2;
+    s16 water_level;
+    s16 tmp;
 
     Animal *animal;
     struct065 *var_a1_4;
+#ifdef AVOID_UB
+    Animal *sp50 = NULL;
+#else
+    Animal *sp50; // uninitialised?!
+#endif
 
-    sp28 = arg0 + (D_803A5570_7B6C20[arg4] * arg3);
-    sp24 = arg1 + (D_803A5578_7B6C28[arg4] * arg3);
+    tmp = D_803A5570_7B6C20[arg4] * arg3;
+    sp28 = arg0 + tmp;
 
-    temp_t0 = GET_WATER_LEVEL(D_803C0740, sp28, sp24) * 4;
+    tmp2 = D_803A5578_7B6C28[arg4] * arg3;
+    sp24 = arg1 + tmp2;
 
-    if ((D_803D5524->waterClass & WATER_SWIM) && (temp_t0 <= 0)) {
+    water_level = GET_WATER_LEVEL(D_803C0740, sp28, sp24) * 4;
+    if ((D_803D5524->waterClass & WATER_SWIM) && (water_level <= 0)) {
         return 1;
     }
 
-    if (D_803C0740[(sp28 >> 6)+1][(sp24 >> 6)+1].unk3 != 0) {
-
-        var_a1_2 = func_80310F58_722608(sp28, sp24);
+    if (D_803C0740[(sp28 >> 6) + 0][(sp24 >> 6) + 0].unk3 != 0) {
+        var_a1 = func_80310F58_722608(sp28, sp24);
         if ((D_803D5524->waterClass & (WATER_SWIM|WATER_FLOAT))) {
-            temp_t7 = temp_t0 << 0x10;
-            if (var_a1_2 < temp_t7) {
-                var_a1_2 = temp_t7;
+            if (var_a1 < (water_level << 0x10)) {
+                var_a1 = (water_level << 0x10);
                 if (D_803D5524->waterClass & (WATER_DAMAGE|WATER_DAMAGE_X2)) {
                     return 1;
                 }
             }
         }
 
-        temp_t8 = (arg2 - var_a1_2) >> 0x10;
-        if (ABS(temp_t8) < 0x31) {
-            if (((D_803D552C->unk272 & 0x20) != 0) && ((D_803C0740[(sp28 >> 6)+1][(sp24 >> 6)+1].unk5 & (0x10 << (arg4 ^ 1))) != 0)) {
+        temp_t9 = (arg2 - var_a1) >> 0x10;
+        if (ABS(temp_t9) < 0x31) {
+            if (((D_803D552C->unk272 & 0x20)) && ((D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk5 & (0x10 << (arg4 ^ 1))))) {
                 return 1;
             }
             return 0;
         }
-        if ((D_803D552C->unk272 & 0x20) && ((D_803C0740[(sp28 >> 6)+1][(sp24 >> 6)+1].unk5 & (1 << (arg4 ^ 1))) != 0)) {
-            if ((D_803E1D30[D_803C0740[(sp28 >> 6)+1][(sp24 >> 6)+1].unk3].unk2 * 8) >= ABS(temp_t8)) {
+        if ((D_803D552C->unk272 & 0x20) && ((D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk5 & (1 << (arg4 ^ 1))))) {
+            if ((D_803E1D30[D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk3].unk2 * 8) >= ABS(temp_t9)) {
                 return 1;
             }
         }
+        var_a1 = func_8031124C_7228FC(sp28, sp24);
         if ((D_803D5524->waterClass & (WATER_SWIM|WATER_FLOAT)) &&
-            (func_8031124C_7228FC(sp28, sp24) < (temp_t0 << 0x10)) &&
+            (var_a1 < (water_level << 0x10)) &&
             (D_803D5524->waterClass & (WATER_DAMAGE|WATER_DAMAGE_X2))) {
             return 1;
         }
 
-        sp4C = func_8031124C_7228FC(sp28, sp24);
-        temp_t9 = (sp4C - func_8031124C_7228FC(arg0, arg1)) >> 0x10;
+        temp_t9 = (func_8031124C_7228FC(sp28, sp24) - func_8031124C_7228FC(arg0, arg1)) >> 0x10;
         if (ABS(temp_t9) < 97) {
             return 0;
         }
         if ((D_803D552C->unk272 & 0x20) && (temp_t9 < 0)) {
             return 1;
         }
-        // goto block_60;
     } else {
 
-        var_a1_3 = func_8031124C_7228FC(sp28, sp24);
+        var_a1 = func_8031124C_7228FC(sp28, sp24);
         if (D_803D5524->waterClass & WATER_SWIM) {
-            if (var_a1_3 >= arg2) {
+            if (var_a1 >= arg2) {
                 return 1;
             }
             return 0;
         }
-        temp_t6_2 = temp_t0 << 0x10;
-        if (((D_803D5524->waterClass & (WATER_SWIM|WATER_FLOAT)) != 0) && (var_a1_3 < temp_t6_2)) {
-            var_a1_3 = temp_t6_2;
+        if (((D_803D5524->waterClass & (WATER_SWIM|WATER_FLOAT)) != 0) && (var_a1 < (water_level << 0x10))) {
+            var_a1 = (water_level << 0x10);
             if (D_803D5524->waterClass & (WATER_DAMAGE|WATER_DAMAGE_X2)) {
                 return 1;
             }
         }
 
-        temp_t9_2 = (s32) (arg2 - var_a1_3) >> 0x10;
-        if (ABS(temp_t9_2) < 97) {
+        temp_t9 = (arg2 - var_a1) >> 0x10;
+        if (ABS(temp_t9) < 97) {
             return 0;
         }
-        if (temp_t9_2 < 0) {
-            return 1; // goto block_99;
+        if (temp_t9 < 0) {
+            return 1;
         }
     }
 
-// block_60:
     if (((D_803D552C->unk272 & 0x10) == 0) && ((D_803D5524->waterClass & WATER_SWIM) == 0)) {
         return 0;
     }
@@ -464,9 +457,6 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     }
     return 1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_716900/func_80305DA4_717454.s")
-#endif
 
 // ESA: func_80079984
 s16 func_803064BC_717B6C(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {

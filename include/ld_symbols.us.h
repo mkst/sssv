@@ -2923,6 +2923,7 @@ extern Addr overlay2_6A6500_c;
 extern Addr overlay2_6A7A80_c;
 extern Addr overlay2_6AB090_c;
 extern Addr overlay2_6AC360_c;
+extern Addr overlay2_6AC6B0_c;
 extern Addr overlay2_6ACE80_c;
 extern Addr overlay2_6ACF20_c;
 extern Addr overlay2_6AE5A0_c;
