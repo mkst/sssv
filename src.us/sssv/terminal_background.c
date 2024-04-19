@@ -113,7 +113,6 @@ s16 *D_803B6560_7C7C10[18] = {
     0, 0,
 };
 
-#ifndef PERMUTER
 Lights1 D_803B65A8_7C7C58 = gdSPDefLights1(0x00, 0x0A, 0x00, 0x00, 0x64, 0x00, 0x04, 0x00, 0x08);
 Lights1 D_803B65C0_7C7C70 = gdSPDefLights1(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x04, 0x00, 0x08);
 Lights1 D_803B65D8_7C7C88 = gdSPDefLights1(0x19, 0x32, 0x00, 0x64, 0xC8, 0x00, 0x04, 0x00, 0x08);
@@ -151,8 +150,6 @@ Gfx D_803B66B8_7C7D68[] = {
 
 // u8 D_803B66E4_7C7D94 = 0;
 
-#endif
-
 void func_8038CF90_79E640(void) {
     gSPDisplayList(D_801D9E7C++, D_01004270_3DB40);
     gDPSetCombineMode(D_801D9E7C++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
@@ -181,7 +178,7 @@ f32  D_803F6570[16][2][2]; // tbd
 // definitions
 // ========================================================
 
-void func_8038DF18_79F5C8(u16 arg0);
+void spin_dna_helixes(u16 arg0);
 u8 func_8038E80C_79FEBC(void);
 
 // ========================================================
@@ -480,9 +477,7 @@ void func_8038DBE0_79F290(s32 arg0, s32 arg1) {
     }
 }
 
-#ifdef NON_MATCHING
-// spin_dna_helixes
-void func_8038DF18_79F5C8(u16 arg0) {
+void spin_dna_helixes(u16 arg0) {
     s32 idx;
 
     f32 temp_f0;
@@ -522,67 +517,30 @@ void func_8038DF18_79F5C8(u16 arg0) {
 
         var_v1 = MIN(0xFF, arg0 * 4);
 
-#if 1
-        /* s4 0x0 0x4 */ D_803B65D8_7C7C88.a.l.col[0] = (D_803B65D8_7C7C88.a.l.colc[0] = (var_v1 * 0x19) >> 8);
-        /* s5 0x1 0x5 */ D_803B65F0_7C7CA0.a.l.col[1] = (D_803B65F0_7C7CA0.a.l.colc[1] = (var_v1 * 0x32) >> 8);
-        /* s4 0x1 0x5 */ D_803B65D8_7C7C88.a.l.col[1] = (D_803B65D8_7C7C88.a.l.colc[1] = (var_v1 * 0x32) >> 8);
+        D_803B65D8_7C7C88.a.l.col[0] = D_803B65D8_7C7C88.a.l.colc[0] = (var_v1 * 25) >> 8;
+        D_803B65D8_7C7C88.a.l.col[1] = D_803B65D8_7C7C88.a.l.colc[1] = (var_v1 * 50) >> 8;
+        D_803B65D8_7C7C88.a.l.col[2] = D_803B65D8_7C7C88.a.l.colc[2] = (var_v1 * 0) >> 8;
+        D_803B65D8_7C7C88.l[0].l.col[0] = D_803B65D8_7C7C88.l[0].l.colc[0] = (var_v1 * 100) >> 8;
+        D_803B65D8_7C7C88.l[0].l.col[1] = D_803B65D8_7C7C88.l[0].l.colc[1] = (var_v1 * 150) >> 8;
+        D_803B65D8_7C7C88.l[0].l.col[2] = D_803B65D8_7C7C88.l[0].l.colc[2] = (var_v1 * 0) >> 8;
 
-        /* s4 0x8 0xC */ D_803B65D8_7C7C88.l[0].l.col[0] = (D_803B65D8_7C7C88.l[0].l.colc[0] = (var_v1 * 0x64) >> 8);
+        D_803B65F0_7C7CA0.a.l.col[0] = D_803B65F0_7C7CA0.a.l.colc[0] = (var_v1 * 20) >> 8;
+        D_803B65F0_7C7CA0.a.l.col[1] = D_803B65F0_7C7CA0.a.l.colc[1] = (var_v1 * 50) >> 8;
+        D_803B65F0_7C7CA0.a.l.col[2] = D_803B65F0_7C7CA0.a.l.colc[2] = (var_v1 * 0) >> 8;
+        D_803B65F0_7C7CA0.l[0].l.col[0] = D_803B65F0_7C7CA0.l[0].l.colc[0] = (var_v1 * 75) >> 8;
+        D_803B65F0_7C7CA0.l[0].l.col[1] = D_803B65F0_7C7CA0.l[0].l.colc[1] = (var_v1 * 150) >> 8;
+        D_803B65F0_7C7CA0.l[0].l.col[2] = D_803B65F0_7C7CA0.l[0].l.colc[2] = (var_v1 * 0) >> 8;
 
-        /* s3 0x2 0x6 */ D_803B65A8_7C7C58.a.l.col[2] = (D_803B65A8_7C7C58.a.l.colc[2] = 0);
-        /* s3 0xA 0xE */ D_803B65A8_7C7C58.l[0].l.col[2] = (D_803B65A8_7C7C58.l[0].l.colc[2] = 0);
-        /* s4 0x2 0x6 */ D_803B65D8_7C7C88.a.l.col[2] = (D_803B65D8_7C7C88.a.l.colc[2] = 0);
-        /* s3 0x0 0x4 */ D_803B65A8_7C7C58.a.l.col[0] = (D_803B65A8_7C7C58.a.l.colc[0] = 0);
+        D_803B65A8_7C7C58.a.l.col[0] = D_803B65A8_7C7C58.a.l.colc[0] = (var_v1 * 0) >> 8;
+        D_803B65A8_7C7C58.a.l.col[1] = D_803B65A8_7C7C58.a.l.colc[1] = (var_v1 * 10) >> 8;
+        D_803B65A8_7C7C58.a.l.col[2] = D_803B65A8_7C7C58.a.l.colc[2] = (var_v1 * 0) >> 8;
+        D_803B65A8_7C7C58.l[0].l.col[0] = D_803B65A8_7C7C58.l[0].l.colc[0] = (var_v1 * 0) >> 8;
+        D_803B65A8_7C7C58.l[0].l.col[1] = D_803B65A8_7C7C58.l[0].l.colc[1] = (var_v1 * 100) >> 8;
+        D_803B65A8_7C7C58.l[0].l.col[2] = D_803B65A8_7C7C58.l[0].l.colc[2] = (var_v1 * 0) >> 8;
 
-        /* s5 0x9 0xD */ D_803B65F0_7C7CA0.l[0].l.col[1] = (D_803B65F0_7C7CA0.l[0].l.colc[1] = (var_v1 * 0x96) >> 8);
-        /* s3 0x1 0x5 */ D_803B65A8_7C7C58.a.l.col[1] = (D_803B65A8_7C7C58.a.l.colc[1] = (var_v1 * 0xA) >> 8);
-        /* s5 0x8 0xC */ D_803B65F0_7C7CA0.l[0].l.col[0] = (D_803B65F0_7C7CA0.l[0].l.colc[0] = (var_v1 * 0x4B) >> 8);
-        /* s4 0xA 0xE */ D_803B65D8_7C7C88.l[0].l.col[2] = (D_803B65D8_7C7C88.l[0].l.colc[2] = 0);
-        /* s4 0x9 0xD */ D_803B65D8_7C7C88.l[0].l.col[1] = (D_803B65D8_7C7C88.l[0].l.colc[1] = (var_v1 * 0x96) >> 8);
-        /* s3 0x9 0xD */ D_803B65A8_7C7C58.l[0].l.col[1] = (D_803B65A8_7C7C58.l[0].l.colc[1] = (var_v1 * 0x64) >> 8);
-
-        /* s5 0x2 0x6 */ D_803B65F0_7C7CA0.a.l.col[2] = (D_803B65F0_7C7CA0.a.l.colc[2] = 0);
-        /* s3 0x8 0xC */ D_803B65A8_7C7C58.l[0].l.col[0] = (D_803B65A8_7C7C58.l[0].l.colc[0] = 0);
-
-        /* s5 0xA 0xE */ D_803B65F0_7C7CA0.l[0].l.col[2] = (D_803B65F0_7C7CA0.l[0].l.colc[2] = 0);
-        /* s5 0x0 0x4 */ D_803B65F0_7C7CA0.a.l.col[0] = (D_803B65F0_7C7CA0.a.l.colc[0] = (var_v1 * 0x14) >> 8);
-#else
-        /* s4 0x1 0x5 */ D_803B65D8_7C7C88.a.l.col[1] = D_803B65D8_7C7C88.a.l.colc[1] = (var_v1 * 0x32) >> 8;
-        /* s5 0x1 0x5 */ D_803B65F0_7C7CA0.a.l.col[1] = D_803B65F0_7C7CA0.a.l.colc[1] = (var_v1 * 0x32) >> 8;
-        /* s4 0x0 0x4 */ D_803B65D8_7C7C88.a.l.col[0] = D_803B65D8_7C7C88.a.l.colc[0] = (var_v1 * 0x19) >> 8;
-
-        /* s4 0x8 0xC */ D_803B65D8_7C7C88.l[0].l.col[0] = D_803B65D8_7C7C88.l[0].l.colc[0] = (var_v1 * 0x64) >> 8;
-        /* s5 0x8 0xC */ D_803B65F0_7C7CA0.l[0].l.col[0] = D_803B65F0_7C7CA0.l[0].l.colc[0] = (var_v1 * 0x4B) >> 8;
-
-        /* s4 0x9 0xD */ D_803B65D8_7C7C88.l[0].l.col[1] = D_803B65D8_7C7C88.l[0].l.colc[1] = (var_v1 * 0x96) >> 8;
-        /* s5 0x9 0xD */ D_803B65F0_7C7CA0.l[0].l.col[1] = D_803B65F0_7C7CA0.l[0].l.colc[1] = (var_v1 * 0x96) >> 8;
-
-        /* s5 0x0 0x4 */ D_803B65F0_7C7CA0.a.l.col[0] = D_803B65F0_7C7CA0.a.l.colc[0] = (var_v1 * 0x14) >> 8;
-
-        /* s4 0x2 0x6 */ D_803B65D8_7C7C88.a.l.col[2] = D_803B65D8_7C7C88.a.l.colc[2] = 0;
-        /* s4 0xA 0xE */ D_803B65D8_7C7C88.l[0].l.col[2] = D_803B65D8_7C7C88.l[0].l.colc[2] = 0;
-
-        /* s5 0x2 0x6 */ D_803B65F0_7C7CA0.a.l.col[2] = D_803B65F0_7C7CA0.a.l.colc[2] = 0;
-        /* s5 0xA 0xE */ D_803B65F0_7C7CA0.l[0].l.col[2] = D_803B65F0_7C7CA0.l[0].l.colc[2] = 0;
-
-        /* s3 0x0 0x4 */ D_803B65A8_7C7C58.a.l.col[0] = D_803B65A8_7C7C58.a.l.colc[0] = 0;
-        /* s3 0x1 0x5 */ D_803B65A8_7C7C58.a.l.col[1] = D_803B65A8_7C7C58.a.l.colc[1] = (var_v1 * 0xA) >> 8; // t6
-        /* s3 0x2 0x6 */ D_803B65A8_7C7C58.a.l.col[2] = D_803B65A8_7C7C58.a.l.colc[2] = 0;
-
-        /* s3 0x8 0xC */ D_803B65A8_7C7C58.l[0].l.col[0] = D_803B65A8_7C7C58.l[0].l.colc[0] = 0;
-        /* s3 0x9 0xD */ D_803B65A8_7C7C58.l[0].l.col[1] = D_803B65A8_7C7C58.l[0].l.colc[1] = (var_v1 * 0x64) >> 8;
-        /* s3 0xA 0xE */ D_803B65A8_7C7C58.l[0].l.col[2] = D_803B65A8_7C7C58.l[0].l.colc[2] = 0;
-#endif
         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
     }
 }
-#else
-f32 D_803F6670;
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/terminal_background/func_8038DF18_79F5C8.s")
-#endif
-
-extern Gfx D_803B6608_7C7CB8[];
-extern Gfx D_803B66B8_7C7D68[];
 
 void func_8038E504_79FBB4(u16 arg0) {
     u16 norm;
@@ -610,7 +568,7 @@ void func_8038E504_79FBB4(u16 arg0) {
     gSPDisplayList(D_801D9E88++, D_803B6608_7C7CB8);
     D_803B66E0_7C7D90 = (D_803B66E0_7C7D90 + 1) & 0xFF;
     gSPDisplayList(D_801D9E88++, D_803B66B8_7C7D68);
-    func_8038DF18_79F5C8(arg0);
+    spin_dna_helixes(arg0);
 }
 
 u8 func_8038E80C_79FEBC(void) {

@@ -61,41 +61,23 @@ void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2) {
     arg2->m[2][0] = (arg0 << 16) | (arg1 & 0xFFFF);
 }
 
-#if 0
 s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Mtx *arg9) {
-    s32 sp6C;
-    s32 sp68;
-    s32 sp64;
-    s32 sp60;
-
-    s32 sp5C;
-    s32 sp58; // ?
-    s32 sp54;
-    s32 sp50;
-
-    s32 sp4C;
-
-    s32 sp3C;
-    s32 sp38;
-    s16 sp34;
-
-    s32 sp30;
-    s32 sp2C;
-    s32 sp28;
+    s32 sp6C, sp68, sp64;
+    s32 sp60, sp5C, sp58;
+    s32 sp54, sp50, sp4C;
+    s32 sp48, sp44, sp40;
+    s32 sp3C, sp38, sp34;
+    s32 sp30, sp2C, sp28;
 
     FracIntHelper sp20;
 
-    s32 temp_a0_2;
-    s32 temp_a1;
-    s32 temp_t5_2;
     s32 temp_t7_3;
     s32 temp_t8_4;
+    s32 new_var;
 
-    s32 var_t3;
-
-    sp30 = (((D_80203FE0[joint1].unk0 + D_80203FE0[joint0].unk0) >> 1) << 0x10) / 8;
-    sp2C = (((D_80203FE0[joint1].unk2 + D_80203FE0[joint0].unk2) >> 1) << 0x10) / 8;
-    sp28 = (((D_80203FE0[joint1].unk4 + D_80203FE0[joint0].unk4) >> 1) << 0x10) / 8;
+    sp30 = (((D_80203FE0[joint0].unk0 + D_80203FE0[joint1].unk0) >> 1) << 0x10) / 8;
+    sp2C = (((D_80203FE0[joint0].unk2 + D_80203FE0[joint1].unk2) >> 1) << 0x10) / 8;
+    sp28 = (((D_80203FE0[joint0].unk4 + D_80203FE0[joint1].unk4) >> 1) << 0x10) / 8;
 
     sp30 = ((arg5 * sp30) >> 4) + sp30;
     sp2C = ((arg5 * sp2C) >> 4) + sp2C;
@@ -109,38 +91,45 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
 
         if (arg8 == 1) {
             sp60 = 0;
-            var_t3 = sp54 = 0x400;
+            sp5C = 0x400;
+            sp58 = 0;
+
+            sp54 = 0x400;
             sp50 = 0;
             sp4C = 0;
         } else {
             sp60 = 0x400;
-            var_t3 = sp54 = 0;
+            sp5C = 0;
+            sp58 = 0;
+
+            sp54 = 0;
             sp50 = -0x400;
             sp4C = 0;
         }
-        // need to reference var_t3
     } else {
-        var_t3 = -sp6C;
         sp60 = sp68;
+        sp5C = -sp6C;
+        sp58 = 0;
+
         if (arg8 == 1) {
-            if (var_t3 < 0) {
+            if (sp5C < 0) {
                 sp60 = -sp68;
-                var_t3 = -var_t3;
+                sp5C = -sp5C;
             }
         } else if (sp68 < 0) {
             sp60 = -sp68;
-            var_t3 = -var_t3;
+            sp5C = -sp5C;
         }
 
-        sp54 = -((var_t3 * sp64) / 256);
+        sp54 = (sp5C * sp64) / -256;
         sp50 = (sp64 * sp60) / 256;
-        sp4C = ((sp6C * var_t3) - (sp68 * sp60)) / 256;
+        sp4C = ((sp6C * sp5C) - (sp68 * sp60)) / 256;
 
         if ((sp54 == 0) && (sp50 == 0) && (sp4C == 0)) {
             if (sp54 == 0) {
-                if ((var_t3 * sp64) < 0) {
+                if ((sp5C * sp64) < 0) {
                     sp54 = 1;
-                } else if ((var_t3 * sp64) > 0) {
+                } else if ((sp5C * sp64) > 0) {
                     sp54 = -1;
                 }
             }
@@ -152,20 +141,18 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
                 }
             }
             if (sp4C == 0) {
-                if (((sp6C * var_t3) - (sp68 * sp60)) < 0) {
+                if (((sp6C * sp5C) - (sp68 * sp60)) < 0) {
                     sp4C = -1;
-                } else if (((sp6C * var_t3) - (sp68 * sp60)) > 0) {
+                } else if (((sp6C * sp5C) - (sp68 * sp60)) > 0) {
                     sp4C = 1;
                 }
             }
         }
     }
 
-    sp58 = 0;
-
-    sp3C = (s16) (s32) sqrtf(((f32) sp6C * sp6C) + ((f32) sp68 * sp68) + ((f32) sp64 * sp64));
-    sp38 = (s16) (s32) sqrtf(((f32) sp60 * sp60) + ((f32) sp5C * sp5C) + ((f32) sp58 * sp58));
-    sp34 = (s16) (s32) sqrtf(((f32) sp54 * sp54) + ((f32) sp50 * sp50) + ((f32) sp4C * sp4C));
+    sp3C = (s16) sqrtf(SQ((f32) sp6C) + SQ((f32) sp68) + SQ((f32) sp64));
+    sp38 = (s16) sqrtf(SQ((f32) sp60) + SQ((f32) sp5C) + SQ((f32) sp58));
+    sp34 = (s16) sqrtf(SQ((f32) sp54) + SQ((f32) sp50) + SQ((f32) sp4C));
 
     if (sp3C == 0) {
         return 0;
@@ -185,9 +172,9 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     sp5C = (sp5C * scaleZ) / sp38;
     sp58 = (sp58 * scaleY) / sp38;
 
-    sp54 = (((scaleX >> 3) * sp54) / sp34) * 8;
-    sp50 = (((scaleZ >> 3) * sp50) / sp34) * 8;
-    sp4C = (((scaleY >> 3) * sp4C) / sp34) * 8;
+    sp54 = (((scaleX >> 3) * sp54) / sp34) << 3;
+    sp50 = (((scaleZ >> 3) * sp50) / sp34) << 3;
+    sp4C = (((scaleY >> 3) * sp4C) / sp34) << 3;
 
     switch (arg7) {                                 /* irregular */
     case 0:
@@ -214,19 +201,21 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     }
 
     if (arg6 != 0) {
+
+        sp48 = sp60;
+        sp44 = sp5C;
+        sp40 = sp58;
+
         temp_t7_3 = SIN(arg6) >> 7;
-        temp_t8_4 = COS(arg6) >> 7;
-        temp_a0_2 = sp60;
-        temp_a1 = sp5C;
-        temp_t5_2 = sp58;
+        new_var = temp_t8_4 = COS(arg6) >> 7;
 
-        sp60 = ((temp_t7_3 * sp54) + (sp60 * temp_t8_4)) >> 8;
-        sp5C = ((temp_t7_3 * sp50) + (sp5C * temp_t8_4)) >> 8;
-        sp58 = ((temp_t7_3 * sp4C) + (sp58 * temp_t8_4)) >> 8;
+        sp60 = ((temp_t7_3 * sp54) + (sp60 * new_var)) >> 8;
+        sp5C = ((temp_t7_3 * sp50) + (sp5C * new_var)) >> 8;
+        sp58 = ((temp_t7_3 * sp4C) + (sp58 * new_var)) >> 8;
 
-        sp54 = ((sp54 * temp_t8_4) - (temp_t7_3 * temp_a0_2)) >> 8;
-        sp50 = ((sp50 * temp_t8_4) - (temp_t7_3 * temp_a1)) >> 8;
-        sp4C = ((sp4C * temp_t8_4) - (temp_t7_3 * temp_t5_2)) >> 8;
+        sp54 = ((sp54 * new_var) - (temp_t7_3 * sp48)) >> 8;
+        sp50 = ((sp50 * new_var) - (temp_t7_3 * sp44)) >> 8;
+        sp4C = ((sp4C * new_var) - (temp_t7_3 * sp40)) >> 8;
     }
 
     sp20.w.unk4 = sp6C;
@@ -235,8 +224,8 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     arg9->m[2][0] = (sp20.h.unk6 << 0x10) | sp20.h.unk2;
 
     sp20.w.unk4 = sp64;
-    arg9->m[0][1] = sp20.h.unk4 << 0x10;
-    arg9->m[2][1] = sp20.h.unk6 << 0x10;
+    arg9->m[0][1] = (sp20.h.unk4 << 0x10);
+    arg9->m[2][1] = (sp20.h.unk6 << 0x10);
 
     sp20.w.unk4 = sp60;
     sp20.w.unk0 = sp5C;
@@ -244,8 +233,8 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     arg9->m[2][2] = (sp20.h.unk6 << 0x10) | sp20.h.unk2;
 
     sp20.w.unk4 = sp58;
-    arg9->m[0][3] = sp20.h.unk4 << 0x10;
-    arg9->m[2][3] = sp20.h.unk6 << 0x10;
+    arg9->m[0][3] = (sp20.h.unk4 << 0x10);
+    arg9->m[2][3] = (sp20.h.unk6 << 0x10);
 
     sp20.w.unk4 = sp54;
     sp20.w.unk0 = sp50;
@@ -253,8 +242,8 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     arg9->m[3][0] = (sp20.h.unk6 << 0x10) | sp20.h.unk2;
 
     sp20.w.unk4 = sp4C;
-    arg9->m[1][1] = sp20.h.unk4 << 0x10;
-    arg9->m[3][1] = sp20.h.unk6 << 0x10;
+    arg9->m[1][1] = (sp20.h.unk4 << 0x10);
+    arg9->m[3][1] = (sp20.h.unk6 << 0x10);
 
     sp20.w.unk4 = sp30;
     sp20.w.unk0 = sp2C;
@@ -263,13 +252,10 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
 
     sp20.w.unk4 = sp28;
     arg9->m[1][3] = (sp20.h.unk4 << 0x10) | 1;
-    arg9->m[3][3] = sp20.h.unk6 << 0x10;
+    arg9->m[3][3] = (sp20.h.unk6 << 0x10);
 
     return 1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/mtx/func_80126388.s")
-#endif
 
 // unused?
 void func_80126CC4(s16 arg0, Mtx *arg1) {
