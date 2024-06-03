@@ -783,21 +783,23 @@ struct Animal {
     /* 0x165 */ u8  unk165[0x3];
     /* 0x168 */ Animal *owner; // owner
     /* 0x16C */ struct035* unk16C;
-    /* 0x170 */ u8  unk170;
-    /* 0x172 */ s16 unk172;
+
+    /* 0x170 */ u8  unk170; // current waypoint mode?
+    /* 0x172 */ s16 waypointFudgeFactor;
     /* 0x174 */ struct {
                     s8 unk0 : 4;
                     s8 unk4 : 4;
                     s8 unk8 : 8;
                 } unk174;
     /* 0x174 */ s16 unk176; // waypoint related
-    /* 0x178 */ s16 unk178; // targetXPos for waypoint?
-    /* 0x17A */ s16 unk17A; // targetZPos for waypoint?
-    /* 0x17C */ s16 unk17C; // targetYPos for waypoint
-    /* 0x17E */ s16 unk17E; // initialXPos for waypoint?
-    /* 0x180 */ s16 unk180; // initialZPos for waypoint?
-    /* 0x182 */ s16 unk182; // initialYPos for waypoint?
-    /* 0x184 */ s16 unk184; // some kind of speed factor for waypoints?
+    /* 0x178 */ s16 waypointTargetXPos;
+    /* 0x17A */ s16 waypointTargetZPos;
+    /* 0x17C */ s16 waypointTargetYPos;
+    /* 0x17E */ s16 waypointStartXPos;
+    /* 0x180 */ s16 waypointStartZPos;
+    /* 0x182 */ s16 waypointStartYPos;
+    /* 0x184 */ s16 waypointVelocity;
+
     /* 0x188 */ Animal *target;
     /* 0x18C */ u8  unk18C;
     /* 0x18D */ u8  unk18D[5];
@@ -2392,26 +2394,32 @@ typedef struct {
 } struct099; // particle, size 0x18?
 
 typedef struct {
-  u16  unk0;  // flags
+  u16  flags;  // flags
   u8   unk2;  // ?
-  s8   unk3;  // tris?
+  s8   tris;  // tris?
 } struct102_inner; // size 0x4
 
+// typedef struct {
+//     s16 unk0; // tc0
+//     s16 unk2; // tc1
+//     u8  unk4; // cn[0] / r
+//     u8  unk5; // cn[1] / g
+//     u8  unk6; // cn[2] / b
+//     s8  unk7; // x
+//     s16 unk8; // y
+//     s8  unkA; // z
+//     u8  unkB; // cn[3] / a
+// } struct102_payload; // size 0xC
+
 typedef struct {
-    s16 unk0; // tc0
-    s16 unk2; // tc1
-    u8  unk4; // cn[0] / r
-    u8  unk5; // cn[1] / g
-    u8  unk6; // cn[2] / b
-    s8  unk7; // x
-    s16 unk8; // y
-    s8  unkA; // z
-    u8  unkB; // cn[3] / a
-} struct102_payload; // size 0xC
+    s16 unk0; // tbd
+    s16 unk2; // tbd
+    s16 unk4[4];
+} struct102_payload_2; // size 0xC
 
 typedef struct {
   /* 0x00 */ struct102_inner unk0;
-  /* 0x04 */ struct102_payload unk4[4];
+  /* 0x04 */ struct102_payload_2 unk4[4];
 } struct102; // size 0x34?
 
 typedef struct {

@@ -17,6 +17,7 @@ options:
   create_undefined_funcs_auto: no
   symbol_name_format: $VRAM_$ROM
   asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
   image_type_in_extension: yes
 segments:
   - name:  header
@@ -237,6 +238,7 @@ segments:
     - [0x2A8D0, textbin, gspF3DEX_fifoText]
     - [0x2BD00, textbin, aspMainText]
     # .data
+    - [0x2CB20, data]
     - [0x2CB30, .data, core/controller]
     - [0x2DA50, .data, core/mtx]
     - [0x2E580, .data, core/string]

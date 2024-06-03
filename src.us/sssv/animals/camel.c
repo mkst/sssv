@@ -32,15 +32,15 @@ extern u8 D_04002780[];
 extern u8 D_04002560_E9B10[];
 
 #if 0
-// CURRENT (4042)
+// CURRENT (5097)
 void func_8036D700_77EDB0(void) {
     struct061 spE0;
     s16 spDE;
     s16 spDC;
     s16 spDA;
 
-    // s16 spCE;
-    // s16 spCC;
+    s16 spCE;
+    s16 spCC;
     s16 temp_a1;
     s16 temp_t0;
     s16 temp_t1;
@@ -49,12 +49,11 @@ void func_8036D700_77EDB0(void) {
     // s16 spC6;
     u16 ticks_remaining;
 
-    s16 temp_t3;
-    s16 temp_t4;
+    s32 temp_t3;
+    s32 temp_t4;
 
     s16 temp_v0;
-    s16 temp_v0_8;
-    s16 var_s1;
+    s32 var_s1;
     s16 i;
     s16 var_v0_2;
     s16 temp_t7;
@@ -108,7 +107,7 @@ void func_8036D700_77EDB0(void) {
                     }
 
                     // same issues as chameleon
-                    var_s1 = 0;
+                    var_s1 = 1;
                     spC8 = ticks_remaining;
                     while (spC8 > 8) {
                         spC8 -= 8;
@@ -116,14 +115,11 @@ void func_8036D700_77EDB0(void) {
                         a0 = SSSV_RAND(256) - 0x80;
                         a1 = SSSV_RAND(256) - 0x80;
 
-                        a0 = (a0 * (var_s1+1)) >> 3;
-                        a1 = (a1 * (var_s1+1)) >> 3;
-
+                        a0 = (a0 * (var_s1)) >> 3;
                         var_s1++;
+                        a1 = (a1 * (var_s1)) >> 3;
 
-                        a2 = SSSV_RAND(32);
-                        a2 = a2 + ((var_s1+1) << 5);
-                        a2 = (a2 * D_803D5530->unk42) >> 7;
+                        a2 = ((SSSV_RAND(32) + ((var_s1) << 5)) * D_803D5530->unk42) >> 7;
 
                         create_particle_effect(
                             D_803D5530->position.xPos.h + a0,
@@ -175,7 +171,7 @@ void func_8036D700_77EDB0(void) {
             case ATTACK_CAMEL_WATER_CANNON:
                 D_803D5528->unk3C0.unk0 = 0;
                 ticks_remaining = D_803D5544 - D_803D552C->unk32A;
-                func_802DC6A4_6EDD54(spDC = 0x10); // fake
+                func_802DC6A4_6EDD54(0x10);
                 if (ticks_remaining == 1) {
                     play_sound_effect_at_location(SFX_UNKNOWN_62, 0x4800, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
@@ -243,7 +239,6 @@ void func_8036D700_77EDB0(void) {
             break;
         }
 
-
         if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&spE0, 0x138, 0xC3, 0x668, 0x75);
             func_802BD40C_6CEABC(
@@ -257,13 +252,12 @@ void func_8036D700_77EDB0(void) {
 
             temp_v0 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
             temp_a1 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
-            temp_t0 = D_80152350.unk2D0[D_803D552C->unk316];
-            temp_t1 = D_80152350.unk384[D_803D552C->unk316];
 
-            temp_t3 = D_80203FE0[19].unk0 + (((temp_t0 * temp_a1) >> 8) + ((temp_t1 * temp_v0) >> 8));
-            temp_t4 = D_80203FE0[19].unk2 + (((temp_a1 * temp_t1) >> 8) - ((temp_t0 * temp_v0) >> 8));
-            D_80203FE0[20].unk2 = temp_t4;
-            D_80203FE0[20].unk0 = temp_t3;
+            temp_t3 = ((temp_v0 * D_80152350.unk384[D_803D552C->unk316]) >> 8) + ((temp_a1 * D_80152350.unk2D0[D_803D552C->unk316]) >> 8);
+            temp_t4 = ((temp_a1 * D_80152350.unk384[D_803D552C->unk316]) >> 8) - ((D_80152350.unk2D0[D_803D552C->unk316] * temp_v0) >> 8);
+
+            D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + temp_t3;
+            D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + temp_t4;
 
             temp_t9 = ((D_80203FE0[1].unk4 - D_80203FE0[2].unk4) * 3) >> 3;
             D_80203FE0[1].unk4 -= temp_t9;
@@ -272,6 +266,9 @@ void func_8036D700_77EDB0(void) {
             if (D_803D5524->unk9C == CANNON_CAMEL) {
                 if (D_803F2D10.unk0 == 0) {
                     switch (D_803D552C->unk366) {
+                    case 2:
+                    case 5:
+                        break;
                     default:
                         D_803D552C->unk30A--;
                         if (D_803D552C->unk30A < 0) {
@@ -290,14 +287,12 @@ void func_8036D700_77EDB0(void) {
                                     D_803D552C->unk308 = (D_803D552C->unk308 - 1) & 0xFF;
                                 }
                             }
-                        }
-                        break;
-                    case 2:
-                    case 5:
-                        if (D_803D552C->unk2CC != NULL) {
+                        } else if (D_803D552C->unk2CC != NULL) {
                             var_v0_2 = (func_801284B8(D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h) << 8) / 360;
                             if (D_803D552C->unk308 != var_v0_2) {
-                                if ((s16) ((var_v0_2 - D_803D552C->unk308) & 0xFF) < 0x80) {
+                                // tbd
+                                var_v0_2 = (var_v0_2 - D_803D552C->unk308) & 0xFF;
+                                if (var_v0_2 < 128) {
                                     D_803D552C->unk308 = (D_803D552C->unk308 + 1) & 0xFF;
                                 } else {
                                     D_803D552C->unk308 = (D_803D552C->unk308 - 1) & 0xFF;
@@ -306,7 +301,6 @@ void func_8036D700_77EDB0(void) {
                         } else {
                             D_803D552C->unk308 = (D_803D552C->unk308 + 1) & 0xFF;
                         }
-                        break;
                     }
                 }
 

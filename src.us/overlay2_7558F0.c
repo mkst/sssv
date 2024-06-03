@@ -23,6 +23,11 @@ typedef struct {
     s32 unk1C;
 } foobar2;
 
+#define VTX_3_TRIS                  0x1
+#define VTX_CULL_BACK               0x4
+#define VTX_ALPHA_COMPARE_DITHER    0x40
+#define VTX_RENDER_MODE_DECAL       0x4000
+
 // ========================================================
 // .data
 // ========================================================
@@ -454,8 +459,8 @@ void func_80344240_7558F0(void) {
                 // temp_a0_3 = D_803F2C80; //->unk0[0];
                 temp_v0_2 = &D_803F2C80[spFC6]; //->unk0; // + (spFC6 * 0x34);
 
-                temp_v1 = D_803F2C80[spFC6].unk0.unk0; // flags
-                temp_t5_2 = D_803F2C80[spFC6].unk0.unk3;
+                temp_v1 = D_803F2C80[spFC6].unk0.flags; // flags
+                temp_t5_2 = D_803F2C80[spFC6].unk0.tris;
 
 
                 sp58 = (s32) temp_v1;
@@ -819,48 +824,32 @@ void func_803458B8_756F68(Gfx **arg0, Vtx *vtx, s16 num) {
 #if 0
 // CURRENT (28492)
 void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
-    s16 sp17A;
+    s16 i; //sp7A
     s16 sp178;
-    u8 sp175;
+    u8  sp175;
+
     s16 *sp4C;
-    struct117 *temp_t2;
-    s16 temp_a2;
-    s16 temp_a2_2;
-    s16 temp_v0_6;
-    s32 temp_a0;
-    s32 temp_t9;
+    struct117 *vtxs;
     u16 temp_v1;
     u8 temp_s6;
     struct102_inner *temp_v0;
-    struct073 *temp_v0_4;
-    s16 phi_t3;
-    struct117 *phi_t2;
-    s16 phi_t3_2;
-
-    s16 i;
+    s16 j;
 
     sp178 = 0;
-    sp17A = 0;
-    // phi_a2 = numTris;
 
     for (i = 0; i < numTris; i++) {
-        // phi_t3 = 0xC;
-        // phi_t3_2 = 0xC;
-        // temp_t9 = i * 0x24; // sp17A
-        temp_t2 = &arg1[i]; // + (i * 0x24); //temp_t9;
-        temp_v0 = &D_803F2C80[temp_t2->unk0.unk0]; // *phi_t4 + (*temp_t2 * 0x34);
+        vtxs = &arg1[i];
+
+        temp_v0 = &D_803F2C80[vtxs->unk0.unk0];
         temp_v1 = temp_v0->unk0;
         temp_s6 = temp_v0->unk2;
-        // temp_a0 = temp_v1 & 8;
         sp175 = temp_v0->unk3;
-        phi_t2 = temp_t2; //->unk0;
-        // phi_t4_2 = phi_t4;
-        // phi_t3_2 = phi_t3;
+
         if ((temp_v1 & 8) ||
             (temp_v1 & 0x40) ||
             (temp_v1 & 0x2000) ||
             (temp_v1 & 0x100)) {
-            // sp40 = temp_v1 & 0x40;
+
             if ((temp_v1 & 8) && (D_803F2C86 != 4)) {
                 gDPSetCombineLERP((*dl)++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, TEXEL0, COMBINED, 0, SHADE, 0, 0, 0, 0, SHADE);
                 gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0180, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
@@ -880,9 +869,9 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
 
                     D_803F2C86 = 12;
                 }
-                D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) (temp_v0_4->unk0 | 1);
+                D_803E3130[D_803F2CA6].unk0 |= 1;
                 D_803E3130[D_803F2CA6].type = 6;
-                D_803E3130[D_803F2CA6].unk2 = (s16) sp175;
+                D_803E3130[D_803F2CA6].unk2 = sp175;
                 D_803E3130[D_803F2CA6].displayList = (s32 *) *dl;
                 gDPSetTileSize((*dl)++, 1, 0, 0, 60, 60);
 
@@ -902,11 +891,12 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
                     gSPTexture((*dl)++, 32768, 32768, 0, 6, G_ON);
 
                     if (D_803F2C96 != temp_s6) {
-                        D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) (temp_v0_4->unk0 | 1);
-                        D_803E3130[D_803F2CA6].type = (s8) (temp_s6 - 33);
-                        D_803E3130[D_803F2CA6].unk2 = (s16) sp175;
-                        D_803E3130[D_803F2CA6].displayList = (s32 *) *dl;
-                        D_803F2CA6 += 1; //D_803F2CA6 + 1;
+                        D_803E3130[D_803F2CA6].unk0 |= 1;
+                        D_803E3130[D_803F2CA6].type = temp_s6 - 33;
+                        D_803E3130[D_803F2CA6].unk2 = sp175;
+                        D_803E3130[D_803F2CA6].displayList = *dl;
+                        D_803F2CA6 += 1;
+
                         gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810_660E0));
                         gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                         gDPLoadSync((*dl)++);
@@ -920,7 +910,7 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
                     }
                     D_803F2C86 = 14;
                 }
-            } else if (((temp_v1 & 8) == 0) && (D_803F2C86 != 1)) {
+            } else if ((!(temp_v1 & 8)) && (D_803F2C86 != 1)) {
                 gDPPipeSync((*dl)++);
                 gDPSetAlphaCompare((*dl)++, G_AC_NONE);
                 gDPSetCombineMode((*dl)++, G_CC_TRILERP, G_CC_MODULATEI2);
@@ -935,9 +925,9 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
             if (sp175 != 0) {
                 D_803F2C86 = 1;
                 if (D_803F2C86 != 0) {
-                    D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) (temp_v0_4->unk0 | 1);
+                    D_803E3130[D_803F2CA6].unk0 |= 1;
                     D_803E3130[D_803F2CA6].type = 1;
-                    D_803E3130[D_803F2CA6].unk2 = (s16) sp175;
+                    D_803E3130[D_803F2CA6].unk2 = sp175;
                     D_803E3130[D_803F2CA6].displayList = *dl;
                     gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 124, 124);
                     gDPSetTileSize((*dl)++, 1, 0, 0, 60, 60);
@@ -945,7 +935,7 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
                     gDPTileSync((*dl)++);
                     gDPPipeSync((*dl)++);
 
-                    D_803F2CA6 += 1; //(s16) (D_803F2CA6 + 1);
+                    D_803F2CA6 += 1;
                     D_803F2C92 = 1;
                 }
             }
@@ -967,17 +957,16 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
             gDPSetRenderMode((*dl)++, gRenderMode1, gRenderMode2);
             gDPSetCombineMode((*dl)++, G_CC_TRILERP, G_CC_MODULATEI2);
 
-            D_803F2C99 = 0U;
+            D_803F2C99 = 0;
         }
         if (temp_v1 & 0x4000) {
             if (D_803F2C8E != 1) {
                 D_803F2C8E = 1;
                 gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_ZB_OPA_DECAL2);
-                // goto block_37;
             }
         } else if (D_803F2C8E != 0) {
             D_803F2C8E = 0;
-            if (temp_v0->unk2 > 40) {
+            if (temp_s6 > 40) {
                 gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_AA_ZB_TEX_EDGE2);
 
             } else {
@@ -993,18 +982,15 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
         } else if (D_803F2C88 != 1) {
             gDPSetRenderMode((*dl)++, gRenderMode1, gRenderMode2);
         }
-        if (D_803F2C96 != temp_v0->unk2) {
-            if (temp_v0->unk2 < 32) {
-                sp4C = temp_t2;
+        if (D_803F2C96 != temp_s6) {
+            if (temp_s6 < 32) {
+                sp4C = vtxs;
                 func_80346878_757F28(dl, temp_s6); //, numTris);
-                // phi_t4_2 = &D_803F2C80;
             }
             D_803F2C96 = temp_s6;
             D_803F2C97 = 0xFF;
-            phi_t2 = &arg1[i]; // + (i * 0x24) ; // temp_t9;
         }
-        // phi_t4 = phi_t4_2;
-        // phi_t3 = phi_t3_2;
+
         if ((temp_v1 & 4) && (D_803F2C9A == 0)) {
             gSPClearGeometryMode((*dl)++, G_CULL_BACK);
 
@@ -1045,34 +1031,27 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
             D_803F2C92 = 0;
         }
         if ((temp_v1 & 1) == 0) {
-            for (i = 0; i < 4; i++) {
-#if 0
-                temp_a2 = i * 2;
-                temp_v0_6 = (arg1 + (i * 0x24) + temp_a2)->unkC;
-                if ((temp_v0_6 != 0) && ((temp_v0_6 & 1) != 0)) {
-                    temp_v0_7 = D_803F2C80[phi_t2->unk0].unk4[i]; // + (phi_t2->unk0.->unk0 * 0x34) + (i * 12);
-                    // temp_a0_67 = *arg0;
-                    // *arg0 = temp_a0_67 + 8;
-                    // temp_a0_67->unk0 = (((phi_t2 + temp_a2)->unk4 * 2) & 0xFFFF) | 0xB2140000;
-                    // temp_a0_67->unk4 = (s32) ((((temp_v0_7->unk4 << 5) << 0x10) & 0xFFFF0000) | ((temp_v0_7->unk6 << 5) & 0xFFFF));
+            for (j = 0; j < 4; j++) {
+                s16 foo = arg1[i].unk4[j].unk0;
+
+                if ((foo != 0) && (foo & 1)) {
+                    struct102_payload_2 *bar = D_803F2C80[temp_v0->unk0].unk4;
                     gSPModifyVertex((*dl)++,
-                        ((phi_t2 + temp_a2)->unk4 * 2),
+                        bar->unk4[j],
                         G_MWO_POINT_ST,
-                        (temp_v0_7->unk4 << 5) |
-                        (temp_v0_7->unk6 << 5)));
+                        (((bar->unk0 << 5) << 0x10) & 0xFFFF0000) | ((bar->unk2 << 5) & 0xFFFF));
                 }
-#endif
             }
 
             gSP2Triangles(
             /* gdl   */ (*dl)++,
-            /* v00   */ phi_t2->unk4[0].unk4,
-            /* v01   */ phi_t2->unk4[0].unk2,
-            /* v02   */ phi_t2->unk4[0].unk0,
+            /* v00   */ vtxs->unk4[0].unk4,
+            /* v01   */ vtxs->unk4[0].unk2,
+            /* v02   */ vtxs->unk4[0].unk0,
             /* flag0 */ 0,
-            /* v10   */ phi_t2->unk4[0].unk4,
-            /* v11   */ phi_t2->unk4[0].unk6,
-            /* v12   */ phi_t2->unk4[0].unk2,
+            /* v10   */ vtxs->unk4[0].unk4,
+            /* v11   */ vtxs->unk4[0].unk6,
+            /* v12   */ vtxs->unk4[0].unk2,
             /* flag1 */ 0);
             sp178 += 1;
         } else {
@@ -1097,9 +1076,9 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
 
             }
             gSP1Triangle((*dl)++,
-                phi_t2->unk4[0].unk0, //->unk4 << 1,
-                phi_t2->unk4[0].unk2, //->unk6 << 1,
-                phi_t2->unk4[0].unk4, //->unk8 << 1,
+                vtxs->unk4[0].unk0, //->unk4 << 1,
+                vtxs->unk4[0].unk2, //->unk6 << 1,
+                vtxs->unk4[0].unk4, //->unk8 << 1,
                 0);
         }
     }
@@ -1108,13 +1087,13 @@ void func_803458FC_756FAC(Gfx **dl, struct117 *arg1, s16 numTris) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_803458FC_756FAC.s")
 #endif
 
-void func_80346878_757F28(Gfx **arg0, u8 arg1) {
-    if (arg1 < 32) {
-        gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[(s32)arg1]);
+void func_80346878_757F28(Gfx **arg0, u8 idx) {
+    if (idx < 32) {
+        gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[(s32)idx]);
         gDPTileSync((*arg0)++);
         gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     } else {
-        gDPSetTextureImage((*arg0)++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, D_800BA760[(s32)arg1]);
+        gDPSetTextureImage((*arg0)++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, D_800BA760[(s32)idx]);
         gDPTileSync((*arg0)++);
         gDPSetTile((*arg0)++, G_IM_FMT_IA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     }
@@ -1145,27 +1124,18 @@ void func_80346AB0_758160(Gfx **arg0, u8 arg1) {
     gDPTileSync((*arg0)++);
 }
 
-// uses delay slot
 #if 0
-//CURRENT (26391)
+//CURRENT (9774)
 void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
     s16 i;    // sp29A
     s16 tris; // sp298
     u8  padx[3];
     u8  sp294; // usedTris? neededTris?
     u8  pad2[0x14];
-    s16 sp28E;
-    // s32 sp5C;
-    // s16 *sp58;
-    // s32 sp50;
-    // s32 sp48;
-    // s32 sp44;
+    s16 sp28E; // needs image loading?
 
-    s32 temp_t0_3;
-    // s32 temp_v1_9;
-    s16 var_v0_5;
     s16 var_v0_4;
-    s8 temp_t0_2;
+    s32  type;
 
     u16 vtxFlags;
     u8 temp_s1;
@@ -1175,25 +1145,31 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
     for (i = 0; i < numTris; i++) {
         sp28E = 1;
 
-        // helpppp...
-        vtxFlags = D_803F2C80[arg1[i].unk0].unk0.unk0;
-        temp_s1 = D_803F2C80[arg1[i].unk0].unk0.unk3;
+        vtxFlags = D_803F2C80[arg1[i].unk0].unk0.flags;
+        temp_s1 = D_803F2C80[arg1[i].unk0].unk0.tris;
         sp294   = D_803F2C80[arg1[i].unk0].unk0.unk2;
 
-        if (((vtxFlags & 0x20)) || (vtxFlags & 0x10) || (vtxFlags & 0x200) || (vtxFlags & 0x8000) || (vtxFlags & 0x100) || (vtxFlags & 0x1000)) {
+        if ((vtxFlags & 0x20) ||
+            (vtxFlags & 0x10) ||
+            (vtxFlags & 0x200) ||
+            (vtxFlags & 0x8000) ||
+            (vtxFlags & 0x100) ||
+            (vtxFlags & 0x1000)) {
+
             if ((vtxFlags & 0x8000) && (D_803F2C84 != 7)) {
                 gDPSetCombineMode((*arg0)++, G_CC_MODULATEI, G_CC_PASS2);
                 gDPSetRenderMode((*arg0)++, G_RM_PASS, gRenderMode2);
                 D_803F2C84 = 7;
             }
-            if ((vtxFlags & 0x10)) {
+
+            if (vtxFlags & 0x10) {
                 sp28E = 0;
                 if (D_803F2C84 != 3) {
                     gDPPipeSync((*arg0)++);
                     gDPSetCombineLERP((*arg0)++, TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, SHADE, COMBINED, SHADE, 0, 0, 0, PRIMITIVE);
                     gDPSetRenderMode((*arg0)++, G_RM_PASS, D_803F2CC0);
                     gDPSetTextureLOD((*arg0)++, G_TL_TILE);
-                    gSPTexture((*arg0)++, 0x8000, 0x8000, 0, 5, G_ON); // 0x10000*(0.5)
+                    gSPTexture((*arg0)++, 0x8000, 0x8000, 0, 5, G_ON);
 
                     gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, D_0102B610);
 
@@ -1208,8 +1184,8 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     D_803F2C84 = 3;
                 }
 
-                D_803E3130[D_803F2CA6].unk2 = (s16) temp_s1;
-                D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) temp_v1_2->unk0 | 1;
+                D_803E3130[D_803F2CA6].unk2 = temp_s1;
+                D_803E3130[D_803F2CA6].unk0 |= 1;
 
                 if (temp_s1 != 0) {
                     D_803E3130[D_803F2CA6].type = 0;
@@ -1224,10 +1200,11 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     gDPSetPrimColor((*arg0)++, 128, 128, 0x00, 0x00, 0x00, 0xDC);
 
                 }
+                D_803F2CA6++;
+
                 D_803F2C94 = 1;
-                D_803F2CA6 += 1;
             }
-            if ((vtxFlags & 0x200)) {
+            if (vtxFlags & 0x200) {
                 sp28E = 0;
                 if (D_803F2C84 != 6) {
                     gDPSetCombineLERP((*arg0)++, TEXEL1, TEXEL0, SHADE_ALPHA, TEXEL0, TEXEL1, PRIMITIVE, SHADE, PRIMITIVE, PRIMITIVE, SHADE, COMBINED, SHADE, 0, 0, 0, COMBINED);
@@ -1245,8 +1222,8 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     gDPPipeSync((*arg0)++);
                     D_803F2C84 = 6;
                 }
-                D_803E3130[D_803F2CA6].unk2 = (s16) temp_s1;
-                D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) D_803E3130[D_803F2CA6].unk0 | 1;
+                D_803E3130[D_803F2CA6].unk2 = temp_s1;
+                D_803E3130[D_803F2CA6].unk0 |= 1;
 
                 if (temp_s1 != 0) {
                     D_803E3130[D_803F2CA6].type = 3;
@@ -1261,10 +1238,11 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     gDPSetTileSize((*arg0)++, 5, 0, 0, 124, 124);
                     gDPSetTileSize((*arg0)++, 6, 0, 0, 124, 124);
                 }
+                D_803F2CA6++;
+
                 D_803F2C94 = 1;
-                D_803F2CA6 += 1;
             }
-            if ((vtxFlags & 0x100)) {
+            if (vtxFlags & 0x100) {
                 sp28E = 0;
                 if (D_803F2C84 != 11) {
                     gSPClearGeometryMode((*arg0)++, G_FOG);
@@ -1281,15 +1259,16 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     D_803F2C84 = 11;
                 }
                 D_803E3130[D_803F2CA6].unk2 = temp_s1;
-                D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) D_803E3130[D_803F2CA6].unk0 | 1;
+                D_803E3130[D_803F2CA6].unk0 |= 1;
                 D_803E3130[D_803F2CA6].type = 5;
                 D_803E3130[D_803F2CA6].displayList = *arg0;
                 gDPSetTileSize((*arg0)++, 6, 0, 0, 60, 60);
 
+                D_803F2CA6++;
+
                 D_803F2C94 = 1;
-                D_803F2CA6 += 1;
             }
-            if ((vtxFlags & 0x1000)) {
+            if (vtxFlags & 0x1000) {
                 sp28E = 0;
                 if (D_803F2C84 != 13) {
                     gSPClearGeometryMode((*arg0)++, G_FOG);
@@ -1305,17 +1284,18 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     D_803F2C84 = 13;
                 }
                 D_803E3130[D_803F2CA6].unk2 = temp_s1;
-                D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) D_8022D350[temp_t8_14].unk0 | 1;
+                D_803E3130[D_803F2CA6].unk0 |= 1;
                 D_803E3130[D_803F2CA6].type = 5;
                 D_803E3130[D_803F2CA6].displayList = *arg0;
                 gDPSetTileSize((*arg0)++, 5, 0, 0, 60, 60);
 
+                D_803F2CA6++;
+
                 D_803F2C94 = 1;
-                D_803F2CA6 += 1;
             }
 
-            if (((vtxFlags & 0x20) != 0) && ((vtxFlags & 0x10) == 0) && ((vtxFlags & 0x200) == 0) && ((vtxFlags & 0x100) == 0)) {
-                vtxFlags = D_803F2C80[arg1[i].unk0].unk0.unk2;
+            if ((vtxFlags & 0x20) && (!(vtxFlags & 0x10)) && (!(vtxFlags & 0x200)) && (!(vtxFlags & 0x100))) {
+                vtxFlags = D_803F2C80[arg1[i].unk0].unk0.flags;
                 if (sp294 >= 32) {
                     if (D_803F2C84 != 0xE) {
                         gDPPipeSync((*arg0)++);
@@ -1324,7 +1304,7 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                             gDPSetAlphaCompare((*arg0)++, G_AC_THRESHOLD);
                             gDPSetBlendColor((*arg0)++, 0x00, 0x00, 0x00, 0x01);
 
-                            if (vtxFlags & 0x4000) {
+                            if (vtxFlags & VTX_RENDER_MODE_DECAL) {
                                 gDPSetRenderMode((*arg0)++, gRenderMode1, G_RM_ZB_XLU_DECAL2);
                             } else {
                                 gDPSetRenderMode((*arg0)++, gRenderMode1, D_803F2CC0);
@@ -1333,13 +1313,15 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                             gDPSetTextureLOD((*arg0)++, G_TL_TILE);
                             gSPTexture((*arg0)++, 0x8000, 0x8000, 0, 6, G_ON);
 
-                            temp_t0_2 = sp294 - 33;
+                            type = sp294 - 33;
                             D_803E3130[D_803F2CA6].unk2 = temp_s1;
-                            D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) D_803E3130[D_803F2CA6].unk0 | 1;
-                            D_803E3130[D_803F2CA6].type = temp_t0_2;
-                            D_803F2CA6++; // = temp_a1_2 + 1;
+                            D_803E3130[D_803F2CA6].unk0 |= 1;
+                            D_803E3130[D_803F2CA6].type = type;
                             D_803E3130[D_803F2CA6].displayList = *arg0;
-                            if (temp_t0_2 == 9) {
+                            D_803F2CA6++;
+
+                            if (type == 9) {
+                                if (1) {};
                                 gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102C810_660E0 + 0x1000));
                                 gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync((*arg0)++);
@@ -1378,37 +1360,32 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                             gDPSetTile((*arg0)++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, 0x0156, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, 5, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, 5);
                             gDPSetTileSize((*arg0)++, 5, 0, 0, 0, 0);
 
-                            D_803F2C84 = 0xE;
+                            D_803F2C84 = 14;
                         }
                         if (temp_s1 != 0) {
                             D_803E3130[D_803F2CA6].unk2 = temp_s1;
-                            D_803E3130[D_803F2CA6].unk0 |= 1; //(u8) D_803E3130[D_803F2CA6].unk0 | 1;
+                            D_803E3130[D_803F2CA6].unk0 |= 1;
                             D_803E3130[D_803F2CA6].type = 0xB;
-                            D_803F2CA6++; // = temp_a1_3 + 1;
-                            D_803F2C94 = 1;
                             D_803E3130[D_803F2CA6].displayList = *arg0;
+                            D_803F2CA6++;
+
+                            D_803F2C94 = 1;
 
                             gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 124, 124);
                             gDPSetTileSize((*arg0)++, 1, 0, 0, 60, 60);
                             gDPSetTileSize((*arg0)++, 2, 0, 0, 28, 28);
-
                         }
                     }
                 } else {
-                    if (vtxFlags & 1) {
+                    if (vtxFlags & VTX_3_TRIS) {
                         var_v0_4 = 3;
                     } else {
                         var_v0_4 = 4;
                     }
 
-                    // delayslot around here ish
-                    var_v0_5 = var_v0_4 + 1;
-                    if (var_v0_4 > 0) {
-                    loop_59:
-                        if (var_v0_5 > 0) {
-                            var_v0_5 = var_v0_5 + 1;
-                            goto loop_59;
-                        }
+                    // what?
+                    while (var_v0_4 > 0) {
+                        var_v0_4++;
                     }
 
                     if ((D_803F2C84 != 9) && (sp294 != 0)) {
@@ -1416,13 +1393,13 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                         gSPClearGeometryMode((*arg0)++, G_FOG);
                         gDPSetEnvColor((*arg0)++, 0x00, 0x00, 0x80, 0x80);
 
-                        if (vtxFlags & 0x4000) {
+                        if (vtxFlags & VTX_RENDER_MODE_DECAL) {
                             gDPSetRenderMode((*arg0)++, G_RM_PASS, G_RM_ZB_XLU_DECAL2);
                         } else {
                             gDPSetRenderMode((*arg0)++, G_RM_PASS, D_803F2CC0);
 
                         }
-                        if (vtxFlags & 0x40) {
+                        if (vtxFlags & VTX_ALPHA_COMPARE_DITHER) {
                             gDPSetAlphaCompare((*arg0)++, G_AC_DITHER);
                         } else {
                             gDPSetAlphaCompare((*arg0)++, G_AC_NONE);
@@ -1448,34 +1425,36 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                         D_803E3130[D_803F2CA6].unk0 |= 1;
                         D_803E3130[D_803F2CA6].type = 4;
                         D_803E3130[D_803F2CA6].displayList = *arg0;
+
                         gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 124, 124);
                         gDPSetTileSize((*arg0)++, 1, 0, 0, 60, 60);
                         gDPSetTileSize((*arg0)++, 2, 0, 0, 28, 28);
                         gDPTileSync((*arg0)++);
                         gDPPipeSync((*arg0)++);
+
+                        D_803F2CA6++;
                         D_803F2C94 = 1;
-                        D_803F2CA6 += 1;
                     }
-                    if ((sp294 == 0) && (D_803F2C84 != 0xA)) {
+                    if ((sp294 == 0) && (D_803F2C84 != 10)) {
                         gDPPipeSync((*arg0)++);
                         gSPClearGeometryMode((*arg0)++, G_FOG);
                         gDPSetEnvColor((*arg0)++, 0x00, 0x00, 0x80, 0x80);
 
-                        if (vtxFlags & 0x4000) { // DECAL_MODE?
+                        if (vtxFlags & VTX_RENDER_MODE_DECAL) {
                             gDPSetRenderMode((*arg0)++, G_RM_PASS, G_RM_ZB_XLU_DECAL2);
 
                         } else {
                             gDPSetRenderMode((*arg0)++, G_RM_PASS, D_803F2CC0);
 
                         }
-                        if (vtxFlags & 0x40) { // DITHER ?
+                        if (vtxFlags & VTX_ALPHA_COMPARE_DITHER) {
                             gDPSetAlphaCompare((*arg0)++, G_AC_DITHER);
                         } else {
                             gDPSetAlphaCompare((*arg0)++, G_AC_NONE);
                         }
                         gDPSetCombineMode((*arg0)++, G_CC_SHADE, G_CC_PASS2);
 
-                        D_803F2C84 = 0xA;
+                        D_803F2C84 = 10;
                     }
                 }
             }
@@ -1489,7 +1468,7 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                 D_803F2C98 = 100;
             }
         }
-        if (vtxFlags & 4) {
+        if (vtxFlags & VTX_CULL_BACK) {
             if (D_803F2C9B == 0) {
                 gSPClearGeometryMode((*arg0)++, G_CULL_BACK);
                 D_803F2C9B = 1;
@@ -1507,7 +1486,7 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
             D_803F2C94 = 0;
         }
 
-        if ((vtxFlags & 1) == 0) {
+        if (!(vtxFlags & VTX_3_TRIS)) {
             gSP2Triangles(
             /* gdl   */ (*arg0)++,
             /* v00   */ tris + 2,

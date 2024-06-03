@@ -153,16 +153,16 @@ void func_803726E0_783D90(void) {
                         target = func_8037E9AC_79005C();
                         if (target != NULL) {
 
-                            xDist = (f32) (D_803D5530->position.xPos.h - target->position.xPos.h); // f0
-                            yDist = (f32) (D_803D5530->position.zPos.h - target->position.zPos.h); // f2
-                            var_a0 = (s32) (target->unk42 * 3) >> 2;
+                            xDist = D_803D5530->position.xPos.h - target->position.xPos.h;
+                            yDist = D_803D5530->position.zPos.h - target->position.zPos.h;
+                            var_a0 = (target->unk42 * 3) >> 2;
                             if (target->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+SCORPION)) {
                                 var_a0 = 5;
                             }
 
-                            sp88 = (((D_803D5530->position.yPos.h - target->position.yPos.h) - var_a0) + 0x1E);
-                            var_f0 = sqrtf((xDist * xDist) + (yDist * yDist));
-                            var_f14 = func_801286B8(-sp88, var_f0) + SQ(((f64)var_f0 / 224.0));
+                            sp88 = ((D_803D5530->position.yPos.h - target->position.yPos.h) - var_a0) + 0x1E;
+                            var_f0 = sqrtf(SQ(xDist) + SQ(yDist));
+                            var_f14 = func_801286B8(-sp88, var_f0) + SQ(var_f0 / 224.0);
 
                             while (var_f14 > 180.0) {
                                 var_f14 -= 360.0;

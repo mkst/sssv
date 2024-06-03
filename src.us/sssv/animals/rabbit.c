@@ -229,6 +229,7 @@ void func_80301248_7128F8(void) {
     s16 sp86;
     s16 sp84;
 
+    s32 pad2, pad3;
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp84 = 0;
@@ -294,25 +295,31 @@ void func_80301248_7128F8(void) {
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.35f);
 
             if ((D_803D5530->state == 0x7A) || (D_803D5530->state == 0x7B)) {
+
+#if 0
                 x_scale = ((D_803D5530->xVelocity.w * D_80152350.unk384[(s16) (-(D_803D552C->heading * 360) / 256)]) + (D_803D5530->zVelocity.w * D_80152350.unk2D0[(s16) (-(D_803D552C->heading * 360) / 256)])) / 256;
                 z_scale = ((D_803D5530->zVelocity.w * D_80152350.unk384[(s16) (-(D_803D552C->heading * 360) / 256)]) - (D_803D5530->xVelocity.w * D_80152350.unk2D0[(s16) (-(D_803D552C->heading * 360) / 256)])) / 256;
 
                 x_scale = -(x_scale >> 14);
                 z_scale = -(z_scale >> 14);
+#else
+                x_scale = ((D_80152350.unk2D0[(s16) (-(D_803D552C->heading * 360) / 256)] * D_803D5530->zVelocity.w));
+                x_scale = (x_scale + (D_80152350.unk384[(s16) (-(D_803D552C->heading * 360) / 256)] * D_803D5530->xVelocity.w));
+                x_scale /= 256;
 
-                if (x_scale > 30) {
-                    x_scale = 30;
-                }
-                if (x_scale < -30) {
-                    x_scale = -30;
-                }
+                z_scale = ((D_80152350.unk2D0[(s16) (-(D_803D552C->heading * 360) / 256)] * D_803D5530->xVelocity.w));
+                z_scale = ((D_80152350.unk384[(s16) (-(D_803D552C->heading * 360) / 256)] * D_803D5530->zVelocity.w) - z_scale);
+                z_scale /= 256;
 
-                if (z_scale > 30) {
-                    z_scale = 30;
-                }
-                if (z_scale < -30) {
-                    z_scale = -30;
-                }
+                x_scale = -((x_scale) >> 14);
+                z_scale = -((z_scale) >> 14);
+#endif
+
+                x_scale = MIN(30, x_scale);
+                x_scale = MAX(-30, x_scale);
+
+                z_scale = MIN(30, z_scale);
+                z_scale = MAX(-30, z_scale);
 
                 guRotateRPY(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], z_scale, x_scale, 0.0f);
                 gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);

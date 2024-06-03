@@ -234,15 +234,15 @@ s16 func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2) {
 }
 
 // ESA: func_8004F828
-void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
-    arg0->unk178 = arg1;
-    arg0->unk17A = arg2;
-    arg0->unk17C = arg3;
-    arg0->unk172 = arg4;
-    arg0->unk17E = arg0->position.xPos.h;
-    arg0->unk180 = arg0->position.zPos.h;
-    arg0->unk182 = arg0->position.yPos.h;
-    arg0->unk184 = 0;
+void func_802F657C_707C2C(Animal *arg0, s16 targetXPos, s16 targetZPos, s16 targetYPos, s16 speed) {
+    arg0->waypointTargetXPos = targetXPos;
+    arg0->waypointTargetZPos = targetZPos;
+    arg0->waypointTargetYPos = targetYPos;
+    arg0->waypointFudgeFactor = speed;
+    arg0->waypointStartXPos = arg0->position.xPos.h;
+    arg0->waypointStartZPos = arg0->position.zPos.h;
+    arg0->waypointStartYPos = arg0->position.yPos.h;
+    arg0->waypointVelocity = 0;
 }
 
 // ESA: func_8004F85C
@@ -255,7 +255,7 @@ void func_802F65BC_707C6C(Animal *arg0) {
 
     s32 xVel, zVel, yVel;
 
-    if (arg0->unk184 >= 256) {
+    if (arg0->waypointVelocity >= 256) {
         arg0->unk170 = 0;
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
@@ -270,27 +270,27 @@ void func_802F65BC_707C6C(Animal *arg0) {
         }
     } else {
 
-        arg0->unk184 += arg0->unk172;
+        arg0->waypointVelocity += arg0->waypointFudgeFactor;
 
-        temp_t6 = (arg0->unk178 - arg0->unk17E) >> 1;
-        temp_t8 = (arg0->unk17A - arg0->unk180) >> 1;
-        temp_t5 = (arg0->unk17C - arg0->unk182) >> 1;
+        temp_t6 = (arg0->waypointTargetXPos - arg0->waypointStartXPos) >> 1;
+        temp_t8 = (arg0->waypointTargetZPos - arg0->waypointStartZPos) >> 1;
+        temp_t5 = (arg0->waypointTargetYPos - arg0->waypointStartYPos) >> 1;
 
-        if (arg0->unk184 >= 256) {
+        if (arg0->waypointVelocity >= 256) {
             phi_t2 = FTOFIX32(-0.5);
-        } else if (arg0->unk184 == 0) {
+        } else if (arg0->waypointVelocity == 0) {
             phi_t2 = FTOFIX32(0.5);
         } else {
-            phi_t2 = COS(arg0->unk184 >> 1);
+            phi_t2 = COS(arg0->waypointVelocity >> 1);
         }
 
-        if (((arg0->unk184) & 1)) { // odd?
-            phi_t2 = (phi_t2 + COS( (arg0->unk184 >> 1) + 1)) >> 1;
+        if (((arg0->waypointVelocity) & 1)) { // odd?
+            phi_t2 = (phi_t2 + COS( (arg0->waypointVelocity >> 1) + 1)) >> 1;
         }
 
-        xVel = ((arg0->unk17E + temp_t6) << 16) - (temp_t6 * 2 * phi_t2);
-        zVel = ((arg0->unk180 + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
-        yVel = ((arg0->unk182 + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
+        xVel = ((arg0->waypointStartXPos + temp_t6) << 16) - (temp_t6 * 2 * phi_t2);
+        zVel = ((arg0->waypointStartZPos + temp_t8) << 16) - (temp_t8 * 2 * phi_t2);
+        yVel = ((arg0->waypointStartYPos + temp_t5) << 16) - (temp_t5 * 2 * phi_t2);
 
         arg0->xVelocity.w = xVel - arg0->position.xPos.w;
         arg0->zVelocity.w = zVel - arg0->position.zPos.w;
@@ -311,7 +311,7 @@ void func_802F6750_707E00(Animal *arg0) {
     s32 zVel;
     s32 yVel;
 
-    if (arg0->unk184 >= 256) {
+    if (arg0->waypointVelocity >= 256) {
         arg0->unk170 = 0;
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
@@ -325,29 +325,29 @@ void func_802F6750_707E00(Animal *arg0) {
             arg0->yVelocity.w = 0;
         }
     } else {
-        arg0->unk184 += arg0->unk172;
-        if (arg0->unk184 > 256) {
-            arg0->unk184 = 256;
+        arg0->waypointVelocity += arg0->waypointFudgeFactor;
+        if (arg0->waypointVelocity > 256) {
+            arg0->waypointVelocity = 256;
         }
 
-        temp_v0_2 = arg0->unk178 - arg0->unk17E;
-        temp_a2 = arg0->unk17A - arg0->unk180;
-        temp_t1 = arg0->unk17C - arg0->unk182;
+        temp_v0_2 = arg0->waypointTargetXPos - arg0->waypointStartXPos;
+        temp_a2 = arg0->waypointTargetZPos - arg0->waypointStartZPos;
+        temp_t1 = arg0->waypointTargetYPos - arg0->waypointStartYPos;
 
         if (temp_v0_2 == 0) {
-            xVel = arg0->unk178 << 16;
+            xVel = arg0->waypointTargetXPos << 16;
         } else {
-            xVel = (arg0->unk17E << 16) + ((temp_v0_2 * arg0->unk184) << 8);
+            xVel = (arg0->waypointStartXPos << 16) + ((temp_v0_2 * arg0->waypointVelocity) << 8);
         }
         if (temp_a2 == 0) {
-            zVel = arg0->unk17A << 16;
+            zVel = arg0->waypointTargetZPos << 16;
         } else {
-            zVel = (arg0->unk180 << 16) + ((temp_a2 * arg0->unk184) << 8);
+            zVel = (arg0->waypointStartZPos << 16) + ((temp_a2 * arg0->waypointVelocity) << 8);
         }
         if (temp_t1 == 0) {
-            yVel = arg0->unk17C << 16;
+            yVel = arg0->waypointTargetYPos << 16;
         } else {
-            yVel = (arg0->unk182 << 16) + ((temp_t1 * arg0->unk184) << 8);
+            yVel = (arg0->waypointStartYPos << 16) + ((temp_t1 * arg0->waypointVelocity) << 8);
         }
         arg0->xVelocity.w = xVel - arg0->position.xPos.w;
         arg0->zVelocity.w = zVel - arg0->position.zPos.w;
@@ -361,9 +361,9 @@ void func_802F6750_707E00(Animal *arg0) {
 void head_towards_waypoint(Animal *arg0) {
     s32 x, z, y;
 
-    if ((arg0->position.xPos.h == arg0->unk178) &&
-        (arg0->position.zPos.h == arg0->unk17A) &&
-        ((arg0->unk4C.unk1D != 0) || (arg0->position.yPos.h == arg0->unk17C))) {
+    if ((arg0->position.xPos.h == arg0->waypointTargetXPos) &&
+        (arg0->position.zPos.h == arg0->waypointTargetZPos) &&
+        ((arg0->unk4C.unk1D != 0) || (arg0->position.yPos.h == arg0->waypointTargetYPos))) {
         arg0->unk170 = 0;
         arg0->xVelocity.w = 0;
         arg0->zVelocity.w = 0;
@@ -377,43 +377,43 @@ void head_towards_waypoint(Animal *arg0) {
             arg0->yVelocity.w = 0;
         }
     } else {
-        if (arg0->position.xPos.h < arg0->unk178) {
-            x = arg0->position.xPos.h + arg0->unk172;
-            if (arg0->unk178 < x) {
-                x = arg0->unk178;
+        if (arg0->position.xPos.h < arg0->waypointTargetXPos) {
+            x = arg0->position.xPos.h + arg0->waypointFudgeFactor;
+            if (arg0->waypointTargetXPos < x) {
+                x = arg0->waypointTargetXPos;
             }
-        } else if (arg0->unk178 < arg0->position.xPos.h) {
-            x = arg0->position.xPos.h - arg0->unk172;
-            if (x < arg0->unk178) {
-                x = arg0->unk178;
+        } else if (arg0->waypointTargetXPos < arg0->position.xPos.h) {
+            x = arg0->position.xPos.h - arg0->waypointFudgeFactor;
+            if (x < arg0->waypointTargetXPos) {
+                x = arg0->waypointTargetXPos;
             }
         } else {
             x = arg0->position.xPos.h;
         }
 
-        if (arg0->position.zPos.h < arg0->unk17A) {
-            z = arg0->position.zPos.h + arg0->unk172;
-            if (arg0->unk17A < z) {
-                z = arg0->unk17A;
+        if (arg0->position.zPos.h < arg0->waypointTargetZPos) {
+            z = arg0->position.zPos.h + arg0->waypointFudgeFactor;
+            if (arg0->waypointTargetZPos < z) {
+                z = arg0->waypointTargetZPos;
             }
-        } else if (arg0->unk17A < arg0->position.zPos.h) {
-            z = arg0->position.zPos.h - arg0->unk172;
-            if (z < arg0->unk17A) {
-                z = arg0->unk17A;
+        } else if (arg0->waypointTargetZPos < arg0->position.zPos.h) {
+            z = arg0->position.zPos.h - arg0->waypointFudgeFactor;
+            if (z < arg0->waypointTargetZPos) {
+                z = arg0->waypointTargetZPos;
             }
         } else {
             z = arg0->position.zPos.h;
         }
 
-        if (arg0->position.yPos.h < arg0->unk17C) {
-            y = arg0->position.yPos.h + arg0->unk172;
-            if (arg0->unk17C < y) {
-                y = arg0->unk17C;
+        if (arg0->position.yPos.h < arg0->waypointTargetYPos) {
+            y = arg0->position.yPos.h + arg0->waypointFudgeFactor;
+            if (arg0->waypointTargetYPos < y) {
+                y = arg0->waypointTargetYPos;
             }
-        } else if (arg0->unk17C < arg0->position.yPos.h) {
-            y = arg0->position.yPos.h - arg0->unk172;
-            if (y < arg0->unk17C) {
-                y = arg0->unk17C;
+        } else if (arg0->waypointTargetYPos < arg0->position.yPos.h) {
+            y = arg0->position.yPos.h - arg0->waypointFudgeFactor;
+            if (y < arg0->waypointTargetYPos) {
+                y = arg0->waypointTargetYPos;
             }
         } else {
             y = arg0->position.yPos.h;
@@ -1624,7 +1624,7 @@ void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 a
 
     arg0->unk174.unk8 = arg1;
     arg0->unk174.unk0 = arg3;
-    arg0->unk172 = (arg2 * arg3);
+    arg0->waypointFudgeFactor = (arg2 * arg3);
     arg0->unk174.unk4 = arg4;
 
     if (arg5 == 0) {
@@ -1735,7 +1735,7 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
             return;
         }
 
-        arg0->unk176 += arg0->unk172;
+        arg0->unk176 += arg0->waypointFudgeFactor;
         if (arg0->unk174.unk0 > 0) {
             if (arg0->unk176 >= (wpd->length + 1) * 128) {
                 arg0->unk176 = (wpd->length + 1) * 128;
@@ -1746,7 +1746,7 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
         func_802F9EB8_70B568(&xPos, &zPos, &yPos, wpd, arg0->unk176, 0);
         break;
     default:
-        arg0->unk176 += arg0->unk172;
+        arg0->unk176 += arg0->waypointFudgeFactor;
 
         if (arg0->unk176 < 0) {
             arg0->unk176 += wpd->length * 128;

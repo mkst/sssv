@@ -433,9 +433,9 @@ void update_gorilla(void) {
             }
             func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, -0.25f);
 
-            spD8 = 0x10000;
-            spDC = 0x10000;
-            spE0 = 0x10000;
+            spD8 = FTOFIX32(1.0);
+            spDC = FTOFIX32(1.0);
+            spE0 = FTOFIX32(1.0);
 
             if (D_803D5530->state == 2) {
                 if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
@@ -458,32 +458,32 @@ void update_gorilla(void) {
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xE6, 0x87, 0xB0, 0xFF); // pink
 
-            func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004820_F5880);
-            func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x9A) >> 6, (D_803F2EC0 * 0x9A) >> 6, (D_803F2EC4 * 0x9A) >> 6, D_803F2ED0,0, 0, 1, D_040044B0_F5510);
+            SET_JOINT(19, 20, SCALE_GORILLA, D_803F2EC8, D_803F2EC8, D_803F2EC8, D_803F2ED0, 0, 0, 0, D_04004820_F5880);
+            SET_JOINT( 1,  2, SCALE_GORILLA, D_803F2EBC, D_803F2EC0, D_803F2EC4, D_803F2ED0, 0, 0, 1, D_040044B0_F5510);
 
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004F30_F5F90); }
-            func_802C78B0_6D8F60(7, 8, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004DE0_F5E40);
+            if (D_803F2EDD == 0) { SET_JOINT( 3,  7, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004F30_F5F90); }
+            SET_JOINT( 7,  8, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004DE0_F5E40);
 
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(5, 0xD, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004FF0_F6050); }
-            func_802C78B0_6D8F60(0xD, 0xE, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 0, 0, D_04004A50_F5AB0);
+            if (D_803F2EDD == 0) { SET_JOINT( 5, 13, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004FF0_F6050); }
+            SET_JOINT(0xD, 0xE, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004A50_F5AB0);
 
             if (D_803D5524->unk9C == GORILLA) {
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spE0 * 0x9A) >> 6, (spE0 * 0x9A) >> 6, (spE0 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004B20_F5B80); }
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spD8 * 0x9A) >> 6, (spD8 * 0x9A) >> 6, (spD8 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004BB0_F5C10); }
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, (spDC * 0x9A) >> 6, (spDC * 0x9A) >> 6, (spDC * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004C40_F5CA0); }
+                if (D_803F2EDD == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spE0, spE0, spE0, D_803F2ED0, 0, 0, 0, D_04004B20_F5B80); }
+                if (D_803F2EDD == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spD8, spD8, spD8, D_803F2ED0, 0, 0, 0, D_04004BB0_F5C10); }
+                if (D_803F2EDD == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spDC, spDC, spDC, D_803F2ED0, 0, 0, 0, D_04004C40_F5CA0); }
             }
 
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xA, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004F30_F5F90); }
-            func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004DE0_F5E40);
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(6, 0x10, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004FF0_F6050); }
-            func_802C78B0_6D8F60(0x10, 0x11, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004A50_F5AB0);
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004B20_F5B80); }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004BB0_F5C10); }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xA, 0xB, 0x26800, 0x26800, 0x26800, D_803F2ED0, 0, 1, 0, D_04004C40_F5CA0); }
+            if (D_803F2EDD == 0) { SET_JOINT(4, 10, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004F30_F5F90); }
+            SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004DE0_F5E40);
+            if (D_803F2EDD == 0) { SET_JOINT(6, 16, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004FF0_F6050); }
+            SET_JOINT(16, 17, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004A50_F5AB0);
+            if (D_803F2EDD == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004B20_F5B80); }
+            if (D_803F2EDD == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004BB0_F5C10); }
+            if (D_803F2EDD == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004C40_F5CA0); }
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spEE, &spEC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spEE, &spEC);
@@ -491,9 +491,9 @@ void update_gorilla(void) {
                 func_80356BD8_768288(D_01002C40_3C510, D_010025A0_3BE70, spEE);
 
                 gSPDisplayList(D_801D9E88++, D_010037F0_3D0C0);
-                func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004CB0_F5D10);
+                SET_JOINT(19, 20, SCALE_GORILLA, D_803F2EC8, D_803F2EC8, D_803F2EC8, D_803F2ED0, 0, 0, 0, D_04004CB0_F5D10);
                 func_80356BD8_768288(D_01002C40_3C510, D_010025A0_3BE70, spEC);
-                func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, (D_803F2EC8 * 0x9A) >> 6, D_803F2ED0, 0, 0, 0, D_04004D10_CC740);
+                SET_JOINT(19, 20, SCALE_GORILLA, D_803F2EC8, D_803F2EC8, D_803F2EC8, D_803F2ED0, 0, 0, 0, D_04004D10_CC740);
 
                 gSPDisplayList(D_801D9E88++, D_01003840_3D110);
             }

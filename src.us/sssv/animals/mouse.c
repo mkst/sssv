@@ -233,9 +233,8 @@ void func_8031D624_72ECD4(void) {
     f32 phi_f0;
     f32 temp_f12;
     s16 phi_a1;
-    u8 tmp;
+    u8  tmp;
     s16 pad[6];
-
 
     if (D_803D552C->unk366 == 1) {
         if (D_803D554C != 0) {

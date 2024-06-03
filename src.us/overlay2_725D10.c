@@ -1218,7 +1218,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x13:
-        if (temp_s1->unk16C->objectType >= 0x100) {
+        if (temp_s1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
+            // delete animal
             func_802C83CC_6D9A7C(temp_s1);
         } else {
             run_commands(temp_s1);
@@ -1676,8 +1677,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x34:
-        if (temp_s1->unk16C->objectType < 0x100) {
+        if (temp_s1->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET) {
             if (temp_s1->unk170 != 6) {
+                // update waypoint for object
                 func_802F9E10_70B4C0(
                     temp_s1,
                     temp_s0->unk19C.payload.cmd.dummy.unk1,
@@ -1689,6 +1691,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
             }
             return 0;
         } else {
+            // update waypoint for animal
             func_80363A0C_7750BC(
                 temp_s1,
                 temp_s0->unk19C.payload.cmd.dummy.unk1,
@@ -2158,6 +2161,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x54:
+        // trigger laughter
         if (temp_s1->unk16C->objectType >= 0x100) {
             sp74 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk0);
             sp78 = get_game_state(temp_s1, temp_s0->unk19C.payload.cmd.regular.unk2);

@@ -19,32 +19,30 @@ extern Gfx D_040012E0_DE8A0[];
 extern Gfx D_04001A60_DF020[];
 extern Gfx D_04001B60_DF120[];
 
-#if 0
+#ifdef NON_MATCHING
 void func_80364780_775E30(void) {
-    s32 pad[0x5];
-    u16 ticks_remaining;
-    s16 var_t5;
-    Animal *target;
+    s32 pad[0x7];
+
     u8 temp_v0_14;
-
     s16 spA8;
-    s32 pad2;
 
+    Animal *target;
     s16 spA2;
     s16 scale; // spA0
     s16 sp9E;
     s16 sp9C;
     s16 sp9A;
 
-    s32 temp_a3;
-    f32 temp_f0;
-    f32 temp_f2;
+    f32 xDist;
+    f32 zDist;
     f32 var_f14;
 
     f32 sp88;
     f32 sp84;
 
-    s32 scale2; // sp5C
+    u16 ticks_remaining;
+    s16 var_t5;
+    s32 temp_a3;
 
     switch (D_803D5524->unk9C) {                              /* irregular */
     case PENGUIN:
@@ -89,15 +87,15 @@ void func_80364780_775E30(void) {
         sp9C = 0;
         sp9A = 0;
 
-        switch (D_803D5524->unk9C) {                        /* switch 1; irregular */
-        case KING_PENGUIN:                                  /* switch 1 */
+        switch (D_803D5524->unk9C) {
+        case KING_PENGUIN:
             break;
-        case PENGUIN:                                  /* switch 1 */
-            switch (D_803D552C->unk365) {                    /* switch 2; irregular */
-            case ATTACK_PENGUIN_1:                                /* switch 2 */
-                ticks_remaining = (D_803D5544 - D_803D552C->unk32A); // & 0xFFFF;
+        case PENGUIN:
+            switch (D_803D552C->unk365) {
+            case ATTACK_PENGUIN_1:
+                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
                 if (ticks_remaining == 2) {
-                    play_sound_effect_at_location(SFX_UNKNOWN_174, 0x5000, 0, D_803D5530->position.xPos.h, (s16) (s32) D_803D5530->position.zPos.h, (s16) (s32) D_803D5530->position.yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_174, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
                 if (ticks_remaining < 8) {
                     sp9E = ticks_remaining * 2;
@@ -125,14 +123,15 @@ void func_80364780_775E30(void) {
                 } else {
                     play_sound_effect_at_location(0, 0x6000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     if (D_803D5538 != 0) {
+
                         target = func_8037E9AC_79005C();
                         if (target != NULL) {
-                            temp_f0 = D_803D5530->position.xPos.h - target->position.xPos.h;
-                            temp_f2 = D_803D5530->position.zPos.h - target->position.zPos.h;
+                            xDist = D_803D5530->position.xPos.h - target->position.xPos.h;
+                            zDist = D_803D5530->position.zPos.h - target->position.zPos.h;
                             var_t5 = (target->unk42 * 3) >> 2;
-                            sp88 = (((D_803D5530->position.yPos.h - (target->position.yPos.h - 20)))) - var_t5;
-                            sp84 = sqrtf(SQ(temp_f0) + SQ(temp_f2));
-                            var_f14 = func_801286B8(-sp88, sp84) + SQ(64.0 / sp84);
+                            sp88 = (D_803D5530->position.yPos.h - target->position.yPos.h) - var_t5 + 20;
+                            sp84 = sqrtf(SQ(xDist) + SQ(zDist));
+                            var_f14 = func_801286B8(-sp88, sp84) + SQ(64.0 / (f64)sp84);
                             while (var_f14 > 180.0) {
                                 var_f14 -= 360.0;
                             }
@@ -147,9 +146,11 @@ void func_80364780_775E30(void) {
                     D_803D552C->unk365 = ATTACK_NONE;
                 }
                 break;
-            default:                                /* switch 2 */
+            default:
                 D_803D552C->unk365 = ATTACK_NONE;
-                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->unk162 & 0xF) == 3) && ((D_803D5530->position.yPos.h - (func_80310EE4_722594(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->unk160) >> 0x10)) >= 0x31) && ((D_803D5538 == 0) || (D_801E9E8A != 0))) {
+                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->unk162 & 0xF) == 3) &&
+                    ((D_803D5530->position.yPos.h - (func_80310EE4_722594(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->unk160) >> 0x10)) >= 0x31) &&
+                    ((D_803D5538 == 0) || (D_801D9ED8.curAButton != 0))) {
                     D_803D552C->unk365 = ATTACK_PENGUIN_1;
                     D_803D552C->unk32A = D_803D5544;
                 }
@@ -158,51 +159,47 @@ void func_80364780_775E30(void) {
             break;
         }
         if (sp9E >= 9) {
-            if (D_803D5530->yVelocity.w < FTOFIX32(-1.0)) {
+            if (D_803D5530->yVelocity.w < FTOFIX32(-0.99999)) {
                 D_803D5530->xVelocity.w += (SIN(D_803D5540 << 3) >> 7) << 8;
-                D_803D5530->zVelocity.w += (COS(D_803D5540 << 3) >> 7) << 8;
-                D_803D5530->yVelocity.w = MAX(D_803D5530->yVelocity.w + FTOFIX32(4.0), FTOFIX32(-1.0));
+                D_803D5530->zVelocity.w += (COS(D_803D5540 << 2) >> 7) << 8;
 
+                D_803D5530->yVelocity.w = MIN(FTOFIX32(-1.0), D_803D5530->yVelocity.w + FTOFIX32(4.0));
             }
         }
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((D_803F2ECE == 0) || ((D_803F2ECC <= 30))) {
 
             D_803F2F00 = 0;
-            func_802B975C_6CAE0C(&spA8, (scale * 0x96), 1);
-            func_802C23F8_6D3AA8((scale * 0x4E) + 0x2F);
+            func_802B975C_6CAE0C(&spA8, (scale * 150), 1);
+            func_802C23F8_6D3AA8((scale * 78) + 47);
 
-            D_80203FE0[27].unk0 = 0;                      // 0xD8
+            D_80203FE0[0].unk2 += (sp9A * 0x12C) >> 5;
+            D_80203FE0[1].unk2 += (sp9A * 0x12C) >> 5;
+            D_80203FE0[2].unk2 += (sp9A * 0x12C) >> 5;
 
-            D_80203FE0[0].unk2 += (sp9A * 300) >> 5;      // 0x2
-            D_80203FE0[1].unk2 += (sp9A * 300) >> 5;      // 0xA
-            D_80203FE0[2].unk2 += (sp9A * 300) >> 5;      // 0x12
+            D_80203FE0[26].unk0 = D_80203FE0[27].unk0 = 0;
+            D_80203FE0[27].unk2 = -(sp9A * 0x12C) >> 4;
+            D_80203FE0[26].unk2 = -(sp9A * 0x12C) >> 4;
 
-            D_80203FE0[26].unk0 = D_80203FE0[27].unk0;    // 0xD0 = 0xD8
+            D_80203FE0[26].unk4 = 0x96;
+            D_80203FE0[27].unk4 = D_80203FE0[26].unk4 + 0x10;
 
-            D_80203FE0[27].unk2 = (-(sp9A * 300)) >> 4;   // 0xDA
-            D_80203FE0[26].unk2 = (-(sp9A * 300)) >> 4;   // 0xD2
-
-            D_80203FE0[26].unk4 = 0x96;                   // 0xD4
-            D_80203FE0[27].unk4 += 0x10;                  // 0xDC
-
-
-            switch (D_803F2F00) {                    /* switch 3; irregular */
-            case 1:                                 /* switch 3 */
-                func_80374660_785D10((scale * -0xAA) / 32, 0, (scale * 300) + 300);
+            switch (D_803F2F00) {
+            case 1:
+                func_80374660_785D10((scale * -170) / 32, 0, (scale * 300) + 300);
                 break;
-            case 2:                                 /* switch 3 */
-                func_80374660_785D10((scale * 0xAA) / 32, 0, (scale * 300) + 300);
+            case 2:
+                func_80374660_785D10((scale * 170) / 32, 0, (scale * 300) + 300);
                 break;
             }
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {                    /* switch 4; irregular */
-            case 1:                                 /* switch 4 */
+            switch (D_803F2ECE) {
+            case 1:
                 func_802DB670_6ECD20(D_803B4200_7C58B0, D_803B4208_7C58B8, D_803B4210_7C58C0, D_803B4218_7C58C8);
                 break;
-            case 2:                                 /* switch 4 */
+            case 2:
                 func_802DB670_6ECD20(D_803B4200_7C58B0, D_803B4208_7C58B8, D_803B4210_7C58C0, D_803B4230_7C58E0);
                 break;
             }
@@ -233,10 +230,11 @@ void func_80364780_775E30(void) {
             }
             if (sp9E != 0) {
                 temp_a3 = MAX(0, (sp9E << 0xC) - (sp9C << 0xC));
-                func_802C78B0_6D8F60(1, 2, (temp_a3 << 6) >> 6, (temp_a3 << 6) >> 6, ((sp9C * -0x40000) + 0x400000) >> 6, D_803F2ED0, 0, 0, 1, D_04001A60_DF020);
+                func_802C78B0_6D8F60(1, 2, (temp_a3 << 6) >> 6, (temp_a3 << 6) >> 6, ((((0x10 << 12) << 6) + (-(sp9C << 12) << 6))) >> 6, D_803F2ED0, 0, 0, 1, D_04001A60_DF020);
             }
             if ((sp9A != 0) && (D_803F2EDD == 0)) {
-                func_802C78B0_6D8F60(0x1A, 0x1B, (sp9A << 0x12) >> 6, (sp9A << 0x12) >> 6, (sp9A << 0x12) >> 6, D_803F2ED0, 0, 0, 1, D_04001B60_DF120);
+                temp_a3 = sp9A << 0xC;
+                func_802C78B0_6D8F60(26, 27, (temp_a3 << 0x6) >> 6, (temp_a3 << 0x6) >> 6, (temp_a3 << 0x6) >> 6, D_803F2ED0, 0, 0, 1, D_04001B60_DF120);
             }
 
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -253,13 +251,13 @@ void func_80364780_775E30(void) {
             D_803D552C,
             1,
             1,
-            ((scale * 150) * 4) >> 1,   // ((s32) (spA0 * 600) >> 1) & 0xFFFF
+            ((scale * 300) * 2) >> 1,
             0);
         func_80303B18_7151C8(
             D_803D552C,
             1,
-            ((scale * 150) * 10) >> 3,  // (s16) ((s32) (spA0 * 150) >> 3)
-            ((scale * 150) * 14) >> 3, //        ((s32) (spA0 * 210) >> 3) & 0xFFFF
+            ((scale * 300) * 5) >> 3,
+            ((scale * 300) * 7) >> 3,
             1);
         func_80303D50_715400(
             D_803D552C,

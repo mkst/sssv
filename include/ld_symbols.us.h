@@ -375,6 +375,7 @@ extern Addr _103B30_bin;
 extern Addr _1043A0_bin;
 extern Addr _104420_bin;
 extern Addr _104440_bin;
+extern Addr _2CB20_data__s;
 extern Addr _2E5C0_data__s;
 extern Addr _2FA70_data__s;
 extern Addr _2FD80_data__s;

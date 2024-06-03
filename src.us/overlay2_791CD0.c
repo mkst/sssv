@@ -16,6 +16,7 @@ s16  D_803F63E0; // used by elephant and hyena
 // .text
 // ========================================================
 
+// trigger_laughter
 void func_80380620_791CD0(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
     arg0->unk34C = arg1;
     arg0->unk352 = arg2;
@@ -27,6 +28,7 @@ void func_80380644_791CF4(Animal *arg0) {
     arg0->unk34C = 0;
 }
 
+// check_laughter_threshold
 void func_8038064C_791CFC(void) {
     s32 tmp;
 
