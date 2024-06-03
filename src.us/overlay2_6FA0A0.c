@@ -53,7 +53,7 @@ s32 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx,
 extern Gfx D_01003A28[];
 extern Gfx D_01003A40_3D310[];
 extern u8  D_01003BD0[];
-// 14878
+// 18450
 s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9) {
     f32 sp144;
     f32 sp140;
@@ -69,7 +69,7 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     f32 xh;  // sp38
     f32 yh;  // sp34
 
-    f32 sp2C;
+    f32 sp2C; // replaced with arg3
 
     f32 xl;   // sp28
     f32 yl;   // sp24
@@ -133,21 +133,22 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
         sp12C = ((D_80204278->unk38A10[3][0] * sp144) / temp_f16) + (gScreenWidth  * (0, 2));
         sp128 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f16) + (gScreenHeight * (0, 2));
 
-        fov2 = ((arg3 * 33) / D_803F2D50.fovY);
-        sp2C = ((fov2 * 128) / -temp_f16) / 8.0;
+        arg3 = ((arg3 * 33) / D_803F2D50.fovY);
+        arg3 = (((arg3 * 32) * 4) / -temp_f16) / 8.0;
 
-        yl = sp128 - sp2C;
+        yh = sp12C + arg3;
+        xh = sp128 + arg3;
+        xl = sp12C - arg3;
+        yl = sp128 - arg3;
+
         if ((gScreenHeight * 4) < yl) {
             return 3;
         }
 
-        xl = sp12C - sp2C;
         if (xl < (gScreenWidth * 4)) {
 
-            xh = sp128 + sp2C;
             if (xh > 0.0f) {
 
-                yh = sp12C + sp2C;
                 if (yh > 0.0f) {
 
                     if ((fov < 0xE1000) && (arg9 == 0)) {
@@ -183,10 +184,9 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
 
                             var_f2 = MIN(temp_f0_3, 8000.0);
 
-                            temp_f10_2 = var_f2;
-                            if (temp_v1_2 >= temp_f10_2) {
+                            if (temp_v1_2 >= (s16)var_f2) {
                                 var_a0 = 0;
-                            } else if (temp_f10_2 >= temp_a1_3) {
+                            } else if ((s16)var_f2 >= temp_a1_3) {
                                 var_a0 = 0xFF;
                             } else {
                                 var_a0 = (((var_f2 - temp_v1_2) * 255.0) / (temp_a1_3 - temp_v1_2));
@@ -206,8 +206,8 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                             /* xh   */ (s16) xh,
                             /* yh   */ (s16) yh,
                             /* tile */ G_TX_RENDERTILE,
-                            /* t    */  (dsdx_dtdy * ((u32) xl & 3)) >> 9,
-                            /* s    */ -(dsdx_dtdy * ((u32) yl & 3)) >> 7,
+                            /* t    */  (dsdx_dtdy * ((u16) xl & 3)) >> 9,
+                            /* s    */ -(dsdx_dtdy * ((u16) yl & 3)) >> 7,
                             /* dsdx */ dsdx_dtdy,
                             /* dtdy */ dsdx_dtdy);
 
@@ -221,21 +221,20 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
 
         temp_f2_4 = (D_80204278->unk38A10[2][0] * spFC) +
                     (D_80204278->unk38A10[2][1] * spF8) +
-                    (D_80204278->unk38A10[2][2] *
-                    (f32) ((f64) func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0)) +
-                    D_80204278->unk38A10[2][3];
+                    (D_80204278->unk38A10[2][2] * (f32) (func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0)) +
+                    (D_80204278->unk38A10[2][3]);
 
         if (temp_f2_4 <= -3.0) {
             temp_f14   = ((D_80204278->unk38A10[3][0] * sp144) / temp_f2_4) + (gScreenWidth  * (0, 2));
             temp_f14_2 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f2_4) + (gScreenHeight * (0, 2));
 
-            if (((sp12C + sp2C) < 0.0f) && ((temp_f14 + sp2C) < 0.0f)) {
+            if (((sp12C + arg3) < 0.0f) && ((temp_f14 + arg3) < 0.0f)) {
                 return 3;
             }
-            if (((gScreenWidth * 4) < xl) && ((gScreenWidth * 4) < (temp_f14 - sp2C))) {
+            if (((gScreenWidth * 4) < xl) && ((gScreenWidth * 4) < (temp_f14 - arg3))) {
                 return 3;
             }
-            if (((gScreenWidth * 4) < yl) && ((gScreenWidth * 4) < (temp_f14_2 - sp2C))) {
+            if (((gScreenWidth * 4) < yl) && ((gScreenWidth * 4) < (temp_f14_2 - arg3))) {
                 return 3;
             }
             return 2;
@@ -247,7 +246,12 @@ s32 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
         return 2;
     }
 
-    if (((D_80204278->unk38A10[2][0] * spFC) + (D_80204278->unk38A10[2][1] * spF8) + (D_80204278->unk38A10[2][2] * (f32) (func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0)) + D_80204278->unk38A10[2][3]) <= -3.0) {
+    temp_f2_4 = ((D_80204278->unk38A10[2][0] * spFC) +
+                 (D_80204278->unk38A10[2][1] * spF8) +
+                 (D_80204278->unk38A10[2][2] * (f32) (func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0)) +
+                 (D_80204278->unk38A10[2][3]));
+
+    if ((temp_f2_4) <= -3.0) {
         return 2;
     }
     return 3;

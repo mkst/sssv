@@ -854,7 +854,7 @@ void func_80328918_739FC8(void) {
 
 #if 0
 // ESA: func_8007FD90
-//CURRENT (10650)
+// CURRENT (10620)
 void func_80328ACC_73A17C(void) {
 
     s16 temp_a0;
@@ -900,14 +900,14 @@ void func_80328ACC_73A17C(void) {
 
         if (((D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C != EVO))) {
 
-            currentAnimal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 
-            if ((((currentAnimal->unk320 == NULL)) || ((currentAnimal->unk320->unk16C->unk82.unk2 == 0))) &&
+            if ((((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk320 == NULL)) || ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk320->unk16C->unk82.unk2 == 0))) &&
                 (animalId != VULTURE) && (animalId != SEAGULL2) && (animalId != POLAR_BEAR_DEFENDING) &&
                 (animalId != PARROT_ATTACKING) && (animalId != HARD_MOUSE) && (animalId != CRAZY_BEAR) &&
                 (animalId != TORTOISE_TANK_DEFENDING) && (animalId != CRAZY_HUSKY) && (animalId != CROW_DIVER) &&
                 (animalId != DESERT_FOX_ATTACKING) && (animalId != SNEAKY_CHAMELEON) && (animalId != 0x41) &&
-                (currentAnimal->unk4A <= 0)) {
+                (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A <= 0)) {
+            currentAnimal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 
                 xPos = currentAnimal->position.xPos.h;
                 zPos = currentAnimal->position.zPos.h;
@@ -940,6 +940,7 @@ void func_80328ACC_73A17C(void) {
                             }
                         }
                     }
+
                 }
 
                 // any animals close?
@@ -969,6 +970,8 @@ void func_80328ACC_73A17C(void) {
                         D_801D9ED8.animals[0].animal->unk4C.unk1A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
                         D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A = tmp;
 
+                        sp40 = (s32) gCurrentAnimalIndex;
+
                         D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex];
                         D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
                         D_803D5528 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
@@ -978,7 +981,7 @@ void func_80328ACC_73A17C(void) {
                         if (1) {};
 
                         D_803D5538 = 1;
-                        D_803D553C = gCurrentAnimalIndex; // sp40?
+                        D_803D553C = sp40; //??
                         D_803D553A = 0;
 
                         D_803D552C->unk366 = 5;
@@ -1104,6 +1107,7 @@ void func_80328ACC_73A17C(void) {
                     }
 
                     if (doSwap != 0) {
+                        sp40 = gCurrentAnimalIndex;
                         if (gCurrentAnimalIndex != 0) {
                             // swap health
                             temp_a0 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->health;
@@ -1127,6 +1131,8 @@ void func_80328ACC_73A17C(void) {
                             D_801D9ED8.animals[0].animal->unk4C.unk1A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
                             D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A = tmp;
 
+                            sp40 = gCurrentAnimalIndex;
+
                             D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex];
                             D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
                             D_803D5528 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
@@ -1134,7 +1140,7 @@ void func_80328ACC_73A17C(void) {
                             D_803D5530 = D_803D5528;
 
                             D_803D5538 = 1;
-                            D_803D553C = gCurrentAnimalIndex;
+                            D_803D553C = sp40;
                             D_803D553A = 0;
 
                             D_803D552C->unk366 = 5;

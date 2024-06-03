@@ -19,6 +19,11 @@ typedef struct {
   s16 payload[1];
 } DataSectionSigned;
 
+typedef union {
+    DataSectionUnsigned u;
+    DataSectionSigned s;
+} DataSection;
+
 // ========================================================
 // .data
 // ========================================================
@@ -402,7 +407,7 @@ void load_level_data_sections(void) {
 
     u16 count;
     s16 length;
-    s16 new_var;
+    s16 length3;
     u16 sp7A;
     s16 *payload;
 
@@ -413,7 +418,9 @@ void load_level_data_sections(void) {
     u8 *paf;
     u8 *paf2;
 
-    u8 *base;
+    DataSection *base;
+
+    s16 length2;
 
     base = &D_80100000;
 
@@ -431,8 +438,8 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length = ((DataSectionSigned*)base)->count;
-            cob = (struct090*) ((DataSectionSigned*)base)->payload;
+            length = base->s.count;
+            cob = (struct090*) base->s.payload;
 
             while (length-- > 0) {
                 if (D_801E9EB8.unk0[cob->id].unk15 == 5) {
@@ -486,10 +493,11 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length = ((DataSectionSigned*)base)->count;
-            can = (struct091*) ((DataSectionSigned*)base)->payload;
+            length = base->s.count;
+            can = (struct091*) base->s.payload;
 
             while (length-- > 0) {
+                CmdWrapper *cmdWrapper;
                 spawn_animal(
                     can->x,
                     can->z,
@@ -500,11 +508,13 @@ void load_level_data_sections(void) {
                     0);
 
                 obj = D_801D9ED8.animals[D_803D553E - 1].animal;
+
                 if (can->unkC != 0) {
+                    cmdWrapper = &D_803E4D40[can->unkC] - 1;
                     load_commands_into_object(
                         obj,
-                        &D_803E4D40[can->unkC] - 1,
-                        0U);
+                        cmdWrapper,
+                        0);
                 }
 
                 obj->unk246 = can->unkE;
@@ -516,8 +526,8 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length = ((DataSectionUnsigned*)base)->count;
-            joi = (struct092*) ((DataSectionSigned*)base)->payload;
+            length = base->s.count;
+            joi = (struct092*) base->s.payload;
 
             while (length-- > 0) {
                 if (joi->parent >= 1000) {
@@ -537,48 +547,53 @@ void load_level_data_sections(void) {
         case 3:  /* "end of data" sentinel */
             done = 1;
             break;
+
         case 4:  /* .cmd */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            count = ((DataSectionUnsigned*)base)->count;
+            count = base->u.count;
             length_s32 = sizeof(CmdWrapper);
 
             func_80314788_725E38(); // zero out D_803E4D40 amongst other things
-            memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)D_803E4D40, count);
+            memcpy_sssv(base->s.payload, (u8*)D_803E4D40, count);
 
             D_803E8E54 = count / (u32)length_s32; // gNumCommands
             for (j = 0; j < D_803E8E54; j++) {
                 if (D_803E4D40[(u32)j].type == 24) {
-                    rmonPrintf(
-                        "Partcle State: %d F $%X Fq %d Time %d S %d\n",
-                        D_803E4D40[(u32)j].cmd.type24.State,
-                        D_803E4D40[(u32)j].cmd.type24.F,
-                        D_803E4D40[(u32)j].cmd.type24.Fq,
-                        D_803E4D40[(u32)j].cmd.type24.Time,
-                        D_803E4D40[(u32)j].cmd.type24.S);
+                    if (1) {
+                        rmonPrintf(
+                            "Partcle State: %d F $%X Fq %d Time %d S %d\n",
+                            D_803E4D40[(u32)j].cmd.type24.State,
+                            D_803E4D40[(u32)j].cmd.type24.F,
+                            D_803E4D40[(u32)j].cmd.type24.Fq,
+                            D_803E4D40[(u32)j].cmd.type24.Time,
+                            D_803E4D40[(u32)j].cmd.type24.S);
+                        }
                 }
             }
             break;
+
         case 5: /* .rng */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length = ((DataSectionUnsigned*)base)->count;
+            length3 = base->u.count;
 
-            memcpy_sssv(((DataSectionSigned*)base)->payload, (u8*)&D_803E93B0, length * sizeof(struct067));
+            memcpy_sssv(base->s.payload, (u8*)&D_803E93B0, length3 * sizeof(struct067));
 
-            D_803E93B0[length].unk2 = 245;
-            D_803E93B0[length].unk5 = 245;
+            D_803E93B0[length3].unk2 = 245;
+            D_803E93B0[length3].unk5 = 245;
 
             func_803198B0_72AF60();
             break;
+
         case 6: /* .paf */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            count = ((DataSectionUnsigned*)base)->count;
-            paf2 = paf = ((DataSectionSigned*)base)->payload;
+            count = base->u.count;
+            paf2 = paf = base->s.payload;
 
             pafBytesUsed = 0;
             for (i = 0; i < count; i++) {
@@ -592,13 +607,13 @@ void load_level_data_sections(void) {
                 paf = paf2 + pafBytesUsed;
             }
 
-            rmonPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
+            // improves score by 30, but is likely unhelpful overall
+            if (1) {
+                rmonPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
+            }
 
             // NOTE: no boundary check that pafBytesUsed < sizeof(D_803E8F60)!
             memcpy_sssv(paf2, (u8*)D_803E8F60, pafBytesUsed);
-
-            if (1) { } // improves score by 30, but is likely unhelpful overall
-
             D_803A5750_7B6E00 = i;
             break;
 
@@ -606,8 +621,8 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length = ((DataSectionUnsigned*)base)->count;
-            cha = (struct097*) ((DataSectionSigned*)base)->payload;
+            length = base->s.count;
+            cha = (struct097*) base->s.payload;
 
             while (length-- > 0) {
                 object1 = NULL;
@@ -823,10 +838,12 @@ void load_level_data_sections(void) {
                 cha++;
             }
             break;
+
         case 8: /* ignored */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
             break;
+
         case 9: /* level collision */
             func_80296544_6A7BF4();
 
@@ -835,12 +852,14 @@ void load_level_data_sections(void) {
 
             func_8029ACC8_6AC378();
             break;
+
         case 10: /* level geo */
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
             func_80344240_7558F0();
             break;
+
         case 11: /* .mat */
             func_80304170_715820();
 
@@ -850,6 +869,7 @@ void load_level_data_sections(void) {
 
             memcpy_sssv(base, (u8*)&D_803E1D30, length_s32);
             break;
+
         case 12: /* .dat */
             func_80304194_715844();
 
@@ -865,8 +885,8 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            length_s32 = ((DataSectionSigned*)base)->count;
-            payload = ((DataSectionSigned*)base)->payload;
+            length_s32 = base->s.count;
+            payload = base->s.payload;
 
             bzero_sssv((u8*)&D_803A6D14_7B83C4, sizeof(D_803A6D14_7B83C4));
             bzero_sssv((u8*)&D_803A7114_7B87C4, sizeof(D_803A7114_7B87C4));
@@ -887,11 +907,10 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            new_var = ((DataSectionSigned*)base)->count;
-            payload = ((DataSectionSigned*)base)->payload;
-            length = new_var;
+            length2 = base->s.count;
+            payload = base->s.payload;
 
-            memcpy_sssv(payload, (u8*)D_803B1D20_7C33D0, length * sizeof(u64));
+            memcpy_sssv(payload, (u8*)D_803B1D20_7C33D0, length2 * sizeof(u64));
             break;
         default:
             // unknown type

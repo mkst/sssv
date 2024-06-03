@@ -1129,22 +1129,15 @@ void func_80391A38_7A30E8(void) {
 
 #if 0
 // unused
-// CURRENT (16833)
+// CURRENT (16736)
 void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
-
-    s16 temp_t2;
-    s16 temp_t5;
-    s32 temp_f10;
-    s32 temp_f4_2;
-    s32 temp_f8_3;
+    s32 pad[8];
 
     s16 idx;
     f32 var_f0;
     s16 var_t3;
-    s16 phi_s1;
+    u16 phi_s1;
     s16 var_t2;
-
-    s32 tmp1, tmp2, tmp3;
 
     gSPDisplayList((*dl)++, D_01004270_3DB40);
     gDPPipeSync((*dl)++);
@@ -1159,12 +1152,11 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gSPTexture((*dl)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
     for (idx = 0; idx < 12; idx++) {
-
-        var_f0 = arg2 - (((arg4 - arg2) / 11.0f) * idx);
+        var_f0 = arg2 - (((arg4 - arg2) / 11) * idx);
 
         // final iteration
         if (idx == 11) {
-            var_f0 = ((var_f0 - var_t2) / 2.0f) + var_t2;
+            var_f0 = ((var_f0 - var_t2) / 2) + var_t2;
         }
 
         var_t2 = var_f0;
@@ -1189,7 +1181,7 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
         D_80204278->unk31070[2*idx+1].v.ob[0] = arg3 + 1.0f;
         D_80204278->unk31070[2*idx+1].v.ob[1] = arg5;
         D_80204278->unk31070[2*idx+1].v.ob[2] = var_t2;
-        // temp_a2 = temp_t1 * 0x10;
+
         D_80204278->unk31070[2*idx+1].v.cn[0] = 0xFF;
         D_80204278->unk31070[2*idx+1].v.cn[1] = 0xFF;
         D_80204278->unk31070[2*idx+1].v.cn[2] = 0xFF;
@@ -1214,13 +1206,14 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
         gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 636, 44);
         gDPPipeSync((*dl)++);
 
-        phi_s1 = 368;
+        phi_s1 = 0x170;
         if (idx == 20) {
-            phi_s1 = 304;
+            phi_s1 = 0x130;
         }
 
         gDPPipeSync((*dl)++);
 
+        // High-order 16 bits are the s coordinate value. Low-order 16 bits are the t coordinate value (s10.5)
         // S | T in s10.5 format
         gSPModifyVertex((*dl)++, (idx + 0) & 0xFFFF, G_MWO_POINT_ST, 0x00B00000 | 0x00000010);
         gSPModifyVertex((*dl)++, (idx + 1) & 0xFFFF, G_MWO_POINT_ST, 0x11700000 | 0x00000010);
@@ -2446,10 +2439,9 @@ s32 func_80396748_7A7DF8(void) {
 
 // no idea whats wrong
 #if 0
+// CURRENT (22149)
 void func_803967D4_7A7E84(u16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9) {
     u8 r, g, b;
-    u16 tmp1, tmp2;
-
 
     gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
@@ -2464,17 +2456,13 @@ void func_803967D4_7A7E84(u16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 hea
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
         }
-        tmp1 = arg0;
-        tmp2 = arg1 + 1;
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (0*2048), 32, 32, 1.0f, 1.0f, 0, 0, tmp1, tmp2);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (0*2048), 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 1);
 
         if (torso) {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
         }
-        tmp1 = arg0;
-        tmp2 = arg1 + 1;
         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (2*2048), 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 32);
 
         if (legs) {

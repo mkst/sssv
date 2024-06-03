@@ -3,44 +3,54 @@
 
 
 #if 0
-// CURRENT (18333)
+// CURRENT (12999)
+// esa:func_8006BC30 but customised
+
+// #define SHADE 0
+// #define TEXEL0 0
+
 void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC) {
-    s16 temp_t0;
-    s16 temp_t1_2;
+
+    s16 tmp1;
+    s16 tmp2;
+    s16 tmp3;
+    s16 tmp4;
+    s16 tmp5;
+    s16 tmp6;
+
+    s32 idx;
+    s32 temp_a0;
+    s32 temp_v1;
+
+    Animal *animal;
+    Animal *var_ra;
     s16 new_distance;
     s16 best_distance;
-    s32 temp_a0;
-
-    s32 temp_v1;
-    s32 idx;
-    Animal *animal;
 
     s16 sp23A;
     s16 sp238;
     s16 sp236;
     s16 sp234;
+
+    s16 temp_t0;    // sp232?
+    s16 temp_t1;    // sp230?
     s16 sp22E;
     s16 sp22C;
 
-    s16 temp_a0_2;
-    s16 temp_a1;
-
-    struct061 vtxs[5][10]; // sp98
-    s16 numVtxs[5]; // sp8C
+    struct061 vtxs[5][10]; // sp98 (5 * 10 * 8 => 0x190 big)
+    s16 numVtxs[5];        // sp8C
 
     struct065 *var_a2;
-    Animal *var_ra;
 
     s32 sp74;
 
-    switch (argC) {
-    case 0:
+    if (argC == 0) {
         temp_v1 = arg0 - (s16) gCameras[gCameraId].unk74;
         temp_a0 = arg1 - (s16) gCameras[gCameraId].unk78;
         if (argB >= 0) {
-            sp74 = ((temp_v1 * temp_v1) + (temp_a0 * temp_a0)) >> argB;
+            sp74 = (SQ(temp_v1) + SQ(temp_a0)) >> argB;
         } else if (argB < 0) {
-            sp74 = ((temp_v1 * temp_v1) + (temp_a0 * temp_a0)) << -argB;
+            sp74 = (SQ(temp_v1) + SQ(temp_a0)) << -argB;
         }
 
         if (sp74 < 0x51000) {
@@ -48,126 +58,132 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
                 alpha = (alpha * (0x51000 - sp74)) / 0x20000;
             }
         } else {
-            break;
-        }
-    // fallthrough
-    default:
-        gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
-        gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
-        gDPLoadSync(D_801D9E90++);
-        gDPLoadBlock(D_801D9E90++, G_TX_LOADTILE, 0, 0, 1023, 512);
-        gDPPipeSync(D_801D9E90++);
-        gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
-        gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(63));
-        gDPSetDepthSource(D_801D9E90++, G_ZS_PIXEL);
-        gDPSetRenderMode(D_801D9E90++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2);
-        gDPSetCombineLERP(D_801D9E90++, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
-        gDPPipeSync(D_801D9E90++);
-
-        temp_a0_2 = (SIN(arg3) >> 7) + 1;
-        temp_a1 = (COS(arg3) >> 7) + 1;
-
-        vtxs[0][0].unk0 = (arg0 + ((arg5 * temp_a0_2) >> 8)) + ((arg6 * temp_a1) >> 8);
-        vtxs[0][0].unk2 = (arg1 + ((arg5 * temp_a1) >> 8)) - ((arg6 * temp_a0_2) >> 8);
-        vtxs[0][0].unk4 = 0xFC0;
-        vtxs[0][0].unk6 = 0xFC0;
-
-        vtxs[0][1].unk4 = 0;
-        vtxs[0][1].unk0 = (arg0 - ((arg5 * temp_a0_2) >> 8)) + ((arg6 * temp_a1) >> 8);
-        vtxs[0][1].unk2 = (arg1 - ((arg5 * temp_a1) >> 8)) - ((arg6 * temp_a0_2) >> 8);
-        vtxs[0][1].unk6 = 0xFC0;
-
-        vtxs[0][2].unk0 = (arg0 - ((arg5 * temp_a0_2) >> 8)) - ((arg6 * temp_a1) >> 8);
-        vtxs[0][2].unk2 = (arg1 - ((arg5 * temp_a1) >> 8)) + ((arg6 * temp_a0_2) >> 8);
-        vtxs[0][2].unk4 = 0;
-        vtxs[0][2].unk6 = 0;
-
-        vtxs[0][3].unk0 = (arg0 + ((arg5 * temp_a0_2) >> 8)) - ((arg6 * temp_a1) >> 8);
-        vtxs[0][3].unk2 = (arg1 + ((arg5 * temp_a1) >> 8)) + ((arg6 * temp_a0_2) >> 8);
-        vtxs[0][3].unk4 = 0xFC0;
-        vtxs[0][3].unk6 = 0;
-
-        numVtxs[0] = 4;
-
-        sp23A = MIN(MIN(vtxs[0][0].unk0, vtxs[0][1].unk0), MIN(vtxs[0][2].unk0, vtxs[0][3].unk0));
-        sp238 = MAX(MAX(vtxs[0][0].unk0, vtxs[0][1].unk0), MAX(vtxs[0][2].unk0, vtxs[0][3].unk0));
-
-        sp236 = MIN(MIN(vtxs[0][0].unk2, vtxs[0][1].unk2), MIN(vtxs[0][2].unk2, vtxs[0][3].unk2));
-        sp234 = MAX(MAX(vtxs[0][0].unk2, vtxs[0][1].unk2), MAX(vtxs[0][2].unk2, vtxs[0][3].unk2));
-
-        var_ra = NULL;
-        best_distance = 0x280;
-
-        for (var_a2 = D_803DA110[(s16) ((arg0 >> 0xA) + ((arg1 >> 0xA) * 5))].next; var_a2 != NULL; var_a2 = var_a2->next) {
-            animal = var_a2->animal;
-            if ((animal != D_803D5530) && ((animal->unk3E & 0x3F) != 0x28) &&
-                ((animal->unk16C->unk15 == 4) || ((animal->unk16C->objectType == 93)) || (animal->unk16C->objectType == 94)) && !(animal->unk163 & 0x10) && ((arg2 << 0x10) >= (animal->position.yPos.w + (animal->unk42 << 0x10)))) {
-                if ((((animal->position.xPos.h + animal->unk30) >= sp23A) && (sp238 >= (animal->position.xPos.h - animal->unk30))) &&
-                    (((animal->position.zPos.h + animal->unk32) >= sp236) && (sp234 >= (animal->position.zPos.h - animal->unk32)))) {
-
-                    new_distance = ABS(animal->position.xPos.h - arg0) + ABS(animal->position.zPos.h - arg1);
-                    if (new_distance < best_distance) {
-                        best_distance = new_distance;
-                        var_ra = animal;
-                    }
-                }
-            }
-        }
-
-        if (var_ra == NULL) {
-            func_8034CCBC_75E36C(vtxs[0], 4, arg2, alpha, red, green, blue);
             return;
         }
+    }
 
-        temp_t1_2 = var_ra->position.xPos.h - var_ra->unk30;
-        temp_t0 = var_ra->position.xPos.h + var_ra->unk30;
-        sp22C = var_ra->position.zPos.h - var_ra->unk32;
-        sp22E = var_ra->position.zPos.h + var_ra->unk32;
+    gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
+    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
+    gDPLoadSync(D_801D9E90++);
+    gDPLoadBlock(D_801D9E90++, G_TX_LOADTILE, 0, 0, 1023, 512);
+    gDPPipeSync(D_801D9E90++);
+    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
+    gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(63));
+    gDPSetDepthSource(D_801D9E90++, G_ZS_PIXEL);
+    gDPSetRenderMode(D_801D9E90++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2);
+    gDPSetCombineLERP(D_801D9E90++, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
+    gDPPipeSync(D_801D9E90++);
 
-        if ((sp23A >= temp_t1_2) && (temp_t0 >= sp238)) {
-            if ((sp236 >= sp22C) && (sp22E >= sp234)) {
-                func_80351EE8_763598(4, vtxs[0], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
-                idx = -1;
-            } else {
-                idx = 0;
+    tmp1 = (SIN(arg3) >> 7) + 1;
+    tmp2 = (COS(arg3) >> 7) + 1;
+
+    tmp3 =  (arg5 * tmp1) >> 8;
+    tmp4 =  (arg5 * tmp2) >> 8;
+
+    tmp5 = -(arg6 * tmp1) >> 8;
+    tmp6 =  (arg6 * tmp2) >> 8;
+
+    vtxs[0][0].unk0 = tmp6 + (arg0 + tmp3);
+    vtxs[0][0].unk2 = tmp5 + (arg1 + tmp4);
+    vtxs[0][0].unk4 = 0xFC0;
+    vtxs[0][0].unk6 = 0xFC0;
+
+    vtxs[0][1].unk0 = tmp6 + (arg0 - tmp3);
+    vtxs[0][1].unk2 = tmp5 + (arg1 - tmp4);
+    vtxs[0][1].unk4 = 0;
+    vtxs[0][1].unk6 = 0xFC0;
+
+    vtxs[0][2].unk0 = (arg0 - tmp3) - tmp6;
+    vtxs[0][2].unk2 = (arg1 - tmp4) - tmp5;
+    vtxs[0][2].unk4 = 0;
+    vtxs[0][2].unk6 = 0;
+
+    vtxs[0][3].unk0 = (arg0 + tmp3) - tmp6;
+    vtxs[0][3].unk2 = (arg1 + tmp4) - tmp5;
+    vtxs[0][3].unk4 = 0xFC0;
+    vtxs[0][3].unk6 = 0;
+
+    numVtxs[0] = 4;
+
+    sp23A = MIN(MIN(vtxs[0][0].unk0, vtxs[0][1].unk0), MIN(vtxs[0][2].unk0, vtxs[0][3].unk0));
+    sp238 = MAX(MAX(vtxs[0][0].unk0, vtxs[0][1].unk0), MAX(vtxs[0][2].unk0, vtxs[0][3].unk0));
+
+    sp236 = MIN(MIN(vtxs[0][0].unk2, vtxs[0][1].unk2), MIN(vtxs[0][2].unk2, vtxs[0][3].unk2));
+    sp234 = MAX(MAX(vtxs[0][0].unk2, vtxs[0][1].unk2), MAX(vtxs[0][2].unk2, vtxs[0][3].unk2));
+
+    var_ra = NULL;
+    best_distance = 0x280;
+
+    for (var_a2 = D_803DA110[(s16) ((arg0 >> 0xA) + ((arg1 >> 0xA) * 5))].next; var_a2 != NULL; var_a2 = var_a2->next) {
+        animal = var_a2->animal;
+        if ((animal != D_803D5530) && ((animal->unk3E & 0x3F) != 0x28) &&
+            ((animal->unk16C->unk15 == 4) || ((animal->unk16C->objectType == 93)) || (animal->unk16C->objectType == 94)) && !(animal->unk163 & 0x10) && ((arg2 << 0x10) >= (animal->position.yPos.w + (animal->unk42 << 0x10)))) {
+            if ((((animal->position.xPos.h + animal->unk30) >= sp23A) && (sp238 >= (animal->position.xPos.h - animal->unk30))) &&
+                (((animal->position.zPos.h + animal->unk32) >= sp236) && (sp234 >= (animal->position.zPos.h - animal->unk32)))) {
+
+                new_distance = ABS(animal->position.xPos.h - arg0) + ABS(animal->position.zPos.h - arg1);
+                if (new_distance < best_distance) {
+                    best_distance = new_distance;
+                    var_ra = animal;
+                }
             }
-        } else if ((sp23A < temp_t0) && (temp_t0 < sp238)) {
-            func_8034F3EC_760A9C(vtxs[0], vtxs[1], vtxs[2], 4, &numVtxs[1], &numVtxs[2], temp_t0);
-            if (numVtxs[2] >= 3) {
-                func_8034CCBC_75E36C(vtxs[2], numVtxs[2], arg2, alpha, red, green, blue);
-            }            idx  1;
-        } else i ((sp23A < temp_t1_2) && (temp_t1_2 < sp238)) {
-            func8034F3EC_760A9C(vtxs[0], vtxs[1], vtxs[2], 4, &numVtxs[1], &numVtxs[2], temp_t1_2);
-            if (umVtxs[1] >= 3) {
-                unc_8034CCBC_75E36C(vtxs[1], numVtxs[1], arg2, alpha, red, green, blue);
-            }
-            idx = 2;
-        } else {
-            func_8034CCBC_75E36C(vtxs[0], 4, arg2, alpha, red, green, blue);
-            idx = -1;
         }
+    }
 
-        if (idx >= 0) {
-            if ((sp22E >= sp236) && (sp234 >= sp22E)) {
-                func_8034FCFC_7613AC(vtxs[idx], vtxs[3], vtxs[4], numVtxs[idx], &numVtxs[3], &numVtxs[4], sp22E);
-                if (numVtxs[4] >= 3) {
-                    func_8034CCBC_75E36C(vtxs[4], numVtxs[4], arg2, alpha, red, green, blue);
-                }
-                if (numVtxs[3] >= 3) {
-                    func_80351EE8_763598(numVtxs[3], vtxs[3], (s16) (var_ra->position.yPos.h + var_ra->unk42), alpha, red, green, blue);
-                }
-            } else if ((sp22C >= sp236) && (sp234 >= sp22C)) {
-                func_8034FCFC_7613AC(vtxs[idx], vtxs[3], vtxs[4], numVtxs[idx], &numVtxs[3], &numVtxs[4], sp22C);
-                if (numVtxs[3] >= 3) {
-                    func_8034CCBC_75E36C(vtxs[3], numVtxs[3], arg2, alpha, red, green, blue);
-                }
-                if (numVtxs[4] >= 3) {
-                    func_80351EE8_763598(numVtxs[4], vtxs[4], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
-                }
-            } else {
-                if (numVtxs[idx] >= 3) {
-                    func_80351EE8_763598(numVtxs[idx], vtxs[idx], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
-                }
+    if (var_ra == NULL) {
+        func_8034CCBC_75E36C(vtxs[0], 4, arg2, alpha, red, green, blue);
+        return;
+    }
+
+    temp_t1 = var_ra->position.xPos.h - var_ra->unk30;
+    temp_t0 = var_ra->position.xPos.h + var_ra->unk30;
+    sp22C = var_ra->position.zPos.h - var_ra->unk32;
+    sp22E = var_ra->position.zPos.h + var_ra->unk32;
+
+    if ((sp23A >= temp_t1) && (temp_t0 >= sp238)) {
+        if ((sp236 >= sp22C) && (sp22E >= sp234)) {
+            func_80351EE8_763598(4, vtxs[0], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
+            idx = -1;
+        } else {
+            idx = 0;
+        }
+    } else if ((sp23A < temp_t0) && (temp_t0 < sp238)) {
+        func_8034F3EC_760A9C(vtxs[0], vtxs[1], vtxs[2], 4, &numVtxs[1], &numVtxs[2], temp_t0);
+        if (numVtxs[2] >= 3) {
+            func_8034CCBC_75E36C(vtxs[2], numVtxs[2], arg2, alpha, red, green, blue);
+        }
+        idx = 1;
+    } else if ((sp23A < temp_t1) && (temp_t1 < sp238)) {
+        func_8034F3EC_760A9C(vtxs[0], vtxs[1], vtxs[2], 4, &numVtxs[1], &numVtxs[2], temp_t1);
+        if (numVtxs[1] >= 3) {
+            func_8034CCBC_75E36C(vtxs[1], numVtxs[1], arg2, alpha, red, green, blue);
+        }
+        idx = 2;
+    } else {
+        func_8034CCBC_75E36C(vtxs[0], 4, arg2, alpha, red, green, blue);
+        idx = -1;
+    }
+
+    if (idx >= 0) {
+        if ((sp22E >= sp236) && (sp234 >= sp22E)) {
+            func_8034FCFC_7613AC(vtxs[idx], vtxs[3], vtxs[4], numVtxs[idx], &numVtxs[3], &numVtxs[4], sp22E);
+            if (numVtxs[4] >= 3) {
+                func_8034CCBC_75E36C(vtxs[4], numVtxs[4], arg2, alpha, red, green, blue);
+            }
+            if (numVtxs[3] >= 3) {
+                func_80351EE8_763598(numVtxs[3], vtxs[3], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
+            }
+        } else if ((sp22C >= sp236) && (sp234 >= sp22C)) {
+            func_8034FCFC_7613AC(vtxs[idx], vtxs[3], vtxs[4], numVtxs[idx], &numVtxs[3], &numVtxs[4], sp22C);
+            if (numVtxs[3] >= 3) {
+                func_8034CCBC_75E36C(vtxs[3], numVtxs[3], arg2, alpha, red, green, blue);
+            }
+            if (numVtxs[4] >= 3) {
+                func_80351EE8_763598(numVtxs[4], vtxs[4], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
+            }
+        } else {
+            if (numVtxs[idx] >= 3) {
+                func_80351EE8_763598(numVtxs[idx], vtxs[idx], var_ra->position.yPos.h + var_ra->unk42, alpha, red, green, blue);
             }
         }
     }
@@ -177,6 +193,7 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 #endif
 
 #if 0
+// esa:func_8006C510 (but custom)
 void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC) {
     s32 pad[8];
 
@@ -1189,105 +1206,109 @@ void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 }
 
 #if 0
-// CURRENT (5382)
+// CURRENT (9214)
 // cant figure out the logic
 // ESA: func_8006FC24
-void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue, s32 argB, s32 argC, s32 argD, s32 argE) {
+void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue,
+        s32 argB, s32 argC,
+        s32 argD, s32 argE) {
+
     s16 temp_a2;
     s16 i;
     s16 temp_v0;
     s32 var_t0;
     s16 temp_t9;
 
-    temp_t9 = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((argB + argE) >> 1)) * 2) + 0x200) >> 8;
+    temp_t9 = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((argB + argE) >> 1)) + 0x100) * 2) >> 8;
     if (temp_t9 > 4) {
         temp_t9 = (temp_t9 >> 1) + 2;
     }
 
-    if ((D_80204278->usedVtxs + numVtxs) <= 1000) {
-        if (arg6) {
-            // urgh
-            if (((arg7 == (temp_a2 * 0)) && (ABS(MAX(MAX(argB, argE), argC) - MIN(MIN(argB, argE), argC)) < 0xC1)) ||
-                                            (ABS(MAX(MAX(argB, argE), argD) - MIN(MIN(argB, argE), argD)) < 0xC1)) {
+    if ((D_80204278->usedVtxs + numVtxs) > 1000) {
+        return;
+    }
 
-                gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
+    if (arg6 != 0) {
+        if (((arg7 == 0) && ((ABS(MAX(MAX(argB, argE), argD) - MIN(MIN(argB, argE), argD)) <= 192))) ||
+            ((arg7 != 0) && ((ABS(MAX(MAX(argB, argE), argC) - MIN(MIN(argB, argE), argC)) <= 192)))) {
 
-                for (i = 0; i < numVtxs; i++) {
-                    temp_v0 = vtxs[i].unk0 - (arg3 << 6);
-                    temp_a2 = vtxs[i].unk2 - (arg4 << 6);
+            gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
 
-                    if (temp_v0 < temp_a2) {
-                        var_t0 = ((((argE - argC) * temp_v0) + ((argC - argB) * temp_a2)) >> 6) + argB;
-                    } else {
-                        var_t0 = ((((argD - argB) * temp_v0) + ((argE - argD) * temp_a2)) >> 6) + argB;
-                    }
+            for (i = 0; i < numVtxs; i++) {
+                temp_v0 = vtxs[i].unk0 - (arg3 << 6);
+                temp_a2 = vtxs[i].unk2 - (arg4 << 6);
 
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = vtxs[i].unk0;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = vtxs[i].unk2;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = temp_t9 + var_t0;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = vtxs[i].unk4;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = vtxs[i].unk6;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
-                    D_80204278->usedVtxs++;
+                if (temp_v0 < temp_a2) {
+                    var_t0 = ((((argE - argC) * temp_v0) + ((argC - argB) * temp_a2)) >> 6) + argB;
+                } else {
+                    var_t0 = ((((argD - argB) * temp_v0) + ((argE - argD) * temp_a2)) >> 6) + argB;
                 }
-            } else {
-                return;
+
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = vtxs[i].unk0;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = vtxs[i].unk2;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = temp_t9 + var_t0;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = vtxs[i].unk4;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = vtxs[i].unk6;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
+                D_80204278->usedVtxs++;
             }
         } else {
-            if (((arg7 == 0) && (ABS(MAX(MAX(argB, argD), argC) - MIN(MIN(argB, argD), argC)) < 192)) ||
-                                (ABS(MAX(MAX(argD, argE), argC) - MIN(MIN(argD, argE), argC)) < 0xC1)) {
+            return;
+        }
+    } else {
+        if (((arg7 == 0) && (ABS(MAX(MAX(argB, argD), argC) - MIN(MIN(argD, argB), argC)) <= 192)) ||
+            ((arg7 != 0) && (ABS(MAX(MAX(argD, argE), argC) - MIN(MIN(argD, argE), argC)) <= 192))) {
 
-                gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
+            gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
 
-                for (i = 0; i < numVtxs; i++) {
-                    temp_v0 = vtxs[i].unk0 - (arg3 << 6);
-                    temp_a2 = vtxs[i].unk2 - (arg4 << 6);
+            for (i = 0; i < numVtxs; i++) {
+                temp_v0 = vtxs[i].unk0 - (arg3 << 6);
+                temp_a2 = vtxs[i].unk2 - (arg4 << 6);
 
-                    if ((temp_v0 + temp_a2) < 0x40) {
-                        var_t0 = ((argB << 6) + ((argD - argB) * (       temp_v0)) + ((argC - argB) * (       temp_a2))) >> 6;
-                    } else {
-                        var_t0 = ((argE << 6) + ((argC - argE) * (0x40 - temp_v0)) + ((argD - argE) * (0x40 - temp_a2))) >> 6;
-                    }
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = vtxs[i].unk0;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = vtxs[i].unk2;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = temp_t9 + var_t0;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = vtxs[i].unk4;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = vtxs[i].unk6;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
-                    D_80204278->usedVtxs++;
+                if ((temp_v0 + temp_a2) < 0x40) {
+                    var_t0 = ((argB << 6) + ((argD - argB) * (       temp_v0)) + ((argC - argB) * (       temp_a2))) >> 6;
+                } else {
+                    var_t0 = ((argE << 6) + ((argC - argE) * (0x40 - temp_v0)) + ((argD - argE) * (0x40 - temp_a2))) >> 6;
                 }
-            } else {
-                return;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = vtxs[i].unk0;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = vtxs[i].unk2;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = temp_t9 + var_t0;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = vtxs[i].unk4;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = vtxs[i].unk6;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
+                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
+                D_80204278->usedVtxs++;
             }
+        } else {
+            return;
         }
-
-        for (i = 2; i < numVtxs; i++) {
-            if (i < (numVtxs - 1)) {
-                gSP1Quadrangle(
-                /* pkt  */ D_801D9E90++,
-                /* v0   */ 0,
-                /* v1   */ i - 1,
-                /* v2   */ i,
-                /* v3   */ i + 1,
-                /* flag */ 0);
-                i++;
-            } else {
-                gSP1Triangle(
-                /* pkt  */ D_801D9E90++,
-                /* v0   */ 0,
-                /* v1   */ i - 1,
-                /* v2   */ i,
-                /* flag */ 0);
-            }
-        }
-        gDPPipeSync(D_801D9E90++);
     }
+
+    for (i = 2; i < numVtxs; i++) {
+        if (i < (numVtxs - 1)) {
+            gSP1Quadrangle(
+            /* pkt  */ D_801D9E90++,
+            /* v0   */ 0,
+            /* v1   */ i - 1,
+            /* v2   */ i,
+            /* v3   */ i + 1,
+            /* flag */ 0);
+            i++;
+        } else {
+            gSP1Triangle(
+            /* pkt  */ D_801D9E90++,
+            /* v0   */ 0,
+            /* v1   */ i - 1,
+            /* v2   */ i,
+            /* flag */ 0);
+        }
+    }
+    gDPPipeSync(D_801D9E90++);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_80350600_761CB0.s")

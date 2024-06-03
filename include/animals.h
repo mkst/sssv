@@ -90,4 +90,10 @@
 #define WATER_DAMAGE        1024
 #define WATER_DAMAGE_X2     2048
 
+// sizing
+
+#define SCALE_EVO_MICROCHIP 25
+#define SCALE_ELEPHANT      160
+#define SCALE_GORILLA       154
+
 #endif

@@ -2,8 +2,6 @@
 #include "common.h"
 
 
-#if 0
-// CURRENT (595)
 void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     u16 temp_t4; // sp4E?
     u16 var_t0;
@@ -23,38 +21,38 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         temp_t0_2->unk2++;
     }
 
-    switch (temp_t0_2->unk0) {                               /* switch 1 */
-    case 1:                                         /* switch 1 */
+    switch (temp_t0_2->unk0) {
+    case 1:
         if (temp_t0_2->unk2 >= 100) {
             temp_t0_2->unk0 = 0;
         }
         break;
-    case 18:                                        /* switch 1 */
+    case 18:
         if (temp_t0_2->unk2 >= 50) {
             temp_t0_2->unk0 = 0;
         }
         break;
-    case 5:                                         /* switch 1 */
+    case 5:
         if (temp_t0_2->unk2 >= 150) {
             temp_t0_2->unk0 = 0;
         }
         break;
-    case 19:                                        /* switch 1 */
+    case 19:
         if (temp_t0_2->unk2 >= 75) {
             temp_t0_2->unk0 = 0;
         }
         break;
-    case 15:                                        /* switch 1 */
+    case 15:
         if (temp_t0_2->unk2 >= 10) {
             temp_t0_2->unk0 = 0;
         }
         break;
-    case 16:                                        /* switch 1 */
+    case 16:
         if (temp_t0_2->unk2 >= 28) {
             temp_t0_2->unk0 = 0;
         }
         break;
-    case 17:                                        /* switch 1 */
+    case 17:
         if (temp_t0_2->unk2 >= 60) {
             temp_t0_2->unk0 = 0;
         }
@@ -62,7 +60,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
             play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
         break;
-    default:                                        /* switch 1 */
+    default:
         temp_t0_2->unk0 = 0;
         break;
     }
@@ -82,56 +80,56 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         var_a0 -= 360;
     }
 
-    switch (D_803D5530->state) {                        /* switch 4; irregular */
-    case 0x3:                                       /* switch 4 */
-    case 0x16:                                      /* switch 4 */
-    case 0x3E:                                      /* switch 4 */
-    case 0x68:                                      /* switch 4 */
-    case 0xB6:                                      /* switch 4 */
-    case 0xCA:                                      /* switch 4 */
+    switch (D_803D5530->state) {
+    case 0x3:
+    case 0x16:
+    case 0x3E:
+    case 0x68:
+    case 0xB6:
+    case 0xCA:
         var_t2 = (D_80152350.unk2D0[(s16) ((temp_t4 * 360) / 256)] / 25) + 20;
         var_t3 = 0x5A;
         var_t1 = var_a0;
         break;
-    case 0x4:                                       /* switch 4 */
-    case 0x17:                                      /* switch 4 */
-    case 0x51:                                      /* switch 4 */
-    case 0x69:                                      /* switch 4 */
-    case 0xB7:                                      /* switch 4 */
-    case 0xCB:                                      /* switch 4 */
+    case 0x4:
+    case 0x17:
+    case 0x51:
+    case 0x69:
+    case 0xB7:
+    case 0xCB:
         var_t2 = MAX(1, (D_80152350.unk2D0[(s16) ((temp_t4 * 360) / 256)] / 10) + 20);
         var_t3 = 0x5A;
         var_t1 = var_a0;
         break;
-    case 0x8D:                                      /* switch 4 */
+    case 0x8D:
         var_t2 = 0xA;
         var_t3 = 0x5A;
         var_t1 = var_a0;
         break;
-    case 0x8E:                                      /* switch 4 */
-    case 0x8F:                                      /* switch 4 */
+    case 0x8E:
+    case 0x8F:
         var_t2 = MAX(1, (D_80152350.unk2D0[(s16) ((temp_t4 * 360) / 256)] / 20) + 10);
         var_t3 = 0x5A;
         var_t1 = var_a0;
         break;
-    default:                                        /* switch 4 */
-        switch (temp_t0_2->unk0) {                  /* switch 2 */
-        case 1:                                     /* switch 2 */
+    default:
+        switch (temp_t0_2->unk0) {
+        case 1:
             var_t2 = 0x34 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 100)] / 8);
             var_t3 = 0x85 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 100)] / 6);
             var_t1 = 0;
             break;
-        case 18:                                    /* switch 2 */
+        case 18:
             var_t2 = 0x34 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 50)] / 8);
             var_t3 = 0x85 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 50)] / 6);
             var_t1 = 0;
             break;
-        case 15:                                    /* switch 2 */
+        case 15:
             var_t2 = 0x14;
             var_t3 = 0x5A;
             var_t1 = (-temp_t0_2->unk2 * 12) + 0x78;
             break;
-        case 5:                                     /* switch 2 */
+        case 5:
             var_t2 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 150)] / 26) + 10;
             var_t3 = 0x5A;
             if (temp_t0_2->unk2 < 37) {
@@ -144,7 +142,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
                 var_t1 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 75)] / 6) - 42;
             }
             break;
-        case 19:                                    /* switch 2 */
+        case 19:
             var_t2 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 75)] / 26) + 10;
             var_t3 = 0x5A;
             if (temp_t0_2->unk2 < 18) {
@@ -157,17 +155,17 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
                 var_t1 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 37)] / 6) - 42;
             }
             break;
-        case 16:                                    /* switch 2 */
+        case 16:
             var_t2 = 0x14;
             var_t3 = 0x5A;
             var_t1 = var_a0;
             break;
-        case 17:                                    /* switch 2 */
+        case 17:
             var_t2 = 0x14;
             var_t3 = 0x5A;
             var_t1 = (SIN(temp_t0_2->unk2 << 6) >> 7) >> 2;
             break;
-        default:                                    /* switch 2 */
+        default:
             temp_t0_2->unk0 = 0;
             var_t2 = 0x14;
             var_t3 = 0x5A;
@@ -197,46 +195,44 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         var_t1 = 0;
     }
 
-    switch (arg2) {                                 /* switch 3 */
+    switch (arg2) {
     case 0:
         break;
-    case 1:                                         /* switch 3 */
+    case 1:
         var_t1 = var_t1 >> 1;
         break;
-    case 2:                                         /* switch 3 */
+    case 2:
         var_t1 = 0;
         break;
-    case 3:                                         /* switch 3 */
+    case 3:
         var_t2 = ((var_t2 - 0x14) >> 1) + 0x14;
         var_t3 = ((var_t3 - 0x5A) >> 1) + 0x5A;
         break;
-    case 4:                                         /* switch 3 */
+    case 4:
         var_t2 = ((var_t2 - 0x14) >> 1) + 0x14;
         var_t3 = ((var_t3 - 0x5A) >> 1) + 0x5A;
         var_t1 = var_t1 >> 1;
         break;
-    case 5:                                         /* switch 3 */
+    case 5:
         var_t2 = ((var_t2 - 0x14) >> 1) + 0x14;
         var_t3 = ((var_t3 - 0x5A) >> 1) + 0x5A;
         var_t1 = 0;
         break;
-    case 6:                                         /* switch 3 */
+    case 6:
         var_t2 = 0;
         var_t3 = 0x5A;
         break;
-    case 7:                                         /* switch 3 */
+    case 7:
         var_t2 = 0;
         var_t3 = 0x5A;
         var_t1 = var_t1 >> 1;
         break;
-    case 8:                                         /* switch 3 */
+    case 8:
         var_t2 = 0;
         var_t3 = 0x5A;
         var_t1 = 0;
         break;
     }
-
-    if (1) {};
 
     tmp1 = D_80203FE0[1].unk0;
     tmp2 = D_80203FE0[1].unk2;
@@ -245,7 +241,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     tmp2 += ((arg0 * D_80152350.unk2D0[var_t2]) / 256);
     tmp3 += ((arg0 * D_80152350.unk384[var_t2]) / 256);
 
-    D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
+    D_80203FE0[19].unk0 = tmp1;
     D_80203FE0[19].unk2 = tmp2;
     D_80203FE0[19].unk4 = tmp3;
 
@@ -261,22 +257,23 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     D_80203FE0[20].unk2 = tmp2;
     D_80203FE0[20].unk4 = tmp3;
 
+    tmp1 = D_80203FE0[1].unk0;
     tmp2 = D_80203FE0[1].unk2;
-    tmp2 += ((D_80152350.unk2D0[20] * arg0) / 256);
-    tmp3 = D_80203FE0[1].unk4 + ((arg0 * D_80152350.unk384[20]) / 256);
+    tmp3 = D_80203FE0[1].unk4;
+
+    tmp2 += ((arg0 * D_80152350.unk2D0[20]) / 256);
+    tmp3 += ((arg0 * D_80152350.unk384[20]) / 256);
 
     D_80203FE0[32].unk0 = tmp1;
     D_80203FE0[33].unk0 = tmp1;
 
     D_80203FE0[32].unk2 = tmp2;
-    D_80203FE0[33].unk2 = tmp2 + arg1;
+    tmp2 += arg1;
+    D_80203FE0[33].unk2 = tmp2;
 
     D_80203FE0[32].unk4 = tmp3;
     D_80203FE0[33].unk4 = tmp3;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C4A70_6D6120.s")
-#endif
 
 void func_802C56D0_6D6D80(s16 arg0) {
     s16 tmp1;

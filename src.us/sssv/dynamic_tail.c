@@ -232,9 +232,26 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
 
 #if 0
 // ESA: func_80085274 (TBD)
-// long way away
+// CURRENT (5760)
 void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 sp1E6;
+
+    s32 temp_s5;
+    s32 temp_s6;
+    s32 temp_s7;
+    s32 temp_t0;
+    s32 var_s2;
+    s32 var_s3;
+    s32 var_s4;
+    s32 var_v1;
+
+    f32 temp_f2;
+    f32 var_f12;
+    f32 var_f14;
+    f32 var_f16;
+    f32 var_f2;
+    f32 temp_f0_10;
+    f64 var_f12_2;
 
     f32 sp1B8;
     f32 sp1B4;
@@ -254,29 +271,12 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
     f32 temp_f14;
     f32 temp_f16;
 
-    f32 temp_f2;
-    f32 var_f12;
-    f32 var_f14;
-    f32 var_f16;
-    f32 var_f2;
-    f32 temp_f0_10;
-    f64 var_f12_2;
-
     s16 i;
     s16 var_s1;
 
     s32 temp_s2;
     s32 temp_s3;
     s32 temp_s4;
-
-    s32 temp_s5;
-    s32 temp_s6;
-    s32 temp_s7;
-    s32 temp_t0;
-    s32 var_s2;
-    s32 var_s3;
-    s32 var_s4;
-    s32 var_v1;
 
     struct051 *temp_v0;
     struct088 *var_t5;
@@ -338,9 +338,9 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
 
     if (temp_v0->unk32 & 2) {
         if (temp_v0->unk32 & 1) {
-            var_t5[arg4].unk10 = (var_t5[arg4].unk10 * 0xF) >> 4;
+            var_t5[arg4].unk10 = (var_t5[arg4].unk10 * 15) >> 4;
         } else {
-            var_t5[arg4].unkC = (var_t5[arg4].unkC * 0xF) >> 4;
+            var_t5[arg4].unkC = (var_t5[arg4].unkC * 15) >> 4;
         }
     }
 
@@ -452,7 +452,7 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         var_t5[i].unk14 = var_t5[i].unk8 - spB0[i];
     }
 
-    temp_f0 = (ABS(var_t5[arg4].unkC) + ABS(var_t5[arg4].unk10) + ABS(var_t5[arg4].unk14)) / 1310720.0;
+    temp_f0 = (ABS(var_t5[arg4].unkC) + ABS(var_t5[arg4].unk10) + ABS(var_t5[arg4].unk14)) / (1024 * 1280.0);
     var_f12_2 = MIN(1.0, temp_f0 / 2.0);
 
     func_8032CD70_73E420(
