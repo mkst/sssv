@@ -591,10 +591,9 @@ D_803E9840 = 0x803E9840; // defined:true size:0x906C
 // FIXME: D_803F28C2
 
 // overlay2_741000
-D_803F28D0 = 0x803F28D0; // defined:true
-D_803F28DC = 0x803F28DC; // defined:true
-gCameras = 0x803F28E0; // defined:true size:0x1B8
-gCameraId = 0x803F2A98; // defined:true
+D_803F28D0 = 0x803F28D0; // defined:true size:0x10 segment:overlay2
+gCameras   = 0x803F28E0; // defined:true size:0x1B8 segment:overlay2
+gCameraId  = 0x803F2A98; // defined:true
 D_803F2A9A = 0x803F2A9A; // defined:true
 D_803F2A9C = 0x803F2A9C; // defined:true
 D_803F2A9E = 0x803F2A9E; // defined:true
@@ -618,8 +617,8 @@ D_803F2AC8 = 0x803F2AC8; // defined:true
 D_803F2ACA = 0x803F2ACA; // defined:true
 D_803F2ACC = 0x803F2ACC; // defined:true
 gCamera    = 0x803F2AD0; // defined:true
-D_803F2AD8 = 0x803F2AD8; // defined:true
-D_803F2AF8 = 0x803F2AF8; // defined:true size:0x100
+D_803F2AD8 = 0x803F2AD8; // defined:true size:0x20 segment:overlay2
+D_803F2AF8 = 0x803F2AF8; // defined:true size:0x100 segment:overlay2
 D_803F2BF8 = 0x803F2BF8; // defined:true
 
 D_803F2C18 = 0x803F2C18; // defined:true size:0x6
@@ -650,6 +649,9 @@ D_803F2C6D = 0x803F2C6D; // defined:true
 D_803F2C6E = 0x803F2C6E; // defined:true
 D_803F2C70 = 0x803F2C70; // defined:true
 D_803F2C72 = 0x803F2C72; // defined:true
+D_803F2C74 = 0x803F2C74; // defined:true
+D_803F2C78 = 0x803F2C78; // defined:true
+D_803F2C7C = 0x803F2C7C; // defined:true
 
 // overlay2_7558F0
 D_803F2C80 = 0x803F2C80; // defined:true

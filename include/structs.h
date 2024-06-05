@@ -1917,7 +1917,7 @@ typedef struct {
     s16 unkC;
     s16 unkE;
     s16 unk10;
-    s16 unk12;
+    s16 unk12; // cameraModeIndex
     u8  unk14;
     u8  unk15;
     u8  unk16;

@@ -3843,9 +3843,7 @@ segments:
     - [0x7B7720, .data, overlay2_739290]
     - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table? wrong place?
     - [0x7B7C80, data] # animal sounds lookup
-    - [0x7B8370, data] # sssv/camera
-    - [0x7B83D0, bin] # sssv/camera
-    - [0x7B91C0, .data, sssv/camera]
+    - [0x7B8370, .data, sssv/camera]
     - [0x7B9580, .data, data/D_803A8290_7B9940] # green crib??
     - [0x7B9580, sssv_vtx, data/inc/D_803A7ED0]
     - [0x7B9780, sssv_vtx, data/inc/D_803A80D0]

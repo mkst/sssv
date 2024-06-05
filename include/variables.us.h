@@ -809,25 +809,7 @@ extern s16  D_803A65D0_7B7C80[];
 extern s16  D_803A6680_7B7D30[];
 extern s16  D_803A6730_7B7DE0[];
 extern s16  D_803A69F0_7B80A0[];
-extern s16  D_803A6CC0_7B8370; // camera distance from player?
-extern f32  D_803A6CC4_7B8374;
-extern f32  D_803A6CC8_7B8378;
-extern f32  D_803A6CD0_7B8380;
-extern f32  D_803A6CD4_7B8384;
-extern f32  D_803A6CD8_7B8388;
-extern s16  D_803A6CDC_7B838C;
-extern s16  D_803A6CE0_7B8390;
-extern s16  D_803A6CE4_7B8394;
-extern s16  D_803A6CE8_7B8398;
-extern s16  D_803A6CEC_7B839C;
-extern s16  D_803A6CEC_7B839C;
-extern u8   D_803A6CF0_7B83A0[0xC];
-extern u8   D_803A6CFC_7B83AC[0xC];
-extern u8   D_803A6D08_7B83B8[0xC];
-extern struct105 D_803A6D14_7B83C4[128];
-extern struct074 D_803A7114_7B87C4[128];
-extern s16  D_803A7B2A_7B91DA[];
-extern s16  D_803A7B3C_7B91EC[];
+
 extern s16  D_803A8340_7B99F0;
 extern u8   D_803A8344_7B99F4[]; // timer string written here
 // extern s8   D_803A8350_7B9A00[];

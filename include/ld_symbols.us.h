@@ -509,8 +509,6 @@ extern Addr _7B1B90_data__s;
 extern Addr _7B1BE0_data__s;
 extern Addr _7B3250_data__s;
 extern Addr _7B7C80_data__s;
-extern Addr _7B8370_data__s;
-extern Addr _7B83D0_bin;
 extern Addr _7B9A20_data__s;
 extern Addr _7B9BD0_data__s;
 extern Addr _7C6F90_data__s;
