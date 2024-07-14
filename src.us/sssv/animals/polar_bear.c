@@ -68,7 +68,7 @@ void func_80365F10_7775C0(void) {
                     func_802DBA58_6ED108(3, D_803D552C);
 
                     D_803D5530->yVelocity.h = MAX(14, D_803D5530->yVelocity.h + 9);
-                    play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, (s16) (s32) D_803D5530->position.zPos.h, (s16) (s32) D_803D5530->position.yPos.h, 1.0f);
+                    play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
             } else if (D_803D5530->unk54.unk0 & 8) {
                 D_803D552C->unk369 = 0;
@@ -78,7 +78,7 @@ void func_80365F10_7775C0(void) {
                 D_803D552C->unk369 = 2;
                 func_802DBA58_6ED108(3, D_803D552C);
                 D_803D5530->yVelocity.h = MAX(14, D_803D5530->yVelocity.h + 9);
-                play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, (s16) (s32) D_803D5530->position.zPos.h, (s16) (s32) D_803D5530->position.yPos.h, 1.0f);
+                play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             }
             if ((D_803D552C->unk369 == 1) && (D_803D5530->unk54.unk0 & 8)) {
                 D_803D552C->unk369 = 0;
@@ -95,7 +95,6 @@ void func_80365F10_7775C0(void) {
         spB2 = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x17E8, 5, 0xB4, 0xB4, 0xB4, 2, CHECK_SEGMENT == 0);
     }
 
-block_39:
     if (spB2 == 0) {
         func_8034B45C_75CB0C();
         func_8035D120_76E7D0();
@@ -117,8 +116,11 @@ block_39:
         switch (D_803D5524->unk9C) {
         case POLAR_BEAR:
             switch (D_803D552C->unk365) {
+            default:
+                D_803D552C->unk365 = ATTACK_NONE;
+                break;
             case ATTACK_POLAR_BEAR_2:
-                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
                 spB0 = ticks_remaining;
                 if (ticks_remaining < 9) {
                     func_80368840_779EF0(spB0);
@@ -132,7 +134,7 @@ block_39:
                 }
                 break;
             case ATTACK_POLAR_BEAR_3:
-                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
                 spB0 = 32 - ticks_remaining;
                 if (ticks_remaining < 33) {
                     func_80368840_779EF0(spB0);
@@ -142,9 +144,6 @@ block_39:
                 } else {
                     D_803D552C->unk365 = ATTACK_NONE;
                 }
-                break;
-            default:
-                D_803D552C->unk365 = ATTACK_NONE;
                 break;
             }
             break;
@@ -156,7 +155,7 @@ block_39:
         if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
             D_803F2F00 = 0;
             func_802B9130_6CA7E0(&spB8, 0x1DE, 0xEF, 0x344, 0x2F);
-            func_802BF3C0_6D0A70(0x344, 0x2F,    0, 0x64,     0, 0x80, D_803B4250_7C5900, D_803B4280_7C5930, &D_803B42B0_7C5960,
+            func_802BF3C0_6D0A70(0x344, 0x2F,    0, 0x64,     0, 0x80, D_803B4250_7C5900, D_803B4280_7C5930, D_803B42B0_7C5960,
                                  0x344, 0x2F, 0x64,     0, 0x80,    0, D_803B4250_7C5900, D_803B4280_7C5930, D_803B42B0_7C5960,
                                  &spB8);
             func_802B964C_6CACFC();
@@ -181,7 +180,7 @@ block_39:
 
             if (D_803D5524->unk9C != POLAR_BEAR_DEFENDING) {
 
-                switch (D_803F2F00) {                /* irregular */
+                switch (D_803F2F00) {
                 case 1:
                     func_80374660_785D10(-0xE, 0, 2500);
                     break;
@@ -210,7 +209,7 @@ block_39:
             }
         }
         func_8038064C_791CFC();
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_11 = D_803F2AA2, (temp_v0_11 == 0)) || (temp_v0_11 == 2) || ((temp_v0_11 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_11 = D_803F2AA2, (temp_v0_11 == 0)) || (temp_v0_11 == 2) || ((temp_v0_11 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             if (D_803D5524->unk9C == POLAR_BEAR) {
                 spAA = D_803D552C->heading;
             } else {

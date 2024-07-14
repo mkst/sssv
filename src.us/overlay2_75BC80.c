@@ -219,6 +219,7 @@ void func_8034B298_75C948(s16 arg0) {
     }
 }
 
+// arg0 is alwoys 0
 void func_8034B3A8_75CA58(s16 arg0) {
     if ((arg0 == 0) || ((D_803D5540 & 2) == 0)) {
         if ((D_803D552C->unk366 == 3) ||

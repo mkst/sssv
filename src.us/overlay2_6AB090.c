@@ -127,7 +127,7 @@ void func_80299E84_6AB534(s32 arg0) {
 void func_8029A32C_6AB9DC(s32 arg0) {
 }
 
-s32 func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
+s16 func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
     arg0 >>= 6;
     arg1 >>= 6;
     arg0 = (arg0 - 4) >> 4;
@@ -180,7 +180,7 @@ u16 func_8029A52C_6ABBDC(u8 arg0) {
     struct038 *s;
     u16 tmp = arg0 & 0x3F;
 
-    s = &D_800BB210[tmp]; // list of images 0xAB8 each
+    s = &D_800BB210[tmp]; // list of 32x32 mipmap images (0xAB8 each)
     tmp = s->unk0;
     return tmp;
 }

@@ -1,6 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "camera.h"
+
+
 extern Gfx D_040053F0_F6450[];
 extern Gfx D_04005B10_F6B70[];
 extern Gfx D_04005FB0_F7010[];

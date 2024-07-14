@@ -34,18 +34,19 @@ def reversed_if(iterator, cond):
 
 
 class Converter():
-    def __init__(self, mode, infile, outfile, flip_y=False):
+    def __init__(self, mode, infile, outfile, flip_y=False, header_path=None):
         self.mode = mode
         self.infile = infile
         self.outfile = outfile
         self.flip_y = flip_y
+        self.header_path = header_path
 
         self.warned = False
 
     def warn(self, msg):
         if not self.warned:
             self.warned = True
-            print(self.infile.name + ": warning: " + msg, file=sys.stderr)
+            print(f"{self.infile.name} : warning: {msg}", file=sys.stderr)
 
     def _convert_rgba32(self, img):
         for row in reversed_if(img.asRGBA()[2], self.flip_y):
@@ -137,7 +138,7 @@ class Converter():
         for row in reversed_if(img.asRGBA()[2], self.flip_y):
             for c1, c2 in iter_in_groups(iter_in_groups(row, 4), 2):
                 if c1[3] != 0xFF or c2[3] != 0xFF:
-                    self.warn("discarding alpha channel")
+                    self.warn("Discarding alpha channel")
 
                 i1 = rgb_to_intensity(*c1[:3])
                 i2 = rgb_to_intensity(*c2[:3])
@@ -163,6 +164,15 @@ class Converter():
 
                 i = rgb_to_intensity(r, g, b)
                 self.outfile.write(i.to_bytes(1, byteorder="big"))
+
+    def _write_header_file(self):
+        self.outfile.seek(0)
+        data = self.outfile.read()
+
+        stripe_size = 16
+        for i in range(len(data) // stripe_size):
+            values = "".join(f"0x{x:02X}, " for x in data[i*stripe_size:(i+1)*stripe_size])
+            self.header_path.write(f"    {values}\n")
 
     def convert(self):
         img = png.Reader(self.infile)
@@ -191,6 +201,9 @@ class Converter():
             print("Unsupported mode", file=sys.stderr)
             sys.exit(1)
 
+        if self.header_path:
+            self._write_header_file()
+
 
 if __name__ == "__main__":
     choices = [
@@ -204,9 +217,10 @@ if __name__ == "__main__":
 
     parser.add_argument("mode", help="image format", type=str, choices=choices)
     parser.add_argument("infile", help="input file", type=argparse.FileType("rb"))
-    parser.add_argument("outfile", help="output file", type=argparse.FileType("wb"))
+    parser.add_argument("outfile", help="output file", type=argparse.FileType("wb+"))
     parser.add_argument("--flip-y", help="flip y?", action="store_true")
+    parser.add_argument("--header-path", default=None, type=argparse.FileType("w+"))
     args = parser.parse_args()
 
-    converter = Converter(args.mode, args.infile, args.outfile, flip_y=args.flip_y)
+    converter = Converter(args.mode, args.infile, args.outfile, flip_y=args.flip_y, header_path=args.header_path)
     converter.convert()

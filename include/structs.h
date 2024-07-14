@@ -566,12 +566,8 @@ typedef struct {
   /* 0x3 */ u8  unk3;
   /* 0x4 */ u8  unk4;
   /* 0x5 */ u8  unk5;
-  /* 0x6 */ u8  red;
-  /* 0x7 */ u8  green;
-  /* 0x8 */ u8  blue;
-  /* 0x9 */ u8  envRed;
-  /* 0xA */ u8  envGreen;
-  /* 0xB */ u8  envBlue;
+  /* 0x6 */ u8  color[3];
+  /* 0x9 */ u8  env[3];
   /* 0xC */ u8  unkC;
   /* 0xC */ u8  unkD;
   /* 0xE */ s16 unkE[16];
@@ -588,29 +584,25 @@ typedef struct {
 } WalrusWake; // type 3 (TRAIL_TYPE_WALRUS)
 
 typedef struct {
-    /* 0x0 */ struct {
+    /* 0x0   */ struct {
                 u8  state  : 4;
               } unk0;
-              /* 0x1 */ u8 unk1;
-              /* 0x2 */ u8 unk2;
-              /* 0x3 */ u8 unk3;
-              /* 0x4 */ u8 red; // red
-              /* 0x5 */ u8 green; // green
-              /* 0x6 */ u8 blue; // blue
-              /* 0x7 */ u8 envRed; // envRed
-              /* 0x8 */ u8 envGreen; // envGreen
-              /* 0x9 */ u8 envBlue; // envBlue
-              /* 0xA */ u8 unkA; // tris count?
-              /* 0xB */ u8 paddB[0x21];
-              /* 0x2C */ s16 unk2C; // x
-              /* 0x2E */ s16 unk2E; // z
-              /* 0x30 */ s16 unk30; // y
-              /* 0x32 */ u8  pad32[0x6];
-              /* 0x38 */ Vtx unk38[32];
-              /* 0x238 */ s16 unk238;
-              /* 0x23A */ s16 unk23A;
-              /* 0x23C */ s16 unk23C;
-              /* 0x240 */ Animal *animal;
+    /* 0x1   */ u8 unk1;
+    /* 0x2   */ u8 unk2;
+    /* 0x3   */ u8 unk3;
+    /* 0x4   */ u8 color[3];
+    /* 0x7   */ u8 env[3];
+    /* 0xA   */ u8 unkA; // tris count?
+    /* 0xB   */ u8 paddB[0x21];
+    /* 0x2C  */ s16 unk2C; // x
+    /* 0x2E  */ s16 unk2E; // z
+    /* 0x30  */ s16 unk30; // y
+    /* 0x32  */ u8  pad32[0x6];
+    /* 0x38  */ Vtx unk38[32];
+    /* 0x238 */ s16 unk238;
+    /* 0x23A */ s16 unk23A;
+    /* 0x23C */ s16 unk23C;
+    /* 0x240 */ Animal *animal;
 } SimpleTrail; // type 4 (TRAIL_TYPE_SIMPLE)
 
 typedef struct {
@@ -648,7 +640,6 @@ typedef struct {
     /* 0x322 */ s16 unk322;
     /* 0x324 */ s16 unk324;
     /* 0x328 */ Animal *unk328;
-    /* 0x334 */ u8 pad32C[0x4];
 } RegularTrail; // type 1 (TRAIL_TYPE_REGULAR)
 
 typedef struct {
@@ -663,8 +654,8 @@ typedef struct {
     /* 0x04 */ s32 unk4; // id?
     /* 0x08 */ union {
                   RegularTrail regular;
-                  WalrusWake walrus;
-                  SimpleTrail simple;
+                  WalrusWake   walrus;
+                  SimpleTrail  simple;
               } trail;
   } Trail; // size 0x338
 
@@ -1063,12 +1054,6 @@ typedef struct {
     s16 unk384[90]; // ?
 } struct013;
 
-typedef struct {
-    s16 length;
-    s16 tile;
-    s16 unk6;
-} struct026;
-
 // only used in main_123E0.c
 typedef struct {
     s32 status;
@@ -1462,9 +1447,10 @@ struct struct035 { // TODO: merge with ObjectData?
   /* 0x00 */  u16 objectType;
   /* 0x02 */  u8  unk2;
   /* 0x03 */  u8  unk3;
-  /* 0x04 */  s32 unk4; // Animal* ?
-  /* 0x08 */  s32 unk8;
-  /* 0x0C */  u8  padC[0x8];
+  /* 0x04 */  Gfx *unk4;
+  /* 0x08 */  Gfx *unk8;
+  /* 0x0C */  Gfx *unkC;
+  /* 0x10 */  s32 unk10;
   /* 0x014 */ u8  unk14;
   /* 0x15 */  u8  unk15; // checked if 2 or 4?
   /* 0x16 */  u8  pad16[0x2];
@@ -1508,11 +1494,10 @@ struct struct035 { // TODO: merge with ObjectData?
   /* 0x95 */  u8  pad95;
   // very much TBD:
   /* 0x96 */  struct {
-                  u8 a : 4;  // >> 12
+                  u8 a : 4;
                   u8 b : 4;
-                  u8 c : 8;
               } unk96;
-  // /* 0x97 */  u8  unk97;
+  /* 0x97 */  u8  unk97;
   /* 0x98 */  u8  unk98;
   /* 0x99 */  s8  unk99;
   /* 0x98 */  u8  pad9A[0x2];
@@ -1917,7 +1902,7 @@ typedef struct {
     s16 unkC;
     s16 unkE;
     s16 unk10;
-    s16 unk12;
+    s16 unk12; // cameraModeIndex
     u8  unk14;
     u8  unk15;
     u8  unk16;
@@ -2558,59 +2543,6 @@ typedef struct {
     s8  stick_y;
     s16 count;
 } DemoInput;
-
-typedef struct {
-    u16 startTime;
-    s16 pad2;
-    s16 sfx;
-} SubtitleText; // size 0x6
-
-typedef struct {
-    SubtitleText *msg;
-    s16 id;
-    s16 pad;
-} Subtitle; // size 0x8
-
-typedef struct {
-    u8 unk0;
-    u8 unk1;
-    u8 unk2;
-    u8 _unk3; // pad
-    u8 unk4;
-    u8 unk5;
-    u8 unk6;
-    u8 _unk7; // pad
-    u8 unk8;
-    u8 unk9;
-    u8 unkA;
-    u8 _unkB; // pad
-    u8 unkC;
-    u8 unkD;
-    u8 unkE;
-    u8 unkF; // pad
-} struct041; // some kind of light? size 0x10
-
-struct struct044 {
-    /* 0x0 */ s16 unk0;
-    /* 0x2 */ s16 unk2;
-    /* 0x4 */ s16 unk4;
-    /* 0x6 */ s16 unk6;
-    /* 0x8 */ s16 unk8;
-    /* 0xA */ s16 unkA;
-    /* 0xC */ s32 unkC;
-}; // size 0x10
-
-typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-    s16 unk6;
-    s16 unk8;
-    s16 unkA;
-    s16 unkC;
-    s16 unkE;
-    s16 unk10;
-} struct087;
 
 // FIXME: replace with Animal
 typedef struct struct058 struct058;

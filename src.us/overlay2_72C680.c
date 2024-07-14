@@ -2,6 +2,8 @@
 #include "common.h"
 #include "pp.h"
 
+#include "camera.h"
+
 
 // ========================================================
 // definitions

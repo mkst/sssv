@@ -1,6 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "camera.h"
+
+
 extern struct077 D_803B45D8_7C5C88;
 extern struct077 D_803B4608_7C5CB8;
 extern struct077 D_803B4638_7C5CE8;

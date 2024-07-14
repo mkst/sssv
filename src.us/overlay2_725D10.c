@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "camera.h"
 
 // ========================================================
 // .data
@@ -2103,7 +2104,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x4F:
-
+        // change camera mode?
         if (temp_s0->unk19C.payload.cmd.type77.unk6.unk0 == 0xF) {
             var_a2 = -3;
             var_a3 = 5;

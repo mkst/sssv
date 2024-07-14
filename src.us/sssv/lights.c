@@ -6,46 +6,57 @@
 // .data
 // ========================================================
 
+u8  D_803A52A0_7B6950 = 80;
+u8  D_803A52A4_7B6954 = 80;
+u8  D_803A52A8_7B6958 = 80;
+
+u8  D_803A52AC_7B695C = 200;
+u8  D_803A52B0_7B6960 = 200;
+u8  D_803A52B4_7B6964 = 200;
+
+u8  D_803A52B8_7B6968 = 1;
+
 // ========================================================
 // .bss
 // ========================================================
 
-s16  D_803E1B20[5]; // may be a bunch of structs instead?
-s16  D_803E1B30[5];
-s16  D_803E1B40[5];
-s16  D_803E1B50[5];
-s16  D_803E1B60[5];
-s16  D_803E1B70[5];
-s16  D_803E1B80[5];
-s16  D_803E1B8A;
-s16  D_803E1B8C;
-s16  D_803E1B8E;
+static s16  D_803E1B20[5];
+static s16  D_803E1B30[5];
+static s16  D_803E1B40[5];
+static s16  D_803E1B50[5];
+static s16  D_803E1B60[5];
+static s16  D_803E1B70[5];
+static s16  D_803E1B80[5];
+static s16  D_803E1B8A;
+static s16  D_803E1B8C;
+static s16  D_803E1B8E;
 
-s16  D_803E1B90;
-s16  D_803E1B92;
-s16  D_803E1B94;
-u8   D_803E1B96;
-u8   D_803E1B97;
-u8   D_803E1B98;
-u8   D_803E1B99;
-u8   D_803E1B9A;
-u8   D_803E1B9B;
+static s16  D_803E1B90;
+static s16  D_803E1B92;
+static s16  D_803E1B94;
+static u8   D_803E1B96;
+static u8   D_803E1B97;
+static u8   D_803E1B98;
+static u8   D_803E1B99;
+static u8   D_803E1B9A;
+static u8   D_803E1B9B;
 
-s32  D_803E1B9C; // unused
-s16  D_803E1BA0; // unused
+static s32  D_803E1B9C; // unused
+static s16  D_803E1BA0; // unused
 
-u16  D_803E1BA2;
-u16  D_803E1BA4;
-u8   D_803E1BA6;
-s16  D_803E1BA8;
-s16  D_803E1BAA;
-s16  D_803E1BAC;
-s16  D_803E1BAE;
-s16  D_803E1BB0;
-s16  D_803E1BB2;
-s16  D_803E1BB4;
-s16  D_803E1BB6;
-s16  D_803E1BB8;
+static u16  D_803E1BA2;
+static u16  D_803E1BA4;
+static u8   D_803E1BA6;
+static s16  D_803E1BA8;
+static s16  D_803E1BAA;
+static s16  D_803E1BAC;
+static s16  D_803E1BAE;
+static s16  D_803E1BB0;
+static s16  D_803E1BB2;
+static s16  D_803E1BB4;
+static s16  D_803E1BB6;
+static s16  D_803E1BB8;
+
 u8   D_803E1BBA; // env r
 u8   D_803E1BBB; // env g
 u8   D_803E1BBC; // env b
@@ -109,6 +120,7 @@ void add_light_at_location(s16 x, s16 y, s16 z, s16 intensity, s16 r, s16 g, s16
     }
 }
 
+// reset_lights?
 void func_802F2DF8_7044A8(void) {
     D_803A52A0_7B6950 = D_803E1B8A = 80;
     D_803A52A4_7B6954 = D_803E1B8C = 80;
@@ -145,39 +157,34 @@ void func_802F2EEC_70459C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, 
     D_803A52B8_7B6968 = 0;
 }
 
-void func_802F301C_7046CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7) {
-    D_803E1BAE = arg0;
-    D_803E1BB0 = arg1;
-    D_803E1BB2 = arg2;
-    D_803E1BB4 = arg3;
-    D_803E1BB6 = arg4;
-    D_803E1BB8 = arg5;
+// unused
+void func_802F301C_7046CC(u8 ambientRed, u8 ambientGreen, u8 ambientBlue, u8 envRed, u8 envGreen, u8 envBlue, u16 arg6, u16 arg7) {
+    D_803E1BAE = ambientRed;
+    D_803E1BB0 = ambientGreen;
+    D_803E1BB2 = ambientBlue;
+    D_803E1BB4 = envRed;
+    D_803E1BB6 = envGreen;
+    D_803E1BB8 = envBlue;
     D_803E1BA6 = 1;
     D_803E1BA8 = 0;
     D_803E1BAA = arg6;
     D_803E1BAC = arg7;
 }
 
-#if 0
-// CURRENT (30291)
+#ifdef NON_MATCHING
+// CURRENT (30)
 void func_802F30A4_704754(void) {
-    f32 temp_f0;
-
-    f32 temp_f20;
-    f32 temp_f22;
-
-    f32 temp_f2_3;
-    f32 temp_f2_4;
-    f32 var_f0;
-
-    f32 var_f18_2;
+    f32 var_f16;
     f32 var_f20;
-    f32 var_f22;
+    f32 var_f18;
     f32 var_f2;
-    f32 temp_f16_2;
+    f32 var_f14;
+    f32 var_f22;
+    f32 var_f0;
+    f32 temp;
 
     if (D_803A52B8_7B6968 == 0) {
-        if (D_803E1BA2 == D_803E1BA4) {
+        if (D_803E1BA4 == D_803E1BA2) {
             D_803A52A0_7B6950 = D_803E1B99 + D_803E1B8A;
             D_803A52A4_7B6954 = D_803E1B9A + D_803E1B8C;
             D_803A52A8_7B6958 = D_803E1B9B + D_803E1B8E;
@@ -195,13 +202,13 @@ void func_802F30A4_704754(void) {
 
             D_803A52B8_7B6968 = 1;
         } else {
-            temp_f0 = (f32) D_803E1BA4 / D_803E1BA2;
-            D_803A52A0_7B6950 = D_803E1B99 + (D_803E1B8A * temp_f0);
-            D_803A52A4_7B6954 = D_803E1B9A + (D_803E1B8C * temp_f0);
-            D_803A52A8_7B6958 = D_803E1B9B + (D_803E1B8E * temp_f0);
-            D_803A52AC_7B695C = D_803E1B96 + (D_803E1B90 * temp_f0);
-            D_803A52B0_7B6960 = D_803E1B97 + (D_803E1B92 * temp_f0);
-            D_803A52B4_7B6964 = D_803E1B98 + (D_803E1B94 * temp_f0);
+            var_f0 = (f32) D_803E1BA4 / D_803E1BA2;
+            D_803A52A0_7B6950 = D_803E1B99 + (D_803E1B8A * var_f0);
+            D_803A52A4_7B6954 = D_803E1B9A + (D_803E1B8C * var_f0);
+            D_803A52A8_7B6958 = D_803E1B9B + (D_803E1B8E * var_f0);
+            D_803A52AC_7B695C = D_803E1B96 + (D_803E1B90 * var_f0);
+            D_803A52B0_7B6960 = D_803E1B97 + (D_803E1B92 * var_f0);
+            D_803A52B4_7B6964 = D_803E1B98 + (D_803E1B94 * var_f0);
             // water primary
             D_803E1BBA = (D_803F2D50.unk54 + D_803A52A0_7B6950) / 2;
             D_803E1BBB = (D_803F2D50.unk55 + D_803A52A4_7B6954) / 2;
@@ -210,7 +217,7 @@ void func_802F30A4_704754(void) {
             D_803E1BBD = (D_803F2D50.unk58 + D_803A52A0_7B6950) / 2;
             D_803E1BBE = (D_803F2D50.unk59 + D_803A52A4_7B6954) / 2;
             D_803E1BBF = (D_803F2D50.unk5A + D_803A52A8_7B6958) / 2;
-            D_803E1BA4 += 1;
+            D_803E1BA4++;
         }
     } else {
         D_803A52A0_7B6950 = D_803E1B99 + D_803E1B8A;
@@ -238,7 +245,7 @@ void func_802F30A4_704754(void) {
             if (D_803E1BAA == 0) {
                 var_f0 = 1.0f;
             } else {
-                var_f0 = (D_803E1BA8 - (f32) D_803E1BAA) / D_803E1BAC;
+                var_f0 = ((f32) D_803E1BA8 - D_803E1BAA) / D_803E1BAC;
             }
             D_803A52A0_7B6950 = D_803E1BAE + (((f32) D_803A52A0_7B6950 - D_803E1BAE) * var_f0);
             D_803A52A4_7B6954 = D_803E1BB0 + (((f32) D_803A52A4_7B6954 - D_803E1BB0) * var_f0);
@@ -252,22 +259,22 @@ void func_802F30A4_704754(void) {
         D_803E1BA8++;
     }
     if (D_803F2A9A != 0x100) {
-        temp_f0 = D_803F2A9A / 256.0f;
+        var_f0 = (f32) D_803F2A9A / 256;
 
-        D_80204278->lights.a.l.col[0] = D_80204278->lights.a.l.colc[0] = (D_803A52A0_7B6950 * temp_f0);
-        D_80204278->lights.a.l.col[1] = D_80204278->lights.a.l.colc[1] = (D_803A52A4_7B6954 * temp_f0);
-        D_80204278->lights.a.l.col[2] = D_80204278->lights.a.l.colc[2] = (D_803A52A8_7B6958 * temp_f0);
+        D_80204278->lights.a.l.col[0] = D_80204278->lights.a.l.colc[0] = D_803A52A0_7B6950 * var_f0;
+        D_80204278->lights.a.l.col[1] = D_80204278->lights.a.l.colc[1] = D_803A52A4_7B6954 * var_f0;
+        D_80204278->lights.a.l.col[2] = D_80204278->lights.a.l.colc[2] = D_803A52A8_7B6958 * var_f0;
 
-        D_80204278->lights.l[0].l.col[0] = D_80204278->lights.l[0].l.colc[0] = (D_803A52AC_7B695C * temp_f0);
-        D_80204278->lights.l[0].l.col[1] = D_80204278->lights.l[0].l.colc[1] = (D_803A52B0_7B6960 * temp_f0);
-        D_80204278->lights.l[0].l.col[2] = D_80204278->lights.l[0].l.colc[2] = (D_803A52B4_7B6964 * temp_f0);
+        D_80204278->lights.l[0].l.col[0] = D_80204278->lights.l[0].l.colc[0] = D_803A52AC_7B695C * var_f0;
+        D_80204278->lights.l[0].l.col[1] = D_80204278->lights.l[0].l.colc[1] = D_803A52B0_7B6960 * var_f0;
+        D_80204278->lights.l[0].l.col[2] = D_80204278->lights.l[0].l.colc[2] = D_803A52B4_7B6964 * var_f0;
 
-        D_803E1BBD *= temp_f0;
-        D_803E1BBE *= temp_f0;
-        D_803E1BBF *= temp_f0;
-        D_803E1BBA *= temp_f0;
-        D_803E1BBB *= temp_f0;
-        D_803E1BBC *= temp_f0;
+        D_803E1BBD *= var_f0;
+        D_803E1BBE *= var_f0;
+        D_803E1BBF *= var_f0;
+        D_803E1BBA *= var_f0;
+        D_803E1BBB *= var_f0;
+        D_803E1BBC *= var_f0;
     } else {
         D_80204278->lights.a.l.col[0] = D_80204278->lights.a.l.colc[0] = D_803A52A0_7B6950;
         D_80204278->lights.a.l.col[1] = D_80204278->lights.a.l.colc[1] = D_803A52A4_7B6954;
@@ -277,34 +284,38 @@ void func_802F30A4_704754(void) {
         D_80204278->lights.l[0].l.col[1] = D_80204278->lights.l[0].l.colc[1] = D_803A52B0_7B6960;
         D_80204278->lights.l[0].l.col[2] = D_80204278->lights.l[0].l.colc[2] = D_803A52B4_7B6964;
 
-        D_803E1BBA = ((D_803F2D50.unk54 * 3) + D_803A52A0_7B6950) / 4;
-        D_803E1BBB = ((D_803F2D50.unk55 * 3) + D_803A52A4_7B6954) / 4;
-        D_803E1BBC = ((D_803F2D50.unk56 * 3) + D_803A52A8_7B6958) / 4;
-        D_803E1BBD = ((D_803F2D50.unk58 * 3) + D_803A52A0_7B6950) / 4;
-        D_803E1BBE = ((D_803F2D50.unk59 * 3) + D_803A52A4_7B6954) / 4;
-        D_803E1BBF = ((D_803F2D50.unk5A * 3) + D_803A52A8_7B6958) / 4;
+        D_803E1BBA = ((D_803F2D50.unk54 + D_803F2D50.unk54 + D_803F2D50.unk54) + D_803A52A0_7B6950) / 4;
+        D_803E1BBB = ((D_803F2D50.unk55 + D_803F2D50.unk55 + D_803F2D50.unk55) + D_803A52A4_7B6954) / 4;
+        D_803E1BBC = ((D_803F2D50.unk56 + D_803F2D50.unk56 + D_803F2D50.unk56) + D_803A52A8_7B6958) / 4;
+        D_803E1BBD = ((D_803F2D50.unk58 + D_803F2D50.unk58 + D_803F2D50.unk58) + D_803A52A0_7B6950) / 4;
+        D_803E1BBE = ((D_803F2D50.unk59 + D_803F2D50.unk59 + D_803F2D50.unk59) + D_803A52A4_7B6954) / 4;
+        D_803E1BBF = ((D_803F2D50.unk5A + D_803F2D50.unk5A + D_803F2D50.unk5A) + D_803A52A8_7B6958) / 4;
     }
 
     if (D_803F2D50.unk75 != 0) {
-        temp_f20 = (sinf(0.7853947f) * -D_8020421C) + (-D_80204218 * cosf(0.7853947f));
-        temp_f22 = (-D_8020421C * cosf(0.7853947f)) - (sinf(0.7853947f) * -D_80204218);
-        temp_f2_3 = -D_80204220;
+        var_f20 = (-D_80204218 * cosf(0.7853947f)) + (-D_8020421C * sinf(0.7853947f));
+        var_f22 = (-D_8020421C * cosf(0.7853947f)) - (-D_80204218 * sinf(0.7853947f));
 
-        var_f18_2 = MAX(ABS(temp_f20), ABS(temp_f22));
+        var_f14 = var_f2 = -D_80204220;
+        var_f18 = MAX(ABSF(var_f20), ABSF(var_f22));
+        var_f2 = var_f14;
 
-        temp_f0 = sqrtf((temp_f20 * temp_f20) + (temp_f22 * temp_f22));
+        var_f14 = var_f18;
+        var_f0 = sqrtf(SQ(var_f20) + SQ(var_f22));
+        var_f18 = ABSF(var_f2);
 
-        if (var_f18_2 == 0.0f) {
-            var_f18_2 = 1.0f;
+        if (var_f14 == 0.0f) {
+            var_f14 = 1.0f;
         }
-        temp_f2_4 = 127.0f / var_f18_2;
-        var_f20 = temp_f20 * temp_f2_4;
-        var_f22 = temp_f22 * temp_f2_4;
-        temp_f16_2 = temp_f0 / (ABS(temp_f2_3) + 1.0);
 
-        if (temp_f16_2 < 0.25) {
-            var_f20 += 4.0 * (127.0 - var_f20) * (0.25 - temp_f16_2);
-            var_f22 += 4.0 * (0.0 - var_f22) * (0.25 - temp_f16_2);
+        // var_f16 = 127.0f / var_f14;
+        var_f20 *= 127.0f / var_f14;
+        var_f22 *= 127.0f / var_f14;
+        var_f16 = var_f0 / (var_f18 + 1.0);
+
+        if (var_f16 < 0.25) {
+            var_f20 += 4 * (127.0 - var_f20) * (0.25 - var_f16);
+            var_f22 += 4 * (0.0 - var_f22) * (0.25 - var_f16);
         }
         var_f2 = 50.0f;
     } else {
