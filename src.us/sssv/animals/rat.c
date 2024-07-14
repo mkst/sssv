@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "camera.h"
+
 
 extern Gfx D_01003548_3CE18[];
 extern Gfx D_01003618_3CEE8[];

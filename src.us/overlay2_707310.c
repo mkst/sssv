@@ -1637,7 +1637,7 @@ void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 a
 }
 
 // ESA: func_80052548
-// similar to SSSV: func_8033AC68_74C318
+// similar to SSSV: update_camera_from_waypoint
 void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s16 arg4, u8 arg5) {
     s16 sp58[4];
 
@@ -2609,7 +2609,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
     case 17: // trophy?
         do_item_collected_effect(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 3);
         break;
-    case 18: //
+    case 18: // key?
         do_item_collected_effect(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 4);
         break;
     case 19: // shockwave

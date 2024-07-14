@@ -110,7 +110,7 @@ void do_rumble(s16, s16, s16, s16, s32);
 void black_out_screen(Gfx **dl);
 
 // overlay1_63C660
-u8 language_select_menu(s16 arg0);
+s16 language_select_menu(s16 arg0);
 
 // overlay2_6A6500.c
 s32  get_evo_suit_color(void);

@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "camera.h"
+
 
 // ========================================================
 // externs
@@ -15,16 +17,19 @@ extern u8  D_010226D0_5BFA0[];
 extern u8  D_01022ED0_5C7A0[];
 extern u8  D_01023550_5CE20[];
 extern u8  D_01023D50_5D620[];
-extern u8  D_01024550_5DE20[]; // 512 bytes per image
-extern u8  D_01025750_5F020[]; // 512 bytes per image
-extern u8  D_01026950_60220[];
-extern u8  D_01027B50_61420[];
+extern u8  D_01024550_5DE20[][512]; // 32 x 32 x 0.5
+extern u8  D_01025750_5F020[][512]; // 32 x 32 x 0.5
+extern u8  D_01026950_60220[][512]; // 32 x 32 x 0.5
+extern u8  D_01027B50_61420[][512]; // 32 x 32 x 0.5
 extern u8  D_01028D50_62620[];
 extern u8  D_01029550_62E20[];
 extern u8  D_0102C210_65AE0[];
 extern u8  D_0102CA10_662E0[];
 
 extern Gfx *D_801D9EB0;
+
+extern s16 D_803A2C00_7B42B0[32][3];
+
 
 // ========================================================
 // .data
@@ -283,7 +288,7 @@ s32 unkfoo[] = {
 
 #endif
 
-extern u8  D_803B74D0_7C8B80[];
+extern u8  D_803B74D0_7C8B80[7][2048]; // butterflies
 
 
 // ========================================================
@@ -292,10 +297,10 @@ extern u8  D_803B74D0_7C8B80[];
 
 struct084 D_803D6120; // size 0x3FD8
 
-s32 D_803DA0FC; // could be static?
-s32 D_803DA100; // could be static?
-s32 D_803DA104; // could be static?
-s32 D_803DA108; // could be static?
+s32 D_803DA0FC; // these don't appear to be static...
+s32 D_803DA100; // these don't appear to be static...
+s32 D_803DA104; // these don't appear to be static...
+s32 D_803DA108; // these don't appear to be static...
 
 // ========================================================
 // .text
@@ -311,55 +316,48 @@ void reset_particles(void) {
 
 #if 0
 
-// CURRENT (29458)
-
-typedef struct {
-  s16 unk0;
-  s16 unk2;
-  s16 unk4;
-} tmp;
-// could be a struct size 0x6?
-extern tmp D_803A2C00_7B42B0[32];
-
-void func_8032F170_740820(Gfx **arg0, s32 x, s32 z, s32 y, s16 arg4, s16 arg5, s32 arg6, s32 arg7, u8 arg8, s16 arg9);
-
+// CURRENT (28217)
 void func_802CB394_6DCA44(s32 arg0) {
-    s32 pad2[2];
-    s16 sp806;
-    s32 pad[3];
-    u16 sp7E2;
-    u8  sp7DD;
-    s16 sp7DA;
+    s32 pad0[2];
 
-    struct036 *var_s1;
-    Gfx **dl;
+    s16 sp806;
+
+    s32 pad[4];
 
     s16 var_s0;
     s16 var_s2;
-    s16 temp_a0_4;
+    s16 var_s4;
 
-    u16 temp_fp;
+    s16 temp_a0;
+    s32 temp_v1;
+    struct036 *var_s1;
+    Gfx **dl;
 
-    u16 temp_t4_48;
+    u16 sp7E2;
 
-    u16 k;
-    u8  i;
+    s16 pad1;
+    s16 pad2;
+    s16 pad3;
+
+    u8  sp7DD;
+
+    s16 sp7DA;
+
+    u16 size;
+
+    u8  i;  // var_s3?
     u16 j;
+    u16 k;
     u8 lodFraction;
 
-    struct099 *particle;
     u16 flags;
     u16 colorPriRGBA5551;
     u16 colorEnvRGBA5551;
 
-    s16 temp_t0; // tbd
-    s16 var_s4;
-
     s32 sp7C0;
     s16 sp7B0[8];
 
-    s32 temp_v0_88;
-    s32 temp_v1_36;
+    struct099 *particle;
 
     sp806 = 0;
     func_8012826C();
@@ -370,6 +368,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
     var_s1 = &D_803D6120.particles; // D_803D6128
 
+    // disable all displaylists
     for (j = 0; j < 8; j++) {
         D_803D6120.unk3FC8[j] = 0;
     }
@@ -396,7 +395,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[0]++,
-    /* timg   */  D_0102CA10_662E0,
+    /* timg   */  D_0102CA10_662E0, // ???
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -536,7 +535,6 @@ void func_802CB394_6DCA44(s32 arg0) {
     /* shiftt */  G_TX_NOLOD
     );
 
-
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
     /* timg   */  D_01029550_62E20,
@@ -566,11 +564,10 @@ void func_802CB394_6DCA44(s32 arg0) {
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPSetTileSize(D_801D9E98[1]++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(127));
 
-// while (sp7E2 < 0xFF);
     for (sp7E2 = 0; sp7E2 < 0xFF; sp7E2++) {
-    // do {
+
         if (var_s1->unk36 != 0) {
-            var_s1->unk36--; // = (s16) (var_s1->unk36 - 1);
+            var_s1->unk36--;
         } else if (var_s1->unk18 != 0) {
             particle = &D_803A20C0_7B3770[var_s1->id];
             sp7DD = particle->unkD; //>pad6[7];
@@ -585,30 +582,28 @@ void func_802CB394_6DCA44(s32 arg0) {
             // doesnt seem to be a switch
             if (particle->unk6 != 0) {
                 if (particle->unk6 == 2) {
-                    var_s1->unk0  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)].unk0 << 8;
-                    var_s1->unk8  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)].unk2 << 8;
-                    var_s1->unk10 += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)].unk4 << 8;
+                    var_s1->unk0  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)][0] << 8;
+                    var_s1->unk8  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)][1] << 8;
+                    var_s1->unk10 += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)][2] << 8;
                 } else {
                     // article->unk6 == 1 ?
-                    var_s1->unk0  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)].unk0 << 8;
-                    var_s1->unk8  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)].unk2 << 8;
-                    var_s1->unk10 += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)].unk4 << 8;
+                    var_s1->unk0  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)][0] << 8;
+                    var_s1->unk8  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)][1] << 8;
+                    var_s1->unk10 += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + ((var_s1->unk18 + sp7E2) & 0x1F)][2] << 8;
                 }
             }
 
-            // TBD
-            var_s4 = 0;
             if (flags & 2) {
                 if (sp7DA == ((var_s1->unk18 % sp7DA) + 1)) {
-                    var_s1->unk2D++; // = (u8) (var_s1->unk2D + 1);
+                    var_s1->unk2D++;
                 }
-                // temp_v0_53 = particle->unkC;
-                // if ((s32) temp_v0_53 < (s32) var_s4) {
-                //     var_s4 = (u8) (s16) temp_v0_53;
-                // } else {
-                //   var_s4 = var_s1->unk2D;
-                // }
-                var_s4 = MAX(particle->unkC, var_s1->unk2D);
+
+                var_s4 = var_s1->unk2D;
+                if (particle->unkC < var_s4) {
+                    var_s4 = particle->unkC;
+                }
+            } else {
+                var_s4 = 0;
             }
 
             if (flags & 0x10) {
@@ -654,15 +649,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     var_s2 = 0;
                 }
 
-// #if 0
-//                 temp_ret_3 = __ll_rshift(var_s1->unk10, var_s1->unk14, 0, 0x10);
-//                 temp_v0_55 = temp_ret_3;
-//                 temp_t6_5 = var_s2 >> 0x1F;
-//                 if ((temp_v0_55 < temp_t6_5) || ((temp_t6_5 >= temp_v0_55) && ((u32) (u64) temp_ret_3 < (u32) var_s2)) || (temp_ret_4 = __ll_rshift(var_s1->unk10, var_s1->unk14, 0, 0x10), temp_v0_56 = temp_ret_4, temp_t6_6 = sp7C0 >> 0x1F, ((temp_v0_56 < temp_t6_6) != 0)) || ((temp_t6_6 >= temp_v0_56) && ((u32) (u64) temp_ret_4 < (u32) sp7C0)) || ((temp_ret_5 = __ll_rshift(var_s1->unk0, var_s1->unk4, 0, 0x10), spC8 = temp_ret_5, spCC = (u32) (u64) temp_ret_5, temp_v0_57 = func_80310F58_722608(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10), temp_t6_7 = var_s1->unk10, temp_t8_6 = temp_v0_57 >> 0x1F, ((temp_t8_6 < temp_t6_7) == 0)) && ((temp_t6_7 < temp_t8_6) || ((u32) var_s1->unk14 < (u32) temp_v0_57)) && (var_s1->unk38 & 1))) {
-//
-// #endif
-                if (((var_s1->unk10 >> 0x10) < var_s2) || ((var_s1->unk10 >> 0x10) < sp7C0) ||
-                    ((func_80310F58_722608(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) > (var_s1->unk10)) && (var_s1->unk38 & 1))) {
+                if (((var_s1->unk10 >> 0x10) < var_s2) ||
+                    ((var_s1->unk10 >> 0x10) < sp7C0) ||
+                    ((var_s1->unk10 < func_80310F58_722608(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10)) && (var_s1->unk38 & 1))) {
 
                     if (flags & 0x80) {
                         var_s1->unk18 = 0;
@@ -671,7 +660,6 @@ void func_802CB394_6DCA44(s32 arg0) {
                             if (D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk6 < (D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk0 * 2)) {
                                 D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk6 = D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk0 * 2;
                             }
-
                             D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk6 += var_s1->unk34;
 
                             create_particle_effect_2(
@@ -697,13 +685,12 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                     var_s1->unk0 += var_s1->unk20;
                     var_s1->unk8 += var_s1->unk24;
-
                 }
             }
 
             colorPriRGBA5551 = var_s1->primaryColor;
             colorEnvRGBA5551 = var_s1->envColor;
-            temp_fp = var_s1->size; // & 0xFFFF;
+            size = var_s1->size; // & 0xFFFF;
 
             dl = &D_801D9E98[sp7DD];
 
@@ -719,7 +706,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  &D_01024550_5DE20[var_s4 << 9],
+                        /* timg   */  D_01024550_5DE20[var_s4],
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -739,7 +726,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  &D_01024550_5DE20[var_s4 << 9],
+                        /* timg   */  D_01024550_5DE20[var_s4],
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -768,14 +755,15 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk10,
                         0x1F,
                         0x1F,
-                        temp_fp << 8,
-                        temp_fp << 8,
+                        size << 8,
+                        size << 8,
                         0,
                         0);
                     break;
                 case 0x3:
                 case 0x4:
                 case 0x5:
+                    // impossible check?
                     if ((var_s1->id == 2) && (SSSV_RAND(16) == 1)) {
                         create_particle_effect_2(
                             (var_s1->unk0 >> 0x10) + SSSV_RAND(64) - 0x20,
@@ -791,7 +779,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  &D_01025750_5F020[var_s4 << 9],
+                        /* timg   */  D_01025750_5F020[var_s4],
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -811,7 +799,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  &D_01025750_5F020[var_s4 << 9],
+                        /* timg   */  D_01025750_5F020[var_s4],
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -840,8 +828,8 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk10,
                         0x1F,
                         0x1F,
-                        temp_fp << 8,
-                        temp_fp << 8,
+                        size << 8,
+                        size << 8,
                         0,
                         0);
                     break;
@@ -862,7 +850,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  &D_01026950_60220[var_s4 << 9],
+                        /* timg   */  D_01026950_60220[var_s4],
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -882,7 +870,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  &D_01026950_60220[var_s4 << 9],
+                        /* timg   */  D_01026950_60220[var_s4],
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -911,8 +899,8 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk10,
                         0x1F,
                         0x1F,
-                        temp_fp << 8,
-                        temp_fp << 8,
+                        size << 8,
+                        size << 8,
                         0,
                         0);
                     break;
@@ -920,7 +908,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           /* pkt    */  (*dl)++,
-                          /* timg   */  &D_01027B50_61420[var_s4 << 9],
+                          /* timg   */  D_01027B50_61420[var_s4], // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
@@ -940,7 +928,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                           /* pkt    */  (*dl)++,
-                          /* timg   */  &D_01027B50_61420[var_s4 << 9],
+                          /* timg   */  D_01027B50_61420[var_s4], // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
@@ -968,22 +956,22 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk10,
                         0x1F,
                         0x1F,
-                        temp_fp << 8,
-                        temp_fp << 8,
+                        size << 8,
+                        size << 8,
                         0,
                         0);
                     break;
                 case 0xA:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /*tmem?*/ (var_s4 * 0x10) + 0x90, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /*tmem?*/ (var_s4 + 0x9) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0xFF - var_s1->unk18, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
-                    var_s1->unk18 = (s16) ((var_s1->unk18 - var_s1->unk34) + 1);
+                    var_s1->unk18 = (var_s1->unk18 - var_s1->unk34) + 1;
                     if (var_s1->unk18 < 0) {
                         var_s1->unk18 = 0;
                     }
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0xB:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00C0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -991,7 +979,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0xC:
                     if ((var_s1->unk10 >> 0x10) > (D_803C0740[((((var_s1->unk0) >> 0x10) + 0x40) >> 6)][(var_s1->unk8 >> 0x10) >> 6].unk6 * 4)) {
@@ -1001,13 +989,13 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s4 = 0;
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /* tmem */ (var_s4 * 0x10) + 0xA0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /* tmem */ (var_s4 * 0x10) + 0xA0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /* tmem */ (var_s4 + 0xA) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /* tmem */ (var_s4 + 0xA) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     var_s1->unk10 += ((var_s1->size >> 3) + 1) << 0x10;
 
                     break;
@@ -1028,8 +1016,8 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk10,
                         0xF,
                         0xF,
-                        temp_fp << 8,
-                        (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8,
+                        size << 8,
+                        (D_803A6CC0_7B8370 * (size << 8)) >> 8,
                         0,
                         0);
                     break;
@@ -1066,7 +1054,7 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                     var_s1->unk28 -= 0x7FF8; //= (s32) (var_s1->unk28 - 0x7FF8);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 9, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     break;
                 case 0x12:
                     var_s2 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
@@ -1107,7 +1095,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x13:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) << 0x10;
@@ -1119,30 +1107,28 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
                     var_s1->size += 2;
-                    if (var_s1->size >= 0x29) {
+                    if (var_s1->size > 40) {
                         var_s1->unk18 = 0;
                     }
 
-                    var_s1->unk20 = (((((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 0xF0) >> 4) & 7) * (1 - (((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 >> 4) & 8) >> 2))) << 0x10);
-
-                    // help
-                    var_s1->unk24 = (((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 7) * (1 - ((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 8) >> 2))) << 0x10);
+                    var_s1->unk20 = ((((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 0xF0) >> 4) & 7) * (1 - (((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 >> 4) & 8) >> 2))) << 0x10;
+                    var_s1->unk24 = ((((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 & 0x7 ) >> 0) & 7) * (1 - (((D_803C0740[(var_s1->unk0 >> 0x10) >> 6][(var_s1->unk8 >> 0x10) >> 6].unk7 >> 0) & 8) >> 2))) << 0x10;
 
                     var_s1->unk0 += var_s1->unk20;
                     var_s1->unk8 += var_s1->unk24;
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (temp_fp << 8), (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (size << 8), (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x14:
                 case 0x1D:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (((var_s4 * 0x10) + 0xB0)), G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (((var_s4 * 0x10) + 0xC0)), 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x15:
                 case 0x16:
@@ -1153,7 +1139,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x18:
                     var_s2 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
@@ -1203,13 +1189,13 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x19:
                 case 0x1A:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xB0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xC0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
@@ -1218,7 +1204,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->size += SSSV_RAND(8) + 3;
                     }
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x1B:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1226,7 +1212,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x1C:
@@ -1248,22 +1234,22 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s4 = 0;
                     }
                     if ((gCameras[gCameraId].unk7C - 12.0f) < (f32) var_s2) {
-                        gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xC0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                        gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xD0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                         gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[6]++, 0, lodFraction, colorPriRGBA5551, 0xB4);
                         gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[6]++, colorEnvRGBA5551, 0xB4);
 
-                        func_8032F170_740820(&D_801D9EB0, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                        func_8032F170_740820(&D_801D9EB0, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                         D_803D6120.unk3FC8[6] = 1;
                     } else {
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x60, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x70, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                         gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xB4);
                         gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xB4);
 
-                        func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                        func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     }
 
                     var_s1->unk0 += var_s1->unk20;
@@ -1271,22 +1257,22 @@ void func_802CB394_6DCA44(s32 arg0) {
                     var_s1->unk10 += (((s16) var_s1->size >> 3) + 2) << 0x10;
                     break;
                 case 0x1E:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x140, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 9, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     /* fallthrough */
                 case 0x1F:
                 case 0x20:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x140, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
                     var_s1->size += SSSV_RAND(2) + 1;
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 9, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     break;
 
                 case 0x22:
@@ -1299,8 +1285,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // temp_t0_124->words.w0 = 0xFA000000;
                     // sp3C4 = temp_t0_124;
                     // temp_s2_7 = func_8012826C() & 0xFFFF;
-                    // sp96 = func_8012826C();
-                    // sp3C4->words.w1 = (((255 * SSSV_RAND(2)) & 0xFF) << 8) | ((sp96 & 1) * 0xFF000000) | ((((temp_s2_7 & 1) * 0xFF) & 0xFF) << 0x10) | 0xC8;
+                    // sp3C4->words.w1 = (((255 * SSSV_RAND(2)) & 0xFF) << 8) | ((func_8012826C() & 1) * 0xFF000000) | ((((temp_s2_7 & 1) * 0xFF) & 0xFF) << 0x10) | 0xC8;
                     gDPSetPrimColor((*dl)++, 0, 0, 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 0xC8);
 
                     // temp_t0_125 = *temp_s0;
@@ -1320,7 +1305,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0x19);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0x19);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
                     break;
                 case 0x24:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1328,7 +1313,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x25:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1336,7 +1321,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x26:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0010, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1344,7 +1329,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     if ((var_s1->size >= 5) && (D_80151424 == 1)) {
                           var_s1->size--;
@@ -1370,7 +1355,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x29:
                     var_s1->size--;
@@ -1383,7 +1368,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColor((*dl)++, 0, 0, (var_s1->unk18 * 2), (var_s1->unk18 * 2), (var_s1->unk18 * 2), 0xFF);
                     gDPSetEnvColor((*dl)++, 0x00, 0x00, 0x00, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x2A:
                     if (var_s1->unk18 & 8) {
@@ -1398,7 +1383,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x2B:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) << 0x10;
@@ -1413,15 +1398,15 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s1->unk34 < var_s1->size) {
                         var_s1->unk18 = 0;
                     }
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, (s32) (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x2C:
-                    temp_a0_4 = (var_s1->unk18 + 0x10) << 3;
-                    temp_v1_36 = var_s1->unk18 << 4;
+                    temp_a0 = (var_s1->unk18 + 0x10) << 3;
+                    temp_v1 = var_s1->unk18 << 4;
 
-                    var_s1->unk0 += ((SIN(temp_v1_36) >> 6) - (SIN(temp_a0_4) >> 6)) << 9;
-                    var_s1->unk8 += ((COS(temp_v1_36) >> 6) - (COS(temp_a0_4) >> 6)) << 9;
+                    var_s1->unk0 += ((SIN(temp_v1) >> 6) - (SIN(temp_a0) >> 6)) << 9;
+                    var_s1->unk8 += ((COS(temp_v1) >> 6) - (COS(temp_a0) >> 6)) << 9;
                     var_s1->unk10 += ((COS(var_s1->unk18 << 3) >> 6) - (COS((var_s1->unk18 + 0x1F) << 2) >> 6)) << 8;
 
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1431,27 +1416,27 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x2E:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x70, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x80, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x8) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x32:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x180, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x190, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x18) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x19) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     var_s1->unk10 -= 0x8000;
                     if (var_s4 >= particle->unkC) {
@@ -1473,7 +1458,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->unk18 = 0;
                     }
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x36:
                     var_s2 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
@@ -1550,8 +1535,8 @@ void func_802CB394_6DCA44(s32 arg0) {
                         }
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xC0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xD0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
@@ -1559,7 +1544,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                         var_s1->size += SSSV_RAND(8) + 3;
                     }
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x37:
@@ -1593,7 +1578,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 1, 8);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 1, 8);
 
                     var_s1->unk10 -= 0x30000;
 
@@ -1646,7 +1631,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                                 0);
                         } else {
                             sp7C0 = func_80310F58_722608(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
-                            if (((var_s1->unk10) < sp7C0) && (var_s1->unk38 & 1)) {
+                            if ((var_s1->unk10 < sp7C0) && (var_s1->unk38 & 1)) {
                                 var_s1->unk18 = 0;
                                 create_particle_effect(
                                     var_s1->unk0 >> 0x10,
@@ -1679,7 +1664,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // temp_t0_168->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 1, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 1, 0);
                     break;
 
                 case 0x39:
@@ -1749,17 +1734,17 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, (s32) ((D_803F2A9C + 4) * (temp_fp << 8)) >> 8, 1, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) ((D_803F2A9C + 4) * (size << 8)) >> 8, 1, 0);
                     var_s1->unk10 -= 0xE0000;
                     break;
                 case 0x3A:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x0) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x3C:
@@ -1769,20 +1754,20 @@ void func_802CB394_6DCA44(s32 arg0) {
                         lodFraction = (0xFF - (var_s1->unk18 << 5));
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0180, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x10 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
-                    D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
+                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
+                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
                     D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
                     D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
-                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
                     break;
                 case 0x3D:
                     if (var_s1->unk18 >= 9) {
@@ -1791,8 +1776,8 @@ void func_802CB394_6DCA44(s32 arg0) {
                         lodFraction = (0xFF - (var_s1->unk18 << 5));
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0080, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0180, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x08 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
@@ -1804,23 +1789,23 @@ void func_802CB394_6DCA44(s32 arg0) {
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
-                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
                     break;
 
                 case 0x3F:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x140, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x40:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) << 0x10;
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x180, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x17) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x18) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
@@ -1831,18 +1816,18 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s1->size < var_s1->unk34) {
                         var_s1->size += SSSV_RAND(2) + 1;
                     }
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, (s32) (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x41:
                     lodFraction = (var_s1->unk34 << 3);
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0180, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x10 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+
                     D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 2;
 
                     var_s1->unk34++;
@@ -1857,18 +1842,18 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (temp_fp << 8), (s32) (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (size << 8), (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
                 case 0x47:
                 case 0x48:
                 case 0x49:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x30, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x40, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x3) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x4) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
@@ -1876,13 +1861,13 @@ void func_802CB394_6DCA44(s32 arg0) {
                 case 0x4A:
                 case 0x4B:
                 case 0x4C:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x90, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xA0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x9) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xA) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0U;
                     }
@@ -1890,13 +1875,13 @@ void func_802CB394_6DCA44(s32 arg0) {
                 case 0x4D:
                 case 0x4E:
                 case 0x4F:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xE0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0xF0, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xE) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xF) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
@@ -1904,22 +1889,23 @@ void func_802CB394_6DCA44(s32 arg0) {
                 case 0x50:
                 case 0x51:
                 case 0x52:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x140, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
                     break;
                 case 0x53:
+                    // butterfly
                     gDPLoadTextureBlock(
                     /* pkt    */  (*dl)++,
-                    /* timg   */  &D_803B74D0_7C8B80[var_s1->unk34 << 0xB],
+                    /* timg   */  &D_803B74D0_7C8B80[var_s1->unk34],
                     /* fmt    */  G_IM_FMT_RGBA,
                     /* siz    */  G_IM_SIZ_16b,
                     /* width  */  32,
@@ -1933,17 +1919,17 @@ void func_802CB394_6DCA44(s32 arg0) {
                     /* shiftt */  G_TX_NOLOD
                     );
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, temp_fp << 7, temp_fp << 7, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 7, size << 7, 0, 0);
                     break;
 
                 case 0x55:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x70, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x80, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x8) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
@@ -2028,17 +2014,20 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // temp_t0_220->words.w0 = 0xFB000000;
                     // temp_t0_220->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
-                    // temp_t4_45 = temp_fp << 8;
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    // temp_t4_45 = size << 8;
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
-                    D_803DA0FC = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
-                    D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
+                    // why are we doing this just to discard it?
+                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
+                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
                     D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
 
-                    D_803DA0FC = var_s1->unk0 >> 0x10; // (u32) (u64) __ll_rshift(var_s1->unk0, var_s1->unk4, 0, 0x10);
-                    D_803DA100 = var_s1->unk8 >> 0x10; // (u32) (u64) __ll_rshift(var_s1->unk8, var_s1->unkC, 0, 0x10);
-                    D_803DA104 = var_s1->unk10 >> 0x10; //(u32) (u64) __ll_rshift(var_s1->unk10, var_s1->unk14, 0, 0x10);
-                    if ((D_803DA0FC > -1000) && (D_803DA0FC < 5500) && (D_803DA100 > -1000) && (D_803DA100 < 7600) && (D_803DA104 > -500) && (D_803DA104 < 2500)) {
+                    D_803DA0FC = var_s1->unk0 >> 0x10;
+                    D_803DA100 = var_s1->unk8 >> 0x10;
+                    D_803DA104 = var_s1->unk10 >> 0x10;
+                    if ((-1000 < D_803DA0FC) && (D_803DA0FC < 5500) &&
+                        (-1000 < D_803DA100) && (D_803DA100 < 7600) &&
+                        (-500  < D_803DA104) && (D_803DA104 < 2500)) {
                         var_s1->unk18 = 0;
                     }
                     break;
@@ -2049,7 +2038,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     var_s1->size -= 3;
                     if (var_s1->size < 3) {
@@ -2062,7 +2051,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
                     break;
                 case 0x59:
 
@@ -2082,9 +2071,10 @@ void func_802CB394_6DCA44(s32 arg0) {
                     } else {
                         var_s1->unk18 = 0;
                     }
-                    temp_fp = var_s1->unk34 + var_s1->size;
-                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, temp_fp << 8, temp_fp << 8, 0, 0);
+                    size = var_s1->unk34 + var_s1->size;
+                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x5A:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2092,8 +2082,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x5B:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x20, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x30, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2101,11 +2092,12 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x5C:
                     if (var_s4 >= particle->unkC) {
-                        var_s1->unk2D = 0U;
+                        var_s1->unk2D = 0;
                     }
 
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2114,8 +2106,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x5D:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x5) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2123,7 +2116,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x5E:
@@ -2134,8 +2127,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x63:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x140, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2147,8 +2141,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     if (var_s1->size < var_s1->unk34) {
                         var_s1->size += SSSV_RAND(8);
                     }
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, (s32) (D_803A6CC0_7B8370 * (temp_fp << 8)) >> 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
+
                 case 0x64:
                 case 0x65:
                     if (var_s4 >= particle->unkC) {
@@ -2163,8 +2158,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x66:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0030, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
@@ -2187,6 +2183,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                             0);
                     }
                     break;
+
                 case 0x69:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2195,11 +2192,12 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
                     if (var_s4 >= particle->unkC) {
-                        var_s1->unk2D = 0U;
+                        var_s1->unk2D = 0;
                     }
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x6A:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1B) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1C) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2207,8 +2205,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x6B:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1E) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1F) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2216,8 +2215,9 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 9, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     break;
+
                 case 0x6C:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -2225,16 +2225,18 @@ void func_802CB394_6DCA44(s32 arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xB4);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xB4);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x6D:
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0x19);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0x19);
 
-                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, temp_fp << 8, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
+
                 case 0x6E:
                     lodFraction = (var_s1->unk18 << 4);
                     // *temp_s0 = temp_t0_3 + 8;
@@ -2258,8 +2260,8 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // temp_t0_264->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
-                    D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
+                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
+                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
                     D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
                     D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
                     // temp_t9_42 = var_s1->unk14 + 0x80000U;
@@ -2268,7 +2270,7 @@ void func_802CB394_6DCA44(s32 arg0) {
                     // var_s1->unk10 = (s32) (var_s1->unk10 + (temp_t9_42 < 0x80000U));
                     var_s1->unk10 += 0x80000;
                     var_s1->unk34 += 4; //(u16) (var_s1->unk34 + 4);
-                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, temp_fp << 8, 0, 0);
+                    func_8032F170_740820(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
                     break;
 
                 }
@@ -2306,7 +2308,7 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
     u8 used; // sp3F
     u16 rand;
 
-    s32 temp_v0_2;
+    s16 temp_v0_2;
     s32 temp_v0_3;
     struct036 *particle;
     struct099 *var_t2;
@@ -3373,17 +3375,18 @@ void create_sparks(s16 x, s16 z, s16 y, s16 size, u16 color) {
 
 // ESA: func_800AB3B8
 void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3) {
-    s16 phi_s0;
+    s16 idx;
     u16 temp_v1;
     s16 i;
 
-    phi_s0 = RAND(4);
+    idx = RAND(4);
 
     switch (arg3) {
     case 1: // energy ball
         play_sound_effect_at_location(SFX_PICKUP_ENERGY_BALL, 0x6000, 0, x, z, y, 1.0f);
         for (i = 0; i < 8; i++) {
-            phi_s0 = (s16)(phi_s0 + 1) % 4;
+            idx++;
+            idx %= 4;
             create_particle_effect(
                 x,
                 z,
@@ -3393,15 +3396,16 @@ void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3) {
                 0,
                 0,
                 16,
-                D_803A20B0_7B3760[phi_s0],
-                D_803A20B0_7B3760[phi_s0],
+                D_803A20B0_7B3760[idx],
+                D_803A20B0_7B3760[idx],
                 i << 2);
         }
         break;
     case 2: // powercell?
         play_sound_effect_at_location(D_803A1BB0_7B3260[D_803F2D30.powercells].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[D_803F2D30.powercells].unk0);
         for (i = 0; i < 8; i++) {
-            phi_s0 = (s16)(phi_s0 + 1) % 4;
+            idx++;
+            idx %= 4;
             create_particle_effect(
                 x,
                 z,
@@ -3411,8 +3415,8 @@ void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3) {
                 0,
                 0,
                 16,
-                D_803A20B0_7B3760[phi_s0 + 4],
-                D_803A20B0_7B3760[phi_s0 + 4],
+                D_803A20B0_7B3760[idx + 4],
+                D_803A20B0_7B3760[idx + 4],
                 i << 2);
         }
         break;

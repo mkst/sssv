@@ -9,7 +9,7 @@ static s16  D_803B0594;
 static s16  previousSelection;
 
 
-u8 language_select_menu(s16 arg0) {
+s16 language_select_menu(s16 arg0) {
     s16 used;
     s16 lang;
     s16 verticalOffset;
@@ -197,5 +197,5 @@ u8 language_select_menu(s16 arg0) {
             break;
         }
     }
-    return -1;
+    return 0xFF;
 }

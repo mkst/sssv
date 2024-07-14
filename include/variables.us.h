@@ -337,12 +337,12 @@ extern u8   D_801552B0;
 extern u8   D_801552B4;
 
 // overlay1_6384F0
-extern s32  D_801552C0;
-extern s32  D_80155AC0;
-extern s32  D_801562C0;
-extern s32  D_80156AC0;
-extern s32  D_801572C0;
-extern s32  D_80157AC0;
+extern u8   D_801552C0[]; // C
+extern u8   D_80155AC0[]; // H
+extern u8   D_801562C0[]; // .
+extern u8   D_80156AC0[]; // |
+extern u8   D_801572C0[]; // 1
+extern u8   D_80157AC0[]; // 0
 
 extern Gfx  D_801582C0[];
 extern Gfx  D_80158368[];
@@ -641,93 +641,6 @@ extern u8   D_802912E3; // d-left pressed
 extern u8   D_802912E4; // d-right pressed
 extern u8   D_802912E5; // z pressed
 
-extern Subtitle D_80299960_63D000[28];
-extern s32 D_80299A40_63D0E0;
-extern s32 D_80299A58_63D0F8;
-extern s32 D_80299A88_63D128;
-extern s32 D_80299ACC_63D16C;
-extern s32 D_80299AF8_63D198;
-extern s32 D_80299B30_63D1D0;
-extern s32 D_80299B74_63D214;
-extern s32 D_80299B94_63D234;
-extern s32 D_80299BC4_63D264;
-extern s32 D_80299BF0_63D290;
-extern s32 D_80299C20_63D2C0;
-extern s32 D_80299C50_63D2F0;
-extern s32 D_80299C70_63D310;
-extern u16  D_80299C84_63D324[3];
-extern s32  D_80299CD0_63D370;
-extern Lights1 D_80299D50_63D3F0;
-// extern Light *D_80299D58_63D3F8;
-// extern s32  D_80299960_63D000;
-extern Lights1 D_80299D90_63D430;
-extern Light D_80299D98_63D438;
-
-extern f32  D_80299DB8_63D458;
-extern f32  D_80299DBC_63D45C;
-extern f32  D_80299DC0_63D460;
-extern f32  D_80299DC4_63D464;
-extern f32  D_80299DC8_63D468;
-extern f32  D_80299DCC_63D46C;
-extern f32  D_80299DD0_63D470;
-extern f32  D_80299DD4_63D474;
-extern f32  D_80299DD8_63D478;
-extern f32  D_80299DDC_63D47C;
-extern f32  D_80299DE0_63D480;
-extern f32  D_80299DE4_63D484;
-extern f32  D_80299DE8_63D488;
-extern f32  D_80299DEC_63D48C;
-extern f32  D_80299DF0_63D490;
-extern f32  D_80299DF4_63D494;
-extern u8   D_80299DF8_63D498;
-/*
-  1 - NEWSFLASH
-  2 - Newscaster
-  3 - Main splash (rotating spaceship)
-  4 - black screen
-  5 - blue screen (scrolling)
-  6 - black screen
-  7 - black screen
-  8 - static spaceship
-  9 - NEWSFLASH + 200 credz
-  A - black screen
-*/
-extern u8   D_80299DFC_63D49C; // intro state
-extern u8   D_80299E18_63D4B8;
-extern u8   D_80299E04_63D4A4;
-extern u16  D_80299E08_63D4A8;
-extern u16  D_80299E0C_63D4AC;
-extern u16  D_80299E10_63D4B0;
-extern u8   D_80299E14_63D4B4;
-extern u16  D_80299E1C_63D4BC;
-extern s8   D_80299E20_63D4C0;
-extern s8   D_80299E24_63D4C4;
-extern s8   D_80299E28_63D4C8;
-extern s16  D_80299E2C_63D4CC;
-extern s16  D_80299E34_63D4D4;
-extern s16  D_80299E3C_63D4DC;
-extern s16  D_80299E40_63D4E0;
-extern u8   D_80299E44_63D4E4[];
-
-// 0x802Axxxx
-extern u8   D_802A37E0_646E80[]; // img/intro/president_frank_bloke
-extern u8   D_802AA7B0_64DE50[]; // img/sssv_logo
-
-// 0x802Bxxxx
-extern u8   D_802B58A0_658F40[];
-extern u8   D_802B5CA0_659340[];
-extern u8   D_802B60A0_659740[];
-extern u8   D_802BF170_662810[]; // 200_credz
-// 0x802Cxxxx
-
-extern u8   D_802C6C90_66A330[];
-extern u8   D_802D00F0_673790[];
-extern u8   D_802DA900_67DFA0[];
-// 0x802Exxxx
-
-extern const Gfx  D_802EEB20_6921C0[]; // spaceship model
-extern const Gfx  D_802F3C20_6972C0[527]; // N64 controller model
-
 // BSS (overlay1)
 
 // extern s16  D_803A05C0_7B1C70;
@@ -777,13 +690,10 @@ extern u16  D_803A5750_7B6E00; // number of waypoints?
 extern u16  D_803A5760_7B6E10;
 extern s16  D_803A5764_7B6E14;
 // extern u8  *D_803A5BF8_7B72A8[36][2];
-extern u8   D_803A52A0_7B6950;
-extern u8   D_803A52A4_7B6954;
-extern u8   D_803A52A8_7B6958;
-extern u8   D_803A52AC_7B695C;
-extern u8   D_803A52B0_7B6960;
-extern u8   D_803A52B4_7B6964;
-extern u8   D_803A52B8_7B6968;
+
+extern u8   D_803A52B8_7B6968; // lights.c
+
+
 // extern s32  D_803A52C0_7B6970;
 // extern s16  D_803A52C4_7B6974;
 extern u8   D_803A52D0_7B6980;
@@ -809,25 +719,7 @@ extern s16  D_803A65D0_7B7C80[];
 extern s16  D_803A6680_7B7D30[];
 extern s16  D_803A6730_7B7DE0[];
 extern s16  D_803A69F0_7B80A0[];
-extern s16  D_803A6CC0_7B8370; // camera distance from player?
-extern f32  D_803A6CC4_7B8374;
-extern f32  D_803A6CC8_7B8378;
-extern f32  D_803A6CD0_7B8380;
-extern f32  D_803A6CD4_7B8384;
-extern f32  D_803A6CD8_7B8388;
-extern s16  D_803A6CDC_7B838C;
-extern s16  D_803A6CE0_7B8390;
-extern s16  D_803A6CE4_7B8394;
-extern s16  D_803A6CE8_7B8398;
-extern s16  D_803A6CEC_7B839C;
-extern s16  D_803A6CEC_7B839C;
-extern u8   D_803A6CF0_7B83A0[0xC];
-extern u8   D_803A6CFC_7B83AC[0xC];
-extern u8   D_803A6D08_7B83B8[0xC];
-extern struct105 D_803A6D14_7B83C4[128];
-extern struct074 D_803A7114_7B87C4[128];
-extern s16  D_803A7B2A_7B91DA[];
-extern s16  D_803A7B3C_7B91EC[];
+
 extern s16  D_803A8340_7B99F0;
 extern u8   D_803A8344_7B99F4[]; // timer string written here
 // extern s8   D_803A8350_7B9A00[];
@@ -1052,38 +944,7 @@ extern s16  D_803E1B04; // used vtx for dynamic tails?
 // screen_transition
 extern ScreenTransition D_803E1B10;
 
-// overlay2_7041D0
-extern s16  D_803E1B20[5]; // may be a bunch of structs instead?
-extern s16  D_803E1B30[5];
-extern s16  D_803E1B40[5];
-extern s16  D_803E1B50[5];
-extern s16  D_803E1B60[5];
-extern s16  D_803E1B70[5];
-extern s16  D_803E1B80[5];
-extern s16  D_803E1B8A;
-extern s16  D_803E1B8C;
-extern s16  D_803E1B8E;
-extern s16  D_803E1B90;
-extern s16  D_803E1B92;
-extern s16  D_803E1B94;
-extern u8   D_803E1B96;
-extern u8   D_803E1B97;
-extern u8   D_803E1B98;
-extern u8   D_803E1B99;
-extern u8   D_803E1B9A;
-extern u8   D_803E1B9B;
-extern u16  D_803E1BA2;
-extern u16  D_803E1BA4;
-extern u8   D_803E1BA6;
-extern s16  D_803E1BA8;
-extern s16  D_803E1BAA;
-extern s16  D_803E1BAC;
-extern s16  D_803E1BAE;
-extern s16  D_803E1BB0;
-extern s16  D_803E1BB2;
-extern s16  D_803E1BB4;
-extern s16  D_803E1BB6;
-extern s16  D_803E1BB8;
+// lights
 extern u8   D_803E1BBA; // env r
 extern u8   D_803E1BBB; // env g
 extern u8   D_803E1BBC; // env b
