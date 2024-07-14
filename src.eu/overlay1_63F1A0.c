@@ -35,7 +35,7 @@ void func_801366DC(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
 void func_80136958(Gfx **dl, uSprite *sprite, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u8 depth);
 void func_8012C998(Gfx **, s16*, u16, u16, f32, f32);
 
-u8 language_select_menu(s16 arg0) {
+s16 language_select_menu(s16 arg0) {
     s16 sp86;
     s16 sp84;
     s16 *sp80;

@@ -3,11 +3,38 @@
 
 #include "pp.h"
 
+
+// ========================================================
+// definitions
+// ========================================================
+
+typedef struct {
+    u16 startTime;
+    s16 pad;
+    s16 sfx;
+} SubtitleText; // size 0x6
+
+typedef struct {
+    SubtitleText *msg;
+    s16 id;
+    s16 pad;
+} Subtitle; // size 0x8
+
+typedef struct {
+    s16 time;
+    s16 tile;
+    s16 unk6;
+} Newscaster; // size 0x6
+
 typedef struct {
     u8 pad0[0x36B0];
     /* 0x36B0 */ u16 unk36B0[350];
     /* 0x396C */ u16 unk396C[350];
 } foobar;
+
+// ========================================================
+// externs
+// ========================================================
 
 extern foobar D_8022E410; // tbd
 
@@ -125,7 +152,7 @@ typedef struct {
     s16 unk4;
 } tmp123_inner3;
 
-extern struct026 *D_80304364; // ?
+extern Newscaster *D_80304364; // ?
 
 void func_8029A144_63F074(s32*, s32*);
 void func_8013FB94(Mtx*, f32, f32, f32, f32);
@@ -602,7 +629,7 @@ void func_80296590_63B4C0(struct018 *arg0) {
                 }
             }
             if (D_8029B340_640270 != 0) {
-                if (D_80304364[D_8029B33C_64026C].length == D_8029B334_640264) {
+                if (D_80304364[D_8029B33C_64026C].time == D_8029B334_640264) {
                     D_80304360 = D_80304364[D_8029B33C_64026C].tile;
                     D_80304361 = D_80304364[D_8029B33C_64026C].unk6;
                     D_8029B33C_64026C = D_8029B33C_64026C + 1;
