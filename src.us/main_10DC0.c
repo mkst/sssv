@@ -25,7 +25,7 @@ void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 
         gDPLoadTextureBlock((*dl)++, img, G_IM_FMT_I, G_IM_SIZ_8b, 32, 32, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         break;
     default:
-        rmonPrintf("Wrong texture size\n");
+        osSyncPrintf("Wrong texture size\n");
     }
 
     xh = (xl + x_size);

@@ -709,7 +709,7 @@ void func_8031E6A0_72FD50(void) {
 
 // HELI_MOUSE
 void func_8031F858_730F08(void) {
-    rmonPrintf("Helimouse is gone\n");
+    osSyncPrintf("Helimouse is gone\n");
 }
 
 void func_8031F87C_730F2C(void) {

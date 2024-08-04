@@ -1115,7 +1115,7 @@ void func_803469D4_758084(Gfx **arg0, u16 arg1) {
 
 // load_xlui_texture
 void func_80346AB0_758160(Gfx **arg0, u8 arg1) {
-    rmonPrintf("load xlui texture - %d\n", arg1);
+    osSyncPrintf("load xlui texture - %d\n", arg1);
     gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[(s32)arg1]);
     gDPTileSync((*arg0)++);
     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);

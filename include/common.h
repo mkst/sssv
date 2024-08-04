@@ -292,7 +292,7 @@ typedef u8 Addr[];
 
 #define SSSV_ASSERT(TEST, FILE, LINE) \
     if (!(TEST)) { \
-        rmonPrintf("\nASSERT: "#TEST", %s, %u\n", FILE, LINE); \
+        osSyncPrintf("\nASSERT: "#TEST", %s, %u\n", FILE, LINE); \
         *(volatile int*)0 = 0; \
     }
 

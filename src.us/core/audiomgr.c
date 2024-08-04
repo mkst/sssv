@@ -1026,10 +1026,10 @@ void func_80132C48(s8 idx) {
 
 void func_80132CC0(s32 arg0) {
     struct017 *snd = D_8028631C;
-    rmonPrintf("----------------- Active sounds\n");
+    osSyncPrintf("----------------- Active sounds\n");
 
     while (snd != NULL) {
-        rmonPrintf("sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d.\n",
+        osSyncPrintf("sndState:%d sndSlot:%d sndID:%d object:%p counter:%d sndSlotState[sndSlot]:%d.\n",
             snd->sndState, snd->sndSlot, snd->sndID, snd->object, snd->counter, D_802863B0[snd->sndSlot]);
         snd = snd->next;
     }

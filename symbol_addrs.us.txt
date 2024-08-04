@@ -901,8 +901,8 @@ bzero                       = 0x80139530; // defined:true
 proutSprintf                = 0x801395D0; // defined:true
 sprintf                     = 0x801395F4; // defined:true
 
-osSyncPrintf                = 0x80139650; // defined:true
-rmonPrintf                  = 0x8013966C; // defined:true
+rmonPrintf                  = 0x80139650; // defined:true
+osSyncPrintf                = 0x8013966C; // defined:true
 
 osEepromLongWrite           = 0x80139690; // defined:true
 

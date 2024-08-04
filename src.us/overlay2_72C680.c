@@ -329,7 +329,7 @@ void load_level_texture_data(u8 arg0, u8 arg1) {
         var_t0 = arg0 = 0;
     }
 
-    rmonPrintf("Bank - %d Texture - %d\n", arg0, var_v0);
+    osSyncPrintf("Bank - %d Texture - %d\n", arg0, var_v0);
 
     arg1 -= 1; // level index?
 
@@ -564,7 +564,7 @@ void load_level_data_sections(void) {
             for (j = 0; j < D_803E8E54; j++) {
                 if (D_803E4D40[(u32)j].type == 24) {
                     if (1) {
-                        rmonPrintf(
+                        osSyncPrintf(
                             "Partcle State: %d F $%X Fq %d Time %d S %d\n",
                             D_803E4D40[(u32)j].cmd.type24.State,
                             D_803E4D40[(u32)j].cmd.type24.F,
@@ -611,7 +611,7 @@ void load_level_data_sections(void) {
 
             // improves score by 30, but is likely unhelpful overall
             if (1) {
-                rmonPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
+                osSyncPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
             }
 
             // NOTE: no boundary check that pafBytesUsed < sizeof(D_803E8F60)!

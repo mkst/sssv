@@ -93,7 +93,7 @@ void switch_to_current_segment(Gfx **arg0, DisplayList *arg1) {
         gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E6C));
         break;
     default:
-        rmonPrintf("Undefined segment - hware.c\n", arg0);
+        osSyncPrintf("Undefined segment - hware.c\n", arg0);
         break;
     }
 }

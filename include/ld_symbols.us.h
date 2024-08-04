@@ -2856,7 +2856,6 @@ extern Addr levels_WHIRLWIND_TOUR_VRAM;
 extern Addr levels_WHIRLWIND_TOUR_VRAM_END;
 extern Addr levels_WHIRLWIND_TOUR_bin;
 extern Addr libultra_audio_csplayer_c;
-extern Addr libultra_libc_syncprintf_c;
 extern Addr main_1050_c;
 extern Addr main_10DC0_c;
 extern Addr main_51D0_c;
