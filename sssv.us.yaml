@@ -79,7 +79,7 @@ segments:
     - [0x14B80, lib, libultra_rom, invaldcache]
     - [0x14C30, lib, libultra_rom, bzero]
     - [0x14CD0, lib, libultra_rom, sprintf]
-    - [0x14D50, c, libultra/libc/syncprintf]        # TODO alignment off by 7?
+    - [0x14D50, lib, libultra_rom, syncprintf]
     - [0x14D90, lib, libultra_rom, conteeplongwrite]
     - [0x14E80, lib, libultra_rom, conteeplongread]
     - [0x14F10, lib, libultra_rom, dpsetstat]

@@ -236,8 +236,8 @@ void func_802DAE5C_6EC50C(struct071 *obj) {
         }
 
         if (*o == NULL) {
-            rmonPrintf("collist2. Object has been deleted but was not in list. %d.\n", obj->unk26D);
-            rmonPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", obj, obj->unk16C->objectType, obj->position.xPos.h, obj->position.zPos.h, obj->position.yPos.h);
+            osSyncPrintf("collist2. Object has been deleted but was not in list. %d.\n", obj->unk26D);
+            osSyncPrintf("psMoveObj %p ID %d XYZ %d %d %d\n", obj, obj->unk16C->objectType, obj->position.xPos.h, obj->position.zPos.h, obj->position.yPos.h);
             SSSV_ASSERT(FALSE, "../src/collist2.c", 436);
         } else {
             *o = obj->unk198;

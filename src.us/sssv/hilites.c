@@ -32,6 +32,6 @@ void add_hilite(void) {
 
         D_80204278->usedHilites += 1;
     } else {
-        rmonPrintf("Sorry, no more space for extra hilites.\n");
+        osSyncPrintf("Sorry, no more space for extra hilites.\n");
     }
 }

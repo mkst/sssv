@@ -177,7 +177,7 @@ void func_802B4D20_6C63D0(void) {
 
                                                 totalMass = var_s3 + var_s4;
                                                 if (totalMass == 0) {
-                                                    rmonPrintf("\nASSERT: TotalMass != 0, %s, %u\n", "../src/collsion.c", 326);
+                                                    osSyncPrintf("\nASSERT: TotalMass != 0, %s, %u\n", "../src/collsion.c", 326);
                                                     *(volatile int*)0 = 0;
                                                 }
 

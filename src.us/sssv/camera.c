@@ -2803,7 +2803,7 @@ void func_8033B594_74CC44(u8 arg0) {
     f32 phi_f20;
     f32 sp2C;
 
-    rmonPrintf("ca_UpdateCamera_Watch_TV.\n");
+    osSyncPrintf("ca_UpdateCamera_Watch_TV.\n");
     gCamera = &gCameras[arg0];
     D_803F6468 += 1;
 

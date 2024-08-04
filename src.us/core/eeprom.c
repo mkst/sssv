@@ -162,7 +162,7 @@ void func_80130E44(void) {
 
         if (badRead || (requireReset == 1)) {
 #pragma _permuter sameline start
-            i = 0; rmonPrintf("reset all data - %d\n", bank);
+            i = 0; osSyncPrintf("reset all data - %d\n", bank);
 #pragma _permuter sameline end
             if (bank != 4) {
                 memset_bytes((u8*)&D_8023F260, 0, sizeof(D_8023F260));

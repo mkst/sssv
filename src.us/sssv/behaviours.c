@@ -324,7 +324,7 @@ void perform_behavior_flying_dog(void) {
         (D_803D552C->unk2CC->unk16C->class == CLASS_HELI) ||
         (D_803D552C->unk2CC->unk16C->class == CLASS_BIRD)) {
         // typo
-        rmonPrintf("staet %d FC %d\n", D_803D552C->unk2B4.state, D_803D552C->unk2C4);
+        osSyncPrintf("staet %d FC %d\n", D_803D552C->unk2B4.state, D_803D552C->unk2C4);
         switch (D_803D552C->unk2B4.state) {
         case 0:
             func_80363CE0_775390(D_803D5530, D_803D552C->unk2CC, 0, 16);
@@ -727,7 +727,7 @@ void perform_behavior_racing_fox(void) {
 }
 
 void perform_behavior_tortoise_tank(void) {
-    rmonPrintf("state %d\n", D_803D552C->unk2B4.state);
+    osSyncPrintf("state %d\n", D_803D552C->unk2B4.state);
 
     switch (D_803D552C->unk2B4.state) {
     case 0:

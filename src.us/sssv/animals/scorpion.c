@@ -140,7 +140,7 @@ void func_80376D40_7883F0(void) {
                         play_sound_effect_at_location(SFX_UNKNOWN_83, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     }
                     if ((ticks_remaining == 13) && (D_803D5538 == 0)) {
-                        rmonPrintf("mapStatus12:%d %d\n", D_803D5530->unk160, D_803D552C->unk330->unk160);
+                        osSyncPrintf("mapStatus12:%d %d\n", D_803D5530->unk160, D_803D552C->unk330->unk160);
 
                         if (func_8033C9CC_74E07C(
                             D_803D5530->position.xPos.h,
@@ -153,7 +153,7 @@ void func_80376D40_7883F0(void) {
                             D_803D552C->unk330->unk160,
                             0,
                             0)) {
-                            rmonPrintf("ATTACK ABANDONED\n");
+                            osSyncPrintf("ATTACK ABANDONED\n");
                             D_803D552C->unk365 = ATTACK_NONE;
                         }
                     }
