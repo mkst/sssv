@@ -90,21 +90,21 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     if ((sp6C == 0) && (sp68 == 0)) {
 
         if (arg8 == 1) {
-            sp60 = 0;
-            sp5C = 0x400;
-            sp58 = 0;
+            sp60 = 0 << 0xA;
+            sp5C = 1 << 0xA;
+            sp58 = 0 << 0xA;
 
-            sp54 = 0x400;
-            sp50 = 0;
-            sp4C = 0;
+            sp54 = 1 << 0xA;
+            sp50 = 0 << 0xA;
+            sp4C = 0 << 0xA;
         } else {
-            sp60 = 0x400;
-            sp5C = 0;
-            sp58 = 0;
+            sp60 = 1 << 0xA;
+            sp5C = 0 << 0xA;
+            sp58 = 0 << 0xA;
 
             sp54 = 0;
-            sp50 = -0x400;
-            sp4C = 0;
+            sp50 = -(1 << 0xA);
+            sp4C = 0 << 0xA;
         }
     } else {
         sp60 = sp68;
@@ -494,48 +494,62 @@ void func_80127640(Mtx *arg0, s32 xPos, s32 zPos, s32 yPos, s16 arg4, s32 arg5, 
     arg0->m[3][3] = sp38.h.unk6 << 0x10;
 }
 
-#if 0
-// plenty to do
-s32 func_80127994(s32 arg0, s32 arg1, s32 arg2, Mtx *arg3) {
+s32 func_80127994(s32 vec0_x, s32 vec0_y, s32 vec0_z, Mtx *arg3) {
+    s32 magnitude;
+    s32 vec1_x, vec1_y, vec1_z;
+    s32 vec2_x, vec2_y, vec2_z;
     FracIntHelper sp24;
-    s32 temp_f4;
 
-    temp_f4 = sqrtf(SQ((f32)arg0) + SQ((f32)arg1) + SQ((f32)arg2));
-    if (temp_f4 == 0) {
-        arg0 = arg1 = 0 << 0xA;
-        arg2 = 1 << 0xA;
+    magnitude = sqrtf(SQ((f32)vec0_x) + SQ((f32)vec0_y) + SQ((f32)vec0_z));
+    if (magnitude == 0) {
+        vec0_x = vec0_y =(0 << 0xA);
+        //  = (0 << 0xA);
+        vec0_z = (1 << 0xA);
     } else {
-        arg0 = (arg0 << 0xA) / temp_f4;
-        arg1 = (arg1 << 0xA) / temp_f4;
-        arg2 = (arg2 << 0xA) / temp_f4;
+        vec0_x = (vec0_x << 0xA) / magnitude;
+        vec0_y = (vec0_y << 0xA) / magnitude;
+        vec0_z = (vec0_z << 0xA) / magnitude;
     }
+    magnitude = sqrtf(SQ((f32)vec0_z) + SQ((f32)-vec0_x));
 
-    temp_f4 = sqrtf(SQ((f32)arg2) + SQ((f32)-arg0));
+    if (1) { } if (1) { }
 
-    sp24.w.unk4 = (( arg2 << 0xA) / temp_f4) << 6;
-    sp24.w.unk0 = ((    0 << 0xA) / temp_f4) << 6;
-    arg3->m[0][0] = ((sp24.h.unk4 << 0x10) | sp24.h.unk0);
-    arg3->m[2][0] = ((sp24.h.unk6 << 0x10) | sp24.h.unk2);
+    // vec1 lies in the XZ plane and is perpendicular to vec0
+    vec1_x = ( vec0_z << 0xA) / magnitude;
+    vec1_y = (      0 << 0xA) / magnitude;
+    vec1_z = (-vec0_x << 0xA) / magnitude;
 
-    sp24.w.unk4 = ((-arg0 << 0xA) / temp_f4) << 6;
+    magnitude = vec1_z; // pointless but required.
+
+    // vec2 is dot product of vec0 and vec1, so vec0, vec1 and vec2 form an orthogonal basis
+    vec2_x = -((vec1_y * vec0_z) - (vec1_z * vec0_y)) >> 10;
+    vec2_y = -((vec1_z * vec0_x) - (vec1_x * vec0_z)) >> 10;
+    vec2_z = -((vec1_x * vec0_y) - (vec1_y * vec0_x)) >> 10;
+
+    sp24.w.unk4 = vec1_x << 6;
+    sp24.w.unk0 = vec1_y << 6;
+    arg3->m[0][0] = (sp24.h.unk4 << 0x10) | sp24.h.unk0;
+    arg3->m[2][0] = (sp24.h.unk6 << 0x10) | sp24.h.unk2;
+
+    sp24.w.unk4 = vec1_z << 6;
     arg3->m[0][1] = sp24.h.unk4 << 0x10;
     arg3->m[2][1] = sp24.h.unk6 << 0x10;
 
-    sp24.w.unk4 = -((((    0 << 0xA) / temp_f4) * arg2) - (((-arg0 << 0xA) / temp_f4) * arg1)) << 6;
-    sp24.w.unk0 = -((((-arg0 << 0xA) / temp_f4) * arg0) - ((( arg2 << 0xA) / temp_f4) * arg2)) << 6;
+    sp24.w.unk4 = vec2_x << 6;
+    sp24.w.unk0 = vec2_y << 6;
     arg3->m[0][2] = (sp24.h.unk4 << 0x10) | sp24.h.unk0;
     arg3->m[2][2] = (sp24.h.unk6 << 0x10) | sp24.h.unk2;
 
-    sp24.w.unk4 = -(((( arg2 << 0xA) / temp_f4) * arg1) - (((    0 << 0xA) / temp_f4) * arg0)) << 6;
+    sp24.w.unk4 = vec2_z << 6;
     arg3->m[0][3] = sp24.h.unk4 << 0x10;
     arg3->m[2][3] = sp24.h.unk6 << 0x10;
 
-    sp24.w.unk4 = arg0 << 6;
-    sp24.w.unk0 = arg1 << 6;
+    sp24.w.unk4 = vec0_x << 6;
+    sp24.w.unk0 = vec0_y << 6;
     arg3->m[1][0] = (sp24.h.unk4 << 0x10) | sp24.h.unk0;
     arg3->m[3][0] = (sp24.h.unk6 << 0x10) | sp24.h.unk2;
 
-    sp24.w.unk4 = arg2 << 6;
+    sp24.w.unk4 = vec0_z << 6;
     arg3->m[1][1] = sp24.h.unk4 << 0x10;
     arg3->m[3][1] = sp24.h.unk6 << 0x10;
 
@@ -549,9 +563,6 @@ s32 func_80127994(s32 arg0, s32 arg1, s32 arg2, Mtx *arg3) {
 
     return 1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/mtx/func_80127994.s")
-#endif
 
 void func_80127D30(Mtx *arg0, s16 arg1) {
     FracIntHelper sp0;

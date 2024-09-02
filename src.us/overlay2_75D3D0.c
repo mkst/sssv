@@ -244,24 +244,27 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(63));
         gDPSetRenderMode(D_801D9E90++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2);
         gDPSetCombineLERP(D_801D9E90++,
-            0, 0, 0, SHADE,
-            TEXEL0, 0, SHADE, 0,
-            0, 0, 0, SHADE,
-            TEXEL0, 0, SHADE, 0);
+            0,      0,     0, SHADE,
+            TEXEL0, 0, SHADE,     0,
+            0,      0,     0, SHADE,
+            TEXEL0, 0, SHADE,     0);
         gDPPipeSync(D_801D9E90++);
 
-        temp_v0 = (SIN(arg3) >> 7) + 1;
-        temp_v1_2 = (COS(arg3) >> 7) + 1;
+        temp_v0 = (SIN(arg3) >> 7) & 0xFFFF;
+        temp_v0 += 1;
 
-        temp_t2 =  (arg5 * temp_v0) >> 8;
+        // temp_t2 =  (arg5 * temp_v0) >> 8;
         temp_t4 =  (arg5 * temp_v0) >> 8;
+        temp_t8 = -(arg6 * temp_v0) >> 8;
+
+        temp_v1_2 = (COS(arg3) >> 7) & 0xFFFF;
+        temp_v1_2 += 1;
+
         temp_t0 =  (arg5 * temp_v1_2) >> 8;
         temp_t3 =  (arg5 * temp_v1_2) >> 8;
-
-        temp_t8 = -(arg6 * temp_v0) >> 8;
         temp_t9 =  (arg6 * temp_v1_2) >> 8;
 
-        vtx[0].unk0 = arg0 + temp_t2 + temp_t9;
+        vtx[0].unk0 = arg0 + ((arg5 * temp_v0) >> 8) + temp_t9;
         vtx[0].unk2 = arg1 + temp_t3 + temp_t8;
         vtx[0].unk4 = 0xFC0;
         vtx[0].unk6 = 0xFC0;
@@ -276,7 +279,7 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         vtx[2].unk4 = 0;
         vtx[2].unk6 = 0;
 
-        vtx[3].unk0 = arg0 + temp_t2 - temp_t9;
+        vtx[3].unk0 = arg0 + ((arg5 * temp_v0) >> 8) - temp_t9;
         vtx[3].unk2 = arg1 + temp_t3 - temp_t8;
         vtx[3].unk4 = 0xFC0;
         vtx[3].unk6 = 0;

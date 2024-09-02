@@ -398,8 +398,9 @@ struct082 D_803A63B0_7B7A60[] = {
     {0x20, 0x00},   // EVO_SHELLSUIT
 
     {0x00, 0x00},   // ~~~ all unused ~~~
-    {0x00, 0x00},
-    {0x03, 0x04},
+    {0x00, 0x00},   //
+
+    {0x03, 0x04},   // ... is this another array?
     {0x09, 0x0A},
     {0x0C, 0x0D},
     {0x20, 0x00},
@@ -679,16 +680,16 @@ void func_803283DC_739A8C(void) {
 // ESA: func_8007F78C
 Camera* func_803284C4_739B74(void) {
     struct035 *temp_v1;
-    Camera *temp_v0;
+    Camera *camera;
 
     temp_v1 = D_803D5524;
-    temp_v0 = &gCameras[gCameraId];
-    temp_v0->unk4E = temp_v1->unkCA;
-    temp_v0->unk54 = temp_v1->unkD0;
-    temp_v0->unk56 = temp_v1->unkD2;
-    temp_v0->unk58 = temp_v1->unkCC;
-    temp_v0->unk60 = temp_v1->unkCE;
-    return temp_v0;
+    camera = &gCameras[gCameraId];
+    camera->unk4E = temp_v1->unkCA;
+    camera->unk54 = temp_v1->unkD0;
+    camera->unk56 = temp_v1->unkD2;
+    camera->unk58 = temp_v1->unkCC;
+    camera->unk60 = temp_v1->unkCE;
+    return camera;
 }
 
 // ESA: func_8007F7F4
@@ -855,11 +856,9 @@ void func_80328918_739FC8(void) {
 
 #if 0
 // ESA: func_8007FD90
-// CURRENT (10620)
+// CURRENT (9821)
 void func_80328ACC_73A17C(void) {
-
     s16 temp_a0;
-    s16 temp_a1;
     s16 currentDist;
     s16 i;
 
@@ -889,7 +888,7 @@ void func_80328ACC_73A17C(void) {
     Animal *currentAnimal;
     Animal *otherAnimal;
 
-    s32 sp40;
+    s32 sp40; // curently sp70!?
 
     if (((D_803F2D50.unk52 != 3) || (D_803F2D50.segment != 2)) &&
         ((D_803F2D50.unk52 != 5) || (D_803F2D50.segment != 0)) &&
@@ -902,13 +901,14 @@ void func_80328ACC_73A17C(void) {
         if (((D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C != EVO))) {
 
 
-            if ((((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk320 == NULL)) || ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk320->unk16C->unk82.unk2 == 0))) &&
+            if (((D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk320->unk16C->unk82.unk2 == 0)) &&
                 (animalId != VULTURE) && (animalId != SEAGULL2) && (animalId != POLAR_BEAR_DEFENDING) &&
                 (animalId != PARROT_ATTACKING) && (animalId != HARD_MOUSE) && (animalId != CRAZY_BEAR) &&
                 (animalId != TORTOISE_TANK_DEFENDING) && (animalId != CRAZY_HUSKY) && (animalId != CROW_DIVER) &&
-                (animalId != DESERT_FOX_ATTACKING) && (animalId != SNEAKY_CHAMELEON) && (animalId != 0x41) &&
+                (animalId != DESERT_FOX_ATTACKING) && (animalId != SNEAKY_CHAMELEON) && (animalId != RACING_TORTOISE_DEFENDING) &&
                 (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A <= 0)) {
-            currentAnimal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+
+                currentAnimal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
 
                 xPos = currentAnimal->position.xPos.h;
                 zPos = currentAnimal->position.zPos.h;
@@ -941,7 +941,6 @@ void func_80328ACC_73A17C(void) {
                             }
                         }
                     }
-
                 }
 
                 // any animals close?
@@ -971,8 +970,6 @@ void func_80328ACC_73A17C(void) {
                         D_801D9ED8.animals[0].animal->unk4C.unk1A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
                         D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A = tmp;
 
-                        sp40 = (s32) gCurrentAnimalIndex;
-
                         D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex];
                         D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
                         D_803D5528 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
@@ -982,7 +979,7 @@ void func_80328ACC_73A17C(void) {
                         if (1) {};
 
                         D_803D5538 = 1;
-                        D_803D553C = sp40; //??
+                        D_803D553C = gCurrentAnimalIndex; //??
                         D_803D553A = 0;
 
                         D_803D552C->unk366 = 5;
@@ -1079,13 +1076,13 @@ void func_80328ACC_73A17C(void) {
                         play_sound_effect_at_location(SFX_UNKNOWN_56, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     }
                 } else {
-                    temp_a1 = (func_80310EE4_722594(D_801D9ED8.animals[sp40].animal->position.xPos.h, D_801D9ED8.animals[sp40].animal->position.zPos.h, D_801D9ED8.animals[sp40].animal->unk160) >> 0x10);
+                    temp_a0 = (func_80310EE4_722594(D_801D9ED8.animals[sp40].animal->position.xPos.h, D_801D9ED8.animals[sp40].animal->position.zPos.h, D_801D9ED8.animals[sp40].animal->unk160) >> 0x10);
                     currentAnimal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-                    temp_a1 = currentAnimal->position.yPos.h - temp_a1;
+                    temp_a0 = currentAnimal->position.yPos.h - temp_a0;
 
                     if ((D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C == FIRE_FOX) ||
                         (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C == FLYING_DOG)) {
-                        if (temp_a1 < 0x80) {
+                        if (temp_a0 < 0x80) {
                             func_80311A2C_7230DC(currentAnimal->position.xPos.h, currentAnimal->position.zPos.h, &sp7A, &sp78, currentAnimal->unk160);
 
                             if ((ABS(sp7A) < 12) && (ABS(sp78) < 12)) {
@@ -1100,7 +1097,7 @@ void func_80328ACC_73A17C(void) {
                         }
                     } else if ((currentAnimal->xVelocity.w != 0) || (currentAnimal->zVelocity.w != 0) || (currentAnimal->yVelocity.w > 0) ||
                         (((currentAnimal->unk162 != 1)) && (currentAnimal->unk162 != 6)) ||
-                        (((currentAnimal->unk6C != NULL)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_BUTTON)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_FLAT_BLOCK_1) || (temp_a1 >= 0x20)))) {
+                        (((currentAnimal->unk6C != NULL)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_BUTTON)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_FLAT_BLOCK_1) || (temp_a0 >= 0x20)))) {
                         // logic feels weird, should it all be inverted?
                         doSwap = 0;
                     } else {
@@ -1108,7 +1105,6 @@ void func_80328ACC_73A17C(void) {
                     }
 
                     if (doSwap != 0) {
-                        sp40 = gCurrentAnimalIndex;
                         if (gCurrentAnimalIndex != 0) {
                             // swap health
                             temp_a0 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->health;
@@ -1132,8 +1128,6 @@ void func_80328ACC_73A17C(void) {
                             D_801D9ED8.animals[0].animal->unk4C.unk1A = D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A;
                             D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4C.unk1A = tmp;
 
-                            sp40 = gCurrentAnimalIndex;
-
                             D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex];
                             D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
                             D_803D5528 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
@@ -1141,7 +1135,7 @@ void func_80328ACC_73A17C(void) {
                             D_803D5530 = D_803D5528;
 
                             D_803D5538 = 1;
-                            D_803D553C = sp40;
+                            D_803D553C = gCurrentAnimalIndex;
                             D_803D553A = 0;
 
                             D_803D552C->unk366 = 5;

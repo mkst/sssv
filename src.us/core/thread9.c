@@ -41,11 +41,11 @@ u8   D_802912E5; // z pressed
 // ========================================================
 
 #ifdef NON_MATCHING
-// swapped instructions
 s32 init_controllers(void) {
     s16 i;
-    s32 ret;
-    u8 pattern;
+    s32 pad;
+    u8 pattern; // sp57
+    s32 status;
 
     D_802912DA = 0;
     D_802912DC = 0;
@@ -59,36 +59,37 @@ s32 init_controllers(void) {
     D_802912E5 = 1;
 
     osCreateMesgQueue(&D_8028D0A8, &D_8029104C, 1);
-    osSetEventMesg(OS_EVENT_SI, &D_8028D0A8, (OSMesg)1);
+    osSetEventMesg(5U, &D_8028D0A8, (void *)1);
 
-    osContInit(&D_8028D0A8, &pattern, &gControllerStatus[0]);
+    if((s32)&D_80291110[0]) {};
+    if (0) { }
+
+    osContInit(&D_8028D0A8, &pattern, gControllerStatus);
 
     numControllers = 0;
+
     for (i = 0; i < MAXCONTROLLERS; i++) {
-        if ((pattern & (1 << i)) &&
-            !(gControllerStatus[i].errno & CONT_NO_RESPONSE_ERROR)) {
+        if ((pattern & (1 << i)) && !(gControllerStatus[i].errno & 8)) {
             numControllers++;
         }
     }
-    // only 1 controller
-    osContSetCh(1);
-
+    osContSetCh(1U);
     osCreateMesgQueue(&D_802912B0, &D_802912C8, 1);
+
     osCreateThread(&gThread9, 9, (void (*)(void *)) thread9, NULL, &D_8028E230, 9);
     osStartThread(&gThread9);
 
     for (i = 0; i < MAXCONTROLLERS; i++) {
         D_80291090.hasRumblePak[i] = 0;
-        if ((pattern >> i) & 1) {
-            if ((gControllerStatus[i].type & CONT_JOYPORT) &&
-                (gControllerStatus[i].status & CONT_CARD_ON)) {
 
-                ret = osPfsInit(&D_8028D0A8, (s32)&D_80291110[i], i);
-                // bad?
-                if ((ret == PFS_ERR_ID_FATAL) || (ret == PFS_ERR_DEVICE)) {
-                    // try to enable rumblepak
-                    if (osMotorInit(&D_8028D0A8, (s32)&D_80291110[i], i) == 0) {
-                        D_80291090.hasRumblePak[i] = 1;
+        if ((pattern >> i) & 1) {
+            if (gControllerStatus[i].type & CONT_JOYPORT) {
+                if (gControllerStatus[i].status & CONT_CARD_ON) {
+                    status = osPfsInit(&D_8028D0A8, (s32)&D_80291110[i], i);
+                    if (((status == PFS_ERR_ID_FATAL)) || (status == PFS_ERR_DEVICE)) {
+                        if (osMotorInit(&D_8028D0A8, (s32)&D_80291110[i], i) == 0) {
+                            D_80291090.hasRumblePak[i] = 1;
+                        }
                     }
                 }
             }
@@ -232,41 +233,50 @@ void thread9(void) {
     while (TRUE);
 }
 
-#if 0
 void do_rumble(s16 cont, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
-    s32 new_var;
-    s32 pad[3];
-    s32 phi_s0;
+    s16 res;
+    s16 tmp1;
+    s16 tmp2;
 
-    phi_s0 = arg4;
+    arg4 = arg4 >> 6;
 
-    if (!D_80291090.hasRumblePak[cont ^ 0]) {}; // regalloc?
+    if ((D_80291090.hasRumblePak[cont] != 0) && (arg4 < 21)) {
+        if (D_80204288 == 0) {
+            arg4 = arg4 >> 2;
 
-    new_var = phi_s0 >> 6;
-    if ((D_80291090.hasRumblePak[cont]) && ((phi_s0 >> 6) < 21) && (D_80204288 == 0)) {
-        phi_s0 = new_var >> 2;
-        if (phi_s0 == 0) {
-            phi_s0 = 1;
-        }
+            if (arg4 == 0) {
+                arg4 = 1;
+            }
 
-        if ((D_80291090.state.unk18[cont] == 0) ||
-            (((((((D_80291090.state.unk10[cont] - D_80291090.state.unk8[cont]) * (D_80291090.state.unk18[cont] - D_80291090.state.unk20[cont])) / D_80291090.state.unk18[cont]) >> 1) + D_80291090.state.unk8[cont]) * D_80291090.state.unk20[cont]) >= (s16)((arg1 * (arg2 + arg3)) / (s16)(phi_s0 << 1)))) {
+            if (((D_80291090.state.unk18[cont] == 0))) {
+                goto work;
+            }
+
+            tmp1 = ((arg1 * (arg2 + arg3)) / (arg4 * 2));
+            tmp2 = (((((D_80291090.state.unk10[cont] - D_80291090.state.unk8[cont]) *
+                       (D_80291090.state.unk18[cont] - D_80291090.state.unk20[cont])) / D_80291090.state.unk18[cont]) >> 1) + D_80291090.state.unk8[cont]) * D_80291090.state.unk20[cont];
+            if ((tmp1 >= tmp2)) {
+                goto work;
+            }
+            return;
+
+work:
             D_80291090.state.unk0[cont] = 0;
-            D_80291090.state.unk8[cont] = arg2 / phi_s0;
-            D_80291090.state.unk10[cont] = arg3 / phi_s0;
+            D_80291090.state.unk8[cont] = arg2 / arg4;
+            D_80291090.state.unk10[cont] = arg3 / arg4;
+            D_80291090.state.unk28[cont] = 0;
             D_80291090.state.unk18[cont] = arg1;
             D_80291090.state.unk20[cont] = arg1;
-            D_80291090.state.unk28[cont] = 0;
-            D_80291090.state.unk30[cont] = 256;
-            if ((D_80291090.state.unk0[cont]) && ((s16)osMotorStart(&D_80291110[0]) == 0)) {
-                D_80291090.state.unk0[cont] = 1;
+            D_80291090.state.unk30[cont] = 0x100;
+            if (D_80291090.state.unk0[cont] != 0) {
+                res = osMotorStart(D_80291110);
+                if (res == 0) {
+                    D_80291090.state.unk0[cont] = 1;
+                }
             }
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/thread9/do_rumble.s")
-#endif
 
 void func_801375E8(s16 cont) {
     s32 tmp;

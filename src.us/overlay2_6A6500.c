@@ -181,7 +181,7 @@ void func_80294E50_6A6500(void) {
         D_803C0430.unk20F += 1;
         D_803C0430.unk20F &= 7;
         if (D_803C0430.unk20F == 0) {
-            // process terrain map?
+            // process collision map
             func_8029726C_6A891C(&D_803C0740);
             func_80296C8C_6A833C(&D_803C0740);
         }

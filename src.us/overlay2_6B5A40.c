@@ -5297,25 +5297,25 @@ void func_802B38FC_6C4FAC(Animal *arg0, s16 damage, s16 arg2, u8 stars) {
 }
 
 // ESA: func_80046EC8
-void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2) {
-    s16 orig = *arg2;
+void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *damage) {
+    s16 orig = *damage;
     s16 tmp;
 
     switch (arg0->unk16C->unkE6) {
     case 0:
-        *arg2 = *arg2 * 36 >> 4;
+        *damage = *damage * 36 >> 4;
         break;
     case 1:
-        *arg2 = *arg2 * 24 >> 4;
+        *damage = *damage * 24 >> 4;
         break;
     case 2:
-        *arg2 = *arg2 * 16 >> 4;
+        *damage = *damage * 16 >> 4;
         break;
     case 3:
-        *arg2 = *arg2 * 8 >> 4;
+        *damage = *damage * 8 >> 4;
         break;
     case 4:
-        *arg2 = *arg2 * 5 >> 4;
+        *damage = *damage * 5 >> 4;
         break;
     }
 
@@ -5323,23 +5323,23 @@ void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2) {
         tmp = arg0->unk16C->unkE6 - arg1->unk16C->unkE6;
         switch (tmp) {
         case 2:
-            *arg2 = *arg2 >> 1;
+            *damage = *damage >> 1;
             break;
         case 3:
-            *arg2 = *arg2 >> 2;
+            *damage = *damage >> 2;
             break;
         case 4:
-            *arg2 = *arg2 >> 3;
+            *damage = *damage >> 3;
             break;
         case 5:
         case 6:
         case 7:
-            *arg2 = 0;
+            *damage = 0;
         }
     }
 
     if (orig != 0) {
-        *arg2 = MAX(*arg2, 1);
+        *damage = MAX(*damage, 1);
     }
 }
 

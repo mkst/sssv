@@ -4,111 +4,111 @@
 #if 0
 // ESA: func_8005F8F8
 void func_802C7C80_6D9330(void) {
-    s32 temp_a0_2;
-    struct035 *temp_v0;
-    struct089 *temp_v1;
-    u16 temp_a0;
-    u16 temp_t9;
-    s16 i;
-    u8 temp_t6;
-    u8 temp_t8;
-    u8 temp_t9_2;
+    struct089 *src;
+    struct035 *dst;
 
-    memset_bytes((u8 *) &D_801D9ED8, 0U, 0x3EB0U); // D_801D9ED8.unk0 ?
+    s16 i;
+    u16 animalId;
+
+    memset_bytes((u8 *) D_801D9ED8.unk0, 0, sizeof(D_801D9ED8.unk0));
 
     for (i = 0; i < 0x44; i++) {
-        temp_v1 = &D_803A05D0_7B1C80[i];
+        src = &D_803A05D0_7B1C80[i];
+        dst = &D_801D9ED8.unk0[i];
 
-        D_801D9ED8.unk0[i].unk7E = 0xCC;
-        D_801D9ED8.unk0[i].unk80 = 2;
-        D_801D9ED8.unk0[i].unk8A = 0x7F;
-        D_801D9ED8.unk0[i].unkD8 = 0x14;
+        dst->unk7E = 0xCC;
+        dst->unk80 = 2;
+        dst->unk8A = 0x7F;
+        dst->unkD8 = 0x14;
 
-        D_801D9ED8.unk0[i].class = temp_v1->class;
-        D_801D9ED8.unk0[i].waterClass = temp_v1->waterClass;
-        D_801D9ED8.unk0[i].canJump = temp_v1->canJump;
+        dst->class = src->class;
+        dst->waterClass = src->waterClass;
+        dst->canJump = src->canJump;
 
-        D_801D9ED8.unk0[i].unkBE = temp_v1->unk6;
-        D_801D9ED8.unk0[i].unk72 = temp_v1->unk6;
-        D_801D9ED8.unk0[i].unk74 = temp_v1->unk6;
+        dst->unk74 = dst->unk72 = dst->unkBE = src->unk6;
+        // dst->unk74 = src->unk6;
+        // dst->unk74 = src->unk6;
 
-        D_801D9ED8.unk0[i].mass = temp_v1->unk8;
-        D_801D9ED8.unk0[i].armour = temp_v1->unkA;
+        dst->mass = src->unk8;
+        dst->armour = src->unkA;
+        dst->unk8C = src->unkB;
 
-        D_801D9ED8.unk0[i].unk8C = temp_v1->unkB;
-        D_801D9ED8.unk0[i].unkEB = temp_v1->unk51;
+        dst->unkEB = src->unk51;
 
         if ((i == EVO) || (i == EVO_TRANSFER)) {
-            D_801D9ED8.unk0[i].unk2 = 15;
+            dst->unk2 = 15;
         } else {
-            D_801D9ED8.unk0[i].unk2 = 5;
+            dst->unk2 = 5;
         }
 
-        D_801D9ED8.unk0[i].unkA6 = temp_v1->unkE;
-        D_801D9ED8.unk0[i].unkB0 = temp_v1->unk18;
-        D_801D9ED8.unk0[i].unkA8 = temp_v1->unk10;
-        D_801D9ED8.unk0[i].unkAA = temp_v1->unk12;
-        D_801D9ED8.unk0[i].fallDistance = temp_v1->unk16;
-        D_801D9ED8.unk0[i].traction = temp_v1->unk1A;
-        D_801D9ED8.unk0[i].unkB4 = temp_v1->unk1C;
-        D_801D9ED8.unk0[i].unkA4 = temp_v1->unkC;
+        dst->unkA8 = src->unk10;
+        dst->fallDistance = src->unk16;
 
-        D_801D9ED8.unk0[i].unkB8 = temp_v1->unk20;
-        D_801D9ED8.unk0[i].unkBA = temp_v1->unk22;
-        D_801D9ED8.unk0[i].unkAC = temp_v1->unk14;
-        D_801D9ED8.unk0[i].unk7A = temp_v1->unk22;
-        D_801D9ED8.unk0[i].unkC2 = temp_v1->unk28;
-        D_801D9ED8.unk0[i].unkB6 = temp_v1->unk1E;
-        D_801D9ED8.unk0[i].unk76 = (D_801D9ED8.unk0[i].unk72 * 7) >> 2;
-        D_801D9ED8.unk0[i].unkBC = temp_v1->unk24;
-        D_801D9ED8.unk0[i].unkC0 = temp_v1->unk26;
-        // temp_a0_2 = temp_v1->unk22 * 5;
-        D_801D9ED8.unk0[i].unkC8 = temp_v1->unk30;
-        D_801D9ED8.unk0[i].unkC4 = temp_v1->unk2A;
-        D_801D9ED8.unk0[i].unkE7 = temp_v1->unk2D;
-        D_801D9ED8.unk0[i].unkC6 = temp_v1->unk2E;
-        D_801D9ED8.unk0[i].unkCC = temp_v1->unk34;
-        D_801D9ED8.unk0[i].unk78 = (temp_v1->unk22 * 5) >> 3;
-        // temp_a0_2 = i & 0xFFFF;
-        D_801D9ED8.unk0[i].unkD0 = temp_v1->unk38;
-        D_801D9ED8.unk0[i].unkCE = temp_v1->unk36;
+        dst->unk7A = dst->unkBA = src->unk22;
+        // dst->unk7A = src->unk22;
 
-        D_801D9ED8.unk0[i].objectType = (u16)(i) + 0x100;
+        dst->unkA4 = src->unkC;
+        dst->unkA6 = src->unkE;
 
-        D_801D9ED8.unk0[i].unkE6 = temp_v1->unk2C;
-        D_801D9ED8.unk0[i].unkE8 = temp_v1->unk3C;
+        dst->unkAA = src->unk12;
+        dst->unkAC = src->unk14;
+        dst->unkB0 = src->unk18;
+        dst->traction = src->unk1A;
+        dst->unkB4 = src->unk1C;
+        dst->unkB6 = src->unk1E;
 
-        D_801D9ED8.unk0[i].unkD4 = temp_v1->unk3E;
-        D_801D9ED8.unk0[i].biome = temp_v1->unk40;
-        D_801D9ED8.unk0[i].unkCA = temp_v1->unk32;
-        // D_801D9ED8.unk0[i].unk82 = (u8) (D_801D9ED8.unk0[i].unk82 | 0x20);
+        dst->unkB8 = src->unk20;
+        dst->unkBC = src->unk24;
 
-        D_801D9ED8.unk0[i].unk82.unk2 = 1;
-        D_801D9ED8.unk0[i].unkDA[0][1] = temp_v1->unk44;
+        dst->unk76 = (dst->unk72 * 7) >> 2;
+        dst->unkC0 = src->unk26;
 
-        D_801D9ED8.unk0[i].unkDA[0][0] = temp_v1->unk42;
-        D_801D9ED8.unk0[i].unkDA[0][2] = temp_v1->unk46;
-        D_801D9ED8.unk0[i].unkDA[1][2] = temp_v1->unk4C;
-        D_801D9ED8.unk0[i].unkDA[1][0] = temp_v1->unk48;
+        dst->unk78 = (src->unk22 * 5) >> 3;
+        dst->unkC2 = src->unk28;
 
-        D_801D9ED8.unk0[i].unkDA[1][1] = temp_v1->unk4A;
+        dst->unk9C = i;
 
-        D_801D9ED8.unk0[i].unkD2 = temp_v1->unk3A;
+        dst->unkE6 = src->unk2C;
+        dst->unkE7 = src->unk2D;
+        dst->unkC4 = src->unk2A;
 
-        D_801D9ED8.unk0[i].unk9C = i;
+        animalId = i;
+        dst->objectType = animalId + 0x100;
 
-        D_801D9ED8.unk0[i].unk82.unk3 = 1;
-        D_801D9ED8.unk0[i].unk82.unk4 = 1;
-        D_801D9ED8.unk0[i].unk82.unk5 = 1;
-        D_801D9ED8.unk0[i].unk82.unk6 = 0;
+        dst->unkC6 = src->unk2E;
+        dst->unkC8 = src->unk30;
+        dst->unkCA = src->unk32;
+        dst->unkCC = src->unk34;
 
-        D_801D9ED8.unk0[i].unkE9 = temp_v1->unk4F;
-        D_801D9ED8.unk0[i].unkEA = temp_v1->unk50;
+        dst->unkCE = src->unk36;
+        dst->unkD0 = src->unk38;
+        dst->unkD2 = src->unk3A;
 
-        if (i == DESERT_FOX_ATTACKING) {
-            D_801D9ED8.unk0[i].unk8D = 4;
-        } else if (i == HARD_MOUSE) {
-            D_801D9ED8.unk0[i].unk8D = 2;
+        dst->biome = src->unk40;
+        dst->unkE8 = src->unk3C;
+        dst->unkD4 = src->unk3E;
+
+        dst->unkDA[0][0] = src->unk42[0][0];
+        dst->unkDA[0][1] = src->unk42[0][1];
+        dst->unkDA[0][2] = src->unk42[0][2];
+
+        dst->unkDA[1][0] = src->unk42[1][0];
+        dst->unkDA[1][1] = src->unk42[1][1];
+        dst->unkDA[1][2] = src->unk42[1][2];
+
+        dst->unk82.unk2 = 1;
+        dst->unk82.unk3 = 1;
+        dst->unk82.unk4 = 1;
+        dst->unk82.unk5 = 1;
+        dst->unk82.unk6 = 0;
+
+        dst->unkE9 = src->unk4F;
+        dst->unkEA = src->unk50;
+
+        if (animalId == DESERT_FOX_ATTACKING) {
+            dst->unk8D = 4;
+        } else if (animalId == HARD_MOUSE) {
+            dst->unk8D = 2;
         }
 
     }

@@ -6,6 +6,7 @@
 // main_1050
 void func_80125950(s32 arg0);
 
+void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numTris);
 
 // mtx
 void func_80125980(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
@@ -330,7 +331,7 @@ void func_802B3530_6C4BE0(void);
 void func_802B3540_6C4BF0(void);
 void func_802B356C_6C4C1C(Animal *arg0, s16 arg1, s16 arg2, u8 arg3);
 void func_802B38FC_6C4FAC(Animal *arg0, s16 arg1, s16 arg2, u8 arg3);
-void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *arg2);
+void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *damage);
 s16  func_802B3C9C_6C534C(s16 arg0, Animal *arg1);
 s16  func_802B3D68_6C5418(void);
 
@@ -1099,7 +1100,7 @@ void func_8035A5A4_76BC54(s16 arg0);
 
 // overlay2_76F7D0
 void func_8035E120_76F7D0(void);
-void func_8035E200_76F8B0(void);
+struct035 *func_8035E200_76F8B0(void);
 s32  func_8035E344_76F9F4(Animal2 *arg0, s16 arg1);
 
 // rat

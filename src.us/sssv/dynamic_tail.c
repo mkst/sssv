@@ -230,56 +230,57 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
     }
 }
 
-#if 0
+#ifdef NON_MATCHING
 // ESA: func_80085274 (TBD)
-// CURRENT (5760)
-void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg4) {
+void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 numSegments) {
     s16 sp1E6;
 
-    s32 temp_s5;
-    s32 temp_s6;
-    s32 temp_s7;
-    s32 temp_t0;
+    s32 pad[4];
+
+
     s32 var_s2;
     s32 var_s3;
     s32 var_s4;
     s32 var_v1;
 
-    f32 temp_f2;
+    f32 temp_f2; // unused
     f32 var_f12;
-    f32 var_f14;
-    f32 var_f16;
-    f32 var_f2;
-    f32 temp_f0_10;
-    f64 var_f12_2;
 
     f32 sp1B8;
     f32 sp1B4;
     f32 sp1B0;
     // padding?
-    f32 sp194;
-    f32 sp190;
-    f32 sp18C;
-    // padding ? // sp170;
-    s32 sp130[16];
-    s32 spF0[16];
-    s32 spB0[16];
 
-    f32 sp88;
-    f32 temp_f0;
-    f32 temp_f12;
-    f32 temp_f14;
-    f32 temp_f16;
-
-    s16 i;
-    s16 var_s1;
+    f32 var_f14;
+    f32 var_f2;
+    f32 var_f0;
 
     s32 temp_s2;
     s32 temp_s3;
     s32 temp_s4;
 
-    struct051 *temp_v0;
+    f32 sp194;
+    f32 sp190;
+    f32 sp18C;
+
+    f32 var_f16; // unused
+    f32 temp_f14; // unused
+    f32 temp_f16; // unused
+
+    s32 a;
+    s32 b;
+    s32 c;
+    s16 i;
+    s16 var_s1;
+
+    s32 sp130[16];
+
+    s32 spF0[16];
+
+    s32 spB0[16];
+
     struct088 *var_t5;
+    struct051 *temp_v0;
 
     temp_v0 = &D_803E00C0[arg0];
     var_t5 = &D_803DA300[temp_v0->unk16];
@@ -297,8 +298,7 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
     var_s3 = temp_v0->unk24;
     var_s4 = temp_v0->unk28;
 
-    for (i = 1; i < arg4; i++) {
-        s32 a, b, c;
+    for (i = 1; i < numSegments; i++) {
 
         sp130[i] = var_t5[i].unk0;
         spF0[i]  = var_t5[i].unk4;
@@ -312,9 +312,10 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         b = var_s3 - temp_s3;
         c = var_s4 - temp_s4;
 
-        temp_f0 = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
-        if (temp_f0 != 0.0f) {
-            var_v1 = temp_v0->unk18 / (s32) (temp_f0 / 1024.0);
+        var_f0 = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
+        if (var_f0 != 0.0f) {
+            var_v1 = var_f0 / 1024.0;
+            var_v1 = temp_v0->unk18 / var_v1;
         } else {
             var_v1 = 1;
         }
@@ -327,57 +328,46 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         var_t5[i].unk10 = temp_s3 - var_t5[i].unk4;
         var_t5[i].unk14 = temp_s4 - var_t5[i].unk8;
 
-        var_t5[i].unk0 = temp_s2;
-        var_t5[i].unk4 = temp_s3;
-        var_t5[i].unk8 = temp_s4;
-
-        var_s2 = temp_s2;
-        var_s3 = temp_s3;
-        var_s4 = temp_s4;
+        var_s2 = var_t5[i].unk0 = temp_s2;
+        var_s3 = var_t5[i].unk4 = temp_s3;
+        var_s4 = var_t5[i].unk8 = temp_s4;
     }
 
     if (temp_v0->unk32 & 2) {
         if (temp_v0->unk32 & 1) {
-            var_t5[arg4].unk10 = (var_t5[arg4].unk10 * 15) >> 4;
+            var_t5[numSegments].unk10 = (var_t5[numSegments].unk10 * 15) >> 4;
         } else {
-            var_t5[arg4].unkC = (var_t5[arg4].unkC * 15) >> 4;
+            var_t5[numSegments].unkC = (var_t5[numSegments].unkC * 15) >> 4;
         }
     }
 
-    sp194 = var_t5[arg4].unk0 + ((var_t5[arg4].unkC  * arg3) / 256) + ((( arg1[arg4].unk0 * COS(temp_v0->unk2C)) + (arg1[arg4].unk4 * SIN(temp_v0->unk2C))) >> 0xF);
-    sp190 = var_t5[arg4].unk4 + ((var_t5[arg4].unk10 * arg3) / 256) + (((-arg1[arg4].unk0 * SIN(temp_v0->unk2C)) + (arg1[arg4].unk4 * COS(temp_v0->unk2C))) >> 0xF);
-    sp18C = var_t5[arg4].unk8 + ((var_t5[arg4].unk14 * arg3) / 256) + arg1[arg4].unk8;
+    sp194 = var_t5[numSegments].unk0 + ((var_t5[numSegments].unkC  * arg3) / 256) + ((( arg1[numSegments].unk0 * COS(temp_v0->unk2C)) + (arg1[numSegments].unk4 * SIN(temp_v0->unk2C))) >> 0xF);
+    sp190 = var_t5[numSegments].unk4 + ((var_t5[numSegments].unk10 * arg3) / 256) + (((-arg1[numSegments].unk0 * SIN(temp_v0->unk2C)) + (arg1[numSegments].unk4 * COS(temp_v0->unk2C))) >> 0xF);
+    sp18C = var_t5[numSegments].unk8 + ((var_t5[numSegments].unk14 * arg3) / 256) + (arg1[numSegments].unk8);
 
     sp1B8 = sp194 - temp_v0->unk20;
     sp1B4 = sp190 - temp_v0->unk24;
     sp1B0 = sp18C - temp_v0->unk28;
 
-    temp_f0 = sqrtf(SQ(sp1B8) + SQ(sp1B4) + SQ(sp1B0));
-    if ((arg4 * temp_v0->unk18) < temp_f0) {
-        sp194 = temp_v0->unk20 + (sp1B8 * ((arg4 * temp_v0->unk18) / temp_f0));
-        sp190 = temp_v0->unk24 + (sp1B4 * ((arg4 * temp_v0->unk18) / temp_f0));
-        sp18C = temp_v0->unk28 + (sp1B0 * ((arg4 * temp_v0->unk18) / temp_f0));
+    var_f0 = sqrtf(SQ(sp1B8) + SQ(sp1B4) + SQ(sp1B0));
+    if ((numSegments * temp_v0->unk18) < var_f0) {
+        sp194 = temp_v0->unk20 + ((sp1B8) * ((numSegments * temp_v0->unk18) / var_f0));
+        sp190 = temp_v0->unk24 + ((sp1B4) * ((numSegments * temp_v0->unk18) / var_f0));
+        sp18C = temp_v0->unk28 + ((sp1B0) * ((numSegments * temp_v0->unk18) / var_f0));
         sp1E6 = 1;
     } else {
         sp1E6 = 0;
     }
 
-    var_t5[arg4].unkC  = sp194 - var_t5[arg4].unk0;
-    var_t5[arg4].unk10 = sp190 - var_t5[arg4].unk4;
-    var_t5[arg4].unk14 = sp18C - var_t5[arg4].unk8;
+    var_t5[numSegments].unkC  = sp194 - var_t5[numSegments].unk0;
+    var_t5[numSegments].unk10 = sp190 - var_t5[numSegments].unk4;
+    var_t5[numSegments].unk14 = sp18C - var_t5[numSegments].unk8;
 
-    var_t5[arg4].unk0 = sp194;
-    var_t5[arg4].unk4 = sp190;
-    var_t5[arg4].unk8 = sp18C;
+    var_s2 = var_t5[numSegments].unk0 = sp194;
+    var_s3 = var_t5[numSegments].unk4 = sp190;
+    var_s4 = var_t5[numSegments].unk8 = sp18C;
 
-    var_s2 = sp194;
-    var_s3 = sp190;
-    var_s4 = sp18C;
-
-    if (!sp1B4) {}; // fake
-
-    for (i = arg4 + 1; i < temp_v0->numSegments; i++) {
-        s32 a, b, c;
+    for (i = numSegments + 1; i < temp_v0->numSegments; i++) {
         temp_s2 = var_t5[i].unk0 + ((var_t5[i].unkC  * arg2) / 256) + ((( arg1[i].unk0 * COS(temp_v0->unk2C)) + (arg1[i].unk4 * SIN(temp_v0->unk2C))) >> 0xF);
         temp_s3 = var_t5[i].unk4 + ((var_t5[i].unk10 * arg2) / 256) + (((-arg1[i].unk0 * SIN(temp_v0->unk2C)) + (arg1[i].unk4 * COS(temp_v0->unk2C))) >> 0xF);
         temp_s4 = var_t5[i].unk8 + ((var_t5[i].unk14 * arg2) / 256) + arg1[i].unk8;
@@ -386,9 +376,10 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         b = var_s3 - temp_s3;
         c = var_s4 - temp_s4;
 
-        temp_f0 = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
-        if (temp_f0 != 0.0) {
-            var_v1 = temp_v0->unk18 / (s32) (temp_f0 / 1024.0);
+        var_f0 = sqrtf(SQ((f32)a) + SQ((f32)b) + SQ((f32)c));
+        if (var_f0 != 0.0) {
+            var_v1 = var_f0 / 1024.0;
+            var_v1 = temp_v0->unk18 / var_v1;
         } else {
             var_v1 = 1;
         }
@@ -401,69 +392,65 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 arg
         var_t5[i].unk10 = temp_s3 - var_t5[i].unk4;
         var_t5[i].unk14 = temp_s4 - var_t5[i].unk8;
 
-        var_t5[i].unk0 = temp_s2;
-        var_t5[i].unk4 = temp_s3;
-        var_t5[i].unk8 = temp_s4;
-
-        var_s2 = temp_s2;
-        var_s3 = temp_s3;
-        var_s4 = temp_s4;
+        var_s2 = var_t5[i].unk0 = temp_s2;
+        var_s3 = var_t5[i].unk4 = temp_s3;
+        var_s4 = var_t5[i].unk8 = temp_s4;
     }
 
     if (sp1E6 != 0) {
         var_s1 = 0;
     } else {
-        for (var_s1 = arg4 - 1; var_s1 >= 0; var_s1--) {
-            temp_f0 = var_t5[var_s1].unk0 - var_t5[arg4].unk0;
-            temp_f2 = var_t5[var_s1].unk4 - var_t5[arg4].unk4;
-            temp_f14 = var_t5[var_s1].unk8 - var_t5[arg4].unk8;
-            if ((sqrtf(SQ(temp_f0) + SQ(temp_f2) + SQ(temp_f14)) <= (temp_v0->unk18 * (arg4 - var_s1)))) {
+        // fake
+        for (var_s1 = (numSegments - 1); var_s1 >= (temp_v0->unk2C * 0); var_s1--) {
+            var_f0 = var_t5[var_s1].unk0 - var_t5[numSegments].unk0;
+            var_f2 = var_t5[var_s1].unk4 - var_t5[numSegments].unk4;
+            var_f14 = var_t5[var_s1].unk8 - var_t5[numSegments].unk8;
+            if ((sqrtf(SQ(var_f0) + SQ(var_f2) + SQ(var_f14)) <= (temp_v0->unk18 * (numSegments - var_s1)))) {
                 break;
             }
         }
     }
 
-    temp_f2 = var_t5[var_s1].unk0 - var_t5[arg4].unk0;
-    temp_f14 = var_t5[var_s1].unk4 - var_t5[arg4].unk4;
-    temp_f16 = var_t5[var_s1].unk8 - var_t5[arg4].unk8;
+    sp1B8 = var_t5[var_s1].unk0 - var_t5[numSegments].unk0;
+    sp1B4 = var_t5[var_s1].unk4 - var_t5[numSegments].unk4;
+    sp1B0 = var_t5[var_s1].unk8 - var_t5[numSegments].unk8;
 
-    var_f12 = sqrtf(SQ(temp_f2) + SQ(temp_f14) + SQ(temp_f16));
+    var_f12 = sqrtf(SQ(sp1B8) + SQ(sp1B4) + SQ(sp1B0));
     if (var_f12 < 1.0) {
         var_f12 = 1.0;
     }
 
-    if (var_f12 < temp_v0->unk18 * (arg4 - var_s1)) {
-        var_f2 = temp_f2 / (arg4 - var_s1);
-        var_f14 = temp_f14 / (arg4 - var_s1);
-        var_f16 = temp_f16 / (arg4 - var_s1);
+    if (var_f12 < temp_v0->unk18 * (numSegments - var_s1)) {
+        sp1B8 = sp1B8 / (numSegments - var_s1);
+        sp1B4 = sp1B4 / (numSegments - var_s1);
+        sp1B0 = sp1B0 / (numSegments - var_s1);
     } else {
-        var_f2 = (temp_v0->unk18 * temp_f2) / var_f12;
-        var_f14 = (temp_v0->unk18 * temp_f14) / var_f12;
-        var_f16 = (temp_v0->unk18 * temp_f16) / var_f12;
+        sp1B8 = (temp_v0->unk18 * sp1B8) / var_f12;
+        sp1B4 = (temp_v0->unk18 * sp1B4) / var_f12;
+        sp1B0 = (temp_v0->unk18 * sp1B0) / var_f12;
     }
 
-    for (i = arg4 - 1; i > var_s1; i--) {
-        var_t5[i].unk0 = var_t5[i+1].unk0 + var_f2;
-        var_t5[i].unk4 = var_t5[i+1].unk4 + var_f14;
-        var_t5[i].unk8 = var_t5[i+1].unk8 + var_f16;
 
-        var_t5[i].unkC = var_t5[i].unk0 - sp130[i];
+    for (i = numSegments - 1; i > var_s1; i--) {
+        var_t5[i].unk0 = var_t5[i+1].unk0 + sp1B8;
+        var_t5[i].unk4 = var_t5[i+1].unk4 + sp1B4;
+        var_t5[i].unk8 = var_t5[i+1].unk8 + sp1B0;
+
+        var_t5[i].unkC  = var_t5[i].unk0 - sp130[i];
         var_t5[i].unk10 = var_t5[i].unk4 - spF0[i];
         var_t5[i].unk14 = var_t5[i].unk8 - spB0[i];
     }
 
-    temp_f0 = (ABS(var_t5[arg4].unkC) + ABS(var_t5[arg4].unk10) + ABS(var_t5[arg4].unk14)) / (1024 * 1280.0);
-    var_f12_2 = MIN(1.0, temp_f0 / 2.0);
-
+    var_f0 = (ABS(var_t5[numSegments].unkC) + ABS(var_t5[numSegments].unk10) + ABS(var_t5[numSegments].unk14)) / (1024 * 1280.0);
     func_8032CD70_73E420(
         temp_v0,
         SFX_UNKNOWN_35,
-        var_f12_2 * 28672.0,
+        MIN(1.0, var_f0 / 2.0) * 28672.0,
         0,
-        (temp_f0 / 1.5) + 0.7,
-        var_t5[arg4].unk0 >> 0x10,
-        var_t5[arg4].unk4 >> 0x10,
-        var_t5[arg4].unk8 >> 0x10);
+        (var_f0 / 1.5) + 0.7,
+        var_t5[numSegments].unk0 >> 0x10,
+        var_t5[numSegments].unk4 >> 0x10,
+        var_t5[numSegments].unk8 >> 0x10);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802DD994_6EF044.s")
@@ -1341,8 +1328,6 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
     Vtx2 *vtx;
     s16 i;
 
-    s32 *new_var;
-
     var_a3 = D_803F2C5C * 1024.0;
     temp_fp = D_803F2C60 * 1024.0;
 
@@ -1352,6 +1337,7 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
     // iterate over each tail segment
     for (i = 0; i < arg0->numSegments; i++) {
 
+        // seems better with var_s4 ops split in half, but ESA matches as single instruction
         if (i == (arg0->numSegments - 1)) {
             // final piece
             var_s2 =  temp_fp * ((D_803DA300[arg0->unk16 + arg0->numSegments - 1].unk8 - D_803DA300[arg0->unk16 + arg0->numSegments - 2].unk8) >> 0x10);
