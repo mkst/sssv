@@ -859,6 +859,7 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
+            // process_level_geo()
             func_80344240_7558F0();
             break;
 

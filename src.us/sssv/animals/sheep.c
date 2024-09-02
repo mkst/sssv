@@ -476,7 +476,6 @@ void update_springy_thingy_or_springy_ram(void) {
     }
 }
 
-#if 0
 void func_803622DC_77398C(void) {
     s16 temp_s0;
     s16 temp_s1;
@@ -488,6 +487,8 @@ void func_803622DC_77398C(void) {
     Vtx *vtx1;
     Vtx *vtx2;
 
+    s16 new_var2;
+
     static u16 D_803F2EF0;
 
     if (D_803F2EF0 != D_803D5544) {
@@ -497,27 +498,32 @@ void func_803622DC_77398C(void) {
         vtx2 = (Vtx*)(D_801D9EC4 + SEGMENT_OFFSET(D_040029D0_CA400));
 
         for (i = 0; i < 52; i++) {
+            u8 temp_a3 = (vtx1[i].n.ob[0] << 1) & 0xFF;
 
-            vtx2[i].v.ob[0] = vtx1[i].v.ob[0] + ((vtx1[i].v.ob[0] * (SIN((D_803D5540 << 3) + (vtx1[i].v.ob[0] << 4)) >> 7)) >> 0xC);
-            vtx2[i].v.ob[1] = vtx1[i].v.ob[1] + ((vtx1[i].v.ob[1] * (SIN((D_803D5540 << 3) + (vtx1[i].v.ob[1] << 4)) >> 7)) >> 0xC);
-            vtx2[i].v.ob[2] = vtx1[i].v.ob[2] + ((vtx1[i].v.ob[2] * (SIN((D_803D5540 << 3) + (vtx1[i].v.ob[2] << 4)) >> 7)) >> 0xC);
+            vtx2[i].n.ob[0] = vtx1[i].n.ob[0] + ((vtx1[i].n.ob[0] * (SIN((temp_a3 << 3) + (D_803D5540 << 3)) >> 7)) >> 0xC);
+            vtx2[i].n.ob[1] = vtx1[i].n.ob[1] + ((vtx1[i].n.ob[1] * (SIN((temp_a3 << 3) + (D_803D5540 << 3)) >> 7)) >> 0xC);
+            vtx2[i].n.ob[2] = vtx1[i].n.ob[2] + ((vtx1[i].n.ob[2] * (SIN((temp_a3 << 3) + (D_803D5540 << 3)) >> 7)) >> 0xC);
 
-            temp_s0 = (s8)vtx1[i].v.cn[0] + ((SIN((D_803D5540 << 3) + (vtx1[i].v.ob[0] << 3)) >> 7) >> 2);
-            temp_s1 = (s8)vtx1[i].v.cn[1] + ((COS((D_803D5540 << 3) + (vtx1[i].v.ob[0] << 3)) >> 7) >> 2);
-            temp_s2 = (s8)vtx1[i].v.cn[2] - ((SIN((D_803D5540 << 3) + (vtx1[i].v.ob[0] << 3)) >> 7) >> 2);
+            temp_s0 = vtx1[i].n.n[0];
+            temp_s1 = vtx1[i].n.n[1];
+            temp_s2 = vtx1[i].n.n[2];
+
+            temp_s0 += ((SIN((temp_a3 << 3) + (D_803D5540 << 3)) >> 7) >> 2);
+            temp_s1 += ((COS((temp_a3 << 3) + (D_803D5540 << 3)) >> 7) >> 2);
+            temp_s2 -= ((SIN((temp_a3 << 3) + (D_803D5540 << 3)) >> 7) >> 2);
 
             temp_f6 = sqrtf(SQ(temp_s0) + SQ(temp_s1) + SQ(temp_s2));
 
-            vtx2[i].v.cn[0] = (s16) ((temp_s0 * 0x7F) / temp_f6);
-            vtx2[i].v.cn[1] = (s16) ((temp_s1 * 0x7F) / temp_f6);
-            vtx2[i].v.cn[2] = (s16) ((temp_s2 * 0x7F) / temp_f6);
+            temp_s0 = (temp_s0 * 0x7F)  / temp_f6;
+            temp_s1 = (temp_s1 * 0x7F)  / temp_f6;
+            temp_s2 = (temp_s2 * 0x7F)  / temp_f6;
+
+            vtx2[i].n.n[0] = temp_s0;
+            vtx2[i].n.n[1] = temp_s1;
+            vtx2[i].n.n[2] = temp_s2;
         }
     }
 }
-#else
-static u16 D_803F2EF0; // .bss
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/sheep/func_803622DC_77398C.s")
-#endif
 
 void sheep_float(void) {
     s16 height;

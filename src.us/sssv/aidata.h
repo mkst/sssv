@@ -1,3 +1,6 @@
+#ifndef AIDATA_H
+#define AIDATA_H
+
 #include <ultra64.h>
 #include "common.h"
 
@@ -177,3 +180,5 @@ u8 D_803A4B78_7B6228[] = {
     0x00, 0x34, 0x00, 0x60,
     0xff, 0xfc, 0x00, 0x04,
 };
+
+#endif

@@ -848,32 +848,32 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
     }
 
     switch (D_803D5530->state) {                        /* switch 2; irregular */
-    case 0x1:                                       /* switch 2 */
-    case 0x3:                                       /* switch 2 */
-    case 0x4:                                       /* switch 2 */
-    case 0x6:                                       /* switch 2 */
-    case 0xB6:                                      /* switch 2 */
-    case 0xB7:                                      /* switch 2 */
-    case 0xB9:                                      /* switch 2 */
+    case 0x1:
+    case 0x3:
+    case 0x4:
+    case 0x6:
+    case 0xB6:
+    case 0xB7:
+    case 0xB9:
         var_v0 = ((0x100 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg8) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg8) - var_v0;
         break;
-    case 0x5:                                       /* switch 2 */
-    case 0x65:                                      /* switch 2 */
-    case 0x68:                                      /* switch 2 */
-    case 0x69:                                      /* switch 2 */
-    case 0x8D:                                      /* switch 2 */
-    case 0x8E:                                      /* switch 2 */
-    case 0x8F:                                      /* switch 2 */
-    case 0x90:                                      /* switch 2 */
-    case 0xB8:                                      /* switch 2 */
+    case 0x5:
+    case 0x65:
+    case 0x68:
+    case 0x69:
+    case 0x8D:
+    case 0x8E:
+    case 0x8F:
+    case 0x90:
+    case 0xB8:
         var_v0 = 0;
         break;
-    case 0x2:                                       /* switch 2 */
-    case 0xB5:                                      /* switch 2 */
+    case 0x2:
+    case 0xB5:
         var_v0 = arg8;
         break;
-    default:                                        /* switch 2 */
+    default:
         var_v0 = 0;
         break;
     }
@@ -978,32 +978,32 @@ void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     }
 
     switch (D_803D5530->state) {                        /* switch 2; irregular */
-    case 0x1:                                       /* switch 2 */
-    case 0x3:                                       /* switch 2 */
-    case 0x4:                                       /* switch 2 */
-    case 0x6:                                       /* switch 2 */
-    case 0xB6:                                      /* switch 2 */
-    case 0xB7:                                      /* switch 2 */
-    case 0xB9:                                      /* switch 2 */
+    case 0x1:
+    case 0x3:
+    case 0x4:
+    case 0x6:
+    case 0xB6:
+    case 0xB7:
+    case 0xB9:
         var_v0 = ((0x100 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg8) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg8) - var_v0;
         break;
-    case 0x5:                                       /* switch 2 */
-    case 0x65:                                      /* switch 2 */
-    case 0x68:                                      /* switch 2 */
-    case 0x69:                                      /* switch 2 */
-    case 0x8D:                                      /* switch 2 */
-    case 0x8E:                                      /* switch 2 */
-    case 0x8F:                                      /* switch 2 */
-    case 0x90:                                      /* switch 2 */
-    case 0xB8:                                      /* switch 2 */
+    case 0x5:
+    case 0x65:
+    case 0x68:
+    case 0x69:
+    case 0x8D:
+    case 0x8E:
+    case 0x8F:
+    case 0x90:
+    case 0xB8:
         var_v0 = 0;
         break;
-    case 0x2:                                       /* switch 2 */
-    case 0xB5:                                      /* switch 2 */
+    case 0x2:
+    case 0xB5:
         var_v0 = arg8;
         break;
-    default:                                        /* switch 2 */
+    default:
         var_v0 = 0;
         break;
     }
@@ -1260,44 +1260,44 @@ void func_802BFF84_6D1634(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
         break;
     }
 
-    switch (arg0->unk10) {                          /* switch 1 */
-    case 1:                                         /* switch 1 */
-    case 5:                                         /* switch 1 */
-    case 6:                                         /* switch 1 */
-    case 7:                                         /* switch 1 */
-    case 8:                                         /* switch 1 */
-    case 9:                                         /* switch 1 */
-    case 10:                                        /* switch 1 */
-    case 11:                                        /* switch 1 */
+    switch (arg0->unk10) {
+    case 1:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
         break;
-    case 2:                                         /* switch 1 */
-    case 3:                                         /* switch 1 */
-    case 4:                                         /* switch 1 */
+    case 2:
+    case 3:
+    case 4:
         var_v0 = 0;
         break;
     }
     arg0->unk4 = var_v0;
 
     switch (D_803D5530->state) {                    /* switch 2; irregular */
-    case 0x1:                                       /* switch 2 */
-    case 0x3:                                       /* switch 2 */
-    case 0x4:                                       /* switch 2 */
-    case 0x6:                                       /* switch 2 */
-    case 0xB6:                                      /* switch 2 */
-    case 0xB7:                                      /* switch 2 */
-    case 0xB9:                                      /* switch 2 */
+    case 0x1:
+    case 0x3:
+    case 0x4:
+    case 0x6:
+    case 0xB6:
+    case 0xB7:
+    case 0xB9:
         tmp = ((256 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg6) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg6) - tmp;
         break;
-    case 0x5:                                       /* switch 2 */
-    case 0x65:                                      /* switch 2 */
-    case 0x68:                                      /* switch 2 */
-    case 0x69:                                      /* switch 2 */
-    case 0xB8:                                      /* switch 2 */
+    case 0x5:
+    case 0x65:
+    case 0x68:
+    case 0x69:
+    case 0xB8:
         break;
-    case 0x2:                                       /* switch 2 */
+    case 0x2:
         break;
-    default:                                        /* switch 2 */
+    default:
         break;
     }
 
@@ -1512,8 +1512,6 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     func_802C13E4_6D2A94(&D_803D5528->unk3AC, ((arg12->unk2 - arg12->unk6) / 3) + arg12->unk6, 0x11, 0x12, sp3E, arg9, argA, argF, arg10, arg11, sp3D);
 }
 
-#if 0
-// miles away, probably should start again
 void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA) {
     s16 temp_a1;
     s16 var_a1;
@@ -1544,92 +1542,65 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
         break;
     }
 
-    switch (arg0->unk10) {                          /* switch 1 */
-    case 1:                                         /* switch 1 */
-    case 5:                                         /* switch 1 */
-    case 6:                                         /* switch 1 */
-    case 7:                                         /* switch 1 */
-    case 8:                                         /* switch 1 */
-    case 9:                                         /* switch 1 */
-    case 10:                                        /* switch 1 */
-    case 11:                                        /* switch 1 */
+    switch (arg0->unk10) {
+    case 1:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
         break;
-    case 2:                                         /* switch 1 */
-    case 3:                                         /* switch 1 */
-    case 4:                                         /* switch 1 */
+    case 2:
+    case 3:
+    case 4:
         var_a0 = 0;
         break;
     }
     arg0->unk4 = var_a0;
 
-    switch (D_803D5530->state) {                        /* switch 2; irregular */
-    case 0x1:                                       /* switch 2 */
-    case 0x3:                                       /* switch 2 */
-    case 0x4:                                       /* switch 2 */
-    case 0x6:                                       /* switch 2 */
-    case 0xB6:                                      /* switch 2 */
-    case 0xB7:                                      /* switch 2 */
-    case 0xB9:                                      /* switch 2 */
+    switch (D_803D5530->state) {
+    case 0x1:
+    case 0x3:
+    case 0x4:
+    case 0x6:
+    case 0xB6:
+    case 0xB7:
+    case 0xB9:
         tmp = ((256 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg6) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg6) - tmp;
         break;
-    case 0x5:                                       /* switch 2 */
-    case 0x65:                                      /* switch 2 */
-    case 0x68:                                      /* switch 2 */
-    case 0x69:                                      /* switch 2 */
-    case 0xB8:                                      /* switch 2 */
+    case 0x5:
+    case 0x65:
+    case 0x68:
+    case 0x69:
+    case 0xB8:
         break;
-    case 0x2:                                       /* switch 2 */
+    case 0x2:
         break;
-    default:                                        /* switch 2 */
+    default:
         break;
     }
 
     tmp1 = D_80203FE0[arg2].unk0;
-
-#if 1
-    // all goes wrong from here ...
-    switch (arg2) {
-    case 3:
-    case 5:
-    case 8:
-    case 14:
-        tmp1 -= (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
-        break;
-    default:
-        tmp1 += (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
-        break;
-    }
-#else
-    if ((arg2 == 3) || (arg2 == 5) || (arg2 == 8) || (arg2 == 14)) {
-        tmp1 -= (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
-    } else {
-        tmp1 += (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
-    }
-#endif
-
-    tmp4 = (SIN(arg4) >> 7) >> 4;
-
-    if (1) {};
-
     tmp2 = D_80203FE0[arg2].unk2;
     tmp3 = D_80203FE0[arg2].unk4;
 
-    tmp2 += (s16)((arg5 * D_80152350.unk384[var_a0]) >> 8);
-    tmp3 -= (s16)((arg5 * D_80152350.unk2D0[var_a0]) >> 8);
+    tmp3 -= (s16)(arg5 * (D_80152350.unk384[var_a0]) >> 8);
+    if (arg2 == 3 || arg2 == 5 || arg2 == 8 || arg2 == 14) {
+        tmp1 -= (s16)(arg5 * (D_80152350.unk2D0[var_a0]) >> 8);
+    } else {
+        tmp1 += (s16)(arg5 * (D_80152350.unk2D0[var_a0]) >> 8);
+    }
 
     D_80203FE0[arg3].unk0 = tmp1;
     D_80203FE0[arg3].unk2 = tmp2;
     D_80203FE0[arg3].unk4 = tmp3;
 
-
-    D_80203FE0[arg3].unk2 -= (tmp4 * arg5) >> 8;
-
-    D_80203FE0[arg2].unk2 -= (tmp4 * arg5) >> 8;
+    D_80203FE0[arg3].unk2 -= (((SIN(arg4) >> 7) >> 4) * arg5) >> 8;
+    D_80203FE0[arg2].unk2 -= (((SIN(arg4) >> 7) >> 4) * arg5) >> 8;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C13E4_6D2A94.s")
-#endif
 
 void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1) {
     func_802C19CC_6D307C(&D_803D5528->unk370, arg1->unk0, 3, 7, 0, arg0);

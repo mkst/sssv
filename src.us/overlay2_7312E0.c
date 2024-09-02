@@ -150,8 +150,6 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
     func_8032018C_73183C(&D_803D5528->unk384, 4, 10,  sp34, arg0, arg1, arg2, arg3, arg4, phi_t0);
 }
 
-#if 0
-// CURRENT (4425)
 void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct077 *arg8, s8 arg9) {
     u16 temp_t5;
     u16 tmp;
@@ -216,23 +214,25 @@ void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
         func_802BCDA0_6CE450(arg0, &sp62, &sp60, &sp5E);
     }
 
-    temp_a1 = D_80203FE0[arg1].unk4 - ((arg4 * D_80152350.unk384[sp62]) / 256);
-    temp_t6 = D_80203FE0[arg1].unk2 - ((arg4 * D_80152350.unk2D0[sp62]) / 256);
     temp_t0 = D_80203FE0[arg1].unk0;
+    temp_t6 = D_80203FE0[arg1].unk2;
+    temp_a1 = D_80203FE0[arg1].unk4;
+
+    temp_a1 -= (s16)((arg4 * D_80152350.unk384[sp62]) / 256);
+    temp_t6 -= (s16)((arg4 * D_80152350.unk2D0[sp62]) / 256);
 
     D_80203FE0[arg2].unk4 = temp_a1;
     D_80203FE0[arg2].unk2 = temp_t6;
     D_80203FE0[arg2].unk0 = temp_t0;
 
-    arg2 = arg2 + 1;
+    temp_a1 -= (s16)((arg5 * D_80152350.unk384[sp60]) / 256);
+    temp_t6 -= (s16)((arg5 * D_80152350.unk2D0[sp60]) / 256);
 
-    D_80203FE0[arg2].unk4 = temp_a1 - ((arg5 * D_80152350.unk384[sp60]) / 256);
-    D_80203FE0[arg2].unk2 = temp_t6 - ((arg5 * D_80152350.unk2D0[sp60]) / 256);
-    D_80203FE0[arg2].unk0 = temp_t0;
+    D_80203FE0[arg2 + 1].unk0 = temp_t0;
+    D_80203FE0[arg2 + 1].unk2 = temp_t6;
+    D_80203FE0[arg2 + 1].unk4 = temp_a1;
+
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7312E0/func_8032018C_73183C.s")
-#endif
 
 void func_8032066C_731D1C(s16 arg0, s16 arg1) {
     u16 temp_v1;

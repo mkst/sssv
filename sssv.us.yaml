@@ -3804,7 +3804,7 @@ segments:
     - [0x79DE10, c, overlay2_79DE10]
     - [0x79E640, c, sssv/terminal_background]
     - [0x7A0DA0, c, overlay2_7A0DA0]
-    - [0x7A8A50, c, overlay2_7A8A50]
+    - [0x7A8A50, c, sssv/dan]
     - [0x7A9CE0, c, sssv/ui_main_menu]
     - [0x7AF410, c, sssv/trails]
     # .data / .rodata
@@ -3885,10 +3885,8 @@ segments:
     - [0x7C7960, data] # tbd
     - [0x7C79C0, data] # D_803B6310_7C79C0
     - [0x7C79D0, .data, sssv/terminal_background]
-    - [0x7C7DA0, .data, overlay2_7A0DA0] # overlay2_7A0DA0?
-    - [0x7C7F40, .data, overlay2_7A8A50] # data for overlay2_7A8A50?
-    - [0x7C86B0, data] # overlay2_7A8A50 pointers
-    # - [0x7C87B8, bin] # pointers to displaylists # 7C87B8
+    - [0x7C7DA0, .data, overlay2_7A0DA0]
+    - [0x7C7F40, .data, sssv/dan]
     - [0x7C8880, data, sssv/ui_main_menu] # D_803B71D0
     - [0x7C8B30, .data, sssv/ui_main_menu]
     - [0x7C8B80, rgba16, img/butterflies, 32, 224]
@@ -3973,7 +3971,7 @@ segments:
     - [0x7D1210, .rodata, overlay2_79DE10]
     - [0x7D1220, .rodata, sssv/terminal_background]
     - [0x7D1840, .rodata, overlay2_7A0DA0]
-    - [0x7D1A40, .rodata, overlay2_7A8A50]
+    - [0x7D1A40, .rodata, sssv/dan]
     - [0x7D1A50, .rodata, sssv/ui_main_menu]
     # bss
     - { start: 0x7D1AD0, type: .bss, name: overlay2_6A6500 } # , vram: 0x803C0420 }
@@ -4021,7 +4019,7 @@ segments:
     - { start: 0x7D1AD0, type: .bss, name: overlay2_79DE10 } # , vram: 0x803F6450 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/terminal_background } # , vram: 0x803F6460 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_7A0DA0 } # , vram: 0x803F6680 }
-    - { start: 0x7D1AD0, type: .bss, name: overlay2_7A8A50 } # , vram: 0x803F6720 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/dan } # , vram: 0x803F6720 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/ui_main_menu } # , vram: 0x803F7160 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/trails } # , vram: 0x803F7E10 }
   # - name: UNKNOWN
@@ -4030,8 +4028,8 @@ segments:
   #   start: 0x7D1AD0
   #   exclusive_ram_id: ovl_80
   #   subsegments:
-  #   - [0x7D1AD0, data] # referenced in overlay2_7A8A50
-  - [0x7D1AD0, bin] # referenced in overlay2_7A8A50
+  #   - [0x7D1AD0, data] # referenced in sssv/dan
+  - [0x7D1AD0, bin] # referenced in sssv/dan
   - [0x7D2F50, bin] #
   - [0x7D3360, bin] #
   - [0x7D3AB0, bin] #

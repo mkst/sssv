@@ -255,7 +255,7 @@ extern u64 D_800EF0D0[GFX_RDP_OUTPUT_SIZE];
 
 // 0x8010xxxx
 
-extern u64  D_80100000[];
+extern u32  D_80100000[];
 
 // 0x8012xxxx
 
@@ -725,7 +725,7 @@ extern u8   D_803A8344_7B99F4[]; // timer string written here
 // extern s8   D_803A8350_7B9A00[];
 // extern s8   D_803A8358_7B9A08[];
 // extern s8   D_803A8360_7B9A10[];
-extern s32  D_803A8374_7B9A24;
+extern s32  D_803A8374_7B9A24; // pointer to an image
 
 extern ObjectData D_803A8528_7B9BD8[247]; // 0x9C each
 extern u16  D_803A4638_7B5CE8[];
@@ -798,8 +798,7 @@ extern f32       D_803B686C_7C7F1C;
 extern s32       D_803B6880_7C7F30;
 
 extern s16  D_803B6870_7C7F20[];
-extern struct110 D_803B7000_7C86B0[];
-extern Gfx **D_803B7108_7C87B8[5][10];
+
 // extern s8   D_803B71D0_7C8880[][5];
 extern u8  *D_803B7268_7C8918[64];
 extern u8  *D_803B7368_7C8A18[64];
@@ -1120,12 +1119,7 @@ extern s16  D_803F671A; // current language
 extern s16  D_803F671C;
 
 // overlay2_7A8A50
-extern struct048  D_803F6720[][10];
-extern s16  D_803F70F8[][10];
-extern s16  D_803F7134[];
 extern u16  D_803F713C[];
-extern s16  D_803F7144[];
-extern s16  D_803F714C[];
 
 // ui_main_menu
 extern struct030 D_803F7DA8;
