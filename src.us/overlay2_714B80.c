@@ -31,15 +31,15 @@ void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
     sp28 = (D_80203FE0[1].unk4 + (D_80203FE0[2].unk4 * 5)) / 192;
     sp34 = ((D_80203FE0[1].unk4 * 5) + D_80203FE0[2].unk4) / 192;
 
-    arg0->unkC4[arg3].unk0.h = ((sp4C * 5) + sp44) / 192;
+    arg0->unkC4[arg3].pos.xPos.h = ((sp4C * 5) + sp44) / 192;
     if (0) { }
-    arg0->unkC4[arg3].unk4.h = ((sp48 * 5) + sp40) / 192;
-    arg0->unkC4[arg3].unk8.h = (arg2 / 32) + sp34;
+    arg0->unkC4[arg3].pos.zPos.h = ((sp48 * 5) + sp40) / 192;
+    arg0->unkC4[arg3].pos.yPos.h = (arg2 / 32) + sp34;
     arg0->unkC4[arg3].unkC = ((arg1 * 7) / 32) >> 4;
 
-    arg0->unkC4[arg3+1].unk0.h = ((sp44 * 5) + sp4C) / 192;
-    arg0->unkC4[arg3+1].unk4.h = ((sp40 * 5) + sp48) / 192;
-    arg0->unkC4[arg3+1].unk8.h = (arg2 / 32) + sp28;
+    arg0->unkC4[arg3+1].pos.xPos.h = ((sp44 * 5) + sp4C) / 192;
+    arg0->unkC4[arg3+1].pos.zPos.h = ((sp40 * 5) + sp48) / 192;
+    arg0->unkC4[arg3+1].pos.yPos.h = (arg2 / 32) + sp28;
     arg0->unkC4[arg3+1].unkC = ((arg1 * 7) / 32) >> 4;
 }
 
@@ -60,9 +60,9 @@ void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) 
 
     tmp4 = tmp4 / 32;
 
-    arg0->unkC4[arg4].unk0.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
-    arg0->unkC4[arg4].unk4.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
-    arg0->unkC4[arg4].unk8.h = tmp4;
+    arg0->unkC4[arg4].pos.xPos.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg4].pos.zPos.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg4].pos.yPos.h = tmp4;
 
     arg0->unkC4[arg4].unkC = arg3 / 32;
 }
@@ -84,9 +84,9 @@ void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, 
 
     tmp4 = tmp4 / 32;
 
-    arg0->unkC4[arg6].unk0.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
-    arg0->unkC4[arg6].unk4.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
-    arg0->unkC4[arg6].unk8.h = tmp4;
+    arg0->unkC4[arg6].pos.xPos.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg6].pos.zPos.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[arg6].pos.yPos.h = tmp4;
 
     arg0->unkC4[arg6].unkC = arg5 / 32;
 }
@@ -108,24 +108,24 @@ void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4) 
 
     tmp4 = tmp4 / 32;
 
-    arg0->unkC4[arg4].unk0.h = (((temp_t2 * tmp0) + (tmp2 * temp_t7)) >> 7) / 32;
-    arg0->unkC4[arg4].unk4.h = (((temp_t2 * tmp2) - (tmp0 * temp_t7)) >> 7) / 32;
-    arg0->unkC4[arg4].unk8.h = tmp4;
+    arg0->unkC4[arg4].pos.xPos.h = (((temp_t2 * tmp0) + (tmp2 * temp_t7)) >> 7) / 32;
+    arg0->unkC4[arg4].pos.zPos.h = (((temp_t2 * tmp2) - (tmp0 * temp_t7)) >> 7) / 32;
+    arg0->unkC4[arg4].pos.yPos.h = tmp4;
     arg0->unkC4[arg4].unkC = arg3 / 32;
 }
 
 void func_80303C44_7152F4(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
     Animal *temp_v0 = D_803D552C->unk320;
-    arg0->unkC4[arg1].unk0.h = ((SIN(D_803D552C->heading) >> 7) * arg2) >> 8;
-    arg0->unkC4[arg1].unk4.h = ((COS(D_803D552C->heading) >> 7) * arg2) >> 8;
-    arg0->unkC4[arg1].unk8.h = temp_v0->unk74[0].unk8.h + arg3;
+    arg0->unkC4[arg1].pos.xPos.h = ((SIN(D_803D552C->heading) >> 7) * arg2) >> 8;
+    arg0->unkC4[arg1].pos.zPos.h = ((COS(D_803D552C->heading) >> 7) * arg2) >> 8;
+    arg0->unkC4[arg1].pos.yPos.h = temp_v0->unk74[0].pos.yPos.h + arg3;
     arg0->unkC4[arg1].unkC = (temp_v0->unk74[0].unkC * 3) >> 2;
 }
 
 void func_80303D00_7153B0(Animal *arg0, u16 arg1, u16 arg2) {
-    arg0->unkC4[0].unk0.h = 0;
-    arg0->unkC4[0].unk4.h = 0;
-    arg0->unkC4[0].unk8.h = arg2 / 32;
+    arg0->unkC4[0].pos.xPos.h = 0;
+    arg0->unkC4[0].pos.zPos.h = 0;
+    arg0->unkC4[0].pos.yPos.h = arg2 / 32;
     arg0->unkC4[0].unkC = arg1 / 32;
     arg0->unkC4[1].unkC = 0;
 }
@@ -137,9 +137,9 @@ void func_80303D50_715400(Animal *arg0, u16 idx) {
 void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
     guTranslate(
         &arg2->modelViewMtx[arg2->usedModelViewMtxs],
-        arg0->unkC4[arg1].unk0.h + arg0->position.xPos.h,
-        arg0->unkC4[arg1].unk4.h + arg0->position.zPos.h,
-        arg0->unkC4[arg1].unk8.h + arg0->position.yPos.h);
+        arg0->unkC4[arg1].pos.xPos.h + arg0->position.xPos.h,
+        arg0->unkC4[arg1].pos.zPos.h + arg0->position.zPos.h,
+        arg0->unkC4[arg1].pos.yPos.h + arg0->position.yPos.h);
 
     gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -186,13 +186,13 @@ s32 func_8030400C_7156BC(Animal *arg0, s16 x, s16 z, s32 *arg3, s32 *arg4) {
     var_t0 = &arg0->unkC4[i];
 
     while ((i < 5) && (var_t0->unkC != 0)) {
-        tmp1 = x - var_t0->unk0.h;
-        tmp2 = z - var_t0->unk4.h;
+        tmp1 = x - var_t0->pos.xPos.h;
+        tmp2 = z - var_t0->pos.zPos.h;
         dist = SQ(tmp1) + SQ(tmp2);
 
         if (dist < SQ(var_t0->unkC)) {
-            temp_t2 = (arg0->position.yPos.w + var_t0->unk8.w) + (var_t0->unkC << 0x10);
-            temp_t3 = (arg0->position.yPos.w + var_t0->unk8.w) - (var_t0->unkC << 0x10);
+            temp_t2 = (arg0->position.yPos.w + var_t0->pos.yPos.w) + (var_t0->unkC << 0x10);
+            temp_t3 = (arg0->position.yPos.w + var_t0->pos.yPos.w) - (var_t0->unkC << 0x10);
 
             if (res != 0) {
                 *arg3 = MAX(*arg3, temp_t2);

@@ -893,25 +893,21 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
 
 #ifdef NON_MATCHING
 // only used by rabbit
-// CURRENT (370)
+// CURRENT (395)
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 var_a0;
     s16 var_a2;
     s16 temp_hi;
 
-    s16 temp_t3;
-    s16 temp_t7;
-    s16 temp_t9;
-
-    u16 tmp1;
-    u16 tmp3;
-
-    s16 new_var;
-
+    s16 tmp1;
+    s16 tmp2;
+    s16 tmp3;
+    s16 tmp4;
 
     temp_hi = (D_803D5542 + 0x14) % 360;
 
     var_a0 = (D_803D5542 < 96) ? (arg1 * (SIN(D_803D5542 << 3) >> 7)) >> 9 : 0;
+
     var_a2 = (temp_hi < 96) ? (arg1 * (SIN(temp_hi << 3) >> 7)) >> 9 : 0;
 
     if ((D_803D5542 > 0xC0) && (D_803D5542 < 0xD8)) {
@@ -930,33 +926,31 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
         var_a0 = var_a2 = 0;
     }
 
-    temp_t3 = D_80203FE0[19].unk4 ^ 0;
-    new_var = D_80203FE0[19].unk2;
-    temp_t7 = D_80203FE0[19].unk0 - arg0;
-    temp_t9 = D_80203FE0[19].unk0 + arg0;
+    tmp1 = D_80203FE0[19].unk0;
+    tmp2 = D_80203FE0[19].unk2;
+    tmp3 = D_80203FE0[19].unk4;
 
-    D_80203FE0[26].unk0 = temp_t7;
-    D_80203FE0[26].unk2 = new_var;
-    D_80203FE0[26].unk4 = temp_t3;
+    if (1) {};
 
-    D_80203FE0[28].unk0 = temp_t9;
-    D_80203FE0[28].unk4 = temp_t3;
+    tmp4 = D_80203FE0[19].unk0;
+    tmp1 -= arg0;
+    tmp4 += arg0;
 
-    tmp1 = new_var + var_a0;
-    tmp3 = (temp_t3 + arg1) - (var_a0 >> 1);
-    D_80203FE0[27].unk0 = temp_t7;
-    D_80203FE0[27].unk2 = tmp1;
-    D_80203FE0[27].unk4 = tmp3;
+    D_80203FE0[26].unk0 = tmp1;
+    D_80203FE0[26].unk2 = tmp2;
+    D_80203FE0[26].unk4 = tmp3;
 
-    tmp1 = new_var + var_a2;
-    tmp3 = (temp_t3 + arg1) - (var_a2 >> 1);
-    D_80203FE0[29].unk0 = temp_t9;
-    D_80203FE0[29].unk2 = tmp1;
-    D_80203FE0[29].unk4 = tmp3;
+    D_80203FE0[28].unk0 = tmp4;
+    D_80203FE0[28].unk2 = tmp2;
+    D_80203FE0[28].unk4 = tmp3;
 
+    D_80203FE0[27].unk0 = tmp1;
+    D_80203FE0[27].unk2 = (tmp2 + var_a0);
+    D_80203FE0[27].unk4 = ((tmp3 + arg1) - (var_a0 >> 1));
 
-    D_80203FE0[28].unk2 = new_var; // really messes with codegen to move this
-
+    D_80203FE0[29].unk0 = tmp4;
+    D_80203FE0[29].unk2 = (tmp2 + var_a2);
+    D_80203FE0[29].unk4 = ((tmp3 + arg1) - (var_a2 >> 1));
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6FF4_6D86A4.s")

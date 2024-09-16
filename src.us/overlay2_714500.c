@@ -34,6 +34,7 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
         phi_t4 = phi_t2 = phi_t3 = 0;
     }
 
+#if 1
     new_var = D_80152C78[phi_t3 & 0xFF];
     D_80203FE0[1].unk0 = ((new_var >> 7) * arg1) >> 9;
     D_80203FE0[1].unk2 = ((D_80152C78[(phi_t3 + 0x40) & 0xFF] >> 7) * arg1) >> 9;
@@ -54,6 +55,23 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     tmp2 = D_80203FE0[2].unk2 - (((D_80152C78[(phi_t4 + 0x40) & 0xFF] >> 7) * arg2) >> 8);
     D_80203FE0[3].unk2 = tmp2;
     D_80203FE0[3].unk4 = 0;
+#else
+    D_80203FE0[1].unk0 = (s16) (((SIN(var_t3) >> 7) * arg1) >> 9);
+    D_80203FE0[1].unk2 = (s16) (((COS(var_t3) >> 7) * arg1) >> 9);
+    D_80203FE0[1].unk4 = 0;
+
+    D_80203FE0[2].unk0 = (s16) -D_80203FE0[1].unk0;
+    D_80203FE0[2].unk2 = (s16) -D_80203FE0[1].unk2;
+    D_80203FE0[2].unk4 = 0;
+
+    D_80203FE0[0].unk0 = (s16) (D_80203FE0[1].unk0 + (((SIN(var_t2) >> 7) * arg0) >> 8));
+    D_80203FE0[0].unk2 = (s16) (D_80203FE0[1].unk2 + (((COS(var_t2) >> 7) * arg0) >> 8));
+    D_80203FE0[0].unk4 = 0;
+
+    D_80203FE0[3].unk0 = (s16) (D_80203FE0[2].unk0 - (((SIN(var_t4) >> 7) * arg2) >> 8));
+    D_80203FE0[3].unk2 = (s16) (D_80203FE0[2].unk2 - (((COS(var_t4) >> 7) * arg2) >> 8));
+    D_80203FE0[3].unk4 = 0;
+#endif
 
     func_802C79E0_6D9090(&D_80203FE0[0], -D_803D5530->unk28 >> 1);
     func_802C79E0_6D9090(&D_80203FE0[1], -D_803D5530->unk28 >> 1);

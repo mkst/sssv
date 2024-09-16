@@ -359,6 +359,10 @@ void func_802CB394_6DCA44(s32 arg0) {
 
     struct099 *particle;
 
+    s32 tmp1;
+    s32 tmp2;
+    s32 tmp3;
+
     sp806 = 0;
     func_8012826C();
 
@@ -696,8 +700,9 @@ void func_802CB394_6DCA44(s32 arg0) {
 
             lodFraction = ((0x100 / sp7DA) * ((sp7DA - (var_s1->unk18 % sp7DA)) - 1));
 
-            // this needs some finesse, >> 8 is /8 which is the size of a Gfx command
-            if (((s32) (((s32)*dl - (s32)D_8020428C) + -((sp7DD + 6) * 0x2BC0) - 2048) >> 3) < 1390) {
+            // ((((D_801D9E98[sp7DD] - D_8020428C) + (-((((D_801D9E98 - sp7DD) * 16) - sp7DD) * 64))) + -69248) >> 3) < 1390
+            // this needs some finesse, >> 3 is /8 which is the size of a Gfx command
+            if ((((D_801D9E98[sp7DD] - (Gfx*)D_8020428C) + (-(sp7DD + 6) * 0x2BC0) - 2048) >> 3) < 1390) {
 
                 switch (var_s1->id) {
                 case 0x0:

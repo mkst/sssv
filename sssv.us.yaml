@@ -3819,7 +3819,7 @@ segments:
     - [0x7B1C80, .data, sssv/animals/stats] # animal stats (struct089 -> struct035)
     - [0x7B3250, data] # padding?
     - [0x7B3260, data, overlay2_6DCA10]
-    - [0x7B4440, data, overlay2_6EC720]
+    - [0x7B4440, .data, overlay2_6EC720]
     - [0x7B5040, data, sssv/dynamic_tail]  # dynamic tail data
     - [0x7B5B80, .data, sssv/animals/fox]
     - [0x7B5E60, data, overlay2_716900_data] # ?
@@ -3890,12 +3890,6 @@ segments:
     - [0x7C8880, data, sssv/ui_main_menu] # D_803B71D0
     - [0x7C8B30, .data, sssv/ui_main_menu]
     - [0x7C8B80, rgba16, img/butterflies, 32, 224]
-    # - [0x7C9380, rgba16, img/butterfly1a, 32, 32]
-    # - [0x7C9B80, rgba16, img/butterfly1b, 32, 32]
-    # - [0x7CA380, rgba16, img/butterfly1c, 32, 32]
-    # - [0x7CAB80, rgba16, img/butterfly2a, 32, 32]
-    # - [0x7CB380, rgba16, img/butterfly2b, 32, 32]
-    # - [0x7CBB80, rgba16, img/butterfly2c, 32, 32]
     # rodata
     - [0x7CC380, .rodata, overlay2_6A7A80]
     - [0x7CC3C0, .rodata, overlay2_6ACF20]

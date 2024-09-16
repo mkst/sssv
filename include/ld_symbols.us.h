@@ -2929,7 +2929,7 @@ extern Addr overlay2_6D9AF0_c;
 extern Addr overlay2_6DA670_c;
 extern Addr overlay2_6DB610_c;
 extern Addr overlay2_6DCA10_data__s;
-extern Addr overlay2_6EC720_data__s;
+extern Addr overlay2_6EC720_c;
 extern Addr overlay2_6ECFF0_c;
 extern Addr overlay2_6ED230_c;
 extern Addr overlay2_6FA0A0_c;

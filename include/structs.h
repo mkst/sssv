@@ -296,6 +296,10 @@ typedef struct {
 } CmdType39; // CmdSetMusicTrack
 
 typedef struct {
+    /* 0x0 */ u16 unk0;
+} CmdType41; // sets D_803F2D50.unk1E / D_803F2D50.unk1C
+
+typedef struct {
     /* 0x0 */ u8  unk0;
     /* 0x1 */ u8  unk1;
     /* 0x2 */ s16 unk2;
@@ -476,6 +480,7 @@ typedef struct {
         CmdType37  type37;
         CmdType38  type38;
         CmdType39  type39;
+        CmdType41  type41;
         CmdType50  type50;
         CmdType51  type51;
         CmdType52  type52;
@@ -671,18 +676,7 @@ typedef struct {
 } WaypointData;
 
 typedef struct {
-    union {
-      s32 w;
-      s16 h;
-    } unk0;  // xPos
-    union {
-      s32 w;
-      s16 h;
-    } unk4;  // xPos
-    union {
-      s32 w;
-      s16 h;
-    } unk8;  // yPos
+    Position pos;
     s32 unkC; // unkD0, size?
 } struct043; // size 0x10
 
@@ -717,8 +711,8 @@ struct Animal {
     /* 0x2A */  s16 unk2A; // 0..360
     /* 0x2C */  s16 yRotation;
     /* 0x2E */  s16 zRotation;
-    /* 0x30 */  s16 unk30;
-    /* 0x32 */  s16 unk32;
+    /* 0x30 */  s16 unk30; // width?
+    /* 0x32 */  s16 unk32; // depth?
     /* 0x34 */  s16 unk34; // used in collision
     /* 0x36 */  s16 unk36;
     /* 0x38 */  s8  unk38;
@@ -1804,16 +1798,16 @@ typedef struct {
     /* 0x0  */ s16 unk0;
     /* 0x2  */ s16 unk2; // teleporter type
     /* 0x4  */ s16 unk4;
-    /* 0x6  */ s16 unk6[12];
-    /* 0x1E */ s16 unk1E[12];
+    /* 0x6  */ s16 unk6[12]; // green?
+    /* 0x1E */ s16 unk1E[12]; // size?
     /* 0x38 */ f32 unk38;
     /* 0x3C */ f32 unk3C;
     /* 0x40 */ s16 unk40;
     /* 0x42 */ s16 unk42;
     /* 0x44 */ s16 unk44;
-    /* 0x46 */ s16 unk46;
-    /* 0x48 */ s16 unk48;
-    /* 0x4A */ s16 unk4A;
+    /* 0x46 */ s16 unk46; // 2nd xPos
+    /* 0x48 */ s16 unk48; // 2nd zPos
+    /* 0x4A */ s16 unk4A; // 2nd yPos
     /* 0x4C */ s16 unk4C;
     /* 0x4E */ s16 unk4E;
     /* 0x50 */ s16 unk50;

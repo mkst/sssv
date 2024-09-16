@@ -42,9 +42,9 @@ void func_80389B30_79B1E0(void) {
     struct061 sp148;
     s32 padd[2];
 
-    u8 temp_v0_3;
-    s16 temp_s0;
     s16 tmp;
+    s16 temp_s0;
+    u8 temp_v0_3;
 
     s16 sp138; // evo texture
     s16 sp136;
@@ -67,11 +67,11 @@ void func_80389B30_79B1E0(void) {
     s32 xDelta;
     s32 sp10C;
 
-    s16 var_v1;
+    s32 paddd;
+
     Animal *target;
 
     f32 sp100;
-    s16 var_v1_2;
 
     if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 5)) {
         D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
@@ -136,9 +136,9 @@ void func_80389B30_79B1E0(void) {
         gSPDisplayList(D_801D9E88++, D_01004AF8_3E3C8);
         gDPSetRenderMode(D_801D9E88++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
 
-        switch (D_803F2D50.evoSuitColor) {          /* switch 2; irregular */
+        switch (D_803F2D50.evoSuitColor) {
 
-        case EVO_BRONZE_SHELLSUIT:                                     /* switch 2 */
+        case EVO_BRONZE_SHELLSUIT:
             sp138 = 2;  // bronze texture
             sp12E = 4;
             sp12C = 0xAA;
@@ -150,7 +150,7 @@ void func_80389B30_79B1E0(void) {
             D_803D5524->unkA6 = 0x16;
             D_803D5524->unkA8 = 0x18;
             break;
-        case EVO_SILVER_SHELLSUIT:                                     /* switch 2 */
+        case EVO_SILVER_SHELLSUIT:
             sp138 = 3; // silver texture
             sp12E = 7;
             sp12C = 0xD2;
@@ -162,7 +162,7 @@ void func_80389B30_79B1E0(void) {
             D_803D5524->unkA6 = 0x18;
             D_803D5524->unkA8 = 0x1A;
             break;
-        case EVO_GOLD_SHELLSUIT:                                     /* switch 2 */
+        case EVO_GOLD_SHELLSUIT:
             sp138 = 1; // gold texture
             sp12E = 10;
             sp12C = 0xFF;
@@ -174,7 +174,7 @@ void func_80389B30_79B1E0(void) {
             D_803D5524->unkA6 = 0x1A;
             D_803D5524->unkA8 = 0x1C;
             break;
-        default:                                    /* switch 2 */
+        default:
             sp138 = 0; // (?) texture
             sp12E = 0;
             sp12C = 0;
@@ -189,13 +189,16 @@ void func_80389B30_79B1E0(void) {
         }
 
         if (D_803D552C->unk30C != 0) {
+            s16 var_v1_2;
+            s16 var_v1;
+
             target = func_80323040_7346F0();
             if (target != NULL) {
                 temp_s0 = ((D_803D5530->position.yPos.h - target->position.yPos.h) - (target->unk42 >> 1)) + 0x56;
                 xDelta = D_803D5530->position.xPos.h - target->position.xPos.h;
                 zDelta = D_803D5530->position.zPos.h - target->position.zPos.h;
 
-                var_v1 = sqrtf(((xDelta * xDelta) + (zDelta * zDelta)));
+                var_v1 = sqrtf(SQ(xDelta) + SQ(zDelta));
                 if (var_v1 <= 0) {
                     var_v1 = 1;
                 }
@@ -215,10 +218,10 @@ void func_80389B30_79B1E0(void) {
             sp126 = D_803D5530->position.zPos.h;
             sp124 = D_803D5530->position.yPos.h + 0x56;
 
-            for(sp10C = 0; sp10C != 5; sp10C++) {
-                sp122 = (((COS(D_803D552C->unk310) >> 7) * (COS(0x40 - D_803D552C->heading) >> 7) * (sp10C + 1)) / 1536) + sp128;
-                sp120 = (((COS(D_803D552C->unk310) >> 7) * (SIN(0x40 - D_803D552C->heading) >> 7) * (sp10C + 1)) / 1536) + sp126;
-                sp11E = (((SIN(D_803D552C->unk310) >> 7) * (sp10C + 1)) / 6) + sp124;
+            for (sp10C = 0; sp10C < 5; sp10C++) {
+                sp122 = sp128 + (((COS(D_803D552C->unk310) >> 7) * (COS(0x40 - D_803D552C->heading) >> 7) * (sp10C + 1)) / 1536);
+                sp120 = sp126 + (((COS(D_803D552C->unk310) >> 7) * (SIN(0x40 - D_803D552C->heading) >> 7) * (sp10C + 1)) / 1536);
+                sp11E = sp124 + (((SIN(D_803D552C->unk310) >> 7) * (sp10C + 1)) / 6);
                 if (func_8033C9CC_74E07C(sp122, sp120, sp11E, func_803136FC_724DAC(sp122, sp120, sp124), sp128, sp126, sp124, D_803D5530->unk160, 0, 0)) {
                     break;
                 }
@@ -302,7 +305,7 @@ void func_80389B30_79B1E0(void) {
             gSPDisplayList(D_801D9E90++, D_01004970_3E240);
             gDPSetPrimColor(D_801D9E90++, 0, 0, sp136, 0, 0, sp12A);
 
-            if (func_80126388(0x13, 0x1B, D_803F2EC8, D_803F2EC8, D_803F2EC8, D_803F2ED0, 0, 0, 0, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs]) != 0) {
+            if (func_80126388(0x13, 0x1B, D_803F2EC8, D_803F2EC8, D_803F2EC8, D_803F2ED0, 0, 0, 0, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                 gSPMatrix(D_801D9E90++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
                 switch (sp10C) {
@@ -328,9 +331,9 @@ void func_80389B30_79B1E0(void) {
             }
 
             if (sp130 != 0) {
-                func_8032CD70_73E420(D_803D5530, 0x11A, sp134 + 0xF00, 0, sp100, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CD70_73E420(D_803D5530, 282, sp134 + 0xF00, 0, sp100, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             } else {
-                func_8032CD70_73E420(D_803D5530, 0x119, sp134, 0, 1.0f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CD70_73E420(D_803D5530, 281, sp134,         0,  1.0f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
         }
 

@@ -1,8 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "overlay2_6EC720.h"
 
-#ifdef NON_MATCHING
+/* only called with arg5 < 32 */
 void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 arg5) {
     s16 sp46;
     s16 sp44;
@@ -15,10 +16,10 @@ void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 
     s16 phi_a0;
     s16 phi_a1;
 
-    u16 bar;
-    u16 foo;
+    u16 tmp1;
+    u16 tmp2;
 
-    s32 phi_v1;
+    s32 idx;
 
     s16 temp_t9_2;
 
@@ -36,32 +37,31 @@ void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 
     sp3C = D_802040F0[arg1].unk4 - D_802040F0[arg0].unk4;
 
     tmp = SQ((f32) sp46) + SQ((f32) sp44) + SQ((f32) sp42);
-    foo = (s32) sqrtf(tmp);
+    tmp2 = (s32) sqrtf(tmp);
 
     tmp = SQ((f32) sp40) + SQ((f32) sp3E) + SQ((f32) sp3C);
-    bar = (s32) sqrtf(tmp);
+    tmp1 = (s32) sqrtf(tmp);
 
-    phi_v1 = foo * bar;
-    if (phi_v1 == 0) {
-        phi_v1 = 1;
+    idx = tmp2 * tmp1;
+    if (idx == 0) {
+        idx = 1;
     }
-    temp_t9_2 = func_801283AC((((sp46 * sp40) + (sp44 * sp3E) + (sp42 * sp3C)) * 256) / phi_v1);
+    temp_t9_2 = func_801283AC((((sp46 * sp40) + (sp44 * sp3E) + (sp42 * sp3C)) * 256) / idx);
 
     if (temp_t9_2 == 180) {
         temp_t9_2 = 179;
     }
     temp_t9_2 = temp_t9_2 >> 2;
 
-    // falls apart here
-    if ((arg5 < 17) != 0) {
-        phi_v1 = arg5 + (temp_t9_2 * 17);
-        phi_a0 = D_803A2D90_7B4440[phi_v1].unk0;
-        phi_a1 = D_803A2D90_7B4440[phi_v1].unk2;
+    if (arg5 < 17) {
+        idx = arg5 + (temp_t9_2 * 17);
+        phi_a0 = D_803A2D90_7B4440[idx*2 + 0];
+        phi_a1 = D_803A2D90_7B4440[idx*2 + 1];
     } else {
-        arg5 = (32 - arg5) & 0xFFFF;
-        phi_v1 = arg5 + (temp_t9_2 * 17);
-        phi_a1 = D_803A2D90_7B4440[phi_v1].unk0; // NOTE: swapped!
-        phi_a0 = D_803A2D90_7B4440[phi_v1].unk2; // NOTE: swapped!
+        arg5 = (32 - arg5);
+        idx = arg5 + (temp_t9_2 * 17);
+        phi_a1 = D_803A2D90_7B4440[idx*2 + 0]; // NOTE: swapped!
+        phi_a0 = D_803A2D90_7B4440[idx*2 + 1]; // NOTE: swapped!
     }
 
     D_80203FE0[arg1].unk0 = D_80203FE0[arg0].unk0 + (((phi_a0 * sp46) + (phi_a1 * sp40)) / 256);
@@ -73,9 +73,6 @@ void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 
         D_80203FE0[arg1].unk0++;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6EC720/func_802DB070_6EC720.s")
-#endif
 
 void func_802DB494_6ECB44(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4) {
     s16 tmp1, tmp2, tmp3;

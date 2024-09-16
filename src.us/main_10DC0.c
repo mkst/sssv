@@ -50,16 +50,13 @@ void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 
     gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
 }
 
-#ifdef NON_MATCHING
-// CURRENT (16)
 // draw chunked images (e.g. 200 credz)
 void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *img) {
 
-    s32 yOffset;
-    s32 xx, yy;
-    void *imgAddr;
-    u32 sp8C;
     s32 x, y;
+    void *imgAddr;
+    s32 yOffset;
+    u32 sp8C;
 
     gDPPipeSync((*dl)++);
 
@@ -69,7 +66,6 @@ void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl,
     sp8C = width / 32;
 
     while (y < (startY + height)) {
-
         x = startX;
 
         if ((startY + height) < (y + 32)) {
@@ -79,11 +75,13 @@ void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl,
         }
 
         while (x < (startX + width)) {
+            s16 xx;
+            s8  yy;
 
-            xx = x - startX;
-            yy = y - startY;
+            yy = (s32)(y - startY) / 32;
+            xx = (s32)(x - startX) / 32;
 
-            imgAddr = (0, img) + (((u8) (((s8) (yy / 32) * sp8C) + (s16)(xx / 32))) * (32 * 32 * 2));
+            imgAddr = (0, img) + (((u8) ((yy * sp8C) + xx)) * (32 * 32 * 2));
 
             gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, imgAddr);
             gDPLoadSync((*dl)++);
@@ -122,9 +120,6 @@ void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl,
     gDPPipeSync((*dl)++);
     gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_10DC0/draw_chunked_image.s")
-#endif
 
 void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z) {
     gDPPipeSync((*dl)++);

@@ -209,8 +209,8 @@ void update_evo_microchip(void) {
     }
     if (sp9A == 0) {
         func_803034D0_714B80(D_803D552C, 0x138, 0, 0);
-        D_803D5530->unkC4[0].unk8.h += 3; // 0xcc
-        D_803D5530->unkC4[1].unk8.h += 3; // 0xdc
+        D_803D5530->unkC4[0].pos.yPos.h += 3; // 0xcc
+        D_803D5530->unkC4[1].pos.yPos.h += 3; // 0xdc
         func_80303D50_715400(D_803D552C, 2);
     } else {
         func_80303D00_7153B0(D_803D552C, 0x138, 0x9C);

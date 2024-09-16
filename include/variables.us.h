@@ -651,7 +651,6 @@ extern struct089 D_803A05D0_7B1C80[68];
 extern struct098 D_803A1BB0_7B3260[];
 extern u16  D_803A20B0_7B3760[]; // colors
 extern struct099 D_803A20C0_7B3770[];
-extern struct076 D_803A2D90_7B4440[];
 
 extern struct118 D_803A3990_7B5040[];
 extern struct118 D_803A39C0_7B5070[];

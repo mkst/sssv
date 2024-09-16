@@ -12,18 +12,21 @@ typedef struct {
     u8  unk4;
 } struct014;
 
-
-#ifdef NON_MATCHING
+// unused. fakematch nonsense.
 void func_8012C190(struct014 *arg0, u16 arg1, s16 arg2, s16 arg3) {
     u8 i;
+    int new_var2;
+    struct014_inner *new_var;
 
     for (i = 0; i < arg0->unk4; i++) {
-        // (arg0->unk0 + (i * 0xC))->unk8
-        if (arg1 >= arg0->unk0[i].unk8) {
-            if (arg0 && arg0 && arg0) {}
+        s32 tmp = arg1;
+        new_var = &arg0->unk0[i];
+
+        if (arg1 < (*new_var).unk8) {
+
+        } else {
+            new_var2 = (*new_var).unk8;
+            new_var2 = new_var2 && arg0;
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_7890/func_8012C190.s")
-#endif

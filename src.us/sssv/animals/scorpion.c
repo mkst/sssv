@@ -455,8 +455,8 @@ void func_80376D40_7883F0(void) {
     }
     if (sp11A == 0) {
         func_803034D0_714B80(D_803D552C, 500, 0, 0);
-        D_803D5530->unkC4[0].unk8.h += 3;
-        D_803D5530->unkC4[1].unk8.h += 3;
+        D_803D5530->unkC4[0].pos.yPos.h += 3;
+        D_803D5530->unkC4[1].pos.yPos.h += 3;
         func_80303D50_715400(D_803D552C, 2);
         func_80303D50_715400(D_803D552C, 2);
     } else {
