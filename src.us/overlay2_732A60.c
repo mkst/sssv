@@ -359,9 +359,9 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
         animal = var_ra->animal;
         if ((animal != D_803D5530) && (D_803D5530->unk6C != animal) && (((animal->unk16C->unk82.unk2) && ((animal == D_801D9ED8.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (D_803D5524->unk9C != animal->unk16C->unk9C))) || ((!animal->unk16C->unk82.unk2) && (animal->unk16C->objectType != 0x40)))) {
             for (var_a1 = animal->unkC4; var_a1->unkC != 0; var_a1++) {
-                if (ABS((animal->position.xPos.h + var_a1->unk0.h) - var_t3) < (var_a1->unkC + arg3) &&
-                    ABS((animal->position.zPos.h + var_a1->unk4.h) - var_t4) < (var_a1->unkC + arg3) &&
-                    ABS((animal->position.yPos.h + var_a1->unk8.h) - var_t5) < (var_a1->unkC + arg3)) {
+                if (ABS((animal->position.xPos.h + var_a1->pos.xPos.h) - var_t3) < (var_a1->unkC + arg3) &&
+                    ABS((animal->position.zPos.h + var_a1->pos.zPos.h) - var_t4) < (var_a1->unkC + arg3) &&
+                    ABS((animal->position.yPos.h + var_a1->pos.yPos.h) - var_t5) < (var_a1->unkC + arg3)) {
 
                     damage_factor = 0;
                     if (arg7 != 0) {
@@ -433,9 +433,9 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
         a = temp_t8->animal;
         if ((a != D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
             for (phi_s2 = a->unkC4; phi_s2->unkC != 0; phi_s2++) {
-                if ((ABS((a->position.xPos.h + phi_s2->unk0.h) - arg0) < phi_s2->unkC + arg3) &&
-                    (ABS((a->position.zPos.h + phi_s2->unk4.h) - arg1) < phi_s2->unkC + arg3) &&
-                    (ABS((a->position.yPos.h + phi_s2->unk8.h) - arg2) < phi_s2->unkC + arg3)) {
+                if ((ABS((a->position.xPos.h + phi_s2->pos.xPos.h) - arg0) < phi_s2->unkC + arg3) &&
+                    (ABS((a->position.zPos.h + phi_s2->pos.zPos.h) - arg1) < phi_s2->unkC + arg3) &&
+                    (ABS((a->position.yPos.h + phi_s2->pos.yPos.h) - arg2) < phi_s2->unkC + arg3)) {
                     ret = 1;
                     if (arg7 != 0) {
                         a->unk54.unk3 = arg7;

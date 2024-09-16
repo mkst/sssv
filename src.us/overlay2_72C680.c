@@ -303,10 +303,7 @@ s32 copy_or_extract(u8 *src, u8 *dst, s32 unused) {
     return 1;
 }
 
-
-#ifdef NON_MATCHING
-// CURRENT (30)
-void load_level_texture_data(u8 arg0, u8 arg1) {
+void load_level_texture_data(u8 bank, u8 arg1) {
     u8 **temp_v0;
 
     s32 pad[2];
@@ -318,18 +315,18 @@ void load_level_texture_data(u8 arg0, u8 arg1) {
     u8 var_v0;
     u8 var_t0;
 
-    var_v0 = arg0;
-    var_t0 = arg0;
+    var_v0 = bank;
+    var_t0 = bank;
 
-    if (arg0 == 4) {
-        var_v0 = arg0 = 5; // handle BIG_CELEBRATION_PARADE/CREDITS
+    if (bank == 4) {
+        var_v0 = bank = 5; // handle BIG_CELEBRATION_PARADE/CREDITS
     }
 
-    if ((arg0 == 4) || (arg0 == 5)) {
-        var_t0 = arg0 = 0;
+    if ((bank == 4) || (bank == 5)) {
+        var_t0 = bank = 0;
     }
 
-    osSyncPrintf("Bank - %d Texture - %d\n", arg0, var_v0);
+    osSyncPrintf("Bank - %d Texture - %d\n", bank, var_v0);
 
     arg1 -= 1; // level index?
 
@@ -349,28 +346,28 @@ void load_level_texture_data(u8 arg0, u8 arg1) {
     UnpackRNC((RNC_fileptr)&D_80100000, D_800D7C20);
 
     // load level ia16 textures
-    sp38 = D_803A5918_7B6FC8[arg0];
+    sp38 = D_803A5918_7B6FC8[bank];
     // load level textures
-    sp34 = D_803A5A90_7B7140[arg0];
+    sp34 = D_803A5A90_7B7140[bank];
     // load level objects
-    sp30 = D_803A5BE8_7B7298[arg0];
+    sp30 = D_803A5BE8_7B7298[bank];
 
-    temp_v0 = &sp38[(arg1 + arg1) & 0xFFFF];
+    temp_v0 = sp38;
+    temp_v0 += (arg1 + arg1) & 0xFFFF;
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800C7DC0);
 
-    temp_v0 = &sp34[(arg1 + arg1) & 0xFFFF];
+    temp_v0 = sp34;
+    temp_v0 += (arg1 + arg1) & 0xFFFF;
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800D5420);
 
     D_801D9E78 = D_800B0B20;
 
-    temp_v0 = &sp30[(arg1 + arg1) & 0xFFFF];
+    temp_v0 = sp30;
+    temp_v0 += (arg1 + arg1) & 0xFFFF;
     dma_read(temp_v0[0], D_801D9E78, temp_v0[1] - temp_v0[0]);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level_texture_data.s")
-#endif
 
 void load_level_data(u8 level) {
     u8 **rom_addr;

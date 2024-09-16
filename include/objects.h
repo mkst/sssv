@@ -50,6 +50,7 @@
 // 61 some kind of sparkle
 #define OBJECT_ACTIVE_TURRET        62
 #define OBJECT_ACTIVE_MISSILE_TURRET 63
+
 #define OBJECT_PLANT_1              65
 #define OBJECT_PLANT_2              66
 #define OBJECT_BLACK_FOG            67

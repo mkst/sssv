@@ -117,7 +117,7 @@ void func_802C7C80_6D9330(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D9330/func_802C7C80_6D9330.s")
 #endif
 
-struct050 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s16 id, s8 arg6) {
+Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s16 id, s8 arg6) {
     Animal *sp1C;
     s16 slot;
     s16 i;

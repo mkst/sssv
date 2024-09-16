@@ -314,8 +314,6 @@ void set_camera_mode(u8 cameraID, u8 arg1) {
 }
 
 // ESA: func_80021750
-#ifdef NON_MATCHING
-// CURRENT (3488)
 void func_8032FF94_741644(u8 cameraID) {
     s32 pad2[4];
 
@@ -325,6 +323,8 @@ void func_8032FF94_741644(u8 cameraID) {
     f32 spD0;
     f32 spCC;
     f32 spC8;
+
+    s32 spC4; // pad
 
     f32 temp_f0_2;
     f32 var_f12_2;
@@ -336,22 +336,24 @@ void func_8032FF94_741644(u8 cameraID) {
 
     s16 spB2;
     s16 spB0;
+    s16 var_v1;
     s16 var_v0;
 
     f32 var_f14;
     f32 var_f16;
     f32 var_f2;
 
-    s16 var_v1;
     u8 temp_a0;
 
-    s32 pad3[3];
+    s32 sp98; // pad
 
     // f32 spA0;
     f32 sp94;
     f32 sp90;
     f32 sp8C;
     f32 sp88;
+
+    s32 sp84; // pad
 
     u8 sp83;
 
@@ -548,7 +550,7 @@ void func_8032FF94_741644(u8 cameraID) {
         }
 
         if (sp83 == 0) {
-            sp5C = gCamera->unk24 + 20.0;
+            sp5C = (f64)gCamera->unk24 + 20;
             if (sp5C >= 256.0) {
                 sp5C -= 256.0;
             }
@@ -556,16 +558,15 @@ void func_8032FF94_741644(u8 cameraID) {
                 sp83 |= 8;
             }
 
-            sp5C = gCamera->unk24 + 10.0;
+            sp5C = (f64)gCamera->unk24 + 10;
             if (sp5C >= 256.0) {
                 sp5C -= 256.0;
             }
-
             if (func_8033C814_74DEC4(gCamera->unk98, gCamera->unk9C, gCamera->unkA0 + 4.0, gCamera->unk18, sp5C, gCamera->unk34, gCamera->unkA4, gCamera->unkA8, 0) != 0) {
                 sp83 |= 4;
             }
 
-            sp5C = gCamera->unk24 - 10.0;
+            sp5C = (f64)gCamera->unk24 - 10;
             if (sp5C < 0.0) {
                 sp5C += 256.0;
             }
@@ -573,7 +574,7 @@ void func_8032FF94_741644(u8 cameraID) {
                 sp83 |= 2;
             }
 
-            sp5C = gCamera->unk24 - 20.0;
+            sp5C = (f64)gCamera->unk24 - 20;
             if (sp5C < 0.0) {
                 sp5C += 256.0;
             }
@@ -732,7 +733,7 @@ void func_8032FF94_741644(u8 cameraID) {
 
     gCamera->unk38 = var_f16;
     var_f2 = gCamera->unk30;
-    gCamera->unk30 += var_f16;
+    gCamera->unk30 = var_f2 + var_f16;
     gCamera->unkAC *= gCamera->unk30 / var_f2;
     gCamera->unkB0 *= gCamera->unk30 / var_f2;
     gCamera->unkB4 *= gCamera->unk30 / var_f2;
@@ -781,9 +782,6 @@ void func_8032FF94_741644(u8 cameraID) {
         gCamera->unk38 = 0.0f;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8032FF94_741644.s")
-#endif
 
 void func_80332444_743AF4(u8 arg0) {
     s32 pad[4];
@@ -1195,9 +1193,6 @@ void func_80332444_743AF4(u8 arg0) {
     }
 }
 
-#ifdef NON_MATCHING
-// #if 1
-// BSS
 // ESA: func_80023020
 void func_80334470_745B20(u8 id, u8 arg1) {
     s32 pad[3];
@@ -1598,9 +1593,6 @@ void func_80334470_745B20(u8 id, u8 arg1) {
         gCamera->unk38 = 0.0f;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_80334470_745B20.s")
-#endif
 
 // ESA: func_80025ECC
 void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
@@ -3132,9 +3124,6 @@ s16 func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
     return func_8033C9CC_74E07C(arg0, arg1, arg2, 127, sp3C, sp38, (s16)sp34 + 34, 127, 1, 0);
 }
 
-#ifdef NON_MATCHING
-// #if 1
-// BSS
 // esa: func_8001D8F4
 s16 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9) {
     s32 pad;
@@ -3353,9 +3342,6 @@ s16 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 ar
         return 0;
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033C9CC_74E07C.s")
-#endif
 
 // camera collision checks
 // ESA: func_8002AAC8
@@ -3580,9 +3566,6 @@ s16 func_8033D604_74ECB4(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
     }
 }
 
-#ifdef NON_MATCHING
-// #if 1
-// BSS
 // ESA: func_8002B0E4
 s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9) {
     Animal *animal;
@@ -3667,9 +3650,6 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     }
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/camera/func_8033DF88_74F638.s")
-#endif
 
 // ESA: func_8002B460
 void func_8033E430_74FAE0(void) {

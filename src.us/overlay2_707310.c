@@ -60,9 +60,9 @@ void func_802F5C60_707310(Animal *arg0) {
     struct043 *var_s1;
 
     if (arg0->unk16C->unk15 != 1) {
-        arg0->unkC4[0].unk0.w = arg0->unk74[0].unk0.w;
-        arg0->unkC4[0].unk4.w = arg0->unk74[0].unk4.w;
-        arg0->unkC4[0].unk8.w = arg0->unk74[0].unk8.w;
+        arg0->unkC4[0].pos.xPos.w = arg0->unk74[0].pos.xPos.w;
+        arg0->unkC4[0].pos.zPos.w = arg0->unk74[0].pos.zPos.w;
+        arg0->unkC4[0].pos.yPos.w = arg0->unk74[0].pos.yPos.w;
         arg0->unkC4[0].unkC = arg0->unk74[0].unkC;
         return;
     }
@@ -78,14 +78,14 @@ void func_802F5C60_707310(Animal *arg0) {
         var_s1 = &arg0->unk74;
 
         while ((i < 5) && (var_s1->unkC != 0)) {
-            x = var_s1->unk0.w;
+            x = var_s1->pos.xPos.w;
 
-            temp_ret_3 = ((var_s1->unk4.w * temp_t6) - (var_s1->unk8.w * temp_t3)) >> 8;
-            temp_ret_6 = ((var_s1->unk4.w * temp_t3) + (var_s1->unk8.w * temp_t6)) >> 8;
+            temp_ret_3 = ((var_s1->pos.zPos.w * temp_t6) - (var_s1->pos.yPos.w * temp_t3)) >> 8;
+            temp_ret_6 = ((var_s1->pos.zPos.w * temp_t3) + (var_s1->pos.yPos.w * temp_t6)) >> 8;
 
-            arg0->unkC4[i].unk0.w = (( x * temp_t4) + (temp_ret_3 * temp_t1)) >> 8;
-            arg0->unkC4[i].unk4.w = ((-x * temp_t1) + (temp_ret_3 * temp_t4)) >> 8;
-            arg0->unkC4[i].unk8.w = (arg0->unk42 << 0xF) + temp_ret_6;
+            arg0->unkC4[i].pos.xPos.w = (( x * temp_t4) + (temp_ret_3 * temp_t1)) >> 8;
+            arg0->unkC4[i].pos.zPos.w = ((-x * temp_t1) + (temp_ret_3 * temp_t4)) >> 8;
+            arg0->unkC4[i].pos.yPos.w = (arg0->unk42 << 0xF) + temp_ret_6;
             arg0->unkC4[i].unkC = var_s1->unkC;
 
             i++;
@@ -1789,7 +1789,8 @@ void func_802FA730_70BDE0(Animal *arg0) {
     s32 tmp1;
     s32 tmp2;
     s32 tmp3;
-    s32 tmp4;
+
+    s32 pad2;
 
     s32 var_s1;
     u8 var_s2;
@@ -1869,35 +1870,33 @@ void func_802FA730_70BDE0(Animal *arg0) {
         spB8.unk4 += arg0->position.yPos.h + (arg0->unk42 >> 1);
 
         var_s1 = arg0->unk21A;
-
-        var_s2 = arg0->unk218 ;
-        var_s3 = arg0->unk219 ;
+        var_s2 = arg0->unk218;
+        var_s3 = arg0->unk219;
 
         if (arg0->unk21D != 0) {
             var_s1 += ((((s32)func_80128200() >> 4) % (     arg0->unk21D * 2))) - arg0->unk21D;
         }
         if (arg0->unk21B != 0) {
-            var_s2 = ((((s32)func_80128200() >> 4) % ((s16) arg0->unk21B * 2)) + (var_s2)) - arg0->unk21B;
+            var_s2 = var_s2 + ((((s32)func_80128200() >> 4) % ((s16)arg0->unk21B * 2))) - arg0->unk21B;
         }
         if (arg0->unk21C != 0) {
-            var_s3 = ((((s32)func_80128200() >> 4) % ((s16) arg0->unk21C * 2)) + (var_s3)) - arg0->unk21C;
+            var_s3 = var_s3 + ((((s32)func_80128200() >> 4) % ((s16)arg0->unk21C * 2))) - arg0->unk21C;
         }
 
         // help?
         if (arg0->unk21E.type24.F & 0x20) {
-            var_s2 += (arg0->zRotation << 8) / 360;
-            var_s3 += (arg0->yRotation << 8) / 360;
+            var_s2 += (arg0->zRotation * 256) / 360;
+            var_s3 += (arg0->yRotation * 256) / 360;
         }
 
         if (arg0->unk21E.type24.F & 2)  {
-            if (arg0->unk158 != 0) {
-                var_s1 *= arg0->unk158;
-                var_s1 = var_s1 >> 2;
-            } else {
+            if (arg0->unk158 == 0) {
                 break;
             }
+            var_s1 *= arg0->unk158;
+            var_s1 = var_s1 >> 2;
         } else {
-            var_s1 = var_s1 << 8;
+            var_s1 *= 256;
         }
 
         tmp2 = (var_s1 * COS(var_s2)) >> 0xF;
@@ -1907,7 +1906,8 @@ void func_802FA730_70BDE0(Animal *arg0) {
         tmp2 = (tmp2 * COS(var_s3)) >> 0xF;
 
         if (arg0->unk21E.type24.F & 0x80) {
-            var_v0 = (arg0->unk21E.type24.S * arg0->unk40) >> 0xB;
+            var_v0 = (arg0->unk21E.type24.S * arg0->unk40);
+            var_v0 = var_v0 >> 0xB;
         } else {
             var_v0 = arg0->unk21E.type24.S;
         }

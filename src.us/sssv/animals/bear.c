@@ -760,11 +760,11 @@ void func_80326260_737910(void) {
             D_80203FE0[26].unk4 = D_80203FE0[2].unk4;
 
             // D_80203FE0->unk14 = D_80203FE0->unk14 + 0x592
-            D_80203FE0[2].unk4 = D_80203FE0[2].unk4 + 0x592;
+            D_80203FE0[2].unk4 += 0x592;
             // D_80203FE0->unk4 += 0x592
-            D_80203FE0[0].unk4 = D_80203FE0[0].unk4 + 0x592;
+            D_80203FE0[0].unk4 += 0x592;
             // D_80203FE0->unkC = (s16) (D_80203FE0->unkC + 0x592);
-            D_80203FE0[1].unk4 = D_80203FE0[1].unk4 + 0x592;
+            D_80203FE0[1].unk4 += 0x592;
 
             // D_80203FE0->unkD0 = D_80203FE0->unk10
             D_80203FE0[26].unk0 = D_80203FE0[2].unk0;
@@ -898,8 +898,8 @@ void func_80326260_737910(void) {
                 spB8 = COS(-D_803D552C->heading) >> 7;
                 spBC = SIN(-D_803D552C->heading) >> 7;
 
-                sp5C = spBC * 0x33E0;
-                sp4C = spB8 * 0x33E0;
+                // sp5C = spBC * 0x33E0;
+                // sp4C = spB8 * 0x33E0;
 
                 for (i = 0; i < 3; i++) {
                     switch (i) {
@@ -918,17 +918,16 @@ void func_80326260_737910(void) {
                         play_sound_effect_at_location(0, 0x4000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     }
 
-                    // help
-                    tmp1 = (SIN(var_t0 << 3) >> 7) * 0xA6;
-                    tmp1 = (tmp1 * 0x180) / 4;
+                    tmp1 = ((SIN((var_t0 << 3)) >> 7) * 0xA6);
+                    tmp1 = (((tmp1 ) * 0x180) / 4);
 
-                    tmp2 = (SIN(var_t0 << 2) >> 7) * 0xA6;
-                    tmp2 = (tmp2 / 4);
+                    tmp2 = (SIN((var_t0 << 2)) >> 7) * 0xA6;
+                    tmp2 = (tmp2) / 4;
 
                     func_8029CEF0_6AE5A0(
-                        D_803D5530->position.xPos.w + (spB8 * tmp2) - sp5C,
-                        D_803D5530->position.zPos.w + (spBC * tmp2) + sp4C,
-                        D_803D5530->position.yPos.w + (tmp1) + 0xADC800,
+                        D_803D5530->position.xPos.w + (spB8 * tmp2) - (spBC * 0x33E0),
+                        D_803D5530->position.zPos.w + (spBC * tmp2) + (spB8 * 0x33E0),
+                        D_803D5530->position.yPos.w + (tmp1       ) + (67   * 0x29800),
                         612,
                         i + 3,
                         &D_803D2E08,

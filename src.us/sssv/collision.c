@@ -417,10 +417,10 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2
     for (;((changed == 0) && (arg0->unkC4[i].unkC != 0) && (i < 5));) {
 
         temp_a0 = (arg1->unk40 << 6) >> 0xB;
-        temp_t5 = ((arg0->unkC4[i].unk8.w + yPos1.w) - yPos2.w) - (arg1->unk42 << 0xF);
+        temp_t5 = ((arg0->unkC4[i].pos.yPos.w + yPos1.w) - yPos2.w) - (arg1->unk42 << 0xF);
 
-        var_a2 = ((((arg0->unkC4[i].unk0.w + xPos1.w) - xPos2.w) >> 0xB) / (temp_a0)) + 16;
-        var_a1 = ((((arg0->unkC4[i].unk4.w + zPos1.w) - zPos2.w) >> 0xB) / (temp_a0)) + 16;
+        var_a2 = ((((arg0->unkC4[i].pos.xPos.w + xPos1.w) - xPos2.w) >> 0xB) / (temp_a0)) + 16;
+        var_a1 = ((((arg0->unkC4[i].pos.zPos.w + zPos1.w) - zPos2.w) >> 0xB) / (temp_a0)) + 16;
         temp_a3 = ((temp_t5 >> 0xB) / temp_a0) + 16;
 
         var_t1 = MAX(1, (arg0->unkC4[i].unkC << 5) / (temp_a0));
@@ -582,9 +582,9 @@ u8 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position** p1, Position** p2
     for (; ((res == 0) && (arg0->unkC4[i].unkC != 0) && (i < 5)); i++) {
         for (j = 0; ((res == 0) && (arg1->unkC4[j].unkC != 0) && (j < 5)); j++) {
 
-            temp_a3 = ((arg1->unkC4[j].unk0.w + xPos2.w) - (arg0->unkC4[i].unk0.w + xPos1.w)) / 0x10000;
-            temp_t0 = ((arg1->unkC4[j].unk4.w + zPos2.w) - (arg0->unkC4[i].unk4.w + zPos1.w)) / 0x10000;
-            temp_t1 = ((arg1->unkC4[j].unk8.w + yPos2.w) - (arg0->unkC4[i].unk8.w + yPos1.w)) / 0x10000;
+            temp_a3 = ((arg1->unkC4[j].pos.xPos.w + xPos2.w) - (arg0->unkC4[i].pos.xPos.w + xPos1.w)) / 0x10000;
+            temp_t0 = ((arg1->unkC4[j].pos.zPos.w + zPos2.w) - (arg0->unkC4[i].pos.zPos.w + zPos1.w)) / 0x10000;
+            temp_t1 = ((arg1->unkC4[j].pos.yPos.w + yPos2.w) - (arg0->unkC4[i].pos.yPos.w + yPos1.w)) / 0x10000;
 
             temp_v0 = arg0->unkC4[i].unkC + arg1->unkC4[j].unkC; // dupe line is required for match
             temp_v0 = arg0->unkC4[i].unkC + arg1->unkC4[j].unkC;
@@ -626,21 +626,21 @@ u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2
         temp_a1 = arg1->unk32 + arg0->unkC4[i].unkC;
 
         if (changed = (
-            ((xPos1.h + arg0->unkC4[i].unk0.h) > (xPos2.h - temp_a0)) &&
-            ((xPos1.h + arg0->unkC4[i].unk0.h) < (xPos2.h + temp_a0)) &&
-            ((zPos1.h + arg0->unkC4[i].unk4.h) > (zPos2.h - temp_a1)) &&
-            ((zPos1.h + arg0->unkC4[i].unk4.h) < (zPos2.h + temp_a1)) &&
-            ((yPos1.h + arg0->unkC4[i].unk8.h) > (yPos2.h - arg0->unkC4[i].unkC)) &&
-            ((yPos1.h + arg0->unkC4[i].unk8.h) < (yPos2.h + arg0->unkC4[i].unkC + arg1->unk42)))) {
-            *p1 = (Position*)&arg0->unkC4[i];
+            ((xPos1.h + arg0->unkC4[i].pos.xPos.h) > (xPos2.h - temp_a0)) &&
+            ((xPos1.h + arg0->unkC4[i].pos.xPos.h) < (xPos2.h + temp_a0)) &&
+            ((zPos1.h + arg0->unkC4[i].pos.zPos.h) > (zPos2.h - temp_a1)) &&
+            ((zPos1.h + arg0->unkC4[i].pos.zPos.h) < (zPos2.h + temp_a1)) &&
+            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) > (yPos2.h - arg0->unkC4[i].unkC)) &&
+            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) < (yPos2.h + arg0->unkC4[i].unkC + arg1->unk42)))) {
+            *p1 = &arg0->unkC4[i];
 
             flags = 0;
-            if ((xPos1.h + arg0->unkC4[i].unk0.h) < (xPos2.h - arg1->unk30)) {
+            if ((xPos1.h + arg0->unkC4[i].pos.xPos.h) < (xPos2.h - arg1->unk30)) {
                 flags = (0x4 | 0x8);
-            } else if ((xPos1.h + arg0->unkC4[i].unk0.h) > (xPos2.h + arg1->unk30)) {
+            } else if ((xPos1.h + arg0->unkC4[i].pos.xPos.h) > (xPos2.h + arg1->unk30)) {
                 flags = 0x8;
             }
-            new_var = arg0->unkC4[i].unk4.h; // this aint the solution..
+            new_var = arg0->unkC4[i].pos.zPos.h; // this aint the solution..
 
             if ((new_var + zPos1.h) < (zPos2.h - arg1->unk32)) {
                 flags |= (0x1 | 0x2);
@@ -650,29 +650,29 @@ u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 
             switch (flags) {
             case (0x1 | 0x2 | 0x4 | 0x8): // 0xF
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].unk0.h)) + SQ((zPos2.h - arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h - arg1->unk32) - (zPos1.h - new_var)))) {
                     changed = 0;
                 }
                 break;
             case (0x2 | 0x4 | 0x8): // 0xE
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].unk0.h)) + SQ((zPos2.h + arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h + arg1->unk32) - (zPos1.h - new_var)))) {
                     changed = 0;
                 }
                 break;
             case (0x1 | 0x2 | 0x8): // 0xB
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].unk0.h)) + SQ((zPos2.h - arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h - arg1->unk32) - (zPos1.h - new_var)))) {
                     changed = 0;
                 }
                 break;
             case (0x2 | 0x8):  // 0xA
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].unk0.h)) + SQ((zPos2.h + arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h + arg1->unk32) - (zPos1.h - new_var)))) {
                     changed = 0;
                 }
             }
 
             if (changed != (arg1->unk30 * 0)) {
-                if (ABS(((arg0->unkC4[i].unk8.h + yPos1.h) - yPos2.h) - (arg1->unk42 >> 1)) - (arg1->unk42 >> 1) <
-                    MAX(ABS((xPos1.h + arg0->unkC4[i].unk0.h) - xPos2.h) - arg1->unk30,
+                if (ABS(((arg0->unkC4[i].pos.yPos.h + yPos1.h) - yPos2.h) - (arg1->unk42 >> 1)) - (arg1->unk42 >> 1) <
+                    MAX(ABS((xPos1.h + arg0->unkC4[i].pos.xPos.h) - xPos2.h) - arg1->unk30,
                         ABS((zPos1.h + new_var) - zPos2.h) - arg1->unk32)) {
                     D_803D60E0 = 1;
                 } else {

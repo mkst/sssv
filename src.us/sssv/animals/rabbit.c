@@ -217,19 +217,23 @@ void func_80300210_7118C0(void) {
 void func_80301248_7128F8(void) {
     u8 tmp;
     f32 temp_f14;
-    f32 temp_f16;
-
-    s16 sp96;
-    s32 x_scale;
+    s16 idx;
     s32 z_scale;
-    s16 phi_t0;
+
+    s16 sp96;    // sp96
+    s16 heading; // sp94?
+    s32 x_scale; // sp90
     s16 sp8E;
     s16 sp8C;
+    s16 var_t0; // sp8A
     s16 sp88;
     s16 sp86;
     s16 sp84;
 
-    s32 pad2, pad3;
+    s32 pad; // sp80?
+    f32 temp_f16; // sp7C
+    s16 pad2[2];
+
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp84 = 0;
@@ -295,14 +299,21 @@ void func_80301248_7128F8(void) {
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.35f);
 
             if ((D_803D5530->state == 0x7A) || (D_803D5530->state == 0x7B)) {
+#if 1
+                // better regalloc but worse instructions
+                heading = D_803D552C->heading;
+                idx = -(heading * 360) / 256;
 
-#if 0
-                x_scale = ((D_803D5530->xVelocity.w * D_80152350.unk384[(s16) (-(D_803D552C->heading * 360) / 256)]) + (D_803D5530->zVelocity.w * D_80152350.unk2D0[(s16) (-(D_803D552C->heading * 360) / 256)])) / 256;
-                z_scale = ((D_803D5530->zVelocity.w * D_80152350.unk384[(s16) (-(D_803D552C->heading * 360) / 256)]) - (D_803D5530->xVelocity.w * D_80152350.unk2D0[(s16) (-(D_803D552C->heading * 360) / 256)])) / 256;
+                x_scale = ((D_803D5530->xVelocity.w * D_80152350.unk384[idx]) + (D_803D5530->zVelocity.w * D_80152350.unk2D0[idx])) / 256;
+                z_scale = ((D_803D5530->zVelocity.w * D_80152350.unk384[idx]) - (D_803D5530->xVelocity.w * D_80152350.unk2D0[idx])) / 256;
 
-                x_scale = -(x_scale >> 14);
-                z_scale = -(z_scale >> 14);
+                x_scale = (x_scale >> 14);
+                z_scale = (z_scale >> 14);
+
+                x_scale = -x_scale;
+                z_scale = -z_scale;
 #else
+                // worse regalloc but better instructions
                 x_scale = ((D_80152350.unk2D0[(s16) (-(D_803D552C->heading * 360) / 256)] * D_803D5530->zVelocity.w));
                 x_scale = (x_scale + (D_80152350.unk384[(s16) (-(D_803D552C->heading * 360) / 256)] * D_803D5530->xVelocity.w));
                 x_scale /= 256;
@@ -314,10 +325,8 @@ void func_80301248_7128F8(void) {
                 x_scale = -((x_scale) >> 14);
                 z_scale = -((z_scale) >> 14);
 #endif
-
                 x_scale = MIN(30, x_scale);
                 x_scale = MAX(-30, x_scale);
-
                 z_scale = MIN(30, z_scale);
                 z_scale = MAX(-30, z_scale);
 
@@ -336,21 +345,21 @@ void func_80301248_7128F8(void) {
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_040000E0_DD6A0);
 
             if (D_803D5542 < 0x78) {
-                phi_t0 = (((SIN(D_803D5542 << 5) >> 7) * 0x96)) >> 8;
+                var_t0 = (((SIN(D_803D5542 << 5) >> 7) * 0x96)) >> 8;
             } else {
-                phi_t0 = 0;
+                var_t0 = 0;
             }
             if (D_803D552C->unk366 != 5) {
-                phi_t0 = 0;
+                var_t0 = 0;
             }
-            D_80203FE0[1].unk4 += phi_t0;
+            D_80203FE0[1].unk4 += var_t0;
 
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
             if (D_803F2EDD == 0) {
                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000900_DDEC0);
             }
-            D_80203FE0[1].unk4 -= phi_t0;
+            D_80203FE0[1].unk4 -= var_t0;
             D_80203FE0[1].unk4 -= sp96 * 4;
             D_80203FE0[19].unk4 -=  sp96 * 4;
             D_80203FE0[20].unk4 -=  sp96 * 4;

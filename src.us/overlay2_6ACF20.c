@@ -142,6 +142,7 @@ void func_8029BB94_6AD244(void) {
             if (D_803D2D90.unk0 == 1) {
                 D_803D2D90.unk0 = 2;
                 D_803D2D90.unk4 = 0;
+
                 for (i = 0; i < 12; i++) {
                     D_803D2D90.unk6[i] = 0;
                     D_803D2D90.unk1E[i] = 0;
@@ -155,6 +156,7 @@ void func_8029BB94_6AD244(void) {
                 D_803D2DF8 = 0.25f;
                 do_rumble(0, 40, 8, 0x20, distance_from_player(D_803D2D90.unk4C, D_803D2D90.unk4E, D_803D2D90.unk50));
             }
+
             if (D_803D2D90.unk0 == 3) {
                 D_803D2D90.unk0 = 4;
                 D_803D2D90.unk4 = 0;
@@ -174,6 +176,7 @@ void func_8029BB94_6AD244(void) {
                 D_803D2DF8 = 0.25f;
                 do_rumble(0, 40, 8, 32, distance_from_player(D_803D2D90.unk52, D_803D2D90.unk54, D_803D2D90.unk56));
             }
+
             if (D_803D2D90.unk0 == 2) {
                 D_803D2D90.unk42++;
                 if (D_803D2D90.unk42 < 115) {
@@ -216,6 +219,7 @@ void func_8029BB94_6AD244(void) {
                     D_803D2D90.unk3C += D_803D2D90.unk38;
                 }
             }
+
             if (D_803D2D90.unk0 == 4) {
                 D_803D2D90.unk44++;
                 if (D_803D2D90.unk44 < 115) {
@@ -322,10 +326,11 @@ void func_8029BB94_6AD244(void) {
                                 0xFFFF,
                                 0);
                         }
-                        // breathing in & out?
+                        // vertex x/z position?
                         if (D_803D2D90.unk1E[sp8C] >= 2) {
                             D_803D2D90.unk1E[sp8C] -= 2;
                         }
+                        // vertex green level?
                         if (D_803D2D90.unk6[sp8C] < 100) {
                             D_803D2D90.unk6[sp8C] += 1;
                         }
