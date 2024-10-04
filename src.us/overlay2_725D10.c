@@ -1738,6 +1738,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 1;
 
     case 0x39:
+        // similar to 0x4B
         if (cmds->unk19C.payload.cmd.regular.unk6 != 0) {
             func_80342318_7539C8(
                 (cmds->unk19C.payload.cmd.regular.unk0 - temp_s1->position.xPos.h) << 0x10,
@@ -1997,6 +1998,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x4B:
+        // similar to 0x39
         spD0 = get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0);
         spCC = get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2);
         spC8 = get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk4);
@@ -2345,8 +2347,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x62:
-        // set camera <something>
-        func_80343F58_755608(arg0->commands.unk19C.payload.cmd.regular.unk0);
+        set_player_camera_distance(arg0->commands.unk19C.payload.cmd.regular.unk0);
         return 69;
 
     case 0x63:

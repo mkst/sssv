@@ -416,7 +416,7 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
 void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1);
 void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2);
 void func_802C19CC_6D307C(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
-void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s32 arg2);
+void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2);
 void func_802C1A88_6D3138(u16 arg0, struct061 *arg1);
 void func_802C23F8_6D3AA8(s16 arg0);
 void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5);
@@ -956,22 +956,22 @@ void reset_camera(void);
 s16  func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9);
 void func_8033E7C8_74FE78(OSContPad *cont);
 
-void func_8033F294_750944(s16 arg0);  // used by fox
-void func_8033F2EC_75099C(void);      // used by fox
-void func_8033F300_7509B0(void);      // used by fox
+void increase_player_camera_distance(s16 arg0);  // used by fox
+void save_player_camera_distance(void);          // used by fox
+void restore_player_camera_distance(void);       // used by fox
 
 void func_8033F380_750A30(void);
 
 void func_803421E0_753890(s16 arg0);
 void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
 
-void func_80342318_7539C8(s32 arg0, s32 arg1, s32 arg2);
+void func_80342318_7539C8(s32 x, s32 y, s32 z);
 void func_80343720_754DD0(s16*, s16*, s16*);
 void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE);
 void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4);
 void func_80343D44_7553F4(u8 *arg0, s8 arg1);
 void func_80343DC0_755470(void);
-void func_80343F58_755608(s16 arg0);
+void set_player_camera_distance(s16 dist);
 
 void func_8034401C_7556CC(void);
 

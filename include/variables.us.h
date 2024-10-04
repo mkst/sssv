@@ -1080,7 +1080,7 @@ extern struct060 D_803F2F08[64]; // 0x400 big
 // scorpion
 extern s16  gScorpionVtxIdx;
 
-extern s16  D_803F3330[]; // message lookup?
+extern u16  D_803F3330[]; // message lookup?
 extern s16  D_803F34C0[]; // message lookup 2?
 extern s16  gLoadedMessageCount;
 extern u8   D_803F63C2;

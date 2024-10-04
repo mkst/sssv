@@ -647,7 +647,7 @@ void func_8038FF68_7A1618(void) {
             if (func_80396714_7A7DC4()) {
                 D_803F6680.unk18 = 14;
                 D_803F6680.unk1A = 0;
-                func_801337DC(0, 10.f, 20.0f, 0);
+                func_801337DC(0, 10.0f, 20.0f, 0.0f);
                 func_8013385C(10.0f, 19.0f, 1.0f);
             }
             if (func_80396748_7A7DF8()) {
@@ -655,7 +655,7 @@ void func_8038FF68_7A1618(void) {
                 D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
                 D_803F6680.unk18 = 14;
                 D_803F6680.unk1A = 0;
-                func_801337DC(0, 10.0f, 20.0f, 0);
+                func_801337DC(0, 10.0f, 20.0f, 0.0f);
                 func_8013385C(10.0f, 19.0f, 1.0f);
             }
             break;
@@ -737,7 +737,7 @@ void func_8038FF68_7A1618(void) {
             D_803F6680.unk18 = 13;
             D_803F6680.unk2A = 1;
             // change around here
-            func_801337DC(0.0f, 10.0f, 20.0f, 0.0f);
+            func_801337DC(0, 10.0f, 20.0f, 0.0f);
             func_8013385C(10.0f, 19.0f, 1.0f);
             break;
         case 13:
@@ -1427,7 +1427,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
 
     for (i = 0; i < gLoadedMessageCount; i++) {
         // load mission task text
-        mission_brief_text = &D_803F34C0[D_803F3330[i]];
+        mission_brief_text = &D_803F34C0[(s16)D_803F3330[i]];
 
         if (mission_brief_text[0] == 307) {
             if (mission_brief_text[1] == 307) { // <MISSION_OBJECTIVE>

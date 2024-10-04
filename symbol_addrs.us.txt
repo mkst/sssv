@@ -251,9 +251,10 @@ vector_subtract        = 0x8032D3B4; // rom:0x73EA64
 vector_multiply_by     = 0x8032D3E8; // rom:0x73EA98
 normalize_vector       = 0x8032D494; // rom:0x73EB44
 
-reset_camera               = 0x8033C334; // rom:0x74D9E4
-
-osd_draw_health_and_power_bars = 0x80348230; // rom:0x7598E0
+reset_camera                    = 0x8033C334; // rom:0x74D9E4
+restore_player_camera_distance  = 0x8033F300; // rom:0x7509B0
+set_player_camera_distance      = 0x80343F58; // rom:0x755608
+osd_draw_health_and_power_bars  = 0x80348230; // rom:0x7598E0
 
 load_1_tile              = 0x80356410; // rom:0x767AC0
 load_2_tiles             = 0x803565D4; // rom:0x767C84

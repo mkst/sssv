@@ -47,7 +47,7 @@
 #define OBJECT_ENERGY_BALL_PURPLE   58
 #define OBJECT_ENERGY_BALL_PURPLE_2 59
 #define OBJECT_ENERGY_BALL          60
-// 61 some kind of sparkle
+#define OBJECT_SNOWBALL             61
 #define OBJECT_ACTIVE_TURRET        62
 #define OBJECT_ACTIVE_MISSILE_TURRET 63
 

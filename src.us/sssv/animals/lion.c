@@ -10,11 +10,10 @@ extern s16 D_803A5130_7B67E0[];
 extern s16 D_803A5144_7B67F4[];
 extern s16 D_803A5174_7B6824[];
 extern s16 D_803A51A4_7B6854[];
-extern s16 D_803A51B8_7B6868[];
-extern s16 D_803A51CC_7B687C[];
+extern u8  D_803A51CC_7B687C[];
 extern s16 D_803A51E0_7B6890[];
 extern s16 D_803A5204_7B68B4[];
-extern s16 D_803A51B8_7B6868[];
+extern u8  D_803A51B8_7B6868[];
 
 extern s16 D_803A5250_7B6900[];
 
@@ -33,23 +32,25 @@ extern Gfx D_04000FC0_F2020[];
 
 
 #ifdef NON_MATCHING
-// CURRENT (8356)
+// CURRENT (3727)
 void func_802F1730_702DE0(void) {
+    s32 pad[2];
+    u8  temp_v0_8;
+
     struct061 spC4;
     s16 spC2;                                       /* compiler-managed */
     s16 spC0;                                       /* compiler-managed */
     s16 spBE;
     s16 spBC;
     s16 spBA;
+    s16 temp_t9;
+    s32 temp_t7; // err?
+    s16 temp_t6;
     s16 spB2;
     s16 spB0;
+    s16 var_t2; // spAE
 
-    s16 temp_t6;
-    s16 temp_t7;
-    s16 var_t2;
-    s16 temp_t9;
-
-    u8 temp_v0_8;
+    s16 pad2[2];
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spBE = 0;
@@ -98,12 +99,13 @@ void func_802F1730_702DE0(void) {
 
         if (spB2 == 0) {
             if (D_803D5540 < 0x40) {
-                spB2 = (SIN(D_803D5540 << 4) >> 7) >> 6;
+                spB2 = (SIN((D_803D5540 << 4) & 0xFF) >> 7) >> 6;
             }
         }
         if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&spC4, 0x1C2, 600, 0x4B0, 0xD2);
-            func_802BD40C_6CEABC(0x20D, 0x2A3, 0, 0xD2, 0, 0x80, 0x64, 0x80, &D_803A50D0_7B6780, &D_803A5100_7B67B0, &D_803A5130_7B67E0, 0x20D, 0x2A3, 0, 0xD2, 0, 0x80, 0, 0x1E, &D_803A5144_7B67F4, &D_803A5174_7B6824, &D_803A51A4_7B6854, &spC4, 0);
+            func_802BD40C_6CEABC(0x20D, 0x2A3, 0, 0xD2, 0, 0x80, 0x64, 0x80, D_803A50D0_7B6780, D_803A5100_7B67B0, D_803A5130_7B67E0,
+                                 0x20D, 0x2A3, 0, 0xD2, 0, 0x80,    0, 0x1E, D_803A5144_7B67F4, D_803A5174_7B6824, D_803A51A4_7B6854, &spC4, 0);
             func_802B964C_6CACFC();
             func_802BB840_6CCEF0(0x2EE);
             func_802C4A70_6D6120(0xF, 0x384, 4);
@@ -244,7 +246,7 @@ void func_802F1730_702DE0(void) {
                 D_803D552C->heading);
 
             if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {
-                func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, &D_803A3C0C_7B52BC);
+                func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3C0C_7B52BC);
             }
             D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 0;
         } else {

@@ -20,20 +20,21 @@ extern Gfx D_040073B0_CEDE0[];
 extern Gfx D_040073D8_CEE08[];
 
 #ifdef NON_MATCHING
-// CURRENT (268)
+// CURRENT (188)
 void func_8035E430_76FAE0(void) {
-
-    s16 tailIndex;
+    s16 tailIndex; // spD6
     s32 a1;
     s32 a2;
     s32 a3;
-    s32 temp_t5;
-    s32 temp_t1;
-    s32 temp_t8_2;
-    s32 temp_lo;
-    s32 temp_t3;
-    u8 temp_v0_9;
 
+    s32 spC4;
+    s32 spC0;
+    s32 spBC;
+    s32 spB8;
+    s32 spB4;
+
+    u16 ticks_remaining;
+    s16 var_t9; // anywhere
 
     struct061 spA8;
     s16 spA6;
@@ -42,8 +43,7 @@ void func_8035E430_76FAE0(void) {
     s16 scale; // spA0
 
     s32 temp_a3;
-    u16 ticks_remaining;
-    s16 var_t9;
+    u8  temp_v0_9;
 
     switch (D_803D5524->unk9C) {
     case RAT:
@@ -61,7 +61,6 @@ void func_8035E430_76FAE0(void) {
         spA2 = 0;
         D_803F2EDD = 0;
     } else {
-
         spA2 = func_802E89F0_6FA0A0(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
@@ -231,17 +230,17 @@ void func_8035E430_76FAE0(void) {
             func_802C78B0_6D8F60(2, 1, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_040073D8_CEE08);
 
             temp_a3 = (((D_80203FE0[1].unk4 << 0xF) / 16) * 2) - FTOFIX32(22.0);
-            temp_t5 = D_803D5530->position.xPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (SIN(D_803D552C->heading) >> 7));
-            temp_t1 = D_803D5530->position.zPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (COS(D_803D552C->heading) >> 7));
-            temp_t8_2 = D_803D5530->position.yPos.w + (scale * 0x90000) + (scale * temp_a3);
-            temp_lo = (COS(D_803D552C->heading) >> 7) * (scale * 0x300);
-            temp_t3 = -((SIN(D_803D552C->heading) >> 7) * (scale * 0x300));
+            spC4 = D_803D5530->position.xPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (SIN(D_803D552C->heading) >> 7));
+            spC0 = D_803D5530->position.zPos.w + scale * ((0xE00 - ABS(temp_a3 >> 0xA)) * (COS(D_803D552C->heading) >> 7));
+            spBC = D_803D5530->position.yPos.w + (scale * 0x90000) + (scale * temp_a3);
+            spB8 = (COS(D_803D552C->heading) >> 7) * (scale * 0x300);
+            spB4 = -((SIN(D_803D552C->heading) >> 7) * (scale * 0x300));
 
             if ((spA6 != 5) && (D_803F2AA2 == 0)) {
                 func_8029CEF0_6AE5A0(
-                    temp_t5 + temp_lo,
-                    temp_t1 + temp_t3,
-                    temp_t8_2,
+                    spC4 + spB8,
+                    spC0 + spB4,
+                    spBC,
                     (scale << 9),
                     35,
                     &D_803D2E08,
@@ -250,9 +249,9 @@ void func_8035E430_76FAE0(void) {
                     0,
                     0);
                 func_8029CEF0_6AE5A0(
-                    temp_t5 - temp_lo,
-                    temp_t1 - temp_t3,
-                    temp_t8_2,
+                    spC4 - spB8,
+                    spC0 - spB4,
+                    spBC,
                     (scale << 9),
                     35,
                     &D_803D2E08,

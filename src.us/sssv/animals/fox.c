@@ -19,16 +19,14 @@ extern u8  D_040050D0_CCB00[];
 extern u8  D_040052D0_CCD00[];
 
 // FOX
-#ifdef NON_MATCHING
-// CURRENT (391)
 void func_802E5000_6F66B0(void) {
-    u8 temp_v0;
-    u16 ticks_remaining;
-    s16 temp_v0_6;
-
     struct061 spC8;
     s16 spC6;
+    u16 ticks_remaining;
     s16 spC2;
+
+    s16 temp_v0_6;
+    u8  temp_v0;
 
     s16 spBC;
     s16 spBA;
@@ -48,10 +46,6 @@ void func_802E5000_6F66B0(void) {
     s16 spA4;
     s16 spA2;
 
-    s32 sp68;
-    s32 sp70;
-
-
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spC6 = 0;
         D_803F2EDD = 0;
@@ -69,10 +63,9 @@ void func_802E5000_6F66B0(void) {
         switch (D_803D552C->unk365) {
 
         case ATTACK_FOX_TAIL:
-#pragma _permuter sameline start
             // same line for regalloc
             if ((D_803D5530->unk4A != 0) && (D_803F2D10.unk0 == 0)) {D_803D552C->unk32A++;}
-#pragma _permuter sameline end
+
             D_803D5528->unk3C0.unk0 = 0xF;
             D_803D5528->unk3C0.unk2 = 0;
 
@@ -139,13 +132,10 @@ void func_802E5000_6F66B0(void) {
                                     spB2 = (func_8031124C_7228FC(spB6, spB4) >> 0x10);
                                 }
 
-                                sp70 = spBC + (var_s0 * spB6);
-                                sp68 = spBA + (var_s0 * spB4);
-
                                 create_particle_effect(
-                                    sp70,
-                                    sp68,
-                                    MAX(func_8031124C_7228FC(sp70, sp68) >> 0x10, spB8 + (var_s0 * spB2)) + 6,
+                                    spBC + (var_s0 * spB6),
+                                    spBA + (var_s0 * spB4),
+                                    MAX(func_8031124C_7228FC(spBC + (var_s0 * spB6), spBA + (var_s0 * spB4)) >> 0x10, spB8 + (var_s0 * spB2)) + 6,
                                     21,
                                     0,
                                     0,
@@ -185,7 +175,7 @@ void func_802E5000_6F66B0(void) {
 
             } else {
                 D_803D552C->unk365 = ATTACK_NONE;
-                func_8033F300_7509B0();
+                restore_player_camera_distance();
             }
             break;
         default:
@@ -237,9 +227,7 @@ void func_802E5000_6F66B0(void) {
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spAE, &spAC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spAE, &spAC);
-#pragma _permuter sameline start
                 spAE = D_803BD5B2_7CEC62[spAE]; spAC = D_803BD66A_7CED1A[spAC];
-#pragma _permuter sameline end
                 func_80356BD8_768288(D_01000CA0_3A570, D_01002100_3B9D0, spAE);
                 gSPDisplayList(D_801D9E88++, &D_010037F0_3D0C0);
                 func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, (D_803F2EC8 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_040046D0_CC100);
@@ -275,9 +263,6 @@ void func_802E5000_6F66B0(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/fox/func_802E5000_6F66B0.s")
-#endif
 
 // FIRE_FOX
 void func_802E620C_6F78BC(void) {
@@ -652,7 +637,7 @@ void func_802E7394_6F8A44(void) {
                 D_803F2EB8 = ((64 - temp_a0_3) * D_803F2EB8) >> 5;
             } else {
                 D_803D552C->unk365 = ATTACK_NONE;
-                func_8033F300_7509B0();
+                restore_player_camera_distance();
             }
             break;
         }
@@ -767,8 +752,8 @@ void func_802E864C_6F9CFC(void) {
     if (D_803D552C->unk365 != ATTACK_FOX_DASH) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_FOX_DASH;
-        func_8033F2EC_75099C();
-        func_8033F294_750944(2);
+        save_player_camera_distance();
+        increase_player_camera_distance(2);
     } else {
         D_803D5528->energy[0].unk0 += D_803D5524->unkDA[0][0];
     }

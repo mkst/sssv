@@ -2,7 +2,7 @@
 #include "common.h"
 
 
-void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
+void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 index) {
     s32 sp4C;
     s32 sp48;
     s32 sp44;
@@ -31,19 +31,19 @@ void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3) {
     sp28 = (D_80203FE0[1].unk4 + (D_80203FE0[2].unk4 * 5)) / 192;
     sp34 = ((D_80203FE0[1].unk4 * 5) + D_80203FE0[2].unk4) / 192;
 
-    arg0->unkC4[arg3].pos.xPos.h = ((sp4C * 5) + sp44) / 192;
+    arg0->unkC4[index].pos.xPos.h = ((sp4C * 5) + sp44) / 192;
     if (0) { }
-    arg0->unkC4[arg3].pos.zPos.h = ((sp48 * 5) + sp40) / 192;
-    arg0->unkC4[arg3].pos.yPos.h = (arg2 / 32) + sp34;
-    arg0->unkC4[arg3].unkC = ((arg1 * 7) / 32) >> 4;
+    arg0->unkC4[index].pos.zPos.h = ((sp48 * 5) + sp40) / 192;
+    arg0->unkC4[index].pos.yPos.h = (arg2 / 32) + sp34;
+    arg0->unkC4[index].unkC = ((arg1 * 7) / 32) >> 4;
 
-    arg0->unkC4[arg3+1].pos.xPos.h = ((sp44 * 5) + sp4C) / 192;
-    arg0->unkC4[arg3+1].pos.zPos.h = ((sp40 * 5) + sp48) / 192;
-    arg0->unkC4[arg3+1].pos.yPos.h = (arg2 / 32) + sp28;
-    arg0->unkC4[arg3+1].unkC = ((arg1 * 7) / 32) >> 4;
+    arg0->unkC4[index+1].pos.xPos.h = ((sp44 * 5) + sp4C) / 192;
+    arg0->unkC4[index+1].pos.zPos.h = ((sp40 * 5) + sp48) / 192;
+    arg0->unkC4[index+1].pos.yPos.h = (arg2 / 32) + sp28;
+    arg0->unkC4[index+1].unkC = ((arg1 * 7) / 32) >> 4;
 }
 
-void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
+void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 index) {
     s32 tmp0;
     s32 tmp2;
     s32 tmp4;
@@ -60,11 +60,11 @@ void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) 
 
     tmp4 = tmp4 / 32;
 
-    arg0->unkC4[arg4].pos.xPos.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
-    arg0->unkC4[arg4].pos.zPos.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
-    arg0->unkC4[arg4].pos.yPos.h = tmp4;
+    arg0->unkC4[index].pos.xPos.h = ((((tmp0 * temp_t3) + (tmp2 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[index].pos.zPos.h = ((((tmp2 * temp_t3) - (tmp0 * temp_t6))) >> 7) / 32;
+    arg0->unkC4[index].pos.yPos.h = tmp4;
 
-    arg0->unkC4[arg4].unkC = arg3 / 32;
+    arg0->unkC4[index].unkC = arg3 / 32;
 }
 
 void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6) {
@@ -130,6 +130,7 @@ void func_80303D00_7153B0(Animal *arg0, u16 arg1, u16 arg2) {
     arg0->unkC4[1].unkC = 0;
 }
 
+// set_end_collision_index ?
 void func_80303D50_715400(Animal *arg0, u16 idx) {
     arg0->unkC4[idx].unkC = 0;
 }

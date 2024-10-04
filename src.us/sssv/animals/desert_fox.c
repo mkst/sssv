@@ -21,11 +21,11 @@ extern Gfx D_04004330_CBD60[];
 
 // ARMED_DESERT_FOX
 #ifdef NON_MATCHING
-//CURRENT (88)
+//CURRENT (58)
 void func_803726E0_783D90(void) {
     s32 pad[4];
 
-    s32 spB4; // tbd
+    s16 spB4[2]; // FIXME: this should only be a single spB4
     s16 spB0[2];
     s16 spAE;
     s16 spAC; // pad
@@ -49,7 +49,6 @@ void func_803726E0_783D90(void) {
     f32 var_f0;
     f32 xDist;
     f32 yDist;
-
 
     if (D_803D552C->unk348 >= 0x191) {
         if (D_803D5530->unk4A == 0) {
@@ -150,6 +149,7 @@ void func_803726E0_783D90(void) {
                         }
                         D_803D552C->heading &= 0xFF;
 
+                        // similar to penguin.c
                         target = func_8037E9AC_79005C();
                         if (target != NULL) {
 

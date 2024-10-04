@@ -847,7 +847,9 @@ segments:
     - [0x6EA60, bin] # D_01035190_6EA60 ia
     - [0x6F260, bin] # D_01035990_6F260
     - [0x6FA60, bin] # D_01036190_6FA60
-    - [0x70760, bin] # D_01036E90_70760 palette?
+    - [0x70560, bin] # D_01036C90_70560 tortoise
+    - [0x70660, bin] # D_01036D90_70660 tortoise
+    - [0x70760, bin] # D_01036E90_70760 tortoise
     - [0x70960, bin] # D_01037090_70960 image?
     - [0x70FD0, bin] # D_01037700_70FD0 displaylist
     - [0x71020, bin] # D_01037750_71020
