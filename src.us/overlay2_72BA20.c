@@ -12,7 +12,7 @@ u16  D_803A5760_7B6E10 = 0;
 // .bss
 // ========================================================
 
-s16  D_803E97C0;
+s16  D_803E97C0;  // vertex array indexer
 static struct042 D_803E97C8;
 
 // ========================================================
@@ -154,7 +154,6 @@ void func_8031A4E0_72BB90(void) {
     y1 = D_803E97C8.unk10;
     z1 = D_803E97C8.unk12 - 4;
 
-
     for (i = 1; i <= D_803E97C8.unkC; i++) {
 
         if (i == D_803E97C8.unkC) {
@@ -172,64 +171,66 @@ void func_8031A4E0_72BB90(void) {
             z2 = (temp_s2 + SSSV_RAND(32)) - 8 + ((COS(temp_s7) * 8) >> 0xF);
         }
 
+        if (1) {
+
         // .. because.. of course whitespace affects regalloc
 #pragma _permuter sameline start
-        vtxs[0].v.ob[0] = x0; \
-        vtxs[0].v.ob[1] = y0; \
-        vtxs[0].v.ob[2] = z0 + 4; \
-        vtxs[0].v.tc[0] = 0; \
-        vtxs[0].v.tc[1] = 0; \
-        vtxs[0].v.cn[0] = 0xFF; \
-        vtxs[0].v.cn[1] = 0xFF; \
-        vtxs[0].v.cn[2] = 0xFF;
+            vtxs[0].v.ob[0] = x0; \
+            vtxs[0].v.ob[1] = y0; \
+            vtxs[0].v.ob[2] = z0 + 4; \
+            vtxs[0].v.tc[0] = 0; \
+            vtxs[0].v.tc[1] = 0; \
+            vtxs[0].v.cn[0] = 0xFF; \
+            vtxs[0].v.cn[1] = 0xFF; \
+            vtxs[0].v.cn[2] = 0xFF;
 #pragma _permuter sameline end
 
 #pragma _permuter sameline start
-        vtxs[1].v.ob[0] = x1; \
-        vtxs[1].v.ob[1] = y1; \
-        vtxs[1].v.ob[2] = z1 - 4; \
-        vtxs[1].v.tc[0] = 0; \
-        vtxs[1].v.tc[1] = 0x3FF; \
-        vtxs[1].v.cn[0] = 0xFF; \
-        vtxs[1].v.cn[1] = 0xFF; \
-        vtxs[1].v.cn[2] = 0xFF;
+            vtxs[1].v.ob[0] = x1; \
+            vtxs[1].v.ob[1] = y1; \
+            vtxs[1].v.ob[2] = z1 - 4; \
+            vtxs[1].v.tc[0] = 0; \
+            vtxs[1].v.tc[1] = 0x3FF; \
+            vtxs[1].v.cn[0] = 0xFF; \
+            vtxs[1].v.cn[1] = 0xFF; \
+            vtxs[1].v.cn[2] = 0xFF;
 #pragma _permuter sameline end
 
 #pragma _permuter sameline start
-        vtxs[2].v.ob[0] = x2; \
-        vtxs[2].v.ob[1] = y2; \
-        vtxs[2].v.ob[2] = z2 + 4 + 4; \
-        vtxs[2].v.tc[0] = 0x7FF; \
-        vtxs[2].v.tc[1] = 0; \
-        vtxs[2].v.cn[0] = 0xFF; \
-        vtxs[2].v.cn[1] = 0xFF; \
-        vtxs[2].v.cn[2] = 0xFF;
+            vtxs[2].v.ob[0] = x2; \
+            vtxs[2].v.ob[1] = y2; \
+            vtxs[2].v.ob[2] = z2 + 4 + 4; \
+            vtxs[2].v.tc[0] = 0x7FF; \
+            vtxs[2].v.tc[1] = 0; \
+            vtxs[2].v.cn[0] = 0xFF; \
+            vtxs[2].v.cn[1] = 0xFF; \
+            vtxs[2].v.cn[2] = 0xFF;
 #pragma _permuter sameline end
-
 
 #pragma _permuter sameline start
-        vtxs[3].v.ob[0] = x2; \
-        vtxs[3].v.ob[1] = y2; \
-        vtxs[3].v.ob[2] = z2 - 4 - 4; \
-        vtxs[3].v.tc[0] = 0x7FF; \
-        vtxs[3].v.tc[1] = 0x3FF; \
-        vtxs[3].v.cn[0] = 0xFF; \
-        vtxs[3].v.cn[1] = 0xFF; \
-        vtxs[3].v.cn[2] = 0xFF;
+            vtxs[3].v.ob[0] = x2; \
+            vtxs[3].v.ob[1] = y2; \
+            vtxs[3].v.ob[2] = z2 - 4 - 4; \
+            vtxs[3].v.tc[0] = 0x7FF; \
+            vtxs[3].v.tc[1] = 0x3FF; \
+            vtxs[3].v.cn[0] = 0xFF; \
+            vtxs[3].v.cn[1] = 0xFF; \
+            vtxs[3].v.cn[2] = 0xFF;
 #pragma _permuter sameline end
 
-        D_80204278->unk3B30A[D_803E97C0] += 4;
-        D_80204278->unk3B308 += 4;
+            D_80204278->unk3B30A[D_803E97C0] += 4;
+            D_80204278->unk3B308 += 4;
 
-        x0 = x2;
-        y0 = y2;
-        z0 = z2 + 4;
+            x0 = x2;
+            y0 = y2;
+            z0 = z2 + 4;
 
-        x1 = x2;
-        y1 = y2;
-        z1 = z2 - 4;
+            x1 = x2;
+            y1 = y2;
+            z1 = z2 - 4;
 
-        vtxs += 4;
+            vtxs += 4;
+        }
     }
 
     D_803E97C0++;

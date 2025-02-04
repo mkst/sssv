@@ -1,7 +1,6 @@
 #include <ultra64.h>
+
 #include "common.h"
-
-
 
 // ========================================================
 // definitions
@@ -14,12 +13,26 @@ s32 func_8032B1E0_73C890(Animal*, s16, s16, s32*, s32*);
 // .data
 // ========================================================
 
+// AnimalInteractionTable
 u16 D_803A0510_7B1BC0[] = {
-    0x0206, 0xBA26, 0x0206, 0x0000, 0x0000,
-    0xAE26, 0x0200, 0x0200, 0x0200, 0x0000,
-    0x0200, 0x0000, 0x0200, 0x0206, 0x0202,
-    0x0000,
+    518,    // b0000 0010 0000 0110
+    47654,  // b1011 1010 0010 0110
+    518,    // b0000 0010 0000 0110
+    0,      // b0000 0000 0000 0000
+    0,      // b0000 0000 0000 0000
+    44582,  // b1010 1110 0010 0110 <= All animals are [5]
+    512,    // b0000 0010 0000 0000
+    512,    // b0000 0010 0000 0000
+    512,    // b0000 0010 0000 0000
+    0,      // b0000 0000 0000 0000
+    512,    // b0000 0010 0000 0000
+    0,      // b0000 0000 0000 0000
+    512,    // b0000 0010 0000 0000
+    518,    // b0000 0010 0000 0110
+    514,    // b0000 0010 0000 0010
+    0       // b0000 0000 0000 0000 <= EVO interacts with none?
 };
+
 
 // ========================================================
 // .bss
@@ -29,183 +42,189 @@ u16 D_803A0510_7B1BC0[] = {
 // .text
 // ========================================================
 
-#if 0
-// absolute shambles.
 // ESA: func_800397B0
-u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, Animal **arg5, s32 *arg6,
-                                                                    Animal *arg7, Animal **arg8, s32 *arg9) {
-    s32 sp9C;
-    s32 sp98;
+u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Animal *targetAnimal1, Animal **highestHitAnimal, s32 *yMax,
+                                                                            Animal *targetAnimal2, Animal **lowestHitAnimal, s32 *yMin) {
+    s32 collisionYMax;
+    s32 collisionYMin;
+
     s32 pad[6];
 
-    s32 temp_v1_2;
-    s32 temp_v0_5;
-    s32 temp_t5;
-    s16 temp_v0;
-    Animal *animal;
+    s32 zDist;
+    s32 xDist;
     s32 minDist;
-    s32 do_check;
+    s16 idx;
+    Animal *animal;
     s32 maxDist;
+    s32 isCollision;
 
     struct065 *var_s2;
-    struct035 *temp_a1;
-    struct035 *tmp;
 
-    *arg6 = -1;
-    *arg9 = -1;
+    *yMax = -1;
+    *yMin = -1;
 
-    *arg5 = NULL;
-    *arg8 = NULL;
+    *highestHitAnimal = NULL;
+    *lowestHitAnimal = NULL;
 
     maxDist = 0;
     minDist = 0x40000000;
 
-    temp_v0 = (s16)(arg0 >> 0xA) + ((s16) (arg1 >> 0xA) * 5);
-    var_s2 = D_803DA110[temp_v0].next;
+    idx = (s16)(xPos >> 0xA) + ((s16) (zPos >> 0xA) * 5);
+    var_s2 = D_803DA110[idx].next;
 
-    if ((temp_v0 < 0) || (temp_v0 >= 40)) {
+    if ((idx < 0) || (idx >= 40)) {
+        // out of bounds
         return 0;
     }
 
-    for (; var_s2 != NULL; var_s2 = var_s2->next) {
+    while (var_s2 != NULL) {
         animal = var_s2->animal;
+        if (animal == sourceAnimal) {
+            // ignore self-collisions
+            var_s2 = var_s2->next;
+            continue;
+        }
 
-        if (animal == arg3) {
-            if ((arg3->unk16C->objectType != (256+63)) || (arg3->unk365 != 9)) {
+        if ((sourceAnimal->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+EVO)) && (sourceAnimal->unk365 == ATTACK_EVO_CHIP_1)) {
+            if ((D_803A0510_7B1BC0[5] & (1 << (0xF - animal->unk16C->unk2))) == 0) {
+                var_s2 = var_s2->next;
+                continue;
+            }
+        } else {
+            if (!(D_803A0510_7B1BC0[sourceAnimal->unk16C->unk2] & (1 << (0xF - animal->unk16C->unk2)) )) {
+                var_s2 = var_s2->next;
+                continue;
+            }
+        }
 
-                temp_a1 = arg3->unk16C;
-                tmp = animal->unk16C;
-                temp_t5 = tmp->unk2;
+        if ((sourceAnimal->unk16C->unk2 == 5) && (animal == sourceAnimal->unk320)) {
+            // being carried?
+            var_s2 = var_s2->next;
+            continue;
+        }
+        if (((animal->unk15C != 0) && (sourceAnimal == animal->owner)) ||
+            ((sourceAnimal->unk15C != 0) && (animal == sourceAnimal->owner))) {
+                var_s2 = var_s2->next;
+                continue;
+        }
 
-                if (((D_803A0510_7B1BC0[5]             & (1 << (0xF - tmp->unk2))) != 0) ||
-                    ((D_803A0510_7B1BC0[temp_a1->unk2] & (1 << (0xF - temp_t5))) == 0)) {
-
-                    var_s2 = var_s2->next; // not correct... urgh
-
-                } else if ((temp_a1->unk2 == 5) && (animal == arg3->unk320)) {
-
-                    var_s2 = var_s2->next; // not correct... urgh
-
-                } else if (((animal->unk15C != 0) && (arg3 == animal->owner)) ||
-                           ((arg3->unk15C != 0) && (animal == arg3->owner))) {
-
-                     var_s2 = var_s2->next; // not correct... urgh
-
-                } else {
-                    do_check = 0;
-                    if ((tmp->unk2 == 5) && (temp_a1->unk2 == 5)) {
-                        if ((tmp->unkE6 < temp_a1->unkE6) || (func_8030AA08_71C0B8(animal, arg3) != 0) || (animal->unk366 == 5) || (arg3->unk366 == 5)) {
-                            if (animal->unk16C->unkE6 >= arg3->unk16C->unkE6) {
-                                if (((arg0 >= (animal->position.xPos.h - animal->unk34)) && (arg0 < (animal->position.xPos.h + animal->unk34))) &&
-                                    ((arg1 >= (animal->position.zPos.h - animal->unk34)) && (arg1 < (animal->position.zPos.h + animal->unk34)))) {
-                                    do_check = func_8030400C_7156BC(animal, arg0, arg1, &sp9C, &sp98);
-                                }
-                            } else if ((((arg3->unk162 != 1) || (arg3->unk68 != NULL)) && (arg3->yVelocity.w < FTOFIX32(-6.0))) || ((animal->unk366 == 5)) || (animal->unk366 == 2)) {
-
-                                temp_v0_5 = arg0 - animal->position.xPos.h;
-                                temp_v1_2 = arg1 - animal->position.zPos.h;
-                                temp_t5 = animal->unk30 * 2;
-
-                                if ((SQ(temp_v0_5) + SQ(temp_v1_2)) <= SQ(temp_t5)) {
-                                    do_check = 1;
-                                    sp9C = animal->position.yPos.w + (animal->unk42 << 0x10);
-                                    sp98 = animal->position.yPos.w;
-                                }
-                            }
-                        }
-                    } else {
-                        if (((arg0 >= (animal->position.xPos.h - animal->unk30)) && (arg0 < (animal->position.xPos.h + animal->unk30))) &&
-                           ((arg1 >= (animal->position.zPos.h - animal->unk32)) && (arg1 < (animal->position.zPos.h + animal->unk32)))) {
-                            do_check = func_8032B1E0_73C890(animal, arg0, arg1, &sp9C, &sp98);
-                        }
+        isCollision = 0;
+        if ((animal->unk16C->unk2 == 5) && (sourceAnimal->unk16C->unk2 == 5)) {
+            if ((animal->unk16C->unkE6 < sourceAnimal->unk16C->unkE6) || (func_8030AA08_71C0B8(animal, sourceAnimal) != 0) || (animal->unk366 == 5) || (sourceAnimal->unk366 == 5)) {
+                if (animal->unk16C->unkE6 >= sourceAnimal->unk16C->unkE6) {
+                    if (((xPos >= (animal->position.xPos.h - animal->unk34)) && (xPos < (animal->position.xPos.h + animal->unk34))) &&
+                        ((zPos >= (animal->position.zPos.h - animal->unk34)) && (zPos < (animal->position.zPos.h + animal->unk34)))) {
+                        isCollision = func_8030400C_7156BC(animal, xPos, zPos, &collisionYMax, &collisionYMin);
                     }
+                } else if ((((sourceAnimal->unk162 != 1) || (sourceAnimal->unk68 != NULL)) && (sourceAnimal->yVelocity.w < FTOFIX32(-6.0))) || ((animal->unk366 == 5)) || (animal->unk366 == 2)) {
 
-                    if (do_check != 0) {
-
-                        animal->unk4C.unk19 = 1;
-                        if (animal == arg4) {
-                            if (sp9C >= maxDist) {
-                                maxDist = *arg6 = sp9C;
-                                *arg5 = arg4;
-                            }
-                        } else if (animal == arg7) {
-                            if (minDist >= sp98) {
-                                *arg9 = minDist = sp98;
-                                *arg8 = arg7;
-                            }
-                        } else if (arg3 == animal->unk68) {
-                            if (sp98 < minDist) {
-                                *arg9 = minDist = sp98;
-                                *arg8 = animal;
-                            }
-                        } else if (arg3 == animal->unk70) {
-                            if (maxDist < sp9C) {
-                                maxDist = *arg6 = sp9C;
-                                *arg5 = animal;
-                            }
-                        } else if (yPos < ((sp98 + sp9C) >> 1)) {
-                            if (sp98 < minDist) {
-                                *arg9 = minDist = sp98;
-                                *arg8 = animal;
-                            }
-                        } else if (maxDist < sp9C) {
-                            maxDist = *arg6 = sp9C;
-                            *arg5 = animal;
-                        }
+                    xDist = xPos - animal->position.xPos.h;
+                    zDist = zPos - animal->position.zPos.h;
+                    if ((SQ(xDist) + SQ(zDist)) <= SQ(animal->unk30 * 2)) {
+                        isCollision = 1;
+                        collisionYMax = animal->position.yPos.w + (animal->unk42 << 0x10);
+                        collisionYMin = animal->position.yPos.w;
                     }
                 }
             }
+        } else {
+            if (((xPos >= (animal->position.xPos.h - animal->unk30)) && (xPos < (animal->position.xPos.h + animal->unk30))) &&
+                ((zPos >= (animal->position.zPos.h - animal->unk32)) && (zPos < (animal->position.zPos.h + animal->unk32)))) {
+                isCollision = func_8032B1E0_73C890(animal, xPos, zPos, &collisionYMax, &collisionYMin);
+            }
         }
+
+        if (isCollision) {
+            animal->unk4C.unk19 = 1;
+            if (animal == targetAnimal1) {
+                if (collisionYMax >= maxDist) {
+                    maxDist = collisionYMax;
+                    *yMax = collisionYMax;
+                    *highestHitAnimal = targetAnimal1;
+                }
+            } else if (animal == targetAnimal2) {
+                if (minDist >= collisionYMin) {
+                    minDist = collisionYMin;
+                    *yMin = collisionYMin;
+                    *lowestHitAnimal = targetAnimal2;
+                }
+            } else if (sourceAnimal == animal->unk68) {
+                if (collisionYMin < minDist) {
+                    minDist = collisionYMin;
+                    *yMin = collisionYMin;
+                    *lowestHitAnimal = animal;
+                }
+            } else if (sourceAnimal == animal->unk70) {
+                if (maxDist < collisionYMax) {
+                    maxDist = collisionYMax;
+                    *yMax = collisionYMax;
+                    *highestHitAnimal = animal;
+                }
+            } else if (yPos < ((collisionYMin + collisionYMax) >> 1)) {
+                if (collisionYMin < minDist) {
+                    minDist = collisionYMin;
+                    *yMin = collisionYMin;
+                    *lowestHitAnimal = animal;
+                }
+            } else if (maxDist < collisionYMax) {
+                maxDist = collisionYMax;
+                *yMax = collisionYMax;
+                *highestHitAnimal = animal;
+            }
+        }
+        var_s2 = var_s2->next;
     }
 
-    return (*arg5 != NULL);
+    return (*highestHitAnimal != NULL);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6AC6B0/func_8029B000_6AC6B0.s")
-#endif
 
-s32 func_8029B56C_6ACC1C(s16 arg0, s16 arg1, s16 *arg2, struct063 arg3[73][129]) {
-    s16 temp_t3;
-    s16 temp_t5;
+// unused?
+s32 func_8029B56C_6ACC1C(s16 xPos, s16 zPos, s16 *height, struct063 terrain[73][129]) {
+    s16 cell_offset_x;
+    s16 cell_offset_z;
 
-    s16 temp_a3;
-    s16 temp_t0;
-    s16 temp_t1;
-    s16 temp_v1;
+    s16 nw;
+    s16 ne;
+    s16 se;
+    s16 sw;
 
     s32 changed;
 
-    s16 a0 = arg0 >> 6;
-    s16 a1 = arg1 >> 6;
+    // Each grid cell is likely 64x64 game units.
+    s16 a0 = xPos >> 6;
+    s16 a1 = zPos >> 6;
 
     if ((a0 < 0) || (a0 >= 72) || (a1 < 0) || (a1 >= 128)) {
+        // out of bounds
         return 0;
     }
 
-    if (arg3[a0][a1].unk3 != 0) {
-        temp_v1 = arg3[(a0) + 0][(a1) + 0].unk1 << 3;
-        temp_a3 = arg3[(a0) + 0][(a1) + 1].unk1 << 3;
-        temp_t0 = arg3[(a0) + 1][(a1) + 1].unk1 << 3;
-        temp_t1 = arg3[(a0) + 1][(a1) + 0].unk1 << 3;
+    if (terrain[a0][a1].unk3 != 0) {
+        // terrain is valid for height calculation
+        sw = terrain[a0 + 0][a1 + 0].unk1 << 3;
+        nw = terrain[a0 + 0][a1 + 1].unk1 << 3;
+        ne = terrain[a0 + 1][a1 + 1].unk1 << 3;
+        se = terrain[a0 + 1][a1 + 0].unk1 << 3;
 
-        temp_t3 = arg0 & 0x3F;
-        temp_t5 = arg1 & 0x3F;
+        cell_offset_x = xPos & 0x3F; //  X offset within the cell (0 to 63)
+        cell_offset_z = zPos & 0x3F; //  Z offset within the cell (0 to 63)
 
-        if ((D_803C0740[(a0)][(a1)].unk4 & 1)) {
-            if (temp_t3 < temp_t5) {
-                *arg2 = temp_v1 + ((((temp_t0 - temp_a3) * temp_t3) + ((temp_a3 - temp_v1) * temp_t5)) >> 6);
+        if ((D_803C0740[a0][a1].unk4 & 1)) {
+            if (cell_offset_x < cell_offset_z) {
+                *height = sw + ((((ne - nw) * cell_offset_x) + ((nw - sw) * cell_offset_z)) >> 6);
             } else {
-                *arg2 = temp_v1 + ((((temp_t1 - temp_v1) * temp_t3) + ((temp_t0 - temp_t1) * temp_t5)) >> 6);
+                *height = sw + ((((se - sw) * cell_offset_x) + ((ne - se) * cell_offset_z)) >> 6);
             }
         } else {
-            if ((temp_t3 + temp_t5) < 64) {
-                *arg2 = (((temp_v1 << 6) + ((temp_t1 - temp_v1) * temp_t3) + ((temp_a3 - temp_v1) * temp_t5)) >> 6);
+            if ((cell_offset_x + cell_offset_z) < 64) {
+                *height = (((sw << 6) + ((se - sw) * cell_offset_x) + ((nw - sw) * cell_offset_z)) >> 6);
             } else {
-                *arg2 = (((temp_t0 << 6) + ((temp_a3 - temp_t0) * (0x40 - temp_t3)) + ((temp_t1 - temp_a3) * (0x40 - temp_t5))) >> 6);
+                *height = (((ne << 6) + ((nw - ne) * (0x40 - cell_offset_x)) + ((se - nw) * (0x40 - cell_offset_z))) >> 6);
             }
         }
         changed = 1;
-        *arg2 -= D_803E1D30[D_803C0740[a0][a1].unk3].unk2 << 3;
+        // apply additional offset
+        *height -= D_803E1D30[D_803C0740[a0][a1].unk3].unk2 << 3;
     } else {
         changed = 0;
     }

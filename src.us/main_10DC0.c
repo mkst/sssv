@@ -52,9 +52,8 @@ void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 
 
 // draw chunked images (e.g. 200 credz)
 void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl, u8 *img) {
-
     s32 x, y;
-    void *imgAddr;
+    u8 *imgAddr;
     s32 yOffset;
     u32 sp8C;
 
@@ -65,23 +64,24 @@ void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl,
 
     sp8C = width / 32;
 
-    while (y < (startY + height)) {
+    while ((u32)y < (startY + height)) {
         x = startX;
 
-        if ((startY + height) < (y + 32)) {
+        if ((startY + height) < (u32)(y + 32)) {
             yOffset = (startY - y) + height;
         } else {
             yOffset = 32;
         }
 
-        while (x < (startX + width)) {
+        while ((u32)x < (startX + width)) {
             s16 xx;
             s8  yy;
 
             yy = (s32)(y - startY) / 32;
             xx = (s32)(x - startX) / 32;
 
-            imgAddr = (0, img) + (((u8) ((yy * sp8C) + xx)) * (32 * 32 * 2));
+            imgAddr = img;
+            imgAddr += (((u8) ((yy * sp8C) + xx)) * (32 * 32 * 2));
 
             gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, imgAddr);
             gDPLoadSync((*dl)++);

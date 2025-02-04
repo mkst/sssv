@@ -34,12 +34,12 @@ s16  func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 void func_8033E430_74FAE0(void);
 void func_8033E6B8_74FD68(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4, f32 *arg5);
 void func_8033EF94_750644(OSContPad *cont, u16 arg1);
-void func_8033F23C_7508EC(s16 arg0);
+void decrease_player_camera_distance(s16 arg0);
 void func_80340E08_7524B8(s16 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s8 arg5, s8 arg6, u8 arg7, s16 arg8);
 void func_80340EA4_752554(struct062*, s16);
 void func_803415BC_752C6C(void);
 void func_80342550_753C00(Camera *arg0);
-void func_803423C4_753A74(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
+void update_camera_x_y_z(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
 void func_80343438_754AE8(void);
 void func_80343A50_755100(void);
 void func_80343C44_7552F4(s16 arg0, u16 *arg1, u16 *arg2);
@@ -54,7 +54,7 @@ s16  func_80344158_755808(s16 arg0);
 
 u8 overlay2_74100_bss_pad_pre[0x20]; // unused bss from earlier .c files?
 
-u16  D_803F28D0[8];     // some color information?
+u16  D_803F28D0[8];
 
 Camera gCameras[2];
 s16  gCameraId;
@@ -116,14 +116,15 @@ static f32  D_803F2C64;
 static f32  D_803F2C68;
 u8   D_803F2C6C;
 u8   D_803F2C6D; // terminal_background thinks its an s8
-static s16  D_803F2C6E;
-static s16  D_803F2C70;
+static s16  playerCameraDistance;
+static s16  playerCameraDistance2;
 
 // ========================================================
 // .data
 // ========================================================
 
 #include "camera.data.h"
+#include "camera_enums.h"
 
 // ========================================================
 // .text
@@ -161,8 +162,8 @@ void func_8032F950_741000(void) {
         break;
     case 1:
         set_camera_mode(gCameraId, 0);
-        if ((func_80344158_755808(gCameras[gCameraId].cameraMode) == 0) &&
-            (func_80344158_755808(gCameras[D_803F2AC8].cameraMode) != 0)) {
+        if ((func_80344158_755808(gCameras[gCameraId].cameraMode) == CAMERA_MODE_NONE) &&
+            (func_80344158_755808(gCameras[D_803F2AC8].cameraMode) != CAMERA_MODE_NONE)) {
             set_camera_mode(D_803F2AC8, 1);
         } else {
             set_camera_mode(D_803F2AC8, 0);
@@ -219,95 +220,95 @@ void set_camera_mode(u8 cameraID, u8 arg1) {
     func_80342550_753C00(&gCameras[cameraID]);
 
     switch (gCameras[cameraID].cameraMode) {
-    case 1:
+    case CAMERA_MODE_1:
         func_80332444_743AF4(cameraID);
         break;
-    case 26:
+    case CAMERA_MODE_26:
         func_8032FF94_741644(cameraID);
         break;
-    case 2:
-    case 12:
+    case CAMERA_MODE_2:
+    case CAMERA_MODE_12:
         func_803378BC_748F6C(cameraID);
         break;
-    case 3:     // behind animal (Z mode?)
-    case 17:
+    case CAMERA_MODE_BEHIND_1:     // behind animal (Z mode?)
+    case CAMERA_MODE_BEHIND_2:
         func_80337ECC_74957C(cameraID);
         break;
-    case 4:     // overhead, GTA style 1
+    case CAMERA_MODE_OVERHEAD_1:     // overhead, GTA style 1
         func_80338E1C_74A4CC(cameraID);
         break;
-    case 19:    // overhead, GTA style 3
+    case CAMERA_MODE_OVERHEAD_3:    // overhead, GTA style 3
         func_803391D0_74A880(cameraID);
         break;
-    case 20:    // overhead, GTA style 4
+    case CAMERA_MODE_OVERHEAD_4:    // overhead, GTA style 4
         func_80339238_74A8E8(cameraID);
         break;
-    case 21:    // overhead, GTA style 5
+    case CAMERA_MODE_OVERHEAD_5:    // overhead, GTA style 5
         func_803392A0_74A950(cameraID);
         break;
-    case 5:     // overhead GTA style 2
+    case CAMERA_MODE_OVERHEAD_2:     // overhead GTA style 2
         func_803394E4_74AB94(cameraID, arg1);
         break;
-    case 6:
+    case CAMERA_MODE_6:
         func_80334470_745B20(cameraID, arg1);
         break;
-    case 7:     // like 6 but a little higher
+    case CAMERA_MODE_7:     // like 6 but a little higher
         func_8033641C_747ACC(cameraID, 0, arg1);
         break;
-    case 13:
+    case CAMERA_MODE_FIXED_0:
         fix_camera_to_angle_offset(cameraID, 0.0f);
         break;
-    case 14:
+    case CAMERA_MODE_FIXED_128:
         fix_camera_to_angle_offset(cameraID, 128.0f);
         break;
-    case 15:
+    case CAMERA_MODE_FIXED_64:
         fix_camera_to_angle_offset(cameraID, 64.0f);
         break;
-    case 16:
+    case CAMERA_MODE_FIXED_192:
         fix_camera_to_angle_offset(cameraID, 192.0f);
         break;
-    case 8:     // looking behind player, SE-ish
+    case CAMERA_MODE_FIXED_32:     // looking behind player, SE-ish
         fix_camera_to_angle_offset(cameraID, 32.0f);
         break;
-    case 9:     // fixed, looking left
+    case CAMERA_MODE_FIXED_96:     // fixed, looking left
         fix_camera_to_angle_offset(cameraID, 96.0f);
         break;
-    case 10:
+    case CAMERA_MODE_FIXED_160:
         fix_camera_to_angle_offset(cameraID, 160.0f);
         break;
-    case 11:    // fixed, looking right
+    case CAMERA_MODE_FIXED_224:    // fixed, looking right
         fix_camera_to_angle_offset(cameraID, 224.0f);
         break;
-    case 22:
+    case CAMERA_MODE_22:
         func_80339308_74A9B8(cameraID);
         break;
-    case 23:    // seem to crash game?
-    case 24:
+    case CAMERA_MODE_WAYPOINT_1:    // seem to crash game?
+    case CAMERA_MODE_WAYPOINT_2:
         func_8033AAC8_74C178(cameraID);
         break;
-    case 25:    // zoomed in, spin around player
+    case CAMERA_MODE_ZOOM_SPIN:    // zoomed in, spin around player
         func_8033B118_74C7C8(cameraID);
         break;
-    case 30:    // seems to crash game?
+    case CAMERA_MODE_30:    // seems to crash game?
         func_8033B440_74CAF0(cameraID);
         break;
-    case 27:
+    case CAMERA_MODE_27:
         func_8033C320_74D9D0(cameraID);
         break;
-    case 28:
+    case CAMERA_MODE_28:
         func_8033641C_747ACC(cameraID, 1, arg1);
         break;
-    case 29:    // seems to crash game?
+    case CAMERA_MODE_29:    // seems to crash game?
         func_8033B594_74CC44(cameraID);
         break;
-    case 18:    // spinning around player
-    case 31:
+    case CAMERA_MODE_SPIN_1:    // spinning around player
+    case CAMERA_MODE_SPIN_2:
         func_8033B9B8_74D068(cameraID);
         break;
-    case 228:
+    case CAMERA_MODE_228:
         func_8033C054_74D704(cameraID);
         break;
-    case 0:
+    case CAMERA_MODE_NONE:
     default:
         break;
     }
@@ -2050,7 +2051,7 @@ void func_80337ECC_74957C(u8 id) {
         break;
     }
 
-    if (gCameras[id].cameraMode == 17) {
+    if (gCameras[id].cameraMode == CAMERA_MODE_BEHIND_2) {
         D_803F2A9E = 0;
     } else {
         func_8033E430_74FAE0();
@@ -2676,7 +2677,7 @@ void func_8033AAC8_74C178(u8 cameraID) {
 
     if ((gCamera->unk6 + 104) == (length << 5)) {
         D_803F2C6C = D_803F2C6D = 0;
-        gCamera->cameraMode = 24;
+        gCamera->cameraMode = CAMERA_MODE_WAYPOINT_2;
     }
     update_camera_from_waypoint(&gCamera->unk74, &gCamera->unk78, &gCamera->unk7C, wpd, gCamera->unk6);
     update_camera_from_waypoint(&gCamera->unk8, &gCamera->unkC, &gCamera->unk10, wpd, gCamera->unk6 + 31);
@@ -2698,7 +2699,6 @@ void func_8033AAC8_74C178(u8 cameraID) {
 
 // ESA: func_80029438
 void update_camera_from_waypoint(f32 *arg0, f32 *arg1, f32 *arg2, WaypointData *wpd, s16 arg4) {
-
     s16 sp48[4]; // why!?
 
     s16 tmp;
@@ -2712,8 +2712,8 @@ void update_camera_from_waypoint(f32 *arg0, f32 *arg1, f32 *arg2, WaypointData *
 
     tmp = arg4 / 32;
 
-    sp48[0] = MAX(0, tmp - 1);                // previous
-    sp48[1] = tmp;                            // current
+    sp48[0] = MAX(0, tmp - 1);               // previous
+    sp48[1] = tmp;                           // current
     sp48[2] = MIN(wpd->length - 1, tmp + 1); // next
     sp48[3] = MIN(wpd->length - 1, tmp + 2); // next + 1
 
@@ -2869,7 +2869,7 @@ void func_8033B9B8_74D068(u8 arg0) {
         gCamera->unk18 += 0.1;
         gCamera->unk14 = gCamera->unk18;
     }
-    if (gCamera->cameraMode == 31) {
+    if (gCamera->cameraMode == CAMERA_MODE_SPIN_2) {
         if (gCamera->unk34 < 1000.0) {
             gCamera->unk34 += 2.0;
             gCamera->unk30 = gCamera->unk34;
@@ -3079,9 +3079,9 @@ void reset_camera(void) {
     gCameras[0].unk58 = 0x14;
     gCameras[0].unk60 = 0x10;
 
-    D_803F2C6E = MAX(gCameras[0].unk65, 0);
-    D_803F2C6E = MIN(gCameras[0].unk66, D_803F2C6E);
-    gCameras[0].unk64 = D_803F2C6E;
+    playerCameraDistance = MAX(gCameras[0].unk65, 0);
+    playerCameraDistance = MIN(gCameras[0].unk66, playerCameraDistance);
+    gCameras[0].unk64 = playerCameraDistance;
 
     gCameras[0].unk24 = (D_803F2D50.unk50 << 8) / 360;
     gCameras[0].unk20 = (D_803F2D50.unk50 << 8) / 360;
@@ -3732,12 +3732,12 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
             D_803F2C6C = D_803F2C6D = 0;
     }
 
-    phi_v0 = MIN(gCameras[gCameraId].unk66, D_803F2C6E);
+    phi_v0 = MIN(gCameras[gCameraId].unk66, playerCameraDistance);
     gCameras[gCameraId].unk64 = MAX(gCameras[gCameraId].unk65, phi_v0);
 
     switch (gCameras[gCameraId].cameraMode) {
-    case 1:
-    case 26:
+    case CAMERA_MODE_1:
+    case CAMERA_MODE_26:
         if (gCameras[gCameraId].unkD6 == 1) {
             if ((cont->button & R_CBUTTONS) && (!(D_803F2C72 & R_CBUTTONS))) {
                 if (gCameras[gCameraId].unkD8 == 0) {
@@ -3763,7 +3763,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
                         gCameras[gCameraId].unk24 += 256.0;
                     }
 
-                    if (gCameras[gCameraId].cameraMode == 26) {
+                    if (gCameras[gCameraId].cameraMode == CAMERA_MODE_26) {
                         gCameras[gCameraId].unk70 = 60;
                     } else {
                         gCameras[gCameraId].unk70 = 200;
@@ -3790,7 +3790,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
                         gCameras[gCameraId].unk24 -= 256.0;
                     }
 
-                    if (gCameras[gCameraId].cameraMode == 26) {
+                    if (gCameras[gCameraId].cameraMode == CAMERA_MODE_26) {
                         gCameras[gCameraId].unk70 = 60;
                     } else {
                         gCameras[gCameraId].unk70 = 200;
@@ -3800,19 +3800,21 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
 
             func_8033EF94_750644(cont, D_803F2C72);
             if ((D_803F2D30.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
-                D_803F2C6E -= 2;
+                playerCameraDistance -= 2;
             }
         }
         break;
-    case 2:
-    case 12:
+
+    case CAMERA_MODE_2:
+    case CAMERA_MODE_12:
         func_8033EF94_750644(cont, D_803F2C72);
         if ((D_803F2D30.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
-            D_803F2C6E -= 2;
+            playerCameraDistance -= 2;
         }
         break;
-    case 3:
-    case 17:
+
+    case CAMERA_MODE_BEHIND_1:
+    case CAMERA_MODE_BEHIND_2:
         if (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C != TORTOISE_TANK) {
             func_8033EF94_750644(cont, D_803F2C72);
         } else {
@@ -3821,20 +3823,21 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
         gCameras[gCameraId].unk68 = 0;
         gCameras[gCameraId].unk24 = 0.0f;
         break;
-    case 4:
-    case 5:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-    case 13:
-    case 14:
-    case 15:
-    case 16:
-    case 19:
-    case 20:
-    case 21:
-    case 22:
+
+    case CAMERA_MODE_OVERHEAD_1:
+    case CAMERA_MODE_OVERHEAD_2:
+    case CAMERA_MODE_FIXED_32:
+    case CAMERA_MODE_FIXED_96:
+    case CAMERA_MODE_FIXED_160:
+    case CAMERA_MODE_FIXED_224:
+    case CAMERA_MODE_FIXED_0:
+    case CAMERA_MODE_FIXED_128:
+    case CAMERA_MODE_FIXED_64:
+    case CAMERA_MODE_FIXED_192:
+    case CAMERA_MODE_OVERHEAD_3:
+    case CAMERA_MODE_OVERHEAD_4:
+    case CAMERA_MODE_OVERHEAD_5:
+    case CAMERA_MODE_22:
         if ((gCameras[gCameraId].unkD6 == 1) &&
             ((((cont->button & R_CBUTTONS)) && (!(D_803F2C72 & R_CBUTTONS))) ||
             ((cont->button & L_CBUTTONS) && (!(D_803F2C72 & L_CBUTTONS))))) {
@@ -3843,9 +3846,10 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
 
         func_8033EF94_750644(cont, D_803F2C72);
         break;
-    case 6:
-    case 7:
-    case 28:
+
+    case CAMERA_MODE_6:
+    case CAMERA_MODE_7:
+    case CAMERA_MODE_28:
         if (gCameras[gCameraId].unkD6 == 1) {
             func_8033EF94_750644(cont, D_803F2C72);
         }
@@ -3855,7 +3859,8 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
             }
         }
         break;
-    case 0:
+
+    case CAMERA_MODE_NONE:
     // case 18:
     // case 23:
     // case 24:
@@ -3863,31 +3868,30 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
     // case 27:
     // case 29:
     // case 30:
-    case 31:
-    case 228:
+    case CAMERA_MODE_SPIN_2:
+    case CAMERA_MODE_228:
         break;
+
     }
     D_803F2C72 = cont->button;
 }
-
-
 
 void func_8033EF94_750644(OSContPad *cont, u16 prevButtonState) {
     u8 res = 0;
 
     if ((cont->button & U_CBUTTONS) && (!(prevButtonState & U_CBUTTONS))) {
-        if (D_803F2C6E < MIN(gCameras[gCameraId].unk66, 0)) {
-            D_803F2C6E = MIN(MIN(MAX(D_803F2C6E + 1, gCameras[gCameraId].unk64 + 1), gCameras[gCameraId].unk66), 0);
-            gCameras[gCameraId].unk64 = D_803F2C6E;
+        if (playerCameraDistance < MIN(gCameras[gCameraId].unk66, 0)) {
+            playerCameraDistance = MIN(MIN(MAX(playerCameraDistance + 1, gCameras[gCameraId].unk64 + 1), gCameras[gCameraId].unk66), 0);
+            gCameras[gCameraId].unk64 = playerCameraDistance;
             res = 1;
         } else {
             res = 2;
         }
     }
     if ((cont->button & D_CBUTTONS) && (!(prevButtonState & D_CBUTTONS))) {
-        if (D_803F2C6E > MAX(gCameras[gCameraId].unk65, -2)) {
-            D_803F2C6E = MAX(MAX(MIN(D_803F2C6E - 1, gCameras[gCameraId].unk64 - 1), gCameras[gCameraId].unk65), -2);
-            gCameras[gCameraId].unk64 = D_803F2C6E;
+        if (playerCameraDistance > MAX(gCameras[gCameraId].unk65, -2)) {
+            playerCameraDistance = MAX(MAX(MIN(playerCameraDistance - 1, gCameras[gCameraId].unk64 - 1), gCameras[gCameraId].unk65), -2);
+            gCameras[gCameraId].unk64 = playerCameraDistance;
             res = 1;
         } else {
             res = 2;
@@ -3901,28 +3905,26 @@ void func_8033EF94_750644(OSContPad *cont, u16 prevButtonState) {
     }
 }
 
-// decrease player <-> camera distance
-void func_8033F23C_7508EC(s16 dist) {
+void decrease_player_camera_distance(s16 dist) {
     if (gCameras[gCameraId].unkD6 == 1) {
-        D_803F2C6E -= dist;
+        playerCameraDistance -= dist;
     }
 }
 
-// increase player <-> camera distance
-void func_8033F294_750944(s16 dist) {
+void increase_player_camera_distance(s16 dist) {
     if (gCameras[gCameraId].unkD6 == 1) {
-        D_803F2C6E += dist;
+        playerCameraDistance += dist;
     }
 }
 
-void func_8033F2EC_75099C(void) {
-    D_803F2C70 = D_803F2C6E;
+void save_player_camera_distance(void) {
+    playerCameraDistance2 = playerCameraDistance;
 }
 
-void func_8033F300_7509B0(void) {
-    D_803F2C70 = MIN(D_803F2C70, gCameras[gCameraId].unk66);
-    D_803F2C70 = MAX(D_803F2C70, gCameras[gCameraId].unk65);
-    D_803F2C6E = D_803F2C70;
+void restore_player_camera_distance(void) {
+    playerCameraDistance2 = MIN(playerCameraDistance2, gCameras[gCameraId].unk66);
+    playerCameraDistance2 = MAX(playerCameraDistance2, gCameras[gCameraId].unk65);
+    playerCameraDistance = playerCameraDistance2;
 }
 
 // ESA: func_8002BFF4
@@ -4001,18 +4003,18 @@ void func_8033F380_750A30(void) {
         D_80204204 = (spC8 * camera2->unk90) + (spCC * camera1->unk90);
         D_80204208 = (spC8 * camera2->unk94) + (spCC * camera1->unk94);
 
-        if (((camera2->cameraMode == 4) ||
-             (camera2->cameraMode == 19) ||
-             (camera2->cameraMode == 20) ||
-             (camera2->cameraMode == 21) ||
-             (camera2->cameraMode == 5) ||
-             (camera2->cameraMode == 22)) &&
-             ((camera1->cameraMode == 4) ||
-              (camera1->cameraMode == 19) ||
-              (camera1->cameraMode == 20) ||
-              (camera1->cameraMode == 21) ||
-              (camera1->cameraMode == 5) ||
-              (camera1->cameraMode == 22))) {
+        if (((camera2->cameraMode == CAMERA_MODE_OVERHEAD_1) ||
+             (camera2->cameraMode == CAMERA_MODE_OVERHEAD_3) ||
+             (camera2->cameraMode == CAMERA_MODE_OVERHEAD_4) ||
+             (camera2->cameraMode == CAMERA_MODE_OVERHEAD_5) ||
+             (camera2->cameraMode == CAMERA_MODE_OVERHEAD_2) ||
+             (camera2->cameraMode == CAMERA_MODE_22)) &&
+             ((camera1->cameraMode == CAMERA_MODE_OVERHEAD_1) ||
+              (camera1->cameraMode == CAMERA_MODE_OVERHEAD_3) ||
+              (camera1->cameraMode == CAMERA_MODE_OVERHEAD_4) ||
+              (camera1->cameraMode == CAMERA_MODE_OVERHEAD_5) ||
+              (camera1->cameraMode == CAMERA_MODE_OVERHEAD_2) ||
+              (camera1->cameraMode == CAMERA_MODE_22))) {
 
             temp_f2 = ABSF(camera2->unk24 - camera1->unk24);
             if (temp_f2 == 128.0) {
@@ -4048,20 +4050,20 @@ void func_8033F380_750A30(void) {
         }
         D_803F2C74 = (spCC * sp8C) + (spC8 * sp84);
 
-        if ((camera2->cameraMode == 4) ||
-            (camera2->cameraMode == 19) ||
-            (camera2->cameraMode == 20) ||
-            (camera2->cameraMode == 21) ||
-            (camera2->cameraMode == 5) ||
-            (camera2->cameraMode == 22)) {
+        if ((camera2->cameraMode == CAMERA_MODE_OVERHEAD_1) ||
+            (camera2->cameraMode == CAMERA_MODE_OVERHEAD_3) ||
+            (camera2->cameraMode == CAMERA_MODE_OVERHEAD_4) ||
+            (camera2->cameraMode == CAMERA_MODE_OVERHEAD_5) ||
+            (camera2->cameraMode == CAMERA_MODE_OVERHEAD_2) ||
+            (camera2->cameraMode == CAMERA_MODE_22)) {
             D_803F2C78 = temp_f14;
         } else {
-            if ((camera1->cameraMode == 4) ||
-                (camera1->cameraMode == 19) ||
-                (camera1->cameraMode == 20) ||
-                (camera1->cameraMode == 21) ||
-                (camera1->cameraMode == 5) ||
-                (camera1->cameraMode == 22)) {
+            if ((camera1->cameraMode == CAMERA_MODE_OVERHEAD_1) ||
+                (camera1->cameraMode == CAMERA_MODE_OVERHEAD_3) ||
+                (camera1->cameraMode == CAMERA_MODE_OVERHEAD_4) ||
+                (camera1->cameraMode == CAMERA_MODE_OVERHEAD_5) ||
+                (camera1->cameraMode == CAMERA_MODE_OVERHEAD_2) ||
+                (camera1->cameraMode == CAMERA_MODE_22)) {
                 D_803F2C78 = sp80;
             } else {
                 temp_f2 = temp_f14 - sp80;
@@ -4142,7 +4144,7 @@ void func_8033F380_750A30(void) {
         D_803F2ACA -= D_803F2ACA >> 3;
         D_803F2ACA -= 1;
 
-        if ((camera1->cameraMode == 3) || (camera1->cameraMode == 17)) {
+        if ((camera1->cameraMode == CAMERA_MODE_BEHIND_1) || (camera1->cameraMode == CAMERA_MODE_BEHIND_2)) {
             temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (6 * 65536.0f);
             D_803F2C44 += temp_f0;
             D_803F2C50 += temp_f0;
@@ -4335,19 +4337,19 @@ void func_80340E08_7524B8(s16 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s8 arg5,
 void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
     s16 cameraMode;
     s16 i;
-    s16 sp32;
+    s16 cameraMode2;
     s16 sp30;
     s8  sp2F;
     s16 temp_v0_5;
 
     if (D_803F2C18[0] == 0) {
-        func_80343C44_7552F4(arg0->unk12, &sp32, &sp30);
+        func_80343C44_7552F4(arg0->unk12, &cameraMode2, &sp30);
         cameraMode = gCameras[gCameraId].cameraMode;
         D_803F2AC8 = gCameraId;
         gCameraId = (gCameraId + 1) % 2;
 
-        if (((cameraMode == 2) || (sp32 == 2)) &&
-            ((cameraMode != 12) && (sp32 != 12))) {
+        if (((cameraMode == CAMERA_MODE_2) || (cameraMode2 == CAMERA_MODE_2)) &&
+            ((cameraMode != CAMERA_MODE_12) && (cameraMode2 != CAMERA_MODE_12))) {
             D_803F2C18[0] = 2;
         } else {
             D_803F2C18[0] = 1;
@@ -4368,7 +4370,7 @@ void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
             gCameras[gCameraId].cameraMode = gCameras[D_803F2AC8].cameraMode;
         } else {
             gCameras[gCameraId].unk2 = arg0->unk12;
-            gCameras[gCameraId].cameraMode = sp32;
+            gCameras[gCameraId].cameraMode = cameraMode2;
         }
         gCameras[gCameraId].unk6 = 0;
         gCameras[gCameraId].unk4 = sp30;
@@ -4397,7 +4399,7 @@ void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
         gCameras[gCameraId].unk14 = gCameras[gCameraId].unk4E;
         gCameras[gCameraId].unk1C = 0.0f;
 
-        if ((gCameras[D_803F2AC8].cameraMode == 3) || (gCameras[D_803F2AC8].cameraMode == 17)) {
+        if ((gCameras[D_803F2AC8].cameraMode == CAMERA_MODE_BEHIND_1) || (gCameras[D_803F2AC8].cameraMode == CAMERA_MODE_BEHIND_2)) {
             gCameras[gCameraId].unk24 = (gCameras[D_803F2AC8].unk24 * 256.0) / 360.0;
         } else {
             gCameras[gCameraId].unk24 = gCameras[D_803F2AC8].unk24;
@@ -4459,13 +4461,13 @@ void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
         }
 
         if ((gCameras[gCameraId].unkD6 == 1) && (gCameras[D_803F2AC8].unkD6 != 1)) {
-            gCameras[gCameraId].unk64 = D_803F2C6E;
+            gCameras[gCameraId].unk64 = playerCameraDistance;
             gCameras[gCameraId].unk64 = MIN(gCameras[gCameraId].unk66, gCameras[gCameraId].unk64);
             gCameras[gCameraId].unk64 = MAX(gCameras[gCameraId].unk65, gCameras[gCameraId].unk64);
         }
 
         gCameras[gCameraId].unkC4 = 0.0f;
-        if ((sp32 == 3) || (sp32 == 0x11)) {
+        if ((cameraMode2 == CAMERA_MODE_BEHIND_1) || (cameraMode2 == CAMERA_MODE_BEHIND_2)) {
             gCameras[gCameraId].unk24 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation;
             gCameras[gCameraId].unk20 = gCameras[gCameraId].unk24;
             gCameras[gCameraId].unk18 = 0.0f;
@@ -4477,17 +4479,23 @@ void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
              (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A == 0)) {
             D_803F2C28 = 8;
         }
-        if ((sp32 == 3) || (sp32 == 5) || (sp32 == 6) || (sp32 == 7) || (sp32 == 28) || (sp32 == 17)) {
+        if ((cameraMode2 == CAMERA_MODE_BEHIND_1) ||
+            (cameraMode2 == CAMERA_MODE_OVERHEAD_2) ||
+            (cameraMode2 == CAMERA_MODE_6) ||
+            (cameraMode2 == CAMERA_MODE_7) ||
+            (cameraMode2 == CAMERA_MODE_28) ||
+            (cameraMode2 == CAMERA_MODE_BEHIND_2)) {
             D_801D9ED8.unkFFA8 = D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation;
         }
 
-        if ((gCameras[D_803F2AC8].cameraMode == 23) || (gCameras[D_803F2AC8].cameraMode == 24)) {
+        if ((gCameras[D_803F2AC8].cameraMode == CAMERA_MODE_WAYPOINT_1) ||
+            (gCameras[D_803F2AC8].cameraMode == CAMERA_MODE_WAYPOINT_2)) {
             func_802B34DC_6C4B8C();
         }
         D_803F2AA6 = 1;
 
         for (i = 0; i < 5; i++) {
-            if (gCameras[gCameraId].cameraMode != 23) {
+            if (gCameras[gCameraId].cameraMode != CAMERA_MODE_WAYPOINT_1) {
                 set_camera_mode(gCameraId, 0);
             }
         }
@@ -4514,14 +4522,14 @@ void func_803415BC_752C6C(void) {
 
     if (D_803F2C18[0] == 0) {
         if (D_803F2AA7 != 0) {
-            if (gCameras[gCameraId].cameraMode != 30) {
+            if (gCameras[gCameraId].cameraMode != CAMERA_MODE_30) {
                 func_80340E08_7524B8(30, 0, 0, 0, 0, 0, 0, 1, D_803A6CDC_7B838C);
                 D_803A6CEC_7B839C = D_803A6CDC_7B838C;
             }
             D_803F2C6C = D_803F2C6D = 0;
         } else {
             if ((D_803F2AA2 == 3) || (D_803F2AA2 == 4)) {
-                if (gCameras[gCameraId].cameraMode != 25) {
+                if (gCameras[gCameraId].cameraMode != CAMERA_MODE_ZOOM_SPIN) {
                     if (D_803F2AA2 == 3) {
                         phi_v0 = 30;
                     } else {
@@ -4530,7 +4538,7 @@ void func_803415BC_752C6C(void) {
                     func_80340E08_7524B8(45, 0, 0, 0, 1, -2, 0, 1, phi_v0);
                 }
             } else if ((D_803F2AA2 == 1) || (D_803F2AA2 == 2)) {
-                if (gCameras[gCameraId].cameraMode != 29) {
+                if (gCameras[gCameraId].cameraMode != CAMERA_MODE_29) {
                     if (D_803F2AA2 == 1) {
                         phi_v0 = 30;
                     } else {
@@ -4728,8 +4736,8 @@ void func_803415BC_752C6C(void) {
         D_803F28D0[6] = D_803A7114_7B87C4[sp56].unk10;
         D_803F28D0[7] = D_803A7114_7B87C4[sp56].unk12;
     } else {
-        D_803F28D0[0] = (D_803F28D0[0] & 0xC0) | 0x413F; // GPACK_RGBA5551(64, 32, 248, 1) ?
-        D_803F28D0[1] = D_803F28D0[2] = D_803F28D0[3] = D_803F28D0[4] = D_803F28D0[5] = 0x413F;
+        D_803F28D0[0] = (D_803F28D0[0] & 0xC0) | 0x413F;
+        D_803F28D0[1] = D_803F28D0[2] = D_803F28D0[3] = D_803F28D0[4] = D_803F28D0[5] = 0x413F; // 0100000 100111111
         D_803F28D0[6] = D_803A7114_7B87C4[sp56].unk10;
         D_803F28D0[7] = D_803A7114_7B87C4[sp56].unk12;
     }
@@ -4768,13 +4776,13 @@ void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
 }
 
 // ESA: func_8002E78C
-void func_80342318_7539C8(s32 arg0, s32 arg1, s32 arg2) {
-    func_803423C4_753A74(0, arg0 / 65536.0, arg1 / 65536.0, arg2 / 65536.0);
-    func_803423C4_753A74(1, arg0 / 65536.0, arg1 / 65536.0, arg2 / 65536.0);
+void func_80342318_7539C8(s32 x, s32 y, s32 z) {
+    update_camera_x_y_z(0, x / 65536.0, y / 65536.0, z / 65536.0);
+    update_camera_x_y_z(1, x / 65536.0, y / 65536.0, z / 65536.0);
 }
 
 // ESA: func_8002E7EC
-void func_803423C4_753A74(s16 cameraID, f32 x, f32 y, f32 z) {
+void update_camera_x_y_z(s16 cameraID, f32 x, f32 y, f32 z) {
     gCameras[cameraID].unk8 += x;
     gCameras[cameraID].unkC += y;
     gCameras[cameraID].unk10 += z;
@@ -4939,12 +4947,12 @@ void func_80342550_753C00(Camera *arg0) {
     }
 
     switch (arg0->cameraMode) {
-    case 4:
-    case 5:
-    case 19:
-    case 20:
-    case 21:
-    case 22:
+    case CAMERA_MODE_OVERHEAD_1:
+    case CAMERA_MODE_OVERHEAD_2:
+    case CAMERA_MODE_OVERHEAD_3:
+    case CAMERA_MODE_OVERHEAD_4:
+    case CAMERA_MODE_OVERHEAD_5:
+    case CAMERA_MODE_22:
         sp48 = D_803A6CF0_7B83A0[arg0->unk64+3] * 0.05;
         if ((D_803D2D90.unk0 != 0) || (D_803F2D50.unkC6 != 0) || (arg0->unk67 == 0)) {
             phi_f14 = phi_f16 = 0.0f;
@@ -4993,8 +5001,8 @@ void func_80342550_753C00(Camera *arg0) {
         arg0->unkA4 += arg0->unkBC;
         arg0->unkA8 += arg0->unkC0;
         break;
-    case 7:
-    case 28:
+    case CAMERA_MODE_7:
+    case CAMERA_MODE_28:
         phi_f14 *= 0.5;
         phi_f16 *= 0.5;
         /* fallthrough */
@@ -5002,8 +5010,8 @@ void func_80342550_753C00(Camera *arg0) {
         phi_f14 = MAX(256.0 - gCameras[gCameraId].unk98, phi_f14);
         phi_f14 = MIN(4352.0 - gCameras[gCameraId].unk98, phi_f14);
 
-        if ((arg0->cameraMode == 25) || (arg0->cameraMode == 30) ||
-            (arg0->cameraMode == 228) || (arg0->cameraMode == 29)) {
+        if ((arg0->cameraMode == CAMERA_MODE_ZOOM_SPIN) || (arg0->cameraMode == CAMERA_MODE_30) ||
+            (arg0->cameraMode == CAMERA_MODE_228) || (arg0->cameraMode == CAMERA_MODE_29)) {
             phi_f16 = 0.0f;
             phi_f14 = 0.0f;
         }
@@ -5011,7 +5019,7 @@ void func_80342550_753C00(Camera *arg0) {
         phi_f0 = ((phi_f14 * D_803F2C64) + (phi_f16 * D_803F2C68)) / 1.4;
         phi_f12 = (phi_f14 * D_803F2C5C) + (phi_f16 * D_803F2C60);
         if ((D_803D2D90.unk0 != 0) || (D_803F2D50.unkC6 != 0) ||
-            (arg0->cameraMode == 3) || (arg0->cameraMode == 0x11)) {
+            (arg0->cameraMode == CAMERA_MODE_BEHIND_1) || (arg0->cameraMode == CAMERA_MODE_BEHIND_2)) {
             phi_f12 = 0.0f;
             phi_f0 = 0.0f;
         }
@@ -5092,7 +5100,7 @@ void func_80343438_754AE8(void) {
         break;
     }
 
-    if ((gCameras[gCameraId].cameraMode == 23) && (D_803F2C18[0] != 1)) {
+    if ((gCameras[gCameraId].cameraMode == CAMERA_MODE_WAYPOINT_1) && (D_803F2C18[0] != 1)) {
         D_803F2C2C = gCameras[gCameraId].unk8;
         D_803F2C30 = gCameras[gCameraId].unkC;
         D_803F2C34 = gCameras[gCameraId].unk10;
@@ -5108,12 +5116,12 @@ void func_80343720_754DD0(s16 *arg0, s16 *arg1, s16 *arg2) {
     f32 temp_f0;
 
     switch (gCameras[gCameraId].cameraMode) {
-    case 4:
-    case 5:
-    case 19:
-    case 20:
-    case 21:
-    case 22:
+    case CAMERA_MODE_OVERHEAD_1:
+    case CAMERA_MODE_OVERHEAD_2:
+    case CAMERA_MODE_OVERHEAD_3:
+    case CAMERA_MODE_OVERHEAD_4:
+    case CAMERA_MODE_OVERHEAD_5:
+    case CAMERA_MODE_22:
         *arg0 = (gCameras[gCameraId].unk74 + SSSV_RAND(256)) - 128.0f;
         *arg1 = (gCameras[gCameraId].unk78 + SSSV_RAND(256)) - 128.0f;
         *arg2 = (gCameras[gCameraId].unk7C                 ) - 100.0f;
@@ -5454,7 +5462,7 @@ void func_80343DC0_755470(void) {
     D_803F2C18[1] = 0;
     D_803F2C18[2] = 0;
 
-    gCameras[gCameraId].cameraMode = 27;
+    gCameras[gCameraId].cameraMode = CAMERA_MODE_27;
     gCameras[gCameraId].unk2 = 0;
     gCameras[gCameraId].unkD6 = 4;
     gCameras[gCameraId].unk74 = D_803F2C44 - gCameras[gCameraId].unkA4;
@@ -5483,8 +5491,8 @@ void func_80343DC0_755470(void) {
 }
 
 // ESA: func_80030070
-void func_80343F58_755608(s16 arg0) {
-    D_803F2C6E = arg0;
+void set_player_camera_distance(s16 dist) {
+    playerCameraDistance = dist;
 }
 
 void func_80343F68_755618(void) {
@@ -5494,7 +5502,7 @@ void func_80343F68_755618(void) {
 void func_80343F78_755628(void) {
     if (D_803F2AA7 != 0) {
         D_803F2AA7 = 0;
-        if ((D_803F2C18[0] != 0) && (gCameras[gCameraId].cameraMode == 30)) {
+        if ((D_803F2C18[0] != 0) && (gCameras[gCameraId].cameraMode == CAMERA_MODE_30)) {
             D_803F2C18[1] = D_803F2C18[2] - D_803F2C18[1];
             gCameraId = (gCameraId + 1) & 1;
             D_803F2AC8 = (D_803F2AC8 + 1) & 1;
@@ -5530,14 +5538,14 @@ void func_8034401C_7556CC(void) {
 }
 
 // ESA: func_80030264
-s16 func_80344158_755808(s16 arg0) {
-    switch (arg0) {
-    case 3:
-    case 5:
-    case 6:
-    case 7:
-    case 17:
-    case 28:
+s16 func_80344158_755808(s16 cameraMode) {
+    switch (cameraMode) {
+    case CAMERA_MODE_BEHIND_1:
+    case CAMERA_MODE_OVERHEAD_2:
+    case CAMERA_MODE_6:
+    case CAMERA_MODE_7:
+    case CAMERA_MODE_BEHIND_2:
+    case CAMERA_MODE_28:
         return 1;
     default:
         return 0;

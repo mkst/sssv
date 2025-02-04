@@ -181,6 +181,8 @@ aspMainDataStart       = 0x8015DF10; // size:0x2C0 name_end:aspMainDataEnd
 
 sc                     = 0x801603D0;
 
+D_801D9E98             = 0x801D9E98; // segment:overlay2 size:0x20
+
 minFrameSize           = 0x80241D08;
 frameSize              = 0x80241D0A;
 maxFrameSize           = 0x80241D0C;
@@ -251,9 +253,10 @@ vector_subtract        = 0x8032D3B4; // rom:0x73EA64
 vector_multiply_by     = 0x8032D3E8; // rom:0x73EA98
 normalize_vector       = 0x8032D494; // rom:0x73EB44
 
-reset_camera               = 0x8033C334; // rom:0x74D9E4
-
-osd_draw_health_and_power_bars = 0x80348230; // rom:0x7598E0
+reset_camera                    = 0x8033C334; // rom:0x74D9E4
+restore_player_camera_distance  = 0x8033F300; // rom:0x7509B0
+set_player_camera_distance      = 0x80343F58; // rom:0x755608
+osd_draw_health_and_power_bars  = 0x80348230; // rom:0x7598E0
 
 load_1_tile              = 0x80356410; // rom:0x767AC0
 load_2_tiles             = 0x803565D4; // rom:0x767C84
@@ -342,9 +345,9 @@ D_803C0428 = 0x803C0428; // defined:true
 D_803C042A = 0x803C042A; // defined:true
 D_803C0430 = 0x803C0430; // defined:true size:0x210
 
-gRenderMode1  = 0x803C0640; // defined:true size:0x8
-gRenderMode2  = 0x803C0648; // defined:true size:0x8
-gGeometryMode = 0x803C0650; // defined:true size:0x8
+gRenderMode1  = 0x803C0640; // defined:true size:0x8 segment:overlay2
+gRenderMode2  = 0x803C0648; // defined:true size:0x8 segment:overlay2
+gGeometryMode = 0x803C0650; // defined:true size:0x8 segment:overlay2
 D_803C0658 = 0x803C0658; // defined:true
 
 // overlay2_6AB090
@@ -1338,3 +1341,6 @@ osYieldThread               = 0x8014D1B0; // defined:true
 
 lldiv                       = 0x8014D200; // defined:true
 ldiv                        = 0x8014D300; // defined:true
+
+// fake symbols
+D_1FFFF                     = 0x1FFFF; // ignore:true

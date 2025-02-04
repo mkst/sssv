@@ -459,8 +459,8 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
 
 // ESA: func_800A2660
 void func_802DD004_6EE6B4(u16 arg0) {
-    u16 tmp = D_803D5544 - D_803D552C->attackTimer;
-    if (arg0 < tmp) {
+    u16 ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
     }
 }

@@ -10,21 +10,21 @@ extern u8  D_01003BD0_3D4A0[]; // fov masks
 s16 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
         if (func_8029A334_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
-            return 0;
+            return VISIBILITY_VISIBLE;
         } else {
-            return 4;
+            return VISIBILITY_INVISIBLE;
         }
     }
     if (D_803F28D0[6] & 3) {
         if (D_803F28D0[6] & 1) {
             if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28D0[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
-                return 0;
+                return VISIBILITY_VISIBLE;
             } else {
                 return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
             }
         }
         if ((func_802E9B90_6FB240(((D_803F28D0[6] & 0xFFC) << 0x12) -xPos, zPos, yPos, arg3, arg8) == 0) && (arg9 == 0)) {
-            return 0;
+            return VISIBILITY_VISIBLE;
         } else {
             return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
         }
@@ -38,14 +38,14 @@ s16 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx,
 s16 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
         if (func_8029A334_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
-            return 0;
+            return VISIBILITY_VISIBLE;
         } else {
-            return 4;
+            return VISIBILITY_INVISIBLE;
         }
     }
     if (D_803F28D0[6] & 1) {
         if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28D0[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
-            return 0;
+            return VISIBILITY_VISIBLE;
         }
         return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
     } else {
@@ -96,7 +96,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     f32 sp2C;
 
     if (func_8029A334_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
-        return 4;
+        return VISIBILITY_INVISIBLE;
     }
 
     spE0 = (arg0 >> 0x10) - (s16) D_803F2C44; // x distance to camera
@@ -107,11 +107,11 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     fov = (fov * D_803F2D50.fovY) / 75.0f;
 
     if (fov > 0x4C9000) {
-        return 4;
+        return VISIBILITY_INVISIBLE;
     }
     if ((fov <= 0x1000) && (arg9 == 0)) {
         D_803F2EDD = 0;
-        return 0;
+        return VISIBILITY_VISIBLE;
     }
 
     spFC = arg0 / 65536.0;
@@ -146,7 +146,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
         xh = sp128 + sp2C;
 
         if (yl > gScreenHeight * 4) {
-            return 3;
+            return VISIBILITY_OUT_OF_BOUNDS_Y;
         }
 
         if (xl < gScreenWidth * 4 && xh > 0.0f && yh > 0.0f) {
@@ -156,7 +156,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                 } else {
                     D_803F2EDD = 1;
                 }
-                return 0;
+                return VISIBILITY_VISIBLE;
             }
 
             if (fovImageIdx != 100) {
@@ -211,7 +211,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                     gSPDisplayList(D_801D9EB8++, D_01003A40_3D310);
                 }
             }
-            return 1;
+            return VISIBILITY_TOO_FAR;
         }
 
         spF4 = func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0;
@@ -225,26 +225,26 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
             temp_f14 = ((D_80204278->unk38A10[3][0] * sp144) / temp_f2_4) + (0, gScreenWidth * 2);
             temp_f162 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f2_4) + (0, gScreenHeight *  2);
         } else {
-            return 2;
+            return VISIBILITY_OUT_OF_BOUNDS_X;
         }
 
         if ((sp12C + sp2C) < 0 && (temp_f14 + sp2C < 0)) {
             // fake
             spF4 = (1 * spF4);
             // end fake
-            return 3;
+            return VISIBILITY_OUT_OF_BOUNDS_Y;
         }
         if ((gScreenWidth * 4 < xl) &&( gScreenWidth * 4 < temp_f14 - sp2C)) {
-            return 3;
+            return VISIBILITY_OUT_OF_BOUNDS_Y;
         }
         if ((gScreenWidth * 4 < yl) && (gScreenWidth * 4 < temp_f162 - sp2C)) {
-            return 3;
+            return VISIBILITY_OUT_OF_BOUNDS_Y;
         }
-        return 2;
+        return VISIBILITY_OUT_OF_BOUNDS_X;
     }
 
     if (temp_f16 <= (arg8 << 6)) {
-        return 2;
+        return VISIBILITY_OUT_OF_BOUNDS_X;
     }
 
     spF4 = func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0;
@@ -255,9 +255,9 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
             (D_80204278->unk38A10[2][0] * spFC)));
 
     if (temp_f2_4 <= -3.0) {
-        return 2;
+        return VISIBILITY_OUT_OF_BOUNDS_X;
     }
-    return 3;
+    return VISIBILITY_OUT_OF_BOUNDS_Y;
 }
 
 s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
@@ -282,7 +282,7 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     s64 fov;
 
     if (func_8029A334_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
-        return 4;
+        return VISIBILITY_INVISIBLE;
     }
 
     sp58 = (arg0 >> 0x10) - (s16) D_803F2C44;
@@ -293,11 +293,11 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     fov = (fov * D_803F2D50.fovY) / 75.0f;
 
     if ((fov > 0x4C9000)) { // FTOFIX32(76.5625)
-        return 4;
+        return VISIBILITY_INVISIBLE;
     }
     if ((fov <= 0x1000)) { // FTOFIX32(0.0625)
         D_803F2EDD = 0;
-        return 0;
+        return VISIBILITY_VISIBLE;
     }
 
     sp6C = (arg0 / 65536.0);
@@ -329,7 +329,7 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
         temp_f0 = (arg3 * 128 / (-temp_f16)) / 8.0;
 
         if ((gScreenHeight * 4) < (height - temp_f0)) {
-            return 3;
+            return VISIBILITY_OUT_OF_BOUNDS_Y;
         }
 
         if (((gScreenWidth * 4) > (width - temp_f0)) &&
@@ -342,24 +342,24 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
                 } else {
                     D_803F2EDD = 1;
                 }
-                return 0;
+                return VISIBILITY_VISIBLE;
             } else {
-                return 1;
+                return VISIBILITY_TOO_FAR;
             }
         } else {
-            return 3;
+            return VISIBILITY_OUT_OF_BOUNDS_Y;
         }
     }
 
-    return 3;
+    return VISIBILITY_OUT_OF_BOUNDS_Y;
 }
 
 s16 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     s64 sp88;
     s64 sp80;
-    s32 sp7C;
-    s32 sp78;
-    s32 sp74;
+    s32 sp7C; // X coordinate in camera space.
+    s32 sp78; // Y coordinate in camera space.
+    s32 sp74; // (Z-depth) is used to normalize X and Y
     s32 sp70; // unused
     s64 sp68;
     s64 sp60;
@@ -378,7 +378,7 @@ s16 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     sp60 = ((SQ(sp68) + SQ(sp60) + SQ(sp58)) >> arg3);
     fov = (sp60 * D_803F2D50.fovY) / 75.0f;
     if ((s64)fov > 0xE1000) {
-        return 1;
+        return VISIBILITY_TOO_FAR;
     }
 
     temp_f2 = arg0 / 65536.0;
@@ -406,13 +406,13 @@ s16 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
         sp80 = ((D_80204278->unk38A10[3][1] * sp78) / sp74) + (gScreenHeight * ((0, 2)));
 
         if ((sp88 < 0) || ((gScreenWidth * 4) < sp88)) {
-            return 2;
+            return VISIBILITY_OUT_OF_BOUNDS_X; // out of horizontal bounds
         }
         if ((sp80 < 0) || ((gScreenHeight * 4) < sp80)) {
-            return 3;
+            return VISIBILITY_OUT_OF_BOUNDS_Y; // out of vertical bounds
         }
-        return 0;
+        return VISIBILITY_VISIBLE;
     }
 
-    return 2;
+    return VISIBILITY_OUT_OF_BOUNDS_X;
 }

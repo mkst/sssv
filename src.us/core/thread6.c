@@ -193,10 +193,10 @@ void thread6_loop(void) {
                 func_8013107C(
                     &D_80162658[D_80152EB8],
                     D_80162658[D_80152EB8].unk4E0,
-                    (D_801D9E7C - D_80162658[D_80152EB8].unk4E0) * sizeof(s64),
-                    3,
-                    &D_80162658[D_80152EB8].unk3BBC8,
-                    99);
+                    (D_801D9E7C - D_80162658[D_80152EB8].unk4E0) * sizeof(Gfx),
+                    3, /* type */
+                    &D_80162658[D_80152EB8].unk3BBC8, // always 2
+                    0x63); // OS_SC_SWAPBUFFER | OS_SC_LAST_TASK | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP
 
                 D_80152EBC += 1;
                 D_80152EB8 ^= 1;

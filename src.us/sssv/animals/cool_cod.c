@@ -62,7 +62,7 @@ void func_80382CF0_7943A0(void) {
     }
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
-        sp8A = 0;
+        sp8A = VISIBILITY_VISIBLE;
         D_803F2EDD = 0;
     } else {
         sp8A = func_802E89F0_6FA0A0(
@@ -78,7 +78,7 @@ void func_80382CF0_7943A0(void) {
             CHECK_SEGMENT == 0);
     }
 
-    if (sp8A == 0) {
+    if (sp8A == VISIBILITY_VISIBLE) {
         func_8034B45C_75CB0C();
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -144,7 +144,7 @@ void func_80382CF0_7943A0(void) {
     } else {
         func_8035D6D0_76ED80();
     }
-    if ((sp8A == 0) || (sp8A == 2)) {
+    if ((sp8A == VISIBILITY_VISIBLE) || (sp8A == VISIBILITY_OUT_OF_BOUNDS_X)) {
         func_8034BD20_75D3D0(
             D_803D552C->position.xPos.h,
             D_803D552C->position.zPos.h,

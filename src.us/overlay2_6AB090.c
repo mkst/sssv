@@ -34,7 +34,7 @@ void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1) {
     gSPPerspNormalize((*arg1)++, D_803C0658);
 }
 
-void func_80299B68_6AB218(s32 arg0) {
+void func_80299B68_6AB218(DisplayList *arg0) {
     gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[D_803C0430.unk20C >> 1]);
     gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0180, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync(D_801D9E7C++);
@@ -62,7 +62,7 @@ void func_80299B68_6AB218(s32 arg0) {
     gDPSetTextureLOD(D_801D9E7C++, G_TL_TILE);
 }
 
-void func_80299E84_6AB534(s32 arg0) {
+void func_80299E84_6AB534(DisplayList *arg0) {
     s32 pad2[2];
     s32 i;
     s32 j;

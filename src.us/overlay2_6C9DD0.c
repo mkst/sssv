@@ -160,8 +160,8 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
     s32 sp58;
     s32 sp54;
     s32 sp50;
-    s32 sp4C;
-    s32 sp48;
+    Animal *sp4C;
+    Animal *sp48;
     s32 sp44;
     s32 sp40;
 

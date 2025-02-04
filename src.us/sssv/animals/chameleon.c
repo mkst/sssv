@@ -52,13 +52,13 @@ void func_8035A5F0_76BCA0(void) {
 
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
-        spCA = 0;
+        spCA = VISIBILITY_VISIBLE;
         D_803F2EDD = 0;
     } else {
         spCA = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
     }
 
-    if (spCA == 0) {
+    if (spCA == VISIBILITY_VISIBLE) {
         func_8035BDC0_76D470();
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -386,12 +386,12 @@ void func_8035A5F0_76BCA0(void) {
     } else {
         func_8035D6D0_76ED80();
     }
-    if ((spCA == 0) || (spCA == 2)) {
+    if ((spCA == VISIBILITY_VISIBLE) || (spCA == VISIBILITY_OUT_OF_BOUNDS_X)) {
         if (D_803D5524->unk9C != SNEAKY_CHAMELEON) {
             func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->unkBA), D_803D552C->heading, D_01033190_6CA60, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
     }
-    if (spCA == 0) {
+    if (spCA == VISIBILITY_VISIBLE) {
         func_803034D0_714B80(D_803D552C, 0x3A9, 0, 1);
         func_80303990_715040(D_803D552C, 0x20, 0x21, 1, 0x14, 0x157, 0);
         func_80303D50_715400(D_803D552C, 3);

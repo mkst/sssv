@@ -183,7 +183,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
 
         if (D_803F2CE8 < D_801D9ED8.animals[gCurrentAnimalIndex].animal->health) {
             if (D_803F2CE6 != 0) {
-                func_8032CD20_73E3D0((void*)0xC, SFX_UNKNOWN_114, (D_803F2CE8 << 4) + 0x3000, 0, (f32) ((D_803F2CE8 / 200.0) + 0.6));
+                func_8032CD20_73E3D0(0xC, SFX_UNKNOWN_114, (D_803F2CE8 << 4) + 0x3000, 0, (f32) ((D_803F2CE8 / 200.0) + 0.6));
             }
             D_803F2CE8++;
         } else {

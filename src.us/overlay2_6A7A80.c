@@ -29,47 +29,53 @@ u16  D_803C0658; // matrix normalise
 // .text
 // ========================================================
 
-#if 0
-// CURRENT (180)
+#ifdef NON_MATCHING
+// CURRENT (95)
 void func_802963D0_6A7A80(DisplayList *arg0) {
     s16 i;
     s16 j;
     s16 k;
 
-    u16 a;
-    u16 b;
+    s32 a;
+    s32 b;
     s16 c;
     s16 d;
+
     s16 c2;
 
     D_803C0430.unk20A = 8;
 
-#pragma _permuter sameline start
-    b = D_803F2D50.unk12;a = D_803F2D50.unk10;
-#pragma _permuter sameline end
-    c = D_803F2D50.unk14;d = D_803F2D50.unk16;
+    a = D_803F2D50.unk10;
+    b = D_803F2D50.unk12;
+    c = D_803F2D50.unk14;
+    d = D_803F2D50.unk16;
+
+    if ((c == 0) || (d == 0)) {
+        return;
+    }
+
     c2 = c + 1;
 
-    if ((c != 0) && (d != 0)) {
-        for (i = 0; i < 2; i++) {
-            for (j = 0; j < (c + 1); j++) {
+    for (i = 0; i < 2; i++) {
 
-                if (!c) {};
-                if (c) {}
+        for (j = 0; j < (c + 1); j++) {
 
-                for (k = 0; k < d; k++) {
-                    // Vtx *v = (u8*) arg0 + (i * 0x3BBF0) + (k * c2 * 0x10) + (j * 0x10) + 0x28BC0;
-                    arg0[i].unk28BC0[(k * c2) + j].v.ob[0] = (j + a) << 6;
-                    arg0[i].unk28BC0[(k * c2) + j].v.ob[1] = (k + b) << 6;
+            if (c) {};
+            if (c) {};
+            if (c) {};
 
-                    arg0[i].unk28BC0[(k * c2) + j].v.tc[0] = (j << 6) << 3;
-                    arg0[i].unk28BC0[(k * c2) + j].v.tc[1] = (k << 6) << 3;
+            for (k = 0; k < d; k++) {
+                // Vtx *v = (u8*) arg0 + (i * 0x3BBF0) + (k * c2 * 0x10) + (j * 0x10) + 0x28BC0;
+                arg0[i].unk28BC0[(k * c2) + j].v.ob[0] = (j + a) << 6;
+                arg0[i].unk28BC0[(k * c2) + j].v.ob[1] = (k + b) << 6;
 
-                    arg0[i].unk28BC0[(k * c2) + j].v.cn[0] = 0;
-                    arg0[i].unk28BC0[(k * c2) + j].v.cn[1] = 0;
-                    arg0[i].unk28BC0[(k * c2) + j].v.cn[2] = 0x7F;
-                    arg0[i].unk28BC0[(k * c2) + j].v.cn[3] = 0x80;
-                }
+                arg0[i].unk28BC0[(k * c2) + j].v.tc[0] = (j << 6) << 3;
+                arg0[i].unk28BC0[(k * c2) + j].v.tc[1] = (k << 6) << 3;
+
+                arg0[i].unk28BC0[(k * c2) + j].v.cn[0] = 0;
+                arg0[i].unk28BC0[(k * c2) + j].v.cn[1] = 0;
+                arg0[i].unk28BC0[(k * c2) + j].v.cn[2] = 0x7F;
+                arg0[i].unk28BC0[(k * c2) + j].v.cn[3] = 0x80;
             }
         }
     }

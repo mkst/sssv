@@ -21,11 +21,11 @@ extern Gfx D_04004330_CBD60[];
 
 // ARMED_DESERT_FOX
 #ifdef NON_MATCHING
-//CURRENT (88)
+//CURRENT (58)
 void func_803726E0_783D90(void) {
     s32 pad[4];
 
-    s32 spB4; // tbd
+    s16 spB4[2]; // FIXME: this should only be a single spB4
     s16 spB0[2];
     s16 spAE;
     s16 spAC; // pad
@@ -50,7 +50,6 @@ void func_803726E0_783D90(void) {
     f32 xDist;
     f32 yDist;
 
-
     if (D_803D552C->unk348 >= 0x191) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
@@ -66,13 +65,13 @@ void func_803726E0_783D90(void) {
     }
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
-        spAE = 0;
+        spAE = VISIBILITY_VISIBLE;
         D_803F2EDD = 0;
     } else {
         spAE = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xB28, 6, 0x66, 0x33, 0, 0, (CHECK_SEGMENT == 0));
     }
 
-    if (spAE == 0) {
+    if (spAE == VISIBILITY_VISIBLE) {
         func_8038C98C_79E03C();
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
@@ -150,6 +149,7 @@ void func_803726E0_783D90(void) {
                         }
                         D_803D552C->heading &= 0xFF;
 
+                        // similar to penguin.c
                         target = func_8037E9AC_79005C();
                         if (target != NULL) {
 
@@ -259,10 +259,10 @@ void func_803726E0_783D90(void) {
     } else {
         func_8035D6D0_76ED80();
     }
-    if ((spAE == 0) || (spAE == 2)) {
+    if ((spAE == VISIBILITY_VISIBLE) || (spAE == VISIBILITY_OUT_OF_BOUNDS_X)) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0xC, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
-    if (spAE == 0) {
+    if (spAE == VISIBILITY_VISIBLE) {
         func_80303820_714ED0(D_803D552C, 1, 1, 0x1BA, 1);
         func_80303820_714ED0(D_803D552C, 1, 0x13, 0x189, 0);
         func_80303D50_715400(D_803D552C, 2);
@@ -317,7 +317,7 @@ void update_desert_fox_attacking(void) {
             var_v0 = 0;
         }
         if (var_v0 != 0) {
-            sp72 = 0;
+            sp72 = VISIBILITY_VISIBLE;
             D_803F2EDD = 0;
             goto block_15;
         }
@@ -331,7 +331,7 @@ void update_desert_fox_attacking(void) {
     sp72 = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xB28, 6, 0x66, 0x33, 0, 0, var_v1 == 0);
 
 block_15:
-    if (sp72 == 0) {
+    if (sp72 == VISIBILITY_VISIBLE) {
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         D_803F2ECC = 0x20;
@@ -413,10 +413,10 @@ block_15:
             D_803D5530->zVelocity.w += (COS(D_803D552C->heading) >> 7) << 6;
         }
     }
-    if ((sp72 == 0) || (sp72 == 2)) {
+    if ((sp72 == VISIBILITY_VISIBLE) || (sp72 == VISIBILITY_OUT_OF_BOUNDS_X)) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0xC, 0xC, 0x9B, 0, 0, 0,0, D_803D5538);
     }
-    if (sp72 == 0) {
+    if (sp72 == VISIBILITY_VISIBLE) {
         func_80303820_714ED0(D_803D552C, 1, 1, 0x24E, 1);
         func_80303820_714ED0(D_803D552C, 1, 0x13, 0x83, 0);
         func_80303D50_715400(D_803D552C, 2);

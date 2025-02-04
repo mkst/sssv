@@ -188,29 +188,30 @@ void func_802C9900_6DAFB0(struct071 *parent, struct071 *child, u8 idx) {
     parent->unk24C[idx] = child;
 }
 
+// update_hitbox_after_rotation?
 // ESA: func_8004D5DC
-void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {
-    s16 var_t0;
-    s16 var_t1;
-    s16 var_t2;
+void func_802C9918_6DAFC8(Animal *arg0, s16 newZRotation, s16 newYRotation) {
+    s16 width;
+    s16 depth;
+    s16 height;
 
-    s16 temp_t5;
-    s32 temp_t8;
-    s32 temp_t9;
+    s16 tempSwap;
+    s32 prevQuadrant;
+    s32 newQuadrant;
 
     if (arg0->unk16C->unk15 != 4) {
-        arg0->yRotation = arg2;
-        arg0->zRotation = arg1;
+        arg0->yRotation = newYRotation;
+        arg0->zRotation = newZRotation;
         return;
     }
 
-    temp_t8 = ((s16) ((arg1 + 45) / 90));
-    temp_t9 = ((s16) ((arg0->zRotation + 45) / 90));
+    prevQuadrant = ((s16) ((newZRotation + 45) / 90));
+    newQuadrant  = ((s16) ((arg0->zRotation + 45) / 90));
 
-    arg0->yRotation = arg2;
-    arg0->zRotation = arg1;
+    arg0->yRotation = newYRotation;
+    arg0->zRotation = newZRotation;
 
-    if ((temp_t8 & 1) ^ (temp_t9 & 1)) {
+    if ((prevQuadrant & 1) ^ (newQuadrant & 1)) {
         if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
             ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
             arg0->position.yPos.h = (arg0->position.yPos.h - arg0->unk30) + (arg0->unk42 >> 1);
@@ -219,26 +220,26 @@ void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {
         }
     }
 
-    var_t1 = arg0->unk16C->unk72;
-    var_t0 = arg0->unk16C->unk74;
-    var_t2 = arg0->unk16C->unk7A;
+    depth = arg0->unk16C->unk72;
+    width = arg0->unk16C->unk74;
+    height = arg0->unk16C->unk7A;
 
     if (((arg0->zRotation >= 45) && (arg0->zRotation < 135)) ||
         ((arg0->zRotation >= 225) && (arg0->zRotation < 315))) {
-        temp_t5 = var_t0;
-        var_t0 = (var_t2 / 2);
-        var_t2 = temp_t5 << 1;
+        tempSwap = width;
+        width = (height / 2);
+        height = tempSwap << 1;
     }
     if (((arg0->yRotation >= 45) && (arg0->yRotation < 135)) ||
         ((arg0->yRotation >= 225) && (arg0->yRotation < 315))) {
-        temp_t5 = var_t1;
-        var_t1 = var_t0;
-        var_t0 = temp_t5;
+        tempSwap = depth;
+        depth = width;
+        width = tempSwap;
     }
 
-    arg0->unk30 = var_t1;
-    arg0->unk32 = var_t0;
-    arg0->unk42 = var_t2;
+    arg0->unk30 = depth;
+    arg0->unk32 = width;
+    arg0->unk42 = height;
 
     arg0->unk30 = ((s64)arg0->unk30 * arg0->unk40) >> 0xB;
     arg0->unk32 = ((s64)arg0->unk32 * arg0->unk40) >> 0xB;
@@ -246,46 +247,50 @@ void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2) {
 }
 
 // ESA: func_8004D86C
-void func_802C9BA4_6DB254(struct071 *arg0) {
-    s16 temp_t9;
+void func_802C9BA4_6DB254(Animal *arg0) {
+    s16 tempSwap;
     s16 i;
-    s16 var_t1;
-    s16 var_t2;
-    s16 var_v1;
+    s16 width;
+    s16 depth;
+    s16 height;
 
     if (arg0->unk40 == 0) {
-        arg0->unk40 = 0x800;
+        arg0->unk40 = 1 << 11; // 0x800
     }
 
-    var_t1 = arg0->unk16C->unk72;
-    var_v1 = arg0->unk16C->unk74;
-    var_t2 = arg0->unk16C->unk7A;
+    width = arg0->unk16C->unk72;
+    depth = arg0->unk16C->unk74;
+    height = arg0->unk16C->unk7A;
 
     if ((arg0->unk16C->unk15 == 4)) {
-        if (((arg0->zRotation >= 0x2E) && (arg0->zRotation < 0x88)) || ((arg0->zRotation >= 0xE2) && (arg0->zRotation < 0x13C))) {
-            temp_t9 = var_v1;
-            var_v1 = var_t2 / 2;
-            var_t2 = temp_t9 * 2;
+        if (((arg0->zRotation > 45)  && (arg0->zRotation <= 135)) ||
+            ((arg0->zRotation > 225) && (arg0->zRotation <= 315))) {
+            tempSwap = depth;
+            depth = height / 2;
+            height = tempSwap * 2;
         }
     }
 
-    if (((arg0->yRotation >= 0x2E) && (arg0->yRotation < 0x88)) || ((arg0->yRotation >= 0xE2) && (arg0->yRotation < 0x13C))) {
-        temp_t9 = var_t1;
-        var_t1 = var_v1;
-        var_v1 = temp_t9;
+    if (((arg0->yRotation > 45)  && (arg0->yRotation <= 135)) ||
+        ((arg0->yRotation > 225) && (arg0->yRotation <= 315))) {
+        tempSwap = width;
+        width = depth;
+        depth = tempSwap;
     }
 
-    arg0->unk30 = var_t1;
-    arg0->unk32 = var_v1;
-    arg0->unk42 = var_t2;
+    arg0->unk30 = width;
+    arg0->unk32 = depth;
+    arg0->unk42 = height;
 
     arg0->unk34 = arg0->unk16C->unk76;
     arg0->unk36 = arg0->unk16C->unk78;
 
+    // fixed-point scaling (0x800 => 1.0)
     arg0->unk34 = ((s64)arg0->unk34 * arg0->unk40) >> 11;
     arg0->unk36 = ((s64)arg0->unk36 * arg0->unk40) >> 11;
 
-    if ((arg0->unk16C->objectType >= 0x80) && (((((Animal*) arg0)->unk366 == 5)) || (((Animal*) arg0)->unk366 == 2))) {
+    if ((arg0->unk16C->objectType >= 128) && ((arg0->unk366 == 5) || (arg0->unk366 == 2))) {
+        // override height?
         arg0->unk42 = arg0->unk16C->unkBC;
     }
 
@@ -302,14 +307,14 @@ void func_802C9BA4_6DB254(struct071 *arg0) {
     arg0->unk4C.pad0 = ((s64)arg0->unk4C.pad0 * arg0->unk40) >> 11;
 
     for (i = 0; i < 5; i++) {
-        arg0->unk74[i][0] = arg0->unk16C->unk20[i][0] << 0x10;
-        arg0->unk74[i][1] = arg0->unk16C->unk20[i][1] << 0x10;
-        arg0->unk74[i][2] = arg0->unk16C->unk20[i][2] << 0x10;
-        arg0->unk74[i][3] = arg0->unk16C->unk20[i][3];
+        arg0->unk74[i].pos.xPos.w = arg0->unk16C->unk20[i][0] << 0x10;
+        arg0->unk74[i].pos.zPos.w = arg0->unk16C->unk20[i][1] << 0x10;
+        arg0->unk74[i].pos.yPos.w = arg0->unk16C->unk20[i][2] << 0x10;
+        arg0->unk74[i].unkC       = arg0->unk16C->unk20[i][3];
 
-        arg0->unk74[i][0] = ((s64)arg0->unk74[i][0] * arg0->unk40) >> 11;
-        arg0->unk74[i][1] = ((s64)arg0->unk74[i][1] * arg0->unk40) >> 11;
-        arg0->unk74[i][2] = ((s64)arg0->unk74[i][2] * arg0->unk40) >> 11;
-        arg0->unk74[i][3] = ((s64)arg0->unk74[i][3] * arg0->unk40) >> 11;
+        arg0->unk74[i].pos.xPos.w = ((s64)arg0->unk74[i].pos.xPos.w * arg0->unk40) >> 11;
+        arg0->unk74[i].pos.zPos.w = ((s64)arg0->unk74[i].pos.zPos.w * arg0->unk40) >> 11;
+        arg0->unk74[i].pos.yPos.w = ((s64)arg0->unk74[i].pos.yPos.w * arg0->unk40) >> 11;
+        arg0->unk74[i].unkC       = ((s64)arg0->unk74[i].unkC * arg0->unk40) >> 11;
     }
 }

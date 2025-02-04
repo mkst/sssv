@@ -38,7 +38,7 @@ void func_8039DD90_7AF440(Trail *arg0) {
 }
 
 // ESA: func_800884F4
-Trail *add_regular_trail(struct071 *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
+Trail *add_regular_trail(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD, u8 argE, u8 argF, u8 arg10, u8 arg11, s32 arg12) {
     s16 i;
 
     if (arg12 != 0) {
@@ -153,7 +153,7 @@ Trail *add_walrus_wake(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 ar
 }
 
 // ESA: func_800889C4 (TBD)
-Trail *add_simple_trail(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD) {
+Trail *add_simple_trail(Animal *arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 red, u8 gren, u8 blue, u8 envRed, u8 envGreen, u8 envBlue, u8 argD) {
     s16 i;
 
     for (i = 0; i < 30; i++) {

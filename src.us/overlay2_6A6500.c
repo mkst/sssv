@@ -45,7 +45,7 @@ void func_80294E50_6A6500(void) {
             init_rumble_pak();
             func_8012A400();
             // copy framebuffer?
-            func_803925D0_7A3C80(D_8020428C->framebuffer, (u16*)D_800C5A40);
+            func_803925D0_7A3C80((u16*)D_8020428C->framebuffer, (u16*)D_800C5A40);
             D_803F6680.unk0 = 1;
             D_803F6714 = 0;
             gInitialisationState = 0;
@@ -182,8 +182,8 @@ void func_80294E50_6A6500(void) {
         D_803C0430.unk20F &= 7;
         if (D_803C0430.unk20F == 0) {
             // process collision map
-            func_8029726C_6A891C(&D_803C0740);
-            func_80296C8C_6A833C(&D_803C0740);
+            func_8029726C_6A891C(D_803C0740);
+            func_80296C8C_6A833C(D_803C0740);
         }
         func_802B4D20_6C63D0();
         func_802FA6D8_70BD88();
@@ -217,7 +217,7 @@ void func_80294E50_6A6500(void) {
         if ((D_803F2AA2 != 2) || (D_803F6468 >= 7)) {
             func_80299B68_6AB218(D_80204278);
         }
-        func_80297628_6A8CD8(&D_803C0740, D_80204278);
+        func_80297628_6A8CD8(D_803C0740, D_80204278);
 
         gSPDisplayList(D_801D9E7C++, D_01003A58_3D328);
         gDPSetTextureLOD(D_801D9E7C++, G_TL_TILE);
@@ -252,7 +252,7 @@ void func_80294E50_6A6500(void) {
 
         if (D_803F63C2 != 0) {
             // this function is empty
-            func_8037D32C_78E9DC(&D_803B5764, D_803F63C2 + 1, 25, gScreenWidth - 25, gScreenHeight - 100);
+            func_8037D32C_78E9DC(D_803B5764, D_803F63C2 + 1, 25, gScreenWidth - 25, gScreenHeight - 100);
         }
         if (gInitialisationState == 0) {
             if (gInputMode == INPUT_MODE_USER) {

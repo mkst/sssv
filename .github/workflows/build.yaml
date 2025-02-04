@@ -18,11 +18,11 @@ jobs:
       fail-fast: False
     steps:
     - name: Checkout this repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Checkout baserom
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: mkst/sssv-private
         token: ${{ secrets.PRIVATE_REPO_ACCESS }}
@@ -60,6 +60,20 @@ jobs:
 
     - name: Rename progress.csv
       run: mv progress.csv "${{ env.progress_filename }}"
+
+    - name: Touch NON_MATCHING files
+      uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
+      with:
+        args: sh -c "grep -Rl NON_MATCHING src.${ROM} | xargs -r touch"
+
+    - name: Perform make NON_MATCHING
+      uses: docker://ghcr.io/mkst/sssv:latest
+      env:
+        ROM: ${{ matrix.version }}
+      with:
+        args: make --jobs VERSION=${ROM} NON_MATCHING=1
 
     - name: Push progress.csv to sssv-website repo
       if: ${{ github.event_name == 'push' && matrix.version == 'us' }}

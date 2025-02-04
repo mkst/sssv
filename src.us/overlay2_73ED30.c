@@ -2,56 +2,39 @@
 #include "common.h"
 
 
-// is this a loop? bunch of macros? what?
+// similar to sm64/src/goddard/renderer.c
+#define MTX_INTPART_PACK(w1, w2)  (((w1) & 0xFFFF0000) | (((w2) & 0xFFFF0000) >> 16))
+#define MTX_FRACPART_PACK(w1, w2) (((w1) << 16) | ((w2) & 0xFFFF))
+
 #if 0
 void func_8032D680_73ED30(void) {
+    Mtx *tmp = &D_80204278->unk37490;
 
-#if 0
-    // definitely NOT this:
-    s16 i;
+    D_80204278->unk38A10[0][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    D_80204278->unk38A10[1][0] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
 
-    f32 **dst;
-    s32 **src1;
-    s32 **src2;
+    D_80204278->unk38A10[0][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+    D_80204278->unk38A10[1][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
 
+    D_80204278->unk38A10[0][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
+    D_80204278->unk38A10[1][2] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
 
-    src1 = &D_80204278->unk37490.m[0][0];
-    src2 = &D_80204278->unk37490.m[2][0];
-    dst  = &D_80204278->unk38A10;
+    D_80204278->unk38A10[0][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
+    D_80204278->unk38A10[1][3] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
 
-    for (i = 0; i < 6; i++) {
-        f32 tmp1, tmp2;
-        tmp1 = ((src1[0][i*2] & 0xFFFF0000) | ((src2[0][i*2] & 0xFFFF0000) >> 16)) / 65536.0;
-        tmp2 = ((src1[0][i*2] << 16) | (src2[0][i*2] & 0xFFFF)) / 65536.0;
-        dst[0][i] = tmp1;
-        dst[1][i] = tmp2;
-    }
-#else
-    Mtx *tmp;
-    tmp = &D_80204278->unk37490;
-    D_80204278->unk38A10[0][0] = (f32) ((tmp->m[0][0] & 0xFFFF0000      ) | ((tmp->m[2][0] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[1][0] = (f32) ((tmp->m[0][0]              << 16) |  (tmp->m[2][0] & 0xFFFF)           ) / 65536.0;
+    D_80204278->unk38A10[2][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][1], tmp->m[2][1]) / 65536.0;
+    D_80204278->unk38A10[2][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][3], tmp->m[2][3]) / 65536.0;
 
-    D_80204278->unk38A10[0][1] = (f32) ((tmp->m[0][2] & 0xFFFF0000      ) | ((tmp->m[2][2] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[1][1] = (f32) ((tmp->m[0][2]              << 16) |  (tmp->m[2][2] & 0xFFFF)           ) / 65536.0;
-
-    D_80204278->unk38A10[0][2] = (f32) ((tmp->m[1][0] & 0xFFFF0000      ) | ((tmp->m[3][0] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[1][2] = (f32) ((tmp->m[1][0]              << 16) |  (tmp->m[3][0] & 0xFFFF)           ) / 65536.0;
-
-    D_80204278->unk38A10[0][3] = (f32) ((tmp->m[1][2] & 0xFFFF0000      ) | ((tmp->m[3][2] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[1][3] = (f32) ((tmp->m[1][2]              << 16) |  (tmp->m[3][2] & 0xFFFF)           ) / 65536.0;
-
-    D_80204278->unk38A10[2][0] = (f32) ((tmp->m[0][1] & 0xFFFF0000      ) | ((tmp->m[2][1] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[2][1] = (f32) ((tmp->m[0][3] & 0xFFFF0000      ) | ((tmp->m[2][3] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[2][2] = (f32) ((tmp->m[1][1] & 0xFFFF0000      ) | ((tmp->m[3][1] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[2][3] = (f32) ((tmp->m[1][3] & 0xFFFF0000      ) | ((tmp->m[3][3] & 0xFFFF0000) >> 16)) / 65536.0;
+    D_80204278->unk38A10[2][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
+    D_80204278->unk38A10[2][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
 
     tmp = &D_80204278->unk37410;
-    D_80204278->unk38A10[3][0] = (f32) ((tmp->m[0][0] & 0xFFFF0000      ) | ((tmp->m[2][0] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[3][1] = (f32) ((tmp->m[0][2]              << 16) |  (tmp->m[2][2] & 0xFFFF)           ) / 65536.0;
-    D_80204278->unk38A10[3][2] = (f32) ((tmp->m[1][1] & 0xFFFF0000      ) | ((tmp->m[3][1] & 0xFFFF0000) >> 16)) / 65536.0;
-    D_80204278->unk38A10[3][3] = (f32) ((tmp->m[1][3] & 0xFFFF0000      ) | ((tmp->m[3][3] & 0xFFFF0000) >> 16)) / 65536.0;
-#endif
+    D_80204278->unk38A10[3][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    D_80204278->unk38A10[3][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+
+    D_80204278->unk38A10[3][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
+    D_80204278->unk38A10[3][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
+
     D_80204278->unk38A10[3][0] *= -(gScreenWidth * 2);
     D_80204278->unk38A10[3][1] *= gScreenHeight * 2;
 }
