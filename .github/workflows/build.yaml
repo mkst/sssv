@@ -66,7 +66,7 @@ jobs:
       env:
         ROM: ${{ matrix.version }}
       with:
-        args: sh -c "grep -Rl NON_MATCHING src.${ROM} | xargs touch"
+        args: sh -c "grep -Rl NON_MATCHING src.${ROM} | xargs -r touch"
 
     - name: Perform make NON_MATCHING
       uses: docker://ghcr.io/mkst/sssv:latest
