@@ -13,8 +13,8 @@ pypng
 python-Levenshtein
 python-ranges
 pyyaml
-rabbitizer==1.11.1
-spimdisasm==1.27.0
+rabbitizer==1.12.5
+spimdisasm==1.32.0
 toml
 tqdm
 watchdog

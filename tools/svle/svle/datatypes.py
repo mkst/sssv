@@ -239,8 +239,10 @@ datatype_13_format_a = {
 }
 
 datatype_13_format_b = {
-    "unk0": "H",
-    "unk2": "H",
+    "unk0": "B",
+    "unk1": "B",
+    "unk2": "B",
+    "unk3": "B",  # alignment
     "unk4": "H",
     "unk6": "H",
     "unk8": "H",

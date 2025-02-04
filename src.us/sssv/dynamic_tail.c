@@ -1303,8 +1303,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
 }
 
 typedef struct {
-  Vtx vtx1;
-  Vtx vtx2;
+  Vtx v[2];
 } Vtx2;
 
 #if 0
@@ -1312,27 +1311,27 @@ typedef struct {
 // not quite there yet...
 // CURRENT (1726)
 u32 func_802E3C88_6F5338(struct051* arg0) {
-    s32 x;
-    s32 y;
-    s32 z;
-
-    s32 var_a0;
 
     s32 var_a3;
-    s32 temp_fp;
 
     s32 var_s2;
     s32 var_s3;
     s32 var_s4;
 
-    Vtx2 *vtx;
+    s32 var_a0;
+    s32 temp_fp;
+
+    u8 t1 = 0xFF;
+    s8 s7 = -1;
     s16 i;
+
+    Vtx2 *vtx;
 
     var_a3 = D_803F2C5C * 1024.0;
     temp_fp = D_803F2C60 * 1024.0;
 
     // start of next available Vtxs
-    vtx = (Vtx2*)&D_80204278->unk31070[D_803E1B04];
+    vtx = &D_80204278->unk31070[D_803E1B04];
 
     // iterate over each tail segment
     for (i = 0; i < arg0->numSegments; i++) {
@@ -1351,39 +1350,39 @@ u32 func_802E3C88_6F5338(struct051* arg0) {
             // var_s4 -= ((D_803DA300[arg0->unk16 + i + 1].unk0 - D_803DA300[arg0->unk16 + i + 0].unk0) * temp_fp) >> 0x10;
         }
 
-        var_a0 = 2 * sqrtf(SQ((f32)var_s2) + SQ((f32)var_s3) + SQ((f32)var_s4));
+        var_a0 = sqrtf(SQ((f32)var_s2) + SQ((f32)var_s3) + SQ((f32)var_s4)) * 2;
         if (var_a0 == 0) {
             var_a0 = 2;
         }
 
-        x = (var_s2 * (arg0->unk18 >> 0xE)) / var_a0;
-        y = (var_s3 * (arg0->unk18 >> 0xE)) / var_a0;
-        z = (var_s4 * (arg0->unk18 >> 0xE)) / var_a0;
+        var_s2 = (var_s2 * (arg0->unk18 >> 0xE)) / var_a0;
+        var_s3 = (var_s3 * (arg0->unk18 >> 0xE)) / var_a0;
+        var_s4 = (var_s4 * (arg0->unk18 >> 0xE)) / var_a0;
 
-        vtx[i].vtx1.n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) + x;
-        vtx[i].vtx1.n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) + y;
-        vtx[i].vtx1.n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) + z;
+        vtx[i].v[0].n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) + var_s2;
+        vtx[i].v[0].n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) + var_s3;
+        vtx[i].v[0].n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) + var_s4;
 
-        vtx[i].vtx1.n.tc[0] = 0;
+        vtx[i].v[0].n.tc[0] = 0;
 
-        vtx[i].vtx1.n.n[0] = -1;
-        vtx[i].vtx1.n.n[1] = -1;
-        vtx[i].vtx1.n.n[2] = -1;
-        vtx[i].vtx1.n.n[3] = 0xFF;
+        vtx[i].v[0].n.n[0] = s7;  // this is s7 (-1)
+        vtx[i].v[0].n.n[1] = s7;  // this is s7 (-1)
+        vtx[i].v[0].n.n[2] = s7;  // this is s7 (-1)
+        vtx[i].v[0].n.n[3] = t1;  // this is t1 (0xFF)
 
-        vtx[i].vtx2.n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) - x;
-        vtx[i].vtx2.n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) - y;
-        vtx[i].vtx2.n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) - z;
+        vtx[i].v[1].n.ob[0] = (D_803DA300[arg0->unk16 + i].unk0 >> 0xE) - var_s2;
+        vtx[i].v[1].n.ob[1] = (D_803DA300[arg0->unk16 + i].unk4 >> 0xE) - var_s3;
+        vtx[i].v[1].n.ob[2] = (D_803DA300[arg0->unk16 + i].unk8 >> 0xE) - var_s4;
 
-        vtx[i].vtx2.n.tc[0] = 0x7C0;
+        vtx[i].v[1].n.tc[0] = 0x7C0;
 
-        vtx[i].vtx2.n.n[0] = -1;
-        vtx[i].vtx2.n.n[1] = -1;
-        vtx[i].vtx2.n.n[2] = -1;
-        vtx[i].vtx2.n.n[3] = 0xFFu;
+        vtx[i].v[1].n.n[0] = s7;  // this is s7 (-1)
+        vtx[i].v[1].n.n[1] = s7;  // this is s7 (-1)
+        vtx[i].v[1].n.n[2] = s7;  // this is s7 (-1)
+        vtx[i].v[1].n.n[3] = t1;  // this is t1 (0xFF)
 
-        vtx[i].vtx1.n.tc[1] = ((i << 5) - 0x80) << 6;
-        vtx[i].vtx2.n.tc[1] = ((i << 5) - 0x80) << 6;
+        vtx[i].v[0].n.tc[1] = ((i << 5) - 0x80) << 6;
+        vtx[i].v[1].n.tc[1] = ((i << 5) - 0x80) << 6;
     }
     return OS_K0_TO_PHYSICAL(vtx);
 }

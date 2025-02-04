@@ -624,6 +624,12 @@ void load_level_data_sections(void) {
             cha = (struct097*) base->s.payload;
 
             while (length-- > 0) {
+                // s32 a0, a1, a2, a3;
+                s16 a0;
+                s32 a1;
+                u8 a2;
+                s8 a3;
+
                 object1 = NULL;
                 object2 = NULL;
                 if (cha->unkE != -1) {
@@ -635,11 +641,15 @@ void load_level_data_sections(void) {
 
                 switch (cha->unk0) {
                 case 6:
+                    a0 = 8;
+                    a1 = FTOFIX32(31.25);
+                    a2 = 1;
+                    a3 = 6;
                     func_802DD090_6EE740(
-                        8,
-                        FTOFIX32(31.25),
-                        1,
-                        6,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         0,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -655,12 +665,18 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
+
                 case 7:
+                    a0 = 16;
+                    a1 = FTOFIX32(31.25);
+                    a2 = 1;
+                    a3 = 7;
+
                     func_802DD090_6EE740(
-                        16,
-                        FTOFIX32(31.25),
-                        1,
-                        7,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         0,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -676,14 +692,20 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
+
                 case 19:
                 case 20:
                 case 21:
+                    a0 = 0x10;
+                    a1 = FTOFIX32(31.25);
+                    a2 = 0;
+                    a3 = cha->unk0;
+
                     func_802DD090_6EE740(
-                        0x10,
-                        FTOFIX32(31.25),
-                        0,
-                        cha->unk0,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         1,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -703,11 +725,16 @@ void load_level_data_sections(void) {
                 case 23:
                 case 24:
                 case 36:
+                    a0 = 16;
+                    a1 = FTOFIX32(31.25);
+                    a2 = 0;
+                    a3 = cha->unk0;
+
                     func_802DD090_6EE740(
-                        0x10,
-                        FTOFIX32(31.25),
-                        0,
-                        cha->unk0,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         0,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -726,11 +753,16 @@ void load_level_data_sections(void) {
                 case 25:
                 case 26:
                 case 27:
+                    a0 = 8;
+                    a1 = FTOFIX32(31.25);
+                    a2 = 0;
+                    a3 = cha->unk0;
+
                     func_802DD090_6EE740(
-                        8,
-                        FTOFIX32(31.25),
-                        0,
-                        cha->unk0,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         1,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -750,11 +782,16 @@ void load_level_data_sections(void) {
                 case 29:
                 case 30:
                 case 37:
+                    a0 = 8;
+                    a1 = FTOFIX32(31.25);
+                    a2 = 0;
+                    a3 = cha->unk0;
+
                     func_802DD090_6EE740(
-                        8,
-                        FTOFIX32(31.25),
-                        0,
-                        cha->unk0,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         0,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -771,11 +808,15 @@ void load_level_data_sections(void) {
                         cha->unkC);
                     break;
                 case 9:
+                    a0 = 4;
+                    a1 = FTOFIX32(9.375);
+                    a2 = 0;
+                    a3 = 9;
                     func_802DD090_6EE740(
-                        4,
-                        FTOFIX32(9.375),
-                        0,
-                        9,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         0,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -791,12 +832,17 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
+
                 case 10:
+                    a0 = 4;
+                    a1 = FTOFIX32(9.375);
+                    a2 = 0;
+                    a3 = cha->unk0;
                     func_802DD090_6EE740(
-                        4,
-                        FTOFIX32(9.375),
-                        0,
-                        cha->unk0, // was 10
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         0,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,
@@ -813,11 +859,15 @@ void load_level_data_sections(void) {
                         cha->unkC);
                     break;
                 case 8:
+                    a0 = 0x10;
+                    a1 = FTOFIX32(10.828125);
+                    a2 = 0;
+                    a3 = 8;
                     func_802DD090_6EE740(
-                        0x10,
-                        FTOFIX32(10.828125),
-                        0,
-                        8,
+                        a0,
+                        a1,
+                        a2,
+                        a3,
                         0,
                         cha->unk2 << 0x10,
                         cha->unk4 << 0x10,

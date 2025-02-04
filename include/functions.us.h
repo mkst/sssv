@@ -75,7 +75,7 @@ void junk_eeprom(void); // junk eeprom
 void clear_player_eeprom_state(void); // clear eeprom
 
 // main_C770
-void func_8013107C(struct018 *arg0, s32 arg1, s32 arg2, s8 arg3, s32 arg4, s32 arg5);
+void func_8013107C(struct018 *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags);
 
 // core/eeprom.c
 void func_80130E44(void);
@@ -182,8 +182,8 @@ void func_80299640_6AACF0(s16, s16, s16*, s16*, s16*, s16*);
 // overlay2_6AB090.c
 void func_802999E0_6AB090(DisplayList *arg0);
 void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1);
-void func_80299B68_6AB218(s32 arg0);
-void func_80299E84_6AB534(s32 arg0);
+void func_80299B68_6AB218(DisplayList *arg0);
+void func_80299E84_6AB534(DisplayList * arg0);
 void func_8029A32C_6AB9DC(s32 arg0);
 s16  func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2);
 void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2);
@@ -203,17 +203,17 @@ void maybe_trigger_exit_teleporter(Animal *arg0, Animal *arg1);
 void func_8029B9B8_6AD068(Animal *arg0, Animal *arg1);
 void maybe_do_teleport(Animal *arg0, Animal *arg1);
 void func_8029BB94_6AD244(void);
-void func_8029CEF0_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, struct059 *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
+void func_8029CEF0_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
 void func_8029D0A8_6AE758(void);
 void func_8029D89C_6AEF4C(void);
 void func_8029D8D8_6AEF88(Gfx **arg0, s16 arg1);
-void func_8029DB20_6AF1D0(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, s32 arg7);
+void func_8029DB20_6AF1D0(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, Gfx *arg7);
 void func_8029DD84_6AF434(void);
 void func_8029E100_6AF7B0(void);
 void func_8029E3CC_6AFA7C(void);
 void func_8029EAAC_6B015C(void);
 void func_8029F3CC_6B0A7C(void);
-void func_8029F65C_6B0D0C(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, s32 arg8);
+void func_8029F65C_6B0D0C(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, Gfx *arg8);
 void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1);
 
 // overlay2_6B5380
@@ -416,7 +416,7 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
 void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1);
 void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2);
 void func_802C19CC_6D307C(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
-void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s32 arg2);
+void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2);
 void func_802C1A88_6D3138(u16 arg0, struct061 *arg1);
 void func_802C23F8_6D3AA8(s16 arg0);
 void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5);
@@ -471,7 +471,7 @@ void func_802C985C_6DAF0C(void);
 void reset_objects_state(void);
 void func_802C9900_6DAFB0(struct071 *arg0, struct071 *arg1, u8 arg2);
 void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2);
-void func_802C9BA4_6DB254(struct071 *arg0);
+void func_802C9BA4_6DB254(Animal *arg0);
 
 // overlay2_6DB610
 void func_802C9F60_6DB610(Animal *arg0);
@@ -481,7 +481,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 
 // overlay2_6DCA10
 void reset_particles(void);
-void func_802CB394_6DCA44(s32);
+void func_802CB394_6DCA44(DisplayList *arg0);
 void func_802D5AD8_6E7188(s16 arg0, s16 arg1);
 s32  create_particle_effect_2(s32 arg0, s32 arg1, s32 arg2, s16 id, s16 arg4, u16 arg5, u16 arg6, u16 arg7);
 void func_802D6738_6E7DE8(void);
@@ -628,9 +628,9 @@ u8   func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct
 struct071 *find_closest_animal(struct071 *arg0);
 s32  func_802F8918_709FC8(Animal *arg0, Animal *arg1);
 void func_802F8DCC_70A47C(struct071 *arg0);
-void func_802F9084_70A734(s32 arg0);
-void func_802F908C_70A73C(struct071 *arg0);
-void func_802F90A8_70A758(struct071 *arg0);
+void func_802F9084_70A734(Animal * arg0);
+void func_802F908C_70A73C(Animal *arg0);
+void func_802F90A8_70A758(Animal *arg0);
 void func_802F9104_70A7B4(struct071 *arg0);
 s32  func_802F9178_70A828(struct071 *arg0);
 void func_802F951C_70ABCC(Animal *arg0);
@@ -939,7 +939,7 @@ void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch);
 void func_8032C508_73DBB8(s16 id, s16 volume, s16 unused, f32 pitch); // sound effect helper?
 void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5);
 void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos);
-void func_8032CD20_73E3D0(void *object, s16 id, s16 volume, s16 arg3, f32 pitch);
+void func_8032CD20_73E3D0(s32 object, s16 id, s16 volume, s16 arg3, f32 pitch);
 void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch, s16 x, s16 y, s16 z);
 void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
@@ -956,22 +956,22 @@ void reset_camera(void);
 s16  func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9);
 void func_8033E7C8_74FE78(OSContPad *cont);
 
-void func_8033F294_750944(s16 arg0);  // used by fox
-void func_8033F2EC_75099C(void);      // used by fox
-void func_8033F300_7509B0(void);      // used by fox
+void increase_player_camera_distance(s16 arg0);  // used by fox
+void save_player_camera_distance(void);          // used by fox
+void restore_player_camera_distance(void);       // used by fox
 
 void func_8033F380_750A30(void);
 
 void func_803421E0_753890(s16 arg0);
 void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
 
-void func_80342318_7539C8(s32 arg0, s32 arg1, s32 arg2);
+void func_80342318_7539C8(s32 x, s32 y, s32 z);
 void func_80343720_754DD0(s16*, s16*, s16*);
 void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE);
 void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4);
 void func_80343D44_7553F4(u8 *arg0, s8 arg1);
 void func_80343DC0_755470(void);
-void func_80343F58_755608(s16 arg0);
+void set_player_camera_distance(s16 dist);
 
 void func_8034401C_7556CC(void);
 
@@ -1100,7 +1100,7 @@ void func_8035A5A4_76BC54(s16 arg0);
 
 // overlay2_76F7D0
 void func_8035E120_76F7D0(void);
-struct035 *func_8035E200_76F8B0(void);
+void func_8035E200_76F8B0(void);
 s32  func_8035E344_76F9F4(Animal2 *arg0, s16 arg1);
 
 // rat
@@ -1258,7 +1258,7 @@ void func_8037D2D4_78E984(s32 arg0, s32 arg1, s32 arg2);
 void func_8037D2E4_78E994(s32 arg0);
 void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2);
 void func_8037D320_78E9D0(s32 arg0, s32 arg1);
-void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
+void func_8037D32C_78E9DC(Gfx *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
 void set_target_speed(s8 arg0);
 void func_8037D9D4_78F084(void);
 void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
@@ -1363,7 +1363,7 @@ void func_803962EC_7A799C(Gfx **dl, s16 p_screen_x, s16 p_screen_y, s16 arg3, s1
 void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
 s32  func_80396714_7A7DC4(void);
 s32  func_80396748_7A7DF8(void);
-// void func_803967D4_7A7E84(u16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9);
+void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9);
 
 // overlay2_7A8A50
 void func_803973A0_7A8A50(s16);

@@ -1652,7 +1652,7 @@ void func_802C19CC_6D307C(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg
     D_80203FE0[arg3+2].unk4 = arg1;
 }
 
-void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s32 arg2) {
+void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2) {
     D_80203FE0[14].unk2 = 0;
     D_80203FE0[14].unk0 = D_80203FE0[14].unk2;
     D_80203FE0[14].unk4 = D_80203FE0[2].unk4 - arg0;

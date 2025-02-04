@@ -315,9 +315,8 @@ void reset_particles(void) {
 }
 
 #if 0
-
-// CURRENT (28217)
-void func_802CB394_6DCA44(s32 arg0) {
+// CURRENT (27417)
+void func_802CB394_6DCA44(DisplayList *arg0) {
     s32 pad0[2];
 
     s16 sp806;
@@ -370,7 +369,7 @@ void func_802CB394_6DCA44(s32 arg0) {
         sp7B0[i] = 0;
     }
 
-    var_s1 = &D_803D6120.particles; // D_803D6128
+    var_s1 = D_803D6120.particles; // D_803D6128
 
     // disable all displaylists
     for (j = 0; j < 8; j++) {
@@ -2446,7 +2445,7 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
     struct036 *particle;
     s32 temp_v0;
 
-    if (func_8029A334_6AB9E4(x, z, y) == 0) {
+    if (func_8029A334_6AB9E4(x, z, y) == VISIBILITY_VISIBLE) {
         return 0;
     }
 

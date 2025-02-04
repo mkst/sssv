@@ -13,7 +13,7 @@ f32 D_803A6CD8_7B8388 = 0.0f;
 
 s16 D_803A6CDC_7B838C = 25;
 s16 D_803A6CE0_7B8390 = 0;
-s16 D_803A6CE4_7B8394 = 0; // used by elephant, lion, husky + rat, "behind view"?
+s16 D_803A6CE4_7B8394 = 0; // flags. used by elephant, lion, husky + rat, "behind view"?
 s16 D_803A6CE8_7B8398 = 0;
 s16 D_803A6CEC_7B839C = -1;
 

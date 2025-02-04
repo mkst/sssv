@@ -227,7 +227,7 @@ extern u8 D_800BA760[20][0xAB8]; // 2744 bytes per texture, initially contains r
 
 // 0x800Cxxxx
 
-extern u8   D_800C3A40[];
+extern u8   D_800C3A40[][2048];
 extern u8   D_800C4240[];
 extern u8   D_800C4A40[];
 extern u8   D_800C5240[];
@@ -475,7 +475,7 @@ extern char D_802042B0[];
 extern s32  D_802042EC;
 extern s16  D_802042F0[];
 extern s16  D_80204368[];
-extern s32  D_802043E0;
+extern u64  D_802043E0; // yield_data_ptr
 extern s16  gScreenWidth;
 extern s16  gScreenHeight;
 
@@ -528,8 +528,6 @@ extern PlayerEeprom D_8023F260; // 0x40 // default user state?
 extern Eeprom gEepromGlobal; // global game save state, different struct to user data?
 extern PlayerEeprom D_8023F2E0[4]; // 0x100
 
-// display
-extern u16  D_8023F3E0;
 // audio
 extern OSThread    gAudioThread;
 extern OSMesgQueue D_8023F5D8;
@@ -851,7 +849,7 @@ extern struct054 D_803D2D90;
 // extern s16       D_803D2DFC;
 // extern s16       D_803D2DFE;
 // extern s16       D_803D2E00;
-extern struct059 D_803D2E08;
+extern DynamicTextures D_803D2E08; // dynamic textures, e.g. CRAZY_BEAR's spotlights
 // extern s32        D_803D3428;
 // extern s32        D_803D342C;
 // extern s16        D_803D3430;
@@ -1080,7 +1078,7 @@ extern struct060 D_803F2F08[64]; // 0x400 big
 // scorpion
 extern s16  gScorpionVtxIdx;
 
-extern s16  D_803F3330[]; // message lookup?
+extern u16  D_803F3330[]; // message lookup?
 extern s16  D_803F34C0[]; // message lookup 2?
 extern s16  gLoadedMessageCount;
 extern u8   D_803F63C2;

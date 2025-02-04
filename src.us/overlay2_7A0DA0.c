@@ -647,7 +647,7 @@ void func_8038FF68_7A1618(void) {
             if (func_80396714_7A7DC4()) {
                 D_803F6680.unk18 = 14;
                 D_803F6680.unk1A = 0;
-                func_801337DC(0, 10.f, 20.0f, 0);
+                func_801337DC(0, 10.0f, 20.0f, 0.0f);
                 func_8013385C(10.0f, 19.0f, 1.0f);
             }
             if (func_80396748_7A7DF8()) {
@@ -655,7 +655,7 @@ void func_8038FF68_7A1618(void) {
                 D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
                 D_803F6680.unk18 = 14;
                 D_803F6680.unk1A = 0;
-                func_801337DC(0, 10.0f, 20.0f, 0);
+                func_801337DC(0, 10.0f, 20.0f, 0.0f);
                 func_8013385C(10.0f, 19.0f, 1.0f);
             }
             break;
@@ -737,7 +737,7 @@ void func_8038FF68_7A1618(void) {
             D_803F6680.unk18 = 13;
             D_803F6680.unk2A = 1;
             // change around here
-            func_801337DC(0.0f, 10.0f, 20.0f, 0.0f);
+            func_801337DC(0, 10.0f, 20.0f, 0.0f);
             func_8013385C(10.0f, 19.0f, 1.0f);
             break;
         case 13:
@@ -1427,7 +1427,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
 
     for (i = 0; i < gLoadedMessageCount; i++) {
         // load mission task text
-        mission_brief_text = &D_803F34C0[D_803F3330[i]];
+        mission_brief_text = &D_803F34C0[(s16)D_803F3330[i]];
 
         if (mission_brief_text[0] == 307) {
             if (mission_brief_text[1] == 307) { // <MISSION_OBJECTIVE>
@@ -2437,81 +2437,75 @@ s32 func_80396748_7A7DF8(void) {
     }
 }
 
-// no idea whats wrong
-#if 0
-// CURRENT (22149)
-void func_803967D4_7A7E84(u16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9) {
-    u8 r, g, b;
+void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9) {
+    f32 scale;
+    s32 pad;
 
     gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 
-    r = red;
-    g = green;
-    b = blue;
-
     if (arg9 == 1) {
         if (head) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (0*2048), 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 1);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[0], 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 1);
 
         if (torso) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (2*2048), 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 32);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[2], 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 32);
 
         if (legs) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (1*2048), 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 12, arg1 + 58);
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (1*2048), 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 12, arg1 + 58);
+        // 2x legs
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[1], 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 12, arg1 + 58);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[1], 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 12, arg1 + 58);
 
         if (arms) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (3*2048), 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 26, arg1 + 28);
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (3*2048), 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 26, arg1 + 28);
+        // 2x arms
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[3], 32, 32, 1.0f, 1.0f, 0, 0, arg0 + 26, arg1 + 28);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[3], 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 26, arg1 + 28);
     } else {
+        scale = 0.5f;
         if (head) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (0*2048), 32, 32, 0.5f, 0.5f, 0, 0, arg0, arg1);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[0], 32, 32, scale, scale, 0, 0, arg0, arg1);
 
         if (torso) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (2*2048), 32, 32, 0.5f, 0.5f, 0, 0, arg0, arg1 + 32 * 0.5f);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[2], 32, 32, scale, scale, 0, 0, arg0, arg1 + (32 * scale));
 
         if (legs) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (1*2048), 32, 32, 0.5f, 0.5f, 0, 0, arg0 + 12 * 0.5f, arg1 + 58 * 0.5f);
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (1*2048), 32, 32, 0.5f, 0.5f, 1, 0, arg0 - 12 * 0.5f, arg1 + 58 * 0.5f);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[1], 32, 32, scale, scale, 0, 0, arg0 + (12 * scale), arg1 + (58 * scale));
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[1], 32, 32, scale, scale, 1, 0, arg0 - (12 * scale), arg1 + (58 * scale));
 
         if (arms) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
         } else {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, r, g, b, 20);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (3*2048), 32, 32, 0.5f, 0.5f, 0, 0, arg0 + 26 * 0.5f, arg1 + 28 * 0.5f);
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40 + (3*2048), 32, 32, 0.5f, 0.5f, 1, 0, arg0 - 26 * 0.5f, arg1 + 28 * 0.5f);
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[3], 32, 32, scale, scale, 0, 0, arg0 + (26 * scale), arg1 + (28 * scale));
+        func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[3], 32, 32, scale, scale, 1, 0, arg0 - (26 * scale), arg1 + (28 * scale));
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_803967D4_7A7E84.s")
-#endif

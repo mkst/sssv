@@ -200,10 +200,10 @@ void func_80398630_7A9CE0(void) {
     // unpack powercell
     UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04000000_116BD0)), D_800DE390); // powercell
     // unpack evo bodyparts
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013060_129C30)), D_800C3A40); // evo head trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040133C0_129F90)), D_800C5240); // evo arms trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040131B0_129D80)), D_800C4240); // evo legs trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013580_12A150)), D_800C4A40); // evo torso trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013060_129C30)), D_800C3A40[0]); // evo head trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040133C0_129F90)), D_800C3A40[3]); // evo arms trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040131B0_129D80)), D_800C3A40[1]); // evo legs trophy
+    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013580_12A150)), D_800C3A40[2]); // evo torso trophy
     // unpack 'silver' level ring pieces
     UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007700_11E2D0)), D_800BB700); // silver ring piece
     UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040077A0_11E370)), D_800BBBB0); // silver ring piece

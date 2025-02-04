@@ -267,6 +267,14 @@ typedef u8 Addr[];
 #define AI_LEADER           7
 #define AI_INVISIBLE        8
 
+// on-screen visibility
+
+#define VISIBILITY_VISIBLE 0         // Object is visible on-screen
+#define VISIBILITY_TOO_FAR 1         // Object is too far to be rendered
+#define VISIBILITY_OUT_OF_BOUNDS_X 2 // Object is off-screen horizontally
+#define VISIBILITY_OUT_OF_BOUNDS_Y 3 // Object is off-screen vertically
+#define VISIBILITY_INVISIBLE 4       // Object is too far away or not in a valid state
+
 // fov masks
 
 #define FOV_CIRCLE          0

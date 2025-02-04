@@ -71,7 +71,7 @@ void func_80323680_734D30(void) {
     spB0 = 0x1F;
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
-        spB4 = 0;
+        spB4 = VISIBILITY_VISIBLE;
         D_803F2EDD = 0;
     } else {
         spB4 = func_802E89F0_6FA0A0(
@@ -87,7 +87,7 @@ void func_80323680_734D30(void) {
             CHECK_SEGMENT == 0);
     }
 
-    if (spB4 == 0) {
+    if (spB4 == VISIBILITY_VISIBLE) {
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -385,10 +385,10 @@ void func_80323680_734D30(void) {
     if (D_803D552C->unk320 != NULL) {
         func_80321B70_733220(0, spB2, spB0);
     }
-    if ((spB4 == 0) || (spB4 == 2)) {
+    if ((spB4 == VISIBILITY_VISIBLE) || (spB4 == VISIBILITY_OUT_OF_BOUNDS_X)) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190_6CA60, (s16) 0x19, (s16) 0x19, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
-    if (spB4 == 0) {
+    if (spB4 == VISIBILITY_VISIBLE) {
         func_80303820_714ED0(D_803D552C, 1, 2, 0x3CC, 0);
         func_80303820_714ED0(D_803D552C, 1, 19, 0x30A, 1);
         if (D_803D552C->unk320 != NULL) {
@@ -425,7 +425,7 @@ void update_crazy_bear(void) {
     u8 temp_v0_9;
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
-        spC2 = 0;
+        spC2 = VISIBILITY_VISIBLE;
         D_803F2EDD = 0;
     } else {
         spC2 = func_802E89F0_6FA0A0(
@@ -441,7 +441,7 @@ void update_crazy_bear(void) {
             CHECK_SEGMENT == 0);
     }
 
-    if (spC2 == 0) {
+    if (spC2 == VISIBILITY_VISIBLE) {
         if (D_803D552C->unk30E > 0) {
             D_803D552C->unk30E--;
         }
@@ -616,10 +616,10 @@ void update_crazy_bear(void) {
         func_8035D6D0_76ED80();
     }
 
-    if ((spC2 == 0) || (spC2 == 2)) {
+    if ((spC2 == VISIBILITY_VISIBLE) || (spC2 == VISIBILITY_OUT_OF_BOUNDS_X)) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
-    if (spC2 == 0) {
+    if (spC2 == VISIBILITY_VISIBLE) {
         func_80303820_714ED0(D_803D552C, 1, 2,  0x3CC, 0);
         func_80303820_714ED0(D_803D552C, 1, 19, 0x30A, 1);
         func_80303D50_715400(D_803D552C, 2);
@@ -671,14 +671,14 @@ void func_80326260_737910(void) {
     trigger_contagious_laughter();
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
-        spB2 = 0;
+        spB2 = VISIBILITY_VISIBLE;
     } else if ((ABS(D_803D552C->position.xPos.h - (s16) gCameras[gCameraId].unk74) < 0x3C0) && (ABS(D_803D552C->position.zPos.h - (s16) gCameras[gCameraId].unk78) < 0x3C0)) {
-        spB2 = 0;
+        spB2 = VISIBILITY_VISIBLE;
     } else {
         spB2 = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x18A4, (u8) 6, (s16) 0x6D, (s16) 0x27, (s16) 0, (s8) 2, CHECK_SEGMENT == 0);
     }
 
-    if ((spB2 != 4) && (spB2 != 1) && (D_803D5530->unk162 == 1)) {
+    if ((spB2 != VISIBILITY_INVISIBLE) && (spB2 != VISIBILITY_TOO_FAR) && (D_803D5530->unk162 == 1)) {
         temp_f2_2 = (sqrtf(SQ((f32)D_803D552C->xVelocity.w) + SQ((f32)D_803D552C->zVelocity.w)) / (f32) (D_803D5524->unkA4 << 0xA));
         if (temp_f2_2 < 0.2) {
             var_f0 = 0.0f;
@@ -707,7 +707,7 @@ void func_80326260_737910(void) {
             }
         }
     }
-    if (spB2 == 0) {
+    if (spB2 == VISIBILITY_VISIBLE) {
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -942,10 +942,10 @@ void func_80326260_737910(void) {
     } else {
         func_8035D6D0_76ED80();
     }
-    if ((spB2 == 0) || (spB2 == 2)) {
+    if ((spB2 == VISIBILITY_VISIBLE) || (spB2 == VISIBILITY_OUT_OF_BOUNDS_X)) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, (Gfx *) D_01033190_6CA60, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
-    if (spB2 == 0) {
+    if (spB2 == VISIBILITY_VISIBLE) {
         func_80303820_714ED0(D_803D552C, 1, 2, 0x3CC, 0);
         func_80303820_714ED0(D_803D552C, 1, 0x13, 0x30A, 1);
         func_80303D50_715400(D_803D552C, 2);

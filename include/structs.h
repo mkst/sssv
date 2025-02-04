@@ -677,12 +677,12 @@ typedef struct {
 
 typedef struct {
     Position pos;
-    s32 unkC; // unkD0, size?
+    s32 unkC; // unkD0, scale factor
 } struct043; // size 0x10
 
 typedef struct {
     u8  unk0;
-    u8  unk1;
+    u8  unk1; // objectType
     u8  unk2;
     u8  unk3;
     Animal *unk4;
@@ -721,7 +721,7 @@ struct Animal {
     /* 0x3B */  u8  pad3B;
     /* 0x3C */  s8  unk3C;
     /* 0x3E */  u16 unk3E;
-    /* 0x40 */  u16 unk40;
+    /* 0x40 */  u16 unk40; // scaling factor?
     /* 0x42 */  u16 unk42; // height?
     /* 0x44 */  u16 unk44; // mass?
     /* 0x46 */  u16 unk46;
@@ -970,19 +970,19 @@ struct Animal {
     /* 0x33C */ s32 pad33C[3];
     /* 0x348 */ s16 unk348; // (desert fox) dizziness duration and size
     /* 0x34A */ s16 unk34A; // (desert fox) dizziness recovery delay?
-    /* 0x34C */ s16 unk34C;
+    /* 0x34C */ s16 laughterDuration;
     /* 0x34E */ s16 unk34E;
     /* 0x34E */ s16 unk350;
-    /* 0x352 */ s16 unk352;
+    /* 0x352 */ s16 unk352; // some scaling factors?
     /* 0x354 */ s16 unk354;
-    /* 0x356 */ s16 unk356;
+    /* 0x356 */ s16 unk356; // some scaling factors?
     /* 0x358 */ s16 laughterThreshold; // what is a better name, if this is above 80, animal will start laughing
     /* 0x35A */ s16 unk35A;
     /* 0x35C */ s16 unk35C;
     /* 0x35E */ u16 unk35E;
     /* 0x360 */ s8  unk360;
     /* 0x361 */ s8  unk361;
-    /* 0x362 */ u8  unk362;
+    /* 0x362 */ u8  laughterFactor;
     /* 0x363 */ u8  isLaughing;
     /* 0x364 */ u8  unk364;
     /* 0x365 */ u8  unk365; // current attack
@@ -1187,7 +1187,7 @@ typedef struct {
     /* 0x26C80 */ Gfx unk26C80[10725];
     /* 0x3BBA8 */ u16 unk3BBA8;
     /* 0x3BBAA */ u8  pad3BBAA[0x1E];
-    /* 0x3BBC8 */ u16 unk3BBC8;
+    /* 0x3BBC8 */ u16 unk3BBC8; // message
     /* 0x3BBCA */ u8  pad3BBCA[0x1E];
     /* 0x3BBE8 */ u8 *framebuffer; // pointer to framebuffer
     /* 0x3BBEC */ u8  pad3BBEC[0x4];
@@ -1453,9 +1453,9 @@ struct struct035 { // TODO: merge with ObjectData?
   /* 0x1E */  s16 pad1E;
   /* 0x20 */  s32 unk20[5][4]; // wrong
   /* 0x70 */  u16 unk70;
-  /* 0x72 */  u16 unk72;
-              s16 unk74;
-              s16 unk76;
+  /* 0x72 */  u16 unk72; // depth
+              s16 unk74; // width
+              s16 unk76; // height
               s16 unk78;
               s16 unk7A;
   /* 0x7C */  u16 mass;
@@ -1507,7 +1507,7 @@ struct struct035 { // TODO: merge with ObjectData?
               u16 unkAC; // scaling?
   /* 0xAE */  s16 fallDistance;
               s16 unkB0;
-              u16 traction;
+  /* 0xB2 */  u16 traction;
               s16 unkB4;
               s16 unkB6;
               u16 unkB8;
@@ -1839,24 +1839,24 @@ typedef struct {
 } struct057; // size 0x1C
 
 typedef struct {
-    /* 0x0 */ s32 unk0;  // x
-    /* 0x4 */ s32 unk4;  // y
-    /* 0x8 */ s32 unk8;  // z
+    /* 0x0 */ s32 xPos;  // x
+    /* 0x4 */ s32 zPos;  // y
+    /* 0x8 */ s32 yPos;  // z
     /* 0xC */ u16 size;
-    /* 0xE */ u8  unkE;
-    /* 0xF */ s8  unkF;
+    /* 0xE */ u8  category;
+    /* 0xF */ s8  next;
     /* 0x10 */ s8 unk10; // id?
     /* 0x11 */ u8 red;
     /* 0x12 */ u8 green;
     /* 0x13 */ u8 blue;
-} struct059a; // size 0x14
+} DynamicTexture; // size 0x14
 
 typedef struct {
     /* 0x0 */  s8 unk0;
-    /* 0x1 */  s8 unk1; // used
-    /* 0x2 */  s8 unk2[64]; // tbd
-    /* 0x44 */ struct059a unk44[75]; // ?
-} struct059; // size 0x620?
+    /* 0x1 */  s8 unk1;
+    /* 0x2 */  s8 textureGroups[64]; // tbd
+    /* 0x44 */ DynamicTexture textures[75]; // ?
+} DynamicTextures; // DynamicTextureManager ?
 
 typedef struct {
      s32 unk0;
@@ -2217,9 +2217,9 @@ typedef struct {
     s16 z;      // z
     s16 unk8;
     s16 unkA;
-    s16 unkC;
+    s16 unkC;   // size?
     s16 unkE;
-    s16 unk10;
+    s16 unk10;  // animal class maybe? relates to damage done on collision
     u8  pad12[0x2];
     s32 unk14;
 } struct085; // size 0x18

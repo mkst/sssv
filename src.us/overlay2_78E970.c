@@ -34,7 +34,7 @@ void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2) {
 void func_8037D320_78E9D0(s32 arg0, s32 arg1) {
 }
 
-void func_8037D32C_78E9DC(s32 arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
+void func_8037D32C_78E9DC(Gfx *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 }
 
 // file split?
@@ -565,6 +565,7 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
 }
 
 // ESA: func_800779AC
+// get_nearest_target
 Animal *func_8037E9AC_79005C(void) {
     s32 pad2[4];
     s16 sp56;

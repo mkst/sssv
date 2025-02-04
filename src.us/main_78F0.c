@@ -755,7 +755,7 @@ void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 
                         numLines++;
                     }
                     D_8023F1E0.unk0 -= wchr2;
-                    *tmp++;
+                    tmp++;
                 }
                 D_8023F1E0.unk0 += wchr;
             }

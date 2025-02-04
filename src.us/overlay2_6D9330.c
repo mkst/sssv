@@ -3,6 +3,7 @@
 
 #if 0
 // ESA: func_8005F8F8
+// 4815
 void func_802C7C80_6D9330(void) {
     struct089 *src;
     struct035 *dst;
@@ -38,33 +39,31 @@ void func_802C7C80_6D9330(void) {
         if ((i == EVO) || (i == EVO_TRANSFER)) {
             dst->unk2 = 15;
         } else {
-            dst->unk2 = 5;
+            dst->unk2 = 5U;
         }
 
         dst->unkA8 = src->unk10;
         dst->fallDistance = src->unk16;
 
         dst->unk7A = dst->unkBA = src->unk22;
-        // dst->unk7A = src->unk22;
 
         dst->unkA4 = src->unkC;
         dst->unkA6 = src->unkE;
-
         dst->unkAA = src->unk12;
         dst->unkAC = src->unk14;
         dst->unkB0 = src->unk18;
-        dst->traction = src->unk1A;
+        dst->traction = src->unk1A; /* 0xB2 */
         dst->unkB4 = src->unk1C;
         dst->unkB6 = src->unk1E;
-
         dst->unkB8 = src->unk20;
+
         dst->unkBC = src->unk24;
 
-        dst->unk76 = (dst->unk72 * 7) >> 2;
         dst->unkC0 = src->unk26;
-
-        dst->unk78 = (src->unk22 * 5) >> 3;
         dst->unkC2 = src->unk28;
+
+        dst->unk76 = (dst->unk72 * 7) >> 2;
+        dst->unk78 = (src->unk22 * 5) >> 3;
 
         dst->unk9C = i;
 
@@ -73,7 +72,7 @@ void func_802C7C80_6D9330(void) {
         dst->unkC4 = src->unk2A;
 
         animalId = i;
-        dst->objectType = animalId + 0x100;
+        dst->objectType = animalId + 0x100; /* 0x00 */
 
         dst->unkC6 = src->unk2E;
         dst->unkC8 = src->unk30;
@@ -84,7 +83,7 @@ void func_802C7C80_6D9330(void) {
         dst->unkD0 = src->unk38;
         dst->unkD2 = src->unk3A;
 
-        dst->biome = src->unk40;
+        dst->biome = src->unk40; /* 0xD6 */
         dst->unkE8 = src->unk3C;
         dst->unkD4 = src->unk3E;
 

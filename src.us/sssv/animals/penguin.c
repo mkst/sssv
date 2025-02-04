@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
+#include "camera_enums.h"
 
 extern u8 D_803B4200_7C58B0[];
 extern u8 D_803B4208_7C58B8[];
@@ -21,9 +22,17 @@ extern Gfx D_04001B60_DF120[];
 
 #ifdef NON_MATCHING
 void func_80364780_775E30(void) {
-    s32 pad[0x7];
+    s16 pad[0x4];
 
-    u8 temp_v0_14;
+    u16 ticks_remaining;
+    s16 var_t5;
+    s32 temp_a3;
+
+    f32 var_f14;
+    f32 xDist;
+    f32 zDist;
+
+    u8  temp_v0_14;
     s16 spA8;
 
     Animal *target;
@@ -33,16 +42,12 @@ void func_80364780_775E30(void) {
     s16 sp9C;
     s16 sp9A;
 
-    f32 xDist;
-    f32 zDist;
-    f32 var_f14;
+    s16 pad2[6];
 
     f32 sp88;
     f32 sp84;
 
-    u16 ticks_remaining;
-    s16 var_t5;
-    s32 temp_a3;
+    s16 pad3[2];
 
     switch (D_803D5524->unk9C) {                              /* irregular */
     case PENGUIN:
@@ -90,10 +95,11 @@ void func_80364780_775E30(void) {
         switch (D_803D5524->unk9C) {
         case KING_PENGUIN:
             break;
+
         case PENGUIN:
             switch (D_803D552C->unk365) {
             case ATTACK_PENGUIN_1:
-                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
                 if (ticks_remaining == 2) {
                     play_sound_effect_at_location(SFX_UNKNOWN_174, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
@@ -109,7 +115,7 @@ void func_80364780_775E30(void) {
                 break;
             case ATTACK_PENGUIN_2:
                 ticks_remaining = D_803D5544 - D_803D552C->unk32A;
-                if (ticks_remaining < 0x10) {
+                if (ticks_remaining < 16) {
                     sp9E = 0x10;
                     sp9C = ticks_remaining;
                 } else {
@@ -124,14 +130,17 @@ void func_80364780_775E30(void) {
                     play_sound_effect_at_location(0, 0x6000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     if (D_803D5538 != 0) {
 
+                        // similar to desert_fox.c
                         target = func_8037E9AC_79005C();
                         if (target != NULL) {
                             xDist = D_803D5530->position.xPos.h - target->position.xPos.h;
                             zDist = D_803D5530->position.zPos.h - target->position.zPos.h;
                             var_t5 = (target->unk42 * 3) >> 2;
+
                             sp88 = (D_803D5530->position.yPos.h - target->position.yPos.h) - var_t5 + 20;
                             sp84 = sqrtf(SQ(xDist) + SQ(zDist));
-                            var_f14 = func_801286B8(-sp88, sp84) + SQ(64.0 / (f64)sp84);
+                            var_f14 = func_801286B8(-sp88, sp84) + SQ(sp84 / (64.0 / 1));
+
                             while (var_f14 > 180.0) {
                                 var_f14 -= 360.0;
                             }
@@ -139,9 +148,9 @@ void func_80364780_775E30(void) {
                         } else {
                             var_f14 = 0.0f;
                         }
-                        fire_cannonball_1(0x3D, 0xA, 0, 0x14, 0x19, (var_f14 * 256) / 360, 2, 6);
+                        fire_cannonball_1(OBJECT_SNOWBALL, 0xA, 0, 0x14, 0x19, (var_f14 * 256) / 360, 2, 6);
                     } else {
-                        fire_cannonball_2(0x3D, 0xA, 0, 0x14, 0x23, D_803D5530->yRotation, D_803D552C->unk338, 2, 6);
+                        fire_cannonball_2(OBJECT_SNOWBALL, 0xA, 0, 0x14, 0x23, D_803D5530->yRotation, D_803D552C->unk338, 2, 6);
                     }
                     D_803D552C->unk365 = ATTACK_NONE;
                 }
@@ -172,13 +181,12 @@ void func_80364780_775E30(void) {
             func_802B975C_6CAE0C(&spA8, (scale * 150), 1);
             func_802C23F8_6D3AA8((scale * 78) + 47);
 
-            D_80203FE0[0].unk2 += (sp9A * 0x12C) >> 5;
-            D_80203FE0[1].unk2 += (sp9A * 0x12C) >> 5;
-            D_80203FE0[2].unk2 += (sp9A * 0x12C) >> 5;
+            D_80203FE0[0].unk2 += (sp9A * 300) >> 5;
+            D_80203FE0[1].unk2 += (sp9A * 300) >> 5;
+            D_80203FE0[2].unk2 += (sp9A * 300) >> 5;
 
             D_80203FE0[26].unk0 = D_80203FE0[27].unk0 = 0;
-            D_80203FE0[27].unk2 = -(sp9A * 0x12C) >> 4;
-            D_80203FE0[26].unk2 = -(sp9A * 0x12C) >> 4;
+            D_80203FE0[26].unk2 = D_80203FE0[27].unk2 = -(sp9A * 300) >> 4;
 
             D_80203FE0[26].unk4 = 0x96;
             D_80203FE0[27].unk4 = D_80203FE0[26].unk4 + 0x10;
@@ -205,7 +213,9 @@ void func_80364780_775E30(void) {
             }
         }
         func_8038064C_791CFC();
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_14 = D_803F2AA2, (temp_v0_14 == 0)) || (temp_v0_14 == 2) || ((temp_v0_14 == 1) && ( D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((D_80204278->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) &&
+            (((D_803D5538 != 0)) || (temp_v0_14 = D_803F2AA2, (temp_v0_14 == 0)) || (temp_v0_14 == 2) || ((temp_v0_14 == 1) && ( D_803F2AA3 >= 0xB))) &&
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].unk64 != -3))) {
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
 
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -244,7 +254,20 @@ void func_80364780_775E30(void) {
         func_8035D6D0_76ED80();
     }
     if ((spA2 == 0) || (spA2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2), D_803D552C->heading, D_01033190_6CA60, (scale * 0x15E) / 32, (scale * 0x15E) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(
+            D_803D552C->position.xPos.h,
+            D_803D552C->position.zPos.h,
+            D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
+            D_803D552C->heading,
+            D_01033190_6CA60,
+            (scale * 350) / 32,
+            (scale * 350) / 32,
+            0x9B,
+            0,
+            0,
+            0,
+            0,
+            D_803D5538);
     }
     if (spA2 == 0) {
         func_80303820_714ED0(

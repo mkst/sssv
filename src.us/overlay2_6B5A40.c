@@ -81,7 +81,7 @@ void func_802A43E4_6B5A94(u16 rotation, s8 arg1) {
     D_803D5530->yRotation = rotation;
 
     if ((D_803D5524->unk9C == GORILLA) || (D_803D5524->unk9C == BEAR)) {
-        if (D_803D552C->unk320 != 0) {
+        if (D_803D552C->unk320 != NULL) {
             arg1 = (arg1 * 5) / 6;
         }
     }
@@ -99,7 +99,7 @@ void func_802A44C4_6B5B74(u16 rotation, s8 arg1) {
     D_803D552C->unk368 = arg1;
 
     if ((D_803D5524->unk9C == GORILLA) || ( (D_803D5524->unk9C == BEAR))) {
-        if (D_803D552C->unk320 != 0) {
+        if (D_803D552C->unk320 != NULL) {
             arg1 = (arg1 * 5) / 6;
         }
     }
@@ -115,7 +115,7 @@ void func_802A459C_6B5C4C(u16 rotation, s8 arg1) {
     D_803D5530->yRotation = rotation;
 
     if ((D_803D5524->unk9C == GORILLA) || (D_803D5524->unk9C == BEAR)) {
-        if (D_803D552C->unk320 != 0) {
+        if (D_803D552C->unk320 != NULL) {
             arg1 = (arg1 * 5) / 6;
         }
     }
@@ -803,7 +803,6 @@ s32 func_802A64B0_6B7B60(void) {
                 D_803D5530->yVelocity.w = ABS(D_803D5530->yVelocity.w) / 2;
                 return 0;
             }
-            goto block_94;
         } else if ((sp5A > -72) && (sp5A < 72) && (sp58 > -72) && (sp58 < 72)) {
             if (D_803D5530->yVelocity.h < -2) {
                 if (sp5A < -24) {
@@ -836,13 +835,14 @@ s32 func_802A64B0_6B7B60(void) {
             if (D_803D5530->yVelocity.h < - D_803D5524->unkA6) {
                 D_803D5530->yVelocity.w = ABS(D_803D5530->yVelocity.w * 3) / 4;
                 return 0;
+            } else {
+                // nothing
             }
-            goto block_94;
+        } else {
+            // nothing
         }
-        goto block_94;
     }
 
-block_94:
     if (D_803D5530->unk161 == 1) {
         if (D_803D5530->unk68->unk16C->unk2 == 5) {
             var_a1 = D_803D5530->unk68->unk16C->unkE6;

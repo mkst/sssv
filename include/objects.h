@@ -47,7 +47,7 @@
 #define OBJECT_ENERGY_BALL_PURPLE   58
 #define OBJECT_ENERGY_BALL_PURPLE_2 59
 #define OBJECT_ENERGY_BALL          60
-// 61 some kind of sparkle
+#define OBJECT_SNOWBALL             61
 #define OBJECT_ACTIVE_TURRET        62
 #define OBJECT_ACTIVE_MISSILE_TURRET 63
 
@@ -61,6 +61,8 @@
 #define OBJECT_SEA_MINE             72
 #define OBJECT_SPACESHIP            74
 #define OBJECT_DOG_HOUSE            76
+#define OBJECT_77                   77
+#define OBJECT_78                   78
 #define OBJECT_POWERCELL            80
 #define OBJECT_DEAD_SCIENTIST_1     81
 #define OBJECT_DEAD_SCIENTIST_2     82

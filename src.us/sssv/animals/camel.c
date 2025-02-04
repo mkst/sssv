@@ -63,7 +63,7 @@ void func_8036D700_77EDB0(void) {
     u8  temp_v0_10;
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
-        spDA = 0;
+        spDA = VISIBILITY_VISIBLE;
         D_803F2EDD = 0;
     } else {
         spDA = func_802E89F0_6FA0A0(
@@ -79,7 +79,7 @@ void func_8036D700_77EDB0(void) {
             CHECK_SEGMENT == 0);
     }
 
-    if (spDA == 0) {
+    if (spDA == VISIBILITY_VISIBLE) {
         func_8038C98C_79E03C();
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
@@ -447,10 +447,10 @@ void func_8036D700_77EDB0(void) {
     } else {
         func_8035D6D0_76ED80();
     }
-    if ((spDA == 0) || (spDA == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, (s16) 0x19, (s16) 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+    if ((spDA == VISIBILITY_VISIBLE) || (spDA == VISIBILITY_OUT_OF_BOUNDS_X)) {
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
-    if (spDA == 0) {
+    if (spDA == VISIBILITY_VISIBLE) {
         func_8034B298_75C948(0);
         func_803034D0_714B80(D_803D552C, 0x61A, 0, 1);
         func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x20E, 0);

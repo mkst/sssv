@@ -42,8 +42,9 @@ s16  gScorpionVtxIdx;
 
 u8   D_803F3312[0x18]; // padding
 
-// FIXME: I don't think these are really declared here
-s16  D_803F3330[200];
+// FIXME: These are not really declared here (D_803F3330 is used in overlay2_7A0DA0)
+//        maybe declared in overlay2_78E970 ?
+u16  D_803F3330[200];
 s16  D_803F34C0[0x1780];
 s16  gLoadedMessageCount;
 u8   D_803F63C2; // pointless, used to check about calling a function stub

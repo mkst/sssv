@@ -797,7 +797,7 @@ void func_80328918_739FC8(void) {
     }
 
     D_803D552C->unk30A = 0;
-    D_803D552C->unk34C = 0;
+    D_803D552C->laughterDuration = 0;
     D_803D552C->unk356 = 0;
     D_803D5530->unk46 = D_803D5530->unk16C->mass;
     func_802C9BA4_6DB254(D_803D5530);

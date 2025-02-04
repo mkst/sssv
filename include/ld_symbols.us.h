@@ -484,6 +484,8 @@ extern Addr _67100_bin;
 extern Addr _6EA60_bin;
 extern Addr _6F260_bin;
 extern Addr _6FA60_bin;
+extern Addr _70560_bin;
+extern Addr _70660_bin;
 extern Addr _70760_bin;
 extern Addr _70960_bin;
 extern Addr _70FD0_bin;
