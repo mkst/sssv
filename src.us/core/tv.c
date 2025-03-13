@@ -6,7 +6,7 @@ void initialise_tv_mode(void) {
     s32 vStart;
     s32 vScale;
 
-    switch ((s16)D_80000300) {
+    switch ((s16)osTvType) {
     case OS_TV_PAL:
         D_802053E0.VIModeType = OS_VI_PAL_LPN1;
         D_802053E0.screenWidth = 304;

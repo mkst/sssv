@@ -116,7 +116,7 @@ void func_802DBB80_6ED230(u16 arg0) {
         return;
     }
     if (ticks_remaining == 1) {
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
@@ -141,7 +141,7 @@ void func_802DBCDC_6ED38C(u16 arg0) {
         return;
     }
     if (tmp == 1) {
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
@@ -176,7 +176,7 @@ void func_802DBED8_6ED588(u16 arg0) {
         return;
     }
     if (ticks_remaining == 1) {
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }

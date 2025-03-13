@@ -9,18 +9,18 @@ void load_overlay(u8 id) {
 
     switch (id) {
     case 0:
-        osInvalICache(overlay2_TEXT_START, overlay2_TEXT_END - overlay2_TEXT_START);
+        osInvalICache(_overlay2SegmentTextStart, _overlay2SegmentTextEnd - _overlay2SegmentTextStart);
         if (id == 0) {};
-        osInvalDCache(overlay2_DATA_START, overlay2_RODATA_END - overlay2_DATA_START);
-        dma_read(overlay2_ROM_START, func_80294E50_6A6500, overlay2_ROM_END - overlay2_ROM_START);
-        bzero(overlay2_BSS_START, overlay2_BSS_END - overlay2_BSS_START);
+        osInvalDCache(_overlay2SegmentDataStart, _overlay2SegmentRoDataEnd - _overlay2SegmentDataStart);
+        dma_read(_overlay2SegmentRomStart, func_80294E50_6A6500, _overlay2SegmentRomEnd - _overlay2SegmentRomStart);
+        bzero(_overlay2SegmentBssStart, _overlay2SegmentBssEnd - _overlay2SegmentBssStart);
         break;
     case 1:
-        osInvalICache(overlay1_TEXT_START, overlay1_TEXT_END - overlay1_TEXT_START);
+        osInvalICache(_overlay1SegmentTextStart, _overlay1SegmentTextEnd - _overlay1SegmentTextStart);
         if (id == 0) {};
-        osInvalDCache(overlay1_DATA_START, overlay1_RODATA_END - overlay1_DATA_START);
-        dma_read(overlay1_ROM_START, func_80294E50_6384F0, overlay1_ROM_END - overlay1_ROM_START);
-        bzero(overlay1_BSS_START, overlay1_BSS_END - overlay1_BSS_START);
+        osInvalDCache(_overlay1SegmentDataStart, _overlay1SegmentRoDataEnd - _overlay1SegmentDataStart);
+        dma_read(_overlay1SegmentRomStart, func_80294E50_6384F0, _overlay1SegmentRomEnd - _overlay1SegmentRomStart);
+        bzero(_overlay1SegmentBssStart, _overlay1SegmentBssEnd - _overlay1SegmentBssStart);
         break;
     }
 

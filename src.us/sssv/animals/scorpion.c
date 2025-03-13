@@ -7,8 +7,8 @@ void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *targ
 extern Gfx D_01003588_3CE58[];
 extern Gfx D_01003780_3D050[];
 
-extern Vtx D_04006190[];
-extern Vtx D_040063D0[];
+extern Vtx D_04006190_ED740[];
+extern Vtx D_040063D0_ED980[];
 
 extern Gfx D_04005950_ECF00[];
 extern Gfx D_04005B20_ED0D0[];
@@ -133,7 +133,7 @@ void func_80376D40_7883F0(void) {
             break;
         case ATTACK_SCORPION_2:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
-            if ((D_803D552C->unk330 == NULL) || (D_803D552C->unk330->unk366 == 6)) {
+            if ((D_803D552C->unk330 == NULL) || (D_803D552C->unk330->unk366 == MOVEMENT_MODE_DELETED)) {
                 D_803D552C->unk365 = ATTACK_NONE;
             } else {
                 if (ticks_remaining < 22) {
@@ -165,7 +165,7 @@ void func_80376D40_7883F0(void) {
                         D_803D552C->unk30A = MAX(0, 0x14 - (ABS((s16)((D_803D552C->unk30C - D_803D552C->unk330->position.yPos.h) - (D_803D552C->unk330->unk42 >> 1))) >> 2));
 
                         if (ticks_remaining == 19) {
-                            if ((D_803D552C->unk330->unk366 == 2) || (D_803D552C->unk330->unk366 == 5)) {
+                            if ((D_803D552C->unk330->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk330->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
                                 D_803D552C->unk330->yVelocity.w += D_803D552C->unk30A << 0xF;
                             } else if (D_803D552C->unk30A >= 0xB) {
                                 func_802DBA58_6ED108(0xE, D_803D552C->unk330);
@@ -202,9 +202,9 @@ void func_80376D40_7883F0(void) {
                         gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
                         if (D_80152EB8 == 0) {
-                            spF4 = &D_04006190[gScorpionVtxIdx];
+                            spF4 = &D_04006190_ED740[gScorpionVtxIdx];
                         } else {
-                            spF4 = &D_040063D0[gScorpionVtxIdx];
+                            spF4 = &D_040063D0_ED980[gScorpionVtxIdx];
                         }
 
                         spF8 = &D_801D9EC4[spF4 & 0xFFFFFF];
@@ -374,7 +374,7 @@ void func_80376D40_7883F0(void) {
             func_802C78B0_6D8F60(6, 0x10, FTOFIX32(0.625), FTOFIX32(0.625), FTOFIX32(0.625), D_803F2ED0, 0, 2, 1, D_04005C80_ED230);
 
             var_v0 = ((((SIN(D_803D5540 << 3) >> 7) + 0x100) >> 4) * 250) >> 8;
-            if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
+            if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
                 var_v0 = 0;
             }
 
@@ -414,10 +414,10 @@ void func_80376D40_7883F0(void) {
             if (D_803F2EDD == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp11E, &sp11C);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp11E, &sp11C);
-                sp11E = D_803BD5B2_7CEC62[sp11E]; sp11C = D_803BD66A_7CED1A[sp11C];
-                func_80356BD8_768288(D_01000CA0_3A570, D_01002100_3B9D0, sp11E);
+                sp11E = D_803BD530_7CEBE0.eyes[5][sp11E]; sp11C = D_803BD600_7CECB0.eyes[4][sp11C];
+                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp11E);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(0.625), FTOFIX32(0.625), FTOFIX32(0.625), D_803F2ED0, 0, 0, 0, D_04005E40_ED3F0);
-                func_80356BD8_768288(D_01000CA0_3A570, D_01002100_3B9D0, sp11C);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp11C);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(0.625), FTOFIX32(0.625), FTOFIX32(0.625), D_803F2ED0, 0, 0, 0, D_04005E60_ED410);
             }
 
@@ -428,7 +428,7 @@ void func_80376D40_7883F0(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp11A == 0) || (sp11A == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190_6CA60, 0x12, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x12, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     tailIndex = D_803D5528->unk3C8.unk2;

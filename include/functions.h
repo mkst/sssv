@@ -227,9 +227,9 @@ void load_water_texture(void); // load water texture?
 void racing_tortoise_turbo(s16 arg0);
 
 // overlay2_767AC0
-void load_1_tile(u8 *tlut, s32 timg);
-void load_2_tiles(u8 *arg0, u8 *arg1, s32 arg2);
-void load_3_tiles(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3);
+void load_1_tile(u8 *tlut, u8 *timg);
+void load_2_tiles(u8 *tlut1, u8 *tlut2, u8 *timg);
+void load_3_tiles(u8 *tlut1, u8 *tlut2, u8 *tlut3, u8 *arg3);
 
 // sssv/animals/hyena (overlay2_768B90)
 void biker_hyena_fire_missile(Animal *animal);
@@ -352,7 +352,7 @@ void perform_behavior_walrus(void);
 void trigger_pause_menu(void);
 void trigger_mission_brief_screen(void);
 void trigger_level_failed(void);
-void load_level(s16 arg0);
+void load_demo_level(s16 arg0);
 void load_intro(void);
 void load_pause_menu(s32 arg0, s16 arg1);
 void load_mission_brief_screen(s16 vertical_offset);

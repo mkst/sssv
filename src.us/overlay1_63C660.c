@@ -23,7 +23,7 @@ s16 language_select_menu(s16 arg0) {
         // copy in language strings
         for (lang = 0; lang < 9; lang++) {
             // load lang33.dat
-            load_level_text_data(lang, 32, D_80231AA0, D_80231D5C);
+            load_level_text_data(lang, 32, D_80231AA0, D_80231D50.data);
 
             if ((lang != LANG_JAPANESE) && (lang != LANG_AMERICAN)) {
                 src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"

@@ -19,7 +19,7 @@ Vtx D_05002AC0_956B0[21] = {
 #include "data/inc/D_05002AC0_956B0.inc.c"
 };
 
-extern u8 D_05001AA0_94690[];
+extern u8 img_levels_THE_BATTERY_FARM_dog_bed_D_05001AA0_94690_D_05001AA0_94690__rgba16__png[];
 
 Gfx D_05002C10_95800[] = {
     gsSPClearGeometryMode(G_LIGHTING),
@@ -31,7 +31,7 @@ Gfx D_05002C10_95800[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_05001AA0_94690),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_levels_THE_BATTERY_FARM_dog_bed_D_05001AA0_94690_D_05001AA0_94690__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

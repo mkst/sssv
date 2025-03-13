@@ -222,9 +222,9 @@ void func_8034B298_75C948(s16 arg0) {
 // arg0 is alwoys 0
 void func_8034B3A8_75CA58(s16 arg0) {
     if ((arg0 == 0) || ((D_803D5540 & 2) == 0)) {
-        if ((D_803D552C->unk366 == 3) ||
-            (D_803D552C->unk366 == 4) ||
-            (D_803D552C->unk366 == 1)) {
+        if ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) ||
+            (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) ||
+            (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL)) {
             if ((D_803D5530->state == 0x8F) ||
                 (((D_803D5530->state == 0x8E) ||
                   (D_803D5530->state == 0x90) ||
@@ -242,7 +242,7 @@ void func_8034B45C_75CB0C(void) {
 
     if ((SSSV_RAND(128) == 73) &&
         ((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 6) || (D_803D5530->unk162 == 7)) &&
-        ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4) || (D_803D552C->unk366 == 1))) {
+        ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL))) {
 
         s16 tmp1 = (((SIN(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
         s16 tmp2 = (((COS(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
@@ -265,7 +265,7 @@ void func_8034B45C_75CB0C(void) {
 void func_8034B64C_75CCFC(s16 arg0, s16 arg1, s16 arg2) {
     if ((D_803F2EDE != 0) &&
         (((D_803D5530->unk162 != 4) && (D_803D5530->unk162 == 6)) || (D_803D5530->unk162 != 7)) &&
-        ((D_803D552C->unk366 == 3) || (D_803D552C->unk366 == 4) || (D_803D552C->unk366 == 1))) {
+        ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL))) {
         s16 tmp1 = ((((SIN(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
         s16 tmp2 = ((((COS(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
         create_particle_effect(

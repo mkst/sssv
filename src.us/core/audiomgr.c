@@ -5,9 +5,6 @@
 #include "audio.h"
 #include "simple.h"
 
-
-u8 bss_padding_audiomgr_c[0xe0fb0];
-
 /****  type define's for structures unique to audiomgr ****/
 typedef union {
     struct {
@@ -25,10 +22,10 @@ typedef struct AudioInfo_s {
     /* 0x02 */ short         frameSamples;   /* # of samples synthesized in this frame */
     /* 0x04 */ OSScTask      task;           /* scheduler structure */
 #ifdef SSSV
-    s32 unk8;
-    s32 unkC;
-    s32 unk10;
-    s32 unk14;
+    /* 0x08 */ s32 unk8;
+    /* 0x0C */ s32 unkC;
+    /* 0x10 */ s32 unk10;
+    /* 0x14 */ s32 unk14;
 #endif
     AudioMsg      msg;            /* completion message */
 } AudioInfo;
@@ -59,87 +56,109 @@ typedef struct
     AMDMABuffer   *firstFree;
 } AMDMAState;
 
-
 /**** audio manager globals ****/
+#if 0
 OSSched         sc;
-OSMesgQueue     *sched_cmdQ;
+OSMesgQueue     *sched_cmdQ; // 0x8023d408
+#endif
 
-AMAudioMgr      __am;
-static u64      audioStack[AUDIO_STACKSIZE/sizeof(u64)];
+AMAudioMgr      __am;       // 0x8023F410
 
-AMDMAState      dmaState;
-AMDMABuffer     dmaBuffs[NUM_DMA_BUFFERS];
-extern u32             audFrameCt; // = 0;
+static u64      audioStack[AUDIO_STACKSIZE/sizeof(u64)]; // 0x80241358
+
+AMDMAState      dmaState;                   // 0x80241758
+AMDMABuffer     dmaBuffs[NUM_DMA_BUFFERS];  // 0x80241768
+u32             audFrameCt = 0;
+s16             nextDMA = 0;
+s16             curAcmdList = 0;
 #ifdef SSSV
-extern s16             nextDMA; // = 0;
-extern s16             curAcmdList; // = 0;
-s16             minFrameSize;
-s16             frameSize;
-s16             maxFrameSize;
+s16             minFrameSize;               // 0x80241D08
+s16             frameSize;                  // 0x80241D0A
+s16             maxFrameSize;               // 0x80241D0C
 #else
-u32             nextDMA = 0;
-u32             curAcmdList = 0;
 u32             frameSize;
 u32             minFrameSize;
 u32             maxFrameSize;
 u32             maxRSPCmds;
 #endif
 
-#if 0
-
-s16 D_8015468C = 0;
-u8  D_80154690[24] = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-};
-u8  D_801546A8[1] = {0};
-f32 D_801546AC[1] = {0};
-f32 D_801546B0[1] = {0};
-f32 D_801546B4[1] = {0};
-f32 D_801546B8[1] = {0};
-u8  D_801546BC[1] = {0};
-f32 D_801546C0 = 0;
-f32 D_801546C4 = 0;
-f32 D_801546C8 = 0;
-f32 D_801546CC = 0;
-f32 gMusicVolume = 1.0f;
-f32 gSfxVolume = 1.0f;
-s16 D_801546D8 = 2048;
-s16 D_801546DC = 2048;
-s16 D_801546E0 = 0;
-s32 D_801546E4 = 0;
-#include "pitch.h" // D_801546E8
-#include "unk0.h"  // D_80154C4C
-#include "volume.h" // D_801550F8
-s32 gAudioInitialized = 0;
-s32 D_80155158 = -1;
-s32 D_8015515C = -1;
-s32 D_80155160 = -0;
-s8  D_80155164[1] = {-1}; //, 0, 0, 0};
-u8  D_80155168[1] = {0}; //, 0, 0, 0};
-s16 D_8015516C[2] = {-1, 0};
-s8  D_80155170 = -1;
-s8  D_80155174 = -1;
-u8  D_80155178 = 0;
-f32 D_8015517C = 0;
-s16  D_80155180 = 0;
-s16  D_80155184 = 0;
-s16  D_80155188 = -99;
-s32  D_8015518C = 1;
-// D_80155190[] = {};
-// f32  D_8015529C = 110.0f;
-f32  D_801552A0 = 0.0f;
-f32  D_801552A4 = 0.0f;
-u16  D_801552A8 = 100;
-u8   D_801552B0 = 0;
-u8   D_801552B4 = 0;
-#endif
-
 /** Queues and storage for use with audio DMA's ****/
-OSIoMesg        audDMAIOMesgBuf[NUM_DMA_MESSAGES]; // NUM_DMA_MESSAGES
-OSMesgQueue     audDMAMessageQ;
-OSMesg          audDMAMessageBuf[NUM_DMA_MESSAGES]; // NUM_DMA_MESSAGES
+static OSIoMesg        audDMAIOMesgBuf[NUM_DMA_MESSAGES]; // NUM_DMA_MESSAGES      // 0x80241d10
+static OSMesgQueue     audDMAMessageQ;                                             // 0x802423d0
+static OSMesg          audDMAMessageBuf[NUM_DMA_MESSAGES]; // NUM_DMA_MESSAGES     // 0x802423e8
+
+static u8              D_80242508[AUDIO_HEAP_SIZE]; // base of heap
+
+static ALBankFile     *D_802862F8;
+static ALBankFile     *D_802862FC;
+static ALBank         *D_80286300;
+static ALBank         *D_80286304;
+static ALSeqFile      *D_80286308;
+static ALSeqFile      *D_8028630C;
+static ALSndPlayer    *D_80286310;
+static u8             *D_80286314[1];
+static s32             D_80286318; // pad
+static struct017      *D_8028631C;
+static struct017      *D_80286320;
+       ALHeap          D_80286328;
+
+static struct017      *D_80286338[20];
+static s16             D_80286388[20];
+static u8              D_802863B0[20]; // sndSlotState
+static s32             D_802863C4; // pad
+       ALSeqPlayer    *D_802863C8[1];
+       ALCSeq         *D_802863CC[1];
+
+static u8              D_802863D0[0x88]; // padding
+
+       u8              D_80286458;
+       s16             D_8028645A;
+       s16             gCurrentMusicTrack;
+static ALCSeqMarker    D_80286460;
+
+// .data
+
+static s16 D_8015468C = 0; // max of 21
+static u8  D_80154690[24] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 8, 0, 0, 0, 8, 0, 0,
+};
+static s8  D_801546A8[1] = {0};
+static f32 D_801546AC[1] = {0};
+static f32 D_801546B0[1] = {0};
+static f32 D_801546B4[1] = {0};
+static f32 D_801546B8[1] = {0};
+static s8  D_801546BC = 0;
+static f32 D_801546C0 = 0;
+static f32 D_801546C4 = 0;
+static f32 D_801546C8 = 0;
+static f32 D_801546CC = 0;
+       f32 gMusicVolume = 1.0f;
+       f32 gSfxVolume = 1.0f;
+       s16 D_801546D8 = 2048;
+static s16 D_801546DC = 2048;
+       s16 D_801546E0 = 0;
+static s32 D_801546E4 = 0;
+
+#include "pitch.h"              // D_801546E8
+#include "unk0.h"               // D_80154C4C
+#include "volume.h"             // D_801550F8
+
+static s32 gAudioInitialized = 0;
+static s32 D_80155158 = -1;
+static s32 D_8015515C = -1;     // always -1
+       s32 D_80155160 = -0;
+       s8  D_80155164[2] = {-1, 0};
+       s8  D_80155168[2] = { 0, 0};
+static s16 D_8015516C[2] = {-1, 0};
+       s8  D_80155170 = -1;            // always -1
+       s8  D_80155174 = 0;
+static u8  D_80155178 = 0;      // wet/dry mix
+       f32 D_8015517C = 0;
+static s16  D_80155180 = 0;
+static s16  D_80155184 = 0;     // music track change delay?
+static s16  D_80155188 = -99;   // targetMusicTrack
 
 /**** private routines ****/
 void __amMain(void *arg); // static
@@ -148,7 +167,6 @@ ALDMAproc __amDmaNew(AMDMAState **state); // static
 u32  __amHandleFrameMsg(AudioInfo *, AudioInfo *); // static
 void __amHandleDoneMsg(AudioInfo *); // // static
 void __clearAudioDMA(void); // static
-
 
 #ifdef SSSV
 void amCreateAudioMgr(ALSynConfig *c, OSPri pri)
@@ -229,8 +247,6 @@ void amCreateAudioMgr(ALSynConfig *c, OSPri pri, amConfig *amc)
                    (void *)(audioStack+AUDIO_STACKSIZE/sizeof(u64)), pri);
     osStartThread(&__am.thread);
 }
-
-s8 more_bss_padding[0x44044];
 
 void __amMain(void *arg)
 {
@@ -368,8 +384,6 @@ u32 __amHandleFrameMsg(AudioInfo *info, AudioInfo *lastInfo)
     return 1;
 }
 
-#if 0
-// .data
 void __amHandleDoneMsg(AudioInfo *info)
 {
     s32    samplesLeft;
@@ -382,14 +396,6 @@ void __amHandleDoneMsg(AudioInfo *info)
         firstTime = 0;
     }
 }
-#else
-void __amHandleDoneMsg(AudioInfo *info) {
-    s32 *tmp = &D_8015518C;
-    if (((osAiGetLength() >> 2) == 0) && (*tmp == 0)) {
-        *tmp = 0;
-    }
-}
-#endif
 
 s32 __amDMA(s32 addr, s32 len, void *state)
 {
@@ -533,6 +539,21 @@ void __clearAudioDMA(void)
     audFrameCt++;
 }
 
+// potential file split?
+
+static struct121 paramsTable = { // D_80155190
+    0x00000008, 0x00003800, 0x00000000, 0x00000160, 0x00000000, 0xFFFFD99A,
+    0x00000E10, 0x00000000, 0x00000000, 0x00000000, 0x00000160, 0x00000220, 0x00002666, 0xFFFFD99A,
+    0x00002B84, 0x00000000, 0x00000000, 0x00005000, 0x00000700, 0x00001600, 0x00004000, 0xFFFFC000,
+    0x000011EB, 0x00000000, 0x00000000, 0x00000000, 0x000007C0, 0x000011C0, 0x00002000, 0xFFFFE000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00001BE0, 0x000030A0, 0x00004000, 0xFFFFC000,
+    0x000011EB, 0x00000000, 0x00000000, 0x00006000, 0x00001CA0, 0x00002900, 0x00002000, 0xFFFFE000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00002900, 0x00002E20, 0x00002000, 0xFFFFE000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00003380, 0x00004650, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00007000,
+};
+static s32  D_80155298 = 0; // pad
+
 void initialise_audio(s32 *arg0) {
     s32 pad2[2];
     ALSynConfig  synConfig;   // sp1EC
@@ -547,7 +568,7 @@ void initialise_audio(s32 *arg0) {
     struct121 params; // sp48
 
     // struct copy
-    params = D_80155190;
+    params = paramsTable;
 
     gAudioInitialized = 1;
 
@@ -556,14 +577,14 @@ void initialise_audio(s32 *arg0) {
     }
     alHeapInit(&D_80286328, D_80242508, AUDIO_HEAP_SIZE);
 
-    D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable1_ROM_START - alBankFile1_ROM_START);
-    dma_read(alBankFile1_ROM_START, D_802862F8, alTable1_ROM_START - alBankFile1_ROM_START);
+    D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alTable1SegmentRomStart - _alBankFile1SegmentRomStart);
+    dma_read(_alBankFile1SegmentRomStart, D_802862F8, _alTable1SegmentRomStart - _alBankFile1SegmentRomStart);
     if ((fake && fake) && fake) {};
-    alBnkfNew(D_802862F8, alTable1_ROM_START);
+    alBnkfNew(D_802862F8, _alTable1SegmentRomStart);
 
-    D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, alTable2_ROM_START - alBankFile2_ROM_START);
-    dma_read(alBankFile2_ROM_START, D_802862FC, alTable2_ROM_START - alBankFile2_ROM_START);
-    alBnkfNew(D_802862FC, alTable2_ROM_START);
+    D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alTable2SegmentRomStart - _alBankFile2SegmentRomStart);
+    dma_read(_alBankFile2SegmentRomStart, D_802862FC, _alTable2SegmentRomStart - _alBankFile2SegmentRomStart);
+    alBnkfNew(D_802862FC, _alTable2SegmentRomStart);
 
     D_80286300 = D_802862FC->bankArray[0];
     D_80286304 = D_802862F8->bankArray[0];
@@ -611,15 +632,15 @@ void initialise_audio(s32 *arg0) {
     D_80286308 = (ALSeqFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, 4); // allocations are aligned to 16 bytes
 
     osWritebackDCacheAll();
-    dma_read(alSeqFile_ROM_START, D_80286308, 8);
+    dma_read(_alSeqFileSegmentRomStart, D_80286308, 8);
 
     tmp = (D_80286308->seqCount << 3) + 4;
     maxSeqArrayLen = (D_80286308->seqCount << 3) + 4;
 
     D_8028630C = (ALSeqFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, tmp);
     osWritebackDCacheAll();
-    dma_read(alSeqFile_ROM_START, D_8028630C, maxSeqArrayLen);
-    alSeqFileNew(D_8028630C, alSeqFile_ROM_START);
+    dma_read(_alSeqFileSegmentRomStart, D_8028630C, maxSeqArrayLen);
+    alSeqFileNew(D_8028630C, _alSeqFileSegmentRomStart);
 
     if (!D_8028630C->seqArray[seqCount].len) {};
 
@@ -922,8 +943,6 @@ void func_801326A8(s8 src, s8 dest) {
     }
 }
 
-#if 0
-// need to migrate bss and data
 void func_801328F8(void) {
     s16 i;
     s16 temp_v1;
@@ -931,7 +950,8 @@ void func_801328F8(void) {
     s32 used;
     struct017 *sound;
     ALInstrument *inst;
-    static f32 D_80286554; // .bss
+    static s32 D_80286550; // .bss (unused)
+    static f32 D_80286554; // .bss      // 0x8028d078
     static f32 D_8015529C = 110.0f; // .data
 
     if (gAudioInitialized == 0) {
@@ -971,7 +991,6 @@ void func_801328F8(void) {
         }
     }
 
-
     for (i = 0; i < 1; i++) {
         if (D_801546A8[i] != 0) {
             func_801338A8(i);
@@ -1004,9 +1023,14 @@ void func_801328F8(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/audiomgr/func_801328F8.s")
-#endif
+
+// static f32  D_8015529C = 110.0f; // static in func_801328F8
+static f32  D_801552A0 = 0.0f;
+static f32  D_801552A4 = 0.0f;
+static u16  D_801552A8 = 100;
+static s32  D_801552AC = 0; // unused?
+u8   D_801552B0 = 0;
+u8   D_801552B4 = 0;
 
 void func_80132C48(s8 idx) {
     ALSeqPlayer *seqp;

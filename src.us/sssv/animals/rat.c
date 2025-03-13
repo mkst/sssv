@@ -83,7 +83,7 @@ void func_8035E430_76FAE0(void) {
         D_803F2EC0 = ((D_803F2EC0 - FTOFIX32(1.0)) >> 2) + FTOFIX32(1.0);
         D_803F2EC4 = ((D_803F2EC4 - FTOFIX32(1.0)) >> 2) + FTOFIX32(1.0);
 
-        if (D_803D552C->unk366 == 5) {
+        if (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 if (D_803D5524->unk9C == RAT) {
                     D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;
@@ -267,7 +267,7 @@ void func_8035E430_76FAE0(void) {
         func_8035D6D0_76ED80();
     }
     if ((spA2 == 0) || (spA2 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->heading, D_01033190_6CA60, (scale * 0x28A) / 32, (scale * 0x177) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->heading, img_D_01033190_6CA60_i4__png, (scale * 0x28A) / 32, (scale * 0x177) / 32, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     tailIndex = D_803D5528->unk3C8.unk2;

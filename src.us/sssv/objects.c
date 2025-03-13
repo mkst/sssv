@@ -289,7 +289,7 @@ void func_802C9BA4_6DB254(Animal *arg0) {
     arg0->unk34 = ((s64)arg0->unk34 * arg0->unk40) >> 11;
     arg0->unk36 = ((s64)arg0->unk36 * arg0->unk40) >> 11;
 
-    if ((arg0->unk16C->objectType >= 128) && ((arg0->unk366 == 5) || (arg0->unk366 == 2))) {
+    if ((arg0->unk16C->objectType >= 128) && ((arg0->unk366 == MOVEMENT_MODE_DEACTIVATED) || (arg0->unk366 == MOVEMENT_MODE_2))) {
         // override height?
         arg0->unk42 = arg0->unk16C->unkBC;
     }

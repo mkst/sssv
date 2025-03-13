@@ -1,5 +1,13 @@
 #include <ultra64.h>
 
+Vtx D_04006190_ED740[36] = {
+#include "data/inc/D_04006190_ED740.inc.c"
+};
+
+Vtx D_040063D0_ED980[36] = {
+#include "data/inc/D_040063D0_ED980.inc.c"
+};
+
 Gfx D_04006610_EDBC0[] = {
     gsSP2Triangles(0, 1, 2, 0, 1, 3, 2, 0),
     gsSPEndDisplayList(),

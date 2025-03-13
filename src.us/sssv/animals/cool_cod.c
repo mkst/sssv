@@ -42,10 +42,10 @@ void func_80382CF0_7943A0(void) {
     }
     if ((D_803D5530->unk162 == 3) && (D_803D5538 != 0)) {
         if (D_803D552C->unk369 == 0) {
-            if (D_801E9E8E == 0) {
+            if (D_801D9ED8.curBButton == 0) {
                 D_803D552C->unk369 = 1;
             }
-        } else if ((D_803D552C->unk369 == 1) && (D_801E9E8E != 0) && (D_803D5530->yVelocity.h < 5)) {
+        } else if ((D_803D552C->unk369 == 1) && (D_801D9ED8.curBButton != 0) && (D_803D5530->yVelocity.h < 5)) {
             D_803D552C->unk369 = 2;
             D_803D5530->xVelocity.w += SIN(D_803D552C->heading) * 19;
             D_803D5530->zVelocity.w += COS(D_803D552C->heading) * 19;
@@ -131,11 +131,11 @@ void func_80382CF0_7943A0(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, (u16*)&sp86, (u16*)&sp84);
                 func_8031A278_72B928(&D_803D552C->unk326, (u16*)&sp86, (u16*)&sp84);
 #pragma _permuter sameline start
-                sp86 = D_803BD54A_7CEBFA[sp86];sp84 = D_803BD602_7CECB2[sp84];
+                sp86 = D_803BD530_7CEBE0.eyes[1][sp86];sp84 = D_803BD600_7CECB0.eyes[0][sp84];
 #pragma _permuter sameline end
-                func_80356BD8_768288(D_01000D00_3A5D0, D_01000620_39EF0, sp86);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes_ci4__png, sp86);
                 func_802C78B0_6D8F60(1, 0, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04007E70_E5430);
-                func_80356BD8_768288(D_01000D00_3A5D0, D_01000620_39EF0, sp84);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes_ci4__png, sp84);
                 func_802C78B0_6D8F60(1, 0, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04007E90_E5450);
             }
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -150,7 +150,7 @@ void func_80382CF0_7943A0(void) {
             D_803D552C->position.zPos.h,
             (D_803D552C->position.yPos.h + D_803D5524->unkBA),
             D_803D552C->heading,
-            D_01033190_6CA60,
+            img_D_01033190_6CA60_i4__png,
             21,
             9,
             155,

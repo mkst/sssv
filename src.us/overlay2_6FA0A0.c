@@ -3,7 +3,7 @@
 
 extern Gfx D_01003A28_3D2F8[];
 extern Gfx D_01003A40_3D310[];
-extern u8  D_01003BD0_3D4A0[]; // fov masks
+extern u8  img_D_01003BD0_3D4A0_ci4__png[]; // fov masks
 
 
 // is animal off screen?
@@ -160,7 +160,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
             }
 
             if (fovImageIdx != 100) {
-                gDPSetTextureImage(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &D_01003BD0_3D4A0[(fovImageIdx << 7)]);
+                gDPSetTextureImage(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &img_D_01003BD0_3D4A0_ci4__png[(fovImageIdx << 7)]);
                 gDPSetTile(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                 gDPLoadSync(D_801D9EB8++);
                 gDPLoadBlock(D_801D9EB8++, G_TX_LOADTILE, 0, 0, 63, 2048);

@@ -12,7 +12,7 @@ s16 D_803A0500_7B1BB0 = 0;
 // .bss
 // ========================================================
 
-Fog2 D_803C0660[28];
+GfxHelper D_803C0660[28];
 
 // ========================================================
 // .text
@@ -35,7 +35,7 @@ void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1) {
 }
 
 void func_80299B68_6AB218(DisplayList *arg0) {
-    gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[D_803C0430.unk20C >> 1]);
+    gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[(D_803C0430.unk20C >> 1) << 9]);
     gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0180, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync(D_801D9E7C++);
     gDPLoadTile(D_801D9E7C++, G_TX_LOADTILE, 0, 0, 4*(15.5), 4*(31));
@@ -55,8 +55,8 @@ void func_80299B68_6AB218(DisplayList *arg0) {
 
     func_8029A3B0_6ABA60(gCameras[gCameraId].unk74, gCameras[gCameraId].unk78, gCameras[gCameraId].unk7C);
 
-    for (D_803A0500_7B1BB0 = 0; D_803C0660[D_803A0500_7B1BB0].min != 99; D_803A0500_7B1BB0++) {
-        gSPDisplayList(D_801D9E7C++, D_80205410[D_803C0660[D_803A0500_7B1BB0].min][D_803C0660[D_803A0500_7B1BB0].max]);
+    for (D_803A0500_7B1BB0 = 0; D_803C0660[D_803A0500_7B1BB0].start != 99; D_803A0500_7B1BB0++) {
+        gSPDisplayList(D_801D9E7C++, D_80205410[D_803C0660[D_803A0500_7B1BB0].start][D_803C0660[D_803A0500_7B1BB0].end]);
     }
 
     gDPSetTextureLOD(D_801D9E7C++, G_TL_TILE);
@@ -66,7 +66,7 @@ void func_80299E84_6AB534(DisplayList *arg0) {
     s32 pad2[2];
     s32 i;
     s32 j;
-    Fog2 old;
+    GfxHelper old;
     s32 pad;
 
     if ((D_803F2D18 > 10) && (D_803F2D10.unk0 == 2)) {
@@ -82,9 +82,9 @@ void func_80299E84_6AB534(DisplayList *arg0) {
             }
         }
 
-        D_803C0660[D_803A0500_7B1BB0].min = 99;
+        D_803C0660[D_803A0500_7B1BB0].start = 99;
 
-        gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[D_803C0430.unk20C >> 1]);
+        gDPSetTextureImage(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[(D_803C0430.unk20C >> 1) << 9]);
 
         gDPSetTile(D_801D9E7C++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x015E, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(D_801D9E7C++);
@@ -111,9 +111,9 @@ void func_80299E84_6AB534(DisplayList *arg0) {
         gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
         gDPSetAlphaCompare(D_801D9E7C++, G_AC_NONE);
 
-        for (D_803A0500_7B1BB0 = 0; D_803C0660[D_803A0500_7B1BB0].min != 99; D_803A0500_7B1BB0++) {
-            if (D_803F2CA8[D_803C0660[D_803A0500_7B1BB0].min][D_803C0660[D_803A0500_7B1BB0].max] == 1) {
-                gSPDisplayList(D_801D9E7C++, D_802255F0[D_803C0660[D_803A0500_7B1BB0].min][D_803C0660[D_803A0500_7B1BB0].max]);
+        for (D_803A0500_7B1BB0 = 0; D_803C0660[D_803A0500_7B1BB0].start != 99; D_803A0500_7B1BB0++) {
+            if (D_803F2CA8[D_803C0660[D_803A0500_7B1BB0].start][D_803C0660[D_803A0500_7B1BB0].end] == 1) {
+                gSPDisplayList(D_801D9E7C++, D_802255F0[D_803C0660[D_803A0500_7B1BB0].start][D_803C0660[D_803A0500_7B1BB0].end]);
             }
         }
     }
@@ -147,7 +147,7 @@ void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2) {
     s32 j;
     s32 temp_a1;
     s32 temp_t0;
-    Fog2 old;
+    GfxHelper old;
 
     D_803A0500_7B1BB0 = 0;
 
@@ -156,8 +156,8 @@ void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2) {
             if (D_803F28D0[i] & (1 << j)) {
                 temp_a1 = arg0 - (((j * 16) + 12) << 6);
                 temp_t0 = arg1 - (((i * 16) + 16) << 6);
-                D_803C0660[D_803A0500_7B1BB0].min = j;
-                D_803C0660[D_803A0500_7B1BB0].max = i;
+                D_803C0660[D_803A0500_7B1BB0].start = j;
+                D_803C0660[D_803A0500_7B1BB0].end = i;
                 D_803C0660[D_803A0500_7B1BB0].position = (((temp_a1 * temp_a1) + (temp_t0 * temp_t0)) / 64);
                 D_803A0500_7B1BB0 += 1;
             }
@@ -173,15 +173,18 @@ void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2) {
             }
         }
     }
-    D_803C0660[D_803A0500_7B1BB0].min = 99;
+    D_803C0660[D_803A0500_7B1BB0].start = 99;
 }
 
+// get mid color of image?
 u16 func_8029A52C_6ABBDC(u8 arg0) {
-    struct038 *s;
+    s16 *img;
     u16 tmp = arg0 & 0x3F;
 
-    s = &D_800BB210[tmp]; // list of 32x32 mipmap images (0xAB8 each)
-    tmp = s->unk0;
+    // list of 32x32 mipmap images (0xAB8 each)
+    img = D_800BA760 + ((tmp + 1) * 0xAB8);
+    tmp = img[-4];
+
     return tmp;
 }
 

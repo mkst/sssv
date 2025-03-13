@@ -189,7 +189,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         break;
     }
 
-    if (D_803D552C->unk366 == 4) {
+    if (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) {
         var_t2 = 0x55;
         var_t3 = 0xAA;
         var_t1 = 0;
@@ -415,7 +415,7 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
         break;
     }
 
-    if (D_803D552C->unk366 == 4) {
+    if (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) {
         var_v1 = 100;
         var_v0 = 0;
     }
@@ -922,7 +922,7 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     }
 
     // not a switch
-    if ((D_803D552C->unk366 == 5) || (D_803D552C->unk366 == 2)) {
+    if ((D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) || (D_803D552C->unk366 == MOVEMENT_MODE_2)) {
         var_a0 = var_a2 = 0;
     }
 

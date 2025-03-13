@@ -162,7 +162,7 @@ void func_80298F1C_63C5BC(s32 *arg0, s32 *arg1);
 void func_80294E50_6A6500(void); // overlay2 entrypoint
 void reset_player_progress(void);
 void reset_player_health(void);
-void func_802961D4_6A7884(void);
+void init_level(void);
 void func_80296310_6A79C0(void);
 void func_802963D0_6A7A80(DisplayList * arg0); // struct018*
 
@@ -1073,9 +1073,9 @@ void tortoise_tank_defend(s16 arg0);
 void racing_tortoise_defend(s16 arg0);
 
 // overlay2_767AC0
-void func_80356BD8_768288(u8 *arg0, u8* arg1, s16 arg2);
-void func_80356D84_768434(u8 *arg0, s32 arg1);
-void func_80356F64_768614(u8 *arg0, u8* arg1, s32 arg2);
+void func_80356BD8_768288(u8 *tlut, u8 timg[][128], s16 id);
+void func_80356D84_768434(u8 *tlut, u8 *timg);
+void func_80356F64_768614(u8 *tlut1, u8 *tlut2, u8 *timg);
 
 // overlay2_7689A0
 void func_80357200_7688B0(void);

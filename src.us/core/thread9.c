@@ -12,7 +12,10 @@ s32 numControllers = 0;
 // .bss
 // ========================================================
 
-u8 main_bss_padding[0xabB0];
+Controller   D_80291090;
+OSContPad   *gControllerInput;
+OSContStatus gControllerStatus[MAXCONTROLLERS];
+OSContPad    D_802910E8[MAXCONTROLLERS];
 
 ControllerMesg D_80291100;
 s32 D_80291108; // unused?
@@ -76,7 +79,7 @@ s32 init_controllers(void) {
     osContSetCh(1U);
     osCreateMesgQueue(&D_802912B0, &D_802912C8, 1);
 
-    osCreateThread(&gThread9, 9, (void (*)(void *)) thread9, NULL, &D_8028E230, 9);
+    osCreateThread(&gThread9, 9, (void (*)(void *)) thread9, NULL, &thread9_stack[sizeof(thread9_stack) / sizeof(u64)], 9);
     osStartThread(&gThread9);
 
     for (i = 0; i < MAXCONTROLLERS; i++) {

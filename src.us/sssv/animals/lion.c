@@ -135,7 +135,7 @@ void func_802F1730_702DE0(void) {
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0x0, 0xFF);
 
-            if ((D_803D5530->state == 3) && (D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+            if ((D_803D5530->state == 3) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
                 // bleurgh
                 var_t2 =  (COS(D_803D552C->unk2F6) >> 7) / 16;
                 spBA =   ((COS(D_803D552C->unk2F6) >> 7) * -0x20D) >> 0xA;
@@ -215,12 +215,12 @@ void func_802F1730_702DE0(void) {
                     spC0 = spC2 = 2;
                 }
 #pragma _permuter sameline start
-                spC2 = D_803BD5CC_7CEC7C[spC2]; spC0 = D_803BD684_7CED34[spC0];
+                spC2 = D_803BD530_7CEBE0.eyes[6][spC2]; spC0 = D_803BD600_7CECB0.eyes[5][spC0];
 #pragma _permuter sameline end
-                func_80356BD8_768288(D_01002C20_3C4F0, D_010025A0_3BE70, spC2);
+                func_80356BD8_768288(img_eyes6_TLUT1_pal, img_eyes6_ci4__png, spC2);
                 gSPDisplayList(D_801D9E88++, D_010037F0_3D0C0);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000F60_F1FC0);
-                func_80356BD8_768288(D_01002C20_3C4F0, D_010025A0_3BE70, spC0);
+                func_80356BD8_768288(img_eyes6_TLUT1_pal, img_eyes6_ci4__png, spC0);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000FC0_F2020);
 
                 gSPDisplayList(D_801D9E88++, D_01003840_3D110);
@@ -232,7 +232,7 @@ void func_802F1730_702DE0(void) {
         func_8035D6D0_76ED80();
     }
     if ((spBE == 0) || (spBE == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, D_01033190_6CA60, 0x32, 0x22, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x32, 0x22, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     spBC = D_803D5528->unk3C8.unk2;
     if (spBC != 0) {

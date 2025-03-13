@@ -4,7 +4,7 @@
 
 // ESA: func_80060D74
 s32 func_80362B00_7741B0(Animal *a) {
-    if ((a->unk4A != 0) || (a->unk366 == 5) || (a->unk366 == 2)) {
+    if ((a->unk4A != 0) || (a->unk366 == MOVEMENT_MODE_DEACTIVATED) || (a->unk366 == MOVEMENT_MODE_2)) {
         return 1;
     } else {
         return 0;

@@ -11,7 +11,25 @@ void func_8029C8F0_6ADFA0(Gfx **dl);
 // externs
 // ========================================================
 
-extern u8  D_01006C60_40530[];
+extern u8  img_D_01006C60_40530_i4__png[];
+
+// ========================================================
+// .data
+// ========================================================
+
+// unused data
+extern u8 D_803A0530_7B1BE0[10][8] = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0xFF,
+    0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xFF,
+    0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0xFF,
+    0x50, 0x50, 0x50, 0x00, 0x50, 0x50, 0x50, 0xFF,
+    0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF,
+    0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0xFF,
+};
 
 // ========================================================
 // .bss
@@ -392,7 +410,7 @@ void func_8029C8F0_6ADFA0(Gfx **dl) {
 
     gDPLoadTextureBlock2(
         (*dl)++,
-        D_01006C60_40530,
+        img_D_01006C60_40530_i4__png,
         G_IM_FMT_I,
         2,
         G_IM_SIZ_16b,
@@ -407,7 +425,7 @@ void func_8029C8F0_6ADFA0(Gfx **dl) {
         G_TX_NOLOD
     );
 
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, SSSV_RAND(16) * 16 + D_01006C60_40530 + 0x200);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, SSSV_RAND(16) * 16 + img_D_01006C60_40530_i4__png + 0x200);
 
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0040, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*dl)++);

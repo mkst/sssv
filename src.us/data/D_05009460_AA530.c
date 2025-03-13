@@ -33,7 +33,7 @@ Vtx D_05009170_AA240[31] = {
 Vtx D_05009360_AA430[16] = {
 #include "data/inc/D_05009360_AA430.inc.c"
 };
-extern u8 D_05007970_A8A40[];
+extern u8 img_shrink_ray_D_05007970_A8A40_D_05007970_A8A40__rgba16__png[];
 
 Gfx D_05009460_AA530[] = {
     gsSPClearGeometryMode(G_LIGHTING),
@@ -45,7 +45,7 @@ Gfx D_05009460_AA530[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_05007970_A8A40),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_shrink_ray_D_05007970_A8A40_D_05007970_A8A40__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

@@ -855,7 +855,7 @@ s32 func_802983D0_6A9A80(void) {
 
 // draw_water
 void func_802985AC_6A9C5C(Gfx **dl) {
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &D_800DCC20[D_803C0430.unk202]);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &D_800DCC20[D_803C0430.unk202 << 9]);
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 1024);

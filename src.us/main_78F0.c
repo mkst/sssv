@@ -2,44 +2,48 @@
 #include "common.h"
 #include "pp.h"
 
+// ========================================================
+// .data
+// ========================================================
+
 // language file offsets at ROM 0x2fc00
 u8* D_80154500[36*2] = {
-    lang_lang1_dat_rnc_ROM_START, lang_lang1_dat_rnc_ROM_END,
-    lang_lang2_dat_rnc_ROM_START, lang_lang2_dat_rnc_ROM_END,
-    lang_lang3_dat_rnc_ROM_START, lang_lang3_dat_rnc_ROM_END,
-    lang_lang4_dat_rnc_ROM_START, lang_lang4_dat_rnc_ROM_END,
-    lang_lang5_dat_rnc_ROM_START, lang_lang5_dat_rnc_ROM_END,
-    lang_lang6_dat_rnc_ROM_START, lang_lang6_dat_rnc_ROM_END,
-    lang_lang7_dat_rnc_ROM_START, lang_lang7_dat_rnc_ROM_END,
-    lang_lang8_dat_rnc_ROM_START, lang_lang8_dat_rnc_ROM_END,
-    lang_lang9_dat_rnc_ROM_START, lang_lang9_dat_rnc_ROM_END,
-    lang_lang10_dat_rnc_ROM_START, lang_lang10_dat_rnc_ROM_END,
-    lang_lang11_dat_rnc_ROM_START, lang_lang11_dat_rnc_ROM_END,
-    lang_lang12_dat_rnc_ROM_START, lang_lang12_dat_rnc_ROM_END,
-    lang_lang13_dat_rnc_ROM_START, lang_lang13_dat_rnc_ROM_END,
-    lang_lang14_dat_rnc_ROM_START, lang_lang14_dat_rnc_ROM_END,
-    lang_lang15_dat_rnc_ROM_START, lang_lang15_dat_rnc_ROM_END,
-    lang_lang16_dat_rnc_ROM_START, lang_lang16_dat_rnc_ROM_END,
-    lang_lang17_dat_rnc_ROM_START, lang_lang17_dat_rnc_ROM_END,
-    lang_lang18_dat_rnc_ROM_START, lang_lang18_dat_rnc_ROM_END,
-    lang_lang19_dat_rnc_ROM_START, lang_lang19_dat_rnc_ROM_END,
-    lang_lang20_dat_rnc_ROM_START, lang_lang20_dat_rnc_ROM_END,
-    lang_lang21_dat_rnc_ROM_START, lang_lang21_dat_rnc_ROM_END,
-    lang_lang22_dat_rnc_ROM_START, lang_lang22_dat_rnc_ROM_END,
-    lang_lang23_dat_rnc_ROM_START, lang_lang23_dat_rnc_ROM_END,
-    lang_lang24_dat_rnc_ROM_START, lang_lang24_dat_rnc_ROM_END,
-    lang_lang25_dat_rnc_ROM_START, lang_lang25_dat_rnc_ROM_END,
-    lang_lang26_dat_rnc_ROM_START, lang_lang26_dat_rnc_ROM_END,
-    lang_lang27_dat_rnc_ROM_START, lang_lang27_dat_rnc_ROM_END,
-    lang_lang28_dat_rnc_ROM_START, lang_lang28_dat_rnc_ROM_END,
-    lang_lang29_dat_rnc_ROM_START, lang_lang29_dat_rnc_ROM_END,
-    lang_lang30_dat_rnc_ROM_START, lang_lang30_dat_rnc_ROM_END,
-    lang_lang31_dat_rnc_ROM_START, lang_lang31_dat_rnc_ROM_END,
-    lang_lang32_dat_rnc_ROM_START, lang_lang32_dat_rnc_ROM_END,
-    lang_lang33_dat_rnc_ROM_START, lang_lang33_dat_rnc_ROM_END,
-    lang_lang34_dat_rnc_ROM_START, lang_lang34_dat_rnc_ROM_END,
-    lang_lang35_dat_rnc_ROM_START, lang_lang35_dat_rnc_ROM_END,
-    lang_lang36_dat_rnc_ROM_START, lang_lang36_dat_rnc_ROM_END,
+    _lang_lang1_dat_rncSegmentRomStart, _lang_lang1_dat_rncSegmentRomEnd,
+    _lang_lang2_dat_rncSegmentRomStart, _lang_lang2_dat_rncSegmentRomEnd,
+    _lang_lang3_dat_rncSegmentRomStart, _lang_lang3_dat_rncSegmentRomEnd,
+    _lang_lang4_dat_rncSegmentRomStart, _lang_lang4_dat_rncSegmentRomEnd,
+    _lang_lang5_dat_rncSegmentRomStart, _lang_lang5_dat_rncSegmentRomEnd,
+    _lang_lang6_dat_rncSegmentRomStart, _lang_lang6_dat_rncSegmentRomEnd,
+    _lang_lang7_dat_rncSegmentRomStart, _lang_lang7_dat_rncSegmentRomEnd,
+    _lang_lang8_dat_rncSegmentRomStart, _lang_lang8_dat_rncSegmentRomEnd,
+    _lang_lang9_dat_rncSegmentRomStart, _lang_lang9_dat_rncSegmentRomEnd,
+    _lang_lang10_dat_rncSegmentRomStart, _lang_lang10_dat_rncSegmentRomEnd,
+    _lang_lang11_dat_rncSegmentRomStart, _lang_lang11_dat_rncSegmentRomEnd,
+    _lang_lang12_dat_rncSegmentRomStart, _lang_lang12_dat_rncSegmentRomEnd,
+    _lang_lang13_dat_rncSegmentRomStart, _lang_lang13_dat_rncSegmentRomEnd,
+    _lang_lang14_dat_rncSegmentRomStart, _lang_lang14_dat_rncSegmentRomEnd,
+    _lang_lang15_dat_rncSegmentRomStart, _lang_lang15_dat_rncSegmentRomEnd,
+    _lang_lang16_dat_rncSegmentRomStart, _lang_lang16_dat_rncSegmentRomEnd,
+    _lang_lang17_dat_rncSegmentRomStart, _lang_lang17_dat_rncSegmentRomEnd,
+    _lang_lang18_dat_rncSegmentRomStart, _lang_lang18_dat_rncSegmentRomEnd,
+    _lang_lang19_dat_rncSegmentRomStart, _lang_lang19_dat_rncSegmentRomEnd,
+    _lang_lang20_dat_rncSegmentRomStart, _lang_lang20_dat_rncSegmentRomEnd,
+    _lang_lang21_dat_rncSegmentRomStart, _lang_lang21_dat_rncSegmentRomEnd,
+    _lang_lang22_dat_rncSegmentRomStart, _lang_lang22_dat_rncSegmentRomEnd,
+    _lang_lang23_dat_rncSegmentRomStart, _lang_lang23_dat_rncSegmentRomEnd,
+    _lang_lang24_dat_rncSegmentRomStart, _lang_lang24_dat_rncSegmentRomEnd,
+    _lang_lang25_dat_rncSegmentRomStart, _lang_lang25_dat_rncSegmentRomEnd,
+    _lang_lang26_dat_rncSegmentRomStart, _lang_lang26_dat_rncSegmentRomEnd,
+    _lang_lang27_dat_rncSegmentRomStart, _lang_lang27_dat_rncSegmentRomEnd,
+    _lang_lang28_dat_rncSegmentRomStart, _lang_lang28_dat_rncSegmentRomEnd,
+    _lang_lang29_dat_rncSegmentRomStart, _lang_lang29_dat_rncSegmentRomEnd,
+    _lang_lang30_dat_rncSegmentRomStart, _lang_lang30_dat_rncSegmentRomEnd,
+    _lang_lang31_dat_rncSegmentRomStart, _lang_lang31_dat_rncSegmentRomEnd,
+    _lang_lang32_dat_rncSegmentRomStart, _lang_lang32_dat_rncSegmentRomEnd,
+    _lang_lang33_dat_rncSegmentRomStart, _lang_lang33_dat_rncSegmentRomEnd,
+    _lang_lang34_dat_rncSegmentRomStart, _lang_lang34_dat_rncSegmentRomEnd,
+    _lang_lang35_dat_rncSegmentRomStart, _lang_lang35_dat_rncSegmentRomEnd,
+    _lang_lang36_dat_rncSegmentRomStart, _lang_lang36_dat_rncSegmentRomEnd,
 };
 
 s32 D_80154620 = 0; // alignment?
@@ -57,6 +61,25 @@ Gfx D_80154628[] = {
     gsDPSetAlphaDither(G_AD_DISABLE),
     gsSPEndDisplayList(),
 };
+
+
+// ========================================================
+// .bss
+// ========================================================
+
+s16 D_8022E3F0[7000]; // rnc decompress scratch area
+
+// this should be 350?
+u16 D_80231AA0[342];  // level text message offsets
+
+LevelText D_80231D50; // level text data loaded into here
+
+u8  D_80235410[0xa000]; // holds decompressed rnc
+
+// ========================================================
+// .text
+// ========================================================
+
 
 void load_default_display_list(Gfx **dl) {
     gSPDisplayList((*dl)++, D_80154628);
@@ -90,7 +113,7 @@ void select_comic_sans_font(void) {
 }
 
 void select_lcd_font(void) {
-    D_8023F1E0.fontAddress = D_80158550; // 7-segment display font
+    D_8023F1E0.fontAddress = img_fonts_lcd_tileset_rgba16__png; // 7-segment display font
     D_8023F1E0.width = 16;
     D_8023F1E0.height = 16;
     D_8023F1E0.bits = 16; // color bitdepth?
@@ -1124,7 +1147,7 @@ void display_score(Gfx **dl, u8 *score, u16 x_offset, u16 y_offset) {
         D_8023F1E0.unk0 += digit;
 
         if (digit != 0) {
-            gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &D_80158550[((digit - 16) * 256) << 1]);
+            gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &img_fonts_lcd_tileset_rgba16__png[((digit - 16) * 256) << 1]);
             gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
             gDPLoadSync((*dl)++);
             gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 255, 512);

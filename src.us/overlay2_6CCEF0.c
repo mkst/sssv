@@ -640,7 +640,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp4A = (D_803D552C->unk2F6 + argF) % 256;
         sp48 = (D_803D552C->unk2F6 + arg10) % 256;
 
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != (u8) 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
             if ((sp4E >= 0xE2) && (((D_803D552C->unk2F8 + arg4) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -667,7 +667,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp4C = 0x100 - ((D_803D552C->unk2F6 + arg5) % 256);
         sp4A = 0x100 - ((D_803D552C->unk2F6 + argF) % 256);
         sp48 = 0x100 - ((D_803D552C->unk2F6 + arg10) % 256);
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((sp4E < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + arg4) % 256)) >= 0xE1)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -694,7 +694,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp4C = (D_803D552C->unk2F6 + arg7) % 256;
         sp4A = (D_803D552C->unk2F6 + arg11) % 256;
         sp48 = (D_803D552C->unk2F6 + arg12) % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((sp4E >= 0xE2) && (((s32) (D_803D552C->unk2F8 + arg6) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -1106,7 +1106,7 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp4A = (D_803D552C->unk2F6 + argB) % 256;
         sp48 = (D_803D552C->unk2F6 + argC) % 256;
 
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != (u8) 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
             if ((sp4E >= 0x81) && (((D_803D552C->unk2F8 + arg2) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -1134,7 +1134,7 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp4C = 0x100 - ((D_803D552C->unk2F6 + arg3) % 256);
         sp4A = 0x100 - ((D_803D552C->unk2F6 + argB) % 256);
         sp48 = 0x100 - ((D_803D552C->unk2F6 + argC) % 256);
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((sp4E >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + arg2) % 256)) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -1162,7 +1162,7 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp4A = (D_803D552C->unk2F6 + argD) % 256;
         sp48 = (D_803D552C->unk2F6 + argE) % 256;
 
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((sp4E >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg4) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -1360,7 +1360,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp40 = ((D_803D552C->unk2F6 + argB) + ((arg2 - argB) / 3)) % 256;
         sp3E = ((D_803D552C->unk2F6 + argC) + ((arg3 - argC) / 3)) % 256;
 
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != (u8) 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
             if (D_803D5524->unk9C != EVO) {
                 if ((sp4E >= 0x81) && (((D_803D552C->unk2F8 + arg2) % 256) < 0x81)) {
                     D_803F2F00 = 1;
@@ -1396,7 +1396,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp40 = 0x100 - ((D_803D552C->unk2F6 + argB) + ((arg2 - argB) / 3)) % 256;
         sp3E = 0x100 - ((D_803D552C->unk2F6 + argC) + ((arg3 - argC) / 3)) % 256;
 
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != (u8) 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
 
             if (D_803D5524->unk9C != 0x3F) {
                 if (((s32) sp4E >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + arg2) % 256)) < 0x81)) {
@@ -1431,7 +1431,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp40 = ((D_803D552C->unk2F6 + argD) + ((arg4 - argD) / 3)) % 256;
         sp3E = ((D_803D552C->unk2F6 + argE) + ((arg5 - argE) / 3)) % 256;
 
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
 
             if (D_803D5524->unk9C != EVO) {
                 if ((sp4E >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg4) % 256) < 0x81)) {
@@ -1815,7 +1815,7 @@ void func_802C23F8_6D3AA8(s16 arg0) {
         sp24 = (D_803D552C->unk2F6 + 0x80) % 256;
         tmp1 = (D_803D552C->unk2F8 % 256);
         tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((sp26 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -1833,7 +1833,7 @@ void func_802C23F8_6D3AA8(s16 arg0) {
         sp24 = (D_803D552C->unk2F6 + 0x80) % 256;
         tmp1 = (D_803D552C->unk2F8 % 256);
         tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((sp26 >= 0x81) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
@@ -1985,7 +1985,7 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
         var_t2 = (D_803D552C->unk2F6 + 0x80) % 256;
         tmp1 = D_803D552C->unk2F8 % 256;
         tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -2003,7 +2003,7 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
         var_t2 = (D_803D552C->unk2F6 + 0x80) % 256;
         tmp1 = D_803D552C->unk2F8 % 256;
         tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
@@ -2128,7 +2128,7 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
         phi_t1 = 1;
         phi_t2 = D_803D552C->unk2F6 % 256;
         phi_t3 = (D_803D552C->unk2F6 + 0x80) % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -2146,7 +2146,7 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
         phi_t1 = 1;
         phi_t2 = 0x100 - (D_803D552C->unk2F6 % 256);
         phi_t3 = 0x100 - ((D_803D552C->unk2F6 + 0x80) % 256);
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((phi_t2 < 0x80) && ((0x100 - (D_803D552C->unk2F8 % 256)) >= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -2165,7 +2165,7 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
         phi_t1 = 2;
         phi_t2 = D_803D552C->unk2F6 % 256;
         phi_t3 = (D_803D552C->unk2F6 + 0x80) % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
             if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -2239,7 +2239,7 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
     case 0xB9:
         tmp1 = D_803D552C->unk2F6 % 256;
         tmp2 = D_803D552C->unk2F8 % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2) && (tmp1 >= 0xB) && (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2) && (tmp1 >= 0xB) && (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;
             D_803D553A = 5;
             play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -2249,7 +2249,7 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
     case 0xB7:
         tmp1 = D_803D552C->unk2F6 % 256;
         tmp2 = D_803D552C->unk2F8 % 256;
-        if ((D_803D552C->unk366 != 5) && (D_803D552C->unk366 != 2) &&
+        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2) &&
             (tmp1 >= 0xB) &&
             (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;

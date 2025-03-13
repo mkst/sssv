@@ -27,11 +27,7 @@ def parse_map(mapfile, target_start, target_end):
     files = []
     in_section = False
 
-    while True:
-        line = mapfile.readline()
-        if line is None:
-            break
-        # --
+    for line in mapfile.readlines():
         if not in_section:
             if match := re.match(rf"\s+(0x[0-9a-fA-F]+)\s+{target_start} ", line):
                 section_vram_start = int(match.group(1), 16)
@@ -133,7 +129,9 @@ def parse_file(basedir, filename, file_funcs, includes, non_matching=False):
     if c_path.is_file():
         global_asms = []
         # cpp src.us/overlay2_6AB090.c  -I include/2.0I -I include -DNON_MATCHING
-        extra_args = ["-DNON_MATCHING"] if non_matching else []
+        extra_args = ["-DSSSV"]
+        if non_matching:
+            extra_args += ["-DNON_MATCHING"]
         cmd = ["cpp", str(c_path), *includes, *extra_args]
         res = subprocess.run(cmd, capture_output=True, check=True, text=True)
         lines = res.stdout.split("\n")

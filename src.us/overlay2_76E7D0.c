@@ -50,7 +50,7 @@ void func_8035D120_76E7D0(void) {
     s16 idx;
     s8 tmp;
 
-    if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
+    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
         D_803D552C->unk365 = ATTACK_NONE;
     }
 
@@ -189,7 +189,7 @@ void func_8035D6D0_76ED80(void) {
 void func_8035D734_76EDE4(void) {
     s32 temp_v0_3;
 
-    if (D_803D552C->unk366 == 5) {
+    if (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) {
         if (D_803D552C->unk36A == 1) {
             D_803F2ECC = MIN((D_803D5544 - D_803D552C->unk328) & 0xFFFF, 32);
             if (D_803F2ECC >= 32) {
@@ -227,7 +227,7 @@ void func_8035D734_76EDE4(void) {
         }
     }
 
-    if ((D_803D552C->unk366 == 4) || ((D_803D5538 != 0) && (D_803D5530->health < 15))) {
+    if ((D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || ((D_803D5538 != 0) && (D_803D5530->health < 15))) {
         D_803F2ED2 = (D_803D5540 * 3) & 0xFF;
         D_803F2ED4 = ((SIN(D_803D5540) >> 7) * 80) / 4;
     } else if (D_803D552C->unk348 != 0) {
@@ -240,7 +240,7 @@ void func_8035D734_76EDE4(void) {
 
 // ESA: func_800A1294
 void func_8035DA60_76F110(void) {
-    if (D_803D552C->unk366 == 4) {
+    if (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) {
         D_803F2EBC += SIN((D_803D552C->unk2EE % 16) << 4) >> 1;
         D_803F2EC0 += SIN((D_803D552C->unk2EE % 16) << 4) >> 1;
         D_803F2EC4 += SIN((D_803D552C->unk2EE % 16) << 4) >> 1;
@@ -250,7 +250,7 @@ void func_8035DA60_76F110(void) {
             }
             D_803D552C->unk2EE++;
         }
-    } else if (D_803D552C->unk366 != 5) {
+    } else if (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) {
         if (D_803D552C->unk2EE <= 192) {
             D_803F2EBC += SIN((D_803D552C->unk2EE % 32) << 3) >> 2;
             D_803F2EC0 += SIN((D_803D552C->unk2EE % 32) << 3) >> 2;
@@ -290,7 +290,7 @@ void func_8035DA60_76F110(void) {
 // ESA: func_800A15BC
 // used by dog
 void func_8035DEC4_76F574(void) {
-    if (D_803D552C->unk366 != 5) {
+    if (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) {
         if (D_803D552C->unk2EE < 385) {
             D_803F2EBC += SIN((D_803D552C->unk2EE & 0xF) << 4) >> 2;
             D_803F2EC0 += SIN((D_803D552C->unk2EE & 0xF) << 4) >> 2;

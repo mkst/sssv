@@ -1,5 +1,11 @@
 #include <ultra64.h>
 
+/* Vtxs not actually used by this displaylist */
+Vtx D_010057F0_3F0C0[] = {
+#include "data/inc/D_010057F0_3F0C0.inc.c"
+};
+
+
 extern Vtx D_010055A0_3EE70[];
 
 Gfx D_010059A0_3F270[] = {

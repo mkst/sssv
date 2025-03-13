@@ -16,8 +16,8 @@ Vtx D_05005830_8EA90[4] = {
 #include "data/inc/D_05005830_8EA90.inc.c"
 };
 
-extern u8 D_05004210_8D470[];
-extern u8 D_05004A10_8DC70[];
+extern u8 img_intro_silicon_valley_sign_rgba16__png[];
+extern u8 img_intro_earth_sign_rgba16__png[];
 
 Gfx D_05005870_8EAD0[] = {
     gsDPPipeSync(),
@@ -25,7 +25,7 @@ Gfx D_05005870_8EAD0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_05004210_8D470),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_silicon_valley_sign_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -50,7 +50,7 @@ Gfx D_05005870_8EAD0[] = {
     gsSPVertex(D_050055F0_8E850, 6, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_05004A10_8DC70),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_earth_sign_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

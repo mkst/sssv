@@ -32,67 +32,67 @@ typedef union {
 
 // rgba16 mipmapped textures?
 u8 *D_803A5770_7B6E20[] = {
-    // img_europe_mipmap_rnc_ROM_START, img_europe_mipmap_rnc_ROM_END,  // europe
-    rnc_42DCA0_ROM_START, rnc_42DCA0_ROM_END,  // europe
-    rnc_435320_ROM_START, rnc_435320_ROM_END,  // ice
-    rnc_43CB60_ROM_START, rnc_43CB60_ROM_END,  // desert
-    rnc_4457F0_ROM_START, rnc_4457F0_ROM_END,  // jungle
-    empty_rnc_44E790_ROM_START, empty_rnc_44E790_ROM_END,  // empty
-    rnc_44E7B0_ROM_START, rnc_44E7B0_ROM_END,  // city / credits
+    // img_europe_mipmap_rncSegmentRomStart, img_europe_mipmap_rncSegmentRomEnd,  // europe
+    _rnc_42DCA0SegmentRomStart, _rnc_42DCA0SegmentRomEnd,  // europe
+    _rnc_435320SegmentRomStart, _rnc_435320SegmentRomEnd,  // ice
+    _rnc_43CB60SegmentRomStart, _rnc_43CB60SegmentRomEnd,  // desert
+    _rnc_4457F0SegmentRomStart, _rnc_4457F0SegmentRomEnd,  // jungle
+    _empty_rnc_44E790SegmentRomStart, _empty_rnc_44E790SegmentRomEnd,  // empty
+    _rnc_44E7B0SegmentRomStart, _rnc_44E7B0SegmentRomEnd,  // city / credits
 };
 
 // ia16 textures?
 u8 *D_803A57A0_7B6E50[] = {
-    rnc_4571A0_ROM_START, rnc_4571A0_ROM_END,
-    rnc_459590_ROM_START, rnc_459590_ROM_END,
-    rnc_45D550_ROM_START, rnc_45D550_ROM_END,
-    rnc_45EDC0_ROM_START, rnc_45EDC0_ROM_END,
-    rnc_461900_ROM_START, rnc_461900_ROM_END,
-    rnc_461950_ROM_START, rnc_461950_ROM_END,
+    _rnc_4571A0SegmentRomStart, _rnc_4571A0SegmentRomEnd,
+    _rnc_459590SegmentRomStart, _rnc_459590SegmentRomEnd,
+    _rnc_45D550SegmentRomStart, _rnc_45D550SegmentRomEnd,
+    _rnc_45EDC0SegmentRomStart, _rnc_45EDC0SegmentRomEnd,
+    _rnc_461900SegmentRomStart, _rnc_461900SegmentRomEnd,
+    _rnc_461950SegmentRomStart, _rnc_461950SegmentRomEnd,
     //
-    rnc_461A20_ROM_START, rnc_461A20_ROM_END,
-    rnc_465F90_ROM_START, rnc_465F90_ROM_END,
-    rnc_46BA30_ROM_START, rnc_46BA30_ROM_END,
-    rnc_470670_ROM_START, rnc_470670_ROM_END,
-    rnc_474EE0_ROM_START, rnc_474EE0_ROM_END,
-    rnc_47A0F0_ROM_START, rnc_47A0F0_ROM_END,
-    rnc_47F1E0_ROM_START, rnc_47F1E0_ROM_END,
-    rnc_484450_ROM_START, rnc_484450_ROM_END,
-    rnc_488A70_ROM_START, rnc_488A70_ROM_END,
-    rnc_48DD20_ROM_START, rnc_48DD20_ROM_END,
-    rnc_4927E0_ROM_START, rnc_4927E0_ROM_END,
-    rnc_497B90_ROM_START, rnc_497B90_ROM_END,
+    _rnc_461A20SegmentRomStart, _rnc_461A20SegmentRomEnd,
+    _rnc_465F90SegmentRomStart, _rnc_465F90SegmentRomEnd,
+    _rnc_46BA30SegmentRomStart, _rnc_46BA30SegmentRomEnd,
+    _rnc_470670SegmentRomStart, _rnc_470670SegmentRomEnd,
+    _rnc_474EE0SegmentRomStart, _rnc_474EE0SegmentRomEnd,
+    _rnc_47A0F0SegmentRomStart, _rnc_47A0F0SegmentRomEnd,
+    _rnc_47F1E0SegmentRomStart, _rnc_47F1E0SegmentRomEnd,
+    _rnc_484450SegmentRomStart, _rnc_484450SegmentRomEnd,
+    _rnc_488A70SegmentRomStart, _rnc_488A70SegmentRomEnd,
+    _rnc_48DD20SegmentRomStart, _rnc_48DD20SegmentRomEnd,
+    _rnc_4927E0SegmentRomStart, _rnc_4927E0SegmentRomEnd,
+    _rnc_497B90SegmentRomStart, _rnc_497B90SegmentRomEnd,
     //
-    rnc_49C950_ROM_START, rnc_49C950_ROM_END,
-    rnc_4A1690_ROM_START, rnc_4A1690_ROM_END,
-    rnc_4A5170_ROM_START, rnc_4A5170_ROM_END,
-    rnc_4A97E0_ROM_START, rnc_4A97E0_ROM_END,
-    rnc_4AE610_ROM_START, rnc_4AE610_ROM_END,
-    empty_rnc_4B3440_ROM_START, empty_rnc_4B3440_ROM_END,
-    rnc_4B3460_ROM_START, rnc_4B3460_ROM_END,
-    empty_rnc_4B79A0_ROM_START, empty_rnc_4B79A0_ROM_END,
-    empty_rnc_4B79C0_ROM_START, empty_rnc_4B79C0_ROM_END,
+    _rnc_49C950SegmentRomStart, _rnc_49C950SegmentRomEnd,
+    _rnc_4A1690SegmentRomStart, _rnc_4A1690SegmentRomEnd,
+    _rnc_4A5170SegmentRomStart, _rnc_4A5170SegmentRomEnd,
+    _rnc_4A97E0SegmentRomStart, _rnc_4A97E0SegmentRomEnd,
+    _rnc_4AE610SegmentRomStart, _rnc_4AE610SegmentRomEnd,
+    _empty_rnc_4B3440SegmentRomStart, _empty_rnc_4B3440SegmentRomEnd,
+    _rnc_4B3460SegmentRomStart, _rnc_4B3460SegmentRomEnd,
+    _empty_rnc_4B79A0SegmentRomStart, _empty_rnc_4B79A0SegmentRomEnd,
+    _empty_rnc_4B79C0SegmentRomStart, _empty_rnc_4B79C0SegmentRomEnd,
     // desert
-    rnc_4B79E0_ROM_START, rnc_4B79E0_ROM_END,
-    rnc_4BC330_ROM_START, rnc_4BC330_ROM_END,
-    rnc_4C12C0_ROM_START, rnc_4C12C0_ROM_END,
-    rnc_4C4CD0_ROM_START, rnc_4C4CD0_ROM_END,
-    rnc_4C91B0_ROM_START, rnc_4C91B0_ROM_END,
-    rnc_4CD3A0_ROM_START, rnc_4CD3A0_ROM_END,
-    rnc_4D1770_ROM_START, rnc_4D1770_ROM_END,
-    rnc_4D68D0_ROM_START, rnc_4D68D0_ROM_END,
-    empty_rnc_4D6960_ROM_START, empty_rnc_4D6960_ROM_END, // empty
-    empty_rnc_4D6980_ROM_START, empty_rnc_4D6980_ROM_END, // empty
-    rnc_4D69A0_ROM_START, rnc_4D69A0_ROM_END,
-    empty_rnc_4DB210_ROM_START, empty_rnc_4DB210_ROM_END, // empty
-    rnc_4DB230_ROM_START, rnc_4DB230_ROM_END,
-    rnc_4E0B80_ROM_START, rnc_4E0B80_ROM_END,
-    rnc_4E57F0_ROM_START, rnc_4E57F0_ROM_END,
-    rnc_4EABE0_ROM_START, rnc_4EABE0_ROM_END,
-    rnc_4EFC40_ROM_START, rnc_4EFC40_ROM_END,
-    empty_rnc_4F5470_ROM_START, empty_rnc_4F5470_ROM_END, // empty
-    empty_rnc_4F5490_ROM_START, empty_rnc_4F5490_ROM_END, // empty
-    empty_rnc_4F54B0_ROM_START, empty_rnc_4F54B0_ROM_END, // empty
+    _rnc_4B79E0SegmentRomStart, _rnc_4B79E0SegmentRomEnd,
+    _rnc_4BC330SegmentRomStart, _rnc_4BC330SegmentRomEnd,
+    _rnc_4C12C0SegmentRomStart, _rnc_4C12C0SegmentRomEnd,
+    _rnc_4C4CD0SegmentRomStart, _rnc_4C4CD0SegmentRomEnd,
+    _rnc_4C91B0SegmentRomStart, _rnc_4C91B0SegmentRomEnd,
+    _rnc_4CD3A0SegmentRomStart, _rnc_4CD3A0SegmentRomEnd,
+    _rnc_4D1770SegmentRomStart, _rnc_4D1770SegmentRomEnd,
+    _rnc_4D68D0SegmentRomStart, _rnc_4D68D0SegmentRomEnd,
+    _empty_rnc_4D6960SegmentRomStart, _empty_rnc_4D6960SegmentRomEnd, // empty
+    _empty_rnc_4D6980SegmentRomStart, _empty_rnc_4D6980SegmentRomEnd, // empty
+    _rnc_4D69A0SegmentRomStart, _rnc_4D69A0SegmentRomEnd,
+    _empty_rnc_4DB210SegmentRomStart, _empty_rnc_4DB210SegmentRomEnd, // empty
+    _rnc_4DB230SegmentRomStart, _rnc_4DB230SegmentRomEnd,
+    _rnc_4E0B80SegmentRomStart, _rnc_4E0B80SegmentRomEnd,
+    _rnc_4E57F0SegmentRomStart, _rnc_4E57F0SegmentRomEnd,
+    _rnc_4EABE0SegmentRomStart, _rnc_4EABE0SegmentRomEnd,
+    _rnc_4EFC40SegmentRomStart, _rnc_4EFC40SegmentRomEnd,
+    _empty_rnc_4F5470SegmentRomStart, _empty_rnc_4F5470SegmentRomEnd, // empty
+    _empty_rnc_4F5490SegmentRomStart, _empty_rnc_4F5490SegmentRomEnd, // empty
+    _empty_rnc_4F54B0SegmentRomStart, _empty_rnc_4F54B0SegmentRomEnd, // empty
 };
 
 u8** D_803A5918_7B6FC8[4] = {
@@ -104,55 +104,55 @@ u8** D_803A5918_7B6FC8[4] = {
 
 // different to ROM ordering
 u8* D_803A5928_7B6FD8[90] = {
-    rnc_4F54D0_ROM_START, rnc_4F54D0_ROM_END,
-    rnc_4F95B0_ROM_START, rnc_4F95B0_ROM_END,
-    rnc_4F8010_ROM_START, rnc_4F8010_ROM_END,
-    rnc_4F6A70_ROM_START, rnc_4F6A70_ROM_END,
+    _rnc_4F54D0SegmentRomStart, _rnc_4F54D0SegmentRomEnd,
+    _rnc_4F95B0SegmentRomStart, _rnc_4F95B0SegmentRomEnd,
+    _rnc_4F8010SegmentRomStart, _rnc_4F8010SegmentRomEnd,
+    _rnc_4F6A70SegmentRomStart, _rnc_4F6A70SegmentRomEnd,
 
-    rnc_4FAF70_ROM_START, rnc_4FAF70_ROM_END,
-    rnc_4FC110_ROM_START, rnc_4FC110_ROM_END,
-    rnc_4FD1E0_ROM_START, rnc_4FD1E0_ROM_END,
-    rnc_4FDF70_ROM_START, rnc_4FDF70_ROM_END,
-    rnc_4FF2B0_ROM_START, rnc_4FF2B0_ROM_END,
-    rnc_500020_ROM_START, rnc_500020_ROM_END,
-    rnc_500050_ROM_START, rnc_500050_ROM_END,
-    rnc_501040_ROM_START, rnc_501040_ROM_END,
-    rnc_502360_ROM_START, rnc_502360_ROM_END,
-    rnc_503930_ROM_START, rnc_503930_ROM_END,
-    rnc_504E70_ROM_START, rnc_504E70_ROM_END,
+    _rnc_4FAF70SegmentRomStart, _rnc_4FAF70SegmentRomEnd,
+    _rnc_4FC110SegmentRomStart, _rnc_4FC110SegmentRomEnd,
+    _rnc_4FD1E0SegmentRomStart, _rnc_4FD1E0SegmentRomEnd,
+    _rnc_4FDF70SegmentRomStart, _rnc_4FDF70SegmentRomEnd,
+    _rnc_4FF2B0SegmentRomStart, _rnc_4FF2B0SegmentRomEnd,
+    _rnc_500020SegmentRomStart, _rnc_500020SegmentRomEnd,
+    _rnc_500050SegmentRomStart, _rnc_500050SegmentRomEnd,
+    _rnc_501040SegmentRomStart, _rnc_501040SegmentRomEnd,
+    _rnc_502360SegmentRomStart, _rnc_502360SegmentRomEnd,
+    _rnc_503930SegmentRomStart, _rnc_503930SegmentRomEnd,
+    _rnc_504E70SegmentRomStart, _rnc_504E70SegmentRomEnd,
 
-    rnc_505F00_ROM_START, rnc_505F00_ROM_END,
-    rnc_505F30_ROM_START, rnc_505F30_ROM_END,
-    rnc_506550_ROM_START, rnc_506550_ROM_END,
-    rnc_506DD0_ROM_START, rnc_506DD0_ROM_END,
-    rnc_507F00_ROM_START, rnc_507F00_ROM_END,
-    rnc_507F30_ROM_START, rnc_507F30_ROM_END,
-    rnc_507F60_ROM_START, rnc_507F60_ROM_END,
-    rnc_507F90_ROM_START, rnc_507F90_ROM_END,
-    rnc_507FC0_ROM_START, rnc_507FC0_ROM_END,
-    rnc_509220_ROM_START, rnc_509220_ROM_END,
+    _rnc_505F00SegmentRomStart, _rnc_505F00SegmentRomEnd,
+    _rnc_505F30SegmentRomStart, _rnc_505F30SegmentRomEnd,
+    _rnc_506550SegmentRomStart, _rnc_506550SegmentRomEnd,
+    _rnc_506DD0SegmentRomStart, _rnc_506DD0SegmentRomEnd,
+    _rnc_507F00SegmentRomStart, _rnc_507F00SegmentRomEnd,
+    _rnc_507F30SegmentRomStart, _rnc_507F30SegmentRomEnd,
+    _rnc_507F60SegmentRomStart, _rnc_507F60SegmentRomEnd,
+    _rnc_507F90SegmentRomStart, _rnc_507F90SegmentRomEnd,
+    _rnc_507FC0SegmentRomStart, _rnc_507FC0SegmentRomEnd,
+    _rnc_509220SegmentRomStart, _rnc_509220SegmentRomEnd,
 
-    rnc_509250_ROM_START, rnc_509250_ROM_END,
-    rnc_50A4A0_ROM_START, rnc_50A4A0_ROM_END,
-    rnc_50A4D0_ROM_START, rnc_50A4D0_ROM_END,
-    rnc_50BDB0_ROM_START, rnc_50BDB0_ROM_END,
-    rnc_50D230_ROM_START, rnc_50D230_ROM_END,
-    rnc_50ECD0_ROM_START, rnc_50ECD0_ROM_END,
-    rnc_5106E0_ROM_START, rnc_5106E0_ROM_END,
-    rnc_512240_ROM_START, rnc_512240_ROM_END,
-    rnc_512270_ROM_START, rnc_512270_ROM_END,
-    rnc_5122A0_ROM_START, rnc_5122A0_ROM_END,
+    _rnc_509250SegmentRomStart, _rnc_509250SegmentRomEnd,
+    _rnc_50A4A0SegmentRomStart, _rnc_50A4A0SegmentRomEnd,
+    _rnc_50A4D0SegmentRomStart, _rnc_50A4D0SegmentRomEnd,
+    _rnc_50BDB0SegmentRomStart, _rnc_50BDB0SegmentRomEnd,
+    _rnc_50D230SegmentRomStart, _rnc_50D230SegmentRomEnd,
+    _rnc_50ECD0SegmentRomStart, _rnc_50ECD0SegmentRomEnd,
+    _rnc_5106E0SegmentRomStart, _rnc_5106E0SegmentRomEnd,
+    _rnc_512240SegmentRomStart, _rnc_512240SegmentRomEnd,
+    _rnc_512270SegmentRomStart, _rnc_512270SegmentRomEnd,
+    _rnc_5122A0SegmentRomStart, _rnc_5122A0SegmentRomEnd,
 
-    rnc_5122D0_ROM_START, rnc_5122D0_ROM_END,
-    rnc_5137C0_ROM_START, rnc_5137C0_ROM_END,
-    rnc_514CB0_ROM_START, rnc_514CB0_ROM_END,
-    rnc_515730_ROM_START, rnc_515730_ROM_END,
-    rnc_516C20_ROM_START, rnc_516C20_ROM_END,
-    rnc_518110_ROM_START, rnc_518110_ROM_END,
-    rnc_519600_ROM_START, rnc_519600_ROM_END,
-    rnc_51AAF0_ROM_START, rnc_51AAF0_ROM_END,
-    rnc_51AB20_ROM_START, rnc_51AB20_ROM_END,
-    rnc_51AB50_ROM_START, rnc_51AB50_ROM_END,
+    _rnc_5122D0SegmentRomStart, _rnc_5122D0SegmentRomEnd,
+    _rnc_5137C0SegmentRomStart, _rnc_5137C0SegmentRomEnd,
+    _rnc_514CB0SegmentRomStart, _rnc_514CB0SegmentRomEnd,
+    _rnc_515730SegmentRomStart, _rnc_515730SegmentRomEnd,
+    _rnc_516C20SegmentRomStart, _rnc_516C20SegmentRomEnd,
+    _rnc_518110SegmentRomStart, _rnc_518110SegmentRomEnd,
+    _rnc_519600SegmentRomStart, _rnc_519600SegmentRomEnd,
+    _rnc_51AAF0SegmentRomStart, _rnc_51AAF0SegmentRomEnd,
+    _rnc_51AB20SegmentRomStart, _rnc_51AB20SegmentRomEnd,
+    _rnc_51AB50SegmentRomStart, _rnc_51AB50SegmentRomEnd,
 };
 
 u8** D_803A5A90_7B7140[4] = {
@@ -165,51 +165,51 @@ u8** D_803A5A90_7B7140[4] = {
 // level objects
 u8* D_803A5AA0_7B7150[(10+1+10+10+10)*2] = {
     // europe
-    HAVE_A_NICE_DAY_ROM_START, HAVE_A_NICE_DAY_ROM_END,
-    HONEYMOON_LAGOON_ROM_START, HONEYMOON_LAGOON_ROM_END,
-    SMASHING_START_ROM_START, SMASHING_START_ROM_END,
-    THE_BATTERY_FARM_ROM_START, THE_BATTERY_FARM_ROM_END,
-    GIVE_A_DOG_A_BONUS_ROM_START, GIVE_A_DOG_A_BONUS_ROM_END,
-    DMA_INTRO_ROM_START, DMA_INTRO_ROM_END,
-    STINKY_SEWERS_ROM_START, STINKY_SEWERS_ROM_END,
-    RAT_O_MATIC_ROM_START, RAT_O_MATIC_ROM_END,
-    ROCKY_HARD_PLACE_ROM_START, ROCKY_HARD_PLACE_ROM_END,
-    FAT_BEAR_MOUNTAIN_ROM_START, FAT_BEAR_MOUNTAIN_ROM_END,
+    _HAVE_A_NICE_DAYSegmentRomStart, _HAVE_A_NICE_DAYSegmentRomEnd,
+    _HONEYMOON_LAGOONSegmentRomStart, _HONEYMOON_LAGOONSegmentRomEnd,
+    _SMASHING_STARTSegmentRomStart, _SMASHING_STARTSegmentRomEnd,
+    _THE_BATTERY_FARMSegmentRomStart, _THE_BATTERY_FARMSegmentRomEnd,
+    _GIVE_A_DOG_A_BONUSSegmentRomStart, _GIVE_A_DOG_A_BONUSSegmentRomEnd,
+    _DMA_INTROSegmentRomStart, _DMA_INTROSegmentRomEnd,
+    _STINKY_SEWERSSegmentRomStart, _STINKY_SEWERSSegmentRomEnd,
+    _RAT_O_MATICSegmentRomStart, _RAT_O_MATICSegmentRomEnd,
+    _ROCKY_HARD_PLACESegmentRomStart, _ROCKY_HARD_PLACESegmentRomEnd,
+    _FAT_BEAR_MOUNTAINSegmentRomStart, _FAT_BEAR_MOUNTAINSegmentRomEnd,
     // final
-    BIG_CELEBRATION_PARADE_ROM_START, BIG_CELEBRATION_PARADE_ROM_END,
+    _BIG_CELEBRATION_PARADESegmentRomStart, _BIG_CELEBRATION_PARADESegmentRomEnd,
     // ice
-    SOMETHING_FISHY_ROM_START, SOMETHING_FISHY_ROM_END,
-    ICE_N_EASY_DOES_IT_ROM_START, ICE_N_EASY_DOES_IT_ROM_END,
-    PINBALL_BLIZZARD_ROM_START, PINBALL_BLIZZARD_ROM_END,
-    WALRACE_64_ROM_START, WALRACE_64_ROM_END,
-    PENGUIN_PLAYPEN_ROM_START, PENGUIN_PLAYPEN_ROM_END,
-    SNOW_JOKE_ROM_START, SNOW_JOKE_ROM_END,
-    UNUSED_ICE_SLOT_7_ROM_START, UNUSED_ICE_SLOT_7_ROM_END,
-    HOPPA_CHOPPA_ROM_START, HOPPA_CHOPPA_ROM_END,
-    UNUSED_ICE_SLOT_9_ROM_START, UNUSED_ICE_SLOT_9_ROM_END,
-    UNUSED_ICE_SLOT_10_ROM_START, UNUSED_ICE_SLOT_10_ROM_END,
+    _SOMETHING_FISHYSegmentRomStart, _SOMETHING_FISHYSegmentRomEnd,
+    _ICE_N_EASY_DOES_ITSegmentRomStart, _ICE_N_EASY_DOES_ITSegmentRomEnd,
+    _PINBALL_BLIZZARDSegmentRomStart, _PINBALL_BLIZZARDSegmentRomEnd,
+    _WALRACE_64SegmentRomStart, _WALRACE_64SegmentRomEnd,
+    _PENGUIN_PLAYPENSegmentRomStart, _PENGUIN_PLAYPENSegmentRomEnd,
+    _SNOW_JOKESegmentRomStart, _SNOW_JOKESegmentRomEnd,
+    _UNUSED_ICE_SLOT_7SegmentRomStart, _UNUSED_ICE_SLOT_7SegmentRomEnd,
+    _HOPPA_CHOPPASegmentRomStart, _HOPPA_CHOPPASegmentRomEnd,
+    _UNUSED_ICE_SLOT_9SegmentRomStart, _UNUSED_ICE_SLOT_9SegmentRomEnd,
+    _UNUSED_ICE_SLOT_10SegmentRomStart, _UNUSED_ICE_SLOT_10SegmentRomEnd,
     // jungle
-    WEIGHT_FOR_IT_ROM_START, WEIGHT_FOR_IT_ROM_END,
-    UNUSED_JUNGLE_SLOT_2_ROM_START, UNUSED_JUNGLE_SLOT_2_ROM_END,
-    JUNGLE_JUMPS_ROM_START, JUNGLE_JUMPS_ROM_END,
-    SWAMP_OF_ETERNAL_STENCH_ROM_START, SWAMP_OF_ETERNAL_STENCH_ROM_END,
-    JUNGLE_DOLDRUMS_ROM_START, JUNGLE_DOLDRUMS_ROM_END,
-    EVOS_ESCAPE_ROM_START, EVOS_ESCAPE_ROM_END,
-    JUNGLE_JAPES_ROM_START, JUNGLE_JAPES_ROM_END,
-    UNUSED_JUNGLE_SLOT_8_ROM_START, UNUSED_JUNGLE_SLOT_8_ROM_END,
-    UNUSED_JUNGLE_SLOT_9_ROM_START, UNUSED_JUNGLE_SLOT_9_ROM_END,
-    UNUSED_JUNGLE_SLOT_10_ROM_START, UNUSED_JUNGLE_SLOT_10_ROM_END,
+    _WEIGHT_FOR_ITSegmentRomStart, _WEIGHT_FOR_ITSegmentRomEnd,
+    _UNUSED_JUNGLE_SLOT_2SegmentRomStart, _UNUSED_JUNGLE_SLOT_2SegmentRomEnd,
+    _JUNGLE_JUMPSSegmentRomStart, _JUNGLE_JUMPSSegmentRomEnd,
+    _SWAMP_OF_ETERNAL_STENCHSegmentRomStart, _SWAMP_OF_ETERNAL_STENCHSegmentRomEnd,
+    _JUNGLE_DOLDRUMSSegmentRomStart, _JUNGLE_DOLDRUMSSegmentRomEnd,
+    _EVOS_ESCAPESegmentRomStart, _EVOS_ESCAPESegmentRomEnd,
+    _JUNGLE_JAPESSegmentRomStart, _JUNGLE_JAPESSegmentRomEnd,
+    _UNUSED_JUNGLE_SLOT_8SegmentRomStart, _UNUSED_JUNGLE_SLOT_8SegmentRomEnd,
+    _UNUSED_JUNGLE_SLOT_9SegmentRomStart, _UNUSED_JUNGLE_SLOT_9SegmentRomEnd,
+    _UNUSED_JUNGLE_SLOT_10SegmentRomStart, _UNUSED_JUNGLE_SLOT_10SegmentRomEnd,
     // desert
-    FUN_IN_THE_SUN_ROM_START, FUN_IN_THE_SUN_ROM_END,
-    HOT_CROSS_BUNS_ROM_START, HOT_CROSS_BUNS_ROM_END,
-    PUNCHUP_PYRAMID_ROM_START, PUNCHUP_PYRAMID_ROM_END,
-    STING_IN_THE_TAIL_ROM_START, STING_IN_THE_TAIL_ROM_END,
-    SHIFTING_SANDS_ROM_START, SHIFTING_SANDS_ROM_END,
-    WHIRLWIND_TOUR_ROM_START, WHIRLWIND_TOUR_ROM_END,
-    BORASSIC_PARK_ROM_START, BORASSIC_PARK_ROM_END,
-    UNUSED_DESERT_SLOT_8_ROM_START, UNUSED_DESERT_SLOT_8_ROM_END,
-    UNUSED_DESERT_SLOT_9_ROM_START, UNUSED_DESERT_SLOT_9_ROM_END,
-    UNUSED_DESERT_SLOT_10_ROM_START, UNUSED_DESERT_SLOT_10_ROM_END,
+    _FUN_IN_THE_SUNSegmentRomStart, _FUN_IN_THE_SUNSegmentRomEnd,
+    _HOT_CROSS_BUNSSegmentRomStart, _HOT_CROSS_BUNSSegmentRomEnd,
+    _PUNCHUP_PYRAMIDSegmentRomStart, _PUNCHUP_PYRAMIDSegmentRomEnd,
+    _STING_IN_THE_TAILSegmentRomStart, _STING_IN_THE_TAILSegmentRomEnd,
+    _SHIFTING_SANDSSegmentRomStart, _SHIFTING_SANDSSegmentRomEnd,
+    _WHIRLWIND_TOURSegmentRomStart, _WHIRLWIND_TOURSegmentRomEnd,
+    _BORASSIC_PARKSegmentRomStart, _BORASSIC_PARKSegmentRomEnd,
+    _UNUSED_DESERT_SLOT_8SegmentRomStart, _UNUSED_DESERT_SLOT_8SegmentRomEnd,
+    _UNUSED_DESERT_SLOT_9SegmentRomStart, _UNUSED_DESERT_SLOT_9SegmentRomEnd,
+    _UNUSED_DESERT_SLOT_10SegmentRomStart, _UNUSED_DESERT_SLOT_10SegmentRomEnd,
 };
 
 u8** D_803A5BE8_7B7298[4] = {
@@ -221,50 +221,50 @@ u8** D_803A5BE8_7B7298[4] = {
 
 // levels
 u8 *D_803A5BF8_7B72A8[72] = {
-    levels_SMASHING_START_ROM_START, levels_SMASHING_START_ROM_END,
-    levels_HAVE_A_NICE_DAY_ROM_START, levels_HAVE_A_NICE_DAY_ROM_END,
-    levels_HONEYMOON_LAGOON_ROM_START, levels_HONEYMOON_LAGOON_ROM_END,
-    levels_THE_BATTERY_FARM_ROM_START, levels_THE_BATTERY_FARM_ROM_END,
-    levels_THE_ENGINE_ROOM_ROM_START, levels_THE_ENGINE_ROOM_ROM_END,
-    levels_FAT_BEAR_MOUNTAIN_ROM_START, levels_FAT_BEAR_MOUNTAIN_ROM_END,
-    levels_ROCKY_HARD_PLACE_ROM_START, levels_ROCKY_HARD_PLACE_ROM_END,
-    levels_STINKY_SEWERS_ROM_START, levels_STINKY_SEWERS_ROM_END,
-    levels_RAT_O_MATIC_ROM_START, levels_RAT_O_MATIC_ROM_END,
-    levels_GIVE_A_DOG_A_BONUS_ROM_START, levels_GIVE_A_DOG_A_BONUS_ROM_END,
+    _levels_SMASHING_STARTSegmentRomStart, _levels_SMASHING_STARTSegmentRomEnd,
+    _levels_HAVE_A_NICE_DAYSegmentRomStart, _levels_HAVE_A_NICE_DAYSegmentRomEnd,
+    _levels_HONEYMOON_LAGOONSegmentRomStart, _levels_HONEYMOON_LAGOONSegmentRomEnd,
+    _levels_THE_BATTERY_FARMSegmentRomStart, _levels_THE_BATTERY_FARMSegmentRomEnd,
+    _levels_THE_ENGINE_ROOMSegmentRomStart, _levels_THE_ENGINE_ROOMSegmentRomEnd,
+    _levels_FAT_BEAR_MOUNTAINSegmentRomStart, _levels_FAT_BEAR_MOUNTAINSegmentRomEnd,
+    _levels_ROCKY_HARD_PLACESegmentRomStart, _levels_ROCKY_HARD_PLACESegmentRomEnd,
+    _levels_STINKY_SEWERSSegmentRomStart, _levels_STINKY_SEWERSSegmentRomEnd,
+    _levels_RAT_O_MATICSegmentRomStart, _levels_RAT_O_MATICSegmentRomEnd,
+    _levels_GIVE_A_DOG_A_BONUSSegmentRomStart, _levels_GIVE_A_DOG_A_BONUSSegmentRomEnd,
 
-    levels_SNOW_JOKE_ROM_START, levels_SNOW_JOKE_ROM_END,
-    levels_ICE_N_EASY_DOES_IT_ROM_START, levels_ICE_N_EASY_DOES_IT_ROM_END,
-    levels_PENGUIN_PLAYPEN_ROM_START, levels_PENGUIN_PLAYPEN_ROM_END,
-    levels_PINBALL_BLIZZARD_ROM_START, levels_PINBALL_BLIZZARD_ROM_END,
-    levels_HOPPA_CHOPPA_ROM_START, levels_HOPPA_CHOPPA_ROM_END,
-    levels_SOMETHING_FISHY_ROM_START, levels_SOMETHING_FISHY_ROM_END,
-    levels_WALRACE_64_ROM_START, levels_WALRACE_64_ROM_END,
+    _levels_SNOW_JOKESegmentRomStart, _levels_SNOW_JOKESegmentRomEnd,
+    _levels_ICE_N_EASY_DOES_ITSegmentRomStart, _levels_ICE_N_EASY_DOES_ITSegmentRomEnd,
+    _levels_PENGUIN_PLAYPENSegmentRomStart, _levels_PENGUIN_PLAYPENSegmentRomEnd,
+    _levels_PINBALL_BLIZZARDSegmentRomStart, _levels_PINBALL_BLIZZARDSegmentRomEnd,
+    _levels_HOPPA_CHOPPASegmentRomStart, _levels_HOPPA_CHOPPASegmentRomEnd,
+    _levels_SOMETHING_FISHYSegmentRomStart, _levels_SOMETHING_FISHYSegmentRomEnd,
+    _levels_WALRACE_64SegmentRomStart, _levels_WALRACE_64SegmentRomEnd,
 
-    levels_JUNGLE_JAPES_ROM_START, levels_JUNGLE_JAPES_ROM_END,
-    levels_JUNGLE_DOLDRUMS_ROM_START, levels_JUNGLE_DOLDRUMS_ROM_END,
-    levels_SWAMP_OF_ETERNAL_STENCH_ROM_START, levels_SWAMP_OF_ETERNAL_STENCH_ROM_END,
-    levels_WEIGHT_FOR_IT_ROM_START, levels_WEIGHT_FOR_IT_ROM_END,
-    levels_JUNGLE_JUMPS_ROM_START, levels_JUNGLE_JUMPS_ROM_END,
-    levels_EVOS_ESCAPE_ROM_START, levels_EVOS_ESCAPE_ROM_END,
+    _levels_JUNGLE_JAPESSegmentRomStart, _levels_JUNGLE_JAPESSegmentRomEnd,
+    _levels_JUNGLE_DOLDRUMSSegmentRomStart, _levels_JUNGLE_DOLDRUMSSegmentRomEnd,
+    _levels_SWAMP_OF_ETERNAL_STENCHSegmentRomStart, _levels_SWAMP_OF_ETERNAL_STENCHSegmentRomEnd,
+    _levels_WEIGHT_FOR_ITSegmentRomStart, _levels_WEIGHT_FOR_ITSegmentRomEnd,
+    _levels_JUNGLE_JUMPSSegmentRomStart, _levels_JUNGLE_JUMPSSegmentRomEnd,
+    _levels_EVOS_ESCAPESegmentRomStart, _levels_EVOS_ESCAPESegmentRomEnd,
 
-    levels_FUN_IN_THE_SUN_ROM_START, levels_FUN_IN_THE_SUN_ROM_END,
-    levels_HOT_CROSS_BUNS_ROM_START, levels_HOT_CROSS_BUNS_ROM_END,
-    levels_STING_IN_THE_TAIL_ROM_START, levels_STING_IN_THE_TAIL_ROM_END,
-    levels_BORASSIC_PARK_ROM_START, levels_BORASSIC_PARK_ROM_END,
-    levels_WHIRLWIND_TOUR_ROM_START, levels_WHIRLWIND_TOUR_ROM_END,
-    levels_SHIFTING_SANDS_ROM_START, levels_SHIFTING_SANDS_ROM_END,
-    levels_PUNCHUP_PYRAMID_ROM_START, levels_PUNCHUP_PYRAMID_ROM_END,
+    _levels_FUN_IN_THE_SUNSegmentRomStart, _levels_FUN_IN_THE_SUNSegmentRomEnd,
+    _levels_HOT_CROSS_BUNSSegmentRomStart, _levels_HOT_CROSS_BUNSSegmentRomEnd,
+    _levels_STING_IN_THE_TAILSegmentRomStart, _levels_STING_IN_THE_TAILSegmentRomEnd,
+    _levels_BORASSIC_PARKSegmentRomStart, _levels_BORASSIC_PARKSegmentRomEnd,
+    _levels_WHIRLWIND_TOURSegmentRomStart, _levels_WHIRLWIND_TOURSegmentRomEnd,
+    _levels_SHIFTING_SANDSSegmentRomStart, _levels_SHIFTING_SANDSSegmentRomEnd,
+    _levels_PUNCHUP_PYRAMIDSegmentRomStart, _levels_PUNCHUP_PYRAMIDSegmentRomEnd,
 
-    levels_BIG_CELEBRATION_PARADE_ROM_START, levels_BIG_CELEBRATION_PARADE_ROM_END,
+    _levels_BIG_CELEBRATION_PARADESegmentRomStart, _levels_BIG_CELEBRATION_PARADESegmentRomEnd,
 
-    levels_SECRET_LEVEL_ROM_START, levels_SECRET_LEVEL_ROM_END,
+    _levels_SECRET_LEVELSegmentRomStart, _levels_SECRET_LEVELSegmentRomEnd,
 
-    levels_EMPTY_LEVEL_1_ROM_START, levels_EMPTY_LEVEL_1_ROM_END,
-    levels_EMPTY_LEVEL_2_ROM_START, levels_EMPTY_LEVEL_2_ROM_END,
+    _levels_EMPTY_LEVEL_1SegmentRomStart, _levels_EMPTY_LEVEL_1SegmentRomEnd,
+    _levels_EMPTY_LEVEL_2SegmentRomStart, _levels_EMPTY_LEVEL_2SegmentRomEnd,
 
-    levels_CREDITS_ROM_START, levels_CREDITS_ROM_END,
+    _levels_CREDITSSegmentRomStart, _levels_CREDITSSegmentRomEnd,
 
-    levels_INTRO_ROM_START, levels_INTRO_ROM_END
+    _levels_INTROSegmentRomStart, _levels_INTROSegmentRomEnd
 };
 
 // ========================================================
@@ -426,7 +426,7 @@ void load_level_data_sections(void) {
     copy_or_extract(base, gFramebuffer, 0x25800);
     buf = gFramebuffer;
 
-    sp7A = D_803D553E; // animals in level
+    sp7A = gNumAnimalsInLevel; // animals in level
     done = 0;
 
     do {
@@ -483,7 +483,7 @@ void load_level_data_sections(void) {
                         &D_803E4D40[cob->commandReferenceIdx] - 1,
                         cob->commandsLength);
                 }
-                obj->unk246 = cob->unk12;
+                obj->cmdIndex = cob->unk12;
                 cob++;
             }
             break;
@@ -506,7 +506,7 @@ void load_level_data_sections(void) {
                     can->id,
                     0);
 
-                obj = D_801D9ED8.animals[D_803D553E - 1].animal;
+                obj = D_801D9ED8.animals[gNumAnimalsInLevel - 1].animal;
 
                 if (can->unkC != 0) {
                     cmdWrapper = &D_803E4D40[can->unkC] - 1;
@@ -516,7 +516,7 @@ void load_level_data_sections(void) {
                         0);
                 }
 
-                obj->unk246 = can->unkE;
+                obj->cmdIndex = can->unkE;
                 can++;
             }
             break;
@@ -1038,7 +1038,7 @@ void func_8031C48C_72DB3C(void) {
     }
 
     // animals
-    for (i = 0; i < D_803D553E; i++) {
+    for (i = 0; i < gNumAnimalsInLevel; i++) {
         if (D_801D9ED8.animals[i].animal->commands.unk1A8 != NULL) {
             // load in commands
             func_803191B0_72A860(D_801D9ED8.animals[i].animal);
@@ -1053,7 +1053,7 @@ void func_8031C48C_72DB3C(void) {
     D_803F28C2 = 0;
 
     osWritebackDCacheAll();
-    dma_read(model_collision_rnc_ROM_START, D_80100000, model_collision_rnc_ROM_END - model_collision_rnc_ROM_START);
+    dma_read(_model_collision_rncSegmentRomStart, D_80100000, _model_collision_rncSegmentRomEnd - _model_collision_rncSegmentRomStart);
     UnpackRNC(D_80100000, gFramebuffer);
 
     offset = 1;

@@ -10,7 +10,7 @@
 // .bss
 // ========================================================
 
-struct065 D_803DA110[40];
+CollisionNode D_803DA110[40]; // gridCollisionLists
 
 Animal *D_803DA2F0;
 static Animal *D_803DA2F4; // object?
@@ -67,95 +67,95 @@ void func_802DA7F0_6EBEA0(void) {
 }
 
 // ESA: func_800628F4
+// update_animal_collision_grid
 void func_802DA90C_6EBFBC(Animal *arg0) {
-    s16 temp_t6;
-    s16 temp_t9;
+    s16 subCellX;
+    s16 subCellZ;
 
     s16 i;
 
-    s16 sp48[4];
+    s16 newGridCells[4];
 
-    s16 temp_a2;
-    s16 var_a1;
-    s16 var_v0;
-    s16 temp_a3;
+    s16 gridX;
+    s16 matchingCells;
+    s16 cellCount;
+    s16 gridZ;
 
-    u8 var_t1;
+    u8 cornerFlag;
 
-    var_v0 = 0;
-    var_t1 = 0;
+    cellCount = 0;
+    cornerFlag = 0;
 
-    temp_a2 = arg0->position.xPos.h >> 0xA;
-    temp_a3 = arg0->position.zPos.h >> 0xA;
-    temp_t6 = (arg0->position.xPos.h >> 6) & 0xF;
-    temp_t9 = (arg0->position.zPos.h >> 6) & 0xF;
+    gridX = arg0->position.xPos.h >> 0xA;
+    gridZ = arg0->position.zPos.h >> 0xA;
+    subCellX = (arg0->position.xPos.h >> 6) & 0xF;
+    subCellZ = (arg0->position.zPos.h >> 6) & 0xF;
 
 
-    if ((temp_a2 >= 0) && (temp_a2 < 5) && (temp_a3 >= 0) && (temp_a3 < 8)) {
-        sp48[var_v0++] = temp_a2 + (temp_a3 * 5);
+    if ((gridX >= 0) && (gridX < 5) && (gridZ >= 0) && (gridZ < 8)) {
+        newGridCells[cellCount++] = gridX + (gridZ * 5);
     }
-    if (temp_t6 < 4) {
-        if ((temp_a2 > 0) && (temp_a2 < 6) && (temp_a3 >= 0) && (temp_a3 < 8)) {
-            sp48[var_v0++] = (temp_a2 + (temp_a3 * 5)) - 1;
+    if (subCellX < 4) {
+        if ((gridX > 0) && (gridX < 6) && (gridZ >= 0) && (gridZ < 8)) {
+            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 1;
         }
-    } else if ((temp_t6 > 11) && (temp_a2 < 4) && (temp_a2 >= -1) && (temp_a3 >= 0) && (temp_a3 < 8)) {
-        var_t1 = 1;
-        sp48[var_v0++] = temp_a2 + (temp_a3 * 5) + 1;
+    } else if ((subCellX > 11) && (gridX < 4) && (gridX >= -1) && (gridZ >= 0) && (gridZ < 8)) {
+        cornerFlag = 1;
+        newGridCells[cellCount++] = gridX + (gridZ * 5) + 1;
     }
-    if (temp_t9 < 4) {
-        if ((temp_a3 > 0) && (temp_a3 < 9) && (temp_a2 >= 0) && (temp_a2 < 5)) {
-            sp48[var_v0++] = (temp_a2 + (temp_a3 * 5)) - 5;
+    if (subCellZ < 4) {
+        if ((gridZ > 0) && (gridZ < 9) && (gridX >= 0) && (gridX < 5)) {
+            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 5;
         }
-    } else if ((temp_t9 > 11) && (temp_a3 < 7) && (temp_a3 >= -1) && (temp_a2 >= 0) && (temp_a2 < 5)) {
-        sp48[var_v0++] = temp_a2 + (temp_a3 * 5) + 5;
-        var_t1 = (var_t1 | 2);
+    } else if ((subCellZ > 11) && (gridZ < 7) && (gridZ >= -1) && (gridX >= 0) && (gridX < 5)) {
+        newGridCells[cellCount++] = gridX + (gridZ * 5) + 5;
+        cornerFlag = (cornerFlag | 2);
     }
 
-    if (var_v0 == 3) {
-        switch (var_t1) {
+    if (cellCount == 3) {
+        switch (cornerFlag) {
         case 0:
-            sp48[var_v0++] = (temp_a2 + (temp_a3 * 5)) - 6;
+            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 6;
             break;
         case 1:
-            sp48[var_v0++] = (temp_a2 + (temp_a3 * 5)) - 4;
+            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 4;
             break;
         case 2:
-            sp48[var_v0++] = temp_a2 + (temp_a3 * 5) + 4;
+            newGridCells[cellCount++] = gridX + (gridZ * 5) + 4;
             break;
         case 3:
-            sp48[var_v0++] = temp_a2 + (temp_a3 * 5) + 6;
+            newGridCells[cellCount++] = gridX + (gridZ * 5) + 6;
             break;
         }
     }
 
-
-    for (;var_v0 < 4; var_v0++) {
-        sp48[var_v0] = 0x7FFF; // fill remaining slots
+    for (;cellCount < 4; cellCount++) {
+        newGridCells[cellCount] = 0x7FFF; // fill remaining slots
     }
 
-    var_a1 = 0;
-    for (; var_a1 < 4; var_a1++) {
-        if (sp48[var_a1] != arg0->unk114[var_a1]) {
+    matchingCells = 0;
+    for (; matchingCells < 4; matchingCells++) {
+        if (newGridCells[matchingCells] != arg0->unk114[matchingCells]) {
             break;
         }
     }
 
-    if (var_a1 != 4) {
+    if (matchingCells != 4) {
         remove_collision_list(arg0); // delete
 
-        for (var_a1 = 0; var_a1 < 4; var_a1++) {
-            if (sp48[var_a1] != 0x7FFF) { // used
+        for (matchingCells = 0; matchingCells < 4; matchingCells++) {
+            if (newGridCells[matchingCells] != 0x7FFF) { // used
 
-                arg0->unk114[var_a1] = sp48[var_a1];
+                arg0->unk114[matchingCells] = newGridCells[matchingCells];
 
-                arg0->unk11C[var_a1].next = D_803DA110[sp48[var_a1]].next;
-                D_803DA110[sp48[var_a1]].next = &arg0->unk11C[var_a1];
-                arg0->unk11C[var_a1].prev = &D_803DA110[sp48[var_a1]];
-                if (arg0->unk11C[var_a1].next != NULL) {
-                    arg0->unk11C[var_a1].next->prev = &arg0->unk11C[var_a1];
+                arg0->unk11C[matchingCells].next = D_803DA110[newGridCells[matchingCells]].next;
+                D_803DA110[newGridCells[matchingCells]].next = &arg0->unk11C[matchingCells];
+                arg0->unk11C[matchingCells].prev = &D_803DA110[newGridCells[matchingCells]];
+                if (arg0->unk11C[matchingCells].next != NULL) {
+                    arg0->unk11C[matchingCells].next->prev = &arg0->unk11C[matchingCells];
                 }
 
-                arg0->unk11C[var_a1].animal = arg0;
+                arg0->unk11C[matchingCells].animal = arg0;
             }
         }
     }
@@ -163,7 +163,7 @@ void func_802DA90C_6EBFBC(Animal *arg0) {
 
 // ESA: func_80062CB4
 void remove_collision_list(Animal *arg0) {
-    struct065 *tmp;
+    CollisionNode *tmp;
     s16 i;
 
     for (i = 0; i < 4; i++) {

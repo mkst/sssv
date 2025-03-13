@@ -1,6 +1,9 @@
 #include <ultra64.h>
 #include "common.h"
 
+// ========================================================
+// externs
+// ========================================================
 
 extern u8  _gfxanimSegmentStart[];      // D_80099600
 extern u8  _gfxanimSegmentEnd[];        // D_800B0B20
@@ -8,6 +11,9 @@ extern u8  _gfxanimSegmentEnd[];        // D_800B0B20
 extern u8  _gfxspecificSegmentStart[];  // D_800B0B20
 extern u8  _gfxspecificSegmentEnd[];    // D_800BA760
 
+// ========================================================
+// .text
+// ========================================================
 
 void load_data_section(u8 segment) {
     u32 len;
@@ -18,53 +24,53 @@ void load_data_section(u8 segment) {
 
     switch (segment) {
     case SEGMENT_CITY:
-        len = city_biome_ROM_END - city_biome_ROM_START;
+        len = _city_biomeSegmentRomEnd - _city_biomeSegmentRomStart;
         SSSV_ASSERT(len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 114)
 
         D_801D9E5C = _gfxanimSegmentStart;
-        dma_read(city_biome_ROM_START, D_801D9E5C, len);
+        dma_read(_city_biomeSegmentRomStart, D_801D9E5C, len);
         D_801D9EC4 = D_801D9E5C;
         break;
     case SEGMENT_EUROPE:
-        len = europe_biome_ROM_END - europe_biome_ROM_START;
+        len = _europe_biomeSegmentRomEnd - _europe_biomeSegmentRomStart;
         SSSV_ASSERT(len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 132)
 
         D_801D9E58 = _gfxanimSegmentStart;
-        dma_read(europe_biome_ROM_START, D_801D9E58, len);
+        dma_read(_europe_biomeSegmentRomStart, D_801D9E58, len);
         D_801D9EC4 = D_801D9E58;
         break;
     case SEGMENT_ICE:
-        len = ice_biome_ROM_END - ice_biome_ROM_START;
+        len = _ice_biomeSegmentRomEnd - _ice_biomeSegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 150)
         D_801D9E60 = _gfxanimSegmentStart;
-        dma_read(ice_biome_ROM_START, D_801D9E60, len);
+        dma_read(_ice_biomeSegmentRomStart, D_801D9E60, len);
         D_801D9EC4 = D_801D9E60;
         break;
     case SEGMENT_DESERT:
-        len = desert_biome_ROM_END - desert_biome_ROM_START;
+        len = _desert_biomeSegmentRomEnd - _desert_biomeSegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 168)
         D_801D9E64 = _gfxanimSegmentStart;
-        dma_read(desert_biome_ROM_START, D_801D9E64, len);
+        dma_read(_desert_biomeSegmentRomStart, D_801D9E64, len);
         D_801D9EC4 = D_801D9E64;
         break;
     case SEGMENT_JUNGLE:
-        len = jungle_biome_ROM_END - jungle_biome_ROM_START;
+        len = _jungle_biomeSegmentRomEnd - _jungle_biomeSegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 186)
         D_801D9E68 = _gfxanimSegmentStart;
-        dma_read(jungle_biome_ROM_START, D_801D9E68, len);
+        dma_read(_jungle_biomeSegmentRomStart, D_801D9E68, len);
         D_801D9EC4 = D_801D9E68;
         break;
     case SEGMENT_SHIP:
         // dan
-        len = data_7F790_ROM_END - data_7F790_ROM_START;
+        len = _data_7F790SegmentRomEnd - _data_7F790SegmentRomStart;
         SSSV_ASSERT(len <= (_gfxspecificSegmentEnd - _gfxspecificSegmentStart), "../src/animinit.c", 206)
         D_801D9E78 = _gfxspecificSegmentStart;
-        dma_read(data_7F790_ROM_START, D_801D9E78, len);
+        dma_read(_data_7F790SegmentRomStart, D_801D9E78, len);
         // menu
-        len = data_116BD0_ROM_END - data_116BD0_ROM_START;
+        len = _data_116BD0SegmentRomEnd - _data_116BD0SegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 218)
         D_801D9E6C = _gfxanimSegmentStart;
-        dma_read(data_116BD0_ROM_START, D_801D9E6C, len);
+        dma_read(_data_116BD0SegmentRomStart, D_801D9E6C, len);
         D_801D9EC4 = D_801D9E6C;
         break;
     }

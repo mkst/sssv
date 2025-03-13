@@ -59,7 +59,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
     s16 phi_a3;
     s16 phi_t0;
     s16 phi_v0;
-    struct065 *phi_s1;
+    CollisionNode *phi_s1;
     s16 phi_a0;
 
     if (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk162 == 1) {
@@ -214,7 +214,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
     s16 var_t5;
 
     Animal *animal;
-    struct065 *var_s6;
+    CollisionNode *var_s6;
 
     temp_s7 = SIN(D_803D552C->heading) >> 9;
     temp_fp = COS(D_803D552C->heading) >> 9;
@@ -374,7 +374,7 @@ void trigger_contagious_laughter(void) {
     s16 sp9A;
     s16 sp98;
 
-    struct065 *var_s1;
+    CollisionNode *var_s1;
     struct035 *temp_t0;
     s32 animalId;
     Animal *animal;
@@ -431,7 +431,7 @@ void trigger_contagious_laughter(void) {
                             if (temp_a2 < 512) {
 
                                 if (animal->unk16C->unk82.unk2) {
-                                    if ((animal->unk366 != 2) && (animal->unk366 != 5)) {
+                                    if ((animal->unk366 != MOVEMENT_MODE_2) && (animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
                                         animalId = animal->unk16C->unk9C;
                                         if ((animalId != EVO_TRANSFER) &&
                                             (animalId != HYENA) &&
@@ -515,7 +515,7 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
     s16 var_t5; // sp48?
     s16 var_t3; // sp74?
     s16 pad;
-    struct065 *var_a3;
+    CollisionNode *var_a3;
     Animal *animal;
 
     temp_v1 = arg0 >> 0xA;
@@ -597,9 +597,9 @@ Animal *func_8037E9AC_79005C(void) {
     sp56 = SIN(D_803D552C->heading) >> 9;
     sp54 = COS(D_803D552C->heading) >> 9;
 
-    for (i = 0; i < D_803D553E; i++) {
+    for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER)) {
-            if ((D_801D9ED8.animals[i].animal->unk366 != 6) && (D_801D9ED8.animals[i].animal->unk366 != 2) && (D_801D9ED8.animals[i].animal->unk366 != 5)) {
+            if ((D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_2) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
                 if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (get_ai_behaviour(D_803D5530->unk16C->objectType, D_801D9ED8.animals[i].animal->unk16C->objectType) != AI_LEADER)) {
 
                     a = D_801D9ED8.animals[i].animal;
@@ -672,8 +672,8 @@ Animal *func_8037ED1C_7903CC(void) {
     temp_fp = SIN(D_803D552C->heading) >> 9;
     var_a3 = COS(D_803D552C->heading) >> 9;
 
-    for (i = 0; i < D_803D553E; i++) {
-        if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
+    for (i = 0; i < gNumAnimalsInLevel; i++) {
+        if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
             if (D_803D5530 != D_801D9ED8.animals[i].animal) {
 
                 animal = D_801D9ED8.animals[i].animal;
@@ -826,7 +826,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
     s16 var_t5;
 
     Animal *animal;
-    struct065 *var_s2;
+    CollisionNode *var_s2;
     s32 pad;
 
     var_t1 = D_803D5530->position.xPos.h;
@@ -991,10 +991,10 @@ void sheep_follow_leader(void) {
     play_sound_effect_at_location(SFX_SHEEP_BAA, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 
     // iterate over all animals in the level
-    for (i = 0; i < D_803D553E; i++) {
+    for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((D_801D9ED8.animals[i].animal != NULL) &&
             (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-            (D_801D9ED8.animals[i].animal->unk366 != 6) &&
+            (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) &&
             (D_801D9ED8.animals[i].animal != D_803D5530) &&
             ((u8)D_801D9ED8.animals[i].animal->unk2A0 == 0) &&
             ((D_801D9ED8.animals[i].unk0->unk9C == SHEEP) || (D_801D9ED8.animals[i].unk0->unk9C == SPRINGY_THINGY))) {

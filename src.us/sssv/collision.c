@@ -32,8 +32,8 @@ u16 D_803D60E2;
 // ESA: func_80070A6C
 void func_802B4D20_6C63D0(void) {
     s16 i; // sp136
-    struct065 *sp130;
-    struct065 *sp12C;
+    CollisionNode *sp130;
+    CollisionNode *sp12C;
 
     Pos sp11C;
     Pos sp118;
@@ -837,7 +837,7 @@ u8 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 // ESA: func_800730B4
 u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg5, u16 arg6) {
     s32 pad[2];
-    struct065 *var_s5;
+    CollisionNode *var_s5;
     Animal *other;
 
     Pos xx; // sp7C

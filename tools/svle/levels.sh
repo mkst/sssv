@@ -31,8 +31,8 @@ LEVELS=(
   WALRACE_64
   WEIGHT_FOR_IT
   WHIRLWIND_TOUR
-  rnc_60E920
+  SECRET_LEVEL
   # rnc_60FFD0 # NOTE: these dont match after being compressed!
   # rnc_6104A0 # NOTE: these dont match after being compressed!
-  rnc_6109D0
+  CREDITS
 )
