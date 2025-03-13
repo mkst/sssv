@@ -8,10 +8,10 @@
 
 extern Gfx D_01004650_3DF20[];
 extern u8 D_01029DD0_636A0[];
-extern u8 D_0103BB20_753F0[]; // img/hud/energy_bar_left.rgba16
-extern u8 D_0103C720_75FF0[]; // img/hud/energy_bar_right.rgba16
-extern u8 D_0103D320_76BF0[]; // img/hud/power_green.rgba16
-extern u8 D_0103D520_76DF0[]; // img/hud/power_blue.rgba16
+extern u8 img_hud_energy_bar_left_rgba16__png[]; // img/hud/energy_bar_left.rgba16
+extern u8 img_hud_energy_bar_right_rgba16__png[]; // img/hud/energy_bar_right.rgba16
+extern u8 img_hud_power_green_rgba16__png[]; // img/hud/power_green.rgba16
+extern u8 img_hud_power_blue_rgba16__png[]; // img/hud/power_blue.rgba16
 
 // ========================================================
 // .data
@@ -78,7 +78,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
         gDPSetTextureLOD(D_801D9E7C++, G_TL_TILE);
         gDPPipeSync(D_801D9E7C++);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103BB20_753F0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, img_hud_energy_bar_left_rgba16__png, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
         gDPPipeSync(D_801D9E7C++);
 
@@ -95,7 +95,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
             1024);
         gDPPipeSync(D_801D9E7C++);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103C720_75FF0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, img_hud_energy_bar_right_rgba16__png, G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 32, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gDPPipeSync(D_801D9E7C++);
 
         new_var = 0x7000; // fuuuu
@@ -134,7 +134,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
 
         gDPSetTextureFilter(D_801D9E7C++, G_TF_POINT);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103D520_76DF0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, img_hud_power_blue_rgba16__png, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gSPTextureRectangle(
             D_801D9E7C++,
             D_803F2CEC + 0x2C,
@@ -147,7 +147,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
             1024,
             1024);
 
-        gDPLoadTextureBlock(D_801D9E7C++, D_0103D320_76BF0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+        gDPLoadTextureBlock(D_801D9E7C++, img_hud_power_green_rgba16__png, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
         gSPTextureRectangle(
             D_801D9E7C++,
             D_803F2CEC + 0x14,
@@ -301,7 +301,7 @@ void func_80349278_75A928(void) {
 // ESA: func_8007DA18
 void func_80349280_75A930(Animal *arg0, s16 damage) {
     if ((arg0->unk16C->unk82.unk2) &&
-        ((arg0->unk366 == 3) || (arg0->unk366 == 4) || (arg0->unk366 == 1))) {
+        ((arg0->unk366 == MOVEMENT_MODE_INJURED) || (arg0->unk366 == MOVEMENT_MODE_CRITICAL) || (arg0->unk366 == MOVEMENT_MODE_NORMAL))) {
         if (damage != 0) {
             arg0->lastHpLost = MAX(arg0->lastHpLost + (damage >> 2), (damage >> 2) + 4);
         }

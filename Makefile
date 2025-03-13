@@ -25,7 +25,9 @@ SRC_DIR   = src.$(VERSION)
 SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
             $(SRC_DIR)/libultra/audio $(SRC_DIR)/libultra/libc \
             $(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals \
-            $(SRC_DIR)/data
+            $(SRC_DIR)/data \
+            $(SRC_DIR)/bss \
+            $(SRC_DIR)/buffers
 
 TOOLS_DIR = tools
 
@@ -60,18 +62,20 @@ I4_RNC_O_FILES      = $(foreach file,$(I4_RNC_FILES),$(BUILD_DIR)/$(file:.i4.rnc
 RGBA16_FILES        = $(shell find assets/img/ -name "*.rgba16.png" 2> /dev/null)
 I4_FILES            = $(shell find assets/img/ -name "*.i4.png" 2> /dev/null)
 I8_FILES            = $(shell find assets/img/ -name "*.i8.png" 2> /dev/null)
+IA16_FILES          = $(shell find assets/img/ -name "*.ia16.png" 2> /dev/null)
 CI4_FILES           = $(shell find assets/img/ -name "*.ci4.png" 2> /dev/null)
 
 
 RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 I4_O_FILES          = $(foreach file,$(I4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 I8_O_FILES          = $(foreach file,$(I8_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
+IA16_O_FILES        = $(foreach file,$(IA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 CI4_O_FILES         = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
 CI4_PAL_O_FILES     = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.ci4.png=.pal.o))
 
 # All Images
 
-IMAGE_O_FILES       = $(RGBA16_RNC_O_FILES) $(I4_RNC_O_FILES) $(RGBA16_O_FILES) $(I4_O_FILES) $(I8_O_FILES) $(CI4_O_FILES) $(CI4_PAL_O_FILES)
+IMAGE_O_FILES       = $(RGBA16_RNC_O_FILES) $(I4_RNC_O_FILES) $(RGBA16_O_FILES) $(I4_O_FILES) $(I8_O_FILES) $(IA16_O_FILES) $(CI4_O_FILES) $(CI4_PAL_O_FILES)
 
 # Generic RNC compressed files
 ALL_RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
@@ -209,6 +213,7 @@ splat: $(SPLAT)
 
 extract: splat check tools
 	$(PYTHON) $(SPLAT) $(BASENAME).$(VERSION).yaml
+	$(PYTHON) $(TOOLS_DIR)/fixup_tlut.py
 
 decompress: $(ALL_RNC_EXTRACTED)
 
@@ -223,6 +228,7 @@ distclean: clean
 	rm -rf asm
 	rm -rf assets
 	rm -f *auto.txt
+	rm -f src.us/data/inc/*
 
 
 ### Recipes
@@ -327,6 +333,11 @@ $(BUILD_DIR)/%.i8.png: %.i8.png
 	@$(IMG_CONVERT) i8 $< $@
 	@printf "[$(GREEN)   i8   $(NO_COL)]  $<\n"
 
+$(BUILD_DIR)/%.ia16.png: %.ia16.png
+	@mkdir -p $$(dirname $@)
+	@$(IMG_CONVERT) ia16 $< $@
+	@printf "[$(GREEN)  ia16  $(NO_COL)]  $<\n"
+
 $(BUILD_DIR)/%.ci4.png: %.ci4.png
 	@mkdir -p $$(dirname $@)
 	@$(IMG_CONVERT) ci4 $< $@
@@ -370,13 +381,13 @@ progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.
 	@rm $^
 
 progress.main.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map main_TEXT_START main_libultra_start_OFFSET main --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map _mainSegmentTextStart main_libultra_start_OFFSET main --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 progress.lib.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map main_libultra_start_OFFSET main_TEXT_END lib --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map main_libultra_start_OFFSET _mainSegmentTextEnd lib --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 progress.overlay1.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map overlay1_TEXT_START overlay1_TEXT_END overlay1 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map _overlay1SegmentTextStart _overlay1SegmentTextEnd overlay1 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 progress.overlay2.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map overlay2_TEXT_START overlay2_TEXT_END overlay2 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map _overlay2SegmentTextStart _overlay2SegmentTextEnd overlay2 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
 
 # fake targets for better error handling
 $(SPLAT):

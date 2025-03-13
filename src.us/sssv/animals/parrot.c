@@ -157,7 +157,7 @@ block_23:
         func_8035D6D0_76ED80();
     }
     if ((sp62 == 0) || (sp62 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->heading, D_01033190_6CA60, (s16) 0x12, (s16) 0xC, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, (s16) 0x12, (s16) 0xC, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
     if (sp62 == 0) {
         func_803034D0_714B80(D_803D552C, 0x2BE, 0, 1);
@@ -166,7 +166,7 @@ block_23:
     } else {
         func_80303D00_7153B0(D_803D552C, 0x2BE, 0);
     }
-    if ((D_803D5524->unk9C == PARROT_ATTACKING) && ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5))) {
+    if ((D_803D5524->unk9C == PARROT_ATTACKING) && ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED))) {
         load_animal(PARROT);
     }
 }

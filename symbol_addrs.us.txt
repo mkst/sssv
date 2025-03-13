@@ -1,7 +1,179 @@
+// rom sections
+
+_segment1SegmentRomStart          = 0x398D0; // defined:true
+_data_7F790SegmentRomStart        = 0x7F790; // defined:true
+_HAVE_A_NICE_DAYSegmentRomStart   = 0x85790; // defined:true
+_europe_biomeSegmentRomStart      = 0xC7A30; // defined:true
+_ice_biomeSegmentRomStart         = 0xDD5C0; // defined:true
+_desert_biomeSegmentRomStart      = 0xE75B0; // defined:true
+_jungle_biomeSegmentRomStart      = 0xF1060; // defined:true
+_city_biomeSegmentRomStart        = 0xFFD50; // defined:true
+_data_116BD0SegmentRomStart       = 0x116BD0; // defined:true
+_fontsSegmentRomStart             = 0x12A390; // defined:true
+
+_alBankFile1SegmentRomStart       = 0x12EDC0; // defined:true
+_alTable1SegmentRomStart          = 0x133450; // defined:true
+_alBankFile2SegmentRomStart       = 0x1B6510; // defined:true
+_alTable2SegmentRomStart          = 0x1C7C80; // defined:true
+_alSeqFileSegmentRomStart         = 0x40B210; // defined:true
+__5449C0SegmentRomStart           = 0x5449C0; // defined:true
+__546BC0SegmentRomStart           = 0x546BC0; // defined:true
+_model_collision_rncSegmentRomStart = 0x637160; // defined:true
+
+// buffers
+gFramebuffer                = 0x80000400; // defined:true
+D_800EF0D0                  = 0x800EF0D0; // defined:true
+D_800B49A0                  = 0x800B49A0; // defined:true
+D_800B68E0                  = 0x800B68E0; // defined:true
+D_800BA760                  = 0x800BA760; // defined:true
+D_800BB700                  = 0x800BB700; // defined:true
+D_800BBBB0                  = 0x800BBBB0; // defined:true
+D_800BC060                  = 0x800BC060; // defined:true
+D_800BC510                  = 0x800BC510; // defined:true
+D_800BC9C0                  = 0x800BC9C0; // defined:true
+D_800BCE70                  = 0x800BCE70; // defined:true
+D_800BD320                  = 0x800BD320; // defined:true
+D_800BD7D0                  = 0x800BD7D0; // defined:true
+D_800BDC80                  = 0x800BDC80; // defined:true
+D_800C3A40                  = 0x800C3A40; // defined:true
+D_800C5A40                  = 0x800C5A40; // defined:true
+D_800C7DC0                  = 0x800C7DC0; // defined:true
+D_800CFE60                  = 0x800CFE60; // defined:true
+D_800D5420                  = 0x800D5420; // defined:true
+D_800D7C20                  = 0x800D7C20; // defined:true
+D_800DCC20                  = 0x800DCC20; // defined:true
+D_800DD3F0                  = 0x800DD3F0; // defined:true
+D_800DE390                  = 0x800DE390; // defined:true
+D_800DEE20                  = 0x800DEE20; // defined:true
+D_800DF220                  = 0x800DF220; // defined:true
+fontbuffer                  = 0x800E1220; // defined:true
+D_80100000                  = 0x80100000; // defined:true
+
+// K0 SEG
+
+D_8102A210                  = 0x8102A210; // rom:0x63AE0 defined:true
+D_8102C810                  = 0x8102C810; // rom:0x660E0 defined:true
+D_8102D810                  = 0x8102D810; // rom:0x672E0 defined:true
+D_8102E410                  = 0x8102E410; // rom:0x67EE0 defined:true
+
+// images
+
+img_D_01006C60_40530_rgba16__png = 0x01006C60; // defined:true
+img_D_0100A730_44000_ia16__png   = 0x0100A730; // defined:true
+
+img_eyes6_ci4__png    = 0x010025A0; // defined:true
+img_eyes6_TLUT1_pal   = 0x01002C20; // defined:true
+img_eyes6_TLUT2_pal   = 0x01002C40; // defined:true
+
+img_eyes_ci4__png     = 0x01000620; // defined:true
+img_eyes_TLUT1_pal    = 0x01000CA0; // defined:true
+
+img_eyes_TLUT2_pal = 0x1000CC0; // defined:true
+img_eyes_TLUT4_pal = 0x1000D00; // defined:true
+img_eyes2_ci4__png = 0x1000D20; // defined:true
+img_eyes5_ci4__png = 0x1002100; // defined:true
+D_01003498_3CD68 = 0x1003498; // defined:true
+D_01003548_3CE18 = 0x1003548; // defined:true
+D_01003588_3CE58 = 0x1003588; // defined:true
+D_01003618_3CEE8 = 0x1003618; // defined:true
+D_01003998_3D268 = 0x1003998; // defined:true
+D_010039F8_3D2C8 = 0x10039F8; // defined:true
+D_01003A28_3D2F8 = 0x1003A28; // defined:true
+D_01003A58_3D328 = 0x1003A58; // defined:true
+D_01003BD0_3D4A0 = 0x1003BD0; // defined:true
+D_01004308_3DBD8 = 0x1004308; // defined:true
+D_01004458_3DD28 = 0x1004458; // defined:true
+D_01004828_3E0F8 = 0x1004828; // defined:true
+D_010049E8_3E2B8 = 0x10049E8; // defined:true
+D_01004AF8_3E3C8 = 0x1004AF8; // defined:true
+D_01004B98_3E468 = 0x1004B98; // defined:true
+D_01004D90_3E660 = 0x1004D90; // defined:true
+D_01004E80_3E750 = 0x1004E80; // defined:true
+D_01006260_3FB30 = 0x1006260; // defined:true
+D_01006A08_402D8 = 0x1006A08; // defined:true
+D_01006A40_40310 = 0x1006A40; // defined:true
+D_01006A78_40348 = 0x1006A78; // defined:true
+D_01006AB0_40380 = 0x1006AB0; // defined:true
+D_01006AE8_403B8 = 0x1006AE8; // defined:true
+D_010084A0_41D70 = 0x10084A0; // defined:true
+D_0100A6D0_43FA0 = 0x100A6D0; // defined:true
+D_01011B78_4B448 = 0x1011B78; // defined:true
+D_01020DB0_5A680 = 0x1020DB0; // defined:true
+D_010215B0_5AE80 = 0x10215B0; // defined:true
+D_01021BB0_5B480 = 0x1021BB0; // defined:true
+img_bear_nose_ci4__png = 0x10224B0; // defined:true
+img_bear_nose_pal = 0x10226B0; // defined:true
+D_010226D0_5BFA0 = 0x10226D0; // defined:true
+D_01022ED0_5C7A0 = 0x1022ED0; // defined:true
+D_01023550_5CE20 = 0x1023550; // defined:true
+D_01023D50_5D620 = 0x1023D50; // defined:true
+D_01024550_5DE20 = 0x1024550; // defined:true
+D_01025750_5F020 = 0x1025750; // defined:true
+D_01026950_60220 = 0x1026950; // defined:true
+D_01027B50_61420 = 0x1027B50; // defined:true
+D_01028D50_62620 = 0x1028D50; // defined:true
+D_01029550_62E20 = 0x1029550; // defined:true
+D_01029DD0_636A0 = 0x1029DD0; // defined:true
+D_01029E10_636E0 = 0x1029E10; // defined:true
+D_0102B610_64EE0 = 0x102B610; // defined:true
+D_0102B810_650E0 = 0x102B810; // defined:true
+D_0102BA10_652E0 = 0x102BA10; // defined:true
+D_0102C210_65AE0 = 0x102C210; // defined:true
+D_0102C810_660E0 = 0x102C810; // defined:true
+D_0102CA10_662E0 = 0x102CA10; // defined:true
+img_D_0102F010_688E0_rgba16__png = 0x102F010; // defined:true
+D_01030810_6A0E0 = 0x1030810; // defined:true
+img_D_01031010_6A8E0_rgba16__png = 0x1031010; // defined:true
+img_D_01033190_6CA60_i4__png = 0x1033190; // defined:true
+D_01035190_6EA60 = 0x1035190; // defined:true
+D_01035990_6F260 = 0x1035990; // defined:true
+D_01036190_6FA60 = 0x1036190; // defined:true
+D_01036C90_70560 = 0x1036C90; // defined:true
+D_01036D90_70660 = 0x1036D90; // defined:true
+D_01036E90_70760 = 0x1036E90; // defined:true
+D_01037750_71020 = 0x1037750; // defined:true
+D_01037998_71268 = 0x1037998; // defined:true
+D_010379D8_712A8 = 0x10379D8; // defined:true
+D_01037A00_712D0 = 0x1037A00; // defined:true
+D_01037A20_712F0 = 0x1037A20; // defined:true
+D_01038220_71AF0 = 0x1038220; // defined:true
+D_01038A20_722F0 = 0x1038A20; // defined:true
+D_01039220_72AF0 = 0x1039220; // defined:true
+D_01039A20_732F0 = 0x1039A20; // defined:true
+D_0103A220_73AF0 = 0x103A220; // defined:true
+img_tank_tracks_ci4__png = 0x103AA20; // defined:true
+img_tank_tracks_pal = 0x103AC20; // defined:true
+img_D_0103AC40_74510_ci4__png = 0x103AC40; // defined:true
+img_D_0103AC40_74510_pal = 0x103B440; // defined:true
+D_0103BB20_753F0 = 0x103BB20; // defined:true
+D_0103C720_75FF0 = 0x103C720; // defined:true
+D_0103D320_76BF0 = 0x103D320; // defined:true
+D_0103D520_76DF0 = 0x103D520; // defined:true
+D_0103ECB0_78580 = 0x103ECB0; // defined:true
+D_01040CB0_7A580 = 0x1040CB0; // defined:true
+img_D_01044CB0_7E580_i4__png = 0x1044CB0; // defined:true
+img_D_010454B0_7ED80_i4__png = 0x10454B0; // defined:true
+
+D_4000000 = 0x4000000; // ignore:true
+
+img_vulture_D_04000B10_E80C0_ci4__png = 0x4000B10; // defined:true
+img_penguin_head_ci4__png  = 0x4001330; // defined:true
+img_penguin_head_TLUT1_pal = 0x4001730; // defined:true
+img_penguin_head_TLUT2_pal = 0x4001750; // defined:true
+
+img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__ci4__png = 0x400C6C0; // defined:true
+img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__pal = 0x400C8C0; // defined:true
+
+img_menu_ZONE_SELECT_D_04012B20_1296F0_rgba16_rnc_D_04012B20_1296F0__rgba16__rnc = 0x4012B20; // defined:true
+img_trophies_EVO_HEAD_D_04013060_129C30_rgba16_rnc_D_04013060_129C30__rgba16__rnc = 0x4013060; // defined:true
+img_trophies_EVO_LEG_D_040131B0_129D80_rgba16_rnc_D_040131B0_129D80__rgba16__rnc = 0x40131B0; // defined:true
+img_trophies_EVO_ARM_D_040133C0_129F90_rgba16_rnc_D_040133C0_129F90__rgba16__rnc  = 0x40133C0; // defined:true
+img_trophies_EVO_TORSO_D_04013580_12A150_rgba16_rnc_D_04013580_12A150__rgba16__rnc = 0x4013580; // defined:true
+
 // main_7770/load_overlay.s
-overlay2_ROM_END   = 0x7D1AD0;
-overlay1_ROM_START = 0x6384F0;
-overlay2_ROM_START = 0x6A6500;
+_overlay2SegmentRomEnd   = 0x7D1AD0; // defined:true
+_overlay1SegmentRomStart = 0x6384F0; // defined:true
+_overlay2SegmentRomStart = 0x6A6500; // defined:true
 
 //
 alCSPNew                    = 0x80133F00;
@@ -18,15 +190,6 @@ thread9           = 0x80137294;
 
 do_rumble         = 0x801373CC;
 
-osTvType          = 0x80000300;
-osResetType       = 0x8000030C;
-osAppNMIBuffer    = 0x8000031C;
-
-gFramebuffer      = 0x80000400;
-
-_fontbufferSegmentStart     = 0x800E1220;
-_fontbufferSegmentEnd       = 0x800EF0D0;
-
 gMusicVolume      = 0x801546D0;
 gSfxVolume        = 0x801546D4;
 gAudioInitialized = 0x80155154;
@@ -34,16 +197,8 @@ numControllers    = 0x80158544;
 
 gScreenWidth      = 0x80203FD0;
 gScreenHeight     = 0x80203FD2;
-gAudioThread      = 0x8023F428;
-gThread6          = 0x80286570;
-gThread7          = 0x80286720;
-gThread1          = 0x802868D0;
-gThread9          = 0x80286A80;
 
 gEepromGlobal     = 0x8023F2A0; // segment:overlay1 size:0x40
-
-gControllerInput       = 0x802910D0;
-gControllerStatus      = 0x802910D8;
 
 strlen_sssv            = 0x80128DD0;
 strcat                 = 0x80128E18;
@@ -145,29 +300,31 @@ init_rumble_pak        = 0x80137840;
 
 gRegion                = 0x80204260;
 gRefreshRate           = 0x80204294;
-OutputPtr              = 0x8022E0DC;
-OutputEnd              = 0x8022E0D4;
-RawHuffmanTable        = 0x8022E0E0;
-PosHuffmanTable        = 0x8022E1E0;
-LenHuffmanTable        = 0x8022E2E0;
-InputPtr               = 0x8022E3E0;
-BitBuffBits            = 0x8022E3E4;
-BitBuffM1              = 0x8022E0D8;
-BitBuffM2              = 0x8022E0D0;
-FirstEntry             = 0x8022E3E6;
-SecondEntry            = 0x8022E3E8;
+
+BitBuffM2              = 0x8022E0D0; // defined:true
+OutputEnd              = 0x8022E0D4; // defined:true
+BitBuffM1              = 0x8022E0D8; // defined:true
+OutputPtr              = 0x8022E0DC; // defined:true
+RawHuffmanTable        = 0x8022E0E0; // defined:true
+PosHuffmanTable        = 0x8022E1E0; // defined:true
+LenHuffmanTable        = 0x8022E2E0; // defined:true
+InputPtr               = 0x8022E3E0; // defined:true
+BitBuffBits            = 0x8022E3E4; // defined:true
+FirstEntry             = 0x8022E3E6; // defined:true
+SecondEntry            = 0x8022E3E8; // defined:true
+
+D_8022E3F0             = 0x8022E3F0; // defined:true size:0x36b0 segment:main
+D_80231AA0             = 0x80231AA0; // defined:true
+D_80231D50             = 0x80231D50; // defined:true size:0x700C
+D_80235410             = 0x80235410; // defined:true
 
 backup_joint_positions = 0x802DB8DC; // rom:0x6ECF8C
 
-dmaState = 0x80241758;
-dmaBuffs = 0x80241768;
-
-rspbootTextStart       = 0x8014D390; // size:0xD0 name_end:rspbootTextEnd
-gspSprite2DTextStart   = 0x8014D460; // size:0xea0 name_end:gspSprite2DTextEnd
-gspSprite2D_fifoTextStart = 0x8014E300; // size:0xed0 name_end:gspSprite2D_fifoTextEnd
-gspF3DEX_fifoTextStart = 0x8014F1D0; // size:0x1430 name_end:gspF3DEX_fifoTextEnd
-aspMainTextStart       = 0x80150600; // size:0xE30 name_end:aspMainTextEnd
-
+rspbootTextStart       = 0x8014D390; // size:0xD0 name_end:rspbootTextEnd defined:true
+gspSprite2DTextStart   = 0x8014D460; // size:0xea0 name_end:gspSprite2DTextEnd defined:true
+gspSprite2D_fifoTextStart = 0x8014E300; // size:0xed0 name_end:gspSprite2D_fifoTextEnd defined:true
+gspF3DEX_fifoTextStart = 0x8014F1D0; // size:0x1430 name_end:gspF3DEX_fifoTextEnd defined:true
+aspMainTextStart       = 0x80150600; // size:0xE30 name_end:aspMainTextEnd defined:true
 
 nextDMA                = 0x80154684;
 audFrameCt             = 0x80154680;
@@ -178,22 +335,11 @@ gspSprite2D_fifoDataStart = 0x8015C750; // size:0xfc0 name_end:gspSprite2D_fifoD
 gspF3DEX_fifoDataStart = 0x8015D710; // size:0x800 name_end:gspF3DEX_fifoDataEnd
 aspMainDataStart       = 0x8015DF10; // size:0x2C0 name_end:aspMainDataEnd
 
-
-sc                     = 0x801603D0;
-
 D_801D9E98             = 0x801D9E98; // segment:overlay2 size:0x20
-
-minFrameSize           = 0x80241D08;
-frameSize              = 0x80241D0A;
-maxFrameSize           = 0x80241D0C;
-audDMAIOMesgBuf        = 0x80241D10;
-audDMAMessageQ         = 0x802423D0;
-
-gCurrentMusicTrack     = 0x8028645C;
-
 
 // size hacks
 D_80299960_63D000      = 0x80299960; // rom:0x63D000 size:0xE0
+D_80299D90_63D430      = 0x80299D90; // rom:0x63D430 size:0x10
 D_80299E10_63D4B0      = 0x80299E10; // rom:0x63D4B0 size:0x2
 D_803A0510_7B1BC0      = 0x803A0510; // rom:0x7B1BC0 size:0x20
 
@@ -203,8 +349,32 @@ D_803A6D08_7B83B8      = 0x803A6D08; // rom:0x7B83B8 size:0xC
 D_803A6D14_7B83C4      = 0x803A6D14; // rom:0x7B83C4 size:0xC
 D_803A7B24_7B91D4      = 0x803A7B24; // rom:0x7B91D4 size:0x14
 
+D_802042B0             = 0x802042B0; // defined:true
+D_802042EC             = 0x802042EC; // defined:true
+
+D_802042F0             = 0x802042F0; // defined:true
+D_80204368             = 0x80204368; // defined:true
+D_802043E0             = 0x802043E0; // defined:true
+
+D_802053E0             = 0x802053E0; // defined:true
+D_802053F0             = 0x802053F0; // defined:true
+D_80205400             = 0x80205400; // defined:true
+D_8020540C             = 0x8020540C; // defined:true
+D_80205410             = 0x80205410; // defined:true
+D_80205470             = 0x80205470; // defined:true
+
+D_80205478             = 0x80205478; // defined:true
+D_80210FF0             = 0x80210FF0; // defined:true
+D_80224870             = 0x80224870; // defined:true
+D_802255F0             = 0x802255F0; // defined:true
+D_80225650             = 0x80225650; // defined:true size:0x3e80 segment:main
+D_802294D0             = 0x802294D0; // defined:true
+D_8022D350             = 0x8022D350; // defined:true
 
 D_80203FE0             = 0x80203FE0; // segment:overlay2 size:0x110
+
+D_803B6700_7C7DB0      = 0x803B6700; // rom:0x7C7DB0 size:0x138
+D_803BD530_7CEBE0      = 0x803BD530; // rom:0x7CEBE0 size:0x16c
 
 // end of size hacks
 
@@ -300,7 +470,99 @@ display_trails              = 0x8039EBFC; // rom:0x7B02AC
 
 // main
 
+// thread6
+D_8015E1D0 = 0x8015E1D0; // defined:true
+sc         = 0x801603D0; // defined:true
+D_80162658 = 0x80162658; // defined:true size:0x777e0
+D_801D9E38 = 0x801D9E38; // defined:true
+D_801D9E58 = 0x801D9E58; // defined:true
+D_801D9E5C = 0x801D9E5C; // defined:true
+D_801D9E60 = 0x801D9E60; // defined:true
+D_801D9E64 = 0x801D9E64; // defined:true
+D_801D9E68 = 0x801D9E68; // defined:true
+D_801D9E6C = 0x801D9E6C; // defined:true
+
+D_801D9E70 = 0x801D9E70; // defined:true
+D_801D9E74 = 0x801D9E74; // defined:true
+D_801D9E78 = 0x801D9E78; // defined:true
+D_801D9E7C = 0x801D9E7C; // defined:true
+
+// audiomgr
+__am              = 0x8023F410; // defined:true
+dmaState          = 0x80241758; // defined:true
+dmaBuffs          = 0x80241768; // defined:true
+minFrameSize      = 0x80241D08; // defined:true
+frameSize         = 0x80241D0A; // defined:true
+maxFrameSize      = 0x80241D0C; // defined:true
+audDMAIOMesgBuf   = 0x80241D10; // defined:true
+audDMAMessageQ    = 0x802423D0; // defined:true
+audDMAMessageBuf  = 0x802423E8; // defined:true
+
+D_80242508        = 0x80242508; // defined:true
+
+D_802862F8        = 0x802862F8; // defined:true
+D_802862FC        = 0x802862FC; // defined:true
+D_80286300        = 0x80286300; // defined:true
+D_80286304        = 0x80286304; // defined:true
+D_80286308        = 0x80286308; // defined:true
+D_8028630C        = 0x8028630C; // defined:true
+D_80286310        = 0x80286310; // defined:true
+D_80286314        = 0x80286314; // defined:true
+D_80286318        = 0x80286318; // defined:true
+D_8028631C        = 0x8028631C; // defined:true
+D_80286320        = 0x80286320; // defined:true
+D_80286328        = 0x80286328; // defined:true
+D_80286338        = 0x80286338; // defined:true
+D_80286388        = 0x80286388; // defined:true
+D_802863C8        = 0x802863C8; // defined:true
+D_802863CC        = 0x802863CC; // defined:true
+D_802863D0        = 0x802863D0; // defined:true
+
+D_80286458        = 0x80286458; // defined:true
+D_8028645A        = 0x8028645A; // defined:true
+D_80286460        = 0x80286460; // defined:true
+gCurrentMusicTrack = 0x8028645C; // defined:true
+
+gThread6          = 0x80286570; // defined:true
+gThread7          = 0x80286720; // defined:true
+gThread1          = 0x802868D0; // defined:true
+gThread9          = 0x80286A80; // defined:true
+
+D_80286560        = 0x80286560; // defined:true
+D_80286562        = 0x80286562; // defined:true
+D_80286564        = 0x80286564; // defined:true
+D_80286568        = 0x80286568; // defined:true
+
+D_80288E30        = 0x80288E30; // defined:true
+D_8028B030        = 0x8028B030; // defined:true
+
+D_8028D030        = 0x8028D030; // defined:true
+D_8028D048        = 0x8028D048; // defined:true
+D_8028D060        = 0x8028D060; // defined:true
+D_8028D078        = 0x8028D078; // defined:true
+D_8028D090        = 0x8028D090; // defined:true
+D_8028D0A8        = 0x8028D0A8; // defined:true
+D_8028D0C0        = 0x8028D0C0; // defined:true
+thread9_stack     = 0x8028D230; // defined:true
+D_8028E230        = 0x8028E230; // defined:true
+D_8028F640        = 0x8028F640; // defined:true
+
+D_802902C0        = 0x802902C0; // defined:true
+D_80290F40        = 0x80290F40; // defined:true
+D_80290FC8        = 0x80290FC8; // defined:true
+D_80291048        = 0x80291048; // defined:true
+D_8029104C        = 0x8029104C; // defined:true
+D_80291054        = 0x80291054; // defined:true
+D_80291058        = 0x80291058; // defined:true
+D_8029105C        = 0x8029105C; // defined:true
+D_80291060        = 0x80291060; // defined:true
+D_80291078        = 0x80291078; // defined:true
+
 // thread9
+D_80291090             = 0x80291090; // defined:true
+gControllerInput       = 0x802910D0; // defined:true
+gControllerStatus      = 0x802910D8; // defined:true
+D_802910E8             = 0x802910E8; // defined:true
 D_80291100 = 0x80291100; // defined:true
 D_80291110 = 0x80291110; // defined:true
 D_802912B0 = 0x802912B0; // defined:true
@@ -377,7 +639,7 @@ D_803D5536 = 0x803D5536; // defined:true
 D_803D5538 = 0x803D5538; // defined:true
 D_803D553A = 0x803D553A; // defined:true
 D_803D553C = 0x803D553C; // defined:true
-D_803D553E = 0x803D553E; // defined:true
+gNumAnimalsInLevel = 0x803D553E; // defined:true
 D_803D5540 = 0x803D5540; // defined:true
 D_803D5542 = 0x803D5542; // defined:true
 D_803D5544 = 0x803D5544; // defined:true
@@ -839,6 +1101,11 @@ D_803F7E06 = 0x803F7E06; // defined:true
 // trails
 gTrails    = 0x803F7E10; // defined:true
 trailsUsed = 0x803FDEA0; // defined:true
+
+// end-of-rom data
+
+D_803FDEC0_7D1AD0 = 0x803FDEC0; // rom:0x7D1AD0 defined:true
+D_803FDFDC_7D1BEC = 0x803FDFDC; // rom:0x7D1BEC defined:true
 
 // ========================================================
 // libultra functions

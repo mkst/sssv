@@ -24,7 +24,7 @@ Vtx D_01015090_4E960[15] = {
 };
 
 
-extern u8 D_010134D0_4CDA0[];
+extern u8 img_intro_earth_D_010134D0_4CDA0_D_010134D0_4CDA0__rgba16__png[];
 
 Gfx D_01015180_4EA50[] = {
     gsDPPipeSync(),
@@ -33,7 +33,7 @@ Gfx D_01015180_4EA50[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 64, D_010134D0_4CDA0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 64, img_intro_earth_D_010134D0_4CDA0_D_010134D0_4CDA0__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 6, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 2047, 128),

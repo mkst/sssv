@@ -2,6 +2,9 @@
 
 #include "common.h"
 
+// ========================================================
+// .data
+// ========================================================
 
 u8 D_80152E90 = 1; // current overlay
 u8 D_80152E94 = 1; // unused?
@@ -27,20 +30,51 @@ Vp D_80152EA8 = {{
 }};
 
 u16 D_80152EB8 = 0; // framebuffer id
-u16 D_80152EBC = 0;
+u16 D_80152EBC = 0; // some kind of delay timer?
 
+// ========================================================
+// .bss (0x8015E1D0 to 0x801D9E80)
+// ========================================================
+
+u8 D_8015E1D0[0x2200];  // tbd
+
+OSSched sc;             // 0x801603D0
+
+u8 D_80160658[0x2000];  // padding
+
+struct018 D_80162658[2];
+
+u16  D_801D9E38;
+
+u8  D_801D9E40[0x18];   // padding
+
+u8  *D_801D9E58;
+u8  *D_801D9E5C;
+u8  *D_801D9E60;
+u8  *D_801D9E64;
+u8  *D_801D9E68;
+u8  *D_801D9E6C;
+
+s16 *D_801D9E70;
+u8  *D_801D9E74;
+u8  *D_801D9E78;
+Gfx *D_801D9E7C;
+
+// ========================================================
+// .text
+// ========================================================
 
 // thread 6
 void thread6(s32 arg0) {
-    unsigned long long  i;
+    unsigned long long i;
 
     D_80204290 = 1;
     D_80204292 = 2;
 
-    osCreateMesgQueue(&D_8028D048, &D_802902C0, 32);
-    osCreateMesgQueue(&D_8028D078, &D_80290FC8, 1);
-    osCreateMesgQueue(&D_80291060, &D_80291058, 1);
-    osCreateMesgQueue(&D_80291078, &D_8029105C, 1);
+    osCreateMesgQueue(&D_8028D048, D_802902C0, 32);
+    osCreateMesgQueue(&D_8028D078, D_80290FC8, 1);
+    osCreateMesgQueue(&D_80291060, D_80291058, 1);
+    osCreateMesgQueue(&D_80291078, D_8029105C, 1);
 
     osStartThread(&gThread7);
 
@@ -49,7 +83,7 @@ void thread6(s32 arg0) {
 
     initialise_tv_mode();
 
-    osCreateScheduler(&sc, &D_80162658, 20, D_802053E0.VIModeType, 1);
+    osCreateScheduler(&sc, (void*)D_80162658, 20, D_802053E0.VIModeType, 1);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
 
     gScreenWidth = 320;
@@ -57,21 +91,22 @@ void thread6(s32 arg0) {
 
     gControllerInput = NULL;
 
-    initialise_audio(&D_80286328);
+    initialise_audio((s32 *)&D_80286328);
 
     i = 0; // fakematch
-    // stack (1)?
+
+    // stack (1)
     D_80162658[i].unk3BBA8 = 6;
     D_80162658[i].unk3BBC8 = 2;
     D_80162658[i].framebuffer = gFramebuffer[0];
-    // stack (2)?
-    D_8019A658[0].unk3F798 = 6;
-    D_8019A658[0].unk3F7B8 = 2;
-    D_8019A658[0].unk3F7D8 = gFramebuffer[1];
+    // stack (2)
+    D_80162658[1].unk3BBA8 = 6;
+    D_80162658[1].unk3BBC8 = 2;
+    D_80162658[1].framebuffer = gFramebuffer[1];
 
     clear_framebuffer();
     D_801D9E38 = 5;
-    osCreateMesgQueue(&D_8028D060, &D_80290F40, 32);
+    osCreateMesgQueue(&D_8028D060, D_80290F40, 32);
     osScAddClient(&sc, &D_802042A0, &D_8028D060);
 
     if (init_controllers() <= 0) {
@@ -172,7 +207,7 @@ void thread6_loop(void) {
                     osContStartReadData(&D_8028D0A8);
                     osRecvMesg(&D_8028D0A8, &D_802042EC, OS_MESG_BLOCK);
                     func_8013713C();
-                    osContGetReadData(&D_802910E8);
+                    osContGetReadData(D_802910E8);
                     D_802912D0 = 1;
 #ifdef VERSION_US
                     gControllerInput = &D_802910E8;

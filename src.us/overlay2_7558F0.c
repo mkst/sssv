@@ -58,7 +58,7 @@ static s16  D_803F2CA0;
 static s16  D_803F2CA2;
 static s16  D_803F2CA4;
 s16  D_803F2CA6; // index into D_803E3130
-s8   D_803F2CA8[4][6];  // checked in src/overlay2_6AB090
+s8   D_803F2CA8[4][6];  // whether DL is enabled or not?
 static s64  D_803F2CC0;
 
 // ========================================================
@@ -192,9 +192,9 @@ void func_80344240_7558F0(void) {
     // D_80225650.unk4 = 0xFFFE793C;
     // D_80225650.unk0 = 0xFCFFFFFF;
     // D_80225650 = 0xFCFFFFFFFFFE793C
-    sp13C = &D_80205470;
-    sp138 = &D_80225658;
 
+    sp13C = &D_80205470[0];
+    sp138 = &D_80225650[1]; // +1 because we use [0] now:
     gDPSetCombineMode(D_80225650, G_CC_SHADE, G_CC_SHADE);
 
     for (D_803F2CA4 = 0; D_803F2CA4 < 6; D_803F2CA4++) {
@@ -205,7 +205,7 @@ void func_80344240_7558F0(void) {
 
             // temp_t5 = D_803F2CA4;
             // (*D_803F2CA8)[(D_803F2CA2 * 6) + temp_t5] = 0;
-            D_803F2CA8[D_803F2CA2][D_803F2CA4] = 0;
+            D_803F2CA8[D_803F2CA2][D_803F2CA4] = 0; // unused?
 
             D_803F2C86 = 1;
             D_803F2C88 = 1;
@@ -455,7 +455,7 @@ void func_80344240_7558F0(void) {
                 // temp_a0_3 = D_803F2C80; //->unk0[0];
                 // temp_v0_2 = &D_803F2C80[spFC6]; //->unk0; // + (spFC6 * 0x34);
                 sp58 = D_803F2C80[spFC6].unk0.flags; // flags
-                temp_t5_2 = D_803F2C80[spFC6].unk0.tris;
+                temp_t5_2 = D_803F2C80[spFC6].unk0.unk3;
 
                 // sp58 = (s32) temp_v1;
 
@@ -467,7 +467,7 @@ void func_80344240_7558F0(void) {
 
                 if ((sp58 & 0x20) || (sp58 & 0x10) || (sp58 & 0x200) || (sp58 & 0x8000)) {
                     // (*D_803F2CA8)[(D_803F2CA2 * 6) + D_803F2CA4] = 1;
-                    D_803F2CA8[D_803F2CA2][D_803F2CA4] = 1;
+                    D_803F2CA8[D_803F2CA2][D_803F2CA4] = 1; // used?
                     for (i = 0; i < spFB4; i++) {
                     // if (i < spFB4) {
                         // sp48 = sp58 & 0x4000;
@@ -1080,13 +1080,15 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numTris) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_803458FC_756FAC.s")
 #endif
 
+extern u8 foo[][0xab8];
+
 void func_80346878_757F28(Gfx **arg0, u8 idx) {
     if (idx < 32) {
-        gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[(s32)idx]);
+        gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760 + idx * 0xAB8);
         gDPTileSync((*arg0)++);
         gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     } else {
-        gDPSetTextureImage((*arg0)++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, D_800BA760[(s32)idx]);
+        gDPSetTextureImage((*arg0)++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, D_800BA760 + idx * 0xAB8);
         gDPTileSync((*arg0)++);
         gDPSetTile((*arg0)++, G_IM_FMT_IA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     }
@@ -1097,7 +1099,7 @@ void func_80346878_757F28(Gfx **arg0, u8 idx) {
 
 // load EVO texture?
 void func_803469D4_758084(Gfx **arg0, u16 arg1) {
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_0102F010_688E0 + ((arg1 & 0xFF) << 7));
+    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_D_0102F010_688E0_rgba16__png + ((arg1 & 0xFF) << 7));
     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*arg0)++);
     gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 31, 256);
@@ -1109,7 +1111,7 @@ void func_803469D4_758084(Gfx **arg0, u16 arg1) {
 // load_xlui_texture
 void func_80346AB0_758160(Gfx **arg0, u8 arg1) {
     osSyncPrintf("load xlui texture - %d\n", arg1);
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760[(s32)arg1]);
+    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_800BA760 + arg1 * 0xAB8);
     gDPTileSync((*arg0)++);
     gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPTileSync((*arg0)++);
@@ -1165,7 +1167,7 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     gDPSetTextureLOD((*arg0)++, G_TL_TILE);
                     gSPTexture((*arg0)++, 0x8000, 0x8000, 0, 5, G_ON);
 
-                    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, D_0102B610);
+                    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, D_0102B610_64EE0);
 
                     gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x019E, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync((*arg0)++);
@@ -1204,7 +1206,7 @@ void func_80346BB4_758264(Gfx **arg0, struct115* arg1, s16 numTris) {
                     gDPSetRenderMode((*arg0)++, G_RM_PASS, D_803F2CC0);
                     gDPSetTextureLOD((*arg0)++, G_TL_TILE);
                     gSPTexture((*arg0)++, 0x8000, 0x8000, 0, 5, G_ON);
-                    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, D_0102B810);
+                    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, D_0102B810_650E0);
                     gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x01A0, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync((*arg0)++);
                     gDPLoadTile((*arg0)++, G_TX_LOADTILE, 0, 0, 62, 124);

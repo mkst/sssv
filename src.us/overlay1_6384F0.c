@@ -33,23 +33,6 @@ typedef struct {
 
 // these assets are split & included separately
 
-// 0x802Axxxx
-extern u8   D_802A37E0_646E80[];    // img/intro/president_frank_bloke
-extern u8   D_802AA7B0_64DE50[];    // img/sssv_logo
-
-// 0x802Bxxxx
-extern u8   D_802B58A0_658F40[];    // img/intro/sparkling_smile_1
-extern u8   D_802B5CA0_659340[];    // img/intro/sparkling_smile_2
-extern u8   D_802B60A0_659740[];    // img/intro/sparkling_smile_3
-
-extern u8   D_802BF170_662810[];    // img/intro/200_credz
-// 0x802Cxxxx
-
-extern u8   D_802C6C90_66A330[];    // img/intro/heroes_for_hire
-extern u8   D_802D00F0_673790[];    // img/intro/professor_cheese
-extern u8   D_802DA900_67DFA0[];    // img/intro/space_station
-// 0x802Exxxx
-
 extern const Gfx  D_802EEB20_6921C0[];    // spaceship model
 extern const Gfx  D_802F3C20_6972C0[527]; // N64 controller model
 
@@ -561,7 +544,7 @@ void func_802950B8_638758(void) {
     UnpackRNC((RNC_fileptr)img_menu_trademark_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x74050);
 
     // load "lang34.dat"
-    load_level_text_data(gEepromGlobal.language, 33, D_80231AA0, D_80231D5C);
+    load_level_text_data(gEepromGlobal.language, 33, D_80231AA0, D_80231D50.data);
 
     src = get_message_address_by_id(MSG_CONTROLLER_NOT_CONNECTED);
     dst = D_802042F0;
@@ -724,14 +707,14 @@ void func_80295C38_6392D8(u8 arg0, u8 arg1) {
         // sparkling smile
         switch ((D_80299E14_63D4B4 - D_80299C84_63D324[2]) / 2) {
         case 0:
-            D_80302E64 = D_802B58A0_658F40;
+            D_80302E64 = img_intro_sparkling_smile_1_i8__png;
             break;
         case 1:
         case 3:
-            D_80302E64 = D_802B60A0_659740;
+            D_80302E64 = img_intro_sparkling_smile_3_i8__png;
             break;
         case 2:
-            D_80302E64 = D_802B5CA0_659340;
+            D_80302E64 = img_intro_sparkling_smile_2_i8__png;
             break;
         }
         func_801356C0(D_80299C84_63D324[0], D_80299C84_63D324[1], 32, 32, &D_801D9E7C, D_80302E64, 32.0f, 32.0f, 8);
@@ -755,8 +738,8 @@ void func_80295EB0_639550(s32 x) {
 
 #if 0
 
-#define SHADE 0
-#define PRIMITIVE 0
+// #define SHADE 0
+// #define PRIMITIVE 0
 
 // s16 D_80299FD4_63D674 = 0;
 // s16 D_80299FD8_63D678 = 0;
@@ -949,7 +932,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
                         D_80299E08_63D4A8 = 260;
                     }
                     func_801366BC(&D_801D9E7C, spC7, spC7, spC7, 0xFF);
-                    draw_sprite(&D_801D9E7C, D_80302E88 + 0x74050, 0x140, 0xF0, 0x140, 0xF0, 0, 0, 0, 0, 0x10);
+                    draw_sprite(&D_801D9E7C, (uSprite *)(D_80302E88 + 0x74050), 0x140, 0xF0, 0x140, 0xF0, 0, 0, 0, 0, 0x10);
                     if (gRegion == REGION_EU) {
                         // add Copyright C
                         draw_sprite(&D_801D9E7C, (uSprite*)D_80299E44_63D4E4, 0xA, 0xC, 0xA, 0xC, 0, 0, 0x71, 0x90, 0x10);
@@ -1109,43 +1092,43 @@ void func_80295FAC_63964C(struct018 *arg0) {
 
                 switch (D_80299E2C_63D4CC) {
                 case 0x57:
-                    D_80302E74 = &D_80299A40_63D0E0;
+                    D_80302E74 = D_80299A40_63D0E0;
                     break;
                 case 0x120:
-                    D_80302E74 = &D_80299A58_63D0F8;
+                    D_80302E74 = D_80299A58_63D0F8;
                     break;
                 case 0x121:
-                    D_80302E74 = &D_80299A88_63D128;
+                    D_80302E74 = D_80299A88_63D128;
                     break;
                 case 0x122:
-                    D_80302E74 = &D_80299ACC_63D16C;
+                    D_80302E74 = D_80299ACC_63D16C;
                     break;
                 case 0x123:
-                    D_80302E74 = &D_80299AF8_63D198;
+                    D_80302E74 = D_80299AF8_63D198;
                     break;
                 case 0x124:
-                    D_80302E74 = &D_80299B30_63D1D0;
+                    D_80302E74 = D_80299B30_63D1D0;
                     break;
                 case 0x125:
-                    D_80302E74 = &D_80299B74_63D214;
+                    D_80302E74 = D_80299B74_63D214;
                     break;
                 case 0x126:
-                    D_80302E74 = &D_80299B94_63D234;
+                    D_80302E74 = D_80299B94_63D234;
                     break;
                 case 0x127:
-                    D_80302E74 = &D_80299BC4_63D264;
+                    D_80302E74 = D_80299BC4_63D264;
                     break;
                 case 0x128:
-                    D_80302E74 = &D_80299BF0_63D290;
+                    D_80302E74 = D_80299BF0_63D290;
                     break;
                 case 0x129:
-                    D_80302E74 = &D_80299C20_63D2C0;
+                    D_80302E74 = D_80299C20_63D2C0;
                     break;
                 case 0x12A:
-                    D_80302E74 = &D_80299C50_63D2F0;
+                    D_80302E74 = D_80299C50_63D2F0;
                     break;
                 case 0xFF:
-                    D_80302E74 = &D_80299C70_63D310;
+                    D_80302E74 = D_80299C70_63D310;
                     break;
                 }
 
@@ -1188,7 +1171,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
             D_80299E10_63D4B0 = 105;
             D_80299E0C_63D4AC = 0;
             D_8029A010_63D6B0 = -2;
-            UnpackRNC(&D_802C6C90_66A330, D_80302E88 + 0x3A000); // heroes_for_hire image
+            UnpackRNC(&img_intro_heroes_for_hire_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x3A000); // heroes_for_hire image
         }
 
         if (D_80299FF0_63D690 == 0x1C) {
@@ -1201,7 +1184,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
 
         if ((D_80299FF0_63D690 > 0) && (D_80299FF0_63D690 < 4)) {
             if (D_8029A01C_63D6BC != 0) {
-                UnpackRNC(&D_802DA900_67DFA0, D_80302E88 + 0x3A000); // space_station img
+                UnpackRNC(&img_intro_space_station_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x3A000); // space_station img
                 func_8029597C_63901C(D_80302E88 + 0x3A000, 1); // thumbnail
             } else if (D_80299FF0_63D690 == 1) {
                 func_8029597C_63901C(D_80302E88 + 0x3A000, 1); // thumbnail
@@ -1212,7 +1195,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         }
         if ((D_80299FF0_63D690 > 4) && (D_80299FF0_63D690 < 8)) {
             if (D_8029A01C_63D6BC != 0) {
-                UnpackRNC(&D_802D00F0_673790, D_80302E88 + 0x3A000); // professor_cheese
+                UnpackRNC(&img_intro_professor_cheese_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x3A000); // professor_cheese
                 func_8029597C_63901C(D_80302E88 + 0x3A000, 1);
             } else if (D_80299FF0_63D690 == 5) {
                 func_8029597C_63901C(D_80302E88 + 0x3A000, 1);
@@ -1223,7 +1206,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         }
         if ((D_80299FF0_63D690 > 13) && (D_80299FF0_63D690 < 17)) {
             if (D_8029A01C_63D6BC != 0) {
-                UnpackRNC(&D_802A37E0_646E80, D_80302E88 + 0x3A000); // president_frank_bloke
+                UnpackRNC(&img_intro_president_frank_bloke_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x3A000); // president_frank_bloke
                 func_8029597C_63901C(D_80302E88 + 0x3A000, 1);
             } else if (D_80299FF0_63D690 == 14) {
                 func_8029597C_63901C(D_80302E88 + 0x3A000, 1);
@@ -1263,7 +1246,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         }
         break;
     case 9: // heroes for hire?
-        gSPDisplayList(D_801D9E7C++, &D_801582C0);
+        gSPDisplayList(D_801D9E7C++, D_801582C0);
 
         if ((D_80299E10_63D4B0 == 255) || (D_80299E10_63D4B0 == 105)) {
             D_8029A010_63D6B0 = -D_8029A010_63D6B0;
@@ -1276,7 +1259,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         draw_chunked_image(0, 0, 0x140, 0x100, &D_801D9E7C, D_80302E88 + 0x3A000);
         if (D_80299E0C_63D4AC++ > 20) {
             // show 200 credz popup
-            draw_chunked_image(0xDC, 0x8C, 0x40, 0x40, &D_801D9E7C, D_802BF170_662810);
+            draw_chunked_image(0xDC, 0x8C, 0x40, 0x40, &D_801D9E7C, img_intro_200_credz_rgba16__png);
             if (D_80299E0C_63D4AC == 40) {
                 D_80299E0C_63D4AC = 0;
             }
@@ -1327,9 +1310,9 @@ void func_80295FAC_63964C(struct018 *arg0) {
         func_80295234_6388D4();
 
         func_80136418(&D_801D9E7C, D_80299E10_63D4B0);
-        func_801360C8(&D_801D9E7C, D_80302E88 + 0x50000, 0x100, 0x80, 0x100, 0x7E, 0, 0, 0x20, 0x20, 0xFDE8);
+        func_801360C8(&D_801D9E7C, (uSprite *)(D_80302E88 + 0x50000), 0x100, 0x80, 0x100, 0x7E, 0, 0, 0x20, 0x20, 0xFDE8);
         func_80136418(&D_801D9E7C, D_80299E10_63D4B0);
-        func_801360C8(&D_801D9E7C, D_80302E88 + 0x28000, 0xA0, 0x80, 0x140, 0xF1, 0, 0, 0, 0, 0xFFFF);
+        func_801360C8(&D_801D9E7C, (uSprite *)(D_80302E88 + 0x28000), 0xA0, 0x80, 0x140, 0xF1, 0, 0, 0, 0, 0xFFFF);
 
         load_segments(&D_801D9E7C, D_80204278);
         load_default_display_list(&D_801D9E7C);
@@ -1372,7 +1355,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         gCurrentMusicTrack = MUSIC_TRACK_NEWSCASTER;
         D_80299E10_63D4B0 = 0xFF;
         if (D_80299DC4_63D464 == -2616.0f) {
-            UnpackRNC(&D_802AA7B0_64DE50, D_80302E88 + 0x50000); // sssv_logo
+            UnpackRNC(&img_sssv_logo_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x50000); // sssv_logo
         }
         gSPDisplayList(D_801D9E7C++, D_801582C0);
 
@@ -1555,7 +1538,7 @@ void func_80295FAC_63964C(struct018 *arg0) {
         play_sound_effect(0x8F, 0, 0x5000, 1.0f, 0);
         func_801337DC(0, 30.0f, 20.0f, 0);
         func_8012A400();
-        func_80298F1C_63C5BC(D_8019E240[D_80152EB8 ^ 1], D_80302E88 + 0x62000);
+        func_80298F1C_63C5BC(D_80162658[D_80152EB8 ^ 1].framebuffer, D_80302E88 + 0x62000);
         D_80299DFC_63D49C = 10;
         D_80299FF8_63D698 = 0;
         D_80299E04_63D4A4 = 1;

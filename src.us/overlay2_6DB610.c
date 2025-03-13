@@ -344,7 +344,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     }
 
     if (((arg0->unk16C->unk82.unk2) && (arg1->unk16C->unk82.unk2)) &&
-        (((arg0->unk366 == 5)) || (arg0->unk366 == 2) || ((arg1->unk366 == 5)) || (arg1->unk366 == 2))) {
+        (((arg0->unk366 == MOVEMENT_MODE_DEACTIVATED)) || (arg0->unk366 == MOVEMENT_MODE_2) || ((arg1->unk366 == MOVEMENT_MODE_DEACTIVATED)) || (arg1->unk366 == MOVEMENT_MODE_2))) {
         phi_t1 = 1;
     }
 

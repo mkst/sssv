@@ -28,7 +28,7 @@ Vtx D_05002530_C6CE0[24] = {
 #include "data/inc/D_05002530_C6CE0.inc.c"
 };
 
-Gfx D_05002830_C6E60[] = {
+Gfx D_050026B0_C6E60[] = {
     gsSPClearGeometryMode(G_LIGHTING),
     gsSPVertex(D_050016F0_C5EA0, 8, 0),
     gsSPSetGeometryMode(G_LIGHTING),

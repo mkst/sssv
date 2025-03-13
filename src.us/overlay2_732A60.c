@@ -11,14 +11,14 @@ Animal *try_pickup_animal(void) {
 
     if ((a == NULL) &&
         (func_80322A58_734108(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, (s16) (D_803D5530->position.yPos.h - 0x10), 0x10, 0, &a, D_803D5530, 0)) &&
-        (!(a->unk16C->unk82.unk2) || (a->unk366 != 5) || ((a->unk160 == 1) && (D_803D5530->unk160 == 2)))) {
+        (!(a->unk16C->unk82.unk2) || (a->unk366 != MOVEMENT_MODE_DEACTIVATED) || ((a->unk160 == 1) && (D_803D5530->unk160 == 2)))) {
         a = NULL;
     }
 
     if (a != NULL) {
         if ((a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk1B)) {
             if ((D_803D5524->unkC0 >= (s32) a->unk44) &&
-                (((a->unk16C->unk82.unk2 == 0) && ((a->state == 0) || (a->state == 1))) || ((a->unk16C->unk82.unk2 != 0) && (a->unk366 == 5))) &&
+                (((a->unk16C->unk82.unk2 == 0) && ((a->state == 0) || (a->state == 1))) || ((a->unk16C->unk82.unk2 != 0) && (a->unk366 == MOVEMENT_MODE_DEACTIVATED))) &&
                 (a->unk4A == 0) && ((a->unk16C->unk82.unk2 == 0) || (a->unk44 < 100))) {
                 D_803D552C->unk324 = a->state;
                 D_803D552C->unk320 = a;
@@ -54,7 +54,7 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
     s16 temp_t2;
     Animal *a;
 
-    struct065 *temp_v1;
+    CollisionNode *temp_v1;
 
 
     temp_a2 = D_803D5530->position.xPos.h;
@@ -345,7 +345,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     s32 pad;
     s16 damage_factor;
 
-    struct065 *var_ra;
+    CollisionNode *var_ra;
     struct043 *var_a1;
     Animal *animal; // sp34
 
@@ -406,7 +406,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
                     animal->unk4C.unk19 = 1;
 
-                    if ((animal->unk16C->unk82.unk2) && ((animal->unk366 == 1) || (animal->unk366 == 3) || (animal->unk366 == 4))) {
+                    if ((animal->unk16C->unk82.unk2) && ((animal->unk366 == MOVEMENT_MODE_NORMAL) || (animal->unk366 == MOVEMENT_MODE_INJURED) || (animal->unk366 == MOVEMENT_MODE_CRITICAL))) {
                         animal->unk348 = MAX(animal->unk348, arg6);
                         animal->unk34A = MAX(animal->unk34A, arg5);
                     }
@@ -420,7 +420,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
 u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Animal **arg5, Animal *arg6, u8 arg7) {
     s32 pad[2];
-    struct065 *temp_t8;
+    CollisionNode *temp_t8;
     struct043 *phi_s2; // ?
     u8 pad2[3];
     u8 ret;
@@ -543,7 +543,7 @@ Animal *func_80323040_7346F0(void) {
     s16 y_dist;
 
     Animal *temp_s3;
-    struct065 *temp_s4;
+    CollisionNode *temp_s4;
 
     s16 phi_a0;
     s16 phi_a2;
@@ -568,7 +568,7 @@ Animal *func_80323040_7346F0(void) {
 
     for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;
-        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk82.unk2) && (temp_s3->unk366 != 5) &&
+        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk82.unk2) && (temp_s3->unk366 != MOVEMENT_MODE_DEACTIVATED) &&
                                         ((temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) &&
                                         (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER) &&
                                         (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO)) || (temp_s3->unk16C->objectType == 145))) {
@@ -605,7 +605,7 @@ s32 func_803233A0_734A50(s16 x0, s16 y0, s16 z0, s16 x1, s16 y1, s16 z1) {
     s16 temp_v1;
     s16 i;
     Animal *a;
-    struct065 *temp_a1;
+    CollisionNode *temp_a1;
 
     sp34 = (x0 - x1);
     sp30 = (y0 - y1);

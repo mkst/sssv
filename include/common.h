@@ -249,6 +249,16 @@ typedef u8 Addr[];
 #define ATTACK_FOX_4        47
 #define ATTACK_DOG_1        48
 
+// movement
+
+#define MOVEMENT_MODE_NORMAL        1
+// deactivated 2?
+#define MOVEMENT_MODE_2             2
+#define MOVEMENT_MODE_INJURED       3
+#define MOVEMENT_MODE_CRITICAL      4
+#define MOVEMENT_MODE_DEACTIVATED   5
+#define MOVEMENT_MODE_DELETED       6
+
 // transitions
 
 #define TRANSITION_1        1

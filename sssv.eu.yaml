@@ -18,6 +18,7 @@ options:
   create_undefined_funcs_auto: no
   symbol_name_format: $VRAM_$ROM
   asm_jtbl_label_macro: jlabel
+  segment_symbols_style: makerom
 segments:
   - name:  header
     type:  header

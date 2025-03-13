@@ -3,11 +3,6 @@
 
 #include "camera.h"
 
-// ========================================================
-// .data
-// ========================================================
-
-extern s32 D_803C4DAC_7D645C[]; // is this D_803E4BA8 - 0x7F7F?
 
 // ========================================================
 // .bss
@@ -18,14 +13,14 @@ static u8   D_803E4CA4;
 static u8   D_803E4CA5;
 static u8   D_803E4CA6;
 static s32  D_803E4CA8[32];
-s32  D_803E4D28;
-s32  gTasksCompleted;
-s32  D_803E4D30;  // just a temp var?
+       s32  D_803E4D28;
+       s32  gTasksCompleted;
+       s32  D_803E4D30;  // just a temp var?
 static s32  D_803E4D38[2];
-CmdWrapper D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
-u16  D_803E8E54;
+CmdWrapper  D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
+       u16  D_803E8E54;
 static u8   D_803E8E56;
-u8   D_803E8E57;
+       u8   D_803E8E57;
 static u8   D_803E8E58;
 
 // ========================================================
@@ -273,8 +268,8 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         } else {
             // arg2 is an animal ID
             var_t1 = NULL;
-            for (i = 0; i < D_803D553E; i++) {
-                if ((arg0 == D_801D9ED8.animals[i].animal) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
+            for (i = 0; i < gNumAnimalsInLevel; i++) {
+                if ((arg0 == D_801D9ED8.animals[i].animal) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
                     var_t1 = &D_801D9ED8.animals[i];
                     break;
                 }
@@ -328,7 +323,8 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     default:
-        D_803C4DAC_7D645C[arg1] = arg2;
+        // TODO: check if this is correct!!
+        D_803E4CA8[arg1 - 0x7FBF] = arg2;
         break;
     }
 }
@@ -480,7 +476,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = D_803E4D28;
             break;
         default:
-            res = D_803C4DAC_7D645C[arg1];
+            res = D_803E4CA8[arg1 - 0x7FBF];
         }
     }
     return res;
@@ -548,7 +544,7 @@ Animal *func_8031540C_726ABC(s16 arg0, u8 arg1) {
     s16 i;
     Animal *ret;
     s32 var_s2;
-    struct065 *var_s0;
+    CollisionNode *var_s0;
 
     static Animal *D_803E8E5C;
 
@@ -603,7 +599,7 @@ u8 func_80315658_726D08(s16 arg0, s32 func(Animal *, s16), s16 arg2) {
     u8  ret; // sp4B
     s16 j;
     s16 i;
-    struct065 *var_s1;
+    CollisionNode *var_s1;
 
     ret = 0;
 
@@ -1994,7 +1990,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x4A:
-        temp_s1->unk246 = arg0->commands.unk19C.payload.cmd.type74.unk0 + 1;
+        // set new commands index
+        temp_s1->cmdIndex = arg0->commands.unk19C.payload.cmd.type74.unk0 + 1;
         return 69;
 
     case 0x4B:
@@ -2353,7 +2350,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
     case 0x63:
         animal2 = NULL;
 
-        for (i2 = 0; i2 < D_803D553E; i2++) {
+        for (i2 = 0; i2 < gNumAnimalsInLevel; i2++) {
             if (temp_s1 == D_801D9ED8.animals[i2].animal) {
                 animal2 = &D_801D9ED8.animals[i2];
                 break;
@@ -2457,6 +2454,7 @@ void func_803191B0_72A860(Animal *arg0) {
         arg0->unk248[0] = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
     }
     if (arg0->commands.numCommandsToCopy != 0) {
+        // run all the commands
         func_803190FC_72A7AC(arg0);
     }
 

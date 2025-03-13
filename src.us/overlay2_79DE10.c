@@ -40,7 +40,7 @@ void func_8038C768_79DE18(void) {
     } else {
         D_803D552C->unk314 = 0;
     }
-    if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
+    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
         D_803D552C->unk314 = 0;
     }
 
@@ -93,7 +93,7 @@ void func_8038C98C_79E03C(void) {
     } else {
         D_803D552C->unk314 = 0;
     }
-    if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
+    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
         D_803D552C->unk314 = 0;
     }
     if ((u16)D_803D5528->unk3C0.unk0 != 0) {
@@ -141,7 +141,7 @@ s16 func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     if (D_803D552C->unk318 != 0) {
         return 0;
     }
-    if ((D_803D552C->unk366 == 1) || (D_803D552C->unk366 == 3) || ((D_803D552C->unk366 == 4))) {
+    if ((D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || ((D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL))) {
         if (D_803F2D10.unk0 == 0) {
             if ((D_803D5530->state == 2) || (D_803D5530->state == 21) ||
                 (D_803D5530->state == 41) || (D_803D5530->state == 61) ||

@@ -91,7 +91,7 @@ void func_80305368_716A18(struct079 *arg0) {
     u16 idx;
     s32 dist;
     Animal *animal;
-    struct065 *var_s5;
+    CollisionNode *var_s5;
     u8 ai_behavior;
     s16 i;
     s16 x_pos;
@@ -337,7 +337,7 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
     s16 tmp;
 
     Animal *animal;
-    struct065 *var_a1_4;
+    CollisionNode *var_a1_4;
 #ifdef AVOID_UB
     Animal *sp50 = NULL;
 #else
@@ -1358,7 +1358,7 @@ s32 func_80309798_71AE48(Animal *arg0) {
         if ((tmp->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) &&
             (tmp->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+EVO)) &&
             (tmp->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP))) {
-            if ((tmp->unk366 != 5) && (tmp->unk366 != 2)) {
+            if ((tmp->unk366 != MOVEMENT_MODE_DEACTIVATED) && (tmp->unk366 != MOVEMENT_MODE_2)) {
                 if (D_803D5530->unk18C == 0) {
                     return 1;
                 }
@@ -1406,7 +1406,7 @@ s32 func_803099BC_71B06C(void) {
                 if ((D_803D5524->unk9C != EVO_TRANSFER) &&
                     (D_803D5524->unk9C != EVO) &&
                     (D_803D5524->unk9C != EVO_MICROCHIP)) {
-                    if ((D_803D552C->unk2CC->unk366 != 5) && (D_803D552C->unk2CC->unk366 != 2)) {
+                    if ((D_803D552C->unk2CC->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk2CC->unk366 != MOVEMENT_MODE_2)) {
                         return 1;
                     }
                 }

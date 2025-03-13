@@ -3,7 +3,7 @@
 Vtx D_01011BB0_4B480[20] = {
 #include "data/inc/D_01011BB0_4B480.inc.c"
 };
-extern u8 D_01011230_4AB00[];
+extern u8 img_objects_button_rgba16__png[];
 
 Gfx D_01011CF0_4B5C0[] = {
     gsDPPipeSync(),
@@ -11,7 +11,7 @@ Gfx D_01011CF0_4B5C0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_01011230_4AB00),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_objects_button_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

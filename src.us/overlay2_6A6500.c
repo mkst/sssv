@@ -6,6 +6,8 @@
 // .data
 // ========================================================
 
+s32  D_803A04E0_7B1B90 = 0; // unused
+
 // ========================================================
 // .bss
 // ========================================================
@@ -252,7 +254,7 @@ void func_80294E50_6A6500(void) {
 
         if (D_803F63C2 != 0) {
             // this function is empty
-            func_8037D32C_78E9DC(D_803B5764, D_803F63C2 + 1, 25, gScreenWidth - 25, gScreenHeight - 100);
+            func_8037D32C_78E9DC(D_803B5764_7C6E14, D_803F63C2 + 1, 25, gScreenWidth - 25, gScreenHeight - 100);
         }
         if (gInitialisationState == 0) {
             if (gInputMode == INPUT_MODE_USER) {
@@ -387,7 +389,7 @@ void reset_player_health(void) {
     D_8020427C = 1;
 }
 
-void func_802961D4_6A7884(void) {
+void init_level(void) {
     func_8012A400(); // synchronise?
     load_ingame_objects();
     load_water_texture();

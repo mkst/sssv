@@ -3038,7 +3038,7 @@ void reset_camera(void) {
     gCameras[1].unkD6 = 1;
 
     func_80319F58_72B608(
-        &D_803A6D14_7B83C4,
+        D_803A6D14_7B83C4,
         (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6),
         (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6),
         (D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6),
@@ -3579,7 +3579,7 @@ s16 func_8033DF88_74F638(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     s32 var_s4;
 
     s32 var_t2;
-    struct065 *var_t1;
+    CollisionNode *var_t1;
 
     if (arg6 < 0) {
         return 0;
@@ -4597,7 +4597,7 @@ void func_803415BC_752C6C(void) {
                             if ((gControllerInput->button & Z_TRIG) &&
                                 (D_801D9ED8.animals[gCurrentAnimalIndex].animal->state != 0xDD) &&
                                 (D_803A6CE0_7B8390 == 0) &&
-                                (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk366 != 2)) {
+                                (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk366 != MOVEMENT_MODE_2)) {
                                 sp57 = 3;
                                 sp56 = 254;
                                 D_803A6CE8_7B8398 = 25;

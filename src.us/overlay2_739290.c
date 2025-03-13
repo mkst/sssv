@@ -695,17 +695,17 @@ Camera* func_803284C4_739B74(void) {
 // ESA: func_8007F7F4
 void func_80328520_739BD0(void) {
     switch (D_803D552C->unk366) {
-    case 1:
+    case MOVEMENT_MODE_NORMAL:
         if (D_803D5530->health <= 0) {
-            D_803D552C->unk366 = 2U;
+            D_803D552C->unk366 = MOVEMENT_MODE_2; // dead?
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             func_80321920_732FD0(D_803D552C->unk320, 0, 0);
         }
         break;
-    case 3:
+    case MOVEMENT_MODE_INJURED:
         if (D_803D5530->health <= 0) {
-            D_803D552C->unk366 = 5U;
+            D_803D552C->unk366 = MOVEMENT_MODE_DEACTIVATED;
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             switch (D_803D5524->unkE6) {
@@ -725,20 +725,20 @@ void func_80328520_739BD0(void) {
                 D_803F2D30.score += 500;
                 break;
             }
-            if (D_803D5530->unk246 != 0) {
-                load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
+            if (D_803D5530->cmdIndex != 0) {
+                load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->cmdIndex - 1], 0);
                 func_803191B0_72A860(D_803D5530);
             }
         } else if (D_803D5524->unkD8 >= D_803D5530->health) {
-            D_803D552C->unk366 = 4U;
+            D_803D552C->unk366 = MOVEMENT_MODE_CRITICAL;
             D_803D552C->unk328 = D_803D5544;
         }
         break;
-    case 4:
+    case MOVEMENT_MODE_CRITICAL:
         if (D_803D5524->unkD8 < D_803D5530->health) {
-            D_803D552C->unk366 = 3U;
+            D_803D552C->unk366 = MOVEMENT_MODE_INJURED;
         } else if (D_803D5530->health <= 0) {
-            D_803D552C->unk366 = 5U;
+            D_803D552C->unk366 = MOVEMENT_MODE_DEACTIVATED;
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             if (D_803D5544 >= 2) {
@@ -760,20 +760,20 @@ void func_80328520_739BD0(void) {
                     break;
                 }
             }
-            if (D_803D5530->unk246 != 0) {
-                load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->unk246 - 1], 0);
+            if (D_803D5530->cmdIndex != 0) {
+                load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->cmdIndex - 1], 0);
                 func_803191B0_72A860(D_803D5530);
             }
         }
         break;
-    case 5:
+    case MOVEMENT_MODE_DEACTIVATED:
         if (D_803D5530->health > 0) {
-            D_803D552C->unk366 = 4U;
+            D_803D552C->unk366 = MOVEMENT_MODE_CRITICAL;
             D_803D552C->unk328 = D_803D5544;
             D_803D552C->unk36A = 1;
         }
         break;
-    case 6:
+    case MOVEMENT_MODE_DELETED:
         break;
     }
 }
@@ -918,12 +918,12 @@ void func_80328ACC_73A17C(void) {
                 bestDistance = 129;
 
                 // iterate over all animals in the level
-                for (i = 0; i < D_803D553E; i++) {
+                for (i = 0; i < gNumAnimalsInLevel; i++) {
                     // why not start with i = 1 ?
                     if (i != 0) {
                         if (i != gCurrentAnimalIndex) {
                             otherAnimal = D_801D9ED8.animals[i].animal;
-                            if ((otherAnimal != NULL) && (otherAnimal->unk366 == 5) && (otherAnimal->unk4A == 0)) {
+                            if ((otherAnimal != NULL) && (otherAnimal->unk366 == MOVEMENT_MODE_DEACTIVATED) && (otherAnimal->unk4A == 0)) {
                                 if ((ABS(otherAnimal->position.xPos.h - xPos) < 0x81) &&
                                     (ABS(otherAnimal->position.zPos.h - zPos) < 0x81) &&
                                     (ABS(((otherAnimal->unk42 >> 1) + otherAnimal->position.yPos.h) - sp86) < 0x81)) {
@@ -982,7 +982,7 @@ void func_80328ACC_73A17C(void) {
                         D_803D553C = gCurrentAnimalIndex; //??
                         D_803D553A = 0;
 
-                        D_803D552C->unk366 = 5;
+                        D_803D552C->unk366 = MOVEMENT_MODE_DEACTIVATED;
 
                         func_80328918_739FC8();
                         func_802C9BA4_6DB254((struct071 *) D_803D5530);
@@ -1006,12 +1006,12 @@ void func_80328ACC_73A17C(void) {
                         D_803D553C = 0;
                         D_803D553A = 0;
 
-                        D_803D552C->unk366 = 1;
+                        D_803D552C->unk366 = MOVEMENT_MODE_NORMAL;
                         D_803D552C->unk328 = D_803D5544;
                         D_803D552C->unk36A = 2;
 
-                        D_803D5520->unk0 = &D_801D9ED8.unk0[62];
-                        D_803D5530->unk16C = &D_801D9ED8.unk0[62];
+                        D_803D5520->unk0 = &D_801D9ED8.unk0[EVO_TRANSFER];
+                        D_803D5530->unk16C = &D_801D9ED8.unk0[EVO_TRANSFER];
 
                         gCurrentAnimalId = EVO;
                         D_803E9820 = 27;
@@ -1058,8 +1058,8 @@ void func_80328ACC_73A17C(void) {
                         D_803D553C = 0;
                         D_803D553A = 0;
 
-                        D_803D5520->unk0 = &D_801D9ED8.unk0[62]; // D_801DD8EC
-                        D_803D5530->unk16C = &D_801D9ED8.unk0[62];
+                        D_803D5520->unk0 = &D_801D9ED8.unk0[EVO_TRANSFER]; // D_801DD8EC
+                        D_803D5530->unk16C = &D_801D9ED8.unk0[EVO_TRANSFER];
 
                         gCurrentAnimalId = EVO;
                         D_803E9820 = 27;
@@ -1138,7 +1138,7 @@ void func_80328ACC_73A17C(void) {
                             D_803D553C = gCurrentAnimalIndex;
                             D_803D553A = 0;
 
-                            D_803D552C->unk366 = 5;
+                            D_803D552C->unk366 = MOVEMENT_MODE_DEACTIVATED;
 
                             func_80328918_739FC8();
 
@@ -1162,7 +1162,7 @@ void func_80328ACC_73A17C(void) {
                             D_803D553C = 0;
                             D_803D553A = 0;
 
-                            D_803D552C->unk366 = 1;
+                            D_803D552C->unk366 = MOVEMENT_MODE_NORMAL;
                             D_803D552C->unk328 = D_803D5544;
                             D_803D552C->unk36A = 2;
                             D_803D5530->unk163 = D_801D9ED8.animals[D_803D5536].animal->unk163;
@@ -1173,8 +1173,8 @@ void func_80328ACC_73A17C(void) {
                             }
 
                             D_803D5530->unk18C = D_801D9ED8.animals[D_803D5536].animal->unk18C;
-                            D_803D5520->unk0 = &D_801D9ED8.unk0[62];
-                            D_803D5530->unk16C = &D_801D9ED8.unk0[62];
+                            D_803D5520->unk0 = &D_801D9ED8.unk0[EVO_TRANSFER];
+                            D_803D5530->unk16C = &D_801D9ED8.unk0[EVO_TRANSFER];
                             gCurrentAnimalId = EVO;
                             D_803E9820 = 27;
                             D_803E9822 = 2;
@@ -1344,7 +1344,7 @@ s16 func_8032A164_73B814(s16 arg0, s16 arg1) {
     s16 temp_t0;
     s16 temp_t1;
 
-    struct065 *var_a1;
+    CollisionNode *var_a1;
 
     sp5E = D_801D9ED8.animals[0].animal->position.xPos.h;
     sp34 = sp5E + (arg0 << 6);
@@ -1465,8 +1465,8 @@ void func_8032A710_73BDC0(void) {
     D_803D553C = 0;
     D_803D553A = 0;
 
-    D_803D5520->unk0 = &D_801D9ED8.unk0[62];
-    D_803D5530->unk16C = &D_801D9ED8.unk0[62];
+    D_803D5520->unk0 = &D_801D9ED8.unk0[EVO_TRANSFER];
+    D_803D5530->unk16C = &D_801D9ED8.unk0[EVO_TRANSFER];
 
     gCurrentAnimalIndex = swapIdx;
     D_803D5520 = &D_801D9ED8.animals[swapIdx];
@@ -1483,7 +1483,7 @@ void func_8032A710_73BDC0(void) {
     D_803D553C = swapIdx;
     D_803D553A = 0;
 
-    D_803D552C->unk366 = 1;
+    D_803D552C->unk366 = MOVEMENT_MODE_NORMAL;
     D_803D552C->unk328 = D_803D5544;
     D_803D552C->unk36A = 2;
     D_803D5530->unk163 = D_801D9ED8.animals[0].animal->unk163;
@@ -1563,10 +1563,10 @@ void func_8032AC98_73C348(void) {
     Animal *a;
     s16 i;
 
-    for (i = 0; i < D_803D553E; i++) {
+    for (i = 0; i < gNumAnimalsInLevel; i++) {
         if (1) {};
         if (D_801D9ED8.animals[i].animal != NULL) {
-            if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != 6)) {
+            if ((D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
                 D_803D5520 = &D_801D9ED8.animals[i];
                 D_803D5524 = D_801D9ED8.animals[i].unk0;
 

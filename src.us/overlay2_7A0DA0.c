@@ -1,11 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-// ========================================================
-// externs
-// ========================================================
-
-extern u8  D_05005000[];
 
 // ========================================================
 // .data
@@ -28,7 +23,7 @@ Vp D_803B66F0_7C7DA0 = {
     }},
 };
 
-struct004 D_803B6700_7C7DB0[13] = {
+static struct004 D_803B6700_7C7DB0[13] = {
     {
         1039.0f,
         1107.0f,
@@ -136,9 +131,9 @@ struct004 D_803B6700_7C7DB0[13] = {
 };
 
 // unused?
-s32 D_803B6838_7C7EE8 = 0;
+static s32 D_803B6838_7C7EE8 = 0;
 
-struct004 D_803B683C_7C7EEC = {
+static struct004 D_803B683C_7C7EEC = {
     977.25f,
     1102.5f,
     1041.18f,
@@ -148,29 +143,28 @@ struct004 D_803B683C_7C7EEC = {
 };
 
 // unused?
-s32 D_803B6854_7C7F04[5] = {
-    0x03CF0000,
-    0x03B00000,
-    0x04270000,
-    0x044C0000,
-    0x042F0000,
+static s32 D_803B6854_7C7F04[5] = {
+    0x03CF0000, // FTOFIX32(975.0)
+    0x03B00000, // FTOFIX32(944.0)
+    0x04270000, // FTOFIX32(1063.0)
+    0x044C0000, // FTOFIX32(1100.0)
+    0x042F0000, // FTOFIX32(1071.0)
 };
 
-f32 charWidth = 8.039999962f;
-f32 charHeight = 16.0f;
+static f32 charWidth = 8.04f;
+static f32 charHeight = 16.0f;
 
-s16 D_803B6870_7C7F20[] = {
-    0x0000,
-    0x0000,
-    0x0002,
-    0x000E,
-    0x0010,
-    0x0016,
-    0x001A,
-    0x0000,
+static s16 D_803B6870_7C7F20[] = {
+    0x0000, // 'timer' placeholder
+    NO_LEVEL_0, // aka play intro again
+    HAVE_A_NICE_DAY,
+    PINBALL_BLIZZARD,
+    SOMETHING_FISHY,
+    JUNGLE_JUMPS,
+    STING_IN_THE_TAIL,
 };
 
-s32 D_803B6880_7C7F30 = 0;
+static s32 D_803B6880_7C7F30 = 0;
 
 // ========================================================
 // .bss
@@ -338,14 +332,14 @@ void func_8038FB68_7A1218(void) {
     gInitialisationState = 0;
 }
 
-void load_level(s16 level) {
+void load_demo_level(s16 level) {
     D_803F671C = 0;
     D_803F6680.unk2D = 1;
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
     gInitialisationState = 0;
     D_803F2D30.level = level;
-    func_802961D4_6A7884();
+    init_level();
     reset_player_progress();
     trigger_screen_transition(TRANSITION_FADE_IN);
     D_80152E98 = 0;
@@ -358,7 +352,7 @@ void load_intro(void) {
     D_803F6680.unk0 = 0;
     gInitialisationState = 0;
     D_803F2D30.level = DMA_INTRO;
-    func_802961D4_6A7884();
+    init_level();
     reset_player_progress();
     D_80152E98 = 0;
 }
@@ -368,7 +362,7 @@ void func_8038FC58_7A1308(void) {
     D_803F6680.unk27 = 1;
     D_803F6680.unk0 = 0;
     gInitialisationState = 0;
-    func_802961D4_6A7884();
+    init_level();
     reset_player_progress();
     if (D_803F7DA8.currentLevel != 0) {
         trigger_screen_transition(TRANSITION_FADE_IN);
@@ -401,7 +395,7 @@ void func_8038FD74_7A1424(void) {
 
     reset_credits_counters();
     // load lang33.dat
-    load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D5C);
+    load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D50.data);
     generate_stars();
 
     D_803F6704 = 0;
@@ -439,7 +433,7 @@ void func_8038FD74_7A1424(void) {
     if (D_80204288 == 10) {
         load_intro();
     } else if (D_80204288 != 0) {
-        load_level(D_803B6870_7C7F20[D_80204288]);
+        load_demo_level(D_803B6870_7C7F20[D_80204288]);
     }
 }
 
@@ -493,7 +487,7 @@ void func_8038FF68_7A1618(void) {
             gDPSetRenderMode(D_801D9E8C++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
 
             // dan danger's face texture
-            gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_05005000);
+            gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_actors_dan_dan1_rgba16__png);
             gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
             gDPLoadSync(D_801D9E8C++);
             gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 2047, 256);
@@ -1082,9 +1076,9 @@ void func_8038FF68_7A1618(void) {
     if ((sp3C == 1) && (D_803F6680.unk2C != 0)) {
         func_80395B58_7A7208();
         // empty functions
-        func_8039546C_7A6B1C(&D_801D9E90, 960, 0x435, 0x416);
+        func_8039546C_7A6B1C(&D_801D9E90,  960, 0x435, 0x416);
         func_8039546C_7A6B1C(&D_801D9E90, 1000, 0x435, 0x416);
-        func_8039546C_7A6B1C(&D_801D9E90, 0x410, 0x435, 0x416);
+        func_8039546C_7A6B1C(&D_801D9E90, 1040, 0x435, 0x416);
         gSPDisplayList(D_801D9E7C++, &D_80204278->unkDAC0);
     }
 }
@@ -1092,11 +1086,12 @@ void func_8038FF68_7A1618(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_8038FF68_7A1618.s")
 #endif
 
+// play_tv_static_buzz_sfx
 void func_80391A38_7A30E8(void) {
     func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, 0.76f);
     if (D_803F6680.unk2A == 1) {
         if (RAND(20) == 1) {
-            D_803B6880_7C7F30 = (s32) RAND(6);
+            D_803B6880_7C7F30 = RAND(6);
         }
         switch (D_803B6880_7C7F30) {
         case 0:
@@ -2057,7 +2052,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
                 func_80395074_7A6724(0);
                 // load menu text
-                load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D5C);
+                load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D50.data);
                 // load level specific text
                 gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
                 load_level_title();
@@ -2340,7 +2335,7 @@ void func_80395E98_7A7548(Gfx **dl) {
 
     gDPSetRenderMode((*dl)++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
 
-    gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01030810_6A0E0);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_silver_rgba16__png);
     gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 1023, 256);
@@ -2444,23 +2439,27 @@ void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 hea
     gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
     gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
 
+#define BOOST_RED 0
+#define BOOST_GREEN 0
+#define BOOST_BLUE 0
+
     if (arg9 == 1) {
         if (head) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[0], 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 1);
 
         if (torso) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[2], 32, 32, 1.0f, 1.0f, 0, 0, arg0, arg1 + 32);
 
         if (legs) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
@@ -2469,7 +2468,7 @@ void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 hea
         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[1], 32, 32, 1.0f, 1.0f, 1, 0, arg0 - 12, arg1 + 58);
 
         if (arms) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
@@ -2479,21 +2478,21 @@ void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 hea
     } else {
         scale = 0.5f;
         if (head) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[0], 32, 32, scale, scale, 0, 0, arg0, arg1);
 
         if (torso) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[2], 32, 32, scale, scale, 0, 0, arg0, arg1 + (32 * scale));
 
         if (legs) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }
@@ -2501,7 +2500,7 @@ void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 hea
         func_8039C834_7ADEE4(&D_801D9E7C, D_800C3A40[1], 32, 32, scale, scale, 1, 0, arg0 - (12 * scale), arg1 + (58 * scale));
 
         if (arms) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, (s32)red, (s32)green, (s32)blue, 0xFF);
+            gDPSetPrimColor(D_801D9E7C++, 0, 0, red + BOOST_RED, green + BOOST_GREEN, blue+ BOOST_BLUE, 0xFF);
         } else {
             gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
         }

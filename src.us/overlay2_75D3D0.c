@@ -41,7 +41,7 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
     s32 temp_a0;
     s32 temp_v1;
 
-    struct065 *var_a2;
+    CollisionNode *var_a2;
 
     s32 sp74;
 

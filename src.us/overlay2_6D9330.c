@@ -121,15 +121,15 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     s16 slot;
     s16 i;
 
-    for (i = 0; i < D_803D553E; i++) {
-        if (D_801D9ED8.animals[i].animal->unk366 == 6) {
+    for (i = 0; i < gNumAnimalsInLevel; i++) {
+        if (D_801D9ED8.animals[i].animal->unk366 == MOVEMENT_MODE_DELETED) {
             break;
         }
     }
 
-    if (i == D_803D553E) {
-        slot = D_803D553E;
-        D_803D553E++;
+    if (i == gNumAnimalsInLevel) {
+        slot = gNumAnimalsInLevel;
+        gNumAnimalsInLevel++;
     } else {
         slot = i;
     }
@@ -158,11 +158,11 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     D_803D553C = slot;
     D_803D553A = 0;
     if (arg6 != 0) {
-        sp1C->unk366 = 1;
+        sp1C->unk366 = MOVEMENT_MODE_NORMAL;
     } else if (health > 0) {
-        sp1C->unk366 = 3;
+        sp1C->unk366 = MOVEMENT_MODE_INJURED;
     } else {
-        sp1C->unk366 = 5;
+        sp1C->unk366 = MOVEMENT_MODE_DEACTIVATED;
     }
 
     D_803D552C->unk31A = 0;
@@ -230,5 +230,5 @@ void func_802C83CC_6D9A7C(Animal *arg0) {
     }
     // delete objects
     remove_collision_list(arg0);
-    arg0->unk366 = 6;
+    arg0->unk366 = MOVEMENT_MODE_DELETED;
 }

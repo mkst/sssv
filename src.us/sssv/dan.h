@@ -53,109 +53,121 @@ typedef struct {
 // .externs
 // ========================================================
 
-extern struct110c D_803FDF60[];
-extern struct110c D_803FDFF8[];
-extern struct110c D_803FE100[];
-extern struct110c D_803FE148[];
-extern struct110c D_803FE1DC[];
-extern struct110c D_803FE244[];
-extern struct110c D_803FE264[];
-extern struct110c D_803FE27C[];
-extern struct110c D_803FE2A4[];
-extern struct110c D_803FE2C8[];
-extern struct110c D_803FE39C[];
-extern struct110c D_803FE3E4[];
-extern struct110c D_803FE3FC[];
-extern struct110c D_803FE428[];
-extern struct110c D_803FE42C[];
-extern struct110c D_803FE52C[];
-extern struct110c D_803FE5A0[];
-extern struct110c D_803FE5B8[];
-extern struct110c D_803FE620[];
-extern struct110c D_803FE6EC[];
-extern struct110c D_803FE71C[];
-extern struct110c D_803FF2E8[];
-extern struct110c D_803FF3E0[];
-extern struct110c D_803FF440[];
-extern struct110c D_803FF618[];
-extern struct110c D_803FF668[];
-extern struct110c D_803FF6F8[];
-extern struct110c D_803FF740[];
-extern struct110c D_803FF7DC[];
-extern struct110c D_803FF870[];
-extern struct110c D_803FF974[];
-extern struct110c D_803FFB28[];
+extern struct110c D_803FDF60_7D2BDC[];
+extern struct110c D_803FDFF8_7D2C74[];
+extern struct110c D_803FE100_7D2D7C[];
+extern struct110c D_803FE148_7D2DC4[];
+extern struct110c D_803FE1DC_7D2E58[];
+extern struct110c D_803FE244_7D2EC0[];
+extern struct110c D_803FE264_7D2EE0[];
+extern struct110c D_803FE27C_7D2EF8[];
+extern struct110c D_803FE2A4_7D2F20[];
+extern struct110c D_803FE2C8_7D2F44[];
+extern struct110c D_803FE39C_7D3018[];
+extern struct110c D_803FE3E4_7D3060[];
+extern struct110c D_803FE3FC_7D3078[];
+extern struct110c D_803FE428_7D30A4[];
+extern struct110c D_803FE42C_7D30A8[];
+extern struct110c D_803FE52C_7D31A8[];
+extern struct110c D_803FE5A0_7D321C[];
+extern struct110c D_803FE5B8_7D3234[];
+extern struct110c D_803FE620_7D329C[];
+extern struct110c D_803FE6EC_7D3368[];
+extern struct110c D_803FE71C_7D3398[];
+extern struct110c D_803FF2E8_7D2EF8[];
+extern struct110c D_803FF3E0_7D405C[];
+extern struct110c D_803FF440_7D40BC[];
+extern struct110c D_803FF618_7D4294[];
+extern struct110c D_803FF668_7D42E4[];
+extern struct110c D_803FF6F8_7D4374[];
+extern struct110c D_803FF740_7D43BC[];
+extern struct110c D_803FF7DC_7D4458[];
+extern struct110c D_803FF870_7D44EC[];
+extern struct110c D_803FF974_7D45F0[];
+extern struct110c D_803FFB28_7D47A4[];
 
-extern u8 D_803FDFC0[];
-extern u8 D_803FE050[];
-extern u8 D_803FE160[];
-extern u8 D_803FE1A0[];
-extern u8 D_803FE230[];
-extern u8 D_803FE2A0[];
-extern u8 D_803FE2C0[];
-extern u8 D_803FE2D0[];
-extern u8 D_803FE300[];
-extern u8 D_803FE320[];
-extern u8 D_803FE3F0[];
-extern u8 D_803FE440[];
-extern u8 D_803FE450[];
-extern u8 D_803FE480[];
-extern u8 D_803FE580[]; // two sections have the same length, therefore same end
-extern u8 D_803FE600[];
-extern u8 D_803FE610[];
-extern u8 D_803FE680[];
-extern u8 D_803FE740[];
-extern u8 D_803FE770[];
-extern u8 D_803FF340[]; // ??
-extern u8 D_803FF4A0[];
-extern u8 D_803FF670[];
-extern u8 D_803FF6C0[];
-extern u8 D_803FF750[];
-extern u8 D_803FF7A0[];
-extern u8 D_803FF830[];
-extern u8 D_803FF8D0[];
-extern u8 D_803FF9D0[];
-extern u8 D_803FFB80[];
+extern u8 D_803FDEC0_7D1AD0[0x1480];
+extern u8 D_803FF340_7D2F50[0x410];
+extern u8 D_803FF750_7D3360[0x750];
+extern u8 D_803FFEA0_7D3AB0[0x7C0];
+extern u8 D_80400660_7D4270[0x5C0];
+extern u8 D_80400C20_7D4830[0x190];
+extern u8 D_80400DB0_7D49C0[0x880];
+extern u8 D_80401630_7D5240[0x3E0];
+extern u8 D_80401A10_7D5620[0x370];
+extern u8 D_80401D80_7D5990[0x400];
+extern u8 D_80402180_7D5D90[0x460];
+extern u8 D_804025E0_7D61F0[0x2E0];
+extern u8 D_804028C0_7D64D0[0x2A0];
+extern u8 D_80402B60_7D6770[0x6C0];
+extern u8 D_80403220_7D6E30[0x740];
+extern u8 D_80403960_7D7570[0x530];
+extern u8 D_80403E90_7D7AA0[0x8B0];
+extern u8 D_80404740_7D8350[0x590];
+extern u8 D_80404CD0_7D88E0[0x5C0];
+extern u8 D_80405290_7D8EA0[0x440];
+extern u8 D_804056D0_7D92E0[0x580];
+extern u8 D_80405C50_7D9860[0x6C0];
+extern u8 D_80406310_7D9F20[0x100];
+extern u8 D_80406410_7DA020[0x100];
+extern u8 D_80406510_7DA120[0x380];
+extern u8 D_80406890_7DA4A0[0x4F0];
+extern u8 D_80406D80_7DA990[0x460];
+extern u8 D_804071E0_7DADF0[0x590];
+extern u8 D_80407770_7DB380[0x840];
+extern u8 D_80407FB0_7DBBC0[0x690];
+extern u8 D_80408640_7DC250[0x330];
+extern u8 D_80408970_7DC580[0x410];
+extern u8 D_80408D80_7DC990[0x160];
 
 // ========================================================
 // .data
 // ========================================================
 
-struct046 D_803B6890_7C7F40[33] = {
-    { _7D1AD0_ROM_START, _7D1AD0_ROM_END, overlay2_BSS_END, D_803FF340, overlay2_BSS_END, },
-    { _7D2F50_ROM_START, _7D2F50_ROM_END, overlay2_BSS_END, D_803FE2D0, overlay2_BSS_END, },
-    { _7D3360_ROM_START, _7D3360_ROM_END, overlay2_BSS_END, D_803FE610, overlay2_BSS_END, },
-    { _7D3AB0_ROM_START, _7D3AB0_ROM_END, overlay2_BSS_END, D_803FE680, overlay2_BSS_END, },
-    { _7D4270_ROM_START, _7D4270_ROM_END, overlay2_BSS_END, D_803FE480, overlay2_BSS_END, },
-    { _7D4830_ROM_START, _7D4830_ROM_END, overlay2_BSS_END, D_803FE050, overlay2_BSS_END, },
-    { _7D49C0_ROM_START, _7D49C0_ROM_END, overlay2_BSS_END, D_803FE740, overlay2_BSS_END, },
-    { _7D5240_ROM_START, _7D5240_ROM_END, overlay2_BSS_END, D_803FE2A0, overlay2_BSS_END, },
-    { _7D5620_ROM_START, _7D5620_ROM_END, overlay2_BSS_END, D_803FE230, overlay2_BSS_END, },
-    { _7D5990_ROM_START, _7D5990_ROM_END, overlay2_BSS_END, D_803FE2C0, overlay2_BSS_END, },
-    { _7D5D90_ROM_START, _7D5D90_ROM_END, overlay2_BSS_END, D_803FE320, overlay2_BSS_END, },
-    { _7D61F0_ROM_START, _7D61F0_ROM_END, overlay2_BSS_END, D_803FE1A0, overlay2_BSS_END, },
-    { _7D64D0_ROM_START, _7D64D0_ROM_END, overlay2_BSS_END, D_803FE160, overlay2_BSS_END, },
-    { _7D6770_ROM_START, _7D6770_ROM_END, overlay2_BSS_END, D_803FE580, overlay2_BSS_END, },
-    { _7D6E30_ROM_START, _7D6E30_ROM_END, overlay2_BSS_END, D_803FE600, overlay2_BSS_END, },
-    { _7D7570_ROM_START, _7D7570_ROM_END, overlay2_BSS_END, D_803FE3F0, overlay2_BSS_END, },
-    { _7D7AA0_ROM_START, _7D7AA0_ROM_END, overlay2_BSS_END, D_803FE770, overlay2_BSS_END, },
-    { _7D8350_ROM_START, _7D8350_ROM_END, overlay2_BSS_END, D_803FE450, overlay2_BSS_END, },
-    { _7D88E0_ROM_START, _7D88E0_ROM_END, overlay2_BSS_END, D_803FE480, overlay2_BSS_END, },
-    { _7D8EA0_ROM_START, _7D8EA0_ROM_END, overlay2_BSS_END, D_803FE300, overlay2_BSS_END, },
-    { _7D92E0_ROM_START, _7D92E0_ROM_END, overlay2_BSS_END, D_803FE440, overlay2_BSS_END, },
-    { _7D9860_ROM_START, _7D9860_ROM_END, overlay2_BSS_END, D_803FE580, overlay2_BSS_END, },
-    { _7D9F20_ROM_START, _7D9F20_ROM_END, overlay2_BSS_END, D_803FDFC0, overlay2_BSS_END, },
+typedef struct {
+    u8 *romStart;   // e.g. 007d1ad0
+    u8 *romEnd;     // e.g. 007d2f50
+    u8 *ramStart;   // e.g. 803fdec0
+    u8 *ramEnd;     // e.g. 803ff340
+    u8 *ramDest;    // e.g. 803fdec0
+} ExtraRomData; // size 0x14
 
-    { _7DA020_ROM_START, _7DA020_ROM_END, D_803FF340, D_803FF440, D_803FF340, },
-    { _7DA120_ROM_START, _7DA120_ROM_END, D_803FF340, D_803FF6C0, D_803FF340, },
-    { _7DA4A0_ROM_START, _7DA4A0_ROM_END, D_803FF340, D_803FF830, D_803FF340, },
-    { _7DA990_ROM_START, _7DA990_ROM_END, D_803FF340, D_803FF7A0, D_803FF340, },
-    { _7DADF0_ROM_START, _7DADF0_ROM_END, D_803FF340, D_803FF8D0, D_803FF340, },
-    { _7DB380_ROM_START, _7DB380_ROM_END, D_803FF340, D_803FFB80, D_803FF340, },
-    { _7DBBC0_ROM_START, _7DBBC0_ROM_END, D_803FF340, D_803FF9D0, D_803FF340, },
-    { _7DC250_ROM_START, _7DC250_ROM_END, D_803FF340, D_803FF670, D_803FF340, },
-    { _7DC580_ROM_START, _7DC580_ROM_END, D_803FF340, D_803FF750, D_803FF340, },
-    { _7DC990_ROM_START, _7DC990_ROM_END, D_803FF340, D_803FF4A0, D_803FF340, },
+ExtraRomData D_803B6890_7C7F40[33] = {
+    /* rom start, rom end, ram start, ram end, destination ram */
+    { __7D1AD0SegmentRomStart, __7D1AD0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_803FDEC0_7D1AD0), _overlay2SegmentBssEnd, },
+    { __7D2F50SegmentRomStart, __7D2F50SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_803FF340_7D2F50), _overlay2SegmentBssEnd, },
+    { __7D3360SegmentRomStart, __7D3360SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_803FF750_7D3360), _overlay2SegmentBssEnd, },
+    { __7D3AB0SegmentRomStart, __7D3AB0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_803FFEA0_7D3AB0), _overlay2SegmentBssEnd, },
+    { __7D4270SegmentRomStart, __7D4270SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80400660_7D4270), _overlay2SegmentBssEnd, },
+    { __7D4830SegmentRomStart, __7D4830SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80400C20_7D4830), _overlay2SegmentBssEnd, },
+    { __7D49C0SegmentRomStart, __7D49C0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80400DB0_7D49C0), _overlay2SegmentBssEnd, },
+    { __7D5240SegmentRomStart, __7D5240SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80401630_7D5240), _overlay2SegmentBssEnd, },
+    { __7D5620SegmentRomStart, __7D5620SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80401A10_7D5620), _overlay2SegmentBssEnd, },
+    { __7D5990SegmentRomStart, __7D5990SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80401D80_7D5990), _overlay2SegmentBssEnd, },
+    { __7D5D90SegmentRomStart, __7D5D90SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80402180_7D5D90), _overlay2SegmentBssEnd, },
+    { __7D61F0SegmentRomStart, __7D61F0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_804025E0_7D61F0), _overlay2SegmentBssEnd, },
+    { __7D64D0SegmentRomStart, __7D64D0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_804028C0_7D64D0), _overlay2SegmentBssEnd, },
+    { __7D6770SegmentRomStart, __7D6770SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80402B60_7D6770), _overlay2SegmentBssEnd, },
+    { __7D6E30SegmentRomStart, __7D6E30SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80403220_7D6E30), _overlay2SegmentBssEnd, },
+    { __7D7570SegmentRomStart, __7D7570SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80403960_7D7570), _overlay2SegmentBssEnd, },
+    { __7D7AA0SegmentRomStart, __7D7AA0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80403E90_7D7AA0), _overlay2SegmentBssEnd, },
+    { __7D8350SegmentRomStart, __7D8350SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80404740_7D8350), _overlay2SegmentBssEnd, },
+    { __7D88E0SegmentRomStart, __7D88E0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80404CD0_7D88E0), _overlay2SegmentBssEnd, },
+    { __7D8EA0SegmentRomStart, __7D8EA0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80405290_7D8EA0), _overlay2SegmentBssEnd, },
+    { __7D92E0SegmentRomStart, __7D92E0SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_804056D0_7D92E0), _overlay2SegmentBssEnd, },
+    { __7D9860SegmentRomStart, __7D9860SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80405C50_7D9860), _overlay2SegmentBssEnd, },
+    { __7D9F20SegmentRomStart, __7D9F20SegmentRomEnd, _overlay2SegmentBssEnd, _overlay2SegmentBssEnd + sizeof(D_80406310_7D9F20), _overlay2SegmentBssEnd, },
+
+    { __7DA020SegmentRomStart, __7DA020SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80406410_7DA020), D_803FF340_7D2F50, },
+    { __7DA120SegmentRomStart, __7DA120SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80406510_7DA120), D_803FF340_7D2F50, },
+    { __7DA4A0SegmentRomStart, __7DA4A0SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80406890_7DA4A0), D_803FF340_7D2F50, },
+    { __7DA990SegmentRomStart, __7DA990SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80406D80_7DA990), D_803FF340_7D2F50, },
+    { __7DADF0SegmentRomStart, __7DADF0SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_804071E0_7DADF0), D_803FF340_7D2F50, },
+    { __7DB380SegmentRomStart, __7DB380SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80407770_7DB380), D_803FF340_7D2F50, },
+    { __7DBBC0SegmentRomStart, __7DBBC0SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80407FB0_7DBBC0), D_803FF340_7D2F50, },
+    { __7DC250SegmentRomStart, __7DC250SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80408640_7DC250), D_803FF340_7D2F50, },
+    { __7DC580SegmentRomStart, __7DC580SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80408970_7DC580), D_803FF340_7D2F50, },
+    { __7DC990SegmentRomStart, __7DC990SegmentRomEnd, D_803FF340_7D2F50, D_803FF340_7D2F50 + sizeof(D_80408D80_7DC990), D_803FF340_7D2F50, },
 };
 
 s16 D_803B6B24_7C81D4[3] = {
@@ -302,72 +314,62 @@ Sfx D_803B6FD0_7C8680[] = {
 
 // these are addresses within the data right at the end of the ROM.
 struct110 D_803B7000_7C86B0[33] = {
-    { D_803FF2E8, D_803B6B2C_7C81DC, },
-    { D_803FE27C, D_803B6B38_7C81E8, },
-    { D_803FE5B8, D_803B6B74_7C8224, },
-    { D_803FE620, D_803B6BBC_7C826C, },
-    { D_803FE428, D_803B6C10_7C82C0, },
-    { D_803FDFF8, D_803B6C4C_7C82FC, },
-    { D_803FE6EC, NULL, },
-    { D_803FE244, NULL, },
-    { D_803FE1DC, NULL, },
-    { D_803FE264, NULL, },
-    { D_803FE2C8, NULL, },
-    { D_803FE148, NULL, },
-    { D_803FE100, NULL, },
-    { D_803FE52C, D_803B6C64_7C8314, },
-    { D_803FE5A0, D_803B6CDC_7C838C, },
-    { D_803FE39C, D_803B6D9C_7C844C, },
-    { D_803FE71C, D_803B6DC0_7C8470, },
-    { D_803FE3FC, D_803B6E2C_7C84DC, },
-    { D_803FE42C, D_803B6E74_7C8524, },
-    { D_803FE2A4, D_803B6F4C_7C85FC, },
-    { D_803FE3E4, D_803B6F94_7C8644, },
-    { D_803FE52C, NULL, },
-    { D_803FDF60, NULL, },
-    { D_803FF3E0, NULL, },
-    { D_803FF668, NULL, },
-    { D_803FF7DC, NULL, },
-    { D_803FF740, NULL, },
-    { D_803FF870, NULL, },
-    { D_803FFB28, NULL, },
-    { D_803FF974, NULL, },
-    { D_803FF618, D_803B6FD0_7C8680, },
-    { D_803FF6F8, NULL, },
-    { D_803FF440, NULL, },
+    { D_803FF2E8_7D2EF8, D_803B6B2C_7C81DC, },
+    { D_803FE27C_7D2EF8, D_803B6B38_7C81E8, },
+    { D_803FE5B8_7D3234, D_803B6B74_7C8224, },
+    { D_803FE620_7D329C, D_803B6BBC_7C826C, },
+    { D_803FE428_7D30A4, D_803B6C10_7C82C0, },
+    { D_803FDFF8_7D2C74, D_803B6C4C_7C82FC, },
+    { D_803FE6EC_7D3368, NULL, },
+    { D_803FE244_7D2EC0, NULL, },
+    { D_803FE1DC_7D2E58, NULL, },
+    { D_803FE264_7D2EE0, NULL, },
+    { D_803FE2C8_7D2F44, NULL, },
+    { D_803FE148_7D2DC4, NULL, },
+    { D_803FE100_7D2D7C, NULL, },
+    { D_803FE52C_7D31A8, D_803B6C64_7C8314, },
+    { D_803FE5A0_7D321C, D_803B6CDC_7C838C, },
+    { D_803FE39C_7D3018, D_803B6D9C_7C844C, },
+    { D_803FE71C_7D3398, D_803B6DC0_7C8470, },
+    { D_803FE3FC_7D3078, D_803B6E2C_7C84DC, },
+    { D_803FE42C_7D30A8, D_803B6E74_7C8524, },
+    { D_803FE2A4_7D2F20, D_803B6F4C_7C85FC, },
+    { D_803FE3E4_7D3060, D_803B6F94_7C8644, },
+    { D_803FE52C_7D31A8, NULL, },
+    { D_803FDF60_7D2BDC, NULL, },
+    { D_803FF3E0_7D405C, NULL, },
+    { D_803FF668_7D42E4, NULL, },
+    { D_803FF7DC_7D4458, NULL, },
+    { D_803FF740_7D43BC, NULL, },
+    { D_803FF870_7D44EC, NULL, },
+    { D_803FFB28_7D47A4, NULL, },
+    { D_803FF974_7D45F0, NULL, },
+    { D_803FF618_7D4294, D_803B6FD0_7C8680, },
+    { D_803FF6F8_7D4374, NULL, },
+    { D_803FF440_7D40BC, NULL, },
 };
 
 extern Gfx D_0400BBC0_D35F0[];
 extern Gfx D_0400BBC0_D35F0[];
 extern Gfx D_0400BF20_D3950[];
-extern Gfx D_0400CD48[];
+extern Gfx D_0400CD48_D4778[];
 extern Gfx D_0400DFA0_D59D0[];
 extern Gfx D_0400E750_D6180[];
-extern Gfx D_0400E920[];
-extern Gfx D_0400EA20[];
-extern Gfx D_0400EA20[];
-extern Gfx D_0400EB60[];
-extern Gfx D_0400EB60[];
-extern Gfx D_0400ED28[];
-extern Gfx D_0400ED28[];
-extern Gfx D_0400F0A0[];
-extern Gfx D_0400F0A0[];
-extern Gfx D_0400F1E0[];
-extern Gfx D_0400F1E0[];
-extern Gfx D_0400F398[];
-extern Gfx D_0400F398[];
-extern Gfx D_0400F700[];
-extern Gfx D_0400F700[];
-extern Gfx D_0400FE60[];
-extern Gfx D_0400FE60[];
-extern Gfx D_04010080[];
-extern Gfx D_04010080[];
-extern Gfx D_040104C0[];
-extern Gfx D_040104C0[];
-extern Gfx D_04010710[];
-extern Gfx D_04010A70[];
-extern Gfx D_04011868[];
-extern Gfx D_04012400[];
+extern Gfx D_0400E920_D6350[];
+extern Gfx D_0400EA20_D6450[];
+extern Gfx D_0400EB60_D6590[];
+extern Gfx D_0400ED28_D6758[];
+extern Gfx D_0400F0A0_D6AD0[];
+extern Gfx D_0400F1E0_D6C10[];
+extern Gfx D_0400F398_D6DC8[];
+extern Gfx D_0400F700_D7130[];
+extern Gfx D_0400FE60_D7890[];
+extern Gfx D_04010080_D7AB0[];
+extern Gfx D_040104C0_D7EF0[];
+extern Gfx D_04010710_D8140[];
+extern Gfx D_04010A70_D84A0[];
+extern Gfx D_04011868_D9298[];
+extern Gfx D_04012400_D9E30[];
 extern Gfx D_05000180_7F910[];
 extern Gfx D_050004E0_7FC70[];
 extern Gfx D_05000880_978A0[];
@@ -376,7 +378,7 @@ extern Gfx D_05001308_80A98[];
 extern Gfx D_05001390_983B0[];
 extern Gfx D_050016D0_80E60[];
 extern Gfx D_05001A30_811C0[];
-extern Gfx D_05002828[];
+extern Gfx D_05002828_81FB8[];
 extern Gfx D_050033C0_82B50[];
 extern Gfx D_05004650_83DE0[];
 extern Gfx D_05004E00_84590[];
@@ -386,19 +388,19 @@ extern Gfx D_05004FD0_84760[];
 Gfx *D_803B7108_7C87B8[5][10] = {
     {
         D_05000180_7F910, D_050004E0_7FC70, D_05001308_80A98, D_050016D0_80E60, D_05001A30_811C0,
-        D_05002828, D_050033C0_82B50, D_05004650_83DE0, D_05004E00_84590, D_05004FD0_84760,
+        D_05002828_81FB8, D_050033C0_82B50, D_05004650_83DE0, D_05004E00_84590, D_05004FD0_84760,
     },
     {
-        D_0400BBC0_D35F0, D_0400BF20_D3950, D_0400CD48, D_04010710, D_04010A70,
-        D_04011868, D_04012400, D_0400DFA0_D59D0, D_0400E750_D6180, D_0400E920,
+        D_0400BBC0_D35F0, D_0400BF20_D3950, D_0400CD48_D4778, D_04010710_D8140, D_04010A70_D84A0,
+        D_04011868_D9298, D_04012400_D9E30, D_0400DFA0_D59D0, D_0400E750_D6180, D_0400E920_D6350,
     },
     {
-        D_0400EB60, D_0400ED28, D_0400F0A0, D_0400F1E0, D_0400F398,
-        D_0400F700, D_0400FE60, D_040104C0, D_0400EA20, D_04010080,
+        D_0400EB60_D6590, D_0400ED28_D6758, D_0400F0A0_D6AD0, D_0400F1E0_D6C10, D_0400F398_D6DC8,
+        D_0400F700_D7130, D_0400FE60_D7890, D_040104C0_D7EF0, D_0400EA20_D6450, D_04010080_D7AB0,
     },
     {
-        D_0400EB60, D_0400ED28, D_0400F0A0, D_0400F1E0, D_0400F398,
-        D_0400F700, D_0400FE60, D_040104C0, D_0400EA20, D_04010080,
+        D_0400EB60_D6590, D_0400ED28_D6758, D_0400F0A0_D6AD0, D_0400F1E0_D6C10, D_0400F398_D6DC8,
+        D_0400F700_D7130, D_0400FE60_D7890, D_040104C0_D7EF0, D_0400EA20_D6450, D_04010080_D7AB0,
     },
     // this is the DMA dude (A, M, D)
     {

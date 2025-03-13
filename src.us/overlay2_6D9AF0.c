@@ -9,7 +9,7 @@ void init_and_spawn_evo_microchip(void) {
     reset_dynamic_tails(0);
     memset_bytes((u8 *)&D_801D9ED8.animals, 0U, sizeof(D_801D9ED8.animals));
     memset_bytes((u8 *)&D_801D9ED8.unk4040, 0U, sizeof(D_801D9ED8.unk4040));
-    D_803D553E = 0;
+    gNumAnimalsInLevel = 0;
     func_802C7C80_6D9330(); // load all stats
     D_803E9820 = 27;
     D_803E9822 = 0;
@@ -33,13 +33,13 @@ void func_802C85EC_6D9C9C(void) {
         gCurrentAnimalId = D_803F2D50.animalId;
         D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
         D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
-        gCurrentAnimalIndex = D_803D553E;
+        gCurrentAnimalIndex = gNumAnimalsInLevel;
         a = D_801D9ED8.animals[0].animal;
         spawn_animal(a->position.xPos.h, a->position.zPos.h, a->position.yPos.h, 0, 0x7F, gCurrentAnimalId, 1);
         func_80327DA8_739458();
-        D_801D9ED8.animals[0].animal->unk366 = 3;
-        D_801D9ED8.animals[0].unk0 = &D_801D9ED8.unk0[62];           // weird offset?
-        D_801D9ED8.animals[0].animal->unk16C = &D_801D9ED8.unk0[62]; // weird offset?
+        D_801D9ED8.animals[0].animal->unk366 = MOVEMENT_MODE_INJURED;
+        D_801D9ED8.animals[0].unk0 = &D_801D9ED8.unk0[EVO_TRANSFER];
+        D_801D9ED8.animals[0].animal->unk16C = &D_801D9ED8.unk0[EVO_TRANSFER];
         D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A = 1;
         D_801D9ED8.animals[0].animal->unk4A = 0;
     }
@@ -87,10 +87,10 @@ void func_802C8878_6D9F28(void) {
 
     gDPSetTextureLUT(D_801D9E88++, G_TT_RGBA16);
 
-    for (i = 0; i < D_803D553E; i++) {
-        if ((D_801D9ED8.animals[i].animal != 0) &&
+    for (i = 0; i < gNumAnimalsInLevel; i++) {
+        if ((D_801D9ED8.animals[i].animal != NULL) &&
             (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-            (D_801D9ED8.animals[i].animal->unk366 != 6)) {
+            (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
             if (i == gCurrentAnimalIndex) {
                 add_multiple_lights();
                 clear_used_lights();
@@ -119,7 +119,7 @@ void func_802C8878_6D9F28(void) {
                 if (D_803D5530->unk4A == 0) {
                     if (i == gCurrentAnimalIndex) {
                         func_8035E200_76F8B0();
-                        if (D_803D552C->unk366 == 2) {
+                        if (D_803D552C->unk366 == MOVEMENT_MODE_2) {
                             func_802AA1EC_6BB89C();
                         } else if (D_803D5524->unk9C != EVO) {
                             if (D_803F2D10.unk0 == 0) {
@@ -131,14 +131,14 @@ void func_802C8878_6D9F28(void) {
                             func_802AA424_6BBAD4();
                         }
                     } else if ((D_803D5530->xVelocity.w != 0) || (D_803D5530->zVelocity.w != 0) || (D_803D5530->yVelocity.w != 0) || (D_803D5530->unk68 != 0) || (D_803D5530->unk70 != 0) || (D_803D5530->unk162 != 1)) {
-                        if (D_803D552C->unk366 == 5) {
+                        if (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) {
                             func_802AA1EC_6BB89C();
                         } else {
                             func_80309F38_71B5E8();
                             func_802A935C_6BAA0C();
                             func_802AA0A0_6BB750();
                         }
-                    } else if (D_803D552C->unk366 != 5) {
+                    } else if (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) {
                         func_80309F38_71B5E8();
                         func_802A935C_6BAA0C();
                         func_802AA0A0_6BB750();
@@ -146,6 +146,7 @@ void func_802C8878_6D9F28(void) {
                     D_803D5530->newPosition.xPos.w = D_803D5530->position.xPos.w + D_803D5530->xVelocity.w;
                     D_803D5530->newPosition.zPos.w = D_803D5530->position.zPos.w + D_803D5530->zVelocity.w;
                     D_803D5530->newPosition.yPos.w = D_803D5530->position.yPos.w + D_803D5530->yVelocity.w;
+                    // check animal health, update score etc
                     func_80328520_739BD0();
                 }
             }
@@ -319,7 +320,7 @@ void func_802C8878_6D9F28(void) {
                 // (re)set lights?
                 add_single_light(&D_801D9E88);
             }
-            if (D_803D552C->unk366 != 6) {
+            if (D_803D552C->unk366 != MOVEMENT_MODE_DELETED) {
                 func_802DA90C_6EBFBC(D_803D5530);
             }
         }

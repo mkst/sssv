@@ -58,7 +58,7 @@ u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Anim
     s32 maxDist;
     s32 isCollision;
 
-    struct065 *var_s2;
+    CollisionNode *var_s2;
 
     *yMax = -1;
     *yMin = -1;
@@ -110,13 +110,13 @@ u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Anim
 
         isCollision = 0;
         if ((animal->unk16C->unk2 == 5) && (sourceAnimal->unk16C->unk2 == 5)) {
-            if ((animal->unk16C->unkE6 < sourceAnimal->unk16C->unkE6) || (func_8030AA08_71C0B8(animal, sourceAnimal) != 0) || (animal->unk366 == 5) || (sourceAnimal->unk366 == 5)) {
+            if ((animal->unk16C->unkE6 < sourceAnimal->unk16C->unkE6) || (func_8030AA08_71C0B8(animal, sourceAnimal) != 0) || (animal->unk366 == MOVEMENT_MODE_DEACTIVATED) || (sourceAnimal->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
                 if (animal->unk16C->unkE6 >= sourceAnimal->unk16C->unkE6) {
                     if (((xPos >= (animal->position.xPos.h - animal->unk34)) && (xPos < (animal->position.xPos.h + animal->unk34))) &&
                         ((zPos >= (animal->position.zPos.h - animal->unk34)) && (zPos < (animal->position.zPos.h + animal->unk34)))) {
                         isCollision = func_8030400C_7156BC(animal, xPos, zPos, &collisionYMax, &collisionYMin);
                     }
-                } else if ((((sourceAnimal->unk162 != 1) || (sourceAnimal->unk68 != NULL)) && (sourceAnimal->yVelocity.w < FTOFIX32(-6.0))) || ((animal->unk366 == 5)) || (animal->unk366 == 2)) {
+                } else if ((((sourceAnimal->unk162 != 1) || (sourceAnimal->unk68 != NULL)) && (sourceAnimal->yVelocity.w < FTOFIX32(-6.0))) || ((animal->unk366 == MOVEMENT_MODE_DEACTIVATED)) || (animal->unk366 == MOVEMENT_MODE_2)) {
 
                     xDist = xPos - animal->position.xPos.h;
                     zDist = zPos - animal->position.zPos.h;

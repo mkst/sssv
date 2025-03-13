@@ -191,7 +191,7 @@ void check_cheats(OSContPad *contPad) {
     }
     if (check_cheat_code(D_803F6410, "DANISIL\0")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        func_8032B1C8_73C878();  // "disable wallrace cam?"
+        func_8032B1C8_73C878();  // "disable walrace cam?"
         D_803B62B0_7C7960 = 0;
     }
 }

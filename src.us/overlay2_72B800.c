@@ -5,59 +5,54 @@
 // .rodata
 // ========================================================
 
-// eyes lookup
-const s16 D_803BD530_7CEBE0[13] = {
-    1,  0,  2,  3,  4,  5,  6,  7, 11,  9, 10,  9,  9, // 0,
-    };
-const s16 D_803BD54A_7CEBFA[12] = {
-    1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11,
-    };
-
-const s16 tbd[13] = {
-    0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11, // 0,
+const LeftEyes D_803BD530_7CEBE0 = {
+    {
+        {1,  0,  2,  3,  4,  5,  6,  7, 11,  9, 10,  9,  9},  // D_803BD530_7CEBE0[0] is D_803BD530_7CEBE0 - (unused)
+        {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[1] is D_803BD54A_7CEBFA - camel, cool_cod, dog, pirana, seagul, sheep, vulture
+        {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[2] is D_803BD564_7CEC14 - hellirabbit
+        {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[3] is D_803BD57E_7CEC2E - evo
+        {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[4] is D_803BD598_7CEC48 - (unused)
+        {0,  1,  2,  0,  0,  4,  6,  3,  5,  7,  6,  6,  8},  // D_803BD530_7CEBE0[5] is D_803BD5B2_7CEC62 - mouse, polar bear, elephant, husky, scorpion, fox, kangaroo
+        {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[6] is D_803BD5CC_7CEC7C - hyena, hippo, gorilla, bear, lion
+        {0,  1,  0,  2,  4,  3,  5,  6,  7, 11,  9, 10,  9},  // D_803BD530_7CEBE0[7] is D_803BD5E6_7CEC96 - (unused)
+    },
 };
-
-const s16 D_803BD564_7CEC14[] = {
-    1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11, 0,
-    1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11, 0,
-    1,  2,  0,  0,  4,  6,  3,  5,  7,  6,  6,  8, 0,
-    1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11, 0,
-    1,  0,  2,  4,  3,  5,  6,  7, 11,  9, 10,  9, 9, 0,
-    1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11,
-};
-
-const s16 D_803BD602_7CECB2[] = {
-    0,  1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11, 0,
-    1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11,  0,
-    1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11,  0,
-    1,  2,  0,  0,  4,  6,  3,  5,  7,  6,  6,  8,  0,
-    1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11,  0,
+const RightEyes D_803BD600_7CECB0 = {
+    9,
+    {
+        {0,  1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11}, // D_803BD600_7CECB0[0] is D_803BD602_7CECB2
+        {0,  1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11}, // D_803BD600_7CECB0[1] is D_803BD61C_7CECCC
+        {0,  1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11}, // D_803BD600_7CECB0[2] is D_803BD636_7CECE6
+        {0,  1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11}, // D_803BD600_7CECB0[3] is D_803BD66A_7CED1A
+        {0,  1,  2,  0,  0,  4,  6,  3,  5,  7,  6,  6,  8}, // D_803BD600_7CECB0[4] is D_803BD684_7CED34
+        {0,  1,  2,  4,  3, 12,  9,  7,  8, 10, 12, 10, 11}, // D_803BD600_7CECB0[5] is D_803BD69E_7CED4E
+    },
 };
 
 // ========================================================
 // .text
 // ========================================================
 
-void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye) {
+void func_8031A150_72B800(s16 timer, s16 *leftEye, s16 *rightEye) {
     s16 temp_v1;
-    s16 temp_v1_2;
-    s32 temp_v0;
-    s32 temp_v0_2;
 
-    *leftEye = 0;
-    *rightEye = 0;
-    if ((arg0 & 0x3F) >= 0x3A) {
-        *leftEye = 5;
-        *rightEye = 5;
+    // defaults
+    *leftEye = 0;       // open
+    *rightEye = 0;      // open
+
+    // blink every 64 frames?
+    if ((timer & 0x3F) >= 0x3A) {
+        *leftEye = 5;   // closed
+        *rightEye = 5;  // closed
     }
-    if (((arg0 & 0x4FF) >= 0x46A) ||
-        ((arg0 & 0xFFF) >= 0xE0C)) {
+    // different blink effect every 1280 frames
+    if (((timer & 0x4FF) >= 0x46A) ||
+        ((timer & 0xFFF) >= 0xE0C)) {
         *leftEye = 7;
         *rightEye = 7;
     }
-    temp_v0 = arg0 & 0x2FF; // 767
-    temp_v1 = temp_v0 - 737;
-    if (temp_v0 > 737) {
+    temp_v1 = (timer & 0x2FF) - 737;
+    if ((timer & 0x2FF) > 737) {
         if (temp_v1 < 7) {
             *leftEye = 1;
             *rightEye = 0;
@@ -72,13 +67,12 @@ void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye) {
             *rightEye = 2;
         }
     }
-    temp_v0_2 = arg0 & 0x3FF;
-    temp_v1_2 = temp_v0_2 - 960;
-    if (temp_v0_2 > 960) {
-        if ((temp_v1_2 > 10) && (temp_v1_2 < 25)) {
+    temp_v1 = (timer & 0x3FF) - 960;
+    if ((timer & 0x3FF) > 960) {
+        if ((temp_v1 > 10) && (temp_v1 < 25)) {
             *leftEye = 3;
             *rightEye = 3;
-        } else if ((temp_v1_2 > 40) && (temp_v1_2 < 55)) {
+        } else if ((temp_v1 > 40) && (temp_v1 < 55)) {
             *leftEye = 4;
             *rightEye = 4;
         } else {
@@ -88,7 +82,8 @@ void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye) {
     }
 }
 
-void func_8031A278_72B928(s16 *arg0, s16 *arg1, s16 *arg2) {
+// pick eye index?
+void func_8031A278_72B928(s16 *timer, s16 *leftEye, s16 *rightEye) {
     switch (D_803D5530->state) {
     case 4:
     case 5:
@@ -103,24 +98,25 @@ void func_8031A278_72B928(s16 *arg0, s16 *arg1, s16 *arg2) {
     case 0xB8:
     case 0xCB:
     case 0xDD:
-        if (*arg1 != 5) {
-            *arg1 = 8;
+        if (*leftEye != 5) {
+            *leftEye = 8;
         }
-        if (*arg2 != 5) {
-            *arg2 = 8;
+        if (*rightEye != 5) {
+            *rightEye = 8;
         }
-        *arg0 &= 0x3F;
+        // reset blink if in one of these states
+        *timer &= 0x3F;
     }
 
     switch (D_803D552C->unk366) {
-    case 2:
-    case 5:
-        *arg1 = 5;
-        *arg2 = 5;
+    case MOVEMENT_MODE_2:
+    case MOVEMENT_MODE_DEACTIVATED:
+        *leftEye = 5;   // closed?
+        *rightEye = 5;  // closed?
         break;
-    case 4:
-        *arg1 = 9;
-        *arg2 = 9;
+    case MOVEMENT_MODE_CRITICAL:
+        *leftEye = 9;   // pain?
+        *rightEye = 9;  // pain?
         break;
     }
 }

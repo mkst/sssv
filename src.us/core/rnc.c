@@ -8,7 +8,7 @@
  * Date: 18.03.95
  *----------------------------------------------------------------------------*/
 
-#if 0
+#ifndef SSSV
 #include <malloc.h>
 #include <mem.h>
 #include <stdlib.h>
@@ -19,17 +19,10 @@
 
 #include "pp.h"
 
-#if 0
 BYTE BitBuffM2,
      *OutputEnd;
 
 ULONG BitBuffM1;
-#else
-extern BYTE BitBuffM2,
-     *OutputEnd;
-
-extern ULONG BitBuffM1;
-#endif
 
 WORD UnpackRNC(RNC_fileptr, BYTE *OutputBuffer);
 WORD UnpackMethod1(RNC_fileptr FilePtr, BYTE *OutputBuffer);
@@ -45,7 +38,7 @@ WORD InputPosM2(void);
 ULONG ReverseLong(BYTE *b);
 WORD  ReverseWord(BYTE *b);
 
-#if 0
+#ifndef SSSV
 int main(int argc, char *argv[])
 {
     BYTE *InputBuffer,
@@ -115,7 +108,7 @@ WORD UnpackRNC(RNC_fileptr FilePtr, BYTE *OutputBuffer)
 
     switch (FilePtr->Method) {
         case 0:
-#if 1
+#ifdef SSSV
             // do nothing
 #else
             memcpy(OutputBuffer, &FilePtr->Data, BIGENDIANL(FilePtr->UncompressedSize));
@@ -140,7 +133,7 @@ WORD UnpackRNC(RNC_fileptr FilePtr, BYTE *OutputBuffer)
 
 WORD UnpackMethod1(RNC_fileptr FilePtr, BYTE *OutputBuffer)
 {
-#if 1
+#ifdef SSSV
     WORD rs;
     ULONG rw;
 #endif
@@ -169,7 +162,7 @@ WORD UnpackMethod1(RNC_fileptr FilePtr, BYTE *OutputBuffer)
             Len = InputValue(RawHuffmanTable);
             while (Len--)
                 *OutputPtr++ = *InputPtr++;
-#if 1
+#ifdef SSSV
             rs = ReverseWord(InputPtr + 1);
             rw = ReverseLong(InputPtr + 2) << 16;
             BitBuffM1 = (((*InputPtr + rw + (rs << 8)) << BitBuffBits) +
@@ -237,7 +230,7 @@ WORD UnpackMethod2(RNC_fileptr FilePtr, BYTE *OutputBuffer)
 
 void InitUnpack(RNC_fileptr FilePtr, BYTE *OutputBuffer)
 {
-#if 1
+#ifdef SSSV
     ULONG sp2C;
     ULONG sp28;
     ULONG sp24;
@@ -245,7 +238,7 @@ void InitUnpack(RNC_fileptr FilePtr, BYTE *OutputBuffer)
 #endif
     InputPtr = (BYTE *)&FilePtr->Data; // skip over header
     OutputPtr = OutputBuffer;
-#if 1
+#ifdef SSSV
     sp24 = ReverseLong((BYTE *)&FilePtr->UncompressedSize);
     sp28 = ReverseLong((BYTE *)&FilePtr->UncompressedSize);
     sp2C = ReverseLong((BYTE *)&FilePtr->UncompressedSize);
@@ -266,7 +259,7 @@ WORD InputBitsM1(BYTE n)
 
     while (n--) {
         if (BitBuffBits == 0) {
-#if 1
+#ifdef SSSV
             BitBuffM1 = ReverseLong(InputPtr);
 #else
             BitBuffM1 = *((ULONG *)InputPtr);
@@ -332,7 +325,7 @@ WORD InputValue(HUFFMAN_tableptr Table)
 
     tableptr = Table;
 
-    while ( (tableptr->CodeLen == 0) || ((BitBuffM1 & (1 << tableptr->CodeLen) - 1) != tableptr->Code)) {
+    while ( (tableptr->CodeLen == 0) || ((BitBuffM1 & ((1 << tableptr->CodeLen) - 1)) != tableptr->Code)) {
         tableptr++;
         Bits++;
     }
@@ -373,7 +366,7 @@ WORD InputPosM2(void)
     return (Pos << 8) + *InputPtr++ + 1;
 }
 
-#if 1
+#ifdef SSSV
 // turns "abcd" => "dcba"
 ULONG ReverseLong(BYTE *b) {
     return b[0] | (b[1] << 8) | (b[2] << 16) | (b[3] << 24);
@@ -395,7 +388,6 @@ WORD ReverseWord(BYTE *b) {
  * Date: 07-APR-95
  *----------------------------------------------------------------------------*/
 
-#if 0
 BYTE BitBuffBits,
      *InputPtr,
      *OutputPtr;
@@ -406,10 +398,6 @@ WORD FirstEntry,
 huffman RawHuffmanTable[16],
         PosHuffmanTable[16],
         LenHuffmanTable[16];
-#else
-extern WORD FirstEntry,
-            SecondEntry;
-#endif
 
 void InitHuffmanTable(HUFFMAN_tableptr Table, BYTE TableSize);
 void MakeHuffmanCodes(HUFFMAN_tableptr Table, BYTE n);
@@ -511,7 +499,7 @@ WORD FindLowest(HUFFMAN_tableptr Table, BYTE n)
          SecondFreq = ULONG_MAX;
 
     for (Entry = 0; Entry < n; Entry++)
-        if ((Freq = Table[Entry].Frequency) != 0)
+        if ((Freq = Table[Entry].Frequency) != 0) {
             if (Freq < FirstFreq) {
                 SecondFreq  = FirstFreq;
                 SecondEntry = FirstEntry;
@@ -522,6 +510,7 @@ WORD FindLowest(HUFFMAN_tableptr Table, BYTE n)
                     SecondFreq  = Freq;
                     SecondEntry = Entry;
                 }
+        }
     if ((FirstFreq == ULONG_MAX) || (SecondFreq == ULONG_MAX))
         return 0;
     return 1;

@@ -33,6 +33,7 @@ void func_8035E120_76F7D0(void) {
 #if 0
 // ESA: func_800818D8
 // final if statements need work
+// replenish energy?
 void func_8035E200_76F8B0(void) {
     s16 skillAEnergy, skillBEnergy;
 

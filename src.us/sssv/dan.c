@@ -11,7 +11,7 @@ void func_803973A0_7A8A50(s16 arg0) {
     s32 len = D_803B6890_7C7F40[arg0].romEnd - D_803B6890_7C7F40[arg0].romStart;
 
     osInvalDCache(D_803B6890_7C7F40[arg0].ramStart, D_803B6890_7C7F40[arg0].ramEnd - D_803B6890_7C7F40[arg0].ramStart);
-    dma_read(D_803B6890_7C7F40[arg0].romStart, D_803B6890_7C7F40[arg0].ramStart2, len);
+    dma_read(D_803B6890_7C7F40[arg0].romStart, D_803B6890_7C7F40[arg0].ramDest, len);
 }
 
 void func_80397414_7A8AC4(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle) {
@@ -224,7 +224,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
             D_803F6720[arg7][0].unk0.unkC[1] + (arg1 >> 16),
             D_803F6720[arg7][0].unk0.unkC[2] + (arg2 >> 16),
             ((arg4 - D_803F6720[arg7][0].unk0.unk0[2]) * 256) / 360,
-            D_803A8374_7B9A24, // 0x1034190
+            D_803A8370_7B9A20[1], // 0x1034190
             (arg5 << 3) >> 0x10,
             (arg5 << 4) >> 0x10,
             0x9B,

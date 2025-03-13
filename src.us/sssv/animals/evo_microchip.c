@@ -11,17 +11,12 @@ extern s16 D_803B3DF4_7C54A4[];
 extern s16 D_803B3E24_7C54D4[];
 extern s16 D_803B3E88_7C5538[];
 extern s16 D_803B3EEC_7C559C[];
-extern s16 D_803BD57E_7CEC2E[];
-extern s16 D_803BD636_7CECE6[];
 
 extern Gfx D_01003588_3CE58[];
 extern Gfx D_01004E60_3E730[];
 extern Gfx D_01004E80_3E750[];
 extern Gfx D_01004CC0_3E590[];
 extern Gfx D_01004D90_3E660[];
-
-extern struct035 *D_801DD714;
-extern s32 D_801DDD8C;
 
 
 // EVO_MICROCHIP
@@ -48,7 +43,7 @@ void update_evo_microchip(void) {
         }
     }
 
-    if ((D_803D552C->unk366 == 2) || (D_803D552C->unk366 == 5)) {
+    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
         if (D_803D5524->unk9C != EVO_MICROCHIP) {
             load_animal(EVO_MICROCHIP);
         }
@@ -99,8 +94,8 @@ void update_evo_microchip(void) {
         }
 
         if (ticks_remaining >= 20) {
-            D_803D5520->unk0 = &D_801DD714;
-            D_803D5530->unk16C = &D_801DD714;
+            D_803D5520->unk0 = &D_801D9ED8.unk0[EVO_MICROCHIP];
+            D_803D5530->unk16C = &D_801D9ED8.unk0[EVO_MICROCHIP];
             gCurrentAnimalId = EVO_MICROCHIP;
             D_803E9820 = 27;
             D_803E9822 = 0;
@@ -192,10 +187,10 @@ void update_evo_microchip(void) {
 
             func_8031A150_72B800(D_803D552C->unk326++, &sp9E, &sp9C);
             func_8031A278_72B928(&D_803D552C->unk326, &sp9E, &sp9C);
-            sp9E = D_803BD57E_7CEC2E[sp9E]; sp9C = D_803BD636_7CECE6[sp9C];
-            func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp9E);
+            sp9E = D_803BD530_7CEBE0.eyes[3][sp9E]; sp9C = D_803BD600_7CECB0.eyes[2][sp9C];
+            func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp9E);
             SET_JOINT(1,   2, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_01004E60_3E730);
-            func_80356BD8_768288(D_01000CC0_3A590, D_01000620_39EF0, sp9C);
+            func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp9C);
             SET_JOINT(1,   2, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_01004E80_3E750);
 
             gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
@@ -205,7 +200,7 @@ void update_evo_microchip(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp9A == 0) || (sp9A == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 1)), D_803D552C->heading, D_01033190_6CA60, 9, 6, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 9, 6, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp9A == 0) {
         func_803034D0_714B80(D_803D552C, 0x138, 0, 0);

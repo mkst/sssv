@@ -75,10 +75,10 @@ Vtx D_05008C70_91ED0[8] = {
 Vtx D_05008CF0_91F50[6] = {
 #include "data/inc/D_05008CF0_91F50.inc.c"
 };
-extern u8 D_05005A10_8EC70[];
-extern u8 D_05005C10_8EE70[];
-extern u8 D_05005E10_8F070[];
-extern u8 D_05006610_8F870[];
+extern u8 img_intro_spaceship_interior_0_16_rgba16__png[];
+extern u8 img_intro_tigerprint_16_rgba16__png[];
+extern u8 img_intro_tbd_D_05005E10_8F070_D_05005E10_8F070__rgba16__png[];
+extern u8 img_intro_spaceship_interior_4_16_rgba16__png[];
 
 Gfx D_05008D50_91FB0[] = {
     gsDPPipeSync(),
@@ -99,7 +99,7 @@ Gfx D_05008D50_91FB0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, D_05005A10_8EC70),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, img_intro_spaceship_interior_0_16_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 255, 512),
@@ -227,7 +227,7 @@ Gfx D_05008D50_91FB0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, D_05005C10_8EE70),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, img_intro_tigerprint_16_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0040, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 255, 512),
@@ -341,7 +341,7 @@ Gfx D_05008D50_91FB0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_05005E10_8F070),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_intro_tbd_D_05005E10_8F070_D_05005E10_8F070__rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0080, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
@@ -354,7 +354,7 @@ Gfx D_05008D50_91FB0[] = {
     gsSP2Triangles(10, 11, 12, 0, 13, 14, 15, 0),
     gsSP2Triangles(13, 16, 14, 0, 17, 18, 19, 0),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, D_05006610_8F870),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, img_intro_spaceship_interior_4_16_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0180, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 255, 512),
