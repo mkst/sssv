@@ -1,12 +1,13 @@
 # Space Station Silicon Valley N64
 
 ![build](https://github.com/mkst/sssv/workflows/build/badge.svg)
-![progress](https://img.shields.io/badge/dynamic/json?url=https%3A//sssv.deco.mp/latest.json&color=critical&label=progress&query=$.progress[?(@.version=='us')].sections[?(@.section=='all')].percent&suffix=%&link=https%3A//sssv.deco.mp&logo=github&logoColor=959da5&labelColor=353c43)
+![progress](https://img.shields.io/badge/dynamic/json?color=blue&label=us&query=$.message&logo=github&logoColor=white&link=https://github.com/mkst/sssv&url=https%3A%2F%2Fsssv.deco.mp%2Fus.json)
 
-A WIP decompilation of Space Station Silicon Valley (SSSV) for N64.
-Checkout the [wiki](https://github.com/mkst/sssv/wiki) for more information.
+A work-in-progress decompilation of the **Space Station Silicon Valley** game for the Nintendo 64.
 
-**Note:** To use this repository, you must already own a copy of the game.
+> **Note:** You must legally own a copy of the original game to use this repository.
+
+Check out the [wiki](https://github.com/mkst/sssv/wiki/) for more detailed information.
 
 # Building
 
