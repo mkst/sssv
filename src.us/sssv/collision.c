@@ -280,7 +280,7 @@ void func_802B4D20_6C63D0(void) {
 #endif
 
 // ESA: func_80071AC0
-s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3) {
+s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, u8 (**collision_func)(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3) {
     struct035 *a0; // arg0
     struct035 *a1; // arg1
     s32 res = 0;
