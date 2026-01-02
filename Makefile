@@ -112,6 +112,15 @@ else
   HOSTCC_CHECK_FLAGS = -m32
 endif
 
+# prefer modern gcc for data, but fall back to IDO if not available
+ifneq (,$(call find-command,$(CROSS)gcc))
+  DCC        = $(XGCC)
+  DCC_CFLAGS = $(GCC_FLAGS)
+else
+  DCC        = $(CC)
+  DCC_CFLAGS = $(CFLAGS)
+endif
+
 GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
 RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
@@ -208,10 +217,8 @@ dirs:
 
 tools: $(RNC64) $(LIBRNCU)
 
-check: .baserom.$(VERSION).ok
-
 verify: $(TARGET).z64
-	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $(TARGET).z64" | sha1sum --check
+	@sha1sum --check $(BASENAME).$(VERSION).sha1
 
 no_verify: $(TARGET).z64
 	@echo "Skipping SHA1SUM check, updating CRC"
@@ -221,7 +228,7 @@ progress: dirs $(VERIFY) progress.csv
 
 splat: $(SPLAT)
 
-extract: splat check tools
+extract: splat tools
 	$(PYTHON) $(SPLAT) $(BASENAME).$(VERSION).yaml
 	$(PYTHON) $(TOOLS_DIR)/fixup_tlut.py
 
@@ -242,10 +249,6 @@ distclean: clean
 
 
 ### Recipes
-
-.baserom.$(VERSION).ok: baserom.$(VERSION).z64
-	@echo "$$(cat $(BASENAME).$(VERSION).sha1)  $<" | sha1sum --check
-	@touch $@
 
 $(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES) $(RNC_O_FILES)
 	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
@@ -269,10 +272,10 @@ $(BUILD_DIR)/%.c.o: %.c
 	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 
-# use modern gcc for data
+# use modern gcc or IDO for data
 $(BUILD_DIR)/$(SRC_DIR)/data/%.c.o: $(SRC_DIR)/data/%.c
-	@$(XGCC) -c $(GCC_FLAGS) -o $@ $<
-	@printf "[$(GREEN) newgcc $(NO_COL)]  $<\n"
+	@$(DCC) -c $(DCC_CFLAGS) -o $@ $<
+	@printf "[$(GREEN)  data  $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/%.s.o: %.s
 	@$(AS) $(ASFLAGS) -o $@ $<
