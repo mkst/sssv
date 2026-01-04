@@ -171,8 +171,6 @@ void func_802F301C_7046CC(u8 ambientRed, u8 ambientGreen, u8 ambientBlue, u8 env
     D_803E1BAC = arg7;
 }
 
-#if 1
-// CURRENT (80)
 void func_802F30A4_704754(void) {
     f32 var_f14;
     f32 var_f16;
@@ -326,9 +324,6 @@ void func_802F30A4_704754(void) {
 
     add_single_light(&D_801D9E7C);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/lights/func_802F30A4_704754.s")
-#endif
 
 void add_multiple_lights(void) {
     s16 used;

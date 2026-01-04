@@ -3,7 +3,7 @@
 #include "common.h"
 
 /*
-    Guess so far:
+    Understanding so far:
 
     5 banks (64 bytes each)
 
@@ -26,7 +26,7 @@ s16 write_eeprom(s16 bank) {
     if (bank == 4) {
         eeprom = &gEepromGlobal;
     } else {
-        eeprom = &D_8023F260;
+        eeprom = (Eeprom *)&D_8023F260;
     }
 
     eepromBytes = (u8*)eeprom;
@@ -51,7 +51,7 @@ s16 read_eeprom(s16 slot) {
     if (slot == 4) {
         eeprom = &gEepromGlobal;
     } else {
-        eeprom = &D_8023F260;
+        eeprom = (Eeprom *)&D_8023F260;
     }
     res = osEepromLongRead(&D_8028D0A8, (u32) (slot << 6) >> 3, (u8*)eeprom, 64);
     eepromBytes = (u8*)eeprom;
@@ -97,7 +97,6 @@ s32 eeprom_checksum(u8 *eeprom) {
     }
     return res;
 }
-
 
 void func_80130E44(void) {
     s16 i;
