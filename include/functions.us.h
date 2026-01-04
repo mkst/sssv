@@ -345,7 +345,7 @@ void func_802B4148_6C57F8(Gfx **arg0);
 // collision.c
 void func_802B4D20_6C63D0(void);
 
-s32  func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, s32 (**collision_func)(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3);
+s32  func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, u8 (**collision_func)(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3);
 
 u8   func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
 u8   func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, Position **p1, Position **p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
@@ -944,6 +944,7 @@ void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch,
 void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
 // overlay2_73ED30
+void func_8032D680_73ED30(void);
 void func_8032DACC_73F17C(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
 void func_8032E9E4_740094(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7);
 void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6); // tbd
