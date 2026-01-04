@@ -45,7 +45,7 @@ jobs:
       - name: Touch NON_MATCHING files
         uses: docker://ghcr.io/mkst/sssv:latest
         with:
-          args: grep -Rl NON_MATCHING src.${{ matrix.version }} | xargs -r touch
+          args: sh -c "grep -Rl NON_MATCHING src.${{ matrix.version }} | xargs -r touch"
 
       - name: Perform make NON_MATCHING
         uses: docker://ghcr.io/mkst/sssv:latest
