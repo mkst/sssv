@@ -2,9 +2,9 @@ name: build
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
@@ -13,77 +13,66 @@ jobs:
     strategy:
       matrix:
         include:
-        - version: eu
-        - version: us
+          - version: eu
+          - version: us
       fail-fast: False
     steps:
-    - name: Checkout this repo
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    - name: Checkout baserom
-      uses: actions/checkout@v4
-      with:
-        repository: mkst/sssv-private
-        token: ${{ secrets.PRIVATE_REPO_ACCESS }}
-        path: baserom
-    - name: Decrypt baserom
-      env:
-        ROM: ${{ matrix.version }}
-      run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${ROM}.z64.aes -out baserom.${ROM}.z64
+      - name: Checkout this repo
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - name: Checkout baserom
+        uses: actions/checkout@v6
+        with:
+          repository: mkst/sssv-private
+          token: ${{ secrets.PRIVATE_REPO_ACCESS }}
+          path: baserom
+      - name: Decrypt baserom
+        run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${{ matrix.version }}.z64.aes -out baserom.${{ matrix.version }}.z64
 
-    - name: Perform make extract
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: make extract VERSION=${ROM}
-    - name: Perform make
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: make --jobs VERSION=${ROM}
+      - name: Perform make extract
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: make extract VERSION=${{ matrix.version }}
 
-    - name: Create progress.csv
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: make progress VERSION=${ROM}
+      - name: Perform make
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: make --jobs VERSION=${{ matrix.version }}
 
-    - name: Create progress_filename variable
-      id: vars
-      shell: bash
-      run: |
-        echo "progress_filename=$(echo ${GITHUB_SHA}.$(git show -s --format=%at ${GITHUB_SHA}).csv)" >> $GITHUB_ENV
+      - name: Create progress.csv
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: make progress VERSION=${{ matrix.version }}
 
-    - name: Rename progress.csv
-      run: mv progress.csv "${{ env.progress_filename }}"
+      - name: Create progress_filename variable
+        id: vars
+        shell: bash
+        run: |
+          echo "progress_filename=$(echo ${GITHUB_SHA}.$(git show -s --format=%at ${GITHUB_SHA}).csv)" >> $GITHUB_ENV
 
-    - name: Touch NON_MATCHING files
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: sh -c "grep -Rl NON_MATCHING src.${ROM} | xargs -r touch"
+      - name: Rename progress.csv
+        run: mv progress.csv "${{ env.progress_filename }}"
 
-    - name: Perform make NON_MATCHING
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: make --jobs VERSION=${ROM} NON_MATCHING=1
+      - name: Touch NON_MATCHING files
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: sh -c "grep -Rl NON_MATCHING src.${{ matrix.version }} | xargs -r touch"
 
-    - name: Push progress.csv to sssv-website repo
-      if: ${{ github.event_name == 'push' && matrix.version == 'us' }}
-      uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.WEBSITE_REPO_ACCESS }}
-      with:
-        source_file: "${{ env.progress_filename }}"
-        destination_repo: mkst/sssv-website
-        destination_folder: progress/data
-        user_email: streetster@gmail.com
-        user_name: mkst
-        destination_branch: master
+      - name: Perform make NON_MATCHING
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: make --jobs VERSION=${{ matrix.version }} NON_MATCHING=1
+
+      - name: Push progress.csv to sssv-website repo
+        if: ${{ github.event_name == 'push' && matrix.version == 'us' }}
+        uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.WEBSITE_REPO_ACCESS }}
+        with:
+          source_file: "${{ env.progress_filename }}"
+          destination_repo: mkst/sssv-website
+          destination_folder: progress/data
+          user_email: streetster@gmail.com
+          user_name: mkst
+          destination_branch: master
