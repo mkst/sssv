@@ -2,7 +2,7 @@ name: build_pr
 
 on:
   pull_request_target:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build_pr:
@@ -11,53 +11,43 @@ jobs:
     strategy:
       matrix:
         include:
-        - version: eu
-        - version: us
+          - version: eu
+          - version: us
       fail-fast: False
     steps:
-    - name: Checkout this repo
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        ref: ${{ github.event.pull_request.head.ref }}
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
-    - name: Checkout baserom
-      uses: actions/checkout@v4
-      with:
-        repository: mkst/sssv-private
-        token: ${{ secrets.PRIVATE_REPO_ACCESS }}
-        path: baserom
-    - name: Decrypt baserom
-      env:
-        ROM: ${{ matrix.version }}
-      run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${ROM}.z64.aes -out baserom.${ROM}.z64
+      - name: Checkout this repo
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Checkout baserom
+        uses: actions/checkout@v6
+        with:
+          repository: mkst/sssv-private
+          token: ${{ secrets.PRIVATE_REPO_ACCESS }}
+          path: baserom
+      - name: Decrypt baserom
+        run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${{ matrix.version }}.z64.aes -out baserom.${{ matrix.version }}.z64
 
-    - name: Perform make extract
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: make extract VERSION=${ROM}
+      - name: Perform make extract
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: make extract VERSION=${{ matrix.version }}
 
-    - name: Perform make
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: make --jobs VERSION=${ROM}
+      - name: Perform make
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: make --jobs VERSION=${{ matrix.version }}
 
-    # build NON_MATCHING ROM
+      # build NON_MATCHING ROM
 
-    - name: Touch NON_MATCHING files
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: grep -Rl NON_MATCHING src.${ROM} | xargs touch
+      - name: Touch NON_MATCHING files
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: grep -Rl NON_MATCHING src.${{ matrix.version }} | xargs -r touch
 
-    - name: Perform make NON_MATCHING
-      uses: docker://ghcr.io/mkst/sssv:latest
-      env:
-        ROM: ${{ matrix.version }}
-      with:
-        args: make --jobs VERSION=${ROM} NON_MATCHING=1
+      - name: Perform make NON_MATCHING
+        uses: docker://ghcr.io/mkst/sssv:latest
+        with:
+          args: make --jobs VERSION=${{ matrix.version }} NON_MATCHING=1
