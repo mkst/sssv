@@ -90,6 +90,7 @@ RNC_O_FILES     := $(foreach file,$(RNC_FILES),$(BUILD_DIR)/$(file:.rnc=.rnc.o))
 UNDEFINED_SYMS  := osViGetCurrentLine
 
 # Tools
+find-command = $(shell which $(1) 2>/dev/null)
 
 CROSS    = mips-linux-gnu-
 
@@ -101,6 +102,15 @@ PYTHON   = python3
 GCC      = gcc
 
 XGCC     = $(CROSS)gcc
+
+# prefer clang as CC_CHECK
+ifneq (,$(call find-command,clang))
+  HOSTCC = clang
+  HOSTCC_CHECK_FLAGS = --target=i686-linux-gnu
+else
+  HOSTCC = gcc
+  HOSTCC_CHECK_FLAGS = -m32
+endif
 
 GREP     = grep -rl
 CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
@@ -156,7 +166,7 @@ CFLAGS += $(INCLUDE_CFLAGS)
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
 # CHECK_WARNINGS += -Wdouble-promotion
-CC_CHECK := $(GCC) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 -m32 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
+CC_CHECK := $(HOSTCC) $(HOSTCC_CHECK_FLAGS) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
 
 GCC_FLAGS := $(INCLUDE_CFLAGS) $(DEFINES)
 GCC_FLAGS += -G0 -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
@@ -293,7 +303,7 @@ $(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64
 
 $(LIBRNCU): $(TOOLS_DIR)/rncu.c
-	$(GCC) -o $@ $< --shared -O3 -fPIC
+	$(HOSTCC) -o $@ $< --shared -O3 -fPIC
 
 # language files
 %.dat.rnc.json: %.dat.rnc
