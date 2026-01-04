@@ -3,7 +3,7 @@
 #include "common.h"
 
 /*
-    Guess so far:
+    Understanding so far:
 
     5 banks (64 bytes each)
 
@@ -26,7 +26,7 @@ s16 write_eeprom(s16 bank) {
     if (bank == 4) {
         eeprom = &gEepromGlobal;
     } else {
-        eeprom = &D_8023F260;
+        eeprom = (Eeprom *)&D_8023F260;
     }
 
     eepromBytes = (u8*)eeprom;
@@ -39,7 +39,7 @@ s16 write_eeprom(s16 bank) {
     return osEepromLongWrite(&D_8028D0A8, (u32)(bank * EEPROM_MAXBLOCKS) / EEPROM_BLOCK_SIZE, (u8*)eeprom, sizeof(D_8023F260));
 }
 
-s32 read_eeprom(s16 slot) {
+s16 read_eeprom(s16 slot) {
     s32 res;
     u8 *eepromBytes;
     s32 checksum;
@@ -51,7 +51,7 @@ s32 read_eeprom(s16 slot) {
     if (slot == 4) {
         eeprom = &gEepromGlobal;
     } else {
-        eeprom = &D_8023F260;
+        eeprom = (Eeprom *)&D_8023F260;
     }
     res = osEepromLongRead(&D_8028D0A8, (u32) (slot << 6) >> 3, (u8*)eeprom, 64);
     eepromBytes = (u8*)eeprom;
@@ -98,27 +98,25 @@ s32 eeprom_checksum(u8 *eeprom) {
     return res;
 }
 
-#ifdef NON_MATCHING
 void func_80130E44(void) {
     s16 i;
     s16 badRead;
     s16 bank;
     s16 requireReset;
     s16 badWrite;
+    s32 res;
 
     requireReset = 0;
 
     // 4 attempts to read eeprom
+    badRead = 1;
     i = 0;
-    do {
+    while (badRead && i < 4) {
         badRead = read_eeprom(4);
-        if (!badRead);
         i++;
-        if (!badRead) break;
-    } while (i < 4);
+    }
 
     if (badRead || (i > 3) || (gEepromGlobal.unk4 != 0xCF76F7E)) {
-        i = 0;
         requireReset = 1;
 
         // bad eeprom, so zero out
@@ -139,44 +137,37 @@ void func_80130E44(void) {
         gEepromGlobal.unk8 = 1; // isReset?
 
         // four attempts to write eeprom
-
-        do {
+        badWrite = 1;
+        i = 0;
+        while (badWrite && i < 4) {
             badWrite = write_eeprom(4);
             i++;
-            if (!badWrite) break;
         }
-        while (i < 4);
     }
 
     // read each user bank
     for (bank = 3; bank >= 0; bank--) {
         // four attempts to read each bank
+        badRead = 1;
         i = 0;
-        do {
+        while (badRead && i < 4) {
             badRead = read_eeprom(bank);
-            if (!badRead) ;
-
             i++;
-            if (!badRead) break;
-        } while (i < 4);
+        }
 
         if (badRead || (requireReset == 1)) {
-#pragma _permuter sameline start
-            i = 0; osSyncPrintf("reset all data - %d\n", bank);
-#pragma _permuter sameline end
+            osSyncPrintf("reset all data - %d\n", bank);
             if (bank != 4) {
                 memset_bytes((u8*)&D_8023F260, 0, sizeof(D_8023F260));
             }
-            do {
+            badWrite = 1;
+            i = 0;
+            while (badWrite && i < 4) {
                 badWrite = write_eeprom(bank);
                 i++;
-                if (!badWrite) break;
-            } while (i < 4);
+            }
         } else if (bank != 4) {
             memcpy_sssv((u8*)&D_8023F260, (u8*)&D_8023F2E0[bank], sizeof(D_8023F260));
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/eeprom/func_80130E44.s")
-#endif

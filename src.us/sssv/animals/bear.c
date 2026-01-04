@@ -954,24 +954,26 @@ void func_80326260_737910(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/bear/func_80326260_737910.s")
 #endif
 
-#ifdef NON_MATCHING // JUSTREG
 // esa: func_8008D654
-// CURRENT (10)
 void func_803277B4_738E64(void) {
     // struct035 *tmp;
 
-    if ((D_803D552C->unk320 == NULL) && (D_803D552C->unk365 != ATTACK_GRAB)) {
-        D_803D552C->unk32A = D_803D5544 & 0xFFFF;
-        D_803D552C->unk365 = ATTACK_GRAB;
+    if ((D_803D552C->unk320 == NULL) && (D_803D552C->unk365 != 11)) {
+        s32 fake = !D_803D552C->unk318;
+        if (fake) {}
+        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk365 = 11;
     } else if ((D_803D552C->unk320 != NULL) &&
                (D_803D552C->unk365 != ATTACK_BEAR_2) &&
                (D_803D552C->unk365 != ATTACK_BEAR_3) &&
                (D_803D552C->unk318 == 0)) {
+
         D_803D552C->unk32A = D_803D5544;
-        // this temp is required to match ESA:
+
+        // this temp is required to match ESA (https://decomp.me/scratch/h3fba), but makes things worse here...
         // tmp = D_803D552C->unk320->unk16C;
 
-        // object is a bolder or ?
+        // object is a bolder or ...?
         if ((D_803D552C->unk320->unk16C->objectType == OBJECT_BOULDER) ||
             (D_803D552C->unk320->unk16C->objectType == 61)) {
             D_803D552C->unk365 = ATTACK_BEAR_2;
@@ -980,9 +982,6 @@ void func_803277B4_738E64(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/bear/func_803277B4_738E64.s")
-#endif
 
 void bear_attack(void) {
     if ((D_803D552C->unk320 == 0) &&

@@ -75,7 +75,7 @@ void font_init(void);
 
 // core/eeprom.c
 s16  write_eeprom(s16 arg0);
-s32  read_eeprom(s16 slot);
+s16  read_eeprom(s16 slot);
 s32  eeprom_checksum(u8 *arg0);
 
 // core/audiomgr
