@@ -252,10 +252,10 @@ typedef struct {
 } CmdType23;
 
 typedef struct {
-    /* 0x0 */ u16 F; // not a bitfield?
-    /* 0x2 */ u8  State;
-    /* 0x3 */ s8  Fq;
-    /* 0x4 */ u8  S;
+    /* 0x0 */ u16 F; // Flags
+    /* 0x2 */ u8  State; // Particle ID
+    /* 0x3 */ s8  Fq; // Frequency
+    /* 0x4 */ u8  S; // Size
     /* 0x5 */ u8  unk5;
     /* 0x6 */ u16 Time;
 } CmdType24;
@@ -774,7 +774,7 @@ struct Animal {
     /* 0x150 */ s16 unk150; // Info.Counter2 ?
     /* 0x152 */ s16 unk152;
     /* 0x154 */ u8  unk154; // lifetime
-    /* 0x158 */ s32 unk158;
+    /* 0x158 */ s32 unk158; // some kind of scale?
     /* 0x15C */ u8  unk15C;
     /* 0x15E */ s16 unk15E;
     /* 0x160 */ u8  unk160; // 0, 1 or 2 (mapStatus12)

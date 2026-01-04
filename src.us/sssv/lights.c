@@ -171,7 +171,7 @@ void func_802F301C_7046CC(u8 ambientRed, u8 ambientGreen, u8 ambientBlue, u8 env
     D_803E1BAC = arg7;
 }
 
-#ifdef NON_MATCHING
+#if 1
 // CURRENT (80)
 void func_802F30A4_704754(void) {
     f32 var_f14;
@@ -296,26 +296,18 @@ void func_802F30A4_704754(void) {
         var_f20 = (-D_80204218 * cosf(0.7853947f)) + (-D_8020421C * sinf(0.7853947f));
         var_f22 = (-D_8020421C * cosf(0.7853947f)) - (-D_80204218 * sinf(0.7853947f));
 
-#if 0
-        var_f18 = (var_f2 = -D_80204220);
-#else
-        var_f18 = -D_80204220;
-#endif
-        var_f14 = MAX(ABSF(var_f20), ABSF(var_f22));
-        var_f2 = var_f18;
+        var_f2 = -D_80204220;
+        var_f18 = MAX(ABSF(var_f20), ABSF(var_f22));
 
-        var_f18 = var_f14;
         var_f0 = sqrtf(SQ(var_f20) + SQ(var_f22));
-        var_f14 = ABSF(var_f2);
+        var_f16 = var_f0 / (ABSF(var_f2) + 1.0);
 
         if (var_f18 == 0.0f) {
             var_f18 = 1.0f;
         }
 
-        var_f20 *= (127.0f / var_f18);
-        var_f22 *= (127.0f / var_f18);
-
-        var_f16 = var_f0 / (var_f14 + 1.0);
+        var_f20 *= 127.0f / var_f18;
+        var_f22 *= 127.0f / var_f18;
 
         if (var_f16 < 0.25) {
             var_f20 += 4 * (127.0 - var_f20) * (0.25 - var_f16);

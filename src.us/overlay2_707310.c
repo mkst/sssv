@@ -1771,25 +1771,28 @@ void func_802FA6D8_70BD88(void) {
 }
 
 #ifdef NON_MATCHING
-// CURRENT (250)
+// CURRENT (65)
 // ESA: func_80052EA4
 void func_802FA730_70BDE0(Animal *arg0) {
     struct077 spB8; // size 0x6
 
-    s32 pad[13];
+    s32 pad[11];
 
     s32 tmp1;
     s32 tmp2;
     s32 tmp3;
+
+    s32 tmp_s2;
+    s32 tmp_s3;
 
     s32 pad2;
 
     s32 var_s1;
     u8 var_s2;
     u8 var_s3;
-    s32 var_v0;
+    s32 size;
 
-    s16 i;
+    s16 numParticles;
 
     if (arg0->unk21E.type24.F & 0x10) {
         arg0->unk21E.type24.Time--;
@@ -1806,9 +1809,9 @@ void func_802FA730_70BDE0(Animal *arg0) {
         }
 
         if (arg0->unk22A == 0) {
-            i = 1;
+            numParticles = 1;
         } else if (arg0->unk22A < 0) {
-            i = -arg0->unk22A;
+            numParticles = -arg0->unk22A;
         }
 
         if (arg0->unk21E.type24.F & 4) {
@@ -1822,10 +1825,10 @@ void func_802FA730_70BDE0(Animal *arg0) {
             arg0->unk22A = arg0->unk21E.type24.Fq;
         }
     } else {
-        i = 1;
+        numParticles = 1;
     }
 
-    while (i-- > 0) {
+    while (numParticles-- > 0) {
         if (arg0->unk22A < 0) {
             arg0->unk22A++;
         }
@@ -1866,7 +1869,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
         var_s3 = arg0->unk219;
 
         if (arg0->unk21D != 0) {
-            var_s1 += ((((s32)func_80128200() >> 4) % (     arg0->unk21D * 2))) - arg0->unk21D;
+            var_s1 +=         ((((s32)func_80128200() >> 4) % (     arg0->unk21D * 2))) - arg0->unk21D;
         }
         if (arg0->unk21B != 0) {
             var_s2 = var_s2 + ((((s32)func_80128200() >> 4) % ((s16)arg0->unk21B * 2))) - arg0->unk21B;
@@ -1875,13 +1878,16 @@ void func_802FA730_70BDE0(Animal *arg0) {
             var_s3 = var_s3 + ((((s32)func_80128200() >> 4) % ((s16)arg0->unk21C * 2))) - arg0->unk21C;
         }
 
-        // help?
+        // rotate the particle based on animal rotation
         if (arg0->unk21E.type24.F & 0x20) {
-            var_s2 += (arg0->zRotation * 256) / 360;
-            var_s3 += (arg0->yRotation * 256) / 360;
+            tmp_s2 = (arg0->zRotation << 8) / 360;
+            tmp_s3 = (arg0->yRotation << 8) / 360;
+            var_s2 += tmp_s2;
+            var_s3 += tmp_s3;
         }
 
-        if (arg0->unk21E.type24.F & 2)  {
+        // FIXME: (s16) cast reduces score from 430 -> 65
+        if ((s16)arg0->unk21E.type24.F & 2)  {
             if (arg0->unk158 == 0) {
                 break;
             }
@@ -1897,11 +1903,11 @@ void func_802FA730_70BDE0(Animal *arg0) {
         tmp1 = (tmp2 * SIN(var_s3)) >> 0xF;
         tmp2 = (tmp2 * COS(var_s3)) >> 0xF;
 
+        // scale based on animal scale factor?
         if (arg0->unk21E.type24.F & 0x80) {
-            var_v0 = (arg0->unk21E.type24.S * arg0->unk40);
-            var_v0 = var_v0 >> 0xB;
+            size = (arg0->unk21E.type24.S * arg0->unk40) >> 11;
         } else {
-            var_v0 = arg0->unk21E.type24.S;
+            size = arg0->unk21E.type24.S;
         }
 
         create_particle_effect(
@@ -1912,7 +1918,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
             tmp1 << 8,
             tmp2 << 8,
             tmp3 << 8,
-            var_v0,       // size
+            size,       // size
             arg0->unk226, // rgba16 color
             arg0->unk228, // rgba16 color
             arg0->unk21E.type24.unk5);

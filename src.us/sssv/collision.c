@@ -601,11 +601,7 @@ u8 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position** p1, Position** p2
     return res;
 }
 
-#ifdef NON_MATCHING
-// CURRENT (75)
-// ESA: func_800726C8
 u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
-
     s32 temp_a0;
     s32 temp_a1;
 
@@ -613,8 +609,6 @@ u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 
     u8 changed;
     u8 flags;
-
-    s16 new_var;
 
     *p1 = NULL;
 
@@ -625,55 +619,56 @@ u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2
         temp_a0 = arg1->unk30 + arg0->unkC4[i].unkC;
         temp_a1 = arg1->unk32 + arg0->unkC4[i].unkC;
 
-        if (changed = (
+        changed = (
             ((xPos1.h + arg0->unkC4[i].pos.xPos.h) > (xPos2.h - temp_a0)) &&
             ((xPos1.h + arg0->unkC4[i].pos.xPos.h) < (xPos2.h + temp_a0)) &&
             ((zPos1.h + arg0->unkC4[i].pos.zPos.h) > (zPos2.h - temp_a1)) &&
             ((zPos1.h + arg0->unkC4[i].pos.zPos.h) < (zPos2.h + temp_a1)) &&
             ((yPos1.h + arg0->unkC4[i].pos.yPos.h) > (yPos2.h - arg0->unkC4[i].unkC)) &&
-            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) < (yPos2.h + arg0->unkC4[i].unkC + arg1->unk42)))) {
-            *p1 = &arg0->unkC4[i];
+            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) < (yPos2.h + arg0->unkC4[i].unkC + arg1->unk42)));
+
+        if (changed != 0) {
+            *p1 = (Position*)&arg0->unkC4[i];
 
             flags = 0;
-            if ((xPos1.h + arg0->unkC4[i].pos.xPos.h) < (xPos2.h - arg1->unk30)) {
+            if ((arg0->unkC4[i].pos.xPos.h + xPos1.h) < (xPos2.h - arg1->unk30)) {
                 flags = (0x4 | 0x8);
-            } else if ((xPos1.h + arg0->unkC4[i].pos.xPos.h) > (xPos2.h + arg1->unk30)) {
+            } else if ((arg0->unkC4[i].pos.xPos.h + xPos1.h) > (xPos2.h + arg1->unk30)) {
                 flags = 0x8;
             }
-            new_var = arg0->unkC4[i].pos.zPos.h; // this aint the solution..
 
-            if ((new_var + zPos1.h) < (zPos2.h - arg1->unk32)) {
+            if ((arg0->unkC4[i].pos.zPos.h + zPos1.h) < (zPos2.h - arg1->unk32)) {
                 flags |= (0x1 | 0x2);
-            } else if ((new_var + zPos1.h) > (zPos2.h + arg1->unk32)) {
+            } else if ((arg0->unkC4[i].pos.zPos.h + zPos1.h) > (zPos2.h + arg1->unk32)) {
                 flags |= 0x2;
             }
 
             switch (flags) {
             case (0x1 | 0x2 | 0x4 | 0x8): // 0xF
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h - arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h - arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
                 break;
             case (0x2 | 0x4 | 0x8): // 0xE
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h + arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h + arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
                 break;
             case (0x1 | 0x2 | 0x8): // 0xB
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h - arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h - arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
                 break;
             case (0x2 | 0x8):  // 0xA
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)) + SQ((zPos2.h + arg1->unk32) - (zPos1.h - new_var)))) {
+                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h + arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
             }
 
-            if (changed != (arg1->unk30 * 0)) {
+            if (changed != 0) {
                 if (ABS(((arg0->unkC4[i].pos.yPos.h + yPos1.h) - yPos2.h) - (arg1->unk42 >> 1)) - (arg1->unk42 >> 1) <
                     MAX(ABS((xPos1.h + arg0->unkC4[i].pos.xPos.h) - xPos2.h) - arg1->unk30,
-                        ABS((zPos1.h + new_var) - zPos2.h) - arg1->unk32)) {
+                        ABS((zPos1.h + arg0->unkC4[i].pos.zPos.h) - zPos2.h) - arg1->unk32)) {
                     D_803D60E0 = 1;
                 } else {
                     D_803D60E0 = 0;
@@ -684,9 +679,6 @@ u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2
     }
     return changed;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B6B5C_6C820C.s")
-#endif
 
 // ESA: func_80072B88
 // collision with object that has custom collision data
