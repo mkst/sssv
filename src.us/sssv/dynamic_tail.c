@@ -141,7 +141,6 @@ void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
 
 // ESA: func_80084E58
 void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
-
     s32 var_t4; // sp8C ?
 
     s32 v1;
@@ -430,7 +429,6 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 num
         sp1B0 = (temp_v0->unk18 * sp1B0) / var_f12;
     }
 
-
     for (i = numSegments - 1; i > var_s1; i--) {
         var_t5[i].unk0 = var_t5[i+1].unk0 + sp1B8;
         var_t5[i].unk4 = var_t5[i+1].unk4 + sp1B4;
@@ -492,15 +490,12 @@ void func_802DE914_6EFFC4(s16 idx, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
     tmp->unk2C = arg4;
 }
 
-#ifdef NON_MATCHING
 //esa:func_80086824
 void func_802DE950_6F0000(void) {
-    s32 pad[2];
+    u32 v1;
     s16 temp_s0;
     s16 i;
     s16 j;
-
-    s32 temp_a2;
 
     s32 tmpX;
     s32 tmpZ;
@@ -550,11 +545,11 @@ void func_802DE950_6F0000(void) {
                 }
 
                 temp_v0 = D_803C0740[((temp_s2->unk20 >> 0x10) >> 6)][((temp_s2->unk24 >> 0x10) >> 6)].unk7;
-                temp_a2 = ((1 - (((temp_v0 >> 4) & 8) >> 2)) * (((temp_v0 & 0xF0) >> 4) & 7)) << 0xB;
-
+                v1 = ((1 - (((temp_v0 >> 4) & 8) >> 2)) * (((temp_v0 & 0xF0) >> 4) & 7)) << 0xB;
                 for (j = 0; j < 8; j++) {
+                    s32 temp_a2 = v1 & 0xffffffff;
                     D_803A3F9C_7B564C[j].unk0 = var_a3[j].unk0 + temp_a2;
-                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + (temp_a2 & 0xFFFFFFFF);
+                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + temp_a2 * 1;
                     D_803A3F9C_7B564C[j].unk8 = var_a3[j].unk8;
                 }
 
@@ -574,8 +569,8 @@ void func_802DE950_6F0000(void) {
                     gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
                     func_802E4F20_6F65D0(D_01036190_6FA60);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
                     gDPSetEnvColor(D_801D9E88++, 0x00, 0x14, 0x31, 0x00);
                     gSPTexture(D_801D9E88++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
                     gSPDisplayList(D_801D9E88++, D_010379D8_712A8);
@@ -611,11 +606,11 @@ void func_802DE950_6F0000(void) {
                 }
 
                 temp_v0 = D_803C0740[((temp_s2->unk20 >> 0x10) >> 6)][((temp_s2->unk24 >> 0x10) >> 6)].unk7;
-                temp_a2 = ((1 - (((temp_v0 >> 4) & 8) >> 2)) * (((temp_v0 & 0xF0) >> 4) & 7)) << 0xB;
-
+                v1 = ((1 - (((temp_v0 >> 4) & 8) >> 2)) * (((temp_v0 & 0xF0) >> 4) & 7)) << 0xB;
                 for (j = 0; j < 16; j++) {
+                    s32 temp_a2 = v1 & 0xffffffff;
                     D_803A3F9C_7B564C[j].unk0 = var_a3[j].unk0 + temp_a2;
-                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + (temp_a2 & 0xFFFFFFFF);
+                    D_803A3F9C_7B564C[j].unk4 = var_a3[j].unk4 + temp_a2 * 1;
                     D_803A3F9C_7B564C[j].unk8 = var_a3[j].unk8;
                 }
 
@@ -634,9 +629,9 @@ void func_802DE950_6F0000(void) {
                     gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
                     func_802E4F20_6F65D0(D_01036190_6FA60);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF);
-                    gDPSetEnvColor(D_801D9E88++, 0x00, 0x14, 0x31, 0x00);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
+                    gDPSetEnvColor(D_801D9E88++, 0x00, 0x14, 0x31, 0x00);
                     gSPTexture(D_801D9E88++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
                     gSPDisplayList(D_801D9E88++, D_01037950_71220);
                     gSPDisplayList(D_801D9E88++, D_01037998_71268);
@@ -726,35 +721,35 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
 
-                    switch (temp_s2->tailType) {          /* switch 2 */
-                    case 19:                    /* switch 2 */
-                    case 22:                    /* switch 2 */
-                    case 25:                    /* switch 2 */
-                    case 28:                    /* switch 2 */
+                    switch (temp_s2->tailType) {
+                    case 19:
+                    case 22:
+                    case 25:
+                    case 28:
                         func_802E4F20_6F65D0(D_01036190_6FA60);
-                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0x52, 0xDC, 0x63, 0xFF);
+                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0x52, 0xDC, 0x63, 0xFF); // #52dc63
                         gDPSetEnvColor(D_801D9E88++, 0x00, 0x31, 0x00, 0x00);
                         break;
-                    case 20:                    /* switch 2 */
-                    case 23:                    /* switch 2 */
-                    case 26:                    /* switch 2 */
-                    case 29:                    /* switch 2 */
+                    case 20:
+                    case 23:
+                    case 26:
+                    case 29:
                         func_802E4F20_6F65D0(D_01035990_6F260);
-                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x9C, 0x31, 0xFF);
+                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x9C, 0x31, 0xFF); // #ff9c31
                         gDPSetEnvColor(D_801D9E88++, 0x31, 0x08, 0x00, 0x00);
                         break;
-                    case 21:                    /* switch 2 */
-                    case 24:                    /* switch 2 */
-                    case 27:                    /* switch 2 */
-                    case 30:                    /* switch 2 */
+                    case 21:
+                    case 24:
+                    case 27:
+                    case 30:
                         func_802E4F20_6F65D0(D_01035190_6EA60);
-                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF); // #ffffff
                         gDPSetEnvColor(D_801D9E88++, 0x00, 0x00, 0x00, 0x00);
                         break;
-                    case 36:                    /* switch 2 */
-                    case 37:                    /* switch 2 */
+                    case 36:
+                    case 37:
                         func_802E4F20_6F65D0(D_0102BA10_652E0);
-                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0xD7, 0xD7, 0xFF, 0xFF);
+                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0xD7, 0xD7, 0xFF, 0xFF); // #d7d7ff
                         gDPSetEnvColor(D_801D9E88++, 0x89, 0x65, 0xB4, 0x00);
                         break;
                     }
@@ -905,9 +900,6 @@ void func_802DE950_6F0000(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802DE950_6F0000.s")
-#endif
 
 // only called with 0 or 1
 // esa:func_80087440 but modified
@@ -925,10 +917,9 @@ void func_802E072C_6F1DDC(s8 arg0) {
             case 3:
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, D_803A3B4C_7B51FC, 0x96, 0);
-
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF); // #ff9999
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x8000, 0xC000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04006C00_CE630);
@@ -960,10 +951,9 @@ void func_802E072C_6F1DDC(s8 arg0) {
             case 4:
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, &D_803A3BAC_7B525C, 0x96, 0);
-
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF); // #ff9999
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x8000, 0xC000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04006C00_CE630);
@@ -994,10 +984,9 @@ void func_802E072C_6F1DDC(s8 arg0) {
             case 32:
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, D_803A3B4C_7B51FC, 0x96, 0);
-
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF); // #ff9999
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x10000, 0x18000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04006C00_CE630);
@@ -1030,8 +1019,8 @@ void func_802E072C_6F1DDC(s8 arg0) {
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, D_803A3BAC_7B525C, 0x96, 0);
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF); // #ff9999
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x10000, 0x18000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04006C00_CE630);
@@ -1064,8 +1053,8 @@ void func_802E072C_6F1DDC(s8 arg0) {
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, D_803A3C3C_7B52EC, 0x96, 0);
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x99, 0x99, 0xFF); // #ff9999
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x8000, 0xC000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04006C00_CE630);
@@ -1098,23 +1087,21 @@ void func_802E072C_6F1DDC(s8 arg0) {
                     func_802DD548_6EEBF8(i, D_803A3990_7B5040, 0x96, 0);
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xBE, 0xFF, 0xFF, 0xFF);
-
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xBE, 0xFF, 0xFF, 0xFF); // #beffff
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04003930_E0EF0);
                         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                     }
 
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xD4, 0xFF, 0xFF, 0xFF);
-
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xD4, 0xFF, 0xFF, 0xFF); // #d4ffff
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04003930_E0EF0);
                         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                     }
 
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF); // #ffffff
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, D_803DA300[temp_s4->unk16+3].unk0, D_803DA300[temp_s4->unk16+3].unk4, D_803DA300[temp_s4->unk16+3].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04003930_E0EF0);
@@ -1125,10 +1112,9 @@ void func_802E072C_6F1DDC(s8 arg0) {
             case 12:
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, D_803A3990_7B5040, 0x96, 0);
-
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((SIN((D_803D5540 * 0x10)) >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, (((SIN((D_803D5540 * 0x10)) >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04003930_E0EF0);
@@ -1136,7 +1122,6 @@ void func_802E072C_6F1DDC(s8 arg0) {
                     }
 
                     gDPSetPrimColor(D_801D9E88++, 0, 0, (((SIN(((D_803D5540 * 0x10) + 0x55)) >> 7) >> 2) + 0x80), 0xFF, 0xFF, 0xFF);
-
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, 0x1199A, 0x1199A, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04003930_E0EF0);
@@ -1163,10 +1148,9 @@ void func_802E072C_6F1DDC(s8 arg0) {
             case 13:
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, D_803A3B1C_7B51CC, 0x96, 0);
-
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x8A, 0x47, 0xFF);
 
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x8A, 0x47, 0xFF); // #ff8a47
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x33D7, 0x33D7, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04003580_EAB30);
@@ -1195,8 +1179,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
 
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
-
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF); // #ff0000
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x2852, 0x2852, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04006050_ED600);
@@ -1249,7 +1232,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                     if (temp_s4->tailType != 0x1F) {
                         gSPDisplayList(D_801D9E88++, D_01003618_3CEE8);
 
-                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0x94, 0x94, 0x94, 0xFF);
+                        gDPSetPrimColor(D_801D9E88++, 0, 0, 0x94, 0x94, 0x94, 0xFF); // #949494
                         if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x9CCC, 0x9CCC, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                             gSPDisplayList(D_801D9E88++, D_04006200_F7260);
@@ -1277,7 +1260,8 @@ void func_802E072C_6F1DDC(s8 arg0) {
                 if (temp_s4->unk34 == 0) {
                     func_802DD548_6EEBF8(i, D_803A3C0C_7B52BC, 0x96, 0);
                     gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xDA, 0x1C, 0xFF);
+
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0xDA, 0x1C, 0xFF); // #ffda1c
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x10000, 0x10000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04000E70_F1ED0);
@@ -1289,7 +1273,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                         gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
                     }
 
-                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xAA, 0x64, 0x1C, 0xFF);
+                    gDPSetPrimColor(D_801D9E88++, 0, 0, 0xAA, 0x64, 0x1C, 0xFF); // #aa641c
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, D_803DA300[temp_s4->unk16+3].unk0, D_803DA300[temp_s4->unk16+3].unk4, D_803DA300[temp_s4->unk16+3].unk8, 0x10000, 0x10000, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs])) {
                         gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
                         gSPDisplayList(D_801D9E88++, D_04000EF0_F1F50);
