@@ -93,8 +93,8 @@ void set_menu_text_color(u8 r, u8 g, u8 b, u8 a) {
     D_8023F1F3 = a; // textColorA
 }
 
-void select_font(u8 arg0, u8 fontType, u8 shadow, u8 arg3) {
-    D_8023F1F4 = arg0;
+void select_font(u8 isMonospace, u8 fontType, u8 shadow, u8 arg3) {
+    D_8023F1F4 = isMonospace;
     D_8023F1F5 = shadow;
     if (fontType == FONT_LCD) {
         select_lcd_font();

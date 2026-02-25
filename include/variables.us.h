@@ -447,10 +447,11 @@ extern u8   D_8023F1F0; // r
 extern u8   D_8023F1F1; // g
 extern u8   D_8023F1F2; // b
 extern u8   D_8023F1F3; // a
-extern u8   D_8023F1F4; // 0 or 1
+extern u8   D_8023F1F4; // 0 or 1 (gUseMonospacedFont)
 extern u8   D_8023F1F5; // use shadow?
 extern f32  D_8023F1F8; // current font width / scale
 extern f32  D_8023F1FC; // current font height / scale
+
 extern s16  D_8023F206[];
 extern s16  D_8023F208[32];
 extern s16  D_8023F248[];
