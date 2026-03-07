@@ -23,7 +23,7 @@ s32 func_802983D0_6A9A80(void);
 u64  gRenderMode1;
 u64  gRenderMode2;
 u64  gGeometryMode;
-u16  D_803C0658; // matrix normalise
+u16  gWorldPerspNorm; // matrix normalise
 
 // ========================================================
 // .text
@@ -525,7 +525,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
             sp142 = D_803F2D50.unk14;
             sp140 = D_803F2D50.unk16;
 
-            if (D_803F28D0[0] & 0x20) {
+            if (gCameraVisibilityMask[0] & 0x20) {
 
                 D_803A04F0_7B1BA0 += 2;
                 if (D_803A04F0_7B1BA0 >= 128) {

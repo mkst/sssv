@@ -23,7 +23,7 @@ extern Gfx *D_801D9E9C;
 extern s16  D_802042C8;
 extern s16  D_802042A4;
 
-extern s16  D_802042B0;
+extern s16  gDebugTextBuffer;
 extern s16  D_802042B2;
 
 extern s16  D_8028647C;

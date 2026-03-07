@@ -44,7 +44,7 @@ void func_80380920_791FD0(void) {
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp82 = 0;
-        D_803F2EDD = 0;
+        gLodDetailState = 0;
     } else {
         sp82 = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 20, 20, 20, 1, CHECK_SEGMENT == 0);
     }
@@ -150,7 +150,7 @@ void func_80380920_791FD0(void) {
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) &&
-            ((D_803D5538 != 0) || (temp_v0_10 = D_803F2AA2, (temp_v0_10 == 0)) || (temp_v0_10 == 2) || ((temp_v0_10 == 1) && (D_803F2AA3 >= 0xB))) &&
+            ((D_803D5538 != 0) || (temp_v0_10 = gCameraUiState, (temp_v0_10 == 0)) || (temp_v0_10 == 2) || ((temp_v0_10 == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
 
             func_80127640(
@@ -170,15 +170,15 @@ void func_80380920_791FD0(void) {
             gDPSetPrimColor(D_801D9E88++, 0, 0, 0x7D, 0x33, 0xFF, 0xFF);
 
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04001F80_DF540); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04001F80_DF540); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 26, 0x14000, 0x14000, 0x14000, D_803F2ED0, 0, 0, 0, D_040021C0_DF780); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 26, 0x14000, 0x14000, 0x14000, D_803F2ED0, 0, 0, 0, D_040021C0_DF780); }
 #pragma _permuter sameline end
 
             if (sp94 != 0) {
 #pragma _permuter sameline start
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0, 0x16, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002320_DF8E0); }
+                if (gLodDetailState == 0) { func_802C78B0_6D8F60(0, 0x16, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002320_DF8E0); }
 #pragma _permuter sameline end
                 func_802C78B0_6D8F60(0, 0x18, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, (sp94 * 0x50) >> 6, D_803F2ED0, 0, 1, 0, D_04002320_DF8E0);
             }
@@ -221,37 +221,37 @@ void func_80380920_791FD0(void) {
 
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 0xD, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040025D0_DFB90); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 0xD, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040025D0_DFB90); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 7, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
 #pragma _permuter sameline end
 
             func_802C78B0_6D8F60(3, 8, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0);
 
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 9, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 9, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xE, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040025D0_DFB90); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 0xE, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_040025D0_DFB90); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xA, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 0xA, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
 #pragma _permuter sameline end
             func_802C78B0_6D8F60(4, 0xB, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0);
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 0xC, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 0xC, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, (var_t0 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04002410_DF9D0); }
 #pragma _permuter sameline end
 
             if (D_803D5524->unk9C == SEAGULL) {
 #pragma _permuter sameline start
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 5, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04002090_DF650); }
+                if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 5, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04002090_DF650); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-                if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 27, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04002090_DF650); }
+                if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 27, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04002090_DF650); }
 #pragma _permuter sameline end
             }
-            if (D_803F2EDD == 0) {
+            if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
 #pragma _permuter sameline start

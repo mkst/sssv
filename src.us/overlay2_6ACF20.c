@@ -377,7 +377,7 @@ void func_8029BB94_6AD244(void) {
         }
 
         if ((D_803D2D90.unk44 < 120) && (D_803D2D90.unk42 < 120)) {
-            func_8029C8F0_6ADFA0(&D_801D9E7C);
+            func_8029C8F0_6ADFA0(&gMainDL);
         }
     }
 }

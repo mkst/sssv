@@ -362,11 +362,11 @@ void load_level_texture_data(u8 bank, u8 arg1) {
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800D5420);
 
-    D_801D9E78 = D_800B0B20;
+    gSegment5Base = D_800B0B20;
 
     temp_v0 = sp30;
     temp_v0 += (arg1 + arg1) & 0xFFFF;
-    dma_read(temp_v0[0], D_801D9E78, temp_v0[1] - temp_v0[0]);
+    dma_read(temp_v0[0], gSegment5Base, temp_v0[1] - temp_v0[0]);
 }
 
 void load_level_data(u8 level) {
@@ -989,10 +989,10 @@ void func_8031C32C_72D9DC(void) {
 
 void func_8031C374_72DA24() {
     func_8031C304_72D9B4();
-    D_803E1B10.unk0 = 1;
-    D_803E1B10.unk2 = 100;
-    D_803E1B10.unk6 = 8;
-    D_803E1B10.transitionId = 5; // square-folding transition
+    gScreenTransition.unk0 = 1;
+    gScreenTransition.unk2 = 100;
+    gScreenTransition.unk6 = 8;
+    gScreenTransition.transitionId = 5; // square-folding transition
     D_803F2D50.entranceTeleporter = NULL; // clear entrance teleporter pointer?
 }
 

@@ -15,7 +15,7 @@ s32 load_objects(void) {
     obj = D_801E9EB8.unk0;
     for (i = 0; i < 247; i++) {
         if ((obj->collision != NULL) && (((s32)obj->collision & 0xF0000000) == 0)) {
-            obj->collision = D_801D9E74 + SEGMENT_OFFSET((s32)obj->collision);
+            obj->collision = gSegment1Base + SEGMENT_OFFSET((s32)obj->collision);
         }
         obj++;
     }

@@ -202,7 +202,7 @@ s16 func_8012C678(s16 *text, u16 x, u16 y) {
             }
             sprintf((char*)spD8, "%d", D_8023F206[num]);
             prepare_text(spD8, D_8023F248);
-            func_8012D374(&D_801D9E7C, D_8023F248, x, y, D_8023F1F8, D_8023F1FC, -1);
+            func_8012D374(&gMainDL, D_8023F248, x, y, D_8023F1F8, D_8023F1FC, -1);
             return 1;
         }
         // change text color

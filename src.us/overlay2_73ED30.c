@@ -215,11 +215,11 @@ void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
             }
 
             if (sp94 > 0.0f) {
-                if (D_803E1CF8.min >= (D_803E1CF8.max - 1)) {
+                if (gFogState.min >= (gFogState.max - 1)) {
                     var_a1 = 0;
                 } else {
-                    temp_a2 = D_803E1CF8.min * 8;
-                    temp_a3 = D_803E1CF8.max * 8;
+                    temp_a2 = gFogState.min * 8;
+                    temp_a3 = gFogState.max * 8;
 
                     temp_f10 = MIN(sp98 * 7990.0, 8000.0);
 
@@ -232,7 +232,7 @@ void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
                     }
                 }
 
-                gDPSetPrimColor((*dl)++, 0, var_a1, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 0xFF);
+                gDPSetPrimColor((*dl)++, 0, var_a1, gFogState.r, gFogState.g, gFogState.b, 0xFF);
 
                 depth = ((sp98 * 1023.0f * 32.0f) + 32736.0f);
                 gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.unk42), 0);
@@ -352,20 +352,20 @@ void func_8032E9E4_740094(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
                 f32 xOffset;
                 f32 yOffset;
 
-                temp_v0 = (1000 - ((1000 - D_803E1CF8.min) / 6));
-                if (temp_v0 >= D_803E1CF8.max) {
+                temp_v0 = (1000 - ((1000 - gFogState.min) / 6));
+                if (temp_v0 >= gFogState.max) {
                     limit = 0;
                 } else {
                     temp_t7 = ((s32) sp94 * 1000) >> 16;
                     if (temp_v0 >= temp_t7) {
                         limit = 0;
                     } else {
-                        limit = (((temp_t7 - temp_v0) << 8) / (D_803E1CF8.max - temp_v0));
+                        limit = (((temp_t7 - temp_v0) << 8) / (gFogState.max - temp_v0));
                     }
                 }
 
                 depth = ((sp94 * 1023.0f * 32.0f) + 32736.0f);
-                gDPSetPrimColor((*dl)++, 0, limit, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 0xFF);
+                gDPSetPrimColor((*dl)++, 0, limit, gFogState.r, gFogState.g, gFogState.b, 0xFF);
                 gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.unk42), 0);
 
                 xOffset = (arg4 * var_v1) / 128.0;

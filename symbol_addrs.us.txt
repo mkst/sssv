@@ -78,9 +78,9 @@ D_01003588_3CE58 = 0x1003588; // defined:true
 D_01003618_3CEE8 = 0x1003618; // defined:true
 D_01003998_3D268 = 0x1003998; // defined:true
 D_010039F8_3D2C8 = 0x10039F8; // defined:true
-D_01003A28_3D2F8 = 0x1003A28; // defined:true
+gFovMaskRenderSetupDl = 0x1003A28; // defined:true
 D_01003A58_3D328 = 0x1003A58; // defined:true
-D_01003BD0_3D4A0 = 0x1003BD0; // defined:true
+img_fov_masks_ci4__png = 0x1003BD0; // defined:true
 D_01004308_3DBD8 = 0x1004308; // defined:true
 D_01004458_3DD28 = 0x1004458; // defined:true
 D_01004828_3E0F8 = 0x1004828; // defined:true
@@ -349,14 +349,14 @@ D_803A6D08_7B83B8      = 0x803A6D08; // rom:0x7B83B8 size:0xC
 D_803A6D14_7B83C4      = 0x803A6D14; // rom:0x7B83C4 size:0xC
 D_803A7B24_7B91D4      = 0x803A7B24; // rom:0x7B91D4 size:0x14
 
-D_802042B0             = 0x802042B0; // defined:true
+gDebugTextBuffer             = 0x802042B0; // defined:true
 D_802042EC             = 0x802042EC; // defined:true
 
-D_802042F0             = 0x802042F0; // defined:true
+gNoControllerMessageText             = 0x802042F0; // defined:true
 D_80204368             = 0x80204368; // defined:true
 D_802043E0             = 0x802043E0; // defined:true
 
-D_802053E0             = 0x802053E0; // defined:true
+gVIData             = 0x802053E0; // defined:true
 D_802053F0             = 0x802053F0; // defined:true
 D_80205400             = 0x80205400; // defined:true
 D_8020540C             = 0x8020540C; // defined:true
@@ -480,12 +480,12 @@ D_801D9E5C = 0x801D9E5C; // defined:true
 D_801D9E60 = 0x801D9E60; // defined:true
 D_801D9E64 = 0x801D9E64; // defined:true
 D_801D9E68 = 0x801D9E68; // defined:true
-D_801D9E6C = 0x801D9E6C; // defined:true
+gMenuSegmentBase = 0x801D9E6C; // defined:true
 
-D_801D9E70 = 0x801D9E70; // defined:true
-D_801D9E74 = 0x801D9E74; // defined:true
-D_801D9E78 = 0x801D9E78; // defined:true
-D_801D9E7C = 0x801D9E7C; // defined:true
+gFontSegmentBase = 0x801D9E70; // defined:true
+gSegment1Base = 0x801D9E74; // defined:true
+gSegment5Base = 0x801D9E78; // defined:true
+gMainDL = 0x801D9E7C; // defined:true
 
 // audiomgr
 __am              = 0x8023F410; // defined:true
@@ -533,7 +533,7 @@ D_80286562        = 0x80286562; // defined:true
 D_80286564        = 0x80286564; // defined:true
 D_80286568        = 0x80286568; // defined:true
 
-D_80288E30        = 0x80288E30; // defined:true
+thread7_stack        = 0x80288E30; // defined:true
 D_8028B030        = 0x8028B030; // defined:true
 
 D_8028D030        = 0x8028D030; // defined:true
@@ -583,7 +583,7 @@ D_802912E4 = 0x802912E4; // defined:true
 D_802912E5 = 0x802912E5; // defined:true
 
 // overlay1
-D_80302E60 = 0x80302E60; // defined:true
+gIntroPerspNorm = 0x80302E60; // defined:true
 D_80302E64 = 0x80302E64; // defined:true
 D_80302E70 = 0x80302E70; // defined:true
 D_80302E74 = 0x80302E74; // defined:true
@@ -600,7 +600,7 @@ D_803B0596 = 0x803B0596; // defined:true
 
 // overlay2_6A6500
 D_803C0420 = 0x803C0420; // defined:true
-D_803C0422 = 0x803C0422; // defined:true
+gInitialisationState = 0x803C0422; // defined:true
 D_803C0424 = 0x803C0424; // defined:true
 D_803C0426 = 0x803C0426; // defined:true
 D_803C0428 = 0x803C0428; // defined:true
@@ -610,7 +610,7 @@ D_803C0430 = 0x803C0430; // defined:true size:0x210
 gRenderMode1  = 0x803C0640; // defined:true size:0x8 segment:overlay2
 gRenderMode2  = 0x803C0648; // defined:true size:0x8 segment:overlay2
 gGeometryMode = 0x803C0650; // defined:true size:0x8 segment:overlay2
-D_803C0658 = 0x803C0658; // defined:true
+gWorldPerspNorm = 0x803C0658; // defined:true
 
 // overlay2_6AB090
 D_803C0660 = 0x803C0660; // defined:true size:0xe0
@@ -679,7 +679,7 @@ D_803D60E8 = 0x803D60E8; // defined:true size:0x10
 D_803D60F8 = 0x803D60F8; // defined:true size:0x10
 
 // overlay2_6D9AF0
-D_803D6110 = 0x803D6110; // defined:true
+gControllerDebounce = 0x803D6110; // defined:true
 
 // overlay2_6DCA10
 D_803D6120 = 0x803D6120; // defined:true size:0x3FD8
@@ -700,7 +700,7 @@ D_803E1B06 = 0x803E1B06; // defined:true
 D_803E1B08 = 0x803E1B08; // defined:true
 
 // screen_transition
-D_803E1B10 = 0x803E1B10; // defined:true size:0xA
+gScreenTransition = 0x803E1B10; // defined:true size:0xA
 D_803E1B1A = 0x803E1B1A; // defined:true
 D_803E1B1B = 0x803E1B1B; // defined:true
 D_803E1B1C = 0x803E1B1C; // defined:true
@@ -746,9 +746,9 @@ D_803E1BBE = 0x803E1BBE; // defined:true
 D_803E1BBF = 0x803E1BBF; // defined:true
 
 // input
-D_803E1BC0 = 0x803E1BC0; // defined:true
+gInputMode = 0x803E1BC0; // defined:true
 D_803E1BC4 = 0x803E1BC4; // defined:true
-D_803E1BD4 = 0x803E1BD4; // defined:true
+demoInput = 0x803E1BD4; // defined:true
 
 // overlay2_707310
 D_803E1BE0 = 0x803E1BE0; // defined:true
@@ -756,7 +756,7 @@ D_803E1BE8 = 0x803E1BE8; // defined:true
 D_803E1CE0 = 0x803E1CE0; // defined:true
 D_803E1CE8 = 0x803E1CE8; // defined:true
 D_803E1CF0 = 0x803E1CF0; // defined:true
-D_803E1CF8 = 0x803E1CF8; // defined:true
+gFogState = 0x803E1CF8; // defined:true
 D_803E1D00 = 0x803E1D00; // defined:true
 D_803E1D02 = 0x803E1D02; // defined:true
 D_803E1D04 = 0x803E1D04; // defined:true
@@ -860,7 +860,7 @@ D_803E9840 = 0x803E9840; // defined:true size:0x906C
 // D_803F28C2 = 0x803F28C2; //defined:true
 
 // overlay2_741000
-D_803F28D0 = 0x803F28D0; // defined:true size:0x10 segment:overlay2
+gCameraVisibilityMask = 0x803F28D0; // defined:true size:0x10 segment:overlay2
 gCameras   = 0x803F28E0; // defined:true size:0x1B8 segment:overlay2
 gCameraId  = 0x803F2A98; // defined:true
 D_803F2A9A = 0x803F2A9A; // defined:true
@@ -868,7 +868,7 @@ D_803F2A9C = 0x803F2A9C; // defined:true
 D_803F2A9E = 0x803F2A9E; // defined:true
 D_803F2AA0 = 0x803F2AA0; // defined:true
 D_803F2AA1 = 0x803F2AA1; // defined:true
-D_803F2AA2 = 0x803F2AA2; // defined:true
+gCameraUiState = 0x803F2AA2; // defined:true
 D_803F2AA3 = 0x803F2AA3; // defined:true
 D_803F2AA4 = 0x803F2AA4; // defined:true
 D_803F2AA5 = 0x803F2AA5; // defined:true
@@ -903,9 +903,9 @@ D_803F2C34 = 0x803F2C34; // defined:true
 D_803F2C38 = 0x803F2C38; // defined:true
 D_803F2C3C = 0x803F2C3C; // defined:true
 D_803F2C40 = 0x803F2C40; // defined:true
-D_803F2C44 = 0x803F2C44; // defined:true
-D_803F2C48 = 0x803F2C48; // defined:true
-D_803F2C4C = 0x803F2C4C; // defined:true
+gCameraEyeWorldX = 0x803F2C44; // defined:true
+gCameraEyeWorldZ = 0x803F2C48; // defined:true
+gCameraEyeWorldY = 0x803F2C4C; // defined:true
 D_803F2C50 = 0x803F2C50; // defined:true
 D_803F2C54 = 0x803F2C54; // defined:true
 D_803F2C58 = 0x803F2C58; // defined:true
@@ -950,7 +950,7 @@ D_803F2CC0 = 0x803F2CC0; // defined:true segment:overlay2 size:0x8
 
 // osd
 D_803F2CD0 = 0x803F2CD0; // defined:true
-D_803F2CD2 = 0x803F2CD2; // defined:true
+gHudTimerSeconds = 0x803F2CD2; // defined:true
 D_803F2CD4 = 0x803F2CD4; // defined:true
 D_803F2CD6 = 0x803F2CD6; // defined:true
 D_803F2CD8 = 0x803F2CD8; // defined:true
@@ -959,12 +959,12 @@ D_803F2CDC = 0x803F2CDC; // defined:true
 D_803F2CDD = 0x803F2CDD; // defined:true
 D_803F2CDE = 0x803F2CDE; // defined:true
 D_803F2CDF = 0x803F2CDF; // defined:true
-D_803F2CE0 = 0x803F2CE0; // defined:true
+gHudCenterText = 0x803F2CE0; // defined:true
 D_803F2CE4 = 0x803F2CE4; // defined:true
 D_803F2CE6 = 0x803F2CE6; // defined:true
 D_803F2CE8 = 0x803F2CE8; // defined:true
 D_803F2CEC = 0x803F2CEC; // defined:true
-D_803F2CF0 = 0x803F2CF0; // defined:true
+gHudBarBaseY = 0x803F2CF0; // defined:true
 D_803F2CF2 = 0x803F2CF2; // defined:true
 D_803F2CF8 = 0x803F2CF8; // defined:true
 D_803F2D04 = 0x803F2D04; // defined:true
@@ -974,7 +974,7 @@ D_803F2D20 = 0x803F2D20; // defined:true
 D_803F2D22 = 0x803F2D22; // defined:true
 D_803F2D23 = 0x803F2D23; // defined:true
 D_803F2D24 = 0x803F2D24; // defined:true
-D_803F2D30 = 0x803F2D30; // defined:true segment:overlay2 size:0x20
+gLevelProgress = 0x803F2D30; // defined:true segment:overlay2 size:0x20
 
 // TODO: D_803F2D50
 
@@ -997,7 +997,7 @@ D_803F2ED8 = 0x803F2ED8; // defined:true
 D_803F2EDA = 0x803F2EDA; // defined:true
 D_803F2EDB = 0x803F2EDB; // defined:true
 D_803F2EDC = 0x803F2EDC; // defined:true
-D_803F2EDD = 0x803F2EDD; // defined:true
+gLodDetailState = 0x803F2EDD; // defined:true
 D_803F2EDE = 0x803F2EDE; // defined:true
 
 // chameleon
@@ -1016,7 +1016,7 @@ D_803F3308 = 0x803F3308; // defined:true
 D_803F330A = 0x803F330A; // defined:true
 D_803F330C = 0x803F330C; // defined:true
 D_803F330E = 0x803F330E; // defined:true
-D_803F3310 = 0x803F3310; // defined:true
+gScorpionVtxIdx = 0x803F3310; // defined:true
 D_803F3330 = 0x803F3330; // defined:true
 D_803F34C0 = 0x803F34C0; // defined:true
 gLoadedMessageCount = 0x803F63C0; // defined:true
@@ -1049,16 +1049,16 @@ D_803F646C = 0x803F646C; // defined:true
 D_803F6470 = 0x803F6470; // defined:true
 D_803F6472 = 0x803F6472; // defined:true
 D_803F6474 = 0x803F6474; // defined:true
-D_803F6478 = 0x803F6478; // defined:true
-D_803F6500 = 0x803F6500; // defined:true
-D_803F6548 = 0x803F6548; // defined:true
+gTerminalTextScrollState = 0x803F6478; // defined:true
+gTerminalStatLabels = 0x803F6500; // defined:true
+gTerminalStatTextX = 0x803F6548; // defined:true
 D_803F6570 = 0x803F6570; // defined:true
 D_803F6670 = 0x803F6670; // defined:true
 D_803F6674 = 0x803F6674; // defined:true
 
 // overlay2_7A0DA0
-D_803F6680 = 0x803F6680; // defined:true segment:overlay2 size:0x37
-D_803F66B8 = 0x803F66B8; // defined:true segment:overlay2 size:0x4C
+gOverlayMenuState = 0x803F6680; // defined:true segment:overlay2 size:0x37
+gOverlayUiState = 0x803F66B8; // defined:true segment:overlay2 size:0x4C
 D_803F6704 = 0x803F6704; // defined:true
 D_803F6706 = 0x803F6706; // defined:true
 D_803F6708 = 0x803F6708; // defined:true

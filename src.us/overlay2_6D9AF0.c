@@ -47,7 +47,7 @@ void func_802C85EC_6D9C9C(void) {
     D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.unk4E << 8) / 360;
     D_801D9ED8.unkFFA8 = (D_803F2D50.unk4E << 8) / 360;
     D_803F2AA3 = 0;
-    D_803F2AA2 = 0;
+    gCameraUiState = 0;
 }
 
 void func_802C87E0_6D9E90(void) {

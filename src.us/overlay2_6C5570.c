@@ -39,7 +39,7 @@ void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f3
             func_802B4148_6C57F8(arg0);
         }
         if (arg1 == 2) {
-            draw_rectangle(arg0, 8, 8, gScreenWidth - 8, gScreenHeight - 8, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 255);
+            draw_rectangle(arg0, 8, 8, gScreenWidth - 8, gScreenHeight - 8, gFogState.r, gFogState.g, gFogState.b, 255);
         }
     }
 }
@@ -96,7 +96,7 @@ void func_802B4148_6C57F8(Gfx **arg0) {
     D_803A05C8_7B1C78 = temp_s6;
 
     // randomly generate a meteor
-    if ((D_803F6680.unk0 == 0) && (RAND(100000) < 5)) {
+    if ((gOverlayMenuState.unk0 == 0) && (RAND(100000) < 5)) {
         s32 temp_s0;
         s16 temp_s1;
         s16 temp_s2;

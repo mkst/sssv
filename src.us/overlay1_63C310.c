@@ -20,13 +20,13 @@ void func_80298C70_63C310(u8 size) {
     j = 0; // x
     sp4C = 0; // image offset
 
-    gSPDisplayList(D_801D9E7C++, &D_801582C0);
+    gSPDisplayList(gMainDL++, &D_801582C0);
     func_801356C0(
         1,
         1,
         1,
         1,
-        &D_801D9E7C,
+        &gMainDL,
         D_80302E88 + 0x62000 + 0, // newscaster
         1.0f,
         1.0f,
@@ -37,8 +37,8 @@ void func_80298C70_63C310(u8 size) {
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 10; j++) {
             // draw black rectangle
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, 0, 0, 0, 255);
-            gDPFillRectangle(D_801D9E7C++,
+            gDPSetPrimColor(gMainDL++, 0, 0, 0, 0, 0, 255);
+            gDPFillRectangle(gMainDL++,
             /* ulx */ (j << 5) + (15 - (size / 2)),
             /* uly */ (i << 5) + (15 - (size / 2)),
             /* lrx */ (j << 5) + (17 - (size / 2)) + size,
@@ -46,7 +46,7 @@ void func_80298C70_63C310(u8 size) {
             );
 
             sp4B = (size << 3) - 1;
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, sp4B, sp4B, sp4B, 0xFF);
+            gDPSetPrimColor(gMainDL++, 0, 0, sp4B, sp4B, sp4B, 0xFF);
 
             sp54 = D_80302E88 + 0x62000 + sp4C;
             func_801356C0(
@@ -54,7 +54,7 @@ void func_80298C70_63C310(u8 size) {
                 (i << 5) + (16 - (size / 2)),
                 new_var,
                 new_var,
-                &D_801D9E7C,
+                &gMainDL,
                 sp54,
                 size,
                 size,
@@ -64,7 +64,7 @@ void func_80298C70_63C310(u8 size) {
         }
     }
 
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 255, 255, 255);
+    gDPSetPrimColor(gMainDL++, 0, 0, 255, 255, 255, 255);
 }
 
 // this matches but can't be what the devs wrote!

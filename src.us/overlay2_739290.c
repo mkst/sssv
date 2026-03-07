@@ -710,19 +710,19 @@ void func_80328520_739BD0(void) {
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             switch (D_803D5524->unkE6) {
             case 0:
-                D_803F2D30.score += 50;
+                gLevelProgress.score += 50;
                 break;
             case 1:
-                D_803F2D30.score += 100;
+                gLevelProgress.score += 100;
                 break;
             case 2:
-                D_803F2D30.score += 200;
+                gLevelProgress.score += 200;
                 break;
             case 3:
-                D_803F2D30.score += 350;
+                gLevelProgress.score += 350;
                 break;
             case 4:
-                D_803F2D30.score += 500;
+                gLevelProgress.score += 500;
                 break;
             }
             if (D_803D5530->cmdIndex != 0) {
@@ -744,19 +744,19 @@ void func_80328520_739BD0(void) {
             if (D_803D5544 >= 2) {
                 switch (D_803D5524->unkE6) {
                 case 0:
-                    D_803F2D30.score += 50;
+                    gLevelProgress.score += 50;
                     break;
                 case 1:
-                    D_803F2D30.score += 100;
+                    gLevelProgress.score += 100;
                     break;
                 case 2:
-                    D_803F2D30.score += 200;
+                    gLevelProgress.score += 200;
                     break;
                 case 3:
-                    D_803F2D30.score += 350;
+                    gLevelProgress.score += 350;
                     break;
                 case 4:
-                    D_803F2D30.score += 500;
+                    gLevelProgress.score += 500;
                     break;
                 }
             }

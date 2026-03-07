@@ -195,24 +195,24 @@ static s16  D_803F7E06; // levels
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
     // unpack menu graphics
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04006EC0_11DA90)), D_800BA760); // central piece of SSSV
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007FA0_11EB70)), D_800BDC80); // "SSSV" Header graphic
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04006EC0_11DA90)), D_800BA760); // central piece of SSSV
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007FA0_11EB70)), D_800BDC80); // "SSSV" Header graphic
     // unpack powercell
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04000000_116BD0)), D_800DE390); // powercell
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04000000_116BD0)), D_800DE390); // powercell
     // unpack evo bodyparts
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013060_129C30)), D_800C3A40[0]); // evo head trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040133C0_129F90)), D_800C3A40[3]); // evo arms trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040131B0_129D80)), D_800C3A40[1]); // evo legs trophy
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04013580_12A150)), D_800C3A40[2]); // evo torso trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04013060_129C30)), D_800C3A40[0]); // evo head trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040133C0_129F90)), D_800C3A40[3]); // evo arms trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040131B0_129D80)), D_800C3A40[1]); // evo legs trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04013580_12A150)), D_800C3A40[2]); // evo torso trophy
     // unpack 'silver' level ring pieces
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007700_11E2D0)), D_800BB700); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040077A0_11E370)), D_800BBBB0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040078C0_11E490)), D_800BC060); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_040079F0_11E5C0)), D_800BC510); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007B40_11E710)), D_800BC9C0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007C60_11E830)), D_800BCE70); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007D90_11E960)), D_800BD320); // silver ring piece
-    UnpackRNC((RNC_fileptr)(D_801D9E6C + SEGMENT_OFFSET(D_04007EC0_11EA90)), D_800BD7D0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007700_11E2D0)), D_800BB700); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040077A0_11E370)), D_800BBBB0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040078C0_11E490)), D_800BC060); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040079F0_11E5C0)), D_800BC510); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007B40_11E710)), D_800BC9C0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007C60_11E830)), D_800BCE70); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007D90_11E960)), D_800BD320); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007EC0_11EA90)), D_800BD7D0); // silver ring piece
 }
 
 void func_8039884C_7A9EFC(void) {
@@ -300,14 +300,14 @@ void display_zone_select_screen(void) {
         D_803B74C4_7C8B74 = 9.7f; //D_803C03F8_7D1AA8;
     }
 
-    func_8039CE38_7AE4E8(&D_801D9E7C);
+    func_8039CE38_7AE4E8(&gMainDL);
     func_8039CAB8_7AE168(1);
-    render_stars(&D_801D9E7C);
+    render_stars(&gMainDL);
 
-    gDPPipeSync(D_801D9E7C++);
+    gDPPipeSync(gMainDL++);
 
-    gDPSetCycleType(D_801D9E7C++, G_CYC_1CYCLE);
-    gDPPipeSync(D_801D9E7C++);
+    gDPSetCycleType(gMainDL++, G_CYC_1CYCLE);
+    gDPPipeSync(gMainDL++);
 
     D_803F7DA8.unk0 = 94.0f;
     D_803F7DA8.unk4 = 134.0f;
@@ -321,22 +321,22 @@ void display_zone_select_screen(void) {
     spE0 = D_803F7DA8.unk0 - 21.5f * D_803F7DA8.unk8;
     spDC = D_803F7DA8.unk4 - 21.5f * D_803F7DA8.unk8;
 
-    gDPPipeSync(D_801D9E7C++);
+    gDPPipeSync(gMainDL++);
 
-    load_default_display_list(&D_801D9E7C);
+    load_default_display_list(&gMainDL);
     select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
-    func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_ZONE_SELECT), 0x18, 0x1F, 24.0f, 16.0f, -1);
+    func_8012D374(&gMainDL, get_message_address_by_id(MSG_ZONE_SELECT), 0x18, 0x1F, 24.0f, 16.0f, -1);
 
-    gSPDisplayList(D_801D9E7C++, D_801584A0);
+    gSPDisplayList(gMainDL++, D_801584A0);
 
-    gDPSetColorDither(D_801D9E7C++, G_CD_DISABLE);
-    gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
+    gDPSetColorDither(gMainDL++, G_CD_DISABLE);
+    gDPSetAlphaDither(gMainDL++, G_AD_PATTERN);
 
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    gDPSetPrimColor(gMainDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
     // decompress ZONE SELECT image
-    UnpackRNC(SEGMENT_OFFSET(D_04012B20_1296F0) + D_801D9E6C, D_800DD3F0); // ZONE_SELECT rgba16
+    UnpackRNC(SEGMENT_OFFSET(D_04012B20_1296F0) + gMenuSegmentBase, D_800DD3F0); // ZONE_SELECT rgba16
 
     if (D_803F7DA8.previousLevel != D_803F7DA8.currentLevel) {
         // level thumbnails
@@ -350,18 +350,18 @@ void display_zone_select_screen(void) {
         gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
         load_level_title();
     }
-    gDPPipeSync(D_801D9E7C++);
+    gDPPipeSync(gMainDL++);
 
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0x80);
-    gDPSetAlphaCompare(D_801D9E7C++, G_AC_NONE);
-    gDPSetRenderMode(D_801D9E7C++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-    gDPSetCombineMode(D_801D9E7C++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
-    gDPPipeSync(D_801D9E7C++);
+    gDPSetPrimColor(gMainDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0x80);
+    gDPSetAlphaCompare(gMainDL++, G_AC_NONE);
+    gDPSetRenderMode(gMainDL++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+    gDPSetCombineMode(gMainDL++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
+    gDPPipeSync(gMainDL++);
 
-    func_803962EC_7A799C(&D_801D9E7C, 800, 592, 1200, 888, D_800B49A0, 64, 47);
-    gDPSetRenderMode(D_801D9E7C++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-    gDPSetCombineMode(D_801D9E7C++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0x1A);
+    func_803962EC_7A799C(&gMainDL, 800, 592, 1200, 888, D_800B49A0, 64, 47);
+    gDPSetRenderMode(gMainDL++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+    gDPSetCombineMode(gMainDL++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
+    gDPSetPrimColor(gMainDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0x1A);
 
     level = D_803F7DA8.currentLevel + 1;
 
@@ -390,8 +390,8 @@ void display_zone_select_screen(void) {
 
         func_803967D4_7A7E84(276, 102, evo_r, evo_g, evo_b, D_8023F260.evoPartsCollected & EVO_HEAD, D_8023F260.evoPartsCollected & EVO_TORSO, D_8023F260.evoPartsCollected & EVO_ARMS, D_8023F260.evoPartsCollected & EVO_LEGS, 0);
     } else if (D_8023F260.level[D_803F7DA8.currentLevel].trophy) {
-        gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-        func_803962EC_7A799C(&D_801D9E7C, 1072, 448, 1200, 576, D_800B68E0, 32, 31);
+        gDPSetPrimColor(gMainDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        func_803962EC_7A799C(&gMainDL, 1072, 448, 1200, 576, D_800B68E0, 32, 31);
     }
 
     if (D_803F7DA2 != 0) {
@@ -459,13 +459,13 @@ void display_zone_select_screen(void) {
         ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
         play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
         func_80395074_7A6724(0);
-        D_803F6680.unk18 += 1;
-        D_803F2D30.level = D_803F7DA8.currentLevel + 1;
+        gOverlayMenuState.unk18 += 1;
+        gLevelProgress.level = D_803F7DA8.currentLevel + 1;
     }
     if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1)) {
         play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
         func_80395074_7A6724(0);
-        D_803F6680.unk18 -= 1;
+        gOverlayMenuState.unk18 -= 1;
         func_8039895C_7AA00C();
     }
 
@@ -518,7 +518,7 @@ void display_zone_select_screen(void) {
         D_803F7DA8.unk18 = func_8039CDE8_7AE498(D_803F7DA8.unk18, 0.0f);
     }
 
-    gDPSetScissor(D_801D9E7C++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
+    gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 
     // big celebration parade
     draw_level_rings_segment(180, 180, 180, 128, 30, 30, &D_8023F260,                              spE0,                                spDC, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
@@ -531,7 +531,7 @@ void display_zone_select_screen(void) {
     // desert
     draw_level_rings_segment(200, 200,   0, 128, 23, 29, &D_8023F260, D_803F7DA8.unk0 + D_803F7DA8.unk14, D_803F7DA8.unk4 + D_803F7DA8.unk18, D_803F7DA8.unk8, D_803F7DA8.currentLevel);
 
-    load_default_display_list(&D_801D9E7C);
+    load_default_display_list(&gMainDL);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
     select_font(0, FONT_COMIC_SANS, 0, 0);
 
@@ -539,15 +539,15 @@ void display_zone_select_screen(void) {
 
     if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) {
         // write title text
-        display_text(&D_801D9E7C, (s16*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+        display_text(&gMainDL, (s16*)D_803F2D50.titleText, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
     }
     vertical_offset += D_803B74B0_7C8B60 + 1.0f;
 
     if (D_803F7DA8.currentLevel != SECRET_LEVEL-1) {
         if (D_8023F260.level[D_803F7DA8.currentLevel].completed == 1) {
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_SECURED), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&gMainDL, get_message_address_by_id(MSG_SECURED), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         } else {
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&gMainDL, get_message_address_by_id(MSG_AVAILABLE), 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
         vertical_offset += D_803B74B0_7C8B60 + 1.0f;
     }
@@ -571,8 +571,8 @@ void display_zone_select_screen(void) {
                     sprintf(ascii, "%d:%d", mins, secs);
                 }
                 prepare_text((u8*)ascii, wide_text);
-                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (level == WALRACE_64) {
@@ -585,11 +585,11 @@ void display_zone_select_screen(void) {
                     sprintf(ascii, "%d:%d", mins, secs);
                 }
                 prepare_text((u8*)ascii, wide_text);
-                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 if ((gEepromGlobal.language == LANG_ITALIAN) || (gEepromGlobal.language == LANG_FRENCH)) {
-                    display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                    display_text(&gMainDL, get_message_address_by_id(MSG_RECORD_2), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 } else {
-                    display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_2), 270, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                    display_text(&gMainDL, get_message_address_by_id(MSG_RECORD_2), 270, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
                 }
             }
         }
@@ -598,8 +598,8 @@ void display_zone_select_screen(void) {
             if (score) {
                 sprintf(ascii, "%d", score);
                 prepare_text((u8*)ascii, wide_text);
-                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, get_message_address_by_id(MSG_HIGH_SCORE), 257, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (level == PUNCHUP_PYRAMID) {
@@ -607,8 +607,8 @@ void display_zone_select_screen(void) {
             if (score) {
                 sprintf(ascii, "%d", score);
                 prepare_text((u8*)ascii, wide_text);
-                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, get_message_address_by_id(MSG_ROUNDS), 285, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (level == BIG_CELEBRATION_PARADE) {
@@ -621,32 +621,32 @@ void display_zone_select_screen(void) {
                     sprintf(ascii, "%d:%d", mins, secs);
                 }
                 prepare_text((u8*)ascii, wide_text);
-                display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
-                display_text(&D_801D9E7C, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
+                display_text(&gMainDL, get_message_address_by_id(MSG_RECORD_1), 264, vertical_offset, D_803B74C4_7C8B74, D_803B74C0_7C8B70);
             }
         }
         if (level == SECRET_LEVEL) {
             score = ((D_8023F260.unk34 >> 21) & 0x7FF) * 100;
             sprintf(ascii, "%d", score );
             prepare_text((u8*)ascii, wide_text);
-            display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
-            display_text(&D_801D9E7C, get_message_address_by_id(MSG_HIGH_SCORE), 240, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+            display_text(&gMainDL, get_message_address_by_id(MSG_HIGH_SCORE), 240, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
         }
     } else {
         sprintf(ascii, "%2d", D_8023F260.level[D_803F7DA8.currentLevel].powercells);
         prepare_text((u8*)ascii, wide_text);
-        display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+        display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 
-        gSPDisplayList(D_801D9E7C++, D_801584A0);
+        gSPDisplayList(gMainDL++, D_801584A0);
 
-        gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-        gDPSetAlphaCompare(D_801D9E7C++, G_AC_THRESHOLD);
-        gDPSetBlendColor(D_801D9E7C++, 0x00, 0x00, 0x00, 0x80);
+        gDPSetPrimColor(gMainDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        gDPSetAlphaCompare(gMainDL++, G_AC_THRESHOLD);
+        gDPSetBlendColor(gMainDL++, 0x00, 0x00, 0x00, 0x80);
 
         // draw powercell
-        func_803962EC_7A799C(&D_801D9E7C, 1040, (vertical_offset - 2) << 2, 1104, (vertical_offset + 14) << 2, D_800DE390, 32, 32);
+        func_803962EC_7A799C(&gMainDL, 1040, (vertical_offset - 2) << 2, 1104, (vertical_offset + 14) << 2, D_800DE390, 32, 32);
     }
-    func_8039D034_7AE6E4(&D_801D9E7C, 0);
+    func_8039D034_7AE6E4(&gMainDL, 0);
 }
 
 void func_8039A2DC_7AB98C(void) {
@@ -667,30 +667,30 @@ void func_8039A2DC_7AB98C(void) {
     if (D_803F7DA8.unk2F == 0) {
         D_803F7DA8.unk31 = 99; // initialise default?
     }
-    func_8039CE38_7AE4E8(&D_801D9E7C);
+    func_8039CE38_7AE4E8(&gMainDL);
     func_8039CAB8_7AE168(1);
 
-    render_stars(&D_801D9E7C);
-    gDPPipeSync(D_801D9E7C++);
+    render_stars(&gMainDL);
+    gDPPipeSync(gMainDL++);
 
-    load_default_display_list(&D_801D9E7C);
+    load_default_display_list(&gMainDL);
 
     select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
     if (gEepromGlobal.language == LANG_FRENCH) {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_BANK_SELECT), 24, 31, 22.0f, 16.0f, -1);
+        func_8012D374(&gMainDL, get_message_address_by_id(MSG_BANK_SELECT), 24, 31, 22.0f, 16.0f, -1);
         D_803B74AC_7C8B5C = 11.0f; // glyph height
         D_803B74B0_7C8B60 = 16.0f; // glyph width
     } else {
         D_803B74AC_7C8B5C = 12.0f; // glyph height
         D_803B74B0_7C8B60 = 16.0f; // glyph width
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_BANK_SELECT), 24, 31, 24.0f, 16.0f, -1);
+        func_8012D374(&gMainDL, get_message_address_by_id(MSG_BANK_SELECT), 24, 31, 24.0f, 16.0f, -1);
     }
 
-    gDPSetCycleType(D_801D9E7C++, G_CYC_1CYCLE);
-    gDPPipeSync(D_801D9E7C++);
+    gDPSetCycleType(gMainDL++, G_CYC_1CYCLE);
+    gDPPipeSync(gMainDL++);
 
-    gSPDisplayList(D_801D9E7C++, D_801584A0);
+    gSPDisplayList(gMainDL++, D_801584A0);
 
     func_8039C5F8_7ADCA8(56,   88, 1.0f, (PlayerEeprom*)&D_8023F2E0[0], (D_803F7DA8.bank == 0) || (D_803F7DA8.unk31 == 0));
     func_8039C5F8_7ADCA8(132,  88, 1.0f, (PlayerEeprom*)&D_8023F2E0[1], (D_803F7DA8.bank == 1) || (D_803F7DA8.unk31 == 1));
@@ -775,7 +775,7 @@ void func_8039A2DC_7AB98C(void) {
             D_803F7DA8.bank += 2;
             play_sound_effect(0x90, 0, 0x5000, 1.0f, 64);
         }
-        if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1) && (D_803F6680.unk24 == 0)) {
+        if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1) && (gOverlayMenuState.unk24 == 0)) {
             play_sound_effect(164, 0, 0x5000, 1.0f, 64);
             func_80395074_7A6724(0);
             func_8038F708_7A0DB8();
@@ -818,7 +818,7 @@ void func_8039A2DC_7AB98C(void) {
                     break;
                 }
 
-                D_803F6680.unk18 += 1;
+                gOverlayMenuState.unk18 += 1;
                 func_8039884C_7A9EFC();
                 D_803F7DA8.currentLevel = 0;
             }
@@ -880,8 +880,8 @@ void func_8039A2DC_7AB98C(void) {
             y_offset = 164;
         }
 
-        draw_rectangle(&D_801D9E7C, x_offset - 38, y_offset - 24, x_offset + 36, y_offset + 20, 0, 0, 0, 0xA8);
-        load_default_display_list(&D_801D9E7C);
+        draw_rectangle(&gMainDL, x_offset - 38, y_offset - 24, x_offset + 36, y_offset + 20, 0, 0, 0, 0xA8);
+        load_default_display_list(&gMainDL);
         select_font(0, FONT_COMIC_SANS, 0, 0);
 
         if (D_803F7DA8.unk30 == 0) { // SELECT
@@ -889,21 +889,21 @@ void func_8039A2DC_7AB98C(void) {
         } else {
             set_menu_text_color(0x80, 0x80, 0x80, 0xFF); // grey
         }
-        display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_SELECT), x_offset, (y_offset - 0x12), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+        display_text_centered(&gMainDL, get_message_address_by_id(MSG_SELECT), x_offset, (y_offset - 0x12), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         if (D_803F7DA8.unk30 == 1) { // COPY
             set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         } else {
             set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
         }
-        display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_COPY), x_offset, (y_offset - 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+        display_text_centered(&gMainDL, get_message_address_by_id(MSG_COPY), x_offset, (y_offset - 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         if (D_803F7DA8.unk30 == 2) { // DELETE
             set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         } else {
             set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
         }
-        display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_DELETE), x_offset, (y_offset + 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+        display_text_centered(&gMainDL, get_message_address_by_id(MSG_DELETE), x_offset, (y_offset + 6), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
         break;
     case 2: // "COPY TO" MENU
@@ -966,12 +966,12 @@ void func_8039A2DC_7AB98C(void) {
                 x_offset = 134;
                 y_offset = 164;
             }
-            draw_rectangle(&D_801D9E7C, (x_offset - 0x1E), (y_offset - 0x18), (x_offset + 0x1C), (s16) (y_offset + 0x14), (u8) 0, (u8) 0, (u8) 0, (u8) 0xA8);
-            load_default_display_list(&D_801D9E7C);
+            draw_rectangle(&gMainDL, (x_offset - 0x1E), (y_offset - 0x18), (x_offset + 0x1C), (s16) (y_offset + 0x14), (u8) 0, (u8) 0, (u8) 0, (u8) 0xA8);
+            load_default_display_list(&gMainDL);
             select_font(0, FONT_COMIC_SANS, 0, 0);
             set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_COPY2), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
-            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_TO), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&gMainDL, get_message_address_by_id(MSG_COPY2), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&gMainDL, get_message_address_by_id(MSG_TO), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
         }
         break;
     case 3:
@@ -1019,9 +1019,9 @@ void func_8039A2DC_7AB98C(void) {
                 x_offset = 134;
                 y_offset = 164;
             }
-            draw_rectangle(&D_801D9E7C, (s16) (x_offset - 0x1E), (s16) (y_offset - 0x18), (s16) (x_offset + 0x1C), (s16) (y_offset + 0x14), (u8) 0, (u8) 0, (u8) 0, (u8) 0xA8);
-            load_default_display_list(&D_801D9E7C);
-            gDPSetAlphaCompare(D_801D9E7C++, G_AC_NONE);
+            draw_rectangle(&gMainDL, (s16) (x_offset - 0x1E), (s16) (y_offset - 0x18), (s16) (x_offset + 0x1C), (s16) (y_offset + 0x14), (u8) 0, (u8) 0, (u8) 0, (u8) 0xA8);
+            load_default_display_list(&gMainDL);
+            gDPSetAlphaCompare(gMainDL++, G_AC_NONE);
 
             select_font(0, FONT_COMIC_SANS, 0, 0);
 
@@ -1030,63 +1030,63 @@ void func_8039A2DC_7AB98C(void) {
             } else {
                 set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
             }
-            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_CANCEL), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&gMainDL, get_message_address_by_id(MSG_CANCEL), x_offset, (y_offset - 0xC), D_803B74B4_7C8B64, D_803B74B8_7C8B68);
 
             if (D_803F7DA8.unk30 == 1) { // COPY
                 set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
             } else {
                 set_menu_text_color(0x80, 0x80, 0x80, 0xFF);
             }
-            display_text_centered(&D_801D9E7C, get_message_address_by_id(MSG_DELETE2), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
+            display_text_centered(&gMainDL, get_message_address_by_id(MSG_DELETE2), x_offset, y_offset, D_803B74B4_7C8B64, D_803B74B8_7C8B68);
         }
         break;
     }
 
-    load_default_display_list(&D_801D9E7C);
+    load_default_display_list(&gMainDL);
     select_font(0, FONT_COMIC_SANS, 1, 0);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
 
     if ((gEepromGlobal.language == LANG_FRENCH) || (gEepromGlobal.language == LANG_SPANISH)) {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 15.2f, 16.0f, -1);
+        func_8012D374(&gMainDL, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 15.2f, 16.0f, -1);
     } else if ((gEepromGlobal.language == LANG_PORTUGESE) || (gEepromGlobal.language == LANG_JAPANESE)) {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 10.0f, 16.0f, -1);
+        func_8012D374(&gMainDL, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 10.0f, 16.0f, -1);
     } else {
-        func_8012D374(&D_801D9E7C, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 16.0f, 16.0f, -1);
+        func_8012D374(&gMainDL, get_message_address_by_id(MSG_SELECT_A_BANK), 0x17, 0xD0, 16.0f, 16.0f, -1);
     }
 
     vertical_offset = 56;
 
     // write "Secure Zones"
-    display_text(&D_801D9E7C, get_message_address_by_id(MSG_SECURE_ZONES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
+    display_text(&gMainDL, get_message_address_by_id(MSG_SECURE_ZONES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
 
     // write "Species"
     vertical_offset += D_803B74B0_7C8B60 + 6.0f;
-    display_text(&D_801D9E7C, get_message_address_by_id(MSG_SPECIES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
+    display_text(&gMainDL, get_message_address_by_id(MSG_SPECIES), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
 
     // write "Encountered"
     vertical_offset += D_803B74B0_7C8B60;
-    display_text(&D_801D9E7C, get_message_address_by_id(MSG_ENCOUNTERED), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
+    display_text(&gMainDL, get_message_address_by_id(MSG_ENCOUNTERED), 264, vertical_offset, D_803B74AC_7C8B5C, D_803B74B0_7C8B60);
 
     vertical_offset = 56;
     // write ":" for "Secure Zones"
     sprintf(ascii, "%s", ":");
     prepare_text((u8 *) ascii, wide_text);
-    func_8012D374(&D_801D9E7C, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
+    func_8012D374(&gMainDL, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
 
     // write ":" for "Species Encountered"
     vertical_offset += D_803B74B0_7C8B60 + 6.0f;
     vertical_offset += D_803B74B0_7C8B60;
-    func_8012D374(&D_801D9E7C, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
+    func_8012D374(&gMainDL, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
 
     // write ":" for Powercell icon
     vertical_offset += D_803B74B0_7C8B60 + 6.0f;
-    func_8012D374(&D_801D9E7C, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
+    func_8012D374(&gMainDL, wide_text, 268, vertical_offset, 12.0f, D_803B74B0_7C8B60, -1);
 
     // write levels
     vertical_offset = 56;
     sprintf(ascii, "%2d", progress[0]); // levels
     prepare_text((u8 *) ascii, wide_text);
-    display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
+    display_text(&gMainDL, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
     vertical_offset += D_803B74B0_7C8B60 + 6.0f;
     vertical_offset += D_803B74B0_7C8B60;
@@ -1094,22 +1094,22 @@ void func_8039A2DC_7AB98C(void) {
     // write species
     sprintf(ascii, "%2d", progress[1]); // species
     prepare_text((u8 *) ascii, wide_text);
-    display_text(&D_801D9E7C, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
+    display_text(&gMainDL, wide_text, 300, vertical_offset, 12.0f, D_803B74B0_7C8B60);
 
     // write powercells
     vertical_offset += D_803B74B0_7C8B60 + 6.0f;
     sprintf(ascii, "%3d", progress[2]); // powercells
     prepare_text((u8 *) ascii, wide_text);
-    display_text(&D_801D9E7C, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
+    display_text(&gMainDL, wide_text, 300, vertical_offset, D_803B74BC_7C8B6C, D_803B74C0_7C8B70);
 
-    gSPDisplayList(D_801D9E7C++, D_801584A0);
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 0xff, 0xff, 0xff, 0xff);
-    gDPSetAlphaCompare(D_801D9E7C++, G_AC_THRESHOLD);
-    gDPSetBlendColor(D_801D9E7C++, 0x00, 0x00, 0x00, 0x80);
+    gSPDisplayList(gMainDL++, D_801584A0);
+    gDPSetPrimColor(gMainDL++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+    gDPSetAlphaCompare(gMainDL++, G_AC_THRESHOLD);
+    gDPSetBlendColor(gMainDL++, 0x00, 0x00, 0x00, 0x80);
 
     // draw powercell
-    func_803962EC_7A799C(&D_801D9E7C, 968, (vertical_offset - 2) << 2, 1032, (vertical_offset + 14) << 2, D_800DE390, 32, 32);
-    func_8039D034_7AE6E4(&D_801D9E7C, 0);
+    func_803962EC_7A799C(&gMainDL, 968, (vertical_offset - 2) << 2, 1032, (vertical_offset + 14) << 2, D_800DE390, 32, 32);
+    func_8039D034_7AE6E4(&gMainDL, 0);
 }
 
 void func_8039BBB8_7AD268(void) {
@@ -1123,7 +1123,7 @@ void func_8039BBB8_7AD268(void) {
                 (level != EVOS_ESCAPE) &&
                 (level != PUNCHUP_PYRAMID) &&
                 (level != BIG_CELEBRATION_PARADE)) {
-                D_8023F260.level[D_803F2D30.level - 1].trophy = 1;
+                D_8023F260.level[gLevelProgress.level - 1].trophy = 1;
             }
             // regalloc helper
             if (1) {}
@@ -1148,13 +1148,13 @@ void func_8039BBB8_7AD268(void) {
             (level == EVOS_ESCAPE) ||
             (level == PUNCHUP_PYRAMID)) {
             if (D_803E4D28 & 2) {
-                D_8023F260.level[D_803F2D30.level - 1].completed = 1;
+                D_8023F260.level[gLevelProgress.level - 1].completed = 1;
             }
         } else {
-            D_8023F260.level[D_803F2D30.level - 1].completed = 1;
+            D_8023F260.level[gLevelProgress.level - 1].completed = 1;
             // 'powercells' element used to store 'time' in bonus levels
-            if (D_8023F260.level[D_803F2D30.level - 1].powercells < D_803F2D30.powercells) {
-                D_8023F260.level[D_803F2D30.level - 1].powercells = D_803F2D30.powercells;
+            if (D_8023F260.level[gLevelProgress.level - 1].powercells < gLevelProgress.powercells) {
+                D_8023F260.level[gLevelProgress.level - 1].powercells = gLevelProgress.powercells;
             }
         }
         D_803F2D50.unkC6 = 0;
@@ -1184,8 +1184,8 @@ void func_8039BBB8_7AD268(void) {
             D_803F7DA8.currentLevel = END_CREDITS-1;
         }
     } else {
-        if (D_8023F260.score < D_803F2D30.score) {
-            D_8023F260.score = D_803F2D30.score;
+        if (D_8023F260.score < gLevelProgress.score) {
+            D_8023F260.score = gLevelProgress.score;
         }
         memcpy_sssv((u8*)&D_8023F260, (u8*)&D_8023F2E0[D_803F7DA8.bank], 64);
         write_eeprom(D_803F7DA8.bank);
@@ -1212,33 +1212,33 @@ void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s1
         if (currentLevel == (i = 30)) {
             if (eeprom->level[30].completed == 1) {
                 if (D_803F7D60 < 50) {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                    gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 240);
                 } else {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240); // orange (selected)
+                    gDPSetPrimColor(gMainDL++, 0, 0, 255, 128, 0, 240); // orange (selected)
                 }
             } else {
                 if (D_803F7D60 < 50) {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                    gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 240);
                 } else {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240); // orange (selected)
+                    gDPSetPrimColor(gMainDL++, 0, 0, 255, 128, 0, 240); // orange (selected)
                 }
             }
         } else if ((D_803F7DFE == 0) && (currentLevel != 0xFF)) {
-            gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
+            gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 20);
         } else if (currentLevel == 0xFF) {
             if (eeprom->level[30].completed == 1) {
-                gDPSetPrimColor(D_801D9E7C++, 0, 0, red - 0xF, 0x28, 0x28, 0xFF);
+                gDPSetPrimColor(gMainDL++, 0, 0, red - 0xF, 0x28, 0x28, 0xFF);
             } else {
-                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 0xFF);
+                gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 0xFF);
             }
         } else {
             if (eeprom->level[30].completed == 1) {
-                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 240);
             } else {
-                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 70);
+                gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 70);
             }
         }
-        func_8039C834_7ADEE4(&D_801D9E7C, D_800BA760, 43, 43, scale, scale, 0, 0, xRot, yRot);
+        func_8039C834_7ADEE4(&gMainDL, D_800BA760, 43, 43, scale, scale, 0, 0, xRot, yRot);
     } else {
 
         scale2 = scale / 2;
@@ -1259,30 +1259,30 @@ void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s1
             if (i == currentLevel) {
                 if (eeprom->level[idx].completed == 1) {
                     if (D_803F7D60 < 50) {
-                        gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                        gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 240);
                     } else {
-                        gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240);
+                        gDPSetPrimColor(gMainDL++, 0, 0, 255, 128, 0, 240);
                     }
                 } else {
                     if (D_803F7D60 < 50) {
-                        gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                        gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 240);
                     } else {
-                        gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 128, 0, 240);
+                        gDPSetPrimColor(gMainDL++, 0, 0, 255, 128, 0, 240);
                     }
                 }
             } else if ((D_803F7DE0[idx] == 0) && (currentLevel != 0xFF)) {
-                gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 20);
+                gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 20);
             } else if (currentLevel == 0xFF) {
                 if (eeprom->level[idx].completed == 1) {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red + 15, 0, 0, 255);
+                    gDPSetPrimColor(gMainDL++, 0, 0, red + 15, 0, 0, 255);
                 } else {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 255);
+                    gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 255);
                 }
             } else {
                 if (eeprom->level[idx].completed == 1) {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 240);
+                    gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 240);
                 } else {
-                    gDPSetPrimColor(D_801D9E7C++, 0, 0, red, green, blue, 70);
+                    gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 70);
                 }
             }
 
@@ -1290,7 +1290,7 @@ void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s1
             xPos = (D_803B71D0_7C8880[idx].xPos * scale);
 
             func_8039C834_7ADEE4(
-                /* dl     */ &D_801D9E7C,
+                /* dl     */ &gMainDL,
                 /* img    */ (u8*)D_800BA760 + 0xFA0 + img,
                 /* width  */ (D_803B71D0_7C8880[idx].width << 1),
                 /* height */ (D_803B71D0_7C8880[idx].height << 1),
@@ -1323,7 +1323,7 @@ void func_8039C5F8_7ADCA8(s16 xRot, s16 yRot, f32 scale, PlayerEeprom *eeprom, s
         evo_b = 100;
         col = 128;
     }
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, col, col, col, 255);
+    gDPSetPrimColor(gMainDL++, 0, 0, col, col, col, 255);
 
     xRot2 = xRot - (21.5f * scale);
     yRot2 = yRot - (21.5f * scale);
@@ -1363,27 +1363,27 @@ void func_8039C834_7ADEE4(Gfx **dl, u8 *src, u16 width, u16 height, f32 scale_x,
 
 void func_8039CAB8_7AE168(s16 arg0) {
     if (arg0 == 1) {
-        draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 40);
+        draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 40);
     }
 
-    gSPDisplayList(D_801D9E7C++, D_801584A0);
-    gDPPipeSync(D_801D9E7C++);
-    gDPSetAlphaCompare(D_801D9E7C++, G_AC_THRESHOLD);
+    gSPDisplayList(gMainDL++, D_801584A0);
+    gDPPipeSync(gMainDL++);
+    gDPSetAlphaCompare(gMainDL++, G_AC_THRESHOLD);
 
-    gDPSetBlendColor(D_801D9E7C++, 0x00, 0x00, 0x00, 0x00);
-    gDPSetRenderMode(D_801D9E7C++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
-    gDPSetCombineMode(D_801D9E7C++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
-    gDPSetCycleType(D_801D9E7C++, G_CYC_1CYCLE);
-    gDPPipeSync(D_801D9E7C++);
+    gDPSetBlendColor(gMainDL++, 0x00, 0x00, 0x00, 0x00);
+    gDPSetRenderMode(gMainDL++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+    gDPSetCombineMode(gMainDL++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
+    gDPSetCycleType(gMainDL++, G_CYC_1CYCLE);
+    gDPPipeSync(gMainDL++);
 
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 255, 255, 255, 80);
+    gDPSetPrimColor(gMainDL++, 0, 0, 255, 255, 255, 80);
 
-    gDPSetColorDither(D_801D9E7C++, G_CD_NOISE);
-    gDPSetAlphaDither(D_801D9E7C++, G_AD_DISABLE);
+    gDPSetColorDither(gMainDL++, G_CD_NOISE);
+    gDPSetAlphaDither(gMainDL++, G_AD_DISABLE);
 
-    func_8039C834_7ADEE4(&D_801D9E7C, D_800BDC80, 320, 36, 1.0f, 1.0f, 0, 0, 0, 12);
+    func_8039C834_7ADEE4(&gMainDL, D_800BDC80, 320, 36, 1.0f, 1.0f, 0, 0, 0, 12);
 
-    gDPPipeSync(D_801D9E7C++);
+    gDPPipeSync(gMainDL++);
 }
 
 void get_player_progress(PlayerEeprom *e, s16 *arg1) {
@@ -1448,7 +1448,7 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
 }
 
 void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1) {
-    if (D_803F6680.unk24 == 0) {
+    if (gOverlayMenuState.unk24 == 0) {
         if (D_803F7D9E == 0) {
             if (RAND(1000) < 10) {
                 D_803F7D9E = 1;
@@ -1490,7 +1490,7 @@ void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1) {
             }
             gDPPipeSync((*arg0)++);
             gDPFillRectangle((*arg0)++, 0, 0, 320, 239);
-            gDPPipeSync(D_801D9E7C++);
+            gDPPipeSync(gMainDL++);
         }
     }
 }

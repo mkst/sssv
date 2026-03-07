@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern Gfx D_01003A28_3D2F8[];
+extern Gfx gFovMaskRenderSetupDl[];
 extern Gfx D_01003A40_3D310[];
 extern u8  img_D_01003BD0_3D4A0_ci4__png[]; // fov masks
 
@@ -15,15 +15,15 @@ s16 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx,
             return VISIBILITY_INVISIBLE;
         }
     }
-    if (D_803F28D0[6] & 3) {
-        if (D_803F28D0[6] & 1) {
-            if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28D0[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+    if (gCameraVisibilityMask[6] & 3) {
+        if (gCameraVisibilityMask[6] & 1) {
+            if ((func_802E9B90_6FB240(xPos, zPos, ((gCameraVisibilityMask[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
                 return VISIBILITY_VISIBLE;
             } else {
                 return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
             }
         }
-        if ((func_802E9B90_6FB240(((D_803F28D0[6] & 0xFFC) << 0x12) -xPos, zPos, yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+        if ((func_802E9B90_6FB240(((gCameraVisibilityMask[6] & 0xFFC) << 0x12) -xPos, zPos, yPos, arg3, arg8) == 0) && (arg9 == 0)) {
             return VISIBILITY_VISIBLE;
         } else {
             return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
@@ -43,8 +43,8 @@ s16 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx,
             return VISIBILITY_INVISIBLE;
         }
     }
-    if (D_803F28D0[6] & 1) {
-        if ((func_802E9B90_6FB240(xPos, zPos, ((D_803F28D0[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+    if (gCameraVisibilityMask[6] & 1) {
+        if ((func_802E9B90_6FB240(xPos, zPos, ((gCameraVisibilityMask[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
             return VISIBILITY_VISIBLE;
         }
         return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
@@ -99,9 +99,9 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
         return VISIBILITY_INVISIBLE;
     }
 
-    spE0 = (arg0 >> 0x10) - (s16) D_803F2C44; // x distance to camera
-    spD8 = (arg1 >> 0x10) - (s16) D_803F2C48; // z distance to camera
-    spD0 = (arg2 >> 0x10) - (s16) D_803F2C4C; // y distance to camera
+    spE0 = (arg0 >> 0x10) - (s16) gCameraEyeWorldX; // x distance to camera
+    spD8 = (arg1 >> 0x10) - (s16) gCameraEyeWorldZ; // z distance to camera
+    spD0 = (arg2 >> 0x10) - (s16) gCameraEyeWorldY; // y distance to camera
 
     fov = (SQ(spE0) + SQ(spD8) + SQ(spD0)) >> arg8;
     fov = (fov * D_803F2D50.fovY) / 75.0f;
@@ -110,7 +110,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
         return VISIBILITY_INVISIBLE;
     }
     if ((fov <= 0x1000) && (arg9 == 0)) {
-        D_803F2EDD = 0;
+        gLodDetailState = 0;
         return VISIBILITY_VISIBLE;
     }
 
@@ -152,9 +152,9 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
         if (xl < gScreenWidth * 4 && xh > 0.0f && yh > 0.0f) {
             if (fov < 0xE1000 && arg9 == 0) {
                 if (fov < 0x31000) {
-                    D_803F2EDD = 0;
+                    gLodDetailState = 0;
                 } else {
-                    D_803F2EDD = 1;
+                    gLodDetailState = 1;
                 }
                 return VISIBILITY_VISIBLE;
             }
@@ -168,16 +168,16 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                 gDPSetTile(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                 gDPSetTileSize(D_801D9EB8++, G_TX_RENDERTILE, 0, 0, 4*(15), 4*(15));
                 gDPSetEnvColor(D_801D9EB8++, red, green, blue, 0xFF);
-                gSPDisplayList(D_801D9EB8++, D_01003A28_3D2F8);
+                gSPDisplayList(D_801D9EB8++, gFovMaskRenderSetupDl);
 
                 temp_f2_3 = (D_80204278->unk38A10[3][3] + (D_80204278->unk38A10[3][2] * temp_f16)) / -temp_f16;
                 gDPSetPrimDepth(D_801D9EB8++, (u16)((temp_f2_3 * 1023.0f * 32.0f) + 32736.0f) - D_803F2D50.unk42, 0);
 
-                if (D_803E1CF8.min >= (D_803E1CF8.max - 1)) {
+                if (gFogState.min >= (gFogState.max - 1)) {
                     lod = 0;
                 } else {
-                    temp_v1_2 = D_803E1CF8.min << 3;
-                    temp_a1_3 = D_803E1CF8.max << 3;
+                    temp_v1_2 = gFogState.min << 3;
+                    temp_a1_3 = gFogState.max << 3;
 
                     var_f2 = MIN(8000.0, temp_f2_3 * 7990.0);
 
@@ -190,7 +190,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                     }
                 }
 
-                gDPSetPrimColor(D_801D9EB8++, 0, lod, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 0xFF);
+                gDPSetPrimColor(D_801D9EB8++, 0, lod, gFogState.r, gFogState.g, gFogState.b, 0xFF);
 
                 if (xl < yh) {
 
@@ -285,9 +285,9 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
         return VISIBILITY_INVISIBLE;
     }
 
-    sp58 = (arg0 >> 0x10) - (s16) D_803F2C44;
-    sp50 = (arg1 >> 0x10) - (s16) D_803F2C48;
-    sp48 = (arg2 >> 0x10) - (s16) D_803F2C4C;
+    sp58 = (arg0 >> 0x10) - (s16) gCameraEyeWorldX;
+    sp50 = (arg1 >> 0x10) - (s16) gCameraEyeWorldZ;
+    sp48 = (arg2 >> 0x10) - (s16) gCameraEyeWorldY;
 
     fov = (((SQ(sp58) + SQ(sp50) + SQ(sp48)) >> arg4));
     fov = (fov * D_803F2D50.fovY) / 75.0f;
@@ -296,7 +296,7 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
         return VISIBILITY_INVISIBLE;
     }
     if ((fov <= 0x1000)) { // FTOFIX32(0.0625)
-        D_803F2EDD = 0;
+        gLodDetailState = 0;
         return VISIBILITY_VISIBLE;
     }
 
@@ -338,9 +338,9 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
 
             if (fov < 0xE1000) {
                 if ((fov < 0x31000)) {
-                    D_803F2EDD = 0;
+                    gLodDetailState = 0;
                 } else {
-                    D_803F2EDD = 1;
+                    gLodDetailState = 1;
                 }
                 return VISIBILITY_VISIBLE;
             } else {
@@ -371,9 +371,9 @@ s16 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     f32 temp_f12;
     f32 temp_f14;
 
-    sp68 = (arg0 >> 0x10) - (s16) D_803F2C44;
-    sp60 = (arg1 >> 0x10) - (s16) D_803F2C48;
-    sp58 = (arg2 >> 0x10) - (s16) D_803F2C4C;
+    sp68 = (arg0 >> 0x10) - (s16) gCameraEyeWorldX;
+    sp60 = (arg1 >> 0x10) - (s16) gCameraEyeWorldZ;
+    sp58 = (arg2 >> 0x10) - (s16) gCameraEyeWorldY;
 
     sp60 = ((SQ(sp68) + SQ(sp60) + SQ(sp58)) >> arg3);
     fov = (sp60 * D_803F2D50.fovY) / 75.0f;

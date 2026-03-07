@@ -353,9 +353,9 @@ void func_8029DB20_6AF1D0(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 a
     s16 idx;
     s16 i;
 
-    temp_f16 = D_803F2C44 - (arg2 >> 16);
-    temp_f10 = D_803F2C48 - (arg3 >> 16);
-    temp_f8 = D_803F2C4C - (arg4 >> 16);
+    temp_f16 = gCameraEyeWorldX - (arg2 >> 16);
+    temp_f10 = gCameraEyeWorldZ - (arg3 >> 16);
+    temp_f8 = gCameraEyeWorldY - (arg4 >> 16);
 
     temp_t1 = sqrtf((temp_f16 * temp_f16) + (temp_f10 * temp_f10) + (temp_f8 * temp_f8));
     if (D_803D5508 == 0) {
@@ -677,7 +677,7 @@ void func_8029EAAC_6B015C(void) {
         guLookAtReflect(
             &D_803D3434->unk38CD0[D_803D3434->unk39310],
             &D_803D3434->unk38A50[D_803D3434->unk39310],
-            D_803F2C44, D_803F2C48, D_803F2C4C,
+            gCameraEyeWorldX, gCameraEyeWorldZ, gCameraEyeWorldY,
             D_803D3FF8.unk124[i].unk0 / 65536.0f,
             D_803D3FF8.unk124[i].unk4 / 65536.0f,
             D_803D3FF8.unk124[i].unk8 / 65536.0f,
@@ -1585,7 +1585,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             gDPPipeSync(D_801D9E8C++);
                             gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                             gDPSetTileSize(D_801D9E8C++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31)); // qu102
-                            guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], D_803F2C44, D_803F2C48, D_803F2C4C, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
+                            guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], gCameraEyeWorldX, gCameraEyeWorldZ, gCameraEyeWorldY, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
                             gSPLookAtX(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
                             gSPLookAtY(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
                             func_80397F5C_7A960C(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 3, (u8) 1);
@@ -1617,7 +1617,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPSetTileSize(D_801D9E8C++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
 
-                                guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], D_803F2C44, D_803F2C48, D_803F2C4C, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
+                                guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], gCameraEyeWorldX, gCameraEyeWorldZ, gCameraEyeWorldY, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
                                 gSPLookAtX(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
                                 gSPLookAtY(D_801D9E8C++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
                                 D_803D3434->unk39310++;

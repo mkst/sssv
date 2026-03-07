@@ -54,7 +54,7 @@ s16  func_80344158_755808(s16 arg0);
 
 u8 overlay2_74100_bss_pad_pre[0x20]; // unused bss from earlier .c files?
 
-u16  D_803F28D0[8];
+u16  gCameraVisibilityMask[8];
 
 Camera gCameras[2];
 s16  gCameraId;
@@ -63,7 +63,7 @@ s16  D_803F2A9C;
 s16  D_803F2A9E;
 static u8   D_803F2AA0;
 static u8   D_803F2AA1; // unused?
-u8   D_803F2AA2;
+u8   gCameraUiState;
 u8   D_803F2AA3;
 u8   D_803F2AA4;
 static u8   D_803F2AA5; // always 0, effectively unused
@@ -103,9 +103,9 @@ f32  D_803F2C3C;
 
 f32  D_803F2C40;
 
-f32  D_803F2C44;
-f32  D_803F2C48;
-f32  D_803F2C4C;
+f32  gCameraEyeWorldX;
+f32  gCameraEyeWorldZ;
+f32  gCameraEyeWorldY;
 
 static f32  D_803F2C50;
 static f32  D_803F2C54;
@@ -2799,7 +2799,7 @@ void func_8033B594_74CC44(u8 arg0) {
     gCamera = &gCameras[arg0];
     D_803F6468 += 1;
 
-    if ((D_803F2AA2 == 1) || (D_803F2AA2 == 4)) {
+    if ((gCameraUiState == 1) || (gCameraUiState == 4)) {
         phi_f20 = MAX(22.0f, 200.0 - (D_803F6468 * 1.95));
 
         if ((D_803F6468 * 0.5) > 30.0) {
@@ -3023,7 +3023,7 @@ void reset_camera(void) {
     D_803A6CC4_7B8374 = 1.0f;
     D_803A6CC8_7B8378 = 45.0f;
     D_803A6CCC_7B837C = 1.0f;
-    D_803F2AA2 = 0;
+    gCameraUiState = 0;
     D_803A6CE0_7B8390 = 0;
     D_803A6CE4_7B8394 = 0;
     D_803A6CE8_7B8398 = 0;
@@ -3046,14 +3046,14 @@ void reset_camera(void) {
         &D_803F2C6C,
         &D_803F2C6D);
 
-    D_803F28D0[0] = D_803A7114_7B87C4[D_803F2C6D].unk4;
-    D_803F28D0[1] = D_803A7114_7B87C4[D_803F2C6D].unk6;
-    D_803F28D0[2] = D_803A7114_7B87C4[D_803F2C6D].unk8;
-    D_803F28D0[3] = D_803A7114_7B87C4[D_803F2C6D].unkA;
-    D_803F28D0[4] = D_803A7114_7B87C4[D_803F2C6D].unkC;
-    D_803F28D0[5] = D_803A7114_7B87C4[D_803F2C6D].unkE;
-    D_803F28D0[6] = D_803A7114_7B87C4[D_803F2C6D].unk10;
-    D_803F28D0[7] = D_803A7114_7B87C4[D_803F2C6D].unk12;
+    gCameraVisibilityMask[0] = D_803A7114_7B87C4[D_803F2C6D].unk4;
+    gCameraVisibilityMask[1] = D_803A7114_7B87C4[D_803F2C6D].unk6;
+    gCameraVisibilityMask[2] = D_803A7114_7B87C4[D_803F2C6D].unk8;
+    gCameraVisibilityMask[3] = D_803A7114_7B87C4[D_803F2C6D].unkA;
+    gCameraVisibilityMask[4] = D_803A7114_7B87C4[D_803F2C6D].unkC;
+    gCameraVisibilityMask[5] = D_803A7114_7B87C4[D_803F2C6D].unkE;
+    gCameraVisibilityMask[6] = D_803A7114_7B87C4[D_803F2C6D].unk10;
+    gCameraVisibilityMask[7] = D_803A7114_7B87C4[D_803F2C6D].unk12;
 
     gCameras[0].unk65 = (s8)D_803A7114_7B87C4[D_803F2C6D].unk12 >> 4;
     gCameras[0].unk66 = (s8)(D_803A7114_7B87C4[D_803F2C6D].unk12 << 4) >> 4;
@@ -3728,7 +3728,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
 
     if (((button & D_CBUTTONS)) && (!(D_803F2C72 & D_CBUTTONS)) &&
         (button & U_CBUTTONS)) {
-            D_803F2AA2 = 0;
+            gCameraUiState = 0;
             D_803F2C6C = D_803F2C6D = 0;
     }
 
@@ -3799,7 +3799,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
             }
 
             func_8033EF94_750644(cont, D_803F2C72);
-            if ((D_803F2D30.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
+            if ((gLevelProgress.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
                 playerCameraDistance -= 2;
             }
         }
@@ -3808,7 +3808,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
     case CAMERA_MODE_2:
     case CAMERA_MODE_12:
         func_8033EF94_750644(cont, D_803F2C72);
-        if ((D_803F2D30.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
+        if ((gLevelProgress.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
             playerCameraDistance -= 2;
         }
         break;
@@ -3853,7 +3853,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
         if (gCameras[gCameraId].unkD6 == 1) {
             func_8033EF94_750644(cont, D_803F2C72);
         }
-        if (D_803F2D30.unk4 > 0) {
+        if (gLevelProgress.unk4 > 0) {
             if (gCameras[gCameraId].unkD6 == 1) {
                 gCameras[gCameraId].unk64 = MIN(gCameras[gCameraId].unk64, -2);
             }
@@ -3979,9 +3979,9 @@ void func_8033F380_750A30(void) {
 
     switch (D_803F2C18[0]) {
     case 0:
-        D_803F2C44 = camera1->unk74 + camera1->unkA4;
-        D_803F2C48 = camera1->unk78 + camera1->unkA8;
-        D_803F2C4C = camera1->unk7C;
+        gCameraEyeWorldX = camera1->unk74 + camera1->unkA4;
+        gCameraEyeWorldZ = camera1->unk78 + camera1->unkA8;
+        gCameraEyeWorldY = camera1->unk7C;
 
         D_803F2C50 = camera1->unk8 + camera1->unkA4;
         D_803F2C54 = camera1->unkC + camera1->unkA8;
@@ -3995,9 +3995,9 @@ void func_8033F380_750A30(void) {
     case 1:
         spCC = 0.5 - (0.5 * cosf((((f32) D_803F2C18[1] / D_803F2C18[2]) * 3.1415)));
         spC8 = 1.0 - spCC;
-        D_803F2C44 = (spC8 * (camera2->unk74 + camera2->unkA4)) + (spCC * (camera1->unk74 + camera1->unkA4));
-        D_803F2C48 = (spC8 * (camera2->unk78 + camera2->unkA8)) + (spCC * (camera1->unk78 + camera1->unkA8));
-        D_803F2C4C = (spC8 * camera2->unk7C) + (spCC * camera1->unk7C);
+        gCameraEyeWorldX = (spC8 * (camera2->unk74 + camera2->unkA4)) + (spCC * (camera1->unk74 + camera1->unkA4));
+        gCameraEyeWorldZ = (spC8 * (camera2->unk78 + camera2->unkA8)) + (spCC * (camera1->unk78 + camera1->unkA8));
+        gCameraEyeWorldY = (spC8 * camera2->unk7C) + (spCC * camera1->unk7C);
 
         D_80204200 = (spC8 * camera2->unk8C) + (spCC * camera1->unk8C);
         D_80204204 = (spC8 * camera2->unk90) + (spCC * camera1->unk90);
@@ -4100,9 +4100,9 @@ void func_8033F380_750A30(void) {
         sp70 = sinf(D_803F2C78 * (3.14159 / 180)) * -sp74;
         sp74 = cosf(D_803F2C78 * (3.14159 / 180)) * sp74;
 
-        D_803F2C50 = D_803F2C44 + sp74;
-        D_803F2C54 = D_803F2C48 + sp70;
-        D_803F2C58 = D_803F2C4C + sp6C;
+        D_803F2C50 = gCameraEyeWorldX + sp74;
+        D_803F2C54 = gCameraEyeWorldZ + sp70;
+        D_803F2C58 = gCameraEyeWorldY + sp6C;
 
         D_803F2A9A = 256;
         break;
@@ -4113,9 +4113,9 @@ void func_8033F380_750A30(void) {
             trigger_screen_transition(4);
         }
         if ((D_803F2C18[2] / 2) >= D_803F2C18[1]) {
-            D_803F2C44 = camera2->unk74 + camera1->unkA4;
-            D_803F2C48 = camera2->unk78 + camera1->unkA8;
-            D_803F2C4C = camera2->unk7C;
+            gCameraEyeWorldX = camera2->unk74 + camera1->unkA4;
+            gCameraEyeWorldZ = camera2->unk78 + camera1->unkA8;
+            gCameraEyeWorldY = camera2->unk7C;
 
             D_803F2C50 = camera2->unk8 + camera1->unkA4;
             D_803F2C54 = camera2->unkC + camera1->unkA8;
@@ -4125,9 +4125,9 @@ void func_8033F380_750A30(void) {
             D_80204204 = camera2->unk90;
             D_80204208 = camera2->unk94;
         } else {
-            D_803F2C44 = camera1->unk74 + camera1->unkA4;
-            D_803F2C48 = camera1->unk78 + camera1->unkA8;
-            D_803F2C4C = camera1->unk7C;
+            gCameraEyeWorldX = camera1->unk74 + camera1->unkA4;
+            gCameraEyeWorldZ = camera1->unk78 + camera1->unkA8;
+            gCameraEyeWorldY = camera1->unk7C;
 
             D_803F2C50 = camera1->unk8 + camera1->unkA4;
             D_803F2C54 = camera1->unkC + camera1->unkA8;
@@ -4146,37 +4146,37 @@ void func_8033F380_750A30(void) {
 
         if ((camera1->cameraMode == CAMERA_MODE_BEHIND_1) || (camera1->cameraMode == CAMERA_MODE_BEHIND_2)) {
             temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (6 * 65536.0f);
-            D_803F2C44 += temp_f0;
+            gCameraEyeWorldX += temp_f0;
             D_803F2C50 += temp_f0;
 
             temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (6 * 65536.0f);
-            D_803F2C48 += temp_f0;
+            gCameraEyeWorldZ += temp_f0;
             D_803F2C54 += temp_f0;
 
             temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (3 * 65536.0f);
-            D_803F2C4C += temp_f0;
+            gCameraEyeWorldY += temp_f0;
             D_803F2C58 += temp_f0;
         } else {
             temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (2 * 65536.0f);
-            D_803F2C44 += temp_f0;
+            gCameraEyeWorldX += temp_f0;
             D_803F2C50 += temp_f0;
 
             temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (2 * 65536.0f);
-            D_803F2C48 += temp_f0;
+            gCameraEyeWorldZ += temp_f0;
             D_803F2C54 += temp_f0;
 
             temp_f0 = ((f32) (func_8012826C() - 32768.0) * D_803F2ACA) / (1 * 65536.0f);
-            D_803F2C4C += temp_f0;
+            gCameraEyeWorldY += temp_f0;
             D_803F2C58 += temp_f0;
         }
     }
-    if ((D_803F2C44 == D_803F2C50) && (D_803F2C48 == D_803F2C54) && (D_803F2C4C == D_803F2C58)) {
+    if ((gCameraEyeWorldX == D_803F2C50) && (gCameraEyeWorldZ == D_803F2C54) && (gCameraEyeWorldY == D_803F2C58)) {
         D_803F2C50 += 10.0;
     }
     if ((D_80204200 == 0.0) && (D_80204204 == 0.0) && (D_80204208 == 0.0)) {
         D_80204204 = 10.0f;
     }
-    if ((D_803F2C44 == D_803F2C50) && (D_803F2C48 == D_803F2C54)) {
+    if ((gCameraEyeWorldX == D_803F2C50) && (gCameraEyeWorldZ == D_803F2C54)) {
         D_80204200 += 0.0012321; // whats this? almost 5 / 0x1000
     }
     temp_f0 = sqrtf(SQ(D_80204200) + SQ(D_80204204) + SQ(D_80204208));
@@ -4184,9 +4184,9 @@ void func_8033F380_750A30(void) {
     D_80204204 /= temp_f0;
     D_80204208 /= temp_f0;
 
-    D_80204218 = D_803F2C50 - D_803F2C44;
-    D_8020421C = D_803F2C54 - D_803F2C48;
-    D_80204220 = D_803F2C58 - D_803F2C4C;
+    D_80204218 = D_803F2C50 - gCameraEyeWorldX;
+    D_8020421C = D_803F2C54 - gCameraEyeWorldZ;
+    D_80204220 = D_803F2C58 - gCameraEyeWorldY;
 
     temp_f0 = sqrtf(SQ(D_80204218) + SQ(D_8020421C) + SQ(D_80204220));
     D_80204218 /= temp_f0;
@@ -4236,54 +4236,54 @@ void func_8033F380_750A30(void) {
         D_80204204 = (0.0015625 * cosf(D_803D5544 / 310.0)) * D_80152350.unk384[(s16)D_803F2C3C];
         guLookAt(
             &D_80204278->unk37490,
-            D_803F2C44,
-            D_803F2C48,
-            D_803F2C4C,
-            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
-            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
-            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            gCameraEyeWorldX,
+            gCameraEyeWorldZ,
+            gCameraEyeWorldY,
+            (gCameraEyeWorldX + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (gCameraEyeWorldZ - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (gCameraEyeWorldY           ) + (D_80204220 * 64.0 * 10.0),
             D_80204200,
             D_80204204,
             D_80204208);
     } else if (D_803A6CE4_7B8394 & 1) {
         guLookAt(
             &D_80204278->unk37490,
-            D_803F2C44,
-            D_803F2C48,
-            D_803F2C4C,
-            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
-            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
-            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            gCameraEyeWorldX,
+            gCameraEyeWorldZ,
+            gCameraEyeWorldY,
+            (gCameraEyeWorldX + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (gCameraEyeWorldZ - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (gCameraEyeWorldY           ) + (D_80204220 * 64.0 * 10.0),
             D_80204200,
             D_80204204,
             -D_80204208);
     } else if (D_803A6CE4_7B8394 & 2) {
         guLookAt(
             &D_80204278->unk37490,
-            D_803F2C44,
-            D_803F2C48,
-            D_803F2C4C,
-            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
-            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
-            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            gCameraEyeWorldX,
+            gCameraEyeWorldZ,
+            gCameraEyeWorldY,
+            (gCameraEyeWorldX + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (gCameraEyeWorldZ - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (gCameraEyeWorldY           ) + (D_80204220 * 64.0 * 10.0),
             D_80204200,
             D_80204208,
             D_80204204);
     } else {
         guLookAt(
             &D_80204278->unk37490,
-            D_803F2C44,
-            D_803F2C48,
-            D_803F2C4C,
-            (D_803F2C44 + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
-            (D_803F2C48 - 0.000013) + (D_8020421C * 64.0 * 10.0),
-            (D_803F2C4C           ) + (D_80204220 * 64.0 * 10.0),
+            gCameraEyeWorldX,
+            gCameraEyeWorldZ,
+            gCameraEyeWorldY,
+            (gCameraEyeWorldX + 0.00021 ) + (D_80204218 * 64.0 * 10.0),
+            (gCameraEyeWorldZ - 0.000013) + (D_8020421C * 64.0 * 10.0),
+            (gCameraEyeWorldY           ) + (D_80204220 * 64.0 * 10.0),
             D_80204200,
             D_80204204,
             D_80204208);
     }
-    D_803F2C5C = D_803F2C50 - D_803F2C44;
-    D_803F2C60 = D_803F2C54 - D_803F2C48;
+    D_803F2C5C = D_803F2C50 - gCameraEyeWorldX;
+    D_803F2C60 = D_803F2C54 - gCameraEyeWorldZ;
 
     temp_f0 = sqrtf(SQ(D_803F2C5C) + SQ(D_803F2C60));
     if (temp_f0 == 0.0) {
@@ -4311,10 +4311,10 @@ void func_8033F380_750A30(void) {
     } else {
         D_803F2C3C = func_801286B8(-D_8020421C, D_80204218);
     }
-    temp_f0 = D_803F2C44 - D_803F2C50;
-    temp_f2 = D_803F2C48 - D_803F2C54;
-    temp_f14 = D_803F2C4C - D_803F2C58;
-    D_803A6CC0_7B8370 = (256.0 * (D_803F2C4C - D_803F2C58)) / sqrtf(SQ(temp_f0) + SQ(temp_f2) + SQ(temp_f14));
+    temp_f0 = gCameraEyeWorldX - D_803F2C50;
+    temp_f2 = gCameraEyeWorldZ - D_803F2C54;
+    temp_f14 = gCameraEyeWorldY - D_803F2C58;
+    D_803A6CC0_7B8370 = (256.0 * (gCameraEyeWorldY - D_803F2C58)) / sqrtf(SQ(temp_f0) + SQ(temp_f2) + SQ(temp_f14));
     D_803F2A9C = sqrtf((65536.0 - ((f32)D_803A6CC0_7B8370 * D_803A6CC0_7B8370)));
 }
 
@@ -4528,18 +4528,18 @@ void func_803415BC_752C6C(void) {
             }
             D_803F2C6C = D_803F2C6D = 0;
         } else {
-            if ((D_803F2AA2 == 3) || (D_803F2AA2 == 4)) {
+            if ((gCameraUiState == 3) || (gCameraUiState == 4)) {
                 if (gCameras[gCameraId].cameraMode != CAMERA_MODE_ZOOM_SPIN) {
-                    if (D_803F2AA2 == 3) {
+                    if (gCameraUiState == 3) {
                         phi_v0 = 30;
                     } else {
                         phi_v0 = 0;
                     }
                     func_80340E08_7524B8(45, 0, 0, 0, 1, -2, 0, 1, phi_v0);
                 }
-            } else if ((D_803F2AA2 == 1) || (D_803F2AA2 == 2)) {
+            } else if ((gCameraUiState == 1) || (gCameraUiState == 2)) {
                 if (gCameras[gCameraId].cameraMode != CAMERA_MODE_29) {
-                    if (D_803F2AA2 == 1) {
+                    if (gCameraUiState == 1) {
                         phi_v0 = 30;
                     } else {
                         phi_v0 = 0;
@@ -4727,26 +4727,26 @@ void func_803415BC_752C6C(void) {
             &sp56);
     }
     if (gCameras[gCameraId].unkC9 != 0) {
-        D_803F28D0[0] = D_803A7114_7B87C4[sp56].unk4;
-        D_803F28D0[1] = D_803A7114_7B87C4[sp56].unk6;
-        D_803F28D0[2] = D_803A7114_7B87C4[sp56].unk8;
-        D_803F28D0[3] = D_803A7114_7B87C4[sp56].unkA;
-        D_803F28D0[4] = D_803A7114_7B87C4[sp56].unkC;
-        D_803F28D0[5] = D_803A7114_7B87C4[sp56].unkE;
-        D_803F28D0[6] = D_803A7114_7B87C4[sp56].unk10;
-        D_803F28D0[7] = D_803A7114_7B87C4[sp56].unk12;
+        gCameraVisibilityMask[0] = D_803A7114_7B87C4[sp56].unk4;
+        gCameraVisibilityMask[1] = D_803A7114_7B87C4[sp56].unk6;
+        gCameraVisibilityMask[2] = D_803A7114_7B87C4[sp56].unk8;
+        gCameraVisibilityMask[3] = D_803A7114_7B87C4[sp56].unkA;
+        gCameraVisibilityMask[4] = D_803A7114_7B87C4[sp56].unkC;
+        gCameraVisibilityMask[5] = D_803A7114_7B87C4[sp56].unkE;
+        gCameraVisibilityMask[6] = D_803A7114_7B87C4[sp56].unk10;
+        gCameraVisibilityMask[7] = D_803A7114_7B87C4[sp56].unk12;
     } else {
-        D_803F28D0[0] = (D_803F28D0[0] & 0xC0) | 0x413F;
-        D_803F28D0[1] = D_803F28D0[2] = D_803F28D0[3] = D_803F28D0[4] = D_803F28D0[5] = 0x413F; // 0100000 100111111
-        D_803F28D0[6] = D_803A7114_7B87C4[sp56].unk10;
-        D_803F28D0[7] = D_803A7114_7B87C4[sp56].unk12;
+        gCameraVisibilityMask[0] = (gCameraVisibilityMask[0] & 0xC0) | 0x413F;
+        gCameraVisibilityMask[1] = gCameraVisibilityMask[2] = gCameraVisibilityMask[3] = gCameraVisibilityMask[4] = gCameraVisibilityMask[5] = 0x413F; // 0100000 100111111
+        gCameraVisibilityMask[6] = D_803A7114_7B87C4[sp56].unk10;
+        gCameraVisibilityMask[7] = D_803A7114_7B87C4[sp56].unk12;
     }
     if (D_803A6CE8_7B8398 > 0) {
         D_803A6CE8_7B8398 -= 1;
-        D_803F28D0[0] = (D_803F28D0[0] & 0xC0) | 0x413F;
-        D_803F28D0[1] = D_803F28D0[2] = D_803F28D0[3] = D_803F28D0[4] = D_803F28D0[5] = 0x413F;
-        D_803F28D0[6] = D_803A7114_7B87C4[sp54].unk10;
-        D_803F28D0[7] = D_803A7114_7B87C4[sp54].unk12;
+        gCameraVisibilityMask[0] = (gCameraVisibilityMask[0] & 0xC0) | 0x413F;
+        gCameraVisibilityMask[1] = gCameraVisibilityMask[2] = gCameraVisibilityMask[3] = gCameraVisibilityMask[4] = gCameraVisibilityMask[5] = 0x413F;
+        gCameraVisibilityMask[6] = D_803A7114_7B87C4[sp54].unk10;
+        gCameraVisibilityMask[7] = D_803A7114_7B87C4[sp54].unk12;
     }
     if ((D_803F2AC6 != 0) && (D_803F2AC5 != 0)) {
         D_803F2AA4 = 1;
@@ -4762,9 +4762,9 @@ void func_803421E0_753890(s16 arg0) {
 
 // ESA: func_8002E6C4
 void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
-    s16 tmp = ((ABS(arg1 - (s16)D_803F2C44) +
-                ABS(arg2 - (s16)D_803F2C48) +
-                ABS(arg3 - (s16)D_803F2C4C)) >> 6);
+    s16 tmp = ((ABS(arg1 - (s16)gCameraEyeWorldX) +
+                ABS(arg2 - (s16)gCameraEyeWorldZ) +
+                ABS(arg3 - (s16)gCameraEyeWorldY)) >> 6);
     tmp -= 5;
 
     if (tmp > 0) {
@@ -5465,9 +5465,9 @@ void func_80343DC0_755470(void) {
     gCameras[gCameraId].cameraMode = CAMERA_MODE_27;
     gCameras[gCameraId].unk2 = 0;
     gCameras[gCameraId].unkD6 = 4;
-    gCameras[gCameraId].unk74 = D_803F2C44 - gCameras[gCameraId].unkA4;
-    gCameras[gCameraId].unk78 = D_803F2C48 - gCameras[gCameraId].unkA8;
-    gCameras[gCameraId].unk7C = D_803F2C4C;
+    gCameras[gCameraId].unk74 = gCameraEyeWorldX - gCameras[gCameraId].unkA4;
+    gCameras[gCameraId].unk78 = gCameraEyeWorldZ - gCameras[gCameraId].unkA8;
+    gCameras[gCameraId].unk7C = gCameraEyeWorldY;
     gCameras[gCameraId].unk8 = D_803F2C50 - gCameras[gCameraId].unkA4;
     gCameras[gCameraId].unkC = D_803F2C54 - gCameras[gCameraId].unkA8;
     gCameras[gCameraId].unk10 = D_803F2C58;

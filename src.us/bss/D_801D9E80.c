@@ -96,10 +96,10 @@ u8 D_801D9E80_padding[173404 - (240 + 64)];
 // dlabel D_802042EC
 //     /* 802042EC */ .space 0x04
 
-char D_802042B0[60];
+char gDebugTextBuffer[60];
 s32  D_802042EC; // OSMesg
 
-s16  D_802042F0[60]; // 0x802042F0
+s16  gNoControllerMessageText[60]; // 0x802042F0
 s16  D_80204368[60]; // 0x80204368
 
 
