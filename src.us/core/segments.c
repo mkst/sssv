@@ -6,10 +6,10 @@
 void load_segments(Gfx **arg0, DisplayList *ddl) {
 
     gSPSegment((*arg0)++, 0, 0);
-    gSPSegment((*arg0)++, 1, osVirtualToPhysical(D_801D9E74));
+    gSPSegment((*arg0)++, 1, osVirtualToPhysical(gSegment1Base));
     gSPSegment((*arg0)++, 2, osVirtualToPhysical(ddl));
-    gSPSegment((*arg0)++, 3, osVirtualToPhysical(D_801D9E70));
-    gSPSegment((*arg0)++, 5, osVirtualToPhysical(D_801D9E78));
+    gSPSegment((*arg0)++, 3, osVirtualToPhysical(gFontSegmentBase));
+    gSPSegment((*arg0)++, 5, osVirtualToPhysical(gSegment5Base));
 
     gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
 }

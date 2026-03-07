@@ -64,14 +64,14 @@ void load_data_section(u8 segment) {
         // dan
         len = _data_7F790SegmentRomEnd - _data_7F790SegmentRomStart;
         SSSV_ASSERT(len <= (_gfxspecificSegmentEnd - _gfxspecificSegmentStart), "../src/animinit.c", 206)
-        D_801D9E78 = _gfxspecificSegmentStart;
-        dma_read(_data_7F790SegmentRomStart, D_801D9E78, len);
+        gSegment5Base = _gfxspecificSegmentStart;
+        dma_read(_data_7F790SegmentRomStart, gSegment5Base, len);
         // menu
         len = _data_116BD0SegmentRomEnd - _data_116BD0SegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 218)
-        D_801D9E6C = _gfxanimSegmentStart;
-        dma_read(_data_116BD0SegmentRomStart, D_801D9E6C, len);
-        D_801D9EC4 = D_801D9E6C;
+        gMenuSegmentBase = _gfxanimSegmentStart;
+        dma_read(_data_116BD0SegmentRomStart, gMenuSegmentBase, len);
+        D_801D9EC4 = gMenuSegmentBase;
         break;
     }
 }
@@ -96,7 +96,7 @@ void switch_to_current_segment(Gfx **arg0, DisplayList *arg1) {
         gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E68));
         break;
     case SEGMENT_SHIP:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E6C));
+        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gMenuSegmentBase));
         break;
     default:
         osSyncPrintf("Undefined segment - hware.c\n", arg0);

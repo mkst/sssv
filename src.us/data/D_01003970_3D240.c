@@ -32,7 +32,7 @@ Gfx D_010039F8_3D2C8[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_01003A28_3D2F8[] = {
+Gfx gFovMaskRenderSetupDl[] = {
     gsDPSetCombineLERP(PRIMITIVE, ENVIRONMENT, PRIM_LOD_FRAC, ENVIRONMENT, 0, 0, 0, TEXEL0, PRIMITIVE, ENVIRONMENT, PRIM_LOD_FRAC, ENVIRONMENT, 0, 0, 0, TEXEL0),
     gsDPSetTextureLUT(G_TT_NONE),
     gsSPEndDisplayList(),

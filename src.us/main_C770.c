@@ -14,7 +14,7 @@ void reset_task_list(void) {
 void func_8013107C(struct018 *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags) {
     struct OSScTask_s *task;
 
-    D_801D9E7C = arg0->unk4E0;
+    gMainDL = arg0->unk4E0;
     // FIXME: use correct struct instead of struct031
     task = (struct OSScTask_s *)&arg0->unk0[D_8023F3E0];
 

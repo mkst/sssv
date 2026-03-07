@@ -315,12 +315,12 @@ extern u8  *D_801D9E5C; // city segment start
 extern u8  *D_801D9E60; // ice segment start
 extern u8  *D_801D9E64; // desert segment start
 extern u8  *D_801D9E68; // jungle segment start
-extern u8  *D_801D9E6C; // menu segment start
+extern u8  *gMenuSegmentBase; // menu segment start
 
-extern s16 *D_801D9E70;
-extern u8  *D_801D9E74;
-extern u8  *D_801D9E78;
-extern Gfx *D_801D9E7C;
+extern s16 *gFontSegmentBase;
+extern u8  *gSegment1Base;
+extern u8  *gSegment5Base;
+extern Gfx *gMainDL;
 
 extern Gfx *D_801D9E88;
 extern Gfx *D_801D9E8C;
@@ -406,15 +406,15 @@ extern s16  gRefreshRate;
 extern OSScMsg *D_80204298; // OSMesg
 extern OSScClient D_802042A0;
 extern s16  D_802042A8;
-extern char D_802042B0[];
+extern char gDebugTextBuffer[];
 extern s32  D_802042EC;
-extern s16  D_802042F0[];
+extern s16  gNoControllerMessageText[];
 extern s16  D_80204368[];
 extern u64  D_802043E0[]; // yield_data_ptr
 extern s16  gScreenWidth;
 extern s16  gScreenHeight;
 
-extern VIData D_802053E0;
+extern VIData gVIData;
 extern VIData D_802053F0;
 extern VIData D_80205400;
 extern s16  D_8020540C;
@@ -733,7 +733,7 @@ extern struct053 D_803C0430;
 extern u64  gRenderMode1;
 extern u64  gRenderMode2;
 extern u64  gGeometryMode;
-extern u16  D_803C0658; // matrix normalise
+extern u16  gWorldPerspNorm; // matrix normalise
 
 extern GfxHelper D_803C0660[28]; // related to D_80205410
 
@@ -835,7 +835,7 @@ extern s16  D_803E1B02; // another counter, max 120
 extern s16  D_803E1B04; // used vtx for dynamic tails?
 
 // screen_transition
-extern ScreenTransition D_803E1B10;
+extern ScreenTransition gScreenTransition;
 
 // lights
 extern u8   D_803E1BBA; // env r
@@ -849,7 +849,7 @@ extern u8   D_803E1BBF; // water b
 extern s16  gInputMode;
 
 // overlay2_707310
-extern Fog  D_803E1CF8;
+extern Fog  gFogState;
 extern struct064 D_803E1D30[]; // additional layer for level data
 
 extern struct116 D_803E2930[];
@@ -894,14 +894,14 @@ extern Collision D_803E9840[];
 extern s16  D_803F28C2;
 
 // camera
-extern u16  D_803F28D0[8];
+extern u16  gCameraVisibilityMask[8];
 
 extern Camera gCameras[2];
 extern s16  gCameraId;
 extern s16  D_803F2A9A;
 extern s16  D_803F2A9C;
 extern s16  D_803F2A9E;
-extern u8   D_803F2AA2;
+extern u8   gCameraUiState;
 extern u8   D_803F2AA3;
 extern u8   D_803F2AA4; // toggle/boolean, cutscene? who knows
 
@@ -911,9 +911,9 @@ extern f32  D_803F2C3C;
 
 extern f32  D_803F2C40;
 
-extern f32  D_803F2C44;
-extern f32  D_803F2C48;
-extern f32  D_803F2C4C;
+extern f32  gCameraEyeWorldX;
+extern f32  gCameraEyeWorldZ;
+extern f32  gCameraEyeWorldY;
 
 extern f32  D_803F2C5C;
 extern f32  D_803F2C60;
@@ -922,13 +922,13 @@ extern u8   D_803F2C6C;
 
 // osd
 extern s16  D_803F2CD0;
-extern s16  D_803F2CD2; // (race?) timer
+extern s16  gHudTimerSeconds; // (race?) timer
 extern s16  D_803F2CD4;
 extern s16  D_803F2CD6;
 extern s16  D_803F2CD8;
 extern s8   D_803F2CDC;
 
-extern s16 *D_803F2CE0; // pointer to some text
+extern s16 *gHudCenterText; // pointer to some text
 extern s16  D_803F2CE4; // vertical offset for osd text?
 extern u8   D_803F2CE6; // has (death?) sfx been played?
 extern s16  D_803F2CE8; // health slider 'animation'
@@ -939,7 +939,7 @@ extern s16  D_803F2D18;
 
 // overlay2_7688B0
 extern s16  D_803F2D24;
-extern LevelProgress D_803F2D30;
+extern LevelProgress gLevelProgress;
 
 // TODO:
 extern LevelConfig D_803F2D50;
@@ -965,7 +965,7 @@ extern s16  D_803F2ED8;
 extern u8   D_803F2EDA;
 extern u8   D_803F2EDB;
 // extern u8   D_803F2EDC;
-extern u8   D_803F2EDD;
+extern u8   gLodDetailState;
 extern u8   D_803F2EDE;
 
 // overlay2_785D10
@@ -997,14 +997,14 @@ extern f32  D_803F646C;
 extern s16  D_803F6470;
 extern u8   D_803F6472;
 extern s16  D_803F6474;
-extern struct109 D_803F6478;
-extern s16 *D_803F6500[18];
-extern s16  D_803F6548[20];
+extern struct109 gTerminalTextScrollState;
+extern s16 *gTerminalStatLabels[18];
+extern s16  gTerminalStatTextX[20];
 // extern f32  D_803F6570[64];
 extern f32  D_803F6670;
 
 // overlay2_7A0DA0
-extern struct027 D_803F6680;
+extern struct027 gOverlayMenuState;
 extern s16  D_803F6704;
 extern u16  D_803F6714;
 extern s16  D_803F6716; // current sfx volume

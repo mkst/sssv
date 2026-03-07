@@ -322,7 +322,7 @@ void func_802F30A4_704754(void) {
     D_80204278->lights.l[0].l.dir[1] = (s32)var_f22;
     D_80204278->lights.l[0].l.dir[2] = (s32)var_f2;
 
-    add_single_light(&D_801D9E7C);
+    add_single_light(&gMainDL);
 }
 
 void add_multiple_lights(void) {

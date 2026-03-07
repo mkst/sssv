@@ -26,7 +26,7 @@ void func_80302200_7138B0(void) {
         }
         if (phi_v0 != 0) {
             sp70 = 0;
-            D_803F2EDD = 0;
+            gLodDetailState = 0;
             goto done;
         }
     }
@@ -98,7 +98,7 @@ done:
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) &&
-            ((D_803D5538 != 0) || ((tmp2 = D_803F2AA2) == 0) || (tmp2 == 2) || ((tmp2 == 1) && (D_803F2AA3 >= 0xB))) &&
+            ((D_803D5538 != 0) || ((tmp2 = gCameraUiState) == 0) || (tmp2 == 2) || ((tmp2 == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].unk64 != -3))) {
 
             func_80127640(
@@ -136,7 +136,7 @@ done:
             } else {
                 sp6E = 0;
             }
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(2, 14, FTOFIX32(0.71875), FTOFIX32(0.71875), ((0x10000 + (sp72 << 5)) * 0x2E) >> 6, D_803F2ED0, sp6E, 0, 0, D_040088F0_F9950); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 14, FTOFIX32(0.71875), FTOFIX32(0.71875), ((0x10000 + (sp72 << 5)) * 0x2E) >> 6, D_803F2ED0, sp6E, 0, 0, D_040088F0_F9950); }
             D_80203FE0[2].unk4 += sp72 * 3;
             D_80203FE0[1].unk4 += sp72 * 3;
             if (D_803F2ED8 != 0) { func_802C78B0_6D8F60(1, 2, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) + (sp72 << 6)) * 0x2E) >> 6, D_803F2ED0, 0, 0, 0, D_040089E0_108730); }

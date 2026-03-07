@@ -152,7 +152,7 @@ void update_gorilla(void) {
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spEA = 0;
-        D_803F2EDD = 0;
+        gLodDetailState = 0;
     } else {
         spEA = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x1340, 6, 0x49, 0, 0x54, 1, CHECK_SEGMENT == 0);
     }
@@ -407,7 +407,7 @@ void update_gorilla(void) {
         }
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_18 = D_803F2AA2, (temp_v0_18 == 0)) || (temp_v0_18 == 2) || ((temp_v0_18 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_18 = gCameraUiState, (temp_v0_18 == 0)) || (temp_v0_18 == 2) || ((temp_v0_18 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             if (D_803D5530->state == 0xDD) {
                 func_802E497C_6F602C(D_803D552C->unk308, &spD0, &spCC, &spC8);
                 guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], (D_803D5530->position.xPos.w / 65536.0), (D_803D5530->position.zPos.w / 65536.0), (D_803D5530->position.yPos.w / 65536.0));
@@ -463,28 +463,28 @@ void update_gorilla(void) {
 
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
-            if (D_803F2EDD == 0) { SET_JOINT( 3,  7, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004F30_F5F90); }
+            if (gLodDetailState == 0) { SET_JOINT( 3,  7, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004F30_F5F90); }
             SET_JOINT( 7,  8, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004DE0_F5E40);
 
-            if (D_803F2EDD == 0) { SET_JOINT( 5, 13, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004FF0_F6050); }
+            if (gLodDetailState == 0) { SET_JOINT( 5, 13, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004FF0_F6050); }
             SET_JOINT(0xD, 0xE, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04004A50_F5AB0);
 
             if (D_803D5524->unk9C == GORILLA) {
-                if (D_803F2EDD == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spE0, spE0, spE0, D_803F2ED0, 0, 0, 0, D_04004B20_F5B80); }
-                if (D_803F2EDD == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spD8, spD8, spD8, D_803F2ED0, 0, 0, 0, D_04004BB0_F5C10); }
-                if (D_803F2EDD == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spDC, spDC, spDC, D_803F2ED0, 0, 0, 0, D_04004C40_F5CA0); }
+                if (gLodDetailState == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spE0, spE0, spE0, D_803F2ED0, 0, 0, 0, D_04004B20_F5B80); }
+                if (gLodDetailState == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spD8, spD8, spD8, D_803F2ED0, 0, 0, 0, D_04004BB0_F5C10); }
+                if (gLodDetailState == 0) { SET_JOINT(7, 8, SCALE_GORILLA, spDC, spDC, spDC, D_803F2ED0, 0, 0, 0, D_04004C40_F5CA0); }
             }
 
             gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
-            if (D_803F2EDD == 0) { SET_JOINT(4, 10, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004F30_F5F90); }
+            if (gLodDetailState == 0) { SET_JOINT(4, 10, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004F30_F5F90); }
             SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004DE0_F5E40);
-            if (D_803F2EDD == 0) { SET_JOINT(6, 16, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004FF0_F6050); }
+            if (gLodDetailState == 0) { SET_JOINT(6, 16, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004FF0_F6050); }
             SET_JOINT(16, 17, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004A50_F5AB0);
-            if (D_803F2EDD == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004B20_F5B80); }
-            if (D_803F2EDD == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004BB0_F5C10); }
-            if (D_803F2EDD == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004C40_F5CA0); }
-            if (D_803F2EDD == 0) {
+            if (gLodDetailState == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004B20_F5B80); }
+            if (gLodDetailState == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004BB0_F5C10); }
+            if (gLodDetailState == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004C40_F5CA0); }
+            if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spEE, &spEC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spEE, &spEC);
                 spEE = D_803BD530_7CEBE0.eyes[6][spEE]; spEC = D_803BD600_7CECB0.eyes[5][spEC];

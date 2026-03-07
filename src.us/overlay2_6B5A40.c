@@ -3110,7 +3110,7 @@ void func_802AD49C_6BEB4C(void) {
     phi_v0 = D_801D9ED8.stickX;
     phi_v1 = D_801D9ED8.stickY;
 
-    if (D_803F2D30.unk4 != 0) {
+    if (gLevelProgress.unk4 != 0) {
         phi_v0 = phi_v1 = 0;
     }
 
@@ -5377,13 +5377,13 @@ s16 func_802B3D68_6C5418(void) {
 
     f32 tmpf;
 
-    tmpf = ABS(D_803D5530->position.xPos.h - D_803F2C44);
+    tmpf = ABS(D_803D5530->position.xPos.h - gCameraEyeWorldX);
     x = (s16)tmpf >> 1;
 
-    tmpf = ABS(D_803D5530->position.zPos.h - D_803F2C48);
+    tmpf = ABS(D_803D5530->position.zPos.h - gCameraEyeWorldZ);
     z = (s16)tmpf >> 1;
 
-    tmpf = ABS(D_803D5530->position.yPos.h - D_803F2C4C);
+    tmpf = ABS(D_803D5530->position.yPos.h - gCameraEyeWorldY);
     y = (s16)tmpf >> 1;
 
     return MAX(MAX(x, z), y) + x + z + y;

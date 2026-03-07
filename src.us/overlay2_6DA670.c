@@ -82,7 +82,7 @@ void read_controller_input(OSContPad *cont) {
         D_801D9ED8.curDPadRight = 0;
     }
 
-    if ((D_803F2AA2 == 0) && (D_803F2AA3 == 0)) {
+    if ((gCameraUiState == 0) && (D_803F2AA3 == 0)) {
         if (cont->button & L_TRIG) {
             D_801D9ED8.curLRTrigger = L_TRIGGER;
         } else if (cont->button & R_TRIG) {
@@ -119,7 +119,7 @@ void read_controller_input(OSContPad *cont) {
         D_801D9ED8.curCButtonRight = 0;
     }
 
-    if (D_803F2D30.unk4) {
+    if (gLevelProgress.unk4) {
         // reset all inputs
         D_801D9ED8.curAButton = 0;
         D_801D9ED8.curBButton = 0;
