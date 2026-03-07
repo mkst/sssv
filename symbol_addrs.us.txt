@@ -1052,7 +1052,7 @@ D_803F6474 = 0x803F6474; // defined:true
 gTerminalTextScrollState = 0x803F6478; // defined:true
 gTerminalStatLabels = 0x803F6500; // defined:true
 gTerminalStatTextX = 0x803F6548; // defined:true
-D_803F6570 = 0x803F6570; // defined:true
+gTerminalDnaSimulation = 0x803F6570; // defined:true
 D_803F6670 = 0x803F6670; // defined:true
 D_803F6674 = 0x803F6674; // defined:true
 

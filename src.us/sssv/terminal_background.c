@@ -171,7 +171,7 @@ s16  D_803F6474;
 struct109 gTerminalTextScrollState;
 s16 *gTerminalStatLabels[18];
 s16  gTerminalStatTextX[20];
-f32  D_803F6570[16][2][2]; // tbd
+f32  gTerminalDnaSimulation[16][2][2]; // tbd
 // f32  D_803F6670;
 
 
@@ -504,7 +504,7 @@ void spin_dna_helixes(u16 arg0) {
         // translate around Z
         guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], 0, 0, temp_f0);
         gSPMatrix(D_801D9E88++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803F6570[i][idx][0], 0, 0, 1.0f);
+        guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], gTerminalDnaSimulation[i][idx][0], 0, 0, 1.0f);
         gSPMatrix(D_801D9E88++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
         gSPSetLights0(D_801D9E88++, D_803B65D8_7C7C88);
@@ -593,16 +593,16 @@ u8 func_8038E80C_79FEBC(void) {
     }
 
     for (i = 0; i < 16; i++) {
-        temp_f16 = (D_803F6570[(i - 1) & 0xF][D_803B66E4_7C7D94][0] + D_803F6570[(i + 1) & 0xF][D_803B66E4_7C7D94][0]) / 2.0;
-        D_803F6570[i][idx][1] = (D_803F6570[i][D_803B66E4_7C7D94][1] * 0.995) + ((temp_f16 - D_803F6570[i][D_803B66E4_7C7D94][0]) * 0.1);
-        D_803F6570[i][idx][0] = D_803F6570[i][D_803B66E4_7C7D94][0] + D_803F6570[i][idx][1];
+        temp_f16 = (gTerminalDnaSimulation[(i - 1) & 0xF][D_803B66E4_7C7D94][0] + gTerminalDnaSimulation[(i + 1) & 0xF][D_803B66E4_7C7D94][0]) / 2.0;
+        gTerminalDnaSimulation[i][idx][1] = (gTerminalDnaSimulation[i][D_803B66E4_7C7D94][1] * 0.995) + ((temp_f16 - gTerminalDnaSimulation[i][D_803B66E4_7C7D94][0]) * 0.1);
+        gTerminalDnaSimulation[i][idx][0] = gTerminalDnaSimulation[i][D_803B66E4_7C7D94][0] + gTerminalDnaSimulation[i][idx][1];
     }
 
     rand = func_8012826C();
     if ((rand & 0xFF00) == 0x3400) {
-        D_803F6570[(rand & 0xF)][idx][1] += (((rand >> 4) & 0xF) - 7) * 10.0;
+        gTerminalDnaSimulation[(rand & 0xF)][idx][1] += (((rand >> 4) & 0xF) - 7) * 10.0;
     }
-    D_803F6570[8][idx][1] += (SIN(D_803F6674 >> 1) >> 7) / 200.0;
+    gTerminalDnaSimulation[8][idx][1] += (SIN(D_803F6674 >> 1) >> 7) / 200.0;
 
     return idx;
 }
