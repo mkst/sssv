@@ -45,19 +45,19 @@ void check_cheats(OSContPad *contPad) {
     s16 sp28[60]; // long enough...
 
     if (gCheats.debugMode != 0) {
-        load_default_display_list(&D_801D9E7C);
+        load_default_display_list(&gMainDL);
         set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
         select_font(0, FONT_DEFAULT, 0, 0);
-        if ((gCheats.debugMode != 0) && (D_803F6680.unk0 == 0)) {
+        if ((gCheats.debugMode != 0) && (gOverlayMenuState.unk0 == 0)) {
             // print debug location
-            sprintf(D_802042B0, "(%3d  %3d  %4d)",
+            sprintf(gDebugTextBuffer, "(%3d  %3d  %4d)",
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
                 D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h);
-            prepare_text((u8*)D_802042B0, sp28);
-            display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
+            prepare_text((u8*)gDebugTextBuffer, sp28);
+            display_text(&gMainDL, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
             prepare_text((u8*)"Ver - 1.37", sp28);
-            display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 36, 16.0f, 16.0f);
+            display_text(&gMainDL, sp28, gScreenWidth - 20, 36, 16.0f, 16.0f);
         }
     }
     // reset

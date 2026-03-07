@@ -215,7 +215,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_SCORE:    // 19
-        D_803F2D30.score = arg2;
+        gLevelProgress.score = arg2;
         break;
 
     case 20+0x7F7F:
@@ -364,9 +364,9 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             break;
         case 10+0x7F7F:
             if (D_803F2CD6 < 0) {
-                res = D_803F2CD2;
+                res = gHudTimerSeconds;
             } else {
-                res = D_803F2CD2 - 1;
+                res = gHudTimerSeconds - 1;
                 if ((D_803F2CD8 >> 1) < D_803F2CD4) {
                     res += 1;
                 }
@@ -405,7 +405,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->unk46;
             break;
         case ST_GET_SCORE:
-            res = D_803F2D30.score;
+            res = gLevelProgress.score;
             break;
         case 20+0x7F7F:
             res = arg0->unk3E;
@@ -1574,7 +1574,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x2B:
-        D_803F2D30.score += get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0);
+        gLevelProgress.score += get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0);
         return 69;
 
     case 0x2C:

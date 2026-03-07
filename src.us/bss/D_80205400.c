@@ -5,7 +5,7 @@
 
 // TODO: stick this in tv.c ?
 
-VIData D_802053E0;
+VIData gVIData;
 VIData D_802053F0;
 VIData D_80205400;
 

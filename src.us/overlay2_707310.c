@@ -22,7 +22,7 @@ static s32  D_803E1CDC; // unused
 static Fog  D_803E1CE0;
 static Fog  D_803E1CE8;
 static Fog  D_803E1CF0;
-Fog  D_803E1CF8;
+Fog  gFogState;
 static u16  D_803E1D00;
 static u16  D_803E1D02;
 static u8   D_803E1D04;
@@ -2516,16 +2516,16 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         switch (arg0->unk16C->objectType) {
         case 0x22: // powercell
             if (tmp) {
-                D_803F2D30.powercells++;
-                D_803F2D30.powercells2++;
-                D_803F2D30.score += 1000;
+                gLevelProgress.powercells++;
+                gLevelProgress.powercells2++;
+                gLevelProgress.score += 1000;
             }
             do_item_collected_effect(arg0->position.xPos.h, arg0->position.zPos.h, (arg0->position.yPos.h + ((arg0->unk40) >> 7) * 2), 2);
             return;
             break;
         case 0x3A: // energy ball + 16 hp
             if (tmp) {
-                if (D_803F2D30.unk4 == 0) {
+                if (gLevelProgress.unk4 == 0) {
                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x10, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
@@ -2538,7 +2538,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
             break;
         case 0x3B:  // energy ball + 32 hp
             if (tmp) {
-                if (D_803F2D30.unk4 == 0) {
+                if (gLevelProgress.unk4 == 0) {
                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x20, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
@@ -2551,7 +2551,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
             break;
         case 0x3C: // energy ball + 64hp
             if (tmp) {
-                if (D_803F2D30.unk4 == 0) {
+                if (gLevelProgress.unk4 == 0) {
                     D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = MIN(D_801D9ED8.animals[gCurrentAnimalIndex].animal->health + 0x40, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
@@ -2821,19 +2821,19 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
 
 // set_fog_from_level_data
 void func_802FD8CC_70EF7C(void) {
-    D_803E1CF8.min = D_803E1CE8.min = D_803F2D50.unk2;
-    D_803E1CF8.max = D_803E1CE8.max = D_803F2D50.unk4;
+    gFogState.min = D_803E1CE8.min = D_803F2D50.unk2;
+    gFogState.max = D_803E1CE8.max = D_803F2D50.unk4;
 
-    D_803E1CF8.r = D_803E1CE8.r = D_803F2D50.unk6;
-    D_803E1CF8.g = D_803E1CE8.g = D_803F2D50.unk8;
-    D_803E1CF8.b = D_803E1CE8.b = D_803F2D50.unkA;
+    gFogState.r = D_803E1CE8.r = D_803F2D50.unk6;
+    gFogState.g = D_803E1CE8.g = D_803F2D50.unk8;
+    gFogState.b = D_803E1CE8.b = D_803F2D50.unkA;
 
     D_803E1D00 = D_803E1D02 = 0;
     D_803E1D04 = 1;
 }
 
 void func_802FD94C_70EFFC(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5) {
-    D_803E1CE0 = D_803E1CF8;
+    D_803E1CE0 = gFogState;
 
     D_803E1CE8.min = min;
     D_803E1CE8.max = max;
@@ -2848,7 +2848,7 @@ void func_802FD94C_70EFFC(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5) {
 
 void func_802FD9C4_70F074(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5, s16 arg6) {
     // struct copy
-    D_803E1CE0 = D_803E1CF8;
+    D_803E1CE0 = gFogState;
 
     D_803E1CF0.min = min;
     D_803E1CF0.max = max;
@@ -2866,27 +2866,27 @@ void func_802FDA44_70F0F4(void) {
 
     if (D_803E1D04 == 0) {
         if (D_803E1D02 == D_803E1D00) {
-            D_803E1CF8.min = D_803E1CE8.min;
-            D_803E1CF8.max = D_803E1CE8.max;
-            D_803E1CF8.r = D_803E1CE8.r;
-            D_803E1CF8.g = D_803E1CE8.g;
-            D_803E1CF8.b = D_803E1CE8.b;
+            gFogState.min = D_803E1CE8.min;
+            gFogState.max = D_803E1CE8.max;
+            gFogState.r = D_803E1CE8.r;
+            gFogState.g = D_803E1CE8.g;
+            gFogState.b = D_803E1CE8.b;
             D_803E1D04 = 1;
         } else {
             temp_f0 = (f32) D_803E1D02 / (f32) D_803E1D00;
-            D_803E1CF8.min = (D_803E1CE0.min + (((f32) D_803E1CE8.min - D_803E1CE0.min) * temp_f0));
-            D_803E1CF8.max = (D_803E1CE0.max + (((f32) D_803E1CE8.max - D_803E1CE0.max) * temp_f0));
-            D_803E1CF8.r = (D_803E1CE0.r + (((f32) D_803E1CE8.r - D_803E1CE0.r) * temp_f0));
-            D_803E1CF8.g = (D_803E1CE0.g + (((f32) D_803E1CE8.g - D_803E1CE0.g) * temp_f0));
-            D_803E1CF8.b = (D_803E1CE0.b + (((f32) D_803E1CE8.b - D_803E1CE0.b) * temp_f0));
+            gFogState.min = (D_803E1CE0.min + (((f32) D_803E1CE8.min - D_803E1CE0.min) * temp_f0));
+            gFogState.max = (D_803E1CE0.max + (((f32) D_803E1CE8.max - D_803E1CE0.max) * temp_f0));
+            gFogState.r = (D_803E1CE0.r + (((f32) D_803E1CE8.r - D_803E1CE0.r) * temp_f0));
+            gFogState.g = (D_803E1CE0.g + (((f32) D_803E1CE8.g - D_803E1CE0.g) * temp_f0));
+            gFogState.b = (D_803E1CE0.b + (((f32) D_803E1CE8.b - D_803E1CE0.b) * temp_f0));
             D_803E1D02++;
         }
     } else {
-        D_803E1CF8.min = D_803E1CE8.min;
-        D_803E1CF8.max = D_803E1CE8.max;
-        D_803E1CF8.r = D_803E1CE8.r;
-        D_803E1CF8.g = D_803E1CE8.g;
-        D_803E1CF8.b = D_803E1CE8.b;
+        gFogState.min = D_803E1CE8.min;
+        gFogState.max = D_803E1CE8.max;
+        gFogState.r = D_803E1CE8.r;
+        gFogState.g = D_803E1CE8.g;
+        gFogState.b = D_803E1CE8.b;
     }
     if (D_803E1D0C != 0) {
         if (D_803E1D06 >= D_803E1D0A) {
@@ -2895,11 +2895,11 @@ void func_802FDA44_70F0F4(void) {
             } else {
                 temp_f0 = (f32) D_803E1D0A / (f32) D_803E1D06;
             }
-            D_803E1CF8.min = (D_803E1CF8.min + (((f32) D_803E1CF0.min - D_803E1CF8.min) * temp_f0));
-            D_803E1CF8.max = (D_803E1CF8.max + (((f32) D_803E1CF0.max - D_803E1CF8.max) * temp_f0));
-            D_803E1CF8.r = (D_803E1CF8.r + (((f32) D_803E1CF0.r - D_803E1CF8.r) * temp_f0));
-            D_803E1CF8.g = (D_803E1CF8.g + (((f32) D_803E1CF0.g - D_803E1CF8.g) * temp_f0));
-            D_803E1CF8.b = (D_803E1CF8.b + (((f32) D_803E1CF0.b - D_803E1CF8.b) * temp_f0));
+            gFogState.min = (gFogState.min + (((f32) D_803E1CF0.min - gFogState.min) * temp_f0));
+            gFogState.max = (gFogState.max + (((f32) D_803E1CF0.max - gFogState.max) * temp_f0));
+            gFogState.r = (gFogState.r + (((f32) D_803E1CF0.r - gFogState.r) * temp_f0));
+            gFogState.g = (gFogState.g + (((f32) D_803E1CF0.g - gFogState.g) * temp_f0));
+            gFogState.b = (gFogState.b + (((f32) D_803E1CF0.b - gFogState.b) * temp_f0));
         } else {
             if ((D_803E1D06 + D_803E1D08) >= (s32) D_803E1D0A) {
                 if (D_803E1D06 == 0) {
@@ -2907,11 +2907,11 @@ void func_802FDA44_70F0F4(void) {
                 } else {
                     temp_f0 = ((f32) D_803E1D0A - (f32) D_803E1D06) / (f32) D_803E1D08;
                 }
-                D_803E1CF8.min = (D_803E1CF0.min + (((f32) D_803E1CF8.min - D_803E1CF0.min) * temp_f0));
-                D_803E1CF8.max = (D_803E1CF0.max + (((f32) D_803E1CF8.max - D_803E1CF0.max) * temp_f0));
-                D_803E1CF8.r = (D_803E1CF0.r + (((f32) D_803E1CF8.r - D_803E1CF0.r) * temp_f0));
-                D_803E1CF8.g = (D_803E1CF0.g + (((f32) D_803E1CF8.g - D_803E1CF0.g) * temp_f0));
-                D_803E1CF8.b = (D_803E1CF0.b + (((f32) D_803E1CF8.b - D_803E1CF0.b) * temp_f0));
+                gFogState.min = (D_803E1CF0.min + (((f32) gFogState.min - D_803E1CF0.min) * temp_f0));
+                gFogState.max = (D_803E1CF0.max + (((f32) gFogState.max - D_803E1CF0.max) * temp_f0));
+                gFogState.r = (D_803E1CF0.r + (((f32) gFogState.r - D_803E1CF0.r) * temp_f0));
+                gFogState.g = (D_803E1CF0.g + (((f32) gFogState.g - D_803E1CF0.g) * temp_f0));
+                gFogState.b = (D_803E1CF0.b + (((f32) gFogState.b - D_803E1CF0.b) * temp_f0));
             } else {
                 D_803E1D0C = 0;
             }
@@ -3138,9 +3138,9 @@ void func_802FF540_710BF0(struct071 *arg0) {
     }
 
     if (D_803E8E57 != 0) {
-        dist = ABS(arg0->position.xPos.h - (s16) (s32) D_803F2C44) +
-               ABS(arg0->position.zPos.h - (s16) (s32) D_803F2C48) +
-               ABS(arg0->position.yPos.h - (s16) (s32) D_803F2C4C);
+        dist = ABS(arg0->position.xPos.h - (s16) (s32) gCameraEyeWorldX) +
+               ABS(arg0->position.zPos.h - (s16) (s32) gCameraEyeWorldZ) +
+               ABS(arg0->position.yPos.h - (s16) (s32) gCameraEyeWorldY);
         if (dist < 512) {
             phi_t2 = 256;
         } else if (dist < 5120) {

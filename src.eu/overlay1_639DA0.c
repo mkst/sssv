@@ -60,7 +60,7 @@ extern s16 D_80204280;
 extern s16 D_80204290;
 extern s16 D_802042A4;
 extern s8 D_802042A8;
-extern s16 D_802042B0;
+extern s16 gDebugTextBuffer;
 extern s16 D_802042B4;
 extern Eeprom D_8023F2C0;
 extern s16 D_8028647C;
@@ -860,7 +860,7 @@ void func_80296590_63B4C0(struct018 *arg0) {
             D_8029B310_640240 = 0;
         }
         D_8028647C = 0;
-        D_802042B0 = 1;
+        gDebugTextBuffer = 1;
         D_8029B328_640258 = 0;
         D_8029B31C_64024C = 0;
         D_8029B30C_64023C = 0;

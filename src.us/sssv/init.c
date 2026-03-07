@@ -31,8 +31,8 @@ void load_ingame_objects(void) {
     u32 len = _segment1SegmentRomEnd - _segment1SegmentRomStart;
 
     SSSV_ASSERT(len < (_gfxdlistSegmentEnd - _gfxdlistSegmentStart), "../src/init.c", 93);
-    D_801D9E74 = &_gfxdlistSegmentStart;
-    dma_read(_segment1SegmentRomStart, D_801D9E74, len);
+    gSegment1Base = &_gfxdlistSegmentStart;
+    dma_read(_segment1SegmentRomStart, gSegment1Base, len);
 }
 
 // TODO: use actual D_800DCC20 buffer size

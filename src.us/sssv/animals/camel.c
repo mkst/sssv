@@ -64,7 +64,7 @@ void func_8036D700_77EDB0(void) {
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spDA = VISIBILITY_VISIBLE;
-        D_803F2EDD = 0;
+        gLodDetailState = 0;
     } else {
         spDA = func_802E89F0_6FA0A0(
             D_803D552C->position.xPos.w,
@@ -347,7 +347,7 @@ void func_8036D700_77EDB0(void) {
 
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_10 = D_803F2AA2, (temp_v0_10 == 0)) || (temp_v0_10 == 2) || ((temp_v0_10 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((D_80204278->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_10 = gCameraUiState, (temp_v0_10 == 0)) || (temp_v0_10 == 2) || ((temp_v0_10 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading,  D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -378,7 +378,7 @@ void func_8036D700_77EDB0(void) {
                 break;
             }
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 0x13, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040014D0_E8A80); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 0x13, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040014D0_E8A80); }
 #pragma _permuter sameline end
             switch (D_803D5524->unk9C) {
             case CAMEL:
@@ -389,23 +389,23 @@ void func_8036D700_77EDB0(void) {
                 func_802C78B0_6D8F60(0x1B, 0x1A, (D_803F2EBC * 0x64) >> 6, (D_803F2EC0 * 0x64) >> 6, (D_803F2EC4 * 0x64) >> 6, D_803F2ED0, (s16) (((D_803D552C->unk308 - D_803D552C->heading) + 0x40) & 0xFF), (u8) 0, (u8) 0, D_04001760_E8D10);
                 break;
             }
-            if (D_803F2EDD == 0) {
+            if (gLodDetailState == 0) {
                 func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x64) >> 6, (D_803F2EC0 * 0x64) >> 6, (D_803F2EC4 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_040015C0_E8B70);
             }
 
             gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
 
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(3, 7, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040020F0_E96A0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 7, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040020F0_E96A0); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(5, 0xD, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040020F0_E96A0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(5, 0xD, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040020F0_E96A0); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(7, 8, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04002020_E95D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(7, 8, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04002020_E95D0); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(0xD, 0xE, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04002020_E95D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(0xD, 0xE, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04002020_E95D0); }
 #pragma _permuter sameline end
 
             func_802C78B0_6D8F60(8, 9, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_04001650_E8C00);
@@ -415,21 +415,21 @@ void func_8036D700_77EDB0(void) {
             gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
 
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(4, 10, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_040020F0_E96A0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 10, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_040020F0_E96A0); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(6, 16, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_040020F0_E96A0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(6, 16, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_040020F0_E96A0); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(10, 11, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04002020_E95D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(10, 11, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04002020_E95D0); }
 #pragma _permuter sameline end
 #pragma _permuter sameline start
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(16, 17, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04002020_E95D0); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(16, 17, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04002020_E95D0); }
 #pragma _permuter sameline end
 
             func_802C78B0_6D8F60(0xB, 0xC, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04001650_E8C00);
             func_802C78B0_6D8F60(0x11, 0x12, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04001650_E8C00);
-            if (D_803F2EDD == 0) {
+            if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spDE, &spDC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spDE, &spDC);
 #pragma _permuter sameline start

@@ -46,7 +46,7 @@ void func_80382050_793700(void) {
         }
         if (phi_a4 != 0) {
             sp7A = 0;
-            D_803F2EDD = 0;
+            gLodDetailState = 0;
             goto done;
         }
     }
@@ -121,7 +121,7 @@ done:
 
         if (((D_80204278->usedModelViewMtxs + 30) < 250) &&
              (D_803F2EDA != 0) &&
-             ((D_803D5538 != 0) || (D_803F2AA2 == 0) || ((phi_a3 = D_803F2AA2) == 2) || ((phi_a3 == 1) && (D_803F2AA3 >= 0xB))) &&
+             ((D_803D5538 != 0) || (gCameraUiState == 0) || ((phi_a3 = gCameraUiState) == 2) || ((phi_a3 == 1) && (D_803F2AA3 >= 0xB))) &&
              ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
@@ -152,7 +152,7 @@ done:
             D_80203FE0[1].unk2 += ((sp76 * 1000) >> 8);
             D_80203FE0[2].unk2 += ((sp76 * 1000) >> 8);
 
-            if (D_803F2EDD == 0) { func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C010_FD070); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C010_FD070); }
             D_80203FE0[1].unk4 += ((sp76 * 1000) >> 6) + ((sp76 * 1000) >> 8);
             D_80203FE0[2].unk4 -= ((sp76 * 3000) >> 8) + ((sp76 * 1000) >> 8);
 
@@ -161,7 +161,7 @@ done:
 
             load_1_tile(img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__pal, img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__ci4__png);
             func_802C78B0_6D8F60(2, 3, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C170_FD1D0);
-            if (D_803F2EDD == 0) {
+            if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp74, &sp72);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp74, &sp72);
                 sp74 = D_803BD530_7CEBE0.eyes[1][sp74]; sp72 = D_803BD600_7CECB0.eyes[0][sp72];

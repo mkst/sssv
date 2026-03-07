@@ -63,7 +63,7 @@ void func_80382CF0_7943A0(void) {
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp8A = VISIBILITY_VISIBLE;
-        D_803F2EDD = 0;
+        gLodDetailState = 0;
     } else {
         sp8A = func_802E89F0_6FA0A0(
             D_803D552C->position.xPos.w,
@@ -107,7 +107,7 @@ void func_80382CF0_7943A0(void) {
         func_8038064C_791CFC();
         if ((((D_80204278->usedModelViewMtxs + 30) < 250)) &&
             (D_803F2EDA != 0) &&
-            (((D_803D5538 != 0)) || (D_803F2AA2 == 0) || (D_803F2AA2 == 2) || ((D_803F2AA2 == 1) && (D_803F2AA3 >= 0xB))) &&
+            (((D_803D5538 != 0)) || (gCameraUiState == 0) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
             func_80127640(
                 &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
@@ -127,7 +127,7 @@ void func_80382CF0_7943A0(void) {
             func_802C78B0_6D8F60(0, 1, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04007500_E4AC0);
             func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040077E0_E4DA0);
             func_802C78B0_6D8F60(2, 3, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04007AE0_E50A0);
-            if (D_803F2EDD == 0) {
+            if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, (u16*)&sp86, (u16*)&sp84);
                 func_8031A278_72B928(&D_803D552C->unk326, (u16*)&sp86, (u16*)&sp84);
 #pragma _permuter sameline start

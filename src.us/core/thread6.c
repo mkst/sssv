@@ -53,12 +53,12 @@ u8  *D_801D9E5C;
 u8  *D_801D9E60;
 u8  *D_801D9E64;
 u8  *D_801D9E68;
-u8  *D_801D9E6C;
+u8  *gMenuSegmentBase;
 
-s16 *D_801D9E70;
-u8  *D_801D9E74;
-u8  *D_801D9E78;
-Gfx *D_801D9E7C;
+s16 *gFontSegmentBase;
+u8  *gSegment1Base;
+u8  *gSegment5Base;
+Gfx *gMainDL;
 
 // ========================================================
 // .text
@@ -83,7 +83,7 @@ void thread6(s32 arg0) {
 
     initialise_tv_mode();
 
-    osCreateScheduler(&sc, (void*)D_80162658, 20, D_802053E0.VIModeType, 1);
+    osCreateScheduler(&sc, (void*)D_80162658, 20, gVIData.VIModeType, 1);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
 
     gScreenWidth = 320;
@@ -228,7 +228,7 @@ void thread6_loop(void) {
                 func_8013107C(
                     &D_80162658[D_80152EB8],
                     D_80162658[D_80152EB8].unk4E0,
-                    (D_801D9E7C - D_80162658[D_80152EB8].unk4E0) * sizeof(Gfx),
+                    (gMainDL - D_80162658[D_80152EB8].unk4E0) * sizeof(Gfx),
                     3, /* type */
                     &D_80162658[D_80152EB8].unk3BBC8, // always 2
                     0x63); // OS_SC_SWAPBUFFER | OS_SC_LAST_TASK | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP
@@ -275,7 +275,7 @@ void thread7(void) {
         osRecvMesg(&D_80291060, D_80291054, OS_MESG_BLOCK);
         temp_a0 = D_8020428C;
         D_80204278 = &temp_a0->unk4E0;
-        D_801D9E7C = &temp_a0->unk4E0;
+        gMainDL = &temp_a0->unk4E0;
         D_801D9E90 = &temp_a0->unkDFA0;
         D_801D9E94 = &temp_a0->unk81E0;
         D_801D9E88 = &temp_a0->unk9AE0;
@@ -311,7 +311,7 @@ void func_8012A400(void) {
 }
 
 void end_display_lists(void) {
-    gSPTexture(D_801D9E7C++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
+    gSPTexture(gMainDL++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
 
     gSPEndDisplayList(D_801D9E90++);
     gSPEndDisplayList(D_801D9E94++);
@@ -319,9 +319,9 @@ void end_display_lists(void) {
     gSPEndDisplayList(D_801D9E8C++);
     gSPEndDisplayList(D_801D9EB8++);
 
-    gDPFullSync(D_801D9E7C++);
+    gDPFullSync(gMainDL++);
 
-    gSPEndDisplayList(D_801D9E7C++);
+    gSPEndDisplayList(gMainDL++);
 }
 
 void func_8012A588(void) {
@@ -342,8 +342,8 @@ void func_8012A588(void) {
         // fakematch
         if (tmp = D_80152E9C != 0) {}
 
-        gDPSetColorImage(D_801D9E7C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
-        draw_rectangle(&D_801D9E7C, 0, 0, 320, 240, 0, 0, 0, 120);
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
+        draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 120);
 
         D_80152E9C = D_80152E9C + D_80204290;
 
@@ -356,15 +356,15 @@ void func_8012A588(void) {
 
 void no_controller_message(void) {
     if (gControllerConnected == 0) {
-        load_segments(&D_801D9E7C, D_80204278);
-        draw_rectangle(&D_801D9E7C, 0, 16, 320, 36, 40, 40, 40, 128);
-        gDPPipeSync(D_801D9E7C++);
+        load_segments(&gMainDL, D_80204278);
+        draw_rectangle(&gMainDL, 0, 16, 320, 36, 40, 40, 40, 128);
+        gDPPipeSync(gMainDL++);
 
-        load_default_display_list(&D_801D9E7C);
+        load_default_display_list(&gMainDL);
         select_font(0, FONT_DEFAULT, 0, 0);
         set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
         // "CONTROLLER NOT CONNECTED" text
-        display_text_centered(&D_801D9E7C, D_802042F0, gScreenWidth/2, 20, 16.0f, 16.0f);
-        gDPPipeSync(D_801D9E7C++);
+        display_text_centered(&gMainDL, gNoControllerMessageText, gScreenWidth/2, 20, 16.0f, 16.0f);
+        gDPPipeSync(gMainDL++);
     }
 }

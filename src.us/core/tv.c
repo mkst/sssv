@@ -8,8 +8,8 @@ void initialise_tv_mode(void) {
 
     switch ((s16)osTvType) {
     case OS_TV_PAL:
-        D_802053E0.VIModeType = OS_VI_PAL_LPN1;
-        D_802053E0.screenWidth = 304;
+        gVIData.VIModeType = OS_VI_PAL_LPN1;
+        gVIData.screenWidth = 304;
         gRefreshRate = 50; // hz
         D_802053F0.vStart = 0x7A0210;
         D_802053F0.yScale = 1200;
@@ -21,19 +21,19 @@ void initialise_tv_mode(void) {
         }
 
         // regalloc
-        if (osViModeTable[D_802053E0.VIModeType].fldRegs) {};
+        if (osViModeTable[gVIData.VIModeType].fldRegs) {};
 
         break;
     case OS_TV_NTSC:
-        D_802053E0.VIModeType = OS_VI_NTSC_LPN1;
-        D_802053E0.screenWidth = 304;
+        gVIData.VIModeType = OS_VI_NTSC_LPN1;
+        gVIData.screenWidth = 304;
         gRefreshRate = 60; // hz
 
         D_802053F0.vStart = 0x6501BF;
         D_802053F0.yScale = 0x587;
 
-        vStart = osViModeTable[D_802053E0.VIModeType].fldRegs[0].vStart;
-        vScale = osViModeTable[D_802053E0.VIModeType].fldRegs[0].yScale;
+        vStart = osViModeTable[gVIData.VIModeType].fldRegs[0].vStart;
+        vScale = osViModeTable[gVIData.VIModeType].fldRegs[0].yScale;
         D_80205400.vStart = vStart;
         D_80205400.yScale = vScale;
 
@@ -42,15 +42,15 @@ void initialise_tv_mode(void) {
         }
         break;
     case OS_TV_MPAL:
-        D_802053E0.VIModeType = OS_VI_MPAL_LPN1;
-        D_802053E0.screenWidth = 304;
+        gVIData.VIModeType = OS_VI_MPAL_LPN1;
+        gVIData.screenWidth = 304;
         gRefreshRate = 60; // hz
 
         D_802053F0.vStart = 0x6501BF;
         D_802053F0.yScale = 0x587; // 1415
 
-        vStart = osViModeTable[D_802053E0.VIModeType].fldRegs[0].vStart;
-        vScale = osViModeTable[D_802053E0.VIModeType].fldRegs[0].yScale;
+        vStart = osViModeTable[gVIData.VIModeType].fldRegs[0].vStart;
+        vScale = osViModeTable[gVIData.VIModeType].fldRegs[0].yScale;
 
         D_80205400.vStart = vStart;
         D_80205400.yScale = vScale;
@@ -60,15 +60,15 @@ void initialise_tv_mode(void) {
         }
         break;
     default:
-        D_802053E0.VIModeType = OS_VI_NTSC_LPN1;
-        D_802053E0.screenWidth = 304;
+        gVIData.VIModeType = OS_VI_NTSC_LPN1;
+        gVIData.screenWidth = 304;
         gRefreshRate = 60;
 
         D_802053F0.vStart = 0x6501BF;
         D_802053F0.yScale = 1415;
 
-        vStart = osViModeTable[D_802053E0.VIModeType].fldRegs[0].vStart;
-        vScale = osViModeTable[D_802053E0.VIModeType].fldRegs[0].yScale;
+        vStart = osViModeTable[gVIData.VIModeType].fldRegs[0].vStart;
+        vScale = osViModeTable[gVIData.VIModeType].fldRegs[0].yScale;
 
         D_80205400.vStart = vStart;
         D_80205400.yScale = vScale;
@@ -79,15 +79,15 @@ void initialise_tv_mode(void) {
         break;
     }
 
-    vStart = osViModeTable[D_802053E0.VIModeType].fldRegs[0].vStart;
-    vScale = osViModeTable[D_802053E0.VIModeType].fldRegs[0].yScale;
-    D_802053E0.vStart = vStart;
-    D_802053E0.yScale = vScale;
+    vStart = osViModeTable[gVIData.VIModeType].fldRegs[0].vStart;
+    vScale = osViModeTable[gVIData.VIModeType].fldRegs[0].yScale;
+    gVIData.vStart = vStart;
+    gVIData.yScale = vScale;
 
-    osViModeTable[D_802053E0.VIModeType].fldRegs[0].vStart = D_80205400.vStart;
-    osViModeTable[D_802053E0.VIModeType].fldRegs[1].vStart = D_80205400.vStart;
-    osViModeTable[D_802053E0.VIModeType].fldRegs[0].yScale = D_80205400.yScale;
-    osViModeTable[D_802053E0.VIModeType].fldRegs[1].yScale = D_80205400.yScale;
+    osViModeTable[gVIData.VIModeType].fldRegs[0].vStart = D_80205400.vStart;
+    osViModeTable[gVIData.VIModeType].fldRegs[1].vStart = D_80205400.vStart;
+    osViModeTable[gVIData.VIModeType].fldRegs[0].yScale = D_80205400.yScale;
+    osViModeTable[gVIData.VIModeType].fldRegs[1].yScale = D_80205400.yScale;
     D_8020540C = 0;
 }
 
@@ -101,7 +101,7 @@ void set_tv_mode_widescreen(void) {
     s32 vStart;
     s32 yScale;
 
-    mode = &osViModeTable[D_802053E0.VIModeType];
+    mode = &osViModeTable[gVIData.VIModeType];
     vStart = D_802053F0.vStart;
     yScale = D_802053F0.yScale;
     mode->fldRegs[0].vStart = vStart;
@@ -117,7 +117,7 @@ void set_tv_mode_normal(void) {
     s32 vStart;
     s32 yScale;
 
-    mode = &osViModeTable[D_802053E0.VIModeType];
+    mode = &osViModeTable[gVIData.VIModeType];
     vStart = D_80205400.vStart;
     yScale = D_80205400.yScale;
     mode->fldRegs[0].vStart = vStart;
@@ -136,9 +136,9 @@ void func_8012AC8C(void) {
     osViSetXScale(1.0f);
     osViSetYScale(1.0f);
 
-    mode = &osViModeTable[D_802053E0.VIModeType];
-    vStart = D_802053E0.vStart;
-    yScale = D_802053E0.yScale;
+    mode = &osViModeTable[gVIData.VIModeType];
+    vStart = gVIData.vStart;
+    yScale = gVIData.yScale;
     mode->fldRegs[0].vStart = vStart;
     mode->fldRegs[1].vStart = vStart;
     mode->fldRegs[0].yScale = yScale;

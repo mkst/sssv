@@ -2302,7 +2302,7 @@ void func_802D5AD8_6E7188(s16 start, s16 end) {
 
     for (i = start; i < end; i++) {
         if (D_803D6120.unk3FC8[i] == 1) {
-            gSPDisplayList(D_801D9E7C++, &D_80204278->unk109A0[i]);
+            gSPDisplayList(gMainDL++, &D_80204278->unk109A0[i]);
         }
     }
 }
@@ -3406,7 +3406,7 @@ void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3) {
         }
         break;
     case 2: // powercell?
-        play_sound_effect_at_location(D_803A1BB0_7B3260[D_803F2D30.powercells].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[D_803F2D30.powercells].unk0);
+        play_sound_effect_at_location(D_803A1BB0_7B3260[gLevelProgress.powercells].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[gLevelProgress.powercells].unk0);
         for (i = 0; i < 8; i++) {
             idx++;
             idx %= 4;

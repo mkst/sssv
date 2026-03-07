@@ -19,7 +19,7 @@ void func_80129DC0(void) {
         if ((D_802042A4 != 2) && (D_802042A4 != 1) && (D_802042A4 != 5) && (D_802042A4 != 8)) {
             func_80133758();
             func_80132918();
-            D_802042B0 = 1;
+            gDebugTextBuffer = 1;
             D_8028647C = 0;
 
             phi_s1 = 1;
@@ -62,7 +62,7 @@ void func_80129DC0(void) {
             if (D_801D9EF0 != 0) {
                 D_801D9EF0 -= 1;
             }
-            if ((D_80152EDC < 2) && (phi_s1 == 0) && (D_802042B2 >= D_802042B0)) {
+            if ((D_80152EDC < 2) && (phi_s1 == 0) && (D_802042B2 >= gDebugTextBuffer)) {
                 func_80136F84();
                 if (D_802912F8 != 0) {
                     func_80137114();
@@ -107,9 +107,9 @@ void func_80129DC0(void) {
             }
             break;
         case 2:
-            if (D_802042B0 == 1) {
+            if (gDebugTextBuffer == 1) {
                 func_8012ABB4();
-            } else if (D_802042B2 >= (D_802042B0 - 1)) {
+            } else if (D_802042B2 >= (gDebugTextBuffer - 1)) {
                 func_8012ABB4();
             }
             D_80152EC4 = 0;
