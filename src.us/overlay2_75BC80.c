@@ -129,7 +129,7 @@ void kick_up_dust_small(s32 arg0, s32 arg1) {
     s16 i;
 
     for (i = 0; i < 2; i++) {
-        temp_v0 = func_8012826C();
+        temp_v0 = advance_random_seed();
         if (temp_v0 & 1) {
             create_particle_effect(
                 (D_803D5530->position.xPos.h + (temp_v0 & 0xF)) - 8,
@@ -153,7 +153,7 @@ void kick_up_dust_big(s32 xVelocity, s32 zVelocity) {
     u16 i;
 
     for (i = 0; i < 4; i++) {
-        temp_v0 = func_8012826C();
+        temp_v0 = advance_random_seed();
         if ((temp_v0 & 1) != 0) {
             create_particle_effect(
                 (D_803D5530->position.xPos.h + (temp_v0 & 0xF)) - 8,
@@ -229,8 +229,8 @@ void func_8034B3A8_75CA58(s16 arg0) {
                 (((D_803D5530->state == 0x8E) ||
                   (D_803D5530->state == 0x90) ||
                   (D_803D5530->state == 0x8D)) && (D_803D5540 & 1))) {
-                func_8012826C();
-                func_8012826C();
+                advance_random_seed();
+                advance_random_seed();
             }
         }
     }

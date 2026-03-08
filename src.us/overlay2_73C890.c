@@ -287,7 +287,7 @@ void func_8032BE28_73D4D8(Animal *arg0) {
     }
 
     collision = arg0->unk16C->collision;
-    gSPDisplayList(D_801D9E8C++, D_01003548_3CE18);
+    gSPDisplayList(gXluDL++, D_01003548_3CE18);
 
     if (collision != NULL) {
         x = (D_803D5540 >> 3) % 32;
@@ -319,11 +319,11 @@ void func_8032BE28_73D4D8(Animal *arg0) {
 void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
 
     if (D_803D3434->usedModelViewMtxs < 240) {
-        gDPSetPrimColor(D_801D9E8C++, 0, 0, r, g, b, 0xFF);
+        gDPSetPrimColor(gXluDL++, 0, 0, r, g, b, 0xFF);
         guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);
-        gSPMatrix(D_801D9E8C++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        gSPMatrix(gXluDL++, &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-        gSPDisplayList(D_801D9E8C++, D_0103B6F0_74FC0);
-        gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
+        gSPDisplayList(gXluDL++, D_0103B6F0_74FC0);
+        gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
     }
 }

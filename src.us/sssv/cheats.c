@@ -19,9 +19,9 @@ Cheats  gCheats;
 
 void reset_cheats(void) {
     D_803B62B0_7C7960 = 0;
-    D_803B62B4_7C7964 = 0;
+    gCheatInputNeutralLatch = 0;
     D_803B62B8_7C7968 = 0;
-    D_803B62BC_7C796C = 0;
+    gCheatInputDebounceTimer = 0;
     gCheats.unk0 = 0;      // unused?
     gCheats.unk2 = 0;      // unused
     gCheats.unk4 = 0;      // always 0? checked in func_80294E50_6A6500
@@ -45,43 +45,43 @@ void check_cheats(OSContPad *contPad) {
     s16 sp28[60]; // long enough...
 
     if (gCheats.debugMode != 0) {
-        load_default_display_list(&D_801D9E7C);
+        load_default_display_list(&gMainDL);
         set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
         select_font(0, FONT_DEFAULT, 0, 0);
-        if ((gCheats.debugMode != 0) && (D_803F6680.unk0 == 0)) {
+        if ((gCheats.debugMode != 0) && (gOverlayMenuState.unk0 == 0)) {
             // print debug location
-            sprintf(D_802042B0, "(%3d  %3d  %4d)",
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h);
-            prepare_text((u8*)D_802042B0, sp28);
-            display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
+            sprintf(gDebugTextBuffer, "(%3d  %3d  %4d)",
+                gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
+                gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
+                gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h);
+            prepare_text((u8*)gDebugTextBuffer, sp28);
+            display_text(&gMainDL, sp28, gScreenWidth - 20, 20, 16.0f, 16.0f);
             prepare_text((u8*)"Ver - 1.37", sp28);
-            display_text(&D_801D9E7C, sp28, gScreenWidth - 20, 36, 16.0f, 16.0f);
+            display_text(&gMainDL, sp28, gScreenWidth - 20, 36, 16.0f, 16.0f);
         }
     }
     // reset
     lastButton = 0;
     // button debounce
-    if (D_803B62BC_7C796C != 0) {
-        D_803B62BC_7C796C--;
+    if (gCheatInputDebounceTimer != 0) {
+        gCheatInputDebounceTimer--;
     }
     // TODO: can this be simplified and still match?
     butDown = contPad->button;
     butDown2 = butDown;
-    if ((D_803B62B4_7C7964 == 0) && (butDown2 == 0)) {
-        D_803B62B4_7C7964 = 1;
+    if ((gCheatInputNeutralLatch == 0) && (butDown2 == 0)) {
+        gCheatInputNeutralLatch = 1;
         return;
     } else if (butDown2 != 0) {
-        D_803B62B4_7C7964 = 0;
+        gCheatInputNeutralLatch = 0;
     }
 
-    if ((D_803B62BC_7C796C == 0) && (butDown2 != 0) && (D_803B62C0_7C7970 != butDown)) {
+    if ((gCheatInputDebounceTimer == 0) && (butDown2 != 0) && (gCheatLastButtonCode != butDown)) {
         u16 down = butDown;
-        if (D_80204290 == 1) {
-            D_803B62BC_7C796C = 12;
+        if (gFrameStepDivisor == 1) {
+            gCheatInputDebounceTimer = 12;
         } else {
-            D_803B62BC_7C796C = 6;
+            gCheatInputDebounceTimer = 6;
         }
         if (down & CONT_A) {
             lastButton = 'A';
@@ -122,7 +122,7 @@ void check_cheats(OSContPad *contPad) {
         if (down & R_TRIG) {
             lastButton = 'T';
         }
-        D_803B62C0_7C7970 = lastButton;
+        gCheatLastButtonCode = lastButton;
     }
 
     // if key pressed
@@ -135,7 +135,7 @@ void check_cheats(OSContPad *contPad) {
         D_803F6410[D_803B62B0_7C7960] = lastButton;
     }
     if (check_cheat_code(D_803F6410, "WIZDIZWE")) {
-        D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = 127;
+        gAnimalState.animals[gCurrentAnimalIndex].animal->health = 127;
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803B62B0_7C7960 = 0; // reset cursor position
     }
@@ -171,27 +171,27 @@ void check_cheats(OSContPad *contPad) {
     }
     if (check_cheat_code(D_803F6410, "UIZDLZDU")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        func_8032AC98_73C348(); // "funny effect 1"
+        cheat_activate_scale_pulse_effect(); // "funny effect 1"
         D_803B62B0_7C7960 = 0;
     }
     if (check_cheat_code(D_803F6410, "IDZIDUIL")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        func_8032AE34_73C4E4(); // "funny effect 2"
+        cheat_activate_energy_camera_effect(); // "funny effect 2"
         D_803B62B0_7C7960 = 0;
     }
     if (check_cheat_code(D_803F6410, "ZDUIRILR")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        func_8032AEA0_73C550(); // "funny effect 3"
+        cheat_activate_big_head_effect(); // "funny effect 3"
         D_803B62B0_7C7960 = 0;
     }
     if (check_cheat_code(D_803F6410, "LRZILZRL")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        func_8032B084_73C734();  // "funny effect 4"
+        cheat_toggle_mystery_bear();  // "funny effect 4"
         D_803B62B0_7C7960 = 0;
     }
     if (check_cheat_code(D_803F6410, "DANISIL\0")) {
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
-        func_8032B1C8_73C878();  // "disable walrace cam?"
+        cheat_clear_camera_effects();  // "disable walrace cam?"
         D_803B62B0_7C7960 = 0;
     }
 }

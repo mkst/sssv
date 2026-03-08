@@ -6,7 +6,7 @@
 // .bss (D_803F2D30 to D_803F2D50)
 // ========================================================
 
-LevelProgress D_803F2D30;
+LevelProgress gLevelProgress;
 
 // ========================================================
 // .text
@@ -15,16 +15,16 @@ LevelProgress D_803F2D30;
 // ESA: func_80058368
 void func_803572F0_7689A0(void) {
     if (D_803F2D10.unk0 == 0) {
-        if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->health <= 0) &&
-            (D_803F2D30.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
-            D_803F2D30.unk4 = 1;
+        if ((gAnimalState.animals[gCurrentAnimalIndex].animal->health <= 0) &&
+            (gLevelProgress.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
+            gLevelProgress.unk4 = 1;
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_FAILED;
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
             D_801546D8 = 2048;
         }
-        if (D_803F2D30.unk4 != 0) {
-            D_803F2D30.unk4++;
+        if (gLevelProgress.unk4 != 0) {
+            gLevelProgress.unk4++;
         }
     }
 }
@@ -37,10 +37,10 @@ void func_8035739C_768A4C(void) {
     D_801546E0 = 2048;
     D_801546D8 = 2048;
 
-    if ((D_803F2D30.level == GIVE_A_DOG_A_BONUS) ||
-        (D_803F2D30.level == WALRACE_64) ||
-        (D_803F2D30.level == EVOS_ESCAPE) ||
-        (D_803F2D30.level == PUNCHUP_PYRAMID)) {
+    if ((gLevelProgress.level == GIVE_A_DOG_A_BONUS) ||
+        (gLevelProgress.level == WALRACE_64) ||
+        (gLevelProgress.level == EVOS_ESCAPE) ||
+        (gLevelProgress.level == PUNCHUP_PYRAMID)) {
         if (D_803E4D28 & 2) {
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_PASSED;
         } else {
@@ -63,10 +63,10 @@ void func_80357438_768AE8(void) {
 
 // ESA: func_80058454
 void func_80357480_768B30(void) {
-    if (D_803F2D30.unk4 == 160) {
+    if (gLevelProgress.unk4 == 160) {
         trigger_level_failed();
     }
-    if (D_803F2D30.unk4 == 122) {
-        func_8013385C(30.0f, 20.0f, 0);
+    if (gLevelProgress.unk4 == 122) {
+        start_sfx_volume_fade(30.0f, 20.0f, 0);
     }
 }

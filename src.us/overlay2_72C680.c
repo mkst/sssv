@@ -362,11 +362,11 @@ void load_level_texture_data(u8 bank, u8 arg1) {
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800D5420);
 
-    D_801D9E78 = D_800B0B20;
+    gSegment5Base = D_800B0B20;
 
     temp_v0 = sp30;
     temp_v0 += (arg1 + arg1) & 0xFFFF;
-    dma_read(temp_v0[0], D_801D9E78, temp_v0[1] - temp_v0[0]);
+    dma_read(temp_v0[0], gSegment5Base, temp_v0[1] - temp_v0[0]);
 }
 
 void load_level_data(u8 level) {
@@ -506,7 +506,7 @@ void load_level_data_sections(void) {
                     can->id,
                     0);
 
-                obj = D_801D9ED8.animals[gNumAnimalsInLevel - 1].animal;
+                obj = gAnimalState.animals[gNumAnimalsInLevel - 1].animal;
 
                 if (can->unkC != 0) {
                     cmdWrapper = &D_803E4D40[can->unkC] - 1;
@@ -530,12 +530,12 @@ void load_level_data_sections(void) {
 
             while (length-- > 0) {
                 if (joi->parent >= 1000) {
-                    parent = D_801D9ED8.animals[(joi->parent - 1000) + sp7A].animal;
+                    parent = gAnimalState.animals[(joi->parent - 1000) + sp7A].animal;
                 } else {
                     parent = func_802C93E8_6DAA98(joi->parent);
                 }
                 if (joi->child >= 1000) {
-                    child = D_801D9ED8.animals[(joi->child - 1000) + sp7A].animal;
+                    child = gAnimalState.animals[(joi->child - 1000) + sp7A].animal;
                 } else {
                     child = func_802C93E8_6DAA98(joi->child);
                 }
@@ -989,10 +989,10 @@ void func_8031C32C_72D9DC(void) {
 
 void func_8031C374_72DA24() {
     func_8031C304_72D9B4();
-    D_803E1B10.unk0 = 1;
-    D_803E1B10.unk2 = 100;
-    D_803E1B10.unk6 = 8;
-    D_803E1B10.transitionId = 5; // square-folding transition
+    gScreenTransition.unk0 = 1;
+    gScreenTransition.unk2 = 100;
+    gScreenTransition.unk6 = 8;
+    gScreenTransition.transitionId = 5; // square-folding transition
     D_803F2D50.entranceTeleporter = NULL; // clear entrance teleporter pointer?
 }
 
@@ -1018,7 +1018,7 @@ void func_8031C48C_72DB3C(void) {
     s16 idx;
 
     if (D_803F2D50.entranceTeleporter != NULL) {
-        func_8029B9B8_6AD068(D_801D9ED8.animals[gCurrentAnimalIndex].animal, D_803F2D50.entranceTeleporter);
+        func_8029B9B8_6AD068(gAnimalState.animals[gCurrentAnimalIndex].animal, D_803F2D50.entranceTeleporter);
     }
 
     load_data_section(D_803F2D50.segment);
@@ -1039,9 +1039,9 @@ void func_8031C48C_72DB3C(void) {
 
     // animals
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if (D_801D9ED8.animals[i].animal->commands.unk1A8 != NULL) {
+        if (gAnimalState.animals[i].animal->commands.unk1A8 != NULL) {
             // load in commands
-            func_803191B0_72A860(D_801D9ED8.animals[i].animal);
+            func_803191B0_72A860(gAnimalState.animals[i].animal);
         }
     }
     //

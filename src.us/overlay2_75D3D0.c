@@ -64,17 +64,17 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         }
     }
 
-    gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
-    gDPLoadSync(D_801D9E90++);
-    gDPLoadBlock(D_801D9E90++, G_TX_LOADTILE, 0, 0, 1023, 512);
-    gDPPipeSync(D_801D9E90++);
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
-    gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(63));
-    gDPSetDepthSource(D_801D9E90++, G_ZS_PIXEL);
-    gDPSetRenderMode(D_801D9E90++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2);
-    gDPSetCombineLERP(D_801D9E90++, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
-    gDPPipeSync(D_801D9E90++);
+    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
+    gDPLoadSync(gLayer0DL++);
+    gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 1023, 512);
+    gDPPipeSync(gLayer0DL++);
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
+    gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(63));
+    gDPSetDepthSource(gLayer0DL++, G_ZS_PIXEL);
+    gDPSetRenderMode(gLayer0DL++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2);
+    gDPSetCombineLERP(gLayer0DL++, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
+    gDPPipeSync(gLayer0DL++);
 
     tmp1 = (s16)(SIN(arg3) >> 7) + 1;
     tmp2 = (s16)(COS(arg3) >> 7) + 1;
@@ -236,20 +236,20 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         }
     }
 
-    gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
-    gDPLoadSync(D_801D9E90++);
-    gDPLoadBlock(D_801D9E90++, G_TX_LOADTILE, 0, 0, 1023, 512);
-    gDPPipeSync(D_801D9E90++);
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
-    gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(63));
-    gDPSetRenderMode(D_801D9E90++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2);
-    gDPSetCombineLERP(D_801D9E90++,
+    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img);
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
+    gDPLoadSync(gLayer0DL++);
+    gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 1023, 512);
+    gDPPipeSync(gLayer0DL++);
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD);
+    gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, 4*(63), 4*(63));
+    gDPSetRenderMode(gLayer0DL++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF2);
+    gDPSetCombineLERP(gLayer0DL++,
         0,      0,     0, SHADE,
         TEXEL0, 0, SHADE,     0,
         0,      0,     0, SHADE,
         TEXEL0, 0, SHADE,     0);
-    gDPPipeSync(D_801D9E90++);
+    gDPPipeSync(gLayer0DL++);
 
     temp_v0 = (SIN(arg3) >> 7);
     temp_v0 += 1;
@@ -1226,7 +1226,7 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
         temp_t9 = (temp_t9 >> 1) + 2;
     }
 
-    if ((D_80204278->usedVtxs + numVtxs) > 1000) {
+    if ((gDisplayListContext->usedVtxs + numVtxs) > 1000) {
         return;
     }
 
@@ -1234,7 +1234,7 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
         if (((arg7 == 0) && ((ABS(MAX(MAX(argB, argE), argD) - MIN(MIN(argB, argE), argD)) <= 192))) ||
             ((arg7 != 0) && ((ABS(MAX(MAX(argB, argE), argC) - MIN(MIN(argB, argE), argC)) <= 192)))) {
 
-            gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
+            gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
 
             for (i = 0; i < numVtxs; i++) {
                 temp_v0 = vtxs[i].unk0 - (arg3 << 6);
@@ -1246,16 +1246,16 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
                     var_t0 = ((((argD - argB) * temp_v0) + ((argE - argD) * temp_a2)) >> 6) + argB;
                 }
 
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = vtxs[i].unk0;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = vtxs[i].unk2;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = temp_t9 + var_t0;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = vtxs[i].unk4;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = vtxs[i].unk6;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
-                D_80204278->usedVtxs++;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = vtxs[i].unk0;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = vtxs[i].unk2;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = temp_t9 + var_t0;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = vtxs[i].unk4;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = vtxs[i].unk6;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
+                gDisplayListContext->usedVtxs++;
             }
         } else {
             return;
@@ -1264,7 +1264,7 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
         if (((arg7 == 0) && (ABS(MAX(MAX(argB, argD), argC) - MIN(MIN(argD, argB), argC)) <= 192)) ||
             ((arg7 != 0) && (ABS(MAX(MAX(argD, argE), argC) - MIN(MIN(argD, argE), argC)) <= 192))) {
 
-            gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
+            gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
 
             for (i = 0; i < numVtxs; i++) {
                 temp_v0 = vtxs[i].unk0 - (arg3 << 6);
@@ -1275,16 +1275,16 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
                 } else {
                     var_t0 = ((argE << 6) + ((argC - argE) * (0x40 - temp_v0)) + ((argD - argE) * (0x40 - temp_a2))) >> 6;
                 }
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = vtxs[i].unk0;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = vtxs[i].unk2;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = temp_t9 + var_t0;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = vtxs[i].unk4;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = vtxs[i].unk6;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
-                D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
-                D_80204278->usedVtxs++;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = vtxs[i].unk0;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = vtxs[i].unk2;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = temp_t9 + var_t0;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = vtxs[i].unk4;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = vtxs[i].unk6;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
+                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
+                gDisplayListContext->usedVtxs++;
             }
         } else {
             return;
@@ -1294,7 +1294,7 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
     for (i = 2; i < numVtxs; i++) {
         if (i < (numVtxs - 1)) {
             gSP1Quadrangle(
-            /* pkt  */ D_801D9E90++,
+            /* pkt  */ gLayer0DL++,
             /* v0   */ 0,
             /* v1   */ i - 1,
             /* v2   */ i,
@@ -1303,14 +1303,14 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
             i++;
         } else {
             gSP1Triangle(
-            /* pkt  */ D_801D9E90++,
+            /* pkt  */ gLayer0DL++,
             /* v0   */ 0,
             /* v1   */ i - 1,
             /* v2   */ i,
             /* flag */ 0);
         }
     }
-    gDPPipeSync(D_801D9E90++);
+    gDPPipeSync(gLayer0DL++);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_80350600_761CB0.s")
@@ -1335,29 +1335,29 @@ void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
                 var_t1 = (var_t1 >> 1) + 2;
             }
 
-            if ((D_80204278->usedVtxs + numVtxs) <= 1000) {
-                gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
+            if ((gDisplayListContext->usedVtxs + numVtxs) <= 1000) {
+                gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
 
                 for (i = 0; i < numVtxs; i++) {
                     spD6 = arg1[i].unk0 - (arg3 << 6);
                     spD4 = arg1[i].unk2 - (arg4 << 6);
                     tmp = arg9 + ((((argB - arg9) * spD6) + ((argA - arg9) * spD4)) >> 6);
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = arg1[i].unk0;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = arg1[i].unk2;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = tmp + var_t1;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = arg1[i].unk4;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = arg1[i].unk6;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
-                    D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
-                    D_80204278->usedVtxs++;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = arg1[i].unk0;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = arg1[i].unk2;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = tmp + var_t1;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = arg1[i].unk4;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = arg1[i].unk6;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
+                    gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
+                    gDisplayListContext->usedVtxs++;
                 }
 
                 for (i = 2; i < numVtxs; i++) {
                     if (i < (numVtxs - 1)) {
                         gSP1Quadrangle(
-                            D_801D9E90++,
+                            gLayer0DL++,
                             0,
                             i - 1,
                             i,
@@ -1366,14 +1366,14 @@ void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
                         i++; // 2 vtx were processed
                     } else {
                         gSP1Triangle(
-                            D_801D9E90++,
+                            gLayer0DL++,
                             0,
                             i - 1,
                             i,
                             0);
                     }
                 }
-                gDPPipeSync(D_801D9E90++);
+                gDPPipeSync(gLayer0DL++);
             }
         }
     }
@@ -1393,9 +1393,9 @@ void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
     s16 sp7E;
     s16 sp7C;
 
-    if ((D_80204278->usedVtxs + numVtxs) <= 1000) {
+    if ((gDisplayListContext->usedVtxs + numVtxs) <= 1000) {
         func_80299640_6AACF0(arg3, arg4, &sp82, &sp80, &sp7E, &sp7C);
-        gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
+        gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
 
         for (i = 0; i < numVtxs; i++) {
             func_80299640_6AACF0(arg3, arg4, &sp82, &sp80, &sp7E, &sp7C);
@@ -1408,24 +1408,24 @@ void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
                 var_a3 = sp7C + ((((sp80 - sp7C) * (64 - temp_v0)) + ((sp7E - sp7C) * (64 - temp_a0))) >> 6);
             }
 
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = arg1[i].unk0;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = arg1[i].unk2;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = var_a3;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = arg1[i].unk0;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = arg1[i].unk2;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = var_a3;
 
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = arg1[i].unk4;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = arg1[i].unk6;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = arg1[i].unk4;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = arg1[i].unk6;
 
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
-            D_80204278->usedVtxs++;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
+            gDisplayListContext->usedVtxs++;
         }
 
         for (i = 2; i < numVtxs; i++) {
             if (i < (numVtxs - 1)) {
                 gSP1Quadrangle(
-                    D_801D9E90++,
+                    gLayer0DL++,
                     0,
                     i - 1,
                     i,
@@ -1434,14 +1434,14 @@ void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
                 i++; // 2 vtx were processed
             } else {
                 gSP1Triangle(
-                    D_801D9E90++,
+                    gLayer0DL++,
                     0,
                     i - 1,
                     i,
                     0);
             }
         }
-        gDPPipeSync(D_801D9E90++);
+        gDPPipeSync(gLayer0DL++);
     }
 }
 
@@ -1458,27 +1458,27 @@ void func_80351EE8_763598(s16 numVtxs, struct061 *arg1, s16 arg2, s16 alpha, s16
         var_a3 = (var_a3 / 2) + 4;
     }
 
-    if ((D_80204278->usedVtxs + numVtxs) <= 1000) {
-        gSPVertex(D_801D9E90++, &D_80204278->unk2C570[D_80204278->usedVtxs], numVtxs, 0);
+    if ((gDisplayListContext->usedVtxs + numVtxs) <= 1000) {
+        gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
         for (i = 0; i < numVtxs; i++) {
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[0] = arg1[i].unk0;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[1] = arg1[i].unk2;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.ob[2] = var_a3 + arg2;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = arg1[i].unk0;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = arg1[i].unk2;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = var_a3 + arg2;
 
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[0] = arg1[i].unk4;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.tc[1] = arg1[i].unk6;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = arg1[i].unk4;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = arg1[i].unk6;
 
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[0] = red;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[1] = green;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[2] = blue;
-            D_80204278->unk2C570[D_80204278->usedVtxs].v.cn[3] = alpha;
-            D_80204278->usedVtxs++;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
+            gDisplayListContext->usedVtxs++;
         }
 
         for (i = 2; i < numVtxs; i++) {
             if (i < (numVtxs - 1)) {
                 gSP1Quadrangle(
-                    D_801D9E90++,
+                    gLayer0DL++,
                     0,
                     i - 1,
                     i,
@@ -1487,13 +1487,13 @@ void func_80351EE8_763598(s16 numVtxs, struct061 *arg1, s16 arg2, s16 alpha, s16
                 i++; // 2 vtx were processed
             } else {
                 gSP1Triangle(
-                    D_801D9E90++,
+                    gLayer0DL++,
                     0,
                     i - 1,
                     i,
                     0);
             }
         }
-        gDPPipeSync(D_801D9E90++);
+        gDPPipeSync(gLayer0DL++);
     }
 }

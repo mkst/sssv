@@ -4,7 +4,7 @@
 #include "mtx.h"
 
 
-void func_80125980(Mtx *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9) {
+void build_rotate_scale_translate_matrix(Mtx *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9) {
     s64 spC0;
     s64 spB8;
     s64 spB0;

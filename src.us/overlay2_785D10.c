@@ -77,14 +77,14 @@ void func_803747F4_785EA4(void) {
         }
     }
     if (D_803B4F34_7C65E4 > 0) {
-        gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01037750_71020);
-        gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-        gDPLoadSync(D_801D9E90++);
-        gDPLoadBlock(D_801D9E90++, G_TX_LOADTILE, 0, 0, 255, 1024);
-        gDPPipeSync(D_801D9E90++);
-        gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-        gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
-        gSPDisplayList(D_801D9E90++, D_01003A58_3D328);
+        gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01037750_71020);
+        gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+        gDPLoadSync(gLayer0DL++);
+        gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 255, 1024);
+        gDPPipeSync(gLayer0DL++);
+        gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+        gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
+        gSPDisplayList(gLayer0DL++, D_01003A58_3D328);
 
         // could this be replaced with a for loop?
         phi_s2 = (D_803B4F30_7C65E0 - D_803B4F34_7C65E4) & 0x3F;
@@ -94,27 +94,27 @@ void func_803747F4_785EA4(void) {
             temp_t5 = (D_803D5544 - D_803F2F08[phi_s2].unkE);
             if (temp_t5 > 400) {
                 if (D_803F2D50.segment == SEGMENT_ICE) {
-                    gDPSetEnvColor(D_801D9E90++, 0, 0, 100, 500 - temp_t5);
+                    gDPSetEnvColor(gLayer0DL++, 0, 0, 100, 500 - temp_t5);
                 } else {
-                    gDPSetEnvColor(D_801D9E90++, 0, 0, 0, 500 - temp_t5);
+                    gDPSetEnvColor(gLayer0DL++, 0, 0, 0, 500 - temp_t5);
                 }
                 if (temp_t5 >= 500) {
                     D_803B4F34_7C65E4 -= 1;
                 }
             } else {
                 if (D_803F2D50.segment == SEGMENT_ICE) {
-                    gDPSetEnvColor(D_801D9E90++, 0, 0, 65, 100);
+                    gDPSetEnvColor(gLayer0DL++, 0, 0, 65, 100);
                 } else {
-                    gDPSetEnvColor(D_801D9E90++, 0, 0, 0, 100);
+                    gDPSetEnvColor(gLayer0DL++, 0, 0, 0, 100);
                 }
             }
-            func_8032E9E4_740094(&D_801D9E90, D_803F2F08[phi_s2].unk0, D_803F2F08[phi_s2].unk4, D_803F2F08[phi_s2].unk8, 0x20, 0x20, D_803F2F08[phi_s2].unkC, (s32) (D_803F2F08[phi_s2].unkC * D_803A6CC0_7B8370) >> 8);
+            draw_dualscale_billboard_texrect(&gLayer0DL, D_803F2F08[phi_s2].unk0, D_803F2F08[phi_s2].unk4, D_803F2F08[phi_s2].unk8, 0x20, 0x20, D_803F2F08[phi_s2].unkC, (s32) (D_803F2F08[phi_s2].unkC * D_803A6CC0_7B8370) >> 8);
             phi_s3--;
             phi_s2 = ((phi_s2 + 1) & 0x3F);
         }
-        gSPTexture(D_801D9E90++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
-        gDPSetDepthSource(D_801D9E90++, G_ZS_PIXEL);
-        gDPSetTexturePersp(D_801D9E90++, G_TP_PERSP);
+        gSPTexture(gLayer0DL++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
+        gDPSetDepthSource(gLayer0DL++, G_ZS_PIXEL);
+        gDPSetTexturePersp(gLayer0DL++, G_TP_PERSP);
     }
 }
 

@@ -307,7 +307,7 @@ void func_8029BB94_6AD244(void) {
                 if (new_var = (D_803D2D90.unk2 == OBJECT_TELEPORTER_BASE)) {};
 
                 if (D_803D2D90.unk2 == OBJECT_ENTRANCE_TELEPORTER) {
-                    func_802B34B8_6C4B68(D_801D9ED8.animals[gCurrentAnimalIndex].animal);
+                    func_802B34B8_6C4B68(gAnimalState.animals[gCurrentAnimalIndex].animal);
                     D_803D2D90.unk60->state = 0;
                 } else {
                     func_802B34B8_6C4B68(D_803D2D90.unk58);
@@ -336,9 +336,9 @@ void func_8029BB94_6AD244(void) {
                                 D_803D2D90.unk48 + ((D_80152350.unk384[(s16)((var_s0 * 60) + 30)] * var_s7) >> 7),
                                 D_803D2D90.unk4A + sp84,
                                 35,
-                                (func_8012826C() * 3) - FTOFIX32(1.5),
-                                (func_8012826C() * 3) - FTOFIX32(1.5),
-                                -(func_8012826C() & 0x3FFF),
+                                (advance_random_seed() * 3) - FTOFIX32(1.5),
+                                (advance_random_seed() * 3) - FTOFIX32(1.5),
+                                -(advance_random_seed() & 0x3FFF),
                                 (SSSV_RAND(2) + 1),
                                 0xFFFF,
                                 0xFFFF,
@@ -358,26 +358,26 @@ void func_8029BB94_6AD244(void) {
                     if (sp8C == 11) {
                         var_s7 = 0;
                     }
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.ob[0] = D_803D2D90.unk46 + ((D_80152350.unk2D0[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.ob[1] = D_803D2D90.unk48 + ((D_80152350.unk384[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.ob[2] = D_803D2D90.unk4A + sp84;
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[0] = (var_s0 * 42) - 0x7F;
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[1] = 0;
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[2] = (D_803D2D90.unk6[sp8C] << 1) - 0x7F;
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.cn[3] = 0xFF;
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[0] = D_803D2D90.unk46 + ((D_80152350.unk2D0[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[1] = D_803D2D90.unk48 + ((D_80152350.unk384[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[2] = D_803D2D90.unk4A + sp84;
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.cn[0] = (var_s0 * 42) - 0x7F;
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.cn[1] = 0;
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.cn[2] = (D_803D2D90.unk6[sp8C] << 1) - 0x7F;
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.cn[3] = 0xFF;
                     if (var_s0 != 5) {
-                        D_80204278->unk303F0[(sp8C * 6) + var_s0].v.tc[0] = var_s0 * 170;
+                        gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.tc[0] = var_s0 * 170;
                     } else {
                         // final iteration
-                        D_80204278->unk303F0[(sp8C * 6) + var_s0].v.tc[0] = 0;
+                        gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.tc[0] = 0;
                     }
-                    D_80204278->unk303F0[(sp8C * 6) + var_s0].v.tc[1] = (sp8C * 6) << 5;
+                    gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.tc[1] = (sp8C * 6) << 5;
                 }
             }
         }
 
         if ((D_803D2D90.unk44 < 120) && (D_803D2D90.unk42 < 120)) {
-            func_8029C8F0_6ADFA0(&D_801D9E7C);
+            func_8029C8F0_6ADFA0(&gMainDL);
         }
     }
 }
@@ -459,7 +459,7 @@ void func_8029C8F0_6ADFA0(Gfx **dl) {
     gDPTileSync((*dl)++);
 
     for (i = 0; i < 3; i++) {
-        gSPVertex((*dl)++, (s32)&D_80204278->unk303F0[(i * 30) - (i * 6)] & 0x1FFFFFFF, 30, 0);
+        gSPVertex((*dl)++, (s32)&gDisplayListContext->unk303F0[(i * 30) - (i * 6)] & 0x1FFFFFFF, 30, 0);
 
         if (i == 2) {
             var_t3 = 3;

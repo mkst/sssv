@@ -121,25 +121,25 @@ void draw_chunked_image(u32 startX, u32 startY, u32 width, u32 height, Gfx **dl,
     gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
 }
 
-void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z) {
+void draw_sprite_with_prim_depth(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z) {
     gDPPipeSync((*dl)++);
     gDPSetPrimDepth((*dl)++, z, 0);
 
-    guSprite2DInit(&D_80204278->sprites[D_80204278->usedSprites], arg1, 0, width, width, height, 0, 2, 0, 0);
-    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&D_80204278->sprites[D_80204278->usedSprites]));
+    guSprite2DInit(&gDisplayListContext->sprites[gDisplayListContext->usedSprites], arg1, 0, width, width, height, 0, 2, 0, 0);
+    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&gDisplayListContext->sprites[gDisplayListContext->usedSprites]));
     gSPSprite2DScaleFlip((*dl)++, (width / (f32)scale_x) * 1024.0f, (height / (f32)scale_y) * 1024.0f, flip_x, flip_y);
     gSPSprite2DDraw((*dl)++, p_screen_x * 4, p_screen_y * 4);
 
-    D_80204278->usedSprites += 1;
+    gDisplayListContext->usedSprites += 1;
     gDPPipeSync((*dl)++);
 }
 
-void func_80136418(Gfx **dl, u8 color) {
+void init_sprite2d_render_zdepth(Gfx **dl, u8 color) {
     gSPLoadUcodeEx((*dl)++, &gspSprite2D_fifoTextStart, &gspSprite2D_fifoDataStart, 2048);
     gDPPipeSync((*dl)++);
-    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
 
-    gSPViewport((*dl)++, &D_80152EA8);
+    gSPViewport((*dl)++, &gMainViewport);
     gSPSetGeometryMode((*dl)++, G_ZBUFFER);
     gSPClipRatio((*dl)++, FRUSTRATIO_4);
 
@@ -153,16 +153,16 @@ void func_80136418(Gfx **dl, u8 color) {
     gDPSetScissor((*dl)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 }
 
-void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a) {
+void init_sprite2d_render(Gfx **dl, u8 r, u8 g, u8 b, u8 a) {
     gDPPipeSync((*dl)++);
 
     gSPLoadUcodeEx((*dl)++, &gspSprite2D_fifoTextStart, &gspSprite2D_fifoDataStart, 2048);
     gDPPipeSync((*dl)++);
 
-    load_segments(dl, D_80204278);
+    load_segments(dl, gDisplayListContext);
 
-    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
-    gSPViewport((*dl)++, &D_80152EA8);
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gSPViewport((*dl)++, &gMainViewport);
     gSPClipRatio((*dl)++, FRUSTRATIO_4);
 
     gSPDisplayList((*dl)++, &D_801584A0);
@@ -177,16 +177,16 @@ void draw_sprite(Gfx **dl, uSprite *sprite, u16 width, u16 height, u16 scale_x, 
 
     switch (depth) {
     case 8:
-        guSprite2DInit(&D_80204278->sprites[D_80204278->usedSprites], sprite, 0, width, width, height, G_IM_FMT_I, G_IM_SIZ_8b, 0, 0);
+        guSprite2DInit(&gDisplayListContext->sprites[gDisplayListContext->usedSprites], sprite, 0, width, width, height, G_IM_FMT_I, G_IM_SIZ_8b, 0, 0);
         break;
     case 16:
-        guSprite2DInit(&D_80204278->sprites[D_80204278->usedSprites], sprite, 0, width, width, height, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0);
+        guSprite2DInit(&gDisplayListContext->sprites[gDisplayListContext->usedSprites], sprite, 0, width, width, height, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0);
         break;
     }
 
-    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&D_80204278->sprites[D_80204278->usedSprites]));
+    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&gDisplayListContext->sprites[gDisplayListContext->usedSprites]));
     gSPSprite2DScaleFlip((*dl)++, (width / (f32)scale_x) * 1024.0f, (height / (f32)scale_y) * 1024.0f, flip_x, flip_y);
     gSPSprite2DDraw((*dl)++, p_screen_x * 4, p_screen_y * 4);
 
-    D_80204278->usedSprites += 1;
+    gDisplayListContext->usedSprites += 1;
 }
