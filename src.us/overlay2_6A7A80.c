@@ -510,15 +510,15 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
         sp134 = 10000;
         sp132 = -10000;
 
-        gSPDisplayList(D_801D9E94++, D_01004270_3DB40);
-        gSPDisplayList(D_801D9E94++, D_010045A0_3DE70);
+        gSPDisplayList(gLayer1DL++, D_01004270_3DB40);
+        gSPDisplayList(gLayer1DL++, D_010045A0_3DE70);
 
-        func_802985AC_6A9C5C(&D_801D9E94);
+        func_802985AC_6A9C5C(&gLayer1DL);
 
-        gSPTexture(D_801D9E94++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON); // 0x10000
-        gDPSetTextureLOD(D_801D9E94++, G_TL_TILE);
-        gDPSetRenderMode(D_801D9E94++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2);
-        gDPSetCombineLERP(D_801D9E94++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, 0, 0, 0, PRIMITIVE);
+        gSPTexture(gLayer1DL++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON); // 0x10000
+        gDPSetTextureLOD(gLayer1DL++, G_TL_TILE);
+        gDPSetRenderMode(gLayer1DL++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2);
+        gDPSetCombineLERP(gLayer1DL++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, 0, 0, 0, PRIMITIVE);
 
         if ((D_803F2D50.unk14 != 0) && (D_803F2D50.unk16 != 0)) {
 
@@ -713,21 +713,21 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                     // D_801D9E94 = temp_a3_7 + 8;
                     // temp_a3_7->words.w0 = 0x0400207F;
                     // temp_a3_7->words.w1 = spA4;
-                    gSPVertex(D_801D9E94++, (s32)&arg1->unk2C2F0[0] & 0x1FFFFFFF, 8, 0);
+                    gSPVertex(gLayer1DL++, (s32)&arg1->unk2C2F0[0] & 0x1FFFFFFF, 8, 0);
                     // temp_a3_8 = D_801D9E94;
                     // D_801D9E94 = temp_a3_8 + 8;
                     // temp_a3_8->words.w1 = 0xE;
                     // temp_a3_8->words.w0 = 0xBE000000;
-                    gSPCullDisplayList(D_801D9E94++, 0, 7);
+                    gSPCullDisplayList(gLayer1DL++, 0, 7);
 
                     #if 0
-                    temp_a3_9 = D_801D9E94;
-                    D_801D9E94 = temp_a3_9 + 8;
+                    temp_a3_9 = gLayer1DL;
+                    gLayer1DL = temp_a3_9 + 8;
                     temp_a3_9->words.w0 = (((var_t1 << 0xA) | ((var_t1 * 0x10) - 1)) & 0xFFFF) | 0x04000000;
                     temp_a3_9->words.w1 = (s32) (arg1 + (var_s5 * 0x10) + 0x286E0) & 0x1FFFFFFF;
                     #endif
 
-                    gSPVertex(D_801D9E94++,
+                    gSPVertex(gLayer1DL++,
                         (s32)&arg1->unk286E0[var_s5] & 0x1FFFFFFF,
                         var_t1,
                         0
@@ -752,7 +752,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                         // var_s0_2 = 0;
                         // temp_a3_10->words.w0 = 0xE7000000;
                         // temp_a3_10->words.w1 = 0;
-                        gDPPipeSync(D_801D9E94++);
+                        gDPPipeSync(gLayer1DL++);
 
 
                         for  (i = 0; i < var_t1; i++) {
@@ -772,12 +772,12 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                         sp12C += 1;
                         sp126 += (end - start) + 1;
                         #if 0
-                        D_801D9E94 = temp_a3_11 + 8;
+                        gLayer1DL = temp_a3_11 + 8;
                         temp_a3_11->words.w0 = ((((s32) ((spA0 * var_s2) + start) * 2) & 0xFF) << 0x10) | 0x04000000 | (((temp_a1_10 << 0xA) | ((temp_a1_10 * 0x10) - 1)) & 0xFFFF);
                         temp_a3_11->words.w1 = (s32) (sp88 + ((s32) start * 0x10) + 0x286E0) & 0x1FFFFFFF;
                         #endif
 
-                        gSPVertex(D_801D9E94++,
+                        gSPVertex(gLayer1DL++,
                             (s32)&arg1->unk286E0[var_s5] & 0x1FFFFFFF,
                             (end - start) + 1,
                             (spA0 * var_s2) + start
@@ -800,7 +800,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                                 if (var_s2 != 0) {
                                     gSP2Triangles(
-                                    /* gdl   */ D_801D9E94++,
+                                    /* gdl   */ gLayer1DL++,
                                     /* v00   */ (var_t0 + var_t1),
                                     /* v01   */ var_t0 + 1,
                                     /* v02   */ (var_t0 + var_t1) + 1,
@@ -812,7 +812,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                                 } else {
                                     gSP2Triangles(
-                                    /* gdl   */ D_801D9E94++,
+                                    /* gdl   */ gLayer1DL++,
                                     /* v00   */ var_t0,
                                     /* v01   */ (var_t1 + var_t0) + 1,
                                     /* v02   */ var_t0 + 1,
@@ -831,8 +831,8 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                     }
                 }
 
-                gSPSetGeometryMode(D_801D9E94++, G_CULL_BACK);
-                gSPTexture(D_801D9E94++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
+                gSPSetGeometryMode(gLayer1DL++, G_CULL_BACK);
+                gSPTexture(gLayer1DL++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
             }
         }
         func_802983D0_6A9A80();
@@ -1185,9 +1185,9 @@ void func_80299640_6AACF0(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3, s16 *arg4, s
         idx1 = ((((s16)(arg1 - a) + 0) * b) + (s16)(arg0 - c));
         idx2 = ((((s16)(arg1 - a) + 1) * b) + (s16)(arg0 - c));
 
-        *arg2 = D_80204278->unk286E0[idx1 + 0].v.ob[2];
-        *arg3 = D_80204278->unk286E0[idx2 + 0].v.ob[2];
-        *arg5 = D_80204278->unk286E0[idx2 + 1].v.ob[2];
-        *arg4 = D_80204278->unk286E0[idx1 + 1].v.ob[2];
+        *arg2 = gDisplayListContext->unk286E0[idx1 + 0].v.ob[2];
+        *arg3 = gDisplayListContext->unk286E0[idx2 + 0].v.ob[2];
+        *arg5 = gDisplayListContext->unk286E0[idx2 + 1].v.ob[2];
+        *arg4 = gDisplayListContext->unk286E0[idx1 + 1].v.ob[2];
     }
 }

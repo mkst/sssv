@@ -1342,7 +1342,7 @@ void func_8039C5F8_7ADCA8(s16 xRot, s16 yRot, f32 scale, PlayerEeprom *eeprom, s
 // draw sprite
 void func_8039C834_7ADEE4(Gfx **dl, u8 *src, u16 width, u16 height, f32 scale_x, f32 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y) {
     guSprite2DInit(
-    /* sprite ptr */    &D_80204278->sprites[D_80204278->usedSprites],
+    /* sprite ptr */    &gDisplayListContext->sprites[gDisplayListContext->usedSprites],
     /* source ptr */    src,
     /* tlut ptr */      0,
     /* stride */        width,
@@ -1353,12 +1353,12 @@ void func_8039C834_7ADEE4(Gfx **dl, u8 *src, u16 width, u16 height, f32 scale_x,
     /* s */             0,
     /* t */             0);
 
-    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&D_80204278->sprites[D_80204278->usedSprites]));
+    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&gDisplayListContext->sprites[gDisplayListContext->usedSprites]));
     gSPSprite2DScaleFlip((*dl)++, 1024.0f / scale_x, 1024.0f / scale_y, flip_x, flip_y);
 
     gSPSprite2DDraw((*dl)++, p_screen_x * 4, p_screen_y * 4);
 
-    D_80204278->usedSprites += 1;
+    gDisplayListContext->usedSprites += 1;
 }
 
 void func_8039CAB8_7AE168(s16 arg0) {
@@ -1437,11 +1437,11 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
     gSPLoadUcode((*arg0)++, &gspSprite2D_fifoTextStart, &gspSprite2D_fifoDataStart);
     gDPPipeSync((*arg0)++);
 
-    load_segments(arg0, D_80204278);
+    load_segments(arg0, gDisplayListContext);
 
     gSPViewport((*arg0)++, &D_803B66F0_7C7DA0);
     gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
-    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
+    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
     gSPDisplayList((*arg0)++, D_01004270_3DB40);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
     gDPPipeSync((*arg0)++);
@@ -1513,7 +1513,7 @@ void render_stars(Gfx **arg0) {
 
         gDPSetPrimColor((*arg0)++, 0, 0, D_800DF220[i].brightness, D_800DF220[i].brightness, D_800DF220[i].brightness, 0);
 
-        D_800DF220[i].x -= D_800DF220[i].speed * D_80204290;
+        D_800DF220[i].x -= D_800DF220[i].speed * gFrameStepDivisor;
         if (D_800DF220[i].x < 40) {
             // wrap around if moving off left side of screen
             D_800DF220[i].x += 1280;

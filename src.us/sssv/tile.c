@@ -4,10 +4,10 @@
 
 // 32x32
 void load_1_tile(u8 *tlut, u8 *timg) {
-    gDPLoadSync(D_801D9E88++);
+    gDPLoadSync(gOpaqueDL++);
 
     gDPLoadTLUT(
-        /* pkt      */ D_801D9E88++,
+        /* pkt      */ gOpaqueDL++,
         /* count    */ 16,
         /* tmemAddr */ 0x110,
         /* dram     */ tlut
@@ -15,7 +15,7 @@ void load_1_tile(u8 *tlut, u8 *timg) {
 
     // customised
     gDPLoadTextureBlock2(
-        /* pkt    */ D_801D9E88++,
+        /* pkt    */ gOpaqueDL++,
         /* timg   */ K0_TO_PHYS(timg),
         /* fmt    */ G_IM_FMT_CI,
         /* line   */ 2,
@@ -31,18 +31,18 @@ void load_1_tile(u8 *tlut, u8 *timg) {
         /* shiftt */ G_TX_NOLOD
     );
 
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
 }
 
 // 32x64
 void load_2_tiles(u8 *tlut1, u8 *tlut2, u8 *timg) {
-    gDPLoadSync(D_801D9E88++);
+    gDPLoadSync(gOpaqueDL++);
 
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0110, tlut1);
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0120, tlut2);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0110, tlut1);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0120, tlut2);
 
     gDPLoadTextureBlock2(
-        /* pkt    */ D_801D9E88++,
+        /* pkt    */ gOpaqueDL++,
         /* timg   */ K0_TO_PHYS(timg),
         /* fmt    */ G_IM_FMT_CI,
         /* line   */ 2,
@@ -58,24 +58,24 @@ void load_2_tiles(u8 *tlut1, u8 *tlut2, u8 *timg) {
         /* shiftt */ G_TX_NOLOD
     );
 
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0040,               1, 2, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0040,               1, 2, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
 }
 
 // 3 tiles (unused?)
 void load_3_tiles(u8 *tlut1, u8 *tlut2, u8 *tlut3, u8 *timg) {
-    gDPLoadSync(D_801D9E88++);
+    gDPLoadSync(gOpaqueDL++);
 
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0110, tlut1);
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0120, tlut2);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0110, tlut1);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0120, tlut2);
 #ifdef BUGFIX
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0130, tlut3);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0130, tlut3);
 #else
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0130, tlut2);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0130, tlut2);
 #endif
 
     gDPLoadTextureBlock2(
-        /* pkt    */ D_801D9E88++,
+        /* pkt    */ gOpaqueDL++,
         /* timg   */ K0_TO_PHYS(timg),
         /* fmt    */ G_IM_FMT_CI,
         /* line   */ 2,
@@ -91,34 +91,34 @@ void load_3_tiles(u8 *tlut1, u8 *tlut2, u8 *tlut3, u8 *timg) {
         /* shiftt */ G_TX_NOLOD
     );
 
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0040,               1, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0080,               2, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0040,               1, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0080,               2, 1, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
 }
 
 // load eye texture
 void func_80356BD8_768288(u8 *tlut, u8 img_base[][128], s16 id) {
-    gDPLoadSync(D_801D9E88++);
+    gDPLoadSync(gOpaqueDL++);
 
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0110, tlut);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0110, tlut);
 
-    gDPSetTextureImage(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, img_base + id);
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPLoadSync(D_801D9E88++);
-    gDPLoadBlock(D_801D9E88++, G_TX_LOADTILE, 0, 0, 63, 2048);
-    gDPPipeSync(D_801D9E88++);
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, 0, 4*15, 4*15);
+    gDPSetTextureImage(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, img_base + id);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPLoadSync(gOpaqueDL++);
+    gDPLoadBlock(gOpaqueDL++, G_TX_LOADTILE, 0, 0, 63, 2048);
+    gDPPipeSync(gOpaqueDL++);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTileSize(gOpaqueDL++, G_TX_RENDERTILE, 0, 0, 4*15, 4*15);
 }
 
 // 64x64
 void func_80356D84_768434(u8 *tlut, u8 *timg) {
-    gDPLoadSync(D_801D9E88++);
+    gDPLoadSync(gOpaqueDL++);
 
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0110, tlut);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0110, tlut);
 
     gDPLoadTextureBlock2(
-        /* pkt    */ D_801D9E88++,
+        /* pkt    */ gOpaqueDL++,
         /* timg   */ K0_TO_PHYS(timg),
         /* fmt    */ G_IM_FMT_CI,
         /* line   */ 4,
@@ -134,20 +134,20 @@ void func_80356D84_768434(u8 *tlut, u8 *timg) {
         /* shiftt */ G_TX_NOLOD
     );
 
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0x0080,               1, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0x0080,               1, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 }
 
 // 48x64 ci4
 void func_80356F64_768614(u8* tlut1, u8* tlut2, u8 *timg) {
 
-    gDPLoadSync(D_801D9E88++);
+    gDPLoadSync(gOpaqueDL++);
 
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0100, tlut1);
-    gDPLoadTLUT(D_801D9E88++, 16, 0x0110, tlut2);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0100, tlut1);
+    gDPLoadTLUT(gOpaqueDL++, 16, 0x0110, tlut2);
 
     gDPLoadTextureBlock2(
-        /* pkt    */ D_801D9E88++,
+        /* pkt    */ gOpaqueDL++,
         /* timg   */ K0_TO_PHYS(timg),
         /* fmt    */ G_IM_FMT_CI,
         /* line   */ 3,
@@ -163,6 +163,6 @@ void func_80356F64_768614(u8* tlut1, u8* tlut2, u8 *timg) {
         /* shiftt */ G_TX_NOLOD
     );
 
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 3, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPSetTile(D_801D9E88++, G_IM_FMT_CI, G_IM_SIZ_4b, 3, 0x0060,               1, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 3, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 3, 0x0060,               1, 1, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 }

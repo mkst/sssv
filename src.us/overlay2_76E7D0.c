@@ -156,9 +156,9 @@ void func_8035D120_76E7D0(void) {
         Animal *a = D_803D552C;
         D_803F2EDC = 1;
         if (a->lastHpLost < 3) {
-            set_fog_factor_and_color(&D_801D9E88, 160, 160, 160);
+            set_fog_factor_and_color(&gOpaqueDL, 160, 160, 160);
         } else {
-            set_fog_factor_and_color(&D_801D9E88, 200, 200, 200);
+            set_fog_factor_and_color(&gOpaqueDL, 200, 200, 200);
         }
         D_803D552C->lastHpLost = MAX(0, D_803D552C->lastHpLost - 2);
     }
@@ -166,7 +166,7 @@ void func_8035D120_76E7D0(void) {
 
 void func_8035D6A0_76ED50(void) {
     if (D_803F2EDC != 0) {
-        set_fog_position_and_color(&D_801D9E88);
+        set_fog_position_and_color(&gOpaqueDL);
     }
 }
 

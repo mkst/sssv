@@ -55,7 +55,7 @@ Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
         ret = arg0->unk5C.unk4;
         break;
     case 9:
-        ret = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+        ret = gAnimalState.animals[gCurrentAnimalIndex].animal;
         break;
     case 10: // get_first?
         ret = func_8031540C_726ABC(arg2, 1);
@@ -269,13 +269,13 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
             // arg2 is an animal ID
             var_t1 = NULL;
             for (i = 0; i < gNumAnimalsInLevel; i++) {
-                if ((arg0 == D_801D9ED8.animals[i].animal) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
-                    var_t1 = &D_801D9ED8.animals[i];
+                if ((arg0 == gAnimalState.animals[i].animal) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
+                    var_t1 = &gAnimalState.animals[i];
                     break;
                 }
             }
             if (var_t1 != NULL) {
-                arg0->unk16C = var_t1->unk0 = &D_801D9ED8.unk0[arg2-OB_TYPE_ANIMAL_OFFSET];
+                arg0->unk16C = var_t1->unk0 = &gAnimalState.unk0[arg2-OB_TYPE_ANIMAL_OFFSET];
 
                 D_803D5520 = var_t1;
                 D_803D5524 = var_t1->unk0;
@@ -291,7 +291,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
                 D_803D553A = 0;
 
                 func_802B2EA8_6C4558();
-                if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+                if (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
                     gCurrentAnimalId = arg2 - OB_TYPE_ANIMAL_OFFSET;
                     D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
                     D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
@@ -711,11 +711,11 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         }
         if (arg1->dummy.unk2 & 0x10) {
             if (func_80319E1C_72B4CC(
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6,
+                gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
+                gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
+                gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6,
                 arg1->dummy.unk3,
-                D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk160)) {
+                gAnimalState.animals[gCurrentAnimalIndex].animal->unk160)) {
 
                 res = 1;
                 break;
@@ -823,7 +823,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
             res = 1;
             break;
         }
-        if (((arg1->dummy.unk2 & 0x10) && ((func_802FD40C_70EABC(arg0, D_801D9ED8.animals[gCurrentAnimalIndex].animal)))) || (func_802FD538_70EBE8(arg0))) {
+        if (((arg1->dummy.unk2 & 0x10) && ((func_802FD40C_70EABC(arg0, gAnimalState.animals[gCurrentAnimalIndex].animal)))) || (func_802FD538_70EBE8(arg0))) {
             res = 1;
             break;
         }
@@ -891,7 +891,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
             res = 1;
             break;
         }
-        if ((arg1->dummy.unk2 & 0x10) && (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg1->dummy.unk2 & 0x10) && (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
             res = 1;
             break;
         }
@@ -1931,7 +1931,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         if (cmds->unk19C.payload.cmd.type71.unk4 != 0) {
             spEC = 1.0f;
         } else {
-            tmp3 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            tmp3 = gAnimalState.animals[gCurrentAnimalIndex].animal;
             spEC = sqrtf(SQ((f32)(temp_s1->position.xPos.h - tmp3->position.xPos.h)) + SQ((f32)(temp_s1->position.zPos.h - tmp3->position.zPos.h)) + SQ((f32)(temp_s1->position.yPos.h - tmp3->position.yPos.h)));
         }
 
@@ -2037,7 +2037,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
         if (temp_s1->unk16C->objectType >= 0x100) {
             var_a0_2 = 2;
-        } else if (temp_s1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+        } else if (temp_s1 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
             var_a0_2 = 1;
         } else {
             var_a0_2 = 3;
@@ -2351,8 +2351,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
         animal2 = NULL;
 
         for (i2 = 0; i2 < gNumAnimalsInLevel; i2++) {
-            if (temp_s1 == D_801D9ED8.animals[i2].animal) {
-                animal2 = &D_801D9ED8.animals[i2];
+            if (temp_s1 == gAnimalState.animals[i2].animal) {
+                animal2 = &gAnimalState.animals[i2];
                 break;
             }
         }
@@ -2451,7 +2451,7 @@ void func_803191B0_72A860(Animal *arg0) {
     s8 temp_v0;
 
     if (arg0->commands.unk1CC == 9) {
-        arg0->unk248[0] = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+        arg0->unk248[0] = gAnimalState.animals[gCurrentAnimalIndex].animal;
     }
     if (arg0->commands.numCommandsToCopy != 0) {
         // run all the commands

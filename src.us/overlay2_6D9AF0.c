@@ -7,8 +7,8 @@ void init_and_spawn_evo_microchip(void) {
     func_803572C0_768970();
     func_803747CC_785E7C();
     reset_dynamic_tails(0);
-    memset_bytes((u8 *)&D_801D9ED8.animals, 0U, sizeof(D_801D9ED8.animals));
-    memset_bytes((u8 *)&D_801D9ED8.unk4040, 0U, sizeof(D_801D9ED8.unk4040));
+    memset_bytes((u8 *)&gAnimalState.animals, 0U, sizeof(gAnimalState.animals));
+    memset_bytes((u8 *)&gAnimalState.unk4040, 0U, sizeof(gAnimalState.unk4040));
     gNumAnimalsInLevel = 0;
     func_802C7C80_6D9330(); // load all stats
     D_803E9820 = 27;
@@ -17,10 +17,10 @@ void init_and_spawn_evo_microchip(void) {
     gCurrentAnimalIndex = 0;
     func_80327DA8_739458(); // waypoints?
     spawn_animal(0, 0, 0, 0, 0x7F, EVO_MICROCHIP, 1);
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A = 1;
+    gAnimalState.animals[gCurrentAnimalIndex].animal->unk4A = 1;
     D_803D5548 = D_803D554A = 0;
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.unk4E * 256) / 360;
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.unk4E * 256) / 360;
+    gAnimalState.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.unk4E * 256) / 360;
+    gAnimalState.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.unk4E * 256) / 360;
     D_803F6450 = 1;
     D_803F2CE6 = 0;
     D_803D5558 = 0;
@@ -34,25 +34,25 @@ void func_802C85EC_6D9C9C(void) {
         D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
         D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
         gCurrentAnimalIndex = gNumAnimalsInLevel;
-        a = D_801D9ED8.animals[0].animal;
+        a = gAnimalState.animals[0].animal;
         spawn_animal(a->position.xPos.h, a->position.zPos.h, a->position.yPos.h, 0, 0x7F, gCurrentAnimalId, 1);
         func_80327DA8_739458();
-        D_801D9ED8.animals[0].animal->unk366 = MOVEMENT_MODE_INJURED;
-        D_801D9ED8.animals[0].unk0 = &D_801D9ED8.unk0[EVO_TRANSFER];
-        D_801D9ED8.animals[0].animal->unk16C = &D_801D9ED8.unk0[EVO_TRANSFER];
-        D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk4A = 1;
-        D_801D9ED8.animals[0].animal->unk4A = 0;
+        gAnimalState.animals[0].animal->unk366 = MOVEMENT_MODE_INJURED;
+        gAnimalState.animals[0].unk0 = &gAnimalState.unk0[EVO_TRANSFER];
+        gAnimalState.animals[0].animal->unk16C = &gAnimalState.unk0[EVO_TRANSFER];
+        gAnimalState.animals[gCurrentAnimalIndex].animal->unk4A = 1;
+        gAnimalState.animals[0].animal->unk4A = 0;
     }
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.unk4E << 8) / 360;
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.unk4E << 8) / 360;
-    D_801D9ED8.unkFFA8 = (D_803F2D50.unk4E << 8) / 360;
+    gAnimalState.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.unk4E << 8) / 360;
+    gAnimalState.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.unk4E << 8) / 360;
+    gAnimalState.unkFFA8 = (D_803F2D50.unk4E << 8) / 360;
     D_803F2AA3 = 0;
     gCameraUiState = 0;
 }
 
 void func_802C87E0_6D9E90(void) {
-    D_80204278->usedHilites = 0;
-    D_80204278->usedVtxs = 0;
+    gDisplayListContext->usedHilites = 0;
+    gDisplayListContext->usedVtxs = 0;
     D_803E1B04 = 0;
     gScorpionVtxIdx = 0;
     if (D_803F2D10.unk0 == 0) {
@@ -70,10 +70,10 @@ void func_802C8878_6D9F28(void) {
     func_803747F4_785EA4();
     func_80357200_7688B0();
 
-    D_803D5520 = &D_801D9ED8.animals[gCurrentAnimalIndex];
-    D_803D5524 = D_801D9ED8.animals[gCurrentAnimalIndex].unk0;
+    D_803D5520 = &gAnimalState.animals[gCurrentAnimalIndex];
+    D_803D5524 = gAnimalState.animals[gCurrentAnimalIndex].unk0;
 
-    D_803D5528 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    D_803D5528 = gAnimalState.animals[gCurrentAnimalIndex].animal;
     a = D_803D5528;
     D_803D5530 = a;
     D_803D552C = a;
@@ -85,21 +85,21 @@ void func_802C8878_6D9F28(void) {
     func_80327BE0_739290();
     func_8030A8EC_71BF9C();
 
-    gDPSetTextureLUT(D_801D9E88++, G_TT_RGBA16);
+    gDPSetTextureLUT(gOpaqueDL++, G_TT_RGBA16);
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if ((D_801D9ED8.animals[i].animal != NULL) &&
-            (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-            (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
+        if ((gAnimalState.animals[i].animal != NULL) &&
+            (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
+            (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
             if (i == gCurrentAnimalIndex) {
                 add_multiple_lights();
                 clear_used_lights();
             }
 
-            D_803D5520 = &D_801D9ED8.animals[i];
-            D_803D5524 = D_801D9ED8.animals[i].unk0;
+            D_803D5520 = &gAnimalState.animals[i];
+            D_803D5524 = gAnimalState.animals[i].unk0;
 
-            D_803D5528 = D_801D9ED8.animals[i].animal;
+            D_803D5528 = gAnimalState.animals[i].animal;
             a = D_803D5528;
             D_803D5530 = a;
             D_803D552C = a;
@@ -150,8 +150,8 @@ void func_802C8878_6D9F28(void) {
                     func_80328520_739BD0();
                 }
             }
-            if (D_801D9ED8.animals[i].animal != NULL) {
-                switch (D_801D9ED8.animals[i].unk0->unk9C) {
+            if (gAnimalState.animals[i].animal != NULL) {
+                switch (gAnimalState.animals[i].unk0->unk9C) {
                 case LION:
                     func_802F1730_702DE0();
                     break;
@@ -212,14 +212,14 @@ void func_802C8878_6D9F28(void) {
                     func_802E7394_6F8A44();
                     break;
                 case TORTOISE_TANK:
-                    func_80352380_763A30();
+                    update_tortoise_tank();
                     break;
                 case RACING_TORTOISE:
-                    func_80354188_765838();
+                    update_racing_tortoise();
                     break;
                 case TORTOISE_TANK_DEFENDING:
                 case RACING_TORTOISE_DEFENDING:
-                    func_80355130_7667E0();
+                    update_tortoise_defending();
                     break;
                 case DOG:
                     func_802ED108_6FE7B8();
@@ -318,7 +318,7 @@ void func_802C8878_6D9F28(void) {
             }
             if (i == gCurrentAnimalIndex) {
                 // (re)set lights?
-                add_single_light(&D_801D9E88);
+                add_single_light(&gOpaqueDL);
             }
             if (D_803D552C->unk366 != MOVEMENT_MODE_DELETED) {
                 func_802DA90C_6EBFBC(D_803D5530);

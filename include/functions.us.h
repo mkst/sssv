@@ -9,7 +9,7 @@ void func_80125950(s32 arg0);
 void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numTris);
 
 // mtx
-void func_80125980(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
+void build_rotate_scale_translate_matrix(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
 void func_80125FE0(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8);
 
 void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2);
@@ -24,7 +24,7 @@ void func_80128078(Mtx *arg0, s16 arg1, s16 arg2);
 // core/controller.c
 u32  func_80128200(void);
 void func_8012822C(s32 time);
-u16  func_8012826C(void);
+u16  advance_random_seed(void);
 s32  func_801282C4(void);
 s16  func_8012835C(s16 idx);
 s16  func_801283AC(s16 arg0);
@@ -40,10 +40,10 @@ s16  func_80129198(s16 arg0);
 u8  *func_801291A4(u8 *x);
 
 // main_4A00
-void func_80129430(Gfx **arg0);
-void func_80129594(Gfx **dl, DisplayList *ddl);
-void func_80129784(Gfx **dl, DisplayList *ddl);
-void func_8012991C(Gfx **dl, DisplayList *ddl);
+void clear_depth_buffer(Gfx **arg0);
+void init_f3dex_render(Gfx **dl, DisplayList *ddl);
+void begin_f3dex_render(Gfx **dl, DisplayList *ddl);
+void begin_f3dex_render_sync(Gfx **dl, DisplayList *ddl);
 
 // thread6
 void thread6_loop(void);
@@ -67,7 +67,7 @@ void func_8012FAD4(Gfx **dl, s32 arg1);
 
 void func_8012C214(s32, s32, s32, s32);
 void func_8012D374(Gfx **arg0, s16 *arg1, u16 arg2, u16 arg3, f32 arg4, f32 arg5, s16 arg6);
-void func_8012EB4C(Gfx **, s16*, u16, u16, f32, f32, u8);
+void display_text_word_wrapped(Gfx **, s16*, u16, u16, f32, f32, u8);
 
 // main_C2A0
 void func_80130BA0(void);
@@ -103,8 +103,8 @@ void func_80133188(s16 id, s16 volume, s16 arg2);
 void func_8013328C(void *object, s16 id, s16 pan, f32 pitch, s16 volume, s16 arg5);
 void func_8013364C(void);
 void func_801337BC(s8 arg0, s32 arg1);
-void func_801337DC(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
-void func_8013385C(f32 arg0, f32 arg1, f32 arg2);
+void start_sequence_volume_fade(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
+void start_sfx_volume_fade(f32 arg0, f32 arg1, f32 arg2);
 void func_801338A8(s16 arg0);
 void func_801339F8(void);
 void func_80133BE4(void);
@@ -114,9 +114,9 @@ void func_80133E84(void);
 
 // main_10DC0
 void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **arg4, u8 *arg5, f32 arg6, f32 arg7, u8 arg8);
-void func_801360C8(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z);
-void func_80136418(Gfx **dl, u8 color);
-void func_801366BC(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
+void draw_sprite_with_prim_depth(Gfx **dl, uSprite *arg1, u16 width, u16 height, u16 scale_x, u16 scale_y, u8 flip_x, u8 flip_y, u16 p_screen_x, u16 p_screen_y, u16 z);
+void init_sprite2d_render_zdepth(Gfx **dl, u8 color);
+void init_sprite2d_render(Gfx **dl, u8 r, u8 g, u8 b, u8 a);
 
 // main_123E0.c
 void func_80136F64(void);
@@ -138,22 +138,22 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1);
 void func_80296C8C_6A833C(struct063 arg0[73][129]);
 
 // overlay1_6384F0.c
-void func_80294E50(void);
+void render_gameplay_overlay_frame_6A6500(void);
 
 void func_80294E50_6384F0(void); // overlay1 entrypoint
 void func_80294E70_638510(Gfx **dl, u8 alpha);
-void func_80294EB8_638558(Gfx **dl);
+void setup_intro_perspective_638558(Gfx **dl);
 void func_802950B8_638758(void);
-void func_80295234_6388D4(void);
+void draw_intro_logo_model(void);
 void func_8029548C_638B2C(void);
-void func_80295494_638B34(Gfx **arg0, u16 arg1);
+void render_intro_title_reveal(Gfx **arg0, u16 arg1);
 void func_8029597C_63901C(uSprite *arg0, u8 arg1);
 void func_80295C38_6392D8(u8 arg0, u8 arg1);
 void func_80295EB0_639550(s32 arg0);
-void func_80295FAC_63964C(struct018*);
+void render_title_screen_frame(struct018*);
 
 s16  func_80298818_6A9EC8(s16, s16);
-void func_802988E8_63BF88(void);
+void render_intro_overlay_frame_63BF88(void);
 void func_80298AC0_63C160(void);
 void func_80298C70_63C310(u8 arg0);
 void func_80298F1C_63C5BC(s32 *arg0, s32 *arg1);
@@ -180,12 +180,12 @@ void func_80299140_6AA7F0(void);
 void func_80299640_6AACF0(s16, s16, s16*, s16*, s16*, s16*);
 
 // overlay2_6AB090.c
-void func_802999E0_6AB090(DisplayList *arg0);
-void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1);
+void setup_world_perspective_6AB090(DisplayList *arg0);
+void setup_frame_render_state(DisplayList *arg0, Gfx **arg1);
 void func_80299B68_6AB218(DisplayList *arg0);
 void func_80299E84_6AB534(DisplayList * arg0);
 void func_8029A32C_6AB9DC(s32 arg0);
-s16  func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2);
+s16  is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2);
 void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2);
 u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
@@ -203,8 +203,8 @@ void maybe_trigger_exit_teleporter(Animal *arg0, Animal *arg1);
 void func_8029B9B8_6AD068(Animal *arg0, Animal *arg1);
 void maybe_do_teleport(Animal *arg0, Animal *arg1);
 void func_8029BB94_6AD244(void);
-void func_8029CEF0_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
-void func_8029D0A8_6AE758(void);
+void enqueue_dynamic_texture_billboard_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
+void render_dynamic_texture_billboards_6AE758(void);
 void func_8029D89C_6AEF4C(void);
 void func_8029D8D8_6AEF88(Gfx **arg0, s16 arg1);
 void func_8029DB20_6AF1D0(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, Gfx *arg7);
@@ -354,7 +354,7 @@ u8   func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position** p1, Position** 
 u8   func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
 u8   func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
 
-u8  func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8*, u16);
+u8  check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8*, u16);
 u8   func_802B7BC8_6C9278(Animal *arg0, Animal *arg1);
 void func_802B8304_6C99B4(Animal *arg0, Animal *arg1);
 
@@ -562,11 +562,11 @@ void func_802E8760_6F9E10(void);
 void func_802E88C0_6F9F70(s16 arg0);
 
 // overlay2_6FA0A0
-s16 func_802E89F0_6FA0A0(s32 x, s32 y, s32 z, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
-s16 func_802E8BBC_6FA26C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
-s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
-s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4);
-s16 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3);
+s16 classify_object_visibility_6FA0A0(s32 x, s32 y, s32 z, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
+s16 classify_dynamic_visibility_6FA26C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
+s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
+s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4);
+s16 classify_particle_visibility_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3);
 
 // src/sssv/aidata
 s16 get_ai_behaviour(u16 X, u16 Y);
@@ -590,7 +590,7 @@ void func_802F03B8_701A68(void);
 
 // overlay2_701E80
 s16  func_802F1388_702A38(void);
-void func_802F13B8_702A68(void);
+void render_screen_transition_tv_702A68(void);
 
 // sssv/animals/lion (overlay2_702DE0)
 void func_802F1730_702DE0(void);
@@ -777,7 +777,7 @@ s16  func_803102BC_72196C(void);
 s32  func_80310E10_7224C0(s16 arg0, s16 arg1);
 s32  func_80310EE4_722594(s16 x, s16 z, u8 arg2);
 s32  func_80310F58_722608(s16, s16);
-s32  func_8031124C_7228FC(s16, s16);
+s32  sample_ground_height_at_xz(s16, s16);
 void func_80311554_722C04(s16, s16, s32*, s32*);
 void func_80311A2C_7230DC(s16 xPos, s16 zPos, s16 *xVel, s16 *zVel, u8 arg4);
 void func_80311AA8_723158(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3);
@@ -921,11 +921,11 @@ void func_80329F44_73B5F4(void);
 s16  func_8032A164_73B814(s16, s16);
 void func_8032A710_73BDC0(void);
 void func_8032AA94_73C144(void);
-void func_8032AC98_73C348(void);
-void func_8032AE34_73C4E4(void);
-void func_8032AEA0_73C550(void);
-void func_8032B084_73C734(void);
-void func_8032B1C8_73C878(void);
+void cheat_activate_scale_pulse_effect(void);
+void cheat_activate_energy_camera_effect(void);
+void cheat_activate_big_head_effect(void);
+void cheat_toggle_mystery_bear(void);
+void cheat_clear_camera_effects(void);
 
 
 // overlay2_73C890
@@ -944,12 +944,12 @@ void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch,
 void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
 // overlay2_73ED30
-void func_8032D680_73ED30(void);
-void func_8032DACC_73F17C(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
-void func_8032E9E4_740094(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7);
-void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6); // tbd
-void func_8032F170_740820(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, u8 arg8, s16 arg9);
-void func_8032F8C8_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
+void update_billboard_projection_cache(void);
+void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
+void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7);
+void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6); // tbd
+void draw_particle_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, u8 arg8, s16 arg9);
+void enqueue_dynamic_texture_billboard_helper_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
 
 // camera
 void func_8032F950_741000(void);
@@ -961,7 +961,7 @@ void increase_player_camera_distance(s16 arg0);  // used by fox
 void save_player_camera_distance(void);          // used by fox
 void restore_player_camera_distance(void);       // used by fox
 
-void func_8033F380_750A30(void);
+void update_world_camera_transform(void);
 
 void func_803421E0_753890(s16 arg0);
 void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
@@ -1000,9 +1000,9 @@ u8   func_80349874_75AF24(void);
 void func_80349900_75AFB0(s16 *arg0, u16 arg1);
 u8   func_80349A14_75B0C4(void); // dupe of func_80349874_75AF24
 void func_80349AA0_75B150(u16 arg0);
-void func_80349CA4_75B354(s16 arg0);
+void draw_hud_center_text(s16 arg0);
 void func_80349D34_75B3E4(void);
-void func_80349DCC_75B47C(s16 arg0);
+void osd_update(s16 arg0);
 
 // overlay2_75BC80
 void add_hilite(void);
@@ -1059,9 +1059,9 @@ void func_8035DA60_76F110(void);
 void func_8035DEC4_76F574(void);
 
 // tortoise
-void func_80352380_763A30(void);
-void func_80354188_765838(void);
-void func_80355130_7667E0(void);
+void update_tortoise_tank(void);
+void update_racing_tortoise(void);
+void update_tortoise_defending(void);
 void func_80355E14_7674C4(void);
 void func_80355EDC_76758C(void);
 void func_80355EFC_7675AC(void);
@@ -1327,13 +1327,13 @@ s16  func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 
 // sssv/terminal_background (overlay2_79E640)
 void func_8038CF90_79E640(void);
-void func_8038D004_79E6B4(Gfx **arg0, u16 intensity);
-void func_8038D258_79E908(void);
-void func_8038D920_79EFD0(u8 arg0);
-void func_8038DA70_79F120(void);
-void func_8038DBE0_79F290(s32 arg0, s32 arg1);
-void func_8038E504_79FBB4(u16 arg0);
-void func_8038E9F8_7A00A8(void);
+void render_terminal_background_glyphs(Gfx **arg0, u16 intensity);
+void setup_terminal_stat_text(void);
+void update_terminal_scene_lighting(u8 arg0);
+void render_terminal_background_scene(void);
+void render_terminal_stat_text(s32 arg0, s32 arg1);
+void render_terminal_background_dna_79FBB4(u16 arg0);
+void render_terminal_background_frame(void);
 void func_8038F414_7A0AC4(void);
 void func_8038F5F8_7A0CA8(Animal *arg0);
 void trigger_new_animal_cutscene(void);
@@ -1356,8 +1356,8 @@ void func_80392668_7A3D18(void);
 void func_80395074_7A6724(s32 debug);
 void func_80395088_7A6738(Gfx **arg0, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 color);
 void func_8039546C_7A6B1C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
-void func_80395480_7A6B30(void);
-void func_80395854_7A6F04(void);
+void setup_pause_menu_perspective_a_7A6B30(void);
+void setup_pause_menu_perspective_b_7A6F04(void);
 void func_80395B58_7A7208(void);
 void func_80395E98_7A7548(Gfx **arg0);
 void func_803962EC_7A799C(Gfx **dl, s16 p_screen_x, s16 p_screen_y, s16 arg3, s16 arg4, u8* img, u16 width, u16 height);

@@ -72,7 +72,7 @@ s16 language_select_menu(s16 arg0) {
         flagTexture = (uSprite *)img_flags_spanish_rgba16__png; // Spanish
         break;
     }
-    func_801366BC(&gMainDL, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
+    init_sprite2d_render(&gMainDL, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
     gDPPipeSync(gMainDL++);
 
     gDPSetCombineLERP(gMainDL++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
@@ -108,7 +108,7 @@ s16 language_select_menu(s16 arg0) {
         break;
     }
 
-    func_801366BC(&gMainDL, D_803B0594, D_803B0594, D_803B0594, D_803B0594);
+    init_sprite2d_render(&gMainDL, D_803B0594, D_803B0594, D_803B0594, D_803B0594);
     gDPPipeSync(gMainDL++);
 
     gDPSetCombineLERP(gMainDL++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
@@ -118,7 +118,7 @@ s16 language_select_menu(s16 arg0) {
     gDPSetAlphaDither(gMainDL++, G_AD_PATTERN);
 
     draw_sprite(&gMainDL, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
-    load_segments(&gMainDL, D_80204278);
+    load_segments(&gMainDL, gDisplayListContext);
 
     verticalOffset = 0x42;
 

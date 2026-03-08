@@ -25,7 +25,7 @@ void func_8012822C(s32 time) {
     D_80151430 = time;
 }
 
-u16 func_8012826C(void) {
+u16 advance_random_seed(void) {
     u16 temp_a0 = gSeed;
 
     gSeed <<= 1;
@@ -43,22 +43,22 @@ u16 func_8012826C(void) {
 
 // is this some pseudo-random number generator?
 s32 func_801282C4(void) {
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
-    func_8012826C();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
+    advance_random_seed();
 }
 
 // ESA: func_8001CED4

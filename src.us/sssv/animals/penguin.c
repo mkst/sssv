@@ -61,7 +61,7 @@ void func_80364780_775E30(void) {
         spA2 = 0;
         gLodDetailState = 0;
     } else {
-        spA2 = func_802E89F0_6FA0A0(
+        spA2 = classify_object_visibility_6FA0A0(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
             D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
@@ -104,7 +104,7 @@ void func_80364780_775E30(void) {
                 } else {
                     sp9E = 0x10;
                 }
-                if ((D_803D5530->unk162 != 3) || ((D_803D5538 != 0) && (D_801D9ED8.curAButton == 0))) {
+                if ((D_803D5530->unk162 != 3) || ((D_803D5538 != 0) && (gAnimalState.curAButton == 0))) {
                     D_803D552C->unk32A = D_803D5544;
                     D_803D552C->unk365 = ATTACK_PENGUIN_2;
                 }
@@ -155,7 +155,7 @@ void func_80364780_775E30(void) {
                 D_803D552C->unk365 = ATTACK_NONE;
                 if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->unk162 & 0xF) == 3) &&
                     ((D_803D5530->position.yPos.h - (func_80310EE4_722594(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->unk160) >> 0x10)) >= 0x31) &&
-                    ((D_803D5538 == 0) || (D_801D9ED8.curAButton != 0))) {
+                    ((D_803D5538 == 0) || (gAnimalState.curAButton != 0))) {
                     D_803D552C->unk365 = ATTACK_PENGUIN_1;
                     D_803D552C->unk32A = D_803D5544;
                 }
@@ -209,12 +209,12 @@ void func_80364780_775E30(void) {
             }
         }
         func_8038064C_791CFC();
-        if (((D_80204278->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) &&
+        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) &&
             (((D_803D5538 != 0)) || (temp_v0_14 = gCameraUiState, (temp_v0_14 == 0)) || (temp_v0_14 == 2) || ((temp_v0_14 == 1) && ( D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
+            func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
 
-            gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+            gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.4f);
             load_2_tiles(img_penguin_head_TLUT1_pal, img_penguin_head_TLUT2_pal, img_penguin_head_ci4__png);
@@ -228,8 +228,8 @@ void func_80364780_775E30(void) {
             }
             func_802C78B0_6D8F60(2, 0xF, 0x10000, 0x10000, 0x10000, D_803F2ED0, 0, 0, 0, D_040012E0_DE8A0);
 
-            gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
-            gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
+            gSPClearGeometryMode(gOpaqueDL++, G_CULL_BACK);
+            gSPSetGeometryMode(gOpaqueDL++, G_CULL_FRONT);
 
             if (gLodDetailState == 0) {
                 func_802C78B0_6D8F60(2, 0x12, 0x10000, 0x10000, 0x10000, D_803F2ED0, 0, 1, 0, D_040012E0_DE8A0);
@@ -243,7 +243,7 @@ void func_80364780_775E30(void) {
                 func_802C78B0_6D8F60(26, 27, (temp_a3 << 0x6) >> 6, (temp_a3 << 0x6) >> 6, (temp_a3 << 0x6) >> 6, D_803F2ED0, 0, 0, 1, D_04001B60_DF120);
             }
 
-            gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
+            gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
         }
         func_8035D6A0_76ED50();
     } else {

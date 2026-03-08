@@ -15,7 +15,7 @@ LevelProgress gLevelProgress;
 // ESA: func_80058368
 void func_803572F0_7689A0(void) {
     if (D_803F2D10.unk0 == 0) {
-        if ((D_801D9ED8.animals[gCurrentAnimalIndex].animal->health <= 0) &&
+        if ((gAnimalState.animals[gCurrentAnimalIndex].animal->health <= 0) &&
             (gLevelProgress.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
             gLevelProgress.unk4 = 1;
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_FAILED;
@@ -67,6 +67,6 @@ void func_80357480_768B30(void) {
         trigger_level_failed();
     }
     if (gLevelProgress.unk4 == 122) {
-        func_8013385C(30.0f, 20.0f, 0);
+        start_sfx_volume_fade(30.0f, 20.0f, 0);
     }
 }

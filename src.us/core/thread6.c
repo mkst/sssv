@@ -14,7 +14,7 @@ s16 D_80152E9C = 0;
 s16 D_80152EA0 = 0; // some flag
 s16 D_80152EA4 = 3; // only used once?
 
-Vp D_80152EA8 = {{
+Vp gMainViewport = {{
     {
         640,
         480,
@@ -68,7 +68,7 @@ Gfx *gMainDL;
 void thread6(s32 arg0) {
     unsigned long long i;
 
-    D_80204290 = 1;
+    gFrameStepDivisor = 1;
     D_80204292 = 2;
 
     osCreateMesgQueue(&D_8028D048, D_802902C0, 32);
@@ -120,18 +120,18 @@ void thread6(s32 arg0) {
         D_80204270 = 0;
     }
     if (D_802912D0 == 0) {
-        D_80204284 = 0;
+        gOverlayState = 0;
     }
     // eeprom stuff
     clear_player_eeprom_state();
     func_80130E44(); // read_eeprom
 
-    D_80204288 = 0;
+    gAttractModeState = 0;
 
     load_overlay(1); // load menu overlay
 
-    D_80204284 = 1;
-    D_80204290 = 1;
+    gOverlayState = 1;
+    gFrameStepDivisor = 1;
     D_8020427C = 1;
     D_80204280 = 199;
     D_80204282 = 99;
@@ -154,23 +154,23 @@ void thread6_loop(void) {
     phi_s1 = 0;
 
     while (TRUE) {
-        if ((D_80204284 != 2) && (D_80204284 != 1) && (D_80204284 != 5) && (D_80204284 != 8)) {
+        if ((gOverlayState != 2) && (gOverlayState != 1) && (gOverlayState != 5) && (gOverlayState != 8)) {
             stop_all_sounds();
             func_801328F8();
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
             gCurrentMusicTrack = NO_MUSIC;
 
             phi_s1 = 1;
-            switch (D_80204284) {
+            switch (gOverlayState) {
             case 3:
                 set_tv_mode_normal();
-                D_80204284 = 5;
+                gOverlayState = 5;
                 break;
             case 4:
-                D_80204284 = 2;
+                gOverlayState = 2;
                 break;
             case 7:
-                D_80204284 = 8;
+                gOverlayState = 8;
                 break;
             }
         }
@@ -200,7 +200,7 @@ void thread6_loop(void) {
             if (D_801D9ED4 != 0) {
                 D_801D9ED4 -= 1;
             }
-            if ((D_80152EBC < 2) && (phi_s1 == 0) && (D_80204292 >= D_80204290)) {
+            if ((D_80152EBC < 2) && (phi_s1 == 0) && (D_80204292 >= gFrameStepDivisor)) {
                 func_80136F64(); // read input
                 if (gControllerConnected != 0) {
                     func_801370F4();
@@ -245,9 +245,9 @@ void thread6_loop(void) {
             }
             break;
         case 2:
-            if (D_80204290 == 1) {
+            if (gFrameStepDivisor == 1) {
                 set_screen_scaling();
-            } else if (D_80204292 >= (D_80204290 - 1)) {
+            } else if (D_80204292 >= (gFrameStepDivisor - 1)) {
                 set_screen_scaling();
             }
             D_80152EA4 = 0;
@@ -274,19 +274,19 @@ void thread7(void) {
     while (TRUE) {
         osRecvMesg(&D_80291060, D_80291054, OS_MESG_BLOCK);
         temp_a0 = D_8020428C;
-        D_80204278 = &temp_a0->unk4E0;
+        gDisplayListContext = &temp_a0->unk4E0;
         gMainDL = &temp_a0->unk4E0;
-        D_801D9E90 = &temp_a0->unkDFA0;
-        D_801D9E94 = &temp_a0->unk81E0;
-        D_801D9E88 = &temp_a0->unk9AE0;
-        D_801D9E8C = &temp_a0->unkC060;
-        D_801D9EB8 = &temp_a0->unk26C80;
+        gLayer0DL = &temp_a0->unkDFA0;
+        gLayer1DL = &temp_a0->unk81E0;
+        gOpaqueDL = &temp_a0->unk9AE0;
+        gXluDL = &temp_a0->unkC060;
+        gAuxDL = &temp_a0->unk26C80;
 
         for (i = 0; i < 8; i++) {
-            D_801D9E98[i] = &D_80204278->unk109A0[i];
+            D_801D9E98[i] = &gDisplayListContext->unk109A0[i];
         }
 
-        D_80204274 = temp_a0;
+        gFrameContext = temp_a0;
         if (D_80152E9C == 0) {
             func_80294E50_6384F0(); // call overlay1 entrypoint
         } else {
@@ -313,11 +313,11 @@ void func_8012A400(void) {
 void end_display_lists(void) {
     gSPTexture(gMainDL++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
 
-    gSPEndDisplayList(D_801D9E90++);
-    gSPEndDisplayList(D_801D9E94++);
-    gSPEndDisplayList(D_801D9E88++);
-    gSPEndDisplayList(D_801D9E8C++);
-    gSPEndDisplayList(D_801D9EB8++);
+    gSPEndDisplayList(gLayer0DL++);
+    gSPEndDisplayList(gLayer1DL++);
+    gSPEndDisplayList(gOpaqueDL++);
+    gSPEndDisplayList(gXluDL++);
+    gSPEndDisplayList(gAuxDL++);
 
     gDPFullSync(gMainDL++);
 
@@ -328,7 +328,7 @@ void func_8012A588(void) {
     s16 tmp;
 
     if (D_80152E9C != 0) {
-        D_80204290 = 1;
+        gFrameStepDivisor = 1;
         if (D_80152E9C == 1) {
             init_rumble_pak();
             func_8012A400();
@@ -336,16 +336,16 @@ void func_8012A588(void) {
         }
         if (D_80152E9C == 2) {
             set_tv_mode_normal();
-            func_801337DC(0, 10.0f, 20.0f, 0.0f);
-            func_8013385C(   10.0f, 20.0f, 0.0f);
+            start_sequence_volume_fade(0, 10.0f, 20.0f, 0.0f);
+            start_sfx_volume_fade(   10.0f, 20.0f, 0.0f);
         }
         // fakematch
         if (tmp = D_80152E9C != 0) {}
 
-        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
         draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 120);
 
-        D_80152E9C = D_80152E9C + D_80204290;
+        D_80152E9C = D_80152E9C + gFrameStepDivisor;
 
         if (D_80152E9C >= 16) {
             D_80152EBC += 100;
@@ -356,7 +356,7 @@ void func_8012A588(void) {
 
 void no_controller_message(void) {
     if (gControllerConnected == 0) {
-        load_segments(&gMainDL, D_80204278);
+        load_segments(&gMainDL, gDisplayListContext);
         draw_rectangle(&gMainDL, 0, 16, 320, 36, 40, 40, 40, 128);
         gDPPipeSync(gMainDL++);
 

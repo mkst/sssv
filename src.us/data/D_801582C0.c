@@ -24,7 +24,7 @@ Gfx D_801582C0[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_80158368[] = {
+Gfx gOpaqueLit3DRenderSetupDl[] = {
     gsDPPipeSync(),
     gsSPTexture(32768, 32768, 0, G_TX_RENDERTILE, G_OFF),
     gsDPSetTextureConvert(G_TC_FILT),

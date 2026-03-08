@@ -27,13 +27,13 @@ void func_8038C768_79DE18(void) {
         if (D_803D5538 != 0) {
             if ((tmp1 & 0xFF) >= 150) {
                 if (SSSV_RAND(16) == 13) {
-                    D_803D552C->unk314 = func_8012826C() % 360;
+                    D_803D552C->unk314 = advance_random_seed() % 360;
                 }
             } else {
                 D_803D552C->unk314 = 0;
             }
         } else if ((tmp1 & 0xFF) >= 130) {
-            D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
+            D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
         } else {
             D_803D552C->unk314 = 0;
         }
@@ -70,7 +70,7 @@ void func_8038C98C_79E03C(void) {
         if (D_803D5538 != 0) {
             if ((tmp1 & 0xFF) >= 150) {
                 if (SSSV_RAND(32) == 13) {
-                    D_803D552C->unk314 = (func_8012826C() % 140) - 70;
+                    D_803D552C->unk314 = (advance_random_seed() % 140) - 70;
                     if (D_803D552C->unk314 < 0) {
                         D_803D552C->unk314 += 360;
                     }
@@ -79,7 +79,7 @@ void func_8038C98C_79E03C(void) {
                 D_803D552C->unk314 = 0;
             }
         } else if ((tmp1 & 0xFF) >= 200) {
-            D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
+            D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
 
             if (D_803D552C->unk314 > 85) {
                 D_803D552C->unk314 = 85;

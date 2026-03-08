@@ -7,9 +7,9 @@ extern u8  img_D_01003BD0_3D4A0_ci4__png[]; // fov masks
 
 
 // is animal off screen?
-s16 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
+s16 classify_object_visibility_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
-        if (func_8029A334_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
+        if (is_world_cell_loaded_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
             return VISIBILITY_VISIBLE;
         } else {
             return VISIBILITY_INVISIBLE;
@@ -17,43 +17,43 @@ s16 func_802E89F0_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx,
     }
     if (gCameraVisibilityMask[6] & 3) {
         if (gCameraVisibilityMask[6] & 1) {
-            if ((func_802E9B90_6FB240(xPos, zPos, ((gCameraVisibilityMask[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+            if ((classify_visibility_simple(xPos, zPos, ((gCameraVisibilityMask[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
                 return VISIBILITY_VISIBLE;
             } else {
-                return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
+                return classify_visibility_and_draw_fov_mask(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
             }
         }
-        if ((func_802E9B90_6FB240(((gCameraVisibilityMask[6] & 0xFFC) << 0x12) -xPos, zPos, yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+        if ((classify_visibility_simple(((gCameraVisibilityMask[6] & 0xFFC) << 0x12) -xPos, zPos, yPos, arg3, arg8) == 0) && (arg9 == 0)) {
             return VISIBILITY_VISIBLE;
         } else {
-            return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
+            return classify_visibility_and_draw_fov_mask(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
         }
     } else {
-        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
+        return classify_visibility_and_draw_fov_mask(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
     }
 }
 
 
 // only used by dynamic objects / tails
-s16 func_802E8BBC_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
+s16 classify_dynamic_visibility_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
-        if (func_8029A334_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
+        if (is_world_cell_loaded_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
             return VISIBILITY_VISIBLE;
         } else {
             return VISIBILITY_INVISIBLE;
         }
     }
     if (gCameraVisibilityMask[6] & 1) {
-        if ((func_802E9B90_6FB240(xPos, zPos, ((gCameraVisibilityMask[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
+        if ((classify_visibility_simple(xPos, zPos, ((gCameraVisibilityMask[6] & 0xFFC) << 0x12) - yPos, arg3, arg8) == 0) && (arg9 == 0)) {
             return VISIBILITY_VISIBLE;
         }
-        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
+        return classify_visibility_and_draw_fov_mask(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
     } else {
-        return func_802E8CF4_6FA3A4(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
+        return classify_visibility_and_draw_fov_mask(xPos, zPos, yPos, arg3, fovImageIdx, arg5, arg6, arg7, arg8, arg9);
     }
 }
 
-s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9) {
+s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9) {
     f32 sp144;
     f32 sp140;
 
@@ -95,7 +95,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     f32 unused5;
     f32 sp2C;
 
-    if (func_8029A334_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
+    if (is_world_cell_loaded_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
         return VISIBILITY_INVISIBLE;
     }
 
@@ -118,24 +118,24 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     spF8 = arg1 / 65536.0;
     spF4 = arg2 / 65536.0;
 
-    temp_f16 = D_80204278->unk38A10[2][3] +
-             ((D_80204278->unk38A10[2][2] * spF4) +
-             ((D_80204278->unk38A10[2][1] * spF8) +
-              (D_80204278->unk38A10[2][0] * spFC)));
+    temp_f16 = gDisplayListContext->unk38A10[2][3] +
+             ((gDisplayListContext->unk38A10[2][2] * spF4) +
+             ((gDisplayListContext->unk38A10[2][1] * spF8) +
+              (gDisplayListContext->unk38A10[2][0] * spFC)));
 
     if (temp_f16 <= -3.0) {
 
-        sp144 = D_80204278->unk38A10[0][3] +
-              ((D_80204278->unk38A10[0][2] * spF4) +
-              ((D_80204278->unk38A10[0][1] * spF8) +
-               (D_80204278->unk38A10[0][0] * spFC)));
-        sp140 = D_80204278->unk38A10[1][3] +
-              ((D_80204278->unk38A10[1][2] * spF4) +
-              ((D_80204278->unk38A10[1][1] * spF8) +
-               (D_80204278->unk38A10[1][0] * spFC)));
+        sp144 = gDisplayListContext->unk38A10[0][3] +
+              ((gDisplayListContext->unk38A10[0][2] * spF4) +
+              ((gDisplayListContext->unk38A10[0][1] * spF8) +
+               (gDisplayListContext->unk38A10[0][0] * spFC)));
+        sp140 = gDisplayListContext->unk38A10[1][3] +
+              ((gDisplayListContext->unk38A10[1][2] * spF4) +
+              ((gDisplayListContext->unk38A10[1][1] * spF8) +
+               (gDisplayListContext->unk38A10[1][0] * spFC)));
 
-         sp12C = ((D_80204278->unk38A10[3][0] * sp144) / temp_f16) + ((0, gScreenWidth * 2));
-        sp128 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f16) + (0, gScreenHeight * 2);
+         sp12C = ((gDisplayListContext->unk38A10[3][0] * sp144) / temp_f16) + ((0, gScreenWidth * 2));
+        sp128 = ((gDisplayListContext->unk38A10[3][1] * sp140) / temp_f16) + (0, gScreenHeight * 2);
 
         arg3 = arg3 * 33 / D_803F2D50.fovY;
         sp2C = (arg3 * 128 / -temp_f16) / 8.0;
@@ -160,18 +160,18 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
             }
 
             if (fovImageIdx != 100) {
-                gDPSetTextureImage(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &img_D_01003BD0_3D4A0_ci4__png[(fovImageIdx << 7)]);
-                gDPSetTile(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                gDPLoadSync(D_801D9EB8++);
-                gDPLoadBlock(D_801D9EB8++, G_TX_LOADTILE, 0, 0, 63, 2048);
-                gDPPipeSync(D_801D9EB8++);
-                gDPSetTile(D_801D9EB8++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                gDPSetTileSize(D_801D9EB8++, G_TX_RENDERTILE, 0, 0, 4*(15), 4*(15));
-                gDPSetEnvColor(D_801D9EB8++, red, green, blue, 0xFF);
-                gSPDisplayList(D_801D9EB8++, gFovMaskRenderSetupDl);
+                gDPSetTextureImage(gAuxDL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &img_D_01003BD0_3D4A0_ci4__png[(fovImageIdx << 7)]);
+                gDPSetTile(gAuxDL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                gDPLoadSync(gAuxDL++);
+                gDPLoadBlock(gAuxDL++, G_TX_LOADTILE, 0, 0, 63, 2048);
+                gDPPipeSync(gAuxDL++);
+                gDPSetTile(gAuxDL++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                gDPSetTileSize(gAuxDL++, G_TX_RENDERTILE, 0, 0, 4*(15), 4*(15));
+                gDPSetEnvColor(gAuxDL++, red, green, blue, 0xFF);
+                gSPDisplayList(gAuxDL++, gFovMaskRenderSetupDl);
 
-                temp_f2_3 = (D_80204278->unk38A10[3][3] + (D_80204278->unk38A10[3][2] * temp_f16)) / -temp_f16;
-                gDPSetPrimDepth(D_801D9EB8++, (u16)((temp_f2_3 * 1023.0f * 32.0f) + 32736.0f) - D_803F2D50.unk42, 0);
+                temp_f2_3 = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f16)) / -temp_f16;
+                gDPSetPrimDepth(gAuxDL++, (u16)((temp_f2_3 * 1023.0f * 32.0f) + 32736.0f) - D_803F2D50.unk42, 0);
 
                 if (gFogState.min >= (gFogState.max - 1)) {
                     lod = 0;
@@ -190,14 +190,14 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                     }
                 }
 
-                gDPSetPrimColor(D_801D9EB8++, 0, lod, gFogState.r, gFogState.g, gFogState.b, 0xFF);
+                gDPSetPrimColor(gAuxDL++, 0, lod, gFogState.r, gFogState.g, gFogState.b, 0xFF);
 
                 if (xl < yh) {
 
                     dsdx_dtdy = (65536.0f / (yh - xl));
 
                     gSPScisTextureRectangle(
-                    /* pkt  */ D_801D9EB8++,
+                    /* pkt  */ gAuxDL++,
                     /* xl   */ (s16) xl,
                     /* yl   */ (s16) yl,
                     /* xh   */ (s16) yh,
@@ -208,22 +208,22 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
                     /* dsdx */ dsdx_dtdy,
                     /* dtdy */ dsdx_dtdy);
 
-                    gSPDisplayList(D_801D9EB8++, D_01003A40_3D310);
+                    gSPDisplayList(gAuxDL++, D_01003A40_3D310);
                 }
             }
             return VISIBILITY_TOO_FAR;
         }
 
-        spF4 = func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0;
-        temp_f2_4 = D_80204278->unk38A10[2][3] +
-                ((D_80204278->unk38A10[2][2] * spF4) +
-                ((D_80204278->unk38A10[2][1] * spF8) +
-                (D_80204278->unk38A10[2][0] * spFC)));
+        spF4 = sample_ground_height_at_xz(arg0 >> 0x10, arg1 >> 0x10) / 65536.0;
+        temp_f2_4 = gDisplayListContext->unk38A10[2][3] +
+                ((gDisplayListContext->unk38A10[2][2] * spF4) +
+                ((gDisplayListContext->unk38A10[2][1] * spF8) +
+                (gDisplayListContext->unk38A10[2][0] * spFC)));
 
         if (temp_f2_4 <= -3.0) {
             // temp_f14 = D_80204278->unk38A10[3][0] * sp144 / temp_f2_4 + gScreenWidth  * 2;
-            temp_f14 = ((D_80204278->unk38A10[3][0] * sp144) / temp_f2_4) + (0, gScreenWidth * 2);
-            temp_f162 = ((D_80204278->unk38A10[3][1] * sp140) / temp_f2_4) + (0, gScreenHeight *  2);
+            temp_f14 = ((gDisplayListContext->unk38A10[3][0] * sp144) / temp_f2_4) + (0, gScreenWidth * 2);
+            temp_f162 = ((gDisplayListContext->unk38A10[3][1] * sp140) / temp_f2_4) + (0, gScreenHeight *  2);
         } else {
             return VISIBILITY_OUT_OF_BOUNDS_X;
         }
@@ -247,12 +247,12 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
         return VISIBILITY_OUT_OF_BOUNDS_X;
     }
 
-    spF4 = func_8031124C_7228FC(arg0 >> 0x10, arg1 >> 0x10) / 65536.0;
+    spF4 = sample_ground_height_at_xz(arg0 >> 0x10, arg1 >> 0x10) / 65536.0;
 
-    temp_f2_4 = D_80204278->unk38A10[2][3] +
-            ((D_80204278->unk38A10[2][2] * spF4) +
-            ((D_80204278->unk38A10[2][1] * spF8) +
-            (D_80204278->unk38A10[2][0] * spFC)));
+    temp_f2_4 = gDisplayListContext->unk38A10[2][3] +
+            ((gDisplayListContext->unk38A10[2][2] * spF4) +
+            ((gDisplayListContext->unk38A10[2][1] * spF8) +
+            (gDisplayListContext->unk38A10[2][0] * spFC)));
 
     if (temp_f2_4 <= -3.0) {
         return VISIBILITY_OUT_OF_BOUNDS_X;
@@ -260,7 +260,7 @@ s16 func_802E8CF4_6FA3A4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx,
     return VISIBILITY_OUT_OF_BOUNDS_Y;
 }
 
-s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
+s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     s32 pad[0x4];
 
     f32 height;
@@ -281,7 +281,7 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     s64 sp48;
     s64 fov;
 
-    if (func_8029A334_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
+    if (is_world_cell_loaded_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
         return VISIBILITY_INVISIBLE;
     }
 
@@ -304,26 +304,26 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     sp68 = (arg1 / 65536.0);
     sp64 = (arg2 / 65536.0);
 
-    temp_f16 = D_80204278->unk38A10[2][3] +
-             ((D_80204278->unk38A10[2][2] * sp64) +
-             ((D_80204278->unk38A10[2][1] * sp68) +
-              (D_80204278->unk38A10[2][0] * sp6C)));
+    temp_f16 = gDisplayListContext->unk38A10[2][3] +
+             ((gDisplayListContext->unk38A10[2][2] * sp64) +
+             ((gDisplayListContext->unk38A10[2][1] * sp68) +
+              (gDisplayListContext->unk38A10[2][0] * sp6C)));
 
     if (temp_f16 <= -3.0) {
 
-        tmp1 = D_80204278->unk38A10[0][3] +
-             ((D_80204278->unk38A10[0][2] * sp64) +
-             ((D_80204278->unk38A10[0][1] * sp68) +
-              (D_80204278->unk38A10[0][0] * sp6C)));
+        tmp1 = gDisplayListContext->unk38A10[0][3] +
+             ((gDisplayListContext->unk38A10[0][2] * sp64) +
+             ((gDisplayListContext->unk38A10[0][1] * sp68) +
+              (gDisplayListContext->unk38A10[0][0] * sp6C)));
 
-        tmp2 = D_80204278->unk38A10[1][3] +
-             ((D_80204278->unk38A10[1][2] * sp64) +
-             ((D_80204278->unk38A10[1][1] * sp68) +
-              (D_80204278->unk38A10[1][0] * sp6C)));
+        tmp2 = gDisplayListContext->unk38A10[1][3] +
+             ((gDisplayListContext->unk38A10[1][2] * sp64) +
+             ((gDisplayListContext->unk38A10[1][1] * sp68) +
+              (gDisplayListContext->unk38A10[1][0] * sp6C)));
 
         // replace (0, 2) with temp var assignment? width/height?
-        width = ((D_80204278->unk38A10[3][0] * tmp1) / temp_f16) + ((0, gScreenWidth * 2));
-        height =  ((D_80204278->unk38A10[3][1] * tmp2) / temp_f16) + ((0, gScreenHeight * 2));
+        width = ((gDisplayListContext->unk38A10[3][0] * tmp1) / temp_f16) + ((0, gScreenWidth * 2));
+        height =  ((gDisplayListContext->unk38A10[3][1] * tmp2) / temp_f16) + ((0, gScreenHeight * 2));
 
         arg3 = ((arg3 * 33) / D_803F2D50.fovY);
         temp_f0 = (arg3 * 128 / (-temp_f16)) / 8.0;
@@ -354,7 +354,7 @@ s16 func_802E9B90_6FB240(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
     return VISIBILITY_OUT_OF_BOUNDS_Y;
 }
 
-s16 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
+s16 classify_particle_visibility_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     s64 sp88;
     s64 sp80;
     s32 sp7C; // X coordinate in camera space.
@@ -385,25 +385,25 @@ s16 func_802EA004_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     temp_f12 = arg1 / 65536.0;
     temp_f14 = arg2 / 65536.0;
 
-    sp74 = D_80204278->unk38A10[2][3] +
-         ((D_80204278->unk38A10[2][2] * temp_f14) +
-         ((D_80204278->unk38A10[2][1] * temp_f12) +
-          (D_80204278->unk38A10[2][0] * temp_f2)));
+    sp74 = gDisplayListContext->unk38A10[2][3] +
+         ((gDisplayListContext->unk38A10[2][2] * temp_f14) +
+         ((gDisplayListContext->unk38A10[2][1] * temp_f12) +
+          (gDisplayListContext->unk38A10[2][0] * temp_f2)));
 
     if (sp74 <= -3.0) {
 
-        sp7C = D_80204278->unk38A10[0][3] +
-             ((D_80204278->unk38A10[0][2] * temp_f14) +
-             ((D_80204278->unk38A10[0][1] * temp_f12) +
-              (D_80204278->unk38A10[0][0] * temp_f2)));
+        sp7C = gDisplayListContext->unk38A10[0][3] +
+             ((gDisplayListContext->unk38A10[0][2] * temp_f14) +
+             ((gDisplayListContext->unk38A10[0][1] * temp_f12) +
+              (gDisplayListContext->unk38A10[0][0] * temp_f2)));
 
-        sp78 = D_80204278->unk38A10[1][3] +
-             ((D_80204278->unk38A10[1][2] * temp_f14) +
-             ((D_80204278->unk38A10[1][1] * temp_f12) +
-              (D_80204278->unk38A10[1][0] * temp_f2)));
+        sp78 = gDisplayListContext->unk38A10[1][3] +
+             ((gDisplayListContext->unk38A10[1][2] * temp_f14) +
+             ((gDisplayListContext->unk38A10[1][1] * temp_f12) +
+              (gDisplayListContext->unk38A10[1][0] * temp_f2)));
 
-        sp88 = ((D_80204278->unk38A10[3][0] * sp7C) / sp74) + (gScreenWidth *  ((0, 2)));
-        sp80 = ((D_80204278->unk38A10[3][1] * sp78) / sp74) + (gScreenHeight * ((0, 2)));
+        sp88 = ((gDisplayListContext->unk38A10[3][0] * sp7C) / sp74) + (gScreenWidth *  ((0, 2)));
+        sp80 = ((gDisplayListContext->unk38A10[3][1] * sp78) / sp74) + (gScreenHeight * ((0, 2)));
 
         if ((sp88 < 0) || ((gScreenWidth * 4) < sp88)) {
             return VISIBILITY_OUT_OF_BOUNDS_X; // out of horizontal bounds

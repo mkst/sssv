@@ -222,7 +222,7 @@ void perform_behavior_lion(void) {
         }
         if ((D_803D552C->unk2C4 <= 0) && (D_803D552C->targetDistance < 101) && (target_within_current_fov(5) != 0)) {
             lion_roar();
-            D_803D552C->unk2C4 = (func_8012826C() % 40) + 50;
+            D_803D552C->unk2C4 = (advance_random_seed() % 40) + 50;
         } else if (D_803D552C->unk2C4 <= 0) {
             func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
             D_803D552C->unk2B4.state = 2;
@@ -1453,7 +1453,7 @@ void perform_behavior_boxing_kangaroo(void) {
         }
         if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(40) != 0)) {
             func_80372604_783CB4();
-            D_803D552C->unk2C4 = ((func_8012826C() % 4)) + 5;
+            D_803D552C->unk2C4 = ((advance_random_seed() % 4)) + 5;
             if (++D_803D552C->unk2BC >= 9) {
                 func_80363EDC_77558C(D_803D5530, 0, D_803D552C->unk2CC);
                 D_803D552C->unk2B4.state = 3;

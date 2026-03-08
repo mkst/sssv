@@ -244,7 +244,7 @@ void do_rumble(s16 cont, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
     arg4 = arg4 >> 6;
 
     if ((D_80291090.hasRumblePak[cont] != 0) && (arg4 < 21)) {
-        if (D_80204288 == 0) {
+        if (gAttractModeState == 0) {
             arg4 = arg4 >> 2;
 
             if (arg4 == 0) {

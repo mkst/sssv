@@ -183,7 +183,7 @@ void draw_rectangle(Gfx **dl, s16 x0, s16 y0, s16 x1, s16 y1, u8 r, u8 g, u8 b, 
 
             gDPSetPrimColor((*dl)++, 0, 0, r, g, b, alpha);
 
-            if (D_80204288 == 10) {
+            if (gAttractModeState == 10) {
                 gDPSetRenderMode((*dl)++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
             } else {
                 gDPSetRenderMode((*dl)++, G_RM_XLU_SURF, G_RM_XLU_SURF2);

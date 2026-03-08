@@ -256,12 +256,12 @@ extern s8   D_80152248[];
 extern struct013 D_80152350; // likely just an s16 array
 // extern s16  D_80152620[]; // these are D_80152350.unk2D0
 // extern s16  D_801526D4[]; // these are D_80152350.unk384
-extern s16  D_80152C78[256];
+extern s16  gSineTable256[256];
 
 // thread6
 extern u8   D_80152E90; // 0x2E590
 extern u8   D_80152E98;
-extern Vp   D_80152EA8;
+extern Vp   gMainViewport;
 extern u16  D_80152EB8; // frame buffer id?
 
 // overlay1_6384F0
@@ -296,7 +296,7 @@ extern u8   D_801572C0[]; // 1
 extern u8   D_80157AC0[]; // 0
 
 extern Gfx  D_801582C0[];
-extern Gfx  D_80158368[];
+extern Gfx  gOpaqueLit3DRenderSetupDl[];
 extern Gfx  D_80158420[];
 extern Gfx  D_801584A0[];
 
@@ -322,18 +322,18 @@ extern u8  *gSegment1Base;
 extern u8  *gSegment5Base;
 extern Gfx *gMainDL;
 
-extern Gfx *D_801D9E88;
-extern Gfx *D_801D9E8C;
-extern Gfx *D_801D9E90;
-extern Gfx *D_801D9E94;
+extern Gfx *gOpaqueDL;
+extern Gfx *gXluDL;
+extern Gfx *gLayer0DL;
+extern Gfx *gLayer1DL;
 extern Gfx *D_801D9E98[8];
-extern Gfx *D_801D9EB8;
+extern Gfx *gAuxDL;
 extern u8  *D_801D9EC4; // currently loaded segment
 extern u8   D_801D9EC8;
 extern u8   D_801D9EC9;
 extern s32  D_801D9ED0;
 extern s16  D_801D9ED4; // either 10 or 6 - input debounce?
-extern struct050 D_801D9ED8;
+extern struct050 gAnimalState;
 
 extern s32  D_801DD800;
 extern s32  D_801DD8EC;
@@ -392,15 +392,15 @@ extern f32  D_80204234;
 extern RomHeader D_80204240;
 extern s16  gRegion;
 extern s16  D_80204270;
-extern struct018 *D_80204274;
-extern DisplayList *D_80204278;
+extern struct018 *gFrameContext;
+extern DisplayList *gDisplayListContext;
 extern s16  D_8020427C;
 extern s16  D_80204280;
 extern u16  D_80204282;
-extern s16  D_80204284;
-extern s8   D_80204288;
+extern s16  gOverlayState;
+extern s8   gAttractModeState;
 extern struct018 *D_8020428C;
-extern s16  D_80204290;
+extern s16  gFrameStepDivisor;
 extern s16  D_80204292;
 extern s16  gRefreshRate;
 extern OSScMsg *D_80204298; // OSMesg
@@ -621,7 +621,7 @@ extern s16  D_803A6730_7B7DE0[];
 extern s16  D_803A69F0_7B80A0[];
 
 extern s16  D_803A8340_7B99F0;
-extern u8   D_803A8344_7B99F4[]; // timer string written here
+extern u8   gHudTimerAscii[]; // timer string written here
 // extern s8   D_803A8350_7B9A00[];
 // extern s8   D_803A8358_7B9A08[];
 // extern s8   D_803A8360_7B9A10[];
@@ -672,14 +672,14 @@ extern u8   D_803B5884_7C6F34[];
 extern struct107 D_803B58E0_7C6F90[];
 extern void (*D_803B5D20[])(void);
 extern s16  D_803B62B0_7C7960;
-extern s16  D_803B62B4_7C7964;
+extern s16  gCheatInputNeutralLatch;
 extern u16  D_803B62B8_7C7968;
-extern s16  D_803B62BC_7C796C;
-extern u8   D_803B62C0_7C7970;
+extern s16  gCheatInputDebounceTimer;
+extern u8   gCheatLastButtonCode;
 extern s16  D_803B62D0_7C7980[];
 extern u16  D_803B6310_7C79C0;
-extern s16  D_803B6314_7C79C4;
-extern u8   D_803B6318_7C79C8;
+extern s16  gTerminalFadeStep;
+extern u8   gTerminalPhase;
 
 extern Lights1 D_803B65A8_7C7C58;
 extern Lights1 D_803B65C0_7C7C70;

@@ -685,7 +685,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     return numLines * lineHeight;
 }
 
-void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
+void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
     s16 wchr;       // sp256
     u8  sp154[0x102];
 

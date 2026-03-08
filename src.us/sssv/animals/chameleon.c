@@ -55,7 +55,7 @@ void func_8035A5F0_76BCA0(void) {
         spCA = VISIBILITY_VISIBLE;
         gLodDetailState = 0;
     } else {
-        spCA = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
+        spCA = classify_object_visibility_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
     }
 
     if (spCA == VISIBILITY_VISIBLE) {
@@ -321,21 +321,21 @@ void func_8035A5F0_76BCA0(void) {
         }
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = gCameraUiState, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
-            gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = gCameraUiState, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+            func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
+            gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.09f);
             if (D_803D5524->unk9C == CHAMELEON) {
 
-                gSPDisplayList(D_801D9E88++, D_010034C0_3CD90);
+                gSPDisplayList(gOpaqueDL++, D_010034C0_3CD90);
 
                 load_1_tile(D_04009BF0_FAC50, D_040099F0_FAA50);
                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x50) >> 6, (D_803F2EC0 * 0x50) >> 6, (D_803F2EC4 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04008C70_F9CD0);
                 func_802C78B0_6D8F60(2, 0x1A, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04009870_FA8D0);
                 load_1_tile(D_04009E10_FAE70, D_04009C10_FAC70);
 
-                gDPSetTileSize(D_801D9E88++, G_TX_RENDERTILE, 0, D_803D5540, 0, 0);
+                gDPSetTileSize(gOpaqueDL++, G_TX_RENDERTILE, 0, D_803D5540, 0, 0);
 
                 func_802C78B0_6D8F60(1, 0x14, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, (D_803F2EC8 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04009500_FA560);
 #pragma _permuter sameline start
@@ -351,8 +351,8 @@ void func_8035A5F0_76BCA0(void) {
                 if (gLodDetailState == 0) { func_802C78B0_6D8F60(0xD, 0xE, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04008AD0_F9B30); }
 #pragma _permuter sameline end
 
-                gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
-                gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
+                gSPClearGeometryMode(gOpaqueDL++, G_CULL_BACK);
+                gSPSetGeometryMode(gOpaqueDL++, G_CULL_FRONT);
 
 #pragma _permuter sameline start
                 if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 0xA, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 1, 0, D_04008FF0_FA050); }
@@ -380,7 +380,7 @@ void func_8035A5F0_76BCA0(void) {
                     0,
                     D_040099B0_FAA10);
             }
-            gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
+            gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
         }
         func_8035D6A0_76ED50();
     } else {

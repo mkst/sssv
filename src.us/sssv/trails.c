@@ -386,35 +386,35 @@ void display_trails(void) {
     SimpleTrail *simpleTrail;
     Animal *animal;
 
-    gSPDisplayList(D_801D9E90++, D_01004A70_3E340);
+    gSPDisplayList(gLayer0DL++, D_01004A70_3E340);
 
     // what macros are these? can't get _gDPLoadTextureBlock to match...
-    gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01044CB0_7E580); // trail
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
+    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01044CB0_7E580); // trail
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD
     );
-    gDPLoadSync(D_801D9E90++);
-    gDPLoadBlock(D_801D9E90++, G_TX_LOADTILE, 0, 0, 1023, 1024);
-    gDPPipeSync(D_801D9E90++);
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0,
+    gDPLoadSync(gLayer0DL++);
+    gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 1023, 1024);
+    gDPPipeSync(gLayer0DL++);
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD
     );
-    gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, (32-1) << 2, (128-1) << 2);
+    gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, (32-1) << 2, (128-1) << 2);
 
-    gDPSetTextureImage(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_010454B0_7ED80);
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0,
+    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_010454B0_7ED80);
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPLoadSync(D_801D9E90++);
-    gDPLoadBlock(D_801D9E90++, G_TX_LOADTILE, 0, 0, 1023, 1024);
-    gDPPipeSync(D_801D9E90++);
-    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, G_TX_RENDERTILE, 0,
+    gDPLoadSync(gLayer0DL++);
+    gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 1023, 1024);
+    gDPPipeSync(gLayer0DL++);
+    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, G_TX_RENDERTILE, 0,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
         G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD
     );
-    gDPSetTileSize(D_801D9E90++, G_TX_RENDERTILE, 0, 0, (32-1) << 2, (128-1) << 2);
+    gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, (32-1) << 2, (128-1) << 2);
 
     if (trailsUsed > 0) {
         for (i = 0; i < 30; i++) {
@@ -470,10 +470,10 @@ void display_trails(void) {
                     }
                 }
 
-                gSPVertex(D_801D9E90++, trail->unk38, 32, 0);
-                gDPSetCombineMode(D_801D9E90++, G_CC_BLENDPE, G_CC_BLENDPE);
-                gDPSetAlphaCompare(D_801D9E90++, G_AC_NONE);
-                gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0,
+                gSPVertex(gLayer0DL++, trail->unk38, 32, 0);
+                gDPSetCombineMode(gLayer0DL++, G_CC_BLENDPE, G_CC_BLENDPE);
+                gDPSetAlphaCompare(gLayer0DL++, G_AC_NONE);
+                gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0,
                     G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
                     G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
@@ -490,18 +490,18 @@ void display_trails(void) {
                     sp170[1] = sp164[1] + (trail->unk7 * temp_f0);
                     sp170[2] = sp164[2] + (trail->unk8 * temp_f0);
 
-                    gDPSetPrimColor(D_801D9E90++, 0, 0, sp170[0], sp170[1], sp170[2], 0xFF);
+                    gDPSetPrimColor(gLayer0DL++, 0, 0, sp170[0], sp170[1], sp170[2], 0xFF);
 
                     sp170[0] = sp164[0] + (trail->unk9 * temp_f0);
                     sp170[1] = sp164[1] + (trail->unkA * temp_f0);
                     sp170[2] = sp164[2] + (trail->unkB * temp_f0);
 
-                    gDPSetEnvColor(D_801D9E90++, sp170[0], sp170[1], sp170[2], 0xFF);
+                    gDPSetEnvColor(gLayer0DL++, sp170[0], sp170[1], sp170[2], 0xFF);
 
                     // temp_s0_42->words.w0 = ((temp_v0_15 & 0xFF) << 0x10) | (((((var_s1 + 3) & 0x1F) * 2) & 0xFF) << 8) | ((temp_v0_15 + 2) & 0xFF) | 0xB1000000;
                     // temp_s0_42->words.w1 = ((temp_v0_15 & 0xFF) << 0x10) | (((((var_s1 + 2) & 0x1F) * 2) & 0xFF) << 8) | ((((var_s1 + 3) & 0x1F) * 2) & 0xFF);
                     gSP2Triangles(
-                        D_801D9E90++,
+                        gLayer0DL++,
                         (var_s1 + 0),
                         (var_s1 + 3) & 0x1F,
                         (var_s1 + 1),
@@ -581,40 +581,40 @@ void display_trails(void) {
                     }
                 }
 
-                if (func_8029A334_6AB9E4(simpleTrail->unk2C, simpleTrail->unk2E, simpleTrail->unk30) != 0) {
-                    gDPSetCombineMode(D_801D9E90++, G_CC_BLENDPE, G_CC_BLENDPE);
-                    gDPSetAlphaCompare(D_801D9E90++, G_AC_NONE);
-                    gDPSetPrimColor(D_801D9E90++, 0, 0, simpleTrail->color[0], simpleTrail->color[1], simpleTrail->color[2], 0xFF);
+                if (is_world_cell_loaded_6AB9E4(simpleTrail->unk2C, simpleTrail->unk2E, simpleTrail->unk30) != 0) {
+                    gDPSetCombineMode(gLayer0DL++, G_CC_BLENDPE, G_CC_BLENDPE);
+                    gDPSetAlphaCompare(gLayer0DL++, G_AC_NONE);
+                    gDPSetPrimColor(gLayer0DL++, 0, 0, simpleTrail->color[0], simpleTrail->color[1], simpleTrail->color[2], 0xFF);
 
-                    gDPSetEnvColor(D_801D9E90++, simpleTrail->env[0], simpleTrail->env[1], simpleTrail->env[2], 0xFF);
+                    gDPSetEnvColor(gLayer0DL++, simpleTrail->env[0], simpleTrail->env[1], simpleTrail->env[2], 0xFF);
 
-                    guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], (f32) simpleTrail->unk2C, (f32) simpleTrail->unk2E, (f32) simpleTrail->unk30);
-                    gSPMatrix(D_801D9E90++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+                    guTranslate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], (f32) simpleTrail->unk2C, (f32) simpleTrail->unk2E, (f32) simpleTrail->unk30);
+                    gSPMatrix(gLayer0DL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
                     // 0x4280 -> 64.0
                     // 0x4100 -> 8.0
                     temp_f2 = ((simpleTrail->unk2 / (1 / 0.015625f)) / (1 / 0.125f));
-                    guScale(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], temp_f2 + 0.125, temp_f2 + 0.125, temp_f2 + 0.125);
-                    gSPMatrix(D_801D9E90++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+                    guScale(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], temp_f2 + 0.125, temp_f2 + 0.125, temp_f2 + 0.125);
+                    gSPMatrix(gLayer0DL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-                    guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], animal->yRotation, 0.0f, 0.0f, 1.0f);
-                    gSPMatrix(D_801D9E90++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+                    guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], animal->yRotation, 0.0f, 0.0f, 1.0f);
+                    gSPMatrix(gLayer0DL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-                    guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], animal->zRotation, 1.0f, 0.0f, 0.0f);
-                    gSPMatrix(D_801D9E90++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+                    guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], animal->zRotation, 1.0f, 0.0f, 0.0f);
+                    gSPMatrix(gLayer0DL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-                    gSPVertex(D_801D9E90++, &simpleTrail->unk38, 32, 0);
+                    gSPVertex(gLayer0DL++, &simpleTrail->unk38, 32, 0);
 
-                    gSPPopMatrix(D_801D9E90++, G_MTX_MODELVIEW);
+                    gSPPopMatrix(gLayer0DL++, G_MTX_MODELVIEW);
 
-                    gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     temp_a3 = simpleTrail->unkA - 1;
                     for (var_s1 = 0; var_s1 < simpleTrail->unkA; var_s1 += 2) {
                         // temp_s0_27->words.w0 = (((var_s1 * 2) & 0xFF) << 0x10) | (((((var_s1 + 3) & temp_a3) * 2) & 0xFF) << 8) | (((var_s1 * 2) + 2) & 0xFF) | 0xB1000000;
                         // temp_s0_27->words.w1 = (((var_s1 * 2) & 0xFF) << 0x10) | (((((var_s1 + 2) & temp_a3) * 2) & 0xFF) << 8) | ((((var_s1 + 3) & temp_a3) * 2) & 0xFF);
                         gSP2Triangles(
-                            D_801D9E90++,
+                            gLayer0DL++,
                             (var_s1 + 0),
                             (var_s1 + 3) & (temp_a3),
                             (var_s1 + 1),
@@ -724,18 +724,18 @@ void display_trails(void) {
                     }
                 }
 
-                gSPVertex(D_801D9E90++, &walrusWake->vtxs, 32, 0);
-                gDPSetCombineMode(D_801D9E90++, G_CC_BLENDPE, G_CC_BLENDPE);
-                gDPSetAlphaCompare(D_801D9E90++, G_AC_NONE);
-                gDPSetPrimColor(D_801D9E90++, 0, 0, walrusWake->color[0], walrusWake->color[1], walrusWake->color[2], 0xFF);
-                gDPSetEnvColor(D_801D9E90++, walrusWake->env[0], walrusWake->env[1], walrusWake->env[2], 0xFF);
-                gDPSetTile(D_801D9E90++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                gSPVertex(gLayer0DL++, &walrusWake->vtxs, 32, 0);
+                gDPSetCombineMode(gLayer0DL++, G_CC_BLENDPE, G_CC_BLENDPE);
+                gDPSetAlphaCompare(gLayer0DL++, G_AC_NONE);
+                gDPSetPrimColor(gLayer0DL++, 0, 0, walrusWake->color[0], walrusWake->color[1], walrusWake->color[2], 0xFF);
+                gDPSetEnvColor(gLayer0DL++, walrusWake->env[0], walrusWake->env[1], walrusWake->env[2], 0xFF);
+                gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                 for (var_s1 = walrusWake->unk2; var_s1 != walrusWake->numVtxs; var_s1 = (var_s1 + 2) & 0x1F) {
                     // temp_s0_36->words.w0 = ((((var_s1_2 + 0) * 2) & 0xFF) << 0x10) | (((((var_s1_2 + 3) & 0x1F) * 2) & 0xFF) << 8) | ((((var_s1_2 + 1)) & 0xFF) | 0xB1000000;
                     // temp_s0_36->words.w1 = ((((var_s1_2 + 0) * 2) & 0xFF) << 0x10) | (((((var_s1_2 + 2) & 0x1F) * 2) & 0xFF) << 8) | ((((var_s1_2 + 3) & 0x1F) * 2) & 0xFF);
                     gSP2Triangles(
-                        D_801D9E90++,
+                        gLayer0DL++,
                         (var_s1 + 0),
                         (var_s1 + 3) & 0x1F,
                         (var_s1 + 1),

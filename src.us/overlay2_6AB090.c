@@ -18,14 +18,14 @@ GfxHelper D_803C0660[28];
 // .text
 // ========================================================
 
-void func_802999E0_6AB090(DisplayList *arg0) {
+void setup_world_perspective_6AB090(DisplayList *arg0) {
     guPerspective(&arg0->unk37410, &gWorldPerspNorm, D_803F2D50.fovY, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);
     guScale(&arg0->unk37450, 0.5f, 0.5f, 0.5f);
     guScale(&arg0->unk374D0, 1.0f, 1.0f, 1.0f);
-    func_8033F380_750A30();
+    update_world_camera_transform();
 }
 
-void func_80299AA8_6AB158(DisplayList *arg0, Gfx **arg1) {
+void setup_frame_render_state(DisplayList *arg0, Gfx **arg1) {
     gSPMatrix((*arg1)++, &arg0->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     gSPMatrix((*arg1)++, &arg0->unk37450, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
     gSPMatrix((*arg1)++, &arg0->unk37490, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
@@ -127,7 +127,7 @@ void func_80299E84_6AB534(DisplayList *arg0) {
 void func_8029A32C_6AB9DC(s32 arg0) {
 }
 
-s16 func_8029A334_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
+s16 is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
     arg0 >>= 6;
     arg1 >>= 6;
     arg0 = (arg0 - 4) >> 4;
@@ -218,57 +218,57 @@ void set_fog_position_and_color(Gfx **dl) {
 
 void func_8029A720_6ABDD0(void) {
     if (gCameraVisibilityMask[6] & 1) {
-        func_80127D30(&D_80204278->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
+        func_80127D30(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
 
-        gSPMatrix(gMainDL++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-        gSPDisplayList(gMainDL++, &D_80204278->unkBB80);
-        gSPDisplayList(gMainDL++, &D_80204278->unk9600);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unkBB80);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unk9600);
         gSPPopMatrix(gMainDL++, G_MTX_MODELVIEW);
 
-        gSPMatrix(gMainDL++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-        gSPMatrix(gMainDL++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-        gSPMatrix(gMainDL++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
     } else if (gCameraVisibilityMask[6] & 2) {
-        func_80127ED4(&D_80204278->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
+        func_80127ED4(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
 
-        D_80204278->unk3B6B0.l.col[0]  = D_80204278->lights.a.l.col[0] >> 1;
-        D_80204278->unk3B6B0.l.col[1]  = D_80204278->lights.a.l.col[1] >> 1;
-        D_80204278->unk3B6B0.l.col[2]  = D_80204278->lights.a.l.col[2] >> 1;
-        D_80204278->unk3B6B0.l.colc[0] = D_80204278->lights.a.l.colc[0] >> 1;
-        D_80204278->unk3B6B0.l.colc[1] = D_80204278->lights.a.l.colc[1] >> 1;
-        D_80204278->unk3B6B0.l.colc[2] = D_80204278->lights.a.l.colc[2] >> 1;
+        gDisplayListContext->unk3B6B0.l.col[0]  = gDisplayListContext->lights.a.l.col[0] >> 1;
+        gDisplayListContext->unk3B6B0.l.col[1]  = gDisplayListContext->lights.a.l.col[1] >> 1;
+        gDisplayListContext->unk3B6B0.l.col[2]  = gDisplayListContext->lights.a.l.col[2] >> 1;
+        gDisplayListContext->unk3B6B0.l.colc[0] = gDisplayListContext->lights.a.l.colc[0] >> 1;
+        gDisplayListContext->unk3B6B0.l.colc[1] = gDisplayListContext->lights.a.l.colc[1] >> 1;
+        gDisplayListContext->unk3B6B0.l.colc[2] = gDisplayListContext->lights.a.l.colc[2] >> 1;
 
-        D_80204278->unk3B6B8.l.col[0]  = D_80204278->lights.l[0].l.col[0] >> 2;
-        D_80204278->unk3B6B8.l.col[1]  = D_80204278->lights.l[0].l.col[1] >> 2;
-        D_80204278->unk3B6B8.l.col[2]  = D_80204278->lights.l[0].l.col[2] >> 2;
-        D_80204278->unk3B6B8.l.colc[0] = D_80204278->lights.l[0].l.col[0] >> 2;
-        D_80204278->unk3B6B8.l.colc[1] = D_80204278->lights.l[0].l.col[1] >> 2;
-        D_80204278->unk3B6B8.l.colc[2] = D_80204278->lights.l[0].l.col[2] >> 2;
+        gDisplayListContext->unk3B6B8.l.col[0]  = gDisplayListContext->lights.l[0].l.col[0] >> 2;
+        gDisplayListContext->unk3B6B8.l.col[1]  = gDisplayListContext->lights.l[0].l.col[1] >> 2;
+        gDisplayListContext->unk3B6B8.l.col[2]  = gDisplayListContext->lights.l[0].l.col[2] >> 2;
+        gDisplayListContext->unk3B6B8.l.colc[0] = gDisplayListContext->lights.l[0].l.col[0] >> 2;
+        gDisplayListContext->unk3B6B8.l.colc[1] = gDisplayListContext->lights.l[0].l.col[1] >> 2;
+        gDisplayListContext->unk3B6B8.l.colc[2] = gDisplayListContext->lights.l[0].l.col[2] >> 2;
 
-        D_80204278->unk3B6B8.l.dir[0] = D_80204278->lights.l[0].l.dir[0];
-        D_80204278->unk3B6B8.l.dir[1] = D_80204278->lights.l[0].l.dir[1];
-        D_80204278->unk3B6B8.l.dir[2] = D_80204278->lights.l[0].l.dir[2];
-
-        gSPNumLights(gMainDL++, 1);
-        gSPLight(gMainDL++, &D_80204278->unk3B6B8, 1);
-        gSPLight(gMainDL++, &D_80204278->unk3B6B0, 2);
-
-        gSPMatrix(gMainDL++, &D_80204278->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-        gSPDisplayList(gMainDL++, &D_80204278->unk9600);
+        gDisplayListContext->unk3B6B8.l.dir[0] = gDisplayListContext->lights.l[0].l.dir[0];
+        gDisplayListContext->unk3B6B8.l.dir[1] = gDisplayListContext->lights.l[0].l.dir[1];
+        gDisplayListContext->unk3B6B8.l.dir[2] = gDisplayListContext->lights.l[0].l.dir[2];
 
         gSPNumLights(gMainDL++, 1);
-        gSPLight(gMainDL++, &D_80204278->lights.l, 1);
-        gSPLight(gMainDL++, &D_80204278->lights.a, 2);
+        gSPLight(gMainDL++, &gDisplayListContext->unk3B6B8, 1);
+        gSPLight(gMainDL++, &gDisplayListContext->unk3B6B0, 2);
+
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unk9600);
+
+        gSPNumLights(gMainDL++, 1);
+        gSPLight(gMainDL++, &gDisplayListContext->lights.l, 1);
+        gSPLight(gMainDL++, &gDisplayListContext->lights.a, 2);
 
         gSPPopMatrix(gMainDL++, G_MTX_MODELVIEW);
 
-        gSPMatrix(gMainDL++, &D_80204278->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-        gSPMatrix(gMainDL++, &D_80204278->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-        gSPMatrix(gMainDL++, &D_80204278->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
     }
 }
 
 void func_8029ABCC_6AC27C(void) {
-    func_80125980(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], FTOFIX32(256.0), FTOFIX32(512.0), FTOFIX32(1400.0), 0, 0, 0, FTOFIX32(2.0), FTOFIX32(2.0), FTOFIX32(2.0));
-    gSPMatrix(gMainDL++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    build_rotate_scale_translate_matrix(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], FTOFIX32(256.0), FTOFIX32(512.0), FTOFIX32(1400.0), 0, 0, 0, FTOFIX32(2.0), FTOFIX32(2.0), FTOFIX32(2.0));
+    gSPMatrix(gMainDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 }

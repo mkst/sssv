@@ -61,7 +61,7 @@ void func_8035E430_76FAE0(void) {
         spA2 = 0;
         gLodDetailState = 0;
     } else {
-        spA2 = func_802E89F0_6FA0A0(
+        spA2 = classify_object_visibility_6FA0A0(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
             D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
@@ -197,18 +197,18 @@ void func_8035E430_76FAE0(void) {
             }
         }
         func_8038064C_791CFC();
-        if (((D_80204278->usedModelViewMtxs + 0x1E) < 250) &&
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 250) &&
             (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_9 = gCameraUiState, (temp_v0_9 == 0)) || (temp_v0_9 == 2) || ((temp_v0_9 == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
 
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
-            gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-            gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
-            gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x80, 0x80, 0xFF);
+            func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
+            gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+            gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
+            gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x80, 0x80, 0xFF);
 
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x34) >> 6, (D_803F2EC0 * 0x34) >> 6, (D_803F2EC4 * 0x34) >> 6, D_803F2ED0, 0, 0, 0, D_04007080_CEAB0);
-            gSPDisplayList(D_801D9E88++, D_01003618_3CEE8);
-            gDPSetPrimColor(D_801D9E88++, 0, 0, 0x14, 0x14, 0x14, 0xFF);
+            gSPDisplayList(gOpaqueDL++, D_01003618_3CEE8);
+            gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x14, 0x14, 0x14, 0xFF);
 
             // rat wheels?
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(7,  8,  FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_040072F0_CED20); }
@@ -222,9 +222,9 @@ void func_8035E430_76FAE0(void) {
             func_8031A278_72B928(&D_803D552C->unk326, &spA6, &spA4);
 
             if (spA6 != 5) {
-                gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
+                gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
             } else {
-                gDPSetPrimColor(D_801D9E88++, 0, 0, 0x9B, 0x00, 0x00, 0xFF);
+                gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x9B, 0x00, 0x00, 0xFF);
             }
             func_802C78B0_6D8F60(2, 1, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_040073B0_CEDE0);
             func_802C78B0_6D8F60(2, 1, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_040073D8_CEE08);
@@ -237,7 +237,7 @@ void func_8035E430_76FAE0(void) {
             spB4 = -((SIN(D_803D552C->heading) >> 7) * (scale * 0x300));
 
             if ((spA6 != 5) && (gCameraUiState == 0)) {
-                func_8029CEF0_6AE5A0(
+                enqueue_dynamic_texture_billboard_6AE5A0(
                     spC4 + spB8,
                     spC0 + spB4,
                     spBC,
@@ -248,7 +248,7 @@ void func_8035E430_76FAE0(void) {
                     0xFF,
                     0,
                     0);
-                func_8029CEF0_6AE5A0(
+                enqueue_dynamic_texture_billboard_6AE5A0(
                     spC4 - spB8,
                     spC0 - spB4,
                     spBC,
@@ -260,7 +260,7 @@ void func_8035E430_76FAE0(void) {
                     0,
                     0);
             }
-            gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
+            gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
         }
         func_8035D6A0_76ED50();
     } else {

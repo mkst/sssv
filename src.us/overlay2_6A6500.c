@@ -27,9 +27,9 @@ struct053 D_803C0430;
 void func_80294E50_6A6500(void) {
     s16 width;
 
-    D_80204278->usedModelViewMtxs = 0;
-    D_80204278->unk39310 = 0;
-    D_80204278->usedSprites = 0;
+    gDisplayListContext->usedModelViewMtxs = 0;
+    gDisplayListContext->unk39310 = 0;
+    gDisplayListContext->usedSprites = 0;
     D_8028645A = 0;
     // reset a bunch of things
     func_8029F3CC_6B0A7C();
@@ -62,7 +62,7 @@ void func_80294E50_6A6500(void) {
         D_80152E98 = 0;
     }
     if ((gCameraUiState == 3) || (gCameraUiState == 4)){
-        func_8038E9F8_7A00A8();
+        render_terminal_background_frame();
         return;
     }
 
@@ -91,13 +91,13 @@ void func_80294E50_6A6500(void) {
         D_803E4D28 &= ~0x40;
     }
 
-    if ((D_803E4D28 & 0x80) && (D_803C0426 == 0) && (D_80204288 == 10)) {
+    if ((D_803E4D28 & 0x80) && (D_803C0426 == 0) && (gAttractModeState == 10)) {
         D_803C0426 = 1;
         D_803C042A = 0;
     }
 
     if ((gControllerInput->button & START_BUTTON) &&
-        (1 == D_802912DE) && (D_803C0426 == 0) && (D_80204288 == 10) && ((gEepromGlobal.unk8 & 1) == 0)) {
+        (1 == D_802912DE) && (D_803C0426 == 0) && (gAttractModeState == 10) && ((gEepromGlobal.unk8 & 1) == 0)) {
         D_803C0426 = 1;
         D_803C042A = 1;
     }
@@ -112,7 +112,7 @@ void func_80294E50_6A6500(void) {
         func_8038FF68_7A1618();
     } else {
         func_8038F414_7A0AC4();
-        D_80204290 = 2;
+        gFrameStepDivisor = 2;
         width = 320;
         if (gCheats.unk4 == 0) {
             D_803F2D50.unkDA = gVIData.screenWidth;
@@ -131,30 +131,30 @@ void func_80294E50_6A6500(void) {
         func_802FE5E8_70FC98();
         func_802F30A4_704754();
 
-        gSPDisplayList(D_801D9E88++, D_01003498_3CD68);
-        gSPDisplayList(D_801D9E88++, D_01004360_3DC30);
-        gSPDisplayList(D_801D9E90++, D_01003B70_3D440);
-        gSPDisplayList(D_801D9EB8++, D_01003998_3D268);
+        gSPDisplayList(gOpaqueDL++, D_01003498_3CD68);
+        gSPDisplayList(gOpaqueDL++, D_01004360_3DC30);
+        gSPDisplayList(gLayer0DL++, D_01003B70_3D440);
+        gSPDisplayList(gAuxDL++, D_01003998_3D268);
 
-        gDPSetColorDither(D_801D9E90++, G_CD_NOISE);
-        gDPSetAlphaDither(D_801D9E90++, G_AD_DISABLE);
+        gDPSetColorDither(gLayer0DL++, G_CD_NOISE);
+        gDPSetAlphaDither(gLayer0DL++, G_AD_DISABLE);
 
         func_803041FC_7158AC();
-        load_segments(&gMainDL, D_80204278);
-        switch_to_current_segment(&gMainDL, D_80204278);
+        load_segments(&gMainDL, gDisplayListContext);
+        switch_to_current_segment(&gMainDL, gDisplayListContext);
 
-        gSPViewport(gMainDL++, &D_80152EA8);
+        gSPViewport(gMainDL++, &gMainViewport);
 
-        func_80129430(&gMainDL);
+        clear_depth_buffer(&gMainDL);
 
-        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
         gSPDisplayList(gMainDL++, D_01004270_3DB40);
 
         gSPClipRatio(gMainDL++, FRUSTRATIO_3);
 
         func_8032F950_741000();
-        func_802999E0_6AB090(D_80204278);
-        func_80299AA8_6AB158(D_80204278, &gMainDL);
+        setup_world_perspective_6AB090(gDisplayListContext);
+        setup_frame_render_state(gDisplayListContext, &gMainDL);
         set_fog_position_and_color(&gMainDL);
         func_802C87E0_6D9E90();
         if (func_8038CCC0_79E370() != 0) {
@@ -171,12 +171,12 @@ void func_80294E50_6A6500(void) {
                 D_803F671C = 0;
             }
         }
-        func_802B3EC0_6C5570(&gMainDL, ((gCameraVisibilityMask[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h, D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h);
+        func_802B3EC0_6C5570(&gMainDL, ((gCameraVisibilityMask[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h);
         if ((gInitialisationState == 0) && (gInputMode == INPUT_MODE_USER) && (gLevelProgress.level != DMA_INTRO)) {
-            func_80349DCC_75B47C(1);
+            osd_update(1);
         }
 
-        gSPDisplayList(gMainDL++, &D_80204278->unk267A0);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unk267A0);
         func_8029877C_6A9E2C();
         D_803F2D50.unk18 = 1; //D_803F2D68 = 1;
         if (0) {};
@@ -192,34 +192,34 @@ void func_80294E50_6A6500(void) {
         func_80397840_7A8EF0();
         func_802DA7F0_6EBEA0();
         func_802D6738_6E7DE8();
-        func_802CB394_6DCA44(D_80204278);
+        func_802CB394_6DCA44(gDisplayListContext);
 
-        D_80152EA8.vp.vscale[0] = gScreenWidth  << 1;
-        D_80152EA8.vp.vscale[1] = gScreenHeight << 1;
-        D_80152EA8.vp.vtrans[0] = gScreenWidth  << 1;
-        D_80152EA8.vp.vtrans[1] = gScreenHeight << 1;
+        gMainViewport.vp.vscale[0] = gScreenWidth  << 1;
+        gMainViewport.vp.vscale[1] = gScreenHeight << 1;
+        gMainViewport.vp.vtrans[0] = gScreenWidth  << 1;
+        gMainViewport.vp.vtrans[1] = gScreenHeight << 1;
 
         func_802DE950_6F0000();
         func_802C8878_6D9F28();
         func_802E072C_6F1DDC(0);
 
-        gSPDisplayList(gMainDL++, &D_80204278->unk9600);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unk9600);
 
         gRenderMode2 = 0x0000000000110038;
-        func_8029F7D4_6B0E84(D_80204278, &D_801E9EB8);
+        func_8029F7D4_6B0E84(gDisplayListContext, &D_801E9EB8);
         func_8029A720_6ABDD0();
         set_fog_position_and_color(&gMainDL);
 
-        gSPDisplayList(gMainDL++, &D_80204278->unkBB80);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unkBB80);
 
         if ((gControllerInput != NULL) && (D_801D9ED4 == 0) && (gControllerInput->button & L_TRIG)) {
             D_801D9ED4 = 10;
         }
         set_fog_position_and_color(&gMainDL);
         if ((gCameraUiState != 2) || (D_803F6468 >= 7)) {
-            func_80299B68_6AB218(D_80204278);
+            func_80299B68_6AB218(gDisplayListContext);
         }
-        func_80297628_6A8CD8(D_803C0740, D_80204278);
+        func_80297628_6A8CD8(D_803C0740, gDisplayListContext);
 
         gSPDisplayList(gMainDL++, D_01003A58_3D328);
         gDPSetTextureLOD(gMainDL++, G_TL_TILE);
@@ -228,10 +228,10 @@ void func_80294E50_6A6500(void) {
         if (D_803F2D10.unk0 < 2) {
             func_802D5AD8_6E7188(0, 1);
         }
-        func_80299E84_6AB534(D_80204278);
+        func_80299E84_6AB534(gDisplayListContext);
 
-        gSPDisplayList(gMainDL++, &D_80204278->unkDAC0);
-        gSPDisplayList(gMainDL++, &D_80204278->unk7D00);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unkDAC0);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unk7D00);
         gSPDisplayList(gMainDL++, &D_01004360_3DC30);
 
         gDPSetColorDither(gMainDL++, G_CD_NOISE);
@@ -259,13 +259,13 @@ void func_80294E50_6A6500(void) {
         if (gInitialisationState == 0) {
             if (gInputMode == INPUT_MODE_USER) {
                 if (gLevelProgress.level != DMA_INTRO) {
-                    func_80349DCC_75B47C(0);
+                    osd_update(0);
                 }
             } else if (gControllerConnected != 0) {
                 load_default_display_list(&gMainDL);
                 set_menu_text_color(0xFF, 0xFF, 0, 0xFF); // yellow
                 select_font(0, FONT_COMIC_SANS, 1, 0);
-                func_8012EB4C(&gMainDL, D_80204368, gScreenWidth / 2, 200, 16.0f, 16.0f, 16);
+                display_text_word_wrapped(&gMainDL, D_80204368, gScreenWidth / 2, 200, 16.0f, 16.0f, 16);
             }
         }
 
@@ -321,19 +321,19 @@ void func_80294E50_6A6500(void) {
                 gCurrentMusicTrack = NO_MUSIC;
                 D_803C0426 += 1;
             } else if (++D_803C0426 > 16) {
-                D_80204284 = 3;
+                gOverlayState = 3;
                 D_80152E90 = 1; // select menu overlay
             }
         }
         if (gInputMode == INPUT_MODE_DISABLED) {
             if (D_803C0424 == 0) {
-                func_8013385C(8.0f, 20.0f, 0);
-                func_801337DC(0, 8.0f, 20.0f, 0);
+                start_sfx_volume_fade(8.0f, 20.0f, 0);
+                start_sequence_volume_fade(0, 8.0f, 20.0f, 0);
                 trigger_screen_transition(TRANSITION_FADE_OUT_BLK);
                 D_803C0424 = 1;
             } else {
                 if (++D_803C0424 > 13) {
-                    D_80204284 = 3;
+                    gOverlayState = 3;
                     D_80152E90 = 1; // select menu overlay
                     gCurrentMusicTrack = NO_MUSIC;
                 }
@@ -351,13 +351,13 @@ void func_80294E50_6A6500(void) {
         if (D_803C0428 != 0) {
             if (++D_803C0428 > 19) {
                 gCurrentMusicTrack = NO_MUSIC;
-                D_80204284 = 3;
+                gOverlayState = 3;
                 D_80152E90 = 1; // select menu overlay
             }
         } else if (display_credits() == 1) {
             D_803C0428 = 1;
-            func_8013385C(6.0f, 20.0f, 0);
-            func_801337DC(0, 6.0f, 20.0f, 0);
+            start_sfx_volume_fade(6.0f, 20.0f, 0);
+            start_sequence_volume_fade(0, 6.0f, 20.0f, 0);
             trigger_screen_transition(TRANSITION_FADE_OUT_BLK);
         }
     }
@@ -384,7 +384,7 @@ void reset_player_progress(void) {
 
 // unused?
 void reset_player_health(void) {
-    D_801D9ED8.animals[gCurrentAnimalIndex].animal->health = 0x7F;
+    gAnimalState.animals[gCurrentAnimalIndex].animal->health = 0x7F;
     D_803F2CE8 = 0;
     D_8020427C = 1;
 }

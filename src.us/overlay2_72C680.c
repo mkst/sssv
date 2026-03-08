@@ -506,7 +506,7 @@ void load_level_data_sections(void) {
                     can->id,
                     0);
 
-                obj = D_801D9ED8.animals[gNumAnimalsInLevel - 1].animal;
+                obj = gAnimalState.animals[gNumAnimalsInLevel - 1].animal;
 
                 if (can->unkC != 0) {
                     cmdWrapper = &D_803E4D40[can->unkC] - 1;
@@ -530,12 +530,12 @@ void load_level_data_sections(void) {
 
             while (length-- > 0) {
                 if (joi->parent >= 1000) {
-                    parent = D_801D9ED8.animals[(joi->parent - 1000) + sp7A].animal;
+                    parent = gAnimalState.animals[(joi->parent - 1000) + sp7A].animal;
                 } else {
                     parent = func_802C93E8_6DAA98(joi->parent);
                 }
                 if (joi->child >= 1000) {
-                    child = D_801D9ED8.animals[(joi->child - 1000) + sp7A].animal;
+                    child = gAnimalState.animals[(joi->child - 1000) + sp7A].animal;
                 } else {
                     child = func_802C93E8_6DAA98(joi->child);
                 }
@@ -1018,7 +1018,7 @@ void func_8031C48C_72DB3C(void) {
     s16 idx;
 
     if (D_803F2D50.entranceTeleporter != NULL) {
-        func_8029B9B8_6AD068(D_801D9ED8.animals[gCurrentAnimalIndex].animal, D_803F2D50.entranceTeleporter);
+        func_8029B9B8_6AD068(gAnimalState.animals[gCurrentAnimalIndex].animal, D_803F2D50.entranceTeleporter);
     }
 
     load_data_section(D_803F2D50.segment);
@@ -1039,9 +1039,9 @@ void func_8031C48C_72DB3C(void) {
 
     // animals
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if (D_801D9ED8.animals[i].animal->commands.unk1A8 != NULL) {
+        if (gAnimalState.animals[i].animal->commands.unk1A8 != NULL) {
             // load in commands
-            func_803191B0_72A860(D_801D9ED8.animals[i].animal);
+            func_803191B0_72A860(gAnimalState.animals[i].animal);
         }
     }
     //

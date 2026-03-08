@@ -24,13 +24,13 @@ typedef u8 Addr[];
 #define SET_JOINT(j0, j1, scale, x, y, z, f, g, flip, i, dl) \
     func_802C78B0_6D8F60(j0, j1, (scale*(x)) >> 6, (scale*(y)) >> 6, (scale*(z)) >> 6, f, g, flip, i, dl)
 
-#define SIN(x)                 D_80152C78[((s16)(x)       ) & 0xFF]
-#define COS(x)                 D_80152C78[((s16)(x) + 0x40) & 0xFF]
+#define SIN(x)                 gSineTable256[((s16)(x)       ) & 0xFF]
+#define COS(x)                 gSineTable256[((s16)(x) + 0x40) & 0xFF]
 
 // DMA's interpretation of PI...
 #define SSSV_PI                3.141579
 
-#define SSSV_RAND(x)           (func_8012826C() & (x - 1))
+#define SSSV_RAND(x)           (advance_random_seed() & (x - 1))
 
 #define MAX_EUROPE_ANIMALS     19
 #define MAX_ICE_ANIMALS        11

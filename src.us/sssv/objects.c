@@ -107,7 +107,7 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
     obj->unk164 = foo->unk89;
 
     if (foo->unk82.unk7) {
-        temp_v1 = func_8031124C_7228FC(x, z) >> 0x10;
+        temp_v1 = sample_ground_height_at_xz(x, z) >> 0x10;
         if (y < temp_v1) {
             y = temp_v1;
         }

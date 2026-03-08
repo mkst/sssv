@@ -62,7 +62,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
     CollisionNode *phi_s1;
     s16 phi_a0;
 
-    if (D_801D9ED8.animals[gCurrentAnimalIndex].animal->unk162 == 1) {
+    if (gAnimalState.animals[gCurrentAnimalIndex].animal->unk162 == 1) {
         if (arg0 > 20) {
             do_rumble(0, 25, 55, 5, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h)); //, temp_a3));
         } else {
@@ -438,7 +438,7 @@ void trigger_contagious_laughter(void) {
                                             (animalId != HYENA_BIKER)) {
 
                                             do_laughter = 0;
-                                            if (D_801D9ED8.animals[gCurrentAnimalIndex].animal == animal) {
+                                            if (gAnimalState.animals[gCurrentAnimalIndex].animal == animal) {
                                                 if (D_803F63D0 != D_803D5544) {
                                                     do { D_803F63D0 = D_803D5544; } while (0);
                                                     do_laughter = 1;
@@ -598,11 +598,11 @@ Animal *func_8037E9AC_79005C(void) {
     sp54 = COS(D_803D552C->heading) >> 9;
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if ((D_801D9ED8.animals[i].animal != 0) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER)) {
-            if ((D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_2) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
-                if ((D_803D5530 != D_801D9ED8.animals[i].animal) && (get_ai_behaviour(D_803D5530->unk16C->objectType, D_801D9ED8.animals[i].animal->unk16C->objectType) != AI_LEADER)) {
+        if ((gAnimalState.animals[i].animal != 0) && (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER)) {
+            if ((gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_2) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
+                if ((D_803D5530 != gAnimalState.animals[i].animal) && (get_ai_behaviour(D_803D5530->unk16C->objectType, gAnimalState.animals[i].animal->unk16C->objectType) != AI_LEADER)) {
 
-                    a = D_801D9ED8.animals[i].animal;
+                    a = gAnimalState.animals[i].animal;
 
                     xPosDelta = xPos - a->position.xPos.h;
                     zPosDelta = zPos - a->position.zPos.h;
@@ -673,10 +673,10 @@ Animal *func_8037ED1C_7903CC(void) {
     var_a3 = COS(D_803D552C->heading) >> 9;
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if ((D_801D9ED8.animals[i].animal != NULL) && (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) && (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
-            if (D_803D5530 != D_801D9ED8.animals[i].animal) {
+        if ((gAnimalState.animals[i].animal != NULL) && (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
+            if (D_803D5530 != gAnimalState.animals[i].animal) {
 
-                animal = D_801D9ED8.animals[i].animal;
+                animal = gAnimalState.animals[i].animal;
                 xPosDelta = xPos - animal->position.xPos.h;
                 zPosDelta = zPos - animal->position.zPos.h;
 
@@ -744,14 +744,14 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
         zPosNew = zPos + ((sp86 * i) >> 8);
 
         if (D_803D5530->unk162 != 1) {
-            yPosNew = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10) + 8;
+            yPosNew = MAX(sp7A, sample_ground_height_at_xz(xPosNew, zPosNew) >> 0x10) + 8;
         } else {
             if ((D_803D5530->unk160 == 0) || (D_803D5530->unk160 == 1)) {
-                yPosNew = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
+                yPosNew = (sample_ground_height_at_xz(xPosNew, zPosNew) + 8) >> 0x10;
             } else {
                 yPosNew = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
                 if (yPosNew == 0x4000) {
-                    yPosNew = (func_8031124C_7228FC(xPosNew, zPosNew) + 8) >> 0x10;
+                    yPosNew = (sample_ground_height_at_xz(xPosNew, zPosNew) + 8) >> 0x10;
                 } else {
                     yPosNew = yPosNew + 8;
                 }
@@ -764,7 +764,7 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
             func_80311A2C_7230DC(xPosNew, zPosNew, &sp76, &sp74, temp_s1);
 
             if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, xPosNew, zPosNew, yPosNew, temp_s1, 0, 0) == 0) {
-                if ((ABS(yPosNew - sp7A) < 0x50) && (func_802B75CC_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, yPosNew << 0x10, &sp72, 1) == 0) && ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
+                if ((ABS(yPosNew - sp7A) < 0x50) && (check_collision_against_animals_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, yPosNew << 0x10, &sp72, 1) == 0) && ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
                   continue;
                 }
             }
@@ -783,12 +783,12 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
 
             yPosNew = func_80310F58_722608(xPosNew, zPosNew) >> 0x10;
             if (yPosNew == 0x4000) {
-                sp7A = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10) + 0x10;
+                sp7A = MAX(sp7A, sample_ground_height_at_xz(xPosNew, zPosNew) >> 0x10) + 0x10;
             } else {
                 sp7A = MAX(sp7A, yPosNew) + 0x10;
             }
         } else {
-            sp7A = MAX(sp7A, func_8031124C_7228FC(xPosNew, zPosNew) >> 0x10) + 0x10;
+            sp7A = MAX(sp7A, sample_ground_height_at_xz(xPosNew, zPosNew) >> 0x10) + 0x10;
         }
 
         D_803D5530->position.xPos.h = xPosNew;
@@ -992,22 +992,22 @@ void sheep_follow_leader(void) {
 
     // iterate over all animals in the level
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if ((D_801D9ED8.animals[i].animal != NULL) &&
-            (D_801D9ED8.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-            (D_801D9ED8.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) &&
-            (D_801D9ED8.animals[i].animal != D_803D5530) &&
-            ((u8)D_801D9ED8.animals[i].animal->unk2A0 == 0) &&
-            ((D_801D9ED8.animals[i].unk0->unk9C == SHEEP) || (D_801D9ED8.animals[i].unk0->unk9C == SPRINGY_THINGY))) {
-            xPosDelta = ABS(D_801D9ED8.animals[i].animal->position.xPos.h - D_803D5530->position.xPos.h);
+        if ((gAnimalState.animals[i].animal != NULL) &&
+            (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
+            (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) &&
+            (gAnimalState.animals[i].animal != D_803D5530) &&
+            ((u8)gAnimalState.animals[i].animal->unk2A0 == 0) &&
+            ((gAnimalState.animals[i].unk0->unk9C == SHEEP) || (gAnimalState.animals[i].unk0->unk9C == SPRINGY_THINGY))) {
+            xPosDelta = ABS(gAnimalState.animals[i].animal->position.xPos.h - D_803D5530->position.xPos.h);
             if (xPosDelta < 200) {
-                zPosDelta = ABS(D_801D9ED8.animals[i].animal->position.zPos.h - D_803D5530->position.zPos.h);
+                zPosDelta = ABS(gAnimalState.animals[i].animal->position.zPos.h - D_803D5530->position.zPos.h);
                 if (zPosDelta < 200) {
-                    if ((D_801D9ED8.animals[i].animal->unk287 == 0) && (D_803D552C->unk28A == 0)) {
-                        D_801D9ED8.animals[i].animal->unk287 = 1;
+                    if ((gAnimalState.animals[i].animal->unk287 == 0) && (D_803D552C->unk28A == 0)) {
+                        gAnimalState.animals[i].animal->unk287 = 1;
                         if (D_803D5530) {};
-                        D_801D9ED8.animals[i].animal->unk288 = (xPosDelta + zPosDelta) >> 3;
+                        gAnimalState.animals[i].animal->unk288 = (xPosDelta + zPosDelta) >> 3;
                         // swarm? follow?
-                        func_80363E88_775538(D_801D9ED8.animals[i].animal, D_803D5530);
+                        func_80363E88_775538(gAnimalState.animals[i].animal, D_803D5530);
                     }
                 }
             }

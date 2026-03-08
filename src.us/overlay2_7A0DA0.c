@@ -133,7 +133,7 @@ static struct004 D_803B6700_7C7DB0[13] = {
 // unused?
 static s32 D_803B6838_7C7EE8 = 0;
 
-static struct004 D_803B683C_7C7EEC = {
+static struct004 gPauseMenuLookAt = {
     977.25f,
     1102.5f,
     1041.18f,
@@ -220,11 +220,11 @@ void func_8038F708_7A0DB8(void) {
 
 void trigger_pause_menu(void) {
     generate_stars();
-    func_801337DC(0, 60.0f, 20.0f, 6.0f);
+    start_sequence_volume_fade(0, 60.0f, 20.0f, 6.0f);
 
     gOverlayMenuState.unk14 = 0;
     gOverlayMenuState.unk2D = 0;
-    D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+    gPauseMenuLookAt = D_803B6700_7C7DB0[2];
     gOverlayMenuState.unk31 = 0;
     gOverlayMenuState.unk33 = 0;
     gOverlayMenuState.unk35 = 0;
@@ -253,7 +253,7 @@ void trigger_pause_menu(void) {
 
 void trigger_mission_brief_screen(void) {
     generate_stars();
-    func_801337DC(0, 15.0f, 20.0f, 6.0f);
+    start_sequence_volume_fade(0, 15.0f, 20.0f, 6.0f);
 
     gOverlayMenuState.unk2D = 0;
     gOverlayMenuState.unk31 = 0;
@@ -289,7 +289,7 @@ void trigger_level_failed(void) {
     generate_stars();
 
     gOverlayMenuState.unk2D = 0;
-    D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+    gPauseMenuLookAt = D_803B6700_7C7DB0[2];
     gOverlayMenuState.unk8 = 6;
     gOverlayMenuState.unk6 = 2;
     gOverlayMenuState.unk29 = 1;
@@ -309,7 +309,7 @@ void func_8038FAB4_7A1164(void) {
 
     gOverlayMenuState.unk24 = 0;
     gOverlayMenuState.unk2D = 0;
-    D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+    gPauseMenuLookAt = D_803B6700_7C7DB0[2];
     gOverlayMenuState.unk8 = 12;
     gOverlayMenuState.unk6 = 2;
     gOverlayMenuState.unk29 = 1;
@@ -369,14 +369,14 @@ void func_8038FC58_7A1308(void) {
     }
     D_80152E98 = 0;
     gCurrentMusicTrack = NO_MUSIC;
-    D_80204290 = 2;
-    func_801337DC(0, 60.0f, 0, 20.0f);
-    func_8013385C(60.0f, 0, 20.0f);
+    gFrameStepDivisor = 2;
+    start_sequence_volume_fade(0, 60.0f, 0, 20.0f);
+    start_sfx_volume_fade(60.0f, 0, 20.0f);
 }
 
 void load_smashing_start(void) {
-    D_80204290 = 2;
-    func_801337DC(0, 5.0f, 20.0f, 0);
+    gFrameStepDivisor = 2;
+    start_sequence_volume_fade(0, 5.0f, 20.0f, 0);
     gLevelProgress.level = SMASHING_START;
     D_803F7DA8.currentLevel = 0;
     gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
@@ -405,7 +405,7 @@ void func_8038FD74_7A1424(void) {
     load_ingame_objects();
     load_water_texture();
     gOverlayMenuState.unk2D = 0;
-    D_803B683C_7C7EEC = D_803B6700_7C7DB0[6];
+    gPauseMenuLookAt = D_803B6700_7C7DB0[6];
     gOverlayMenuState.unk8 = 6;
     gOverlayMenuState.unk24 = 0;
     gOverlayMenuState.unk6 = 6;
@@ -430,10 +430,10 @@ void func_8038FD74_7A1424(void) {
     reset_screen_transition();
     trigger_screen_transition(TRANSITION_FADE_IN);
 
-    if (D_80204288 == 10) {
+    if (gAttractModeState == 10) {
         load_intro();
-    } else if (D_80204288 != 0) {
-        load_demo_level(D_803B6870_7C7F20[D_80204288]);
+    } else if (gAttractModeState != 0) {
+        load_demo_level(D_803B6870_7C7F20[gAttractModeState]);
     }
 }
 
@@ -452,7 +452,7 @@ void func_8038FF68_7A1618(void) {
     if (gOverlayMenuState.unk24 != 0) {
         gOverlayMenuState.unk24++;
         if (gOverlayMenuState.unk24 >= 0xE) {
-            D_80204284 = 3;
+            gOverlayState = 3;
             D_80152E90 = 1;
         }
     }
@@ -469,7 +469,7 @@ void func_8038FF68_7A1618(void) {
     func_80391A38_7A30E8();
     if (gOverlayMenuState.unk2A != 0) {
         sp3C = 1;
-        func_80395480_7A6B30();
+        setup_pause_menu_perspective_a_7A6B30();
         func_80395B58_7A7208();
 
         gDPPipeSync(gMainDL++);
@@ -480,56 +480,56 @@ void func_8038FF68_7A1618(void) {
 
         D_803B6870_7C7F20[0]++;
         if (gOverlayMenuState.unk2B != 0) {
-            gSPDisplayList(D_801D9E8C++, D_01004270_3DB40);
-            gDPPipeSync(D_801D9E8C++);
+            gSPDisplayList(gXluDL++, D_01004270_3DB40);
+            gDPPipeSync(gXluDL++);
 
-            gDPSetCycleType(D_801D9E8C++, G_CYC_2CYCLE);
-            gDPSetRenderMode(D_801D9E8C++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
+            gDPSetCycleType(gXluDL++, G_CYC_2CYCLE);
+            gDPSetRenderMode(gXluDL++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
 
             // dan danger's face texture
-            gDPSetTextureImage(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_actors_dan_dan1_rgba16__png);
-            gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-            gDPLoadSync(D_801D9E8C++);
-            gDPLoadBlock(D_801D9E8C++, G_TX_LOADTILE, 0, 0, 2047, 256);
-            gDPPipeSync(D_801D9E8C++);
+            gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_actors_dan_dan1_rgba16__png);
+            gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+            gDPLoadSync(gXluDL++);
+            gDPLoadBlock(gXluDL++, G_TX_LOADTILE, 0, 0, 2047, 256);
+            gDPPipeSync(gXluDL++);
 
-            gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-            gDPSetTileSize(D_801D9E8C++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(63));
-            gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-            gDPSetTile(D_801D9E8C++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-            gSPSetGeometryMode(D_801D9E8C++, G_LIGHTING);
-            gDPSetCombineLERP(D_801D9E8C++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, 0, COMBINED, 0, SHADE, 0, 0, 0, 0, TEXEL0);
+            gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+            gDPSetTileSize(gXluDL++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(63));
+            gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+            gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+            gSPSetGeometryMode(gXluDL++, G_LIGHTING);
+            gDPSetCombineLERP(gXluDL++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, 0, COMBINED, 0, SHADE, 0, 0, 0, 0, TEXEL0);
 
             gOverlayMenuState.unk30 += 8;
-            gDPSetPrimColor(D_801D9E8C++, 0, 0, 0x00, 0x00, 0x00, 0x00);
+            gDPSetPrimColor(gXluDL++, 0, 0, 0x00, 0x00, 0x00, 0x00);
             func_80397F5C_7A960C(FTOFIX32(1030.0), FTOFIX32(1170.0), FTOFIX32(1021.0), 0, 0, 0xEA60, 0, 0);
         }
         if (gOverlayMenuState.unk2B == 0) {
-            gSPDisplayList(D_801D9E8C++, D_01004270_3DB40);
-            gDPPipeSync(D_801D9E8C++);
+            gSPDisplayList(gXluDL++, D_01004270_3DB40);
+            gDPPipeSync(gXluDL++);
 
-            gDPSetCycleType(D_801D9E8C++, G_CYC_2CYCLE);
-            gSPSetGeometryMode(D_801D9E8C++, G_LIGHTING);
+            gDPSetCycleType(gXluDL++, G_CYC_2CYCLE);
+            gSPSetGeometryMode(gXluDL++, G_LIGHTING);
         }
 
-        gDPPipeSync(D_801D9E8C++);
-        gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
-        gDPSetRenderMode(D_801D9E8C++, G_RM_PASS, G_RM_ZB_OPA_SURF2);
+        gDPPipeSync(gXluDL++);
+        gDPSetCombineLERP(gXluDL++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
+        gDPSetRenderMode(gXluDL++, G_RM_PASS, G_RM_ZB_OPA_SURF2);
 
         // load each of the 3 tv bodies
-        render_tv_body(&D_801D9E8C, 960, 1077, 1047);
-        render_tv_body(&D_801D9E8C, 1000, 1077, 1047);
-        render_tv_body(&D_801D9E8C, 1040, 1077, 1047);
+        render_tv_body(&gXluDL, 960, 1077, 1047);
+        render_tv_body(&gXluDL, 1000, 1077, 1047);
+        render_tv_body(&gXluDL, 1040, 1077, 1047);
         if (gOverlayMenuState.unk2C != 0) {
-            gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
+            gDPSetCombineLERP(gXluDL++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
             // load tv screen/glass
-            render_tv_glass(&D_801D9E8C, 960, 1077, 1046);
-            render_tv_glass(&D_801D9E8C, 1000, 1077, 1046);
-            render_tv_glass(&D_801D9E8C, 1040, 1077, 1046);
+            render_tv_glass(&gXluDL, 960, 1077, 1046);
+            render_tv_glass(&gXluDL, 1000, 1077, 1046);
+            render_tv_glass(&gXluDL, 1040, 1077, 1046);
         }
         // load spaceship interior
-        render_spaceship_interior(&D_801D9E8C);
-        gSPDisplayList(gMainDL++, &D_80204278->unkBB80);
+        render_spaceship_interior(&gXluDL);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unkBB80);
     }
 
     switch (gOverlayMenuState.unk29) {
@@ -594,12 +594,12 @@ void func_8038FF68_7A1618(void) {
             break;
         case 3:
             if (gOverlayMenuState.unk1A == 0) {
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[0];
                 gOverlayMenuState.unk1A = 1;
                 func_8039884C_7A9EFC();
                 func_8039895C_7AA00C();
             }
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
             func_8039A2DC_7AB98C();
             break;
         case 4:
@@ -607,15 +607,15 @@ void func_8038FF68_7A1618(void) {
             if ((D_8023F260.unk34 & 1) == 0) {
                 load_smashing_start();
             }
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
             display_zone_select_screen();
             func_8039264C_7A3CFC();
-            D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
+            gPauseMenuLookAt = D_803B6700_7C7DB0[0];
             break;
         case 5:
-            D_80204290 = 2;
+            gFrameStepDivisor = 2;
             func_8039264C_7A3CFC();
-            D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
+            gPauseMenuLookAt = D_803B6700_7C7DB0[0];
             gOverlayMenuState.unk2B = 0;
             gOverlayMenuState.unk2A = 1;
             gOverlayMenuState.unk2C = 1;
@@ -641,16 +641,16 @@ void func_8038FF68_7A1618(void) {
             if (func_80396714_7A7DC4()) {
                 gOverlayMenuState.unk18 = 14;
                 gOverlayMenuState.unk1A = 0;
-                func_801337DC(0, 10.0f, 20.0f, 0.0f);
-                func_8013385C(10.0f, 19.0f, 1.0f);
+                start_sequence_volume_fade(0, 10.0f, 20.0f, 0.0f);
+                start_sfx_volume_fade(10.0f, 19.0f, 1.0f);
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[2];
                 gOverlayMenuState.unk18 = 14;
                 gOverlayMenuState.unk1A = 0;
-                func_801337DC(0, 10.0f, 20.0f, 0.0f);
-                func_8013385C(10.0f, 19.0f, 1.0f);
+                start_sequence_volume_fade(0, 10.0f, 20.0f, 0.0f);
+                start_sfx_volume_fade(10.0f, 19.0f, 1.0f);
             }
             break;
         case 8:
@@ -660,7 +660,7 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[1];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[1];
             }
             break;
         case 9:
@@ -679,7 +679,7 @@ void func_8038FF68_7A1618(void) {
                 gOverlayMenuState.unk2C = 0;
                 gOverlayMenuState.unk1A = 1;
             }
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
             load_mission_brief_screen(0);
 
             if ((((gControllerInput->button & START_BUTTON)) && (D_802912DE == 1)) ||
@@ -710,7 +710,7 @@ void func_8038FF68_7A1618(void) {
             if (gOverlayMenuState.unk1A != 0) {
                 gOverlayMenuState.unk1A++;
                 if (gOverlayMenuState.unk1A >= 3) {
-                    D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
+                    gPauseMenuLookAt = D_803B6700_7C7DB0[0];
                     gOverlayMenuState.unk2C = 0;
                     gOverlayMenuState.unk2A = 0;
                     gOverlayMenuState.unk18 = 4;
@@ -720,19 +720,19 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[2];
             }
             break;
         case 12:
-            D_80204290 = 2;
+            gFrameStepDivisor = 2;
             func_8039661C_7A7CCC(2, 8, 1);
-            D_803B683C_7C7EEC = D_803B6700_7C7DB0[1];
+            gPauseMenuLookAt = D_803B6700_7C7DB0[1];
             gOverlayMenuState.unk1A = 0;
             gOverlayMenuState.unk18 = 13;
             gOverlayMenuState.unk2A = 1;
             // change around here
-            func_801337DC(0, 10.0f, 20.0f, 0.0f);
-            func_8013385C(10.0f, 19.0f, 1.0f);
+            start_sequence_volume_fade(0, 10.0f, 20.0f, 0.0f);
+            start_sfx_volume_fade(10.0f, 19.0f, 1.0f);
             break;
         case 13:
             if (func_80396714_7A7DC4()) {
@@ -743,9 +743,9 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 gOverlayMenuState.unk18 = 0xE;
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[2];
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[2];
                 reset_screen_transition();
                 trigger_screen_transition(TRANSITION_FADE_OUT_BLK);
             }
@@ -781,7 +781,7 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[0];
             }
             break;
         case 33:
@@ -793,12 +793,12 @@ void func_8038FF68_7A1618(void) {
             func_8039884C_7A9EFC();
             break;
         case 40:
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
             load_mission_brief_screen(0);
             if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1)) ||
                 ((gControllerInput->button & A_BUTTON) && (D_802912DF == 1))) {
                 play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
-                D_80204290 = 2;
+                gFrameStepDivisor = 2;
                 gOverlayMenuState.unk0 = 0;
                 gOverlayMenuState.unk27 = 1;
                 set_music_volume(gEepromGlobal.musicVol);
@@ -813,7 +813,7 @@ void func_8038FF68_7A1618(void) {
             if (gOverlayMenuState.unk1A == 0) {
                 gOverlayMenuState.unk1A = 1;
             }
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
             gOverlayMenuState.unk2B = 0;
             if (gOverlayMenuState.unk1C > 0) {
                 gOverlayMenuState.unk1C -= 20;
@@ -825,7 +825,7 @@ void func_8038FF68_7A1618(void) {
             draw_rectangle(&gMainDL,                0,    gScreenHeight - 8, gScreenWidth, 240, 0, 0, 0, 0xFF);
             break;
         case 1:
-            D_80204290 = 2;
+            gFrameStepDivisor = 2;
             gOverlayMenuState.unk1A = 0;
             gOverlayMenuState.unk18++;
             gOverlayMenuState.unk2C = 1;
@@ -846,7 +846,7 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[1];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[1];
             }
             break;
         case 5:
@@ -857,7 +857,7 @@ void func_8038FF68_7A1618(void) {
             gOverlayMenuState.unk1A = 0;
             break;
         case 6:
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
             load_mission_brief_screen(0);
             if ((((gControllerInput->button & START_BUTTON)) && (D_802912DE == 1)) ||
                 (((gControllerInput->button & A_BUTTON)) && (D_802912DF == 1)) ||
@@ -870,7 +870,7 @@ void func_8038FF68_7A1618(void) {
                 gOverlayMenuState.unk2C = 1;
                 gOverlayMenuState.unk2A = 1;
                 gOverlayMenuState.unk14 = 0;
-                D_80204290 = 2;
+                gFrameStepDivisor = 2;
             }
             break;
         case 7:
@@ -886,7 +886,7 @@ void func_8038FF68_7A1618(void) {
             }
             if (func_80396748_7A7DF8()) {
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[2];
             }
             break;
         case 10:
@@ -903,21 +903,21 @@ void func_8038FF68_7A1618(void) {
             gOverlayMenuState.unk2B = 1;
             gLevelProgress.score = 0;
             reset_screen_transition();
-            D_803B683C_7C7EEC = D_803B6700_7C7DB0[2];
+            gPauseMenuLookAt = D_803B6700_7C7DB0[2];
             gOverlayMenuState.unk1A = 0;
             gOverlayMenuState.unk2A = 1;
             gOverlayMenuState.unk18++;
             gOverlayMenuState.unk2C = 1;
             func_80397734_7A8DE4((RAND(4) + 13), 0);
             func_8039661C_7A7CCC(11, 8, 0);
-            func_8013385C(4.0f, 0, 20.0f);
+            start_sfx_volume_fade(4.0f, 0, 20.0f);
             break;
         case 21:
             if (func_80396748_7A7DF8()) {
                 gOverlayMenuState.unk18 = 25;
                 gOverlayMenuState.unk1A = 0;
                 func_8039264C_7A3CFC();
-                D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
+                gPauseMenuLookAt = D_803B6700_7C7DB0[0];
                 func_80397734_7A8DE4(0, 0);
             }
             gOverlayMenuState.unk1A++;
@@ -1013,7 +1013,7 @@ void func_8038FF68_7A1618(void) {
                     if (func_80396748_7A7DF8()) {
                         func_8039264C_7A3CFC();
                         // struct copy
-                        D_803B683C_7C7EEC = D_803B6700_7C7DB0[0];
+                        gPauseMenuLookAt = D_803B6700_7C7DB0[0];
                     } else {
                         func_8039661C_7A7CCC(0, 8, 0);
                     }
@@ -1076,10 +1076,10 @@ void func_8038FF68_7A1618(void) {
     if ((sp3C == 1) && (gOverlayMenuState.unk2C != 0)) {
         func_80395B58_7A7208();
         // empty functions
-        func_8039546C_7A6B1C(&D_801D9E90,  960, 0x435, 0x416);
-        func_8039546C_7A6B1C(&D_801D9E90, 1000, 0x435, 0x416);
-        func_8039546C_7A6B1C(&D_801D9E90, 1040, 0x435, 0x416);
-        gSPDisplayList(gMainDL++, &D_80204278->unkDAC0);
+        func_8039546C_7A6B1C(&gLayer0DL,  960, 0x435, 0x416);
+        func_8039546C_7A6B1C(&gLayer0DL, 1000, 0x435, 0x416);
+        func_8039546C_7A6B1C(&gLayer0DL, 1040, 0x435, 0x416);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->unkDAC0);
     }
 }
 #else
@@ -1161,32 +1161,32 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
             var_t3 = 0;
         }
 
-        D_80204278->unk31070[2*idx].v.ob[0] = arg1 - 1.0f;
-        D_80204278->unk31070[2*idx].v.ob[1] = arg5;
-        D_80204278->unk31070[2*idx].v.ob[2] = var_t2;
+        gDisplayListContext->unk31070[2*idx].v.ob[0] = arg1 - 1.0f;
+        gDisplayListContext->unk31070[2*idx].v.ob[1] = arg5;
+        gDisplayListContext->unk31070[2*idx].v.ob[2] = var_t2;
 
-        D_80204278->unk31070[2*idx].v.cn[0] = 0xFF;
-        D_80204278->unk31070[2*idx].v.cn[1] = 0xFF;
-        D_80204278->unk31070[2*idx].v.cn[2] = 0xFF;
-        D_80204278->unk31070[2*idx].v.cn[3] = 0xFF;
+        gDisplayListContext->unk31070[2*idx].v.cn[0] = 0xFF;
+        gDisplayListContext->unk31070[2*idx].v.cn[1] = 0xFF;
+        gDisplayListContext->unk31070[2*idx].v.cn[2] = 0xFF;
+        gDisplayListContext->unk31070[2*idx].v.cn[3] = 0xFF;
 
-        D_80204278->unk31070[2*idx].v.tc[0] = 0;
-        D_80204278->unk31070[2*idx].v.tc[1] = var_t3;
+        gDisplayListContext->unk31070[2*idx].v.tc[0] = 0;
+        gDisplayListContext->unk31070[2*idx].v.tc[1] = var_t3;
 
-        D_80204278->unk31070[2*idx+1].v.ob[0] = arg3 + 1.0f;
-        D_80204278->unk31070[2*idx+1].v.ob[1] = arg5;
-        D_80204278->unk31070[2*idx+1].v.ob[2] = var_t2;
+        gDisplayListContext->unk31070[2*idx+1].v.ob[0] = arg3 + 1.0f;
+        gDisplayListContext->unk31070[2*idx+1].v.ob[1] = arg5;
+        gDisplayListContext->unk31070[2*idx+1].v.ob[2] = var_t2;
 
-        D_80204278->unk31070[2*idx+1].v.cn[0] = 0xFF;
-        D_80204278->unk31070[2*idx+1].v.cn[1] = 0xFF;
-        D_80204278->unk31070[2*idx+1].v.cn[2] = 0xFF;
-        D_80204278->unk31070[2*idx+1].v.cn[3] = 0xFF;
+        gDisplayListContext->unk31070[2*idx+1].v.cn[0] = 0xFF;
+        gDisplayListContext->unk31070[2*idx+1].v.cn[1] = 0xFF;
+        gDisplayListContext->unk31070[2*idx+1].v.cn[2] = 0xFF;
+        gDisplayListContext->unk31070[2*idx+1].v.cn[3] = 0xFF;
 
-        D_80204278->unk31070[2*idx+1].v.tc[0] = 0x2800;
-        D_80204278->unk31070[2*idx+1].v.tc[1] = var_t3;
+        gDisplayListContext->unk31070[2*idx+1].v.tc[0] = 0x2800;
+        gDisplayListContext->unk31070[2*idx+1].v.tc[1] = var_t3;
     }
 
-    gSPVertex((*dl)++, K0_TO_PHYS(&D_80204278->unk31070[idx]), 31, 0);
+    gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[idx]), 31, 0);
 
     for (idx = 0; idx < 22; idx += 2) {
         gDPPipeSync((*dl)++);
@@ -1230,35 +1230,35 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
         gDPPipeSync((*dl)++);
     }
 
-    D_80204278->unk31250[0].v.ob[0] = arg1 + 2.0f;
-    D_80204278->unk31250[0].v.ob[1] = arg5;
-    D_80204278->unk31250[0].v.ob[2] = (arg4 - (arg4 - arg2)) + 2;
-    D_80204278->unk31250[1].v.ob[0] = arg3 - 2.0f;
-    D_80204278->unk31250[1].v.ob[1] = arg5;
-    D_80204278->unk31250[1].v.ob[2] = (arg4 - (arg4 - arg2)) + 2;
+    gDisplayListContext->unk31250[0].v.ob[0] = arg1 + 2.0f;
+    gDisplayListContext->unk31250[0].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[0].v.ob[2] = (arg4 - (arg4 - arg2)) + 2;
+    gDisplayListContext->unk31250[1].v.ob[0] = arg3 - 2.0f;
+    gDisplayListContext->unk31250[1].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[1].v.ob[2] = (arg4 - (arg4 - arg2)) + 2;
 
-    D_80204278->unk31250[2].v.ob[0] = arg3 - 2.0f;
-    D_80204278->unk31250[2].v.ob[1] = arg5;
-    D_80204278->unk31250[2].v.ob[2] = (arg2 - (arg4 - arg2)) - 2;
-    D_80204278->unk31250[3].v.ob[0] = arg1 + 2.0f;
-    D_80204278->unk31250[3].v.ob[1] = arg5;
-    D_80204278->unk31250[3].v.ob[2] = (arg2 - (arg4 - arg2)) - 2;
+    gDisplayListContext->unk31250[2].v.ob[0] = arg3 - 2.0f;
+    gDisplayListContext->unk31250[2].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[2].v.ob[2] = (arg2 - (arg4 - arg2)) - 2;
+    gDisplayListContext->unk31250[3].v.ob[0] = arg1 + 2.0f;
+    gDisplayListContext->unk31250[3].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[3].v.ob[2] = (arg2 - (arg4 - arg2)) - 2;
 
-    D_80204278->unk31250[4].v.ob[0] = arg1 - 1.0f;
-    D_80204278->unk31250[4].v.ob[1] = arg5;
-    D_80204278->unk31250[4].v.ob[2] = (arg4 - (arg4 - arg2)) - 1;
-    D_80204278->unk31250[5].v.ob[0] = arg3 + 1.0f;
-    D_80204278->unk31250[5].v.ob[1] = arg5;
-    D_80204278->unk31250[5].v.ob[2] = (arg4 - (arg4 - arg2)) - 1;
+    gDisplayListContext->unk31250[4].v.ob[0] = arg1 - 1.0f;
+    gDisplayListContext->unk31250[4].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[4].v.ob[2] = (arg4 - (arg4 - arg2)) - 1;
+    gDisplayListContext->unk31250[5].v.ob[0] = arg3 + 1.0f;
+    gDisplayListContext->unk31250[5].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[5].v.ob[2] = (arg4 - (arg4 - arg2)) - 1;
 
-    D_80204278->unk31250[6].v.ob[0] = arg3 + 1.0f;
-    D_80204278->unk31250[6].v.ob[1] = arg5;
-    D_80204278->unk31250[6].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
-    D_80204278->unk31250[7].v.ob[0] = arg1 - 1.0f;
-    D_80204278->unk31250[7].v.ob[1] = arg5;
-    D_80204278->unk31250[7].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
+    gDisplayListContext->unk31250[6].v.ob[0] = arg3 + 1.0f;
+    gDisplayListContext->unk31250[6].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[6].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
+    gDisplayListContext->unk31250[7].v.ob[0] = arg1 - 1.0f;
+    gDisplayListContext->unk31250[7].v.ob[1] = arg5;
+    gDisplayListContext->unk31250[7].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
 
-    gSPVertex((*dl)++, K0_TO_PHYS(D_80204278->unk31250), 8, 0);
+    gSPVertex((*dl)++, K0_TO_PHYS(gDisplayListContext->unk31250), 8, 0);
 
     gDPSetCombineMode((*dl)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gDPSetPrimColor((*dl)++, 0, 0, 0x00, 0x00, 0x00, 0x00);
@@ -1306,9 +1306,9 @@ void func_80392668_7A3D18(void) {
 
     if ((gOverlayUiState.unk42 != 0) || (gOverlayUiState.unk40 != 0)) {
         if (gOverlayMenuState.unk2B == 0) {
-            D_80204290 = 1;
+            gFrameStepDivisor = 1;
         } else {
-            D_80204290 = 2;
+            gFrameStepDivisor = 2;
         }
     }
 
@@ -1337,14 +1337,14 @@ void func_80392668_7A3D18(void) {
         }
         if (gOverlayUiState.unk44 != 0) {
             // FIXME: how to use SIN macro
-            gOverlayUiState.unk48 = (D_80152C78[gOverlayUiState.unk34 >> 1] * 2) / 3;
+            gOverlayUiState.unk48 = (gSineTable256[gOverlayUiState.unk34 >> 1] * 2) / 3;
         } else {
             gOverlayUiState.unk48 = 0.0f;
         }
 
-        D_803B683C_7C7EEC.unk0 = (gOverlayUiState.unk0 + temp_f2)  - (((temp_f2  * 2) * var_a1) / 65536);
-        D_803B683C_7C7EEC.unk4 = (gOverlayUiState.unk4 + temp_f12) - (((temp_f12 * 2) * var_a1) / 65536);
-        D_803B683C_7C7EEC.unk8 = (gOverlayUiState.unk8 + temp_f14) - (((temp_f14 * 2) * var_a1) / 65536);
+        gPauseMenuLookAt.unk0 = (gOverlayUiState.unk0 + temp_f2)  - (((temp_f2  * 2) * var_a1) / 65536);
+        gPauseMenuLookAt.unk4 = (gOverlayUiState.unk4 + temp_f12) - (((temp_f12 * 2) * var_a1) / 65536);
+        gPauseMenuLookAt.unk8 = (gOverlayUiState.unk8 + temp_f14) - (((temp_f14 * 2) * var_a1) / 65536);
     }
 
     if (gOverlayUiState.unk42 != 0) {
@@ -1370,9 +1370,9 @@ void func_80392668_7A3D18(void) {
         // single line for regalloc
         if (gOverlayUiState.unk34 & 1) {var_a1 = (COS((gOverlayUiState.unk34 >> 1) + 1) + var_a1) / 2;}
 
-        D_803B683C_7C7EEC.unkC  = (gOverlayUiState.unkC  + temp_f2)  - (((temp_f2  * 2) * var_a1) / 65536);
-        D_803B683C_7C7EEC.unk10 = (gOverlayUiState.unk10 + temp_f12) - (((temp_f12 * 2) * var_a1) / 65536);
-        D_803B683C_7C7EEC.unk14 = (gOverlayUiState.unk14 + temp_f14) - (((temp_f14 * 2) * var_a1) / 65536);
+        gPauseMenuLookAt.unkC  = (gOverlayUiState.unkC  + temp_f2)  - (((temp_f2  * 2) * var_a1) / 65536);
+        gPauseMenuLookAt.unk10 = (gOverlayUiState.unk10 + temp_f12) - (((temp_f12 * 2) * var_a1) / 65536);
+        gPauseMenuLookAt.unk14 = (gOverlayUiState.unk14 + temp_f14) - (((temp_f14 * 2) * var_a1) / 65536);
     }
 }
 
@@ -1462,7 +1462,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
 
     gSPEndDisplayList(D_801D9E98[0]++);
 
-    gSPDisplayList(gMainDL++, D_80204278->unk109A0);
+    gSPDisplayList(gMainDL++, gDisplayListContext->unk109A0);
 
     func_8039D034_7AE6E4(&gMainDL, 0);
 }
@@ -1470,23 +1470,23 @@ void load_mission_brief_screen(s16 _vertical_offset) {
 // draw_quad?
 void func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 idx, u8 color) {
 
-    D_80204278->unk31070[idx].v.ob[0] = arg1;
-    D_80204278->unk31070[idx].v.ob[1] = arg5;
-    D_80204278->unk31070[idx].v.ob[2] = arg2;
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = arg2;
 
-    D_80204278->unk31070[idx+1].v.ob[0] = arg1;
-    D_80204278->unk31070[idx+1].v.ob[1] = arg5;
-    D_80204278->unk31070[idx+1].v.ob[2] = arg4;
+    gDisplayListContext->unk31070[idx+1].v.ob[0] = arg1;
+    gDisplayListContext->unk31070[idx+1].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx+1].v.ob[2] = arg4;
 
-    D_80204278->unk31070[idx+2].v.ob[0] = arg3;
-    D_80204278->unk31070[idx+2].v.ob[1] = arg5;
-    D_80204278->unk31070[idx+2].v.ob[2] = arg4;
+    gDisplayListContext->unk31070[idx+2].v.ob[0] = arg3;
+    gDisplayListContext->unk31070[idx+2].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx+2].v.ob[2] = arg4;
 
-    D_80204278->unk31070[idx+3].v.ob[0] = arg3;
-    D_80204278->unk31070[idx+3].v.ob[1] = arg5;
-    D_80204278->unk31070[idx+3].v.ob[2] = arg2;
+    gDisplayListContext->unk31070[idx+3].v.ob[0] = arg3;
+    gDisplayListContext->unk31070[idx+3].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx+3].v.ob[2] = arg2;
 
-    gSPVertex((*dl)++, K0_TO_PHYS(&D_80204278->unk31070[idx]), 4, 0);
+    gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[idx]), 4, 0);
     gDPPipeSync((*dl)++);
 
     gDPSetRenderMode((*dl)++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
@@ -2087,7 +2087,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 gOverlayMenuState.unk22 = 1;
                 gOverlayMenuState.unk20 = 0;
                 D_803C0420 = 2;
-                func_801337DC(0, 60.0f, 6.0f, 20.0f);
+                start_sequence_volume_fade(0, 60.0f, 6.0f, 20.0f);
                 break;
 
             case PAUSE_MENU_OPTION_MISSION_BRIEF:
@@ -2108,7 +2108,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     gTasksCompleted = 0;
                     play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
                     func_8039264C_7A3CFC();
-                    D_803B683C_7C7EEC = D_803B6700_7C7DB0[2]; // struct copy
+                    gPauseMenuLookAt = D_803B6700_7C7DB0[2]; // struct copy
                     gOverlayMenuState.unk2A = 1;
                     gOverlayMenuState.unk2C = 1;
                     func_8039661C_7A7CCC(1, 8, 1);
@@ -2194,8 +2194,8 @@ void func_80395088_7A6738(Gfx **dl, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 color
 }
 
 void render_tv_body(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
-    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, FTOFIX32(0.5), FTOFIX32(0.5), FTOFIX32(0.5625));
-    gSPMatrix((*dl)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    func_80125FE0(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, FTOFIX32(0.5), FTOFIX32(0.5), FTOFIX32(0.5625));
+    gSPMatrix((*dl)++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     gSPDisplayList((*dl)++, D_04006D00_11D8D0); // tv body
     gSPPopMatrix((*dl)++, G_MTX_MODELVIEW);
@@ -2203,8 +2203,8 @@ void render_tv_body(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
 }
 
 void render_tv_glass(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
-    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, FTOFIX32(0.5), FTOFIX32(0.5), FTOFIX32(0.5625));
-    gSPMatrix((*dl)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    func_80125FE0(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], arg1 << 16, arg2 << 16, arg3 << 16, 0, 0, FTOFIX32(0.5), FTOFIX32(0.5), FTOFIX32(0.5625));
+    gSPMatrix((*dl)++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     gSPDisplayList((*dl)++, D_0400A9E0_1215B0);
     gSPPopMatrix((*dl)++, G_MTX_MODELVIEW);
@@ -2214,29 +2214,29 @@ void render_tv_glass(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
 void func_8039546C_7A6B1C(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
 }
 
-void func_80395480_7A6B30(void) {
+void setup_pause_menu_perspective_a_7A6B30(void) {
     D_803B66F0_7C7DA0.vp.vscale[0] = gScreenWidth  * 2;
     D_803B66F0_7C7DA0.vp.vscale[1] = gScreenHeight * 2;
     D_803B66F0_7C7DA0.vp.vtrans[0] = gScreenWidth  * 2;
     D_803B66F0_7C7DA0.vp.vtrans[1] = gScreenHeight * 2;
 
     gDPPipeSync(gMainDL++);
-    func_80129594(&gMainDL, D_80204278);
+    init_f3dex_render(&gMainDL, gDisplayListContext);
     gDPPipeSync(gMainDL++);
 
-    load_segments(&gMainDL, D_80204278);
+    load_segments(&gMainDL, gDisplayListContext);
 
     gSPSegment(gMainDL++, 0x04, osVirtualToPhysical(gMenuSegmentBase));
     gSPViewport(gMainDL++, &D_803B66F0_7C7DA0);
-    func_80129430(&gMainDL);
-    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
+    clear_depth_buffer(&gMainDL);
+    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
 
-    guPerspective(&D_80204278->unk37410, &gWorldPerspNorm, 45.0f, 1.0f, 2.0f, 2000.0f, 1.0f);
-    guScale(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
-    guScale(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
+    guPerspective(&gDisplayListContext->unk37410, &gWorldPerspNorm, 45.0f, 1.0f, 2.0f, 2000.0f, 1.0f);
+    guScale(&gDisplayListContext->unk37450, 0.5f, 0.5f, 0.5f);
+    guScale(&gDisplayListContext->unk374D0, 1.0f, 1.0f, 1.0f);
 
-    guLookAt(&D_80204278->unk37490, D_803B683C_7C7EEC.unk0, (gOverlayUiState.unk48 / 700.0f) + D_803B683C_7C7EEC.unk4, D_803B683C_7C7EEC.unk8, D_803B683C_7C7EEC.unkC, D_803B683C_7C7EEC.unk10, D_803B683C_7C7EEC.unk14, 0.0f, 0.0f, 1.0f);
-    func_80299AA8_6AB158(D_80204278, &gMainDL);
+    guLookAt(&gDisplayListContext->unk37490, gPauseMenuLookAt.unk0, (gOverlayUiState.unk48 / 700.0f) + gPauseMenuLookAt.unk4, gPauseMenuLookAt.unk8, gPauseMenuLookAt.unkC, gPauseMenuLookAt.unk10, gPauseMenuLookAt.unk14, 0.0f, 0.0f, 1.0f);
+    setup_frame_render_state(gDisplayListContext, &gMainDL);
 
     gSPFogPosition(gMainDL++, 995, 999);
     gDPSetFogColor(gMainDL++, 0xFF, 0xFF, 0xFF, 0x00);
@@ -2248,21 +2248,21 @@ void func_80395480_7A6B30(void) {
     gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 }
 
-void func_80395854_7A6F04(void) {
+void setup_pause_menu_perspective_b_7A6F04(void) {
     gDPPipeSync(gMainDL++);
-    func_80129594(&gMainDL, D_80204278);
+    init_f3dex_render(&gMainDL, gDisplayListContext);
     gDPPipeSync(gMainDL++);
 
-    load_segments(&gMainDL, D_80204278);
+    load_segments(&gMainDL, gDisplayListContext);
 
     gSPSegment(gMainDL++, 0x04, osVirtualToPhysical(gMenuSegmentBase));
     gSPViewport(gMainDL++, &D_803B66F0_7C7DA0);
 
-    guPerspective(&D_80204278->unk37410, &gWorldPerspNorm, 45.0f, 0.92f, 2.0f, 6000.0f, 1.0f);
-    guScale(&D_80204278->unk37450, 0.5f, 0.5f, 0.5f);
-    guScale(&D_80204278->unk374D0, 1.0f, 1.0f, 1.0f);
-    guLookAt(&D_80204278->unk37490, D_803B683C_7C7EEC.unk0, D_803B683C_7C7EEC.unk4, D_803B683C_7C7EEC.unk8, D_803B683C_7C7EEC.unkC, D_803B683C_7C7EEC.unk10, D_803B683C_7C7EEC.unk14, 0.0f, 0.0f, 1.0f);
-    func_80299AA8_6AB158(D_80204278, &gMainDL);
+    guPerspective(&gDisplayListContext->unk37410, &gWorldPerspNorm, 45.0f, 0.92f, 2.0f, 6000.0f, 1.0f);
+    guScale(&gDisplayListContext->unk37450, 0.5f, 0.5f, 0.5f);
+    guScale(&gDisplayListContext->unk374D0, 1.0f, 1.0f, 1.0f);
+    guLookAt(&gDisplayListContext->unk37490, gPauseMenuLookAt.unk0, gPauseMenuLookAt.unk4, gPauseMenuLookAt.unk8, gPauseMenuLookAt.unkC, gPauseMenuLookAt.unk10, gPauseMenuLookAt.unk14, 0.0f, 0.0f, 1.0f);
+    setup_frame_render_state(gDisplayListContext, &gMainDL);
 
     gSPDisplayList(gMainDL++, D_01004270_3DB40);
     gSPClearGeometryMode(gMainDL++, G_FOG);
@@ -2282,46 +2282,46 @@ void func_80395B58_7A7208(void) {
     factor = 1.0;
     temp_a1 = (40.0f * factor);
 
-    D_80204278->lights.a.l.colc[0] = temp_a1;
-    D_80204278->lights.a.l.col[0] = temp_a1;
+    gDisplayListContext->lights.a.l.colc[0] = temp_a1;
+    gDisplayListContext->lights.a.l.col[0] = temp_a1;
 
-    D_80204278->lights.a.l.colc[1] = temp_a1;
-    D_80204278->lights.a.l.col[1] = temp_a1;
+    gDisplayListContext->lights.a.l.colc[1] = temp_a1;
+    gDisplayListContext->lights.a.l.col[1] = temp_a1;
 
-    D_80204278->lights.a.l.colc[2] = temp_a1;
-    D_80204278->lights.a.l.col[2] = temp_a1;
+    gDisplayListContext->lights.a.l.colc[2] = temp_a1;
+    gDisplayListContext->lights.a.l.col[2] = temp_a1;
 
     temp_a1 = (200.0f * factor);
-    D_80204278->lights.l[0].l.colc[0] = temp_a1;
-    D_80204278->lights.l[0].l.col[0] = temp_a1;
+    gDisplayListContext->lights.l[0].l.colc[0] = temp_a1;
+    gDisplayListContext->lights.l[0].l.col[0] = temp_a1;
 
-    D_80204278->lights.l[0].l.colc[1] = temp_a1;
-    D_80204278->lights.l[0].l.col[1] = temp_a1;
+    gDisplayListContext->lights.l[0].l.colc[1] = temp_a1;
+    gDisplayListContext->lights.l[0].l.col[1] = temp_a1;
 
-    D_80204278->lights.l[0].l.colc[2] = temp_a1;
-    D_80204278->lights.l[0].l.col[2] = temp_a1;
+    gDisplayListContext->lights.l[0].l.colc[2] = temp_a1;
+    gDisplayListContext->lights.l[0].l.col[2] = temp_a1;
 
-    D_80204278->lights.l[0].l.dir[0] = -0x6D;
-    D_80204278->lights.l[0].l.dir[1] = 0x5C;
-    D_80204278->lights.l[0].l.dir[2] = 0x70;
+    gDisplayListContext->lights.l[0].l.dir[0] = -0x6D;
+    gDisplayListContext->lights.l[0].l.dir[1] = 0x5C;
+    gDisplayListContext->lights.l[0].l.dir[2] = 0x70;
 
     D_803F670E += 2;
     D_803F670E %= 360;
     temp_lo = (D_80152350.unk0[D_803F670E] + 0xFF) / 6;
 
-    D_80204278->lights.l[1].l.col[0] = temp_lo;
-    D_80204278->lights.l[1].l.col[1] = 8;
-    D_80204278->lights.l[1].l.col[2] = 0;
+    gDisplayListContext->lights.l[1].l.col[0] = temp_lo;
+    gDisplayListContext->lights.l[1].l.col[1] = 8;
+    gDisplayListContext->lights.l[1].l.col[2] = 0;
 
-    D_80204278->lights.l[1].l.colc[0] = temp_lo;
-    D_80204278->lights.l[1].l.colc[1] = 0;
-    D_80204278->lights.l[1].l.colc[2] = 0;
+    gDisplayListContext->lights.l[1].l.colc[0] = temp_lo;
+    gDisplayListContext->lights.l[1].l.colc[1] = 0;
+    gDisplayListContext->lights.l[1].l.colc[2] = 0;
 
-    D_80204278->lights.l[1].l.dir[0] = 0x57;
-    D_80204278->lights.l[1].l.dir[1] = 0x64;
-    D_80204278->lights.l[1].l.dir[2] = 0;
+    gDisplayListContext->lights.l[1].l.dir[0] = 0x57;
+    gDisplayListContext->lights.l[1].l.dir[1] = 0x64;
+    gDisplayListContext->lights.l[1].l.dir[2] = 0;
 
-    gSPSetLights1(gMainDL++, D_80204278->lights);
+    gSPSetLights1(gMainDL++, gDisplayListContext->lights);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80395B58_7A7208.s")
@@ -2343,8 +2343,8 @@ void func_80395E98_7A7548(Gfx **dl) {
     gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 4*31, 4*31);
 
-    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], FTOFIX32(1000.0), FTOFIX32(1000.0), FTOFIX32(1000.0), 0, 0, FTOFIX32(12.0), FTOFIX32(12.0), FTOFIX32(12.0));
-    gSPMatrix((*dl)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    func_80125FE0(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], FTOFIX32(1000.0), FTOFIX32(1000.0), FTOFIX32(1000.0), 0, 0, FTOFIX32(12.0), FTOFIX32(12.0), FTOFIX32(12.0));
+    gSPMatrix((*dl)++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     gSPPopMatrix((*dl)++, G_MTX_MODELVIEW);
 }
 
@@ -2357,9 +2357,9 @@ void render_spaceship_interior(Gfx **dl) {
     gDPSetRenderMode((*dl)++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
     gSPSetGeometryMode((*dl)++, G_CULL_BACK | G_LIGHTING);
 
-    func_80125FE0(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], FTOFIX32(1000.0), FTOFIX32(1000.0), FTOFIX32(1000.0), 0, 0, FTOFIX32(3.0), FTOFIX32(3.0), FTOFIX32(3.0));
+    func_80125FE0(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], FTOFIX32(1000.0), FTOFIX32(1000.0), FTOFIX32(1000.0), 0, 0, FTOFIX32(3.0), FTOFIX32(3.0), FTOFIX32(3.0));
 
-    gSPMatrix((*dl)++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix((*dl)++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     gSPDisplayList((*dl)++, D_04005B60_11C730); // spaceship interior
     gSPPopMatrix((*dl)++, G_MTX_MODELVIEW);
 
@@ -2367,8 +2367,8 @@ void render_spaceship_interior(Gfx **dl) {
 }
 
 void func_803962EC_7A799C(Gfx **dl, s16 p_screen_x, s16 p_screen_y, s16 arg3, s16 arg4, u8* img, u16 width, u16 height) {
-    guSprite2DInit(&D_80204278->sprites[D_80204278->usedSprites], img, 0, width, width, height, 0, 2, 0, 0);
-    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&D_80204278->sprites[D_80204278->usedSprites]));
+    guSprite2DInit(&gDisplayListContext->sprites[gDisplayListContext->usedSprites], img, 0, width, width, height, 0, 2, 0, 0);
+    gSPSprite2DBase((*dl)++, OS_K0_TO_PHYSICAL(&gDisplayListContext->sprites[gDisplayListContext->usedSprites]));
     gSPSprite2DScaleFlip(
         (*dl)++,
         (f32)(((f32)width  / (((f32)arg3 - (f32)p_screen_x) * 0.25)) * 1024),
@@ -2379,7 +2379,7 @@ void func_803962EC_7A799C(Gfx **dl, s16 p_screen_x, s16 p_screen_y, s16 arg3, s1
     gSPSprite2DDraw((*dl)++, p_screen_x, p_screen_y);
     gDPPipeSync((*dl)++);
 
-    D_80204278->usedSprites++;
+    gDisplayListContext->usedSprites++;
 }
 
 void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2) {
@@ -2391,12 +2391,12 @@ void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2) {
         gOverlayUiState.unk44 = 0;
     }
     temp_v0 = &D_803B6700_7C7DB0[arg0];
-    gOverlayUiState.unk0 = D_803B683C_7C7EEC.unk0;
-    gOverlayUiState.unk4 = D_803B683C_7C7EEC.unk4;
-    gOverlayUiState.unk8 = D_803B683C_7C7EEC.unk8;
-    gOverlayUiState.unkC = D_803B683C_7C7EEC.unkC;
-    gOverlayUiState.unk10 = D_803B683C_7C7EEC.unk10;
-    gOverlayUiState.unk14 = D_803B683C_7C7EEC.unk14;
+    gOverlayUiState.unk0 = gPauseMenuLookAt.unk0;
+    gOverlayUiState.unk4 = gPauseMenuLookAt.unk4;
+    gOverlayUiState.unk8 = gPauseMenuLookAt.unk8;
+    gOverlayUiState.unkC = gPauseMenuLookAt.unkC;
+    gOverlayUiState.unk10 = gPauseMenuLookAt.unk10;
+    gOverlayUiState.unk14 = gPauseMenuLookAt.unk14;
     gOverlayUiState.unk30 = 0;
     gOverlayUiState.unk34 = 0;
     gOverlayUiState.unk38 = arg1;

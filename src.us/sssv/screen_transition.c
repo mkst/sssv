@@ -66,7 +66,7 @@ void perform_screen_transition(void) {
 
     alpha = 0xff;
 
-    func_802F13B8_702A68();
+    render_screen_transition_tv_702A68();
     if ((gScreenTransition.unk0 == 2) || (gScreenTransition.unk0 == 1)) {
         switch (gScreenTransition.transitionId) {
         case 0:
@@ -307,32 +307,32 @@ s16 func_802F1388_702A38(void) {
     }
 }
 
-void func_802F13B8_702A68(void) {
+void render_screen_transition_tv_702A68(void) {
     if (gScreenTransition.overlayTV != 0) {
         func_8039D034_7AE6E4(&gMainDL, 0);
         D_803A50C0_7B6770.unk0 = gScreenWidth * 2;
         D_803A50C0_7B6770.unk2 = gScreenHeight * 2;
         D_803A50C0_7B6770.unk8 = gScreenWidth * 2;
         D_803A50C0_7B6770.unkA = gScreenHeight * 2;
-        func_80129594(&gMainDL, D_80204278);
-        guPerspective(&D_80204278->unk37550, &D_803E1B1E, 33.0f, 1.0f, 5.0f, 100.0f, 1.0f);
-        guScale(&D_80204278->unk37590, 0.5f, 0.5f, 0.5f);
-        guScale(&D_80204278->unk37610, 0.9f, 1.0f, 1.0f);
-        guLookAt(&D_80204278->unk375D0, -1.0f, 105.0f, -3.0f, -1.0f, 0.0f, -3.0f, 0.0f, 0.0f, 1.0f);
+        init_f3dex_render(&gMainDL, gDisplayListContext);
+        guPerspective(&gDisplayListContext->unk37550, &D_803E1B1E, 33.0f, 1.0f, 5.0f, 100.0f, 1.0f);
+        guScale(&gDisplayListContext->unk37590, 0.5f, 0.5f, 0.5f);
+        guScale(&gDisplayListContext->unk37610, 0.9f, 1.0f, 1.0f);
+        guLookAt(&gDisplayListContext->unk375D0, -1.0f, 105.0f, -3.0f, -1.0f, 0.0f, -3.0f, 0.0f, 0.0f, 1.0f);
 
-        gSPMatrix(gMainDL++, &D_80204278->unk37550, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-        gSPMatrix(gMainDL++, &D_80204278->unk37590, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
-        gSPMatrix(gMainDL++, &D_80204278->unk375D0, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
-        gSPMatrix(gMainDL++, &D_80204278->unk37610, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37550, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37590, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk375D0, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
+        gSPMatrix(gMainDL++, &gDisplayListContext->unk37610, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
         gSPPerspNormalize(gMainDL++, D_803E1B1E);
 
-        load_segments(&gMainDL, D_80204278);
-        switch_to_current_segment(&gMainDL, D_80204278);
+        load_segments(&gMainDL, gDisplayListContext);
+        switch_to_current_segment(&gMainDL, gDisplayListContext);
 
         gSPViewport(gMainDL++, &D_803A50C0_7B6770);
 
-        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80204274->framebuffer));
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
         gSPDisplayList(gMainDL++, D_01004270_3DB40);
         gSPTexture(gMainDL++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
         gDPSetCombineLERP(gMainDL++,
