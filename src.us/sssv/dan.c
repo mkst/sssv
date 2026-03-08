@@ -15,21 +15,21 @@ void func_803973A0_7A8A50(s16 arg0) {
 }
 
 void func_80397414_7A8AC4(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle) {
-    guTranslate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], x_amt, y_amt, z_amt);
+    guTranslate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], x_amt, y_amt, z_amt);
     if (push) {
-        gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     } else {
-        gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+        gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     }
 
-    guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], y_angle, 0.0f, 1.0f, 0.0f);
-    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], y_angle, 0.0f, 1.0f, 0.0f);
+    gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-    guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], z_angle, 0.0f, 0.0f, 1.0f);
-    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], z_angle, 0.0f, 0.0f, 1.0f);
+    gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-    guRotate(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], x_angle, 1.0f, 0.0f, 0.0f);
-    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], x_angle, 1.0f, 0.0f, 0.0f);
+    gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 }
 
 // init/reset something
@@ -237,7 +237,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
 
     arg5 = arg5 / 5;
     func_80125FE0(
-        &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs],
+        &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
         arg0,
         arg1,
         arg2,
@@ -247,7 +247,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         arg5,
         arg5);
 
-    gSPMatrix(D_801D9E8C++, &D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     func_80397414_7A8AC4(
         0,
@@ -258,7 +258,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         D_803F6720[arg7][0].unk0.unk0[1],
         D_803F6720[arg7][0].unk0.unk0[2]
     );
-    gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[idx][6]);
+    gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][6]);
 
     if (arg7 != 2) {
         var_s2 = 4;
@@ -275,7 +275,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
                 D_803F6720[arg7][var_s2].unk0.unk0[1],
                 D_803F6720[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[idx][j]);
+            gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][j]);
             var_s2++;
             j++;
 
@@ -289,7 +289,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
                 D_803F6720[arg7][var_s2].unk0.unk0[1],
                 D_803F6720[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[idx][j]);
+            gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][j]);
             var_s2++;
             j++;
 
@@ -303,11 +303,11 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
                 D_803F6720[arg7][var_s2].unk0.unk0[1],
                 D_803F6720[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[idx][j]);
+            gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][j]);
             var_s2++;
             j++;
 
-            gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
+            gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
 
         }
     }
@@ -321,7 +321,7 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         D_803F6720[arg7][1].unk0.unk0[1],
         D_803F6720[arg7][1].unk0.unk0[2]
     );
-    gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[idx][7]);
+    gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][7]);
 
     if (arg7 != 2) {
         func_80397414_7A8AC4(
@@ -333,8 +333,8 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
             D_803F6720[arg7][2].unk0.unk0[1],
             D_803F6720[arg7][2].unk0.unk0[2]
         );
-        gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[idx][8]);
-        gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
+        gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][8]);
+        gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
     }
     func_80397414_7A8AC4(
         1,
@@ -347,8 +347,8 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
     );
 
     if (arg7 == 1) {
-        gDPSetPrimColor(D_801D9E8C++, 0, 0, 0xEA, 0xE6, 0xFF, 0xFF); // very light lilac
-        gDPSetCombineLERP(D_801D9E8C++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
+        gDPSetPrimColor(gXluDL++, 0, 0, 0xEA, 0xE6, 0xFF, 0xFF); // very light lilac
+        gDPSetCombineLERP(gXluDL++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
     }
 
     func_80397414_7A8AC4(
@@ -361,8 +361,8 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         D_803F6720[arg7][3].unk0.unk0[2]
     );
 
-    gSPDisplayList(D_801D9E8C++, D_803B7108_7C87B8[idx][9]);
-    gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
-    gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
-    gSPPopMatrix(D_801D9E8C++, G_MTX_MODELVIEW);
+    gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][9]);
+    gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
+    gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
+    gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
 }

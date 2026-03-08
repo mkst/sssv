@@ -7,44 +7,44 @@
 #define MTX_FRACPART_PACK(w1, w2) (((w1) << 16) | ((w2) & 0xFFFF))
 
 #if 0
-void func_8032D680_73ED30(void) {
-    Mtx *tmp = &D_80204278->unk37490;
+void update_billboard_projection_cache(void) {
+    Mtx *tmp = &gDisplayListContext->unk37490;
 
-    D_80204278->unk38A10[0][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
-    D_80204278->unk38A10[1][0] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    gDisplayListContext->unk38A10[0][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    gDisplayListContext->unk38A10[1][0] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
 
-    D_80204278->unk38A10[0][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
-    D_80204278->unk38A10[1][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+    gDisplayListContext->unk38A10[0][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+    gDisplayListContext->unk38A10[1][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
 
-    D_80204278->unk38A10[0][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
-    D_80204278->unk38A10[1][2] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
+    gDisplayListContext->unk38A10[0][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
+    gDisplayListContext->unk38A10[1][2] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
 
-    D_80204278->unk38A10[0][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
-    D_80204278->unk38A10[1][3] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
+    gDisplayListContext->unk38A10[0][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
+    gDisplayListContext->unk38A10[1][3] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
 
-    D_80204278->unk38A10[2][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][1], tmp->m[2][1]) / 65536.0;
-    D_80204278->unk38A10[2][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][3], tmp->m[2][3]) / 65536.0;
+    gDisplayListContext->unk38A10[2][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][1], tmp->m[2][1]) / 65536.0;
+    gDisplayListContext->unk38A10[2][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][3], tmp->m[2][3]) / 65536.0;
 
-    D_80204278->unk38A10[2][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
-    D_80204278->unk38A10[2][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
+    gDisplayListContext->unk38A10[2][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
+    gDisplayListContext->unk38A10[2][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
 
-    tmp = &D_80204278->unk37410;
-    D_80204278->unk38A10[3][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
-    D_80204278->unk38A10[3][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+    tmp = &gDisplayListContext->unk37410;
+    gDisplayListContext->unk38A10[3][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    gDisplayListContext->unk38A10[3][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
 
-    D_80204278->unk38A10[3][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
-    D_80204278->unk38A10[3][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
+    gDisplayListContext->unk38A10[3][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
+    gDisplayListContext->unk38A10[3][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
 
-    D_80204278->unk38A10[3][0] *= -(gScreenWidth * 2);
-    D_80204278->unk38A10[3][1] *= gScreenHeight * 2;
+    gDisplayListContext->unk38A10[3][0] *= -(gScreenWidth * 2);
+    gDisplayListContext->unk38A10[3][1] *= gScreenHeight * 2;
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/func_8032D680_73ED30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/update_billboard_projection_cache.s")
 #endif
 
 #if 0
 // 9716
-void func_8032DACC_73F17C(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
+void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
     f32 sp80;
     f32 sp7C;
 
@@ -74,28 +74,28 @@ void func_8032DACC_73F17C(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     temp_f12 = arg2 / 65536.0;
     temp_f14 = arg3 / 65536.0;
 
-    temp_f0 = D_80204278->unk38A10[2][3] +
-            ((D_80204278->unk38A10[2][2] * temp_f14) +
-            ((D_80204278->unk38A10[2][1] * temp_f12) +
-             (D_80204278->unk38A10[2][0] * temp_f18)));
+    temp_f0 = gDisplayListContext->unk38A10[2][3] +
+            ((gDisplayListContext->unk38A10[2][2] * temp_f14) +
+            ((gDisplayListContext->unk38A10[2][1] * temp_f12) +
+             (gDisplayListContext->unk38A10[2][0] * temp_f18)));
 
     if (temp_f0 <= -3.0) {
-        temp_f2 = ((D_80204278->unk38A10[3][2] * temp_f0) + D_80204278->unk38A10[3][3]) / -temp_f0;
+        temp_f2 = ((gDisplayListContext->unk38A10[3][2] * temp_f0) + gDisplayListContext->unk38A10[3][3]) / -temp_f0;
 
         if (temp_f2 > 0.0) {
 
-            temp_f8 = D_80204278->unk38A10[0][3] +
-                    ((D_80204278->unk38A10[0][2] * temp_f14) +
-                    ((D_80204278->unk38A10[0][1] * temp_f12) +
-                     (D_80204278->unk38A10[0][0] * temp_f18)));
+            temp_f8 = gDisplayListContext->unk38A10[0][3] +
+                    ((gDisplayListContext->unk38A10[0][2] * temp_f14) +
+                    ((gDisplayListContext->unk38A10[0][1] * temp_f12) +
+                     (gDisplayListContext->unk38A10[0][0] * temp_f18)));
 
-            temp_f6 = D_80204278->unk38A10[1][3] +
-                    ((D_80204278->unk38A10[1][2] * temp_f14) +
-                    ((D_80204278->unk38A10[1][1] * temp_f12) +
-                     (D_80204278->unk38A10[1][0] * temp_f18)));
+            temp_f6 = gDisplayListContext->unk38A10[1][3] +
+                    ((gDisplayListContext->unk38A10[1][2] * temp_f14) +
+                    ((gDisplayListContext->unk38A10[1][1] * temp_f12) +
+                     (gDisplayListContext->unk38A10[1][0] * temp_f18)));
 
-            sp80 = ((D_80204278->unk38A10[3][0] * temp_f8) / temp_f0) +  (gScreenWidth * (0, 2));
-            sp7C = ((D_80204278->unk38A10[3][1] * temp_f6) / temp_f0) + (gScreenHeight * (0, 2));
+            sp80 = ((gDisplayListContext->unk38A10[3][0] * temp_f8) / temp_f0) +  (gScreenWidth * (0, 2));
+            sp7C = ((gDisplayListContext->unk38A10[3][1] * temp_f6) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 
@@ -141,13 +141,13 @@ void func_8032DACC_73F17C(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/func_8032DACC_73F17C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/draw_energy_billboard_texrect.s")
 #endif
 
 #if 0
 // plenty more to figure out
 // 10738
-void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
+void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
     f32 spA8; // made up
     f32 spA4; // made up
 
@@ -183,28 +183,28 @@ void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     sp60 = arg2 / 65536.0;
     sp5C = arg3 / 65536.0;
 
-    temp_f0 = D_80204278->unk38A10[2][3] +
-            ((D_80204278->unk38A10[2][2] * sp5C) +
-            ((D_80204278->unk38A10[2][1] * sp60) +
-             (D_80204278->unk38A10[2][0] * sp64)));
+    temp_f0 = gDisplayListContext->unk38A10[2][3] +
+            ((gDisplayListContext->unk38A10[2][2] * sp5C) +
+            ((gDisplayListContext->unk38A10[2][1] * sp60) +
+             (gDisplayListContext->unk38A10[2][0] * sp64)));
 
     if (temp_f0 <= -3.0) {
 
-        sp98 = (D_80204278->unk38A10[3][3] + (D_80204278->unk38A10[3][2] * temp_f0)) / -temp_f0;
+        sp98 = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f0)) / -temp_f0;
         if (sp98 > 0.0) {
 
-            spA8 = D_80204278->unk38A10[0][3] +
-                 ((D_80204278->unk38A10[0][2] * sp5C) +
-                 ((D_80204278->unk38A10[0][1] * sp60) +
-                  (D_80204278->unk38A10[0][0] * sp64)));
+            spA8 = gDisplayListContext->unk38A10[0][3] +
+                 ((gDisplayListContext->unk38A10[0][2] * sp5C) +
+                 ((gDisplayListContext->unk38A10[0][1] * sp60) +
+                  (gDisplayListContext->unk38A10[0][0] * sp64)));
 
-            spA4 = D_80204278->unk38A10[1][3] +
-                 ((D_80204278->unk38A10[1][2] * sp5C) +
-                 ((D_80204278->unk38A10[1][1] * sp60) +
-                  (D_80204278->unk38A10[1][0] * sp64)));
+            spA4 = gDisplayListContext->unk38A10[1][3] +
+                 ((gDisplayListContext->unk38A10[1][2] * sp5C) +
+                 ((gDisplayListContext->unk38A10[1][1] * sp60) +
+                  (gDisplayListContext->unk38A10[1][0] * sp64)));
 
-            spA0 = ((D_80204278->unk38A10[3][0] * spA8) / temp_f0) + (gScreenWidth  * (0, 2));
-            sp9C = ((D_80204278->unk38A10[3][1] * spA4) / temp_f0) + (gScreenHeight * (0, 2));
+            spA0 = ((gDisplayListContext->unk38A10[3][0] * spA8) / temp_f0) + (gScreenWidth  * (0, 2));
+            sp9C = ((gDisplayListContext->unk38A10[3][1] * spA4) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 
@@ -215,11 +215,11 @@ void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
             }
 
             if (sp94 > 0.0f) {
-                if (D_803E1CF8.min >= (D_803E1CF8.max - 1)) {
+                if (gFogState.min >= (gFogState.max - 1)) {
                     var_a1 = 0;
                 } else {
-                    temp_a2 = D_803E1CF8.min * 8;
-                    temp_a3 = D_803E1CF8.max * 8;
+                    temp_a2 = gFogState.min * 8;
+                    temp_a3 = gFogState.max * 8;
 
                     temp_f10 = MIN(sp98 * 7990.0, 8000.0);
 
@@ -232,7 +232,7 @@ void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
                     }
                 }
 
-                gDPSetPrimColor((*dl)++, 0, var_a1, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 0xFF);
+                gDPSetPrimColor((*dl)++, 0, var_a1, gFogState.r, gFogState.g, gFogState.b, 0xFF);
 
                 depth = ((sp98 * 1023.0f * 32.0f) + 32736.0f);
                 gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.unk42), 0);
@@ -281,10 +281,10 @@ void func_8032E150_73F800(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/func_8032E150_73F800.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/draw_collectible_billboard_texrect.s")
 #endif
 
-void func_8032E9E4_740094(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7) {
+void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7) {
     f32 temp_f8;
     f32 sp98;
     f32 sp94;
@@ -309,27 +309,27 @@ void func_8032E9E4_740094(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     temp_f10 = arg2 / 65536.0;
     temp_f14 = arg3 / 65536.0;
 
-    temp_f0 = D_80204278->unk38A10[2][3] +
-            ((D_80204278->unk38A10[2][2] * temp_f14) +
-            ((D_80204278->unk38A10[2][1] * temp_f10) +
-             (D_80204278->unk38A10[2][0] * temp_f2)));
+    temp_f0 = gDisplayListContext->unk38A10[2][3] +
+            ((gDisplayListContext->unk38A10[2][2] * temp_f14) +
+            ((gDisplayListContext->unk38A10[2][1] * temp_f10) +
+             (gDisplayListContext->unk38A10[2][0] * temp_f2)));
 
     if (temp_f0 <= -3.0) {
 
-        sp94 = (D_80204278->unk38A10[3][3] + (D_80204278->unk38A10[3][2] * temp_f0)) / -temp_f0;
+        sp94 = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f0)) / -temp_f0;
         if (sp94 > 0.0) {
 
-            temp_f8 = D_80204278->unk38A10[0][3] +
-                    ((D_80204278->unk38A10[0][2] * temp_f14) +
-                    ((D_80204278->unk38A10[0][1] * temp_f10) +
-                     (D_80204278->unk38A10[0][0] * temp_f2)));
-            sp98 = D_80204278->unk38A10[1][3] +
-                 ((D_80204278->unk38A10[1][2] * temp_f14) +
-                 ((D_80204278->unk38A10[1][1] * temp_f10) +
-                  (D_80204278->unk38A10[1][0] * temp_f2)));
+            temp_f8 = gDisplayListContext->unk38A10[0][3] +
+                    ((gDisplayListContext->unk38A10[0][2] * temp_f14) +
+                    ((gDisplayListContext->unk38A10[0][1] * temp_f10) +
+                     (gDisplayListContext->unk38A10[0][0] * temp_f2)));
+            sp98 = gDisplayListContext->unk38A10[1][3] +
+                 ((gDisplayListContext->unk38A10[1][2] * temp_f14) +
+                 ((gDisplayListContext->unk38A10[1][1] * temp_f10) +
+                  (gDisplayListContext->unk38A10[1][0] * temp_f2)));
 
-            sp90 = ((D_80204278->unk38A10[3][0] * temp_f8) / temp_f0) + (gScreenWidth  * (0, 2));
-            sp84 = ((D_80204278->unk38A10[3][1] * sp98) / temp_f0) + (gScreenHeight * (0, 2));
+            sp90 = ((gDisplayListContext->unk38A10[3][0] * temp_f8) / temp_f0) + (gScreenWidth  * (0, 2));
+            sp84 = ((gDisplayListContext->unk38A10[3][1] * sp98) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
             arg7 = (arg7 * 33) / D_803F2D50.fovY;
@@ -352,20 +352,20 @@ void func_8032E9E4_740094(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
                 f32 xOffset;
                 f32 yOffset;
 
-                temp_v0 = (1000 - ((1000 - D_803E1CF8.min) / 6));
-                if (temp_v0 >= D_803E1CF8.max) {
+                temp_v0 = (1000 - ((1000 - gFogState.min) / 6));
+                if (temp_v0 >= gFogState.max) {
                     limit = 0;
                 } else {
                     temp_t7 = ((s32) sp94 * 1000) >> 16;
                     if (temp_v0 >= temp_t7) {
                         limit = 0;
                     } else {
-                        limit = (((temp_t7 - temp_v0) << 8) / (D_803E1CF8.max - temp_v0));
+                        limit = (((temp_t7 - temp_v0) << 8) / (gFogState.max - temp_v0));
                     }
                 }
 
                 depth = ((sp94 * 1023.0f * 32.0f) + 32736.0f);
-                gDPSetPrimColor((*dl)++, 0, limit, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 0xFF);
+                gDPSetPrimColor((*dl)++, 0, limit, gFogState.r, gFogState.g, gFogState.b, 0xFF);
                 gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.unk42), 0);
 
                 xOffset = (arg4 * var_v1) / 128.0;
@@ -401,7 +401,7 @@ void func_8032E9E4_740094(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     }
 }
 
-void func_8032F170_740820(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, u8 arg8, s16 arg9) {
+void draw_particle_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, u8 arg8, s16 arg9) {
     f32 temp_f8;
     f32 sp8C;   // sp84?
     f32 temp_f18;
@@ -431,28 +431,28 @@ void func_8032F170_740820(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     temp_f14 = arg2 / 65536.0;
     temp_f16 = arg3 / 65536.0;
 
-    temp_f2 = D_80204278->unk38A10[2][3] +
-            ((D_80204278->unk38A10[2][2] * temp_f16) +
-            ((D_80204278->unk38A10[2][1] * temp_f14) +
-             (D_80204278->unk38A10[2][0] * temp_f0 )));
+    temp_f2 = gDisplayListContext->unk38A10[2][3] +
+            ((gDisplayListContext->unk38A10[2][2] * temp_f16) +
+            ((gDisplayListContext->unk38A10[2][1] * temp_f14) +
+             (gDisplayListContext->unk38A10[2][0] * temp_f0 )));
 
     if (temp_f2 <= -3.0) {
 
-        temp_f18 = (D_80204278->unk38A10[3][3] + (D_80204278->unk38A10[3][2] * temp_f2)) / -temp_f2;
+        temp_f18 = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f2)) / -temp_f2;
         if (temp_f18 > 0.0) {
 
-            temp_f8 = D_80204278->unk38A10[0][3] +
-                    ((D_80204278->unk38A10[0][2] * temp_f16) +
-                    ((D_80204278->unk38A10[0][1] * temp_f14) +
-                     (D_80204278->unk38A10[0][0] * temp_f0)));
+            temp_f8 = gDisplayListContext->unk38A10[0][3] +
+                    ((gDisplayListContext->unk38A10[0][2] * temp_f16) +
+                    ((gDisplayListContext->unk38A10[0][1] * temp_f14) +
+                     (gDisplayListContext->unk38A10[0][0] * temp_f0)));
 
-            sp8C = D_80204278->unk38A10[1][3] +
-                 ((D_80204278->unk38A10[1][2] * temp_f16) +
-                 ((D_80204278->unk38A10[1][1] * temp_f14) +
-                  (D_80204278->unk38A10[1][0] * temp_f0)));
+            sp8C = gDisplayListContext->unk38A10[1][3] +
+                 ((gDisplayListContext->unk38A10[1][2] * temp_f16) +
+                 ((gDisplayListContext->unk38A10[1][1] * temp_f14) +
+                  (gDisplayListContext->unk38A10[1][0] * temp_f0)));
 
-            sp78 = ((D_80204278->unk38A10[3][0] * temp_f8) / temp_f2) + (gScreenWidth  * (0, 2));
-            sp7C = ((D_80204278->unk38A10[3][1] * sp8C) / temp_f2) + (gScreenHeight * (0, 2));
+            sp78 = ((gDisplayListContext->unk38A10[3][0] * temp_f8) / temp_f2) + (gScreenWidth  * (0, 2));
+            sp7C = ((gDisplayListContext->unk38A10[3][1] * sp8C) / temp_f2) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
             arg7 = (arg7 * 33) / D_803F2D50.fovY;
@@ -520,6 +520,6 @@ void func_8032F170_740820(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 
     }
 }
 
-void func_8032F8C8_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
-    func_8029CEF0_6AE5A0(arg0 << 16, arg1 << 16, arg2 << 16, 512, arg3 + 3, &D_803D2E08, arg3 + 3, 0, 0, 0);
+void enqueue_dynamic_texture_billboard_helper_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
+    enqueue_dynamic_texture_billboard_6AE5A0(arg0 << 16, arg1 << 16, arg2 << 16, 512, arg3 + 3, &D_803D2E08, arg3 + 3, 0, 0, 0);
 }

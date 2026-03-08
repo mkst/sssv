@@ -83,10 +83,10 @@ void func_8031A4E0_72BB90(void) {
     u8 temp_s7;
     Vtx *vtxs;
 
-    vtxs = &D_80204278->unk39C88[D_80204278->unk3B308];
-    D_80204278->unk3B30A[D_803E97C0] = 8;
+    vtxs = &gDisplayListContext->unk39C88[gDisplayListContext->unk3B308];
+    gDisplayListContext->unk3B30A[D_803E97C0] = 8;
 
-    D_80204278->unk3B308 += 8;
+    gDisplayListContext->unk3B308 += 8;
 
     if (D_803E97C8.unkE < D_803E97C8.unk16) {
         startX0 = D_803E97C8.unkE;
@@ -218,8 +218,8 @@ void func_8031A4E0_72BB90(void) {
             vtxs[3].v.cn[2] = 0xFF;
 #pragma _permuter sameline end
 
-            D_80204278->unk3B30A[D_803E97C0] += 4;
-            D_80204278->unk3B308 += 4;
+            gDisplayListContext->unk3B30A[D_803E97C0] += 4;
+            gDisplayListContext->unk3B308 += 4;
 
             x0 = x2;
             y0 = y2;

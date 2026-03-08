@@ -72,16 +72,16 @@ s16 language_select_menu(s16 arg0) {
         flagTexture = (uSprite *)img_flags_spanish_rgba16__png; // Spanish
         break;
     }
-    func_801366BC(&D_801D9E7C, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
-    gDPPipeSync(D_801D9E7C++);
+    init_sprite2d_render(&gMainDL, D_803B0592, D_803B0592, D_803B0592, D_803B0592);
+    gDPPipeSync(gMainDL++);
 
-    gDPSetCombineLERP(D_801D9E7C++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
-    gDPSetRenderMode(D_801D9E7C++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 128, 128, 128, D_803B0592);
-    gDPSetColorDither(D_801D9E7C++, G_CD_BAYER);
-    gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
+    gDPSetCombineLERP(gMainDL++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
+    gDPSetRenderMode(gMainDL++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+    gDPSetPrimColor(gMainDL++, 0, 0, 128, 128, 128, D_803B0592);
+    gDPSetColorDither(gMainDL++, G_CD_BAYER);
+    gDPSetAlphaDither(gMainDL++, G_AD_PATTERN);
 
-    draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
+    draw_sprite(&gMainDL, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
 
     // previous selection?
     switch (previousSelection) {
@@ -108,24 +108,24 @@ s16 language_select_menu(s16 arg0) {
         break;
     }
 
-    func_801366BC(&D_801D9E7C, D_803B0594, D_803B0594, D_803B0594, D_803B0594);
-    gDPPipeSync(D_801D9E7C++);
+    init_sprite2d_render(&gMainDL, D_803B0594, D_803B0594, D_803B0594, D_803B0594);
+    gDPPipeSync(gMainDL++);
 
-    gDPSetCombineLERP(D_801D9E7C++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
-    gDPSetRenderMode(D_801D9E7C++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-    gDPSetPrimColor(D_801D9E7C++, 0, 0, 128, 128, 128, D_803B0594);
-    gDPSetColorDither(D_801D9E7C++, G_CD_BAYER);
-    gDPSetAlphaDither(D_801D9E7C++, G_AD_PATTERN);
+    gDPSetCombineLERP(gMainDL++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, PRIMITIVE);
+    gDPSetRenderMode(gMainDL++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+    gDPSetPrimColor(gMainDL++, 0, 0, 128, 128, 128, D_803B0594);
+    gDPSetColorDither(gMainDL++, G_CD_BAYER);
+    gDPSetAlphaDither(gMainDL++, G_AD_PATTERN);
 
-    draw_sprite(&D_801D9E7C, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
-    load_segments(&D_801D9E7C, D_80204278);
+    draw_sprite(&gMainDL, flagTexture, 48, 31, 180, 140, 0, 0, 70, 0x32, 16);
+    load_segments(&gMainDL, gDisplayListContext);
 
     verticalOffset = 0x42;
 
-    gDPPipeSync(D_801D9E7C++);
+    gDPPipeSync(gMainDL++);
 
     // write language strings
-    load_default_display_list(&D_801D9E7C);
+    load_default_display_list(&gMainDL);
     select_font(0, FONT_COMIC_SANS, 1, 0);
 
     for (lang = 0; lang < 7; lang++) {
@@ -134,7 +134,7 @@ s16 language_select_menu(s16 arg0) {
         } else {
             set_menu_text_color(128, 128, 128, 255);
         }
-        display_text_centered(&D_801D9E7C, languageBuffer + lang * 20, 160, verticalOffset, 16.0f, 16.0f);
+        display_text_centered(&gMainDL, languageBuffer + lang * 20, 160, verticalOffset, 16.0f, 16.0f);
         verticalOffset += 16;
     }
 

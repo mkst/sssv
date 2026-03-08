@@ -18,9 +18,9 @@ void play_sound_effect_at_location(s16 id, s16 volume, s16 unused, s16 x, s16 y,
 
     if ((D_803F2D10.unk0 == 0) && (id != SFX_NONE)) {
         if ((D_803A69F0_7B80A0[id] == 8) || (get_used_sound_count() < D_803A69F0_7B80A0[id])) {
-            sqrt = sqrtf(((x - (s16) D_803F2C44) * (x - (s16) D_803F2C44)) +
-                         ((y - (s16) D_803F2C48) * (y - (s16) D_803F2C48)) +
-                         ((z - (s16) D_803F2C4C) * (z - (s16) D_803F2C4C)));
+            sqrt = sqrtf(((x - (s16) gCameraEyeWorldX) * (x - (s16) gCameraEyeWorldX)) +
+                         ((y - (s16) gCameraEyeWorldZ) * (y - (s16) gCameraEyeWorldZ)) +
+                         ((z - (s16) gCameraEyeWorldY) * (z - (s16) gCameraEyeWorldY)));
             if (sqrt < D_803A6730_7B7DE0[id]) {
                 tmp = 256 - ((sqrt * 256) / D_803A6730_7B7DE0[id]);
                 play_sound_effect(id, 0, (tmp * volume) >> 8, pitch, 64);
@@ -82,9 +82,9 @@ void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5) {
             pitch = 0.749f;
             break;
         }
-        sp34 = sqrtf((((x - (s16) D_803F2C44) * (x - (s16) D_803F2C44)) +
-                      ((y - (s16) D_803F2C48) * (y - (s16) D_803F2C48)) +
-                      ((z - (s16) D_803F2C4C) * (z - (s16) D_803F2C4C))));
+        sp34 = sqrtf((((x - (s16) gCameraEyeWorldX) * (x - (s16) gCameraEyeWorldX)) +
+                      ((y - (s16) gCameraEyeWorldZ) * (y - (s16) gCameraEyeWorldZ)) +
+                      ((z - (s16) gCameraEyeWorldY) * (z - (s16) gCameraEyeWorldY))));
 
         if (sp34 < 1600) {
             if (arg5 == 2) {
@@ -98,31 +98,31 @@ void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5) {
             switch (var_v0) {
             case 0:
             default:
-                sfx_id = (func_8012826C() % 12) + SFX_FOOTSTEP_220;
+                sfx_id = (advance_random_seed() % 12) + SFX_FOOTSTEP_220;
                 volume = 0x4000;
                 break;
             case 1:   // GRASS
-                sfx_id = (func_8012826C() % 12) + SFX_FOOTSTEP_232;
+                sfx_id = (advance_random_seed() % 12) + SFX_FOOTSTEP_232;
                 volume = 0x4000;
                 break;
             case 2:
-                sfx_id = (func_8012826C() % 6) + SFX_FOOTSTEP_244;
+                sfx_id = (advance_random_seed() % 6) + SFX_FOOTSTEP_244;
                 volume = 0x4000;
                 break;
             case 3:   // SNOW
-                sfx_id = (func_8012826C() % 7) + SFX_FOOTSTEP_250;
+                sfx_id = (advance_random_seed() % 7) + SFX_FOOTSTEP_250;
                 volume = 0x4000;
                 break;
             case 4:   // WOOD?
-                sfx_id = (func_8012826C() % 6) + SFX_FOOTSTEP_257;
+                sfx_id = (advance_random_seed() % 6) + SFX_FOOTSTEP_257;
                 volume = 0x5800;
                 break;
             case 5:   // METAL
-                sfx_id = (func_8012826C() % 10) + SFX_FOOTSTEP_263;
+                sfx_id = (advance_random_seed() % 10) + SFX_FOOTSTEP_263;
                 volume = 0x5000;
                 break;
             case 6:   // WATER?
-                sfx_id = (func_8012826C() % 8) + SFX_FOOTSTEP_273;
+                sfx_id = (advance_random_seed() % 8) + SFX_FOOTSTEP_273;
                 volume = 0x4000;
                 break;
             }
@@ -184,11 +184,11 @@ void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos) 
             }
 
             sqrt = sqrtf(
-                ((xPos - (s16) D_803F2C44) * (xPos - (s16) D_803F2C44)) +
-                ((zPos - (s16) D_803F2C48) * (zPos - (s16) D_803F2C48)) +
-                ((yPos - (s16) D_803F2C4C) * (yPos - (s16) D_803F2C4C)));
+                ((xPos - (s16) gCameraEyeWorldX) * (xPos - (s16) gCameraEyeWorldX)) +
+                ((zPos - (s16) gCameraEyeWorldZ) * (zPos - (s16) gCameraEyeWorldZ)) +
+                ((yPos - (s16) gCameraEyeWorldY) * (yPos - (s16) gCameraEyeWorldY)));
 
-            id = (func_8012826C() % 8) + SFX_FOOTSTEP_273;
+            id = (advance_random_seed() % 8) + SFX_FOOTSTEP_273;
 
             if (sqrt < D_803A6730_7B7DE0[id]) {
                 tmp = 256 - ((s32) (sqrt * 256) / D_803A6730_7B7DE0[id]);
@@ -213,9 +213,9 @@ void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch,
     s32 vol;
 
     if (id != SFX_NONE) {
-        vol = sqrtf(((x - (s16) D_803F2C44) * (x - (s16) D_803F2C44)) +
-                    ((y - (s16) D_803F2C48) * (y - (s16) D_803F2C48)) +
-                    ((z - (s16) D_803F2C4C) * (z - (s16) D_803F2C4C)));
+        vol = sqrtf(((x - (s16) gCameraEyeWorldX) * (x - (s16) gCameraEyeWorldX)) +
+                    ((y - (s16) gCameraEyeWorldZ) * (y - (s16) gCameraEyeWorldZ)) +
+                    ((z - (s16) gCameraEyeWorldY) * (z - (s16) gCameraEyeWorldY)));
         if (vol < D_803A6730_7B7DE0[id]) {
             tmp = 256 - ((vol * 256) / D_803A6730_7B7DE0[id]);
             // fakematch? or just a typo?
@@ -246,9 +246,9 @@ void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4,
 
 
     if (id != SFX_NONE) {
-        temp_v0 = xPos - (s16) D_803F2C44;
-        temp_v1 = zPos - (s16) D_803F2C48;
-        temp_a0 = yPos - (s16) D_803F2C4C;
+        temp_v0 = xPos - (s16) gCameraEyeWorldX;
+        temp_v1 = zPos - (s16) gCameraEyeWorldZ;
+        temp_a0 = yPos - (s16) gCameraEyeWorldY;
         temp_f10 = sqrtf(SQ(temp_v0) + SQ(temp_v1) + SQ(temp_a0));
 
         if (temp_f10 < D_803A6730_7B7DE0[id]) {
@@ -268,9 +268,9 @@ void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4,
                 var_v0 = 1;
             }
 
-            temp_f14 = xPos - D_803F2C44;
-            temp_f16 = zPos - D_803F2C48;
-            temp_f18 = yPos - D_803F2C4C;
+            temp_f14 = xPos - gCameraEyeWorldX;
+            temp_f16 = zPos - gCameraEyeWorldZ;
+            temp_f18 = yPos - gCameraEyeWorldY;
 
             temp_f0 = sqrtf(SQ(temp_f14) + SQ(temp_f16) + SQ(temp_f18));
             temp_f14 = temp_f14 / temp_f0;

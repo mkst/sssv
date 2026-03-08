@@ -84,7 +84,7 @@ void add_light_at_location(s16 x, s16 y, s16 z, s16 intensity, s16 r, s16 g, s16
     s16 _intensity;
     s16 next = 0;
 
-    a = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    a = gAnimalState.animals[gCurrentAnimalIndex].animal;
 
     delta = ABS(a->position.xPos.h - x) +
             ABS(a->position.zPos.h - y) +
@@ -259,13 +259,13 @@ void func_802F30A4_704754(void) {
     if (D_803F2A9A != 0x100) {
         var_f0 = (f32) D_803F2A9A / 256;
 
-        D_80204278->lights.a.l.col[0] = D_80204278->lights.a.l.colc[0] = D_803A52A0_7B6950 * var_f0;
-        D_80204278->lights.a.l.col[1] = D_80204278->lights.a.l.colc[1] = D_803A52A4_7B6954 * var_f0;
-        D_80204278->lights.a.l.col[2] = D_80204278->lights.a.l.colc[2] = D_803A52A8_7B6958 * var_f0;
+        gDisplayListContext->lights.a.l.col[0] = gDisplayListContext->lights.a.l.colc[0] = D_803A52A0_7B6950 * var_f0;
+        gDisplayListContext->lights.a.l.col[1] = gDisplayListContext->lights.a.l.colc[1] = D_803A52A4_7B6954 * var_f0;
+        gDisplayListContext->lights.a.l.col[2] = gDisplayListContext->lights.a.l.colc[2] = D_803A52A8_7B6958 * var_f0;
 
-        D_80204278->lights.l[0].l.col[0] = D_80204278->lights.l[0].l.colc[0] = D_803A52AC_7B695C * var_f0;
-        D_80204278->lights.l[0].l.col[1] = D_80204278->lights.l[0].l.colc[1] = D_803A52B0_7B6960 * var_f0;
-        D_80204278->lights.l[0].l.col[2] = D_80204278->lights.l[0].l.colc[2] = D_803A52B4_7B6964 * var_f0;
+        gDisplayListContext->lights.l[0].l.col[0] = gDisplayListContext->lights.l[0].l.colc[0] = D_803A52AC_7B695C * var_f0;
+        gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = D_803A52B0_7B6960 * var_f0;
+        gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = D_803A52B4_7B6964 * var_f0;
 
         D_803E1BBD *= var_f0;
         D_803E1BBE *= var_f0;
@@ -274,13 +274,13 @@ void func_802F30A4_704754(void) {
         D_803E1BBB *= var_f0;
         D_803E1BBC *= var_f0;
     } else {
-        D_80204278->lights.a.l.col[0] = D_80204278->lights.a.l.colc[0] = D_803A52A0_7B6950;
-        D_80204278->lights.a.l.col[1] = D_80204278->lights.a.l.colc[1] = D_803A52A4_7B6954;
-        D_80204278->lights.a.l.col[2] = D_80204278->lights.a.l.colc[2] = D_803A52A8_7B6958;
+        gDisplayListContext->lights.a.l.col[0] = gDisplayListContext->lights.a.l.colc[0] = D_803A52A0_7B6950;
+        gDisplayListContext->lights.a.l.col[1] = gDisplayListContext->lights.a.l.colc[1] = D_803A52A4_7B6954;
+        gDisplayListContext->lights.a.l.col[2] = gDisplayListContext->lights.a.l.colc[2] = D_803A52A8_7B6958;
 
-        D_80204278->lights.l[0].l.col[0] = D_80204278->lights.l[0].l.colc[0] = D_803A52AC_7B695C;
-        D_80204278->lights.l[0].l.col[1] = D_80204278->lights.l[0].l.colc[1] = D_803A52B0_7B6960;
-        D_80204278->lights.l[0].l.col[2] = D_80204278->lights.l[0].l.colc[2] = D_803A52B4_7B6964;
+        gDisplayListContext->lights.l[0].l.col[0] = gDisplayListContext->lights.l[0].l.colc[0] = D_803A52AC_7B695C;
+        gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = D_803A52B0_7B6960;
+        gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = D_803A52B4_7B6964;
 
         D_803E1BBA = ((D_803F2D50.unk54 + D_803F2D50.unk54 + D_803F2D50.unk54) + D_803A52A0_7B6950) / 4;
         D_803E1BBB = ((D_803F2D50.unk55 + D_803F2D50.unk55 + D_803F2D50.unk55) + D_803A52A4_7B6954) / 4;
@@ -318,11 +318,11 @@ void func_802F30A4_704754(void) {
         var_f2 = D_803F2D50.unk78;
     }
 
-    D_80204278->lights.l[0].l.dir[0] = (s32)var_f20;
-    D_80204278->lights.l[0].l.dir[1] = (s32)var_f22;
-    D_80204278->lights.l[0].l.dir[2] = (s32)var_f2;
+    gDisplayListContext->lights.l[0].l.dir[0] = (s32)var_f20;
+    gDisplayListContext->lights.l[0].l.dir[1] = (s32)var_f22;
+    gDisplayListContext->lights.l[0].l.dir[2] = (s32)var_f2;
 
-    add_single_light(&D_801D9E7C);
+    add_single_light(&gMainDL);
 }
 
 void add_multiple_lights(void) {
@@ -335,17 +335,17 @@ void add_multiple_lights(void) {
     for (i = 0; i < MAX_LIGHTS; i++) {
         if (D_803E1B20[i] > 0) {
             used++;
-            D_80204278->lights.l[used].l.col[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
-            D_80204278->lights.l[used].l.col[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
-            D_80204278->lights.l[used].l.col[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.col[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.col[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.col[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
 
-            D_80204278->lights.l[used].l.colc[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
-            D_80204278->lights.l[used].l.colc[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
-            D_80204278->lights.l[used].l.colc[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.colc[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.colc[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.colc[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
 
-            D_80204278->lights.l[used].l.dir[0] = D_803E1B60[i];
-            D_80204278->lights.l[used].l.dir[1] = D_803E1B70[i];
-            D_80204278->lights.l[used].l.dir[2] = D_803E1B80[i];
+            gDisplayListContext->lights.l[used].l.dir[0] = D_803E1B60[i];
+            gDisplayListContext->lights.l[used].l.dir[1] = D_803E1B70[i];
+            gDisplayListContext->lights.l[used].l.dir[2] = D_803E1B80[i];
         }
     }
 
@@ -353,26 +353,26 @@ void add_multiple_lights(void) {
     case 0:
         break;
     case 1:
-        gSPSetLights2(D_801D9E88++, D_80204278->lights);
+        gSPSetLights2(gOpaqueDL++, gDisplayListContext->lights);
         return;
     case 2:
-        gSPSetLights3(D_801D9E88++, D_80204278->lights);
+        gSPSetLights3(gOpaqueDL++, gDisplayListContext->lights);
         break;
     case 3:
-        gSPSetLights4(D_801D9E88++, D_80204278->lights);
+        gSPSetLights4(gOpaqueDL++, gDisplayListContext->lights);
         break;
     case 4:
-        gSPSetLights5(D_801D9E88++, D_80204278->lights);
+        gSPSetLights5(gOpaqueDL++, gDisplayListContext->lights);
         break;
     case 5:
-        gSPSetLights6(D_801D9E88++, D_80204278->lights);
+        gSPSetLights6(gOpaqueDL++, gDisplayListContext->lights);
         break;
     case 6:
-        gSPSetLights7(D_801D9E88++, D_80204278->lights);
+        gSPSetLights7(gOpaqueDL++, gDisplayListContext->lights);
         break;
     }
 }
 
 void add_single_light(Gfx** dl) {
-    gSPSetLights1((*dl)++, D_80204278->lights);
+    gSPSetLights1((*dl)++, gDisplayListContext->lights);
 }

@@ -1316,7 +1316,7 @@ void func_801337BC(s8 arg0, s32 arg1) {
     D_80155164[0] = arg0;
 }
 
-void func_801337DC(s16 idx, f32 arg1, f32 arg2, f32 arg3) {
+void start_sequence_volume_fade(s16 idx, f32 arg1, f32 arg2, f32 arg3) {
     if (idx <= 0) {
         D_801546AC[idx] = arg1;
         D_801546B0[idx] = arg1;
@@ -1326,7 +1326,7 @@ void func_801337DC(s16 idx, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-void func_8013385C(f32 arg0, f32 arg1, f32 arg2)
+void start_sfx_volume_fade(f32 arg0, f32 arg1, f32 arg2)
 {
     D_801546C0 = arg0;
     D_801546C4 = arg0;

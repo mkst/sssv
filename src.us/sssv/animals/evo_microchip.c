@@ -59,7 +59,7 @@ void update_evo_microchip(void) {
         D_803D552C->position.xPos.w = (D_803D552C->unk308 << 0x10) + (((D_803D552C->unk320->position.xPos.w - (D_803D552C->unk308 << 0x10)) / 40) * ticks_remaining);
         D_803D552C->position.zPos.w = (D_803D552C->unk30A << 0x10) + (((D_803D552C->unk320->position.zPos.w - (D_803D552C->unk30A << 0x10)) / 40) * ticks_remaining);
         // fixme
-        D_803D552C->position.yPos.w = (((D_803B3EEC_7C559C[ticks_remaining] << 0x10) >> 3) + (D_803D552C->unk30C << 0x10)) + ((((D_803D552C->unk320->position.yPos.w + ((D_801D9ED8.animals + D_803D552C->unk30E)->unk0->unkBA << 0xF)) - (D_803D552C->unk30C << 0x10)) / 40) * ticks_remaining);
+        D_803D552C->position.yPos.w = (((D_803B3EEC_7C559C[ticks_remaining] << 0x10) >> 3) + (D_803D552C->unk30C << 0x10)) + ((((D_803D552C->unk320->position.yPos.w + ((gAnimalState.animals + D_803D552C->unk30E)->unk0->unkBA << 0xF)) - (D_803D552C->unk30C << 0x10)) / 40) * ticks_remaining);
 
         if (D_803F2D10.unk0 == 0) {
           D_803D552C->heading = (D_803D552C->heading + 5) & 0xFF;
@@ -94,13 +94,13 @@ void update_evo_microchip(void) {
         }
 
         if (ticks_remaining >= 20) {
-            D_803D5520->unk0 = &D_801D9ED8.unk0[EVO_MICROCHIP];
-            D_803D5530->unk16C = &D_801D9ED8.unk0[EVO_MICROCHIP];
+            D_803D5520->unk0 = &gAnimalState.unk0[EVO_MICROCHIP];
+            D_803D5530->unk16C = &gAnimalState.unk0[EVO_MICROCHIP];
             gCurrentAnimalId = EVO_MICROCHIP;
             D_803E9820 = 27;
             D_803E9822 = 0;
             func_80327DA8_739458();
-            func_802C9BA4_6DB254((struct071*)D_801D9ED8.animals[0].animal);
+            func_802C9BA4_6DB254((struct071*)gAnimalState.animals[0].animal);
             D_803D552C->unk365 = ATTACK_NONE;
         }
         break;
@@ -110,9 +110,9 @@ void update_evo_microchip(void) {
 
     if (D_803D5538 != 0) {
         sp9A = 0;
-        D_803F2EDD = 0;
+        gLodDetailState = 0;
     } else {
-        sp9A = func_802E89F0_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x4B0, 5, 0x99, 0, 0, 1, 0);
+        sp9A = classify_object_visibility_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x4B0, 5, 0x99, 0, 0, 1, 0);
     }
 
     if (sp9A == 0) {
@@ -160,25 +160,25 @@ void update_evo_microchip(void) {
         }
         func_8038064C_791CFC();
 
-        if (((D_80204278->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (tmp = D_803F2AA2, (tmp == 0)) || (tmp == 2) || ((tmp == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (tmp = gCameraUiState, (tmp == 0)) || (tmp == 2) || ((tmp == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
 
-            func_80127640(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
-            gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&D_80204278->modelViewMtx[D_80204278->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+            func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
+            gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             add_hilite();
-            gSPDisplayList(D_801D9E88++, D_01003588_3CE58);
-            gDPSetPrimColor(D_801D9E88++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
+            gSPDisplayList(gOpaqueDL++, D_01003588_3CE58);
+            gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
 
             SET_JOINT(1, 2, SCALE_EVO_MICROCHIP, D_803F2EBC, D_803F2EC0, D_803F2EC4, D_803F2ED0, 0, 0, 0, D_01004D90_3E660);
-            gSPDisplayList(D_801D9E88++, D_01003548_3CE18);
+            gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
 
             SET_JOINT(3,  7,  SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 1, D_01004CC0_3E590);
             SET_JOINT(8,  9,  SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 1, D_01004CC0_3E590);
             SET_JOINT(14, 15, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 1, D_01004CC0_3E590);
             SET_JOINT(5,  13, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 1, D_01004CC0_3E590);
 
-            gSPClearGeometryMode(D_801D9E88++, G_CULL_BACK);
-            gSPSetGeometryMode(D_801D9E88++, G_CULL_FRONT);
+            gSPClearGeometryMode(gOpaqueDL++, G_CULL_BACK);
+            gSPSetGeometryMode(gOpaqueDL++, G_CULL_FRONT);
 
             SET_JOINT(4,  10, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 2, 1, D_01004CC0_3E590);
             SET_JOINT(11, 12, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 2, 1, D_01004CC0_3E590);
@@ -193,7 +193,7 @@ void update_evo_microchip(void) {
             func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp9C);
             SET_JOINT(1,   2, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_01004E80_3E750);
 
-            gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
+            gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
         }
         func_8035D6A0_76ED50();
     } else {

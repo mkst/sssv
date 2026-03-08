@@ -306,7 +306,7 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
                    (ABS(temp_t8) <= ((D_803E1D30[(D_803C0740[sp20 >> 6][sp1C >> 6].unk3)].unk2) * 8))) {
             sp43 = 1;
         } else {
-            temp_t8 = (func_8031124C_7228FC(sp20, sp1C) - func_8031124C_7228FC(arg0, arg1)) >> 0x10;
+            temp_t8 = (sample_ground_height_at_xz(sp20, sp1C) - sample_ground_height_at_xz(arg0, arg1)) >> 0x10;
             if (ABS(temp_t8) < 97) {
                 sp43 = 0;
             } else if ((D_803D552C->unk272 & 0x20) && (temp_t8 < 0)) {
@@ -314,7 +314,7 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
             }
       }
     } else {
-        temp_t8 = (arg2 - func_8031124C_7228FC(sp20, sp1C)) >> 0x10;
+        temp_t8 = (arg2 - sample_ground_height_at_xz(sp20, sp1C)) >> 0x10;
         if (ABS(temp_t8) < 97) {
             sp43 = 0;
         } else {
@@ -378,14 +378,14 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
                 return 1;
             }
         }
-        var_a1 = func_8031124C_7228FC(sp28, sp24);
+        var_a1 = sample_ground_height_at_xz(sp28, sp24);
         if ((D_803D5524->waterClass & (WATER_SWIM|WATER_FLOAT)) &&
             (var_a1 < (water_level << 0x10)) &&
             (D_803D5524->waterClass & (WATER_DAMAGE|WATER_DAMAGE_X2))) {
             return 1;
         }
 
-        temp_t9 = (func_8031124C_7228FC(sp28, sp24) - func_8031124C_7228FC(arg0, arg1)) >> 0x10;
+        temp_t9 = (sample_ground_height_at_xz(sp28, sp24) - sample_ground_height_at_xz(arg0, arg1)) >> 0x10;
         if (ABS(temp_t9) < 97) {
             return 0;
         }
@@ -394,7 +394,7 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
         }
     } else {
 
-        var_a1 = func_8031124C_7228FC(sp28, sp24);
+        var_a1 = sample_ground_height_at_xz(sp28, sp24);
         if (D_803D5524->waterClass & WATER_SWIM) {
             if (var_a1 >= arg2) {
                 return 1;
@@ -1277,16 +1277,16 @@ case_14:
         yRotation2 = var_s2;
     }
 
-    if (D_801D9ED8.animals[gCurrentAnimalIndex].unk0->unk9C == MOUSE2) {
-        curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h - D_803D5530->position.xPos.h);
+    if (gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C == MOUSE2) {
+        curDiff = ABS(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h - D_803D5530->position.xPos.h);
         if (curDiff < 0x280) {
             minDist = curDiff;
-            curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h - D_803D5530->position.zPos.h);
+            curDiff = ABS(gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h - D_803D5530->position.zPos.h);
             if (curDiff < 0x280) {
                 if (curDiff >= minDist) {
                     minDist = curDiff;
                 }
-                curDiff = ABS(D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.yPos.h - D_803D5530->position.yPos.h);
+                curDiff = ABS(gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h - D_803D5530->position.yPos.h);
                 if (curDiff < 0x280) {
 
                     if (curDiff >= minDist) {
@@ -1387,12 +1387,12 @@ s32 func_80309868_71AF18(void) {
 
 // ESA: func_8007BF20
 s32 func_803098F0_71AFA0(void) {
-    s32 xDist = ABS(D_803D5530->position.xPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.xPos.h);
-    s32 zDist = ABS(D_803D5530->position.zPos.h - D_801D9ED8.animals[gCurrentAnimalIndex].animal->position.zPos.h);
+    s32 xDist = ABS(D_803D5530->position.xPos.h - gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h);
+    s32 zDist = ABS(D_803D5530->position.zPos.h - gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h);
 
     if ((D_803D552C->unk272 & 1)) {
         if ((s16) (zDist + xDist) < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType]) {
-            return func_80309798_71AE48(D_801D9ED8.animals[gCurrentAnimalIndex].animal);
+            return func_80309798_71AE48(gAnimalState.animals[gCurrentAnimalIndex].animal);
         }
     }
     return 0;
@@ -1538,7 +1538,7 @@ void func_80309E4C_71B4FC(Animal *arg0) {
     D_803D552C->unk2C8 = D_803D552C->unk272;
 
     D_803D552C->unk2CC = arg0;
-    if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+    if (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
         D_803D552C->unk2B4.unk7 = 1;
     } else {
         D_803D552C->unk2B4.unk7 = 0;
@@ -1548,7 +1548,7 @@ void func_80309E4C_71B4FC(Animal *arg0) {
 // ESA: func_8007C4B0
 void func_80309EDC_71B58C(Animal *arg0) {
     D_803D552C->unk2CC = arg0;
-    if (arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+    if (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
         D_803D552C->unk2B4.unk7 = 1;
     } else {
         D_803D552C->unk2B4.unk7 = 0;
@@ -1627,7 +1627,7 @@ void func_80309F38_71B5E8(void) {
                 D_803D552C->unk271 += D_803D552C->unk2EB;
                 D_803D552C->unk2EB = 0;
                 if ((D_803D552C->unk271 >= 3) && (func_803098F0_71AFA0() != 0)) {
-                    func_80309E4C_71B4FC(D_801D9ED8.animals[gCurrentAnimalIndex].animal);
+                    func_80309E4C_71B4FC(gAnimalState.animals[gCurrentAnimalIndex].animal);
                     D_803D552C->unk270 = 1;
                     D_803D552C->unk271 = 2;
                     break;
@@ -1768,7 +1768,7 @@ void func_80309F38_71B5E8(void) {
             D_803D552C->unk271 += D_803D552C->unk2EB;
             D_803D552C->unk2EB = 0;
             if (D_803D552C->unk271 >= 3) {
-                func_80309E4C_71B4FC(D_801D9ED8.animals[gCurrentAnimalIndex].animal);
+                func_80309E4C_71B4FC(gAnimalState.animals[gCurrentAnimalIndex].animal);
                 D_803D552C->unk270 = 1;
                 D_803D552C->unk271 = 2;
             }
@@ -1783,7 +1783,7 @@ void func_80309F38_71B5E8(void) {
 
 // ESA: func_8007CE7C
 void func_8030A8EC_71BF9C(void) {
-    Animal *animal = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    Animal *animal = gAnimalState.animals[gCurrentAnimalIndex].animal;
     func_80319C38_72B2E8(animal->position.xPos.h >> 6, animal->position.zPos.h >> 6, animal->position.yPos.h >> 6,
                          animal->unk193, &animal->unk192, animal->unk160);
 }

@@ -371,7 +371,7 @@ void func_80320B04_7321B4(s16 arg0, s16 arg1) {
 
     D_80203FE0[11].unk0 = D_80203FE0[10].unk0;
     // TODO: how to use SIN() macro here?
-    D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((D_80152C78[((s16)(((phi_v0 << 4) & 0xFF) + 128) & 0xFF) & 0xFF] >> 7) * arg1) >> 8);
+    D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((gSineTable256[((s16)(((phi_v0 << 4) & 0xFF) + 128) & 0xFF) & 0xFF] >> 7) * arg1) >> 8);
     D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((COS(((phi_v0 << 4) & 0xFF) + 128) >> 7) * arg1) >> 8);
 }
 

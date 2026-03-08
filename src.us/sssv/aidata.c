@@ -32,8 +32,8 @@ s16 get_ai_behaviour(u16 X, u16 Y) {
     }
 
     // ignore if biome mis-match
-    if ((D_801D9ED8.unk0[(s32)X - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D50.segment) ||
-        (D_801D9ED8.unk0[(s32)Y - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D50.segment)) {
+    if ((gAnimalState.unk0[(s32)X - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D50.segment) ||
+        (gAnimalState.unk0[(s32)Y - OB_TYPE_ANIMAL_OFFSET].biome != D_803F2D50.segment)) {
         return AI_IGNORE;
     }
 

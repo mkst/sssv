@@ -173,8 +173,8 @@ void func_80362CC4_774374(Animal *arg0) {
                 if (phi_t0 <= 0) {
                     phi_t0 = 1;
                 }
-                tmp1 = (((D_803E93B0[arg0->unk294.type4.unk0].unk0) + 1) << 6) + (func_8012826C() % phi_v1);
-                tmp2 = (((D_803E93B0[arg0->unk294.type4.unk0].unk1) + 1) << 6) + (func_8012826C() % phi_t0);
+                tmp1 = (((D_803E93B0[arg0->unk294.type4.unk0].unk0) + 1) << 6) + (advance_random_seed() % phi_v1);
+                tmp2 = (((D_803E93B0[arg0->unk294.type4.unk0].unk1) + 1) << 6) + (advance_random_seed() % phi_t0);
                 func_80363C48_7752F8(
                     arg0,
                     tmp1,
@@ -216,9 +216,9 @@ void func_80362CC4_774374(Animal *arg0) {
         break;
     case 8:
         if (arg0->unk294.type8.unk6 != 0) {
-            arg0->unk294.type8.unk0 = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
-            arg0->unk2CC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            arg0->unk294.type8.unk0 = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2CC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         if (func_803099BC_71B06C() == 0) {
             func_803638E8_774F98(arg0);
@@ -282,7 +282,7 @@ void func_803633C4_774A74(Animal *arg0) {
         break;
     case 2:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
@@ -296,14 +296,14 @@ void func_803633C4_774A74(Animal *arg0) {
         break;
     case 3:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         arg0->unk278 = arg0->unk2AC->position.xPos.h;
         arg0->unk27A = arg0->unk2AC->position.zPos.h;
         break;
     case 4:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
@@ -330,7 +330,7 @@ void func_803633C4_774A74(Animal *arg0) {
         break;
     case 8:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         if (arg0->unk2AC->unk26C != 0) {
             func_80363CC8_775378(arg0);
@@ -374,7 +374,7 @@ void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2) {
     arg0->waypointType = 8;
     arg0->unk294.type8.unk4 = arg2;
     arg0->unk294.type8.unk0 = arg1;
-    arg0->unk294.type8.unk6 = D_801D9ED8.animals[gCurrentAnimalIndex].animal == arg1;
+    arg0->unk294.type8.unk6 = gAnimalState.animals[gCurrentAnimalIndex].animal == arg1;
     func_80363CC8_775378(arg0);
     func_80309E4C_71B4FC(arg1);
     arg0->unk270 = 1;
@@ -526,7 +526,7 @@ void func_80363CE0_775390(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
     arg0->unk2AC = target;
     arg0->unk2A0 = 2;
-    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
     if (can_fly(target) || func_80362B60_774210(target)) {
@@ -543,7 +543,7 @@ void func_80363DB4_775464(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
     arg0->yPosTarget = arg2;
     arg0->unk2AC = target;
     arg0->unk2A0 = 8;
-    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
     if (can_fly(target) || func_80362B60_774210(arg0->unk2AC)) {
@@ -559,7 +559,7 @@ void func_80363DB4_775464(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
 void func_80363E88_775538(Animal *arg0, Animal *target) {
     arg0->unk2AC = target;
     arg0->unk2A0 = 3;
-    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
     arg0->unk274 = 2;
@@ -572,7 +572,7 @@ void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *target) {
     arg0->unk2AC = target;
     arg0->unk2A0 = 4;
     arg0->unk2A1 = 16;
-    arg0->targetIsPlayer = target == D_801D9ED8.animals[gCurrentAnimalIndex].animal;
+    arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
     arg0->unk274 = 3;

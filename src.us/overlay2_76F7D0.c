@@ -75,7 +75,7 @@ s32 func_8035E344_76F9F4(Animal2 *arg0, s16 arg1) {
     if (arg0->unk0->unkDA[arg1][0] < arg0->animal->energy[arg1].unk0) {
         arg0->animal->energy[arg1].unk0 -= arg0->unk0->unkDA[arg1][0];
         arg0->animal->energy[arg1].unk2  = arg0->unk0->unkDA[arg1][2];
-        if ((Animal*)arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+        if ((Animal*)arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
             D_803F2EE0[arg1] = 1;
         }
         return 1;

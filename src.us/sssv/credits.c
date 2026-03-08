@@ -85,7 +85,7 @@ s32 display_credits(void) {
     s16 sp90[58];
     u8  sp50[64];
 
-    load_default_display_list(&D_801D9E7C);
+    load_default_display_list(&gMainDL);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
     select_font(0, FONT_COMIC_SANS, 0, 0);
 
@@ -96,7 +96,7 @@ s32 display_credits(void) {
             entryOffset = 0;
             i = 1000; // break
         } else {
-            display_text_centered(&D_801D9E7C, sp90, gScreenWidth / 2, verticalPosition + (i * 16), 16.0f, 16.0f);
+            display_text_centered(&gMainDL, sp90, gScreenWidth / 2, verticalPosition + (i * 16), 16.0f, 16.0f);
         }
     }
 

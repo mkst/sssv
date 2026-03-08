@@ -5,7 +5,7 @@
 // definitions
 // ========================================================
 
-void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
+void draw_star_billboard_texrect(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
 
 // ========================================================
 // .data
@@ -39,7 +39,7 @@ void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f3
             func_802B4148_6C57F8(arg0);
         }
         if (arg1 == 2) {
-            draw_rectangle(arg0, 8, 8, gScreenWidth - 8, gScreenHeight - 8, D_803E1CF8.r, D_803E1CF8.g, D_803E1CF8.b, 255);
+            draw_rectangle(arg0, 8, 8, gScreenWidth - 8, gScreenHeight - 8, gFogState.r, gFogState.g, gFogState.b, 255);
         }
     }
 }
@@ -85,18 +85,18 @@ void func_802B4148_6C57F8(Gfx **arg0) {
     temp_s6 = temp_s6 - D_803E4D30;
 
     for (i = 0; i < 360; i++) {
-        func_802B4794_6C5E44(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, D_803D5B30[i] << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+        draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, D_803D5B30[i] << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
         if ((D_803E4D28 & 4) != 0) {
-            func_802B4794_6C5E44(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] - 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
-            func_802B4794_6C5E44(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
-            func_802B4794_6C5E44(arg0, (D_803D5590[i] + 0x2710) << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 6000) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+            draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] - 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+            draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+            draw_star_billboard_texrect(arg0, (D_803D5590[i] + 0x2710) << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 6000) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
         }
     }
 
     D_803A05C8_7B1C78 = temp_s6;
 
     // randomly generate a meteor
-    if ((D_803F6680.unk0 == 0) && (RAND(100000) < 5)) {
+    if ((gOverlayMenuState.unk0 == 0) && (RAND(100000) < 5)) {
         s32 temp_s0;
         s16 temp_s1;
         s16 temp_s2;
@@ -120,7 +120,7 @@ void func_802B4148_6C57F8(Gfx **arg0) {
     }
 }
 
-void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
+void draw_star_billboard_texrect(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
     f32 sp7C;
     f32 sp78;
     f32 temp_f12;
@@ -142,26 +142,26 @@ void func_802B4794_6C5E44(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s1
     temp_f14 = arg2 / 65536.0;
     temp_f16 = arg3 / 65536.0;
 
-    temp_f0 = D_80204278->unk38A10[2][3] +
-            ((D_80204278->unk38A10[2][2] * temp_f16) +
-            ((D_80204278->unk38A10[2][1] * temp_f14) +
-             (D_80204278->unk38A10[2][0] * temp_f12)));
+    temp_f0 = gDisplayListContext->unk38A10[2][3] +
+            ((gDisplayListContext->unk38A10[2][2] * temp_f16) +
+            ((gDisplayListContext->unk38A10[2][1] * temp_f14) +
+             (gDisplayListContext->unk38A10[2][0] * temp_f12)));
 
     if (temp_f0 <= -3.0) {
-        xl = (D_80204278->unk38A10[3][3] + (D_80204278->unk38A10[3][2] * temp_f0)) / -temp_f0;
+        xl = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f0)) / -temp_f0;
         if (xl > 0.0) {
 
-            sp7C = D_80204278->unk38A10[0][3] +
-                 ((D_80204278->unk38A10[0][2] * temp_f16) +
-                 ((D_80204278->unk38A10[0][1] * temp_f14) +
-                  (D_80204278->unk38A10[0][0] * temp_f12)));
-            sp78 = D_80204278->unk38A10[1][3] +
-              ((    D_80204278->unk38A10[1][2] * temp_f16) +
-                 ((D_80204278->unk38A10[1][1] * temp_f14) +
-                  (D_80204278->unk38A10[1][0] * temp_f12)));
+            sp7C = gDisplayListContext->unk38A10[0][3] +
+                 ((gDisplayListContext->unk38A10[0][2] * temp_f16) +
+                 ((gDisplayListContext->unk38A10[0][1] * temp_f14) +
+                  (gDisplayListContext->unk38A10[0][0] * temp_f12)));
+            sp78 = gDisplayListContext->unk38A10[1][3] +
+              ((    gDisplayListContext->unk38A10[1][2] * temp_f16) +
+                 ((gDisplayListContext->unk38A10[1][1] * temp_f14) +
+                  (gDisplayListContext->unk38A10[1][0] * temp_f12)));
 
-            sp70 = ((D_80204278->unk38A10[3][0] * sp7C) / temp_f0) + (gScreenWidth  * (0, 2));
-            sp6C = ((D_80204278->unk38A10[3][1] * sp78) / temp_f0) + (gScreenHeight * (0, 2));
+            sp70 = ((gDisplayListContext->unk38A10[3][0] * sp7C) / temp_f0) + (gScreenWidth  * (0, 2));
+            sp6C = ((gDisplayListContext->unk38A10[3][1] * sp78) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
             phi_f2 = (arg6 * 32) / -temp_f0;

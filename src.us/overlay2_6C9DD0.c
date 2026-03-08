@@ -179,7 +179,7 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         sp58 = func_80310F58_722608(sp5E, sp5C);
         sp58 = sp58 - (D_803D5530->unk4C.unk10 << 16);
         if (D_803D5530->position.yPos.w + FTOFIX32(10.0) < sp58) {
-            sp58 = func_8031124C_7228FC(sp5E, sp5C) - (D_803D5530->unk4C.unk10 << 16);
+            sp58 = sample_ground_height_at_xz(sp5E, sp5C) - (D_803D5530->unk4C.unk10 << 16);
         }
         if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->position.yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
             if (sp58 < sp54) {
@@ -200,7 +200,7 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         }
         break;
     case 1:
-        sp58 = func_8031124C_7228FC(sp5E, sp5C) - (D_803D5530->unk4C.unk10 << 0x10);
+        sp58 = sample_ground_height_at_xz(sp5E, sp5C) - (D_803D5530->unk4C.unk10 << 0x10);
         if (func_8029B000_6AC6B0(sp5E, sp5C, D_803D5530->position.yPos.w, D_803D5530, D_803D5530->unk68, &sp4C, &sp54, D_803D5530->unk70, &sp48, &sp50)) {
             if (sp58 < sp54) {
                 sp58 = sp54;
@@ -216,12 +216,12 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
     case 2:
         sp58 = func_80310F58_722608(sp5E, sp5C);
         if (sp58 == 0x40000000) {
-            sp40 = func_8031124C_7228FC(sp5E, sp5C);
+            sp40 = sample_ground_height_at_xz(sp5E, sp5C);
 
             if (1) {}; // regalloc
 
             if ((func_80310F58_722608(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) - FTOFIX32(5.0)) < sp40) {
-                sp58 = func_8031124C_7228FC(sp5E, sp5C);
+                sp58 = sample_ground_height_at_xz(sp5E, sp5C);
             } else {
                 sp58 = func_80310F58_722608(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) - FTOFIX32(5.0);
             }

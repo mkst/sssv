@@ -202,7 +202,7 @@ s16 func_8012C678(s16 *text, u16 x, u16 y) {
             }
             sprintf((char*)spD8, "%d", D_8023F206[num]);
             prepare_text(spD8, D_8023F248);
-            func_8012D374(&D_801D9E7C, D_8023F248, x, y, D_8023F1F8, D_8023F1FC, -1);
+            func_8012D374(&gMainDL, D_8023F248, x, y, D_8023F1F8, D_8023F1FC, -1);
             return 1;
         }
         // change text color
@@ -685,7 +685,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     return numLines * lineHeight;
 }
 
-void func_8012EB4C(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
+void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
     s16 wchr;       // sp256
     u8  sp154[0x102];
 

@@ -100,10 +100,10 @@ void func_802B4D20_6C63D0(void) {
                                         animal1->unk4C.unk19 = 1;
                                         animal2->unk4C.unk19 = 1;
 
-                                        if ((animal1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) && (animal2->unk16C->objectType == OBJECT_TV_SCREEN)) {
+                                        if ((animal1 == gAnimalState.animals[gCurrentAnimalIndex].animal) && (animal2->unk16C->objectType == OBJECT_TV_SCREEN)) {
                                             func_8038F5F8_7A0CA8(animal2);
                                         }
-                                        if ((animal2 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) && (animal1->unk16C->objectType == OBJECT_TV_SCREEN)) {
+                                        if ((animal2 == gAnimalState.animals[gCurrentAnimalIndex].animal) && (animal1->unk16C->objectType == OBJECT_TV_SCREEN)) {
                                             func_8038F5F8_7A0CA8(animal1);
                                         }
 
@@ -239,12 +239,12 @@ void func_802B4D20_6C63D0(void) {
                                             animal1->unk48 = animal2->unk48 = D_803D5544;
                                             // animal1->unk48 = D_803D5544;
 
-                                            if (animal1 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+                                            if (animal1 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
                                                 if ((D_803D5544 - D_803D60E2) >= 5) {
                                                     D_803D5546 = MAX(2, D_803D5546);
                                                     D_803D60E2 = D_803D5544;
                                                 }
-                                            } else if (animal2 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) {
+                                            } else if (animal2 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
                                                 if ((D_803D5544 - D_803D60E2) >= 5) {
                                                     D_803D5546 = MAX(2, D_803D5546);
                                                     D_803D60E2 = D_803D5544;
@@ -827,7 +827,7 @@ u8 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 }
 
 // ESA: func_800730B4
-u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg5, u16 arg6) {
+u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg5, u16 arg6) {
     s32 pad[2];
     CollisionNode *var_s5;
     Animal *other;
@@ -876,10 +876,10 @@ u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg
                                             ((D_803D60D4 == 0) && (D_803D60D0(other, arg0, &D_803D60D8, &D_803D60DC, other->position.xPos, other->position.zPos, other->position.yPos, xx, yy, zz) != 0))) {
                                             *arg5 = 1;
 
-                                            if ((arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) && (other->unk16C->objectType == OBJECT_TV_SCREEN)) {
+                                            if ((arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) && (other->unk16C->objectType == OBJECT_TV_SCREEN)) {
                                                 func_8038F5F8_7A0CA8(other);
                                             }
-                                            if ((other == D_801D9ED8.animals[gCurrentAnimalIndex].animal) && (arg0->unk16C->objectType == OBJECT_TV_SCREEN)) {
+                                            if ((other == gAnimalState.animals[gCurrentAnimalIndex].animal) && (arg0->unk16C->objectType == OBJECT_TV_SCREEN)) {
                                                 func_8038F5F8_7A0CA8(arg0);
                                             }
                                             func_802FD674_70ED24(arg0, other);
@@ -887,10 +887,10 @@ u8 func_802B75CC_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8 *arg
                                         } else {
                                             *arg5 = 0;
 
-                                            if ((arg0 == D_801D9ED8.animals[gCurrentAnimalIndex].animal) && (other->unk16C->objectType == OBJECT_TV_SCREEN)) {
+                                            if ((arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) && (other->unk16C->objectType == OBJECT_TV_SCREEN)) {
                                                 func_8038F5F8_7A0CA8(other);
                                             }
-                                            if ((other == D_801D9ED8.animals[gCurrentAnimalIndex].animal) && (arg0->unk16C->objectType == OBJECT_TV_SCREEN)) {
+                                            if ((other == gAnimalState.animals[gCurrentAnimalIndex].animal) && (arg0->unk16C->objectType == OBJECT_TV_SCREEN)) {
                                                 func_8038F5F8_7A0CA8(arg0);
                                             }
                                             func_802FD674_70ED24(arg0, other);
@@ -1014,14 +1014,14 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
 
     for (i = 0, var_v0 = 1; (((checkAnimal0) || (checkAnimal1)) && (var_v0 != 0) && (i < 16)); i++) {
         if (checkAnimal0) {
-            if ((func_802B75CC_6C8C7C(arg0, arg1, x0, z0, y0, &sp80, 0) == 0) && (func_80313448_724AF8(arg0, x0, z0, y0) != 0)) {
+            if ((check_collision_against_animals_6C8C7C(arg0, arg1, x0, z0, y0, &sp80, 0) == 0) && (func_80313448_724AF8(arg0, x0, z0, y0) != 0)) {
                 arg0->position.yPos.w = MAX(arg0->position.yPos.w, func_80310EE4_722594(arg0->position.xPos.h, arg0->position.zPos.h, arg0->unk160));
             } else {
                 checkAnimal0 = 0; // break
             }
         }
         if (checkAnimal1) {
-            if ((func_802B75CC_6C8C7C(arg1, arg0, x1, z1, y1, &sp80, 0) == 0) && (func_80313448_724AF8(arg1, x1, z1, y1) != 0)) {
+            if ((check_collision_against_animals_6C8C7C(arg1, arg0, x1, z1, y1, &sp80, 0) == 0) && (func_80313448_724AF8(arg1, x1, z1, y1) != 0)) {
                 arg1->position.yPos.w = MAX(arg1->position.yPos.w, func_80310EE4_722594(arg1->position.xPos.h, arg1->position.zPos.h, arg1->unk160));
             } else {
                 checkAnimal1 = 0; // break

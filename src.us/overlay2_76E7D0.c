@@ -38,7 +38,7 @@ s16  D_803F2ED8;
 u8   D_803F2EDA;
 u8   D_803F2EDB;
 static u8   D_803F2EDC;
-u8   D_803F2EDD;
+u8   gLodDetailState;
 u8   D_803F2EDE;
 
 // ========================================================
@@ -156,9 +156,9 @@ void func_8035D120_76E7D0(void) {
         Animal *a = D_803D552C;
         D_803F2EDC = 1;
         if (a->lastHpLost < 3) {
-            set_fog_factor_and_color(&D_801D9E88, 160, 160, 160);
+            set_fog_factor_and_color(&gOpaqueDL, 160, 160, 160);
         } else {
-            set_fog_factor_and_color(&D_801D9E88, 200, 200, 200);
+            set_fog_factor_and_color(&gOpaqueDL, 200, 200, 200);
         }
         D_803D552C->lastHpLost = MAX(0, D_803D552C->lastHpLost - 2);
     }
@@ -166,7 +166,7 @@ void func_8035D120_76E7D0(void) {
 
 void func_8035D6A0_76ED50(void) {
     if (D_803F2EDC != 0) {
-        set_fog_position_and_color(&D_801D9E88);
+        set_fog_position_and_color(&gOpaqueDL);
     }
 }
 
@@ -209,8 +209,8 @@ void func_8035D734_76EDE4(void) {
                 D_803D5530->unk30,
                 GPACK_RGBA5551(248, 248, 0, 1));
         }
-    } else if ((D_803D5538 != 0) && (D_803D552C->unk36A == 1) && (D_803F2D30.unk4 > 16)) {
-        D_803F2ECC = MIN(((D_803F2D30.unk4 - 16) >> 1), 32);
+    } else if ((D_803D5538 != 0) && (D_803D552C->unk36A == 1) && (gLevelProgress.unk4 > 16)) {
+        D_803F2ECC = MIN(((gLevelProgress.unk4 - 16) >> 1), 32);
         D_803F2ECE = 1;
     } else if (D_803D552C->unk36A == 2) {
         temp_v0_3 = D_803D5544 - D_803D552C->unk328;

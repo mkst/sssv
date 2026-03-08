@@ -142,16 +142,16 @@ void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
         arg0->unkC4[arg1].pos.zPos.h + arg0->position.zPos.h,
         arg0->unkC4[arg1].pos.yPos.h + arg0->position.yPos.h);
 
-    gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     guScale(&arg2->modelViewMtx[arg2->usedModelViewMtxs], (f64)arg0->unkC4[arg1].unkC * 1.0f, (f64)arg0->unkC4[arg1].unkC * 1.0f, (f64)arg0->unkC4[arg1].unkC * 1.0f);
 
-    gSPMatrix(D_801D9E88++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
+    gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&arg2->modelViewMtx[arg2->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-    gSPDisplayList(D_801D9E88++, D_01003618_3CEE8);
-    gDPSetPrimColor(D_801D9E88++, 0, 0, 255, 0, 0, 255);
-    gSPDisplayList(D_801D9E88++, D_01037700_70FD0);
-    gSPPopMatrix(D_801D9E88++, G_MTX_MODELVIEW);
+    gSPDisplayList(gOpaqueDL++, D_01003618_3CEE8);
+    gDPSetPrimColor(gOpaqueDL++, 0, 0, 255, 0, 0, 255);
+    gSPDisplayList(gOpaqueDL++, D_01037700_70FD0);
+    gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 }
 
 // unused
