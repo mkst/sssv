@@ -103,7 +103,7 @@ u8 D_803A0594_7B1C44[16] = {
 
 static s16  D_803D2E00; // 0..15
 
-DynamicTextures D_803D2E08;
+DynamicTextures gDynamicTextureBillboardQueue;
 
 // ========================================================
 // .text
@@ -177,19 +177,19 @@ void render_dynamic_texture_billboards_6AE758(void) {
     gSPDisplayList(gLayer0DL++, D_01004308_3DBD8);
     gSPDisplayList(gAuxDL++, D_01004B98_3E468);
 
-    for (i = 0; i != -1; i = D_803D2E08.textures[i].next) {
-        tex = &D_803D2E08.textures[i];
+    for (i = 0; i != -1; i = gDynamicTextureBillboardQueue.textures[i].next) {
+        tex = &gDynamicTextureBillboardQueue.textures[i];
 
         if (tex->category < 32) {
             if (tex->category != loaded_texture) {
                 if (loaded_texture != 0xFF) {
-                    D_803D2E08.textureGroups[loaded_texture] = -1;
+                    gDynamicTextureBillboardQueue.textureGroups[loaded_texture] = -1;
                 }
                 loaded_texture = tex->category;
                 if (loaded_texture == 0) {
-                    func_8029D8D8_6AEF88(&gAuxDL, loaded_texture + (D_803D3428 / 3));
+                    load_dynamic_texture_billboard_texture_pair(&gAuxDL, loaded_texture + (D_803D3428 / 3));
                 } else {
-                    func_8029D8D8_6AEF88(&gAuxDL, loaded_texture);
+                    load_dynamic_texture_billboard_texture_pair(&gAuxDL, loaded_texture);
                 }
             }
             if (tex->unk10 == 127) {
@@ -210,7 +210,7 @@ void render_dynamic_texture_billboards_6AE758(void) {
             if (tex->category != loaded_texture_2) {
                 if (loaded_texture_2 != 0xFF) {
                     // mark old as cleared
-                    D_803D2E08.textureGroups[loaded_texture_2] = -1;
+                    gDynamicTextureBillboardQueue.textureGroups[loaded_texture_2] = -1;
                 }
                 loaded_texture_2 = tex->category;
                 if (loaded_texture_2 < 48) {
@@ -284,8 +284,8 @@ void render_dynamic_texture_billboards_6AE758(void) {
         }
     }
 
-    D_803D2E08.unk0 = -1;
-    D_803D2E08.unk1 = -1;
+    gDynamicTextureBillboardQueue.unk0 = -1;
+    gDynamicTextureBillboardQueue.unk1 = -1;
 }
 
 // new file, or just bss ordering fun?
@@ -305,17 +305,17 @@ static struct057  D_803D5188[32];
 static s16  D_803D5508;
 
 
-void func_8029D89C_6AEF4C(void) {
+void reset_dynamic_texture_billboard_queue(void) {
     s16 i;
     // DynamicTexture
-    D_803D2E08.unk0 = -1;
-    D_803D2E08.unk1 = -1;
+    gDynamicTextureBillboardQueue.unk0 = -1;
+    gDynamicTextureBillboardQueue.unk1 = -1;
     for (i = 0; i < 64; i++) {
-        D_803D2E08.textureGroups[i] = -1;
+        gDynamicTextureBillboardQueue.textureGroups[i] = -1;
     }
 }
 
-void func_8029D8D8_6AEF88(Gfx **arg0, s16 arg1) {
+void load_dynamic_texture_billboard_texture_pair(Gfx **arg0, s16 arg1) {
     u8 *img1;
     u8 *img2;
 
@@ -781,7 +781,7 @@ void func_8029F3CC_6B0A7C(void) {
         D_803D3A20.unk2[i] = -1;
         D_803D3FF8.unk2[i] = -1;
     }
-    func_8029D89C_6AEF4C();
+    reset_dynamic_texture_billboard_queue();
     D_803D5508 = 0;
 }
 
@@ -1011,7 +1011,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
                                 D_803D343C->unk40,
                                 D_803D3440->unk14 + D_803D343C->unk64,
-                                &D_803D2E08,
+                                &gDynamicTextureBillboardQueue,
                                 D_803D3440->objectType,
                                 0,
                                 0,
@@ -1066,7 +1066,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF) + ((D_803D343C->unk40 * 55) << 5),
                                     (s32)(D_803D343C->unk40 * 0.6),
                                     D_803D343C->state == 1 ? 4 : 5,
-                                    &D_803D2E08,
+                                    &gDynamicTextureBillboardQueue,
                                     D_803D343C->unk3E,
                                     0,
                                     0,
@@ -1187,7 +1187,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w + (sp318.unk4 << 0xA) + (D_803D343C->unk42 << 0xF),
                                     (var_s0[3] * D_803D343C->unk40) >> 0xB,
                                     var_s0[4],
-                                    &D_803D2E08,
+                                    &gDynamicTextureBillboardQueue,
                                     D_803D343C->unk3E,
                                     D_803D343C->unk200[0],
                                     D_803D343C->unk200[1],
@@ -1281,7 +1281,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 D_803D343C->position.yPos.w + (sp2AC.unk4 << 0x10) + (D_803D343C->unk42 << 0xF),
                                 D_803D343C->unk40 >> 2,
                                 0x20,
-                                &D_803D2E08,
+                                &gDynamicTextureBillboardQueue,
                                 0,
                                 var_s0_2,
                                 0,
@@ -1330,7 +1330,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 D_803D343C->position.yPos.w + ((D_803D343C->unk40 * 6) << 8),
                                 (s32) (D_803D343C->unk40 * 0.2),
                                 D_803D343C->state == 1 ? 4 : 5,
-                                &D_803D2E08,
+                                &gDynamicTextureBillboardQueue,
                                 D_803D343C->unk3E,
                                 0,
                                 0,
@@ -1382,11 +1382,11 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             func_8029F464_6B0B14(&D_803D3FF8, D_803D343C->unk3E & 0x3F, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->unk4);
                             if (D_803D343C->unk200[0] & 2) {
                                 func_802F603C_7076EC(D_803A0580_7B1C30[0][0], D_803A0580_7B1C30[0][1], D_803A0580_7B1C30[0][2], D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                enqueue_dynamic_texture_billboard_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (D_803D343C->unk40 / 2.6), 0x20, &D_803D2E08, 0, 0xFF, 0x64, 0x64);
+                                enqueue_dynamic_texture_billboard_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (D_803D343C->unk40 / 2.6), 0x20, &gDynamicTextureBillboardQueue, 0, 0xFF, 0x64, 0x64);
                             }
                             if (D_803D343C->unk200[0] & 4) {
                                 func_802F603C_7076EC(-D_803A0580_7B1C30[0][0], D_803A0580_7B1C30[0][1], D_803A0580_7B1C30[0][2], D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
-                                enqueue_dynamic_texture_billboard_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (D_803D343C->unk40 / 2.6), 0x20, &D_803D2E08, 0, 0xFF, 0x64, 0x64);
+                                enqueue_dynamic_texture_billboard_6AE5A0(D_803D343C->position.xPos.w + (sp210.unk0 << 0x10), D_803D343C->position.zPos.w + (sp210.unk2 << 0x10), D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF), (D_803D343C->unk40 / 2.6), 0x20, &gDynamicTextureBillboardQueue, 0, 0xFF, 0x64, 0x64);
                             }
                             if (D_803D343C->unk200[0] & 0x18) {
                                 if (D_803D343C->unk200[0] & 8) {
@@ -1401,7 +1401,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF),
                                     (D_803D343C->unk40 / 2.6),
                                     0x20,
-                                    &D_803D2E08,
+                                    &gDynamicTextureBillboardQueue,
                                     0,
                                     0xFF,
                                     var_s0_3,
@@ -1413,7 +1413,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w + (sp210.unk4 << 0x10) + (D_803D343C->unk42 << 0xF),
                                     (D_803D343C->unk40 / 2.6),
                                     0x20,
-                                    &D_803D2E08,
+                                    &gDynamicTextureBillboardQueue,
                                     0,
                                     0xFF,
                                     var_s0_3,
@@ -1451,7 +1451,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
                                     D_803D343C->unk40,
                                     D_803D343C->unk3E,
-                                    &D_803D2E08,
+                                    &gDynamicTextureBillboardQueue,
                                     0,
                                     D_803D343C->unk200[0],
                                     D_803D343C->unk200[1],
@@ -1466,7 +1466,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF),
                                     D_803D343C->unk40,
                                     D_803D343C->unk3E,
-                                    &D_803D2E08,
+                                    &gDynamicTextureBillboardQueue,
                                     0x7F,
                                     D_803D343C->unk200[0],
                                     D_803D343C->unk200[1],
@@ -1668,7 +1668,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
         func_8029EAAC_6B015C();
     }
     func_8029F218_6B08C8();
-    if (D_803D2E08.unk1 != -1) {
+    if (gDynamicTextureBillboardQueue.unk1 != -1) {
         render_dynamic_texture_billboards_6AE758();
     }
     if (D_803E97C0 > 0) {

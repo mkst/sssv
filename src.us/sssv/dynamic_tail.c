@@ -847,9 +847,9 @@ void func_802DE950_6F0000(void) {
                 }
 
                 for (j = 0; j < 3; j++) {
-                    enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x200U, 3, &D_803D2E08, 0, 0xFF, 0xFF, 0xFF);
+                    enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x200U, 3, &gDynamicTextureBillboardQueue, 0, 0xFF, 0xFF, 0xFF);
                 }
-                enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x400U, 0x20, &D_803D2E08, 0, 0xFF, 0xFF, 0xFF);
+                enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x400U, 0x20, &gDynamicTextureBillboardQueue, 0, 0xFF, 0xFF, 0xFF);
 
                 add_light_at_location(D_803DA300[temp_s2->unk16+3].unk0 >> 0x10, D_803DA300[temp_s2->unk16+3].unk4 >> 0x10, D_803DA300[temp_s2->unk16+3].unk8 >> 0x10, 0xFF, 0xFF, 0x96, 0);
                 advance_random_seed();
@@ -880,9 +880,9 @@ void func_802DE950_6F0000(void) {
                 }
 
                 for (j = 0; j < 3; j++) {
-                    enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x200, 3, &D_803D2E08, 0, 0xFF, 0xFF, 0xFF);
+                    enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x200, 3, &gDynamicTextureBillboardQueue, 0, 0xFF, 0xFF, 0xFF);
                 }
-                enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x800, 0x20, &D_803D2E08, 0, 0xFF, 0xFF, 0xFF);
+                enqueue_dynamic_texture_billboard_6AE5A0(D_803DA300[temp_s2->unk16+j].unk0, D_803DA300[temp_s2->unk16+j].unk4, D_803DA300[temp_s2->unk16+j].unk8, 0x800, 0x20, &gDynamicTextureBillboardQueue, 0, 0xFF, 0xFF, 0xFF);
 
                 add_light_at_location(D_803DA300[temp_s2->unk16+3].unk0 >> 0x10, D_803DA300[temp_s2->unk16+3].unk4 >> 0x10, D_803DA300[temp_s2->unk16+3].unk8 >> 0x10, 0xFF, 0xFF, 0x96, 0);
                 advance_random_seed();

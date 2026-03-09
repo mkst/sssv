@@ -927,7 +927,7 @@ void func_80326260_737910(void) {
                         D_803D5530->position.yPos.w + (tmp1       ) + (67   * 0x29800),
                         612,
                         i + 3,
-                        &D_803D2E08,
+                        &gDynamicTextureBillboardQueue,
                         i + 3,
                         0,  // r
                         0,  // g

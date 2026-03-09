@@ -521,5 +521,5 @@ void draw_particle_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16
 }
 
 void enqueue_dynamic_texture_billboard_helper_740F78(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
-    enqueue_dynamic_texture_billboard_6AE5A0(arg0 << 16, arg1 << 16, arg2 << 16, 512, arg3 + 3, &D_803D2E08, arg3 + 3, 0, 0, 0);
+    enqueue_dynamic_texture_billboard_6AE5A0(arg0 << 16, arg1 << 16, arg2 << 16, 512, arg3 + 3, &gDynamicTextureBillboardQueue, arg3 + 3, 0, 0, 0);
 }
