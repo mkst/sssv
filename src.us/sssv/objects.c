@@ -170,6 +170,8 @@ void func_802C985C_6DAF0C(void) {
 }
 
 // ESA: func_8004D558
+void reset_object_render_queues(void);
+
 void reset_objects_state(void) {
     u16 i;
 
@@ -179,7 +181,7 @@ void reset_objects_state(void) {
     for (i = 0; i <= MAX_OBJECTS; i++) {
         bzero_sssv(&D_801E9EB8.objects[i], sizeof(struct071));
     }
-    func_8029F3CC_6B0A7C();
+    reset_object_render_queues();
 }
 
 // add_reference_to_object

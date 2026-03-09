@@ -624,7 +624,7 @@ D_803D2DF8 = 0x803D2DF8; // defined:true
 D_803D2DFC = 0x803D2DFC; // defined:true
 D_803D2DFE = 0x803D2DFE; // defined:true
 D_803D2E00 = 0x803D2E00; // defined:true
-D_803D2E08 = 0x803D2E08; // defined:true
+gDynamicTextureBillboardQueue = 0x803D2E08; // defined:true
 
 // overlay2_6B5380
 D_803D5510 = 0x803D5510; // defined:true
@@ -1672,6 +1672,17 @@ gNewscasterTileIndex = 0x80299E3C; // rom:0x63D4DC
 is_world_cell_loaded_6AB9E4 = 0x8029A334; // rom:0x6AB9E4
 enqueue_dynamic_texture_billboard_6AE5A0 = 0x8029CEF0; // rom:0x6AE5A0
 render_dynamic_texture_billboards_6AE758 = 0x8029D0A8; // rom:0x6AE758
+reset_dynamic_texture_billboard_queue = 0x8029D89C; // rom:0x6AEF4C
+load_dynamic_texture_billboard_texture_pair = 0x8029D8D8; // rom:0x6AEF88
+enqueue_distance_sorted_textured_display_list_instance = 0x8029DB20; // rom:0x6AF1D0
+render_distance_sorted_textured_display_list_instances = 0x8029DD84; // rom:0x6AF434
+render_untextured_colored_display_list_queue = 0x8029E7D0; // rom:0x6AFE80
+render_lookat_textured_display_list_queue = 0x8029EAAC; // rom:0x6B015C
+render_texture_grouped_display_list_queue = 0x8029EF20; // rom:0x6B05D0
+render_texture_grouped_display_list_queues = 0x8029F218; // rom:0x6B08C8
+reset_object_render_queues = 0x8029F3CC; // rom:0x6B0A7C
+enqueue_texture_grouped_display_list_instance = 0x8029F464; // rom:0x6B0B14
+enqueue_object_display_list_by_flags = 0x8029F65C; // rom:0x6B0D0C
 draw_star_billboard_texrect = 0x802B4794; // rom:0x6C5E44
 check_collision_against_animals_6C8C7C = 0x802B75CC; // rom:0x6C8C7C
 classify_object_visibility_6FA0A0 = 0x802E89F0; // rom:0x6FA0A0

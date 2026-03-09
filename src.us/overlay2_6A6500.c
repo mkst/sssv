@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
+void reset_object_render_queues(void);
+
 
 // ========================================================
 // .data
@@ -32,7 +34,7 @@ void func_80294E50_6A6500(void) {
     gDisplayListContext->usedSprites = 0;
     D_8028645A = 0;
     // reset a bunch of things
-    func_8029F3CC_6B0A7C();
+    reset_object_render_queues();
 
     gRenderMode2 = 0x0000000000112038;
     if (gInitialisationState != 0) {

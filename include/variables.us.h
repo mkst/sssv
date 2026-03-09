@@ -746,7 +746,7 @@ extern struct054 D_803D2D90;
 // extern s16       D_803D2DFC;
 // extern s16       D_803D2DFE;
 // extern s16       D_803D2E00;
-extern DynamicTextures D_803D2E08; // dynamic textures, e.g. CRAZY_BEAR's spotlights
+extern DynamicTextures gDynamicTextureBillboardQueue; // dynamic textures, e.g. CRAZY_BEAR's spotlights
 // extern s32        D_803D3428;
 // extern s32        D_803D342C;
 // extern s16        D_803D3430;

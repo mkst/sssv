@@ -205,15 +205,19 @@ void maybe_do_teleport(Animal *arg0, Animal *arg1);
 void func_8029BB94_6AD244(void);
 void enqueue_dynamic_texture_billboard_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
 void render_dynamic_texture_billboards_6AE758(void);
-void func_8029D89C_6AEF4C(void);
-void func_8029D8D8_6AEF88(Gfx **arg0, s16 arg1);
-void func_8029DB20_6AF1D0(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, Gfx *arg7);
-void func_8029DD84_6AF434(void);
+void reset_dynamic_texture_billboard_queue(void);
+void load_dynamic_texture_billboard_texture_pair(Gfx **arg0, s16 arg1);
+void enqueue_distance_sorted_textured_display_list_instance(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, Gfx *arg7);
+void render_distance_sorted_textured_display_list_instances(void);
 void func_8029E100_6AF7B0(void);
 void func_8029E3CC_6AFA7C(void);
-void func_8029EAAC_6B015C(void);
-void func_8029F3CC_6B0A7C(void);
-void func_8029F65C_6B0D0C(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, Gfx *arg8);
+void render_untextured_colored_display_list_queue(void);
+void render_lookat_textured_display_list_queue(void);
+void render_texture_grouped_display_list_queue(struct025 *arg0, Gfx **dl);
+void render_texture_grouped_display_list_queues(void);
+void reset_object_render_queues(void);
+void enqueue_texture_grouped_display_list_instance(struct025 *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, Gfx *arg8);
+void enqueue_object_display_list_by_flags(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, Gfx *arg8);
 void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1);
 
 // overlay2_6B5380
