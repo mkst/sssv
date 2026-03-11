@@ -8,20 +8,20 @@ s16 D_803B58B0_7C6F60[10] = { 0, 360, 310,  90,  254, 90, 176, 78, 112, 0 };
 s16 D_803B58C4_7C6F74[10] = { 0, 640, 1310, 130, 180, 90, 180, 48, 180, 0 };
 
 #ifdef NON_MATCHING
-// CURRENT (132)
+// CURRENT (92)
 void func_80382CF0_7943A0(void) {
+    s32 pad3[2];
     f32 temp_f2;
-    int pad2[2];
 
     s16 sp8A;
-    s16 pad;
+    s16 pad; // pad88
     s16 sp86;
     s16 sp84;
 
     s16 sp6C;
-    s16 sp6A[4];
-
     s16 sp68;
+
+    s16 pad2[2];
 
     if (D_803D5538 != 0) {
         if ((ABS(D_803D5530->xVelocity.h) + ABS(D_803D5530->zVelocity.h)) > 10) {
@@ -94,6 +94,7 @@ void func_80382CF0_7943A0(void) {
             }
         }
         if (D_803F2ECC != 0) {
+
             backup_joint_positions();
             switch (D_803F2ECE) {
                 case 1:
@@ -161,6 +162,10 @@ void func_80382CF0_7943A0(void) {
             D_803D5538);
     }
     func_80303D00_7153B0(D_803D552C, 500, 500);
+
+    if (0) {
+        if (sp84 == 1 ? sp84 == 2 ? sp84 == 3 ? sp84 == 4 ? 1 : 2 : 3 : 4 : 5);
+    }
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/cool_cod/func_80382CF0_7943A0.s")

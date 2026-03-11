@@ -156,7 +156,7 @@ void draw_star_billboard_texrect(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 a
                  ((gDisplayListContext->unk38A10[0][1] * temp_f14) +
                   (gDisplayListContext->unk38A10[0][0] * temp_f12)));
             sp78 = gDisplayListContext->unk38A10[1][3] +
-              ((    gDisplayListContext->unk38A10[1][2] * temp_f16) +
+                 ((gDisplayListContext->unk38A10[1][2] * temp_f16) +
                  ((gDisplayListContext->unk38A10[1][1] * temp_f14) +
                   (gDisplayListContext->unk38A10[1][0] * temp_f12)));
 
