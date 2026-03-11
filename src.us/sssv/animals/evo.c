@@ -5,7 +5,7 @@
 // TBD figure out types
 extern struct077 D_803B5E30_7C74E0[];
 extern struct077 D_803B5E60_7C7510[];
-extern s16 D_803B5E90_7C7540[];
+extern struct077 D_803B5E90_7C7540[];
 extern struct077 D_803B5ED4_7C7584[];
 extern s16 D_803B5F04_7C75B4[];
 extern s16 D_803B5F40_7C75F0[];
@@ -35,15 +35,17 @@ extern Gfx D_01006AE8_403B8[];
 
 // EVO_SHELLSUIT
 #ifdef NON_MATCHING
-// CURRENT (172)
+// CURRENT (8)
 void func_80389B30_79B1E0(void) {
     s32 pad[2];
 
     struct061 sp148;
-    s32 padd[2];
 
-    s16 tmp;
+    s16 var_v1_2;
     s16 temp_s0;
+    s16 tmp;
+    s16 var_v1;
+    Animal *target;
     u8 temp_v0_3;
 
     s16 sp138; // evo texture
@@ -63,13 +65,12 @@ void func_80389B30_79B1E0(void) {
     s16 sp11C;
     s16 sp11A;
     s16 sp118;
-    s32 zDelta;
-    s32 xDelta;
+    s32 zDelta; // sp114
+    s32 xDelta; // sp110
     s32 sp10C;
 
-    s32 paddd;
-
-    Animal *target;
+    s32 sp108; // pad
+    s32 sp104; // pad
 
     f32 sp100;
 
@@ -87,7 +88,7 @@ void func_80389B30_79B1E0(void) {
 
     if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F) || (D_803F2ECE >= 3)) {
         func_802BA220_6CB8D0(&sp148, 0x222, 0x4C1, 0x1FB, 0x15F, 0x138);
-        func_802C353C_6D4BEC(0x29F, 0x222, 0x138, &D_803B5E30_7C74E0, &D_803B5E60_7C7510, &D_803B5E90_7C7540, &sp148);
+        func_802C353C_6D4BEC(0x29F, 0x222, 0x138, D_803B5E30_7C74E0, D_803B5E60_7C7510, D_803B5E90_7C7540, &sp148);
         func_8031FE40_7314F0(0x1D4, 0x271, &D_803B5EA4_7C7554, &D_803B5ED4_7C7584, &D_803B5F04_7C75B4);
         func_802C6C00_6D82B0(0x138, 0xEA);
     }
@@ -189,9 +190,6 @@ void func_80389B30_79B1E0(void) {
         }
 
         if (D_803D552C->unk30C != 0) {
-            s16 var_v1_2;
-            s16 var_v1;
-
             target = func_80323040_7346F0();
             if (target != NULL) {
                 temp_s0 = ((D_803D5530->position.yPos.h - target->position.yPos.h) - (target->unk42 >> 1)) + 0x56;
@@ -347,6 +345,10 @@ void func_80389B30_79B1E0(void) {
     func_80303820_714ED0(D_803D552C, 2, 2,  0x2BF, 1);
     func_80303820_714ED0(D_803D552C, 1, 19, 0x1D4, 2);
     func_80303D50_715400(D_803D552C, 3);
+
+    if (0) {
+        tmp = (tmp == 1 ? tmp == 2 ? tmp == 3 ? 1 : 2 : 3 : 4);
+    }
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/evo/func_80389B30_79B1E0.s")

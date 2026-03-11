@@ -22,7 +22,10 @@ void func_8031C7A0_72DE50(void) {
     s32 temp_t6;
     s16 sp96;
     s16 sp94;
-    struct061 sp8C;
+    s16 sp92; // pad
+    s16 sp90; // pad
+    s16 sp8E; // pad
+    s16 sp8C;
     s16 sp8A;
     s16 sp88;
     s16 sp86;
@@ -182,9 +185,9 @@ done:
 
             if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {
                 if (D_803E00C0[D_803D5528->unk3C8.unk2].tailType == 3) {
-                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, &D_803A3B4C_7B51FC);
+                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3B4C_7B51FC);
                 } else {
-                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, &D_803A3BAC_7B525C);
+                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3BAC_7B525C);
                 }
             }
             D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 0;
@@ -207,9 +210,6 @@ done:
     }
 }
 
-#ifdef NON_MATCHING
-// RACING_MOUSE
-// CURRENT (214)
 void func_8031D624_72ECD4(void) {
     s16 spAE;
 
@@ -227,7 +227,7 @@ void func_8031D624_72ECD4(void) {
     f32 temp_f12;
     s16 phi_a1;
     u8  tmp;
-    s16 pad[6];
+    s16 pad[2];
 
     if (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) {
         if (D_803D554C != 0) {
@@ -235,9 +235,9 @@ void func_8031D624_72ECD4(void) {
                 func_8032CD70_73E420(
                     D_803D5530,
                     SFX_UNKNOWN_100,
-                    (((D_803D554C / 60.0) + 0.7) * 14848.0), // D_803BD9B8_7CF068
+                    ((D_803D554C / 60.0) + 0.7) * 14848.0,
                     0,
-                    (f32) ((D_803D554C / 30.0) + 1.0),
+                    (D_803D554C / 30.0) + 1.0,
                     D_803D5530->position.xPos.h,
                     D_803D5530->position.zPos.h,
                     D_803D5530->position.yPos.h);
@@ -247,12 +247,12 @@ void func_8031D624_72ECD4(void) {
 
     if ((sp92 != 4) && (sp92 != 1) && (D_803D5530->unk162 == 1)) {
         temp_f12 = sqrtf(SQ((f32)D_803D552C->xVelocity.w) + SQ((f32)D_803D552C->zVelocity.w)) / (D_803D5524->unkA4 << 0xA);
-        if (temp_f12 < 0.2) { // D_803BD9C0_7CF070
+        if (temp_f12 < 0.2) {
             phi_f0 = 0.0f;
-        } else if (0.6 < temp_f12) { // D_803BD9C8_7CF078
+        } else if (0.6 < temp_f12) {
             phi_f0 = 1.0f;
         } else {
-            phi_f0 = (temp_f12 - 0.2) * 2.5; // D_803BD9C0_7CF070
+            phi_f0 = (temp_f12 - 0.2) * 2.5;
         }
         if (phi_f0 > 0.0) {
             if (D_803D5530->unk4A == 0) {
@@ -344,7 +344,7 @@ void func_8031D624_72ECD4(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {                      /* irregular */
+            switch (D_803F2ECE) {
             case 1:
                 func_802DB670_6ECD20(D_803A5D98_7B7448, D_803A5DAC_7B745C, D_803A5DC0_7B7470, D_803A5DE4_7B7494);
                 break;
@@ -372,31 +372,26 @@ void func_8031D624_72ECD4(void) {
                 D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0(((D_803D5524->unkBA * 8) / 5), 2, 3, 3, -0.32f); // D_803BD9D0_7CF080
+            func_8038C230_79D8E0(((D_803D5524->unkBA * 8) / 5), 2, 3, 3, -0.32f);
             func_802C78B0_6D8F60(2, 1, D_803F2EBC * 0xA >> 6, D_803F2EC0 * 0xA >> 6, D_803F2EC4 * 0xA >> 6, D_803F2ED0, 0, 0, 0, D_04006040_CDA70);
             D_80203FE0[1].unk2  += 0x3E;
             D_80203FE0[19].unk2 += 0x3E;
             D_80203FE0[20].unk2 += 0x3E;
             D_80203FE0[22].unk2 += 0x3E;
             D_80203FE0[23].unk2 += 0x3E;
+
             func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04005A50_CD480);
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(7, 8, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0); }
-#pragma _permuter sameline end
             func_802C78B0_6D8F60(10, 11, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0);
             func_802C78B0_6D8F60(13, 14, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0);
-#pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(16, 17, FTOFIX32(0.15625), FTOFIX32(0.15625), FTOFIX32(0.15625), D_803F2ED0, 0, 0, 0, D_04005CA0_CD6D0); }
-#pragma _permuter sameline end
             func_802C78B0_6D8F60(19, 22, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_040053D0_CCE00);
             func_802C78B0_6D8F60(19, 23, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 1, 0, D_040053D0_CCE00);
 
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
-#pragma _permuter sameline start
                 sp96 = D_803BD530_7CEBE0.eyes[5][sp96]; sp94 = D_803BD600_7CECB0.eyes[4][sp94];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp96);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B00_CE530);
 
@@ -458,10 +453,12 @@ void func_8031D624_72ECD4(void) {
     } else {
         func_80303D00_7153B0(D_803D552C, 0x177, 0x7D);
     }
+
+    if (0) {
+        // Synray hack:
+        spAE = (spAE == 1 ? spAE == 2 ? spAE == 3 ? spAE == 3 ? spAE == 3 ? 1 : 2 : 3 : 4: 5: 6);
+    }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/mouse/func_8031D624_72ECD4.s")
-#endif
 
 // HARD_MOUSE
 void func_8031E6A0_72FD50(void) {
@@ -509,7 +506,7 @@ void func_8031E6A0_72FD50(void) {
         func_803224C4_733B74(5, 5, 0, 0x10, 0, 0, 0, 0x10);
 
         spAA = 128;
-        switch (D_803D552C->unk365) {                        /* irregular */
+        switch (D_803D552C->unk365) {
         case ATTACK_MOUSE_TAIL:
             spA8 = D_803D5544 - D_803D552C->unk32A;
             spAA = spA8 * 21;
@@ -666,9 +663,9 @@ void func_8031E6A0_72FD50(void) {
 
             if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {
                 if (D_803E00C0[D_803D5528->unk3C8.unk2].tailType == 3) {
-                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, &D_803A3B4C_7B51FC);
+                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3B4C_7B51FC);
                 } else {
-                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, &D_803A3BAC_7B525C);
+                    func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3BAC_7B525C);
                 }
             }
             D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 0;
