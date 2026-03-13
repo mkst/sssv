@@ -350,34 +350,30 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
 }
 
 #ifdef NON_MATCHING
-// not quite there...
 // ESA: func_800775B8
+// just the stack (16)
 void trigger_contagious_laughter(void) {
-
-    s16 temp_t8;
+    s16 temp_t6; // spB6
+    s16 temp_t8; // spB4
     s16 i; // spB2
     s16 j; // spB0
 
-    s16 temp_a2;
-    s16 temp_t6;
-    s16 temp_v0_5;
-    s16 var_a0;
-    s16 var_t2;
-    s16 var_v1;
-    s16 var_a2;
-    s16 temp_a1;
+    s16 distance;
+    s16 xDist;
+    s16 zDist;
 
-    s16 var_t0;
-    s16 do_laughter;
+    s16 var_t2;
     s16 var_a3;
+    s16 var_a2;
+    s16 var_t0;
+
+    s16 var_a0; // abs xDist
+    s16 var_v1; // abs zDist
+
+    s16 do_laughter;
 
     s16 sp9A;
     s16 sp98;
-
-    CollisionNode *var_s1;
-    struct035 *temp_t0;
-    s32 animalId;
-    Animal *animal;
 
     if (D_803D5524->unk9C != MYSTERY_BEAR) {
         func_8032CD70_73E420(
@@ -416,31 +412,39 @@ void trigger_contagious_laughter(void) {
 
     for (i = temp_t6 + var_a2; i <= (temp_t6 + var_a3); i++) {
         for (j = temp_t8 + var_t0; j <= temp_t8 + var_t2; j++) {
+            CollisionNode *var_s1;
+
             for (var_s1 = D_803DA110[(s16) (i + (j * 5))].next; var_s1 != NULL; var_s1 = var_s1->next) {
                 if (var_s1 == (&var_s1->animal->unk11C[0])) {
-                    if (D_803D5530 != var_s1->animal) {
-                        animal = var_s1->animal;
+                    if (var_s1->animal != D_803D5530) {
+                        Animal *animal = var_s1->animal;
                         if (ABS(animal->position.yPos.h - D_803D5530->position.yPos.h) < 192) {
-                            temp_v0_5 = sp9A - animal->position.xPos.h;
-                            temp_a1 = sp98 - animal->position.zPos.h;
+                            xDist = sp9A - animal->position.xPos.h;
+                            zDist = sp98 - animal->position.zPos.h;
 
-                            var_a0 = ABS(temp_v0_5);
-                            var_v1 = ABS(temp_a1);
+                            var_a0 = ABS(xDist);
+                            var_v1 = ABS(zDist);
 
-                            temp_a2 = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
-                            if (temp_a2 < 512) {
+                            distance = MAX(var_a0, var_v1) + (MIN(var_a0, var_v1) >> 1);
+                            if (distance < 512) {
+                                struct035 *temp_t0 = animal->unk16C;
+
+                                // fakematch
+                                xDist = HYENA_BIKER;
+                                zDist = HYENA;
+                                var_a0 = EVO_TRANSFER;
 
                                 if (animal->unk16C->unk82.unk2) {
-                                    if ((animal->unk366 != MOVEMENT_MODE_2) && (animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
-                                        animalId = animal->unk16C->unk9C;
-                                        if ((animalId != EVO_TRANSFER) &&
-                                            (animalId != HYENA) &&
-                                            (animalId != HYENA_BIKER)) {
-
-                                            do_laughter = 0;
-                                            if (gAnimalState.animals[gCurrentAnimalIndex].animal == animal) {
-                                                if (D_803F63D0 != D_803D5544) {
-                                                    do { D_803F63D0 = D_803D5544; } while (0);
+                                    if ((animal->unk366 != MOVEMENT_MODE_2) &&
+                                        (animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
+                                        s32 animalId = temp_t0->unk9C;
+                                        if ((animalId != var_a0) &&
+                                            (animalId != zDist) &&
+                                            (animalId != xDist)) {
+                                                do_laughter = 0;
+                                                if (gAnimalState.animals[gCurrentAnimalIndex].animal == animal) {
+                                                    if (D_803F63D0 != D_803D5544 && 1) {
+                                                        D_803F63D0 = D_803D5544;
                                                     do_laughter = 1;
                                                 }
                                             } else {
@@ -450,41 +454,42 @@ void trigger_contagious_laughter(void) {
                                             if ((do_laughter) &&
                                                 (animalId != RACING_TORTOISE_DEFENDING) &&
                                                 (animalId != TORTOISE_TANK_DEFENDING) &&
-                                                (animalId != HYENA) &&
-                                                (animalId != HYENA_BIKER)) {
+                                                (animalId != zDist) &&
+                                                (animalId != xDist)) {
 
                                                 if (animal->laughterThreshold < 100) {
                                                     animal->laughterThreshold++;
-                                                    if (temp_a2 < 256) {
+                                                    if (distance < 256) {
+                                                        // twice as effective when closer to hyena
                                                         animal->laughterThreshold++;
                                                     }
                                                 }
-                                                temp_t0 = animal->unk16C;
 
+                                                temp_t0 = animal->unk16C;
                                                 if (animal->laughterThreshold > 80) {
                                                     animal->isLaughing = 1;
                                                     func_8032CD70_73E420(
                                                         (u8*)animal + 0x17,
                                                         SFX_LAUGHTER,
-                                                        ((temp_t0->unkE6 << 0xB) + 0x5000),
+                                                        (temp_t0->unkE6 << 0xB) + 0x5000,
                                                         0,
-                                                        (1.3 - (temp_t0->unkE6 * 0.2)),
+                                                        1.3 - (temp_t0->unkE6 * 0.2),
                                                         D_803D5530->position.xPos.h,
                                                         D_803D5530->position.zPos.h,
                                                         D_803D5530->position.yPos.h);
 
-                                                    if (!(D_803D5540 & 3)) {
-                                                        animal->health = MAX(animal->health - 1, 0);
-                                                        func_80349280_75A930(animal, 1);
-                                                    }
+                                                        if (!(D_803D5540 & 3)) {
+                                                            // hurt animal by 1HP every 4 ticks
+                                                            animal->health = MAX(animal->health - 1, 0);
+                                                            func_80349280_75A930(animal, 1);
+                                                        }
+                                                    temp_t0 = animal->unk16C;
                                                 }
                                             }
-                                            goto dummy_label_101032; dummy_label_101032: ; // fuuu
                                         }
                                     }
-                                    if (1) { }
                                 }
-                                if (animal->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+HYENA) {
+                                if (temp_t0->objectType != OB_TYPE_ANIMAL_OFFSET+HYENA) {
                                     animal->unk54.unk3 = 0x16;
                                 }
                             }

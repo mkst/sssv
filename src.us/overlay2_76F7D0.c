@@ -36,6 +36,7 @@ void func_8035E120_76F7D0(void) {
 // replenish energy?
 void func_8035E200_76F8B0(void) {
     s16 skillAEnergy, skillBEnergy;
+    Animal *new_var;
 
     skillAEnergy = D_803D552C->energy[0].unk0;
     D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + D_803D5524->unkDA[0][1]);
@@ -49,22 +50,23 @@ void func_8035E200_76F8B0(void) {
         D_803D552C->energy[1].unk2 = MAX(0, D_803D552C->energy[1].unk2 - 1);
     }
 
-    if ((skillAEnergy < D_803D552C->energy[0].unk0)) {
-        if (D_803D552C->energy[0].unk0 == 0x400) {
-            if ((D_803D552C->energy && D_803D552C->energy) && D_803D552C->energy) {};
-        }
+    if ((skillAEnergy < D_803D552C->energy[0].unk0) && (D_803D552C->energy[0].unk0 == 0x400)) {
+    } else {
+        if (D_803D552C->energy) {};
     }
 
     if (((!D_803D552C->energy) && (!D_803D552C->energy)) && (!D_803D552C->energy)) {
     }
 
+    if (D_803D552C->energy[1].unk0) {}
+    new_var = D_803D552C;
     if ((skillBEnergy < D_803D552C->energy[1].unk0)) {
-        if ((D_803D552C->energy && D_803D552C->energy) && D_803D552C->energy) {};
+        if ((new_var->energy && D_803D552C->energy) && D_803D552C->energy) {};
     }
 
     D_803F2EE0[0] = D_803F2EE0[1] = 0;
 
-    if (D_803D552C->energy) {};
+    // return D_803D5524;
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_76F7D0/func_8035E200_76F8B0.s")

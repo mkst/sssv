@@ -48,7 +48,7 @@ void func_802B9130_6CA7E0(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg
     D_80203FE0[4].unk2 = arg1;
     D_80203FE0[6].unk0 = arg2;
 
-    func_802BCF38_6CE5E8((u16) arg1, (u16) arg2, arg0);
+    func_802BCF38_6CE5E8(arg1, arg2, arg0);
     tmp = arg0->unk0;
     sp36 = (arg0->unk2 + tmp) >> 1;
     sp34 = (arg0->unk6 + arg0->unk4) >> 1;
@@ -472,7 +472,7 @@ void func_802BAD60_6CC410(u16 arg0, u16 arg1) {
     D_80203FE0[0].unk0 = D_80203FE0[0].unk2;
     D_80203FE0[0].unk4 = arg1;
 
-    if ((u16)D_803D5528->unk3C0.unk4 == 13) {
+    if (D_803D5528->unk3C0.unk4 == 13) {
         phi_a0 = MIN(D_803D5528->unk3C0.unk6, 8);
         temp_t9 = ((SIN(phi_a0 << 5) >> 7) * arg0) >> 9;
         D_80203FE0[1].unk4 += temp_t9;

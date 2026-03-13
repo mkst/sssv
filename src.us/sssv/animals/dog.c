@@ -34,8 +34,6 @@ extern Gfx D_040029A0_CA3D0[];
 void func_8037FCA8_791358(void);
 
 // RACING_DOG
-#ifdef NON_MATCHING
-// CURRENT (112) - stack
 void func_802EA7F0_6FBEA0(void) {
     struct061 sp98;
     s16 sp96;
@@ -44,11 +42,10 @@ void func_802EA7F0_6FBEA0(void) {
     s16 sp90;
     s16 sp8E;
 
+    s32 pad;
+    u8 tmp;
     f32 var_f0;
     f32 tmp2;
-
-    s16 pad[4];
-    u8  tmp;
 
     if (((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL)) && (SSSV_RAND(256) == 0x9C) && (D_803F6450 != 0)) {
         play_sound_effect_at_location(SFX_UNKNOWN_182, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -214,9 +211,8 @@ void func_802EA7F0_6FBEA0(void) {
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
-#pragma _permuter sameline start
+
                 sp96 = D_803BD530_7CEBE0.eyes[1][sp96]; sp94 = D_803BD600_7CECB0.eyes[0][sp94];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp96);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04001A20_C9450);
                 func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp94);
@@ -267,10 +263,11 @@ void func_802EA7F0_6FBEA0(void) {
     } else {
         func_80303D00_7153B0(D_803D552C, 600, 900);
     }
+
+    if (0) {
+        if (sp8E == 1 ? sp8E == 2 ? sp8E == 3 ? sp8E == 4 ? 1 : 2 : 3 : 4 : 5);
+    }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/dog/func_802EA7F0_6FBEA0.s")
-#endif
 
 // FLYING_DOG
 void update_flying_dog(void) {
@@ -536,24 +533,20 @@ done:
 
 // DOG
 #ifdef NON_MATCHING
-// just the stack
+// just the stack (72)
 void func_802ED108_6FE7B8(void) {
-
     struct061 spB8;
     s16 spB6;
     s16 spB4;
     s16 spB2;
     s16 spB0;
-    // s16 spAE;
-    u16 temp_t6;
+    s16 padAE;
     s16 spAC;
     s16 spAA;
 
     u16 ticks_remaining; // sp78?
     u8 tmp;
-    s32 pad;
-
-    spB0 = ticks_remaining * 4; // what?
+    u16 temp_t6;
 
     if (((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL)) && (SSSV_RAND(256) == 0x9C) && (D_803F6450 != 0)) {
         play_sound_effect_at_location(SFX_UNKNOWN_182, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -807,6 +800,10 @@ void func_802ED108_6FE7B8(void) {
         }
     } else {
         func_80303D00_7153B0(D_803D552C, 600, 900);
+    }
+
+    if (0) {
+        padAE = (padAE == 1 ? padAE == 2 ? padAE == 3 ? padAE == 4 ? 1 : 2 : 3 : 4 : 5);
     }
 }
 #else
