@@ -283,7 +283,7 @@ void func_803574E0_768B90(void) {
             spAC = MAX(ABS(D_803D5530->xVelocity.h), ABS(D_803D5530->zVelocity.h));
 
             sp94 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
-            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803F2D10.unk0 == 0)) {
+            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
                 func_80300130_7117E0(&sp94, &D_803D552C->unk30A, 0x28, -0x28, 2, 2, D_803D5530->yVelocity.h * 0x10, 3);
             } else {
                 sp94 = D_803D552C->unk30A = 0;

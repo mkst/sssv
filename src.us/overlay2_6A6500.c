@@ -20,7 +20,7 @@ s16  D_803C0424;
 s16  D_803C0426;
 s16  D_803C0428;
 s16  D_803C042A;
-struct053 D_803C0430;
+struct053 gWaterAnimState;
 
 // ========================================================
 // .text
@@ -182,9 +182,9 @@ void func_80294E50_6A6500(void) {
         func_8029877C_6A9E2C();
         D_803F2D50.unk18 = 1; //D_803F2D68 = 1;
         if (0) {};
-        D_803C0430.unk20F += 1;
-        D_803C0430.unk20F &= 7;
-        if (D_803C0430.unk20F == 0) {
+        gWaterAnimState.unk20F += 1;
+        gWaterAnimState.unk20F &= 7;
+        if (gWaterAnimState.unk20F == 0) {
             // process collision map
             func_8029726C_6A891C(D_803C0740);
             func_80296C8C_6A833C(D_803C0740);
@@ -209,7 +209,7 @@ void func_80294E50_6A6500(void) {
 
         gRenderMode2 = 0x0000000000110038;
         func_8029F7D4_6B0E84(gDisplayListContext, &D_801E9EB8);
-        func_8029A720_6ABDD0();
+        render_ship_window_projection_replay();
         set_fog_position_and_color(&gMainDL);
 
         gSPDisplayList(gMainDL++, &gDisplayListContext->unkBB80);
@@ -219,7 +219,7 @@ void func_80294E50_6A6500(void) {
         }
         set_fog_position_and_color(&gMainDL);
         if ((gCameraUiState != 2) || (D_803F6468 >= 7)) {
-            func_80299B68_6AB218(gDisplayListContext);
+            draw_visible_world_cell_opaque_pass(gDisplayListContext);
         }
         func_80297628_6A8CD8(D_803C0740, gDisplayListContext);
 
@@ -227,10 +227,10 @@ void func_80294E50_6A6500(void) {
         gDPSetTextureLOD(gMainDL++, G_TL_TILE);
         gSPTexture(gMainDL++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
-        if (D_803F2D10.unk0 < 2) {
+        if (gUiFlowState.unk0 < 2) {
             func_802D5AD8_6E7188(0, 1);
         }
-        func_80299E84_6AB534(gDisplayListContext);
+        draw_visible_world_cell_translucent_pass(gDisplayListContext);
 
         gSPDisplayList(gMainDL++, &gDisplayListContext->unkDAC0);
         gSPDisplayList(gMainDL++, &gDisplayListContext->unk7D00);
@@ -241,7 +241,7 @@ void func_80294E50_6A6500(void) {
         gDPSetTextureLOD(gMainDL++, G_TL_TILE);
         gSPTexture(gMainDL++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
-        if (D_803F2D10.unk0 < 2) {
+        if (gUiFlowState.unk0 < 2) {
             func_802D5AD8_6E7188(1, 8);
         }
         gDPSetColorDither(gMainDL++, G_CD_BAYER);
@@ -371,10 +371,10 @@ void reset_player_progress(void) {
     gLevelProgress.unkA = 3; // only place this value is used?
     gLevelProgress.unk4 = 0;
 
-    D_803F2D10.unk0 = 0;
-    D_803F2D10.unk1 = 0;
-    D_803F2D10.unk2 = 0;
-    D_803F2D10.unk3 = 0;
+    gUiFlowState.unk0 = 0;
+    gUiFlowState.unk1 = 0;
+    gUiFlowState.unk2 = 0;
+    gUiFlowState.unk3 = 0;
 
     D_803F2D50.unkC6 = 0;
     D_803F2D50.unkC4 = 1;

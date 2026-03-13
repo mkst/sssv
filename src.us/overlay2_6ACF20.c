@@ -156,7 +156,7 @@ void func_8029BB94_6AD244(void) {
             add_light_at_location(D_803D2D90.unk60->position.xPos.h, D_803D2D90.unk60->position.zPos.h, D_803D2D90.unk60->position.yPos.h + 0x80, 0xFF, 0, 0, 0);
         }
 
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             if (D_803D2D90.unk0 == 1) {
                 D_803D2D90.unk0 = 2;
                 D_803D2D90.unk4 = 0;

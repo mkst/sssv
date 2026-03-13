@@ -166,7 +166,7 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
 
     s32 pad;
 
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         temp_fp = &D_803E00C0[arg0];
         var_t5 = &D_803DA300[temp_fp->unk16];
 

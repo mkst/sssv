@@ -182,14 +182,14 @@ void func_80299640_6AACF0(s16, s16, s16*, s16*, s16*, s16*);
 // overlay2_6AB090.c
 void setup_world_perspective_6AB090(DisplayList *arg0);
 void setup_frame_render_state(DisplayList *arg0, Gfx **arg1);
-void func_80299B68_6AB218(DisplayList *arg0);
-void func_80299E84_6AB534(DisplayList * arg0);
+void draw_visible_world_cell_opaque_pass(DisplayList *arg0);
+void draw_visible_world_cell_translucent_pass(DisplayList * arg0);
 void func_8029A32C_6AB9DC(s32 arg0);
 s16  is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2);
-void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2);
+void build_visible_world_cell_queue(s32 arg0, s32 arg1, s32 arg2);
 u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
-void func_8029A720_6ABDD0(void);
+void render_ship_window_projection_replay(void);
 void func_8029ABCC_6AC27C(void);
 
 // overlay2_6AC360
@@ -1372,14 +1372,14 @@ void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 hea
 
 // overlay2_7A8A50
 void func_803973A0_7A8A50(s16);
-void func_80397414_7A8AC4(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle);
+void append_rig_modelview_transform_xlu(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle);
 void func_803976E0_7A8D90(void);
 void func_80397734_7A8DE4(s16 arg0, u8 arg1);
 void func_80397840_7A8EF0(void);
 void func_80397B84_7A9234(void);
 void func_80397C58_7A9308(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s16 arg7, u8 arg8);
 void func_80397D1C_7A93CC(u8 arg0);
-void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7);
+void render_rig_instance_xlu(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7);
 
 // overlay2_7A9CE0
 void func_80398630_7A9CE0(void);

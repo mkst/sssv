@@ -264,7 +264,7 @@ void update_springy_thingy_or_springy_ram(void) {
 
     if (spAC == 0) {
         ticks_remaining = D_803D5544 - D_803D552C->unk35E;
-        if ((D_803F2D10.unk0 == 0) && (D_803D5530->unk4A == 0) && (ticks_remaining != 0) && (((D_803D552C->unk366 == MOVEMENT_MODE_NORMAL)) || (D_803D552C->unk366 == MOVEMENT_MODE_INJURED))) {
+        if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (ticks_remaining != 0) && (((D_803D552C->unk366 == MOVEMENT_MODE_NORMAL)) || (D_803D552C->unk366 == MOVEMENT_MODE_INJURED))) {
             if (D_803D552C->unk312 != 0) {
                 D_803D552C->unk312--;
                 D_803D5530->yRotation = (D_803D5530->yRotation + D_803D552C->unk310) & 0xFF;
@@ -408,7 +408,7 @@ void update_springy_thingy_or_springy_ram(void) {
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.38f);
             func_8038C484_79DB34(2, 1, 3, -0.38f, 0xBB8);
-            if ((D_803F2D10.unk0 == 0) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+            if ((gUiFlowState.unk0 == 0) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
                 spB2 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
                 func_80300130_7117E0(&spB2, &D_803D552C->unk30A, 0x60, -0x100, 3, 3, D_803D5530->yVelocity.h * 0x10, 4);
             } else {

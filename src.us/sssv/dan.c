@@ -14,7 +14,7 @@ void func_803973A0_7A8A50(s16 arg0) {
     dma_read(D_803B6890_7C7F40[arg0].romStart, D_803B6890_7C7F40[arg0].ramDest, len);
 }
 
-void func_80397414_7A8AC4(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle) {
+void append_rig_modelview_transform_xlu(u8 push, f32 x_amt, f32 y_amt, f32 z_amt, f32 x_angle, f32 y_angle, f32 z_angle) {
     guTranslate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], x_amt, y_amt, z_amt);
     if (push) {
         gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -51,8 +51,8 @@ void func_80397734_7A8DE4(s16 arg0, u8 arg1) {
     func_803973A0_7A8A50(arg0);
     for (i = 0; i < 10; i++) {
         D_803F70F8[arg1][i] = 0;
-        D_803F6720[arg1][i].unk48 = 0.0f;
-        D_803F6720[arg1][i].unk4C = 0.0f;
+        gRigPoseStates[arg1][i].unk48 = 0.0f;
+        gRigPoseStates[arg1][i].unk4C = 0.0f;
     }
     D_803F713C[arg1] = 0x3FF; // 10x1, enable all?
     D_803F714C[arg1] = 0;
@@ -84,7 +84,7 @@ void func_80397840_7A8EF0(void) {
             for (j = 0; j < 10; j++) {
                 if (D_803F713C[i] & (1 << j)) {
 
-                    if (D_803F6720[i][j].unk4C <= D_803F6720[i][j].unk48) {
+                    if (gRigPoseStates[i][j].unk4C <= gRigPoseStates[i][j].unk48) {
                         s32 idx = D_803F70F8[i][j];
                         struct110c *foo = D_803B7000_7C86B0[D_803F7134[i]].unk0;
 
@@ -126,24 +126,24 @@ void func_80397B84_7A9234(void) {
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 10; j++) {
             for (k = 0; k < 3; k++) {
-                D_803F6720[i][j].unk18.unk0[k] = 0.0f;
-                D_803F6720[i][j].unk18.unkC[k] = 0.0f;
+                gRigPoseStates[i][j].unk18.unk0[k] = 0.0f;
+                gRigPoseStates[i][j].unk18.unkC[k] = 0.0f;
 
-                D_803F6720[i][j].unk0.unk0[k] = 0.0f;
-                D_803F6720[i][j].unk0.unkC[k] = 0.0f;
+                gRigPoseStates[i][j].unk0.unk0[k] = 0.0f;
+                gRigPoseStates[i][j].unk0.unkC[k] = 0.0f;
 
-                D_803F6720[i][j].unk30.unk0[k] = 0.0f;
-                D_803F6720[i][j].unk30.unkC[k] = 0.0f;
+                gRigPoseStates[i][j].unk30.unk0[k] = 0.0f;
+                gRigPoseStates[i][j].unk30.unkC[k] = 0.0f;
             }
-            D_803F6720[i][j].unk48 = 0.0f;
-            D_803F6720[i][j].unk4C = 0.0f;
-            D_803F6720[i][j].unk50 = 0;
+            gRigPoseStates[i][j].unk48 = 0.0f;
+            gRigPoseStates[i][j].unk4C = 0.0f;
+            gRigPoseStates[i][j].unk50 = 0;
         }
     }
 }
 
 void func_80397C58_7A9308(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s16 arg7, u8 arg8) {
-    struct048 *temp_v0 = &D_803F6720[arg8][arg7];
+    struct048 *temp_v0 = &gRigPoseStates[arg8][arg7];
 
     temp_v0->unk18.unk0[0] = temp_v0->unk0.unk0[0];
     temp_v0->unk18.unk0[1] = temp_v0->unk0.unk0[1];
@@ -181,49 +181,49 @@ void func_80397D1C_7A93CC(u8 arg0) {
     s16 i;
 
     for (i = 0; i < 10; i++) {
-        if (D_803F6720[arg0][i].unk50 != 0) {
+        if (gRigPoseStates[arg0][i].unk50 != 0) {
             factor = 2.0f;
-            D_803F6720[arg0][i].unk48 += 1.0f;
-            if (D_803F6720[arg0][i].unk4C <= D_803F6720[arg0][i].unk48) {
-                D_803F6720[arg0][i].unk0.unk0[0] = D_803F6720[arg0][i].unk30.unk0[0];
-                D_803F6720[arg0][i].unk0.unk0[1] = D_803F6720[arg0][i].unk30.unk0[1];
-                D_803F6720[arg0][i].unk0.unk0[2] = D_803F6720[arg0][i].unk30.unk0[2];
-                D_803F6720[arg0][i].unk0.unkC[0] = D_803F6720[arg0][i].unk30.unkC[0];
-                D_803F6720[arg0][i].unk0.unkC[1] = D_803F6720[arg0][i].unk30.unkC[1];
-                D_803F6720[arg0][i].unk0.unkC[2] = D_803F6720[arg0][i].unk30.unkC[2];
-                D_803F6720[arg0][i].unk50 = 0;
+            gRigPoseStates[arg0][i].unk48 += 1.0f;
+            if (gRigPoseStates[arg0][i].unk4C <= gRigPoseStates[arg0][i].unk48) {
+                gRigPoseStates[arg0][i].unk0.unk0[0] = gRigPoseStates[arg0][i].unk30.unk0[0];
+                gRigPoseStates[arg0][i].unk0.unk0[1] = gRigPoseStates[arg0][i].unk30.unk0[1];
+                gRigPoseStates[arg0][i].unk0.unk0[2] = gRigPoseStates[arg0][i].unk30.unk0[2];
+                gRigPoseStates[arg0][i].unk0.unkC[0] = gRigPoseStates[arg0][i].unk30.unkC[0];
+                gRigPoseStates[arg0][i].unk0.unkC[1] = gRigPoseStates[arg0][i].unk30.unkC[1];
+                gRigPoseStates[arg0][i].unk0.unkC[2] = gRigPoseStates[arg0][i].unk30.unkC[2];
+                gRigPoseStates[arg0][i].unk50 = 0;
             } else {
-                temp_f22 = (D_803F6720[arg0][i].unk30.unk0[0] - D_803F6720[arg0][i].unk18.unk0[0]) / factor;
-                temp_f24 = (D_803F6720[arg0][i].unk30.unk0[1] - D_803F6720[arg0][i].unk18.unk0[1]) / factor;
-                temp_f26 = (D_803F6720[arg0][i].unk30.unk0[2] - D_803F6720[arg0][i].unk18.unk0[2]) / factor;
-                temp_f28 = (D_803F6720[arg0][i].unk30.unkC[0] - D_803F6720[arg0][i].unk18.unkC[0]) / factor;
-                temp_f30 = (D_803F6720[arg0][i].unk30.unkC[1] - D_803F6720[arg0][i].unk18.unkC[1]) / factor;
-                temp_f16 = (D_803F6720[arg0][i].unk30.unkC[2] - D_803F6720[arg0][i].unk18.unkC[2]) / factor;
-                tmp = ((D_803F6720[arg0][i].unk48 / D_803F6720[arg0][i].unk4C) * 180.0f);
+                temp_f22 = (gRigPoseStates[arg0][i].unk30.unk0[0] - gRigPoseStates[arg0][i].unk18.unk0[0]) / factor;
+                temp_f24 = (gRigPoseStates[arg0][i].unk30.unk0[1] - gRigPoseStates[arg0][i].unk18.unk0[1]) / factor;
+                temp_f26 = (gRigPoseStates[arg0][i].unk30.unk0[2] - gRigPoseStates[arg0][i].unk18.unk0[2]) / factor;
+                temp_f28 = (gRigPoseStates[arg0][i].unk30.unkC[0] - gRigPoseStates[arg0][i].unk18.unkC[0]) / factor;
+                temp_f30 = (gRigPoseStates[arg0][i].unk30.unkC[1] - gRigPoseStates[arg0][i].unk18.unkC[1]) / factor;
+                temp_f16 = (gRigPoseStates[arg0][i].unk30.unkC[2] - gRigPoseStates[arg0][i].unk18.unkC[2]) / factor;
+                tmp = ((gRigPoseStates[arg0][i].unk48 / gRigPoseStates[arg0][i].unk4C) * 180.0f);
                 // this is not quite PI (3.14159265359)
                 temp_f0 = cosf((SSSV_PI / 180) * tmp);
-                D_803F6720[arg0][i].unk0.unk0[0] = (D_803F6720[arg0][i].unk18.unk0[0] + temp_f22) - (temp_f22 * temp_f0);
-                D_803F6720[arg0][i].unk0.unk0[1] = (D_803F6720[arg0][i].unk18.unk0[1] + temp_f24) - (temp_f24 * temp_f0);
-                D_803F6720[arg0][i].unk0.unk0[2] = (D_803F6720[arg0][i].unk18.unk0[2] + temp_f26) - (temp_f26 * temp_f0);
-                D_803F6720[arg0][i].unk0.unkC[0] = (D_803F6720[arg0][i].unk18.unkC[0] + temp_f28) - (temp_f28 * temp_f0);
-                D_803F6720[arg0][i].unk0.unkC[1] = (D_803F6720[arg0][i].unk18.unkC[1] + temp_f30) - (temp_f30 * temp_f0);
-                D_803F6720[arg0][i].unk0.unkC[2] = (D_803F6720[arg0][i].unk18.unkC[2] + temp_f16) - (temp_f16 * temp_f0);
+                gRigPoseStates[arg0][i].unk0.unk0[0] = (gRigPoseStates[arg0][i].unk18.unk0[0] + temp_f22) - (temp_f22 * temp_f0);
+                gRigPoseStates[arg0][i].unk0.unk0[1] = (gRigPoseStates[arg0][i].unk18.unk0[1] + temp_f24) - (temp_f24 * temp_f0);
+                gRigPoseStates[arg0][i].unk0.unk0[2] = (gRigPoseStates[arg0][i].unk18.unk0[2] + temp_f26) - (temp_f26 * temp_f0);
+                gRigPoseStates[arg0][i].unk0.unkC[0] = (gRigPoseStates[arg0][i].unk18.unkC[0] + temp_f28) - (temp_f28 * temp_f0);
+                gRigPoseStates[arg0][i].unk0.unkC[1] = (gRigPoseStates[arg0][i].unk18.unkC[1] + temp_f30) - (temp_f30 * temp_f0);
+                gRigPoseStates[arg0][i].unk0.unkC[2] = (gRigPoseStates[arg0][i].unk18.unkC[2] + temp_f16) - (temp_f16 * temp_f0);
             }
         }
     }
 }
 
-void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 idx, u8 arg7) {
+void render_rig_instance_xlu(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 arg5, u8 idx, u8 arg7) {
     s16 i;
     s16 j;
     s16 var_s2;
 
     if (arg7 == 2) {
         func_8034C8F8_75DFA8(
-            D_803F6720[arg7][0].unk0.unkC[0] + (arg0 >> 16),
-            D_803F6720[arg7][0].unk0.unkC[1] + (arg1 >> 16),
-            D_803F6720[arg7][0].unk0.unkC[2] + (arg2 >> 16),
-            ((arg4 - D_803F6720[arg7][0].unk0.unk0[2]) * 256) / 360,
+            gRigPoseStates[arg7][0].unk0.unkC[0] + (arg0 >> 16),
+            gRigPoseStates[arg7][0].unk0.unkC[1] + (arg1 >> 16),
+            gRigPoseStates[arg7][0].unk0.unkC[2] + (arg2 >> 16),
+            ((arg4 - gRigPoseStates[arg7][0].unk0.unk0[2]) * 256) / 360,
             D_803A8370_7B9A20[1], // 0x1034190
             (arg5 << 3) >> 0x10,
             (arg5 << 4) >> 0x10,
@@ -249,16 +249,16 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
 
     gSPMatrix(gXluDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-    func_80397414_7A8AC4(
+    append_rig_modelview_transform_xlu(
         0,
-        D_803F6720[arg7][0].unk0.unkC[0],
-        D_803F6720[arg7][0].unk0.unkC[1],
-        D_803F6720[arg7][0].unk0.unkC[2],
-        D_803F6720[arg7][0].unk0.unk0[0],
-        D_803F6720[arg7][0].unk0.unk0[1],
-        D_803F6720[arg7][0].unk0.unk0[2]
+        gRigPoseStates[arg7][0].unk0.unkC[0],
+        gRigPoseStates[arg7][0].unk0.unkC[1],
+        gRigPoseStates[arg7][0].unk0.unkC[2],
+        gRigPoseStates[arg7][0].unk0.unk0[0],
+        gRigPoseStates[arg7][0].unk0.unk0[1],
+        gRigPoseStates[arg7][0].unk0.unk0[2]
     );
-    gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][6]);
+    gSPDisplayList(gXluDL++, gRigPartDisplayLists[idx][6]);
 
     if (arg7 != 2) {
         var_s2 = 4;
@@ -266,44 +266,44 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
 
         for (i = 0; i < 2; i++) {
             // push
-            func_80397414_7A8AC4(
+            append_rig_modelview_transform_xlu(
                 1,
-                D_803F6720[arg7][var_s2].unk0.unkC[0],
-                D_803F6720[arg7][var_s2].unk0.unkC[1],
-                D_803F6720[arg7][var_s2].unk0.unkC[2],
-                D_803F6720[arg7][var_s2].unk0.unk0[0],
-                D_803F6720[arg7][var_s2].unk0.unk0[1],
-                D_803F6720[arg7][var_s2].unk0.unk0[2]
+                gRigPoseStates[arg7][var_s2].unk0.unkC[0],
+                gRigPoseStates[arg7][var_s2].unk0.unkC[1],
+                gRigPoseStates[arg7][var_s2].unk0.unkC[2],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[0],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[1],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][j]);
+            gSPDisplayList(gXluDL++, gRigPartDisplayLists[idx][j]);
             var_s2++;
             j++;
 
             // no push
-            func_80397414_7A8AC4(
+            append_rig_modelview_transform_xlu(
                 0,
-                D_803F6720[arg7][var_s2].unk0.unkC[0],
-                D_803F6720[arg7][var_s2].unk0.unkC[1],
-                D_803F6720[arg7][var_s2].unk0.unkC[2],
-                D_803F6720[arg7][var_s2].unk0.unk0[0],
-                D_803F6720[arg7][var_s2].unk0.unk0[1],
-                D_803F6720[arg7][var_s2].unk0.unk0[2]
+                gRigPoseStates[arg7][var_s2].unk0.unkC[0],
+                gRigPoseStates[arg7][var_s2].unk0.unkC[1],
+                gRigPoseStates[arg7][var_s2].unk0.unkC[2],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[0],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[1],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][j]);
+            gSPDisplayList(gXluDL++, gRigPartDisplayLists[idx][j]);
             var_s2++;
             j++;
 
             // no push
-            func_80397414_7A8AC4(
+            append_rig_modelview_transform_xlu(
                 0,
-                D_803F6720[arg7][var_s2].unk0.unkC[0],
-                D_803F6720[arg7][var_s2].unk0.unkC[1],
-                D_803F6720[arg7][var_s2].unk0.unkC[2],
-                D_803F6720[arg7][var_s2].unk0.unk0[0],
-                D_803F6720[arg7][var_s2].unk0.unk0[1],
-                D_803F6720[arg7][var_s2].unk0.unk0[2]
+                gRigPoseStates[arg7][var_s2].unk0.unkC[0],
+                gRigPoseStates[arg7][var_s2].unk0.unkC[1],
+                gRigPoseStates[arg7][var_s2].unk0.unkC[2],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[0],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[1],
+                gRigPoseStates[arg7][var_s2].unk0.unk0[2]
             );
-            gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][j]);
+            gSPDisplayList(gXluDL++, gRigPartDisplayLists[idx][j]);
             var_s2++;
             j++;
 
@@ -312,38 +312,38 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         }
     }
 
-    func_80397414_7A8AC4(
+    append_rig_modelview_transform_xlu(
         1,
-        D_803F6720[arg7][1].unk0.unkC[0],
-        D_803F6720[arg7][1].unk0.unkC[1],
-        D_803F6720[arg7][1].unk0.unkC[2],
-        D_803F6720[arg7][1].unk0.unk0[0],
-        D_803F6720[arg7][1].unk0.unk0[1],
-        D_803F6720[arg7][1].unk0.unk0[2]
+        gRigPoseStates[arg7][1].unk0.unkC[0],
+        gRigPoseStates[arg7][1].unk0.unkC[1],
+        gRigPoseStates[arg7][1].unk0.unkC[2],
+        gRigPoseStates[arg7][1].unk0.unk0[0],
+        gRigPoseStates[arg7][1].unk0.unk0[1],
+        gRigPoseStates[arg7][1].unk0.unk0[2]
     );
-    gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][7]);
+    gSPDisplayList(gXluDL++, gRigPartDisplayLists[idx][7]);
 
     if (arg7 != 2) {
-        func_80397414_7A8AC4(
+        append_rig_modelview_transform_xlu(
             1,
-            D_803F6720[arg7][2].unk0.unkC[0],
-            D_803F6720[arg7][2].unk0.unkC[1],
-            D_803F6720[arg7][2].unk0.unkC[2],
-            D_803F6720[arg7][2].unk0.unk0[0],
-            D_803F6720[arg7][2].unk0.unk0[1],
-            D_803F6720[arg7][2].unk0.unk0[2]
+            gRigPoseStates[arg7][2].unk0.unkC[0],
+            gRigPoseStates[arg7][2].unk0.unkC[1],
+            gRigPoseStates[arg7][2].unk0.unkC[2],
+            gRigPoseStates[arg7][2].unk0.unk0[0],
+            gRigPoseStates[arg7][2].unk0.unk0[1],
+            gRigPoseStates[arg7][2].unk0.unk0[2]
         );
-        gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][8]);
+        gSPDisplayList(gXluDL++, gRigPartDisplayLists[idx][8]);
         gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
     }
-    func_80397414_7A8AC4(
+    append_rig_modelview_transform_xlu(
         1,
-        D_803F6720[arg7][1].unk0.unkC[0],
-        D_803F6720[arg7][1].unk0.unkC[1],
-        D_803F6720[arg7][1].unk0.unkC[2],
-        D_803F6720[arg7][1].unk0.unk0[0],
-        D_803F6720[arg7][1].unk0.unk0[1],
-        D_803F6720[arg7][1].unk0.unk0[2]
+        gRigPoseStates[arg7][1].unk0.unkC[0],
+        gRigPoseStates[arg7][1].unk0.unkC[1],
+        gRigPoseStates[arg7][1].unk0.unkC[2],
+        gRigPoseStates[arg7][1].unk0.unk0[0],
+        gRigPoseStates[arg7][1].unk0.unk0[1],
+        gRigPoseStates[arg7][1].unk0.unk0[2]
     );
 
     if (arg7 == 1) {
@@ -351,17 +351,17 @@ void func_80397F5C_7A960C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s32 
         gDPSetCombineLERP(gXluDL++, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0, SHADE, 0, PRIMITIVE, 0);
     }
 
-    func_80397414_7A8AC4(
+    append_rig_modelview_transform_xlu(
         1,
-        D_803F6720[arg7][3].unk0.unkC[0],
-        D_803F6720[arg7][3].unk0.unkC[1],
-        D_803F6720[arg7][3].unk0.unkC[2],
-        D_803F6720[arg7][3].unk0.unk0[0],
-        D_803F6720[arg7][3].unk0.unk0[1],
-        D_803F6720[arg7][3].unk0.unk0[2]
+        gRigPoseStates[arg7][3].unk0.unkC[0],
+        gRigPoseStates[arg7][3].unk0.unkC[1],
+        gRigPoseStates[arg7][3].unk0.unkC[2],
+        gRigPoseStates[arg7][3].unk0.unk0[0],
+        gRigPoseStates[arg7][3].unk0.unk0[1],
+        gRigPoseStates[arg7][3].unk0.unk0[2]
     );
 
-    gSPDisplayList(gXluDL++, D_803B7108_7C87B8[idx][9]);
+    gSPDisplayList(gXluDL++, gRigPartDisplayLists[idx][9]);
     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
     gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);

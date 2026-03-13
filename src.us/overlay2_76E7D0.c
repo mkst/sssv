@@ -201,7 +201,7 @@ void func_8035D734_76EDE4(void) {
             D_803D552C->unk365 = ATTACK_NONE;
         }
         D_803F2ECE = 1;
-        if ((D_803F2D10.unk0 == 0) && (SSSV_RAND(64) == 0)) {
+        if ((gUiFlowState.unk0 == 0) && (SSSV_RAND(64) == 0)) {
             create_sparks(
                 D_803D5530->position.xPos.h,
                 D_803D5530->position.zPos.h,
@@ -244,7 +244,7 @@ void func_8035DA60_76F110(void) {
         D_803F2EBC += SIN((D_803D552C->unk2EE % 16) << 4) >> 1;
         D_803F2EC0 += SIN((D_803D552C->unk2EE % 16) << 4) >> 1;
         D_803F2EC4 += SIN((D_803D552C->unk2EE % 16) << 4) >> 1;
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             if ((D_803D552C->unk2EE % 16) == 8) {
                 D_803F2EDE = 1;
             }
@@ -255,7 +255,7 @@ void func_8035DA60_76F110(void) {
             D_803F2EBC += SIN((D_803D552C->unk2EE % 32) << 3) >> 2;
             D_803F2EC0 += SIN((D_803D552C->unk2EE % 32) << 3) >> 2;
             D_803F2EC4 += SIN((D_803D552C->unk2EE % 32) << 3) >> 2;
-            if (D_803F2D10.unk0 == 0) {
+            if (gUiFlowState.unk0 == 0) {
                 if ((D_803D552C->unk2EE % 32) == 16) {
                     D_803F2EDE = 1;
                 }
@@ -265,7 +265,7 @@ void func_8035DA60_76F110(void) {
             D_803F2EBC += SIN((D_803D552C->unk2EE % 64) << 2) >> 3;
             D_803F2EC0 += SIN((D_803D552C->unk2EE % 64) << 2) >> 3;
             D_803F2EC4 += SIN((D_803D552C->unk2EE % 64) << 2) >> 3;
-            if (D_803F2D10.unk0 == 0) {
+            if (gUiFlowState.unk0 == 0) {
                 if ((D_803D552C->unk2EE % 64) == 32) {
                     D_803F2EDE = 1;
                 }
@@ -300,7 +300,7 @@ void func_8035DEC4_76F574(void) {
             D_803F2EC0 += SIN((D_803D552C->unk2EE & 0x1F) << 3) >> 2;
             D_803F2EC4 += SIN((D_803D552C->unk2EE & 0x1F) << 3) >> 2;
         }
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             D_803D552C->unk2EE++;
         }
         if (D_803D5530->state == 23) {

@@ -41,7 +41,7 @@ D_800C7DC0                  = 0x800C7DC0; // defined:true
 D_800CFE60                  = 0x800CFE60; // defined:true
 D_800D5420                  = 0x800D5420; // defined:true
 D_800D7C20                  = 0x800D7C20; // defined:true
-D_800DCC20                  = 0x800DCC20; // defined:true
+gWaterTextureBuffer                  = 0x800DCC20; // defined:true
 D_800DD3F0                  = 0x800DD3F0; // defined:true
 D_800DE390                  = 0x800DE390; // defined:true
 D_800DEE20                  = 0x800DEE20; // defined:true
@@ -360,13 +360,13 @@ gVIData             = 0x802053E0; // defined:true
 D_802053F0             = 0x802053F0; // defined:true
 D_80205400             = 0x80205400; // defined:true
 D_8020540C             = 0x8020540C; // defined:true
-D_80205410             = 0x80205410; // defined:true
+gWorldCellOpaqueDisplayLists             = 0x80205410; // defined:true
 D_80205470             = 0x80205470; // defined:true
 
 D_80205478             = 0x80205478; // defined:true
 D_80210FF0             = 0x80210FF0; // defined:true
 D_80224870             = 0x80224870; // defined:true
-D_802255F0             = 0x802255F0; // defined:true
+gWorldCellTranslucentDisplayLists             = 0x802255F0; // defined:true
 D_80225650             = 0x80225650; // defined:true size:0x3e80 segment:main
 D_802294D0             = 0x802294D0; // defined:true
 D_8022D350             = 0x8022D350; // defined:true
@@ -599,262 +599,262 @@ D_803B0596 = 0x803B0596; // defined:true
 // overlay2
 
 // overlay2_6A6500
-D_803C0420 = 0x803C0420; // defined:true
-gInitialisationState = 0x803C0422; // defined:true
-D_803C0424 = 0x803C0424; // defined:true
-D_803C0426 = 0x803C0426; // defined:true
-D_803C0428 = 0x803C0428; // defined:true
-D_803C042A = 0x803C042A; // defined:true
-D_803C0430 = 0x803C0430; // defined:true size:0x210
+D_803C0420 = 0x803C0420; // defined:true segment:overlay2
+gInitialisationState = 0x803C0422; // defined:true segment:overlay2
+D_803C0424 = 0x803C0424; // defined:true segment:overlay2
+D_803C0426 = 0x803C0426; // defined:true segment:overlay2
+D_803C0428 = 0x803C0428; // defined:true segment:overlay2
+D_803C042A = 0x803C042A; // defined:true segment:overlay2
+gWaterAnimState = 0x803C0430; // defined:true size:0x210
 
 gRenderMode1  = 0x803C0640; // defined:true size:0x8 segment:overlay2
 gRenderMode2  = 0x803C0648; // defined:true size:0x8 segment:overlay2
 gGeometryMode = 0x803C0650; // defined:true size:0x8 segment:overlay2
-gWorldPerspNorm = 0x803C0658; // defined:true
+gWorldPerspNorm = 0x803C0658; // defined:true segment:overlay2
 
 // overlay2_6AB090
-D_803C0660 = 0x803C0660; // defined:true size:0xe0
+gVisibleWorldCellQueue = 0x803C0660; // defined:true size:0xe0
 
 // overlay2_6AC360
-D_803C0740 = 0x803C0740; // defined:true size:0x12648
+D_803C0740 = 0x803C0740; // defined:true size:0x12648 segment:overlay2
 
 // overlay2_6ACF20
-D_803D2D90 = 0x803D2D90; // defined:true size:0x66
-D_803D2DF8 = 0x803D2DF8; // defined:true
-D_803D2DFC = 0x803D2DFC; // defined:true
-D_803D2DFE = 0x803D2DFE; // defined:true
-D_803D2E00 = 0x803D2E00; // defined:true
-gDynamicTextureBillboardQueue = 0x803D2E08; // defined:true
+D_803D2D90 = 0x803D2D90; // defined:true size:0x66 segment:overlay2
+D_803D2DF8 = 0x803D2DF8; // defined:true segment:overlay2
+D_803D2DFC = 0x803D2DFC; // defined:true segment:overlay2
+D_803D2DFE = 0x803D2DFE; // defined:true segment:overlay2
+D_803D2E00 = 0x803D2E00; // defined:true segment:overlay2
+gDynamicTextureBillboardQueue = 0x803D2E08; // defined:true segment:overlay2
 
 // overlay2_6B5380
-D_803D5510 = 0x803D5510; // defined:true
-D_803D5512 = 0x803D5512; // defined:true
-D_803D5520 = 0x803D5520; // defined:true
-D_803D5524 = 0x803D5524; // defined:true
-D_803D5528 = 0x803D5528; // defined:true
-D_803D552C = 0x803D552C; // defined:true
-D_803D5530 = 0x803D5530; // defined:true
-gCurrentAnimalIndex = 0x803D5534; // defined:true
-D_803D5536 = 0x803D5536; // defined:true
-D_803D5538 = 0x803D5538; // defined:true
-D_803D553A = 0x803D553A; // defined:true
-D_803D553C = 0x803D553C; // defined:true
-gNumAnimalsInLevel = 0x803D553E; // defined:true
-D_803D5540 = 0x803D5540; // defined:true
-D_803D5542 = 0x803D5542; // defined:true
-D_803D5544 = 0x803D5544; // defined:true
-D_803D5546 = 0x803D5546; // defined:true
-D_803D5548 = 0x803D5548; // defined:true
-D_803D554A = 0x803D554A; // defined:true
-D_803D554B = 0x803D554B; // defined:true
-D_803D554C = 0x803D554C; // defined:true
-D_803D5558 = 0x803D5558; // defined:true
-D_803D555A = 0x803D555A; // defined:true
-D_803D555C = 0x803D555C; // defined:true
-D_803D5560 = 0x803D5560; // defined:true
-D_803D5564 = 0x803D5564; // defined:true
-D_803D5566 = 0x803D5566; // defined:true
-D_803D5568 = 0x803D5568; // defined:true
-D_803D556A = 0x803D556A; // defined:true
-D_803D556C = 0x803D556C; // defined:true
-D_803D556E = 0x803D556E; // defined:true
-D_803D5570 = 0x803D5570; // defined:true
-D_803D5572 = 0x803D5572; // defined:true
+D_803D5510 = 0x803D5510; // defined:true segment:overlay2
+D_803D5512 = 0x803D5512; // defined:true segment:overlay2
+D_803D5520 = 0x803D5520; // defined:true segment:overlay2
+D_803D5524 = 0x803D5524; // defined:true segment:overlay2
+D_803D5528 = 0x803D5528; // defined:true segment:overlay2
+D_803D552C = 0x803D552C; // defined:true segment:overlay2
+D_803D5530 = 0x803D5530; // defined:true segment:overlay2
+gCurrentAnimalIndex = 0x803D5534; // defined:true segment:overlay2
+D_803D5536 = 0x803D5536; // defined:true segment:overlay2
+D_803D5538 = 0x803D5538; // defined:true segment:overlay2
+D_803D553A = 0x803D553A; // defined:true segment:overlay2
+D_803D553C = 0x803D553C; // defined:true segment:overlay2
+gNumAnimalsInLevel = 0x803D553E; // defined:true segment:overlay2
+D_803D5540 = 0x803D5540; // defined:true segment:overlay2
+D_803D5542 = 0x803D5542; // defined:true segment:overlay2
+D_803D5544 = 0x803D5544; // defined:true segment:overlay2
+D_803D5546 = 0x803D5546; // defined:true segment:overlay2
+D_803D5548 = 0x803D5548; // defined:true segment:overlay2
+D_803D554A = 0x803D554A; // defined:true segment:overlay2
+D_803D554B = 0x803D554B; // defined:true segment:overlay2
+D_803D554C = 0x803D554C; // defined:true segment:overlay2
+D_803D5558 = 0x803D5558; // defined:true segment:overlay2
+D_803D555A = 0x803D555A; // defined:true segment:overlay2
+D_803D555C = 0x803D555C; // defined:true segment:overlay2
+D_803D5560 = 0x803D5560; // defined:true segment:overlay2
+D_803D5564 = 0x803D5564; // defined:true segment:overlay2
+D_803D5566 = 0x803D5566; // defined:true segment:overlay2
+D_803D5568 = 0x803D5568; // defined:true segment:overlay2
+D_803D556A = 0x803D556A; // defined:true segment:overlay2
+D_803D556C = 0x803D556C; // defined:true segment:overlay2
+D_803D556E = 0x803D556E; // defined:true segment:overlay2
+D_803D5570 = 0x803D5570; // defined:true segment:overlay2
+D_803D5572 = 0x803D5572; // defined:true segment:overlay2
 D_803D5574 = 0x803D5574; // defined:true
 
 // overlay2_6C5570
-D_803D5590 = 0x803D5590; // defined:true
-D_803D5860 = 0x803D5860; // defined:true
-D_803D5B30 = 0x803D5B30; // defined:true
-D_803D5E00 = 0x803D5E00; // defined:true
+D_803D5590 = 0x803D5590; // defined:true segment:overlay2
+D_803D5860 = 0x803D5860; // defined:true segment:overlay2
+D_803D5B30 = 0x803D5B30; // defined:true segment:overlay2
+D_803D5E00 = 0x803D5E00; // defined:true segment:overlay2
 
 // collision
 D_803D60D0 = 0x803D60D0; // defined:true
-D_803D60D4 = 0x803D60D4; // defined:true
-D_803D60D8 = 0x803D60D8; // defined:true
-D_803D60DC = 0x803D60DC; // defined:true
-D_803D60E0 = 0x803D60E0; // defined:true
-D_803D60E2 = 0x803D60E2; // defined:true
+D_803D60D4 = 0x803D60D4; // defined:true segment:overlay2
+D_803D60D8 = 0x803D60D8; // defined:true segment:overlay2
+D_803D60DC = 0x803D60DC; // defined:true segment:overlay2
+D_803D60E0 = 0x803D60E0; // defined:true segment:overlay2
+D_803D60E2 = 0x803D60E2; // defined:true segment:overlay2
 D_803D60E8 = 0x803D60E8; // defined:true size:0x10
 D_803D60F8 = 0x803D60F8; // defined:true size:0x10
 
 // overlay2_6D9AF0
-gControllerDebounce = 0x803D6110; // defined:true
+gControllerDebounce = 0x803D6110; // defined:true segment:overlay2
 
 // overlay2_6DCA10
-D_803D6120 = 0x803D6120; // defined:true size:0x3FD8
+D_803D6120 = 0x803D6120; // defined:true size:0x3FD8 segment:overlay2
 
 // collist2
-D_803DA110 = 0x803DA110; // defined:true
-D_803DA2F0 = 0x803DA2F0; // defined:true
-D_803DA2F4 = 0x803DA2F4; // defined:true
+D_803DA110 = 0x803DA110; // defined:true segment:overlay2
+D_803DA2F0 = 0x803DA2F0; // defined:true segment:overlay2
+D_803DA2F4 = 0x803DA2F4; // defined:true segment:overlay2
 
 // overlay2_6EE6F0
-D_803DA300 = 0x803DA300; // defined:true size:0x5DC0
-D_803E00C0 = 0x803E00C0; // defined:true size:0x1A40
+D_803DA300 = 0x803DA300; // defined:true size:0x5DC0 segment:overlay2
+D_803E00C0 = 0x803E00C0; // defined:true size:0x1A40 segment:overlay2
 
-D_803E1B00 = 0x803E1B00; // defined:true
-D_803E1B02 = 0x803E1B02; // defined:true
-D_803E1B04 = 0x803E1B04; // defined:true
-D_803E1B06 = 0x803E1B06; // defined:true
-D_803E1B08 = 0x803E1B08; // defined:true
+D_803E1B00 = 0x803E1B00; // defined:true segment:overlay2
+D_803E1B02 = 0x803E1B02; // defined:true segment:overlay2
+D_803E1B04 = 0x803E1B04; // defined:true segment:overlay2
+D_803E1B06 = 0x803E1B06; // defined:true segment:overlay2
+D_803E1B08 = 0x803E1B08; // defined:true segment:overlay2
 
 // screen_transition
-gScreenTransition = 0x803E1B10; // defined:true size:0xA
-D_803E1B1A = 0x803E1B1A; // defined:true
-D_803E1B1B = 0x803E1B1B; // defined:true
-D_803E1B1C = 0x803E1B1C; // defined:true
-D_803E1B1E = 0x803E1B1E; // defined:true
+gScreenTransition = 0x803E1B10; // defined:true size:0xA segment:overlay2
+D_803E1B1A = 0x803E1B1A; // defined:true segment:overlay2
+D_803E1B1B = 0x803E1B1B; // defined:true segment:overlay2
+D_803E1B1C = 0x803E1B1C; // defined:true segment:overlay2
+D_803E1B1E = 0x803E1B1E; // defined:true segment:overlay2
 
 // overlay2_7041D0
-D_803E1B20 = 0x803E1B20; // defined:true size:0xA
-D_803E1B30 = 0x803E1B30; // defined:true size:0xA
-D_803E1B40 = 0x803E1B40; // defined:true size:0xA
-D_803E1B50 = 0x803E1B50; // defined:true size:0xA
-D_803E1B60 = 0x803E1B60; // defined:true size:0xA
-D_803E1B70 = 0x803E1B70; // defined:true size:0xA
-D_803E1B80 = 0x803E1B80; // defined:true size:0xA
-D_803E1B8A = 0x803E1B8A; // defined:true
-D_803E1B8C = 0x803E1B8C; // defined:true
-D_803E1B8E = 0x803E1B8E; // defined:true
-D_803E1B90 = 0x803E1B90; // defined:true
-D_803E1B92 = 0x803E1B92; // defined:true
-D_803E1B94 = 0x803E1B94; // defined:true
-D_803E1B96 = 0x803E1B96; // defined:true
-D_803E1B97 = 0x803E1B97; // defined:true
-D_803E1B98 = 0x803E1B98; // defined:true
-D_803E1B99 = 0x803E1B99; // defined:true
-D_803E1B9A = 0x803E1B9A; // defined:true
-D_803E1B9B = 0x803E1B9B; // defined:true
-D_803E1BA2 = 0x803E1BA2; // defined:true
-D_803E1BA4 = 0x803E1BA4; // defined:true
-D_803E1BA6 = 0x803E1BA6; // defined:true
-D_803E1BA8 = 0x803E1BA8; // defined:true
-D_803E1BAA = 0x803E1BAA; // defined:true
-D_803E1BAC = 0x803E1BAC; // defined:true
-D_803E1BAE = 0x803E1BAE; // defined:true
-D_803E1BB0 = 0x803E1BB0; // defined:true
-D_803E1BB2 = 0x803E1BB2; // defined:true
-D_803E1BB4 = 0x803E1BB4; // defined:true
-D_803E1BB6 = 0x803E1BB6; // defined:true
-D_803E1BB8 = 0x803E1BB8; // defined:true
-D_803E1BBA = 0x803E1BBA; // defined:true
-D_803E1BBB = 0x803E1BBB; // defined:true
-D_803E1BBC = 0x803E1BBC; // defined:true
-D_803E1BBD = 0x803E1BBD; // defined:true
-D_803E1BBE = 0x803E1BBE; // defined:true
-D_803E1BBF = 0x803E1BBF; // defined:true
+D_803E1B20 = 0x803E1B20; // defined:true size:0xA segment:overlay2
+D_803E1B30 = 0x803E1B30; // defined:true size:0xA segment:overlay2
+D_803E1B40 = 0x803E1B40; // defined:true size:0xA segment:overlay2
+D_803E1B50 = 0x803E1B50; // defined:true size:0xA segment:overlay2
+D_803E1B60 = 0x803E1B60; // defined:true size:0xA segment:overlay2
+D_803E1B70 = 0x803E1B70; // defined:true size:0xA segment:overlay2
+D_803E1B80 = 0x803E1B80; // defined:true size:0xA segment:overlay2
+D_803E1B8A = 0x803E1B8A; // defined:true segment:overlay2
+D_803E1B8C = 0x803E1B8C; // defined:true segment:overlay2
+D_803E1B8E = 0x803E1B8E; // defined:true segment:overlay2
+D_803E1B90 = 0x803E1B90; // defined:true segment:overlay2
+D_803E1B92 = 0x803E1B92; // defined:true segment:overlay2
+D_803E1B94 = 0x803E1B94; // defined:true segment:overlay2
+D_803E1B96 = 0x803E1B96; // defined:true segment:overlay2
+D_803E1B97 = 0x803E1B97; // defined:true segment:overlay2
+D_803E1B98 = 0x803E1B98; // defined:true segment:overlay2
+D_803E1B99 = 0x803E1B99; // defined:true segment:overlay2
+D_803E1B9A = 0x803E1B9A; // defined:true segment:overlay2
+D_803E1B9B = 0x803E1B9B; // defined:true segment:overlay2
+D_803E1BA2 = 0x803E1BA2; // defined:true segment:overlay2
+D_803E1BA4 = 0x803E1BA4; // defined:true segment:overlay2
+D_803E1BA6 = 0x803E1BA6; // defined:true segment:overlay2
+D_803E1BA8 = 0x803E1BA8; // defined:true segment:overlay2
+D_803E1BAA = 0x803E1BAA; // defined:true segment:overlay2
+D_803E1BAC = 0x803E1BAC; // defined:true segment:overlay2
+D_803E1BAE = 0x803E1BAE; // defined:true segment:overlay2
+D_803E1BB0 = 0x803E1BB0; // defined:true segment:overlay2
+D_803E1BB2 = 0x803E1BB2; // defined:true segment:overlay2
+D_803E1BB4 = 0x803E1BB4; // defined:true segment:overlay2
+D_803E1BB6 = 0x803E1BB6; // defined:true segment:overlay2
+D_803E1BB8 = 0x803E1BB8; // defined:true segment:overlay2
+D_803E1BBA = 0x803E1BBA; // defined:true segment:overlay2
+D_803E1BBB = 0x803E1BBB; // defined:true segment:overlay2
+D_803E1BBC = 0x803E1BBC; // defined:true segment:overlay2
+D_803E1BBD = 0x803E1BBD; // defined:true segment:overlay2
+D_803E1BBE = 0x803E1BBE; // defined:true segment:overlay2
+D_803E1BBF = 0x803E1BBF; // defined:true segment:overlay2
 
 // input
-gInputMode = 0x803E1BC0; // defined:true
-D_803E1BC4 = 0x803E1BC4; // defined:true
-demoInput = 0x803E1BD4; // defined:true
+gInputMode = 0x803E1BC0; // defined:true segment:overlay2
+D_803E1BC4 = 0x803E1BC4; // defined:true segment:overlay2
+demoInput = 0x803E1BD4; // defined:true segment:overlay2
 
 // overlay2_707310
-D_803E1BE0 = 0x803E1BE0; // defined:true
-D_803E1BE8 = 0x803E1BE8; // defined:true
-D_803E1CE0 = 0x803E1CE0; // defined:true
-D_803E1CE8 = 0x803E1CE8; // defined:true
-D_803E1CF0 = 0x803E1CF0; // defined:true
-gFogState = 0x803E1CF8; // defined:true
-D_803E1D00 = 0x803E1D00; // defined:true
-D_803E1D02 = 0x803E1D02; // defined:true
-D_803E1D04 = 0x803E1D04; // defined:true
-D_803E1D06 = 0x803E1D06; // defined:true
-D_803E1D08 = 0x803E1D08; // defined:true
-D_803E1D0A = 0x803E1D0A; // defined:true
-D_803E1D0C = 0x803E1D0C; // defined:true
-D_803E1D10 = 0x803E1D10; // defined:true
-D_803E1D18 = 0x803E1D18; // defined:true
-D_803E1D20 = 0x803E1D20; // defined:true
-D_803E1D28 = 0x803E1D28; // defined:true
-D_803E1D2A = 0x803E1D2A; // defined:true
-D_803E1D2C = 0x803E1D2C; // defined:true
-D_803E1D30 = 0x803E1D30; // defined:true size:0xC00
+D_803E1BE0 = 0x803E1BE0; // defined:true segment:overlay2
+D_803E1BE8 = 0x803E1BE8; // defined:true segment:overlay2
+D_803E1CE0 = 0x803E1CE0; // defined:true segment:overlay2
+D_803E1CE8 = 0x803E1CE8; // defined:true segment:overlay2
+D_803E1CF0 = 0x803E1CF0; // defined:true segment:overlay2
+gFogState = 0x803E1CF8; // defined:true segment:overlay2
+D_803E1D00 = 0x803E1D00; // defined:true segment:overlay2
+D_803E1D02 = 0x803E1D02; // defined:true segment:overlay2
+D_803E1D04 = 0x803E1D04; // defined:true segment:overlay2
+D_803E1D06 = 0x803E1D06; // defined:true segment:overlay2
+D_803E1D08 = 0x803E1D08; // defined:true segment:overlay2
+D_803E1D0A = 0x803E1D0A; // defined:true segment:overlay2
+D_803E1D0C = 0x803E1D0C; // defined:true segment:overlay2
+D_803E1D10 = 0x803E1D10; // defined:true segment:overlay2
+D_803E1D18 = 0x803E1D18; // defined:true segment:overlay2
+D_803E1D20 = 0x803E1D20; // defined:true segment:overlay2
+D_803E1D28 = 0x803E1D28; // defined:true segment:overlay2
+D_803E1D2A = 0x803E1D2A; // defined:true segment:overlay2
+D_803E1D2C = 0x803E1D2C; // defined:true segment:overlay2
+D_803E1D30 = 0x803E1D30; // defined:true size:0xC00 segment:overlay2
 
 // overlay2_715820
-D_803E2930 = 0x803E2930; // defined:true
-D_803E3130 = 0x803E3130; // defined:true
-D_803E4930 = 0x803E4930; // defined:true
-D_803E4998 = 0x803E4998; // defined:true
-D_803E4A00 = 0x803E4A00; // defined:true
-D_803E4AC8 = 0x803E4AC8; // defined:true
-D_803E4AD0 = 0x803E4AD0; // defined:true
-D_803E4BD0 = 0x803E4BD0; // defined:true
-D_803E4BD1 = 0x803E4BD1; // defined:true
-D_803E4BD2 = 0x803E4BD2; // defined:true
-D_803E4BD4 = 0x803E4BD4; // defined:true
+D_803E2930 = 0x803E2930; // defined:true segment:overlay2
+D_803E3130 = 0x803E3130; // defined:true segment:overlay2
+D_803E4930 = 0x803E4930; // defined:true segment:overlay2
+D_803E4998 = 0x803E4998; // defined:true segment:overlay2
+D_803E4A00 = 0x803E4A00; // defined:true segment:overlay2
+D_803E4AC8 = 0x803E4AC8; // defined:true segment:overlay2
+D_803E4AD0 = 0x803E4AD0; // defined:true segment:overlay2
+D_803E4BD0 = 0x803E4BD0; // defined:true segment:overlay2
+D_803E4BD1 = 0x803E4BD1; // defined:true segment:overlay2
+D_803E4BD2 = 0x803E4BD2; // defined:true segment:overlay2
+D_803E4BD4 = 0x803E4BD4; // defined:true segment:overlay2
 D_803E4BD6 = 0x803E4BD6; // defined:true
 D_803E4BD8 = 0x803E4BD8; // defined:true
 D_803E4BDA = 0x803E4BDA; // defined:true
 
-D_803E4BE0 = 0x803E4BE0; // defined:true size:0x65
+D_803E4BE0 = 0x803E4BE0; // defined:true size:0x65 segment:overlay2
 
-D_803E4C52 = 0x803E4C52; // defined:true
-D_803E4C54 = 0x803E4C54; // defined:true
-D_803E4C56 = 0x803E4C56; // defined:true
-D_803E4C58 = 0x803E4C58; // defined:true
-D_803E4C5C = 0x803E4C5C; // defined:true
-D_803E4C60 = 0x803E4C60; // defined:true
-D_803E4C64 = 0x803E4C64; // defined:true
-D_803E4C68 = 0x803E4C68; // defined:true
-D_803E4C6A = 0x803E4C6A; // defined:true
-D_803E4C6C = 0x803E4C6C; // defined:true
-D_803E4C6E = 0x803E4C6E; // defined:true
-D_803E4C70 = 0x803E4C70; // defined:true
-D_803E4C72 = 0x803E4C72; // defined:true
-D_803E4C74 = 0x803E4C74; // defined:true
-D_803E4C76 = 0x803E4C76; // defined:true
-D_803E4C78 = 0x803E4C78; // defined:true
-D_803E4C79 = 0x803E4C79; // defined:true
-D_803E4C7A = 0x803E4C7A; // defined:true
-D_803E4C7C = 0x803E4C7C; // defined:true
-D_803E4C80 = 0x803E4C80; // defined:true
-D_803E4C84 = 0x803E4C84; // defined:true
-D_803E4C86 = 0x803E4C86; // defined:true
-D_803E4C88 = 0x803E4C88; // defined:true
-D_803E4C8C = 0x803E4C8C; // defined:true
-D_803E4C90 = 0x803E4C90; // defined:true
-D_803E4C94 = 0x803E4C94; // defined:true
+D_803E4C52 = 0x803E4C52; // defined:true segment:overlay2
+D_803E4C54 = 0x803E4C54; // defined:true segment:overlay2
+D_803E4C56 = 0x803E4C56; // defined:true segment:overlay2
+D_803E4C58 = 0x803E4C58; // defined:true segment:overlay2
+D_803E4C5C = 0x803E4C5C; // defined:true segment:overlay2
+D_803E4C60 = 0x803E4C60; // defined:true segment:overlay2
+D_803E4C64 = 0x803E4C64; // defined:true segment:overlay2
+D_803E4C68 = 0x803E4C68; // defined:true segment:overlay2
+D_803E4C6A = 0x803E4C6A; // defined:true segment:overlay2
+D_803E4C6C = 0x803E4C6C; // defined:true segment:overlay2
+D_803E4C6E = 0x803E4C6E; // defined:true segment:overlay2
+D_803E4C70 = 0x803E4C70; // defined:true segment:overlay2
+D_803E4C72 = 0x803E4C72; // defined:true segment:overlay2
+D_803E4C74 = 0x803E4C74; // defined:true segment:overlay2
+D_803E4C76 = 0x803E4C76; // defined:true segment:overlay2
+D_803E4C78 = 0x803E4C78; // defined:true segment:overlay2
+D_803E4C79 = 0x803E4C79; // defined:true segment:overlay2
+D_803E4C7A = 0x803E4C7A; // defined:true segment:overlay2
+D_803E4C7C = 0x803E4C7C; // defined:true segment:overlay2
+D_803E4C80 = 0x803E4C80; // defined:true segment:overlay2
+D_803E4C84 = 0x803E4C84; // defined:true segment:overlay2
+D_803E4C86 = 0x803E4C86; // defined:true segment:overlay2
+D_803E4C88 = 0x803E4C88; // defined:true segment:overlay2
+D_803E4C8C = 0x803E4C8C; // defined:true segment:overlay2
+D_803E4C90 = 0x803E4C90; // defined:true segment:overlay2
+D_803E4C94 = 0x803E4C94; // defined:true segment:overlay2
 
-D_803E4CA0 = 0x803E4CA0; // defined:true
-D_803E4CA4 = 0x803E4CA4; // defined:true
-D_803E4CA5 = 0x803E4CA5; // defined:true
-D_803E4CA6 = 0x803E4CA6; // defined:true
-D_803E4CA8 = 0x803E4CA8; // defined:true
+D_803E4CA0 = 0x803E4CA0; // defined:true segment:overlay2
+D_803E4CA4 = 0x803E4CA4; // defined:true segment:overlay2
+D_803E4CA5 = 0x803E4CA5; // defined:true segment:overlay2
+D_803E4CA6 = 0x803E4CA6; // defined:true segment:overlay2
+D_803E4CA8 = 0x803E4CA8; // defined:true segment:overlay2
 D_803E4D28 = 0x803E4D28; // defined:true
 gTasksCompleted = 0x803E4D2C; // defined:true
 D_803E4D30 = 0x803E4D30; // defined:true
-D_803E4D38 = 0x803E4D38; // defined:true
+D_803E4D38 = 0x803E4D38; // defined:true segment:overlay2
 D_803E4D3C = 0x803E4D3C; // defined:true
-D_803E4D40 = 0x803E4D40; // defined:true
+D_803E4D40 = 0x803E4D40; // defined:true segment:overlay2
 D_803E8E54 = 0x803E8E54; // defined:true
-D_803E8E56 = 0x803E8E56; // defined:true
+D_803E8E56 = 0x803E8E56; // defined:true segment:overlay2
 D_803E8E57 = 0x803E8E57; // defined:true
-D_803E8E58 = 0x803E8E58; // defined:true
+D_803E8E58 = 0x803E8E58; // defined:true segment:overlay2
 // TODO: D_803E8E5C = 0x803E8E5C;
 
 // overlay2_72B100
-D_803E8E60 = 0x803E8E60; // defined:true
-D_803E8F60 = 0x803E8F60; // defined:true
-D_803E93B0 = 0x803E93B0; // defined:true size:0x208
-D_803E95B8 = 0x803E95B8; // defined:true size:0x208
+D_803E8E60 = 0x803E8E60; // defined:true segment:overlay2
+D_803E8F60 = 0x803E8F60; // defined:true segment:overlay2
+D_803E93B0 = 0x803E93B0; // defined:true size:0x208 segment:overlay2
+D_803E95B8 = 0x803E95B8; // defined:true size:0x208 segment:overlay2
 
 // overlay2_72B800
-D_803E97C0 = 0x803E97C0; // defined:true
-D_803E97C8 = 0x803E97C8; // defined:true
+D_803E97C0 = 0x803E97C0; // defined:true segment:overlay2
+D_803E97C8 = 0x803E97C8; // defined:true segment:overlay2
 
 // overlay2_739290
-D_803E9820 = 0x803E9820; // defined:true
-D_803E9822 = 0x803E9822; // defined:true
-gCurrentAnimalId = 0x803E9824; // defined:true
-D_803E9828 = 0x803E9828; // defined:true
-D_803E982C = 0x803E982C; // defined:true
-D_803E9836 = 0x803E9836; // defined:true
-D_803E9838 = 0x803E9838; // defined:true
-D_803E983A = 0x803E983A; // defined:true
-D_803E983C = 0x803E983C; // defined:true
-D_803E9840 = 0x803E9840; // defined:true size:0x906C
+D_803E9820 = 0x803E9820; // defined:true segment:overlay2
+D_803E9822 = 0x803E9822; // defined:true segment:overlay2
+gCurrentAnimalId = 0x803E9824; // defined:true segment:overlay2
+D_803E9828 = 0x803E9828; // defined:true segment:overlay2
+D_803E982C = 0x803E982C; // defined:true segment:overlay2
+D_803E9836 = 0x803E9836; // defined:true segment:overlay2
+D_803E9838 = 0x803E9838; // defined:true segment:overlay2
+D_803E983A = 0x803E983A; // defined:true segment:overlay2
+D_803E983C = 0x803E983C; // defined:true segment:overlay2
+D_803E9840 = 0x803E9840; // defined:true size:0x906C segment:overlay2
 
 // FIXME
 // D_803F28C2 = 0x803F28C2; //defined:true
@@ -862,58 +862,58 @@ D_803E9840 = 0x803E9840; // defined:true size:0x906C
 // overlay2_741000
 gCameraVisibilityMask = 0x803F28D0; // defined:true size:0x10 segment:overlay2
 gCameras   = 0x803F28E0; // defined:true size:0x1B8 segment:overlay2
-gCameraId  = 0x803F2A98; // defined:true
-D_803F2A9A = 0x803F2A9A; // defined:true
-D_803F2A9C = 0x803F2A9C; // defined:true
-D_803F2A9E = 0x803F2A9E; // defined:true
-D_803F2AA0 = 0x803F2AA0; // defined:true
-D_803F2AA1 = 0x803F2AA1; // defined:true
-gCameraUiState = 0x803F2AA2; // defined:true
-D_803F2AA3 = 0x803F2AA3; // defined:true
-D_803F2AA4 = 0x803F2AA4; // defined:true
-D_803F2AA5 = 0x803F2AA5; // defined:true
-D_803F2AA6 = 0x803F2AA6; // defined:true
-D_803F2AA7 = 0x803F2AA7; // defined:true
-D_803F2AA8 = 0x803F2AA8; // defined:true
-D_803F2AAC = 0x803F2AAC; // defined:true
-D_803F2AB0 = 0x803F2AB0; // defined:true
-D_803F2AB4 = 0x803F2AB4; // defined:true
-D_803F2AB8 = 0x803F2AB8; // defined:true
-D_803F2ABC = 0x803F2ABC; // defined:true
-D_803F2AC5 = 0x803F2AC5; // defined:true
-D_803F2AC6 = 0x803F2AC6; // defined:true
-D_803F2AC8 = 0x803F2AC8; // defined:true
-D_803F2ACA = 0x803F2ACA; // defined:true
-D_803F2ACC = 0x803F2ACC; // defined:true
-gCamera    = 0x803F2AD0; // defined:true
+gCameraId  = 0x803F2A98; // defined:true segment:overlay2
+D_803F2A9A = 0x803F2A9A; // defined:true segment:overlay2
+D_803F2A9C = 0x803F2A9C; // defined:true segment:overlay2
+D_803F2A9E = 0x803F2A9E; // defined:true segment:overlay2
+D_803F2AA0 = 0x803F2AA0; // defined:true segment:overlay2
+D_803F2AA1 = 0x803F2AA1; // defined:true segment:overlay2
+gCameraUiState = 0x803F2AA2; // defined:true segment:overlay2
+D_803F2AA3 = 0x803F2AA3; // defined:true segment:overlay2
+D_803F2AA4 = 0x803F2AA4; // defined:true segment:overlay2
+D_803F2AA5 = 0x803F2AA5; // defined:true segment:overlay2
+D_803F2AA6 = 0x803F2AA6; // defined:true segment:overlay2
+D_803F2AA7 = 0x803F2AA7; // defined:true segment:overlay2
+D_803F2AA8 = 0x803F2AA8; // defined:true segment:overlay2
+D_803F2AAC = 0x803F2AAC; // defined:true segment:overlay2
+D_803F2AB0 = 0x803F2AB0; // defined:true segment:overlay2
+D_803F2AB4 = 0x803F2AB4; // defined:true segment:overlay2
+D_803F2AB8 = 0x803F2AB8; // defined:true segment:overlay2
+D_803F2ABC = 0x803F2ABC; // defined:true segment:overlay2
+D_803F2AC5 = 0x803F2AC5; // defined:true segment:overlay2
+D_803F2AC6 = 0x803F2AC6; // defined:true segment:overlay2
+D_803F2AC8 = 0x803F2AC8; // defined:true segment:overlay2
+D_803F2ACA = 0x803F2ACA; // defined:true segment:overlay2
+D_803F2ACC = 0x803F2ACC; // defined:true segment:overlay2
+gCamera    = 0x803F2AD0; // defined:true segment:overlay2
 D_803F2AD8 = 0x803F2AD8; // defined:true size:0x20 segment:overlay2
 D_803F2AF8 = 0x803F2AF8; // defined:true size:0x100 segment:overlay2
-D_803F2BF8 = 0x803F2BF8; // defined:true
+D_803F2BF8 = 0x803F2BF8; // defined:true segment:overlay2
 
-D_803F2C18 = 0x803F2C18; // defined:true size:0x6
+D_803F2C18 = 0x803F2C18; // defined:true size:0x6 segment:overlay2
 
-D_803F2C1E = 0x803F2C1E; // defined:true
+D_803F2C1E = 0x803F2C1E; // defined:true segment:overlay2
 
-D_803F2C20 = 0x803F2C20; // defined:true
-D_803F2C22 = 0x803F2C22; // defined:true
-D_803F2C28 = 0x803F2C28; // defined:true
-D_803F2C2C = 0x803F2C2C; // defined:true
-D_803F2C30 = 0x803F2C30; // defined:true
-D_803F2C34 = 0x803F2C34; // defined:true
-D_803F2C38 = 0x803F2C38; // defined:true
-D_803F2C3C = 0x803F2C3C; // defined:true
-D_803F2C40 = 0x803F2C40; // defined:true
-gCameraEyeWorldX = 0x803F2C44; // defined:true
-gCameraEyeWorldZ = 0x803F2C48; // defined:true
-gCameraEyeWorldY = 0x803F2C4C; // defined:true
-D_803F2C50 = 0x803F2C50; // defined:true
-D_803F2C54 = 0x803F2C54; // defined:true
-D_803F2C58 = 0x803F2C58; // defined:true
-D_803F2C5C = 0x803F2C5C; // defined:true
-D_803F2C60 = 0x803F2C60; // defined:true
-D_803F2C64 = 0x803F2C64; // defined:true
-D_803F2C68 = 0x803F2C68; // defined:true
-D_803F2C6C = 0x803F2C6C; // defined:true
+D_803F2C20 = 0x803F2C20; // defined:true segment:overlay2
+D_803F2C22 = 0x803F2C22; // defined:true segment:overlay2
+D_803F2C28 = 0x803F2C28; // defined:true segment:overlay2
+D_803F2C2C = 0x803F2C2C; // defined:true segment:overlay2
+D_803F2C30 = 0x803F2C30; // defined:true segment:overlay2
+D_803F2C34 = 0x803F2C34; // defined:true segment:overlay2
+D_803F2C38 = 0x803F2C38; // defined:true segment:overlay2
+D_803F2C3C = 0x803F2C3C; // defined:true segment:overlay2
+D_803F2C40 = 0x803F2C40; // defined:true segment:overlay2
+gCameraEyeWorldX = 0x803F2C44; // defined:true segment:overlay2
+gCameraEyeWorldZ = 0x803F2C48; // defined:true segment:overlay2
+gCameraEyeWorldY = 0x803F2C4C; // defined:true segment:overlay2
+D_803F2C50 = 0x803F2C50; // defined:true segment:overlay2
+D_803F2C54 = 0x803F2C54; // defined:true segment:overlay2
+D_803F2C58 = 0x803F2C58; // defined:true segment:overlay2
+D_803F2C5C = 0x803F2C5C; // defined:true segment:overlay2
+D_803F2C60 = 0x803F2C60; // defined:true segment:overlay2
+D_803F2C64 = 0x803F2C64; // defined:true segment:overlay2
+D_803F2C68 = 0x803F2C68; // defined:true segment:overlay2
+D_803F2C6C = 0x803F2C6C; // defined:true segment:overlay2
 D_803F2C6D = 0x803F2C6D; // defined:true
 D_803F2C6E = 0x803F2C6E; // defined:true
 D_803F2C70 = 0x803F2C70; // defined:true
@@ -923,57 +923,57 @@ D_803F2C78 = 0x803F2C78; // defined:true
 D_803F2C7C = 0x803F2C7C; // defined:true
 
 // overlay2_7558F0
-D_803F2C80 = 0x803F2C80; // defined:true
-D_803F2C84 = 0x803F2C84; // defined:true
-D_803F2C86 = 0x803F2C86; // defined:true
-D_803F2C88 = 0x803F2C88; // defined:true
-D_803F2C8A = 0x803F2C8A; // defined:true
-D_803F2C8C = 0x803F2C8C; // defined:true
-D_803F2C8E = 0x803F2C8E; // defined:true
-D_803F2C90 = 0x803F2C90; // defined:true
-D_803F2C92 = 0x803F2C92; // defined:true
-D_803F2C94 = 0x803F2C94; // defined:true
-D_803F2C96 = 0x803F2C96; // defined:true
-D_803F2C97 = 0x803F2C97; // defined:true
-D_803F2C98 = 0x803F2C98; // defined:true
-D_803F2C99 = 0x803F2C99; // defined:true
-D_803F2C9A = 0x803F2C9A; // defined:true
-D_803F2C9B = 0x803F2C9B; // defined:true
-D_803F2C9C = 0x803F2C9C; // defined:true
-D_803F2C9E = 0x803F2C9E; // defined:true
-D_803F2CA0 = 0x803F2CA0; // defined:true
-D_803F2CA2 = 0x803F2CA2; // defined:true
-D_803F2CA4 = 0x803F2CA4; // defined:true
-D_803F2CA6 = 0x803F2CA6; // defined:true
-D_803F2CA8 = 0x803F2CA8; // defined:true
+D_803F2C80 = 0x803F2C80; // defined:true segment:overlay2
+D_803F2C84 = 0x803F2C84; // defined:true segment:overlay2
+D_803F2C86 = 0x803F2C86; // defined:true segment:overlay2
+D_803F2C88 = 0x803F2C88; // defined:true segment:overlay2
+D_803F2C8A = 0x803F2C8A; // defined:true segment:overlay2
+D_803F2C8C = 0x803F2C8C; // defined:true segment:overlay2
+D_803F2C8E = 0x803F2C8E; // defined:true segment:overlay2
+D_803F2C90 = 0x803F2C90; // defined:true segment:overlay2
+D_803F2C92 = 0x803F2C92; // defined:true segment:overlay2
+D_803F2C94 = 0x803F2C94; // defined:true segment:overlay2
+D_803F2C96 = 0x803F2C96; // defined:true segment:overlay2
+D_803F2C97 = 0x803F2C97; // defined:true segment:overlay2
+D_803F2C98 = 0x803F2C98; // defined:true segment:overlay2
+D_803F2C99 = 0x803F2C99; // defined:true segment:overlay2
+D_803F2C9A = 0x803F2C9A; // defined:true segment:overlay2
+D_803F2C9B = 0x803F2C9B; // defined:true segment:overlay2
+D_803F2C9C = 0x803F2C9C; // defined:true segment:overlay2
+D_803F2C9E = 0x803F2C9E; // defined:true segment:overlay2
+D_803F2CA0 = 0x803F2CA0; // defined:true segment:overlay2
+D_803F2CA2 = 0x803F2CA2; // defined:true segment:overlay2
+D_803F2CA4 = 0x803F2CA4; // defined:true segment:overlay2
+D_803F2CA6 = 0x803F2CA6; // defined:true segment:overlay2
+gWorldCellTranslucentEnabled = 0x803F2CA8; // defined:true
 D_803F2CC0 = 0x803F2CC0; // defined:true segment:overlay2 size:0x8
 
 // osd
-D_803F2CD0 = 0x803F2CD0; // defined:true
-gHudTimerSeconds = 0x803F2CD2; // defined:true
-D_803F2CD4 = 0x803F2CD4; // defined:true
-D_803F2CD6 = 0x803F2CD6; // defined:true
-D_803F2CD8 = 0x803F2CD8; // defined:true
-D_803F2CDA = 0x803F2CDA; // defined:true
-D_803F2CDC = 0x803F2CDC; // defined:true
-D_803F2CDD = 0x803F2CDD; // defined:true
-D_803F2CDE = 0x803F2CDE; // defined:true
-D_803F2CDF = 0x803F2CDF; // defined:true
-gHudCenterText = 0x803F2CE0; // defined:true
-D_803F2CE4 = 0x803F2CE4; // defined:true
-D_803F2CE6 = 0x803F2CE6; // defined:true
-D_803F2CE8 = 0x803F2CE8; // defined:true
-D_803F2CEC = 0x803F2CEC; // defined:true
-gHudBarBaseY = 0x803F2CF0; // defined:true
-D_803F2CF2 = 0x803F2CF2; // defined:true
-D_803F2CF8 = 0x803F2CF8; // defined:true
+D_803F2CD0 = 0x803F2CD0; // defined:true segment:overlay2
+gHudTimerSeconds = 0x803F2CD2; // defined:true segment:overlay2
+D_803F2CD4 = 0x803F2CD4; // defined:true segment:overlay2
+D_803F2CD6 = 0x803F2CD6; // defined:true segment:overlay2
+D_803F2CD8 = 0x803F2CD8; // defined:true segment:overlay2
+D_803F2CDA = 0x803F2CDA; // defined:true segment:overlay2
+D_803F2CDC = 0x803F2CDC; // defined:true segment:overlay2
+D_803F2CDD = 0x803F2CDD; // defined:true segment:overlay2
+D_803F2CDE = 0x803F2CDE; // defined:true segment:overlay2
+D_803F2CDF = 0x803F2CDF; // defined:true segment:overlay2
+gHudCenterText = 0x803F2CE0; // defined:true segment:overlay2
+D_803F2CE4 = 0x803F2CE4; // defined:true segment:overlay2
+D_803F2CE6 = 0x803F2CE6; // defined:true segment:overlay2
+D_803F2CE8 = 0x803F2CE8; // defined:true segment:overlay2
+D_803F2CEC = 0x803F2CEC; // defined:true segment:overlay2
+gHudBarBaseY = 0x803F2CF0; // defined:true segment:overlay2
+D_803F2CF2 = 0x803F2CF2; // defined:true segment:overlay2
+D_803F2CF8 = 0x803F2CF8; // defined:true segment:overlay2
 D_803F2D04 = 0x803F2D04; // defined:true
-D_803F2D10 = 0x803F2D10; // defined:true
-D_803F2D18 = 0x803F2D18; // defined:true
-D_803F2D20 = 0x803F2D20; // defined:true
-D_803F2D22 = 0x803F2D22; // defined:true
+gUiFlowState = 0x803F2D10; // defined:true
+D_803F2D18 = 0x803F2D18; // defined:true segment:overlay2
+D_803F2D20 = 0x803F2D20; // defined:true segment:overlay2
+D_803F2D22 = 0x803F2D22; // defined:true segment:overlay2
 D_803F2D23 = 0x803F2D23; // defined:true
-D_803F2D24 = 0x803F2D24; // defined:true
+D_803F2D24 = 0x803F2D24; // defined:true segment:overlay2
 gLevelProgress = 0x803F2D30; // defined:true segment:overlay2 size:0x20
 
 // TODO: D_803F2D50
@@ -981,98 +981,98 @@ gLevelProgress = 0x803F2D30; // defined:true segment:overlay2 size:0x20
 D_803F2D50 = 0x803F2D50; // segment:overlay2 size:0x10E
 
 // overlay2_76E7D0
-D_803F2EB0 = 0x803F2EB0; // defined:true
-D_803F2EB4 = 0x803F2EB4; // defined:true
-D_803F2EB8 = 0x803F2EB8; // defined:true
-D_803F2EBC = 0x803F2EBC; // defined:true
-D_803F2EC0 = 0x803F2EC0; // defined:true
-D_803F2EC4 = 0x803F2EC4; // defined:true
-D_803F2EC8 = 0x803F2EC8; // defined:true
-D_803F2ECC = 0x803F2ECC; // defined:true
-D_803F2ECE = 0x803F2ECE; // defined:true
-D_803F2ED0 = 0x803F2ED0; // defined:true
-D_803F2ED2 = 0x803F2ED2; // defined:true
-D_803F2ED4 = 0x803F2ED4; // defined:true
-D_803F2ED8 = 0x803F2ED8; // defined:true
-D_803F2EDA = 0x803F2EDA; // defined:true
-D_803F2EDB = 0x803F2EDB; // defined:true
-D_803F2EDC = 0x803F2EDC; // defined:true
-gLodDetailState = 0x803F2EDD; // defined:true
-D_803F2EDE = 0x803F2EDE; // defined:true
+D_803F2EB0 = 0x803F2EB0; // defined:true segment:overlay2
+D_803F2EB4 = 0x803F2EB4; // defined:true segment:overlay2
+D_803F2EB8 = 0x803F2EB8; // defined:true segment:overlay2
+D_803F2EBC = 0x803F2EBC; // defined:true segment:overlay2
+D_803F2EC0 = 0x803F2EC0; // defined:true segment:overlay2
+D_803F2EC4 = 0x803F2EC4; // defined:true segment:overlay2
+D_803F2EC8 = 0x803F2EC8; // defined:true segment:overlay2
+D_803F2ECC = 0x803F2ECC; // defined:true segment:overlay2
+D_803F2ECE = 0x803F2ECE; // defined:true segment:overlay2
+D_803F2ED0 = 0x803F2ED0; // defined:true segment:overlay2
+D_803F2ED2 = 0x803F2ED2; // defined:true segment:overlay2
+D_803F2ED4 = 0x803F2ED4; // defined:true segment:overlay2
+D_803F2ED8 = 0x803F2ED8; // defined:true segment:overlay2
+D_803F2EDA = 0x803F2EDA; // defined:true segment:overlay2
+D_803F2EDB = 0x803F2EDB; // defined:true segment:overlay2
+D_803F2EDC = 0x803F2EDC; // defined:true segment:overlay2
+gLodDetailState = 0x803F2EDD; // defined:true segment:overlay2
+D_803F2EDE = 0x803F2EDE; // defined:true segment:overlay2
 
 // chameleon
 D_803F2EA0 = 0x803F2EA0; // defined:true
 
 // overlay2_76F7D0
-D_803F2EE0 = 0x803F2EE0; // defined:true
+D_803F2EE0 = 0x803F2EE0; // defined:true segment:overlay2
 
 // sheep
 D_803F2EF0 = 0x803F2EF0; // defined:true
 
 // overlay2_785D10
-D_803F2F00 = 0x803F2F00; // defined:true
-D_803F2F08 = 0x803F2F08; // defined:true size:0x400
-D_803F3308 = 0x803F3308; // defined:true
-D_803F330A = 0x803F330A; // defined:true
-D_803F330C = 0x803F330C; // defined:true
-D_803F330E = 0x803F330E; // defined:true
-gScorpionVtxIdx = 0x803F3310; // defined:true
-D_803F3330 = 0x803F3330; // defined:true
-D_803F34C0 = 0x803F34C0; // defined:true
-gLoadedMessageCount = 0x803F63C0; // defined:true
-D_803F63C2 = 0x803F63C2; // defined:true
+D_803F2F00 = 0x803F2F00; // defined:true segment:overlay2
+D_803F2F08 = 0x803F2F08; // defined:true size:0x400 segment:overlay2
+D_803F3308 = 0x803F3308; // defined:true segment:overlay2
+D_803F330A = 0x803F330A; // defined:true segment:overlay2
+D_803F330C = 0x803F330C; // defined:true segment:overlay2
+D_803F330E = 0x803F330E; // defined:true segment:overlay2
+gScorpionVtxIdx = 0x803F3310; // defined:true segment:overlay2
+D_803F3330 = 0x803F3330; // defined:true segment:overlay2
+D_803F34C0 = 0x803F34C0; // defined:true segment:overlay2
+gLoadedMessageCount = 0x803F63C0; // defined:true segment:overlay2
+D_803F63C2 = 0x803F63C2; // defined:true segment:overlay2
 
 // overlay2_78E970
-D_803F63D0 = 0x803F63D0; // defined:true
+D_803F63D0 = 0x803F63D0; // defined:true segment:overlay2
 
 // overlay2_791CD0
-D_803F63E0 = 0x803F63E0; // defined:true
+D_803F63E0 = 0x803F63E0; // defined:true segment:overlay2
 
 // overlay2_794EE0
-D_803F63F0 = 0x803F63F0; // defined:true
+D_803F63F0 = 0x803F63F0; // defined:true segment:overlay2
 
 // credits
-entryOffset      = 0x803F6400; // defined:true
-verticalPosition = 0x803F6402; // defined:true
+entryOffset      = 0x803F6400; // defined:true segment:overlay2
+verticalPosition = 0x803F6402; // defined:true segment:overlay2
 
 // cheats
-D_803F6410 = 0x803F6410; // defined:true
+D_803F6410 = 0x803F6410; // defined:true segment:overlay2
 
 // overlay2_79DE10
-D_803F6450 = 0x803F6450; // defined:true
+D_803F6450 = 0x803F6450; // defined:true segment:overlay2
 
 // terminal_background
-D_803F6460 = 0x803F6460; // defined:true
-D_803F6464 = 0x803F6464; // defined:true
-D_803F6468 = 0x803F6468; // defined:true
-D_803F646C = 0x803F646C; // defined:true
-D_803F6470 = 0x803F6470; // defined:true
-D_803F6472 = 0x803F6472; // defined:true
-D_803F6474 = 0x803F6474; // defined:true
-gTerminalTextScrollState = 0x803F6478; // defined:true
-gTerminalStatLabels = 0x803F6500; // defined:true
-gTerminalStatTextX = 0x803F6548; // defined:true
-gTerminalDnaSimulation = 0x803F6570; // defined:true
+D_803F6460 = 0x803F6460; // defined:true segment:overlay2
+D_803F6464 = 0x803F6464; // defined:true segment:overlay2
+D_803F6468 = 0x803F6468; // defined:true segment:overlay2
+D_803F646C = 0x803F646C; // defined:true segment:overlay2
+D_803F6470 = 0x803F6470; // defined:true segment:overlay2
+D_803F6472 = 0x803F6472; // defined:true segment:overlay2
+D_803F6474 = 0x803F6474; // defined:true segment:overlay2
+gTerminalTextScrollState = 0x803F6478; // defined:true segment:overlay2
+gTerminalStatLabels = 0x803F6500; // defined:true segment:overlay2
+gTerminalStatTextX = 0x803F6548; // defined:true segment:overlay2
+gTerminalDnaSimulation = 0x803F6570; // defined:true segment:overlay2
 D_803F6670 = 0x803F6670; // defined:true
 D_803F6674 = 0x803F6674; // defined:true
 
 // overlay2_7A0DA0
 gOverlayMenuState = 0x803F6680; // defined:true segment:overlay2 size:0x37
 gOverlayUiState = 0x803F66B8; // defined:true segment:overlay2 size:0x4C
-D_803F6704 = 0x803F6704; // defined:true
-D_803F6706 = 0x803F6706; // defined:true
-D_803F6708 = 0x803F6708; // defined:true
-D_803F670A = 0x803F670A; // defined:true
-D_803F670C = 0x803F670C; // defined:true
-D_803F670E = 0x803F670E; // defined:true
-D_803F6714 = 0x803F6714; // defined:true
-D_803F6716 = 0x803F6716; // defined:true
-D_803F6718 = 0x803F6718; // defined:true
-D_803F671A = 0x803F671A; // defined:true
-D_803F671C = 0x803F671C; // defined:true
+D_803F6704 = 0x803F6704; // defined:true segment:overlay2
+D_803F6706 = 0x803F6706; // defined:true segment:overlay2
+D_803F6708 = 0x803F6708; // defined:true segment:overlay2
+D_803F670A = 0x803F670A; // defined:true segment:overlay2
+D_803F670C = 0x803F670C; // defined:true segment:overlay2
+D_803F670E = 0x803F670E; // defined:true segment:overlay2
+D_803F6714 = 0x803F6714; // defined:true segment:overlay2
+D_803F6716 = 0x803F6716; // defined:true segment:overlay2
+D_803F6718 = 0x803F6718; // defined:true segment:overlay2
+D_803F671A = 0x803F671A; // defined:true segment:overlay2
+D_803F671C = 0x803F671C; // defined:true segment:overlay2
 
 // overlay2_7A8A50
-D_803F6720 = 0x803F6720; // defined:true
+gRigPoseStates = 0x803F6720; // defined:true
 D_803F70F8 = 0x803F70F8; // defined:true
 D_803F7134 = 0x803F7134; // defined:true
 D_803F713C = 0x803F713C; // defined:true
@@ -1099,8 +1099,8 @@ D_803F7E04 = 0x803F7E04; // defined:true
 D_803F7E06 = 0x803F7E06; // defined:true
 
 // trails
-gTrails    = 0x803F7E10; // defined:true
-trailsUsed = 0x803FDEA0; // defined:true
+gTrails    = 0x803F7E10; // defined:true segment:overlay2
+trailsUsed = 0x803FDEA0; // defined:true segment:overlay2
 
 // end-of-rom data
 
@@ -1640,7 +1640,7 @@ gOverlayState = 0x80204284;
 gAttractModeState = 0x80204288;
 gFrameStepDivisor = 0x80204290;
 __osFinalrom = 0x802912F0;
-render_gameplay_overlay_frame_6A6500 = 0x80294E50;
+render_gameplay_overlay_frame_6A6500 = 0x80294E50; // rom:0x6A6500
 setup_intro_perspective_638558 = 0x80294EB8; // rom:0x638558
 draw_intro_logo_model = 0x80295234; // rom:0x6388D4
 render_intro_title_reveal = 0x80295494; // rom:0x638B34
@@ -1648,6 +1648,7 @@ render_title_screen_frame = 0x80295FAC; // rom:0x63964C
 render_intro_overlay_frame_63BF88 = 0x802988E8; // rom:0x63BF88
 setup_world_perspective_6AB090 = 0x802999E0; // rom:0x6AB090
 setup_frame_render_state = 0x80299AA8; // rom:0x6AB158
+draw_visible_world_cell_opaque_pass = 0x80299B68; // rom:0x6AB218
 gIntroRevealQuadDl = 0x80299CD0; // rom:0x63D370
 gIntroLogoLight = 0x80299D50; // rom:0x63D3F0
 gIntroCamEyeX = 0x80299DB8; // rom:0x63D458
@@ -1669,7 +1670,10 @@ gIntroSceneState = 0x80299DFC; // rom:0x63D49C
 gToothStarCounter = 0x80299E14; // rom:0x63D4B4
 gIntroTransitionPending = 0x80299E24; // rom:0x63D4C4
 gNewscasterTileIndex = 0x80299E3C; // rom:0x63D4DC
+draw_visible_world_cell_translucent_pass = 0x80299E84; // rom:0x6AB534
 is_world_cell_loaded_6AB9E4 = 0x8029A334; // rom:0x6AB9E4
+build_visible_world_cell_queue = 0x8029A3B0; // rom:0x6ABA60
+render_ship_window_projection_replay = 0x8029A720; // rom:0x6ABDD0
 enqueue_dynamic_texture_billboard_6AE5A0 = 0x8029CEF0; // rom:0x6AE5A0
 render_dynamic_texture_billboards_6AE758 = 0x8029D0A8; // rom:0x6AE758
 reset_dynamic_texture_billboard_queue = 0x8029D89C; // rom:0x6AEF4C
@@ -1720,6 +1724,8 @@ step_terminal_dna_simulation = 0x8038E80C; // rom:0x79FEBC
 render_terminal_background_frame = 0x8038E9F8; // rom:0x7A00A8
 setup_pause_menu_perspective_a_7A6B30 = 0x80395480; // rom:0x7A6B30
 setup_pause_menu_perspective_b_7A6F04 = 0x80395854; // rom:0x7A6F04
+append_rig_modelview_transform_xlu = 0x80397414; // rom:0x7A8AC4
+render_rig_instance_xlu = 0x80397F5C; // rom:0x7A960C
 gHudTimerAscii = 0x803A8344; // rom:0x7B99F4
 gCheatInputNeutralLatch = 0x803B62B4; // rom:0x7C7964
 gCheatInputDebounceTimer = 0x803B62BC; // rom:0x7C796C
@@ -1731,4 +1737,5 @@ gTerminalStatText = 0x803B6560; // rom:0x7C7C10
 gTerminalDnaOpaqueRenderSetupDl = 0x803B6608; // rom:0x7C7CB8
 gTerminalDnaInterlaceRenderSetupDl = 0x803B66B8; // rom:0x7C7D68
 gPauseMenuLookAt = 0x803B683C; // rom:0x7C7EEC
+gRigPartDisplayLists = 0x803B7108; // rom:0x7C87B8
 // END sync_decomp_symbols promoted from undefined_syms

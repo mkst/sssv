@@ -14,7 +14,7 @@ LevelProgress gLevelProgress;
 
 // ESA: func_80058368
 void func_803572F0_7689A0(void) {
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         if ((gAnimalState.animals[gCurrentAnimalIndex].animal->health <= 0) &&
             (gLevelProgress.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
             gLevelProgress.unk4 = 1;

@@ -55,7 +55,7 @@ void func_802C87E0_6D9E90(void) {
     gDisplayListContext->usedVtxs = 0;
     D_803E1B04 = 0;
     gScorpionVtxIdx = 0;
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         D_803D5540 = (D_803D5540 + 1) & 0xFF;
         D_803D5542 = (D_803D5542 + 1) % 360;
         D_803D5544 += 1;
@@ -115,19 +115,19 @@ void func_802C8878_6D9F28(void) {
             D_803D553A = 0;
 
             func_802FB49C_70CB4C(D_803D5530);
-            if (D_803F2D10.unk0 == 0) {
+            if (gUiFlowState.unk0 == 0) {
                 if (D_803D5530->unk4A == 0) {
                     if (i == gCurrentAnimalIndex) {
                         func_8035E200_76F8B0();
                         if (D_803D552C->unk366 == MOVEMENT_MODE_2) {
                             func_802AA1EC_6BB89C();
                         } else if (D_803D5524->unk9C != EVO) {
-                            if (D_803F2D10.unk0 == 0) {
+                            if (gUiFlowState.unk0 == 0) {
                                 func_802A78CC_6B8F7C();
                                 func_802AAAB0_6BC160();
                                 func_8038C760_79DE10();
                             }
-                        } else if ((D_803F2D10.unk0 == 0) && (D_803D552C->unk365 != ATTACK_EVO_CHIP_2)) {
+                        } else if ((gUiFlowState.unk0 == 0) && (D_803D552C->unk365 != ATTACK_EVO_CHIP_2)) {
                             func_802AA424_6BBAD4();
                         }
                     } else if ((D_803D5530->xVelocity.w != 0) || (D_803D5530->zVelocity.w != 0) || (D_803D5530->yVelocity.w != 0) || (D_803D5530->unk68 != 0) || (D_803D5530->unk70 != 0) || (D_803D5530->unk162 != 1)) {

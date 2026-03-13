@@ -23,7 +23,7 @@ void func_8038C768_79DE18(void) {
     s16 tmp2;
 
     tmp1 = D_803D5544 - D_803D552C->unk35E;
-    if ((D_803F2D10.unk0 == 0) && ((D_803D5530->unk4A == 0)) && (tmp1 != 0)) {
+    if ((gUiFlowState.unk0 == 0) && ((D_803D5530->unk4A == 0)) && (tmp1 != 0)) {
         if (D_803D5538 != 0) {
             if ((tmp1 & 0xFF) >= 150) {
                 if (SSSV_RAND(16) == 13) {
@@ -66,7 +66,7 @@ void func_8038C98C_79E03C(void) {
     s16 tmp2;
 
     tmp1 = D_803D5544 - D_803D552C->unk35E;
-    if ((D_803F2D10.unk0 == 0) && (D_803D5530->unk4A == 0) && (tmp1 != 0)) {
+    if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (tmp1 != 0)) {
         if (D_803D5538 != 0) {
             if ((tmp1 & 0xFF) >= 150) {
                 if (SSSV_RAND(32) == 13) {
@@ -142,7 +142,7 @@ s16 func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
         return 0;
     }
     if ((D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || ((D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL))) {
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             if ((D_803D5530->state == 2) || (D_803D5530->state == 21) ||
                 (D_803D5530->state == 41) || (D_803D5530->state == 61) ||
                 (D_803D5530->state == 81) || (D_803D5530->state == 101) ||

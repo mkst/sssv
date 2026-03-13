@@ -18,7 +18,7 @@ u8 *D_803A8370_7B9A20[3] = {
 // .bss (D_803F2D10 to D_803F2D20)
 // ========================================================
 
-struct003 D_803F2D10;   // where to put this?
+struct003 gUiFlowState;   // where to put this?
 s32  D_803F2D14;        // unused
 s16  D_803F2D18;        // used in overlay2_6AB090.c
 
@@ -43,5 +43,5 @@ void load_water_texture(void) {
     u32 len = __5449C0SegmentRomEnd - __5449C0SegmentRomStart;
 
     SSSV_ASSERT(len <= sizeof(WaterTexture), "../src/init.c", 115);
-    dma_read(__5449C0SegmentRomStart, &D_800DCC20, len);
+    dma_read(__5449C0SegmentRomStart, &gWaterTextureBuffer, len);
 }

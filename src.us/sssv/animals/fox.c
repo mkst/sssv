@@ -64,7 +64,7 @@ void func_802E5000_6F66B0(void) {
 
         case ATTACK_FOX_TAIL:
             // same line for regalloc
-            if ((D_803D5530->unk4A != 0) && (D_803F2D10.unk0 == 0)) {D_803D552C->unk32A++;}
+            if ((D_803D5530->unk4A != 0) && (gUiFlowState.unk0 == 0)) {D_803D552C->unk32A++;}
 
             D_803D5528->unk3C0.unk0 = 0xF;
             D_803D5528->unk3C0.unk2 = 0;
@@ -372,7 +372,7 @@ void func_802E620C_6F78BC(void) {
             }
             if ((D_803F2ECE != 1) || (D_803F2ECC == 0)) {
                 load_1_tile(D_040052D0_CCD00, D_040050D0_CCB00);
-                if (D_803F2D10.unk0 != 0) {
+                if (gUiFlowState.unk0 != 0) {
                     func_802C78B0_6D8F60(2, 0x1A, FTOFIX32(1.1328125), FTOFIX32(1.1328125), FTOFIX32(1.1328125), D_803F2ED0, 0, 0, 0, D_04004A20_CC450);
                 } else if (D_803D5538 != 0) {
                     func_802C78B0_6D8F60(
@@ -548,7 +548,7 @@ void func_802E7394_6F8A44(void) {
         case ATTACK_FOX_TAIL:
             // same line for regalloc
 #pragma _permuter sameline start
-            if ((D_803D5530->unk4A != 0) && (D_803F2D10.unk0 == 0)) { D_803D552C->unk32A++;}
+            if ((D_803D5530->unk4A != 0) && (gUiFlowState.unk0 == 0)) { D_803D552C->unk32A++;}
 #pragma _permuter sameline end
             D_803D5528->unk3C0.unk0 = 0xF;
             D_803D5528->unk3C0.unk2 = 0;

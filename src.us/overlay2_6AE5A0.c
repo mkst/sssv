@@ -1381,7 +1381,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             gDPTileSync(gXluDL++);
                             gDPLoadBlock(gXluDL++, G_TX_LOADTILE, 0, 0, 1372, 0);
                             gDPTileSync(gXluDL++);
-                            func_80397F5C_7A960C(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, 1, 0);
+                            render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, 1, 0);
                             break;
                         case 17:
                             enqueue_texture_grouped_display_list_instance(&D_803D3FF8, D_803D343C->unk3E & 0x3F, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->unk4);
@@ -1593,7 +1593,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             guLookAtReflect(&D_803D3434->unk38CD0[D_803D3434->unk39310], &D_803D3434->unk38A50[D_803D3434->unk39310], gCameraEyeWorldX, gCameraEyeWorldZ, gCameraEyeWorldY, (f32) D_803D343C->position.xPos.w / 65536.0f, (f32) D_803D343C->position.zPos.w / 65536.0f, (f32) D_803D343C->position.yPos.w / 65536.0f, D_80204200, D_80204204, D_80204208);
                             gSPLookAtX(gXluDL++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[0]);
                             gSPLookAtY(gXluDL++, &D_803D3434->unk38A50[D_803D3434->unk39310].l[1]);
-                            func_80397F5C_7A960C(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 3, (u8) 1);
+                            render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 3, (u8) 1);
                             break;
                         case 23:
                             gSPDisplayList(gXluDL++, D_010049A0_3E270);
@@ -1647,7 +1647,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             gDPTileSync(gXluDL++);
                             gDPLoadBlock(gXluDL++, G_TX_LOADTILE, 0, 0, 1372, 0);
                             gDPTileSync(gXluDL++);
-                            func_80397F5C_7A960C(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 4, (u8) 2);                                break;
+                            render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, (s16) (s32) D_803D343C->yRotation, D_803D343C->unk40 << 5, (u8) 4, (u8) 2);                                break;
                             break;
                         default:
                             break;

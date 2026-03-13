@@ -119,7 +119,7 @@ done:
             if ((D_803D5530->state < 0x2C) && (D_803D5530->state >= 0x29)) {
                 D_803D552C->unk30A -= D_803D552C->unk30E * 7;
             }
-            if ((D_803F2D10.unk0 == 0) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+            if ((gUiFlowState.unk0 == 0) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
                 sp72 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
                 func_80300130_7117E0(&sp72, &D_803D552C->unk30A, 0x60, -0x100, 3, 3, D_803D5530->yVelocity.h * 0x10, 4);
             } else {

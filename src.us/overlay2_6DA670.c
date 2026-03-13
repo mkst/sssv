@@ -22,7 +22,7 @@ void read_controller_input(OSContPad *cont) {
         gControllerDebounce--;
     }
 
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         // save current controller input
         gAnimalState.prevLRTrigger = gAnimalState.curLRTrigger;
         gAnimalState.prevBButton = gAnimalState.curBButton;
@@ -33,7 +33,7 @@ void read_controller_input(OSContPad *cont) {
         gAnimalState.prevDPadDown = gAnimalState.curDPadDown;
     }
 
-    if ((D_803F2D10.unk0 != 0) || (gControllerDebounce != 0) || (D_803F2AA3 != 0) ||
+    if ((gUiFlowState.unk0 != 0) || (gControllerDebounce != 0) || (D_803F2AA3 != 0) ||
         (gAnimalState.animals[gCurrentAnimalIndex].animal->unk364 == 17)) {
         gAnimalState.curAButton = 0;
         gAnimalState.curBButton = 0;

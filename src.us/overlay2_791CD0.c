@@ -33,7 +33,7 @@ void func_80380644_791CF4(Animal *arg0) {
 void func_8038064C_791CFC(void) {
     s32 tmp;
 
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         D_803D552C->laughterThreshold = MAX(0, D_803D552C->laughterThreshold - 1);
         if (D_803D552C->laughterThreshold <= 0) {
             D_803D552C->isLaughing = 0;
@@ -41,7 +41,7 @@ void func_8038064C_791CFC(void) {
     }
     if (D_803D552C->isLaughing != 0) {
         func_80380620_791CD0(D_803D552C, 150, 15, MIN(50, D_803D552C->laughterThreshold >> 1), 10);
-        if (D_803F2D10.unk0) {} // regalloc
+        if (gUiFlowState.unk0) {} // regalloc
     }
 
     D_803F63E0 = 0;

@@ -560,7 +560,7 @@ void func_80349D34_75B3E4(void) {
 void osd_update(s16 arg0) {
     s16 phi_a0;
 
-    if ((arg0 == 0) && (D_803F2D10.unk0 == 0)) {
+    if ((arg0 == 0) && (gUiFlowState.unk0 == 0)) {
         if (gHudTimerSeconds > 0) {
             D_803F2CD4 += 1;
             if (D_803F2CD4 >= D_803F2CD8) {

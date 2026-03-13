@@ -160,10 +160,10 @@ void func_802BBC90_6CD340(u16 arg0) {
 
     temp_v0 = &D_803D5528->unk3C8;
 
-    if ((D_803F2D10.unk0 == 0) && (temp_v0->unk6 != 0)) {
+    if ((gUiFlowState.unk0 == 0) && (temp_v0->unk6 != 0)) {
         temp_v0->unk8++;
     }
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         temp_v0->unk0 = (temp_v0->unk0 + 3) % 256;
     }
     tmp = temp_v0->unk0;
@@ -250,10 +250,10 @@ void func_802BBFA0_6CD650(u16 arg0) {
 
     temp_v0 = &D_803D5528->unk3C8;
 
-    if ((D_803F2D10.unk0 == 0) && (temp_v0->unk6 != 0)) {
+    if ((gUiFlowState.unk0 == 0) && (temp_v0->unk6 != 0)) {
         temp_v0->unk8++;
     }
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         temp_v0->unk0 = (temp_v0->unk0 + 3) % 256;
     }
     tmp = temp_v0->unk0;
@@ -323,7 +323,7 @@ void func_802BC1F4_6CD8A4(u16 arg0) {
     s16 tmp0, tmp1, tmp2;
 
     temp_v0 = &D_803D5528->unk3C8;
-    if ((D_803F2D10.unk0 == 0) && (temp_v0->unk6 != 0)) {
+    if ((gUiFlowState.unk0 == 0) && (temp_v0->unk6 != 0)) {
         temp_v0->unk8++;
     }
 
@@ -798,7 +798,7 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
     s16 var_v0;
     u32 temp;
 
-    if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+    if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
     }
 
@@ -948,7 +948,7 @@ void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     s16 tmp1, tmp2, tmp3;
 
 
-    if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+    if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
     }
 
@@ -1259,7 +1259,7 @@ void func_802BFF84_6D1634(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     s16 tmp;
     s16 tmp1, tmp2, tmp3;
 
-    if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+    if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
     }
 
@@ -1541,7 +1541,7 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     s16 tmp1, tmp2, tmp3;
     s16 tmp4;
 
-    if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+    if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
     }
 
@@ -1675,7 +1675,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
     temp_a1_2 = &D_803D5528->unk398;
     switch (temp_a1_2->unk10) {
     case 1:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             temp_a1_2->unk12 += 1;
         }
 
@@ -1698,7 +1698,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
         }
         break;
     case 11:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             temp_a1_2->unk12 += 1;
             if (temp_a1_2->unk12 >= 0x190) {
                 temp_a1_2->unk10 = 0;
@@ -1744,7 +1744,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
     temp_a1_2 = &D_803D5528->unk3AC;
     switch (temp_a1_2->unk10) {
     case 1:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             temp_a1_2->unk12 += 1;
         }
         temp_hi = (temp_a1_2->unk12 * 8) % 50;
@@ -1765,7 +1765,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
         }
         break;
     case 11:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             temp_a1_2->unk12 += 1;
             if (temp_a1_2->unk12 >= 0x190) {
                 temp_a1_2->unk10 = 0;
@@ -1923,7 +1923,7 @@ void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
         }
         break;
     case 1:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             arg0->unk12 += 1;
         }
 
@@ -1942,7 +1942,7 @@ void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
         }
         break;
     case 11:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             arg0->unk12 += 1;
             if (arg0->unk12 >= 0x190) {
                 arg0->unk10 = 0;
@@ -2070,7 +2070,7 @@ void func_802C3188_6D4838(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg
         var_t1 = 0;
         break;
     case 11:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             arg0->unk12++;
             if (arg0->unk12 >= 0x190) {
                 arg0->unk10 = 0U;
@@ -2283,7 +2283,7 @@ void func_802C3F58_6D5608(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
     var_a1 = (((func_802B8C50_6CA300(arg4, arg6) >> 8) << 5) >> 8) - D_80203FE0[2].unk4;
     switch (arg0->unk10) {
     case 1:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             arg0->unk12++;
         }
 
@@ -2303,7 +2303,7 @@ void func_802C3F58_6D5608(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
         }
         break;
     case 11:
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             arg0->unk12++;
         }
         if (arg0->unk12 < 25) {

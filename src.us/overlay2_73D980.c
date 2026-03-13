@@ -16,7 +16,7 @@ void play_sound_effect_at_location(s16 id, s16 volume, s16 unused, s16 x, s16 y,
     s32 sqrt;
     s16 tmp;
 
-    if ((D_803F2D10.unk0 == 0) && (id != SFX_NONE)) {
+    if ((gUiFlowState.unk0 == 0) && (id != SFX_NONE)) {
         if ((D_803A69F0_7B80A0[id] == 8) || (get_used_sound_count() < D_803A69F0_7B80A0[id])) {
             sqrt = sqrtf(((x - (s16) gCameraEyeWorldX) * (x - (s16) gCameraEyeWorldX)) +
                          ((y - (s16) gCameraEyeWorldZ) * (y - (s16) gCameraEyeWorldZ)) +
@@ -30,7 +30,7 @@ void play_sound_effect_at_location(s16 id, s16 volume, s16 unused, s16 x, s16 y,
 }
 
 void func_8032C508_73DBB8(s16 id, s16 volume, s16 unused, f32 pitch) {
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         if ((D_803A69F0_7B80A0[id] == 8) || (get_used_sound_count() < D_803A69F0_7B80A0[id])) {
             if (id != SFX_NONE) {
                 play_sound_effect(id, 0, volume, pitch, 64);
@@ -49,7 +49,7 @@ void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5) {
     s16 var_t0;
     f32 pitch;
 
-    if ((D_803F2D10.unk0 == 0) && (D_803D5530->unk4A == 0) &&
+    if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) &&
         (func_802B3D68_6C5418() < 1001) && (get_used_sound_count() < 6) &&
         (animalId != POLAR_BEAR_DEFENDING)) {
 
@@ -152,7 +152,7 @@ void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos) 
 
     f32 pitch;
 
-    if ((D_803F2D10.unk0 == 0) &&
+    if ((gUiFlowState.unk0 == 0) &&
         (D_803D5530->unk4A == 0) &&
         (get_used_sound_count() < 6) &&
         (func_802B3D68_6C5418() < 1001)) {

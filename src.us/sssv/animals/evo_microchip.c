@@ -32,7 +32,7 @@ void update_evo_microchip(void) {
     u16 ticks_remaining;
     s32 var_v1;
 
-    if ((D_803D5524->unk9C == EVO_MICROCHIP) && ((D_803D5540 & 0xF) == 0) && (D_803F2D10.unk0 == 0)) {
+    if ((D_803D5524->unk9C == EVO_MICROCHIP) && ((D_803D5540 & 0xF) == 0) && (gUiFlowState.unk0 == 0)) {
         if ((D_803D5530->unk4C.unk1A == 0) && (D_803D5530->unk4A == 0)) {
             D_803D5530->health = MAX(0, D_803D5530->health - 1);
         }
@@ -61,7 +61,7 @@ void update_evo_microchip(void) {
         // fixme
         D_803D552C->position.yPos.w = (((D_803B3EEC_7C559C[ticks_remaining] << 0x10) >> 3) + (D_803D552C->unk30C << 0x10)) + ((((D_803D552C->unk320->position.yPos.w + ((gAnimalState.animals + D_803D552C->unk30E)->unk0->unkBA << 0xF)) - (D_803D552C->unk30C << 0x10)) / 40) * ticks_remaining);
 
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
           D_803D552C->heading = (D_803D552C->heading + 5) & 0xFF;
           D_803D552C->yRotation = (D_803D552C->yRotation + 5) & 0xFF;
         }
@@ -88,7 +88,7 @@ void update_evo_microchip(void) {
         D_803D552C->zVelocity.w = D_803D552C->unk30A << 8;
 
         D_803D552C->yVelocity.w = ((D_803B3EEC_7C559C[ticks_remaining]) - (D_803B3EEC_7C559C[MAX(0, ticks_remaining - 1)])) << 0xE;
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             D_803D552C->heading = (D_803D552C->heading + 5) & 0xFF;
             D_803D552C->yRotation = (D_803D552C->yRotation + 5) & 0xFF;
         }

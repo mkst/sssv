@@ -308,7 +308,7 @@ void func_80374C70_786320(void) {
 
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-            temp_a1_2 = (4 * GET_WATER_LEVEL(D_803C0740, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h)) + (D_803C0430.unk0[(D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) & 7][(u16)(D_803C0430.unk204 + (((D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) + (D_803D5530->position.xPos.h * D_803D5530->position.xPos.h)) << 3)) & 63])  ;
+            temp_a1_2 = (4 * GET_WATER_LEVEL(D_803C0740, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h)) + (gWaterAnimState.unk0[(D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) & 7][(u16)(gWaterAnimState.unk204 + (((D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) + (D_803D5530->position.xPos.h * D_803D5530->position.xPos.h)) << 3)) & 63])  ;
             if (ABS(temp_a1_2 - D_803D5530->position.yPos.h) < 0x30) {
                 add_walrus_wake(D_803D5530, 1, 0xA, 0x10, 0, -0xA, 0, 0xFF, 0xFF, 0xFF, 0, 0xB9, 0xFF, 1, 2, D_803D5530);
                 add_walrus_wake(D_803D5530, 2, 0xA, 0x10, 0, -0xA, 0, 0xFF, 0xFF, 0xFF, 0, 0xB9, 0xFF, 1, 2, &D_803D5530->unk270);
@@ -365,7 +365,7 @@ void func_803766E8_787D98(void) {
         }
 
         phi_v1 = GET_WATER_LEVEL(D_803C0740, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
-        tmp = D_803C0430.unk0[(D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) & 7][(u16)(D_803C0430.unk204 + (((D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) + (D_803D5530->position.xPos.h * D_803D5530->position.xPos.h)) << 3)) & 63] + (4 * phi_v1);
+        tmp = gWaterAnimState.unk0[(D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) & 7][(u16)(gWaterAnimState.unk204 + (((D_803D5530->position.xPos.h * D_803D5530->position.zPos.h) + (D_803D5530->position.xPos.h * D_803D5530->position.xPos.h)) << 3)) & 63] + (4 * phi_v1);
         phi_v1 = ABS(tmp - D_803D5530->position.yPos.h);
         if (phi_v1 < 48) {
             add_walrus_wake(D_803D5530, 1, 10, 16, 0, -10, 0, 0xFF, 0xFF, 0xFF, 0, 185, 0xFF, 1, 2, D_803D5530);
