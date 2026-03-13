@@ -1393,7 +1393,7 @@ void func_802F951C_70ABCC(Animal *arg0) {
                 (arg0->position.yPos.h << 16) + (arg0->unk40 * 570),
                 arg0->unk40 << 1,
                 34,
-                &D_803D2E08,
+                &gDynamicTextureBillboardQueue,
                 0,
                 red,
                 blue,

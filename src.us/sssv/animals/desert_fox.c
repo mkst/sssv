@@ -400,7 +400,7 @@ block_15:
     } else {
         func_8035D6D0_76ED80();
     }
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         if (D_803D5530->unk4A == 0) {
             if (D_803D5538 != 0) {
                 D_803D5530->xVelocity.w += (((SIN(D_803D5540 << 2) >> 7) * 7) << 4) + (((SIN(D_803D5540 << 3) >> 7) * 3) << 4);

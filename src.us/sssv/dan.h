@@ -385,7 +385,7 @@ extern Gfx D_05004E00_84590[];
 extern Gfx D_05004FD0_84760[];
 
 // Dan Danger display lists
-Gfx *D_803B7108_7C87B8[5][10] = {
+Gfx *gRigPartDisplayLists[5][10] = {
     {
         D_05000180_7F910, D_050004E0_7FC70, D_05001308_80A98, D_050016D0_80E60, D_05001A30_811C0,
         D_05002828_81FB8, D_050033C0_82B50, D_05004650_83DE0, D_05004E00_84590, D_05004FD0_84760,
@@ -414,7 +414,7 @@ Gfx *D_803B7108_7C87B8[5][10] = {
 // .bss (D_803F6720 to D_803F7160)
 // ========================================================
 
-static struct048  D_803F6720[3][10]; // 0x54 each
+static struct048  gRigPoseStates[3][10]; // 0x54 each
 static s16  D_803F70F8[3][10];
 static s16  D_803F7134[3];
 u16  D_803F713C[3];

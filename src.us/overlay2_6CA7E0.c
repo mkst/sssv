@@ -585,7 +585,7 @@ void func_802BB1F0_6CC8A0(u16 arg0, u16 arg1) {
     s32 tmp;
 
     temp_a2_2 = &D_803D5528->unk3C0.unk4; // er?
-    if ((temp_a2_2->unk0 != 0) && (D_803F2D10.unk0 == 0)) {
+    if ((temp_a2_2->unk0 != 0) && (gUiFlowState.unk0 == 0)) {
         temp_a2_2->unk2++;
     }
 
@@ -689,7 +689,7 @@ void func_802BB70C_6CCDBC(s16 arg0, u16 arg1) {
     D_80203FE0[25].unk2 = 0;
     D_80203FE0[25].unk4 = 0;
 
-    if (D_803F2D10.unk0 == 0) {
+    if (gUiFlowState.unk0 == 0) {
         func_802DB9E8_6ED098(&D_803D552C->unk30C, D_803D552C->unk306 * 15, 4);
     }
 

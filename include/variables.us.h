@@ -219,7 +219,7 @@ extern u8   D_800C7DC0[32928]; // level ia16 textures
 extern u8   D_800CFE60[21952]; // biome ia16 textures
 extern u8   D_800D5420[10240]; // level textures
 extern u8   D_800D7C20[20480]; // biome textures
-extern u8   D_800DCC20[2000]; // water texture location?
+extern u8   gWaterTextureBuffer[2000]; // water texture location?
 extern u8   D_800DD3F0[4000];
 extern u8   D_800DE390[2704];
 extern u64  D_800DEE20[0x80]; // dram stack
@@ -419,7 +419,7 @@ extern VIData D_802053F0;
 extern VIData D_80205400;
 extern s16  D_8020540C;
 
-extern Gfx  *D_80205410[4][6];
+extern Gfx  *gWorldCellOpaqueDisplayLists[4][6];
 extern Gfx   D_80205470[6000];
 
 // 0x8021xxxx
@@ -429,7 +429,7 @@ extern Vtx  D_80210FF0[5000];
 // 0x8022xxxx
 
 extern Vtx   D_80224870[216];
-extern Gfx  *D_802255F0[4][6];
+extern Gfx  *gWorldCellTranslucentDisplayLists[4][6];
 extern Gfx   D_80225650[2000];
 extern Vtx   D_802294D0[1000];
 extern Vtx   D_8022D350[216];
@@ -728,14 +728,14 @@ extern s16  D_803C0424;
 extern s16  D_803C0426;
 extern s16  D_803C0428;
 extern s16  D_803C042A;
-extern struct053 D_803C0430;
+extern struct053 gWaterAnimState;
 
 extern u64  gRenderMode1;
 extern u64  gRenderMode2;
 extern u64  gGeometryMode;
 extern u16  gWorldPerspNorm; // matrix normalise
 
-extern GfxHelper D_803C0660[28]; // related to D_80205410
+extern GfxHelper gVisibleWorldCellQueue[28]; // related to D_80205410
 
 // overlay2_6AC360
 extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
@@ -746,7 +746,7 @@ extern struct054 D_803D2D90;
 // extern s16       D_803D2DFC;
 // extern s16       D_803D2DFE;
 // extern s16       D_803D2E00;
-extern DynamicTextures D_803D2E08; // dynamic textures, e.g. CRAZY_BEAR's spotlights
+extern DynamicTextures gDynamicTextureBillboardQueue; // dynamic textures, e.g. CRAZY_BEAR's spotlights
 // extern s32        D_803D3428;
 // extern s32        D_803D342C;
 // extern s16        D_803D3430;
@@ -934,7 +934,7 @@ extern u8   D_803F2CE6; // has (death?) sfx been played?
 extern s16  D_803F2CE8; // health slider 'animation'
 
 // init.c
-extern struct003 D_803F2D10;
+extern struct003 gUiFlowState;
 extern s16  D_803F2D18;
 
 // overlay2_7688B0
@@ -946,7 +946,7 @@ extern LevelConfig D_803F2D50;
 
 // overlay2_7558F0
 extern s16  D_803F2CA6;
-extern s8   D_803F2CA8[4][6];
+extern s8   gWorldCellTranslucentEnabled[4][6];
 
 // overlay2_76E7D0
 extern s32  D_803F2EB0; // breathing related?

@@ -502,7 +502,7 @@ void func_8038FF68_7A1618(void) {
 
             gOverlayMenuState.unk30 += 8;
             gDPSetPrimColor(gXluDL++, 0, 0, 0x00, 0x00, 0x00, 0x00);
-            func_80397F5C_7A960C(FTOFIX32(1030.0), FTOFIX32(1170.0), FTOFIX32(1021.0), 0, 0, 0xEA60, 0, 0);
+            render_rig_instance_xlu(FTOFIX32(1030.0), FTOFIX32(1170.0), FTOFIX32(1021.0), 0, 0, 0xEA60, 0, 0);
         }
         if (gOverlayMenuState.unk2B == 0) {
             gSPDisplayList(gXluDL++, D_01004270_3DB40);

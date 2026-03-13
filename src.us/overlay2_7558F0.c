@@ -58,7 +58,7 @@ static s16  D_803F2CA0;
 static s16  D_803F2CA2;
 static s16  D_803F2CA4;
 s16  D_803F2CA6; // index into D_803E3130
-s8   D_803F2CA8[4][6];  // whether DL is enabled or not?
+s8   gWorldCellTranslucentEnabled[4][6];  // whether DL is enabled or not?
 static s64  D_803F2CC0;
 
 // ========================================================
@@ -205,7 +205,7 @@ void func_80344240_7558F0(void) {
 
             // temp_t5 = D_803F2CA4;
             // (*D_803F2CA8)[(D_803F2CA2 * 6) + temp_t5] = 0;
-            D_803F2CA8[D_803F2CA2][D_803F2CA4] = 0; // unused?
+            gWorldCellTranslucentEnabled[D_803F2CA2][D_803F2CA4] = 0; // unused?
 
             D_803F2C86 = 1;
             D_803F2C88 = 1;
@@ -230,10 +230,10 @@ void func_80344240_7558F0(void) {
 
             // temp_v0 = temp_t5 * 4;
             // *(D_80205410 + ((D_803F2CA2 * 0x18) + temp_v0)) = sp13C;
-            D_80205410[D_803F2CA2][D_803F2CA4] = sp13C;
+            gWorldCellOpaqueDisplayLists[D_803F2CA2][D_803F2CA4] = sp13C;
             // temp_t9 = sp13C;
             // *(D_802255F0 + ((D_803F2CA2 * 0x18) + temp_v0)) = sp138;
-            D_802255F0[D_803F2CA2][D_803F2CA4] = sp138;
+            gWorldCellTranslucentDisplayLists[D_803F2CA2][D_803F2CA4] = sp138;
 
             // sp13C = temp_t9 + 8;
             // temp_t9->words.w1 = -1U;
@@ -467,7 +467,7 @@ void func_80344240_7558F0(void) {
 
                 if ((sp58 & 0x20) || (sp58 & 0x10) || (sp58 & 0x200) || (sp58 & 0x8000)) {
                     // (*D_803F2CA8)[(D_803F2CA2 * 6) + D_803F2CA4] = 1;
-                    D_803F2CA8[D_803F2CA2][D_803F2CA4] = 1; // used?
+                    gWorldCellTranslucentEnabled[D_803F2CA2][D_803F2CA4] = 1; // used?
                     for (i = 0; i < spFB4; i++) {
                     // if (i < spFB4) {
                         // sp48 = sp58 & 0x4000;

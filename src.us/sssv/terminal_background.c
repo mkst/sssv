@@ -719,7 +719,7 @@ void render_terminal_background_frame(void) {
                 gTerminalFadeStep = 0;
                 gTerminalTransitionCounter = 1;
                 D_803B6310_7C79C0 = 0;
-                D_803F2D10.unk0 = 0;
+                gUiFlowState.unk0 = 0;
                 D_803F2C6C = D_803F2C6D = 0;
                 gTerminalPhase = 0;
                 D_803F6460 = 100;
@@ -746,7 +746,7 @@ void render_terminal_background_frame(void) {
         if ((D_803B6310_7C79C0) == 40) {
             D_803B6310_7C79C0 = 0;
             gCameraUiState = 0;
-            D_803F2D10.unk0 = 0;
+            gUiFlowState.unk0 = 0;
             D_803F2C6C = D_803F2C6D = 0;
             gTerminalPhase = 0;
         }
@@ -776,7 +776,7 @@ void func_8038F414_7A0AC4(void) {
             D_803A6CC4_7B8374 = 0.7f;
             D_803A6CC8_7B8378 = 45.0f;
             D_803F6472 = 0;
-            D_803F2D10.unk0 = 3;
+            gUiFlowState.unk0 = 3;
             D_803F6474 = D_803F2D50.unkDA;
         }
         break;
@@ -794,7 +794,7 @@ void func_8038F414_7A0AC4(void) {
             D_803A6CC4_7B8374 = 0.7f;
             D_803A6CC8_7B8378 = 45.0f;
             D_803F6472 = 0;
-            D_803F2D10.unk0 = 3;
+            gUiFlowState.unk0 = 3;
             D_803F6474 = D_803F2D50.unkDA;
             func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
         }

@@ -424,7 +424,7 @@ done:
             gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0x00, 0xFF);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 0x13, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04001220_C8C50); }
 
-            if (D_803F2D10.unk0 != 0) {
+            if (gUiFlowState.unk0 != 0) {
                 spDA = 0x34;
             } else {
                 spDA = (SSSV_RAND(16) * 0x22C) >> 5;
@@ -571,7 +571,7 @@ void func_802ED108_6FE7B8(void) {
 
     if (spB2 == 0) {
         temp_t6 = D_803D5544 - D_803D552C->unk35E;
-        if ((D_803F6450 != 0) && (D_803F2D10.unk0 == 0) && (D_803D5530->unk4A == 0) && (temp_t6 != 0) && ((D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_INJURED))) {
+        if ((D_803F6450 != 0) && (gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (temp_t6 != 0) && ((D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_INJURED))) {
             if (D_803D552C->unk30A != 0) {
                 D_803D552C->unk30A--;
                 D_803D5530->yRotation = (D_803D5530->yRotation + D_803D552C->unk308) % 255;

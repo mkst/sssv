@@ -269,7 +269,7 @@ void func_8036D700_77EDB0(void) {
             D_80203FE0[2].unk4 += temp_t9;
 
             if (D_803D5524->unk9C == CANNON_CAMEL) {
-                if (D_803F2D10.unk0 == 0) {
+                if (gUiFlowState.unk0 == 0) {
                     switch (D_803D552C->unk366) {
                     case MOVEMENT_MODE_2:
                     case MOVEMENT_MODE_DEACTIVATED:

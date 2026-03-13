@@ -523,7 +523,7 @@ void func_803677C4_778E74(void) {
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(200);
 
-        if (D_803F2D10.unk0 == 0) {
+        if (gUiFlowState.unk0 == 0) {
             if (D_803D552C->unk308 < 0) {
                 D_803D552C->unk308++;
             } else if (D_803D552C->unk308 > 0) {
@@ -585,7 +585,7 @@ void func_803677C4_778E74(void) {
             var_t0 = (D_803D552C->unk30A >> 8) & 0xFF;
             var_t1 = D_803D552C->unk30A & 0xFF;
             if ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL)) {
-                if ((D_803D5530->unk4A == 0) && (D_803F2D10.unk0 == 0)) {
+                if ((D_803D5530->unk4A == 0) && (gUiFlowState.unk0 == 0)) {
                     switch (D_803D5530->state) {
                     case 0x16:
                     case 0xCA:

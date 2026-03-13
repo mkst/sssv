@@ -337,7 +337,7 @@ block_33:
                 D_803D5530->position.yPos.w + ((D_80203FE0[20].unk4 << 0x10) / 32) + 0xFFE4A800,
                 D_803D552C->heading);
 
-            if (D_803F2D10.unk0 == 0) {
+            if (gUiFlowState.unk0 == 0) {
                 func_802DE7F4_6EFEA4(spA8, D_803D5530->xVelocity.w, D_803D5530->zVelocity.w, D_803D5530->yVelocity.w);
             }
             if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {

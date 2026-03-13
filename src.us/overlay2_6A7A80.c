@@ -43,7 +43,7 @@ void func_802963D0_6A7A80(DisplayList *arg0) {
 
     s16 c2;
 
-    D_803C0430.unk20A = 8;
+    gWaterAnimState.unk20A = 8;
 
     a = D_803F2D50.unk10;
     b = D_803F2D50.unk12;
@@ -91,36 +91,36 @@ void func_80296544_6A7BF4(void) {
 
     u8 i;
 
-    D_803C0430.unk202 = 0;
-    D_803C0430.unk204 = 0;
+    gWaterAnimState.unk202 = 0;
+    gWaterAnimState.unk204 = 0;
 
     if (D_803F2D50.unk22 == 0) {
         temp_f20 = SSSV_PI / 180;
         temp_f22 = 360.0 / 64;
         temp_f24 = 11.612;
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[0][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
+            gWaterAnimState.unk0[0][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[1][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 4;
+            gWaterAnimState.unk0[1][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 4;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[2][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
+            gWaterAnimState.unk0[2][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[3][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 3;
+            gWaterAnimState.unk0[3][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 3;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[4][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 1;
+            gWaterAnimState.unk0[4][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 1;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[5][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
+            gWaterAnimState.unk0[5][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[6][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
+            gWaterAnimState.unk0[6][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[7][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 3;
+            gWaterAnimState.unk0[7][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 3;
         }
     }
     if ((D_803F2D50.unk22 == 1) || (D_803F2D50.unk22 == 2)) {
@@ -128,28 +128,28 @@ void func_80296544_6A7BF4(void) {
         temp_f22 = 360.0 / 64;
         temp_f24 = 11.612;
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[0][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 8;
+            gWaterAnimState.unk0[0][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 8;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[1][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 4;
+            gWaterAnimState.unk0[1][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 4;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[2][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 8;
+            gWaterAnimState.unk0[2][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 8;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[3][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 3;
+            gWaterAnimState.unk0[3][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 3;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[4][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 7;
+            gWaterAnimState.unk0[4][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 7;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[5][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
+            gWaterAnimState.unk0[5][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 2;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[6][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 8;
+            gWaterAnimState.unk0[6][i] = cosf(temp_f20 * (f32)(i * temp_f22)) * 8;
         }
         for (i = 0; i < 64; i++) {
-            D_803C0430.unk0[7][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 4;
+            gWaterAnimState.unk0[7][i] = cosf(temp_f20 * (f32)(i * temp_f24)) * 4;
         }
     }
 }
@@ -182,7 +182,7 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
     Start2 = D_803F2D50.unk10;
     End2 = D_803F2D50.unk10 + D_803F2D50.unk14;
 
-    D_803C0430.unk20D = (D_803C0430.unk20D + 1) & 3;
+    gWaterAnimState.unk20D = (gWaterAnimState.unk20D + 1) & 3;
 
     for (xPos = End2; xPos > Start2; xPos--) {
         for (zPos = End1; zPos > Start1; zPos--) {
@@ -201,7 +201,7 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                 if (nextWater < curWater) {
                     delta = arg0[xPos+1][zPos].unk0; //unk408; (408 + 0)
                     if ((delta << 1) < curWater) {
-                        if ((nextWater == 0) && (D_803C0430.unk20F == 0)) {
+                        if ((nextWater == 0) && (gWaterAnimState.unk20F == 0)) {
                             nextWater = (delta << 1);
                         }
                         if ((delta < (arg0[xPos][zPos].unk0 - 0x10)) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
@@ -242,7 +242,7 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
                 if (nextWater < curWater) {
                     delta = arg0[xPos][zPos+1].unk0; // unk8
                     if (((delta + 1) << 1) < curWater) {
-                        if ((nextWater == 0) && (D_803C0430.unk20F == 0)) {
+                        if ((nextWater == 0) && (gWaterAnimState.unk20F == 0)) {
                             nextWater = (delta << 1);
                         }
                         if ((delta < arg0[xPos][zPos].unk0) && (nextWater < (arg0[xPos][zPos].unk0 << 1))) {
@@ -323,7 +323,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     sp4C.Start1 = D_803F2D50.unk12;
     sp4C.End1 = D_803F2D50.unk12 + D_803F2D50.unk16;
 
-    if (D_803C0430.unk20F == 0) {
+    if (gWaterAnimState.unk20F == 0) {
         // maybe
     };
 
@@ -343,7 +343,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                 if (prevWater < curWater) {
                     // adjust water level
                     if ((arg0[xPos - 1][zPos].unk0 * 2) < curWater) {
-                        if ((prevWater == 0) && (D_803C0430.unk20F == 0)) {
+                        if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
                             prevWater = (arg0[xPos - 1][zPos].unk0 * 2);
                         }
 
@@ -380,7 +380,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
                 if (prevWater < curWater) {
                     // adjust water level
                     if ((arg0[xPos][zPos - 1].unk0 * 2) < curWater) {
-                        if ((prevWater == 0) && (D_803C0430.unk20F == 0)) {
+                        if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
                             prevWater = (arg0[xPos][zPos - 1].unk0 * 2);
                         }
 
@@ -541,7 +541,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                     arg1->unk286E0[var_v1].v.ob[2] = 0; // reset y?
                 }
 
-                D_803C0430.unk20E++;
+                gWaterAnimState.unk20E++;
 
                 for (sp190 = 0; sp190 <= sp140; sp190++) {
                     for (var_t0 = 0; var_t0 <= sp142; var_t0++) {
@@ -578,12 +578,12 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                             tmp6 = ((var_t0 + sp164) + sp160 + sp190);
                             tmp5 = (tmp6 + sp164 + var_t0 + sp164 + var_t0) * 8;
 
-                            arg1->unk286E0[(sp190 * sp13C) + var_t0].v.ob[2] = D_803C0430.unk0[(temp_t2 & 7)][((D_803C0430.unk204 + temp_t7_5) & 0x3F)] + temp_t9;
+                            arg1->unk286E0[(sp190 * sp13C) + var_t0].v.ob[2] = gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)] + temp_t9;
 
-                            tmp1 = D_803C0430.unk0[(tmp6    + 0) & 7][((D_803C0430.unk204 + tmp5 + 8) & 0x3F)];
-                            tmp2 = D_803C0430.unk0[(temp_t2 + 0) & 7][((D_803C0430.unk204 + temp_t7_5) + 0) & 0x3F];
-                            tmp3 = D_803C0430.unk0[(temp_t2 + 1) & 7][((D_803C0430.unk204 + temp_t7_5) + 8) & 0x3F];
-                            tmp4 = D_803C0430.unk0[(temp_t2 + 0) & 7][((D_803C0430.unk204 + temp_t7_5) + 0) & 0x3F];
+                            tmp1 = gWaterAnimState.unk0[(tmp6    + 0) & 7][((gWaterAnimState.unk204 + tmp5 + 8) & 0x3F)];
+                            tmp2 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7_5) + 0) & 0x3F];
+                            tmp3 = gWaterAnimState.unk0[(temp_t2 + 1) & 7][((gWaterAnimState.unk204 + temp_t7_5) + 8) & 0x3F];
+                            tmp4 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7_5) + 0) & 0x3F];
 
                             temp_f20 = ((tmp1 + temp_t9 + tmp2) - ((D_803C0740[var_t0 + sp164][sp190 + sp160 + 0].unk6 * 4) & 0xFFFF)) / 64.0f;
                             temp_f22 = ((tmp3 + temp_t9 + tmp4) - ((D_803C0740[var_t0 + sp164][sp190 + sp160 + 1].unk6 * 4) & 0xFFFF)) / 64.0f;
@@ -595,16 +595,16 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                             arg1->unk286E0[(sp190 * sp13C) + var_t0].v.cn[2] = (s32) (temp_f24 * temp_f2);
 
                             if (sp17A == 0) {
-                                arg1->unk286E0[(((sp190 - 1) * sp13C) + var_t0) - 1].v.ob[2] = temp_t9 - D_803C0430.unk0[(temp_t2 & 7)][((D_803C0430.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((sp190 - 1) * sp13C) + var_t0) - 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
                             }
                             if (sp178 == 0) {
-                                arg1->unk286E0[(((sp190 + 1) * sp13C) + var_t0) - 1].v.ob[2] = temp_t9 - D_803C0430.unk0[(temp_t2 & 7)][((D_803C0430.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((sp190 + 1) * sp13C) + var_t0) - 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
                             }
                             if (sp176 == 0) {
-                                arg1->unk286E0[(((sp190 + 1) * sp13C) + var_t0) + 1].v.ob[2] = temp_t9 - D_803C0430.unk0[(temp_t2 & 7)][((D_803C0430.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((sp190 + 1) * sp13C) + var_t0) + 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
                             }
                             if (sp174 == 0) {
-                                arg1->unk286E0[(((sp190 - 1) * sp13C) + var_t0) + 1].v.ob[2] = temp_t9 - D_803C0430.unk0[(temp_t2 & 7)][((D_803C0430.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((sp190 - 1) * sp13C) + var_t0) + 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
                             }
                         }
                     }
@@ -855,7 +855,7 @@ s32 func_802983D0_6A9A80(void) {
 
 // draw_water
 void func_802985AC_6A9C5C(Gfx **dl) {
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &D_800DCC20[D_803C0430.unk202 << 9]);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &gWaterTextureBuffer[gWaterAnimState.unk202 << 9]);
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 1024);
@@ -867,35 +867,35 @@ void func_802985AC_6A9C5C(Gfx **dl) {
 
     gDPSetEnvColor((*dl)++, D_803E1BBD, D_803E1BBE, D_803E1BBF, D_803F2D50.unk5B);
 
-    gDPSetPrimColor((*dl)++, 128, D_803C0430.unk200, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+    gDPSetPrimColor((*dl)++, 128, gWaterAnimState.unk200, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
 }
 
 void func_8029877C_6A9E2C(void) {
     // maximum 64
-    D_803C0430.unk204 += 1;
-    D_803C0430.unk204 &= 0x3F;
+    gWaterAnimState.unk204 += 1;
+    gWaterAnimState.unk204 &= 0x3F;
 
     // maximum 255
-    D_803C0430.unk200 += 64;
-    if (D_803C0430.unk200 >= 256) {
-        D_803C0430.unk200 &= 0xFF;
-        D_803C0430.unk202 += 1;
-        D_803C0430.unk202 &= 0xF;
+    gWaterAnimState.unk200 += 64;
+    if (gWaterAnimState.unk200 >= 256) {
+        gWaterAnimState.unk200 &= 0xFF;
+        gWaterAnimState.unk202 += 1;
+        gWaterAnimState.unk202 &= 0xF;
     }
 
-    D_803C0430.unk208 = 0;
+    gWaterAnimState.unk208 = 0;
 
-    D_803C0430.unk206 += D_803C0430.unk20A;
+    gWaterAnimState.unk206 += gWaterAnimState.unk20A;
 
-    if (D_803C0430.unk206 == 240) {
-        D_803C0430.unk20A = -8;
+    if (gWaterAnimState.unk206 == 240) {
+        gWaterAnimState.unk20A = -8;
     }
-    if (D_803C0430.unk206 == 0) {
-        D_803C0430.unk20A = 8;
+    if (gWaterAnimState.unk206 == 0) {
+        gWaterAnimState.unk20A = 8;
     }
     // maximum 31
-    D_803C0430.unk20C += 1;
-    D_803C0430.unk20C &= 0x1F;
+    gWaterAnimState.unk20C += 1;
+    gWaterAnimState.unk20C &= 0x1F;
 }
 
 // ESA: func_8002082C
@@ -908,11 +908,11 @@ s16 func_80298818_6A9EC8(s16 arg0, s16 arg1) {
     s16 a0;
     s16 a1;
 
-    phi_v1 = (D_803C0740[(arg0 >> 6) + 0][(arg1 >> 6) + 0].unk6 << 2) + D_803C0430.unk0[(((arg0 >> 6) * (arg1 >> 6)) + 0) & 7][(u16)((D_803C0430.unk204 + ((((arg0 >> 6) * (arg1 >> 6)) + ((arg0 >> 6) * (arg0 >> 6))) * 8)) +  0) & 0x3F];
-    phi_t3 = (D_803C0740[(arg0 >> 6) + 0][(arg1 >> 6) + 1].unk6 << 2) + D_803C0430.unk0[(((arg0 >> 6) * (arg1 >> 6)) + 1) & 7][(u16)((D_803C0430.unk204 + ((((arg0 >> 6) * (arg1 >> 6)) + ((arg0 >> 6) * (arg0 >> 6))) * 8)) +  8) & 0x3F];
+    phi_v1 = (D_803C0740[(arg0 >> 6) + 0][(arg1 >> 6) + 0].unk6 << 2) + gWaterAnimState.unk0[(((arg0 >> 6) * (arg1 >> 6)) + 0) & 7][(u16)((gWaterAnimState.unk204 + ((((arg0 >> 6) * (arg1 >> 6)) + ((arg0 >> 6) * (arg0 >> 6))) * 8)) +  0) & 0x3F];
+    phi_t3 = (D_803C0740[(arg0 >> 6) + 0][(arg1 >> 6) + 1].unk6 << 2) + gWaterAnimState.unk0[(((arg0 >> 6) * (arg1 >> 6)) + 1) & 7][(u16)((gWaterAnimState.unk204 + ((((arg0 >> 6) * (arg1 >> 6)) + ((arg0 >> 6) * (arg0 >> 6))) * 8)) +  8) & 0x3F];
 
-    phi_t4 = (D_803C0740[(arg0 >> 6) + 1][(arg1 >> 6) + 1].unk6 << 2) + D_803C0430.unk0[(((arg0 >> 6) + (arg1 >> 6)) + 1) & 7][(u16)((D_803C0430.unk204 + ((((arg0 >> 6) + (arg1 >> 6)) + ((arg0 >> 6) + (arg0 >> 6))) * 8)) + 16) & 0x3F];
-    phi_a2 = (D_803C0740[(arg0 >> 6) + 1][(arg1 >> 6) + 0].unk6 << 2) + D_803C0430.unk0[(((arg0 >> 6) + (arg1 >> 6)) + 0) & 7][(u16)((D_803C0430.unk204 + ((((arg0 >> 6) + (arg1 >> 6)) + ((arg0 >> 6) + (arg0 >> 6))) * 8)) +  8) & 0x3F];
+    phi_t4 = (D_803C0740[(arg0 >> 6) + 1][(arg1 >> 6) + 1].unk6 << 2) + gWaterAnimState.unk0[(((arg0 >> 6) + (arg1 >> 6)) + 1) & 7][(u16)((gWaterAnimState.unk204 + ((((arg0 >> 6) + (arg1 >> 6)) + ((arg0 >> 6) + (arg0 >> 6))) * 8)) + 16) & 0x3F];
+    phi_a2 = (D_803C0740[(arg0 >> 6) + 1][(arg1 >> 6) + 0].unk6 << 2) + gWaterAnimState.unk0[(((arg0 >> 6) + (arg1 >> 6)) + 0) & 7][(u16)((gWaterAnimState.unk204 + ((((arg0 >> 6) + (arg1 >> 6)) + ((arg0 >> 6) + (arg0 >> 6))) * 8)) +  8) & 0x3F];
 
     if (phi_v1 < 16) {
         phi_v1 = MAX(phi_a2, MAX(phi_t3, phi_t4));
@@ -958,9 +958,9 @@ s16 func_80298B70_6AA220(s16 arg0, s16 arg1) {
     temp_v0 = arg0 & 0x3F;
     temp_t3 = arg1 & 0x3F;
     if (temp_v0 < temp_t3) {
-        return (D_803C0430.unk0[(arg0 * arg1) & 7][(u16)(D_803C0430.unk204 + (((arg0 * arg1) + (arg0 * arg0)) * 8)) & 0x3F] >> 1) + temp_v1 + ((((temp_a3 - temp_a2) * temp_v0) + ((temp_a2 - temp_v1) * temp_t3)) >> 6);
+        return (gWaterAnimState.unk0[(arg0 * arg1) & 7][(u16)(gWaterAnimState.unk204 + (((arg0 * arg1) + (arg0 * arg0)) * 8)) & 0x3F] >> 1) + temp_v1 + ((((temp_a3 - temp_a2) * temp_v0) + ((temp_a2 - temp_v1) * temp_t3)) >> 6);
     } else {
-        return (D_803C0430.unk0[(arg0 * arg1) & 7][(u16)(D_803C0430.unk204 + (((arg0 * arg1) + (arg0 * arg0)) * 8)) & 0x3F] >> 1) + temp_v1 + ((((temp_t0 - temp_v1) * temp_v0) + ((temp_a3 - temp_t0) * temp_t3)) >> 6);
+        return (gWaterAnimState.unk0[(arg0 * arg1) & 7][(u16)(gWaterAnimState.unk204 + (((arg0 * arg1) + (arg0 * arg0)) * 8)) & 0x3F] >> 1) + temp_v1 + ((((temp_t0 - temp_v1) * temp_v0) + ((temp_a3 - temp_t0) * temp_t3)) >> 6);
     }
 }
 
@@ -1008,7 +1008,7 @@ s16 func_80298E98_6AA548(s16 arg0, s16 arg1) {
     res = D_803C0740[arg0 >> 6][arg1 >> 6].unk6 << 2;
 
     if (func_80298E08_6AA4B8(arg0, arg1)) {
-        tmp = D_803C0430.unk0[(arg0 * arg1) & 7][(u16)(D_803C0430.unk204 + (((arg0 * arg1) + (arg0 * arg0)) << 3)) & 63];
+        tmp = gWaterAnimState.unk0[(arg0 * arg1) & 7][(u16)(gWaterAnimState.unk204 + (((arg0 * arg1) + (arg0 * arg0)) << 3)) & 63];
         return res + tmp;
     } else {
         return res;
@@ -1039,7 +1039,7 @@ s16 func_802990A4_6AA754(s16 arg0, s16 arg1) {
     s16 tmp1;
 
     tmp0 = D_803C0740[arg0 >> 6][arg1 >> 6].unk6 << 2;
-    tmp1 = D_803C0430.unk0[(arg0 * arg1) & 7][(u16)(D_803C0430.unk204 + (((arg0 * arg1) + (arg0 * arg0)) << 3)) & 63] >> 1;
+    tmp1 = gWaterAnimState.unk0[(arg0 * arg1) & 7][(u16)(gWaterAnimState.unk204 + (((arg0 * arg1) + (arg0 * arg0)) << 3)) & 63] >> 1;
 
     return tmp0 + tmp1;
 }
@@ -1102,13 +1102,13 @@ void func_80299140_6AA7F0(void) {
         if ((D_803F2D50.unk4C == 0) || (D_803F2D50.unk4C == 2)) {
             water_level = ((GET_WATER_LEVEL(D_803C0740, (u16)gCameras[gCameraId].unk74, (u16)gCameras[gCameraId].unk78)) << 2);
             if (water_level > (gCameras[gCameraId].unk7C - 12.0f)) {
-                func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, xPos, zPos, yPos); // D_803BAD00_7CC3B0
+                func_8032CD70_73E420((void*)&gWaterAnimState.unk204, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, xPos, zPos, yPos); // D_803BAD00_7CC3B0
             } else {
-                func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, xPos, zPos, yPos);
+                func_8032CD70_73E420((void*)&gWaterAnimState.unk204, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, xPos, zPos, yPos);
             }
         }
         if (D_803F2D50.unk4C == 1) {
-            func_8032CD70_73E420((void*)&D_803C0430.unk204, SFX_UNKNOWN_64, 0x7FFF, 0, 0.25f, xPos, zPos, yPos);
+            func_8032CD70_73E420((void*)&gWaterAnimState.unk204, SFX_UNKNOWN_64, 0x7FFF, 0, 0.25f, xPos, zPos, yPos);
         }
     }
 }
@@ -1167,10 +1167,10 @@ void func_80299640_6AACF0(s16 arg0, s16 arg1, s16 *arg2, s16 *arg3, s16 *arg4, s
             }
         }
 
-        *arg2 += D_803C0430.unk0[((arg0 + 0) * (arg1 + 0)) & 7][(u16)(D_803C0430.unk204 + ((((arg0 + 0) * (arg1 + 0)) + ((arg0 + 0) * (arg0 + 0))) << 3)) & 63] << 1;
-        *arg4 += D_803C0430.unk0[((arg0 + 1) * (arg1 + 0)) & 7][(u16)(D_803C0430.unk204 + ((((arg0 + 1) * (arg1 + 0)) + ((arg0 + 1) * (arg0 + 1))) << 3)) & 63] << 1;
-        *arg3 += D_803C0430.unk0[((arg0 + 0) * (arg1 + 1)) & 7][(u16)(D_803C0430.unk204 + ((((arg0 + 0) * (arg1 + 1)) + ((arg0 + 0) * (arg0 + 0))) << 3)) & 63] << 1;
-        *arg5 += D_803C0430.unk0[((arg0 + 1) * (arg1 + 1)) & 7][(u16)(D_803C0430.unk204 + ((((arg0 + 1) * (arg1 + 1)) + ((arg0 + 1) * (arg0 + 1))) << 3)) & 63] << 1;
+        *arg2 += gWaterAnimState.unk0[((arg0 + 0) * (arg1 + 0)) & 7][(u16)(gWaterAnimState.unk204 + ((((arg0 + 0) * (arg1 + 0)) + ((arg0 + 0) * (arg0 + 0))) << 3)) & 63] << 1;
+        *arg4 += gWaterAnimState.unk0[((arg0 + 1) * (arg1 + 0)) & 7][(u16)(gWaterAnimState.unk204 + ((((arg0 + 1) * (arg1 + 0)) + ((arg0 + 1) * (arg0 + 1))) << 3)) & 63] << 1;
+        *arg3 += gWaterAnimState.unk0[((arg0 + 0) * (arg1 + 1)) & 7][(u16)(gWaterAnimState.unk204 + ((((arg0 + 0) * (arg1 + 1)) + ((arg0 + 0) * (arg0 + 0))) << 3)) & 63] << 1;
+        *arg5 += gWaterAnimState.unk0[((arg0 + 1) * (arg1 + 1)) & 7][(u16)(gWaterAnimState.unk204 + ((((arg0 + 1) * (arg1 + 1)) + ((arg0 + 1) * (arg0 + 1))) << 3)) & 63] << 1;
     } else {
         s32 idx1;
         s32 idx2;

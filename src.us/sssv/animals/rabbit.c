@@ -135,7 +135,7 @@ void func_80300210_7118C0(void) {
             func_8038C230_79D8E0(((D_803D5524->unkBA * 4) / 5), 1, 2, 2, -0.35f);
 
             sp9A = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
-            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803F2D10.unk0 == 0)) {
+            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
                 func_80300130_7117E0(&sp9A, &D_803D552C->unk30A, 0x14, -0x14, 2, 2, D_803D5530->yVelocity.h * 0x10, 3);
             } else {
                 D_803D552C->unk30A = 0;
@@ -334,7 +334,7 @@ void func_80301248_7128F8(void) {
                 gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             }
             sp96 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
-            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803F2D10.unk0 == 0)) {
+            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
                 func_80300130_7117E0(&sp96, &D_803D552C->unk30A, 0x14, -0x14, 2, 2, D_803D5530->yVelocity.h * 0x10, 3);
             } else {
                 D_803D552C->unk30A = 0;

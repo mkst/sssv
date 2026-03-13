@@ -12,7 +12,7 @@ s16 D_803A0500_7B1BB0 = 0;
 // .bss
 // ========================================================
 
-GfxHelper D_803C0660[28];
+GfxHelper gVisibleWorldCellQueue[28];
 
 // ========================================================
 // .text
@@ -34,8 +34,8 @@ void setup_frame_render_state(DisplayList *arg0, Gfx **arg1) {
     gSPPerspNormalize((*arg1)++, gWorldPerspNorm);
 }
 
-void func_80299B68_6AB218(DisplayList *arg0) {
-    gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[(D_803C0430.unk20C >> 1) << 9]);
+void draw_visible_world_cell_opaque_pass(DisplayList *arg0) {
+    gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &gWaterTextureBuffer[(gWaterAnimState.unk20C >> 1) << 9]);
     gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0180, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync(gMainDL++);
     gDPLoadTile(gMainDL++, G_TX_LOADTILE, 0, 0, 4*(15.5), 4*(31));
@@ -53,38 +53,38 @@ void func_80299B68_6AB218(DisplayList *arg0) {
 
     gSPDisplayList(gMainDL++, D_010043A0_3DC70);
 
-    func_8029A3B0_6ABA60(gCameras[gCameraId].unk74, gCameras[gCameraId].unk78, gCameras[gCameraId].unk7C);
+    build_visible_world_cell_queue(gCameras[gCameraId].unk74, gCameras[gCameraId].unk78, gCameras[gCameraId].unk7C);
 
-    for (D_803A0500_7B1BB0 = 0; D_803C0660[D_803A0500_7B1BB0].start != 99; D_803A0500_7B1BB0++) {
-        gSPDisplayList(gMainDL++, D_80205410[D_803C0660[D_803A0500_7B1BB0].start][D_803C0660[D_803A0500_7B1BB0].end]);
+    for (D_803A0500_7B1BB0 = 0; gVisibleWorldCellQueue[D_803A0500_7B1BB0].start != 99; D_803A0500_7B1BB0++) {
+        gSPDisplayList(gMainDL++, gWorldCellOpaqueDisplayLists[gVisibleWorldCellQueue[D_803A0500_7B1BB0].start][gVisibleWorldCellQueue[D_803A0500_7B1BB0].end]);
     }
 
     gDPSetTextureLOD(gMainDL++, G_TL_TILE);
 }
 
-void func_80299E84_6AB534(DisplayList *arg0) {
+void draw_visible_world_cell_translucent_pass(DisplayList *arg0) {
     s32 pad2[2];
     s32 i;
     s32 j;
     GfxHelper old;
     s32 pad;
 
-    if ((D_803F2D18 > 10) && (D_803F2D10.unk0 == 2)) {
+    if ((D_803F2D18 > 10) && (gUiFlowState.unk0 == 2)) {
         // debug?
     } else {
         for (i = 0; i < D_803A0500_7B1BB0 - 1; i++) {
             for (j = 0; j < D_803A0500_7B1BB0 - 1; j++) {
-                if (D_803C0660[j].position < D_803C0660[j+1].position) {
-                    old = D_803C0660[j];
-                    D_803C0660[j] = D_803C0660[j+1];
-                    D_803C0660[j+1] = old;
+                if (gVisibleWorldCellQueue[j].position < gVisibleWorldCellQueue[j+1].position) {
+                    old = gVisibleWorldCellQueue[j];
+                    gVisibleWorldCellQueue[j] = gVisibleWorldCellQueue[j+1];
+                    gVisibleWorldCellQueue[j+1] = old;
                 }
             }
         }
 
-        D_803C0660[D_803A0500_7B1BB0].start = 99;
+        gVisibleWorldCellQueue[D_803A0500_7B1BB0].start = 99;
 
-        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &D_800DCC20[(D_803C0430.unk20C >> 1) << 9]);
+        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 16, &gWaterTextureBuffer[(gWaterAnimState.unk20C >> 1) << 9]);
 
         gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x015E, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(gMainDL++);
@@ -111,9 +111,9 @@ void func_80299E84_6AB534(DisplayList *arg0) {
         gDPSetAlphaDither(gMainDL++, G_AD_PATTERN);
         gDPSetAlphaCompare(gMainDL++, G_AC_NONE);
 
-        for (D_803A0500_7B1BB0 = 0; D_803C0660[D_803A0500_7B1BB0].start != 99; D_803A0500_7B1BB0++) {
-            if (D_803F2CA8[D_803C0660[D_803A0500_7B1BB0].start][D_803C0660[D_803A0500_7B1BB0].end] == 1) {
-                gSPDisplayList(gMainDL++, D_802255F0[D_803C0660[D_803A0500_7B1BB0].start][D_803C0660[D_803A0500_7B1BB0].end]);
+        for (D_803A0500_7B1BB0 = 0; gVisibleWorldCellQueue[D_803A0500_7B1BB0].start != 99; D_803A0500_7B1BB0++) {
+            if (gWorldCellTranslucentEnabled[gVisibleWorldCellQueue[D_803A0500_7B1BB0].start][gVisibleWorldCellQueue[D_803A0500_7B1BB0].end] == 1) {
+                gSPDisplayList(gMainDL++, gWorldCellTranslucentDisplayLists[gVisibleWorldCellQueue[D_803A0500_7B1BB0].start][gVisibleWorldCellQueue[D_803A0500_7B1BB0].end]);
             }
         }
     }
@@ -141,7 +141,7 @@ s16 is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2) {
+void build_visible_world_cell_queue(s32 arg0, s32 arg1, s32 arg2) {
     s32 pad;
     s32 i;
     s32 j;
@@ -156,9 +156,9 @@ void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2) {
             if (gCameraVisibilityMask[i] & (1 << j)) {
                 temp_a1 = arg0 - (((j * 16) + 12) << 6);
                 temp_t0 = arg1 - (((i * 16) + 16) << 6);
-                D_803C0660[D_803A0500_7B1BB0].start = j;
-                D_803C0660[D_803A0500_7B1BB0].end = i;
-                D_803C0660[D_803A0500_7B1BB0].position = (((temp_a1 * temp_a1) + (temp_t0 * temp_t0)) / 64);
+                gVisibleWorldCellQueue[D_803A0500_7B1BB0].start = j;
+                gVisibleWorldCellQueue[D_803A0500_7B1BB0].end = i;
+                gVisibleWorldCellQueue[D_803A0500_7B1BB0].position = (((temp_a1 * temp_a1) + (temp_t0 * temp_t0)) / 64);
                 D_803A0500_7B1BB0 += 1;
             }
         }
@@ -166,14 +166,14 @@ void func_8029A3B0_6ABA60(s32 arg0, s32 arg1, s32 arg2) {
 
     for (i = 0; i < D_803A0500_7B1BB0 - 1; i++) {
         for (j = 0; j < D_803A0500_7B1BB0 - 1; j++) {
-            if (D_803C0660[j+1].position < D_803C0660[j].position) {
-                old = D_803C0660[j];
-                D_803C0660[j] = D_803C0660[j+1];
-                D_803C0660[j+1] = old;
+            if (gVisibleWorldCellQueue[j+1].position < gVisibleWorldCellQueue[j].position) {
+                old = gVisibleWorldCellQueue[j];
+                gVisibleWorldCellQueue[j] = gVisibleWorldCellQueue[j+1];
+                gVisibleWorldCellQueue[j+1] = old;
             }
         }
     }
-    D_803C0660[D_803A0500_7B1BB0].start = 99;
+    gVisibleWorldCellQueue[D_803A0500_7B1BB0].start = 99;
 }
 
 // get mid color of image?
@@ -216,7 +216,7 @@ void set_fog_position_and_color(Gfx **dl) {
     gDPSetFogColor((*dl)++, gFogState.r, gFogState.g, gFogState.b, 0x00);
 }
 
-void func_8029A720_6ABDD0(void) {
+void render_ship_window_projection_replay(void) {
     if (gCameraVisibilityMask[6] & 1) {
         func_80127D30(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
 

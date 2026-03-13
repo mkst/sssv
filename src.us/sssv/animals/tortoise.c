@@ -248,7 +248,7 @@ void update_tortoise_tank(void) {
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04003140_F41A0); }
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, D_803F2ED0, 0, 1, 0, D_04003140_F41A0); }
-            if (D_803F2D10.unk0 == 0) {
+            if (gUiFlowState.unk0 == 0) {
                 D_803D552C->unk308--;
             }
             if (D_803D552C->unk308 < 0) {
@@ -301,7 +301,7 @@ void update_tortoise_tank(void) {
             var_t2 = D_803D552C->unk30A & 0xFF; // get remainder
 
             if (((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL)) && (D_803D5530->unk4A == 0)) {
-                if (D_803F2D10.unk0 == 0) {
+                if (gUiFlowState.unk0 == 0) {
                     switch (D_803D5530->state) {
                     case 0x16:
                     case 0xCA:

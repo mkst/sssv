@@ -4937,7 +4937,7 @@ s32 func_802B2C20_6C42D0(s16 arg0, s16 arg1) {
                    MAX(D_803C0740[(arg0 >> 6) + 0][(arg1 >> 6) + 1].unk6,
                        D_803C0740[(arg0 >> 6) + 1][(arg1 >> 6) + 1].unk6)) & 0xFFFFFFFF;
 
-    temp_a3 = D_803C0430.unk0[(arg0 * arg1) & 7][(u16)(D_803C0430.unk204 + (((arg0 * arg1) + (arg0 * arg0)) << 3)) & 63] + (4 * phi_v0_2);
+    temp_a3 = gWaterAnimState.unk0[(arg0 * arg1) & 7][(u16)(gWaterAnimState.unk204 + (((arg0 * arg1) + (arg0 * arg0)) << 3)) & 63] + (4 * phi_v0_2);
 
     if (D_803D5524->waterClass & (WATER_DAMAGE|WATER_DAMAGE_X2)) {
         phi_v1 = D_803D5524->unkBA;

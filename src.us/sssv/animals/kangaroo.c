@@ -572,7 +572,7 @@ void func_80370C84_782334(void) {
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.4f);
             func_8038C484_79DB34(2, 1, 3, -0.18f, 0);
-            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2) && (D_803F2D10.unk0 == 0)) {
+            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2) && (gUiFlowState.unk0 == 0)) {
                 spE6 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
                 func_80300130_7117E0(&spE6, &D_803D552C->unk30A, 0x60, -0x100,  3, 3, (D_803D5530->yVelocity.h * 0x10), 4);
             } else {

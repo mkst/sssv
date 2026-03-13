@@ -2,8 +2,10 @@
 #define STRUCTS_H
 
 typedef struct struct017 struct017;
+typedef struct struct025 struct025;
 typedef struct struct035 struct035;
 typedef struct struct049 struct049;
+typedef struct struct072 struct072;
 typedef struct CollisionNode CollisionNode;
 typedef struct struct071 struct071;
 typedef struct struct103 struct103;

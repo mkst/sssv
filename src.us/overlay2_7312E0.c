@@ -162,7 +162,7 @@ void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
     s16 temp_t0;
     s16 temp_t6;
 
-    if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+    if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
     }
 
@@ -283,7 +283,7 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     s16 var_t0;
 
     var_t0 = 0;
-    if ((arg0->unk10 != 0) && (D_803F2D10.unk0 == 0)) {
+    if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
     }
 
