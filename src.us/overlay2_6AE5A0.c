@@ -1369,7 +1369,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                         case 16:
                             gSPDisplayList(gXluDL++, D_010049A0_3E270);
                             gSPSetGeometryMode(gXluDL++, gGeometryMode);
-                            if (D_803E4D28 & 4) {
+                            if (gLevelProgress & LEVEL_PROGRESS_FLAG_4) {
                                 gDPSetRenderMode(gXluDL++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
                             } else {
                                 gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
@@ -1578,7 +1578,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             break;
                         case 21:
                             gSPDisplayList(gXluDL++, D_01004AF8_3E3C8);
-                            if (D_803E4D28 & 4) {
+                            if (gLevelProgress & LEVEL_PROGRESS_FLAG_4) {
                                 gDPSetRenderMode(gXluDL++, gRenderMode1, G_RM_AA_ZB_OPA_SURF2);
                             } else {
                                 gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);

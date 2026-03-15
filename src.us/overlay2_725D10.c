@@ -13,7 +13,7 @@ static u8   D_803E4CA4;
 static u8   D_803E4CA5;
 static u8   D_803E4CA6;
 static s32  D_803E4CA8[32];
-       s32  D_803E4D28;
+       s32  gLevelProgress;
        s32  gTasksCompleted;
        s32  D_803E4D30;  // just a temp var?
 static s32  D_803E4D38[2];
@@ -86,7 +86,7 @@ void func_80314788_725E38(void) {
     D_803E4D30 = 16;
     D_803E4D38[0] = D_8023F260.unk30;
     D_803E4D38[1] = D_8023F260.unk34;
-    D_803E4D28 = 0;
+    gLevelProgress = 0; // clear gameplay flags
     D_803E4CA0 = NULL;
     D_801546E0 = 0x800;
     D_801546D8 = 0x800;
@@ -165,17 +165,17 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
 
     case ST_SET_ZROT:
         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-            arg0->zRotation = (s16) (((arg2 << 8) / 360) & 0xFF);
+            arg0->zRotation = ((arg2 << 8) / 360) & 0xFF;
         } else {
             // is 1800 a typo?
-            func_802C9918_6DAFC8(arg0, (s16) ((arg2 + 1800) % 360), arg0->yRotation);
+            func_802C9918_6DAFC8(arg0, (arg2 + 1800) % 360, arg0->yRotation);
         }
         break;
 
     case ST_SET_YROT:
         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-            arg0->yRotation = (s16) (((s32) (arg2 * 256) / 360) & 0xFF);
-            arg0->heading = (s16) arg0->yRotation;
+            arg0->yRotation = ((s32) (arg2 * 256) / 360) & 0xFF;
+            arg0->heading = arg0->yRotation;
         } else {
             func_802C9918_6DAFC8(arg0, arg0->zRotation, (s16) ((s32) (arg2 + 1800) % 360));
         }
@@ -215,7 +215,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_SCORE:    // 19
-        gLevelProgress.score = arg2;
+        gGameState.score = arg2;
         break;
 
     case 20+0x7F7F:
@@ -317,9 +317,8 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         write_eeprom(D_803F7DA8.bank);
         break;
 
-    case 36+0x7F7F:
-        // SET_LEVEL_PROGRESS
-        D_803E4D28 = arg2;
+    case SET_LEVEL_PROGRESS:
+        gLevelProgress = arg2;
         break;
 
     default:
@@ -405,7 +404,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->unk46;
             break;
         case ST_GET_SCORE:
-            res = gLevelProgress.score;
+            res = gGameState.score;
             break;
         case 20+0x7F7F:
             res = arg0->unk3E;
@@ -471,9 +470,8 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case ST_GET_EEPROM_SCORES_2:
             res = D_803E4D38[1];
             break;
-        case 36+0x7F7F:
-            // ST_GET_LEVEL_PROGRESS
-            res = D_803E4D28;
+        case ST_GET_LEVEL_PROGRESS:
+            res = gLevelProgress;
             break;
         default:
             res = D_803E4CA8[arg1 - 0x7FBF];
@@ -1574,7 +1572,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x2B:
-        gLevelProgress.score += get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0);
+        gGameState.score += get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0);
         return 69;
 
     case 0x2C:

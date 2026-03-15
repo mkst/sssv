@@ -91,7 +91,7 @@ void func_8035E430_76FAE0(void) {
                     D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 33;
                 }
             }
-        } else if ((D_803D5538 != 0) && (gLevelProgress.unk4 >= 17)) {
+        } else if ((D_803D5538 != 0) && (gGameState.unk4 >= 17)) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 if (D_803D5524->unk9C == RAT) {
                     D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;

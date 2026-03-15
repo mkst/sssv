@@ -460,7 +460,7 @@ void display_zone_select_screen(void) {
         play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
         func_80395074_7A6724(0);
         gOverlayMenuState.unk18 += 1;
-        gLevelProgress.level = D_803F7DA8.currentLevel + 1;
+        gGameState.level = D_803F7DA8.currentLevel + 1;
     }
     if ((gControllerInput->button & B_BUTTON) && (D_802912E0 == 1)) {
         play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
@@ -1116,20 +1116,20 @@ void func_8039BBB8_7AD268(void) {
     s16 level;
 
     if (D_803F2D50.unkC6 != 0) {
-        if (D_803E4D28 & 1) { // souvenir collected
+        if (gLevelProgress & LEVEL_PROGRESS_SOUVENIR_COLLECTED) {
             level = D_803F7DA8.currentLevel + 1;
             if ((level != GIVE_A_DOG_A_BONUS) &&
                 (level != WALRACE_64) &&
                 (level != EVOS_ESCAPE) &&
                 (level != PUNCHUP_PYRAMID) &&
                 (level != BIG_CELEBRATION_PARADE)) {
-                D_8023F260.level[gLevelProgress.level - 1].trophy = 1;
+                D_8023F260.level[gGameState.level - 1].trophy = 1;
             }
             // regalloc helper
             if (1) {}
         }
         level = D_803F7DA8.currentLevel + 1;
-        if (D_803E4D28 & 2) { // level completed
+        if (gLevelProgress & LEVEL_PROGRESS_COMPLETED) {
             if (level == GIVE_A_DOG_A_BONUS) {
                 D_8023F260.evoPartsCollected |= EVO_TORSO;
             }
@@ -1147,14 +1147,14 @@ void func_8039BBB8_7AD268(void) {
             (level == WALRACE_64) ||
             (level == EVOS_ESCAPE) ||
             (level == PUNCHUP_PYRAMID)) {
-            if (D_803E4D28 & 2) {
-                D_8023F260.level[gLevelProgress.level - 1].completed = 1;
+            if (gLevelProgress & LEVEL_PROGRESS_COMPLETED) {
+                D_8023F260.level[gGameState.level - 1].completed = 1;
             }
         } else {
-            D_8023F260.level[gLevelProgress.level - 1].completed = 1;
+            D_8023F260.level[gGameState.level - 1].completed = 1;
             // 'powercells' element used to store 'time' in bonus levels
-            if (D_8023F260.level[gLevelProgress.level - 1].powercells < gLevelProgress.powercells) {
-                D_8023F260.level[gLevelProgress.level - 1].powercells = gLevelProgress.powercells;
+            if (D_8023F260.level[gGameState.level - 1].powercells < gGameState.powercells) {
+                D_8023F260.level[gGameState.level - 1].powercells = gGameState.powercells;
             }
         }
         D_803F2D50.unkC6 = 0;
@@ -1166,7 +1166,7 @@ void func_8039BBB8_7AD268(void) {
             (level == WALRACE_64) ||
             (level == EVOS_ESCAPE) ||
             (level == PUNCHUP_PYRAMID)) {
-            if (D_803E4D28 & 2) {
+            if (gLevelProgress & LEVEL_PROGRESS_COMPLETED) {
                 if (level == PUNCHUP_PYRAMID) {
                     // only increment level counter if we have collected all bodyparts
                     if (D_8023F260.evoPartsCollected == (EVO_TORSO | EVO_HEAD | EVO_ARMS | EVO_LEGS)) {
@@ -1184,8 +1184,8 @@ void func_8039BBB8_7AD268(void) {
             D_803F7DA8.currentLevel = END_CREDITS-1;
         }
     } else {
-        if (D_8023F260.score < gLevelProgress.score) {
-            D_8023F260.score = gLevelProgress.score;
+        if (D_8023F260.score < gGameState.score) {
+            D_8023F260.score = gGameState.score;
         }
         memcpy_sssv((u8*)&D_8023F260, (u8*)&D_8023F2E0[D_803F7DA8.bank], 64);
         write_eeprom(D_803F7DA8.bank);

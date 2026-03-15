@@ -338,7 +338,7 @@ void load_demo_level(s16 level) {
     gOverlayMenuState.unk27 = 1;
     gOverlayMenuState.unk0 = 0;
     gInitialisationState = 0;
-    gLevelProgress.level = level;
+    gGameState.level = level;
     init_level();
     reset_player_progress();
     trigger_screen_transition(TRANSITION_FADE_IN);
@@ -351,7 +351,7 @@ void load_intro(void) {
     gOverlayMenuState.unk27 = 1;
     gOverlayMenuState.unk0 = 0;
     gInitialisationState = 0;
-    gLevelProgress.level = DMA_INTRO;
+    gGameState.level = DMA_INTRO;
     init_level();
     reset_player_progress();
     D_80152E98 = 0;
@@ -377,7 +377,7 @@ void func_8038FC58_7A1308(void) {
 void load_smashing_start(void) {
     gFrameStepDivisor = 2;
     start_sequence_volume_fade(0, 5.0f, 20.0f, 0);
-    gLevelProgress.level = SMASHING_START;
+    gGameState.level = SMASHING_START;
     D_803F7DA8.currentLevel = 0;
     gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
     func_8038FC58_7A1308();
@@ -420,7 +420,7 @@ void func_8038FD74_7A1424(void) {
     gOverlayMenuState.unk2C = 0;
     D_803F7DA8.bank = 0;
     gInitialisationState = 0;
-    gLevelProgress.score = 0;
+    gGameState.score = 0;
     D_801D9ED4 = 6;
     gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
     D_801546D8 = 1600;
@@ -538,7 +538,7 @@ void func_8038FF68_7A1618(void) {
         case -4:
             reset_screen_transition();
             trigger_screen_transition(TRANSITION_FADE_IN);
-            gLevelProgress.level = 1;
+            gGameState.level = 1;
             func_8039661C_7A7CCC(12, 4, 0);
 
             gOverlayMenuState.unk18++;
@@ -901,7 +901,7 @@ void func_8038FF68_7A1618(void) {
             func_8039BBB8_7AD268();
             determine_available_levels();
             gOverlayMenuState.unk2B = 1;
-            gLevelProgress.score = 0;
+            gGameState.score = 0;
             reset_screen_transition();
             gPauseMenuLookAt = D_803B6700_7C7DB0[2];
             gOverlayMenuState.unk1A = 0;
@@ -986,11 +986,11 @@ void func_8038FF68_7A1618(void) {
                 determine_available_levels();
             }
             if (gOverlayMenuState.unk1A == 5) {
-                if ((gLevelProgress.level == GIVE_A_DOG_A_BONUS) ||
-                    (gLevelProgress.level == WALRACE_64) ||
-                    (gLevelProgress.level == EVOS_ESCAPE) ||
-                    (gLevelProgress.level == PUNCHUP_PYRAMID)) {
-                    if ((D_803E4D28 & 2)) {
+                if ((gGameState.level == GIVE_A_DOG_A_BONUS) ||
+                    (gGameState.level == WALRACE_64) ||
+                    (gGameState.level == EVOS_ESCAPE) ||
+                    (gGameState.level == PUNCHUP_PYRAMID)) {
+                    if ((gLevelProgress & LEVEL_PROGRESS_COMPLETED)) {
                         func_80397734_7A8DE4((RAND(4) + 17), 0);
                     } else {
                         func_80397734_7A8DE4((RAND(4) + 13), 0);
@@ -1005,7 +1005,7 @@ void func_8038FF68_7A1618(void) {
             if ((D_803F713C[0] == 0) || (func_80396748_7A7DF8())) {
                 func_8039264C_7A3CFC();
                 if (D_803F7DA8.currentLevel == 34) {
-                    gLevelProgress.level = D_803F7DA8.currentLevel + 1;
+                    gGameState.level = D_803F7DA8.currentLevel + 1;
                     gOverlayMenuState.unk18 = 40;
                     gOverlayMenuState.unk1A = 0;
                     func_8039661C_7A7CCC(2, 16, 0);
@@ -1660,7 +1660,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
 
             for (row = 0; row < 3; row++) {
                 for (col = 0; col < 5; col++) {
-                    if (cnt < gLevelProgress.powercells) {
+                    if (cnt < gGameState.powercells) {
                         func_803962EC_7A799C(&gMainDL,
                             (col * 22 + 188) << 2,  // x0
                             (row * 22 + 136) << 2,  // y0
@@ -2117,7 +2117,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     gOverlayMenuState.unk2A = 1;
                     gOverlayMenuState.unk2C = 1;
                     gOverlayMenuState.unk29 = 0;
-                    gLevelProgress.score = 0;
+                    gGameState.score = 0;
                     if ((D_803F6716 != gEepromGlobal.sfxVol) || (D_803F6718 != gEepromGlobal.musicVol) || (D_803F671A != gEepromGlobal.language)) {
                         write_eeprom(4);
                         set_music_volume(gEepromGlobal.musicVol);
@@ -2143,7 +2143,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                     play_sound_effect(SFX_UNKNOWN_143, 0, 0x5000, 1.0f, 64);
                     gOverlayMenuState.unk18 = 30;
                     gOverlayMenuState.unk29 = 0;
-                    gLevelProgress.score = 0;
+                    gGameState.score = 0;
                     if ((D_803F6716 != gEepromGlobal.sfxVol) || (D_803F6718 != gEepromGlobal.musicVol) || (D_803F671A != gEepromGlobal.language)) {
                         write_eeprom(4);
                         set_music_volume(gEepromGlobal.musicVol);

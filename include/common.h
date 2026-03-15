@@ -301,6 +301,17 @@ typedef u8 Addr[];
 #define FOV_HORIZONTAL_DIAMOND_2 11
 #define FOV_THIN_CONE       12
 
+// level progress
+
+#define LEVEL_PROGRESS_SOUVENIR_COLLECTED 1
+#define LEVEL_PROGRESS_COMPLETED          2
+#define LEVEL_PROGRESS_FLAG_4             4
+#define LEVEL_PROGRESS_NAC_RELATED        8
+#define LEVEL_PROGRESS_FLAG_16            16
+#define LEVEL_PROGRESS_FLAG_32            32
+#define LEVEL_PROGRESS_FLAG_64            64
+#define LEVEL_PROGRESS_FLAG_128           128
+
 //
 
 #define GET_WATER_LEVEL(COLLISION, X, Z) \

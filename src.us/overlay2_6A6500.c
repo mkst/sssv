@@ -70,7 +70,7 @@ void func_80294E50_6A6500(void) {
 
     if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (gOverlayMenuState.unk0 == 0)) || (gOverlayMenuState.unk26 == 3)) {
         if ((gInputMode == INPUT_MODE_USER) && (D_803C0426 == 0) && (D_8020540C != 1) && (gInitialisationState == 0)) {
-            if ((gLevelProgress.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (gLevelProgress.level != END_CREDITS) && ((D_803E4D28 & 16) == 0)) {
+            if ((gGameState.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (gGameState.level != END_CREDITS) && ((gLevelProgress & LEVEL_PROGRESS_FLAG_16) == 0)) {
                 if ((D_803C0420 == 0) || (D_803C0420 >= 11)) {
                     play_sound_effect(SFX_UNKNOWN_127, 0, 0x5000, 1.0f, 64);
                     D_801D9ED4 = 10;
@@ -80,7 +80,7 @@ void func_80294E50_6A6500(void) {
         }
     }
 
-    if (D_803E4D28 & 0x40) {
+    if (gLevelProgress & LEVEL_PROGRESS_FLAG_64) {
         init_rumble_pak();
         func_8012A400(); // receive some messages?
         // swap frame buffer
@@ -90,10 +90,10 @@ void func_80294E50_6A6500(void) {
             sizeof(gFramebuffer[0]));
         trigger_mission_brief_screen();
         // unset flag
-        D_803E4D28 &= ~0x40;
+        gLevelProgress &= ~LEVEL_PROGRESS_FLAG_64;
     }
 
-    if ((D_803E4D28 & 0x80) && (D_803C0426 == 0) && (gAttractModeState == 10)) {
+    if ((gLevelProgress & LEVEL_PROGRESS_FLAG_128) && (D_803C0426 == 0) && (gAttractModeState == 10)) {
         D_803C0426 = 1;
         D_803C042A = 0;
     }
@@ -160,9 +160,9 @@ void func_80294E50_6A6500(void) {
         set_fog_position_and_color(&gMainDL);
         func_802C87E0_6D9E90();
         if (func_8038CCC0_79E370() != 0) {
-            D_803E4D28 |= 0x20; // add flag
+            gLevelProgress |= LEVEL_PROGRESS_FLAG_32; // add flag
         } else {
-            D_803E4D28 &= ~0x20; // remove flag
+            gLevelProgress &= ~LEVEL_PROGRESS_FLAG_32; // remove flag
         }
         if (D_803F671C != 0) {
             draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 2);
@@ -174,7 +174,7 @@ void func_80294E50_6A6500(void) {
             }
         }
         func_802B3EC0_6C5570(&gMainDL, ((gCameraVisibilityMask[0] & 0xC0) >> 6), D_803F2C3C, D_803F2C40, gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h);
-        if ((gInitialisationState == 0) && (gInputMode == INPUT_MODE_USER) && (gLevelProgress.level != DMA_INTRO)) {
+        if ((gInitialisationState == 0) && (gInputMode == INPUT_MODE_USER) && (gGameState.level != DMA_INTRO)) {
             osd_update(1);
         }
 
@@ -260,7 +260,7 @@ void func_80294E50_6A6500(void) {
         }
         if (gInitialisationState == 0) {
             if (gInputMode == INPUT_MODE_USER) {
-                if (gLevelProgress.level != DMA_INTRO) {
+                if (gGameState.level != DMA_INTRO) {
                     osd_update(0);
                 }
             } else if (gControllerConnected != 0) {
@@ -349,7 +349,7 @@ void func_80294E50_6A6500(void) {
     if ((D_803C0426 != 0) && (D_803C042A == 1)) {
         draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 0xFF);
     }
-    if ((gLevelProgress.level == END_CREDITS) && (gOverlayMenuState.unk0 == 0)) {
+    if ((gGameState.level == END_CREDITS) && (gOverlayMenuState.unk0 == 0)) {
         if (D_803C0428 != 0) {
             if (++D_803C0428 > 19) {
                 gCurrentMusicTrack = NO_MUSIC;
@@ -368,8 +368,8 @@ void func_80294E50_6A6500(void) {
 }
 
 void reset_player_progress(void) {
-    gLevelProgress.unkA = 3; // only place this value is used?
-    gLevelProgress.unk4 = 0;
+    gGameState.unkA = 3; // only place this value is used?
+    gGameState.unk4 = 0;
 
     gUiFlowState.unk0 = 0;
     gUiFlowState.unk1 = 0;
@@ -381,7 +381,7 @@ void reset_player_progress(void) {
 
     D_8020427C = 0;
 
-    gLevelProgress.powercells = 0;
+    gGameState.powercells = 0;
 }
 
 // unused?
@@ -413,9 +413,9 @@ void init_level(void) {
     reset_particles();
     func_80304170_715820(); // empty function
     func_80304194_715844(); // zero out texture size data?
-    load_level_data(gLevelProgress.level);
-    D_80204280 = gLevelProgress.level;
-    gLevelProgress.unk4 = 0;
+    load_level_data(gGameState.level);
+    D_80204280 = gGameState.level;
+    gGameState.unk4 = 0;
     func_80296310_6A79C0();
     func_802B3FAC_6C565C();
     D_803F2D50.evoSuitColor = get_evo_suit_color();

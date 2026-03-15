@@ -1,115 +1,101 @@
 #include <ultra64.h>
 #include "common.h"
 
-#if 0
+#ifdef NON_MATCHING
 // ESA: func_8005F8F8
-// 4815
+// 970
 void func_802C7C80_6D9330(void) {
-    struct089 *src;
-    struct035 *dst;
-
     s16 i;
-    u16 animalId;
+    int isEvoTransfer;
 
     memset_bytes((u8 *) gAnimalState.unk0, 0, sizeof(gAnimalState.unk0));
 
-    for (i = 0; i < 0x44; i++) {
-        src = &D_803A05D0_7B1C80[i];
-        dst = &gAnimalState.unk0[i];
+    for (i = 0; i < AID_MAX_ANIMALS; i++) {
 
-        dst->unk7E = 0xCC;
-        dst->unk80 = 2;
-        dst->unk8A = 0x7F;
-        dst->unkD8 = 0x14;
+        gAnimalState.unk0[i].class = D_803A05D0_7B1C80[i].class;
 
-        dst->class = src->class;
-        dst->waterClass = src->waterClass;
-        dst->canJump = src->canJump;
+        gAnimalState.unk0[i].unk7E = 0xCC;
+        gAnimalState.unk0[i].unk80 = 2;
+        gAnimalState.unk0[i].unk8A = 0x7F;
+        gAnimalState.unk0[i].unkD8 = 0x14;
 
-        dst->unk74 = dst->unk72 = dst->unkBE = src->unk6;
-        // dst->unk74 = src->unk6;
-        // dst->unk74 = src->unk6;
+        gAnimalState.unk0[i].waterClass = D_803A05D0_7B1C80[i].waterClass;
+        gAnimalState.unk0[i].canJump = D_803A05D0_7B1C80[i].canJump;
 
-        dst->mass = src->unk8;
-        dst->armour = src->unkA;
-        dst->unk8C = src->unkB;
+        gAnimalState.unk0[i].unkBE = D_803A05D0_7B1C80[i].unk6;
+        gAnimalState.unk0[i].unk72 = D_803A05D0_7B1C80[i].unk6;
+        gAnimalState.unk0[i].unk74 = D_803A05D0_7B1C80[i].unk6;
+        gAnimalState.unk0[i].mass = D_803A05D0_7B1C80[i].unk8;
+        gAnimalState.unk0[i].armour = D_803A05D0_7B1C80[i].unkA;
+        gAnimalState.unk0[i].unk8C = D_803A05D0_7B1C80[i].unkB;
+        gAnimalState.unk0[i].unkEB = D_803A05D0_7B1C80[i].unk51;
 
-        dst->unkEB = src->unk51;
-
-        if ((i == EVO) || (i == EVO_TRANSFER)) {
-            dst->unk2 = 15;
+        isEvoTransfer = i == EVO_TRANSFER;
+        if (i == EVO || isEvoTransfer) {
+            gAnimalState.unk0[i].unk2 = 15;
         } else {
-            dst->unk2 = 5U;
+            gAnimalState.unk0[i].unk2 = 5;
         }
 
-        dst->unkA8 = src->unk10;
-        dst->fallDistance = src->unk16;
+        gAnimalState.unk0[i].unkAC = D_803A05D0_7B1C80[i].unk14;
+        gAnimalState.unk0[i].unkA6 = D_803A05D0_7B1C80[i].unkE;
+        gAnimalState.unk0[i].unkA8 = D_803A05D0_7B1C80[i].unk10;
+        gAnimalState.unk0[i].unkAA = D_803A05D0_7B1C80[i].unk12;
+        gAnimalState.unk0[i].unkB4 = D_803A05D0_7B1C80[i].unk1C;
+        gAnimalState.unk0[i].fallDistance = D_803A05D0_7B1C80[i].unk16;
+        gAnimalState.unk0[i].unkB0 = D_803A05D0_7B1C80[i].unk18;
+        gAnimalState.unk0[i].unkA4 = D_803A05D0_7B1C80[i].unkC;
+        gAnimalState.unk0[i].unkBA = D_803A05D0_7B1C80[i].unk22;
+        gAnimalState.unk0[i].unk7A = gAnimalState.unk0[i].unkBA;
+        gAnimalState.unk0[i].unkB8 = D_803A05D0_7B1C80[i].unk20;
+        gAnimalState.unk0[i].traction = D_803A05D0_7B1C80[i].unk1A;
+        gAnimalState.unk0[i].unkBC = D_803A05D0_7B1C80[i].unk24;
+        gAnimalState.unk0[i].unkB6 = D_803A05D0_7B1C80[i].unk1E;
 
-        dst->unk7A = dst->unkBA = src->unk22;
+        gAnimalState.unk0[i].unk76 = ((gAnimalState.unk0[i].unk72) * 7) >> 2;
+        gAnimalState.unk0[i].unk78 = ((gAnimalState.unk0[i].unk7A) * 5) >> 3;
 
-        dst->unkA4 = src->unkC;
-        dst->unkA6 = src->unkE;
-        dst->unkAA = src->unk12;
-        dst->unkAC = src->unk14;
-        dst->unkB0 = src->unk18;
-        dst->traction = src->unk1A; /* 0xB2 */
-        dst->unkB4 = src->unk1C;
-        dst->unkB6 = src->unk1E;
-        dst->unkB8 = src->unk20;
+        gAnimalState.unk0[i].unkC0 = D_803A05D0_7B1C80[i].unk26;
+        gAnimalState.unk0[i].unkC2 = D_803A05D0_7B1C80[i].unk28;
+        gAnimalState.unk0[i].unkC4 = D_803A05D0_7B1C80[i].unk2A;
+        gAnimalState.unk0[i].unkE6 = D_803A05D0_7B1C80[i].unk2C;
+        gAnimalState.unk0[i].unkE7 = D_803A05D0_7B1C80[i].unk2D;
+        gAnimalState.unk0[i].unkC6 = D_803A05D0_7B1C80[i].unk2E;
+        gAnimalState.unk0[i].unkC8 = D_803A05D0_7B1C80[i].unk30;
 
-        dst->unkBC = src->unk24;
+        gAnimalState.unk0[i].unkCA = D_803A05D0_7B1C80[i].unk32;
+        gAnimalState.unk0[i].unkCC = D_803A05D0_7B1C80[i].unk34;
+        gAnimalState.unk0[i].unkCE = D_803A05D0_7B1C80[i].unk36;
+        gAnimalState.unk0[i].unkD0 = D_803A05D0_7B1C80[i].unk38;
+        gAnimalState.unk0[i].unkD2 = D_803A05D0_7B1C80[i].unk3A;
+        gAnimalState.unk0[i].objectType = (i & 0xFFFF) + 0x100;
+        gAnimalState.unk0[i].unkD4 = D_803A05D0_7B1C80[i].unk3E;
+        gAnimalState.unk0[i].unkE8 = D_803A05D0_7B1C80[i].unk3C;
+        gAnimalState.unk0[i].unk82.unk2 = 1;
+        gAnimalState.unk0[i].biome = D_803A05D0_7B1C80[i].unk40;
 
-        dst->unkC0 = src->unk26;
-        dst->unkC2 = src->unk28;
+        gAnimalState.unk0[i].unkDA[0][0] = D_803A05D0_7B1C80[i].unk42[0][0];
+        gAnimalState.unk0[i].unkDA[0][1] = D_803A05D0_7B1C80[i].unk42[0][1];
+        gAnimalState.unk0[i].unkDA[0][2] = D_803A05D0_7B1C80[i].unk42[0][2];
 
-        dst->unk76 = (dst->unk72 * 7) >> 2;
-        dst->unk78 = (src->unk22 * 5) >> 3;
+        gAnimalState.unk0[i].unkDA[1][0] = D_803A05D0_7B1C80[i].unk42[1][0];
+        gAnimalState.unk0[i].unkDA[1][1] = D_803A05D0_7B1C80[i].unk42[1][1];
+        gAnimalState.unk0[i].unkDA[1][2] = D_803A05D0_7B1C80[i].unk42[1][2];
 
-        dst->unk9C = i;
+        gAnimalState.unk0[i].unk9C = i;
+        gAnimalState.unk0[i].unk82.unk3 = 1;
+        gAnimalState.unk0[i].unk82.unk4 = 1;
+        gAnimalState.unk0[i].unk82.unk5 = 1;
+        gAnimalState.unk0[i].unk82.unk6 = 0u;
 
-        dst->unkE6 = src->unk2C;
-        dst->unkE7 = src->unk2D;
-        dst->unkC4 = src->unk2A;
+        gAnimalState.unk0[i].unkE9 = D_803A05D0_7B1C80[i].unk4F;
+        gAnimalState.unk0[i].unkEA = D_803A05D0_7B1C80[i].unk50;
 
-        animalId = i;
-        dst->objectType = animalId + 0x100; /* 0x00 */
-
-        dst->unkC6 = src->unk2E;
-        dst->unkC8 = src->unk30;
-        dst->unkCA = src->unk32;
-        dst->unkCC = src->unk34;
-
-        dst->unkCE = src->unk36;
-        dst->unkD0 = src->unk38;
-        dst->unkD2 = src->unk3A;
-
-        dst->biome = src->unk40; /* 0xD6 */
-        dst->unkE8 = src->unk3C;
-        dst->unkD4 = src->unk3E;
-
-        dst->unkDA[0][0] = src->unk42[0][0];
-        dst->unkDA[0][1] = src->unk42[0][1];
-        dst->unkDA[0][2] = src->unk42[0][2];
-
-        dst->unkDA[1][0] = src->unk42[1][0];
-        dst->unkDA[1][1] = src->unk42[1][1];
-        dst->unkDA[1][2] = src->unk42[1][2];
-
-        dst->unk82.unk2 = 1;
-        dst->unk82.unk3 = 1;
-        dst->unk82.unk4 = 1;
-        dst->unk82.unk5 = 1;
-        dst->unk82.unk6 = 0;
-
-        dst->unkE9 = src->unk4F;
-        dst->unkEA = src->unk50;
-
-        if (animalId == DESERT_FOX_ATTACKING) {
-            dst->unk8D = 4;
-        } else if (animalId == HARD_MOUSE) {
-            dst->unk8D = 2;
+        if ((i & 0xFFFF) == DESERT_FOX_ATTACKING) {
+            gAnimalState.unk0[i].unk8D = 4;
+        } else if ((i & 0xFFFF) == HARD_MOUSE) {
+            gAnimalState.unk0[i].unk8D = 2;
         }
-
     }
 }
 #else
