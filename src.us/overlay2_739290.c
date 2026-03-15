@@ -710,19 +710,19 @@ void func_80328520_739BD0(void) {
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             switch (D_803D5524->unkE6) {
             case 0:
-                gLevelProgress.score += 50;
+                gGameState.score += 50;
                 break;
             case 1:
-                gLevelProgress.score += 100;
+                gGameState.score += 100;
                 break;
             case 2:
-                gLevelProgress.score += 200;
+                gGameState.score += 200;
                 break;
             case 3:
-                gLevelProgress.score += 350;
+                gGameState.score += 350;
                 break;
             case 4:
-                gLevelProgress.score += 500;
+                gGameState.score += 500;
                 break;
             }
             if (D_803D5530->cmdIndex != 0) {
@@ -744,19 +744,19 @@ void func_80328520_739BD0(void) {
             if (D_803D5544 >= 2) {
                 switch (D_803D5524->unkE6) {
                 case 0:
-                    gLevelProgress.score += 50;
+                    gGameState.score += 50;
                     break;
                 case 1:
-                    gLevelProgress.score += 100;
+                    gGameState.score += 100;
                     break;
                 case 2:
-                    gLevelProgress.score += 200;
+                    gGameState.score += 200;
                     break;
                 case 3:
-                    gLevelProgress.score += 350;
+                    gGameState.score += 350;
                     break;
                 case 4:
-                    gLevelProgress.score += 500;
+                    gGameState.score += 500;
                     break;
                 }
             }
@@ -1545,7 +1545,7 @@ void load_animal(s16 animalId) {
 // NOTE: There is a bug where seen species overlap.
 //       The modulo operation should be % 8, not % 7 to yield 64 possible values (rather than 56)
 void check_and_set_species_encountered(s16 animal_id) {
-    if ((D_803E4D28 & 8) == 0) {
+    if ((gLevelProgress & LEVEL_PROGRESS_NAC_RELATED) == 0) {
         // if first time visiting then load TV info screen
         if (((D_8023F260.speciesSeen[(s8) (animal_id >> 3)] & (1 << (s8)(animal_id % 7))) == 0) && (gInputMode == INPUT_MODE_USER)) {
             D_8023F260.speciesSeen[(s8) (animal_id >> 3)] |= (1 << (s8)(animal_id % 7));

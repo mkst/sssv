@@ -2516,16 +2516,16 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         switch (arg0->unk16C->objectType) {
         case 0x22: // powercell
             if (tmp) {
-                gLevelProgress.powercells++;
-                gLevelProgress.powercells2++;
-                gLevelProgress.score += 1000;
+                gGameState.powercells++;
+                gGameState.powercells2++;
+                gGameState.score += 1000;
             }
             do_item_collected_effect(arg0->position.xPos.h, arg0->position.zPos.h, (arg0->position.yPos.h + ((arg0->unk40) >> 7) * 2), 2);
             return;
             break;
         case 0x3A: // energy ball + 16 hp
             if (tmp) {
-                if (gLevelProgress.unk4 == 0) {
+                if (gGameState.unk4 == 0) {
                     gAnimalState.animals[gCurrentAnimalIndex].animal->health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->health + 0x10, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
@@ -2538,7 +2538,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
             break;
         case 0x3B:  // energy ball + 32 hp
             if (tmp) {
-                if (gLevelProgress.unk4 == 0) {
+                if (gGameState.unk4 == 0) {
                     gAnimalState.animals[gCurrentAnimalIndex].animal->health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->health + 0x20, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
@@ -2551,7 +2551,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
             break;
         case 0x3C: // energy ball + 64hp
             if (tmp) {
-                if (gLevelProgress.unk4 == 0) {
+                if (gGameState.unk4 == 0) {
                     gAnimalState.animals[gCurrentAnimalIndex].animal->health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->health + 0x40, 0x7F);
                 }
                 D_803D552C->unk348 = 0;

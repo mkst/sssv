@@ -866,7 +866,7 @@ extern s8   D_803E4AD0[];
 extern struct079 D_803E4BE0;
 
 // overlay2_725D10
-extern s32  D_803E4D28;
+extern s32  gLevelProgress;
 extern s32  gTasksCompleted;
 extern s32  D_803E4D30;
 extern CmdWrapper D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
@@ -939,7 +939,7 @@ extern s16  D_803F2D18;
 
 // overlay2_7688B0
 extern s16  D_803F2D24;
-extern LevelProgress gLevelProgress;
+extern GameState gGameState;
 
 // TODO:
 extern LevelConfig D_803F2D50;

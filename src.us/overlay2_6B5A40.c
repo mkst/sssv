@@ -3110,7 +3110,7 @@ void func_802AD49C_6BEB4C(void) {
     phi_v0 = gAnimalState.stickX;
     phi_v1 = gAnimalState.stickY;
 
-    if (gLevelProgress.unk4 != 0) {
+    if (gGameState.unk4 != 0) {
         phi_v0 = phi_v1 = 0;
     }
 

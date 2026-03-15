@@ -122,7 +122,7 @@ typedef struct {
     /* 0xA */ u16 unkA;         // only ever set to 3
     /* 0xC */ s16 powercells;   // number of powercells collected
     /* 0xE */ char scoreText[18];
-} LevelProgress; // size 0x20
+} GameState; // size 0x20
 
 typedef struct {
     s32 unk0;

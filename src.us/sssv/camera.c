@@ -3799,7 +3799,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
             }
 
             func_8033EF94_750644(cont, D_803F2C72);
-            if ((gLevelProgress.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
+            if ((gGameState.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
                 playerCameraDistance -= 2;
             }
         }
@@ -3808,7 +3808,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
     case CAMERA_MODE_2:
     case CAMERA_MODE_12:
         func_8033EF94_750644(cont, D_803F2C72);
-        if ((gLevelProgress.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
+        if ((gGameState.unk4 > 0) && (gCameras[gCameraId].unkD6 == 1)) {
             playerCameraDistance -= 2;
         }
         break;
@@ -3853,7 +3853,7 @@ void func_8033E7C8_74FE78(OSContPad *cont) {
         if (gCameras[gCameraId].unkD6 == 1) {
             func_8033EF94_750644(cont, D_803F2C72);
         }
-        if (gLevelProgress.unk4 > 0) {
+        if (gGameState.unk4 > 0) {
             if (gCameras[gCameraId].unkD6 == 1) {
                 gCameras[gCameraId].unk64 = MIN(gCameras[gCameraId].unk64, -2);
             }

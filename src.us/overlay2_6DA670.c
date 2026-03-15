@@ -119,7 +119,7 @@ void read_controller_input(OSContPad *cont) {
         gAnimalState.curCButtonRight = 0;
     }
 
-    if (gLevelProgress.unk4) {
+    if (gGameState.unk4) {
         // reset all inputs
         gAnimalState.curAButton = 0;
         gAnimalState.curBButton = 0;

@@ -304,9 +304,8 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
 
 #ifdef NON_MATCHING
 // update_water_level
+// 460
 void func_8029726C_6A891C(struct063 arg0[73][129]) {
-    struct005 sp4C;
-
     s16 xPos;
     s16 zPos;
 
@@ -316,6 +315,9 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     s16 prevWater;
 
     s16 var_s5;
+    s32 pad;
+    s32 new_var;
+    struct005 sp4C;
 
     sp4C.Start2 = D_803F2D50.unk10;
     sp4C.End2 = D_803F2D50.unk10 + D_803F2D50.unk14;
@@ -323,11 +325,11 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     sp4C.Start1 = D_803F2D50.unk12;
     sp4C.End1 = D_803F2D50.unk12 + D_803F2D50.unk16;
 
-    if (gWaterAnimState.unk20F == 0) {
+    if (gWaterAnimState.unk20F == (gWaterAnimState.unk20F == 0)) {
         // maybe
     };
-
-    if (arg0[xPos][zPos].unk0 && arg0[xPos][zPos].unk0) {
+    curWater = arg0[sp4C.Start2][zPos].unk0;
+    if (curWater && curWater) {
         // ??
     };
 
@@ -336,91 +338,86 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     for (xPos = sp4C.Start2; xPos < sp4C.End2; xPos++) {
         for (zPos = sp4C.Start1; zPos <= sp4C.End1; zPos++) {
 
-            if (arg0[xPos][zPos].unk6 != 0) {
-                curWater = arg0[xPos][zPos].unk6;
-                prevWater = arg0[xPos - 1][zPos].unk6;
+            if (((((((arg0[xPos][zPos].unk6 & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) & 0xFFu) == 0)
+                continue;
 
-                if (prevWater < curWater) {
-                    // adjust water level
-                    if ((arg0[xPos - 1][zPos].unk0 * 2) < curWater) {
-                        if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
-                            prevWater = (arg0[xPos - 1][zPos].unk0 * 2);
-                        }
-
-                        if ((arg0[xPos - 1][zPos].unk0 < (arg0[xPos][zPos].unk0 - 16)) &&
-                            (prevWater < (arg0[xPos][zPos].unk0 * 2))) {
-
-                            delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
-                            if (delta < 1) {
-                                delta = 0;
-                            }
-                        } else {
-                            delta = ((curWater - prevWater) + (xPos & 1)) / 2;
-                            if (delta > 1) {
-                                delta += SSSV_RAND(2);
-                            }
-                        }
-
-                        curWater  -= delta;
-                        prevWater += delta;
-
-                        // 1xxx____
-                        arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF) + ((delta & 7) << 4)) | 0x80;
-
-                        if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
-                            curWater = 0;
-                        }
-                        arg0[xPos][zPos].unk6 = curWater;
-                        arg0[xPos - 1][zPos].unk6 = prevWater;
+            curWater = arg0[xPos][zPos].unk6;
+            prevWater = arg0[xPos - 1][zPos].unk6;
+            if (prevWater < curWater) {
+                // adjust water level
+                if ((arg0[xPos - 1][zPos].unk0 * 2) < curWater) {
+                    if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
+                        prevWater = (arg0[xPos - 1][zPos].unk0 * 2);
                     }
+
+                    new_var = arg0[xPos - 1][zPos].unk0;
+                    if (((arg0[xPos][zPos].unk0 - 16) > new_var) &&
+                        (prevWater < (arg0[xPos][zPos].unk0 * 2))) {
+
+                        delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
+                        if (delta < 1) {
+                            delta = 0;
+                        }
+                    } else {
+                        delta = ((curWater - prevWater) + (xPos & 1)) / 2;
+                        if (delta > 1) {
+                            delta += SSSV_RAND(2);
+                        }
+                    }
+
+                    curWater  -= delta;
+                    prevWater += delta;
+
+                    // 1xxx____
+                    arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF) + ((delta & 7) << 4)) | 0x80;
+
+                    if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
+                        curWater = 0;
+                    }
+                    arg0[xPos][zPos].unk6 = curWater;
+                    arg0[xPos - 1][zPos].unk6 = prevWater;
                 }
+            }
 
-                curWater = arg0[xPos][zPos].unk6;
-                prevWater = arg0[xPos][zPos - 1].unk6;
-                if (prevWater < curWater) {
-                    // adjust water level
-                    if ((arg0[xPos][zPos - 1].unk0 * 2) < curWater) {
-                        if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
-                            prevWater = (arg0[xPos][zPos - 1].unk0 * 2);
-                        }
-
-                        if (((arg0[xPos][zPos - 1].unk0 + 4) < arg0[xPos][zPos].unk0) &&
-                            (prevWater <= (arg0[xPos][zPos].unk0 * 2))) {
-#if 0
-                            delta = (curWater - (arg0[xPos][zPos].unk0 * 2)) / 2;
-#else
-                            delta = (long long) ((curWater - (arg0[xPos][zPos].unk0 * 2)) / 2);
-#endif
-                            if (delta < 2) {
-                                delta = 2;
-                            }
-                            var_s5++;
-
-                            curWater -= delta;
-                            delta = 0;
-                        } else {
-                            delta = ((curWater + (zPos & 1)) - prevWater) / 2;
-                            if (delta > 1) {
-                                delta += SSSV_RAND(2);
-                            }
-                        }
-                        if (delta < 0) {
-                            delta = 0;
-                        }
-
-                        curWater  -= delta;
-                        prevWater += delta;
-
-                        // ____1xxx
-                        arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF0) + (delta & 7)) | 8;
-
-                        if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
-                            curWater = 0;
-                        }
-
-                        arg0[xPos][zPos].unk6 = curWater;
-                        arg0[xPos][zPos - 1].unk6 = prevWater;
+            curWater = arg0[xPos][zPos].unk6;
+            prevWater = arg0[xPos][zPos - 1].unk6;
+            if (prevWater < curWater) {
+                // adjust water level
+                if ((arg0[xPos][zPos - 1].unk0 * 2) < curWater) {
+                    if ((prevWater == 0) && (gWaterAnimState.unk20F == 0)) {
+                        prevWater = (arg0[xPos][zPos - 1].unk0 * 2);
                     }
+
+                    new_var = arg0[xPos][zPos].unk0;
+                    if (((arg0[xPos][zPos - 1].unk0 + 4) < new_var) &&
+                        (prevWater <= (arg0[xPos][zPos].unk0 * 2))) {
+                        delta = (s64)((curWater - (arg0[xPos][zPos].unk0 * 2)) / 2); // fake
+                        delta = MAX(2, delta);
+                        var_s5++;
+
+                        curWater -= delta;
+                        delta = 0;
+                    } else {
+                        delta = ((curWater + (zPos & 1)) - prevWater) / 2;
+                        if (delta > 1) {
+                            delta += SSSV_RAND(2);
+                        }
+                    }
+                    delta = MAX(0, delta);
+
+                    curWater  -= delta;
+                    prevWater += delta;
+
+                    // ____1xxx
+                    // arg0[xPos][zPos].unk7 = (((s16)(arg0[xPos][zPos].unk7 & 0xFF) & 0xF0) + (delta & 7)) | 8;
+                    arg0[xPos][zPos].unk7 = (((((((((((((s16) ((arg0[xPos][zPos]).unk7 & 0xFF)) & 0xF0) + (delta & 7)) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) & 0xFFFFFFFFFFFFFFFFu) | 8;
+
+                    if (curWater <= (arg0[xPos][zPos].unk0 * 2)) {
+                        curWater = 0;
+                    }
+
+                    arg0[xPos][zPos].unk6 = curWater;
+                    arg0[xPos][zPos - 1].unk6 = prevWater;
                 }
             }
         }

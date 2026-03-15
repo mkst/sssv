@@ -3406,7 +3406,7 @@ void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3) {
         }
         break;
     case 2: // powercell?
-        play_sound_effect_at_location(D_803A1BB0_7B3260[gLevelProgress.powercells].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[gLevelProgress.powercells].unk0);
+        play_sound_effect_at_location(D_803A1BB0_7B3260[gGameState.powercells].id, 0x6000, 0, x, z, y, D_803A1BB0_7B3260[gGameState.powercells].unk0);
         for (i = 0; i < 8; i++) {
             idx++;
             idx %= 4;

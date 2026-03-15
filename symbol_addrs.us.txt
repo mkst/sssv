@@ -822,7 +822,7 @@ D_803E4CA4 = 0x803E4CA4; // defined:true segment:overlay2
 D_803E4CA5 = 0x803E4CA5; // defined:true segment:overlay2
 D_803E4CA6 = 0x803E4CA6; // defined:true segment:overlay2
 D_803E4CA8 = 0x803E4CA8; // defined:true segment:overlay2
-D_803E4D28 = 0x803E4D28; // defined:true
+gLevelProgress = 0x803E4D28; // defined:true
 gTasksCompleted = 0x803E4D2C; // defined:true
 D_803E4D30 = 0x803E4D30; // defined:true
 D_803E4D38 = 0x803E4D38; // defined:true segment:overlay2
@@ -974,7 +974,7 @@ D_803F2D20 = 0x803F2D20; // defined:true segment:overlay2
 D_803F2D22 = 0x803F2D22; // defined:true segment:overlay2
 D_803F2D23 = 0x803F2D23; // defined:true
 D_803F2D24 = 0x803F2D24; // defined:true segment:overlay2
-gLevelProgress = 0x803F2D30; // defined:true segment:overlay2 size:0x20
+gGameState = 0x803F2D30; // defined:true segment:overlay2 size:0x20
 
 // TODO: D_803F2D50
 

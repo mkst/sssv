@@ -86,7 +86,7 @@ void func_802B4148_6C57F8(Gfx **arg0) {
 
     for (i = 0; i < 360; i++) {
         draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, D_803D5B30[i] << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
-        if ((D_803E4D28 & 4) != 0) {
+        if (gLevelProgress & LEVEL_PROGRESS_FLAG_4) {
             draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] - 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
             draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
             draw_star_billboard_texrect(arg0, (D_803D5590[i] + 0x2710) << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 6000) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);

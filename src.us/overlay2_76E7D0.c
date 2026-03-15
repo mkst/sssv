@@ -209,8 +209,8 @@ void func_8035D734_76EDE4(void) {
                 D_803D5530->unk30,
                 GPACK_RGBA5551(248, 248, 0, 1));
         }
-    } else if ((D_803D5538 != 0) && (D_803D552C->unk36A == 1) && (gLevelProgress.unk4 > 16)) {
-        D_803F2ECC = MIN(((gLevelProgress.unk4 - 16) >> 1), 32);
+    } else if ((D_803D5538 != 0) && (D_803D552C->unk36A == 1) && (gGameState.unk4 > 16)) {
+        D_803F2ECC = MIN(((gGameState.unk4 - 16) >> 1), 32);
         D_803F2ECE = 1;
     } else if (D_803D552C->unk36A == 2) {
         temp_v0_3 = D_803D5544 - D_803D552C->unk328;

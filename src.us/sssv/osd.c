@@ -290,9 +290,9 @@ void osd_draw_health_and_power_bars(s16 arg0) {
 
 // ESA: func_8007D9D4
 void osd_draw_score(void) {
-    sprintf(gLevelProgress.scoreText, "%8d", gLevelProgress.score);
+    sprintf(gGameState.scoreText, "%8d", gGameState.score);
     select_font(0, FONT_LCD, 1, 0);
-    display_score(&gMainDL, gLevelProgress.scoreText, gScreenWidth - 34, ((gHudBarBaseY >> 2) - 10));
+    display_score(&gMainDL, gGameState.scoreText, gScreenWidth - 34, ((gHudBarBaseY >> 2) - 10));
 }
 
 void func_80349278_75A928(void) {

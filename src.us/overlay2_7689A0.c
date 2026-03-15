@@ -6,7 +6,7 @@
 // .bss (D_803F2D30 to D_803F2D50)
 // ========================================================
 
-LevelProgress gLevelProgress;
+GameState gGameState;
 
 // ========================================================
 // .text
@@ -16,15 +16,15 @@ LevelProgress gLevelProgress;
 void func_803572F0_7689A0(void) {
     if (gUiFlowState.unk0 == 0) {
         if ((gAnimalState.animals[gCurrentAnimalIndex].animal->health <= 0) &&
-            (gLevelProgress.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
-            gLevelProgress.unk4 = 1;
+            (gGameState.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
+            gGameState.unk4 = 1;
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_FAILED;
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
             D_801546D8 = 2048;
         }
-        if (gLevelProgress.unk4 != 0) {
-            gLevelProgress.unk4++;
+        if (gGameState.unk4 != 0) {
+            gGameState.unk4++;
         }
     }
 }
@@ -37,11 +37,11 @@ void func_8035739C_768A4C(void) {
     D_801546E0 = 2048;
     D_801546D8 = 2048;
 
-    if ((gLevelProgress.level == GIVE_A_DOG_A_BONUS) ||
-        (gLevelProgress.level == WALRACE_64) ||
-        (gLevelProgress.level == EVOS_ESCAPE) ||
-        (gLevelProgress.level == PUNCHUP_PYRAMID)) {
-        if (D_803E4D28 & 2) {
+    if ((gGameState.level == GIVE_A_DOG_A_BONUS) ||
+        (gGameState.level == WALRACE_64) ||
+        (gGameState.level == EVOS_ESCAPE) ||
+        (gGameState.level == PUNCHUP_PYRAMID)) {
+        if (gLevelProgress & LEVEL_PROGRESS_COMPLETED) {
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_PASSED;
         } else {
             gCurrentMusicTrack = MUSIC_TRACK_BOSS_LEVEL_PASSED;
@@ -63,10 +63,10 @@ void func_80357438_768AE8(void) {
 
 // ESA: func_80058454
 void func_80357480_768B30(void) {
-    if (gLevelProgress.unk4 == 160) {
+    if (gGameState.unk4 == 160) {
         trigger_level_failed();
     }
-    if (gLevelProgress.unk4 == 122) {
+    if (gGameState.unk4 == 122) {
         start_sfx_volume_fade(30.0f, 20.0f, 0);
     }
 }

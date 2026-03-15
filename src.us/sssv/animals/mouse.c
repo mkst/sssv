@@ -84,7 +84,7 @@ done:
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if ((D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) || ((D_803D5538 != 0) && (gLevelProgress.unk4 >= 0x11))) {
+        if ((D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) || ((D_803D5538 != 0) && (gGameState.unk4 >= 0x11))) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;
             }
@@ -316,7 +316,7 @@ void func_8031D624_72ECD4(void) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;
             }
-        } else if ((D_803D5538 != 0) && (gLevelProgress.unk4 > 16)) {
+        } else if ((D_803D5538 != 0) && (gGameState.unk4 > 16)) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;
             }
