@@ -1466,7 +1466,7 @@ struct struct035 { // TODO: merge with ObjectData?
               s16 unk74; // width
               s16 unk76; // height
               s16 unk78;
-              s16 unk7A;
+              u16 unk7A;
   /* 0x7C */  u16 mass;
   /* 0x7E */  s16 unk7E;
   /* 0x80 */  s16 unk80;
