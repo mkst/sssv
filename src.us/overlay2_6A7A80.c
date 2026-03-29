@@ -20,8 +20,8 @@ s32 func_802983D0_6A9A80(void);
 // ========================================================
 
 // FIXME: if these are defined in overlay2_6A6500 then it results in codegen changes
-u64  gRenderMode1;
-u64  gRenderMode2;
+s64  gRenderMode1;
+s64  gRenderMode2;
 u64  gGeometryMode;
 u16  gWorldPerspNorm; // matrix normalise
 

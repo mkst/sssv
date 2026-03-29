@@ -4,43 +4,39 @@
 
 // similar to sm64/src/goddard/renderer.c
 #define MTX_INTPART_PACK(w1, w2)  (((w1) & 0xFFFF0000) | (((w2) & 0xFFFF0000) >> 16))
-#define MTX_FRACPART_PACK(w1, w2) (((w1) << 16) | ((w2) & 0xFFFF))
+#define MTX_FRACPART_PACK(w1, w2) ((((w1) & 0xFFFF) << 16) | ((w2) & 0xFFFF))
 
-#if 0
 void update_billboard_projection_cache(void) {
     Mtx *tmp = &gDisplayListContext->unk37490;
 
-    gDisplayListContext->unk38A10[0][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
-    gDisplayListContext->unk38A10[1][0] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk0  = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk10 = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
 
-    gDisplayListContext->unk38A10[0][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
-    gDisplayListContext->unk38A10[1][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk4  = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk14 = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
 
-    gDisplayListContext->unk38A10[0][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
-    gDisplayListContext->unk38A10[1][2] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk8  = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk18 = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][0], tmp->m[3][0]) / 65536.0;
 
-    gDisplayListContext->unk38A10[0][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
-    gDisplayListContext->unk38A10[1][3] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unkC  = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk1C = (f32) (s32) MTX_FRACPART_PACK(tmp->m[1][2], tmp->m[3][2]) / 65536.0;
 
-    gDisplayListContext->unk38A10[2][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][1], tmp->m[2][1]) / 65536.0;
-    gDisplayListContext->unk38A10[2][1] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][3], tmp->m[2][3]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk20 = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][1], tmp->m[2][1]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk24 = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][3], tmp->m[2][3]) / 65536.0;
 
-    gDisplayListContext->unk38A10[2][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
-    gDisplayListContext->unk38A10[2][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk28 = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk2C = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
 
     tmp = &gDisplayListContext->unk37410;
-    gDisplayListContext->unk38A10[3][0] = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
-    gDisplayListContext->unk38A10[3][1] = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk30 = (f32) (s32) MTX_INTPART_PACK(tmp->m[0][0], tmp->m[2][0]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk34 = (f32) (s32) MTX_FRACPART_PACK(tmp->m[0][2], tmp->m[2][2]) / 65536.0;
 
-    gDisplayListContext->unk38A10[3][2] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
-    gDisplayListContext->unk38A10[3][3] = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk38 = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][1], tmp->m[3][1]) / 65536.0;
+    gDisplayListContext->unk38A10.flat.unk3C = (f32) (s32) MTX_INTPART_PACK(tmp->m[1][3], tmp->m[3][3]) / 65536.0;
 
-    gDisplayListContext->unk38A10[3][0] *= -(gScreenWidth * 2);
-    gDisplayListContext->unk38A10[3][1] *= gScreenHeight * 2;
+    gDisplayListContext->unk38A10.flat.unk30 *= -(gScreenWidth * 2);
+    gDisplayListContext->unk38A10.flat.unk34 *= gScreenHeight * 2;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/update_billboard_projection_cache.s")
-#endif
 
 #if 0
 // 9716
@@ -74,28 +70,33 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
     temp_f12 = arg2 / 65536.0;
     temp_f14 = arg3 / 65536.0;
 
-    temp_f0 = gDisplayListContext->unk38A10[2][3] +
-            ((gDisplayListContext->unk38A10[2][2] * temp_f14) +
-            ((gDisplayListContext->unk38A10[2][1] * temp_f12) +
-             (gDisplayListContext->unk38A10[2][0] * temp_f18)));
+    temp_f0 =
+        (gDisplayListContext->unk38A10.flat.unk20 * temp_f18) +
+        (gDisplayListContext->unk38A10.flat.unk24 * temp_f12) +
+        (gDisplayListContext->unk38A10.flat.unk28 * temp_f14) +
+        (gDisplayListContext->unk38A10.flat.unk2C           ) ;
 
-    if (temp_f0 <= -3.0) {
-        temp_f2 = ((gDisplayListContext->unk38A10[3][2] * temp_f0) + gDisplayListContext->unk38A10[3][3]) / -temp_f0;
+        if (temp_f0 <= -3.0) {
+        temp_f2 = (
+            (gDisplayListContext->unk38A10.flat.unk38 * temp_f0) +
+            (gDisplayListContext->unk38A10.flat.unk3C          )
+        ) / -temp_f0;
 
         if (temp_f2 > 0.0) {
+            temp_f8 =
+                (gDisplayListContext->unk38A10.flat.unk0 * temp_f18) +
+                (gDisplayListContext->unk38A10.flat.unk4 * temp_f12) +
+                (gDisplayListContext->unk38A10.flat.unk8 * temp_f14) +
+                (gDisplayListContext->unk38A10.flat.unkC           ) ;
 
-            temp_f8 = gDisplayListContext->unk38A10[0][3] +
-                    ((gDisplayListContext->unk38A10[0][2] * temp_f14) +
-                    ((gDisplayListContext->unk38A10[0][1] * temp_f12) +
-                     (gDisplayListContext->unk38A10[0][0] * temp_f18)));
+            temp_f6 =
+                (gDisplayListContext->unk38A10.flat.unk10 * temp_f18) +
+                (gDisplayListContext->unk38A10.flat.unk14 * temp_f12) +
+                (gDisplayListContext->unk38A10.flat.unk18 * temp_f14) +
+                (gDisplayListContext->unk38A10.flat.unk1C           );
 
-            temp_f6 = gDisplayListContext->unk38A10[1][3] +
-                    ((gDisplayListContext->unk38A10[1][2] * temp_f14) +
-                    ((gDisplayListContext->unk38A10[1][1] * temp_f12) +
-                     (gDisplayListContext->unk38A10[1][0] * temp_f18)));
-
-            sp80 = ((gDisplayListContext->unk38A10[3][0] * temp_f8) / temp_f0) +  (gScreenWidth * (0, 2));
-            sp7C = ((gDisplayListContext->unk38A10[3][1] * temp_f6) / temp_f0) + (gScreenHeight * (0, 2));
+            sp80 = ((gDisplayListContext->unk38A10.flat.unk30 * temp_f8) / temp_f0) +  (gScreenWidth * (0, 2));
+            sp7C = ((gDisplayListContext->unk38A10.flat.unk34 * temp_f6) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 
@@ -146,7 +147,7 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
 
 #if 0
 // plenty more to figure out
-// 10738
+// 10688
 void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
     f32 spA8; // made up
     f32 spA4; // made up
@@ -183,28 +184,36 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
     sp60 = arg2 / 65536.0;
     sp5C = arg3 / 65536.0;
 
-    temp_f0 = gDisplayListContext->unk38A10[2][3] +
-            ((gDisplayListContext->unk38A10[2][2] * sp5C) +
-            ((gDisplayListContext->unk38A10[2][1] * sp60) +
-             (gDisplayListContext->unk38A10[2][0] * sp64)));
+    temp_f0 =
+        (gDisplayListContext->unk38A10.flat.unk20 * sp64) +
+        (gDisplayListContext->unk38A10.flat.unk24 * sp60) +
+        (gDisplayListContext->unk38A10.flat.unk28 * sp5C) +
+        (gDisplayListContext->unk38A10.flat.unk2C           ) ;
 
     if (temp_f0 <= -3.0) {
 
-        sp98 = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f0)) / -temp_f0;
+        sp98 = (
+            (gDisplayListContext->unk38A10.flat.unk38 * temp_f0) +
+            (gDisplayListContext->unk38A10.flat.unk3C          )
+        ) / -temp_f0;
+
         if (sp98 > 0.0) {
 
-            spA8 = gDisplayListContext->unk38A10[0][3] +
-                 ((gDisplayListContext->unk38A10[0][2] * sp5C) +
-                 ((gDisplayListContext->unk38A10[0][1] * sp60) +
-                  (gDisplayListContext->unk38A10[0][0] * sp64)));
+            spA8 =
+                (gDisplayListContext->unk38A10.flat.unk0 * sp64) +
+                (gDisplayListContext->unk38A10.flat.unk4 * sp60) +
+                (gDisplayListContext->unk38A10.flat.unk8 * sp5C) +
+                (gDisplayListContext->unk38A10.flat.unkC       ) ;
 
-            spA4 = gDisplayListContext->unk38A10[1][3] +
-                 ((gDisplayListContext->unk38A10[1][2] * sp5C) +
-                 ((gDisplayListContext->unk38A10[1][1] * sp60) +
-                  (gDisplayListContext->unk38A10[1][0] * sp64)));
+            spA4 =
+                (gDisplayListContext->unk38A10.flat.unk10 * sp64) +
+                (gDisplayListContext->unk38A10.flat.unk14 * sp60) +
+                (gDisplayListContext->unk38A10.flat.unk18 * sp5C) +
+                (gDisplayListContext->unk38A10.flat.unk1C       );
 
-            spA0 = ((gDisplayListContext->unk38A10[3][0] * spA8) / temp_f0) + (gScreenWidth  * (0, 2));
-            sp9C = ((gDisplayListContext->unk38A10[3][1] * spA4) / temp_f0) + (gScreenHeight * (0, 2));
+
+            spA0 = ((gDisplayListContext->unk38A10.flat.unk30 * spA8) / temp_f0) + (gScreenWidth  * (0, 2));
+            sp9C = ((gDisplayListContext->unk38A10.flat.unk34 * spA4) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 
@@ -309,27 +318,27 @@ void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s1
     temp_f10 = arg2 / 65536.0;
     temp_f14 = arg3 / 65536.0;
 
-    temp_f0 = gDisplayListContext->unk38A10[2][3] +
-            ((gDisplayListContext->unk38A10[2][2] * temp_f14) +
-            ((gDisplayListContext->unk38A10[2][1] * temp_f10) +
-             (gDisplayListContext->unk38A10[2][0] * temp_f2)));
+    temp_f0 = gDisplayListContext->unk38A10.m[2][3] +
+            ((gDisplayListContext->unk38A10.m[2][2] * temp_f14) +
+            ((gDisplayListContext->unk38A10.m[2][1] * temp_f10) +
+             (gDisplayListContext->unk38A10.m[2][0] * temp_f2)));
 
     if (temp_f0 <= -3.0) {
 
-        sp94 = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f0)) / -temp_f0;
+        sp94 = (gDisplayListContext->unk38A10.m[3][3] + (gDisplayListContext->unk38A10.m[3][2] * temp_f0)) / -temp_f0;
         if (sp94 > 0.0) {
 
-            temp_f8 = gDisplayListContext->unk38A10[0][3] +
-                    ((gDisplayListContext->unk38A10[0][2] * temp_f14) +
-                    ((gDisplayListContext->unk38A10[0][1] * temp_f10) +
-                     (gDisplayListContext->unk38A10[0][0] * temp_f2)));
-            sp98 = gDisplayListContext->unk38A10[1][3] +
-                 ((gDisplayListContext->unk38A10[1][2] * temp_f14) +
-                 ((gDisplayListContext->unk38A10[1][1] * temp_f10) +
-                  (gDisplayListContext->unk38A10[1][0] * temp_f2)));
+            temp_f8 = gDisplayListContext->unk38A10.m[0][3] +
+                    ((gDisplayListContext->unk38A10.m[0][2] * temp_f14) +
+                    ((gDisplayListContext->unk38A10.m[0][1] * temp_f10) +
+                     (gDisplayListContext->unk38A10.m[0][0] * temp_f2)));
+            sp98 = gDisplayListContext->unk38A10.m[1][3] +
+                 ((gDisplayListContext->unk38A10.m[1][2] * temp_f14) +
+                 ((gDisplayListContext->unk38A10.m[1][1] * temp_f10) +
+                  (gDisplayListContext->unk38A10.m[1][0] * temp_f2)));
 
-            sp90 = ((gDisplayListContext->unk38A10[3][0] * temp_f8) / temp_f0) + (gScreenWidth  * (0, 2));
-            sp84 = ((gDisplayListContext->unk38A10[3][1] * sp98) / temp_f0) + (gScreenHeight * (0, 2));
+            sp90 = ((gDisplayListContext->unk38A10.m[3][0] * temp_f8) / temp_f0) + (gScreenWidth  * (0, 2));
+            sp84 = ((gDisplayListContext->unk38A10.m[3][1] * sp98) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
             arg7 = (arg7 * 33) / D_803F2D50.fovY;
@@ -431,28 +440,28 @@ void draw_particle_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16
     temp_f14 = arg2 / 65536.0;
     temp_f16 = arg3 / 65536.0;
 
-    temp_f2 = gDisplayListContext->unk38A10[2][3] +
-            ((gDisplayListContext->unk38A10[2][2] * temp_f16) +
-            ((gDisplayListContext->unk38A10[2][1] * temp_f14) +
-             (gDisplayListContext->unk38A10[2][0] * temp_f0 )));
+    temp_f2 = gDisplayListContext->unk38A10.m[2][3] +
+            ((gDisplayListContext->unk38A10.m[2][2] * temp_f16) +
+            ((gDisplayListContext->unk38A10.m[2][1] * temp_f14) +
+             (gDisplayListContext->unk38A10.m[2][0] * temp_f0 )));
 
     if (temp_f2 <= -3.0) {
 
-        temp_f18 = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f2)) / -temp_f2;
+        temp_f18 = (gDisplayListContext->unk38A10.m[3][3] + (gDisplayListContext->unk38A10.m[3][2] * temp_f2)) / -temp_f2;
         if (temp_f18 > 0.0) {
 
-            temp_f8 = gDisplayListContext->unk38A10[0][3] +
-                    ((gDisplayListContext->unk38A10[0][2] * temp_f16) +
-                    ((gDisplayListContext->unk38A10[0][1] * temp_f14) +
-                     (gDisplayListContext->unk38A10[0][0] * temp_f0)));
+            temp_f8 = gDisplayListContext->unk38A10.m[0][3] +
+                    ((gDisplayListContext->unk38A10.m[0][2] * temp_f16) +
+                    ((gDisplayListContext->unk38A10.m[0][1] * temp_f14) +
+                     (gDisplayListContext->unk38A10.m[0][0] * temp_f0)));
 
-            sp8C = gDisplayListContext->unk38A10[1][3] +
-                 ((gDisplayListContext->unk38A10[1][2] * temp_f16) +
-                 ((gDisplayListContext->unk38A10[1][1] * temp_f14) +
-                  (gDisplayListContext->unk38A10[1][0] * temp_f0)));
+            sp8C = gDisplayListContext->unk38A10.m[1][3] +
+                 ((gDisplayListContext->unk38A10.m[1][2] * temp_f16) +
+                 ((gDisplayListContext->unk38A10.m[1][1] * temp_f14) +
+                  (gDisplayListContext->unk38A10.m[1][0] * temp_f0)));
 
-            sp78 = ((gDisplayListContext->unk38A10[3][0] * temp_f8) / temp_f2) + (gScreenWidth  * (0, 2));
-            sp7C = ((gDisplayListContext->unk38A10[3][1] * sp8C) / temp_f2) + (gScreenHeight * (0, 2));
+            sp78 = ((gDisplayListContext->unk38A10.m[3][0] * temp_f8) / temp_f2) + (gScreenWidth  * (0, 2));
+            sp7C = ((gDisplayListContext->unk38A10.m[3][1] * sp8C) / temp_f2) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
             arg7 = (arg7 * 33) / D_803F2D50.fovY;

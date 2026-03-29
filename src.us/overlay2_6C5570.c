@@ -142,30 +142,38 @@ void draw_star_billboard_texrect(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 a
     temp_f14 = arg2 / 65536.0;
     temp_f16 = arg3 / 65536.0;
 
-    temp_f0 = gDisplayListContext->unk38A10[2][3] +
-            ((gDisplayListContext->unk38A10[2][2] * temp_f16) +
-            ((gDisplayListContext->unk38A10[2][1] * temp_f14) +
-             (gDisplayListContext->unk38A10[2][0] * temp_f12)));
+    temp_f0 =
+        (gDisplayListContext->unk38A10.flat.unk20 * temp_f12) +
+        (gDisplayListContext->unk38A10.flat.unk24 * temp_f14) +
+        (gDisplayListContext->unk38A10.flat.unk28 * temp_f16) +
+        (gDisplayListContext->unk38A10.flat.unk2C           ) ;
 
     if (temp_f0 <= -3.0) {
-        xl = (gDisplayListContext->unk38A10[3][3] + (gDisplayListContext->unk38A10[3][2] * temp_f0)) / -temp_f0;
+        xl = (
+            (gDisplayListContext->unk38A10.flat.unk38 * temp_f0) +
+            (gDisplayListContext->unk38A10.flat.unk3C)
+        ) / -temp_f0;
+
         if (xl > 0.0) {
+            sp7C =
+                (gDisplayListContext->unk38A10.flat.unk0 * temp_f12) +
+                (gDisplayListContext->unk38A10.flat.unk4 * temp_f14) +
+                (gDisplayListContext->unk38A10.flat.unk8 * temp_f16) +
+                (gDisplayListContext->unk38A10.flat.unkC           ) ;
 
-            sp7C = gDisplayListContext->unk38A10[0][3] +
-                 ((gDisplayListContext->unk38A10[0][2] * temp_f16) +
-                 ((gDisplayListContext->unk38A10[0][1] * temp_f14) +
-                  (gDisplayListContext->unk38A10[0][0] * temp_f12)));
-            sp78 = gDisplayListContext->unk38A10[1][3] +
-                 ((gDisplayListContext->unk38A10[1][2] * temp_f16) +
-                 ((gDisplayListContext->unk38A10[1][1] * temp_f14) +
-                  (gDisplayListContext->unk38A10[1][0] * temp_f12)));
+            sp78 =
+                (gDisplayListContext->unk38A10.flat.unk10 * temp_f12) +
+                (gDisplayListContext->unk38A10.flat.unk14 * temp_f14) +
+                (gDisplayListContext->unk38A10.flat.unk18 * temp_f16) +
+                (gDisplayListContext->unk38A10.flat.unk1C           );
 
-            sp70 = ((gDisplayListContext->unk38A10[3][0] * sp7C) / temp_f0) + (gScreenWidth  * (0, 2));
-            sp6C = ((gDisplayListContext->unk38A10[3][1] * sp78) / temp_f0) + (gScreenHeight * (0, 2));
+
+            sp70 = ((gDisplayListContext->unk38A10.flat.unk30 * sp7C) / temp_f0) + (gScreenWidth  * (0, 2));
+            sp6C = ((gDisplayListContext->unk38A10.flat.unk34 * sp78) / temp_f0) + (gScreenHeight * (0, 2));
 
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
-            phi_f2 = (arg6 * 32) / -temp_f0;
 
+            phi_f2 = (arg6 * 32) / -temp_f0;
             if (phi_f2 > 15.0f) {
                 phi_f2 = 15.0f;
             }
