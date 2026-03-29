@@ -730,8 +730,8 @@ extern s16  D_803C0428;
 extern s16  D_803C042A;
 extern struct053 gWaterAnimState;
 
-extern u64  gRenderMode1;
-extern u64  gRenderMode2;
+extern s64  gRenderMode1;
+extern s64  gRenderMode2;
 extern u64  gGeometryMode;
 extern u16  gWorldPerspNorm; // matrix normalise
 

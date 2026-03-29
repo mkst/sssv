@@ -72,7 +72,7 @@ typedef struct {
     /* 0x1C */ u16 unk1C;
     /* 0x1E */ u16 unk1E;
     /* 0x20 */ s16 segment; // not quite equal to biome
-    /* 0x22 */ s16 unk22;
+    /* 0x22 */ s16 unk22;  // water amplitude, only HOT_CROSS_BUNS, SMASHING_START, SNOW_JOKE & THE_ENGINE_ROOM. use 0, otherwise 1
     /* 0x24 */ u8  pad24[0x1C];
     /* 0x40 */ s16 unk40;   // sourceFovY ?
     /* 0x42 */ s16 unk42;
@@ -1106,6 +1106,25 @@ typedef struct {
 } struct121; // size 0x108
 
 typedef struct {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    f32 unk30;
+    f32 unk34;
+    f32 unk38;
+    f32 unk3C;
+} FlatMatrix;
+
+typedef struct {
     /* 0x00000 */ u8  pad0[0x7D00];
     /* 0x7D00 */  Gfx *unk7D00;
     /* 0x7D04 */  u8  pad7D04[0x18fc];
@@ -1143,7 +1162,10 @@ typedef struct {
     /* 0x38918 */ s32 usedModelViewMtxs;
     /* 0x3891C */ s32 usedVtxs;
     /* 0x38920 */ u8  pad38920[0xF0];
-    /* 0x38A10 */ f32 unk38A10[4][4];
+    /* 0x38A10 */ union {
+                    f32 m[4][4];
+                    FlatMatrix flat;
+                } unk38A10;
     /* 0x38A50 */ LookAt unk38A50[20];
     /* 0x38CD0 */ Mtx unk38CD0[25];
     /* 0x39310 */ u16 unk39310; // used lookAts
