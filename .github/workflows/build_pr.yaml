@@ -4,6 +4,8 @@ on:
   pull_request_target:
     branches: [master]
 
+permissions: {}
+
 jobs:
   build_pr:
     if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
