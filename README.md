@@ -11,8 +11,8 @@ Check out the [wiki](https://github.com/mkst/sssv/wiki/) for more detailed infor
 
 # Building
 
-The instructions below assume that you will be using `Ubuntu 22.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
-Please check the [packages.txt](packages.txt) and [requirements.txt](requirements.txt) for the  prerequisite Linux and Python packages respectively.
+The instructions below assume that you will be using `Ubuntu 24.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
+Please check the [packages.txt](packages.txt) and [requirements.txt](requirements.txt) for the prerequisite Linux and Python packages respectively.
 
 ## Natively
 
@@ -62,19 +62,37 @@ Place `baserom.eu.z64` in the root of the repository, and suffix each `make` com
 
 ## Building `NON_MATCHING` Version
 
-A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **11%** ahead of the fully matching build. In order to build/test the non-matching, pass `NON_MATCHING=1` to the `make` commands.
+A number of functions within the ROM have been decompiled to a state where they are functionally equivalent, but are not a byte-perfect match. Progress is approximately **10%** ahead of the fully matching build. In order to build/test the non-matching, pass `NON_MATCHING=1` to the `make` commands.
+
+# Contributing
+
+Once you have built an :ok: ROM you are ready to begin.
+
+Create a copy of the `build` folder:
+
+```sh
+mkdir -p expected && cp -r build/ expected/
+```
+
+Run `asm-differ` and pass in the name of the function you want to tackle:
+
+```sh
+python3 tools/asm-differ/diff.py -mwo3 function_name_here
+```
+
+Edit the corresponding `.c` file and keep working until the function matches.
 
 # ROM Versions
 
 There are 5 known versions of the ROM:
 
-| Country Code      | CRC1/CRC2           | ROM SHA1                                   | Notes           | Version |
-|:------------------|:-------------------:|:------------------------------------------:|:----------------|:-------:|
-| E - North America | `BFE23884/EF48EAAF` | `e5e09205aa743a9e5043a42df72adc379c746b0b` | US 1.0          | `1.37`  |
-| J - Japanese      | `BFE23884/EF48EAAF` | `7320f08474c011fc7781093bf1a6818c37ce51e2` | JP (Unreleased) | `1.37`  |
-| E - North America | `FC70E272/08FFE7AA` | `c968bba6a90db9ecbd957e910684a80726b0497d` | US 1.1          | `1.37`  |
-| P - European      | `FC70E272/08FFE7AA` | `23710541bb3394072740b0f0236a7cb1a7d41531` | EU              | `1.37`  |
-| ???               | ???                 | ???                                        | [NES World](http://www.nesworld.com/prototype-details.php?system=n64&data=124) | `1.26B` |
+| Country Code      |      CRC1/CRC2      |                  ROM SHA1                  | Notes                                                                          | Version |
+| :---------------- | :-----------------: | :----------------------------------------: | :----------------------------------------------------------------------------- | :-----: |
+| E - North America | `BFE23884/EF48EAAF` | `e5e09205aa743a9e5043a42df72adc379c746b0b` | US 1.0                                                                         | `1.37`  |
+| J - Japanese      | `BFE23884/EF48EAAF` | `7320f08474c011fc7781093bf1a6818c37ce51e2` | JP (Unreleased)                                                                | `1.37`  |
+| E - North America | `FC70E272/08FFE7AA` | `c968bba6a90db9ecbd957e910684a80726b0497d` | US 1.1                                                                         | `1.37`  |
+| P - European      | `FC70E272/08FFE7AA` | `23710541bb3394072740b0f0236a7cb1a7d41531` | EU                                                                             | `1.37`  |
+| ???               |         ???         |                    ???                     | [NES World](http://www.nesworld.com/prototype-details.php?system=n64&data=124) | `1.26B` |
 
 Only US and EU versions were released to the public. If you are in possession of a beta/prototype ROM, please let me know - `mkst#4741`.
 
@@ -127,19 +145,20 @@ tools/
 
 # Tools
 
- - [asm-processor](https://github.com/simonlindholm/asm-processor); allows `GLOBAL_ASM` pragma - replacing assembly inside C files
- - [asm-differ](https://github.com/simonlindholm/asm-differ); rapidly diff between source/target assembly
- - [decomp-permuter](https://github.com/simonlindholm/decomp-permuter); tweaks code, rebuilds, scores; helpful for weird regalloc issues
- - [ido-static-recomp](https://github.com/Emill/ido-static-recomp); no need to use qemu-irix anymore!
- - [m2c](https://github.com/matt-kempster/m2c); assembly to C code translator
- - [rnc_propack_source](https://github.com/lab313ru/rnc_propack_source); open-source compressor/decompressor for RNC file format
- - [splat](https://github.com/ethteck/splat); successor to n64split
+- [asm-processor](https://github.com/simonlindholm/asm-processor); allows `GLOBAL_ASM` pragma - replacing assembly inside C files
+- [asm-differ](https://github.com/simonlindholm/asm-differ); rapidly diff between source/target assembly
+- [decomp-permuter](https://github.com/simonlindholm/decomp-permuter); tweaks code, rebuilds, scores; helpful for weird regalloc issues
+- [ido-static-recomp](https://github.com/Emill/ido-static-recomp); no need to use qemu-irix anymore!
+- [m2c](https://github.com/matt-kempster/m2c); assembly to C code translator
+- [rnc_propack_source](https://github.com/lab313ru/rnc_propack_source); open-source compressor/decompressor for RNC file format
+- [splat](https://github.com/ethteck/splat); successor to n64split
 
 # Useful Links
- - [SSSV at TCRF](https://tcrf.net/Space_Station_Silicon_Valley_(Nintendo_64))
- - [SSSV at romhacking.net](http://datacrystal.romhacking.net/wiki/Space_Station_Silicon_Valley_(Nintendo_64))
- - [Music video based on SSSV Prototype build](https://www.youtube.com/watch?v=IAJ4OT6-5GU)
- - [ScriptHawk lua for SSSV](https://github.com/Isotarge/ScriptHawk/blob/master/games/sssv.lua)
- - [EverDrive Forum thread](https://krikzz.com/forum/index.php?topic=6946.0)
- - [NESWORLD Prototype ROM](http://nesworld.com/prototype-details.php?system=n64&data=124)
- - [Magazine scans of reviews of SSSV](https://www.nintendo64ever.com/Tests-Nintendo-64-Game,321,Space-Station-Silicon-Valley,1.html)
+
+- [SSSV at TCRF](<https://tcrf.net/Space_Station_Silicon_Valley_(Nintendo_64)>)
+- [SSSV at romhacking.net](<http://datacrystal.romhacking.net/wiki/Space_Station_Silicon_Valley_(Nintendo_64)>)
+- [Music video based on SSSV Prototype build](https://www.youtube.com/watch?v=IAJ4OT6-5GU)
+- [ScriptHawk lua for SSSV](https://github.com/Isotarge/ScriptHawk/blob/master/games/sssv.lua)
+- [EverDrive Forum thread](https://krikzz.com/forum/index.php?topic=6946.0)
+- [NESWORLD Prototype ROM](http://nesworld.com/prototype-details.php?system=n64&data=124)
+- [Magazine scans of reviews of SSSV](https://www.nintendo64ever.com/Tests-Nintendo-64-Game,321,Space-Station-Silicon-Valley,1.html)

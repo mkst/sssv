@@ -3,7 +3,7 @@ from typing import Optional
 
 from src.splat.util import options, log
 
-from src.splat.segtypes.n64.segment import N64Segment
+from src.splat.segtypes.common.segment import CommonSegment
 from src.splat.segtypes.n64.rgba16 import N64SegRgba16
 from src.splat.segtypes.n64.i4 import N64SegI4
 
@@ -24,7 +24,7 @@ def get_mipmap_size(width, height, typ):
     return 0xab8
 
 
-class N64SegRnc(N64Segment):
+class N64SegRnc(CommonSegment):
     def __init__(self, rom_start, rom_end, type, name, vram_start, args, yaml):
         super().__init__(rom_start, rom_end, type, name, vram_start, args=args, yaml=yaml),
         if len(self.args) > 0:
