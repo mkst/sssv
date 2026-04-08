@@ -7,6 +7,7 @@ options:
   symbol_addrs_path: symbol_addrs.us.txt
   reloc_addrs_path: reloc_addrs.us.txt
   ld_symbol_header_path: include/ld_symbols.us.h
+  ld_generate_symbol_per_data_segment: yes
   generated_c_preamble: |
     #include <ultra64.h>
     #include "common.h"
