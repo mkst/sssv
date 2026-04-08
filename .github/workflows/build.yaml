@@ -57,12 +57,12 @@ jobs:
           echo "progress_filename=$(echo ${GITHUB_SHA}.$(git show -s --format=%at ${GITHUB_SHA}).csv)" >> $GITHUB_ENV
 
       - name: Rename progress.csv
-        run: mv progress.csv "${{ env.progress_filename }}"
+        run: sudo mv progress.csv "${{ env.progress_filename }}"
 
       - name: Touch NON_MATCHING files
         uses: docker://ghcr.io/mkst/sssv:latest
         with:
-          args: sh -c "grep -Rl NON_MATCHING src.${{ matrix.version }} | xargs -r touch"
+          args: sh -c "grep -Rl NON_MATCHING src.${{ matrix.version }} | sudo xargs -r touch"
 
       - name: Perform make NON_MATCHING
         uses: docker://ghcr.io/mkst/sssv:latest
