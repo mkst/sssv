@@ -14,7 +14,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     s16 tmp3;
     struct113 *temp_t0_2; // sp38 ?
 
-    temp_t4 = (D_803D552C->unk2F6 % 256);
+    temp_t4 = (D_803D552C->gaitPhaseOffset % 256);
 
     temp_t0_2 = &D_803D5528->unk3C0;
     if (temp_t0_2->unk0 != 0) {
@@ -189,7 +189,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         break;
     }
 
-    if (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) {
+    if (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) {
         var_t2 = 0x55;
         var_t3 = 0xAA;
         var_t1 = 0;
@@ -327,7 +327,7 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
     s16 var_a0;
     s16 var_t2;
 
-    temp_t0 = D_803D552C->unk2F6 % 256;
+    temp_t0 = D_803D552C->gaitPhaseOffset % 256;
 
     tmp = &D_803D5528->unk3C0;
     if (tmp->unk0 != 0) {
@@ -415,7 +415,7 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
         break;
     }
 
-    if (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) {
+    if (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) {
         var_v1 = 100;
         var_v0 = 0;
     }
@@ -643,6 +643,7 @@ void func_802C64E0_6D7B90(s16 arg0) {
     D_80203FE0[23].unk4 = tmp2 + (arg0 >> 1);
 }
 
+// used by BEAR/MYSTERY_BEAR
 void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
     s32 pad[2];
     s16 var_a0;
@@ -658,7 +659,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
     struct113 *temp_a2_2;
 
 
-    temp_t3 = (D_803D552C->unk2F6 % 256);
+    temp_t3 = (D_803D552C->gaitPhaseOffset % 256);
 
     temp_a2_2 = &D_803D5528->unk3C0;
     if (temp_a2_2->unk0 != 0) {
@@ -891,12 +892,12 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
     D_80203FE0[26].unk4 = temp_t2 - temp_t7_3;
 }
 
-#ifdef NON_MATCHING
 // only used by rabbit
-// CURRENT (395)
+#ifdef NON_MATCHING
+// CURRENT (55)
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
-    s16 var_a0;
-    s16 var_a2;
+    s16 liftL; // left ear?
+    s16 liftR; // right ear?
     s16 temp_hi;
 
     s16 tmp1;
@@ -904,53 +905,60 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 tmp3;
     s16 tmp4;
 
+    // fakery
+    tmp3 = 3;
+    tmp2 = D_80203FE0[19].unk2;
+
     temp_hi = (D_803D5542 + 0x14) % 360;
 
-    var_a0 = (D_803D5542 < 96) ? (arg1 * (SIN(D_803D5542 << 3) >> 7)) >> 9 : 0;
+    liftL = (D_803D5542 < 96) ? (arg1 * (SIN(D_803D5542 << 3) >> 7)) >> 9 : 0;
+    liftR = (temp_hi < 96) ? (arg1 * (SIN(temp_hi << 3) >> 7)) >> 9 : 0;
 
-    var_a2 = (temp_hi < 96) ? (arg1 * (SIN(temp_hi << 3) >> 7)) >> 9 : 0;
-
-    if ((D_803D5542 > 0xC0) && (D_803D5542 < 0xD8)) {
-        var_a0 = (arg1 * (SIN(D_803D5542 << 2) >> 7)) >> 9;
+    if ((D_803D5542 > 192) && (D_803D5542 < 216)) {
+        liftL = (arg1 * (SIN(D_803D5542 << 2) >> 7)) >> 9;
     }
 
-    if (ABS(var_a0) <= 16) {
-        var_a0 = 16;
+    if (ABS(liftL) <= 16) {
+        liftL = 16;
     }
-    if (ABS(var_a2) <= 16) {
-        var_a2 = 16;
+    if (ABS(liftR) <= 16) {
+        liftR = 16;
     }
 
     // not a switch
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) || (D_803D552C->unk366 == MOVEMENT_MODE_2)) {
-        var_a0 = var_a2 = 0;
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
+        (D_803D552C->movementMode == MOVEMENT_MODE_2)) {
+            liftL = liftR = 0;
     }
 
-    tmp1 = D_80203FE0[19].unk0;
+    tmp1 = D_80203FE0[19].unk0 - arg0;
+    tmp4 = D_80203FE0[19].unk0 + arg0;
     tmp2 = D_80203FE0[19].unk2;
-    tmp3 = D_80203FE0[19].unk4;
 
-    if (1) {};
+    if (0) { };
 
-    tmp4 = D_80203FE0[19].unk0;
-    tmp1 -= arg0;
-    tmp4 += arg0;
+    tmp3 = D_80203FE0[19].unk4 + arg1;
 
-    D_80203FE0[26].unk0 = tmp1;
-    D_80203FE0[26].unk2 = tmp2;
-    D_80203FE0[26].unk4 = tmp3;
+    D_80203FE0[26].unk0 = tmp1; /* 0xD0 */
+    D_80203FE0[28].unk0 = tmp4; /* 0xE0 */
 
-    D_80203FE0[28].unk0 = tmp4;
-    D_80203FE0[28].unk2 = tmp2;
-    D_80203FE0[28].unk4 = tmp3;
+#pragma _permuter sameline start
+    D_80203FE0[27].unk0 = tmp1; \
+    D_80203FE0[27].unk4 = (tmp3 - (liftL >> 1)); \
+    D_80203FE0[27].unk2 = (tmp2 + (liftL     ));
+#pragma _permuter sameline end
 
-    D_80203FE0[27].unk0 = tmp1;
-    D_80203FE0[27].unk2 = (tmp2 + var_a0);
-    D_80203FE0[27].unk4 = ((tmp3 + arg1) - (var_a0 >> 1));
+#pragma _permuter sameline start
+    D_80203FE0[29].unk0 = tmp4; \
+    D_80203FE0[29].unk4 = (tmp3 - (liftR >> 1)); \
+    D_80203FE0[29].unk2 = (tmp2 + (liftR     ));
+#pragma _permuter sameline end
 
-    D_80203FE0[29].unk0 = tmp4;
-    D_80203FE0[29].unk2 = (tmp2 + var_a2);
-    D_80203FE0[29].unk4 = ((tmp3 + arg1) - (var_a2 >> 1));
+    D_80203FE0[26].unk4 = tmp3; /* 0xD4 */
+    D_80203FE0[28].unk4 = tmp3; /* 0xE4 */
+
+    D_80203FE0[26].unk2 = tmp2; /* 0xD2 */
+    D_80203FE0[28].unk2 = tmp2; /* 0xE2 */
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6FF4_6D86A4.s")
@@ -1068,7 +1076,7 @@ void func_802C78B0_6D8F60(u16 joint1, u16 joint2, s32 scaleX, s32 scaleZ, s32 sc
     }
 }
 
-void func_802C79E0_6D9090(struct061 *arg0, s16 arg1) {
+void func_802C79E0_6D9090(LimbConfig *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk2;
     s16 temp_v1 = arg0->unk4;
 
@@ -1076,7 +1084,7 @@ void func_802C79E0_6D9090(struct061 *arg0, s16 arg1) {
     arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
 }
 
-void func_802C7A7C_6D912C(struct061 *arg0, s16 arg1) {
+void func_802C7A7C_6D912C(LimbConfig *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk0;
     s16 temp_v1 = arg0->unk4;
 
@@ -1084,7 +1092,7 @@ void func_802C7A7C_6D912C(struct061 *arg0, s16 arg1) {
     arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
 }
 
-void func_802C7B18_6D91C8(struct061 *arg0, s16 arg1) {
+void func_802C7B18_6D91C8(LimbConfig *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk0;
     s16 temp_v1 = arg0->unk2;
 
@@ -1109,6 +1117,6 @@ void func_802C7BB4_6D9264(u16 arg0) {
     D_803D5528->unk3AC.unkC = D_803D5528->unk3AC.unk6;
     D_803D5528->unk3AC.unkE = D_803D5528->unk3AC.unk8;
 
-    D_803D552C->unk2FE = D_803D552C->unk2F2;
+    D_803D552C->unk2FE = D_803D552C->gaitPhase;
     D_803D552C->unk300 = arg0;
 }

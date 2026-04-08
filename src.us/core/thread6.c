@@ -42,7 +42,7 @@ OSSched sc;             // 0x801603D0
 
 u8 D_80160658[0x2000];  // padding
 
-struct018 D_80162658[2];
+FrameContext D_80162658[2];
 
 u16  D_801D9E38;
 
@@ -227,8 +227,8 @@ void thread6_loop(void) {
 
                 func_8013107C(
                     &D_80162658[D_80152EB8],
-                    D_80162658[D_80152EB8].unk4E0,
-                    (gMainDL - D_80162658[D_80152EB8].unk4E0) * sizeof(Gfx),
+                    &D_80162658[D_80152EB8].dl,
+                    (gMainDL - D_80162658[D_80152EB8].dl.mainDL) * sizeof(Gfx),
                     3, /* type */
                     &D_80162658[D_80152EB8].unk3BBC8, // always 2
                     0x63); // OS_SC_SWAPBUFFER | OS_SC_LAST_TASK | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP
@@ -268,19 +268,20 @@ void thread6_loop(void) {
 
 // thread 7
 void thread7(void) {
-    struct018 *temp_a0;
+    FrameContext *temp_a0;
     s16 i;
 
     while (TRUE) {
         osRecvMesg(&D_80291060, D_80291054, OS_MESG_BLOCK);
         temp_a0 = D_8020428C;
-        gDisplayListContext = &temp_a0->unk4E0;
-        gMainDL = &temp_a0->unk4E0;
-        gLayer0DL = &temp_a0->unkDFA0;
-        gLayer1DL = &temp_a0->unk81E0;
-        gOpaqueDL = &temp_a0->unk9AE0;
-        gXluDL = &temp_a0->unkC060;
-        gAuxDL = &temp_a0->unk26C80;
+        gDisplayListContext = &temp_a0->dl;
+
+        gMainDL = temp_a0->dl.mainDL;
+        gLayer0DL = temp_a0->dl.gLayer0DL;
+        gLayer1DL = temp_a0->dl.gLayer1DL;
+        gOpaqueDL = temp_a0->dl.gOpaqueDL;
+        gXluDL = temp_a0->dl.gXluDL;
+        gAuxDL = temp_a0->dl.gAuxDL;
 
         for (i = 0; i < 8; i++) {
             D_801D9E98[i] = &gDisplayListContext->unk109A0[i];

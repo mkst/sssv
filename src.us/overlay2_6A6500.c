@@ -178,7 +178,8 @@ void func_80294E50_6A6500(void) {
             osd_update(1);
         }
 
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unk267A0);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gAuxDL);
+
         func_8029877C_6A9E2C();
         D_803F2D50.unk18 = 1; //D_803F2D68 = 1;
         if (0) {};
@@ -205,14 +206,14 @@ void func_80294E50_6A6500(void) {
         func_802C8878_6D9F28();
         func_802E072C_6F1DDC(0);
 
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unk9600);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gOpaqueDL);
 
         gRenderMode2 = 0x0000000000110038;
         func_8029F7D4_6B0E84(gDisplayListContext, &D_801E9EB8);
         render_ship_window_projection_replay();
         set_fog_position_and_color(&gMainDL);
 
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unkBB80);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gXluDL);
 
         if ((gControllerInput != NULL) && (D_801D9ED4 == 0) && (gControllerInput->button & L_TRIG)) {
             D_801D9ED4 = 10;
@@ -232,8 +233,8 @@ void func_80294E50_6A6500(void) {
         }
         draw_visible_world_cell_translucent_pass(gDisplayListContext);
 
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unkDAC0);
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unk7D00);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gLayer0DL);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gLayer1DL);
         gSPDisplayList(gMainDL++, &D_01004360_3DC30);
 
         gDPSetColorDither(gMainDL++, G_CD_NOISE);
@@ -304,7 +305,9 @@ void func_80294E50_6A6500(void) {
         if (D_8028645A == 0) {
             D_8015517C = 0.0f;
         }
-        if ((gCurrentMusicTrack == MUSIC_TRACK_LEVEL_FAILED) || (gCurrentMusicTrack == MUSIC_TRACK_LEVEL_PASSED) || (gCurrentMusicTrack == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
+        if ((gCurrentMusicTrack == MUSIC_TRACK_LEVEL_FAILED) ||
+            (gCurrentMusicTrack == MUSIC_TRACK_LEVEL_PASSED) ||
+            (gCurrentMusicTrack == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
             D_8015517C = 1.0f;
             D_801546D8 = (u16)0x800;
         }
@@ -386,7 +389,7 @@ void reset_player_progress(void) {
 
 // unused?
 void reset_player_health(void) {
-    gAnimalState.animals[gCurrentAnimalIndex].animal->health = 0x7F;
+    gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = 0x7F;
     D_803F2CE8 = 0;
     D_8020427C = 1;
 }

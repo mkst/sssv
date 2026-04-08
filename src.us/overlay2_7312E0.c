@@ -2,7 +2,8 @@
 #include "common.h"
 
 
-void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5) {
+// unused
+void func_8031FC30_7312E0(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5) {
     s16 pad[3];
     s16 tmp1;
     s16 sp24;
@@ -66,20 +67,20 @@ void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     D_80203FE0[arg1 + 2].unk4 = D_80203FE0[arg1 + 1].unk4 - arg5;
 }
 
-void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct077 *arg4) {
+void update_limbs_evo(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct077 *arg4) {
     u16 pad;
     u16 sp34;
     u16 phi_a3;
     s8 phi_t0;
     s32 temp_v1;
 
-    temp_v1 = D_803D552C->unk2F2;
+    temp_v1 = D_803D552C->gaitPhase;
 
     switch (D_803D5530->state) {                        /* implicit */
     case 0x3:
     case 0x8E:
     case 0xB6:
-        temp_v1 = D_803D552C->unk2F6;
+        temp_v1 = D_803D552C->gaitPhaseOffset;
         phi_t0 = 1;
         phi_a3 = (temp_v1) % 256;
         sp34 = ((temp_v1 + 128) % 256);
@@ -87,7 +88,7 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
     case 0x6:
     case 0x90:
     case 0xB9:
-        temp_v1 = D_803D552C->unk2F6;
+        temp_v1 = D_803D552C->gaitPhaseOffset;
         phi_t0 = 1;
         phi_a3 = 256 - (temp_v1 % 256);
         sp34 = 256 - ((temp_v1 + 128) % 256);
@@ -95,7 +96,7 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
     case 0x4:
     case 0x8F:
     case 0xB7:
-        temp_v1 = D_803D552C->unk2F6;
+        temp_v1 = D_803D552C->gaitPhaseOffset;
         phi_t0 = 2;
         phi_a3 = temp_v1 % 256;
         sp34 = (temp_v1 + 128) % 256;
@@ -108,22 +109,22 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
     }
 
     if (D_803D5524->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2)) {
-        switch (D_803D5530->unk162) {
+        switch (D_803D5530->movementState) {
           case 4:
           case 5:
           case 6:
           case 7:
               phi_t0 = 2;
-              phi_a3 = (D_803D552C->unk2F6 << 4) & 0xFF;
-              sp34 = ((D_803D552C->unk2F6 << 4) + 128) & 0xFF;
+              phi_a3 = (D_803D552C->gaitPhaseOffset << 4) & 0xFF;
+              sp34 = ((D_803D552C->gaitPhaseOffset << 4) + 128) & 0xFF;
               break;
         }
     } else {
-        switch (D_803D5530->unk162) {
+        switch (D_803D5530->movementState) {
         case 4:
         case 5:
         case 7:
-            temp_v1 = D_803D552C->unk2F6;
+            temp_v1 = D_803D552C->gaitPhaseOffset;
             switch (D_803D5530->state) {
             case 0x8E:
                 phi_a3 = temp_v1 & 0xFF;
@@ -150,7 +151,7 @@ void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[
     func_8032018C_73183C(&D_803D5528->unk384, 4, 10,  sp34, arg0, arg1, arg2, arg3, arg4, phi_t0);
 }
 
-void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct077 *arg8, s8 arg9) {
+void func_8032018C_73183C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct077 *arg8, s8 arg9) {
     u16 temp_t5;
     u16 tmp;
 
@@ -190,7 +191,7 @@ void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
     case 2:
     case 3:
     case 4:
-        func_802BC900_6CDFB0(arg8, arg3, D_803D552C->unk2FC, &sp62, &sp60, &sp5E);
+        func_802BC900_6CDFB0(arg8, arg3, D_803D552C->gaitCycleLength, &sp62, &sp60, &sp5E);
         break;
     case 1:
     case 11:
@@ -234,12 +235,12 @@ void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg
 
 }
 
-void func_8032066C_731D1C(s16 arg0, s16 arg1) {
+void update_limbs_bear(s16 arg0, s16 arg1) {
     u16 temp_v1;
     u16 sp24;
     u16 phi_a2;
 
-    temp_v1 = D_803D552C->unk2F2;
+    temp_v1 = D_803D552C->gaitPhase;
 
     switch (D_803D5530->state) {
     case 0x3:
@@ -248,14 +249,14 @@ void func_8032066C_731D1C(s16 arg0, s16 arg1) {
     case 0x90:
     case 0xB6:
     case 0xB9:
-        phi_a2 = (D_803D552C->unk2F6 % 256);
-        sp24 = ((D_803D552C->unk2F6 + 128) % 256);
+        phi_a2 = (D_803D552C->gaitPhaseOffset % 256);
+        sp24 = ((D_803D552C->gaitPhaseOffset + 128) % 256);
         break;
     case 0x4:
     case 0x8F:
     case 0xB7:
-        phi_a2 = (D_803D552C->unk2F6 % 256);
-        sp24 = ((D_803D552C->unk2F6 + 128) % 256);
+        phi_a2 = (D_803D552C->gaitPhaseOffset % 256);
+        sp24 = ((D_803D552C->gaitPhaseOffset + 128) % 256);
         break;
     default:
         sp24 = temp_v1;
@@ -274,7 +275,7 @@ void func_8032066C_731D1C(s16 arg0, s16 arg1) {
     func_80320828_731ED8(&D_803D5528->unk384, 10, sp24, -arg0, arg1);
 }
 
-void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4) {
+void func_80320828_731ED8(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4) {
     s16 sp2C;
     s16 sp2A;
     s32 sp20;
@@ -345,7 +346,7 @@ void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg
     D_80203FE0[arg1+1].unk4 = (D_80203FE0[arg1].unk4 - arg4) + var_t0;
 }
 
-void func_80320B04_7321B4(s16 arg0, s16 arg1) {
+void update_limbs_crazy_bear(s16 arg0, s16 arg1) {
     s16 phi_v0;
 
     if (D_803D5530->unk4A != 0) {
@@ -375,7 +376,7 @@ void func_80320B04_7321B4(s16 arg0, s16 arg1) {
     D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((COS(((phi_v0 << 4) & 0xFF) + 128) >> 7) * arg1) >> 8);
 }
 
-void func_80320C84_732334(s16 arg0, s16 arg1) {
+void update_limbs_mystery_bear(s16 arg0, s16 arg1) {
     s16 temp_v0;
     s16 temp_a2;
 
@@ -400,7 +401,7 @@ void func_80320C84_732334(s16 arg0, s16 arg1) {
     D_80203FE0[11].unk4 = D_80203FE0[10].unk4 + (((COS(temp_a2) >> 7) * arg1) >> 8);
 }
 
-void func_80320DF8_7324A8(s16 arg0, s16 arg1) {
+void update_limbs_kangaroo(s16 arg0, s16 arg1) {
     D_80203FE0[3].unk0 = D_80203FE0[1].unk0 - arg0;
     D_80203FE0[3].unk2 = D_80203FE0[1].unk2;
     D_80203FE0[3].unk4 = D_80203FE0[1].unk4;
@@ -415,7 +416,7 @@ void func_80320DF8_7324A8(s16 arg0, s16 arg1) {
     D_80203FE0[10].unk4 = D_80203FE0[4].unk4;
 }
 
-void func_80320E70_732520(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
+void update_limbs_gorilla(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     volatile u16 sp36;
     u16 sp34;
     u16 sp32; // pad
@@ -423,20 +424,20 @@ void func_80320E70_732520(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     u16 temp_t1;
     s32 temp_v0_2;
 
-    temp_t1 = D_803D552C->unk2F2;
+    temp_t1 = D_803D552C->gaitPhase;
 
     switch (D_803D5530->state) {
     case 0x3:
     case 0x6:
     case 0xB6:
     case 0xB9:
-        temp_v0_2 = D_803D552C->unk2F6;
+        temp_v0_2 = D_803D552C->gaitPhaseOffset;
         sp36 = temp_v0_2 & 0xFF;
         sp34 = (temp_v0_2 + 0x80) & 0xFF;
         break;
     case 0x4:
     case 0xB7:
-        temp_v0_2 = D_803D552C->unk2F6;
+        temp_v0_2 = D_803D552C->gaitPhaseOffset;
         sp36 = temp_v0_2 & 0xFF;
         sp34 = (temp_v0_2 + 0x80) & 0xFF;
         break;
@@ -481,37 +482,37 @@ void func_80320E70_732520(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
         D_803F2ECC = 32;
         temp_v0_2 = sp36;
         if (temp_v0_2 < 85) {
-            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B555C_7C6C0C);
+            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, (s16*)D_803B555C_7C6C0C);
             D_803F2ECC = (temp_v0_2 << 5) / 85;
             backup_joint_positions();
-            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B5574_7C6C24);
+            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, (s16*)D_803B5574_7C6C24);
         } else if (temp_v0_2 < 170) {
-            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B5574_7C6C24);
+            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, (s16*)D_803B5574_7C6C24);
             D_803F2ECC = ((temp_v0_2 << 5) - (85 << 5)) / 85;
             backup_joint_positions();
-            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B558C_7C6C3C);
+            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, (s16*)D_803B558C_7C6C3C);
         } else {
-            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B558C_7C6C3C);
+            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, (s16*)D_803B558C_7C6C3C);
             D_803F2ECC = ((temp_v0_2 << 5) - (85 << 6)) / 85;
             backup_joint_positions();
-            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, D_803B555C_7C6C0C);
+            func_802DB7C4_6ECE74(D_803B5498_7C6B48, D_803B54A0_7C6B50, D_803B54A8_7C6B58, (s16*)D_803B555C_7C6C0C);
         }
         // restore D_803F2ECC
         D_803F2ECC = sp30;
     }
 }
 
-void func_80321224_7328D4(struct103 *arg0, u16 src, u16 dst, u16 arg3, s16 arg4, s16 arg5, s16 arg6) {
-    s16 tmp[6]; // ??
+void func_80321224_7328D4(LimbIKState *arg0, u16 src, u16 dst, u16 unused, s16 arg4, s16 arg5, s16 phase) {
+    s16 pad[6]; // ??
     s16 phi_v1;
 
     D_80203FE0[dst].unk0 = D_80203FE0[src].unk0;
-    D_80203FE0[dst].unk2 = D_80203FE0[src].unk2 + (((SIN(arg6) >> 7) * arg4) >> 8);
-    D_80203FE0[dst].unk4 = D_80203FE0[src].unk4 - (((COS(arg6) >> 7) * arg4) >> 8);
+    D_80203FE0[dst].unk2 = D_80203FE0[src].unk2 + (((SIN(phase) >> 7) * arg4) >> 8);
+    D_80203FE0[dst].unk4 = D_80203FE0[src].unk4 - (((COS(phase) >> 7) * arg4) >> 8);
 
     D_80203FE0[dst + 1].unk0 = D_80203FE0[dst].unk0;
-    D_80203FE0[dst + 1].unk2 = D_80203FE0[dst].unk2 + (((SIN(arg6) >> 7) * arg5) >> 8);
-    D_80203FE0[dst + 1].unk4 = D_80203FE0[dst].unk4 - (((COS(arg6) >> 7) * arg5) >> 8);
+    D_80203FE0[dst + 1].unk2 = D_80203FE0[dst].unk2 + (((SIN(phase) >> 7) * arg5) >> 8);
+    D_80203FE0[dst + 1].unk4 = D_80203FE0[dst].unk4 - (((COS(phase) >> 7) * arg5) >> 8);
 
     phi_v1 = ((func_802B8C50_6CA300(D_80203FE0[dst + 1].unk0, D_80203FE0[dst + 1].unk2) >> 16) << 5) - D_80203FE0[dst + 1].unk4;
     phi_v1 = MAX(0, phi_v1);

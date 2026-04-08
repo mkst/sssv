@@ -29,7 +29,7 @@ void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_t3;
     s32 temp_ret;
 
-    if (((D_803D5530->unk162 & 0xF) == 1) && (D_803D5530->unk161 != 1)) {
+    if (((D_803D5530->movementState & 0xF) == 1) && (D_803D5530->unk161 != 1)) {
         temp_t2 = (D_803D552C->position.xPos.w + (arg0 * COS(D_803D552C->heading) * 2)) + (SIN(D_803D552C->heading) * arg1 * 2);
         temp_t3 = (D_803D552C->position.zPos.w + (arg1 * COS(D_803D552C->heading) * 2)) - (SIN(D_803D552C->heading) * arg0 * 2);
         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160);
@@ -62,7 +62,7 @@ void func_803747F4_785EA4(void) {
             D_803F330A,
             D_803F330C + 0xA,
             0,
-            D_01037A20_712F0,
+            D_01037A20_712F0, // _712F0_bin
             D_803F330E * 30,
             D_803F330E * 30,
             ((12 - D_803F330E) * 0x9B) / 12,

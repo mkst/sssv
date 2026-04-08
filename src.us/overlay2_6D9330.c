@@ -98,7 +98,7 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     s16 i;
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if (gAnimalState.animals[i].animal->unk366 == MOVEMENT_MODE_DELETED) {
+        if (gAnimalState.animals[i].animal->movementMode == MOVEMENT_MODE_DELETED) {
             break;
         }
     }
@@ -110,8 +110,8 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
         slot = i;
     }
 
-    memset_bytes(&gAnimalState.animals[slot], 0, sizeof(Animal2));
-    memset_bytes(&gAnimalState.unk4040[slot], 0, sizeof(Animal));
+    memset_bytes((u8*)&gAnimalState.animals[slot], 0, sizeof(Animal2));
+    memset_bytes((u8*)&gAnimalState.unk4040[slot], 0, sizeof(Animal));
 
     // setup pointer
     gAnimalState.animals[slot].unk0 = &gAnimalState.unk0[id];
@@ -134,25 +134,25 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     D_803D553C = slot;
     D_803D553A = 0;
     if (arg6 != 0) {
-        sp1C->unk366 = MOVEMENT_MODE_NORMAL;
+        sp1C->movementMode = MOVEMENT_MODE_NORMAL;
     } else if (health > 0) {
-        sp1C->unk366 = MOVEMENT_MODE_INJURED;
+        sp1C->movementMode = MOVEMENT_MODE_INJURED;
     } else {
-        sp1C->unk366 = MOVEMENT_MODE_DEACTIVATED;
+        sp1C->movementMode = MOVEMENT_MODE_DEACTIVATED;
     }
 
     D_803D552C->unk31A = 0;
     D_803D5530->yRotation = rotation;
     D_803D552C->heading = rotation;
-    D_803D552C->unk2F2 = 0;
+    D_803D552C->gaitPhase = 0;
     D_803D552C->unk2F4 = 0;
-    D_803D552C->unk2F6 = 0;
-    D_803D552C->unk2F8 = 0;
+    D_803D552C->gaitPhaseOffset = 0;
+    D_803D552C->prevGaitPhaseOffset = 0;
     D_803D552C->state = 2; // not state..?
-    D_803D5530->unk162 = 1;
+    D_803D5530->movementState = 1;
     D_803D5530->unk160 = 0;
     D_803D5530->unk16C = D_803D5524;
-    D_803D5530->health = MIN(health, D_803D5524->unk8A);
+    D_803D5530->Info.health = MIN(health, D_803D5524->unk8A);
     D_803D5530->unk4C.unk1B = 1;
     D_803D5530->unk4C.unk1C = 1;
     D_803D5530->unk4C.unk1D = 1;
@@ -206,5 +206,5 @@ void func_802C83CC_6D9A7C(Animal *arg0) {
     }
     // delete objects
     remove_collision_list(arg0);
-    arg0->unk366 = MOVEMENT_MODE_DELETED;
+    arg0->movementMode = MOVEMENT_MODE_DELETED;
 }

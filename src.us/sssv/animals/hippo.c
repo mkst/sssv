@@ -6,8 +6,6 @@ extern Gfx D_0400A4E0_FB540[];
 extern Gfx D_0400A720_FB780[];
 extern Gfx D_0400A840_FB8A0[];
 extern Gfx D_0400ACE0_FBD40[];
-extern u8  D_0400AD80_FBDE0[];
-extern u8  D_0400AF80_FBFE0[];
 extern Gfx D_0400B020_FC080[];
 extern Gfx D_0400B040_FC0A0[];
 extern Gfx D_0400B420_FC480[];
@@ -16,18 +14,13 @@ extern Gfx D_0400B4C0_FC520[];
 extern Gfx D_0400B510_FC570[];
 extern Gfx D_0400B560_FC5C0[];
 extern Gfx D_0400B5B0_FC610[];
-extern u8 D_0400B600_FC660[];
-extern u8 D_0400B800_FC860[];
 
-extern u8 D_0400B820_FC880[];
-extern u8 D_0400BA20_FCA80[];
-
-extern s16 D_803A4EF0_7B65A0[];
-extern s16 D_803A4F20_7B65D0[];
-extern s16 D_803A4F50_7B6600[];
-extern s16 D_803A4F64_7B6614[];
-extern s16 D_803A4F94_7B6644[];
-extern s16 D_803A4FC4_7B6674[];
+extern struct077 D_803A4EF0_7B65A0[];
+extern struct077 D_803A4F20_7B65D0[];
+extern struct077 D_803A4F50_7B6600[];
+extern struct077 D_803A4F64_7B6614[];
+extern struct077 D_803A4F94_7B6644[];
+extern struct077 D_803A4FC4_7B6674[];
 
 extern u8 D_803A4FD8_7B6688[];
 extern u8 D_803A4FEC_7B669C[];
@@ -36,7 +29,7 @@ extern struct076 D_803A5020_7B66D0[];
 extern struct076 D_803A506C_7B671C[];
 
 void update_hippo(void) {
-    struct061 sp100;
+    Vertex sp100;
     s16 spFE;
     s16 spFC;
     s16 spFA;
@@ -160,7 +153,7 @@ void update_hippo(void) {
         }
         if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp100, 0x35B, 0x298, 0x7EE, 0xDA);
-            func_802BD40C_6CEABC(0x493, 0x35B, 0, 0xDA, 0, 0x80, 0x64, 0x80, &D_803A4EF0_7B65A0, &D_803A4F20_7B65D0, &D_803A4F50_7B6600, 0x493, 0x35B, 0, 0xDA, 0, 0x80, 0, 0x1E, &D_803A4F64_7B6614, &D_803A4F94_7B6644, &D_803A4FC4_7B6674, &sp100, 0);
+            func_802BD40C_6CEABC(0x493, 0x35B, 0, 0xDA, 0, 0x80, 0x64, 0x80, D_803A4EF0_7B65A0, D_803A4F20_7B65D0, D_803A4F50_7B6600, 0x493, 0x35B, 0, 0xDA, 0, 0x80, 0, 0x1E, D_803A4F64_7B6614, D_803A4F94_7B6644, D_803A4FC4_7B6674, &sp100, 0);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x1D4, 0x445, 4);
             func_8038CCF0_79E3A0(0xEA, 0x14, -1, -1, -1, -1);
@@ -170,10 +163,10 @@ void update_hippo(void) {
             backup_joint_positions();
             switch (D_803F2ECE) {
             case 1:
-                func_802DB670_6ECD20(D_803A4FD8_7B6688, D_803A4FEC_7B669C, D_803A5000_7B66B0, D_803A5020_7B66D0);
+                func_802DB670_6ECD20(D_803A4FD8_7B6688, D_803A4FEC_7B669C, D_803A5000_7B66B0, (s16*)D_803A5020_7B66D0);
                 break;
             case 2:
-                func_802DB670_6ECD20(D_803A4FD8_7B6688, D_803A4FEC_7B669C, D_803A5000_7B66B0, D_803A506C_7B671C);
+                func_802DB670_6ECD20(D_803A4FD8_7B6688, D_803A4FEC_7B669C, D_803A5000_7B66B0, (s16*)D_803A506C_7B671C);
                 break;
             }
         }
@@ -187,14 +180,14 @@ void update_hippo(void) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            load_1_tile(D_0400BA20_FCA80, D_0400B820_FC880);
+            load_1_tile(img_hippo_nose_pal, img_hippo_nose_ci4__png);
             func_802C78B0_6D8F60(0x14, 1, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_0400A4E0_FB540);
             D_80203FE0[20].unk4 -= ((spF8 * 0x445) >> 5);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(0x14, 1, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400ACE0_FBD40); }
             D_80203FE0[20].unk4 += ((spF8 * 0x445) >> 5);
-            load_1_tile(D_0400AF80_FBFE0, D_0400AD80_FBDE0);
+            load_1_tile(img_hippo_pal, img_hippo_ci4__png);
             func_802C78B0_6D8F60(1, 2, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400A720_FB780);
-            load_1_tile(D_0400B800_FC860, D_0400B600_FC660);
+            load_1_tile(img_hippo_foot_pal, img_hippo_foot_ci4__png);
             gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
             gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x71, 0x7B, 0xFF);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 7, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 0, 0, D_0400A840_FB8A0); }
@@ -221,11 +214,11 @@ void update_hippo(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &spFE, &spFC);
                 func_8031A278_72B928(&D_803D552C->unk326, &spFE, &spFC);
                 spFE = D_803BD530_7CEBE0.eyes[6][spFE]; spFC = D_803BD600_7CECB0.eyes[5][spFC];
-                func_80356BD8_768288(img_eyes6_TLUT1_pal, img_eyes6_ci4__png, spFE);
+                func_80356BD8_768288(img_eyes6_TLUT1_pal, (u8 (*)[128])img_eyes6_ci4__png, spFE);
                 gSPDisplayList(gOpaqueDL++, D_010037F0_3D0C0);
 
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_0400B020_FC080);
-                func_80356BD8_768288(img_eyes6_TLUT1_pal, img_eyes6_ci4__png, spFC);
+                func_80356BD8_768288(img_eyes6_TLUT1_pal, (u8 (*)[128])img_eyes6_ci4__png, spFC);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_0400B040_FC0A0);
                 gSPDisplayList(gOpaqueDL++, D_01003840_3D110);
             }
@@ -265,7 +258,7 @@ void func_802F03B8_701A68(void) {
     s16 yPos;
     s16 i;
 
-    if ((D_803D5530->unk162 == 1) && (D_803D5530->unk6C == 0)) {
+    if ((D_803D5530->movementState == 1) && (D_803D5530->unk6C == 0)) {
         xPos = D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) << 6) >> 8);
         zPos = D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) << 6) >> 8);
         yPos = D_803D5530->position.yPos.h;
@@ -297,7 +290,7 @@ void drop_sticky_mine(void) {
     s16 yPos;
     s16 i;
 
-    if ((D_803D5530->unk162 == 1) && (D_803D5530->unk6C == 0)) {
+    if ((D_803D5530->movementState == 1) && (D_803D5530->unk6C == 0)) {
         xPos = D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) << 6) >> 8);
         zPos = D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) << 6) >> 8);
         yPos = D_803D5530->position.yPos.h;

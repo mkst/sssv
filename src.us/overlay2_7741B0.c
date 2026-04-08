@@ -4,7 +4,7 @@
 
 // ESA: func_80060D74
 s32 func_80362B00_7741B0(Animal *a) {
-    if ((a->unk4A != 0) || (a->unk366 == MOVEMENT_MODE_DEACTIVATED) || (a->unk366 == MOVEMENT_MODE_2)) {
+    if ((a->unk4A != 0) || (a->movementMode == MOVEMENT_MODE_DEACTIVATED) || (a->movementMode == MOVEMENT_MODE_2)) {
         return 1;
     } else {
         return 0;
@@ -21,8 +21,8 @@ s32 can_swim(Animal *a) {
 
 // ESA: func_80060DC8
 s32 func_80362B60_774210(Animal *a) {
-    s32 tmp = a->unk162 & 0xF;
-    if ((tmp == 4) || (tmp == 5) || (tmp == 6) || (tmp == 7)) {
+    s32 movementState = a->movementState & 0xF;
+    if ((movementState == 4) || (movementState == 5) || (movementState == 6) || (movementState == 7)) {
         return 1;
     } else {
         return 0;
@@ -46,7 +46,7 @@ s32 can_fly(Animal *a) {
 }
 
 s32 func_80362BEC_77429C(Animal *a) {
-    if (a->unk162 == 2) {
+    if (a->movementState == 2) {
         return 1;
     } else {
         return 0;
@@ -57,13 +57,13 @@ s32 func_80362BEC_77429C(Animal *a) {
 void func_80362C10_7742C0(Animal *arg0) {
     if (func_80305084_716734(arg0->position.xPos.h - arg0->xPosTarget, arg0->position.zPos.h - arg0->zPosTarget, arg0->unk2D4, arg0->unk2D8) > 100) {
         if (arg0->unk2DC == 0) {
-            arg0->unk275 = 10;
+            arg0->navTimer = 10;
             arg0->unk2D4 = arg0->position.xPos.h - arg0->xPosTarget;
             arg0->unk2D8 = arg0->position.zPos.h - arg0->zPosTarget;
             arg0->unk2DC = 1;
         } else {
-            arg0->unk2A0 = 6;
-            arg0->unk275 = -1;
+            arg0->navState = NAVIGATION_STATE_TURN_THEN_MOVE;
+            arg0->navTimer = -1;
             arg0->unk2DC = 0;
         }
     }
@@ -86,13 +86,13 @@ void func_80362CC4_774374(Animal *arg0) {
     s32 zPos;
     s32 xPos2;
     s32 zPos2;
-    Animal *sp28; // help!
+    Animal *target;
 
-    switch (arg0->waypointType) {
-    case 0:
+    switch (arg0->waypointMode) {
+    case WAYPOINT_MODE_NONE:
         break;
-    case 1:
-        if (arg0->unk2A0 == 0) {
+    case WAYPOINT_MODE_PATH:
+        if (arg0->navState == NAVIGATION_STATE_IDLE) {
             if (arg0->unk294.type1.unk2.unk0 > 0) {
                 length = (arg0->unk294.type1.unk1 >= arg0->waypointData->length);
             } else {
@@ -101,15 +101,15 @@ void func_80362CC4_774374(Animal *arg0) {
 
             if (length != 0) {
                 if (arg0->unk294.type1.unk2.unk4 == 1) {
-                    func_80363CC8_775378(arg0);
-                    arg0->waypointType = 0;
+                    set_nav_state_idle(arg0);
+                    arg0->waypointMode = WAYPOINT_MODE_NONE;
                 } else if (arg0->unk294.type1.unk2.unk0 > 0) {
                     arg0->unk294.type1.unk1 = 0;
                 } else {
                     arg0->unk294.type1.unk1 = arg0->waypointData->length - 1;
                 }
             } else {
-                func_80363C48_7752F8(
+                set_nav_state_goto_point(
                     arg0,
                     (arg0->waypointData->waypoint[arg0->unk294.type1.unk1].x << 6) + 32,
                     (arg0->waypointData->waypoint[arg0->unk294.type1.unk1].z << 6) + 32,
@@ -121,13 +121,13 @@ void func_80362CC4_774374(Animal *arg0) {
             }
         }
         break;
-    case 2:
-        if (arg0->unk2A0 == 0) {
-            func_803638E8_774F98(arg0);
+    case WAYPOINT_MODE_MOVE:
+        if (arg0->navState == NAVIGATION_STATE_IDLE) {
+            reset_waypoint_mode(arg0);
         }
         break;
-    case 3:
-        if (arg0->unk2A0 == 0) {
+    case WAYPOINT_MODE_PATROL:
+        if (arg0->navState == NAVIGATION_STATE_IDLE) {
             temp_t7 = (D_803E93B0[arg0->unk294.type3.unk0].unk3 - D_803E93B0[arg0->unk294.type3.unk0].unk0) >> 2;
             temp_t3 = (D_803E93B0[arg0->unk294.type3.unk0].unk4 - D_803E93B0[arg0->unk294.type3.unk0].unk1) >> 2;
             switch (arg0->unk290) {
@@ -149,7 +149,7 @@ void func_80362CC4_774374(Animal *arg0) {
                 break;
             }
 
-            func_80363C48_7752F8(
+            set_nav_state_goto_point(
                 arg0,
                 (sp54 << 6) + 32,
                 (sp52 << 6) + 32,
@@ -160,7 +160,7 @@ void func_80362CC4_774374(Animal *arg0) {
             arg0->unk290 &= 3;
         }
         break;
-    case 4:
+    case WAYPOINT_MODE_RANDOM:
         switch (arg0->unk28E) {
 
         case 1:
@@ -175,7 +175,7 @@ void func_80362CC4_774374(Animal *arg0) {
                 }
                 tmp1 = (((D_803E93B0[arg0->unk294.type4.unk0].unk0) + 1) << 6) + (advance_random_seed() % phi_v1);
                 tmp2 = (((D_803E93B0[arg0->unk294.type4.unk0].unk1) + 1) << 6) + (advance_random_seed() % phi_t0);
-                func_80363C48_7752F8(
+                set_nav_state_goto_point(
                     arg0,
                     tmp1,
                     tmp2,
@@ -188,79 +188,79 @@ void func_80362CC4_774374(Animal *arg0) {
             }
             break;
         case 0:
-            if (arg0->unk2A0 == 0) {
+            if (arg0->navState == NAVIGATION_STATE_IDLE) {
               arg0->unk290 = SSSV_RAND(64) + 60;
               arg0->unk28E = 1;
-              func_80363CC8_775378(arg0);
+              set_nav_state_idle(arg0);
             }
             break;
         }
         break;
-    case 5:
-        if (arg0->unk2A0 == 0) {
-            func_803638E8_774F98(arg0);
+    case WAYPOINT_MODE_CHASE:
+        if (arg0->navState == NAVIGATION_STATE_IDLE) {
+            reset_waypoint_mode(arg0);
         }
         break;
-    case 6:
+    case WAYPOINT_MODE_ROTATE:
         new_var = &arg0->unk294.type6.unk0;
         if (arg0->yRotation == (((*new_var) * 256) / 360)) {
-            func_803638E8_774F98(arg0);
+            reset_waypoint_mode(arg0);
         }
         break;
-    case 7:
+    case WAYPOINT_MODE_FOLLOW:
         xPos = arg0->unk294.type7.unk0->position.xPos.h - arg0->position.xPos.h;
         zPos = arg0->unk294.type7.unk0->position.zPos.h - arg0->position.zPos.h;
         if (func_803051F0_7168A0((func_801284B8(xPos, zPos) << 8) / 360, arg0->yRotation) < 6) {
-            func_803638E8_774F98(arg0);
+            reset_waypoint_mode(arg0);
         }
         break;
-    case 8:
+    case WAYPOINT_MODE_ENGAGE_PLAYER:
         if (arg0->unk294.type8.unk6 != 0) {
-            arg0->unk294.type8.unk0 = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->unk294.type8.target = gAnimalState.animals[gCurrentAnimalIndex].animal;
             arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
             arg0->unk2CC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         if (func_803099BC_71B06C() == 0) {
-            func_803638E8_774F98(arg0);
+            reset_waypoint_mode(arg0);
         }
         break;
-    case 9:
-        sp28 = arg0->unk294.type9.unk0;
-        if (sp28->unk26C != 0) {
-            load_commands_into_object(arg0, NULL, 0);
-            func_803638E8_774F98(arg0);
+    case WAYPOINT_MODE_ENGAGE_OTHER:
+        target = arg0->unk294.type9.target;
+        if (target->unk26C != NULL) {
+            load_commands_into_object((Entity*)arg0, NULL, 0);
+            reset_waypoint_mode(arg0);
             break;
           }
         switch (arg0->unk28E) {
         case 0:
-            if (arg0->unk2A0 == 0) {
-                if ((sp28->xVelocity.h | sp28->zVelocity.h | sp28->yVelocity.h) == 0) {
-                    func_80363E88_775538(arg0, sp28);
+            if (arg0->navState == NAVIGATION_STATE_IDLE) {
+                if ((target->xVelocity.h | target->zVelocity.h | target->yVelocity.h) == 0) {
+                    set_nav_state_follow_target(arg0, target);
                     arg0->unk28E = 1;
                 } else {
-                    func_80363DB4_775464(arg0, sp28, -1, arg0->unk294.type9.unk4);
+                    set_nav_state_chase_attack(arg0, target, -1, arg0->unk294.type9.unk4);
                 }
             }
             break;
         case 1:
-            xPos2 = sp28->position.xPos.h - arg0->position.xPos.h;
-            zPos2 = sp28->position.zPos.h - arg0->position.zPos.h;
+            xPos2 = target->position.xPos.h - arg0->position.xPos.h;
+            zPos2 = target->position.zPos.h - arg0->position.zPos.h;
             if (func_803051F0_7168A0((func_801284B8(xPos2, zPos2) << 8) / 360, arg0->yRotation) < 4) {
-                func_8037B754_78CE04(arg0, arg0->unk294.type9.unk0);
+                func_8037B754_78CE04(arg0, arg0->unk294.type9.target);
                 arg0->unk290 = 0;
                 arg0->unk28E = 2;
             }
             break;
         case 2:
             if (++arg0->unk290 > 20) {
-                func_803638E8_774F98(arg0);
+                reset_waypoint_mode(arg0);
             }
             break;
         }
         break;
-    case 10:
+    case WAYPOINT_MODE_WAIT:
         if (++arg0->unk290 > 60) {
-            func_803638E8_774F98(arg0);
+            reset_waypoint_mode(arg0);
         }
         break;
     }
@@ -270,22 +270,22 @@ void func_80362CC4_774374(Animal *arg0) {
 void func_803633C4_774A74(Animal *arg0) {
     s32 xDist, zDist;
 
-    switch (arg0->unk2A0) {
-    case 0:
+    switch (arg0->navState) {
+    case NAVIGATION_STATE_IDLE:
         break;
-    case 1:
+    case NAVIGATION_STATE_GOTO_POINT:
         if ((ABS(arg0->xPosTarget - arg0->position.xPos.h) < arg0->unk2A2) && (ABS(arg0->zPosTarget - arg0->position.zPos.h) < arg0->unk2A2)) {
-            func_80363CC8_775378(arg0);
+            set_nav_state_idle(arg0);
         } else {
             func_80362C10_7742C0(arg0);
         }
         break;
-    case 2:
+    case NAVIGATION_STATE_CHASE_TARGET:
         if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
-        if (arg0->unk2AC->unk26C != 0) {
-            func_80363CC8_775378(arg0);
+        if (arg0->unk2AC->unk26C != NULL) {
+            set_nav_state_idle(arg0);
         } else {
             arg0->unk278 = arg0->unk2AC->position.xPos.h;
             arg0->unk27A = arg0->unk2AC->position.zPos.h;
@@ -294,19 +294,19 @@ void func_803633C4_774A74(Animal *arg0) {
             }
         }
         break;
-    case 3:
+    case NAVIGATION_STATE_FOLLOW_TARGET:
         if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         arg0->unk278 = arg0->unk2AC->position.xPos.h;
         arg0->unk27A = arg0->unk2AC->position.zPos.h;
         break;
-    case 4:
+    case NAVIGATION_STATE_FOLLOW_TARGET_2:
         if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
-        if (arg0->unk2AC->unk26C != 0) {
-            func_80363CC8_775378(arg0);
+        if (arg0->unk2AC->unk26C != NULL) {
+            set_nav_state_idle(arg0);
         } else {
             arg0->unk278 = arg0->unk2AC->position.xPos.h;
             arg0->unk27A = arg0->unk2AC->position.zPos.h;
@@ -315,33 +315,33 @@ void func_803633C4_774A74(Animal *arg0) {
             }
         }
         break;
-    case 5:
+    case NAVIGATION_STATE_SCRIPTED:
         break;
-    case 6:
+    case NAVIGATION_STATE_TURN_THEN_MOVE:
         xDist = arg0->xPosTarget - arg0->position.xPos.h;
         zDist = arg0->zPosTarget - arg0->position.zPos.h;
 
         if (func_803051F0_7168A0((func_801284B8(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
-            arg0->unk2A0 = 1;
-            arg0->unk275 = arg0->unk2A1;
+            arg0->navState = NAVIGATION_STATE_GOTO_POINT;
+            arg0->navTimer = arg0->unk2A1;
         }
         break;
-    case 7:
+    case NAVIGATION_STATE_UNUSED_7:
         break;
-    case 8:
+    case NAVIGATION_STATE_CHASE_ATTACK:
         if (arg0->targetIsPlayer != 0) {
             arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
-        if (arg0->unk2AC->unk26C != 0) {
-            func_80363CC8_775378(arg0);
+        if (arg0->unk2AC->unk26C != NULL) {
+            set_nav_state_idle(arg0);
         } else {
             arg0->unk278 = arg0->unk2AC->position.xPos.h;
             arg0->unk27A = arg0->unk2AC->position.zPos.h;
             if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
                 arg0->unk27C = ((arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget);
             }
-            if (((arg0->unk5C.unk0 & (0x4|0x1)) != 0) && (arg0->unk5C.unk4 == arg0->unk2AC)) {
-                func_80363CC8_775378(arg0);
+            if (((arg0->unk5C.unk0 & (0x4|0x1)) != 0) && ((Animal*)arg0->unk5C.unk4 == arg0->unk2AC)) {
+                set_nav_state_idle(arg0);
             }
         }
         break;
@@ -349,64 +349,64 @@ void func_803633C4_774A74(Animal *arg0) {
 }
 
 // ESA: func_80061610
-void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2) {
+void set_nav_state_engage_other(Animal *arg0, Animal *target, u16 arg2) {
     if (arg0->unk320 == 0) {
         arg0->unk28E = 0;
-        arg0->waypointType = 9;
+        arg0->waypointMode = WAYPOINT_MODE_ENGAGE_OTHER;
         arg0->unk294.type9.unk4 = arg2;
-        arg0->unk294.type9.unk0 = arg1;
-        func_80363DB4_775464(arg0, arg1, -1, arg2);
+        arg0->unk294.type9.target = target;
+        set_nav_state_chase_attack(arg0, target, -1, arg2);
     } else {
-        func_803638E8_774F98(arg0);
+        reset_waypoint_mode(arg0);
     }
 }
 
 // ESA: func_80061670
 void func_8036379C_774E4C(Animal *arg0) {
-    arg0->waypointType = 10;
+    arg0->waypointMode = WAYPOINT_MODE_WAIT;
     arg0->unk290 = 0;
     func_8037B784_78CE34(arg0);
     arg0->unk2AC = arg0->unk320;
 }
 
 // ESA: func_80061688
-void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2) {
-    arg0->waypointType = 8;
+void set_nav_state_engage_player(Animal *arg0, Animal *target, u16 arg2) {
+    arg0->waypointMode = WAYPOINT_MODE_ENGAGE_PLAYER;
     arg0->unk294.type8.unk4 = arg2;
-    arg0->unk294.type8.unk0 = arg1;
-    arg0->unk294.type8.unk6 = gAnimalState.animals[gCurrentAnimalIndex].animal == arg1;
-    func_80363CC8_775378(arg0);
-    func_80309E4C_71B4FC(arg1);
+    arg0->unk294.type8.target = target;
+    arg0->unk294.type8.unk6 = gAnimalState.animals[gCurrentAnimalIndex].animal == target;
+    set_nav_state_idle(arg0);
+    func_80309E4C_71B4FC(target);
     arg0->unk270 = 1;
 }
 
 // ESA: func_80061700
 void func_80363844_774EF4(Animal *arg0, s16 arg1) {
-    arg0->waypointType = 6;
+    arg0->waypointMode = WAYPOINT_MODE_ROTATE;
     arg0->unk294.type6.unk0 = arg1;
-    func_80363FB8_775668(arg0, arg1, -0x80, -1);
+    set_nav_state_scripted(arg0, arg1, -0x80, -1);
 }
 
 // ESA: func_8006173C
 void set_waypoint_follow_target(Animal *arg0, Animal *target) {
-    arg0->waypointType = 7;
+    arg0->waypointMode = WAYPOINT_MODE_FOLLOW;
     arg0->unk294.type7.unk0 = target;
-    func_80363E88_775538(arg0, target);
+    set_nav_state_follow_target(arg0, target);
 }
 
 // ESA: func_80061764
-void func_803638A8_774F58(Animal *arg0, Animal *arg1, s16 arg2) {
-    arg0->waypointType = 5;
-    arg0->unk294.type5.unk0 = arg1;
+void func_803638A8_774F58(Animal *arg0, Animal *target, s16 arg2) {
+    arg0->waypointMode = WAYPOINT_MODE_CHASE;
+    arg0->unk294.type5.unk0 = target;
     arg0->unk294.type5.unk4 = arg2;
-    func_80363DB4_775464(arg0, arg1, -1, arg2);
+    set_nav_state_chase_attack(arg0, target, -1, arg2);
 }
 
 // ESA: func_8006179C
-void func_803638E8_774F98(Animal *arg0) {
-    arg0->waypointType = 0;
-    arg0->unk2CC = 0;
-    func_80363CC8_775378(arg0);
+void reset_waypoint_mode(Animal *arg0) {
+    arg0->waypointMode = WAYPOINT_MODE_NONE;
+    arg0->unk2CC = NULL;
+    set_nav_state_idle(arg0);
 }
 
 // ESA: func_800617C0
@@ -420,7 +420,7 @@ void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     } else {
         next_wp_idx = 1;
     }
-    arg0->waypointType = 1;
+    arg0->waypointMode = WAYPOINT_MODE_PATH;
     arg0->unk294.type1.pathId = pathId;
     arg0->unk294.type1.unk1 = next_wp_idx;
     arg0->unk294.type1.unk2.unk0 = arg3;
@@ -429,7 +429,7 @@ void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     arg0->unk294.type1.unk3 = arg5;
     arg0->waypointData = wp_data;
 
-    func_80363C48_7752F8(
+    set_nav_state_goto_point(
         arg0,
         (wp_data->waypoint[next_wp_idx].x << 6) + 32,
         (wp_data->waypoint[next_wp_idx].z << 6) + 32,
@@ -446,7 +446,7 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     wp_data = D_803E8E60[pathId];
     next_wp_idx = get_closest_waypoint_index(wp_data, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h);
 
-    arg0->waypointType = 1;
+    arg0->waypointMode = WAYPOINT_MODE_PATH;
     arg0->unk294.type1.pathId = pathId;
     arg0->unk294.type1.unk1 = next_wp_idx;
     arg0->unk294.type1.unk2.unk0 = arg3;
@@ -455,7 +455,7 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
     arg0->unk294.type1.unk3 = arg5;
     arg0->waypointData = wp_data;
 
-    func_80363C48_7752F8(
+    set_nav_state_goto_point(
         arg0,
         (wp_data->waypoint[next_wp_idx].x << 6) + 32,
         (wp_data->waypoint[next_wp_idx].z << 6) + 32,
@@ -467,43 +467,43 @@ void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8
 
 // ESA: func_800619FC
 void func_80363B34_7751E4(Animal *arg0, u16 arg1) {
-    arg0->waypointType = 3;
+    arg0->waypointMode = WAYPOINT_MODE_PATROL;
     arg0->unk294.type3.unk0 = arg1;
-    func_80363C48_7752F8(arg0, arg0->position.xPos.h, arg0->position.zPos.h, -1, 10, 32);
+    set_nav_state_goto_point(arg0, arg0->position.xPos.h, arg0->position.zPos.h, -1, 10, 32);
     arg0->unk290 = SSSV_RAND(4);
 }
 
 // ESA: func_80061A58
 void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u8 arg5) {
-    arg0->waypointType = 2;
+    arg0->waypointMode = WAYPOINT_MODE_MOVE;
     arg0->unk294.type2.xPos = xPos;
     arg0->unk294.type2.zPos = zPos;
     arg0->unk294.type2.yPos = yPos;
     arg0->unk294.type2.unk0 = arg4;
     arg0->unk294.type2.unk1 = arg5;
-    func_80363C48_7752F8(arg0, xPos, zPos, yPos, arg4, arg5);
+    set_nav_state_goto_point(arg0, xPos, zPos, yPos, arg4, arg5);
 }
 
 // ESA: func_80061AB8
 void func_80363C0C_7752BC(Animal *arg0, u8 arg1) {
-    arg0->waypointType = 4;
+    arg0->waypointMode = WAYPOINT_MODE_RANDOM;
     arg0->unk28E = 1;
     arg0->unk290 = 30;
     arg0->unk294.type4.unk0 = arg1;
-    func_80363CC8_775378(arg0);
+    set_nav_state_idle(arg0);
 }
 
 // ESA: func_80061AF0
-void func_80363C48_7752F8(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u8 arg5) {
-    arg0->unk2A0 = 1;
+void set_nav_state_goto_point(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u8 arg5) {
+    arg0->navState = NAVIGATION_STATE_GOTO_POINT;
     arg0->xPosTarget = xPos;
     arg0->zPosTarget = zPos;
     arg0->yPosTarget = yPos;
     arg0->unk2A1 = arg4;
     arg0->unk2A2 = arg5;
     arg0->unk2AC = 0;
-    arg0->unk274 = 2;
-    arg0->unk275 = arg4;
+    arg0->navMode = 2;
+    arg0->navTimer = arg4;
     arg0->unk278 = xPos;
     arg0->unk27A = zPos;
     arg0->unk27C = yPos;
@@ -513,124 +513,124 @@ void func_80363C48_7752F8(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg4, u
 }
 
 // ESA: func_80061B68
-void func_80363CC8_775378(Animal *arg0) {
-    arg0->unk2A0 = 0;
+void set_nav_state_idle(Animal *arg0) {
+    arg0->navState = NAVIGATION_STATE_IDLE;
     arg0->unk2A1 = 0;
     arg0->unk2AC = 0;
-    arg0->unk274 = 0;
-    arg0->unk275 = 0;
+    arg0->navMode = 0;
+    arg0->navTimer = 0;
 }
 
 // ESA: func_80061B80
-void func_80363CE0_775390(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
-    arg0->yPosTarget = arg2;
+void set_nav_state_chase_target(Animal *arg0, Animal *target, s16 yPos, s16 arg3) {
+    arg0->yPosTarget = yPos;
     arg0->unk2AC = target;
-    arg0->unk2A0 = 2;
+    arg0->navState = NAVIGATION_STATE_CHASE_TARGET;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
     if (can_fly(target) || func_80362B60_774210(target)) {
-        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + arg2;
+        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + yPos;
     } else {
-        arg0->unk27C = arg2;
+        arg0->unk27C = yPos;
     }
-    arg0->unk274 = 2;
-    arg0->unk275 = arg3;
+    arg0->navMode = 2;
+    arg0->navTimer = arg3;
 }
 
 // ESA: func_80061C60
-void func_80363DB4_775464(Animal *arg0, Animal *target, s16 arg2, s16 arg3) {
-    arg0->yPosTarget = arg2;
+void set_nav_state_chase_attack(Animal *arg0, Animal *target, s16 yPos, s16 arg3) {
+    arg0->yPosTarget = yPos;
     arg0->unk2AC = target;
-    arg0->unk2A0 = 8;
+    arg0->navState = NAVIGATION_STATE_CHASE_ATTACK;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
     if (can_fly(target) || func_80362B60_774210(arg0->unk2AC)) {
-        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + arg2;
+        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + yPos;
     } else {
-        arg0->unk27C = arg2;
+        arg0->unk27C = yPos;
     }
-    arg0->unk274 = 2;
-    arg0->unk275 = arg3;
+    arg0->navMode = 2;
+    arg0->navTimer = arg3;
 }
 
 // ESA: func_80061D44
-void func_80363E88_775538(Animal *arg0, Animal *target) {
+void set_nav_state_follow_target(Animal *arg0, Animal *target) {
     arg0->unk2AC = target;
-    arg0->unk2A0 = 3;
+    arg0->navState = NAVIGATION_STATE_FOLLOW_TARGET;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
-    arg0->unk274 = 2;
-    arg0->unk275 = -1;
+    arg0->navMode = 2;
+    arg0->navTimer = -1;
 }
 
 // ESA: func_80061D9C
-void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *target) {
-    arg0->yPosTarget = arg1;
+void func_80363EDC_77558C(Animal *arg0, s16 yPos, Animal *target) {
+    arg0->yPosTarget = yPos;
     arg0->unk2AC = target;
-    arg0->unk2A0 = 4;
+    arg0->navState = NAVIGATION_STATE_FOLLOW_TARGET_2;
     arg0->unk2A1 = 16;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
     arg0->unk278 = target->position.xPos.h;
     arg0->unk27A = target->position.zPos.h;
-    arg0->unk274 = 3;
-    arg0->unk275 = 16;
+    arg0->navMode = 3;
+    arg0->navTimer = 16;
     if (can_fly(target) || func_80362B60_774210(target)) {
-        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + arg1;
+        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + yPos;
     } else {
-        arg0->unk27C = arg1;
+        arg0->unk27C = yPos;
     }
 }
 
 // ESA: func_80061E74
-void func_80363FB8_775668(Animal *arg0, u16 arg1, s16 arg2, s16 arg3) {
-    arg0->yPosTarget = arg2;
+void set_nav_state_scripted(Animal *arg0, u16 arg1, s16 yPos, s16 arg3) {
+    arg0->yPosTarget = yPos;
     arg0->unk2A1 = arg3;
-    arg0->unk2A0 = 5;
+    arg0->navState = NAVIGATION_STATE_SCRIPTED;
     arg0->unk2AC = 0;
     arg0->unk276 = arg1;
-    arg0->unk27C = arg2;
-    arg0->unk275 = arg3;
-    arg0->unk274 = 1;
+    arg0->unk27C = yPos;
+    arg0->navTimer = arg3;
+    arg0->navMode = 1;
 }
 
 // ESA: func_80061EB0
 void func_80363FF0_7756A0(Animal *arg0) {
-    switch (arg0->waypointType) {
-    case 0:
-        func_803638E8_774F98(arg0);
+    switch (arg0->waypointMode) {
+    case WAYPOINT_MODE_NONE:
+        reset_waypoint_mode(arg0);
         break;
-    case 1:
+    case WAYPOINT_MODE_PATH:
         func_80363A0C_7750BC(arg0, arg0->unk294.type1.pathId, arg0->unk294.type1.unk4, arg0->unk294.type1.unk2.unk0, arg0->unk294.type1.unk2.unk4, arg0->unk294.type1.unk3);
         break;
-    case 2:
+    case WAYPOINT_MODE_MOVE:
         func_80363B98_775248(arg0, arg0->unk294.type2.xPos, arg0->unk294.type2.zPos, arg0->unk294.type2.yPos, arg0->unk294.type2.unk0, arg0->unk294.type2.unk1);
         break;
-    case 3:
+    case WAYPOINT_MODE_PATROL:
         func_80363B34_7751E4(arg0, arg0->unk294.type3.unk0);
         break;
-    case 4:
+    case WAYPOINT_MODE_RANDOM:
         func_80363C0C_7752BC(arg0, arg0->unk294.type4.unk0);
         break;
-    case 5:
+    case WAYPOINT_MODE_CHASE:
         func_803638A8_774F58(arg0, arg0->unk294.type5.unk0, arg0->unk294.type5.unk4);
         break;
-    case 6:
+    case WAYPOINT_MODE_ROTATE:
         func_80363844_774EF4(arg0, arg0->unk294.type6.unk0);
         break;
-    case 7:
-        set_waypoint_follow_target(arg0, arg0->unk294.type7.unk0); // follow leader/target
+    case WAYPOINT_MODE_FOLLOW:
+        set_waypoint_follow_target(arg0, arg0->unk294.type7.unk0);
         break;
-    case 8:
-        func_803637D4_774E84(arg0, arg0->unk294.type8.unk0, arg0->unk294.type8.unk4);
+    case WAYPOINT_MODE_ENGAGE_PLAYER:
+        set_nav_state_engage_player(arg0, arg0->unk294.type8.target, arg0->unk294.type8.unk4);
         break;
-    case 9:
-        func_80363738_774DE8(arg0, arg0->unk294.type9.unk0, arg0->unk294.type9.unk4);
+    case WAYPOINT_MODE_ENGAGE_OTHER:
+        set_nav_state_engage_other(arg0, arg0->unk294.type9.target, arg0->unk294.type9.unk4);
         break;
-    case 10:
-        func_803638E8_774F98(arg0);
+    case WAYPOINT_MODE_WAIT:
+        reset_waypoint_mode(arg0);
         break;
     }
 }

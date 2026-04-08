@@ -3,15 +3,15 @@
 
 
 // ESA: func_800747E0
-s32 func_80319280_72A930(Animal *arg0, Vertex *arg1, Vertex *arg2,
-                         Animal *arg3, Vertex *arg4, Vertex *arg5,
+s32 func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2,
+                         Animal *arg3, Vec3f *arg4, Vec3f *arg5,
                          f32 arg6, f32 arg7) {
 
-    Vertex sp8C;
-    Vertex sp80;
-    Vertex sp74;
-    Vertex sp68;
-    Vertex sp5C;
+    Vec3f sp8C;
+    Vec3f sp80;
+    Vec3f sp74;
+    Vec3f sp68;
+    Vec3f sp5C;
     s16 sp5A;
     s16 sp58;
 

@@ -396,16 +396,34 @@ trigger_screen_transition = 0x802F07E8; // rom:0x701E98
 add_light_at_location  = 0x802F2B54; // rom:0x704204
 add_single_light       = 0x802F5964; // rom:0x707014
 
+update_limbs_rigid      = 0x802BF3C0; // rom:0x6D0A70
+update_limbs_evo        = 0x8031FE40; // rom:0x7314F0
+update_limbs_bear       = 0x8032066C; // rom:0x731D1C
+update_limbs_crazy_bear = 0x80320B04; // rom:0x7321B4
+update_limbs_mystery_bear = 0x80320C84; // rom:0x732334
+update_limbs_gorilla    = 0x80320E70; // rom:0x732520
+update_limbs_kangaroo   = 0x80320DF8; // rom:0x7324A8
+
+reset_waypoint_mode    = 0x803638E8; // rom:0x774F98
+
+set_nav_state_engage_other  = 0x80363738; // rom:0x774DE8
+set_nav_state_engage_player = 0x803637D4; // rom:0x774E84
+set_nav_state_goto_point    = 0x80363C48; // rom:0x7752F8
+
 run_commands           = 0x802FC990; // rom:0x70E040
 set_floor_level        = 0x802FD190; // rom:0x70E840
 set_water_level        = 0x802FD26C; // rom:0x70E91C
 
 set_game_state         = 0x80314874; // rom:0x725F24
 get_game_state         = 0x80314F0C; // rom:0x7265BC
-copy_command_struct    = 0x80315384; // rom:0x726A34
-load_commands_into_object = 0x803153B0; // rom:0x726A60
-do_maths_op            = 0x803152A4; // rom:0x726954
-run_single_command     = 0x803159E4; // rom:0x727094
+
+do_maths_op                = 0x803152A4; // rom:0x726954
+copy_command_struct        = 0x80315384; // rom:0x726A34
+load_commands_into_object  = 0x803153B0; // rom:0x726A60
+find_next_animal_in_region = 0x8031540C; // rom:0x726ABC
+run_single_command         = 0x803159E4; // rom:0x727094
+
+resolve_entity_ref         = 0x803146A8; // rom:0x725D58
 
 load_level_texture_data = 0x8031B174; // rom:0x72C824
 
@@ -1611,6 +1629,15 @@ ldiv                        = 0x8014D300; // defined:true
 
 // fake symbols
 D_1FFFF                     = 0x1FFFF; // ignore:true
+
+
+// Gfx & Vtx
+
+D_040029D0_102720 = 0x040029D0; // rom:0x102720 defined:true
+D_04001A40_C9470  = 0x4001A40; // rom:0xC9470 defined:true
+
+img_cool_cod_ci4__png = 0x04007BD0; // rom:0xE5190
+img_cool_cod_pal      = 0x04007DD0; // rom:0xE5390
 
 // BEGIN sync_decomp_symbols promoted from undefined_syms
 build_rotate_scale_translate_matrix = 0x80125980;

@@ -241,11 +241,11 @@ extern Gfx D_040099F0_F0FA0[];
     97  - door
 */
 
-// TODO: properly define Animal
-#define Animal void
+// TODO: properly define Entity
+#define Entity void
 
-void func_802F6A5C_70810C(Animal *arg0);
-void func_802F8B4C_70A1FC(Animal *arg0);
+void func_802F6A5C_70810C(Entity *arg0);
+void func_802F8B4C_70A1FC(Entity *arg0);
 void func_802F8DCC_70A47C(void *arg0);
 void func_802F9084_70A734(void *arg0);
 void func_802F908C_70A73C(void *arg0);
@@ -274,17 +274,17 @@ void func_8031AA0C_72C0BC(void *arg0);
 void func_8031AE7C_72C52C(void *arg0);
 
 typedef struct {
-    /* 0x00 */  s16 id;     // id
-    /* 0x02 */  s16 type;   // flags
-    /* 0x04 */  Gfx* unk04;  // object display list, is this a 3-item array?
-    /* 0x08 */  Gfx* unk08;  // object display list
-    /* 0x0C */  Gfx* unk0C;  // object display list
+    /* 0x00 */  u16 id;     // id
+    /* 0x02 */  u16 type;   // flags
+    /* 0x04 */  Gfx* displayList1;  // object display list, is this a 3-item array?
+    /* 0x08 */  Gfx* displayList2;  // object display list
+    /* 0x0C */  Gfx* displayList3;  // object display list
     /* 0x10 */  u8* unk10;  // padding?
     /* 0x14 */  u8  unk14;
     /* 0x15 */  u8  unk15;
     /* 0x16 */  s16 unk16;
-    /* 0x18 */  u32 unk18;  // pointer to particle?
-    /* 0x1C */  u16 unk1C;  // particle id?
+    /* 0x18 */  u32 collision;
+    /* 0x1C */  u16 collisionIndex;
     /* 0x1E */  u16 unk1E;
     /* 0x20 */  s32 unk20;
     /* 0x24 */  s32 unk24;

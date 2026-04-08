@@ -135,7 +135,7 @@ void check_cheats(OSContPad *contPad) {
         D_803F6410[D_803B62B0_7C7960] = lastButton;
     }
     if (check_cheat_code(D_803F6410, "WIZDIZWE")) {
-        gAnimalState.animals[gCurrentAnimalIndex].animal->health = 127;
+        gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = 127;
         play_sound_effect(SFX_CHEAT_ENABLED, 0, 0x5000, 1.0f, 64);
         D_803B62B0_7C7960 = 0; // reset cursor position
     }

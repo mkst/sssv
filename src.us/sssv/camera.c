@@ -42,7 +42,7 @@ void func_80342550_753C00(Camera *arg0);
 void update_camera_x_y_z(s16 arg0, f32 arg1, f32 arg2, f32 arg3);
 void func_80343438_754AE8(void);
 void func_80343A50_755100(void);
-void func_80343C44_7552F4(s16 arg0, u16 *arg1, u16 *arg2);
+void func_80343C44_7552F4(s16 arg0, s16 *arg1, s16 *arg2);
 void func_80343F68_755618(void);
 void func_80343F78_755628(void);
 s16  func_80344158_755808(s16 arg0);
@@ -98,7 +98,7 @@ s16  D_803F2C28;
 static f32  D_803F2C2C;
 static f32  D_803F2C30;
 static f32  D_803F2C34;
-static u8   D_803F2C38;
+static u8   D_803F2C38; // like unk160
 f32  D_803F2C3C;
 
 f32  D_803F2C40;
@@ -469,7 +469,7 @@ void func_8032FF94_741644(u8 cameraID) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->unk162 == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -936,7 +936,7 @@ void func_80332444_743AF4(u8 arg0) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->unk162 == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -1351,7 +1351,7 @@ void func_80334470_745B20(u8 id, u8 arg1) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->unk162 == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -1740,7 +1740,7 @@ void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
             gCamera->unkC = gCamera->unk9C;
 
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->unk162 == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
                 gCamera->unk10 = D_803A7B24_7B91D4[gCamera->unk64+3] + (gCamera->unkA0 + 4.0); // s16?
                 gCamera->unk88 = 0.0f;
             }
@@ -2547,7 +2547,7 @@ void fix_camera_to_angle_offset(u8 cameraID, f32 angle) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->unk162 == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -3667,7 +3667,7 @@ void func_8033E430_74FAE0(void) {
     }
 
     animal = gAnimalState.animals[gCurrentAnimalIndex].animal;
-    if ((animal->unk162 & 0xF) == 1) {
+    if ((animal->movementState & 0xF) == 1) {
         xPos = animal->position.xPos.h + (((SIN(animal->yRotation + gCamera->unk24) >> 7) << 7) >> 8);
         yPos = animal->position.zPos.h + (((COS(animal->yRotation + gCamera->unk24) >> 7) << 7) >> 8);
 
@@ -4379,7 +4379,7 @@ void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
         gCameras[gCameraId].unkD0 = arg0->unkC;
         gCameras[gCameraId].unkD2 = arg0->unkE;
         gCameras[gCameraId].unkD4 = arg0->unk10;
-        gCameras[gCameraId].unkCC = arg0->unk0;
+        gCameras[gCameraId].unkCC = (Entity*)arg0->unk0;
         gCameras[gCameraId].unk6C = arg0->unk0;
 
         gCameras[gCameraId].unk4E = gCameras[D_803F2AC8].unk4E;
@@ -4551,7 +4551,7 @@ void func_803415BC_752C6C(void) {
                     if (((gCameras[gCameraId].unk2  != D_803F2AF8[D_803F2C20].unk12) && (D_803F2AF8[D_803F2C20].unk12 != 0)) ||
                          (gCameras[gCameraId].unkC9 != D_803F2AF8[D_803F2C20].unk17) ||
                          (gCameras[gCameraId].unkD6 != D_803F2AF8[D_803F2C20].unk18) ||
-                         (gCameras[gCameraId].unkCC != D_803F2AF8[D_803F2C20].unk0 ) ||
+                         (gCameras[gCameraId].unkCC != (Entity*)D_803F2AF8[D_803F2C20].unk0) ||
                          (gCameras[gCameraId].unkD0 != D_803F2AF8[D_803F2C20].unkC ) ||
                          (gCameras[gCameraId].unkD2 != D_803F2AF8[D_803F2C20].unkE ) ||
                          (gCameras[gCameraId].unkD4 != D_803F2AF8[D_803F2C20].unk10) ||
@@ -4572,7 +4572,7 @@ void func_803415BC_752C6C(void) {
                         if ((gCameras[gCameraId].unk2  != D_803F2AD8[0].unk12) ||
                             (gCameras[gCameraId].unkC9 != D_803F2AD8[0].unk17) ||
                             (gCameras[gCameraId].unkD6 != D_803F2AD8[0].unk18) ||
-                            (gCameras[gCameraId].unkCC != D_803F2AD8[0].unk0 ) ||
+                            (gCameras[gCameraId].unkCC != (Entity*)D_803F2AD8[0].unk0 ) ||
                             (gCameras[gCameraId].unkD0 != D_803F2AD8[0].unkC ) ||
                             (gCameras[gCameraId].unkD2 != D_803F2AD8[0].unkE ) ||
                             (gCameras[gCameraId].unkD4 != D_803F2AD8[0].unk10) ||
@@ -4597,7 +4597,7 @@ void func_803415BC_752C6C(void) {
                             if ((gControllerInput->button & Z_TRIG) &&
                                 (gAnimalState.animals[gCurrentAnimalIndex].animal->state != 0xDD) &&
                                 (D_803A6CE0_7B8390 == 0) &&
-                                (gAnimalState.animals[gCurrentAnimalIndex].animal->unk366 != MOVEMENT_MODE_2)) {
+                                (gAnimalState.animals[gCurrentAnimalIndex].animal->movementMode != MOVEMENT_MODE_2)) {
                                 sp57 = 3;
                                 sp56 = 254;
                                 D_803A6CE8_7B8398 = 25;
@@ -4891,7 +4891,7 @@ void func_80342550_753C00(Camera *arg0) {
 
         phi_f14 = phi_f16 = 0.0f;
 
-        if (arg0->unkCC == (struct071*)gAnimalState.animals[gCurrentAnimalIndex].animal) {
+        if ((Animal*)arg0->unkCC == gAnimalState.animals[gCurrentAnimalIndex].animal) {
             if (arg0->unk67 != 0) {
                 phi_f0 = (arg0->unk60 * arg0->unk30 * D_803F2D50.fovY) / 1200.0;
             } else {
@@ -5154,7 +5154,7 @@ void func_80343A50_755100(void) {
     }
 }
 
-void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE) {
+void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, Entity *entity, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE) {
     s32 pad;
     D_803F2AA4 = D_803F2AA5 = 0;
 
@@ -5174,7 +5174,7 @@ void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4
             D_803F2AF8[D_803F2C22].unk18 = arg0;
             D_803F2AF8[D_803F2C22].unk8 = arg1;
             D_803F2AF8[D_803F2C22].unkA = arg2;
-            D_803F2AF8[D_803F2C22].unk0 = arg3;
+            D_803F2AF8[D_803F2C22].unk0 = entity;
             D_803F2AF8[D_803F2C22].unkC = arg4;
             D_803F2AF8[D_803F2C22].unkE = arg5;
             D_803F2AF8[D_803F2C22].unk10 = arg6;
@@ -5425,7 +5425,7 @@ s16 D_803A7B3C_7B91EC[458] = {
 };
 
 // ESA: func_8002FD44
-void func_80343C44_7552F4(s16 idx, u16 *cameraMode, u16 *arg2) {
+void func_80343C44_7552F4(s16 idx, s16 *cameraMode, s16 *arg2) {
     *cameraMode = D_803A7B3C_7B91EC[(idx * 2)];
     *arg2 = D_803A7B3C_7B91EC[(idx * 2) + 1];
 }
@@ -5448,8 +5448,8 @@ void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4) {
 }
 
 // ESA: func_8002FE74
-void func_80343D44_7553F4(u8 *arg0, s8 arg1) {
-    func_80343AE0_755190(5, ((*arg0) * 32) - 136, 40, arg0, 0, 0, 0, 0, 0, 0, 44, arg1, -2, 0, 1);
+void func_80343D44_7553F4(WaypointData *arg0, s8 arg1) {
+    func_80343AE0_755190(5, (arg0->length * 32) - 136, 40, arg0, 0, 0, 0, 0, 0, 0, 44, arg1, -2, 0, 1);
 }
 
 // ESA: func_8002FEE4
@@ -5553,7 +5553,7 @@ s16 func_80344158_755808(s16 cameraMode) {
 }
 
 // ESA: func_800302AC
-void func_8034419C_75584C(struct071 *arg0) {
+void func_8034419C_75584C(Entity *arg0) {
     func_80343AE0_755190(4, 0, 30, arg0, 0, 0, 0, 0, 0, 0, 228, 1, 0, 0, 0);
 }
 

@@ -7,7 +7,7 @@ Vtx D_040094B0_109200[25] = {
 #include "data/inc/D_040094B0_109200.inc.c"
 };
 
-extern u8 D_04008C30_108980[]; // img/actors/brain/brain.rgba16
+extern u8 img_actors_brain_brain_rgba16__png[]; // img/actors/brain/brain.rgba16
 
 Gfx D_04009640_109390[] = {
     gsSPClearGeometryMode(G_LIGHTING),
@@ -20,7 +20,7 @@ Gfx D_04009640_109390[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_04008C30_108980),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_actors_brain_brain_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

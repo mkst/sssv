@@ -91,8 +91,8 @@ block_23:
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
 
-        if (D_803D5528->unk3C0.unk4 == 0xC) {
-            sp6C = 0x10000 - ((D_803D5528->unk3C0.unk6 << 0x10) / 20);
+        if (D_803D5528->unk3C4.unk0 == 0xC) {
+            sp6C = 0x10000 - ((D_803D5528->unk3C4.unk2 << 0x10) / 20);
         } else {
             sp6C = 0x10000;
         }
@@ -146,7 +146,7 @@ block_23:
                     if (gLodDetailState == 0) { func_802C78B0_6D8F60(0, 0x18, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 1, 0, D_040019E0_F2A40); }
                     func_802C78B0_6D8F60(0x18, 0x19, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, (sp6C * 0x3C) >> 6, D_803F2ED0, 0, 1, 0, D_04001AC0_F2B20);
                 }
-                if ((D_803D5530->unk162 == 1) && (gLodDetailState == 0)) {
+                if ((D_803D5530->movementState == 1) && (gLodDetailState == 0)) {
                     func_802C78B0_6D8F60(0, 5, 0xF000, 0xF000, 0xF000, D_803F2ED0, 0, 0, 0, D_040020C0_F3120);
                 }
             }
@@ -166,13 +166,13 @@ block_23:
     } else {
         func_80303D00_7153B0(D_803D552C, 0x2BE, 0);
     }
-    if ((D_803D5524->unk9C == PARROT_ATTACKING) && ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED))) {
+    if ((D_803D5524->unk9C == PARROT_ATTACKING) && ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED))) {
         load_animal(PARROT);
     }
 }
 
 void func_803144F8_725BA8(void) {
-    if ((D_803D5530->unk162 != 1) && (func_803224C4_733B74(0, 0, 0, 0, 32, 0, 0, 11) == 0) && (get_distance_from_ground() >= 49)) {
+    if ((D_803D5530->movementState != 1) && (func_803224C4_733B74(0, 0, 0, 0, 32, 0, 0, 11) == 0) && (get_distance_from_ground() >= 49)) {
         load_animal(PARROT_ATTACKING);
         func_802A61EC_6B789C(D_803D5530->yRotation);
         D_803D552C->unk2EE = 0;
@@ -187,7 +187,7 @@ void func_80314590_725C40(void) {
 }
 
 void parrot_fly(void) {
-    if (D_803D5530->unk162 != 1) {
+    if (D_803D5530->movementState != 1) {
         load_animal(PARROT_ATTACKING);
         func_802A61EC_6B789C(D_803D5530->yRotation);
         D_803D552C->unk2EE = 0;

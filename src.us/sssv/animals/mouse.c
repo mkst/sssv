@@ -68,14 +68,14 @@ done:
         if (D_803D552C->unk30A != 0) {
             D_803D552C->unk30A = D_803D552C->unk30A - 1;
         } else {
-            if (((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) && SSSV_RAND(64) == 0) {
+            if (((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) && SSSV_RAND(64) == 0) {
                 D_803D552C->unk30A = 0xA;
             }
         }
         if (D_803D552C->unk312 != 0) {
             D_803D552C->unk312 = D_803D552C->unk312 - 1;
         } else {
-            if (((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) && SSSV_RAND(16129) == 0) {
+            if (((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) && SSSV_RAND(16129) == 0) {
                 D_803D552C->unk312 = 0xA;
             }
         }
@@ -84,7 +84,7 @@ done:
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if ((D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) || ((D_803D5538 != 0) && (gGameState.unk4 >= 0x11))) {
+        if ((D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) || ((D_803D5538 != 0) && (gGameState.unk4 >= 0x11))) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;
             }
@@ -148,9 +148,9 @@ done:
                 func_8031A150_72B800(D_803D552C->unk326++, &sp8A, &sp88);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp8A, &sp88);
                 sp8A = D_803BD530_7CEBE0.eyes[5][sp8A];sp88 = D_803BD600_7CECB0.eyes[4][sp88];
-                func_80356BD8_768288(&img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp8A);
+                func_80356BD8_768288(&img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp8A);
                 func_802C78B0_6D8F60(1U, 0x14U, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B00_CE530);
-                func_80356BD8_768288(&img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp88);
+                func_80356BD8_768288(&img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp88);
                 func_802C78B0_6D8F60(1U, 0x14U, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B60_CE590);
                 gDPPipeSync(gOpaqueDL++);
 
@@ -217,7 +217,7 @@ void func_8031D624_72ECD4(void) {
     s32 temp_t5;
     s32 temp_t6;
 
-    struct061 sp98;
+    Vertex sp98;
     s16 sp96;
     s16 sp94;
     s16 sp92;
@@ -229,7 +229,7 @@ void func_8031D624_72ECD4(void) {
     u8  tmp;
     s16 pad[2];
 
-    if (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) {
+    if (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) {
         if (D_803D554C != 0) {
             if (D_803D5530->unk4A == 0) {
                 func_8032CD70_73E420(
@@ -245,7 +245,7 @@ void func_8031D624_72ECD4(void) {
         }
     }
 
-    if ((sp92 != 4) && (sp92 != 1) && (D_803D5530->unk162 == 1)) {
+    if ((sp92 != 4) && (sp92 != 1) && (D_803D5530->movementState == 1)) {
         temp_f12 = sqrtf(SQ((f32)D_803D552C->xVelocity.w) + SQ((f32)D_803D552C->zVelocity.w)) / (D_803D5524->unkA4 << 0xA);
         if (temp_f12 < 0.2) {
             phi_f0 = 0.0f;
@@ -312,7 +312,7 @@ void func_8031D624_72ECD4(void) {
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) {
+        if (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;
             }
@@ -392,10 +392,10 @@ void func_8031D624_72ECD4(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
                 sp96 = D_803BD530_7CEBE0.eyes[5][sp96]; sp94 = D_803BD600_7CECB0.eyes[4][sp94];
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp96);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp96);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B00_CE530);
 
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp94);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp94);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B60_CE590);
             }
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
@@ -467,7 +467,7 @@ void func_8031E6A0_72FD50(void) {
     s32 temp_t4; // spC0 ?
     s32 temp_t5; // spBC ?
     s32 temp_t6; // spB8 ?
-    struct061 spB0;
+    Vertex spB0;
     s16 spAE;
     s16 spAC;
     s16 spAA;
@@ -599,9 +599,9 @@ void func_8031E6A0_72FD50(void) {
 
             if (gLodDetailState == 0) {
                 spAE = D_803BD530_7CEBE0.eyes[5][2]; spAC = D_803BD600_7CECB0.eyes[4][2];
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, spAE);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spAE);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B00_CE530);
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, spAC);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spAC);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B60_CE590);
             }
 
@@ -692,7 +692,7 @@ void func_8031E6A0_72FD50(void) {
             D_803D552C->unk2EC--;
         }
     }
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
         load_animal(RACING_MOUSE);
     }
 }

@@ -62,7 +62,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
     CollisionNode *phi_s1;
     s16 phi_a0;
 
-    if (gAnimalState.animals[gCurrentAnimalIndex].animal->unk162 == 1) {
+    if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 1) {
         if (arg0 > 20) {
             do_rumble(0, 25, 55, 5, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h)); //, temp_a3));
         } else {
@@ -101,7 +101,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                     if (phi_s1->animal != D_803D5530) {
 
                         animal = phi_s1->animal;
-                        if ((animal->unk162 == 6) || (animal->unk162 == 1)) {
+                        if ((animal->movementState == 6) || (animal->movementState == 1)) {
                             temp_v0_3 = sp8E - animal->position.xPos.h;
                             temp_v1_2 = sp8C - animal->position.zPos.h;
 
@@ -121,27 +121,27 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                                             switch (animal->unk16C->unkE6) {
                                             case 0:
                                                 damage = (arg0 * 8) >> 3;
-                                                animal->health = MAX(animal->health - damage, 0);
+                                                animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                 func_80349280_75A930(animal, damage);
                                                 break;
                                             case 1:
                                                 damage = (arg0 * 6) >> 3;
-                                                animal->health = MAX(animal->health - damage, 0);
+                                                animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                 func_80349280_75A930(animal, damage);
                                                 break;
                                             case 2:
                                                 damage = (arg0 * 4) >> 3;
-                                                animal->health = MAX(animal->health - damage, 0);
+                                                animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                 func_80349280_75A930(animal, damage);
                                                 break;
                                             case 3:
                                                 damage = (arg0 * 3) >> 3;
-                                                animal->health = MAX(animal->health - damage, 0);
+                                                animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                 func_80349280_75A930(animal, damage);
                                                 break;
                                             case 4:
                                                 damage = (arg0 * 2) >> 3;
-                                                animal->health = MAX(animal->health - damage, 0);
+                                                animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                 func_80349280_75A930(animal, damage);
                                                 break;
                                             }
@@ -155,7 +155,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                                             animal->unk4C.unk19 = 1;
                                         }
                                         if ((animal->unk4A == 0) && (animal->unk4C.unk1A == 0)) {
-                                            animal->health = MAX(0, animal->health - 1);
+                                            animal->Info.health = MAX(0, animal->Info.health - 1);
                                         }
                                     }
                                     animal->unk54.unk3 = 21;
@@ -173,7 +173,6 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
     func_8034220C_7538BC(0xF, sp8E, sp8C, D_803D5530->position.yPos.h);
 }
 
-// velocity related?
 // ESA: func_80076D60
 void set_target_speed(s8 speed) {
     D_803D554B = speed;
@@ -295,7 +294,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                                 if (!(D_803D5544 & var_s5)) {
                                                     if ((animal->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
                                                         (animal->unk16C->unk9C != TORTOISE_TANK_DEFENDING)) {
-                                                        animal->health = MAX(animal->health - damage, 0);
+                                                        animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                         func_80349280_75A930(animal, damage);
                                                     }
                                                 }
@@ -309,7 +308,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                     animal->unk54.unk3 = 1;
                                     //  << 0x1A
                                     if ((animal->unk4A == 0) && (animal->unk4C.unk1A == 0)) {
-                                        animal->health = MAX(0, animal->health - 1);
+                                        animal->Info.health = MAX(0, animal->Info.health - 1);
                                     }
                                     //  & 8
                                     if ((animal->unk4A == 0) && (animal->unk4C.unk1C != 0)) {
@@ -435,8 +434,8 @@ void trigger_contagious_laughter(void) {
                                 var_a0 = EVO_TRANSFER;
 
                                 if (animal->unk16C->unk82.unk2) {
-                                    if ((animal->unk366 != MOVEMENT_MODE_2) &&
-                                        (animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
+                                    if ((animal->movementMode != MOVEMENT_MODE_2) &&
+                                        (animal->movementMode != MOVEMENT_MODE_DEACTIVATED)) {
                                         s32 animalId = temp_t0->unk9C;
                                         if ((animalId != var_a0) &&
                                             (animalId != zDist) &&
@@ -480,7 +479,7 @@ void trigger_contagious_laughter(void) {
 
                                                         if (!(D_803D5540 & 3)) {
                                                             // hurt animal by 1HP every 4 ticks
-                                                            animal->health = MAX(animal->health - 1, 0);
+                                                            animal->Info.health = MAX(animal->Info.health - 1, 0);
                                                             func_80349280_75A930(animal, 1);
                                                         }
                                                     temp_t0 = animal->unk16C;
@@ -604,7 +603,7 @@ Animal *func_8037E9AC_79005C(void) {
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != 0) && (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER)) {
-            if ((gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_2) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
+            if ((gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_2) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DEACTIVATED)) {
                 if ((D_803D5530 != gAnimalState.animals[i].animal) && (get_ai_behaviour(D_803D5530->unk16C->objectType, gAnimalState.animals[i].animal->unk16C->objectType) != AI_LEADER)) {
 
                     a = gAnimalState.animals[i].animal;
@@ -678,7 +677,7 @@ Animal *func_8037ED1C_7903CC(void) {
     var_a3 = COS(D_803D552C->heading) >> 9;
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
-        if ((gAnimalState.animals[i].animal != NULL) && (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
+        if ((gAnimalState.animals[i].animal != NULL) && (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
             if (D_803D5530 != gAnimalState.animals[i].animal) {
 
                 animal = gAnimalState.animals[i].animal;
@@ -748,7 +747,7 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
         xPosNew = xPos + ((sp88 * i) >> 8);
         zPosNew = zPos + ((sp86 * i) >> 8);
 
-        if (D_803D5530->unk162 != 1) {
+        if (D_803D5530->movementState != 1) {
             yPosNew = MAX(sp7A, sample_ground_height_at_xz(xPosNew, zPosNew) >> 0x10) + 8;
         } else {
             if ((D_803D5530->unk160 == 0) || (D_803D5530->unk160 == 1)) {
@@ -769,7 +768,7 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
             func_80311A2C_7230DC(xPosNew, zPosNew, &sp76, &sp74, temp_s1);
 
             if (func_8033C9CC_74E07C(xPos, zPos, sp7A + 0x10, D_803D5530->unk160, xPosNew, zPosNew, yPosNew, temp_s1, 0, 0) == 0) {
-                if ((ABS(yPosNew - sp7A) < 0x50) && (check_collision_against_animals_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, yPosNew << 0x10, &sp72, 1) == 0) && ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
+                if ((ABS(yPosNew - sp7A) < 0x50) && (check_collision_against_animals_6C8C7C(D_803D5530, 0, xPosNew << 0x10, zPosNew << 0x10, yPosNew << 0x10, (u8*)&sp72, 1) == 0) && ((ABS(sp76) < 0x18) && (ABS(sp74) < 0x18))) {
                   continue;
                 }
             }
@@ -883,7 +882,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                                             animal->zVelocity.w -= (temp_a3_2 << 0x10) / temp_v1;
                                             if ((D_803D5544 & 3) == 0) {
 
-                                                animal->health = MAX(animal->health - damage, 0);
+                                                animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                 func_80349280_75A930(animal, damage);
 
                                                 animal->unk348 = MAX(100, animal->unk348);
@@ -986,7 +985,6 @@ void func_8037FE24_7914D4(void) {
     }
 }
 
-// used by sheep
 // ESA: func_80078550
 void sheep_follow_leader(void) {
     s16 i;
@@ -999,10 +997,10 @@ void sheep_follow_leader(void) {
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != NULL) &&
             (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-            (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) &&
+            (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) &&
             (gAnimalState.animals[i].animal != D_803D5530) &&
-            ((u8)gAnimalState.animals[i].animal->unk2A0 == 0) &&
-            ((gAnimalState.animals[i].unk0->unk9C == SHEEP) || (gAnimalState.animals[i].unk0->unk9C == SPRINGY_THINGY))) {
+            (gAnimalState.animals[i].animal->navState == NAVIGATION_STATE_IDLE) &&
+            (gAnimalState.animals[i].unk0->unk9C == SHEEP || gAnimalState.animals[i].unk0->unk9C == SPRINGY_THINGY)) {
             xPosDelta = ABS(gAnimalState.animals[i].animal->position.xPos.h - D_803D5530->position.xPos.h);
             if (xPosDelta < 200) {
                 zPosDelta = ABS(gAnimalState.animals[i].animal->position.zPos.h - D_803D5530->position.zPos.h);
@@ -1012,7 +1010,7 @@ void sheep_follow_leader(void) {
                         if (D_803D5530) {};
                         gAnimalState.animals[i].animal->unk288 = (xPosDelta + zPosDelta) >> 3;
                         // swarm? follow?
-                        func_80363E88_775538(gAnimalState.animals[i].animal, D_803D5530);
+                        set_nav_state_follow_target(gAnimalState.animals[i].animal, D_803D5530);
                     }
                 }
             }

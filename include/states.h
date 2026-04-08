@@ -3,14 +3,18 @@
 
 // getters
 
+#define ST_GET_ANIMAL_TMP_1   0+0x7F7F
+#define ST_GET_ANIMAL_TMP_2   1+0x7F7F
+#define ST_GET_ANIMAL_TMP_3   2+0x7F7F
+#define ST_GET_SCALE_2        3+0x7F7F
 #define ST_GET_HEALTH         4+0x7F7F
-
 #define ST_GET_RANDOM         5+0x7F7F
 
 #define ST_GET_XPOS           6+0x7F7F
 #define ST_GET_ZPOS           7+0x7F7F
 #define ST_GET_YPOS           8+0x7F7F
-
+#define ST_GET_SCALE          9+0x7F7F
+#define ST_GET_TIMER          10+0x7F7F
 #define ST_GET_XVEL           11+0x7F7F
 #define ST_GET_ZVEL           12+0x7F7F
 #define ST_GET_YVEL           13+0x7F7F
@@ -32,26 +36,40 @@
 
 // setters
 
+#define ST_SET_ANIMAL_TMP_1   0+0x7F7F
+#define ST_SET_ANIMAL_TMP_2   1+0x7F7F
+#define ST_SET_ANIMAL_TMP_3   2+0x7F7F
+#define ST_SET_SCALE_2        3+0x7F7F
 #define ST_SET_HEALTH         4+0x7F7F
-
+#define ST_SET_RANDOM_SEED    5+0x7F7F
 #define ST_SET_XPOS           6+0x7F7F
 #define ST_SET_ZPOS           7+0x7F7F
 #define ST_SET_YPOS           8+0x7F7F
-
+#define ST_SET_SCALE          9+0x7F7F
+#define ST_SET_TIMER          10+0x7F7F
 #define ST_SET_XVEL           11+0x7F7F
 #define ST_SET_ZVEL           12+0x7F7F
 #define ST_SET_YVEL           13+0x7F7F
 #define ST_SET_ZROT           14+0x7F7F
 #define ST_SET_YROT           15+0x7F7F
 
+#define ST_SET_UNK163         17+0x7F7F
+#define ST_SET_MASS           18+0x7F7F
 #define ST_SET_SCORE          19+0x7F7F
+
 #define ST_SET_STATE          21+0x7F7F
+
 #define ST_SET_GRAVITY        23+0x7F7F
 
 #define ST_SET_TASKS_COMPLETED 28+0x7F7F
+#define ST_SET_FOV             29+0x7F7F
+#define ST_SET_TEMP_VAR        30+0x7F7F
 #define ST_SET_EEPROM_SCORES_1 31+0x7F7F
+
+#define ST_SET_AUDIO_FREQ      33+0x7F7F
+#define ST_SET_MUSIC_VOLUME    34+0x7F7F
 #define ST_SET_EEPROM_SCORES_2 35+0x7F7F
-#define SET_LEVEL_PROGRESS     36+0x7F7F
+#define ST_SET_LEVEL_PROGRESS  36+0x7F7F
 
 // commands
 

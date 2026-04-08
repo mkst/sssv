@@ -17,7 +17,7 @@ u32 func_80128200(void) {
     return D_80151430;
 }
 
-// set time?
+// set_random_seed
 void func_8012822C(s32 time) {
     if (time == 0) {
         time = osGetTime() >> 2;

@@ -191,15 +191,6 @@ s16  D_803F671C;
 // ========================================================
 
 
-#if 0
-// for permuter
-#define TEXEL0 1
-#define TEXEL1 0
-#define PRIMITIVE 0
-#define SHADE 0
-#define COMBINED 0
-#endif
-
 void func_8038F6F0_7A0DA0(void) {
     gOverlayMenuState.unk8 = 5;
     gOverlayMenuState.unkE = 0;
@@ -529,7 +520,7 @@ void func_8038FF68_7A1618(void) {
         }
         // load spaceship interior
         render_spaceship_interior(&gXluDL);
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unkBB80);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gXluDL);
     }
 
     switch (gOverlayMenuState.unk29) {
@@ -1079,7 +1070,7 @@ void func_8038FF68_7A1618(void) {
         func_8039546C_7A6B1C(&gLayer0DL,  960, 0x435, 0x416);
         func_8039546C_7A6B1C(&gLayer0DL, 1000, 0x435, 0x416);
         func_8039546C_7A6B1C(&gLayer0DL, 1040, 0x435, 0x416);
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unkDAC0);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gLayer0DL);
     }
 }
 #else
@@ -1088,35 +1079,35 @@ void func_8038FF68_7A1618(void) {
 
 // play_tv_static_buzz_sfx
 void func_80391A38_7A30E8(void) {
-    func_8032CD20_73E3D0(1169, SFX_UNKNOWN_73, 0x4000, 0, 0.76f);
+    func_8032CD20_73E3D0((void*)1169, SFX_UNKNOWN_73, 0x4000, 0, 0.76f);
     if (gOverlayMenuState.unk2A == 1) {
         if (RAND(20) == 1) {
             D_803B6880_7C7F30 = RAND(6);
         }
         switch (D_803B6880_7C7F30) {
         case 0:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 1:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 2:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 3:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
-            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1269, SFX_UNKNOWN_132, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 4:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.12f);
-            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1269, SFX_UNKNOWN_132, 0x1000, 0, 1.12f);
+            func_8032CD20_73E3D0((void*)1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         case 5:
-            func_8032CD20_73E3D0(1269, SFX_UNKNOWN_132, 0x1000, 0, 1.33f);
-            func_8032CD20_73E3D0(1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
+            func_8032CD20_73E3D0((void*)1269, SFX_UNKNOWN_132, 0x1000, 0, 1.33f);
+            func_8032CD20_73E3D0((void*)1369, SFX_UNKNOWN_133, 0x1000, 0, 1.0f);
             break;
         }
     }
@@ -1415,7 +1406,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
     // print title e.g. "Have a Nice Day!"
     select_font(0, FONT_COMIC_SANS, 0, 0);
     set_menu_text_color(0xFF, 0xFF, 0xFF, 0xFF);
-    vertical_offset = display_text_wrapped(D_801D9E98, D_803F2D50.titleText, horizontal_offset, vertical_offset, 16.0f, 16.0f, 296, 14);
+    vertical_offset = display_text_wrapped(D_801D9E98, (s16*)D_803F2D50.titleText, horizontal_offset, vertical_offset, 16.0f, 16.0f, 296, 14);
     vertical_offset += 24;
 
     select_font(0, FONT_COMIC_SANS, 0, 0);
@@ -1436,7 +1427,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
                     set_menu_text_color(0, 200, 0, 0xFF);
                     sprintf((char*)sp8C, "%c", 93);
                     prepare_text(sp8C, sp64);
-                    vertical_offset = display_text_wrapped(D_801D9E98, &sp64, 0x17, vertical_offset, charWidth, charHeight, 0x128, charHeight);
+                    vertical_offset = display_text_wrapped(D_801D9E98, sp64, 0x17, vertical_offset, charWidth, charHeight, 0x128, charHeight);
                     // dark YELLOW for task text
                     set_menu_text_color(120, 120, 0, 0xFF);
                 } else {
@@ -1444,7 +1435,7 @@ void load_mission_brief_screen(s16 _vertical_offset) {
                     set_menu_text_color(0xFF, 0xFF, 0, 0xFF);
                     sprintf((char*)sp8C, "%c", 94);
                     prepare_text(sp8C, sp64);
-                    vertical_offset = display_text_wrapped(D_801D9E98, &sp64, 0x17, vertical_offset, charWidth, charHeight, 0x128, charHeight);
+                    vertical_offset = display_text_wrapped(D_801D9E98, sp64, 0x17, vertical_offset, charWidth, charHeight, 0x128, charHeight);
                 }
                 tasks++;
             }

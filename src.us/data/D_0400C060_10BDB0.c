@@ -28,7 +28,7 @@ Vtx D_0400BF00_10BC50[22] = {
 #include "data/inc/D_0400BF00_10BC50.inc.c"
 };
 
-extern u8 D_0400A320_10A070[];
+extern u8 img_objects_liberty_head_rgba16__png[];
 
 Gfx D_0400C060_10BDB0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
@@ -40,7 +40,7 @@ Gfx D_0400C060_10BDB0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400A320_10A070),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_objects_liberty_head_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 6, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 2047, 256),

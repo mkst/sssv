@@ -13,7 +13,7 @@ extern u16 D_803A0510_7B1BC0[];
 // .bss
 // ========================================================
 
-u8  (*D_803D60D0)(Animal *arg0, Animal *arg1, Position**, Position**, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
+u8  (*D_803D60D0)(Entity *arg0, Entity *arg1, Position**, Position**, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
 u8   D_803D60D4;
 
 Position *D_803D60D8;
@@ -45,10 +45,10 @@ void func_802B4D20_6C63D0(void) {
 
     s32 pad[4];
 
-    Vertex spF8;
-    Vertex spEC;
-    Vertex spE0;
-    Vertex spD4;
+    Vec3f spF8;
+    Vec3f spEC;
+    Vec3f spE0;
+    Vec3f spD4;
 
     Animal *animal1;
     Animal *animal2;
@@ -149,8 +149,8 @@ void func_802B4D20_6C63D0(void) {
                                                 var_s5 = 0;
                                             }
 
-                                            if (((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal2->unk4C.unk1B) && (animal2->unk16C->unk82.unk2 == 0)) ||
-                                                ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->unk162 == 1)) || (animal1->unk162 == 6)) && ((animal2->unk162 == 1) || (animal2->unk162 == 6)) && (animal1->unk4C.unk1B) && (animal1->unk16C->unk82.unk2 == 0))) {
+                                            if (((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == 1)) || (animal1->movementState == 6)) && ((animal2->movementState == 1) || (animal2->movementState == 6)) && (animal2->unk4C.unk1B) && (animal2->unk16C->unk82.unk2 == 0)) ||
+                                                ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == 1)) || (animal1->movementState == 6)) && ((animal2->movementState == 1) || (animal2->movementState == 6)) && (animal1->unk4C.unk1B) && (animal1->unk16C->unk82.unk2 == 0))) {
 
                                                 var_s3 = animal1->unk44;
                                                 var_s4 = animal2->unk44;
@@ -280,7 +280,7 @@ void func_802B4D20_6C63D0(void) {
 #endif
 
 // ESA: func_80071AC0
-s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, u8 (**collision_func)(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3) {
+s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3) {
     struct035 *a0; // arg0
     struct035 *a1; // arg1
     s32 res = 0;
@@ -384,7 +384,7 @@ s32 func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, u8 (**collision_func)(Anima
 }
 
 // ESA: func_80071CBC
-u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
+u8 func_802B6088_6C7738(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
 
     static Position D_803D60E8;
 
@@ -452,13 +452,13 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (var_a1 * 32)] & (1 << temp_v0))) {
                 D_803D60E8.yPos.h += 2;
                 changed = 1;
-                *p1 = &arg0->unkC4[i];
+                *p1 = &arg0->unkC4[i].pos;
             }
             temp_v0 = temp_a3 - var_t1;
             if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (var_a1 * 32)] & (1 << temp_v0))) {
                 D_803D60E8.yPos.h -= 2;
                 changed = 1;
-                *p1 = &arg0->unkC4[i];
+                *p1 = &arg0->unkC4[i].pos;
             }
         }
 
@@ -468,13 +468,13 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2
                 if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (temp_v0 * 32)] & (1 << temp_a3))) {
                     D_803D60E8.zPos.h += 2;
                     changed = 1;
-                    *p1 = &arg0->unkC4[i];
+                    *p1 = &arg0->unkC4[i].pos;
                 }
                 temp_v0 = var_a1 - var_t1;
                 if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[var_a2 + (temp_v0 * 32)] & (1 << temp_a3))) {
                     D_803D60E8.zPos.h -= 2;
                     changed = 1;
-                    *p1 = &arg0->unkC4[i];
+                    *p1 = &arg0->unkC4[i].pos;
                 }
             }
             if ((var_a1 >= 0) && (var_a1 < 32)) {
@@ -482,13 +482,13 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2
                 if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_v0 + (var_a1 * 32)] & (1 << temp_a3))) {
                     D_803D60E8.xPos.h += 2;
                     changed = 1;
-                    *p1 = &arg0->unkC4[i];
+                    *p1 = &arg0->unkC4[i].pos;
                 }
                 temp_v0 = var_a2 - var_t1;
                 if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_v0 + (var_a1 * 32)] & (1 << temp_a3))) {
                     D_803D60E8.xPos.h -= 2;
                     changed = 1;
-                    *p1 = &arg0->unkC4[i];
+                    *p1 = &arg0->unkC4[i].pos;
                 }
             }
             if (changed == 0) {
@@ -498,14 +498,14 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2
                     if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
                         D_803D60E8.xPos.h += 2;
                         D_803D60E8.zPos.h += 2;
-                        *p1 = &arg0->unkC4[i];
+                        *p1 = &arg0->unkC4[i].pos;
                         changed = 1;
                     }
                     temp_v0 = var_a1 - var_t3;
                     if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
                         D_803D60E8.xPos.h += 2;
                         D_803D60E8.zPos.h -= 2;
-                        *p1 = &arg0->unkC4[i];
+                        *p1 = &arg0->unkC4[i].pos;
                         changed = 1;
                     }
                 }
@@ -516,14 +516,14 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2
                     if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
                         D_803D60E8.xPos.h -= 2;
                         D_803D60E8.zPos.h += 2;
-                        *p1 = &arg0->unkC4[i];
+                        *p1 = &arg0->unkC4[i].pos;
                         changed = 1;
                     }
                     temp_v0 = var_a1 - var_t3;
                     if ((temp_v0 >= 0) && (temp_v0 < 32) && (collision->data[temp_a0_2 + (temp_v0 * 32)] & (1 << temp_a3))) {
                         D_803D60E8.xPos.h -= 2;
                         D_803D60E8.zPos.h -= 2;
-                        *p1 = &arg0->unkC4[i];
+                        *p1 = &arg0->unkC4[i].pos;
                         changed = 1;
                     }
                 }
@@ -565,7 +565,7 @@ u8 func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 }
 
 // ESA: func_800724D4
-u8 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
+u8 func_802B6948_6C7FF8(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
     s16 i;
     s16 j;
 
@@ -592,8 +592,8 @@ u8 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position** p1, Position** p2
             res = ((SQ(temp_a3) + SQ(temp_t0)) + SQ(temp_t1)) < temp_v0;
 
             if (res != 0) {
-                *p1 = &arg0->unkC4[i];
-                *p2 = &arg1->unkC4[j];
+                *p1 = &arg0->unkC4[i].pos;
+                *p2 = &arg1->unkC4[j].pos;
             }
         }
 
@@ -601,7 +601,7 @@ u8 func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position** p1, Position** p2
     return res;
 }
 
-u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
+u8 func_802B6B5C_6C820C(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
     s32 temp_a0;
     s32 temp_a1;
 
@@ -682,7 +682,7 @@ u8 func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 
 // ESA: func_80072B88
 // collision with object that has custom collision data
-u8 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
+u8 func_802B6F6C_6C861C(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
     static Position D_803D60F8;
 
     Collision *collision;
@@ -804,7 +804,7 @@ u8 func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 }
 
 // ESA: func_80072FF4
-u8 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
+u8 func_802B750C_6C8BBC(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
     u8 check0;
     u8 check1;
     s32 velocity0;
@@ -822,7 +822,7 @@ u8 func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, Position** p1, Position** p2
 }
 
 // ESA: func_800730AC
-u8 func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
+u8 func_802B75B4_6C8C64(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2) {
     return 0;
 }
 
@@ -910,11 +910,11 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
 
 // ESA: func_8007374C
 u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
-    Vertex spC4; // 0xC
-    s32    spC0; // pad
-    Vertex spB4; // 0xC
-    Vertex spA8; // 0xC
-    Vertex res;  // sp9C; // 0xC
+    Vec3f spC4; // 0xC
+    s32   spC0; // pad
+    Vec3f spB4; // 0xC
+    Vec3f spA8; // 0xC
+    Vec3f res;  // sp9C; // 0xC
 
     s32 x0;
     s32 z0;

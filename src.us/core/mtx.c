@@ -56,9 +56,9 @@ void func_80125FE0(Mtx *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, 
     func_8012635C(arg3, 0x10000, &arg0->m[1][3]);
 }
 
-void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2) {
-    arg2->m[0][0] = (arg0 & 0xFFFF0000) | ((arg1 >> 16) & 0xFFFF);
-    arg2->m[2][0] = (arg0 << 16) | (arg1 & 0xFFFF);
+void func_8012635C(s32 arg0, s32 arg1, s32 *arg2) {
+    arg2[0] = (arg0 & 0xFFFF0000) | ((arg1 >> 16) & 0xFFFF);
+    arg2[8] = (arg0 << 16) | (arg1 & 0xFFFF);
 }
 
 s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Mtx *arg9) {

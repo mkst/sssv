@@ -1,12 +1,12 @@
 #include <ultra64.h>
 #include "common.h"
 
-extern s16 D_803B4A20_7C60D0[];
-extern s16 D_803B4A50_7C6100[];
-extern s16 D_803B4A80_7C6130[];
-extern s16 D_803B4A94_7C6144[];
-extern s16 D_803B4AC4_7C6174[];
-extern s16 D_803B4AF4_7C61A4[];
+extern struct077 D_803B4A20_7C60D0[];
+extern struct077 D_803B4A50_7C6100[];
+extern struct077 D_803B4A80_7C6130[];
+extern struct077 D_803B4A94_7C6144[];
+extern struct077 D_803B4AC4_7C6174[];
+extern struct077 D_803B4AF4_7C61A4[];
 
 extern u8 D_803B4B08_7C61B8[];
 extern u8 D_803B4B20_7C61D0[];
@@ -34,7 +34,7 @@ extern u8 D_04002560_E9B10[];
 
 void func_8036D700_77EDB0(void) {
 
-    struct061 spE0;
+    Vertex spE0;
     s16 spDE;
     s16 spDC;
     s16 spDA;
@@ -270,7 +270,7 @@ void func_8036D700_77EDB0(void) {
 
             if (D_803D5524->unk9C == CANNON_CAMEL) {
                 if (gUiFlowState.unk0 == 0) {
-                    switch (D_803D552C->unk366) {
+                    switch (D_803D552C->movementMode) {
                     case MOVEMENT_MODE_2:
                     case MOVEMENT_MODE_DEACTIVATED:
                         break;
@@ -365,7 +365,7 @@ void func_8036D700_77EDB0(void) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
                 }
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_040029C0_E9F70);
-                load_1_tile(D_04002780_E9D30, (s32) D_04002560_E9B10);
+                load_1_tile(D_04002780_E9D30, D_04002560_E9B10);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04001300_E88B0);
                 break;
             case CANNON_CAMEL:
@@ -435,9 +435,9 @@ void func_8036D700_77EDB0(void) {
 #pragma _permuter sameline start
                 spDE = D_803BD530_7CEBE0.eyes[1][spDE]; spDC = D_803BD600_7CECB0.eyes[0][spDC];
 #pragma _permuter sameline end
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes_ci4__png, spDE);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes_ci4__png, spDE);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04002820_E9DD0);
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes_ci4__png, spDC);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes_ci4__png, spDC);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04002840_E9DF0);
             }
 

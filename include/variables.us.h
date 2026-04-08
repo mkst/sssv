@@ -73,7 +73,7 @@ extern Gfx  D_01037950_71220[];
 extern Gfx  D_01037998_71268[];
 extern Gfx  D_010379D8_712A8[];
 extern Gfx  D_01037A00_712D0[];
-extern Gfx  D_01037A20_712F0[];
+extern u8   D_01037A20_712F0[];
 extern u8   D_0103AC40_74510[];
 extern u8   D_0103B440_74D10[];
 extern Gfx  D_0103B6F0_74FC0[];
@@ -82,7 +82,6 @@ extern Gfx  D_0103BA70[];
 extern Gfx  D_0103EC20[];
 extern u8   D_0103ECB0_78580[];
 extern u8   D_01040CB0_7A580[];
-extern u8   D_04000000_116BD0[]; // powercell
 extern u8   D_040000A0[];
 extern Gfx  D_040000E0_DD6A0[];
 extern Gfx  D_04000230_E77E0[];
@@ -97,9 +96,7 @@ extern Gfx  D_04000840_DDE00[];
 extern Gfx  D_04000900_DDEC0[];
 extern Gfx  D_040009D0_E7F80[];
 extern Gfx  D_04000AE0_DE0A0[];
-extern u8   D_04000B10_E80C0[];
 extern Gfx  D_04000B40_DE100[];
-extern u8   D_04000D10_E82C0[];
 extern Gfx  D_04000DB0_E8360[];
 extern u8   D_04000DD0_E8380[];
 extern Gfx  D_040005A0_DDB60[];
@@ -110,7 +107,6 @@ extern u8   D_04002F28[];
 
 extern u8   D_04005B60_11C730[]; // spaceship interior
 extern u8   D_04006D00_11D8D0[]; // tv body
-extern u8   D_04006EC0_11DA90[]; // sssv 43x43
 extern Gfx  D_04007500_E4AC0[];
 
 extern Gfx D_04003580_EAB30[];
@@ -138,26 +134,10 @@ extern Gfx  D_04006B60_1068B0[];
 extern Gfx  D_01003840_3D110[];
 
 extern Gfx  D_040077E0_E4DA0[];
-extern u8   D_04007BD0_E5190[];
-extern u8   D_04007700_11E2D0[];
-extern u8   D_040077A0_11E370[];
-extern u8   D_040078C0_11E490[];
-extern u8   D_040079F0_11E5C0[];
 extern Gfx  D_04007AE0_E50A0[];
-extern u8   D_04007B40_11E710[];
-extern u8   D_04007C60_11E830[];
-extern u8   D_04007D90_11E960[];
-extern u8   D_04007DD0_E5390[];
 extern u8   D_04007E70_E5430[];
 extern u8   D_04007E90_E5450[];
-extern u8   D_04007EC0_11EA90[];
-extern u8   D_04007FA0_11EB70[];
-extern u8   D_04008290_107FE0[];
-extern u8   D_04008420_108170[];
-extern u8   D_040088F0_F9950[];
-extern u8   D_040089E0_108730[];
-extern u8   D_04008A10_108760[];
-extern u8   D_04008C10_108960[];
+extern Gfx  D_040088F0_F9950[];
 extern u8   D_0400A9E0_1215B0[];
 extern Gfx  D_0400BD00_FCD60[];
 extern Gfx  D_0400C260_FD2C0[];
@@ -171,10 +151,7 @@ extern Gfx  D_0400C170_FD1D0[];
 extern Gfx  D_0400C240_FD2A0[];
 
 extern u8   D_04012B20_1296F0[];
-extern u8   D_04013060_129C30[];
-extern u8   D_040131B0_129D80[];
-extern u8   D_040133C0_129F90[];
-extern u8   D_04013580_12A150[];
+
 extern u8   D_04003E70_F4ED0[];
 extern u8   D_04004070_F50D0[];
 
@@ -307,7 +284,7 @@ extern s32  numControllers;
 // 0x8016xxxx
 
 extern OSSched sc; // D_801603D0;
-extern struct018 D_80162658[2];
+extern FrameContext D_80162658[2];
 
 // 0x801Dxxxx
 extern u8  *D_801D9E58; // europe segment start
@@ -356,15 +333,15 @@ extern s32  D_801DD8EC;
 //extern s16  D_801E9EB6; // D_801D9ED8.unkFFDE // bear/gorilla use this
 
 extern Objects D_801E9EB8;  // gObjects
-// extern struct071 D_80203AA8[];   // D_801E9EB8.objects
-// extern struct071 *D_80203D1C[];  // D_801E9EB8.objectsPtr
+// extern Entity D_80203AA8[];   // D_801E9EB8.objects
+// extern Entity *D_80203D1C[];  // D_801E9EB8.objectsPtr
 // extern s16  D_80203FC4;          // D_801E9EB8.total
 
 extern s16  D_80203FD0; // gScreenWidth
 extern s16  D_80203FD2; // gScreenHeight
 
-extern struct061 D_80203FE0[34];
-extern struct061 D_802040F0[34];
+extern LimbConfig D_80203FE0[34];
+extern LimbConfig D_802040F0[34];
 
 // extern s16 D_80203FF0;
 // extern s16 D_80203FF2;
@@ -392,14 +369,14 @@ extern f32  D_80204234;
 extern RomHeader D_80204240;
 extern s16  gRegion;
 extern s16  D_80204270;
-extern struct018 *gFrameContext;
+extern FrameContext *gFrameContext;
 extern DisplayList *gDisplayListContext;
 extern s16  D_8020427C;
 extern s16  D_80204280;
 extern u16  D_80204282;
 extern s16  gOverlayState;
 extern s8   gAttractModeState;
-extern struct018 *D_8020428C;
+extern FrameContext *D_8020428C;
 extern s16  gFrameStepDivisor;
 extern s16  D_80204292;
 extern s16  gRefreshRate;
@@ -407,7 +384,7 @@ extern OSScMsg *D_80204298; // OSMesg
 extern OSScClient D_802042A0;
 extern s16  D_802042A8;
 extern char gDebugTextBuffer[];
-extern s32  D_802042EC;
+extern OSMesg D_802042EC;
 extern s16  gNoControllerMessageText[];
 extern s16  D_80204368[];
 extern u64  D_802043E0[]; // yield_data_ptr
@@ -470,7 +447,6 @@ extern ALGlobals   D_8023F708;
 extern Acmd *D_8023F410[3];
 // 0x8024xxxx
 
-extern struct021   D_80241758;
 extern ALEventQueue D_80241768[];
 extern ALEventQueue D_8024177C[];
 extern s16  D_80241D08;
@@ -550,8 +526,6 @@ extern u8   D_802912E5; // z pressed
 
 // BSS (overlay1)
 
-// extern s16  D_803A05C0_7B1C70;
-// extern s16  D_803A05C8_7B1C78;
 extern s32  gGravity; // gravity constant?
 extern s32  D_803A05B4_7B1C64;
 extern struct089 D_803A05D0_7B1C80[68];
@@ -599,9 +573,6 @@ extern s16  D_803A5764_7B6E14;
 
 extern u8   D_803A52B8_7B6968; // lights.c
 
-
-// extern s32  D_803A52C0_7B6970;
-// extern s16  D_803A52C4_7B6974;
 extern u8   D_803A52D0_7B6980;
 extern s16  D_803A52D4_7B6984; // a struct in ESA?
 extern s32  D_803A52E8_7B6998[];
@@ -665,9 +636,9 @@ extern struct076 D_803B558C_7C6C3C[];
 extern Gfx  D_803B5764_7C6E14[];
 extern u8   D_803B5860_7C6F10[];
 extern u8   D_803B5864_7C6F14[];
-extern u8   D_803B5868_7C6F18[];
-extern u8   D_803B5870_7C6F20[];
-extern u8   D_803B5884_7C6F34[];
+extern s16  D_803B5868_7C6F18[];
+extern s16  D_803B5870_7C6F20[];
+extern s16  D_803B5884_7C6F34[];
 
 extern struct107 D_803B58E0_7C6F90[];
 extern void (*D_803B5D20[])(void);
@@ -742,26 +713,8 @@ extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
 
 // overlay2_6ACF20
 extern struct054 D_803D2D90;
-// extern f32       D_803D2DF8;
-// extern s16       D_803D2DFC;
-// extern s16       D_803D2DFE;
-// extern s16       D_803D2E00;
 extern DynamicTextures gDynamicTextureBillboardQueue; // dynamic textures, e.g. CRAZY_BEAR's spotlights
-// extern s32        D_803D3428;
-// extern s32        D_803D342C;
-// extern s16        D_803D3430;
-// extern s16        D_803D3432;
 extern DisplayList* D_803D3434;
-// extern s32       *D_803D3438;
-// extern Animal    *D_803D343C;
-// extern struct035 *D_803D3440;
-// extern struct025  D_803D3448;
-// extern struct025  D_803D3A20;
-// extern struct025  D_803D3FF8;
-// extern struct072  D_803D45D0;
-// extern struct025  D_803D4BB0;
-// extern struct057  D_803D5188[];
-// extern s16  D_803D5508;
 
 // overlay2_6B5380
 extern s16  D_803D5510;
@@ -799,10 +752,7 @@ extern s16  D_803D556E;
 extern s16  D_803D5570;
 extern u16  D_803D5572;
 extern s16  D_803D5574;
-extern u8   D_803D5575; // controller maginitude?
-// extern s16  D_803D5578;
-// extern s16  D_803D557A;
-// extern s16  D_803D557C;
+extern u8   D_803D5575; // controller magnitude?
 extern f32  D_803D5580;
 
 // overlay2_6C5570
@@ -812,7 +762,6 @@ extern s16  D_803D5B30[360];
 extern s16  D_803D5E00[360];
 
 // collision
-// extern s32  (*D_803D60D0)(Animal *arg0, Animal *arg1, void*, void*, s16 x1, s16 y1, s16 z1, s16 x2, s16 y2, s16 z2);
 extern u8   D_803D60D4;
 extern Position *D_803D60D8;
 extern Position *D_803D60DC;
@@ -826,7 +775,6 @@ extern struct036 D_803D6128[]; // eh
 
 // collist2
 extern CollisionNode D_803DA110[40];
-extern Animal *D_803DA2F0;
 
 // dynamic_tail
 extern struct088 D_803DA300[1000];
@@ -964,7 +912,6 @@ extern s32  D_803F2ED4;
 extern s16  D_803F2ED8;
 extern u8   D_803F2EDA;
 extern u8   D_803F2EDB;
-// extern u8   D_803F2EDC;
 extern u8   gLodDetailState;
 extern u8   D_803F2EDE;
 
@@ -1000,7 +947,6 @@ extern s16  D_803F6474;
 extern struct109 gTerminalTextScrollState;
 extern s16 *gTerminalStatLabels[18];
 extern s16  gTerminalStatTextX[20];
-// extern f32  D_803F6570[64];
 extern f32  D_803F6670;
 
 // overlay2_7A0DA0

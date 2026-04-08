@@ -12,7 +12,7 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numTris);
 void build_rotate_scale_translate_matrix(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
 void func_80125FE0(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8);
 
-void func_8012635C(s32 arg0, s32 arg1, Mtx *arg2);
+void func_8012635C(s32 arg0, s32 arg1, s32 *arg2);
 s32  func_80126388(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Mtx *arg9);
 s32  func_80126FD4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, Mtx *arg8);
 void func_80127640(Mtx *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s32 arg5, s32 arg6, s32 arg7, s16 arg8, s32 arg9);
@@ -75,7 +75,7 @@ void junk_eeprom(void); // junk eeprom
 void clear_player_eeprom_state(void); // clear eeprom
 
 // main_C770
-void func_8013107C(struct018 *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags);
+void func_8013107C(FrameContext *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags);
 
 // core/eeprom.c
 void func_80130E44(void);
@@ -150,7 +150,7 @@ void render_intro_title_reveal(Gfx **arg0, u16 arg1);
 void func_8029597C_63901C(uSprite *arg0, u8 arg1);
 void func_80295C38_6392D8(u8 arg0, u8 arg1);
 void func_80295EB0_639550(s32 arg0);
-void render_title_screen_frame(struct018*);
+void render_title_screen_frame(FrameContext*);
 
 s16  func_80298818_6A9EC8(s16, s16);
 void render_intro_overlay_frame_63BF88(void);
@@ -164,7 +164,7 @@ void reset_player_progress(void);
 void reset_player_health(void);
 void init_level(void);
 void func_80296310_6A79C0(void);
-void func_802963D0_6A7A80(DisplayList * arg0); // struct018*
+void func_802963D0_6A7A80(FrameContext *arg0);
 
 // overlay2_6A7A80
 void func_80296544_6A7BF4(void);
@@ -199,7 +199,7 @@ s32  func_8029ACB8_6AC368(s32 arg0, s32 arg1); // function does nothing but retu
 void func_8029ACC8_6AC378(void);
 
 // overlay2_6ACF20
-void maybe_trigger_exit_teleporter(Animal *arg0, Animal *arg1);
+void maybe_trigger_exit_teleporter(Animal *animal, Entity *teleporter);
 void func_8029B9B8_6AD068(Animal *arg0, Animal *arg1);
 void maybe_do_teleport(Animal *arg0, Animal *arg1);
 void func_8029BB94_6AD244(void);
@@ -272,7 +272,7 @@ void func_802A6390_6B7A40(void);
 void func_802A63C0_6B7A70(void);
 void func_802A6400_6B7AB0(void);
 s32  func_802A64B0_6B7B60(void);
-s32  func_802A7648_6B8CF8(Animal *arg0);
+s32  func_802A7648_6B8CF8(Entity *arg0);
 void func_802A78CC_6B8F7C(void);
 void func_802A935C_6BAA0C(void);
 void func_802AA0A0_6BB750(void);
@@ -349,14 +349,14 @@ void func_802B4148_6C57F8(Gfx **arg0);
 // collision.c
 void func_802B4D20_6C63D0(void);
 
-s32  func_802B5E48_6C74F8(Animal *arg0, Animal *arg1, u8 (**collision_func)(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3);
+s32  func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3);
 
-u8   func_802B750C_6C8BBC(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
-u8   func_802B75B4_6C8C64(Animal *arg0, Animal *arg1, Position **p1, Position **p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
-u8   func_802B6088_6C7738(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
-u8   func_802B6948_6C7FF8(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
-u8   func_802B6B5C_6C820C(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
-u8   func_802B6F6C_6C861C(Animal *arg0, Animal *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
+u8   func_802B750C_6C8BBC(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
+u8   func_802B75B4_6C8C64(Entity *arg0, Entity *arg1, Position **p1, Position **p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
+u8   func_802B6088_6C7738(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
+u8   func_802B6948_6C7FF8(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
+u8   func_802B6B5C_6C820C(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
+u8   func_802B6F6C_6C861C(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2);
 
 u8  check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32 y, s32 z, u8*, u16);
 u8   func_802B7BC8_6C9278(Animal *arg0, Animal *arg1);
@@ -379,13 +379,13 @@ s32  func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2);
 void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2);
 
 // overlay2_6CA7E0
-void func_802B9130_6CA7E0(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
+void func_802B9130_6CA7E0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
 void func_802B964C_6CACFC(void);
 void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3);
 void func_802B975C_6CAE0C(s16 *arg0, s16 arg1, s16 arg2);
 void func_802B9A5C_6CB10C(s16 *arg0, s16 arg1);
 void func_802B9D20_6CB3D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
-void func_802BA220_6CB8D0(struct061 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5);
+void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5);
 void func_802BA614_6CBCC4(s16 *arg0, s16 arg1);
 void func_802BAA38_6CC0E8(u16 arg0, u16 arg1);
 void func_802BAC24_6CC2D4(u16 arg0, u16 arg1);
@@ -406,29 +406,29 @@ void func_802BC350_6CDA00(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4);
 void func_802BC628_6CDCD8(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4);
 void func_802BC900_6CDFB0(struct077 *arg0, u16 arg1, u16 arg2, s16 *arg3, s16 *arg4, s16 *arg5);
 void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA);
-void func_802BCDA0_6CE450(struct103 *arg0, s16 *arg1, s16 *arg2, s16 *arg3);
-void func_802BCF38_6CE5E8(u16, u16, struct061*);
-void func_802BD21C_6CE8CC(u16 arg0, struct061 *arg1);
+void func_802BCDA0_6CE450(LimbIKState *arg0, s16 *arg1, s16 *arg2, s16 *arg3);
+void func_802BCF38_6CE5E8(u16, u16, Vertex*);
+void func_802BD21C_6CE8CC(u16 arg0, Vertex *arg1);
 void func_802BD358_6CEA08(s16 *arg0);
-void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, s16 *arg13, s16 *arg14, s16 *arg15, struct061 *arg16, s16 arg17); // tbd
-void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 * argB, s8 argC);
-void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC);
-void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, s32 argF, s32 arg10, s32 arg11, struct061 *arg12);
-void func_802BFF84_6D1634(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA);
-void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, struct061 *arg12);
-void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA);
-void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1);
-void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2);
-void func_802C19CC_6D307C(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
+void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, struct077 *arg8, struct077 *arg9, struct077 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, struct077 *arg13, struct077 *arg14, struct077 *arg15, Vertex *arg16, s16 arg17); // tbd
+void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 * argB, s8 argC);
+void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC);
+void update_limbs_rigid(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *arg12);
+void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA);
+void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *arg12);
+void func_802C13E4_6D2A94(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA);
+void func_802C1830_6D2EE0(u16 arg0, Vertex *arg1);
+void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, Vertex *arg2);
+void func_802C19CC_6D307C(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
 void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2);
-void func_802C1A88_6D3138(u16 arg0, struct061 *arg1);
+void func_802C1A88_6D3138(u16 arg0, Vertex *arg1);
 void func_802C23F8_6D3AA8(s16 arg0);
-void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5);
+void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5);
 void func_802C2D98_6D4448(s16 arg0, s16 arg1);
-void func_802C3188_6D4838(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s32 arg7);
-void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, struct061 *arg6);
+void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s32 arg7);
+void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, Vertex *arg6);
 void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2);
-void func_802C3F58_6D5608(struct103*, u16, u16, u16, s16, s16, s16);
+void func_802C3F58_6D5608(LimbIKState*, u16, u16, u16, s16, s16, s16);
 void func_802C4448_6D5AF8(s16 arg0);
 void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3); // tbd
 
@@ -449,9 +449,9 @@ void func_802C7310_6D89C0(void);
 void func_802C75A4_6D8C54(s16 arg0);
 void func_802C7600_6D8CB0(s16 arg0, s16 arg1);
 void func_802C78B0_6D8F60(u16 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *arg9);
-void func_802C79E0_6D9090(struct061 *arg0, s16 arg1);
-// s32  func_802C7A7C_6D912C(struct061 *arg0, s16 arg1); // likely no definition (needs to return s32 to OK)
-void func_802C7B18_6D91C8(struct061 *arg0, s16 arg1);
+void func_802C79E0_6D9090(LimbConfig *arg0, s16 arg1);
+// s32  func_802C7A7C_6D912C(LimbConfig *arg0, s16 arg1); // likely no definition (needs to return s32 to OK)
+void func_802C7B18_6D91C8(LimbConfig *arg0, s16 arg1);
 
 void func_802C7BB4_6D9264(u16 arg0);
 void func_802C7C80_6D9330(void);
@@ -466,21 +466,19 @@ void func_802C87E0_6D9E90(void);
 void func_802C8878_6D9F28(void);
 void read_controller_input(OSContPad *cont);
 s32  load_objects(void);
-// struct071 *func_802C93E8_6DAA98(u16 arg0); // helps load_level_data_sections?
+// Entity *func_802C93E8_6DAA98(u16 arg0); // helps load_level_data_sections?
 void func_802C941C_6DAACC(void);
-struct071 *func_802C9488_6DAB38(void);
-void func_802C9500_6DABB0(struct071 *obj);
+Entity *func_802C9488_6DAB38(void);
+void func_802C9500_6DABB0(Entity *obj);
 void func_802C9834_6DAEE4(void);
 void func_802C985C_6DAF0C(void);
 void reset_objects_state(void);
-void func_802C9900_6DAFB0(struct071 *arg0, struct071 *arg1, u8 arg2);
+void func_802C9900_6DAFB0(Entity *arg0, Entity *arg1, u8 arg2);
 void func_802C9918_6DAFC8(Animal *arg0, s16 arg1, s16 arg2);
 void func_802C9BA4_6DB254(Animal *arg0);
 
 // overlay2_6DB610
-void func_802C9F60_6DB610(Animal *arg0);
-void func_802CA8D4_6DBF84(Animal *arg0);
-void func_802CAACC_6DC17C(Animal *arg0, s16 arg1);
+void update_entity_physics(Entity *arg0);
 void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);
 
 // overlay2_6DCA10
@@ -498,17 +496,14 @@ void do_item_collected_effect(s16 x, s16 z, s16 y, s16 arg3);
 
 // collist2
 void func_802DA7F0_6EBEA0(void);
-void func_802DA90C_6EBFBC(Animal *arg0);
-void remove_collision_list(Animal *arg0);
-void func_802DADA0_6EC450(Animal *arg0);
-void func_802DAE5C_6EC50C(struct071 *arg0);
+void func_802DA90C_6EBFBC(Entity *arg0);
+void remove_collision_list(Entity *arg0);
+void func_802DADA0_6EC450(Entity *arg0);
+void func_802DAE5C_6EC50C(Entity *arg0);
 void func_802DAF5C_6EC60C(void);
 void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd);
 
 // overlay2_6EC720
-void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 arg5);
-void func_802DB494_6ECB44(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4);
-void func_802DB5C0_6ECC70(s16 arg0, s16 arg1, s16 arg2, u16 arg3);
 void func_802DB670_6ECD20(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3);
 void func_802DB7C4_6ECE74(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3);
 void backup_joint_positions(void);
@@ -612,10 +607,10 @@ void func_802F30A4_704754(void);
 void get_controller_input(void);
 
 // overlay2_707310
-void func_802F5C60_707310(Animal *arg0);
+void func_802F5C60_707310(Entity *arg0);
 void func_802F5F44_7075F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, struct077 *arg5);
 void func_802F603C_7076EC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, u16 arg5, struct077 *arg6); // tbd
-struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s32 scale);
+Entity *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, s32 scale);
 s16  func_802F63F8_707AA8(s16 arg0, s16 arg1, s16 arg2);
 s16  func_802F649C_707B4C(s16 arg0, s16 arg1, s16 arg2);
 void func_802F657C_707C2C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
@@ -629,25 +624,25 @@ void func_802F705C_70870C(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, 
 void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 enabled, s16 arg5, s16 arg6, s16 arg7);
 s16  func_802F804C_7096FC(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
 u8   func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct077 *arg4);
-struct071 *find_closest_animal(struct071 *arg0);
+Entity *find_closest_animal(Entity *arg0);
 s32  func_802F8918_709FC8(Animal *arg0, Animal *arg1);
-void func_802F8DCC_70A47C(struct071 *arg0);
+void func_802F8DCC_70A47C(Entity *arg0);
 void func_802F9084_70A734(Animal * arg0);
 void func_802F908C_70A73C(Animal *arg0);
 void func_802F90A8_70A758(Animal *arg0);
-void func_802F9104_70A7B4(struct071 *arg0);
-s32  func_802F9178_70A828(struct071 *arg0);
+void func_802F9104_70A7B4(Entity *arg0);
+s32  func_802F9178_70A828(Entity *arg0);
 void func_802F951C_70ABCC(Animal *arg0);
 void func_802F9624_70ACD4(Animal *arg0);
 void func_802F9880_70AF30(Animal *arg0);
 void func_802F9A08_70B0B8(Animal *arg0);
-void func_802F9C50_70B300(struct071 *arg0);
+void func_802F9C50_70B300(Entity *arg0);
 void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5);
 void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s16 arg4, u8 arg5);
 void func_802FA4F8_70BBA8(Animal *arg0);
 void func_802FA6D8_70BD88(void);
 void func_802FA730_70BDE0(Animal *arg0);
-void func_802FB270_70C920(Animal *arg0);
+void func_802FB270_70C920(Entity *arg0);
 void func_802FB49C_70CB4C(Animal *arg0);
 void func_802FB4C0_70CB70(Animal *arg0);
 void func_802FB680_70CD30(Animal *arg0);
@@ -683,20 +678,20 @@ void func_802FDA44_70F0F4(void);
 void func_802FE4C4_70FB74(void);
 void func_802FE560_70FC10(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 arg6, u8 arg7, s16 arg8);
 void func_802FE5E8_70FC98(void);
-void func_802FED68_710418(struct071 *owner, Animal *target, s16 x, s16 z, s16 y, s16 arg5, s16 arg6, s16 arg7, s16 angle, s16 rotation, s16 unkA, f32 scale, u8 argC);
+void func_802FED68_710418(Entity *owner, Animal *target, s16 x, s16 z, s16 y, s16 arg5, s16 arg6, s16 arg7, s16 angle, s16 rotation, s16 unkA, f32 scale, u8 argC);
 void func_802FF140_7107F0(void);
 void func_802FF184_710834(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9);
 void func_802FF25C_71090C(void);
-void func_802FF540_710BF0(struct071 *arg0);
-void func_802FF7D4_710E84(struct071 *arg0);
-void func_802FF828_710ED8(struct071 *arg0);
-void func_802FFA20_7110D0(struct071 *arg0);
-void func_802FFC34_7112E4(struct071 *arg0);
-void func_802FFD50_711400(struct071 *arg0);
-void func_802FFE94_711544(struct071 *arg0);
-void func_802FFED0_711580(struct071 *arg0);
-void func_802FFEFC_7115AC(struct071 *arg0);
-void func_802FFF50_711600(struct071 *arg0);
+void func_802FF540_710BF0(Entity *arg0);
+void func_802FF7D4_710E84(Entity *arg0);
+void func_802FF828_710ED8(Entity *arg0);
+void func_802FFA20_7110D0(Entity *arg0);
+void func_802FFC34_7112E4(Entity *arg0);
+void func_802FFD50_711400(Entity *arg0);
+void func_802FFE94_711544(Entity *arg0);
+void func_802FFED0_711580(Entity *arg0);
+void func_802FFEFC_7115AC(Entity *arg0);
+void func_802FFF50_711600(Entity *arg0);
 
 // overlay2_7117E0
 void func_80300130_7117E0(s16 *arg0, s16 *arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7);
@@ -745,7 +740,6 @@ s16  func_80305194_716844(s16 arg0, s16 arg1);
 s16  func_803051F0_7168A0(s16 arg0, s16 arg1);
 
 // overlay2_716900
-
 void func_80305250_716900(struct079_inner *arg0, Animal *animal, s16 distance, u8 arg3);
 s32  func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4);
 s32  func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4);
@@ -764,21 +758,9 @@ void func_80309EDC_71B58C(Animal *arg0);
 void func_80309F38_71B5E8(void);
 void func_8030A8EC_71BF9C(void);
 s32  func_8030AA08_71C0B8(Animal *arg0, Animal *arg1);
-s32  func_8030AA90_71C140(Animal *arg0);
-s32  func_8030B494_71CB44(void);
-s32  func_8030BC50_71D300(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *arg4);
-s32  func_8030BD50_71D400(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *arg4);
-s16  func_8030BE20_71D4D0(s16 arg0, s16 arg1, s16 arg2);
-void func_8030DD34_71F3E4(void);
-void func_8030E208_71F8B8(void);
-void func_8030E69C_71FD4C(void);
-s16  func_8030E8AC_71FF5C(struct071 *arg0);
-s32  func_8030EA98_720148(void);
-s32  func_8030EB88_720238(s16 arg0, s16 arg1);
-s32  func_8030EBF0_7202A0(void);
-s32  func_80310030_7216E0(void);
-s16  func_803102BC_72196C(void);
-s32  func_80310E10_7224C0(s16 arg0, s16 arg1);
+
+// overlay2_71C140
+s32  func_8030AA90_71C140(Entity *arg0);
 s32  func_80310EE4_722594(s16 x, s16 z, u8 arg2);
 s32  func_80310F58_722608(s16, s16);
 s32  sample_ground_height_at_xz(s16, s16);
@@ -791,11 +773,7 @@ s32  func_80312054_723704(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4, u8 ar
 s32  func_803123A4_723A54(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4, u8 arg5);
 s32  func_803126F4_723DA4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4, u8 arg5);
 s32  func_80312A44_7240F4(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4, u8 arg5);
-void func_80312D94_724444(void);
-void func_80313064_724714(void);
-void func_80313334_7249E4(void);
 s32  func_80313448_724AF8(Animal *arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_803135FC_724CAC(Animal *arg0);
 void func_803136B0_724D60(Animal *arg0);
 u8   func_803136FC_724DAC(s16 x, s16 z, s16 y);
 
@@ -806,13 +784,12 @@ void func_80314590_725C40(void);
 
 // overlay2_725D10
 void func_80314660_725D10(void);
-Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2);
+Entity *resolve_entity_ref(Entity *arg0, s16 arg1, u16 arg2);
 void func_80314788_725E38(void);
 s32  func_80314F0C_7265BC(Animal*, s32);
 s32  do_maths_op(s32 arg0, u8 arg1, s32 arg2);
 void copy_command_struct(CmdWrapper *arg0, CmdWrapper *arg1);
-void load_commands_into_object(Animal *arg0, CmdWrapper arg1[], u8 arg2);
-Animal *func_8031540C_726ABC(s16, u8);
+void load_commands_into_object(Entity *arg0, CmdWrapper arg1[], u8 arg2);
 // s32  func_80315658_726D08(s16 arg0, s32 arg1(Animal *, s16), s16 arg2); // tbd
 s32  func_80315870_726F20(Animal *arg0, s16 arg1);
 s32  func_80315880_726F30(s16 arg0);
@@ -825,17 +802,17 @@ s32  is_object(s16 arg0);
 u8   run_single_command(Animal *arg0, Cmd *arg1);
 s32  func_80316408_727AB8(Animal *arg0);
 void func_803190FC_72A7AC(Animal *arg0);
-void func_803191B0_72A860(Animal *arg0);
+void func_803191B0_72A860(Entity *arg0);
 
 // overlay2_72A930
-s32  func_80319280_72A930(Animal *arg0, Vertex *arg1, Vertex *arg2, Animal *arg3, Vertex *arg4, Vertex *arg5, f32 arg6, f32 arg7);
+s32  func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2, Animal *arg3, Vec3f *arg4, Vec3f *arg5, f32 arg6, f32 arg7);
 void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s16 arg5, s16 arg6);
 void func_803198B0_72AF60(void);
 
 // overlay2_72B100
 void reset_waypoints(void);
-void func_80319AA0_72B150(u8 *arg0, u8 arg1);
-void func_80319AC4_72B174(u8 *arg0, u8 arg1);
+void func_80319AA0_72B150(struct002 *arg0, u8 arg1);
+void func_80319AC4_72B174(struct002 *arg0, u8 arg1);
 void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5);
 u8   func_80319E1C_72B4CC(u8 x, u8 z, u8 y, u8 arg3, u8 arg4);
 u16  func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6);
@@ -845,7 +822,7 @@ void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye);
 void func_8031A278_72B928(s16 *arg0, s16 *arg1, s16 *arg2);
 void func_8031A370_72BA20(void);
 void func_8031A4E0_72BB90(void);
-void func_8031AA0C_72C0BC(struct058 *arg0); // more like *Animal
+void func_8031AA0C_72C0BC(Entity *arg0);
 void func_8031AE7C_72C52C(Animal *arg0);
 
 // overlay2_72C680
@@ -870,16 +847,16 @@ void func_8031FB30_7311E0(s16 arg0);
 void func_8031FB78_731228(s16 arg0);
 
 // overlay2_7312E0
-void func_8031FC30_7312E0(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5);
-void func_8031FE40_7314F0(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct077 *arg4);
-void func_8032018C_73183C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct077 *arg8, s8 arg9);
-void func_8032066C_731D1C(s16 arg0, s16 arg1);
-void func_80320828_731ED8(struct103 *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4);
-void func_80320B04_7321B4(s16 arg0, s16 arg1);
-void func_80320C84_732334(s16 arg0, s16 arg1);
-void func_80320DF8_7324A8(s16 arg0, s16 arg1);
-void func_80320E70_732520(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
-void func_80321224_7328D4(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, s16 arg6);
+void func_8031FC30_7312E0(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5);
+void update_limbs_evo(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], struct077 *arg4);
+void func_8032018C_73183C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, struct077 arg6[8], struct077 arg7[8], struct077 *arg8, s8 arg9);
+void update_limbs_bear(s16 arg0, s16 arg1);
+void func_80320828_731ED8(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4);
+void update_limbs_crazy_bear(s16 arg0, s16 arg1);
+void update_limbs_mystery_bear(s16 arg0, s16 arg1);
+void update_limbs_kangaroo(s16 arg0, s16 arg1);
+void update_limbs_gorilla(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
+void func_80321224_7328D4(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, s16 arg6);
 
 // overlay2_732A60
 void func_80321920_732FD0(Animal *arg0, s16 arg1, s16 arg2);
@@ -943,7 +920,7 @@ void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch);
 void func_8032C508_73DBB8(s16 id, s16 volume, s16 unused, f32 pitch); // sound effect helper?
 void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5);
 void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos);
-void func_8032CD20_73E3D0(s32 object, s16 id, s16 volume, s16 arg3, f32 pitch);
+void func_8032CD20_73E3D0(void *object, s16 id, s16 volume, s16 arg3, f32 pitch);
 void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch, s16 x, s16 y, s16 z);
 void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4, s16 arg5, s16 xPos, s16 zPos, s16 yPos, s32 xVel, s32 zVel, s32 yVel);
 
@@ -972,15 +949,15 @@ void func_8034220C_7538BC(s16 arg0, s16 arg1, s16 arg2, s16 arg3);
 
 void func_80342318_7539C8(s32 x, s32 y, s32 z);
 void func_80343720_754DD0(s16*, s16*, s16*);
-void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, struct071 *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE);
+void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, Entity *arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE);
 void func_80343C74_755324(s16 arg0, s8 arg1, s8 arg2, s8 arg3, u8 arg4);
-void func_80343D44_7553F4(u8 *arg0, s8 arg1);
+void func_80343D44_7553F4(WaypointData *arg0, s8 arg1);
 void func_80343DC0_755470(void);
 void set_player_camera_distance(s16 dist);
 
 void func_8034401C_7556CC(void);
 
-void func_8034419C_75584C(struct071 *arg0);
+void func_8034419C_75584C(Entity *arg0);
 
 void func_803441FC_7558AC(void);
 
@@ -1033,15 +1010,8 @@ void func_8034BB38_75D1E8(u8 arg0);
 // overlay2_75D3D0
 void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC);
 void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC);
-void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
-void func_8034CE88_75E538(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 arg4, s16 red, s16 green, s16 blue);
-void func_8034D830_75EEE0(struct061 *arg0, struct061 *arg1, struct061 *arg2, s16 arg3, s16 *arg4, s16 *arg5, s16 arg6, s16 arg7, s32 arg8, s8 arg9);
-void func_8034F3EC_760A9C(struct061 *arg0, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6);
-void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6);
-void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue, s32 argB, s32 argC, s32 argD, s32 argE);
-void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16 arg4, u16 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC);
-void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue);
-void func_80351EE8_763598(s16 numVtxs, struct061 *arg1, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
+
+// tortoise
 void func_80355918_766FC8(void);
 
 // chameleon
@@ -1139,25 +1109,25 @@ s32  func_80362B00_7741B0(Animal *a);
 s32  func_80362B60_774210(Animal *a);
 s32  func_80362BEC_77429C(Animal *a);
 void func_80362C10_7742C0(Animal *arg0);
-void func_80363738_774DE8(Animal *arg0, Animal *arg1, u16 arg2);
+void set_nav_state_engage_other(Animal *arg0, Animal *arg1, u16 arg2);
 void func_8036379C_774E4C(Animal *arg0);
-void func_803637D4_774E84(Animal *arg0, Animal *arg1, u16 arg2);
+void set_nav_state_engage_player(Animal *arg0, Animal *arg1, u16 arg2);
 void func_80363844_774EF4(Animal *arg0, s16 arg1);
 void set_waypoint_follow_target(Animal *arg0, Animal *arg1);
 void func_803638A8_774F58(Animal *arg0, Animal *arg1, s16 arg2);
-void func_803638E8_774F98(Animal *arg0);
+void reset_waypoint_mode(Animal *arg0);
 void func_80363B34_7751E4(Animal *arg0, u16 arg1);
 void func_8036390C_774FBC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8 arg5);
 void func_80363A0C_7750BC(Animal *arg0, u8 pathId, u8 arg2, s8 arg3, u8 arg4, u8 arg5);
 void func_80363B98_775248(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5);
 void func_80363C0C_7752BC(Animal *arg0, u8 arg1);
-void func_80363C48_7752F8(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5);
-void func_80363CC8_775378(Animal *arg0);
-void func_80363DB4_775464(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3);
-void func_80363CE0_775390(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3);
-void func_80363E88_775538(Animal *arg0, Animal *arg1);
+void set_nav_state_goto_point(Animal *arg0, s16 xPos, s16 zPos, s16 arg3, s8 arg4, u8 arg5);
+void set_nav_state_idle(Animal *arg0);
+void set_nav_state_chase_attack(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3);
+void set_nav_state_chase_target(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3);
+void set_nav_state_follow_target(Animal *arg0, Animal *arg1);
 void func_80363EDC_77558C(Animal *arg0, s16 arg1, Animal *arg2);
-void func_80363FB8_775668(Animal *arg0, u16, s16, s16);
+void set_nav_state_scripted(Animal *arg0, u16, s16, s16);
 void func_80363FF0_7756A0(Animal *arg0);
 void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3);
 

@@ -50,7 +50,7 @@ void func_802B8890_6C9F40(void) {
     D_803D5528->unk398.unk10 = 4;
     D_803D5528->unk3AC.unk10 = 4;
     D_803D5528->unk3C0.unk0 = 2;
-    D_803D5528->unk3C0.unk4 = 2;
+    D_803D5528->unk3C4.unk0 = 2;
     D_803D5528->unk370.unk12 = -1;
     D_803D5528->unk384.unk12 = -1;
     D_803D5528->unk398.unk12 = -1;
@@ -64,7 +64,7 @@ void func_802B8918_6C9FC8(void) {
     D_803D5528->unk398.unk10 = 7;
     D_803D5528->unk3AC.unk10 = 7;
     D_803D5528->unk3C0.unk0 = 7;
-    D_803D5528->unk3C0.unk4 = 7;
+    D_803D5528->unk3C4.unk0 = 7;
     D_803D5528->unk370.unk12 = 0;
     D_803D5528->unk384.unk12 = 0;
     D_803D5528->unk398.unk12 = 0;
@@ -77,7 +77,7 @@ void func_802B8978_6CA028(void) {
     D_803D5528->unk398.unk10 = 8;
     D_803D5528->unk3AC.unk10 = 8;
     D_803D5528->unk3C0.unk0 = 8;
-    D_803D5528->unk3C0.unk4 = 8;
+    D_803D5528->unk3C4.unk0 = 8;
     D_803D5528->unk370.unk12 = 0;
     D_803D5528->unk384.unk12 = 0;
     D_803D5528->unk398.unk12 = 0;
@@ -86,13 +86,13 @@ void func_802B8978_6CA028(void) {
 
 void func_802B89D8_6CA088(void) {
     D_803D5528->unk3C0.unk0 = 9;
-    D_803D5528->unk3C0.unk4 = 9;
+    D_803D5528->unk3C4.unk0 = 9;
     D_803D5528->unk370.unk12 = -1;
     D_803D5528->unk384.unk12 = -1;
     D_803D5528->unk398.unk12 = -1;
     D_803D5528->unk3AC.unk12 = -1;
     D_803D5528->unk3C0.unk2 = -1;
-    D_803D5528->unk3C0.unk6 = -1;
+    D_803D5528->unk3C4.unk2 = -1;
     func_802C7BB4_6D9264(6);
 }
 
@@ -102,22 +102,22 @@ void func_802B8A48_6CA0F8(void) {
     D_803D5528->unk398.unk10 = 10;
     D_803D5528->unk3AC.unk10 = 10;
     D_803D5528->unk3C0.unk0 = 10;
-    D_803D5528->unk3C0.unk4 = 10;
+    D_803D5528->unk3C4.unk0 = 10;
     D_803D5528->unk370.unk12 = -1;
     D_803D5528->unk384.unk12 = -1;
     D_803D5528->unk398.unk12 = -1;
     D_803D5528->unk3AC.unk12 = -1;
     D_803D5528->unk3C0.unk2 = -1;
-    D_803D5528->unk3C0.unk6 = -1;
+    D_803D5528->unk3C4.unk2 = -1;
     func_802C7BB4_6D9264(6);
 }
 
 void func_802B8AD8_6CA188(void) {
     D_803D5528->unk3C0.unk0 = 9;
-    D_803D5528->unk3C0.unk4 = 9;
+    D_803D5528->unk3C4.unk0 = 9;
     D_803D5528->unk3C8.unk6 = 9;
     D_803D5528->unk3C0.unk2 = -1;
-    D_803D5528->unk3C0.unk6 = -1;
+    D_803D5528->unk3C4.unk2 = -1;
     D_803D5528->unk3C8.unk8 = -1;
 }
 
@@ -126,9 +126,9 @@ void func_802B8B1C_6CA1CC(void) {
     D_803D5528->unk3C8.unk6 = 12;
     D_803D5528->unk3C0.unk2 = -1;
     D_803D5528->unk3C8.unk8 = -1;
-    if (D_803D5528->unk3C0.unk4 != 12) {
-        D_803D5528->unk3C0.unk4 = 12;
-        D_803D5528->unk3C0.unk6 = -1;
+    if (D_803D5528->unk3C4.unk0 != 12) {
+        D_803D5528->unk3C4.unk0 = 12;
+        D_803D5528->unk3C4.unk2 = -1;
     }
 }
 

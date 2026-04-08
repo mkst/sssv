@@ -44,8 +44,7 @@ struct064 D_803E1D30[256]; // additional layer for level data
 // ========================================================
 
 // ESA: func_8004E918
-void func_802F5C60_707310(Animal *arg0) {
-
+void func_802F5C60_707310(Entity *arg0) {
     s64 x;
 
     s64 temp_ret_3;
@@ -151,8 +150,8 @@ void func_802F603C_7076EC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, u16 
 }
 
 // ESA: func_8004F3C0
-struct071 *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 vAngle, s16 rotation, s16 arg9, s32 scale) {
-    struct071 *obj;
+Entity *func_802F62E4_707994(s16 x, s16 z, s16 y, u8 id, s16 arg4, s16 arg5, s16 arg6, s16 vAngle, s16 rotation, s16 arg9, s32 scale) {
+    Entity *obj;
     struct077 sp3C;
     struct077 sp34;
 
@@ -562,9 +561,9 @@ void func_802F705C_70870C(Animal *arg0, s16 zRotation, s16 yRotation, s16 height
     f32 var_f2;
     f32 var_f30;
 
-    Vertex spD4;
-    Vertex spC8;
-    Vertex *var_s1;
+    Vec3f spD4;
+    Vec3f spC8;
+    Vec3f *var_s1;
     f32 spC0;
 
     CollisionNode *var_s3;
@@ -758,7 +757,7 @@ void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 damage
         if ((sp88 = (arg0->owner != NULL))) {
             if ((sp88 = (arg0->owner->unk16C != NULL))) {
                 if ((sp88 = (arg0->owner->unk16C->objectType >= 0x100))) {
-                    sp88 = (arg0->owner == gAnimalState.animals[gCurrentAnimalIndex].animal);
+                    sp88 = IS_CURRENT_ANIMAL(arg0->owner);
                 }
             }
         }
@@ -814,11 +813,11 @@ void func_802F7940_708FF0(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s16 damage
                         if ((a->unk16C->objectType == OBJECT_MINE) || (a->unk16C->objectType == OBJECT_77) || (a->unk16C->objectType == OBJECT_78)) {
                             temp_v0_10 = var_s1 >> 4;
 
-                            if (temp_v0_10 < a->unk154) {
+                            if (temp_v0_10 < a->Info.lifetime) {
                                 if (temp_v0_10 >= 2) {
-                                    a->unk154 = temp_v0_10;
+                                    a->Info.lifetime = temp_v0_10;
                                 } else {
-                                    a->unk154 = 2;
+                                    a->Info.lifetime = 2;
                                 }
                             }
                         } else {
@@ -992,9 +991,9 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
     f32 sp60;
     f32 sp5C;
 
-    Vertex sp50;
-    Vertex sp44;
-    Vertex sp38;
+    Vec3f sp50;
+    Vec3f sp44;
+    Vec3f sp38;
 
     s16 temp_v0;
 
@@ -1035,7 +1034,7 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
     }
 
     sp5C = sp50.x / temp_f0;
-    temp_f0 = get_magnitude((Vertex *) &sp38);
+    temp_f0 = get_magnitude(&sp38);
     if (temp_f0 == 0.0f) {
         var_f2 = 0.0f;
         var_f12 = 0.0f;
@@ -1055,12 +1054,12 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
 s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
     u8 i, j;
 
-    if (arg0->unk18C == 0) {
+    if (arg0->unk18C.length == 0) {
         return 1;
     }
-    for (i = 0; i < arg0->unk18C; i++) {
-        for (j = 0; j < arg1->unk192; j++) {
-            if (arg0->unk18D[i] == arg1->unk193[j]) {
+    for (i = 0; i < arg0->unk18C.length; i++) {
+        for (j = 0; j < arg1->unk192.length; j++) {
+            if (arg0->unk18C.unk1[i] == arg1->unk192.unk1[j]) {
                 return 1;
             }
         }
@@ -1070,7 +1069,7 @@ s32 func_802F8918_709FC8(Animal *arg0, Animal *arg1) {
 }
 
 // ESA: func_800513C0
-struct071 *find_closest_animal(struct071 *arg0) {
+Entity *find_closest_animal(Entity *arg0) {
     s16 i;
     s16 zDist;
     s16 xDist;
@@ -1079,14 +1078,16 @@ struct071 *find_closest_animal(struct071 *arg0) {
     s16 distance;
 
     Animal *animal;
-    struct071 *ret;
+    Entity *ret;
 
     best_distance = MAX_SHORT;
     ret = NULL;
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if (gAnimalState.animals[i].animal != NULL) {
-            if ((gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_2) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
+            if ((gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) &&
+                (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_2) &&
+                (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DEACTIVATED)) {
                 if ((gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
                     (gAnimalState.animals[i].unk0->unk9C != EVO)) {
 
@@ -1109,12 +1110,12 @@ struct071 *find_closest_animal(struct071 *arg0) {
 }
 
 // ESA: func_80051544
-void func_802F8B4C_70A1FC(struct071 *arg0) {
+void func_802F8B4C_70A1FC(Entity *arg0) {
     s16 pad[6];
-    struct071 *obj2;
+    Entity *obj2;
     s16 angle;
     s16 temp_t0;
-    struct071 *obj;
+    Entity *obj;
     s32 x;
     s32 z;
 
@@ -1123,7 +1124,7 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
     if (arg0->Info.Counter2 > 0) {
         arg0->Info.Counter2 -= 2;
     }
-    if ((arg0->unk0 == 1)) {
+    if ((arg0->state == 1)) {
         obj = find_closest_animal(arg0);
         if ((obj != NULL) && (func_802F8658_709D08(arg0, obj, 16.0f, 512.0f, &sp48) != 0)) {
             x = sp48.unk0 - arg0->position.xPos.h;
@@ -1163,7 +1164,7 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
                             (arg0->unk40 << 0xB) >> 0xB);
 
                         if (obj2 != NULL) {
-                            obj2->unk154 = 200;
+                            obj2->Info.lifetime = 200;
                         }
                     }
                 } else {
@@ -1179,7 +1180,7 @@ void func_802F8B4C_70A1FC(struct071 *arg0) {
 
 // homing missile turret (object63)
 // ESA: func_800517C8
-void func_802F8DCC_70A47C(struct071 *arg0) {
+void func_802F8DCC_70A47C(Entity *arg0) {
     s32 x_dist;
     s32 z_dist;
     s32 temp_t0;
@@ -1187,12 +1188,12 @@ void func_802F8DCC_70A47C(struct071 *arg0) {
     s16 yRotation;
     s16 zRotation;
     s16 pad[2];
-    struct071 *target;
+    Entity *target;
 
     if (arg0->Info.Counter2 > 0) {
         arg0->Info.Counter2 -= 2;
     }
-    if (arg0->unk0 == 1) {
+    if (arg0->state == 1) {
         target = find_closest_animal(arg0);
         if (target != NULL) {
             if (arg0->Info.unk14E > 0) {
@@ -1242,8 +1243,8 @@ void func_802F9084_70A734(Animal * arg0) {
 
 // ESA: func_80051A94
 void func_802F908C_70A73C(Animal *arg0) {
-    if (arg0->unk154 == 0) {
-        arg0->unk154 = 100;
+    if (arg0->Info.lifetime == 0) {
+        arg0->Info.lifetime = 100;
     }
 }
 
@@ -1260,7 +1261,7 @@ void func_802F90A8_70A758(Animal *arg0) {
 
 // used by object34
 // ESA: func_80051B1C
-void func_802F9104_70A7B4(struct071 *arg0) {
+void func_802F9104_70A7B4(Entity *arg0) {
     arg0->Info.Counter2 = (arg0->Info.Counter2 + 4) & 0xFF;
     arg0->unk40 = (((COS(arg0->Info.Counter2) >> 7) * 0x66) >> 8) + 0x533;
     func_802C9BA4_6DB254(arg0);
@@ -1268,7 +1269,7 @@ void func_802F9104_70A7B4(struct071 *arg0) {
 
 // mouse radar?
 // ESA: func_80051B8C
-s32 func_802F9178_70A828(struct071 *arg0) {
+s32 func_802F9178_70A828(Entity *arg0) {
     Animal *target;
     s16 zDist;
     s16 xDist;
@@ -1279,9 +1280,9 @@ s32 func_802F9178_70A828(struct071 *arg0) {
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != NULL) &&
             (gAnimalState.animals[i].unk0->unk9C == MOUSE2)) {
-            if ((gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED) &&
-                (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_2) &&
-                (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DEACTIVATED)) {
+            if ((gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) &&
+                (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_2) &&
+                (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DEACTIVATED)) {
 
                 target = gAnimalState.animals[i].animal;
 
@@ -1302,7 +1303,7 @@ s32 func_802F9178_70A828(struct071 *arg0) {
 
 // ESA: func_80051CD0
 // used by missile
-void func_802F92B0_70A960(struct071 *arg0) {
+void func_802F92B0_70A960(Entity *arg0) {
     s32 pad[4];
     s32 x_dist;
     s32 z_dist;
@@ -1360,10 +1361,22 @@ void func_802F92B0_70A960(struct071 *arg0) {
         // something debug?
     }
 
-    if (arg0->unk154 == 0) {
-        arg0->unk154 = 160;
+    if (arg0->Info.lifetime == 0) {
+        arg0->Info.lifetime = 160;
     }
-    func_8032CED0_73E580(arg0, SFX_UNKNOWN_103, 0x4000, 0.4f, 0, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, arg0->unk1C.w, arg0->unk20.w, arg0->unk24.w);
+    func_8032CED0_73E580(
+        arg0,
+        SFX_UNKNOWN_103,
+        0x4000,
+        0.4f,
+        0,
+        0,
+        arg0->position.xPos.h,
+        arg0->position.zPos.h,
+        arg0->position.yPos.h,
+        arg0->xVelocity.w,
+        arg0->zVelocity.w,
+        arg0->yVelocity.w);
 }
 
 // used by object 30
@@ -1406,9 +1419,9 @@ void func_802F951C_70ABCC(Animal *arg0) {
 // ESA: func_80051F00
 void func_802F9624_70ACD4(Animal *arg0) {
     if (arg0->state == 1) {
-        arg0->unk14E++;
-        arg0->unk14E &= 3;
-        if (arg0->unk14E == 0) {
+        arg0->Info.unk14E++;
+        arg0->Info.unk14E &= 3;
+        if (arg0->Info.unk14E == 0) {
             create_particle_effect(
                 arg0->position.xPos.h,
                 arg0->position.zPos.h,
@@ -1427,13 +1440,13 @@ void func_802F9624_70ACD4(Animal *arg0) {
 
 // used by OBJECT_GRAVITY_SWITCH
 // esa: func_80051F98
-void func_802F96E0_70AD90(struct071 *psMoveObj) {
+void func_802F96E0_70AD90(Entity *psMoveObj) {
     if (psMoveObj->Info.Counter2 == 0) {
         psMoveObj->Info.Counter2 = psMoveObj->unk40;
         psMoveObj->Info.unk152 = (func_80128200() & 0xFF);
     }
 
-    if (psMoveObj->unk0 == 1) {
+    if (psMoveObj->state == 1) {
         if (psMoveObj->Info.unk14E < 256) {
             psMoveObj->Info.unk14E += 8;
             if (psMoveObj->Info.unk14E > 256) {
@@ -1461,44 +1474,44 @@ void func_802F96E0_70AD90(struct071 *psMoveObj) {
 // ESA: func_800520C4
 void func_802F9880_70AF30(Animal *arg0) {
     if (arg0->state == 1) {
-        if (arg0->unk150 == 0) {
-            arg0->unk150 = 1;
-            if (arg0->unk152 != 0) {
+        if (arg0->Info.unk150 == 0) {
+            arg0->Info.unk150 = 1;
+            if (arg0->Info.unk152 != 0) {
                 play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 1.0f);
             }
         }
-        if (arg0->unk14E < 128) {
-            arg0->unk14E += 8;
-            if (arg0->unk14E >= 128) {
-                arg0->unk14E = 128;
+        if (arg0->Info.unk14E < 128) {
+            arg0->Info.unk14E += 8;
+            if (arg0->Info.unk14E >= 128) {
+                arg0->Info.unk14E = 128;
             }
         }
     } else {
-        if (arg0->unk150 == 1) {
-            arg0->unk150 = 0;
-            if (arg0->unk152 != 0) {
+        if (arg0->Info.unk150 == 1) {
+            arg0->Info.unk150 = 0;
+            if (arg0->Info.unk152 != 0) {
                 play_sound_effect_at_location(SFX_UNKNOWN_82, 0x7FFF, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 0.8f);
             }
         }
-        if (arg0->unk14E > 0) {
-            arg0->unk14E -= 8;
-            if (arg0->unk14E < 0) {
-                arg0->unk14E = 0;
+        if (arg0->Info.unk14E > 0) {
+            arg0->Info.unk14E -= 8;
+            if (arg0->Info.unk14E < 0) {
+                arg0->Info.unk14E = 0;
             }
         }
     }
-    if (arg0->unk152 == 0) {
-        arg0->unk152 = 1;
+    if (arg0->Info.unk152 == 0) {
+        arg0->Info.unk152 = 1;
     }
-    arg0->unk152 = (((COS(arg0->unk14E) >> 7) * 0x2D) >> 8) + arg0->zRotation;
-    arg0->unk152 %= 360;
+    arg0->Info.unk152 = (((COS(arg0->Info.unk14E) >> 7) * 0x2D) >> 8) + arg0->zRotation;
+    arg0->Info.unk152 %= 360;
 }
 
 // used by OBJECT_WHEEL_SWITCH
 // ESA: func_80052250
 void func_802F9A08_70B0B8(Animal *arg0) {
     if (arg0->state == 1) {
-        if (arg0->unk14E == 0) {
+        if (arg0->Info.unk14E == 0) {
             arg0->unk23C.unknown2.unk0 = 13;
             arg0->unk23C.unknown2.unk1 = 128;
             arg0->unk23C.unknown2.unk2 = 128;
@@ -1508,14 +1521,14 @@ void func_802F9A08_70B0B8(Animal *arg0) {
             arg0->unk23C.unknown2.unk6 = 64;
             arg0->unk244 = 0;
         }
-        if (arg0->unk14E < 0xFF) {
-            arg0->unk14E += 4;
-            if (arg0->unk14E >= 256) {
-                arg0->unk14E = 0xFF;
+        if (arg0->Info.unk14E < 0xFF) {
+            arg0->Info.unk14E += 4;
+            if (arg0->Info.unk14E >= 256) {
+                arg0->Info.unk14E = 0xFF;
             }
         }
     } else {
-        if (arg0->unk14E >= 0xFF) {
+        if (arg0->Info.unk14E >= 0xFF) {
             arg0->unk23C.unknown2.unk0 = 13;
             arg0->unk23C.unknown2.unk1 = 128;
             arg0->unk23C.unknown2.unk2 = 128;
@@ -1525,20 +1538,20 @@ void func_802F9A08_70B0B8(Animal *arg0) {
             arg0->unk23C.unknown2.unk6 = 64;
             arg0->unk244 = 0;
         }
-        if (arg0->unk14E > 0) {
-            arg0->unk14E -= 4;
-            if (arg0->unk14E < 0) {
-                arg0->unk14E = 0;
+        if (arg0->Info.unk14E > 0) {
+            arg0->Info.unk14E -= 4;
+            if (arg0->Info.unk14E < 0) {
+                arg0->Info.unk14E = 0;
             }
         }
     }
-    arg0->yRotation = ((arg0->unk14E * 360) / 128) % 360;
+    arg0->yRotation = ((arg0->Info.unk14E * 360) / 128) % 360;
 }
 
 // used by OBJECT_BUTTON
 // ESA: func_80052324
-void func_802F9B4C_70B1FC(struct071 *arg0) {
-    if (arg0->unk0 == 1) {
+void func_802F9B4C_70B1FC(Entity *arg0) {
+    if (arg0->state == 1) {
         add_light_at_location(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 0xFF, 255 /* red */, 0, 0);
         if (arg0->Info.unk14E == 0) {
             arg0->Info.unk14E = 1;
@@ -1559,14 +1572,14 @@ void func_802F9B4C_70B1FC(struct071 *arg0) {
 
 // used by OBJECT_ACTIVE_SWITCH
 // ESA: func_800523EC
-void func_802F9C50_70B300(struct071 *arg0) {
+void func_802F9C50_70B300(Entity *arg0) {
     u8 red;
     u8 green;
     u8 blue;
 
     s16 temp_t3;
 
-    if (arg0->unk0 == 1) { // is active? enable-able?
+    if (arg0->state == 1) { // is active
         red = 255; green = 0; blue = 0;
         if (arg0->Info.unk14E == 0) {
             arg0->Info.unk14E = 1; // enabled?
@@ -2032,10 +2045,10 @@ void func_802FADBC_70C46C(Animal *arg0) {
 
 // used in collist2
 // ESA: func_800537C4
-void func_802FB270_70C920(Animal *arg0) {
+void func_802FB270_70C920(Entity *arg0) {
 
     if ((arg0->unk4C.unk1C != 0) || (arg0->unk4C.unk1D != 0)) {
-        func_802C9F60_6DB610(arg0);
+        update_entity_physics(arg0);
     }
     if ((arg0->unk4C.unk1C == 0) || (arg0->unk4C.unk1D == 0)) {
         func_802F90A8_70A758(arg0);
@@ -2052,12 +2065,12 @@ void func_802FB270_70C920(Animal *arg0) {
     if (arg0->unk4C.unk1A == 0) {
         switch (arg0->unk16C->unk88) {
         case 0:
-            if (arg0->health <= 0) {
+            if (arg0->Info.health <= 0) {
                 run_commands(arg0);
             }
             break;
         case 1:
-            if ((arg0->unk5C.unk0 & 4) && (arg0->unk5C.unk4 == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
+            if ((arg0->unk5C.unk0 & 4) && IS_CURRENT_ANIMAL(arg0->unk5C.unk4)) {
                 run_commands(arg0);
             }
             break;
@@ -2083,9 +2096,9 @@ void func_802FB270_70C920(Animal *arg0) {
         }
     }
 
-    if ((arg0->unk4C.unk1A == 0) && (arg0->unk154 != 0)) {
-        arg0->unk154--;
-        if (arg0->unk154 == 1) {
+    if ((arg0->unk4C.unk1A == 0) && (arg0->Info.lifetime != 0)) {
+        arg0->Info.lifetime--;
+        if (arg0->Info.lifetime == 1) {
             run_commands(arg0);
         }
     }
@@ -2517,7 +2530,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         case 0x3A: // energy ball + 16 hp
             if (tmp) {
                 if (gGameState.unk4 == 0) {
-                    gAnimalState.animals[gCurrentAnimalIndex].animal->health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->health + 0x10, 0x7F);
+                    gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health + 0x10, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
                 D_803D552C->unk34A = 0;
@@ -2530,7 +2543,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         case 0x3B:  // energy ball + 32 hp
             if (tmp) {
                 if (gGameState.unk4 == 0) {
-                    gAnimalState.animals[gCurrentAnimalIndex].animal->health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->health + 0x20, 0x7F);
+                    gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health + 0x20, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
                 D_803D552C->unk34A = 0;
@@ -2543,7 +2556,7 @@ void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
         case 0x3C: // energy ball + 64hp
             if (tmp) {
                 if (gGameState.unk4 == 0) {
-                    gAnimalState.animals[gCurrentAnimalIndex].animal->health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->health + 0x40, 0x7F);
+                    gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = MIN(gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health + 0x40, 0x7F);
                 }
                 D_803D552C->unk348 = 0;
                 D_803D552C->unk34A = 0;
@@ -2760,7 +2773,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
         arg0->unk54.unk1 = arg1->unk16C->objectType - OB_TYPE_ANIMAL_OFFSET;
         arg0->unk54.unk4 = arg1;
         arg0->unk54.unk2 = 5U;
-        if (arg1 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
+        if (IS_CURRENT_ANIMAL(arg1)) {
             arg0->unk54.unk0 |= 0x10;
         }
     } else {
@@ -2776,7 +2789,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
                 arg0->unk54.unk4 = arg1;
                 arg0->unk54.unk2 = tmp;
             }
-            if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg1->owner == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
+            if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && IS_CURRENT_ANIMAL(arg1->owner)) {
                 arg0->unk2EB++;
             }
         }
@@ -2786,7 +2799,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
         arg1->unk54.unk1 = arg0->unk16C->objectType - OB_TYPE_ANIMAL_OFFSET;
         arg1->unk54.unk4 = arg0;
         arg1->unk54.unk2 = 5U;
-        if (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
+        if (IS_CURRENT_ANIMAL(arg0)) {
             arg1->unk54.unk0 |= 0x10;
         }
     } else {
@@ -2802,8 +2815,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
                 arg1->unk54.unk4 = arg0;
                 arg1->unk54.unk2 = tmp;
             }
-            if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) &&
-                (arg0->owner == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
+            if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && IS_CURRENT_ANIMAL(arg0->owner)) {
                 arg1->unk2EB++;
             }
         }
@@ -2972,7 +2984,7 @@ void func_802FE5E8_70FC98(void) {
 }
 
 // ESA: func_80056A2C
-void func_802FED68_710418(struct071 *owner, Animal *target, s16 x, s16 z, s16 y, s16 arg5, s16 arg6, s16 arg7, s16 angle, s16 rotation, s16 unkA, f32 scale, u8 argC) {
+void func_802FED68_710418(Entity *owner, Animal *target, s16 x, s16 z, s16 y, s16 arg5, s16 arg6, s16 arg7, s16 angle, s16 rotation, s16 unkA, f32 scale, u8 argC) {
     struct077 position;
     struct077 velocity;
 
@@ -2998,7 +3010,7 @@ void func_802FED68_710418(struct071 *owner, Animal *target, s16 x, s16 z, s16 y,
 
 void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* target, s16 arg6, s16 arg7, f32 scale, s16 lifetime, s16 argA, s16 xVel, s16 zVel, s16 yVel, Animal* owner) {
     // spawn missile
-    struct071 *obj = spawn_object(18, x, z, y, xVel << 16, zVel << 16, yVel << 16, vAngle, rotation, (s32) (s16) (scale * 2048.0f));
+    Entity *obj = spawn_object(18, x, z, y, xVel << 16, zVel << 16, yVel << 16, vAngle, rotation, (s32) (s16) (scale * 2048.0f));
 
     if (obj != NULL) {
         obj->unk15C = 15;
@@ -3006,7 +3018,7 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
         obj->Info.Counter2 = arg6;
         obj->Info.unk152 = arg7;
         obj->target = target;
-        obj->unk154 = lifetime;
+        obj->Info.lifetime = lifetime;
         obj->unk15E = argA;
         obj->Info.unk14E = func_80128200();
         if (arg7 < 20) {
@@ -3018,11 +3030,11 @@ void fire_homing_missile(s16 x, s16 z, s16 y, s16 vAngle, s16 rotation, Animal* 
 }
 
 void spawn_temporary_object(s16 x, s16 z, s16 y, s16 scale, u8 lifetime, Animal *owner, s16 arg6, u8 id) {
-    struct071 *obj = spawn_object(id, x, z, func_80310EE4_722594(x, z, owner->unk160) >> 16, 0, 0, 0, 0, 0, scale);
+    Entity *obj = spawn_object(id, x, z, func_80310EE4_722594(x, z, owner->unk160) >> 16, 0, 0, 0, 0, 0, scale);
     if (obj != NULL) {
         obj->unk15C = 50;
         obj->owner = owner;
-        obj->unk154 = lifetime;
+        obj->Info.lifetime = lifetime;
         obj->unk15E = arg6 * 8;
     }
 }
@@ -3120,7 +3132,7 @@ void func_802FF25C_71090C(void) {
 
 // used by OBJECT_SPEAKER
 // ESA: func_8005764C
-void func_802FF540_710BF0(struct071 *arg0) {
+void func_802FF540_710BF0(Entity *arg0) {
     s32 dist;
     s32 phi_t2;
 
@@ -3165,7 +3177,7 @@ void func_802FF540_710BF0(struct071 *arg0) {
 
 // used by object 140
 // ESA: func_800578EC
-void func_802FF7D4_710E84(struct071 *arg0) {
+void func_802FF7D4_710E84(Entity *arg0) {
     create_particle_effect(
         arg0->position.xPos.h,
         arg0->position.zPos.h,
@@ -3182,7 +3194,7 @@ void func_802FF7D4_710E84(struct071 *arg0) {
 
 // used by object 79
 // ESA: func_8005793C
-void func_802FF828_710ED8(struct071 *arg0) {
+void func_802FF828_710ED8(Entity *arg0) {
     // trigger if below water?
     if (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4)) {
         run_commands(arg0);
@@ -3194,27 +3206,27 @@ void func_802FF828_710ED8(struct071 *arg0) {
 
 // used by object 39
 // ESA: func_80057D0C
-void func_802FFA20_7110D0(struct071 *arg0) {
+void func_802FFA20_7110D0(Entity *arg0) {
     if (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4)) {
         run_commands(arg0);
         return;
     }
-    if (arg0->unk154 == 0) {
-        arg0->unk154 = 100;
+    if (arg0->Info.lifetime == 0) {
+        arg0->Info.lifetime = 100;
     }
     add_regular_trail(arg0, 0, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0);
     add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
 }
 
-u8 *D_803A8370_7B9A20[];
+extern u8 *D_803A8370_7B9A20[3];
 // used by object 168
 // stubbed out in ESA?
-void func_802FFC34_7112E4(struct071 *arg0) {
+void func_802FFC34_7112E4(Entity *arg0) {
     s32 pad;
     s32 phi_v1;
     s32 temp_t4;
 
-    if (arg0->unk0 == 1) {
+    if (arg0->state == 1) {
         phi_v1 = MIN(arg0->unk158, 0xFF);
         add_light_at_location(
             arg0->position.xPos.h,
@@ -3246,7 +3258,7 @@ void func_802FFC34_7112E4(struct071 *arg0) {
 }
 
 // ESA: func_80058048
-void func_802FFD50_711400(struct071 *arg0) {
+void func_802FFD50_711400(Entity *arg0) {
     f32 sp34;
     f32 sp1C; // pad
     f32 temp_f0;
@@ -3255,9 +3267,9 @@ void func_802FFD50_711400(struct071 *arg0) {
     f32 temp_f16;
     f32 temp_f18;
 
-    temp_f16 = arg0->unk1C.w / 65536.0f;
-    temp_f12 = arg0->unk20.w / 65536.0f;
-    temp_f18 = arg0->unk24.w / 65536.0f;
+    temp_f16 = arg0->xVelocity.w / 65536.0f;
+    temp_f12 = arg0->zVelocity.w / 65536.0f;
+    temp_f18 = arg0->yVelocity.w / 65536.0f;
     sp34 = sqrtf((temp_f16 * temp_f16) + (temp_f12 * temp_f12) + (temp_f18 * temp_f18));
 
     if (ABSF(sp34) > 0.0f) {
@@ -3277,7 +3289,7 @@ void func_802FFD50_711400(struct071 *arg0) {
 
 // used by objects 74 & 180
 // ESA: func_800581DC
-void func_802FFE94_711544(struct071 *arg0) {
+void func_802FFE94_711544(Entity *arg0) {
     arg0->Info.unk14E = (arg0->Info.unk14E + 1) & 0x1F;
     if ((arg0->unk200 & 1) != 0) {
         func_802FFD50_711400(arg0);
@@ -3286,38 +3298,38 @@ void func_802FFE94_711544(struct071 *arg0) {
 
 // used by objects 200, 201, 202, 203, 204, 205, 206, 207, 225, 226
 // ESA: func_80058218
-void func_802FFED0_711580(struct071 *arg0) {
-    if (arg0->unk158 != 0) {
-        func_802FFD50_711400(arg0);
+void func_802FFED0_711580(Entity *e) {
+    if (e->unk158 != 0) {
+        func_802FFD50_711400(e);
     }
 }
 
 // used by object 151
 // ESA: func_80058248
-void func_802FFEFC_7115AC(struct071 *arg0) {
-    if (arg0->unk0 == 1) {
-        if (arg0->Info.unk14E == 0) {
-            arg0->Info.unk14E = 1;
-            func_8034419C_75584C(arg0);
+void func_802FFEFC_7115AC(Entity *e) {
+    if (e->state == 1) {
+        if (e->Info.unk14E == 0) {
+            e->Info.unk14E = 1;
+            func_8034419C_75584C(e);
         }
-    } else if (arg0->Info.unk14E == 1) {
-        arg0->Info.unk14E = 0;
+    } else if (e->Info.unk14E == 1) {
+        e->Info.unk14E = 0;
     }
 }
 
 // used by object 177
 // ESA: func_800582A0
-void func_802FFF50_711600(struct071 *arg0) {
+void func_802FFF50_711600(Entity *arg0) {
     func_802FFED0_711580(arg0);
 }
 
 // used by OBJECT_RED_TV and OBJECT_TV_SCREEN
-void func_802FFF70_711620(struct071 *arg0) {
-    func_8032CED0_73E580(&arg0->unk20.h[1], SFX_UNKNOWN_159, 0x3000, 1.0f, 0, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 0, 0, 0);
+void func_802FFF70_711620(Entity *arg0) {
+    func_8032CED0_73E580((u8*)arg0 + 0x22, SFX_UNKNOWN_159, 0x3000, 1.0f, 0, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 0, 0, 0);
 }
 
 // used by OBJECT_ENERGY_BALL*
-void func_802FFFD0_711680(struct071 *arg0) {
+void func_802FFFD0_711680(Entity *arg0) {
     u8 red, green, blue;
 
     // same line required for regalloc

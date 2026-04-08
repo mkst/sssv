@@ -126,7 +126,7 @@ s16  distance_from_player(s16 x, s16 z, s16 y);
 Animal2 *spawn_animal(s16 x, s16 z, s16 y, s16 rotation, s16 health, s16 id, s8 arg6);
 
 // overlay2_6D9AF0
-struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s16 zRotation, s16 yRotation, u16 scale);
+Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s16 zRotation, s16 yRotation, u16 scale);
 
 // overlay2_6DCA10
 s32  create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32, s32, s32, s16 size, u16 color1, u16 color2, u16); // TBD
@@ -201,15 +201,15 @@ void set_species_as_encountered(s16);
 void play_sound_effect_at_location(s16 id, s16 volume, s16 arg2, s16 x, s16 y, s16 z, f32 pitch);
 
 // overlay2_73EA30
-void vector_add(Vertex *x, Vertex *y, Vertex *res);
-void vector_subtract(Vertex *x, Vertex *y, Vertex *res);
-void vector_multiply_by(Vertex *x, f32 c, Vertex *res);
-void vector_divide_by(Vertex *x, f32 c, Vertex *res);
-f32  get_magnitude(Vertex *v);
-void normalize_vector(Vertex *x, Vertex *res);
-f32  dot_product(Vertex *x, Vertex *y);
-void cross_product(Vertex *x, Vertex *y, Vertex *res);
-s16  get_angle_between_vectors(Vertex *x, Vertex *y);
+void vector_add(Vec3f *x, Vec3f *y, Vec3f *res);
+void vector_subtract(Vec3f *x, Vec3f *y, Vec3f *res);
+void vector_multiply_by(Vec3f *x, f32 c, Vec3f *res);
+void vector_divide_by(Vec3f *x, f32 c, Vec3f *res);
+f32  get_magnitude(Vec3f *v);
+void normalize_vector(Vec3f *x, Vec3f *res);
+f32  dot_product(Vec3f *x, Vec3f *y);
+void cross_product(Vec3f *x, Vec3f *y, Vec3f *res);
+s16  get_angle_between_vectors(Vec3f *x, Vec3f *y);
 
 // sssv/camera.c
 void fix_camera_to_angle_offset(u8 id, f32 angle);

@@ -430,7 +430,7 @@ block_15:
             D_803D552C->unk2EC--;
         }
     }
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
         load_animal(DESERT_FOX);
         D_803D552C->unk348 = 1;
         D_803D552C->unk34A = 1;

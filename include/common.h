@@ -27,6 +27,8 @@ typedef u8 Addr[];
 #define SIN(x)                 gSineTable256[((s16)(x)       ) & 0xFF]
 #define COS(x)                 gSineTable256[((s16)(x) + 0x40) & 0xFF]
 
+#define IS_CURRENT_ANIMAL(x)   (((Animal*)(x)) == gAnimalState.animals[gCurrentAnimalIndex].animal)
+
 // DMA's interpretation of PI...
 #define SSSV_PI                3.141579
 
@@ -311,6 +313,32 @@ typedef u8 Addr[];
 #define LEVEL_PROGRESS_FLAG_32            32
 #define LEVEL_PROGRESS_FLAG_64            64
 #define LEVEL_PROGRESS_FLAG_128           128
+
+// waypoints
+
+#define WAYPOINT_MODE_NONE          0
+#define WAYPOINT_MODE_PATH          1
+#define WAYPOINT_MODE_MOVE          2
+#define WAYPOINT_MODE_PATROL        3
+#define WAYPOINT_MODE_RANDOM        4
+#define WAYPOINT_MODE_CHASE         5
+#define WAYPOINT_MODE_ROTATE        6
+#define WAYPOINT_MODE_FOLLOW        7
+#define WAYPOINT_MODE_ENGAGE_PLAYER 8
+#define WAYPOINT_MODE_ENGAGE_OTHER  9
+#define WAYPOINT_MODE_WAIT          10
+
+// navigation
+
+#define NAVIGATION_STATE_IDLE            0
+#define NAVIGATION_STATE_GOTO_POINT      1
+#define NAVIGATION_STATE_CHASE_TARGET    2
+#define NAVIGATION_STATE_FOLLOW_TARGET   3
+#define NAVIGATION_STATE_FOLLOW_TARGET_2 4
+#define NAVIGATION_STATE_SCRIPTED        5
+#define NAVIGATION_STATE_TURN_THEN_MOVE  6
+#define NAVIGATION_STATE_UNUSED_7        7
+#define NAVIGATION_STATE_CHASE_ATTACK    8
 
 //
 

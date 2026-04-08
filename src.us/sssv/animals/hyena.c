@@ -35,7 +35,7 @@ void func_803574E0_768B90(void) {
     s32 spAC;
     s32 spA8;
     s32 spA4;
-    struct061 sp9C;
+    Vertex sp9C;
     s16 sp9A;
     s16 sp98;
     s16 sp96;
@@ -135,7 +135,7 @@ void func_803574E0_768B90(void) {
         var_v1_2 = 0;
     }
 
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL)) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
@@ -283,7 +283,7 @@ void func_803574E0_768B90(void) {
             spAC = MAX(ABS(D_803D5530->xVelocity.h), ABS(D_803D5530->zVelocity.h));
 
             sp94 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
-            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
+            if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
                 func_80300130_7117E0(&sp94, &D_803D552C->unk30A, 0x28, -0x28, 2, 2, D_803D5530->yVelocity.h * 0x10, 3);
             } else {
                 sp94 = D_803D552C->unk30A = 0;
@@ -311,7 +311,7 @@ void func_803574E0_768B90(void) {
             } else {
                 sp92 = 0x76 - ((var_a0 * 475) >> 4);
             }
-            if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
+            if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
                 sp92 = 0;
             }
             sp92 = ((sp92 * 3) >> 1) - 44;
@@ -334,9 +334,9 @@ void func_803574E0_768B90(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp9A, &sp98);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp9A, &sp98);
                 sp9A = D_803BD530_7CEBE0.eyes[6][sp9A];sp98 = D_803BD600_7CECB0.eyes[5][sp98];
-                func_80356BD8_768288(img_eyes6_TLUT2_pal, img_eyes6_ci4__png, sp9A);
+                func_80356BD8_768288(img_eyes6_TLUT2_pal, (u8 (*)[128])img_eyes6_ci4__png, sp9A);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A20_F8A80);
-                func_80356BD8_768288(img_eyes6_TLUT2_pal, img_eyes6_ci4__png, sp98);
+                func_80356BD8_768288(img_eyes6_TLUT2_pal, (u8 (*)[128])img_eyes6_ci4__png, sp98);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A40_F8AA0);
             }
 
@@ -365,7 +365,7 @@ void func_803574E0_768B90(void) {
 
 // HYENA
 void func_80358E3C_76A4EC(void) {
-    struct061 spA8;
+    Vertex spA8;
     s16 spA6;
     s16 spA4;
     s16 spA2;

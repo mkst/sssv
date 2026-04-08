@@ -182,7 +182,7 @@ u16 func_8029A52C_6ABBDC(u8 arg0) {
     u16 tmp = arg0 & 0x3F;
 
     // list of 32x32 mipmap images (0xAB8 each)
-    img = D_800BA760 + ((tmp + 1) * 0xAB8);
+    img = (s16*)(D_800BA760 + ((tmp + 1) * 0xAB8));
     tmp = img[-4];
 
     return tmp;
@@ -221,8 +221,8 @@ void render_ship_window_projection_replay(void) {
         func_80127D30(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
 
         gSPMatrix(gMainDL++, &gDisplayListContext->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unkBB80);
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unk9600);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gXluDL);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gOpaqueDL);
         gSPPopMatrix(gMainDL++, G_MTX_MODELVIEW);
 
         gSPMatrix(gMainDL++, &gDisplayListContext->unk37410, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -254,7 +254,7 @@ void render_ship_window_projection_replay(void) {
         gSPLight(gMainDL++, &gDisplayListContext->unk3B6B0, 2);
 
         gSPMatrix(gMainDL++, &gDisplayListContext->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
-        gSPDisplayList(gMainDL++, &gDisplayListContext->unk9600);
+        gSPDisplayList(gMainDL++, &gDisplayListContext->gOpaqueDL);
 
         gSPNumLights(gMainDL++, 1);
         gSPLight(gMainDL++, &gDisplayListContext->lights.l, 1);

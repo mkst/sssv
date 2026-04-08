@@ -11,14 +11,14 @@ Animal *try_pickup_animal(void) {
 
     if ((a == NULL) &&
         (func_80322A58_734108(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, (s16) (D_803D5530->position.yPos.h - 0x10), 0x10, 0, &a, D_803D5530, 0)) &&
-        (!(a->unk16C->unk82.unk2) || (a->unk366 != MOVEMENT_MODE_DEACTIVATED) || ((a->unk160 == 1) && (D_803D5530->unk160 == 2)))) {
+        (!(a->unk16C->unk82.unk2) || (a->movementMode != MOVEMENT_MODE_DEACTIVATED) || ((a->unk160 == 1) && (D_803D5530->unk160 == 2)))) {
         a = NULL;
     }
 
     if (a != NULL) {
         if ((a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk1B)) {
             if ((D_803D5524->unkC0 >= (s32) a->unk44) &&
-                (((a->unk16C->unk82.unk2 == 0) && ((a->state == 0) || (a->state == 1))) || ((a->unk16C->unk82.unk2 != 0) && (a->unk366 == MOVEMENT_MODE_DEACTIVATED))) &&
+                (((a->unk16C->unk82.unk2 == 0) && ((a->state == 0) || (a->state == 1))) || ((a->unk16C->unk82.unk2 != 0) && (a->movementMode == MOVEMENT_MODE_DEACTIVATED))) &&
                 (a->unk4A == 0) && ((a->unk16C->unk82.unk2 == 0) || (a->unk44 < 100))) {
                 D_803D552C->unk324 = a->state;
                 D_803D552C->unk320 = a;
@@ -210,7 +210,7 @@ void fire_cannonball_1(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, 
     s16 xpos;
     s16 zpos;
 
-    struct071 *obj;
+    Entity *obj;
 
     s16 _id = id & 0xFFFF;
 
@@ -253,7 +253,7 @@ void fire_cannonball_2(u8 id, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, 
 
     s16 xpos;
     s16 zpos;
-    struct071 *obj;
+    Entity *obj;
 
     s16 _id = id & 0xFFFF;
 
@@ -294,7 +294,7 @@ void fire_cannonball_3(u8 id, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, 
 
     short _id;
 
-    struct071 *obj;
+    Entity *obj;
 
     _id = id & 0xffff;
 
@@ -389,7 +389,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                         }
                     } else if (animal->unk4C.unk1A == 0) {
                         if (animal->unk4A == 0) {
-                            animal->health = MAX(0, animal->health - MAX(1, arg4 >> damage_factor));
+                            animal->Info.health = MAX(0, animal->Info.health - MAX(1, arg4 >> damage_factor));
                             if (ret == 0) {
                                 ret = 1;
                             }
@@ -406,7 +406,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
                     animal->unk4C.unk19 = 1;
 
-                    if ((animal->unk16C->unk82.unk2) && ((animal->unk366 == MOVEMENT_MODE_NORMAL) || (animal->unk366 == MOVEMENT_MODE_INJURED) || (animal->unk366 == MOVEMENT_MODE_CRITICAL))) {
+                    if ((animal->unk16C->unk82.unk2) && ((animal->movementMode == MOVEMENT_MODE_NORMAL) || (animal->movementMode == MOVEMENT_MODE_INJURED) || (animal->movementMode == MOVEMENT_MODE_CRITICAL))) {
                         animal->unk348 = MAX(animal->unk348, arg6);
                         animal->unk34A = MAX(animal->unk34A, arg5);
                     }
@@ -463,7 +463,7 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
                         a->unk65 = MIN(100, a->unk65 + (0x14 >> phi_s1));
                         a->unk4C.unk19 = 1;
                     } else if ((a->unk4A == 0) && (a->unk4C.unk1A == 0)) {
-                        a->health = MAX(0, a->health);
+                        a->Info.health = MAX(0, a->Info.health);
                     }
                 }
             }
@@ -568,7 +568,7 @@ Animal *func_80323040_7346F0(void) {
 
     for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;
-        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk82.unk2) && (temp_s3->unk366 != MOVEMENT_MODE_DEACTIVATED) &&
+        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk82.unk2) && (temp_s3->movementMode != MOVEMENT_MODE_DEACTIVATED) &&
                                         ((temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) &&
                                         (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER) &&
                                         (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO)) || (temp_s3->unk16C->objectType == 145))) {

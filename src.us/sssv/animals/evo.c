@@ -39,7 +39,7 @@ extern Gfx D_01006AE8_403B8[];
 void func_80389B30_79B1E0(void) {
     s32 pad[2];
 
-    struct061 sp148;
+    Vertex sp148;
 
     s16 var_v1_2;
     s16 temp_s0;
@@ -74,7 +74,7 @@ void func_80389B30_79B1E0(void) {
 
     f32 sp100;
 
-    if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 5)) {
+    if ((D_803D5530->movementState == 1) || (D_803D5530->movementState == 5)) {
         D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
     }
 
@@ -89,7 +89,7 @@ void func_80389B30_79B1E0(void) {
     if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F) || (D_803F2ECE >= 3)) {
         func_802BA220_6CB8D0(&sp148, 0x222, 0x4C1, 0x1FB, 0x15F, 0x138);
         func_802C353C_6D4BEC(0x29F, 0x222, 0x138, D_803B5E30_7C74E0, D_803B5E60_7C7510, D_803B5E90_7C7540, &sp148);
-        func_8031FE40_7314F0(0x1D4, 0x271, &D_803B5EA4_7C7554, &D_803B5ED4_7C7584, &D_803B5F04_7C75B4);
+        update_limbs_evo(0x1D4, 0x271, D_803B5EA4_7C7554, D_803B5ED4_7C7584, D_803B5F04_7C75B4);
         func_802C6C00_6D82B0(0x138, 0xEA);
     }
     if (D_803F2ECC != 0) {
@@ -358,7 +358,7 @@ void func_80389B30_79B1E0(void) {
 void func_8038B330_79C9E0(void) {
     s16 tmp;
 
-    if (D_803D5530->unk162 != 1) {
+    if (D_803D5530->movementState != 1) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
@@ -446,7 +446,7 @@ void func_8038B798_79CE48(void) {
     D_803D5538 = 1;
     D_803D553C = gCurrentAnimalIndex;
     D_803D553A = 0;
-    if (D_803D5530->unk162 == 1) {
+    if (D_803D5530->movementState == 1) {
         func_802A6390_6B7A40();
     }
 }

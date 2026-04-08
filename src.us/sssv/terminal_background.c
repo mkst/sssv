@@ -407,7 +407,7 @@ void render_terminal_background_scene(void) {
     gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 
     gSPDisplayList(gMainDL++, D_01004270_3DB40);
-    gSPDisplayList(gMainDL++, &gDisplayListContext->unk9600);
+    gSPDisplayList(gMainDL++, &gDisplayListContext->gOpaqueDL);
 }
 
 void render_terminal_stat_text(s32 arg0, s32 arg1) {
@@ -440,7 +440,7 @@ void render_terminal_stat_text(s32 arg0, s32 arg1) {
                 func_8012D374(&gMainDL, gTerminalTextScrollState.unk34[0], gTerminalTextScrollState.unk68[0], 210, 14.0f, 16.0f, (gTerminalTextScrollState.unk84 - phi_s1) - 3);
             }
             if ((gTerminalTextScrollState.unk84 < phi_s1) || ((phi_s1 + 3) < gTerminalTextScrollState.unk84)) {
-                func_8032CD20_73E3D0(0x17, 0x36, 0x1AAA, 0, 0.5f);
+                func_8032CD20_73E3D0((void*)0x17, 0x36, 0x1AAA, 0, 0.5f);
             }
             gTerminalTextScrollState.unk84++;
         }
@@ -643,10 +643,10 @@ void render_terminal_background_frame(void) {
         draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 0xFF);
         gTerminalFadeStep++;
     }
-    func_8032CD20_73E3D0(0x45, SFX_UNKNOWN_132, 6144.0f * D_803F646C, 0, 1.0f);
-    func_8032CD20_73E3D0(0xA9, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 0.7f);
-    func_8032CD20_73E3D0(0x171, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 1.0f);
-    func_8032CD20_73E3D0(0x10D, SFX_UNKNOWN_134, 21760.0f * D_803F646C, 0, 1.0f);
+    func_8032CD20_73E3D0((void*)0x45, SFX_UNKNOWN_132, 6144.0f * D_803F646C, 0, 1.0f);
+    func_8032CD20_73E3D0((void*)0xA9, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 0.7f);
+    func_8032CD20_73E3D0((void*)0x171, SFX_UNKNOWN_133, 4352.0f * D_803F646C, 0, 1.0f);
+    func_8032CD20_73E3D0((void*)0x10D, SFX_UNKNOWN_134, 21760.0f * D_803F646C, 0, 1.0f);
 
     if (D_803F646C < 1.0) {
         D_803F646C += 0.016;

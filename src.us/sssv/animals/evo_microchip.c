@@ -2,11 +2,11 @@
 #include "common.h"
 
 
-extern s16 D_803B3D50_7C5400[];
-extern s16 D_803B3D80_7C5430[];
-extern s16 D_803B3DB0_7C5460[];
-extern s16 D_803B3DC4_7C5474[];
-extern s16 D_803B3DDC_7C548C[];
+extern struct077 D_803B3D50_7C5400[];
+extern struct077 D_803B3D80_7C5430[];
+extern struct077 D_803B3DB0_7C5460[];
+extern u8  D_803B3DC4_7C5474[];
+extern u8  D_803B3DDC_7C548C[];
 extern s16 D_803B3DF4_7C54A4[];
 extern s16 D_803B3E24_7C54D4[];
 extern s16 D_803B3E88_7C5538[];
@@ -25,7 +25,7 @@ void update_evo_microchip(void) {
     s32 pad[3];
     u8 tmp;
 
-    struct061 spA0;
+    Vertex spA0;
     s16 sp9E;
     s16 sp9C;
     s16 sp9A;
@@ -34,7 +34,7 @@ void update_evo_microchip(void) {
 
     if ((D_803D5524->unk9C == EVO_MICROCHIP) && ((D_803D5540 & 0xF) == 0) && (gUiFlowState.unk0 == 0)) {
         if ((D_803D5530->unk4C.unk1A == 0) && (D_803D5530->unk4A == 0)) {
-            D_803D5530->health = MAX(0, D_803D5530->health - 1);
+            D_803D5530->Info.health = MAX(0, D_803D5530->Info.health - 1);
         }
         if (SSSV_RAND(4)) {
             func_80349280_75A930(D_803D5530, 4);
@@ -43,7 +43,7 @@ void update_evo_microchip(void) {
         }
     }
 
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
         if (D_803D5524->unk9C != EVO_MICROCHIP) {
             load_animal(EVO_MICROCHIP);
         }
@@ -52,7 +52,7 @@ void update_evo_microchip(void) {
 
     switch (D_803D552C->unk365) {
     case ATTACK_EVO_CHIP_2:
-        D_803D5530->unk162 = 3;
+        D_803D5530->movementState = 3;
 
         ticks_remaining = D_803D5544 - D_803D552C->unk32A;
 
@@ -80,7 +80,7 @@ void update_evo_microchip(void) {
 
     case ATTACK_EVO_CHIP_1:
 
-        D_803D5530->unk162 = 3;
+        D_803D5530->movementState = 3;
 
         ticks_remaining = D_803D5544 - D_803D552C->unk32A;
 
@@ -100,7 +100,7 @@ void update_evo_microchip(void) {
             D_803E9820 = 27;
             D_803E9822 = 0;
             func_80327DA8_739458();
-            func_802C9BA4_6DB254((struct071*)gAnimalState.animals[0].animal);
+            func_802C9BA4_6DB254(gAnimalState.animals[0].animal);
             D_803D552C->unk365 = ATTACK_NONE;
         }
         break;
@@ -188,9 +188,9 @@ void update_evo_microchip(void) {
             func_8031A150_72B800(D_803D552C->unk326++, &sp9E, &sp9C);
             func_8031A278_72B928(&D_803D552C->unk326, &sp9E, &sp9C);
             sp9E = D_803BD530_7CEBE0.eyes[3][sp9E]; sp9C = D_803BD600_7CECB0.eyes[2][sp9C];
-            func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp9E);
+            func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp9E);
             SET_JOINT(1,   2, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_01004E60_3E730);
-            func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp9C);
+            func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp9C);
             SET_JOINT(1,   2, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_01004E80_3E750);
 
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);

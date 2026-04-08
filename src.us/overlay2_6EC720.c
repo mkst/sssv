@@ -3,88 +3,93 @@
 
 #include "overlay2_6EC720.h"
 
+
+void interpolate_bone_from_previous_pose(u16 src, u16 dst, s16 yawIndex, s16 pitchIndex, u16 boneLength, u16 interpStep);
+void func_802DB5C0_6ECC70(s16 arg0, s16 arg1, s16 arg2, u16 arg3);
+void func_802DB494_6ECB44(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4);
+
 /* only called with arg5 < 32 */
-void func_802DB070_6EC720(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4, u16 arg5) {
-    s16 sp46;
-    s16 sp44;
-    s16 sp42;
+void interpolate_bone_from_previous_pose(u16 src, u16 dst, s16 yawIndex, s16 pitchIndex, u16 boneLength, u16 interpStep) {
+    s16 targetX;
+    s16 targetZ;
+    s16 targetY;
 
-    s16 sp40;
-    s16 sp3E;
-    s16 sp3C;
+    s16 prevX;
+    s16 prevZ;
+    s16 prevY;
 
-    s16 phi_a0;
-    s16 phi_a1;
+    s16 targetWeight;
+    s16 previousWeight;
 
-    u16 tmp1;
-    u16 tmp2;
+    u16 prevLength;
+    u16 targetLength;
 
     s32 idx;
 
-    s16 temp_t9_2;
+    s16 angleBetween;
 
     f32 tmp;
 
-    sp44 = (D_80152350.unk2D0[arg2] * arg4) / 256;
-    sp42 = (D_80152350.unk384[arg2] * arg4) / 256;
+    targetZ = (D_80152350.unk2D0[yawIndex] * boneLength) / 256;
+    targetY = (D_80152350.unk384[yawIndex] * boneLength) / 256;
 
-    sp46 = (D_80152350.unk2D0[arg3] * sp44) / 256;
-    sp44 = (D_80152350.unk384[arg3] * sp44) / 256;
+    targetX = (D_80152350.unk2D0[pitchIndex] * targetZ) / 256;
+    targetZ = (D_80152350.unk384[pitchIndex] * targetZ) / 256;
 
     // diff = prev joint location?
-    sp40 = D_802040F0[arg1].unk0 - D_802040F0[arg0].unk0;
-    sp3E = D_802040F0[arg1].unk2 - D_802040F0[arg0].unk2;
-    sp3C = D_802040F0[arg1].unk4 - D_802040F0[arg0].unk4;
+    prevX = D_802040F0[dst].unk0 - D_802040F0[src].unk0;
+    prevZ = D_802040F0[dst].unk2 - D_802040F0[src].unk2;
+    prevY = D_802040F0[dst].unk4 - D_802040F0[src].unk4;
 
-    tmp = SQ((f32) sp46) + SQ((f32) sp44) + SQ((f32) sp42);
-    tmp2 = (s32) sqrtf(tmp);
+    tmp = SQ((f32) targetX) + SQ((f32) targetZ) + SQ((f32) targetY);
+    targetLength = (s32) sqrtf(tmp);
 
-    tmp = SQ((f32) sp40) + SQ((f32) sp3E) + SQ((f32) sp3C);
-    tmp1 = (s32) sqrtf(tmp);
+    tmp = SQ((f32) prevX) + SQ((f32) prevZ) + SQ((f32) prevY);
+    prevLength = (s32) sqrtf(tmp);
 
-    idx = tmp2 * tmp1;
+    idx = targetLength * prevLength;
     if (idx == 0) {
         idx = 1;
     }
-    temp_t9_2 = func_801283AC((((sp46 * sp40) + (sp44 * sp3E) + (sp42 * sp3C)) * 256) / idx);
+    angleBetween = func_801283AC((((targetX * prevX) + (targetZ * prevZ) + (targetY * prevY)) * 256) / idx);
 
-    if (temp_t9_2 == 180) {
-        temp_t9_2 = 179;
+    if (angleBetween == 180) {
+        angleBetween = 179;
     }
-    temp_t9_2 = temp_t9_2 >> 2;
+    angleBetween = angleBetween >> 2;
 
-    if (arg5 < 17) {
-        idx = arg5 + (temp_t9_2 * 17);
-        phi_a0 = D_803A2D90_7B4440[idx*2 + 0];
-        phi_a1 = D_803A2D90_7B4440[idx*2 + 1];
+    if (interpStep < 17) {
+        idx = interpStep + (angleBetween * 17);
+        targetWeight = D_803A2D90_7B4440[idx*2 + 0];
+        previousWeight = D_803A2D90_7B4440[idx*2 + 1];
     } else {
-        arg5 = (32 - arg5);
-        idx = arg5 + (temp_t9_2 * 17);
-        phi_a1 = D_803A2D90_7B4440[idx*2 + 0]; // NOTE: swapped!
-        phi_a0 = D_803A2D90_7B4440[idx*2 + 1]; // NOTE: swapped!
+        interpStep = (32 - interpStep);
+        idx = interpStep + (angleBetween * 17);
+        previousWeight = D_803A2D90_7B4440[idx*2 + 0];  // NOTE: swapped!
+        targetWeight = D_803A2D90_7B4440[idx*2 + 1];    // NOTE: swapped!
     }
 
-    D_80203FE0[arg1].unk0 = D_80203FE0[arg0].unk0 + (((phi_a0 * sp46) + (phi_a1 * sp40)) / 256);
-    D_80203FE0[arg1].unk2 = D_80203FE0[arg0].unk2 + (((phi_a0 * sp44) + (phi_a1 * sp3E)) / 256);
-    D_80203FE0[arg1].unk4 = D_80203FE0[arg0].unk4 + (((phi_a0 * sp42) + (phi_a1 * sp3C)) / 256);
-    if ((D_80203FE0[arg1].unk0 == D_80203FE0[arg0].unk0) &&
-        (D_80203FE0[arg1].unk2 == D_80203FE0[arg0].unk2) &&
-        (D_80203FE0[arg1].unk4 == D_80203FE0[arg0].unk4)) {
-        D_80203FE0[arg1].unk0++;
+    D_80203FE0[dst].unk0 = D_80203FE0[src].unk0 + (((targetWeight * targetX) + (previousWeight * prevX)) / 256);
+    D_80203FE0[dst].unk2 = D_80203FE0[src].unk2 + (((targetWeight * targetZ) + (previousWeight * prevZ)) / 256);
+    D_80203FE0[dst].unk4 = D_80203FE0[src].unk4 + (((targetWeight * targetY) + (previousWeight * prevY)) / 256);
+    if ((D_80203FE0[dst].unk0 == D_80203FE0[src].unk0) &&
+        (D_80203FE0[dst].unk2 == D_80203FE0[src].unk2) &&
+        (D_80203FE0[dst].unk4 == D_80203FE0[src].unk4)) {
+        D_80203FE0[dst].unk0++;
     }
 }
 
-void func_802DB494_6ECB44(u16 arg0, u16 arg1, s16 arg2, s16 arg3, u16 arg4) {
+void func_802DB494_6ECB44(u16 src, u16 dst, s16 yawIndex, s16 pitchIndex, u16 boneLength) {
     s16 tmp1, tmp2, tmp3;
 
-    tmp1 = (D_80152350.unk2D0[arg2] * arg4) / 256;
-    tmp3 = (D_80152350.unk384[arg2] * arg4) / 256;
-    tmp2 = (D_80152350.unk2D0[arg3] * tmp1) / 256;
-    tmp1 = (D_80152350.unk384[arg3] * tmp1) / 256;
+    tmp1 = (D_80152350.unk2D0[yawIndex] * boneLength) / 256;
+    tmp3 = (D_80152350.unk384[yawIndex] * boneLength) / 256;
+    tmp2 = (D_80152350.unk2D0[pitchIndex] * tmp1) / 256;
+    tmp1 = (D_80152350.unk384[pitchIndex] * tmp1) / 256;
 
-    D_80203FE0[arg1].unk0 = D_80203FE0[arg0].unk0 + tmp2;
-    D_80203FE0[arg1].unk2 = D_80203FE0[arg0].unk2 + tmp1;
-    D_80203FE0[arg1].unk4 = D_80203FE0[arg0].unk4 + tmp3;
+    D_80203FE0[dst].unk0 = D_80203FE0[src].unk0 + tmp2;
+    D_80203FE0[dst].unk2 = D_80203FE0[src].unk2 + tmp1;
+    D_80203FE0[dst].unk4 = D_80203FE0[src].unk4 + tmp3;
 }
 
 void func_802DB5C0_6ECC70(s16 arg0, s16 arg1, s16 arg2, u16 arg3) {
@@ -98,7 +103,7 @@ void func_802DB670_6ECD20(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3) {
         func_802DB5C0_6ECC70(arg3[0], arg3[1], arg3[2], D_803F2ECC);
         arg3 += 3; // increment 6 bytes
         while (*arg0 != *arg1) {
-            func_802DB070_6EC720(*arg0++, *arg1++, arg3[0], arg3[1], *arg2++, D_803F2ECC);
+            interpolate_bone_from_previous_pose(*arg0++, *arg1++, arg3[0], arg3[1], *arg2++, D_803F2ECC);
             arg3 += 2; // increment 4 bytes
         }
     } else {
@@ -116,7 +121,7 @@ void func_802DB670_6ECD20(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3) {
 void func_802DB7C4_6ECE74(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3) {
     if (D_803F2ECC < 31) {
         while (*arg0 != *arg1) {
-            func_802DB070_6EC720(*arg0++, *arg1++, arg3[0], arg3[1], *arg2++, D_803F2ECC);
+            interpolate_bone_from_previous_pose(*arg0++, *arg1++, arg3[0], arg3[1], *arg2++, D_803F2ECC);
             arg3 += 2;
         }
     } else {

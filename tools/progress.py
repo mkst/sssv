@@ -47,13 +47,13 @@ def parse_map(mapfile, target_start, target_end):
                 continue
 
             #  build/lib/libultra_rom.a:initialize.o(.text)
-            if match := re.match(rf"\s+build/(.*\.a):(.*).o\(.text\)", line):
+            if match := re.match(r"\s+build/(.*\.a):(.*).o\(.text\)", line):
                 lib_path = match.group(1)
                 new_filename = match.group(2)
                 continue
 
             # build/src.us/main_C770.c.o(.text)
-            if match := re.match(rf"\s+build/(.*).o\(.text\)", line):
+            if match := re.match(r"\s+build/(.*).o\(.text\)", line):
                 lib_path = ""
                 new_filename = match.group(1)
                 continue
@@ -91,15 +91,15 @@ def parse_map(mapfile, target_start, target_end):
                 files.append(entry)
                 continue
 
-            if match := re.match(rf"\s+(0x[0-9a-fA-F]+)\s+L8(.*)", line):
+            if match := re.match(r"\s+(0x[0-9a-fA-F]+)\s+L8(.*)", line):
                 continue
 
             # linker entry
-            if match := re.match(f"\s+(0x[0-9a-fA-F]+)\s+.*_OFFSET\s+=\s+\.$", line):
+            if match := re.match(r"\s+(0x[0-9a-fA-F]+)\s+.*_OFFSET\s+=\s+\.$", line):
                 continue
 
             # function entry
-            if match := re.match(rf"\s+(0x[0-9a-fA-F]+)\s+(.*)", line):
+            if match := re.match(r"\s+(0x[0-9a-fA-F]+)\s+(.*)", line):
                 function_vram_start = int(match.group(1), 16)
                 function_name = match.group(2)
                 function = dict(
@@ -174,7 +174,7 @@ def create_progress(basedir, mapfile, target_start, target_end, section_name, ve
             # --
             assert file_func["size"] > 0
             # --
-            if file_func["name"] in c_functions:
+            if file_func["name"] in c_functions and ".NON_MATCHING" not in file_func["name"]:
                 file_func["language"] = "c"
             else:
                 # mark library functions as (matched) c

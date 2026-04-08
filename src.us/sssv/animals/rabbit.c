@@ -13,7 +13,7 @@ void func_80300210_7118C0(void) {
     s16 temp_t8;
     u8 var_a0;
     s16 sp9A;
-    struct061 sp90;
+    Vertex sp90;
     s16 sp8E;
     s16 sp8C;
     s16 sp8A;
@@ -44,7 +44,7 @@ void func_80300210_7118C0(void) {
         sp86 = 8; // default scale => (8 << 13) == 0x10000 == FTOFIX32(1.0)
 
         if (D_803D552C->unk365 == ATTACK_RABBIT_1) {
-            if (D_803D5530->unk162 == 1) {
+            if (D_803D5530->movementState == 1) {
                 ticks_remaining = D_803D5544 - D_803D552C->unk32A;
                 if (ticks_remaining < 0xA) {
                     temp_t8 = SSSV_RAND(512) << 5;
@@ -58,7 +58,7 @@ void func_80300210_7118C0(void) {
                 } else if (ticks_remaining == 0xA) {
                     D_803D5528->unk398.unk10 = 1;
                     D_803D5528->unk398.unk12 = 0;
-                } else if ((D_803D5528->unk398.unk10 == 1) && (D_803D5530->unk162 == 1)) {
+                } else if ((D_803D5528->unk398.unk10 == 1) && (D_803D5530->movementState == 1)) {
                     ticks_remaining -= 10;
                     sp86 = 0x10;
                     if ((ticks_remaining & 7) == 0) { // b00000111
@@ -95,7 +95,7 @@ void func_80300210_7118C0(void) {
                             GPACK_RGBA5551(152, 152, 152, 1), // dark grey
                             GPACK_RGBA5551(96, 96, 96, 1), // darker grey
                             0);
-                        if ((D_803D552C->unk366 != MOVEMENT_MODE_NORMAL) && (D_803D552C->unk366 != MOVEMENT_MODE_INJURED)) {
+                        if ((D_803D552C->movementMode != MOVEMENT_MODE_NORMAL) && (D_803D552C->movementMode != MOVEMENT_MODE_INJURED)) {
                             D_803D552C->unk365 = 0;
                         }
                     }
@@ -135,7 +135,7 @@ void func_80300210_7118C0(void) {
             func_8038C230_79D8E0(((D_803D5524->unkBA * 4) / 5), 1, 2, 2, -0.35f);
 
             sp9A = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
-            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
+            if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
                 func_80300130_7117E0(&sp9A, &D_803D552C->unk30A, 0x14, -0x14, 2, 2, D_803D5530->yVelocity.h * 0x10, 3);
             } else {
                 D_803D552C->unk30A = 0;
@@ -159,7 +159,7 @@ void func_80300210_7118C0(void) {
             } else {
                 sp8E = 0;
             }
-            if (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) {
+            if (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) {
                 sp8E = 0;
             }
 
@@ -188,9 +188,9 @@ void func_80300210_7118C0(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp8C, &sp8A);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp8C, &sp8A);
                 sp8C = D_803BD530_7CEBE0.eyes[2][sp8C];sp8A = D_803BD600_7CECB0.eyes[1][sp8A];
-                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes2_ci4__png, sp8C);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes2_ci4__png, sp8C);
                 func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000AE0_DE0A0);
-                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes2_ci4__png, sp8A);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes2_ci4__png, sp8A);
                 func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000B40_DE100);
                 gDPPipeSync(gOpaqueDL++);
             }
@@ -252,7 +252,7 @@ void func_80301248_7128F8(void) {
           CHECK_SEGMENT == 0);
     }
 
-    if ((sp84 != 4) && (sp84 != 1) && ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL))) {
+    if ((sp84 != 4) && (sp84 != 1) && ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL))) {
         temp_f16 = D_803D552C->unk30E / 100.0;
         if (temp_f16 < 0.6) {
             temp_f14 = (temp_f16 * 1.666);
@@ -334,7 +334,7 @@ void func_80301248_7128F8(void) {
                 gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             }
             sp96 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
-            if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
+            if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (gUiFlowState.unk0 == 0)) {
                 func_80300130_7117E0(&sp96, &D_803D552C->unk30A, 0x14, -0x14, 2, 2, D_803D5530->yVelocity.h * 0x10, 3);
             } else {
                 D_803D552C->unk30A = 0;
@@ -349,7 +349,7 @@ void func_80301248_7128F8(void) {
             } else {
                 var_t0 = 0;
             }
-            if (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) {
+            if (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) {
                 var_t0 = 0;
             }
             D_80203FE0[1].unk4 += var_t0;
@@ -372,9 +372,9 @@ void func_80301248_7128F8(void) {
 #pragma _permuter sameline start
                 sp88 = D_803BD530_7CEBE0.eyes[2][sp88]; sp86 = D_803BD600_7CECB0.eyes[1][sp86];
 #pragma _permuter sameline end
-                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes2_ci4__png, sp88);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes2_ci4__png, sp88);
                 func_802C78B0_6D8F60(1, 19, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000AE0_DE0A0);
-                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes2_ci4__png, sp86);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes2_ci4__png, sp86);
                 func_802C78B0_6D8F60(1, 19, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000B40_DE100);
                 gDPPipeSync(gOpaqueDL++);
             }
@@ -401,7 +401,7 @@ void func_80301248_7128F8(void) {
 
 // rabbit
 void func_80302018_7136C8(void) {
-    if ((D_803D5530->unk162 == 1) && (D_803D552C->unk365 == ATTACK_NONE)) {
+    if ((D_803D5530->movementState == 1) && (D_803D552C->unk365 == ATTACK_NONE)) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_RABBIT_1;
     } else {
@@ -411,7 +411,7 @@ void func_80302018_7136C8(void) {
 
 // heli-rabbit
 void func_80302080_713730(void) {
-    if (D_803D5530->unk162 != 1) {
+    if (D_803D5530->movementState != 1) {
         fire_cannonball_1(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 24);
         play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     } else {
@@ -425,7 +425,7 @@ void heli_rabbit_drop_bomb(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void func_803021A8_713858(void) {
-    if ((D_803D5530->unk162 == 1) && (D_803D552C->unk365 == ATTACK_NONE)) {
+    if ((D_803D5530->movementState == 1) && (D_803D552C->unk365 == ATTACK_NONE)) {
         D_803D552C->unk32A = D_803D5544;
         D_803D552C->unk365 = ATTACK_RABBIT_1;
     }

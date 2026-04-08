@@ -184,7 +184,7 @@ void func_8034B000_75C6B0(s32 arg0) {
 }
 
 // used by husky and bear, foaming mouth particle locations?
-void func_8034B008_75C6B8(u8 arg0, u8 arg1, s16 arg2, s32 *arg3, s32 *arg4, s32 *arg5) {
+void func_8034B008_75C6B8(u8 arg0, u8 arg1, s16 arg2, s32 *xPos, s32 *zPos, s32 *yPos) {
     s32 sp44;
     s32 sp40;
     s32 sp3C;
@@ -201,9 +201,9 @@ void func_8034B008_75C6B8(u8 arg0, u8 arg1, s16 arg2, s32 *arg3, s32 *arg4, s32 
     sp34 = D_803D5530->position.zPos.w + ((COS(D_803D552C->heading) * D_80203FE0[arg1].unk2) / 16) - ((SIN(D_803D552C->heading) * D_80203FE0[arg1].unk0) / 16);
     sp30 = D_803D5530->position.yPos.w + ((D_80203FE0[arg1].unk4 << 0xF) / 16);
 
-    *arg3 = sp44 + (((sp38 - sp44) * arg2) >> 6);
-    *arg4 = sp40 + (((sp34 - sp40) * arg2) >> 6);
-    *arg5 = sp3C + (((sp30 - sp3C) * arg2) >> 6);
+    *xPos = sp44 + (((sp38 - sp44) * arg2) >> 6);
+    *zPos = sp40 + (((sp34 - sp40) * arg2) >> 6);
+    *yPos = sp3C + (((sp30 - sp3C) * arg2) >> 6);
 }
 
 void func_8034B298_75C948(s16 arg0) {
@@ -222,9 +222,9 @@ void func_8034B298_75C948(s16 arg0) {
 // arg0 is alwoys 0
 void func_8034B3A8_75CA58(s16 arg0) {
     if ((arg0 == 0) || ((D_803D5540 & 2) == 0)) {
-        if ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) ||
-            (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) ||
-            (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL)) {
+        if ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) ||
+            (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) ||
+            (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL)) {
             if ((D_803D5530->state == 0x8F) ||
                 (((D_803D5530->state == 0x8E) ||
                   (D_803D5530->state == 0x90) ||
@@ -241,8 +241,8 @@ void func_8034B45C_75CB0C(void) {
     s16 i = 0;
 
     if ((SSSV_RAND(128) == 73) &&
-        ((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 6) || (D_803D5530->unk162 == 7)) &&
-        ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL))) {
+        ((D_803D5530->movementState == 4) || (D_803D5530->movementState == 6) || (D_803D5530->movementState == 7)) &&
+        ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) || (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL))) {
 
         s16 tmp1 = (((SIN(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
         s16 tmp2 = (((COS(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
@@ -264,8 +264,8 @@ void func_8034B45C_75CB0C(void) {
 // ESA: func_800A3828
 void func_8034B64C_75CCFC(s16 arg0, s16 arg1, s16 arg2) {
     if ((D_803F2EDE != 0) &&
-        (((D_803D5530->unk162 != 4) && (D_803D5530->unk162 == 6)) || (D_803D5530->unk162 != 7)) &&
-        ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL))) {
+        (((D_803D5530->movementState != 4) && (D_803D5530->movementState == 6)) || (D_803D5530->movementState != 7)) &&
+        ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) || (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL))) {
         s16 tmp1 = ((((SIN(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
         s16 tmp2 = ((((COS(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
         create_particle_effect(
@@ -321,7 +321,7 @@ void func_8034B848_75CEF8(s16 arg0) {
 
 // ESA: func_800A3A38
 void func_8034BB38_75D1E8(u8 arg0) {
-    switch (D_803D5530->unk162) {
+    switch (D_803D5530->movementState) {
     case 1:
     case 2:
     case 3:

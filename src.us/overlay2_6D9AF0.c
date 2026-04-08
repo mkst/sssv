@@ -37,7 +37,7 @@ void func_802C85EC_6D9C9C(void) {
         a = gAnimalState.animals[0].animal;
         spawn_animal(a->position.xPos.h, a->position.zPos.h, a->position.yPos.h, 0, 0x7F, gCurrentAnimalId, 1);
         func_80327DA8_739458();
-        gAnimalState.animals[0].animal->unk366 = MOVEMENT_MODE_INJURED;
+        gAnimalState.animals[0].animal->movementMode = MOVEMENT_MODE_INJURED;
         gAnimalState.animals[0].unk0 = &gAnimalState.unk0[EVO_TRANSFER];
         gAnimalState.animals[0].animal->unk16C = &gAnimalState.unk0[EVO_TRANSFER];
         gAnimalState.animals[gCurrentAnimalIndex].animal->unk4A = 1;
@@ -90,7 +90,7 @@ void func_802C8878_6D9F28(void) {
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != NULL) &&
             (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-            (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
+            (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
             if (i == gCurrentAnimalIndex) {
                 add_multiple_lights();
                 clear_used_lights();
@@ -119,7 +119,7 @@ void func_802C8878_6D9F28(void) {
                 if (D_803D5530->unk4A == 0) {
                     if (i == gCurrentAnimalIndex) {
                         func_8035E200_76F8B0();
-                        if (D_803D552C->unk366 == MOVEMENT_MODE_2) {
+                        if (D_803D552C->movementMode == MOVEMENT_MODE_2) {
                             func_802AA1EC_6BB89C();
                         } else if (D_803D5524->unk9C != EVO) {
                             if (gUiFlowState.unk0 == 0) {
@@ -130,15 +130,15 @@ void func_802C8878_6D9F28(void) {
                         } else if ((gUiFlowState.unk0 == 0) && (D_803D552C->unk365 != ATTACK_EVO_CHIP_2)) {
                             func_802AA424_6BBAD4();
                         }
-                    } else if ((D_803D5530->xVelocity.w != 0) || (D_803D5530->zVelocity.w != 0) || (D_803D5530->yVelocity.w != 0) || (D_803D5530->unk68 != 0) || (D_803D5530->unk70 != 0) || (D_803D5530->unk162 != 1)) {
-                        if (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) {
+                    } else if ((D_803D5530->xVelocity.w != 0) || (D_803D5530->zVelocity.w != 0) || (D_803D5530->yVelocity.w != 0) || (D_803D5530->unk68 != 0) || (D_803D5530->unk70 != 0) || (D_803D5530->movementState != 1)) {
+                        if (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) {
                             func_802AA1EC_6BB89C();
                         } else {
                             func_80309F38_71B5E8();
                             func_802A935C_6BAA0C();
                             func_802AA0A0_6BB750();
                         }
-                    } else if (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) {
+                    } else if (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) {
                         func_80309F38_71B5E8();
                         func_802A935C_6BAA0C();
                         func_802AA0A0_6BB750();
@@ -320,7 +320,7 @@ void func_802C8878_6D9F28(void) {
                 // (re)set lights?
                 add_single_light(&gOpaqueDL);
             }
-            if (D_803D552C->unk366 != MOVEMENT_MODE_DELETED) {
+            if (D_803D552C->movementMode != MOVEMENT_MODE_DELETED) {
                 func_802DA90C_6EBFBC(D_803D5530);
             }
         }

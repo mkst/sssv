@@ -1,15 +1,25 @@
 #include <ultra64.h>
 #include "common.h"
 
-void func_802CB180_6DC830(Animal *arg0);
+// ========================================================
+// definitions
+// ========================================================
+
+void func_802CB180_6DC830(Entity *arg0);
+void apply_ground_friction(Entity *arg0);
+void func_802CAACC_6DC17C(Entity *arg0, s16 arg1);
+
+// ========================================================
+// .text
+// ========================================================
 
 // ESA: func_80063178
-void func_802C9F60_6DB610(Animal *arg0) {
-    s32 sp34;
-    s32 sp30;
-    s32 sp2C;
-    s16 sp2A;
-    s32 tmp;
+void update_entity_physics(Entity *arg0) {
+    s32 prevX;
+    s32 prevZ;
+    s32 prevY;
+    s16 floorHeight;
+    s32 collisionResult;
 
     if (arg0->unk4A == 0) {
         if ((arg0->state == 0x1E) || (arg0->state == 0x1F)) {
@@ -19,24 +29,24 @@ void func_802C9F60_6DB610(Animal *arg0) {
             return;
         }
 
-        sp34 = arg0->position.xPos.w;
-        sp30 = arg0->position.zPos.w;
-        sp2C = arg0->position.yPos.w;
+        prevX = arg0->position.xPos.w;
+        prevZ = arg0->position.zPos.w;
+        prevY = arg0->position.yPos.w;
 
         if (arg0->unk4C.unk1D) {
-            switch (arg0->unk162) {
+            switch (arg0->movementState) {
             case 1:
                 arg0->yVelocity.w -= gGravity;
                 switch (func_8030AA90_71C140(arg0)) {
                 case 0:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 1:
-                    arg0->unk162 = 3U;
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->movementState = 3U;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 2:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 }
                 break;
@@ -44,14 +54,14 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 switch (func_8030AA90_71C140(arg0)) {
                 case 0:
                     if (func_802A7648_6B8CF8(arg0) != 0) {
-                        arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                        arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     }
                     break;
                 case 1:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 2:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 }
                 break;
@@ -60,57 +70,56 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 switch (func_8030AA90_71C140(arg0)) {
                 case 0:
                     if (func_802A7648_6B8CF8(arg0) != 0) {
-                        arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                        arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     }
                     break;
                 case 1:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 2:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 }
                 break;
             case 6:
                 switch (func_8030AA90_71C140(arg0)) {
                 case 0:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 1:
                     if (arg0->unk16C->unk82.unk0) {
-                        arg0->unk162 = 5;
+                        arg0->movementState = 5;
                     } else {
-                        arg0->unk162 = 7;
+                        arg0->movementState = 7;
                     }
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 2:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 }
                 break;
             case 7:
-                switch (func_8030AA90_71C140(arg0)) {                /* switch 7; irregular */
+                switch (func_8030AA90_71C140(arg0)) {
                 case 0:
                     if (func_802A7648_6B8CF8(arg0) != 0) {
-                        arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                        arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     }
                     break;
                 case 1:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 2:
-                    arg0->yVelocity.w = arg0->position.yPos.w - sp2C;
+                    arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 }
                 break;
             }
         }
 
-        // sh
-        sp2A = tmp = func_80298F78_6AA628(arg0->position.xPos.h, arg0->position.zPos.h);
+        floorHeight = collisionResult = func_80298F78_6AA628(arg0->position.xPos.h, arg0->position.zPos.h);
 
-        switch (arg0->unk162) {
+        switch (arg0->movementState) {
         case 1:
             if (arg0->unk4C.unk1C != 0) {
                 if (arg0->unk161 != 1) {
@@ -128,14 +137,14 @@ void func_802C9F60_6DB610(Animal *arg0) {
                     arg0->xVelocity.w += D_803D5510 << 0xC;
                     arg0->zVelocity.w += D_803D5512 << 0xC;
                 }
-                func_802CA8D4_6DBF84(arg0);
-                func_802A3E70_6B5520(arg0, &arg0->xVelocity, &arg0->zVelocity);
+                apply_ground_friction(arg0);
+                func_802A3E70_6B5520(arg0, &arg0->xVelocity.w, &arg0->zVelocity.w);
             }
-            if ((arg0->unk4C.unk1C) && ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < sp2A)) {
+            if ((arg0->unk4C.unk1C) && ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < floorHeight)) {
                 if (arg0->unk16C->unk82.unk0) {
-                    arg0->unk162 = 5;
+                    arg0->movementState = 5;
                 } else {
-                    arg0->unk162 = 7;
+                    arg0->movementState = 7;
                 }
                 func_802D760C_6E8CBC(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, arg0->unk30, arg0->yVelocity.h);
             }
@@ -147,11 +156,11 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 } else {
                     arg0->yVelocity.w -= gGravity;
                 }
-                if ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < tmp) {
+                if ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < collisionResult) {
                     if (arg0->unk16C->unk82.unk0) {
-                        arg0->unk162 = 5;
+                        arg0->movementState = 5;
                     } else {
-                        arg0->unk162 = 7;
+                        arg0->movementState = 7;
                     }
                     func_802D760C_6E8CBC(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, arg0->unk30, arg0->yVelocity.h);
                 }
@@ -162,7 +171,7 @@ void func_802C9F60_6DB610(Animal *arg0) {
                 func_802A403C_6B56EC(arg0, 4);
             }
             if (arg0->unk4C.unk1D) {
-                func_802CAACC_6DC17C(arg0, sp2A);
+                func_802CAACC_6DC17C(arg0, floorHeight);
             }
             break;
         case 6:
@@ -183,11 +192,11 @@ void func_802C9F60_6DB610(Animal *arg0) {
                     arg0->xVelocity.w += D_803D5510 << 0xC;
                     arg0->zVelocity.w += D_803D5512 << 0xC;
                 }
-                func_802CA8D4_6DBF84(arg0);
-                func_802A3E70_6B5520(arg0, &arg0->xVelocity.h, &arg0->zVelocity.h);
+                apply_ground_friction(arg0);
+                func_802A3E70_6B5520(arg0, &arg0->xVelocity.w, &arg0->zVelocity.w);
             }
-            if (sp2A < (arg0->position.yPos.h + (arg0->unk42 >> 1))) {
-                arg0->unk162 = 1;
+            if (floorHeight < (arg0->position.yPos.h + (arg0->unk42 >> 1))) {
+                arg0->movementState = 1;
             }
             func_802CB180_6DC830(arg0);
             break;
@@ -197,8 +206,8 @@ void func_802C9F60_6DB610(Animal *arg0) {
             }
             if (arg0->unk4C.unk1D) {
                 arg0->yVelocity.w -= (s32) gGravity >> 2;
-                if (sp2A < (arg0->position.yPos.h + (arg0->unk42 >> 1))) {
-                    arg0->unk162 = 3;
+                if (floorHeight < (arg0->position.yPos.h + (arg0->unk42 >> 1))) {
+                    arg0->movementState = 3;
                 }
             }
             func_802CB180_6DC830(arg0);
@@ -225,7 +234,9 @@ void func_802C9F60_6DB610(Animal *arg0) {
             arg0->zVelocity.w = 0;
             arg0->unk54.unk0 |= (0x8|0x2);
         }
-        if ((sp34 != arg0->position.xPos.w) || (sp30 != arg0->position.zPos.w) || (sp2C != arg0->position.yPos.w)) {
+        if ((prevX != arg0->position.xPos.w) ||
+            (prevZ != arg0->position.zPos.w) ||
+            (prevY != arg0->position.yPos.w)) {
             arg0->unk4C.unk18 = 1;
         } else {
             arg0->unk4C.unk18 = 0;
@@ -254,8 +265,8 @@ void func_802C9F60_6DB610(Animal *arg0) {
             if (1) {};
         }
 
-        if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->unk162 == 1)) || ((arg0->unk162 == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == NULL) && (arg0->unk70 == 0) && (arg0->commands.unk1A8 == 0)) {
-            if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->unk154 == 0)) {
+        if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->movementState == 1)) || ((arg0->movementState == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == NULL) && (arg0->unk70 == 0) && (arg0->commands.unk1A8 == 0)) {
+            if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->Info.lifetime == 0)) {
                 arg0->unk4C.unk19  = 0;
             }
         }
@@ -263,14 +274,14 @@ void func_802C9F60_6DB610(Animal *arg0) {
 }
 
 // ESA: func_80063AE8
-void func_802CA8D4_6DBF84(Animal *arg0) {
+void apply_ground_friction(Entity *arg0) {
     s32 xVel;
     s32 zVel;
     s32 multi;
-    s32 var_v1;
+    s32 friction;
 
     if ((arg0->unk161 == 1) && (arg0->unk6C != NULL)) {
-        var_v1 = 120;
+        friction = 120;
         if (arg0->unk6C->unk16C->objectType == OBJECT_BOULDER) {
             xVel = arg0->unk6C->xVelocity.w * 2;
             zVel = arg0->unk6C->zVelocity.w * 2;
@@ -281,19 +292,19 @@ void func_802CA8D4_6DBF84(Animal *arg0) {
     } else {
         xVel = zVel = 0;
         if (arg0->unk160 == 2) {
-            var_v1 = D_803E1D30[D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk3].unk0;
+            friction = D_803E1D30[D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk3].unk0;
         } else {
-            var_v1 = D_803E1D30[D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk2].unk0;
+            friction = D_803E1D30[D_803C0740[arg0->position.xPos.h >> 6][arg0->position.zPos.h >> 6].unk2].unk0;
         }
     }
     if (arg0->unk16C->objectType == OBJECT_BOULDER) {
-        var_v1 /= 4;
+        friction /= 4;
     }
-    multi = arg0->unk16C->unk7E + (((256 - arg0->unk16C->unk7E) * (16 - var_v1)) >> 4);
+    multi = arg0->unk16C->unk7E + (((256 - arg0->unk16C->unk7E) * (16 - friction)) >> 4);
     if (multi < 0) {
         multi = 0;
     }
-    if (arg0->unk162 == 6) {
+    if (arg0->movementState == 6) {
         multi = 256 - ((256 - multi) >> 1);
     }
 
@@ -305,7 +316,7 @@ void func_802CA8D4_6DBF84(Animal *arg0) {
 }
 
 // ESA: func_80063CEC
-void func_802CAACC_6DC17C(Animal *arg0, s16 arg1) {
+void func_802CAACC_6DC17C(Entity *arg0, s16 arg1) {
     arg0->yVelocity.w = (arg0->yVelocity.w * 7) / 8;
     arg0->yVelocity.w -= ((arg0->position.yPos.h + (arg0->unk42 >> 1)) - arg1) << 10;
 }
@@ -344,7 +355,10 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     }
 
     if (((arg0->unk16C->unk82.unk2) && (arg1->unk16C->unk82.unk2)) &&
-        (((arg0->unk366 == MOVEMENT_MODE_DEACTIVATED)) || (arg0->unk366 == MOVEMENT_MODE_2) || ((arg1->unk366 == MOVEMENT_MODE_DEACTIVATED)) || (arg1->unk366 == MOVEMENT_MODE_2))) {
+        ((arg0->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
+         (arg0->movementMode == MOVEMENT_MODE_2) ||
+         (arg1->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
+         (arg1->movementMode == MOVEMENT_MODE_2))) {
         phi_t1 = 1;
     }
 
@@ -418,7 +432,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 }
 
 // ESA: func_800643F4
-void func_802CB180_6DC830(Animal *arg0) {
+void func_802CB180_6DC830(Entity *arg0) {
     if (func_80298E08_6AA4B8(arg0->position.xPos.h, arg0->position.zPos.h)) {
         s8 tmp;
         s16 phi_a1;

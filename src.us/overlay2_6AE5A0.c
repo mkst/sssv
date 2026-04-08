@@ -525,7 +525,6 @@ void func_8029E100_6AF7B0(void) {
     }
     D_803A05A4_7B1C54 += 4;
     D_803A05A4_7B1C54 &= 0xF;
-
 }
 
 void func_8029E3CC_6AFA7C(void) {
@@ -927,7 +926,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
 
             animal = D_803D343C = var_a1->animal;
             D_803D3440 = animal->unk16C;
-            D_803D3438 = &D_803D3440->unk4;
+            D_803D3438 = &D_803D3440->displayList1;
 
             if ((D_803D3440->unk82.unk2 == 0)) {
                 if (var_a1 == D_803D343C->unk11C) {
@@ -1036,7 +1035,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 if (D_803D4BB0.unk1 < 60) {
                                     D_803D4BB0.unk1++;
                                     D_803D4BB0.unk32[D_803D4BB0.unk1] = D_803D343C->unk3E & 0x3F;
-                                    D_803D4BB0.displayList[D_803D4BB0.unk1] = D_803D343C->unk16C->unk4;
+                                    D_803D4BB0.displayList[D_803D4BB0.unk1] = D_803D343C->unk16C->displayList1;
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk0 = D_803D343C->zRotation;
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk2 = D_803D343C->yRotation;
                                     D_803D4BB0.unkAA[D_803D4BB0.unk1] = D_803D343C->unk40;
@@ -1049,7 +1048,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                             case 3:
                                 if (D_803D45D0.unk0 < 60) {
                                     D_803D45D0.unk0++;
-                                    D_803D45D0.displayList[D_803D45D0.unk0] = D_803D343C->unk16C->unk4;
+                                    D_803D45D0.displayList[D_803D45D0.unk0] = D_803D343C->unk16C->displayList1;
                                     D_803D45D0.unk34C[D_803D45D0.unk0].unk0 = D_803D343C->zRotation;
                                     D_803D45D0.unk34C[D_803D45D0.unk0].unk2 = D_803D343C->yRotation;
                                     D_803D45D0.unk2[D_803D45D0.unk0] = D_803D343C->unk40;
@@ -1141,7 +1140,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w,
                                     D_803D343C->zRotation,
                                     D_803D343C->yRotation,
-                                    D_803D343C->unk16C->unk4);
+                                    D_803D343C->unk16C->displayList1);
                                 break;
                             case 7:
                                 if ((D_803D3434->usedModelViewMtxs + 1) >= 250) {
@@ -1219,7 +1218,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 }
                                 break;
                             case 8:
-                                if (D_803D343C->unk16C->unk4 != 0) {
+                                if (D_803D343C->unk16C->displayList1 != NULL) {
                                     enqueue_object_display_list_by_flags(
                                         D_803D343C,
                                         D_803D343C->unk3E,
@@ -1229,7 +1228,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         D_803D343C->position.yPos.w,
                                         D_803D343C->zRotation,
                                         D_803D343C->yRotation,
-                                        D_803D343C->unk16C->unk4);
+                                        D_803D343C->unk16C->displayList1);
                                 }
                                 for (var_s0 = D_803B1CDC_7C338C[D_803D3440->unk14]; var_s0[0] != 9999; var_s0 += 5) {
                                     func_802F603C_7076EC(
@@ -1255,10 +1254,19 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 }
                                 break;
                             case 9:
-                                enqueue_texture_grouped_display_list_instance(&D_803D3FF8, D_803D343C->unk3E & 0x3F, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                                enqueue_texture_grouped_display_list_instance(
+                                    &D_803D3FF8,
+                                    D_803D343C->unk3E & 0x3F,
+                                    D_803D343C->unk40,
+                                    D_803D343C->position.xPos.w,
+                                    D_803D343C->position.zPos.w,
+                                    D_803D343C->position.yPos.w,
+                                    D_803D343C->zRotation,
+                                    D_803D343C->yRotation,
+                                    D_803D343C->unk16C->displayList1);
                                 break;
                             case 10:
-                                temp_v0 = 0x100 - D_803D343C->unk150;
+                                temp_v0 = 0x100 - D_803D343C->Info.unk150;
                                 new_var = ((COS(temp_v0 * 8)) / (temp_v0 + 16.0f)) / 16383.0f;
                                 temp_f20 = (1.0f - new_var) * (D_803D343C->unk40 / (1.0f * 2048));
                                 enqueue_object_display_list_by_flags(
@@ -1336,9 +1344,9 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w,
                                     D_803D343C->zRotation,
                                     D_803D343C->yRotation,
-                                    D_803D343C->unk16C->unk4);
+                                    D_803D343C->unk16C->displayList1);
 
-                                tmp3 = (COS(D_803D343C->unk14E) >> 9);
+                                tmp3 = (COS(D_803D343C->Info.unk14E) >> 9);
                                 tmp3 = (tmp3 * D_803D343C->unk40) >> 0xB;
 
                                 func_802F5F44_7075F4(
@@ -1351,7 +1359,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
 
                                 if (D_803D45D0.unk0 < 60) {
                                     D_803D45D0.unk0++;
-                                    D_803D45D0.displayList[D_803D45D0.unk0] = D_803D343C->unk16C->unk8;
+                                    D_803D45D0.displayList[D_803D45D0.unk0] = D_803D343C->unk16C->displayList2;
                                     D_803D45D0.unk34C[D_803D45D0.unk0].unk0 = D_803D343C->zRotation;
                                     D_803D45D0.unk34C[D_803D45D0.unk0].unk2 = D_803D343C->yRotation;
                                     D_803D45D0.unk2[D_803D45D0.unk0] = D_803D343C->unk40;
@@ -1376,14 +1384,14 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     0);
                                 break;
                             case 13:
-                                enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                                enqueue_object_display_list_by_flags(D_803D343C, D_803D343C->unk3E, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w, D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
                                 sp2A8 = (D_803D343C->position.yPos.h + (D_803D343C->unk42 * 0.6));
-                                temp_t7 = ((COS(D_803D343C->unk152) >> 7) * (D_803D343C->unk42 >> 2)) >> 8;
+                                temp_t7 = ((COS(D_803D343C->Info.unk152) >> 7) * (D_803D343C->unk42 >> 2)) >> 8;
 
                                 temp_t8 = (D_803D343C->unk40 << 5) / 8.0;
-                                temp_t8 = (D_803D343C->unk14E * temp_t8) >> 8;
+                                temp_t8 = (D_803D343C->Info.unk14E * temp_t8) >> 8;
 
-                                new_var3 = ABS(SIN(D_803D343C->unk152) >> 7);
+                                new_var3 = ABS(SIN(D_803D343C->Info.unk152) >> 7);
                                 var_t3 = var_t1 = (new_var3 * temp_t8) >> 8;
 
                                 if (temp_t7 < 0) {
@@ -1391,8 +1399,8 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 } else {
                                     var_t3 = temp_t8;
                                 }
-                                if (D_803D343C->unk14E > 0) {
-                                    red = ABS(SIN(D_803D343C->unk152) >> 7);
+                                if (D_803D343C->Info.unk14E > 0) {
+                                    red = ABS(SIN(D_803D343C->Info.unk152) >> 7);
                                     if (red > 0xFF) {
                                         red = 0xFF;
                                     }
@@ -1406,7 +1414,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         D_803D343C->position.zPos.w,
                                         (sp2A8 + temp_t7) << 0x10,
                                         0x14,
-                                        (D_803D343C->unk152 * 360) >> 8,
+                                        (D_803D343C->Info.unk152 * 360) >> 8,
                                         var_t1,
                                         var_t1,
                                         var_t1);
@@ -1422,7 +1430,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                         D_803D343C->position.zPos.w,
                                         (sp2A8 - temp_t7) << 0x10,
                                         -0x14,
-                                        (D_803D343C->unk152 * 360) >> 8,
+                                        (D_803D343C->Info.unk152 * 360) >> 8,
                                         var_t3,
                                         var_t3,
                                         var_t3);
@@ -1453,7 +1461,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->position.yPos.w,
                                     D_803D343C->zRotation,
                                     D_803D343C->yRotation,
-                                    D_803D343C->unk16C->unk4);
+                                    D_803D343C->unk16C->displayList1);
                                     scale = D_803D343C->unk40;
                                     if (D_801552B0 != 0) {
                                         scale += guRandom() % 600;
@@ -1516,7 +1524,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 render_rig_instance_xlu(D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40 << 5, 1, 0);
                                 break;
                             case 17:
-                                enqueue_texture_grouped_display_list_instance(&D_803D3FF8, D_803D343C->unk3E & 0x3F, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->unk4);
+                                enqueue_texture_grouped_display_list_instance(&D_803D3FF8, D_803D343C->unk3E & 0x3F, D_803D343C->unk40, D_803D343C->position.xPos.w, D_803D343C->position.zPos.w, D_803D343C->position.yPos.w + (D_803D343C->unk42 << 0xF), D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk16C->displayList1);
                                 if (D_803D343C->unk200[0] & 2) {
                                     func_802F603C_7076EC(D_803A0580_7B1C30[0][0], D_803A0580_7B1C30[0][1], D_803A0580_7B1C30[0][2], D_803D343C->zRotation, D_803D343C->yRotation, D_803D343C->unk40, &sp210);
                                     enqueue_dynamic_texture_billboard_6AE5A0(
@@ -1639,7 +1647,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 if (D_803D4BB0.unk1 < 60) {
                                     D_803D4BB0.unk1++;
                                     D_803D4BB0.unk32[D_803D4BB0.unk1] = D_803D343C->unk3E & 0x3F;
-                                    D_803D4BB0.displayList[D_803D4BB0.unk1] = D_803D343C->unk16C->unk4;
+                                    D_803D4BB0.displayList[D_803D4BB0.unk1] = D_803D343C->unk16C->displayList1;
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk0 = D_803D343C->zRotation;
                                     D_803D4BB0.unk3F4[D_803D4BB0.unk1].unk2 = D_803D343C->yRotation;
                                     D_803D4BB0.unkAA[D_803D4BB0.unk1] = scale;
@@ -1715,7 +1723,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 }
                                 if (D_803D45D0.unk0 < 60) {
                                     D_803D45D0.unk0++;
-                                    D_803D45D0.displayList[D_803D45D0.unk0] = D_803D343C->unk16C->unk4;
+                                    D_803D45D0.displayList[D_803D45D0.unk0] = D_803D343C->unk16C->displayList1;
                                     D_803D45D0.unk34C[D_803D45D0.unk0].unk0 = D_803D343C->zRotation;
                                     D_803D45D0.unk34C[D_803D45D0.unk0].unk2 = D_803D343C->yRotation;
                                     D_803D45D0.unk2[D_803D45D0.unk0] = D_803D343C->unk40;
