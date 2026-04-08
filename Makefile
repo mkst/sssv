@@ -33,57 +33,39 @@ TOOLS_DIR = tools
 
 # Files
 
-S_FILES         = $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
-C_FILES         = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-# H_FILES       = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
-BIN_FILES       = $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
-
-O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
-           $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file).o) \
-           $(foreach file,$(BIN_FILES),$(BUILD_DIR)/$(file).o)
+TARGET     = $(BUILD_DIR)/$(BASENAME).$(VERSION)
+LD_SCRIPT  = $(BASENAME).ld
 
 LIBULTRA = lib/libultra_rom.a
 
-# Language data
+# Source
 
-LANG_RNC_FILES      = $(wildcard assets/lang/*.dat.rnc)
-LANG_RNC_O_FILES    = $(foreach file,$(LANG_RNC_FILES),$(BUILD_DIR)/$(file:.dat.rnc=.dat.rnc.o))
+TARGET_ASM_OBJS = $(shell sed -nE 's#.*(build/.*\.s\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
+TARGET_C_OBJS   = $(shell sed -nE 's#.*(build/.*\.c\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
 
-# Compressed Images
+# Images
 
-RGBA16_RNC_FILES    = $(shell find assets/img/ -name "*.rgba16.rnc.png" 2> /dev/null)
-RGBA16_RNC_O_FILES  = $(foreach file,$(RGBA16_RNC_FILES),$(BUILD_DIR)/$(file:.rgba16.rnc.png=.rgba16.rnc.o))
+RGBA16_OBJS      = $(shell sed -nE 's#.*(build/.*\.rgba16.png\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
+I4_OBJS          = $(shell sed -nE 's#.*(build/.*\.i4.png\.o).*#\1#p'     ${LD_SCRIPT} 2>/dev/null)
+I8_OBJS          = $(shell sed -nE 's#.*(build/.*\.i8.png\.o).*#\1#p'     ${LD_SCRIPT} 2>/dev/null)
+IA16_OBJS        = $(shell sed -nE 's#.*(build/.*\.ia16.png\.o).*#\1#p'   ${LD_SCRIPT} 2>/dev/null)
+CI4_OBJS         = $(shell sed -nE 's#.*(build/.*\.ci4.png\.o).*#\1#p'    ${LD_SCRIPT} 2>/dev/null)
 
-I4_RNC_FILES        = $(shell find assets/img/ -name "*.i4.rnc.png" 2> /dev/null)
-I4_RNC_O_FILES      = $(foreach file,$(I4_RNC_FILES),$(BUILD_DIR)/$(file:.i4.rnc.png=.i4.rnc.o))
+CI4_PAL_OBJS     = $(shell sed -nE 's#.*(build/.*\.pal\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
+CI4_PAL_OBJS    += $(CI4_OBJS:.ci4.png.o=.pal.o)
 
-# Uncompressed Images
+IMAGE_OBJS       = $(RGBA16_OBJS) $(I4_OBJS) $(I8_OBJS) $(IA16_OBJS) $(CI4_OBJS) $(CI4_PAL_OBJS)
 
-RGBA16_FILES        = $(shell find assets/img/ -name "*.rgba16.png" 2> /dev/null)
-I4_FILES            = $(shell find assets/img/ -name "*.i4.png" 2> /dev/null)
-I8_FILES            = $(shell find assets/img/ -name "*.i8.png" 2> /dev/null)
-IA16_FILES          = $(shell find assets/img/ -name "*.ia16.png" 2> /dev/null)
-CI4_FILES           = $(shell find assets/img/ -name "*.ci4.png" 2> /dev/null)
-
-
-RGBA16_O_FILES      = $(foreach file,$(RGBA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
-I4_O_FILES          = $(foreach file,$(I4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
-I8_O_FILES          = $(foreach file,$(I8_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
-IA16_O_FILES        = $(foreach file,$(IA16_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
-CI4_O_FILES         = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.png=.png.o))
-CI4_PAL_O_FILES     = $(foreach file,$(CI4_FILES),$(BUILD_DIR)/$(file:.ci4.png=.pal.o))
-
-# All Images
-
-IMAGE_O_FILES       = $(RGBA16_RNC_O_FILES) $(I4_RNC_O_FILES) $(RGBA16_O_FILES) $(I4_O_FILES) $(I8_O_FILES) $(IA16_O_FILES) $(CI4_O_FILES) $(CI4_PAL_O_FILES)
+# RNC Files
+RNC_OBJS         = $(shell sed -nE 's#.*(build/.*\.rnc\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
 
 # Generic RNC compressed files
-ALL_RNC_FILES       := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
-ALL_RNC_EXTRACTED   := $(foreach file,$(ALL_RNC_FILES),rnc/$(file))
-ALL_RNC_COMPRESSED  := $(foreach file,$(ALL_RNC_FILES),build/$(file))
+ALL_RNC_FILES      = $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
+ALL_RNC_EXTRACTED  = $(foreach file,$(ALL_RNC_FILES),rnc/$(file))
+ALL_RNC_COMPRESSED = $(foreach file,$(ALL_RNC_FILES),build/$(file))
 
-RNC_FILES       := $(shell find assets/ -name "*.rnc" 2> /dev/null)
-RNC_O_FILES     := $(foreach file,$(RNC_FILES),$(BUILD_DIR)/$(file:.rnc=.rnc.o))
+# Other
+TARGET_BIN_OBJS = $(shell sed -nE 's#.*(build/.*\.bin\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
 
 
 # function is not included unless explicitly undefined
@@ -147,7 +129,7 @@ OBJCOPYFLAGS   = -O binary
 
 # Files requiring pre/post-processing
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
-GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
+GLOBAL_ASM_OBJS := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
 
 DEFINES := -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32 -DSSSV -DNDEBUG
@@ -181,9 +163,6 @@ GCC_FLAGS := $(INCLUDE_CFLAGS) $(DEFINES)
 GCC_FLAGS += -G0 -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
 GCC_FLAGS += -mdivide-breaks -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -mno-abicalls -fno-strict-aliasing -fno-inline-functions -ffreestanding -fwrapv
 GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
-
-TARGET     = $(BUILD_DIR)/$(BASENAME).$(VERSION)
-LD_SCRIPT  = $(BASENAME).ld
 
 LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt
 LD_FLAGS  += -Map $(TARGET).map --no-check-sections
@@ -250,12 +229,12 @@ distclean: clean
 
 ### Recipes
 
-$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES) $(RNC_O_FILES)
+$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(TARGET_ASM_OBJS) $(TARGET_BIN_OBJS) $(TARGET_C_OBJS) $(IMAGE_OBJS) $(RNC_OBJS)
 	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
 
 ifndef PERMUTER
-$(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
+$(GLOBAL_ASM_OBJS): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
 	@$(CC_CHECK) $<
 	@printf "[$(YELLOW) syntax $(NO_COL)] $<\n"
 	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<

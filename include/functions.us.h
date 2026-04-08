@@ -567,7 +567,7 @@ void func_802E88C0_6F9F70(s16 arg0);
 
 // overlay2_6FA0A0
 s16 classify_object_visibility_6FA0A0(s32 x, s32 y, s32 z, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
-s16 classify_dynamic_visibility_6FA26C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
+s16 classify_dynamic_visibility_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9);
 s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
 s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4);
 s16 classify_particle_visibility_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3);

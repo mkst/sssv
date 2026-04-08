@@ -30,6 +30,11 @@ jobs:
       - name: Decrypt baserom
         run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${{ matrix.version }}.z64.aes -out baserom.${{ matrix.version }}.z64
 
+      - name: Chown files as user 1000
+        run: |
+          export USER_1000=$(getent passwd 1000 | cut -d: -f1)
+          sudo chown -R "${USER_1000}:${USER_1000}" .
+
       - name: Perform make extract
         uses: docker://ghcr.io/mkst/sssv:latest
         with:
@@ -52,7 +57,7 @@ jobs:
           echo "progress_filename=$(echo ${GITHUB_SHA}.$(git show -s --format=%at ${GITHUB_SHA}).csv)" >> $GITHUB_ENV
 
       - name: Rename progress.csv
-        run: mv progress.csv "${{ env.progress_filename }}"
+        run: sudo mv progress.csv "${{ env.progress_filename }}"
 
       - name: Touch NON_MATCHING files
         uses: docker://ghcr.io/mkst/sssv:latest
