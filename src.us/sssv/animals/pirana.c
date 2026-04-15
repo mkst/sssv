@@ -21,7 +21,7 @@ void func_80382050_793700(void) {
     if (D_803D553A == 9) {
         play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
-    if ((D_803D5530->unk162 == 3) && (D_803D5538 != 0)) {
+    if ((D_803D5530->movementState == 3) && (D_803D5538 != 0)) {
         if (D_803D552C->unk369 == 0) {
             if (gAnimalState.curBButton == 0) {
                 D_803D552C->unk369 = 1;
@@ -165,9 +165,9 @@ done:
                 func_8031A150_72B800(D_803D552C->unk326++, &sp74, &sp72);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp74, &sp72);
                 sp74 = D_803BD530_7CEBE0.eyes[1][sp74]; sp72 = D_803BD600_7CECB0.eyes[0][sp72];
-                func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp74);
+                func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp74);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C240_FD2A0);
-                func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes_ci4__png, sp72);
+                func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp72);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C260_FD2C0);
             }
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);

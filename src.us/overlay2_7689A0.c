@@ -15,7 +15,7 @@ GameState gGameState;
 // ESA: func_80058368
 void func_803572F0_7689A0(void) {
     if (gUiFlowState.unk0 == 0) {
-        if ((gAnimalState.animals[gCurrentAnimalIndex].animal->health <= 0) &&
+        if ((gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health <= 0) &&
             (gGameState.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
             gGameState.unk4 = 1;
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_FAILED;

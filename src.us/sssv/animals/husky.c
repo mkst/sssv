@@ -4,12 +4,12 @@
 #include "camera.h"
 
 
-extern struct077 D_803B45D8_7C5C88;
-extern struct077 D_803B4608_7C5CB8;
-extern struct077 D_803B4638_7C5CE8;
-extern struct077 D_803B464C_7C5CFC;
-extern struct077 D_803B467C_7C5D2C;
-extern struct077 D_803B46AC_7C5D5C;
+extern struct077 D_803B45D8_7C5C88[];
+extern struct077 D_803B4608_7C5CB8[];
+extern struct077 D_803B4638_7C5CE8[];
+extern struct077 D_803B464C_7C5CFC[];
+extern struct077 D_803B467C_7C5D2C[];
+extern struct077 D_803B46AC_7C5D5C[];
 
 extern u8  D_803B47D4_7C5E84[];
 extern u8  D_803B47E4_7C5E94[];
@@ -22,8 +22,6 @@ extern Gfx D_04004AE0_E20A0[];
 extern Gfx D_04004E60_E2420[];
 extern Gfx D_04005120_E26E0[];
 extern Gfx D_04005220_E27E0[];
-extern u8  D_04005260_E2820[]; // palette
-extern u8  D_04005460_E2A20[]; // palette
 extern Gfx D_04005500_E2AC0[];
 extern Gfx D_04005520_E2AE0[];
 extern Gfx D_04005830_E2DF0[]; // missile
@@ -37,7 +35,7 @@ void func_80368DD0_77A480(void) {
     s32 spA8;
     s32 temp_a0_3;
     s16 spA2;
-    struct061 sp98;
+    Vertex sp98;
     s16 sp96;
     s16 sp94;
     s16 sp92;
@@ -72,9 +70,9 @@ void func_80368DD0_77A480(void) {
                 func_802C1830_6D2EE0(0x2FD, &sp98);
             } else {
                 D_803D552C->unk310 = 1;
-                func_802BF3C0_6D0A70(0x2FD, 0x6D, 0x80, 0, 0x80, 0, &D_803B45D8_7C5C88, &D_803B4608_7C5CB8, &D_803B4638_7C5CE8,
-                                     0x2FD, 0x6D, 0x80, 0, 0x80, 0, &D_803B464C_7C5CFC, &D_803B467C_7C5D2C, &D_803B46AC_7C5D5C,
-                                     &sp98);
+                update_limbs_rigid(0x2FD, 0x6D, 0x80, 0, 0x80, 0, D_803B45D8_7C5C88, D_803B4608_7C5CB8, D_803B4638_7C5CE8,
+                                   0x2FD, 0x6D, 0x80, 0, 0x80, 0, D_803B464C_7C5CFC, D_803B467C_7C5D2C, D_803B46AC_7C5D5C,
+                                   &sp98);
 
                 D_80203FE0[8].unk0  = D_80203FE0[7].unk0;  D_80203FE0[8].unk2  = D_80203FE0[7].unk2;  D_80203FE0[8].unk4  = D_80203FE0[7].unk4;
                 D_80203FE0[11].unk0 = D_80203FE0[10].unk0; D_80203FE0[11].unk2 = D_80203FE0[10].unk2; D_80203FE0[11].unk4 = D_80203FE0[10].unk4;
@@ -117,7 +115,7 @@ void func_80368DD0_77A480(void) {
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.1f);
-            load_1_tile(D_04005460_E2A20, D_04005260_E2820);
+            load_1_tile(img_husky_pal, img_husky_ci4__png);
 
             func_802C78B0_6D8F60(2,   1, (D_803F2EBC * 0x46) >> 6, (D_803F2EC0 * 0x46) >> 6, (D_803F2EC4 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, D_04004AE0_E20A0);
             func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, D_04004E60_E2420);
@@ -146,9 +144,9 @@ void func_80368DD0_77A480(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
                 sp96 = D_803BD530_7CEBE0.eyes[5][sp96]; sp94 = D_803BD600_7CECB0.eyes[4][sp94];
-                func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes5_ci4__png, sp96);
+                func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes5_ci4__png, sp96);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, D_04005500_E2AC0);
-                func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes5_ci4__png, sp94);
+                func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes5_ci4__png, sp94);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, D_04005520_E2AE0);
             }
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
@@ -202,9 +200,9 @@ void func_80368DD0_77A480(void) {
     }
 }
 
-extern s16 D_803B4564_7C5C14[];
-extern s16 D_803B4594_7C5C44[];
-extern s16 D_803B45C4_7C5C74[];
+extern struct077 D_803B4564_7C5C14[];
+extern struct077 D_803B4594_7C5C44[];
+extern struct077 D_803B45C4_7C5C74[];
 extern u8  D_803B46C0_7C5D70[];
 extern u8  D_803B46D8_7C5D88[];
 extern s16 D_803B46F0_7C5DA0[];
@@ -232,7 +230,7 @@ void func_8036A05C_77B70C(void) {
     u8 temp_v0_5;
     s16 temp_a0_3;
 
-    struct061 sp104;
+    Vertex sp104;
     s16 sp102;
     s16 sp100;
     s16 spFE;
@@ -348,7 +346,7 @@ void func_8036A05C_77B70C(void) {
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.1f);
-            load_1_tile(D_04005460_E2A20, D_04005260_E2820);
+            load_1_tile(img_husky_pal, img_husky_ci4__png);
 
             switch (D_803D5524->unk9C) {
             case HUSKY:
@@ -501,9 +499,9 @@ void func_8036A05C_77B70C(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp102, &sp100);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp102, &sp100);
                 sp102 = D_803BD530_7CEBE0.eyes[5][sp102]; sp100 = D_803BD600_7CECB0.eyes[4][sp100];
-                func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes5_ci4__png, sp102);
+                func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes5_ci4__png, sp102);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, D_04005500_E2AC0);
-                func_80356BD8_768288(img_eyes_TLUT2_pal, img_eyes5_ci4__png, sp100);
+                func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes5_ci4__png, sp100);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, D_04005520_E2AE0);
             }
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);

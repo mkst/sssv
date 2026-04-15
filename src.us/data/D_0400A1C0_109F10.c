@@ -7,7 +7,7 @@ Vtx D_0400A020_109D70[26] = {
 #include "data/inc/D_0400A020_109D70.inc.c"
 };
 
-extern u8 D_040097A0_1094F0[];
+extern u8 img_actors_brain_eye_rgba16__png[];
 
 Gfx D_0400A1C0_109F10[] = {
     gsSPClearGeometryMode(G_LIGHTING),
@@ -20,7 +20,7 @@ Gfx D_0400A1C0_109F10[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_040097A0_1094F0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_actors_brain_eye_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

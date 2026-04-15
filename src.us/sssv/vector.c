@@ -3,31 +3,31 @@
 
 #pragma intrinsic sqrtf
 
-void vector_add(Vertex *x, Vertex *y, Vertex *res) {
+void vector_add(Vec3f *x, Vec3f *y, Vec3f *res) {
     res->x = x->x + y->x;
     res->y = x->y + y->y;
     res->z = x->z + y->z;
 }
 
-void vector_subtract(Vertex *x, Vertex *y, Vertex *res) {
+void vector_subtract(Vec3f *x, Vec3f *y, Vec3f *res) {
     res->x = x->x - y->x;
     res->y = x->y - y->y;
     res->z = x->z - y->z;
 }
 
-void vector_multiply_by(Vertex *x, f32 c, Vertex *res) {
+void vector_multiply_by(Vec3f *x, f32 c, Vec3f *res) {
     res->x = x->x * c;
     res->y = x->y * c;
     res->z = x->z * c;
 }
 
-void vector_divide_by(Vertex *x, f32 c, Vertex *res) {
+void vector_divide_by(Vec3f *x, f32 c, Vec3f *res) {
     res->x = x->x / c;
     res->y = x->y / c;
     res->z = x->z / c;
 }
 
-f32 get_magnitude(Vertex *v) {
+f32 get_magnitude(Vec3f *v) {
     f32 x, y, z;
     f32 tmp, ret;
 
@@ -43,7 +43,7 @@ f32 get_magnitude(Vertex *v) {
     return ret;
 }
 
-void normalize_vector(Vertex *x, Vertex *res) {
+void normalize_vector(Vec3f *x, Vec3f *res) {
     f32 mag = get_magnitude(x);
     if (mag != 0.0) {
         vector_divide_by(x, mag, res);
@@ -52,7 +52,7 @@ void normalize_vector(Vertex *x, Vertex *res) {
     }
 }
 
-f32 dot_product(Vertex *x, Vertex *y) {
+f32 dot_product(Vec3f *x, Vec3f *y) {
     f32 x0x1, y0y1, z0z1;
 
     x0x1 = x->x * y->x;
@@ -62,13 +62,13 @@ f32 dot_product(Vertex *x, Vertex *y) {
     return x0x1 + y0y1 + z0z1;
 }
 
-void cross_product(Vertex *x, Vertex *y, Vertex *res) {
+void cross_product(Vec3f *x, Vec3f *y, Vec3f *res) {
     res->x = x->y * y->z - x->z * y->y;
     res->y = x->z * y->x - x->x * y->z;
     res->z = x->x * y->y - x->y * y->x;
 }
 
-s16 get_angle_between_vectors(Vertex *x, Vertex *y) {
+s16 get_angle_between_vectors(Vec3f *x, Vec3f *y) {
     s32 pad;
     f32 mm;
     f32 tmp;

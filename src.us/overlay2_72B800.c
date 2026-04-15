@@ -108,7 +108,7 @@ void func_8031A278_72B928(s16 *timer, s16 *leftEye, s16 *rightEye) {
         *timer &= 0x3F;
     }
 
-    switch (D_803D552C->unk366) {
+    switch (D_803D552C->movementMode) {
     case MOVEMENT_MODE_2:
     case MOVEMENT_MODE_DEACTIVATED:
         *leftEye = 5;   // closed?

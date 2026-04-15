@@ -37,7 +37,7 @@ void func_802F1730_702DE0(void) {
     s32 pad[2];
     u8  temp_v0_8;
 
-    struct061 spC4;
+    Vertex spC4;
     s16 spC2;                                       /* compiler-managed */
     s16 spC0;                                       /* compiler-managed */
     s16 spBE;
@@ -135,14 +135,14 @@ void func_802F1730_702DE0(void) {
             gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
             gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0x0, 0xFF);
 
-            if ((D_803D5530->state == 3) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+            if ((D_803D5530->state == 3) && (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
                 // bleurgh
-                var_t2 =  (COS(D_803D552C->unk2F6) >> 7) / 16;
-                spBA =   ((COS(D_803D552C->unk2F6) >> 7) * -0x20D) >> 0xA;
+                var_t2 =  (COS(D_803D552C->gaitPhaseOffset) >> 7) / 16;
+                spBA =   ((COS(D_803D552C->gaitPhaseOffset) >> 7) * -0x20D) >> 0xA;
 
-                temp_t7 = ((0x100 + (COS(D_803D552C->unk2F6) >> 7)) * 0x20D) >> 0xA;
-                temp_t9 = ((0x100 - (COS(D_803D552C->unk2F6) >> 7)) * 0x20D) >> 0xA;
-                temp_t6 = ((SIN(D_803D552C->unk2F6 << 1) >> 7) * 0x20D) >> 0xB;
+                temp_t7 = ((0x100 + (COS(D_803D552C->gaitPhaseOffset) >> 7)) * 0x20D) >> 0xA;
+                temp_t9 = ((0x100 - (COS(D_803D552C->gaitPhaseOffset) >> 7)) * 0x20D) >> 0xA;
+                temp_t6 = ((SIN(D_803D552C->gaitPhaseOffset << 1) >> 7) * 0x20D) >> 0xB;
 
                 D_80203FE0[4].unk4  += temp_t7;
                 D_80203FE0[10].unk4 += temp_t7;
@@ -217,10 +217,10 @@ void func_802F1730_702DE0(void) {
 #pragma _permuter sameline start
                 spC2 = D_803BD530_7CEBE0.eyes[6][spC2]; spC0 = D_803BD600_7CECB0.eyes[5][spC0];
 #pragma _permuter sameline end
-                func_80356BD8_768288(img_eyes6_TLUT1_pal, img_eyes6_ci4__png, spC2);
+                func_80356BD8_768288(img_eyes6_TLUT1_pal, (u8 (*)[128])img_eyes6_ci4__png, spC2);
                 gSPDisplayList(gOpaqueDL++, D_010037F0_3D0C0);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000F60_F1FC0);
-                func_80356BD8_768288(img_eyes6_TLUT1_pal, img_eyes6_ci4__png, spC0);
+                func_80356BD8_768288(img_eyes6_TLUT1_pal, (u8 (*)[128])img_eyes6_ci4__png, spC0);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000FC0_F2020);
 
                 gSPDisplayList(gOpaqueDL++, D_01003840_3D110);

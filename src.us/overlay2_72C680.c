@@ -388,11 +388,11 @@ void load_level_data(u8 level) {
 
 #ifdef NON_MATCHING
 void load_level_data_sections(void) {
-    struct071 *obj;
-    struct071 *child;
-    struct071 *parent;
-    struct071 *object1;
-    struct071 *object2;
+    Entity *obj;
+    Entity *child;
+    Entity *parent;
+    Entity *object1;
+    Entity *object2;
 
     struct092 *joi;
     struct097 *cha;
@@ -479,7 +479,7 @@ void load_level_data_sections(void) {
                 // load object commands?
                 if (cob->commandReferenceIdx != 0) {
                     load_commands_into_object(
-                        (Animal *) obj,
+                        obj,
                         &D_803E4D40[cob->commandReferenceIdx] - 1,
                         cob->commandsLength);
                 }
@@ -1031,7 +1031,7 @@ void func_8031C48C_72DB3C(void) {
 
     // objects
     for (i = 0; i < 170; i++) {
-        if (D_801E9EB8.objects[i].unk1A8 != 0) {
+        if (D_801E9EB8.objects[i].commands.unk1A8 != NULL) {
             // load in commands
             func_803191B0_72A860((Animal *) &D_801E9EB8.objects[i]);
         }
@@ -1061,8 +1061,8 @@ void func_8031C48C_72DB3C(void) {
     // objects
     for (i = 0; i < 170; i++) {
         if ((D_801E9EB8.objects[i].unk16C != NULL) && (D_801E9EB8.objects[i].unk26C == 0)) {
-            if ((D_801E9EB8.objects[i].unk16C->id != 0) && (D_801E9EB8.objects[i].unk16C->collision == NULL)) {
-                idx = D_801E9EB8.objects[i].unk16C->id;
+            if ((D_801E9EB8.objects[i].unk16C->collisionIdx != 0) && (D_801E9EB8.objects[i].unk16C->collision == NULL)) {
+                idx = D_801E9EB8.objects[i].unk16C->collisionIdx;
                 // link the collision?
                 func_8031C3C0_72DA70(((Collision*)gFramebuffer) + (idx - offset), idx);
             }
@@ -1092,5 +1092,5 @@ custom:
     }
 
     func_8031C32C_72D9DC();
-    func_802963D0_6A7A80((s32) D_80162658);
+    func_802963D0_6A7A80(D_80162658);
 }

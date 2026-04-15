@@ -40,7 +40,7 @@ void func_80382CF0_7943A0(void) {
     if (D_803D553A == 9) {
         play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
-    if ((D_803D5530->unk162 == 3) && (D_803D5538 != 0)) {
+    if ((D_803D5530->movementState == 3) && (D_803D5538 != 0)) {
         if (D_803D552C->unk369 == 0) {
             if (gAnimalState.curBButton == 0) {
                 D_803D552C->unk369 = 1;
@@ -124,7 +124,7 @@ void func_80382CF0_7943A0(void) {
 
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            load_1_tile(D_04007DD0_E5390, D_04007BD0_E5190);
+            load_1_tile(img_cool_cod_pal, img_cool_cod_ci4__png);
             func_802C78B0_6D8F60(0, 1, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04007500_E4AC0);
             func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040077E0_E4DA0);
             func_802C78B0_6D8F60(2, 3, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04007AE0_E50A0);
@@ -134,9 +134,9 @@ void func_80382CF0_7943A0(void) {
 #pragma _permuter sameline start
                 sp86 = D_803BD530_7CEBE0.eyes[1][sp86];sp84 = D_803BD600_7CECB0.eyes[0][sp84];
 #pragma _permuter sameline end
-                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes_ci4__png, sp86);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes_ci4__png, sp86);
                 func_802C78B0_6D8F60(1, 0, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04007E70_E5430);
-                func_80356BD8_768288(img_eyes_TLUT4_pal, img_eyes_ci4__png, sp84);
+                func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes_ci4__png, sp84);
                 func_802C78B0_6D8F60(1, 0, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04007E90_E5450);
             }
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);

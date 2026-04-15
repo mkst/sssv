@@ -57,27 +57,25 @@ void reset_waypoints(void) {
 }
 
 // ESA: func_8004CAEC
-void func_80319AA0_72B150(u8 *arg0, u8 arg1) {
-    *(arg0 + *arg0 + 1) = arg1;
-    *(arg0 + 5) = arg1;
-    *arg0 = *arg0 + 1;
+void func_80319AA0_72B150(struct002 *arg0, u8 arg1) {
+    arg0->unk1[arg0->length] = arg1;
+    arg0->unk1[4] = arg1;
+    arg0->length += 1;
 }
 
-// might be waypoint too?
 // ESA: func_8004CB10
-void func_80319AC4_72B174(u8 *arg0, u8 arg1) {
+void func_80319AC4_72B174(struct002 *arg0, u8 arg1) {
     s8 i;
 
-    for (i = 0; i < arg0[0]; i++) {
-        if (arg1 == *(arg0 + 1 + i)) {
+    for (i = 0; i < arg0->length; i++) {
+        if (arg1 == arg0->unk1[i]) {
             break;
         }
     }
+    arg0->length--;
 
-    arg0[0]--;
-
-    for (; i < arg0[0]; i++) {
-        *(arg0 + 1 + i) = *(arg0 + 2 + i);
+    for (; i < arg0->length; i++) {
+        arg0->unk1[i] = arg0->unk1[i+1];
     }
 }
 
@@ -108,7 +106,7 @@ u16 get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y) {
 }
 
 // ESA: func_8004CCCC
-void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5) {
+void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 unk160) {
     struct067 *tmp;
     u8 i;
 
@@ -121,34 +119,34 @@ void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5
         if ((arg0 >= tmp->unk0) && (tmp->unk3 >= arg0) &&
             (arg1 >= tmp->unk1) && (tmp->unk4 >= arg1)) {
             switch (tmp->unk2) {
-            case 240:
+            case 240: // WAYPOINT_REGION_ALL_MODES
                 *arg3 = i;
                 *arg4 += 1;
                 arg3 += 1;
                 break;
-            case 241:
-                if (arg5 == 2) {
+            case 241: // WAYPOINT_REGION_MODE_2_ONLY
+                if (unk160 == 2) {
                     *arg3 = i;
                     *arg4 += 1;
                     arg3 += 1;
                 }
                 break;
-            case 242:
-                if (arg5 == 1) {
+            case 242: // WAYPOINT_REGION_MODE_1_ONLY
+                if (unk160 == 1) {
                     *arg3 = i;
                     *arg4 += 1;
                     arg3 += 1;
                 }
                 break;
-            case 243:
-                if ((arg5 == 2) || (arg5 == 0)) {
+            case 243: // WAYPOINT_REGION_MODE_0_OR_2
+                if ((unk160 == 2) || (unk160 == 0)) {
                     *arg3 = i;
                     *arg4 += 1;
                     arg3 += 1;
                 }
                 break;
-            case 244:
-                if ((arg5 == 1) || (arg5 == 0)) {
+            case 244: // WAYPOINT_REGION_MODE_0_OR_1
+                if ((unk160 == 1) || (unk160 == 0)) {
                     *arg3 = i;
                     *arg4 += 1;
                     arg3 += 1;
@@ -170,7 +168,7 @@ void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5
 }
 
 // ESA: func_8004CE44
-u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
+u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 unk160) {
     struct067 *tmp;
     u8 ret;
 
@@ -185,22 +183,22 @@ u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
             ret = 1;
             break;
         case 241:
-            if (arg4 == 2) {
+            if (unk160 == 2) {
                 ret = 1;
             }
             break;
         case 242:
-            if (arg4 == 1) {
+            if (unk160 == 1) {
                 ret = 1;
             }
             break;
         case 243:
-            if ((arg4 == 2) || (arg4 == 0)) {
+            if ((unk160 == 2) || (unk160 == 0)) {
                 ret = 1;
             }
             break;
         case 244:
-            if ((arg4 == 1) || (arg4 == 0)) {
+            if ((unk160 == 1) || (unk160 == 0)) {
                 ret = 1;
             }
             break;
@@ -217,7 +215,7 @@ u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 arg4) {
 }
 
 // ESA: func_8004CF6C
-u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6) {
+u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 unk160, u8 *arg5, u8 *arg6) {
     u16 ret;
     struct105 *phi_t0;
 
@@ -233,28 +231,28 @@ u16 func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8
                 *arg6 = phi_t0->unk7;
                 return ret;
             case 241:
-                if (arg4 == 2) {
+                if (unk160 == 2) {
                     *arg5 = phi_t0->unk6;
                     *arg6 = phi_t0->unk7;
                     return ret;
                 }
                 break;
             case 242:
-                if (arg4 == 1) {
+                if (unk160 == 1) {
                     *arg5 = phi_t0->unk6;
                     *arg6 = phi_t0->unk7;
                     return ret;
                 }
                 break;
             case 243:
-                if ((arg4 == 2) || (arg4 == 0)) {
+                if ((unk160 == 2) || (unk160 == 0)) {
                     *arg5 = phi_t0->unk6;
                     *arg6 = phi_t0->unk7;
                     return ret;
                 }
                 break;
             case 244:
-                if ((arg4 == 1) || (arg4 == 0)) {
+                if ((unk160 == 1) || (unk160 == 0)) {
                     *arg5 = phi_t0->unk6;
                     *arg6 = phi_t0->unk7;
                     return ret;

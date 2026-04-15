@@ -39,7 +39,7 @@ void get_controller_input(void) {
     case INPUT_MODE_DEMO:
         if (D_803A52C0_7B6970 == 0) {
             gSeed = 0xB57; // reset seed
-            func_8012822C(1); // set game time to 1
+            func_8012822C(1); // set random seed to 1
 
             switch (D_803F2D50.segment) {
             case SEGMENT_EUROPE:

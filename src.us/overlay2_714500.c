@@ -92,7 +92,7 @@ void func_8030322C_7148DC(s16 idx, s16 angle) {
     s16 temp_v1;
     s32 temp_t2;
     s32 temp_t6;
-    struct061 *temp_v0;
+    LimbConfig *temp_v0;
     s32 fakematch;
 
     temp_v0 = &D_80203FE0[idx];

@@ -36,11 +36,11 @@ extern u8  D_01036E90_70760[];
 
 // TORTOISE_TANK
 #ifdef NON_MATCHING
-// CURRENT (148)
+// CURRENT (64)
 void update_tortoise_tank(void) {
     s32 sp14C;
     s32 sp148;
-    struct061 sp140;
+    Vertex sp140;
 
     s32 sp13C; // pad
 
@@ -137,7 +137,7 @@ void update_tortoise_tank(void) {
 
     // end of shared code
 
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL)) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
@@ -244,7 +244,7 @@ void update_tortoise_tank(void) {
                     0);
             }
 
-            load_1_tile(D_04003A50_F4AB0, (s32)D_04003850_F48B0);
+            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04003140_F41A0); }
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, D_803F2ED0, 0, 1, 0, D_04003140_F41A0); }
@@ -300,7 +300,10 @@ void update_tortoise_tank(void) {
             var_t1 = (D_803D552C->unk30A >> 8) & 0xFF;
             var_t2 = D_803D552C->unk30A & 0xFF; // get remainder
 
-            if (((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL)) && (D_803D5530->unk4A == 0)) {
+            if (((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) ||
+                 (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) ||
+                 (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL)) &&
+                 (D_803D5530->unk4A == 0)) {
                 if (gUiFlowState.unk0 == 0) {
                     switch (D_803D5530->state) {
                     case 0x16:
@@ -485,7 +488,7 @@ void update_racing_tortoise(void) {
     s32 phi_t0; // scaling?
     s32 phi_t3; // scaling?
 
-    struct061 sp90;
+    Vertex sp90;
     s16 sp8E;
     s16 sp8C;
     s16 sp8A;
@@ -591,7 +594,9 @@ void update_racing_tortoise(void) {
     } else {
         var_v1_6 = 0;
     }
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_INJURED) || (D_803D552C->unk366 == MOVEMENT_MODE_NORMAL) || (D_803D552C->unk366 == MOVEMENT_MODE_CRITICAL)) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) ||
+        (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) ||
+        (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
@@ -727,7 +732,7 @@ void update_racing_tortoise(void) {
                     0);
             }
 
-            load_1_tile(D_04003A50_F4AB0, (s32)D_04003850_F48B0);
+            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
             func_802C78B0_6D8F60(
                 2,
                 1,
@@ -747,7 +752,7 @@ void update_racing_tortoise(void) {
             gSPClearGeometryMode(gOpaqueDL++, G_CULL_BOTH);
 
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_04003530_F4590); }
-            load_1_tile(D_04004070_F50D0, (s32)D_04003E70_F4ED0);
+            load_1_tile(D_04004070_F50D0, D_04003E70_F4ED0);
 
             gSPDisplayList(gOpaqueDL++, D_010034C0_3CD90);
             gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD);
@@ -789,7 +794,7 @@ void update_racing_tortoise(void) {
 
 // TORTOISE_TANK_DEFENDING/RACING_TORTOISE_DEFENDING
 void update_tortoise_defending(void) {
-    struct061 sp88;
+    Vertex sp88;
     s16 offscreen;
     f32 temp_f0;
     u8 tmp;
@@ -798,7 +803,7 @@ void update_tortoise_defending(void) {
         func_8032CD70_73E420(D_803D5530, SFX_UNKNOWN_175, 0x6000, 0, 1.0f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
     }
 
-    if (D_803D5530->unk162 == 1) {
+    if (D_803D5530->movementState == 1) {
         temp_f0 = (ABS(D_803D5530->xVelocity.w) + ABS(D_803D5530->zVelocity.w)) / (65536.0 * 10);
         if (temp_f0 > 0.2) {
             func_8032CD70_73E420(
@@ -869,7 +874,7 @@ void update_tortoise_defending(void) {
                 D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            load_1_tile(D_04003A50_F4AB0, (s32)D_04003850_F48B0);
+            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
@@ -897,7 +902,7 @@ void update_tortoise_defending(void) {
             D_803D552C->unk2EC--;
         }
     }
-    if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
         if (D_803D5524->unk9C == TORTOISE_TANK_DEFENDING) {
             load_animal(TORTOISE_TANK);
         } else if (D_803D5524->unk9C == RACING_TORTOISE_DEFENDING) {

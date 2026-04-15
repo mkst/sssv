@@ -3,6 +3,12 @@
 
 #include "frog.h"
 
+extern Gfx  D_04008290_107FE0[];
+extern Gfx  D_04008420_108170[];
+extern Gfx  D_040089E0_108730[];
+
+extern u8   D_04008C10_108960[];
+extern u8   D_04008A10_108760[];
 
 void func_80302200_7138B0(void) {
     s16 temp_t5;
@@ -119,7 +125,7 @@ done:
             if ((D_803D5530->state < 0x2C) && (D_803D5530->state >= 0x29)) {
                 D_803D552C->unk30A -= D_803D552C->unk30E * 7;
             }
-            if ((gUiFlowState.unk0 == 0) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+            if ((gUiFlowState.unk0 == 0) && (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
                 sp72 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
                 func_80300130_7117E0(&sp72, &D_803D552C->unk30A, 0x60, -0x100, 3, 3, D_803D5530->yVelocity.h * 0x10, 4);
             } else {
@@ -151,7 +157,7 @@ done:
             } else if ((D_803D5540 & 0x7F) < 24) {
                 phi_t0 = MAX(phi_t0, 768 - ((D_803D5540 & 0x7F) << 5));
             }
-            if ((D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) || (D_803D552C->unk366 == MOVEMENT_MODE_2)) {
+            if ((D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) || (D_803D552C->movementMode == MOVEMENT_MODE_2)) {
                 phi_t0 = 0xFF;
             }
             D_80203FE0[1].unk4 += (phi_t0 * 0xB38) >> 0xC;

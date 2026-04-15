@@ -97,7 +97,7 @@ u8 D_801D9E80_padding[173404 - (240 + 64)];
 //     /* 802042EC */ .space 0x04
 
 char gDebugTextBuffer[60];
-s32  D_802042EC; // OSMesg
+OSMesg D_802042EC; // OSMesg
 
 s16  gNoControllerMessageText[60]; // 0x802042F0
 s16  D_80204368[60]; // 0x80204368

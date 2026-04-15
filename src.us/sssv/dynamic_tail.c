@@ -950,7 +950,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                 break;
             case 4:
                 if (temp_s4->unk34 == 0) {
-                    func_802DD548_6EEBF8(i, &D_803A3BAC_7B525C, 0x96, 0);
+                    func_802DD548_6EEBF8(i, D_803A3BAC_7B525C, 0x96, 0);
                     gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x99, 0x99, 0xFF); // #ff9999

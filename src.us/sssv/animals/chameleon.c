@@ -32,7 +32,7 @@ extern u8  D_04009E10_FAE70[];
 #ifdef NON_MATCHING
 // CURRENT (730)
 void func_8035A5F0_76BCA0(void) {
-    struct061 spD0;
+    Vertex spD0;
     s16 spCE; // pad
     s16 spCC; // pad
     s16 spCA;
@@ -237,15 +237,15 @@ void func_8035A5F0_76BCA0(void) {
             func_802BBC90_6CD340(0x271);
 
 
-            if (((D_803D5530->state == 3) || (D_803D5530->state == 6)) && ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED)) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-                var_s1 = D_803D552C->unk2F6;
+            if (((D_803D5530->state == 3) || (D_803D5530->state == 6)) && ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED)) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+                var_s1 = D_803D552C->gaitPhaseOffset;
                 var_s2 = (s16)(COS((s32)var_s1) >> 7) / 16;
                 var_s0 = ((s16)(COS((s32)var_s1) >> 7) * 250) >> 9;
-            } else if ((D_803D5530->state == 4) && (D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-                var_s1 = D_803D552C->unk2F6;
+            } else if ((D_803D5530->state == 4) && (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+                var_s1 = D_803D552C->gaitPhaseOffset;
                 var_s2 = (s16)(COS((s32)var_s1) >> 7) / 12;
                 var_s0 = ((s16)(COS((s32)var_s1) >> 7) * 250) >> 9;
-            } else if ((D_803D5530->unk162 == 5) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+            } else if ((D_803D5530->movementState == 5) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
                 var_s1 = (D_803D5540 << 5) & 0xFF;
                 var_s2 = (s16)(COS(var_s1) >> 7) / 12;
                 var_s0 = ((s16)(COS(var_s1) >> 7) * 250) >> 9;

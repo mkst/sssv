@@ -49,7 +49,7 @@ Vtx D_040147B0_DC1E0[30] = {
 #include "data/inc/D_040147B0_DC1E0.inc.c"
 };
 
-extern u8 D_04012680_DA0B0[];
+extern u8 img_D_04012680_DA0B0_rgba16__png[];
 
 Gfx D_04014990_DC3C0[] = {
     gsSPClearGeometryMode(G_LIGHTING),
@@ -61,7 +61,7 @@ Gfx D_04014990_DC3C0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_04012680_DA0B0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_D_04012680_DA0B0_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

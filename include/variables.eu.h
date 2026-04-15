@@ -12,7 +12,7 @@ extern u16  D_80152ED8;
 extern u16  D_80152EDC;
 extern s16  D_80152EC0;
 
-extern struct018 D_80162678[];
+extern FrameContext D_80162678[];
 
 extern u8   D_801D9EE8;
 extern u8   D_801D9EE9;
@@ -52,7 +52,7 @@ extern s16 gScreenHeight;
 
 extern DisplayList *D_80204298;
 
-extern struct018 *D_802042AC;
+extern FrameContext *D_802042AC;
 
 extern s16 D_80204280;
 

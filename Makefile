@@ -183,6 +183,9 @@ $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
 
 $(BUILD_DIR)/$(SRC_DIR)/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
 
+# does nothing:
+# $(BUILD_DIR)/$(SRC_DIR)/overlay2_72BA20.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
+
 $(BUILD_DIR)/src.eu/overlay1%.c.o: OPT_FLAGS := -g
 
 ### Targets

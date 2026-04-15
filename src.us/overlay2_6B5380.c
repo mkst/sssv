@@ -2,8 +2,6 @@
 #include "common.h"
 
 
-
-
 // ========================================================
 // .bss
 // ========================================================
@@ -49,19 +47,19 @@ void func_802A3CD0_6B5380(void) {
 }
 
 // ESA: func_80064858
-void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2) {
+void func_802A3E70_6B5520(Animal *arg0, s32 *xVel, s32 *zVel) {
     if (arg0->unk161 == 0) {
         if (D_803D5510 < -23) {
-            *arg1 = MIN(*arg1, FTOFIX32(-1.0));
+            *xVel = MIN(*xVel, FTOFIX32(-1.0));
         }
         if (D_803D5510 > 23) {
-            *arg1 = MAX(*arg1, FTOFIX32(1.0));
+            *xVel = MAX(*xVel, FTOFIX32(1.0));
         }
         if (D_803D5512 < -23) {
-            *arg2 = MIN(*arg2, FTOFIX32(-1.0));
+            *zVel = MIN(*zVel, FTOFIX32(-1.0));
         }
         if (D_803D5512 > 23) {
-            *arg2 = MAX(*arg2, FTOFIX32(1.0));
+            *zVel = MAX(*zVel, FTOFIX32(1.0));
         }
     }
 }

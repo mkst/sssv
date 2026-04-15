@@ -31,7 +31,7 @@ void load_ingame_objects(void) {
     u32 len = _segment1SegmentRomEnd - _segment1SegmentRomStart;
 
     SSSV_ASSERT(len < (_gfxdlistSegmentEnd - _gfxdlistSegmentStart), "../src/init.c", 93);
-    gSegment1Base = &_gfxdlistSegmentStart;
+    gSegment1Base = _gfxdlistSegmentStart;
     dma_read(_segment1SegmentRomStart, gSegment1Base, len);
 }
 

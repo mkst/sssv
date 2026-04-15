@@ -75,7 +75,7 @@ void func_80364780_775E30(void) {
     }
 
     if (spA2 == 0) {
-        if ((D_803D5538 != 0) && (D_803D5524->unk9C == KING_PENGUIN) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 5))) {
+        if ((D_803D5538 != 0) && (D_803D5524->unk9C == KING_PENGUIN) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 5))) {
             D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
         }
         func_8034B298_75C948(0);
@@ -104,7 +104,7 @@ void func_80364780_775E30(void) {
                 } else {
                     sp9E = 0x10;
                 }
-                if ((D_803D5530->unk162 != 3) || ((D_803D5538 != 0) && (gAnimalState.curAButton == 0))) {
+                if ((D_803D5530->movementState != 3) || ((D_803D5538 != 0) && (gAnimalState.curAButton == 0))) {
                     D_803D552C->unk32A = D_803D5544;
                     D_803D552C->unk365 = ATTACK_PENGUIN_2;
                 }
@@ -153,7 +153,7 @@ void func_80364780_775E30(void) {
                 break;
             default:
                 D_803D552C->unk365 = ATTACK_NONE;
-                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->unk162 & 0xF) == 3) &&
+                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->movementState & 0xF) == 3) &&
                     ((D_803D5530->position.yPos.h - (func_80310EE4_722594(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->unk160) >> 0x10)) >= 0x31) &&
                     ((D_803D5538 == 0) || (gAnimalState.curAButton != 0))) {
                     D_803D552C->unk365 = ATTACK_PENGUIN_1;
@@ -298,7 +298,7 @@ void func_80364780_775E30(void) {
 
 // king_penguin_jetpack
 void func_80365954_777004(void) {
-    if ((D_803D5530->unk162 != 1) && (D_803D5530->unk4A == 0)) {
+    if ((D_803D5530->movementState != 1) && (D_803D5530->unk4A == 0)) {
         func_8032CD70_73E420(
             (void*)D_803D5530,
             SFX_UNKNOWN_103,

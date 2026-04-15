@@ -472,11 +472,11 @@ void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     *argA = ((arg7 * arg0) + (arg4 * (arg1 - arg0))) / arg1;
 }
 
-void func_802BCDA0_6CE450(struct103 *arg0, s16 *arg1, s16 *arg2, s16 *arg3) {
+void func_802BCDA0_6CE450(LimbIKState *arg0, s16 *arg1, s16 *arg2, s16 *arg3) {
     s16 tmp;
 
     if (D_803D552C->unk300 != 0) {
-        tmp = D_803D552C->unk2F2 - D_803D552C->unk2FE;
+        tmp = D_803D552C->gaitPhase - D_803D552C->unk2FE;
         if (tmp < 0) {
             tmp += 256;
         }
@@ -490,10 +490,10 @@ void func_802BCDA0_6CE450(struct103 *arg0, s16 *arg1, s16 *arg2, s16 *arg3) {
     }
 }
 
-void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, struct061 *arg2) {
+void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, Vertex *arg2) {
     s16 temp_v1;
 
-    switch (D_803D5530->unk162 & 0xF) {
+    switch (D_803D5530->movementState & 0xF) {
     case 1:
     case 6:
         arg2->unk0 = ((func_802B8C50_6CA300(-arg1, arg0) >> 8) << 5) >> 8;
@@ -558,10 +558,10 @@ void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, struct061 *arg2) {
     }
 }
 
-void func_802BD21C_6CE8CC(u16 arg0, struct061 *arg1) {
+void func_802BD21C_6CE8CC(u16 arg0, Vertex *arg1) {
     s16 tmp;
 
-    switch (D_803D5530->unk162 & 0xF) {
+    switch (D_803D5530->movementState & 0xF) {
     case 1:
     case 6:
         arg1->unk0 = ((func_802B8C50_6CA300(-arg0, 0) >> 8) << 5) >> 8;
@@ -594,7 +594,7 @@ void func_802BD21C_6CE8CC(u16 arg0, struct061 *arg1) {
 void func_802BD358_6CEA08(s16 *arg0) {
     s16 tmp;
 
-    switch (D_803D5530->unk162 & 0xF) {
+    switch (D_803D5530->movementState & 0xF) {
     case 1:
     case 6:
         *arg0 = ((func_802B8C50_6CA300(0, 0) >> 8) << 5) >> 8;
@@ -615,7 +615,7 @@ void func_802BD358_6CEA08(s16 *arg0) {
     }
 }
 
-void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, s16 *arg13, s16 *arg14, s16 *arg15, struct061 *arg16, s16 arg17) {
+void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, struct077 *arg8, struct077 *arg9, struct077 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, struct077 *arg13, struct077 *arg14, struct077 *arg15, Vertex *arg16, s16 arg17) {
     u16 sp4E;
     u16 sp4C;
     u16 sp4A;
@@ -623,7 +623,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     u16 sp46;
     s8  sp45;
 
-    sp46 = D_803D552C->unk2F2; // seems to be necessary that this is a temp var
+    sp46 = D_803D552C->gaitPhase; // seems to be necessary that this is a temp var
     switch (D_803D5530->state) {
     default:
         sp45 = 0;
@@ -635,25 +635,25 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0x3:
     case 0xB6:
         sp45 = 1;
-        sp4E = (D_803D552C->unk2F6 + arg4) % 256;
-        sp4C = (D_803D552C->unk2F6 + arg5) % 256;
-        sp4A = (D_803D552C->unk2F6 + argF) % 256;
-        sp48 = (D_803D552C->unk2F6 + arg10) % 256;
+        sp4E = (D_803D552C->gaitPhaseOffset + arg4) % 256;
+        sp4C = (D_803D552C->gaitPhaseOffset + arg5) % 256;
+        sp4A = (D_803D552C->gaitPhaseOffset + argF) % 256;
+        sp48 = (D_803D552C->gaitPhaseOffset + arg10) % 256;
 
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
-            if ((sp4E >= 0xE2) && (((D_803D552C->unk2F8 + arg4) % 256) < 0xE2)) {
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != (u8) 2)) {
+            if ((sp4E >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg4) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4C >= 0xE2) && (((D_803D552C->unk2F8 + arg5) % 256) < 0xE2)) {
+            } else if ((sp4C >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg5) % 256) < 0xE2)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4A >= 0xE2) && (((D_803D552C->unk2F8 + argF) % 256) < 0xE2)) {
+            } else if ((sp4A >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + argF) % 256) < 0xE2)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp48 >= 0xE2) && (((D_803D552C->unk2F8 + arg10) % 256) < 0xE2)) {
+            } else if ((sp48 >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg10) % 256) < 0xE2)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -663,24 +663,24 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0x6:
     case 0xB9:
         sp45 = 1;
-        sp4E = 0x100 - ((D_803D552C->unk2F6 + arg4) % 256);
-        sp4C = 0x100 - ((D_803D552C->unk2F6 + arg5) % 256);
-        sp4A = 0x100 - ((D_803D552C->unk2F6 + argF) % 256);
-        sp48 = 0x100 - ((D_803D552C->unk2F6 + arg10) % 256);
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-            if ((sp4E < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + arg4) % 256)) >= 0xE1)) {
+        sp4E = 0x100 - ((D_803D552C->gaitPhaseOffset + arg4) % 256);
+        sp4C = 0x100 - ((D_803D552C->gaitPhaseOffset + arg5) % 256);
+        sp4A = 0x100 - ((D_803D552C->gaitPhaseOffset + argF) % 256);
+        sp48 = 0x100 - ((D_803D552C->gaitPhaseOffset + arg10) % 256);
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if ((sp4E < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg4) % 256)) >= 0xE1)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4C < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + arg5) % 256)) >= 0xE1)) {
+            } else if ((sp4C < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg5) % 256)) >= 0xE1)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4A < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + argF) % 256)) >= 0xE1)) {
+            } else if ((sp4A < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + argF) % 256)) >= 0xE1)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp48 < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + arg10) % 256)) >= 0xE1)) {
+            } else if ((sp48 < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg10) % 256)) >= 0xE1)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -690,24 +690,24 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0x4:
     case 0xB7:
         sp45 = 2;
-        sp4E = (D_803D552C->unk2F6 + arg6) % 256;
-        sp4C = (D_803D552C->unk2F6 + arg7) % 256;
-        sp4A = (D_803D552C->unk2F6 + arg11) % 256;
-        sp48 = (D_803D552C->unk2F6 + arg12) % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-            if ((sp4E >= 0xE2) && (((s32) (D_803D552C->unk2F8 + arg6) % 256) < 0xE2)) {
+        sp4E = (D_803D552C->gaitPhaseOffset + arg6) % 256;
+        sp4C = (D_803D552C->gaitPhaseOffset + arg7) % 256;
+        sp4A = (D_803D552C->gaitPhaseOffset + arg11) % 256;
+        sp48 = (D_803D552C->gaitPhaseOffset + arg12) % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if ((sp4E >= 0xE2) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg6) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4C >= 0xE2) && (((D_803D552C->unk2F8 + arg7) % 256) < 0xE2)) {
+            } else if ((sp4C >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg7) % 256) < 0xE2)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4A >= 0xE2) && (((D_803D552C->unk2F8 + arg11) % 256) < 0xE2)) {
+            } else if ((sp4A >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg11) % 256) < 0xE2)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp48 >= 0xE2) && (((D_803D552C->unk2F8 + arg12) % 256) < 0xE2)) {
+            } else if ((sp48 >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg12) % 256) < 0xE2)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -717,65 +717,65 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     }
 
     if (D_803D5524->waterClass & 0xC00) {
-        if ((((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 5)) || (((u32) D_803D5530->unk162) == 6)) || (D_803D5530->unk162 == 7)) {
+        if ((((D_803D5530->movementState == 4) || (D_803D5530->movementState == 5)) || (((u32) D_803D5530->movementState) == 6)) || (D_803D5530->movementState == 7)) {
             sp45 = 2;
-            sp4E = (D_803D552C->unk2F6 * 0x10) & 0xFF;
-            sp4C = ((D_803D552C->unk2F6 * 0x10) + 0x80) & 0xFF;
-            sp4A = ((D_803D552C->unk2F6 * 0x10) + 0x40) & 0xFF;
-            sp48 = ((D_803D552C->unk2F6 * 0x10) + 0xC0) & 0xFF;
-            if ((D_803D552C->unk2F6 & 7) == 0) {
+            sp4E = (D_803D552C->gaitPhaseOffset * 0x10) & 0xFF;
+            sp4C = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x80) & 0xFF;
+            sp4A = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x40) & 0xFF;
+            sp48 = ((D_803D552C->gaitPhaseOffset * 0x10) + 0xC0) & 0xFF;
+            if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
                 func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
         }
     } else {
-        if ((D_803D5530->unk162 == 4) || (D_803D5530->unk162 == 5) || (((u32) D_803D5530->unk162) == 7)) {
+        if ((D_803D5530->movementState == 4) || (D_803D5530->movementState == 5) || (((u32) D_803D5530->movementState) == 7)) {
             if (0) {};
             sp45 = 2;
             switch (D_803D5530->state) {
             // NOTE: out of order
             case 0x8E:
-                sp4E = (D_803D552C->unk2F6 * 16) & 0xFF;
-                sp4C = ((D_803D552C->unk2F6 * 16) + 0x80) & 0xFF;
-                sp4A = ((D_803D552C->unk2F6 * 16) + 0x40) & 0xFF;
-                sp48 = ((D_803D552C->unk2F6 * 16) + 0xC0) & 0xFF;
-                if ((D_803D552C->unk2F6 & 7) == 0) {
+                sp4E = (D_803D552C->gaitPhaseOffset * 16) & 0xFF;
+                sp4C = ((D_803D552C->gaitPhaseOffset * 16) + 0x80) & 0xFF;
+                sp4A = ((D_803D552C->gaitPhaseOffset * 16) + 0x40) & 0xFF;
+                sp48 = ((D_803D552C->gaitPhaseOffset * 16) + 0xC0) & 0xFF;
+                if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
                     func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             case 0x90:
-                sp4E = 0x100 - ((D_803D552C->unk2F6 * 8) & 0xFF);
-                sp4C = 0x100 - (((D_803D552C->unk2F6 * 8) + 0x80) & 0xFF);
-                sp4A = 0x100 - (((D_803D552C->unk2F6 * 8) + 0x40) & 0xFF);
-                sp48 = 0x100 - (((D_803D552C->unk2F6 * 8) + 0xC0) & 0xFF);
-                if ((D_803D552C->unk2F6 & 0xF) == 0) {
+                sp4E = 0x100 - ((D_803D552C->gaitPhaseOffset * 8) & 0xFF);
+                sp4C = 0x100 - (((D_803D552C->gaitPhaseOffset * 8) + 0x80) & 0xFF);
+                sp4A = 0x100 - (((D_803D552C->gaitPhaseOffset * 8) + 0x40) & 0xFF);
+                sp48 = 0x100 - (((D_803D552C->gaitPhaseOffset * 8) + 0xC0) & 0xFF);
+                if ((D_803D552C->gaitPhaseOffset & 0xF) == 0) {
                     func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             case 0x8F:
-                sp4E = (D_803D552C->unk2F6 * 32) & 0xFF;
-                sp4C = ((D_803D552C->unk2F6 * 32) + 0x80) & 0xFF;
-                sp4A = ((D_803D552C->unk2F6 * 32) + 0x40) & 0xFF;
-                sp48 = ((D_803D552C->unk2F6 * 32) + 0xC0) & 0xFF;
-                if ((D_803D552C->unk2F6 & 0x3) == 0) {
+                sp4E = (D_803D552C->gaitPhaseOffset * 32) & 0xFF;
+                sp4C = ((D_803D552C->gaitPhaseOffset * 32) + 0x80) & 0xFF;
+                sp4A = ((D_803D552C->gaitPhaseOffset * 32) + 0x40) & 0xFF;
+                sp48 = ((D_803D552C->gaitPhaseOffset * 32) + 0xC0) & 0xFF;
+                if ((D_803D552C->gaitPhaseOffset & 0x3) == 0) {
                     func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             default:
-                sp4E = (D_803D552C->unk2F6 * 2) & 0xFF;
-                sp4C = ((D_803D552C->unk2F6 * 2) + 0x80) & 0xFF;
-                sp4A = ((D_803D552C->unk2F6 * 2) + 0x40) & 0xFF;
-                sp48 = ((D_803D552C->unk2F6 * 2) + 0xC0) & 0xFF;
+                sp4E = (D_803D552C->gaitPhaseOffset * 2) & 0xFF;
+                sp4C = ((D_803D552C->gaitPhaseOffset * 2) + 0x80) & 0xFF;
+                sp4A = ((D_803D552C->gaitPhaseOffset * 2) + 0x40) & 0xFF;
+                sp48 = ((D_803D552C->gaitPhaseOffset * 2) + 0xC0) & 0xFF;
                 break;
             }
         }
     }
     switch (arg17) {
     case 0:
-        func_802BE1A0_6CF850(&D_803D5528->unk370, arg16->unk0, 3, 7, sp4E, arg0, arg1, arg2, arg3, arg8, arg9, argA, sp45);
+        func_802BE1A0_6CF850(&D_803D5528->unk370, arg16->unk0, 3,  7, sp4E, arg0, arg1, arg2, arg3, arg8, arg9, argA, sp45);
         func_802BE1A0_6CF850(&D_803D5528->unk384, arg16->unk2, 4, 10, sp4C, arg0, arg1, arg2, arg3, arg8, arg9, argA, sp45);
         break;
     case 1:
-        func_802BEAB0_6D0160(&D_803D5528->unk370, arg16->unk0, 3, 7, sp4E, arg0, arg1, arg2, arg3, arg8, arg9, argA, sp45);
+        func_802BEAB0_6D0160(&D_803D5528->unk370, arg16->unk0, 3,  7, sp4E, arg0, arg1, arg2, arg3, arg8, arg9, argA, sp45);
         func_802BEAB0_6D0160(&D_803D5528->unk384, arg16->unk2, 4, 10, sp4C, arg0, arg1, arg2, arg3, arg8, arg9, argA, sp45);
         break;
     }
@@ -784,7 +784,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 }
 
 #if 0
-void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
+void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
 
     u16 temp_t7;
     u16 temp_t8;
@@ -828,7 +828,7 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
     case 2:
     case 3:
     case 4:
-        func_802BC900_6CDFB0(argB, arg4, D_803D552C->unk2FC, &sp72, &sp70, &sp6E);
+        func_802BC900_6CDFB0(argB, arg4, D_803D552C->gaitCycleLength, &sp72, &sp70, &sp6E);
         break;
     case 1:
     case 11:
@@ -934,7 +934,7 @@ void func_802BE1A0_6CF850(struct103 *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4
 
 #if 0
 // dupe of func_802BE1A0_6CF850?
-void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
+void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
     u16 temp_t8;
     u16 temp_t9;
 
@@ -978,7 +978,7 @@ void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     case 2:
     case 3:
     case 4:
-        func_802BC900_6CDFB0(argB, arg4, D_803D552C->unk2FC, &sp72, &sp70, &sp6E);
+        func_802BC900_6CDFB0(argB, arg4, D_803D552C->gaitCycleLength, &sp72, &sp70, &sp6E);
         break;
     case 1:
     case 11:
@@ -1078,18 +1078,24 @@ void func_802BEAB0_6D0160(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BEAB0_6D0160.s")
 #endif
 
-void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, s32 argF, s32 arg10, s32 arg11, struct061 *arg12) {
+void update_limbs_rigid(
+    s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5,
+    struct077 *arg6, struct077 *arg7, struct077 *arg8,
+    s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE,
+    struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *limbConfig) {
+
     u16 sp4E;
     u16 sp4C;
     u16 sp4A;
     u16 sp48;
+
     u16 sp46;
     s32 pad;
     s16 var_a0;
     s8  sp3D;
     s16 var_a2;
 
-    sp46 = D_803D552C->unk2F2;
+    sp46 = D_803D552C->gaitPhase;
     switch (D_803D5530->state) {
     default:
         sp48 = sp46;
@@ -1101,25 +1107,25 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0x3:
     case 0xB6:
         sp3D = 1;
-        sp4E = (D_803D552C->unk2F6 + arg2) % 256;
-        sp4C = (D_803D552C->unk2F6 + arg3) % 256;
-        sp4A = (D_803D552C->unk2F6 + argB) % 256;
-        sp48 = (D_803D552C->unk2F6 + argC) % 256;
+        sp4E = (D_803D552C->gaitPhaseOffset + arg2) % 256;
+        sp4C = (D_803D552C->gaitPhaseOffset + arg3) % 256;
+        sp4A = (D_803D552C->gaitPhaseOffset + argB) % 256;
+        sp48 = (D_803D552C->gaitPhaseOffset + argC) % 256;
 
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
-            if ((sp4E >= 0x81) && (((D_803D552C->unk2F8 + arg2) % 256) < 0x81)) {
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != (u8) 2)) {
+            if ((sp4E >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg2) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else  if ((sp4C >= 0x81) && (((D_803D552C->unk2F8 + arg3) % 256) < 0x81)) {
+            } else  if ((sp4C >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg3) % 256) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else  if ((sp4A >= 0x81) && (((D_803D552C->unk2F8 + argB) % 256) < 0x81)) {
+            } else  if ((sp4A >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argB) % 256) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp48 >= 0x81) && (((D_803D552C->unk2F8 + argC) % 256) < 0x81)) {
+            } else if ((sp48 >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argC) % 256) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -1130,24 +1136,24 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0xB9:
         sp3D = 1;
 
-        sp4E = 0x100 - ((D_803D552C->unk2F6 + arg2) % 256);
-        sp4C = 0x100 - ((D_803D552C->unk2F6 + arg3) % 256);
-        sp4A = 0x100 - ((D_803D552C->unk2F6 + argB) % 256);
-        sp48 = 0x100 - ((D_803D552C->unk2F6 + argC) % 256);
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-            if ((sp4E >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + arg2) % 256)) < 0x81)) {
+        sp4E = 0x100 - ((D_803D552C->gaitPhaseOffset + arg2) % 256);
+        sp4C = 0x100 - ((D_803D552C->gaitPhaseOffset + arg3) % 256);
+        sp4A = 0x100 - ((D_803D552C->gaitPhaseOffset + argB) % 256);
+        sp48 = 0x100 - ((D_803D552C->gaitPhaseOffset + argC) % 256);
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if ((sp4E >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg2) % 256)) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4C >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + arg3) % 256)) < 0x81)) {
+            } else if ((sp4C >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg3) % 256)) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4A >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + argB) % 256)) < 0x81)) {
+            } else if ((sp4A >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + argB) % 256)) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp48 >= 0x81) && ((0x100 - ((D_803D552C->unk2F8 + argC) % 256)) < 0x81)) {
+            } else if ((sp48 >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + argC) % 256)) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -1157,25 +1163,25 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0x4:
     case 0xB7:
         sp3D = 2;
-        sp4E = (D_803D552C->unk2F6 + arg4) % 256;
-        sp4C = (D_803D552C->unk2F6 + arg5) % 256;
-        sp4A = (D_803D552C->unk2F6 + argD) % 256;
-        sp48 = (D_803D552C->unk2F6 + argE) % 256;
+        sp4E = (D_803D552C->gaitPhaseOffset + arg4) % 256;
+        sp4C = (D_803D552C->gaitPhaseOffset + arg5) % 256;
+        sp4A = (D_803D552C->gaitPhaseOffset + argD) % 256;
+        sp48 = (D_803D552C->gaitPhaseOffset + argE) % 256;
 
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-            if ((sp4E >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg4) % 256) < 0x81)) {
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if ((sp4E >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg4) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4C >= 0x81) && (((D_803D552C->unk2F8 + arg5) % 256) < 0x81)) {
+            } else if ((sp4C >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg5) % 256) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp4A >= 0x81) && (((D_803D552C->unk2F8 + argD) % 256) < 0x81)) {
+            } else if ((sp4A >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argD) % 256) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((sp48 >= 0x81) && (((D_803D552C->unk2F8 + argE) % 256) < 0x81)) {
+            } else if ((sp48 >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argE) % 256) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -1187,7 +1193,7 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     if (D_803D5524->waterClass & 0xC00) {
         u16 animalId; // temp is needed to match
 
-        switch (D_803D5530->unk162) {
+        switch (D_803D5530->movementState) {
         case 4:
         case 5:
         case 6:
@@ -1204,7 +1210,7 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             break;
         }
     } else {
-        switch (D_803D5530->unk162) {
+        switch (D_803D5530->movementState) {
         case 4:
         case 5:
         case 7:
@@ -1238,21 +1244,21 @@ void func_802BF3C0_6D0A70(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                 }
                 break;
             default:
-                sp4E = (D_803D552C->unk2F6 * 2) & 0xFF;
-                sp4C = ((D_803D552C->unk2F6 * 2) + 0x80) & 0xFF;
-                sp4A = ((D_803D552C->unk2F6 * 2) + var_a0) & 0xFF;
-                sp48 = ((D_803D552C->unk2F6 * 2) + var_a2) & 0xFF;
+                sp4E = (D_803D552C->gaitPhaseOffset * 2) & 0xFF;
+                sp4C = ((D_803D552C->gaitPhaseOffset * 2) + 0x80) & 0xFF;
+                sp4A = ((D_803D552C->gaitPhaseOffset * 2) + var_a0) & 0xFF;
+                sp48 = ((D_803D552C->gaitPhaseOffset * 2) + var_a2) & 0xFF;
                 break;
             }
         }
     }
-    func_802BFF84_6D1634(&D_803D5528->unk370, arg12->unk0, 3, 7,  sp4E, arg0, arg1, arg6, arg7,  arg8,  sp3D);
-    func_802BFF84_6D1634(&D_803D5528->unk384, arg12->unk2, 4, 10, sp4C, arg0, arg1, arg6, arg7,  arg8,  sp3D);
-    func_802BFF84_6D1634(&D_803D5528->unk398, arg12->unk4, 5, 13, sp4A, arg9, argA, argF, arg10, arg11, sp3D);
-    func_802BFF84_6D1634(&D_803D5528->unk3AC, arg12->unk6, 6, 16, sp48, arg9, argA, argF, arg10, arg11, sp3D);
+    func_802BFF84_6D1634(&D_803D5528->unk370, limbConfig->unk0, 3, 7,  sp4E, arg0, arg1, arg6, arg7,  arg8,  sp3D);
+    func_802BFF84_6D1634(&D_803D5528->unk384, limbConfig->unk2, 4, 10, sp4C, arg0, arg1, arg6, arg7,  arg8,  sp3D);
+    func_802BFF84_6D1634(&D_803D5528->unk398, limbConfig->unk4, 5, 13, sp4A, arg9, argA, argF, arg10, arg11, sp3D);
+    func_802BFF84_6D1634(&D_803D5528->unk3AC, limbConfig->unk6, 6, 16, sp48, arg9, argA, argF, arg10, arg11, sp3D);
 }
 
-void func_802BFF84_6D1634(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA) {
+void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 srcJoint, u16 dstJoint, u16 phase, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA) {
     s16 var_v0;
     u16 temp_t1;
     u16 temp_t7;
@@ -1265,13 +1271,13 @@ void func_802BFF84_6D1634(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
 
     switch (argA) {
     case 1:
-        temp_t1 = (arg4 / 32);
-        temp_t7 = (arg4 - (temp_t1 << 5));
+        temp_t1 = (phase / 32);
+        temp_t7 = (phase - (temp_t1 << 5));
         var_v0 = (((32 - temp_t7) * arg7[temp_t1].unk0) + (arg7[(temp_t1 + 1) % 8].unk0 * temp_t7)) / 32;
         break;
     case 2:
-        temp_t1 = (arg4 / 32);
-        temp_t7 = (arg4 - (temp_t1 << 5));
+        temp_t1 = (phase / 32);
+        temp_t7 = (phase - (temp_t1 << 5));
         var_v0 = (((32 - temp_t7) * arg8[temp_t1].unk0) + (arg8[(temp_t1 + 1) % 8].unk0 * temp_t7)) / 32;
         break;
     default:
@@ -1305,8 +1311,8 @@ void func_802BFF84_6D1634(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     case 0xB6:
     case 0xB7:
     case 0xB9:
-        tmp = ((256 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg6) / 512;
-        D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg6) - tmp;
+        tmp = ((256 - D_80152350.unk384[(s16) ((phase * 360) / 256)]) * arg6) / 512;
+        D_80203FE0[srcJoint].unk4 = (D_80203FE0[srcJoint].unk4 + arg6) - tmp;
         break;
     case 0x5:
     case 0x65:
@@ -1320,19 +1326,19 @@ void func_802BFF84_6D1634(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
         break;
     }
 
-    tmp1 = D_80203FE0[arg2].unk0;
-    tmp2 = D_80203FE0[arg2].unk2;
-    tmp3 = D_80203FE0[arg2].unk4;
+    tmp1 = D_80203FE0[srcJoint].unk0;
+    tmp2 = D_80203FE0[srcJoint].unk2;
+    tmp3 = D_80203FE0[srcJoint].unk4;
 
     tmp3 -= (s16)((arg5 * D_80152350.unk384[var_v0]) / 256);
     tmp2 -= (s16)((arg5 * D_80152350.unk2D0[var_v0]) / 256);
 
-    D_80203FE0[arg3].unk0 = tmp1;
-    D_80203FE0[arg3].unk2 = tmp2;
-    D_80203FE0[arg3].unk4 = tmp3;
+    D_80203FE0[dstJoint].unk0 = tmp1;
+    D_80203FE0[dstJoint].unk2 = tmp2;
+    D_80203FE0[dstJoint].unk4 = tmp3;
 }
 
-void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, struct061 *arg12) {
+void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *arg12) {
     u16 sp4E;
     u16 sp4C;
     u16 sp4A;
@@ -1344,37 +1350,37 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     u16 sp3E;
     s8  sp3D;
 
-    sp46 = D_803D552C->unk2F2;
+    sp46 = D_803D552C->gaitPhase;
     switch (D_803D5530->state) {
     case 3:
     case 0xB6:
     case 0x8D:
     case 0x8E:
         sp3D = 1;
-        sp4E = (D_803D552C->unk2F6 + arg2) % 256;
-        sp4C = (D_803D552C->unk2F6 + arg3) % 256;
-        sp4A = (D_803D552C->unk2F6 + argB) % 256;
-        sp48 = (D_803D552C->unk2F6 + argC) % 256;
-        sp44 = ((D_803D552C->unk2F6 + arg2) + ((argB - arg2) / 3)) % 256;
-        sp42 = ((D_803D552C->unk2F6 + arg3) + ((argC - arg3) / 3)) % 256;
-        sp40 = ((D_803D552C->unk2F6 + argB) + ((arg2 - argB) / 3)) % 256;
-        sp3E = ((D_803D552C->unk2F6 + argC) + ((arg3 - argC) / 3)) % 256;
+        sp4E = (D_803D552C->gaitPhaseOffset + arg2) % 256;
+        sp4C = (D_803D552C->gaitPhaseOffset + arg3) % 256;
+        sp4A = (D_803D552C->gaitPhaseOffset + argB) % 256;
+        sp48 = (D_803D552C->gaitPhaseOffset + argC) % 256;
+        sp44 = ((D_803D552C->gaitPhaseOffset + arg2) + ((argB - arg2) / 3)) % 256;
+        sp42 = ((D_803D552C->gaitPhaseOffset + arg3) + ((argC - arg3) / 3)) % 256;
+        sp40 = ((D_803D552C->gaitPhaseOffset + argB) + ((arg2 - argB) / 3)) % 256;
+        sp3E = ((D_803D552C->gaitPhaseOffset + argC) + ((arg3 - argC) / 3)) % 256;
 
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != (u8) 2)) {
             if (D_803D5524->unk9C != EVO) {
-                if ((sp4E >= 0x81) && (((D_803D552C->unk2F8 + arg2) % 256) < 0x81)) {
+                if ((sp4E >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg2) % 256) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if ((sp4C >= 0x81) && (((D_803D552C->unk2F8 + arg3) % 256) < 0x81)) {
+                } else if ((sp4C >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg3) % 256) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if ((sp4A >= 0x81) && (((D_803D552C->unk2F8 + argB) % 256) < 0x81)) {
+                } else if ((sp4A >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argB) % 256) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if ((sp48 >= 0x81) && (((D_803D552C->unk2F8 + argC) % 256) < 0x81)) {
+                } else if ((sp48 >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argC) % 256) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -1387,30 +1393,30 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0xB9:
         sp3D = 1;
 
-        sp4E = 0x100 - ((D_803D552C->unk2F6 + arg2) % 256);
-        sp4C = 0x100 - ((D_803D552C->unk2F6 + arg3) % 256);
-        sp4A = 0x100 - ((D_803D552C->unk2F6 + argB) % 256);
-        sp48 = 0x100 - ((D_803D552C->unk2F6 + argC) % 256);
-        sp44 = 0x100 - ((D_803D552C->unk2F6 + arg2) + ((argB - arg2) / 3)) % 256;
-        sp42 = 0x100 - ((D_803D552C->unk2F6 + arg3) + ((argC - arg3) / 3)) % 256;
-        sp40 = 0x100 - ((D_803D552C->unk2F6 + argB) + ((arg2 - argB) / 3)) % 256;
-        sp3E = 0x100 - ((D_803D552C->unk2F6 + argC) + ((arg3 - argC) / 3)) % 256;
+        sp4E = 0x100 - ((D_803D552C->gaitPhaseOffset + arg2) % 256);
+        sp4C = 0x100 - ((D_803D552C->gaitPhaseOffset + arg3) % 256);
+        sp4A = 0x100 - ((D_803D552C->gaitPhaseOffset + argB) % 256);
+        sp48 = 0x100 - ((D_803D552C->gaitPhaseOffset + argC) % 256);
+        sp44 = 0x100 - ((D_803D552C->gaitPhaseOffset + arg2) + ((argB - arg2) / 3)) % 256;
+        sp42 = 0x100 - ((D_803D552C->gaitPhaseOffset + arg3) + ((argC - arg3) / 3)) % 256;
+        sp40 = 0x100 - ((D_803D552C->gaitPhaseOffset + argB) + ((arg2 - argB) / 3)) % 256;
+        sp3E = 0x100 - ((D_803D552C->gaitPhaseOffset + argC) + ((arg3 - argC) / 3)) % 256;
 
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != (u8) 2)) {
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != (u8) 2)) {
 
             if (D_803D5524->unk9C != 0x3F) {
-                if (((s32) sp4E >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + arg2) % 256)) < 0x81)) {
+                if (((s32) sp4E >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + arg2) % 256)) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if (((s32) sp44 >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + arg3) % 256)) < 0x81)) {
+                } else if (((s32) sp44 >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + arg3) % 256)) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
-                } else if (((s32) sp4A >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + argB) % 256)) < 0x81)) {
+                } else if (((s32) sp4A >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + argB) % 256)) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if (((s32) sp40 >= 0x81) && ((0x100 - ((s32) (D_803D552C->unk2F8 + argC) % 256)) < 0x81)) {
+                } else if (((s32) sp40 >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + argC) % 256)) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -1422,31 +1428,31 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     case 0x8F:
     case 0xB7:
         sp3D = 2;
-        sp4E = (D_803D552C->unk2F6 + arg4) % 256;
-        sp4C = (D_803D552C->unk2F6 + arg5) % 256;
-        sp4A = (D_803D552C->unk2F6 + argD) % 256;
-        sp48 = (D_803D552C->unk2F6 + argE) % 256;
-        sp44 = ((D_803D552C->unk2F6 + arg4) + ((argD - arg4) / 3)) % 256;
-        sp42 = ((D_803D552C->unk2F6 + arg5) + ((argE - arg5) / 3)) % 256;
-        sp40 = ((D_803D552C->unk2F6 + argD) + ((arg4 - argD) / 3)) % 256;
-        sp3E = ((D_803D552C->unk2F6 + argE) + ((arg5 - argE) / 3)) % 256;
+        sp4E = (D_803D552C->gaitPhaseOffset + arg4) % 256;
+        sp4C = (D_803D552C->gaitPhaseOffset + arg5) % 256;
+        sp4A = (D_803D552C->gaitPhaseOffset + argD) % 256;
+        sp48 = (D_803D552C->gaitPhaseOffset + argE) % 256;
+        sp44 = ((D_803D552C->gaitPhaseOffset + arg4) + ((argD - arg4) / 3)) % 256;
+        sp42 = ((D_803D552C->gaitPhaseOffset + arg5) + ((argE - arg5) / 3)) % 256;
+        sp40 = ((D_803D552C->gaitPhaseOffset + argD) + ((arg4 - argD) / 3)) % 256;
+        sp3E = ((D_803D552C->gaitPhaseOffset + argE) + ((arg5 - argE) / 3)) % 256;
 
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
 
             if (D_803D5524->unk9C != EVO) {
-                if ((sp4E >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg4) % 256) < 0x81)) {
+                if ((sp4E >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg4) % 256) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if ((sp4C >= 0x81) && (((s32) (D_803D552C->unk2F8 + arg5) % 256) < 0x81)) {
+                } else if ((sp4C >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg5) % 256) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if ((sp4A >= 0x81) && (((s32) (D_803D552C->unk2F8 + argD) % 256) < 0x81)) {
+                } else if ((sp4A >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + argD) % 256) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-                } else if ((sp48 >= 0x81) && (((s32) (D_803D552C->unk2F8 + argE) % 256) < 0x81)) {
+                } else if ((sp48 >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + argE) % 256) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
                     play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -1464,17 +1470,17 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     }
 
     if (D_803D5524->waterClass & 0xC00) {
-        switch (D_803D5530->unk162) {
+        switch (D_803D5530->movementState) {
         case 4:
         case 5:
         case 6:
         case 7:
             sp3D = 2;
-            sp4E = (D_803D552C->unk2F6 * 0x10) & 0xFF;
-            sp4C = ((D_803D552C->unk2F6 * 0x10) + 0x80) & 0xFF;
-            sp4A = ((D_803D552C->unk2F6 * 0x10) + 0x40) & 0xFF;
-            sp48 = ((D_803D552C->unk2F6 * 0x10) + 0xC0) & 0xFF;
-            if ((D_803D552C->unk2F6 & 7) == 0) {
+            sp4E = (D_803D552C->gaitPhaseOffset * 0x10) & 0xFF;
+            sp4C = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x80) & 0xFF;
+            sp4A = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x40) & 0xFF;
+            sp48 = ((D_803D552C->gaitPhaseOffset * 0x10) + 0xC0) & 0xFF;
+            if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
                 func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
@@ -1483,40 +1489,40 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         switch (D_803D5530->state) {
         case 0x8E:
             sp3D = 2;
-            sp4E = (D_803D552C->unk2F6 * 4) & 0xFF;
-            sp4C = ((D_803D552C->unk2F6 * 4) + 0x80) & 0xFF;
-            sp4A = ((D_803D552C->unk2F6 * 4) + 0x40) & 0xFF;
-            sp48 = ((D_803D552C->unk2F6 * 4) + 0xC0) & 0xFF;
-            if ((D_803D552C->unk2F6 & 7) == 0) {
+            sp4E = (D_803D552C->gaitPhaseOffset * 4) & 0xFF;
+            sp4C = ((D_803D552C->gaitPhaseOffset * 4) + 0x80) & 0xFF;
+            sp4A = ((D_803D552C->gaitPhaseOffset * 4) + 0x40) & 0xFF;
+            sp48 = ((D_803D552C->gaitPhaseOffset * 4) + 0xC0) & 0xFF;
+            if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
                 func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
         case 0x90:
             sp3D = 2;
-            sp4E = 0x100 - ((D_803D552C->unk2F6 * 4) & 0xFF);
-            sp4C = 0x100 - (((D_803D552C->unk2F6 * 4) + 0x80) & 0xFF);
-            sp4A = 0x100 - (((D_803D552C->unk2F6 * 4) + 0x40) & 0xFF);
-            sp48 = 0x100 - (((D_803D552C->unk2F6 * 4) + 0xC0) & 0xFF);
-            if ((D_803D552C->unk2F6 & 7) == 0) {
+            sp4E = 0x100 - ((D_803D552C->gaitPhaseOffset * 4) & 0xFF);
+            sp4C = 0x100 - (((D_803D552C->gaitPhaseOffset * 4) + 0x80) & 0xFF);
+            sp4A = 0x100 - (((D_803D552C->gaitPhaseOffset * 4) + 0x40) & 0xFF);
+            sp48 = 0x100 - (((D_803D552C->gaitPhaseOffset * 4) + 0xC0) & 0xFF);
+            if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
                 func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
         case 0x8F:
             sp3D = 2;
-            sp4E = (D_803D552C->unk2F6 * 8) & 0xFF;
-            sp4C = ((D_803D552C->unk2F6 * 8) + 0x80) & 0xFF;
-            sp4A = ((D_803D552C->unk2F6 * 8) + 0x40) & 0xFF;
-            sp48 = ((D_803D552C->unk2F6 * 8) + 0xC0) & 0xFF;
-            if ((D_803D552C->unk2F6 & 7) == 0) {
+            sp4E = (D_803D552C->gaitPhaseOffset * 8) & 0xFF;
+            sp4C = ((D_803D552C->gaitPhaseOffset * 8) + 0x80) & 0xFF;
+            sp4A = ((D_803D552C->gaitPhaseOffset * 8) + 0x40) & 0xFF;
+            sp48 = ((D_803D552C->gaitPhaseOffset * 8) + 0xC0) & 0xFF;
+            if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
                 func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
         case 0x8D:
             sp3D = 2;
-            sp4E = (D_803D552C->unk2F6 * 2) & 0xFF;
-            sp4C = ((D_803D552C->unk2F6 * 2) + 0x80) & 0xFF;
-            sp4A = ((D_803D552C->unk2F6 * 2) + 0x40) & 0xFF;
-            sp48 = ((D_803D552C->unk2F6 * 2) + 0xC0) & 0xFF;
+            sp4E = (D_803D552C->gaitPhaseOffset * 2) & 0xFF;
+            sp4C = ((D_803D552C->gaitPhaseOffset * 2) + 0x80) & 0xFF;
+            sp4A = ((D_803D552C->gaitPhaseOffset * 2) + 0x40) & 0xFF;
+            sp48 = ((D_803D552C->gaitPhaseOffset * 2) + 0xC0) & 0xFF;
             break;
         }
     }
@@ -1531,7 +1537,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     func_802C13E4_6D2A94(&D_803D5528->unk3AC, ((arg12->unk2 - arg12->unk6) / 3) + arg12->unk6, 0x11, 0x12, sp3E, arg9, argA, argF, arg10, arg11, sp3D);
 }
 
-void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA) {
+void func_802C13E4_6D2A94(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA) {
     s16 temp_a1;
     s16 var_a1;
     u16 temp_t1;
@@ -1621,21 +1627,21 @@ void func_802C13E4_6D2A94(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg
     D_80203FE0[arg2].unk2 -= (((SIN(arg4) >> 7) >> 4) * arg5) >> 8;
 }
 
-void func_802C1830_6D2EE0(u16 arg0, struct061 *arg1) {
+void func_802C1830_6D2EE0(u16 arg0, Vertex *arg1) {
     func_802C19CC_6D307C(&D_803D5528->unk370, arg1->unk0, 3, 7, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk384, arg1->unk2, 4, 10, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk398, arg1->unk4, 5, 13, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk3AC, arg1->unk6, 6, 16, 0, arg0);
 }
 
-void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, struct061 *arg2) {
+void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, Vertex *arg2) {
     func_802C19CC_6D307C(&D_803D5528->unk370, arg2->unk0, 3, 7, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk384, arg2->unk2, 4, 10, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk398, arg2->unk4, 5, 13, 0, arg1);
     func_802C19CC_6D307C(&D_803D5528->unk3AC, arg2->unk6, 6, 16, 0, arg1);
 }
 
-void func_802C19CC_6D307C(struct103 *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5) {
+void func_802C19CC_6D307C(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5) {
     s16 tmp0 = D_80203FE0[arg2].unk0;
     s16 tmp2 = D_80203FE0[arg2].unk2;
 
@@ -1663,8 +1669,8 @@ void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2) {
 }
 
 // only used by rabbit
-void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
-    struct103 *temp_a1_2;
+void func_802C1A88_6D3138(u16 arg0, Vertex *arg1) {
+    LimbIKState *temp_a1_2;
     s32 var_t0;
     s16 temp_hi;
 
@@ -1693,7 +1699,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
         if (D_803D5530->state == 0x2A) {
             temp_a1_2->unk10 = 0;
         }
-        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
+        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
             play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
@@ -1705,7 +1711,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
             }
 
             var_t0 += ((s32) (func_8038CCA4_79E354() * arg0) >> 7);
-            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
+            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
@@ -1760,7 +1766,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
         if (D_803D5530->state == 0x2A) {
             temp_a1_2->unk10 = 0;
         }
-        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
+        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
             play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
@@ -1771,7 +1777,7 @@ void func_802C1A88_6D3138(u16 arg0, struct061 *arg1) {
                 temp_a1_2->unk10 = 0;
             }
             var_t0 += ((func_8038CCA4_79E354() * arg0) >> 7);
-            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->unk162 == 1)) || (D_803D5530->unk162 == 6))) {
+            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
@@ -1805,17 +1811,17 @@ void func_802C23F8_6D3AA8(s16 arg0) {
 
     u16 temp_v1;
 
-    temp_v1 = D_803D552C->unk2F2;
+    temp_v1 = D_803D552C->gaitPhase;
     switch (D_803D5530->state) {
     case 0x3:
     case 0x6:
     case 0xB6:
     case 0xB9:
-        sp26 = D_803D552C->unk2F6 % 256;
-        sp24 = (D_803D552C->unk2F6 + 0x80) % 256;
-        tmp1 = (D_803D552C->unk2F8 % 256);
-        tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+        sp26 = D_803D552C->gaitPhaseOffset % 256;
+        sp24 = (D_803D552C->gaitPhaseOffset + 0x80) % 256;
+        tmp1 = (D_803D552C->prevGaitPhaseOffset % 256);
+        tmp2 = (D_803D552C->prevGaitPhaseOffset + 0x80) % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
             if ((sp26 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -1829,11 +1835,11 @@ void func_802C23F8_6D3AA8(s16 arg0) {
         break;
     case 0x4:
     case 0xB7:
-        sp26 = D_803D552C->unk2F6 % 256;
-        sp24 = (D_803D552C->unk2F6 + 0x80) % 256;
-        tmp1 = (D_803D552C->unk2F8 % 256);
-        tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+        sp26 = D_803D552C->gaitPhaseOffset % 256;
+        sp24 = (D_803D552C->gaitPhaseOffset + 0x80) % 256;
+        tmp1 = (D_803D552C->prevGaitPhaseOffset % 256);
+        tmp2 = (D_803D552C->prevGaitPhaseOffset + 0x80) % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
             if ((sp26 >= 0x81) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
@@ -1849,14 +1855,14 @@ void func_802C23F8_6D3AA8(s16 arg0) {
     case 0x90:
         sp26 = (temp_v1 << 5) & 0xFF;
         sp24 = (sp26 + 0x80) & 0xFF;
-        if ((D_803D552C->unk2F6 & 7) == 0) {
+        if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
             func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     case 0x8F:
         sp26 = (temp_v1 << 6) & 0xFF;
         sp24 = (sp26 + 0x80) & 0xFF;
-        if ((D_803D552C->unk2F6 & 3) == 0) {
+        if ((D_803D552C->gaitPhaseOffset & 3) == 0) {
             func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
@@ -1877,7 +1883,7 @@ void func_802C23F8_6D3AA8(s16 arg0) {
     func_802C287C_6D3F2C(&D_803D5528->unk3AC, 2, 18, sp24, arg0, -25);
 }
 
-void func_802C287C_6D3F2C(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5) {
+void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5) {
     s32 pad;
     s16 sp38;
     s16 var_t0;
@@ -1974,18 +1980,18 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
 
     u16 temp_v1;
 
-    temp_v1 = D_803D552C->unk2F2;
+    temp_v1 = D_803D552C->gaitPhase;
 
     switch (D_803D5530->state) {
     case 0x3:
     case 0x6:
     case 0xB6:
     case 0xB9:
-        var_t1 = D_803D552C->unk2F6 % 256;
-        var_t2 = (D_803D552C->unk2F6 + 0x80) % 256;
-        tmp1 = D_803D552C->unk2F8 % 256;
-        tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+        var_t1 = D_803D552C->gaitPhaseOffset % 256;
+        var_t2 = (D_803D552C->gaitPhaseOffset + 0x80) % 256;
+        tmp1 = D_803D552C->prevGaitPhaseOffset % 256;
+        tmp2 = (D_803D552C->prevGaitPhaseOffset + 0x80) % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
@@ -1999,11 +2005,11 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
         break;
     case 0x4:
     case 0xB7:
-        var_t1 = D_803D552C->unk2F6 % 256;
-        var_t2 = (D_803D552C->unk2F6 + 0x80) % 256;
-        tmp1 = D_803D552C->unk2F8 % 256;
-        tmp2 = (D_803D552C->unk2F8 + 0x80) % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
+        var_t1 = D_803D552C->gaitPhaseOffset % 256;
+        var_t2 = (D_803D552C->gaitPhaseOffset + 0x80) % 256;
+        tmp1 = D_803D552C->prevGaitPhaseOffset % 256;
+        tmp2 = (D_803D552C->prevGaitPhaseOffset + 0x80) % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
@@ -2031,7 +2037,7 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
     func_802C3188_6D4838(&D_803D5528->unk3AC, 6, 16, 17, var_t2, arg0, arg1, -25);
 }
 
-void func_802C3188_6D4838(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s32 arg7) {
+void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s32 arg7) {
     s32 temp_t7;
     s16 pad;
     s16 var_t1;
@@ -2113,27 +2119,27 @@ void func_802C3188_6D4838(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg
     D_80203FE0[arg3].unk4 += var_t0;
 }
 
-void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, struct061 *arg6) {
+void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, Vertex *arg6) {
     u16 phi_t2;
     u16 phi_t3;
     u16 temp_v1;
     s8  phi_t1;
 
-    temp_v1 = D_803D552C->unk2F2;
+    temp_v1 = D_803D552C->gaitPhase;
 
     switch (D_803D5530->state) {                        /* implicit */
     case 0x3:
     case 0x8E:
     case 0xB6:
         phi_t1 = 1;
-        phi_t2 = D_803D552C->unk2F6 % 256;
-        phi_t3 = (D_803D552C->unk2F6 + 0x80) % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-            if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
+        phi_t2 = D_803D552C->gaitPhaseOffset % 256;
+        phi_t3 = (D_803D552C->gaitPhaseOffset + 0x80) % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if ((phi_t2 > 0x80) && ((D_803D552C->prevGaitPhaseOffset % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
-            } else if ((phi_t3 > 0x80) && (((D_803D552C->unk2F8 + 0x80) % 256) <= 0x80)) {
+            } else if ((phi_t3 > 0x80) && (((D_803D552C->prevGaitPhaseOffset + 0x80) % 256) <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -2144,15 +2150,15 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
     case 0x90:
     case 0xB9:
         phi_t1 = 1;
-        phi_t2 = 0x100 - (D_803D552C->unk2F6 % 256);
-        phi_t3 = 0x100 - ((D_803D552C->unk2F6 + 0x80) % 256);
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-            if ((phi_t2 < 0x80) && ((0x100 - (D_803D552C->unk2F8 % 256)) >= 0x80)) {
+        phi_t2 = 0x100 - (D_803D552C->gaitPhaseOffset % 256);
+        phi_t3 = 0x100 - ((D_803D552C->gaitPhaseOffset + 0x80) % 256);
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if ((phi_t2 < 0x80) && ((0x100 - (D_803D552C->prevGaitPhaseOffset % 256)) >= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else
-            if ((phi_t3 < 0xE1) && ((0x100 - ((D_803D552C->unk2F8 + 0x80) % 256)) >= 0xE1)) {
+            if ((phi_t3 < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + 0x80) % 256)) >= 0xE1)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -2163,15 +2169,15 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
     case 0x8F:
     case 0xB7:
         phi_t1 = 2;
-        phi_t2 = D_803D552C->unk2F6 % 256;
-        phi_t3 = (D_803D552C->unk2F6 + 0x80) % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2)) {
-            if ((phi_t2 > 0x80) && ((D_803D552C->unk2F8 % 256) <= 0x80)) {
+        phi_t2 = D_803D552C->gaitPhaseOffset % 256;
+        phi_t3 = (D_803D552C->gaitPhaseOffset + 0x80) % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if ((phi_t2 > 0x80) && ((D_803D552C->prevGaitPhaseOffset % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else
-            if ((phi_t3 > 0x80) && (((D_803D552C->unk2F8 + 0x80) % 256) <= 0x80)) {
+            if ((phi_t3 > 0x80) && (((D_803D552C->prevGaitPhaseOffset + 0x80) % 256) <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -2186,17 +2192,17 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
     }
 
     if ((D_803D5524->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2))) {
-        switch (D_803D5530->unk162) {
+        switch (D_803D5530->movementState) {
         case 4:
         case 5:
         case 6:
         case 7:
             phi_t1 = 2;
-            phi_t2 = (D_803D552C->unk2F6 * 16) & 0xFF;
-            phi_t3 = ((D_803D552C->unk2F6 * 16) + 0x80) & 0xFF;
+            phi_t2 = (D_803D552C->gaitPhaseOffset * 16) & 0xFF;
+            phi_t3 = ((D_803D552C->gaitPhaseOffset * 16) + 0x80) & 0xFF;
         }
     } else {
-        switch (D_803D5530->unk162) {
+        switch (D_803D5530->movementState) {
         case 4:
         case 5:
         case 7:
@@ -2204,19 +2210,19 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
             switch (D_803D5530->state) {
             default:
                 // sameline for regalloc
-                phi_t2 = (D_803D552C->unk2F6 * 2) & 0xFF;phi_t3 = ((D_803D552C->unk2F6 * 2) + 0x80) & 0xFF;
+                phi_t2 = (D_803D552C->gaitPhaseOffset * 2) & 0xFF;phi_t3 = ((D_803D552C->gaitPhaseOffset * 2) + 0x80) & 0xFF;
                 break;
             case 0x8E:
-                phi_t2 = D_803D552C->unk2F6 & 0xFF;
-                phi_t3 = (D_803D552C->unk2F6 + 0x80) & 0xFF;
+                phi_t2 = D_803D552C->gaitPhaseOffset & 0xFF;
+                phi_t3 = (D_803D552C->gaitPhaseOffset + 0x80) & 0xFF;
                 break;
             case 0x90:
-                phi_t2 = 256 - ((D_803D552C->unk2F6       ) & 0xFF);
-                phi_t3 = 256 - ((D_803D552C->unk2F6 + 0x80) & 0xFF);
+                phi_t2 = 256 - ((D_803D552C->gaitPhaseOffset       ) & 0xFF);
+                phi_t3 = 256 - ((D_803D552C->gaitPhaseOffset + 0x80) & 0xFF);
                 break;
             case 0x8F:
-                phi_t2 = (D_803D552C->unk2F6 * 2) & 0xFF;
-                phi_t3 = ((D_803D552C->unk2F6 * 2) + 0x80) & 0xFF;
+                phi_t2 = (D_803D552C->gaitPhaseOffset * 2) & 0xFF;
+                phi_t3 = ((D_803D552C->gaitPhaseOffset * 2) + 0x80) & 0xFF;
                 break;
             }
         }
@@ -2237,9 +2243,9 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
     case 0x6:
     case 0xB6:
     case 0xB9:
-        tmp1 = D_803D552C->unk2F6 % 256;
-        tmp2 = D_803D552C->unk2F8 % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2) && (tmp1 >= 0xB) && (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
+        tmp1 = D_803D552C->gaitPhaseOffset % 256;
+        tmp2 = D_803D552C->prevGaitPhaseOffset % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2) && (tmp1 >= 0xB) && (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;
             D_803D553A = 5;
             play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
@@ -2247,9 +2253,9 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
         break;
     case 0x4:
     case 0xB7:
-        tmp1 = D_803D552C->unk2F6 % 256;
-        tmp2 = D_803D552C->unk2F8 % 256;
-        if ((D_803D552C->unk366 != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk366 != MOVEMENT_MODE_2) &&
+        tmp1 = D_803D552C->gaitPhaseOffset % 256;
+        tmp2 = D_803D552C->prevGaitPhaseOffset % 256;
+        if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2) &&
             (tmp1 >= 0xB) &&
             (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;
@@ -2259,12 +2265,12 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
         break;
     case 0x8E:
     case 0x90:
-        if (!(fixme = D_803D552C->unk2F2 & 7)) {
+        if (!(fixme = D_803D552C->gaitPhase & 7)) {
             func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     case 0x8F:
-        if (!(fixme = D_803D552C->unk2F2 & 7)) {
+        if (!(fixme = D_803D552C->gaitPhase & 7)) {
             func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
@@ -2273,7 +2279,7 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
     func_802C3F58_6D5608(&D_803D5528->unk3AC, 6, 16, 17, -arg0, arg1, arg2);
 }
 
-void func_802C3F58_6D5608(struct103 *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, s16 arg6) {
+void func_802C3F58_6D5608(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5, s16 arg6) {
     s16 temp_v0;
     s16 temp_v0_2;
     s16 var_a1;

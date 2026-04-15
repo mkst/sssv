@@ -12,8 +12,8 @@
 
 CollisionNode D_803DA110[40]; // gridCollisionLists
 
-Animal *D_803DA2F0;
-static Animal *D_803DA2F4; // object?
+Entity *D_803DA2F0;        // TODO: static once func_8029F7D4_6B0E84 is matched
+static Entity *D_803DA2F4;
 
 // ========================================================
 // .text
@@ -22,53 +22,53 @@ static Animal *D_803DA2F4; // object?
 // ESA: func_800627BC
 void func_802DA7F0_6EBEA0(void) {
     void (*func)(void *);
-    Animal *a;
-    Animal *tmp;
+    Entity *e;
+    Entity *tmp;
 
-    a = D_803DA2F0;
-    while (a != NULL) {
-        func = a->unk16C->unk84;
+    e = D_803DA2F0;
+    while (e != NULL) {
+        func = e->unk16C->unk84;
         if (func != NULL) {
-            func(a);
+            func(e);
         }
-        func_802FB270_70C920(a);
-        tmp = a;
+        func_802FB270_70C920(e);
+        tmp = e;
         if (tmp->unk26C != 0) {
-            a = a->unk198;
+            e = e->unk198;
             func_802DAE5C_6EC50C(tmp);
             func_802C9500_6DABB0(tmp);
         } else {
             func_802DA90C_6EBFBC(tmp);
-            a = a->unk198;
+            e = e->unk198;
         }
     }
 
-    a = D_803DA2F4;
-    while (a != NULL) {
-        func = a->unk16C->unk84;
+    e = D_803DA2F4;
+    while (e != NULL) {
+        func = e->unk16C->unk84;
         if (func != NULL) {
-            func(a);
+            func(e);
         }
-        if (a->unk4C.unk19) {
-            func_802FB270_70C920(a);
-            tmp = a;
+        if (e->unk4C.unk19) {
+            func_802FB270_70C920(e);
+            tmp = e;
             if (tmp->unk26C != 0) {
-                a = a->unk198;
+                e = e->unk198;
                 func_802DAE5C_6EC50C(tmp);
                 func_802C9500_6DABB0(tmp);
             } else {
                 func_802DA90C_6EBFBC(tmp);
-                a = a->unk198;
+                e = e->unk198;
             }
         } else {
-            a = a->unk198;
+            e = e->unk198;
         }
     }
 }
 
 // ESA: func_800628F4
 // update_animal_collision_grid
-void func_802DA90C_6EBFBC(Animal *arg0) {
+void func_802DA90C_6EBFBC(Entity *arg0) {
     s16 subCellX;
     s16 subCellZ;
 
@@ -162,7 +162,7 @@ void func_802DA90C_6EBFBC(Animal *arg0) {
 }
 
 // ESA: func_80062CB4
-void remove_collision_list(Animal *arg0) {
+void remove_collision_list(Entity *arg0) {
     CollisionNode *tmp;
     s16 i;
 
@@ -185,7 +185,7 @@ void remove_collision_list(Animal *arg0) {
 }
 
 // ESA: func_80062D38
-void func_802DADA0_6EC450(Animal *arg0) {
+void func_802DADA0_6EC450(Entity *arg0) {
     Animal **animal;
     s16 i;
 
@@ -213,8 +213,8 @@ void func_802DADA0_6EC450(Animal *arg0) {
 }
 
 // ESA: func_80062E04
-void func_802DAE5C_6EC50C(struct071 *obj) {
-    struct071 **o;
+void func_802DAE5C_6EC50C(Entity *obj) {
+    Entity **o;
 
     remove_collision_list(obj);
     switch (obj->unk26D) {
@@ -264,7 +264,7 @@ void func_802DAF5C_6EC60C(void) {
 // update_object_floor_collision ?
 // ESA: func_80062EF4
 void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd) {
-    struct071 *obj;
+    Entity *obj;
     s32 x0 = xStart;
     s32 y0 = yStart;
     s32 x1 = xEnd;

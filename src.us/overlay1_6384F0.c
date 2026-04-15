@@ -738,8 +738,8 @@ void func_80295EB0_639550(s32 x) {
 
 #if 0
 
-// #define SHADE 0
-// #define PRIMITIVE 0
+// extern int SHADE;
+// extern int PRIMITIVE;
 
 // s16 D_80299FD4_63D674 = 0;
 // s16 D_80299FD8_63D678 = 0;
@@ -776,7 +776,7 @@ u16 D_8029A038_63D6D8 = 0;
 s16 D_8029A03C_63D6DC = 0;
 
 
-void render_title_screen_frame(struct018 *arg0) {
+void render_title_screen_frame(FrameContext *arg0) {
     static s16 D_80299FD4_63D674 = 0;
     static s16 D_80299FD8_63D678 = 0;
     static s32 D_80299FDC_63D67C = 0;

@@ -195,28 +195,28 @@ static s16  D_803F7E06; // levels
 void func_80398630_7A9CE0(void) {
     load_data_section(6);
     // unpack menu graphics
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04006EC0_11DA90)), D_800BA760); // central piece of SSSV
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007FA0_11EB70)), D_800BDC80); // "SSSV" Header graphic
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_sssv_rgba16_rnc_rgba16__rnc)), D_800BA760); // central piece of SSSV
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_sssv_header_rgba16_rnc_rgba16__rnc)), D_800BDC80); // "SSSV" Header graphic
     // unpack powercell
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04000000_116BD0)), D_800DE390); // powercell
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_powercell_rgba16_rnc_rgba16__rnc)), D_800DE390); // powercell
     // unpack evo bodyparts
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04013060_129C30)), D_800C3A40[0]); // evo head trophy
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040133C0_129F90)), D_800C3A40[3]); // evo arms trophy
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040131B0_129D80)), D_800C3A40[1]); // evo legs trophy
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04013580_12A150)), D_800C3A40[2]); // evo torso trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_HEAD_rgba16_rnc_rgba16__rnc)), D_800C3A40[0]); // evo head trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_ARM_rgba16_rnc_rgba16__rnc)), D_800C3A40[3]); // evo arms trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_LEG_rgba16_rnc_rgba16__rnc)), D_800C3A40[1]); // evo legs trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_TORSO_rgba16_rnc_rgba16__rnc)), D_800C3A40[2]); // evo torso trophy
     // unpack 'silver' level ring pieces
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007700_11E2D0)), D_800BB700); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040077A0_11E370)), D_800BBBB0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040078C0_11E490)), D_800BC060); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_040079F0_11E5C0)), D_800BC510); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007B40_11E710)), D_800BC9C0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007C60_11E830)), D_800BCE70); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007D90_11E960)), D_800BD320); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(D_04007EC0_11EA90)), D_800BD7D0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_1_rgba16_rnc_rgba16__rnc)), D_800BB700); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_2_rgba16_rnc_rgba16__rnc)), D_800BBBB0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_3_rgba16_rnc_rgba16__rnc)), D_800BC060); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_4_rgba16_rnc_rgba16__rnc)), D_800BC510); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_5_rgba16_rnc_rgba16__rnc)), D_800BC9C0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_6_rgba16_rnc_rgba16__rnc)), D_800BCE70); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_7_rgba16_rnc_rgba16__rnc)), D_800BD320); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_8_rgba16_rnc_rgba16__rnc)), D_800BD7D0); // silver ring piece
 }
 
 void func_8039884C_7A9EFC(void) {
-    s16 sp18[44];
+    u8 sp18[88];
 
     determine_available_levels();
     D_803F7DA8.previousLevel = 99;
@@ -230,7 +230,7 @@ void func_8039884C_7A9EFC(void) {
     D_803F7D78.unk1C = 0;
     D_803F7D78.unk20 = 0;
     D_803F7D70 = 0.1f;
-    prepare_text(sp18, (u8*)D_803F2D50.titleText); // zero out title?
+    prepare_text(sp18, (s16*)D_803F2D50.titleText); // zero out title?
     D_803F7DA8.unk8 = 1.0f;
     D_803B7468_7C8B18 = D_803F7DA8.currentLevel * 12;
     D_803F7D68 = D_803F7DA8.currentLevel * 12;
@@ -336,7 +336,7 @@ void display_zone_select_screen(void) {
     gDPSetPrimColor(gMainDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
     // decompress ZONE SELECT image
-    UnpackRNC(SEGMENT_OFFSET(D_04012B20_1296F0) + gMenuSegmentBase, D_800DD3F0); // ZONE_SELECT rgba16
+    UnpackRNC(SEGMENT_OFFSET(img_menu_ZONE_SELECT_rgba16_rnc_rgba16__rnc) + gMenuSegmentBase, D_800DD3F0); // ZONE_SELECT rgba16
 
     if (D_803F7DA8.previousLevel != D_803F7DA8.currentLevel) {
         // level thumbnails
@@ -1463,7 +1463,7 @@ void func_8039D034_7AE6E4(Gfx **arg0, s16 arg1) {
         if (D_803F7D9C == 0) {
             if (RAND(2000) < 10) {
                 D_803F7D9C = 1;
-                func_8032CD20_73E3D0(0x283B, 116, 0x4000, 0, 1.0f);
+                func_8032CD20_73E3D0((void*)0x283B, 116, 0x4000, 0, 1.0f);
             }
         } else {
             D_803F7D9C += 1;

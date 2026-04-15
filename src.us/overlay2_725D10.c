@@ -5,6 +5,13 @@
 
 
 // ========================================================
+// definitions
+// ========================================================
+
+Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator);
+
+
+// ========================================================
 // .bss
 // ========================================================
 
@@ -35,12 +42,12 @@ void func_80314660_725D10(void) {
 }
 
 // ESA: func_80047108
-Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
-    Animal *ret;
+Entity *resolve_entity_ref(Entity *self, s16 refType, u16 regionId) {
+    Entity *ret;
 
-    switch (arg1) {
+    switch (refType) {
     case 0:
-        ret = arg0;
+        ret = self;
         break;
     case 1:
     case 2:
@@ -49,22 +56,22 @@ Animal *func_803146A8_725D58(Animal *arg0, s16 arg1, u16 arg2) {
     case 5:
     case 6:
     case 7:
-        ret = arg0->unk248[arg1];
+        ret = self->unk248[refType];
         break;
     case 8:
-        ret = arg0->unk5C.unk4;
+        ret = self->unk5C.unk4;
         break;
-    case 9:
-        ret = gAnimalState.animals[gCurrentAnimalIndex].animal;
+    case 9: // get_current_player
+        ret = (Entity*) gAnimalState.animals[gCurrentAnimalIndex].animal;
         break;
-    case 10: // get_first?
-        ret = func_8031540C_726ABC(arg2, 1);
+    case 10: // get next animal
+        ret = find_next_animal_in_region(regionId, 1);
         break;
-    case 11:
-        ret = func_8031540C_726ABC(arg2, 0);
+    case 11: // get first animal
+        ret = find_next_animal_in_region(regionId, 0);
         break;
     case 12:
-        ret = arg0->unk248[0];
+        ret = self->unk248[0];
         break;
     }
     return ret;
@@ -101,30 +108,30 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     s16 i;
 
     switch (arg1) {
-    case 0+0x7F7F:    // 0
-    case 1+0x7F7F:    // 1
-    case 2+0x7F7F:    // 2
+    case ST_SET_ANIMAL_TMP_1:
+    case ST_SET_ANIMAL_TMP_2:
+    case ST_SET_ANIMAL_TMP_3:
         arg0->unk200[arg1-0x7F7F] = arg2;
         break;
 
-    case 3+0x7F7F:    // 3
+    case ST_SET_SCALE_2:
         arg0->unk158 = arg2;
         arg0->unk15E = arg2;
         break;
 
-    case ST_SET_HEALTH:    // 4
-        if (!(arg0->unk4C.unk1A /* & 0x20 */) || (arg0->health < arg2)) {
+    case ST_SET_HEALTH:
+        if (!(arg0->unk4C.unk1A /* & 0x20 */) || (arg0->Info.health < arg2)) {
             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
-                if (arg2 < arg0->health) {
-                    func_80349280_75A930(arg0, arg0->health - arg2);
+                if (arg2 < arg0->Info.health) {
+                    func_80349280_75A930(arg0, arg0->Info.health - arg2);
                 }
             }
-            arg0->health = MIN(0x7F, MAX(0, arg2));
+            arg0->Info.health = MIN(0x7F, MAX(0, arg2));
         }
         break;
 
-    case 5+0x7F7F:
-        func_8012822C(arg2); // update game time?
+    case ST_SET_RANDOM_SEED:
+        func_8012822C(arg2);
         break;
 
     case ST_SET_XPOS:
@@ -142,12 +149,12 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         func_803136B0_724D60(arg0);
         break;
 
-    case 9+0x7F7F:
+    case ST_SET_SCALE:
         arg0->unk40 = arg2;
         func_802C9BA4_6DB254(arg0);
         break;
 
-    case 10+0x7F7F:
+    case ST_SET_TIMER:
         func_80349AA0_75B150(arg2);
         break;
 
@@ -182,11 +189,11 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case 16+0x7F7F:
-        arg0->unk248[0] = func_803146A8_725D58(arg0, arg2 % 100, (arg2 / 100));
+        arg0->unk248[0] = resolve_entity_ref(arg0, arg2 % 100, (arg2 / 100));
         arg0->commands.unk1CC = arg2 % 100;
         break;
 
-    case 17+0x7F7F:
+    case ST_SET_UNK163:
         if (arg2 & 1) {
             arg0->unk163 &= ~0x8;
         } else {
@@ -209,12 +216,12 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         }
         break;
 
-    case 18+0x7F7F: // set mass?
+    case ST_SET_MASS:
         arg0->unk46 = arg2;
         arg0->unk44 = (arg0->unk46 * arg0->unk40) >> 0xB;
         break;
 
-    case ST_SET_SCORE:    // 19
+    case ST_SET_SCORE:
         gGameState.score = arg2;
         break;
 
@@ -247,11 +254,11 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         gTasksCompleted = arg2;
         break;
 
-    case 29+0x7F7F:
+    case ST_SET_FOV:
         D_803F2D50.fovY = arg2 / 100.0f;
         break;
 
-    case 30+0x7F7F:
+    case ST_SET_TEMP_VAR:
         D_803E4D30 = arg2;
         break;
 
@@ -263,13 +270,13 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
     case 32+0x7F7F:
         // is arg2 an object ID?
         if (arg2 < OB_TYPE_ANIMAL_OFFSET) {
-            arg0->unk16C = &D_801E9EB8.unk0[arg2];
+            arg0->unk16C = (struct035*)&D_801E9EB8.unk0[arg2];
             func_802C9BA4_6DB254(arg0);
         } else {
             // arg2 is an animal ID
             var_t1 = NULL;
             for (i = 0; i < gNumAnimalsInLevel; i++) {
-                if ((arg0 == gAnimalState.animals[i].animal) && (gAnimalState.animals[i].animal->unk366 != MOVEMENT_MODE_DELETED)) {
+                if ((arg0 == gAnimalState.animals[i].animal) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
                     var_t1 = &gAnimalState.animals[i];
                     break;
                 }
@@ -302,13 +309,11 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         }
         break;
 
-    case 33+0x7F7F:
-        // audio related
+    case ST_SET_AUDIO_FREQ:
         D_801546E0 = arg2;
         break;
 
-    case 34+0x7F7F:
-        // audio related
+    case ST_SET_MUSIC_VOLUME:
         D_801546D8 = MAX(arg2, 0);
         break;
 
@@ -317,12 +322,12 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         write_eeprom(D_803F7DA8.bank);
         break;
 
-    case SET_LEVEL_PROGRESS:
+    case ST_SET_LEVEL_PROGRESS:
         gLevelProgress = arg2;
         break;
 
     default:
-        // TODO: check if this is correct!!
+        // ST_SAVE_VALUE_TO_SLOT
         D_803E4CA8[arg1 - 0x7FBF] = arg2;
         break;
     }
@@ -335,16 +340,16 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         res = arg1;
     } else {
         switch (arg1) {
-        case 0+0x7F7F:
-        case 1+0x7F7F:
-        case 2+0x7F7F:
-            res = arg0->unk200[arg1 - 0x7F7F]; // some color?
+        case ST_GET_ANIMAL_TMP_1:
+        case ST_GET_ANIMAL_TMP_2:
+        case ST_GET_ANIMAL_TMP_3:
+            res = arg0->unk200[arg1 - 0x7F7F]; // load per-animal temps
             break;
-        case 3+0x7F7F:
+        case ST_GET_SCALE_2:
             res = arg0->unk158;
             break;
         case ST_GET_HEALTH:
-            res = arg0->health;
+            res = arg0->Info.health;
             break;
         case ST_GET_RANDOM:
             res = (s32) (func_80128200() & 0x7FFF) % 0x7F7E;
@@ -358,10 +363,10 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case ST_GET_YPOS:
             res = arg0->position.yPos.h;
             break;
-        case 9+0x7F7F:
+        case ST_GET_SCALE:
             res = arg0->unk40;
             break;
-        case 10+0x7F7F:
+        case ST_GET_TIMER:
             if (D_803F2CD6 < 0) {
                 res = gHudTimerSeconds;
             } else {
@@ -398,6 +403,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->commands.unk1CC;
             break;
         case 17+0x7F7F:
+            // ST_GET_UNK163
             res = (arg0->unk163 & 0x18) >> 3;
             break;
         case 18+0x7F7F: // get mass?
@@ -449,10 +455,10 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case ST_GET_TASKS_COMPLETED:
             res = gTasksCompleted;
             break;
-        case 29+0x7F7F:
+        case 29+0x7F7F: // ST_GET_FOV
             res = D_803F2D50.fovY * 100.0f;
             break;
-        case 30+0x7F7F:
+        case 30+0x7F7F: // ST_GET_TEMP
             res = D_803E4D30;
             break;
         case ST_GET_EEPROM_SCORES_1:
@@ -461,10 +467,10 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
         case ST_GET_OBJECT_TYPE:
             res = arg0->unk16C->objectType;
             break;
-        case 33+0x7F7F:
+        case 33+0x7F7F: // ST_GET_AUDIO_FREQ (?)
             res = D_801546E0;
             break;
-        case 34+0x7F7F:
+        case 34+0x7F7F: // ST_GET_MUSIC_VOLUME (?)
             res = D_801546D8;
             break;
         case ST_GET_EEPROM_SCORES_2:
@@ -474,6 +480,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = gLevelProgress;
             break;
         default:
+            // ST_LOAD_VALUE_FROM_SLOT
             res = D_803E4CA8[arg1 - 0x7FBF];
         }
     }
@@ -524,7 +531,7 @@ void copy_command_struct(CmdWrapper *source, CmdWrapper *dest) {
     dest->type = source->type;
 }
 
-void load_commands_into_object(Animal *arg0, CmdWrapper cmds[], u8 count) {
+void load_commands_into_object(Entity *arg0, CmdWrapper cmds[], u8 count) {
     arg0->commands.unk1A8 = cmds;
     arg0->commands.unk19C.count = count;
     arg0->commands.numCommandsToCopy = 0;
@@ -536,41 +543,41 @@ void load_commands_into_object(Animal *arg0, CmdWrapper cmds[], u8 count) {
 }
 
 // ESA: func_80047DC4
-Animal *func_8031540C_726ABC(s16 arg0, u8 arg1) {
-    u64 sp48;
+Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator) {
+    u64 bucketMask;
     s16 j;
     s16 i;
-    Animal *ret;
-    s32 var_s2;
-    CollisionNode *var_s0;
+    Animal *result;
+    s32 canReturnMatch;
+    CollisionNode *node;
 
-    static Animal *D_803E8E5C;
+    static Animal *lastReturnedAnimal;
 
-    if (arg1) {
-        D_803E8E5C = NULL;
-        var_s2 = 1;
+    if (resetIterator) {
+        lastReturnedAnimal = NULL;
+        canReturnMatch = 1;
     } else {
-        var_s2 = 0;
+        canReturnMatch = 0;
     }
 
     i = 0;
-    ret = NULL;
-    sp48 = D_803E95B8[arg0];
+    result = NULL;
+    bucketMask = D_803E95B8[regionId];
 
-    while ((i < 0x28) && (sp48 != 0)) {
-        if (sp48 & 0xFF) {
+    while ((i < 0x28) && (bucketMask != 0)) {
+        if (bucketMask & 0xFF) {
             for (j = 0; j < 8; j++) {
-                if (((sp48 & ((s64)1 << j)))) {
-                    for (var_s0 = D_803DA110[i+j].next; var_s0 != NULL; var_s0 = var_s0->next) {
-                        if ((var_s0->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == var_s0->animal->unk114[0])) {
-                            if ((D_803E8E5C == var_s0->animal) || (func_80319E1C_72B4CC(var_s0->animal->position.xPos.h >> 6, var_s0->animal->position.zPos.h >> 6, var_s0->animal->position.yPos.h >> 6, arg0 , var_s0->animal->unk160) != 0)) {
-                                if (var_s2 != 0) {
-                                    D_803E8E5C = var_s0->animal;
-                                    ret = var_s0->animal;
+                if (((bucketMask & ((s64)1 << j)))) {
+                    for (node = D_803DA110[i+j].next; node != NULL; node = node->next) {
+                        if ((node->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == node->animal->unk114[0])) {
+                            if ((lastReturnedAnimal == node->animal) || (func_80319E1C_72B4CC(node->animal->position.xPos.h >> 6, node->animal->position.zPos.h >> 6, node->animal->position.yPos.h >> 6, regionId , node->animal->unk160) != 0)) {
+                                if (canReturnMatch != 0) {
+                                    lastReturnedAnimal = node->animal;
+                                    result = node->animal;
                                     goto done;
                                 } else {
-                                    if (D_803E8E5C == var_s0->animal) {
-                                        var_s2 = 1;
+                                    if (lastReturnedAnimal == node->animal) {
+                                        canReturnMatch = 1;
                                     }
                                 }
                             }
@@ -579,19 +586,19 @@ Animal *func_8031540C_726ABC(s16 arg0, u8 arg1) {
                 }
             }
         }
-        sp48 = sp48 >> 8;
+        bucketMask = bucketMask >> 8;
         i += 8;
     }
 
 done:
-    if (ret == NULL) {
-        D_803E8E5C = NULL;
+    if (result == NULL) {
+        lastReturnedAnimal = NULL;
     }
-    return ret;
+    return result;
 }
 
 // ESA: func_80048040
-u8 func_80315658_726D08(s16 arg0, s32 func(Animal *, s16), s16 arg2) {
+u8 func_80315658_726D08(s16 regionId, s32 func(Animal *, s16), s16 arg2) {
     u64 sp50;
     s32 pad; // sp
     u8  ret; // sp4B
@@ -601,13 +608,13 @@ u8 func_80315658_726D08(s16 arg0, s32 func(Animal *, s16), s16 arg2) {
 
     ret = 0;
 
-    for (sp50 = D_803E95B8[arg0], i = 0; ((i < 0x28) && (sp50 != 0)); sp50 >>= 8, i += 8) {
+    for (sp50 = D_803E95B8[regionId], i = 0; ((i < 0x28) && (sp50 != 0)); sp50 >>= 8, i += 8) {
         if (sp50 & 0xFF) {
             for (j = 0; j < 8; j++) {
                 if (sp50 & ((s64)1 << j)) {
                     for (var_s1 = D_803DA110[i + j].next; var_s1 != NULL; var_s1 = var_s1->next) {
                         if ((var_s1->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s1->animal->unk114[0] == (i + j)) && (func(var_s1->animal, arg2))) {
-                            if (func_80319E1C_72B4CC(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, arg0, var_s1->animal->unk160) != 0) {
+                            if (func_80319E1C_72B4CC(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, regionId, var_s1->animal->unk160) != 0) {
                                 ret = 1;
                                 goto done;
                             }
@@ -740,7 +747,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         break;
 
     case 1:
-        if ((arg0->unk162 == 4) || (arg0->unk162 == 5) || (arg0->unk162 == 6) || (arg0->unk162 == 7) || (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4))) {
+        if ((arg0->movementState == 4) || (arg0->movementState == 5) || (arg0->movementState == 6) || (arg0->movementState == 7) || (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4))) {
             res = 1;
         }
         break;
@@ -789,7 +796,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
     case 5:
         if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             // it's an animal
-            if (arg0->waypointType == 0) {
+            if (arg0->waypointMode == WAYPOINT_MODE_NONE) {
                 res = 1;
             }
         } else if (arg0->unk170 == 0) {
@@ -1232,7 +1239,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x14:
-        arg0->unk248[0] = func_803146A8_725D58(
+        arg0->unk248[0] = resolve_entity_ref(
             arg0,
             cmds->unk19C.payload.cmd.type20.unk0,
             cmds->unk19C.payload.cmd.type20.unk2);
@@ -1578,7 +1585,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
     case 0x2C:
         temp_v0 = get_game_state(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0);
         if (!(arg0->unk4C.unk1A) || (temp_v0 > 0)) {
-            temp_s1->health += temp_v0;
+            temp_s1->Info.health += temp_v0;
         }
         return 69;
 
@@ -1714,7 +1721,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
     case 0x36:
         temp_s1->unk40 = arg0->commands.unk19C.payload.cmd.type54.unk0;
-        func_802C9BA4_6DB254((struct071 *) temp_s1);
+        func_802C9BA4_6DB254((Entity *) temp_s1);
         return 69;
 
     case 0x30: // not here
@@ -1744,7 +1751,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         temp_s1->position.zPos.h = cmds->unk19C.payload.cmd.regular.unk2;
         temp_s1->position.yPos.h = cmds->unk19C.payload.cmd.regular.unk4;
         func_80311554_722C04(temp_s1->position.xPos.h, temp_s1->position.zPos.h, &sp10C, &sp110);
-        if ((temp_s1->unk16C->objectType >= 0x100) && (temp_s1->position.yPos.w < sp110)) {
+        if ((temp_s1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (temp_s1->position.yPos.w < sp110)) {
             temp_s1->position.yPos.w = sp110;
         }
         if (sp10C == 0x40000000) {
@@ -1757,24 +1764,24 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x3A:
-        func_803638A8_774F58(temp_s1, func_803146A8_725D58(temp_s1, cmds->unk19C.payload.cmd.regular.unk2, 0U), cmds->unk19C.payload.cmd.regular.unk0);
+        func_803638A8_774F58(temp_s1, resolve_entity_ref(temp_s1, cmds->unk19C.payload.cmd.regular.unk2, 0U), cmds->unk19C.payload.cmd.regular.unk0);
         return 69;
     case 0x3B:
         temp_s1->commands.numCommandsToCopy = 0;
         return 69;
 
     case 0x3C:
-        if (temp_s1->unk16C->objectType < 0x100) {
+        if (temp_s1->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET) {
             temp_s1->unk170 = 4;
             temp_s1->xVelocity.w = temp_s1->zVelocity.w = temp_s1->yVelocity.w = 0;
             return 69;
         } else {
-            func_803638E8_774F98(temp_s1);
+            reset_waypoint_mode(temp_s1);
         }
         return 69;
 
     case 0x3D:
-        if ((cmds->unk19C.payload.cmd.type61.unk7.unk0) == 0) {
+        if (cmds->unk19C.payload.cmd.type61.unk7.unk0 == 0) {
             sp7C = get_game_state(temp_s1, cmds->unk19C.payload.cmd.type61.unk0);
         } else {
             sp7C = do_maths_op(
@@ -1816,9 +1823,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x40:
-        tmp2 = func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0);
+        tmp2 = resolve_entity_ref(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0);
 
-        if (temp_s1->unk16C->objectType >= 0x100) {
+        if (temp_s1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             set_waypoint_follow_target(temp_s1, tmp2);
         } else {
             // object
@@ -1837,11 +1844,11 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 1;
 
     case 0x42:
-        func_802B33D0_6C4A80(func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0));
+        func_802B33D0_6C4A80(resolve_entity_ref(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0));
         return 69;
 
     case 0x43:
-        func_802B34B8_6C4B68(func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0));
+        func_802B34B8_6C4B68(resolve_entity_ref(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk0, 0));
         return 69;
 
     case 0x44:
@@ -2005,7 +2012,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         temp_s1->position.zPos.h += spCC;
         temp_s1->position.yPos.h += spC8;
         func_80311554_722C04(temp_s1->position.xPos.h, temp_s1->position.zPos.h, &spD4, &spD8);
-        if ((temp_s1->unk16C->objectType >= 0x100) && (temp_s1->position.yPos.w < spD8)) {
+        if ((temp_s1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (temp_s1->position.yPos.w < spD8)) {
             temp_s1->position.yPos.w = spD8;
         }
         if (spD4 == 0x40000000) {
@@ -2033,7 +2040,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
     case 0x4D:
 
-        if (temp_s1->unk16C->objectType >= 0x100) {
+        if (temp_s1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             var_a0_2 = 2;
         } else if (temp_s1 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
             var_a0_2 = 1;
@@ -2123,7 +2130,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
     case 0x51:
         // not used
-        func_803637D4_774E84(temp_s1, func_803146A8_725D58(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk2, 0), 16);
+        set_nav_state_engage_player(temp_s1, resolve_entity_ref(temp_s1, arg0->commands.unk19C.payload.cmd.regular.unk2, 0), 16);
         return 69;
 
     case 0x52:
@@ -2157,7 +2164,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
     case 0x54:
         // trigger laughter
-        if (temp_s1->unk16C->objectType >= 0x100) {
+        if (temp_s1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             func_80380620_791CD0(
                 temp_s1,
                 get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0),
@@ -2173,8 +2180,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x56:
-        temp_s1 = func_803146A8_725D58(func_803146A8_725D58(arg0, cmds->unk19C.payload.cmd.regular.unk4, 0), cmds->unk19C.payload.cmd.regular.unk6, 0);
-        tmp = func_803146A8_725D58(arg0, cmds->unk19C.payload.cmd.regular.unk0, 0);
+        temp_s1 = resolve_entity_ref(resolve_entity_ref(arg0, cmds->unk19C.payload.cmd.regular.unk4, 0), cmds->unk19C.payload.cmd.regular.unk6, 0);
+        tmp = resolve_entity_ref(arg0, cmds->unk19C.payload.cmd.regular.unk0, 0);
         tmp->unk248[cmds->unk19C.payload.cmd.regular.unk2] = temp_s1;
         return 69;
 
@@ -2223,9 +2230,9 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
     case 0x5C:
         // not used
-        func_80363738_774DE8(
+        set_nav_state_engage_other(
             temp_s1,
-            func_803146A8_725D58(temp_s1, cmds->unk19C.payload.cmd.regular.unk2, 0),
+            resolve_entity_ref(temp_s1, cmds->unk19C.payload.cmd.regular.unk2, 0),
             cmds->unk19C.payload.cmd.regular.unk0);
         return 69;
 
@@ -2246,7 +2253,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x5F:
-        if (temp_s1->unk16C->objectType >= 0x100) {
+        if (temp_s1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
             sp9A = (temp_s1->zRotation * 360) >> 8;
             sp98 = (temp_s1->yRotation * 360) >> 8;
         } else {
@@ -2376,7 +2383,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
             !cmds->unk19C.payload.cmd.regular.unk0,
             get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2),
             get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk4),
-            func_803146A8_725D58(temp_s1, cmds->unk19C.payload.cmd.regular.unk6, 0));
+            resolve_entity_ref(temp_s1, cmds->unk19C.payload.cmd.regular.unk6, 0));
         return 69;
 
     case 0x64:
@@ -2432,7 +2439,7 @@ void func_803190FC_72A7AC(Animal *arg0) {
 
     cmds = (CmdUnknown*)&arg0->commands.unk1AC;
     for (i = 0; i < arg0->commands.numCommandsToCopy; i++) {
-        if (run_single_command(func_803146A8_725D58(arg0, cmds->unk0.ub[1], 0), cmds) != 0) {
+        if (run_single_command(resolve_entity_ref(arg0, cmds->unk0.ub[1], 0), (Cmd*)cmds) != 0) {
             // finished?
             arg0->commands.unk19C.count = cmds->unk6 + 1;
             copy_command_struct(&arg0->commands.unk1A8[arg0->commands.unk19C.count], &arg0->commands.unk19C.payload);
@@ -2445,11 +2452,11 @@ void func_803190FC_72A7AC(Animal *arg0) {
 }
 
 // ESA: func_8004C87C
-void func_803191B0_72A860(Animal *arg0) {
+void func_803191B0_72A860(Entity *arg0) {
     s8 temp_v0;
 
     if (arg0->commands.unk1CC == 9) {
-        arg0->unk248[0] = gAnimalState.animals[gCurrentAnimalIndex].animal;
+        arg0->unk248[0] = (Entity*)gAnimalState.animals[gCurrentAnimalIndex].animal;
     }
     if (arg0->commands.numCommandsToCopy != 0) {
         // run all the commands

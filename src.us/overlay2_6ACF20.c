@@ -18,7 +18,7 @@ extern u8  img_D_01006C60_40530_i4__png[];
 // ========================================================
 
 // unused data
-extern u8 D_803A0530_7B1BE0[10][8] = {
+static u8 D_803A0530_7B1BE0[10][8] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0xFF,
@@ -46,7 +46,7 @@ static s16  D_803D2DFE;
 // ========================================================
 
 // ESA: func_800750E0
-void maybe_trigger_exit_teleporter(Animal *arg0, Animal *teleporter) {
+void maybe_trigger_exit_teleporter(Animal *arg0, Entity *teleporter) {
     s32 dist = ((arg0->position.xPos.h - teleporter->position.xPos.h) * (arg0->position.xPos.h - teleporter->position.xPos.h)) +
                ((arg0->position.zPos.h - teleporter->position.zPos.h) * (arg0->position.zPos.h - teleporter->position.zPos.h));
 
@@ -54,7 +54,7 @@ void maybe_trigger_exit_teleporter(Animal *arg0, Animal *teleporter) {
         (D_803D2D90.unk0 == 0) && (D_803D2D90.unk64 == 0) &&
         (dist < 800) && (arg0->unk16C->unk82.unk2) &&
         (teleporter->unk248[1] != NULL) && (arg0->unk320 == NULL)) {
-        Animal *tmp;
+        Entity *tmp;
         teleporter->unk158 = 1;
         arg0->position.xPos.h = teleporter->position.xPos.h;
         arg0->position.zPos.h = teleporter->position.zPos.h;

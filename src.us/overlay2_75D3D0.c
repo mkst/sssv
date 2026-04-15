@@ -2,46 +2,60 @@
 #include "common.h"
 
 
-#if 0
-// CURRENT (9788)
-// esa:func_8006BC30 but customised
+// ========================================================
+// definitions
+// ========================================================
 
-// #define SHADE 0
-// #define TEXEL0 0
+void func_8034CCBC_75E36C(Vertex *src, s16 numVtxs, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
+void func_8034CE88_75E538(Vertex *src, s16 numVtxs, s16 arg2, s16 alpha, s16 arg4, s16 red, s16 green, s16 blue);
+void func_8034D830_75EEE0(Vertex *arg0, Vertex *arg1, Vertex *arg2, s16 arg3, s16 *arg4, s16 *arg5, s16 arg6, s16 arg7, s32 arg8, s8 arg9);
+void func_8034F3EC_760A9C(Vertex *arg0, Vertex *arg1, Vertex *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6);
+void func_8034FCFC_7613AC(Vertex *src, Vertex *arg1, Vertex *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6);
+void func_80350600_761CB0(s16 numVtxs, Vertex *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue, s32 argB, s32 argC, s32 argD, s32 argE);
+void func_80351390_762A40(s16 numVtxs, Vertex *arg1, s16 alpha, s16 arg3, s16 arg4, u16 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC);
+void func_80351A44_7630F4(s16 numVtxs, Vertex *arg1, s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue);
+void func_80351EE8_763598(s16 numVtxs, Vertex *arg1, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue);
+
+// ========================================================
+// .text
+// ========================================================
+
+
+// esa:func_8006BC30 but customised
 void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC) {
-    s16 idx;
-    s16 new_distance;
-    s16 best_distance;
+    s16 sinAngle;
+    s16 cosAngle;
 
     s16 tmp1;
     s16 tmp2;
-
-    s16 tmp3;
-    s16 tmp4;
-    s16 tmp5;
-    s16 tmp6;
+    s16 new_distance;
 
     Animal *animal;
-    Animal *var_ra;
+    Animal *var_ra; // sp23C ?
 
     s16 sp23A;
     s16 sp238;
     s16 sp236;
     s16 sp234;
 
-    s16 temp_t0;    // sp232?
-    s16 temp_t1;    // sp230?
+    s16 best_distance;
+    s16 idx;
+
     s16 sp22E;
     s16 sp22C;
 
-    struct061 vtxs[5][10]; // sp98 (5 * 10 * 8 => 0x190 big)
-    s32 sp94;              // pad
-    s16 numVtxs[5];        // sp8C
+    s16 temp_t0;
+    s16 temp_t1;
 
-    s32 temp_a0;
+    Vertex vtxs[5][10];
+    s16 numVtxs[5];
+
     s32 temp_v1;
+    s32 temp_a0;
 
     CollisionNode *var_a2;
+
+    s32 pad[2];
 
     s32 sp74;
 
@@ -76,31 +90,31 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
     gDPSetCombineLERP(gLayer0DL++, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
     gDPPipeSync(gLayer0DL++);
 
-    tmp1 = (s16)(SIN(arg3) >> 7) + 1;
-    tmp2 = (s16)(COS(arg3) >> 7) + 1;
+    sinAngle = (SIN(arg3) >> 7) + 1;
+    cosAngle = (COS(arg3) >> 7) + 1;
 
-    tmp3 =  (arg5 * tmp1) >> 8;
-    tmp5 = -(arg6 * tmp1) >> 8;
-    tmp4 =  (arg5 * tmp2) >> 8;
-    tmp6 =  (arg6 * tmp2) >> 8;
+    tmp1 =     ( (arg5 * sinAngle)) >> 8;
+    tmp2 =     ( (arg5 * cosAngle)) >> 8;
+    cosAngle = ( (arg6 * cosAngle)) >> 8;
+    sinAngle = (-(arg6 * sinAngle)) >> 8;
 
-    vtxs[0][0].unk0 = arg0 + tmp3 + tmp6;
-    vtxs[0][0].unk2 = arg1 + tmp4 + tmp5;
+    vtxs[0][0].unk0 = (arg0 + tmp1) + cosAngle;
+    vtxs[0][0].unk2 = (arg1 + tmp2) + sinAngle;
     vtxs[0][0].unk4 = 0xFC0;
     vtxs[0][0].unk6 = 0xFC0;
 
-    vtxs[0][1].unk0 = arg0 - tmp3 + tmp6;
-    vtxs[0][1].unk2 = arg1 - tmp4 + tmp5;
+    vtxs[0][1].unk0 = (arg0 - tmp1) + cosAngle;
+    vtxs[0][1].unk2 = (arg1 - tmp2) + sinAngle;
     vtxs[0][1].unk4 = 0;
     vtxs[0][1].unk6 = 0xFC0;
 
-    vtxs[0][2].unk0 = arg0 - tmp3 - tmp6;
-    vtxs[0][2].unk2 = arg1 - tmp4 - tmp5;
+    vtxs[0][2].unk0 = (arg0 - tmp1) - cosAngle;
+    vtxs[0][2].unk2 = (arg1 - tmp2) - sinAngle;
     vtxs[0][2].unk4 = 0;
     vtxs[0][2].unk6 = 0;
 
-    vtxs[0][3].unk0 = arg0 + tmp3 - tmp6;
-    vtxs[0][3].unk2 = arg1 + tmp4 - tmp5;
+    vtxs[0][3].unk0 = (arg0 + tmp1) - cosAngle;
+    vtxs[0][3].unk2 = (arg1 + tmp2) - sinAngle;
     vtxs[0][3].unk4 = 0xFC0;
     vtxs[0][3].unk6 = 0;
 
@@ -192,27 +206,18 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_8034BD20_75D3D0.s")
-#endif
 
-#if 0
 // esa:func_8006C510 (but custom)
 void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC) {
-    s32 pad[8];
+    s32 pad[12];
+    Vertex vtx[4];
 
+    s16 tmp1;
+    s16 tmp2;
+    s16 sinAngle;
+    s16 cosAngle;
 
-    s16 temp_v0;
-    s16 temp_v1_2;
-
-    s16 temp_t2;
-    s16 temp_t4;
-    s16 temp_t3;
-    s16 temp_t0;
-    s16 temp_t9;
-    s16 temp_t8;
-
-    struct061 vtx[4];
+    s32 pad2;
 
     s32 temp_v1;
     s32 var_v0;
@@ -251,49 +256,41 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
         TEXEL0, 0, SHADE,     0);
     gDPPipeSync(gLayer0DL++);
 
-    temp_v0 = (SIN(arg3) >> 7);
-    temp_v0 += 1;
+    sinAngle = (SIN(arg3) >> 7) + 1;
+    cosAngle = (COS(arg3) >> 7) + 1;
 
-    temp_t4 =  (arg5 * temp_v0) >> 8;
-    temp_t8 = -(arg6 * temp_v0) >> 8;
+    tmp1 =     ( (arg5 * sinAngle)) >> 8;
+    tmp2 =     ( (arg5 * cosAngle)) >> 8;
+    cosAngle = ( (arg6 * cosAngle)) >> 8;
+    sinAngle = (-(arg6 * sinAngle)) >> 8;
 
-    temp_v1_2 = (COS(arg3) >> 7);
-    temp_v1_2 += 1;
-
-    temp_t0 = (arg5 * temp_v1_2) >> 8;
-    temp_t3 = (arg5 * temp_v1_2) >> 8;
-    temp_t9 = (arg6 * temp_v1_2) >> 8;
-
-    vtx[0].unk0 = arg0 + ((arg5 * temp_v0) >> 8) + temp_t9;
-    vtx[0].unk2 = arg1 + temp_t3 + temp_t8;
+    vtx[0].unk0 = (arg0 + tmp1) + cosAngle;
+    vtx[0].unk2 = (arg1 + tmp2) + sinAngle;
     vtx[0].unk4 = 0xFC0;
     vtx[0].unk6 = 0xFC0;
 
-    vtx[1].unk0 = arg0 - temp_t4 + temp_t9;
-    vtx[1].unk2 = arg1 - temp_t0 + temp_t8;
+    vtx[1].unk0 = (arg0 - tmp1) + cosAngle;
+    vtx[1].unk2 = (arg1 - tmp2) + sinAngle;
     vtx[1].unk4 = 0;
     vtx[1].unk6 = 0xFC0;
 
-    vtx[2].unk0 = arg0 - temp_t4 - temp_t9;
-    vtx[2].unk2 = arg1 - temp_t0 - temp_t8;
+    vtx[2].unk0 = (arg0 - tmp1) - cosAngle;
+    vtx[2].unk2 = (arg1 - tmp2) - sinAngle;
     vtx[2].unk4 = 0;
     vtx[2].unk6 = 0;
 
-    vtx[3].unk0 = arg0 + ((arg5 * temp_v0) >> 8) - temp_t9;
-    vtx[3].unk2 = arg1 + temp_t3 - temp_t8;
+    vtx[3].unk0 = (arg0 + tmp1) - cosAngle;
+    vtx[3].unk2 = (arg1 + tmp2) - sinAngle;
     vtx[3].unk4 = 0xFC0;
     vtx[3].unk6 = 0;
 
     func_8034CCBC_75E36C(vtx, 4, arg2, alpha, red, green, blue);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_8034C8F8_75DFA8.s")
-#endif
 
 // ESA: func_8006C6E8
-void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue) {
-    struct061 spC8[10];
-    struct061 sp78[10];
+void func_8034CCBC_75E36C(Vertex *src, s16 numVtxs, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue) {
+    Vertex spC8[10];
+    Vertex sp78[10];
     s16 temp_v0_2;
     s16 var_s3;
     s16 maxx;
@@ -304,9 +301,9 @@ void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 
     s16 _numVtxs; //sp6A;
     s16 sp68;
 
-    struct061 *tmp;
-    struct061 *var_s0;
-    struct061 *_src;
+    Vertex *tmp;
+    Vertex *var_s0;
+    Vertex *_src;
 
     minx = maxx = src->unk0;
 
@@ -320,14 +317,14 @@ void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 
     }
 
     _src = src;
-    var_s0 = &spC8;
+    var_s0 = spC8;
     _numVtxs = numVtxs;
     var_s3 = minx;
 
     while ((var_s3 & ~0x3F) != (maxx & ~0x3F)) {
         temp_v0_2 = (var_s3 & ~0x3F) + 0x40;
-        func_8034F3EC_760A9C(_src, &sp78, var_s0, _numVtxs, &sp68, &_numVtxs, temp_v0_2);
-        func_8034CE88_75E538(&sp78, sp68, arg2, alpha, var_s3 >> 6, red, green, blue);
+        func_8034F3EC_760A9C(_src, sp78, var_s0, _numVtxs, &sp68, &_numVtxs, temp_v0_2);
+        func_8034CE88_75E538(sp78, sp68, arg2, alpha, var_s3 >> 6, red, green, blue);
         tmp = _src;
         _src = var_s0;
         var_s0 = tmp;
@@ -338,16 +335,16 @@ void func_8034CCBC_75E36C(struct061 *src, s16 numVtxs, s16 arg2, s16 alpha, s16 
 
 
 // ESA: func_8006C8DC
-void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 alpha, s16 arg4, s16 red, s16 green, s16 blue) {
-    struct061 sp1F0[10];
-    struct061 sp1A0[10];
-    struct061 *sp19C;
+void func_8034CE88_75E538(Vertex *arg0, s16 arg1, s16 arg2, s16 alpha, s16 arg4, s16 red, s16 green, s16 blue) {
+    Vertex sp1F0[10];
+    Vertex sp1A0[10];
+    Vertex *sp19C;
 
     s16 var_s7;
     s32 pad;
 
-    struct061 sp144[10];
-    struct061 spF4[10];
+    Vertex sp144[10];
+    Vertex spF4[10];
     s16 spF2;
     s16 spF0;
     s16 spEE;
@@ -374,8 +371,8 @@ void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 alpha, s16 ar
 
     s16 var_t1_2;
 
-    struct061 *var_fp;
-    struct061 *tmp;
+    Vertex *var_fp;
+    Vertex *tmp;
 
     u8 spAF;
     u8 spAE; // pad
@@ -398,7 +395,7 @@ void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 alpha, s16 ar
     }
 
     sp19C = arg0;
-    var_fp = &sp1F0;
+    var_fp = sp1F0;
     spF2 = arg1;
 
     spAA = minx >> 6;
@@ -472,36 +469,36 @@ void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 alpha, s16 ar
 
         if (var_t1_2 != 0) {
             if (spAF != 0) {
-                func_8034FCFC_7613AC(sp19C, &sp1A0, var_fp, spF2, &spF0, &spF2, var_s3 << 6);
+                func_8034FCFC_7613AC(sp19C, sp1A0, var_fp, spF2, &spF0, &spF2, var_s3 << 6);
                 tmp = sp19C;sp19C = var_fp;var_fp = tmp;
 
-                func_80351390_762A40(spF0, &sp1A0, (spA8 * alpha) >> 8, arg4, spBA, spAF, red, green, blue, spC8, spC4, spC0, spBC);
+                func_80351390_762A40(spF0, sp1A0, (spA8 * alpha) >> 8, arg4, spBA, spAF, red, green, blue, spC8, spC4, spC0, spBC);
                 spAF = 0;
             }
 
-            func_8034FCFC_7613AC(sp19C, &sp1A0, var_fp, spF2, &spF0, &spF2, (var_s3 + 1) << 6);
+            func_8034FCFC_7613AC(sp19C, sp1A0, var_fp, spF2, &spF0, &spF2, (var_s3 + 1) << 6);
             tmp = sp19C;sp19C = var_fp;var_fp = tmp;
 
             if (var_s7 != 3) {
                 if (spA3 != 0) {
                     if (spF0 >= 3) {
-                        func_80351390_762A40(spF0, &sp1A0, (spA8 * alpha) >> 8, arg4, var_s3, spAF, red, green, blue, var_s2, var_s5, var_s4, var_s6);
+                        func_80351390_762A40(spF0, sp1A0, (spA8 * alpha) >> 8, arg4, var_s3, spAF, red, green, blue, var_s2, var_s5, var_s4, var_s6);
                         if (var_s1 != 0) {
-                            func_80351A44_7630F4(spF0, &sp1A0, (spA6 * alpha) >> 8, arg4, var_s3, red, green, blue);
+                            func_80351A44_7630F4(spF0, sp1A0, (spA6 * alpha) >> 8, arg4, var_s3, red, green, blue);
                         }
                     }
                 } else {
                     if ((var_s1 != 0) && (spF0 >= 3)) {
-                        func_80351A44_7630F4(spF0, &sp1A0, (spA6 * alpha) >> 8, arg4, var_s3, red, green, blue);
+                        func_80351A44_7630F4(spF0, sp1A0, (spA6 * alpha) >> 8, arg4, var_s3, red, green, blue);
                     }
-                    func_8034D830_75EEE0(&sp1A0, &spF4, &sp144, spF0, &spEC, &spEE, arg4, var_s3, var_s7, spAD);
+                    func_8034D830_75EEE0(sp1A0, spF4, sp144, spF0, &spEC, &spEE, arg4, var_s3, var_s7, spAD);
 
                     if (spEC >= 3) {
-                        func_80350600_761CB0(spEC, &spF4, (spA8 * alpha) >> 8, arg4, var_s3, var_s7, spAD, 0, red, green, blue, var_s2, var_s5, var_s4, var_s6);
+                        func_80350600_761CB0(spEC, spF4, (spA8 * alpha) >> 8, arg4, var_s3, var_s7, spAD, 0, red, green, blue, var_s2, var_s5, var_s4, var_s6);
                     }
 
                     if (spEE >= 3) {
-                        func_80350600_761CB0(spEE, &sp144, (spA8 * alpha) >> 8, arg4, var_s3, var_s7, spAD, 1, red, green, blue, var_s2, var_s5, var_s4, var_s6);
+                        func_80350600_761CB0(spEE, sp144, (spA8 * alpha) >> 8, arg4, var_s3, var_s7, spAD, 1, red, green, blue, var_s2, var_s5, var_s4, var_s6);
                     }
                 }
             }
@@ -517,8 +514,8 @@ void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 alpha, s16 ar
             } else if ((var_s7 == spAF) && ((spC0 - spC8) == (var_s4 - var_s2)) && ((spC4 - spC8) == (var_s5 - var_s2))) {
                 continue;
             } else {
-                func_8034FCFC_7613AC(sp19C, &sp1A0, var_fp, spF2, &spF0, &spF2, var_s3 << 6);
-                func_80351390_762A40(spF0, &sp1A0, (spA8 * alpha) >> 8, arg4, spBA, spAF, red, green, blue, spC8, spC4, spC0, spBC);
+                func_8034FCFC_7613AC(sp19C, sp1A0, var_fp, spF2, &spF0, &spF2, var_s3 << 6);
+                func_80351390_762A40(spF0, sp1A0, (spA8 * alpha) >> 8, arg4, spBA, spAF, red, green, blue, spC8, spC4, spC0, spBC);
                 spAF = var_s7;
                 spC8 = var_s2;
                 spC0 = var_s4;
@@ -538,7 +535,7 @@ void func_8034CE88_75E538(struct061 *arg0, s16 arg1, s16 arg2, s16 alpha, s16 ar
 }
 
 // ESA: func_8006D384
-void func_8034D830_75EEE0(struct061 *src, struct061 *arg1, struct061 *arg2, s16 arg3, s16 *arg4, s16 *arg5, s16 arg6, s16 arg7, s32 arg8, s8 arg9) {
+void func_8034D830_75EEE0(Vertex *src, Vertex *arg1, Vertex *arg2, s16 arg3, s16 *arg4, s16 *arg5, s16 arg6, s16 arg7, s32 arg8, s8 arg9) {
     s32 pad2;
     s16 temp_a0;
     s16 temp_v1;
@@ -962,7 +959,7 @@ void func_8034D830_75EEE0(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
 }
 
 // ESA: func_8006EBD0
-void func_8034F3EC_760A9C(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
+void func_8034F3EC_760A9C(Vertex *src, Vertex *arg1, Vertex *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
 
     s16 var_s2;
     s16 var_s3;
@@ -1084,7 +1081,7 @@ void func_8034F3EC_760A9C(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
     }
 }
 
-void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
+void func_8034FCFC_7613AC(Vertex *src, Vertex *arg1, Vertex *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
     s16 var_s2;
     s16 var_s3;
     s16 temp_t3;
@@ -1207,87 +1204,105 @@ void func_8034FCFC_7613AC(struct061 *src, struct061 *arg1, struct061 *arg2, s16 
     }
 }
 
-#if 0
-// CURRENT (9214)
-// cant figure out the logic
 // ESA: func_8006FC24
-void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16 arg4, s32 arg5, u8 arg6, u8 arg7, s16 red, s16 green, s16 blue,
-        s32 argB, s32 argC,
-        s32 argD, s32 argE) {
+void func_80350600_761CB0(s16 numVtxs, Vertex *vtxs, s16 alpha, s16 tileX, s16 tileZ, s32 arg5, u8 diagonalType, u8 triangleIndex, s16 red, s16 green, s16 blue,
+        s32 topL, s32 botL,
+        s32 topR, s32 botR) {
 
-    s16 temp_a2;
     s16 i;
-    s16 temp_v0;
-    s32 var_t0;
-    s16 temp_t9;
+    s32 height;
+    s16 localX;
+    s16 depthOffset;
+    s16 localZ;
 
-    temp_t9 = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((argB + argE) >> 1)) + 0x100) * 2) >> 8;
-    if (temp_t9 > 4) {
-        temp_t9 = (temp_t9 >> 1) + 2;
+    depthOffset = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((topL + botR) >> 1)) + 0x100) * 2) >> 8;
+    if (depthOffset > 4) {
+        depthOffset = (depthOffset >> 1) + 2;
     }
 
     if ((gDisplayListContext->usedVtxs + numVtxs) > 1000) {
         return;
     }
 
-    if (arg6 != 0) {
-        if (((arg7 == 0) && ((ABS(MAX(MAX(argB, argE), argD) - MIN(MIN(argB, argE), argD)) <= 192))) ||
-            ((arg7 != 0) && ((ABS(MAX(MAX(argB, argE), argC) - MIN(MIN(argB, argE), argC)) <= 192)))) {
+    if (diagonalType != 0) {
+        // topL, botR, topR
+        // topL, botR, botL
+        //     TL------TR
+        //     /\      /
+        //    /  \    /
+        //   /    \  /
+        //  /      \/
+        // BL------BR
 
-            gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
-
-            for (i = 0; i < numVtxs; i++) {
-                temp_v0 = vtxs[i].unk0 - (arg3 << 6);
-                temp_a2 = vtxs[i].unk2 - (arg4 << 6);
-
-                if (temp_v0 < temp_a2) {
-                    var_t0 = ((((argE - argC) * temp_v0) + ((argC - argB) * temp_a2)) >> 6) + argB;
-                } else {
-                    var_t0 = ((((argD - argB) * temp_v0) + ((argE - argD) * temp_a2)) >> 6) + argB;
-                }
-
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = vtxs[i].unk0;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = vtxs[i].unk2;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = temp_t9 + var_t0;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = vtxs[i].unk4;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = vtxs[i].unk6;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
-                gDisplayListContext->usedVtxs++;
+        if ((triangleIndex == 0)) {
+            if (ABS(MAX(MAX(topL, botR), topR) - MIN(MIN(topL, botR), topR)) > 192) {
+                // triangle too tall
+                return;
             }
         } else {
-            return;
+            if ((ABS(MAX(MAX(topL, botR), botL) - MIN(MIN(topL, botR), botL)) > 192)) {
+                // triangle too tall
+                return;
+            }
+        }
+        gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
+
+        for (i = 0; i < numVtxs; i++) {
+            localX = vtxs[i].unk0 - (tileX << 6);
+            localZ = vtxs[i].unk2 - (tileZ << 6);
+
+            if (localX < localZ) {
+                height = ((((botR - botL) * localX) + ((botL - topL) * localZ)) >> 6) + topL;
+            } else {
+                height = ((((topR - topL) * localX) + ((botR - topR) * localZ)) >> 6) + topL;
+            }
+
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = vtxs[i].unk0;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = vtxs[i].unk2;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = depthOffset + height;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = vtxs[i].unk4;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = vtxs[i].unk6;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
+            gDisplayListContext->usedVtxs++;
         }
     } else {
-        if (((arg7 == 0) && (ABS(MAX(MAX(argB, argD), argC) - MIN(MIN(argD, argB), argC)) <= 192)) ||
-            ((arg7 != 0) && (ABS(MAX(MAX(argD, argE), argC) - MIN(MIN(argD, argE), argC)) <= 192))) {
-
-            gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
-
-            for (i = 0; i < numVtxs; i++) {
-                temp_v0 = vtxs[i].unk0 - (arg3 << 6);
-                temp_a2 = vtxs[i].unk2 - (arg4 << 6);
-
-                if ((temp_v0 + temp_a2) < 0x40) {
-                    var_t0 = ((argB << 6) + ((argD - argB) * (       temp_v0)) + ((argC - argB) * (       temp_a2))) >> 6;
-                } else {
-                    var_t0 = ((argE << 6) + ((argC - argE) * (0x40 - temp_v0)) + ((argD - argE) * (0x40 - temp_a2))) >> 6;
-                }
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = vtxs[i].unk0;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = vtxs[i].unk2;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = temp_t9 + var_t0;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = vtxs[i].unk4;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = vtxs[i].unk6;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
-                gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
-                gDisplayListContext->usedVtxs++;
+        // topR, topL, botL
+        // topR, botR, botL
+        if (triangleIndex == 0) {
+            if (ABS(MAX(MAX(topR, topL), botL) - MIN(MIN(topR, topL), botL)) > 192) {
+                // triangle too tall
+                return;
             }
         } else {
-            return;
+            if ((ABS(MAX(MAX(topR, botR), botL) - MIN(MIN(topR, botR), botL)) > 192)) {
+                // triangle too tall
+                return;
+            }
+        }
+        gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
+
+        for (i = 0; i < numVtxs; i++) {
+            localX = vtxs[i].unk0 - (tileX << 6);
+            localZ = vtxs[i].unk2 - (tileZ << 6);
+
+            if ((localX + localZ) < 0x40) {
+                height = ((topL << 6) + ((topR - topL) * (       localX)) + ((botL - topL) * (       localZ))) >> 6;
+            } else {
+                height = ((botR << 6) + ((botL - botR) * (0x40 - localX)) + ((topR - botR) * (0x40 - localZ))) >> 6;
+            }
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = vtxs[i].unk0;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = vtxs[i].unk2;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[2] = depthOffset + height;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[0] = vtxs[i].unk4;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.tc[1] = vtxs[i].unk6;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[0] = red;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[1] = green;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[2] = blue;
+            gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.cn[3] = alpha;
+            gDisplayListContext->usedVtxs++;
         }
     }
 
@@ -1312,12 +1327,9 @@ void func_80350600_761CB0(s16 numVtxs, struct061 *vtxs, s16 alpha, s16 arg3, s16
     }
     gDPPipeSync(gLayer0DL++);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_75D3D0/func_80350600_761CB0.s")
-#endif
 
 // ESA: func_80070190
-void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16 arg4, u16 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC) {
+void func_80351390_762A40(s16 numVtxs, Vertex *arg1, s16 alpha, s16 tileX, s16 tileZ, u16 arg5, s16 red, s16 green, s16 blue, s32 arg9, s32 argA, s32 argB, s32 argC) {
     s16 spD6;
     s16 spD4;
 
@@ -1339,8 +1351,8 @@ void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
                 gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
 
                 for (i = 0; i < numVtxs; i++) {
-                    spD6 = arg1[i].unk0 - (arg3 << 6);
-                    spD4 = arg1[i].unk2 - (arg4 << 6);
+                    spD6 = arg1[i].unk0 - (tileX << 6);
+                    spD4 = arg1[i].unk2 - (tileZ << 6);
                     tmp = arg9 + ((((argB - arg9) * spD6) + ((argA - arg9) * spD4)) >> 6);
                     gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = arg1[i].unk0;
                     gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[1] = arg1[i].unk2;
@@ -1380,12 +1392,12 @@ void func_80351390_762A40(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
 }
 
 // ESA: func_800704EC (tbd)
-void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16 arg4, s16 red, s16 green, s16 blue) {
+void func_80351A44_7630F4(s16 numVtxs, Vertex *arg1, s16 alpha, s16 tileX, s16 tileZ, s16 red, s16 green, s16 blue) {
     s16 pad[2];
 
-    s16 temp_v0;
+    s16 localX;
     s16 var_a3;
-    s16 temp_a0;
+    s16 localZ;
     s16 i;
 
     s16 sp82;
@@ -1394,18 +1406,18 @@ void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
     s16 sp7C;
 
     if ((gDisplayListContext->usedVtxs + numVtxs) <= 1000) {
-        func_80299640_6AACF0(arg3, arg4, &sp82, &sp80, &sp7E, &sp7C);
+        func_80299640_6AACF0(tileX, tileZ, &sp82, &sp80, &sp7E, &sp7C);
         gSPVertex(gLayer0DL++, &gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs], numVtxs, 0);
 
         for (i = 0; i < numVtxs; i++) {
-            func_80299640_6AACF0(arg3, arg4, &sp82, &sp80, &sp7E, &sp7C);
+            func_80299640_6AACF0(tileX, tileZ, &sp82, &sp80, &sp7E, &sp7C);
 
-            temp_v0 = arg1[i].unk0 - (arg3 << 6);
-            temp_a0 = arg1[i].unk2 - (arg4 << 6);
-            if ((temp_v0 + temp_a0) < 0x40) {
-                var_a3 = sp82 + ((((sp7E - sp82) * (0  + temp_v0)) + ((sp80 - sp82) * (0  + temp_a0))) >> 6);
+            localX = arg1[i].unk0 - (tileX << 6);
+            localZ = arg1[i].unk2 - (tileZ << 6);
+            if ((localX + localZ) < 0x40) {
+                var_a3 = sp82 + ((((sp7E - sp82) * (0  + localX)) + ((sp80 - sp82) * (0  + localZ))) >> 6);
             } else {
-                var_a3 = sp7C + ((((sp80 - sp7C) * (64 - temp_v0)) + ((sp7E - sp7C) * (64 - temp_a0))) >> 6);
+                var_a3 = sp7C + ((((sp80 - sp7C) * (64 - localX)) + ((sp7E - sp7C) * (64 - localZ))) >> 6);
             }
 
             gDisplayListContext->unk2C570[gDisplayListContext->usedVtxs].v.ob[0] = arg1[i].unk0;
@@ -1446,7 +1458,7 @@ void func_80351A44_7630F4(s16 numVtxs, struct061 *arg1, s16 alpha, s16 arg3, s16
 }
 
 // ESA: func_8007080C (tbd)
-void func_80351EE8_763598(s16 numVtxs, struct061 *arg1, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue) {
+void func_80351EE8_763598(s16 numVtxs, Vertex *arg1, s16 arg2, s16 alpha, s16 red, s16 green, s16 blue) {
     s16 var_a3;
     s32 var_v1;
 

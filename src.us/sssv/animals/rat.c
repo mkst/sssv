@@ -36,7 +36,7 @@ void func_8035E430_76FAE0(void) {
     u16 ticks_remaining;
     s16 var_t9; // anywhere
 
-    struct061 spA8;
+    Vertex spA8;
     s16 spA6;
     u16 spA4;
     s16 spA2;
@@ -83,7 +83,7 @@ void func_8035E430_76FAE0(void) {
         D_803F2EC0 = ((D_803F2EC0 - FTOFIX32(1.0)) >> 2) + FTOFIX32(1.0);
         D_803F2EC4 = ((D_803F2EC4 - FTOFIX32(1.0)) >> 2) + FTOFIX32(1.0);
 
-        if (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED) {
+        if (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) {
             if (D_803D5528->unk3C8.unk2 != 0) {
                 if (D_803D5524->unk9C == RAT) {
                     D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 4;
@@ -337,7 +337,7 @@ void func_8035E430_76FAE0(void) {
 #endif
 
 void func_8035F92C_770FDC(void) {
-    if (((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) && (D_803D5530->unk6C == 0)) {
+    if (((D_803D5530->movementState == 1) || (D_803D5530->movementState == 6)) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(
             D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) * 20) >> 8),
             D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) * 20) >> 8),
@@ -355,7 +355,7 @@ void func_8035FA5C_77110C(void) {
 }
 
 void func_8035FA84_771134(void) {
-    if ((D_803D5530->unk162 == 6) || (D_803D5530->unk162 == 7)) {
+    if ((D_803D5530->movementState == 6) || (D_803D5530->movementState == 7)) {
         func_8035FAEC_77119C();
     } else {
         D_803D552C->unk32A = D_803D5544;
@@ -398,7 +398,7 @@ void func_8035FC08_7712B8(void) {
 }
 
 void rat_drop_mine(void) {
-    if ((D_803D5530->unk162 == 1) || (D_803D5530->unk162 == 6)) {
+    if ((D_803D5530->movementState == 1) || (D_803D5530->movementState == 6)) {
         if (D_803D5530->unk6C == 0) {
             spawn_temporary_object(
                 D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) * 20) >> 8),

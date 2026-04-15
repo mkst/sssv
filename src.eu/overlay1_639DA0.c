@@ -301,7 +301,7 @@ void func_802956BC_63A5EC(Gfx **arg0, u16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay1_639DA0/func_80296464_63B394.s")
 
-void func_80296590_63B4C0(struct018 *arg0) {
+void func_80296590_63B4C0(FrameContext *arg0) {
     u8  padXX[0x28];
     u8  spC7;
     s16 spC4;
@@ -1026,8 +1026,8 @@ void func_80296590_63B4C0(struct018 *arg0) {
 }
 
 extern Vp D_80152EC8;
-extern struct018 *D_80204294;
-extern struct018 D_80162678[2];
+extern FrameContext *D_80204294;
+extern FrameContext D_80162678[2];
 
 void func_802998D0_63E800(void) {
     gScreenWidth = 320;

@@ -114,7 +114,7 @@ u8 *memset_bytes(u8 *dst, u8 c, u32 len) {
     if (len > 3) {
         word = (c << 8) | c;
         word = (word << 16) | word;
-        _dst = memset_words(dst, word, len >> 2);
+        _dst = (u8*) memset_words((s32*)dst, word, len >> 2);
         len = len & 3;
     }
     while (len-- > 0) {
@@ -150,7 +150,8 @@ u8 *func_801291A4(u8 *x) {
     u8 *_x = x;
 
     while (*_x) {
-        *_x++ = func_80129198(*_x);
+        *_x = func_80129198(*_x);
+        _x++;
     }
 
     return x;

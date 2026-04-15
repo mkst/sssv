@@ -48,7 +48,6 @@ void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 delta) {
 
 // ESA: func_8006309C
 void func_802DBA58_6ED108(u8 arg0, Animal *animal) {
-
     if (arg0 == 8) { // xVelocity related
         if (((animal->heading > 32) && (animal->heading < 92)) ||
             ((animal->heading > 160) && (animal->heading < 224))) {
@@ -76,7 +75,7 @@ void func_802DBA58_6ED108(u8 arg0, Animal *animal) {
 }
 
 // ESA: func_80063164
-void func_802DBB64_6ED214(u8 *arg0, u16 *arg1, u16 arg2) {
-    *arg0 = arg2;
-    *arg1 = D_803D5544;
+void func_802DBB64_6ED214(u8 *unk364, u16 *attackTimer, u16 arg2) {
+    *unk364 = arg2;
+    *attackTimer = D_803D5544;
 }

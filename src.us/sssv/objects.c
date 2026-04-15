@@ -7,7 +7,7 @@ s32 load_objects(void) {
     ObjectData *obj;
     s16 i;
 
-    bzero_sssv(&D_801E9EB8, sizeof(D_801E9EB8));
+    bzero_sssv((u8*)&D_801E9EB8, sizeof(D_801E9EB8));
 
     D_801E9EB8.unk0 = D_803A8528_7B9BD8;
     D_801E9EB8.total= 247;
@@ -24,7 +24,7 @@ s32 load_objects(void) {
 }
 
 // ESA: func_8004D130
-struct071 *func_802C93E8_6DAA98(u16 arg0) {
+Entity *func_802C93E8_6DAA98(u16 arg0) {
     return &D_801E9EB8.objects[MAX_OBJECTS - arg0];
 }
 
@@ -41,8 +41,8 @@ void func_802C941C_6DAACC(void) {
 }
 
 // ESA: func_8004D1B8
-struct071 *func_802C9488_6DAB38(void) {
-    struct071 *obj;
+Entity *func_802C9488_6DAB38(void) {
+    Entity *obj;
 
     if (D_801E9EB8.used > MAX_OBJECTS) {
         return NULL;
@@ -59,7 +59,7 @@ struct071 *func_802C9488_6DAB38(void) {
 }
 
 // ESA: func_8004D228
-void func_802C9500_6DABB0(struct071 *obj) {
+void func_802C9500_6DABB0(Entity *obj) {
     D_801E9EB8.objectsPtr[D_801E9EB8.unk1A112] = obj;
 
     // regalloc fix
@@ -73,9 +73,9 @@ void func_802C9500_6DABB0(struct071 *obj) {
     D_801E9EB8.used--;
 }
 
-struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s16 zRotation, s16 yRotation, u16 scale) {
+Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s16 zRotation, s16 yRotation, u16 scale) {
     s16 temp_v1;
-    struct071 *obj;
+    Entity *obj;
     ObjectData *objData;
     struct035 *foo;
 
@@ -84,7 +84,7 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
         return NULL;
     }
 
-    bzero_sssv((u8 *) obj, sizeof(struct071));
+    bzero_sssv((u8 *) obj, sizeof(Entity));
 
     objData = &D_801E9EB8.unk0[id]; // pointer to 'raw' object data?
 
@@ -103,7 +103,7 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
     obj->unk4C.unk1D = foo->unk82.unk5 & 0xFFFFFFFF;
     obj->unk4C.unk1B = foo->unk82.unk3 & 0xFFFFFFFF;
 
-    obj->unk14C = foo->unk8A;
+    obj->Info.health = foo->unk8A;
     obj->unk164 = foo->unk89;
 
     if (foo->unk82.unk7) {
@@ -121,13 +121,13 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
         obj->unk160 = 1;
     }
 
-    obj->unk0 = 1;
-    obj->unk17E = x;
-    obj->unk180 = z;
-    obj->unk182 = y;
-    obj->unk1C.w = xVel;
-    obj->unk20.w = zVel;
-    obj->unk24.w = yVel;
+    obj->state = 1; /* enabled */
+    obj->waypointStartXPos = x;
+    obj->waypointStartZPos = z;
+    obj->waypointStartYPos = y;
+    obj->xVelocity.w = xVel;
+    obj->zVelocity.w = zVel;
+    obj->yVelocity.w = yVel;
     obj->zRotation = zRotation;
     obj->yRotation = yRotation;
     obj->unk4C.unk19 = 1;
@@ -146,14 +146,14 @@ struct071 *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel
     obj->position.xPos.h = x;
     obj->position.zPos.h = z;
     obj->position.yPos.h = y;
-    obj->unk10.w = x << 0x10;
-    obj->unk14.w = z << 0x10;
-    obj->unk18 = y << 0x10;
+    obj->newPosition.xPos.w = x << 0x10;
+    obj->newPosition.zPos.w = z << 0x10;
+    obj->newPosition.yPos.w = y << 0x10;
 
-    func_802DADA0_6EC450((Animal*)obj);
-    func_802F5C60_707310((Animal*)obj);
+    func_802DADA0_6EC450(obj);
+    func_802F5C60_707310(obj);
 
-    obj->unk162 = 3;
+    obj->movementState = 3;
 
     return obj;
 }
@@ -179,15 +179,16 @@ void reset_objects_state(void) {
     func_802C941C_6DAACC();
 
     for (i = 0; i <= MAX_OBJECTS; i++) {
-        bzero_sssv(&D_801E9EB8.objects[i], sizeof(struct071));
+        bzero_sssv(&D_801E9EB8.objects[i], sizeof(Entity));
     }
     reset_object_render_queues();
 }
 
 // add_reference_to_object
 // ESA: func_8004D5C8
-void func_802C9900_6DAFB0(struct071 *parent, struct071 *child, u8 idx) {
-    parent->unk24C[idx] = child;
+void func_802C9900_6DAFB0(Entity *parent, Entity *child, u8 idx) {
+    // TODO: assert idx < 8
+    parent->unk248[1+idx] = child;
 }
 
 // update_hitbox_after_rotation?
@@ -257,7 +258,7 @@ void func_802C9BA4_6DB254(Animal *arg0) {
     s16 height;
 
     if (arg0->unk40 == 0) {
-        arg0->unk40 = 1 << 11; // 0x800
+        arg0->unk40 = 0x800; // default scale?
     }
 
     width = arg0->unk16C->unk72;
@@ -291,7 +292,7 @@ void func_802C9BA4_6DB254(Animal *arg0) {
     arg0->unk34 = ((s64)arg0->unk34 * arg0->unk40) >> 11;
     arg0->unk36 = ((s64)arg0->unk36 * arg0->unk40) >> 11;
 
-    if ((arg0->unk16C->objectType >= 128) && ((arg0->unk366 == MOVEMENT_MODE_DEACTIVATED) || (arg0->unk366 == MOVEMENT_MODE_2))) {
+    if ((arg0->unk16C->objectType >= 128) && ((arg0->movementMode == MOVEMENT_MODE_DEACTIVATED) || (arg0->movementMode == MOVEMENT_MODE_2))) {
         // override height?
         arg0->unk42 = arg0->unk16C->unkBC;
     }

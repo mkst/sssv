@@ -22,9 +22,9 @@ extern Gfx D_04006638_EDBE8[];
 extern Gfx D_04006658_EDC08[];
 extern Gfx D_04005E60_ED410[];
 
-extern s16 D_803B5160_7C6810[];
-extern s16 D_803B5190_7C6840[];
-extern s16 D_803B51C0_7C6870[];
+extern struct077 D_803B5160_7C6810[];
+extern struct077 D_803B5190_7C6840[];
+extern struct077 D_803B51C0_7C6870[];
 extern u8  D_803B51D4_7C6884[];
 extern u8  D_803B51EC_7C689C[];
 
@@ -61,7 +61,7 @@ void func_80376D40_7883F0(void) {
     s32 a2;
     s32 a3;
 
-    struct061 sp120;
+    Vertex sp120;
     s16 sp11E;
     s16 sp11C;
     s16 sp11A;
@@ -133,7 +133,7 @@ void func_80376D40_7883F0(void) {
             break;
         case ATTACK_SCORPION_2:
             ticks_remaining = D_803D5544 - D_803D552C->unk32A;
-            if ((D_803D552C->unk330 == NULL) || (D_803D552C->unk330->unk366 == MOVEMENT_MODE_DELETED)) {
+            if ((D_803D552C->unk330 == NULL) || (D_803D552C->unk330->movementMode == MOVEMENT_MODE_DELETED)) {
                 D_803D552C->unk365 = ATTACK_NONE;
             } else {
                 if (ticks_remaining < 22) {
@@ -165,7 +165,7 @@ void func_80376D40_7883F0(void) {
                         D_803D552C->unk30A = MAX(0, 0x14 - (ABS((s16)((D_803D552C->unk30C - D_803D552C->unk330->position.yPos.h) - (D_803D552C->unk330->unk42 >> 1))) >> 2));
 
                         if (ticks_remaining == 19) {
-                            if ((D_803D552C->unk330->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk330->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
+                            if ((D_803D552C->unk330->movementMode == MOVEMENT_MODE_2) || (D_803D552C->unk330->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
                                 D_803D552C->unk330->yVelocity.w += D_803D552C->unk30A << 0xF;
                             } else if (D_803D552C->unk30A >= 0xB) {
                                 func_802DBA58_6ED108(0xE, D_803D552C->unk330);
@@ -202,12 +202,12 @@ void func_80376D40_7883F0(void) {
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
 
                         if (D_80152EB8 == 0) {
-                            spF4 = &D_04006190_ED740[gScorpionVtxIdx];
+                            spF4 = (u32)&D_04006190_ED740[gScorpionVtxIdx];
                         } else {
-                            spF4 = &D_040063D0_ED980[gScorpionVtxIdx];
+                            spF4 = (u32)&D_040063D0_ED980[gScorpionVtxIdx];
                         }
 
-                        spF8 = &D_801D9EC4[spF4 & 0xFFFFFF];
+                        spF8 = (u32)(D_801D9EC4 + SEGMENT_OFFSET(spF4));
                         var_s2 = 0;
 
                         var_s3 = MAX(0, ticks_remaining - 4);
@@ -374,7 +374,7 @@ void func_80376D40_7883F0(void) {
             func_802C78B0_6D8F60(6, 0x10, FTOFIX32(0.625), FTOFIX32(0.625), FTOFIX32(0.625), D_803F2ED0, 0, 2, 1, D_04005C80_ED230);
 
             var_v0 = ((((SIN(D_803D5540 << 3) >> 7) + 0x100) >> 4) * 250) >> 8;
-            if ((D_803D552C->unk366 == MOVEMENT_MODE_2) || (D_803D552C->unk366 == MOVEMENT_MODE_DEACTIVATED)) {
+            if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
                 var_v0 = 0;
             }
 
@@ -415,9 +415,9 @@ void func_80376D40_7883F0(void) {
                 func_8031A150_72B800(D_803D552C->unk326++, &sp11E, &sp11C);
                 func_8031A278_72B928(&D_803D552C->unk326, &sp11E, &sp11C);
                 sp11E = D_803BD530_7CEBE0.eyes[5][sp11E]; sp11C = D_803BD600_7CECB0.eyes[4][sp11C];
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp11E);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp11E);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(0.625), FTOFIX32(0.625), FTOFIX32(0.625), D_803F2ED0, 0, 0, 0, D_04005E40_ED3F0);
-                func_80356BD8_768288(img_eyes_TLUT1_pal, img_eyes5_ci4__png, sp11C);
+                func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp11C);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(0.625), FTOFIX32(0.625), FTOFIX32(0.625), D_803F2ED0, 0, 0, 0, D_04005E60_ED410);
             }
 

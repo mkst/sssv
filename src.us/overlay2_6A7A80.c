@@ -30,54 +30,61 @@ u16  gWorldPerspNorm; // matrix normalise
 // ========================================================
 
 #ifdef NON_MATCHING
-// CURRENT (95)
-void func_802963D0_6A7A80(DisplayList *arg0) {
+// CURRENT (75)
+void func_802963D0_6A7A80(FrameContext *arg0) {
     s16 i;
     s16 j;
     s16 k;
 
-    s32 a;
-    s32 b;
-    s16 c;
-    s16 d;
+    s32 x;
+    s32 y;
 
-    s16 c2;
+    s16 width;
+    s16 height;
+
+    s16 width2;
+
+    int new_var;
 
     gWaterAnimState.unk20A = 8;
 
-    a = D_803F2D50.unk10;
-    b = D_803F2D50.unk12;
-    c = D_803F2D50.unk14;
-    d = D_803F2D50.unk16;
+    x = D_803F2D50.unk10;
+    y = D_803F2D50.unk12;
+    width = D_803F2D50.unk14;
+    height = D_803F2D50.unk16;
 
-    if ((c == 0) || (d == 0)) {
+    if (width == 0 || height == 0) {
         return;
     }
 
-    c2 = c + 1;
+    width2 = width + 1;
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++) { // double-buffer
 
-        for (j = 0; j < (c + 1); j++) {
+        if (width) {};
+        if (width) {};
+        if (width) {};
 
-            if (c) {};
-            if (c) {};
-            if (c) {};
+        for (j = 0; j < (width + 1); j++) { // x-direction
 
-            for (k = 0; k < d; k++) {
-                // Vtx *v = (u8*) arg0 + (i * 0x3BBF0) + (k * c2 * 0x10) + (j * 0x10) + 0x28BC0;
-                arg0[i].unk28BC0[(k * c2) + j].v.ob[0] = (j + a) << 6;
-                arg0[i].unk28BC0[(k * c2) + j].v.ob[1] = (k + b) << 6;
+            for (k = 0; k < height; k++) { // y-direction
+                Vtx *v = &arg0[i].dl.unk286E0[((k * width2) + j)];
 
-                arg0[i].unk28BC0[(k * c2) + j].v.tc[0] = (j << 6) << 3;
-                arg0[i].unk28BC0[(k * c2) + j].v.tc[1] = (k << 6) << 3;
+                v->v.ob[0] = ((j + x) << 6);
+                v->v.ob[1] = ((k + y) << 6);
 
-                arg0[i].unk28BC0[(k * c2) + j].v.cn[0] = 0;
-                arg0[i].unk28BC0[(k * c2) + j].v.cn[1] = 0;
-                arg0[i].unk28BC0[(k * c2) + j].v.cn[2] = 0x7F;
-                arg0[i].unk28BC0[(k * c2) + j].v.cn[3] = 0x80;
+                new_var = 0;
+
+                v->v.tc[0] = (j << 6) << 3;
+                v->v.tc[1] = (k << 6) << 3;
+
+                v->v.cn[0] = 0;
+                v->v.cn[1] = 0;
+                v->v.cn[2] = 0x7F;
+                v->v.cn[3] = 0x80;
             }
         }
+        k = new_var;
     }
 }
 #else
@@ -430,8 +437,9 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
 #if 0
 extern Gfx D_010045A0_3DE70[];
 
-// CURRENT (29719)
+// CURRENT (30577)
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
+    u8 pad[0x30];
     u16 sp190;
 
     u16 sp17A;
