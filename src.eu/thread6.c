@@ -89,8 +89,8 @@ void func_80129DC0(void) {
 
                 func_8013109C(
                     &D_80162678[D_80152ED8],
-                    D_80162678[D_80152ED8].unk4E0,
-                    (D_801D9E9C - D_80162678[D_80152ED8].unk4E0) * sizeof(Gfx),
+                    &D_80162678[D_80152ED8].dl,
+                    (D_801D9E9C - D_80162678[D_80152ED8].dl.mainDL) * sizeof(Gfx),
                     3,
                     &D_80162678[D_80152ED8].unk3BBC8,
                     99);

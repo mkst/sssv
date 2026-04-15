@@ -5,7 +5,7 @@ options:
   target_path: baserom.eu.z64
   base_path: .
   compiler: IDO
-  symbol_addrs_path : symbol_addrs.eu.txt
+  symbol_addrs_path: symbol_addrs.eu.txt
   ld_symbol_header_path: include/ld_symbols.eu.h
   generated_c_preamble: |
     #include <ultra64.h>
@@ -20,235 +20,234 @@ options:
   asm_jtbl_label_macro: jlabel
   segment_symbols_style: makerom
 segments:
-  - name:  header
-    type:  header
+  - name: header
+    type: header
     start: 0x00000000
-  - name:  boot
-    type:  bin
+  - name: boot
+    type: bin
     start: 0x00000040
-  - name:  main
-    type:  code
+  - name: main
+    type: code
     start: 0x00001000
-    vram:  0x80125900
+    vram: 0x80125900
     symbol_name_format: $VRAM
     subalign: 8
     subsegments:
-    - [0x1000, asm, entrypoint]
-    - [0x1050, c, main_1050]
-    - [0x1080, c, main_1080]
-    - [0x3900, c, core/controller]
-    - [0x44D0, c, core/string]
-    - [0x4910, c, main_4910]
-    - [0x4A00, c, main_4A00]
-    - [0x51D0, c, main_51D0]
-    - [0x5210, c, thread6] # extra 0x20 here
-    - [0x5F90, c, tv]
-    - [0x6810, c, core/rnc]
-    - [0x7790, c, main_7790]
-    - [0x78B0, c, main_78B0]
-    - [0x7910, c, main_7910]
-    - [0xC220, c, core/fontinit]
-    - [0xC2C0, c, main_C2C0]
-    - [0xC350, c, core/eeprom]
-    - [0xC790, c, main_C770]
-    - [0xC9B0, c, core/audio]
-    # extra split here in US but maybe wrong?
-    - [0xF620, c, libultra/audio/csplayer]
-    - [0x10CD0, c, main_10CD0]
-    - [0x10DE0, c, main_10DE0]
-    - [0x12400, c, main_12400]  # .text is still 0x20 larger
-    # libultra
-    - [0x12FE0, linker_offset, libultra_start]  # marker here for progress
-    - [0x12FE0, asm]
-    - [0x13270, asm]
-    - [0x13540, asm]
-    - [0x135D0, asm]
-    - [0x13600, asm]
-    - [0x13710, asm]
-    - [0x13850, asm]
-    - [0x138D0, asm]
-    - [0x13900, asm]
-    - [0x14390, asm]
-    - [0x14550, asm]
-    - [0x14920, asm]
-    - [0x14A50, asm]
-    - [0x14AB0, asm]
-    - [0x14BA0, asm]
-    - [0x14C50, asm]
-    - [0x14CF0, asm]
-    - [0x14D70, asm]
-    - [0x14DB0, asm]
-    - [0x14EA0, asm]
-    - [0x14F30, asm]
-    - [0x14F40, asm]
-    - [0x151C0, asm]
-    - [0x15310, asm]
-    - [0x153C0, asm]
-    - [0x153D0, asm]
-    - [0x15AF0, asm]
-    - [0x15D40, asm]
-    - [0x16450, asm]
-    - [0x16490, asm]
-    - [0x16F50, asm]
-    - [0x16F90, asm]
-    - [0x16FD0, asm]
-    - [0x170A0, asm]
-    - [0x170C0, asm]
-    - [0x17120, asm]
-    - [0x17180, asm]
-    - [0x171E0, asm]
-    - [0x17250, asm]
-    - [0x17350, asm]
-    - [0x173A0, asm]
-    - [0x18CE0, asm]
-    - [0x190F0, asm]
-    - [0x19240, asm]
-    - [0x192D0, asm]
-    - [0x19500, asm]
-    - [0x19640, asm]
-    - [0x196D0, asm]
-    - [0x19770, asm]
-    - [0x199A0, asm]
-    - [0x19AD0, asm]
-    - [0x19B40, asm]
-    - [0x19E80, asm]
-    - [0x19EF0, asm]
-    - [0x1A750, asm]
-    - [0x1AA00, asm]
-    - [0x1AAA0, asm]
-    - [0x1AD30, asm]
-    - [0x1ADD0, asm]
-    - [0x1B2F0, asm]
-    - [0x1B490, asm]
-    - [0x1B600, asm]
-    - [0x1BC50, asm]
-    - [0x1C470, asm]
-    - [0x1C480, asm]
-    - [0x1C4A0, asm]
-    - [0x1C550, asm]
-    - [0x1CEE0, asm]
-    - [0x1CF40, asm]
-    - [0x1CFA0, asm]
-    - [0x1CFE0, asm]
-    - [0x1CFF0, asm]
-    - [0x1D570, asm]
-    - [0x1D670, asm]
-    - [0x1D9D0, asm]
-    - [0x1DA40, asm]
-    - [0x1DAB0, asm]
-    - [0x1DEF0, asm]
-    - [0x1DFA0, asm]
-    - [0x1E100, asm]
-    - [0x1E270, asm]
-    - [0x1EF30, asm]
-    - [0x1EFD0, asm]
-    - [0x1F4F0, asm]
-    - [0x1F5D0, asm]
-    - [0x1F900, asm]
-    - [0x200D0, asm]
-    - [0x20170, asm]
-    - [0x20E10, asm]
-    - [0x21110, asm]
-    - [0x21D70, asm]
-    - [0x21E80, asm]
-    - [0x21FD0, asm]
-    - [0x22680, asm]
-    - [0x22780, asm]
-    - [0x22960, asm]
-    - [0x22C70, asm]
-    - [0x240A0, asm]
-    - [0x25320, asm]
-    - [0x25680, asm]
-    - [0x258F0, asm]
-    - [0x25980, asm]
-    - [0x259B0, asm]
-    - [0x26230, asm]
-    - [0x26340, asm]
-    - [0x26350, asm]
-    - [0x26360, asm]
-    - [0x266C0, asm]
-    - [0x266D0, asm]
-    - [0x269F0, asm]
-    - [0x26A30, asm]
-    - [0x26AC0, asm]
-    - [0x26AF0, asm]
-    - [0x26B20, asm]
-    - [0x26DC0, asm]
-    - [0x27880, asm]
-    - [0x278A0, asm]
-    - [0x284F0, asm]
-    - [0x28550, asm]
-    - [0x28880, asm]
-    - [0x288D0, asm]
-    - [0x28920, asm]
-  # .data/.rodata
-    - [0x28AB0, linker_offset, main_data_start] # marker here for progress
-    - [0x28AB0, databin]
-    - [0x33C70, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
-    - [0x35070, databin] # lib data
-    - [0x36380, rodatabin] # rodata
-    - [0x36790, rodatabin] # lib rodata
+      - [0x1000, asm, entrypoint]
+      - [0x1050, c, main_1050]
+      - [0x1080, c, main_1080]
+      - [0x3900, c, core/controller]
+      - [0x44D0, c, core/string]
+      - [0x4910, c, main_4910]
+      - [0x4A00, c, main_4A00]
+      - [0x51D0, c, main_51D0]
+      - [0x5210, c, thread6] # extra 0x20 here
+      - [0x5F90, c, tv]
+      - [0x6810, c, core/rnc]
+      - [0x7790, c, main_7790]
+      - [0x78B0, c, main_78B0]
+      - [0x7910, c, main_7910]
+      - [0xC220, c, core/fontinit]
+      - [0xC2C0, c, main_C2C0]
+      - [0xC350, c, core/eeprom]
+      - [0xC790, c, main_C770]
+      - [0xC9B0, c, core/audio]
+      # extra split here in US but maybe wrong?
+      - [0xF620, c, libultra/audio/csplayer]
+      - [0x10CD0, c, main_10CD0]
+      - [0x10DE0, c, main_10DE0]
+      - [0x12400, c, main_12400] # .text is still 0x20 larger
+      # libultra
+      - [0x12FE0, linker_offset, libultra_start] # marker here for progress
+      - [0x12FE0, asm]
+      - [0x13270, asm]
+      - [0x13540, asm]
+      - [0x135D0, asm]
+      - [0x13600, asm]
+      - [0x13710, asm]
+      - [0x13850, asm]
+      - [0x138D0, asm]
+      - [0x13900, asm]
+      - [0x14390, asm]
+      - [0x14550, asm]
+      - [0x14920, asm]
+      - [0x14A50, asm]
+      - [0x14AB0, asm]
+      - [0x14BA0, asm]
+      - [0x14C50, asm]
+      - [0x14CF0, asm]
+      - [0x14D70, asm]
+      - [0x14DB0, asm]
+      - [0x14EA0, asm]
+      - [0x14F30, asm]
+      - [0x14F40, asm]
+      - [0x151C0, asm]
+      - [0x15310, asm]
+      - [0x153C0, asm]
+      - [0x153D0, asm]
+      - [0x15AF0, asm]
+      - [0x15D40, asm]
+      - [0x16450, asm]
+      - [0x16490, asm]
+      - [0x16F50, asm]
+      - [0x16F90, asm]
+      - [0x16FD0, asm]
+      - [0x170A0, asm]
+      - [0x170C0, asm]
+      - [0x17120, asm]
+      - [0x17180, asm]
+      - [0x171E0, asm]
+      - [0x17250, asm]
+      - [0x17350, asm]
+      - [0x173A0, asm]
+      - [0x18CE0, asm]
+      - [0x190F0, asm]
+      - [0x19240, asm]
+      - [0x192D0, asm]
+      - [0x19500, asm]
+      - [0x19640, asm]
+      - [0x196D0, asm]
+      - [0x19770, asm]
+      - [0x199A0, asm]
+      - [0x19AD0, asm]
+      - [0x19B40, asm]
+      - [0x19E80, asm]
+      - [0x19EF0, asm]
+      - [0x1A750, asm]
+      - [0x1AA00, asm]
+      - [0x1AAA0, asm]
+      - [0x1AD30, asm]
+      - [0x1ADD0, asm]
+      - [0x1B2F0, asm]
+      - [0x1B490, asm]
+      - [0x1B600, asm]
+      - [0x1BC50, asm]
+      - [0x1C470, asm]
+      - [0x1C480, asm]
+      - [0x1C4A0, asm]
+      - [0x1C550, asm]
+      - [0x1CEE0, asm]
+      - [0x1CF40, asm]
+      - [0x1CFA0, asm]
+      - [0x1CFE0, asm]
+      - [0x1CFF0, asm]
+      - [0x1D570, asm]
+      - [0x1D670, asm]
+      - [0x1D9D0, asm]
+      - [0x1DA40, asm]
+      - [0x1DAB0, asm]
+      - [0x1DEF0, asm]
+      - [0x1DFA0, asm]
+      - [0x1E100, asm]
+      - [0x1E270, asm]
+      - [0x1EF30, asm]
+      - [0x1EFD0, asm]
+      - [0x1F4F0, asm]
+      - [0x1F5D0, asm]
+      - [0x1F900, asm]
+      - [0x200D0, asm]
+      - [0x20170, asm]
+      - [0x20E10, asm]
+      - [0x21110, asm]
+      - [0x21D70, asm]
+      - [0x21E80, asm]
+      - [0x21FD0, asm]
+      - [0x22680, asm]
+      - [0x22780, asm]
+      - [0x22960, asm]
+      - [0x22C70, asm]
+      - [0x240A0, asm]
+      - [0x25320, asm]
+      - [0x25680, asm]
+      - [0x258F0, asm]
+      - [0x25980, asm]
+      - [0x259B0, asm]
+      - [0x26230, asm]
+      - [0x26340, asm]
+      - [0x26350, asm]
+      - [0x26360, asm]
+      - [0x266C0, asm]
+      - [0x266D0, asm]
+      - [0x269F0, asm]
+      - [0x26A30, asm]
+      - [0x26AC0, asm]
+      - [0x26AF0, asm]
+      - [0x26B20, asm]
+      - [0x26DC0, asm]
+      - [0x27880, asm]
+      - [0x278A0, asm]
+      - [0x284F0, asm]
+      - [0x28550, asm]
+      - [0x28880, asm]
+      - [0x288D0, asm]
+      - [0x28920, asm]
+      # .data/.rodata
+      - [0x28AB0, databin]
+      - [0x33C70, rgba16, img/fonts/lcd_tileset.rgba16, 16, 160]
+      - [0x35070, databin] # lib data
+      - [0x36380, rodatabin] # rodata
+      - [0x36790, rodatabin] # lib rodata
   - name: segment1 # in-game objects?
     type: code
     vram: 0x01000000
-    start: 0x398F0      # still 0x20 ahead of US
+    start: 0x398F0 # still 0x20 ahead of US
     exclusive_ram_id: ovl_01
     subalign: 8
     subsegments:
-    - [0x398F0, bin]   # in-game objects?
-    - [0x69100, rgba16, img/actors/evo/gold.rgba16, 32, 32]
-    - [0x69900, rgba16, img/actors/evo/bronze.rgba16, 32, 32]
-    - [0x6A100, rgba16, img/actors/evo/silver.rgba16, 32, 32]
-    - [0x6A900, bin] # more
+      - [0x398F0, bin] # in-game objects?
+      - [0x69100, rgba16, img/actors/evo/gold.rgba16, 32, 32]
+      - [0x69900, rgba16, img/actors/evo/bronze.rgba16, 32, 32]
+      - [0x6A100, rgba16, img/actors/evo/silver.rgba16, 32, 32]
+      - [0x6A900, bin] # more
   - name: data_7F7B0 # Dan Danger
     type: code
     vram: 0x05000000
-    start: 0x7F7B0      # still 0x20 ahead of US
+    start: 0x7F7B0 # still 0x20 ahead of US
     subalign: 8
     exclusive_ram_id: ovl_05
     subsegments:
-    - [0x7F7B0, bin]    # Dan Danger#
-  - [0x857B0, bin]      # HAVE_A_NICE_DAY
-  - [0x87BA0, bin]      # HONEYMOON_LAGOON
-  - [0x89280, bin]      # SMASHING_START
-  - [0x92C10, bin]      # THE_BATTERY_FARM
-  - [0x967B0, bin]      # GIVE_A_DOG_A_BONUS
-  - [0x97040, bin]      # DMA_INTRO
-  - [0x9E0F0, bin]      # STINKY_SEWERS
-  - [0x9ED30, bin]      # RAT_O_MATIC
-  - [0xA0E60, bin]      # ROCKY_HARD_PLACE
-  - [0xA10E0, bin]      # FAT_BEAR_MOUNTAIN
-  - [0xA10F0, bin]      # BIG_CELEBRATION_PARADE
-  - [0xAA960, bin]      # SOMETHING_FISHY
-  - [0xB04B0, bin]      # ICE_N_EASY_DOES_IT
-  - [0xB0BB0, bin]      # PINBALL_BLIZZARD
-  - [0xB2EF0, bin]      # WALRACE_64
-  - [0xb3d90, bin]      # PENGUIN_PLAYPEN
-  - [0xb3da0, bin]      # SNOW_JOKE
-  - [0xb3db0, bin]      # UNUSED_ICE_SLOT_7
-  - [0xb3dc0, bin]      # HOPPA_CHOPPA
-  - [0xb3dd0, bin]      # UNUSED_ICE_SLOT_9
-  - [0xb3de0, bin]      # UNUSED_ICE_SLOT_10
-  - [0xB3DF0, bin]      # WEIGHT_FOR_IT
-  - [0xb40e0, bin]      # UNUSED_JUNGLE_SLOT_2
-  - [0xB40F0, bin]      # JUNGLE_JUMPS
-  - [0xB43C0, bin]      # SWAMP_OF_ETERNAL_STENCH
-  - [0xB48E0, bin]      # JUNGLE_DOLDRUMS
-  - [0xB48F0, bin]      # EVOS_ESCAPE
-  - [0xBD0b0, bin]      # JUNGLE_JAPES
-  - [0xBD0c0, bin]      # UNUSED_JUNGLE_SLOT_8
-  - [0xBD0d0, bin]      # UNUSED_JUNGLE_SLOT_9
-  - [0xBD0e0, bin]      # UNUSED_JUNGLE_SLOT_10
-  - [0xBD0F0, bin]      # FUN_IN_THE_SUN
-  - [0xBD2D0, bin]      # HOT_CROSS_BUNS
-  - [0xBFC60, bin]      # PUNCHUP_PYRAMID
-  - [0xC4520, bin]      # STING_IN_THE_TAIL
-  - [0xC4530, bin]      # SHIFTING_SANDS
-  - [0xC47C0, bin]      # WHIRLWIND_TOUR
-  - [0xC47D0, bin]      # BORASSIC_PARK
-  - [0xC7A20, bin]      # UNUSED_DESERT_SLOT_8
-  - [0xC7A30, bin]      # UNUSED_DESERT_SLOT_9
-  - [0xC7A40, bin]      # UNUSED_DESERT_SLOT_10
+      - [0x7F7B0, bin] # Dan Danger#
+  - [0x857B0, bin] # HAVE_A_NICE_DAY
+  - [0x87BA0, bin] # HONEYMOON_LAGOON
+  - [0x89280, bin] # SMASHING_START
+  - [0x92C10, bin] # THE_BATTERY_FARM
+  - [0x967B0, bin] # GIVE_A_DOG_A_BONUS
+  - [0x97040, bin] # DMA_INTRO
+  - [0x9E0F0, bin] # STINKY_SEWERS
+  - [0x9ED30, bin] # RAT_O_MATIC
+  - [0xA0E60, bin] # ROCKY_HARD_PLACE
+  - [0xA10E0, bin] # FAT_BEAR_MOUNTAIN
+  - [0xA10F0, bin] # BIG_CELEBRATION_PARADE
+  - [0xAA960, bin] # SOMETHING_FISHY
+  - [0xB04B0, bin] # ICE_N_EASY_DOES_IT
+  - [0xB0BB0, bin] # PINBALL_BLIZZARD
+  - [0xB2EF0, bin] # WALRACE_64
+  - [0xb3d90, bin] # PENGUIN_PLAYPEN
+  - [0xb3da0, bin] # SNOW_JOKE
+  - [0xb3db0, bin] # UNUSED_ICE_SLOT_7
+  - [0xb3dc0, bin] # HOPPA_CHOPPA
+  - [0xb3dd0, bin] # UNUSED_ICE_SLOT_9
+  - [0xb3de0, bin] # UNUSED_ICE_SLOT_10
+  - [0xB3DF0, bin] # WEIGHT_FOR_IT
+  - [0xb40e0, bin] # UNUSED_JUNGLE_SLOT_2
+  - [0xB40F0, bin] # JUNGLE_JUMPS
+  - [0xB43C0, bin] # SWAMP_OF_ETERNAL_STENCH
+  - [0xB48E0, bin] # JUNGLE_DOLDRUMS
+  - [0xB48F0, bin] # EVOS_ESCAPE
+  - [0xBD0b0, bin] # JUNGLE_JAPES
+  - [0xBD0c0, bin] # UNUSED_JUNGLE_SLOT_8
+  - [0xBD0d0, bin] # UNUSED_JUNGLE_SLOT_9
+  - [0xBD0e0, bin] # UNUSED_JUNGLE_SLOT_10
+  - [0xBD0F0, bin] # FUN_IN_THE_SUN
+  - [0xBD2D0, bin] # HOT_CROSS_BUNS
+  - [0xBFC60, bin] # PUNCHUP_PYRAMID
+  - [0xC4520, bin] # STING_IN_THE_TAIL
+  - [0xC4530, bin] # SHIFTING_SANDS
+  - [0xC47C0, bin] # WHIRLWIND_TOUR
+  - [0xC47D0, bin] # BORASSIC_PARK
+  - [0xC7A20, bin] # UNUSED_DESERT_SLOT_8
+  - [0xC7A30, bin] # UNUSED_DESERT_SLOT_9
+  - [0xC7A40, bin] # UNUSED_DESERT_SLOT_10
   - [0xC7A50, bin] # europe_biome
   - [0xDD5E0, bin] # ice_biome
   - [0xE75D0, bin] # desert_biome
@@ -495,10 +494,10 @@ segments:
   - [0x5FA820, bin, levels/SHIFTING_SANDS] # 40599 => 40595
   - [0x6046C0, bin, levels/PUNCHUP_PYRAMID] # 17104 => 17128
   - [0x608990, bin, levels/BIG_CELEBRATION_PARADE] # 30096 => 30106
-  - [0x60FF20, bin, rnc_60FF20] # 5980 => 6072
-  - [0x611680, bin, rnc_611680] # 1399 => 1587
-  - [0x611C00, bin, rnc_611C00] # 1494 => 1684
-  - [0x6121E0, bin, rnc_6121E0] # 25247 => 25298
+  - [0x60FF20, bin, levels/SECRET_LEVEL] # 5980 => 6072
+  - [0x611680, bin, levels/EMPTY_LEVEL_1] # 1399 => 1587
+  - [0x611C00, bin, levels/EMPTY_LEVEL_2] # 1494 => 1684
+  - [0x6121E0, bin, levels/CREDITS] # 25247 => 25298
   - [0x618480, bin, levels/INTRO] # 4183 => 4305
   # 0x18B0 ahead of US ROM
   - [0x6194E0, rnc, lang/lang1.dat] # 10338 => 31544
@@ -539,144 +538,142 @@ segments:
   - [0x6389C0, rnc, lang/lang36.dat] # 69 => 120
   # end of languages
   - [0x638A10, bin, rnc_638A10] # 5000 => 115024
-  - type:  code
-    name:  overlay1
-    start: 0x00639DA0  # 0x18b0 ahead of US
-    vram:  0x80294E70
+  - type: code
+    name: overlay1
+    start: 0x00639DA0 # 0x18b0 ahead of US
+    vram: 0x80294E70
     exclusive_ram_id: ovl_80
     subsegments:
-    - [0x639DA0, c, overlay1_639DA0]
-    - [0x63ED30, c, overlay1_63ED30]
-    - [0x63F1A0, c, overlay1_63F1A0]
-    - [0x63FB60, linker_offset, overlay1_data_start] # marker here for progress
-    - [0x63FB60, bin]
-    - [0x6409B0, bin, rnc_6409B0] # 37463 => 163840
-    - [0x649C10, rnc, img/intro/president_frank_bloke, rgba16, 320, 240]
-    - [0x650BE0, rnc, img/sssv_logo, rgba16, 256, 128]
-    - [0x656000, bin, rnc_656000] # 5873 => 18432
-    - [0x657700, bin, rnc_657700] # 5717 => 18432
-    - [0x658D60, bin, rnc_658D60] # 5713 => 18432
-    - [0x65A3C0, bin, rnc_65A3C0] # 6413 => 18432
-    - [0x65BCD0, bin] # unknown!
-    - [0x65C8D0, bin, rnc_65C8D0] # 24460 => 163840
-    - [0x662860, rnc, img/space_background, rgba16, 160, 128] # 11570 => 40960
-    - [0x6655A0, rgba16, img/intro/200_credz.rgba16, 32, 128]
-    - [0x6675A0, bin] # unknown!
-    - [0x6675F0, bin, rnc_6675F0] # 23248 => 163840
-    - [0x66D0C0, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
-    - [0x676520, rnc, img/intro/professor_cheese, rgba16, 320, 240]
-    - [0x680D30, rnc, img/intro/space_station, rgba16, 320, 240]
-    - [0x693D70, bin] # spaceship
-    - [0x69B0D0, bin, rnc_69B0D0] # 35955 => 153600
-    - [0x6A3D50, bin] #  end of RNC
-    - [0x6A9150, rodata, overlay1_639DA0]
-    - [0x6A9160, .rodata, overlay1_639DA0]
-    - [0x6A9230, .rodata, overlay1_63F1A0]
+      - [0x639DA0, c, overlay1_639DA0]
+      - [0x63ED30, c, overlay1_63ED30]
+      - [0x63F1A0, c, overlay1_63F1A0]
+      - [0x63FB60, bin]
+      - [0x6409B0, bin, rnc_6409B0] # 37463 => 163840
+      - [0x649C10, rnc, img/intro/president_frank_bloke, rgba16, 320, 240]
+      - [0x650BE0, rnc, img/sssv_logo, rgba16, 256, 128]
+      - [0x656000, bin, rnc_656000] # 5873 => 18432
+      - [0x657700, bin, rnc_657700] # 5717 => 18432
+      - [0x658D60, bin, rnc_658D60] # 5713 => 18432
+      - [0x65A3C0, bin, rnc_65A3C0] # 6413 => 18432
+      - [0x65BCD0, bin] # unknown!
+      - [0x65C8D0, bin, rnc_65C8D0] # 24460 => 163840
+      - [0x662860, rnc, img/space_background, rgba16, 160, 128] # 11570 => 40960
+      - [0x6655A0, rgba16, img/intro/200_credz.rgba16, 32, 128]
+      - [0x6675A0, bin] # unknown!
+      - [0x6675F0, bin, rnc_6675F0] # 23248 => 163840
+      - [0x66D0C0, rnc, img/intro/heroes_for_hire, rgba16, 32, 2560]
+      - [0x676520, rnc, img/intro/professor_cheese, rgba16, 320, 240]
+      - [0x680D30, rnc, img/intro/space_station, rgba16, 320, 240]
+      - [0x693D70, bin] # spaceship
+      - [0x69B0D0, bin, rnc_69B0D0] # 35955 => 153600
+      - [0x6A3D50, bin] #  end of RNC
+      - [0x6A9150, rodata, overlay1_639DA0]
+      - [0x6A9160, .rodata, overlay1_639DA0]
+      - [0x6A9230, .rodata, overlay1_63F1A0]
   - type: code
     name: overlay2 # sssv game code
     start: 0x006A9290 # section is 0x10 larger than us
-    vram:  0x80294E70
+    vram: 0x80294E70
     exclusive_ram_id: ovl_80
     subalign: 4
     subsegments:
-    - [0x6A9290, c, overlay2_6A9290]
-    - [0x6AA810, asm]
-    - [0x6ADE20, asm]
-    - [0x6AF0F0, asm]
-    - [0x6AFCB0, asm]
-    - [0x6B8110, asm]
-    - [0x6C8300, asm]
-    - [0x6C9160, asm] # sssv/collision # 0x10 longer than US
-    - [0x6CCB70, asm]
-    - [0x6CFC90, asm]
-    - [0x6D8EC0, asm]
-    - [0x6DC0D0, asm]
-    - [0x6DC890, asm]
-    - [0x6DE3B0, asm]
-    - [0x6DF7B0, asm]
-    - [0x6EEC40, asm]
-    - [0x6EF4C0, asm]
-    - [0x6EFFD0, asm]
-    - [0x6F9450, asm]
-    - [0x6FCE40, asm]
-    - [0x6FE830, asm]
-    - [0x6FEC40, asm]
-    - [0x703510, asm]
-    - [0x704C20, asm]
-    - [0x705B80, asm]
-    - [0x706F70, asm]
-    - [0x709E40, asm]
-    - [0x714580, asm]
-    - [0x714660, asm]
-    - [0x716650, asm]
-    - [0x7172A0, asm]
-    - [0x717920, asm]
-    - [0x7185C0, asm]
-    - [0x7192D0, asm]
-    - [0x7196A0, asm]
-    - [0x727BE0, asm]
-    - [0x728AB0, asm]
-    - [0x72D6D0, asm]
-    - [0x72DEA0, asm]
-    - [0x72F420, asm]
-    - [0x730BF0, asm]
-    - [0x735800, asm]
-    - [0x737AD0, asm]
-    - [0x73C030, asm]
-    - [0x73F630, asm]
-    - [0x740720, asm]
-    - [0x741320, asm] # extra split
-    - [0x7417D0, asm]
-    - [0x741AD0, asm]
-    - [0x743DA0, asm]
-    - [0x758690, asm]
-    - [0x75C680, asm]
-    - [0x75E770, asm]
-    - [0x75EA20, asm]
-    - [0x760170, asm]
-    - [0x7666D0, asm]
-    - [0x769580, asm] # tortoise defending?
-    - [0x76A860, asm]
-    - [0x76B650, asm]
-    - [0x76B740, asm]
-    - [0x76B930, asm]
-    - [0x76EA40, asm]
-    - [0x7705F0, asm]
-    - [0x772570, asm]
-    - [0x772880, asm] # rat
-    - [0x7742E0, asm] # sheep
-    - [0x776F50, asm]
-    - [0x778BD0, asm]
-    - [0x77A360, asm] # polar_bear
-    - [0x77D220, asm] # husky
-    - [0x780500, asm]
-    - [0x781B50, asm]
-    - [0x783BF0, asm]
-    - [0x786B30, asm]
-    - [0x7890C0, asm]
-    - [0x78D630, asm]
-    - [0x78FC50, asm]
-    - [0x791710, asm]
-    - [0x794540, asm]
-    - [0x794A70, asm]
-    - [0x794D70, asm]
-    - [0x7964A0, asm]
-    - [0x797140, asm]
-    - [0x797C80, asm]
-    - [0x79DF80, asm]
-    - [0x79FC90, asm]
-    - [0x79FE80, asm]
-    - [0x7A0680, asm]
-    - [0x7A0BB0, asm]
-    - [0x7A13E0, asm]
-    - [0x7A3B40, asm]
-    - [0x7AB7F0, asm]
-    - [0x7ACA80, asm]
-    - [0x7B21B0, asm]
-    # .data/.rodata
-    - [0x7B4930, linker_offset, overlay2_data_start] # marker here for progress
-    - [0x7B4930, bin]
-    - [0x7BC978, bin] # in-game objects
-    - [0x7C5FFC, bin] # end of in-game objects
+      - [0x6A9290, c, overlay2_6A9290]
+      - [0x6AA810, asm]
+      - [0x6ADE20, asm]
+      - [0x6AF0F0, asm]
+      - [0x6AFCB0, asm]
+      - [0x6B8110, asm]
+      - [0x6C8300, asm]
+      - [0x6C9160, asm] # sssv/collision # 0x10 longer than US
+      - [0x6CCB70, asm]
+      - [0x6CFC90, asm]
+      - [0x6D8EC0, asm]
+      - [0x6DC0D0, asm]
+      - [0x6DC890, asm]
+      - [0x6DE3B0, asm]
+      - [0x6DF7B0, asm]
+      - [0x6EEC40, asm]
+      - [0x6EF4C0, asm]
+      - [0x6EFFD0, asm]
+      - [0x6F9450, asm]
+      - [0x6FCE40, asm]
+      - [0x6FE830, asm]
+      - [0x6FEC40, asm]
+      - [0x703510, asm]
+      - [0x704C20, asm]
+      - [0x705B80, asm]
+      - [0x706F70, asm]
+      - [0x709E40, asm]
+      - [0x714580, asm]
+      - [0x714660, asm]
+      - [0x716650, asm]
+      - [0x7172A0, asm]
+      - [0x717920, asm]
+      - [0x7185C0, asm]
+      - [0x7192D0, asm]
+      - [0x7196A0, asm]
+      - [0x727BE0, asm]
+      - [0x728AB0, asm]
+      - [0x72D6D0, asm]
+      - [0x72DEA0, asm]
+      - [0x72F420, asm]
+      - [0x730BF0, asm]
+      - [0x735800, asm]
+      - [0x737AD0, asm]
+      - [0x73C030, asm]
+      - [0x73F630, asm]
+      - [0x740720, asm]
+      - [0x741320, asm] # extra split
+      - [0x7417D0, asm]
+      - [0x741AD0, asm]
+      - [0x743DA0, asm]
+      - [0x758690, asm]
+      - [0x75C680, asm]
+      - [0x75E770, asm]
+      - [0x75EA20, asm]
+      - [0x760170, asm]
+      - [0x7666D0, asm]
+      - [0x769580, asm] # tortoise defending?
+      - [0x76A860, asm]
+      - [0x76B650, asm]
+      - [0x76B740, asm]
+      - [0x76B930, asm]
+      - [0x76EA40, asm]
+      - [0x7705F0, asm]
+      - [0x772570, asm]
+      - [0x772880, asm] # rat
+      - [0x7742E0, asm] # sheep
+      - [0x776F50, asm]
+      - [0x778BD0, asm]
+      - [0x77A360, asm] # polar_bear
+      - [0x77D220, asm] # husky
+      - [0x780500, asm]
+      - [0x781B50, asm]
+      - [0x783BF0, asm]
+      - [0x786B30, asm]
+      - [0x7890C0, asm]
+      - [0x78D630, asm]
+      - [0x78FC50, asm]
+      - [0x791710, asm]
+      - [0x794540, asm]
+      - [0x794A70, asm]
+      - [0x794D70, asm]
+      - [0x7964A0, asm]
+      - [0x797140, asm]
+      - [0x797C80, asm]
+      - [0x79DF80, asm]
+      - [0x79FC90, asm]
+      - [0x79FE80, asm]
+      - [0x7A0680, asm]
+      - [0x7A0BB0, asm]
+      - [0x7A13E0, asm]
+      - [0x7A3B40, asm]
+      - [0x7AB7F0, asm]
+      - [0x7ACA80, asm]
+      - [0x7B21B0, asm]
+      # .data/.rodata
+      - [0x7B4930, bin]
+      - [0x7BC978, bin] # in-game objects
+      - [0x7C5FFC, bin] # end of in-game objects
   - [0x7DF890, bin, trailer] # 0xff to end
   - [0x800000]
