@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-extern u8 D_040104B0_127080[];
+extern u8 img_D_040104B0_127080_rgba16__png[];
 
 Vtx D_04010CB0_127880[31] = {
 #include "data/inc/D_04010CB0_127880.inc.c"
@@ -21,7 +21,7 @@ Vtx D_04011270_127E40[6] = {
 Gfx D_040112D0_127EA0[] = {
     gsDPPipeSync(),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 32, D_040104B0_127080),
+    gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 32, img_D_040104B0_127080_rgba16__png),
     gsSPVertex(D_04010CB0_127880, 31, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
     gsSP2Triangles(6, 7, 8, 0, 9, 4, 3, 0),

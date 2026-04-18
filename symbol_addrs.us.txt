@@ -1,179 +1,175 @@
 // rom sections
 
-_segment1SegmentRomStart          = 0x398D0; // defined:true
-_data_7F790SegmentRomStart        = 0x7F790; // defined:true
-_HAVE_A_NICE_DAYSegmentRomStart   = 0x85790; // defined:true
-_europe_biomeSegmentRomStart      = 0xC7A30; // defined:true
-_ice_biomeSegmentRomStart         = 0xDD5C0; // defined:true
-_desert_biomeSegmentRomStart      = 0xE75B0; // defined:true
-_jungle_biomeSegmentRomStart      = 0xF1060; // defined:true
-_city_biomeSegmentRomStart        = 0xFFD50; // defined:true
-_data_116BD0SegmentRomStart       = 0x116BD0; // defined:true
-_fontsSegmentRomStart             = 0x12A390; // defined:true
+_segment1SegmentRomStart          = 0x398D0;
+_data_7F790SegmentRomStart        = 0x7F790;
+_HAVE_A_NICE_DAYSegmentRomStart   = 0x85790;
+_europe_biomeSegmentRomStart      = 0xC7A30;
+_ice_biomeSegmentRomStart         = 0xDD5C0;
+_desert_biomeSegmentRomStart      = 0xE75B0;
+_jungle_biomeSegmentRomStart      = 0xF1060;
+_city_biomeSegmentRomStart        = 0xFFD50;
+_data_116BD0SegmentRomStart       = 0x116BD0;
+_fontsSegmentRomStart             = 0x12A390;
 
-_alBankFile1SegmentRomStart       = 0x12EDC0; // defined:true
-_alTable1SegmentRomStart          = 0x133450; // defined:true
-_alBankFile2SegmentRomStart       = 0x1B6510; // defined:true
-_alTable2SegmentRomStart          = 0x1C7C80; // defined:true
-_alSeqFileSegmentRomStart         = 0x40B210; // defined:true
-__5449C0SegmentRomStart           = 0x5449C0; // defined:true
-__546BC0SegmentRomStart           = 0x546BC0; // defined:true
-_model_collision_rncSegmentRomStart = 0x637160; // defined:true
+_alBankFile1SegmentRomStart       = 0x12EDC0;
+_alTable1SegmentRomStart          = 0x133450;
+_alBankFile2SegmentRomStart       = 0x1B6510;
+_alTable2SegmentRomStart          = 0x1C7C80;
+_alSeqFileSegmentRomStart         = 0x40B210;
+__5449C0SegmentRomStart           = 0x5449C0;
+__546BC0SegmentRomStart           = 0x546BC0;
+_model_collision_rncSegmentRomStart = 0x637160;
 
 // buffers
-gFramebuffer                = 0x80000400; // defined:true
-D_800EF0D0                  = 0x800EF0D0; // defined:true
-D_800B49A0                  = 0x800B49A0; // defined:true
-D_800B68E0                  = 0x800B68E0; // defined:true
-D_800BA760                  = 0x800BA760; // defined:true
-D_800BB700                  = 0x800BB700; // defined:true
-D_800BBBB0                  = 0x800BBBB0; // defined:true
-D_800BC060                  = 0x800BC060; // defined:true
-D_800BC510                  = 0x800BC510; // defined:true
-D_800BC9C0                  = 0x800BC9C0; // defined:true
-D_800BCE70                  = 0x800BCE70; // defined:true
-D_800BD320                  = 0x800BD320; // defined:true
-D_800BD7D0                  = 0x800BD7D0; // defined:true
-D_800BDC80                  = 0x800BDC80; // defined:true
-D_800C3A40                  = 0x800C3A40; // defined:true
-D_800C5A40                  = 0x800C5A40; // defined:true
-D_800C7DC0                  = 0x800C7DC0; // defined:true
-D_800CFE60                  = 0x800CFE60; // defined:true
-D_800D5420                  = 0x800D5420; // defined:true
-D_800D7C20                  = 0x800D7C20; // defined:true
-gWaterTextureBuffer                  = 0x800DCC20; // defined:true
-D_800DD3F0                  = 0x800DD3F0; // defined:true
-D_800DE390                  = 0x800DE390; // defined:true
-D_800DEE20                  = 0x800DEE20; // defined:true
-D_800DF220                  = 0x800DF220; // defined:true
-fontbuffer                  = 0x800E1220; // defined:true
-D_80100000                  = 0x80100000; // defined:true
-
-// K0 SEG
-
-D_8102A210                  = 0x8102A210; // rom:0x63AE0 defined:true
-D_8102C810                  = 0x8102C810; // rom:0x660E0 defined:true
-D_8102D810                  = 0x8102D810; // rom:0x672E0 defined:true
-D_8102E410                  = 0x8102E410; // rom:0x67EE0 defined:true
+gFramebuffer                = 0x80000400; // size:0x4b000
+gfxspecific                 = 0x800B0B20; // segment:overlay1
+D_800B49A0                  = 0x800B49A0;
+D_800B68E0                  = 0x800B68E0;
+D_800BA760                  = 0x800BA760;
+D_800BB700                  = 0x800BB700;
+D_800BBBB0                  = 0x800BBBB0;
+D_800BC060                  = 0x800BC060;
+D_800BC510                  = 0x800BC510;
+D_800BC9C0                  = 0x800BC9C0;
+D_800BCE70                  = 0x800BCE70;
+D_800BD320                  = 0x800BD320;
+D_800BD7D0                  = 0x800BD7D0;
+D_800BDC80                  = 0x800BDC80;
+D_800C3A40                  = 0x800C3A40;
+D_800C5A40                  = 0x800C5A40;
+D_800C7DC0                  = 0x800C7DC0;
+D_800CFE60                  = 0x800CFE60;
+D_800D5420                  = 0x800D5420;
+D_800D7C20                  = 0x800D7C20;
+D_800EF0D0                  = 0x800EF0D0; // size:0x10000
+gWaterTextureBuffer         = 0x800DCC20;
+D_800DD3F0                  = 0x800DD3F0;
+D_800DE390                  = 0x800DE390;
+D_800DEE20                  = 0x800DEE20;
+D_800DF220                  = 0x800DF220;
+fontbuffer                  = 0x800E1220;
+D_80100000                  = 0x80100000;
 
 // images
 
-img_D_01006C60_40530_rgba16__png = 0x01006C60; // defined:true
-img_D_0100A730_44000_ia16__png   = 0x0100A730; // defined:true
+img_D_01006C60_40530_rgba16__png = 0x01006C60;
+img_D_0100A730_44000_ia16__png   = 0x0100A730;
 
-img_eyes6_ci4__png    = 0x010025A0; // defined:true
-img_eyes6_TLUT1_pal   = 0x01002C20; // defined:true
-img_eyes6_TLUT2_pal   = 0x01002C40; // defined:true
+img_eyes6_ci4__png    = 0x010025A0;
+img_eyes6_TLUT1_pal   = 0x01002C20;
+img_eyes6_TLUT2_pal   = 0x01002C40;
 
-img_eyes_ci4__png     = 0x01000620; // defined:true
-img_eyes_TLUT1_pal    = 0x01000CA0; // defined:true
+img_eyes_ci4__png     = 0x01000620;
+img_eyes_TLUT1_pal    = 0x01000CA0;
 
-img_eyes_TLUT2_pal = 0x1000CC0; // defined:true
-img_eyes_TLUT4_pal = 0x1000D00; // defined:true
-img_eyes2_ci4__png = 0x1000D20; // defined:true
-img_eyes5_ci4__png = 0x1002100; // defined:true
-D_01003498_3CD68 = 0x1003498; // defined:true
-D_01003548_3CE18 = 0x1003548; // defined:true
-D_01003588_3CE58 = 0x1003588; // defined:true
-D_01003618_3CEE8 = 0x1003618; // defined:true
-D_01003998_3D268 = 0x1003998; // defined:true
-D_010039F8_3D2C8 = 0x10039F8; // defined:true
-gFovMaskRenderSetupDl = 0x1003A28; // defined:true
-D_01003A58_3D328 = 0x1003A58; // defined:true
-img_fov_masks_ci4__png = 0x1003BD0; // defined:true
-D_01004308_3DBD8 = 0x1004308; // defined:true
-D_01004458_3DD28 = 0x1004458; // defined:true
-D_01004828_3E0F8 = 0x1004828; // defined:true
-D_010049E8_3E2B8 = 0x10049E8; // defined:true
-D_01004AF8_3E3C8 = 0x1004AF8; // defined:true
-D_01004B98_3E468 = 0x1004B98; // defined:true
-D_01004D90_3E660 = 0x1004D90; // defined:true
-D_01004E80_3E750 = 0x1004E80; // defined:true
-D_01006260_3FB30 = 0x1006260; // defined:true
-D_01006A08_402D8 = 0x1006A08; // defined:true
-D_01006A40_40310 = 0x1006A40; // defined:true
-D_01006A78_40348 = 0x1006A78; // defined:true
-D_01006AB0_40380 = 0x1006AB0; // defined:true
-D_01006AE8_403B8 = 0x1006AE8; // defined:true
-D_010084A0_41D70 = 0x10084A0; // defined:true
-D_0100A6D0_43FA0 = 0x100A6D0; // defined:true
-D_01011B78_4B448 = 0x1011B78; // defined:true
-D_01020DB0_5A680 = 0x1020DB0; // defined:true
-D_010215B0_5AE80 = 0x10215B0; // defined:true
-D_01021BB0_5B480 = 0x1021BB0; // defined:true
-img_bear_nose_ci4__png = 0x10224B0; // defined:true
-img_bear_nose_pal = 0x10226B0; // defined:true
-D_010226D0_5BFA0 = 0x10226D0; // defined:true
-D_01022ED0_5C7A0 = 0x1022ED0; // defined:true
-D_01023550_5CE20 = 0x1023550; // defined:true
-D_01023D50_5D620 = 0x1023D50; // defined:true
-D_01024550_5DE20 = 0x1024550; // defined:true
-D_01025750_5F020 = 0x1025750; // defined:true
-D_01026950_60220 = 0x1026950; // defined:true
-D_01027B50_61420 = 0x1027B50; // defined:true
-D_01028D50_62620 = 0x1028D50; // defined:true
-D_01029550_62E20 = 0x1029550; // defined:true
-D_01029DD0_636A0 = 0x1029DD0; // defined:true
-D_01029E10_636E0 = 0x1029E10; // defined:true
-D_0102B610_64EE0 = 0x102B610; // defined:true
-D_0102B810_650E0 = 0x102B810; // defined:true
-D_0102BA10_652E0 = 0x102BA10; // defined:true
-D_0102C210_65AE0 = 0x102C210; // defined:true
-D_0102C810_660E0 = 0x102C810; // defined:true
-D_0102CA10_662E0 = 0x102CA10; // defined:true
-img_D_0102F010_688E0_rgba16__png = 0x102F010; // defined:true
-D_01030810_6A0E0 = 0x1030810; // defined:true
-img_D_01031010_6A8E0_rgba16__png = 0x1031010; // defined:true
-img_D_01033190_6CA60_i4__png = 0x1033190; // defined:true
-D_01035190_6EA60 = 0x1035190; // defined:true
-D_01035990_6F260 = 0x1035990; // defined:true
-D_01036190_6FA60 = 0x1036190; // defined:true
-D_01036C90_70560 = 0x1036C90; // defined:true
-D_01036D90_70660 = 0x1036D90; // defined:true
-D_01036E90_70760 = 0x1036E90; // defined:true
-D_01037750_71020 = 0x1037750; // defined:true
-D_01037998_71268 = 0x1037998; // defined:true
-D_010379D8_712A8 = 0x10379D8; // defined:true
-D_01037A00_712D0 = 0x1037A00; // defined:true
-D_01037A20_712F0 = 0x1037A20; // defined:true
-D_01038220_71AF0 = 0x1038220; // defined:true
-D_01038A20_722F0 = 0x1038A20; // defined:true
-D_01039220_72AF0 = 0x1039220; // defined:true
-D_01039A20_732F0 = 0x1039A20; // defined:true
-D_0103A220_73AF0 = 0x103A220; // defined:true
-img_tank_tracks_ci4__png = 0x103AA20; // defined:true
-img_tank_tracks_pal = 0x103AC20; // defined:true
-img_D_0103AC40_74510_ci4__png = 0x103AC40; // defined:true
-img_D_0103AC40_74510_pal = 0x103B440; // defined:true
-D_0103BB20_753F0 = 0x103BB20; // defined:true
-D_0103C720_75FF0 = 0x103C720; // defined:true
-D_0103D320_76BF0 = 0x103D320; // defined:true
-D_0103D520_76DF0 = 0x103D520; // defined:true
-D_0103ECB0_78580 = 0x103ECB0; // defined:true
-D_01040CB0_7A580 = 0x1040CB0; // defined:true
-img_D_01044CB0_7E580_i4__png = 0x1044CB0; // defined:true
-img_D_010454B0_7ED80_i4__png = 0x10454B0; // defined:true
+img_eyes_TLUT2_pal = 0x1000CC0;
+img_eyes_TLUT4_pal = 0x1000D00;
+img_eyes2_ci4__png = 0x1000D20;
+img_eyes5_ci4__png = 0x1002100;
+D_01003498_3CD68 = 0x1003498;
+D_01003548_3CE18 = 0x1003548;
+D_01003588_3CE58 = 0x1003588;
+D_01003618_3CEE8 = 0x1003618;
+D_01003998_3D268 = 0x1003998;
+D_010039F8_3D2C8 = 0x10039F8;
+gFovMaskRenderSetupDl = 0x1003A28;
+D_01003A58_3D328 = 0x1003A58;
+img_fov_masks_ci4__png = 0x1003BD0;
+D_01004308_3DBD8 = 0x1004308;
+D_01004458_3DD28 = 0x1004458;
+D_01004828_3E0F8 = 0x1004828;
+D_010049E8_3E2B8 = 0x10049E8;
+D_01004AF8_3E3C8 = 0x1004AF8;
+D_01004B98_3E468 = 0x1004B98;
+D_01004D90_3E660 = 0x1004D90;
+D_01004E80_3E750 = 0x1004E80;
+D_01006260_3FB30 = 0x1006260;
+D_01006A08_402D8 = 0x1006A08;
+D_01006A40_40310 = 0x1006A40;
+D_01006A78_40348 = 0x1006A78;
+D_01006AB0_40380 = 0x1006AB0;
+D_01006AE8_403B8 = 0x1006AE8;
+D_010084A0_41D70_bin = 0x10084A0;
+D_0100A6D0_43FA0 = 0x100A6D0;
+D_01011B78_4B448 = 0x1011B78;
+D_010209B0_5A280_bin = 0x010209B0;
+D_01020DB0_5A680_bin = 0x1020DB0;
+D_010215B0_5AE80_bin = 0x10215B0;
+D_01021BB0_5B480_bin = 0x1021BB0;
+img_bear_nose_ci4__png = 0x10224B0;
+img_bear_nose_pal = 0x10226B0;
+D_010226D0_5BFA0_bin = 0x10226D0;
+D_01022ED0_5C7A0_bin = 0x1022ED0;
+D_01023550_5CE20_bin = 0x1023550;
+D_01023D50_5D620_bin = 0x1023D50;
+D_01024550_5DE20_bin = 0x1024550;
+D_01025750_5F020_bin = 0x1025750;
+D_01026950_60220_bin = 0x1026950;
+D_01027B50_61420_bin = 0x1027B50;
+D_01028D50_62620_bin = 0x1028D50;
+D_01029550_62E20_bin = 0x1029550;
+D_01029DD0_636A0_bin = 0x1029DD0;
+D_01029E10_636E0_bin = 0x1029E10;
+D_0102A210_63AE0_bin = 0x0102A210; // rom:0x63AE0
+D_0102D810_670E0_bin = 0x0102D810; // rom:0x670E0
+D_0102B610_64EE0_bin = 0x102B610;
+D_0102B810_650E0_bin = 0x102B810;
+D_0102BA10_652E0 = 0x102BA10;
+D_0102C210_65AE0_bin = 0x102C210;
+D_0102C810_660E0_bin = 0x102C810; // rom:0x660E0
+D_0102CA10_662E0_bin = 0x102CA10;
+img_D_0102F010_688E0_rgba16__png = 0x102F010;
+D_01030810_6A0E0 = 0x1030810;
+img_D_01031010_6A8E0_rgba16__png = 0x1031010;
+img_D_01033190_6CA60_i4__png = 0x1033190;
+D_01035190_6EA60 = 0x1035190;
+D_01035990_6F260 = 0x1035990;
+D_01036190_6FA60 = 0x1036190;
+D_01036C90_70560_bin = 0x1036C90;
+D_01036D90_70660_bin = 0x1036D90;
+D_01036E90_70760_bin = 0x1036E90;
+D_01037750_71020_bin = 0x1037750;
+D_01037998_71268 = 0x1037998;
+D_010379D8_712A8 = 0x10379D8;
+D_01037A00_712D0 = 0x1037A00;
+D_01037A20_712F0 = 0x1037A20;
+D_01038220_71AF0 = 0x1038220;
+D_01038A20_722F0 = 0x1038A20;
+D_01039220_72AF0 = 0x1039220;
+D_01039A20_732F0 = 0x1039A20;
+D_0103A220_73AF0 = 0x103A220;
+img_tank_tracks_ci4__png = 0x103AA20;
+img_tank_tracks_pal = 0x103AC20;
+img_D_0103AC40_74510_ci4__png = 0x103AC40;
+img_D_0103AC40_74510_pal = 0x103B440;
+D_0103BB20_753F0 = 0x103BB20;
+D_0103C720_75FF0 = 0x103C720;
+D_0103D320_76BF0 = 0x103D320;
+D_0103D520_76DF0 = 0x103D520;
+D_0103ECB0_78580_bin = 0x103ECB0;
+D_01040CB0_7A580 = 0x1040CB0;
+img_D_01044CB0_7E580_i4__png = 0x1044CB0;
+img_D_010454B0_7ED80_i4__png = 0x10454B0;
 
 D_4000000 = 0x4000000; // ignore:true
 
-img_vulture_D_04000B10_E80C0_ci4__png = 0x4000B10; // defined:true
-img_penguin_head_ci4__png  = 0x4001330; // defined:true
-img_penguin_head_TLUT1_pal = 0x4001730; // defined:true
-img_penguin_head_TLUT2_pal = 0x4001750; // defined:true
+img_vulture_D_04000B10_E80C0_ci4__png = 0x4000B10;
+img_penguin_head_ci4__png  = 0x4001330;
+img_penguin_head_TLUT1_pal = 0x4001730;
+img_penguin_head_TLUT2_pal = 0x4001750;
 
-img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__ci4__png = 0x400C6C0; // defined:true
-img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__pal = 0x400C8C0; // defined:true
+img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__ci4__png = 0x400C6C0;
+img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__pal = 0x400C8C0;
 
-img_menu_ZONE_SELECT_D_04012B20_1296F0_rgba16_rnc_D_04012B20_1296F0__rgba16__rnc = 0x4012B20; // defined:true
-img_trophies_EVO_HEAD_D_04013060_129C30_rgba16_rnc_D_04013060_129C30__rgba16__rnc = 0x4013060; // defined:true
-img_trophies_EVO_LEG_D_040131B0_129D80_rgba16_rnc_D_040131B0_129D80__rgba16__rnc = 0x40131B0; // defined:true
-img_trophies_EVO_ARM_D_040133C0_129F90_rgba16_rnc_D_040133C0_129F90__rgba16__rnc  = 0x40133C0; // defined:true
-img_trophies_EVO_TORSO_D_04013580_12A150_rgba16_rnc_D_04013580_12A150__rgba16__rnc = 0x4013580; // defined:true
+img_trophies_EVO_HEAD_rgba16_rnc_rgba16__rnc = 0x04013060;  //
+img_trophies_EVO_LEG_rgba16_rnc_rgba16__rnc = 0x040131B0;   //
+img_trophies_EVO_ARM_rgba16_rnc_rgba16__rnc  = 0x040133C0;  //
+img_trophies_EVO_TORSO_rgba16_rnc_rgba16__rnc = 0x04013580;
 
 // main_7770/load_overlay.s
-_overlay2SegmentRomEnd   = 0x7D1AD0; // defined:true
-_overlay1SegmentRomStart = 0x6384F0; // defined:true
-_overlay2SegmentRomStart = 0x6A6500; // defined:true
+_overlay2SegmentRomEnd   = 0x7D1AD0;
+_overlay1SegmentRomStart = 0x6384F0;
+_overlay2SegmentRomStart = 0x6A6500;
 
 //
 alCSPNew                    = 0x80133F00;
@@ -185,20 +181,15 @@ __CSPHandleMetaMsg          = 0x80134FE8;
 __CSPRepostEvent            = 0x80135178;
 __setUsptFromTempo          = 0x80135218;
 
-thread1           = 0x80135604;
-thread9           = 0x80137294;
+thread1                = 0x80135604;
+thread9                = 0x80137294;
 
-do_rumble         = 0x801373CC;
+do_rumble              = 0x801373CC;
 
-gMusicVolume      = 0x801546D0;
-gSfxVolume        = 0x801546D4;
-gAudioInitialized = 0x80155154;
-numControllers    = 0x80158544;
-
-gScreenWidth      = 0x80203FD0;
-gScreenHeight     = 0x80203FD2;
-
-gEepromGlobal     = 0x8023F2A0; // segment:overlay1 size:0x40
+gMusicVolume           = 0x801546D0;
+gSfxVolume             = 0x801546D4;
+gAudioInitialized      = 0x80155154;
+numControllers         = 0x80158544;
 
 strlen_sssv            = 0x80128DD0;
 strcat                 = 0x80128E18;
@@ -266,7 +257,7 @@ write_eeprom           = 0x80130C30;
 read_eeprom            = 0x80130CD4;
 eeprom_checksum        = 0x80130E10;
 load_level_text_data   = 0x801308E8;
-load_level_data_sections = 0x8031B400; //rom:0x72CAB0
+load_level_data_sections = 0x8031B400; // rom:0x72CAB0
 
 amCreateAudioMgr       = 0x80131290;
 __amHandleFrameMsg     = 0x80131700;
@@ -298,33 +289,49 @@ init_controllers       = 0x80136CE0;
 draw_sprite            = 0x80136938;
 init_rumble_pak        = 0x80137840;
 
-gRegion                = 0x80204260;
-gRefreshRate           = 0x80204294;
 
-BitBuffM2              = 0x8022E0D0; // defined:true
-OutputEnd              = 0x8022E0D4; // defined:true
-BitBuffM1              = 0x8022E0D8; // defined:true
-OutputPtr              = 0x8022E0DC; // defined:true
-RawHuffmanTable        = 0x8022E0E0; // defined:true
-PosHuffmanTable        = 0x8022E1E0; // defined:true
-LenHuffmanTable        = 0x8022E2E0; // defined:true
-InputPtr               = 0x8022E3E0; // defined:true
-BitBuffBits            = 0x8022E3E4; // defined:true
-FirstEntry             = 0x8022E3E6; // defined:true
-SecondEntry            = 0x8022E3E8; // defined:true
+BitBuffM2              = 0x8022E0D0;
+OutputEnd              = 0x8022E0D4;
+BitBuffM1              = 0x8022E0D8;
+OutputPtr              = 0x8022E0DC;
+RawHuffmanTable        = 0x8022E0E0;
+PosHuffmanTable        = 0x8022E1E0;
+LenHuffmanTable        = 0x8022E2E0;
+InputPtr               = 0x8022E3E0;
+BitBuffBits            = 0x8022E3E4;
+FirstEntry             = 0x8022E3E6;
+SecondEntry            = 0x8022E3E8;
 
-D_8022E3F0             = 0x8022E3F0; // defined:true size:0x36b0 segment:main
-D_80231AA0             = 0x80231AA0; // defined:true
-D_80231D50             = 0x80231D50; // defined:true size:0x700C
-D_80235410             = 0x80235410; // defined:true
+D_8022E3F0             = 0x8022E3F0; // size:0x36b0 segment:main
+D_80231AA0             = 0x80231AA0;
+D_80231D50             = 0x80231D50; // segment:overlay2 size:0x700C
+D_80235410             = 0x80235410; // size:0x9dd0
+D_8023F1E0             = 0x8023F1E0; // size:0xE
+D_8023F1F0             = 0x8023F1F0;
+D_8023F1F1             = 0x8023F1F1;
+D_8023F1F2             = 0x8023F1F2;
+D_8023F1F3             = 0x8023F1F3;
+D_8023F1F4             = 0x8023F1F4;
+D_8023F1F5             = 0x8023F1F5;
+D_8023F1F8             = 0x8023F1F8;
+D_8023F1FC             = 0x8023F1FC;
+
+D_8023F200             = 0x8023F200;
+D_8023F206             = 0x8023F206;
+D_8023F208             = 0x8023F208;
+D_8023F248             = 0x8023F248;
+
+D_8023F260             = 0x8023F260; // size:0x40 segment:main
+gEepromGlobal          = 0x8023F2A0; // size:0x40 segment:main
+D_8023F2E0             = 0x8023F2E0; // size:0x100 segment:main
 
 backup_joint_positions = 0x802DB8DC; // rom:0x6ECF8C
 
-rspbootTextStart       = 0x8014D390; // size:0xD0 name_end:rspbootTextEnd defined:true
-gspSprite2DTextStart   = 0x8014D460; // size:0xea0 name_end:gspSprite2DTextEnd defined:true
-gspSprite2D_fifoTextStart = 0x8014E300; // size:0xed0 name_end:gspSprite2D_fifoTextEnd defined:true
-gspF3DEX_fifoTextStart = 0x8014F1D0; // size:0x1430 name_end:gspF3DEX_fifoTextEnd defined:true
-aspMainTextStart       = 0x80150600; // size:0xE30 name_end:aspMainTextEnd defined:true
+rspbootTextStart       = 0x8014D390; // size:0xD0 name_end:rspbootTextEnd
+gspSprite2DTextStart   = 0x8014D460; // size:0xea0 name_end:gspSprite2DTextEnd
+gspSprite2D_fifoTextStart = 0x8014E300; // size:0xed0 name_end:gspSprite2D_fifoTextEnd
+gspF3DEX_fifoTextStart = 0x8014F1D0; // size:0x1430 name_end:gspF3DEX_fifoTextEnd
+aspMainTextStart       = 0x80150600; // size:0xE30 name_end:aspMainTextEnd
 
 nextDMA                = 0x80154684;
 audFrameCt             = 0x80154680;
@@ -334,8 +341,6 @@ gspSprite2DDataStart     = 0x8015B790; // size:0xfc0 name_end:gspSprite2DDataEnd
 gspSprite2D_fifoDataStart = 0x8015C750; // size:0xfc0 name_end:gspSprite2D_fifoDataEnd
 gspF3DEX_fifoDataStart = 0x8015D710; // size:0x800 name_end:gspF3DEX_fifoDataEnd
 aspMainDataStart       = 0x8015DF10; // size:0x2C0 name_end:aspMainDataEnd
-
-D_801D9E98             = 0x801D9E98; // segment:overlay2 size:0x20
 
 // size hacks
 D_80299960_63D000      = 0x80299960; // rom:0x63D000 size:0xE0
@@ -349,29 +354,124 @@ D_803A6D08_7B83B8      = 0x803A6D08; // rom:0x7B83B8 size:0xC
 D_803A6D14_7B83C4      = 0x803A6D14; // rom:0x7B83C4 size:0xC
 D_803A7B24_7B91D4      = 0x803A7B24; // rom:0x7B91D4 size:0x14
 
-gDebugTextBuffer             = 0x802042B0; // defined:true
-D_802042EC             = 0x802042EC; // defined:true
+D_80152040             = 0x80152040; // segment:main size:0x208
+D_80152248             = 0x80152248; // segment:main size:0x108
+D_80152350             = 0x80152350; // segment:main size:0x438
+gSineTable256          = 0x80152C78; // segment:main size:0x200
 
-gNoControllerMessageText             = 0x802042F0; // defined:true
-D_80204368             = 0x80204368; // defined:true
-D_802043E0             = 0x802043E0; // defined:true
+gMainViewport          = 0x80152EA8;
+gOpaqueLit3DRenderSetupDl = 0x80158368;
 
-gVIData             = 0x802053E0; // defined:true
-D_802053F0             = 0x802053F0; // defined:true
-D_80205400             = 0x80205400; // defined:true
-D_8020540C             = 0x8020540C; // defined:true
-gWorldCellOpaqueDisplayLists             = 0x80205410; // defined:true
-D_80205470             = 0x80205470; // defined:true
+img_321C0_rgba16__png  = 0x80156AC0;
+img_319C0_rgba16__png  = 0x801562C0;
+img_309C0_rgba16__png  = 0x801552C0;
+img_311C0_rgba16__png  = 0x80155AC0;
+img_331C0_rgba16__png  = 0x80157AC0;
+img_329C0_rgba16__png  = 0x801572C0;
 
-D_80205478             = 0x80205478; // defined:true
-D_80210FF0             = 0x80210FF0; // defined:true
-D_80224870             = 0x80224870; // defined:true
-gWorldCellTranslucentDisplayLists             = 0x802255F0; // defined:true
-D_80225650             = 0x80225650; // defined:true size:0x3e80 segment:main
-D_802294D0             = 0x802294D0; // defined:true
-D_8022D350             = 0x8022D350; // defined:true
+img_intro_heroes_for_hire_rgba16_rnc_rgba16__rnc       = 0x802C6C90; // segment:overlay1
+img_intro_space_station_rgba16_rnc_rgba16__rnc         = 0x802DA900; // segment:overlay1
+img_intro_professor_cheese_rgba16_rnc_rgba16__rnc      = 0x802D00F0; // segment:overlay1
+img_intro_president_frank_bloke_rgba16_rnc_rgba16__rnc = 0x802A37E0; // segment:overlay1
+img_intro_200_credz_rgba16__png                        = 0x802BF170; // segment:overlay1
+img_sssv_logo_rgba16_rnc_rgba16__rnc                   = 0x802AA7B0; // segment:overlay1
+
+img_1122F0_rgba16__png = 0x040125A0;
+img_114C10_rgba16__png = 0x04014EC0;
+
+img_D_0400AC20_1217F0_rgba16__png = 0x0400AC20;
+
+img_124130_rgba16__png = 0x0400D560;
+img_125000_rgba16__png = 0x0400E430;
+img_1259D0_rgba16__png = 0x0400EE00;
+img_menu_D_040113E0_127FB0_rgba16__png = 0x040113E0;
+
+img_D_0400C030_122C00_rgba16__png = 0x0400C030;
+img_D_0400CBE0_1237B0_rgba16__png = 0x0400CBE0;
+img_D_0400F7F0_1263C0_rgba16__png = 0x0400F7F0;
+img_D_040104B0_127080_rgba16__png = 0x040104B0;
+img_menu_ZONE_SELECT_rgba16_rnc_rgba16__rnc = 0x04012B20;
+
+
+img_butterflies_rgba16__png = 0x803B74D0; // segment:overlay2
+
+gOpaqueDL              = 0x801D9E88;
+gXluDL                 = 0x801D9E8C;
+gLayer0DL              = 0x801D9E90;
+gLayer1DL              = 0x801D9E94;
+D_801D9E98             = 0x801D9E98; // segment:overlay2 size:0x20
+gAuxDL                 = 0x801D9EB8;
+
+D_801D9EC4             = 0x801D9EC4;
+D_801D9EC8             = 0x801D9EC8;
+D_801D9EC9             = 0x801D9EC9;
+
+D_801D9ED0             = 0x801D9ED0;
+D_801D9ED4             = 0x801D9ED4;
+gAnimalState           = 0x801D9ED8; // segment:overlay2 size:0xFFE0
+D_801E9EB8             = 0x801E9EB8; // segment:overlay2 size:0x1A118
+
+gScreenWidth           = 0x80203FD0;
+gScreenHeight          = 0x80203FD2;
 
 D_80203FE0             = 0x80203FE0; // segment:overlay2 size:0x110
+D_802040F0             = 0x802040F0; // segment:overlay2 size:0x110
+
+D_80204200             = 0x80204200;
+D_80204204             = 0x80204204;
+D_80204208             = 0x80204208;
+D_8020420C             = 0x8020420C;
+D_80204210             = 0x80204210;
+D_80204214             = 0x80204214;
+D_80204218             = 0x80204218;
+D_8020421C             = 0x8020421C;
+D_80204220             = 0x80204220;
+D_80204224             = 0x80204224;
+D_80204226             = 0x80204226;
+D_80204228             = 0x80204228;
+D_8020422C             = 0x8020422C;
+D_80204230             = 0x80204230;
+D_80204234             = 0x80204234;
+
+D_80204240             = 0x80204240; // segment:main size:0x22
+
+D_80204270             = 0x80204270;
+gFrameContextPtr       = 0x80204274;
+gDisplayListContext    = 0x80204278;
+D_8020427C             = 0x8020427C;
+D_80204280             = 0x80204280;
+D_80204282             = 0x80204282;
+gOverlayState          = 0x80204284;
+
+gAttractModeState      = 0x80204288;
+D_8020428C             = 0x8020428C;
+gFrameStepDivisor      = 0x80204290;
+D_80204292             = 0x80204292;
+gRefreshRate           = 0x80204294;
+D_80204298             = 0x80204298;
+D_802042A0             = 0x802042A0;
+D_802042A8             = 0x802042A8;
+gDebugTextBuffer       = 0x802042B0;
+D_802042EC             = 0x802042EC;
+
+gNoControllerMessageText             = 0x802042F0;
+D_80204368             = 0x80204368;
+D_802043E0             = 0x802043E0;
+
+gVIData                = 0x802053E0; // segment:overlay2 size:0x10
+D_802053F0             = 0x802053F0;
+D_80205400             = 0x80205400;
+D_8020540C             = 0x8020540C;
+gWorldCellOpaqueDisplayLists             = 0x80205410;
+D_80205470             = 0x80205470;
+
+D_80205478             = 0x80205478;
+D_80210FF0             = 0x80210FF0;
+D_80224870             = 0x80224870;
+gWorldCellTranslucentDisplayLists             = 0x802255F0;
+D_80225650             = 0x80225650; // size:0x3e80 segment:main
+D_802294D0             = 0x802294D0;
+D_8022D350             = 0x8022D350;
 
 D_803B6700_7C7DB0      = 0x803B6700; // rom:0x7C7DB0 size:0x138
 D_803BD530_7CEBE0      = 0x803BD530; // rom:0x7CEBE0 size:0x16c
@@ -474,7 +574,6 @@ get_next_available_level    = 0x8039DAAC; // rom:0x7AF15C
 seconds_to_mins_secs        = 0x8039DB60; // rom:0x7AF210
 load_level_title            = 0x8039DBC8; // rom:0x7AF278
 get_biome_for_level         = 0x8039DCC0; // rom:0x7AF370
-//D_803BD52C_7CEB7C           = 0x803BD52C; // rom:0x7CEB7C
 
 reset_trails                = 0x8039DD60; // rom:0x7AF410
 add_regular_trail           = 0x8039DDA4; // rom:0x7AF454
@@ -489,1143 +588,1174 @@ display_trails              = 0x8039EBFC; // rom:0x7B02AC
 // main
 
 // thread6
-D_8015E1D0 = 0x8015E1D0; // defined:true
-sc         = 0x801603D0; // defined:true
-D_80162658 = 0x80162658; // defined:true size:0x777e0
-D_801D9E38 = 0x801D9E38; // defined:true
-D_801D9E58 = 0x801D9E58; // defined:true
-D_801D9E5C = 0x801D9E5C; // defined:true
-D_801D9E60 = 0x801D9E60; // defined:true
-D_801D9E64 = 0x801D9E64; // defined:true
-D_801D9E68 = 0x801D9E68; // defined:true
-gMenuSegmentBase = 0x801D9E6C; // defined:true
+D_8015E1D0 = 0x8015E1D0;
+sc         = 0x801603D0;
+gFrameContext = 0x80162658; // segment:main size:0x777e0
+D_801D9E38 = 0x801D9E38;
+D_801D9E58 = 0x801D9E58;
+D_801D9E5C = 0x801D9E5C;
+D_801D9E60 = 0x801D9E60;
+D_801D9E64 = 0x801D9E64;
+D_801D9E68 = 0x801D9E68;
+gMenuSegmentBase = 0x801D9E6C;
 
-gFontSegmentBase = 0x801D9E70; // defined:true
-gSegment1Base = 0x801D9E74; // defined:true
-gSegment5Base = 0x801D9E78; // defined:true
-gMainDL = 0x801D9E7C; // defined:true
+gFontSegmentBase = 0x801D9E70;
+gSegment1Base = 0x801D9E74;
+gSegment5Base = 0x801D9E78;
+gMainDL = 0x801D9E7C;
 
 // audiomgr
-__am              = 0x8023F410; // defined:true
-dmaState          = 0x80241758; // defined:true
-dmaBuffs          = 0x80241768; // defined:true
-minFrameSize      = 0x80241D08; // defined:true
-frameSize         = 0x80241D0A; // defined:true
-maxFrameSize      = 0x80241D0C; // defined:true
-audDMAIOMesgBuf   = 0x80241D10; // defined:true
-audDMAMessageQ    = 0x802423D0; // defined:true
-audDMAMessageBuf  = 0x802423E8; // defined:true
+__am              = 0x8023F410;
+dmaState          = 0x80241758;
+dmaBuffs          = 0x80241768;
+minFrameSize      = 0x80241D08;
+frameSize         = 0x80241D0A;
+maxFrameSize      = 0x80241D0C;
+D_80241D0E        = 0x80241D0E;
+audDMAIOMesgBuf   = 0x80241D10;
+audDMAMessageQ    = 0x802423D0;
+audDMAMessageBuf  = 0x802423E8;
 
-D_80242508        = 0x80242508; // defined:true
+D_80242508        = 0x80242508;
 
-D_802862F8        = 0x802862F8; // defined:true
-D_802862FC        = 0x802862FC; // defined:true
-D_80286300        = 0x80286300; // defined:true
-D_80286304        = 0x80286304; // defined:true
-D_80286308        = 0x80286308; // defined:true
-D_8028630C        = 0x8028630C; // defined:true
-D_80286310        = 0x80286310; // defined:true
-D_80286314        = 0x80286314; // defined:true
-D_80286318        = 0x80286318; // defined:true
-D_8028631C        = 0x8028631C; // defined:true
-D_80286320        = 0x80286320; // defined:true
-D_80286328        = 0x80286328; // defined:true
-D_80286338        = 0x80286338; // defined:true
-D_80286388        = 0x80286388; // defined:true
-D_802863C8        = 0x802863C8; // defined:true
-D_802863CC        = 0x802863CC; // defined:true
-D_802863D0        = 0x802863D0; // defined:true
+D_802862F8        = 0x802862F8;
+D_802862FC        = 0x802862FC;
+D_80286300        = 0x80286300;
+D_80286304        = 0x80286304;
+D_80286308        = 0x80286308;
+D_8028630C        = 0x8028630C;
+D_80286310        = 0x80286310;
+D_80286314        = 0x80286314;
+D_80286318        = 0x80286318;
+D_8028631C        = 0x8028631C;
+D_80286320        = 0x80286320;
+D_80286328        = 0x80286328;
+D_80286338        = 0x80286338;
+D_80286388        = 0x80286388;
+D_802863C8        = 0x802863C8;
+D_802863CC        = 0x802863CC;
+D_802863D0        = 0x802863D0;
 
-D_80286458        = 0x80286458; // defined:true
-D_8028645A        = 0x8028645A; // defined:true
-D_80286460        = 0x80286460; // defined:true
-gCurrentMusicTrack = 0x8028645C; // defined:true
+D_80286458        = 0x80286458;
+D_8028645A        = 0x8028645A;
+D_80286460        = 0x80286460;
+gCurrentMusicTrack = 0x8028645C;
 
-gThread6          = 0x80286570; // defined:true
-gThread7          = 0x80286720; // defined:true
-gThread1          = 0x802868D0; // defined:true
-gThread9          = 0x80286A80; // defined:true
+gThread6          = 0x80286570;
+gThread7          = 0x80286720;
+gThread1          = 0x802868D0;
+gThread9          = 0x80286A80;
 
-D_80286560        = 0x80286560; // defined:true
-D_80286562        = 0x80286562; // defined:true
-D_80286564        = 0x80286564; // defined:true
-D_80286568        = 0x80286568; // defined:true
+D_80286560        = 0x80286560;
+D_80286562        = 0x80286562;
+D_80286564        = 0x80286564;
+D_80286568        = 0x80286568;
 
-thread7_stack        = 0x80288E30; // defined:true
-D_8028B030        = 0x8028B030; // defined:true
+thread7_stack        = 0x80288E30;
+D_8028B030        = 0x8028B030;
 
-D_8028D030        = 0x8028D030; // defined:true
-D_8028D048        = 0x8028D048; // defined:true
-D_8028D060        = 0x8028D060; // defined:true
-D_8028D078        = 0x8028D078; // defined:true
-D_8028D090        = 0x8028D090; // defined:true
-D_8028D0A8        = 0x8028D0A8; // defined:true
-D_8028D0C0        = 0x8028D0C0; // defined:true
-thread9_stack     = 0x8028D230; // defined:true
-D_8028E230        = 0x8028E230; // defined:true
-D_8028F640        = 0x8028F640; // defined:true
+D_8028D030        = 0x8028D030;
+D_8028D048        = 0x8028D048;
+D_8028D060        = 0x8028D060;
+D_8028D078        = 0x8028D078;
+D_8028D090        = 0x8028D090;
+D_8028D0A8        = 0x8028D0A8;
+D_8028D0C0        = 0x8028D0C0;
+thread9_stack     = 0x8028D230;
+D_8028E230        = 0x8028E230;
+D_8028F640        = 0x8028F640;
 
-D_802902C0        = 0x802902C0; // defined:true
-D_80290F40        = 0x80290F40; // defined:true
-D_80290FC8        = 0x80290FC8; // defined:true
-D_80291048        = 0x80291048; // defined:true
-D_8029104C        = 0x8029104C; // defined:true
-D_80291054        = 0x80291054; // defined:true
-D_80291058        = 0x80291058; // defined:true
-D_8029105C        = 0x8029105C; // defined:true
-D_80291060        = 0x80291060; // defined:true
-D_80291078        = 0x80291078; // defined:true
+D_802902C0        = 0x802902C0;
+D_80290F40        = 0x80290F40;
+D_80290FC8        = 0x80290FC8;
+D_80291048        = 0x80291048;
+D_8029104C        = 0x8029104C;
+D_80291054        = 0x80291054;
+D_80291058        = 0x80291058;
+D_8029105C        = 0x8029105C;
+D_80291060        = 0x80291060;
+D_80291078        = 0x80291078;
 
 // thread9
-D_80291090             = 0x80291090; // defined:true
-gControllerInput       = 0x802910D0; // defined:true
-gControllerStatus      = 0x802910D8; // defined:true
-D_802910E8             = 0x802910E8; // defined:true
-D_80291100 = 0x80291100; // defined:true
-D_80291110 = 0x80291110; // defined:true
-D_802912B0 = 0x802912B0; // defined:true
-D_802912C8 = 0x802912C8; // defined:true
-D_802912CC = 0x802912CC; // defined:true
-D_802912D0 = 0x802912D0; // defined:true
-D_802912D4 = 0x802912D4; // defined:true
-gControllerConnected = 0x802912D8; // defined:true
-D_802912DA = 0x802912DA; // defined:true
-D_802912DC = 0x802912DC; // defined:true
-D_802912DE = 0x802912DE; // defined:true
-D_802912DF = 0x802912DF; // defined:true
-D_802912E0 = 0x802912E0; // defined:true
-D_802912E1 = 0x802912E1; // defined:true
-D_802912E2 = 0x802912E2; // defined:true
-D_802912E3 = 0x802912E3; // defined:true
-D_802912E4 = 0x802912E4; // defined:true
-D_802912E5 = 0x802912E5; // defined:true
+D_80291090             = 0x80291090;
+gControllerInput       = 0x802910D0;
+gControllerStatus      = 0x802910D8;
+D_802910E8             = 0x802910E8;
+D_80291100 = 0x80291100;
+D_80291110 = 0x80291110;
+D_802912B0 = 0x802912B0;
+D_802912C8 = 0x802912C8;
+D_802912CC = 0x802912CC;
+D_802912D0 = 0x802912D0;
+D_802912D4 = 0x802912D4;
+gControllerConnected = 0x802912D8;
+D_802912DA = 0x802912DA;
+D_802912DC = 0x802912DC;
+D_802912DE = 0x802912DE;
+D_802912DF = 0x802912DF;
+D_802912E0 = 0x802912E0;
+D_802912E1 = 0x802912E1;
+D_802912E2 = 0x802912E2;
+D_802912E3 = 0x802912E3;
+D_802912E4 = 0x802912E4;
+D_802912E5 = 0x802912E5;
 
 // overlay1
-gIntroPerspNorm = 0x80302E60; // defined:true
-D_80302E64 = 0x80302E64; // defined:true
-D_80302E70 = 0x80302E70; // defined:true
-D_80302E74 = 0x80302E74; // defined:true
-D_80302E88 = 0x80302E88; // size:0xAB630 defined:true
+gIntroPerspNorm = 0x80302E60;
+D_80302E64 = 0x80302E64;
+D_80302E70 = 0x80302E70;
+D_80302E74 = 0x80302E74;
+D_80302E88 = 0x80302E88; // segment:overlay1 size:0xAB630
 
-D_803B0400 = 0x803B0400; // defined:true
-D_803B0590 = 0x803B0590; // defined:true
-D_803B0592 = 0x803B0592; // defined:true
-D_803B0594 = 0x803B0594; // defined:true
-D_803B0595 = 0x803B0595; // defined:true
-D_803B0596 = 0x803B0596; // defined:true
+D_803B0400 = 0x803B0400;
+D_803B0590 = 0x803B0590;
+D_803B0592 = 0x803B0592;
+D_803B0594 = 0x803B0594;
+D_803B0595 = 0x803B0595;
+D_803B0596 = 0x803B0596;
 
 // overlay2
 
 // overlay2_6A6500
-D_803C0420 = 0x803C0420; // defined:true segment:overlay2
-gInitialisationState = 0x803C0422; // defined:true segment:overlay2
-D_803C0424 = 0x803C0424; // defined:true segment:overlay2
-D_803C0426 = 0x803C0426; // defined:true segment:overlay2
-D_803C0428 = 0x803C0428; // defined:true segment:overlay2
-D_803C042A = 0x803C042A; // defined:true segment:overlay2
-gWaterAnimState = 0x803C0430; // defined:true size:0x210
+D_803C0420 = 0x803C0420; // segment:overlay2
+gInitialisationState = 0x803C0422; // segment:overlay2
+D_803C0424 = 0x803C0424; // segment:overlay2
+D_803C0426 = 0x803C0426; // segment:overlay2
+D_803C0428 = 0x803C0428; // segment:overlay2
+D_803C042A = 0x803C042A; // segment:overlay2
+gWaterAnimState = 0x803C0430; // segment:overlay2 size:0x210
 
-gRenderMode1  = 0x803C0640; // defined:true size:0x8 segment:overlay2
-gRenderMode2  = 0x803C0648; // defined:true size:0x8 segment:overlay2
-gGeometryMode = 0x803C0650; // defined:true size:0x8 segment:overlay2
-gWorldPerspNorm = 0x803C0658; // defined:true segment:overlay2
+gRenderMode1  = 0x803C0640; // size:0x8 segment:overlay2
+gRenderMode2  = 0x803C0648; // size:0x8 segment:overlay2
+gGeometryMode = 0x803C0650; // size:0x8 segment:overlay2
+gWorldPerspNorm = 0x803C0658; // segment:overlay2
 
 // overlay2_6AB090
-gVisibleWorldCellQueue = 0x803C0660; // defined:true size:0xe0
+gVisibleWorldCellQueue = 0x803C0660; // size:0xe0
 
 // overlay2_6AC360
-D_803C0740 = 0x803C0740; // defined:true size:0x12648 segment:overlay2
+D_803C0740 = 0x803C0740; // size:0x12648 segment:overlay2
 
 // overlay2_6ACF20
-D_803D2D90 = 0x803D2D90; // defined:true size:0x66 segment:overlay2
-D_803D2DF8 = 0x803D2DF8; // defined:true segment:overlay2
-D_803D2DFC = 0x803D2DFC; // defined:true segment:overlay2
-D_803D2DFE = 0x803D2DFE; // defined:true segment:overlay2
-D_803D2E00 = 0x803D2E00; // defined:true segment:overlay2
-gDynamicTextureBillboardQueue = 0x803D2E08; // defined:true segment:overlay2
+D_803D2D90 = 0x803D2D90; // size:0x66 segment:overlay2
+D_803D2DF8 = 0x803D2DF8; // segment:overlay2
+D_803D2DFC = 0x803D2DFC; // segment:overlay2
+D_803D2DFE = 0x803D2DFE; // segment:overlay2
+D_803D2E00 = 0x803D2E00; // segment:overlay2
+gDynamicTextureBillboardQueue = 0x803D2E08; // segment:overlay2
+
+D_803D3FF8 = 0x803D3FF8; // segment:overlay2 size:0x5d8
+D_803D4BB0 = 0x803D4BB0; // segment:overlay2 size:0x5d8
 
 // overlay2_6B5380
-D_803D5510 = 0x803D5510; // defined:true segment:overlay2
-D_803D5512 = 0x803D5512; // defined:true segment:overlay2
-D_803D5520 = 0x803D5520; // defined:true segment:overlay2
-D_803D5524 = 0x803D5524; // defined:true segment:overlay2
-D_803D5528 = 0x803D5528; // defined:true segment:overlay2
-D_803D552C = 0x803D552C; // defined:true segment:overlay2
-D_803D5530 = 0x803D5530; // defined:true segment:overlay2
-gCurrentAnimalIndex = 0x803D5534; // defined:true segment:overlay2
-D_803D5536 = 0x803D5536; // defined:true segment:overlay2
-D_803D5538 = 0x803D5538; // defined:true segment:overlay2
-D_803D553A = 0x803D553A; // defined:true segment:overlay2
-D_803D553C = 0x803D553C; // defined:true segment:overlay2
-gNumAnimalsInLevel = 0x803D553E; // defined:true segment:overlay2
-D_803D5540 = 0x803D5540; // defined:true segment:overlay2
-D_803D5542 = 0x803D5542; // defined:true segment:overlay2
-D_803D5544 = 0x803D5544; // defined:true segment:overlay2
-D_803D5546 = 0x803D5546; // defined:true segment:overlay2
-D_803D5548 = 0x803D5548; // defined:true segment:overlay2
-D_803D554A = 0x803D554A; // defined:true segment:overlay2
-D_803D554B = 0x803D554B; // defined:true segment:overlay2
-D_803D554C = 0x803D554C; // defined:true segment:overlay2
-D_803D5558 = 0x803D5558; // defined:true segment:overlay2
-D_803D555A = 0x803D555A; // defined:true segment:overlay2
-D_803D555C = 0x803D555C; // defined:true segment:overlay2
-D_803D5560 = 0x803D5560; // defined:true segment:overlay2
-D_803D5564 = 0x803D5564; // defined:true segment:overlay2
-D_803D5566 = 0x803D5566; // defined:true segment:overlay2
-D_803D5568 = 0x803D5568; // defined:true segment:overlay2
-D_803D556A = 0x803D556A; // defined:true segment:overlay2
-D_803D556C = 0x803D556C; // defined:true segment:overlay2
-D_803D556E = 0x803D556E; // defined:true segment:overlay2
-D_803D5570 = 0x803D5570; // defined:true segment:overlay2
-D_803D5572 = 0x803D5572; // defined:true segment:overlay2
-D_803D5574 = 0x803D5574; // defined:true
+D_803D5510 = 0x803D5510; // segment:overlay2
+D_803D5512 = 0x803D5512; // segment:overlay2
+D_803D5520 = 0x803D5520; // segment:overlay2
+D_803D5524 = 0x803D5524; // segment:overlay2
+D_803D5528 = 0x803D5528; // segment:overlay2
+D_803D552C = 0x803D552C; // segment:overlay2
+D_803D5530 = 0x803D5530; // segment:overlay2
+gCurrentAnimalIndex = 0x803D5534; // segment:overlay2
+D_803D5536 = 0x803D5536; // segment:overlay2
+D_803D5538 = 0x803D5538; // segment:overlay2
+D_803D553A = 0x803D553A; // segment:overlay2
+D_803D553C = 0x803D553C; // segment:overlay2
+gNumAnimalsInLevel = 0x803D553E; // segment:overlay2
+D_803D5540 = 0x803D5540; // segment:overlay2
+D_803D5542 = 0x803D5542; // segment:overlay2
+D_803D5544 = 0x803D5544; // segment:overlay2
+D_803D5546 = 0x803D5546; // segment:overlay2
+D_803D5548 = 0x803D5548; // segment:overlay2
+D_803D554A = 0x803D554A; // segment:overlay2
+D_803D554B = 0x803D554B; // segment:overlay2
+D_803D554C = 0x803D554C; // segment:overlay2
+D_803D5558 = 0x803D5558; // segment:overlay2
+D_803D555A = 0x803D555A; // segment:overlay2
+D_803D555C = 0x803D555C; // segment:overlay2
+D_803D5560 = 0x803D5560; // segment:overlay2
+D_803D5564 = 0x803D5564; // segment:overlay2
+D_803D5566 = 0x803D5566; // segment:overlay2
+D_803D5568 = 0x803D5568; // segment:overlay2
+D_803D556A = 0x803D556A; // segment:overlay2
+D_803D556C = 0x803D556C; // segment:overlay2
+D_803D556E = 0x803D556E; // segment:overlay2
+D_803D5570 = 0x803D5570; // segment:overlay2
+D_803D5572 = 0x803D5572; // segment:overlay2
+D_803D5574 = 0x803D5574;
 
 // overlay2_6C5570
-D_803D5590 = 0x803D5590; // defined:true segment:overlay2
-D_803D5860 = 0x803D5860; // defined:true segment:overlay2
-D_803D5B30 = 0x803D5B30; // defined:true segment:overlay2
-D_803D5E00 = 0x803D5E00; // defined:true segment:overlay2
+D_803D5590 = 0x803D5590; // segment:overlay2
+D_803D5860 = 0x803D5860; // segment:overlay2
+D_803D5B30 = 0x803D5B30; // segment:overlay2
+D_803D5E00 = 0x803D5E00; // segment:overlay2
 
 // collision
-D_803D60D0 = 0x803D60D0; // defined:true
-D_803D60D4 = 0x803D60D4; // defined:true segment:overlay2
-D_803D60D8 = 0x803D60D8; // defined:true segment:overlay2
-D_803D60DC = 0x803D60DC; // defined:true segment:overlay2
-D_803D60E0 = 0x803D60E0; // defined:true segment:overlay2
-D_803D60E2 = 0x803D60E2; // defined:true segment:overlay2
-D_803D60E8 = 0x803D60E8; // defined:true size:0x10
-D_803D60F8 = 0x803D60F8; // defined:true size:0x10
+D_803D60D0 = 0x803D60D0;
+D_803D60D4 = 0x803D60D4; // segment:overlay2
+D_803D60D8 = 0x803D60D8; // segment:overlay2
+D_803D60DC = 0x803D60DC; // segment:overlay2
+D_803D60E0 = 0x803D60E0; // segment:overlay2
+D_803D60E2 = 0x803D60E2; // segment:overlay2
+D_803D60E8 = 0x803D60E8; // size:0x10
+D_803D60F8 = 0x803D60F8; // size:0x10
 
 // overlay2_6D9AF0
-gControllerDebounce = 0x803D6110; // defined:true segment:overlay2
+gControllerDebounce = 0x803D6110; // segment:overlay2
 
 // overlay2_6DCA10
-D_803D6120 = 0x803D6120; // defined:true size:0x3FD8 segment:overlay2
+D_803D6120 = 0x803D6120; // size:0x3FD8 segment:overlay2
 
 // collist2
-D_803DA110 = 0x803DA110; // defined:true segment:overlay2
-D_803DA2F0 = 0x803DA2F0; // defined:true segment:overlay2
-D_803DA2F4 = 0x803DA2F4; // defined:true segment:overlay2
+D_803DA110 = 0x803DA110; // segment:overlay2
+D_803DA2F0 = 0x803DA2F0; // segment:overlay2
+D_803DA2F4 = 0x803DA2F4; // segment:overlay2
 
 // overlay2_6EE6F0
-D_803DA300 = 0x803DA300; // defined:true size:0x5DC0 segment:overlay2
-D_803E00C0 = 0x803E00C0; // defined:true size:0x1A40 segment:overlay2
+D_803DA300 = 0x803DA300; // size:0x5DC0 segment:overlay2
+D_803E00C0 = 0x803E00C0; // size:0x1A40 segment:overlay2
 
-D_803E1B00 = 0x803E1B00; // defined:true segment:overlay2
-D_803E1B02 = 0x803E1B02; // defined:true segment:overlay2
-D_803E1B04 = 0x803E1B04; // defined:true segment:overlay2
-D_803E1B06 = 0x803E1B06; // defined:true segment:overlay2
-D_803E1B08 = 0x803E1B08; // defined:true segment:overlay2
+D_803E1B00 = 0x803E1B00; // segment:overlay2
+D_803E1B02 = 0x803E1B02; // segment:overlay2
+D_803E1B04 = 0x803E1B04; // segment:overlay2
+D_803E1B06 = 0x803E1B06; // segment:overlay2
+D_803E1B08 = 0x803E1B08; // segment:overlay2
 
 // screen_transition
-gScreenTransition = 0x803E1B10; // defined:true size:0xA segment:overlay2
-D_803E1B1A = 0x803E1B1A; // defined:true segment:overlay2
-D_803E1B1B = 0x803E1B1B; // defined:true segment:overlay2
-D_803E1B1C = 0x803E1B1C; // defined:true segment:overlay2
-D_803E1B1E = 0x803E1B1E; // defined:true segment:overlay2
+gScreenTransition = 0x803E1B10; // size:0xA segment:overlay2
+D_803E1B1A = 0x803E1B1A; // segment:overlay2
+D_803E1B1B = 0x803E1B1B; // segment:overlay2
+D_803E1B1C = 0x803E1B1C; // segment:overlay2
+D_803E1B1E = 0x803E1B1E; // segment:overlay2
 
 // overlay2_7041D0
-D_803E1B20 = 0x803E1B20; // defined:true size:0xA segment:overlay2
-D_803E1B30 = 0x803E1B30; // defined:true size:0xA segment:overlay2
-D_803E1B40 = 0x803E1B40; // defined:true size:0xA segment:overlay2
-D_803E1B50 = 0x803E1B50; // defined:true size:0xA segment:overlay2
-D_803E1B60 = 0x803E1B60; // defined:true size:0xA segment:overlay2
-D_803E1B70 = 0x803E1B70; // defined:true size:0xA segment:overlay2
-D_803E1B80 = 0x803E1B80; // defined:true size:0xA segment:overlay2
-D_803E1B8A = 0x803E1B8A; // defined:true segment:overlay2
-D_803E1B8C = 0x803E1B8C; // defined:true segment:overlay2
-D_803E1B8E = 0x803E1B8E; // defined:true segment:overlay2
-D_803E1B90 = 0x803E1B90; // defined:true segment:overlay2
-D_803E1B92 = 0x803E1B92; // defined:true segment:overlay2
-D_803E1B94 = 0x803E1B94; // defined:true segment:overlay2
-D_803E1B96 = 0x803E1B96; // defined:true segment:overlay2
-D_803E1B97 = 0x803E1B97; // defined:true segment:overlay2
-D_803E1B98 = 0x803E1B98; // defined:true segment:overlay2
-D_803E1B99 = 0x803E1B99; // defined:true segment:overlay2
-D_803E1B9A = 0x803E1B9A; // defined:true segment:overlay2
-D_803E1B9B = 0x803E1B9B; // defined:true segment:overlay2
-D_803E1BA2 = 0x803E1BA2; // defined:true segment:overlay2
-D_803E1BA4 = 0x803E1BA4; // defined:true segment:overlay2
-D_803E1BA6 = 0x803E1BA6; // defined:true segment:overlay2
-D_803E1BA8 = 0x803E1BA8; // defined:true segment:overlay2
-D_803E1BAA = 0x803E1BAA; // defined:true segment:overlay2
-D_803E1BAC = 0x803E1BAC; // defined:true segment:overlay2
-D_803E1BAE = 0x803E1BAE; // defined:true segment:overlay2
-D_803E1BB0 = 0x803E1BB0; // defined:true segment:overlay2
-D_803E1BB2 = 0x803E1BB2; // defined:true segment:overlay2
-D_803E1BB4 = 0x803E1BB4; // defined:true segment:overlay2
-D_803E1BB6 = 0x803E1BB6; // defined:true segment:overlay2
-D_803E1BB8 = 0x803E1BB8; // defined:true segment:overlay2
-D_803E1BBA = 0x803E1BBA; // defined:true segment:overlay2
-D_803E1BBB = 0x803E1BBB; // defined:true segment:overlay2
-D_803E1BBC = 0x803E1BBC; // defined:true segment:overlay2
-D_803E1BBD = 0x803E1BBD; // defined:true segment:overlay2
-D_803E1BBE = 0x803E1BBE; // defined:true segment:overlay2
-D_803E1BBF = 0x803E1BBF; // defined:true segment:overlay2
+D_803E1B20 = 0x803E1B20; // size:0xA segment:overlay2
+D_803E1B30 = 0x803E1B30; // size:0xA segment:overlay2
+D_803E1B40 = 0x803E1B40; // size:0xA segment:overlay2
+D_803E1B50 = 0x803E1B50; // size:0xA segment:overlay2
+D_803E1B60 = 0x803E1B60; // size:0xA segment:overlay2
+D_803E1B70 = 0x803E1B70; // size:0xA segment:overlay2
+D_803E1B80 = 0x803E1B80; // size:0xA segment:overlay2
+D_803E1B8A = 0x803E1B8A; // segment:overlay2
+D_803E1B8C = 0x803E1B8C; // segment:overlay2
+D_803E1B8E = 0x803E1B8E; // segment:overlay2
+D_803E1B90 = 0x803E1B90; // segment:overlay2
+D_803E1B92 = 0x803E1B92; // segment:overlay2
+D_803E1B94 = 0x803E1B94; // segment:overlay2
+D_803E1B96 = 0x803E1B96; // segment:overlay2
+D_803E1B97 = 0x803E1B97; // segment:overlay2
+D_803E1B98 = 0x803E1B98; // segment:overlay2
+D_803E1B99 = 0x803E1B99; // segment:overlay2
+D_803E1B9A = 0x803E1B9A; // segment:overlay2
+D_803E1B9B = 0x803E1B9B; // segment:overlay2
+D_803E1BA2 = 0x803E1BA2; // segment:overlay2
+D_803E1BA4 = 0x803E1BA4; // segment:overlay2
+D_803E1BA6 = 0x803E1BA6; // segment:overlay2
+D_803E1BA8 = 0x803E1BA8; // segment:overlay2
+D_803E1BAA = 0x803E1BAA; // segment:overlay2
+D_803E1BAC = 0x803E1BAC; // segment:overlay2
+D_803E1BAE = 0x803E1BAE; // segment:overlay2
+D_803E1BB0 = 0x803E1BB0; // segment:overlay2
+D_803E1BB2 = 0x803E1BB2; // segment:overlay2
+D_803E1BB4 = 0x803E1BB4; // segment:overlay2
+D_803E1BB6 = 0x803E1BB6; // segment:overlay2
+D_803E1BB8 = 0x803E1BB8; // segment:overlay2
+D_803E1BBA = 0x803E1BBA; // segment:overlay2
+D_803E1BBB = 0x803E1BBB; // segment:overlay2
+D_803E1BBC = 0x803E1BBC; // segment:overlay2
+D_803E1BBD = 0x803E1BBD; // segment:overlay2
+D_803E1BBE = 0x803E1BBE; // segment:overlay2
+D_803E1BBF = 0x803E1BBF; // segment:overlay2
 
 // input
-gInputMode = 0x803E1BC0; // defined:true segment:overlay2
-D_803E1BC4 = 0x803E1BC4; // defined:true segment:overlay2
-demoInput = 0x803E1BD4; // defined:true segment:overlay2
+gInputMode = 0x803E1BC0; // segment:overlay2
+D_803E1BC4 = 0x803E1BC4; // segment:overlay2
+demoInput = 0x803E1BD4; // segment:overlay2
 
 // overlay2_707310
-D_803E1BE0 = 0x803E1BE0; // defined:true segment:overlay2
-D_803E1BE8 = 0x803E1BE8; // defined:true segment:overlay2
-D_803E1CE0 = 0x803E1CE0; // defined:true segment:overlay2
-D_803E1CE8 = 0x803E1CE8; // defined:true segment:overlay2
-D_803E1CF0 = 0x803E1CF0; // defined:true segment:overlay2
-gFogState = 0x803E1CF8; // defined:true segment:overlay2
-D_803E1D00 = 0x803E1D00; // defined:true segment:overlay2
-D_803E1D02 = 0x803E1D02; // defined:true segment:overlay2
-D_803E1D04 = 0x803E1D04; // defined:true segment:overlay2
-D_803E1D06 = 0x803E1D06; // defined:true segment:overlay2
-D_803E1D08 = 0x803E1D08; // defined:true segment:overlay2
-D_803E1D0A = 0x803E1D0A; // defined:true segment:overlay2
-D_803E1D0C = 0x803E1D0C; // defined:true segment:overlay2
-D_803E1D10 = 0x803E1D10; // defined:true segment:overlay2
-D_803E1D18 = 0x803E1D18; // defined:true segment:overlay2
-D_803E1D20 = 0x803E1D20; // defined:true segment:overlay2
-D_803E1D28 = 0x803E1D28; // defined:true segment:overlay2
-D_803E1D2A = 0x803E1D2A; // defined:true segment:overlay2
-D_803E1D2C = 0x803E1D2C; // defined:true segment:overlay2
-D_803E1D30 = 0x803E1D30; // defined:true size:0xC00 segment:overlay2
+D_803E1BE0 = 0x803E1BE0; // segment:overlay2
+D_803E1BE8 = 0x803E1BE8; // segment:overlay2
+D_803E1CE0 = 0x803E1CE0; // segment:overlay2
+D_803E1CE8 = 0x803E1CE8; // segment:overlay2
+D_803E1CF0 = 0x803E1CF0; // segment:overlay2
+gFogState = 0x803E1CF8; // segment:overlay2
+D_803E1D00 = 0x803E1D00; // segment:overlay2
+D_803E1D02 = 0x803E1D02; // segment:overlay2
+D_803E1D04 = 0x803E1D04; // segment:overlay2
+D_803E1D06 = 0x803E1D06; // segment:overlay2
+D_803E1D08 = 0x803E1D08; // segment:overlay2
+D_803E1D0A = 0x803E1D0A; // segment:overlay2
+D_803E1D0C = 0x803E1D0C; // segment:overlay2
+D_803E1D10 = 0x803E1D10; // segment:overlay2
+D_803E1D18 = 0x803E1D18; // segment:overlay2
+D_803E1D20 = 0x803E1D20; // segment:overlay2
+D_803E1D28 = 0x803E1D28; // segment:overlay2
+D_803E1D2A = 0x803E1D2A; // segment:overlay2
+D_803E1D2C = 0x803E1D2C; // segment:overlay2
+D_803E1D30 = 0x803E1D30; // size:0xC00 segment:overlay2
 
 // overlay2_715820
-D_803E2930 = 0x803E2930; // defined:true segment:overlay2
-D_803E3130 = 0x803E3130; // defined:true segment:overlay2
-D_803E4930 = 0x803E4930; // defined:true segment:overlay2
-D_803E4998 = 0x803E4998; // defined:true segment:overlay2
-D_803E4A00 = 0x803E4A00; // defined:true segment:overlay2
-D_803E4AC8 = 0x803E4AC8; // defined:true segment:overlay2
-D_803E4AD0 = 0x803E4AD0; // defined:true segment:overlay2
-D_803E4BD0 = 0x803E4BD0; // defined:true segment:overlay2
-D_803E4BD1 = 0x803E4BD1; // defined:true segment:overlay2
-D_803E4BD2 = 0x803E4BD2; // defined:true segment:overlay2
-D_803E4BD4 = 0x803E4BD4; // defined:true segment:overlay2
-D_803E4BD6 = 0x803E4BD6; // defined:true
-D_803E4BD8 = 0x803E4BD8; // defined:true
-D_803E4BDA = 0x803E4BDA; // defined:true
+D_803E2930 = 0x803E2930; // segment:overlay2
+D_803E3130 = 0x803E3130; // segment:overlay2
+D_803E4930 = 0x803E4930; // segment:overlay2
+D_803E4998 = 0x803E4998; // segment:overlay2
+D_803E4A00 = 0x803E4A00; // segment:overlay2
+D_803E4AC8 = 0x803E4AC8; // segment:overlay2
+D_803E4AD0 = 0x803E4AD0; // segment:overlay2
+D_803E4BD0 = 0x803E4BD0; // segment:overlay2
+D_803E4BD1 = 0x803E4BD1; // segment:overlay2
+D_803E4BD2 = 0x803E4BD2; // segment:overlay2
+D_803E4BD4 = 0x803E4BD4; // segment:overlay2
+D_803E4BD6 = 0x803E4BD6;
+D_803E4BD8 = 0x803E4BD8;
+D_803E4BDA = 0x803E4BDA;
 
-D_803E4BE0 = 0x803E4BE0; // defined:true size:0x65 segment:overlay2
+D_803E4BE0 = 0x803E4BE0; // size:0x65 segment:overlay2
 
-D_803E4C52 = 0x803E4C52; // defined:true segment:overlay2
-D_803E4C54 = 0x803E4C54; // defined:true segment:overlay2
-D_803E4C56 = 0x803E4C56; // defined:true segment:overlay2
-D_803E4C58 = 0x803E4C58; // defined:true segment:overlay2
-D_803E4C5C = 0x803E4C5C; // defined:true segment:overlay2
-D_803E4C60 = 0x803E4C60; // defined:true segment:overlay2
-D_803E4C64 = 0x803E4C64; // defined:true segment:overlay2
-D_803E4C68 = 0x803E4C68; // defined:true segment:overlay2
-D_803E4C6A = 0x803E4C6A; // defined:true segment:overlay2
-D_803E4C6C = 0x803E4C6C; // defined:true segment:overlay2
-D_803E4C6E = 0x803E4C6E; // defined:true segment:overlay2
-D_803E4C70 = 0x803E4C70; // defined:true segment:overlay2
-D_803E4C72 = 0x803E4C72; // defined:true segment:overlay2
-D_803E4C74 = 0x803E4C74; // defined:true segment:overlay2
-D_803E4C76 = 0x803E4C76; // defined:true segment:overlay2
-D_803E4C78 = 0x803E4C78; // defined:true segment:overlay2
-D_803E4C79 = 0x803E4C79; // defined:true segment:overlay2
-D_803E4C7A = 0x803E4C7A; // defined:true segment:overlay2
-D_803E4C7C = 0x803E4C7C; // defined:true segment:overlay2
-D_803E4C80 = 0x803E4C80; // defined:true segment:overlay2
-D_803E4C84 = 0x803E4C84; // defined:true segment:overlay2
-D_803E4C86 = 0x803E4C86; // defined:true segment:overlay2
-D_803E4C88 = 0x803E4C88; // defined:true segment:overlay2
-D_803E4C8C = 0x803E4C8C; // defined:true segment:overlay2
-D_803E4C90 = 0x803E4C90; // defined:true segment:overlay2
-D_803E4C94 = 0x803E4C94; // defined:true segment:overlay2
+D_803E4C52 = 0x803E4C52; // segment:overlay2
+D_803E4C54 = 0x803E4C54; // segment:overlay2
+D_803E4C56 = 0x803E4C56; // segment:overlay2
+D_803E4C58 = 0x803E4C58; // segment:overlay2
+D_803E4C5C = 0x803E4C5C; // segment:overlay2
+D_803E4C60 = 0x803E4C60; // segment:overlay2
+D_803E4C64 = 0x803E4C64; // segment:overlay2
+D_803E4C68 = 0x803E4C68; // segment:overlay2
+D_803E4C6A = 0x803E4C6A; // segment:overlay2
+D_803E4C6C = 0x803E4C6C; // segment:overlay2
+D_803E4C6E = 0x803E4C6E; // segment:overlay2
+D_803E4C70 = 0x803E4C70; // segment:overlay2
+D_803E4C72 = 0x803E4C72; // segment:overlay2
+D_803E4C74 = 0x803E4C74; // segment:overlay2
+D_803E4C76 = 0x803E4C76; // segment:overlay2
+D_803E4C78 = 0x803E4C78; // segment:overlay2
+D_803E4C79 = 0x803E4C79; // segment:overlay2
+D_803E4C7A = 0x803E4C7A; // segment:overlay2
+D_803E4C7C = 0x803E4C7C; // segment:overlay2
+D_803E4C80 = 0x803E4C80; // segment:overlay2
+D_803E4C84 = 0x803E4C84; // segment:overlay2
+D_803E4C86 = 0x803E4C86; // segment:overlay2
+D_803E4C88 = 0x803E4C88; // segment:overlay2
+D_803E4C8C = 0x803E4C8C; // segment:overlay2
+D_803E4C90 = 0x803E4C90; // segment:overlay2
+D_803E4C94 = 0x803E4C94; // segment:overlay2
 
-D_803E4CA0 = 0x803E4CA0; // defined:true segment:overlay2
-D_803E4CA4 = 0x803E4CA4; // defined:true segment:overlay2
-D_803E4CA5 = 0x803E4CA5; // defined:true segment:overlay2
-D_803E4CA6 = 0x803E4CA6; // defined:true segment:overlay2
-D_803E4CA8 = 0x803E4CA8; // defined:true segment:overlay2
-gLevelProgress = 0x803E4D28; // defined:true
-gTasksCompleted = 0x803E4D2C; // defined:true
-D_803E4D30 = 0x803E4D30; // defined:true
-D_803E4D38 = 0x803E4D38; // defined:true segment:overlay2
-D_803E4D3C = 0x803E4D3C; // defined:true
-D_803E4D40 = 0x803E4D40; // defined:true segment:overlay2
-D_803E8E54 = 0x803E8E54; // defined:true
-D_803E8E56 = 0x803E8E56; // defined:true segment:overlay2
-D_803E8E57 = 0x803E8E57; // defined:true
-D_803E8E58 = 0x803E8E58; // defined:true segment:overlay2
+D_803E4CA0 = 0x803E4CA0; // segment:overlay2
+D_803E4CA4 = 0x803E4CA4; // segment:overlay2
+D_803E4CA5 = 0x803E4CA5; // segment:overlay2
+D_803E4CA6 = 0x803E4CA6; // segment:overlay2
+D_803E4CA8 = 0x803E4CA8; // segment:overlay2
+gLevelProgress = 0x803E4D28;
+gTasksCompleted = 0x803E4D2C;
+D_803E4D30 = 0x803E4D30;
+D_803E4D38 = 0x803E4D38; // segment:overlay2
+D_803E4D3C = 0x803E4D3C;
+D_803E4D40 = 0x803E4D40; // segment:overlay2
+D_803E8E54 = 0x803E8E54;
+D_803E8E56 = 0x803E8E56; // segment:overlay2
+D_803E8E57 = 0x803E8E57;
+D_803E8E58 = 0x803E8E58; // segment:overlay2
 // TODO: D_803E8E5C = 0x803E8E5C;
 
 // overlay2_72B100
-D_803E8E60 = 0x803E8E60; // defined:true segment:overlay2
-D_803E8F60 = 0x803E8F60; // defined:true segment:overlay2
-D_803E93B0 = 0x803E93B0; // defined:true size:0x208 segment:overlay2
-D_803E95B8 = 0x803E95B8; // defined:true size:0x208 segment:overlay2
+D_803E8E60 = 0x803E8E60; // segment:overlay2
+D_803E8F60 = 0x803E8F60; // segment:overlay2
+D_803E93B0 = 0x803E93B0; // size:0x208 segment:overlay2
+D_803E95B8 = 0x803E95B8; // size:0x208 segment:overlay2
 
 // overlay2_72B800
-D_803E97C0 = 0x803E97C0; // defined:true segment:overlay2
-D_803E97C8 = 0x803E97C8; // defined:true segment:overlay2
+D_803E97C0 = 0x803E97C0; // segment:overlay2
+D_803E97C8 = 0x803E97C8; // segment:overlay2
 
 // overlay2_739290
-D_803E9820 = 0x803E9820; // defined:true segment:overlay2
-D_803E9822 = 0x803E9822; // defined:true segment:overlay2
-gCurrentAnimalId = 0x803E9824; // defined:true segment:overlay2
-D_803E9828 = 0x803E9828; // defined:true segment:overlay2
-D_803E982C = 0x803E982C; // defined:true segment:overlay2
-D_803E9836 = 0x803E9836; // defined:true segment:overlay2
-D_803E9838 = 0x803E9838; // defined:true segment:overlay2
-D_803E983A = 0x803E983A; // defined:true segment:overlay2
-D_803E983C = 0x803E983C; // defined:true segment:overlay2
-D_803E9840 = 0x803E9840; // defined:true size:0x906C segment:overlay2
-
-// FIXME
-// D_803F28C2 = 0x803F28C2; //defined:true
+D_803E9820 = 0x803E9820; // segment:overlay2
+D_803E9822 = 0x803E9822; // segment:overlay2
+gCurrentAnimalId = 0x803E9824; // segment:overlay2
+D_803E9828 = 0x803E9828; // segment:overlay2
+D_803E982C = 0x803E982C; // segment:overlay2
+D_803E9836 = 0x803E9836; // segment:overlay2
+D_803E9838 = 0x803E9838; // segment:overlay2
+D_803E983A = 0x803E983A; // segment:overlay2
+D_803E983C = 0x803E983C; // segment:overlay2
+D_803E9840 = 0x803E9840; // size:0x906C segment:overlay2
 
 // overlay2_741000
-gCameraVisibilityMask = 0x803F28D0; // defined:true size:0x10 segment:overlay2
-gCameras   = 0x803F28E0; // defined:true size:0x1B8 segment:overlay2
-gCameraId  = 0x803F2A98; // defined:true segment:overlay2
-D_803F2A9A = 0x803F2A9A; // defined:true segment:overlay2
-D_803F2A9C = 0x803F2A9C; // defined:true segment:overlay2
-D_803F2A9E = 0x803F2A9E; // defined:true segment:overlay2
-D_803F2AA0 = 0x803F2AA0; // defined:true segment:overlay2
-D_803F2AA1 = 0x803F2AA1; // defined:true segment:overlay2
-gCameraUiState = 0x803F2AA2; // defined:true segment:overlay2
-D_803F2AA3 = 0x803F2AA3; // defined:true segment:overlay2
-D_803F2AA4 = 0x803F2AA4; // defined:true segment:overlay2
-D_803F2AA5 = 0x803F2AA5; // defined:true segment:overlay2
-D_803F2AA6 = 0x803F2AA6; // defined:true segment:overlay2
-D_803F2AA7 = 0x803F2AA7; // defined:true segment:overlay2
-D_803F2AA8 = 0x803F2AA8; // defined:true segment:overlay2
-D_803F2AAC = 0x803F2AAC; // defined:true segment:overlay2
-D_803F2AB0 = 0x803F2AB0; // defined:true segment:overlay2
-D_803F2AB4 = 0x803F2AB4; // defined:true segment:overlay2
-D_803F2AB8 = 0x803F2AB8; // defined:true segment:overlay2
-D_803F2ABC = 0x803F2ABC; // defined:true segment:overlay2
-D_803F2AC5 = 0x803F2AC5; // defined:true segment:overlay2
-D_803F2AC6 = 0x803F2AC6; // defined:true segment:overlay2
-D_803F2AC8 = 0x803F2AC8; // defined:true segment:overlay2
-D_803F2ACA = 0x803F2ACA; // defined:true segment:overlay2
-D_803F2ACC = 0x803F2ACC; // defined:true segment:overlay2
-gCamera    = 0x803F2AD0; // defined:true segment:overlay2
-D_803F2AD8 = 0x803F2AD8; // defined:true size:0x20 segment:overlay2
-D_803F2AF8 = 0x803F2AF8; // defined:true size:0x100 segment:overlay2
-D_803F2BF8 = 0x803F2BF8; // defined:true segment:overlay2
+gCameraVisibilityMask = 0x803F28D0; // size:0x10 segment:overlay2
+gCameras   = 0x803F28E0; // size:0x1B8 segment:overlay2
+gCameraId  = 0x803F2A98; // segment:overlay2
+D_803F2A9A = 0x803F2A9A; // segment:overlay2
+D_803F2A9C = 0x803F2A9C; // segment:overlay2
+D_803F2A9E = 0x803F2A9E; // segment:overlay2
+D_803F2AA0 = 0x803F2AA0; // segment:overlay2
+D_803F2AA1 = 0x803F2AA1; // segment:overlay2
+gCameraUiState = 0x803F2AA2; // segment:overlay2
+D_803F2AA3 = 0x803F2AA3; // segment:overlay2
+D_803F2AA4 = 0x803F2AA4; // segment:overlay2
+D_803F2AA5 = 0x803F2AA5; // segment:overlay2
+D_803F2AA6 = 0x803F2AA6; // segment:overlay2
+D_803F2AA7 = 0x803F2AA7; // segment:overlay2
+D_803F2AA8 = 0x803F2AA8; // segment:overlay2
+D_803F2AAC = 0x803F2AAC; // segment:overlay2
+D_803F2AB0 = 0x803F2AB0; // segment:overlay2
+D_803F2AB4 = 0x803F2AB4; // segment:overlay2
+D_803F2AB8 = 0x803F2AB8; // segment:overlay2
+D_803F2ABC = 0x803F2ABC; // segment:overlay2
+D_803F2AC5 = 0x803F2AC5; // segment:overlay2
+D_803F2AC6 = 0x803F2AC6; // segment:overlay2
+D_803F2AC8 = 0x803F2AC8; // segment:overlay2
+D_803F2ACA = 0x803F2ACA; // segment:overlay2
+D_803F2ACC = 0x803F2ACC; // segment:overlay2
+gCamera    = 0x803F2AD0; // segment:overlay2
+D_803F2AD8 = 0x803F2AD8; // size:0x20 segment:overlay2
+D_803F2AF8 = 0x803F2AF8; // size:0x100 segment:overlay2
+D_803F2BF8 = 0x803F2BF8; // segment:overlay2
 
-D_803F2C18 = 0x803F2C18; // defined:true size:0x6 segment:overlay2
+D_803F2C18 = 0x803F2C18; // size:0x6 segment:overlay2
 
-D_803F2C1E = 0x803F2C1E; // defined:true segment:overlay2
+D_803F2C1E = 0x803F2C1E; // segment:overlay2
 
-D_803F2C20 = 0x803F2C20; // defined:true segment:overlay2
-D_803F2C22 = 0x803F2C22; // defined:true segment:overlay2
-D_803F2C28 = 0x803F2C28; // defined:true segment:overlay2
-D_803F2C2C = 0x803F2C2C; // defined:true segment:overlay2
-D_803F2C30 = 0x803F2C30; // defined:true segment:overlay2
-D_803F2C34 = 0x803F2C34; // defined:true segment:overlay2
-D_803F2C38 = 0x803F2C38; // defined:true segment:overlay2
-D_803F2C3C = 0x803F2C3C; // defined:true segment:overlay2
-D_803F2C40 = 0x803F2C40; // defined:true segment:overlay2
-gCameraEyeWorldX = 0x803F2C44; // defined:true segment:overlay2
-gCameraEyeWorldZ = 0x803F2C48; // defined:true segment:overlay2
-gCameraEyeWorldY = 0x803F2C4C; // defined:true segment:overlay2
-D_803F2C50 = 0x803F2C50; // defined:true segment:overlay2
-D_803F2C54 = 0x803F2C54; // defined:true segment:overlay2
-D_803F2C58 = 0x803F2C58; // defined:true segment:overlay2
-D_803F2C5C = 0x803F2C5C; // defined:true segment:overlay2
-D_803F2C60 = 0x803F2C60; // defined:true segment:overlay2
-D_803F2C64 = 0x803F2C64; // defined:true segment:overlay2
-D_803F2C68 = 0x803F2C68; // defined:true segment:overlay2
-D_803F2C6C = 0x803F2C6C; // defined:true segment:overlay2
-D_803F2C6D = 0x803F2C6D; // defined:true
-D_803F2C6E = 0x803F2C6E; // defined:true
-D_803F2C70 = 0x803F2C70; // defined:true
-D_803F2C72 = 0x803F2C72; // defined:true
-D_803F2C74 = 0x803F2C74; // defined:true
-D_803F2C78 = 0x803F2C78; // defined:true
-D_803F2C7C = 0x803F2C7C; // defined:true
+D_803F2C20 = 0x803F2C20; // segment:overlay2
+D_803F2C22 = 0x803F2C22; // segment:overlay2
+D_803F2C28 = 0x803F2C28; // segment:overlay2
+D_803F2C2C = 0x803F2C2C; // segment:overlay2
+D_803F2C30 = 0x803F2C30; // segment:overlay2
+D_803F2C34 = 0x803F2C34; // segment:overlay2
+D_803F2C38 = 0x803F2C38; // segment:overlay2
+D_803F2C3C = 0x803F2C3C; // segment:overlay2
+D_803F2C40 = 0x803F2C40; // segment:overlay2
+gCameraEyeWorldX = 0x803F2C44; // segment:overlay2
+gCameraEyeWorldZ = 0x803F2C48; // segment:overlay2
+gCameraEyeWorldY = 0x803F2C4C; // segment:overlay2
+D_803F2C50 = 0x803F2C50; // segment:overlay2
+D_803F2C54 = 0x803F2C54; // segment:overlay2
+D_803F2C58 = 0x803F2C58; // segment:overlay2
+D_803F2C5C = 0x803F2C5C; // segment:overlay2
+D_803F2C60 = 0x803F2C60; // segment:overlay2
+D_803F2C64 = 0x803F2C64; // segment:overlay2
+D_803F2C68 = 0x803F2C68; // segment:overlay2
+D_803F2C6C = 0x803F2C6C; // segment:overlay2
+D_803F2C6D = 0x803F2C6D;
+D_803F2C6E = 0x803F2C6E;
+D_803F2C70 = 0x803F2C70;
+D_803F2C72 = 0x803F2C72;
+D_803F2C74 = 0x803F2C74;
+D_803F2C78 = 0x803F2C78;
+D_803F2C7C = 0x803F2C7C;
 
 // overlay2_7558F0
-D_803F2C80 = 0x803F2C80; // defined:true segment:overlay2
-D_803F2C84 = 0x803F2C84; // defined:true segment:overlay2
-D_803F2C86 = 0x803F2C86; // defined:true segment:overlay2
-D_803F2C88 = 0x803F2C88; // defined:true segment:overlay2
-D_803F2C8A = 0x803F2C8A; // defined:true segment:overlay2
-D_803F2C8C = 0x803F2C8C; // defined:true segment:overlay2
-D_803F2C8E = 0x803F2C8E; // defined:true segment:overlay2
-D_803F2C90 = 0x803F2C90; // defined:true segment:overlay2
-D_803F2C92 = 0x803F2C92; // defined:true segment:overlay2
-D_803F2C94 = 0x803F2C94; // defined:true segment:overlay2
-D_803F2C96 = 0x803F2C96; // defined:true segment:overlay2
-D_803F2C97 = 0x803F2C97; // defined:true segment:overlay2
-D_803F2C98 = 0x803F2C98; // defined:true segment:overlay2
-D_803F2C99 = 0x803F2C99; // defined:true segment:overlay2
-D_803F2C9A = 0x803F2C9A; // defined:true segment:overlay2
-D_803F2C9B = 0x803F2C9B; // defined:true segment:overlay2
-D_803F2C9C = 0x803F2C9C; // defined:true segment:overlay2
-D_803F2C9E = 0x803F2C9E; // defined:true segment:overlay2
-D_803F2CA0 = 0x803F2CA0; // defined:true segment:overlay2
-D_803F2CA2 = 0x803F2CA2; // defined:true segment:overlay2
-D_803F2CA4 = 0x803F2CA4; // defined:true segment:overlay2
-D_803F2CA6 = 0x803F2CA6; // defined:true segment:overlay2
-gWorldCellTranslucentEnabled = 0x803F2CA8; // defined:true
-D_803F2CC0 = 0x803F2CC0; // defined:true segment:overlay2 size:0x8
+D_803F2C80 = 0x803F2C80; // segment:overlay2
+D_803F2C84 = 0x803F2C84; // segment:overlay2
+D_803F2C86 = 0x803F2C86; // segment:overlay2
+D_803F2C88 = 0x803F2C88; // segment:overlay2
+D_803F2C8A = 0x803F2C8A; // segment:overlay2
+D_803F2C8C = 0x803F2C8C; // segment:overlay2
+D_803F2C8E = 0x803F2C8E; // segment:overlay2
+D_803F2C90 = 0x803F2C90; // segment:overlay2
+D_803F2C92 = 0x803F2C92; // segment:overlay2
+D_803F2C94 = 0x803F2C94; // segment:overlay2
+D_803F2C96 = 0x803F2C96; // segment:overlay2
+D_803F2C97 = 0x803F2C97; // segment:overlay2
+D_803F2C98 = 0x803F2C98; // segment:overlay2
+D_803F2C99 = 0x803F2C99; // segment:overlay2
+D_803F2C9A = 0x803F2C9A; // segment:overlay2
+D_803F2C9B = 0x803F2C9B; // segment:overlay2
+D_803F2C9C = 0x803F2C9C; // segment:overlay2
+D_803F2C9E = 0x803F2C9E; // segment:overlay2
+D_803F2CA0 = 0x803F2CA0; // segment:overlay2
+D_803F2CA2 = 0x803F2CA2; // segment:overlay2
+D_803F2CA4 = 0x803F2CA4; // segment:overlay2
+D_803F2CA6 = 0x803F2CA6; // segment:overlay2
+gWorldCellTranslucentEnabled = 0x803F2CA8;
+D_803F2CC0 = 0x803F2CC0; // segment:overlay2 size:0x8
 
 // osd
-D_803F2CD0 = 0x803F2CD0; // defined:true segment:overlay2
-gHudTimerSeconds = 0x803F2CD2; // defined:true segment:overlay2
-D_803F2CD4 = 0x803F2CD4; // defined:true segment:overlay2
-D_803F2CD6 = 0x803F2CD6; // defined:true segment:overlay2
-D_803F2CD8 = 0x803F2CD8; // defined:true segment:overlay2
-D_803F2CDA = 0x803F2CDA; // defined:true segment:overlay2
-D_803F2CDC = 0x803F2CDC; // defined:true segment:overlay2
-D_803F2CDD = 0x803F2CDD; // defined:true segment:overlay2
-D_803F2CDE = 0x803F2CDE; // defined:true segment:overlay2
-D_803F2CDF = 0x803F2CDF; // defined:true segment:overlay2
-gHudCenterText = 0x803F2CE0; // defined:true segment:overlay2
-D_803F2CE4 = 0x803F2CE4; // defined:true segment:overlay2
-D_803F2CE6 = 0x803F2CE6; // defined:true segment:overlay2
-D_803F2CE8 = 0x803F2CE8; // defined:true segment:overlay2
-D_803F2CEC = 0x803F2CEC; // defined:true segment:overlay2
-gHudBarBaseY = 0x803F2CF0; // defined:true segment:overlay2
-D_803F2CF2 = 0x803F2CF2; // defined:true segment:overlay2
-D_803F2CF8 = 0x803F2CF8; // defined:true segment:overlay2
-D_803F2D04 = 0x803F2D04; // defined:true
-gUiFlowState = 0x803F2D10; // defined:true
-D_803F2D18 = 0x803F2D18; // defined:true segment:overlay2
-D_803F2D20 = 0x803F2D20; // defined:true segment:overlay2
-D_803F2D22 = 0x803F2D22; // defined:true segment:overlay2
-D_803F2D23 = 0x803F2D23; // defined:true
-D_803F2D24 = 0x803F2D24; // defined:true segment:overlay2
-gGameState = 0x803F2D30; // defined:true segment:overlay2 size:0x20
-
-// TODO: D_803F2D50
-
+D_803F2CD0 = 0x803F2CD0; // segment:overlay2
+gHudTimerSeconds = 0x803F2CD2; // segment:overlay2
+D_803F2CD4 = 0x803F2CD4; // segment:overlay2
+D_803F2CD6 = 0x803F2CD6; // segment:overlay2
+D_803F2CD8 = 0x803F2CD8; // segment:overlay2
+D_803F2CDA = 0x803F2CDA; // segment:overlay2
+D_803F2CDC = 0x803F2CDC; // segment:overlay2
+D_803F2CDD = 0x803F2CDD; // segment:overlay2
+D_803F2CDE = 0x803F2CDE; // segment:overlay2
+D_803F2CDF = 0x803F2CDF; // segment:overlay2
+gHudCenterText = 0x803F2CE0; // segment:overlay2
+D_803F2CE4 = 0x803F2CE4; // segment:overlay2
+D_803F2CE6 = 0x803F2CE6; // segment:overlay2
+D_803F2CE8 = 0x803F2CE8; // segment:overlay2
+D_803F2CEC = 0x803F2CEC; // segment:overlay2
+gHudBarBaseY = 0x803F2CF0; // segment:overlay2
+D_803F2CF2 = 0x803F2CF2; // segment:overlay2
+D_803F2CF8 = 0x803F2CF8; // segment:overlay2
+D_803F2D04 = 0x803F2D04;
+gUiFlowState = 0x803F2D10;
+D_803F2D18 = 0x803F2D18; // segment:overlay2
+D_803F2D20 = 0x803F2D20; // segment:overlay2
+D_803F2D22 = 0x803F2D22; // segment:overlay2
+D_803F2D23 = 0x803F2D23;
+D_803F2D24 = 0x803F2D24; // segment:overlay2
+gGameState = 0x803F2D30; // segment:overlay2 size:0x20
 D_803F2D50 = 0x803F2D50; // segment:overlay2 size:0x10E
 
 // overlay2_76E7D0
-D_803F2EB0 = 0x803F2EB0; // defined:true segment:overlay2
-D_803F2EB4 = 0x803F2EB4; // defined:true segment:overlay2
-D_803F2EB8 = 0x803F2EB8; // defined:true segment:overlay2
-D_803F2EBC = 0x803F2EBC; // defined:true segment:overlay2
-D_803F2EC0 = 0x803F2EC0; // defined:true segment:overlay2
-D_803F2EC4 = 0x803F2EC4; // defined:true segment:overlay2
-D_803F2EC8 = 0x803F2EC8; // defined:true segment:overlay2
-D_803F2ECC = 0x803F2ECC; // defined:true segment:overlay2
-D_803F2ECE = 0x803F2ECE; // defined:true segment:overlay2
-D_803F2ED0 = 0x803F2ED0; // defined:true segment:overlay2
-D_803F2ED2 = 0x803F2ED2; // defined:true segment:overlay2
-D_803F2ED4 = 0x803F2ED4; // defined:true segment:overlay2
-D_803F2ED8 = 0x803F2ED8; // defined:true segment:overlay2
-D_803F2EDA = 0x803F2EDA; // defined:true segment:overlay2
-D_803F2EDB = 0x803F2EDB; // defined:true segment:overlay2
-D_803F2EDC = 0x803F2EDC; // defined:true segment:overlay2
-gLodDetailState = 0x803F2EDD; // defined:true segment:overlay2
-D_803F2EDE = 0x803F2EDE; // defined:true segment:overlay2
+D_803F2EB0 = 0x803F2EB0; // segment:overlay2
+D_803F2EB4 = 0x803F2EB4; // segment:overlay2
+D_803F2EB8 = 0x803F2EB8; // segment:overlay2
+D_803F2EBC = 0x803F2EBC; // segment:overlay2
+D_803F2EC0 = 0x803F2EC0; // segment:overlay2
+D_803F2EC4 = 0x803F2EC4; // segment:overlay2
+D_803F2EC8 = 0x803F2EC8; // segment:overlay2
+D_803F2ECC = 0x803F2ECC; // segment:overlay2
+D_803F2ECE = 0x803F2ECE; // segment:overlay2
+D_803F2ED0 = 0x803F2ED0; // segment:overlay2
+D_803F2ED2 = 0x803F2ED2; // segment:overlay2
+D_803F2ED4 = 0x803F2ED4; // segment:overlay2
+D_803F2ED8 = 0x803F2ED8; // segment:overlay2
+D_803F2EDA = 0x803F2EDA; // segment:overlay2
+D_803F2EDB = 0x803F2EDB; // segment:overlay2
+D_803F2EDC = 0x803F2EDC; // segment:overlay2
+gLodDetailState = 0x803F2EDD; // segment:overlay2
+D_803F2EDE = 0x803F2EDE; // segment:overlay2
 
 // chameleon
-D_803F2EA0 = 0x803F2EA0; // defined:true
+D_803F2EA0 = 0x803F2EA0;
 
 // overlay2_76F7D0
-D_803F2EE0 = 0x803F2EE0; // defined:true segment:overlay2
+D_803F2EE0 = 0x803F2EE0; // segment:overlay2
 
 // sheep
-D_803F2EF0 = 0x803F2EF0; // defined:true
+D_803F2EF0 = 0x803F2EF0;
 
 // overlay2_785D10
-D_803F2F00 = 0x803F2F00; // defined:true segment:overlay2
-D_803F2F08 = 0x803F2F08; // defined:true size:0x400 segment:overlay2
-D_803F3308 = 0x803F3308; // defined:true segment:overlay2
-D_803F330A = 0x803F330A; // defined:true segment:overlay2
-D_803F330C = 0x803F330C; // defined:true segment:overlay2
-D_803F330E = 0x803F330E; // defined:true segment:overlay2
-gScorpionVtxIdx = 0x803F3310; // defined:true segment:overlay2
-D_803F3330 = 0x803F3330; // defined:true segment:overlay2
-D_803F34C0 = 0x803F34C0; // defined:true segment:overlay2
-gLoadedMessageCount = 0x803F63C0; // defined:true segment:overlay2
-D_803F63C2 = 0x803F63C2; // defined:true segment:overlay2
+D_803F2F00 = 0x803F2F00; // segment:overlay2
+D_803F2F08 = 0x803F2F08; // size:0x400 segment:overlay2
+D_803F3308 = 0x803F3308; // segment:overlay2
+D_803F330A = 0x803F330A; // segment:overlay2
+D_803F330C = 0x803F330C; // segment:overlay2
+D_803F330E = 0x803F330E; // segment:overlay2
+gScorpionVtxIdx = 0x803F3310; // segment:overlay2
+D_803F3330 = 0x803F3330; // segment:overlay2
+D_803F34C0 = 0x803F34C0; // segment:overlay2
+gLoadedMessageCount = 0x803F63C0; // segment:overlay2
+D_803F63C2 = 0x803F63C2; // segment:overlay2
 
 // overlay2_78E970
-D_803F63D0 = 0x803F63D0; // defined:true segment:overlay2
+D_803F63D0 = 0x803F63D0; // segment:overlay2
 
 // overlay2_791CD0
-D_803F63E0 = 0x803F63E0; // defined:true segment:overlay2
+D_803F63E0 = 0x803F63E0; // segment:overlay2
 
 // overlay2_794EE0
-D_803F63F0 = 0x803F63F0; // defined:true segment:overlay2
+D_803F63F0 = 0x803F63F0; // segment:overlay2
 
 // credits
-entryOffset      = 0x803F6400; // defined:true segment:overlay2
-verticalPosition = 0x803F6402; // defined:true segment:overlay2
+entryOffset      = 0x803F6400; // segment:overlay2
+verticalPosition = 0x803F6402; // segment:overlay2
 
 // cheats
-D_803F6410 = 0x803F6410; // defined:true segment:overlay2
+D_803F6410 = 0x803F6410; // segment:overlay2
 
 // overlay2_79DE10
-D_803F6450 = 0x803F6450; // defined:true segment:overlay2
+D_803F6450 = 0x803F6450; // segment:overlay2
 
 // terminal_background
-D_803F6460 = 0x803F6460; // defined:true segment:overlay2
-D_803F6464 = 0x803F6464; // defined:true segment:overlay2
-D_803F6468 = 0x803F6468; // defined:true segment:overlay2
-D_803F646C = 0x803F646C; // defined:true segment:overlay2
-D_803F6470 = 0x803F6470; // defined:true segment:overlay2
-D_803F6472 = 0x803F6472; // defined:true segment:overlay2
-D_803F6474 = 0x803F6474; // defined:true segment:overlay2
-gTerminalTextScrollState = 0x803F6478; // defined:true segment:overlay2
-gTerminalStatLabels = 0x803F6500; // defined:true segment:overlay2
-gTerminalStatTextX = 0x803F6548; // defined:true segment:overlay2
-gTerminalDnaSimulation = 0x803F6570; // defined:true segment:overlay2
-D_803F6670 = 0x803F6670; // defined:true
-D_803F6674 = 0x803F6674; // defined:true
+D_803F6460 = 0x803F6460; // segment:overlay2
+D_803F6464 = 0x803F6464; // segment:overlay2
+D_803F6468 = 0x803F6468; // segment:overlay2
+D_803F646C = 0x803F646C; // segment:overlay2
+D_803F6470 = 0x803F6470; // segment:overlay2
+D_803F6472 = 0x803F6472; // segment:overlay2
+D_803F6474 = 0x803F6474; // segment:overlay2
+gTerminalTextScrollState = 0x803F6478; // segment:overlay2
+gTerminalStatLabels = 0x803F6500; // segment:overlay2
+gTerminalStatTextX = 0x803F6548; // segment:overlay2
+gTerminalDnaSimulation = 0x803F6570; // segment:overlay2
+D_803F6670 = 0x803F6670;
+D_803F6674 = 0x803F6674;
 
 // overlay2_7A0DA0
-gOverlayMenuState = 0x803F6680; // defined:true segment:overlay2 size:0x37
-gOverlayUiState = 0x803F66B8; // defined:true segment:overlay2 size:0x4C
-D_803F6704 = 0x803F6704; // defined:true segment:overlay2
-D_803F6706 = 0x803F6706; // defined:true segment:overlay2
-D_803F6708 = 0x803F6708; // defined:true segment:overlay2
-D_803F670A = 0x803F670A; // defined:true segment:overlay2
-D_803F670C = 0x803F670C; // defined:true segment:overlay2
-D_803F670E = 0x803F670E; // defined:true segment:overlay2
-D_803F6714 = 0x803F6714; // defined:true segment:overlay2
-D_803F6716 = 0x803F6716; // defined:true segment:overlay2
-D_803F6718 = 0x803F6718; // defined:true segment:overlay2
-D_803F671A = 0x803F671A; // defined:true segment:overlay2
-D_803F671C = 0x803F671C; // defined:true segment:overlay2
+gOverlayMenuState = 0x803F6680; // segment:overlay2 size:0x37
+gOverlayUiState = 0x803F66B8; // segment:overlay2 size:0x4C
+D_803F6704 = 0x803F6704; // segment:overlay2
+D_803F6706 = 0x803F6706; // segment:overlay2
+D_803F6708 = 0x803F6708; // segment:overlay2
+D_803F670A = 0x803F670A; // segment:overlay2
+D_803F670C = 0x803F670C; // segment:overlay2
+D_803F670E = 0x803F670E; // segment:overlay2
+D_803F6714 = 0x803F6714; // segment:overlay2
+D_803F6716 = 0x803F6716; // segment:overlay2
+D_803F6718 = 0x803F6718; // segment:overlay2
+D_803F671A = 0x803F671A; // segment:overlay2
+D_803F671C = 0x803F671C; // segment:overlay2
 
 // overlay2_7A8A50
-gRigPoseStates = 0x803F6720; // defined:true
-D_803F70F8 = 0x803F70F8; // defined:true
-D_803F7134 = 0x803F7134; // defined:true
-D_803F713C = 0x803F713C; // defined:true
-D_803F7144 = 0x803F7144; // defined:true
-D_803F714C = 0x803F714C; // defined:true
+gRigPoseStates = 0x803F6720;
+D_803F70F8 = 0x803F70F8;
+D_803F7134 = 0x803F7134;
+D_803F713C = 0x803F713C;
+D_803F7144 = 0x803F7144;
+D_803F714C = 0x803F714C;
 
 // ui_main_menu
-D_803F7D60 = 0x803F7D60; // defined:true
-D_803F7D68 = 0x803F7D68; // defined:true
-D_803F7D70 = 0x803F7D70; // defined:true
-D_803F7D78 = 0x803F7D78; // defined:true
-D_803F7D9C = 0x803F7D9C; // defined:true
-D_803F7D9E = 0x803F7D9E; // defined:true
-D_803F7DA0 = 0x803F7DA0; // defined:true
-D_803F7DA1 = 0x803F7DA1; // defined:true
-D_803F7DA2 = 0x803F7DA2; // defined:true
-D_803F7DA3 = 0x803F7DA3; // defined:true
-D_803F7DA8 = 0x803F7DA8; // defined:true segment:overlay2 size:0x34
-D_803F7DE0 = 0x803F7DE0; // defined:true segment:overlay2 size:0x1E
-D_803F7DFE = 0x803F7DFE; // defined:true
-D_803F7E00 = 0x803F7E00; // defined:true
-D_803F7E02 = 0x803F7E02; // defined:true
-D_803F7E04 = 0x803F7E04; // defined:true
-D_803F7E06 = 0x803F7E06; // defined:true
+D_803F7D60 = 0x803F7D60;
+D_803F7D68 = 0x803F7D68;
+D_803F7D70 = 0x803F7D70;
+D_803F7D78 = 0x803F7D78;
+D_803F7D9C = 0x803F7D9C;
+D_803F7D9E = 0x803F7D9E;
+D_803F7DA0 = 0x803F7DA0;
+D_803F7DA1 = 0x803F7DA1;
+D_803F7DA2 = 0x803F7DA2;
+D_803F7DA3 = 0x803F7DA3;
+D_803F7DA8 = 0x803F7DA8; // segment:overlay2 size:0x34
+D_803F7DE0 = 0x803F7DE0; // segment:overlay2 size:0x1E
+D_803F7DFE = 0x803F7DFE;
+D_803F7E00 = 0x803F7E00;
+D_803F7E02 = 0x803F7E02;
+D_803F7E04 = 0x803F7E04;
+D_803F7E06 = 0x803F7E06;
 
 // trails
-gTrails    = 0x803F7E10; // defined:true segment:overlay2
-trailsUsed = 0x803FDEA0; // defined:true segment:overlay2
+gTrails    = 0x803F7E10; // segment:overlay2
+trailsUsed = 0x803FDEA0; // segment:overlay2
 
 // end-of-rom data
 
-D_803FDEC0_7D1AD0 = 0x803FDEC0; // rom:0x7D1AD0 defined:true
-D_803FDFDC_7D1BEC = 0x803FDFDC; // rom:0x7D1BEC defined:true
+D_803FF668_7DA448 = 0x803FF668; // rom:0x7DA448
+D_803FF7DC_7DA93C = 0x803FF7DC; // rom:0x7DA93C
+D_803FF740_7DAD90 = 0x803FF740; // rom:0x7DAD90
+D_803FF870_7DB320 = 0x803FF870; // rom:0x7DB320
+D_803FFB28_7DBB68 = 0x803FFB28; // rom:0x7DBB68
+D_803FF974_7DC1F4 = 0x803FF974; // rom:0x7DC1F4
+D_803FF618_7DC528 = 0x803FF618; // rom:0x7DC528
+D_803FF6F8_7DC938 = 0x803FF6F8; // rom:0x7DC938
+D_803FF440_7DCA90 = 0x803FF440; // rom:0x7DCA90
+D_803FF3E0_7DA0C0 = 0x803FF3E0; // rom:0x7DA0C0
+
+D_803FF2E8_7D2EF8 = 0x803FF2E8; // rom:0x7D2EF8
+D_803FE27C_7D330C = 0x803FE27C; // rom:0x7D330C
+D_803FE5B8_7D3A58 = 0x803FE5B8; // rom:0x7D3A58
+D_803FE620_7D4210 = 0x803FE620; // rom:0x7D4210
+D_803FE428_7D47D8 = 0x803FE428; // rom:0x7D47D8
+D_803FDFF8_7D4968 = 0x803FDFF8; // rom:0x7D4968
+D_803FE6EC_7D51EC = 0x803FE6EC; // rom:0x7D51EC
+D_803FE244_7D55C4 = 0x803FE244; // rom:0x7D55C4
+D_803FE1DC_7D593C = 0x803FE1DC; // rom:0x7D593C
+D_803FE264_7D5D34 = 0x803FE264; // rom:0x7D5D34
+D_803FE2C8_7D6198 = 0x803FE2C8; // rom:0x7D6198
+D_803FE148_7D6478 = 0x803FE148; // rom:0x7D6478
+D_803FE100_7D6710 = 0x803FE100; // rom:0x7D6710
+D_803FE52C_7D6DDC = 0x803FE52C; // rom:0x7D6DDC
+D_803FE5A0_7D7510 = 0x803FE5A0; // rom:0x7D7510
+D_803FE39C_7D7A4C = 0x803FE39C; // rom:0x7D7A4C
+D_803FE71C_7D82FC = 0x803FE71C; // rom:0x7D82FC
+D_803FE3FC_7D888C = 0x803FE3FC; // rom:0x7D888C
+D_803FE42C_7D8E4C = 0x803FE42C; // rom:0x7D8E4C
+D_803FE2A4_7D9284 = 0x803FE2A4; // rom:0x7D9284
+D_803FE3E4_7D9804 = 0x803FE3E4; // rom:0x7D9804
+D_803FE52C_7D9ECC = 0x803FE52C; // rom:0x7D9ECC
+D_803FDF60_7D9FC0 = 0x803FDF60; // rom:0x7D9FC0
+
 
 // ========================================================
 // libultra functions
 // ========================================================
 
-osInitialize                = 0x801378C0; // defined:true
+osInitialize                = 0x801378C0;
 
-__ull_rshift                = 0x80137B50; // defined:true
-__ull_rem                   = 0x80137B7C; // defined:true
-__ull_div                   = 0x80137BB8; // defined:true
-__ll_lshift                 = 0x80137BF4; // defined:true
-__ll_rem                    = 0x80137C20; // defined:true
-__ll_div                    = 0x80137C5C; // defined:true
-__ll_mul                    = 0x80137CB8; // defined:true
-__ull_divremi               = 0x80137CE8; // defined:true
-__ll_mod                    = 0x80137D48; // defined:true
-__ll_rshift                 = 0x80137DE4; // defined:true
+__ull_rshift                = 0x80137B50;
+__ull_rem                   = 0x80137B7C;
+__ull_div                   = 0x80137BB8;
+__ll_lshift                 = 0x80137BF4;
+__ll_rem                    = 0x80137C20;
+__ll_div                    = 0x80137C5C;
+__ll_mul                    = 0x80137CB8;
+__ull_divremi               = 0x80137CE8;
+__ll_mod                    = 0x80137D48;
+__ll_rshift                 = 0x80137DE4;
 
-sqrtf                       = 0x80137E10; // defined:true
+sqrtf                       = 0x80137E10;
 
-osGetTime                   = 0x80137E20; // defined:true
+osGetTime                   = 0x80137E20;
 
-osWritebackDCacheAll        = 0x80137EB0; // defined:true
+osWritebackDCacheAll        = 0x80137EB0;
 
-osPiStartDma                = 0x80137EE0; // defined:true
+osPiStartDma                = 0x80137EE0;
 
-osRecvMesg                  = 0x80137FF0; // defined:true
+osRecvMesg                  = 0x80137FF0;
 
-osVirtualToPhysical         = 0x80138130; // defined:true
+osVirtualToPhysical         = 0x80138130;
 
-osCreateMesgQueue           = 0x801381B0; // defined:true
+osCreateMesgQueue           = 0x801381B0;
 
-osStartThread               = 0x801381E0; // defined:true
+osStartThread               = 0x801381E0;
 
-__scTaskReady               = 0x80138330; // defined:true
-__scExec                    = 0x80138380; // defined:true
-__scSchedule                = 0x80138420; // defined:true
-osScGetCmdQ                 = 0x80138A60; // defined:true
-osScRemoveClient            = 0x80138A68; // defined:true
-osScAddClient               = 0x80138AF0; // defined:true
-osCreateScheduler           = 0x80138B40; // defined:true
+__scTaskReady               = 0x80138330;
+__scExec                    = 0x80138380;
+__scSchedule                = 0x80138420;
+osScGetCmdQ                 = 0x80138A60;
+osScRemoveClient            = 0x80138A68;
+osScAddClient               = 0x80138AF0;
+osCreateScheduler           = 0x80138B40;
 
-osViSetSpecialFeatures      = 0x80138C70; // defined:true
+osViSetSpecialFeatures      = 0x80138C70;
 
-osContStartReadData         = 0x80138E30; // defined:true
-osContGetReadData           = 0x80138EBC; // defined:true
-__osPackReadData            = 0x80138F64; // defined:true
+osContStartReadData         = 0x80138E30;
+osContGetReadData           = 0x80138EBC;
+__osPackReadData            = 0x80138F64;
 
-osSendMesg                  = 0x80139050; // defined:true
+osSendMesg                  = 0x80139050;
 
-osViSetXScale               = 0x80139200; // defined:true
+osViSetXScale               = 0x80139200;
 
-osViSetYScale               = 0x80139330; // defined:true
+osViSetYScale               = 0x80139330;
 
-osViBlack                   = 0x80139390; // defined:true
+osViBlack                   = 0x80139390;
 
-osInvalICache               = 0x80139400; // defined:true
+osInvalICache               = 0x80139400;
 
-osInvalDCache               = 0x80139480; // defined:true
+osInvalDCache               = 0x80139480;
 
-bzero                       = 0x80139530; // defined:true
+bzero                       = 0x80139530;
 
-proutSprintf                = 0x801395D0; // defined:true
-sprintf                     = 0x801395F4; // defined:true
+proutSprintf                = 0x801395D0;
+sprintf                     = 0x801395F4;
 
-rmonPrintf                  = 0x80139650; // defined:true
-osSyncPrintf                = 0x8013966C; // defined:true
+rmonPrintf                  = 0x80139650;
+osSyncPrintf                = 0x8013966C;
 
-osEepromLongWrite           = 0x80139690; // defined:true
+osEepromLongWrite           = 0x80139690;
 
-osEepromLongRead            = 0x80139780; // defined:true
+osEepromLongRead            = 0x80139780;
 
-osDpSetStatus               = 0x80139810; // defined:true
+osDpSetStatus               = 0x80139810;
 
-osAiSetFrequency            = 0x80139820; // defined:true
+osAiSetFrequency            = 0x80139820;
 
-alUnlink                    = 0x80139980; // defined:true
-alLink                      = 0x801399B0; // defined:true
-alClose                     = 0x801399D4; // defined:true
-alInit                      = 0x80139A0C; // defined:true
+alUnlink                    = 0x80139980;
+alLink                      = 0x801399B0;
+alClose                     = 0x801399D4;
+alInit                      = 0x80139A0C;
 
-alHeapDBAlloc               = 0x80139A40; // defined:true
+alHeapDBAlloc               = 0x80139A40;
 
-osCreateThread              = 0x80139AA0; // defined:true
+osCreateThread              = 0x80139AA0;
 
-osAiSetNextBuffer           = 0x80139BF0; // defined:true
+osAiSetNextBuffer           = 0x80139BF0;
 
-osAiGetLength               = 0x80139CA0; // defined:true
+osAiGetLength               = 0x80139CA0;
 
-_timeToSamples              = 0x80139CB8; // defined:true
-_freePVoice                 = 0x80139D10; // defined:true
-_collectPVoices             = 0x80139D48; // defined:true
-__freeParam                 = 0x80139DA8; // defined:true
-__allocParam                = 0x80139DC0; // defined:true
-alAudioFrame                = 0x80139DF8; // defined:true
-alSynNew                    = 0x8013A090; // defined:true
+_timeToSamples              = 0x80139CB8;
+_freePVoice                 = 0x80139D10;
+_collectPVoices             = 0x80139D48;
+__freeParam                 = 0x80139DA8;
+__allocParam                = 0x80139DC0;
+alAudioFrame                = 0x80139DF8;
+alSynNew                    = 0x8013A090;
 
-alHeapInit                  = 0x8013A390; // defined:true
+alHeapInit                  = 0x8013A390;
 
-alBnkfNew                   = 0x8013A4D4; // defined:true
-_bnkfPatchInst              = 0x8013A3E0; // defined:true
-alSeqFileNew                = 0x8013A5D8; // defined:true
+alBnkfNew                   = 0x8013A4D4;
+_bnkfPatchInst              = 0x8013A3E0;
+alSeqFileNew                = 0x8013A5D8;
 
-_removeEvents               = 0x8013A620; // defined:true
-_handleEvent                = 0x8013A6AC; // defined:true
-alSndpNew                   = 0x8013ABF4; // defined:true
+_removeEvents               = 0x8013A620;
+_handleEvent                = 0x8013A6AC;
+alSndpNew                   = 0x8013ABF4;
 
-alSeqpSetBank               = 0x8013AD30; // defined:true
+alSeqpSetBank               = 0x8013AD30;
 
-alCSeqGetLoc                = 0x8013AD70; // defined:true
-alCSeqSetLoc                = 0x8013AE10; // defined:true
-__getTrackByte              = 0x8013AEB0; // defined:true
-__readVarLen                = 0x8013AF74; // defined:true
-alCSeqNextEvent             = 0x8013AFD4; // defined:true
-alCSeqNew                   = 0x8013B2CC; // defined:true
-alCSeqNewMarker             = 0x8013B3E0; // defined:true
-alCSeqSecToTicks            = 0x8013B554; // defined:true
-alCSeqTicksToSec            = 0x8013B650; // defined:true
-__alCSeqNextDelta           = 0x8013B6BC; // defined:true
+alCSeqGetLoc                = 0x8013AD70;
+alCSeqSetLoc                = 0x8013AE10;
+__getTrackByte              = 0x8013AEB0;
+__readVarLen                = 0x8013AF74;
+alCSeqNextEvent             = 0x8013AFD4;
+alCSeqNew                   = 0x8013B2CC;
+alCSeqNewMarker             = 0x8013B3E0;
+alCSeqSecToTicks            = 0x8013B554;
+alCSeqTicksToSec            = 0x8013B650;
+__alCSeqNextDelta           = 0x8013B6BC;
 
-alSeqpSetSeq                = 0x8013B830; // defined:true
+alSeqpSetSeq                = 0x8013B830;
 
-alSeqpSetVol                = 0x8013B870; // defined:true
+alSeqpSetVol                = 0x8013B870;
 
-alSeqpPlay                  = 0x8013B8B0; // defined:true
+alSeqpPlay                  = 0x8013B8B0;
 
-alSndpAllocate              = 0x8013B8E0; // defined:true
+alSndpAllocate              = 0x8013B8E0;
 
-alSndpSetSound              = 0x8013B980; // defined:true
+alSndpSetSound              = 0x8013B980;
 
-alSndpSetPitch              = 0x8013B9A0; // defined:true
+alSndpSetPitch              = 0x8013B9A0;
 
-alSndpSetVol                = 0x8013BA00; // defined:true
+alSndpSetVol                = 0x8013BA00;
 
-alSndpSetFXMix              = 0x8013BA60; // defined:true
+alSndpSetFXMix              = 0x8013BA60;
 
-alSndpPlay                  = 0x8013BAC0; // defined:true
+alSndpPlay                  = 0x8013BAC0;
 
-alSeqpStop                  = 0x8013BB30; // defined:true
+alSeqpStop                  = 0x8013BB30;
 
-alSndpGetState              = 0x8013BB60; // defined:true
+alSndpGetState              = 0x8013BB60;
 
-alSndpDeallocate            = 0x8013BB80; // defined:true
+alSndpDeallocate            = 0x8013BB80;
 
-alSndpSetPan                = 0x8013BBD0; // defined:true
+alSndpSetPan                = 0x8013BBD0;
 
-alSndpStop                  = 0x8013BC30; // defined:true
+alSndpStop                  = 0x8013BC30;
 
-__setInstChanState          = 0x8013BC80; // defined:true
-__resetPerfChanState        = 0x8013BCD4; // defined:true
-__initFromBank              = 0x8013BD54; // defined:true
-__vsDelta                   = 0x8013BE10; // defined:true
-__vsVol                     = 0x8013BE34; // defined:true
-__seqpReleaseVoice          = 0x8013BEBC; // defined:true
-__voiceNeedsNoteKill        = 0x8013BFE8; // defined:true
-__unmapVoice                = 0x8013C090; // defined:true
-__postNextSeqEvent          = 0x8013C100; // defined:true
-__vsPan                     = 0x8013C254; // defined:true
-__lookupVoice               = 0x8013C29C; // defined:true
-__mapVoice                  = 0x8013C310; // defined:true
-__lookupSoundQuick          = 0x8013C380; // defined:true
-__seqpStopOsc               = 0x8013D2C0; // defined:true
-__initChanState             = 0x8013D3C4; // defined:true
-alSeqpNew                   = 0x8013D434; // defined:true
+__setInstChanState          = 0x8013BC80;
+__resetPerfChanState        = 0x8013BCD4;
+__initFromBank              = 0x8013BD54;
+__vsDelta                   = 0x8013BE10;
+__vsVol                     = 0x8013BE34;
+__seqpReleaseVoice          = 0x8013BEBC;
+__voiceNeedsNoteKill        = 0x8013BFE8;
+__unmapVoice                = 0x8013C090;
+__postNextSeqEvent          = 0x8013C100;
+__vsPan                     = 0x8013C254;
+__lookupVoice               = 0x8013C29C;
+__mapVoice                  = 0x8013C310;
+__lookupSoundQuick          = 0x8013C380;
+__seqpStopOsc               = 0x8013D2C0;
+__initChanState             = 0x8013D3C4;
+alSeqpNew                   = 0x8013D434;
 
-alEvtqFlushType             = 0x8013D5C0; // defined:true
-alEvtqFlush                 = 0x8013D66C; // defined:true
-alEvtqPostEvent             = 0x8013D6DC; // defined:true
-alEvtqNextEvent             = 0x8013D800; // defined:true
-alEvtqNew                   = 0x8013D88C; // defined:true
+alEvtqFlushType             = 0x8013D5C0;
+alEvtqFlush                 = 0x8013D66C;
+alEvtqPostEvent             = 0x8013D6DC;
+alEvtqNextEvent             = 0x8013D800;
+alEvtqNew                   = 0x8013D88C;
 
-alSynAddPlayer              = 0x8013D900; // defined:true
+alSynAddPlayer              = 0x8013D900;
 
-alSynStopVoice              = 0x8013D950; // defined:true
+alSynStopVoice              = 0x8013D950;
 
-alSynFreeVoice              = 0x8013D9D0; // defined:true
+alSynFreeVoice              = 0x8013D9D0;
 
-alSynSetVol                 = 0x8013DA80; // defined:true
+alSynSetVol                 = 0x8013DA80;
 
-alSynSetPitch               = 0x8013DB20; // defined:true
+alSynSetPitch               = 0x8013DB20;
 
-_allocatePVoice             = 0x8013DBB0; // defined:true
-alSynAllocVoice             = 0x8013DC98; // defined:true
+_allocatePVoice             = 0x8013DBB0;
+alSynAllocVoice             = 0x8013DC98;
 
-alCents2Ratio               = 0x8013DDE0; // defined:true
+alCents2Ratio               = 0x8013DDE0;
 
-alSynStartVoiceParams       = 0x8013DE30; // defined:true
+alSynStartVoiceParams       = 0x8013DE30;
 
-alSynSetPan                 = 0x8013DF20; // defined:true
+alSynSetPan                 = 0x8013DF20;
 
-alSynSetFXMix               = 0x8013DFB0; // defined:true
+alSynSetFXMix               = 0x8013DFB0;
 
-osSetIntMask                = 0x8013E050; // defined:true
+osSetIntMask                = 0x8013E050;
 
-osCreatePiManager           = 0x8013E0F0; // defined:true
+osCreatePiManager           = 0x8013E0F0;
 
-osSetThreadPri              = 0x8013E280; // defined:true
+osSetThreadPri              = 0x8013E280;
 
-guSprite2DInit              = 0x8013E360; // defined:true
+guSprite2DInit              = 0x8013E360;
 
-osSetEventMesg              = 0x8013E3B0; // defined:true
+osSetEventMesg              = 0x8013E3B0;
 
-osContInit                  = 0x8013E420; // defined:true
-__osContGetInitData         = 0x8013E590; // defined:true
-__osPackRequestData         = 0x8013E660; // defined:true
+osContInit                  = 0x8013E420;
+__osContGetInitData         = 0x8013E590;
+__osPackRequestData         = 0x8013E660;
 
-osContSetCh                 = 0x8013E760; // defined:true
+osContSetCh                 = 0x8013E760;
 
-osPfsInit                   = 0x8013E7D0; // defined:true
+osPfsInit                   = 0x8013E7D0;
 
-osMotorStop                 = 0x8013E890; // defined:true
-osMotorStart                = 0x8013EA30; // defined:true
-osMotorInit                 = 0x8013ED4C; // defined:true
-_MakeMotorData              = 0x8013EBD0; // defined:true
+osMotorStop                 = 0x8013E890;
+osMotorStart                = 0x8013EA30;
+osMotorInit                 = 0x8013ED4C;
+_MakeMotorData              = 0x8013EBD0;
 
-osEepromProbe               = 0x8013F030; // defined:true
+osEepromProbe               = 0x8013F030;
 
-__d_to_ll                   = 0x8013F0D0; // defined:true
-__f_to_ll                   = 0x8013F0EC; // defined:true
-__d_to_ull                  = 0x8013F108; // defined:true
-__f_to_ull                  = 0x8013F1A8; // defined:true
-__ll_to_d                   = 0x8013F244; // defined:true
-__ll_to_f                   = 0x8013F25C; // defined:true
-__ull_to_d                  = 0x8013F274; // defined:true
-__ull_to_f                  = 0x8013F2A8; // defined:true
+__d_to_ll                   = 0x8013F0D0;
+__f_to_ll                   = 0x8013F0EC;
+__d_to_ull                  = 0x8013F108;
+__f_to_ull                  = 0x8013F1A8;
+__ll_to_d                   = 0x8013F244;
+__ll_to_f                   = 0x8013F25C;
+__ull_to_d                  = 0x8013F274;
+__ull_to_f                  = 0x8013F2A8;
 
-guTranslateF                = 0x8013F2E0; // defined:true
-guTranslate                 = 0x8013F328; // defined:true
+guTranslateF                = 0x8013F2E0;
+guTranslate                 = 0x8013F328;
 
-guPerspectiveF              = 0x8013F380; // defined:true
-guPerspective               = 0x8013F5B0; // defined:true
+guPerspectiveF              = 0x8013F380;
+guPerspective               = 0x8013F5B0;
 
-guScaleF                    = 0x8013F610; // defined:true
-guScale                     = 0x8013F664; // defined:true
+guScaleF                    = 0x8013F610;
+guScale                     = 0x8013F664;
 
-guLookAtF                   = 0x8013F6B0; // defined:true
-guLookAt                    = 0x8013F968; // defined:true
+guLookAtF                   = 0x8013F6B0;
+guLookAt                    = 0x8013F968;
 
-guRotateF                   = 0x8013F9E0; // defined:true
-guRotate                    = 0x8013FB74; // defined:true
+guRotateF                   = 0x8013F9E0;
+guRotate                    = 0x8013FB74;
 
-guRotateRPYF                = 0x8013FBD0; // defined:true
-guRotateRPY                 = 0x8013FD1C; // defined:true
+guRotateRPYF                = 0x8013FBD0;
+guRotateRPY                 = 0x8013FD1C;
 
-cosf                        = 0x8013FD70; // defined:true
-sinf                        = 0x8013FEE0; // defined:true
+cosf                        = 0x8013FD70;
+sinf                        = 0x8013FEE0;
 
-guLookAtReflectF            = 0x801400A0; // defined:true
-guLookAtReflect             = 0x801404AC; // defined:true
+guLookAtReflectF            = 0x801400A0;
+guLookAtReflect             = 0x801404AC;
 
-guLookAtHiliteF             = 0x80140530; // defined:true
-guLookAtHilite              = 0x80140C68; // defined:true
+guLookAtHiliteF             = 0x80140530;
+guLookAtHilite              = 0x80140C68;
 
-guRandom                    = 0x80140D20; // defined:true
+guRandom                    = 0x80140D20;
 
-osViGetCurrentLine          = 0x80140D50; // defined:true
+osViGetCurrentLine          = 0x80140D50;
 
-__osSetSR                   = 0x80140D60; // defined:true
-__osGetSR                   = 0x80140D70; // defined:true
+__osSetSR                   = 0x80140D60;
+__osGetSR                   = 0x80140D70;
 
-__osSetFpcCsr               = 0x80140D80; // defined:true
+__osSetFpcCsr               = 0x80140D80;
 
-__osSiRawReadIo             = 0x80140D90; // defined:true
+__osSiRawReadIo             = 0x80140D90;
 
-__osSiRawWriteIo            = 0x80140DE0; // defined:true
+__osSiRawWriteIo            = 0x80140DE0;
 
-__osExceptionPreamble       = 0x80140E30; // defined:true
-__osException               = 0x80140E40; // defined:true
-send_message                = 0x80141374; // defined:true
-__osEnqueueAndYield         = 0x8014145C; // defined:true
-__osEnqueueThread           = 0x8014155C; // defined:true
-__osPopThread               = 0x801415A4; // defined:true
-__osDispatchThread          = 0x801415B4; // defined:true
-__osCleanupThread           = 0x80141730; // defined:true
+__osExceptionPreamble       = 0x80140E30;
+__osException               = 0x80140E40;
+send_message                = 0x80141374;
+__osEnqueueAndYield         = 0x8014145C;
+__osEnqueueThread           = 0x8014155C;
+__osPopThread               = 0x801415A4;
+__osDispatchThread          = 0x801415B4;
+__osCleanupThread           = 0x80141730;
 
-osWritebackDCache           = 0x80141740; // defined:true
+osWritebackDCache           = 0x80141740;
 
-osMapTLBRdb                 = 0x801417C0; // defined:true
+osMapTLBRdb                 = 0x801417C0;
 
-osPiRawReadIo               = 0x80141820; // defined:true
+osPiRawReadIo               = 0x80141820;
 
-__osDisableInt              = 0x80141880; // defined:true
-__osRestoreInt              = 0x801418A0; // defined:true
+__osDisableInt              = 0x80141880;
+__osRestoreInt              = 0x801418A0;
 
-osGetCount                  = 0x801418C0; // defined:true
+osGetCount                  = 0x801418C0;
 
-__osTimerServicesInit       = 0x801418D0; // defined:true
-__osTimerInterrupt          = 0x8014195C; // defined:true
-__osSetTimerIntr            = 0x80141AD4; // defined:true
-__osInsertTimer             = 0x80141B48; // defined:true
+__osTimerServicesInit       = 0x801418D0;
+__osTimerInterrupt          = 0x8014195C;
+__osSetTimerIntr            = 0x80141AD4;
+__osInsertTimer             = 0x80141B48;
 
-osJamMesg                   = 0x80141CD0; // defined:true
+osJamMesg                   = 0x80141CD0;
 
-osPiGetCmdQueue             = 0x80141E20; // defined:true
+osPiGetCmdQueue             = 0x80141E20;
 
-__osDequeueThread           = 0x80141E50; // defined:true
+__osDequeueThread           = 0x80141E50;
 
-__osProbeTLB                = 0x80141E90; // defined:true
+__osProbeTLB                = 0x80141E90;
 
-osCreateViManager           = 0x80141F50; // defined:true
-viMgrMain                   = 0x801420D8; // defined:true
+osCreateViManager           = 0x80141F50;
+viMgrMain                   = 0x801420D8;
 
-osViSetMode                 = 0x801422B0; // defined:true
+osViSetMode                 = 0x801422B0;
 
-osViSetEvent                = 0x80142320; // defined:true
+osViSetEvent                = 0x80142320;
 
-osSpTaskYielded             = 0x80142390; // defined:true
+osSpTaskYielded             = 0x80142390;
 
-osViGetCurrentFramebuffer   = 0x80142410; // defined:true
+osViGetCurrentFramebuffer   = 0x80142410;
 
-osViGetNextFramebuffer      = 0x80142450; // defined:true
+osViGetNextFramebuffer      = 0x80142450;
 
-osViSwapBuffer              = 0x80142490; // defined:true
+osViSwapBuffer              = 0x80142490;
 
-_VirtualToPhysicalTask      = 0x801424E0; // defined:true
-osSpTaskLoad                = 0x801425FC; // defined:true
-osSpTaskStartGo             = 0x8014278C; // defined:true
+_VirtualToPhysicalTask      = 0x801424E0;
+osSpTaskLoad                = 0x801425FC;
+osSpTaskStartGo             = 0x8014278C;
 
-osDpSetNextBuffer           = 0x801427D0; // defined:true
+osDpSetNextBuffer           = 0x801427D0;
 
-osSpTaskYield               = 0x80142880; // defined:true
+osSpTaskYield               = 0x80142880;
 
-__osViInit                  = 0x801428A0; // defined:true
+__osViInit                  = 0x801428A0;
 
-__osSiCreateAccessQueue     = 0x801429E0; // defined:true
-__osSiGetAccess             = 0x80142A30; // defined:true
-__osSiRelAccess             = 0x80142A74; // defined:true
+__osSiCreateAccessQueue     = 0x801429E0;
+__osSiGetAccess             = 0x80142A30;
+__osSiRelAccess             = 0x80142A74;
 
-__osSiRawStartDma           = 0x80142AA0; // defined:true
+__osSiRawStartDma           = 0x80142AA0;
 
-_Printf                     = 0x801431C0; // defined:true
+_Printf                     = 0x801431C0;
 
-memcpy                      = 0x80143810; // defined:true
-strlen                      = 0x8014383C; // defined:true
-strchr                      = 0x80143864; // defined:true
+memcpy                      = 0x80143810;
+strlen                      = 0x8014383C;
+strchr                      = 0x80143864;
 
-osEepromWrite               = 0x801438B0; // defined:true
-__osPackEepWriteData        = 0x80143A9C; // defined:true
-__osEepStatus               = 0x80143BA8; // defined:true
+osEepromWrite               = 0x801438B0;
+__osPackEepWriteData        = 0x80143A9C;
+__osEepStatus               = 0x80143BA8;
 
-osSetTimer                  = 0x80143DD0; // defined:true
+osSetTimer                  = 0x80143DD0;
 
-osEepromRead                = 0x80143EB0; // defined:true
-__osPackEepReadData         = 0x801440CC; // defined:true
+osEepromRead                = 0x80143EB0;
+__osPackEepReadData         = 0x801440CC;
 
-alSynDelete                 = 0x801441D0; // defined:true
+alSynDelete                 = 0x801441D0;
 
-__osAiDeviceBusy            = 0x801441E0; // defined:true
+__osAiDeviceBusy            = 0x801441E0;
 
-alSaveNew                   = 0x80144210; // defined:true
-alMainBusNew                = 0x80144254; // defined:true
-alAuxBusNew                 = 0x801442A8; // defined:true
-alResampleNew               = 0x801442FC; // defined:true
-alLoadNew                   = 0x80144384; // defined:true
-alEnvmixerNew               = 0x8014442C; // defined:true
-init_lpfilter               = 0x801444D0; // defined:true
-alFxNew                     = 0x80144570; // defined:true
+alSaveNew                   = 0x80144210;
+alMainBusNew                = 0x80144254;
+alAuxBusNew                 = 0x801442A8;
+alResampleNew               = 0x801442FC;
+alLoadNew                   = 0x80144384;
+alEnvmixerNew               = 0x8014442C;
+init_lpfilter               = 0x801444D0;
+alFxNew                     = 0x80144570;
 
-alSynAllocFX                = 0x801449B0; // defined:true
+alSynAllocFX                = 0x801449B0;
 
-alMainBusParam              = 0x80144A50; // defined:true
-alMainBusPull               = 0x80144A80; // defined:true
+alMainBusParam              = 0x80144A50;
+alMainBusPull               = 0x80144A80;
 
-alLoadParam                 = 0x80144BA0; // defined:true
-alRaw16Pull                 = 0x80144D74; // defined:true
-alAdpcmPull                 = 0x8014524C; // defined:true
+alLoadParam                 = 0x80144BA0;
+alRaw16Pull                 = 0x80144D74;
+alAdpcmPull                 = 0x8014524C;
 
-alResampleParam             = 0x801456F0; // defined:true
-alResamplePull              = 0x801457DC; // defined:true
+alResampleParam             = 0x801456F0;
+alResamplePull              = 0x801457DC;
 
-_ldexpf                     = 0x801459F0; // defined:true
-_frexpf                     = 0x80145A18; // defined:true
-alEnvmixerParam             = 0x80145B04; // defined:true
-alEnvmixerPull              = 0x801460FC; // defined:true
+_ldexpf                     = 0x801459F0;
+_frexpf                     = 0x80145A18;
+alEnvmixerParam             = 0x80145B04;
+alEnvmixerPull              = 0x801460FC;
 
-alAuxBusParam               = 0x80146650; // defined:true
-alAuxBusPull                = 0x80146680; // defined:true
+alAuxBusParam               = 0x80146650;
+alAuxBusPull                = 0x80146680;
 
-alSaveParam                 = 0x80146760; // defined:true
-alSavePull                  = 0x80146794; // defined:true
+alSaveParam                 = 0x80146760;
+alSavePull                  = 0x80146794;
 
-alSynStartVoice             = 0x80146820; // defined:true
+alSynStartVoice             = 0x80146820;
 
-alSeqGetLoc                 = 0x801468B0; // defined:true
-alSeqSetLoc                 = 0x801468CC; // defined:true
-alSeqNextEvent              = 0x80146944; // defined:true
-alSeqNewMarker              = 0x80146AC8; // defined:true
-alSeqSecToTicks             = 0x80146BE8; // defined:true
-alSeqTicksToSec             = 0x80146CCC; // defined:true
-__alSeqNextDelta            = 0x80146D20; // defined:true
-alSeqNew                    = 0x80146DF8; // defined:true
+alSeqGetLoc                 = 0x801468B0;
+alSeqSetLoc                 = 0x801468CC;
+alSeqNextEvent              = 0x80146944;
+alSeqNewMarker              = 0x80146AC8;
+alSeqSecToTicks             = 0x80146BE8;
+alSeqTicksToSec             = 0x80146CCC;
+__alSeqNextDelta            = 0x80146D20;
+alSeqNew                    = 0x80146DF8;
 
-alSynSetPriority            = 0x80146ED0; // defined:true
+alSynSetPriority            = 0x80146ED0;
 
-alCopy                      = 0x80146EE0; // defined:true
+alCopy                      = 0x80146EE0;
 
-osCartRomInit               = 0x80146F60; // defined:true
+osCartRomInit               = 0x80146F60;
 
-osLeoDiskInit               = 0x80147060; // defined:true
+osLeoDiskInit               = 0x80147060;
 
-__osPiCreateAccessQueue     = 0x80147160; // defined:true
-__osPiGetAccess             = 0x801471B0; // defined:true
-__osPiRelAccess             = 0x801471F4; // defined:true
+__osPiCreateAccessQueue     = 0x80147160;
+__osPiGetAccess             = 0x801471B0;
+__osPiRelAccess             = 0x801471F4;
 
-osGetThreadPri              = 0x80147220; // defined:true
+osGetThreadPri              = 0x80147220;
 
-osPiRawStartDma             = 0x80147240; // defined:true
+osPiRawStartDma             = 0x80147240;
 
-osEPiRawStartDma            = 0x80147320; // defined:true
+osEPiRawStartDma            = 0x80147320;
 
-__osDevMgrMain              = 0x80147550; // defined:true
+__osDevMgrMain              = 0x80147550;
 
-__osPfsGetStatus            = 0x801479E0; // defined:true
-__osPfsRequestOneChannel    = 0x80147AC4; // defined:true
-__osPfsGetOneChannelData    = 0x80147B84; // defined:true
+__osPfsGetStatus            = 0x801479E0;
+__osPfsRequestOneChannel    = 0x80147AC4;
+__osPfsGetOneChannelData    = 0x80147B84;
 
-__osSumcalc                 = 0x80147C20; // defined:true
-__osIdCheckSum              = 0x80147C7C; // defined:true
-__osRepairPackId            = 0x80147CE4; // defined:true
-__osCheckPackId             = 0x801480FC; // defined:true
-__osGetId                   = 0x80148294; // defined:true
-__osCheckId                 = 0x801484F0; // defined:true
-__osPfsRWInode              = 0x801485EC; // defined:true
-__osPfsSelectBank           = 0x8014890C; // defined:true
+__osSumcalc                 = 0x80147C20;
+__osIdCheckSum              = 0x80147C7C;
+__osRepairPackId            = 0x80147CE4;
+__osCheckPackId             = 0x801480FC;
+__osGetId                   = 0x80148294;
+__osCheckId                 = 0x801484F0;
+__osPfsRWInode              = 0x801485EC;
+__osPfsSelectBank           = 0x8014890C;
 
-osPfsChecker                = 0x80148980; // defined:true
-corrupted_init              = 0x80149044; // defined:true
-corrupted                   = 0x801491F8; // defined:true
+osPfsChecker                = 0x80148980;
+corrupted_init              = 0x80149044;
+corrupted                   = 0x801491F8;
 
-osPfsIsPlug                 = 0x801493E0; // defined:true
-__osPfsRequestData          = 0x80149580; // defined:true
-__osPfsGetInitData          = 0x80149650; // defined:true
+osPfsIsPlug                 = 0x801493E0;
+__osPfsRequestData          = 0x80149580;
+__osPfsGetInitData          = 0x80149650;
 
-__osContAddressCrc          = 0x80149720; // defined:true
-__osContDataCrc             = 0x801497D0; // defined:true
+__osContAddressCrc          = 0x80149720;
+__osContDataCrc             = 0x801497D0;
 
-__osContRamWrite            = 0x801498A0; // defined:true
-__osPackRamWriteData        = 0x80149AA4; // defined:true
+__osContRamWrite            = 0x801498A0;
+__osPackRamWriteData        = 0x80149AA4;
 
-__osContRamRead             = 0x80149C00; // defined:true
-__osPackRamReadData         = 0x80149E1C; // defined:true
+__osContRamRead             = 0x80149C00;
+__osPackRamReadData         = 0x80149E1C;
 
-guMtxF2L                    = 0x80149F60; // defined:true
-guMtxIdentF                 = 0x8014A060; // defined:true
-guMtxIdent                  = 0x8014A0E8; // defined:true
-guMtxL2F                    = 0x8014A118; // defined:true
+guMtxF2L                    = 0x80149F60;
+guMtxIdentF                 = 0x8014A060;
+guMtxIdent                  = 0x8014A0E8;
+guMtxL2F                    = 0x8014A118;
 
-guNormalize                 = 0x8014A1D0; // defined:true
+guNormalize                 = 0x8014A1D0;
 
-__osSiDeviceBusy            = 0x8014A260; // defined:true
+__osSiDeviceBusy            = 0x8014A260;
 
-__osLeoInterrupt            = 0x8014A290; // defined:true
-__osLeoResume               = 0x8014AA1C; // defined:true
-__osLeoAbnormalResume       = 0x8014A934; // defined:true
+__osLeoInterrupt            = 0x8014A290;
+__osLeoResume               = 0x8014AA1C;
+__osLeoAbnormalResume       = 0x8014A934;
 
-osDestroyThread             = 0x8014AB10; // defined:true
+osDestroyThread             = 0x8014AB10;
 
-__osSetCompare              = 0x8014AC20; // defined:true
+__osSetCompare              = 0x8014AC20;
 
-__osViGetCurrentContext     = 0x8014AC30; // defined:true
+__osViGetCurrentContext     = 0x8014AC30;
 
-__osViSwapContext           = 0x8014AC40; // defined:true
+__osViSwapContext           = 0x8014AC40;
 
-__osSpGetStatus             = 0x8014AFA0; // defined:true
+__osSpGetStatus             = 0x8014AFA0;
 
-_bcopy                      = 0x8014AFB0; // defined:true
+_bcopy                      = 0x8014AFB0;
 
-__osSpSetStatus             = 0x8014B2C0; // defined:true
+__osSpSetStatus             = 0x8014B2C0;
 
-__osSpSetPc                 = 0x8014B2D0; // defined:true
+__osSpSetPc                 = 0x8014B2D0;
 
-__osSpRawStartDma           = 0x8014B310; // defined:true
+__osSpRawStartDma           = 0x8014B310;
 
-__osSpDeviceBusy            = 0x8014B3A0; // defined:true
+__osSpDeviceBusy            = 0x8014B3A0;
 
-__osDpDeviceBusy            = 0x8014B3D0; // defined:true
+__osDpDeviceBusy            = 0x8014B3D0;
 
-_Litob                      = 0x8014B400; // defined:true
+_Litob                      = 0x8014B400;
 
-alFilterNew                 = 0x8014C160; // defined:true
+alFilterNew                 = 0x8014C160;
 
-_doModFunc                  = 0x8014C180; // defined:true
-_filterBuffer               = 0x8014C228; // defined:true
-_saveBuffer                 = 0x8014C2E0; // defined:true
-_loadBuffer                 = 0x8014C468; // defined:true
-_loadOutputBuffer           = 0x8014C5F4; // defined:true
-alFxParamHdl                = 0x8014C818; // defined:true
-alFxParam                   = 0x8014CA74; // defined:true
-alFxPull                    = 0x8014CA8C; // defined:true
+_doModFunc                  = 0x8014C180;
+_filterBuffer               = 0x8014C228;
+_saveBuffer                 = 0x8014C2E0;
+_loadBuffer                 = 0x8014C468;
+_loadOutputBuffer           = 0x8014C5F4;
+alFxParamHdl                = 0x8014C818;
+alFxParam                   = 0x8014CA74;
+alFxPull                    = 0x8014CA8C;
 
-__osResetGlobalIntMask      = 0x8014CDD0; // defined:true
+__osResetGlobalIntMask      = 0x8014CDD0;
 
-osEPiRawWriteIo             = 0x8014CE30; // defined:true
+osEPiRawWriteIo             = 0x8014CE30;
 
-osEPiRawReadIo              = 0x8014CFC0; // defined:true
+osEPiRawReadIo              = 0x8014CFC0;
 
-__osSetGlobalIntMask        = 0x8014D160; // defined:true
+__osSetGlobalIntMask        = 0x8014D160;
 
-osYieldThread               = 0x8014D1B0; // defined:true
+osYieldThread               = 0x8014D1B0;
 
-lldiv                       = 0x8014D200; // defined:true
-ldiv                        = 0x8014D300; // defined:true
+lldiv                       = 0x8014D200;
+ldiv                        = 0x8014D300;
 
 // fake symbols
 D_1FFFF                     = 0x1FFFF; // ignore:true
@@ -1633,11 +1763,39 @@ D_1FFFF                     = 0x1FFFF; // ignore:true
 
 // Gfx & Vtx
 
-D_040029D0_102720 = 0x040029D0; // rom:0x102720 defined:true
-D_04001A40_C9470  = 0x4001A40; // rom:0xC9470 defined:true
+D_040029D0_102720 = 0x040029D0; // rom:0x102720
+D_04001A40_C9470  = 0x4001A40; // rom:0xC9470
 
 img_cool_cod_ci4__png = 0x04007BD0; // rom:0xE5190
 img_cool_cod_pal      = 0x04007DD0; // rom:0xE5390
+
+img_dog_body_ci4__png      = 0x04001C80;
+img_dog_body_pal           = 0x04001E90;
+D_040084A8_CFED8           = 0x040084A8; // rom:0xCFED8
+img_tortoise_tank_ci4__png = 0x04003850;
+img_chameleon_pal          = 0x04009BF0;
+D_040073D8_107128          = 0x040073D8; // rom:0x107128
+D_04002D78_E0338           = 0x04002D78; // rom:0xE0338
+
+D_04003740_E0D00           = 0x04003740; // rom:0xE0D00
+D_04003740_F47A0           = 0x04003740; // rom:0xF47A0
+
+D_04003760_CB190           = 0x04003760; // rom:0xCB190
+D_04003760_E0D20           = 0x04003760; // rom:0xE0D20
+D_04003760_1034B0          = 0x04003760; // rom:0x1034B0
+
+D_04004010_EB5C0           = 0x04004010; // rom:0xEB5C0
+img_walrus_nose_ci4__png   = 0x04006BD0;
+img_walrus_nose_pal        = 0x04006DE0;
+D_04007E90_E5450           = 0x04007E90; // rom:0xE5450
+img_actors_dan_dan1_rgba16__png = 0x05005000;
+img_tortoise_tank_pal      = 0x04003A50;
+img_chameleon2_ci4__png    = 0x04009C10;
+img_chameleon2_pal         = 0x04009E10;
+D_04006860_E3E20           = 0x04006860; // rom:0xE3E20
+
+
+
 
 // BEGIN sync_decomp_symbols promoted from undefined_syms
 build_rotate_scale_translate_matrix = 0x80125980;
@@ -1652,20 +1810,7 @@ start_sfx_volume_fade = 0x8013385C;
 draw_sprite_with_prim_depth = 0x801360C8;
 init_sprite2d_render_zdepth = 0x80136418;
 init_sprite2d_render = 0x801366BC;
-gSineTable256 = 0x80152C78;
-gMainViewport = 0x80152EA8;
-gOpaqueLit3DRenderSetupDl = 0x80158368;
-gOpaqueDL = 0x801D9E88;
-gXluDL = 0x801D9E8C;
-gLayer0DL = 0x801D9E90;
-gLayer1DL = 0x801D9E94;
-gAuxDL = 0x801D9EB8;
-gAnimalState = 0x801D9ED8;
-gFrameContext = 0x80204274;
-gDisplayListContext = 0x80204278;
-gOverlayState = 0x80204284;
-gAttractModeState = 0x80204288;
-gFrameStepDivisor = 0x80204290;
+
 __osFinalrom = 0x802912F0;
 render_gameplay_overlay_frame_6A6500 = 0x80294E50; // rom:0x6A6500
 setup_intro_perspective_638558 = 0x80294EB8; // rom:0x638558

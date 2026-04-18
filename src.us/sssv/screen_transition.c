@@ -332,7 +332,7 @@ void render_screen_transition_tv_702A68(void) {
 
         gSPViewport(gMainDL++, &D_803A50C0_7B6770);
 
-        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
         gSPDisplayList(gMainDL++, D_01004270_3DB40);
         gSPTexture(gMainDL++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
         gDPSetCombineLERP(gMainDL++,

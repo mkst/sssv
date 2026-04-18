@@ -25,18 +25,12 @@ extern Gfx D_040033C0_F4420[];
 extern Gfx D_04003530_F4590[];
 extern Gfx D_04003650_F46B0[];
 extern Gfx D_040037C0_F4820[];
-extern u8  D_04003850_F48B0[];
-extern u8  D_04003A50_F4AB0[];
 extern Gfx D_040041D0_F5230[];
-
-extern u8  D_01036C90_70560[];
-extern u8  D_01036D90_70660[];
-extern u8  D_01036E90_70760[];
 
 
 // TORTOISE_TANK
 #ifdef NON_MATCHING
-// CURRENT (64)
+// CURRENT (34)
 void update_tortoise_tank(void) {
     s32 sp14C;
     s32 sp148;
@@ -244,7 +238,7 @@ void update_tortoise_tank(void) {
                     0);
             }
 
-            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
+            load_1_tile(img_tortoise_tank_pal, img_tortoise_tank_ci4__png);
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, (sp14C * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04003140_F41A0); }
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, (sp148 * 0x3A) >> 6, D_803F2ED0, 0, 1, 0, D_04003140_F41A0); }
@@ -388,7 +382,7 @@ void update_tortoise_tank(void) {
         sp132 = sp132 * 4;
 
         gSPDisplayList(gAuxDL++, D_01003AD0_3D3A0);
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01036E90_70760);
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01036E90_70760_bin);
         gDPTileSync(gAuxDL++);
         gDPSetTile(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync(gAuxDL++);
@@ -398,7 +392,7 @@ void update_tortoise_tank(void) {
 
         // FIXME: this is 1 macro (hence the newline breaks)
 #pragma _permuter sameline start
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (u32)D_01036C90_70560 & 0x1FFFFFFF);\
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (u32)D_01036C90_70560_bin & 0x1FFFFFFF);\
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);\
         gDPLoadSync(gAuxDL++);\
         gDPLoadBlock(gAuxDL++, G_TX_LOADTILE, 0, 0, 127, 1024);\
@@ -435,7 +429,7 @@ void update_tortoise_tank(void) {
         );
 
         // TODO: replace with single gDPLoadTextureBlock
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, K0_TO_PHYS(D_01036D90_70660));
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, K0_TO_PHYS(D_01036D90_70660_bin));
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync(gAuxDL++);
         gDPLoadBlock(gAuxDL++, G_TX_LOADTILE, 0, 0, 127, 1024);
@@ -732,7 +726,7 @@ void update_racing_tortoise(void) {
                     0);
             }
 
-            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
+            load_1_tile(img_tortoise_tank_pal, img_tortoise_tank_ci4__png);
             func_802C78B0_6D8F60(
                 2,
                 1,
@@ -752,7 +746,7 @@ void update_racing_tortoise(void) {
             gSPClearGeometryMode(gOpaqueDL++, G_CULL_BOTH);
 
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 20, FTOFIX32(0.90625), FTOFIX32(0.90625), FTOFIX32(0.90625), D_803F2ED0, 0, 0, 0, D_04003530_F4590); }
-            load_1_tile(D_04004070_F50D0, D_04003E70_F4ED0);
+            load_1_tile(img_tortoise_tank_turret_pal, img_tortoise_tank_turret_ci4__png);
 
             gSPDisplayList(gOpaqueDL++, D_010034C0_3CD90);
             gDPSetTile(gOpaqueDL++, G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 1, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD);
@@ -874,7 +868,7 @@ void update_tortoise_defending(void) {
                 D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            load_1_tile(D_04003A50_F4AB0, D_04003850_F48B0);
+            load_1_tile(img_tortoise_tank_pal, img_tortoise_tank_ci4__png);
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 

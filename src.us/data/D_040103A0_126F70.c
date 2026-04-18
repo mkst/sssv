@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-extern u8 D_0400F7F0_1263C0[];
+extern u8 img_D_0400F7F0_1263C0_rgba16__png[];
 
 Vtx D_0400FFF0_126BC0[31] = {
 #include "data/inc/D_0400FFF0_126BC0.inc.c"
@@ -21,7 +21,7 @@ Gfx D_040103A0_126F70[] = {
     gsDPSetPrimColor(0, 0, 0x00, 0x00, 0x00, 0xFF),
     gsDPSetEnvColor(0x00, 0xFF, 0x00, 0x00),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 32, D_0400F7F0_1263C0),
+    gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 32, img_D_0400F7F0_1263C0_rgba16__png),
     gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),

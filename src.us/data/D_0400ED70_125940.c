@@ -4,12 +4,12 @@ Vtx D_0400EC30_125800[20] = {
 #include "data/inc/D_0400EC30_125800.inc.c"
 };
 
-extern u8 D_0400E430_125000[];
+extern u8 img_125000_rgba16__png[];
 
 Gfx D_0400ED70_125940[] = {
     gsDPPipeSync(),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400E430_125000),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_125000_rgba16__png),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
     gsSPVertex(D_0400EC30_125800, 20, 0),

@@ -4,12 +4,12 @@ Vtx D_0400F600_1261D0[21] = {
 #include "data/inc/D_0400F600_1261D0.inc.c"
 };
 
-extern u8 D_0400EE00_1259D0[];
+extern u8 img_1259D0_rgba16__png[];
 
 Gfx D_0400F750_126320[] = {
     gsDPPipeSync(),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400EE00_1259D0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_1259D0_rgba16__png),
     gsSPVertex(D_0400F600_1261D0, 21, 0),
     gsSP2Triangles(0, 1, 2, 0, 3, 0, 2, 0),
     gsSP2Triangles(1, 4, 5, 0, 2, 1, 5, 0),

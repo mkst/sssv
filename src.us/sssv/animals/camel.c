@@ -28,13 +28,9 @@ extern Gfx D_04002820_E9DD0[];
 extern Gfx D_04002840_E9DF0[];
 extern Gfx D_040029C0_E9F70[];
 
-extern u8 D_04002780_E9D30[];
-extern u8 D_04002560_E9B10[];
-
 
 void func_8036D700_77EDB0(void) {
-
-    Vertex spE0;
+    LimbConfig spE0;
     s16 spDE;
     s16 spDC;
     s16 spDA;
@@ -365,7 +361,7 @@ void func_8036D700_77EDB0(void) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
                 }
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_040029C0_E9F70);
-                load_1_tile(D_04002780_E9D30, D_04002560_E9B10);
+                load_1_tile(img_D_04002560_E9B10_pal, img_D_04002560_E9B10_ci4__png);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04001300_E88B0);
                 break;
             case CANNON_CAMEL:

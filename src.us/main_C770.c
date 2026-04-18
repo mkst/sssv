@@ -3,20 +3,28 @@
 
 #include "sched.h"
 
+// ========================================================
+// .bss
+// ========================================================
 
-extern u16  D_8023F3E0; // taskIdx
+static u16 taskIdx;
+// TODO: this padding should go somewhere else
+static s32 D_8023F3E8[0x8];
 
+// ========================================================
+// .text
+// ========================================================
 
 void reset_task_list(void) {
-    D_8023F3E0 = 0;
+    taskIdx = 0;
 }
 
-void func_8013107C(FrameContext *arg0, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags) {
+void func_8013107C(FrameContext *fc, s32 data_ptr, s32 data_size, s8 type, s32 msg, s32 flags) {
     struct OSScTask_s *task;
 
-    gMainDL = arg0->dl.mainDL;
+    gMainDL = fc->dl.mainDL;
     // FIXME: use correct struct instead of struct031
-    task = (struct OSScTask_s *)&arg0->tasks[D_8023F3E0];
+    task = (struct OSScTask_s *)&fc->tasks[taskIdx];
 
     switch (type) {
         case 0:
@@ -70,9 +78,9 @@ void func_8013107C(FrameContext *arg0, s32 data_ptr, s32 data_size, s8 type, s32
     task->flags = flags;  // 99 => OS_SC_SWAPBUFFER | OS_SC_LAST_TASK | OS_SC_PARALLEL_TASK | OS_SC_DRAM_DLIST | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP
     task->msgQ = &D_8028D060;
     task->msg = (OSMesg) msg; /* always 2 */
-    task->framebuffer = arg0->framebuffer;
+    task->framebuffer = fc->framebuffer;
 
     osDpSetStatus(DPC_CLR_CLOCK_CTR | DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR); // 0x3C0
     osSendMesg(osScGetCmdQ(&sc), task, 1);
-    D_8023F3E0++;
+    taskIdx++;
 }

@@ -531,7 +531,7 @@ void func_802950B8_638758(void) {
     s16 *dst;
 
     font_init();
-    if (gRegion == REGION_EU) {
+    if (D_80204240.region == REGION_EU) {
         language_select_menu(0);
     }
     UnpackRNC((RNC_fileptr)img_intro_newscaster_5_rgba16_rnc_rgba16__rnc, D_80302E88);
@@ -733,7 +733,7 @@ void func_80295EB0_639550(s32 x) {
     init_f3dex_render(&gMainDL, gDisplayListContext);
 
     gSPViewport(gMainDL++, &gMainViewport);
-    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
 }
 
 #if 0
@@ -856,7 +856,7 @@ void render_title_screen_frame(FrameContext *arg0) {
     case 0:
         black_out_screen(&gMainDL);
         if (gEepromGlobal.language == LANG_DEFAULT) {
-            if (gRegion == REGION_EU) {
+            if (D_80204240.region == REGION_EU) {
                 if ((gControllerConnected == 0) && (D_80204270 != 0)) {
                     gEepromGlobal.language = LANG_ENGLISH;
                     spB6 = write_eeprom(4);
@@ -933,7 +933,7 @@ void render_title_screen_frame(FrameContext *arg0) {
                     }
                     init_sprite2d_render(&gMainDL, spC7, spC7, spC7, 0xFF);
                     draw_sprite(&gMainDL, (uSprite *)(D_80302E88 + 0x74050), 0x140, 0xF0, 0x140, 0xF0, 0, 0, 0, 0, 0x10);
-                    if (gRegion == REGION_EU) {
+                    if (D_80204240.region == REGION_EU) {
                         // add Copyright C
                         draw_sprite(&gMainDL, (uSprite*)D_80299E44_63D4E4, 0xA, 0xC, 0xA, 0xC, 0, 0, 0x71, 0x90, 0x10);
                     }
@@ -1003,15 +1003,15 @@ void render_title_screen_frame(FrameContext *arg0) {
                 for (D_8029A004_63D6A4 = 30.0f; D_8029A004_63D6A4 <= 260.0f; D_8029A004_63D6A4 += 8.0f) {
                     // simulate turning volume up
                     if (D_8029A004_63D6A4 <= D_8029A014_63D6B4) {
-                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, D_80156AC0, 22.0f, 22.0f, 16); // |
+                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, img_321C0_rgba16__png, 22.0f, 22.0f, 16); // |
                     } else {
-                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, D_801562C0, 22.0f, 22.0f, 16); // .
+                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, img_319C0_rgba16__png, 22.0f, 22.0f, 16); // .
                     }
                 }
                 // draw "CH 0" on screen
-                func_801356C0(200, 0x28, 0x20, 0x20, &gMainDL, D_801552C0, 22.0f, 22.0f, 0x10); // C
-                func_801356C0(220, 0x28, 0x20, 0x20, &gMainDL, D_80155AC0, 22.0f, 22.0f, 0x10); // H
-                func_801356C0(250, 0x28, 0x20, 0x20, &gMainDL, D_80157AC0, 22.0f, 22.0f, 0x10); // 0
+                func_801356C0(200, 0x28, 0x20, 0x20, &gMainDL, img_309C0_rgba16__png, 22.0f, 22.0f, 16); // C
+                func_801356C0(220, 0x28, 0x20, 0x20, &gMainDL, img_311C0_rgba16__png, 22.0f, 22.0f, 16); // H
+                func_801356C0(250, 0x28, 0x20, 0x20, &gMainDL, img_331C0_rgba16__png, 22.0f, 22.0f, 16); // 0
             }
             if (D_80299E08_63D4A8 > 130) {
                 D_8029A014_63D6B4 = 96;
@@ -1050,9 +1050,9 @@ void render_title_screen_frame(FrameContext *arg0) {
                 for (D_8029A004_63D6A4 = 30.0f; D_8029A004_63D6A4 <= 260.0f; D_8029A004_63D6A4 += 8.0f) {
                     // simulate volume turning up...
                     if (D_8029A004_63D6A4 <= D_8029A014_63D6B4) {
-                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, D_80156AC0, 22.0f, 22.0f, 16); // |
+                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, img_321C0_rgba16__png, 22.0f, 22.0f, 16); // |
                     } else {
-                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, D_801562C0, 22.0f, 22.0f, 16); // .
+                        func_801356C0(D_8029A004_63D6A4, 170, 32, 32, &gMainDL, img_319C0_rgba16__png, 22.0f, 22.0f, 16); // .
                     }
                 }
                 if (D_80299E08_63D4A8 > 240) {
@@ -1061,9 +1061,9 @@ void render_title_screen_frame(FrameContext *arg0) {
                     D_8029A014_63D6B4 = 96;
                 }
                 // draw "CH 1" on screen
-                func_801356C0(200, 0x28, 0x20, 0x20, &gMainDL, D_801552C0, 22.0f, 22.0f, 16); // C
-                func_801356C0(220, 0x28, 0x20, 0x20, &gMainDL, D_80155AC0, 22.0f, 22.0f, 16); // H
-                func_801356C0(250, 0x28, 0x20, 0x20, &gMainDL, D_801572C0, 22.0f, 22.0f, 16); // 1
+                func_801356C0(200, 0x28, 0x20, 0x20, &gMainDL, img_309C0_rgba16__png, 22.0f, 22.0f, 16); // C
+                func_801356C0(220, 0x28, 0x20, 0x20, &gMainDL, img_311C0_rgba16__png, 22.0f, 22.0f, 16); // H
+                func_801356C0(250, 0x28, 0x20, 0x20, &gMainDL, img_329C0_rgba16__png, 22.0f, 22.0f, 16); // 1
             }
         }
         if (D_80299E08_63D4A8 == 436) { // ? end? length of what?
@@ -1538,7 +1538,7 @@ void render_title_screen_frame(FrameContext *arg0) {
         play_sound_effect(0x8F, 0, 0x5000, 1.0f, 0);
         start_sequence_volume_fade(0, 30.0f, 20.0f, 0);
         func_8012A400();
-        func_80298F1C_63C5BC(D_80162658[D_80152EB8 ^ 1].framebuffer, D_80302E88 + 0x62000);
+        func_80298F1C_63C5BC(gFrameContext[D_80152EB8 ^ 1].framebuffer, D_80302E88 + 0x62000);
         gIntroSceneState = 10;
         D_80299FF8_63D698 = 0;
         D_80299E04_63D4A4 = 1;
@@ -1629,7 +1629,7 @@ void render_intro_overlay_frame_63BF88(void) {
     clear_depth_buffer(&gMainDL);
 
     gSPViewport(gMainDL++, &gMainViewport);
-    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
     gDPPipeSync(gMainDL++);
 
     gMainViewport.vp.vscale[0] = gScreenWidth * 2;
@@ -1646,7 +1646,7 @@ void render_intro_overlay_frame_63BF88(void) {
     gDisplayListContext->unk39310 = 0;
     gDisplayListContext->usedHilites = 0;
 
-    render_title_screen_frame(&D_80162658[D_80152EB8]);
+    render_title_screen_frame(&gFrameContext[D_80152EB8]);
     if (gIntroTransitionPending != 0) {
         D_80152E90 = 0;  // select game overlay
         gOverlayState = 4;

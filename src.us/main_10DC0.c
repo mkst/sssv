@@ -137,7 +137,7 @@ void draw_sprite_with_prim_depth(Gfx **dl, uSprite *arg1, u16 width, u16 height,
 void init_sprite2d_render_zdepth(Gfx **dl, u8 color) {
     gSPLoadUcodeEx((*dl)++, gspSprite2D_fifoTextStart, gspSprite2D_fifoDataStart, 2048);
     gDPPipeSync((*dl)++);
-    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
 
     gSPViewport((*dl)++, &gMainViewport);
     gSPSetGeometryMode((*dl)++, G_ZBUFFER);
@@ -161,7 +161,7 @@ void init_sprite2d_render(Gfx **dl, u8 r, u8 g, u8 b, u8 a) {
 
     load_segments(dl, gDisplayListContext);
 
-    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
     gSPViewport((*dl)++, &gMainViewport);
     gSPClipRatio((*dl)++, FRUSTRATIO_4);
 

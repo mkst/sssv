@@ -36,29 +36,133 @@ u16 D_80152EBC = 0; // some kind of delay timer?
 // .bss (0x8015E1D0 to 0x801D9E80)
 // ========================================================
 
-u8 D_8015E1D0[0x2200];  // tbd
+u8 D_8015E1D0[0x2200];  // same size as wate texture?
 
 OSSched sc;             // 0x801603D0
 
-u8 D_80160658[0x2000];  // padding
+static u8 D_80160658[0x2000];  // padding
 
-FrameContext D_80162658[2];
+FrameContext gFrameContext[2];
 
-u16  D_801D9E38;
+static u16  D_801D9E38; // set to 5 and never checked
 
-u8  D_801D9E40[0x18];   // padding
+static u8  D_801D9E40[0x18];   // padding
 
-u8  *D_801D9E58;
-u8  *D_801D9E5C;
-u8  *D_801D9E60;
-u8  *D_801D9E64;
-u8  *D_801D9E68;
+u8  *gEuropeSegmentBase;
+u8  *gCitySegmentBase;
+u8  *gIceSegmentBase;
+u8  *gDesertSegmentBase;
+u8  *gJungleSegmentBase;
 u8  *gMenuSegmentBase;
 
 s16 *gFontSegmentBase;
 u8  *gSegment1Base;
 u8  *gSegment5Base;
 Gfx *gMainDL;
+
+static s32 D_801D9E80; // unused
+static s32 D_801D9E84; // unused
+
+Gfx *gOpaqueDL;
+Gfx *gXluDL;
+Gfx *gLayer0DL;
+Gfx *gLayer1DL;
+Gfx *D_801D9E98[8];
+
+Gfx *gAuxDL;
+
+static s32  D_801D9EBC; // unused
+static s32  D_801D9EC0; // unused
+
+u8  *D_801D9EC4; // gCurrentSegmentBase?
+static u8   D_801D9EC8;
+static u8   D_801D9EC9;
+static s32  D_801D9ECC; // unused
+s32  D_801D9ED0;
+s16  D_801D9ED4;
+struct050 gAnimalState;
+
+Objects D_801E9EB8;
+
+s16  gScreenWidth;
+s16  gScreenHeight;
+
+static s16  D_80203FD6; // unused
+static s16  D_80203FD8; // unused
+static s16  D_80203FDA; // unused
+
+LimbConfig D_80203FE0[34];
+LimbConfig D_802040F0[34];
+
+f32   D_80204200;
+f32   D_80204204;
+f32   D_80204208;
+f32   D_8020420C;
+
+f32   D_80204210;
+f32   D_80204214;
+f32   D_80204218;
+f32   D_8020421C;
+
+f32   D_80204220;
+s16   D_80204224;
+s16   D_80204226;
+s16   D_80204228;
+f32   D_8020422C;
+
+f32   D_80204230;
+f32   D_80204234;
+static f32   D_80204238; // unused
+
+RomHeader D_80204240;
+
+static s16   D_80204268[4]; // unused
+
+s16   D_80204270; // timer/counter
+
+FrameContext *gFrameContextPtr;
+DisplayList  *gDisplayListContext;
+
+s16   D_8020427C; // 0 or 1, never checked only set
+static s16   D_8020427E; // unused
+
+s16   D_80204280; // gGameState.level
+static u16   D_80204282; // always 99
+
+s16   gOverlayState;
+
+static s16   D_80204286; // unused
+
+s8    gAttractModeState;
+FrameContext *D_8020428C;
+s16    gFrameStepDivisor;
+static s16    D_80204292;
+s16    gRefreshRate;
+static OSScMsg *D_80204298;
+static OSScClient D_802042A0;
+static s16    D_802042A8;
+char   gDebugTextBuffer[60];
+OSMesg D_802042EC;
+s16    gNoControllerMessageText[60];
+s16    D_80204368[60]; // text area
+
+u64    D_802043E0[0x1000 / 8];
+
+VIData gVIData;
+VIData D_802053F0;
+VIData D_80205400;
+
+s16    gIsWidescreen; // maybe not actually this?
+
+Gfx   *gWorldCellOpaqueDisplayLists[4][6];
+Gfx    D_80205470[6000];
+Vtx    D_80210FF0[5000];
+Vtx    D_80224870[216];  // ?
+
+Gfx   *gWorldCellTranslucentDisplayLists[4][6];
+Gfx    D_80225650[2000];
+Vtx    D_802294D0[1000];
+Vtx    D_8022D350[216];
 
 // ========================================================
 // .text
@@ -83,7 +187,7 @@ void thread6(s32 arg0) {
 
     initialise_tv_mode();
 
-    osCreateScheduler(&sc, (void*)D_80162658, 20, gVIData.VIModeType, 1);
+    osCreateScheduler(&sc, (void*)gFrameContext, 20, gVIData.VIModeType, 1);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_OFF);
 
     gScreenWidth = 320;
@@ -96,13 +200,13 @@ void thread6(s32 arg0) {
     i = 0; // fakematch
 
     // stack (1)
-    D_80162658[i].unk3BBA8 = 6;
-    D_80162658[i].unk3BBC8 = 2;
-    D_80162658[i].framebuffer = gFramebuffer[0];
+    gFrameContext[i].unk3BBA8 = 6;
+    gFrameContext[i].unk3BBC8 = 2;
+    gFrameContext[i].framebuffer = gFramebuffer[0];
     // stack (2)
-    D_80162658[1].unk3BBA8 = 6;
-    D_80162658[1].unk3BBC8 = 2;
-    D_80162658[1].framebuffer = gFramebuffer[1];
+    gFrameContext[1].unk3BBA8 = 6;
+    gFrameContext[1].unk3BBC8 = 2;
+    gFrameContext[1].framebuffer = gFramebuffer[1];
 
     clear_framebuffer();
     D_801D9E38 = 5;
@@ -216,7 +320,7 @@ void thread6_loop(void) {
 #endif
                 }
                 D_80204292 = 0;
-                D_8020428C = &D_80162658[D_80152EB8];
+                D_8020428C = &gFrameContext[D_80152EB8];
                 osSendMesg(&D_80291060, D_80291054, OS_MESG_BLOCK);
                 osRecvMesg(&D_80291078, D_80291054, OS_MESG_BLOCK);
                 D_80152EA0 = (1 - D_80152EA0);
@@ -226,11 +330,11 @@ void thread6_loop(void) {
                 reset_task_list();
 
                 func_8013107C(
-                    &D_80162658[D_80152EB8],
-                    &D_80162658[D_80152EB8].dl,
-                    (gMainDL - D_80162658[D_80152EB8].dl.mainDL) * sizeof(Gfx),
+                    &gFrameContext[D_80152EB8],
+                    &gFrameContext[D_80152EB8].dl,
+                    (gMainDL - gFrameContext[D_80152EB8].dl.mainDL) * sizeof(Gfx),
                     3, /* type */
-                    &D_80162658[D_80152EB8].unk3BBC8, // always 2
+                    &gFrameContext[D_80152EB8].unk3BBC8, // always 2
                     0x63); // OS_SC_SWAPBUFFER | OS_SC_LAST_TASK | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP
 
                 D_80152EBC += 1;
@@ -287,7 +391,7 @@ void thread7(void) {
             D_801D9E98[i] = &gDisplayListContext->unk109A0[i];
         }
 
-        gFrameContext = temp_a0;
+        gFrameContextPtr = temp_a0;
         if (D_80152E9C == 0) {
             func_80294E50_6384F0(); // call overlay1 entrypoint
         } else {
@@ -333,7 +437,7 @@ void func_8012A588(void) {
         if (D_80152E9C == 1) {
             init_rumble_pak();
             func_8012A400();
-            memcpy_sssv(D_80162658[D_80152EB8].framebuffer, D_80162658[D_80152EB8 ^ 1].framebuffer, sizeof(gFramebuffer[0]));
+            memcpy_sssv(gFrameContext[D_80152EB8].framebuffer, gFrameContext[D_80152EB8 ^ 1].framebuffer, sizeof(gFramebuffer[0]));
         }
         if (D_80152E9C == 2) {
             set_tv_mode_normal();
@@ -343,7 +447,7 @@ void func_8012A588(void) {
         // fakematch
         if (tmp = D_80152E9C != 0) {}
 
-        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
         draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 120);
 
         D_80152E9C = D_80152E9C + gFrameStepDivisor;

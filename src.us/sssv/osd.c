@@ -7,7 +7,6 @@
 // ========================================================
 
 extern Gfx D_01004650_3DF20[];
-extern u8 D_01029DD0_636A0[];
 extern u8 img_hud_energy_bar_left_rgba16__png[]; // img/hud/energy_bar_left.rgba16
 extern u8 img_hud_energy_bar_right_rgba16__png[]; // img/hud/energy_bar_right.rgba16
 extern u8 img_hud_power_green_rgba16__png[]; // img/hud/power_green.rgba16
@@ -164,7 +163,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
         gSPDisplayList(gMainDL++, D_01004600_3DED0);
 
         // TODO: replace this with a macro
-        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01029DD0_636A0);
+        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01029DD0_636A0_bin);
         gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD);
         gDPLoadSync(gMainDL++);
         gDPLoadBlock(gMainDL++, G_TX_LOADTILE, 0, 0, 31, 2048);

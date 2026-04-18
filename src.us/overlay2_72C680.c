@@ -362,7 +362,7 @@ void load_level_texture_data(u8 bank, u8 arg1) {
     dma_read(temp_v0[0], &D_80100000, temp_v0[1] - temp_v0[0]);
     UnpackRNC((RNC_fileptr)&D_80100000, D_800D5420);
 
-    gSegment5Base = D_800B0B20;
+    gSegment5Base = gfxspecific;
 
     temp_v0 = sp30;
     temp_v0 += (arg1 + arg1) & 0xFFFF;
@@ -1092,5 +1092,5 @@ custom:
     }
 
     func_8031C32C_72D9DC();
-    func_802963D0_6A7A80(D_80162658);
+    func_802963D0_6A7A80(gFrameContext);
 }

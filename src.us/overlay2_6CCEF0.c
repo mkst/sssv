@@ -490,7 +490,7 @@ void func_802BCDA0_6CE450(LimbIKState *arg0, s16 *arg1, s16 *arg2, s16 *arg3) {
     }
 }
 
-void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, Vertex *arg2) {
+void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, LimbConfig *arg2) {
     s16 temp_v1;
 
     switch (D_803D5530->movementState & 0xF) {
@@ -558,7 +558,7 @@ void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, Vertex *arg2) {
     }
 }
 
-void func_802BD21C_6CE8CC(u16 arg0, Vertex *arg1) {
+void func_802BD21C_6CE8CC(u16 arg0, LimbConfig *arg1) {
     s16 tmp;
 
     switch (D_803D5530->movementState & 0xF) {
@@ -615,7 +615,7 @@ void func_802BD358_6CEA08(s16 *arg0) {
     }
 }
 
-void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, struct077 *arg8, struct077 *arg9, struct077 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, struct077 *arg13, struct077 *arg14, struct077 *arg15, Vertex *arg16, s16 arg17) {
+void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, struct077 *arg8, struct077 *arg9, struct077 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, struct077 *arg13, struct077 *arg14, struct077 *arg15, LimbConfig *arg16, s16 arg17) {
     u16 sp4E;
     u16 sp4C;
     u16 sp4A;
@@ -1082,7 +1082,7 @@ void update_limbs_rigid(
     s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5,
     struct077 *arg6, struct077 *arg7, struct077 *arg8,
     s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE,
-    struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *limbConfig) {
+    struct077 *argF, struct077 *arg10, struct077 *arg11, LimbConfig *limbConfig) {
 
     u16 sp4E;
     u16 sp4C;
@@ -1338,7 +1338,7 @@ void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 srcJoint, u16 dstJoin
     D_80203FE0[dstJoint].unk4 = tmp3;
 }
 
-void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *arg12) {
+void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, LimbConfig *arg12) {
     u16 sp4E;
     u16 sp4C;
     u16 sp4A;
@@ -1627,14 +1627,14 @@ void func_802C13E4_6D2A94(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     D_80203FE0[arg2].unk2 -= (((SIN(arg4) >> 7) >> 4) * arg5) >> 8;
 }
 
-void func_802C1830_6D2EE0(u16 arg0, Vertex *arg1) {
+void func_802C1830_6D2EE0(u16 arg0, LimbConfig *arg1) {
     func_802C19CC_6D307C(&D_803D5528->unk370, arg1->unk0, 3, 7, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk384, arg1->unk2, 4, 10, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk398, arg1->unk4, 5, 13, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk3AC, arg1->unk6, 6, 16, 0, arg0);
 }
 
-void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, Vertex *arg2) {
+void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, LimbConfig *arg2) {
     func_802C19CC_6D307C(&D_803D5528->unk370, arg2->unk0, 3, 7, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk384, arg2->unk2, 4, 10, 0, arg0);
     func_802C19CC_6D307C(&D_803D5528->unk398, arg2->unk4, 5, 13, 0, arg1);
@@ -1669,7 +1669,7 @@ void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2) {
 }
 
 // only used by rabbit
-void func_802C1A88_6D3138(u16 arg0, Vertex *arg1) {
+void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
     LimbIKState *temp_a1_2;
     s32 var_t0;
     s16 temp_hi;
@@ -2119,7 +2119,7 @@ void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 a
     D_80203FE0[arg3].unk4 += var_t0;
 }
 
-void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, Vertex *arg6) {
+void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, LimbConfig *arg6) {
     u16 phi_t2;
     u16 phi_t3;
     u16 temp_v1;

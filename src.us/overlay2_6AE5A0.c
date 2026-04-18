@@ -60,7 +60,6 @@ void enqueue_object_display_list_by_flags(Animal *arg0, u16 arg1, u16 arg2, s32 
 // ========================================================
 
 extern Gfx D_010049E8_3E2B8[];
-extern u8  D_010084A0_41D70[];
 extern Gfx D_0100A6D0_43FA0[];
 extern u8  D_0100A730_44000[];
 extern Gfx D_0100AF90_44860[];  // gun turret base
@@ -226,7 +225,7 @@ void render_dynamic_texture_billboards_6AE758(void) {
                         0, 0, 0, COMBINED,
                         0, 0, 0, COMBINED);
 
-                    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_01029E10_636E0 + ((loaded_texture_2 << 0xA) - 0x8000)));
+                    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_01029E10_636E0_bin + ((loaded_texture_2 << 0xA) - 0x8000)));
 
                     gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync(gLayer0DL++);
@@ -247,7 +246,7 @@ void render_dynamic_texture_billboards_6AE758(void) {
                     gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, 124, 124);
 
                     // FIXME: why cant we use OS_PHYSICAL_TO_K0
-                    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_8b, 32, (void *) ((D_0103ECB0_78580 + (((loaded_texture_2 + (D_803D2E00 >> 1)) << 0xA) - 0xC000)) + 0x80000000));
+                    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_8b, 32, (void *) ((D_0103ECB0_78580_bin + (((loaded_texture_2 + (D_803D2E00 >> 1)) << 0xA) - 0xC000)) + 0x80000000));
 
                     gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync(gLayer0DL++);
@@ -846,7 +845,7 @@ void enqueue_object_display_list_by_flags(Animal *arg0, u16 arg1, u16 arg2, s32 
     }
 }
 
-#if 0
+#ifdef NON_MATCHING
 
 extern int PRIMITIVE;
 extern int SHADE;
@@ -855,7 +854,7 @@ extern int TEXEL0;
 extern int TEXEL1;
 extern int COMBINED;
 
-// CURRENT (14277)
+// CURRENT (13892)
 void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
     CollisionNode *var_a1;      // sp480
 
@@ -1192,7 +1191,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     gSPSetGeometryMode(gXluDL++, gGeometryMode);
                                     gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
                                     gSPDisplayList(gXluDL++, D_01004510_3DDE0);
-                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_010084A0_41D70 + ((var_s4 * 1372) << 1)); // 32x32 mipmap (0xAB8)
+                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_010084A0_41D70_bin + ((var_s4 * 1372) << 1)); // 32x32 mipmap (0xAB8)
                                     gDPTileSync(gXluDL++);
                                     gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                                     gDPTileSync(gXluDL++);

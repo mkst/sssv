@@ -1,6 +1,6 @@
 #include <ultra64.h>
 
-extern u8 D_010209B0_5A280[];
+extern u8 D_010209B0_5A280_bin[];
 
 Gfx D_010049A0_3E270[] = {
     gsDPPipeSync(),
@@ -23,7 +23,7 @@ Gfx D_010049E8_3E2B8[] = {
     gsDPSetCombineMode(G_CC_BLENDPE, G_CC_BLENDPEDECALA),
     gsSPTexture(32768, 32768, 0, G_TX_RENDERTILE, G_ON),
     gsDPSetRenderMode(G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2),
-    gsDPLoadTextureBlock_4b(D_010209B0_5A280, G_IM_FMT_I, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
+    gsDPLoadTextureBlock_4b(D_010209B0_5A280_bin, G_IM_FMT_I, 128, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 7, 4, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetDepthSource(G_ZS_PIXEL),
     gsSPEndDisplayList(),
 };

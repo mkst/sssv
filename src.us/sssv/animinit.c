@@ -2,16 +2,6 @@
 #include "common.h"
 
 // ========================================================
-// externs
-// ========================================================
-
-extern u8  _gfxanimSegmentStart[];      // D_80099600
-extern u8  _gfxanimSegmentEnd[];        // D_800B0B20
-
-extern u8  _gfxspecificSegmentStart[];  // D_800B0B20
-extern u8  _gfxspecificSegmentEnd[];    // D_800BA760
-
-// ========================================================
 // .text
 // ========================================================
 
@@ -27,38 +17,38 @@ void load_data_section(u8 segment) {
         len = _city_biomeSegmentRomEnd - _city_biomeSegmentRomStart;
         SSSV_ASSERT(len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 114)
 
-        D_801D9E5C = _gfxanimSegmentStart;
-        dma_read(_city_biomeSegmentRomStart, D_801D9E5C, len);
-        D_801D9EC4 = D_801D9E5C;
+        gCitySegmentBase = _gfxanimSegmentStart;
+        dma_read(_city_biomeSegmentRomStart, gCitySegmentBase, len);
+        D_801D9EC4 = gCitySegmentBase;
         break;
     case SEGMENT_EUROPE:
         len = _europe_biomeSegmentRomEnd - _europe_biomeSegmentRomStart;
         SSSV_ASSERT(len < (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 132)
 
-        D_801D9E58 = _gfxanimSegmentStart;
-        dma_read(_europe_biomeSegmentRomStart, D_801D9E58, len);
-        D_801D9EC4 = D_801D9E58;
+        gEuropeSegmentBase = _gfxanimSegmentStart;
+        dma_read(_europe_biomeSegmentRomStart, gEuropeSegmentBase, len);
+        D_801D9EC4 = gEuropeSegmentBase;
         break;
     case SEGMENT_ICE:
         len = _ice_biomeSegmentRomEnd - _ice_biomeSegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 150)
-        D_801D9E60 = _gfxanimSegmentStart;
-        dma_read(_ice_biomeSegmentRomStart, D_801D9E60, len);
-        D_801D9EC4 = D_801D9E60;
+        gIceSegmentBase = _gfxanimSegmentStart;
+        dma_read(_ice_biomeSegmentRomStart, gIceSegmentBase, len);
+        D_801D9EC4 = gIceSegmentBase;
         break;
     case SEGMENT_DESERT:
         len = _desert_biomeSegmentRomEnd - _desert_biomeSegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 168)
-        D_801D9E64 = _gfxanimSegmentStart;
-        dma_read(_desert_biomeSegmentRomStart, D_801D9E64, len);
-        D_801D9EC4 = D_801D9E64;
+        gDesertSegmentBase = _gfxanimSegmentStart;
+        dma_read(_desert_biomeSegmentRomStart, gDesertSegmentBase, len);
+        D_801D9EC4 = gDesertSegmentBase;
         break;
     case SEGMENT_JUNGLE:
         len = _jungle_biomeSegmentRomEnd - _jungle_biomeSegmentRomStart;
         SSSV_ASSERT(len <= (_gfxanimSegmentEnd - _gfxanimSegmentStart), "../src/animinit.c", 186)
-        D_801D9E68 = _gfxanimSegmentStart;
-        dma_read(_jungle_biomeSegmentRomStart, D_801D9E68, len);
-        D_801D9EC4 = D_801D9E68;
+        gJungleSegmentBase = _gfxanimSegmentStart;
+        dma_read(_jungle_biomeSegmentRomStart, gJungleSegmentBase, len);
+        D_801D9EC4 = gJungleSegmentBase;
         break;
     case SEGMENT_SHIP:
         // dan
@@ -81,19 +71,19 @@ void load_data_section(u8 segment) {
 void switch_to_current_segment(Gfx **arg0, DisplayList *arg1) {
     switch (D_803F2D50.segment) {
     case SEGMENT_CITY:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E5C));
+        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gCitySegmentBase));
         break;
     case SEGMENT_EUROPE:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E58));
+        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gEuropeSegmentBase));
         break;
     case SEGMENT_ICE:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E60));
+        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gIceSegmentBase));
         break;
     case SEGMENT_DESERT:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E64));
+        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gDesertSegmentBase));
         break;
     case SEGMENT_JUNGLE:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(D_801D9E68));
+        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gJungleSegmentBase));
         break;
     case SEGMENT_SHIP:
         gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gMenuSegmentBase));

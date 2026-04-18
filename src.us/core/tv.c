@@ -88,7 +88,7 @@ void initialise_tv_mode(void) {
     osViModeTable[gVIData.VIModeType].fldRegs[1].vStart = D_80205400.vStart;
     osViModeTable[gVIData.VIModeType].fldRegs[0].yScale = D_80205400.yScale;
     osViModeTable[gVIData.VIModeType].fldRegs[1].yScale = D_80205400.yScale;
-    D_8020540C = 0;
+    gIsWidescreen = 0;
 }
 
 void set_screen_scaling(void) {
@@ -109,7 +109,7 @@ void set_tv_mode_widescreen(void) {
     mode->fldRegs[0].yScale = yScale;
     mode->fldRegs[1].yScale = yScale;
 
-    D_8020540C = 1;
+    gIsWidescreen = 1;
 }
 
 void set_tv_mode_normal(void) {
@@ -125,7 +125,7 @@ void set_tv_mode_normal(void) {
     mode->fldRegs[0].yScale = yScale;
     mode->fldRegs[1].yScale = yScale;
 
-    D_8020540C = 0;
+    gIsWidescreen = 0;
 }
 
 void func_8012AC8C(void) {

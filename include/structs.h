@@ -1039,7 +1039,6 @@ typedef struct {
 typedef struct {
                 u8  pad0[0x1E];
     /* 0x1E */  u8  countryCode;
-                u8  pad1F;
     /* 0x20 */  s16 region;
 } RomHeader;
 
@@ -1136,8 +1135,8 @@ typedef struct {
     /* 0x2C570 */ Vtx unk2C570[1000];
     /* 0x303F0 */ Vtx unk303F0[200];
     /* 0x31070 */ Vtx unk31070[30]; // might be bigger, treated as pairs
-    /* 0x31250 */ Vtx unk31250[2];
-    /* 0x31270 */ u8  pad31270[0x1600];
+    /* 0x31250 */ Vtx unk31250[350]; // might only be 8?
+    /* 0x32830 */ Mtx unk32830; // unused?
     /* 0x32870 */ uSprite sprites[140]; // maybe more/less
     /* 0x33590 */ Mtx modelViewMtx[250]; // (might only be 240?)
     /* 0x37410 */ Mtx unk37410;  // projection matrix 1
@@ -1247,15 +1246,6 @@ typedef struct {
     /* 0x3B */ s8  evoPartsCollected;
     /* 0x3C */ s32 score;
 } PlayerEeprom; // size 0x40 (64 bytes)
-
-typedef struct {
-    /* 0x0 */ u8 *unk0;
-    /* 0x4 */ u8 *fontAddress;
-    /* 0x8 */ u8  width;
-    /* 0x9 */ u8  height;
-    /* 0xA */ u8  bits;
-    /* 0xC */ u16 glyphBytes;
-} struct023;
 
 typedef struct {
     /* 0x00 */ s16 cameraMode; // camera mode?
@@ -2372,5 +2362,24 @@ typedef struct {
     s32 unk8;
 } struct118; // size 0xC
 
+typedef struct {
+    /* 0x0 */ s16 rotZ;
+    /* 0x2 */ s16 rotY;
+    /* 0x4 */ s16 rotX;
+    /* 0x6 */ s16 posX;
+    /* 0x8 */ s16 posZ;
+    /* 0xA */ s16 posY;
+    /* 0xC */ u16 duration;
+} RigKeyframe; // size 0xE
+
+typedef struct {
+    RigKeyframe *keyframes;
+    s16 keyframeCount;
+} BoneTrack; // size 0x6 ?
+
+typedef struct {
+    s16 trackCount;
+    BoneTrack boneTrack[];
+} RigAnimation;
 
 #endif

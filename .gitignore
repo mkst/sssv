@@ -1,5 +1,8 @@
 # directories
 
+.splat/
+.vscode/
+
 __pycache__/
 asm/
 assets/
@@ -13,7 +16,6 @@ nonmatchings/
 py/
 rnc/
 rodata/
-
 
 # symlinks
 
@@ -34,4 +36,3 @@ progress*.csv
 ctx.c
 ctx.c.m2c
 pah.conf
-.vscode/

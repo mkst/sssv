@@ -52,8 +52,6 @@ s16  func_80344158_755808(s16 arg0);
 // .bss (D_803F28D0 to D_803F2C18)
 // ========================================================
 
-u8 overlay2_74100_bss_pad_pre[0x20]; // unused bss from earlier .c files?
-
 u16  gCameraVisibilityMask[8];
 
 Camera gCameras[2];

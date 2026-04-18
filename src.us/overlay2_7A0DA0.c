@@ -1120,10 +1120,10 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     s32 pad[8];
 
     s16 idx;
-    f32 var_f0;
-    s16 var_t3;
+    f32 z;
+    s16 t;
     u16 phi_s1;
-    s16 var_t2;
+    s16 prevZ;
 
     gSPDisplayList((*dl)++, D_01004270_3DB40);
     gDPPipeSync((*dl)++);
@@ -1138,23 +1138,23 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gSPTexture((*dl)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
     for (idx = 0; idx < 12; idx++) {
-        var_f0 = arg2 - (((arg4 - arg2) / 11) * idx);
-
-        // final iteration
+        z = arg2 - (((arg4 - arg2) / 11) * idx);
         if (idx == 11) {
-            var_f0 = ((var_f0 - var_t2) / 2) + var_t2;
+            // final iteration
+            z = ((z - prevZ) / 2) + prevZ;
         }
 
-        var_t2 = var_f0;
+        prevZ = z;
 
-        var_t3 = idx * 1984; // ?
-        if (var_t3 < 0) {
-            var_t3 = 0;
+        t = idx * 1984; // ?
+        if (t < 0) {
+            t = 0;
         }
 
+        /* left */
         gDisplayListContext->unk31070[2*idx].v.ob[0] = arg1 - 1.0f;
         gDisplayListContext->unk31070[2*idx].v.ob[1] = arg5;
-        gDisplayListContext->unk31070[2*idx].v.ob[2] = var_t2;
+        gDisplayListContext->unk31070[2*idx].v.ob[2] = prevZ;
 
         gDisplayListContext->unk31070[2*idx].v.cn[0] = 0xFF;
         gDisplayListContext->unk31070[2*idx].v.cn[1] = 0xFF;
@@ -1162,11 +1162,12 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
         gDisplayListContext->unk31070[2*idx].v.cn[3] = 0xFF;
 
         gDisplayListContext->unk31070[2*idx].v.tc[0] = 0;
-        gDisplayListContext->unk31070[2*idx].v.tc[1] = var_t3;
+        gDisplayListContext->unk31070[2*idx].v.tc[1] = t;
 
+        /* right */
         gDisplayListContext->unk31070[2*idx+1].v.ob[0] = arg3 + 1.0f;
         gDisplayListContext->unk31070[2*idx+1].v.ob[1] = arg5;
-        gDisplayListContext->unk31070[2*idx+1].v.ob[2] = var_t2;
+        gDisplayListContext->unk31070[2*idx+1].v.ob[2] = prevZ;
 
         gDisplayListContext->unk31070[2*idx+1].v.cn[0] = 0xFF;
         gDisplayListContext->unk31070[2*idx+1].v.cn[1] = 0xFF;
@@ -1174,15 +1175,15 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
         gDisplayListContext->unk31070[2*idx+1].v.cn[3] = 0xFF;
 
         gDisplayListContext->unk31070[2*idx+1].v.tc[0] = 0x2800;
-        gDisplayListContext->unk31070[2*idx+1].v.tc[1] = var_t3;
+        gDisplayListContext->unk31070[2*idx+1].v.tc[1] = t;
     }
 
-    gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[idx]), 31, 0);
+    gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070), 31, 0);
 
     for (idx = 0; idx < 22; idx += 2) {
         gDPPipeSync((*dl)++);
 
-        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, ((u8*)D_800BA760 + 0xB2E0 + (idx * 0x6E0)));
+        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, ((D_800BA760 + 0xB2E0) + (idx * 0x6E0)));
 
         gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync((*dl)++);
@@ -1245,11 +1246,12 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gDisplayListContext->unk31250[6].v.ob[0] = arg3 + 1.0f;
     gDisplayListContext->unk31250[6].v.ob[1] = arg5;
     gDisplayListContext->unk31250[6].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
-    gDisplayListContext->unk31250[7].v.ob[0] = arg1 - 1.0f;
-    gDisplayListContext->unk31250[7].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[7].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
 
-    gSPVertex((*dl)++, K0_TO_PHYS(gDisplayListContext->unk31250), 8, 0);
+    gDisplayListContext->unk31070[0].v.ob[0] = arg1 - 1.0f;
+    gDisplayListContext->unk31070[0].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[0].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
+
+    gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[30]), 8, 0);
 
     gDPSetCombineMode((*dl)++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gDPSetPrimColor((*dl)++, 0, 0, 0x00, 0x00, 0x00, 0x00);
@@ -1489,26 +1491,27 @@ void func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 
 }
 
 #ifdef NON_MATCHING
-// CURRENT (1702)
+// CURRENT (1470)
+extern int PRIMITIVE;
+extern int TEXEL0;
+
 void load_pause_menu(s32 arg0, s16 arg1) {
     u8 sp174[60];
     s16 spFC[60];
 
+    s32 new_var;
+
     s16 col;
     s16 row;
-
+    u8 alpha; // spF3
     s16 cnt;
     s16 level;
-
-    u8 alpha; // spF3
-    u8 suit_red;
-    u8 suit_blue;
-    u8 suit_green;
-    s16 user_selection;
-
-    s32 new_var;
     s16 vertical_offset;
+    u8 suit_red;
+    u8 suit_green;
+    u8 suit_blue;
     s16 font_width; // spE6
+    s16 user_selection;
 
     font_width = 16;
     if ((gEepromGlobal.language == LANG_ITALIAN) ||
@@ -1672,7 +1675,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
 
     vertical_offset = arg1 + 58;
 
-    if (gRegion == REGION_US) {
+    if (D_80204240.region == REGION_US) {
         // no "language" option so bump everything down a smidge?
         vertical_offset += 8;
     }
@@ -1719,7 +1722,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         set_menu_text_color(160, 160, 160, 0xFF);
         if (D_803F7DA8.currentLevel != 31) {
             // write level title
-            display_text_centered(&gMainDL, D_803F2D50.titleText, 160, 208, 16.0f, 16.0f);
+            display_text_centered(&gMainDL, (s16*)D_803F2D50.titleText, 160, 208, 16.0f, 16.0f);
         }
         gDPPipeSync(gMainDL++);
 
@@ -1757,7 +1760,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 }
                 display_text(&gMainDL, get_message_address_by_id(MSG_CANCEL2), 91, vertical_offset, font_width, 16.0f);
 
-                if (gOverlayMenuState.unk36 == 1U) { // confirm active
+                if (gOverlayMenuState.unk36 == 1) { // confirm active
                     set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
                 } else {
                     set_menu_text_color(0x80, 0x80, 0x80, alpha);
@@ -1816,6 +1819,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         } else {
             set_menu_text_color(0x80, 0x80, 0x80, alpha);
         }
+
         // "%c <<<<<<<<<<<<<<<<<<<<"
         sprintf((char*)sp174, "%c <<<<<<<<<<<<<<<<<<<<", 92); // 92 + 272 => 364 => 🔊
         // fill out "|"
@@ -1825,7 +1829,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         vertical_offset += 18;
 
         // show "language" menu if not US ROM
-        if (gRegion != REGION_US) {
+        if (D_80204240.region != REGION_US) {
             if (gOverlayMenuState.unk14 == PAUSE_MENU_OPTION_LANGUAGE) {
                 set_menu_text_color(0xFF, 0xFF, 0xFF, alpha);
             } else {
@@ -1872,7 +1876,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             D_801D9ED4 = 0xA;
 
             gOverlayMenuState.unk14--;
-            if (gRegion == REGION_US) {
+            if (D_80204240.region == REGION_US) {
                 // skip over language option
                 if (gOverlayMenuState.unk14 == PAUSE_MENU_OPTION_LANGUAGE) {
                     gOverlayMenuState.unk14--;
@@ -1896,7 +1900,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             D_801D9ED4 = 0xA;
 
             gOverlayMenuState.unk14++;
-            if (gRegion == REGION_US) {
+            if (D_80204240.region == REGION_US) {
                 // skip over language option
                 if (gOverlayMenuState.unk14 == PAUSE_MENU_OPTION_LANGUAGE) {
                     gOverlayMenuState.unk14++;
@@ -2220,7 +2224,7 @@ void setup_pause_menu_perspective_a_7A6B30(void) {
     gSPSegment(gMainDL++, 0x04, osVirtualToPhysical(gMenuSegmentBase));
     gSPViewport(gMainDL++, &D_803B66F0_7C7DA0);
     clear_depth_buffer(&gMainDL);
-    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
 
     guPerspective(&gDisplayListContext->unk37410, &gWorldPerspNorm, 45.0f, 1.0f, 2.0f, 2000.0f, 1.0f);
     guScale(&gDisplayListContext->unk37450, 0.5f, 0.5f, 0.5f);

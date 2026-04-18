@@ -55,7 +55,7 @@ void func_80294E50_6A6500(void) {
             gInitialisationState = 0;
             gOverlayMenuState.unk26 = 0;
             gOverlayMenuState.unk2D = 0;
-            D_803F6704 = D_8020540C;
+            D_803F6704 = gIsWidescreen;
             set_tv_mode_normal();
         }
     }
@@ -69,7 +69,7 @@ void func_80294E50_6A6500(void) {
     }
 
     if (((gControllerInput->button & START_BUTTON) && (D_802912DE == 1) && (gOverlayMenuState.unk0 == 0)) || (gOverlayMenuState.unk26 == 3)) {
-        if ((gInputMode == INPUT_MODE_USER) && (D_803C0426 == 0) && (D_8020540C != 1) && (gInitialisationState == 0)) {
+        if ((gInputMode == INPUT_MODE_USER) && (D_803C0426 == 0) && (gIsWidescreen != 1) && (gInitialisationState == 0)) {
             if ((gGameState.unk4 == 0) && (D_803F2D50.unkC6 == 0) && (gGameState.level != END_CREDITS) && ((gLevelProgress & LEVEL_PROGRESS_FLAG_16) == 0)) {
                 if ((D_803C0420 == 0) || (D_803C0420 >= 11)) {
                     play_sound_effect(SFX_UNKNOWN_127, 0, 0x5000, 1.0f, 64);
@@ -85,8 +85,8 @@ void func_80294E50_6A6500(void) {
         func_8012A400(); // receive some messages?
         // swap frame buffer
         memcpy_sssv(
-            D_80162658[D_80152EB8].framebuffer,
-            D_80162658[D_80152EB8 ^ 1].framebuffer,
+            gFrameContext[D_80152EB8].framebuffer,
+            gFrameContext[D_80152EB8 ^ 1].framebuffer,
             sizeof(gFramebuffer[0]));
         trigger_mission_brief_screen();
         // unset flag
@@ -149,7 +149,7 @@ void func_80294E50_6A6500(void) {
 
         clear_depth_buffer(&gMainDL);
 
-        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
         gSPDisplayList(gMainDL++, D_01004270_3DB40);
 
         gSPClipRatio(gMainDL++, FRUSTRATIO_3);

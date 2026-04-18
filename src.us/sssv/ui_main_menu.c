@@ -340,12 +340,12 @@ void display_zone_select_screen(void) {
 
     if (D_803F7DA8.previousLevel != D_803F7DA8.currentLevel) {
         // level thumbnails
-        dma_read(D_803B7268_7C8918[D_803F7DA8.currentLevel*2], D_800B0B20, D_803B7268_7C8918[D_803F7DA8.currentLevel*2+1] - D_803B7268_7C8918[D_803F7DA8.currentLevel*2]);
-        UnpackRNC(D_800B0B20, D_800B49A0);
+        dma_read(D_803B7268_7C8918[D_803F7DA8.currentLevel*2], gfxspecific, D_803B7268_7C8918[D_803F7DA8.currentLevel*2+1] - D_803B7268_7C8918[D_803F7DA8.currentLevel*2]);
+        UnpackRNC(gfxspecific, D_800B49A0);
         D_803F7DA8.previousLevel = D_803F7DA8.currentLevel;
         // trophy images
-        dma_read(D_803B7368_7C8A18[D_803F7DA8.currentLevel*2], D_800B0B20, D_803B7368_7C8A18[D_803F7DA8.currentLevel*2+1] - D_803B7368_7C8A18[D_803F7DA8.currentLevel*2]);
-        UnpackRNC(D_800B0B20, D_800B68E0);
+        dma_read(D_803B7368_7C8A18[D_803F7DA8.currentLevel*2], gfxspecific, D_803B7368_7C8A18[D_803F7DA8.currentLevel*2+1] - D_803B7368_7C8A18[D_803F7DA8.currentLevel*2]);
+        UnpackRNC(gfxspecific, D_800B68E0);
 
         gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
         load_level_title();
@@ -1441,7 +1441,7 @@ void func_8039CE38_7AE4E8(Gfx **arg0) {
 
     gSPViewport((*arg0)++, &D_803B66F0_7C7DA0);
     gDPSetDepthImage((*arg0)++, osVirtualToPhysical(&D_80100000));
-    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
     gSPDisplayList((*arg0)++, D_01004270_3DB40);
     gDPSetScissor((*arg0)++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
     gDPPipeSync((*arg0)++);

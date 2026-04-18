@@ -151,8 +151,8 @@ endif
 
 CFLAGS := -G0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
 CFLAGS += $(DEFINES)
-# ignore compiler warnings about anonymous structs
-CFLAGS += -woff 649,838
+# ignore compiler warnings about anonymous structs & incomplete types
+CFLAGS += -woff 649,838,807
 CFLAGS += $(INCLUDE_CFLAGS)
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
@@ -164,8 +164,11 @@ GCC_FLAGS += -G0 -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
 GCC_FLAGS += -mdivide-breaks -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -mno-abicalls -fno-strict-aliasing -fno-inline-functions -ffreestanding -fwrapv
 GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
 
-LD_FLAGS   = -T $(LD_SCRIPT) -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt
-LD_FLAGS  += -Map $(TARGET).map --no-check-sections
+LD_FLAGS   = -T $(LD_SCRIPT) -Map $(TARGET).map --no-check-sections
+
+ifeq ($(VERSION),eu)
+LD_FLAGS  +=  -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt
+endif
 
 ifeq ($(VERSION),us)
 LD_FLAGS_EXTRA  = -Lbuild/lib -lultra_rom
