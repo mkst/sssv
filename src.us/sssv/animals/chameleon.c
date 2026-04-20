@@ -2,8 +2,7 @@
 #include "common.h"
 
 
-u8 bss_padding_chameleon_pre[0x150];
-
+u8 bss_padding_chameleon_pre[0x10];
 
 extern s16 D_803B3B60_7C5210[];
 extern s16 D_803B3C34_7C52E4[];
@@ -24,10 +23,6 @@ extern Gfx D_04008FF0_FA050[];
 extern Gfx D_04009500_FA560[];
 extern Gfx D_04009870_FA8D0[];
 extern Gfx D_040099B0_FAA10[];
-extern u8  D_040099F0_FAA50[];
-extern u8  D_04009BF0_FAC50[]; // palette
-extern u8  D_04009C10_FAC70[];
-extern u8  D_04009E10_FAE70[];
 
 #ifdef NON_MATCHING
 // CURRENT (730)
@@ -330,10 +325,10 @@ void func_8035A5F0_76BCA0(void) {
 
                 gSPDisplayList(gOpaqueDL++, D_010034C0_3CD90);
 
-                load_1_tile(D_04009BF0_FAC50, D_040099F0_FAA50);
+                load_1_tile(img_chameleon_pal, img_chameleon_ci4__png);
                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x50) >> 6, (D_803F2EC0 * 0x50) >> 6, (D_803F2EC4 * 0x50) >> 6, D_803F2ED0, 0, 0, 0, D_04008C70_F9CD0);
                 func_802C78B0_6D8F60(2, 0x1A, FTOFIX32(1.25), FTOFIX32(1.25), FTOFIX32(1.25), D_803F2ED0, 0, 0, 0, D_04009870_FA8D0);
-                load_1_tile(D_04009E10_FAE70, D_04009C10_FAC70);
+                load_1_tile(img_chameleon2_pal, img_chameleon2_ci4__png);
 
                 gDPSetTileSize(gOpaqueDL++, G_TX_RENDERTILE, 0, D_803D5540, 0, 0);
 
@@ -427,7 +422,7 @@ void func_8035BDC0_76D470(void) {
     if (D_803F2EA0 != D_803D5544) {
         D_803F2EA0 = D_803D5544;
 
-        palette = (u16*)(D_801D9EC4 + SEGMENT_OFFSET(D_04009BF0_FAC50));
+        palette = (u16*)(D_801D9EC4 + SEGMENT_OFFSET(img_chameleon_pal));
 
         temp_t7 = ((SIN(D_803D5540) >> 7) + 0x100) >> 1;
         temp_t8 = ((COS(((D_803D5544 & 0xFFF) * 7) >> 3) >> 7) + 0x100) >> 1;

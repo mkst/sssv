@@ -14,14 +14,14 @@ options:
   src_path: src.us
   extensions_path: tools/splat_ext
   lib_path: build/lib
-  # migrate_rodata_to_functions: yes
-  # workaround regex issue
   create_undefined_funcs_auto: no
+  create_undefined_syms_auto: no
   symbol_name_format: $VRAM_$ROM
   asm_jtbl_label_macro: jlabel
   asm_data_macro: dlabel
   image_type_in_extension: yes
   segment_symbols_style: makerom
+  # dump_symbols: yes
 segments:
   - name:  header
     type:  header
@@ -409,11 +409,11 @@ segments:
     - [0x38E10, rodatabin, gspF3DEX_fifoData]
     - [0x39610, rodatabin, aspMainData]
     # bss
-    - [0x398D0, .bss, core/thread6]             # 0x8015E1D0 to 0x801D9E80
-    - [0x398D0, .bss, bss/D_801D9E80]           # 0x801D9E80 to 0x802053E0
-    - [0x398D0, .bss, bss/D_80205400]           # 0x802053E0 to 0x8022E0D0
+    - [0x398D0, .bss, core/thread6]             # 0x8015E1D0 to 0x8022E0D0
     - [0x398D0, .bss, core/rnc]                 # 0x8022E0D0 to 0x8022E3F0
     - [0x398D0, .bss, main_78F0]                # 0x8022E3F0 to 0x8023F410
+    - [0x398D0, .bss, core/eeprom]
+    - [0x398D0, .bss, main_C770]
     - [0x398D0, .bss, core/audiomgr]            # 0x8023F410 to 0x80286550
     - [0x398D0, .bss, libultra/audio/csplayer]  # 0x80286560 to 0x80286570
     - [0x398D0, .bss, core/thread1]             # 0x80286570 to 0x80291090
@@ -579,7 +579,7 @@ segments:
     - [0x40530, i4, img/D_01006C60_40530, 32, 128]
     - [0x40D30, bin] # more textures 16x8?
     - [0x40D70, rgba16, img/hud/unused_powerbar, 128, 16]
-    - [0x41D70, bin] # D_010084A0_41D70 rgba16 mipmaps
+    - [0x41D70, bin, D_010084A0_41D70] # rgba16 mipmaps
     - [0x43DA0, .data, data/D_0100A6D0_43FA0]
     - [0x43DA0, sssv_vtx, data/inc/D_0100A4D0_43DA0]
     - [0x43E20, sssv_vtx, data/inc/D_0100A550_43E20]
@@ -867,18 +867,18 @@ segments:
     - [0x5A0B0, .data, data/D_010207E0_5A0B0]
     - [0x5A190, sssv_vtx, data/inc/D_010208C0_5A190]
     - [0x5A220, .data, data/D_01020950_5A220] # object 241
-    - [0x5A280, bin] # D_010209B0_5A280 I4, 128x16, lightning bolt?
-    - [0x5A680, bin] # D_01020DB0_5A680 bunch of textures/palettes, 16x256
-    - [0x5AE80, bin] # D_010215B0_5AE80
-    - [0x5B480, bin] # D_01021BB0_5B480 I4
+    - [0x5A280, bin, D_010209B0_5A280] # I4, 128x16, lightning bolt?
+    - [0x5A680, bin, D_01020DB0_5A680] # bunch of textures/palettes, 16x256
+    - [0x5AE80, bin, D_010215B0_5AE80] #
+    - [0x5B480, bin, D_01021BB0_5B480] # I4
     - [0x5BD80, ci4, img/bear_nose, 32, 32] # D_010224B0_5BD80
     - [0x5BF80, palette, img/bear_nose] # D_010226B0_5BF80
-    - [0x5BFA0, bin] # D_010226D0_5BFA0 16x16 I4
+    - [0x5BFA0, bin, D_010226D0_5BFA0] # D_010226D0_5BFA0 16x16 I4
     - [0x5C020, bin] # 16x16 I4
     - [0x5C0A0, bin] # 16x16 I4 100, 200, 500
-    - [0x5C7A0, bin] # D_01022ED0_5C7A0 16x16 I4 leaves?
-    - [0x5CEA0, bin] # D_010235D0_5CEA0 16x16 I4 "Z" (polar bear)
-    - [0x5CF20, bin] # D_01023550_5CE20 more 16x16 I4 images...
+    - [0x5C7A0, bin, D_01022ED0_5C7A0] # D_01022ED0_5C7A0 16x16 I4 leaves?
+    - [0x5CE20, bin, D_01023550_5CE20] #  more 16x16 I4 images...
+    - [0x5CF20, bin]
     - [0x5CFA0, bin]
     - [0x5D020, bin]
     - [0x5D0A0, bin]
@@ -892,7 +892,7 @@ segments:
     - [0x5D4A0, bin]
     - [0x5D520, bin]
     - [0x5D5A0, bin]
-    - [0x5D620, bin] # D_01023D50_5D620
+    - [0x5D620, bin, D_01023D50_5D620] # D_01023D50_5D620
     - [0x5D6A0, bin]
     - [0x5D720, bin]
     - [0x5D7A0, bin]
@@ -908,37 +908,37 @@ segments:
     - [0x5DCA0, bin]
     - [0x5DD20, bin]
     - [0x5DDA0, bin]
-    - [0x5DE20, bin] # D_01024550_5DE20, bunch more images - particles mostly?
-    - [0x5F020, bin] # D_01025750_5F020
-    - [0x60220, bin] # D_01026950_60220
-    - [0x61420, bin] # D_01027B50_61420
-    - [0x62620, bin] # D_01028D50_62620
-    - [0x62E20, bin] # D_01029550_62E20
-    - [0x636A0, bin] # D_01029DD0_636A0
-    - [0x636E0, bin] # D_01029E10_636E0
+    - [0x5DE20, bin, D_01024550_5DE20] # D_01024550_5DE20, bunch more images - particles mostly?
+    - [0x5F020, bin, D_01025750_5F020] # D_01025750_5F020
+    - [0x60220, bin, D_01026950_60220] # D_01026950_60220
+    - [0x61420, bin, D_01027B50_61420] # D_01027B50_61420
+    - [0x62620, bin, D_01028D50_62620] # D_01028D50_62620
+    - [0x62E20, bin, D_01029550_62E20] # D_01029550_62E20
+    - [0x636A0, bin, D_01029DD0_636A0] # D_01029DD0_636A0
+    - [0x636E0, bin, D_01029E10_636E0] # D_01029E10_636E0
     - [0x63700, bin] # I8?
-    - [0x63AE0, bin] # D_0102A210_63AE0, 32x32 I8 (D_8102A210)
+    - [0x63AE0, bin, D_0102A210_63AE0] # D_0102A210_63AE0, 32x32 I8 (D_8102A210)
     - [0x63F00, bin] # I8?
     - [0x64300, bin] # I8?
     - [0x64700, bin] # I8?
     - [0x64B00, bin] # I8, music note, pinball blizzard?
-    - [0x64EE0, bin] # D_0102B610_64EE0 palette ?
+    - [0x64EE0, bin, D_0102B610_64EE0] # D_0102B610_64EE0 palette ?
     - [0x64F00, bin] # I4, 32x32
-    - [0x650E0, bin] # palette?
+    - [0x650E0, bin, D_0102B810_650E0] # palette?
     - [0x65100, bin] #
-    - [0x652E0, bin] # D_0102BA10_652E0
-    - [0x65AE0, bin] # D_0102C210_65AE0, 16x256
-    - [0x660E0, bin] # D_0102C810_660E0 (D_8102C810)
+    - [0x652E0, i4, img/D_0102BA10_652E0, 64, 64] # D_0102BA10_652E0
+    - [0x65AE0, bin, D_0102C210_65AE0] # D_0102C210_65AE0, 16x256
+    - [0x660E0, bin, D_0102C810_660E0] # (D_8102C810)
     - [0x66100, bin] # 32x32, fan
-    - [0x662E0, bin] # D_0102CA10_662E0, 16x256
+    - [0x662E0, bin, D_0102CA10_662E0] # D_0102CA10_662E0, 16x256
     - [0x66500, bin] # 32x32, fan
     - [0x66900, bin] # 32x32, fan
     - [0x66D00, bin] # 32x32, fan
-    - [0x670E0, bin] # palette?
+    - [0x670E0, bin, D_0102D810_670E0] # palette? D_8102D810
     - [0x67100, bin] # symbols and stars
-    - [0x672E0, bin] # D_8102D810 (D_0102D810_670E0)
-    - [0x67CE0, bin] # D_0102E410_67CE0
-    - [0x67EE0, bin] # D_8102E410 (D_0102E410_67CE0)
+    - [0x672E0, bin] #
+    - [0x67CE0, bin, D_0102E410_67CE0] # D_0102E410_67CE0
+    - [0x67EE0, bin, D_0102E610_67EE0] # D_8102E410 (D_0102E410_67CE0)
     - [0x688E0, rgba16, img/D_0102F010_688E0, 32, 32] # environment map?
     - [0x690E0, rgba16, img/gold, 32, 32]
     - [0x698E0, rgba16, img/bronze, 32, 32]
@@ -959,23 +959,24 @@ segments:
     - [0x6D260, i4, img/D_01033990_6D260, 64, 64] # 64x64, I4 (IA4?)
     - [0x6DA60, i4, img/D_01034190_6DA60, 64, 64] # 64x64, I4 (IA4?)
     - [0x6E260, i4, img/D_01034990_6E260, 64, 64] # 64x64, I4 (IA4?)
-    - [0x6EA60, bin] # D_01035190_6EA60 ia
-    - [0x6F260, bin] # D_01035990_6F260
-    - [0x6FA60, bin] # D_01036190_6FA60
-    - [0x70560, bin] # D_01036C90_70560 tortoise G_IM_FMT_CI
-    - [0x70660, bin] # D_01036D90_70660 tortoise G_IM_FMT_CI
-    - [0x70760, bin] # D_01036E90_70760 tortoise G_IM_FMT_RGBA
+    - [0x6EA60, i4, img/D_01035190_6EA60, 64, 64]
+    - [0x6F260, i4, img/D_01035990_6F260, 64, 64]
+    - [0x6FA60, i4, img/D_01036190_6FA60, 64, 64]
+    - [0x70260, bin]
+    - [0x70560, bin, D_01036C90_70560] # tortoise G_IM_FMT_CI
+    - [0x70660, bin, D_01036D90_70660] # tortoise G_IM_FMT_CI
+    - [0x70760, bin, D_01036E90_70760] # tortoise G_IM_FMT_RGBA
     - [0x70960, bin] # D_01037090_70960 image?
     - [0x70F60, sssv_vtx, data/inc/D_01037690_70F60]
     - [0x70FD0, .data, data/D_01037700_70FD0]
-    - [0x71020, bin] # D_01037750_71020 img
+    - [0x71020, bin, D_01037750_71020] # D_01037750_71020 img
     - [0x71220, .data, data/D_01037950_71220] # dynamic tail dls
-    - [0x712F0, bin] # D_01037A20_712F0 I4 ring
-    - [0x71AF0, bin] # D_01038220_71AF0 I4 # barrel-roll shadow?
-    - [0x722F0, bin] # D_01038A20_722F0 I4 # barrel-roll shadow?
-    - [0x72AF0, bin] # D_01039220_72AF0 I4 # barrel-roll shadow?
-    - [0x732F0, bin] # D_01039A20_732F0 I4 # barrel-roll shadow?
-    - [0x73AF0, bin] # D_0103A220_73AF0 I4 # barrel-roll shadow?
+    - [0x712F0, i4, img/D_01037A20_712F0, 64, 64] # ring
+    - [0x71AF0, i4, img/D_01038220_71AF0, 64, 64] # barrel-roll shadow?
+    - [0x722F0, i4, img/D_01038A20_722F0, 64, 64] # barrel-roll shadow?
+    - [0x72AF0, i4, img/D_01039220_72AF0, 64, 64] # barrel-roll shadow?
+    - [0x732F0, i4, img/D_01039A20_732F0, 64, 64] # barrel-roll shadow?
+    - [0x73AF0, i4, img/D_0103A220_73AF0, 64, 64] # barrel-roll shadow?
     - [0x742F0, ci4, img/tank_tracks, 32, 32] # both POLAR_TANK and TORTOISE_TANK
     - [0x744F0, palette, img/tank_tracks] # D_0103AC20_744F0
     - [0x74510, ci4, img/D_0103AC40_74510, 64, 64]
@@ -995,7 +996,7 @@ segments:
     - [0x76FF0, rgba16, img/fonts/lcd_tileset2, 16, 160]
     - [0x783F0, sssv_vtx, data/inc/D_0103EB20_783F0]
     - [0x784F0, .data, data/D_0103EC20_784F0] # long cylinder?
-    - [0x78580, bin] # i8, img/D_0103ECB0_78580, 32, 512] #] # FIXME: png.FormatError: FormatError: Wrong size for decompressed IDAT chunk.
+    - [0x78580, bin, D_0103ECB0_78580] # i8, img/D_0103ECB0_78580, 32, 512] #] # FIXME: png.FormatError: FormatError: Wrong size for decompressed IDAT chunk.
     - [0x7A580, rgba16, img/D_01040CB0_7A580, 32, 256]
     - [0x7E580, i4, img/D_01044CB0_7E580, 32, 128]
     - [0x7ED80, i4, img/D_010454B0_7ED80, 32, 128]
@@ -4229,7 +4230,7 @@ segments:
     - { start: 0x7D1AD0, type: .bss, name: sssv/init }  # , vram: 0x803F2D10 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_7688B0 }  # , vram: 0x803F2D20 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_7689A0 }  # , vram: 0x803F2D30 }
-    - { start: 0x7D1AD0, type: .bss, name: sssv/animals/chameleon } # , vram: 0x803F2D50 }
+    - { start: 0x7D1AD0, type: .bss, name: sssv/animals/chameleon } # , vram: 0x803F2E90 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_76E7D0 } # , vram: 0x803F2EB0 }
     - { start: 0x7D1AD0, type: .bss, name: overlay2_76F7D0 } # , vram: 0x803F2EE0 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/animals/sheep } # , vram: 0x803F2EF0 }
@@ -4246,234 +4247,236 @@ segments:
     - { start: 0x7D1AD0, type: .bss, name: sssv/dan } # , vram: 0x803F6720 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/ui_main_menu } # , vram: 0x803F7160 }
     - { start: 0x7D1AD0, type: .bss, name: sssv/trails } # , vram: 0x803F7E10 }
-  # dan speech?
+
+  # dan speech + animations
   - name: _7D1AD0
     type: code
     vram: 0x803FDEC0
     start: 0x7D1AD0
     exclusive_ram_id: ovl_80
     subsegments:
-      - [0x7D1AD0, data]
+      - [0x7D1AD0, .data, data/7D1AD0]
   - name: _7D2F50
     type: code
-    vram: 0x803FF340
+    vram: 0x803FDEC0
     start: 0x7D2F50
     exclusive_ram_id: ovl_80
     subsegments:
-      - [0x7D2F50, data]
+      - [0x7D2F50, .data, data/7D2F50]
   - name: _7D3360
     type: code
-    vram: 0x803FF750
+    vram: 0x803FDEC0
     start: 0x7D3360
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D3360, data]
   - name: _7D3AB0
     type: code
-    vram: 0x803FFEA0
+    vram: 0x803FDEC0
     start: 0x7D3AB0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D3AB0, data]
   - name: _7D4270
     type: code
-    vram: 0x80400660
+    vram: 0x803FDEC0
     start: 0x7D4270
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D4270, data]
   - name: _7D4830
     type: code
-    vram: 0x80400C20
+    vram: 0x803FDEC0
     start: 0x7D4830
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D4830, data]
   - name: _7D49C0
     type: code
-    vram: 0x80400DB0
+    vram: 0x803FDEC0
     start: 0x7D49C0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D49C0, data]
   - name: _7D5240
     type: code
-    vram: 0x80401630
+    vram: 0x803FDEC0
     start: 0x7D5240
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D5240, data]
   - name: _7D5620
     type: code
-    vram: 0x80401A10
+    vram: 0x803FDEC0
     start: 0x7D5620
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D5620, data]
   - name: _7D5990
     type: code
-    vram: 0x80401D80
+    vram: 0x803FDEC0
     start: 0x7D5990
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D5990, data]
   - name: _7D5D90
     type: code
-    vram: 0x80402180
+    vram: 0x803FDEC0
     start: 0x7D5D90
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D5D90, data]
   - name: _7D61F0
     type: code
-    vram: 0x804025E0
+    vram: 0x803FDEC0
     start: 0x7D61F0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D61F0, data]
   - name: _7D64D0
     type: code
-    vram: 0x804028C0
+    vram: 0x803FDEC0
     start: 0x7D64D0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D64D0, data]
   - name: _7D6770
     type: code
-    vram: 0x80402B60
+    vram: 0x803FDEC0
     start: 0x7D6770
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D6770, data]
   - name: _7D6E30
     type: code
-    vram: 0x80403220
+    vram: 0x803FDEC0
     start: 0x7D6E30
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D6E30, data]
   - name: _7D7570
     type: code
-    vram: 0x80403960
+    vram: 0x803FDEC0
     start: 0x7D7570
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D7570, data]
   - name: _7D7AA0
     type: code
-    vram: 0x80403E90
+    vram: 0x803FDEC0
     start: 0x7D7AA0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D7AA0, data]
   - name: _7D8350
     type: code
-    vram: 0x80404740
+    vram: 0x803FDEC0
     start: 0x7D8350
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D8350, data]
   - name: _7D88E0
     type: code
-    vram: 0x80404CD0
+    vram: 0x803FDEC0
     start: 0x7D88E0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D88E0, data]
   - name: _7D8EA0
     type: code
-    vram: 0x80405290
+    vram: 0x803FDEC0
     start: 0x7D8EA0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D8EA0, data]
   - name: _7D92E0
     type: code
-    vram: 0x804056D0
+    vram: 0x803FDEC0
     start: 0x7D92E0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D92E0, data]
   - name: _7D9860
     type: code
-    vram: 0x80405C50
+    vram: 0x803FDEC0
     start: 0x7D9860
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D9860, data]
   - name: _7D9F20
     type: code
-    vram: 0x80406310
+    vram: 0x803FDEC0
     start: 0x7D9F20
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7D9F20, data]
+
   - name: _7DA020
     type: code
-    vram: 0x80406410
+    vram: 0x803FF340
     start: 0x7DA020
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DA020, data]
   - name: _7DA120
     type: code
-    vram: 0x80406510
+    vram: 0x803FF340
     start: 0x7DA120
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DA120, data]
   - name: _7DA4A0
     type: code
-    vram: 0x80406890
+    vram: 0x803FF340
     start: 0x7DA4A0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DA4A0, data]
   - name: _7DA990
     type: code
-    vram: 0x80406D80
+    vram: 0x803FF340
     start: 0x7DA990
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DA990, data]
   - name: _7DADF0
     type: code
-    vram: 0x804071E0
+    vram: 0x803FF340
     start: 0x7DADF0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DADF0, data]
   - name: _7DB380
     type: code
-    vram: 0x80407770
+    vram: 0x803FF340
     start: 0x7DB380
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DB380, data]
   - name: _7DBBC0
     type: code
-    vram: 0x80407FB0
+    vram: 0x803FF340
     start: 0x7DBBC0
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DBBC0, data]
   - name: _7DC250
     type: code
-    vram: 0x80408640
+    vram: 0x803FF340
     start: 0x7DC250
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DC250, data]
   - name: _7DC580
     type: code
-    vram: 0x80408970
+    vram: 0x803FF340
     start: 0x7DC580
     exclusive_ram_id: ovl_80
     subsegments:
       - [0x7DC580, data]
   - name: _7DC990
     type: code
-    vram: 0x80408D80
+    vram: 0x803FF340
     start: 0x7DC990
     exclusive_ram_id: ovl_80
     subsegments:

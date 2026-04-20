@@ -10,13 +10,13 @@ Vtx D_0400E140_124D10[23] = {
 #include "data/inc/D_0400E140_124D10.inc.c"
 };
 
-extern u8 D_0400D560_124130[];
+extern u8 img_124130_rgba16__png[];
 
 Gfx D_0400E2B0_124E80[] = {
     gsDPPipeSync(),
     gsSPClearGeometryMode(G_LIGHTING),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400D560_124130),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_124130_rgba16__png),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
     gsSPVertex(D_0400DD60_124930, 30, 0),

@@ -2,6 +2,19 @@
 
 #include "common.h"
 
+
+// ========================================================
+// .bss
+// ========================================================
+
+PlayerEeprom D_8023F260;
+Eeprom gEepromGlobal;
+PlayerEeprom D_8023F2E0[4];
+
+// ========================================================
+// .text
+// ========================================================
+
 /*
     Understanding so far:
 
@@ -11,7 +24,6 @@
 
     4th bank used for "Global" save state e.g. language
 */
-
 s16 write_eeprom(s16 bank) {
     s16 pad0; // maybe block length?
     s32 res;
@@ -126,12 +138,12 @@ void func_80130E44(void) {
         gEepromGlobal.musicVol = DEFAULT_AUDIO_VOLUME;
         gEepromGlobal.sfxVol = DEFAULT_AUDIO_VOLUME;
 
-        if (gRegion == REGION_US) {
+        if (D_80204240.region == REGION_US) {
             gEepromGlobal.language = LANG_ENGLISH;
         } else {
             gEepromGlobal.language = LANG_DEFAULT;
         }
-        if (gRegion == REGION_JP) {
+        if (D_80204240.region == REGION_JP) {
             gEepromGlobal.language = LANG_JAPANESE;
         }
         gEepromGlobal.unk8 = 1; // isReset?

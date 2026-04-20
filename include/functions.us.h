@@ -57,15 +57,8 @@ void func_8012AC8C(void);
 void func_8012AD08(void);
 
 // main_78F0
-s16  get_glyph_width(f32 arg0);
 s16  get_message_width(s16 *arg0);
-s16  func_8012C678(s16 *arg0, u16 arg1, u16 arg2);
-s16  get_char_type(s16 *arg0, u16 arg1, u16 arg2);
 s16  func_8012E78C(s16*, f32, f32, u8);
-void func_8012FA78(Gfx **arg0);
-void func_8012FAD4(Gfx **dl, s32 arg1);
-
-void func_8012C214(s32, s32, s32, s32);
 void func_8012D374(Gfx **arg0, s16 *arg1, u16 arg2, u16 arg3, f32 arg4, f32 arg5, s16 arg6);
 void display_text_word_wrapped(Gfx **, s16*, u16, u16, f32, f32, u8);
 
@@ -200,8 +193,8 @@ void func_8029ACC8_6AC378(void);
 
 // overlay2_6ACF20
 void maybe_trigger_exit_teleporter(Animal *animal, Entity *teleporter);
-void func_8029B9B8_6AD068(Animal *arg0, Animal *arg1);
-void maybe_do_teleport(Animal *arg0, Animal *arg1);
+void func_8029B9B8_6AD068(Animal *animal, Entity *teleporter);
+void maybe_do_teleport(Animal *animal, Entity *teleporter);
 void func_8029BB94_6AD244(void);
 void enqueue_dynamic_texture_billboard_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
 void render_dynamic_texture_billboards_6AE758(void);
@@ -407,26 +400,26 @@ void func_802BC628_6CDCD8(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4);
 void func_802BC900_6CDFB0(struct077 *arg0, u16 arg1, u16 arg2, s16 *arg3, s16 *arg4, s16 *arg5);
 void func_802BCC50_6CE300(s16 arg0, u16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 *arg8, s16 *arg9, s16 *argA);
 void func_802BCDA0_6CE450(LimbIKState *arg0, s16 *arg1, s16 *arg2, s16 *arg3);
-void func_802BCF38_6CE5E8(u16, u16, Vertex*);
-void func_802BD21C_6CE8CC(u16 arg0, Vertex *arg1);
+void func_802BCF38_6CE5E8(u16, u16, LimbConfig*);
+void func_802BD21C_6CE8CC(u16 arg0, LimbConfig *arg1);
 void func_802BD358_6CEA08(s16 *arg0);
-void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, struct077 *arg8, struct077 *arg9, struct077 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, struct077 *arg13, struct077 *arg14, struct077 *arg15, Vertex *arg16, s16 arg17); // tbd
+void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, struct077 *arg8, struct077 *arg9, struct077 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, struct077 *arg13, struct077 *arg14, struct077 *arg15, LimbConfig *arg16, s16 arg17); // tbd
 void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 * argB, s8 argC);
 void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC);
-void update_limbs_rigid(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *arg12);
+void update_limbs_rigid(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, LimbConfig *arg12);
 void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA);
-void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, Vertex *arg12);
+void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, LimbConfig *arg12);
 void func_802C13E4_6D2A94(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA);
-void func_802C1830_6D2EE0(u16 arg0, Vertex *arg1);
-void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, Vertex *arg2);
+void func_802C1830_6D2EE0(u16 arg0, LimbConfig *arg1);
+void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, LimbConfig *arg2);
 void func_802C19CC_6D307C(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5);
 void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2);
-void func_802C1A88_6D3138(u16 arg0, Vertex *arg1);
+void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1);
 void func_802C23F8_6D3AA8(s16 arg0);
 void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5);
 void func_802C2D98_6D4448(s16 arg0, s16 arg1);
 void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s32 arg7);
-void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, Vertex *arg6);
+void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, LimbConfig *arg6);
 void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2);
 void func_802C3F58_6D5608(LimbIKState*, u16, u16, u16, s16, s16, s16);
 void func_802C4448_6D5AF8(s16 arg0);

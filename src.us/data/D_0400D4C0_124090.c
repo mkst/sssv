@@ -4,7 +4,7 @@ Vtx D_0400D3E0_123FB0[14] = {
 #include "data/inc/D_0400D3E0_123FB0.inc.c"
 };
 
-extern u8 D_0400CBE0_1237B0[];
+extern u8 img_D_0400CBE0_1237B0_rgba16__png[];
 
 Gfx D_0400D4C0_124090[] = {
     gsDPPipeSync(),
@@ -14,7 +14,7 @@ Gfx D_0400D4C0_124090[] = {
     gsDPSetRenderMode(G_RM_AA_ZB_OPA_INTER, G_RM_AA_ZB_OPA_INTER2),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400CBE0_1237B0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_D_0400CBE0_1237B0_rgba16__png),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
     gsSPTexture(0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON),

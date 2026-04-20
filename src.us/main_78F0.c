@@ -3,6 +3,25 @@
 #include "pp.h"
 
 // ========================================================
+// definitions
+// ========================================================
+
+typedef struct {
+    /* 0x0 */ u8 *glyphWidths;
+    /* 0x4 */ u8 *glyphBitmapBase;
+    /* 0x8 */ u8  width;
+    /* 0x9 */ u8  height;
+    /* 0xA */ u8  bitsPerPixel;
+    /* 0xC */ u16 bytesPerGlyph;
+} FontInfo;
+
+s16  get_glyph_width(f32 width);
+s16  process_text_token(s16 *text, u16 x, u16 y);
+s16  get_char_type(s16 *text, u16 x, u16 y);
+void func_8012FA78(Gfx **dl);
+void func_8012FAD4(Gfx **dl, s32 addr);
+
+// ========================================================
 // .data
 // ========================================================
 
@@ -74,7 +93,24 @@ u16 D_80231AA0[342];  // level text message offsets
 
 LevelText D_80231D50; // level text data loaded into here
 
-u8  D_80235410[0xa000]; // holds decompressed rnc
+static u8  D_80235410[0x9dd0]; // holds decompressed rnc
+
+static FontInfo currentFont;
+
+static u8   textColorR;
+static u8   textColorG;
+static u8   textColorB;
+static u8   textColorA;
+static u8   useMonospacedFont; // 0 or 1
+static u8   useDropShadow;
+static f32  D_8023F1F8; // current font width / scale
+static f32  D_8023F1FC; // current font height / scale
+
+static s16  D_8023F200[3]; // unused
+static s16  D_8023F206[1];
+s16  D_8023F208[32];
+static s16  D_8023F248[12];
+
 
 // ========================================================
 // .text
@@ -87,15 +123,15 @@ void load_default_display_list(Gfx **dl) {
 
 // does not appear to be used for cutscenes
 void set_menu_text_color(u8 r, u8 g, u8 b, u8 a) {
-    D_8023F1F0 = r; // textColorR
-    D_8023F1F1 = g; // textColorG
-    D_8023F1F2 = b; // textColorB
-    D_8023F1F3 = a; // textColorA
+    textColorR = r; // textColorR
+    textColorG = g; // textColorG
+    textColorB = b; // textColorB
+    textColorA = a; // textColorA
 }
 
 void select_font(u8 isMonospace, u8 fontType, u8 shadow, u8 arg3) {
-    D_8023F1F4 = isMonospace;
-    D_8023F1F5 = shadow;
+    useMonospacedFont = isMonospace;
+    useDropShadow = shadow;
     if (fontType == FONT_LCD) {
         select_lcd_font();
     } else {
@@ -104,33 +140,33 @@ void select_font(u8 isMonospace, u8 fontType, u8 shadow, u8 arg3) {
 }
 
 void select_comic_sans_font(void) {
-    D_8023F1E0.unk0 = D_80154370;
-    D_8023F1E0.fontAddress = _fontbufferSegmentStart;
-    D_8023F1E0.width = 16;
-    D_8023F1E0.height = 16;
-    D_8023F1E0.bits = 4;  // color bitdepth?
-    D_8023F1E0.glyphBytes = 128; // 16*16*0.5
+    currentFont.glyphWidths = D_80154370;
+    currentFont.glyphBitmapBase = _fontbufferSegmentStart;
+    currentFont.width = 16;
+    currentFont.height = 16;
+    currentFont.bitsPerPixel = 4;
+    currentFont.bytesPerGlyph = 128; // 16*16*0.5
 }
 
 void select_lcd_font(void) {
-    D_8023F1E0.fontAddress = img_fonts_lcd_tileset_rgba16__png; // 7-segment display font
-    D_8023F1E0.width = 16;
-    D_8023F1E0.height = 16;
-    D_8023F1E0.bits = 16; // color bitdepth?
-    D_8023F1E0.glyphBytes = 512; // 16*16*2
+    currentFont.glyphBitmapBase = img_fonts_lcd_tileset_rgba16__png; // 7-segment display font
+    currentFont.width = 16;
+    currentFont.height = 16;
+    currentFont.bitsPerPixel = 16;
+    currentFont.bytesPerGlyph = 512; // 16*16*2
 }
 
-s16 get_glyph_width(f32 arg0) {
-    f32 a = arg0 / D_8023F1E0.width;
+s16 get_glyph_width(f32 width) {
+    f32 a = width / currentFont.width;
     s16 res = D_8023F1F8 * a;
     return res;
 }
 
-u8 convert_text_to_int(s16 *arg0) {
+u8 convert_text_to_int(s16 *text) {
     u8 ret = 0, i = 0;
 
-    while ((arg0[i] >= TILESET_ZERO) && (arg0[i] <= TILESET_NINE)) {
-        ret = (ret*10 + arg0[i]) - TILESET_ZERO;
+    while ((text[i] >= TILESET_ZERO) && (text[i] <= TILESET_NINE)) {
+        ret = (ret*10 + text[i]) - TILESET_ZERO;
         i++;
     }
     return ret;
@@ -161,11 +197,11 @@ s16 get_message_width(s16 *text) {
                 text += 2;
             }
         } else {
-            switch (D_8023F1F4) {
+            switch (useMonospacedFont) {
             case 0:
-                D_8023F1E0.unk0 += tmp;
-                res += get_glyph_width(*D_8023F1E0.unk0);
-                D_8023F1E0.unk0 -= tmp;
+                currentFont.glyphWidths += tmp;
+                res += get_glyph_width(*currentFont.glyphWidths);
+                currentFont.glyphWidths -= tmp;
                 // if font width less than 14px?
                 if (D_8023F1F8 < 14.0f) {
                     res += 1;
@@ -182,7 +218,7 @@ s16 get_message_width(s16 *text) {
     return res;
 }
 
-s16 func_8012C678(s16 *text, u16 x, u16 y) {
+s16 process_text_token(s16 *text, u16 x, u16 y) {
     u8  spD8[80];
     s16 sp30[84];
 
@@ -209,52 +245,52 @@ s16 func_8012C678(s16 *text, u16 x, u16 y) {
         if (*text == TEXT_COLOR) {
             switch (*++text) {
             case TEXT_COLOR_RED:
-                D_8023F1F0 = 200;
-                D_8023F1F1 = 40;
-                D_8023F1F2 = 40;
-                D_8023F1F3 = 255;
+                textColorR = 200;
+                textColorG = 40;
+                textColorB = 40;
+                textColorA = 255;
                 break;
             case TEXT_COLOR_GREEN:
-                D_8023F1F0 = 0;
-                D_8023F1F1 = 255;
-                D_8023F1F2 = 0;
-                D_8023F1F3 = 255;
+                textColorR = 0;
+                textColorG = 255;
+                textColorB = 0;
+                textColorA = 255;
                 break;
             case TEXT_COLOR_BLUE:
-                D_8023F1F0 = 120;
-                D_8023F1F1 = 120;
-                D_8023F1F2 = 255;
-                D_8023F1F3 = 255;
+                textColorR = 120;
+                textColorG = 120;
+                textColorB = 255;
+                textColorA = 255;
                 break;
             case TEXT_COLOR_YELLOW:
-                D_8023F1F0 = 255;
-                D_8023F1F1 = 255;
-                D_8023F1F2 = 0;
-                D_8023F1F3 = 255;
+                textColorR = 255;
+                textColorG = 255;
+                textColorB = 0;
+                textColorA = 255;
                 break;
             case TEXT_COLOR_WHITE:
-                D_8023F1F0 = 255;
-                D_8023F1F1 = 255;
-                D_8023F1F2 = 255;
-                D_8023F1F3 = 255;
+                textColorR = 255;
+                textColorG = 255;
+                textColorB = 255;
+                textColorA = 255;
                 break;
             case TEXT_COLOR_BLACK:
-                D_8023F1F0 = 0;
-                D_8023F1F1 = 0;
-                D_8023F1F2 = 0;
-                D_8023F1F3 = 255;
+                textColorR = 0;
+                textColorG = 0;
+                textColorB = 0;
+                textColorA = 255;
                 break;
             case TEXT_COLOR_PURPLE:
-                D_8023F1F0 = 255;
-                D_8023F1F1 = 0;
-                D_8023F1F2 = 255;
-                D_8023F1F3 = 255;
+                textColorR = 255;
+                textColorG = 0;
+                textColorB = 255;
+                textColorA = 255;
                 break;
             case TEXT_COLOR_CYAN:
-                D_8023F1F0 = 0;
-                D_8023F1F1 = 255;
-                D_8023F1F2 = 255;
-                D_8023F1F3 = 255;
+                textColorR = 0;
+                textColorG = 255;
+                textColorB = 255;
+                textColorA = 255;
                 break;
             }
             return 2;
@@ -281,18 +317,18 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
     // calculate half the width of the text
     msg_width = get_message_width(text) / 2;
 
-    chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
+    chr_width = ((s32) D_8023F1F8 - get_glyph_width(*currentFont.glyphWidths)) * useMonospacedFont;
     xpos = (x - msg_width) + (chr_width / 2);
     ypos = y;
 
-    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+    gDPSetEnvColor((*dl)++, textColorR, textColorG, textColorB, textColorA);
 
     // load tile
     func_8012FA78(dl);
 
     while (*text != EOM) {
-        switch (func_8012C678(text, xpos, ypos)) {
+        switch (process_text_token(text, xpos, ypos)) {
         case 1: // timer
             // increment xpos by length of timer text
             x += get_message_width(D_8023F248);
@@ -303,17 +339,17 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
             text += 3; // skip over 3 chars
             break;
         case 0: // regular character
-            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-            gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+            gDPSetEnvColor((*dl)++, textColorR, textColorG, textColorB, textColorA);
 
             chr = *text;
-            D_8023F1E0.unk0 += chr;
+            currentFont.glyphWidths += chr;
             load_glyph(dl, chr);
 
-            chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
+            chr_width = ((s32) D_8023F1F8 - get_glyph_width(*currentFont.glyphWidths)) * useMonospacedFont;
 
             // add drop shadow?
-            if (D_8023F1F5) {
+            if (useDropShadow) {
 
                 gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
                 gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
@@ -332,8 +368,8 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
                     (16384.0f / D_8023F1FC)
                 );
 
-                gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-                gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+                gDPSetEnvColor((*dl)++, textColorR, textColorG, textColorB, textColorA);
             }
 
             tmp_xpos = (x - msg_width) + (chr_width / two);
@@ -350,9 +386,9 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
                 (16384.0f / D_8023F1FC)
             );
 
-            switch (D_8023F1F4) {
+            switch (useMonospacedFont) {
             case 0:
-                x += get_glyph_width(*D_8023F1E0.unk0);
+                x += get_glyph_width(*currentFont.glyphWidths);
                 if (width < 14.0f) {
                     x += 1;
                 }
@@ -364,7 +400,7 @@ void display_text_centered(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 hei
 
             xpos = (x - msg_width) + (chr_width / 2);
             text++;
-            D_8023F1E0.unk0 -= chr;
+            currentFont.glyphWidths -= chr;
             break;
         case 3: // newline
             // no change (not even to y?)
@@ -384,17 +420,17 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
     D_8023F1F8 = width;
     D_8023F1FC = height;
 
-    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+    gDPSetEnvColor((*dl)++, textColorR, textColorG, textColorB, textColorA);
 
-    chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
+    chr_width = ((s32) D_8023F1F8 - get_glyph_width(*currentFont.glyphWidths)) * useMonospacedFont;
 
     xpos = x + (chr_width / 2);
 
     func_8012FA78(dl);
 
     while ((*text != EOM) && (maxChars != 0)) {
-        switch (func_8012C678(text, xpos, y)) {
+        switch (process_text_token(text, xpos, y)) {
         case 1: // timer
             x += get_message_width(D_8023F248); // write out time
             text += 4;
@@ -411,9 +447,9 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
             if (chr != TILESET_SPACE) {
 
                 load_glyph(dl, chr);
-                chr_width = (((s32) D_8023F1F8 - get_glyph_width(*(D_8023F1E0.unk0 + chr))) * D_8023F1F4);
+                chr_width = (((s32) D_8023F1F8 - get_glyph_width(*(currentFont.glyphWidths + chr))) * useMonospacedFont);
 
-                if (D_8023F1F5) {
+                if (useDropShadow) {
                     gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
                     gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
 
@@ -430,8 +466,8 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
                         16384.0f / D_8023F1FC
                     );
 
-                    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-                    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                    gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+                    gDPSetEnvColor((*dl)++, textColorR, textColorG, textColorB, textColorA);
                 }
 
                 gSPTextureRectangle(
@@ -448,9 +484,9 @@ void func_8012D374(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height, s16
                     );
             }
 
-            switch (D_8023F1F4) {
+            switch (useMonospacedFont) {
             case 0:
-                x += get_glyph_width(*(D_8023F1E0.unk0 + chr));
+                x += get_glyph_width(*(currentFont.glyphWidths + chr));
                 if (width < 14.0f) {
                     x += 1;
                 }
@@ -502,8 +538,8 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     D_8023F1F8 = width;
     D_8023F1FC = height;
 
-    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-    gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+    gDPSetEnvColor((*dl)++, textColorR, textColorG, textColorB, textColorA);
 
     msg_width = get_message_width(text);
 
@@ -512,13 +548,13 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
 
     while (*text != EOM) {
         chr = *text;
-        D_8023F1E0.unk0 += chr;
+        currentFont.glyphWidths += chr;
         load_glyph(dl, chr);
 
-        chr_width = ((s32) D_8023F1F8 - get_glyph_width(*D_8023F1E0.unk0)) * D_8023F1F4;
+        chr_width = ((s32) D_8023F1F8 - get_glyph_width(*currentFont.glyphWidths)) * useMonospacedFont;
 
         // add drop shadow
-        if (D_8023F1F5) {
+        if (useDropShadow) {
             gDPSetPrimColor((*dl)++, 0, 0, 0, 0, 0, 255);
             gDPSetEnvColor((*dl)++, 0, 0, 0, 0);
 
@@ -535,8 +571,8 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
                 (16384.0f / D_8023F1FC)
                 );
 
-            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-            gDPSetEnvColor((*dl)++, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+            gDPSetEnvColor((*dl)++, textColorR, textColorG, textColorB, textColorA);
         }
 
         gSPTextureRectangle(
@@ -552,9 +588,9 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
             16384.0f / D_8023F1FC
             );
 
-        switch (D_8023F1F4) {
+        switch (useMonospacedFont) {
         case 0:
-            x += get_glyph_width(*D_8023F1E0.unk0);
+            x += get_glyph_width(*currentFont.glyphWidths);
             if (width < 14.0f) {
                 x += 1;
             }
@@ -565,7 +601,7 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
         }
 
         text++;
-        D_8023F1E0.unk0 -= chr;
+        currentFont.glyphWidths -= chr;
     }
 
     gDPPipeSync((*dl)++);
@@ -621,9 +657,9 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
             break;
         case 0: // normal text
             wchr = *text;
-            D_8023F1E0.unk0 += wchr;
+            currentFont.glyphWidths += wchr;
 
-            xPos += get_glyph_width(*D_8023F1E0.unk0);
+            xPos += get_glyph_width(*currentFont.glyphWidths);
 
             if (fontWidth < 14.0f) {
                 xPos++;
@@ -637,9 +673,9 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
 
                 while ((*tmp != TILESET_SPACE) && (*tmp != EOM) && (!shouldBreak) && (*tmp != NEWLINE)) {
                     chr = *tmp;
-                    D_8023F1E0.unk0 += chr;
+                    currentFont.glyphWidths += chr;
 
-                    var_s1 += get_glyph_width(*D_8023F1E0.unk0);
+                    var_s1 += get_glyph_width(*currentFont.glyphWidths);
 
                     if (var_s1 >= (gScreenWidth - 50)) {
                         // reset cursor position
@@ -649,7 +685,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
                         shouldBreak = 1;
                         numLines++;
                     }
-                    D_8023F1E0.unk0 -= chr;
+                    currentFont.glyphWidths -= chr;
                     tmp++;
                 }
             }
@@ -666,7 +702,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
             // consume leading whitespace
             while ((*text == TILESET_SPACE) && (xPos == xStart)) { text++; }
 
-            D_8023F1E0.unk0 -= wchr;
+            currentFont.glyphWidths -= wchr;
             break;
         case 3: // NEWLINE
             yPos += lineHeight;
@@ -685,7 +721,7 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
     return numLines * lineHeight;
 }
 
-void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
+void display_text_word_wrapped(Gfx **dl, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
     s16 wchr;       // sp256
     u8  sp154[0x102];
 
@@ -751,9 +787,9 @@ void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f3
             break;
         case 0:  // normal text
             wchr = *text;
-            D_8023F1E0.unk0 += wchr;
+            currentFont.glyphWidths += wchr;
 
-            xPos += get_glyph_width(*D_8023F1E0.unk0);
+            xPos += get_glyph_width(*currentFont.glyphWidths);
 
             xPos2 = xPos - 1;
 
@@ -762,13 +798,13 @@ void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f3
                 var_s1 = xPos2;
                 tmp = text + 1;
 
-                D_8023F1E0.unk0 -= wchr;
+                currentFont.glyphWidths -= wchr;
 
                 while ((*tmp != TILESET_SPACE) && (*tmp != EOM) && (shouldBreak == 0) && (*tmp != NEWLINE)) {
                     wchr2 = *tmp;
-                    D_8023F1E0.unk0 += wchr2;
+                    currentFont.glyphWidths += wchr2;
 
-                    var_s1 += get_glyph_width(*D_8023F1E0.unk0);
+                    var_s1 += get_glyph_width(*currentFont.glyphWidths);
 
                     if (var_s1 >= (gScreenWidth - 50)) {
                         xPos2 = 0; // xStart?
@@ -777,10 +813,10 @@ void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f3
                         shouldBreak = 1;
                         numLines++;
                     }
-                    D_8023F1E0.unk0 -= wchr2;
+                    currentFont.glyphWidths -= wchr2;
                     tmp++;
                 }
-                D_8023F1E0.unk0 += wchr;
+                currentFont.glyphWidths += wchr;
             }
 
             // force correct register with temp var (a1/s3)
@@ -802,7 +838,7 @@ void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f3
                 sp124[numLines]++;
             }
 
-            D_8023F1E0.unk0 -= wchr;
+            currentFont.glyphWidths -= wchr;
             if (xPos == sp150) {
                 sp110[numLines] = var_s7;
             }
@@ -842,7 +878,7 @@ void display_text_word_wrapped(Gfx **arg0, s16 *text, u16 xStart, u16 yStart, f3
             sp68[msgLength--] = EOM;
         }
 
-        display_text_centered(arg0, &sp68[i], xStart, var_s4, arg4, arg5);
+        display_text_centered(dl, &sp68[i], xStart, var_s4, arg4, arg5);
 
         var_s4 += lineHeight;
     }
@@ -862,8 +898,8 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
     D_8023F1F8 = fontWidth;
     D_8023F1FC = fontHeight;
 
-    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-    gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+    gDPSetEnvColor((*dl)++,        textColorR, textColorG, textColorB, textColorA);
 
     tmp = x;
 
@@ -871,7 +907,7 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
 
     while (*text != EOM) {
 
-        switch (func_8012C678(text, tmp, y)) {
+        switch (process_text_token(text, tmp, y)) {
         case 1: // timer
             x += get_message_width(D_8023F248);
             text += 4;
@@ -880,17 +916,17 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
             text += 3;
             break;
         case 0: // regular character
-            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-            gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+            gDPSetEnvColor((*dl)++,        textColorR, textColorG, textColorB, textColorA);
 
             shouldBreak = 0;
 
             wchr = *text;
-            D_8023F1E0.unk0 += wchr;
+            currentFont.glyphWidths += wchr;
             load_glyph(dl, wchr);
 
             // add drop-shadow
-            if (D_8023F1F5) {
+            if (useDropShadow) {
                 gDPSetPrimColor((*dl)++, 0, 0, 0x00, 0x00, 0x00, 0xFF);
                 gDPSetEnvColor((*dl)++,        0x00, 0x00, 0x00, 0x00);
 
@@ -906,8 +942,8 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
                 /* dsdx */  16384.0f / D_8023F1F8,
                 /* dtdy */  16384.0f / D_8023F1FC);
 
-                gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-                gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+                gDPSetEnvColor((*dl)++,        textColorR, textColorG, textColorB, textColorA);
             }
 
             gSPTextureRectangle(
@@ -922,7 +958,7 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
             /* dsdx */  16384.0f / D_8023F1F8,
             /* dtdy */  16384.0f / D_8023F1FC);
 
-            x += get_glyph_width(*D_8023F1E0.unk0);
+            x += get_glyph_width(*currentFont.glyphWidths);
 
             // check if next word will fit on current line
             if (*text == TILESET_SPACE) {
@@ -931,16 +967,16 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
                 next = text + 1;
                 while ((*next != TILESET_SPACE) && (*next != EOM) && (!shouldBreak)) {
                     chr = *next;
-                    D_8023F1E0.unk0 += chr;
+                    currentFont.glyphWidths += chr;
 
-                    xPos2 += get_glyph_width(*D_8023F1E0.unk0);
+                    xPos2 += get_glyph_width(*currentFont.glyphWidths);
 
                     if (xPos2 >= maxWidth) {
                         y += lineHeight;
                         x = sp48; // reset xpos?
                         shouldBreak = 1;
                     }
-                    D_8023F1E0.unk0 -= chr;
+                    currentFont.glyphWidths -= chr;
                     next++;
                 }
             }
@@ -951,7 +987,7 @@ void func_8012F160(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHei
             // consume leading whitespace
             while ((*text == TILESET_SPACE) && (x == sp48) && (*text != EOM)) { text++; }
 
-            D_8023F1E0.unk0 -= wchr;
+            currentFont.glyphWidths -= wchr;
             break;
         case 3: // NEWLINE
             text++;
@@ -968,22 +1004,20 @@ void func_8012FA78(Gfx **dl) {
     gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 60, 60);
 }
 
-void func_8012FAD4(Gfx **dl, s32 arg1) {
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, K0_TO_PHYS(arg1));
+void func_8012FAD4(Gfx **dl, s32 addr) {
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, K0_TO_PHYS(addr));
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 63, 2048);
     gDPPipeSync((*dl)++);
 }
 
 void load_glyph(Gfx **dl, s16 tileId) {
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, K0_TO_PHYS(tileId * D_8023F1E0.glyphBytes + (s32)D_8023F1E0.fontAddress));
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, K0_TO_PHYS(currentFont.glyphBitmapBase + tileId * currentFont.bytesPerGlyph));
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 63, 2048);
     gDPPipeSync((*dl)++);
 }
 
-#ifdef NON_MATCHING
-// CURRENT (25)
 // returns updated vertical offset
 s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 fontHeight, u16 maxWidth, u8 lineHeight) {
     u8 shouldBreak;
@@ -993,28 +1027,29 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
     s16 wchr;
     u16 xPos2, xPos3;
     s16 *next;
+    char language;
 
     xStart = x;
 
     D_8023F1F8 = fontWidth;
     D_8023F1FC = fontHeight;
 
-    gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-    gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+    gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+    gDPSetEnvColor((*dl)++,        textColorR, textColorG, textColorB, textColorA);
 
     // load tile
     func_8012FA78(dl);
 
     while (*text != EOM) {
         var_s1 = x;
-        switch (func_8012C678(text, var_s1, y)) {
+        switch (process_text_token(text, var_s1, y)) {
         case 2: // color
             // no change to xpos
             text += 3;
             break;
         case 0: // normal char
-            gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-            gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+            gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+            gDPSetEnvColor((*dl)++,        textColorR, textColorG, textColorB, textColorA);
 
             shouldBreak = 0;
 
@@ -1022,7 +1057,7 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
             load_glyph(dl, wchr);
 
             // add drop-shadow
-            if (D_8023F1F5) {
+            if (useDropShadow) {
                 gDPSetPrimColor((*dl)++, 0, 0, 0x00, 0x00, 0x00, 0xFF);
                 gDPSetEnvColor((*dl)++,        0x00, 0x00, 0x00, 0x00);
 
@@ -1039,8 +1074,8 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
                 /* dtdy */  (16384.0f / D_8023F1FC)
                 );
 
-                gDPSetPrimColor((*dl)++, 0, 0, D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
-                gDPSetEnvColor((*dl)++,        D_8023F1F0, D_8023F1F1, D_8023F1F2, D_8023F1F3);
+                gDPSetPrimColor((*dl)++, 0, 0, textColorR, textColorG, textColorB, textColorA);
+                gDPSetEnvColor((*dl)++,        textColorR, textColorG, textColorB, textColorA);
             }
 
             gSPTextureRectangle(
@@ -1056,9 +1091,9 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
             /* dtdy */  (16384.0f / D_8023F1FC)
             );
 
-            D_8023F1E0.unk0 += wchr;
-            x += get_glyph_width(*D_8023F1E0.unk0);
-            D_8023F1E0.unk0 -= wchr;
+            currentFont.glyphWidths += wchr;
+            x += get_glyph_width(*currentFont.glyphWidths);
+            currentFont.glyphWidths -= wchr;
 
             if (fontWidth < 13.0f) {
                 x++;
@@ -1073,24 +1108,30 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
                 next = text + 1;
                 while ((*next != TILESET_SPACE) && (*next != EOM) && (!shouldBreak)) {
                     chr = *next;
-                    D_8023F1E0.unk0 += chr;
-                    xPos3 += get_glyph_width(*D_8023F1E0.unk0);
+                    currentFont.glyphWidths += chr;
+                    xPos3 += get_glyph_width(*currentFont.glyphWidths);
                     // wrap if we have exceeded desired line length
-                    if (xPos3 >= maxWidth) {
+                    if (!(maxWidth > xPos3)) {
                         xPos2 = 0;
                         // move down to next line
                         y += lineHeight;
                         x = xStart;
                         shouldBreak = 1;
                     }
-                    D_8023F1E0.unk0 -= chr;
+                    currentFont.glyphWidths -= chr;
                     next++;
                 }
             }
 
-            if ((gEepromGlobal.language == LANG_JAPANESE) && ((maxWidth - 10) <= xPos2) && (*text != EOM)) {
-                y += lineHeight;
-                x = xStart;
+            next = text + 1;
+            if (gEepromGlobal.language == LANG_JAPANESE) {
+                // japanese glyphs are wider so reduce threshold for end-of-line
+                if (!(maxWidth - 10 > xPos2)) {
+                    if (*next != EOM) {
+                        y += lineHeight;
+                        x = xStart;
+                    }
+                }
             }
 
             text++;
@@ -1106,9 +1147,6 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
 
     return y;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/main_78F0/display_text_wrapped.s")
-#endif
 
 void display_score(Gfx **dl, u8 *score, u16 x_offset, u16 y_offset) {
     u8 digit;
@@ -1124,11 +1162,11 @@ void display_score(Gfx **dl, u8 *score, u16 x_offset, u16 y_offset) {
     width = 0;
     while (*text != '\0') {
         digit = (*text - ' ');
-        D_8023F1E0.unk0 += digit;
+        currentFont.glyphWidths += digit;
         // anything missing here?
         width += 16;
         text++;
-        D_8023F1E0.unk0 -= digit;
+        currentFont.glyphWidths -= digit;
     }
 
     gDPPipeSync((*dl)++);
@@ -1144,7 +1182,7 @@ void display_score(Gfx **dl, u8 *score, u16 x_offset, u16 y_offset) {
     while (*score != '\0') {
         // 0 is ascii 48 so.. why -32?
         digit = (*score - ' ');
-        D_8023F1E0.unk0 += digit;
+        currentFont.glyphWidths += digit;
 
         if (digit != 0) {
             gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &img_fonts_lcd_tileset_rgba16__png[((digit - 16) * 256) << 1]);
@@ -1170,7 +1208,7 @@ void display_score(Gfx **dl, u8 *score, u16 x_offset, u16 y_offset) {
 
         x_offset += 16;
         score++;
-        D_8023F1E0.unk0 -= digit;
+        currentFont.glyphWidths -= digit;
     }
 
     gDPPipeSync((*dl)++);
@@ -1197,7 +1235,7 @@ s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
     u8 **lang;
     u8 (*new_var)[];
 
-    if (gRegion == REGION_EU) {
+    if (D_80204240.region == REGION_EU) {
         if (language < LANG_MIN) {
             language = LANG_ENGLISH;
         }
@@ -1209,10 +1247,10 @@ s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
             language = LANG_ENGLISH;
         }
     }
-    if (gRegion == REGION_US) {
+    if (D_80204240.region == REGION_US) {
         language = LANG_ENGLISH;
     }
-    if (gRegion == REGION_JP) {
+    if (D_80204240.region == REGION_JP) {
         language = LANG_JAPANESE;
     }
 

@@ -152,9 +152,6 @@ extern Gfx  D_0400C240_FD2A0[];
 
 extern u8   D_04012B20_1296F0[];
 
-extern u8   D_04003E70_F4ED0[];
-extern u8   D_04004070_F50D0[];
-
 extern Gfx  D_05006170_9D190[];
 
 // 0x8000xxxx
@@ -176,7 +173,8 @@ extern u8   D_80099600[]; // _gfxdlistSegmentEnd
 
 // 0x800Bxxxx
 
-extern u8   D_800B0B20[];
+extern u8   gfxspecific[];
+
 extern u8   D_800B49A0[8000]; // level thumbnail img
 extern u8   D_800B68E0[16000]; // trophy img
 extern u8   D_800BA760[]; //[0xAB8]; // 2744 bytes per texture, initially contains rnc_42DCA0 compressed texture
@@ -284,14 +282,14 @@ extern s32  numControllers;
 // 0x8016xxxx
 
 extern OSSched sc; // D_801603D0;
-extern FrameContext D_80162658[2];
+extern FrameContext gFrameContext[2];
 
 // 0x801Dxxxx
-extern u8  *D_801D9E58; // europe segment start
-extern u8  *D_801D9E5C; // city segment start
-extern u8  *D_801D9E60; // ice segment start
-extern u8  *D_801D9E64; // desert segment start
-extern u8  *D_801D9E68; // jungle segment start
+extern u8  *gEuropeSegmentBase; // europe segment start
+extern u8  *gCitySegmentBase; // city segment start
+extern u8  *gIceSegmentBase; // ice segment start
+extern u8  *gDesertSegmentBase; // desert segment start
+extern u8  *gJungleSegmentBase; // jungle segment start
 extern u8  *gMenuSegmentBase; // menu segment start
 
 extern s16 *gFontSegmentBase;
@@ -306,14 +304,15 @@ extern Gfx *gLayer1DL;
 extern Gfx *D_801D9E98[8];
 extern Gfx *gAuxDL;
 extern u8  *D_801D9EC4; // currently loaded segment
-extern u8   D_801D9EC8;
-extern u8   D_801D9EC9;
 extern s32  D_801D9ED0;
 extern s16  D_801D9ED4; // either 10 or 6 - input debounce?
 extern struct050 gAnimalState;
 
 extern s32  D_801DD800;
 extern s32  D_801DD8EC;
+
+extern s16  gScreenWidth;
+extern s16  gScreenHeight;
 
 // D_801DDD88 is D_801D9ED8.animals
 // D_801DDD8C[gCurrentAnimalIndex] is D_801D9ED8.animals[gCurrentAnimalIndex].animal
@@ -367,43 +366,32 @@ extern f32  D_80204230;
 extern f32  D_80204234;
 
 extern RomHeader D_80204240;
-extern s16  gRegion;
 extern s16  D_80204270;
-extern FrameContext *gFrameContext;
+extern FrameContext *gFrameContextPtr;
 extern DisplayList *gDisplayListContext;
 extern s16  D_8020427C;
 extern s16  D_80204280;
-extern u16  D_80204282;
 extern s16  gOverlayState;
 extern s8   gAttractModeState;
 extern FrameContext *D_8020428C;
 extern s16  gFrameStepDivisor;
-extern s16  D_80204292;
 extern s16  gRefreshRate;
-extern OSScMsg *D_80204298; // OSMesg
-extern OSScClient D_802042A0;
-extern s16  D_802042A8;
-extern char gDebugTextBuffer[];
+extern char gDebugTextBuffer[60];
 extern OSMesg D_802042EC;
 extern s16  gNoControllerMessageText[];
 extern s16  D_80204368[];
 extern u64  D_802043E0[]; // yield_data_ptr
-extern s16  gScreenWidth;
-extern s16  gScreenHeight;
+
 
 extern VIData gVIData;
 extern VIData D_802053F0;
 extern VIData D_80205400;
-extern s16  D_8020540C;
+extern s16  gIsWidescreen;
 
 extern Gfx  *gWorldCellOpaqueDisplayLists[4][6];
 extern Gfx   D_80205470[6000];
 
-// 0x8021xxxx
-
-extern Vtx  D_80210FF0[5000];
-
-// 0x8022xxxx
+extern Vtx   D_80210FF0[5000];
 
 extern Vtx   D_80224870[216];
 extern Gfx  *gWorldCellTranslucentDisplayLists[4][6];
@@ -411,6 +399,8 @@ extern Gfx   D_80225650[2000];
 extern Vtx   D_802294D0[1000];
 extern Vtx   D_8022D350[216];
 
+
+// src.us/main_78F0.c
 extern s16   D_8022E3F0[]; // scratch area for RNC decompression
 
 // 0x8023xxxx
@@ -418,43 +408,12 @@ extern s16   D_8022E3F0[]; // scratch area for RNC decompression
 extern LevelText D_80231D50;
 
 extern u16  D_80231AA0[];
-extern u8   D_80235410[];
-extern struct023 D_8023F1E0;
-extern u8   D_8023F1F0; // r
-extern u8   D_8023F1F1; // g
-extern u8   D_8023F1F2; // b
-extern u8   D_8023F1F3; // a
-extern u8   D_8023F1F4; // 0 or 1 (gUseMonospacedFont)
-extern u8   D_8023F1F5; // use shadow?
-extern f32  D_8023F1F8; // current font width / scale
-extern f32  D_8023F1FC; // current font height / scale
 
-extern s16  D_8023F206[];
 extern s16  D_8023F208[32];
-extern s16  D_8023F248[];
+
 extern PlayerEeprom D_8023F260; // 0x40 // default user state?
 extern Eeprom gEepromGlobal; // global game save state, different struct to user data?
 extern PlayerEeprom D_8023F2E0[4]; // 0x100
-
-// audio
-//extern OSThread    gAudioThread;
-extern OSMesgQueue D_8023F5D8;
-extern OSMesg      D_8023F5F0;
-extern OSMesg      D_8023F688;
-extern OSMesgQueue D_8023F670;
-extern ALGlobals   D_8023F708;
-
-extern Acmd *D_8023F410[3];
-// 0x8024xxxx
-
-extern ALEventQueue D_80241768[];
-extern ALEventQueue D_8024177C[];
-extern s16  D_80241D08;
-extern s16  D_80241D0A;
-extern s16  D_80241D0C;
-extern u16  D_80241D0E;
-
-// 0x8028xxxx
 
 // audiomgr
 extern ALHeap D_80286328;
@@ -885,16 +844,16 @@ extern s16  D_803F2CE8; // health slider 'animation'
 extern struct003 gUiFlowState;
 extern s16  D_803F2D18;
 
+// overlay2_7558F0
+extern s16  D_803F2CA6;
+extern s8   gWorldCellTranslucentEnabled[4][6];
+
 // overlay2_7688B0
 extern s16  D_803F2D24;
 extern GameState gGameState;
 
 // TODO:
 extern LevelConfig D_803F2D50;
-
-// overlay2_7558F0
-extern s16  D_803F2CA6;
-extern s8   gWorldCellTranslucentEnabled[4][6];
 
 // overlay2_76E7D0
 extern s32  D_803F2EB0; // breathing related?

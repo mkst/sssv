@@ -43,7 +43,7 @@ void draw_visible_world_cell_opaque_pass(DisplayList *arg0) {
     gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0180, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPSetTileSize(gMainDL++, 6, 0, 0, 4*(31), 4*(31));
 
-    gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 8, D_01021BB0_5B480);
+    gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 8, D_01021BB0_5B480_bin);
     gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 1, 0x01C0, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
     gDPLoadSync(gMainDL++);
     gDPLoadTile(gMainDL++, G_TX_LOADTILE, 0, 0, 4*(7.5), 4*(15));
@@ -93,7 +93,7 @@ void draw_visible_world_cell_translucent_pass(DisplayList *arg0) {
         gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x015E, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPSetTileSize(gMainDL++, 1, 0, 0, 4*(31), 4*(31));
 
-        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 8, D_01021BB0_5B480);
+        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 8, D_01021BB0_5B480_bin);
 
         gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_8b, 1, 0x01D7, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD);
         gDPLoadSync(gMainDL++);

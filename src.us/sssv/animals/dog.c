@@ -3,12 +3,6 @@
 
 #include "dog.h"
 
-extern u8 D_01038220_71AF0[];
-extern u8 D_01038A20_722F0[];
-extern u8 D_01039220_72AF0[];
-extern u8 D_01039A20_732F0[];
-extern u8 D_0103A220_73AF0[];
-
 extern Gfx D_040001A0_C7BD0[]; // flying_dog_body
 extern Gfx D_04000420_C7E50[]; // (racing)_dog_body
 extern Gfx D_04000870_C82A0[]; // dog_head
@@ -510,15 +504,15 @@ done:
     if ((spD8 == 0) || (spD8 == 2)) {
         // get barrel roll image
         if (ABS(D_803D552C->unk30C) > 52) {
-            img = D_0103A220_73AF0;
+            img = img_D_0103A220_73AF0_i4__png;
         } else if (ABS(D_803D552C->unk30C) > 37) {
-            img = D_01039A20_732F0;
+            img = img_D_01039A20_732F0_i4__png;
         } else if (ABS(D_803D552C->unk30C) > 22) {
-            img = D_01039220_72AF0;
+            img = img_D_01039220_72AF0_i4__png;
         } else if (ABS(D_803D552C->unk30C) > 7) {
-            img = D_01038A20_722F0;
+            img = img_D_01038A20_722F0_i4__png;
         } else {
-            img = D_01038220_71AF0;
+            img = img_D_01038220_71AF0_i4__png;
         }
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img, 37 - ((ABS(D_803D5530->unk28) * 0x25) / 100), 0x25, 0x9B, 0, 0, 0, 0, D_803D5538);
     }

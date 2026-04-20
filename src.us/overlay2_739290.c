@@ -443,6 +443,8 @@ static u16  curDPadRight;
 
 // FIXME: are these somehow defined in overlay2_72C680 where they are used...?
 Collision D_803E9840[9];
+
+s16  D_803F28B0[9];
 s16  D_803F28C2; // TBD
 
 // ========================================================

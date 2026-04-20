@@ -16,13 +16,13 @@ Vtx D_0400BBD0_1227A0[5] = {
 #include "data/inc/D_0400BBD0_1227A0.inc.c"
 };
 
-extern u8 D_0400AC20_1217F0[];
+extern u8 img_D_0400AC20_1217F0_rgba16__png[];
 
 Gfx D_0400BC20_1227F0[] = {
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_MODULATEI),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400AC20_1217F0),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_D_0400AC20_1217F0_rgba16__png),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
     gsSPTexture(0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON),

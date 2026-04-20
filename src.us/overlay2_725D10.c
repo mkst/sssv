@@ -1866,7 +1866,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
             D_803E4CA0 = arg0;
             func_80314660_725D10();
             func_80349900_75AFB0(
-                &D_803F34C0[D_803F3330[cmds->unk19C.payload.cmd.type68.unk0]],
+                &D_803F34C0[(s16)D_803F3330[cmds->unk19C.payload.cmd.type68.unk0]],
                 cmds->unk19C.payload.cmd.type68.unk2);
             D_803A8340_7B99F0 = cmds->unk19C.payload.cmd.type68.unk0;
             if (D_803E8E58 == 0) {

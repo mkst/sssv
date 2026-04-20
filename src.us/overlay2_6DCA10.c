@@ -11,20 +11,10 @@
 extern Gfx D_01004828_3E0F8[];
 extern Gfx D_01004720_3DFF0[];
 
-extern u8  D_01020DB0_5A680[];
-extern u8  D_010215B0_5AE80[];
-extern u8  D_010226D0_5BFA0[];
-extern u8  D_01022ED0_5C7A0[];
-extern u8  D_01023550_5CE20[];
-extern u8  D_01023D50_5D620[];
 extern u8  D_01024550_5DE20[][512]; // 32 x 32 x 0.5
 extern u8  D_01025750_5F020[][512]; // 32 x 32 x 0.5
 extern u8  D_01026950_60220[][512]; // 32 x 32 x 0.5
 extern u8  D_01027B50_61420[][512]; // 32 x 32 x 0.5
-extern u8  D_01028D50_62620[];
-extern u8  D_01029550_62E20[];
-extern u8  D_0102C210_65AE0[];
-extern u8  D_0102CA10_662E0[];
 
 extern Gfx *D_801D9EB0;
 
@@ -297,6 +287,8 @@ extern u8  D_803B74D0_7C8B80[7][2048]; // butterflies
 
 struct084 D_803D6120; // size 0x3FD8
 
+s32 D_803DA0F8; // these don't appear to be static...
+
 s32 D_803DA0FC; // these don't appear to be static...
 s32 D_803DA100; // these don't appear to be static...
 s32 D_803DA104; // these don't appear to be static...
@@ -315,7 +307,7 @@ void reset_particles(void) {
 }
 
 #if 0
-// CURRENT (27417)
+// CURRENT (25147)
 void func_802CB394_6DCA44(DisplayList *arg0) {
     s32 pad0[2];
 
@@ -382,7 +374,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[0]++,
-    /* timg   */  D_0102C210_65AE0,
+    /* timg   */  D_0102C210_65AE0_bin,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -398,7 +390,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[0]++,
-    /* timg   */  D_0102CA10_662E0, // ???
+    /* timg   */  D_0102CA10_662E0_bin, // ???
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -418,7 +410,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[2]++,
-    /* timg   */  D_010226D0_5BFA0,
+    /* timg   */  D_010226D0_5BFA0_bin,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -434,7 +426,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[2]++,
-    /* timg   */  D_01022ED0_5C7A0,
+    /* timg   */  D_01022ED0_5C7A0_bin,
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -452,7 +444,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[6]++,
-    /* timg   */  D_01020DB0_5A680,
+    /* timg   */  D_01020DB0_5A680_bin,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -468,7 +460,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[6]++,
-    /* timg   */  D_010215B0_5AE80,
+    /* timg   */  D_010215B0_5AE80_bin,
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -490,7 +482,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[4]++,
-    /* timg   */  D_01023550_5CE20,
+    /* timg   */  D_01023550_5CE20_bin,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -506,7 +498,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[4]++,
-    /* timg   */  D_01023D50_5D620,
+    /* timg   */  D_01023D50_5D620_bin,
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -524,7 +516,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
-    /* timg   */  D_01028D50_62620,
+    /* timg   */  D_01028D50_62620_bin,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -540,7 +532,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
-    /* timg   */  D_01029550_62E20,
+    /* timg   */  D_01029550_62E20_bin,
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -559,7 +551,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
     gSPDisplayList(D_801D9E98[1]++, D_01003A58_3D328);
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
-    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102A210_63AE0));
+    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102A210_63AE0_bin));
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync(D_801D9E98[1]++);
     gDPLoadBlock(D_801D9E98[1]++, G_TX_LOADTILE, 0, 0, 2047, 512);
@@ -699,9 +691,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
             lodFraction = ((0x100 / sp7DA) * ((sp7DA - (var_s1->unk18 % sp7DA)) - 1));
 
-            // ((((D_801D9E98[sp7DD] - D_8020428C) + (-((((D_801D9E98 - sp7DD) * 16) - sp7DD) * 64))) + -69248) >> 3) < 1390
-            // this needs some finesse, >> 3 is /8 which is the size of a Gfx command
-            if ((((D_801D9E98[sp7DD] - (Gfx*)D_8020428C) + (-(sp7DD + 6) * 0x2BC0) - 2048) >> 3) < 1390) {
+            if (((D_801D9E98[sp7DD] - D_8020428C->dl.unk109A0[sp7DD])) < 1390) {
 
                 switch (var_s1->id) {
                 case 0x0:
@@ -710,7 +700,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  D_01024550_5DE20[var_s4],
+                        /* timg   */  D_01024550_5DE20_bin + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -783,7 +773,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  D_01025750_5F020[var_s4],
+                        /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -803,7 +793,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  D_01025750_5F020[var_s4],
+                        /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -854,7 +844,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  D_01026950_60220[var_s4],
+                        /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -874,7 +864,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                         /* pkt    */  (*dl)++,
-                        /* timg   */  D_01026950_60220[var_s4],
+                        /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -912,7 +902,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           /* pkt    */  (*dl)++,
-                          /* timg   */  D_01027B50_61420[var_s4], // 512 bytes per image
+                          /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
@@ -932,7 +922,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                           /* pkt    */  (*dl)++,
-                          /* timg   */  D_01027B50_61420[var_s4], // 512 bytes per image
+                          /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
@@ -1967,7 +1957,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         0,
                         0,
                         0,
-                        SSSV_RAND(32) + 0x19,
+                        (SSSV_RAND(32) + 0x19),
                         var_s1->envColor,
                         var_s1->envColor,
                         0);

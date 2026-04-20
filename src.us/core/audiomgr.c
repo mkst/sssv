@@ -75,6 +75,7 @@ s16             curAcmdList = 0;
 s16             minFrameSize;               // 0x80241D08
 s16             frameSize;                  // 0x80241D0A
 s16             maxFrameSize;               // 0x80241D0C
+u16             D_80241D0E;                 // 0x80241D0E
 #else
 u32             frameSize;
 u32             minFrameSize;

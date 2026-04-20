@@ -568,7 +568,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(D_01036190_6FA60);
+                    func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x14, 0x31, 0x00);
@@ -628,7 +628,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(D_01036190_6FA60);
+                    func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x78, 0x8C, 0xDC, 0xFF); // #788cdc
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x14, 0x31, 0x00);
@@ -726,7 +726,7 @@ void func_802DE950_6F0000(void) {
                     case 22:
                     case 25:
                     case 28:
-                        func_802E4F20_6F65D0(D_01036190_6FA60);
+                        func_802E4F20_6F65D0(img_D_01036190_6FA60_i4__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x52, 0xDC, 0x63, 0xFF); // #52dc63
                         gDPSetEnvColor(gOpaqueDL++, 0x00, 0x31, 0x00, 0x00);
                         break;
@@ -734,7 +734,7 @@ void func_802DE950_6F0000(void) {
                     case 23:
                     case 26:
                     case 29:
-                        func_802E4F20_6F65D0(D_01035990_6F260);
+                        func_802E4F20_6F65D0(img_D_01035990_6F260_i4__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x9C, 0x31, 0xFF); // #ff9c31
                         gDPSetEnvColor(gOpaqueDL++, 0x31, 0x08, 0x00, 0x00);
                         break;
@@ -742,13 +742,13 @@ void func_802DE950_6F0000(void) {
                     case 24:
                     case 27:
                     case 30:
-                        func_802E4F20_6F65D0(D_01035190_6EA60);
+                        func_802E4F20_6F65D0(img_D_01035190_6EA60_i4__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF); // #ffffff
                         gDPSetEnvColor(gOpaqueDL++, 0x00, 0x00, 0x00, 0x00);
                         break;
                     case 36:
                     case 37:
-                        func_802E4F20_6F65D0(D_0102BA10_652E0);
+                        func_802E4F20_6F65D0(img_D_0102BA10_652E0_i4__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xD7, 0xD7, 0xFF, 0xFF); // #d7d7ff
                         gDPSetEnvColor(gOpaqueDL++, 0x89, 0x65, 0xB4, 0x00);
                         break;
@@ -812,7 +812,7 @@ void func_802DE950_6F0000(void) {
 
                     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-                    func_802E4F20_6F65D0(D_01035190_6EA60);
+                    func_802E4F20_6F65D0(img_D_01035190_6EA60_i4__png);
 
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
                     gDPSetEnvColor(gOpaqueDL++, 0x00, 0x00, 0x00, 0x00);

@@ -7,7 +7,7 @@ Vtx D_0400CA20_1235F0[12] = {
 #include "data/inc/D_0400CA20_1235F0.inc.c"
 };
 
-extern u8 D_0400C030_122C00[];
+extern u8 img_D_0400C030_122C00_rgba16__png[];
 
 Gfx D_0400CAE0_1236B0[] = {
     gsDPPipeSync(),
@@ -15,7 +15,7 @@ Gfx D_0400CAE0_1236B0[] = {
     gsSPClearGeometryMode(G_TEXTURE_GEN),
     gsSPSetGeometryMode(G_LIGHTING),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, D_0400C030_122C00),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, img_D_0400C030_122C00_rgba16__png),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 1023, 256),
     gsSPVertex(D_0400C830_123400, 31, 0),

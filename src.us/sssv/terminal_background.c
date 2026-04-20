@@ -403,7 +403,7 @@ void render_terminal_background_scene(void) {
     setup_frame_render_state(gDisplayListContext, &gMainDL);
 
     gSPViewport(gMainDL++, &gMainViewport);
-    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
     gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 
     gSPDisplayList(gMainDL++, D_01004270_3DB40);
@@ -619,7 +619,7 @@ void render_terminal_background_frame(void) {
     gSPViewport(gMainDL++, &gMainViewport);
     clear_depth_buffer(&gMainDL);
 
-    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+    gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
     gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
     gSPFogFactor(gMainDL++, -3072, -22016);
     gDPSetFogColor(gMainDL++, 0x00, 0x00, 0x00, 0x00);
@@ -694,12 +694,12 @@ void render_terminal_background_frame(void) {
         for (i = 0; i < 6; i++) {
             sp66 = i*40 + sp68;
 
-            gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer + ((sp66 * 10) << 6)));
+            gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer + ((sp66 * 10) << 6)));
             gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, (gScreenHeight - sp66 - 1) - 8);
             gSPDisplayList(gMainDL++, gLayer0DL);
         }
 
-        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContext->framebuffer));
+        gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
         gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 
         render_terminal_background_glyphs(&gLayer0DL, D_803B6310_7C79C0);
