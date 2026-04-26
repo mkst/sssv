@@ -659,7 +659,7 @@ void func_803283DC_739A8C(void) {
     D_803D552C->unk30C = 0;
     D_803D552C->unk30E = 0;
 
-    switch (gCurrentAnimalId) { // current animal id
+    switch (gCurrentAnimalId) {
     case FLYING_DOG:
         D_803D552C->heading = 0;
         D_803D5530->unk28 = 0;
@@ -1575,9 +1575,9 @@ void cheat_activate_scale_pulse_effect(void) {
                 D_803D552C = a;
                 D_803D5528 = a;
                 D_803D5530 = a;
-
+#ifdef __sgi
                 if (D_803D5528 == NULL) {} // helps regalloc
-
+#endif
                 if (gCurrentAnimalIndex == i) {
                     D_803D5538 = 1;
                 } else {
@@ -1653,7 +1653,9 @@ void cheat_toggle_mystery_bear(void) {
         D_803D5524 = gAnimalState.animals[gCurrentAnimalIndex].unk0;
 
         D_803D5528 = a;
+#ifdef __sgi
         if (D_803D5528 == NULL) {}; // fakematch
+#endif
         D_803D552C = a;
         D_803D5530 = a;
 

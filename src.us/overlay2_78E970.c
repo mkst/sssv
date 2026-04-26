@@ -106,7 +106,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
         for (sp98 = temp_t7 + phi_t0; sp98 <= (temp_t7 + phi_t2); sp98++) {
             for (phi_s1 = D_803DA110[(s16) (sp9A + (sp98 * 5))].next; phi_s1 != NULL; phi_s1 = phi_s1->next) {
                 if (phi_s1 == &phi_s1->animal->unk11C[0]) {
-                    if (phi_s1->animal != D_803D5530) {
+                    if (phi_s1->animal != (Animal*)D_803D5530) {
 
                         animal = phi_s1->animal;
                         if ((animal->movementState == 6) || (animal->movementState == 1)) {
@@ -254,7 +254,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
         spB0 = var_s5; // pointless assignment
         for (spA8 = temp_t1 + var_t5; spA8 <= temp_t1 + spA0; spA8++) {
             for (var_s6 = D_803DA110[(s16) (spAA + (spA8 * 5))].next; var_s6 != NULL; var_s6 = var_s6->next) {
-                if ((var_s6 == (&var_s6->animal->unk11C[0])) && (D_803D5530 != var_s6->animal)) {
+                if ((var_s6 == (&var_s6->animal->unk11C[0])) && (var_s6->animal != (Animal*)D_803D5530)) {
                     animal = var_s6->animal;
 
                     temp_s1_2 = xPos - animal->position.xPos.h;
@@ -422,7 +422,7 @@ void trigger_contagious_laughter(void) {
 
             for (var_s1 = D_803DA110[(s16) (i + (j * 5))].next; var_s1 != NULL; var_s1 = var_s1->next) {
                 if (var_s1 == (&var_s1->animal->unk11C[0])) {
-                    if (var_s1->animal != D_803D5530) {
+                    if (var_s1->animal != (Animal*)D_803D5530) {
                         Animal *animal = var_s1->animal;
                         if (ABS(animal->position.yPos.h - D_803D5530->position.yPos.h) < 192) {
                             xDist = sp9A - animal->position.xPos.h;
@@ -554,7 +554,7 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
         for (var_t3 = temp_a2 + var_t0; var_t3 <= temp_a2 + var_s7; var_t3++) {
             for (var_a3 = D_803DA110[((s16) (var_t5 + (var_t3 * 5)))].next; var_a3 != NULL; var_a3 = var_a3->next) {
                 if (var_a3 == &var_a3->animal->unk11C[0]) {
-                    if (var_a3->animal != D_803D5530) {
+                    if (var_a3->animal != (Animal*)D_803D5530) {
                         animal = var_a3->animal;
                         temp_v1_2 = arg0 - animal->position.xPos.h;
                         temp_a1 = arg1 - animal->position.zPos.h;
@@ -613,7 +613,7 @@ Animal *func_8037E9AC_79005C(void) {
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != 0) && (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER)) {
             if ((gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_2) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DEACTIVATED)) {
-                if ((D_803D5530 != gAnimalState.animals[i].animal) && (get_ai_behaviour(D_803D5530->unk16C->objectType, gAnimalState.animals[i].animal->unk16C->objectType) != AI_LEADER)) {
+                if (((Animal*)D_803D5530 != gAnimalState.animals[i].animal) && (get_ai_behaviour(D_803D5530->unk16C->objectType, gAnimalState.animals[i].animal->unk16C->objectType) != AI_LEADER)) {
 
                     a = gAnimalState.animals[i].animal;
 
@@ -687,7 +687,7 @@ Animal *func_8037ED1C_7903CC(void) {
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != NULL) && (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
-            if (D_803D5530 != gAnimalState.animals[i].animal) {
+            if ((Animal*)D_803D5530 != gAnimalState.animals[i].animal) {
 
                 animal = gAnimalState.animals[i].animal;
                 xPosDelta = xPos - animal->position.xPos.h;
@@ -869,7 +869,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
 
             for (var_s2 = D_803DA110[(s16) (sp9A + (sp98 * 5))].next; var_s2 != NULL; var_s2 = var_s2->next) {
                 if (var_s2 == &var_s2->animal->unk11C[0]) {
-                    if (var_s2->animal != D_803D5530) {
+                    if (var_s2->animal != (Animal*)D_803D5530) {
                         animal = var_s2->animal;
 #ifdef __sgi
                         if (1) { } if (1) { } // regalloc!
@@ -1006,7 +1006,7 @@ void sheep_follow_leader(void) {
         if ((gAnimalState.animals[i].animal != NULL) &&
             (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
             (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) &&
-            (gAnimalState.animals[i].animal != D_803D5530) &&
+            (gAnimalState.animals[i].animal != (Animal*)D_803D5530) &&
             (gAnimalState.animals[i].animal->navState == NAVIGATION_STATE_IDLE) &&
             (gAnimalState.animals[i].unk0->unk9C == SHEEP || gAnimalState.animals[i].unk0->unk9C == SPRINGY_THINGY)) {
             xPosDelta = ABS(gAnimalState.animals[i].animal->position.xPos.h - D_803D5530->position.xPos.h);

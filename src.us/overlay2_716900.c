@@ -173,10 +173,10 @@ void func_80305368_716A18(struct079 *arg0) {
                             }
                         }
                     }
-                } else if ((animal != D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) {
+                } else if ((animal != (Animal*)D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) {
                     // its an animal
                     if ((animal->position.yPos.h < max_height) && (min_height < animal->position.yPos.h)) {
-                        if ((func_80362B00_7741B0(animal) != 0) || ((can_swim(D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
+                        if ((func_80362B00_7741B0(animal) != 0) || ((can_swim((Animal*)D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
                             ai_behavior = 0;
                         } else {
                             ai_behavior = get_ai_behaviour(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
@@ -1457,7 +1457,6 @@ s32 func_80309BA0_71B250(void) {
     Animal *a;
     Animal *a2;
 
-
     if ((D_803D552C->unk272 & 1)) {
         a = D_803E4BE0.unk58;
         if (a != NULL) {
@@ -1467,7 +1466,9 @@ s32 func_80309BA0_71B250(void) {
 
             // typo? function looks completely different without the double assignment
             phi_a3 = ABS(D_803D552C->unk280->position.xPos.h - a2->position.xPos.h);
+#if __sgi
             if ((D_803D552C->unk280 && D_803D552C->unk280) && D_803D552C->unk280) {}; // fakematch/regalloc fix
+#endif
             phi_v1 = ABS(D_803D552C->unk280->position.zPos.h - a2->position.zPos.h);
 
             phi_v0 = (phi_v1 + phi_a3) - (D_803D552C->unk280->unk30 + a2->unk30);
@@ -1822,7 +1823,6 @@ s32 func_8030AA08_71C0B8(Animal *arg0, Animal *arg1) {
         return 0;
     }
     if ((arg1->unk272 & 1) || (arg1->unk272 & 4)) {
-        // get behaviour
         s16 ai_behavior = get_ai_behaviour(arg1->unk16C->objectType, arg0->unk16C->objectType);
         if ((ai_behavior == AI_ATTACK) || (ai_behavior == AI_FLEE))
             return 0;

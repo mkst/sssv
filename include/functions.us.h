@@ -209,7 +209,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1);
 void func_802A3CD0_6B5380(void);
 void func_802A3E70_6B5520(Entity *arg0, s32 *arg1, s32 *arg2);
 void func_802A3F68_6B5618(s32 *arg0, s32 *arg1);
-void func_802A403C_6B56EC(Animal *arg0, s16 arg1);
+void func_802A403C_6B56EC(Entity *arg0, s16 arg1);
 void func_802A40EC_6B579C(void);
 void func_802A4184_6B5834(void);
 void func_802A4220_6B58D0(s32 *xVel, s32 *zVel, u16 arg2);
@@ -653,7 +653,7 @@ s32  func_802FD468_70EB18(Animal *arg0);
 s32  func_802FD4D0_70EB80(Animal *arg0);
 s32  func_802FD538_70EBE8(Animal *arg0); // tbd
 s16  func_802FD5DC_70EC8C(Animal *arg0);
-void func_802FD674_70ED24(Animal *arg0, Animal *arg1);
+void func_802FD674_70ED24(Entity *arg0, Animal *arg1);
 void func_802FD8CC_70EF7C(void);
 void func_802FD94C_70EFFC(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5);
 void func_802FD9C4_70F074(s16 min, s16 max, u8 r, u8 g, u8 b, s16 arg5, s16 arg6);
@@ -743,6 +743,7 @@ void func_8030A8EC_71BF9C(void);
 s32  func_8030AA08_71C0B8(Animal *arg0, Animal *arg1);
 
 // overlay2_71C140
+
 s32  func_8030AA90_71C140(Entity *arg0);
 s32  func_80310EE4_722594(s16 x, s16 z, u8 arg2);
 s32  func_80310F58_722608(s16, s16);

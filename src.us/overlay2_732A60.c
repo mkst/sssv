@@ -80,7 +80,7 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
                 }
             }
         }
-        if ((a != D_803D5530) && (a != D_803D5530->unk6C)) {
+        if ((a != (Animal*)D_803D5530) && (a != D_803D5530->unk6C)) {
             if ((a->position.xPos.h >= temp_s1) && (temp_s3 >= a->position.xPos.h)) {
                 if ((a->position.zPos.h >= temp_s2) && (temp_s4 >= a->position.zPos.h) && (a->unk16C->unk82.unk1 == 0) && (a->unk4C.unk1B)) {
                     if ((a->position.yPos.h >= temp_t1) && (temp_t2 >= a->position.yPos.h)) {
@@ -356,7 +356,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 
     for (var_ra = D_803DA110[(s16)((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
         animal = var_ra->animal;
-        if ((animal != D_803D5530) && (D_803D5530->unk6C != animal) && (((animal->unk16C->unk82.unk2) && ((animal == gAnimalState.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (D_803D5524->unk9C != animal->unk16C->unk9C))) || ((!animal->unk16C->unk82.unk2) && (animal->unk16C->objectType != 0x40)))) {
+        if ((animal != (Animal*)D_803D5530) && (D_803D5530->unk6C != animal) && (((animal->unk16C->unk82.unk2) && ((animal == gAnimalState.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (D_803D5524->unk9C != animal->unk16C->unk9C))) || ((!animal->unk16C->unk82.unk2) && (animal->unk16C->objectType != 0x40)))) {
             for (var_a1 = animal->unkC4; var_a1->unkC != 0; var_a1++) {
                 if (ABS((animal->position.xPos.h + var_a1->pos.xPos.h) - var_t3) < (var_a1->unkC + arg3) &&
                     ABS((animal->position.zPos.h + var_a1->pos.zPos.h) - var_t4) < (var_a1->unkC + arg3) &&
@@ -430,7 +430,7 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
 
     for (temp_t8 = D_803DA110[(s16)((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; temp_t8 != NULL; temp_t8 = temp_t8->next) {
         a = temp_t8->animal;
-        if ((a != D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
+        if ((a != (Animal*)D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
             for (phi_s2 = a->unkC4; phi_s2->unkC != 0; phi_s2++) {
                 if ((ABS((a->position.xPos.h + phi_s2->pos.xPos.h) - arg0) < phi_s2->unkC + arg3) &&
                     (ABS((a->position.zPos.h + phi_s2->pos.zPos.h) - arg1) < phi_s2->unkC + arg3) &&
@@ -567,10 +567,10 @@ Animal *func_80323040_7346F0(void) {
 
     for (temp_s4 = D_803DA110[(s16) (x + (y * 5))].next; temp_s4 != NULL; temp_s4 = temp_s4->next) {
         temp_s3 = temp_s4->animal;
-        if ((temp_s3 != D_803D5530) && (((temp_s3->unk16C->unk82.unk2) && (temp_s3->movementMode != MOVEMENT_MODE_DEACTIVATED) &&
-                                        ((temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) &&
-                                        (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER) &&
-                                        (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO)) || (temp_s3->unk16C->objectType == 145))) {
+        if ((temp_s3 != (Animal*)D_803D5530) && (((temp_s3->unk16C->unk82.unk2) && (temp_s3->movementMode != MOVEMENT_MODE_DEACTIVATED) &&
+                                                 ((temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) &&
+                                                 (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER) &&
+                                                 (temp_s3->unk16C->objectType != OB_TYPE_ANIMAL_OFFSET+EVO)) || (temp_s3->unk16C->objectType == 145))) {
             x_dist = D_803D5530->position.xPos.h - temp_s3->position.xPos.h;
             z_dist = D_803D5530->position.zPos.h - temp_s3->position.zPos.h;
             y_dist = D_803D5530->position.yPos.h - temp_s3->position.yPos.h;

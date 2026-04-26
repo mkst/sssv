@@ -2767,7 +2767,7 @@ s16 func_802FD5DC_70EC8C(Animal *arg0) {
 }
 
 // ESA: func_80056774
-void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
+void func_802FD674_70ED24(Entity *arg0, Animal *arg1) {
     s16 tmp;
 
     if ((arg1->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && (arg0->unk54.unk2 < 5)) {
@@ -2792,7 +2792,7 @@ void func_802FD674_70ED24(Animal *arg0, Animal *arg1) {
                 arg0->unk54.unk2 = tmp;
             }
             if ((arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) && IS_CURRENT_ANIMAL(arg1->owner)) {
-                arg0->unk2EB++;
+                ((Animal*)arg0)->unk2EB++;
             }
         }
     }

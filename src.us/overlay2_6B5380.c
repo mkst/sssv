@@ -71,7 +71,7 @@ void func_802A3F68_6B5618(s32 *arg0, s32 *arg1) {
 }
 
 // ESA: func_80064A14
-void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
+void func_802A403C_6B56EC(Entity *arg0, s16 arg1) {
     s32 temp_v0;
     s32 temp_v1;
     s32 temp_a2;

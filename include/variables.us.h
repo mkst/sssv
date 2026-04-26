@@ -674,9 +674,9 @@ extern s16  D_803D5510;
 extern s16  D_803D5512;
 extern Animal2 *D_803D5520;
 extern struct035 *D_803D5524;
-extern Animal *D_803D5528;
-extern Animal *D_803D552C; // is this *really* Animal? is it World?
-extern Animal *D_803D5530; // pointer to first animal?
+extern Animal *D_803D5528; // Animal
+extern Animal *D_803D552C; // Animal
+extern Entity *D_803D5530; // Entity
 extern s16  gCurrentAnimalIndex; // current animal (id within level)
 extern s16  D_803D5536; // tmp animal idx?
 extern u8   D_803D5538;

@@ -304,7 +304,7 @@ void func_80349280_75A930(Animal *arg0, s16 damage) {
         if (damage != 0) {
             arg0->lastHpLost = MAX(arg0->lastHpLost + (damage >> 2), (damage >> 2) + 4);
         }
-        if (arg0 != gAnimalState.animals[gCurrentAnimalIndex].animal) {
+        if (!IS_CURRENT_ANIMAL(arg0)) {
             if (arg0 == D_803F2CF8.animal) {
                 D_803F2CF8.unk6 = MAX(0, arg0->Info.health - damage);
                 D_803F2CF8.unkA = 64;

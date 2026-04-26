@@ -6,7 +6,7 @@
 // definitions
 // ========================================================
 
-s32  resolve_movement_and_collision(Animal *arg0);
+s32  resolve_movement_and_collision(Entity *arg0);
 s16  check_tile_transition_collision(void);
 s16  check_vertical_clearance_range(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *arg4);
 s16  check_vertical_clearance_simple(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *arg4);
@@ -62,7 +62,7 @@ static s16  D_803E4C86;
 static Animal *D_803E4C88;
 static Animal *D_803E4C8C;
 static Animal *D_803E4C90;
-static Animal *D_803E4C94;
+static Entity *D_803E4C94;
 
 // ========================================================
 // .text
@@ -76,11 +76,11 @@ s32 func_8030AA90_71C140(Entity *arg0) {
     if (!arg0->unk4C.unk1C) {
         return func_8030E8AC_71FF5C(arg0);
     }
-    return resolve_movement_and_collision((Animal*)arg0);
+    return resolve_movement_and_collision(arg0);
 }
 
 // ESA: func_80030364
-s32 resolve_movement_and_collision(Animal *arg0) {
+s32 resolve_movement_and_collision(Entity *arg0) {
     s16 sp2E;
     s16 sp2C;
     s16 sp2A;

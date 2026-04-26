@@ -809,7 +809,9 @@ struct Animal {
     /* 0x18C */ struct002 unk18C;
     /* 0x192 */ struct002 unk192;
     /* 0x198 */ Animal *unk198; // pointer?
+
     /* 0x19C */ Commands commands;
+
     /* 0x200 */ s32 unk200[3];
     /* 0x20C */ s16 unk20C;
     /* 0x20E */ u16 unk20E;
@@ -1928,9 +1930,9 @@ struct Entity {
     /* 0x5C */  EntityInner unk5C;
     /* 0x64 */  u8  unk64;
     /* 0x65 */  u8  unk65;
-    /* 0x68 */  Entity *unk68;
-    /* 0x6C */  Entity *unk6C; // baseEntity
-    /* 0x70 */  Entity *unk70;
+    /* 0x68 */  Animal *unk68; // carry-ee (e.g. what seagull is carrying)
+    /* 0x6C */  Animal *unk6C; // baseEntity
+    /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
     /* 0x74 */  struct043 unk74[5];
     /* 0xC4 */  struct043 unkC4[5];  // hitboxes?
     /* 0x114 */ s16 unk114[4];

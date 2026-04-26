@@ -70,8 +70,10 @@ void func_803041FC_7158AC(void) {
     static s16 D_803E4BD8;
     static s16 D_803E4BDA;
 
+#ifdef __sgi
     // force this code to be generated
     if (junk = D_80152350.unk2D0[D_803E4BD4] / 2) {}
+#endif
 
     D_803E4BD4 = D_803E4BD4 + 10;
     D_803E4BD4 = D_803E4BD4 % 360;

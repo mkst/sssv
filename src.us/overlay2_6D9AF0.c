@@ -75,7 +75,7 @@ void func_802C8878_6D9F28(void) {
 
     D_803D5528 = gAnimalState.animals[gCurrentAnimalIndex].animal;
     a = D_803D5528;
-    D_803D5530 = a;
+    D_803D5530 = (Entity*)a;
     D_803D552C = a;
 
     D_803D5538 = 1;
@@ -101,7 +101,7 @@ void func_802C8878_6D9F28(void) {
 
             D_803D5528 = gAnimalState.animals[i].animal;
             a = D_803D5528;
-            D_803D5530 = a;
+            D_803D5530 = (Entity*)a;
             D_803D552C = a;
 #ifdef __sgi
             if (1) {}; // required!

@@ -3,12 +3,6 @@
 
 
 // ========================================================
-// definitions
-// ========================================================
-
-s32  resolve_movement_and_collision(Animal*);
-
-// ========================================================
 // .data
 // ========================================================
 
@@ -24,7 +18,7 @@ struct035 *D_803D5524;
 Animal *D_803D5528; // gCurrentAnimal
 Animal *D_803D552C; // gCurrentAnimal2 (?)
 
-Animal *D_803D5530; // gCurrentEntity
+Entity *D_803D5530; // gCurrentEntity
 s16  gCurrentAnimalIndex; // current animal (id within level)
 s16  D_803D5536; // tmp animal idx?
 u8   D_803D5538; // "player is current animal"?
@@ -43,7 +37,7 @@ s8   D_803D554C; // boost duration?
 
 static s32  D_803D5550 UNUSED;
 static s32  D_803D5554 UNUSED;
-s16  D_803D5558;
+       s16  D_803D5558;
 static u16  D_803D555A; // timer
 static u8   D_803D555C;
 static u8   D_803D555D;
@@ -486,7 +480,7 @@ void func_802A5778_6B6E28(s16 arg0, u8 arg1) {
         func_80311A2C_7230DC(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, &xVel, &zVel, D_803D5530->unk160);
     }
 
-    if ((arg1 == 0) && (D_803D5530->unk6C == 0) && ((xVel != 0) || (zVel != 0))) {
+    if ((arg1 == 0) && (D_803D5530->unk6C == NULL) && ((xVel != 0) || (zVel != 0))) {
         u8 var_v1;
         if (D_803D5530->unk160 == 2) {
             var_v1 = D_803E1D30[D_803C0740[D_803D5530->position.xPos.h >> 6][D_803D5530->position.zPos.h >> 6].unk3].unk0;
@@ -1143,10 +1137,10 @@ void func_802A78CC_6B8F7C(void) {
                 break;
             }
 
-            if ((D_803D5530->unk6C == sp74) || (D_803D5530->unk6C == 0)) {
+            if ((D_803D5530->unk6C == sp74) || (D_803D5530->unk6C == NULL)) {
                 sp70 = 0;
                 sp72 = 0;
-                if (D_803D5530->unk6C == 0) {
+                if (D_803D5530->unk6C == NULL) {
                     func_80311A2C_7230DC(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, &sp72, &sp70, D_803D5530->unk160);
                 }
 
@@ -1429,7 +1423,7 @@ void func_802A78CC_6B8F7C(void) {
                 break;
             }
 
-            if ((D_803D5530->unk6C == sp74) || (D_803D5530->unk6C == 0)) {
+            if ((D_803D5530->unk6C == sp74) || (D_803D5530->unk6C == NULL)) {
                 D_803D5530->yVelocity.w = D_803D5530->position.yPos.w - spB4;
             }
             func_802B2964_6C4014();
@@ -1619,7 +1613,7 @@ void func_802A935C_6BAA0C(void) {
                 break;
             }
 
-            if ((D_803D5530->unk6C == sp3C) || (D_803D5530->unk6C == 0)) {
+            if ((D_803D5530->unk6C == sp3C) || (D_803D5530->unk6C == NULL)) {
                 D_803D5530->yVelocity.w = D_803D5530->position.yPos.w - sp58;
             }
             func_802B2834_6C3EE4();
@@ -1785,8 +1779,8 @@ void func_802A935C_6BAA0C(void) {
             D_803D5530->newPosition.yPos.w = (D_803D5530->position.yPos.w + D_803D5530->yVelocity.w);
             break;
         case 6:
-            D_803D5530->yVelocity.w = (s32) (D_803D5530->yVelocity.w - gGravity);
-            switch (resolve_movement_and_collision(D_803D5530)) {                   /* switch 7; irregular */
+            D_803D5530->yVelocity.w = D_803D5530->yVelocity.w - gGravity;
+            switch (resolve_movement_and_collision(D_803D5530)) {
             case 1:
                 func_802A6400_6B7AB0();
                 D_803D5530->movementState = 7;
@@ -1795,7 +1789,7 @@ void func_802A935C_6BAA0C(void) {
             case 2:
                 break;
             }
-            if ((D_803D5530->unk6C == sp3C) || (D_803D5530->unk6C == 0)) {
+            if ((D_803D5530->unk6C == sp3C) || (D_803D5530->unk6C == NULL)) {
                 D_803D5530->yVelocity.w = D_803D5530->position.yPos.w - sp58;
             }
             func_802B2964_6C4014();

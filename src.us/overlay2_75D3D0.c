@@ -130,7 +130,7 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 
     for (var_a2 = D_803DA110[(s16) ((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; var_a2 != NULL; var_a2 = var_a2->next) {
         animal = var_a2->animal;
-        if ((animal != D_803D5530) && ((animal->unk3E & 0x3F) != 0x28) &&
+        if ((animal != (Animal*)D_803D5530) && ((animal->unk3E & 0x3F) != 0x28) &&
             ((animal->unk16C->unk15 == 4) ||
             ((animal->unk16C->objectType == 93)) || (animal->unk16C->objectType == 94)) &&
             !(animal->unk163 & 0x10) && ((arg2 << 0x10) >= (animal->position.yPos.w + (animal->unk42 << 0x10)))) {
