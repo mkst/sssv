@@ -934,7 +934,8 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
 
 // get_next_command?
 #ifdef NON_MATCHING
-s32 func_80316408_727AB8(Animal *arg0) {
+// CURRENT 314
+s32 func_80316408_727AB8(Entity *arg0) {
     s32 pad[0x6];
 
     struct077 sp148;
@@ -1132,7 +1133,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         temp_s1->unk248[0] = temp_s1;
         temp_s1->commands.unk1A8 = &D_803E4D40[cmds->unk19C.payload.cmd.type14.unk0];
         temp_s1->unk4C.unk19 = 1;
-        if (temp_s1 != arg0) {
+        if ((Entity*)temp_s1 != arg0) {
             copy_command_struct(temp_s1->commands.unk1A8, &temp_s1->commands.unk19C.payload);
             temp_s1->commands.unk19C.count = 0;
         } else {
@@ -1233,7 +1234,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
             run_commands(temp_s1);
         }
 
-        if (arg0 == temp_s1) {
+        if (temp_s1 == (Animal*)arg0) {
             return 0;
         }
         return 69;
@@ -1728,7 +1729,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
         return 69;
 
     case 0x37:
-        if (arg0 == D_803E4CA0) {
+        if (arg0 == (Entity*)D_803E4CA0) {
             D_803E4CA0 = NULL;
             D_803E4CA4 = 0;
         }
@@ -1856,14 +1857,14 @@ s32 func_80316408_727AB8(Animal *arg0) {
             return 69;
         }
         if ((D_803E4CA4 != 0) && (D_803E8E58 != 0)) {
-            if ((arg0 == D_803E4CA0) && (func_80349874_75AF24() != 0)) {
+            if ((arg0 == (Entity*)D_803E4CA0) && (func_80349874_75AF24() != 0)) {
                 D_803E4CA4 = 0;
                 D_803E4CA0 = NULL;
                 return 69;
             }
         } else if (func_80349874_75AF24() != 0) {
             D_803E4CA4 = 1;
-            D_803E4CA0 = arg0;
+            D_803E4CA0 = (Entity*)arg0;
             func_80314660_725D10();
             func_80349900_75AFB0(
                 &D_803F34C0[(s16)D_803F3330[cmds->unk19C.payload.cmd.type68.unk0]],
@@ -2194,8 +2195,8 @@ s32 func_80316408_727AB8(Animal *arg0) {
 
     case 0x58:
         // only used in FUN_IN_THE_SUN
-        D_803F2D50.unkC = get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0);
-        D_803F2D50.unkE = get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2);
+        D_803F2D50.near = get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk0);
+        D_803F2D50.far = get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2);
         return 69;
 
     case 0x59:
@@ -2433,7 +2434,7 @@ s32 func_80316408_727AB8(Animal *arg0) {
 #endif
 
 // ESA: func_8004C7B4
-void func_803190FC_72A7AC(Animal *arg0) {
+void func_803190FC_72A7AC(Entity *arg0) {
     CmdUnknown *cmds;
     s8 i;
 

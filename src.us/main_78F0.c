@@ -86,10 +86,23 @@ Gfx D_80154628[] = {
 // .bss
 // ========================================================
 
-s16 D_8022E3F0[7000]; // rnc decompress scratch area
+#if 0
+// TODO: try replacing D_8022E3F0 with a struct, remove D_80231AA0
 
-// this should be 350?
-u16 D_80231AA0[342];  // level text message offsets
+typedef struct {
+    union {
+        s16 area[7000];
+        s16 numMsgs;
+    };
+    u16 messages[344]; // 350?
+} LanguageData;
+
+LanguageData D_8022E3F0;
+
+#endif
+
+s16 D_8022E3F0[7000]; // rnc decompress scratch area
+u16 D_80231AA0[344];  // level text message offsets
 
 LevelText D_80231D50; // level text data loaded into here
 
@@ -106,7 +119,7 @@ static u8   useDropShadow;
 static f32  D_8023F1F8; // current font width / scale
 static f32  D_8023F1FC; // current font height / scale
 
-static s16  D_8023F200[3]; // unused
+static s16  D_8023F200[3] UNUSED;
 static s16  D_8023F206[1];
 s16  D_8023F208[32];
 static s16  D_8023F248[12];
@@ -123,13 +136,13 @@ void load_default_display_list(Gfx **dl) {
 
 // does not appear to be used for cutscenes
 void set_menu_text_color(u8 r, u8 g, u8 b, u8 a) {
-    textColorR = r; // textColorR
-    textColorG = g; // textColorG
-    textColorB = b; // textColorB
-    textColorA = a; // textColorA
+    textColorR = r;
+    textColorG = g;
+    textColorB = b;
+    textColorA = a;
 }
 
-void select_font(u8 isMonospace, u8 fontType, u8 shadow, u8 arg3) {
+void select_font(u8 isMonospace, u8 fontType, u8 shadow, u8 arg3 UNUSED) {
     useMonospacedFont = isMonospace;
     useDropShadow = shadow;
     if (fontType == FONT_LCD) {
@@ -607,7 +620,7 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     gDPPipeSync((*dl)++);
 }
 
-s16 get_char_type(s16 *text, u16 arg1, u16 arg2) {
+s16 get_char_type(s16 *text, u16 arg1 UNUSED, u16 arg2 UNUSED) {
     if (*text == TEXT_CONTROL_CHAR) {
         // next char
         text++;
@@ -723,22 +736,22 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
 
 void display_text_word_wrapped(Gfx **dl, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
     s16 wchr;       // sp256
-    u8  sp154[0x102];
+    u8  sp154[0x102] UNUSED;
 
     u16 xPos2;
     u16 sp150;
     s16 *tmp;
     s16 *sp148;
 
-    s16 pad[2];
-    s16 pad4;
+    s16 pad[2] UNUSED;
+    s16 pad4 UNUSED;
 
     s16 wchr2;
-    s16 pad2;
+    s16 pad2 UNUSED;
     s16 xPos; // sp144?
     s16 yPos; // sp142
 
-    s16 pad3;
+    s16 pad3 UNUSED;
 
     s16 sp124[10]; // col starts?
     s16 sp110[10]; // row starts?
@@ -1027,7 +1040,6 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
     s16 wchr;
     u16 xPos2, xPos3;
     s16 *next;
-    char language;
 
     xStart = x;
 
@@ -1290,8 +1302,6 @@ s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
 
     return num_msgs;
 }
-
-// ========== file split? ========== //
 
 s16 *get_message_address_by_id(s16 id) {
     return &D_8022E3F0[D_8022E3F0[id + 7000] + 7350];

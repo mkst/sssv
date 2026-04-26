@@ -3,6 +3,26 @@
 
 
 // ========================================================
+// definitions
+// ========================================================
+
+void func_8039546C_7A6B1C(Gfx **dl, s16 arg1, s16 arg2, s16 arg3);
+void func_8038F968_7A1018(void);
+void func_8038FB68_7A1218(void);
+void func_8038FC58_7A1308(void);
+void func_8038FF48_7A15F8(void);
+void func_80391A38_7A30E8(void);
+void func_8039264C_7A3CFC(void);
+void func_80392668_7A3D18(void);
+void setup_pause_menu_perspective_a_7A6B30(void);
+void setup_pause_menu_perspective_b_7A6F04(void);
+void func_80395B58_7A7208(void);
+void func_80395E98_7A7548(Gfx **dl);
+void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
+s32  func_80396714_7A7DC4(void);
+s32  func_80396748_7A7DF8(void);
+
+// ========================================================
 // .data
 // ========================================================
 
@@ -191,7 +211,7 @@ s16  D_803F671C;
 // ========================================================
 
 
-void func_8038F6F0_7A0DA0(void) {
+void unused_8038F6F0_7A0DA0(void) {
     gOverlayMenuState.unk8 = 5;
     gOverlayMenuState.unkE = 0;
 }
@@ -386,7 +406,7 @@ void func_8038FD74_7A1424(void) {
 
     reset_credits_counters();
     // load lang33.dat
-    load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D50.data);
+    load_level_text_data(gEepromGlobal.language, 32, (u16*)D_8022E3F0 + 7000, D_80231D50.data);
     generate_stars();
 
     D_803F6704 = 0;
@@ -437,7 +457,7 @@ void func_8038FF48_7A15F8(void) {
 #ifdef NON_MATCHING
 void func_8038FF68_7A1618(void) {
     s16 pad;
-    s16 sp3C;
+    s16 sp3C = G_TX_NOMASK;
 
     gOverlayMenuState.unk2F = 0;
     if (gOverlayMenuState.unk24 != 0) {
@@ -1113,17 +1133,22 @@ void func_80391A38_7A30E8(void) {
     }
 }
 
-#if 0
-// unused
-// CURRENT (16736)
+#ifdef NON_MATCHING
+// CURRENT (1310)
 void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
-    s32 pad[8];
+    s32 pad[3];
+    int new_var2;
 
+    s16 i;
     s16 idx;
     f32 z;
     s16 t;
-    u16 phi_s1;
+    s32 val;
     s16 prevZ;
+
+    s64 new_var;
+
+    s16 tmp1, tmp2;
 
     gSPDisplayList((*dl)++, D_01004270_3DB40);
     gDPPipeSync((*dl)++);
@@ -1137,53 +1162,55 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 
     gSPTexture((*dl)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
 
-    for (idx = 0; idx < 12; idx++) {
-        z = arg2 - (((arg4 - arg2) / 11) * idx);
-        if (idx == 11) {
+    // populate unk31070[0..23]
+    for (i = 0; i < 12; i++) {
+        new_var2 = (i * 31) << 6;
+
+        z = arg2 - (((arg4 - arg2) / 11) * i);
+
+        if (i == 11) {
             // final iteration
             z = ((z - prevZ) / 2) + prevZ;
         }
-
+        // Need to not use v0
         prevZ = z;
 
-        t = idx * 1984; // ?
-        if (t < 0) {
-            t = 0;
-        }
+        idx = i * 2;
+
+        t = new_var2;
+        t = MAX(0, t);
 
         /* left */
-        gDisplayListContext->unk31070[2*idx].v.ob[0] = arg1 - 1.0f;
-        gDisplayListContext->unk31070[2*idx].v.ob[1] = arg5;
-        gDisplayListContext->unk31070[2*idx].v.ob[2] = prevZ;
-
-        gDisplayListContext->unk31070[2*idx].v.cn[0] = 0xFF;
-        gDisplayListContext->unk31070[2*idx].v.cn[1] = 0xFF;
-        gDisplayListContext->unk31070[2*idx].v.cn[2] = 0xFF;
-        gDisplayListContext->unk31070[2*idx].v.cn[3] = 0xFF;
-
-        gDisplayListContext->unk31070[2*idx].v.tc[0] = 0;
-        gDisplayListContext->unk31070[2*idx].v.tc[1] = t;
+        gDisplayListContext->unk31070[idx].v.ob[0] = arg1 - 1;
+        gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+        gDisplayListContext->unk31070[idx].v.ob[2] = z;
+        gDisplayListContext->unk31070[idx].v.cn[0] = 0xFF;
+        gDisplayListContext->unk31070[idx].v.cn[1] = 0xFF;
+        gDisplayListContext->unk31070[idx].v.cn[2] = 0xFF;
+        gDisplayListContext->unk31070[idx].v.cn[3] = 0xFF;
+        gDisplayListContext->unk31070[idx].v.tc[0] = 0;
+        gDisplayListContext->unk31070[idx].v.tc[1] = t;
 
         /* right */
-        gDisplayListContext->unk31070[2*idx+1].v.ob[0] = arg3 + 1.0f;
-        gDisplayListContext->unk31070[2*idx+1].v.ob[1] = arg5;
-        gDisplayListContext->unk31070[2*idx+1].v.ob[2] = prevZ;
-
-        gDisplayListContext->unk31070[2*idx+1].v.cn[0] = 0xFF;
-        gDisplayListContext->unk31070[2*idx+1].v.cn[1] = 0xFF;
-        gDisplayListContext->unk31070[2*idx+1].v.cn[2] = 0xFF;
-        gDisplayListContext->unk31070[2*idx+1].v.cn[3] = 0xFF;
-
-        gDisplayListContext->unk31070[2*idx+1].v.tc[0] = 0x2800;
-        gDisplayListContext->unk31070[2*idx+1].v.tc[1] = t;
+        // need to get arg3 + 1 into s0
+        gDisplayListContext->unk31070[idx+1].v.ob[0] = arg3 + 1;
+        gDisplayListContext->unk31070[idx+1].v.ob[1] = arg5;
+        gDisplayListContext->unk31070[idx+1].v.ob[2] = z;
+        gDisplayListContext->unk31070[idx+1].v.cn[0] = 0xFF;
+        gDisplayListContext->unk31070[idx+1].v.cn[1] = 0xFF;
+        gDisplayListContext->unk31070[idx+1].v.cn[2] = 0xFF;
+        gDisplayListContext->unk31070[idx+1].v.cn[3] = 0xFF;
+        gDisplayListContext->unk31070[idx+1].v.tc[0] = 160 << 6;
+        gDisplayListContext->unk31070[idx+1].v.tc[1] = t;
     }
 
-    gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070), 31, 0);
+    gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[0]), 31, 0);
 
-    for (idx = 0; idx < 22; idx += 2) {
+    // Draw 11 quads
+    for (i = 0; i < 22; i += 2) {
         gDPPipeSync((*dl)++);
 
-        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, ((D_800BA760 + 0xB2E0) + (idx * 0x6E0)));
+        gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, ((D_800BA760 + 0xB2E0) + ((i * 0x6E0))));
 
         gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync((*dl)++);
@@ -1193,63 +1220,79 @@ void func_80391C90_7A3340(Gfx **dl, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
         gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 636, 44);
         gDPPipeSync((*dl)++);
 
-        phi_s1 = 0x170;
-        if (idx == 20) {
-            phi_s1 = 0x130;
+        val = 0x170;
+        if (i == 20) {
+            val = 0x130;
         }
 
         gDPPipeSync((*dl)++);
 
         // High-order 16 bits are the s coordinate value. Low-order 16 bits are the t coordinate value (s10.5)
         // S | T in s10.5 format
-        gSPModifyVertex((*dl)++, (idx + 0) & 0xFFFF, G_MWO_POINT_ST, 0x00B00000 | 0x00000010);
-        gSPModifyVertex((*dl)++, (idx + 1) & 0xFFFF, G_MWO_POINT_ST, 0x11700000 | 0x00000010);
-        gSPModifyVertex((*dl)++, (idx + 2) & 0xFFFF, G_MWO_POINT_ST, 0x00B00000 | phi_s1);
-        gSPModifyVertex((*dl)++, (idx + 3) & 0xFFFF, G_MWO_POINT_ST, 0x11700000 | 0x00000010);
+        gSPModifyVertex((*dl)++, (i + 0) & 0xFFFF, G_MWO_POINT_ST, 0x00B00000 | 0x00000010);
+        gSPModifyVertex((*dl)++, (i + 1) & 0xFFFF, G_MWO_POINT_ST, 0x11700000 | 0x00000010);
+        gSPModifyVertex((*dl)++, (i + 2) & 0xFFFF, G_MWO_POINT_ST, 0x00B00000 | val);
+        gSPModifyVertex((*dl)++, (i + 3) & 0xFFFF, G_MWO_POINT_ST, 0x11700000 | val);
 
         gDPPipeSync((*dl)++);
 
         gSP2Triangles(
             /* gdl   */ (*dl)++,
-            /* v00   */ idx + 0,
-            /* v01   */ idx + 2,
-            /* v02   */ idx + 3,
+            /* v00   */ i + 0,
+            /* v01   */ i + 2,
+            /* v02   */ i + 3,
             /* flag0 */ 0,
-            /* v10   */ idx + 0,
-            /* v11   */ idx + 3,
-            /* v12   */ idx + 1,
+            /* v10   */ i + 0,
+            /* v11   */ i + 3,
+            /* v12   */ i + 1,
             /* flag1 */ 0);
         gDPPipeSync((*dl)++);
     }
 
-    gDisplayListContext->unk31250[0].v.ob[0] = arg1 + 2.0f;
-    gDisplayListContext->unk31250[0].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[0].v.ob[2] = (arg4 - (arg4 - arg2)) + 2;
-    gDisplayListContext->unk31250[1].v.ob[0] = arg3 - 2.0f;
-    gDisplayListContext->unk31250[1].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[1].v.ob[2] = (arg4 - (arg4 - arg2)) + 2;
+    // populate unk31070[30..37]
+    tmp1 = arg4 - (arg4 - arg2);
+    tmp2 = arg2 - (arg4 - arg2);
 
-    gDisplayListContext->unk31250[2].v.ob[0] = arg3 - 2.0f;
-    gDisplayListContext->unk31250[2].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[2].v.ob[2] = (arg2 - (arg4 - arg2)) - 2;
-    gDisplayListContext->unk31250[3].v.ob[0] = arg1 + 2.0f;
-    gDisplayListContext->unk31250[3].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[3].v.ob[2] = (arg2 - (arg4 - arg2)) - 2;
+    idx = 30;
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 + 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 + 2;
+    idx++;
 
-    gDisplayListContext->unk31250[4].v.ob[0] = arg1 - 1.0f;
-    gDisplayListContext->unk31250[4].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[4].v.ob[2] = (arg4 - (arg4 - arg2)) - 1;
-    gDisplayListContext->unk31250[5].v.ob[0] = arg3 + 1.0f;
-    gDisplayListContext->unk31250[5].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[5].v.ob[2] = (arg4 - (arg4 - arg2)) - 1;
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 - 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 + 2;
+    idx++;
 
-    gDisplayListContext->unk31250[6].v.ob[0] = arg3 + 1.0f;
-    gDisplayListContext->unk31250[6].v.ob[1] = arg5;
-    gDisplayListContext->unk31250[6].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 - 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 - 2;
+    idx++;
 
-    gDisplayListContext->unk31070[0].v.ob[0] = arg1 - 1.0f;
-    gDisplayListContext->unk31070[0].v.ob[1] = arg5;
-    gDisplayListContext->unk31070[0].v.ob[2] = (arg2 - (arg4 - arg2)) + 1;
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 + 2;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 - 2;
+    idx++;
+
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 - 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 - 1;
+    idx++;
+
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 + 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp1 - 1;
+    idx++;
+
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg3 + 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 + 1;
+    idx++;
+
+    gDisplayListContext->unk31070[idx].v.ob[0] = arg1 - 1;
+    gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
+    gDisplayListContext->unk31070[idx].v.ob[2] = tmp2 + 1;
+    idx++;
 
     gSPVertex((*dl)++, K0_TO_PHYS(&gDisplayListContext->unk31070[30]), 8, 0);
 
@@ -1462,7 +1505,6 @@ void load_mission_brief_screen(s16 _vertical_offset) {
 
 // draw_quad?
 void func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 idx, u8 color) {
-
     gDisplayListContext->unk31070[idx].v.ob[0] = arg1;
     gDisplayListContext->unk31070[idx].v.ob[1] = arg5;
     gDisplayListContext->unk31070[idx].v.ob[2] = arg2;
@@ -2047,7 +2089,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
                 func_80395074_7A6724(0);
                 // load menu text
-                load_level_text_data(gEepromGlobal.language, 32, D_80231AA0, D_80231D50.data);
+                load_level_text_data(gEepromGlobal.language, 32, (u16*)D_8022E3F0 + 7000, D_80231D50.data);
                 // load level specific text
                 gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
                 load_level_title();
@@ -2178,7 +2220,7 @@ void func_80395074_7A6724(s32 debug) {
     D_801D9ED4 = 10;
 }
 
-void func_80395088_7A6738(Gfx **dl, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 color) {
+void unused_80395088_7A6738(Gfx **dl, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 color) {
     gDPPipeSync((*dl)++);
     gDPSetRenderMode((*dl)++, G_RM_PASS, G_RM_AA_OPA_SURF2);
     gSPClearGeometryMode((*dl)++, G_CULL_BACK | G_LIGHTING | G_SHADING_SMOOTH);

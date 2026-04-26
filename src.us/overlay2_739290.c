@@ -480,7 +480,7 @@ void func_80327BE0_739290(void) {
     gAnimalState.unkFFCE = 0;
 }
 
-void func_80327DA0_739450(void) {
+void unused_80327DA0_739450(void) {
 }
 
 // ESA: func_8007F278
@@ -901,7 +901,6 @@ void func_80328ACC_73A17C(void) {
         animalId = gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C;
 
         if (((gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C != EVO))) {
-
 
             if (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (gAnimalState.animals[gCurrentAnimalIndex].animal->unk320->unk16C->unk82.unk2 == 0)) &&
                 (animalId != VULTURE) && (animalId != SEAGULL2) && (animalId != POLAR_BEAR_DEFENDING) &&

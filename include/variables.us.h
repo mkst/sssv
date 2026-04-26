@@ -391,12 +391,12 @@ extern s16  gIsWidescreen;
 extern Gfx  *gWorldCellOpaqueDisplayLists[4][6];
 extern Gfx   D_80205470[6000];
 
-extern Vtx   D_80210FF0[5000];
+extern Vtx   gOpaqueVtxPool[5000];
 
 extern Vtx   D_80224870[216];
 extern Gfx  *gWorldCellTranslucentDisplayLists[4][6];
 extern Gfx   D_80225650[2000];
-extern Vtx   D_802294D0[1000];
+extern Vtx   gTranslucentVtxPool[1000];
 extern Vtx   D_8022D350[216];
 
 
@@ -518,8 +518,6 @@ extern struct118 D_803A4410_7B5AC0[];
 extern struct118 D_803A444C_7B5AFC[];
 extern struct118 D_803A4488_7B5B38[];
 
-extern struct028 D_803A50C0_7B6770;
-
 extern s16  D_803A5560_7B6C10[4];
 extern s16  D_803A5568_7B6C18[];
 extern s16  D_803A5570_7B6C20[];
@@ -527,8 +525,6 @@ extern s16  D_803A5578_7B6C28[];
 extern s32  D_803A5590_7B6C40[];
 extern u16  D_803A5750_7B6E00; // number of waypoints?
 extern u16  D_803A5760_7B6E10;
-extern s16  D_803A5764_7B6E14;
-// extern u8  *D_803A5BF8_7B72A8[36][2];
 
 extern u8   D_803A52B8_7B6968; // lights.c
 
@@ -698,27 +694,6 @@ extern s8   D_803D554A;
 extern s8   D_803D554B;
 extern s8   D_803D554C;
 extern s16  D_803D5558;
-extern u16  D_803D555A; // timer
-extern u8   D_803D555C;
-extern u8   D_803D555D;
-extern Animal *D_803D5560;
-extern s16  D_803D5564;
-extern s16  D_803D5566;
-extern s16  D_803D5568;
-extern s16  D_803D556A;
-extern s16  D_803D556C;
-extern s16  D_803D556E;
-extern s16  D_803D5570;
-extern u16  D_803D5572;
-extern s16  D_803D5574;
-extern u8   D_803D5575; // controller magnitude?
-extern f32  D_803D5580;
-
-// overlay2_6C5570
-extern s16  D_803D5590[360];
-extern s16  D_803D5860[360];
-extern s16  D_803D5B30[360];
-extern s16  D_803D5E00[360];
 
 // collision
 extern u8   D_803D60D4;
@@ -896,17 +871,8 @@ extern Cheats  gCheats;
 extern s16  D_803F6450;
 
 // terminal_background
-extern u8   D_803F6460;
 extern Animal *D_803F6464;
 extern s16  D_803F6468;
-extern f32  D_803F646C;
-extern s16  D_803F6470;
-extern u8   D_803F6472;
-extern s16  D_803F6474;
-extern struct109 gTerminalTextScrollState;
-extern s16 *gTerminalStatLabels[18];
-extern s16  gTerminalStatTextX[20];
-extern f32  D_803F6670;
 
 // overlay2_7A0DA0
 extern struct027 gOverlayMenuState;

@@ -183,8 +183,7 @@ u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Anim
     return (*highestHitAnimal != NULL);
 }
 
-// unused?
-s32 func_8029B56C_6ACC1C(s16 xPos, s16 zPos, s16 *height, struct063 terrain[73][129]) {
+s32 unused_8029B56C_6ACC1C(s16 xPos, s16 zPos, s16 *height, struct063 terrain[73][129]) {
     s16 cell_offset_x;
     s16 cell_offset_z;
 

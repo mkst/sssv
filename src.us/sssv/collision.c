@@ -839,10 +839,9 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
     s16 tmp;
     tmp = arg0->unk114[0];
 
-#ifdef VERSION_EU
-    // extra check only in EU
+#ifdef BUGFIX
+    // This check only present in 1.1 (EU) - prevents lockup during DMA intro.
     if (arg0->unk114[0] == 0x7FFF) {
-        // ignore?
         return 0;
     }
 #endif

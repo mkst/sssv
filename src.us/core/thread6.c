@@ -156,13 +156,13 @@ s16    gIsWidescreen; // maybe not actually this?
 
 Gfx   *gWorldCellOpaqueDisplayLists[4][6];
 Gfx    D_80205470[6000];
-Vtx    D_80210FF0[5000];
-Vtx    D_80224870[216];  // ?
+Vtx    gOpaqueVtxPool[5000]; // scratch opaque pool
+Vtx    D_80224870[36*6]; // opaque cull box
 
 Gfx   *gWorldCellTranslucentDisplayLists[4][6];
 Gfx    D_80225650[2000];
-Vtx    D_802294D0[1000];
-Vtx    D_8022D350[216];
+Vtx    gTranslucentVtxPool[1000]; // scratch translucent pool
+Vtx    D_8022D350[36*6]; // translucent cull box
 
 // ========================================================
 // .text

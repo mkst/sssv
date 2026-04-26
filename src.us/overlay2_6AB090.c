@@ -19,7 +19,7 @@ GfxHelper gVisibleWorldCellQueue[28];
 // ========================================================
 
 void setup_world_perspective_6AB090(DisplayList *arg0) {
-    guPerspective(&arg0->unk37410, &gWorldPerspNorm, D_803F2D50.fovY, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);
+    guPerspective(&arg0->unk37410, &gWorldPerspNorm, D_803F2D50.fovY, 1.0f, D_803F2D50.near, D_803F2D50.far, 1.0f);
     guScale(&arg0->unk37450, 0.5f, 0.5f, 0.5f);
     guScale(&arg0->unk374D0, 1.0f, 1.0f, 1.0f);
     update_world_camera_transform();
@@ -124,7 +124,7 @@ void draw_visible_world_cell_translucent_pass(DisplayList *arg0) {
 
 }
 
-void func_8029A32C_6AB9DC(s32 arg0) {
+void unused_8029A32C_6AB9DC(s32 arg0) {
 }
 
 s16 is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
@@ -268,7 +268,7 @@ void render_ship_window_projection_replay(void) {
     }
 }
 
-void func_8029ABCC_6AC27C(void) {
+void unused_8029ABCC_6AC27C(void) {
     build_rotate_scale_translate_matrix(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], FTOFIX32(256.0), FTOFIX32(512.0), FTOFIX32(1400.0), 0, 0, 0, FTOFIX32(2.0), FTOFIX32(2.0), FTOFIX32(2.0));
     gSPMatrix(gMainDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 }

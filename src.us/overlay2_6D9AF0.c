@@ -7,8 +7,8 @@ void init_and_spawn_evo_microchip(void) {
     func_803572C0_768970();
     func_803747CC_785E7C();
     reset_dynamic_tails(0);
-    memset_bytes((u8 *)&gAnimalState.animals, 0U, sizeof(gAnimalState.animals));
-    memset_bytes((u8 *)&gAnimalState.unk4040, 0U, sizeof(gAnimalState.unk4040));
+    memset_bytes((u8 *)&gAnimalState.animals, 0, sizeof(gAnimalState.animals));
+    memset_bytes((u8 *)&gAnimalState.unk4040, 0, sizeof(gAnimalState.unk4040));
     gNumAnimalsInLevel = 0;
     func_802C7C80_6D9330(); // load all stats
     D_803E9820 = 27;
@@ -125,7 +125,7 @@ void func_802C8878_6D9F28(void) {
                             if (gUiFlowState.unk0 == 0) {
                                 func_802A78CC_6B8F7C();
                                 func_802AAAB0_6BC160();
-                                func_8038C760_79DE10();
+                                empty_8038C760_79DE10();
                             }
                         } else if ((gUiFlowState.unk0 == 0) && (D_803D552C->unk365 != ATTACK_EVO_CHIP_2)) {
                             func_802AA424_6BBAD4();
@@ -321,7 +321,7 @@ void func_802C8878_6D9F28(void) {
                 add_single_light(&gOpaqueDL);
             }
             if (D_803D552C->movementMode != MOVEMENT_MODE_DELETED) {
-                func_802DA90C_6EBFBC(D_803D5530);
+                func_802DA90C_6EBFBC((Entity*)D_803D5530);
             }
         }
     }

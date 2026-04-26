@@ -466,11 +466,11 @@ gWorldCellOpaqueDisplayLists             = 0x80205410;
 D_80205470             = 0x80205470;
 
 D_80205478             = 0x80205478;
-D_80210FF0             = 0x80210FF0;
+gOpaqueVtxPool         = 0x80210FF0;
 D_80224870             = 0x80224870;
-gWorldCellTranslucentDisplayLists             = 0x802255F0;
+gWorldCellTranslucentDisplayLists        = 0x802255F0;
 D_80225650             = 0x80225650; // size:0x3e80 segment:main
-D_802294D0             = 0x802294D0;
+gTranslucentVtxPool    = 0x802294D0;
 D_8022D350             = 0x8022D350;
 
 D_803B6700_7C7DB0      = 0x803B6700; // rom:0x7C7DB0 size:0x138

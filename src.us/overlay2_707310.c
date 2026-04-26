@@ -2927,11 +2927,11 @@ void func_802FE4C4_70FB74(void) {
     D_803E1D20.unk0 = D_803E1D18.unk0 = D_803F2D50.unk54;
     D_803E1D20.unk1 = D_803E1D18.unk1 = D_803F2D50.unk55;
     D_803E1D20.unk2 = D_803E1D18.unk2 = D_803F2D50.unk56;
-    D_803E1D20.unk3 = D_803E1D18.unk3 = D_803F2D50.unk57;
+    D_803E1D20.unk3 = D_803E1D18.unk3 = D_803F2D50.waterPrimAlpha;
     D_803E1D20.unk4 = D_803E1D18.unk4 = D_803F2D50.unk58;
     D_803E1D20.unk5 = D_803E1D18.unk5 = D_803F2D50.unk59;
     D_803E1D20.unk6 = D_803E1D18.unk6 = D_803F2D50.unk5A;
-    D_803E1D20.unk7 = D_803E1D18.unk7 = D_803F2D50.unk5B;
+    D_803E1D20.unk7 = D_803E1D18.unk7 = D_803F2D50.waterEnvAlpha;
 
     D_803E1D28 = D_803E1D2A = 0;
     D_803E1D2C = 1;
@@ -2975,11 +2975,11 @@ void func_802FE5E8_70FC98(void) {
         D_803F2D50.unk54 = D_803E1D20.unk0;
         D_803F2D50.unk55 = D_803E1D20.unk1;
         D_803F2D50.unk56 = D_803E1D20.unk2;
-        D_803F2D50.unk57 = D_803E1D20.unk3;
+        D_803F2D50.waterPrimAlpha = D_803E1D20.unk3;
         D_803F2D50.unk58 = D_803E1D20.unk4;
         D_803F2D50.unk59 = D_803E1D20.unk5;
         D_803F2D50.unk5A = D_803E1D20.unk6;
-        D_803F2D50.unk5B = D_803E1D20.unk7;
+        D_803F2D50.waterEnvAlpha = D_803E1D20.unk7;
     }
 }
 

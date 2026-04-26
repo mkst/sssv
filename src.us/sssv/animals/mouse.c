@@ -726,7 +726,7 @@ void func_8031F8BC_730F6C(void) {
             GPACK_RGBA5551(0, 0, 0, 1),
             SSSV_RAND(16) + 0xF);
     } else {
-        set_target_speed(16); // speed
+        set_target_speed(16);
         create_particle_effect(
             D_803D5530->position.xPos.h,
             D_803D5530->position.zPos.h,

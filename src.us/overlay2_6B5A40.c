@@ -41,24 +41,23 @@ s8   D_803D554A;
 s8   D_803D554B; // target speed?
 s8   D_803D554C; // boost duration?
 
-s32  D_803D5550; // unused
-s32  D_803D5554; // unused
+static s32  D_803D5550; // unused
+static s32  D_803D5554; // unused
 s16  D_803D5558;
-u16  D_803D555A; // timer
-u8   D_803D555C;
-u8   D_803D555D;
+static u16  D_803D555A; // timer
+static u8   D_803D555C;
+static u8   D_803D555D;
 
-Animal *D_803D5560;
-s16  D_803D5564;
-s16  D_803D5566;
-s16  D_803D5568;
-s16  D_803D556A;
-s16  D_803D556C;
-s16  D_803D556E;
+static Animal *D_803D5560;
+static s16  D_803D5564;
+static s16  D_803D5566;
+static s16  D_803D5568;
+static s16  D_803D556A;
+static s16  D_803D556C;
+static s16  D_803D556E;
 
-s16  D_803D5570;
-u16  D_803D5572;
-// s16  D_803D5574; // static in func_802AC9FC_6BE0AC
+static s16  D_803D5570;
+static u16  D_803D5572;
 
 // ========================================================
 // .text
@@ -1065,7 +1064,7 @@ s32 func_802A7648_6B8CF8(Entity *arg0) {
         phi_v1 -= 16;
     }
 
-    if (func_80311D48_7233F8(arg0) != 0) {
+    if (func_80311D48_7233F8((Animal*)arg0) != 0) {
         return 0;
     }
     if (phi_v1 == 0) {

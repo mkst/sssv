@@ -60,7 +60,7 @@ s16  D_803F2A9A; // always 255, used in lights.c
 s16  D_803F2A9C;
 s16  D_803F2A9E;
 static u8   D_803F2AA0;
-static u8   D_803F2AA1; // unused?
+static u8   D_803F2AA1 UNUSED;
 u8   gCameraUiState;
 u8   D_803F2AA3;
 u8   D_803F2AA4;
@@ -76,8 +76,8 @@ static f32  D_803F2AB4;
 static f32  D_803F2AB8;
 static f32  D_803F2ABC;
 
-static s32  D_803F2AC0; // unused
-static u8   D_803F2AC4; // unused
+static s32  D_803F2AC0 UNUSED;
+static u8   D_803F2AC4 UNUSED;
 static u8   D_803F2AC5;
 static u8   D_803F2AC6;
 static s16  D_803F2AC8; // gCameraId2
@@ -91,7 +91,7 @@ s16  D_803F2C18[3];
 static s16  D_803F2C1E;
 static s16  D_803F2C20; // struct?
 static s16  D_803F2C22;
-static u8   D_803F2C24[0x4];
+static u8   D_803F2C24[0x4] UNUSED;
 s16  D_803F2C28;
 static f32  D_803F2C2C;
 static f32  D_803F2C30;
@@ -314,7 +314,7 @@ void set_camera_mode(u8 cameraID, u8 arg1) {
 
 // ESA: func_80021750
 void func_8032FF94_741644(u8 cameraID) {
-    s32 pad2[4];
+    s32 pad2[4] UNUSED;
 
     f32 spDC;
     f32 spD8;
@@ -783,7 +783,7 @@ void func_8032FF94_741644(u8 cameraID) {
 }
 
 void func_80332444_743AF4(u8 arg0) {
-    s32 pad[4];
+    s32 pad[4] UNUSED;
 
     f32 spDC;
     f32 spD8;
@@ -1194,7 +1194,7 @@ void func_80332444_743AF4(u8 arg0) {
 
 // ESA: func_80023020
 void func_80334470_745B20(u8 id, u8 arg1) {
-    s32 pad[3];
+    s32 pad[3] UNUSED;
 
     f32 sp100;
     f32 spFC;
@@ -1206,7 +1206,7 @@ void func_80334470_745B20(u8 id, u8 arg1) {
     f32 spE4;
     f32 spE0;
 
-    s32 pad2[3];
+    s32 pad2[3] UNUSED;
 
     s16 i; // spD2 ?
     s16 spD0; // pad
@@ -1595,7 +1595,7 @@ void func_80334470_745B20(u8 id, u8 arg1) {
 
 // ESA: func_80025ECC
 void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
-    s32 pad3[2];
+    s32 pad3[2] UNUSED;
     f32 var_f14;
 
     f32 var_f0_2;
@@ -1608,8 +1608,8 @@ void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
     f32 spC0;
     f32 spBC;
 
-    s32 pad4[0x3];
-    s16 pad5;
+    s32 pad4[0x3] UNUSED;
+    s16 pad5 UNUSED;
 
     s16 var_v1; // spAC
     f32 temp_f0;
@@ -1623,13 +1623,13 @@ void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
     f32 var_f16;  // sp90
     f32 var_f12;  // sp8C
 
-    s32 pad[4];
+    s32 pad[4] UNUSED;
 
     f32 sp78;
     f32 sp74;
     f32 sp70;
 
-    s32 pad2;
+    s32 pad2 UNUSED;
 
 
     gCamera = &gCameras[arg0];
@@ -1999,7 +1999,7 @@ void func_803378BC_748F6C(u8 arg0) {
 
 // ESA: func_80027320
 void func_80337ECC_74957C(u8 id) {
-    s32 pad[2];
+    s32 pad[2] UNUSED;
 
     f32 var_f12;
     f32 var_f2;
@@ -2411,9 +2411,9 @@ void func_803394E4_74AB94(u8 cameraID, u8 arg1) {
 }
 
 void fix_camera_to_angle_offset(u8 cameraID, f32 angle) {
-    double pad2;
-    double pad3;
-    double pad4;
+    double pad2 UNUSED;
+    double pad3 UNUSED;
+    double pad4 UNUSED;
     f32 sp9C;
     f32 sp98;
     f32 sp94;
@@ -2432,7 +2432,7 @@ void fix_camera_to_angle_offset(u8 cameraID, f32 angle) {
     s16 temp_v1_3;
 
     f32 var_f2_2;
-    s32 pad;
+    s32 pad UNUSED;
 
     f32 sp68;
     f32 sp64;
@@ -2660,7 +2660,7 @@ void func_8033AAC8_74C178(u8 cameraID) {
     f32 temp_f14;
     f32 var_f2;
     u8 length;
-    s32 pad[2];
+    s32 pad[2] UNUSED;
     WaypointData *wpd;
 
     gCamera = &gCameras[cameraID];
@@ -2838,7 +2838,7 @@ void func_8033B594_74CC44(u8 arg0) {
 }
 
 void func_8033B9B8_74D068(u8 arg0) {
-    s32 pad2[4];
+    s32 pad2[4] UNUSED;
 
     f32 sp6C;
     f32 sp68;
@@ -2847,7 +2847,7 @@ void func_8033B9B8_74D068(u8 arg0) {
     f32 sp5C;
     f32 sp58;
 
-    s32 pad[10];
+    s32 pad[10] UNUSED;
 
     f32 sp2C;
     f32 sp28;
@@ -3004,7 +3004,7 @@ void func_8033C320_74D9D0(u8 arg0) {
 
 // ESA: func_8002A3D0
 void reset_camera(void) {
-    s32 tmp;
+    s32 pad UNUSED;
     s16 i;
 
     memset_bytes((u8*)&gCameras, 0, sizeof(gCameras)); // zero out both camera structs
@@ -3124,7 +3124,7 @@ s16 func_8033C8EC_74DF9C(s16 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 a
 
 // esa: func_8001D8F4
 s16 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9) {
-    s32 pad;
+    s32 pad UNUSED;
 
     s16 temp;
     s16 sp78;
@@ -3135,7 +3135,7 @@ s16 func_8033C9CC_74E07C(s16 arg0, s16 arg1, s16 arg2, u8 arg3, s16 arg4, s16 ar
     u8 var_a2;  // sp71?
     s16 var_s0;
 
-    s32 pad2;   // sp68?
+    s32 pad2 UNUSED;   // sp68?
     s32 var_s3; // sp64
     s32 var_s4; // sp60
 
@@ -3654,7 +3654,7 @@ void func_8033E430_74FAE0(void) {
     Animal *animal;
     s16 xPos;
     s16 yPos;
-    s16 pad;
+    s16 pad UNUSED;
     s16 temp_a0_2;
     s16 sp32;
     s16 phi_v0_2;
@@ -3930,10 +3930,10 @@ void update_world_camera_transform(void) {
     f32 spCC;
     f32 spC8;
 
-    f32 spC4; // pad
-    f32 spC0; // pad
-    f32 spBC; // pad
-    f32 spB8; // pad
+    f32 spC4 UNUSED;
+    f32 spC0 UNUSED;
+    f32 spBC UNUSED;
+    f32 spB8 UNUSED;
 
     f32 spB4;
     f32 spB0;
@@ -3946,18 +3946,18 @@ void update_world_camera_transform(void) {
     f32 sp9C;
     f32 sp98;
 
-    f32 sp94; // pad
-    f32 sp90; // pad
+    f32 sp94 UNUSED;
+    f32 sp90 UNUSED;
 
     f32 sp8C;
 
-    f32 sp88; // pad
+    f32 sp88 UNUSED;
 
     f32 sp84;
     f32 sp80;
 
-    f32 sp7C; // pad
-    f32 sp78; // pad
+    f32 sp7C UNUSED;
+    f32 sp78 UNUSED;
 
     f32 sp74;
     f32 sp70;
@@ -4803,21 +4803,21 @@ void update_camera_x_y_z(s16 cameraID, f32 x, f32 y, f32 z) {
 }
 
 void func_80342550_753C00(Camera *arg0) {
-    f32 sp6C;
-    f32 sp68;
-    f32 sp64;
+    f32 sp6C UNUSED;
+    f32 sp68 UNUSED;
+    f32 sp64 UNUSED;
     f32 sp60;
-    f32 sp5C;
-    f32 sp58;
-    f32 sp54;
-    f32 sp50;
-    f32 sp4C;
+    f32 sp5C UNUSED;
+    f32 sp58 UNUSED;
+    f32 sp54 UNUSED;
+    f32 sp50 UNUSED;
+    f32 sp4C UNUSED;
     f32 sp48;
     f32 sp44;
     f32 sp40;
-    f32 sp3C;
-    f32 sp38;
-    f32 sp34;
+    f32 sp3C UNUSED;
+    f32 sp38 UNUSED;
+    f32 sp34 UNUSED;
 
     f32 temp_f0;
     f32 temp_f2;    // sp2C
@@ -5108,7 +5108,7 @@ void func_80343438_754AE8(void) {
 
 // ESA: func_8002F85C
 void func_80343720_754DD0(s16 *arg0, s16 *arg1, s16 *arg2) {
-    s32 pad;
+    s32 pad UNUSED;
     s16 sp1A;
     s16 x;
     f32 temp_f0;
@@ -5153,7 +5153,7 @@ void func_80343A50_755100(void) {
 }
 
 void func_80343AE0_755190(u8 arg0, s16 arg1, s16 arg2, Entity *entity, s16 arg4, s16 arg5, s16 arg6, u8 arg7, u8 arg8, u8 arg9, s16 argA, u8 argB, s8 argC, s8 argD, u8 argE) {
-    s32 pad;
+    s32 pad UNUSED;
     D_803F2AA4 = D_803F2AA5 = 0;
 
     if (arg1 == 0x7FFF) {

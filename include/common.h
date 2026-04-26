@@ -1,6 +1,12 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#ifdef __GNUC__
+#define UNUSED __attribute__((unused))
+#else
+#define UNUSED
+#endif
+
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
 #define ABSD(x) ((x)<0.0 ? -(x) : (x))

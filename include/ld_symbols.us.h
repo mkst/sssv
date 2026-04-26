@@ -3311,7 +3311,7 @@ extern Addr empty_rnc_4DB210_bin;
 extern Addr empty_rnc_4F5470_bin;
 extern Addr empty_rnc_4F5490_bin;
 extern Addr empty_rnc_4F54B0_bin;
-extern Addr entrypoint_s;
+extern Addr entrypoint_c;
 extern Addr gspF3DEX_fifoText_s;
 extern Addr gspSprite2DText_s;
 extern Addr gspSprite2D_fifoText_s;
@@ -3908,7 +3908,6 @@ extern Addr sssv_terminal_background_c;
 extern Addr sssv_tile_c;
 extern Addr sssv_trails_c;
 extern Addr sssv_ui_main_menu_c;
-extern Addr sssv_ui_main_menu_data__s;
 extern Addr sssv_vector_c;
 extern Addr trailer_bin;
 

@@ -55,7 +55,7 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
         temp_t1 = temp_t6 * 2;
 
-        switch (arg0->yRotation) {              /* irregular */
+        switch (arg0->yRotation) {
         case 90:
             var_a0 = (arg0->position.zPos.h + temp_t6) - arg2;
             var_a2 = (arg1 - arg0->position.xPos.h) + temp_t6;
@@ -273,7 +273,7 @@ s32 func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s16 a
     return 1;
 }
 
-void func_8032BE28_73D4D8(Animal *arg0) {
+void unused_8032BE28_73D4D8(Animal *arg0) {
     s16 index;
     Collision *collision;
     s16 x;

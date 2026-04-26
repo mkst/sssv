@@ -171,16 +171,16 @@ void kick_up_dust_big(s32 xVelocity, s32 zVelocity) {
     }
 }
 
-void func_8034AFE0_75C690(void) {
+void unused_8034AFE0_75C690(void) {
 }
 
-void func_8034AFE8_75C698(s32 arg0, Animal *arg1) {
+void unused_8034AFE8_75C698(s32 arg0, Animal *arg1) {
 }
 
-void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1) {
+void unused_8034AFF4_75C6A4(s32 arg0, Animal *arg1) {
 }
 
-void func_8034B000_75C6B0(s32 arg0) {
+void unused_8034B000_75C6B0(s32 arg0) {
 }
 
 // used by husky and bear, foaming mouth particle locations?

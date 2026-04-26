@@ -5,41 +5,41 @@
 // definitions
 // ========================================================
 
-void draw_star_billboard_texrect(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
+void draw_star_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6);
 
 // ========================================================
 // .data
 // ========================================================
 
-s16 D_803A05C0_7B1C70 = 0;
-s32 D_803A05C4_7B1C74 = 8;
-s16 D_803A05C8_7B1C78 = 10000;
+static s16 D_803A05C0_7B1C70 = 0;
+static s32 D_803A05C4_7B1C74 = 8;
+static s16 D_803A05C8_7B1C78 = 10000;
 
 // ========================================================
 // .bss
 // ========================================================
 
-s16  D_803D5590[360];
-s16  D_803D5860[360];
-s16  D_803D5B30[360];
-s16  D_803D5E00[360];
+static s16  D_803D5590[360];
+static s16  D_803D5860[360];
+static s16  D_803D5B30[360];
+static s16  D_803D5E00[360];
 
 // ========================================================
 // .text
 // ========================================================
 
-void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+void func_802B3EC0_6C5570(Gfx **dl, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     D_803A05C0_7B1C70 = 1 - D_803A05C0_7B1C70;
     if (arg1 != 1) {
         if (0) {
             // debug stub?
         };
         if (arg1 == 0) {
-            draw_rectangle(arg0, 0, 0, 320, 240, 0, 0, 0, 255);
-            func_802B4148_6C57F8(arg0);
+            draw_rectangle(dl, 0, 0, 320, 240, 0, 0, 0, 255);
+            func_802B4148_6C57F8(dl);
         }
         if (arg1 == 2) {
-            draw_rectangle(arg0, 8, 8, gScreenWidth - 8, gScreenHeight - 8, gFogState.r, gFogState.g, gFogState.b, 255);
+            draw_rectangle(dl, 8, 8, gScreenWidth - 8, gScreenHeight - 8, gFogState.r, gFogState.g, gFogState.b, 255);
         }
     }
 }
@@ -54,42 +54,42 @@ void func_802B3FAC_6C565C(void) {
     }
 }
 
-void func_802B4148_6C57F8(Gfx **arg0) {
+void func_802B4148_6C57F8(Gfx **dl) {
     s16 i;
     s16 temp_s6;
 
-    gDPSetPrimDepth((*arg0)++, 0, 0);
-    gDPPipeSync((*arg0)++);
-    gSPClearGeometryMode((*arg0)++, G_SHADE | G_CULL_BOTH | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH);
-    gDPSetCombineLERP((*arg0)++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, TEXEL0, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, TEXEL0);
-    gDPSetRenderMode((*arg0)++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
-    gDPSetCycleType((*arg0)++, G_CYC_1CYCLE);
-    gDPSetAlphaCompare((*arg0)++, G_AC_THRESHOLD);
-    gSPTexture((*arg0)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
-    gDPSetBlendColor((*arg0)++, 0x00, 0x00, 0x00, 0x00);
-    gDPSetDepthSource((*arg0)++, G_ZS_PRIM);
-    gDPSetTexturePersp((*arg0)++, G_TP_NONE);
-    gDPSetPrimColor((*arg0)++, 0, 0, 0xB4, 0xB4, 0xDC, 0xFF);
+    gDPSetPrimDepth((*dl)++, 0, 0);
+    gDPPipeSync((*dl)++);
+    gSPClearGeometryMode((*dl)++, G_SHADE | G_CULL_BOTH | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH);
+    gDPSetCombineLERP((*dl)++, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, TEXEL0, PRIMITIVE, 0, TEXEL0, 0, 0, 0, 0, TEXEL0);
+    gDPSetRenderMode((*dl)++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+    gDPSetCycleType((*dl)++, G_CYC_1CYCLE);
+    gDPSetAlphaCompare((*dl)++, G_AC_THRESHOLD);
+    gSPTexture((*dl)++, 32768, 32768, 0, G_TX_RENDERTILE, G_ON);
+    gDPSetBlendColor((*dl)++, 0x00, 0x00, 0x00, 0x00);
+    gDPSetDepthSource((*dl)++, G_ZS_PRIM);
+    gDPSetTexturePersp((*dl)++, G_TP_NONE);
+    gDPSetPrimColor((*dl)++, 0, 0, 0xB4, 0xB4, 0xDC, 0xFF);
 
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102A210_63AE0_bin));
-    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-    gDPLoadSync((*arg0)++);
-    gDPLoadBlock((*arg0)++, G_TX_LOADTILE, 0, 0, 511, 512);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102A210_63AE0_bin));
+    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPLoadSync((*dl)++);
+    gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
 
     temp_s6 = D_803A05C8_7B1C78;
 
-    gDPPipeSync((*arg0)++);
-    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-    gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
+    gDPPipeSync((*dl)++);
+    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+    gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 4*(31), 4*(31));
 
     temp_s6 = temp_s6 - D_803E4D30;
 
     for (i = 0; i < 360; i++) {
-        draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, D_803D5B30[i] << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+        draw_star_billboard_texrect(dl, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, D_803D5B30[i] << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
         if (gLevelProgress & LEVEL_PROGRESS_FLAG_4) {
-            draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] - 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
-            draw_star_billboard_texrect(arg0, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
-            draw_star_billboard_texrect(arg0, (D_803D5590[i] + 0x2710) << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 6000) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+            draw_star_billboard_texrect(dl, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] - 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+            draw_star_billboard_texrect(dl, D_803D5590[i] << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 0x2EE0) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
+            draw_star_billboard_texrect(dl, (D_803D5590[i] + 0x2710) << 16, (D_803D5860[i] + temp_s6) << 16, (D_803D5B30[i] + 6000) << 0x11, 0x1F, 0x1F, D_803D5E00[i] << 8);
         }
     }
 
@@ -120,7 +120,7 @@ void func_802B4148_6C57F8(Gfx **arg0) {
     }
 }
 
-void draw_star_billboard_texrect(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
+void draw_star_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
     f32 sp7C;
     f32 sp78;
     f32 temp_f12;
@@ -195,7 +195,7 @@ void draw_star_billboard_texrect(Gfx **arg0, s32 arg1, s32 arg2, s32 arg3, s16 a
 
                     if ((xl < (gScreenWidth * 4)) && (yl < 960.0f) && (xh > 0.0f) && (yh > 0.0f)) {
                         gSPScisTextureRectangle(
-                            /* pkt  */ (*arg0)++,
+                            /* pkt  */ (*dl)++,
                             /* xl   */ (s16)xl,
                             /* yl   */ (s16)yl,
                             /* xh   */ (s16)xh,

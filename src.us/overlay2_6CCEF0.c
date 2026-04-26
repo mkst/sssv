@@ -20,7 +20,7 @@ void func_802BB840_6CCEF0(u16 arg0) {
     D_80203FE0[26].unk4 = tmp2;
 }
 
-void func_802BB870_6CCF20(u16 arg0) {
+void unused_802BB870_6CCF20(u16 arg0) {
     s16 tmp0;
     s16 tmp1;
     s16 tmp2;
@@ -1658,6 +1658,7 @@ void func_802C19CC_6D307C(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, s32 a
     D_80203FE0[arg3+2].unk4 = arg1;
 }
 
+// frog, springy thing, kangaroo
 void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2) {
     D_80203FE0[14].unk2 = 0;
     D_80203FE0[14].unk0 = D_80203FE0[14].unk2;
@@ -1972,6 +1973,7 @@ void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
     D_80203FE0[arg2].unk4 = D_80203FE0[arg1].unk4 + var_t0;
 }
 
+// used byGORILLA
 void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
     u16 var_t1;
     u16 var_t2;
@@ -2119,6 +2121,7 @@ void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 a
     D_80203FE0[arg3].unk4 += var_t0;
 }
 
+// used by EVO
 void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, LimbConfig *arg6) {
     u16 phi_t2;
     u16 phi_t3;
@@ -2127,7 +2130,7 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
 
     temp_v1 = D_803D552C->gaitPhase;
 
-    switch (D_803D5530->state) {                        /* implicit */
+    switch (D_803D5530->state) {
     case 0x3:
     case 0x8E:
     case 0xB6:

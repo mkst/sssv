@@ -79,10 +79,10 @@ void func_803041FC_7158AC(void) {
     // is this some hack added "later" to match geo to terrain map?
     for (i = 0; i < D_803E4AC8; i++) {
         temp_a0 = D_803C0740[D_803E4930[i]][D_803E4998[i]].unk6 << 2;
-        if (D_802294D0[D_803E4A00[i]].v.ob[2] < temp_a0) {
-            D_802294D0[D_803E4A00[i]].v.ob[2]++;
-        } else if (temp_a0 < D_802294D0[D_803E4A00[i]].v.ob[2]) {
-            D_802294D0[D_803E4A00[i]].v.ob[2]--;
+        if (gTranslucentVtxPool[D_803E4A00[i]].v.ob[2] < temp_a0) {
+            gTranslucentVtxPool[D_803E4A00[i]].v.ob[2]++;
+        } else if (temp_a0 < gTranslucentVtxPool[D_803E4A00[i]].v.ob[2]) {
+            gTranslucentVtxPool[D_803E4A00[i]].v.ob[2]--;
         }
     }
 
@@ -150,7 +150,7 @@ void func_803041FC_7158AC(void) {
 
             switch (D_803E3130[i].type) {
             case 7:
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 0:
                 gDPSetTileSize(
@@ -167,7 +167,7 @@ void func_803041FC_7158AC(void) {
                     D_803E3130[i].ult2 >> 16,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 1:
             case 11:
@@ -208,7 +208,7 @@ void func_803041FC_7158AC(void) {
                     D_80152350.unk384[(s16) (290 - D_803E4BD8)] >> 2,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 3:
                 gDPSetTileSize(
@@ -225,7 +225,7 @@ void func_803041FC_7158AC(void) {
                     D_803E3130[i].ult2 >> 16,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 4:
                 gDPSetTileSize(

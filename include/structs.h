@@ -58,8 +58,8 @@ typedef struct {
     /* 0x6  */ u16 unk6;
     /* 0x8  */ u16 unk8;
     /* 0xA  */ u16 unkA;
-    /* 0xC  */ s16 unkC;   // used for perspective?
-    /* 0xE  */ s16 unkE;   // used for perspective?
+    /* 0xC  */ s16 near;   // used for perspective?
+    /* 0xE  */ s16 far;   // used for perspective?
     /* 0x10 */ u16 unk10;
     /* 0x12 */ u16 unk12;  // xy start/end for level collision
     /* 0x14 */ u16 unk14;  // xy start/end for level collision
@@ -78,14 +78,14 @@ typedef struct {
     /* 0x4E */ s16 unk4E;
     /* 0x50 */ s16 unk50;
     /* 0x52 */ s16 unk52;  // texture bank? level id?
-    /* 0x54 */ u8  unk54;
-    /* 0x55 */ u8  unk55;
-    /* 0x56 */ u8  unk56;
-    /* 0x57 */ u8  unk57;  // water primary alpha
+    /* 0x54 */ u8  unk54; // water primary r ?
+    /* 0x55 */ u8  unk55; // water primary g ?
+    /* 0x56 */ u8  unk56; // water primary b ?
+    /* 0x57 */ u8  waterPrimAlpha;  // water primary alpha
     /* 0x58 */ u8  unk58;
     /* 0x59 */ u8  unk59;
     /* 0x5A */ u8  unk5A;
-    /* 0x5B */ u8  unk5B;  // water env alpha
+    /* 0x5B */ u8  waterEnvAlpha;  // water env alpha
     /* 0x5C */ u8  unk5C[4][6];
     /* 0x74 */ u8  pad74;
     /* 0x75 */ u8  unk75;
@@ -105,8 +105,8 @@ typedef struct {
     /* 0xC8 */ u8  unkC8[0x6];
     /* 0xCE */ s16 evoSuitColor;
     /* 0xD0 */ u8  padD0[0xA];
-    /* 0xDA */ s16 unkDA;  // scissor? width?
-    /* 0xDC */ u16 unkDC;  // initialised?
+    /* 0xDA */ s16 screenWidth;  // scissor? width?
+    /* 0xDC */ u16 ready;  // initialised?
     /* 0xE0 */ f32 fovY;  // used for perspective (copied from unk40)
     /* 0xE4 */ u16 titleText[42];
 } LevelConfig;
@@ -1130,12 +1130,11 @@ typedef struct {
     /* 0x109A0 */ Gfx unk109A0[8][1400];
     /* 0x267A0 */ Gfx gAuxDL[1000];
 
-    /* 0x286E0 */ Vtx unk286E0[961]; // ???
-    /* 0x2C2F0 */ Vtx unk2C2F0[40];
+    /* 0x286E0 */ Vtx unk286E0[31*31]; // waterVerts
+    /* 0x2C2F0 */ Vtx unk2C2F0[40]; // waterCullBoxVerts
     /* 0x2C570 */ Vtx unk2C570[1000];
     /* 0x303F0 */ Vtx unk303F0[200];
-    /* 0x31070 */ Vtx unk31070[30]; // might be bigger, treated as pairs
-    /* 0x31250 */ Vtx unk31250[350]; // might only be 8?
+    /* 0x31070 */ Vtx unk31070[380]; // might be bigger, treated as pairs
     /* 0x32830 */ Mtx unk32830; // unused?
     /* 0x32870 */ uSprite sprites[140]; // maybe more/less
     /* 0x33590 */ Mtx modelViewMtx[250]; // (might only be 240?)
@@ -1973,7 +1972,7 @@ struct Entity {
     /* 0x188 */ Animal *target;
     /* 0x18C */ struct002 unk18C;
     /* 0x192 */ struct002 unk192;
-    /* 0x198 */ void *unk198;
+    /* 0x198 */ Entity *unk198;
 
     /* 0x19C */ Commands commands;
 
@@ -2131,8 +2130,8 @@ typedef struct {
     /* 0x2 */ u16 waterClass;     // unkA0
     /* 0x4 */ u16 canJump;     // unkA2
     /* 0x6 */ u16 unk6;     // unkBE, unk72, unk74
-    /* 0x8 */ u16 unk8;     // mass
-    /* 0xA */ u8  unkA;     // armour
+    /* 0x8 */ u16 mass;     // mass
+    /* 0xA */ u8  armour;     // armour
     /* 0xB */ u8  unkB;     // unk8C
     /* 0xC */ u16 unkC;     // unkA4
     /* 0xE */ u16 unkE;     // unkA6
@@ -2141,7 +2140,7 @@ typedef struct {
     /* 0x14 */ u16 unk14;   // unkAC
     /* 0x16 */ s16 unk16;   // fallDistance
     /* 0x18 */ s16 unk18;   // unkB0
-    /* 0x1A */ u16 unk1A;   // traction
+    /* 0x1A */ u16 traction;   // traction
     /* 0x1C */ u16 unk1C;   // unkB4
     /* 0x1E */ u16 unk1E;   // unkB6
     /* 0x20 */ u16 unk20;   // unkB8
@@ -2161,7 +2160,7 @@ typedef struct {
     /* 0x3A */ s16 unk3A;   // unkD2
     /* 0x3C */ s16 unk3C;   // unkE8
     /* 0x3E */ s16 unk3E;   // unkD4
-    /* 0x40 */ s16 unk40;   // biome
+    /* 0x40 */ s16 biome;   //
     /* 0x42 */ s16 unk42[2][3];
     /* 0x4E */ s8  unk4E;   //
     /* 0x4F */ s8  unk4F;   // unkE9
@@ -2245,37 +2244,6 @@ typedef struct {
 } struct099; // particle, size 0x18?
 
 typedef struct {
-  u16  flags;  // flags
-  u8   unk2;  // texture index?
-  u8   unk3;  // probably not tris..
-} struct102_inner; // size 0x4
-
-typedef struct {
-    s16 tc0; // tc0
-    s16 tc1; // tc1
-    u8  unk4; // cn[0] / r
-    u8  unk5; // cn[1] / g
-    u8  unk6; // cn[2] / b
-    s8  unk7; // x
-    s16 unk8; // y
-    s8  unkA; // z
-    u8  unkB; // cn[3] / a
-} struct102_payload; // size 0xC
-
-typedef struct {
-  /* 0x00 */ struct102_inner unk0;
-  /* 0x04 */ struct102_payload unk4[4];
-} struct102; // size 0x34?
-
-typedef struct {
-    /* 0x0  */ s16 idx;
-    /* 0x2  */ s16 unused; // doesnt really force alignment..
-    /* 0x4  */ s16 v[4];
-    /* 0xC  */ s16 flags[4]; // has texture?
-    /* 0x14 */ u8  pad14[0x10];
-} struct115; // size 0x24 ?
-
-typedef struct {
     s16 unk0;
     s16 unk2;
     s16 transitionId;
@@ -2323,15 +2291,6 @@ typedef struct {
     s16* unk3C;
     s16* unk40;
 } struct108;
-
-typedef struct {
-    /* 0x0  */ s16* unk0[13];   // description?
-    /* 0x34 */ s16* unk34[13];  // value?
-    /* 0x68 */ s16  unk68[13];  // offsets?
-    /* 0x82 */ s16  unk82;
-    /* 0x84 */ s16  unk84;
-    /* 0x86 */ s16  unk86;
-} struct109; // size 0x88
 
 typedef struct {
     /* 0x0     */ ObjectData *unk0;

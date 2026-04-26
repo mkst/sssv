@@ -89,7 +89,6 @@ void func_8031A370_72BA20(void) {
 }
 
 #if 0
-// no real idea whats going on here...
 // ESA: func_8004E044 (but custom for ps1)
 void func_8031A4E0_72BB90(void) {
     s32 pad[0xA];

@@ -9,13 +9,6 @@
 s32 func_802983D0_6A9A80(void);
 
 // ========================================================
-// .data
-// ========================================================
-
-
-
-
-// ========================================================
 // .bss
 // ========================================================
 
@@ -437,10 +430,13 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
 #if 0
 extern Gfx D_010045A0_3DE70[];
 
-// CURRENT (30577)
+// CURRENT (34997)
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
-    u8 pad[0x30];
-    u16 sp190;
+    u8 pad[0x44];
+    u16 z; // sp190
+    u16 x; // var_t0
+
+    s16 i2 = G_CULL_BACK;
 
     u16 sp17A;
     u16 sp178;
@@ -450,19 +446,22 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     s32 sp164;
     s32 sp160;
 
-    s16 sp142;
-    s16 sp140;
-    s16 sp13C;
+    u16 sp142;
+    u16 sp140;
+
+    // s16 sp142;
+    // s16 sp140;
+    s16 vertsPerRow; // sp13C
     s16 sp136;
-    s16 sp134;
-    s16 sp132;
+    s16 maxHeight; // sp134
+    s16 minHeight; // sp132
     s16 sp12C;
     s16 sp126;
 
     // s32 spB8;
     // s32 spB4;
-    // s32 spB0;
-    // s16 spA8;
+    s32 spB0;
+    s16 spA8;
     // u32 spA4;
     s32 spA0;
     s32 sp98;
@@ -475,33 +474,21 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     f32 temp_f24;
     f32 temp_f2;
 
-    s16 temp_t9;
+    s16 height;
     s16 end;
     s16 var_t1;
     s16 var_t5;
     s16 i;
     s32 temp_a0;
-    s32 temp_a0_2;
-    // s32 temp_a1_10;
-    s32 temp_a1_2;
-    // s32 temp_f4;
-    // s32 temp_f6;
     s32 temp_s4;
     s32 temp_t1;
     s32 temp_t2;
-    s32 temp_t7_5;
-    // s32 temp_t7_6;
-    // s32 temp_v0_2;
-    // s32 temp_v0_3;
-    // s32 temp_v0_4;
-    // s32 var_s0_2;
+    s32 temp_t7;
     s32 var_s2;
     s32 var_s5;
     // s32 var_s7;
-    u16 var_t0;
     s32 var_t4;
     s32 var_v1;
-    s8 temp_a2_2;
     s16 start;
     u16 temp_v1_3;
 
@@ -509,27 +496,26 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     static s16 D_803A04F2_7B1BA2 = 0; // unused?
     static s16 D_803A04F8_7B1BA8 = 1; // unused?
 
-    if (D_803F2D50.unk14 != 0) {
+    if (D_803F2D50.unk14 == 0) {
+        return;
+    }
 
-        sp126 = 0;
-        sp134 = 10000;
-        sp132 = -10000;
+    sp126 = 0;
+    maxHeight = 10000;
+    minHeight = -10000;
 
-        gSPDisplayList(gLayer1DL++, D_01004270_3DB40);
-        gSPDisplayList(gLayer1DL++, D_010045A0_3DE70);
+    gSPDisplayList(gLayer1DL++, D_01004270_3DB40);
+    gSPDisplayList(gLayer1DL++, D_010045A0_3DE70);
 
-        func_802985AC_6A9C5C(&gLayer1DL);
+    func_802985AC_6A9C5C(&gLayer1DL);
 
-        gSPTexture(gLayer1DL++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON); // 0x10000
-        gDPSetTextureLOD(gLayer1DL++, G_TL_TILE);
-        gDPSetRenderMode(gLayer1DL++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2);
-        gDPSetCombineLERP(gLayer1DL++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, 0, 0, 0, PRIMITIVE);
+    gSPTexture(gLayer1DL++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON); // 0x10000
+    gDPSetTextureLOD(gLayer1DL++, G_TL_TILE);
+    gDPSetRenderMode(gLayer1DL++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2);
+    gDPSetCombineLERP(gLayer1DL++, TEXEL1, TEXEL0, PRIM_LOD_FRAC, TEXEL0, 0, 0, 0, PRIMITIVE, PRIMITIVE, ENVIRONMENT, COMBINED, ENVIRONMENT, 0, 0, 0, PRIMITIVE);
 
-        if ((D_803F2D50.unk14 != 0) && (D_803F2D50.unk16 != 0)) {
-
-            sp142 = D_803F2D50.unk14;
-            sp140 = D_803F2D50.unk16;
-
+    if ((D_803F2D50.unk14 != 0)) {
+        if (D_803F2D50.unk16 != 0) {
             if (gCameraVisibilityMask[0] & 0x20) {
 
                 D_803A04F0_7B1BA0 += 2;
@@ -537,79 +523,84 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                     D_803A04F0_7B1BA0 = 0;
                 }
 
-                sp13C = sp142 + 1;
+                sp142 = D_803F2D50.unk14;
+                sp140 = D_803F2D50.unk16;
 
-                sp164 = D_803F2D50.unk10; //D_803F2D60;
-                sp160 = D_803F2D50.unk12; //D_803F2D62;
+                vertsPerRow = sp142 + 1;
 
+                sp164 = D_803F2D50.unk10;
+                sp160 = D_803F2D50.unk12;
+
+                // reset water heights
                 for (var_v1 = 0; var_v1 < (31 * 31); var_v1++) {
-                    arg1->unk286E0[var_v1].v.ob[2] = 0; // reset y?
+                    arg1->unk286E0[var_v1].v.ob[2] = 0;
                 }
 
                 gWaterAnimState.unk20E++;
 
-                for (sp190 = 0; sp190 <= sp140; sp190++) {
-                    for (var_t0 = 0; var_t0 <= sp142; var_t0++) {
+                for (z = 0; z <= sp140; z++) {
+                    for (x = 0; x <= sp142; x++) {
 
-                        // spB0 = (s32) sp190;
-                        // spA0 = (s32) sp190;
-                        // do {
-                        // temp_v1 = (var_t0 * 0x408) + (sp164 * 0x408) + (sp190 * 8) + (sp160 * 8) + D_803C0740;
-                        // D_803C0740[var_t0 + sp164][sp190 + sp160]
-                        temp_t9 = (D_803C0740[var_t0 + sp164][sp190 + sp160].unk6 * 4) & 0xFFFF;
-                        if (sp134 >= temp_t9) {
-                            sp134 = temp_t9;
+                        spB0 = (s32) z;
+                        spA0 = (s32) z;
+                        height = (D_803C0740[x + sp164][z + sp160].unk6 * 4) & 0xFFFF;
+                        if (maxHeight >= height) {
+                            maxHeight = height;
                         }
-                        if (temp_t9 >= sp132) {
-                            sp132 = temp_t9;
+                        if (height >= minHeight) {
+                            minHeight = height;
                         }
 
                         // sp98 = temp_v1;
-                        if (temp_t9 != 0) {
+                        if (height != 0) {
                             s32 tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
+                            u16 tmp7, tmp8;
+                            f32 foo =  64.0f;
 
-                            temp_t1 = var_t0 + sp164;
-                            temp_a0 = sp190 + sp160;
+                            temp_t1 = x + sp164;
+                            temp_a0 = z + sp160;
 
-                            sp17A = D_803C0740[(var_t0 + sp164) - 1][temp_a0 - 1].unk6 * 4;
-                            sp178 = D_803C0740[(var_t0 + sp164) - 1][temp_a0 + 1].unk6 * 4;
-                            sp176 = D_803C0740[(var_t0 + sp164) + 1][temp_a0 + 1].unk6 * 4;
-                            sp174 = D_803C0740[(var_t0 + sp164) + 1][temp_a0 - 1].unk6 * 4;
+                            sp17A = D_803C0740[temp_t1 - 1][temp_a0 - 1].unk6 * 4;
+                            sp178 = D_803C0740[temp_t1 - 1][temp_a0 + 1].unk6 * 4;
+                            sp176 = D_803C0740[temp_t1 + 1][temp_a0 + 1].unk6 * 4;
+                            sp174 = D_803C0740[temp_t1 + 1][temp_a0 - 1].unk6 * 4;
 
+                            temp_t2 = sp164 + (x * sp160) + z;
+                            temp_t7 = (temp_t2 + sp164 + (x * sp164) + x) * 8;
 
-                            temp_t2 = sp164 + (var_t0 * sp160) + sp190;
-                            temp_t7_5 = (temp_t2 + sp164 + (var_t0 * sp164) + var_t0) * 8;
+                            tmp6 = (temp_t1 + sp160 + z);
+                            tmp5 = (tmp6 + sp164 + temp_t1 + x) * 8;
 
-                            tmp6 = ((var_t0 + sp164) + sp160 + sp190);
-                            tmp5 = (tmp6 + sp164 + var_t0 + sp164 + var_t0) * 8;
+                            arg1->unk286E0[(z * vertsPerRow) + x].v.ob[2] = gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)] + height;
 
-                            arg1->unk286E0[(sp190 * sp13C) + var_t0].v.ob[2] = gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)] + temp_t9;
+                            tmp1 = gWaterAnimState.unk0[(tmp6    + 0) & 7][((gWaterAnimState.unk204 + tmp5   ) + 8) & 0x3F];
+                            tmp2 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7) + 0) & 0x3F];
+                            tmp3 = gWaterAnimState.unk0[(temp_t2 + 1) & 7][((gWaterAnimState.unk204 + temp_t7) + 8) & 0x3F];
+                            tmp4 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7) + 0) & 0x3F];
 
-                            tmp1 = gWaterAnimState.unk0[(tmp6    + 0) & 7][((gWaterAnimState.unk204 + tmp5 + 8) & 0x3F)];
-                            tmp2 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7_5) + 0) & 0x3F];
-                            tmp3 = gWaterAnimState.unk0[(temp_t2 + 1) & 7][((gWaterAnimState.unk204 + temp_t7_5) + 8) & 0x3F];
-                            tmp4 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7_5) + 0) & 0x3F];
+                            tmp7 = (D_803C0740[temp_t1][z + sp160 + 0].unk6 * 4);
+                            tmp8 = (D_803C0740[temp_t1][z + sp160 + 1].unk6 * 4);
 
-                            temp_f20 = ((tmp1 + temp_t9 + tmp2) - ((D_803C0740[var_t0 + sp164][sp190 + sp160 + 0].unk6 * 4) & 0xFFFF)) / 64.0f;
-                            temp_f22 = ((tmp3 + temp_t9 + tmp4) - ((D_803C0740[var_t0 + sp164][sp190 + sp160 + 1].unk6 * 4) & 0xFFFF)) / 64.0f;
-                            temp_f24 = 64.0f / 64.0f;
+                            temp_f20 = ((tmp1 + height + tmp2) - (tmp7)) / 64.0f;
+                            temp_f22 = ((tmp3 + height + tmp4) - (tmp8)) / 64.0f;
+                            temp_f24 = foo / 64.0f;
 
                             temp_f2 = 128.0f / sqrtf(SQ(temp_f20) + SQ(temp_f22) + SQ(temp_f24));
-                            arg1->unk286E0[(sp190 * sp13C) + var_t0].v.cn[0] = (s32) (temp_f20 * temp_f2);
-                            arg1->unk286E0[(sp190 * sp13C) + var_t0].v.cn[1] = (s32) (temp_f22 * temp_f2);
-                            arg1->unk286E0[(sp190 * sp13C) + var_t0].v.cn[2] = (s32) (temp_f24 * temp_f2);
+                            arg1->unk286E0[(z * vertsPerRow) + x].n.n[0] = (s32) (temp_f20 * temp_f2);
+                            arg1->unk286E0[(z * vertsPerRow) + x].n.n[1] = (s32) (temp_f22 * temp_f2);
+                            arg1->unk286E0[(z * vertsPerRow) + x].n.n[2] = (s32) (temp_f24 * temp_f2);
 
                             if (sp17A == 0) {
-                                arg1->unk286E0[(((sp190 - 1) * sp13C) + var_t0) - 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((z - 1) * vertsPerRow) + x) - 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
                             }
                             if (sp178 == 0) {
-                                arg1->unk286E0[(((sp190 + 1) * sp13C) + var_t0) - 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((z + 1) * vertsPerRow) + x) - 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
                             }
                             if (sp176 == 0) {
-                                arg1->unk286E0[(((sp190 + 1) * sp13C) + var_t0) + 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((z + 1) * vertsPerRow) + x) + 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
                             }
                             if (sp174 == 0) {
-                                arg1->unk286E0[(((sp190 - 1) * sp13C) + var_t0) + 1].v.ob[2] = temp_t9 - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7_5) & 0x3F)];
+                                arg1->unk286E0[(((z - 1) * vertsPerRow) + x) + 1].v.ob[2] = height - gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)];
                             }
                         }
                     }
@@ -617,7 +608,8 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                 sp12C = 0;
                 sp98 = sp140 - 1;
-                sp136 = 0;
+
+                sp136 = 0; // we never reset this?
 
                 for (var_s5 = 0; var_s5 < sp142; var_s5 = (var_s5 + var_t1) - 1) {
                     var_s2 = 1;
@@ -626,143 +618,75 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                     } else {
                         var_t1 = 0x10;
                     }
-                    // start = (u16 *) arg1;
-
-                    // temp_t8_2 = start + (sp136 * 0x10);
-                    // temp_t8_2->unk2C2F0 = (s16) (D_803F2D50.unk10 << 6);
-                    // temp_t8_2->unk2C2F2 = (s16) (D_803F2D50.unk12 << 6);
-                    // temp_t8_2->unk2C2F4 = sp134;
-                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.unk10 << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.unk12 << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = sp134;
-                    sp136++;
-
-                    // temp_a1_3 = sp136 + 1;
-                    // temp_t8_3 = start + (temp_a1_3 * 0x10);
-                    // temp_t8_3->unk2C2F0 = (s16) (D_803F2D50.unk10 << 6);
-                    // temp_t8_3->unk2C2F4 = sp134;
-                    // temp_t8_3->unk2C2F2 = (s16) ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.unk10 << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = sp134;
-                    arg1->unk2C2F0[sp136].v.ob[2] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    sp136++;
-
-                    // temp_a1_4 = temp_a1_3 + 1;
-                    // temp_t6_2 = start + (temp_a1_4 * 0x10);
-                    // temp_t6_2->unk2C2F0 = (s16) ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
-                    // temp_t6_2->unk2C2F2 = (s16) ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    // temp_t6_2->unk2C2F4 = sp134;
-                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = sp134;
-                    sp136++;
-
-                    // temp_a1_5 = temp_a1_4 + 1;
-                    // temp_t6_3 = start + (temp_a1_5 * 0x10);
-                    // temp_t6_3->unk2C2F0 = (s16) ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
-                    // temp_t6_3->unk2C2F2 = (s16) (D_803F2D50.unk12 << 6);
-                    // temp_t6_3->unk2C2F4 = sp134;
-
-                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.unk12 << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = sp134;
-                    sp136++;
-
-                    // temp_a1_6 = temp_a1_5 + 1;
-                    // temp_t8_4 = start + (temp_a1_6 * 0x10);
-                    // temp_t8_4->unk2C2F0 = (s16) (D_803F2D50.unk10 << 6);
-                    // temp_t8_4->unk2C2F2 = (s16) (D_803F2D50.unk12 << 6);
-                    // temp_t8_4->unk2C2F4 = sp132;
 
                     arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.unk10 << 6);
                     arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.unk12 << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = sp132;
+                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
                     sp136++;
-
-                    // temp_a1_7 = temp_a1_6 + 1;
-                    // temp_t8_5 = start + (temp_a1_7 * 0x10);
-                    // temp_t8_5->unk2C2F0 = (s16) (D_803F2D50.unk10 << 6);
-                    // temp_t8_5->unk2C2F2 = (s16) ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    // temp_t8_5->unk2C2F4 = sp132;
 
                     arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.unk10 << 6);
                     arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = sp132;
+                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
                     sp136++;
-
-                    // temp_a1_8 = temp_a1_7 + 1;
-                    // temp_t6_4 = start + (temp_a1_8 * 0x10);
-                    // temp_t6_4->unk2C2F0 = (s16) ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
-                    // temp_t6_4->unk2C2F2 = (s16) ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    // temp_t6_4->unk2C2F4 = sp132;
 
                     arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
                     arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = sp132;
+                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
                     sp136++;
 
-                    // temp_a1_9 = temp_a1_8 + 1;
-                    // temp_t6_5 = start + (temp_a1_9 * 0x10);
-                    // temp_t6_5->unk2C2F0 = (s16) ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
-                    // temp_t6_5->unk2C2F2 = (s16) (D_803F2D50.unk12 << 6);
-                    // temp_t6_5->unk2C2F4 = sp132;
                     arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
                     arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.unk12 << 6);
-                    arg1->unk2C2F0[sp136].v.ob[2] = sp132;
+                    arg1->unk2C2F0[sp136].v.ob[2] = maxHeight;
                     sp136++;
 
-                    // sp136 = temp_a1_9;
-                    // sp136 += 1;
+                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.unk10 << 6);
+                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.unk12 << 6);
+                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
+                    sp136++;
 
-                    // temp_a3_7 = D_801D9E94;
-                    // D_801D9E94 = temp_a3_7 + 8;
-                    // temp_a3_7->words.w0 = 0x0400207F;
-                    // temp_a3_7->words.w1 = spA4;
-                    gSPVertex(gLayer1DL++, (s32)&arg1->unk2C2F0[0] & 0x1FFFFFFF, 8, 0);
-                    // temp_a3_8 = D_801D9E94;
-                    // D_801D9E94 = temp_a3_8 + 8;
-                    // temp_a3_8->words.w1 = 0xE;
-                    // temp_a3_8->words.w0 = 0xBE000000;
+                    arg1->unk2C2F0[sp136].v.ob[0] = (D_803F2D50.unk10 << 6);
+                    arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
+                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
+                    sp136++;
+
+                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
+                    arg1->unk2C2F0[sp136].v.ob[1] = ((D_803F2D50.unk12 + D_803F2D50.unk16) << 6);
+                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
+                    sp136++;
+
+                    arg1->unk2C2F0[sp136].v.ob[0] = ((D_803F2D50.unk10 + D_803F2D50.unk14) << 6);
+                    arg1->unk2C2F0[sp136].v.ob[1] = (D_803F2D50.unk12 << 6);
+                    arg1->unk2C2F0[sp136].v.ob[2] = minHeight;
+                    sp136++;
+
+                    gSPVertex(
+                    /* pkt */ gLayer1DL++,
+                    /* v   */ K0_TO_PHYS(&arg1->unk2C2F0[0]),
+                    /* n   */ 8,
+                    /* v0  */ 0);
+
                     gSPCullDisplayList(gLayer1DL++, 0, 7);
 
-                    #if 0
-                    temp_a3_9 = gLayer1DL;
-                    gLayer1DL = temp_a3_9 + 8;
-                    temp_a3_9->words.w0 = (((var_t1 << 0xA) | ((var_t1 * 0x10) - 1)) & 0xFFFF) | 0x04000000;
-                    temp_a3_9->words.w1 = (s32) (arg1 + (var_s5 * 0x10) + 0x286E0) & 0x1FFFFFFF;
-                    #endif
+                    gSPVertex(
+                    /* pkt */ gLayer1DL++,
+                    /* v   */ K0_TO_PHYS(&arg1->unk286E0[var_s5]),
+                    /* n   */ var_t1,
+                    /* v0  */ 0);
 
-                    gSPVertex(gLayer1DL++,
-                        (s32)&arg1->unk286E0[var_s5] & 0x1FFFFFFF,
-                        var_t1,
-                        0
-                        );
-
-                    // var_s7 = 1;
+                    // var_s7 = 1; /// ???
                     temp_s4 = var_t1 - 1;
-                    var_t5 = sp13C;
+                    var_t5 = vertsPerRow;
                     spA0 = (s32) var_t1;
 
                     for (var_t4 = 0; var_t4 < sp98; var_t4++) {
-                        // spB4 = var_t5 * 0x10;
-                        // var_ra = arg1 + spB4;
-                        // spB8 = var_t5 * 0x10;
-                        // sp88 = var_ra + (var_s5 * 0x10);
-                        // spB4 = temp_t7_6;
-                        // do {
-                        // temp_a3_10 = D_801D9E94;
-                        // D_801D9E94 = temp_a3_10 + 8;
-                        start = -100;   // start
+                        start = -100; // start
                         end = var_t1; // end
-                        // var_s0_2 = 0;
-                        // temp_a3_10->words.w0 = 0xE7000000;
-                        // temp_a3_10->words.w1 = 0;
+
                         gDPPipeSync(gLayer1DL++);
 
-
                         for  (i = 0; i < var_t1; i++) {
-                            if ((arg1->unk286E0[var_t4*sp13C + i].v.ob[2] != 0) ||  // ((arg1 + (var_t4 * spA8 * 0x10) + temp_v1_4)->unk286E4 != 0) ||
-                                (arg1->unk286E0[var_t5 + i].v.ob[2] != 0)) {  //((var_ra + temp_v1_4)->unk286E4 != 0)) {
+                            if ((arg1->unk286E0[var_t4*vertsPerRow + i].v.ob[2] != 0) ||
+                                (arg1->unk286E0[var_t5 + i].v.ob[2] != 0)) {
                                 if (start == -100) {
                                     start = i;
                                 }
@@ -776,55 +700,42 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                         sp12C += 1;
                         sp126 += (end - start) + 1;
-                        #if 0
-                        gLayer1DL = temp_a3_11 + 8;
-                        temp_a3_11->words.w0 = ((((s32) ((spA0 * var_s2) + start) * 2) & 0xFF) << 0x10) | 0x04000000 | (((temp_a1_10 << 0xA) | ((temp_a1_10 * 0x10) - 1)) & 0xFFFF);
-                        temp_a3_11->words.w1 = (s32) (sp88 + ((s32) start * 0x10) + 0x286E0) & 0x1FFFFFFF;
-                        #endif
 
-                        gSPVertex(gLayer1DL++,
-                            (s32)&arg1->unk286E0[var_s5] & 0x1FFFFFFF,
-                            (end - start) + 1,
-                            (spA0 * var_s2) + start
-                            );
+                        gSPVertex(
+                        /* pkt */ gLayer1DL++,
+                        /* v   */ K0_TO_PHYS(&arg1->unk286E0[var_t5 + var_s5 + start]),
+                        /* n   */ (end - start) + 1,
+                        /* v0  */ (spA0 * var_s2) + start);
 
-                        for (var_t0 = 0; var_t0 < temp_s4; var_t0++) {
-                            // temp_v0_3 = var_s5 + var_t0;
-                            // temp_v1_5 = (temp_v0_3 * 0x408) + (sp164 * 0x408) + (var_t4 * 8) + (sp160 * 8) + D_803C0740;
-                            // D_803C0740[temp_v0_3 + sp164][var_t4 + sp160]
-                            // start = arg1 + (temp_v0_3 * 0x10);
-                            // temp_t8_6 = start + (var_t4 * spA8 * 0x10);
-                            // temp_t8_6 ---> arg1->unk286E0[temp_v0_3 + (var_t4 * spA8)].v.ob[2];
-                            // temp_t8_7 = start + (var_t5 * 0x10);
-                            // temp_t8_7 ---> arg1->unk286E0[temp_v0_3 + var_t5].v.ob[2];
+                        for (i = 0; i < temp_s4; i++) {
 
-                            if (((D_803C0740[(var_s5 + var_t0) + sp164 + 0][var_t4 + sp160 + 0].unk0 * 8) < arg1->unk286E0[(var_s5 + var_t0) + (var_t4 * sp13C) + 0].v.ob[2]) ||
-                                ((D_803C0740[(var_s5 + var_t0) + sp164 + 1][var_t4 + sp160 + 0].unk0 * 8) < arg1->unk286E0[(var_s5 + var_t0) + (var_t4 * sp13C) + 1].v.ob[2]) ||
-                                ((D_803C0740[(var_s5 + var_t0) + sp164 + 1][var_t4 + sp160 + 1].unk0 * 8) < arg1->unk286E0[(var_s5 + var_t0) + var_t5 + 1].v.ob[2]) ||
-                                ((D_803C0740[(var_s5 + var_t0) + sp164 + 0][var_t4 + sp160 + 1].unk0 * 8) < arg1->unk286E0[(var_s5 + var_t0) + var_t5 + 0].v.ob[2])) {
+                            if (((D_803C0740[(var_s5 + i) + sp164 + 0][var_t4 + sp160 + 0].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t4 * vertsPerRow) + 0].v.ob[2]) ||
+                                ((D_803C0740[(var_s5 + i) + sp164 + 1][var_t4 + sp160 + 0].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t4 * vertsPerRow) + 1].v.ob[2]) ||
+                                ((D_803C0740[(var_s5 + i) + sp164 + 1][var_t4 + sp160 + 1].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t5              ) + 1].v.ob[2]) ||
+                                ((D_803C0740[(var_s5 + i) + sp164 + 0][var_t4 + sp160 + 1].unk0 * 8) < arg1->unk286E0[(var_s5 + i) + (var_t5              ) + 0].v.ob[2])) {
 
                                 if (var_s2 != 0) {
                                     gSP2Triangles(
                                     /* gdl   */ gLayer1DL++,
-                                    /* v00   */ (var_t0 + var_t1),
-                                    /* v01   */ var_t0 + 1,
-                                    /* v02   */ (var_t0 + var_t1) + 1,
+                                    /* v00   */ (i + var_t1),
+                                    /* v01   */ (i         ) + 1,
+                                    /* v02   */ (i + var_t1) + 1,
                                     /* flag0 */ 0,
-                                    /* v10   */ (var_t0 + var_t1),
-                                    /* v11   */ var_t0 + 0,
-                                    /* v12   */ var_t0 + 1,
+                                    /* v10   */ (i + var_t1),
+                                    /* v11   */ (i         ) + 0,
+                                    /* v12   */ (i         ) + 1,
                                     /* flag1 */ 0);
 
                                 } else {
                                     gSP2Triangles(
                                     /* gdl   */ gLayer1DL++,
-                                    /* v00   */ var_t0,
-                                    /* v01   */ (var_t1 + var_t0) + 1,
-                                    /* v02   */ var_t0 + 1,
+                                    /* v00   */ (i         ),
+                                    /* v01   */ (i + var_t1) + 1,
+                                    /* v02   */ (i         ) + 1,
                                     /* flag0 */ 0,
-                                    /* v10   */ var_t0,
-                                    /* v11   */ (var_t1 + var_t0),
-                                    /* v12   */ (var_t1 + var_t0) + 1,
+                                    /* v10   */ (i         ),
+                                    /* v11   */ (i + var_t1),
+                                    /* v12   */ (i + var_t1) + 1,
                                     /* flag1 */ 0);
                                 }
                             }
@@ -832,7 +743,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                         var_s2 = 1 - var_s2; // toggle
 
-                        var_t5 += sp13C;
+                        var_t5 += vertsPerRow;
                     }
                 }
 
@@ -840,8 +751,8 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
                 gSPTexture(gLayer1DL++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
             }
         }
-        func_802983D0_6A9A80();
     }
+    func_802983D0_6A9A80();
 }
 #else
 static s16 D_803A04F0_7B1BA0 = 0;
@@ -851,7 +762,7 @@ static s16 D_803A04F8_7B1BA8 = 1; // unused?
 #endif
 
 s32 func_802983D0_6A9A80(void) {
-    s32 new_var;
+    s32 new_var UNUSED;
     s32 water_level = GET_WATER_LEVEL(D_803C0740, ((u16)gCameras[gCameraId].unk74), ((u16)gCameras[gCameraId].unk78));
     // needed!
     new_var = water_level;
@@ -870,9 +781,9 @@ void func_802985AC_6A9C5C(Gfx **dl) {
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
 
-    gDPSetEnvColor((*dl)++, D_803E1BBD, D_803E1BBE, D_803E1BBF, D_803F2D50.unk5B);
+    gDPSetEnvColor((*dl)++, D_803E1BBD, D_803E1BBE, D_803E1BBF, D_803F2D50.waterEnvAlpha);
 
-    gDPSetPrimColor((*dl)++, 128, gWaterAnimState.unk200, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+    gDPSetPrimColor((*dl)++, 128, gWaterAnimState.unk200, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
 }
 
 void func_8029877C_6A9E2C(void) {
@@ -942,7 +853,7 @@ s16 func_80298818_6A9EC8(s16 arg0, s16 arg1) {
     }
 }
 
-s16 func_80298B70_6AA220(s16 arg0, s16 arg1) {
+s16 unused_80298B70_6AA220(s16 arg0, s16 arg1) {
     s16 temp_t3;
     s16 temp_v0;
 
@@ -969,7 +880,7 @@ s16 func_80298B70_6AA220(s16 arg0, s16 arg1) {
     }
 }
 
-void func_80298D44_6AA3F4(Animal *arg0) {
+void unused_80298D44_6AA3F4(Animal *arg0) {
     s16 x;
     s16 z;
     s32 tmp;
@@ -1039,7 +950,7 @@ s16 func_80298F78_6AA628(s16 arg0, s16 arg1) {
     }
 }
 
-s16 func_802990A4_6AA754(s16 arg0, s16 arg1) {
+s16 unused_802990A4_6AA754(s16 arg0, s16 arg1) {
     s16 tmp0;
     s16 tmp1;
 

@@ -6,8 +6,6 @@
 // main_1050
 void func_80125950(s32 arg0);
 
-void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numTris);
-
 // mtx
 void build_rotate_scale_translate_matrix(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s16 arg6, s32 arg7, s32 arg8, s32 arg9);
 void func_80125FE0(Mtx *, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7, s32 arg8);
@@ -63,7 +61,6 @@ void func_8012D374(Gfx **arg0, s16 *arg1, u16 arg2, u16 arg3, f32 arg4, f32 arg5
 void display_text_word_wrapped(Gfx **, s16*, u16, u16, f32, f32, u8);
 
 // main_C2A0
-void func_80130BA0(void);
 void junk_eeprom(void); // junk eeprom
 void clear_player_eeprom_state(void); // clear eeprom
 
@@ -164,11 +161,9 @@ void func_80296544_6A7BF4(void);
 void func_802985AC_6A9C5C(Gfx **dl);
 void func_8029877C_6A9E2C(void);
 s16  func_80298B70_6AA220(s16 arg0, s16 arg1);
-void func_80298D44_6AA3F4(Animal *arg0);
 s32  func_80298E08_6AA4B8(s16 arg0, s16 arg1);
 s16  func_80298E98_6AA548(s16 arg0, s16 arg1);
 s16  func_80298F78_6AA628(s16 arg0, s16 arg1);
-s16  func_802990A4_6AA754(s16 arg0, s16 arg1);
 void func_80299140_6AA7F0(void);
 void func_80299640_6AACF0(s16, s16, s16*, s16*, s16*, s16*);
 
@@ -183,12 +178,10 @@ void build_visible_world_cell_queue(s32 arg0, s32 arg1, s32 arg2);
 u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
 void render_ship_window_projection_replay(void);
-void func_8029ABCC_6AC27C(void);
 
 // overlay2_6AC360
 u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, Animal **arg5, s32 *arg6, Animal *arg7, Animal **arg8, s32 *arg9);
 void func_8029ACB0_6AC360(void);
-s32  func_8029ACB8_6AC368(s32 arg0, s32 arg1); // function does nothing but return 1, types can be changed
 void func_8029ACC8_6AC378(void);
 
 // overlay2_6ACF20
@@ -203,7 +196,6 @@ void load_dynamic_texture_billboard_texture_pair(Gfx **arg0, s16 arg1);
 void enqueue_distance_sorted_textured_display_list_instance(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, Gfx *arg7);
 void render_distance_sorted_textured_display_list_instances(void);
 void func_8029E100_6AF7B0(void);
-void func_8029E3CC_6AFA7C(void);
 void render_untextured_colored_display_list_queue(void);
 void render_lookat_textured_display_list_queue(void);
 void render_texture_grouped_display_list_queue(struct025 *arg0, Gfx **dl);
@@ -389,7 +381,6 @@ void func_802BB1F0_6CC8A0(u16 arg0, u16 arg1);
 
 // overlay2_6CCEF0
 void func_802BB840_6CCEF0(u16 arg0);
-void func_802BB870_6CCF20(u16 arg0);
 void func_802BB938_6CCFE8(u16 arg0);
 void func_802BBA10_6CD0C0(u16 arg0);
 void func_802BBC90_6CD340(u16 arg0);
@@ -793,8 +784,8 @@ s32  is_animal(s16 arg0);
 s32  is_object_helper(Animal *arg0, s16 arg1);
 s32  is_object(s16 arg0);
 u8   run_single_command(Animal *arg0, Cmd *arg1);
-s32  func_80316408_727AB8(Animal *arg0);
-void func_803190FC_72A7AC(Animal *arg0);
+s32  func_80316408_727AB8(Entity *arg0);
+void func_803190FC_72A7AC(Entity *arg0);
 void func_803191B0_72A860(Entity *arg0);
 
 // overlay2_72A930
@@ -956,10 +947,7 @@ void func_803441FC_7558AC(void);
 
 // overlay2_7558F0
 void func_80344240_7558F0(void);
-void func_803458B8_756F68(Gfx **arg0, Vtx *vtx, s16 num);
-void func_80346878_757F28(Gfx **arg0, u8 arg1);
-void func_803469D4_758084(Gfx **arg0, u16 arg1);
-void func_80346AB0_758160(Gfx **arg0, u8 arg1);
+
 
 // sssv/osd.c
 void osd_draw_health_and_power_bars(s16 arg0);
@@ -988,10 +976,6 @@ void spawn_dizzy_stars_medium(void);
 void spawn_dizzy_starts_small(void);
 void kick_up_dust_small(s32 xVelocity, s32 zVelocity);
 void kick_up_dust_big(s32 xVelocity, s32 zVelocity);
-void func_8034AFE0_75C690(void);
-void func_8034AFE8_75C698(s32 arg0, Animal *arg1);
-void func_8034AFF4_75C6A4(s32 arg0, Animal *arg1);
-void func_8034B000_75C6B0(s32 arg0);
 void func_8034B008_75C6B8(u8, u8, s16, s32*, s32*, s32*); // tbd
 void func_8034B298_75C948(s16 arg0);
 void func_8034B3A8_75CA58(s16 arg0);
@@ -1067,7 +1051,6 @@ void func_8035A590_76BC40(s16 arg0);
 void func_8035A5A4_76BC54(s16 arg0);
 
 // overlay2_76F7D0
-void func_8035E120_76F7D0(void);
 void func_8035E200_76F8B0(void);
 s32  func_8035E344_76F9F4(Animal2 *arg0, s16 arg1);
 
@@ -1220,13 +1203,8 @@ void func_8037D138_78E7E8(void);
 void func_8037D268_78E918(s16 arg0);
 
 // overlay2_78E970
-void func_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void empty_8037D32C_78E9DC(Gfx *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
 void func_8037D340_78E9F0(s16 arg0, s16 arg1);
-void func_8037D2D4_78E984(s32 arg0, s32 arg1, s32 arg2);
-void func_8037D2E4_78E994(s32 arg0);
-void func_8037D310_78E9C0(s32 arg0, s32 arg1, s32 arg2);
-void func_8037D320_78E9D0(s32 arg0, s32 arg1);
-void func_8037D32C_78E9DC(Gfx *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
 void set_target_speed(s8 arg0);
 void func_8037D9D4_78F084(void);
 void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4);
@@ -1283,11 +1261,10 @@ void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4);
 void func_8038C484_79DB34(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s16 arg4);
 
 // overlay2_79DE10
-void func_8038C760_79DE10(void);
+void empty_8038C760_79DE10(void);
 void func_8038C768_79DE18(void);
 void func_8038C98C_79E03C(void);
-s16  func_8038CC28_79E2D8(void);
-s16  func_8038CC50_79E300(void);
+
 s16  func_8038CCA4_79E354(void);
 s16  func_8038CCC0_79E370(void);
 s16  func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5);
@@ -1306,31 +1283,13 @@ void func_8038F5F8_7A0CA8(Animal *arg0);
 void trigger_new_animal_cutscene(void);
 
 // overlay2_7A0DA0
-void func_8038F6F0_7A0DA0(void);
 void func_8038F708_7A0DB8(void);
-void func_8038F968_7A1018(void);
 void func_8038FAB4_7A1164(void);
-void func_8038FB68_7A1218(void);
-void func_8038FC58_7A1308(void);
-void func_8038FCF8_7A13A8(void);
 void func_8038FD74_7A1424(void);
-void func_8038FF48_7A15F8(void);
 void func_8038FF68_7A1618(void);
-void func_80391A38_7A30E8(void);
 void func_803925D0_7A3C80(u16 *src, u16 *dst);
-void func_8039264C_7A3CFC(void);
-void func_80392668_7A3D18(void);
 void func_80395074_7A6724(s32 debug);
-void func_80395088_7A6738(Gfx **arg0, s16 ulx, s16 uly, s16 lrx, s16 lry, u8 color);
-void func_8039546C_7A6B1C(Gfx **arg0, s16 arg1, s16 arg2, s16 arg3);
-void setup_pause_menu_perspective_a_7A6B30(void);
-void setup_pause_menu_perspective_b_7A6F04(void);
-void func_80395B58_7A7208(void);
-void func_80395E98_7A7548(Gfx **arg0);
 void func_803962EC_7A799C(Gfx **dl, s16 p_screen_x, s16 p_screen_y, s16 arg3, s16 arg4, u8* img, u16 width, u16 height);
-void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
-s32  func_80396714_7A7DC4(void);
-s32  func_80396748_7A7DF8(void);
 void func_803967D4_7A7E84(s16 arg0, s16 arg1, u8 red, u8 green, u8 blue, s16 head, s16 torso, s16 arms, s16 legs, s16 arg9);
 
 // overlay2_7A8A50

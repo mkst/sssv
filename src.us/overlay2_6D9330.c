@@ -19,8 +19,8 @@ void func_802C7C80_6D9330(void) {
         gAnimalState.unk0[i].canJump = D_803A05D0_7B1C80[i].canJump;
 
         gAnimalState.unk0[i].unk74 = gAnimalState.unk0[i].unk72 = gAnimalState.unk0[i].unkBE = D_803A05D0_7B1C80[i].unk6;
-        gAnimalState.unk0[i].mass = D_803A05D0_7B1C80[i].unk8 & 0xFFFF;
-        gAnimalState.unk0[i].armour = D_803A05D0_7B1C80[i].unkA;
+        gAnimalState.unk0[i].mass = D_803A05D0_7B1C80[i].mass & 0xFFFF;
+        gAnimalState.unk0[i].armour = D_803A05D0_7B1C80[i].armour;
         gAnimalState.unk0[i].unk8C = D_803A05D0_7B1C80[i].unkB;
         gAnimalState.unk0[i].unkEB = D_803A05D0_7B1C80[i].unk51;
 
@@ -37,14 +37,14 @@ void func_802C7C80_6D9330(void) {
         gAnimalState.unk0[i].unkAC = D_803A05D0_7B1C80[i].unk14;
         gAnimalState.unk0[i].fallDistance = D_803A05D0_7B1C80[i].unk16;
         gAnimalState.unk0[i].unkB0 = D_803A05D0_7B1C80[i].unk18;
-        gAnimalState.unk0[i].traction = D_803A05D0_7B1C80[i].unk1A;
+        gAnimalState.unk0[i].traction = D_803A05D0_7B1C80[i].traction;
         gAnimalState.unk0[i].unkB4 = D_803A05D0_7B1C80[i].unk1C;
         gAnimalState.unk0[i].unkB6 = D_803A05D0_7B1C80[i].unk1E;
         gAnimalState.unk0[i].unkB8 = D_803A05D0_7B1C80[i].unk20;
         gAnimalState.unk0[i].unkBA = D_803A05D0_7B1C80[i].unk22;
         gAnimalState.unk0[i].unkBC = D_803A05D0_7B1C80[i].unk24;
 
-        gAnimalState.unk0[i].unk7A = gAnimalState.unk0[i].unkBA; // changed unk7A to u16
+        gAnimalState.unk0[i].unk7A = gAnimalState.unk0[i].unkBA;
         gAnimalState.unk0[i].unk76 = ((gAnimalState.unk0[i].unk72) * 7) >> 2;
         gAnimalState.unk0[i].unk78 = ((gAnimalState.unk0[i].unk7A) * 5) >> 3;
 
@@ -66,7 +66,7 @@ void func_802C7C80_6D9330(void) {
         gAnimalState.unk0[i].unk9C = i;
         gAnimalState.unk0[i].objectType = gAnimalState.unk0[i].unk9C + 0x100;
         gAnimalState.unk0[i].unk82.unk2 = 1;
-        gAnimalState.unk0[i].biome = D_803A05D0_7B1C80[i].unk40;
+        gAnimalState.unk0[i].biome = D_803A05D0_7B1C80[i].biome;
 
         gAnimalState.unk0[i].unkDA[0][0] = D_803A05D0_7B1C80[i].unk42[0][0];
         gAnimalState.unk0[i].unkDA[0][1] = D_803A05D0_7B1C80[i].unk42[0][1];

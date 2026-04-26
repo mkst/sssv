@@ -6,72 +6,60 @@
 // only cool_cod + pirana
 void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_lo;
-    s16 temp_a3;
-    s16 phi_t3;
-    s16 phi_t2;
-    s16 phi_t4;
+    s16 temp_v1;
+    s16 var_t3;
+    s16 var_t2;
+    s16 var_t4;
 
-    u16 tmp1;
-    u16 tmp2;
-    s32 new_var;
+    s16 tmp1, tmp2;
 
-    temp_a3 = D_803D552C->unk310;
-    tmp1 = D_80203FE0[2].unk0 - (((gSineTable256[phi_t4 & 0xFF] >> 7) * arg2) >> 8);
+    temp_v1 = D_803D552C->unk310;
     D_803D552C->unk310 = (D_803D552C->unk310 + D_803D552C->unk30C) & 0x3FF;
 
     if (D_803D552C->unk30E != 0) {
-        if ((D_803D5538 != 0) && (D_803D552C->unk310 < temp_a3)) {
-            play_sound_effect_at_location(SFX_UNKNOWN_9, D_803D552C->unk30E << 0xA, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
-        } else if ((D_803D5538 != 0) && (D_803D552C->unk310 > 0x200) && (temp_a3 <= 0x200)) {
-            play_sound_effect_at_location(SFX_UNKNOWN_10, D_803D552C->unk30E << 0xA, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
+        if ((D_803D5538 != 0) && (D_803D552C->unk310 < temp_v1)) {
+            play_sound_effect_at_location(
+                SFX_UNKNOWN_9,
+                D_803D552C->unk30E << 0xA,
+                0,
+                D_803D5530->position.xPos.h,
+                D_803D5530->position.zPos.h,
+                D_803D5530->position.yPos.h,
+                1.0f);
+        } else if ((D_803D5538 != 0) && (D_803D552C->unk310 > 0x200) && (temp_v1 <= 0x200)) {
+            play_sound_effect_at_location(
+                SFX_UNKNOWN_10,
+                D_803D552C->unk30E << 0xA,
+                0,
+                D_803D5530->position.xPos.h,
+                D_803D5530->position.zPos.h,
+                D_803D5530->position.yPos.h,
+                1.0f);
         }
-        new_var = (D_803D552C->unk310 >> 2);
-        temp_lo = (gSineTable256[new_var & 0xFF]) >> 7;
-        phi_t2 = (temp_lo * D_803D552C->unk30E) >> 9;
-        phi_t3 = (temp_lo * D_803D552C->unk30E) >> 10;
-        phi_t4 = (-(temp_lo * D_803D552C->unk30E)) >> 7;
+        temp_lo = SIN(D_803D552C->unk310 >> 2) >> 7;
+        var_t2 = ( (temp_lo * D_803D552C->unk30E)) >> 9;
+        var_t3 = ( (temp_lo * D_803D552C->unk30E)) >> 10;
+        var_t4 = (-(temp_lo * D_803D552C->unk30E)) >> 7;
     } else {
-        phi_t4 = phi_t2 = phi_t3 = 0;
+        var_t4 = var_t2 = var_t3 = 0;
     }
 
-#if 1
-    new_var = gSineTable256[phi_t3 & 0xFF];
-    D_80203FE0[1].unk0 = ((new_var >> 7) * arg1) >> 9;
-    D_80203FE0[1].unk2 = ((gSineTable256[(phi_t3 + 0x40) & 0xFF] >> 7) * arg1) >> 9;
+    D_80203FE0[1].unk0 = ((SIN(var_t3) >> 7) * arg1) >> 9;
     D_80203FE0[1].unk4 = 0;
 
     D_80203FE0[2].unk0 = -D_80203FE0[1].unk0;
+    D_80203FE0[2].unk4 = 0;
+
+    D_80203FE0[1].unk2 = ((COS(var_t3) >> 7) * arg1) >> 9;
     D_80203FE0[2].unk2 = -D_80203FE0[1].unk2;
-    D_80203FE0[2].unk4 = 0;
 
-    D_80203FE0[0].unk0 = (u16)(D_80203FE0[1].unk0 + (((gSineTable256[phi_t2 & 0xFF] >> 7) * arg0) >> 8));
-
-    tmp1 = D_80203FE0[1].unk2 + (((gSineTable256[(phi_t2 + 0x40) & 0xFF] >> 7) * arg0) >> 8);
-    D_80203FE0[0].unk2 = tmp1;
+    D_80203FE0[0].unk0 = D_80203FE0[1].unk0 + (((SIN(var_t2) >> 7) * arg0) >> 8);
+    D_80203FE0[0].unk2 = D_80203FE0[1].unk2 + (((COS(var_t2) >> 7) * arg0) >> 8);
     D_80203FE0[0].unk4 = 0;
 
-    tmp1 = D_80203FE0[2].unk0 - (((gSineTable256[phi_t4 & 0xFF] >> 7) * arg2) >> 8);
-    D_80203FE0[3].unk0 = tmp1;
-    tmp2 = D_80203FE0[2].unk2 - (((gSineTable256[(phi_t4 + 0x40) & 0xFF] >> 7) * arg2) >> 8);
-    D_80203FE0[3].unk2 = tmp2;
+    D_80203FE0[3].unk0 = D_80203FE0[2].unk0 - (((SIN(var_t4) >> 7) * arg2) >> 8);
+    D_80203FE0[3].unk2 = D_80203FE0[2].unk2 - (((COS(var_t4) >> 7) * arg2) >> 8);
     D_80203FE0[3].unk4 = 0;
-#else
-    D_80203FE0[1].unk0 = (s16) (((SIN(var_t3) >> 7) * arg1) >> 9);
-    D_80203FE0[1].unk2 = (s16) (((COS(var_t3) >> 7) * arg1) >> 9);
-    D_80203FE0[1].unk4 = 0;
-
-    D_80203FE0[2].unk0 = (s16) -D_80203FE0[1].unk0;
-    D_80203FE0[2].unk2 = (s16) -D_80203FE0[1].unk2;
-    D_80203FE0[2].unk4 = 0;
-
-    D_80203FE0[0].unk0 = (s16) (D_80203FE0[1].unk0 + (((SIN(var_t2) >> 7) * arg0) >> 8));
-    D_80203FE0[0].unk2 = (s16) (D_80203FE0[1].unk2 + (((COS(var_t2) >> 7) * arg0) >> 8));
-    D_80203FE0[0].unk4 = 0;
-
-    D_80203FE0[3].unk0 = (s16) (D_80203FE0[2].unk0 - (((SIN(var_t4) >> 7) * arg2) >> 8));
-    D_80203FE0[3].unk2 = (s16) (D_80203FE0[2].unk2 - (((COS(var_t4) >> 7) * arg2) >> 8));
-    D_80203FE0[3].unk4 = 0;
-#endif
 
     func_802C79E0_6D9090(&D_80203FE0[0], -D_803D5530->unk28 >> 1);
     func_802C79E0_6D9090(&D_80203FE0[1], -D_803D5530->unk28 >> 1);

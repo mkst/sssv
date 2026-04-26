@@ -12,8 +12,7 @@ typedef struct {
     u8  unk4;
 } struct014;
 
-// unused. fakematch nonsense.
-void func_8012C190(struct014 *arg0, u16 arg1, s16 arg2, s16 arg3) {
+void unused_8012C190(struct014 *arg0, u16 arg1, s16 arg2, s16 arg3) {
     u8 i;
     int new_var2;
     struct014_inner *new_var;

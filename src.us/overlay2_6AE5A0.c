@@ -54,14 +54,12 @@ void enqueue_distance_sorted_textured_display_list_instance(u8 arg0, u16 arg1, s
 void enqueue_texture_grouped_display_list_instance(struct025 *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, Gfx *arg8);
 void enqueue_object_display_list_by_flags(Animal *arg0, u16 arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6, s16 arg7, Gfx *arg8);
 
-
 // ========================================================
 // externs
 // ========================================================
 
 extern Gfx D_010049E8_3E2B8[];
 extern Gfx D_0100A6D0_43FA0[];
-extern u8  D_0100A730_44000[];
 extern Gfx D_0100AF90_44860[];  // gun turret base
 extern Gfx D_0100B2C0_44B90[];  // gun turrent gun
 extern Gfx D_0100F4F0_48DC0[];
@@ -69,8 +67,6 @@ extern Gfx D_010106E0_49FB0[];
 extern Gfx D_01011140_4AA10[];
 extern Gfx D_01011B78_4B448[];
 extern Gfx D_01012B80_4C450[];  // teleporter
-
-extern u8  img_D_01031010_6A8E0_rgba16__png[];
 
 extern Gfx D_040148B0_114600[];
 extern Gfx D_04014990_DC3C0[];  // # piece of silicon valley?
@@ -88,13 +84,13 @@ extern s16 *D_803B1CDC_7C338C[16];
 // .data
 // ========================================================
 
-s16 D_803A0580_7B1C30[3][3] = {
+static s16 D_803A0580_7B1C30[3][3] = {
     { 0xFFD9, 0x001B, 0x0000, },
     { 0x002A, 0xFFA0, 0x0018, },
     { 0x0000, 0x006E, 0x0000, },
 };
 
-u8 D_803A0594_7B1C44[16] = {
+static u8 D_803A0594_7B1C44[16] = {
     0xff, 0xff, 0xff, 0x00, // #ffffff
     0xff, 0xff, 0xff, 0x00, // #ffffff
     0x5e, 0x72, 0xff, 0x00, // #5e72ff
@@ -102,7 +98,7 @@ u8 D_803A0594_7B1C44[16] = {
 };
 
 // ========================================================
-// .bss (more bss is defined below)
+// .bss (NOTE: more bss is defined below)
 // ========================================================
 
 static s16  D_803D2E00; // 0..15
@@ -122,7 +118,7 @@ void enqueue_dynamic_texture_billboard_6AE5A0(s32 xPos, s32 zPos, s32 yPos, u16 
         arg5->textures[arg5->unk1].zPos = zPos;
         arg5->textures[arg5->unk1].yPos = yPos;
         arg5->textures[arg5->unk1].size = size;
-        arg5->textures[arg5->unk1].category = category; // ?
+        arg5->textures[arg5->unk1].category = category;
         arg5->textures[arg5->unk1].unk10 = arg6; // effectType?
         arg5->textures[arg5->unk1].red = red;
         arg5->textures[arg5->unk1].green = green;
@@ -319,7 +315,7 @@ void reset_dynamic_texture_billboard_queue(void) {
     }
 }
 
-void load_dynamic_texture_billboard_texture_pair(Gfx **arg0, s16 arg1) {
+void load_dynamic_texture_billboard_texture_pair(Gfx **dl, s16 arg1) {
     u8 *img1;
     u8 *img2;
 
@@ -332,21 +328,21 @@ void load_dynamic_texture_billboard_texture_pair(Gfx **arg0, s16 arg1) {
         img2 = D_800BA760 + 0x1CCC0 + (arg1 << 9);  // 512 bytes per image   // D_800D7420 ?
     }
 
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, OS_K0_TO_PHYSICAL(img1));
-    gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPLoadSync((*arg0)++);
-    gDPLoadTile((*arg0)++, G_TX_LOADTILE, 0, 0, 4*31, 4*31);
-    gDPPipeSync((*arg0)++);
-    gDPSetTile((*arg0)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPSetTileSize((*arg0)++, G_TX_RENDERTILE, 0, 0, 4*31, 4*31);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, OS_K0_TO_PHYSICAL(img1));
+    gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPLoadSync((*dl)++);
+    gDPLoadTile((*dl)++, G_TX_LOADTILE, 0, 0, 4*31, 4*31);
+    gDPPipeSync((*dl)++);
+    gDPSetTile((*dl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 4*31, 4*31);
 
-    gDPSetTextureImage((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, OS_K0_TO_PHYSICAL(img2));
-    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPLoadSync((*arg0)++);
-    gDPLoadTile((*arg0)++, G_TX_LOADTILE, 0, 0, 62, 4*31);
-    gDPPipeSync((*arg0)++);
-    gDPSetTile((*arg0)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPSetTileSize((*arg0)++, 1, 0, 0, 4*31, 4*31);
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, OS_K0_TO_PHYSICAL(img2));
+    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPLoadSync((*dl)++);
+    gDPLoadTile((*dl)++, G_TX_LOADTILE, 0, 0, 62, 4*31);
+    gDPPipeSync((*dl)++);
+    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTileSize((*dl)++, 1, 0, 0, 4*31, 4*31);
 }
 
 void enqueue_distance_sorted_textured_display_list_instance(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, Gfx *arg7) {
@@ -526,7 +522,7 @@ void func_8029E100_6AF7B0(void) {
     D_803A05A4_7B1C54 &= 0xF;
 }
 
-void func_8029E3CC_6AFA7C(void) {
+void unused_8029E3CC_6AFA7C(void) {
     if (D_803D3434->usedModelViewMtxs < 250) {
         func_80125FE0(
             &D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs],
@@ -1800,7 +1796,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 if (D_803D343C->unk158 == 0) {
                                     gSPDisplayList(gXluDL++, D_01004AF8_3E3C8);
                                     gDPSetRenderMode(gXluDL++, gRenderMode1, gRenderMode2);
-                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, &img_D_01031010_6A8E0_rgba16__png);
+                                    gDPSetTextureImage(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_D_01031010_6A8E0_rgba16__png);
                                     gDPSetTile(gXluDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                     gDPLoadSync(gXluDL++);
                                     gDPLoadBlock(gXluDL++, G_TX_LOADTILE, 0, 0, 1023, 256);
