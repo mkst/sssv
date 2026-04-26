@@ -4,6 +4,7 @@ import logging
 
 from .datatypes import *
 from .common import *
+from .commands import encode_commands
 
 
 logger = logging.getLogger(__file__)
@@ -49,7 +50,8 @@ def pack_datatype_2(values):
 
 
 def pack_datatype_4(data):
-    raise NotImplementedError("No handler for Datatype 4")
+    logger.info("[.cmd] Type  4: Commands")
+    return encode_commands(data)
 
 
 def pack_datatype_5(values):

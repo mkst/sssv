@@ -4,13 +4,15 @@ Vtx D_0100FB80_49450[13] = {
 #include "data/inc/D_0100FB80_49450.inc.c"
 };
 
+extern u8 img_turd1_rgba16__png[];
+
 Gfx D_0100FC50_49520[] = {
     gsDPPipeSync(),
     gsDPSetPrimColor(0, 0, 0xFF, 0xFF, 0xFF, 0xFF),
     gsDPPipeSync(),
     gsDPSetCombineMode(G_CC_MODULATEI, G_CC_PASS2),
     gsDPTileSync(),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 0x0100F980),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, img_turd1_rgba16__png),
     gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 4, G_TX_NOLOD),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 255, 512),

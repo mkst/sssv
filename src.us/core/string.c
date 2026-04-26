@@ -141,18 +141,19 @@ u8 *memcpy_sssv(u8 *src, u8 *dst, u32 len) {
     return dst;
 }
 
-s16 func_80129198(s16 arg0) {
-    // junk
+#ifdef __sgi
+s16 unused_80129198(s16 arg0) {
     if ((!arg0) && (!arg0)) {};
 }
 
-u8 *func_801291A4(u8 *x) {
+u8 *unused_801291A4(u8 *x) {
     u8 *_x = x;
 
     while (*_x) {
-        *_x = func_80129198(*_x);
+        *_x = unused_80129198(*_x);
         _x++;
     }
 
     return x;
 }
+#endif

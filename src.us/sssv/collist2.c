@@ -3,10 +3,6 @@
 
 
 // ========================================================
-// .data
-// ========================================================
-
-// ========================================================
 // .bss
 // ========================================================
 
@@ -72,9 +68,7 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
     s16 subCellX;
     s16 subCellZ;
 
-    s16 i;
-
-    s16 newGridCells[4];
+    s16 newGridCells[5];
 
     s16 gridX;
     s16 matchingCells;
@@ -90,7 +84,6 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
     gridZ = arg0->position.zPos.h >> 0xA;
     subCellX = (arg0->position.xPos.h >> 6) & 0xF;
     subCellZ = (arg0->position.zPos.h >> 6) & 0xF;
-
 
     if ((gridX >= 0) && (gridX < 5) && (gridZ >= 0) && (gridZ < 8)) {
         newGridCells[cellCount++] = gridX + (gridZ * 5);
@@ -115,16 +108,16 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
     if (cellCount == 3) {
         switch (cornerFlag) {
         case 0:
-            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 6;
+            newGridCells[cellCount++] = (gridX - 1) + ((gridZ - 1) * 5);
             break;
         case 1:
-            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 4;
+            newGridCells[cellCount++] = (gridX + 1) + ((gridZ - 1) * 5);
             break;
         case 2:
-            newGridCells[cellCount++] = gridX + (gridZ * 5) + 4;
+            newGridCells[cellCount++] = (gridX - 1) + ((gridZ + 1) * 5);
             break;
         case 3:
-            newGridCells[cellCount++] = gridX + (gridZ * 5) + 6;
+            newGridCells[cellCount++] = (gridX + 1) + ((gridZ + 1) * 5);
             break;
         }
     }
@@ -155,7 +148,7 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
                     arg0->unk11C[matchingCells].next->prev = &arg0->unk11C[matchingCells];
                 }
 
-                arg0->unk11C[matchingCells].animal = arg0;
+                arg0->unk11C[matchingCells].animal = (Animal*)arg0;
             }
         }
     }
@@ -186,27 +179,27 @@ void remove_collision_list(Entity *arg0) {
 
 // ESA: func_80062D38
 void func_802DADA0_6EC450(Entity *arg0) {
-    Animal **animal;
+    Entity **entity;
     s16 i;
 
     if (arg0->unk16C->unk82.unk1) {
-        animal = &D_803DA2F0;
+        entity = &D_803DA2F0;
         arg0->unk26D = 1;
     } else {
-        animal = &D_803DA2F4;
+        entity = &D_803DA2F4;
         arg0->unk26D = 2;
     }
 
     if (arg0->unk16C->objectType < OB_TYPE_ANIMAL_OFFSET) {
-        arg0->unk198 = *animal;
-        *animal = arg0;
+        arg0->unk198 = *entity;
+        *entity = arg0;
     }
 
     for (i = 0; i < 4; i++) {
         arg0->unk114[i] = 0x7FFF;
         arg0->unk11C[i].next = 0;
         arg0->unk11C[i].prev = 0;
-        arg0->unk11C[i].animal = 0;
+        arg0->unk11C[i].animal = NULL;
     }
 
     func_802DA90C_6EBFBC(arg0);
@@ -244,7 +237,7 @@ void func_802DAE5C_6EC50C(Entity *obj) {
         }
     }
     obj->unk198 = NULL;
-    obj->unk26D = 0U;
+    obj->unk26D = 0;
 }
 
 // ESA: func_80062EB0
@@ -275,7 +268,7 @@ void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd) {
             ((s16)((x0         ) << 6) <= obj->position.xPos.h) &&
             ((s16)((y0 + y1 + 1) << 6) >= obj->position.zPos.h) &&
             ((s16)((y0         ) << 6) <= obj->position.zPos.h)) {
-              obj->unk4C.unk19 = 1;
+            obj->unk4C.unk19 = 1;
         }
     }
 }

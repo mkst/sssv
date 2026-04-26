@@ -1,5 +1,13 @@
-BASENAME  = sssv
+SHELL     = /bin/bash -e -o pipefail
+
+BASENAME := sssv
 VERSION  := us
+
+COMPILER ?= ido
+
+NON_MATCHING ?= 0
+USE_GCC      ?= 0
+CRASH_SCREEN ?= 0
 
 # Colors
 
@@ -14,65 +22,56 @@ CYAN    := \033[0;36m
 
 # Directories
 
-BUILD_DIR = build
-ASM_DIRS  = asm \
-            asm/libc \
-            asm/libultra/audio \
-            asm/data asm/data/libultra/audio asm/data/core asm/data/sssv asm/data/sssv/animals
-BIN_DIRS  = assets assets/levels
-SRC_DIR   = src.$(VERSION)
+BUILD_DIR := build
+SRC_DIR   := src.$(VERSION)
 
-SRC_DIRS  = $(SRC_DIR) $(SRC_DIR)/core \
-            $(SRC_DIR)/libultra/audio $(SRC_DIR)/libultra/libc \
-            $(SRC_DIR)/sssv $(SRC_DIR)/sssv/animals \
-            $(SRC_DIR)/data \
-            $(SRC_DIR)/bss \
-            $(SRC_DIR)/buffers
-
-TOOLS_DIR = tools
+TOOLS_DIR := tools
 
 # Files
 
 TARGET     = $(BUILD_DIR)/$(BASENAME).$(VERSION)
-LD_SCRIPT  = $(BASENAME).ld
+LD_SCRIPT  = $(BASENAME).$(VERSION).ld
 
-LIBULTRA = lib/libultra_rom.a
+LIBULTRA   = lib/libultra_rom.a
+LIBGCC     = lib/libgcc.a
+
+# Scrape linker script to determine what we need
+ld_objs = $(shell sed -nE 's#.*(build/.*\.$(1)\.o).*#\1#p' $(LD_SCRIPT) 2>/dev/null)
 
 # Source
+ASM_OBJS        := $(call ld_objs,s)
+C_OBJS          := $(call ld_objs,c)
 
-TARGET_ASM_OBJS = $(shell sed -nE 's#.*(build/.*\.s\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
-TARGET_C_OBJS   = $(shell sed -nE 's#.*(build/.*\.c\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
+# Binaries
+BIN_OBJS        := $(call ld_objs,bin)
+RNC_OBJS        := $(call ld_objs,rnc)
 
 # Images
-
-RGBA16_OBJS      = $(shell sed -nE 's#.*(build/.*\.rgba16.png\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
-I4_OBJS          = $(shell sed -nE 's#.*(build/.*\.i4.png\.o).*#\1#p'     ${LD_SCRIPT} 2>/dev/null)
-I8_OBJS          = $(shell sed -nE 's#.*(build/.*\.i8.png\.o).*#\1#p'     ${LD_SCRIPT} 2>/dev/null)
-IA16_OBJS        = $(shell sed -nE 's#.*(build/.*\.ia16.png\.o).*#\1#p'   ${LD_SCRIPT} 2>/dev/null)
-CI4_OBJS         = $(shell sed -nE 's#.*(build/.*\.ci4.png\.o).*#\1#p'    ${LD_SCRIPT} 2>/dev/null)
-
-CI4_PAL_OBJS     = $(shell sed -nE 's#.*(build/.*\.pal\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
+RGBA16_OBJS     := $(call ld_objs,rgba16.png)
+I4_OBJS         := $(call ld_objs,i4.png)
+I8_OBJS         := $(call ld_objs,i8.png)
+IA16_OBJS       := $(call ld_objs,ia16.png)
+CI4_OBJS        := $(call ld_objs,ci4.png)
+CI4_PAL_OBJS    := $(call ld_objs,pal)
 CI4_PAL_OBJS    += $(CI4_OBJS:.ci4.png.o=.pal.o)
 
-IMAGE_OBJS       = $(RGBA16_OBJS) $(I4_OBJS) $(I8_OBJS) $(IA16_OBJS) $(CI4_OBJS) $(CI4_PAL_OBJS)
-
-# RNC Files
-RNC_OBJS         = $(shell sed -nE 's#.*(build/.*\.rnc\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
+ALL_IMAGE_OBJS  := $(RGBA16_OBJS) $(I4_OBJS) $(I8_OBJS) $(IA16_OBJS) $(CI4_OBJS) $(CI4_PAL_OBJS)
 
 # Generic RNC compressed files
-ALL_RNC_FILES      = $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
-ALL_RNC_EXTRACTED  = $(foreach file,$(ALL_RNC_FILES),rnc/$(file))
-ALL_RNC_COMPRESSED = $(foreach file,$(ALL_RNC_FILES),build/$(file))
+ALL_RNC_FILES      := $(wildcard assets/rnc*.bin) $(wildcard assets/levels/*.bin)
+ALL_RNC_EXTRACTED  := $(foreach file,$(ALL_RNC_FILES),rnc/$(file))
+ALL_RNC_REPACKED   := $(foreach file,$(ALL_RNC_FILES),repack/$(file))
 
-# Other
-TARGET_BIN_OBJS = $(shell sed -nE 's#.*(build/.*\.bin\.o).*#\1#p' ${LD_SCRIPT} 2>/dev/null)
+TEXTURE_BANK_DIR   := assets/img/levels
+MIPMAP_BANKS       := $(wildcard $(TEXTURE_BANK_DIR)/*.mipmap)
+REGULAR_BANKS      := $(wildcard $(TEXTURE_BANK_DIR)/*.regular)
 
 
-# function is not included unless explicitly undefined
-UNDEFINED_SYMS  := osViGetCurrentLine
+# Compiler tooling
 
-# Tools
 find-command = $(shell which $(1) 2>/dev/null)
+
+IDO      = $(TOOLS_DIR)/ido5.3_recomp/cc
 
 CROSS    = mips-linux-gnu-
 
@@ -85,7 +84,7 @@ GCC      = gcc
 
 XGCC     = $(CROSS)gcc
 
-# prefer clang as CC_CHECK
+# Prefer clang as CC_CHECK
 ifneq (,$(call find-command,clang))
   HOSTCC = clang
   HOSTCC_CHECK_FLAGS = --target=i686-linux-gnu
@@ -94,7 +93,7 @@ else
   HOSTCC_CHECK_FLAGS = -m32
 endif
 
-# prefer modern gcc for data, but fall back to IDO if not available
+# Prefer modern gcc for data, but fall back to IDO if not available
 ifneq (,$(call find-command,$(CROSS)gcc))
   DCC        = $(XGCC)
   DCC_CFLAGS = $(GCC_FLAGS)
@@ -103,11 +102,47 @@ else
   DCC_CFLAGS = $(CFLAGS)
 endif
 
-GREP     = grep -rl
-CC       = $(TOOLS_DIR)/ido5.3_recomp/cc
+IDO_CFLAGS  = $(INCLUDE_CFLAGS) $(DEFINES)
+IDO_CFLAGS += -G0 -mips2 -32 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul -woff 649,838,807
+
+ifeq ($(COMPILER),ido)
+  CC = $(IDO)
+  CFLAGS = $(IDO_CFLAGS)
+else
+  CC = $(XGCC)
+  CFLAGS = $(GCC_FLAGS)
+  NON_MATCHING = 1
+endif
+
+MAYBE_LIBGCC =
+GCC_C_FILES =
+GCC_C_OBJS =
+
+ifeq ($(USE_GCC),1)
+  GCC_C_FILES  = $(shell [ -f gcc_files.$(VERSION).txt ] && sed -e 's/#.*//' -e '/^[[:space:]]*$$/d' gcc_files.$(VERSION).txt)
+  GCC_C_OBJS   = $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(GCC_C_FILES)))
+  $(GCC_C_OBJS): CC = $(XGCC)
+  $(GCC_C_OBJS): CFLAGS = $(GCC_FLAGS)
+  $(GCC_C_OBJS): OPT_FLAGS = -O2
+  ifneq ($(strip $(GCC_C_FILES)),)
+	NON_MATCHING = 1
+	LD_FLAGS_EXTRA += -lgcc
+	MAYBE_LIBGCC = $(BUILD_DIR)/$(LIBGCC)
+  endif
+endif
+
+# COMPILER=gcc
+ifeq ($(COMPILER),gcc)
+  OPT_FLAGS = -O2
+  LD_FLAGS_EXTRA += -lgcc
+  MAYBE_LIBGCC = $(BUILD_DIR)/$(LIBGCC)
+endif
+
+# Tools
+
+GREP     = grep
 RNC64    = $(TOOLS_DIR)/rnc_propack_source/rnc64
 RNCU     = $(PYTHON) $(TOOLS_DIR)/rncu.py
-SPLAT    = $(TOOLS_DIR)/splat/split.py
 N64CRC   = $(TOOLS_DIR)/n64crc.py
 
 IMG_CONVERT = $(PYTHON) $(TOOLS_DIR)/image_converter.py
@@ -116,10 +151,8 @@ LIBRNCU  = $(TOOLS_DIR)/librncu.so
 
 # Flags
 
-OPT_FLAGS      = -O2
+OPT_FLAGS     ?= -O2
 LOOP_UNROLL    =
-
-MIPSISET       = -mips2 -32
 
 INCLUDE_CFLAGS = -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc -I assets \
                  -I src.$(VERSION) -I src.$(VERSION)/libultra/audio
@@ -128,77 +161,71 @@ ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
 
 # Files requiring pre/post-processing
-GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
+GLOBAL_ASM_C_FILES := $(shell $(GREP) -Rl GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_OBJS := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
 
 DEFINES := -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32 -DSSSV -DNDEBUG
 
 ifeq ($(VERSION),us)
-DEFINES += -DVERSION_US
+  DEFINES += -DVERSION_US
 endif
 ifeq ($(VERSION),eu)
-DEFINES += -DVERSION_EU
+  DEFINES += -DVERSION_EU
 endif
 
 VERIFY = verify
 
 ifeq ($(NON_MATCHING),1)
-DEFINES += -DNON_MATCHING
-VERIFY = no_verify
-PROGRESS_NONMATCHING = --non-matching
+  $(info Building NON_MATCHING ROM...)
+  DEFINES += -DNON_MATCHING -DAVOID_UB -DBUGFIX -DENABLE_CHEATS
+  VERIFY = no_verify
 endif
 
-CFLAGS := -G0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
-CFLAGS += $(DEFINES)
-# ignore compiler warnings about anonymous structs & incomplete types
-CFLAGS += -woff 649,838,807
-CFLAGS += $(INCLUDE_CFLAGS)
+ifeq ($(CRASH_SCREEN),1)
+  C_OBJS += build/src.us/debug/crash_screen.c.o
+endif
+
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
 # CHECK_WARNINGS += -Wdouble-promotion
-CC_CHECK := $(HOSTCC) $(HOSTCC_CHECK_FLAGS) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
+CC_CHECK   = $(HOSTCC) $(HOSTCC_CHECK_FLAGS) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
 
-GCC_FLAGS := $(INCLUDE_CFLAGS) $(DEFINES)
-GCC_FLAGS += -G0 -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
-GCC_FLAGS += -mdivide-breaks -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -mno-abicalls -fno-strict-aliasing -fno-inline-functions -ffreestanding -fwrapv
-GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
+GCC_FLAGS  = $(INCLUDE_CFLAGS) $(DEFINES)
+GCC_FLAGS += -G0 -mips3 -std=gnu90
+GCC_FLAGS += -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float -mdivide-breaks -mno-abicalls
+GCC_FLAGS += -fno-builtin -fsigned-char -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -fno-inline-functions -ffreestanding -fno-strict-aliasing -fwrapv
+GCC_FLAGS += $(CHECK_WARNINGS)
 
 LD_FLAGS   = -T $(LD_SCRIPT) -Map $(TARGET).map --no-check-sections
 
 ifeq ($(VERSION),eu)
-LD_FLAGS  +=  -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt
+  LD_FLAGS  +=  -T undefined_syms.$(VERSION).txt -T undefined_syms_auto.txt
 endif
 
 ifeq ($(VERSION),us)
-LD_FLAGS_EXTRA  = -Lbuild/lib -lultra_rom
-LD_FLAGS_EXTRA += $(foreach sym,$(UNDEFINED_SYMS),-u $(sym))
+  LD_FLAGS_EXTRA  = -Lbuild/lib -lultra_rom
+  # NOTE: this function is not included unless explicitly undefined
+  LD_FLAGS_EXTRA += -u osViGetCurrentLine
 else
-LD_FLAGS_EXTRA  =
+  LD_FLAGS_EXTRA  =
 endif
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
 
 ### Optimisation Overrides
-$(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
-# $(BUILD_DIR)/$(SRC_DIR)/core/eeprom.c.o: OPT_FLAGS := -O2
-
-$(BUILD_DIR)/$(SRC_DIR)/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
-
-# does nothing:
-# $(BUILD_DIR)/$(SRC_DIR)/overlay2_72BA20.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
-
-$(BUILD_DIR)/src.eu/overlay1%.c.o: OPT_FLAGS := -g
+ifeq ($(NON_MATCHING),0)
+ifeq ($(COMPILER),ido)
+  $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
+  $(BUILD_DIR)/src.eu/overlay1%.c.o: OPT_FLAGS := -g
+  $(BUILD_DIR)/src.us/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
+endif
+endif
 
 ### Targets
 
-default: all
-
-all: dirs $(VERIFY)
-
-dirs:
-	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
+all: $(VERIFY)
 
 tools: $(RNC64) $(LIBRNCU)
 
@@ -209,19 +236,43 @@ no_verify: $(TARGET).z64
 	@echo "Skipping SHA1SUM check, updating CRC"
 	@$(PYTHON) $(N64CRC) $(TARGET).z64
 
-progress: dirs $(VERIFY) progress.csv
+progress: $(VERIFY) progress.csv
 
-splat: $(SPLAT)
-
-extract: splat tools
-	$(PYTHON) $(SPLAT) $(BASENAME).$(VERSION).yaml
-	$(PYTHON) $(TOOLS_DIR)/fixup_tlut.py
+extract: tools
+	@$(PYTHON) -m splat split $(BASENAME).$(VERSION).yaml
+	@$(PYTHON) $(TOOLS_DIR)/fixup_tlut.py
 
 decompress: $(ALL_RNC_EXTRACTED)
 
-compress: dirs $(ALL_RNC_COMPRESSED)
-	# DO NOT UNCOMMENT NEXT LINE UNTIL COMPRESSION IS MATCHING
-	#cp $(BUILD_DIR)/assets/rnc*.bin assets/
+compress: $(ALL_RNC_REPACKED)
+
+unpack-mipmaps:
+	@for bank in $(MIPMAP_BANKS); do \
+		fmt=rgba16; \
+		case "$$bank" in *.ia16.mipmap) fmt=ia16 ;; esac; \
+		$(PYTHON) $(TOOLS_DIR)/mipmap_bank.py unpack "$$bank" --format "$$fmt"; \
+		printf "[$(GREEN) mipmap $(NO_COL)]  $$bank\n"; \
+	done
+
+repack-mipmaps:
+	@for manifest in $(TEXTURE_BANK_DIR)/*.mipmap.yaml; do \
+		bank="$${manifest%.yaml}"; \
+		$(PYTHON) $(TOOLS_DIR)/mipmap_bank.py pack "$$manifest" "$$bank"; \
+		printf "[$(YELLOW) mipmap $(NO_COL)]  $$bank\n"; \
+	done
+
+unpack-regular:
+	@for bank in $(REGULAR_BANKS); do \
+		$(PYTHON) $(TOOLS_DIR)/regular_bank.py unpack "$$bank"; \
+		printf "[$(GREEN) regular$(NO_COL)]  $$bank\n"; \
+	done
+
+repack-regular:
+	@for manifest in $(TEXTURE_BANK_DIR)/*.regular.yaml; do \
+		bank="$${manifest%.yaml}"; \
+		$(PYTHON) $(TOOLS_DIR)/regular_bank.py pack "$$manifest" "$$bank"; \
+		printf "[$(YELLOW) regular$(NO_COL)]  $$bank\n"; \
+	done
 
 clean:
 	rm -rf build
@@ -235,16 +286,19 @@ distclean: clean
 
 ### Recipes
 
-$(TARGET).elf: $(BASENAME).ld $(BUILD_DIR)/$(LIBULTRA) $(TARGET_ASM_OBJS) $(TARGET_BIN_OBJS) $(TARGET_C_OBJS) $(IMAGE_OBJS) $(RNC_OBJS)
+$(TARGET).elf: $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(ASM_OBJS) $(BIN_OBJS) $(C_OBJS) $(ALL_IMAGE_OBJS) $(RNC_OBJS) $(MAYBE_LIBGCC)
+	@mkdir -p $$(dirname $@)
 	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
 
 ifndef PERMUTER
+# GLOBAL_ASM functionality requires IDO compiler
 $(GLOBAL_ASM_OBJS): $(BUILD_DIR)/%.c.o: %.c include/functions.$(VERSION).h include/variables.$(VERSION).h include/structs.h
+	@mkdir -p $$(dirname $@)
 	@$(CC_CHECK) $<
 	@printf "[$(YELLOW) syntax $(NO_COL)] $<\n"
 	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
-	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
+	@$(IDO) -c $(IDO_CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) -o $@ $(BUILD_DIR)/$<
 	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
 		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
@@ -252,25 +306,30 @@ endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.c.o: %.c
+	@mkdir -p $$(dirname $@)
 	@$(CC_CHECK) $<
 	@printf "[$(YELLOW) syntax $(NO_COL)]  $<\n"
-	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
-	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
+	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) -o $@ $<
+	@printf "[$(GREEN)   cc   $(NO_COL)]  $<\n"
 
-# use modern gcc or IDO for data
+# Use modern gcc or IDO for data
 $(BUILD_DIR)/$(SRC_DIR)/data/%.c.o: $(SRC_DIR)/data/%.c
+	@mkdir -p $$(dirname $@)
 	@$(DCC) -c $(DCC_CFLAGS) -o $@ $<
 	@printf "[$(GREEN)  data  $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/%.s.o: %.s
+	@mkdir -p $$(dirname $@)
 	@$(AS) $(ASFLAGS) -o $@ $<
 	@printf "[$(GREEN)   as   $(NO_COL)]  $<\n"
 
 $(BUILD_DIR)/%.bin.o: %.bin
+	@mkdir -p $$(dirname $@)
 	@$(LD) -r -b binary -o $@ $<
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
 
 $(TARGET).bin: $(TARGET).elf
+	@mkdir -p $$(dirname $@)
 	@$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
 	@printf "[$(CYAN) objcpy $(NO_COL)]  $<\n"
 
@@ -282,18 +341,23 @@ $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 	@cp $< $@
 	@$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py --quiet $@
 
+$(BUILD_DIR)/%.a: %.a
+	@mkdir -p $$(dirname $@)
+	@cp $< $@
+
 rnc/%.bin: %.bin
 	@mkdir -p rnc/assets/levels
 	@$(RNCU) $< $@
 	@printf "[$(RED) rnc u. $(NO_COL)]  $<\n"
 
+# Tooling
 $(RNC64): $(TOOLS_DIR)/rnc_propack_source/main.c
 	make -C $(TOOLS_DIR)/rnc_propack_source rnc64
 
 $(LIBRNCU): $(TOOLS_DIR)/rncu.c
 	$(HOSTCC) -o $@ $< --shared -O3 -fPIC
 
-# language files
+# Language files
 %.dat.rnc.json: %.dat.rnc
 	@mkdir -p $$(dirname $@)
 	@$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@
@@ -304,7 +368,7 @@ $(BUILD_DIR)/%.dat: %.dat.rnc.json
 	@$(PYTHON) $(TOOLS_DIR)/lang2json.py $< $@ --encode
 	@printf "[$(RED2)  lang  $(NO_COL)]  $<\n"
 
-# compressed images
+# Compressed images
 $(BUILD_DIR)/%.rgba16: %.rgba16.rnc.png
 	@mkdir -p $$(dirname $@)
 	@$(IMG_CONVERT) rgba16 $< $@
@@ -315,7 +379,23 @@ $(BUILD_DIR)/%.i4: %.i4.rnc.png
 	@$(IMG_CONVERT) i4 $< $@
 	@printf "[$(GREEN)   i4   $(NO_COL)]  $<\n"
 
-# uncompressed images
+# Raw mipmap texture banks
+$(BUILD_DIR)/%.mipmap.rnc: %.mipmap
+	@mkdir -p $$(dirname $@)
+	@$(RNC64) p $< $@ /f >/dev/null
+	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
+	@mv $@.pad $@
+	@printf "[$(RED) rnc p. $(NO_COL)]  $<\n"
+
+# Raw regular texture banks
+$(BUILD_DIR)/%.regular.rnc: %.regular
+	@mkdir -p $$(dirname $@)
+	@$(RNC64) p $< $@ /f >/dev/null
+	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
+	@mv $@.pad $@
+	@printf "[$(RED) rnc p. $(NO_COL)]  $<\n"
+
+# Uncompressed images
 $(BUILD_DIR)/%.rgba16.png: %.rgba16.png
 	@mkdir -p $$(dirname $@)
 	@$(IMG_CONVERT) rgba16 $< $@
@@ -355,8 +435,13 @@ $(BUILD_DIR)/%.pal.o: $(BUILD_DIR)/%.pal
 	@$(LD) -r -b binary -o $@ $<
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
 
-
 # rnc compress
+repack/%: rnc/% $(RNC64) FORCE
+	@$(RNC64) p $< $* /f >/dev/null
+	@$(PYTHON) $(TOOLS_DIR)/pad.py $* $*.pad
+	@mv $*.pad $*
+	@printf "[$(RED) rnc p. $(NO_COL)]  $<\n"
+
 %.rnc: %
 	@$(RNC64) p $< $@ /f >/dev/null
 	@$(PYTHON) $(TOOLS_DIR)/pad.py $@ $@.pad
@@ -376,28 +461,22 @@ $(BUILD_DIR)/%.collision.rnc: %.collision.rnc
 # progress
 progress.csv: progress.main.csv progress.lib.csv progress.overlay1.csv progress.overlay2.csv
 	@awk "(NR == 1) || (FNR > 1)" $^ > $@
-	@rm $^
 
 progress.main.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map _mainSegmentTextStart main_libultra_start_OFFSET main --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py $(TARGET).map _mainSegmentTextStart main_libultra_start_OFFSET main --version $(VERSION) > $@
 progress.lib.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map main_libultra_start_OFFSET _mainSegmentTextEnd lib --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py $(TARGET).map main_libultra_start_OFFSET _mainSegmentTextEnd lib --version $(VERSION) > $@
 progress.overlay1.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map _overlay1SegmentTextStart _overlay1SegmentTextEnd overlay1 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py $(TARGET).map _overlay1SegmentTextStart _overlay1SegmentTextEnd overlay1 --version $(VERSION) > $@
 progress.overlay2.csv: $(TARGET).elf
-	$(PYTHON) $(TOOLS_DIR)/progress.py . $(TARGET).map _overlay2SegmentTextStart _overlay2SegmentTextEnd overlay2 --version $(VERSION) $(PROGRESS_NONMATCHING) > $@
+	$(PYTHON) $(TOOLS_DIR)/progress.py $(TARGET).map _overlay2SegmentTextStart _overlay2SegmentTextEnd overlay2 --version $(VERSION) > $@
 
 # fake targets for better error handling
-$(SPLAT):
-	$(info Repo cloned without submodules, attempting to fetch them now...)
-	@which git >/dev/null || echo "ERROR: git binary not found on PATH"
-	@which git >/dev/null
-	git submodule update --init --recursive
-
 baserom.$(VERSION).z64:
 	$(error Place the SSSV ROM, named '$@', in the root of this repo and try again.)
 
 ### Settings
 .SECONDARY:
-.PHONY: all clean default
-SHELL = /bin/bash -e -o pipefail
+.PHONY: all clean extract progress verify compress decompress unpack-mipmaps repack-mipmaps unpack-regular repack-regular FORCE
+.INTERMEDIATE: progress.main.csv progress.lib.csv progress.overlay1.csv progress.overlay2.csv
+.DEFAULT_GOAL := all

@@ -154,13 +154,14 @@ void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2) {
     gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 }
 
-// unused
+#ifdef __sgi
 void func_80303F90_715640(Animal *arg0, DisplayList *arg1) {
     s16 i;
     for (i = 0; (i < 5) && (arg0->unkC4[i].unkC != 0); i++) {
         func_80303D68_715418(arg0, i, arg1);
     }
 }
+#endif
 
 // ESA: func_8001C944
 // check if x/z inside animals hitbox and returns vertical boundaries if inside

@@ -7,7 +7,9 @@ void func_802BB840_6CCEF0(u16 arg0) {
     s16 tmp1;
     s16 tmp2;
 
+#ifdef __sgi
     if (1) {};
+#endif
 
     tmp0 = D_80203FE0[2].unk0;
     tmp1 = D_80203FE0[2].unk2;
@@ -20,13 +22,15 @@ void func_802BB840_6CCEF0(u16 arg0) {
     D_80203FE0[26].unk4 = tmp2;
 }
 
-void func_802BB870_6CCF20(u16 arg0) {
+void unused_802BB870_6CCF20(u16 arg0) {
     s16 tmp0;
     s16 tmp1;
     s16 tmp2;
     s16 div;
 
-    if (1) { };
+#ifdef __sgi
+    if (1) {};
+#endif
 
     tmp0 = D_80203FE0[2].unk0;
     tmp1 = D_80203FE0[2].unk2;
@@ -52,7 +56,9 @@ void func_802BB938_6CCFE8(u16 arg0) {
     s16 tmp2;
     s16 div;
 
+#ifdef __sgi
     if (1) {};
+#endif
 
     tmp0 = D_80203FE0[2].unk0;
     tmp1 = D_80203FE0[2].unk2;
@@ -131,7 +137,9 @@ void func_802BBA10_6CD0C0(u16 arg0) {
         }
     }
 
+#ifdef __sgi
     if (1) {};
+#endif
 
     tmp0 = D_80203FE0[2].unk0;
     tmp1 = D_80203FE0[2].unk2;
@@ -225,7 +233,9 @@ void func_802BBC90_6CD340(u16 arg0) {
 
     var_a2 = var_a2 / 3;
 
+#ifdef __sgi
     if (1) {};
+#endif
 
     tmp1 = D_80203FE0[2].unk0;
     tmp2 = D_80203FE0[2].unk2;
@@ -300,7 +310,9 @@ void func_802BBFA0_6CD650(u16 arg0) {
 
     var_a0 += SIN(tmp) >> 11;
 
+#ifdef __sgi
     if (1) {};
+#endif
 
     tmp0 = D_80203FE0[2].unk0;
     tmp1 = D_80203FE0[2].unk2;
@@ -397,38 +409,42 @@ void func_802BC350_6CDA00(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
 
 // opposite of func_802BC350_6CDA00
 void func_802BC628_6CDCD8(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
-  s16 sp3E;
-  s16 sp3C;
-  s16 pad2;
-  s16 sp38;
-  s16 sp36;
-  s16 sp34;
-  s32 pad;
+    s16 sp3E;
+    s16 sp3C;
+    s16 pad2 UNUSED;
+    s16 sp38;
+    s16 sp36;
+    s16 sp34;
+    s32 pad UNUSED;
 
-  if (arg4 <= 0) {
-      *arg0 = 90;
-      *arg1 = -90;
-      return;
-  }
+    if (arg4 <= 0) {
+        *arg0 = 90;
+        *arg1 = -90;
+        return;
+    }
 
-  sp3E = -(s16)(((arg2 * D_80152350.unk2D0[*arg0]) + (arg3 * D_80152350.unk2D0[*arg1])) / 256);
-  sp38 = sqrtf(SQ((f32)sp3E) + SQ((f32)arg4));
+    sp3E = -(s16)(((arg2 * D_80152350.unk2D0[*arg0]) + (arg3 * D_80152350.unk2D0[*arg1])) / 256);
+    sp38 = sqrtf(SQ((f32)sp3E) + SQ((f32)arg4));
 
-  // not abs...
-  sp3C = arg2 - arg3;
-  if (sp3C < 0) {
-      sp3C = -sp3C;
-  }
+    // not abs...
+    sp3C = arg2 - arg3;
+    if (sp3C < 0) {
+        sp3C = -sp3C;
+    }
 
-  sp38 = MAX(sp38, sp3C);
+    sp38 = MAX(sp38, sp3C);
 
-  sp36 = func_801283AC((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
-  sp34 = func_801283AC((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
-  sp38 = -func_8012835C((sp3E * 256) / sp38);
+    sp36 = func_801283AC((((SQ(arg3) - SQ(arg2) - SQ(sp38))) / ((arg2 * -2 * sp38) / 256)));
+    sp34 = func_801283AC((((SQ(arg2) - SQ(arg3) - SQ(sp38))) / ((arg3 * -2 * sp38) / 256)));
+    sp38 = -func_8012835C((sp3E * 256) / sp38);
 
   // fakematch
-  *arg0 = sp38 + ((((((sp36 & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF);
-  *arg1 = sp38 - sp34;
+#ifdef __sgi
+    *arg0 = sp38 + ((((((sp36 & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF) & 0xFFFF);
+#else
+    *arg0 = sp38 + sp36;
+#endif
+    *arg1 = sp38 - sp34;
 }
 
 void func_802BC900_6CDFB0(struct077 *arg0, u16 arg1, u16 arg2, s16 *arg3, s16 *arg4, s16 *arg5) {
@@ -591,23 +607,23 @@ void func_802BD21C_6CE8CC(u16 arg0, LimbConfig *arg1) {
     }
 }
 
-void func_802BD358_6CEA08(s16 *arg0) {
+void func_802BD358_6CEA08(s16 *result) {
     s16 tmp;
 
     switch (D_803D5530->movementState & 0xF) {
     case 1:
     case 6:
-        *arg0 = ((func_802B8C50_6CA300(0, 0) >> 8) << 5) >> 8;
+        *result = ((func_802B8C50_6CA300(0, 0) >> 8) << 5) >> 8;
         break;
     case 2:
     case 3:
     case 4:
     case 5:
     case 7:
-        *arg0 = 0;
+        *result = 0;
         tmp = func_802B8C50_6CA300(0, 0) >> 16;
-        if (*arg0 < tmp) {
-            *arg0 = tmp << 5;
+        if (*result < tmp) {
+            *result = tmp << 5;
         }
         break;
     default:
@@ -946,7 +962,6 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     s16 temp_a0;
 
     s16 tmp1, tmp2, tmp3;
-
 
     if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
@@ -1303,7 +1318,7 @@ void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 srcJoint, u16 dstJoin
     }
     arg0->unk4 = var_v0;
 
-    switch (D_803D5530->state) {                    /* switch 2; irregular */
+    switch (D_803D5530->state) {
     case 0x1:
     case 0x3:
     case 0x4:
@@ -1641,23 +1656,24 @@ void func_802C18FC_6D2FAC(u16 arg0, u16 arg1, LimbConfig *arg2) {
     func_802C19CC_6D307C(&D_803D5528->unk3AC, arg2->unk6, 6, 16, 0, arg1);
 }
 
-void func_802C19CC_6D307C(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5) {
-    s16 tmp0 = D_80203FE0[arg2].unk0;
-    s16 tmp2 = D_80203FE0[arg2].unk2;
+void func_802C19CC_6D307C(LimbIKState *limbIkState UNUSED, s16 arg1, u16 src, u16 dst, s32 unused UNUSED, u16 arg5) {
+    s16 tmp0 = D_80203FE0[src].unk0;
+    s16 tmp2 = D_80203FE0[src].unk2;
 
-    D_80203FE0[arg3].unk0 = tmp0;
-    D_80203FE0[arg3].unk2 = tmp2;
-    D_80203FE0[arg3].unk4 = arg1 + arg5;
+    D_80203FE0[dst].unk0 = tmp0;
+    D_80203FE0[dst].unk2 = tmp2;
+    D_80203FE0[dst].unk4 = arg1 + arg5;
 
-    D_80203FE0[arg3+1].unk0 = tmp0;
-    D_80203FE0[arg3+1].unk2 = tmp2;
-    D_80203FE0[arg3+1].unk4 = arg1;
+    D_80203FE0[dst+1].unk0 = tmp0;
+    D_80203FE0[dst+1].unk2 = tmp2;
+    D_80203FE0[dst+1].unk4 = arg1;
 
-    D_80203FE0[arg3+2].unk0 = tmp0;
-    D_80203FE0[arg3+2].unk2 = tmp2;
-    D_80203FE0[arg3+2].unk4 = arg1;
+    D_80203FE0[dst+2].unk0 = tmp0;
+    D_80203FE0[dst+2].unk2 = tmp2;
+    D_80203FE0[dst+2].unk4 = arg1;
 }
 
+// frog, springy thing, kangaroo
 void func_802C1A44_6D30F4(u16 arg0, u16 arg1, s16 *arg2) {
     D_80203FE0[14].unk2 = 0;
     D_80203FE0[14].unk0 = D_80203FE0[14].unk2;
@@ -1884,7 +1900,7 @@ void func_802C23F8_6D3AA8(s16 arg0) {
 }
 
 void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 arg4, s16 arg5) {
-    s32 pad;
+    s32 pad UNUSED;
     s16 sp38;
     s16 var_t0;
     s16 temp_hi;
@@ -1972,6 +1988,7 @@ void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
     D_80203FE0[arg2].unk4 = D_80203FE0[arg1].unk4 + var_t0;
 }
 
+// used byGORILLA
 void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
     u16 var_t1;
     u16 var_t2;
@@ -2039,7 +2056,7 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
 
 void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s32 arg7) {
     s32 temp_t7;
-    s16 pad;
+    s16 pad UNUSED;
     s16 var_t1;
     s16 var_t0; // sp38
     s32 temp_t4;
@@ -2119,6 +2136,7 @@ void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 a
     D_80203FE0[arg3].unk4 += var_t0;
 }
 
+// used by EVO
 void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct077 *arg4, struct077 *arg5, LimbConfig *arg6) {
     u16 phi_t2;
     u16 phi_t3;
@@ -2127,7 +2145,7 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
 
     temp_v1 = D_803D552C->gaitPhase;
 
-    switch (D_803D5530->state) {                        /* implicit */
+    switch (D_803D5530->state) {
     case 0x3:
     case 0x8E:
     case 0xB6:
@@ -2304,9 +2322,11 @@ void func_802C3F58_6D5608(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
         if (arg0->unk12 >= 50) {
             arg0->unk10 = 0;
         }
+#ifdef __sgi
         if (temp_hi < (((arg0->unk12 << 3) - 8) % 50)) {
             // debug stub?
         }
+#endif
         break;
     case 11:
         if (gUiFlowState.unk0 == 0) {
@@ -2490,8 +2510,6 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
 
     D_80203FE0[10].unk4 = D_80203FE0[4].unk4 - sp3C;
     D_80203FE0[12].unk4 = D_80203FE0[4].unk4 - sp3C;
-
-
 
     if (D_803D5530->state == 101) {
         if ((D_803D5524->unk9C != SEAGULL2) && (D_803D5524->unk9C != VULTURE)) {

@@ -293,8 +293,8 @@ void func_803574E0_768B90(void) {
             func_802C78B0_6D8F60(0,   1, (D_803F2EBC * 0x4C) >> 6, (D_803F2EC0 * 0x4C) >> 6, (D_803F2EC4 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04006C50_F7CB0);
             func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_040071C0_F8220);
             func_802C78B0_6D8F60(0, 2, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 0, 0, D_04006D70_F7DD0);
-            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EBC) >> 4) * 0x4C) >> 6, ((((D_803D552C->missileScaleLeft + 8) * D_803F2EC0) >> 4) * 0x4C) >> 6, (s32) (((s32) ((D_803D552C->missileScaleLeft + 8) * D_803F2EC4) >> 4) * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_040088F0_F9950); }
-            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleRight + 8) * D_803F2EBC) >> 4) * 0x4C) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC0) >> 4) * 0x4C) >> 6, (s32) (((s32) ((D_803D552C->missileScaleRight + 8) * D_803F2EC4) >> 4) * 0x4C) >> 6, D_803F2ED0, 0, 1, 0, D_040088F0_F9950); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleLeft  + 8) * D_803F2EBC) >> 4) * 0x4C) >> 6, ((((D_803D552C->missileScaleLeft  + 8) * D_803F2EC0) >> 4) * 0x4C) >> 6, ((((D_803D552C->missileScaleLeft  + 8) * D_803F2EC4) >> 4) * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_040088F0_F9950); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, ((((D_803D552C->missileScaleRight + 8) * D_803F2EBC) >> 4) * 0x4C) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC0) >> 4) * 0x4C) >> 6, ((((D_803D552C->missileScaleRight + 8) * D_803F2EC4) >> 4) * 0x4C) >> 6, D_803F2ED0, 0, 1, 0, D_040088F0_F9950); }
 
 
             for (i = 0; D_803B3B28_7C51D8[i] <= D_803D5540; i++);

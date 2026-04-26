@@ -49,7 +49,7 @@ void func_80294E50_6A6500(void) {
             init_rumble_pak();
             func_8012A400();
             // copy framebuffer?
-            func_803925D0_7A3C80((u16*)D_8020428C->framebuffer, (u16*)D_800C5A40);
+            func_803925D0_7A3C80((u16*)D_8020428C->framebuffer, D_800BA760 + 0xb2e0);
             gOverlayMenuState.unk0 = 1;
             D_803F6714 = 0;
             gInitialisationState = 0;
@@ -117,11 +117,11 @@ void func_80294E50_6A6500(void) {
         gFrameStepDivisor = 2;
         width = 320;
         if (gCheats.unk4 == 0) {
-            D_803F2D50.unkDA = gVIData.screenWidth;
+            D_803F2D50.screenWidth = gVIData.screenWidth;
         } else {
-            D_803F2D50.unkDA = width;
+            D_803F2D50.screenWidth = width;
         }
-        gScreenWidth = D_803F2D50.unkDA;
+        gScreenWidth = D_803F2D50.screenWidth;
         gScreenHeight = 240;
 
         get_controller_input();
@@ -160,9 +160,9 @@ void func_80294E50_6A6500(void) {
         set_fog_position_and_color(&gMainDL);
         func_802C87E0_6D9E90();
         if (func_8038CCC0_79E370() != 0) {
-            gLevelProgress |= LEVEL_PROGRESS_FLAG_32; // add flag
+            gLevelProgress |= LEVEL_PROGRESS_FLAG_32;
         } else {
-            gLevelProgress &= ~LEVEL_PROGRESS_FLAG_32; // remove flag
+            gLevelProgress &= ~LEVEL_PROGRESS_FLAG_32;
         }
         if (D_803F671C != 0) {
             draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 2);
@@ -182,7 +182,9 @@ void func_80294E50_6A6500(void) {
 
         func_8029877C_6A9E2C();
         D_803F2D50.unk18 = 1; //D_803F2D68 = 1;
+#ifdef __sgi
         if (0) {};
+#endif
         gWaterAnimState.unk20F += 1;
         gWaterAnimState.unk20F &= 7;
         if (gWaterAnimState.unk20F == 0) {
@@ -256,8 +258,7 @@ void func_80294E50_6A6500(void) {
         func_802FF25C_71090C();
 
         if (D_803F63C2 != 0) {
-            // this function is empty
-            func_8037D32C_78E9DC(D_803B5764_7C6E14, D_803F63C2 + 1, 25, gScreenWidth - 25, gScreenHeight - 100);
+            empty_8037D32C_78E9DC(D_803B5764_7C6E14, D_803F63C2 + 1, 25, gScreenWidth - 25, gScreenHeight - 100);
         }
         if (gInitialisationState == 0) {
             if (gInputMode == INPUT_MODE_USER) {
@@ -294,7 +295,7 @@ void func_80294E50_6A6500(void) {
         }
         if (gOverlayMenuState.unk27 != 0) {
             load_data_section(D_803F2D50.segment);
-            load_level_texture_data(D_803F2D50.segment, D_803F2D50.unk52);
+            load_level_texture_data(D_803F2D50.segment, D_803F2D50.textureBank);
             load_water_texture();
             gOverlayMenuState.unk27 = 0;
             gOverlayMenuState.unk2D = 0;
@@ -309,7 +310,7 @@ void func_80294E50_6A6500(void) {
             (gCurrentMusicTrack == MUSIC_TRACK_LEVEL_PASSED) ||
             (gCurrentMusicTrack == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
             D_8015517C = 1.0f;
-            D_801546D8 = (u16)0x800;
+            D_801546D8 = 0x800;
         }
         if (D_803C0426 != 0) {
             if (D_803C0426 == 2) {
@@ -403,8 +404,8 @@ void init_level(void) {
     D_8028645A = 0;
     D_8015517C = 0.0f;
     gCurrentMusicTrack = NO_MUSIC;
-    D_803F2D50.unkDA = 320;
-    D_803F2D50.unkDC = 0;
+    D_803F2D50.screenWidth = 320;
+    D_803F2D50.ready = 0;
 
     gRenderMode1 = 0xFFFFFFFFC8000000;
     gRenderMode2 = 0x0000000000112038;
@@ -422,7 +423,7 @@ void init_level(void) {
     func_80296310_6A79C0();
     func_802B3FAC_6C565C();
     D_803F2D50.evoSuitColor = get_evo_suit_color();
-    D_803F2D50.unkDC = 1;
+    D_803F2D50.ready = 1;
     set_tv_mode_normal();
     gTasksCompleted = 0;
 }

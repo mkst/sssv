@@ -4,8 +4,8 @@
 
 static s16  languageBuffer[200];
 static s16  currentSelection;
-static s16  D_803B0592;
-static s16  D_803B0594;
+static s16  D_803B0592; // current alpha
+static s16  D_803B0594; // current colour
 static s16  previousSelection;
 
 
@@ -23,7 +23,7 @@ s16 language_select_menu(s16 arg0) {
         // copy in language strings
         for (lang = 0; lang < 9; lang++) {
             // load lang33.dat
-            load_level_text_data(lang, 32, D_80231AA0, D_80231D50.data);
+            load_level_text_data(lang, 32, D_8022E3F0.messages, D_8022E3F0.data);
 
             if ((lang != LANG_JAPANESE) && (lang != LANG_AMERICAN)) {
                 src = get_message_address_by_id(MSG_LANGUAGE); // e.g. "ENGLISH"
@@ -174,25 +174,25 @@ s16 language_select_menu(s16 arg0) {
     if ((gControllerInput->button & A_BUTTON) ||
         (gControllerInput->button & START_BUTTON)) {
         switch (currentSelection) {
-        case 0: // Dutch
+        case 0:
             return LANG_DUTCH;
             break;
-        case 1: // English
+        case 1:
             return LANG_ENGLISH;
             break;
-        case 2: // French
+        case 2:
             return LANG_FRENCH;
             break;
-        case 3: // German
+        case 3:
             return LANG_GERMAN;
             break;
-        case 4: // Italian
+        case 4:
             return LANG_ITALIAN;
             break;
-        case 5: // Portugese
+        case 5:
             return LANG_PORTUGESE;
             break;
-        case 6: // Spanish
+        case 6:
             return LANG_SPANISH;
             break;
         }

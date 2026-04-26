@@ -18,7 +18,7 @@ def rol(i, b):
 def calculate_crcs(buffer: bytearray, seed=0xF8CA4DDC, start=0x1000, end=0x101000):
     t1 = t2 = t3 = t4 = t5 = t6 = seed
 
-    for d, in struct.iter_unpack(">I", buffer[start:end]):
+    for (d,) in struct.iter_unpack(">I", buffer[start:end]):
         r = rol(d, d & 0x1F)
 
         if int32(t6 + d) < t6:
@@ -57,5 +57,5 @@ def main():
     output_filename.write_bytes(buffer)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

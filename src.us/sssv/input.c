@@ -13,7 +13,7 @@ s32 D_803A52C0_7B6970 = 0;
 
 s16       gInputMode;
 OSContPad D_803E1BC4;
-OSContPad D_803E1BCC; // unused
+OSContPad D_803E1BCC UNUSED;
 
 DemoInput *demoInput;
 
@@ -46,7 +46,7 @@ void get_controller_input(void) {
                 demoInput = D_803B1F20_7C35D0;
                 break;
             case SEGMENT_ICE:
-                if (D_803F2D50.unk52 == 1) {
+                if (D_803F2D50.textureBank == 1) {
                     demoInput = D_803B2580_7C3C30;
                 } else {
                     demoInput = D_803B29D8_7C4088;
@@ -68,7 +68,9 @@ void get_controller_input(void) {
         }
         D_803A52C4_7B6974--;
         if (D_803A52C4_7B6974 < 0) {
+#ifdef __sgi
             if (1) {};
+#endif
             // read next input
             if (demoInput->button != END_DEMO) {
                 D_803E1BC4.button  = demoInput->button;

@@ -7,6 +7,7 @@ datatype_0_format = {
     "y": "h",
     "zRotation": "h",
     "angle": "h",
+    # Copied onto Entity.unk3E by the game; low bits select contextual object textures.
     "unkC": "H",
     "scale": "H",
     "commandReferenceIdx": "h", # referenceId ?
@@ -56,12 +57,12 @@ datatype_4_format_type_24 = {
 
 # .rng
 datatype_5_format = {
-    "unk0": "B",
-    "unk1": "B",
-    "unk2": "B",
-    "unk3": "B",
-    "unk4": "B",
-    "unk5": "B",
+    "xStart": "B",
+    "zStart": "B",
+    "yStartOrMode": "B",
+    "xEnd": "B",
+    "zEnd": "B",
+    "yEndOrMode": "B",
     "alignment": "H",
 }
 
@@ -121,25 +122,25 @@ datatype_11_format = {
 # .dat
 datatype_12_format = {
     "unk0": "H",         # 0x00
-    "unk2": "H",
-    "unk4": "H",
-    "unk6": "H",
-    "unk8": "H",
-    "unkA": "H",
-    "unkC": "h",
-    "unkE": "h",
+    "fogMin": "H",
+    "fogMax": "H",
+    "fogRed": "H",
+    "fogGreen": "H",
+    "fogBlue": "H",
+    "nearClip": "h",
+    "farClip": "h",
 
-    "unk10": "H",        # 0x10
-    "unk12": "H",
-    "unk14": "H",
-    "unk16": "H",
+    "waterTileX": "H",    # 0x10
+    "waterTileZ": "H",
+    "waterTileWidth": "H",
+    "waterTileDepth": "H",
     "unk18": "H",
     "startingAnimalId": "H",
     "unk1C": "H",
     "unk1E": "H",
 
     "segment": "h",      # 0x20
-    "unk22": "h",
+    "waterWaveMode": "h",
     "unk24": "h",
     "unk26": "h",
     "unk28": "h",
@@ -156,56 +157,56 @@ datatype_12_format = {
     "unk3C": "h",
     "unk3E": "h",
 
-    "unk40": "h",        # 0x40
-    "unk42": "h",
+    "sourceFovY": "h",    # 0x40
+    "primDepthOffset": "h",
     "unk44": "h",
     "unk46": "h",
     "unk48": "h",
     "unk4A": "h",
-    "unk4C": "h",
-    "unk4E": "h", # rotation?
+    "waterMode": "h",
+    "startHeading": "h",
 
-    "unk50": "h",        # 0x50
+    "cameraHeading": "h", # 0x50
     "textureBank": "h",
-    "unk54": "B",
-    "unk55": "B",
-    "unk56": "B",
-    "waterPrimaryAlpha": "B",
-    "unk58": "B",
-    "unk59": "B",
-    "unk5A": "B",
+    "waterPrimRed": "B",
+    "waterPrimGreen": "B",
+    "waterPrimBlue": "B",
+    "waterPrimAlpha": "B",
+    "waterEnvRed": "B",
+    "waterEnvGreen": "B",
+    "waterEnvBlue": "B",
     "waterEnvAlpha": "B",
-    "unk5C": "b",
-    "unk5D": "b",
-    "unk5E": "b",
-    "unk5F": "b",
+    "cellLightingModes00": "b",
+    "cellLightingModes01": "b",
+    "cellLightingModes02": "b",
+    "cellLightingModes03": "b",
 
-    "unk60": "b",        # 0x60
-    "unk61": "b",
-    "unk62": "b",
-    "unk63": "b",
-    "unk64": "b",
-    "unk65": "b",
-    "unk66": "b",
-    "unk67": "b",
-    "unk68": "b",
-    "unk69": "b",
-    "unk6A": "b",
-    "unk6B": "b",
-    "unk6C": "b",
-    "unk6D": "b",
-    "unk6E": "b",
-    "unk6F": "b",
+    "cellLightingModes04": "b", # 0x60
+    "cellLightingModes05": "b",
+    "cellLightingModes10": "b",
+    "cellLightingModes11": "b",
+    "cellLightingModes12": "b",
+    "cellLightingModes13": "b",
+    "cellLightingModes14": "b",
+    "cellLightingModes15": "b",
+    "cellLightingModes20": "b",
+    "cellLightingModes21": "b",
+    "cellLightingModes22": "b",
+    "cellLightingModes23": "b",
+    "cellLightingModes24": "b",
+    "cellLightingModes25": "b",
 
-    "unk70": "b",        # 0x70
-    "unk71": "b",
-    "unk72": "b",
-    "unk73": "b",
+    "cellLightingModes30": "b",
+    "cellLightingModes31": "b",
+    "cellLightingModes32": "b", # 0x70
+    "cellLightingModes33": "b",
+    "cellLightingModes34": "b",
+    "cellLightingModes35": "b",
     "unk74": "b",
-    "unk75": "b",
-    "unk76": "b",  # lights (dir x)
-    "unk77": "b",  # lights (dir y)
-    "unk78": "b",  # lights (dir z)
+    "useDynamicLightDir": "b",
+    "lightDirX": "b",
+    "lightDirY": "b",
+    "lightDirZ": "b",
     "unk79": "b",  # tbd
     "unk7A": "h",
     "unk7C": "h",
@@ -232,10 +233,14 @@ datatype_12_format = {
 
 # .cam
 datatype_13_format_a = {
-    "unk0": "h",
-    "unk2": "h",
-    "unk4": "h",
-    "unk6": "h",
+    "xStart": "B",
+    "zStart": "B",
+    "yStartOrType": "B",
+    "xEnd": "B",
+    "zEnd": "B",
+    "yEnd": "B",
+    "mode": "b",
+    "visibility": "b",
 }
 
 datatype_13_format_b = {

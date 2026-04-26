@@ -2,6 +2,11 @@
 
 #include "common.h"
 
+// ========================================================
+// defines
+// ========================================================
+
+extern u8 WaterTexture[0x2200];
 
 // ========================================================
 // .data
@@ -35,13 +40,10 @@ void load_ingame_objects(void) {
     dma_read(_segment1SegmentRomStart, gSegment1Base, len);
 }
 
-// TODO: use actual D_800DCC20 buffer size
-extern u8 WaterTexture[0x2200];
-
 void load_water_texture(void) {
     s32 pad[2];
-    u32 len = __5449C0SegmentRomEnd - __5449C0SegmentRomStart;
+    u32 len = _img_waterSegmentRomEnd - _img_waterSegmentRomStart;
 
     SSSV_ASSERT(len <= sizeof(WaterTexture), "../src/init.c", 115);
-    dma_read(__5449C0SegmentRomStart, &gWaterTextureBuffer, len);
+    dma_read(_img_waterSegmentRomStart, &gWaterTextureBuffer, len);
 }

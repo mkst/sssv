@@ -61,7 +61,7 @@ void update_sheep_or_ram(void) {
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(0xFF);
 
-        if (((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) && (SSSV_RAND(256) == 156) && (D_803F2D50.unk52 != 3)) {
+        if (((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) && (SSSV_RAND(256) == 156) && (D_803F2D50.textureBank != 3)) {
             sheep_follow_leader();
         }
 

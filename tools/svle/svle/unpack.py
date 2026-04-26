@@ -2,6 +2,7 @@ import logging
 import struct
 
 from .datatypes import *
+from .commands import decode_commands
 
 
 logger = logging.getLogger(__file__)
@@ -109,9 +110,8 @@ def unpack_datatype_4(data):
     """.cmd
     H             # size of whole section
     """
-    logger.info("[.cmd] Unknown: %i bytes", len(data))
-    # return unpack_datatype_4_helper(data)
-    pass
+    logger.info("[.cmd] Commands: %i bytes", len(data))
+    return decode_commands(data)
 
 
 def unpack_datatype_5(data):

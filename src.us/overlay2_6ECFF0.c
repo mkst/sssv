@@ -3,27 +3,27 @@
 
 
 // ESA: func_80062F98
-void func_802DB940_6ECFF0(s16 *arg0, s16 arg1, u16 arg2) {
-    if (*arg0 != arg1) {
-        s16 tmp = arg1 - *arg0;
+void func_802DB940_6ECFF0(s16 *heading, s16 arg1, u16 arg2) {
+    if (*heading != arg1) {
+        s16 tmp = arg1 - *heading;
         if (tmp < 0) {
             tmp += 256;
         }
         if (tmp < 128) {
-            *arg0 += arg2;
+            *heading += arg2;
             if ((tmp - arg2) < 0) {
-                *arg0 = arg1;
+                *heading = arg1;
             }
-            if (*arg0 >= 256) {
-                *arg0 -= 256;
+            if (*heading >= 256) {
+                *heading -= 256;
             }
         } else {
-            *arg0 -= arg2;
+            *heading -= arg2;
             if ((tmp + arg2) > 256) {
-                *arg0 = arg1;
+                *heading = arg1;
             }
-            if (*arg0 < 0) {
-                *arg0 += 256;
+            if (*heading < 0) {
+                *heading += 256;
             }
         }
     }

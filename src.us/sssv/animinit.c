@@ -7,7 +7,7 @@
 
 void load_data_section(u8 segment) {
     u32 len;
-    u8  pad[0x1C];
+    u8  pad[0x1C] UNUSED;
 
     osWritebackDCacheAll();
     bzero_sssv(_gfxanimSegmentStart, _gfxanimSegmentEnd - _gfxanimSegmentStart);
@@ -68,28 +68,28 @@ void load_data_section(u8 segment) {
 
 // file split
 
-void switch_to_current_segment(Gfx **arg0, DisplayList *arg1) {
+void switch_to_current_segment(Gfx **dl, DisplayList *arg1 UNUSED) {
     switch (D_803F2D50.segment) {
     case SEGMENT_CITY:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gCitySegmentBase));
+        gSPSegment((*dl)++, 0x04, osVirtualToPhysical(gCitySegmentBase));
         break;
     case SEGMENT_EUROPE:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gEuropeSegmentBase));
+        gSPSegment((*dl)++, 0x04, osVirtualToPhysical(gEuropeSegmentBase));
         break;
     case SEGMENT_ICE:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gIceSegmentBase));
+        gSPSegment((*dl)++, 0x04, osVirtualToPhysical(gIceSegmentBase));
         break;
     case SEGMENT_DESERT:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gDesertSegmentBase));
+        gSPSegment((*dl)++, 0x04, osVirtualToPhysical(gDesertSegmentBase));
         break;
     case SEGMENT_JUNGLE:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gJungleSegmentBase));
+        gSPSegment((*dl)++, 0x04, osVirtualToPhysical(gJungleSegmentBase));
         break;
     case SEGMENT_SHIP:
-        gSPSegment((*arg0)++, 0x04, osVirtualToPhysical(gMenuSegmentBase));
+        gSPSegment((*dl)++, 0x04, osVirtualToPhysical(gMenuSegmentBase));
         break;
     default:
-        osSyncPrintf("Undefined segment - hware.c\n", arg0);
+        osSyncPrintf("Undefined segment - hware.c\n", dl);
         break;
     }
 }

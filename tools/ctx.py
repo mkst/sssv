@@ -26,18 +26,29 @@ def get_c_file(directory):
 
 def import_c_file(in_file):
     in_file = os.path.relpath(in_file, root_dir)
-    cpp_command = ["gcc", "-E", "-P",
-        "-Iinclude", "-Iinclude/2.0I", "-Iinclude/2.0I/PR", "-Isrc",
-        "-D_LANGUAGE_C", "-D_FINALROM", "-DF3DEX_GBI", "-DWIN32", "-DSSSV", "-DVERSION_US",
-        in_file]
+    cpp_command = [
+        "gcc",
+        "-E",
+        "-P",
+        "-Iinclude",
+        "-Iinclude/2.0I",
+        "-Iinclude/2.0I/PR",
+        "-Isrc",
+        "-D_LANGUAGE_C",
+        "-D_FINALROM",
+        "-DF3DEX_GBI",
+        "-DWIN32",
+        "-DSSSV",
+        "-DVERSION_US",
+        in_file,
+    ]
     try:
         return subprocess.check_output(cpp_command, cwd=root_dir, encoding="utf-8")
     except subprocess.CalledProcessError:
         print(
-            "Failed to preprocess input file, when running command:\n"
-            + cpp_command,
+            "Failed to preprocess input file, when running command:\n" + cpp_command,
             file=sys.stderr,
-            )
+        )
         sys.exit(1)
 
 
@@ -45,15 +56,19 @@ def main():
     if len(sys.argv) > 1:
         arg = sys.argv[1]
         if arg == "-h" or arg == "--help":
-            sys.exit("Usage: ./ctx.py path/to/file.c\n" \
-            "or ./ctx.py (from an actor or gamestate's asm dir)\n" \
-            "Output will be saved in ./ctx.c")
+            sys.exit(
+                "Usage: ./ctx.py path/to/file.c\n"
+                "or ./ctx.py (from an actor or gamestate's asm dir)\n"
+                "Output will be saved in ./ctx.c"
+            )
         c_file_path = Path.cwd() / sys.argv[1]
     else:
         this_dir = Path.cwd()
         c_dir_path = get_c_dir(this_dir.name)
         if c_dir_path is None:
-            sys.exit("Cannot find appropriate c file dir. In argumentless mode, run this script from the c file's corresponding asm dir.")
+            sys.exit(
+                "Cannot find appropriate c file dir. In argumentless mode, run this script from the c file's corresponding asm dir."
+            )
         c_file = get_c_file(c_dir_path)
         c_file_path = os.path.join(c_dir_path, c_file)
 

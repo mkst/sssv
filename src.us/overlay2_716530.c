@@ -1,5 +1,4 @@
 #include <ultra64.h>
-
 #include "common.h"
 
 #pragma intrinsic sqrtf

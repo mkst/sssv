@@ -217,9 +217,9 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         sp58 = func_80310F58_722608(sp5E, sp5C);
         if (sp58 == 0x40000000) {
             sp40 = sample_ground_height_at_xz(sp5E, sp5C);
-
-            if (1) {}; // regalloc
-
+#ifdef __sgi
+            if (1) {};
+#endif
             if ((func_80310F58_722608(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) - FTOFIX32(5.0)) < sp40) {
                 sp58 = sample_ground_height_at_xz(sp5E, sp5C);
             } else {
@@ -239,15 +239,16 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
                 sp58 = sp44;
             }
         }
-        // regalloc helper
+#ifdef __sgi
         if (1) {};
+#endif
     }
     sp58 = sp58 - D_803D5530->position.yPos.w;
     return sp58;
 }
 
 // UB?
-s32 func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
+s32 func_802B901C_6CA6CC(u8 heading, s16 *arg1, s16 *arg2) {
     s32 temp_t1;
     s32 temp_t2;
     s32 temp_a3;
@@ -255,8 +256,8 @@ s32 func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
     s32 temp_t8;
     s32 temp_t7;
 
-    temp_v0 = SIN(arg0);
-    temp_a3 = COS(arg0);
+    temp_v0 = SIN(heading);
+    temp_a3 = COS(heading);
 
     temp_t7 = *arg2;
     temp_t1 = temp_t7;
@@ -272,7 +273,7 @@ s32 func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2) {
 }
 
 // ESA: func_80064658
-void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
+void func_802B90A0_6CA750(u8 heading, s32 *arg1, s32 *arg2) {
     s32 temp_t1;
     s32 temp_t2;
     s32 temp_a3;
@@ -280,8 +281,8 @@ void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2) {
     s32 temp_t8;
     s32 temp_t7;
 
-    temp_v0 = SIN(arg0) >> 7;
-    temp_a3 = COS(arg0) >> 7;
+    temp_v0 = SIN(heading) >> 7;
+    temp_a3 = COS(heading) >> 7;
 
     temp_t7 = *arg2;
     temp_t1 = temp_t7;

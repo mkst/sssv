@@ -445,7 +445,7 @@ static u16  curDPadRight;
 Collision D_803E9840[9];
 
 s16  D_803F28B0[9];
-s16  D_803F28C2; // TBD
+s16  D_803F28C2;
 
 // ========================================================
 // .text
@@ -480,7 +480,7 @@ void func_80327BE0_739290(void) {
     gAnimalState.unkFFCE = 0;
 }
 
-void func_80327DA0_739450(void) {
+void unused_80327DA0_739450(void) {
 }
 
 // ESA: func_8007F278
@@ -659,7 +659,7 @@ void func_803283DC_739A8C(void) {
     D_803D552C->unk30C = 0;
     D_803D552C->unk30E = 0;
 
-    switch (gCurrentAnimalId) { // current animal id
+    switch (gCurrentAnimalId) {
     case FLYING_DOG:
         D_803D552C->heading = 0;
         D_803D5530->unk28 = 0;
@@ -892,16 +892,15 @@ void func_80328ACC_73A17C(void) {
 
     s32 sp40; // curently sp70!?
 
-    if (((D_803F2D50.unk52 != 3) || (D_803F2D50.segment != 2)) &&
-        ((D_803F2D50.unk52 != 5) || (D_803F2D50.segment != 0)) &&
-        ((D_803F2D50.unk52 != 4) || (D_803F2D50.segment != 1)) &&
+    if (((D_803F2D50.textureBank != 3) || (D_803F2D50.segment != 2)) &&
+        ((D_803F2D50.textureBank != 5) || (D_803F2D50.segment != 0)) &&
+        ((D_803F2D50.textureBank != 4) || (D_803F2D50.segment != 1)) &&
         (D_803F2D50.segment != 5U)) {
 
         sp40 = gCurrentAnimalIndex;
         animalId = gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C;
 
         if (((gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C != EVO))) {
-
 
             if (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (gAnimalState.animals[gCurrentAnimalIndex].animal->unk320->unk16C->unk82.unk2 == 0)) &&
                 (animalId != VULTURE) && (animalId != SEAGULL2) && (animalId != POLAR_BEAR_DEFENDING) &&
@@ -1246,7 +1245,7 @@ s32 func_80329BAC_73B25C(s16 arg0, s16 arg1) {
     sp54 = (gAnimalState.animals[arg1].animal->unk42 * 6) / 4;
 
     if (((s16)D_803F2D50.segment == 0) &&
-        (D_803F2D50.unk52 == 7) &&
+        (D_803F2D50.textureBank == 7) &&
         func_803233A0_734A50(
             sp64,
             sp66,
@@ -1576,9 +1575,9 @@ void cheat_activate_scale_pulse_effect(void) {
                 D_803D552C = a;
                 D_803D5528 = a;
                 D_803D5530 = a;
-
+#ifdef __sgi
                 if (D_803D5528 == NULL) {} // helps regalloc
-
+#endif
                 if (gCurrentAnimalIndex == i) {
                     D_803D5538 = 1;
                 } else {
@@ -1654,7 +1653,9 @@ void cheat_toggle_mystery_bear(void) {
         D_803D5524 = gAnimalState.animals[gCurrentAnimalIndex].unk0;
 
         D_803D5528 = a;
+#ifdef __sgi
         if (D_803D5528 == NULL) {}; // fakematch
+#endif
         D_803D552C = a;
         D_803D5530 = a;
 

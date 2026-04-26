@@ -6,7 +6,7 @@
 // definitions
 // ========================================================
 
-s32  resolve_movement_and_collision(Animal *arg0);
+s32  resolve_movement_and_collision(Entity *arg0);
 s16  check_tile_transition_collision(void);
 s16  check_vertical_clearance_range(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *arg4);
 s16  check_vertical_clearance_simple(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *arg4);
@@ -27,16 +27,11 @@ void handle_z_collision(void);
 void handle_xz_collision(void);
 void func_803135FC_724CAC(Animal *arg0);
 
-
-// ========================================================
-// .data
-// ========================================================
-
 // ========================================================
 // .bss
 // ========================================================
 
-s16  D_803E4C50; // unused
+static s16  D_803E4C50; // unused
 
 static s16  currentX;
 static s16  currentZ;
@@ -67,7 +62,7 @@ static s16  D_803E4C86;
 static Animal *D_803E4C88;
 static Animal *D_803E4C8C;
 static Animal *D_803E4C90;
-static Animal *D_803E4C94;
+static Entity *D_803E4C94;
 
 // ========================================================
 // .text
@@ -81,11 +76,11 @@ s32 func_8030AA90_71C140(Entity *arg0) {
     if (!arg0->unk4C.unk1C) {
         return func_8030E8AC_71FF5C(arg0);
     }
-    return resolve_movement_and_collision((Animal*)arg0);
+    return resolve_movement_and_collision(arg0);
 }
 
 // ESA: func_80030364
-s32 resolve_movement_and_collision(Animal *arg0) {
+s32 resolve_movement_and_collision(Entity *arg0) {
     s16 sp2E;
     s16 sp2C;
     s16 sp2A;
@@ -951,8 +946,9 @@ void func_8030DD34_71F3E4(void) {
     D_803E4C8C = NULL;
     var_v1 = D_803E4C90 = NULL;
 
+#ifdef __sgi
     if (((!D_803E4C8C->unk16C) && (!D_803E4C8C->unk16C))) {};  // regalloc helper!
-
+#endif
     D_803E4C7A = 0;
     D_803E4C86 = 0;
 
@@ -1001,6 +997,8 @@ void func_8030DD34_71F3E4(void) {
 
     if ((var_t1 - var_t0) < (D_803E4C94->unk42 << 0x10)) {
         D_803E4C84 = 0;
+        // No clamp against the previous Y position: if stale transfer/contact
+        // state makes var_t0 much higher, this correction can become a launch.
         newYPos = var_t0;
 
         if (((var_t0 != sp4C) || (D_803E4C88 == NULL) || (D_803E4C88->unk16C->unk2 != 5)) && ((var_t1 != sp48) || (D_803E4C8C == NULL) || (D_803E4C8C->unk16C->unk2 != 5))) {
@@ -1015,6 +1013,7 @@ void func_8030DD34_71F3E4(void) {
             D_803E4C84 = 2;
             newYPos = var_t1 - (D_803E4C94->unk42 << 0x10);
         } else if (newYPos < var_t0) {
+            // Same vertical snap as above, later converted back into yVelocity.
             newYPos = var_t0;
             D_803E4C84 = 0;
             if ((D_803E4C88 != NULL) && (var_t0 == sp4C)) {
@@ -1027,8 +1026,12 @@ void func_8030DD34_71F3E4(void) {
 
 // ESA: func_800345D0
 void func_8030E208_71F8B8(void) {
+#ifdef __sgi
     u8  pad;
     u8  sp3E; // FIXME: this should be s16
+#else
+    s16 sp3E;
+#endif
 
     func_8030DD34_71F3E4();
     if (check_collision_against_animals_6C8C7C(D_803E4C94, 0, newXPos, newZPos, newYPos, &sp3E, 0) == 0) {
@@ -1510,7 +1513,7 @@ s16 func_80310030_7216E0(void) {
     s16 sp32;
     s16 sp30;
 
-    s32 pad;
+    s32 pad UNUSED;
 
     func_80311A2C_7230DC(currentX, currentZ, &sp32, &sp30, D_803E4C94->unk160);
 
@@ -2423,7 +2426,6 @@ s32 func_80312A44_7240F4(s16 x, s16 y, s16 arg2, s16 arg3, s8 arg4, u8 arg5) {
     return 0;
 }
 
-// handle_x_velocity_something
 // ESA: func_80038E68
 void handle_x_collision(void) {
     if (IS_CURRENT_ANIMAL(D_803E4C94)) {
@@ -2542,8 +2544,9 @@ s32 func_80313448_724AF8(Animal *arg0, s32 arg1, s32 arg2, s32 arg3) {
     velocityZ = tmp->zVelocity.w;
     groundType = arg0->unk160;
 
-    // yuck
+#ifdef __sgi
     if ((!(&tmp->zVelocity)) && (!(&D_803D5530->zVelocity))) {}
+#endif
 
     if (((check_tile_transition_collision()) == 0) && (func_8030EA98_720148() == 0)) {
         D_803E4C94->position.xPos.w = newXPos;

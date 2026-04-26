@@ -55,16 +55,16 @@ s32 func_80362BEC_77429C(Animal *a) {
 
 // ESA: func_80060DFC
 void func_80362C10_7742C0(Animal *arg0) {
-    if (func_80305084_716734(arg0->position.xPos.h - arg0->xPosTarget, arg0->position.zPos.h - arg0->zPosTarget, arg0->unk2D4, arg0->unk2D8) > 100) {
-        if (arg0->unk2DC == 0) {
+    if (func_80305084_716734(arg0->position.xPos.h - arg0->xPosTarget, arg0->position.zPos.h - arg0->zPosTarget, arg0->navPrevTargetXDelta, arg0->navPrevTargetZDelta) > 100) {
+        if (arg0->navTurnCheckState == 0) {
             arg0->navTimer = 10;
-            arg0->unk2D4 = arg0->position.xPos.h - arg0->xPosTarget;
-            arg0->unk2D8 = arg0->position.zPos.h - arg0->zPosTarget;
-            arg0->unk2DC = 1;
+            arg0->navPrevTargetXDelta = arg0->position.xPos.h - arg0->xPosTarget;
+            arg0->navPrevTargetZDelta = arg0->position.zPos.h - arg0->zPosTarget;
+            arg0->navTurnCheckState = 1;
         } else {
             arg0->navState = NAVIGATION_STATE_TURN_THEN_MOVE;
             arg0->navTimer = -1;
-            arg0->unk2DC = 0;
+            arg0->navTurnCheckState = 0;
         }
     }
 }
@@ -217,8 +217,8 @@ void func_80362CC4_774374(Animal *arg0) {
     case WAYPOINT_MODE_ENGAGE_PLAYER:
         if (arg0->unk294.type8.unk6 != 0) {
             arg0->unk294.type8.target = gAnimalState.animals[gCurrentAnimalIndex].animal;
-            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
-            arg0->unk2CC = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->navTarget = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->aiTarget = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
         if (func_803099BC_71B06C() == 0) {
             reset_waypoint_mode(arg0);
@@ -274,7 +274,7 @@ void func_803633C4_774A74(Animal *arg0) {
     case NAVIGATION_STATE_IDLE:
         break;
     case NAVIGATION_STATE_GOTO_POINT:
-        if ((ABS(arg0->xPosTarget - arg0->position.xPos.h) < arg0->unk2A2) && (ABS(arg0->zPosTarget - arg0->position.zPos.h) < arg0->unk2A2)) {
+        if ((ABS(arg0->xPosTarget - arg0->position.xPos.h) < arg0->navTargetRadius) && (ABS(arg0->zPosTarget - arg0->position.zPos.h) < arg0->navTargetRadius)) {
             set_nav_state_idle(arg0);
         } else {
             func_80362C10_7742C0(arg0);
@@ -282,36 +282,36 @@ void func_803633C4_774A74(Animal *arg0) {
         break;
     case NAVIGATION_STATE_CHASE_TARGET:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->navTarget = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
-        if (arg0->unk2AC->unk26C != NULL) {
+        if (arg0->navTarget->unk26C != NULL) {
             set_nav_state_idle(arg0);
         } else {
-            arg0->unk278 = arg0->unk2AC->position.xPos.h;
-            arg0->unk27A = arg0->unk2AC->position.zPos.h;
-            if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
-                arg0->unk27C = (arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
+            arg0->navTargetX = arg0->navTarget->position.xPos.h;
+            arg0->navTargetZ = arg0->navTarget->position.zPos.h;
+            if ((can_fly(arg0->navTarget) != 0) || ((func_80362B60_774210(arg0->navTarget) != 0))) {
+                arg0->navTargetY = (arg0->navTarget->position.yPos.h + (arg0->navTarget->unk42 >> 1)) - arg0->yPosTarget;
             }
         }
         break;
     case NAVIGATION_STATE_FOLLOW_TARGET:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->navTarget = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
-        arg0->unk278 = arg0->unk2AC->position.xPos.h;
-        arg0->unk27A = arg0->unk2AC->position.zPos.h;
+        arg0->navTargetX = arg0->navTarget->position.xPos.h;
+        arg0->navTargetZ = arg0->navTarget->position.zPos.h;
         break;
     case NAVIGATION_STATE_FOLLOW_TARGET_2:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->navTarget = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
-        if (arg0->unk2AC->unk26C != NULL) {
+        if (arg0->navTarget->unk26C != NULL) {
             set_nav_state_idle(arg0);
         } else {
-            arg0->unk278 = arg0->unk2AC->position.xPos.h;
-            arg0->unk27A = arg0->unk2AC->position.zPos.h;
-            if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
-                arg0->unk27C = (arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget;
+            arg0->navTargetX = arg0->navTarget->position.xPos.h;
+            arg0->navTargetZ = arg0->navTarget->position.zPos.h;
+            if ((can_fly(arg0->navTarget) != 0) || ((func_80362B60_774210(arg0->navTarget) != 0))) {
+                arg0->navTargetY = (arg0->navTarget->position.yPos.h + (arg0->navTarget->unk42 >> 1)) - arg0->yPosTarget;
             }
         }
         break;
@@ -323,24 +323,24 @@ void func_803633C4_774A74(Animal *arg0) {
 
         if (func_803051F0_7168A0((func_801284B8(xDist, zDist) << 8) / 360, arg0->yRotation) < 6) {
             arg0->navState = NAVIGATION_STATE_GOTO_POINT;
-            arg0->navTimer = arg0->unk2A1;
+            arg0->navTimer = arg0->navSpeedSetting;
         }
         break;
     case NAVIGATION_STATE_UNUSED_7:
         break;
     case NAVIGATION_STATE_CHASE_ATTACK:
         if (arg0->targetIsPlayer != 0) {
-            arg0->unk2AC = gAnimalState.animals[gCurrentAnimalIndex].animal;
+            arg0->navTarget = gAnimalState.animals[gCurrentAnimalIndex].animal;
         }
-        if (arg0->unk2AC->unk26C != NULL) {
+        if (arg0->navTarget->unk26C != NULL) {
             set_nav_state_idle(arg0);
         } else {
-            arg0->unk278 = arg0->unk2AC->position.xPos.h;
-            arg0->unk27A = arg0->unk2AC->position.zPos.h;
-            if ((can_fly(arg0->unk2AC) != 0) || ((func_80362B60_774210(arg0->unk2AC) != 0))) {
-                arg0->unk27C = ((arg0->unk2AC->position.yPos.h + (arg0->unk2AC->unk42 >> 1)) - arg0->yPosTarget);
+            arg0->navTargetX = arg0->navTarget->position.xPos.h;
+            arg0->navTargetZ = arg0->navTarget->position.zPos.h;
+            if ((can_fly(arg0->navTarget) != 0) || ((func_80362B60_774210(arg0->navTarget) != 0))) {
+                arg0->navTargetY = ((arg0->navTarget->position.yPos.h + (arg0->navTarget->unk42 >> 1)) - arg0->yPosTarget);
             }
-            if (((arg0->unk5C.unk0 & (0x4|0x1)) != 0) && ((Animal*)arg0->unk5C.unk4 == arg0->unk2AC)) {
+            if (((arg0->unk5C.unk0 & (0x4|0x1)) != 0) && ((Animal*)arg0->unk5C.unk4 == arg0->navTarget)) {
                 set_nav_state_idle(arg0);
             }
         }
@@ -366,7 +366,7 @@ void func_8036379C_774E4C(Animal *arg0) {
     arg0->waypointMode = WAYPOINT_MODE_WAIT;
     arg0->unk290 = 0;
     func_8037B784_78CE34(arg0);
-    arg0->unk2AC = arg0->unk320;
+    arg0->navTarget = arg0->unk320;
 }
 
 // ESA: func_80061688
@@ -405,7 +405,7 @@ void func_803638A8_774F58(Animal *arg0, Animal *target, s16 arg2) {
 // ESA: func_8006179C
 void reset_waypoint_mode(Animal *arg0) {
     arg0->waypointMode = WAYPOINT_MODE_NONE;
-    arg0->unk2CC = NULL;
+    arg0->aiTarget = NULL;
     set_nav_state_idle(arg0);
 }
 
@@ -499,101 +499,101 @@ void set_nav_state_goto_point(Animal *arg0, s16 xPos, s16 zPos, s16 yPos, s8 arg
     arg0->xPosTarget = xPos;
     arg0->zPosTarget = zPos;
     arg0->yPosTarget = yPos;
-    arg0->unk2A1 = arg4;
-    arg0->unk2A2 = arg5;
-    arg0->unk2AC = 0;
-    arg0->navMode = 2;
+    arg0->navSpeedSetting = arg4;
+    arg0->navTargetRadius = arg5;
+    arg0->navTarget = 0;
+    arg0->navMode = NAV_MODE_TOWARDS_TARGET;
     arg0->navTimer = arg4;
-    arg0->unk278 = xPos;
-    arg0->unk27A = zPos;
-    arg0->unk27C = yPos;
-    arg0->unk2D4 = arg0->position.xPos.h - xPos;
-    arg0->unk2D8 = arg0->position.zPos.h - zPos;
-    arg0->unk2DC = 0;
+    arg0->navTargetX = xPos;
+    arg0->navTargetZ = zPos;
+    arg0->navTargetY = yPos;
+    arg0->navPrevTargetXDelta = arg0->position.xPos.h - xPos;
+    arg0->navPrevTargetZDelta = arg0->position.zPos.h - zPos;
+    arg0->navTurnCheckState = 0;
 }
 
 // ESA: func_80061B68
 void set_nav_state_idle(Animal *arg0) {
     arg0->navState = NAVIGATION_STATE_IDLE;
-    arg0->unk2A1 = 0;
-    arg0->unk2AC = 0;
-    arg0->navMode = 0;
+    arg0->navSpeedSetting = 0;
+    arg0->navTarget = 0;
+    arg0->navMode = NAV_MODE_NONE;
     arg0->navTimer = 0;
 }
 
 // ESA: func_80061B80
 void set_nav_state_chase_target(Animal *arg0, Animal *target, s16 yPos, s16 arg3) {
     arg0->yPosTarget = yPos;
-    arg0->unk2AC = target;
+    arg0->navTarget = target;
     arg0->navState = NAVIGATION_STATE_CHASE_TARGET;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->position.xPos.h;
-    arg0->unk27A = target->position.zPos.h;
+    arg0->navTargetX = target->position.xPos.h;
+    arg0->navTargetZ = target->position.zPos.h;
     if (can_fly(target) || func_80362B60_774210(target)) {
-        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + yPos;
+        arg0->navTargetY = target->position.yPos.h + (target->unk42 >> 1) + yPos;
     } else {
-        arg0->unk27C = yPos;
+        arg0->navTargetY = yPos;
     }
-    arg0->navMode = 2;
+    arg0->navMode = NAV_MODE_TOWARDS_TARGET;
     arg0->navTimer = arg3;
 }
 
 // ESA: func_80061C60
 void set_nav_state_chase_attack(Animal *arg0, Animal *target, s16 yPos, s16 arg3) {
     arg0->yPosTarget = yPos;
-    arg0->unk2AC = target;
+    arg0->navTarget = target;
     arg0->navState = NAVIGATION_STATE_CHASE_ATTACK;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->position.xPos.h;
-    arg0->unk27A = target->position.zPos.h;
-    if (can_fly(target) || func_80362B60_774210(arg0->unk2AC)) {
-        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + yPos;
+    arg0->navTargetX = target->position.xPos.h;
+    arg0->navTargetZ = target->position.zPos.h;
+    if (can_fly(target) || func_80362B60_774210(arg0->navTarget)) {
+        arg0->navTargetY = target->position.yPos.h + (target->unk42 >> 1) + yPos;
     } else {
-        arg0->unk27C = yPos;
+        arg0->navTargetY = yPos;
     }
-    arg0->navMode = 2;
+    arg0->navMode = NAV_MODE_TOWARDS_TARGET;
     arg0->navTimer = arg3;
 }
 
 // ESA: func_80061D44
 void set_nav_state_follow_target(Animal *arg0, Animal *target) {
-    arg0->unk2AC = target;
+    arg0->navTarget = target;
     arg0->navState = NAVIGATION_STATE_FOLLOW_TARGET;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->position.xPos.h;
-    arg0->unk27A = target->position.zPos.h;
-    arg0->navMode = 2;
+    arg0->navTargetX = target->position.xPos.h;
+    arg0->navTargetZ = target->position.zPos.h;
+    arg0->navMode = NAV_MODE_TOWARDS_TARGET;
     arg0->navTimer = -1;
 }
 
 // ESA: func_80061D9C
 void func_80363EDC_77558C(Animal *arg0, s16 yPos, Animal *target) {
     arg0->yPosTarget = yPos;
-    arg0->unk2AC = target;
+    arg0->navTarget = target;
     arg0->navState = NAVIGATION_STATE_FOLLOW_TARGET_2;
-    arg0->unk2A1 = 16;
+    arg0->navSpeedSetting = 16;
     arg0->targetIsPlayer = target == gAnimalState.animals[gCurrentAnimalIndex].animal;
-    arg0->unk278 = target->position.xPos.h;
-    arg0->unk27A = target->position.zPos.h;
-    arg0->navMode = 3;
+    arg0->navTargetX = target->position.xPos.h;
+    arg0->navTargetZ = target->position.zPos.h;
+    arg0->navMode = NAV_MODE_AWAY_FROM_TARGET;
     arg0->navTimer = 16;
     if (can_fly(target) || func_80362B60_774210(target)) {
-        arg0->unk27C = target->position.yPos.h + (target->unk42 >> 1) + yPos;
+        arg0->navTargetY = target->position.yPos.h + (target->unk42 >> 1) + yPos;
     } else {
-        arg0->unk27C = yPos;
+        arg0->navTargetY = yPos;
     }
 }
 
 // ESA: func_80061E74
 void set_nav_state_scripted(Animal *arg0, u16 arg1, s16 yPos, s16 arg3) {
     arg0->yPosTarget = yPos;
-    arg0->unk2A1 = arg3;
+    arg0->navSpeedSetting = arg3;
     arg0->navState = NAVIGATION_STATE_SCRIPTED;
-    arg0->unk2AC = 0;
-    arg0->unk276 = arg1;
-    arg0->unk27C = yPos;
+    arg0->navTarget = 0;
+    arg0->navHeadingDegrees = arg1;
+    arg0->navTargetY = yPos;
     arg0->navTimer = arg3;
-    arg0->navMode = 1;
+    arg0->navMode = NAV_MODE_SCRIPTED_VECTOR;
 }
 
 // ESA: func_80061EB0

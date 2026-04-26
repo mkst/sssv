@@ -4,7 +4,7 @@
 
 // ESA: func_8007E6A0
 s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
-    s32 pad[2];
+    s32 pad[2] UNUSED;
     s16 temp_lo_2;
     s16 temp_t6;
 
@@ -55,7 +55,7 @@ s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4)
 
         temp_t1 = temp_t6 * 2;
 
-        switch (arg0->yRotation) {              /* irregular */
+        switch (arg0->yRotation) {
         case 90:
             var_a0 = (arg0->position.zPos.h + temp_t6) - arg2;
             var_a2 = (arg1 - arg0->position.xPos.h) + temp_t6;
@@ -273,7 +273,7 @@ s32 func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s16 a
     return 1;
 }
 
-void func_8032BE28_73D4D8(Animal *arg0) {
+void unused_8032BE28_73D4D8(Animal *arg0) {
     s16 index;
     Collision *collision;
     s16 x;
@@ -317,7 +317,6 @@ void func_8032BE28_73D4D8(Animal *arg0) {
 }
 
 void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
-
     if (D_803D3434->usedModelViewMtxs < 240) {
         gDPSetPrimColor(gXluDL++, 0, 0, r, g, b, 0xFF);
         guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);

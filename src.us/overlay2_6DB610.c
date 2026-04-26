@@ -152,7 +152,7 @@ void update_entity_physics(Entity *arg0) {
         case 3:
             if (arg0->unk4C.unk1D) {
                 if ((arg0->unk16C->objectType == 38) || (arg0->unk16C->objectType == 177)) {
-                    arg0->yVelocity.w -= ((s32) gGravity >> 3);
+                    arg0->yVelocity.w -= gGravity >> 3;
                 } else {
                     arg0->yVelocity.w -= gGravity;
                 }
@@ -178,7 +178,7 @@ void update_entity_physics(Entity *arg0) {
             if (arg0->unk4C.unk1C) {
                 func_802A403C_6B56EC(arg0, 3);
                 if (arg0->unk161 != 1) {
-                    func_80311A2C_7230DC(arg0->position.xPos.h, arg0->position.zPos.h, &D_803D5510, &D_803D5512, (s32) arg0->unk160);
+                    func_80311A2C_7230DC(arg0->position.xPos.h, arg0->position.zPos.h, &D_803D5510, &D_803D5512, arg0->unk160);
                     if (D_803D5510 > 0x18) {
                         D_803D5510 = 0x18;
                     } else if (D_803D5510 < -0x18) {
@@ -261,11 +261,14 @@ void update_entity_physics(Entity *arg0) {
             } else if (arg0->yRotation >= 360) {
                 arg0->yRotation -= 360;
             }
-            // regalloc help
-            if (1) {};
+#ifdef __sgi
+            if (1) {}; // regalloc help
+#endif
         }
 
-        if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) && (((arg0->movementState == 1)) || ((arg0->movementState == 6) && (arg0->unk16C->unk82.unk0 == 0))) && (arg0->unk68 == NULL) && (arg0->unk70 == 0) && (arg0->commands.unk1A8 == 0)) {
+        if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) &&
+            (((arg0->movementState == 1)) || ((arg0->movementState == 6) && (arg0->unk16C->unk82.unk0 == 0))) &&
+            (arg0->unk68 == NULL) && (arg0->unk70 == NULL) && (arg0->commands.unk1A8 == 0)) {
             if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->Info.lifetime == 0)) {
                 arg0->unk4C.unk19  = 0;
             }
@@ -396,7 +399,9 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     func_802B38FC_6C4FAC(arg0, damage, -1, 1);
     arg0->unk65 += damage;
 
+#ifdef __sgi
     if (0) { } // debug?
+#endif
 
     xVel = ABS(arg1->xVelocity.h - arg5);
     zVel = ABS(arg1->zVelocity.h - arg6);
@@ -452,7 +457,7 @@ void func_802CB180_6DC830(Entity *arg0) {
             }
         }
 
-        tmp = (s8)((arg0->unk4C.pad0 * phi_a1) >> 6);
+        tmp = (arg0->unk4C.pad0 * phi_a1) >> 6;
         if (tmp >= (arg0->unk4C.pad8 + 3)) {
             arg0->unk4C.pad8++;
             if (D_803C0740[xPos][zPos].unk6) {

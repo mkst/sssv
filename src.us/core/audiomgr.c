@@ -578,13 +578,13 @@ void initialise_audio(s32 *arg0) {
     }
     alHeapInit(&D_80286328, D_80242508, AUDIO_HEAP_SIZE);
 
-    D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alTable1SegmentRomStart - _alBankFile1SegmentRomStart);
-    dma_read(_alBankFile1SegmentRomStart, D_802862F8, _alTable1SegmentRomStart - _alBankFile1SegmentRomStart);
+    D_802862F8 = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alBankFile1SegmentRomEnd - _alBankFile1SegmentRomStart);
+    dma_read(_alBankFile1SegmentRomStart, D_802862F8, _alBankFile1SegmentRomEnd - _alBankFile1SegmentRomStart);
     if ((fake && fake) && fake) {};
     alBnkfNew(D_802862F8, _alTable1SegmentRomStart);
 
-    D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alTable2SegmentRomStart - _alBankFile2SegmentRomStart);
-    dma_read(_alBankFile2SegmentRomStart, D_802862FC, _alTable2SegmentRomStart - _alBankFile2SegmentRomStart);
+    D_802862FC = (ALBankFile *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, _alBankFile2SegmentRomEnd - _alBankFile2SegmentRomStart);
+    dma_read(_alBankFile2SegmentRomStart, D_802862FC, _alBankFile2SegmentRomEnd - _alBankFile2SegmentRomStart);
     alBnkfNew(D_802862FC, _alTable2SegmentRomStart);
 
     D_80286300 = D_802862FC->bankArray[0];

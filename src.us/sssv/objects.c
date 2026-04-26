@@ -297,7 +297,7 @@ void func_802C9BA4_6DB254(Animal *arg0) {
         arg0->unk42 = arg0->unk16C->unkBC;
     }
 
-    arg0->unk44 = arg0->unk46;
+    arg0->mass = arg0->unk46;
 
     arg0->unk4C.pad0 = arg0->unk16C->mass / 2;
 
@@ -305,7 +305,7 @@ void func_802C9BA4_6DB254(Animal *arg0) {
     arg0->unk32 = ((s64)arg0->unk32 * arg0->unk40) >> 11;
 
     arg0->unk42 = ((s64)arg0->unk42 * arg0->unk40) >> 11;
-    arg0->unk44 = ((s64)arg0->unk44 * arg0->unk40) >> 11;
+    arg0->mass = ((s64)arg0->mass * arg0->unk40) >> 11;
 
     arg0->unk4C.pad0 = ((s64)arg0->unk4C.pad0 * arg0->unk40) >> 11;
 

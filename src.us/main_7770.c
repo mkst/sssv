@@ -3,7 +3,7 @@
 #include "common.h"
 
 void load_overlay(u8 id) {
-    s32 pad;
+    s32 pad UNUSED;
 
     stop_all_sounds();
 
@@ -24,5 +24,7 @@ void load_overlay(u8 id) {
         break;
     }
 
+#ifdef __sgi
     if ((!pad) && (!pad)) {};
+#endif
 }

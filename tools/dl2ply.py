@@ -21,9 +21,9 @@ import argparse
 
 def load_vtx_file(path):
     res = []
-    with open(path, 'rb') as f:
+    with open(path, "rb") as f:
         data = f.read()
-    vtxs = struct.iter_unpack('>hhhHhhBBBB', data)
+    vtxs = struct.iter_unpack(">hhhHhhBBBB", data)
     for vtx in vtxs:
         x, y, z, flg, u, v, r, g, b, a = vtx
         res.append((x, y, z, u, v, r, g, b, a))
@@ -38,17 +38,26 @@ def parse_vtx_file(path):
         return res
 
     print("Parsing %s" % path)
-    with open(path, 'r') as f:
+    with open(path, "r") as f:
         lines = f.readlines()
 
     for line in lines:
-        if match := re.match(r".*{{{ *(-*[0-9]+), *(-*[0-9]+), *(-*[0-9]+) *}, ([0-9]+), *{ *(-*[0-9]+), *(-*[0-9]+) *}, *{ *(-*[0-9]+), *(-*[0-9]+), *(-*[0-9]+), *(-*[0-9]+) *}}},*", line):
+        if match := re.match(
+            r".*{{{ *(-*[0-9]+), *(-*[0-9]+), *(-*[0-9]+) *}, ([0-9]+), *{ *(-*[0-9]+), *(-*[0-9]+) *}, *{ *(-*[0-9]+), *(-*[0-9]+), *(-*[0-9]+), *(-*[0-9]+) *}}},*",
+            line,
+        ):
             x, y, z = int(match.group(1)), int(match.group(2)), int(match.group(3))
             # flg = match.group(4)
             u, v = int(match.group(5)), int(match.group(6))
-            r, g, b, a = int(match.group(7)), int(match.group(8)), int(match.group(9)), int(match.group(10))
+            r, g, b, a = (
+                int(match.group(7)),
+                int(match.group(8)),
+                int(match.group(9)),
+                int(match.group(10)),
+            )
             res.append((x, y, z, u, v, r, g, b, a))
     return res
+
 
 # definitions from gbi.h
 def tri(v0, v1, v2, flag):
@@ -59,6 +68,7 @@ def tri(v0, v1, v2, flag):
     else:
         tri1 = v2, v0, v1
     return tri1
+
 
 def quad(v0, v1, v2, v3, flag):
     if flag == 0:
@@ -75,6 +85,7 @@ def quad(v0, v1, v2, v3, flag):
         tri2 = v3, v1, v2
     return tri1, tri2
 
+
 def parse_display_list_file(path, include):
     offset = 0
     r = g = b = None
@@ -88,14 +99,18 @@ def parse_display_list_file(path, include):
 
     # Vtxs may be access out-of-order, so pull out all gsSPVertex commands first
     # in order to determine the start of the Vtxs
-    with open(path, 'r') as f:
+    with open(path, "r") as f:
         lines = f.readlines()
     for line in lines:
-        if match := re.match(r".*gsSPVertex\(([0-9A-z_]+), ([0-9]+), ([0-9]+)\),", line):
+        if match := re.match(
+            r".*gsSPVertex\(([0-9A-z_]+), ([0-9]+), ([0-9]+)\),", line
+        ):
             vtx = match.group(1)
-            if vtx.startswith('0x'):  # raw value, e.g. 0x1234ABC
+            if vtx.startswith("0x"):  # raw value, e.g. 0x1234ABC
                 offset = int(vtx, 16)
-            elif match := re.match(r".*_([0-9A-F]+)$", vtx):  # variable e.g. foobar_1234ABC
+            elif match := re.match(
+                r".*_([0-9A-F]+)$", vtx
+            ):  # variable e.g. foobar_1234ABC
                 offset = int(match.group(1), 16)
             else:
                 print(f"Failed to determine Vertex offset {vtx}")
@@ -104,29 +119,67 @@ def parse_display_list_file(path, include):
 
     vtx_offset_start = min(vtx_dict.values())
 
-    with open(path, 'r') as f:
+    with open(path, "r") as f:
         lines = f.readlines()
     for line in lines:
         tri1 = tri2 = None
         # single triangle
-        if match := re.match(r".*gsSP1Triangle\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\),", line):
-            tri1 = tri(int(match.group(1)), int(match.group(2)), int(match.group(3)), int(match.group(4)))
+        if match := re.match(
+            r".*gsSP1Triangle\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\),", line
+        ):
+            tri1 = tri(
+                int(match.group(1)),
+                int(match.group(2)),
+                int(match.group(3)),
+                int(match.group(4)),
+            )
         # two triangles
-        elif match := re.match(r".*gsSP2Triangles\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\),", line):
-            tri1 = tri(int(match.group(1)), int(match.group(2)), int(match.group(3)), int(match.group(4)))
-            tri2 = tri(int(match.group(5)), int(match.group(6)), int(match.group(7)), int(match.group(8)))
+        elif match := re.match(
+            r".*gsSP2Triangles\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\),",
+            line,
+        ):
+            tri1 = tri(
+                int(match.group(1)),
+                int(match.group(2)),
+                int(match.group(3)),
+                int(match.group(4)),
+            )
+            tri2 = tri(
+                int(match.group(5)),
+                int(match.group(6)),
+                int(match.group(7)),
+                int(match.group(8)),
+            )
         # quad
-        elif match := re.match(r".*gsSP1Quadrangle\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\),", line):
-            tri1, tri2 = quad(int(match.group(1)), int(match.group(2)), int(match.group(3)), int(match.group(4)), int(match.group(5)))
+        elif match := re.match(
+            r".*gsSP1Quadrangle\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\),",
+            line,
+        ):
+            tri1, tri2 = quad(
+                int(match.group(1)),
+                int(match.group(2)),
+                int(match.group(3)),
+                int(match.group(4)),
+                int(match.group(5)),
+            )
         # new vertex, so update vtx offset
-        elif match := re.match(r".*gsSPVertex\(([0-9A-z_]+), ([0-9]+), ([0-9]+)\),", line):
+        elif match := re.match(
+            r".*gsSPVertex\(([0-9A-z_]+), ([0-9]+), ([0-9]+)\),", line
+        ):
             offset = (vtx_dict[match.group(1)] - vtx_offset_start) // 16
         # include decompiled vertexes
         elif match := re.match(r" *#include \"(.*\.inc\.c)\"", line):
             vtx_file = match.group(1)
             vtxs += parse_vtx_file(os.path.join(include, vtx_file))
-        elif match := re.match(r".*gsDPSetPrimColor\(([0-9]+), ([0-9]+), ([0-9A-Fx]+), ([0-9A-Fx]+), ([0-9A-Fx]+), ([0-9A-Fx]+)\),", line):
-            r, g, b = int(match.group(3), 16), int(match.group(4), 16), int(match.group(5), 16)
+        elif match := re.match(
+            r".*gsDPSetPrimColor\(([0-9]+), ([0-9]+), ([0-9A-Fx]+), ([0-9A-Fx]+), ([0-9A-Fx]+), ([0-9A-Fx]+)\),",
+            line,
+        ):
+            r, g, b = (
+                int(match.group(3), 16),
+                int(match.group(4), 16),
+                int(match.group(5), 16),
+            )
 
         if tri1 is not None:
             tri1 = list(map(lambda x: offset + x, tri1))
@@ -145,7 +198,7 @@ def parse_display_list_file(path, include):
     return tris, vtxs, colors
 
 
-def generate_obj(vtxs, triangles, scale=1/32.0):
+def generate_obj(vtxs, triangles, scale=1 / 32.0):
     out = []
     out.append("o MyModel")
     for vtx in vtxs:
@@ -162,7 +215,7 @@ def generate_obj(vtxs, triangles, scale=1/32.0):
     return "\n".join(out)
 
 
-def generate_ply(vtxs, triangles, colors, scale=1/32.0):
+def generate_ply(vtxs, triangles, colors, scale=1 / 32.0):
     out = []
     header = []
 
@@ -214,7 +267,7 @@ def export_displaylist(dl_file, vtx_file, raw_vtx, fmt, include, no_color, scale
             vtxs += parse_vtx_file(vtx_file)
 
     print("Found %i tris (%i vertexes)" % (len(tris), len(vtxs)))
-    if fmt == 'ply':
+    if fmt == "ply":
         res = generate_ply(vtxs, tris, colors, scale)
     else:
         res = generate_obj(vtxs, tris, scale)
@@ -222,26 +275,36 @@ def export_displaylist(dl_file, vtx_file, raw_vtx, fmt, include, no_color, scale
     return res
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('infile', help='displaylist file', type=argparse.FileType('r'))
-    parser.add_argument('outfile', help='exported model file', type=argparse.FileType('w'))
-    parser.add_argument('--vtx', help='vertex file', type=str)
-    parser.add_argument('--raw', action='store_true', default=False)
-    parser.add_argument('--format', default='ply')
-    parser.add_argument('--include', default='src')
-    parser.add_argument('--no-color', action='store_true', default=False)
-    parser.add_argument('--scale', default=1/32, type=float)
+    parser.add_argument("infile", help="displaylist file", type=argparse.FileType("r"))
+    parser.add_argument(
+        "outfile", help="exported model file", type=argparse.FileType("w")
+    )
+    parser.add_argument("--vtx", help="vertex file", type=str)
+    parser.add_argument("--raw", action="store_true", default=False)
+    parser.add_argument("--format", default="ply")
+    parser.add_argument("--include", default="src")
+    parser.add_argument("--no-color", action="store_true", default=False)
+    parser.add_argument("--scale", default=1 / 32, type=float)
 
     args = parser.parse_args()
 
-    if args.format not in ('obj', 'ply'):
+    if args.format not in ("obj", "ply"):
         print("Error: Unsupported format")
         sys.exit(1)
 
     scale = float(args.scale)
 
-    res = export_displaylist(args.infile.name, args.vtx, args.raw, args.format, args.include, args.no_color, scale)
+    res = export_displaylist(
+        args.infile.name,
+        args.vtx,
+        args.raw,
+        args.format,
+        args.include,
+        args.no_color,
+        scale,
+    )
 
     args.outfile.write(res)

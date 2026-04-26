@@ -1,23 +1,13 @@
 #include <ultra64.h>
 #include "common.h"
 
-
-extern struct077 D_803B3D50_7C5400[];
-extern struct077 D_803B3D80_7C5430[];
-extern struct077 D_803B3DB0_7C5460[];
-extern u8  D_803B3DC4_7C5474[];
-extern u8  D_803B3DDC_7C548C[];
-extern s16 D_803B3DF4_7C54A4[];
-extern s16 D_803B3E24_7C54D4[];
-extern s16 D_803B3E88_7C5538[];
-extern s16 D_803B3EEC_7C559C[];
+#include "evo_microchip.h"
 
 extern Gfx D_01003588_3CE58[];
 extern Gfx D_01004E60_3E730[];
 extern Gfx D_01004E80_3E750[];
 extern Gfx D_01004CC0_3E590[];
 extern Gfx D_01004D90_3E660[];
-
 
 // EVO_MICROCHIP
 // ESA: func_8001D3D4

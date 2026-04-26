@@ -11,7 +11,7 @@ s16 get_ai_behaviour(u16 X, u16 Y) {
     s16 Xl;
     s16 Yl;
 
-    u8 pad[0x34];
+    u8 pad[0x34] UNUSED;
 
     SSSV_ASSERT(X >= OB_TYPE_ANIMAL_OFFSET, "../src/aidata.c", 375)
     SSSV_ASSERT(Y >= OB_TYPE_ANIMAL_OFFSET, "../src/aidata.c", 376)

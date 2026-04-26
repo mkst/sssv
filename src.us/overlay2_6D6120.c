@@ -57,7 +57,14 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
             temp_t0_2->unk0 = 0;
         }
         if (temp_t0_2->unk2 == 5) {
-            play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
+            play_sound_effect_at_location(
+                SFX_UNKNOWN_34,
+                0x5000,
+                0,
+                D_803D5530->position.xPos.h,
+                D_803D5530->position.zPos.h,
+                D_803D5530->position.yPos.h,
+                1.0f);
         }
         break;
     default:
@@ -303,7 +310,6 @@ void func_802C56D0_6D6D80(s16 arg0) {
 
     D_80203FE0[33].unk2 = (D_80203FE0[33].unk2 + tmp3) - tmp1;
     D_80203FE0[33].unk4 = (D_80203FE0[33].unk4 + tmp4) - tmp2;
-
 }
 
 void func_802C5824_6D6ED4(s16 arg0, s16 arg1, s16 arg2) {
@@ -478,7 +484,6 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
     s16 var_v1;
     u16 temp_t9_2;
     struct113 *temp_v1_2;
-
 
     temp_v1_2 = &D_803D5528->unk3C0;
     if (temp_v1_2->unk0 != 0) {
@@ -1068,8 +1073,8 @@ void func_802C7600_6D8CB0(s16 arg0, s16 arg1) {
     }
 }
 
-void func_802C78B0_6D8F60(u16 joint1, u16 joint2, s32 scaleX, s32 scaleZ, s32 scaleY, s16 arg5, s16 arg6, u8 arg7, u8 arg8, Gfx *dl) {
-    if (func_80126388(joint1, joint2, scaleX, scaleZ, scaleY, arg5, arg6, arg7, arg8, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs])) {
+void func_802C78B0_6D8F60(u16 joint1, u16 joint2, s32 scaleX, s32 scaleZ, s32 scaleY, s16 centerScale, s16 roll, u8 mirror, u8 orientationMode, Gfx *dl) {
+    if (func_80126388(joint1, joint2, scaleX, scaleZ, scaleY, centerScale, roll, mirror, orientationMode, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs])) {
         gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         gSPDisplayList(gOpaqueDL++, dl);
         gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
