@@ -4,7 +4,7 @@
 
 // ESA: func_8007E6A0
 s32 func_8032B1E0_73C890(Animal *arg0, s16 arg1, s16 arg2, s32 *arg3, s32 *arg4) {
-    s32 pad[2];
+    s32 pad[2] UNUSED;
     s16 temp_lo_2;
     s16 temp_t6;
 
@@ -317,7 +317,6 @@ void unused_8032BE28_73D4D8(Animal *arg0) {
 }
 
 void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b) {
-
     if (D_803D3434->usedModelViewMtxs < 240) {
         gDPSetPrimColor(gXluDL++, 0, 0, r, g, b, 0xFF);
         guTranslate(&D_803D3434->modelViewMtx[D_803D3434->usedModelViewMtxs], (2.0 * (f32) x) - 30.0, (2.0 * (f32) y) - 30.0, (2.0 * (f32)z) - 32.0);

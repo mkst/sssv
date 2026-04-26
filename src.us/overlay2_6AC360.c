@@ -11,6 +11,7 @@ struct063 D_803C0740[65+8][97+32]; // data is [65][97]
 // .text
 // ========================================================
 
+#ifdef __sgi
 void unused_8029ACB0_6AC360(void) {
 }
 
@@ -18,6 +19,7 @@ void unused_8029ACB0_6AC360(void) {
 s32 unused_8029ACB8_6AC368(s32 arg0 UNUSED, s32 arg1 UNUSED) {
     return 1;
 }
+#endif
 
 // process_level_collision_data
 void func_8029ACC8_6AC378(void) {

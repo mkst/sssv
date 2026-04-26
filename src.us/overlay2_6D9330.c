@@ -123,9 +123,9 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     sp1C = D_803D5530 = gAnimalState.animals[slot].animal;
     D_803D552C = sp1C;
     D_803D5528 = sp1C;
-
+#ifdef __sgi
     if (!D_803D5528) {};
-
+#endif
     if (slot == gCurrentAnimalIndex) {
         D_803D5538 = 1;
     } else {

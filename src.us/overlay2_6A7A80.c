@@ -961,7 +961,7 @@ s16 unused_802990A4_6AA754(s16 arg0, s16 arg1) {
 }
 
 void func_80299140_6AA7F0(void) {
-    s32 pad[2];
+    s32 pad[2] UNUSED;
     s32 xPos; //sp5C;
     s32 zPos; //sp58;
     s32 yPos; //sp54;
@@ -982,7 +982,9 @@ void func_80299140_6AA7F0(void) {
     maxX = ((s32)gCameras[gCameraId].unk74 >> 6) + 25;
     maxZ = ((s32)gCameras[gCameraId].unk78 >> 6) + 25;
 
+#ifdef __sgi
     if (1) { }
+#endif
 
     if (minX < 4) {
         minX = 4;

@@ -217,9 +217,9 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
         sp58 = func_80310F58_722608(sp5E, sp5C);
         if (sp58 == 0x40000000) {
             sp40 = sample_ground_height_at_xz(sp5E, sp5C);
-
-            if (1) {}; // regalloc
-
+#ifdef __sgi
+            if (1) {};
+#endif
             if ((func_80310F58_722608(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h) - FTOFIX32(5.0)) < sp40) {
                 sp58 = sample_ground_height_at_xz(sp5E, sp5C);
             } else {
@@ -239,8 +239,9 @@ s32 func_802B8C50_6CA300(s16 arg0, s16 arg1) {
                 sp58 = sp44;
             }
         }
-        // regalloc helper
+#ifdef __sgi
         if (1) {};
+#endif
     }
     sp58 = sp58 - D_803D5530->position.yPos.w;
     return sp58;

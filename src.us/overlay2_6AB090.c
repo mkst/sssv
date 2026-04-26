@@ -6,13 +6,13 @@
 // .data
 // ========================================================
 
-s16 D_803A0500_7B1BB0 = 0;
+static s16 D_803A0500_7B1BB0 = 0;
 
 // ========================================================
 // .bss
 // ========================================================
 
-GfxHelper gVisibleWorldCellQueue[28];
+static GfxHelper gVisibleWorldCellQueue[28];
 
 // ========================================================
 // .text
@@ -63,7 +63,7 @@ void draw_visible_world_cell_opaque_pass(DisplayList *arg0) {
 }
 
 void draw_visible_world_cell_translucent_pass(DisplayList *arg0) {
-    s32 pad2[2];
+    s32 pad2[2] UNUSED;
     s32 i;
     s32 j;
     GfxHelper old;
@@ -124,8 +124,10 @@ void draw_visible_world_cell_translucent_pass(DisplayList *arg0) {
 
 }
 
+#ifdef __sgi
 void unused_8029A32C_6AB9DC(s32 arg0) {
 }
+#endif
 
 s16 is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
     arg0 >>= 6;

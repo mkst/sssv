@@ -946,8 +946,9 @@ void func_8030DD34_71F3E4(void) {
     D_803E4C8C = NULL;
     var_v1 = D_803E4C90 = NULL;
 
+#ifdef __sgi
     if (((!D_803E4C8C->unk16C) && (!D_803E4C8C->unk16C))) {};  // regalloc helper!
-
+#endif
     D_803E4C7A = 0;
     D_803E4C86 = 0;
 
@@ -1022,8 +1023,12 @@ void func_8030DD34_71F3E4(void) {
 
 // ESA: func_800345D0
 void func_8030E208_71F8B8(void) {
+#ifdef __sgi
     u8  pad;
     u8  sp3E; // FIXME: this should be s16
+#else
+    s16 sp3E;
+#endif
 
     func_8030DD34_71F3E4();
     if (check_collision_against_animals_6C8C7C(D_803E4C94, 0, newXPos, newZPos, newYPos, &sp3E, 0) == 0) {
@@ -1505,7 +1510,7 @@ s16 func_80310030_7216E0(void) {
     s16 sp32;
     s16 sp30;
 
-    s32 pad;
+    s32 pad UNUSED;
 
     func_80311A2C_7230DC(currentX, currentZ, &sp32, &sp30, D_803E4C94->unk160);
 
@@ -2418,7 +2423,6 @@ s32 func_80312A44_7240F4(s16 x, s16 y, s16 arg2, s16 arg3, s8 arg4, u8 arg5) {
     return 0;
 }
 
-// handle_x_velocity_something
 // ESA: func_80038E68
 void handle_x_collision(void) {
     if (IS_CURRENT_ANIMAL(D_803E4C94)) {
@@ -2537,8 +2541,9 @@ s32 func_80313448_724AF8(Animal *arg0, s32 arg1, s32 arg2, s32 arg3) {
     velocityZ = tmp->zVelocity.w;
     groundType = arg0->unk160;
 
-    // yuck
+#ifdef __sgi
     if ((!(&tmp->zVelocity)) && (!(&D_803D5530->zVelocity))) {}
+#endif
 
     if (((check_tile_transition_collision()) == 0) && (func_8030EA98_720148() == 0)) {
         D_803E4C94->position.xPos.w = newXPos;

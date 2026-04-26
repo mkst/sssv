@@ -9,7 +9,7 @@
 static u16  D_803F2D20;        // effectively unused
 static s8   D_803F2D22;        // effectively unused
 static s8   targetMusicTrack;
-s16  D_803F2D24;        // set in func_8029F7D4_6B0E84 but effectively unused
+       s16  D_803F2D24;        // set in func_8029F7D4_6B0E84 but effectively unused
 
 // ========================================================
 // .text
@@ -17,7 +17,9 @@ s16  D_803F2D24;        // set in func_8029F7D4_6B0E84 but effectively unused
 
 void func_80357200_7688B0(void) {
     if (gCurrentMusicTrack <= 100) {
-        if ((gCurrentMusicTrack != MUSIC_TRACK_LEVEL_FAILED) && (gCurrentMusicTrack != MUSIC_TRACK_LEVEL_PASSED) && (gCurrentMusicTrack != MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
+        if ((gCurrentMusicTrack != MUSIC_TRACK_LEVEL_FAILED) &&
+            (gCurrentMusicTrack != MUSIC_TRACK_LEVEL_PASSED) &&
+            (gCurrentMusicTrack != MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
             gCurrentMusicTrack = targetMusicTrack;
         } else {
             Animal *a;

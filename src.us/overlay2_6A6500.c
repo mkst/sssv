@@ -182,7 +182,9 @@ void func_80294E50_6A6500(void) {
 
         func_8029877C_6A9E2C();
         D_803F2D50.unk18 = 1; //D_803F2D68 = 1;
+#ifdef __sgi
         if (0) {};
+#endif
         gWaterAnimState.unk20F += 1;
         gWaterAnimState.unk20F &= 7;
         if (gWaterAnimState.unk20F == 0) {
@@ -308,7 +310,7 @@ void func_80294E50_6A6500(void) {
             (gCurrentMusicTrack == MUSIC_TRACK_LEVEL_PASSED) ||
             (gCurrentMusicTrack == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
             D_8015517C = 1.0f;
-            D_801546D8 = (u16)0x800;
+            D_801546D8 = 0x800;
         }
         if (D_803C0426 != 0) {
             if (D_803C0426 == 2) {

@@ -23,6 +23,7 @@ static u16  D_803F63D0; // laughter check?
 // .text
 // ========================================================
 
+#ifdef __sgi
 void unused_8037D2C0_78E970(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
@@ -42,6 +43,7 @@ void unused_8037D320_78E9D0(s32 arg0, s32 arg1) {
 
 void empty_8037D32C_78E9DC(Gfx *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4) {
 }
+#endif
 
 // file split?
 
@@ -192,7 +194,6 @@ void func_8037D9D4_78F084(void) {
 
 // ESA: func_80076DC4
 void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
-
     s16 xPos;
     s16 zPos;
 
@@ -567,7 +568,9 @@ void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
                             }
                         }
                     }
+#ifdef __sgi
                     if (1) {}; // needed for regalloc
+#endif
                 }
             }
         }
@@ -779,7 +782,6 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
                 }
             }
         }
-
         break;
     }
 
@@ -869,9 +871,9 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                 if (var_s2 == &var_s2->animal->unk11C[0]) {
                     if (var_s2->animal != D_803D5530) {
                         animal = var_s2->animal;
-
+#ifdef __sgi
                         if (1) { } if (1) { } // regalloc!
-
+#endif
                         temp_a2 = var_t1 - animal->position.xPos.h;
                         temp_a3_2 = var_t2 - animal->position.zPos.h;
 
@@ -946,7 +948,7 @@ u8 get_missile_side(void) {
 }
 
 void func_8037FCA8_791358(void) {
-    s32 phi_a0;
+    s32 energyBank;
     s16 tmp;
 
     if (D_803D552C->missileScaleLeft != 0) {
@@ -956,11 +958,11 @@ void func_8037FCA8_791358(void) {
         D_803D552C->missileScaleRight = MIN(D_803D552C->missileScaleRight + 1, 8);
     }
     if (D_803D5524->unk9C == POLAR_TANK) {
-        phi_a0 = 0;
+        energyBank = 0;
     } else {
-        phi_a0 = 1;
+        energyBank = 1;
     }
-    tmp = ((D_803D552C->energy[phi_a0].unk0 + (D_803D5524->unkDA[phi_a0][1] * 8)) / D_803D5524->unkDA[phi_a0][0]);
+    tmp = ((D_803D552C->energy[energyBank].unk0 + (D_803D5524->unkDA[energyBank][1] * 8)) / D_803D5524->unkDA[energyBank][0]);
     if (tmp == 1) {
         if ((D_803D552C->missileScaleLeft == 0) && (D_803D552C->missileScaleRight == 0)) {
             if (D_803D552C->missileSide == 0) {

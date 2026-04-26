@@ -41,7 +41,9 @@ void func_8038064C_791CFC(void) {
     }
     if (D_803D552C->isLaughing != 0) {
         func_80380620_791CD0(D_803D552C, 150, 15, MIN(50, D_803D552C->laughterThreshold >> 1), 10);
+#ifdef __sgi
         if (gUiFlowState.unk0) {} // regalloc
+#endif
     }
 
     D_803F63E0 = 0;

@@ -44,6 +44,7 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
         var_t4 = var_t2 = var_t3 = 0;
     }
 
+    // TODO: ake inspiration from func_802BAA38_6CC0E8?
     D_80203FE0[1].unk0 = ((SIN(var_t3) >> 7) * arg1) >> 9;
     D_80203FE0[1].unk4 = 0;
 

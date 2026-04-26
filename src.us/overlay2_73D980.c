@@ -3,7 +3,7 @@
 
 
 void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch) {
-    s32 pad;
+    s32 pad UNUSED;
 
     if (id != 255) {
         if ((D_803A69F0_7B80A0[id] == 8) || (get_used_sound_count() < D_803A69F0_7B80A0[id])) {
@@ -218,8 +218,9 @@ void func_8032CD70_73E420(void *object, s16 id, s16 volume, s16 arg3, f32 pitch,
                     ((z - (s16) gCameraEyeWorldY) * (z - (s16) gCameraEyeWorldY)));
         if (vol < D_803A6730_7B7DE0[id]) {
             tmp = 256 - ((vol * 256) / D_803A6730_7B7DE0[id]);
-            // fakematch? or just a typo?
+#ifdef __sgi
             vol = (tmp * volume) >> 8;
+#endif
             vol = (tmp * volume) >> 8;
             func_8013328C(object, id, 64, pitch, vol, arg3);
         }
@@ -243,7 +244,6 @@ void func_8032CED0_73E580(void *object, s16 id, s16 volume, f32 pitch, s16 arg4,
     s16 pan;
 
     f32 temp_f2;
-
 
     if (id != SFX_NONE) {
         temp_v0 = xPos - (s16) gCameraEyeWorldX;

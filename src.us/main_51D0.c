@@ -1,7 +1,5 @@
 #include <ultra64.h>
-
 #include "common.h"
-
 
 // first function called after osInitialize
 void clear_framebuffer(void) {

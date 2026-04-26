@@ -31,7 +31,7 @@ typedef union {
 // ========================================================
 
 // rgba16 mipmapped textures?
-u8 *D_803A5770_7B6E20[] = {
+static Addr *D_803A5770_7B6E20[] = {
     // img_europe_mipmap_rncSegmentRomStart, img_europe_mipmap_rncSegmentRomEnd,  // europe
     _rnc_42DCA0SegmentRomStart, _rnc_42DCA0SegmentRomEnd,  // europe
     _rnc_435320SegmentRomStart, _rnc_435320SegmentRomEnd,  // ice
@@ -42,7 +42,7 @@ u8 *D_803A5770_7B6E20[] = {
 };
 
 // ia16 textures?
-u8 *D_803A57A0_7B6E50[] = {
+static Addr *D_803A57A0_7B6E50[] = {
     _rnc_4571A0SegmentRomStart, _rnc_4571A0SegmentRomEnd,
     _rnc_459590SegmentRomStart, _rnc_459590SegmentRomEnd,
     _rnc_45D550SegmentRomStart, _rnc_45D550SegmentRomEnd,
@@ -95,7 +95,7 @@ u8 *D_803A57A0_7B6E50[] = {
     _empty_rnc_4F54B0SegmentRomStart, _empty_rnc_4F54B0SegmentRomEnd, // empty
 };
 
-u8** D_803A5918_7B6FC8[4] = {
+static u8** D_803A5918_7B6FC8[4] = {
     &D_803A57A0_7B6E50[6*2],   // 0x803a57d0
     &D_803A57A0_7B6E50[17*2],  // 0x803a5828
     &D_803A57A0_7B6E50[27*2],  // 0x803a5878
@@ -103,7 +103,7 @@ u8** D_803A5918_7B6FC8[4] = {
 };
 
 // different to ROM ordering
-u8* D_803A5928_7B6FD8[90] = {
+static Addr * D_803A5928_7B6FD8[90] = {
     _rnc_4F54D0SegmentRomStart, _rnc_4F54D0SegmentRomEnd,
     _rnc_4F95B0SegmentRomStart, _rnc_4F95B0SegmentRomEnd,
     _rnc_4F8010SegmentRomStart, _rnc_4F8010SegmentRomEnd,
@@ -155,7 +155,7 @@ u8* D_803A5928_7B6FD8[90] = {
     _rnc_51AB50SegmentRomStart, _rnc_51AB50SegmentRomEnd,
 };
 
-u8** D_803A5A90_7B7140[4] = {
+static u8** D_803A5A90_7B7140[4] = {
     &D_803A5928_7B6FD8[4*2],  // 0x803A5948,
     &D_803A5928_7B6FD8[15*2], // 0x803A59A0,
     &D_803A5928_7B6FD8[35*2], // 0x803A5A40,
@@ -163,7 +163,7 @@ u8** D_803A5A90_7B7140[4] = {
 };
 
 // level objects
-u8* D_803A5AA0_7B7150[(10+1+10+10+10)*2] = {
+static Addr* D_803A5AA0_7B7150[(10+1+10+10+10)*2] = {
     // europe
     _HAVE_A_NICE_DAYSegmentRomStart, _HAVE_A_NICE_DAYSegmentRomEnd,
     _HONEYMOON_LAGOONSegmentRomStart, _HONEYMOON_LAGOONSegmentRomEnd,
@@ -212,7 +212,7 @@ u8* D_803A5AA0_7B7150[(10+1+10+10+10)*2] = {
     _UNUSED_DESERT_SLOT_10SegmentRomStart, _UNUSED_DESERT_SLOT_10SegmentRomEnd,
 };
 
-u8** D_803A5BE8_7B7298[4] = {
+static u8** D_803A5BE8_7B7298[4] = {
     &D_803A5AA0_7B7150[0*2],  // europe
     &D_803A5AA0_7B7150[11*2], // ice
     &D_803A5AA0_7B7150[31*2], // desert
@@ -220,7 +220,7 @@ u8** D_803A5BE8_7B7298[4] = {
 };
 
 // levels
-u8 *D_803A5BF8_7B72A8[72] = {
+static u8 *D_803A5BF8_7B72A8[72] = {
     _levels_SMASHING_STARTSegmentRomStart, _levels_SMASHING_STARTSegmentRomEnd,
     _levels_HAVE_A_NICE_DAYSegmentRomStart, _levels_HAVE_A_NICE_DAYSegmentRomEnd,
     _levels_HONEYMOON_LAGOONSegmentRomStart, _levels_HONEYMOON_LAGOONSegmentRomEnd,
@@ -306,7 +306,7 @@ s32 copy_or_extract(u8 *src, u8 *dst, s32 unused) {
 void load_level_texture_data(u8 bank, u8 arg1) {
     u8 **temp_v0;
 
-    s32 pad[2];
+    s32 pad[2] UNUSED;
 
     u8 **sp38;
     u8 **sp34;
@@ -1011,7 +1011,7 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 idx) {
 }
 
 void func_8031C48C_72DB3C(void) {
-    int offset;
+    s32 offset;
 
     s16 i;
     s16 id2;

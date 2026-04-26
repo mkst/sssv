@@ -20,7 +20,6 @@ void func_80351EE8_763598(s16 numVtxs, Vertex *arg1, s16 arg2, s16 alpha, s16 re
 // .text
 // ========================================================
 
-
 // esa:func_8006BC30 but customised
 void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 arg5, s16 arg6, s16 alpha, s16 red, s16 green, s16 blue, s16 argB, u8 argC) {
     s16 sinAngle;
@@ -55,7 +54,7 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 
     CollisionNode *var_a2;
 
-    s32 pad[2];
+    s32 pad[2] UNUSED;
 
     s32 sp74;
 
@@ -375,7 +374,7 @@ void func_8034CE88_75E538(Vertex *arg0, s16 arg1, s16 arg2, s16 alpha, s16 arg4,
     Vertex *tmp;
 
     u8 spAF;
-    u8 spAE; // pad
+    u8 spAE UNUSED;
     u8 spAD;
     s16 spAA;
     s16 spA8;
@@ -452,11 +451,11 @@ void func_8034CE88_75E538(Vertex *arg0, s16 arg1, s16 arg2, s16 alpha, s16 arg4,
         } else {
             spA8 = MIN(0xFF, ((arg2 + 0x20) - var_a0) << 4);
         }
-
+#ifdef __sgi
         if (ABS((s16)gCameras[gCameraId].unk7C - var_a0)) {
             // debug?
         }
-
+#endif
         var_v0 = MAX(MAX((D_803C0740[arg4+0][var_s3+0].unk6 * 4), (D_803C0740[arg4+1][var_s3+0].unk6 * 4)), MAX((D_803C0740[arg4+0][var_s3+1].unk6 * 4), (D_803C0740[arg4+1][var_s3+1].unk6 * 4)));
 
         if ((var_v0 < arg2) && ((var_s2 < (D_803C0740[arg4+0][var_s3+0].unk6 * 4)) || (var_s4 < (D_803C0740[arg4+1][var_s3+0].unk6 * 4)) || (var_s5 < (D_803C0740[arg4+0][var_s3+1].unk6 * 4)) || (var_s6 < (D_803C0740[arg4+1][var_s3+1].unk6 * 4)))) {
@@ -503,7 +502,6 @@ void func_8034CE88_75E538(Vertex *arg0, s16 arg1, s16 arg2, s16 alpha, s16 arg4,
                 }
             }
         } else {
-
             if (spAF == 0) {
                 spAF = var_s7;
                 spC8 = var_s2;
@@ -960,7 +958,6 @@ void func_8034D830_75EEE0(Vertex *src, Vertex *arg1, Vertex *arg2, s16 arg3, s16
 
 // ESA: func_8006EBD0
 void func_8034F3EC_760A9C(Vertex *src, Vertex *arg1, Vertex *arg2, s16 numVtxs, s16 *arg4, s16 *arg5, s16 arg6) {
-
     s16 var_s2;
     s16 var_s3;
     s16 temp_t3;
@@ -1336,8 +1333,7 @@ void func_80351390_762A40(s16 numVtxs, Vertex *arg1, s16 alpha, s16 tileX, s16 t
     s32 tmp;
     s16 i;
     s16 var_t1;
-    s16 pad[2];
-
+    s16 pad[2] UNUSED;
 
     if (numVtxs >= 3) {
         if (ABS(MAX(MAX(arg9, argC), MAX(argA, argB)) - MIN(MIN(arg9, argC), MIN(argA, argB))) <= 192) {
@@ -1393,7 +1389,7 @@ void func_80351390_762A40(s16 numVtxs, Vertex *arg1, s16 alpha, s16 tileX, s16 t
 
 // ESA: func_800704EC (tbd)
 void func_80351A44_7630F4(s16 numVtxs, Vertex *arg1, s16 alpha, s16 tileX, s16 tileZ, s16 red, s16 green, s16 blue) {
-    s16 pad[2];
+    s16 pad[2] UNUSED;
 
     s16 localX;
     s16 var_a3;

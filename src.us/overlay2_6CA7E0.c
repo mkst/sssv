@@ -96,7 +96,9 @@ void func_802B9130_6CA7E0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     sp28 = (sp36 + sp34) >> 1;
     temp_v1 = sp36 - sp28;
 
+#ifdef __sgi
     if (arg1) {}; // regalloc
+#endif
 
     if (temp_v1 >= arg1) {
         phi_a1 = -90;
@@ -222,7 +224,7 @@ void func_802B9A5C_6CB10C(s16 *arg0, s16 arg1) {
 }
 
 void func_802B9D20_6CB3D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
-    u16 pad;
+    u16 pad UNUSED;
     s16 phi_t5;
 
     if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB6) ||
@@ -276,8 +278,8 @@ void func_802B9D20_6CB3D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     D_80203FE0[6].unk4 = D_80203FE0[2].unk4 - ((((COS(D_803D552C->gaitPhaseOffset) >> 7) >> 4) * (phi_t5 * arg2)) >> 8);
 }
 
-void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5 /*unused*/) {
-    s16 pad;
+void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5 UNUSED) {
+    s16 pad UNUSED;
     s16 var_t4;
     s16 var_a2;
     s32 state;
@@ -309,7 +311,7 @@ void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     D_80203FE0[2].unk4 = arg0->unk0 + arg2;
     D_80203FE0[2].unk4 += ((((var_t4 * arg3) * ((SIN(D_803D552C->gaitPhaseOffset << 1) >> 7) >> 4)) >> 9));
     D_80203FE0[1].unk2 = var_a2;
-    D_80203FE0[0].unk2 = (var_a2 >> 1); // tbd
+    D_80203FE0[0].unk2 = var_a2 >> 1;
     D_80203FE0[0].unk0 = 0;
     D_80203FE0[1].unk0 = 0;
 
@@ -319,9 +321,11 @@ void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
         if (1) {
             state = D_803D5530->state;
         };
+#ifdef __sgi
         if ((var_a2 = state)) {
             // fake
         }
+#endif
     }
 
     D_80203FE0[0].unk4 = D_80203FE0[2].unk4 + arg1;
@@ -402,20 +406,25 @@ void func_802BAA38_6CC0E8(u16 arg0, u16 arg1) {
     D_80203FE0[6].unk0 = arg1;
     D_80203FE0[3].unk2 = arg0;
     D_80203FE0[4].unk2 = arg0;
+
     func_802C79E0_6D9090(&D_80203FE0[3], -D_803D5530->unk28);
     func_802C79E0_6D9090(&D_80203FE0[4], -D_803D5530->unk28);
     func_802C79E0_6D9090(&D_80203FE0[5], -D_803D5530->unk28);
     func_802C79E0_6D9090(&D_80203FE0[6], -D_803D5530->unk28);
+
     D_80203FE0[3].unk4 = (D_80203FE0[3].unk4 + (D_803D5524->unkB8 << 5));
     D_80203FE0[4].unk4 = (D_80203FE0[4].unk4 + (D_803D5524->unkB8 << 5));
     D_80203FE0[5].unk4 = (D_80203FE0[5].unk4 + (D_803D5524->unkB8 << 5));
     D_80203FE0[6].unk4 = (D_80203FE0[6].unk4 + (D_803D5524->unkB8 << 5));
+
     D_80203FE0[1].unk0 = ((D_80203FE0[3].unk0 + D_80203FE0[4].unk0) >> 1);
     D_80203FE0[1].unk2 = ((D_80203FE0[3].unk2 + D_80203FE0[4].unk2) >> 1);
     D_80203FE0[1].unk4 = ((D_80203FE0[3].unk4 + D_80203FE0[4].unk4) >> 1);
+
     D_80203FE0[2].unk0 = ((D_80203FE0[5].unk0 + D_80203FE0[6].unk0) >> 1);
     D_80203FE0[2].unk2 = ((D_80203FE0[5].unk2 + D_80203FE0[6].unk2) >> 1);
     D_80203FE0[2].unk4 = ((D_80203FE0[5].unk4 + D_80203FE0[6].unk4) >> 1);
+
     D_80203FE0[0].unk2 = 0;
     D_80203FE0[0].unk0 = D_80203FE0[0].unk2;
     D_80203FE0[0].unk4 = ((D_80203FE0[1].unk4 + D_80203FE0[2].unk4) >> 1);
@@ -465,11 +474,12 @@ void func_802BAD60_6CC410(u16 arg0, u16 arg1) {
     D_80203FE0[1].unk0 = 0;
     D_80203FE0[1].unk2 = arg0;
     D_80203FE0[1].unk4 = arg1;
+
     D_80203FE0[2].unk0 = 0;
     D_80203FE0[2].unk2 = -arg0;
     D_80203FE0[2].unk4 = arg1;
-    D_80203FE0[0].unk2 = 0;
-    D_80203FE0[0].unk0 = D_80203FE0[0].unk2;
+
+    D_80203FE0[0].unk0 = D_80203FE0[0].unk2 = 0;
     D_80203FE0[0].unk4 = arg1;
 
     if (D_803D5528->unk3C4.unk0 == 13) {
@@ -502,7 +512,9 @@ void func_802BAE24_6CC4D4(s16 *arg0, s16 *arg1, s16 arg2) {
 
     func_80321D74_733424(*arg0, *arg1);
 
+#ifdef __sgi
     if (1) {};
+#endif
 
     phi_s0 = 0;
 

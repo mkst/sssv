@@ -12,8 +12,8 @@ s32  resolve_movement_and_collision(Animal*);
 // .data
 // ========================================================
 
-s32 gGravity = FTOFIX32(2.0);
-s32 D_803A05B4_7B1C64 = FTOFIX32(4.0);
+s32  gGravity = FTOFIX32(2.0);
+s32  D_803A05B4_7B1C64 = FTOFIX32(4.0);
 
 // ========================================================
 // .bss
@@ -41,8 +41,8 @@ s8   D_803D554A;
 s8   D_803D554B; // target speed?
 s8   D_803D554C; // boost duration?
 
-static s32  D_803D5550; // unused
-static s32  D_803D5554; // unused
+static s32  D_803D5550 UNUSED;
+static s32  D_803D5554 UNUSED;
 s16  D_803D5558;
 static u16  D_803D555A; // timer
 static u8   D_803D555C;
@@ -265,7 +265,9 @@ void func_802A467C_6B5D2C(s8 arg0) {
     func_802B8890_6C9F40();
 
     if ((animal != NULL) && (animal->movementState == 5) && (animal->unk4C.unk1D)) {
-        if (1) { } if (1) { } if (1) { } if (1) { } if (1) { } // regalloc
+#ifdef __sgi
+        if (1) { } if (1) { } if (1) { } if (1) { } if (1) { }
+#endif
         animal->yVelocity.w -= MIN(FTOFIX32(4.0), (D_803D5530->unk44 << 0x13) / animal->unk44);
     }
 }
@@ -357,8 +359,7 @@ void func_802A50A8_6B6758(void) {
     D_803D552C->gaitCycleLength = 22;
 
     if (D_803D5530->movementState != 1) {
-        zVel = 0;
-        xVel = 0;
+        xVel = zVel = 0;
     } else {
         func_80311A2C_7230DC(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, &xVel, &zVel, D_803D5530->unk160);
     }
@@ -395,8 +396,7 @@ void func_802A5300_6B69B0(void) {
     D_803D552C->gaitCycleLength = 32;
 
     if (D_803D5530->movementState != 1) {
-        zVel = 0;
-        xVel = 0;
+        xVel = zVel = 0;
     } else {
         func_80311A2C_7230DC(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, &xVel, &zVel, D_803D5530->unk160);
     }
@@ -481,7 +481,7 @@ void func_802A5778_6B6E28(s16 arg0, u8 arg1) {
     D_803D552C->unk36D = 1;
 
     if ((D_803D5530->unk6C != NULL) || arg1) {
-        zVel = 0; xVel = 0;
+        xVel = zVel = 0;
     } else {
         func_80311A2C_7230DC(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, &xVel, &zVel, D_803D5530->unk160);
     }
@@ -602,7 +602,7 @@ void func_802A5EA4_6B7554(void) {
     D_803D552C->unk31A = 0;
     D_803D552C->gaitPhase = 0;
     D_803D552C->unk2F4 = 0;
-    D_803D552C->unk368 = (u8)0;
+    D_803D552C->unk368 = 0;
     func_802B8720_6C9DD0();
 }
 
@@ -1018,7 +1018,7 @@ s32 func_802A64B0_6B7B60(void) {
 }
 
 s32 func_802A7648_6B8CF8(Entity *arg0) {
-    s16 pad[1];
+    s16 pad[1] UNUSED;
     s16 temp_lo;
     u8 phi_v1;
 
@@ -1257,7 +1257,7 @@ void func_802A78CC_6B8F7C(void) {
                 spC8 += (spC8 * D_803D554B) >> 4;
                 spC4 += (spC4 * D_803D554B) >> 4;
             }
-            func_802AC484_6BDB34((u16)D_803D5520->unk0->unkB6 * 100, &spC8, &spC4);
+            func_802AC484_6BDB34(D_803D5520->unk0->unkB6 * 100, &spC8, &spC4);
             D_803D5530->xVelocity.w = spC8;
             D_803D5530->zVelocity.w = spC4;
             D_803D5530->newPosition.xPos.w = D_803D5530->position.xPos.w + D_803D5530->xVelocity.w;
@@ -1677,7 +1677,7 @@ void func_802A935C_6BAA0C(void) {
             }
             func_802B2834_6C3EE4();
             func_802AC5CC_6BDC7C(&sp7C, &sp78);
-            func_802AC484_6BDB34(((u16)D_803D5520->unk0->unkB6 * 0x64), &sp7C, &sp78);
+            func_802AC484_6BDB34((D_803D5520->unk0->unkB6 * 0x64), &sp7C, &sp78);
             D_803D5530->xVelocity.w = sp7C;
             D_803D5530->zVelocity.w = sp78;
             D_803D5530->newPosition.xPos.w = D_803D5530->position.xPos.w + D_803D5530->xVelocity.w;

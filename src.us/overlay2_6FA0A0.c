@@ -86,7 +86,7 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
     f32 spFC;
     f32 spF8;
     f32 spF4;
-    s32 unused3[3];
+    s32 unused3[3] UNUSED;
     s64 spE0;
     s64 spD8;
     s64 spD0;
@@ -266,10 +266,10 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
 }
 
 s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
-    s32 pad[0x4];
+    s32 pad[0x4] UNUSED;
 
     f32 height;
-    s32 pad2[2];
+    s32 pad2[2] UNUSED;
     f32 width;
 
     f32 temp_f0;

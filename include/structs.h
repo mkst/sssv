@@ -786,7 +786,7 @@ struct Animal {
     /* 0x162 */ u8  movementState;
     /* 0x163 */ u8  unk163;
     /* 0x164 */ u8  unk164;
-    /* 0x168 */ Animal *owner; // owner
+    /* 0x168 */ Animal *owner;
     /* 0x16C */ struct035* unk16C;
 
     /* 0x170 */ u8  unk170; // current waypoint mode?
@@ -1449,7 +1449,7 @@ struct struct035 { // TODO: merge with ObjectData?
               s16 unkB0;
   /* 0xB2 */  u16 traction;
               s16 unkB4;
-              s16 unkB6;
+              u16 unkB6;
               u16 unkB8;
               u16 unkBA;
               u16 unkBC; // height
@@ -1976,10 +1976,7 @@ struct Entity {
 
     /* 0x19C */ Commands commands;
 
-    /* 0x200 */ s32 unk200; // r
-    /* 0x204 */ s32 unk204; // g
-    /* 0x208 */ s32 unk208; // b
-
+    /* 0x200 */ s32 unk200[3]; // rgb
     /* 0x20C */ s16 unk20C;
     /* 0x20E */ u16 unk20E;
     /* 0x210 */ s16 unk210;
@@ -2012,7 +2009,7 @@ struct Entity {
     /* 0x23C */ Cmd unk23C;
     /* 0x244 */ u16 unk244;
 
-    /* 0x246 */ s16 cmdIndex; // (if applicable)
+    /* 0x246 */ u16 cmdIndex; // (if applicable)
     /* 0x248 */ Entity *unk248[9];
     /* 0x26C */ u8  unk26C;
     /* 0x26D */ u8  unk26D;

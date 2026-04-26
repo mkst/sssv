@@ -661,8 +661,6 @@ extern s64  gRenderMode2;
 extern s64  gGeometryMode;
 extern u16  gWorldPerspNorm; // matrix normalise
 
-extern GfxHelper gVisibleWorldCellQueue[28]; // related to D_80205410
-
 // overlay2_6AC360
 extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
 

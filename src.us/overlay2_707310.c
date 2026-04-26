@@ -1021,12 +1021,13 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
     sp2A = get_angle_between_vectors(&sp44, &sp38);
 
     temp_v0 = func_8012835C(sinf((f32) sp2A * (M_PI / 180.0)) * sp60 * 256.0f);
+#ifdef __sgi
     // what?
     tmp = 0;
     if (tmp > 0.0f) {
         temp_v0 = -temp_v0;
     }
-
+#endif
     temp_f0 = (f32) (D_80152350.unk384[temp_v0] + (s16) (s32) (D_80152350.unk384[sp2A] * sp60)) / 256;
 
     if (temp_f0 == 0.0f) {
@@ -1130,9 +1131,10 @@ void func_802F8B4C_70A1FC(Entity *arg0) {
             x = sp48.unk0 - arg0->position.xPos.h;
             z = sp48.unk2 - arg0->position.zPos.h;
 
+#ifdef __sgi
             // this is not in the assembly...
             if (sqrtf((x * x) + (z * z))) {};
-
+#endif
             angle = func_801284B8(x, z);
 
             temp_t0 = func_802F8160_709810(arg0, obj, 0, 0, 16, 89, -4, 4, (f32) gGravity / (512.0 * 1024));
@@ -1187,7 +1189,7 @@ void func_802F8DCC_70A47C(Entity *arg0) {
     s32 temp_t2;
     s16 yRotation;
     s16 zRotation;
-    s16 pad[2];
+    s16 pad[2] UNUSED;
     Entity *target;
 
     if (arg0->Info.Counter2 > 0) {
@@ -1238,11 +1240,11 @@ void func_802F8DCC_70A47C(Entity *arg0) {
 }
 
 // ESA: func_80051A8C
-void func_802F9084_70A734(Animal * arg0) {
+void func_802F9084_70A734(Entity * arg0) {
 }
 
 // ESA: func_80051A94
-void func_802F908C_70A73C(Animal *arg0) {
+void func_802F908C_70A73C(Entity *arg0) {
     if (arg0->Info.lifetime == 0) {
         arg0->Info.lifetime = 100;
     }
@@ -1250,7 +1252,7 @@ void func_802F908C_70A73C(Animal *arg0) {
 
 // used by dead scientists
 // ESA: func_80051AB0
-void func_802F90A8_70A758(Animal *arg0) {
+void func_802F90A8_70A758(Entity *arg0) {
     arg0->position.xPos.w += arg0->xVelocity.w;
     arg0->position.zPos.w += arg0->zVelocity.w;
     if (!arg0->unk4C.unk1D) {
@@ -1381,11 +1383,11 @@ void func_802F92B0_70A960(Entity *arg0) {
 
 // used by object 30
 // stubbed out in ESA
-void func_802F951C_70ABCC(Animal *arg0) {
+void func_802F951C_70ABCC(Entity *arg0) {
     u8 red;
     u8 blue;
     u8 green;
-    s16 pad[3];
+    s16 pad[3] UNUSED;
 
     if (arg0->state == 1) {
         red = arg0->unk200[0];
@@ -1658,7 +1660,6 @@ void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s
     f32 temp_f0;
     f32 temp_f12;
 
-
     var_v1 = arg4 / 128;
     tmp = var_v1 - 1;
 
@@ -1697,7 +1698,6 @@ void func_802F9EB8_70B568(s32 *arg0, s32 *arg1, s32 *arg2, WaypointData *arg3, s
         sp58[2] = MAX(0, MIN(arg3->length - 1, tmp + 1));
         sp58[3] = MIN(arg3->length - 1, tmp + 2);
     }
-
 
     temp_f18 = (f32) ((s16) (arg4 - (var_v1 * 128))) / 128;
     temp_f12 = temp_f18 * temp_f18;
@@ -1786,7 +1786,7 @@ void func_802FA6D8_70BD88(void) {
 void func_802FA730_70BDE0(Animal *arg0) {
     struct077 spB8; // size 0x6
 
-    s32 pad[11];
+    s32 pad[11] UNUSED;
 
     s32 tmp1;
     s32 tmp2;
@@ -1934,7 +1934,7 @@ void func_802FA730_70BDE0(Animal *arg0) {
 
 // ESA: func_80053494
 void func_802FADBC_70C46C(Animal *arg0) {
-    s32 pad[2];
+    s32 pad[2] UNUSED;
 
     s16 temp_v1_3;
     s16 sp44;
@@ -2476,11 +2476,13 @@ void func_802FC8F4_70DFA4(Animal *arg0) {
         0);
 }
 
-void func_802FC970_70E020(Animal *arg0) {
+#ifdef __sgi
+void unused_802FC970_70E020(Entity *arg0) {
     func_802FCA08_70E0B8(arg0, arg0->unk164);
 }
+#endif
 
-void run_commands(Animal *arg0) {
+void run_commands(Entity *arg0) {
     if (arg0->unk26C != 1) {
         func_802FCA08_70E0B8(arg0, arg0->unk164);
         arg0->unk26C = 1;
@@ -2492,7 +2494,7 @@ void run_commands(Animal *arg0) {
 }
 
 // ESA: func_80055C04
-void func_802FCA08_70E0B8(Animal *arg0, s16 arg1) {
+void func_802FCA08_70E0B8(Entity *arg0, s16 arg1) {
     u32 tmp;
     s16 tmp2;
 
@@ -3059,10 +3061,10 @@ void func_802FF184_710834(Animal *arg0, s16 used, s16 x, s16 y, s16 z, s16 arg5,
             if (D_803E1BE8[i].used == 0) {
                 D_803E1BE8[i].x = x;
                 D_803E1BE8[i].y = y;
-                D_803E1BE8[i].used = used; // ? always 1
+                D_803E1BE8[i].used = used;
                 D_803E1BE8[i].unk1 = 0;
                 D_803E1BE8[i].z = z;
-                D_803E1BE8[i].unkC = size; // size?
+                D_803E1BE8[i].unkC = size;
                 D_803E1BE8[i].unkE = arg8;
                 D_803E1BE8[i].unk10 = arg9;
                 D_803E1BE8[i].unk14 = arg0;
@@ -3204,7 +3206,7 @@ void func_802FF828_710ED8(Entity *arg0) {
     add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 16, 0, 0, 0, 0, 0, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
 }
 
-// used by object 39
+// used by object 39 (OBJECT_WATER_CANNON_1)
 // ESA: func_80057D0C
 void func_802FFA20_7110D0(Entity *arg0) {
     if (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4)) {
@@ -3218,7 +3220,6 @@ void func_802FFA20_7110D0(Entity *arg0) {
     add_regular_trail(arg0, 1, (arg0->unk40 * 0x28) >> 11, 8, 0, 0, 0, 0x64, 0x64, 0xFF, 0x9B, 0x9B, 0xFF, 0xFF, 0xFF, 0xFF, 1, 1, arg0 + 5);
 }
 
-extern u8 *D_803A8370_7B9A20[3];
 // used by object 168
 // stubbed out in ESA?
 void func_802FFC34_7112E4(Entity *arg0) {
@@ -3233,9 +3234,10 @@ void func_802FFC34_7112E4(Entity *arg0) {
             arg0->position.zPos.h,
             arg0->position.yPos.h,
             phi_v1,
-            arg0->unk200,
-            arg0->unk204,
-            arg0->unk208);
+            arg0->unk200[0],
+            arg0->unk200[1],
+            arg0->unk200[2]
+        );
 
         if ((arg0->unk163 & 8) == 0) { // probably a bitfield
             temp_t4 = (arg0->unk40 << 6) >> 0xB;
@@ -3248,9 +3250,9 @@ void func_802FFC34_7112E4(Entity *arg0) {
                 (s16) temp_t4,
                 (s16) temp_t4,
                 (s16) phi_v1,
-                arg0->unk200,
-                arg0->unk204,
-                arg0->unk208,
+                arg0->unk200[0],
+                arg0->unk200[1],
+                arg0->unk200[2],
                 2,
                 0);
         }
@@ -3291,7 +3293,7 @@ void func_802FFD50_711400(Entity *arg0) {
 // ESA: func_800581DC
 void func_802FFE94_711544(Entity *arg0) {
     arg0->Info.unk14E = (arg0->Info.unk14E + 1) & 0x1F;
-    if ((arg0->unk200 & 1) != 0) {
+    if ((arg0->unk200[0] & 1) != 0) {
         func_802FFD50_711400(arg0);
     }
 }

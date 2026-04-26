@@ -56,7 +56,6 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
 
     CollisionNode *temp_v1;
 
-
     temp_a2 = D_803D5530->position.xPos.h;
     temp_a2 += (((SIN(D_803D552C->heading) >> 7) * arg0) >> 8);
     temp_v0 = D_803D5530->position.zPos.h;

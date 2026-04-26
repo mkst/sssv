@@ -271,7 +271,9 @@ void func_8029BB94_6AD244(void) {
             }
         }
 
+#ifdef __sgi
         if (1) {}
+#endif
         if (D_803D2D90.unk42 == 150) {
             D_803D2D90.unk5C->unk158 = 0;
             D_803D2D90.unk58->position.xPos.h = D_803D2D90.unk52;
@@ -292,8 +294,9 @@ void func_8029BB94_6AD244(void) {
             }
         }
         if (D_803D2D90.unk44 == 150) {
-            // FAKE
+#ifdef __sgi
             if (D_803D2D90.unk2 == OBJECT_TELEPORTER_BASE) {}
+#endif
             D_803D2D90.unk0 = 0;
             D_803D2D90.unk64 = 100;
 
@@ -457,27 +460,27 @@ void func_8029C8F0_6ADFA0(Gfx **dl) {
         for (j = 0; j < var_t3; j++) {
             for (k = 0; k < 5; k++) {
                 gSP2Triangles(
-                    /* gdl   */ (*dl)++,
-                    /* v00   */ ((j * 6) + k) + 6,
-                    /* v01   */ ((j * 6) + k) + 1,
-                    /* v02   */ ((j * 6) + k) + 0,
-                    /* flag0 */ 0,
-                    /* v10   */ ((j * 6) + k) + 1,
-                    /* v11   */ ((j * 6) + k) + 6,
-                    /* v12   */ ((j * 6) + k) + 7,
-                    /* flag1 */ 0);
+                /* gdl   */ (*dl)++,
+                /* v00   */ ((j * 6) + k) + 6,
+                /* v01   */ ((j * 6) + k) + 1,
+                /* v02   */ ((j * 6) + k) + 0,
+                /* flag0 */ 0,
+                /* v10   */ ((j * 6) + k) + 1,
+                /* v11   */ ((j * 6) + k) + 6,
+                /* v12   */ ((j * 6) + k) + 7,
+                /* flag1 */ 0);
             }
 
             gSP2Triangles(
-                /* gdl   */ (*dl)++,
-                /* v00   */ (j * 6) + 6,
-                /* v01   */ (j * 6) + 0,
-                /* v02   */ (j * 6) + 5,
-                /* flag0 */ 0,
-                /* v10   */ (j * 6) + 6,
-                /* v11   */ (j * 6) + 5,
-                /* v12   */ (j * 6) + 11,
-                /* flag1 */ 0);
+            /* gdl   */ (*dl)++,
+            /* v00   */ (j * 6) + 6,
+            /* v01   */ (j * 6) + 0,
+            /* v02   */ (j * 6) + 5,
+            /* flag0 */ 0,
+            /* v10   */ (j * 6) + 6,
+            /* v11   */ (j * 6) + 5,
+            /* v12   */ (j * 6) + 11,
+            /* flag1 */ 0);
         }
     }
 

@@ -16,6 +16,7 @@ s16 D_803F2EE0[2];
 // .text
 // ========================================================
 
+#ifdef __sgi
 void unused_8035E120_76F7D0(void) {
     D_803D552C->energy[0].unk0 = MIN(1024, D_803D552C->energy[0].unk0 + D_803D5524->unkDA[0][1]);
 
@@ -29,6 +30,7 @@ void unused_8035E120_76F7D0(void) {
         D_803D552C->energy[1].unk2 = MAX(0, D_803D552C->energy[1].unk2 - 1);
     }
 }
+#endif
 
 #if 0
 // ESA: func_800818D8

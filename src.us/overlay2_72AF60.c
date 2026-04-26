@@ -50,8 +50,8 @@ void func_803198B0_72AF60(void) {
 }
 
 void reset_waypoints(void) {
-    bzero_sssv((u8*)D_803E8F60, 1100); // raw waypoint data
-    bzero_sssv((u8*)D_803E8E60, 256);  // pointers to waypoints
+    bzero_sssv((u8*)D_803E8F60, sizeof(D_803E8F60)); // raw waypoint data
+    bzero_sssv((u8*)D_803E8E60, sizeof(D_803E8E60)); // pointers to waypoints
     D_803E93B0[0].unk5 = D_803E93B0[0].unk2 = WAYPOINT_END;
     D_803A5750_7B6E00 = 0;
 }

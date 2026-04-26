@@ -76,14 +76,14 @@ void update_limbs_evo(s16 arg0, s16 arg1, struct077 arg2[8], struct077 arg3[8], 
 
     temp_v1 = D_803D552C->gaitPhase;
 
-    switch (D_803D5530->state) {                        /* implicit */
+    switch (D_803D5530->state) {
     case 0x3:
     case 0x8E:
     case 0xB6:
         temp_v1 = D_803D552C->gaitPhaseOffset;
         phi_t0 = 1;
         phi_a3 = (temp_v1) % 256;
-        sp34 = ((temp_v1 + 128) % 256);
+        sp34 = (temp_v1 + 128) % 256;
         break;
     case 0x6:
     case 0x90:
@@ -288,21 +288,21 @@ void func_80320828_731ED8(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 a
         arg0->unk12++;
     }
 
-    switch (D_803D5530->state) {                        /* switch 1; irregular */
-    case 0x3:                                       /* switch 1 */
-    case 0x6:                                       /* switch 1 */
-    case 0x8E:                                      /* switch 1 */
-    case 0x90:                                      /* switch 1 */
-    case 0xB6:                                      /* switch 1 */
-    case 0xB9:                                      /* switch 1 */
+    switch (D_803D5530->state) {
+    case 0x3:
+    case 0x6:
+    case 0x8E:
+    case 0x90:
+    case 0xB6:
+    case 0xB9:
         var_a1 = ((SIN(arg2) >> 7) / 20);
         break;
-    case 0x4:                                       /* switch 1 */
-    case 0x8F:                                      /* switch 1 */
-    case 0xB7:                                      /* switch 1 */
+    case 0x4:
+    case 0x8F:
+    case 0xB7:
         var_a1 = ((SIN(arg2) >> 7) / 12);
         break;
-    default:                                        /* switch 1 */
+    default:
         var_a1 = 0;
         break;
     }
@@ -352,7 +352,8 @@ void update_limbs_crazy_bear(s16 arg0, s16 arg1) {
     if (D_803D5530->unk4A != 0) {
         phi_v0 = 0;
     } else {
-        if ((((D_803D5540 << 4) & 0xFF) == 0) || (((D_803D5540 << 4) & 0xFF) == 0x80)) {
+        if ((((D_803D5540 << 4) & 0xFF) == 0) ||
+            (((D_803D5540 << 4) & 0xFF) == 0x80)) {
             D_803D553A = 3;
         }
         phi_v0 = D_803D5540;

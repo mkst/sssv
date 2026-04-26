@@ -83,8 +83,8 @@ static s16  D_803F2C9E;
 static s16  D_803F2CA0;
 static s16  D_803F2CA2; // cellX
 static s16  D_803F2CA4; // cellZ
-s16  D_803F2CA6; // index into D_803E3130
-s8   gWorldCellTranslucentEnabled[4][6];  // whether DL is enabled or not?
+       s16  D_803F2CA6; // index into D_803E3130
+       s8   gWorldCellTranslucentEnabled[4][6];  // whether DL is enabled or not?
 static s64  D_803F2CC0;
 
 // ========================================================
@@ -982,8 +982,6 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7558F0/func_803458FC_756FAC.s")
 #endif
-
-extern u8 foo[][0xab8];
 
 void func_80346878_757F28(Gfx **dl, u8 idx) {
     if (idx < 32) {

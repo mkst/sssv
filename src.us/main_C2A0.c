@@ -2,13 +2,14 @@
 
 #include "common.h"
 
-
+#ifdef __sgi
 void unused_80130BA0(void) {
     s16 i;
     for (i = 0; (u32)i < 60U; i++) {
         // debug stuff removed?
     };
 }
+#endif
 
 // junk out eeprom?
 void junk_eeprom(void) {

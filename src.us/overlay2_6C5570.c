@@ -31,9 +31,11 @@ static s16  D_803D5E00[360];
 void func_802B3EC0_6C5570(Gfx **dl, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     D_803A05C0_7B1C70 = 1 - D_803A05C0_7B1C70;
     if (arg1 != 1) {
+#ifdef __sgi
         if (0) {
             // debug stub?
         };
+#endif
         if (arg1 == 0) {
             draw_rectangle(dl, 0, 0, 320, 240, 0, 0, 0, 255);
             func_802B4148_6C57F8(dl);
@@ -195,16 +197,16 @@ void draw_star_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg
 
                     if ((xl < (gScreenWidth * 4)) && (yl < 960.0f) && (xh > 0.0f) && (yh > 0.0f)) {
                         gSPScisTextureRectangle(
-                            /* pkt  */ (*dl)++,
-                            /* xl   */ (s16)xl,
-                            /* yl   */ (s16)yl,
-                            /* xh   */ (s16)xh,
-                            /* yh   */ (s16)yh,
-                            /* tile */ G_TX_RENDERTILE,
-                            /* s    */  (dsdx * ((s16) xl & 3)) >> 9,
-                            /* t    */ -(dtdy * ((s16) yl & 3)) >> 7,
-                            /* dsdx */ dsdx,
-                            /* dtdy */ dtdy);
+                        /* pkt  */ (*dl)++,
+                        /* xl   */ (s16)xl,
+                        /* yl   */ (s16)yl,
+                        /* xh   */ (s16)xh,
+                        /* yh   */ (s16)yh,
+                        /* tile */ G_TX_RENDERTILE,
+                        /* s    */  (dsdx * ((s16) xl & 3)) >> 9,
+                        /* t    */ -(dtdy * ((s16) yl & 3)) >> 7,
+                        /* dsdx */ dsdx,
+                        /* dtdy */ dtdy);
                     }
                 }
             }

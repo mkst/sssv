@@ -6,8 +6,8 @@
 // .bss
 // ========================================================
 
-s16  D_803D5510;
-s16  D_803D5512;
+s16  D_803D5510; // xVel
+s16  D_803D5512; // zVel
 
 // ========================================================
 // .text
@@ -47,7 +47,7 @@ void func_802A3CD0_6B5380(void) {
 }
 
 // ESA: func_80064858
-void func_802A3E70_6B5520(Animal *arg0, s32 *xVel, s32 *zVel) {
+void func_802A3E70_6B5520(Entity *arg0, s32 *xVel, s32 *zVel) {
     if (arg0->unk161 == 0) {
         if (D_803D5510 < -23) {
             *xVel = MIN(*xVel, FTOFIX32(-1.0));
@@ -81,7 +81,7 @@ void func_802A403C_6B56EC(Animal *arg0, s16 arg1) {
     temp_v1 = arg0->zVelocity.w;
 
     temp_v0 = temp_v0 - (((1 - (((temp_a2 >> 4) & 8) >> 2)) * (((temp_a2 & 0xF0) >> 4) & 7)) << 17);
-    temp_v1 = temp_v1 - (((1 - ((temp_a2 & 8) >> 2)) * ((u8)temp_a2 & 7)) << 17);
+    temp_v1 = temp_v1 - (((1 - (((temp_a2     ) & 8) >> 2)) * (((temp_a2 & 0xFF)     ) & 7)) << 17);
 
     arg0->xVelocity.w -= (temp_v0 >> arg1);
     arg0->zVelocity.w -= (temp_v1 >> arg1);
@@ -111,8 +111,10 @@ void func_802A4184_6B5834(void) {
 
 // ESA: func_80064C08
 void func_802A4220_6B58D0(s32* xVel, s32* zVel, u16 arg2) {
+#ifdef __sgi
     // not assigned to anything?
     MAX(ABS(*xVel), ABS(*zVel));
+#endif
 
     *xVel = (*xVel * arg2) >> 8;
     *zVel = (*zVel * arg2) >> 8;

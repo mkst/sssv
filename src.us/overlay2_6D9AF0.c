@@ -103,9 +103,9 @@ void func_802C8878_6D9F28(void) {
             a = D_803D5528;
             D_803D5530 = a;
             D_803D552C = a;
-
+#ifdef __sgi
             if (1) {}; // required!
-
+#endif
             if (i == gCurrentAnimalIndex) {
                 D_803D5538 = 1;
             } else {
@@ -317,7 +317,6 @@ void func_802C8878_6D9F28(void) {
                 }
             }
             if (i == gCurrentAnimalIndex) {
-                // (re)set lights?
                 add_single_light(&gOpaqueDL);
             }
             if (D_803D552C->movementMode != MOVEMENT_MODE_DELETED) {

@@ -207,7 +207,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1);
 
 // overlay2_6B5380
 void func_802A3CD0_6B5380(void);
-void func_802A3E70_6B5520(Animal *arg0, s32 *arg1, s32 *arg2);
+void func_802A3E70_6B5520(Entity *arg0, s32 *arg1, s32 *arg2);
 void func_802A3F68_6B5618(s32 *arg0, s32 *arg1);
 void func_802A403C_6B56EC(Animal *arg0, s16 arg1);
 void func_802A40EC_6B579C(void);
@@ -611,12 +611,12 @@ u8   func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct
 Entity *find_closest_animal(Entity *arg0);
 s32  func_802F8918_709FC8(Animal *arg0, Animal *arg1);
 void func_802F8DCC_70A47C(Entity *arg0);
-void func_802F9084_70A734(Animal * arg0);
-void func_802F908C_70A73C(Animal *arg0);
-void func_802F90A8_70A758(Animal *arg0);
+void func_802F9084_70A734(Entity * arg0);
+void func_802F908C_70A73C(Entity *arg0);
+void func_802F90A8_70A758(Entity *arg0);
 void func_802F9104_70A7B4(Entity *arg0);
 s32  func_802F9178_70A828(Entity *arg0);
-void func_802F951C_70ABCC(Animal *arg0);
+void func_802F951C_70ABCC(Entity *arg0);
 void func_802F9624_70ACD4(Animal *arg0);
 void func_802F9880_70AF30(Animal *arg0);
 void func_802F9A08_70B0B8(Animal *arg0);
@@ -642,9 +642,8 @@ void func_802FC5C0_70DC70(Animal *arg0);
 void func_802FC6E4_70DD94(Animal *arg0);
 void func_802FC808_70DEB8(Animal *arg0);
 void func_802FC8F4_70DFA4(Animal *arg0);
-void func_802FC970_70E020(Animal *arg0);
-void run_commands(Animal *arg0);
-void func_802FCA08_70E0B8(Animal *arg0, s16 arg1);
+void run_commands(Entity *arg0);
+void func_802FCA08_70E0B8(Entity *arg0, s16 arg1);
 void set_floor_level(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4);
 void set_water_level(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4);
 s32  func_802FD348_70E9F8(Animal *arg0, u16 arg1);

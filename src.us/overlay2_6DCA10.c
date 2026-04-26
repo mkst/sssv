@@ -2307,7 +2307,7 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
     struct036 *particle;
     struct099 *var_t2;
 
-    s32 pad;
+    s32 pad UNUSED;
 
     D_803D6120.used++;
     if (D_803D6120.used >= 0xFF) {
@@ -2315,7 +2315,7 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
     }
 
     while ((D_803D6120.particles[D_803D6120.used].unk1A == 1) || ((D_803D6120.particles[D_803D6120.used].unk38 & 2) && (D_803D6120.particles[D_803D6120.used].unk18 != 0))) {
-        D_803D6120.used++; // = temp_t7_2;
+        D_803D6120.used++;
         if (D_803D6120.used >= 0xFF) {
             D_803D6120.used = 0;
         }
@@ -2412,7 +2412,9 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
     case 8:
     case 25:
     case 48:
+#ifdef __sgi
         if (id) {}; // fix regalloc
+#endif
         particle->unk36 = arg7;
         break;
     }
@@ -2427,7 +2429,7 @@ extern s16 D_803A231C_7B39CC;
 
 // arg3 = particle 38 --> Zzzzz...
 s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 arg6, s16 size, u16 color1, u16 color2, u16 argA) {
-    s16 pad[4];
+    s16 pad[4] UNUSED;
     s32 tmpy;
     s32 temp;
     s16 sp3E;
@@ -2452,7 +2454,9 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
         return 0;
     }
 
+#ifdef __sgi
     pad[3] = id; // force stack
+#endif
     D_803D6120.used++;
     if (D_803D6120.used >= 0xFF) {
         D_803D6120.used = 0;
@@ -2992,7 +2996,6 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
     }
 
     for (i = 0; i < spBE; i++) {
-
         temp_s6 = (((guRandom() % arg5) * 2) + x) - (u32)arg5;
         temp_s5 = (((guRandom() % arg5) * 2) + z) - (u32)arg5;
         temp_s4 = (((guRandom() % arg5) * 2) + y) - (u32)arg5;
@@ -3310,7 +3313,7 @@ void create_sparks(s16 x, s16 z, s16 y, s16 size, u16 color) {
     s16 tmp1;
     s16 tmp2;
     s16 tmp3;
-    s32 pad[3];
+    s32 pad[3] UNUSED;
     s16 i;
 
     if (size < 2) {

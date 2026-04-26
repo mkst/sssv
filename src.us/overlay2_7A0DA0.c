@@ -1584,7 +1584,10 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         alpha = 0xFF;
 
         // update eeprom if volume or language changed
-        if ((gOverlayMenuState.unk22 == 1) && ((D_803F6716 != gEepromGlobal.sfxVol) || (D_803F6718 != gEepromGlobal.musicVol) || (D_803F671A != gEepromGlobal.language))) {
+        if ((gOverlayMenuState.unk22 == 1) &&
+            ((D_803F6716 != gEepromGlobal.sfxVol) ||
+             (D_803F6718 != gEepromGlobal.musicVol) ||
+             (D_803F671A != gEepromGlobal.language))) {
             write_eeprom(4);
             set_music_volume(gEepromGlobal.musicVol);
         }
@@ -2214,9 +2217,11 @@ void load_pause_menu(s32 arg0, s16 arg1) {
 #endif
 
 void func_80395074_7A6724(s32 debug) {
+#ifdef __sgi
     if (0 && debug) {
         // something like this
     }
+#endif
     D_801D9ED4 = 10;
 }
 
@@ -2248,6 +2253,7 @@ void render_tv_glass(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
     gDPPipeSync((*dl)++);
 }
 
+// TODO: rename empty_8039546C_7A6B1C
 void func_8039546C_7A6B1C(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
 }
 

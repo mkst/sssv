@@ -171,6 +171,7 @@ void kick_up_dust_big(s32 xVelocity, s32 zVelocity) {
     }
 }
 
+#ifdef __sgi
 void unused_8034AFE0_75C690(void) {
 }
 
@@ -182,6 +183,7 @@ void unused_8034AFF4_75C6A4(s32 arg0, Animal *arg1) {
 
 void unused_8034B000_75C6B0(s32 arg0) {
 }
+#endif
 
 // used by husky and bear, foaming mouth particle locations?
 void func_8034B008_75C6B8(u8 arg0, u8 arg1, s16 arg2, s32 *xPos, s32 *zPos, s32 *yPos) {
