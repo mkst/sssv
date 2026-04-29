@@ -115,23 +115,21 @@ GCC_C_FILES =
 GCC_C_OBJS =
 
 ifeq ($(USE_GCC),1)
-  GCC_C_FILES ?= $(shell [ -f gcc_files.$(VERSION).txt ] && sed -e 's/#.*//' -e '/^[[:space:]]*$$/d' gcc_files.$(VERSION).txt)
-  GCC_C_OBJS  := $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(GCC_C_FILES)))
+  GCC_C_FILES  = $(shell [ -f gcc_files.$(VERSION).txt ] && sed -e 's/#.*//' -e '/^[[:space:]]*$$/d' gcc_files.$(VERSION).txt)
+  GCC_C_OBJS   = $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(GCC_C_FILES)))
   $(GCC_C_OBJS): CC = $(XGCC)
   $(GCC_C_OBJS): CFLAGS = $(GCC_FLAGS)
   $(GCC_C_OBJS): OPT_FLAGS = -O2
+  ifneq ($(strip $(GCC_C_FILES)),)
+	NON_MATCHING = 1
+	LD_FLAGS_EXTRA += -lgcc
+	MAYBE_LIBGCC = $(BUILD_DIR)/$(LIBGCC)
+  endif
 endif
 
 # COMPILER=gcc
 ifeq ($(COMPILER),gcc)
   OPT_FLAGS = -O2
-  LD_FLAGS_EXTRA += -lgcc
-  MAYBE_LIBGCC = $(BUILD_DIR)/$(LIBGCC)
-endif
-
-# USE_GCC=1
-ifneq ($(strip $(GCC_C_FILES)),)
-  NON_MATCHING = 1
   LD_FLAGS_EXTRA += -lgcc
   MAYBE_LIBGCC = $(BUILD_DIR)/$(LIBGCC)
 endif
@@ -174,6 +172,8 @@ ifeq ($(VERSION),eu)
 endif
 
 VERIFY = verify
+
+$(info $(VERIFY) - $(NON_MATCHING))
 
 ifeq ($(NON_MATCHING),1)
   $(info Building NON_MATCHING ROM...)
