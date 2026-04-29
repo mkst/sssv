@@ -176,7 +176,7 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     sp50 = (((scaleZ >> 3) * sp50) / sp34) << 3;
     sp4C = (((scaleY >> 3) * sp4C) / sp34) << 3;
 
-    switch (arg7) {                                 /* irregular */
+    switch (arg7) {
     case 0:
         break;
     case 1:
@@ -257,8 +257,7 @@ s32 func_80126388(u16 joint0, u16 joint1, s32 scaleX, s32 scaleZ, s32 scaleY, s1
     return 1;
 }
 
-// unused?
-void func_80126CC4(s16 arg0, Mtx *arg1) {
+void unused_80126CC4(s16 arg0, Mtx *arg1) {
     FracIntHelper sp8;
     FracIntHelper sp0;
 
@@ -314,7 +313,7 @@ s32 func_80126FD4(s32 arg0, s32 arg1, s32 arg2,
     s32 sp74, sp70, sp6C;
     s32 sp68, sp64, sp60;
     s32 sp5C, sp58, sp54;
-    s32 unused[3];
+    s32 pad[3] UNUSED;
     s32 sp44, sp40, sp3C;
     s32 sp38, sp34, sp30;
     FracIntHelper sp28;
@@ -512,7 +511,9 @@ s32 func_80127994(s32 vec0_x, s32 vec0_y, s32 vec0_z, Mtx *arg3) {
     }
     magnitude = sqrtf(SQ((f32)vec0_z) + SQ((f32)-vec0_x));
 
+#ifdef __sgi
     if (1) { } if (1) { }
+#endif
 
     // vec1 lies in the XZ plane and is perpendicular to vec0
     vec1_x = ( vec0_z << 0xA) / magnitude;

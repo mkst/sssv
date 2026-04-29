@@ -544,7 +544,7 @@ void func_802950B8_638758(void) {
     UnpackRNC((RNC_fileptr)img_menu_trademark_rgba16_rnc_rgba16__rnc, D_80302E88 + 0x74050);
 
     // load "lang34.dat"
-    load_level_text_data(gEepromGlobal.language, 33, D_8022E3F0 + 7000, D_80231D50.data);
+    load_level_text_data(gEepromGlobal.language, 33, D_8022E3F0.messages, D_8022E3F0.data);
 
     src = get_message_address_by_id(MSG_CONTROLLER_NOT_CONNECTED);
     dst = gNoControllerMessageText;

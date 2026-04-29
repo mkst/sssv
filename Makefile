@@ -6,6 +6,8 @@ VERSION  := us
 COMPILER ?= ido
 
 NON_MATCHING ?= 0
+USE_GCC      ?= 0
+CRASH_SCREEN ?= 0
 
 # Colors
 
@@ -108,13 +110,17 @@ else
   NON_MATCHING = 1
 endif
 
-GCC_C_FILES ?= $(shell [ -f gcc_files.$(VERSION).txt ] && sed -e 's/#.*//' -e '/^[[:space:]]*$$/d' gcc_files.$(VERSION).txt)
-GCC_C_OBJS  := $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(GCC_C_FILES)))
-$(GCC_C_OBJS): CC = $(XGCC)
-$(GCC_C_OBJS): CFLAGS = $(GCC_FLAGS)
-$(GCC_C_OBJS): OPT_FLAGS = -O1
-
 MAYBE_LIBGCC =
+GCC_C_FILES =
+GCC_C_OBJS =
+
+ifeq ($(USE_GCC),1)
+  GCC_C_FILES ?= $(shell [ -f gcc_files.$(VERSION).txt ] && sed -e 's/#.*//' -e '/^[[:space:]]*$$/d' gcc_files.$(VERSION).txt)
+  GCC_C_OBJS  := $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(GCC_C_FILES)))
+  $(GCC_C_OBJS): CC = $(XGCC)
+  $(GCC_C_OBJS): CFLAGS = $(GCC_FLAGS)
+  $(GCC_C_OBJS): OPT_FLAGS = -O2
+endif
 
 # COMPILER=gcc
 ifeq ($(COMPILER),gcc)
@@ -123,7 +129,7 @@ ifeq ($(COMPILER),gcc)
   MAYBE_LIBGCC = $(BUILD_DIR)/$(LIBGCC)
 endif
 
-# temp
+# USE_GCC=1
 ifneq ($(strip $(GCC_C_FILES)),)
   NON_MATCHING = 1
   LD_FLAGS_EXTRA += -lgcc
@@ -144,7 +150,7 @@ LIBRNCU  = $(TOOLS_DIR)/librncu.so
 
 # Flags
 
-OPT_FLAGS      = -O2
+OPT_FLAGS     ?= -O2
 LOOP_UNROLL    =
 
 INCLUDE_CFLAGS = -I . -I include -I include/2.0 -I include/2.0/PR -I include/libc -I assets \
@@ -176,15 +182,20 @@ ifeq ($(NON_MATCHING),1)
   PROGRESS_NONMATCHING = --non-matching
 endif
 
+ifeq ($(CRASH_SCREEN),1)
+  C_OBJS += build/src.us/debug/crash_screen.c.o
+endif
+
 
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
 # CHECK_WARNINGS += -Wdouble-promotion
 CC_CHECK   = $(HOSTCC) $(HOSTCC_CHECK_FLAGS) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
 
 GCC_FLAGS  = $(INCLUDE_CFLAGS) $(DEFINES)
-GCC_FLAGS += -G0 -mips3 -std=gnu90  -fno-builtin -fsigned-char -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float
-GCC_FLAGS += -mdivide-breaks -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -mno-abicalls -fno-inline-functions -ffreestanding -fno-strict-aliasing  -fwrapv
-GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
+GCC_FLAGS += -G0 -mips3 -std=gnu90
+GCC_FLAGS += -mno-shared -march=vr4300 -mfix4300 -mabi=32 -mhard-float -mdivide-breaks -mno-abicalls
+GCC_FLAGS += -fno-builtin -fsigned-char -fno-stack-protector -fno-common -fno-zero-initialized-in-bss -fno-PIC -fno-inline-functions -ffreestanding -fno-strict-aliasing -fwrapv
+GCC_FLAGS += $(CHECK_WARNINGS)
 
 LD_FLAGS   = -T $(LD_SCRIPT) -Map $(TARGET).map --no-check-sections
 
@@ -206,8 +217,10 @@ ASM_PROCESSOR      = $(PYTHON) $(ASM_PROCESSOR_DIR)/asm_processor.py
 ### Optimisation Overrides
 $(BUILD_DIR)/$(SRC_DIR)/main_1050.c.o: OPT_FLAGS := -O1
 
+ifeq ($(NON_MATCHING),0)
 ifeq ($(COMPILER),ido)
   $(BUILD_DIR)/$(SRC_DIR)/overlay2_6AB090.c.o: LOOP_UNROLL := -Wo,-loopunroll,0
+endif
 endif
 
 ### EU Overrides

@@ -122,11 +122,13 @@ typedef struct {
 } GameState; // size 0x20
 
 typedef struct {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
+    union {
+        s16 numMsgs;
+        u8  scratch[7000*2];
+    };
+    s16 messages[350];
     s16 data[7000];
-} LevelText; // only used to force alignment
+} LanguageData;
 
 struct CollisionNode {
     /* 0x0 */ CollisionNode *next;
@@ -1380,7 +1382,7 @@ typedef struct {
 } struct033; // size 0xC
 
 struct struct035 { // TODO: merge with ObjectData?
-  /* 0x00 */  u16 objectType;
+  /* 0x00 */  u16 objectType; // ID
   /* 0x02 */  u8  unk2;
   /* 0x03 */  u8  unk3;
   /* 0x04 */  Gfx *displayList1;

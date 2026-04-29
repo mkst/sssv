@@ -406,7 +406,7 @@ void func_8038FD74_7A1424(void) {
 
     reset_credits_counters();
     // load lang33.dat
-    load_level_text_data(gEepromGlobal.language, 32, (u16*)D_8022E3F0 + 7000, D_80231D50.data);
+    load_level_text_data(gEepromGlobal.language, 32, (u16*)D_8022E3F0.messages, D_8022E3F0.data);
     generate_stars();
 
     D_803F6704 = 0;
@@ -2092,7 +2092,7 @@ void load_pause_menu(s32 arg0, s16 arg1) {
                 play_sound_effect(SFX_MENU_NAGIVATE_DOWN, 0, 0x5000, 1.0f, 64);
                 func_80395074_7A6724(0);
                 // load menu text
-                load_level_text_data(gEepromGlobal.language, 32, (u16*)D_8022E3F0 + 7000, D_80231D50.data);
+                load_level_text_data(gEepromGlobal.language, 32, (u16*)D_8022E3F0.messages, D_8022E3F0.data);
                 // load level specific text
                 gLoadedMessageCount = load_level_text_data(gEepromGlobal.language, D_803F7DA8.currentLevel, D_803F3330, D_803F34C0);
                 load_level_title();

@@ -3,10 +3,6 @@
 
 
 // ========================================================
-// .data
-// ========================================================
-
-// ========================================================
 // .bss
 // ========================================================
 
@@ -72,9 +68,7 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
     s16 subCellX;
     s16 subCellZ;
 
-    s16 pad UNUSED;
-
-    s16 newGridCells[4];
+    s16 newGridCells[5];
 
     s16 gridX;
     s16 matchingCells;
@@ -90,7 +84,6 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
     gridZ = arg0->position.zPos.h >> 0xA;
     subCellX = (arg0->position.xPos.h >> 6) & 0xF;
     subCellZ = (arg0->position.zPos.h >> 6) & 0xF;
-
 
     if ((gridX >= 0) && (gridX < 5) && (gridZ >= 0) && (gridZ < 8)) {
         newGridCells[cellCount++] = gridX + (gridZ * 5);
@@ -115,16 +108,16 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
     if (cellCount == 3) {
         switch (cornerFlag) {
         case 0:
-            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 6;
+            newGridCells[cellCount++] = (gridX - 1) + ((gridZ - 1) * 5);
             break;
         case 1:
-            newGridCells[cellCount++] = (gridX + (gridZ * 5)) - 4;
+            newGridCells[cellCount++] = (gridX + 1) + ((gridZ - 1) * 5);
             break;
         case 2:
-            newGridCells[cellCount++] = gridX + (gridZ * 5) + 4;
+            newGridCells[cellCount++] = (gridX - 1) + ((gridZ + 1) * 5);
             break;
         case 3:
-            newGridCells[cellCount++] = gridX + (gridZ * 5) + 6;
+            newGridCells[cellCount++] = (gridX + 1) + ((gridZ + 1) * 5);
             break;
         }
     }
@@ -155,7 +148,7 @@ void func_802DA90C_6EBFBC(Entity *arg0) {
                     arg0->unk11C[matchingCells].next->prev = &arg0->unk11C[matchingCells];
                 }
 
-                arg0->unk11C[matchingCells].animal = arg0;
+                arg0->unk11C[matchingCells].animal = (Animal*)arg0;
             }
         }
     }
@@ -244,7 +237,7 @@ void func_802DAE5C_6EC50C(Entity *obj) {
         }
     }
     obj->unk198 = NULL;
-    obj->unk26D = 0U;
+    obj->unk26D = 0;
 }
 
 // ESA: func_80062EB0

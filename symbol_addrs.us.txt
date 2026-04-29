@@ -302,9 +302,9 @@ BitBuffBits            = 0x8022E3E4;
 FirstEntry             = 0x8022E3E6;
 SecondEntry            = 0x8022E3E8;
 
-D_8022E3F0             = 0x8022E3F0; // size:0x36b0 segment:main
-D_80231AA0             = 0x80231AA0;
-D_80231D50             = 0x80231D50; // segment:overlay2 size:0x700C
+D_8022E3F0             = 0x8022E3F0; // size:0x7020 segment:main
+// D_80231AA0             = 0x80231AA0;
+// D_80231D50             = 0x80231D50; // segment:overlay2 size:0x700C
 D_80235410             = 0x80235410; // size:0x9dd0
 D_8023F1E0             = 0x8023F1E0; // size:0xE
 D_8023F1F0             = 0x8023F1F0;

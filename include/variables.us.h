@@ -16,16 +16,6 @@
 // 0x2CB38 in ROM maps to D_80151438
 
 // display lists
-extern u8   D_01000620_39EF0[];
-extern u8   D_01000CA0_3A570[];
-extern u8   D_01000CC0_3A590[];
-extern u8   D_01000D00_3A5D0[];
-extern u8   D_01000D20_3A5F0[];
-extern u8   D_01002100_3B9D0[];
-extern u8   D_010025A0_3BE70[];
-extern u8   D_01002C20_3C4F0[];
-extern u8   D_01002C40_3C510[];
-
 extern Gfx  D_01003460_3CD30[];
 extern Gfx  D_01003498_3CD68[];
 extern Gfx  D_010034C0_3CD90[];
@@ -54,60 +44,35 @@ extern Gfx  D_01013370_4CC40[];
 extern Gfx  D_01017AA0_51370[];
 extern Gfx  D_0101B000_548D0[];
 
-extern u8   D_01021BB0_5B480[];
-extern u8   D_01029E10_636E0[];
-extern u8   D_0102A210_63AE0[];
-extern u8   D_0102C810_660E0[];
-extern u8   D_0102F010_688E0[]; // [64][2048]; ?
-extern u8   D_0102B610_64EE0[];
-extern u8   D_0102B810_650E0[];
-extern u8   D_0102BA10_652E0[];
-extern u8   D_01030810_6A0E0[];
-extern u8   D_01033190_6CA60[]; // D_01033190_6CA60?
-extern u8   D_01035190_6EA60[];
-extern u8   D_01035990_6F260[];
-extern u8   D_01036190_6FA60[];
 extern Gfx  D_01037700_70FD0[];
-extern u8   D_01037750_71020[];
 extern Gfx  D_01037950_71220[];
 extern Gfx  D_01037998_71268[];
 extern Gfx  D_010379D8_712A8[];
 extern Gfx  D_01037A00_712D0[];
-extern u8   D_01037A20_712F0[];
-extern u8   D_0103AC40_74510[];
-extern u8   D_0103B440_74D10[];
 extern Gfx  D_0103B6F0_74FC0[];
 extern Gfx  D_0103B880_75150[];
-extern Gfx  D_0103BA70[];
-extern Gfx  D_0103EC20[];
-extern u8   D_0103ECB0_78580[];
-extern u8   D_01040CB0_7A580[];
-extern u8   D_040000A0[];
-extern Gfx  D_040000E0_DD6A0[];
-extern Gfx  D_04000230_E77E0[];
-extern Gfx  D_040002D0_DD890[];
-extern u8   D_04000370_E7920[];
-extern u8   D_040004B0_E7A60[];
-extern Gfx  D_04000600_E7BB0[];
-extern Gfx  D_04000600_F1660[];
-extern Gfx  D_04000230_F1290[];
-extern u8   D_040006F0[];
 extern Gfx  D_04000840_DDE00[];
 extern Gfx  D_04000900_DDEC0[];
-extern Gfx  D_040009D0_E7F80[];
 extern Gfx  D_04000AE0_DE0A0[];
 extern Gfx  D_04000B40_DE100[];
-extern Gfx  D_04000DB0_E8360[];
-extern u8   D_04000DD0_E8380[];
 extern Gfx  D_040005A0_DDB60[];
 extern Gfx  D_04002630_DFBF0[]; // polar bear
 extern Gfx  D_04002930_DFEF0[]; // polar bear
-extern u8   D_040029D0[];
-extern u8   D_04002F28[];
-
-extern u8   D_04005B60_11C730[]; // spaceship interior
-extern u8   D_04006D00_11D8D0[]; // tv body
+extern Gfx  D_040000E0_DD6A0[];
+extern Gfx  D_040002D0_DD890[];
 extern Gfx  D_04007500_E4AC0[];
+extern Gfx  D_04000230_E77E0[];
+extern Gfx  D_04000370_E7920[];
+extern Gfx  D_040004B0_E7A60[];
+extern Gfx  D_04000600_E7BB0[];
+extern Gfx  D_040009D0_E7F80[];
+extern Gfx  D_04000DB0_E8360[];
+extern Gfx  D_04000DD0_E8380[];
+extern Gfx  D_04000600_F1660[];
+extern Gfx  D_04000230_F1290[];
+
+extern Gfx  D_04005B60_11C730[]; // spaceship interior
+extern Gfx  D_04006D00_11D8D0[]; // tv body
 
 extern Gfx D_04003580_EAB30[];
 extern Gfx D_04003640_EABF0[];
@@ -135,22 +100,15 @@ extern Gfx  D_01003840_3D110[];
 
 extern Gfx  D_040077E0_E4DA0[];
 extern Gfx  D_04007AE0_E50A0[];
-extern u8   D_04007E70_E5430[];
-extern u8   D_04007E90_E5450[];
+extern Gfx  D_04007E70_E5430[];
+extern Gfx  D_04007E90_E5450[];
 extern Gfx  D_040088F0_F9950[];
-extern u8   D_0400A9E0_1215B0[];
+extern Gfx  D_0400A9E0_1215B0[];
 extern Gfx  D_0400BD00_FCD60[];
 extern Gfx  D_0400C260_FD2C0[];
-extern u8   D_0400C280_FD2E0[];
-extern u8   D_0400C480_FD4E0[];
-extern u8   D_0400C6A0_FD700[];
-extern u8   D_0400C6C0_FD720[];
-extern u8   D_0400C8C0_FD920[];
 extern Gfx  D_0400C010_FD070[];
 extern Gfx  D_0400C170_FD1D0[];
 extern Gfx  D_0400C240_FD2A0[];
-
-extern u8   D_04012B20_1296F0[];
 
 extern Gfx  D_05006170_9D190[];
 
@@ -401,11 +359,13 @@ extern Vtx   D_8022D350[216];
 
 
 // src.us/main_78F0.c
-extern s16   D_8022E3F0[]; // scratch area for RNC decompression
+// extern s16   D_8022E3F0[]; // scratch area for RNC decompression
 
 // 0x8023xxxx
 
-extern LevelText D_80231D50;
+extern LanguageData D_8022E3F0;
+
+// extern LevelText D_80231D50;
 
 extern u16  D_80231AA0[];
 
@@ -576,8 +536,7 @@ extern DemoInput D_803B384C_7C4EFC[];
 extern s16  D_803B4958_7C6008[];
 extern s16  D_803B497C_7C602C[];
 extern s16  D_803B49CC_7C607C[];
-extern s16  D_803B4F30_7C65E0;
-extern s16  D_803B4F34_7C65E4;
+
 extern u8   D_803B4930_7C5FE0[];
 extern u8   D_803B4944_7C5FF4[];
 

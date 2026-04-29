@@ -205,8 +205,9 @@ s16 func_8038395C_79500C(void) {
 
 // ESA: func_80064FB4
 void perform_behavior_lion(void) {
+#ifdef __sgi
     if (1) {}; // needed for regalloc
-
+#endif
     switch (D_803D552C->unk2B4.state) {
     case 0:
         set_nav_state_chase_target(D_803D5530, D_803D552C->unk2CC, -1, 16);
@@ -420,7 +421,9 @@ void perform_behavior_fox(void) {
 }
 
 void perform_behavior_fire_fox(void) {
-    if (1) {}; // regalloc
+#ifdef __sgi
+    if (1) {}; // needed for regalloc
+#endif
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
@@ -633,7 +636,9 @@ void perform_behavior_heli_mouse(void) {
 }
 
 void perform_behavior_bear(void) {
-    if (1) {};
+#ifdef __sgi
+    if (1) {}; // needed for regalloc
+#endif
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
@@ -1115,7 +1120,9 @@ void perform_behavior_penguin(void) {
 }
 
 void perform_behavior_polar_bear(void) {
-    if (1) {}; // regalloc
+#ifdef __sgi
+    if (1) {}; // needed for regalloc
+#endif
 
     switch (D_803D552C->unk2B4.state) {
     case 0:
@@ -1290,7 +1297,9 @@ void perform_behavior_walrus(void) {
 }
 
 void perform_behavior_vulture2(void) {
-    if (1) {}; // regalloc
+#ifdef __sgi
+    if (1) {}; // needed for regalloc
+#endif
 
     switch (D_803D552C->unk2B4.state) {
     case 0:

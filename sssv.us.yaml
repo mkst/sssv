@@ -38,7 +38,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/framebuffer]
-      - [0x1000, .bss, buffers/framebuffer]
 
   - name: gfxdlist
     type: code
@@ -47,7 +46,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/gfxdlist]
-      - [0x1000, .bss, buffers/gfxdlist]
 
   - name: gfxanim
     type: code
@@ -56,7 +54,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/gfxanim]
-      - [0x1000, .bss, buffers/gfxanim]
 
   - name: gfxspecific
     type: code
@@ -65,7 +62,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/gfxspecific]
-      - [0x1000, .bss, buffers/gfxspecific]
 
   - name: images
     type: code
@@ -74,7 +70,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/images]
-      - [0x1000, .bss, buffers/images]
 
   - name: fontbuffer
     type: code
@@ -83,7 +78,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/fontbuffer]
-      - [0x1000, .bss, buffers/fontbuffer]
 
   - name: output_buff
     type: code
@@ -92,7 +86,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/output_buff]
-      - [0x1000, .bss, buffers/output_buff]
 
   - name: unused
     type: code
@@ -101,7 +94,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/unused]
-      - [0x1000, .bss, buffers/unused]
 
   - name: unpack
     type: code
@@ -110,7 +102,6 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       - [0x1000, c, buffers/unpack]
-      - [0x1000, .bss, buffers/unpack]
 
   - name: main
     type: code
@@ -410,15 +401,6 @@ segments:
       - [0x38E10, rodatabin, gspF3DEX_fifoData]
       - [0x39610, rodatabin, aspMainData]
       # bss
-      - [0x398D0, .bss, core/thread6] # 0x8015E1D0 to 0x8022E0D0
-      - [0x398D0, .bss, core/rnc] # 0x8022E0D0 to 0x8022E3F0
-      - [0x398D0, .bss, main_78F0] # 0x8022E3F0 to 0x8023F410
-      - [0x398D0, .bss, core/eeprom]
-      - [0x398D0, .bss, main_C770]
-      - [0x398D0, .bss, core/audiomgr] # 0x8023F410 to 0x80286550
-      - [0x398D0, .bss, libultra/audio/csplayer] # 0x80286560 to 0x80286570
-      - [0x398D0, .bss, core/thread1] # 0x80286570 to 0x80291090
-      - [0x398D0, .bss, core/thread9] # 0x80291090 to 0x802912F0
       - [0x398D0, lib, libultra_rom, initialize, .bss]
       - [0x398D0, lib, libultra_rom, pimgr, .bss]
       - [0x398D0, lib, libultra_rom, seteventmesg, .bss]
@@ -3976,9 +3958,6 @@ segments:
       # rodata
       - [0x6A63C0, .rodata, overlay1_6384F0]
       - [0x6A64A0, .rodata, overlay1_63C660]
-      # bss
-      - [0x6A6500, .bss, overlay1_6384F0]
-      - [0x6A6500, .bss, overlay1_63C660]
   - type: code
     name: overlay2 # sssv game code
     vram: 0x80294E50
@@ -4159,7 +4138,8 @@ segments:
       - [0x7C60D0, data, sssv/animals/camel]
       - [0x7C62E0, data, sssv/animals/kangaroo]
       # - [0x7C6528, data, sssv/animals/desert_fox]
-      - [0x7C65E0, data, sssv/animals/walrus]
+      - [0x7C65E0, .data, overlay2_785D10]
+      - [0x7C65F0, data, sssv/animals/walrus]
       - [0x7C6810, data, sssv/animals/scorpion]
       - [0x7C69E0, data, sssv/animals/gorilla]
       - [0x7C6C60, data, sssv/animals/elephant]
@@ -4254,56 +4234,6 @@ segments:
       - [0x7D1840, .rodata, overlay2_7A0DA0]
       - [0x7D1A40, .rodata, sssv/dan]
       - [0x7D1A50, .rodata, sssv/ui_main_menu]
-      # bss
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6A6500 } # , vram: 0x803C0420 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6A7A80 } # , vram: 0x803C0640 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6AB090 } # , vram: 0x803C0660 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6AC360 } # , vram: 0x803C0740 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6ACF20 } # , vram: 0x803D2D90 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6AE5A0 } # , vram: 0x803D2E00 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6B5380 } # , vram: 0x803D5510 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6B5A40 } # , vram: 0x803D5520 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6C5570 } # , vram: 0x803D5580 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/collision } # , vram: 0x803D60D0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6DA670 } # , vram: 0x803D6110 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_6DCA10 } # , vram: 0x803D6120 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/collist2 } # , vram: 0x803DA110 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/dynamic_tail } # , vram: 0x803DA300 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/screen_transition } # , vram: 0x803E1B10 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/lights } # , vram: 0x803E1B20 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/input } # , vram: 0x803E1BC0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_707310 } # , vram: 0x803E1BE0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_715820 } # , vram: 0x803E2930 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_716900 } # , vram: 0x803E4BE0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_71C140 } # , vram: 0x803E4C50 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_725D10 } # , vram: 0x803E4CA0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_72AF60 } # , vram: 0x803E8E60 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_72BA20 } # , vram: 0x803E97C0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_739290 } # , vram: 0x803E9810 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/camera } # , vram: 0x803F28B0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_7558F0 } # , vram: 0x803F2C80 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/osd } # , vram: 0x803F2CD0 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/init } # , vram: 0x803F2D10 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_7688B0 } # , vram: 0x803F2D20 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_7689A0 } # , vram: 0x803F2D30 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/animals/chameleon } # , vram: 0x803F2E90 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_76E7D0 } # , vram: 0x803F2EB0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_76F7D0 } # , vram: 0x803F2EE0 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/animals/sheep } # , vram: 0x803F2EF0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_785D10 } # , vram: 0x803F2F00 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/animals/scorpion } # , vram: 0x803F3310 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_78E970 } # , vram: 0x803F63D0 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_791CD0 } # , vram: 0x803F63E0 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/behaviours } # , vram: 0x803F63F0 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/credits } # , vram: 0x803F6400 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/cheats } # , vram: 0x803F6410 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_79DE10 } # , vram: 0x803F6450 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/terminal_background } # , vram: 0x803F6460 }
-      - { start: 0x7D1AD0, type: .bss, name: overlay2_7A0DA0 } # , vram: 0x803F6680 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/dan } # , vram: 0x803F6720 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/ui_main_menu } # , vram: 0x803F7160 }
-      - { start: 0x7D1AD0, type: .bss, name: sssv/trails } # , vram: 0x803F7E10 }
-
   # dan speech + animations
   - name: _7D1AD0
     type: code

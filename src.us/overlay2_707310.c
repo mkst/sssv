@@ -14,8 +14,8 @@
 static s32  D_803E1BE0;
 static struct085  D_803E1BE8[10];
 
-static s32  D_803E1CD8; // unused
-static s32  D_803E1CDC; // unused
+static s32  D_803E1CD8 UNUSED;
+static s32  D_803E1CDC UNUSED;
 
 // -- bss split ? -- //
 

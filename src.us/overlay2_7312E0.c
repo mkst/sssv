@@ -2,8 +2,7 @@
 #include "common.h"
 
 
-// unused
-void func_8031FC30_7312E0(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5) {
+void unused_8031FC30_7312E0(LimbIKState *arg0, u16 arg1, u16 arg2, s16 arg3, s16 arg4, s16 arg5) {
     s16 pad[3];
     s16 tmp1;
     s16 sp24;
@@ -420,7 +419,7 @@ void update_limbs_kangaroo(s16 arg0, s16 arg1) {
 void update_limbs_gorilla(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     volatile u16 sp36;
     u16 sp34;
-    u16 sp32; // pad
+    u16 sp32 UNUSED; // pad
     s16 sp30;
     u16 temp_t1;
     s32 temp_v0_2;
@@ -504,7 +503,7 @@ void update_limbs_gorilla(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
 }
 
 void func_80321224_7328D4(LimbIKState *arg0, u16 src, u16 dst, u16 unused, s16 arg4, s16 arg5, s16 phase) {
-    s16 pad[6]; // ??
+    s16 pad[6] UNUSED;
     s16 phi_v1;
 
     D_80203FE0[dst].unk0 = D_80203FE0[src].unk0;

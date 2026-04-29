@@ -1171,7 +1171,7 @@ void func_8037460C_785CBC(void);
 void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2);
 void func_803747CC_785E7C(void);
 void func_803747F4_785EA4(void);
-void func_80374C38_7862E8(s16 arg0, s16 arg1, s16 arg2);
+void func_80374C38_7862E8(s16 xPos, s16 zPos, s16 yPos);
 
 // sssv/animals/walrus (overlay2_786320)
 void func_80374C70_786320(void);
