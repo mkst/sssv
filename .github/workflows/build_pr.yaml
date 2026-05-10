@@ -28,6 +28,7 @@ jobs:
         with:
           repository: mkst/sssv-private
           token: ${{ secrets.PRIVATE_REPO_ACCESS }}
+          persist-credentials: false
           path: baserom
       - name: Decrypt baserom
         run: echo ${{ secrets.SSSV_BASEROM_US }} | openssl enc -d -aes-256-cbc -pass stdin -pbkdf2 -in baserom/baserom.${{ matrix.version }}.z64.aes -out baserom.${{ matrix.version }}.z64
