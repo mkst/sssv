@@ -28,8 +28,8 @@ s32 func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2,
     s16 temp_t0;
     s16 temp_t1;
 
-    temp_t0 = arg0->unk44;
-    temp_t1 = arg3->unk44;
+    temp_t0 = arg0->mass;
+    temp_t1 = arg3->mass;
 
     if ((arg0->unk16C->unk82.unk2) && (arg3->unk16C->unk82.unk2)) {
         if ((arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || (arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING))) {
@@ -116,8 +116,8 @@ s32 func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2,
         sp48 = 0.0f;
         sp40 = 0.0f;
     }
-    func_8031977C_72AE2C(arg0->unk44, &sp4C,
-                         arg3->unk44, &sp48,
+    func_8031977C_72AE2C(arg0->mass, &sp4C,
+                         arg3->mass, &sp48,
                          arg6, sp3E, sp3C);
 
     if (sp3E == 0) {

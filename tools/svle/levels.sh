@@ -32,7 +32,7 @@ LEVELS=(
   WEIGHT_FOR_IT
   WHIRLWIND_TOUR
   SECRET_LEVEL
-  # rnc_60FFD0 # NOTE: these dont match after being compressed!
-  # rnc_6104A0 # NOTE: these dont match after being compressed!
+  EMPTY_LEVEL_1
+  EMPTY_LEVEL_2
   CREDITS
 )

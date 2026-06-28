@@ -1,6 +1,12 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#ifdef __GNUC__
+#define UNUSED __attribute__((unused))
+#else
+#define UNUSED
+#endif
+
 #define ABS(x) ((x)<0 ? -(x) : (x))
 #define ABSF(x) ((x)<0.0f ? -(x) : (x))
 #define ABSD(x) ((x)<0.0 ? -(x) : (x))
@@ -279,6 +285,16 @@ typedef u8 Addr[];
 #define AI_LEADER           7
 #define AI_INVISIBLE        8
 
+#define AI_FLAG_CAN_ATTACK                 0x001
+#define AI_FLAG_AVOID_NEUTRAL_ANIMALS      0x002
+#define AI_FLAG_CAN_FLEE                   0x004
+#define AI_FLAG_HERD_OR_FOLLOW             0x008
+#define AI_FLAG_COLLIDE_WITH_STATIC        0x010
+#define AI_FLAG_ALLOW_STEEP_NAVIGATION     0x020
+#define AI_FLAG_TURN_DAMPING               0x040
+#define AI_FLAG_STRONG_TURN_DAMPING        0x080
+#define AI_FLAG_SCRIPTED_PLAYER_ENGAGEMENT 0x400
+
 // on-screen visibility
 
 #define VISIBILITY_VISIBLE 0         // Object is visible on-screen
@@ -340,7 +356,24 @@ typedef u8 Addr[];
 #define NAVIGATION_STATE_UNUSED_7        7
 #define NAVIGATION_STATE_CHASE_ATTACK    8
 
-//
+#define NAV_MODE_NONE             0
+#define NAV_MODE_SCRIPTED_VECTOR  1
+#define NAV_MODE_TOWARDS_TARGET   2
+#define NAV_MODE_AWAY_FROM_TARGET 3
+
+// texture banks
+
+#define TEXTURES_BASE_ADDRESS        (D_800BA760)
+#define TEXTURES_BIOME_RGBA16_MIPMAP (TEXTURES_BASE_ADDRESS)
+#define TEXTURES_BIOME_IA16_MIPMAP   (TEXTURES_BASE_ADDRESS + (32 * 0xAB8))
+#define TEXTURES_BIOME_RGBA16        (TEXTURES_BASE_ADDRESS + (32 * 0xAB8) + (8 * 0xAB8) + (5 * 0x800))
+
+#define TEXTURES_LEVEL_RGBA16_MIPMAP (TEXTURES_BASE_ADDRESS + (20 * 0xAB8))
+#define TEXTURES_LEVEL_RGBA16        (TEXTURES_BASE_ADDRESS + (32 * 0xAB8) + (8 * 0xAB8))
+
+#define TEXTURE_EVO_THUMBNAIL        (TEXTURES_BASE_ADDRESS + 0x92e0)
+
+// helpers
 
 #define GET_WATER_LEVEL(COLLISION, X, Z) \
     MAX(MAX(COLLISION[((X) >> 6) + 0][((Z) >> 6) + 0].unk6, COLLISION[((X) >> 6) + 1][((Z) >> 6) + 0].unk6), MAX(COLLISION[((X) >> 6) + 0][((Z) >> 6) + 1].unk6, COLLISION[((X) >> 6) + 1][((Z) >> 6) + 1].unk6))

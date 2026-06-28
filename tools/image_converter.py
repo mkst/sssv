@@ -33,7 +33,7 @@ def reversed_if(iterator, cond):
     return iterator
 
 
-class Converter():
+class Converter:
     def __init__(self, mode, infile, outfile, flip_y=False, header_path=None):
         self.mode = mode
         self.infile = infile
@@ -171,7 +171,9 @@ class Converter():
 
         stripe_size = 16
         for i in range(len(data) // stripe_size):
-            values = "".join(f"0x{x:02X}, " for x in data[i*stripe_size:(i+1)*stripe_size])
+            values = "".join(
+                f"0x{x:02X}, " for x in data[i * stripe_size : (i + 1) * stripe_size]
+            )
             self.header_path.write(f"    {values}\n")
 
     def convert(self):
@@ -207,10 +209,15 @@ class Converter():
 
 if __name__ == "__main__":
     choices = [
-        "rgba16", "rgba32",
-        "ci4", "ci8",
-        "i4", "i8",
-        "ia4", "ia8", "ia16",
+        "rgba16",
+        "rgba32",
+        "ci4",
+        "ci8",
+        "i4",
+        "i8",
+        "ia4",
+        "ia8",
+        "ia16",
         "palette",
     ]
     parser = argparse.ArgumentParser()
@@ -222,5 +229,11 @@ if __name__ == "__main__":
     parser.add_argument("--header-path", default=None, type=argparse.FileType("w+"))
     args = parser.parse_args()
 
-    converter = Converter(args.mode, args.infile, args.outfile, flip_y=args.flip_y, header_path=args.header_path)
+    converter = Converter(
+        args.mode,
+        args.infile,
+        args.outfile,
+        flip_y=args.flip_y,
+        header_path=args.header_path,
+    )
     converter.convert()

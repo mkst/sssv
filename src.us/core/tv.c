@@ -15,14 +15,14 @@ void initialise_tv_mode(void) {
         D_802053F0.yScale = 1200;
         D_80205400.vStart = 0x34025A;
         D_80205400.yScale = 878;
-
+#ifdef __sgi
         if (((D_80204240.region == REGION_US) || (D_80204240.region == REGION_JP)) && (D_80204240.countryCode != 0)) {
             *(volatile s16*)0 = 0; // shit our pants?
         }
 
         // regalloc
         if (osViModeTable[gVIData.VIModeType].fldRegs) {};
-
+#endif
         break;
     case OS_TV_NTSC:
         gVIData.VIModeType = OS_VI_NTSC_LPN1;
@@ -36,10 +36,11 @@ void initialise_tv_mode(void) {
         vScale = osViModeTable[gVIData.VIModeType].fldRegs[0].yScale;
         D_80205400.vStart = vStart;
         D_80205400.yScale = vScale;
-
+#ifdef __sgi
         if ((D_80204240.region == REGION_EU) && (D_80204240.countryCode != 0)) {
             *(volatile s16*)0 = 0;
         }
+#endif
         break;
     case OS_TV_MPAL:
         gVIData.VIModeType = OS_VI_MPAL_LPN1;
@@ -54,10 +55,11 @@ void initialise_tv_mode(void) {
 
         D_80205400.vStart = vStart;
         D_80205400.yScale = vScale;
-
+#ifdef __sgi
         if ((D_80204240.region == REGION_EU) && (D_80204240.countryCode != 0) ){
             *(volatile s16*)0 = 0;
         }
+#endif
         break;
     default:
         gVIData.VIModeType = OS_VI_NTSC_LPN1;
@@ -72,10 +74,11 @@ void initialise_tv_mode(void) {
 
         D_80205400.vStart = vStart;
         D_80205400.yScale = vScale;
-
+#ifdef __sgi
         if ((D_80204240.region == REGION_EU) && (D_80204240.countryCode != 0)) {
             *(volatile s16*)0 = 0;
         }
+#endif
         break;
     }
 

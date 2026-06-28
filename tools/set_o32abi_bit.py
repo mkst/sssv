@@ -1,7 +1,6 @@
 import argparse
 import struct
 
-
 ARCH_MAGIC = b"!<arch>\n"
 ARCH_END = b"`\n"
 ARCH_HEADER_LENGTH = 60

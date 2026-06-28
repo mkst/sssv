@@ -16,16 +16,6 @@
 // 0x2CB38 in ROM maps to D_80151438
 
 // display lists
-extern u8   D_01000620_39EF0[];
-extern u8   D_01000CA0_3A570[];
-extern u8   D_01000CC0_3A590[];
-extern u8   D_01000D00_3A5D0[];
-extern u8   D_01000D20_3A5F0[];
-extern u8   D_01002100_3B9D0[];
-extern u8   D_010025A0_3BE70[];
-extern u8   D_01002C20_3C4F0[];
-extern u8   D_01002C40_3C510[];
-
 extern Gfx  D_01003460_3CD30[];
 extern Gfx  D_01003498_3CD68[];
 extern Gfx  D_010034C0_3CD90[];
@@ -54,60 +44,35 @@ extern Gfx  D_01013370_4CC40[];
 extern Gfx  D_01017AA0_51370[];
 extern Gfx  D_0101B000_548D0[];
 
-extern u8   D_01021BB0_5B480[];
-extern u8   D_01029E10_636E0[];
-extern u8   D_0102A210_63AE0[];
-extern u8   D_0102C810_660E0[];
-extern u8   D_0102F010_688E0[]; // [64][2048]; ?
-extern u8   D_0102B610_64EE0[];
-extern u8   D_0102B810_650E0[];
-extern u8   D_0102BA10_652E0[];
-extern u8   D_01030810_6A0E0[];
-extern u8   D_01033190_6CA60[]; // D_01033190_6CA60?
-extern u8   D_01035190_6EA60[];
-extern u8   D_01035990_6F260[];
-extern u8   D_01036190_6FA60[];
 extern Gfx  D_01037700_70FD0[];
-extern u8   D_01037750_71020[];
 extern Gfx  D_01037950_71220[];
 extern Gfx  D_01037998_71268[];
 extern Gfx  D_010379D8_712A8[];
 extern Gfx  D_01037A00_712D0[];
-extern u8   D_01037A20_712F0[];
-extern u8   D_0103AC40_74510[];
-extern u8   D_0103B440_74D10[];
 extern Gfx  D_0103B6F0_74FC0[];
 extern Gfx  D_0103B880_75150[];
-extern Gfx  D_0103BA70[];
-extern Gfx  D_0103EC20[];
-extern u8   D_0103ECB0_78580[];
-extern u8   D_01040CB0_7A580[];
-extern u8   D_040000A0[];
-extern Gfx  D_040000E0_DD6A0[];
-extern Gfx  D_04000230_E77E0[];
-extern Gfx  D_040002D0_DD890[];
-extern u8   D_04000370_E7920[];
-extern u8   D_040004B0_E7A60[];
-extern Gfx  D_04000600_E7BB0[];
-extern Gfx  D_04000600_F1660[];
-extern Gfx  D_04000230_F1290[];
-extern u8   D_040006F0[];
 extern Gfx  D_04000840_DDE00[];
 extern Gfx  D_04000900_DDEC0[];
-extern Gfx  D_040009D0_E7F80[];
 extern Gfx  D_04000AE0_DE0A0[];
 extern Gfx  D_04000B40_DE100[];
-extern Gfx  D_04000DB0_E8360[];
-extern u8   D_04000DD0_E8380[];
 extern Gfx  D_040005A0_DDB60[];
 extern Gfx  D_04002630_DFBF0[]; // polar bear
 extern Gfx  D_04002930_DFEF0[]; // polar bear
-extern u8   D_040029D0[];
-extern u8   D_04002F28[];
-
-extern u8   D_04005B60_11C730[]; // spaceship interior
-extern u8   D_04006D00_11D8D0[]; // tv body
+extern Gfx  D_040000E0_DD6A0[];
+extern Gfx  D_040002D0_DD890[];
 extern Gfx  D_04007500_E4AC0[];
+extern Gfx  D_04000230_E77E0[];
+extern Gfx  D_04000370_E7920[];
+extern Gfx  D_040004B0_E7A60[];
+extern Gfx  D_04000600_E7BB0[];
+extern Gfx  D_040009D0_E7F80[];
+extern Gfx  D_04000DB0_E8360[];
+extern Gfx  D_04000DD0_E8380[];
+extern Gfx  D_04000600_F1660[];
+extern Gfx  D_04000230_F1290[];
+
+extern Gfx  D_04005B60_11C730[]; // spaceship interior
+extern Gfx  D_04006D00_11D8D0[]; // tv body
 
 extern Gfx D_04003580_EAB30[];
 extern Gfx D_04003640_EABF0[];
@@ -135,22 +100,15 @@ extern Gfx  D_01003840_3D110[];
 
 extern Gfx  D_040077E0_E4DA0[];
 extern Gfx  D_04007AE0_E50A0[];
-extern u8   D_04007E70_E5430[];
-extern u8   D_04007E90_E5450[];
+extern Gfx  D_04007E70_E5430[];
+extern Gfx  D_04007E90_E5450[];
 extern Gfx  D_040088F0_F9950[];
-extern u8   D_0400A9E0_1215B0[];
+extern Gfx  D_0400A9E0_1215B0[];
 extern Gfx  D_0400BD00_FCD60[];
 extern Gfx  D_0400C260_FD2C0[];
-extern u8   D_0400C280_FD2E0[];
-extern u8   D_0400C480_FD4E0[];
-extern u8   D_0400C6A0_FD700[];
-extern u8   D_0400C6C0_FD720[];
-extern u8   D_0400C8C0_FD920[];
 extern Gfx  D_0400C010_FD070[];
 extern Gfx  D_0400C170_FD1D0[];
 extern Gfx  D_0400C240_FD2A0[];
-
-extern u8   D_04012B20_1296F0[];
 
 extern Gfx  D_05006170_9D190[];
 
@@ -177,24 +135,11 @@ extern u8   gfxspecific[];
 
 extern u8   D_800B49A0[8000]; // level thumbnail img
 extern u8   D_800B68E0[16000]; // trophy img
-extern u8   D_800BA760[]; //[0xAB8]; // 2744 bytes per texture, initially contains rnc_42DCA0 compressed texture
-extern u8   D_800BB210[];
-extern u8   D_800BB700[];
-extern u8   D_800BBBB0[];
-extern u8   D_800BC060[];
-extern u8   D_800BC510[];
-extern u8   D_800BC9C0[];
-extern u8   D_800BCE70[];
-extern u8   D_800BD320[];
-extern u8   D_800BD7D0[];
-extern u8   D_800BDC80[];
-extern u8   D_800C3A40[4][2048];
-extern u8   D_800C5A40[9088]; // current frame?
-extern u8   D_800C7DC0[32928]; // level ia16 textures
-extern u8   D_800CFE60[21952]; // biome ia16 textures
-extern u8   D_800D5420[10240]; // level textures
-extern u8   D_800D7C20[20480]; // biome textures
-extern u8   gWaterTextureBuffer[2000]; // water texture location?
+extern u8   D_800BA760[];
+
+#define D_800BDC80 (D_800BA760 + 4000 + (8 * 1200))
+
+extern u8   gWaterTextureBuffer[2000];
 extern u8   D_800DD3F0[4000];
 extern u8   D_800DE390[2704];
 extern u64  D_800DEE20[0x80]; // dram stack
@@ -221,7 +166,7 @@ extern u32  D_80100000[];
 
 extern u16  D_80151424; // 0x2cb24 ??? in aspMainText?
 
-extern u16  gSeed; // kinda random number?
+extern u16  gSeed;
 // extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
 
 extern f32  D_80151C38[];
@@ -285,12 +230,12 @@ extern OSSched sc; // D_801603D0;
 extern FrameContext gFrameContext[2];
 
 // 0x801Dxxxx
-extern u8  *gEuropeSegmentBase; // europe segment start
-extern u8  *gCitySegmentBase; // city segment start
-extern u8  *gIceSegmentBase; // ice segment start
-extern u8  *gDesertSegmentBase; // desert segment start
-extern u8  *gJungleSegmentBase; // jungle segment start
-extern u8  *gMenuSegmentBase; // menu segment start
+extern u8  *gEuropeSegmentBase;
+extern u8  *gCitySegmentBase;
+extern u8  *gIceSegmentBase;
+extern u8  *gDesertSegmentBase;
+extern u8  *gJungleSegmentBase;
+extern u8  *gMenuSegmentBase;
 
 extern s16 *gFontSegmentBase;
 extern u8  *gSegment1Base;
@@ -391,29 +336,31 @@ extern s16  gIsWidescreen;
 extern Gfx  *gWorldCellOpaqueDisplayLists[4][6];
 extern Gfx   D_80205470[6000];
 
-extern Vtx   D_80210FF0[5000];
+extern Vtx   gOpaqueVtxPool[5000];
 
 extern Vtx   D_80224870[216];
 extern Gfx  *gWorldCellTranslucentDisplayLists[4][6];
 extern Gfx   D_80225650[2000];
-extern Vtx   D_802294D0[1000];
+extern Vtx   gTranslucentVtxPool[1000];
 extern Vtx   D_8022D350[216];
 
 
 // src.us/main_78F0.c
-extern s16   D_8022E3F0[]; // scratch area for RNC decompression
+// extern s16   D_8022E3F0[]; // scratch area for RNC decompression
 
 // 0x8023xxxx
 
-extern LevelText D_80231D50;
+extern LanguageData D_8022E3F0;
+
+// extern LevelText D_80231D50;
 
 extern u16  D_80231AA0[];
 
 extern s16  D_8023F208[32];
 
-extern PlayerEeprom D_8023F260; // 0x40 // default user state?
-extern Eeprom gEepromGlobal; // global game save state, different struct to user data?
-extern PlayerEeprom D_8023F2E0[4]; // 0x100
+extern PlayerEeprom D_8023F260;
+extern Eeprom gEepromGlobal;
+extern PlayerEeprom D_8023F2E0[4];
 
 // audiomgr
 extern ALHeap D_80286328;
@@ -485,7 +432,7 @@ extern u8   D_802912E5; // z pressed
 
 // BSS (overlay1)
 
-extern s32  gGravity; // gravity constant?
+extern s32  gGravity;
 extern s32  D_803A05B4_7B1C64;
 extern struct089 D_803A05D0_7B1C80[68];
 extern struct098 D_803A1BB0_7B3260[];
@@ -518,8 +465,6 @@ extern struct118 D_803A4410_7B5AC0[];
 extern struct118 D_803A444C_7B5AFC[];
 extern struct118 D_803A4488_7B5B38[];
 
-extern struct028 D_803A50C0_7B6770;
-
 extern s16  D_803A5560_7B6C10[4];
 extern s16  D_803A5568_7B6C18[];
 extern s16  D_803A5570_7B6C20[];
@@ -527,8 +472,6 @@ extern s16  D_803A5578_7B6C28[];
 extern s32  D_803A5590_7B6C40[];
 extern u16  D_803A5750_7B6E00; // number of waypoints?
 extern u16  D_803A5760_7B6E10;
-extern s16  D_803A5764_7B6E14;
-// extern u8  *D_803A5BF8_7B72A8[36][2];
 
 extern u8   D_803A52B8_7B6968; // lights.c
 
@@ -552,16 +495,13 @@ extern s16  D_803A69F0_7B80A0[];
 
 extern s16  D_803A8340_7B99F0;
 extern u8   gHudTimerAscii[]; // timer string written here
-// extern s8   D_803A8350_7B9A00[];
-// extern s8   D_803A8358_7B9A08[];
-// extern s8   D_803A8360_7B9A10[];
 extern u8  *D_803A8370_7B9A20[];
 
 extern ObjectData D_803A8528_7B9BD8[247]; // 0x9C each
 extern u16  D_803A4638_7B5CE8[];
 extern u8   D_803A47F4_7B5EA4[]; // 68 big?
 extern u8   D_803A48C0_7B5F70[MAX_EUROPE_ANIMALS][MAX_EUROPE_ANIMALS]; // europe
-extern u8   D_803A4ABC_7B616C[MAX_ICE_ANIMALS][MAX_ICE_ANIMALS]; // ice
+extern u8   D_803A4ABC_7B616C[MAX_ICE_ANIMALS][MAX_ICE_ANIMALS];       // ice
 extern u8   D_803A4A2C_7B60DC[MAX_JUNGLE_ANIMALS][MAX_JUNGLE_ANIMALS]; // jungle
 extern u8   D_803A4B38_7B61E8[MAX_DESERT_ANIMALS][MAX_DESERT_ANIMALS]; // desert
 // extern u8   D_803A4B78_7B6228[];
@@ -580,8 +520,7 @@ extern DemoInput D_803B384C_7C4EFC[];
 extern s16  D_803B4958_7C6008[];
 extern s16  D_803B497C_7C602C[];
 extern s16  D_803B49CC_7C607C[];
-extern s16  D_803B4F30_7C65E0;
-extern s16  D_803B4F34_7C65E4;
+
 extern u8   D_803B4930_7C5FE0[];
 extern u8   D_803B4944_7C5FF4[];
 
@@ -665,14 +604,12 @@ extern s64  gRenderMode2;
 extern s64  gGeometryMode;
 extern u16  gWorldPerspNorm; // matrix normalise
 
-extern GfxHelper gVisibleWorldCellQueue[28]; // related to D_80205410
-
 // overlay2_6AC360
 extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
 
 // overlay2_6ACF20
 extern struct054 D_803D2D90;
-extern DynamicTextures gDynamicTextureBillboardQueue; // dynamic textures, e.g. CRAZY_BEAR's spotlights
+extern DynamicTextures gDynamicTextureBillboardQueue;
 extern DisplayList* D_803D3434;
 
 // overlay2_6B5380
@@ -680,10 +617,10 @@ extern s16  D_803D5510;
 extern s16  D_803D5512;
 extern Animal2 *D_803D5520;
 extern struct035 *D_803D5524;
-extern Animal *D_803D5528;
-extern Animal *D_803D552C; // is this *really* Animal? is it World?
-extern Animal *D_803D5530; // pointer to first animal?
-extern s16  gCurrentAnimalIndex; // current animal (id within level)
+extern Animal *D_803D5528; // Animal
+extern Animal *D_803D552C; // Animal
+extern Entity *D_803D5530; // Entity
+extern s16  gCurrentAnimalIndex;
 extern s16  D_803D5536; // tmp animal idx?
 extern u8   D_803D5538;
 extern s16  D_803D553A;
@@ -698,27 +635,6 @@ extern s8   D_803D554A;
 extern s8   D_803D554B;
 extern s8   D_803D554C;
 extern s16  D_803D5558;
-extern u16  D_803D555A; // timer
-extern u8   D_803D555C;
-extern u8   D_803D555D;
-extern Animal *D_803D5560;
-extern s16  D_803D5564;
-extern s16  D_803D5566;
-extern s16  D_803D5568;
-extern s16  D_803D556A;
-extern s16  D_803D556C;
-extern s16  D_803D556E;
-extern s16  D_803D5570;
-extern u16  D_803D5572;
-extern s16  D_803D5574;
-extern u8   D_803D5575; // controller magnitude?
-extern f32  D_803D5580;
-
-// overlay2_6C5570
-extern s16  D_803D5590[360];
-extern s16  D_803D5860[360];
-extern s16  D_803D5B30[360];
-extern s16  D_803D5E00[360];
 
 // collision
 extern u8   D_803D60D4;
@@ -896,17 +812,8 @@ extern Cheats  gCheats;
 extern s16  D_803F6450;
 
 // terminal_background
-extern u8   D_803F6460;
 extern Animal *D_803F6464;
 extern s16  D_803F6468;
-extern f32  D_803F646C;
-extern s16  D_803F6470;
-extern u8   D_803F6472;
-extern s16  D_803F6474;
-extern struct109 gTerminalTextScrollState;
-extern s16 *gTerminalStatLabels[18];
-extern s16  gTerminalStatTextX[20];
-extern f32  D_803F6670;
 
 // overlay2_7A0DA0
 extern struct027 gOverlayMenuState;

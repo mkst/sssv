@@ -53,45 +53,45 @@ typedef struct {
 
 typedef struct {
     /* 0x0  */ u16 unk0;
-    /* 0x2  */ u16 unk2;
-    /* 0x4  */ u16 unk4;
-    /* 0x6  */ u16 unk6;
-    /* 0x8  */ u16 unk8;
-    /* 0xA  */ u16 unkA;
-    /* 0xC  */ s16 unkC;   // used for perspective?
-    /* 0xE  */ s16 unkE;   // used for perspective?
-    /* 0x10 */ u16 unk10;
-    /* 0x12 */ u16 unk12;  // xy start/end for level collision
-    /* 0x14 */ u16 unk14;  // xy start/end for level collision
-    /* 0x16 */ u16 unk16;  // xy start/end for level collision
+    /* 0x2  */ u16 fogMin;
+    /* 0x4  */ u16 fogMax;
+    /* 0x6  */ u16 fogRed;
+    /* 0x8  */ u16 fogGreen;
+    /* 0xA  */ u16 fogBlue;
+    /* 0xC  */ s16 nearClip;
+    /* 0xE  */ s16 farClip;
+    /* 0x10 */ u16 waterTileX;
+    /* 0x12 */ u16 waterTileZ;
+    /* 0x14 */ u16 waterTileWidth;
+    /* 0x16 */ u16 waterTileDepth;
     /* 0x18 */ u16 unk18;  // xy start/end for level collision
     /* 0x1A */ u16 animalId; // starting animal id
     /* 0x1C */ u16 unk1C;
     /* 0x1E */ u16 unk1E;
     /* 0x20 */ s16 segment; // not quite equal to biome
-    /* 0x22 */ s16 unk22;  // water amplitude, only HOT_CROSS_BUNS, SMASHING_START, SNOW_JOKE & THE_ENGINE_ROOM. use 0, otherwise 1
+    /* 0x22 */ s16 waterWaveMode;
     /* 0x24 */ u8  pad24[0x1C];
-    /* 0x40 */ s16 unk40;   // sourceFovY ?
-    /* 0x42 */ s16 unk42;
+    /* 0x40 */ s16 sourceFovY;
+    /* 0x42 */ s16 primDepthOffset;
     /* 0x44 */ u8  pad44[0x8];
-    /* 0x4C */ s16 unk4C;
-    /* 0x4E */ s16 unk4E;
-    /* 0x50 */ s16 unk50;
-    /* 0x52 */ s16 unk52;  // texture bank? level id?
-    /* 0x54 */ u8  unk54;
-    /* 0x55 */ u8  unk55;
-    /* 0x56 */ u8  unk56;
-    /* 0x57 */ u8  unk57;  // water primary alpha
-    /* 0x58 */ u8  unk58;
-    /* 0x59 */ u8  unk59;
-    /* 0x5A */ u8  unk5A;
-    /* 0x5B */ u8  unk5B;  // water env alpha
-    /* 0x5C */ u8  unk5C[4][6];
+    /* 0x4C */ s16 waterMode;
+    /* 0x4E */ s16 startHeading;
+    /* 0x50 */ s16 cameraHeading;
+    /* 0x52 */ s16 textureBank;
+    /* 0x54 */ u8  waterPrimRed;
+    /* 0x55 */ u8  waterPrimGreen;
+    /* 0x56 */ u8  waterPrimBlue;
+    /* 0x57 */ u8  waterPrimAlpha;
+    /* 0x58 */ u8  waterEnvRed;
+    /* 0x59 */ u8  waterEnvGreen;
+    /* 0x5A */ u8  waterEnvBlue;
+    /* 0x5B */ u8  waterEnvAlpha;
+    /* 0x5C */ u8  cellLightingModes[4][6];
     /* 0x74 */ u8  pad74;
-    /* 0x75 */ u8  unk75;
-    /* 0x76 */ s8  unk76; // r
-    /* 0x77 */ s8  unk77; // g
-    /* 0x78 */ s8  unk78; // b
+    /* 0x75 */ u8  useDynamicLightDir;
+    /* 0x76 */ s8  lightDirX;
+    /* 0x77 */ s8  lightDirY;
+    /* 0x78 */ s8  lightDirZ;
     /* 0x79 */ u8  pad79[0x27];
 
     // NOTE: level .dat ends at 0xA0
@@ -105,9 +105,9 @@ typedef struct {
     /* 0xC8 */ u8  unkC8[0x6];
     /* 0xCE */ s16 evoSuitColor;
     /* 0xD0 */ u8  padD0[0xA];
-    /* 0xDA */ s16 unkDA;  // scissor? width?
-    /* 0xDC */ u16 unkDC;  // initialised?
-    /* 0xE0 */ f32 fovY;  // used for perspective (copied from unk40)
+    /* 0xDA */ s16 screenWidth;  // scissor? width?
+    /* 0xDC */ u16 ready;  // initialised?
+    /* 0xE0 */ f32 fovY;  // runtime FOV copied from sourceFovY, then scriptable
     /* 0xE4 */ u16 titleText[42];
 } LevelConfig;
 
@@ -122,11 +122,13 @@ typedef struct {
 } GameState; // size 0x20
 
 typedef struct {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
+    union {
+        s16 numMsgs;
+        u8  scratch[7000*2];
+    };
+    s16 messages[350];
     s16 data[7000];
-} LevelText; // only used to force alignment
+} LanguageData;
 
 struct CollisionNode {
     /* 0x0 */ CollisionNode *next;
@@ -742,7 +744,7 @@ struct Animal {
     /* 0x3E */  u16 unk3E;
     /* 0x40 */  u16 unk40; // scale
     /* 0x42 */  u16 unk42; // height?
-    /* 0x44 */  u16 unk44; // mass?
+    /* 0x44 */  u16 mass;
     /* 0x46 */  u16 unk46; // another mass?
     /* 0x48 */  u16 unk48;
     /* 0x4A */  s8  unk4A; // 0 => player can move animal, 1 => player cannot move animal, 2 => unknown
@@ -786,7 +788,7 @@ struct Animal {
     /* 0x162 */ u8  movementState;
     /* 0x163 */ u8  unk163;
     /* 0x164 */ u8  unk164;
-    /* 0x168 */ Animal *owner; // owner
+    /* 0x168 */ Animal *owner;
     /* 0x16C */ struct035* unk16C;
 
     /* 0x170 */ u8  unk170; // current waypoint mode?
@@ -809,7 +811,9 @@ struct Animal {
     /* 0x18C */ struct002 unk18C;
     /* 0x192 */ struct002 unk192;
     /* 0x198 */ Animal *unk198; // pointer?
+
     /* 0x19C */ Commands commands;
+
     /* 0x200 */ s32 unk200[3];
     /* 0x20C */ s16 unk20C;
     /* 0x20E */ u16 unk20E;
@@ -852,13 +856,13 @@ struct Animal {
 
     /* 0x270 */ u8  unk270;
     /* 0x271 */ u8  unk271;
-    /* 0x272 */ u16 unk272; // flagged state, 1, 4, 8...
+    /* 0x272 */ u16 aiFlags;
     /* 0x274 */ u8  navMode;
     /* 0x275 */ s8  navTimer;
-    /* 0x276 */ s16 unk276;
-    /* 0x278 */ s16 unk278;
-    /* 0x27A */ s16 unk27A;
-    /* 0x27C */ s16 unk27C; // target y pos
+    /* 0x276 */ s16 navHeadingDegrees;
+    /* 0x278 */ s16 navTargetX;
+    /* 0x27A */ s16 navTargetZ;
+    /* 0x27C */ s16 navTargetY;
     /* 0x280 */ Animal *unk280; // another one? is this a repeating array?
     /* 0x284 */ s16 unk284;
     /* 0x286 */ u8  pad286;
@@ -915,12 +919,12 @@ struct Animal {
                 } unk294;
     /* 0x29C */ WaypointData *waypointData;
     /* 0x2A0 */ u8  navState;
-    /* 0x2A1 */ s8  unk2A1;
-    /* 0x2A2 */ u8  unk2A2;
+    /* 0x2A1 */ s8  navSpeedSetting;
+    /* 0x2A2 */ u8  navTargetRadius;
     /* 0x2A4 */ s16 xPosTarget;
     /* 0x2A6 */ s16 zPosTarget;
     /* 0x2A8 */ s16 yPosTarget;
-    /* 0x2AC */ Animal* unk2AC;
+    /* 0x2AC */ Animal* navTarget;
     /* 0x2B0 */ u8  targetIsPlayer;
     /* 0x2B4 */ struct {
                     u8  state : 4; // 0xFF0F => 0
@@ -933,12 +937,12 @@ struct Animal {
     /* 0x2BC */ s32 unk2BC;
     /* 0x2C0 */ s32 unk2C0;
     /* 0x2C4 */ s32 unk2C4; // "FC" ?
-    /* 0x2C8 */ u16 unk2C8;
-    /* 0x2CC */ Animal* unk2CC; // target for missiles?
+    /* 0x2C8 */ u16 savedAiFlags; // saved/default AI_FLAG_* bitfield
+    /* 0x2CC */ Animal* aiTarget; // target for missiles?
     /* 0x2D0 */ s16 targetDistance;
-    /* 0x2D4 */ s32 unk2D4;
-    /* 0x2D8 */ s32 unk2D8;
-    /* 0x2DC */ s16 unk2DC;
+    /* 0x2D4 */ s32 navPrevTargetXDelta;
+    /* 0x2D8 */ s32 navPrevTargetZDelta;
+    /* 0x2DC */ s16 navTurnCheckState;
     /* 0x2DE */ u8  unk2DE[0x2];
     /* 0x2E0 */ Energy energy[2];       // seems to be an array?
     /* 0x2E8 */ u8  missileScaleLeft;   // scale factor for 'left' side missile
@@ -1130,12 +1134,11 @@ typedef struct {
     /* 0x109A0 */ Gfx unk109A0[8][1400];
     /* 0x267A0 */ Gfx gAuxDL[1000];
 
-    /* 0x286E0 */ Vtx unk286E0[961]; // ???
-    /* 0x2C2F0 */ Vtx unk2C2F0[40];
+    /* 0x286E0 */ Vtx unk286E0[31*31]; // waterVerts
+    /* 0x2C2F0 */ Vtx unk2C2F0[40]; // waterCullBoxVerts
     /* 0x2C570 */ Vtx unk2C570[1000];
     /* 0x303F0 */ Vtx unk303F0[200];
-    /* 0x31070 */ Vtx unk31070[30]; // might be bigger, treated as pairs
-    /* 0x31250 */ Vtx unk31250[350]; // might only be 8?
+    /* 0x31070 */ Vtx unk31070[380]; // might be bigger, treated as pairs
     /* 0x32830 */ Mtx unk32830; // unused?
     /* 0x32870 */ uSprite sprites[140]; // maybe more/less
     /* 0x33590 */ Mtx modelViewMtx[250]; // (might only be 240?)
@@ -1379,7 +1382,7 @@ typedef struct {
 } struct033; // size 0xC
 
 struct struct035 { // TODO: merge with ObjectData?
-  /* 0x00 */  u16 objectType;
+  /* 0x00 */  u16 objectType; // ID
   /* 0x02 */  u8  unk2;
   /* 0x03 */  u8  unk3;
   /* 0x04 */  Gfx *displayList1;
@@ -1435,7 +1438,9 @@ struct struct035 { // TODO: merge with ObjectData?
   /* 0x97 */  u8  unk97;
   /* 0x98 */  u8  unk98;
   /* 0x99 */  s8  unk99;
-  /* 0x98 */  u8  pad9A[0x2];
+  /* 0x98 */  s16 unk9A;
+
+  // --- end of struct035/ObjectData shared fields ---
 
   /* 0x9C */  u16 unk9C; // ANIMAL_TYPE
   /* 0x9E */  u16 class;
@@ -1450,7 +1455,7 @@ struct struct035 { // TODO: merge with ObjectData?
               s16 unkB0;
   /* 0xB2 */  u16 traction;
               s16 unkB4;
-              s16 unkB6;
+              u16 unkB6;
               u16 unkB8;
               u16 unkBA;
               u16 unkBC; // height
@@ -1857,7 +1862,7 @@ typedef struct {
     /* 0x04 */ u8* displayList1;
     /* 0x08 */ u8* displayList2;
     /* 0x0C */ u8* displayList3;
-    /* 0x10 */ s32 unk10;
+    /* 0x10 */ u8* unk10;
     /* 0x14 */ u8  unk14;
     /* 0x15 */ u8  unk15;
     /* 0x16 */ u16 unk16;
@@ -1907,7 +1912,7 @@ struct Entity {
     /* 0x3E */  u16 unk3E;
     /* 0x40 */  u16 unk40;
     /* 0x42 */  u16 unk42; // height
-    /* 0x44 */  u16 unk44;
+    /* 0x44 */  u16 mass;
     /* 0x46 */  u16 unk46;
     /* 0x48 */  u16 unk48;
     /* 0x4A */  s8  unk4A; // 0 => player can move animal, 1 => player cannot move animal, 2 => unknown
@@ -1929,9 +1934,9 @@ struct Entity {
     /* 0x5C */  EntityInner unk5C;
     /* 0x64 */  u8  unk64;
     /* 0x65 */  u8  unk65;
-    /* 0x68 */  Entity *unk68;
-    /* 0x6C */  Entity *unk6C; // baseEntity
-    /* 0x70 */  Entity *unk70;
+    /* 0x68 */  Animal *unk68; // carry-ee (e.g. what seagull is carrying)
+    /* 0x6C */  Animal *unk6C; // baseEntity
+    /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
     /* 0x74 */  struct043 unk74[5];
     /* 0xC4 */  struct043 unkC4[5];  // hitboxes?
     /* 0x114 */ s16 unk114[4];
@@ -1973,14 +1978,11 @@ struct Entity {
     /* 0x188 */ Animal *target;
     /* 0x18C */ struct002 unk18C;
     /* 0x192 */ struct002 unk192;
-    /* 0x198 */ void *unk198;
+    /* 0x198 */ Entity *unk198;
 
     /* 0x19C */ Commands commands;
 
-    /* 0x200 */ s32 unk200; // r
-    /* 0x204 */ s32 unk204; // g
-    /* 0x208 */ s32 unk208; // b
-
+    /* 0x200 */ s32 unk200[3]; // rgb
     /* 0x20C */ s16 unk20C;
     /* 0x20E */ u16 unk20E;
     /* 0x210 */ s16 unk210;
@@ -2013,7 +2015,7 @@ struct Entity {
     /* 0x23C */ Cmd unk23C;
     /* 0x244 */ u16 unk244;
 
-    /* 0x246 */ s16 cmdIndex; // (if applicable)
+    /* 0x246 */ u16 cmdIndex; // (if applicable)
     /* 0x248 */ Entity *unk248[9];
     /* 0x26C */ u8  unk26C;
     /* 0x26D */ u8  unk26D;
@@ -2021,13 +2023,13 @@ struct Entity {
 }; // game object, size 0x270
 
 typedef struct {
-    /* 0x0  */ u8  unk0;
+    /* 0x0  */ u8  flags;
     /* 0x1  */ s8  type;
-    /* 0x2  */ s16 unk2;   // index? used to index into D_803E2930 (uls/ult)
+    /* 0x2  */ s16 scrollIndex; // indexes D_803E2930 and D_803E4AD0
     /* 0x4  */ s32 uls;    // Texture tile's upper-left s coordinate (10.2, 0.0~1023.75).
     /* 0x8  */ s32 ult;    // Texture tile's upper-left t coordinate (10.2, 0.0~1023.75).
-    /* 0xC  */ s32 uls2;   // 10.2 format
-    /* 0x10 */ s32 ult2;   // 10.2 format
+    /* 0xC  */ s32 uls2;   // secondary texture tile scroll, same format as uls
+    /* 0x10 */ s32 ult2;   // secondary texture tile scroll, same format as ult
     /* 0x14 */ Gfx *displayList;
 } struct073; // size 0x18
 
@@ -2131,8 +2133,8 @@ typedef struct {
     /* 0x2 */ u16 waterClass;     // unkA0
     /* 0x4 */ u16 canJump;     // unkA2
     /* 0x6 */ u16 unk6;     // unkBE, unk72, unk74
-    /* 0x8 */ u16 unk8;     // mass
-    /* 0xA */ u8  unkA;     // armour
+    /* 0x8 */ u16 mass;
+    /* 0xA */ u8  armour;
     /* 0xB */ u8  unkB;     // unk8C
     /* 0xC */ u16 unkC;     // unkA4
     /* 0xE */ u16 unkE;     // unkA6
@@ -2141,7 +2143,7 @@ typedef struct {
     /* 0x14 */ u16 unk14;   // unkAC
     /* 0x16 */ s16 unk16;   // fallDistance
     /* 0x18 */ s16 unk18;   // unkB0
-    /* 0x1A */ u16 unk1A;   // traction
+    /* 0x1A */ u16 traction;   // traction
     /* 0x1C */ u16 unk1C;   // unkB4
     /* 0x1E */ u16 unk1E;   // unkB6
     /* 0x20 */ u16 unk20;   // unkB8
@@ -2161,7 +2163,7 @@ typedef struct {
     /* 0x3A */ s16 unk3A;   // unkD2
     /* 0x3C */ s16 unk3C;   // unkE8
     /* 0x3E */ s16 unk3E;   // unkD4
-    /* 0x40 */ s16 unk40;   // biome
+    /* 0x40 */ s16 biome;   //
     /* 0x42 */ s16 unk42[2][3];
     /* 0x4E */ s8  unk4E;   //
     /* 0x4F */ s8  unk4F;   // unkE9
@@ -2245,37 +2247,6 @@ typedef struct {
 } struct099; // particle, size 0x18?
 
 typedef struct {
-  u16  flags;  // flags
-  u8   unk2;  // texture index?
-  u8   unk3;  // probably not tris..
-} struct102_inner; // size 0x4
-
-typedef struct {
-    s16 tc0; // tc0
-    s16 tc1; // tc1
-    u8  unk4; // cn[0] / r
-    u8  unk5; // cn[1] / g
-    u8  unk6; // cn[2] / b
-    s8  unk7; // x
-    s16 unk8; // y
-    s8  unkA; // z
-    u8  unkB; // cn[3] / a
-} struct102_payload; // size 0xC
-
-typedef struct {
-  /* 0x00 */ struct102_inner unk0;
-  /* 0x04 */ struct102_payload unk4[4];
-} struct102; // size 0x34?
-
-typedef struct {
-    /* 0x0  */ s16 idx;
-    /* 0x2  */ s16 unused; // doesnt really force alignment..
-    /* 0x4  */ s16 v[4];
-    /* 0xC  */ s16 flags[4]; // has texture?
-    /* 0x14 */ u8  pad14[0x10];
-} struct115; // size 0x24 ?
-
-typedef struct {
     s16 unk0;
     s16 unk2;
     s16 transitionId;
@@ -2325,15 +2296,6 @@ typedef struct {
 } struct108;
 
 typedef struct {
-    /* 0x0  */ s16* unk0[13];   // description?
-    /* 0x34 */ s16* unk34[13];  // value?
-    /* 0x68 */ s16  unk68[13];  // offsets?
-    /* 0x82 */ s16  unk82;
-    /* 0x84 */ s16  unk84;
-    /* 0x86 */ s16  unk86;
-} struct109; // size 0x88
-
-typedef struct {
     /* 0x0     */ ObjectData *unk0;
     /* 0x4     */ Entity  objects[170]; // 0x270 each
     /* 0x19E64 */ Entity *objectsPtr[170];
@@ -2352,8 +2314,8 @@ typedef struct {
 } DemoInput;
 
 typedef struct {
-    s32 unk0;
-    s32 unk4;
+    s32 sScrollStep;
+    s32 tScrollStep;
 } struct116; // size 0x8
 
 typedef struct {

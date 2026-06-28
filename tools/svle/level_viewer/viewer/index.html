@@ -1,0 +1,2439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSSV Level Viewer</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #161817;
+      color: #f4f1ea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #161817;
+    }
+
+    #scene {
+      position: fixed;
+      inset: 0;
+    }
+
+    .panel {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      width: min(430px, calc(100vw - 28px));
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      background: rgba(22, 24, 23, 0.86);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    select {
+      height: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 6px;
+      background: #272d2a;
+      color: #f4f1ea;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    select {
+      min-width: 0;
+      flex: 1;
+      padding: 0 10px;
+    }
+
+    input[type="range"] {
+      min-width: 0;
+      width: 100%;
+      accent-color: #8ecae6;
+    }
+
+    .compact-select {
+      width: 138px;
+      flex: 0 0 auto;
+    }
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .control-section {
+      display: grid;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .row + .control-section {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      color: #c7d5c8;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-title span {
+      color: #8f9b92;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .layer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .layer-toggle {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      min-height: 34px;
+      padding: 6px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .layer-toggle input {
+      margin: 0;
+    }
+
+    .layer-toggle em {
+      min-width: 22px;
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: rgba(142, 202, 230, 0.14);
+      color: #a9d8ee;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    details.advanced {
+      margin-top: 2px;
+    }
+
+    details.advanced summary {
+      cursor: pointer;
+      color: #c7d5c8;
+      font-size: 13px;
+      user-select: none;
+    }
+
+    .advanced-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+      margin-top: 10px;
+    }
+
+    .checkbox-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      width: 100%;
+    }
+
+    .range-label {
+      gap: 8px;
+      width: 100%;
+    }
+
+    .range-label output {
+      min-width: 34px;
+      color: #c7d5c8;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .stat,
+    .config-item {
+      min-height: 48px;
+      padding: 7px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .stat span,
+    .config-item span {
+      display: block;
+      color: #aeb7b0;
+      font-size: 11px;
+    }
+
+    .stat strong,
+    .config-item strong {
+      display: block;
+      margin-top: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    #status {
+      min-height: 18px;
+      color: #c7d5c8;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .hover-card {
+      position: fixed;
+      z-index: 10;
+      max-width: min(360px, calc(100vw - 28px));
+      padding: 10px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 7px;
+      background: rgba(18, 20, 19, 0.94);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.34);
+      color: #f4f1ea;
+      font-size: 12px;
+      line-height: 1.38;
+      pointer-events: none;
+    }
+
+    .hover-card[hidden] {
+      display: none;
+    }
+
+    .hover-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    .hover-card dl {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      gap: 3px 10px;
+      margin: 0;
+    }
+
+    .hover-card dt {
+      color: #aeb7b0;
+    }
+
+    .hover-card dd {
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 620px) {
+      .panel {
+        top: 8px;
+        left: 8px;
+        width: calc(100vw - 16px);
+        padding: 10px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .config-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .layer-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <section class="panel" aria-label="Level controls">
+    <div class="row">
+      <select id="level">
+        <optgroup label="EUROPE">
+          <option selected>SMASHING_START</option>
+          <option>HAVE_A_NICE_DAY</option>
+          <option>HONEYMOON_LAGOON</option>
+          <option>THE_BATTERY_FARM</option>
+          <option>THE_ENGINE_ROOM</option>
+          <option>FAT_BEAR_MOUNTAIN</option>
+          <option>ROCKY_HARD_PLACE</option>
+          <option>STINKY_SEWERS</option>
+          <option>RAT_O_MATIC</option>
+          <option>GIVE_A_DOG_A_BONUS</option>
+        </optgroup>
+        <optgroup label="ICE">
+          <option>SNOW_JOKE</option>
+          <option>ICE_N_EASY_DOES_IT</option>
+          <option>PENGUIN_PLAYPEN</option>
+          <option>PINBALL_BLIZZARD</option>
+          <option>HOPPA_CHOPPA</option>
+          <option>SOMETHING_FISHY</option>
+          <option>WALRACE_64</option>
+        </optgroup>
+        <optgroup label="JUNGLE">
+          <option>JUNGLE_JAPES</option>
+          <option>JUNGLE_DOLDRUMS</option>
+          <option>SWAMP_OF_ETERNAL_STENCH</option>
+          <option>WEIGHT_FOR_IT</option>
+          <option>JUNGLE_JUMPS</option>
+          <option>EVOS_ESCAPE</option>
+        </optgroup>
+        <optgroup label="DESERT">
+          <option>FUN_IN_THE_SUN</option>
+          <option>HOT_CROSS_BUNS</option>
+          <option>STING_IN_THE_TAIL</option>
+          <option>BORASSIC_PARK</option>
+          <option>WHIRLWIND_TOUR</option>
+          <option>SHIFTING_SANDS</option>
+          <option>PUNCHUP_PYRAMID</option>
+        </optgroup>
+        <optgroup label="CITY">
+          <option>BIG_CELEBRATION_PARADE</option>
+        </optgroup>
+        <optgroup label="BONUS / META">
+          <option>INTRO</option>
+          <option>CREDITS</option>
+          <option>SECRET_LEVEL</option>
+          <option>EMPTY_LEVEL_1</option>
+          <option>EMPTY_LEVEL_2</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="control-section">
+      <div class="section-title">Sections <span>SVLE payload-backed layers</span></div>
+      <div class="layer-grid">
+        <label class="layer-toggle"><input id="showGeo" type="checkbox" checked> Geometry <em>10</em></label>
+        <label class="layer-toggle"><input id="showWater" type="checkbox"> Water <em>12</em></label>
+        <label class="layer-toggle"><input id="showMap" type="checkbox"> Terrain <em>9</em></label>
+        <label class="layer-toggle"><input id="showUpperMap" type="checkbox"> Upper terrain <em>9</em></label>
+        <label class="layer-toggle"><input id="showAnimals" type="checkbox" checked> Animals <em>1</em></label>
+        <label class="layer-toggle"><input id="showObjects" type="checkbox" checked> Objects <em>0</em></label>
+        <label class="layer-toggle"><input id="showObjectModels" type="checkbox" checked> Object models <em>0</em></label>
+        <label class="layer-toggle"><input id="showLinks" type="checkbox"> Links <em>2</em></label>
+        <label class="layer-toggle"><input id="showPaths" type="checkbox"> Paths <em>6</em></label>
+        <label class="layer-toggle"><input id="showCameras" type="checkbox"> Cameras <em>13</em></label>
+        <label class="layer-toggle"><input id="showDynamic" type="checkbox" checked> Vines / Ropes <em>7</em></label>
+        <label class="layer-toggle"><input id="showFlow" type="checkbox" checked> Flow <em>9</em></label>
+        <label class="layer-toggle"><input id="showRegions" type="checkbox"> AI Regions <em>5</em></label>
+        <label class="layer-toggle"><input id="showCellLighting" type="checkbox"> Cell lighting <em>12</em></label>
+        <label class="layer-toggle"><input id="showStart" type="checkbox" checked> Start <em>12</em></label>
+        <label class="layer-toggle"><input id="showCollision" type="checkbox"> Collision <em>9</em></label>
+      </div>
+    </div>
+
+    <div class="control-section">
+      <details class="advanced">
+        <summary>Advanced</summary>
+        <div class="advanced-options">
+          <label>Textures
+            <select id="textureMode" class="compact-select">
+              <option value="on">Enabled</option>
+              <option value="off">Disabled</option>
+              <option value="id">Texture ID</option>
+            </select>
+          </label>
+          <label>Terrain color
+            <select id="terrainColorMode" class="compact-select">
+              <option value="material">Material ID</option>
+              <option value="friction">Friction</option>
+              <option value="heightOffset">Upper offset</option>
+              <option value="landing">Landing</option>
+              <option value="surfaceState">Surface state</option>
+            </select>
+          </label>
+          <div class="checkbox-row">
+            <label><input id="showLabels" type="checkbox" checked> Labels</label>
+            <label><input id="wireframe" type="checkbox"> Wireframe</label>
+            <label><input id="showFog" type="checkbox"> Fog</label>
+          </div>
+          <label class="range-label">Terrain opacity <input id="mapOpacity" type="range" min="0" max="1000" value="1000"><output id="mapOpacityValue">100%</output></label>
+          <label><input id="snapPaths" type="checkbox" checked> Snap paths to ground</label>
+          <label><input id="mirrorLongAxis" type="checkbox" checked> In-game orientation</label>
+        </div>
+      </details>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span>Faces</span><strong id="statFaces">-</strong></div>
+      <div class="stat"><span>Triangles</span><strong id="statTriangles">-</strong></div>
+      <div class="stat"><span>Objects / Animals</span><strong id="statEntities">-</strong></div>
+    </div>
+
+    <div class="config-grid">
+      <div class="config-item"><span>Fog</span><strong id="cfgFog">-</strong></div>
+      <div class="config-item"><span>Clip / FOV</span><strong id="cfgCamera">-</strong></div>
+      <div class="config-item"><span>Segment / Texture</span><strong id="cfgTexture">-</strong></div>
+      <div class="config-item"><span>Water</span><strong id="cfgWater">-</strong></div>
+      <div class="config-item"><span>Headings</span><strong id="cfgHeadings">-</strong></div>
+      <div class="config-item"><span>Light</span><strong id="cfgLight">-</strong></div>
+    </div>
+
+    <div id="status">Choose a level from the dropdown.</div>
+  </section>
+  <div id="hoverCard" class="hover-card" hidden></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+
+    const canvas = document.querySelector("#scene");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x161817, 1);
+
+    const scene = new THREE.Scene();
+    scene.fog = null;
+
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 50000);
+    camera.position.set(2300, 2100, 5600);
+    camera.rotation.order = "YXZ";
+
+    const pressedKeys = new Set();
+    const movementKeys = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ShiftLeft", "ShiftRight"]);
+    const clock = new THREE.Clock();
+    const moveDirection = new THREE.Vector3();
+    const strafeDirection = new THREE.Vector3();
+    const movement = new THREE.Vector3();
+    const lookDirection = new THREE.Vector3();
+    const dragState = { active: false, pointerId: null };
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    const hoverTargets = [];
+    const levelCenter = new THREE.Vector3();
+    const fallbackMapPoints = [65, 97];
+    const OBJECT_MODEL_WORLD_SCALE = 32;
+    const BILLBOARD_DEPTH_LIFT = 2 / OBJECT_MODEL_WORLD_SCALE;
+    let cameraYaw = 0;
+    let cameraPitch = 0;
+    let activeLevelConfig = {};
+    let activeData = null;
+    let lastSnapPaths = null;
+    let lastObjectModels = null;
+    let waterPhase = 0;
+    let objectModelData = null;
+    let objectModelPromise = null;
+    let animatedRuntimeSprites = [];
+
+    scene.add(new THREE.HemisphereLight(0xf9f0dd, 0x304a5a, 2.3));
+    const sun = new THREE.DirectionalLight(0xffffff, 1.2);
+    sun.position.set(2600, 5000, 1800);
+    scene.add(sun);
+
+    const root = new THREE.Group();
+    scene.add(root);
+
+    const geoGroup = new THREE.Group();
+    const mapGroup = new THREE.Group();
+    const upperMapGroup = new THREE.Group();
+    const flowGroup = new THREE.Group();
+    const collisionGroup = new THREE.Group();
+    const waterGroup = new THREE.Group();
+    const objectGroup = new THREE.Group();
+    const animalGroup = new THREE.Group();
+    const linkGroup = new THREE.Group();
+    const pathGroup = new THREE.Group();
+    const regionGroup = new THREE.Group();
+    const cameraGroup = new THREE.Group();
+    const dynamicGroup = new THREE.Group();
+    const startGroup = new THREE.Group();
+    const cellLightingGroup = new THREE.Group();
+    root.add(geoGroup, mapGroup, upperMapGroup, flowGroup, collisionGroup, waterGroup, objectGroup, animalGroup, linkGroup, pathGroup, regionGroup, cameraGroup, dynamicGroup, startGroup, cellLightingGroup);
+
+    const els = {
+      level: document.querySelector("#level"),
+      showGeo: document.querySelector("#showGeo"),
+      showMap: document.querySelector("#showMap"),
+      showWater: document.querySelector("#showWater"),
+      showObjects: document.querySelector("#showObjects"),
+      showObjectModels: document.querySelector("#showObjectModels"),
+      showAnimals: document.querySelector("#showAnimals"),
+      showLinks: document.querySelector("#showLinks"),
+      showUpperMap: document.querySelector("#showUpperMap"),
+      showFlow: document.querySelector("#showFlow"),
+      showCollision: document.querySelector("#showCollision"),
+      showPaths: document.querySelector("#showPaths"),
+      showRegions: document.querySelector("#showRegions"),
+      showCameras: document.querySelector("#showCameras"),
+      showDynamic: document.querySelector("#showDynamic"),
+      showStart: document.querySelector("#showStart"),
+      showCellLighting: document.querySelector("#showCellLighting"),
+      showLabels: document.querySelector("#showLabels"),
+      snapPaths: document.querySelector("#snapPaths"),
+      textureMode: document.querySelector("#textureMode"),
+      terrainColorMode: document.querySelector("#terrainColorMode"),
+      mapOpacity: document.querySelector("#mapOpacity"),
+      mapOpacityValue: document.querySelector("#mapOpacityValue"),
+      mirrorLongAxis: document.querySelector("#mirrorLongAxis"),
+      showFog: document.querySelector("#showFog"),
+      wireframe: document.querySelector("#wireframe"),
+      status: document.querySelector("#status"),
+      statFaces: document.querySelector("#statFaces"),
+      statTriangles: document.querySelector("#statTriangles"),
+      statEntities: document.querySelector("#statEntities"),
+      cfgFog: document.querySelector("#cfgFog"),
+      cfgCamera: document.querySelector("#cfgCamera"),
+      cfgTexture: document.querySelector("#cfgTexture"),
+      cfgWater: document.querySelector("#cfgWater"),
+      cfgHeadings: document.querySelector("#cfgHeadings"),
+      cfgLight: document.querySelector("#cfgLight"),
+      hoverCard: document.querySelector("#hoverCard"),
+    };
+
+    const levelConfigAliases = {
+      fogMin: "unk2",
+      fogMax: "unk4",
+      fogRed: "unk6",
+      fogGreen: "unk8",
+      fogBlue: "unkA",
+      nearClip: "unkC",
+      farClip: "unkE",
+      waterTileX: "unk10",
+      waterTileZ: "unk12",
+      waterTileWidth: "unk14",
+      waterTileDepth: "unk16",
+      waterWaveMode: "unk22",
+      sourceFovY: "unk40",
+      primDepthOffset: "unk42",
+      waterMode: "unk4C",
+      startHeading: "unk4E",
+      cameraHeading: "unk50",
+      waterPrimRed: "unk54",
+      waterPrimGreen: "unk55",
+      waterPrimBlue: "unk56",
+      waterPrimAlpha: "waterPrimaryAlpha",
+      waterEnvRed: "unk58",
+      waterEnvGreen: "unk59",
+      waterEnvBlue: "unk5A",
+      useDynamicLightDir: "unk75",
+      lightDirX: "unk76",
+      lightDirY: "unk77",
+      lightDirZ: "unk78",
+    };
+
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 6; col++) {
+        levelConfigAliases[`cellLightingModes${row}${col}`] = `unk${(0x5c + (row * 6) + col).toString(16).toUpperCase()}`;
+      }
+    }
+
+    function configValue(levelConfig, key, fallback = 0) {
+      if (!levelConfig) return fallback;
+      if (levelConfig[key] != null) return levelConfig[key];
+      const oldKey = levelConfigAliases[key];
+      if (oldKey && levelConfig[oldKey] != null) return levelConfig[oldKey];
+      return fallback;
+    }
+
+    function colorFromRgb(r, g, b) {
+      return new THREE.Color((r ?? 0) / 255, (g ?? 0) / 255, (b ?? 0) / 255);
+    }
+
+    function makePlaceholderTexture() {
+      const canvas = document.createElement("canvas");
+      const size = 128;
+      const cells = 8;
+      const context = canvas.getContext("2d");
+      canvas.width = size;
+      canvas.height = size;
+      for (let y = 0; y < cells; y++) {
+        for (let x = 0; x < cells; x++) {
+          context.fillStyle = (x + y) % 2 ? "#8f9a7a" : "#4f6559";
+          context.fillRect((x * size) / cells, (y * size) / cells, size / cells, size / cells);
+        }
+      }
+      context.strokeStyle = "rgba(255, 255, 255, 0.18)";
+      context.lineWidth = 2;
+      for (let i = 0; i <= cells; i++) {
+        const p = (i * size) / cells;
+        context.beginPath();
+        context.moveTo(p, 0);
+        context.lineTo(p, size);
+        context.moveTo(0, p);
+        context.lineTo(size, p);
+        context.stroke();
+      }
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(12, 12);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      return texture;
+    }
+
+    const placeholderTexture = makePlaceholderTexture();
+    const textureLoader = new THREE.TextureLoader();
+    const textureCache = new Map();
+    const WATER_TEXTURE_URL = "/assets/img/water.i4.png";
+    const WATER_TEXTURE_ROWS = 17;
+    const WATER_ANIMATED_FRAMES = 16;
+    const WATER_FRAME_RATE = 8;
+    const WATER_SCROLL_RATE = 0.045;
+    const RUNTIME_SPRITE_FRAME_RATE = 6;
+    const ENERGY_BALL_FRAME_RATE = 15;
+    const ENERGY_BALL_COLOR_ATLAS_URL = "/assets/img/D_01040CB0_7A580.rgba16.png";
+    const ENERGY_BALL_ALPHA_ATLAS_URL = "/assets/img/D_0103ECB0_78580.i8.png";
+    const runtimeSpriteObjects = {
+      34: {
+        categories: [0, 1, 2],
+        name: "powercell sprite",
+        size: 96,
+        yOffset: 48,
+        alphaTest: 0.08,
+      },
+      80: {
+        categories: [0, 1, 2],
+        name: "powercell sprite",
+        size: 72,
+        yOffset: 40,
+        alphaTest: 0.08,
+      },
+      58: {
+        atlasUrl: ENERGY_BALL_COLOR_ATLAS_URL,
+        alphaAtlasUrl: ENERGY_BALL_ALPHA_ATLAS_URL,
+        atlasFrames: 8,
+        frameRate: ENERGY_BALL_FRAME_RATE,
+        color: 0xff00ff,
+        name: "energy ball sprite",
+        size: 64,
+        yOffset: 40,
+        alphaTest: 0.08,
+      },
+      59: {
+        atlasUrl: ENERGY_BALL_COLOR_ATLAS_URL,
+        alphaAtlasUrl: ENERGY_BALL_ALPHA_ATLAS_URL,
+        atlasFrames: 8,
+        frameRate: ENERGY_BALL_FRAME_RATE,
+        color: 0xffa0ff,
+        name: "energy ball sprite",
+        size: 64,
+        yOffset: 40,
+        alphaTest: 0.08,
+      },
+      60: {
+        atlasUrl: ENERGY_BALL_COLOR_ATLAS_URL,
+        alphaAtlasUrl: ENERGY_BALL_ALPHA_ATLAS_URL,
+        atlasFrames: 8,
+        frameRate: ENERGY_BALL_FRAME_RATE,
+        color: 0xffffff,
+        name: "energy ball sprite",
+        size: 64,
+        yOffset: 40,
+        alphaTest: 0.08,
+      },
+    };
+    const biomeTextureNames = {
+      0: "europe",
+      1: "ice",
+      2: "desert",
+      3: "jungle",
+      5: "city",
+    };
+    const biomeObjectLabels = {
+      0: "Europe",
+      1: "Ice",
+      2: "Desert",
+      3: "Jungle",
+      5: "City",
+    };
+    const levelTextureAliases = {
+      SECRET_LEVEL: "SMASHING_START",
+      INTRO: "THE_ENGINE_ROOM",
+      CREDITS: "BIG_CELEBRATION_PARADE",
+    };
+    const levelObjectTextures = {
+      HAVE_A_NICE_DAY: [
+        "floorboard.rgba16.png",
+        "roof_tile.rgba16.png",
+      ],
+      THE_BATTERY_FARM: [
+        "floorboard.D_05000800_933F0.rgba16.png",
+        "roof_tile.D_05000000_92BF0.rgba16.png",
+        "dog_bed.D_05001AA0_94690.rgba16.png",
+      ],
+    };
+
+    function meshHasVertexColors(mesh) {
+      if (!mesh.colors?.length) return false;
+      for (let i = 0; i < mesh.colors.length; i += 4) {
+        if ((mesh.colors[i] || mesh.colors[i + 1] || mesh.colors[i + 2]) && mesh.colors[i + 3] !== 0) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function makeMeshGeometry(mesh) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(mesh.positions, 3));
+      if (mesh.colors?.length) {
+        geometry.setAttribute("color", new THREE.Float32BufferAttribute(mesh.colors, 4));
+      }
+      if (mesh.uvs?.length) {
+        geometry.setAttribute("uv", new THREE.Float32BufferAttribute(mesh.uvs, 2));
+      }
+      geometry.setIndex(mesh.indices);
+      if (mesh.normals?.length) {
+        geometry.setAttribute("normal", new THREE.Float32BufferAttribute(mesh.normals, 3));
+      } else {
+        geometry.computeVertexNormals();
+      }
+      return geometry;
+    }
+
+    function makeFaceSubsetGeometry(mesh, includeFace, options = {}) {
+      const positions = [];
+      const colors = [];
+      const normals = [];
+      const uvs = [];
+      const tileSize = options.tileSize || 32;
+
+      for (const face of mesh.faces || []) {
+        if (!includeFace(face)) continue;
+        for (let i = face.firstIndex; i < face.firstIndex + face.indexCount; i++) {
+          const vertexIndex = mesh.indices[i];
+          const positionIndex = vertexIndex * 3;
+          const colorIndex = vertexIndex * 4;
+          const normalIndex = vertexIndex * 3;
+          const uvIndex = vertexIndex * 2;
+          positions.push(
+            mesh.positions[positionIndex],
+            mesh.positions[positionIndex + 1],
+            mesh.positions[positionIndex + 2]
+          );
+          colors.push(
+            mesh.colors[colorIndex] ?? 1,
+            mesh.colors[colorIndex + 1] ?? 1,
+            mesh.colors[colorIndex + 2] ?? 1,
+            options.forceAlpha ?? mesh.colors[colorIndex + 3] ?? 1
+          );
+          if (mesh.normals?.length) {
+            normals.push(
+              mesh.normals[normalIndex] ?? 0,
+              mesh.normals[normalIndex + 1] ?? 1,
+              mesh.normals[normalIndex + 2] ?? 0
+            );
+          }
+          if (mesh.uvs?.length) {
+            uvs.push(mesh.uvs[uvIndex] / tileSize, mesh.uvs[uvIndex + 1] / tileSize);
+          }
+        }
+      }
+
+      if (!positions.length) return null;
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 4));
+      if (normals.length) {
+        geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+      }
+      if (uvs.length) {
+        geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+      }
+      if (!normals.length) {
+        geometry.computeVertexNormals();
+      }
+      return geometry;
+    }
+
+    function makeWaterGeometry(mesh) {
+      const geometry = makeMeshGeometry(mesh);
+      if (!mesh.uvs?.length) {
+        const uvs = [];
+        for (let i = 0; i < mesh.positions.length; i += 3) {
+          uvs.push(mesh.positions[i] / 128, mesh.positions[i + 2] / 256);
+        }
+        geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+      }
+      return geometry;
+    }
+
+    function makeLineGeometry(lines) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(lines?.positions || [], 3));
+      if (lines?.colors?.length) {
+        geometry.setAttribute("color", new THREE.Float32BufferAttribute(lines.colors, 4));
+      }
+      return geometry;
+    }
+
+    function setMeshColors(mesh, colors) {
+      if (!mesh?.geometry || !colors?.length) return;
+      mesh.geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 4));
+      mesh.geometry.attributes.color.needsUpdate = true;
+    }
+
+    function terrainColorArray(data) {
+      const map = data.map;
+      const modes = {
+        friction: map?.frictionColors,
+        heightOffset: map?.heightOffsetColors,
+        landing: map?.landingColors,
+        surfaceState: map?.surfaceStateColors,
+      };
+      const colors = modes[els.terrainColorMode.value];
+      if (colors?.length) {
+        return colors;
+      }
+      return map?.colors;
+    }
+
+    function textureDebugColor(textureId, variant = 0) {
+      if (!textureId) return new THREE.Color(0x242826);
+      const hue = ((textureId * 47) + (variant * 19)) % 360;
+      const saturation = textureId >= 32 ? 0.82 : 0.64;
+      const lightness = textureId >= 32 ? 0.58 : 0.48;
+      return new THREE.Color().setHSL(hue / 360, saturation, lightness);
+    }
+
+    function makeTextureIdGeometry(mesh) {
+      const geometry = makeMeshGeometry(mesh);
+      const vertexCount = (mesh.positions?.length || 0) / 3;
+      const colors = new Array(vertexCount * 4).fill(1);
+
+      for (const face of mesh.faces || []) {
+        const color = textureDebugColor(face.texture, face.variant);
+        for (let i = face.firstIndex; i < face.firstIndex + face.indexCount; i++) {
+          const vertexIndex = mesh.indices[i];
+          const colorIndex = vertexIndex * 4;
+          colors[colorIndex + 0] = color.r;
+          colors[colorIndex + 1] = color.g;
+          colors[colorIndex + 2] = color.b;
+          colors[colorIndex + 3] = face.texture >= 32 ? 0.72 : 1.0;
+        }
+      }
+
+      geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 4));
+      return geometry;
+    }
+
+    function getTextureEntry(data, textureId) {
+      return data?.textures?.entries?.[String(textureId)] || null;
+    }
+
+    function addTextureEntries(entries, bankKind, bank, format, base, count) {
+      for (let index = 0; index < count; index++) {
+        const suffix = index.toString(16).toUpperCase().padStart(2, "0");
+        entries[String(base + index)] = {
+          index,
+          format,
+          width: 32,
+          height: 32,
+          url: `/levels/textures/${bankKind}/${bank}/${suffix}.${format}.png`,
+          textureId: base + index,
+          bank,
+          bankKind,
+        };
+      }
+    }
+
+    function addLevelObjectTextureEntries(entries, banks, levelName) {
+      const textures = levelObjectTextures[levelName] || [];
+      for (let index = 0; index < textures.length; index++) {
+        const textureId = 40 + index;
+        entries[String(textureId)] = {
+          index,
+          format: "rgba16",
+          width: 32,
+          height: 32,
+          url: `/assets/img/levels/${levelName}/${textures[index]}`,
+          textureId,
+          bank: levelName,
+          bankKind: "levelObject",
+        };
+      }
+      if (textures.length) {
+        banks.push({ kind: "levelObject", name: levelName, format: "rgba16", textureIdBase: 40, count: textures.length });
+      }
+    }
+
+    function ensureTextureMetadata(data, levelConfig) {
+      const biomeName = biomeTextureNames[configValue(levelConfig, "segment")];
+      const levelName = levelTextureAliases[data.level] || data.level;
+      if (data.textures?.entries && Object.keys(data.textures.entries).length) {
+        const banks = data.textures.banks || [];
+        if (!banks.some((bank) => bank.kind === "levelObject")) {
+          addLevelObjectTextureEntries(data.textures.entries, banks, levelName);
+          data.textures.banks = banks;
+        }
+        return false;
+      }
+      const entries = {};
+      const banks = [];
+
+      if (biomeName) {
+        addTextureEntries(entries, "biome", `${biomeName}.rgba16`, "rgba16", 0, 20);
+        addTextureEntries(entries, "level", levelName, "rgba16", 20, 12);
+        addTextureEntries(entries, "biome", `${biomeName}.ia16`, "ia16", 32, 8);
+        banks.push(
+          { kind: "biome", name: `${biomeName}.rgba16`, format: "rgba16", textureIdBase: 0, count: 20 },
+          { kind: "level", name: levelName, format: "rgba16", textureIdBase: 20, count: 12 },
+          { kind: "biome", name: `${biomeName}.ia16`, format: "ia16", textureIdBase: 32, count: 8 }
+        );
+      }
+      addLevelObjectTextureEntries(entries, banks, levelName);
+
+      data.textures = {
+        version: 1,
+        tileSize: 32,
+        level: levelName,
+        biome: biomeName,
+        banks,
+        entries,
+        derivedInViewer: true,
+      };
+      return true;
+    }
+
+    function loadTexture(entry) {
+      if (!entry?.url) return placeholderTexture;
+      if (textureCache.has(entry.url)) return textureCache.get(entry.url);
+      const texture = textureLoader.load(entry.url);
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.magFilter = THREE.NearestFilter;
+      texture.minFilter = THREE.NearestMipmapNearestFilter;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.userData.sharedSvleTexture = true;
+      textureCache.set(entry.url, texture);
+      return texture;
+    }
+
+    function loadWaterTexture() {
+      if (textureCache.has(WATER_TEXTURE_URL)) return textureCache.get(WATER_TEXTURE_URL);
+      const texture = textureLoader.load(WATER_TEXTURE_URL);
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.magFilter = THREE.NearestFilter;
+      texture.minFilter = THREE.NearestMipmapNearestFilter;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.repeat.set(1, 1 / WATER_TEXTURE_ROWS);
+      texture.userData.sharedSvleTexture = true;
+      texture.userData.waterTexture = true;
+      textureCache.set(WATER_TEXTURE_URL, texture);
+      return texture;
+    }
+
+    function loadSpriteTexture(url) {
+      if (textureCache.has(url)) return textureCache.get(url);
+      const texture = textureLoader.load(url);
+      texture.wrapS = THREE.ClampToEdgeWrapping;
+      texture.wrapT = THREE.ClampToEdgeWrapping;
+      texture.magFilter = THREE.NearestFilter;
+      texture.minFilter = THREE.NearestMipmapNearestFilter;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.userData.sharedSvleTexture = true;
+      textureCache.set(url, texture);
+      return texture;
+    }
+
+    function loadSpriteAtlasTexture(url, frames) {
+      const base = loadSpriteTexture(url);
+      const texture = base.clone();
+      texture.needsUpdate = true;
+      texture.repeat.set(1, 1 / Math.max(1, frames));
+      texture.offset.set(0, 1 - texture.repeat.y);
+      texture.userData.sharedSvleTexture = false;
+      return texture;
+    }
+
+    function makeTextureMaterial(entry, options = {}) {
+      const materialOptions = {
+        map: loadTexture(entry),
+        vertexColors: options.vertexColors ?? true,
+        side: THREE.DoubleSide,
+        transparent: true,
+        alphaTest: 0.08,
+        wireframe: els.wireframe.checked,
+      };
+      if (options.unlit) {
+        return new THREE.MeshBasicMaterial(materialOptions);
+      }
+      return new THREE.MeshStandardMaterial({
+        ...materialOptions,
+        roughness: 0.82,
+        metalness: 0.0,
+      });
+    }
+
+    function makeObjectBatchGeometry(mesh, textureEntry, uvsAreNormalized) {
+      const geometry = makeMeshGeometry(mesh);
+      if (textureEntry && !uvsAreNormalized && mesh.uvs?.length && textureEntry.width && textureEntry.height) {
+        const uvs = [];
+        const divisor = 64;
+        for (let i = 0; i < mesh.uvs.length; i += 2) {
+          uvs.push(mesh.uvs[i] / (divisor * textureEntry.width), 1 - (mesh.uvs[i + 1] / (divisor * textureEntry.height)));
+        }
+        geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+      }
+      return geometry;
+    }
+
+    function makeVertexColorMaterial(options = {}) {
+      const hasVertexColors = options.hasVertexColors ?? true;
+      const materialOptions = {
+        vertexColors: hasVertexColors,
+        map: hasVertexColors ? null : placeholderTexture,
+        side: THREE.DoubleSide,
+        transparent: options.transparent ?? true,
+        opacity: options.opacity ?? 1,
+        wireframe: els.wireframe.checked,
+      };
+      if (options.unlit) {
+        return new THREE.MeshBasicMaterial(materialOptions);
+      }
+      return new THREE.MeshStandardMaterial({
+        ...materialOptions,
+        roughness: 0.82,
+        metalness: 0.0,
+      });
+    }
+
+    function makeTextureIdMaterial() {
+      return new THREE.MeshStandardMaterial({
+        vertexColors: true,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.96,
+        roughness: 0.72,
+        metalness: 0.0,
+        wireframe: els.wireframe.checked,
+      });
+    }
+
+    function makeLineMaterial() {
+      return new THREE.LineBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        opacity: 1,
+        depthTest: false,
+        depthWrite: false,
+      });
+    }
+
+    function terrainOpacity() {
+      return Number(els.mapOpacity.value) / 1000;
+    }
+
+    function applyTerrainOpacity(material, opacity) {
+      material.opacity = opacity;
+      material.transparent = opacity < 1;
+      material.depthWrite = true;
+    }
+
+    function makeWaterMaterial(color, opacity) {
+      const texture = loadWaterTexture();
+      const material = new THREE.MeshStandardMaterial({
+        map: texture,
+        color,
+        emissive: color.clone().multiplyScalar(0.22),
+        transparent: true,
+        opacity,
+        roughness: 0.1,
+        metalness: 0.0,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        wireframe: els.wireframe.checked,
+      });
+      material.userData.waterShimmer = {
+        baseOpacity: opacity,
+        baseEmissive: material.emissive.clone(),
+        texture,
+      };
+      return material;
+    }
+
+    function disposeObject(object) {
+      object.traverse((node) => {
+        node.geometry?.dispose();
+        if (Array.isArray(node.material)) {
+          for (const material of node.material) {
+            if (material.map && material.map !== placeholderTexture && !material.map.userData.sharedSvleTexture) material.map.dispose();
+            material.dispose();
+          }
+        } else {
+          if (node.material?.map && node.material.map !== placeholderTexture && !node.material.map.userData.sharedSvleTexture) node.material.map.dispose();
+          node.material?.dispose();
+        }
+      });
+    }
+
+    function clearGroup(group) {
+      while (group.children.length) {
+        const child = group.children.pop();
+        disposeObject(child);
+      }
+    }
+
+    async function loadObjectModels() {
+      if (objectModelPromise) return objectModelPromise;
+      objectModelPromise = fetch("/tools/svle/object_viewer/objects.view.json", { cache: "no-store" })
+        .then((res) => {
+          if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+          return res.json();
+        })
+        .then((data) => {
+          const byId = new Map();
+          for (const object of data.objects || []) {
+            if (!object.parts?.length) continue;
+            if (!byId.has(object.id)) byId.set(object.id, []);
+            byId.get(object.id).push(object);
+          }
+          objectModelData = { ...data, byId };
+          return objectModelData;
+        })
+        .catch((err) => {
+          console.warn("[svle] object models unavailable:", err);
+          objectModelData = { byId: new Map(), error: err.message };
+          return objectModelData;
+        });
+      return objectModelPromise;
+    }
+
+    function activeBiomeLabel() {
+      return biomeObjectLabels[configValue(activeLevelConfig, "segment")];
+    }
+
+    function objectModelMatchesLevel(model) {
+      const availability = model.availability || {};
+      if (availability.scope === "global" || availability.scope === "unknown") return true;
+      if (availability.scope === "biome") {
+        return !availability.biome || availability.biome === activeBiomeLabel();
+      }
+      if (availability.scope === "level") {
+        const level = availability.level || availability.segment;
+        return !level || level === activeData?.level || levelTextureAliases[activeData?.level] === level;
+      }
+      return true;
+    }
+
+    function modelForEntity(entity) {
+      const candidates = objectModelData?.byId?.get(entity.id) || [];
+      return candidates.find(objectModelMatchesLevel) || null;
+    }
+
+    function entityScale(entity) {
+      return entity.scale ? entity.scale / 0x800 : 1;
+    }
+
+    function objectUsesContextTexture(model) {
+      const renderType = (model.type ?? 0) & 0xFF;
+      return ![3, 4, 5].includes(renderType);
+    }
+
+    function contextTextureEntryForObject(entity, model) {
+      if (!objectUsesContextTexture(model)) return null;
+      return getTextureEntry(activeData, (entity.unkC ?? 0) & 0x3F);
+    }
+
+    function textureEntryForDynamicBillboard(billboard) {
+      const category = billboard?.category ?? 0;
+      const dynamicEntries = activeData?.textures?.dynamicBillboards?.entries;
+      if (dynamicEntries) {
+        return dynamicEntries[String(category)] || null;
+      }
+      if (category >= 8 && category < 32) {
+        return getTextureEntry(activeData, 40 + category - 8);
+      }
+      if (category >= 0 && category < 8) {
+        return getTextureEntry(activeData, category);
+      }
+      return null;
+    }
+
+    function billboardTint(category) {
+      if (category === 32) return new THREE.Color(0x6f8a42);
+      if (category === 33) return new THREE.Color(0x9fbf58);
+      const color = new THREE.Color();
+      color.setHSL(((category * 41) % 360) / 360, 0.46, 0.62);
+      return color;
+    }
+
+    function makeDynamicBillboardSprite(billboard, model) {
+      const texture = textureEntryForDynamicBillboard(billboard);
+      const material = new THREE.SpriteMaterial({
+        map: texture ? loadTexture(texture) : placeholderTexture,
+        color: texture ? 0xffffff : billboardTint(billboard.category),
+        transparent: true,
+        alphaTest: texture ? 0.08 : 0,
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: -2,
+        polygonOffsetUnits: -2,
+      });
+      const sprite = new THREE.Sprite(material);
+      const modelScale = model.scale?.factor || 1;
+      sprite.position.set(
+        ((billboard.x || 0) * modelScale) / OBJECT_MODEL_WORLD_SCALE,
+        ((billboard.y || 0) * modelScale) / OBJECT_MODEL_WORLD_SCALE + BILLBOARD_DEPTH_LIFT,
+        ((billboard.z || 0) * modelScale) / OBJECT_MODEL_WORLD_SCALE
+      );
+      const spriteScale = Math.max(10, billboard.size || 512) / 2048;
+      sprite.scale.set(spriteScale, spriteScale, 1);
+      sprite.center.set(0.5, 0);
+      sprite.userData.dynamicBillboard = billboard;
+      return sprite;
+    }
+
+    function addObjectBillboards(group, entity, model) {
+      if (!model.billboards?.length) return 0;
+      let count = 0;
+      for (const billboard of model.billboards) {
+        const sprite = makeDynamicBillboardSprite(billboard, model);
+        group.add(sprite);
+        count++;
+      }
+      group.userData.billboardCount = (group.userData.billboardCount || 0) + count;
+      return count;
+    }
+
+    function makeObjectModel(entity, model) {
+      const group = new THREE.Group();
+      const fallbackTexture = contextTextureEntryForObject(entity, model);
+      for (const part of model.parts || []) {
+        const batches = part.batches?.length ? part.batches : [{ mesh: part.mesh, texture: null }];
+        for (const batch of batches) {
+          if (!batch.mesh?.indices?.length) continue;
+          const texture = batch.texture?.url ? batch.texture : fallbackTexture;
+          const geometry = makeObjectBatchGeometry(batch.mesh, texture, Boolean(batch.texture?.url));
+          const material = texture
+            ? makeTextureMaterial(texture, { vertexColors: false })
+            : makeVertexColorMaterial({ hasVertexColors: meshHasVertexColors(batch.mesh) });
+          const mesh = new THREE.Mesh(geometry, material);
+          mesh.name = batch.texture?.symbol ? `${part.displayList}:${batch.texture.symbol}` : part.displayList;
+          group.add(mesh);
+        }
+      }
+      addObjectBillboards(group, entity, model);
+      group.position.set(entity.x ?? 0, entity.y ?? 0, entity.z ?? 0);
+      const scale = entityScale(entity);
+      if (objectModelData?.coordinateSystem !== "three-y-up-from-sssv-xzy-runtime-origin") {
+        group.position.y += ((model.bounds?.height || 64) * (model.scale?.factor || 1) * scale) / 2;
+      }
+      group.scale.setScalar(scale * OBJECT_MODEL_WORLD_SCALE);
+      group.rotation.order = "YXZ";
+      group.rotation.y = ((entity.angle ?? 0) * Math.PI) / 180;
+      group.rotation.x = -((entity.zRotation ?? 0) * Math.PI) / 180;
+      group.userData.modelName = model.name;
+      group.userData.labelOffset = Math.max((model.bounds?.height || 64) * (model.scale?.factor || 1) * scale, 32) + 24;
+      return group.children.length ? group : null;
+    }
+
+    function addEntityMarkers(group, entities, color, radius, kind) {
+      const material = new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.0, side: THREE.DoubleSide });
+      const geometry = new THREE.SphereGeometry(radius, 12, 8);
+      for (let index = 0; index < entities.length; index++) {
+        const entity = entities[index];
+        const runtimeSprite = kind === "object" && els.showObjectModels.checked ? runtimeSpriteObjects[entity.id] : null;
+        const model = kind === "object" && els.showObjectModels.checked ? modelForEntity(entity) : null;
+        const marker = runtimeSprite
+          ? makeRuntimeSpriteObject(entity, runtimeSprite)
+          : model
+            ? (makeObjectModel(entity, model) || makeEntityMarker(entity, geometry, material, radius))
+            : makeEntityMarker(entity, geometry, material, radius);
+        if (!marker) continue;
+        if (!model && !runtimeSprite) {
+          marker.position.set(entity.x ?? 0, entity.y ?? 0, entity.z ?? 0);
+        }
+        const labelOffset = marker.userData.labelOffset ?? radius + 20;
+        marker.userData = {
+          hoverEntity: true,
+          entity,
+          entityIndex: index,
+          entityKind: kind,
+          labelOffset,
+          modelName: runtimeSprite ? runtimeSprite.name || "runtime sprite" : model?.name,
+        };
+        group.add(marker);
+        if (model && !runtimeSprite) {
+          marker.traverse((node) => {
+            if (!node.isMesh) return;
+            node.userData = marker.userData;
+            hoverTargets.push(node);
+          });
+        } else {
+          hoverTargets.push(marker);
+        }
+        group.add(makeLabel(entityLabel(entity), marker.position, labelOffset));
+      }
+    }
+
+    function entityLabel(entity) {
+      if (entity.id === 55) return "Entrance teleporter";
+      if (entity.id === 56) return "Exit teleporter";
+      return `${entity.id}${entity.name ? ` ${entity.name}` : ""}`;
+    }
+
+    function cloneEntityWithLinks(entity) {
+      return { ...entity, linksOut: [], linksIn: [] };
+    }
+
+    function linkRef(link, key, fallbackKey) {
+      return link[key] ?? link[fallbackKey] ?? 0;
+    }
+
+    function resolveEntityRef(ref, objects, animals) {
+      if (ref >= 1000) {
+        const index = ref - 1000;
+        const entity = animals[index];
+        return entity ? { kind: "animal", index, entity } : null;
+      }
+      const entity = objects[ref];
+      return entity ? { kind: "object", index: ref, entity } : null;
+    }
+
+    function entityRefLabel(resolved) {
+      if (!resolved) return "missing";
+      return `${resolved.kind}[${resolved.index}] ${entityLabel(resolved.entity)}`;
+    }
+
+    function prepareEntitiesWithLinks(entities) {
+      const objects = (entities.objects || []).map(cloneEntityWithLinks);
+      const animals = (entities.animals || []).map(cloneEntityWithLinks);
+      const links = [];
+
+      for (const link of entities.links || []) {
+        const parentRef = linkRef(link, "parent", "unk0");
+        const childRef = linkRef(link, "child", "unk2");
+        const referenceIdx = link.referenceIdx ?? 0;
+        const parent = resolveEntityRef(parentRef, objects, animals);
+        const child = resolveEntityRef(childRef, objects, animals);
+        const resolvedLink = { ...link, parentRef, childRef, referenceIdx, parent, child };
+        links.push(resolvedLink);
+        parent?.entity.linksOut.push(resolvedLink);
+        child?.entity.linksIn.push(resolvedLink);
+      }
+
+      return { objects, animals, links };
+    }
+
+    function addLinkLines(links) {
+      const material = new THREE.LineDashedMaterial({
+        color: 0xf4f1ea,
+        transparent: true,
+        opacity: 0.62,
+        dashSize: 90,
+        gapSize: 48,
+        depthTest: false,
+        depthWrite: false,
+      });
+
+      for (const link of links) {
+        if (!link.parent || !link.child) continue;
+        const parent = link.parent.entity;
+        const child = link.child.entity;
+        const points = [
+          new THREE.Vector3(parent.x ?? 0, (parent.y ?? 0) + 44, parent.z ?? 0),
+          new THREE.Vector3(child.x ?? 0, (child.y ?? 0) + 44, child.z ?? 0),
+        ];
+        const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), material);
+        line.computeLineDistances();
+        line.userData = { link };
+        linkGroup.add(line);
+      }
+    }
+
+    function formatPosition(entity) {
+      return `${entity.x ?? 0}, ${entity.y ?? 0}, ${entity.z ?? 0}`;
+    }
+
+    function compactLinks(links, direction) {
+      if (!links?.length) return "none";
+      return links.slice(0, 4).map((link) => {
+        const other = direction === "out" ? link.child : link.parent;
+        return `slot ${link.referenceIdx + 1} ${direction === "out" ? "to" : "from"} ${entityRefLabel(other)}`;
+      }).join("; ") + (links.length > 4 ? `; +${links.length - 4} more` : "");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;",
+      })[char]);
+    }
+
+    function entityHoverHtml(userData) {
+      const entity = userData.entity;
+      const typeLabel = userData.entityKind === "animal" ? "Animal" : "Object";
+      const rows = [
+        ["index", `${userData.entityKind}[${userData.entityIndex}]`],
+        ["id", entity.id ?? "-"],
+        ["pos", formatPosition(entity)],
+      ];
+
+      if (userData.entityKind === "object") {
+        rows.push(
+          ["rot", `z ${entity.zRotation ?? 0}, angle ${entity.angle ?? 0}`],
+          ["model", userData.modelName || "marker"],
+          ["scale", entity.scale ?? "-"],
+          ["cmds", `ref ${entity.commandReferenceIdx ?? 0}, len ${entity.commandsLength ?? 0}, next ${entity.unk12 ?? 0}`],
+          ["unk", `unkC ${entity.unkC ?? 0}, unk15 ${entity.unk15 ?? 0}`]
+        );
+      } else {
+        rows.push(
+          ["rot", entity.rotation ?? 0],
+          ["health", entity.health ?? "-"],
+          ["cmd", entity.unkE ?? 0],
+          ["unk", `unkC ${entity.unkC ?? 0}`]
+        );
+      }
+
+      rows.push(["links out", compactLinks(entity.linksOut, "out")]);
+      rows.push(["links in", compactLinks(entity.linksIn, "in")]);
+
+      const body = rows.map(([key, value]) => `<dt>${escapeHtml(key)}</dt><dd>${escapeHtml(value)}</dd>`).join("");
+      return `<strong>${escapeHtml(typeLabel)}: ${escapeHtml(entityLabel(entity))}</strong><dl>${body}</dl>`;
+    }
+
+    function cameraHoverHtml(userData) {
+      const region = userData.cameraRegion;
+      const setting = region.settings || {};
+      const anchor = cameraSettingAnchor(setting);
+      const rows = [
+        ["region", `camera[${region.index}]`],
+        ["mode", `${region.cameraModeName || "UNKNOWN"} (${region.cameraMode ?? "?"}) via index ${region.cameraModeIndex}`],
+        ["setting", `${region.settingsIndex}`],
+        ["tiles", `x ${region.xStart}-${region.xEnd}, z ${region.zStart}-${region.zEnd}`],
+        ["height", region.heightFilter || `${region.yStartOrType}-${region.yEnd}`],
+        ["anchor", region.usesAnchor ? `${anchor.x}, ${anchor.z}, ${anchor.y}` : "not used by this mode"],
+        ["distance", `${setting.min ?? "?"}..${setting.max ?? "?"}${setting.followHeading ? ", heading follow" : ""}`],
+        ["masks", (setting.visibilityMasks || []).map((value) => `0x${value.toString(16).toUpperCase().padStart(4, "0")}`).join(" ")],
+      ];
+      const body = rows.map(([key, value]) => `<dt>${escapeHtml(key)}</dt><dd>${escapeHtml(value)}</dd>`).join("");
+      return `<strong>Camera Region</strong><dl>${body}</dl>`;
+    }
+
+    function positionHoverCard(event) {
+      const gap = 14;
+      const card = els.hoverCard;
+      const x = Math.min(event.clientX + gap, window.innerWidth - card.offsetWidth - gap);
+      const y = Math.min(event.clientY + gap, window.innerHeight - card.offsetHeight - gap);
+      card.style.left = `${Math.max(gap, x)}px`;
+      card.style.top = `${Math.max(gap, y)}px`;
+    }
+
+    function hideHoverCard() {
+      els.hoverCard.hidden = true;
+      renderer.domElement.style.cursor = "";
+    }
+
+    function updateHover(event) {
+      if (dragState.active) {
+        hideHoverCard();
+        return;
+      }
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -(((event.clientY - rect.top) / rect.height) * 2 - 1);
+      raycaster.setFromCamera(pointer, camera);
+      const hit = raycaster.intersectObjects(hoverTargets, false).find((item) => {
+        let groupVisible = true;
+        if (item.object.userData.entityKind === "animal") groupVisible = animalGroup.visible;
+        else if (item.object.userData.entityKind === "object") groupVisible = objectGroup.visible;
+        else if (item.object.userData.cameraRegion) groupVisible = cameraGroup.visible;
+        return groupVisible && item.object.visible;
+      });
+      if (!hit) {
+        hideHoverCard();
+        renderer.domElement.style.cursor = dragState.active ? "grabbing" : "";
+        return;
+      }
+      els.hoverCard.innerHTML = hit.object.userData.cameraRegion ? cameraHoverHtml(hit.object.userData) : entityHoverHtml(hit.object.userData);
+      els.hoverCard.hidden = false;
+      renderer.domElement.style.cursor = "help";
+      positionHoverCard(event);
+    }
+
+    function makeEntityMarker(entity, defaultGeometry, defaultMaterial, radius) {
+      return new THREE.Mesh(defaultGeometry, defaultMaterial);
+    }
+
+    function makeRuntimeSpriteObject(entity, spec) {
+      const categories = spec.categories || (spec.category == null ? [] : [spec.category]);
+      const textures = categories
+        .map((category) => textureEntryForDynamicBillboard({ category }))
+        .filter(Boolean)
+        .map(loadTexture);
+      const atlasFrames = spec.atlasFrames || 0;
+      const atlasTexture = spec.atlasUrl ? loadSpriteAtlasTexture(spec.atlasUrl, atlasFrames) : null;
+      const alphaAtlasTexture = spec.alphaAtlasUrl ? loadSpriteAtlasTexture(spec.alphaAtlasUrl, atlasFrames) : null;
+      const texture = atlasTexture || textures[0] || (spec.url ? loadSpriteTexture(spec.url) : placeholderTexture);
+      const material = new THREE.SpriteMaterial({
+        map: texture,
+        alphaMap: alphaAtlasTexture || (spec.useAlphaMap ? texture : null),
+        color: spec.color ?? 0xffffff,
+        transparent: true,
+        alphaTest: spec.alphaTest ?? 0,
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: -2,
+        polygonOffsetUnits: -2,
+      });
+      const sprite = new THREE.Sprite(material);
+      sprite.position.set(entity.x ?? 0, (entity.y ?? 0) + (spec.yOffset ?? 0), entity.z ?? 0);
+      const scale = entityScale(entity);
+      const size = (spec.size ?? 64) * scale;
+      sprite.scale.set(size, size, 1);
+      sprite.userData.labelOffset = (spec.yOffset ?? 0) + size * 0.55 + 18;
+      sprite.userData.runtimeSpriteObject = true;
+      sprite.userData.modelName = spec.name;
+      if (atlasTexture && atlasFrames > 1) {
+        animatedRuntimeSprites.push({
+          material,
+          atlasTextures: [atlasTexture, alphaAtlasTexture].filter(Boolean),
+          frames: atlasFrames,
+          frameRate: spec.frameRate || RUNTIME_SPRITE_FRAME_RATE,
+          lastFrame: 0,
+        });
+      } else if (textures.length > 1) {
+        animatedRuntimeSprites.push({
+          material,
+          textures,
+          frameRate: spec.frameRate || RUNTIME_SPRITE_FRAME_RATE,
+          lastFrame: 0,
+        });
+      }
+      return sprite;
+    }
+
+    function mapPointDimensions() {
+      return activeData?.units?.mapPoints || fallbackMapPoints;
+    }
+
+    function terrainHeightAtPathPoint(mapMesh, xTile, zTile) {
+      const x = Math.round(xTile) - 4;
+      const z = Math.round(zTile) - 8;
+      const [width, depth] = mapPointDimensions();
+      if (!mapMesh?.positions || x < 0 || z < 0 || x >= width || z >= depth) return null;
+      return mapMesh.positions[((x * depth) + z) * 3 + 1];
+    }
+
+    function pathPointToVector(point, mapMesh) {
+      const [x, z, y] = point;
+      const worldX = (x * 64) + 32;
+      const worldZ = (z * 64) + 32;
+      let worldY = y * 64;
+      if (els.snapPaths.checked) {
+        const groundY = terrainHeightAtPathPoint(mapMesh, x, z);
+        if (groundY != null && worldY <= groundY + 16) {
+          worldY = groundY + 48;
+        } else if (y === 0 && groundY != null) {
+          worldY = groundY + 48;
+        }
+      }
+      return new THREE.Vector3(worldX, worldY, worldZ);
+    }
+
+    function addPathLines(paths, mapMesh) {
+      const material = new THREE.LineBasicMaterial({ color: 0xf6bd60, transparent: true, opacity: 0.9 });
+      for (const path of paths) {
+        const points = path.map((point) => pathPointToVector(point, mapMesh));
+        if (points.length < 2) continue;
+        pathGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), material));
+      }
+    }
+
+    function addRegionBoxes(regions) {
+      const material = new THREE.LineBasicMaterial({ color: 0x8ecae6, transparent: true, opacity: 0.82 });
+      for (const region of regions) {
+        const xStart = region.xStart ?? region.unk0 ?? 0;
+        const zStart = region.zStart ?? region.unk1 ?? 0;
+        const yStart = region.yStartOrMode ?? region.unk2 ?? 0;
+        const xEnd = region.xEnd ?? region.unk3 ?? xStart;
+        const zEnd = region.zEnd ?? region.unk4 ?? zStart;
+        const yEnd = region.yEndOrMode ?? region.unk5 ?? yStart;
+        const x0 = xStart * 64;
+        const z0 = zStart * 64;
+        const x1 = (xEnd + 1) * 64;
+        const z1 = (zEnd + 1) * 64;
+        const modeFiltered = yStart >= 240 || yEnd >= 240;
+        const y0 = modeFiltered ? 0 : yStart * 64;
+        const y1 = modeFiltered ? 128 : (yEnd + 1) * 64;
+        regionGroup.add(makeBox([x0, y0, z0], [x1, y1, z1], material));
+      }
+    }
+
+    function cameraModeColor(region) {
+      const mode = region.cameraMode ?? region.cameraModeIndex ?? region.mode ?? 0;
+      const hue = ((mode * 47) % 360) / 360;
+      const color = new THREE.Color();
+      color.setHSL(hue, 0.68, 0.62);
+      return color;
+    }
+
+    function cameraRegionLabel(region) {
+      const modeName = region.cameraModeName || "UNKNOWN";
+      return `C${region.index} ${modeName} s${region.settingsIndex ?? region.visibility}`;
+    }
+
+    function finiteNumber(value, fallback = 0) {
+      return Number.isFinite(value) ? value : fallback;
+    }
+
+    function cameraSettingAnchor(setting) {
+      return {
+        x: finiteNumber(setting?.anchorX ?? setting?.unk0),
+        z: finiteNumber(setting?.anchorZ ?? setting?.unk1),
+        y: finiteNumber(setting?.anchorY ?? setting?.unk2),
+      };
+    }
+
+    function normalizedCameraRegion(region, camera) {
+      if (region.settings || region.cameraModeIndex != null) return region;
+      const modeIndex = ((region.mode ?? 0) + 256) & 0xFF;
+      const settingsIndex = ((region.visibility ?? 0) + 256) & 0xFF;
+      return {
+        ...region,
+        cameraModeIndex: modeIndex,
+        settingsIndex,
+        usesAnchor: [2, 12, 33, 40].includes(modeIndex),
+        settings: camera?.settings?.[settingsIndex] || null,
+      };
+    }
+
+    function addCameraBoxes(camera) {
+      for (const rawRegion of camera?.regions || []) {
+        const region = normalizedCameraRegion(rawRegion, camera);
+        if (region.yStartOrType === 245) continue;
+        const color = cameraModeColor(region);
+        const material = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.92 });
+        const x0 = region.xStart * 64;
+        const z0 = region.zStart * 64;
+        const yIsSpecial = region.yStartOrType >= 240;
+        const y0 = yIsSpecial ? 0 : region.yStartOrType * 64;
+        const x1 = (region.xEnd + 1) * 64;
+        const z1 = (region.zEnd + 1) * 64;
+        const y1 = (Math.max(region.yEnd, yIsSpecial ? 24 : region.yStartOrType) + 1) * 64;
+        if (![x0, y0, z0, x1, y1, z1].every(Number.isFinite)) continue;
+        const box = makeBox([x0, y0, z0], [x1, y1, z1], material);
+        box.userData = { cameraRegion: region };
+        hoverTargets.push(box);
+        cameraGroup.add(box);
+        const center = new THREE.Vector3((x0 + x1) / 2, y1, (z0 + z1) / 2);
+        cameraGroup.add(makeLabel(cameraRegionLabel(region), center, 28));
+
+        const setting = region.settings;
+        if (setting && region.usesAnchor) {
+          const anchorTiles = cameraSettingAnchor(setting);
+          const anchor = new THREE.Vector3(anchorTiles.x * 32, anchorTiles.y * 32, anchorTiles.z * 32);
+          const marker = new THREE.Mesh(
+            new THREE.SphereGeometry(18, 12, 8),
+            new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.45, roughness: 0.32 })
+          );
+          marker.position.copy(anchor);
+          marker.userData = { cameraRegion: region };
+          hoverTargets.push(marker);
+          cameraGroup.add(marker);
+          cameraGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([anchor, center]), material));
+        }
+      }
+    }
+
+    function dynamicRecordSegments(record) {
+      const id = record.id ?? record.unk0;
+      if (id === 6 || id === 25 || id === 26 || id === 27 || id === 28 || id === 29 || id === 30 || id === 37) return 8;
+      if (id === 9 || id === 10) return 4;
+      return 16;
+    }
+
+    function makeVinePoints(record) {
+      const segmentCount = dynamicRecordSegments(record);
+      const segmentLength = 31.25;
+      const anchor = new THREE.Vector3(record.x ?? record.unk2 ?? 0, record.y ?? record.unk6 ?? 0, record.z ?? record.unk4 ?? 0);
+      const endOffset = new THREE.Vector3(record.unk8 ?? 0, record.unkC ?? 0, record.unkA ?? 0).multiplyScalar(0.45);
+      const points = [];
+
+      for (let i = 0; i <= segmentCount; i++) {
+        const t = i / segmentCount;
+        const sag = Math.sin(t * Math.PI) * segmentLength * 0.42;
+        points.push(new THREE.Vector3(
+          anchor.x + (endOffset.x * t),
+          anchor.y - (segmentLength * segmentCount * t) - sag + (endOffset.y * t),
+          anchor.z + (endOffset.z * t)
+        ));
+      }
+      return points;
+    }
+
+    function makeVine(record, material, jointGeometry, jointMaterial) {
+      const group = new THREE.Group();
+      const points = makeVinePoints(record);
+      const curve = new THREE.CatmullRomCurve3(points);
+      const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, points.length * 4, 7, 8, false), material);
+      group.add(tube);
+
+      for (const point of points) {
+        const joint = new THREE.Mesh(jointGeometry, jointMaterial);
+        joint.position.copy(point);
+        group.add(joint);
+      }
+      return group;
+    }
+
+    function addDynamicMarkers(records) {
+      const material = new THREE.MeshStandardMaterial({ color: 0x4fab5f, roughness: 0.82, metalness: 0.0 });
+      const jointMaterial = new THREE.MeshStandardMaterial({ color: 0x8bd46d, roughness: 0.68, metalness: 0.0 });
+      const jointGeometry = new THREE.SphereGeometry(11, 10, 8);
+      for (const record of records) {
+        const anchor = new THREE.Vector3(record.x ?? record.unk2 ?? 0, record.y ?? record.unk6 ?? 0, record.z ?? record.unk4 ?? 0);
+        const vine = makeVine(record, material, jointGeometry, jointMaterial);
+        vine.userData = record;
+        dynamicGroup.add(vine);
+        dynamicGroup.add(makeLabel(`${record.id ?? record.unk0 ?? ""}`, anchor, 42));
+      }
+    }
+
+    function makeHeadingArrow(color) {
+      const group = new THREE.Group();
+      const material = new THREE.MeshStandardMaterial({
+        color,
+        emissive: color,
+        emissiveIntensity: 0.28,
+        roughness: 0.4,
+        side: THREE.DoubleSide,
+      });
+      const shaft = new THREE.Mesh(new THREE.CylinderGeometry(8, 8, 120, 10), material);
+      shaft.rotation.x = Math.PI / 2;
+      shaft.position.z = -58;
+      const head = new THREE.Mesh(new THREE.ConeGeometry(28, 70, 16), material);
+      head.rotation.x = -Math.PI / 2;
+      head.position.z = -140;
+      group.add(shaft, head);
+      return group;
+    }
+
+    function addStartMarker(levelConfig, objects) {
+      const entrance = objects.find((entity) => entity.id === 55);
+      if (!entrance) return;
+
+      const heading = configValue(levelConfig, "startHeading");
+      const cameraHeading = configValue(levelConfig, "cameraHeading", heading);
+      const animalId = levelConfig?.startingAnimalId ?? levelConfig?.animalId;
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        emissive: 0x7bd88f,
+        emissiveIntensity: 0.55,
+        roughness: 0.35,
+        side: THREE.DoubleSide,
+      });
+      const marker = new THREE.Mesh(new THREE.ConeGeometry(26, 92, 4), material);
+      marker.position.set(entrance.x ?? 0, (entrance.y ?? 0) + 72, entrance.z ?? 0);
+      marker.rotation.x = Math.PI / 2;
+      marker.rotation.z = -(heading * Math.PI) / 180;
+      marker.userData = { startMarker: true, levelConfig };
+      startGroup.add(marker);
+
+      const startArrow = makeHeadingArrow(0x7bd88f);
+      startArrow.position.set(entrance.x ?? 0, (entrance.y ?? 0) + 80, entrance.z ?? 0);
+      startArrow.rotation.y = -(heading * Math.PI) / 180;
+      startGroup.add(startArrow);
+
+      if (cameraHeading !== heading) {
+        const cameraArrow = makeHeadingArrow(0x8ecae6);
+        cameraArrow.position.set(entrance.x ?? 0, (entrance.y ?? 0) + 126, entrance.z ?? 0);
+        cameraArrow.rotation.y = -(cameraHeading * Math.PI) / 180;
+        startGroup.add(cameraArrow);
+        startGroup.add(makeLabel(`Camera heading ${cameraHeading}`, cameraArrow.position, 66));
+      }
+
+      startGroup.add(makeLabel(`Start${animalId == null ? "" : ` ${animalId}`} heading ${heading}`, marker.position, 64));
+    }
+
+    function addWaterBounds(levelConfig) {
+      const x = configValue(levelConfig, "waterTileX");
+      const z = configValue(levelConfig, "waterTileZ");
+      const width = configValue(levelConfig, "waterTileWidth");
+      const depth = configValue(levelConfig, "waterTileDepth");
+      if (!width || !depth) return;
+
+      const color = colorFromRgb(
+        configValue(levelConfig, "waterPrimRed", 75),
+        configValue(levelConfig, "waterPrimGreen", 184),
+        configValue(levelConfig, "waterPrimBlue", 223)
+      );
+      const min = [x * 64, 0, z * 64];
+      const max = [(x + width) * 64, 192, (z + depth) * 64];
+      waterGroup.add(makeBox(min, max, new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.95 })));
+
+      const planeGeometry = new THREE.PlaneGeometry(width * 64, depth * 64);
+      const planeMaterial = makeWaterMaterial(color, 0.18);
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      plane.rotation.x = -Math.PI / 2;
+      plane.position.set((x + width / 2) * 64, 192, (z + depth / 2) * 64);
+      waterGroup.add(plane);
+    }
+
+    function addCellLightingGrid(levelConfig) {
+      const litMaterial = new THREE.LineBasicMaterial({ color: 0xf6bd60, transparent: true, opacity: 0.9 });
+      const colorMaterial = new THREE.LineBasicMaterial({ color: 0x8ecae6, transparent: true, opacity: 0.82 });
+      for (let cellX = 0; cellX < 4; cellX++) {
+        for (let cellZ = 0; cellZ < 6; cellZ++) {
+          const mode = configValue(levelConfig, `cellLightingModes${cellX}${cellZ}`, 1);
+          const x0 = (cellX * 1024) + 0x100;
+          const z0 = (cellZ * 1024) + 0x200;
+          const box = makeBox([x0, 18, z0], [x0 + 1024, 180, z0 + 1024], mode === 0 ? litMaterial : colorMaterial);
+          box.userData = { cellLightingMode: mode, cellX, cellZ };
+          cellLightingGroup.add(box);
+          cellLightingGroup.add(makeLabel(`${cellX},${cellZ} ${mode === 0 ? "lit" : "color"}`, new THREE.Vector3(x0 + 512, 180, z0 + 512), 20));
+        }
+      }
+    }
+
+    function makeLabel(text, position, yOffset) {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      const fontSize = 24;
+      context.font = `${fontSize}px sans-serif`;
+      const metrics = context.measureText(text);
+      canvas.width = Math.ceil(metrics.width + 18);
+      canvas.height = 38;
+      context.font = `${fontSize}px sans-serif`;
+      context.fillStyle = "rgba(18, 20, 19, 0.82)";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.fillStyle = "#f4f1ea";
+      context.fillText(text, 9, 26);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: true });
+      const sprite = new THREE.Sprite(material);
+      sprite.position.copy(position);
+      sprite.position.y += yOffset;
+      sprite.scale.set(canvas.width * 1.8, canvas.height * 1.8, 1);
+      sprite.userData.label = true;
+      return sprite;
+    }
+
+    function makeBox(minValues, maxValues, material) {
+      const min = new THREE.Vector3(...minValues);
+      const max = new THREE.Vector3(...maxValues);
+      const points = [
+        [min.x, min.y, min.z], [max.x, min.y, min.z], [max.x, min.y, min.z], [max.x, min.y, max.z],
+        [max.x, min.y, max.z], [min.x, min.y, max.z], [min.x, min.y, max.z], [min.x, min.y, min.z],
+        [min.x, max.y, min.z], [max.x, max.y, min.z], [max.x, max.y, min.z], [max.x, max.y, max.z],
+        [max.x, max.y, max.z], [min.x, max.y, max.z], [min.x, max.y, max.z], [min.x, max.y, min.z],
+        [min.x, min.y, min.z], [min.x, max.y, min.z], [max.x, min.y, min.z], [max.x, max.y, min.z],
+        [max.x, min.y, max.z], [max.x, max.y, max.z], [min.x, min.y, max.z], [min.x, max.y, max.z],
+      ].map(([x, y, z]) => new THREE.Vector3(x, y, z));
+      return new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(points), material);
+    }
+
+    function headingToDirection(headingDegrees) {
+      const radians = (headingDegrees * Math.PI) / 180;
+      return new THREE.Vector3(-Math.sin(radians), 0, -Math.cos(radians)).normalize();
+    }
+
+    function orientPosition(position) {
+      if (!els.mirrorLongAxis.checked) return position;
+      position.z = (levelCenter.z * 2) - position.z;
+      return position;
+    }
+
+    function orientDirection(direction) {
+      if (els.mirrorLongAxis.checked) direction.z *= -1;
+      return direction.normalize();
+    }
+
+    function findEntrance(objects) {
+      return objects?.find((entity) => entity.id === 55) || null;
+    }
+
+    function frameScene(data) {
+      root.position.set(0, 0, 0);
+      root.scale.set(1, 1, 1);
+      const box = new THREE.Box3().setFromObject(root);
+      if (box.isEmpty()) return;
+      const center = box.getCenter(levelCenter);
+      const size = box.getSize(new THREE.Vector3());
+      const levelConfig = data.entities?.levelConfig || {};
+      camera.near = 1;
+      camera.far = Math.max(Math.max(size.x, size.y, size.z) * 8, configValue(levelConfig, "farClip", 4000) * 2);
+      camera.fov = THREE.MathUtils.clamp(configValue(levelConfig, "sourceFovY", 50), 25, 90);
+      camera.updateProjectionMatrix();
+
+      const entrance = findEntrance(data.entities?.objects || []);
+      if (entrance) {
+        const cameraHeading = configValue(levelConfig, "cameraHeading", configValue(levelConfig, "startHeading"));
+        const forward = orientDirection(headingToDirection(cameraHeading));
+        const start = orientPosition(new THREE.Vector3(entrance.x ?? 0, (entrance.y ?? 0) + 140, entrance.z ?? 0));
+        const target = start.clone().addScaledVector(forward, 380);
+        const distance = THREE.MathUtils.clamp(Math.max(size.x, size.z) * 0.055, 260, 560);
+        camera.position.copy(start).addScaledVector(forward, -distance);
+        camera.position.y += 90;
+        lookAt(target);
+      } else {
+        camera.position.set(center.x + size.x * 0.55, center.y + Math.max(size.y, 1200), center.z + size.z * 0.75);
+        lookAt(center);
+      }
+      applyOrientation();
+    }
+
+    function applyEnvironment(levelConfig) {
+      const fogColor = colorFromRgb(
+        configValue(levelConfig, "fogRed", 22),
+        configValue(levelConfig, "fogGreen", 24),
+        configValue(levelConfig, "fogBlue", 23)
+      );
+      const nearClip = configValue(levelConfig, "nearClip", 1);
+      const farClip = Math.max(configValue(levelConfig, "farClip", 12000), nearClip + 1);
+      const fogMin = configValue(levelConfig, "fogMin", 650);
+      const fogMax = configValue(levelConfig, "fogMax", 1000);
+      const fogNear = THREE.MathUtils.clamp((fogMin / 1000) * farClip * 1.45, nearClip, farClip * 2);
+      const fogFar = THREE.MathUtils.clamp((fogMax / 1000) * farClip * 2.8, fogNear + 1, farClip * 4);
+      scene.fog = els.showFog.checked ? new THREE.Fog(fogColor, fogNear, fogFar) : null;
+      const clearColor = els.showFog.checked
+        ? fogColor.clone().lerp(new THREE.Color(0x161817), 0.76)
+        : new THREE.Color(0x161817);
+      renderer.setClearColor(clearColor, 1);
+    }
+
+    function textureIdSummary(data) {
+      const ids = [...new Set((data?.geo?.faces || []).map((face) => face.texture))].sort((a, b) => a - b);
+      return ids.length ? `${ids.length} ids` : "no ids";
+    }
+
+    function updateConfigPanel(levelConfig, data) {
+      const fogRgb = [
+        configValue(levelConfig, "fogRed"),
+        configValue(levelConfig, "fogGreen"),
+        configValue(levelConfig, "fogBlue"),
+      ].join(",");
+      els.cfgFog.textContent = `${configValue(levelConfig, "fogMin")}-${configValue(levelConfig, "fogMax")} rgb ${fogRgb}`;
+      els.cfgCamera.textContent = `${configValue(levelConfig, "nearClip")}-${configValue(levelConfig, "farClip")} / ${configValue(levelConfig, "sourceFovY")}deg`;
+      els.cfgTexture.textContent = `${configValue(levelConfig, "segment")} / ${levelConfig?.textureBank ?? configValue(levelConfig, "textureBank")} / ${textureIdSummary(data)}`;
+      els.cfgWater.textContent = `mode ${configValue(levelConfig, "waterMode")} wave ${configValue(levelConfig, "waterWaveMode")}`;
+      els.cfgHeadings.textContent = `${configValue(levelConfig, "startHeading")} / ${configValue(levelConfig, "cameraHeading")}`;
+      const dynamic = configValue(levelConfig, "useDynamicLightDir") ? "dynamic" : "fixed";
+      els.cfgLight.textContent = `${dynamic} ${configValue(levelConfig, "lightDirX")},${configValue(levelConfig, "lightDirY")},${configValue(levelConfig, "lightDirZ")}`;
+    }
+
+    function applyOrientation() {
+      if (els.mirrorLongAxis.checked) {
+        root.scale.z = -1;
+        root.position.z = levelCenter.z * 2;
+      } else {
+        root.scale.z = 1;
+        root.position.z = 0;
+      }
+    }
+
+    function renderLevel(data, options = {}) {
+      const shouldFrame = options.frame ?? true;
+      activeData = data;
+      lastSnapPaths = els.snapPaths.checked;
+      lastObjectModels = els.showObjectModels.checked;
+      clearGroup(geoGroup);
+      clearGroup(mapGroup);
+      clearGroup(upperMapGroup);
+      clearGroup(flowGroup);
+      clearGroup(collisionGroup);
+      clearGroup(waterGroup);
+      clearGroup(objectGroup);
+      clearGroup(animalGroup);
+      clearGroup(linkGroup);
+      clearGroup(pathGroup);
+      clearGroup(regionGroup);
+      clearGroup(cameraGroup);
+      clearGroup(dynamicGroup);
+      clearGroup(startGroup);
+      clearGroup(cellLightingGroup);
+      hoverTargets.length = 0;
+      animatedRuntimeSprites = [];
+      hideHoverCard();
+
+      const levelConfig = data.entities.levelConfig || {};
+      const linkedEntities = prepareEntitiesWithLinks(data.entities || {});
+      const derivedTextures = ensureTextureMetadata(data, levelConfig);
+      activeLevelConfig = levelConfig;
+      applyEnvironment(levelConfig);
+      updateConfigPanel(levelConfig, data);
+
+      const geoMesh = new THREE.Mesh(
+        makeMeshGeometry(data.geo),
+        makeVertexColorMaterial({ hasVertexColors: meshHasVertexColors(data.geo), unlit: true })
+      );
+      geoMesh.userData.geoMode = "plain";
+      const textureIdMesh = new THREE.Mesh(
+        makeTextureIdGeometry(data.geo),
+        makeTextureIdMaterial()
+      );
+      textureIdMesh.userData.geoMode = "debug";
+      geoGroup.add(geoMesh, textureIdMesh);
+
+      const texturedIds = new Set();
+      const usedTextureIds = new Set((data.geo?.faces || []).map((face) => face.texture));
+      for (const face of data.geo?.faces || []) {
+        if (getTextureEntry(data, face.texture)) texturedIds.add(face.texture);
+      }
+      console.info(
+        `[svle] ${data.level}: ${texturedIds.size}/${usedTextureIds.size} texture IDs mapped` +
+        (derivedTextures ? " (derived viewer metadata)" : ""),
+        data.textures?.banks || []
+      );
+      const fallbackGeometry = makeFaceSubsetGeometry(
+        data.geo,
+        (face) => !getTextureEntry(data, face.texture),
+        { tileSize: data.textures?.tileSize || 32 }
+      );
+      if (fallbackGeometry) {
+        const fallbackMesh = new THREE.Mesh(
+          fallbackGeometry,
+          makeVertexColorMaterial({ hasVertexColors: true, unlit: true })
+        );
+        fallbackMesh.userData.geoMode = "textureFallback";
+        geoGroup.add(fallbackMesh);
+      }
+      for (const textureId of [...texturedIds].sort((a, b) => a - b)) {
+        const entry = getTextureEntry(data, textureId);
+        const texturedVariants = [
+          { lit: true, vertexColors: false },
+          { lit: false, vertexColors: true },
+        ];
+        for (const variant of texturedVariants) {
+          const geometry = makeFaceSubsetGeometry(
+            data.geo,
+            (face) => face.texture === textureId && Boolean(face.lit) === variant.lit,
+            { tileSize: entry.width || data.textures?.tileSize || 32, forceAlpha: 1 }
+          );
+          if (!geometry) continue;
+          const mesh = new THREE.Mesh(geometry, makeTextureMaterial(entry, { vertexColors: variant.vertexColors, unlit: true }));
+          mesh.userData.geoMode = "textured";
+          mesh.userData.textureId = textureId;
+          mesh.userData.litTerrain = variant.lit;
+          geoGroup.add(mesh);
+        }
+      }
+
+      const mapMesh = new THREE.Mesh(
+        makeMeshGeometry(data.map),
+        makeVertexColorMaterial({ transparent: false, opacity: terrainOpacity() })
+      );
+      applyTerrainOpacity(mapMesh.material, terrainOpacity());
+      mapMesh.userData.terrainMap = true;
+      setMeshColors(mapMesh, terrainColorArray(data));
+      mapMesh.position.y -= 6;
+      mapGroup.add(mapMesh);
+
+      if (data.map?.upper?.positions?.length) {
+        const upperMapMesh = new THREE.Mesh(
+          makeMeshGeometry(data.map.upper),
+          makeVertexColorMaterial({ transparent: false, opacity: terrainOpacity() })
+        );
+        applyTerrainOpacity(upperMapMesh.material, terrainOpacity());
+        upperMapMesh.position.y += 6;
+        upperMapGroup.add(upperMapMesh);
+      }
+
+      if (data.map?.flow?.positions?.length) {
+        flowGroup.add(new THREE.LineSegments(makeLineGeometry(data.map.flow), makeLineMaterial()));
+      }
+
+      if (data.map?.collision?.positions?.length) {
+        collisionGroup.add(new THREE.LineSegments(makeLineGeometry(data.map.collision), makeLineMaterial()));
+      }
+
+      if (data.water?.indices?.length) {
+        const waterColor = colorFromRgb(
+          configValue(levelConfig, "waterPrimRed", 75),
+          configValue(levelConfig, "waterPrimGreen", 184),
+          configValue(levelConfig, "waterPrimBlue", 223)
+        );
+        const waterAlpha = THREE.MathUtils.clamp(configValue(levelConfig, "waterPrimAlpha", 128) / 255, 0.22, 0.78);
+        const waterMesh = new THREE.Mesh(
+          makeWaterGeometry(data.water),
+          makeWaterMaterial(waterColor, waterAlpha)
+        );
+        waterMesh.position.y += 2;
+        waterGroup.add(waterMesh);
+      }
+      addWaterBounds(levelConfig);
+
+      addEntityMarkers(objectGroup, linkedEntities.objects, 0xe0c46c, 18, "object");
+      addEntityMarkers(animalGroup, linkedEntities.animals, 0xff7a59, 24, "animal");
+      addLinkLines(linkedEntities.links);
+      addDynamicMarkers(data.entities.dynamicObjects || []);
+      addPathLines(data.entities.paths || [], data.map);
+      addRegionBoxes(data.entities.regions || []);
+      addCameraBoxes(data.entities.camera || {});
+      addStartMarker(levelConfig, data.entities.objects || []);
+      addCellLightingGrid(levelConfig);
+
+      els.statFaces.textContent = (data.stats.geoRecords || 0).toLocaleString();
+      els.statTriangles.textContent = (data.stats.triangles || 0).toLocaleString();
+      els.statEntities.textContent = `${linkedEntities.objects.length} / ${linkedEntities.animals.length}`;
+      const modeledObjects = objectGroup.children.filter((child) => child.userData?.modelName).length;
+      els.status.textContent =
+        `${data.level || "Level"} loaded - textures ${texturedIds.size}/${usedTextureIds.size}` +
+        (derivedTextures ? " (derived)" : "") +
+        (objectModelData?.error ? " - object models unavailable" : ` - object models ${modeledObjects}`);
+
+      if (shouldFrame) {
+        frameScene(data);
+      }
+      syncToggles();
+    }
+
+    async function loadUrl(url) {
+      els.status.textContent = `Loading ${url}`;
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error(`${res.status} ${res.statusText}`);
+      }
+      const [levelData] = await Promise.all([res.json(), loadObjectModels()]);
+      renderLevel(levelData);
+    }
+
+    function syncToggles() {
+      if (activeData && lastObjectModels !== null && lastObjectModels !== els.showObjectModels.checked) {
+        renderLevel(activeData, { frame: false });
+        return;
+      }
+      if (activeData && lastSnapPaths !== els.snapPaths.checked) {
+        clearGroup(pathGroup);
+        addPathLines(activeData.entities.paths || [], activeData.map);
+        lastSnapPaths = els.snapPaths.checked;
+      }
+      geoGroup.visible = els.showGeo.checked;
+      geoGroup.traverse((node) => {
+        if (!node.isMesh || !node.userData.geoMode) return;
+        if (els.textureMode.value === "id") {
+          node.visible = node.userData.geoMode === "debug";
+        } else if (els.textureMode.value === "on") {
+          node.visible = node.userData.geoMode === "textured" || node.userData.geoMode === "textureFallback";
+        } else {
+          node.visible = node.userData.geoMode === "plain";
+        }
+      });
+      mapGroup.visible = els.showMap.checked;
+      upperMapGroup.visible = els.showUpperMap.checked;
+      flowGroup.visible = els.showFlow.checked;
+      collisionGroup.visible = els.showCollision.checked;
+      waterGroup.visible = els.showWater.checked;
+      objectGroup.visible = els.showObjects.checked;
+      animalGroup.visible = els.showAnimals.checked;
+      linkGroup.visible = els.showLinks.checked;
+      pathGroup.visible = els.showPaths.checked;
+      regionGroup.visible = els.showRegions.checked;
+      cameraGroup.visible = els.showCameras.checked;
+      dynamicGroup.visible = els.showDynamic.checked;
+      startGroup.visible = els.showStart.checked;
+      cellLightingGroup.visible = els.showCellLighting.checked;
+      els.mapOpacityValue.textContent = `${(terrainOpacity() * 100).toFixed(1).replace(".0", "")}%`;
+      applyEnvironment(activeLevelConfig);
+      applyOrientation();
+      mapGroup.traverse((node) => {
+        if (node.isMesh && node.material && "opacity" in node.material) {
+          if (node.userData.terrainMap) {
+            setMeshColors(node, terrainColorArray(activeData));
+          }
+          applyTerrainOpacity(node.material, terrainOpacity());
+        }
+      });
+      upperMapGroup.traverse((node) => {
+        if (node.isMesh && node.material && "opacity" in node.material) {
+          applyTerrainOpacity(node.material, terrainOpacity());
+        }
+      });
+      root.traverse((node) => {
+        if (node.userData.label) {
+          node.visible = els.showLabels.checked;
+        }
+      });
+      root.traverse((node) => {
+        if (node.isMesh && node.material && "wireframe" in node.material) {
+          node.material.wireframe = els.wireframe.checked;
+        }
+      });
+    }
+
+    function loadSelectedLevel() {
+      const url = `/levels/${els.level.value}.view.json`;
+      loadUrl(url).catch((err) => {
+        els.status.textContent = `Could not load ${url}: ${err.message}`;
+      });
+    }
+
+    els.level.addEventListener("change", () => {
+      els.level.blur();
+      loadSelectedLevel();
+    });
+
+    for (const input of [
+      els.showGeo,
+      els.showMap,
+      els.showWater,
+      els.showObjects,
+      els.showObjectModels,
+      els.showAnimals,
+      els.showLinks,
+      els.showUpperMap,
+      els.showFlow,
+      els.showCollision,
+      els.showPaths,
+      els.showRegions,
+      els.showCameras,
+      els.showDynamic,
+      els.showStart,
+      els.showCellLighting,
+      els.showLabels,
+      els.snapPaths,
+      els.textureMode,
+      els.terrainColorMode,
+      els.mapOpacity,
+      els.mirrorLongAxis,
+      els.showFog,
+      els.wireframe,
+    ]) {
+      input.addEventListener("change", syncToggles);
+    }
+    els.mapOpacity.addEventListener("input", syncToggles);
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    function keyIsForViewer(event) {
+      const tagName = event.target?.tagName;
+      if (tagName === "TEXTAREA" || tagName === "BUTTON") return false;
+      if (tagName === "SELECT") {
+        if (movementKeys.has(event.code)) {
+          event.target.blur();
+          return true;
+        }
+        return false;
+      }
+      if (tagName === "INPUT") {
+        if (event.target.type === "checkbox") return true;
+        if (event.target.type === "range" && movementKeys.has(event.code)) {
+          event.target.blur();
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+
+    window.addEventListener("keydown", (event) => {
+      if (!keyIsForViewer(event)) return;
+      if (movementKeys.has(event.code)) {
+        pressedKeys.add(event.code);
+        event.preventDefault();
+      }
+    });
+
+    window.addEventListener("keyup", (event) => {
+      pressedKeys.delete(event.code);
+    });
+
+    window.addEventListener("blur", () => {
+      pressedKeys.clear();
+      dragState.active = false;
+      hideHoverCard();
+    });
+
+    function applyMouseLook(deltaX, deltaY) {
+      const sensitivity = 0.003;
+      cameraYaw -= deltaX * sensitivity;
+      cameraPitch -= deltaY * sensitivity;
+      cameraPitch = THREE.MathUtils.clamp(cameraPitch, -1.35, 1.35);
+      updateCameraRotation();
+    }
+
+    renderer.domElement.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      hideHoverCard();
+      dragState.active = true;
+      dragState.pointerId = event.pointerId;
+      renderer.domElement.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+
+    renderer.domElement.addEventListener("pointermove", (event) => {
+      if (!dragState.active || event.pointerId !== dragState.pointerId) {
+        updateHover(event);
+        return;
+      }
+      applyMouseLook(event.movementX, event.movementY);
+      event.preventDefault();
+    });
+
+    function stopDragging(event) {
+      if (event.pointerId !== dragState.pointerId) return;
+      dragState.active = false;
+      dragState.pointerId = null;
+    }
+
+    renderer.domElement.addEventListener("pointerup", stopDragging);
+    renderer.domElement.addEventListener("pointercancel", stopDragging);
+    renderer.domElement.addEventListener("pointerleave", hideHoverCard);
+
+    function lookAt(target) {
+      lookDirection.subVectors(target, camera.position).normalize();
+      cameraYaw = Math.atan2(-lookDirection.x, -lookDirection.z);
+      cameraPitch = Math.asin(THREE.MathUtils.clamp(lookDirection.y, -1, 1));
+      updateCameraRotation();
+    }
+
+    function updateCameraRotation() {
+      camera.rotation.set(cameraPitch, cameraYaw, 0);
+    }
+
+    function updateKeyboardControls(delta) {
+      const baseMoveSpeed = pressedKeys.has("ShiftLeft") || pressedKeys.has("ShiftRight") ? 1850 : 820;
+      const turnSpeed = 1.7;
+      const forwardInput =
+        (pressedKeys.has("KeyW") ? 1 : 0) -
+        (pressedKeys.has("KeyS") ? 1 : 0);
+      const strafeInput = (pressedKeys.has("KeyD") ? 1 : 0) - (pressedKeys.has("KeyA") ? 1 : 0);
+      const turnInput = (pressedKeys.has("ArrowLeft") ? 1 : 0) - (pressedKeys.has("ArrowRight") ? 1 : 0);
+      const pitchInput = (pressedKeys.has("ArrowUp") ? 1 : 0) - (pressedKeys.has("ArrowDown") ? 1 : 0);
+
+      if (turnInput) {
+        cameraYaw += turnInput * turnSpeed * delta;
+        updateCameraRotation();
+      }
+      if (pitchInput) {
+        cameraPitch = THREE.MathUtils.clamp(cameraPitch + pitchInput * turnSpeed * delta, -1.35, 1.35);
+        updateCameraRotation();
+      }
+
+      if (!forwardInput && !strafeInput) return;
+
+      camera.getWorldDirection(moveDirection);
+      moveDirection.normalize();
+      strafeDirection.set(-moveDirection.z, 0, moveDirection.x);
+      if (strafeDirection.lengthSq() < 0.0001) {
+        strafeDirection.set(Math.cos(cameraYaw), 0, -Math.sin(cameraYaw));
+      }
+      strafeDirection.normalize();
+
+      movement.set(0, 0, 0)
+        .addScaledVector(moveDirection, forwardInput)
+        .addScaledVector(strafeDirection, strafeInput);
+
+      if (movement.lengthSq() > 0) {
+        movement.normalize().multiplyScalar(baseMoveSpeed * delta);
+        camera.position.add(movement);
+      }
+    }
+
+    function animateWater(delta) {
+      waterPhase = (waterPhase + delta * 1.8) % (Math.PI * 2);
+      const waterFrame = Math.floor(performance.now() * 0.001 * WATER_FRAME_RATE) % WATER_ANIMATED_FRAMES;
+      const waterFrameOffset = (WATER_TEXTURE_ROWS - waterFrame - 1) / WATER_TEXTURE_ROWS;
+      const waterScroll = (performance.now() * 0.001 * WATER_SCROLL_RATE) % 1;
+      const shimmer = (Math.sin(waterPhase) + Math.sin(waterPhase * 0.43 + 1.7)) * 0.5;
+      waterGroup.traverse((node) => {
+        const material = node.material;
+        const state = material?.userData?.waterShimmer;
+        if (!state) return;
+        material.opacity = THREE.MathUtils.clamp(state.baseOpacity + shimmer * 0.035, 0.08, 0.82);
+        material.emissive.copy(state.baseEmissive).multiplyScalar(1.0 + shimmer * 0.22);
+        if (state.texture) {
+          state.texture.offset.set(waterScroll, waterFrameOffset);
+        }
+      });
+    }
+
+    function animateRuntimeSprites(now) {
+      for (const sprite of animatedRuntimeSprites) {
+        const frameCount = sprite.frames || sprite.textures.length;
+        const frame = Math.floor(now * 0.001 * sprite.frameRate) % frameCount;
+        if (frame === sprite.lastFrame) continue;
+        sprite.lastFrame = frame;
+        if (sprite.atlasTextures) {
+          const frameHeight = 1 / frameCount;
+          const frameOffset = 1 - ((frame + 1) * frameHeight);
+          for (const texture of sprite.atlasTextures) {
+            texture.offset.y = frameOffset;
+          }
+        } else {
+          sprite.material.map = sprite.textures[frame];
+          sprite.material.needsUpdate = true;
+        }
+      }
+    }
+
+    function tick() {
+      const delta = clock.getDelta();
+      updateKeyboardControls(delta);
+      animateWater(delta);
+      animateRuntimeSprites(performance.now());
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    loadSelectedLevel();
+  </script>
+</body>
+</html>

@@ -210,6 +210,7 @@ done:
     }
 }
 
+// RACING_MOUSE
 void func_8031D624_72ECD4(void) {
     s16 spAE;
 
@@ -217,7 +218,7 @@ void func_8031D624_72ECD4(void) {
     s32 temp_t5;
     s32 temp_t6;
 
-    Vertex sp98;
+    LimbConfig limbConfig;
     s16 sp96;
     s16 sp94;
     s16 sp92;
@@ -331,8 +332,8 @@ void func_8031D624_72ECD4(void) {
             } else {
                 sp90 = 0;
             }
-            func_802B9130_6CA7E0(&sp98, 0x7D, 0x46, 0xEA, 0);
-            func_802C1830_6D2EE0(0x9C, &sp98);
+            func_802B9130_6CA7E0(&limbConfig, 0x7D, 0x46, 0xEA, 0);
+            func_802C1830_6D2EE0(0x9C, &limbConfig);
             func_802B964C_6CACFC();
             D_80203FE0[7].unk4  += sp90;
             D_80203FE0[10].unk4 += sp90;
@@ -467,7 +468,7 @@ void func_8031E6A0_72FD50(void) {
     s32 temp_t4; // spC0 ?
     s32 temp_t5; // spBC ?
     s32 temp_t6; // spB8 ?
-    Vertex spB0;
+    LimbConfig limbConfig;
     s16 spAE;
     s16 spAC;
     s16 spAA;
@@ -554,8 +555,8 @@ void func_8031E6A0_72FD50(void) {
         }
 
         if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
-            func_802B9130_6CA7E0(&spB0, 0x7D, 0x46, 0xEA, 0);
-            func_802C1830_6D2EE0(0x9C, &spB0);
+            func_802B9130_6CA7E0(&limbConfig, 0x7D, 0x46, 0xEA, 0);
+            func_802C1830_6D2EE0(0x9C, &limbConfig);
             func_802B964C_6CACFC();
             func_802C6468_6D7B18(0xBB, 0xDA, 0x177);
         }
@@ -726,7 +727,7 @@ void func_8031F8BC_730F6C(void) {
             GPACK_RGBA5551(0, 0, 0, 1),
             SSSV_RAND(16) + 0xF);
     } else {
-        set_target_speed(16); // speed
+        set_target_speed(16);
         create_particle_effect(
             D_803D5530->position.xPos.h,
             D_803D5530->position.zPos.h,

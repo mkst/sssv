@@ -95,7 +95,7 @@ void func_8036F7A0_780E50(void) {
                 func_802DCCAC_6EE35C(0xC);
                 if ((D_803D5544 - D_803D552C->unk32A) == 3) {
                     if (func_803224C4_733B74(0x2D, 0x2D, -0xB, 0x16, 0xC, 0, 0, 0x12) != 0) {
-                        if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
+                        if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0.75f);
                         } else {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -109,7 +109,7 @@ void func_8036F7A0_780E50(void) {
                 func_802DCCAC_6EE35C(0xC);
                 if ((D_803D5544 - D_803D552C->unk32A) == 3) {
                     if (func_803224C4_733B74(0x2D, 0x2D, 0xB, 0x16, 0xC, 0, 0, 0x12) != 0) {
-                        if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
+                        if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0.75f);
                         } else {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -209,7 +209,7 @@ void func_8036F7A0_780E50(void) {
             add_hilite();
             gSPDisplayList(gOpaqueDL++, D_01003588_3CE58);
 
-            if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
+            if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                 gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x37, 0x37, 0xFF, 0xFF);
             } else {
                 gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);

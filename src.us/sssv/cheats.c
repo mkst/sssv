@@ -27,12 +27,21 @@ void reset_cheats(void) {
     gCheats.unk4 = 0;      // always 0? checked in func_80294E50_6A6500
     gCheats.debugMode = 0;
     gCheats.unk8 = 0;      // unused
+#ifdef ENABLE_CHEATS
+    gCheats.europe = 1;
+    gCheats.ice = 1;
+    gCheats.jungle = 1;
+    gCheats.desert = 1;
+    gCheats.bcp = 1;
+    gCheats.hidden = 1;
+#else
     gCheats.europe = 0;
     gCheats.ice = 0;
     gCheats.jungle = 0;
     gCheats.desert = 0;
     gCheats.bcp = 0;
     gCheats.hidden = 0;
+#endif
     gCheats.unk16 = 0;     // unused
     gCheats.unk18 = 0;     // unused
     sprintf((char*)D_803F6410, "%9d", 111111111);

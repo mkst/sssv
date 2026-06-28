@@ -6,20 +6,20 @@
 // .data
 // ========================================================
 
-s16 D_803A0500_7B1BB0 = 0;
+static s16 D_803A0500_7B1BB0 = 0;
 
 // ========================================================
 // .bss
 // ========================================================
 
-GfxHelper gVisibleWorldCellQueue[28];
+static GfxHelper gVisibleWorldCellQueue[28];
 
 // ========================================================
 // .text
 // ========================================================
 
 void setup_world_perspective_6AB090(DisplayList *arg0) {
-    guPerspective(&arg0->unk37410, &gWorldPerspNorm, D_803F2D50.fovY, 1.0f, D_803F2D50.unkC, D_803F2D50.unkE, 1.0f);
+    guPerspective(&arg0->unk37410, &gWorldPerspNorm, D_803F2D50.fovY, 1.0f, D_803F2D50.nearClip, D_803F2D50.farClip, 1.0f);
     guScale(&arg0->unk37450, 0.5f, 0.5f, 0.5f);
     guScale(&arg0->unk374D0, 1.0f, 1.0f, 1.0f);
     update_world_camera_transform();
@@ -63,7 +63,7 @@ void draw_visible_world_cell_opaque_pass(DisplayList *arg0) {
 }
 
 void draw_visible_world_cell_translucent_pass(DisplayList *arg0) {
-    s32 pad2[2];
+    s32 pad2[2] UNUSED;
     s32 i;
     s32 j;
     GfxHelper old;
@@ -124,8 +124,10 @@ void draw_visible_world_cell_translucent_pass(DisplayList *arg0) {
 
 }
 
-void func_8029A32C_6AB9DC(s32 arg0) {
+#ifdef __sgi
+void unused_8029A32C_6AB9DC(s32 arg0) {
 }
+#endif
 
 s16 is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
     arg0 >>= 6;
@@ -218,7 +220,7 @@ void set_fog_position_and_color(Gfx **dl) {
 
 void render_ship_window_projection_replay(void) {
     if (gCameraVisibilityMask[6] & 1) {
-        func_80127D30(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
+        build_ship_window_z_projection_matrix(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
 
         gSPMatrix(gMainDL++, &gDisplayListContext->unk37510, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
         gSPDisplayList(gMainDL++, &gDisplayListContext->gXluDL);
@@ -229,7 +231,7 @@ void render_ship_window_projection_replay(void) {
         gSPMatrix(gMainDL++, &gDisplayListContext->unk37450, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
         gSPMatrix(gMainDL++, &gDisplayListContext->unk37490, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_PROJECTION);
     } else if (gCameraVisibilityMask[6] & 2) {
-        func_80127ED4(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
+        build_ship_window_x_projection_matrix(&gDisplayListContext->unk37510, (gCameraVisibilityMask[6] & 0xFFC) << 1);
 
         gDisplayListContext->unk3B6B0.l.col[0]  = gDisplayListContext->lights.a.l.col[0] >> 1;
         gDisplayListContext->unk3B6B0.l.col[1]  = gDisplayListContext->lights.a.l.col[1] >> 1;
@@ -268,7 +270,7 @@ void render_ship_window_projection_replay(void) {
     }
 }
 
-void func_8029ABCC_6AC27C(void) {
+void unused_8029ABCC_6AC27C(void) {
     build_rotate_scale_translate_matrix(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], FTOFIX32(256.0), FTOFIX32(512.0), FTOFIX32(1400.0), 0, 0, 0, FTOFIX32(2.0), FTOFIX32(2.0), FTOFIX32(2.0));
     gSPMatrix(gMainDL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 }

@@ -1,6 +1,7 @@
 """
 Horrible hack to create a filename.ci4.png file based on filename/TLUT.ci4.png
 """
+
 import glob
 import shutil
 

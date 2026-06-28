@@ -78,7 +78,7 @@ u8  *D_801D9EC4; // gCurrentSegmentBase?
 static u8   D_801D9EC8;
 static u8   D_801D9EC9;
 static s32  D_801D9ECC; // unused
-s32  D_801D9ED0;
+s32  D_801D9ED0; // zero by default?
 s16  D_801D9ED4;
 struct050 gAnimalState;
 
@@ -156,13 +156,13 @@ s16    gIsWidescreen; // maybe not actually this?
 
 Gfx   *gWorldCellOpaqueDisplayLists[4][6];
 Gfx    D_80205470[6000];
-Vtx    D_80210FF0[5000];
-Vtx    D_80224870[216];  // ?
+Vtx    gOpaqueVtxPool[5000]; // scratch opaque pool
+Vtx    D_80224870[36*6]; // opaque cull box
 
 Gfx   *gWorldCellTranslucentDisplayLists[4][6];
 Gfx    D_80225650[2000];
-Vtx    D_802294D0[1000];
-Vtx    D_8022D350[216];
+Vtx    gTranslucentVtxPool[1000]; // scratch translucent pool
+Vtx    D_8022D350[36*6]; // translucent cull box
 
 // ========================================================
 // .text
@@ -444,9 +444,10 @@ void func_8012A588(void) {
             start_sequence_volume_fade(0, 10.0f, 20.0f, 0.0f);
             start_sfx_volume_fade(   10.0f, 20.0f, 0.0f);
         }
-        // fakematch
-        if (tmp = D_80152E9C != 0) {}
 
+#ifdef __sgi
+        if (tmp = D_80152E9C != 0) {}
+#endif
         gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
         draw_rectangle(&gMainDL, 0, 0, 320, 240, 0, 0, 0, 120);
 

@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
+#include "terminal_background.data.h"
+
 #include "camera.h"
 
 // ========================================================
@@ -10,181 +12,43 @@
 extern s8  D_803F2C6D; // mismatch camera.c
 extern u8  gTerminalTransitionCounter; // tbd
 
+typedef struct {
+    /* 0x0  */ s16* unk0[13];   // description?
+    /* 0x34 */ s16* unk34[13];  // value?
+    /* 0x68 */ s16  unk68[13];  // offsets?
+    /* 0x82 */ s16  unk82;
+    /* 0x84 */ s16  unk84;
+    /* 0x86 */ s16  unk86;
+} struct109; // size 0x88
+
+void spin_dna_helixes(u16 arg0);
+u8 step_terminal_dna_simulation(void);
+
 // ========================================================
-// .data
+// .bss (D_803F6460 to D_803F6680)
 // ========================================================
 
-u8 dna[8] = "AGCT.-01";
+static u8   D_803F6460;
+       Animal *D_803F6464;
+       s16  D_803F6468;
+static f32  D_803F646C;
+static s16  D_803F6470;
+static u8   D_803F6472;
+static s16  D_803F6474; // screen width
+static struct109 gTerminalTextScrollState;
+static s16 *gTerminalStatLabels[18];
+static s16  gTerminalStatTextX[20];
+static f32  gTerminalDnaSimulation[16][2][2];
 
-char* terminal_asm[] = {
-    "mov si,animaltype",
-    "add si,128",
-    "mov blocksi,si",
-    "mov ax,0",
-    "mov ax,xpos",
-    "mov bx,ax",
-    "shl al,4",
-    "shr al,4",
-    "mov ah,0",
-    "cmp animalinview,0",
-    "je  scared",
-    "mov ax,0",
-    "scared:",
-    "mov energy,ax",
-    "mov ax,bx",
-    "shr ax,4",
-    "mov animalpositionx,0",
-    "mov animalpositiony,0",
-    "mov si,animalpositionz",
-    "mov world,ax",
-    "mov ax,ypos",
-    "and ah,ah",
-    "mov bx,ax",
-    "shl al,4",
-    "shr al,4",
-    "cmp animalinview,0",
-    "je  fearless",
-    "mov ax,0",
-    "fearless:",
-    "mov intelligence,ax",
-    "mov ax,bx",
-    "shr ax,4",
-    "mul strength",
-    "add world,ax",
-    "push bp",
-    "push ds",
-    "leslies code sucks:",
-    "cmp movedcounter,1",
-    "jne again",
-    "mov movedcounter,800",
-    "again:",
-    "mov si,animalpositionz",
-    "mov ds,worldfeatureseg",
-    "mov bx,world",
-    "mov al,(ds:si+bx)",
-    "mov curblock,al",
-    "push bp",
-    "push ds",
-    "mov byte (ds:si+bx),0",
-    "jmp havetomove",
-    "nothuhumantemp:",
-    "mov si,worldfeatureanimofs",
-    "mov ds,worldfeatureanimseg",
-    "mov bx,world",
-    "mov cx,0",
-    "mov cl,(ds:si+bx)",
-    "cmp cl,254",
-    "jne continue",
-    "mov byte (ds:si+bx),0",
-    "jmp havetomove",
-    "continue:",
-    "animalnotoverlay:",
-    "cmp al,enemy1right",
-    "jb  gnotbaddie",
-    "cmp al,enemy2right",
-    "jae gbaddie2",
-    "mov al,enemy1right",
-    "jmp gnotbaddie",
-    "gbaddie2:",
-    "mov al,enemy2right",
-    "gnotbaddie:",
-};
-
-// where is this used?
-s16 *D_803B6450_7C7B00[68] = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, // padding or?
-};
-
-// FIXME
-s32 foo[3] = {0, 0, 0};
-
-s16 *gTerminalStatText[18] = {
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0,
-};
-
-Lights1 D_803B65A8_7C7C58 = gdSPDefLights1(0x00, 0x0A, 0x00, 0x00, 0x64, 0x00, 0x04, 0x00, 0x08);
-Lights1 D_803B65C0_7C7C70 = gdSPDefLights1(0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x04, 0x00, 0x08);
-Lights1 D_803B65D8_7C7C88 = gdSPDefLights1(0x19, 0x32, 0x00, 0x64, 0xC8, 0x00, 0x04, 0x00, 0x08);
-Lights1 D_803B65F0_7C7CA0 = gdSPDefLights1(0x00, 0x19, 0x00, 0x32, 0xC8, 0x00, 0x04, 0x00, 0x08);
-
-Gfx gTerminalDnaOpaqueRenderSetupDl[] = {
-    gsDPPipelineMode(G_PM_NPRIMITIVE),
-    gsSPTexture(0x8000, 0x8000, 0, G_TX_RENDERTILE, G_OFF),
-    gsDPSetTextureConvert(G_TC_FILT),
-    gsDPSetTexturePersp(G_TP_PERSP),
-    gsDPSetTextureLUT(G_TT_NONE),
-    gsDPSetTextureLOD(G_TL_TILE),
-    gsDPSetTextureDetail(G_TD_CLAMP),
-    gsDPSetColorDither(G_CD_BAYER),
-    gsDPSetAlphaDither(G_AD_DISABLE),
-    gsSPClipRatio(FRUSTRATIO_4),
-    gsDPSetAlphaCompare(G_AC_NONE),
-    gsDPPipeSync(),
-    gsDPSetCycleType(G_CYC_1CYCLE),
-    gsSPClearGeometryMode(-1),
-    gsSPSetGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BACK | G_LIGHTING | G_SHADING_SMOOTH),
-    gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
-    gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
-    gsDPPipeSync(),
-    gsSPEndDisplayList(),
-};
-
-Gfx gTerminalDnaInterlaceRenderSetupDl[] = {
-    gsSPSetGeometryMode(G_SHADE | G_CULL_BACK | G_LIGHTING | G_SHADING_SMOOTH),
-    gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
-    gsDPSetRenderMode(G_RM_AA_ZB_OPA_INTER, G_RM_AA_ZB_OPA_INTER2),
-    gsDPPipeSync(),
-    gsSPEndDisplayList(),
-};
-
-// u8 D_803B66E4_7C7D94 = 0;
+// ========================================================
+// .text
+// ========================================================
 
 void func_8038CF90_79E640(void) {
     gSPDisplayList(gMainDL++, D_01004270_3DB40);
     gDPSetCombineMode(gMainDL++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     gDPSetRenderMode(gMainDL++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 }
-
-// ========================================================
-// .bss (D_803F6460 to D_803F6680)
-// ========================================================
-
-u8   D_803F6460;
-Animal *D_803F6464;
-s16  D_803F6468;
-f32  D_803F646C;
-s16  D_803F6470;
-u8   D_803F6472;
-s16  D_803F6474;
-struct109 gTerminalTextScrollState;
-s16 *gTerminalStatLabels[18];
-s16  gTerminalStatTextX[20];
-f32  gTerminalDnaSimulation[16][2][2]; // tbd
-// f32  D_803F6670;
-
-
-// ========================================================
-// definitions
-// ========================================================
-
-void spin_dna_helixes(u16 arg0);
-u8 step_terminal_dna_simulation(void);
-
-// ========================================================
-// .text
-// ========================================================
 
 void render_terminal_background_glyphs(Gfx **dl, u16 intensity) {
     s16 xPos;
@@ -193,7 +57,7 @@ void render_terminal_background_glyphs(Gfx **dl, u16 intensity) {
     u16 vertical_offset;
     s16 j;
     u8 i;
-    s32 pad;
+    s32 pad UNUSED;
     s32 g;
     s8 ascii[64];
     s16 wide[64];
@@ -410,7 +274,7 @@ void render_terminal_background_scene(void) {
     gSPDisplayList(gMainDL++, &gDisplayListContext->gOpaqueDL);
 }
 
-void render_terminal_stat_text(s32 arg0, s32 arg1) {
+void render_terminal_stat_text(s32 arg0 UNUSED, s32 arg1 UNUSED) {
     s16 phi_s1;
     s16 var_v1;
     s16 i;
@@ -577,7 +441,6 @@ u8 step_terminal_dna_simulation(void) {
     s16 i;
     u16 rand;
     u8 idx;
-    u8 var_v0;
 
     static s16 D_803F6674;
     static u8 D_803B66E4_7C7D94 = 0;
@@ -653,8 +516,8 @@ void render_terminal_background_frame(void) {
     }
 
     gScreenHeight = 240;
-    D_803A6CC4_7B8374 = ((SIN(D_803F6472 * 2) >> 7) / 3200.0) + 0.7; // D_803C0170_7D1820
-    D_803A6CC8_7B8378 = ((SIN(D_803F6472) >> 7) / 15.0) + 45.0; // D_803C0178_7D1828
+    D_803A6CC4_7B8374 = ((SIN(D_803F6472 * 2) >> 7) / 3200.0) + 0.7;
+    D_803A6CC8_7B8378 = ((SIN(D_803F6472) >> 7) / 15.0) + 45.0;
     D_803F6472++;
 
     gMainViewport.vp.vscale[0] = gScreenWidth  << 1;
@@ -737,7 +600,9 @@ void render_terminal_background_frame(void) {
         break;
     case 2:
         update_terminal_scene_lighting(0xFF);
-        if (D_803B6310_7C79C0 && D_803B6310_7C79C0) {} // permuter
+#ifdef __sgi
+        if (D_803B6310_7C79C0 && D_803B6310_7C79C0) {}
+#endif
         render_terminal_background_scene();
         if (D_803B6310_7C79C0 == 1) {
             func_802F2EEC_70459C(80, 80, 80, 200, 200, 200, 10);
@@ -777,7 +642,7 @@ void func_8038F414_7A0AC4(void) {
             D_803A6CC8_7B8378 = 45.0f;
             D_803F6472 = 0;
             gUiFlowState.unk0 = 3;
-            D_803F6474 = D_803F2D50.unkDA;
+            D_803F6474 = D_803F2D50.screenWidth;
         }
         break;
     case 1:
@@ -795,7 +660,7 @@ void func_8038F414_7A0AC4(void) {
             D_803A6CC8_7B8378 = 45.0f;
             D_803F6472 = 0;
             gUiFlowState.unk0 = 3;
-            D_803F6474 = D_803F2D50.unkDA;
+            D_803F6474 = D_803F2D50.screenWidth;
             func_8032C508_73DBB8(SFX_UNKNOWN_16, 0x4000, 0, 1.0f);
         }
         break;

@@ -19,7 +19,7 @@ void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
             D_803D552C->unk35A += D_803D552C->unk35C;
         }
 
-        func_80128078(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], arg0, (D_803D552C->unk35A * arg4) / 24.0);
+        build_spring_bounce_matrix(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], arg0, (D_803D552C->unk35A * arg4) / 24.0);
         gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
     }
 }
@@ -53,7 +53,7 @@ void func_8038C484_79DB34(s16 springyness, s16 shift, s16 rate, f32 multiplier, 
                 D_803D552C->unk35C = (D_803D552C->unk35C * 0xF) >> 4;
                 D_803D552C->unk35A += D_803D552C->unk35C;
               }
-              func_80128078(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], 0, (D_803D552C->unk35A * multiplier) / 24.0);
+              build_spring_bounce_matrix(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], 0, (D_803D552C->unk35A * multiplier) / 24.0);
               gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
               return;
         }

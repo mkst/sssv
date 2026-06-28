@@ -1,9 +1,7 @@
 #include <ultra64.h>
-
 #include "common.h"
 
 void func_801356C0(s32 x, s32 y, s32 x_size, s32 y_size, Gfx **dl, u8 *img, f32 sizeX, f32 sizeY, u8 depth) {
-
     s32 xl, yl;
     s32 xh, yh;
     f32 dsdx, dtdy;

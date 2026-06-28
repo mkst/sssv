@@ -123,12 +123,12 @@ void osd_draw_health_and_power_bars(s16 arg0) {
 
         gDPPipeSync(gMainDL++);
 
-#if 0
-        gDPSetRenderMode(gMainDL++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
-#else
+#if __sgi
         gDPSetRenderMode(gMainDL++,
             ((((new_var | 0x8) | (0 << 30)) | (3 << 26)) | (0 << 22)) | (2 << 18),
             ((((new_var | 0x8) | (0 << 28)) | (3 << 24)) | (0 << 20)) | (2 << 16));
+#else
+        gDPSetRenderMode(gMainDL++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
 #endif
 
         gDPSetTextureFilter(gMainDL++, G_TF_POINT);
@@ -304,7 +304,7 @@ void func_80349280_75A930(Animal *arg0, s16 damage) {
         if (damage != 0) {
             arg0->lastHpLost = MAX(arg0->lastHpLost + (damage >> 2), (damage >> 2) + 4);
         }
-        if (arg0 != gAnimalState.animals[gCurrentAnimalIndex].animal) {
+        if (!IS_CURRENT_ANIMAL(arg0)) {
             if (arg0 == D_803F2CF8.animal) {
                 D_803F2CF8.unk6 = MAX(0, arg0->Info.health - damage);
                 D_803F2CF8.unkA = 64;

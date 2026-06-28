@@ -16,15 +16,10 @@ void func_80305368_716A18(struct079 *);
 void func_803071BC_71886C(void);
 
 // ========================================================
-// .data
-// ========================================================
-
-// ========================================================
 // .bss
 // ========================================================
 
 struct079 D_803E4BE0;
-
 
 // ========================================================
 // .text
@@ -155,7 +150,7 @@ void func_80305368_716A18(struct079 *arg0) {
                 if (temp_v1_4->objectType < OB_TYPE_ANIMAL_OFFSET) {
                     // it's an object
                     if ((temp_v1_4->unk82.unk1 == 0) && (temp_v1_4->objectType != OBJECT_TELEPORTER_BASE) && (temp_v1_4->objectType != OBJECT_ENTRANCE_TELEPORTER) && (temp_v1_4->objectType != OBJECT_EXIT_TELEPORTER)) {
-                        if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2) && (animal != D_803D552C->unk2AC) && (animal != D_803D552C->unk320)) {
+                        if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2) && (animal != D_803D552C->navTarget) && (animal != D_803D552C->unk320)) {
                             dist = ABS(animal->position.xPos.h - x_pos) + ABS(animal->position.zPos.h - z_pos);
                             dist = dist - D_803D5524->unkBE;
                             if (temp_v1_4->unk2 == 2) {
@@ -173,10 +168,10 @@ void func_80305368_716A18(struct079 *arg0) {
                             }
                         }
                     }
-                } else if ((animal != D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) {
+                } else if ((animal != (Animal*)D_803D5530) && (temp_v1_4->objectType != OB_TYPE_ANIMAL_OFFSET+EVO_TRANSFER)) {
                     // its an animal
                     if ((animal->position.yPos.h < max_height) && (min_height < animal->position.yPos.h)) {
-                        if ((func_80362B00_7741B0(animal) != 0) || ((can_swim(D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
+                        if ((func_80362B00_7741B0(animal) != 0) || ((can_swim((Animal*)D_803D5530) != 0) && (func_80362B60_774210(animal) == 0))) {
                             ai_behavior = 0;
                         } else {
                             ai_behavior = get_ai_behaviour(D_803D5530->unk16C->objectType, animal->unk16C->objectType);
@@ -194,13 +189,13 @@ void func_80305368_716A18(struct079 *arg0) {
                             func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             break;
                         case AI_FLEE: // 1
-                            if (D_803D552C->unk272 & 4) {
+                            if (D_803D552C->aiFlags & AI_FLAG_CAN_FLEE) {
                                 func_80305250_716900(&arg0->unk1C, animal, dist, 2);
                             }
                             func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             break;
                         case AI_ATTACK: // 2
-                            if (D_803D552C->unk272 & 1) {
+                            if (D_803D552C->aiFlags & AI_FLAG_CAN_ATTACK) {
                                 if (dist < arg0->unk54) {
                                     arg0->unk54 = dist;
                                     arg0->unk58 = animal;
@@ -213,14 +208,14 @@ void func_80305368_716A18(struct079 *arg0) {
                             func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             break;
                         case AI_HERD: // 4
-                            if (D_803D552C->unk272 & 8) {
+                            if (D_803D552C->aiFlags & AI_FLAG_HERD_OR_FOLLOW) {
                                 func_80305250_716900(&arg0->unk0, animal, dist, 2);
                             } else {
                                 func_80305250_716900(&arg0->unk38, animal, dist, 2);
                             }
                             break;
                         case AI_LEAD_HERD: // 5
-                            if (D_803D552C->unk272 & 8) {
+                            if (D_803D552C->aiFlags & AI_FLAG_HERD_OR_FOLLOW) {
                                 if (dist < arg0->distance) {
                                     arg0->distance = dist;
                                     arg0->unk60 = animal;
@@ -293,14 +288,14 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
         temp_t8 = (arg2 - func_80310F58_722608(sp20, sp1C)) >> 0x10;
 
         if (ABS(temp_t8) < 49) {
-            if ((D_803D552C->unk272 & 0x20) &&
+            if ((D_803D552C->aiFlags & AI_FLAG_ALLOW_STEEP_NAVIGATION) &&
                 (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (0x10 << (sp4F ^ 1))) &&
                 (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (0x10 << (sp4E ^ 1)))) {
                 sp43 = 1;
             } else {
                 sp43 = 0;
             }
-        } else if ((D_803D552C->unk272 & 0x20) &&
+        } else if ((D_803D552C->aiFlags & AI_FLAG_ALLOW_STEEP_NAVIGATION) &&
                    (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (1 << (sp4F ^ 1))) &&
                    (D_803C0740[sp20 >> 6][sp1C >> 6].unk5 & (1 << (sp4E ^ 1))) &&
                    (ABS(temp_t8) <= ((D_803E1D30[(D_803C0740[sp20 >> 6][sp1C >> 6].unk3)].unk2) * 8))) {
@@ -309,7 +304,7 @@ s32 func_80305A70_717120(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
             temp_t8 = (sample_ground_height_at_xz(sp20, sp1C) - sample_ground_height_at_xz(arg0, arg1)) >> 0x10;
             if (ABS(temp_t8) < 97) {
                 sp43 = 0;
-            } else if ((D_803D552C->unk272 & 0x20) && (temp_t8 < 0)) {
+            } else if ((D_803D552C->aiFlags & AI_FLAG_ALLOW_STEEP_NAVIGATION) && (temp_t8 < 0)) {
                 sp43 = 1;
             }
       }
@@ -368,12 +363,12 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
 
         temp_t9 = (arg2 - var_a1) >> 0x10;
         if (ABS(temp_t9) < 0x31) {
-            if (((D_803D552C->unk272 & 0x20)) && ((D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk5 & (0x10 << (arg4 ^ 1))))) {
+            if (((D_803D552C->aiFlags & AI_FLAG_ALLOW_STEEP_NAVIGATION)) && ((D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk5 & (0x10 << (arg4 ^ 1))))) {
                 return 1;
             }
             return 0;
         }
-        if ((D_803D552C->unk272 & 0x20) && ((D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk5 & (1 << (arg4 ^ 1))))) {
+        if ((D_803D552C->aiFlags & AI_FLAG_ALLOW_STEEP_NAVIGATION) && ((D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk5 & (1 << (arg4 ^ 1))))) {
             if ((D_803E1D30[D_803C0740[(sp28 >> 6)+0][(sp24 >> 6)+0].unk3].unk2 * 8) >= ABS(temp_t9)) {
                 return 1;
             }
@@ -389,7 +384,7 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
         if (ABS(temp_t9) < 97) {
             return 0;
         }
-        if ((D_803D552C->unk272 & 0x20) && (temp_t9 < 0)) {
+        if ((D_803D552C->aiFlags & AI_FLAG_ALLOW_STEEP_NAVIGATION) && (temp_t9 < 0)) {
             return 1;
         }
     } else {
@@ -417,7 +412,7 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
         }
     }
 
-    if (((D_803D552C->unk272 & 0x10) == 0) && ((D_803D5524->waterClass & WATER_SWIM) == 0)) {
+    if (((D_803D552C->aiFlags & AI_FLAG_COLLIDE_WITH_STATIC) == 0) && ((D_803D5524->waterClass & WATER_SWIM) == 0)) {
         return 0;
     }
 
@@ -652,15 +647,15 @@ void func_803071BC_71886C(void) {
         yOffset = 0;
     }
 
-    if (D_803D552C->navMode != 0) {
+    if (D_803D552C->navMode != NAV_MODE_NONE) {
         switch (D_803D552C->navMode) {
-        case 0:
+        case NAV_MODE_NONE:
             break;
-        case 1:
-            spBC.unk0 = D_80152350.unk2D0[D_803D552C->unk276];
-            spBC.unk4 = D_80152350.unk384[D_803D552C->unk276];
+        case NAV_MODE_SCRIPTED_VECTOR:
+            spBC.unk0 = D_80152350.unk2D0[D_803D552C->navHeadingDegrees];
+            spBC.unk4 = D_80152350.unk384[D_803D552C->navHeadingDegrees];
 
-            yOffset = D_803D552C->unk27C;
+            yOffset = D_803D552C->navTargetY;
 
             if (var_s5 < D_803D552C->navTimer) {
                 var_s5 = D_803D552C->navTimer;
@@ -670,11 +665,11 @@ void func_803071BC_71886C(void) {
             var_t2 = (spB4.unk0 << 7) >> 8;
             var_t1 = (spB4.unk4 << 7) >> 8;
             break;
-        case 2:
-            yOffset = D_803D552C->unk27C;
+        case NAV_MODE_TOWARDS_TARGET:
+            yOffset = D_803D552C->navTargetY;
 
-            spBC.unk0 = D_803D552C->unk278 - xPos;
-            spBC.unk4 = D_803D552C->unk27A - zPos;
+            spBC.unk0 = D_803D552C->navTargetX - xPos;
+            spBC.unk4 = D_803D552C->navTargetZ - zPos;
 
             if (var_s5 < D_803D552C->navTimer) {
                 var_s5 = D_803D552C->navTimer;
@@ -689,11 +684,11 @@ void func_803071BC_71886C(void) {
             var_t2 = (spB4.unk0 << 7) >> 8;
             var_t1 = (spB4.unk4 << 7) >> 8;
             break;
-        case 3:
-            yOffset = D_803D552C->unk27C;
+        case NAV_MODE_AWAY_FROM_TARGET:
+            yOffset = D_803D552C->navTargetY;
 
-            spBC.unk0 = -(D_803D552C->unk278 - xPos);
-            spBC.unk4 = -(D_803D552C->unk27A - zPos);
+            spBC.unk0 = -(D_803D552C->navTargetX - xPos);
+            spBC.unk4 = -(D_803D552C->navTargetZ - zPos);
 
             if (var_s5 < D_803D552C->navTimer) {
                 var_s5 = D_803D552C->navTimer;
@@ -707,9 +702,9 @@ void func_803071BC_71886C(void) {
     }
 
     if ((D_803D552C->navState != NAVIGATION_STATE_FOLLOW_TARGET) &&
-        ((D_803D552C->navState != NAVIGATION_STATE_SCRIPTED) || (D_803D552C->unk2A1 != -1)) &&
-        ((new_var->distance < 0x280) && (D_803D552C->unk272 & 8))) {
-        if (new_var->unk60 != D_803D552C->unk2CC) {
+        ((D_803D552C->navState != NAVIGATION_STATE_SCRIPTED) || (D_803D552C->navSpeedSetting != -1)) &&
+        ((new_var->distance < 0x280) && (D_803D552C->aiFlags & AI_FLAG_HERD_OR_FOLLOW))) {
+        if (new_var->unk60 != D_803D552C->aiTarget) {
             spBC.unk0 = new_var->unk60->position.xPos.h - xPos;
             spBC.unk4 = new_var->unk60->position.zPos.h - zPos;
 
@@ -724,7 +719,7 @@ void func_803071BC_71886C(void) {
                 if (var_s5 < var_a0) {
                     var_s5 = var_a0;
                 }
-            } else if ((D_803D552C->navMode == 0) && (new_var->distance > 76)) {
+            } else if ((D_803D552C->navMode == NAV_MODE_NONE) && (new_var->distance > 76)) {
                 s32 tmp;
                 func_80304EC4_716574(&spBC, &spB4);
 
@@ -744,11 +739,11 @@ void func_803071BC_71886C(void) {
     }
 
     if ((D_803D552C->navState != NAVIGATION_STATE_FOLLOW_TARGET) &&
-        ((D_803D552C->navState != NAVIGATION_STATE_SCRIPTED) || (D_803D552C->unk2A1 != -1)) &&
-        ((new_var->unk0.used != 0) && (D_803D552C->unk272 & 8))) {
+        ((D_803D552C->navState != NAVIGATION_STATE_SCRIPTED) || (D_803D552C->navSpeedSetting != -1)) &&
+        ((new_var->unk0.used != 0) && (D_803D552C->aiFlags & AI_FLAG_HERD_OR_FOLLOW))) {
         for (i = 0; i < new_var->unk0.used; i++) {
             animal = new_var->unk0.animal[i];
-            if (animal == D_803D552C->unk2CC) {
+            if (animal == D_803D552C->aiTarget) {
                 // maybe debug?
                 continue;
             } else {
@@ -766,7 +761,7 @@ void func_803071BC_71886C(void) {
                         if (var_s5 < temp_t8_2) {
                             var_s5 = temp_t8_2;
                         }
-                    } else if ((D_803D552C->navMode == 0) && (temp_v1_2 > 0x80)) {
+                    } else if ((D_803D552C->navMode == NAV_MODE_NONE) && (temp_v1_2 > 0x80)) {
                         if (temp_v1_2 > 0x100) {
                             var_a2 = (0x5000 - (temp_v1_2 << 6)) / 64;
                         } else {
@@ -792,10 +787,10 @@ void func_803071BC_71886C(void) {
     }
 
     D_803D552C->unk28A = 0;
-    if (D_803D552C->unk272 & 4) {
+    if (D_803D552C->aiFlags & AI_FLAG_CAN_FLEE) {
         for (i = 0; i < new_var->unk1C.used; i++) {
             animal = new_var->unk1C.animal[i];
-            if (animal != D_803D552C->unk2CC) {
+            if (animal != D_803D552C->aiTarget) {
                 temp_v1_2 = new_var->unk1C.distance[i];
                 spBC.unk0 = animal->position.xPos.h - xPos;
                 spBC.unk4 = animal->position.zPos.h - zPos;
@@ -814,11 +809,11 @@ void func_803071BC_71886C(void) {
     }
 
     if ((D_803D552C->navState != NAVIGATION_STATE_FOLLOW_TARGET) &&
-        ((D_803D552C->navState != NAVIGATION_STATE_SCRIPTED) || (D_803D552C->unk2A1 != -1)) &&
-        (D_803D552C->unk272 & 2)) {
+        ((D_803D552C->navState != NAVIGATION_STATE_SCRIPTED) || (D_803D552C->navSpeedSetting != -1)) &&
+        (D_803D552C->aiFlags & AI_FLAG_AVOID_NEUTRAL_ANIMALS)) {
         for (i = 0; i < new_var->unk38.used; i++) {
             animal = new_var->unk38.animal[i];
-            if ((animal == D_803D552C->unk2CC) || (animal == D_803D552C->unk2AC)) {
+            if ((animal == D_803D552C->aiTarget) || (animal == D_803D552C->navTarget)) {
                 continue;
             } else {
                 temp_v1_2 = new_var->unk38.distance[i];
@@ -839,7 +834,7 @@ void func_803071BC_71886C(void) {
         }
     }
 
-    if ((D_803D5524->class != CLASS_FLYING) && (D_803D5524->class != CLASS_BIRD) && (D_803D5524->class != CLASS_HELI) && (D_803D552C->unk272 & 0x30)) {
+    if ((D_803D5524->class != CLASS_FLYING) && (D_803D5524->class != CLASS_BIRD) && (D_803D5524->class != CLASS_HELI) && (D_803D552C->aiFlags & (AI_FLAG_COLLIDE_WITH_STATIC | AI_FLAG_ALLOW_STEEP_NAVIGATION))) {
         if ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk82.unk1)) { //  & 0x4000
             sp86 = D_803D5530->unk6C->unk30 * 2;
             sp84 = (D_803D5530->unk6C->unk30 * 2) - 1;
@@ -1333,12 +1328,12 @@ case_14:
 
     yRotation = yRotation & 0xFF;
     if (var_s5 > 0) {
-        if (D_803D552C->unk272 & 0xC0) {
+        if (D_803D552C->aiFlags & (AI_FLAG_TURN_DAMPING | AI_FLAG_STRONG_TURN_DAMPING)) {
             var_v0_5 = 7;
-            if (D_803D552C->unk272 & 0x40) {
+            if (D_803D552C->aiFlags & AI_FLAG_TURN_DAMPING) {
                 var_v0_5 = 6;
             }
-            if (D_803D552C->unk272 & 0x80) {
+            if (D_803D552C->aiFlags & AI_FLAG_STRONG_TURN_DAMPING) {
                 var_v0_5 -= 1;
             }
             var_s5 -= (var_s5 * var_a0) >> var_v0_5;
@@ -1383,7 +1378,7 @@ s32 func_80309798_71AE48(Animal *arg0) {
 
 // ESA: func_8007BE84
 s32 func_80309868_71AF18(void) {
-    if ((D_803D552C->unk272 & 1) != 0) {
+    if ((D_803D552C->aiFlags & AI_FLAG_CAN_ATTACK) != 0) {
         if ((D_803E4BE0.unk58 != 0) && (D_803E4BE0.unk54 < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType])) {
             return func_80309798_71AE48(D_803E4BE0.unk58);
         }
@@ -1396,7 +1391,7 @@ s32 func_803098F0_71AFA0(void) {
     s32 xDist = ABS(D_803D5530->position.xPos.h - gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h);
     s32 zDist = ABS(D_803D5530->position.zPos.h - gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h);
 
-    if ((D_803D552C->unk272 & 1)) {
+    if ((D_803D552C->aiFlags & AI_FLAG_CAN_ATTACK)) {
         if ((s16) (zDist + xDist) < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType]) {
             return func_80309798_71AE48(gAnimalState.animals[gCurrentAnimalIndex].animal);
         }
@@ -1407,12 +1402,12 @@ s32 func_803098F0_71AFA0(void) {
 // ESA: func_8007C038
 s32 func_803099BC_71B06C(void) {
     if (D_803D552C->waypointMode == WAYPOINT_MODE_ENGAGE_PLAYER) {
-        if (D_803D552C->unk272 & 1) {
-            if (D_803D552C->unk2CC != 0) {
+        if (D_803D552C->aiFlags & AI_FLAG_CAN_ATTACK) {
+            if (D_803D552C->aiTarget != 0) {
                 if ((D_803D5524->unk9C != EVO_TRANSFER) &&
                     (D_803D5524->unk9C != EVO) &&
                     (D_803D5524->unk9C != EVO_MICROCHIP)) {
-                    if ((D_803D552C->unk2CC->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->unk2CC->movementMode != MOVEMENT_MODE_2)) {
+                    if ((D_803D552C->aiTarget->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->aiTarget->movementMode != MOVEMENT_MODE_2)) {
                         return 1;
                     }
                 }
@@ -1420,11 +1415,11 @@ s32 func_803099BC_71B06C(void) {
         }
         return 0;
     }
-    if (D_803D552C->unk272 & 1) {
-        if ((D_803D552C->unk2CC != 0) &&
-            (D_803D552C->unk2CC->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+SNEAKY_CHAMELEON)) &&
+    if (D_803D552C->aiFlags & AI_FLAG_CAN_ATTACK) {
+        if ((D_803D552C->aiTarget != 0) &&
+            (D_803D552C->aiTarget->unk16C->objectType != (OB_TYPE_ANIMAL_OFFSET+SNEAKY_CHAMELEON)) &&
             (D_803D552C->targetDistance < D_803A4638_7B5CE8[D_803D5530->unk16C->objectType])) {
-            return func_80309798_71AE48(D_803D552C->unk2CC);
+            return func_80309798_71AE48(D_803D552C->aiTarget);
         }
     }
     return 0;
@@ -1433,7 +1428,7 @@ s32 func_803099BC_71B06C(void) {
 // ESA: func_8007C164
 s32 func_80309ACC_71B17C(void) {
     if (D_803E4BE0.unk64 != 0) {
-        if ((D_803E4BE0.unk60 != NULL) && ((D_803D552C->unk272 & 8) != 0) && (D_803E4BE0.distance < 0x280)) {
+        if ((D_803E4BE0.unk60 != NULL) && ((D_803D552C->aiFlags & AI_FLAG_HERD_OR_FOLLOW) != 0) && (D_803E4BE0.distance < 0x280)) {
             return func_80309798_71AE48(D_803E4BE0.unk60);
         }
     }
@@ -1442,7 +1437,7 @@ s32 func_80309ACC_71B17C(void) {
 
 // ESA: func_8007C1E0
 s32 func_80309B40_71B1F0(void) {
-    if ((D_803D552C->unk272 & 8) != 0) {
+    if ((D_803D552C->aiFlags & AI_FLAG_HERD_OR_FOLLOW) != 0) {
         if ((D_803D552C->unk280 != NULL) && (D_803D552C->unk284 < 640)) {
             return func_80309798_71AE48(D_803D552C->unk280);
         }
@@ -1457,8 +1452,7 @@ s32 func_80309BA0_71B250(void) {
     Animal *a;
     Animal *a2;
 
-
-    if ((D_803D552C->unk272 & 1)) {
+    if ((D_803D552C->aiFlags & AI_FLAG_CAN_ATTACK)) {
         a = D_803E4BE0.unk58;
         if (a != NULL) {
             a2 = a;
@@ -1467,7 +1461,9 @@ s32 func_80309BA0_71B250(void) {
 
             // typo? function looks completely different without the double assignment
             phi_a3 = ABS(D_803D552C->unk280->position.xPos.h - a2->position.xPos.h);
+#if __sgi
             if ((D_803D552C->unk280 && D_803D552C->unk280) && D_803D552C->unk280) {}; // fakematch/regalloc fix
+#endif
             phi_v1 = ABS(D_803D552C->unk280->position.zPos.h - a2->position.zPos.h);
 
             phi_v0 = (phi_v1 + phi_a3) - (D_803D552C->unk280->unk30 + a2->unk30);
@@ -1541,9 +1537,9 @@ void func_80309E4C_71B4FC(Animal *arg0) {
     D_803D552C->unk2BC = 0;
     D_803D552C->unk2C0 = 0;
     D_803D552C->unk2B4.state = 0;
-    D_803D552C->unk2C8 = D_803D552C->unk272;
+    D_803D552C->savedAiFlags = D_803D552C->aiFlags;
 
-    D_803D552C->unk2CC = arg0;
+    D_803D552C->aiTarget = arg0;
     if (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
         D_803D552C->unk2B4.unk7 = 1;
     } else {
@@ -1553,7 +1549,7 @@ void func_80309E4C_71B4FC(Animal *arg0) {
 
 // ESA: func_8007C4B0
 void func_80309EDC_71B58C(Animal *arg0) {
-    D_803D552C->unk2CC = arg0;
+    D_803D552C->aiTarget = arg0;
     if (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
         D_803D552C->unk2B4.unk7 = 1;
     } else {
@@ -1589,18 +1585,18 @@ void func_80309F38_71B5E8(void) {
                 16,
                 32);
             D_803D552C->unk270 = 2;
-            D_803D552C->unk2CC = 0;
+            D_803D552C->aiTarget = 0;
         } else {
             D_803D5530->unk18C.unk1[4] = D_803D5530->unk192.unk1[0];
         }
     }
     func_80305368_716A18(&D_803E4BE0);
 
-    if (D_803D552C->unk2CC != NULL) {
+    if (D_803D552C->aiTarget != NULL) {
         D_803D552C->targetDistance = sqrtf(
-            ((D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h) * (D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h)) +
-            ((D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h) * (D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h)));
-        D_803D552C->targetDistance = ((D_803D552C->targetDistance - D_803D5524->unkBE) - D_803D552C->unk2CC->unk30);
+            ((D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h) * (D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h)) +
+            ((D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) * (D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h)));
+        D_803D552C->targetDistance = ((D_803D552C->targetDistance - D_803D5524->unkBE) - D_803D552C->aiTarget->unk30);
         if (D_803D552C->targetDistance < 0) {
             D_803D552C->targetDistance = 1;
         }
@@ -1638,7 +1634,7 @@ void func_80309F38_71B5E8(void) {
                     D_803D552C->unk271 = 2;
                     break;
                 }
-                if ((D_803D552C->unk272 & 0x400) != 0) {
+                if ((D_803D552C->aiFlags & AI_FLAG_SCRIPTED_PLAYER_ENGAGEMENT) != 0) {
                     D_803D552C->unk2B4.state = 0;
                     D_803D552C->unk270 = 6;
                     break;
@@ -1657,15 +1653,15 @@ void func_80309F38_71B5E8(void) {
     case 1:
         if (func_803099BC_71B06C() != 0) {
             if ((D_803D552C->waypointMode != WAYPOINT_MODE_ENGAGE_PLAYER) &&
-                (D_803E4BE0.unk58 != D_803D552C->unk2CC) &&
+                (D_803E4BE0.unk58 != D_803D552C->aiTarget) &&
                 (func_80309868_71AF18() != 0)) {
                 func_80309EDC_71B58C(D_803E4BE0.unk58);
             }
         } else {
             D_803D552C->unk270 = 0;
-            D_803D552C->unk272 = D_803D552C->unk2C8;
+            D_803D552C->aiFlags = D_803D552C->savedAiFlags;
             D_803D552C->unk2B4.unk4 = 0;
-            D_803D552C->unk2CC = 0;
+            D_803D552C->aiTarget = 0;
             D_803D552C->unk287 = 0;
 
             if (D_803D552C->unk271 > 2) {
@@ -1702,7 +1698,7 @@ void func_80309F38_71B5E8(void) {
             break;
         }
         if ((D_803D552C->unk280->unk2B4.unk4 != 0) && (D_803D552C->unk284 < 480)) {
-            func_80309E4C_71B4FC(D_803D552C->unk280->unk2CC);
+            func_80309E4C_71B4FC(D_803D552C->unk280->aiTarget);
             D_803D552C->unk270 = 4;
         }
         func_803633C4_774A74(D_803D5530);
@@ -1712,8 +1708,8 @@ void func_80309F38_71B5E8(void) {
     case 4:
         if (func_80309B40_71B1F0() == 0) {
             D_803D552C->unk270 = 0;
-            D_803D552C->unk272 = D_803D552C->unk2C8;
-            D_803D552C->unk2CC = 0;
+            D_803D552C->aiFlags = D_803D552C->savedAiFlags;
+            D_803D552C->aiTarget = 0;
             D_803D552C->unk280 = NULL;
             D_803D552C->unk287 = 0;
             func_80363FF0_7756A0(D_803D5530);
@@ -1722,10 +1718,10 @@ void func_80309F38_71B5E8(void) {
 
         D_803D552C->unk280->unk2B4.unk8++;
 
-        if ((D_803D552C->unk284 > 490) || (D_803D552C->unk280->unk2CC == 0) || (D_803D552C->unk280->unk2B4.unk4 == 0)) {
+        if ((D_803D552C->unk284 > 490) || (D_803D552C->unk280->aiTarget == 0) || (D_803D552C->unk280->unk2B4.unk4 == 0)) {
             D_803D552C->unk270 = 3;
-            D_803D552C->unk272 = D_803D552C->unk2C8;
-            D_803D552C->unk2CC = 0;
+            D_803D552C->aiFlags = D_803D552C->savedAiFlags;
+            D_803D552C->aiTarget = 0;
             set_nav_state_idle(D_803D5530);
             break;
         }
@@ -1738,8 +1734,8 @@ void func_80309F38_71B5E8(void) {
     case 5:
         if (func_80309B40_71B1F0() == 0) {
             D_803D552C->unk270 = 0;
-            D_803D552C->unk272 = D_803D552C->unk2C8;
-            D_803D552C->unk2CC = 0;
+            D_803D552C->aiFlags = D_803D552C->savedAiFlags;
+            D_803D552C->aiTarget = 0;
             D_803D552C->unk280 = NULL;
             D_803D552C->unk287 = 0;
             func_80363FF0_7756A0(D_803D5530);
@@ -1750,10 +1746,10 @@ void func_80309F38_71B5E8(void) {
 
         if ((D_803D552C->unk280->targetDistance > 320) ||
             (D_803E4BE0.distance > 490) ||
-            (func_80362B00_7741B0(D_803D552C->unk2CC))) {
+            (func_80362B00_7741B0(D_803D552C->aiTarget))) {
             D_803D552C->unk270 = 3;
-            D_803D552C->unk272 = D_803D552C->unk2C8;
-            D_803D552C->unk2CC = 0;
+            D_803D552C->aiFlags = D_803D552C->savedAiFlags;
+            D_803D552C->aiTarget = 0;
             set_nav_state_idle(D_803D5530);
             break;
         }
@@ -1763,7 +1759,7 @@ void func_80309F38_71B5E8(void) {
         func_803071BC_71886C();
         break;
     case 6:
-        if ((D_803D552C->unk272 & 0x400) == 0) {
+        if ((D_803D552C->aiFlags & AI_FLAG_SCRIPTED_PLAYER_ENGAGEMENT) == 0) {
             func_80363FF0_7756A0(D_803D5530);
             D_803D552C->unk270 = 0;
             D_803D552C->unk2EB = 0;
@@ -1818,11 +1814,10 @@ void animal_jump(void) {
 
 // ESA: func_8007CFAC
 s32 func_8030AA08_71C0B8(Animal *arg0, Animal *arg1) {
-    if (arg0 == arg1->unk2CC) {
+    if (arg0 == arg1->aiTarget) {
         return 0;
     }
-    if ((arg1->unk272 & 1) || (arg1->unk272 & 4)) {
-        // get behaviour
+    if ((arg1->aiFlags & AI_FLAG_CAN_ATTACK) || (arg1->aiFlags & AI_FLAG_CAN_FLEE)) {
         s16 ai_behavior = get_ai_behaviour(arg1->unk16C->objectType, arg0->unk16C->objectType);
         if ((ai_behavior == AI_ATTACK) || (ai_behavior == AI_FLEE))
             return 0;

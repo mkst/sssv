@@ -61,12 +61,12 @@ s32 init_controllers(void) {
     D_802912E4 = 1;
     D_802912E5 = 1;
 
-    osCreateMesgQueue(&D_8028D0A8, &D_8029104C, 1);
+    osCreateMesgQueue(&D_8028D0A8, D_8029104C, 1);
     osSetEventMesg(5U, &D_8028D0A8, (void *)1);
-
+#ifdef __sgi
     if((s32)&D_80291110[0]) {};
     if (0) { }
-
+#endif
     osContInit(&D_8028D0A8, &pattern, gControllerStatus);
 
     numControllers = 0;
@@ -156,7 +156,7 @@ void func_80136F64(void) {
 
 void func_801370A4(void) {
     D_80158540 = 1;
-    osCreateMesgQueue(&D_8028D090, &D_80291048, 1);
+    osCreateMesgQueue(&D_8028D090, D_80291048, 1);
     osSendMesg(&D_8028D090, 0, OS_MESG_NOBLOCK);
 }
 
@@ -283,7 +283,7 @@ work:
 
 void func_801375E8(s16 cont) {
     s32 tmp;
-    s16 pad0[2];
+    s16 pad0[2] UNUSED;
 
     if (D_80291090.hasRumblePak[cont] == 0) {
         if ((++D_802912DC > 60) ) {

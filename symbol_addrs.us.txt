@@ -25,20 +25,8 @@ gFramebuffer                = 0x80000400; // size:0x4b000
 gfxspecific                 = 0x800B0B20; // segment:overlay1
 D_800B49A0                  = 0x800B49A0;
 D_800B68E0                  = 0x800B68E0;
-D_800BA760                  = 0x800BA760;
-D_800BB700                  = 0x800BB700;
-D_800BBBB0                  = 0x800BBBB0;
-D_800BC060                  = 0x800BC060;
-D_800BC510                  = 0x800BC510;
-D_800BC9C0                  = 0x800BC9C0;
-D_800BCE70                  = 0x800BCE70;
-D_800BD320                  = 0x800BD320;
-D_800BD7D0                  = 0x800BD7D0;
-D_800BDC80                  = 0x800BDC80;
-D_800C3A40                  = 0x800C3A40;
-D_800C5A40                  = 0x800C5A40;
-D_800C7DC0                  = 0x800C7DC0;
-D_800CFE60                  = 0x800CFE60;
+D_800BA760                  = 0x800BA760; // size:0xd660
+D_800CFE60                  = 0x800CFE60; // size:0x55c0
 D_800D5420                  = 0x800D5420;
 D_800D7C20                  = 0x800D7C20;
 D_800EF0D0                  = 0x800EF0D0; // size:0x10000
@@ -49,6 +37,14 @@ D_800DEE20                  = 0x800DEE20;
 D_800DF220                  = 0x800DF220;
 fontbuffer                  = 0x800E1220;
 D_80100000                  = 0x80100000;
+
+D_803F713C                  = 0x803F713C; // size:0x6 segment:overlay2
+D_803D3430                  = 0x803D3430; // size:0x6 segment:overlay2
+D_803D3440                  = 0x803D3440; // segment:overlay2
+D_803D343C                  = 0x803D343C; // segment:overlay2
+D_803D3438                  = 0x803D3438; // segment:overlay2
+D_803D45D0                  = 0x803D45D0; // segment:overlay2 size:0x5e0
+
 
 // images
 
@@ -302,9 +298,9 @@ BitBuffBits            = 0x8022E3E4;
 FirstEntry             = 0x8022E3E6;
 SecondEntry            = 0x8022E3E8;
 
-D_8022E3F0             = 0x8022E3F0; // size:0x36b0 segment:main
-D_80231AA0             = 0x80231AA0;
-D_80231D50             = 0x80231D50; // segment:overlay2 size:0x700C
+D_8022E3F0             = 0x8022E3F0; // size:0x7020 segment:main
+// D_80231AA0             = 0x80231AA0;
+// D_80231D50             = 0x80231D50; // segment:overlay2 size:0x700C
 D_80235410             = 0x80235410; // size:0x9dd0
 D_8023F1E0             = 0x8023F1E0; // size:0xE
 D_8023F1F0             = 0x8023F1F0;
@@ -466,11 +462,11 @@ gWorldCellOpaqueDisplayLists             = 0x80205410;
 D_80205470             = 0x80205470;
 
 D_80205478             = 0x80205478;
-D_80210FF0             = 0x80210FF0;
+gOpaqueVtxPool         = 0x80210FF0;
 D_80224870             = 0x80224870;
-gWorldCellTranslucentDisplayLists             = 0x802255F0;
+gWorldCellTranslucentDisplayLists        = 0x802255F0;
 D_80225650             = 0x80225650; // size:0x3e80 segment:main
-D_802294D0             = 0x802294D0;
+gTranslucentVtxPool    = 0x802294D0;
 D_8022D350             = 0x8022D350;
 
 D_803B6700_7C7DB0      = 0x803B6700; // rom:0x7C7DB0 size:0x138
@@ -742,7 +738,7 @@ D_803D2DF8 = 0x803D2DF8; // segment:overlay2
 D_803D2DFC = 0x803D2DFC; // segment:overlay2
 D_803D2DFE = 0x803D2DFE; // segment:overlay2
 D_803D2E00 = 0x803D2E00; // segment:overlay2
-gDynamicTextureBillboardQueue = 0x803D2E08; // segment:overlay2
+gDynamicTextureBillboardQueue = 0x803D2E08; // segment:overlay2 size:0x620
 
 D_803D3FF8 = 0x803D3FF8; // segment:overlay2 size:0x5d8
 D_803D4BB0 = 0x803D4BB0; // segment:overlay2 size:0x5d8
@@ -790,7 +786,7 @@ D_803D5B30 = 0x803D5B30; // segment:overlay2
 D_803D5E00 = 0x803D5E00; // segment:overlay2
 
 // collision
-D_803D60D0 = 0x803D60D0;
+D_803D60D0 = 0x803D60D0; // segment:overlay2
 D_803D60D4 = 0x803D60D4; // segment:overlay2
 D_803D60D8 = 0x803D60D8; // segment:overlay2
 D_803D60DC = 0x803D60DC; // segment:overlay2
@@ -942,17 +938,24 @@ D_803E4CA0 = 0x803E4CA0; // segment:overlay2
 D_803E4CA4 = 0x803E4CA4; // segment:overlay2
 D_803E4CA5 = 0x803E4CA5; // segment:overlay2
 D_803E4CA6 = 0x803E4CA6; // segment:overlay2
-D_803E4CA8 = 0x803E4CA8; // segment:overlay2
-gLevelProgress = 0x803E4D28;
-gTasksCompleted = 0x803E4D2C;
-D_803E4D30 = 0x803E4D30;
+D_803E4CA8 = 0x803E4CA8; // segment:overlay2 size 0x80
+gLevelProgress = 0x803E4D28; // segment:overlay2
+gTasksCompleted = 0x803E4D2C; // segment:overlay2
+D_803E4D30 = 0x803E4D30; // segment:overlay2
 D_803E4D38 = 0x803E4D38; // segment:overlay2
-D_803E4D3C = 0x803E4D3C;
+D_803E4D3C = 0x803E4D3C; // segment:overlay2
 D_803E4D40 = 0x803E4D40; // segment:overlay2
-D_803E8E54 = 0x803E8E54;
+D_803E8E54 = 0x803E8E54; // segment:overlay2
 D_803E8E56 = 0x803E8E56; // segment:overlay2
-D_803E8E57 = 0x803E8E57;
+D_803E8E57 = 0x803E8E57; // segment:overlay2
 D_803E8E58 = 0x803E8E58; // segment:overlay2
+
+D_803D5508 = 0x803D5508; // segment:overlay2
+D_803DA0FC = 0x803DA0FC; // segment:overlay2
+D_803DA100 = 0x803DA100; // segment:overlay2
+D_803DA104 = 0x803DA104; // segment:overlay2
+D_803DA108 = 0x803DA108; // segment:overlay2
+
 // TODO: D_803E8E5C = 0x803E8E5C;
 
 // overlay2_72B100
@@ -1063,7 +1066,7 @@ D_803F2CA0 = 0x803F2CA0; // segment:overlay2
 D_803F2CA2 = 0x803F2CA2; // segment:overlay2
 D_803F2CA4 = 0x803F2CA4; // segment:overlay2
 D_803F2CA6 = 0x803F2CA6; // segment:overlay2
-gWorldCellTranslucentEnabled = 0x803F2CA8;
+gWorldCellTranslucentEnabled = 0x803F2CA8; // segment:overlay2 size:0x8
 D_803F2CC0 = 0x803F2CC0; // segment:overlay2 size:0x8
 
 // osd
@@ -1086,7 +1089,7 @@ gHudBarBaseY = 0x803F2CF0; // segment:overlay2
 D_803F2CF2 = 0x803F2CF2; // segment:overlay2
 D_803F2CF8 = 0x803F2CF8; // segment:overlay2
 D_803F2D04 = 0x803F2D04;
-gUiFlowState = 0x803F2D10;
+gUiFlowState = 0x803F2D10; // segment:overlay2 size:0x4
 D_803F2D18 = 0x803F2D18; // segment:overlay2
 D_803F2D20 = 0x803F2D20; // segment:overlay2
 D_803F2D22 = 0x803F2D22; // segment:overlay2
@@ -1190,12 +1193,12 @@ D_803F671C = 0x803F671C; // segment:overlay2
 gRigPoseStates = 0x803F6720;
 D_803F70F8 = 0x803F70F8;
 D_803F7134 = 0x803F7134;
-D_803F713C = 0x803F713C;
+
 D_803F7144 = 0x803F7144;
 D_803F714C = 0x803F714C;
 
 // ui_main_menu
-D_803F7D60 = 0x803F7D60;
+D_803F7D60 = 0x803F7D60; // segment:overlay2
 D_803F7D68 = 0x803F7D68;
 D_803F7D70 = 0x803F7D70;
 D_803F7D78 = 0x803F7D78;
@@ -1207,7 +1210,7 @@ D_803F7DA2 = 0x803F7DA2;
 D_803F7DA3 = 0x803F7DA3;
 D_803F7DA8 = 0x803F7DA8; // segment:overlay2 size:0x34
 D_803F7DE0 = 0x803F7DE0; // segment:overlay2 size:0x1E
-D_803F7DFE = 0x803F7DFE;
+D_803F7DFE = 0x803F7DFE; // segment:overlay2
 D_803F7E00 = 0x803F7E00;
 D_803F7E02 = 0x803F7E02;
 D_803F7E04 = 0x803F7E04;

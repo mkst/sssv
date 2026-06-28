@@ -107,7 +107,7 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
 
             if (var_f12 > 0.0f) {
                 depth = (temp_f2 * 1023.0f * 32.0f) + 32736.0f;
-                gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.unk42), 0);
+                gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.primDepthOffset), 0);
 
                 xOffset = (arg4 * var_f12) / 128.0;
                 yOffset = (arg5 * var_f12) / 128.0;
@@ -244,7 +244,7 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
                 gDPSetPrimColor((*dl)++, 0, var_a1, gFogState.r, gFogState.g, gFogState.b, 0xFF);
 
                 depth = ((sp98 * 1023.0f * 32.0f) + 32736.0f);
-                gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.unk42), 0);
+                gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.primDepthOffset), 0);
 
                 if (arg5 > 32) {
                     arg5 -= 32;
@@ -375,7 +375,7 @@ void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s1
 
                 depth = ((sp94 * 1023.0f * 32.0f) + 32736.0f);
                 gDPSetPrimColor((*dl)++, 0, limit, gFogState.r, gFogState.g, gFogState.b, 0xFF);
-                gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.unk42), 0);
+                gDPSetPrimDepth((*dl)++, (depth - D_803F2D50.primDepthOffset), 0);
 
                 xOffset = (arg4 * var_v1) / 128.0;
                 yOffset = (arg5 * var_a0) / 128.0;
@@ -477,7 +477,7 @@ void draw_particle_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16
             }
 
             if ((var_a3 > 0) && (var_t1 > 0)) {
-                gDPSetPrimDepth((*dl)++, (u16)(((temp_f18 * 1023.0f * 32.0f) + 32736.0f) - D_803F2D50.unk42), 0);
+                gDPSetPrimDepth((*dl)++, (u16)(((temp_f18 * 1023.0f * 32.0f) + 32736.0f) - D_803F2D50.primDepthOffset), 0);
 
                 xOffset = (arg4 * var_a3) / 128.0;
                 yOffset = (arg5 * var_t1) / 128.0;

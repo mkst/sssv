@@ -383,7 +383,7 @@ void func_8035FB10_7711C0(void) {
         }
     }
     a = func_8037E9AC_79005C();
-    D_803D552C->unk2CC = a;
+    D_803D552C->aiTarget = a;
     if (a != NULL) {
         D_803D552C->unk2B4.unk4 = 1;
     } else {
@@ -394,7 +394,7 @@ void func_8035FB10_7711C0(void) {
 // king rat
 void func_8035FC08_7712B8(void) {
     D_803D552C->unk2B4.unk4 = 0;
-    D_803D552C->unk2CC = NULL;
+    D_803D552C->aiTarget = NULL;
 }
 
 void rat_drop_mine(void) {

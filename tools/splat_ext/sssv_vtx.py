@@ -1,13 +1,13 @@
 from pathlib import Path
 
-from src.splat.util import options
-from src.splat.segtypes.n64.vtx import N64SegVtx
+from splat.util import options
+from splat.segtypes.n64.vtx import N64SegVtx
 
 
 class N64SegSssv_vtx(N64SegVtx):
-    def __init__(self, rom_start, rom_end, type, name, vram_start, args, yaml):
+    def __init__(self, rom_start, rom_end, type, name, vram_start, args, yaml, bss_size = None):
         super().__init__(
-            rom_start, rom_end, type, name, vram_start, args=args, yaml=yaml
+            rom_start, rom_end, type, name, vram_start, args=args, yaml=yaml, bss_size=bss_size
         )
         self.data_only = True
 

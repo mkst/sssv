@@ -26,7 +26,7 @@ void func_8012FAD4(Gfx **dl, s32 addr);
 // ========================================================
 
 // language file offsets at ROM 0x2fc00
-u8* D_80154500[36*2] = {
+Addr* D_80154500[36*2] = {
     _lang_lang1_dat_rncSegmentRomStart, _lang_lang1_dat_rncSegmentRomEnd,
     _lang_lang2_dat_rncSegmentRomStart, _lang_lang2_dat_rncSegmentRomEnd,
     _lang_lang3_dat_rncSegmentRomStart, _lang_lang3_dat_rncSegmentRomEnd,
@@ -86,14 +86,9 @@ Gfx D_80154628[] = {
 // .bss
 // ========================================================
 
-s16 D_8022E3F0[7000]; // rnc decompress scratch area
+LanguageData D_8022E3F0;
 
-// this should be 350?
-u16 D_80231AA0[342];  // level text message offsets
-
-LevelText D_80231D50; // level text data loaded into here
-
-static u8  D_80235410[0x9dd0]; // holds decompressed rnc
+static u8  D_80235410[40400]; // holds decompressed rnc
 
 static FontInfo currentFont;
 
@@ -106,9 +101,8 @@ static u8   useDropShadow;
 static f32  D_8023F1F8; // current font width / scale
 static f32  D_8023F1FC; // current font height / scale
 
-static s16  D_8023F200[3]; // unused
-static s16  D_8023F206[1];
-s16  D_8023F208[32];
+static s16  D_8023F200[4] UNUSED;
+       s16  D_8023F208[32];
 static s16  D_8023F248[12];
 
 
@@ -123,13 +117,13 @@ void load_default_display_list(Gfx **dl) {
 
 // does not appear to be used for cutscenes
 void set_menu_text_color(u8 r, u8 g, u8 b, u8 a) {
-    textColorR = r; // textColorR
-    textColorG = g; // textColorG
-    textColorB = b; // textColorB
-    textColorA = a; // textColorA
+    textColorR = r;
+    textColorG = g;
+    textColorB = b;
+    textColorA = a;
 }
 
-void select_font(u8 isMonospace, u8 fontType, u8 shadow, u8 arg3) {
+void select_font(u8 isMonospace, u8 fontType, u8 shadow, u8 arg3 UNUSED) {
     useMonospacedFont = isMonospace;
     useDropShadow = shadow;
     if (fontType == FONT_LCD) {
@@ -189,7 +183,7 @@ s16 get_message_width(s16 *text) {
                 time[1] = text[2];
                 time[2] = EOM;
 
-                sprintf(spFC, "%d", D_8023F206[convert_text_to_int(time)]);
+                sprintf(spFC, "%d", D_8023F208[convert_text_to_int(time) - 1]);
                 prepare_text((u8*)spFC, sp5C);
                 res += get_message_width(sp5C);
                 text += 3;
@@ -236,7 +230,7 @@ s16 process_text_token(s16 *text, u16 x, u16 y) {
                 num = (num*10 + sp30[i]) - TILESET_ZERO;
                 i++;
             }
-            sprintf((char*)spD8, "%d", D_8023F206[num]);
+            sprintf((char*)spD8, "%d", D_8023F208[num - 1]);
             prepare_text(spD8, D_8023F248);
             func_8012D374(&gMainDL, D_8023F248, x, y, D_8023F1F8, D_8023F1FC, -1);
             return 1;
@@ -607,7 +601,7 @@ void display_text(Gfx **dl, s16 *text, u16 x, u16 y, f32 width, f32 height) {
     gDPPipeSync((*dl)++);
 }
 
-s16 get_char_type(s16 *text, u16 arg1, u16 arg2) {
+s16 get_char_type(s16 *text, u16 arg1 UNUSED, u16 arg2 UNUSED) {
     if (*text == TEXT_CONTROL_CHAR) {
         // next char
         text++;
@@ -723,22 +717,22 @@ s16 func_8012E78C(s16 *text, f32 fontWidth, f32 fontHeight, u8 lineHeight) {
 
 void display_text_word_wrapped(Gfx **dl, s16 *text, u16 xStart, u16 yStart, f32 arg4, f32 arg5, u8 lineHeight) {
     s16 wchr;       // sp256
-    u8  sp154[0x102];
+    u8  sp154[0x102] UNUSED;
 
     u16 xPos2;
     u16 sp150;
     s16 *tmp;
     s16 *sp148;
 
-    s16 pad[2];
-    s16 pad4;
+    s16 pad[2] UNUSED;
+    s16 pad4 UNUSED;
 
     s16 wchr2;
-    s16 pad2;
+    s16 pad2 UNUSED;
     s16 xPos; // sp144?
     s16 yPos; // sp142
 
-    s16 pad3;
+    s16 pad3 UNUSED;
 
     s16 sp124[10]; // col starts?
     s16 sp110[10]; // row starts?
@@ -761,8 +755,8 @@ void display_text_word_wrapped(Gfx **dl, s16 *text, u16 xStart, u16 yStart, f32 
     xPos = 0;
     yPos = 0;
 
-    bzero_sssv((u8*)&sp124, sizeof(sp124));
-    bzero_sssv((u8*)&sp110, sizeof(sp110));
+    bzero_sssv((u8*)sp124, sizeof(sp124));
+    bzero_sssv((u8*)sp110, sizeof(sp110));
 
     var_s7 = 0;
     numLines = 0;
@@ -1027,7 +1021,6 @@ s16 display_text_wrapped(Gfx **dl, s16 *text, u16 x, u16 y, f32 fontWidth, f32 f
     s16 wchr;
     u16 xPos2, xPos3;
     s16 *next;
-    char language;
 
     xStart = x;
 
@@ -1226,14 +1219,19 @@ void prepare_text(u8 *src, s16 *dst) {
     *dst = EOM;
 }
 
+typedef struct {
+    u8 *start;
+    u8 *end;
+} LangRomData;
+
 s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
     s16 copied;
     s16 msg_length;
     s16 i;
     s16 *src;
     s16 num_msgs;
-    u8 **lang;
-    u8 (*new_var)[];
+    LangRomData *lang;
+    u8 *src2;
 
     if (D_80204240.region == REGION_EU) {
         if (language < LANG_MIN) {
@@ -1265,24 +1263,24 @@ s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
     // each message starts with an s16 containing the message length in bytes
     // each message ends with 0x7350 (30000)
 
-    lang = &D_80154500[level+level];
-    dma_read(lang[0], D_8022E3F0, lang[1] - lang[0]);
-    UnpackRNC((RNC_fileptr)D_8022E3F0, D_80235410);
+    lang = (LangRomData*)&D_80154500[level + level];
+    dma_read(lang->start, D_8022E3F0.scratch, lang->end - lang->start);
+    UnpackRNC(D_8022E3F0.scratch, D_80235410);
 
-    // TODO: can this be replaced with a cast?
-    new_var = &D_80235410;
-    memcpy_sssv(((s32*)D_80235410)[language] + *new_var, (u8*)D_8022E3F0, 12000);
+    src2 = D_80235410;
+    src2 += ((s32*)src2)[language];
+    memcpy_sssv(src2, D_8022E3F0.scratch, 12000);
 
-    num_msgs = D_8022E3F0[0];
-    src = &D_8022E3F0[1]; // first message in segment
+    // first item is the number of messages
+    num_msgs = D_8022E3F0.numMsgs;
+    src = (s16*)&D_8022E3F0.scratch[2];
 
-    // first s16 contains number of messages in segment
     for (i = 0, copied = 0; i < num_msgs; i++) {
-        // first field is message length
+        // first field is message length (bytes)
         msg_length = *src++;
         // update offset as end of previous message
         msg_offsets[i] = copied;
-        memcpy_sssv((u8*)src, (u8*)&dst[copied], msg_length);
+        memcpy_sssv(src, dst + copied, msg_length);
         copied += msg_length;
         // message length is in bytes but source is characters (i.e. s16s)
         src += msg_length / 2;
@@ -1291,10 +1289,8 @@ s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
     return num_msgs;
 }
 
-// ========== file split? ========== //
-
 s16 *get_message_address_by_id(s16 id) {
-    return &D_8022E3F0[D_8022E3F0[id + 7000] + 7350];
+    return &D_8022E3F0.data[D_8022E3F0.messages[id]];
 }
 
 s16 get_raw_message_length(s16 *msg) {

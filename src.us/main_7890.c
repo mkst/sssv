@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
+#ifdef __sgi
+
 typedef struct {
     u8  pad0[0x8];
     u16 unk8;
@@ -12,8 +14,7 @@ typedef struct {
     u8  unk4;
 } struct014;
 
-// unused. fakematch nonsense.
-void func_8012C190(struct014 *arg0, u16 arg1, s16 arg2, s16 arg3) {
+void unused_8012C190(struct014 *arg0, u16 arg1, s16 arg2, s16 arg3) {
     u8 i;
     int new_var2;
     struct014_inner *new_var;
@@ -30,3 +31,5 @@ void func_8012C190(struct014 *arg0, u16 arg1, s16 arg2, s16 arg3) {
         }
     }
 }
+
+#endif

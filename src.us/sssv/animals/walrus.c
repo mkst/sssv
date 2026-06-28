@@ -56,7 +56,7 @@ void func_80374C70_786320(void) {
             do_rumble(0, 0xD, 0x19, 5, 0);
         }
     }
-    if (D_803F2D50.unk52 != 2) {
+    if (D_803F2D50.textureBank != 2) {
         if (D_803D5530->yVelocity.h >= 0x3D) {
             D_803D5530->yVelocity.h -= 2;
         }
@@ -199,7 +199,7 @@ void func_80374C70_786320(void) {
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 4) / 5, 1, 2, 2, 0.4f);
-            if ((D_803F2D50.unk52 == 4) && (D_803D5538 == 0)) {
+            if ((D_803F2D50.textureBank == 4) && (D_803D5538 == 0)) {
                 if (D_803D553C == 1) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x5C, 0xAA, 0x79, 0xFF); // greenish
                 } else if (D_803D553C == 2) {

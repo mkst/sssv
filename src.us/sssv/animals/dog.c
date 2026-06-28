@@ -412,8 +412,8 @@ done:
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, 0.22f);
             load_1_tile(img_flying_dog_body_pal, img_flying_dog_body_ci4__png);
-            func_802C78B0_6D8F60(2, 1, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040001A0_C7BD0);
-            func_802C78B0_6D8F60(0x13, 0x14, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000DD0_C8800);
+            func_802C78B0_6D8F60( 2,  1, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040001A0_C7BD0);
+            func_802C78B0_6D8F60(19, 20, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04000DD0_C8800);
 
             gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0x00, 0xFF);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 0x13, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04001220_C8C50); }
@@ -601,7 +601,7 @@ void func_802ED108_6FE7B8(void) {
         func_8034BB38_75D1E8(200);
         if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&spB8, 0x12C, 0x96, 0x3CE, 0x96);
-            func_802BD40C_6CEABC(0x1DA, 0xC8, 0x12C, 0x96, 0, 0x34, 0, 0x20, &D_803A4C34_7B62E4, &D_803A4C64_7B6314, &D_803A4C94_7B6344, 0x1DA, 0xC8, 0x12C, 0x96, 0x64, 0xE4, 0x64, 0x84, &D_803A4C34_7B62E4, &D_803A4C64_7B6314, &D_803A4C94_7B6344, &spB8, 1);
+            func_802BD40C_6CEABC(0x1DA, 0xC8, 0x12C, 0x96, 0, 0x34, 0, 0x20, D_803A4C34_7B62E4, D_803A4C64_7B6314, D_803A4C94_7B6344, 0x1DA, 0xC8, 0x12C, 0x96, 0x64, 0xE4, 0x64, 0x84, D_803A4C34_7B62E4, D_803A4C64_7B6314, D_803A4C94_7B6344, &spB8, 1);
             func_802B964C_6CACFC();
             func_802C4A70_6D6120(0x22C, 0x1BB, 0);
             func_8038CCF0_79E3A0(0xDD, 0x13, 0x14, -1, -1, -1);

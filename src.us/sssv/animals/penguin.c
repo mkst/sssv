@@ -366,7 +366,7 @@ void func_80365C7C_77732C(void) {
             D_803D552C->unk308 = 80;
         }
     }
-    if (D_803D552C->unk2CC = func_8037E9AC_79005C()) {
+    if (D_803D552C->aiTarget = func_8037E9AC_79005C()) {
         D_803D552C->unk2B4.unk4 = 1;
     } else {
         D_803D552C->unk2B4.unk4 = 0;

@@ -171,6 +171,8 @@ void frog_croak(void);
 // overlay2_716900
 void animal_jump(void);
 
+s32  resolve_movement_and_collision(Entity *arg0);
+
 // sssv/animals/parrot
 void parrot_fly(void);
 

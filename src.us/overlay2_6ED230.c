@@ -133,23 +133,23 @@ void func_802DBB80_6ED230(u16 arg0) {
 // ESA: func_800A186C
 void func_802DBCDC_6ED38C(u16 arg0) {
     s32 phi_v1;
-    u16 tmp;
+    u16 ticks_remaining;
 
-    tmp = D_803D5544 - D_803D552C->attackTimer;
-    if (arg0 < tmp) {
+    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    if (arg0 < ticks_remaining) {
         D_803D552C->unk364 = 0;
         return;
     }
-    if (tmp == 1) {
+    if (ticks_remaining == 1) {
         if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
             play_sound_effect_at_location(D_803A6470_7B7B20[D_803D5524->unk9C], D_803A6520_7B7BD0[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
-    if (((tmp << 7) / arg0) < 16) {
-        phi_v1 = ((tmp << 7) / arg0) << 11;
+    if (((ticks_remaining << 7) / arg0) < 16) {
+        phi_v1 = ((ticks_remaining << 7) / arg0) << 11;
     } else {
-        phi_v1 = COS((((tmp << 7) / arg0) -16) << 2) / (((tmp << 7) / arg0) >> 4);
+        phi_v1 = COS((((ticks_remaining << 7) / arg0) -16) << 2) / (((ticks_remaining << 7) / arg0) >> 4);
     }
     D_803F2EB0 = D_803F2EB0 + phi_v1;
     D_803F2EB4 = D_803F2EB4 - phi_v1;
@@ -333,6 +333,7 @@ void func_802DC6A4_6EDD54(u16 arg0) {
 }
 
 // ESA: func_800A21B0
+// arg1 == 24
 void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
     s16 phi_v1;
     u16 temp_t0;

@@ -12,7 +12,7 @@ extern s16 D_803B5F40_7C75F0[];
 extern s16 D_803B5F64_7C7614[];
 extern s16 D_803B5FB0_7C7660[];
 extern struct077 D_803B5EA4_7C7554[];
-extern s16 D_803B5F2C_7C75DC[];
+extern u8 D_803B5F2C_7C75DC[];
 
 extern u8  D_803B5F18_7C75C8[];
 

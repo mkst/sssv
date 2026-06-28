@@ -17,17 +17,11 @@ typedef struct {
 } LevelRingPosition;
 
 // ========================================================
-// externs
-// ========================================================
-
-extern LevelRingPosition D_803B71D0_7C8880[];
-
-// ========================================================
 // .data
 // ========================================================
 
-#if 0
 LevelRingPosition D_803B71D0_7C8880[30] = {
+/*    x     y     width height idx */
     { 0xE1, 0xF9, 0x09, 0x07, 0x07, },
     { 0xE2, 0xF3, 0x0A, 0x09, 0x06, },
     { 0xE4, 0xED, 0x0A, 0x0B, 0x05, },
@@ -43,6 +37,7 @@ LevelRingPosition D_803B71D0_7C8880[30] = {
     { 0x12, 0xED, 0x0A, 0x0B, 0x05, },
     { 0x14, 0xF3, 0x0A, 0x09, 0x06, },
     { 0x16, 0xF9, 0x09, 0x07, 0x07, },
+
     { 0x16, 0xFF, 0x09, 0x07, 0x07, },
     { 0x14, 0x03, 0x0A, 0x09, 0x06, },
     { 0x12, 0x07, 0x0A, 0x0B, 0x05, },
@@ -60,89 +55,82 @@ LevelRingPosition D_803B71D0_7C8880[30] = {
     { 0xE1, 0xFF, 0x09, 0x07, 0x07, },
 };
 
-// 2 extra bytes, presumably just padding
-
 u8 *D_803B7268_7C8918[32*2] = {
-    img_thumbnails_SMASHING_START_rgba16_rncRomStart, img_thumbnails_SMASHING_START_rgba16_rncRomEnd,
-    img_thumbnails_HAVE_A_NICE_DAY_rgba16_rncRomStart, img_thumbnails_HAVE_A_NICE_DAY_rgba16_rncRomEnd,
-    img_thumbnails_HONEYMOON_LAGOON_rgba16_rncRomStart, img_thumbnails_HONEYMOON_LAGOON_rgba16_rncRomEnd,
-    img_thumbnails_THE_BATTERY_FARM_rgba16_rncRomStart, img_thumbnails_THE_BATTERY_FARM_rgba16_rncRomEnd,
-    img_thumbnails_THE_ENGINE_ROOM_rgba16_rncRomStart, img_thumbnails_THE_ENGINE_ROOM_rgba16_rncRomEnd,
-    img_thumbnails_FAT_BEAR_MOUNTAIN_rgba16_rncRomStart, img_thumbnails_FAT_BEAR_MOUNTAIN_rgba16_rncRomEnd,
-    img_thumbnails_ROCKY_HARD_PLACE_rgba16_rncRomStart, img_thumbnails_ROCKY_HARD_PLACE_rgba16_rncRomEnd,
-    img_thumbnails_STINKY_SEWERS_rgba16_rncRomStart, img_thumbnails_STINKY_SEWERS_rgba16_rncRomEnd,
-    img_thumbnails_RAT_O_MATIC_rgba16_rncRomStart, img_thumbnails_RAT_O_MATIC_rgba16_rncRomEnd,
-    img_thumbnails_GIVE_A_DOG_A_BONUS_rgba16_rncRomStart, img_thumbnails_GIVE_A_DOG_A_BONUS_rgba16_rncRomEnd,
-    img_thumbnails_SNOW_JOKE_rgba16_rncRomStart, img_thumbnails_SNOW_JOKE_rgba16_rncRomEnd,
-    img_thumbnails_ICE_N_EASY_DOES_IT_rgba16_rncRomStart, img_thumbnails_ICE_N_EASY_DOES_IT_rgba16_rncRomEnd,
-    img_thumbnails_PENGUIN_PLAYPEN_rgba16_rncRomStart, img_thumbnails_PENGUIN_PLAYPEN_rgba16_rncRomEnd,
-    img_thumbnails_PINBALL_BLIZZARD_rgba16_rncRomStart, img_thumbnails_PINBALL_BLIZZARD_rgba16_rncRomEnd,
-    img_thumbnails_HOPPA_CHOPPA_rgba16_rncRomStart, img_thumbnails_HOPPA_CHOPPA_rgba16_rncRomEnd,
-    img_thumbnails_SOMETHING_FISHY_rgba16_rncRomStart, img_thumbnails_SOMETHING_FISHY_rgba16_rncRomEnd,
-    img_thumbnails_WALRACE_64_rgba16_rncRomStart, img_thumbnails_WALRACE_64_rgba16_rncRomEnd,
-    img_thumbnails_JUNGLE_JAPES_rgba16_rncRomStart, img_thumbnails_JUNGLE_JAPES_rgba16_rncRomEnd,
-    img_thumbnails_JUNGLE_DOLDRUMS_rgba16_rncRomStart, img_thumbnails_JUNGLE_DOLDRUMS_rgba16_rncRomEnd,
-    img_thumbnails_SWAMP_OF_ETERNAL_STENCH_rgba16_rncRomStart, img_thumbnails_SWAMP_OF_ETERNAL_STENCH_rgba16_rncRomEnd,
-    img_thumbnails_WEIGHT_FOR_IT_rgba16_rncRomStart, img_thumbnails_WEIGHT_FOR_IT_rgba16_rncRomEnd,
-    img_thumbnails_JUNGLE_JUMPS_rgba16_rncRomStart, img_thumbnails_JUNGLE_JUMPS_rgba16_rncRomEnd,
-    img_thumbnails_EVOS_ESCAPE_rgba16_rncRomStart, img_thumbnails_EVOS_ESCAPE_rgba16_rncRomEnd,
-    img_thumbnails_FUN_IN_THE_SUN_rgba16_rncRomStart, img_thumbnails_FUN_IN_THE_SUN_rgba16_rncRomEnd,
-    img_thumbnails_HOT_CROSS_BUNS_rgba16_rncRomStart, img_thumbnails_HOT_CROSS_BUNS_rgba16_rncRomEnd,
-    img_thumbnails_STING_IN_THE_TAIL_rgba16_rncRomStart, img_thumbnails_STING_IN_THE_TAIL_rgba16_rncRomEnd,
-    img_thumbnails_BORASSIC_PARK_rgba16_rncRomStart, img_thumbnails_BORASSIC_PARK_rgba16_rncRomEnd,
-    img_thumbnails_WHIRLWIND_TOUR_rgba16_rncRomStart, img_thumbnails_WHIRLWIND_TOUR_rgba16_rncRomEnd,
-    img_thumbnails_SHIFTING_SANDS_rgba16_rncRomStart, img_thumbnails_SHIFTING_SANDS_rgba16_rncRomEnd,
-    img_thumbnails_PUNCHUP_PYRAMID_rgba16_rncRomStart, img_thumbnails_PUNCHUP_PYRAMID_rgba16_rncRomEnd,
-    img_thumbnails_BIG_CELEBRATION_PARADE_rgba16_rncRomStart, img_thumbnails_BIG_CELEBRATION_PARADE_rgba16_rncRomEnd,
-    img_thumbnails_SECRET_LEVEL_rgba16_rncRomStart, img_thumbnails_SECRET_LEVEL_rgba16_rncRomEnd,
+    _img_thumbnails_SMASHING_START_rgba16_rncSegmentRomStart, _img_thumbnails_SMASHING_START_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_HAVE_A_NICE_DAY_rgba16_rncSegmentRomStart, _img_thumbnails_HAVE_A_NICE_DAY_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_HONEYMOON_LAGOON_rgba16_rncSegmentRomStart, _img_thumbnails_HONEYMOON_LAGOON_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_THE_BATTERY_FARM_rgba16_rncSegmentRomStart, _img_thumbnails_THE_BATTERY_FARM_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_THE_ENGINE_ROOM_rgba16_rncSegmentRomStart, _img_thumbnails_THE_ENGINE_ROOM_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_FAT_BEAR_MOUNTAIN_rgba16_rncSegmentRomStart, _img_thumbnails_FAT_BEAR_MOUNTAIN_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_ROCKY_HARD_PLACE_rgba16_rncSegmentRomStart, _img_thumbnails_ROCKY_HARD_PLACE_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_STINKY_SEWERS_rgba16_rncSegmentRomStart, _img_thumbnails_STINKY_SEWERS_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_RAT_O_MATIC_rgba16_rncSegmentRomStart, _img_thumbnails_RAT_O_MATIC_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_GIVE_A_DOG_A_BONUS_rgba16_rncSegmentRomStart, _img_thumbnails_GIVE_A_DOG_A_BONUS_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_SNOW_JOKE_rgba16_rncSegmentRomStart, _img_thumbnails_SNOW_JOKE_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_ICE_N_EASY_DOES_IT_rgba16_rncSegmentRomStart, _img_thumbnails_ICE_N_EASY_DOES_IT_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_PENGUIN_PLAYPEN_rgba16_rncSegmentRomStart, _img_thumbnails_PENGUIN_PLAYPEN_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_PINBALL_BLIZZARD_rgba16_rncSegmentRomStart, _img_thumbnails_PINBALL_BLIZZARD_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_HOPPA_CHOPPA_rgba16_rncSegmentRomStart, _img_thumbnails_HOPPA_CHOPPA_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_SOMETHING_FISHY_rgba16_rncSegmentRomStart, _img_thumbnails_SOMETHING_FISHY_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_WALRACE_64_rgba16_rncSegmentRomStart, _img_thumbnails_WALRACE_64_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_JUNGLE_JAPES_rgba16_rncSegmentRomStart, _img_thumbnails_JUNGLE_JAPES_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_JUNGLE_DOLDRUMS_rgba16_rncSegmentRomStart, _img_thumbnails_JUNGLE_DOLDRUMS_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_SWAMP_OF_ETERNAL_STENCH_rgba16_rncSegmentRomStart, _img_thumbnails_SWAMP_OF_ETERNAL_STENCH_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_WEIGHT_FOR_IT_rgba16_rncSegmentRomStart, _img_thumbnails_WEIGHT_FOR_IT_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_JUNGLE_JUMPS_rgba16_rncSegmentRomStart, _img_thumbnails_JUNGLE_JUMPS_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_EVOS_ESCAPE_rgba16_rncSegmentRomStart, _img_thumbnails_EVOS_ESCAPE_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_FUN_IN_THE_SUN_rgba16_rncSegmentRomStart, _img_thumbnails_FUN_IN_THE_SUN_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_HOT_CROSS_BUNS_rgba16_rncSegmentRomStart, _img_thumbnails_HOT_CROSS_BUNS_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_STING_IN_THE_TAIL_rgba16_rncSegmentRomStart, _img_thumbnails_STING_IN_THE_TAIL_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_BORASSIC_PARK_rgba16_rncSegmentRomStart, _img_thumbnails_BORASSIC_PARK_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_WHIRLWIND_TOUR_rgba16_rncSegmentRomStart, _img_thumbnails_WHIRLWIND_TOUR_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_SHIFTING_SANDS_rgba16_rncSegmentRomStart, _img_thumbnails_SHIFTING_SANDS_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_PUNCHUP_PYRAMID_rgba16_rncSegmentRomStart, _img_thumbnails_PUNCHUP_PYRAMID_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_BIG_CELEBRATION_PARADE_rgba16_rncSegmentRomStart, _img_thumbnails_BIG_CELEBRATION_PARADE_rgba16_rncSegmentRomEnd,
+    _img_thumbnails_SECRET_LEVEL_rgba16_rncSegmentRomStart, _img_thumbnails_SECRET_LEVEL_rgba16_rncSegmentRomEnd,
 };
 
-u8 *D_803B7368_7C8A18[32] = {
-    img_trophies_SMASHING_START_rgba16_rncRomStart,     img_trophies_SMASHING_START_rgba16_rncRomEnd,
-    img_trophies_HAVE_A_NICE_DAY_rgba16_rncRomStart,    img_trophies_HAVE_A_NICE_DAY_rgba16_rncRomEnd,
-    img_trophies_HONEYMOON_LAGOON_rgba16_rncRomStart,   img_trophies_HONEYMOON_LAGOON_rgba16_rncRomEnd,
-    img_trophies_THE_BATTERY_FARM_rgba16_rncRomStart,   img_trophies_THE_BATTERY_FARM_rgba16_rncRomEnd,
-    img_trophies_THE_ENGINE_ROOM_rgba16_rncRomStart,    img_trophies_THE_ENGINE_ROOM_rgba16_rncRomEnd,
-    img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rncRomStart,  img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rncRomEnd,
-    img_trophies_ROCKY_HARD_PLACE_rgba16_rncRomStart,   img_trophies_ROCKY_HARD_PLACE_rgba16_rncRomEnd,
-    img_trophies_STINKY_SEWERS_rgba16_rncRomStart,      img_trophies_STINKY_SEWERS_rgba16_rncRomEnd,
-    img_trophies_RAT_O_MATIC_rgba16_rncRomStart,        img_trophies_RAT_O_MATIC_rgba16_rncRomEnd,
-    img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rncRomStart, img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rncRomEnd,
-    img_trophies_SNOW_JOKE_rgba16_rncRomStart,          img_trophies_SNOW_JOKE_rgba16_rncRomEnd,
-    img_trophies_ICE_N_EASY_DOES_IT_rgba16_rncRomStart, img_trophies_ICE_N_EASY_DOES_IT_rgba16_rncRomEnd,
-    img_trophies_PENGUIN_PLAYPEN_rgba16_rncRomStart,    img_trophies_PENGUIN_PLAYPEN_rgba16_rncRomEnd,
-    img_trophies_PINBALL_BLIZZARD_rgba16_rncRomStart,   img_trophies_PINBALL_BLIZZARD_rgba16_rncRomEnd,
-    img_trophies_HOPPA_CHOPPA_rgba16_rncRomStart,       img_trophies_HOPPA_CHOPPA_rgba16_rncRomEnd,
-    img_trophies_SOMETHING_FISHY_rgba16_rncRomStart,    img_trophies_SOMETHING_FISHY_rgba16_rncRomEnd,
-    img_trophies_WALRACE_64_rgba16_rncRomStart,         img_trophies_WALRACE_64_rgba16_rncRomEnd,
-    img_trophies_JUNGLE_JAPES_rgba16_rncRomStart,       img_trophies_JUNGLE_JAPES_rgba16_rncRomEnd,
-    img_trophies_JUNGLE_DOLDRUMS_rgba16_rncRomStart,    img_trophies_JUNGLE_DOLDRUMS_rgba16_rncRomEnd,
-    img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rncRomStart, img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rncRomEnd,
-    img_trophies_WEIGHT_FOR_IT_rgba16_rncRomStart,      img_trophies_WEIGHT_FOR_IT_rgba16_rncRomEnd,
-    img_trophies_JUNGLE_JUMPS_rgba16_rncRomStart,       img_trophies_JUNGLE_JUMPS_rgba16_rncRomEnd,
-    img_trophies_EVOS_ESCAPE_rgba16_rncRomStart,        img_trophies_EVOS_ESCAPE_rgba16_rncRomEnd,
-    img_trophies_FUN_IN_THE_SUN_rgba16_rncRomStart,     img_trophies_FUN_IN_THE_SUN_rgba16_rncRomEnd,
-    img_trophies_HOT_CROSS_BUNS_rgba16_rncRomStart,     img_trophies_HOT_CROSS_BUNS_rgba16_rncRomEnd,
-    img_trophies_STING_IN_THE_TAIL_rgba16_rncRomStart,  img_trophies_STING_IN_THE_TAIL_rgba16_rncRomEnd,
-    img_trophies_BORASSIC_PARK_rgba16_rncRomStart,      img_trophies_BORASSIC_PARK_rgba16_rncRomEnd,
-    img_trophies_WHIRLWIND_TOUR_rgba16_rncRomStart,     img_trophies_WHIRLWIND_TOUR_rgba16_rncRomEnd,
-    img_trophies_SHIFTING_SANDS_rgba16_rncRomStart,     img_trophies_SHIFTING_SANDS_rgba16_rncRomEnd,
-    img_trophies_PUNCHUP_PYRAMID_rgba16_rncRomStart,    img_trophies_PUNCHUP_PYRAMID_rgba16_rncRomEnd,
-    img_trophies_BIG_CELEBRATION_PARADE_rgba16_rncRomStart, img_trophies_BIG_CELEBRATION_PARADE_rgba16_rncRomEnd,
-    img_trophies_SECRET_LEVEL_rgba16_rncRomStart,       img_trophies_SECRET_LEVEL_rgba16_rncRomEnd,
+u8 *D_803B7368_7C8A18[32*2] = {
+    _img_trophies_SMASHING_START_rgba16_rncSegmentRomStart,     _img_trophies_SMASHING_START_rgba16_rncSegmentRomEnd,
+    _img_trophies_HAVE_A_NICE_DAY_rgba16_rncSegmentRomStart,    _img_trophies_HAVE_A_NICE_DAY_rgba16_rncSegmentRomEnd,
+    _img_trophies_HONEYMOON_LAGOON_rgba16_rncSegmentRomStart,   _img_trophies_HONEYMOON_LAGOON_rgba16_rncSegmentRomEnd,
+    _img_trophies_THE_BATTERY_FARM_rgba16_rncSegmentRomStart,   _img_trophies_THE_BATTERY_FARM_rgba16_rncSegmentRomEnd,
+    _img_trophies_THE_ENGINE_ROOM_rgba16_rncSegmentRomStart,    _img_trophies_THE_ENGINE_ROOM_rgba16_rncSegmentRomEnd,
+    _img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rncSegmentRomStart,  _img_trophies_FAT_BEAR_MOUNTAIN_rgba16_rncSegmentRomEnd,
+    _img_trophies_ROCKY_HARD_PLACE_rgba16_rncSegmentRomStart,   _img_trophies_ROCKY_HARD_PLACE_rgba16_rncSegmentRomEnd,
+    _img_trophies_STINKY_SEWERS_rgba16_rncSegmentRomStart,      _img_trophies_STINKY_SEWERS_rgba16_rncSegmentRomEnd,
+    _img_trophies_RAT_O_MATIC_rgba16_rncSegmentRomStart,        _img_trophies_RAT_O_MATIC_rgba16_rncSegmentRomEnd,
+    _img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rncSegmentRomStart, _img_trophies_GIVE_A_DOG_A_BONUS_rgba16_rncSegmentRomEnd,
+    _img_trophies_SNOW_JOKE_rgba16_rncSegmentRomStart,          _img_trophies_SNOW_JOKE_rgba16_rncSegmentRomEnd,
+    _img_trophies_ICE_N_EASY_DOES_IT_rgba16_rncSegmentRomStart, _img_trophies_ICE_N_EASY_DOES_IT_rgba16_rncSegmentRomEnd,
+    _img_trophies_PENGUIN_PLAYPEN_rgba16_rncSegmentRomStart,    _img_trophies_PENGUIN_PLAYPEN_rgba16_rncSegmentRomEnd,
+    _img_trophies_PINBALL_BLIZZARD_rgba16_rncSegmentRomStart,   _img_trophies_PINBALL_BLIZZARD_rgba16_rncSegmentRomEnd,
+    _img_trophies_HOPPA_CHOPPA_rgba16_rncSegmentRomStart,       _img_trophies_HOPPA_CHOPPA_rgba16_rncSegmentRomEnd,
+    _img_trophies_SOMETHING_FISHY_rgba16_rncSegmentRomStart,    _img_trophies_SOMETHING_FISHY_rgba16_rncSegmentRomEnd,
+    _img_trophies_WALRACE_64_rgba16_rncSegmentRomStart,         _img_trophies_WALRACE_64_rgba16_rncSegmentRomEnd,
+    _img_trophies_JUNGLE_JAPES_rgba16_rncSegmentRomStart,       _img_trophies_JUNGLE_JAPES_rgba16_rncSegmentRomEnd,
+    _img_trophies_JUNGLE_DOLDRUMS_rgba16_rncSegmentRomStart,    _img_trophies_JUNGLE_DOLDRUMS_rgba16_rncSegmentRomEnd,
+    _img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rncSegmentRomStart, _img_trophies_SWAMP_OF_ETERNAL_STENCH_rgba16_rncSegmentRomEnd,
+    _img_trophies_WEIGHT_FOR_IT_rgba16_rncSegmentRomStart,      _img_trophies_WEIGHT_FOR_IT_rgba16_rncSegmentRomEnd,
+    _img_trophies_JUNGLE_JUMPS_rgba16_rncSegmentRomStart,       _img_trophies_JUNGLE_JUMPS_rgba16_rncSegmentRomEnd,
+    _img_trophies_EVOS_ESCAPE_rgba16_rncSegmentRomStart,        _img_trophies_EVOS_ESCAPE_rgba16_rncSegmentRomEnd,
+    _img_trophies_FUN_IN_THE_SUN_rgba16_rncSegmentRomStart,     _img_trophies_FUN_IN_THE_SUN_rgba16_rncSegmentRomEnd,
+    _img_trophies_HOT_CROSS_BUNS_rgba16_rncSegmentRomStart,     _img_trophies_HOT_CROSS_BUNS_rgba16_rncSegmentRomEnd,
+    _img_trophies_STING_IN_THE_TAIL_rgba16_rncSegmentRomStart,  _img_trophies_STING_IN_THE_TAIL_rgba16_rncSegmentRomEnd,
+    _img_trophies_BORASSIC_PARK_rgba16_rncSegmentRomStart,      _img_trophies_BORASSIC_PARK_rgba16_rncSegmentRomEnd,
+    _img_trophies_WHIRLWIND_TOUR_rgba16_rncSegmentRomStart,     _img_trophies_WHIRLWIND_TOUR_rgba16_rncSegmentRomEnd,
+    _img_trophies_SHIFTING_SANDS_rgba16_rncSegmentRomStart,     _img_trophies_SHIFTING_SANDS_rgba16_rncSegmentRomEnd,
+    _img_trophies_PUNCHUP_PYRAMID_rgba16_rncSegmentRomStart,    _img_trophies_PUNCHUP_PYRAMID_rgba16_rncSegmentRomEnd,
+    _img_trophies_BIG_CELEBRATION_PARADE_rgba16_rncSegmentRomStart, _img_trophies_BIG_CELEBRATION_PARADE_rgba16_rncSegmentRomEnd,
+    _img_trophies_SECRET_LEVEL_rgba16_rncSegmentRomStart,       _img_trophies_SECRET_LEVEL_rgba16_rncSegmentRomEnd,
 };
 
-#if 0
-glabel D_803B7468_7C8B18
-/* 7C8B18 803B7468 */ .word 0x00000000
-/* 7C8B1C 803B746C */ .word 0x00000000
-/* 7C8B20 803B7470 */ .word 0x00000000
-/* 7C8B24 803B7474 */ .word 0x09C40000
-/* 7C8B28 803B7478 */ .word 0x41300000
-/* 7C8B2C 803B747C */ .word 0xC1C80000
-#endif
-
-#endif
+f32 D_803B7468_7C8B18 = 0.0f;
+f32 D_803B746C_7C8B1C = 0.0f;
+f32 D_803B7470_7C8B20 = 0.0f;
+s16 D_803B7474_7C8B24 = 2500;
+f32 D_803B7478_7C8B28 = 11;
+f32 D_803B747C_7C8B2C = -25.0f;
 
 char D_803B7480_7C8B30[4][10] = {
     "Europe",
@@ -151,9 +139,7 @@ char D_803B7480_7C8B30[4][10] = {
     "Desert",
 };
 
-f32 D_803B74A8_7C8B58 = 0.0f; // junk/padding/alignment
-
-// .data
+f32 D_803B74A8_7C8B58 = 0.0f;
 f32 D_803B74AC_7C8B5C = 11.0f;
 f32 D_803B74B0_7C8B60 = 16.0f;
 f32 D_803B74B4_7C8B64 = 10.5f;
@@ -200,19 +186,19 @@ void func_80398630_7A9CE0(void) {
     // unpack powercell
     UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_powercell_rgba16_rnc_rgba16__rnc)), D_800DE390); // powercell
     // unpack evo bodyparts
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_HEAD_rgba16_rnc_rgba16__rnc)), D_800C3A40[0]); // evo head trophy
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_ARM_rgba16_rnc_rgba16__rnc)), D_800C3A40[3]); // evo arms trophy
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_LEG_rgba16_rnc_rgba16__rnc)), D_800C3A40[1]); // evo legs trophy
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_TORSO_rgba16_rnc_rgba16__rnc)), D_800C3A40[2]); // evo torso trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_HEAD_rgba16_rnc_rgba16__rnc)), TEXTURE_EVO_THUMBNAIL + 2048*0); // evo head trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_ARM_rgba16_rnc_rgba16__rnc)), TEXTURE_EVO_THUMBNAIL + 2048*3); // evo arms trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_LEG_rgba16_rnc_rgba16__rnc)), TEXTURE_EVO_THUMBNAIL + 2048*1); // evo legs trophy
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_trophies_EVO_TORSO_rgba16_rnc_rgba16__rnc)), TEXTURE_EVO_THUMBNAIL + 2048*2); // evo torso trophy
     // unpack 'silver' level ring pieces
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_1_rgba16_rnc_rgba16__rnc)), D_800BB700); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_2_rgba16_rnc_rgba16__rnc)), D_800BBBB0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_3_rgba16_rnc_rgba16__rnc)), D_800BC060); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_4_rgba16_rnc_rgba16__rnc)), D_800BC510); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_5_rgba16_rnc_rgba16__rnc)), D_800BC9C0); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_6_rgba16_rnc_rgba16__rnc)), D_800BCE70); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_7_rgba16_rnc_rgba16__rnc)), D_800BD320); // silver ring piece
-    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_8_rgba16_rnc_rgba16__rnc)), D_800BD7D0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_1_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*0); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_2_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*1); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_3_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*2); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_4_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*3); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_5_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*4); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_6_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*5); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_7_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*6); // silver ring piece
+    UnpackRNC((RNC_fileptr)(gMenuSegmentBase + SEGMENT_OFFSET(img_menu_ring_segment_8_rgba16_rnc_rgba16__rnc)), D_800BA760 + 4000 + 1200*7); // silver ring piece
 }
 
 void func_8039884C_7A9EFC(void) {

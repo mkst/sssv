@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSSV Object Viewer</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #171818;
+      color: #f2efe6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #171818;
+    }
+
+    #scene {
+      position: fixed;
+      inset: 0;
+    }
+
+    .panel {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      width: min(390px, calc(100vw - 28px));
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      background: rgba(22, 24, 24, 0.88);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    select,
+    button {
+      height: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 6px;
+      background: #29302d;
+      color: #f2efe6;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    select {
+      min-width: 0;
+      flex: 1;
+      padding: 0 10px;
+    }
+
+    button {
+      flex: 0 0 auto;
+      padding: 0 10px;
+      cursor: pointer;
+    }
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .stat {
+      min-height: 48px;
+      padding: 7px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .stat span {
+      display: block;
+      color: #aeb8b0;
+      font-size: 11px;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    #status {
+      min-height: 18px;
+      color: #c8d7ca;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+  <section class="panel">
+    <div class="row">
+      <select id="filterSelect" aria-label="Object filter"></select>
+    </div>
+    <div class="row">
+      <select id="objectSelect" aria-label="Object"></select>
+      <button id="frameButton" type="button">Frame</button>
+    </div>
+    <div class="options">
+      <label><input id="showWireframe" type="checkbox"> Wireframe</label>
+      <label><input id="showBounds" type="checkbox" checked> Hitbox</label>
+      <label><input id="showVertexColors" type="checkbox" checked> Vertex colors</label>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>ID</span><strong id="idStat">-</strong></div>
+      <div class="stat"><span>Scope</span><strong id="scopeStat">-</strong></div>
+      <div class="stat"><span>Meshes</span><strong id="meshStat">-</strong></div>
+      <div class="stat"><span>Triangles</span><strong id="triStat">-</strong></div>
+    </div>
+    <div id="status">Loading objects.view.json</div>
+  </section>
+
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.164.1/build/three.module.js";
+
+    const canvas = document.getElementById("scene");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x171818);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
+    const root = new THREE.Group();
+    const boundsGroup = new THREE.Group();
+    scene.add(root, boundsGroup);
+
+    const BIOME_ORDER = ["Europe", "Ice", "Jungle", "Desert", "City"];
+    const LEVEL_ORDER = [
+      "SMASHING_START",
+      "HAVE_A_NICE_DAY",
+      "HONEYMOON_LAGOON",
+      "THE_BATTERY_FARM",
+      "THE_ENGINE_ROOM",
+      "FAT_BEAR_MOUNTAIN",
+      "ROCKY_HARD_PLACE",
+      "STINKY_SEWERS",
+      "RAT_O_MATIC",
+      "GIVE_A_DOG_A_BONUS",
+      "SNOW_JOKE",
+      "ICE_N_EASY_DOES_IT",
+      "PENGUIN_PLAYPEN",
+      "PINBALL_BLIZZARD",
+      "HOPPA_CHOPPA",
+      "SOMETHING_FISHY",
+      "WALRACE_64",
+      "JUNGLE_JAPES",
+      "JUNGLE_DOLDRUMS",
+      "SWAMP_OF_ETERNAL_STENCH",
+      "WEIGHT_FOR_IT",
+      "JUNGLE_JUMPS",
+      "EVOS_ESCAPE",
+      "FUN_IN_THE_SUN",
+      "HOT_CROSS_BUNS",
+      "STING_IN_THE_TAIL",
+      "BORASSIC_PARK",
+      "WHIRLWIND_TOUR",
+      "SHIFTING_SANDS",
+      "PUNCHUP_PYRAMID",
+      "BIG_CELEBRATION_PARADE",
+      "SECRET_LEVEL",
+      "END_CREDITS",
+      "DMA_INTRO",
+    ];
+    const BIOME_RANK = new Map(BIOME_ORDER.map((name, index) => [name, index]));
+    const LEVEL_RANK = new Map(LEVEL_ORDER.map((name, index) => [name, index]));
+    scene.add(new THREE.HemisphereLight(0xf8efd8, 0x263932, 2.1));
+
+    const sun = new THREE.DirectionalLight(0xffffff, 1.25);
+    sun.position.set(280, 520, 360);
+    scene.add(sun);
+
+    const els = {
+      filterSelect: document.getElementById("filterSelect"),
+      objectSelect: document.getElementById("objectSelect"),
+      frameButton: document.getElementById("frameButton"),
+      showWireframe: document.getElementById("showWireframe"),
+      showBounds: document.getElementById("showBounds"),
+      showVertexColors: document.getElementById("showVertexColors"),
+      status: document.getElementById("status"),
+      idStat: document.getElementById("idStat"),
+      scopeStat: document.getElementById("scopeStat"),
+      meshStat: document.getElementById("meshStat"),
+      triStat: document.getElementById("triStat"),
+    };
+
+    let data = null;
+    let currentObject = null;
+    let displayObjects = [];
+    let filteredObjects = [];
+    let yaw = -0.55;
+    let pitch = 0.32;
+    let distance = 180;
+    let target = new THREE.Vector3();
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+    const textureLoader = new THREE.TextureLoader();
+    const textureCache = new Map();
+
+    function makeGeometry(mesh) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(mesh.positions || [], 3));
+      if (mesh.colors?.length) {
+        geometry.setAttribute("color", new THREE.Float32BufferAttribute(mesh.colors, 4));
+      }
+      if (mesh.uvs?.length) {
+        geometry.setAttribute("uv", new THREE.Float32BufferAttribute(mesh.uvs, 2));
+      }
+      geometry.setIndex(mesh.indices || []);
+      if (mesh.normals?.length) {
+        geometry.setAttribute("normal", new THREE.Float32BufferAttribute(mesh.normals, 3));
+      } else {
+        geometry.computeVertexNormals();
+      }
+      return geometry;
+    }
+
+    function loadTexture(textureInfo) {
+      if (!textureInfo?.url) return null;
+      if (textureCache.has(textureInfo.url)) return textureCache.get(textureInfo.url);
+      const texture = textureLoader.load(textureInfo.url);
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.magFilter = THREE.NearestFilter;
+      texture.minFilter = THREE.NearestMipmapNearestFilter;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.userData.sharedObjectViewerTexture = true;
+      textureCache.set(textureInfo.url, texture);
+      return texture;
+    }
+
+    function makeMaterial(textureInfo = null) {
+      const texture = loadTexture(textureInfo);
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xd8d1bf,
+        vertexColors: !texture && els.showVertexColors.checked,
+        roughness: 0.72,
+        metalness: 0.0,
+        side: THREE.DoubleSide,
+        wireframe: els.showWireframe.checked,
+      });
+      if (texture) {
+        material.map = texture;
+        material.color.set(0xffffff);
+      }
+      return material;
+    }
+
+    function clearGroup(group) {
+      while (group.children.length) {
+        const child = group.children.pop();
+        child.geometry?.dispose();
+        if (child.material?.map && !child.material.map.userData.sharedObjectViewerTexture) {
+          child.material.map.dispose();
+        }
+        child.material?.dispose();
+      }
+    }
+
+    function makeBoundsBox(object) {
+      if (object.bounds3) {
+        const min = new THREE.Vector3(...object.bounds3.min);
+        const max = new THREE.Vector3(...object.bounds3.max);
+        const size = max.clone().sub(min);
+        const center = min.clone().add(max).multiplyScalar(0.5);
+        const geometry = new THREE.BoxGeometry(
+          Math.max(0.1, size.x),
+          Math.max(0.1, size.y),
+          Math.max(0.1, size.z)
+        );
+        const edges = new THREE.EdgesGeometry(geometry);
+        const box = new THREE.LineSegments(
+          edges,
+          new THREE.LineBasicMaterial({ color: 0x8ecae6, transparent: true, opacity: 0.88 })
+        );
+        box.position.copy(center);
+        return box;
+      }
+      const bounds = object.bounds || {};
+      const widthRadius = Math.max(1, bounds.widthRadius ?? bounds.width ?? 1);
+      const depthRadius = Math.max(1, bounds.depthRadius ?? bounds.depth ?? 1);
+      const height = Math.max(1, bounds.height || 1);
+      const scaleFactor = object.scale?.factor || 1;
+      const geometry = new THREE.BoxGeometry(
+        (widthRadius * 2 * scaleFactor) / 32,
+        (height * scaleFactor) / 32,
+        (depthRadius * 2 * scaleFactor) / 32
+      );
+      const edges = new THREE.EdgesGeometry(geometry);
+      const box = new THREE.LineSegments(
+        edges,
+        new THREE.LineBasicMaterial({ color: 0x8ecae6, transparent: true, opacity: 0.88 })
+      );
+      box.position.y = (height * scaleFactor) / 64;
+      return box;
+    }
+
+    function loadObject(object) {
+      currentObject = object;
+      clearGroup(root);
+      clearGroup(boundsGroup);
+
+      for (const part of object.parts || []) {
+        const batches = part.batches?.length ? part.batches : [{ mesh: part.mesh, texture: null }];
+        for (const batch of batches) {
+          if (!batch.mesh?.indices?.length) continue;
+          const mesh = new THREE.Mesh(makeGeometry(batch.mesh), makeMaterial(batch.texture));
+          mesh.name = batch.texture?.symbol ? `${part.displayList}:${batch.texture.symbol}` : part.displayList;
+          if (part.matrix?.length === 16) {
+            mesh.matrixAutoUpdate = false;
+            mesh.matrix.fromArray(part.matrix);
+          }
+          root.add(mesh);
+        }
+      }
+
+      boundsGroup.add(makeBoundsBox(object));
+      boundsGroup.visible = els.showBounds.checked;
+
+      const triangles = (object.parts || []).reduce((sum, part) => sum + (part.mesh?.stats?.triangles || 0), 0);
+      const textureCount = new Set(
+        (object.parts || [])
+          .flatMap((part) => part.batches || [])
+          .map((batch) => batch.texture?.symbol)
+          .filter(Boolean)
+      ).size;
+      const availability = object.availability || {};
+      const assetSegments = (object.assetSegments || []).map((segment) => segment.label).join(", ");
+      els.idStat.textContent = `${object.id}`;
+      els.scopeStat.textContent = availability.shortLabel || availability.label || "-";
+      els.meshStat.textContent = `${object.parts?.length || 0}`;
+      els.triStat.textContent = `${triangles}`;
+      const unplacedCount = object.rig?.unplacedDisplayLists?.length || 0;
+      const sourceCallCount = object.rig?.sourceRenderCalls?.length || 0;
+      els.status.textContent = [
+        `${object.name || object.idToken} loaded`,
+        availability.label,
+        textureCount ? `${textureCount} texture${textureCount === 1 ? "" : "s"}` : null,
+        sourceCallCount ? `${sourceCallCount} source calls` : null,
+        unplacedCount ? `${unplacedCount} unplaced` : null,
+        assetSegments ? `assets: ${assetSegments}` : null,
+        availability.ambiguousAliases ? "mixed aliases" : null,
+      ].filter(Boolean).join(" · ");
+      frameObject();
+    }
+
+    function frameObject() {
+      const box = new THREE.Box3().setFromObject(root);
+      if (box.isEmpty()) {
+        target.set(0, 0, 0);
+        distance = 80;
+        return;
+      }
+      const size = box.getSize(new THREE.Vector3());
+      box.getCenter(target);
+      distance = Math.max(size.x, size.y, size.z, 4) * 1.6;
+    }
+
+    function updateMaterials() {
+      for (const mesh of root.children) {
+        mesh.material.wireframe = els.showWireframe.checked;
+        mesh.material.vertexColors = !mesh.material.map && els.showVertexColors.checked;
+        mesh.material.needsUpdate = true;
+      }
+      boundsGroup.visible = els.showBounds.checked;
+    }
+
+    function updateCamera() {
+      pitch = Math.max(-1.2, Math.min(1.2, pitch));
+      distance = Math.max(0.5, Math.min(5000, distance));
+      camera.position.set(
+        target.x + Math.sin(yaw) * Math.cos(pitch) * distance,
+        target.y + Math.sin(pitch) * distance,
+        target.z + Math.cos(yaw) * Math.cos(pitch) * distance
+      );
+      camera.lookAt(target);
+    }
+
+    function objectLabel(object) {
+      const label = object.availability?.shortLabel || object.availability?.label || "Unknown";
+      return `[${label}] ${object.name || object.idToken} (${object.id})`;
+    }
+
+    function filterKeyForObject(object) {
+      if (object.kind === "animal") return "animal";
+      const availability = object.availability || {};
+      if (availability.scope === "global") return "global";
+      if (availability.scope === "biome") return `biome:${availability.biome || availability.shortLabel || availability.label}`;
+      if (availability.scope === "level") return `level:${availability.level || availability.segment || availability.shortLabel || availability.label}`;
+      return "unknown";
+    }
+
+    function filterLabelForObject(object) {
+      const availability = object.availability || {};
+      return availability.shortLabel || availability.label || "Unknown";
+    }
+
+    function appendOption(parent, value, label) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      parent.append(option);
+      return option;
+    }
+
+    function appendFilterGroup(label, entries) {
+      if (!entries.length) return;
+      const group = document.createElement("optgroup");
+      group.label = label;
+      for (const entry of entries) {
+        appendOption(group, entry.value, entry.label);
+      }
+      els.filterSelect.append(group);
+    }
+
+    function populateFilterSelect(objects) {
+      const biomes = new Map();
+      const levels = new Map();
+      let hasGlobal = false;
+      let hasUnknown = false;
+      let animalCount = 0;
+
+      for (const object of objects) {
+        const key = filterKeyForObject(object);
+        if (key === "animal") {
+          animalCount++;
+        } else if (key === "global") {
+          hasGlobal = true;
+        } else if (key.startsWith("biome:")) {
+          biomes.set(key, filterLabelForObject(object));
+        } else if (key.startsWith("level:")) {
+          levels.set(key, filterLabelForObject(object));
+        } else {
+          hasUnknown = true;
+        }
+      }
+
+      const sortEntries = (entries, rankForEntry) => [...entries]
+        .map(([value, label]) => ({ value, label }))
+        .sort((a, b) => {
+          const rankDelta = rankForEntry(a) - rankForEntry(b);
+          return rankDelta || a.label.localeCompare(b.label);
+        });
+      const rankBiome = (entry) => {
+        const name = entry.value.slice("biome:".length);
+        return BIOME_RANK.has(name) ? BIOME_RANK.get(name) : 1000;
+      };
+      const rankLevel = (entry) => {
+        const level = entry.value.slice("level:".length);
+        return LEVEL_RANK.has(level) ? LEVEL_RANK.get(level) : 1000;
+      };
+
+      els.filterSelect.innerHTML = "";
+      const general = [{ value: "all", label: `All objects (${objects.length})` }];
+      if (animalCount) general.push({ value: "animal", label: `Animals (${animalCount})` });
+      if (hasGlobal) general.push({ value: "global", label: "Global" });
+      if (hasUnknown) general.push({ value: "unknown", label: "Unknown" });
+      appendFilterGroup("General", general);
+      appendFilterGroup("Biomes", sortEntries(biomes, rankBiome));
+      appendFilterGroup("Levels / special", sortEntries(levels, rankLevel));
+    }
+
+    function objectMatchesFilter(object, filterValue) {
+      return filterValue === "all" || filterKeyForObject(object) === filterValue;
+    }
+
+    function clearObjectSelection(message) {
+      currentObject = null;
+      clearGroup(root);
+      clearGroup(boundsGroup);
+      els.objectSelect.innerHTML = "";
+      els.idStat.textContent = "-";
+      els.scopeStat.textContent = "-";
+      els.meshStat.textContent = "-";
+      els.triStat.textContent = "-";
+      els.status.textContent = message;
+    }
+
+    function populateObjectSelect(preferredIndex = null) {
+      const filterValue = els.filterSelect.value || "all";
+      filteredObjects = displayObjects.filter((object) => objectMatchesFilter(object, filterValue));
+      els.objectSelect.innerHTML = "";
+
+      for (const object of filteredObjects) {
+        appendOption(els.objectSelect, String(object.index), objectLabel(object));
+      }
+
+      if (!filteredObjects.length) {
+        clearObjectSelection("No display-list-backed objects match this filter");
+        return;
+      }
+
+      const preferred = filteredObjects.find((object) => object.index === preferredIndex) || filteredObjects[0];
+      els.objectSelect.value = String(preferred.index);
+      loadObject(preferred);
+    }
+
+    async function loadData() {
+      const res = await fetch("/tools/svle/object_viewer/objects.view.json");
+      if (!res.ok) {
+        throw new Error(`Could not load objects.view.json (${res.status})`);
+      }
+      data = await res.json();
+      displayObjects = [
+        ...(data.objects || []),
+        ...(data.animals || []),
+      ].filter((object) => object.parts?.length);
+      populateFilterSelect(displayObjects);
+      if (!displayObjects.length) {
+        clearObjectSelection("No display-list-backed objects in export");
+        return;
+      }
+      populateObjectSelect();
+    }
+
+    els.filterSelect.addEventListener("change", () => {
+      populateObjectSelect(currentObject?.index ?? null);
+    });
+    els.objectSelect.addEventListener("change", () => {
+      const index = Number(els.objectSelect.value);
+      const object = filteredObjects.find((item) => item.index === index);
+      if (object) loadObject(object);
+    });
+    els.frameButton.addEventListener("click", frameObject);
+    els.showWireframe.addEventListener("change", updateMaterials);
+    els.showBounds.addEventListener("change", updateMaterials);
+    els.showVertexColors.addEventListener("change", updateMaterials);
+
+    window.addEventListener("resize", () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+
+    canvas.addEventListener("pointerdown", (event) => {
+      dragging = true;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      canvas.setPointerCapture(event.pointerId);
+    });
+    canvas.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      yaw -= (event.clientX - lastX) * 0.008;
+      pitch -= (event.clientY - lastY) * 0.008;
+      lastX = event.clientX;
+      lastY = event.clientY;
+    });
+    canvas.addEventListener("pointerup", (event) => {
+      dragging = false;
+      canvas.releasePointerCapture(event.pointerId);
+    });
+    canvas.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      distance *= event.deltaY > 0 ? 1.08 : 0.92;
+    }, { passive: false });
+
+    function animate() {
+      updateCamera();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+    loadData().catch((err) => {
+      els.status.textContent = err.message;
+    });
+    animate();
+  </script>
+</body>
+</html>

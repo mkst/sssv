@@ -190,13 +190,13 @@ void func_802F30A4_704754(void) {
             D_803A52B0_7B6960 = D_803E1B97 + D_803E1B92;
             D_803A52B4_7B6964 = D_803E1B98 + D_803E1B94;
 
-            D_803E1BBA = D_803F2D50.unk54;
-            D_803E1BBB = D_803F2D50.unk55;
-            D_803E1BBC = D_803F2D50.unk56;
+            D_803E1BBA = D_803F2D50.waterPrimRed;
+            D_803E1BBB = D_803F2D50.waterPrimGreen;
+            D_803E1BBC = D_803F2D50.waterPrimBlue;
 
-            D_803E1BBD = D_803F2D50.unk58;
-            D_803E1BBE = D_803F2D50.unk59;
-            D_803E1BBF = D_803F2D50.unk5A;
+            D_803E1BBD = D_803F2D50.waterEnvRed;
+            D_803E1BBE = D_803F2D50.waterEnvGreen;
+            D_803E1BBF = D_803F2D50.waterEnvBlue;
 
             D_803A52B8_7B6968 = 1;
         } else {
@@ -208,13 +208,13 @@ void func_802F30A4_704754(void) {
             D_803A52B0_7B6960 = D_803E1B97 + (D_803E1B92 * var_f0);
             D_803A52B4_7B6964 = D_803E1B98 + (D_803E1B94 * var_f0);
             // water primary
-            D_803E1BBA = (D_803F2D50.unk54 + D_803A52A0_7B6950) / 2;
-            D_803E1BBB = (D_803F2D50.unk55 + D_803A52A4_7B6954) / 2;
-            D_803E1BBC = (D_803F2D50.unk56 + D_803A52A8_7B6958) / 2;
+            D_803E1BBA = (D_803F2D50.waterPrimRed + D_803A52A0_7B6950) / 2;
+            D_803E1BBB = (D_803F2D50.waterPrimGreen + D_803A52A4_7B6954) / 2;
+            D_803E1BBC = (D_803F2D50.waterPrimBlue + D_803A52A8_7B6958) / 2;
             // water env?
-            D_803E1BBD = (D_803F2D50.unk58 + D_803A52A0_7B6950) / 2;
-            D_803E1BBE = (D_803F2D50.unk59 + D_803A52A4_7B6954) / 2;
-            D_803E1BBF = (D_803F2D50.unk5A + D_803A52A8_7B6958) / 2;
+            D_803E1BBD = (D_803F2D50.waterEnvRed + D_803A52A0_7B6950) / 2;
+            D_803E1BBE = (D_803F2D50.waterEnvGreen + D_803A52A4_7B6954) / 2;
+            D_803E1BBF = (D_803F2D50.waterEnvBlue + D_803A52A8_7B6958) / 2;
             D_803E1BA4++;
         }
     } else {
@@ -282,15 +282,15 @@ void func_802F30A4_704754(void) {
         gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = D_803A52B0_7B6960;
         gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = D_803A52B4_7B6964;
 
-        D_803E1BBA = ((D_803F2D50.unk54 + D_803F2D50.unk54 + D_803F2D50.unk54) + D_803A52A0_7B6950) / 4;
-        D_803E1BBB = ((D_803F2D50.unk55 + D_803F2D50.unk55 + D_803F2D50.unk55) + D_803A52A4_7B6954) / 4;
-        D_803E1BBC = ((D_803F2D50.unk56 + D_803F2D50.unk56 + D_803F2D50.unk56) + D_803A52A8_7B6958) / 4;
-        D_803E1BBD = ((D_803F2D50.unk58 + D_803F2D50.unk58 + D_803F2D50.unk58) + D_803A52A0_7B6950) / 4;
-        D_803E1BBE = ((D_803F2D50.unk59 + D_803F2D50.unk59 + D_803F2D50.unk59) + D_803A52A4_7B6954) / 4;
-        D_803E1BBF = ((D_803F2D50.unk5A + D_803F2D50.unk5A + D_803F2D50.unk5A) + D_803A52A8_7B6958) / 4;
+        D_803E1BBA = ((D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed) + D_803A52A0_7B6950) / 4;
+        D_803E1BBB = ((D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen) + D_803A52A4_7B6954) / 4;
+        D_803E1BBC = ((D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue) + D_803A52A8_7B6958) / 4;
+        D_803E1BBD = ((D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed) + D_803A52A0_7B6950) / 4;
+        D_803E1BBE = ((D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen) + D_803A52A4_7B6954) / 4;
+        D_803E1BBF = ((D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue) + D_803A52A8_7B6958) / 4;
     }
 
-    if (D_803F2D50.unk75 != 0) {
+    if (D_803F2D50.useDynamicLightDir != 0) {
         var_f20 = (-D_80204218 * cosf(0.7853947f)) + (-D_8020421C * sinf(0.7853947f));
         var_f22 = (-D_8020421C * cosf(0.7853947f)) - (-D_80204218 * sinf(0.7853947f));
 
@@ -313,9 +313,9 @@ void func_802F30A4_704754(void) {
         }
         var_f2 = 50.0f;
     } else {
-        var_f20 = D_803F2D50.unk76;
-        var_f22 = D_803F2D50.unk77;
-        var_f2 = D_803F2D50.unk78;
+        var_f20 = D_803F2D50.lightDirX;
+        var_f22 = D_803F2D50.lightDirY;
+        var_f2 = D_803F2D50.lightDirZ;
     }
 
     gDisplayListContext->lights.l[0].l.dir[0] = (s32)var_f20;

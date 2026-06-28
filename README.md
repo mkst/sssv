@@ -12,7 +12,7 @@ Check out the [wiki](https://github.com/mkst/sssv/wiki/) for more detailed infor
 # Building
 
 The instructions below assume that you will be using `Ubuntu 24.04`; either natively, via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10), or via [Docker](https://docs.docker.com/get-docker/).
-Please check the [packages.txt](packages.txt) and [requirements.txt](requirements.txt) for the prerequisite Linux and Python packages respectively.
+Please check the [Dockerfile](Dockefile) for instructions of how to install the prerequisite system packages and Python libraries.
 
 ## Natively
 
@@ -100,7 +100,7 @@ Only US and EU versions were released to the public. If you are in possession of
 
 ## Layout
 
-The layout of the ROM is work-in-progress. Three sections of code have been identified along with a mix of compressed and non-compressed data.
+The layout of the ROM has been mapped out in the [splat](sssv.us.yaml) configuration. Three sections of code have been identified along with a mix of compressed and non-compressed data.
 
 ### Main
 
@@ -118,29 +118,28 @@ Overlay2 contains the core Space Station Silicon Valley game logic.
 
 ## Compression
 
-Uses [RNC](https://segaretro.org/Rob_Northen_compression) for a number of assets.
+The project used [RNC](https://segaretro.org/Rob_Northen_compression) for a number of assets.
 
-Compression is almost completely matching; 261/263 files match after compression. `rnc_461900` and `rnc_63DC20` are still a problem.
-
-In order to decompress the game assets run `make decompress` after you have performed the `make extract` step. This will be done automatically when matching compression has been figured out.
+In order to decompress the game assets, run `make decompress` after you have performed the `make extract` step. Running `make compress` will then overwrite the original data in the `assets` directory with byte-perfectly compressed versions.
 
 # Repo layout
 
 ```
-asm/             ; assembly files split by splat (not checked in)
-assets/          ; binary files split by splat (not checked in)
+asm/             ; transient assembly files (not checked in)
+assets/          ; transient binary files (not checked in)
 build/           ; build folder (not checked in)
 include/
   2.0I/          ; libultra 2.0I headers
 lib/libultra.a   ; libultra 2.0I static library
-src.{us|eu})/
+src.{us|eu}/
   core/          ; core code
   data/          ; game data e.g. DisplayLists, Vtx + more
-  libultra/      ; custom libultra code
+  libultra/      ; customised libultra code
   sssv/          ; game code
 tools/
   ido5.3_recomp/ ; static recompilation of IDO 5.3 compiler
   splat_ext      ; custom splat extensions
+  svle           ; work-in-progress level data viewer
 ```
 
 # Tools

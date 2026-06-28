@@ -86,7 +86,7 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
     f32 spFC;
     f32 spF8;
     f32 spF4;
-    s32 unused3[3];
+    s32 unused3[3] UNUSED;
     s64 spE0;
     s64 spD8;
     s64 spD0;
@@ -177,7 +177,7 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
                     (gDisplayListContext->unk38A10.flat.unk38 * temp_f16) +
                     (gDisplayListContext->unk38A10.flat.unk3C)
                 ) / -temp_f16;
-                gDPSetPrimDepth(gAuxDL++, (u16)((temp_f2_3 * 1023.0f * 32.0f) + 32736.0f) - D_803F2D50.unk42, 0);
+                gDPSetPrimDepth(gAuxDL++, (u16)((temp_f2_3 * 1023.0f * 32.0f) + 32736.0f) - D_803F2D50.primDepthOffset, 0);
 
                 if (gFogState.min >= (gFogState.max - 1)) {
                     lod = 0;
@@ -266,10 +266,10 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
 }
 
 s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) {
-    s32 pad[0x4];
+    s32 pad[0x4] UNUSED;
 
     f32 height;
-    s32 pad2[2];
+    s32 pad2[2] UNUSED;
     f32 width;
 
     f32 temp_f0;

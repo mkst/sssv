@@ -289,8 +289,8 @@ void func_8036D700_77EDB0(void) {
                                     D_803D552C->unk308 = (D_803D552C->unk308 - 1) & 0xFF;
                                 }
                             }
-                        } else if (D_803D552C->unk2CC != NULL) {
-                            temp_v0 = (func_801284B8(D_803D552C->unk2CC->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->unk2CC->position.zPos.h - D_803D5530->position.zPos.h) << 8) / 360;
+                        } else if (D_803D552C->aiTarget != NULL) {
+                            temp_v0 = (func_801284B8(D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h, D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) << 8) / 360;
                             if (temp_v0 != D_803D552C->unk308) {
                                 new_var = (temp_v0 - D_803D552C->unk308) & 0xFF;
                                 if (new_var < 128) {
@@ -355,7 +355,7 @@ void func_8036D700_77EDB0(void) {
 
             switch (D_803D5524->unk9C) {
             case CAMEL:
-                if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
+                if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x37, 0x37, 0xFF, 0xFF);
                 } else {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);
@@ -365,7 +365,7 @@ void func_8036D700_77EDB0(void) {
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, (D_803F2EC8 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04001300_E88B0);
                 break;
             case CANNON_CAMEL:
-                if ((D_803D5538 == 0) && (D_803F2D50.unk52 == 3)) {
+                if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x37, 0x37, 0xFF, 0xFF);
                 } else {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xF0, 0xA0, 0xFF);

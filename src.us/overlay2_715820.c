@@ -3,10 +3,6 @@
 
 
 // ========================================================
-// .data
-// ========================================================
-
-// ========================================================
 // .bss
 // ========================================================
 
@@ -38,12 +34,12 @@ void func_80304170_715820(void) {
 void func_80304194_715844(void) {
     s16 i;
     for (i = 0; i < 256; i++) {
-        D_803E3130[i].unk0 = 0; // flags?
+        D_803E3130[i].flags = 0;
         D_803E3130[i].uls = 0;
         D_803E3130[i].ult = 0;
         D_803E3130[i].uls2 = 0;
         D_803E3130[i].ult2 = 0;
-        D_803E3130[i].unk2 = 0;
+        D_803E3130[i].scrollIndex = 0;
         D_803E3130[i].displayList = NULL;
 
         D_803E4AD0[i] = 1; // free?
@@ -70,8 +66,10 @@ void func_803041FC_7158AC(void) {
     static s16 D_803E4BD8;
     static s16 D_803E4BDA;
 
+#ifdef __sgi
     // force this code to be generated
     if (junk = D_80152350.unk2D0[D_803E4BD4] / 2) {}
+#endif
 
     D_803E4BD4 = D_803E4BD4 + 10;
     D_803E4BD4 = D_803E4BD4 % 360;
@@ -79,10 +77,10 @@ void func_803041FC_7158AC(void) {
     // is this some hack added "later" to match geo to terrain map?
     for (i = 0; i < D_803E4AC8; i++) {
         temp_a0 = D_803C0740[D_803E4930[i]][D_803E4998[i]].unk6 << 2;
-        if (D_802294D0[D_803E4A00[i]].v.ob[2] < temp_a0) {
-            D_802294D0[D_803E4A00[i]].v.ob[2]++;
-        } else if (temp_a0 < D_802294D0[D_803E4A00[i]].v.ob[2]) {
-            D_802294D0[D_803E4A00[i]].v.ob[2]--;
+        if (gTranslucentVtxPool[D_803E4A00[i]].v.ob[2] < temp_a0) {
+            gTranslucentVtxPool[D_803E4A00[i]].v.ob[2]++;
+        } else if (temp_a0 < gTranslucentVtxPool[D_803E4A00[i]].v.ob[2]) {
+            gTranslucentVtxPool[D_803E4A00[i]].v.ob[2]--;
         }
     }
 
@@ -109,11 +107,11 @@ void func_803041FC_7158AC(void) {
 
     for (i = 0; i < D_803F2CA6; i++) {
         // if free?
-        if ((D_803E4AD0[D_803E3130[i].unk2]) == 1) {
+        if ((D_803E4AD0[D_803E3130[i].scrollIndex]) == 1) {
 
             dl = D_803E3130[i].displayList;
 
-            tmp = D_803E3130[i].unk2;
+            tmp = D_803E3130[i].scrollIndex;
             if (tmp >= 300) {
                 if (tmp == 300) {
                     var_t4 = 0;
@@ -122,8 +120,8 @@ void func_803041FC_7158AC(void) {
                 var_a2 = var_t4 >> 1;
                 var_a3 = var_t5 >> 1;
             } else {
-                var_t4 = D_803E2930[tmp].unk0 << 4;
-                var_t5 = D_803E2930[tmp].unk4 << 4;
+                var_t4 = D_803E2930[tmp].sScrollStep << 4;
+                var_t5 = D_803E2930[tmp].tScrollStep << 4;
 
                 var_a2 = var_t4 >> 1;
                 var_a3 = var_t5 >> 1;
@@ -150,7 +148,7 @@ void func_803041FC_7158AC(void) {
 
             switch (D_803E3130[i].type) {
             case 7:
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 0:
                 gDPSetTileSize(
@@ -167,7 +165,7 @@ void func_803041FC_7158AC(void) {
                     D_803E3130[i].ult2 >> 16,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 1:
             case 11:
@@ -208,7 +206,7 @@ void func_803041FC_7158AC(void) {
                     D_80152350.unk384[(s16) (290 - D_803E4BD8)] >> 2,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 3:
                 gDPSetTileSize(
@@ -225,7 +223,7 @@ void func_803041FC_7158AC(void) {
                     D_803E3130[i].ult2 >> 16,
                     124,
                     124);
-                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.unk57);
+                gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
                 break;
             case 4:
                 gDPSetTileSize(

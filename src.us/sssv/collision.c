@@ -152,8 +152,8 @@ void func_802B4D20_6C63D0(void) {
                                             if (((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == 1)) || (animal1->movementState == 6)) && ((animal2->movementState == 1) || (animal2->movementState == 6)) && (animal2->unk4C.unk1B) && (animal2->unk16C->unk82.unk2 == 0)) ||
                                                 ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == 1)) || (animal1->movementState == 6)) && ((animal2->movementState == 1) || (animal2->movementState == 6)) && (animal1->unk4C.unk1B) && (animal1->unk16C->unk82.unk2 == 0))) {
 
-                                                var_s3 = animal1->unk44;
-                                                var_s4 = animal2->unk44;
+                                                var_s3 = animal1->mass;
+                                                var_s4 = animal2->mass;
 
                                                 if (animal1->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+EVO_MICROCHIP)) {
                                                     var_s3 = 0;
@@ -839,10 +839,9 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
     s16 tmp;
     tmp = arg0->unk114[0];
 
-#ifdef VERSION_EU
-    // extra check only in EU
+#ifdef BUGFIX
+    // This check only present in 1.1 (EU) - prevents lockup during DMA intro.
     if (arg0->unk114[0] == 0x7FFF) {
-        // ignore?
         return 0;
     }
 #endif
@@ -994,19 +993,19 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
         checkAnimal0 = 0;
     }
 
-    if ((arg0->unk44 * 3) < arg1->unk44) {
+    if ((arg0->mass * 3) < arg1->mass) {
         if (checkAnimal0 == 1) {
             checkAnimal1 = 0;
         }
-    } else if ((arg1->unk44 * 3) < arg0->unk44) {
+    } else if ((arg1->mass * 3) < arg0->mass) {
         if (checkAnimal1 == 1) {
             checkAnimal0 = 0;
         }
-    } else if ((arg0->unk44 * 2) < arg1->unk44) {
+    } else if ((arg0->mass * 2) < arg1->mass) {
         x1 >>= 1;
         z1 >>= 1;
         y1 >>= 1;
-    } else if ((arg1->unk44 * 2) < arg0->unk44) {
+    } else if ((arg1->mass * 2) < arg0->mass) {
         x0 >>= 1;
         z0 >>= 1;
         y0 >>= 1;

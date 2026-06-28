@@ -2,9 +2,7 @@ compiler_type = "ido"
 
 [preserve_macros]
 "_?g[DS]P.*" = "void"
-"G_IM_SIZ_.*" = "int"
-"G_[AC]C.*" = "int"
-"G_MTX_.*" = "int"
+"G_.*" = "int"
 "SP_UCODE_DATA_SIZE" = "int"
 "FRUSTRATIO_.*" = "int"
 "FR_[PN].*" = "int"

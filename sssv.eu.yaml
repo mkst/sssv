@@ -1,7 +1,7 @@
 sha1: 23710541bb3394072740b0f0236a7cb1a7d41531
 options:
   platform: n64
-  basename: sssv
+  basename: sssv.eu
   target_path: baserom.eu.z64
   base_path: .
   compiler: IDO
