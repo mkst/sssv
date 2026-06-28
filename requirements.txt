@@ -7,5 +7,6 @@ pypng
 python-Levenshtein
 python-ranges
 splat64[mips]==0.40.1
+spimdisasm==1.40.3
 toml
 watchdog
