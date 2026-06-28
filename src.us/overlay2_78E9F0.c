@@ -472,7 +472,7 @@ void trigger_contagious_laughter(void) {
     }
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E970/trigger_contagious_laughter.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E9F0/trigger_contagious_laughter.s")
 #endif
 
 // only used by MOUSE2
