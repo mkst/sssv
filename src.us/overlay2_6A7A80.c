@@ -22,9 +22,8 @@ u16  gWorldPerspNorm; // matrix normalise
 // .text
 // ========================================================
 
-#ifdef NON_MATCHING
-// CURRENT (75)
 void func_802963D0_6A7A80(FrameContext *arg0) {
+    static int t5;
     s16 i;
     s16 j;
     s16 k;
@@ -36,8 +35,6 @@ void func_802963D0_6A7A80(FrameContext *arg0) {
     s16 height;
 
     s16 width2;
-
-    int new_var;
 
     gWaterAnimState.unk20A = 8;
 
@@ -54,10 +51,6 @@ void func_802963D0_6A7A80(FrameContext *arg0) {
 
     for (i = 0; i < 2; i++) { // double-buffer
 
-        if (width) {};
-        if (width) {};
-        if (width) {};
-
         for (j = 0; j < (width + 1); j++) { // x-direction
 
             for (k = 0; k < height; k++) { // y-direction
@@ -66,9 +59,7 @@ void func_802963D0_6A7A80(FrameContext *arg0) {
                 v->v.ob[0] = ((j + x) << 6);
                 v->v.ob[1] = ((k + y) << 6);
 
-                new_var = 0;
-
-                v->v.tc[0] = (j << 6) << 3;
+                v->v.tc[0] = ((j + ((t5) * 0)) << 6) << 3;
                 v->v.tc[1] = (k << 6) << 3;
 
                 v->v.cn[0] = 0;
@@ -77,12 +68,10 @@ void func_802963D0_6A7A80(FrameContext *arg0) {
                 v->v.cn[3] = 0x80;
             }
         }
-        k = new_var;
+        if (width == height) {}
+        if (width == height) {}
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6A7A80/func_802963D0_6A7A80.s")
-#endif
 
 void func_80296544_6A7BF4(void) {
     f64 temp_f20;
