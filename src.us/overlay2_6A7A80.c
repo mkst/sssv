@@ -58,8 +58,11 @@ void func_802963D0_6A7A80(FrameContext *arg0) {
 
                 v->v.ob[0] = ((j + x) << 6);
                 v->v.ob[1] = ((k + y) << 6);
-
-                v->v.tc[0] = ((j + ((t5) * 0)) << 6) << 3;
+#ifdef __sgi
+                v->v.tc[0] = ((j + (t5 * 0)) << 6) << 3;
+#else
+                v->v.tc[0] = (j << 6) << 3;
+#endif
                 v->v.tc[1] = (k << 6) << 3;
 
                 v->v.cn[0] = 0;
@@ -68,8 +71,10 @@ void func_802963D0_6A7A80(FrameContext *arg0) {
                 v->v.cn[3] = 0x80;
             }
         }
+#ifdef __sgi
         if (width == height) {}
         if (width == height) {}
+#endif
     }
 }
 
