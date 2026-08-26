@@ -466,7 +466,7 @@ void func_80327BE0_739290(void) {
         if ((D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk3 == 1) || (D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk3 == 2)) {
             tmp = D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk2;
             if ((tmp != 1) && (tmp != 2) && (tmp == 7) &&
-                (gAnimalState.unkFFCE || (gAnimalState.curDPadDown && (gAnimalState.prevDPadDown == 0)))) {
+                (gAnimalState.landedFlag || (gAnimalState.curDPadDown && (gAnimalState.prevDPadDown == 0)))) {
                 func_80328258_739908(i);
                 i = 6; // break out of loop
             }
@@ -477,7 +477,7 @@ void func_80327BE0_739290(void) {
     curDPadDown = gAnimalState.curDPadDown;
     curDPadLeft = gAnimalState.curDPadLeft;
     curDPadRight = gAnimalState.curDPadRight;
-    gAnimalState.unkFFCE = 0;
+    gAnimalState.landedFlag = 0;
 }
 
 void unused_80327DA0_739450(void) {
@@ -638,10 +638,10 @@ void func_80328258_739908(s16 idx) {
 
     switch (sp1F) {
     case 1:
-        func_802DBA58_6ED108(0xF, D_803D552C);
+        func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
         break;
     case 2:
-        func_802DBA58_6ED108(0xF, D_803D552C);
+        func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
         break;
     case 0:
         break;
@@ -733,7 +733,7 @@ void func_80328520_739BD0(void) {
             }
         } else if (D_803D5524->unkD8 >= D_803D5530->Info.health) {
             D_803D552C->movementMode = MOVEMENT_MODE_CRITICAL;
-            D_803D552C->unk328 = D_803D5544;
+            D_803D552C->unk328 = gGameplayTick;
         }
         break;
     case MOVEMENT_MODE_CRITICAL:
@@ -743,7 +743,7 @@ void func_80328520_739BD0(void) {
             D_803D552C->movementMode = MOVEMENT_MODE_DEACTIVATED;
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
-            if (D_803D5544 >= 2) {
+            if (gGameplayTick >= 2) {
                 switch (D_803D5524->unkE6) {
                 case 0:
                     gGameState.score += 50;
@@ -771,7 +771,7 @@ void func_80328520_739BD0(void) {
     case MOVEMENT_MODE_DEACTIVATED:
         if (D_803D5530->Info.health > 0) {
             D_803D552C->movementMode = MOVEMENT_MODE_CRITICAL;
-            D_803D552C->unk328 = D_803D5544;
+            D_803D552C->unk328 = gGameplayTick;
             D_803D552C->unk36A = 1;
         }
         break;
@@ -782,7 +782,7 @@ void func_80328520_739BD0(void) {
 
 // ESA: func_8007FB40
 void func_80328918_739FC8(void) {
-    D_803D552C->unk328 = D_803D5544;
+    D_803D552C->unk328 = gGameplayTick;
     D_803D552C->unk36A = 1;
     D_803D552C->unk348 = 0;
     D_803D552C->unk34A = 0;
@@ -791,7 +791,7 @@ void func_80328918_739FC8(void) {
     D_803D552C->unk369 = 0;
     D_803D552C->unk365 = ATTACK_NONE;
     D_803D552C->unk36E = 0;
-    D_803D552C->unk364 = 0;
+    D_803D552C->attackState = ATTACK_STATE_NONE;
     D_803D552C->unk2EC = 0;
 
     if (D_803D5524->unk9C == SNEAKY_CHAMELEON) {
@@ -805,53 +805,53 @@ void func_80328918_739FC8(void) {
     func_802C9BA4_6DB254(D_803D5530);
 
     switch (D_803D5530->state) {
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-        D_803D5530->state = 2;
+    case STATE_WALKING:
+    case STATE_RUNNING:
+    case STATE_IN_AIR:
+    case STATE_CARRYING:
+        D_803D5530->state = STATE_STANDING;
         break;
-    case 22:
-    case 23:
-    case 24:
-        D_803D5530->state = 21;
+    case STATE_WHEELS_MOVING:
+    case STATE_WHEELS_TURNING:
+    case STATE_WHEELS_FAST:
+        D_803D5530->state = STATE_WHEELS_STANDING;
         break;
-    case 42:
-        D_803D5530->state = 41;
+    case STATE_POGO_HOPPING:
+        D_803D5530->state = STATE_POGO_STANDING;
         break;
-    case 62:
-    case 63:
-        D_803D5530->state = 61;
+    case STATE_SWIM_SWIMMING:
+    case STATE_SWIM_AIRBORNE:
+        D_803D5530->state = STATE_SWIM_IDLE;
         break;
     case 102:
-    case 103:
-    case 104:
-    case 105:
-    case 106:
-        D_803D5530->state = 101;
+    case STATE_BIRD_DIVING:
+    case STATE_BIRD_TURNING:
+    case STATE_BIRD_ATTACKING:
+    case STATE_BIRD_LANDING:
+        D_803D5530->state = STATE_BIRD_FLYING;
         break;
-    case 122:
-    case 123:
-        D_803D5530->state = 121;
+    case STATE_HELI_MOVING:
+    case STATE_HELI_ENTERING_WATER:
+        D_803D5530->state = STATE_HELI_HOVERING;
         break;
-    case 142:
-    case 143:
-    case 144:
-        D_803D5530->state = 141;
+    case STATE_FISH_SWIMMING_SLOW:
+    case STATE_FISH_SWIMMING:
+    case STATE_FISH_SWIMMING_FAST:
+        D_803D5530->state = STATE_FISH_IN_WATER;
         break;
-    case 162:
-        D_803D5530->state = 161;
+    case STATE_FISH_WALKING_ON_LAND:
+        D_803D5530->state = STATE_FISH_STANDING_ON_LAND;
         break;
-    case 182:
-    case 183:
-    case 184:
-    case 185:
-        D_803D5530->state = 181;
+    case STATE_WALKING_IN_WATER:
+    case STATE_RUNNING_IN_WATER:
+    case STATE_JUMPING_IN_WATER:
+    case STATE_FAST_IN_WATER:
+        D_803D5530->state = STATE_STANDING_IN_WATER;
         break;
-    case 202:
-    case 203:
-    case 204:
-        D_803D5530->state = 201;
+    case STATE_SINK_WHEELS_MOVING:
+    case STATE_SINK_WHEELS_TURNING:
+    case STATE_SINK_WHEELS_FAST:
+        D_803D5530->state = STATE_SINK_WHEELS_STANDING;
         break;
     }
 }
@@ -1008,7 +1008,7 @@ void func_80328ACC_73A17C(void) {
                         D_803D553A = 0;
 
                         D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
-                        D_803D552C->unk328 = D_803D5544;
+                        D_803D552C->unk328 = gGameplayTick;
                         D_803D552C->unk36A = 2;
 
                         D_803D5520->unk0 = &gAnimalState.unk0[EVO_TRANSFER];
@@ -1028,7 +1028,7 @@ void func_80328ACC_73A17C(void) {
                         D_803D5530->position.zPos.h = D_803D552C->unk30A;
                         D_803D5530->position.yPos.h = D_803D552C->unk30C;
                         D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
-                        D_803D552C->unk32A = D_803D5544;
+                        D_803D552C->unk32A = gGameplayTick;
                         D_803D552C->unk320 = gAnimalState.animals[sp80].animal;
                         D_803D552C->unk30E = sp80;
                         D_803D5530->unk163 = gAnimalState.animals[D_803D5536].animal->unk163;
@@ -1071,7 +1071,7 @@ void func_80328ACC_73A17C(void) {
                         D_803D552C->unk30A = gAnimalState.animals[0].animal->position.zPos.h;
                         D_803D552C->unk30C = gAnimalState.animals[0].animal->position.yPos.h + (gAnimalState.animals[0].unk0->unkBA / 2);
                         D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
-                        D_803D552C->unk32A = D_803D5544;
+                        D_803D552C->unk32A = gGameplayTick;
                         D_803D552C->unk320 = gAnimalState.animals[sp80].animal;
                         D_803D552C->unk30E = sp80;
                         play_sound_effect_at_location(SFX_UNKNOWN_56, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -1097,7 +1097,7 @@ void func_80328ACC_73A17C(void) {
                             doSwap = 0;
                         }
                     } else if ((currentAnimal->xVelocity.w != 0) || (currentAnimal->zVelocity.w != 0) || (currentAnimal->yVelocity.w > 0) ||
-                        (((currentAnimal->movementState != 1)) && (currentAnimal->movementState != 6)) ||
+                        (((currentAnimal->movementState != MOVEMENT_STATE_GROUND)) && (currentAnimal->movementState != MOVEMENT_STATE_FLYING)) ||
                         (((currentAnimal->unk6C != NULL)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_BUTTON)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_FLAT_BLOCK_1) || (temp_a0 >= 0x20)))) {
                         // logic feels weird, should it all be inverted?
                         doSwap = 0;
@@ -1164,7 +1164,7 @@ void func_80328ACC_73A17C(void) {
                             D_803D553A = 0;
 
                             D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
-                            D_803D552C->unk328 = D_803D5544;
+                            D_803D552C->unk328 = gGameplayTick;
                             D_803D552C->unk36A = 2;
                             D_803D5530->unk163 = gAnimalState.animals[D_803D5536].animal->unk163;
                             D_803D5530->unk18C.length = gAnimalState.animals[D_803D5536].animal->unk18C.length;
@@ -1188,7 +1188,7 @@ void func_80328ACC_73A17C(void) {
                             gAnimalState.animals[0].animal->unk68 = gAnimalState.animals[D_803D5536].animal->unk68;
                             gAnimalState.animals[0].animal->unk70 = gAnimalState.animals[D_803D5536].animal->unk70;
                             D_803D552C->unk365 = ATTACK_EVO_CHIP_1;
-                            D_803D552C->unk32A = D_803D5544;
+                            D_803D552C->unk32A = gGameplayTick;
                             D_803D5530->yRotation = (gAnimalState.animals[D_803D5536].animal->yRotation + 150) & 0xFF;
                             D_803D552C->heading = (gAnimalState.animals[D_803D5536].animal->heading + 150) & 0xFF;
                             func_80329F44_73B5F4();
@@ -1485,7 +1485,7 @@ void func_8032A710_73BDC0(void) {
     D_803D553A = 0;
 
     D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
-    D_803D552C->unk328 = D_803D5544;
+    D_803D552C->unk328 = gGameplayTick;
     D_803D552C->unk36A = 2;
     D_803D5530->unk163 = gAnimalState.animals[0].animal->unk163;
     D_803D5530->unk18C.length = gAnimalState.animals[0].animal->unk18C.length;
@@ -1523,7 +1523,7 @@ void func_8032A710_73BDC0(void) {
 void func_8032AA94_73C144(void) {
     func_80321920_732FD0(D_803D552C->unk320, 0, 0);
     D_803D552C->unk320 = 0;
-    if (D_803D5530->state == 0xDD) {
+    if (D_803D5530->state == STATE_INACTIVE) {
         func_802E4AB8_6F6168();
     }
 }

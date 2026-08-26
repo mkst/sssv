@@ -22,7 +22,7 @@ void func_803572F0_7689A0(void) {
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_FAILED;
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
-            D_801546D8 = 2048;
+            gMusicVolumeScale = 2048;
         }
         if (gGameState.unk4 != 0) {
             gGameState.unk4++;
@@ -36,7 +36,7 @@ void func_8035739C_768A4C(void) {
     D_803F2D50.unkC6 = 1;
     D_8015517C = 1.0f;
     D_801546E0 = 2048;
-    D_801546D8 = 2048;
+    gMusicVolumeScale = 2048;
 
     if ((gGameState.level == GIVE_A_DOG_A_BONUS) ||
         (gGameState.level == WALRACE_64) ||

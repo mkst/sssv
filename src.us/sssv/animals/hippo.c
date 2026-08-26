@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
+#include "hippo.h"
 
 extern Gfx D_04009FC0_FB020[];
 extern Gfx D_0400A4E0_FB540[];
@@ -14,19 +15,6 @@ extern Gfx D_0400B4C0_FC520[];
 extern Gfx D_0400B510_FC570[];
 extern Gfx D_0400B560_FC5C0[];
 extern Gfx D_0400B5B0_FC610[];
-
-extern struct077 D_803A4EF0_7B65A0[];
-extern struct077 D_803A4F20_7B65D0[];
-extern struct077 D_803A4F50_7B6600[];
-extern struct077 D_803A4F64_7B6614[];
-extern struct077 D_803A4F94_7B6644[];
-extern struct077 D_803A4FC4_7B6674[];
-
-extern u8 D_803A4FD8_7B6688[];
-extern u8 D_803A4FEC_7B669C[];
-extern s16 D_803A5000_7B66B0[];
-extern struct076 D_803A5020_7B66D0[];
-extern struct076 D_803A506C_7B671C[];
 
 void update_hippo(void) {
     Vertex sp100;
@@ -60,7 +48,7 @@ void update_hippo(void) {
         spF8 = 0;
         if (D_803D552C->unk365 == ATTACK_SPIT) {
             D_803D5528->unk3C0.unk0 = 0;
-            spF6 = D_803D5544 - D_803D552C->unk32A;
+            spF6 = gGameplayTick - D_803D552C->unk32A;
             if (spF6 == 1) {
                 play_sound_effect_at_location(SFX_UNKNOWN_157, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             } else if (spF6 == 10) {
@@ -151,7 +139,7 @@ void update_hippo(void) {
                 spF8 = (SIN((D_803D5540 << 4) & 0xFF) >> 7) >> 6;
             }
         }
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp100, 0x35B, 0x298, 0x7EE, 0xDA);
             func_802BD40C_6CEABC(0x493, 0x35B, 0, 0xDA, 0, 0x80, 0x64, 0x80, D_803A4EF0_7B65A0, D_803A4F20_7B65D0, D_803A4F50_7B6600, 0x493, 0x35B, 0, 0xDA, 0, 0x80, 0, 0x1E, D_803A4F64_7B6614, D_803A4F94_7B6644, D_803A4FC4_7B6674, &sp100, 0);
             func_802B964C_6CACFC();
@@ -161,7 +149,7 @@ void update_hippo(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A4FD8_7B6688, D_803A4FEC_7B669C, D_803A5000_7B66B0, (s16*)D_803A5020_7B66D0);
                 break;
@@ -246,7 +234,7 @@ void func_802F036C_701A1C(void) {
 
 void func_802F0374_701A24(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_SPIT;
         D_803D552C->unk32C = D_803D552C->heading;
     }
@@ -258,7 +246,7 @@ void func_802F03B8_701A68(void) {
     s16 yPos;
     s16 i;
 
-    if ((D_803D5530->movementState == 1) && (D_803D5530->unk6C == 0)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) && (D_803D5530->unk6C == 0)) {
         xPos = D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) << 6) >> 8);
         zPos = D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) << 6) >> 8);
         yPos = D_803D5530->position.yPos.h;
@@ -290,7 +278,7 @@ void drop_sticky_mine(void) {
     s16 yPos;
     s16 i;
 
-    if ((D_803D5530->movementState == 1) && (D_803D5530->unk6C == 0)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) && (D_803D5530->unk6C == 0)) {
         xPos = D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) << 6) >> 8);
         zPos = D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) << 6) >> 8);
         yPos = D_803D5530->position.yPos.h;
@@ -316,7 +304,7 @@ void drop_sticky_mine(void) {
 
 void hippo_spit(s32 arg0, s32 arg1, s32 arg2) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_SPIT;
         D_803D552C->unk32C = D_803D552C->heading;
     }

@@ -74,7 +74,7 @@ extern Gfx  D_04000230_F1290[];
 extern Gfx  D_04005B60_11C730[]; // spaceship interior
 extern Gfx  D_04006D00_11D8D0[]; // tv body
 
-extern Gfx D_04003580_EAB30[];
+extern Gfx sheep_leg[];
 extern Gfx D_04003640_EABF0[];
 extern Gfx D_040036D0_EAC80[];
 extern Gfx D_04003930_E0EF0[];
@@ -196,7 +196,7 @@ extern u8   D_80154370[]; // 0x2FA70
 // core/audio.c .data
 extern f32  gMusicVolume;
 extern f32  gSfxVolume;
-extern s16  D_801546D8; // used in lots of places
+extern s16  gMusicVolumeScale; // used in lots of places
 extern s16  D_801546E0;
 extern s32  D_80155160;
 extern s8   D_80155164[];
@@ -264,17 +264,17 @@ extern s16  gScreenHeight;
 
 // 0x801Exxxx
 
-// all of these are part of D_801D9ED8 (e.g. D_801E1ED7->unk7FA9 =>D_801D9ED8.unkFFA8)
-//extern s16  D_801E9E80; // D_801D9ED8.unkFFA8
+// all of these are part of D_801D9ED8 (e.g. D_801E1ED7->unk7FA9 =>D_801D9ED8.desiredHeading)
+//extern s16  D_801E9E80; // D_801D9ED8.desiredHeading
 //extern u16  D_801E9E8A; // D_801D9ED8.curAButton
 //extern u16  D_801E9E8E; // D_801D9ED8.curBButton
 //extern u16  D_801E9E90; // D_801D9ED8.prevAButton
-//extern s16  D_801E9EA6; // D_801D9ED8.unkFFCE
+//extern s16  D_801E9EA6; // D_801D9ED8.landedFlag
 //extern s8   D_801E9EB0; // D_801D9ED8.stickX
 //extern s8   D_801E9EB1; // D_801D9ED8.stickY
-//extern s16  D_801E9EB2; // D_801D9ED8.unkFFDA // force? duration of controller input?
-//extern s16  D_801E9EB4; // D_801D9ED8.unkFFDC
-//extern s16  D_801E9EB6; // D_801D9ED8.unkFFDE // bear/gorilla use this
+//extern s16  D_801E9EB2; // D_801D9ED8.stickMag
+//extern s16  D_801E9EB4; // D_801D9ED8.steerHoriz
+//extern s16  D_801E9EB6; // D_801D9ED8.inputClimb
 
 extern Objects D_801E9EB8;  // gObjects
 // extern Entity D_80203AA8[];   // D_801E9EB8.objects
@@ -531,7 +531,7 @@ extern s16  D_803B54A8_7C6B58[];
 extern struct076 D_803B555C_7C6C0C[];
 extern struct076 D_803B5574_7C6C24[];
 extern struct076 D_803B558C_7C6C3C[];
-extern Gfx  D_803B5764_7C6E14[];
+extern s32  D_803B5764_7C6E14[];
 extern u8   D_803B5860_7C6F10[];
 extern u8   D_803B5864_7C6F14[];
 extern s16  D_803B5868_7C6F18[];
@@ -628,7 +628,7 @@ extern s16  D_803D553C;
 extern s16  gNumAnimalsInLevel;
 extern s16  D_803D5540; // timer
 extern s16  D_803D5542; // timer
-extern u16  D_803D5544; // timer (for attacks? everything?) gCurrentTick
+extern u16  gGameplayTick; // timer (for attacks? everything?) gCurrentTick
 extern s16  D_803D5546;
 extern s16  D_803D5548;
 extern s8   D_803D554A;
@@ -780,7 +780,7 @@ extern s32  D_803F2EC0;
 extern s32  D_803F2EC4;
 extern s32  D_803F2EC8;
 extern u16  D_803F2ECC;
-extern u16  D_803F2ECE;
+extern u16  gAnimBlendMode;
 extern s16  D_803F2ED0;
 extern s16  D_803F2ED2;
 extern s32  D_803F2ED4;
@@ -809,7 +809,7 @@ extern s16  D_803F63E0;
 extern Cheats  gCheats;
 
 // overlay2_79DE10
-extern s16  D_803F6450;
+extern s16  gAnimalBehaviourEnabled;
 
 // terminal_background
 extern Animal *D_803F6464;

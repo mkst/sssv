@@ -182,11 +182,11 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         break;
     }
 
-    switch (D_803D552C->unk364) {
-    case 0:
+    switch (D_803D552C->attackState) {
+    case ATTACK_STATE_NONE:
         break;
-    case 8:
-        var_t0 = (D_803D5544 - D_803D552C->attackTimer);
+    case ATTACK_STATE_LUNGE_FWD:
+        var_t0 = (gGameplayTick - D_803D552C->attackTimer);
         if (var_t0 == 5) {
             play_sound_effect_at_location(SFX_UNKNOWN_34, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
@@ -548,11 +548,11 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
         break;
     }
 
-    switch (D_803D552C->unk364) {
-    case 0:
+    switch (D_803D552C->attackState) {
+    case ATTACK_STATE_NONE:
         break;
-    case 8:
-        temp_t9_2 = (D_803D552C->attackTimer - D_803D5544);
+    case ATTACK_STATE_LUNGE_FWD:
+        temp_t9_2 = (D_803D552C->attackTimer - gGameplayTick);
         if (temp_t9_2 > 10) {
             var_a1 = SIN((temp_t9_2 - 10) << 5) >> 9;
         }
@@ -760,11 +760,11 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
         break;
     }
 
-    switch (D_803D552C->unk364) {
-    case 0:
+    switch (D_803D552C->attackState) {
+    case ATTACK_STATE_NONE:
         break;
-    case 8:
-        temp_t7 = D_803D552C->attackTimer - D_803D5544;
+    case ATTACK_STATE_LUNGE_FWD:
+        temp_t7 = D_803D552C->attackTimer - gGameplayTick;
         if (temp_t7 > 10) {
             var_a0 = SIN((temp_t7 - 10) << 5) >> 9;
         }
@@ -848,11 +848,11 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
         break;
     }
 
-    switch (D_803D552C->unk364) {
-    case 0:
+    switch (D_803D552C->attackState) {
+    case ATTACK_STATE_NONE:
         break;
-    case 8:
-        temp_t9 = (D_803D552C->attackTimer - D_803D5544);
+    case ATTACK_STATE_LUNGE_FWD:
+        temp_t9 = (D_803D552C->attackTimer - gGameplayTick);
         if (temp_t9 > 10) {
             var_v0_2 = SIN((temp_t9 - 0xA) << 5) >> 9;
         }

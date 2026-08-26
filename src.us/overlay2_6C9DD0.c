@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
 
+// this function returns nothing, should be void
+s32  func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2);
 
 void func_802B8720_6C9DD0(void) {
     D_803D5528->unk370.unk10 = 0;
@@ -25,7 +27,7 @@ void func_802B8790_6C9E40(void) {
     D_803D5528->unk384.unk12 = 0;
     D_803D5528->unk398.unk12 = 0;
     D_803D5528->unk3AC.unk12 = 0;
-    D_803D552C->unk2FA = func_802B8B74_6CA224();
+    D_803D552C->gaitPhasePeriod = func_802B8B74_6CA224();
     func_802C7BB4_6D9264(5);
 }
 
@@ -39,7 +41,7 @@ void func_802B8810_6C9EC0(void) {
     D_803D5528->unk384.unk12 = 0;
     D_803D5528->unk398.unk12 = 0;
     D_803D5528->unk3AC.unk12 = 0;
-    D_803D552C->unk2FA = func_802B8B74_6CA224();
+    D_803D552C->gaitPhasePeriod = func_802B8B74_6CA224();
     func_802C7BB4_6D9264(6);
 }
 
@@ -132,8 +134,9 @@ void func_802B8B1C_6CA1CC(void) {
     }
 }
 
+// get_gait_phase_period
 u16 func_802B8B74_6CA224(void) {
-    s32 phi_v0;
+    u16 phi_v0;
     u16 tmp;
 
     phi_v0 = 3000;
@@ -141,11 +144,11 @@ u16 func_802B8B74_6CA224(void) {
         (D_803D5530->state == 182) ||
         (D_803D5530->state == 6) ||
         (D_803D5530->state == 185)) {
-        phi_v0 = (u16) D_803D5524->unkC2;
+        phi_v0 = D_803D5524->unkC2;
     }
     if ((D_803D5530->state == 4) ||
         (D_803D5530->state == 183)) {
-        phi_v0 = (u16) D_803D5524->unkC4;
+        phi_v0 = D_803D5524->unkC4;
     }
 
     tmp = phi_v0 / MAX(1, (D_803D552C->unk31A << 5) >> 6);

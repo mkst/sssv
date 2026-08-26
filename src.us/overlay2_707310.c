@@ -436,7 +436,7 @@ void func_802F6A5C_70810C(Animal *arg0) {
     f32 phi_f2;
     f32 phi_f16;
 
-    if ((arg0->state != 30) && (arg0->state != 31)) {
+    if ((arg0->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_B)) {
         if ((arg0->unk161 == 1) && (arg0->unk6C != NULL)) {
             phi_f14 = (f32) (arg0->xVelocity.w - arg0->unk6C->xVelocity.w) / arg0->unk30;
             phi_f2 = (f32) (arg0->zVelocity.w - arg0->unk6C->zVelocity.w) / arg0->unk30;
@@ -2739,7 +2739,7 @@ s32 func_802FD4D0_70EB80(Animal *arg0) {
 s32 func_802FD538_70EBE8(Animal *arg0) {
     s16 i;
 
-    if ((D_803E1B02 > 0) && (gAnimalState.animals[gCurrentAnimalIndex].animal->state == 0xDD)) {
+    if ((D_803E1B02 > 0) && (gAnimalState.animals[gCurrentAnimalIndex].animal->state == STATE_INACTIVE)) {
         for (i = 0; i < 120; i++) {
             if ((D_803E00C0[i].unk2F == 2) &&
                 ((arg0 == D_803E00C0[i].unk4) || (arg0 == D_803E00C0[i].unk0))) {

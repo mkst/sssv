@@ -80,11 +80,11 @@ void func_802F1730_702DE0(void) {
                 D_803D552C->unk32A += 1;
             } else {
                 func_802DC3F4_6EDAA4(0x50, &spB2, &spB0);
-                if ((D_803D5544 - D_803D552C->unk32A) == 20) {
+                if ((gGameplayTick - D_803D552C->unk32A) == 20) {
                     play_sound_effect_at_location(SFX_UNKNOWN_118, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     do_rumble(0, 0x3C, 0x3C, 0x14, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h));
                 }
-                if (((D_803D5544 - D_803D552C->unk32A) > 14) && ((D_803D5544 - D_803D552C->unk32A) < 70)) {
+                if (((gGameplayTick - D_803D552C->unk32A) > 14) && ((gGameplayTick - D_803D552C->unk32A) < 70)) {
                     func_803421E0_753890(4);
                     func_8037DA08_78F0B8(16, 320, 2);
                     func_8037E9AC_79005C();
@@ -102,7 +102,7 @@ void func_802F1730_702DE0(void) {
                 spB2 = (SIN((D_803D5540 << 4) & 0xFF) >> 7) >> 6;
             }
         }
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&spC4, 0x1C2, 600, 0x4B0, 0xD2);
             func_802BD40C_6CEABC(0x20D, 0x2A3, 0, 0xD2, 0, 0x80, 0x64, 0x80, D_803A50D0_7B6780, D_803A5100_7B67B0, D_803A5130_7B67E0,
                                  0x20D, 0x2A3, 0, 0xD2, 0, 0x80,    0, 0x1E, D_803A5144_7B67F4, D_803A5174_7B6824, D_803A51A4_7B6854, &spC4, 0);
@@ -116,7 +116,7 @@ void func_802F1730_702DE0(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {                    /* irregular */
+            switch (gAnimBlendMode) {                    /* irregular */
             case 1:
                 func_802DB670_6ECD20(D_803A51B8_7B6868, D_803A51CC_7B687C, D_803A51E0_7B6890, D_803A5204_7B68B4);
                 break;
@@ -266,13 +266,13 @@ void func_802F1730_702DE0(void) {
 #endif
 
 void func_802F2A2C_7040DC(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_ROAR;
     play_sound_effect_at_location(SFX_LION_ROAR, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }
 
 void lion_roar(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_ROAR;
     play_sound_effect_at_location(SFX_LION_ROAR, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }

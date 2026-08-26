@@ -22,7 +22,7 @@ void update_entity_physics(Entity *arg0) {
     s32 collisionResult;
 
     if (arg0->unk4A == 0) {
-        if ((arg0->state == 0x1E) || (arg0->state == 0x1F)) {
+        if ((arg0->state == STATE_GRABBED_A) || (arg0->state == STATE_GRABBED_B)) {
             arg0->unk6C = NULL;
             arg0->unk70 = NULL;
             arg0->unk68 = NULL;
@@ -42,7 +42,7 @@ void update_entity_physics(Entity *arg0) {
                     arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 1:
-                    arg0->movementState = 3U;
+                    arg0->movementState = MOVEMENT_STATE_AIRBORNE;
                     arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 2:
@@ -88,9 +88,9 @@ void update_entity_physics(Entity *arg0) {
                     break;
                 case 1:
                     if (arg0->unk16C->unk82.unk0) {
-                        arg0->movementState = 5;
+                        arg0->movementState = MOVEMENT_STATE_SINKING;
                     } else {
-                        arg0->movementState = 7;
+                        arg0->movementState = MOVEMENT_STATE_DRIFTING;
                     }
                     arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
@@ -142,9 +142,9 @@ void update_entity_physics(Entity *arg0) {
             }
             if ((arg0->unk4C.unk1C) && ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < floorHeight)) {
                 if (arg0->unk16C->unk82.unk0) {
-                    arg0->movementState = 5;
+                    arg0->movementState = MOVEMENT_STATE_SINKING;
                 } else {
-                    arg0->movementState = 7;
+                    arg0->movementState = MOVEMENT_STATE_DRIFTING;
                 }
                 func_802D760C_6E8CBC(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, arg0->unk30, arg0->yVelocity.h);
             }
@@ -158,9 +158,9 @@ void update_entity_physics(Entity *arg0) {
                 }
                 if ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < collisionResult) {
                     if (arg0->unk16C->unk82.unk0) {
-                        arg0->movementState = 5;
+                        arg0->movementState = MOVEMENT_STATE_SINKING;
                     } else {
-                        arg0->movementState = 7;
+                        arg0->movementState = MOVEMENT_STATE_DRIFTING;
                     }
                     func_802D760C_6E8CBC(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, arg0->unk30, arg0->yVelocity.h);
                 }
@@ -196,7 +196,7 @@ void update_entity_physics(Entity *arg0) {
                 func_802A3E70_6B5520(arg0, &arg0->xVelocity.w, &arg0->zVelocity.w);
             }
             if (floorHeight < (arg0->position.yPos.h + (arg0->unk42 >> 1))) {
-                arg0->movementState = 1;
+                arg0->movementState = MOVEMENT_STATE_GROUND;
             }
             func_802CB180_6DC830(arg0);
             break;
@@ -207,7 +207,7 @@ void update_entity_physics(Entity *arg0) {
             if (arg0->unk4C.unk1D) {
                 arg0->yVelocity.w -= (s32) gGravity >> 2;
                 if (floorHeight < (arg0->position.yPos.h + (arg0->unk42 >> 1))) {
-                    arg0->movementState = 3;
+                    arg0->movementState = MOVEMENT_STATE_AIRBORNE;
                 }
             }
             func_802CB180_6DC830(arg0);
@@ -267,9 +267,9 @@ void update_entity_physics(Entity *arg0) {
         }
 
         if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) &&
-            (((arg0->movementState == 1)) || ((arg0->movementState == 6) && (arg0->unk16C->unk82.unk0 == 0))) &&
+            (((arg0->movementState == MOVEMENT_STATE_GROUND)) || ((arg0->movementState == MOVEMENT_STATE_FLYING) && (arg0->unk16C->unk82.unk0 == 0))) &&
             (arg0->unk68 == NULL) && (arg0->unk70 == NULL) && (arg0->commands.unk1A8 == 0)) {
-            if ((arg0->state != 0x1E) && (arg0->state != 0x1F) && (arg0->unk16C->unk2 != 1) && (arg0->Info.lifetime == 0)) {
+            if ((arg0->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_B) && (arg0->unk16C->unk2 != 1) && (arg0->Info.lifetime == 0)) {
                 arg0->unk4C.unk19  = 0;
             }
         }
@@ -307,7 +307,7 @@ void apply_ground_friction(Entity *arg0) {
     if (multi < 0) {
         multi = 0;
     }
-    if (arg0->movementState == 6) {
+    if (arg0->movementState == MOVEMENT_STATE_FLYING) {
         multi = 256 - ((256 - multi) >> 1);
     }
 

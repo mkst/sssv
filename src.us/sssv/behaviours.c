@@ -1749,7 +1749,7 @@ void perform_behavior_hyena_biker(void) {
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 0x14) + 0x14;
-            biker_hyena_fire_missile(D_803D552C->aiTarget);
+            hyena_biker_fire_missile(D_803D552C->aiTarget);
         }
         break;
     case 3:
@@ -1778,7 +1778,7 @@ void perform_behavior_chameleon(void) {
             D_803D552C->unk2C0 = 0;
         }
         if ((D_803D552C->targetDistance < 0x3D) && (D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2BC < 3)) {
-            chameleon_attack_2();
+            sneaky_chameleon_attack();
             D_803D552C->unk2C4 = RAND(8) + 9;
             D_803D552C->unk2BC += 1;
         } else if (D_803D552C->unk2BC >= 3) {

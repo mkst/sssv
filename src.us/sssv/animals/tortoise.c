@@ -65,7 +65,7 @@ void update_tortoise_tank(void) {
     var_a0 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
-        var_v0 = gAnimalState.unkFFDA;
+        var_v0 = gAnimalState.stickMag;
     } else {
         var_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -162,7 +162,7 @@ void update_tortoise_tank(void) {
         D_803F2EC0 = FTOFIX32(1.0) + ((D_803F2EC0 - FTOFIX32(1.0)) >> 1);
         D_803F2EC4 = FTOFIX32(1.0) + ((D_803F2EC4 - FTOFIX32(1.0)) >> 1);
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp140, 453, 308, 498, 0);
             func_802C1830_6D2EE0(498, &sp140);
             func_802B964C_6CACFC();
@@ -170,7 +170,7 @@ void update_tortoise_tank(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A8380_7B9A30, D_803A8390_7B9A40, D_803A83A0_7B9A50, D_803A83BC_7B9A6C);
                 break;
@@ -519,7 +519,7 @@ void update_racing_tortoise(void) {
     var_v1 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
-        phi_v0 = gAnimalState.unkFFDA;
+        phi_v0 = gAnimalState.stickMag;
     } else {
         phi_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -627,7 +627,7 @@ void update_racing_tortoise(void) {
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
 
-        if ((D_803F2ECE == 0) || (((D_803F2ECC < 31)))) {
+        if ((gAnimBlendMode == 0) || (((D_803F2ECC < 31)))) {
             if (D_803D5538 != 0) {
                 var_v1_6 = ((D_803D554C * 362) / 20);
             } else {
@@ -647,7 +647,7 @@ void update_racing_tortoise(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A843C_7B9AEC, D_803A8450_7B9B00, D_803A8464_7B9B14, D_803A8484_7B9B34);
                 break;
@@ -797,7 +797,7 @@ void update_tortoise_defending(void) {
         func_8032CD70_73E420(D_803D5530, SFX_UNKNOWN_175, 0x6000, 0, 1.0f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
     }
 
-    if (D_803D5530->movementState == 1) {
+    if (D_803D5530->movementState == MOVEMENT_STATE_GROUND) {
         temp_f0 = (ABS(D_803D5530->xVelocity.w) + ABS(D_803D5530->zVelocity.w)) / (65536.0 * 10);
         if (temp_f0 > 0.2) {
             func_8032CD70_73E420(
@@ -833,13 +833,13 @@ void update_tortoise_defending(void) {
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_802B9130_6CA7E0(&sp88, 0x1C5, 0x134, 0xB5, 0);
             func_802B964C_6CACFC();
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A8514_7B9BC4, D_803A8518_7B9BC8, D_803A8464_7B9B14, D_803A8484_7B9B34);
                 break;
@@ -994,7 +994,7 @@ void func_80355EDC_76758C(void) {
 
 // tortoise_tank_???
 void func_80355EFC_7675AC(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->position.xPos.h,  D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(TORTOISE_TANK_DEFENDING);
 }
@@ -1019,21 +1019,21 @@ void func_80355F64_767614(void) {
 
 // racing tortoise
 void func_80355FFC_7676AC(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(RACING_TORTOISE_DEFENDING);
 }
 
 // tortoise_tank_defending_???
 void func_80356064_767714(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(TORTOISE_TANK);
 }
 
 // racing_tortoise_defending_???
 void func_803560CC_76777C(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(RACING_TORTOISE);
 }

@@ -104,6 +104,7 @@ endif
 
 IDO_CFLAGS  = $(INCLUDE_CFLAGS) $(DEFINES)
 IDO_CFLAGS += -G0 -mips2 -32 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul -woff 649,838,807
+# IDO_CFLAGS += -Wo,-l,trace.lst -Wo,-zdbug:7
 
 ifeq ($(COMPILER),ido)
   CC = $(IDO)

@@ -53,13 +53,13 @@ void func_80365F10_7775C0(void) {
     f32 spA4;
 
     if (D_803D5538 == 0) {
-        if ((D_803D552C->unk364 == 3) && (D_803D5530->movementState == 1)) {
+        if ((D_803D552C->attackState == ATTACK_STATE_CHARGE) && (D_803D5530->movementState == MOVEMENT_STATE_GROUND)) {
             D_803D552C->unk369 = 0;
-            D_803D552C->unk364 = 0;
+            D_803D552C->attackState = ATTACK_STATE_NONE;
         }
     }
 
-    if ((D_803D5530->movementState == 3) && (D_803D5524->unk9C != POLAR_BEAR_DEFENDING)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_AIRBORNE) && (D_803D5524->unk9C != POLAR_BEAR_DEFENDING)) {
         if (D_803D5538 != 0) {
             if (D_803D552C->unk369 == 0) {
                 if (gAnimalState.curAButton == 0) {
@@ -68,7 +68,7 @@ void func_80365F10_7775C0(void) {
             } else if (D_803D552C->unk369 == 1) {
                 if ((gAnimalState.curAButton != 0) && (D_803D552C->unk36D >= 6)) {
                     D_803D552C->unk369 = 2;
-                    func_802DBA58_6ED108(3, D_803D552C);
+                    func_802DBA58_6ED108(ATTACK_STATE_CHARGE, D_803D552C);
 
                     D_803D5530->yVelocity.h = MAX(14, D_803D5530->yVelocity.h + 9);
                     play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -79,7 +79,7 @@ void func_80365F10_7775C0(void) {
         } else {
             if ((D_803D552C->unk369 == 1) && (D_803D552C->yVelocity.h < -2)) {
                 D_803D552C->unk369 = 2;
-                func_802DBA58_6ED108(3, D_803D552C);
+                func_802DBA58_6ED108(ATTACK_STATE_CHARGE, D_803D552C);
                 D_803D5530->yVelocity.h = MAX(14, D_803D5530->yVelocity.h + 9);
                 play_sound_effect_at_location(SFX_UNKNOWN_32, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             }
@@ -124,7 +124,7 @@ void func_80365F10_7775C0(void) {
                 D_803D552C->unk365 = ATTACK_NONE;
                 break;
             case ATTACK_POLAR_BEAR_2:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 spB0 = ticks_remaining;
                 if (ticks_remaining < 9) {
                     func_80368840_779EF0(spB0);
@@ -142,7 +142,7 @@ void func_80365F10_7775C0(void) {
                 }
                 break;
             case ATTACK_POLAR_BEAR_3:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 spB0 = 32 - ticks_remaining;
                 if (ticks_remaining < 33) {
                     func_80368840_779EF0(spB0);
@@ -161,13 +161,13 @@ void func_80365F10_7775C0(void) {
             break;
         }
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             D_803F2F00 = 0;
             func_802B9130_6CA7E0(&spB8, 0x1DE, 0xEF, 0x344, 0x2F);
 
             update_limbs_rigid(0x344, 0x2F,    0, 0x64,     0, 0x80, D_803B4250_7C5900, D_803B4280_7C5930, D_803B42B0_7C5960,
-                                 0x344, 0x2F, 0x64,     0, 0x80,    0, D_803B4250_7C5900, D_803B4280_7C5930, D_803B42B0_7C5960,
-                                 &spB8);
+                               0x344, 0x2F, 0x64,     0, 0x80,    0, D_803B4250_7C5900, D_803B4280_7C5930, D_803B42B0_7C5960,
+                               &spB8);
             func_802B964C_6CACFC();
             func_802C58E4_6D6F94(0x77, 0x1DE);
             func_8038CCF0_79E3A0(0x77, 0x14, -1, -1, -1, -1);
@@ -209,7 +209,7 @@ void func_80365F10_7775C0(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B43A0_7C5A50, D_803B43B0_7C5A60, D_803B43C0_7C5A70, D_803B43D8_7C5A88);
                 break;
@@ -225,8 +225,8 @@ void func_80365F10_7775C0(void) {
             } else {
                 spAA = D_803D552C->unk308;
             }
-            if (D_803D552C->unk364 == 3) {
-                ticks_remaining = (D_803D5544 - D_803D552C->attackTimer);
+            if (D_803D552C->attackState == ATTACK_STATE_CHARGE) {
+                ticks_remaining = (gGameplayTick - D_803D552C->attackTimer);
                 spA4 = D_803B4338_7C59E8[MIN(ticks_remaining, 15)];
                 create_particle_effect(
                     (SSSV_RAND(64) + D_803D5530->position.xPos.h) - 0x20,
@@ -240,8 +240,8 @@ void func_80365F10_7775C0(void) {
                     GPACK_RGBA5551(200, 200, 200, 1), // grey
                     GPACK_RGBA5551(248, 248, 248, 1), // white
                     0);
-            } else if (D_803D552C->unk364 == 4) {
-                spAC = D_803D5544 - D_803D552C->attackTimer;
+            } else if (D_803D552C->attackState == ATTACK_STATE_CHARGE_END) {
+                spAC = gGameplayTick - D_803D552C->attackTimer;
 
                 func_802DC2AC_6ED95C(10);
                 spA4 = D_803B4378_7C5A28[spAC& 0xFFFF];
@@ -386,7 +386,7 @@ void func_80365F10_7775C0(void) {
             load_animal(POLAR_BEAR);
             func_802A4390_6B5A40();
             func_802B2834_6C3EE4();
-            D_803D552C->unk32A = D_803D5544;
+            D_803D552C->unk32A = gGameplayTick;
             D_803D552C->unk365 = ATTACK_POLAR_BEAR_3;
         } else if (D_803D552C->unk2EC > 0) {
             D_803D552C->unk2EC--;
@@ -427,7 +427,7 @@ void func_803677C4_778E74(void) {
     var_v1 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
-        var_v0 = gAnimalState.unkFFDA;
+        var_v0 = gAnimalState.stickMag;
     } else {
         var_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -532,7 +532,7 @@ void func_803677C4_778E74(void) {
         }
 
         if (D_803D552C->unk365 == 0x1A) {
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             D_803D5528->unk3C0.unk0 = 0;
             if (ticks_remaining < 6) {
                 D_803D552C->unk308 -= 3;
@@ -549,7 +549,7 @@ void func_803677C4_778E74(void) {
             D_803D552C->unk365 = 0;
         }
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp98, 0x1DE, 0x219, 0x344, 0);
             func_802C1830_6D2EE0(0x2CD, &sp98);
             func_802B964C_6CACFC();
@@ -562,7 +562,7 @@ void func_803677C4_778E74(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B4448_7C5AF8, D_803B4458_7C5B08, D_803B4468_7C5B18, D_803B4480_7C5B30);
                 break;
@@ -725,7 +725,7 @@ void func_80368840_779EF0(s16 arg0) {
 void func_80368AC4_77A174(void) {
     if ((D_803D552C->unk365 != ATTACK_POLAR_BEAR_2) &&
         (D_803D552C->unk365 != ATTACK_POLAR_BEAR_3)) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_POLAR_BEAR_2;
     }
 }
@@ -735,7 +735,7 @@ void func_80368B04_77A1B4(void) {
     if ((D_803D552C->unk365 != ATTACK_POLAR_BEAR_2) &&
         (D_803D552C->unk365 != ATTACK_POLAR_BEAR_3)) {
         load_animal(POLAR_BEAR);
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_POLAR_BEAR_3;
         func_802A4390_6B5A40();
         func_802B2834_6C3EE4();
@@ -743,13 +743,13 @@ void func_80368B04_77A1B4(void) {
 }
 
 void func_80368B78_77A228(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_POLAR_BEAR_1;
 }
 
 // polar tank
 void func_80368BA0_77A250(void) {
-    if ((D_803D5530->movementState == 1) && (D_803D5530->unk6C == 0)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0x599, 0xB4, D_803D5530, 50, OBJECT_MINE);
         play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     } else {
@@ -758,19 +758,19 @@ void func_80368BA0_77A250(void) {
 }
 
 void polar_tank_drop_mine(void) {
-    if ((D_803D5530->movementState == 1) && (D_803D5530->unk6C == 0)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0x599, 0xDC, D_803D5530, 50, OBJECT_MINE);
         play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
 }
 
 void polar_tank_fire_cannon(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_POLAR_BEAR_1;
 }
 
 void polar_bear_jump_thump(void) {
-    if (D_803D5530->movementState == 1) {
+    if (D_803D5530->movementState == MOVEMENT_STATE_GROUND) {
         func_802A467C_6B5D2C(0);
         D_803D552C->unk369 = 1;
     }
@@ -781,7 +781,7 @@ void func_80368D60_77A410(s16 arg0) {
         D_803D552C->unk2EC = 0;
     } else if (D_803D552C->unk365 != ATTACK_POLAR_BEAR_2) {
         D_803D552C->unk2EC = arg0;
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_POLAR_BEAR_2;
     } else {
         D_803D552C->unk2EC = arg0;

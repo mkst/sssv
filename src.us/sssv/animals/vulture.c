@@ -63,10 +63,10 @@ void func_8036C0B0_77D760(void) {
         case ATTACK_VULTURE:
             func_802DCCAC_6EE35C(16);
             D_803F2ECC = D_803F2ED8;
-            D_803F2ECE = 3;
+            gAnimBlendMode = ANIM_BLEND_ATTACK;
             break;
         case ATTACK_BITE:
-            if ((D_803D5544 - D_803D552C->unk32A) >= 9) {
+            if ((gGameplayTick - D_803D552C->unk32A) >= 9) {
                 D_803D552C->unk365 = ATTACK_NONE;
             }
             break;
@@ -82,7 +82,7 @@ void func_8036C0B0_77D760(void) {
         } else {
             sp94 = FTOFIX32(1.0);
         }
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_802BAD60_6CC410(250, 650);
             func_802C5F34_6D75E4(1200, 500, 1);
             func_802BB1F0_6CC8A0(900, 100);
@@ -93,7 +93,7 @@ void func_8036C0B0_77D760(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B4930_7C5FE0, D_803B4944_7C5FF4, D_803B4958_7C6008, D_803B497C_7C602C);
                 break;
@@ -161,7 +161,7 @@ void func_8036C0B0_77D760(void) {
             }
             phi_v1 = 0;
             if (D_803D552C->unk365 == ATTACK_BITE) {
-                switch (D_803D5544 - D_803D552C->unk32A) {
+                switch (gGameplayTick - D_803D552C->unk32A) {
                 case 1:
                 case 5:
                     sp90 = FTOFIX32(2.0);
@@ -255,7 +255,7 @@ void func_8036D30C_77E9BC(void) {
             } else {
                 D_803D552C->position.yPos.h = MAX(D_803D552C->position.yPos.h, sample_ground_height_at_xz(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h) >> 16);
             }
-        } else if (D_803D5530->movementState == 2) {
+        } else if (D_803D5530->movementState == MOVEMENT_STATE_SWIMMING) {
             if (D_803D5528->energy[1].unk0 > 400) {
                 D_803D5528->energy[1].unk0 -= 400;
                 if (func_803224C4_733B74(-62, 0, 0, 15, 20, 0, 0, 19) != 0) {
@@ -266,7 +266,7 @@ void func_8036D30C_77E9BC(void) {
                 }
                 if (D_803D552C->unk365 == ATTACK_NONE) {
                     D_803D552C->unk365 = ATTACK_BITE;
-                    D_803D552C->unk32A = D_803D5544;
+                    D_803D552C->unk32A = gGameplayTick;
                 }
             }
         }
@@ -281,7 +281,7 @@ void func_8036D30C_77E9BC(void) {
 
 void func_8036D5CC_77EC7C(void) {
     // check object is an animal?
-    if ((D_803D5530->movementState == 2) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET))) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_SWIMMING) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET))) {
         if (func_803224C4_733B74(-62, 0, 0, 46, 20, 0, 0, 19) != 0) {
             play_sound_effect_at_location(SFX_BIRD_CLAW_ATTACK, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             D_803D5530->yVelocity.h += 2;
@@ -290,7 +290,7 @@ void func_8036D5CC_77EC7C(void) {
         }
         if (D_803D552C->unk365 == ATTACK_NONE) {
             D_803D552C->unk365 = ATTACK_BITE;
-            D_803D552C->unk32A = D_803D5544;
+            D_803D552C->unk32A = gGameplayTick;
         }
     }
 }

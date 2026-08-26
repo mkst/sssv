@@ -84,8 +84,8 @@ void func_802B4D20_6C63D0(void) {
                                 ((animal1->unk70 != animal2) || (animal2->unk16C->unk15 != 4) || (animal1->unk16C->unk2 != 5)) &&
                                 ((animal2->unk70 != animal1) || (animal1->unk16C->unk15 != 4) || (animal2->unk16C->unk2 != 5))) {
 
-                                if ((animal1->state != 0x1E) && (animal2->state != 0x1E) &&
-                                    (animal1->state != 0x1F) && (animal2->state != 0x1F) &&
+                                if ((animal1->state != STATE_GRABBED_A) && (animal2->state != STATE_GRABBED_A) &&
+                                    (animal1->state != STATE_GRABBED_B) && (animal2->state != STATE_GRABBED_B) &&
                                     ((animal1->unk15C == 0) || (animal2 != animal1->owner)) &&
                                     ((animal2->unk15C == 0) || (animal1 != animal2->owner))) {
 
@@ -149,8 +149,8 @@ void func_802B4D20_6C63D0(void) {
                                                 var_s5 = 0;
                                             }
 
-                                            if (((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == 1)) || (animal1->movementState == 6)) && ((animal2->movementState == 1) || (animal2->movementState == 6)) && (animal2->unk4C.unk1B) && (animal2->unk16C->unk82.unk2 == 0)) ||
-                                                ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == 1)) || (animal1->movementState == 6)) && ((animal2->movementState == 1) || (animal2->movementState == 6)) && (animal1->unk4C.unk1B) && (animal1->unk16C->unk82.unk2 == 0))) {
+                                            if (((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal2->unk4C.unk1B) && (animal2->unk16C->unk82.unk2 == 0)) ||
+                                                ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal1->unk4C.unk1B) && (animal1->unk16C->unk82.unk2 == 0))) {
 
                                                 var_s3 = animal1->mass;
                                                 var_s4 = animal2->mass;
@@ -236,18 +236,18 @@ void func_802B4D20_6C63D0(void) {
                                                 animal2->unk3C0.unk2 = 0;
                                             }
 
-                                            animal1->unk48 = animal2->unk48 = D_803D5544;
-                                            // animal1->unk48 = D_803D5544;
+                                            animal1->unk48 = animal2->unk48 = gGameplayTick;
+                                            // animal1->unk48 = gGameplayTick;
 
                                             if (animal1 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
-                                                if ((D_803D5544 - D_803D60E2) >= 5) {
+                                                if ((gGameplayTick - D_803D60E2) >= 5) {
                                                     D_803D5546 = MAX(2, D_803D5546);
-                                                    D_803D60E2 = D_803D5544;
+                                                    D_803D60E2 = gGameplayTick;
                                                 }
                                             } else if (animal2 == gAnimalState.animals[gCurrentAnimalIndex].animal) {
-                                                if ((D_803D5544 - D_803D60E2) >= 5) {
+                                                if ((gGameplayTick - D_803D60E2) >= 5) {
                                                     D_803D5546 = MAX(2, D_803D5546);
-                                                    D_803D60E2 = D_803D5544;
+                                                    D_803D60E2 = gGameplayTick;
                                                 }
                                             }
                                             func_802CAB20_6DC1D0(animal1, animal2, sp11C.h, sp114.h, sp10C.h, sp118.h, sp110.h, sp108.h);
@@ -857,7 +857,7 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
 
                         if ((var_s5->animal->unk68 != arg0) && (arg0->unk68 != var_s5->animal) && ((var_s5->animal->unk70 != arg0) || (arg0->unk16C->unk15 != 4)) && ((arg0->unk70 != var_s5->animal) || (var_s5->animal->unk16C->unk15 != 4))) {
 
-                            if ((var_s5->animal->state != 0x1E) && (arg0->state != 0x1E) && (var_s5->animal->state != 0x1F) && (arg0->state != 0x1F) && ((var_s5->animal->unk15C == 0) || (var_s5->animal->owner != arg0)) && ((arg0->unk15C == 0) || (arg0->owner != var_s5->animal)) && ((arg6 == 0) || (var_s5->animal->unk16C->objectType < 0x100))) {
+                            if ((var_s5->animal->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_A) && (var_s5->animal->state != STATE_GRABBED_B) && (arg0->state != STATE_GRABBED_B) && ((var_s5->animal->unk15C == 0) || (var_s5->animal->owner != arg0)) && ((arg0->unk15C == 0) || (arg0->owner != var_s5->animal)) && ((arg6 == 0) || (var_s5->animal->unk16C->objectType < 0x100))) {
 
                                 other = var_s5->animal;
                                 func_802B5E48_6C74F8(other, arg0, &D_803D60D0, &D_803D60D4);

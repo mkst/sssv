@@ -5,6 +5,7 @@
 
 extern Gfx  D_04008290_107FE0[];
 extern Gfx  D_04008420_108170[];
+extern Gfx  D_040088F0_108640[];
 extern Gfx  D_040089E0_108730[];
 
 void func_80302200_7138B0(void) {
@@ -61,7 +62,7 @@ done:
             break;
         case ATTACK_FROG_TONGUE:
             func_802DCCAC_6EE35C(16);
-            if ((D_803D5544 - D_803D552C->unk32A) == 4) {
+            if ((gGameplayTick - D_803D552C->unk32A) == 4) {
                 tmp = func_803224C4_733B74(0x16, 0x54, 0, 0x1A, 0xF, 0, 0, 4);
                 phi_v1 = tmp;
                 if (tmp != 2) {
@@ -82,13 +83,13 @@ done:
             break;
         }
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_802B96D0_6CAD80(&sp74, 0x167, 0x262, 0);
             func_802C1A44_6D30F4(0x262, 0x6B, &sp74);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A5520_7B6BD0, D_803A5524_7B6BD4, D_803A5528_7B6BD8, D_803A5530_7B6BE0);
                 break;
@@ -130,16 +131,16 @@ done:
             }
             D_803D552C->unk308 = sp72;
 
-            if ((D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90)) {
+            if ((D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST)) {
                 sp6E = (D_803D5540 << 5) & 0xFF;
                 func_8034B848_75CEF8(0);
-            } else if (D_803D5530->state == 0x8F) {
+            } else if (D_803D5530->state == STATE_FISH_SWIMMING) {
                 sp6E = (D_803D5540 << 6) & 0xFF;
                 func_8034B848_75CEF8(0);
             } else {
                 sp6E = 0;
             }
-            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 14, FTOFIX32(0.71875), FTOFIX32(0.71875), ((0x10000 + (sp72 << 5)) * 0x2E) >> 6, D_803F2ED0, sp6E, 0, 0, D_040088F0_F9950); }
+            if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 14, FTOFIX32(0.71875), FTOFIX32(0.71875), ((0x10000 + (sp72 << 5)) * 0x2E) >> 6, D_803F2ED0, sp6E, 0, 0, D_040088F0_108640); }
             D_80203FE0[2].unk4 += sp72 * 3;
             D_80203FE0[1].unk4 += sp72 * 3;
             if (D_803F2ED8 != 0) { func_802C78B0_6D8F60(1, 2, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) - (sp72 << 5)) * 0x2E) >> 6, (((D_803F2ED8 << 0xB) + (sp72 << 6)) * 0x2E) >> 6, D_803F2ED0, 0, 0, 0, D_040089E0_108730); }
@@ -191,13 +192,13 @@ done:
 }
 
 void func_80302D5C_71440C(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_FROG_TONGUE;
     play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }
 
 void frog_croak(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_FROG_TONGUE;
     play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }

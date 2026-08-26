@@ -2,16 +2,10 @@
 #include "common.h"
 
 #include "camera.h"
-
+#include "rat.h"
 
 extern Gfx D_01003548_3CE18[];
 extern Gfx D_01003618_3CEE8[];
-
-extern s16 D_803B3F50_7C5600[];
-extern s16 D_803B3F60_7C5610[];
-extern s16 D_803B3F70_7C5620[];
-extern s16 D_803B3F8C_7C563C[];
-extern s16 D_803B3FCC_7C567C[];
 
 extern Gfx D_04007080_CEAB0[];
 extern Gfx D_040072F0_CED20[];
@@ -112,7 +106,7 @@ void func_8035E430_76FAE0(void) {
         if ((D_803D5528->unk3C8.unk2 != 0) && (D_803A6CE4_7B8394 & 8)) {
             D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x1F;
         }
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_802B9130_6CA7E0(&spA8, 0xCB, 0xA2, 0x16D, 0);
             func_802C1830_6D2EE0(0x11C, &spA8);
             func_802B964C_6CACFC();
@@ -123,7 +117,7 @@ void func_8035E430_76FAE0(void) {
             switch (D_803D552C->unk365) {
             case ATTACK_BITE:
                 D_803D5528->unk3C0.unk0 = 0;
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining == 2) {
                     if (func_803224C4_733B74(6, 25, 0, 22, 6, 40, 300, 7)) {
                         play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.3f);
@@ -187,7 +181,7 @@ void func_8035E430_76FAE0(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B3F50_7C5600, D_803B3F60_7C5610, D_803B3F70_7C5620, D_803B3F8C_7C563C);
                 break;
@@ -337,7 +331,7 @@ void func_8035E430_76FAE0(void) {
 #endif
 
 void func_8035F92C_770FDC(void) {
-    if (((D_803D5530->movementState == 1) || (D_803D5530->movementState == 6)) && (D_803D5530->unk6C == 0)) {
+    if (((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING)) && (D_803D5530->unk6C == 0)) {
         spawn_temporary_object(
             D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) * 20) >> 8),
             D_803D5530->position.zPos.h - (((COS(D_803D552C->heading) >> 7) * 20) >> 8),
@@ -350,15 +344,15 @@ void func_8035F92C_770FDC(void) {
 }
 
 void func_8035FA5C_77110C(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_BITE;
 }
 
 void func_8035FA84_771134(void) {
-    if ((D_803D5530->movementState == 6) || (D_803D5530->movementState == 7)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_FLYING) || (D_803D5530->movementState == MOVEMENT_STATE_DRIFTING)) {
         func_8035FAEC_77119C();
     } else {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_FART_CLOUD;
     }
 }
@@ -398,7 +392,7 @@ void func_8035FC08_7712B8(void) {
 }
 
 void rat_drop_mine(void) {
-    if ((D_803D5530->movementState == 1) || (D_803D5530->movementState == 6)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING)) {
         if (D_803D5530->unk6C == 0) {
             spawn_temporary_object(
                 D_803D5530->position.xPos.h - (((SIN(D_803D552C->heading) >> 7) * 20) >> 8),
@@ -415,7 +409,7 @@ void rat_drop_mine(void) {
 }
 
 void rat_bite(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_BITE;
     play_sound_effect_at_location(SFX_RAT_BITE, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.3f);
 }

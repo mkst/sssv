@@ -115,7 +115,7 @@ void func_80376D40_7883F0(void) {
             break;
         case ATTACK_SCORPION_1:
             func_802DCCAC_6EE35C(0x10);
-            if ((D_803D5544 - D_803D552C->unk32A) == 4) {
+            if ((gGameplayTick - D_803D552C->unk32A) == 4) {
                 if (func_803224C4_733B74(7, 0x1B, 0, 0x20, 0x14, 0, 0, 9) != 0) {
                     play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 } else {
@@ -124,7 +124,7 @@ void func_80376D40_7883F0(void) {
             }
             tailIndex = D_803D5528->unk3C8.unk2;
             if (tailIndex != 0) {
-                if ((D_803D5544 - D_803D552C->unk32A) < 8) {
+                if ((gGameplayTick - D_803D552C->unk32A) < 8) {
                     D_803E00C0[tailIndex].tailType = 15;
                 } else {
                     D_803E00C0[tailIndex].tailType = 14;
@@ -132,7 +132,7 @@ void func_80376D40_7883F0(void) {
             }
             break;
         case ATTACK_SCORPION_2:
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             if ((D_803D552C->unk330 == NULL) || (D_803D552C->unk330->movementMode == MOVEMENT_MODE_DELETED)) {
                 D_803D552C->unk365 = ATTACK_NONE;
             } else {
@@ -168,7 +168,7 @@ void func_80376D40_7883F0(void) {
                             if ((D_803D552C->unk330->movementMode == MOVEMENT_MODE_2) || (D_803D552C->unk330->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
                                 D_803D552C->unk330->yVelocity.w += D_803D552C->unk30A << 0xF;
                             } else if (D_803D552C->unk30A >= 0xB) {
-                                func_802DBA58_6ED108(0xE, D_803D552C->unk330);
+                                func_802DBA58_6ED108(ATTACK_STATE_KNOCKBACK_LG, D_803D552C->unk330);
                             }
                         } else if (ticks_remaining == 21) {
                             if (D_803D552C->unk330->unk16C->unk9C == DESERT_FOX_ATTACKING) {
@@ -289,7 +289,7 @@ void func_80376D40_7883F0(void) {
             break;
         }
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp120, 0xFA, 0x8C, 0xFA, 0x3E);
 
             D_80203FE0[8].unk0 = D_80203FE0[3].unk0 + ((D_80203FE0[5].unk0 - D_80203FE0[3].unk0) / 3);
@@ -334,7 +334,7 @@ void func_80376D40_7883F0(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B51D4_7C6884, D_803B51EC_7C689C, D_803B5204_7C68B4, D_803B5234_7C68E4);
                 break;
@@ -528,13 +528,13 @@ void func_80378FF8_78A6A8(void) {
     };
 
     if ((gAnimalState.prevBButton == 0) && (gAnimalState.curBButton != 0)) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_SCORPION_1;
     }
 }
 
 void func_80379048_78A6F8(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_SCORPION_1;
 }
 
@@ -547,7 +547,7 @@ void func_80379070_78A720(void) {
             // perform lightning attack
             D_803D552C->unk330 = a;
             D_803D552C->unk365 = ATTACK_SCORPION_2;
-            D_803D552C->unk32A = D_803D5544;
+            D_803D552C->unk32A = gGameplayTick;
             D_803D552C->unk30C = D_803D552C->unk330->position.yPos.h + (D_803D552C->unk330->unk42 >> 1);
             do_rumble(0, 25, 5, 60, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h));
         }
@@ -560,12 +560,12 @@ void func_80379148_78A7F8(Animal *a) {
     if ((D_803D552C->unk365 == ATTACK_NONE) && (a != NULL)) {
         D_803D552C->unk330 = a;
         D_803D552C->unk365 = ATTACK_SCORPION_2;
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk30C = D_803D552C->unk330->position.yPos.h + (D_803D552C->unk330->unk42 >> 1);
     }
 }
 
 void func_803791AC_78A85C(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_SCORPION_1;
 }

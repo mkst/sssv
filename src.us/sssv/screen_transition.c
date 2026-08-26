@@ -2,20 +2,23 @@
 #include "common.h"
 
 // ========================================================
-// externs
+// .data
 // ========================================================
 
-extern struct028 D_803A50C0_7B6770;
+static Vp viewport = {
+    640, 480, 0x01FF, 0x0000,
+    640, 480, 0x01FF, 0x0000,
+};
 
 // ========================================================
 // .bss
 // ========================================================
 
 ScreenTransition gScreenTransition;
-static u8   D_803E1B1A; // r
-static u8   D_803E1B1B; // g
-static u8   D_803E1B1C; // b
-static u16  D_803E1B1E; // perspective
+static u8        red;
+static u8        green;
+static u8        blue;
+static u16       perspective;
 
 // ========================================================
 // .text
@@ -103,7 +106,7 @@ void perform_screen_transition(void) {
                 phi_v1 = 89;
             }
             alpha = D_80152350.unk2D0[(s16)phi_v1];
-            draw_rectangle(&gMainDL, 0, 0, 320, 240, D_803E1B1A, D_803E1B1B, D_803E1B1C, alpha);
+            draw_rectangle(&gMainDL, 0, 0, 320, 240, red, green, blue, alpha);
             if (gScreenTransition.unk2 < 100) {
                 gScreenTransition.unk2 += 1;
             }
@@ -117,30 +120,30 @@ void perform_screen_transition(void) {
         case 17:    // green screen
         case 18:    // blue screen
             if ((gScreenTransition.transitionId == 3) || (gScreenTransition.transitionId == 14)) {
-                D_803E1B1A = 0; // black
-                D_803E1B1B = 0;
-                D_803E1B1C = 0;
+                red = 0; // black
+                green = 0;
+                blue = 0;
             }
             // unreachable. covered in case 15/22
             if (gScreenTransition.transitionId == 15) {
-                D_803E1B1A = 255; // white
-                D_803E1B1B = 255;
-                D_803E1B1C = 255;
+                red = 255; // white
+                green = 255;
+                blue = 255;
             }
             if (gScreenTransition.transitionId == 16) {
-                D_803E1B1A = 255; // red
-                D_803E1B1B = 0;
-                D_803E1B1C = 0;
+                red = 255; // red
+                green = 0;
+                blue = 0;
             }
             if (gScreenTransition.transitionId == 17) {
-                D_803E1B1A = 0;
-                D_803E1B1B = 255; // green
-                D_803E1B1C = 0;
+                red = 0;
+                green = 255; // green
+                blue = 0;
             }
             if (gScreenTransition.transitionId == 18) {
-                D_803E1B1A = 0;
-                D_803E1B1B = 0;
-                D_803E1B1C = 255; // blue
+                red = 0;
+                green = 0;
+                blue = 255; // blue
             }
             if (gScreenTransition.unk2 < 11) {
                 phi_v1 = (gScreenTransition.unk2 - 1) * 10;
@@ -153,7 +156,7 @@ void perform_screen_transition(void) {
                 alpha = 255;
                 gScreenTransition.unk0 = 1;
             }
-            draw_rectangle(&gMainDL, 0, 0, 320, 240, D_803E1B1A, D_803E1B1B, D_803E1B1C, alpha);
+            draw_rectangle(&gMainDL, 0, 0, 320, 240, red, green, blue, alpha);
             if (gScreenTransition.unk2 < 100) {
                 gScreenTransition.unk2 += 1;
             }
@@ -312,12 +315,12 @@ s16 func_802F1388_702A38(void) {
 void render_screen_transition_tv_702A68(void) {
     if (gScreenTransition.overlayTV != 0) {
         func_8039D034_7AE6E4(&gMainDL, 0);
-        D_803A50C0_7B6770.unk0 = gScreenWidth * 2;
-        D_803A50C0_7B6770.unk2 = gScreenHeight * 2;
-        D_803A50C0_7B6770.unk8 = gScreenWidth * 2;
-        D_803A50C0_7B6770.unkA = gScreenHeight * 2;
+        viewport.vp.vscale[0] = gScreenWidth * 2;
+        viewport.vp.vscale[1] = gScreenHeight * 2;
+        viewport.vp.vtrans[0] = gScreenWidth * 2;
+        viewport.vp.vtrans[1] = gScreenHeight * 2;
         init_f3dex_render(&gMainDL, gDisplayListContext);
-        guPerspective(&gDisplayListContext->unk37550, &D_803E1B1E, 33.0f, 1.0f, 5.0f, 100.0f, 1.0f);
+        guPerspective(&gDisplayListContext->unk37550, &perspective, 33.0f, 1.0f, 5.0f, 100.0f, 1.0f);
         guScale(&gDisplayListContext->unk37590, 0.5f, 0.5f, 0.5f);
         guScale(&gDisplayListContext->unk37610, 0.9f, 1.0f, 1.0f);
         guLookAt(&gDisplayListContext->unk375D0, -1.0f, 105.0f, -3.0f, -1.0f, 0.0f, -3.0f, 0.0f, 0.0f, 1.0f);
@@ -327,12 +330,12 @@ void render_screen_transition_tv_702A68(void) {
         gSPMatrix(gMainDL++, &gDisplayListContext->unk375D0, G_MTX_NOPUSH | G_MTX_MUL  | G_MTX_PROJECTION);
         gSPMatrix(gMainDL++, &gDisplayListContext->unk37610, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-        gSPPerspNormalize(gMainDL++, D_803E1B1E);
+        gSPPerspNormalize(gMainDL++, perspective);
 
         load_segments(&gMainDL, gDisplayListContext);
         switch_to_current_segment(&gMainDL, gDisplayListContext);
 
-        gSPViewport(gMainDL++, &D_803A50C0_7B6770);
+        gSPViewport(gMainDL++, &viewport);
 
         gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
         gSPDisplayList(gMainDL++, D_01004270_3DB40);

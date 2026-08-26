@@ -434,7 +434,7 @@ void func_8038FD74_7A1424(void) {
     gGameState.score = 0;
     D_801D9ED4 = 6;
     gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
-    D_801546D8 = 1600;
+    gMusicVolumeScale = 1600;
     D_801546E0 = 2048;
     D_8015517C = 1.0f;
 

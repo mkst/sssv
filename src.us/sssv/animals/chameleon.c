@@ -1,18 +1,8 @@
 #include <ultra64.h>
 #include "common.h"
+#include "chameleon.h"
 
 u8 bss_padding_chameleon_pre[0x10];
-
-extern struct077 D_803B3B60_7C5210[];
-extern struct077 D_803B3C34_7C52E4[];
-extern struct077 D_803B3BD4_7C5284[];
-
-extern u8 D_803B3C48_7C52F8[];
-extern u8 D_803B3C60_7C5310[];
-
-extern s16 D_803B3CA0_7C5350[];
-extern s16 D_803B3CF8_7C53A8[];
-extern s16 D_803B3C78_7C5328[];
 
 extern Gfx D_04008AD0_F9B30[];
 extern Gfx D_04008C70_F9CD0[];
@@ -63,7 +53,7 @@ void func_8035A5F0_76BCA0(void) {
             switch (D_803D552C->unk365) {
             case ATTACK_CHAMELEON_TONGUE:
                 func_802DCCAC_6EE35C(16);
-                if (D_803D5544 - D_803D552C->unk32A == 4) {
+                if (gGameplayTick - D_803D552C->unk32A == 4) {
                     func_803224C4_733B74(0x13, 0x49, 0, 0x10, 0xB, 0, 0, 0x17);
                     func_803224C4_733B74(0x13, 0x30, 0, 0x10, 0xB, 0, 0, 0x17);
                     func_803224C4_733B74(0x13, 0x18, 0, 0x10, 0xB, 0, 0, 0x17);
@@ -73,7 +63,7 @@ void func_8035A5F0_76BCA0(void) {
                 if (D_803D5530->unk4A != 0) {
                     D_803D552C->unk32A++;
                 } else {
-                    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                    ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                     if (ticks_remaining < 17) {
                         if (D_803D5530->unk4A == 0) {
                             func_8032CD70_73E420(
@@ -148,7 +138,7 @@ void func_8035A5F0_76BCA0(void) {
                 if (D_803D5530->unk4A != 0) {
                     D_803D552C->unk32A++;
                 } else {
-                    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                    ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                     if (ticks_remaining < 17) {
                         if (D_803D5530->unk4A == 0) {
                             func_8032CD70_73E420(
@@ -219,7 +209,7 @@ void func_8035A5F0_76BCA0(void) {
             }
             break;
         }
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             D_803F2F00 = 0;
             func_802B9130_6CA7E0(&spD0, 0x138, 0x177, 0x1F4, 0x7D);
             func_802BD40C_6CEABC(250, 250, 0, 0x7D, 0, 0x80, 0, 0x80, D_803B3B60_7C5210, D_803B3B60_7C5210, D_803B3C34_7C52E4, 250, 250, 0, 0x7D, 0x40, 0xC0, 0x40, 0xC0, D_803B3BD4_7C5284, D_803B3BD4_7C5284, D_803B3C34_7C52E4, &spD0, 1);
@@ -228,17 +218,17 @@ void func_8035A5F0_76BCA0(void) {
             func_802BBC90_6CD340(0x271);
 
 
-            if (((D_803D5530->state == 3) || (D_803D5530->state == 6)) && ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED)) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            if (((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_CARRYING)) && ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED)) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
                 var_s1 = D_803D552C->gaitPhaseOffset;
                 var_s0 = COS(var_s1 & 0xFFFF) >> 7;
                 var_s2 = var_s0 / 16;
                 var_s0 = (var_s0 * 250) >> 9;
-            } else if ((D_803D5530->state == 4) && (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            } else if ((D_803D5530->state == STATE_RUNNING) && (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
                 var_s1 = D_803D552C->gaitPhaseOffset;
                 var_s0 = COS(var_s1 & 0xFFFF) >> 7;
                 var_s2 = var_s0 / 12;
                 var_s0 = (var_s0 * 250) >> 9;
-            } else if ((D_803D5530->movementState == 5) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
+            } else if ((D_803D5530->movementState == MOVEMENT_STATE_SINKING) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
                 var_s1 = (D_803D5540 << 5) & 0xFF;
                 var_s0 = COS(var_s1 & 0xFFFF) >> 7;
                 var_s2 = var_s0 / 12;
@@ -303,7 +293,7 @@ void func_8035A5F0_76BCA0(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B3C48_7C52F8, D_803B3C60_7C5310, D_803B3C78_7C5328, D_803B3CA0_7C5350);
                 break;
@@ -378,12 +368,12 @@ void func_8035A5F0_76BCA0(void) {
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {
             if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE) && (D_803D5524->unk9C != CHAMELEON)) {
-                D_803D552C->unk32A = D_803D5544;
+                D_803D552C->unk32A = gGameplayTick;
                 D_803D552C->unk365 = ATTACK_CHAMELEON_UNHIDE;
             }
         } else {
             if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE)) {
-                D_803D552C->unk32A = D_803D5544;
+                D_803D552C->unk32A = gGameplayTick;
                 D_803D552C->unk365 = ATTACK_CHAMELEON_HIDE;
             }
             D_803D552C->unk2EC--;
@@ -398,13 +388,13 @@ void func_8035BDC0_76D470(void) {
     s16 temp_t8;
     s16 i;
 
-    if (D_803F2EA0 != D_803D5544) {
-        D_803F2EA0 = D_803D5544;
+    if (D_803F2EA0 != gGameplayTick) {
+        D_803F2EA0 = gGameplayTick;
 
         palette = (u16*)(D_801D9EC4 + SEGMENT_OFFSET(img_chameleon_pal));
 
         temp_t7 = ((SIN(D_803D5540) >> 7) + 0x100) >> 1;
-        temp_t8 = ((COS(((D_803D5544 & 0xFFF) * 7) >> 3) >> 7) + 0x100) >> 1;
+        temp_t8 = ((COS(((gGameplayTick & 0xFFF) * 7) >> 3) >> 7) + 0x100) >> 1;
 
         for (i = 0; i < 7; i++) {
             // rgba16
@@ -415,7 +405,7 @@ void func_8035BDC0_76D470(void) {
 }
 
 void chameleon_attack(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_CHAMELEON_TONGUE;
     play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }
@@ -423,20 +413,20 @@ void chameleon_attack(void) {
 void chameleon_hide(void) {
     if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) &&
         (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE)) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_CHAMELEON_HIDE;
     }
 }
 
 void chameleon_unhide(void) {
     if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE)) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_CHAMELEON_UNHIDE;
     }
 }
 
-void chameleon_attack_2(void) {
-    D_803D552C->unk32A = D_803D5544;
+void sneaky_chameleon_attack(void) {
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_CHAMELEON_TONGUE;
     play_sound_effect_at_location(SFX_RAM_HEADBUTT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
 }

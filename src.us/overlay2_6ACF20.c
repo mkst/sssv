@@ -68,8 +68,8 @@ void maybe_trigger_exit_teleporter(Animal *arg0, Entity *teleporter) {
         D_803D2D90.unk48 = D_803D2D90.unk4E;
         D_803D2D90.unk4A = D_803D2D90.unk50;
         func_802B33D0_6C4A80(arg0);
-        arg0->unk364 = 16;
-        arg0->attackTimer = D_803D5544;
+        arg0->attackState = ATTACK_STATE_TELEPORT_IN;
+        arg0->attackTimer = gGameplayTick;
     }
 }
 
@@ -93,8 +93,8 @@ void func_8029B9B8_6AD068(Animal *player, Entity *teleporter) {
     D_803D2D90.unk58->unk160 = D_803D2D90.unk60->unk160;
     D_803D2D90.unk0 = 3;
     D_803D2D90.unk2 = OBJECT_ENTRANCE_TELEPORTER;
-    player->unk364 = 16;
-    player->attackTimer = D_803D5544 - 150;
+    player->attackState = ATTACK_STATE_TELEPORT_IN;
+    player->attackTimer = gGameplayTick - 150;
 }
 
 // ESA: func_80075310
@@ -122,8 +122,8 @@ void maybe_do_teleport(Animal *arg0, Entity *teleporter) {
             D_803D2D90.unk0 = 1;
             D_803D2D90.unk2 = OBJECT_EXIT_TELEPORTER;
             func_802B33D0_6C4A80(arg0);
-            arg0->unk364 = 17; // prevents user input
-            arg0->attackTimer = D_803D5544;
+            arg0->attackState = ATTACK_STATE_TELEPORT_OUT; // prevents user input
+            arg0->attackTimer = gGameplayTick;
             func_8035739C_768A4C();
         }
     }

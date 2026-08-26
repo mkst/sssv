@@ -149,14 +149,14 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     D_803D552C->gaitPhaseOffset = 0;
     D_803D552C->prevGaitPhaseOffset = 0;
     D_803D552C->state = 2; // not state..?
-    D_803D5530->movementState = 1;
+    D_803D5530->movementState = MOVEMENT_STATE_GROUND;
     D_803D5530->unk160 = 0;
     D_803D5530->unk16C = D_803D5524;
     D_803D5530->Info.health = MIN(health, D_803D5524->unk8A);
     D_803D5530->unk4C.unk1B = 1;
     D_803D5530->unk4C.unk1C = 1;
     D_803D5530->unk4C.unk1D = 1;
-    D_803D552C->unk31C = func_801282C4();
+    D_803D552C->ambientPhaseSeed = func_801282C4();
 
     i = sample_ground_height_at_xz(arg0, arg1) >> 0x10;
     if (arg2 < i) {

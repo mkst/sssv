@@ -22,7 +22,7 @@ s32 can_swim(Animal *a) {
 // ESA: func_80060DC8
 s32 func_80362B60_774210(Animal *a) {
     s32 movementState = a->movementState & 0xF;
-    if ((movementState == 4) || (movementState == 5) || (movementState == 6) || (movementState == 7)) {
+    if ((movementState == MOVEMENT_STATE_WATER_SWIM) || (movementState == MOVEMENT_STATE_SINKING) || (movementState == MOVEMENT_STATE_FLYING) || (movementState == MOVEMENT_STATE_DRIFTING)) {
         return 1;
     } else {
         return 0;
@@ -46,7 +46,7 @@ s32 can_fly(Animal *a) {
 }
 
 s32 func_80362BEC_77429C(Animal *a) {
-    if (a->movementState == 2) {
+    if (a->movementState == MOVEMENT_STATE_SWIMMING) {
         return 1;
     } else {
         return 0;
@@ -635,9 +635,8 @@ void func_80363FF0_7756A0(Animal *arg0) {
     }
 }
 
-void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
-    // skill A
-    if (arg0 == 0) {
+void func_80364120_7757D0(u8 skill, s16 power, s16 unused, Animal *target) {
+    if (skill == SKILL_A) {
         switch (D_803D5524->unk9C) {
         case SEAGULL:
             break;
@@ -648,7 +647,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             hippo_spit(0, 0, 0);
             break;
         case RACING_DOG:
-            racing_dog_turbo(arg1);
+            racing_dog_turbo(power);
             break;
         case FLYING_DOG:
             flying_dog_fire_gun(0, 0, 0);
@@ -672,7 +671,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             animal_jump();
             break;
         case RACING_MOUSE:
-            racing_mouse_turbo(arg1);
+            racing_mouse_turbo(power);
             break;
         case MOUSE2:
             animal_jump();
@@ -681,7 +680,7 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             fox_warp();
             break;
         case RACING_TORTOISE:
-            racing_tortoise_turbo(arg1);
+            racing_tortoise_turbo(power);
             break;
         case PIRANA:
             animal_jump();
@@ -717,10 +716,10 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             animal_jump();
             break;
         case SKI_HUSKY:
-            ski_husky_turbo(arg1);
+            ski_husky_turbo(power);
             break;
         case WALRUS:
-            walrus_turbo(arg1);
+            walrus_turbo(power);
             break;
         case CAMEL:
             animal_jump();
@@ -747,22 +746,21 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             animal_jump();
             break;
         case ELEPHANT:
-            func_8037D268_78E918(arg1);
+            func_8037D268_78E918(power);
             break;
         case HYENA:
             animal_jump();
             break;
         case HYENA_BIKER:
-            func_8035A5A4_76BC54(arg1);
+            hyena_biker_turbo(power);
             break;
         case CHAMELEON:
-            chameleon_attack_2();
+            sneaky_chameleon_attack();
             break;
         case COOL_COD:
             break;
         }
     } else {
-        // skill B
         switch (D_803D5524->unk9C) {
         case SEAGULL:
         case LION:
@@ -772,22 +770,22 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             drop_sticky_mine();
             break;
         case RACING_DOG:
-            racing_dog_fire_missile(arg3);
+            racing_dog_fire_missile(target);
             break;
         case FLYING_DOG:
             flying_dog_drop_bomb(0, 0, 0);
             break;
         case FOX:
-            func_802E88C0_6F9F70(arg1);
+            func_802E88C0_6F9F70(power);
             break;
         case FIRE_FOX:
-            fire_fox_fire_missile(arg3);
+            fire_fox_fire_missile(target);
             break;
         case FROG:
             frog_croak();
             break;
         case POLAR_BEAR_DEFENDING:
-            func_80368D60_77A410(arg1);
+            func_80368D60_77A410(power);
             break;
         case RABBIT:
             func_803021A8_713858();
@@ -796,28 +794,28 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             heli_rabbit_drop_bomb(0, 0, 0);
             break;
         case MOUSE:
-            func_8031FB30_7311E0(arg1);
+            func_8031FB30_7311E0(power);
             break;
         case RACING_MOUSE:
-            func_8031FB78_731228(arg1);
+            func_8031FB78_731228(power);
             break;
         case MOUSE2:
-            func_8031FB30_7311E0(arg1);
+            func_8031FB30_7311E0(power);
             break;
         case BEAR:
-            func_80327B94_739244(arg1);
+            func_80327B94_739244(power);
             break;
         case RACING_FOX:
-            func_802E88C0_6F9F70(arg1);
+            func_802E88C0_6F9F70(power);
             break;
         case TORTOISE_TANK:
-            tortoise_tank_defend(arg1);
+            tortoise_tank_defend(power);
             break;
         case RACING_TORTOISE:
-            racing_tortoise_defend(arg1);
+            racing_tortoise_defend(power);
             break;
         case PIRANA:
-            func_80382CC0_794370(arg1);
+            func_80382CC0_794370(power);
             break;
         case DOG:
             dog_bite();
@@ -835,28 +833,28 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             ram_headbutt();
             break;
         case PENGUIN:
-            penguin_throw_snowball(arg3);
+            penguin_throw_snowball(target);
             break;
         case POLAR_BEAR:
-            func_80368D60_77A410(arg1);
+            func_80368D60_77A410(power);
             break;
         case POLAR_TANK:
             polar_tank_drop_mine();
             break;
         case HUSKY:
-            func_8036C014_77D6C4(arg1);
+            func_8036C014_77D6C4(power);
             break;
         case SKI_HUSKY:
-            ski_husky_fire_missile(arg3);
+            ski_husky_fire_missile(target);
             break;
         case WALRUS:
-            walrus_fire_missile(arg3);
+            walrus_fire_missile(target);
             break;
         case CAMEL:
-            camel_fire_water_cannon(arg3);
+            camel_fire_water_cannon(target);
             break;
         case CANNON_CAMEL:
-            cannon_camel_fire_cannon(arg3);
+            cannon_camel_fire_cannon(target);
             break;
         case POGO_KANGAROO:
             func_80372698_783D48();
@@ -865,25 +863,25 @@ void func_80364120_7757D0(u8 arg0, s16 arg1, s16 arg2, Animal *arg3) {
             func_80372604_783CB4();
             break;
         case DESERT_FOX:
-            func_803745C4_785C74(arg1);
+            func_803745C4_785C74(power);
             break;
         case ARMED_DESERT_FOX:
             func_8037460C_785CBC();
             break;
         case SCORPION:
-            func_80379148_78A7F8(arg3);
+            func_80379148_78A7F8(target);
             break;
         case HYENA:
-            func_8035A590_76BC40(arg1);
+            func_8035A590_76BC40(power);
             break;
         case HYENA_BIKER:
-            biker_hyena_fire_missile(arg3);
+            hyena_biker_fire_missile(target);
             break;
         case CHAMELEON:
-            func_8035C180_76D830(arg1);
+            func_8035C180_76D830(power);
             break;
         case SNEAKY_CHAMELEON:
-            func_8035C180_76D830(arg1);
+            func_8035C180_76D830(power);
             break;
         case COOL_COD:
             break;

@@ -137,7 +137,7 @@ static f32 D_801546C8 = 0;
 static f32 D_801546CC = 0;
        f32 gMusicVolume = 1.0f;
        f32 gSfxVolume = 1.0f;
-       s16 D_801546D8 = 2048;
+       s16 gMusicVolumeScale = 2048;
 static s16 D_801546DC = 2048;
        s16 D_801546E0 = 0;
 static s32 D_801546E4 = 0;
@@ -933,7 +933,7 @@ void func_801326A8(s8 src, s8 dest) {
                       ((D_801546B8[dest] * (D_801550F8[D_8015516C[dest]] * D_801546AC[dest])) / D_801546B0[dest])) * gMusicVolume) * D_8015517C;
         }
 
-        tmp = D_801546D8 / (1 * 2048.0f);
+        tmp = gMusicVolumeScale / (1 * 2048.0f);
         volume *= tmp;
         alSeqpSetVol(D_802863C8[dest], volume);
         alSeqpPlay(D_802863C8[dest]);
@@ -1001,8 +1001,8 @@ void func_801328F8(void) {
     if (D_801546BC != 0) {
         func_801339F8();
     }
-    if (D_801546D8 != D_801546DC) {
-        D_801546DC = D_801546D8;
+    if (gMusicVolumeScale != D_801546DC) {
+        D_801546DC = gMusicVolumeScale;
         func_80133C50();
     } else if (D_8015529C != D_8015517C) {
         D_80286554 = D_8015517C - D_8015529C;
@@ -1405,7 +1405,7 @@ void func_80133C50(void) {
 
     for (i = 0; i < 1; i++) {
         if ((D_8015516C[i] != -1) && ((u8)D_80155168[i] == 1)) {
-            tmp = D_801546D8 / (1 * 2048.0f); // urgh
+            tmp = gMusicVolumeScale / (1 * 2048.0f); // urgh
 
             if (D_801546A8[i] == 1) {
                 volume = ((D_801546B4[i] * D_801550F8[D_8015516C[i]]) + ((D_801546B8[i] * (D_801550F8[D_8015516C[i]] * D_801546AC[i])) / D_801546B0[i])) * gMusicVolume * D_8015517C;

@@ -5,14 +5,14 @@
 void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
     s16 phi_v1;
 
-    if (D_803D5530->movementState == 5) {
+    if (D_803D5530->movementState == MOVEMENT_STATE_SINKING) {
         if (gUiFlowState.unk0 == 0) {
             if (D_803D5538 != 0) {
-                phi_v1 = (gAnimalState.unkFFDA + (D_803D554B >> 2)) << (arg2 + 2);
+                phi_v1 = (gAnimalState.stickMag + (D_803D554B >> 2)) << (arg2 + 2);
             } else {
                 phi_v1 = (D_803D552C->unk368 >> 2) << (arg2 + 2);
             }
-            phi_v1 += (((SIN(D_803D5540 << arg3) >> 7) * (4 - gAnimalState.unkFFDA)) >> (8 - arg1));
+            phi_v1 += (((SIN(D_803D5540 << arg3) >> 7) * (4 - gAnimalState.stickMag)) >> (8 - arg1));
             D_803D552C->unk35C += phi_v1;
             D_803D552C->unk35C -= D_803D552C->unk35A >> 4;
             D_803D552C->unk35C = ((D_803D552C->unk35C * 0xF) >> 4);
@@ -32,7 +32,7 @@ void func_8038C230_79D8E0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, f32 arg4) {
 void func_8038C484_79DB34(s16 springyness, s16 shift, s16 rate, f32 multiplier, s16 defaultVelocity) {
     s16 phi_v1;
 
-    if ((D_803D5530->movementState == 1) || (D_803D5530->movementState == 6)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING)) {
         if ((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) {
               if (gUiFlowState.unk0 == 0) {
                 // dampen
@@ -43,11 +43,11 @@ void func_8038C484_79DB34(s16 springyness, s16 shift, s16 rate, f32 multiplier, 
                     D_803D552C->unk35A = ((D_803D552C->unk35A - 2500) >> 2) + 2500;
                 }
                 if (D_803D5538 != 0) {
-                    phi_v1 = (gAnimalState.unkFFDA + (D_803D554B >> 2)) << (shift + 2);
+                    phi_v1 = (gAnimalState.stickMag + (D_803D554B >> 2)) << (shift + 2);
                 } else {
                     phi_v1 = (D_803D552C->unk368 >> 2) << (shift + 2);
                 }
-                phi_v1 += ((((SIN(D_803D5540 << rate) >> 7) * (4 - gAnimalState.unkFFDA)) >> (8 - springyness)));
+                phi_v1 += ((((SIN(D_803D5540 << rate) >> 7) * (4 - gAnimalState.stickMag)) >> (8 - springyness)));
                 D_803D552C->unk35C += phi_v1;
                 D_803D552C->unk35C -= D_803D552C->unk35A >> 4;
                 D_803D552C->unk35C = (D_803D552C->unk35C * 0xF) >> 4;
@@ -58,7 +58,7 @@ void func_8038C484_79DB34(s16 springyness, s16 shift, s16 rate, f32 multiplier, 
               return;
         }
     }
-    if ((D_803D5530->movementState != 4) && (D_803D5530->movementState != 5) && (D_803D5530->movementState != 7)) {
+    if ((D_803D5530->movementState != MOVEMENT_STATE_WATER_SWIM) && (D_803D5530->movementState != MOVEMENT_STATE_SINKING) && (D_803D5530->movementState != MOVEMENT_STATE_DRIFTING)) {
         D_803D552C->unk35A = defaultVelocity;
     }
 }

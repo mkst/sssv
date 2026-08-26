@@ -960,7 +960,7 @@ struct Animal {
     /* 0x2F4 */ u16 unk2F4;
     /* 0x2F6 */ u16 gaitPhaseOffset; // tbd
     /* 0x2F8 */ u16 prevGaitPhaseOffset;
-    /* 0x2FA */ u16 unk2FA;
+    /* 0x2FA */ u16 gaitPhasePeriod; // raw updates per normalized 0..255 gait cycle
     /* 0x2FC */ u16 gaitCycleLength;
     /* 0x2FE */ u16 unk2FE;
     /* 0x300 */ u16 unk300;
@@ -977,7 +977,7 @@ struct Animal {
     /* 0x316 */ s16 unk316;
     /* 0x318 */ s16 unk318;
     /* 0x31A */ s16 unk31A;
-    /* 0x31C */ u16 unk31C;
+    /* 0x31C */ u16 ambientPhaseSeed;
     /* 0x320 */ Animal *unk320;
     /* 0x324 */ u16 unk324; // temporary state? next state?
     /* 0x326 */ s16 unk326; // eye timer (e.g. blinking)
@@ -1004,7 +1004,7 @@ struct Animal {
     /* 0x361 */ s8  unk361;
     /* 0x362 */ u8  laughterFactor;
     /* 0x363 */ u8  isLaughing;
-    /* 0x364 */ u8  unk364;
+    /* 0x364 */ u8  attackState;
     /* 0x365 */ u8  unk365; // current attack
     /* 0x366 */ u8  movementMode;
     /* 0x367 */ u8  unk367;
@@ -1366,14 +1366,6 @@ typedef struct {
 } struct027; // size 0x37
 
 typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s32 unk4;
-    s16 unk8;
-    s16 unkA;
-} struct028;
-
-typedef struct {
     /* 0x00 */  Animal* animal;
     /* 0x04 */  s16     health;
     /* 0x06 */  s16     unk6; // health related too?
@@ -1624,7 +1616,7 @@ typedef struct {
     /* 0x0000 */ struct035 unk0[68];        // each 0xEC so 0x3EB0 total
     /* 0x3EB0 */ Animal2   animals[50];
     /* 0x4040 */ Animal    unk4040[50];     // D_801DDF18
-    /* 0xFFA8 */ s16       unkFFA8;         // D_801E9E80
+    /* 0xFFA8 */ s16       desiredHeading;  // D_801E9E80
     /* 0xFFAA */ u8        padFFAA[0x8];
     /* 0xFFB2 */ u16       curAButton;      // A pressed
     /* 0xFFB4 */ u16       curLRTrigger;    // L/R Trigger (1 or 2)
@@ -1640,16 +1632,16 @@ typedef struct {
     /* 0xFFC8 */ u16       curCButtonDown;  // C-button Down
     /* 0xFFCA */ u16       curCButtonLeft;  // C-button Left
     /* 0xFFCA */ u16       curCButtonRight; // C-button Right
-    /* 0xFFCE */ u16       unkFFCE;
+    /* 0xFFCE */ u16       landedFlag;
     /* 0xFFD0 */ u16       prevDPadLeft; // Previous D-PAD Left pressed
     /* 0xFFD2 */ u16       prevDPadRight; // Previous D-PAD Right pressed
     /* 0xFFD4 */ u16       prevDPadUp; // Previous D-PAD Up pressed
     /* 0xFFD6 */ u16       prevDPadDown; // Previous D-PAD Down pressed
     /* 0xFFD8 */ s8        stickX; // stick x
     /* 0xFFD8 */ s8        stickY; // stick y
-    /* 0xFFDA */ s16       unkFFDA; // D_801E9EB2
-    /* 0xFFDC */ s16       unkFFDC; // D_801E9EB4
-    /* 0xFFDE */ s16       unkFFDE; // D_801E9EB6
+    /* 0xFFDA */ s16       stickMag; // D_801E9EB2, analog stick deflection magnitude (-4 to 4)
+    /* 0xFFDC */ s16       steerHoriz; // D_801E9EB4
+    /* 0xFFDE */ s16       inputClimb; // D_801E9EB6
 } struct050;
 
 typedef struct {

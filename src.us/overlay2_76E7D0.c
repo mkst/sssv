@@ -29,7 +29,7 @@ s32  D_803F2EC4;
 s32  D_803F2EC8;
 
 u16  D_803F2ECC;
-u16  D_803F2ECE;
+u16  gAnimBlendMode;
 s16  D_803F2ED0;
 
 s16  D_803F2ED2;
@@ -101,48 +101,48 @@ void func_8035D120_76E7D0(void) {
             D_803D552C->unk36D = 0;
         }
     }
-    switch (D_803D552C->unk364) {
-    case 0:
-    case 3:
+    switch (D_803D552C->attackState) {
+    case ATTACK_STATE_NONE:
+    case ATTACK_STATE_CHARGE:
         break;
-    case 4:
-        if ((D_803D5544 - D_803D552C->attackTimer) > 9) {
-            D_803D552C->unk364 = 0;
+    case ATTACK_STATE_CHARGE_END:
+        if ((gGameplayTick - D_803D552C->attackTimer) > 9) {
+            D_803D552C->attackState = ATTACK_STATE_NONE;
         }
         break;
-    case 8:
+    case ATTACK_STATE_LUNGE_FWD:
         func_802DBCDC_6ED38C(0x18);
         break;
-    case 9:
+    case ATTACK_STATE_LUNGE_BACK:
         func_802DBED8_6ED588(0x18);
         break;
-    case 15:
+    case ATTACK_STATE_BIG_HIT:
         func_802DC0D4_6ED784(0x10);
         break;
-    case 6:
+    case ATTACK_STATE_STUMBLE:
         func_802DC2AC_6ED95C(0xA);
         break;
-    case 7:
+    case ATTACK_STATE_BOUNCE:
         func_802DD004_6EE6B4(0x10);
         break;
-    case 13:
+    case ATTACK_STATE_KNOCKBACK_SM:
         func_802DBB80_6ED230(0xE);
         func_802DC968_6EE018(16, 1);
-        D_803F2ECE = 2;
+        gAnimBlendMode = ANIM_BLEND_KNOCKBACK;
         break;
-    case 14:
+    case ATTACK_STATE_KNOCKBACK_LG:
         func_802DBB80_6ED230(0x14);
         func_802DC968_6EE018(32, 3);
-        D_803F2ECE = 2;
+        gAnimBlendMode = ANIM_BLEND_KNOCKBACK;
         break;
-    case 16:
+    case ATTACK_STATE_TELEPORT_IN:
         func_802DCD70_6EE420(300, 0);
         break;
-    case 17:
+    case ATTACK_STATE_TELEPORT_OUT:
         func_802DCD70_6EE420(300, 1);
         break;
     default:
-        D_803D552C->unk364 = 0U;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
         break;
     }
 
@@ -192,7 +192,7 @@ void func_8035D734_76EDE4(void) {
 
     if (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) {
         if (D_803D552C->unk36A == 1) {
-            D_803F2ECC = MIN((D_803D5544 - D_803D552C->unk328) & 0xFFFF, 32);
+            D_803F2ECC = MIN((gGameplayTick - D_803D552C->unk328) & 0xFFFF, 32);
             if (D_803F2ECC >= 32) {
                 D_803D552C->unk36A = 0;
             }
@@ -201,7 +201,7 @@ void func_8035D734_76EDE4(void) {
             D_803D552C->unk369 = 0;
             D_803D552C->unk365 = ATTACK_NONE;
         }
-        D_803F2ECE = 1;
+        gAnimBlendMode = ANIM_BLEND_DEACTIVATE;
         if ((gUiFlowState.unk0 == 0) && (SSSV_RAND(64) == 0)) {
             create_sparks(
                 D_803D5530->position.xPos.h,
@@ -212,13 +212,13 @@ void func_8035D734_76EDE4(void) {
         }
     } else if ((D_803D5538 != 0) && (D_803D552C->unk36A == 1) && (gGameState.unk4 > 16)) {
         D_803F2ECC = MIN(((gGameState.unk4 - 16) >> 1), 32);
-        D_803F2ECE = 1;
+        gAnimBlendMode = ANIM_BLEND_DEACTIVATE;
     } else if (D_803D552C->unk36A == 2) {
-        temp_v0_3 = D_803D5544 - D_803D552C->unk328;
+        temp_v0_3 = gGameplayTick - D_803D552C->unk328;
         if ((temp_v0_3 >= 0) && (temp_v0_3 < 24)) {
             D_803F2ECC = (32 - (temp_v0_3 * 4));
             if ((D_803F2ECC > 0) && (D_803F2ECC < 33)) {
-                D_803F2ECE = 1;
+                gAnimBlendMode = ANIM_BLEND_DEACTIVATE;
             } else {
                 D_803F2ECC = 0;
             }

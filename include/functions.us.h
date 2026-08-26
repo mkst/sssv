@@ -360,7 +360,6 @@ void func_802B8AD8_6CA188(void);
 void func_802B8B1C_6CA1CC(void);
 u16  func_802B8B74_6CA224(void);
 s32  func_802B8C50_6CA300(s16 arg0, s16 arg1);
-s32  func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2);
 void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2);
 
 // overlay2_6CA7E0
@@ -997,7 +996,7 @@ void func_8035BDC0_76D470(void);
 void chameleon_attack(void);
 void chameleon_hide(void);
 void chameleon_unhide(void);
-void chameleon_attack_2(void);
+void sneaky_chameleon_attack(void);
 void func_8035C180_76D830(s16 arg0);
 
 // overlay2_76D850
@@ -1048,7 +1047,7 @@ void func_8035A130_76B7E0(void);
 void func_8035A170_76B820(void);
 void func_8035A2A8_76B958(void);
 void func_8035A590_76BC40(s16 arg0);
-void func_8035A5A4_76BC54(s16 arg0);
+void hyena_biker_turbo(s16 arg0);
 
 // overlay2_76F7D0
 void func_8035E200_76F8B0(void);
@@ -1203,7 +1202,7 @@ void func_8037D138_78E7E8(void);
 void func_8037D268_78E918(s16 arg0);
 
 // overlay2_78E970
-void empty_8037D32C_78E9DC(Gfx *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
+void empty_8037D32C_78E9DC(s32 *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
 void func_8037D340_78E9F0(s16 arg0, s16 arg1);
 void set_target_speed(s8 arg0);
 void func_8037D9D4_78F084(void);

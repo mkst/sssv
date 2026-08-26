@@ -85,7 +85,7 @@ void func_8036D700_77EDB0(void) {
         case CANNON_CAMEL:
             switch (D_803D552C->unk365) {
             case ATTACK_CAMEL_DASH:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining <= 0x40) {
                     if (ticks_remaining == 0x20) {
                         if (D_803D5538 != 0) {
@@ -171,7 +171,7 @@ void func_8036D700_77EDB0(void) {
             switch (D_803D552C->unk365) {
             case ATTACK_CAMEL_WATER_CANNON:
                 D_803D5528->unk3C0.unk0 = 0;
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 func_802DC6A4_6EDD54(0x10);
                 if (ticks_remaining == 1) {
                     play_sound_effect_at_location(SFX_UNKNOWN_62, 0x4800, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -240,7 +240,7 @@ void func_8036D700_77EDB0(void) {
             break;
         }
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&spE0, 0x138, 0xC3, 0x668, 0x75);
             func_802BD40C_6CEABC(
                 0x2BF, 0x271, 0x138, 0x75, 0x28, 0xA8, 0, 0x80, D_803B4A20_7C60D0, D_803B4A50_7C6100, D_803B4A80_7C6130,
@@ -331,7 +331,7 @@ void func_8036D700_77EDB0(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B4B08_7C61B8, D_803B4B20_7C61D0, D_803B4B38_7C61E8, D_803B4B64_7C6214);
                 break;
@@ -460,7 +460,7 @@ void func_8036D700_77EDB0(void) {
 
 void func_8036F3AC_780A5C(void) {
     if (D_803D552C->unk365 != ATTACK_CAMEL_WATER_CANNON) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_CAMEL_WATER_CANNON;
     } else {
         recharge_skill(1);
@@ -475,7 +475,7 @@ void func_8036F404_780AB4(void) {
 }
 
 void func_8036F4CC_780B7C(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_CAMEL_DASH;
     func_802B342C_6C4ADC();
 }
@@ -489,7 +489,7 @@ void camel_fire_water_cannon(Animal *arg0) {
         } else {
             tmp = (s16) ((tmp * 256) / 360);
         }
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_CAMEL_WATER_CANNON;
         D_803D552C->unk338 = tmp;
     }
@@ -510,7 +510,7 @@ void cannon_camel_fire_cannon(Animal *arg0) {
 }
 
 void cannon_camel_dash(u16 arg0) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_CAMEL_DASH;
     D_803D552C->unk338 = arg0;
     func_802B33D0_6C4A80(D_803D5530);

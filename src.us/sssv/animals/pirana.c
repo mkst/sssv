@@ -45,7 +45,7 @@ void func_80382050_793700(void) {
     if (D_803D553A == 9) {
         play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
-    if ((D_803D5530->movementState == 3) && (D_803D5538 != 0)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_AIRBORNE) && (D_803D5538 != 0)) {
         if (D_803D552C->unk369 == 0) {
             if (gAnimalState.curBButton == 0) {
                 D_803D552C->unk369 = 1;
@@ -99,9 +99,9 @@ done:
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_80302E50_714500(10, 1000, 500);
-            if (D_803D5530->state == 0x3F) {
+            if (D_803D5530->state == STATE_SWIM_AIRBORNE) {
                 if (phi_a2 = (D_803D552C->unk308++) > 40) {
                     phi_a4 = 40;
                 } else {
@@ -132,7 +132,7 @@ done:
 
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B5860_7C6F10, D_803B5864_7C6F14, D_803B5868_7C6F18, D_803B5870_7C6F20);
                 break;

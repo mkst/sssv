@@ -89,7 +89,7 @@ void func_80374C70_786320(void) {
         }
     }
     if (D_803D5538 != 0) {
-        if ((D_803D5530->movementState == 5) && (D_803D5530->unk4A == 0)) {
+        if ((D_803D5530->movementState == MOVEMENT_STATE_SINKING) && (D_803D5530->unk4A == 0)) {
             temp_f0_2 = (f32)(MAX(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) + (MIN(ABS(D_803D5530->xVelocity.w), ABS(D_803D5530->zVelocity.w)) / 2));
             temp_f0_2 = temp_f0_2 / 1000000.0;
             func_8032CD70_73E420(
@@ -141,7 +141,7 @@ void func_80374C70_786320(void) {
         D_803F2EC4 = ((D_803F2EB8 - FTOFIX32(1.0)) >> 2) + FTOFIX32(1.0);
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(200);
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp120, 0x23E, 0x132, 0x2FD, 0);
             func_802C1830_6D2EE0(0x2FD, &sp120);
             func_802B964C_6CACFC();
@@ -182,7 +182,7 @@ void func_80374C70_786320(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {                    /* irregular */
+            switch (gAnimBlendMode) {                    /* irregular */
             case 1:
                 func_802DB670_6ECD20(D_803B5028_7C66D8, D_803B5034_7C66E4, D_803B5040_7C66F0, D_803B5054_7C6704);
                 break;

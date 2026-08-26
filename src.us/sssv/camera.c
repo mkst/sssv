@@ -467,7 +467,7 @@ void func_8032FF94_741644(u8 cameraID) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == MOVEMENT_STATE_SWIMMING) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -934,7 +934,7 @@ void func_80332444_743AF4(u8 arg0) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == MOVEMENT_STATE_SWIMMING) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -1349,7 +1349,7 @@ void func_80334470_745B20(u8 id, u8 arg1) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == MOVEMENT_STATE_SWIMMING) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -1738,7 +1738,7 @@ void func_8033641C_747ACC(u8 arg0, u8 arg1, u8 arg2) {
             gCamera->unkC = gCamera->unk9C;
 
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == MOVEMENT_STATE_SWIMMING) {
                 gCamera->unk10 = D_803A7B24_7B91D4[gCamera->unk64+3] + (gCamera->unkA0 + 4.0); // s16?
                 gCamera->unk88 = 0.0f;
             }
@@ -2545,7 +2545,7 @@ void fix_camera_to_angle_offset(u8 cameraID, f32 angle) {
             gCamera->unk8 = gCamera->unk98;
             gCamera->unkC = gCamera->unk9C;
             gCamera->unk80 = gCamera->unk84 = 0.0f;
-            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 2) {
+            if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == MOVEMENT_STATE_SWIMMING) {
                 gCamera->unk10 = gCamera->unkA0 + 4.0;
                 gCamera->unk88 = 0.0f;
             }
@@ -3665,7 +3665,7 @@ void func_8033E430_74FAE0(void) {
     }
 
     animal = gAnimalState.animals[gCurrentAnimalIndex].animal;
-    if ((animal->movementState & 0xF) == 1) {
+    if ((animal->movementState & 0xF) == MOVEMENT_STATE_GROUND) {
         xPos = animal->position.xPos.h + (((SIN(animal->yRotation + gCamera->unk24) >> 7) << 7) >> 8);
         yPos = animal->position.zPos.h + (((COS(animal->yRotation + gCamera->unk24) >> 7) << 7) >> 8);
 
@@ -4230,8 +4230,8 @@ void update_world_camera_transform(void) {
     }
 
     if (D_803A6CE4_7B8394 & 4) {
-        D_80204200 = (0.0015625 * cosf(D_803D5544 / 310.0)) * D_80152350.unk2D0[(s16)D_803F2C3C];
-        D_80204204 = (0.0015625 * cosf(D_803D5544 / 310.0)) * D_80152350.unk384[(s16)D_803F2C3C];
+        D_80204200 = (0.0015625 * cosf(gGameplayTick / 310.0)) * D_80152350.unk2D0[(s16)D_803F2C3C];
+        D_80204204 = (0.0015625 * cosf(gGameplayTick / 310.0)) * D_80152350.unk384[(s16)D_803F2C3C];
         guLookAt(
             &gDisplayListContext->unk37490,
             gCameraEyeWorldX,
@@ -4483,7 +4483,7 @@ void func_80340EA4_752554(struct062 *arg0, s16 arg1) {
             (cameraMode2 == CAMERA_MODE_7) ||
             (cameraMode2 == CAMERA_MODE_28) ||
             (cameraMode2 == CAMERA_MODE_BEHIND_2)) {
-            gAnimalState.unkFFA8 = gAnimalState.animals[gCurrentAnimalIndex].animal->yRotation;
+            gAnimalState.desiredHeading = gAnimalState.animals[gCurrentAnimalIndex].animal->yRotation;
         }
 
         if ((gCameras[D_803F2AC8].cameraMode == CAMERA_MODE_WAYPOINT_1) ||
@@ -4593,7 +4593,7 @@ void func_803415BC_752C6C(void) {
                     } else {
                         if ((D_803F2AF8[D_803F2C20].unk18 == 1) || (D_803F2AF8[D_803F2C20].unk18 == 0)) {
                             if ((gControllerInput->button & Z_TRIG) &&
-                                (gAnimalState.animals[gCurrentAnimalIndex].animal->state != 0xDD) &&
+                                (gAnimalState.animals[gCurrentAnimalIndex].animal->state != STATE_INACTIVE) &&
                                 (D_803A6CE0_7B8390 == 0) &&
                                 (gAnimalState.animals[gCurrentAnimalIndex].animal->movementMode != MOVEMENT_MODE_2)) {
                                 sp57 = 3;

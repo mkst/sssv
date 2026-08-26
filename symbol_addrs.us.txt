@@ -167,6 +167,19 @@ _overlay2SegmentRomEnd   = 0x7D1AD0;
 _overlay1SegmentRomStart = 0x6384F0;
 _overlay2SegmentRomStart = 0x6A6500;
 
+// displaylists
+
+dog_body               = 0x04000420; // rom:0xC7E50
+dog_head               = 0x04000870; // rom:0xC82A0
+dog_back_detail        = 0x040013A0; // rom:0xC8DD0
+dog_neck               = 0x04001220; // rom:0xC8C50
+dog_upper_leg          = 0x04000FB0; // rom:0xC89E0
+dog_lower_leg          = 0x04001080; // rom:0xC8AB0
+dog_foot               = 0x04001150; // rom:0xC8B80
+dog_left_eye           = 0x04001A20; // rom:0xC9450
+
+fox_leg                = 0x04004330; // rom:0xCBD60
+
 //
 alCSPNew                    = 0x80133F00;
 __CSPVoiceHandler           = 0x8013406C;
@@ -184,6 +197,7 @@ do_rumble              = 0x801373CC;
 
 gMusicVolume           = 0x801546D0;
 gSfxVolume             = 0x801546D4;
+gMusicVolumeScale      = 0x801546D8;
 gAudioInitialized      = 0x80155154;
 numControllers         = 0x80158544;
 
@@ -759,7 +773,7 @@ D_803D553C = 0x803D553C; // segment:overlay2
 gNumAnimalsInLevel = 0x803D553E; // segment:overlay2
 D_803D5540 = 0x803D5540; // segment:overlay2
 D_803D5542 = 0x803D5542; // segment:overlay2
-D_803D5544 = 0x803D5544; // segment:overlay2
+gGameplayTick = 0x803D5544; // segment:overlay2
 D_803D5546 = 0x803D5546; // segment:overlay2
 D_803D5548 = 0x803D5548; // segment:overlay2
 D_803D554A = 0x803D554A; // segment:overlay2
@@ -1107,7 +1121,7 @@ D_803F2EC0 = 0x803F2EC0; // segment:overlay2
 D_803F2EC4 = 0x803F2EC4; // segment:overlay2
 D_803F2EC8 = 0x803F2EC8; // segment:overlay2
 D_803F2ECC = 0x803F2ECC; // segment:overlay2
-D_803F2ECE = 0x803F2ECE; // segment:overlay2
+gAnimBlendMode = 0x803F2ECE; // segment:overlay2
 D_803F2ED0 = 0x803F2ED0; // segment:overlay2
 D_803F2ED2 = 0x803F2ED2; // segment:overlay2
 D_803F2ED4 = 0x803F2ED4; // segment:overlay2
@@ -1157,7 +1171,7 @@ verticalPosition = 0x803F6402; // segment:overlay2
 D_803F6410 = 0x803F6410; // segment:overlay2
 
 // overlay2_79DE10
-D_803F6450 = 0x803F6450; // segment:overlay2
+gAnimalBehaviourEnabled = 0x803F6450; // segment:overlay2
 
 // terminal_background
 D_803F6460 = 0x803F6460; // segment:overlay2
@@ -1767,7 +1781,7 @@ D_1FFFF                     = 0x1FFFF; // ignore:true
 // Gfx & Vtx
 
 D_040029D0_102720 = 0x040029D0; // rom:0x102720
-D_04001A40_C9470  = 0x4001A40; // rom:0xC9470
+dog_right_eye      = 0x4001A40; // rom:0xC9470
 
 img_cool_cod_ci4__png = 0x04007BD0; // rom:0xE5190
 img_cool_cod_pal      = 0x04007DD0; // rom:0xE5390

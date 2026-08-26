@@ -274,7 +274,7 @@ void display_zone_select_screen(void) {
     gTasksCompleted = 0;
     if (gCurrentMusicTrack != MUSIC_TRACK_MAIN_THEME) {
         gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
-        D_801546D8 = 1600; // volume related
+        gMusicVolumeScale = 1600; // volume related
         D_801546E0 = 2048;
         D_8015517C = 1.0f;
     }

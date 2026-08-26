@@ -510,8 +510,8 @@ void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, LimbConfig *arg2) {
     s16 temp_v1;
 
     switch (D_803D5530->movementState & 0xF) {
-    case 1:
-    case 6:
+    case MOVEMENT_STATE_GROUND:
+    case MOVEMENT_STATE_FLYING:
         arg2->unk0 = ((func_802B8C50_6CA300(-arg1, arg0) >> 8) << 5) >> 8;
         arg2->unk2 = ((func_802B8C50_6CA300(arg1, arg0) >> 8) << 5) >> 8;
         arg2->unk4 = ((func_802B8C50_6CA300(-arg1, -arg0) >> 8) << 5) >> 8;
@@ -544,11 +544,11 @@ void func_802BCF38_6CE5E8(u16 arg0, u16 arg1, LimbConfig *arg2) {
         break;
     default:
         break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 7:
+    case MOVEMENT_STATE_SWIMMING:
+    case MOVEMENT_STATE_AIRBORNE:
+    case MOVEMENT_STATE_WATER_SWIM:
+    case MOVEMENT_STATE_SINKING:
+    case MOVEMENT_STATE_DRIFTING:
         arg2->unk0 = 0;
         arg2->unk2 = 0;
         arg2->unk4 = 0;
@@ -578,16 +578,16 @@ void func_802BD21C_6CE8CC(u16 arg0, LimbConfig *arg1) {
     s16 tmp;
 
     switch (D_803D5530->movementState & 0xF) {
-    case 1:
-    case 6:
+    case MOVEMENT_STATE_GROUND:
+    case MOVEMENT_STATE_FLYING:
         arg1->unk0 = ((func_802B8C50_6CA300(-arg0, 0) >> 8) << 5) >> 8;
         arg1->unk2 = ((func_802B8C50_6CA300(arg0, 0) >> 8) << 5) >> 8;
         break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 7:
+    case MOVEMENT_STATE_SWIMMING:
+    case MOVEMENT_STATE_AIRBORNE:
+    case MOVEMENT_STATE_WATER_SWIM:
+    case MOVEMENT_STATE_SINKING:
+    case MOVEMENT_STATE_DRIFTING:
         arg1->unk0 = 0;
         arg1->unk2 = 0;
         arg1->unk4 = 0;
@@ -611,15 +611,15 @@ void func_802BD358_6CEA08(s16 *result) {
     s16 tmp;
 
     switch (D_803D5530->movementState & 0xF) {
-    case 1:
-    case 6:
+    case MOVEMENT_STATE_GROUND:
+    case MOVEMENT_STATE_FLYING:
         *result = ((func_802B8C50_6CA300(0, 0) >> 8) << 5) >> 8;
         break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 7:
+    case MOVEMENT_STATE_SWIMMING:
+    case MOVEMENT_STATE_AIRBORNE:
+    case MOVEMENT_STATE_WATER_SWIM:
+    case MOVEMENT_STATE_SINKING:
+    case MOVEMENT_STATE_DRIFTING:
         *result = 0;
         tmp = func_802B8C50_6CA300(0, 0) >> 16;
         if (*result < tmp) {
@@ -733,7 +733,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     }
 
     if (D_803D5524->waterClass & 0xC00) {
-        if ((((D_803D5530->movementState == 4) || (D_803D5530->movementState == 5)) || (((u32) D_803D5530->movementState) == 6)) || (D_803D5530->movementState == 7)) {
+        if ((((D_803D5530->movementState == MOVEMENT_STATE_WATER_SWIM) || (D_803D5530->movementState == MOVEMENT_STATE_SINKING)) || (((u32) D_803D5530->movementState) == MOVEMENT_STATE_FLYING)) || (D_803D5530->movementState == MOVEMENT_STATE_DRIFTING)) {
             sp45 = 2;
             sp4E = (D_803D552C->gaitPhaseOffset * 0x10) & 0xFF;
             sp4C = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x80) & 0xFF;
@@ -744,7 +744,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             }
         }
     } else {
-        if ((D_803D5530->movementState == 4) || (D_803D5530->movementState == 5) || (((u32) D_803D5530->movementState) == 7)) {
+        if ((D_803D5530->movementState == MOVEMENT_STATE_WATER_SWIM) || (D_803D5530->movementState == MOVEMENT_STATE_SINKING) || (((u32) D_803D5530->movementState) == MOVEMENT_STATE_DRIFTING)) {
             if (0) {};
             sp45 = 2;
             switch (D_803D5530->state) {
@@ -1209,10 +1209,10 @@ void update_limbs_rigid(
         u16 animalId; // temp is needed to match
 
         switch (D_803D5530->movementState) {
-        case 4:
-        case 5:
-        case 6:
-        case 7:
+        case MOVEMENT_STATE_WATER_SWIM:
+        case MOVEMENT_STATE_SINKING:
+        case MOVEMENT_STATE_FLYING:
+        case MOVEMENT_STATE_DRIFTING:
             animalId = D_803D5524->unk9C;
             sp3D = 2;
             sp48 = (sp46 * 64) & 0xFF;
@@ -1226,9 +1226,9 @@ void update_limbs_rigid(
         }
     } else {
         switch (D_803D5530->movementState) {
-        case 4:
-        case 5:
-        case 7:
+        case MOVEMENT_STATE_WATER_SWIM:
+        case MOVEMENT_STATE_SINKING:
+        case MOVEMENT_STATE_DRIFTING:
             var_a0 = 0x40;
             var_a2 = 0xC0;
             if (D_803D5524->unk9C == SKI_HUSKY) {
@@ -1486,10 +1486,10 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 
     if (D_803D5524->waterClass & 0xC00) {
         switch (D_803D5530->movementState) {
-        case 4:
-        case 5:
-        case 6:
-        case 7:
+        case MOVEMENT_STATE_WATER_SWIM:
+        case MOVEMENT_STATE_SINKING:
+        case MOVEMENT_STATE_FLYING:
+        case MOVEMENT_STATE_DRIFTING:
             sp3D = 2;
             sp4E = (D_803D552C->gaitPhaseOffset * 0x10) & 0xFF;
             sp4C = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x80) & 0xFF;
@@ -1712,10 +1712,10 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
         if (temp_a1_2->unk12 >= 50) {
             temp_a1_2->unk10 = 0;
         }
-        if (D_803D5530->state == 0x2A) {
+        if (D_803D5530->state == STATE_POGO_HOPPING) {
             temp_a1_2->unk10 = 0;
         }
-        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
+        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
             play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
@@ -1727,7 +1727,7 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
             }
 
             var_t0 += ((s32) (func_8038CCA4_79E354() * arg0) >> 7);
-            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
+            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
@@ -1779,10 +1779,10 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
         if (temp_a1_2->unk12 >= 50) {
             temp_a1_2->unk10 = 0;
         }
-        if (D_803D5530->state == 0x2A) {
+        if (D_803D5530->state == STATE_POGO_HOPPING) {
             temp_a1_2->unk10 = 0;
         }
-        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
+        if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
             play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
@@ -1793,7 +1793,7 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
                 temp_a1_2->unk10 = 0;
             }
             var_t0 += ((func_8038CCA4_79E354() * arg0) >> 7);
-            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 6))) {
+            if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
                 play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
@@ -2211,19 +2211,19 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
 
     if ((D_803D5524->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2))) {
         switch (D_803D5530->movementState) {
-        case 4:
-        case 5:
-        case 6:
-        case 7:
+        case MOVEMENT_STATE_WATER_SWIM:
+        case MOVEMENT_STATE_SINKING:
+        case MOVEMENT_STATE_FLYING:
+        case MOVEMENT_STATE_DRIFTING:
             phi_t1 = 2;
             phi_t2 = (D_803D552C->gaitPhaseOffset * 16) & 0xFF;
             phi_t3 = ((D_803D552C->gaitPhaseOffset * 16) + 0x80) & 0xFF;
         }
     } else {
         switch (D_803D5530->movementState) {
-        case 4:
-        case 5:
-        case 7:
+        case MOVEMENT_STATE_WATER_SWIM:
+        case MOVEMENT_STATE_SINKING:
+        case MOVEMENT_STATE_DRIFTING:
             phi_t1 = 2;
             switch (D_803D5530->state) {
             default:
@@ -2387,7 +2387,7 @@ void func_802C3F58_6D5608(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
 }
 
 void func_802C4448_6D5AF8(s16 arg0) {
-    if ((D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) || (D_803D5530->state == 0x8F)) {
+    if ((D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) || (D_803D5530->state == STATE_FISH_SWIMMING)) {
         if ((D_803D5540 & 7) == 0) {
             func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }

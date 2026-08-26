@@ -62,16 +62,16 @@ void func_8036F7A0_780E50(void) {
 
     if (sp9E == 0) {
         func_8038C98C_79E03C();
-        ticks_remaining = D_803D5544 - D_803D552C->unk35E;
+        ticks_remaining = gGameplayTick - D_803D552C->unk35E;
         if (((ticks_remaining & 0xFF) < 0x50) && (ticks_remaining >= 0x100) && ((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_INJURED))) {
             if ((advance_random_seed() & 0x1F00) == 0x1900) {
                 D_803D5530->yRotation = ((SSSV_RAND(64) + D_803D5530->yRotation) - 0x20) % 360;
             }
-            if ((D_803D552C->unk364 != 7) && (SSSV_RAND(16) == 7)) {
-                func_802DBA58_6ED108(7, D_803D552C);
+            if ((D_803D552C->attackState != ATTACK_STATE_BOUNCE) && (SSSV_RAND(16) == 7)) {
+                func_802DBA58_6ED108(ATTACK_STATE_BOUNCE, D_803D552C);
             }
             if (D_803D552C->unk365 == ATTACK_NONE) {
-                D_803D552C->unk32A = D_803D5544;
+                D_803D552C->unk32A = gGameplayTick;
                 if (SSSV_RAND(2) == 0) {
                     D_803D552C->unk365 = ATTACK_KANGAROO_1;
                 } else {
@@ -89,11 +89,11 @@ void func_8036F7A0_780E50(void) {
 
         spB8 = spB4 = FTOFIX32(1.0);
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             switch (D_803D552C->unk365) {
             case ATTACK_KANGAROO_1:
                 func_802DCCAC_6EE35C(0xC);
-                if ((D_803D5544 - D_803D552C->unk32A) == 3) {
+                if ((gGameplayTick - D_803D552C->unk32A) == 3) {
                     if (func_803224C4_733B74(0x2D, 0x2D, -0xB, 0x16, 0xC, 0, 0, 0x12) != 0) {
                         if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0.75f);
@@ -107,7 +107,7 @@ void func_8036F7A0_780E50(void) {
                 break;
             case ATTACK_KANGAROO_2:
                 func_802DCCAC_6EE35C(0xC);
-                if ((D_803D5544 - D_803D552C->unk32A) == 3) {
+                if ((gGameplayTick - D_803D552C->unk32A) == 3) {
                     if (func_803224C4_733B74(0x2D, 0x2D, 0xB, 0x16, 0xC, 0, 0, 0x12) != 0) {
                         if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                             play_sound_effect_at_location(SFX_UNKNOWN_26, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0.75f);
@@ -167,7 +167,7 @@ void func_8036F7A0_780E50(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B4C30_7C62E0, D_803B4C40_7C62F0, D_803B4C50_7C6300, D_803B4C70_7C6320);
                 break;
@@ -342,14 +342,14 @@ void func_80370C84_782334(void) {
 
     if (spDE == 0) {
         func_8038C98C_79E03C();
-        if ((D_803D5538 != 0) && (((D_803D5544 - D_803D552C->unk35E) & 0x1FF) == 0xAA)) {
+        if ((D_803D5538 != 0) && (((gGameplayTick - D_803D552C->unk35E) & 0x1FF) == 0xAA)) {
             func_80372698_783D48();
         }
         func_8034B298_75C948(0);
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B96D0_6CAD80(&spE8, 0x2DB, 0x565, 0);
             func_802C1A44_6D30F4(0x3CF, 0, &spE8);
             func_802C4A70_6D6120(0x1E7, 0x28A, 6);
@@ -374,19 +374,19 @@ void func_80370C84_782334(void) {
             break;
 
         case ATTACK_KANGAROO_5:
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             if (ticks_remaining < 8) {
                 D_80203FE0[7].unk4 += (ticks_remaining * 0x32C) >> 3;
                 D_80203FE0[7].unk2 -= (ticks_remaining * 0x32C) >> 3;
             } else {
                 D_803D552C->unk35C = -0x1F4;
                 D_803D552C->unk365 = ATTACK_KANGAROO_3;
-                D_803D552C->unk32A = D_803D5544;
+                D_803D552C->unk32A = gGameplayTick;
             }
             break;
 
         case ATTACK_KANGAROO_3:
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             if ((ticks_remaining < 0x26) && ((D_803D5530->unk4A == 0))) {
 
                 func_8032CD70_73E420(
@@ -470,7 +470,7 @@ void func_80370C84_782334(void) {
 
                   if (spBF != 0) {
                       D_803D552C->unk365 = ATTACK_KANGAROO_4;
-                      D_803D552C->unk32A = D_803D5544;
+                      D_803D552C->unk32A = gGameplayTick;
                       D_803D552C->unk32C = ((var_s1 << 6) & ~0xFF) | ((var_s2 >> 2) & 0xFF);
 
                       for (spDC = 0; spDC < 4; spDC++) {
@@ -495,7 +495,7 @@ void func_80370C84_782334(void) {
             break;
 
         case 34:
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             if (ticks_remaining < 0x10) {
                 func_8013328C(
                     D_803D5530,
@@ -545,7 +545,7 @@ void func_80370C84_782334(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B4CF8_7C63A8, D_803B4D04_7C63B4, D_803B4D10_7C63C0, D_803B4D24_7C63D4);
                 break;
@@ -686,7 +686,7 @@ void func_80370C84_782334(void) {
 #endif
 
 void func_80372510_783BC0(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     if (SSSV_RAND(2) == 0) {
         D_803D552C->unk365 = ATTACK_KANGAROO_1;
     } else {
@@ -697,7 +697,7 @@ void func_80372510_783BC0(void) {
 
 void func_803725A4_783C54(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_KANGAROO_5;
         D_803D552C->unk32C = D_803D552C->heading;
     } else {
@@ -706,7 +706,7 @@ void func_803725A4_783C54(void) {
 }
 
 void func_80372604_783CB4(void) {
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     if (SSSV_RAND(2) == 0) {
         D_803D552C->unk365 = ATTACK_KANGAROO_1;
     } else {
@@ -717,7 +717,7 @@ void func_80372604_783CB4(void) {
 
 void func_80372698_783D48(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_KANGAROO_5;
         D_803D552C->unk32C = D_803D552C->heading;
     }

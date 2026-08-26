@@ -32,7 +32,7 @@ void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_t3;
     s32 temp_ret;
 
-    if (((D_803D5530->movementState & 0xF) == 1) && (D_803D5530->unk161 != 1)) {
+    if (((D_803D5530->movementState & 0xF) == MOVEMENT_STATE_GROUND) && (D_803D5530->unk161 != 1)) {
         temp_t2 = (D_803D552C->position.xPos.w + (arg0 * COS(D_803D552C->heading) * 2)) + (SIN(D_803D552C->heading) * arg1 * 2);
         temp_t3 = (D_803D552C->position.zPos.w + (arg1 * COS(D_803D552C->heading) * 2)) - (SIN(D_803D552C->heading) * arg0 * 2);
         temp_ret = func_80310EE4_722594((temp_t2 >> 16), (temp_t3 >> 16), D_803D5530->unk160);
@@ -40,7 +40,7 @@ void func_80374660_785D10(s16 arg0, s16 arg1, s16 arg2) {
         D_803F2F08[D_803B4F30_7C65E0].unk4 = temp_t3;
         D_803F2F08[D_803B4F30_7C65E0].unk8 = temp_ret + FTOFIX32(4.0);
         D_803F2F08[D_803B4F30_7C65E0].unkC = arg2;
-        D_803F2F08[D_803B4F30_7C65E0].unkE =  D_803D5544;
+        D_803F2F08[D_803B4F30_7C65E0].unkE =  gGameplayTick;
         D_803B4F30_7C65E0 = (D_803B4F30_7C65E0 + 1) & 0x3F;
         if (D_803B4F34_7C65E4 < 64) {
             D_803B4F34_7C65E4 += 1;
@@ -94,7 +94,7 @@ void func_803747F4_785EA4(void) {
         phi_s3 = D_803B4F34_7C65E4;
 
         while (phi_s3 > 0) {
-            temp_t5 = (D_803D5544 - D_803F2F08[phi_s2].unkE);
+            temp_t5 = (gGameplayTick - D_803F2F08[phi_s2].unkE);
             if (temp_t5 > 400) {
                 if (D_803F2D50.segment == SEGMENT_ICE) {
                     gDPSetEnvColor(gLayer0DL++, 0, 0, 100, 500 - temp_t5);

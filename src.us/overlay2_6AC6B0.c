@@ -114,7 +114,7 @@ u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Anim
                         ((zPos >= (animal->position.zPos.h - animal->unk34)) && (zPos < (animal->position.zPos.h + animal->unk34)))) {
                         isCollision = func_8030400C_7156BC(animal, xPos, zPos, &collisionYMax, &collisionYMin);
                     }
-                } else if ((((sourceAnimal->movementState != 1) || (sourceAnimal->unk68 != NULL)) && (sourceAnimal->yVelocity.w < FTOFIX32(-6.0))) ||
+                } else if ((((sourceAnimal->movementState != MOVEMENT_STATE_GROUND) || (sourceAnimal->unk68 != NULL)) && (sourceAnimal->yVelocity.w < FTOFIX32(-6.0))) ||
                     (animal->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
                     (animal->movementMode == MOVEMENT_MODE_2)) {
 

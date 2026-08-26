@@ -3,6 +3,7 @@
 
 #include "camera.h"
 
+#include "elephant.h"
 
 extern Gfx D_040053F0_F6450[];
 extern Gfx D_04005B10_F6B70[];
@@ -10,19 +11,6 @@ extern Gfx D_04005FB0_F7010[];
 extern Gfx D_04006130_F7190[];
 extern Gfx D_04006380_F73E0[];
 extern Gfx D_040063A0_F7400[];
-
-extern struct077 D_803B55B0_7C6C60[];
-extern struct077 D_803B55E0_7C6C90[];
-extern struct077 D_803B5610_7C6CC0[];
-extern struct077 D_803B5624_7C6CD4[];
-extern struct077 D_803B5654_7C6D04[];
-extern struct077 D_803B5684_7C6D34[];
-
-extern u8  D_803B5698_7C6D48[];
-extern u8  D_803B56A8_7C6D58[];
-extern s16 D_803B56B8_7C6D68[];
-extern s16 D_803B56D0_7C6D80[];
-extern s16 D_803B5708_7C6DB8[];
 
 void update_elephant(void) {
     s32 pad2[2];
@@ -56,7 +44,7 @@ void update_elephant(void) {
         if (D_803D5530->unk4A != 0) {
             D_803D552C->unk32A += 1;
         } else {
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             var_v0 = MIN(0x10, ticks_remaining);
 
             func_8032CD70_73E420(
@@ -143,7 +131,7 @@ block_33:
 
         switch (D_803D552C->unk365) {                        /* irregular */
         case ATTACK_GRAB:
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             if (D_803D5528->unk3C8.unk2 != 0) {
                 D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x12;
             }
@@ -171,7 +159,7 @@ block_33:
             }
             break;
         case ATTACK_BEAR_2:
-            ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             if (ticks_remaining < 0x10) {
                 if (ticks_remaining == 0xC) {
                     if (D_803D5528->unk3C8.unk2 != 0) {
@@ -231,7 +219,7 @@ block_33:
             play_sound_effect_at_location(SFX_ELEPHANT_TRUMP, 0x6000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&spB0, 0x271, 0x232, 0xB3B, 0x64);
 
             temp_t6 = ((D_80203FE0[3].unk4 + D_80203FE0[4].unk4) - D_80203FE0[5].unk4) - D_80203FE0[6].unk4;
@@ -263,7 +251,7 @@ block_33:
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B5698_7C6D48, D_803B56A8_7C6D58, D_803B56B8_7C6D68, D_803B56D0_7C6D80);
                 break;
@@ -357,10 +345,10 @@ block_33:
 }
 
 void func_8037D06C_78E71C(void) {
-    if ((D_803D5530->movementState == 6) || (D_803D5530->movementState == 7)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_FLYING) || (D_803D5530->movementState == MOVEMENT_STATE_DRIFTING)) {
         func_8037D0EC_78E79C();
     } else if ((D_803D552C->unk365 == ATTACK_NONE) && (D_803D552C->unk320 == 0)) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_ELEPHANT_1;
     }
 }
@@ -381,7 +369,7 @@ void func_8037D138_78E7E8(void) {
         s32 fakematch = !D_803D552C->unk320->unk16C;
         if (fakematch) {}
 
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_GRAB;
     } else if (D_803D552C->unk320) {
         s32 tmp = func_8033C9CC_74E07C(
@@ -395,7 +383,7 @@ void func_8037D138_78E7E8(void) {
             0x7F,
             0, 0);
         if (tmp == 0) {
-            D_803D552C->unk32A = D_803D5544;
+            D_803D552C->unk32A = gGameplayTick;
             if ((D_803D552C->unk320->unk16C->objectType == OBJECT_BOULDER) ||
                 (D_803D552C->unk320->unk16C->objectType == 61)) {
                 D_803D552C->unk365 = ATTACK_BEAR_2;
@@ -410,7 +398,7 @@ void func_8037D138_78E7E8(void) {
 
 void func_8037D268_78E918(s16 arg0) {
     if (D_803D552C->unk365 == 0) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_ELEPHANT_1;
         D_803D552C->unk2EC = arg0;
     }

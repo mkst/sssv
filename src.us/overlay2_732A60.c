@@ -22,7 +22,7 @@ Animal *try_pickup_animal(void) {
                 (a->unk4A == 0) && ((a->unk16C->unk82.unk2 == 0) || (a->mass < 100))) {
                 D_803D552C->unk324 = a->state;
                 D_803D552C->unk320 = a;
-                a->state = 0x1FU;
+                a->state = STATE_GRABBED_B;
                 a->unk4C.unk19 = 1;
                 play_sound_effect_at_location(SFX_UNKNOWN_40, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.5f);
                 if ((a->unk16C->unk82.unk2) == 0) {
@@ -87,7 +87,7 @@ Animal *func_803215DC_732C8C(s16 arg0, s16 arg1) {
                         if ((D_803D5524->unkC0 >= a->mass) && (a->unk40 <= 3072) && ((a->state == 0) || (a->state == 1)) && (a->unk4A == 0)) {
                             D_803D552C->unk324 = a->state;
                             D_803D552C->unk320 = a;
-                            a->state = 30;
+                            a->state = STATE_GRABBED_A;
                             a->unk4C.unk19 = 1;
                             return a;
                         }
@@ -105,7 +105,7 @@ Animal *func_803218D8_732F88(Animal *arg0) {
     if (arg0 != NULL) {
         D_803D552C->unk324 = arg0->state;
         D_803D552C->unk320 = arg0;
-        arg0->state = 30;
+        arg0->state = STATE_GRABBED_A;
         arg0->unk4C.unk19 = 1;
         return arg0;
     }

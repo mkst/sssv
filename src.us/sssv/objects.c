@@ -153,7 +153,7 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
     func_802DADA0_6EC450(obj);
     func_802F5C60_707310(obj);
 
-    obj->movementState = 3;
+    obj->movementState = MOVEMENT_STATE_AIRBORNE;
 
     return obj;
 }

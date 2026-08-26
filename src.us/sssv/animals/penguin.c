@@ -2,15 +2,10 @@
 #include "common.h"
 #include "camera_enums.h"
 
-extern u8 D_803B4200_7C58B0[];
-extern u8 D_803B4208_7C58B8[];
-
-extern s16 D_803B4210_7C58C0[];
-extern s16 D_803B4218_7C58C8[];
-extern s16 D_803B4230_7C58E0[];
+#include "penguin.h"
 
 extern Gfx D_04001010_DE5D0[];
-extern Gfx D_04001220_C8C50[];
+extern Gfx D_04001220_DE7E0[];
 extern Gfx D_04001890_DEE50[];
 extern Gfx D_040012E0_DE8A0[];
 extern Gfx D_04001A60_DF020[];
@@ -75,7 +70,7 @@ void func_80364780_775E30(void) {
     }
 
     if (spA2 == 0) {
-        if ((D_803D5538 != 0) && (D_803D5524->unk9C == KING_PENGUIN) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 5))) {
+        if ((D_803D5538 != 0) && (D_803D5524->unk9C == KING_PENGUIN) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_SINKING))) {
             D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
         }
         func_8034B298_75C948(0);
@@ -95,7 +90,7 @@ void func_80364780_775E30(void) {
         case PENGUIN:
             switch (D_803D552C->unk365) {
             case ATTACK_PENGUIN_1:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining == 2) {
                     play_sound_effect_at_location(SFX_UNKNOWN_174, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
@@ -104,13 +99,13 @@ void func_80364780_775E30(void) {
                 } else {
                     sp9E = 0x10;
                 }
-                if ((D_803D5530->movementState != 3) || ((D_803D5538 != 0) && (gAnimalState.curAButton == 0))) {
-                    D_803D552C->unk32A = D_803D5544;
+                if ((D_803D5530->movementState != MOVEMENT_STATE_AIRBORNE) || ((D_803D5538 != 0) && (gAnimalState.curAButton == 0))) {
+                    D_803D552C->unk32A = gGameplayTick;
                     D_803D552C->unk365 = ATTACK_PENGUIN_2;
                 }
                 break;
             case ATTACK_PENGUIN_2:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining < 16) {
                     sp9E = 0x10;
                     sp9C = ticks_remaining;
@@ -119,7 +114,7 @@ void func_80364780_775E30(void) {
                 }
                 break;
             case ATTACK_SNOWBALL:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining < 8) {
                     sp9A = ticks_remaining * 2;
                 } else {
@@ -153,11 +148,11 @@ void func_80364780_775E30(void) {
                 break;
             default:
                 D_803D552C->unk365 = ATTACK_NONE;
-                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->movementState & 0xF) == 3) &&
+                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->movementState & 0xF) == MOVEMENT_STATE_AIRBORNE) &&
                     ((D_803D5530->position.yPos.h - (func_80310EE4_722594(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->unk160) >> 0x10)) >= 0x31) &&
                     ((D_803D5538 == 0) || (gAnimalState.curAButton != 0))) {
                     D_803D552C->unk365 = ATTACK_PENGUIN_1;
-                    D_803D552C->unk32A = D_803D5544;
+                    D_803D552C->unk32A = gGameplayTick;
                 }
                 break;
             }
@@ -171,7 +166,7 @@ void func_80364780_775E30(void) {
                 D_803D5530->yVelocity.w = MIN(FTOFIX32(-1.0), D_803D5530->yVelocity.w + FTOFIX32(4.0));
             }
         }
-        if ((D_803F2ECE == 0) || ((D_803F2ECC <= 30))) {
+        if ((gAnimBlendMode == 0) || ((D_803F2ECC <= 30))) {
 
             D_803F2F00 = 0;
             func_802B975C_6CAE0C(&spA8, (scale * 150), 1);
@@ -199,7 +194,7 @@ void func_80364780_775E30(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B4200_7C58B0, D_803B4208_7C58B8, D_803B4210_7C58C0, D_803B4218_7C58C8);
                 break;
@@ -220,7 +215,7 @@ void func_80364780_775E30(void) {
             load_2_tiles(img_penguin_head_TLUT1_pal, img_penguin_head_TLUT2_pal, img_penguin_head_ci4__png);
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 1, D_04001010_DE5D0);
             if (gLodDetailState == 0) {
-                func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 1, D_04001220_C8C50);
+                func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 1, D_04001220_DE7E0);
             }
             if (D_803D5524->unk9C == KING_PENGUIN) {
                 // add crown
@@ -298,7 +293,7 @@ void func_80364780_775E30(void) {
 
 // king_penguin_jetpack
 void func_80365954_777004(void) {
-    if ((D_803D5530->movementState != 1) && (D_803D5530->unk4A == 0)) {
+    if ((D_803D5530->movementState != MOVEMENT_STATE_GROUND) && (D_803D5530->unk4A == 0)) {
         func_8032CD70_73E420(
             (void*)D_803D5530,
             SFX_UNKNOWN_103,
@@ -350,7 +345,7 @@ void func_80365954_777004(void) {
 void func_80365C28_7772D8(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
         D_803D552C->unk365 = ATTACK_SNOWBALL;
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
     } else {
         recharge_skill(1);
     }
@@ -388,7 +383,7 @@ void penguin_throw_snowball(Animal *arg0) {
             tmp = (s16) ((tmp * 256) / 360);
         }
         D_803D552C->unk365 = ATTACK_SNOWBALL;
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk338 = tmp;
     }
 }

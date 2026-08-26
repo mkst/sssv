@@ -1029,11 +1029,11 @@ void render_title_screen_frame(FrameContext *arg0) {
         } else {
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
-            D_801546D8 = 1936; // volume related
+            gMusicVolumeScale = 1936; // volume related
             gCurrentMusicTrack = MUSIC_TRACK_NEWSCASTER;
             // dupe?
             D_8015517C = 1.0f;
-            D_801546D8 = 1936;
+            gMusicVolumeScale = 1936;
 
             if (gRefreshRate == 50) {
                 D_801546E0 = 1706; // (50 / 60) * 2048
@@ -1274,12 +1274,12 @@ void render_title_screen_frame(FrameContext *arg0) {
         if (D_80299E1C_63D4BC == 1) {
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
-            D_801546D8 = 2048;
+            gMusicVolumeScale = 2048;
             gCurrentMusicTrack = MUSIC_TRACK_TITLE_SCREEN;
             // dupe
             D_8015517C = 1.0f;
             D_801546E0 = 2048;
-            D_801546D8 = 2048;
+            gMusicVolumeScale = 2048;
         }
 
         gIntroLogoRotY++;// += 1.0f;
@@ -1351,7 +1351,7 @@ void render_title_screen_frame(FrameContext *arg0) {
     case 5:  // title screen logo pop-in
         D_8015517C = 1.0f;
         D_801546E0 = 2048;
-        D_801546D8 = 1;
+        gMusicVolumeScale = 1;
         gCurrentMusicTrack = MUSIC_TRACK_NEWSCASTER;
         D_80299E10_63D4B0 = 0xFF;
         if (gIntroLogoPosX == -2616.0f) {

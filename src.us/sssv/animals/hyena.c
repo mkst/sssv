@@ -58,7 +58,7 @@ void func_803574E0_768B90(void) {
     var_v1 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
-        var_v0 = gAnimalState.unkFFDA;
+        var_v0 = gAnimalState.stickMag;
     } else {
         var_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -158,7 +158,7 @@ void func_803574E0_768B90(void) {
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(200);
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             if (D_803D5538 != 0) {
                 sp86 = ((D_803D554C * 0x607) / 20);
             } else {
@@ -191,7 +191,7 @@ void func_803574E0_768B90(void) {
 
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B3A50_7C5100, D_803B3A64_7C5114, D_803B3A78_7C5128, D_803B3A98_7C5148);
                 break;
@@ -404,7 +404,7 @@ void func_80358E3C_76A4EC(void) {
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(0xC8);
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&spA8, 0x1DB, 0x128, 0x468, 0x128);
             func_802BD40C_6CEABC(0x216, 0x164, 0xED, 0x128, 0, 0x78, 0, 0x20, D_803B3860_7C4F10, D_803B3890_7C4F40, D_803B38C0_7C4F70, 0x28D, 0xED, 0xED, 0x128, 0x64, 0xE4, 0x64, 0x84, D_803B38D4_7C4F84, D_803B3904_7C4FB4, D_803B3934_7C4FE4, &spA8, 1);
             func_802B964C_6CACFC();
@@ -427,7 +427,7 @@ void func_80358E3C_76A4EC(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B3948_7C4FF8, D_803B3960_7C5010, D_803B3978_7C5028, D_803B39A0_7C5050);
                 break;
@@ -596,7 +596,7 @@ void func_8035A2A8_76B958(void) {
     apply_recoil(2);
 }
 
-void biker_hyena_fire_missile(Animal *animal) {
+void hyena_biker_fire_missile(Animal *animal) {
     s16 offset;
 
     if (get_missile_side()) {
@@ -628,7 +628,7 @@ void func_8035A590_76BC40(s16 arg0) {
     D_803D552C->unk2EC = arg0;
 }
 
-void func_8035A5A4_76BC54(s16 arg0) {
+void hyena_biker_turbo(s16 arg0) {
     if (arg0 != 0) {
         D_803D552C->unk36E = 24;
         D_803D552C->unk2EC = arg0;

@@ -234,7 +234,7 @@ void load_2_tiles(u8 *tlut1, u8 *tlut2, u8 *timg);
 void load_3_tiles(u8 *tlut1, u8 *tlut2, u8 *tlut3, u8 *arg3);
 
 // sssv/animals/hyena (overlay2_768B90)
-void biker_hyena_fire_missile(Animal *animal);
+void hyena_biker_fire_missile(Animal *animal);
 
 // overlay2_76F7D0
 void recharge_skill(s16 arg0);

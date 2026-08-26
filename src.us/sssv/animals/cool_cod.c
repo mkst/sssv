@@ -8,7 +8,7 @@ s16 D_803B58B0_7C6F60[10] = { 0, 360, 310,  90,  254, 90, 176, 78, 112, 0 };
 s16 D_803B58C4_7C6F74[10] = { 0, 640, 1310, 130, 180, 90, 180, 48, 180, 0 };
 
 #ifdef NON_MATCHING
-// CURRENT (92)
+// CURRENT (42)
 void func_80382CF0_7943A0(void) {
     s32 pad3[2];
     f32 temp_f2;
@@ -40,7 +40,7 @@ void func_80382CF0_7943A0(void) {
     if (D_803D553A == 9) {
         play_sound_effect_at_location(SFX_UNKNOWN_10, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     }
-    if ((D_803D5530->movementState == 3) && (D_803D5538 != 0)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_AIRBORNE) && (D_803D5538 != 0)) {
         if (D_803D552C->unk369 == 0) {
             if (gAnimalState.curBButton == 0) {
                 D_803D552C->unk369 = 1;
@@ -83,9 +83,9 @@ void func_80382CF0_7943A0(void) {
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_80302E50_714500(500, 500, 500);
-            if (D_803D5530->state == 0x3F) {
+            if (D_803D5530->state == STATE_SWIM_AIRBORNE) {
                 sp68 = 40 - (MIN(40, D_803D552C->unk308++) * 2);
                 func_8030322C_7148DC(0, -sp68);
                 func_8030322C_7148DC(1, -sp68);
@@ -96,7 +96,7 @@ void func_80382CF0_7943A0(void) {
         if (D_803F2ECC != 0) {
 
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
                 case 1:
                     func_802DB670_6ECD20(D_803B58A0_7C6F50, D_803B58A4_7C6F54, D_803B58A8_7C6F58, D_803B58B0_7C6F60);
                     break;
@@ -129,8 +129,8 @@ void func_80382CF0_7943A0(void) {
             func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040077E0_E4DA0);
             func_802C78B0_6D8F60(2, 3, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04007AE0_E50A0);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, (u16*)&sp86, (u16*)&sp84);
-                func_8031A278_72B928(&D_803D552C->unk326, (u16*)&sp86, (u16*)&sp84);
+                func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
+                func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
 #pragma _permuter sameline start
                 sp86 = D_803BD530_7CEBE0.eyes[1][sp86];sp84 = D_803BD600_7CECB0.eyes[0][sp84];
 #pragma _permuter sameline end

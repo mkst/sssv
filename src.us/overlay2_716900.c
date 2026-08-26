@@ -1794,7 +1794,7 @@ void func_8030A8EC_71BF9C(void) {
 
 void animal_jump(void) {
     if ((D_803D5524->canJump & 1) && (D_803D5524->class == CLASS_WALK)) {
-        if ((D_803D5530->movementState == 1) || (D_803D5530->movementState == 6)) {
+        if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING)) {
             switch (D_803D5530->state) {
             case STATE_STANDING:
                 func_802A6390_6B7A40();

@@ -48,34 +48,34 @@ void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 delta) {
 
 // ESA: func_8006309C
 void func_802DBA58_6ED108(u8 arg0, Animal *animal) {
-    if (arg0 == 8) { // xVelocity related
+    if (arg0 == ATTACK_STATE_LUNGE_FWD) {
         if (((animal->heading > 32) && (animal->heading < 92)) ||
             ((animal->heading > 160) && (animal->heading < 224))) {
-            arg0 = 8;
+            arg0 = ATTACK_STATE_LUNGE_FWD;
         } else {
-            arg0 = 9;
+            arg0 = ATTACK_STATE_LUNGE_BACK;
         }
-    } else if (arg0 == 9) { // zVelocity related
+    } else if (arg0 == ATTACK_STATE_LUNGE_BACK) {
         if (((animal->heading > 32) && (animal->heading < 92)) ||
             ((animal->heading > 160) && (animal->heading < 224))) {
-            arg0 = 9;
+            arg0 = ATTACK_STATE_LUNGE_BACK;
         } else {
-            arg0 = 8;
+            arg0 = ATTACK_STATE_LUNGE_FWD;
         }
     }
-    if (animal->unk364 != arg0) {
-        if (animal->unk364 == 0) {
-            func_802DBB64_6ED214(&animal->unk364, &animal->attackTimer, arg0);
-        } else if (arg0 > animal->unk364) {
-            func_802DBB64_6ED214(&animal->unk364, &animal->attackTimer, arg0);
+    if (animal->attackState != arg0) {
+        if (animal->attackState == ATTACK_STATE_NONE) {
+            func_802DBB64_6ED214(&animal->attackState, &animal->attackTimer, arg0);
+        } else if (arg0 > animal->attackState) {
+            func_802DBB64_6ED214(&animal->attackState, &animal->attackTimer, arg0);
         }
-    } else if (arg0 == 6) {
-        func_802DBB64_6ED214(&animal->unk364, &animal->attackTimer, arg0);
+    } else if (arg0 == ATTACK_STATE_STUMBLE) {
+        func_802DBB64_6ED214(&animal->attackState, &animal->attackTimer, arg0);
     }
 }
 
 // ESA: func_80063164
-void func_802DBB64_6ED214(u8 *unk364, u16 *attackTimer, u16 arg2) {
-    *unk364 = arg2;
-    *attackTimer = D_803D5544;
+void func_802DBB64_6ED214(u8 *attackState, u16 *attackTimer, u16 arg2) {
+    *attackState = arg2;
+    *attackTimer = gGameplayTick;
 }

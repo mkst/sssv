@@ -17,7 +17,7 @@ extern Gfx D_04005770_ECD20[];
 extern Gfx D_04005050_EC600[];
 extern Gfx D_04004150_EB700[];
 extern Gfx D_04004C90_EC240[];
-extern Gfx D_04004330_CBD60[];
+extern Gfx D_04004330_EB8E0[];
 
 // ARMED_DESERT_FOX
 #ifdef NON_MATCHING
@@ -80,7 +80,7 @@ void func_803726E0_783D90(void) {
         D_803F2EC0 = ((D_803F2EC0 - FTOFIX32(1.0)) >> 1) + FTOFIX32(1.0);
         D_803F2EC4 = ((D_803F2EC4 - FTOFIX32(1.0)) >> 1) + FTOFIX32(1.0);
         func_8035D734_76EDE4();
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B975C_6CAE0C(&spB4, 0x127, 1);
             func_802C23F8_6D3AA8(0x2D1);
             if (D_803D5524->unk9C == ARMED_DESERT_FOX) {
@@ -102,9 +102,9 @@ void func_803726E0_783D90(void) {
         case DESERT_FOX:
             switch (D_803D552C->unk365) {
             case ATTACK_DESERT_FOX_1:
-                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+                ticks_remaining = (gGameplayTick - D_803D552C->unk32A);
                 if (ticks_remaining < 8) {
-                    D_803F2ECE = 3;
+                    gAnimBlendMode = ANIM_BLEND_ATTACK;
                     D_803F2ECC = ticks_remaining * 4;
                     spAA = ticks_remaining * 8;
                 } else {
@@ -117,9 +117,9 @@ void func_803726E0_783D90(void) {
                 }
                 break;
             case ATTACK_DESERT_FOX_SPIN:
-                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+                ticks_remaining = (gGameplayTick - D_803D552C->unk32A);
                 if (ticks_remaining < 0x10) {
-                    D_803F2ECE = 3;
+                    gAnimBlendMode = ANIM_BLEND_ATTACK;
                     D_803F2ECC = 32 - (ticks_remaining * 2);
                     spAA = 64 - (ticks_remaining * 4);
                 } else {
@@ -133,7 +133,7 @@ void func_803726E0_783D90(void) {
             break;
         case ARMED_DESERT_FOX:
             if (D_803D552C->unk365 == ATTACK_BEAR_2) { // ? ATTACK_SPIN/SWING_ARMS?
-                ticks_remaining = (D_803D5544 - D_803D552C->unk32A);
+                ticks_remaining = (gGameplayTick - D_803D552C->unk32A);
                 if (ticks_remaining < 8) {
                     temp_t8 = (8 - ticks_remaining) << 3;
                     if (temp_t8 > 0) {
@@ -214,7 +214,7 @@ void func_803726E0_783D90(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {                    /* irregular */
+            switch (gAnimBlendMode) {                    /* irregular */
             case 1:
                 func_802DB670_6ECD20(D_803B4E78_7C6528, D_803B4E84_7C6534, D_803B4E90_7C6540, D_803B4EA4_7C6554);
                 break;
@@ -246,10 +246,10 @@ void func_803726E0_783D90(void) {
                 break;
             case DESERT_FOX:
                 if (gLodDetailState == 0) { func_802C78B0_6D8F60(0x13, 0x14, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 0, 0, D_04004C90_EC240); }
-                func_802C78B0_6D8F60(2, 15, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 0, 0, D_04004330_CBD60);
+                func_802C78B0_6D8F60(2, 15, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 0, 0, D_04004330_EB8E0);
                 gSPClearGeometryMode(gOpaqueDL++, G_CULL_BACK);
                 gSPSetGeometryMode(gOpaqueDL++, G_CULL_FRONT);
-                func_802C78B0_6D8F60(2, 18, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 1, 0, D_04004330_CBD60);
+                func_802C78B0_6D8F60(2, 18, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 1, 0, D_04004330_EB8E0);
                 break;
             }
 
@@ -345,12 +345,12 @@ block_15:
             func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x54) >> 6, (D_803F2EC8 * 0x54) >> 6, (D_803F2EC8 * 0x54) >> 6, D_803F2ED0, 0, 0, 0, D_04004A00_EBFB0);
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC * 0x54) >> 6, (D_803F2EC0 * 0x54) >> 6, (D_803F2EC4 * 0x54) >> 6, D_803F2ED0, 0, 0, 0, D_04004530_EBAE0);
             func_802C78B0_6D8F60(2, 26, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 0, 0, D_04004D70_EC320);
-            func_802C78B0_6D8F60(2, 15, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 0, 0, D_04004330_CBD60);
+            func_802C78B0_6D8F60(2, 15, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 0, 0, D_04004330_EB8E0);
 
             gSPClearGeometryMode(gOpaqueDL++, G_CULL_BACK);
             gSPSetGeometryMode(gOpaqueDL++, G_CULL_FRONT);
 
-            func_802C78B0_6D8F60(2, 18, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 1, 0, D_04004330_CBD60);
+            func_802C78B0_6D8F60(2, 18, 0x15000, 0x15000, 0x15000, D_803F2ED0, 0, 1, 0, D_04004330_EB8E0);
 
             if (SSSV_RAND(2)) {
                 create_particle_effect(
@@ -439,7 +439,7 @@ block_15:
 
 void func_80374470_785B20(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_DESERT_FOX_1;
     } else {
         recharge_skill(1);
@@ -448,7 +448,7 @@ void func_80374470_785B20(void) {
 
 void func_803744C4_785B74(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_BEAR_2;
     } else {
         recharge_skill(1);
@@ -459,7 +459,7 @@ void func_803744C4_785B74(void) {
 void func_80374518_785BC8(void) {
     load_animal(DESERT_FOX);
 
-    D_803D552C->unk32A = D_803D5544;
+    D_803D552C->unk32A = gGameplayTick;
     D_803D552C->unk365 = ATTACK_DESERT_FOX_SPIN;
 
     if (D_803D5528->energy[1].unk0 < 900) {
@@ -483,7 +483,7 @@ void func_803745C4_785C74(s16 arg0) {
 
 void func_8037460C_785CBC(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_BEAR_2;
     } else {
         recharge_skill(1);

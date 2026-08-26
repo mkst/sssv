@@ -74,7 +74,7 @@ void func_80389B30_79B1E0(void) {
 
     f32 sp100;
 
-    if ((D_803D5530->movementState == 1) || (D_803D5530->movementState == 5)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_SINKING)) {
         D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
     }
 
@@ -86,7 +86,7 @@ void func_80389B30_79B1E0(void) {
     D_803F2EC4 = ((D_803F2EC4 - FTOFIX32(1.0)) >> 1) + FTOFIX32(1.0);
     func_8035D734_76EDE4();
 
-    if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F) || (D_803F2ECE >= 3)) {
+    if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F) || (gAnimBlendMode >= 3)) {
         func_802BA220_6CB8D0(&sp148, 0x222, 0x4C1, 0x1FB, 0x15F, 0x138);
         func_802C353C_6D4BEC(0x29F, 0x222, 0x138, D_803B5E30_7C74E0, D_803B5E60_7C7510, D_803B5E90_7C7540, &sp148);
         update_limbs_evo(0x1D4, 0x271, D_803B5EA4_7C7554, D_803B5ED4_7C7584, D_803B5F04_7C75B4);
@@ -94,7 +94,7 @@ void func_80389B30_79B1E0(void) {
     }
     if (D_803F2ECC != 0) {
         backup_joint_positions();
-        switch (D_803F2ECE) {
+        switch (gAnimBlendMode) {
         case 1:
             func_802DB670_6ECD20(D_803B5F18_7C75C8, D_803B5F2C_7C75DC, D_803B5F40_7C75F0, D_803B5F64_7C7614);
             break;
@@ -358,7 +358,7 @@ void func_80389B30_79B1E0(void) {
 void func_8038B330_79C9E0(void) {
     s16 tmp;
 
-    if (D_803D5530->movementState != 1) {
+    if (D_803D5530->movementState != MOVEMENT_STATE_GROUND) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
@@ -446,7 +446,7 @@ void func_8038B798_79CE48(void) {
     D_803D5538 = 1;
     D_803D553C = gCurrentAnimalIndex;
     D_803D553A = 0;
-    if (D_803D5530->movementState == 1) {
+    if (D_803D5530->movementState == MOVEMENT_STATE_GROUND) {
         func_802A6390_6B7A40();
     }
 }

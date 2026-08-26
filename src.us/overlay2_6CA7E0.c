@@ -28,11 +28,11 @@ void func_802B9130_6CA7E0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
         (D_803D5530->state == 185) ||
         (D_803D5530->state == 183)) {
 
-        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase << 8) / (u32) D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 << 8) / (u32) D_803D552C->unk2FA;
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
     } else {
-        D_803D552C->gaitPhaseOffset = (u16) D_803D552C->gaitPhase;
-        D_803D552C->prevGaitPhaseOffset = (u16) D_803D552C->unk2F4;
+        D_803D552C->gaitPhaseOffset = D_803D552C->gaitPhase;
+        D_803D552C->prevGaitPhaseOffset = D_803D552C->unk2F4;
     }
 
     D_80203FE0[3].unk0 = -arg2;
@@ -154,11 +154,11 @@ void func_802B96D0_6CAD80(s16 *arg0, s16 arg1, s16 arg2, s32 arg3) {
 }
 
 void func_802B975C_6CAE0C(s16 *arg0, s16 arg1, s16 arg2) {
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 4) ||
-        (D_803D5530->state == 0xB6) || (D_803D5530->state == 0xB9) || (D_803D5530->state == 0xB7) ||
-        (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) || (D_803D5530->state == 0x8F)) {
-        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256) / (u32) D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256) / (u32) D_803D552C->unk2FA;
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_RUNNING) ||
+        (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_FAST_IN_WATER) || (D_803D5530->state == STATE_RUNNING_IN_WATER) ||
+        (D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) || (D_803D5530->state == STATE_FISH_SWIMMING)) {
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
     } else {
         D_803D552C->gaitPhaseOffset = D_803D552C->gaitPhase;
         D_803D552C->prevGaitPhaseOffset = D_803D552C->unk2F4;
@@ -172,10 +172,10 @@ void func_802B975C_6CAE0C(s16 *arg0, s16 arg1, s16 arg2) {
     D_80203FE0[1].unk0 = D_80203FE0[1].unk2 = 0;
     D_80203FE0[24].unk0 = D_80203FE0[24].unk2 = 0;
 
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_FAST_IN_WATER)) {
         D_80203FE0[1].unk0 += ((arg1 *        (SIN(D_803D552C->gaitPhaseOffset) >> 7)) >> 8) >> arg2;
         D_80203FE0[2].unk4 += ((arg1 * (256 - (COS(D_803D552C->gaitPhaseOffset << 1) >> 7))) >> 8) >> arg2;
-    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
+    } else if ((D_803D5530->state == STATE_RUNNING) || (D_803D5530->state == STATE_RUNNING_IN_WATER)) {
         D_80203FE0[1].unk0 += ((arg1 *        (SIN(D_803D552C->gaitPhaseOffset) >> 7)) >> 8) >> arg2;
         D_80203FE0[2].unk4 += ((arg1 * (256 - (COS(D_803D552C->gaitPhaseOffset << 1) >> 7))) >> 8) >> arg2;
     }
@@ -187,11 +187,11 @@ void func_802B975C_6CAE0C(s16 *arg0, s16 arg1, s16 arg2) {
 }
 
 void func_802B9A5C_6CB10C(s16 *arg0, s16 arg1) {
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 4) ||
-        (D_803D5530->state == 0xB6) || (D_803D5530->state == 0xB9) || (D_803D5530->state == 0xB7) ||
-        (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) || (D_803D5530->state == 0x8F)) {
-        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256) / (u32) D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256) / (u32) D_803D552C->unk2FA;
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_RUNNING) ||
+        (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_FAST_IN_WATER) || (D_803D5530->state == STATE_RUNNING_IN_WATER) ||
+        (D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) || (D_803D5530->state == STATE_FISH_SWIMMING)) {
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
     } else {
         D_803D552C->gaitPhaseOffset = D_803D552C->gaitPhase;
         D_803D552C->prevGaitPhaseOffset = D_803D552C->unk2F4;
@@ -207,10 +207,10 @@ void func_802B9A5C_6CB10C(s16 *arg0, s16 arg1) {
 
     D_80203FE0[24].unk0 = D_80203FE0[24].unk2 = 0;;
 
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_FAST_IN_WATER)) {
         D_80203FE0[2].unk4 += ((arg1 * (256 - (COS(D_803D552C->gaitPhaseOffset << 1) >> 7))) >> 10);
         D_80203FE0[2].unk0 += ((arg1 *        (SIN(D_803D552C->gaitPhaseOffset) >> 7)) >> 10);
-    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
+    } else if ((D_803D5530->state == STATE_RUNNING) || (D_803D5530->state == STATE_RUNNING_IN_WATER)) {
         D_80203FE0[2].unk4 += ((arg1 *       ((COS(D_803D552C->gaitPhaseOffset << 1) >> 7))) >> 10);
         D_80203FE0[2].unk0 += ((arg1 *        (SIN(D_803D552C->gaitPhaseOffset) >> 7)) >> 10);
     }
@@ -227,15 +227,15 @@ void func_802B9D20_6CB3D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     u16 pad UNUSED;
     s16 phi_t5;
 
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB6) ||
-        (D_803D5530->state == 0xB9) || (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) ||
-        (D_803D5530->state == 0x8F)) {
-        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase << 8) / (u32) D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 << 8) / (u32) D_803D552C->unk2FA;
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_WALKING_IN_WATER) ||
+        (D_803D5530->state == STATE_FAST_IN_WATER) || (D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) ||
+        (D_803D5530->state == STATE_FISH_SWIMMING)) {
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
         phi_t5 = 4;
-    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
-        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase << 8) / (u32) D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 << 8) / (u32) D_803D552C->unk2FA;
+    } else if ((D_803D5530->state == STATE_RUNNING) || (D_803D5530->state == STATE_RUNNING_IN_WATER)) {
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
         phi_t5 = 6;
     } else {
         D_803D552C->gaitPhaseOffset = D_803D552C->gaitPhase;
@@ -251,10 +251,10 @@ void func_802B9D20_6CB3D0(s16 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     D_80203FE0[0].unk0 = D_80203FE0[0].unk2 = 0;
     D_80203FE0[1].unk0 = D_80203FE0[1].unk2 = 0;
 
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) ||
-        (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_WALKING_IN_WATER) ||
+        (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_FAST_IN_WATER)) {
         D_80203FE0[2].unk4 += (phi_t5 * arg1 * (256 - (COS(D_803D552C->gaitPhaseOffset << 1) >> 7))) >> 13;
-    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
+    } else if ((D_803D5530->state == STATE_RUNNING) || (D_803D5530->state == STATE_RUNNING_IN_WATER)) {
         D_80203FE0[2].unk4 += (phi_t5 * arg1 * (256 - (COS(D_803D552C->gaitPhaseOffset << 1) >> 7))) >> 13;
     }
     D_80203FE0[0].unk4 = D_80203FE0[2].unk4 + arg1;
@@ -284,16 +284,16 @@ void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     s16 var_a2;
     s32 state;
 
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB6) ||
-        (D_803D5530->state == 0xB9) || (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) ||
-        (D_803D5530->state == 0x8F)) {
-        D_803D552C->gaitPhaseOffset = (u32) (D_803D552C->gaitPhase << 8U) / D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (u32) (D_803D552C->unk2F4 << 8U) / D_803D552C->unk2FA;
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_WALKING_IN_WATER) ||
+        (D_803D5530->state == STATE_FAST_IN_WATER) || (D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) ||
+        (D_803D5530->state == STATE_FISH_SWIMMING)) {
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
         var_t4 = 4;
         var_a2 = 2;
-    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
-        D_803D552C->gaitPhaseOffset = (u32) (D_803D552C->gaitPhase << 8U) / D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (u32) (D_803D552C->unk2F4 << 8U) / D_803D552C->unk2FA;
+    } else if ((D_803D5530->state == STATE_RUNNING) || (D_803D5530->state == STATE_RUNNING_IN_WATER)) {
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
         var_t4 = 6;
         var_a2 = 8;
     } else {
@@ -315,7 +315,7 @@ void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
     D_80203FE0[0].unk0 = 0;
     D_80203FE0[1].unk0 = 0;
 
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6)) {
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_CARRYING)) {
 
     } else {
         if (1) {
@@ -350,11 +350,11 @@ void func_802BA220_6CB8D0(LimbConfig *arg0, s16 arg1, s16 arg2, s16 arg3, s16 ar
 }
 
 void func_802BA614_6CBCC4(s16 *arg0, s16 arg1) {
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 6) || (D_803D5530->state == 4) ||
-        (D_803D5530->state == 0xB6) || (D_803D5530->state == 0xB9) || (D_803D5530->state == 0xB7) ||
-        (D_803D5530->state == 0x8E) || (D_803D5530->state == 0x90) || (D_803D5530->state == 0x8F)) {
-        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase << 8) / (u32) D_803D552C->unk2FA;
-        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 << 8) / (u32) D_803D552C->unk2FA;
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_RUNNING) ||
+        (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_FAST_IN_WATER) || (D_803D5530->state == STATE_RUNNING_IN_WATER) ||
+        (D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) || (D_803D5530->state == STATE_FISH_SWIMMING)) {
+        D_803D552C->gaitPhaseOffset = (D_803D552C->gaitPhase * 256U) / D_803D552C->gaitPhasePeriod;
+        D_803D552C->prevGaitPhaseOffset = (D_803D552C->unk2F4 * 256U) / D_803D552C->gaitPhasePeriod;
     } else {
         D_803D552C->gaitPhaseOffset = D_803D552C->gaitPhase;
         D_803D552C->prevGaitPhaseOffset = D_803D552C->unk2F4;
@@ -368,20 +368,20 @@ void func_802BA614_6CBCC4(s16 *arg0, s16 arg1) {
     D_80203FE0[1].unk2 = 0;
     D_80203FE0[1].unk0 = D_80203FE0[1].unk2;
 
-    if ((D_803D5530->state == 3) || (D_803D5530->state == 0xB6) || (D_803D5530->state == 6) || (D_803D5530->state == 0xB9)) {
+    if ((D_803D5530->state == STATE_WALKING) || (D_803D5530->state == STATE_WALKING_IN_WATER) || (D_803D5530->state == STATE_CARRYING) || (D_803D5530->state == STATE_FAST_IN_WATER)) {
         D_80203FE0[2].unk4 += (arg1 * (SIN((D_803D552C->gaitPhaseOffset & 0xFF) >> 1) >> 7)) >> 8;
         if ((((D_803D552C->gaitPhaseOffset & 0xFF) < (D_803D552C->prevGaitPhaseOffset & 0xFF)) || ((D_803D552C->prevGaitPhaseOffset == 0) && (D_803D552C->gaitPhaseOffset == 0))) && (D_803D5530->unk4A == 0)) {
             play_sound_effect_at_location(D_803A65D0_7B7C80[D_803D5524->unk9C], (D_803A6680_7B7D30[D_803D5524->unk9C] * 5) >> 3, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
-    } else if ((D_803D5530->state == 4) || (D_803D5530->state == 0xB7)) {
+    } else if ((D_803D5530->state == STATE_RUNNING) || (D_803D5530->state == STATE_RUNNING_IN_WATER)) {
         D_80203FE0[2].unk4 += (arg1 * (SIN((D_803D552C->gaitPhaseOffset & 0xFF) >> 1) >> 7)) >> 7;
         if ((((D_803D552C->gaitPhaseOffset & 0xFF) < (D_803D552C->prevGaitPhaseOffset & 0xFF)) || ((D_803D552C->prevGaitPhaseOffset == 0) && (D_803D552C->gaitPhaseOffset == 0))) && (D_803D5530->unk4A == 0)) {
             play_sound_effect_at_location(D_803A65D0_7B7C80[D_803D5524->unk9C], D_803A6680_7B7D30[D_803D5524->unk9C], 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
         }
     }
 
-    if (D_803D552C->unk364 == 7) {
-        u8 x = D_803D5544 - D_803D552C->attackTimer;
+    if (D_803D552C->attackState == ATTACK_STATE_BOUNCE) {
+        u8 x = gGameplayTick - D_803D552C->attackTimer;
         D_80203FE0[2].unk4 += (arg1 * (SIN((u8)(x << 4) >> 1) >> 7)) >> 8;
     }
     D_80203FE0[1].unk4 = (D_80203FE0[2].unk4 + (arg1 * 2));

@@ -110,9 +110,9 @@ s16 D_803A6520_7B7BD0[88] = {
 
 // ESA: func_800A1754
 void func_802DBB80_6ED230(u16 arg0) {
-    u16 ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    u16 ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
         return;
     }
     if (ticks_remaining == 1) {
@@ -135,9 +135,9 @@ void func_802DBCDC_6ED38C(u16 arg0) {
     s32 phi_v1;
     u16 ticks_remaining;
 
-    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
         return;
     }
     if (ticks_remaining == 1) {
@@ -170,9 +170,9 @@ void func_802DBED8_6ED588(u16 arg0) {
     s32 phi_v1;
     u16 ticks_remaining;
 
-    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
         return;
     }
     if (ticks_remaining == 1) {
@@ -205,9 +205,9 @@ void func_802DC0D4_6ED784(u16 arg0) {
     s32 temp_t8;
     u16 ticks_remaining;
 
-    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
         return;
     }
 
@@ -259,9 +259,9 @@ void func_802DC2AC_6ED95C(u16 arg0) {
     s32 temp_t8;
     u16 ticks_remaining;
 
-    ticks_remaining = (D_803D5544 - D_803D552C->attackTimer);
+    ticks_remaining = (gGameplayTick - D_803D552C->attackTimer);
     if (arg0 < ticks_remaining) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
         return;
     }
     temp_t8 = (SIN((ticks_remaining << 7) / arg0) / (((ticks_remaining << 7) / arg0) + 16)) << 5;
@@ -285,7 +285,7 @@ void func_802DC3F4_6EDAA4(u16 arg0, s16 *arg1, s16 *arg2) {
     u16 ticks_remaining;
     u16 temp_v0;
 
-    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    ticks_remaining = gGameplayTick - D_803D552C->unk32A;
     if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
     } else {
@@ -318,7 +318,7 @@ void func_802DC6A4_6EDD54(u16 arg0) {
     u16 ticks_remaining;
     u16 phi_v0;
 
-    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    ticks_remaining = gGameplayTick - D_803D552C->unk32A;
     if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
     } else {
@@ -353,16 +353,16 @@ void func_802DC854_6EDF04(s16 arg0, u16 arg1) {
 
 // ESA: func_800A22B0
 void func_802DC968_6EE018(u16 arg0, s16 arg1) {
-    u16 ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    u16 ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
     } else {
         D_803F2ED0 = ((SIN((ticks_remaining << 7) / arg0) >> 7) * arg1) >> 8;
     }
 }
 
 void func_802DCA28_6EE0D8(u16 arg0) {
-    u16 ticks_remaining = D_803D552C->unk32A - D_803D5544;
+    u16 ticks_remaining = D_803D552C->unk32A - gGameplayTick;
     if (D_803D552C->unk32A >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
@@ -372,7 +372,7 @@ void func_802DCA28_6EE0D8(u16 arg0) {
 }
 
 void func_802DCAD4_6EE184(u16 arg0) {
-    u16 ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    u16 ticks_remaining = gGameplayTick - D_803D552C->unk32A;
     if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
@@ -385,7 +385,7 @@ void func_802DCB90_6EE240(u16 arg0) {
     s16 temp_lo;
     u16 ticks_remaining;
 
-    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    ticks_remaining = gGameplayTick - D_803D552C->unk32A;
     if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
@@ -406,7 +406,7 @@ void func_802DCCAC_6EE35C(u16 arg0) {
     s16 temp_lo;
     u16 ticks_remaining;
 
-    ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+    ticks_remaining = gGameplayTick - D_803D552C->unk32A;
     if (ticks_remaining >= arg0) {
         D_803D552C->unk365 = ATTACK_NONE;
         D_803F2ED8 = 0;
@@ -426,7 +426,7 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
     u16 ticks_remaining;
     u32 phi_t1;
 
-    ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
 
     phi_t1 = (ticks_remaining << 0xA) / arg0;
     if (phi_t1 > 512) {
@@ -454,14 +454,14 @@ void func_802DCD70_6EE420(u16 arg0, u8 arg1) {
         D_803D552C->attackTimer++;
     }
     if (ticks_remaining >= arg0) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
     }
 }
 
 // ESA: func_800A2660
 void func_802DD004_6EE6B4(u16 arg0) {
-    u16 ticks_remaining = D_803D5544 - D_803D552C->attackTimer;
+    u16 ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
     if (arg0 < ticks_remaining) {
-        D_803D552C->unk364 = 0;
+        D_803D552C->attackState = ATTACK_STATE_NONE;
     }
 }

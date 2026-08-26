@@ -35,7 +35,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
     CollisionNode *phi_s1;
     s16 phi_a0;
 
-    if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == 1) {
+    if (gAnimalState.animals[gCurrentAnimalIndex].animal->movementState == MOVEMENT_STATE_GROUND) {
         if (arg0 > 20) {
             do_rumble(0, 25, 55, 5, distance_from_player(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h)); //, temp_a3));
         } else {
@@ -74,7 +74,7 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                     if (phi_s1->animal != (Animal*)D_803D5530) {
 
                         animal = phi_s1->animal;
-                        if ((animal->movementState == 6) || (animal->movementState == 1)) {
+                        if ((animal->movementState == MOVEMENT_STATE_FLYING) || (animal->movementState == MOVEMENT_STATE_GROUND)) {
                             temp_v0_3 = sp8E - animal->position.xPos.h;
                             temp_v1_2 = sp8C - animal->position.zPos.h;
 
@@ -263,7 +263,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                                     var_s5 = 7;
                                                     break;
                                                 }
-                                                if (!(D_803D5544 & var_s5)) {
+                                                if (!(gGameplayTick & var_s5)) {
                                                     if ((animal->unk16C->unk9C != RACING_TORTOISE_DEFENDING) &&
                                                         (animal->unk16C->unk9C != TORTOISE_TANK_DEFENDING)) {
                                                         animal->Info.health = MAX(animal->Info.health - damage, 0);
@@ -414,8 +414,8 @@ void trigger_contagious_laughter(void) {
                                             (animalId != xDist)) {
                                                 do_laughter = 0;
                                                 if (gAnimalState.animals[gCurrentAnimalIndex].animal == animal) {
-                                                    if (D_803F63D0 != D_803D5544 && 1) {
-                                                        D_803F63D0 = D_803D5544;
+                                                    if (D_803F63D0 != gGameplayTick && 1) {
+                                                        D_803F63D0 = gGameplayTick;
                                                     do_laughter = 1;
                                                 }
                                             } else {
@@ -721,7 +721,7 @@ s16 func_8037F07C_79072C(s16 arg0, s16 arg1) {
         xPosNew = xPos + ((sp88 * i) >> 8);
         zPosNew = zPos + ((sp86 * i) >> 8);
 
-        if (D_803D5530->movementState != 1) {
+        if (D_803D5530->movementState != MOVEMENT_STATE_GROUND) {
             yPosNew = MAX(sp7A, sample_ground_height_at_xz(xPosNew, zPosNew) >> 0x10) + 8;
         } else {
             if ((D_803D5530->unk160 == 0) || (D_803D5530->unk160 == 1)) {
@@ -853,7 +853,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                                         if (temp_v1 < arg1) {
                                             animal->xVelocity.w -= (temp_a2 << 0x10) / temp_v1;
                                             animal->zVelocity.w -= (temp_a3_2 << 0x10) / temp_v1;
-                                            if ((D_803D5544 & 3) == 0) {
+                                            if ((gGameplayTick & 3) == 0) {
 
                                                 animal->Info.health = MAX(animal->Info.health - damage, 0);
                                                 func_80349280_75A930(animal, damage);

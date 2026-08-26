@@ -44,8 +44,8 @@ void func_80300210_7118C0(void) {
         sp86 = 8; // default scale => (8 << 13) == 0x10000 == FTOFIX32(1.0)
 
         if (D_803D552C->unk365 == ATTACK_RABBIT_1) {
-            if (D_803D5530->movementState == 1) {
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+            if (D_803D5530->movementState == MOVEMENT_STATE_GROUND) {
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining < 0xA) {
                     temp_t8 = SSSV_RAND(512) << 5;
                     sp86 = MAX(0, ticks_remaining - 2) + 8;
@@ -58,7 +58,7 @@ void func_80300210_7118C0(void) {
                 } else if (ticks_remaining == 0xA) {
                     D_803D5528->unk398.unk10 = 1;
                     D_803D5528->unk398.unk12 = 0;
-                } else if ((D_803D5528->unk398.unk10 == 1) && (D_803D5530->movementState == 1)) {
+                } else if ((D_803D5528->unk398.unk10 == 1) && (D_803D5530->movementState == MOVEMENT_STATE_GROUND)) {
                     ticks_remaining -= 10;
                     sp86 = 0x10;
                     if ((ticks_remaining & 7) == 0) { // b00000111
@@ -108,14 +108,14 @@ void func_80300210_7118C0(void) {
         } else {
             D_803D552C->unk365 = 0;
         }
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B96D0_6CAD80(&sp90, 0x177, 0, 0);
             func_802C1A88_6D3138(0x339, &sp90);
             func_802C5EF4_6D75A4(0x1C2, 0x12C);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A5340_7B69F0, D_803A534C_7B69FC, D_803A5358_7B6A08, D_803A536C_7B6A1C);
                 break;
@@ -271,14 +271,14 @@ void func_80301248_7128F8(void) {
         func_8034B64C_75CCFC(14, 15, 10);
         func_8035D734_76EDE4();
         func_8034BB38_75D1E8(200);
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_802B96D0_6CAD80(&sp8C, 375, 0, 0);
             func_802C1A88_6D3138(825, &sp8C);
             func_802C5EF4_6D75A4(450, 300);
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A53C4_7B6A74, D_803A53CC_7B6A7C, D_803A53D4_7B6A84, &D_803A53E0_7B6A90);
                 break;
@@ -298,7 +298,7 @@ void func_80301248_7128F8(void) {
 
             func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.35f);
 
-            if ((D_803D5530->state == 0x7A) || (D_803D5530->state == 0x7B)) {
+            if ((D_803D5530->state == STATE_HELI_MOVING) || (D_803D5530->state == STATE_HELI_ENTERING_WATER)) {
 #if 1
                 // better regalloc but worse instructions
                 heading = D_803D552C->heading;
@@ -401,8 +401,8 @@ void func_80301248_7128F8(void) {
 
 // rabbit
 void func_80302018_7136C8(void) {
-    if ((D_803D5530->movementState == 1) && (D_803D552C->unk365 == ATTACK_NONE)) {
-        D_803D552C->unk32A = D_803D5544;
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) && (D_803D552C->unk365 == ATTACK_NONE)) {
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_RABBIT_1;
     } else {
         recharge_skill(1);
@@ -411,7 +411,7 @@ void func_80302018_7136C8(void) {
 
 // heli-rabbit
 void func_80302080_713730(void) {
-    if (D_803D5530->movementState != 1) {
+    if (D_803D5530->movementState != MOVEMENT_STATE_GROUND) {
         fire_cannonball_1(OBJECT_CANNONBALL, 0, 0, -30, 0, 0, -9, 24);
         play_sound_effect_at_location(SFX_DROP_BOMB, 0x4000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
     } else {
@@ -425,8 +425,8 @@ void heli_rabbit_drop_bomb(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void func_803021A8_713858(void) {
-    if ((D_803D5530->movementState == 1) && (D_803D552C->unk365 == ATTACK_NONE)) {
-        D_803D552C->unk32A = D_803D5544;
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) && (D_803D552C->unk365 == ATTACK_NONE)) {
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_RABBIT_1;
     }
 }

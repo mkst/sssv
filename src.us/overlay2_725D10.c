@@ -96,7 +96,7 @@ void func_80314788_725E38(void) {
     gLevelProgress = 0; // clear gameplay flags
     D_803E4CA0 = NULL;
     D_801546E0 = 0x800;
-    D_801546D8 = 0x800;
+    gMusicVolumeScale = 0x800;
     func_803976E0_7A8D90(); // initialise something...
     D_803E8E57 = 1;
     D_803E8E58 = 1;
@@ -314,7 +314,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case ST_SET_MUSIC_VOLUME:
-        D_801546D8 = MAX(arg2, 0);
+        gMusicVolumeScale = MAX(arg2, 0);
         break;
 
     case ST_SET_EEPROM_SCORES_2:
@@ -471,7 +471,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = D_801546E0;
             break;
         case 34+0x7F7F: // ST_GET_MUSIC_VOLUME (?)
-            res = D_801546D8;
+            res = gMusicVolumeScale;
             break;
         case ST_GET_EEPROM_SCORES_2:
             res = D_803E4D38[1];
@@ -747,7 +747,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
         break;
 
     case 1:
-        if ((arg0->movementState == 4) || (arg0->movementState == 5) || (arg0->movementState == 6) || (arg0->movementState == 7) || (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4))) {
+        if ((arg0->movementState == MOVEMENT_STATE_WATER_SWIM) || (arg0->movementState == MOVEMENT_STATE_SINKING) || (arg0->movementState == MOVEMENT_STATE_FLYING) || (arg0->movementState == MOVEMENT_STATE_DRIFTING) || (arg0->position.yPos.h < (GET_WATER_LEVEL(D_803C0740, arg0->position.xPos.h, arg0->position.zPos.h) * 4))) {
             res = 1;
         }
         break;
@@ -1890,7 +1890,7 @@ s32 func_80316408_727AB8(Entity *arg0) {
             // try_swap_animal() ?
             func_80328ACC_73A17C();
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 400) { // 0x190
-            D_803F6450 = cmds->unk19C.payload.cmd.regular.unk2;
+            gAnimalBehaviourEnabled = cmds->unk19C.payload.cmd.regular.unk2;
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 500) { // 0x1F4
             D_803F2D50.useDynamicLightDir = 0;
             D_803F2D50.lightDirX = cmds->unk19C.payload.cmd.regular.unk2; // D_803F2DC6

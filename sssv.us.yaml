@@ -2005,52 +2005,52 @@ segments:
     exclusive_ram_id: ovl_04
     subsegments:
       - [0xC7A30, sssv_vtx, data/inc/D_04000000_C7A30]
-      - [0xC7BD0, .data, data/D_040001A0_C7BD0] # flying_dog_body
+      - [0xC7BD0, .data, data/flying_dog_body]
       - [0xC7CB0, sssv_vtx, data/inc/D_04000280_C7CB0]
-      - [0xC7E50, .data, data/dog_body.D_04000420_C7E50] # racing_dog_body
+      - [0xC7E50, .data, data/dog_body]
       - [0xC7F30, sssv_vtx, data/inc/D_04000500_C7F30]
       - [0xC8060, sssv_vtx, data/inc/D_04000630_C8060]
       - [0xC80D0, sssv_vtx, data/inc/D_040006A0_C80D0]
       - [0xC81B0, sssv_vtx, data/inc/D_04000780_C81B0]
-      - [0xC82A0, .data, data/dog_head.D_04000870_C82A0]
+      - [0xC82A0, .data, data/dog_head]
       - [0xC83C0, sssv_vtx, data/inc/D_04000990_C83C0]
       - [0xC8440, sssv_vtx, data/inc/D_04000A10_C8440]
       - [0xC8510, sssv_vtx, data/inc/D_04000AE0_C8510]
       - [0xC85D0, sssv_vtx, data/inc/D_04000BA0_C85D0]
       - [0xC86C0, sssv_vtx, data/inc/D_04000C90_C86C0]
       - [0xC8720, sssv_vtx, data/inc/D_04000CF0_C8720]
-      - [0xC8800, .data, data/flying_dog_head.D_04000DD0_C8800] # racing dog head?
+      - [0xC8800, .data, data/flying_dog_head]
       - [0xC8960, sssv_vtx, data/inc/D_04000F30_C8960]
-      - [0xC89E0, .data, data/D_04000FB0_C89E0] # dog thigh?
+      - [0xC89E0, .data, data/dog_upper_leg]
       - [0xC8A30, sssv_vtx, data/inc/D_04001000_C8A30]
-      - [0xC8AB0, .data, data/D_04001080_C8AB0] # dog leg?
+      - [0xC8AB0, .data, data/dog_lower_leg]
       - [0xC8B00, sssv_vtx, data/inc/D_040010D0_C8B00]
-      - [0xC8B80, .data, data/D_04001150_C8B80]
+      - [0xC8B80, .data, data/dog_foot]
       - [0xC8BD0, sssv_vtx, data/inc/D_040011A0_C8BD0]
-      - [0xC8C50, .data, data/D_04001220_C8C50]
+      - [0xC8C50, .data, data/dog_neck]
       - [0xC8C90, sssv_vtx, data/inc/D_04001260_C8C90]
-      - [0xC8D50, .data, data/D_04001320_C8D50]
+      - [0xC8D50, .data, data/flying_dog_neck_detail]
       - [0xC8D90, sssv_vtx, data/inc/D_04001360_C8D90]
-      - [0xC8DD0, .data, data/D_040013A0_C8DD0]
+      - [0xC8DD0, .data, data/dog_back_detail]
       - [0xC8E00, sssv_vtx, data/inc/D_040013D0_C8E00]
       - [0xC8E60, sssv_vtx, data/inc/D_04001430_C8E60]
-      - [0xC8F20, .data, data/racing_dog_leg.D_040014F0_C8F20]
+      - [0xC8F20, .data, data/racing_dog_leg]
       - [0xC8FC0, sssv_vtx, data/inc/D_04001590_C8FC0]
       - [0xC9000, sssv_vtx, data/inc/D_040015D0_C9000]
       - [0xC90E0, sssv_vtx, data/inc/D_040016B0_C90E0]
       - [0xC91C0, sssv_vtx, data/inc/D_04001790_C91C0]
       - [0xC9200, sssv_vtx, data/inc/D_040017D0_C9200]
-      - [0xC92E0, .data, data/D_040018B0_C92E0] # tbd, purple/blue, mouse? rabbit?
+      - [0xC92E0, .data, data/flying_dog_wing]
       - [0xC93D0, sssv_vtx, data/inc/D_040019A0_C93D0]
       - [0xC9410, sssv_vtx, data/inc/D_040019E0_C9410]
-      - [0xC9450, .data, data/D_04001A20_C9450] # tbd, eyes? teeth?
+      - [0xC9450, .data, data/dog_left_eye]
       - [0xC9490, ci4, img/flying_dog_body, 32, 32] # D_04001A60_C9490 palette for
       - [0xC9690, palette, img/flying_dog_body] # D_04001C60_C9690 (palette)
-      - [0xC96B0, ci4, img/dog_body, 32, 32] # D_04001C80_C96B0
+      - [0xC96B0, ci4, img/dog_body, 32, 32]
       - [0xC98B0, bin] # junk? too small to be a palette?
       - [0xC98C0, palette, img/dog_body] # D_04001E90_C98C0 TLUT for D_04001C80_C96B0
       - {
-          name: img/flying_dog_wing, # D_04001EB0_C98E0
+          name: img/flying_dog_wing,
           start: 0xC98E0,
           type: ci4,
           width: 48,
@@ -2061,20 +2061,20 @@ segments:
       - [0xC9F00, palette, img/flying_dog_wing/TLUT2] # D_040024D0_C9F00 TLUT2 for D_04001EB0_C98E0
       - [0xC9F20, sssv_vtx, data/inc/D_040024F0_C9F20]
       - [0xCA120, sssv_vtx, data/inc/D_040026F0_CA120]
-      - [0xCA150, .data, data/D_04002720_CA150] # missile
+      - [0xCA150, .data, data/dog_missile_pod]
       - [0xCA1F0, sssv_vtx, data/inc/D_040027C0_CA1F0]
-      - [0xCA240, .data, data/D_04002810_CA240]
+      - [0xCA240, .data, data/flying_dog_fire_left]
       - [0xCA268, sssv_vtx, data/inc/D_04002838_CA268]
       - [0xCA2B8] # end of D_04003780_CA268
-      - [0xCA2E0, .data, data/D_04002910_CA340]
+      - [0xCA2E0, .data, data/flying_dog_muzzle_left]
       - [0xCA2E0, sssv_vtx, data/inc/D_040028B0_CA2E0]
       - [0xCA340] # end of display list
       - [0xCA370, sssv_vtx, data/inc/D_04002940_CA370]
-      - [0xCA3D0, .data, data/D_040029A0_CA3D0]
+      - [0xCA3D0, .data, data/flying_dog_muzzle_right]
       - [0xCA400, sssv_vtx, data/inc/D_040029D0_CA400]
       - [0xCA600, sssv_vtx, data/inc/D_04002BD0_CA600]
       - [0xCA740, sssv_vtx, data/inc/D_04002D10_CA740]
-      - [0xCA7C0, .data, data/D_04002D90_CA7C0] # sheep body (sheep? springy thing? ram?)
+      - [0xCA7C0, .data, data/sheep_body]
       - [0xCA958, sssv_vtx, data/inc/D_04002F28_CA958]
       - [0xCAB58, sssv_vtx, data/inc/D_04003128_CAB58]
       - [0xCAC98, sssv_vtx, data/inc/D_04003268_CAC98]
@@ -2084,46 +2084,46 @@ segments:
       - [0xCAF30, sssv_vtx, data/inc/D_04003500_CAF30]
       - [0xCAFB0] # sheep leg
       - [0xCB000, sssv_vtx, data/inc/D_040035D0_CB000]
-      - [0xCB0E0, .data, data/D_040036B0_CB0E0] # tbd
+      - [0xCB0E0, .data, data/sheep_head]
       - [0xCB150, sssv_vtx, data/inc/D_04003720_CB150]
       - [0xCB190, sssv_vtx, data/inc/D_04003760_CB190]
-      - [0xCB1D0, .data, data/D_040037A0_CB1D0]
+      - [0xCB1D0, .data, data/sheep_left_eye]
       - [0xCB210, sssv_vtx, data/inc/D_040037E0_CB210]
-      - [0xCB410, .data, data/D_040039E0_CB410] # springy-thing spring
+      - [0xCB410, .data, data/springy_spring]
       - [0xCB4B0, sssv_vtx, data/inc/D_04003A80_CB4B0]
       - [0xCB590, sssv_vtx, data/inc/D_04003B60_CB590]
       - [0xCB5F0, sssv_vtx, data/inc/D_04003BC0_CB5F0]
       - [0xCB7E0, sssv_vtx, data/inc/D_04003DB0_CB7E0]
-      - [0xCB810, .data, data/D_04003DE0_CB810] # (springy)ram head
+      - [0xCB810, .data, data/ram_head]
       - [0xCB940, sssv_vtx, data/inc/D_04003F10_CB940]
       - [0xCBA60, sssv_vtx, data/inc/D_04004030_CBA60]
-      - [0xCBAC0, .data, data/D_04004090_CBAC0] # fox body
+      - [0xCBAC0, .data, data/fox_body]
       - [0xCBB70, sssv_vtx, data/inc/D_04004140_CBB70]
       - [0xCBBD0, sssv_vtx, data/inc/D_040041A0_CBBD0]
-      - [0xCBC30, .data, data/D_04004200_CBC30]
+      - [0xCBC30, .data, data/fox_tail]
       - [0xCBCA0, sssv_vtx, data/inc/D_04004270_CBCA0]
       - [0xCBD00, sssv_vtx, data/inc/D_040042D0_CBD00]
-      - [0xCBD60, .data, data/D_04004330_CBD60]
+      - [0xCBD60, .data, data/fox_leg]
       - [0xCBDC0, sssv_vtx, data/inc/D_04004390_CBDC0]
       - [0xCBEC0, sssv_vtx, data/inc/D_04004490_CBEC0]
-      - [0xCBFC0, .data, data/D_04004590_CBFC0] # racing fox (wheel?)
+      - [0xCBFC0, .data, data/racing_fox_wheel]
       - [0xCC080, sssv_vtx, data/inc/D_04004650_CC080]
       - [0xCC0C0, sssv_vtx, data/inc/D_04004690_CC0C0]
-      - [0xCC100, .data, data/D_040046D0_CC100]
+      - [0xCC100, .data, data/fox_left_eye]
       - [0xCC140, sssv_vtx, data/inc/D_04004710_CC140]
       - [0xCC230, sssv_vtx, data/inc/D_04004800_CC230]
       - [0xCC2C0, sssv_vtx, data/inc/D_04004890_CC2C0]
       - [0xCC3B0, sssv_vtx, data/inc/D_04004980_CC3B0]
-      - [0xCC450, .data, data/D_04004A20_CC450]
+      - [0xCC450, .data, data/fire_fox_flame_tail]
       - [0xCC4D0, sssv_vtx, data/inc/D_04004AA0_CC4D0]
       - [0xCC510, sssv_vtx, data/inc/D_04004AE0_CC510]
       - [0xCC550, sssv_vtx, data/inc/D_04004B20_CC550]
       - [0xCC5B0, sssv_vtx, data/inc/D_04004B80_CC5B0]
       - [0xCC640, sssv_vtx, data/inc/D_04004C10_CC640]
-      - [0xCC740, .data, data/D_04004D10_CC740] # fox head
+      - [0xCC740, .data, data/fox_head]
       - [0xCC830, sssv_vtx, data/inc/D_04004E00_CC830]
       - [0xCCA30, sssv_vtx, data/inc/D_04005000_CCA30]
-      - [0xCCA60, .data, data/D_04005030_CCA60]
+      - [0xCCA60, .data, data/fire_fox_flame_body]
       - [0xCCB00, ci4, img/fire_fox_flame, 32, 32] # D_040050D0_CCB00
       - [0xCCD00, palette, img/fire_fox_flame] # D_040052D0_CCD00
       - [0xCCD20, sssv_vtx, data/inc/D_040052F0_CCD20]
@@ -2462,15 +2462,15 @@ segments:
       - [0xE0FF0, sssv_vtx, data/inc/D_04003A30_E0FF0]
       - [0xE1020, sssv_vtx, data/inc/D_04003A60_E1020]
       - [0xE1070, sssv_vtx, data/inc/D_04003AB0_E1070]
-      - [0xE10A0, .data, data/D_04003AE0_E10A0]
+      - [0xE10A0, .data, data/husky_foot]
       - [0xE1110, sssv_vtx, data/inc/D_04003B50_E1110]
-      - [0xE1190, .data, data/husky.D_04003BD0_E1190] # dl, husky
+      - [0xE1190, .data, data/husky_lower_leg]
       - [0xE11D0, sssv_vtx, data/inc/D_04003C10_E11D0]
-      - [0xE1250, .data, data/husky.D_04003C90_E1250] # dl, husky
+      - [0xE1250, .data, data/husky_upper_leg]
       - [0xE1290, sssv_vtx, data/inc/D_04003CD0_E1290]
-      - [0xE1310, .data, data/D_04003D50_E1310]
+      - [0xE1310, .data, data/ski_husky_ski_rear]
       - [0xE1350, sssv_vtx, data/inc/D_04003D90_E1350]
-      - [0xE1530, .data, data/D_04003F70_E1530]
+      - [0xE1530, .data, data/crazy_husky_body]
       - [0xE1630, sssv_vtx, data/inc/D_04004070_E1630]
       - [0xE1670, sssv_vtx, data/inc/D_040040B0_E1670]
       - [0xE16B0, sssv_vtx, data/inc/D_040040F0_E16B0]
@@ -2481,36 +2481,36 @@ segments:
       - [0xE1810, sssv_vtx, data/inc/D_04004250_E1810]
       - [0xE18B0, sssv_vtx, data/inc/D_040042F0_E18B0]
       - [0xE1A00, sssv_vtx, data/inc/D_04004440_E1A00]
-      - [0xE1B20, .data, data/D_04004560_E1B20] # "crazy" husky head
+      - [0xE1B20, .data, data/crazy_husky_head]
       - [0xE1C60, sssv_vtx, data/inc/D_040046A0_E1C60]
       - [0xE1D80, sssv_vtx, data/inc/D_040047C0_E1D80]
       - [0xE1DB0, sssv_vtx, data/inc/D_040047F0_E1DB0]
       - [0xE1DE0, sssv_vtx, data/inc/D_04004820_E1DE0]
-      - [0xE1E10, .data, data/D_04004850_E1E10] # husky jaw
+      - [0xE1E10, .data, data/crazy_husky_skull]
       - [0xE1EC0, sssv_vtx, data/inc/D_04004900_E1EC0]
-      - [0xE20A0, .data, data/D_04004AE0_E20A0]
+      - [0xE20A0, .data, data/husky_body]
       - [0xE21A0, sssv_vtx, data/inc/D_04004BE0_E21A0]
       - [0xE2330, sssv_vtx, data/inc/D_04004D70_E2330]
       - [0xE2370, sssv_vtx, data/inc/D_04004DB0_E2370]
-      - [0xE2420, .data, data/D_04004E60_E2420] # husky head?
+      - [0xE2420, .data, data/husky_head]
       - [0xE2550, sssv_vtx, data/inc/D_04004F90_E2550]
       - [0xE2590, sssv_vtx, data/inc/D_04004FD0_E2590]
       - [0xE25D0, sssv_vtx, data/inc/D_04005010_E25D0]
       - [0xE2610, sssv_vtx, data/inc/D_04005050_E2610]
       - [0xE2650, sssv_vtx, data/inc/D_04005090_E2650]
       - [0xE2690, sssv_vtx, data/inc/D_040050D0_E2690]
-      - [0xE26E0, .data, data/D_04005120_E26E0]
+      - [0xE26E0, .data, data/husky_body_lower]
       - [0xE2760, sssv_vtx, data/inc/D_040051A0_E2760]
-      - [0xE27E0, .data, data/D_04005220_E27E0]
+      - [0xE27E0, .data, data/ski_husky_ski_front]
       - [0xE2820, ci4, img/husky, 32, 32]
       - [0xE2A20, palette, img/husky]
       - [0xE2A40, sssv_vtx, data/inc/D_04005480_E2A40]
       - [0xE2A80, sssv_vtx, data/inc/D_040054C0_E2A80]
-      - [0xE2AC0, .data, data/D_04005500_E2AC0]
+      - [0xE2AC0, .data, data/husky_left_eye]
       - [0xE2B00, sssv_vtx, data/inc/D_04005540_E2B00]
       - [0xE2B40, sssv_vtx, data/inc/D_04005580_E2B40]
       - [0xE2B80, .data, data/D_040055C0_E2B80]
-      - [0xE2BC0, .data, data/D_04005830_E2DF0] # missile ?
+      - [0xE2BC0, .data, data/husky_missile]
       - [0xE2BC0, sssv_vtx, data/inc/D_04005600_E2BC0]
       - [0xE2DC0, sssv_vtx, data/inc/D_04005800_E2DC0]
       - [0xE2DF0] # end of missile
@@ -2681,7 +2681,7 @@ segments:
       - [0xEA990, sssv_vtx, data/inc/D_040033E0_EA990]
       - [0xEAA20, .data, data/D_04003470_EAA20]
       - [0xEAAB0, sssv_vtx, data/inc/D_04003500_EAAB0]
-      - [0xEAB30, .data, data/D_04003580_EAB30] # dynamic tail
+      - [0xEAB30, .data, data/sheep_leg]
       - [0xEAB70, sssv_vtx, data/inc/D_040035C0_EAB70]
       - [0xEABF0, .data, data/D_04003640_EABF0] # dynamic tail
       - [0xEAC30, sssv_vtx, data/inc/D_04003680_EAC30]
@@ -3252,20 +3252,20 @@ segments:
       - [0x103B30, .data, data/D_04003DE0_103B30] # ram head
       - [0x103C60, sssv_vtx, data/inc/D_04003F10_103C60]
       - [0x103D80, sssv_vtx, data/inc/D_04004030_103D80]
-      - [0x103DE0, .data, data/fox_body.D_04004090_103DE0]
+      - [0x103DE0, .data, data/city_fox_body]
       - [0x103E90, sssv_vtx, data/inc/D_04004140_103E90]
       - [0x103EF0, sssv_vtx, data/inc/D_040041A0_103EF0]
-      - [0x103F50, .data, data/fox_tail.D_04004200_103F50]
+      - [0x103F50, .data, data/city_fox_tail]
       - [0x103FC0, sssv_vtx, data/inc/D_04004270_103FC0]
       - [0x104020, sssv_vtx, data/inc/D_040042D0_104020]
-      - [0x104080, .data, data/fire_fox_leg.D_04004330_104080]
+      - [0x104080, .data, data/city_fox_leg]
       - [0x1040E0, sssv_vtx, data/inc/D_04004390_1040E0]
       - [0x1041E0, sssv_vtx, data/inc/D_04004490_1041E0]
-      - [0x1042E0, .data, data/racing_fox_wheel.D_04004590_1042E0]
+      - [0x1042E0, .data, data/city_racing_fox_wheel]
       - [0x1043A0, sssv_vtx, data/inc/D_04004650_1043A0]
       - [0x1043E0, sssv_vtx, data/inc/D_04004690_1043E0]
-      - [0x104420, .data, data/D_040046D0_104420] # light blue square
-      - [0x104460, .data, data/fire_fox_flame.D_04004A20_104770] # dl
+      - [0x104420, .data, data/city_fox_left_eye]
+      - [0x104460, .data, data/city_fire_fox_flame_tail]
       - [0x104460, sssv_vtx, data/inc/D_04004710_104460]
       - [0x104550, sssv_vtx, data/inc/D_04004800_104550]
       - [0x1045E0, sssv_vtx, data/inc/D_04004890_1045E0]
@@ -3276,10 +3276,10 @@ segments:
       - [0x104870, sssv_vtx, data/inc/D_04004B20_104870]
       - [0x1048D0, sssv_vtx, data/inc/D_04004B80_1048D0]
       - [0x104960, sssv_vtx, data/inc/D_04004C10_104960]
-      - [0x104A60, .data, data/fox_head.D_04004D10_104A60] # dl
+      - [0x104A60, .data, data/city_fox_head]
       - [0x104B50, sssv_vtx, data/inc/D_04004E00_104B50]
       - [0x104D50, sssv_vtx, data/inc/D_04005000_104D50]
-      - [0x104D80, .data, data/fox_missile.D_04005030_104D80]
+      - [0x104D80, .data, data/city_fire_fox_flame_body]
       - [0x104E20, ci4, img/fire_fox_flame.D_040050D0_104E20, 32, 32]
       - [0x105020, palette, img/fire_fox_flame.D_040050D0_104E20]
       - [0x105040, sssv_vtx, data/inc/D_040052F0_105040]
@@ -4160,7 +4160,8 @@ segments:
       - [0x7B5E60, data, overlay2_716900_data] # ?
       - [0x7B5F70, .data, sssv/aidata]
       - [0x7B62E0, .data, sssv/animals/dog]
-      - [0x7B65A0, data, sssv/animals/hippo]
+      - [0x7B65A0, .data, sssv/animals/hippo]
+      - [0x7B6770, .data, sssv/screen_transition]
       - [0x7B6780, data, sssv/animals/lion]
       - [0x7B6950, .data, sssv/lights]
       - [0x7B6970, .data, sssv/input]
@@ -4191,15 +4192,14 @@ segments:
       - [0x7B9BD0, .data, data/objects_7B9BD0]
       - [0x7C33D0, .data, data/D_803B1D20_7C33D0]
       - [0x7C35D0, .data, data/demo_input] # demo controller input]
-      # could/should this all just be "animals.h" data?
       - [0x7C4F10, .data, sssv/animals/hyena]
-      - [0x7C5210, data, sssv/animals/chameleon]
+      - [0x7C5210, .data, sssv/animals/chameleon]
       - [0x7C5400, .data, sssv/animals/evo_microchip]
-      - [0x7C5600, data, sssv/animals/rat]
+      - [0x7C5600, .data, sssv/animals/rat]
       - [0x7C56C0, .data, sssv/animals/sheep]
-      - [0x7C58B0, data, sssv/animals/penguin]
+      - [0x7C58B0, .data, sssv/animals/penguin]
       - [0x7C5900, data, sssv/animals/polar_bear]
-      - [0x7C5BD0, data, sssv/animals/husky] # tbd
+      - [0x7C5BD0, .data, sssv/animals/husky]
       - [0x7C5FE0, data, sssv/animals/vulture]
       - [0x7C60D0, data, sssv/animals/camel]
       - [0x7C62E0, data, sssv/animals/kangaroo]
@@ -4208,7 +4208,8 @@ segments:
       - [0x7C65F0, data, sssv/animals/walrus]
       - [0x7C6810, data, sssv/animals/scorpion]
       - [0x7C69E0, data, sssv/animals/gorilla]
-      - [0x7C6C60, data, sssv/animals/elephant]
+      - [0x7C6C60, .data, sssv/animals/elephant]
+      - [0x7C6E00, .data, overlay2_78E970]
       - [0x7C6E20, .data, sssv/animals/seagull]
       - [0x7C6F10, .data, sssv/animals/pirana]
       - [0x7C6F50, .data, sssv/animals/cool_cod]

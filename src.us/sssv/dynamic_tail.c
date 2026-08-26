@@ -1153,7 +1153,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x8A, 0x47, 0xFF); // #ff8a47
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+0].unk0, D_803DA300[temp_s4->unk16+0].unk4, D_803DA300[temp_s4->unk16+0].unk8, D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, 0x33D7, 0x33D7, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs])) {
                         gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                        gSPDisplayList(gOpaqueDL++, D_04003580_EAB30);
+                        gSPDisplayList(gOpaqueDL++, sheep_leg);
                         gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
                     }
                     if (func_80126FD4(D_803DA300[temp_s4->unk16+1].unk0, D_803DA300[temp_s4->unk16+1].unk4, D_803DA300[temp_s4->unk16+1].unk8, D_803DA300[temp_s4->unk16+2].unk0, D_803DA300[temp_s4->unk16+2].unk4, D_803DA300[temp_s4->unk16+2].unk8, 0x33D7, 0x33D7, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs])) {
