@@ -26,7 +26,7 @@ void func_8038C768_79DE18(void) {
     u16 tmp1;
     s16 tmp2;
 
-    tmp1 = gGameplayTick - D_803D552C->unk35E;
+    tmp1 = gGameplayTick - D_803D552C->lastInputTick;
     if ((gUiFlowState.unk0 == 0) && ((D_803D5530->unk4A == 0)) && (tmp1 != 0)) {
         if (D_803D5538 != 0) {
             if ((tmp1 & 0xFF) >= 150) {
@@ -69,7 +69,7 @@ void func_8038C98C_79E03C(void) {
     u16 tmp1;
     s16 tmp2;
 
-    tmp1 = gGameplayTick - D_803D552C->unk35E;
+    tmp1 = gGameplayTick - D_803D552C->lastInputTick;
     if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (tmp1 != 0)) {
         if (D_803D5538 != 0) {
             if ((tmp1 & 0xFF) >= 150) {

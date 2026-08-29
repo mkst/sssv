@@ -39,7 +39,7 @@ extern Gfx D_01006AE8_403B8[];
 void func_80389B30_79B1E0(void) {
     s32 pad[2];
 
-    Vertex sp148;
+    LimbConfig sp148;
 
     s16 var_v1_2;
     s16 temp_s0;

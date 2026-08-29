@@ -74,18 +74,18 @@ void func_80130E44(void);
 
 void reset_task_list(void);
 void func_80132044(s32 arg0);
-struct017 *func_801320EC(void);
-void func_801322EC(struct017 *arg0, struct017 **arg1, struct017 **arg2);
+Sound *func_801320EC(void);
+void func_801322EC(Sound *arg0, Sound **arg1, Sound **arg2);
 void func_80132394(void);
-struct017 *func_80132474(void);
-struct017 *func_80132568(void);
-struct017 *get_sound_by_object_and_id(s32 arg0, s16 id);
+Sound *func_80132474(void);
+Sound *func_80132568(void);
+Sound *get_sound_by_object_and_id(s32 arg0, s16 id);
 void func_801326A8(s8 arg0, s8 arg1);
 void func_801328F8(void);
 void func_80132C48(s8 idx);
 
 // core/audio2
-void func_80132174(struct struct017 arg0, struct017** arg1, struct017** arg2);
+void func_80132174(struct Sound arg0, Sound** arg1, Sound** arg2);
 void func_80132CC0(s32 arg0);
 s32  func_80132D84(ALSndPlayer *sndp);
 void func_80132F70(s16 id, s16 volume);

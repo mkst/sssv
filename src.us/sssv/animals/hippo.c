@@ -17,7 +17,7 @@ extern Gfx D_0400B560_FC5C0[];
 extern Gfx D_0400B5B0_FC610[];
 
 void update_hippo(void) {
-    Vertex sp100;
+    LimbConfig sp100;
     s16 spFE;
     s16 spFC;
     s16 spFA;
@@ -199,8 +199,8 @@ void update_hippo(void) {
             func_802C78B0_6D8F60(0xA, 0xB, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 1, 0, D_04009FC0_FB020);
             func_802C78B0_6D8F60(0x10, 0x11, FTOFIX32(1.5625), FTOFIX32(1.5625), FTOFIX32(1.5625), D_803F2ED0, 0, 1, 0, D_04009FC0_FB020);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spFE, &spFC);
-                func_8031A278_72B928(&D_803D552C->unk326, &spFE, &spFC);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spFE, &spFC);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spFE, &spFC);
                 spFE = D_803BD530_7CEBE0.eyes[6][spFE]; spFC = D_803BD600_7CECB0.eyes[5][spFC];
                 func_80356BD8_768288(img_eyes6_TLUT1_pal, (u8 (*)[128])img_eyes6_ci4__png, spFE);
                 gSPDisplayList(gOpaqueDL++, D_010037F0_3D0C0);

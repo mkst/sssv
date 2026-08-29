@@ -6,7 +6,7 @@
 // definitions
 // ========================================================
 
-u32 func_802E3C88_6F5338(struct051* arg0);
+u32 func_802E3C88_6F5338(DynamicTail* arg0);
 
 // ========================================================
 // .data
@@ -17,7 +17,7 @@ u32 func_802E3C88_6F5338(struct051* arg0);
 // ========================================================
 
 struct088 D_803DA300[1000];
-struct051 D_803E00C0[120];
+DynamicTail D_803E00C0[120];
 s16  D_803E1B00; // counter, max 1000
 s16  D_803E1B02; // another counter, max 120
 s16  D_803E1B04; // used vtx for dynamic tails?
@@ -91,7 +91,7 @@ s16 func_802DD090_6EE740(s16 numSegments, s32 length, u8 arg2, s8 tailType, s8 a
 // ESA: func_80084BE4
 // tails: used by kangaroo, husky, lion, elephant, mouse, scorpion and rat
 void func_802DD244_6EE8F4(s16 arg0, struct118 *arg1) {
-    struct051 *temp_s1;
+    DynamicTail *temp_s1;
     struct088 *var_t1;
     s16 i;
 
@@ -162,7 +162,7 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
     s16 i; // temp_s1
 
     struct088 *var_t5;
-    struct051 *temp_fp;
+    DynamicTail *temp_fp;
 
     s32 pad;
 
@@ -279,7 +279,7 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 num
     s32 spB0[16];
 
     struct088 *var_t5;
-    struct051 *temp_v0;
+    DynamicTail *temp_v0;
 
     temp_v0 = &D_803E00C0[arg0];
     var_t5 = &D_803DA300[temp_v0->unk16];
@@ -483,7 +483,7 @@ void func_802DE890_6EFF40(s16 arg0, s16 arg1, s32 xPos, s32 zPos, s32 yPos, s32 
 
 // ESA: func_80086234
 void func_802DE914_6EFFC4(s16 idx, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
-    struct051 *tmp = &D_803E00C0[idx];
+    DynamicTail *tmp = &D_803E00C0[idx];
     tmp->unk20 = arg1;
     tmp->unk24 = arg2;
     tmp->unk28 = arg3;
@@ -501,7 +501,7 @@ void func_802DE950_6F0000(void) {
     s32 tmpZ;
     s32 tmpY;
 
-    struct051 *temp_s2;
+    DynamicTail *temp_s2;
     struct118 *var_a3;
     u32 vtx;
     s32 temp_v0;
@@ -905,7 +905,7 @@ void func_802DE950_6F0000(void) {
 // esa:func_80087440 but modified
 void func_802E072C_6F1DDC(s8 arg0) {
     s32 pad[2];
-    struct051 *temp_s4;
+    DynamicTail *temp_s4;
     s16 i; // sp5A
 
     for (i = 0; i < D_803E1B02; i++) {
@@ -1294,7 +1294,7 @@ typedef struct {
 #ifdef NON_MATCHING
 // ESA: func_80087738
 // CURRENT (220)
-u32 func_802E3C88_6F5338(struct051* arg0) {
+u32 func_802E3C88_6F5338(DynamicTail* arg0) {
 
     s32 var_a3;
 
@@ -1406,7 +1406,7 @@ s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {
     s32 temp_s6;
 
 
-    struct051 *temp_s1;
+    DynamicTail *temp_s1;
     struct088 *temp_s4;
 
     if (D_803E1B06 > 0) {

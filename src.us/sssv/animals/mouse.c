@@ -145,8 +145,8 @@ done:
             gSPSetGeometryMode(gOpaqueDL++, G_CULL_FRONT);
 
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp8A, &sp88);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp8A, &sp88);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp8A, &sp88);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp8A, &sp88);
                 sp8A = D_803BD530_7CEBE0.eyes[5][sp8A];sp88 = D_803BD600_7CECB0.eyes[4][sp88];
                 func_80356BD8_768288(&img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp8A);
                 func_802C78B0_6D8F60(1U, 0x14U, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B00_CE530);
@@ -390,8 +390,8 @@ void func_8031D624_72ECD4(void) {
             func_802C78B0_6D8F60(19, 23, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 1, 0, D_040053D0_CCE00);
 
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp96, &sp94);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp96, &sp94);
                 sp96 = D_803BD530_7CEBE0.eyes[5][sp96]; sp94 = D_803BD600_7CECB0.eyes[4][sp94];
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp96);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, (D_803F2EC8 * 0xA) >> 6, D_803F2ED0, 0, 0, 0, D_04006B00_CE530);

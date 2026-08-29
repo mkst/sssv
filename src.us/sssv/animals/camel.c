@@ -426,8 +426,8 @@ void func_8036D700_77EDB0(void) {
             func_802C78B0_6D8F60(0xB, 0xC, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04001650_E8C00);
             func_802C78B0_6D8F60(0x11, 0x12, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 1, 0, D_04001650_E8C00);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spDE, &spDC);
-                func_8031A278_72B928(&D_803D552C->unk326, &spDE, &spDC);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spDE, &spDC);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spDE, &spDC);
 #pragma _permuter sameline start
                 spDE = D_803BD530_7CEBE0.eyes[1][spDE]; spDC = D_803BD600_7CECB0.eyes[0][spDC];
 #pragma _permuter sameline end

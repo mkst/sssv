@@ -28,7 +28,7 @@ extern Gfx racing_dog_leg[];
 
 // RACING_DOG
 void func_802EA7F0_6FBEA0(void) {
-    Vertex sp98;
+    LimbConfig sp98;
     s16 sp96;
     s16 sp94;
     s16 sp92;
@@ -202,8 +202,8 @@ void func_802EA7F0_6FBEA0(void) {
             func_802C78B0_6D8F60(0xD, 0xE, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, racing_dog_leg);
             func_802C78B0_6D8F60(0x10, 0x11, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0,0, 1, 0, racing_dog_leg);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp96, &sp94);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp96, &sp94);
 
                 sp96 = D_803BD530_7CEBE0.eyes[1][sp96]; sp94 = D_803BD600_7CECB0.eyes[0][sp94];
                 func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp96);
@@ -485,8 +485,8 @@ done:
                 D_803D552C->unk30E = 0;
             }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spDE, &spDC);
-                func_8031A278_72B928(&D_803D552C->unk326, &spDE, &spDC);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spDE, &spDC);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spDE, &spDC);
                 spDE = D_803BD530_7CEBE0.eyes[1][spDE]; spDC = D_803BD600_7CECB0.eyes[0][spDC];
                 func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes_ci4__png, spDE);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, dog_left_eye);
@@ -528,7 +528,7 @@ done:
 #ifdef NON_MATCHING
 // just the stack (72)
 void func_802ED108_6FE7B8(void) {
-    Vertex spB8;
+    LimbConfig spB8;
     s16 spB6;
     s16 spB4;
     s16 spB2;
@@ -563,7 +563,7 @@ void func_802ED108_6FE7B8(void) {
     }
 
     if (spB2 == 0) {
-        temp_t6 = gGameplayTick - D_803D552C->unk35E;
+        temp_t6 = gGameplayTick - D_803D552C->lastInputTick;
         if ((gAnimalBehaviourEnabled != 0) && (gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (temp_t6 != 0) && ((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_INJURED))) {
             if (D_803D552C->unk30A != 0) {
                 D_803D552C->unk30A--;
@@ -681,7 +681,7 @@ void func_802ED108_6FE7B8(void) {
             }
             break;
         default:
-            if ((D_803D552C->unk36C != 0) && (D_803D5530->state == 2) && ((gGameplayTick - D_803D552C->unk35E) >= 0x51) && (SSSV_RAND(64) == 0x1B)) {
+            if ((D_803D552C->unk36C != 0) && (D_803D5530->state == 2) && ((gGameplayTick - D_803D552C->lastInputTick) >= 0x51) && (SSSV_RAND(64) == 0x1B)) {
                 D_803D552C->unk36C = 0;
                 D_803D552C->unk32A = gGameplayTick;
                 D_803D552C->unk365 = ATTACK_DOG_2;
@@ -758,8 +758,8 @@ void func_802ED108_6FE7B8(void) {
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(17, 18, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, dog_foot); }
 
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spB6, &spB4);
-                func_8031A278_72B928(&D_803D552C->unk326, &spB6, &spB4);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB6, &spB4);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB6, &spB4);
 #pragma _permuter sameline start
                 spB6 = D_803BD530_7CEBE0.eyes[1][spB6]; spB4 = D_803BD600_7CECB0.eyes[0][spB4];
 #pragma _permuter sameline end

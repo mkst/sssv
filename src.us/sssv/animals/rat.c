@@ -30,7 +30,7 @@ void func_8035E430_76FAE0(void) {
     u16 ticks_remaining;
     s16 var_t9; // anywhere
 
-    Vertex spA8;
+    LimbConfig spA8;
     s16 spA6;
     u16 spA4;
     s16 spA2;
@@ -212,8 +212,8 @@ void func_8035E430_76FAE0(void) {
 
             if (scale == 2) { func_802C78B0_6D8F60(2, 1, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_04007520_CEF50); }
 
-            func_8031A150_72B800(D_803D552C->unk326++, &spA6, &spA4);
-            func_8031A278_72B928(&D_803D552C->unk326, &spA6, &spA4);
+            func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spA6, &spA4);
+            func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spA6, &spA4);
 
             if (spA6 != 5) {
                 gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x00, 0x00, 0xFF);

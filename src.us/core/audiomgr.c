@@ -99,11 +99,11 @@ static ALSeqFile      *D_8028630C;
 static ALSndPlayer    *D_80286310;
 static u8             *D_80286314[1];
 static s32             D_80286318; // pad
-static struct017      *D_8028631C;
-static struct017      *D_80286320;
+static Sound      *D_8028631C;
+static Sound      *D_80286320;
        ALHeap          D_80286328;
 
-static struct017      *D_80286338[20];
+static Sound      *D_80286338[20];
 static s16             D_80286388[20];
 static u8              D_802863B0[20]; // sndSlotState
 static s32             D_802863C4; // pad
@@ -623,7 +623,7 @@ void initialise_audio(s32 *arg0) {
     alSndpNew(D_80286310, &sndpConfig);
 
     for (i = 0; i < 20; i++) {
-        D_80286338[i] = (struct017 *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, sizeof(struct017));
+        D_80286338[i] = (Sound *) alHeapDBAlloc(NULL, 0, &D_80286328, 1, sizeof(Sound));
     }
 
     D_8028631C = D_80286320 = NULL;
@@ -679,7 +679,7 @@ void func_80132044(s32 arg0) {
     }
 }
 
-struct017 *func_801320EC(void) {
+Sound *func_801320EC(void) {
     s32 i;
 
     if (gAudioInitialized == 0) {
@@ -699,10 +699,10 @@ struct017 *func_801320EC(void) {
     return D_80286338[i];
 }
 
-void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
-    struct017 *cur;
-    struct017 *var_a0;
-    struct017 *prev_node;
+void func_80132174(struct Sound arg0, Sound **arg1, Sound **arg2) {
+    Sound *cur;
+    Sound *var_a0;
+    Sound *prev_node;
     s16 index;
 
     if (gAudioInitialized == 0) {
@@ -766,7 +766,7 @@ void func_80132174(struct struct017 arg0, struct017 **arg1, struct017 **arg2) {
     }
 }
 
-void func_801322EC(struct017 *arg0, struct017 **arg1, struct017 **arg2) {
+void func_801322EC(Sound *arg0, Sound **arg1, Sound **arg2) {
 
     if (gAudioInitialized == 0) {
         return;
@@ -793,12 +793,12 @@ void func_801322EC(struct017 *arg0, struct017 **arg1, struct017 **arg2) {
 }
 
 void func_80132394(void) {
-    struct017 *snd;
+    Sound *snd;
     for (snd = D_8028631C; snd != NULL; snd = snd->next);
 }
 
-struct017 *get_sound_by_slot(s16 slot) {
-    struct017 *snd;
+Sound *get_sound_by_slot(s16 slot) {
+    Sound *snd;
 
     if (gAudioInitialized == 0) {
         return NULL;
@@ -812,8 +812,8 @@ struct017 *get_sound_by_slot(s16 slot) {
     return NULL;
 }
 
-struct017 *get_sound_by_id(u16 id) {
-    struct017 *snd;
+Sound *get_sound_by_id(u16 id) {
+    Sound *snd;
 
     if (gAudioInitialized == 0) {
         return NULL;
@@ -827,9 +827,9 @@ struct017 *get_sound_by_id(u16 id) {
     return NULL;
 }
 
-struct017 *func_80132474(void) {
-    struct017 *snd;
-    struct017 *lastSnd;
+Sound *func_80132474(void) {
+    Sound *snd;
+    Sound *lastSnd;
     u16 tmp;
 
     if (gAudioInitialized == 0) {
@@ -857,10 +857,10 @@ start:
 }
 
 // used?
-struct017 *func_80132568(void) {
+Sound *func_80132568(void) {
     // FIXME: fakematch shenanigans, static vars?
-    struct017* foo;
-    struct017** bar;
+    Sound* foo;
+    Sound** bar;
 
     bar = &foo;
     foo = &D_80286320;
@@ -871,8 +871,8 @@ struct017 *func_80132568(void) {
     return *bar;
 }
 
-struct017 *get_sound_by_object_and_id(s32 arg0, s16 id) {
-    struct017 *snd;
+Sound *get_sound_by_object_and_id(s32 arg0, s16 id) {
+    Sound *snd;
 
     if (gAudioInitialized == 0) {
         return NULL;
@@ -949,7 +949,7 @@ void func_801328F8(void) {
     s16 temp_v1;
     s16 volume;
     s32 used;
-    struct017 *sound;
+    Sound *sound;
     ALInstrument *inst;
     static s32 D_80286550; // .bss (unused)
     static f32 D_80286554; // .bss      // 0x8028d078
@@ -1050,7 +1050,7 @@ void func_80132C48(s8 idx) {
 }
 
 void func_80132CC0(s32 arg0) {
-    struct017 *snd = D_8028631C;
+    Sound *snd = D_8028631C;
     osSyncPrintf("----------------- Active sounds\n");
 
     while (snd != NULL) {
@@ -1061,7 +1061,7 @@ void func_80132CC0(s32 arg0) {
 }
 
 s16 get_used_sound_count(void) {
-    struct017 *snd;
+    Sound *snd;
     s16 cnt = 0;
 
     for (snd = D_8028631C; snd != NULL; snd = snd->next) {
@@ -1071,7 +1071,7 @@ s16 get_used_sound_count(void) {
 }
 
 s32 func_80132D84(ALSndPlayer *sndp) {
-    struct017 *snd;
+    Sound *snd;
     s16 used = 0;
 
     if (gAudioInitialized == 0) {
@@ -1123,7 +1123,7 @@ s32 func_80132D84(ALSndPlayer *sndp) {
 
 void func_80132F70(s16 id, s16 volume) {
     s32 pad[3];
-    struct017 sp50;
+    Sound sp50;
 
     if (gAudioInitialized == 0) {
         return;
@@ -1148,7 +1148,7 @@ void func_80132F70(s16 id, s16 volume) {
 }
 
 void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan) {
-    struct017 sound;
+    Sound sound;
 
     if (gAudioInitialized == 0) {
         return;
@@ -1174,7 +1174,7 @@ void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan) {
 }
 
 void func_80133188(s16 id, s16 volume, s16 arg2) {
-    struct017 sound;
+    Sound sound;
 
     if (gAudioInitialized == 0) {
         return;
@@ -1200,8 +1200,8 @@ void func_80133188(s16 id, s16 volume, s16 arg2) {
 }
 
 void func_8013328C(void *object, s16 id, s16 pan, f32 pitch, s16 volume, s16 arg5) {
-    struct017 *snd;
-    struct017 newSnd;
+    Sound *snd;
+    Sound newSnd;
     s16 vol;
 
     snd = get_sound_by_object_and_id(object, id);
@@ -1251,7 +1251,7 @@ void func_8013328C(void *object, s16 id, s16 pan, f32 pitch, s16 volume, s16 arg
 }
 
 void play_sound_by_id_with_volume(u8 id, s16 vol) {
-    struct017 *snd = get_sound_by_id(id);
+    Sound *snd = get_sound_by_id(id);
     if (snd != NULL) {
         if ((snd->sndSlot >= 0) && (D_802863B0[snd->sndSlot] != 1)) {
             alSndpSetSound(D_80286310, snd->sndSlot);
@@ -1261,7 +1261,7 @@ void play_sound_by_id_with_volume(u8 id, s16 vol) {
 }
 
 void play_sound_by_id(u8 id) {
-    struct017 *snd = get_sound_by_id(id);
+    Sound *snd = get_sound_by_id(id);
     if (snd != NULL) {
         if ((snd->sndSlot >= 0) && (D_802863B0[snd->sndSlot] != 1)) {
             alSndpSetSound(D_80286310, snd->sndSlot);
@@ -1354,7 +1354,7 @@ void func_801338A8(s16 arg0) {
 
 void func_801339F8(void) {
     s16 vol;
-    struct017 *snd;
+    Sound *snd;
 
     if (gAudioInitialized == 0) {
         return;
@@ -1386,7 +1386,7 @@ void set_music_volume(s16 arg0) {
 
 void func_80133BE4(void) {
     ALSndPlayer *sndp;
-    struct017 *snd;
+    Sound *snd;
 
     if (gAudioInitialized != 0) {
         for (snd = D_8028631C; snd != NULL; snd = snd->next) {

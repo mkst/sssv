@@ -43,6 +43,19 @@ struct struct072 {
     /* 0x52C */ RGB      color[60];
 }; // 0x5e0?
 
+typedef struct {
+    s16 unk0;
+    u16 unk2;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s16 unk10;
+    s16 unk12;
+    Gfx *unk14;
+    u8 unk18;
+} struct057; // size 0x1C
+
+
 void func_8029E528_6AFBD8(void);
 void load_dynamic_texture_billboard_texture_pair(Gfx **arg0, s16 arg1);
 void render_untextured_colored_display_list_queue(void);

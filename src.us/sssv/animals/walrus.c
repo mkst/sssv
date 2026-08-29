@@ -24,7 +24,7 @@ extern Gfx D_04006B80_E4140[];
 void func_80374C70_786320(void) {
     s32 pad[0x2];
 
-    Vertex sp120;
+    LimbConfig sp120;
     s16 sp11E;
 
     s32 pad2[0x2];

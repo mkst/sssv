@@ -62,7 +62,7 @@ void func_8036F7A0_780E50(void) {
 
     if (sp9E == 0) {
         func_8038C98C_79E03C();
-        ticks_remaining = gGameplayTick - D_803D552C->unk35E;
+        ticks_remaining = gGameplayTick - D_803D552C->lastInputTick;
         if (((ticks_remaining & 0xFF) < 0x50) && (ticks_remaining >= 0x100) && ((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_INJURED))) {
             if ((advance_random_seed() & 0x1F00) == 0x1900) {
                 D_803D5530->yRotation = ((SSSV_RAND(64) + D_803D5530->yRotation) - 0x20) % 360;
@@ -230,8 +230,8 @@ void func_8036F7A0_780E50(void) {
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(6, 0x10, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 1, 0, D_04003030_EA5E0); }
             func_802C78B0_6D8F60(0x10, 0x11, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 1, 0, D_04002B30_EA0E0);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spA2, &spA0);
-                func_8031A278_72B928(&D_803D552C->unk326, &spA2, &spA0);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spA2, &spA0);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spA2, &spA0);
                 spA2 = D_803BD530_7CEBE0.eyes[5][spA2]; spA0 = D_803BD600_7CECB0.eyes[4][spA0];
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spA2);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x34) >> 6, (D_803F2EC8 * 0x34) >> 6, (D_803F2EC8 * 0x34) >> 6, D_803F2ED0, 0, 0, 0, D_04003FF0_EB5A0);
@@ -342,7 +342,7 @@ void func_80370C84_782334(void) {
 
     if (spDE == 0) {
         func_8038C98C_79E03C();
-        if ((D_803D5538 != 0) && (((gGameplayTick - D_803D552C->unk35E) & 0x1FF) == 0xAA)) {
+        if ((D_803D5538 != 0) && (((gGameplayTick - D_803D552C->lastInputTick) & 0x1FF) == 0xAA)) {
             func_80372698_783D48();
         }
         func_8034B298_75C948(0);
@@ -628,8 +628,8 @@ void func_80370C84_782334(void) {
                 func_802C78B0_6D8F60(3, 7, FTOFIX32(0.8125), FTOFIX32(0.8125), FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_04003F40_EB4F0);
             }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spE2, &spE0);
-                func_8031A278_72B928(&D_803D552C->unk326, &spE2, &spE0);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spE2, &spE0);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spE2, &spE0);
 #pragma _permuter sameline start
                 spE2 = D_803BD530_7CEBE0.eyes[5][spE2]; spE0 = D_803BD600_7CECB0.eyes[4][spE0];
 #pragma _permuter sameline end

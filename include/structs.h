@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-typedef struct struct017 struct017;
+typedef struct Sound Sound;
 typedef struct struct025 struct025;
 typedef struct struct035 struct035;
 typedef struct struct072 struct072;
@@ -980,11 +980,11 @@ struct Animal {
     /* 0x31C */ u16 ambientPhaseSeed;
     /* 0x320 */ Animal *unk320;
     /* 0x324 */ u16 unk324; // temporary state? next state?
-    /* 0x326 */ s16 unk326; // eye timer (e.g. blinking)
+    /* 0x326 */ s16 eyeBlinkTimer; // eye timer (e.g. blinking)
     /* 0x328 */ u16 unk328;
     /* 0x32A */ u16 unk32A;
     /* 0x32C */ s16 unk32C;
-    /* 0x330 */ Animal *unk330;
+    /* 0x330 */ Animal *attackTarget;
     /* 0x334 */ u16 attackTimer;
     /* 0x338 */ s32 unk338;
     /* 0x33C */ s32 pad33C[3];
@@ -999,7 +999,7 @@ struct Animal {
     /* 0x358 */ s16 laughterThreshold; // what is a better name, if this is above 80, animal will start laughing
     /* 0x35A */ s16 unk35A; // current bounce velocity?
     /* 0x35C */ s16 unk35C; // bounce acceleration
-    /* 0x35E */ u16 unk35E;
+    /* 0x35E */ u16 lastInputTick;
     /* 0x360 */ s8  unk360;
     /* 0x361 */ s8  unk361;
     /* 0x362 */ u8  laughterFactor;
@@ -1007,7 +1007,7 @@ struct Animal {
     /* 0x364 */ u8  attackState;
     /* 0x365 */ u8  unk365; // current attack
     /* 0x366 */ u8  movementMode;
-    /* 0x367 */ u8  unk367;
+    /* 0x367 */ u8  jumpCooldownTimer;
     /* 0x368 */ s8  unk368;
     /* 0x369 */ u8  unk369;
     /* 0x36A */ s8  unk36A;
@@ -1031,7 +1031,7 @@ typedef struct {
     u8  unk1;
     u8  unk2;
     u8  unk3;
-} struct003;
+} UiFlowState;
 
 typedef struct {
     u32 End1;
@@ -1081,7 +1081,7 @@ typedef struct {
     /* 0x3C */ u16 unk3C;
 } Controller; // size 0x40;
 
-struct struct017 {
+struct Sound {
     /* 0x00 */ u16 unk0; // priority?
     /* 0x02 */ u16 sndID;
     /* 0x04 */ u8  sndPan;
@@ -1098,8 +1098,8 @@ struct struct017 {
     /* 0x24 */ u8  sndState;
     /* 0x25 */ u8  pad25[0x3];
     /* 0x28 */ s32 object; // ptr?
-    /* 0x2C */ struct017 *prev; // maybe
-    /* 0x30 */ struct017 *next;
+    /* 0x2C */ Sound *prev; // maybe
+    /* 0x30 */ Sound *next;
 }; // size 0x34
 
 typedef struct {
@@ -1363,7 +1363,7 @@ typedef struct {
     u8  unk34; // leave sv
     u8  unk35; // replay zone, cancel/confirm not active
     u8  unk36; // replay zone, 0 cancel active, 1 confirm active
-} struct027; // size 0x37
+} OverlayMenuState; // size 0x37
 
 typedef struct {
     /* 0x00 */  Animal* animal;
@@ -1495,12 +1495,12 @@ typedef struct {
   /* 0x36 */ s16 unk36;
   /* 0x38 */ s8  unk38; // flags
   /* 0x38 */ u8  pad39[0x7];
-} struct036; // size 0x40
+} Particle; // size 0x40
 
 typedef struct {
     s32 unk0;
     s32 unk4;
-} struct039;
+} struct039; // size 0x8
 
 typedef struct {
     /* 0x0 */ s16 min;
@@ -1524,7 +1524,7 @@ typedef struct {
     f32 unkC;
     f32 unk10;
     f32 unk14;
-} struct004; // sizze 0x18
+} struct004; // size 0x18
 
 typedef struct {
     /* 0x0 */ s16 unk0;
@@ -1671,7 +1671,7 @@ typedef struct {
     /* 0x34 */ s8  unk34;
     /* 0x35 */ s8  unk35;
     /* 0x36 */ u8  pad36[0x2];
-} struct051; // size 0x38
+} DynamicTail; // size 0x38
 
 // might just be an s16 array but this is a little nicer
 typedef struct {
@@ -1720,18 +1720,6 @@ typedef struct {
     /* 0x60 */ Entity *unk60;
     /* 0x64 */ s16 unk64;
 } struct054; // size 0x66
-
-typedef struct {
-    s16 unk0;
-    u16 unk2;
-    s32 unk4;
-    s32 unk8;
-    s32 unkC;
-    s16 unk10;
-    s16 unk12;
-    Gfx *unk14;
-    u8 unk18;
-} struct057; // size 0x1C
 
 typedef struct {
     /* 0x0 */ s32 xPos;  // x
@@ -2088,7 +2076,7 @@ typedef struct {
 typedef struct {
     u8           used;
     u8           pad[0x7];
-    /* 0x00 */   struct036 particles[255];
+    /* 0x00 */   Particle particles[255];
     /* 0x3FC8 */ s8  unk3FC8[8]; // is displaylist enabled?
     /* 0x3FD0 */ u16 unk3FD0;
     /* 0x3FD2 */ s16 unk3FD2;
@@ -2266,26 +2254,6 @@ typedef struct {
     /* 0xA */ s16 unkA;
     /* 0xC */ s16 unkC;
 } struct107; // size 0xE
-
-typedef struct {
-    s16* unk0;
-    s16* unk4;
-    s16* unk8;
-    s16* unkC;
-    s16* unk10;
-    s16* unk14;
-    s16* unk18;
-    s16* unk1C;
-    s16* unk20;
-    s16* unk24;
-    s16* unk28;
-    s16* unk2C;
-    s16* unk30;
-    s16* unk34;
-    s16* unk38;
-    s16* unk3C;
-    s16* unk40;
-} struct108;
 
 typedef struct {
     /* 0x0     */ ObjectData *unk0;

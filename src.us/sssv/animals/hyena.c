@@ -29,7 +29,7 @@ void func_803574E0_768B90(void) {
     s32 spAC;
     s32 spA8;
     s32 spA4;
-    Vertex sp9C;
+    LimbConfig sp9C;
     s16 sp9A;
     s16 sp98;
     s16 sp96;
@@ -325,8 +325,8 @@ void func_803574E0_768B90(void) {
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (spA8 * 0x4C) >> 6, (spA8 * 0x4C) >> 6, (spA8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007EA0_F8F00); }
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(2, 1, (spA4 * 0x4C) >> 6, (spA4 * 0x4C) >> 6, (spA4 * 0x4C) >> 6, D_803F2ED0, 0, 1, 0, D_04007EA0_F8F00); }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp9A, &sp98);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp9A, &sp98);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp9A, &sp98);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp9A, &sp98);
                 sp9A = D_803BD530_7CEBE0.eyes[6][sp9A];sp98 = D_803BD600_7CECB0.eyes[5][sp98];
                 func_80356BD8_768288(img_eyes6_TLUT2_pal, (u8 (*)[128])img_eyes6_ci4__png, sp9A);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A20_F8A80);
@@ -359,7 +359,7 @@ void func_803574E0_768B90(void) {
 
 // HYENA
 void func_80358E3C_76A4EC(void) {
-    Vertex spA8;
+    LimbConfig spA8;
     s16 spA6;
     s16 spA4;
     s16 spA2;
@@ -482,8 +482,8 @@ void func_80358E3C_76A4EC(void) {
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(11, 12, scale, scale, scale, D_803F2ED0, 0, 1, 0, D_04008650_F96B0); }
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(17, 18, scale, scale, scale, D_803F2ED0, 0, 1, 0, D_040068F0_F7950); }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spA6, &spA4);
-                func_8031A278_72B928(&D_803D552C->unk326,  &spA6,  &spA4);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spA6, &spA4);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer,  &spA6,  &spA4);
                 spA6 = D_803BD530_7CEBE0.eyes[6][spA6]; spA4 = D_803BD600_7CECB0.eyes[5][spA4];
                 func_80356BD8_768288(img_eyes6_TLUT2_pal, (u8 (*)[128])img_eyes6_ci4__png, spA6);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, (D_803F2EC8 * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, D_04007A20_F8A80);

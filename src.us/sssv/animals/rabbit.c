@@ -13,7 +13,7 @@ void func_80300210_7118C0(void) {
     s16 temp_t8;
     u8 var_a0;
     s16 sp9A;
-    Vertex sp90;
+    LimbConfig sp90;
     s16 sp8E;
     s16 sp8C;
     s16 sp8A;
@@ -185,8 +185,8 @@ void func_80300210_7118C0(void) {
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(0x1A, 0x1B, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_040001F0_DD7B0); }
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(0x1C, 0x1D, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 1, 0, D_040001F0_DD7B0); }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp8C, &sp8A);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp8C, &sp8A);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp8C, &sp8A);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp8C, &sp8A);
                 sp8C = D_803BD530_7CEBE0.eyes[2][sp8C];sp8A = D_803BD600_7CECB0.eyes[1][sp8A];
                 func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes2_ci4__png, sp8C);
                 func_802C78B0_6D8F60(1, 0x13, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000AE0_DE0A0);
@@ -367,8 +367,8 @@ void func_80301248_7128F8(void) {
             func_802C78B0_6D8F60(2, 15, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040002D0_DD890);
             func_802C78B0_6D8F60(2, 18, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_040002D0_DD890);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp88, &sp86);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp88, &sp86);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp88, &sp86);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp88, &sp86);
 #pragma _permuter sameline start
                 sp88 = D_803BD530_7CEBE0.eyes[2][sp88]; sp86 = D_803BD600_7CECB0.eyes[1][sp86];
 #pragma _permuter sameline end

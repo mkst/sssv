@@ -152,9 +152,6 @@ f32 D_803B74C4_7C8B74 = 12.0f;
 // .bss (from D_803F7160 to D_803F7E10)
 // ========================================================
 
-u8   D_803F7160[0xC00]; // what is this?
-
-s32  D_803F7D60; // static in draw_level_rings_segment
 static s32  D_803F7D64; // unused
 static f32  D_803F7D68;
 static f32  D_803F7D6C; // unused
@@ -167,8 +164,7 @@ static s8   D_803F7DA1;
 static s8   D_803F7DA2;
 static s8   D_803F7DA3;
 struct030 D_803F7DA8;
-static s8   D_803F7DE0[0x1E]; // levels available
-static s8   D_803F7DFE;
+static s8   D_803F7DE0[31]; // levels available
 static s16  D_803F7E00; // europe levels completed
 static s16  D_803F7E02; // levels
 static s16  D_803F7E04; // levels
@@ -1178,8 +1174,6 @@ void func_8039BBB8_7AD268(void) {
     }
 }
 
-#if 0
-// NEEDS_BSS
 void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s16 end, PlayerEeprom *eeprom, s16 xRot, s16 yRot, f32 scale, u8 currentLevel) {
     u8 flipx;
     u8 flipy;
@@ -1189,6 +1183,7 @@ void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s1
     f32 scale2;
     f32 xPos;
     f32 yPos;
+
     static s32 D_803F7D60;
 
     D_803F7D60 += 1;
@@ -1209,7 +1204,7 @@ void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s1
                     gDPSetPrimColor(gMainDL++, 0, 0, 255, 128, 0, 240); // orange (selected)
                 }
             }
-        } else if ((D_803F7DFE == 0) && (currentLevel != 0xFF)) {
+        } else if ((D_803F7DE0[30] == 0) && (currentLevel != 0xFF)) {
             gDPSetPrimColor(gMainDL++, 0, 0, red, green, blue, 20);
         } else if (currentLevel == 0xFF) {
             if (eeprom->level[30].completed == 1) {
@@ -1290,9 +1285,6 @@ void draw_level_rings_segment(u8 red, u8 green, u8 blue, u8 alpha, s16 start, s1
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/ui_main_menu/draw_level_rings_segment.s")
-#endif
 
 void func_8039C5F8_7ADCA8(s16 xRot, s16 yRot, f32 scale, PlayerEeprom *eeprom, s16 active) {
     s32 xRot2, yRot2;

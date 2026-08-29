@@ -16,7 +16,7 @@ void update_elephant(void) {
     s32 pad2[2];
     s16 temp_t6;
     s32 var_v0;
-    Vertex spB0;
+    LimbConfig spB0;
     s16 spAE;
     s16 spAC;
     s16 spAA;
@@ -283,8 +283,8 @@ block_33:
             SET_JOINT(4, 10, SCALE_ELEPHANT, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04005FB0_F7010);
             SET_JOINT(6, 16, SCALE_ELEPHANT, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04005FB0_F7010);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spAE, &spAC);
-                func_8031A278_72B928(&D_803D552C->unk326, &spAE, &spAC);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spAE, &spAC);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spAE, &spAC);
                 spAE = D_803BD530_7CEBE0.eyes[5][spAE]; spAC = D_803BD600_7CECB0.eyes[4][spAC];
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spAE);
                 SET_JOINT(19, 20, SCALE_ELEPHANT, D_803F2EC8, D_803F2EC8, D_803F2EC8, D_803F2ED0, 0, 0, 0, D_04006380_F73E0);

@@ -25,7 +25,7 @@ void func_80368DD0_77A480(void) {
     s32 spA8;
     s32 temp_a0_3;
     s16 spA2;
-    Vertex sp98;
+    LimbConfig sp98;
     s16 sp96;
     s16 sp94;
     s16 sp92;
@@ -131,8 +131,8 @@ void func_80368DD0_77A480(void) {
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(6, 0x11, FTOFIX32(1.09375), FTOFIX32(1.09375), FTOFIX32(1.09375), D_803F2ED0, 0, 1, 0, ski_husky_ski_rear); }
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(6, 0x11, FTOFIX32(1.09375), FTOFIX32(1.09375), FTOFIX32(1.09375), D_803F2ED0, 0, 1, 0, ski_husky_ski_front); }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp96, &sp94);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp96, &sp94);
                 sp96 = D_803BD530_7CEBE0.eyes[5][sp96]; sp94 = D_803BD600_7CECB0.eyes[4][sp94];
                 func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes5_ci4__png, sp96);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, husky_left_eye);
@@ -208,7 +208,7 @@ void func_8036A05C_77B70C(void) {
     u8 temp_v0_5;
     s16 temp_a0_3;
 
-    Vertex sp104;
+    LimbConfig sp104;
     s16 sp102;
     s16 sp100;
     s16 spFE;
@@ -474,8 +474,8 @@ void func_8036A05C_77B70C(void) {
             func_802C78B0_6D8F60(17, 18, FTOFIX32(1.09375), FTOFIX32(1.09375), FTOFIX32(1.09375), D_803F2ED0, 0, 1, 0, husky_foot);
 
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp102, &sp100);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp102, &sp100);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp102, &sp100);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp102, &sp100);
                 sp102 = D_803BD530_7CEBE0.eyes[5][sp102]; sp100 = D_803BD600_7CECB0.eyes[4][sp100];
                 func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes5_ci4__png, sp102);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, (D_803F2EC8 * 0x46) >> 6, D_803F2ED0, 0, 0, 0, husky_left_eye);

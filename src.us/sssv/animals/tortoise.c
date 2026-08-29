@@ -34,7 +34,7 @@ extern Gfx D_040041D0_F5230[];
 void update_tortoise_tank(void) {
     s32 sp14C;
     s32 sp148;
-    Vertex sp140;
+    LimbConfig sp140;
 
     s32 sp13C; // pad
 
@@ -482,7 +482,7 @@ void update_racing_tortoise(void) {
     s32 phi_t0; // scaling?
     s32 phi_t3; // scaling?
 
-    Vertex sp90;
+    LimbConfig sp90;
     s16 sp8E;
     s16 sp8C;
     s16 sp8A;
@@ -788,7 +788,7 @@ void update_racing_tortoise(void) {
 
 // TORTOISE_TANK_DEFENDING/RACING_TORTOISE_DEFENDING
 void update_tortoise_defending(void) {
-    Vertex sp88;
+    LimbConfig sp88;
     s16 offscreen;
     f32 temp_f0;
     u8 tmp;

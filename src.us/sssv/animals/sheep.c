@@ -151,8 +151,8 @@ void update_sheep_or_ram(void) {
             func_802C78B0_6D8F60(4, 10, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 1, 0, sheep_leg);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(6, 0x10, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 1, 0, sheep_leg); }
             if ((D_803D5524->unk9C == SHEEP) && (gLodDetailState == 0)) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp90, &sp8E);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp90, &sp8E);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp90, &sp8E);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp90, &sp8E);
                 if (D_803D552C->unk365 == ATTACK_SHEEP_FLOAT) {
                     sp90 = sp8E = 6;
                 }
@@ -262,7 +262,7 @@ void update_springy_thingy_or_springy_ram(void) {
     }
 
     if (spAC == 0) {
-        ticks_remaining = gGameplayTick - D_803D552C->unk35E;
+        ticks_remaining = gGameplayTick - D_803D552C->lastInputTick;
         if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (ticks_remaining != 0) && (((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL)) || (D_803D552C->movementMode == MOVEMENT_MODE_INJURED))) {
             if (D_803D552C->unk312 != 0) {
                 D_803D552C->unk312--;
@@ -440,8 +440,8 @@ void update_springy_thingy_or_springy_ram(void) {
             case SPRINGY_THINGY:
                 if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 2, FTOFIX32(1.1875), FTOFIX32(1.1875), FTOFIX32(1.1875), D_803F2ED0, 0, 0, 0, sheep_head); }
                 if (gLodDetailState == 0) {
-                    func_8031A150_72B800(D_803D552C->unk326++, &spB0, &spAE);
-                    func_8031A278_72B928(&D_803D552C->unk326, &spB0, &spAE);
+                    func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB0, &spAE);
+                    func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB0, &spAE);
                     spB0 = D_803BD530_7CEBE0.eyes[1][spB0]; spAE = D_803BD600_7CECB0.eyes[0][spAE];
                     func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, spB0);
                     func_802C78B0_6D8F60(1, 2, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, ((D_803F2EC8 - (spB2 * 0x10)) * 0x4C) >> 6, (((spB2 << 5) + D_803F2EC8) * 0x4C) >> 6, D_803F2ED0, 0, 0, 0, sheep_left_eye);

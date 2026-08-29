@@ -36,7 +36,7 @@ extern Gfx D_04003630_E0BF0[];
 #ifdef NON_MATCHING
 // reg + stack
 void func_80365F10_7775C0(void) {
-    Vertex spB8;
+    LimbConfig spB8;
     s16 spB6;                                       /* compiler-managed */
     s16 spB4;                                       /* compiler-managed */
     s16 spB2;
@@ -282,8 +282,8 @@ void func_80365F10_7775C0(void) {
                 func_802C78B0_6D8F60(4, 10, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, D_803F2ED0, (s16) 0, (u8) 1, (u8) 0, D_040034B0_E0A70);
                 func_802C78B0_6D8F60(6, 16, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, D_803F2ED0, (s16) 0, (u8) 1, (u8) 0, D_040034B0_E0A70);
                 if (gLodDetailState == 0) {
-                    func_8031A150_72B800(D_803D552C->unk326++, &spB6, &spB4);
-                    func_8031A278_72B928(&D_803D552C->unk326, &spB6, &spB4);
+                    func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB6, &spB4);
+                    func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB6, &spB4);
 #pragma _permuter sameline start
                     spB6 = D_803BD530_7CEBE0.eyes[5][spB6]; spB4 = D_803BD600_7CECB0.eyes[4][spB4];
 #pragma _permuter sameline end
@@ -304,8 +304,8 @@ void func_80365F10_7775C0(void) {
                     D_80203FE0[20].unk2 = D_80203FE0[1].unk2;
                     D_80203FE0[20].unk4 = D_80203FE0[19].unk4;
                     if (gLodDetailState == 0) {
-                        func_8031A150_72B800(D_803D552C->unk326++, &spB6, &spB4);
-                        func_8031A278_72B928(&D_803D552C->unk326, &spB6, &spB4);
+                        func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB6, &spB4);
+                        func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB6, &spB4);
 #pragma _permuter sameline start
                         spB6 = D_803BD530_7CEBE0.eyes[5][spB6]; spB4 = D_803BD600_7CECB0.eyes[4][spB4];
 #pragma _permuter sameline end
@@ -406,7 +406,7 @@ void func_80365F10_7775C0(void) {
 #endif
 
 void func_803677C4_778E74(void) {
-    Vertex sp98;
+    LimbConfig sp98;
     s16 sp96;
     s16 sp94;
     s16 sp92;
@@ -640,8 +640,8 @@ void func_803677C4_778E74(void) {
             func_802C78B0_6D8F60(8, 0xE, 0x26400, 0x26400, 0x26400, D_803F2ED0, 0, 0, 0, D_04003630_E0BF0);
             func_802C78B0_6D8F60(0xB, 0x11, 0x26400, 0x26400, 0x26400, D_803F2ED0, 0, 0, 0, D_04003630_E0BF0);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp96, &sp94);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp96, &sp94);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp96, &sp94);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp96, &sp94);
                 sp96 = D_803BD530_7CEBE0.eyes[5][sp96];sp94 = D_803BD600_7CECB0.eyes[4][sp94];
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, sp96);
                 func_802C78B0_6D8F60(0x13, 0x14, 0x26400, 0x26400, 0x26400, D_803F2ED0, 0, 0, 0, D_04003740_E0D00);

@@ -116,7 +116,7 @@ void func_80323680_734D30(void) {
                 if (D_803D5538 != 0) {
                     D_803D552C->unk320 = func_803215DC_732C8C(0x32, 0x32);
                 } else {
-                    D_803D552C->unk320 = func_803218D8_732F88(D_803D552C->unk330);
+                    D_803D552C->unk320 = func_803218D8_732F88(D_803D552C->attackTarget);
                 }
                 if (D_803D552C->unk320 == NULL) {
                     D_803D552C->unk365 = ATTACK_HOLD;
@@ -358,8 +358,8 @@ void func_80323680_734D30(void) {
             func_802C78B0_6D8F60(0xA, 0xB, 0x29800, 0x29800, 0x29800, D_803F2ED0, 0, 1, 0, D_040077C0_CF1F0);
 
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spB8, &spB6);
-                func_8031A278_72B928(&D_803D552C->unk326, &spB8, &spB6);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB8, &spB6);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB8, &spB6);
 #pragma _permuter sameline start
                 spB8 = D_803BD530_7CEBE0.eyes[6][spB8];spB6 = D_803BD600_7CECB0.eyes[5][spB6];
 #pragma _permuter sameline end
@@ -822,8 +822,8 @@ void func_80326260_737910(void) {
             func_802C78B0_6D8F60(0xA, 0xB, 0x29800, 0x29800, 0x29800, D_803F2ED0, 0, 1, 0, D_040077C0_CF1F0);
             func_802C78B0_6D8F60(0x1B, 0x1A, 0x29800, 0x29800, 0x29800, D_803F2ED0, 0, 0, 0, D_04009540_D0F70);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spB0, &spAE);
-                func_8031A278_72B928(&D_803D552C->unk326, &spB0, &spAE);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB0, &spAE);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB0, &spAE);
 #pragma _permuter sameline start
                 spB0 = D_803BD530_7CEBE0.eyes[6][spB0];spAE = D_803BD600_7CECB0.eyes[5][spAE];
 #pragma _permuter sameline end

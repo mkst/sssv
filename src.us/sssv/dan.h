@@ -368,7 +368,7 @@ Gfx *gRigPartDisplayLists[5][10] = {
 
 
 // ========================================================
-// .bss (D_803F6720 to D_803F7160)
+// .bss (D_803F6720 to D_803F7D60)
 // ========================================================
 
 static RigPoseState  gRigPoseStates[3][10]; // 0x54 each
@@ -377,5 +377,6 @@ static s16  D_803F7134[3];
 u16  D_803F713C[3]; // active bone mask
 static s16  D_803F7144[3]; // next sound cue index
 static s16  D_803F714C[3]; // current frame number / tick
+static u8   D_803F7160[0xC00]; // what is this?
 
 #endif

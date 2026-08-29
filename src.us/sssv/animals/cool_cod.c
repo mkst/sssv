@@ -129,8 +129,8 @@ void func_80382CF0_7943A0(void) {
             func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_040077E0_E4DA0);
             func_802C78B0_6D8F60(2, 3, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_04007AE0_E50A0);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp86, &sp84);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp86, &sp84);
 #pragma _permuter sameline start
                 sp86 = D_803BD530_7CEBE0.eyes[1][sp86];sp84 = D_803BD600_7CECB0.eyes[0][sp84];
 #pragma _permuter sameline end

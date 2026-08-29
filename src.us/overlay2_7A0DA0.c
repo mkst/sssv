@@ -190,7 +190,7 @@ static s32 D_803B6880_7C7F30 = 0;
 // .bss
 // ========================================================
 
-struct027 gOverlayMenuState;
+OverlayMenuState gOverlayMenuState;
 static struct032 gOverlayUiState;
 s16  D_803F6704;
 static s16  D_803F6706;

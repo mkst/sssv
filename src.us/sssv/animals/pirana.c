@@ -186,8 +186,8 @@ done:
             load_1_tile(img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__pal, img_pirana_D_0400C6C0_FD720_D_0400C6C0_FD720__ci4__png);
             func_802C78B0_6D8F60(2, 3, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C170_FD1D0);
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp74, &sp72);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp74, &sp72);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp74, &sp72);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp74, &sp72);
                 sp74 = D_803BD530_7CEBE0.eyes[1][sp74]; sp72 = D_803BD600_7CECB0.eyes[0][sp72];
                 func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp74);
                 func_802C78B0_6D8F60(1, 2, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_0400C240_FD2A0);

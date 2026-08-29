@@ -225,7 +225,7 @@ void update_gorilla(void) {
                 if (D_803D5538 != 0) {
                     D_803D552C->unk320 = func_803215DC_732C8C(0x32, 0x32);
                 } else {
-                    D_803D552C->unk320 = func_803218D8_732F88(D_803D552C->unk330);
+                    D_803D552C->unk320 = func_803218D8_732F88(D_803D552C->attackTarget);
                 }
 
                 if (D_803D552C->unk320 == NULL) {
@@ -485,8 +485,8 @@ void update_gorilla(void) {
             if (gLodDetailState == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004BB0_F5C10); }
             if (gLodDetailState == 0) { SET_JOINT(10, 11, SCALE_GORILLA, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 1, 0, D_04004C40_F5CA0); }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spEE, &spEC);
-                func_8031A278_72B928(&D_803D552C->unk326, &spEE, &spEC);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spEE, &spEC);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spEE, &spEC);
                 spEE = D_803BD530_7CEBE0.eyes[6][spEE]; spEC = D_803BD600_7CECB0.eyes[5][spEC];
                 func_80356BD8_768288(img_eyes6_TLUT2_pal, (u8 (*)[128])img_eyes6_ci4__png, spEE);
 
@@ -567,7 +567,7 @@ void func_8037B70C_78CDBC(void) {
 
 void func_8037B754_78CE04(Animal *animal, Animal *object) {
     if (animal->unk365 != ATTACK_GRAB) {
-        animal->unk330 = object;
+        animal->attackTarget = object;
         animal->unk32A = gGameplayTick;
         animal->unk365 = ATTACK_GRAB;
     }

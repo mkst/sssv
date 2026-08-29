@@ -315,7 +315,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     s32 pad[4];
 
-    struct036 *var_s1;
+    Particle *var_s1;
     Gfx **dl;
     s16 var_s0;
     s16 var_s2;
@@ -2292,7 +2292,7 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
 
     s16 temp_v0_2;
     s32 temp_v0_3;
-    struct036 *particle;
+    Particle *particle;
     struct099 *var_t2;
 
     s32 pad UNUSED;
@@ -2422,7 +2422,7 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
     s32 temp;
     s16 sp3E;
     u8  used;
-    struct036 *particle;
+    Particle *particle;
     s32 temp_v0;
 
     if (is_world_cell_loaded_6AB9E4(x, z, y) == VISIBILITY_VISIBLE) {

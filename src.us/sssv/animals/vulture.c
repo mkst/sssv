@@ -202,8 +202,8 @@ void func_8036C0B0_77D760(void) {
             func_802C78B0_6D8F60(4, 11, (sp90 << 6) >> 6, (sp90 << 6) >> 6, (sp90 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_040006F0_E7CA0);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(4, 12, (sp90 << 6) >> 6, (sp90 << 6) >> 6, (sp90 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_040006F0_E7CA0); }
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &sp86, &sp84);
-                func_8031A278_72B928(&D_803D552C->unk326, &sp86, &sp84);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp86, &sp84);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp86, &sp84);
                 sp86 = D_803BD530_7CEBE0.eyes[1][sp86]; sp84 = D_803BD600_7CECB0.eyes[0][sp84];
                 func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp86);
                 func_802C78B0_6D8F60(19, 20, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000DB0_E8360);

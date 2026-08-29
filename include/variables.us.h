@@ -646,14 +646,14 @@ extern s16  gControllerDebounce;
 
 // overlay2_6DCA10
 extern struct084 D_803D6120; // size 0x3FD8
-extern struct036 D_803D6128[]; // eh
+extern Particle D_803D6128[]; // eh
 
 // collist2
 extern CollisionNode D_803DA110[40];
 
 // dynamic_tail
 extern struct088 D_803DA300[1000];
-extern struct051 D_803E00C0[120];
+extern DynamicTail D_803E00C0[120];
 extern s16  D_803E1B02; // another counter, max 120
 extern s16  D_803E1B04; // used vtx for dynamic tails?
 
@@ -757,7 +757,7 @@ extern u8   D_803F2CE6; // has (death?) sfx been played?
 extern s16  D_803F2CE8; // health slider 'animation'
 
 // init.c
-extern struct003 gUiFlowState;
+extern UiFlowState gUiFlowState;
 extern s16  D_803F2D18;
 
 // overlay2_7558F0
@@ -816,7 +816,7 @@ extern Animal *D_803F6464;
 extern s16  D_803F6468;
 
 // overlay2_7A0DA0
-extern struct027 gOverlayMenuState;
+extern OverlayMenuState gOverlayMenuState;
 extern s16  D_803F6704;
 extern u16  D_803F6714;
 extern s16  D_803F6716; // current sfx volume

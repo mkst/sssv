@@ -37,7 +37,7 @@ void func_802F1730_702DE0(void) {
     s32 pad[2];
     u8  temp_v0_8;
 
-    Vertex spC4;
+    LimbConfig spC4;
     s16 spC2;                                       /* compiler-managed */
     s16 spC0;                                       /* compiler-managed */
     s16 spBE;
@@ -209,8 +209,8 @@ void func_802F1730_702DE0(void) {
             D_80203FE0[20].unk0 += spBA;
 
             if (gLodDetailState == 0) {
-                func_8031A150_72B800(D_803D552C->unk326++, &spC2, &spC0);
-                func_8031A278_72B928(&D_803D552C->unk326, &spC2, &spC0);
+                func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spC2, &spC0);
+                func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spC2, &spC0);
                 if (D_803D552C->unk365 == ATTACK_ROAR) {
                     spC0 = spC2 = 2;
                 }

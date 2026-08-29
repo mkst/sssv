@@ -80,8 +80,8 @@ s32  eeprom_checksum(u8 *arg0);
 
 // core/audiomgr
 void initialise_audio(s32*);
-struct017 *get_sound_by_slot(s16 slot);
-struct017 *get_sound_by_id(u16 id);
+Sound *get_sound_by_slot(s16 slot);
+Sound *get_sound_by_id(u16 id);
 s16  get_used_sound_count(void);
 void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan);
 void play_sound_by_id_with_volume(u8 id, s16 vol);

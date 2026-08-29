@@ -23,7 +23,7 @@ u8 *D_803A8370_7B9A20[3] = {
 // .bss (D_803F2D10 to D_803F2D20)
 // ========================================================
 
-struct003 gUiFlowState;   // where to put this?
+UiFlowState gUiFlowState;   // where to put this?
 s32  D_803F2D14;        // unused
 s16  D_803F2D18;        // used in overlay2_6AB090.c
 

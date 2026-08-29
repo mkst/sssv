@@ -15,7 +15,7 @@ void update_evo_microchip(void) {
     s32 pad[3];
     u8 tmp;
 
-    Vertex spA0;
+    LimbConfig spA0;
     s16 sp9E;
     s16 sp9C;
     s16 sp9A;
@@ -175,8 +175,8 @@ void update_evo_microchip(void) {
             SET_JOINT(17, 18, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 2, 1, D_01004CC0_3E590);
             SET_JOINT(6,  16, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 2, 1, D_01004CC0_3E590);
 
-            func_8031A150_72B800(D_803D552C->unk326++, &sp9E, &sp9C);
-            func_8031A278_72B928(&D_803D552C->unk326, &sp9E, &sp9C);
+            func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp9E, &sp9C);
+            func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp9E, &sp9C);
             sp9E = D_803BD530_7CEBE0.eyes[3][sp9E]; sp9C = D_803BD600_7CECB0.eyes[2][sp9C];
             func_80356BD8_768288(img_eyes_TLUT2_pal, (u8 (*)[128])img_eyes_ci4__png, sp9E);
             SET_JOINT(1,   2, SCALE_EVO_MICROCHIP, FTOFIX32(1.0), FTOFIX32(1.0), FTOFIX32(1.0), D_803F2ED0, 0, 0, 0, D_01004E60_3E730);
