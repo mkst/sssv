@@ -25,10 +25,10 @@ void func_8036C0B0_77D760(void) {
         offscreen = 0;
         gLodDetailState = 0;
     } else {
-        offscreen = classify_object_visibility_6FA0A0(
+        offscreen = classify_object_visibility(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
-            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
             0x800,
             0,
             20,
@@ -46,7 +46,7 @@ void func_8036C0B0_77D760(void) {
                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             }
         }
-        if (D_803D5524->unk9C == VULTURE) {
+        if (D_803D5524->animalType == VULTURE) {
             if ((D_803D552C->unk320 == NULL) || ((D_803D552C->unk320 != NULL) && (D_803D552C->unk320->unk26C != 0))) {
                 play_sound_effect_at_location(SFX_BIRD_HURT, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.1892f);
                 D_803D552C->unk320 = 0;
@@ -103,7 +103,7 @@ void func_8036C0B0_77D760(void) {
             }
         }
         func_8038064C_791CFC();
-        if (D_803D5524->unk9C == VULTURE) {
+        if (D_803D5524->animalType == VULTURE) {
             D_80203FE0[0].unk4 += D_803D552C->unk308 << 5;
             D_80203FE0[1].unk4 += D_803D552C->unk308 << 5;
             D_80203FE0[2].unk4 += D_803D552C->unk308 << 5;
@@ -126,7 +126,7 @@ void func_8036C0B0_77D760(void) {
 
         if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((tmp = gCameraUiState) == 0) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 11))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].zoomIndex != -3))) {
 
             func_80127640(
                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
@@ -135,10 +135,10 @@ void func_8036C0B0_77D760(void) {
 
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            if (D_803D5524->unk9C == VULTURE2) { // attacking?
-                func_8038C230_79D8E0((D_803D5524->unkBA * 4) / 5, 2, 3, 3, 0.3f);
+            if (D_803D5524->animalType == VULTURE2) { // attacking?
+                func_8038C230_79D8E0((D_803D5524->height * 4) / 5, 2, 3, 3, 0.3f);
             } else {
-                func_8038C230_79D8E0((D_803D5524->unkBA * 12) / 5, 2, 3, 3, 0.1f);
+                func_8038C230_79D8E0((D_803D5524->height * 12) / 5, 2, 3, 3, 0.1f);
             }
             load_1_tile(img_vulture_pal, img_vulture_ci4__png);
 
@@ -154,7 +154,7 @@ void func_8036C0B0_77D760(void) {
                 func_802C78B0_6D8F60(0, 22, (sp94 << 6) >> 6, (sp94 << 6) >> 6, (sp94 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000600_E7BB0); // wing 1
                 func_802C78B0_6D8F60(0, 24, (sp94 << 6) >> 6, (sp94 << 6) >> 6, (sp94 << 6) >> 6, D_803F2ED0, 0, 1, 0, D_04000600_E7BB0); // wing 2
             }
-            if (D_803D5524->unk9C == VULTURE) {
+            if (D_803D5524->animalType == VULTURE) {
                 sp90 = FTOFIX32(2.0);
             } else {
                 sp90 = FTOFIX32(1.0);
@@ -222,7 +222,7 @@ void func_8036C0B0_77D760(void) {
         D_803D552C->unk320->unk70 = D_803D5530;
     }
     func_8034BD20_75D3D0(
-        D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1),
+        D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1),
         D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     if (!offscreen) {
         func_80303820_714ED0(D_803D552C, 0, 1, 750, 1);
@@ -236,7 +236,7 @@ void func_8036C0B0_77D760(void) {
     } else {
         func_80303D00_7153B0(D_803D552C, 750, 0);
     }
-    if (D_803D5524->unk9C == VULTURE) {
+    if (D_803D5524->animalType == VULTURE) {
         if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
             load_animal(VULTURE2);
         }

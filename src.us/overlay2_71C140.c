@@ -1001,7 +1001,7 @@ void func_8030DD34_71F3E4(void) {
         // state makes var_t0 much higher, this correction can become a launch.
         newYPos = var_t0;
 
-        if (((var_t0 != sp4C) || (D_803E4C88 == NULL) || (D_803E4C88->unk16C->unk2 != 5)) && ((var_t1 != sp48) || (D_803E4C8C == NULL) || (D_803E4C8C->unk16C->unk2 != 5))) {
+        if (((var_t0 != sp4C) || (D_803E4C88 == NULL) || (D_803E4C88->unk16C->objectCategory != 5)) && ((var_t1 != sp48) || (D_803E4C8C == NULL) || (D_803E4C8C->unk16C->objectCategory != 5))) {
             D_803E4C86 = 0x40 - (((var_t1 - var_t0) >> 0xA) / D_803E4C94->unk42);
         }
         if ((D_803E4C88 != NULL) && (var_t0 == sp4C)) {
@@ -2436,7 +2436,7 @@ void handle_x_collision(void) {
         }
     }
 
-    if ((ABS(D_803E4C94->xVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->unk82.unk2)) {
+    if ((ABS(D_803E4C94->xVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->behaviourFlags.unk2)) {
         func_802DBA58_6ED108(ATTACK_STATE_LUNGE_FWD, D_803D552C);
         spawn_dizzy_starts_small();
     }
@@ -2472,7 +2472,7 @@ void handle_z_collision(void) {
         }
     }
 
-    if ((ABS(D_803E4C94->zVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->unk82.unk2)) {
+    if ((ABS(D_803E4C94->zVelocity.w) >= FTOFIX32(6.0)) && (D_803E4C94->unk16C->behaviourFlags.unk2)) {
         func_802DBA58_6ED108(ATTACK_STATE_LUNGE_BACK, D_803D552C);
         spawn_dizzy_starts_small();
     }

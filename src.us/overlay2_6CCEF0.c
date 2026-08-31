@@ -145,9 +145,9 @@ void func_802BBA10_6CD0C0(u16 arg0) {
     tmp1 = D_80203FE0[2].unk2;
     tmp2 = D_80203FE0[2].unk4;
 
-    tmp0 += (D_80152350.unk2D0[phi_a1_2] * arg0) / 256;
+    tmp0 += (SINB(phi_a1_2) * arg0) / 256;
     tmp2 -= (phi_a0 * arg0) / 1024;
-    tmp1 -= (arg0 * D_80152350.unk384[phi_a1_2]) / 256;
+    tmp1 -= (arg0 * COSB(phi_a1_2)) / 256;
 
     D_80203FE0[26].unk0 =  tmp0;
     D_80203FE0[26].unk2 =  tmp1;
@@ -241,9 +241,9 @@ void func_802BBC90_6CD340(u16 arg0) {
     tmp2 = D_80203FE0[2].unk2;
     tmp3 = D_80203FE0[2].unk4;
 
-    tmp1 += (D_80152350.unk2D0[var_a3] * arg0) / 256;
+    tmp1 += (SINB(var_a3) * arg0) / 256;
     tmp3 -= (var_a2 * arg0) / 1024;
-    tmp2 -= (arg0 * D_80152350.unk384[var_a3]) / 256;
+    tmp2 -= (arg0 * COSB(var_a3)) / 256;
 
     D_80203FE0[26].unk0 = tmp1;
     D_80203FE0[26].unk2 = tmp2;
@@ -318,8 +318,8 @@ void func_802BBFA0_6CD650(u16 arg0) {
     tmp1 = D_80203FE0[2].unk2;
     tmp2 = D_80203FE0[2].unk4;
 
-    tmp0 += (D_80152350.unk2D0[var_a0] * arg0) / 256;
-    tmp1 -= (arg0 * D_80152350.unk384[var_a0]) / 256;
+    tmp0 += (SINB(var_a0) * arg0) / 256;
+    tmp1 -= (arg0 * COSB(var_a0)) / 256;
 
     D_80203FE0[26].unk0 = tmp0;
     D_80203FE0[26].unk2 = tmp1;
@@ -363,8 +363,8 @@ void func_802BC1F4_6CD8A4(u16 arg0) {
     tmp1 = D_80203FE0[2].unk2;
     tmp2 = D_80203FE0[2].unk4;
 
-    tmp1 -= (arg0 * D_80152350.unk384[var_v1]) >> 8;
-    tmp2 += (arg0 * D_80152350.unk2D0[var_v1]) >> 8;
+    tmp1 -= (arg0 * COSB(var_v1)) >> 8;
+    tmp2 += (arg0 * SINB(var_v1)) >> 8;
 
     D_80203FE0[26].unk0 = tmp0;
     D_80203FE0[26].unk2 = tmp1;
@@ -387,7 +387,7 @@ void func_802BC350_6CDA00(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
         return;
     }
 
-    sp3E = -(s16)(((arg2 * D_80152350.unk2D0[*arg0]) + (arg3 * D_80152350.unk2D0[*arg1])) / 256);
+    sp3E = -(s16)(((arg2 * SINB(*arg0)) + (arg3 * SINB(*arg1))) / 256);
     sp38 = sqrtf(SQ((f32)sp3E) + SQ((f32)arg4));
 
     // not abs...
@@ -423,7 +423,7 @@ void func_802BC628_6CDCD8(s16 *arg0, s16 *arg1, u16 arg2, u16 arg3, s16 arg4) {
         return;
     }
 
-    sp3E = -(s16)(((arg2 * D_80152350.unk2D0[*arg0]) + (arg3 * D_80152350.unk2D0[*arg1])) / 256);
+    sp3E = -(s16)(((arg2 * SINB(*arg0)) + (arg3 * SINB(*arg1))) / 256);
     sp38 = sqrtf(SQ((f32)sp3E) + SQ((f32)arg4));
 
     // not abs...
@@ -660,19 +660,19 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg4) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg5) % 256) < 0xE2)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + argF) % 256) < 0xE2)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg10) % 256) < 0xE2)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -687,19 +687,19 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg4) % 256)) >= 0xE1)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4C < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg5) % 256)) >= 0xE1)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4A < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + argF) % 256)) >= 0xE1)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp48 < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg10) % 256)) >= 0xE1)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -714,19 +714,19 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             if ((sp4E >= 0xE2) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg6) % 256) < 0xE2)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg7) % 256) < 0xE2)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg11) % 256) < 0xE2)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0xE2) && (((D_803D552C->prevGaitPhaseOffset + arg12) % 256) < 0xE2)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -740,7 +740,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             sp4A = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x40) & 0xFF;
             sp48 = ((D_803D552C->gaitPhaseOffset * 0x10) + 0xC0) & 0xFF;
             if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
-                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
         }
     } else {
@@ -755,7 +755,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                 sp4A = ((D_803D552C->gaitPhaseOffset * 16) + 0x40) & 0xFF;
                 sp48 = ((D_803D552C->gaitPhaseOffset * 16) + 0xC0) & 0xFF;
                 if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
-                    func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                    func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             case 0x90:
@@ -764,7 +764,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                 sp4A = 0x100 - (((D_803D552C->gaitPhaseOffset * 8) + 0x40) & 0xFF);
                 sp48 = 0x100 - (((D_803D552C->gaitPhaseOffset * 8) + 0xC0) & 0xFF);
                 if ((D_803D552C->gaitPhaseOffset & 0xF) == 0) {
-                    func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                    func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             case 0x8F:
@@ -773,7 +773,7 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
                 sp4A = ((D_803D552C->gaitPhaseOffset * 32) + 0x40) & 0xFF;
                 sp48 = ((D_803D552C->gaitPhaseOffset * 32) + 0xC0) & 0xFF;
                 if ((D_803D552C->gaitPhaseOffset & 0x3) == 0) {
-                    func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                    func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             default:
@@ -876,7 +876,7 @@ void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 ar
     case 0xB6:
     case 0xB7:
     case 0xB9:
-        var_v0 = ((256 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg8) / 512;
+        var_v0 = ((256 - COSB((arg4 * 360) / 256)) * arg8) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg8) - var_v0;
         break;
     case 0x5:
@@ -899,9 +899,9 @@ void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 ar
         break;
     }
 
-    temp = (D_80152350.unk384[sp6E] * arg7) +
-           (D_80152350.unk384[sp72] * arg5) +
-           (D_80152350.unk384[sp70] * arg6);
+    temp = (COSB(sp6E) * arg7) +
+           (COSB(sp72) * arg5) +
+           (COSB(sp70) * arg6);
     temp_a0 = ((temp / 256) + arg1) - D_80203FE0[arg2].unk4;
 
     if ((var_v0 * -3) < temp_a0) {
@@ -909,7 +909,7 @@ void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 ar
             D_80203FE0[arg2].unk4 += ((temp_a0 + (var_v0 * 3)) / 4);
         } else {
             D_80203FE0[arg2].unk4 += var_v0;
-            var_v0 = ((D_80203FE0[arg2].unk4 - arg1) - ((D_80152350.unk384[sp6E] * arg7) / 256));
+            var_v0 = ((D_80203FE0[arg2].unk4 - arg1) - ((COSB(sp6E) * arg7) / 256));
             func_802BC350_6CDA00(&sp72, &sp70, arg5, arg6, var_v0);
         }
     }
@@ -923,22 +923,22 @@ void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 ar
     tmp2 = D_80203FE0[arg2].unk2;
     tmp3 = D_80203FE0[arg2].unk4;
 
-    tmp2 -= (s16)((arg5 * D_80152350.unk2D0[sp72]) / 256);
-    tmp3 -= (s16)((arg5 * D_80152350.unk384[sp72]) / 256);
+    tmp2 -= (s16)((arg5 * SINB(sp72)) / 256);
+    tmp3 -= (s16)((arg5 * COSB(sp72)) / 256);
 
     D_80203FE0[arg3].unk0 = tmp1;
     D_80203FE0[arg3].unk2 = tmp2;
     D_80203FE0[arg3].unk4 = tmp3;
 
-    tmp2 -= (s16)((arg6 * D_80152350.unk2D0[sp70]) / 256);
-    tmp3 -= (s16)((arg6 * D_80152350.unk384[sp70]) / 256);
+    tmp2 -= (s16)((arg6 * SINB(sp70)) / 256);
+    tmp3 -= (s16)((arg6 * COSB(sp70)) / 256);
 
     D_80203FE0[arg3 + 1].unk0 = tmp1;
     D_80203FE0[arg3 + 1].unk2 = tmp2;
     D_80203FE0[arg3 + 1].unk4 = tmp3;
 
-    tmp2 -= (s16)((arg7 * D_80152350.unk2D0[sp6E]) / 256);
-    tmp3 -= (s16)((arg7 * D_80152350.unk384[sp6E]) / 256);
+    tmp2 -= (s16)((arg7 * SINB(sp6E)) / 256);
+    tmp3 -= (s16)((arg7 * COSB(sp6E)) / 256);
 
     D_80203FE0[arg3 + 2].unk0 = tmp1;
     D_80203FE0[arg3 + 2].unk2 = tmp2;
@@ -1025,7 +1025,7 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     case 0xB6:
     case 0xB7:
     case 0xB9:
-        var_v0 = ((0x100 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg8) / 512;
+        var_v0 = ((0x100 - COSB((s16) ((arg4 * 360) / 256))) * arg8) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg8) - var_v0;
         break;
     case 0x5:
@@ -1048,16 +1048,16 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
         break;
     }
 
-    temp_a0 = (((u32) ((D_80152350.unk384[sp6E] * arg7) +
-                       (D_80152350.unk384[sp72] * arg5) +
-                       (D_80152350.unk384[sp70] * arg6)) >> 8) + arg1) - D_80203FE0[arg2].unk4;
+    temp_a0 = (((u32) ((COSB(sp6E) * arg7) +
+                       (COSB(sp72) * arg5) +
+                       (COSB(sp70) * arg6)) >> 8) + arg1) - D_80203FE0[arg2].unk4;
 
     if ((var_v0 * -3) < temp_a0) {
         if (var_v0 >= temp_a0) {
             D_80203FE0[arg2].unk4 += ((temp_a0 + (var_v0 * 3)) / 4);
         } else {
             D_80203FE0[arg2].unk4 += var_v0;
-            func_802BC628_6CDCD8(&sp72, &sp70, arg5, arg6, (D_80203FE0[arg2].unk4 - arg1) - ((D_80152350.unk384[sp6E] * arg7) / 256));
+            func_802BC628_6CDCD8(&sp72, &sp70, arg5, arg6, (D_80203FE0[arg2].unk4 - arg1) - ((COSB(sp6E) * arg7) / 256));
         }
     }
     if (sp70 >= sp6E) {
@@ -1068,22 +1068,22 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     tmp2 = D_80203FE0[arg2].unk2;
     tmp3 = D_80203FE0[arg2].unk4;
 
-    tmp3 -= (s16) ((arg5 * D_80152350.unk384[sp72]) / 256);
-    tmp2 -= (s16) ((arg5 * D_80152350.unk2D0[sp72]) / 256);
+    tmp3 -= (s16) ((arg5 * COSB(sp72)) / 256);
+    tmp2 -= (s16) ((arg5 * SINB(sp72)) / 256);
 
     D_80203FE0[arg3+0].unk0 = tmp1;
     D_80203FE0[arg3+0].unk2 = tmp2;
     D_80203FE0[arg3+0].unk4 = tmp3;
 
-    tmp3 -= (s16) ((arg6 * D_80152350.unk384[sp70]) / 256);
-    tmp2 -= (s16) ((arg6 * D_80152350.unk2D0[sp70]) / 256);
+    tmp3 -= (s16) ((arg6 * COSB(sp70)) / 256);
+    tmp2 -= (s16) ((arg6 * SINB(sp70)) / 256);
 
     D_80203FE0[arg3+1].unk0 = tmp1;
     D_80203FE0[arg3+1].unk2 = tmp2;
     D_80203FE0[arg3+1].unk4 = tmp3;
 
-    tmp3 -= (s16) ((arg7 * D_80152350.unk384[sp6E]) / 256);
-    tmp2 -= (s16) ((arg7 * D_80152350.unk2D0[sp6E]) / 256);
+    tmp3 -= (s16) ((arg7 * COSB(sp6E)) / 256);
+    tmp2 -= (s16) ((arg7 * SINB(sp6E)) / 256);
 
     D_80203FE0[arg3+2].unk0 = tmp1;
     D_80203FE0[arg3+2].unk2 = tmp2;
@@ -1131,19 +1131,19 @@ void update_limbs_rigid(
             if ((sp4E >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg2) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else  if ((sp4C >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg3) % 256) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else  if ((sp4A >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argB) % 256) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argC) % 256) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1159,19 +1159,19 @@ void update_limbs_rigid(
             if ((sp4E >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg2) % 256)) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + arg3) % 256)) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + argB) % 256)) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0x81) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + argC) % 256)) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1187,19 +1187,19 @@ void update_limbs_rigid(
             if ((sp4E >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg4) % 256) < 0x81)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4C >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg5) % 256) < 0x81)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp4A >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argD) % 256) < 0x81)) {
                 D_803F2F00 = 3;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp48 >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argE) % 256) < 0x81)) {
                 D_803F2F00 = 4;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1213,7 +1213,7 @@ void update_limbs_rigid(
         case MOVEMENT_STATE_SINKING:
         case MOVEMENT_STATE_FLYING:
         case MOVEMENT_STATE_DRIFTING:
-            animalId = D_803D5524->unk9C;
+            animalId = D_803D5524->animalType;
             sp3D = 2;
             sp48 = (sp46 * 64) & 0xFF;
             sp4E = (sp46 * 64) & 0xFF;
@@ -1231,7 +1231,7 @@ void update_limbs_rigid(
         case MOVEMENT_STATE_DRIFTING:
             var_a0 = 0x40;
             var_a2 = 0xC0;
-            if (D_803D5524->unk9C == SKI_HUSKY) {
+            if (D_803D5524->animalType == SKI_HUSKY) {
                 var_a0 = 0;
                 var_a2 = 0x80;
             }
@@ -1246,7 +1246,7 @@ void update_limbs_rigid(
                 sp4C = (sp48 + 0x80) & 0xFF;
                 sp4A = (sp48 + 0x80) & 0xFF;
                 if ((sp46 & 0xF) == 0) {
-                  func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                  func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             case 0x8F:
@@ -1255,7 +1255,7 @@ void update_limbs_rigid(
                 sp4C = (sp48 + 0x80) & 0xFF;
                 sp4A = (sp48 + 0x80) & 0xFF;
                 if ((sp46 & 7) == 0) {
-                  func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                  func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
                 }
                 break;
             default:
@@ -1326,7 +1326,7 @@ void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 srcJoint, u16 dstJoin
     case 0xB6:
     case 0xB7:
     case 0xB9:
-        tmp = ((256 - D_80152350.unk384[(s16) ((phase * 360) / 256)]) * arg6) / 512;
+        tmp = ((256 - COSB((s16) ((phase * 360) / 256))) * arg6) / 512;
         D_80203FE0[srcJoint].unk4 = (D_80203FE0[srcJoint].unk4 + arg6) - tmp;
         break;
     case 0x5:
@@ -1345,8 +1345,8 @@ void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 srcJoint, u16 dstJoin
     tmp2 = D_80203FE0[srcJoint].unk2;
     tmp3 = D_80203FE0[srcJoint].unk4;
 
-    tmp3 -= (s16)((arg5 * D_80152350.unk384[var_v0]) / 256);
-    tmp2 -= (s16)((arg5 * D_80152350.unk2D0[var_v0]) / 256);
+    tmp3 -= (s16)((arg5 * COSB(var_v0)) / 256);
+    tmp2 -= (s16)((arg5 * SINB(var_v0)) / 256);
 
     D_80203FE0[dstJoint].unk0 = tmp1;
     D_80203FE0[dstJoint].unk2 = tmp2;
@@ -1382,23 +1382,23 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
         sp3E = ((D_803D552C->gaitPhaseOffset + argC) + ((arg3 - argC) / 3)) % 256;
 
         if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != (u8) 2)) {
-            if (D_803D5524->unk9C != EVO) {
+            if (D_803D5524->animalType != EVO) {
                 if ((sp4E >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg2) % 256) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if ((sp4C >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + arg3) % 256) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if ((sp4A >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argB) % 256) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if ((sp48 >= 0x81) && (((D_803D552C->prevGaitPhaseOffset + argC) % 256) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 }
             }
         }
@@ -1419,22 +1419,22 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 
         if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != (u8) 2)) {
 
-            if (D_803D5524->unk9C != 0x3F) {
+            if (D_803D5524->animalType != 0x3F) {
                 if (((s32) sp4E >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + arg2) % 256)) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if (((s32) sp44 >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + arg3) % 256)) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
                 } else if (((s32) sp4A >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + argB) % 256)) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if (((s32) sp40 >= 0x81) && ((0x100 - ((s32) (D_803D552C->prevGaitPhaseOffset + argC) % 256)) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 }
             }
         }
@@ -1454,23 +1454,23 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
 
         if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
 
-            if (D_803D5524->unk9C != EVO) {
+            if (D_803D5524->animalType != EVO) {
                 if ((sp4E >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg4) % 256) < 0x81)) {
                     D_803F2F00 = 1;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if ((sp4C >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + arg5) % 256) < 0x81)) {
                     D_803F2F00 = 2;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if ((sp4A >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + argD) % 256) < 0x81)) {
                     D_803F2F00 = 3;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 } else if ((sp48 >= 0x81) && (((s32) (D_803D552C->prevGaitPhaseOffset + argE) % 256) < 0x81)) {
                     D_803F2F00 = 4;
                     D_803D553A = 5;
-                    play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                    play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
                 }
             }
         }
@@ -1496,7 +1496,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             sp4A = ((D_803D552C->gaitPhaseOffset * 0x10) + 0x40) & 0xFF;
             sp48 = ((D_803D552C->gaitPhaseOffset * 0x10) + 0xC0) & 0xFF;
             if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
-                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
         }
@@ -1509,7 +1509,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             sp4A = ((D_803D552C->gaitPhaseOffset * 4) + 0x40) & 0xFF;
             sp48 = ((D_803D552C->gaitPhaseOffset * 4) + 0xC0) & 0xFF;
             if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
-                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
         case 0x90:
@@ -1519,7 +1519,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             sp4A = 0x100 - (((D_803D552C->gaitPhaseOffset * 4) + 0x40) & 0xFF);
             sp48 = 0x100 - (((D_803D552C->gaitPhaseOffset * 4) + 0xC0) & 0xFF);
             if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
-                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
         case 0x8F:
@@ -1529,7 +1529,7 @@ void func_802C0364_6D1A14(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
             sp4A = ((D_803D552C->gaitPhaseOffset * 8) + 0x40) & 0xFF;
             sp48 = ((D_803D552C->gaitPhaseOffset * 8) + 0xC0) & 0xFF;
             if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
-                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+                func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
             }
             break;
         case 0x8D:
@@ -1608,7 +1608,7 @@ void func_802C13E4_6D2A94(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     case 0xB6:
     case 0xB7:
     case 0xB9:
-        tmp = ((256 - D_80152350.unk384[(s16) ((arg4 * 360) / 256)]) * arg6) / 512;
+        tmp = ((256 - COSB((s16) ((arg4 * 360) / 256))) * arg6) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg6) - tmp;
         break;
     case 0x5:
@@ -1627,11 +1627,11 @@ void func_802C13E4_6D2A94(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     tmp2 = D_80203FE0[arg2].unk2;
     tmp3 = D_80203FE0[arg2].unk4;
 
-    tmp3 -= (s16)(arg5 * (D_80152350.unk384[var_a0]) >> 8);
+    tmp3 -= (s16)(arg5 * (COSB(var_a0)) >> 8);
     if (arg2 == 3 || arg2 == 5 || arg2 == 8 || arg2 == 14) {
-        tmp1 -= (s16)(arg5 * (D_80152350.unk2D0[var_a0]) >> 8);
+        tmp1 -= (s16)(arg5 * (SINB(var_a0)) >> 8);
     } else {
-        tmp1 += (s16)(arg5 * (D_80152350.unk2D0[var_a0]) >> 8);
+        tmp1 += (s16)(arg5 * (SINB(var_a0)) >> 8);
     }
 
     D_80203FE0[arg3].unk0 = tmp1;
@@ -1690,10 +1690,10 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
     s32 var_t0;
     s16 temp_hi;
 
-    D_80203FE0[15].unk0 = D_80203FE0[2].unk0 - ((D_80152350.unk2D0[0x14] * arg0) / 256);
-    D_80203FE0[15].unk2 = D_80203FE0[2].unk2 + ((D_80152350.unk384[0x14] * arg0) / 256);
+    D_80203FE0[15].unk0 = D_80203FE0[2].unk0 - ((SINB(0x14) * arg0) / 256);
+    D_80203FE0[15].unk2 = D_80203FE0[2].unk2 + ((COSB(0x14) * arg0) / 256);
 
-    var_t0 = (((func_802B8C50_6CA300((-(D_80152350.unk2D0[0x14] * arg0) / 256), ((D_80152350.unk384[0x14] * arg0) / 256)) >> 8) << 5) >> 8) - D_80203FE0[2].unk4;
+    var_t0 = (((func_802B8C50_6CA300((-(SINB(0x14) * arg0) / 256), ((COSB(0x14) * arg0) / 256)) >> 8) << 5) >> 8) - D_80203FE0[2].unk4;
     temp_a1_2 = &D_803D5528->unk398;
     switch (temp_a1_2->unk10) {
     case 1:
@@ -1716,7 +1716,7 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
             temp_a1_2->unk10 = 0;
         }
         if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
-            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
     case 11:
@@ -1728,7 +1728,7 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
 
             var_t0 += ((s32) (func_8038CCA4_79E354() * arg0) >> 7);
             if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1746,22 +1746,22 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
     case 0x90:
         D_80203FE0[15].unk2 += (((SIN(D_803D5540 << 5) >> 7) * arg0) >> 9);
         if ((D_803D5540 & 7) == 0) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     case 0x8F:
         D_80203FE0[15].unk2 += (((SIN(D_803D5540 << 6) >> 7) * arg0) >> 9);
         if ((D_803D5540 & 7) == 0) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     }
 
     D_80203FE0[15].unk4 = D_80203FE0[2].unk4 + (s16) var_t0;
-    D_80203FE0[18].unk0 = D_80203FE0[2].unk0 - ((D_80152350.unk0[340] * arg0) / 256);
-    D_80203FE0[18].unk2 = D_80203FE0[2].unk2 + ((D_80152350.unk2D0[70] * arg0) / 256);
+    D_80203FE0[18].unk0 = D_80203FE0[2].unk0 - ((SINE(340) * arg0) / 256);
+    D_80203FE0[18].unk2 = D_80203FE0[2].unk2 + ((SINB(70) * arg0) / 256);
 
-    var_t0 = (((func_802B8C50_6CA300(-(D_80152350.unk0[340] * arg0) / 256, ((D_80152350.unk2D0[70] * arg0) / 256)) >> 8) << 5) >> 8) + D_80203FE0[2].unk4;
+    var_t0 = (((func_802B8C50_6CA300(-(SINE(340) * arg0) / 256, ((SINB(70) * arg0) / 256)) >> 8) << 5) >> 8) + D_80203FE0[2].unk4;
 
     temp_a1_2 = &D_803D5528->unk3AC;
     switch (temp_a1_2->unk10) {
@@ -1783,7 +1783,7 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
             temp_a1_2->unk10 = 0;
         }
         if ((temp_hi < (((temp_a1_2->unk12 * 8) - 8) % 50)) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
-            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
     case 11:
@@ -1794,7 +1794,7 @@ void func_802C1A88_6D3138(u16 arg0, LimbConfig *arg1) {
             }
             var_t0 += ((func_8038CCA4_79E354() * arg0) >> 7);
             if ((func_8038CCC0_79E370() != 0) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING))) {
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1841,11 +1841,11 @@ void func_802C23F8_6D3AA8(s16 arg0) {
             if ((sp26 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp24 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1859,11 +1859,11 @@ void func_802C23F8_6D3AA8(s16 arg0) {
             if ((sp26 >= 0x81) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((sp24 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 6;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -1872,14 +1872,14 @@ void func_802C23F8_6D3AA8(s16 arg0) {
         sp26 = (temp_v1 << 5) & 0xFF;
         sp24 = (sp26 + 0x80) & 0xFF;
         if ((D_803D552C->gaitPhaseOffset & 7) == 0) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     case 0x8F:
         sp26 = (temp_v1 << 6) & 0xFF;
         sp24 = (sp26 + 0x80) & 0xFF;
         if ((D_803D552C->gaitPhaseOffset & 3) == 0) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     case 0x8D:
@@ -1906,10 +1906,10 @@ void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
     s16 temp_hi;
     s16 temp_t4;
 
-    D_80203FE0[arg2].unk0 = D_80203FE0[arg1].unk0 - ((D_80152350.unk2D0[arg5] * arg4) / 256);
-    D_80203FE0[arg2].unk2 = D_80203FE0[arg1].unk2 + ((D_80152350.unk384[arg5] * arg4) / 256);
+    D_80203FE0[arg2].unk0 = D_80203FE0[arg1].unk0 - ((SINB(arg5) * arg4) / 256);
+    D_80203FE0[arg2].unk2 = D_80203FE0[arg1].unk2 + ((COSB(arg5) * arg4) / 256);
 
-    var_t0 = (((func_802B8C50_6CA300(-(D_80152350.unk2D0[arg5] * arg4) / 256, ((D_80152350.unk384[arg5] * arg4) / 256)) >> 8) << 5) >> 8) - D_80203FE0[arg1].unk4;
+    var_t0 = (((func_802B8C50_6CA300(-(SINB(arg5) * arg4) / 256, ((COSB(arg5) * arg4) / 256)) >> 8) << 5) >> 8) - D_80203FE0[arg1].unk4;
     sp38 = -arg4;
 
     switch (D_803D5530->state) {
@@ -1960,7 +1960,7 @@ void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
             arg0->unk10 = 0;
         }
         if (temp_hi < (((arg0->unk12 * 8) - 8) % 50)) {
-            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
     case 11:
@@ -1971,7 +1971,7 @@ void func_802C287C_6D3F2C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
             }
             var_t0 += ((func_8038CCA4_79E354() * arg4) >> 7);
             if (func_8038CCC0_79E370() != 0) {
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2012,11 +2012,11 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((var_t2 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2030,11 +2030,11 @@ void func_802C2D98_6D4448(s16 arg0, s16 arg1) {
             if ((var_t1 > 0x80) && (tmp1 <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 6;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((var_t2 > 0x80) && (tmp2 <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 6;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2100,7 +2100,7 @@ void func_802C3188_6D4838(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, u16 a
             }
             var_t0 = (func_8038CCA4_79E354() * arg6) >> 6;
             if (func_8038CCC0_79E370() != 0) {
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2156,11 +2156,11 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
             if ((phi_t2 > 0x80) && ((D_803D552C->prevGaitPhaseOffset % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else if ((phi_t3 > 0x80) && (((D_803D552C->prevGaitPhaseOffset + 0x80) % 256) <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2174,12 +2174,12 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
             if ((phi_t2 < 0x80) && ((0x100 - (D_803D552C->prevGaitPhaseOffset % 256)) >= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else
             if ((phi_t3 < 0xE1) && ((0x100 - ((D_803D552C->prevGaitPhaseOffset + 0x80) % 256)) >= 0xE1)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2193,12 +2193,12 @@ void func_802C353C_6D4BEC(s16 arg0, s16 arg1, s16 arg2, struct077 *arg3, struct0
             if ((phi_t2 > 0x80) && ((D_803D552C->prevGaitPhaseOffset % 256) <= 0x80)) {
                 D_803F2F00 = 1;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             } else
             if ((phi_t3 > 0x80) && (((D_803D552C->prevGaitPhaseOffset + 0x80) % 256) <= 0x80)) {
                 D_803F2F00 = 2;
                 D_803D553A = 5;
-                play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+                play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
             }
         }
         break;
@@ -2266,7 +2266,7 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
         if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2) && (tmp1 >= 0xB) && (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;
             D_803D553A = 5;
-            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
     case 0x4:
@@ -2278,18 +2278,18 @@ void func_802C3C64_6D5314(s16 arg0, s16 arg1, s16 arg2) {
             (tmp2 < 0xB) && (D_803D5530->unk4A == 0)) {
             D_803F2F00 = 1;
             D_803D553A = 6;
-            play_footstep_sfx(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
+            play_footstep_sfx(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, D_803D5530->unk160);
         }
         break;
     case 0x8E:
     case 0x90:
         if (!(fixme = D_803D552C->gaitPhase & 7)) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     case 0x8F:
         if (!(fixme = D_803D552C->gaitPhase & 7)) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     }
@@ -2389,7 +2389,7 @@ void func_802C3F58_6D5608(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
 void func_802C4448_6D5AF8(s16 arg0) {
     if ((D_803D5530->state == STATE_FISH_SWIMMING_SLOW) || (D_803D5530->state == STATE_FISH_SWIMMING_FAST) || (D_803D5530->state == STATE_FISH_SWIMMING)) {
         if ((D_803D5540 & 7) == 0) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
     }
     D_80203FE0[5].unk0 = D_80203FE0[0].unk0;
@@ -2430,7 +2430,7 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
             sp3C = 0;
         }
         if ((D_803D5540 & 7) == 0) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     case 143:
@@ -2450,7 +2450,7 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
             sp3C = 0;
         }
         if ((D_803D5540 & 7) == 0) {
-            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->unk9C, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
+            func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
     default:
@@ -2512,7 +2512,7 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     D_80203FE0[12].unk4 = D_80203FE0[4].unk4 - sp3C;
 
     if (D_803D5530->state == 101) {
-        if ((D_803D5524->unk9C != SEAGULL2) && (D_803D5524->unk9C != VULTURE)) {
+        if ((D_803D5524->animalType != SEAGULL2) && (D_803D5524->animalType != VULTURE)) {
             temp_t9 = D_803D5540 & 0x3F;
             if (temp_t9 < 20) {
                 phi_v1 = (temp_t9 - 10) < 0 ? (10 - temp_t9) : (temp_t9 - 10);

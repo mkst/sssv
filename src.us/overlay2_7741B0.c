@@ -45,7 +45,7 @@ s32 can_fly(Animal *a) {
     }
 }
 
-s32 func_80362BEC_77429C(Animal *a) {
+s32 is_swimming(Animal *a) {
     if (a->movementState == MOVEMENT_STATE_SWIMMING) {
         return 1;
     } else {
@@ -637,7 +637,7 @@ void func_80363FF0_7756A0(Animal *arg0) {
 
 void func_80364120_7757D0(u8 skill, s16 power, s16 unused, Animal *target) {
     if (skill == SKILL_A) {
-        switch (D_803D5524->unk9C) {
+        switch (D_803D5524->animalType) {
         case SEAGULL:
             break;
         case LION:
@@ -682,7 +682,7 @@ void func_80364120_7757D0(u8 skill, s16 power, s16 unused, Animal *target) {
         case RACING_TORTOISE:
             racing_tortoise_turbo(power);
             break;
-        case PIRANA:
+        case PIRANHA:
             animal_jump();
             break;
         case DOG:
@@ -761,7 +761,7 @@ void func_80364120_7757D0(u8 skill, s16 power, s16 unused, Animal *target) {
             break;
         }
     } else {
-        switch (D_803D5524->unk9C) {
+        switch (D_803D5524->animalType) {
         case SEAGULL:
         case LION:
             lion_roar();
@@ -814,7 +814,7 @@ void func_80364120_7757D0(u8 skill, s16 power, s16 unused, Animal *target) {
         case RACING_TORTOISE:
             racing_tortoise_defend(power);
             break;
-        case PIRANA:
+        case PIRANHA:
             func_80382CC0_794370(power);
             break;
         case DOG:

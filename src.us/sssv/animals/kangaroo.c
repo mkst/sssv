@@ -57,7 +57,7 @@ void func_8036F7A0_780E50(void) {
         sp9E = 0;
         gLodDetailState = 0;
     } else {
-        sp9E = classify_object_visibility_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x2080, 8, 0x64, 0x50, 0, 1, CHECK_SEGMENT == 0);
+        sp9E = classify_object_visibility(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->height << 0xF), 0x2080, 8, 0x64, 0x50, 0, 1, CHECK_SEGMENT == 0);
     }
 
     if (sp9E == 0) {
@@ -137,8 +137,8 @@ void func_8036F7A0_780E50(void) {
             temp_a1 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
             temp_a3 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
 
-            tmp3 = (((temp_a1 * D_80152350.unk384[D_803D552C->unk316]) >> 8) + ((D_80152350.unk2D0[D_803D552C->unk316] * temp_a3) >> 8));
-            tmp4 = (((temp_a3 * D_80152350.unk384[D_803D552C->unk316]) >> 8) - ((D_80152350.unk2D0[D_803D552C->unk316] * temp_a1) >> 8));
+            tmp3 = (((temp_a1 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a3) >> 8));
+            tmp4 = (((temp_a3 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * temp_a1) >> 8));
 
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + tmp3;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + tmp4;
@@ -177,7 +177,7 @@ void func_8036F7A0_780E50(void) {
             }
         }
         func_8038064C_791CFC();
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (var_v0 = gCameraUiState, (var_v0 == 0)) || (var_v0 == 2) || ((var_v0 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (var_v0 = gCameraUiState, (var_v0 == 0)) || (var_v0 == 2) || ((var_v0 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(
                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
                 D_803D5530->position.xPos.w,
@@ -192,7 +192,7 @@ void func_8036F7A0_780E50(void) {
 
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 2, -0.2f);
+            func_8038C230_79D8E0((D_803D5524->height * 8) / 5, 2, 3, 2, -0.2f);
 
             gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(3, 7, FTOFIX32(0.8125), (spB8 * 0x34) >> 6, FTOFIX32(0.8125), D_803F2ED0, 0, 0, 0, D_04003780_EAD30); }
@@ -245,7 +245,7 @@ void func_8036F7A0_780E50(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp9E == 0) || (sp9E == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, (s16) 0x1F, (s16) 0x1F, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, (s16) 0x1F, (s16) 0x1F, (s16) 0x9B, 0, 0, 0, (s16) 0, (s16) (s32) D_803D5538);
     }
 
     spAE = D_803D5528->unk3C8.unk2;
@@ -261,16 +261,16 @@ void func_8036F7A0_780E50(void) {
                 a2,
                 a3,
                 D_803D552C->heading);
-            if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {
-                if (D_803E00C0[D_803D5528->unk3C8.unk2].tailType == 3) {
+            if (D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve == 1) {
+                if (D_803E00C0[D_803D5528->unk3C8.unk2].tailType == TAIL_TYPE_MOUSE) {
                     func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3B4C_7B51FC);
                 } else {
                     func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3BAC_7B525C);
                 }
             }
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 0;
+            D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve = 0;
         } else {
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 1;
+            D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve = 1;
         }
     }
     if (sp9E == 0) {
@@ -327,10 +327,10 @@ void func_80370C84_782334(void) {
         spDE = 0;
         gLodDetailState = 0;
     } else {
-        spDE = classify_object_visibility_6FA0A0(
+        spDE = classify_object_visibility(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
-            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
             0x820,
             8,
             0x64,
@@ -361,8 +361,8 @@ void func_80370C84_782334(void) {
             temp_v0 = (D_80203FE0[20].unk0 - D_80203FE0[19].unk0);
             temp_a0 = (D_80203FE0[20].unk2 - D_80203FE0[19].unk2);
 
-            tmp1 = ((temp_v0 * D_80152350.unk384[D_803D552C->unk316]) >> 8) + ((D_80152350.unk2D0[D_803D552C->unk316] * temp_a0) >> 8);
-            tmp2 = ((temp_a0 * D_80152350.unk384[D_803D552C->unk316]) >> 8) - ((D_80152350.unk2D0[D_803D552C->unk316] * temp_v0) >> 8);
+            tmp1 = ((temp_v0 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a0) >> 8);
+            tmp2 = ((temp_a0 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * temp_v0) >> 8);
 
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + tmp1;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + tmp2;
@@ -420,7 +420,7 @@ void func_80370C84_782334(void) {
                                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
                                 D_803D5530->position.xPos.w + (var_s1 << 0x10),
                                 D_803D5530->position.zPos.w + (var_s2 << 0x10),
-                                D_803D5530->position.yPos.w + ((D_803D5524->unkBA * 3) * 0x4000),
+                                D_803D5530->position.yPos.w + ((D_803D5524->height * 3) * 0x4000),
                                 (temp_t1 << 4) & 0xFF,
                                 FTOFIX32(1.0) / 4,
                                 FTOFIX32(1.0) / 4,
@@ -438,7 +438,7 @@ void func_80370C84_782334(void) {
                   if (func_80322A58_734108(
                         D_803D5530->position.xPos.h + var_s1,
                         D_803D5530->position.zPos.h + var_s2,
-                        D_803D5530->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
+                        D_803D5530->position.yPos.h + ((D_803D5524->height * 3) >> 2),
                         0x14,
                         0x1E,
                         &spC0,
@@ -451,19 +451,19 @@ void func_80370C84_782334(void) {
                   tmp5 = func_8033C9CC_74E07C(
                       D_803D5530->position.xPos.h,
                       D_803D5530->position.zPos.h,
-                      D_803D5530->position.yPos.h + (D_803D5524->unkBA >> 1),
+                      D_803D5530->position.yPos.h + (D_803D5524->height >> 1),
                       D_803D5530->unk160,
                       D_803D5530->position.xPos.h + var_s1,
                       D_803D5530->position.zPos.h + var_s2,
-                      D_803D5530->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
+                      D_803D5530->position.yPos.h + ((D_803D5524->height * 3) >> 2),
                       func_803136FC_724DAC(
                           D_803D5530->position.xPos.h + var_s1,
                           D_803D5530->position.zPos.h + var_s2,
-                          D_803D5530->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2)),
+                          D_803D5530->position.yPos.h + ((D_803D5524->height * 3) >> 2)),
                       0,
                       0);
 
-                  if ((tmp5 != 0) || ((((D_803D5530->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2)) < (sample_ground_height_at_xz((D_803D5530->position.xPos.h + var_s1), (D_803D5530->position.zPos.h + var_s2)) >> 0x10)) != 0))) {
+                  if ((tmp5 != 0) || ((((D_803D5530->position.yPos.h + ((D_803D5524->height * 3) >> 2)) < (sample_ground_height_at_xz((D_803D5530->position.xPos.h + var_s1), (D_803D5530->position.zPos.h + var_s2)) >> 0x10)) != 0))) {
                       spBF = 1;
                       play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                   }
@@ -477,7 +477,7 @@ void func_80370C84_782334(void) {
                           create_particle_effect(
                               D_803D5530->position.xPos.h + var_s1,
                               D_803D5530->position.zPos.h + var_s2,
-                              D_803D5530->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
+                              D_803D5530->position.yPos.h + ((D_803D5524->height * 3) >> 2),
                               0x18,
                               (SSSV_RAND(16) - 7) << 0x10,
                               (SSSV_RAND(16) - 7) << 0x10,
@@ -522,7 +522,7 @@ void func_80370C84_782334(void) {
                                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
                                 D_803D5530->position.xPos.w + (a0 << 0x10),
                                 D_803D5530->position.zPos.w + (a1 << 0x10),
-                                D_803D5530->position.yPos.w + ((D_803D5524->unkBA * 3) * 0x4000),
+                                D_803D5530->position.yPos.w + ((D_803D5524->height * 3) * 0x4000),
                                 (temp_t1 << 3) & 0xFF,
                                 FTOFIX32(1.0) / 4,
                                 FTOFIX32(1.0) / 4,
@@ -556,7 +556,7 @@ void func_80370C84_782334(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_15 = gCameraUiState, (temp_v0_15 == 0)) || (temp_v0_15 == 2) || ((temp_v0_15 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_15 = gCameraUiState, (temp_v0_15 == 0)) || (temp_v0_15 == 2) || ((temp_v0_15 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(
                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
                 D_803D5530->position.xPos.w,
@@ -570,7 +570,7 @@ void func_80370C84_782334(void) {
                 D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.4f);
+            func_8038C230_79D8E0((D_803D5524->height * 8) / 5, 2, 3, 3, -0.4f);
             func_8038C484_79DB34(2, 1, 3, -0.18f, 0);
             if ((D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2) && (gUiFlowState.unk0 == 0)) {
                 spE6 = (D_803D552C->unk308 + D_803D552C->unk30A) - (D_803D5530->yVelocity.h * 0x10);
@@ -646,7 +646,7 @@ void func_80370C84_782334(void) {
         func_8035D6D0_76ED80();
     }
     if ((spDE == 0) || (spDE == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     temp_t9 = D_803D5528->unk3C8.unk2;
     if (temp_t9 != 0) {
@@ -661,16 +661,16 @@ void func_80370C84_782334(void) {
                 a2,
                 D_803D552C->heading);
 
-            if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {
-                if (D_803E00C0[D_803D5528->unk3C8.unk2].tailType == 3) {
+            if (D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve == 1) {
+                if (D_803E00C0[D_803D5528->unk3C8.unk2].tailType == TAIL_TYPE_MOUSE) {
                     func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3B4C_7B51FC);
                 } else {
                     func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A3BAC_7B525C);
                 }
             }
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 0;
+            D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve = 0;
         } else {
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 1;
+            D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve = 1;
         }
     }
     if (spDE == 0) {
@@ -701,7 +701,7 @@ void func_803725A4_783C54(void) {
         D_803D552C->unk365 = ATTACK_KANGAROO_5;
         D_803D552C->unk32C = D_803D552C->heading;
     } else {
-        recharge_skill(1);
+        recharge_skill(SKILL_B);
     }
 }
 

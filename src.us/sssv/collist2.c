@@ -23,7 +23,7 @@ void func_802DA7F0_6EBEA0(void) {
 
     e = D_803DA2F0;
     while (e != NULL) {
-        func = e->unk16C->unk84;
+        func = e->unk16C->updateCallback;
         if (func != NULL) {
             func(e);
         }
@@ -41,7 +41,7 @@ void func_802DA7F0_6EBEA0(void) {
 
     e = D_803DA2F4;
     while (e != NULL) {
-        func = e->unk16C->unk84;
+        func = e->unk16C->updateCallback;
         if (func != NULL) {
             func(e);
         }
@@ -182,7 +182,7 @@ void func_802DADA0_6EC450(Entity *arg0) {
     Entity **entity;
     s16 i;
 
-    if (arg0->unk16C->unk82.unk1) {
+    if (arg0->unk16C->behaviourFlags.unk1) {
         entity = &D_803DA2F0;
         arg0->unk26D = 1;
     } else {

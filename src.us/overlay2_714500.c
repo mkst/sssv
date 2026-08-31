@@ -3,7 +3,7 @@
 
 #ifdef NON_MATCHING
 // standard regalloc bollocks
-// only cool_cod + pirana
+// only cool_cod + piranha
 void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_lo;
     s16 temp_v1;
@@ -67,16 +67,16 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     func_802C79E0_6D9090(&D_80203FE0[2], -D_803D5530->unk28 >> 1);
     func_802C79E0_6D9090(&D_80203FE0[3], -D_803D5530->unk28 >> 1);
 
-    D_80203FE0[0].unk4 += (D_803D5524->unkB8 << 5);
-    D_80203FE0[1].unk4 += (D_803D5524->unkB8 << 5);
-    D_80203FE0[2].unk4 += (D_803D5524->unkB8 << 5);
-    D_80203FE0[3].unk4 += (D_803D5524->unkB8 << 5);
+    D_80203FE0[0].unk4 += (D_803D5524->footHeight << 5);
+    D_80203FE0[1].unk4 += (D_803D5524->footHeight << 5);
+    D_80203FE0[2].unk4 += (D_803D5524->footHeight << 5);
+    D_80203FE0[3].unk4 += (D_803D5524->footHeight << 5);
 }
 #else
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714500/func_80302E50_714500.s")
 #endif
 
-// only cool_cod + pirana
+// only cool_cod + piranha
 void func_8030322C_7148DC(s16 idx, s16 angle) {
     s16 temp_v1;
     s32 temp_t2;

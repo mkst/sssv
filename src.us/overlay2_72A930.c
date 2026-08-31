@@ -31,7 +31,7 @@ s32 func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2,
     temp_t0 = arg0->mass;
     temp_t1 = arg3->mass;
 
-    if ((arg0->unk16C->unk82.unk2) && (arg3->unk16C->unk82.unk2)) {
+    if ((arg0->unk16C->behaviourFlags.unk2) && (arg3->unk16C->behaviourFlags.unk2)) {
         if ((arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || (arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING))) {
             temp_t0 *= 3;
         }
@@ -96,8 +96,8 @@ s32 func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2,
             sp4C = var_f2;
             sp44 = 0.0f;
         } else {
-            sp4C = (D_80152350.unk384[sp5A] * var_f2) / 256;
-            sp44 = (D_80152350.unk2D0[sp5A] * var_f2) / 256;
+            sp4C = (COSB(sp5A) * var_f2) / 256;
+            sp44 = (SINB(sp5A) * var_f2) / 256;
         }
     } else {
         sp4C = 0.0f;
@@ -109,8 +109,8 @@ s32 func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2,
             sp48 = var_f12;
             sp40 = 0.0f;
         } else {
-            sp48 = (D_80152350.unk384[sp58] * var_f12) / 256;
-            sp40 = (D_80152350.unk2D0[sp58] * var_f12) / 256;
+            sp48 = (COSB(sp58) * var_f12) / 256;
+            sp40 = (SINB(sp58) * var_f12) / 256;
         }
     } else {
         sp48 = 0.0f;

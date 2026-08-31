@@ -87,7 +87,7 @@ void update_entity_physics(Entity *arg0) {
                     arg0->yVelocity.w = arg0->position.yPos.w - prevY;
                     break;
                 case 1:
-                    if (arg0->unk16C->unk82.unk0) {
+                    if (arg0->unk16C->behaviourFlags.unk0) {
                         arg0->movementState = MOVEMENT_STATE_SINKING;
                     } else {
                         arg0->movementState = MOVEMENT_STATE_DRIFTING;
@@ -141,7 +141,7 @@ void update_entity_physics(Entity *arg0) {
                 func_802A3E70_6B5520(arg0, &arg0->xVelocity.w, &arg0->zVelocity.w);
             }
             if ((arg0->unk4C.unk1C) && ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < floorHeight)) {
-                if (arg0->unk16C->unk82.unk0) {
+                if (arg0->unk16C->behaviourFlags.unk0) {
                     arg0->movementState = MOVEMENT_STATE_SINKING;
                 } else {
                     arg0->movementState = MOVEMENT_STATE_DRIFTING;
@@ -157,7 +157,7 @@ void update_entity_physics(Entity *arg0) {
                     arg0->yVelocity.w -= gGravity;
                 }
                 if ((arg0->position.yPos.h + (arg0->unk42 >> 1)) < collisionResult) {
-                    if (arg0->unk16C->unk82.unk0) {
+                    if (arg0->unk16C->behaviourFlags.unk0) {
                         arg0->movementState = MOVEMENT_STATE_SINKING;
                     } else {
                         arg0->movementState = MOVEMENT_STATE_DRIFTING;
@@ -267,9 +267,9 @@ void update_entity_physics(Entity *arg0) {
         }
 
         if ((arg0->unk4C.unk18 == 0) && (arg0->xVelocity.w == 0) && (arg0->zVelocity.w == 0) &&
-            (((arg0->movementState == MOVEMENT_STATE_GROUND)) || ((arg0->movementState == MOVEMENT_STATE_FLYING) && (arg0->unk16C->unk82.unk0 == 0))) &&
+            (((arg0->movementState == MOVEMENT_STATE_GROUND)) || ((arg0->movementState == MOVEMENT_STATE_FLYING) && (arg0->unk16C->behaviourFlags.unk0 == 0))) &&
             (arg0->unk68 == NULL) && (arg0->unk70 == NULL) && (arg0->commands.unk1A8 == 0)) {
-            if ((arg0->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_B) && (arg0->unk16C->unk2 != 1) && (arg0->Info.lifetime == 0)) {
+            if ((arg0->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_B) && (arg0->unk16C->objectCategory != 1) && (arg0->Info.lifetime == 0)) {
                 arg0->unk4C.unk19  = 0;
             }
         }
@@ -303,7 +303,7 @@ void apply_ground_friction(Entity *arg0) {
     if (arg0->unk16C->objectType == OBJECT_BOULDER) {
         friction /= 4;
     }
-    multi = arg0->unk16C->unk7E + (((256 - arg0->unk16C->unk7E) * (16 - friction)) >> 4);
+    multi = arg0->unk16C->frictionMultiplier + (((256 - arg0->unk16C->frictionMultiplier) * (16 - friction)) >> 4);
     if (multi < 0) {
         multi = 0;
     }
@@ -338,26 +338,26 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 
     arg0->unk65 = arg1->unk65 = 0;
 
-    if ((arg0->unk16C->unk82.unk2) && (!arg1->unk16C->unk82.unk2)) {
+    if ((arg0->unk16C->behaviourFlags.unk2) && (!arg1->unk16C->behaviourFlags.unk2)) {
         if ((ABS(arg5) < 9) && (ABS(arg6) < 9) && (ABS(arg7) < 9)) {
             phi_t1 = 1;
         }
     }
 
-    if ((arg1->unk16C->unk82.unk2) && (!arg0->unk16C->unk82.unk2)) {
+    if ((arg1->unk16C->behaviourFlags.unk2) && (!arg0->unk16C->behaviourFlags.unk2)) {
         if ((ABS(arg2) < 9) && (ABS(arg3) < 9) && (ABS(arg4) < 9)) {
             phi_t1 = 1;
         }
     }
 
-    if (((arg0->unk16C->unk82.unk2) && (!arg1->unk16C->unk82.unk2)) ||
-        ((arg1->unk16C->unk82.unk2) && (!arg0->unk16C->unk82.unk2))) {
+    if (((arg0->unk16C->behaviourFlags.unk2) && (!arg1->unk16C->behaviourFlags.unk2)) ||
+        ((arg1->unk16C->behaviourFlags.unk2) && (!arg0->unk16C->behaviourFlags.unk2))) {
         if ((ABS(arg2 - arg5) < 9) && (ABS(arg3 - arg6) < 9) && (ABS(arg4 - arg7) < 9)) {
             phi_t1 = 1;
         }
     }
 
-    if (((arg0->unk16C->unk82.unk2) && (arg1->unk16C->unk82.unk2)) &&
+    if (((arg0->unk16C->behaviourFlags.unk2) && (arg1->unk16C->behaviourFlags.unk2)) &&
         ((arg0->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
          (arg0->movementMode == MOVEMENT_MODE_2) ||
          (arg1->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
@@ -371,7 +371,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
 
     if (phi_t1 == 0) {
         damage = (xVel + zVel + yVel) << 8;
-        temp_v1_4 = arg1->unk16C->unk8C;
+        temp_v1_4 = arg1->unk16C->collisionDamageFactor;
         if ((arg1->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) && (arg1 != gAnimalState.animals[gCurrentAnimalIndex].animal)) {
             temp_v1_4 /= 5;
         }
@@ -380,20 +380,20 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
         damage = 0;
     }
 
-    if ((arg1->unk16C->unk82.unk2) &&
-        ((arg1->unk16C->unk9C == DESERT_FOX_ATTACKING) ||
-         (arg1->unk16C->unk9C == RACING_TORTOISE_DEFENDING) ||
-         (arg1->unk16C->unk9C == POLAR_BEAR_DEFENDING) ||
-         (arg1->unk16C->unk9C == HARD_MOUSE))) {
+    if ((arg1->unk16C->behaviourFlags.unk2) &&
+        ((arg1->unk16C->animalType == DESERT_FOX_ATTACKING) ||
+         (arg1->unk16C->animalType == RACING_TORTOISE_DEFENDING) ||
+         (arg1->unk16C->animalType == POLAR_BEAR_DEFENDING) ||
+         (arg1->unk16C->animalType == HARD_MOUSE))) {
         func_802B3B48_6C51F8(arg0, arg1, &damage);
-        if ((arg0->unk16C->unk82.unk2) && (arg1 == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg0->unk16C->behaviourFlags.unk2) && (arg1 == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
             arg0->unk2EB += 1;
         }
     }
-    if (arg0->unk16C->unk82.unk2) {
-        damage += func_802B3C9C_6C534C(arg1->unk16C->unk8D, arg0);
+    if (arg0->unk16C->behaviourFlags.unk2) {
+        damage += func_802B3C9C_6C534C(arg1->unk16C->contactDamage, arg0);
     } else {
-        damage += arg1->unk16C->unk8D;
+        damage += arg1->unk16C->contactDamage;
     }
 
     func_802B38FC_6C4FAC(arg0, damage, -1, 1);
@@ -408,7 +408,7 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
     yVel = ABS(arg1->yVelocity.h - arg7);
     if (phi_t1 == 0) {
         damage = (xVel + zVel + yVel) << 8;
-        temp_v1_4 = arg0->unk16C->unk8C;
+        temp_v1_4 = arg0->unk16C->collisionDamageFactor;
         if ((arg0->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) && (arg0 != gAnimalState.animals[gCurrentAnimalIndex].animal)) {
             temp_v1_4 = temp_v1_4 / 5;
         }
@@ -417,20 +417,20 @@ void func_802CAB20_6DC1D0(Animal *arg0, Animal *arg1, s16 arg2, s16 arg3, s16 ar
         damage = 0;
     }
 
-    if ((arg0->unk16C->unk82.unk2) &&
-        ((arg0->unk16C->unk9C == DESERT_FOX_ATTACKING) ||
-         (arg0->unk16C->unk9C == RACING_TORTOISE_DEFENDING) ||
-         (arg0->unk16C->unk9C == POLAR_BEAR_DEFENDING) ||
-         (arg0->unk16C->unk9C == HARD_MOUSE))) {
+    if ((arg0->unk16C->behaviourFlags.unk2) &&
+        ((arg0->unk16C->animalType == DESERT_FOX_ATTACKING) ||
+         (arg0->unk16C->animalType == RACING_TORTOISE_DEFENDING) ||
+         (arg0->unk16C->animalType == POLAR_BEAR_DEFENDING) ||
+         (arg0->unk16C->animalType == HARD_MOUSE))) {
         func_802B3B48_6C51F8(arg1, arg0, &damage);
-        if ((arg1->unk16C->unk82.unk2) && (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
+        if ((arg1->unk16C->behaviourFlags.unk2) && (arg0 == gAnimalState.animals[gCurrentAnimalIndex].animal)) {
             arg1->unk2EB += 1;
         }
     }
-    if (arg1->unk16C->unk82.unk2) {
-        damage += func_802B3C9C_6C534C(arg0->unk16C->unk8D, arg1);
+    if (arg1->unk16C->behaviourFlags.unk2) {
+        damage += func_802B3C9C_6C534C(arg0->unk16C->contactDamage, arg1);
     } else {
-        damage += arg0->unk16C->unk8D;
+        damage += arg0->unk16C->contactDamage;
     }
     func_802B38FC_6C4FAC(arg1, damage, -1, 1 /* show stars */);
     arg1->unk65 += damage;

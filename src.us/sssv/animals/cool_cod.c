@@ -65,10 +65,10 @@ void func_80382CF0_7943A0(void) {
         sp8A = VISIBILITY_VISIBLE;
         gLodDetailState = 0;
     } else {
-        sp8A = classify_object_visibility_6FA0A0(
+        sp8A = classify_object_visibility(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
-            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
             0x800,
             0,
             60,
@@ -109,7 +109,7 @@ void func_80382CF0_7943A0(void) {
         if ((((gDisplayListContext->usedModelViewMtxs + 30) < 250)) &&
             (D_803F2EDA != 0) &&
             (((D_803D5538 != 0)) || (gCameraUiState == 0) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(
                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
                 D_803D5530->position.xPos.w,
@@ -149,7 +149,7 @@ void func_80382CF0_7943A0(void) {
         func_8034BD20_75D3D0(
             D_803D552C->position.xPos.h,
             D_803D552C->position.zPos.h,
-            (D_803D552C->position.yPos.h + D_803D5524->unkBA),
+            (D_803D552C->position.yPos.h + D_803D5524->height),
             D_803D552C->heading,
             img_D_01033190_6CA60_i4__png,
             21,

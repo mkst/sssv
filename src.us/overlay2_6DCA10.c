@@ -1218,7 +1218,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 >= 3) {
                         var_s4 = 0;
                     }
-                    if ((gCameras[gCameraId].unk7C - 12.0f) < (f32) var_s2) {
+                    if ((gCameras[gCameraId].eyeY - 12.0f) < (f32) var_s2) {
                         gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                         gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
@@ -2312,7 +2312,7 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
     var_t2 = &D_803A20C0_7B3770[id];
 
     if (((var_t2->unk0 & 0x400) == 0)) {
-        temp_v0_2 = classify_particle_visibility_6FB6B4(x << 0x10, z << 0x10, y << 0x10, size);
+        temp_v0_2 = classify_particle_visibility(x << 0x10, z << 0x10, y << 0x10, size);
         if ((temp_v0_2 == 2) || (temp_v0_2 == 1)) {
             return 0;
         }
@@ -2425,7 +2425,7 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
     Particle *particle;
     s32 temp_v0;
 
-    if (is_world_cell_loaded_6AB9E4(x, z, y) == VISIBILITY_VISIBLE) {
+    if (is_world_cell_loaded(x, z, y) == VISIBILITY_VISIBLE) {
         return 0;
     }
 
@@ -2459,7 +2459,7 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
     used = D_803D6120.used;
 
     if ((temp & 0x400) == 0) {
-        if (classify_particle_visibility_6FB6B4(x << 0x10, z << 0x10, y << 0x10, size) == 2) {
+        if (classify_particle_visibility(x << 0x10, z << 0x10, y << 0x10, size) == 2) {
             return 0;
         }
     }
@@ -2748,7 +2748,7 @@ void func_802D6738_6E7DE8(void) {
             }
         }
 
-        if ((gCameras[gCameraId].unk7C - 12.0f) < func_80298818_6A9EC8((u16) gCameras[gCameraId].unk74, (u16) gCameras[gCameraId].unk78)) {
+        if ((gCameras[gCameraId].eyeY - 12.0f) < func_80298818_6A9EC8((u16) gCameras[gCameraId].eyeX, (u16) gCameras[gCameraId].eyeZ)) {
             sp7A = gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h - 512;
             sp78 = gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h - 512;
             if (sp7A < 0) {
@@ -2866,10 +2866,10 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
 
     for (i = 0; i < tmp0; i++) {
         random = SSSV_RAND(8) + ((360 / tmp0) * i);
-        temp_s0 = arg0 + ((D_80152350.unk2D0[(s16) random] * arg3) >> 9);
+        temp_s0 = arg0 + ((SINB(random) * arg3) >> 9);
         random += 0; // fake but works
         random = SSSV_RAND(8) + ((360 / tmp0) * i);
-        temp_s2 = arg1 + ((D_80152350.unk384[(s16) random] * arg3) >> 9);
+        temp_s2 = arg1 + ((COSB(random) * arg3) >> 9);
 
         phi_v1_4 = 20;
         phi_v1_4 += MAX(arg2, func_80298E98_6AA548(temp_s0, temp_s2));
@@ -2880,8 +2880,8 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
             temp_s2,
             phi_v1_4,
             24,
-            D_80152350.unk2D0[(s16)((360 / tmp0) * i)] * tmp2 << 4,
-            D_80152350.unk384[(s16)((360 / tmp0) * i)] * tmp2 << 4,
+            SINB((360 / tmp0) * i) * tmp2 << 4,
+            COSB((360 / tmp0) * i) * tmp2 << 4,
             ((random & 0x7FFF) << 2) + (phi_v1 << 16),
             2,
             GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
@@ -3069,8 +3069,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 8,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 8,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 8,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3082,8 +3082,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3095,8 +3095,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3108,8 +3108,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3121,8 +3121,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3135,8 +3135,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 ((guRandom() % 6) + 0x47),
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + (spBC * 0xA),
                 color,
@@ -3148,8 +3148,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                     z,
                     y + 20,
                     ((guRandom() % 6) + 0x47),
-                    (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
-                    (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                    (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
+                    (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
                     (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                     SSSV_RAND(32) + spBC * 0xF,
                     color,
@@ -3161,8 +3161,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         ((guRandom() % 6) + 0x47),
-                        (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
-                        (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
+                        (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3175,8 +3175,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         ((guRandom() % 6) + 0x47),
-                        (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
-                        (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
+                        (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3191,8 +3191,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + spBC * 0xA,
                 color,
@@ -3203,21 +3203,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
-                SSSV_RAND(32) + spBC * 0xA,
-                color,
-                func_8029A568_6ABC18(color),
-                0);
-
-            create_particle_effect(
-                x,
-                z,
-                y + 20,
-                (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 0xB4) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 0xB4) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + spBC * 0xA,
                 color,
@@ -3229,8 +3216,21 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 0xB4) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 0xB4) + ((360 / spBE) * i))) * spBA) << 7,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                SSSV_RAND(32) + spBC * 0xA,
+                color,
+                func_8029A568_6ABC18(color),
+                0);
+
+            create_particle_effect(
+                x,
+                z,
+                y + 20,
+                (guRandom() % 6) + 0x4D,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + spBC * 0xA,
                 color,
@@ -3242,8 +3242,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                     z,
                     y + 20,
                     (guRandom() % 6) + 0x4D,
-                    (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                    (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                    (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                    (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                     (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                     SSSV_RAND(32) + spBC * 0xF,
                     color,
@@ -3255,8 +3255,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         (guRandom() % 6) + 0x4D,
-                        (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                        (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                        (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3269,8 +3269,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         (guRandom() % 6) + 0x4D,
-                        (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                        (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                        (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3337,8 +3337,8 @@ void create_sparks(s16 x, s16 z, s16 y, s16 size, u16 color) {
             z,
             y,
             35,
-            D_80152350.unk2D0[(s16)(RAND(90) + (360 / tmp0) * i)] * tmp2 * 84,
-            D_80152350.unk384[(s16)(RAND(90) + (360 / tmp0) * i)] * tmp2 * 84,
+            SINB(RAND(90) + (360 / tmp0) * i) * tmp2 * 84,
+            COSB(RAND(90) + (360 / tmp0) * i) * tmp2 * 84,
             (SSSV_RAND(FTOFIX32(0.5)) * 2) + FTOFIX32(6.0),
             SSSV_RAND(2) + 3,
             color,

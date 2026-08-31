@@ -441,7 +441,7 @@ void load_level_data_sections(void) {
             cob = (struct090*) base->s.payload;
 
             while (length-- > 0) {
-                if (D_801E9EB8.unk0[cob->id].unk15 == 5) {
+                if (D_801E9EB8.unk0[cob->id].orientationMode == 5) {
                     cob->zRotation = 0;
                     cob->angle = (cob->angle + 720) % 360; // force positive
 
@@ -640,11 +640,11 @@ void load_level_data_sections(void) {
                 }
 
                 switch (cha->unk0) {
-                case 6:
+                case TAIL_TYPE_CHAIN_BLUE_A:
                     a0 = 8;
                     a1 = FTOFIX32(31.25);
                     a2 = 1;
-                    a3 = 6;
+                    a3 = TAIL_TYPE_CHAIN_BLUE_A;
                     func_802DD090_6EE740(
                         a0,
                         a1,
@@ -666,11 +666,11 @@ void load_level_data_sections(void) {
                         cha->unkC);
                     break;
 
-                case 7:
+                case TAIL_TYPE_CHAIN_BLUE_B:
                     a0 = 16;
                     a1 = FTOFIX32(31.25);
                     a2 = 1;
-                    a3 = 7;
+                    a3 = TAIL_TYPE_CHAIN_BLUE_B;
 
                     func_802DD090_6EE740(
                         a0,
@@ -693,9 +693,9 @@ void load_level_data_sections(void) {
                         cha->unkC);
                     break;
 
-                case 19:
-                case 20:
-                case 21:
+                case TAIL_TYPE_CHAIN_GRN_A:
+                case TAIL_TYPE_CHAIN_ORN_A:
+                case TAIL_TYPE_CHAIN_WHT_A:
                     a0 = 0x10;
                     a1 = FTOFIX32(31.25);
                     a2 = 0;
@@ -721,10 +721,10 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
-                case 22:
-                case 23:
-                case 24:
-                case 36:
+                case TAIL_TYPE_CHAIN_GRN_B:
+                case TAIL_TYPE_CHAIN_ORN_B:
+                case TAIL_TYPE_CHAIN_WHT_B:
+                case TAIL_TYPE_CHAIN_LAV_A:
                     a0 = 16;
                     a1 = FTOFIX32(31.25);
                     a2 = 0;
@@ -750,9 +750,9 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
-                case 25:
-                case 26:
-                case 27:
+                case TAIL_TYPE_CHAIN_GRN_C:
+                case TAIL_TYPE_CHAIN_ORN_C:
+                case TAIL_TYPE_CHAIN_WHT_C:
                     a0 = 8;
                     a1 = FTOFIX32(31.25);
                     a2 = 0;
@@ -778,10 +778,10 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
-                case 28:
-                case 29:
-                case 30:
-                case 37:
+                case TAIL_TYPE_CHAIN_GRN_D:
+                case TAIL_TYPE_CHAIN_ORN_D:
+                case TAIL_TYPE_CHAIN_WHT_D:
+                case TAIL_TYPE_CHAIN_LAV_B:
                     a0 = 8;
                     a1 = FTOFIX32(31.25);
                     a2 = 0;
@@ -807,11 +807,11 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
-                case 9:
+                case TAIL_TYPE_FIRE_WISP_A:
                     a0 = 4;
                     a1 = FTOFIX32(9.375);
                     a2 = 0;
-                    a3 = 9;
+                    a3 = TAIL_TYPE_FIRE_WISP_A;
                     func_802DD090_6EE740(
                         a0,
                         a1,
@@ -833,7 +833,7 @@ void load_level_data_sections(void) {
                         cha->unkC);
                     break;
 
-                case 10:
+                case TAIL_TYPE_FIRE_WISP_B:
                     a0 = 4;
                     a1 = FTOFIX32(9.375);
                     a2 = 0;
@@ -858,11 +858,11 @@ void load_level_data_sections(void) {
                         cha->unkA,
                         cha->unkC);
                     break;
-                case 8:
+                case TAIL_TYPE_CHAIN_WHITE:
                     a0 = 0x10;
                     a1 = FTOFIX32(10.828125);
                     a2 = 0;
-                    a3 = 8;
+                    a3 = TAIL_TYPE_CHAIN_WHITE;
                     func_802DD090_6EE740(
                         a0,
                         a1,
@@ -1003,7 +1003,7 @@ void func_8031C3C0_72DA70(u8 *arg0, s16 idx) {
     memcpy_sssv(arg0, (u8*)&D_803E9840[D_803F28C2], sizeof(Collision));
 
     for (i = 0; i < 247; i++) {
-        if (idx == D_803A8528_7B9BD8[i].collisionIndex) {
+        if (idx == D_803A8528_7B9BD8[i].collisionIdx) {
             D_803A8528_7B9BD8[i].collision = &D_803E9840[D_803F28C2];
         }
     }
@@ -1082,8 +1082,8 @@ void func_8031C48C_72DB3C(void) {
             // object has custom collision
             id2 = cmdWrapper->cmd.type16.id;
 custom:
-            if ((D_803A8528_7B9BD8[id2].collisionIndex != 0) && (D_803A8528_7B9BD8[id2].collision == NULL)) {
-                idx = D_803A8528_7B9BD8[id2].collisionIndex;
+            if ((D_803A8528_7B9BD8[id2].collisionIdx != 0) && (D_803A8528_7B9BD8[id2].collision == NULL)) {
+                idx = D_803A8528_7B9BD8[id2].collisionIdx;
                 func_8031C3C0_72DA70((u8*)(((Collision*)gFramebuffer) +  (idx - offset)), idx);
             }
         } else {

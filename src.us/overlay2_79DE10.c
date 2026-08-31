@@ -23,20 +23,20 @@ void empty_8038C760_79DE10(void) {
 #endif
 
 void func_8038C768_79DE18(void) {
-    u16 tmp1;
+    u16 ticks_remaining;
     s16 tmp2;
 
-    tmp1 = gGameplayTick - D_803D552C->lastInputTick;
-    if ((gUiFlowState.unk0 == 0) && ((D_803D5530->unk4A == 0)) && (tmp1 != 0)) {
+    ticks_remaining = gGameplayTick - D_803D552C->lastInputTick;
+    if ((gUiFlowState.unk0 == 0) && ((D_803D5530->unk4A == 0)) && (ticks_remaining != 0)) {
         if (D_803D5538 != 0) {
-            if ((tmp1 & 0xFF) >= 150) {
+            if ((ticks_remaining & 0xFF) >= 150) {
                 if (SSSV_RAND(16) == 13) {
                     D_803D552C->unk314 = advance_random_seed() % 360;
                 }
             } else {
                 D_803D552C->unk314 = 0;
             }
-        } else if ((tmp1 & 0xFF) >= 130) {
+        } else if ((ticks_remaining & 0xFF) >= 130) {
             D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
         } else {
             D_803D552C->unk314 = 0;
@@ -66,13 +66,13 @@ void func_8038C768_79DE18(void) {
 }
 
 void func_8038C98C_79E03C(void) {
-    u16 tmp1;
+    u16 ticks_remaining;
     s16 tmp2;
 
-    tmp1 = gGameplayTick - D_803D552C->lastInputTick;
-    if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (tmp1 != 0)) {
+    ticks_remaining = gGameplayTick - D_803D552C->lastInputTick;
+    if ((gUiFlowState.unk0 == 0) && (D_803D5530->unk4A == 0) && (ticks_remaining != 0)) {
         if (D_803D5538 != 0) {
-            if ((tmp1 & 0xFF) >= 150) {
+            if ((ticks_remaining & 0xFF) >= 150) {
                 if (SSSV_RAND(32) == 13) {
                     D_803D552C->unk314 = (advance_random_seed() % 140) - 70;
                     if (D_803D552C->unk314 < 0) {
@@ -82,7 +82,7 @@ void func_8038C98C_79E03C(void) {
             } else {
                 D_803D552C->unk314 = 0;
             }
-        } else if ((tmp1 & 0xFF) >= 200) {
+        } else if ((ticks_remaining & 0xFF) >= 200) {
             D_803D552C->unk314 = ((D_803D552C->heading * 360) >> 8) - func_80128C10(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
 
             if (D_803D552C->unk314 > 85) {
@@ -145,7 +145,9 @@ s16 func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     if (D_803D552C->unk318 != 0) {
         return 0;
     }
-    if ((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) || (D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || ((D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL))) {
+    if ((D_803D552C->movementMode == MOVEMENT_MODE_NORMAL) ||
+        (D_803D552C->movementMode == MOVEMENT_MODE_INJURED) ||
+        (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) {
         if (gUiFlowState.unk0 == 0) {
             if ((D_803D5530->state == 2) || (D_803D5530->state == 21) ||
                 (D_803D5530->state == 41) || (D_803D5530->state == 61) ||

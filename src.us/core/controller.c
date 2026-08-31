@@ -4,7 +4,6 @@
 
 #include "controller.h"
 
-
 // randu
 u32 func_80128200(void) {
     u32 temp_v1;
@@ -58,7 +57,7 @@ s32 func_801282C4(void) {
     advance_random_seed();
     advance_random_seed();
     advance_random_seed();
-    advance_random_seed();
+    return advance_random_seed();
 }
 
 // ESA: func_8001CED4

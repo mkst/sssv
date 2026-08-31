@@ -7,11 +7,11 @@
 // .data
 // ========================================================
 
-const s16 D_803BEB70_7D0220[16] = {
+static const s16 D_803BEB70_7D0220[16] = {
     0, 7, 12, 14, 16, 14, 12, 10,
     8, 6,  5,  4,  3,  2,  2,  1,
 };
-const s16 D_803BEB90_7D0240[16] = {
+static const s16 D_803BEB90_7D0240[16] = {
      0, -5, -7, -8, -8, -7, -7, -6,
     -5, -5, -4, -4, -3, -3, -2, -2,
 };
@@ -89,13 +89,13 @@ void func_8035D120_76E7D0(void) {
     }
 
     if (D_803D552C->unk36D != 0) {
-        tmp = D_803D5524->unkE9;
+        tmp = D_803D5524->stompCycleLength;
         idx = (D_803D552C->unk36D << 4) / tmp;
-        D_803F2EB0 = (D_803F2EB0 * (((D_803BEB90_7D0240[idx] * D_803D5524->unkEA) >> 4) + 0x10)) >> 4;
-        D_803F2EB4 = (D_803F2EB4 * (((D_803BEB90_7D0240[idx] * D_803D5524->unkEA) >> 4) + 0x10)) >> 4;
+        D_803F2EB0 = (D_803F2EB0 * (((D_803BEB90_7D0240[idx] * D_803D5524->stompEffectScale) >> 4) + 0x10)) >> 4;
+        D_803F2EB4 = (D_803F2EB4 * (((D_803BEB90_7D0240[idx] * D_803D5524->stompEffectScale) >> 4) + 0x10)) >> 4;
 
         if ((D_803D5530->unk70 == NULL) || ((D_803D5530->unk70->position.yPos.h - D_803D5530->position.yPos.h) > (D_803D5530->unk42 * 2))) {
-            D_803F2EB8 = (D_803F2EB8 * (((D_803BEB70_7D0220[idx] * D_803D5524->unkEA) >> 4) + 0x10)) >> 4;
+            D_803F2EB8 = (D_803F2EB8 * (((D_803BEB70_7D0220[idx] * D_803D5524->stompEffectScale) >> 4) + 0x10)) >> 4;
         }
         if (++D_803D552C->unk36D >= tmp) {
             D_803D552C->unk36D = 0;

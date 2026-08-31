@@ -1,18 +1,20 @@
 #include <ultra64.h>
+
 #include "common.h"
+#include "camel.h"
 
-extern struct077 D_803B4A20_7C60D0[];
-extern struct077 D_803B4A50_7C6100[];
-extern struct077 D_803B4A80_7C6130[];
-extern struct077 D_803B4A94_7C6144[];
-extern struct077 D_803B4AC4_7C6174[];
-extern struct077 D_803B4AF4_7C61A4[];
+// extern struct077 D_803B4A20_7C60D0[];
+// extern struct077 D_803B4A50_7C6100[];
+// extern struct077 D_803B4A80_7C6130[];
+// extern struct077 D_803B4A94_7C6144[];
+// extern struct077 D_803B4AC4_7C6174[];
+// extern struct077 D_803B4AF4_7C61A4[];
 
-extern u8 D_803B4B08_7C61B8[];
-extern u8 D_803B4B20_7C61D0[];
-extern s16 D_803B4B38_7C61E8[];
-extern s16 D_803B4B64_7C6214[];
-extern s16 D_803B4BC4_7C6274[];
+// extern u8 D_803B4B08_7C61B8[];
+// extern u8 D_803B4B20_7C61D0[];
+// extern s16 D_803B4B38_7C61E8[];
+// extern s16 D_803B4B64_7C6214[];
+// extern s16 D_803B4BC4_7C6274[];
 
 extern Gfx D_04000F90_E8540[];
 extern Gfx D_04001300_E88B0[];
@@ -62,10 +64,10 @@ void func_8036D700_77EDB0(void) {
         spDA = VISIBILITY_VISIBLE;
         gLodDetailState = 0;
     } else {
-        spDA = classify_object_visibility_6FA0A0(
+        spDA = classify_object_visibility(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
-            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
             6400,
             FOV_VERTICAL_DIAMOND,
             151,
@@ -81,7 +83,7 @@ void func_8036D700_77EDB0(void) {
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
 
-        switch (D_803D5524->unk9C) {
+        switch (D_803D5524->animalType) {
         case CANNON_CAMEL:
             switch (D_803D552C->unk365) {
             case ATTACK_CAMEL_DASH:
@@ -254,8 +256,8 @@ void func_8036D700_77EDB0(void) {
             temp_v0 = D_80203FE0[20].unk0 - D_80203FE0[19].unk0;
             temp_a1 = D_80203FE0[20].unk2 - D_80203FE0[19].unk2;
 
-            temp_t3 = ((temp_v0 * D_80152350.unk384[D_803D552C->unk316]) >> 8) + ((D_80152350.unk2D0[D_803D552C->unk316] * temp_a1) >> 8);
-            temp_t4 = ((temp_a1 * D_80152350.unk384[D_803D552C->unk316]) >> 8) - ((D_80152350.unk2D0[D_803D552C->unk316] * temp_v0) >> 8);
+            temp_t3 = ((temp_v0 * COSB(D_803D552C->unk316)) >> 8) + ((SINB(D_803D552C->unk316) * temp_a1) >> 8);
+            temp_t4 = ((temp_a1 * COSB(D_803D552C->unk316)) >> 8) - ((SINB(D_803D552C->unk316) * temp_v0) >> 8);
 
             D_80203FE0[20].unk0 = D_80203FE0[19].unk0 + temp_t3;
             D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + temp_t4;
@@ -264,7 +266,7 @@ void func_8036D700_77EDB0(void) {
             D_80203FE0[1].unk4 -= temp_t9;
             D_80203FE0[2].unk4 += temp_t9;
 
-            if (D_803D5524->unk9C == CANNON_CAMEL) {
+            if (D_803D5524->animalType == CANNON_CAMEL) {
                 if (gUiFlowState.unk0 == 0) {
                     switch (D_803D552C->movementMode) {
                     case MOVEMENT_MODE_2:
@@ -277,9 +279,9 @@ void func_8036D700_77EDB0(void) {
                         }
                         if (D_803D5538 != 0) {
                             if ((gCameras[gCameraId].cameraMode == 3) || (gCameras[gCameraId].cameraMode == 0x11)) {
-                                temp_v0 = (gCameras[gCameraId].unk20 * 256.0) / 360.0;
+                                temp_v0 = (gCameras[gCameraId].yaw * 256.0) / 360.0;
                             } else {
-                                temp_v0 = gCameras[gCameraId].unk20;
+                                temp_v0 = gCameras[gCameraId].yaw;
                             }
                             if (D_803D552C->unk308 != temp_v0) {
                                 new_var = (temp_v0 - D_803D552C->unk308) & 0xFF;
@@ -343,17 +345,17 @@ void func_8036D700_77EDB0(void) {
 
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_10 = gCameraUiState, (temp_v0_10 == 0)) || (temp_v0_10 == 2) || ((temp_v0_10 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_10 = gCameraUiState, (temp_v0_10 == 0)) || (temp_v0_10 == 2) || ((temp_v0_10 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading,  D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.19f);
+            func_8038C230_79D8E0((D_803D5524->height * 0xC) / 5, 2, 3, 3, 0.19f);
 
             D_803F2EBC = FTOFIX32(1.0) + ((D_803F2EBC - FTOFIX32(1.0)) >> 2);
             D_803F2EC0 = FTOFIX32(1.0) + ((D_803F2EC0 - FTOFIX32(1.0)) >> 2);
             D_803F2EC4 = FTOFIX32(1.0) + ((D_803F2EC4 - FTOFIX32(1.0)) >> 2);
 
-            switch (D_803D5524->unk9C) {
+            switch (D_803D5524->animalType) {
             case CAMEL:
                 if ((D_803D5538 == 0) && (D_803F2D50.textureBank == 3)) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x37, 0x37, 0xFF, 0xFF);
@@ -376,7 +378,7 @@ void func_8036D700_77EDB0(void) {
 #pragma _permuter sameline start
             if (gLodDetailState == 0) { func_802C78B0_6D8F60(1, 0x13, 0x19000, 0x19000, 0x19000, D_803F2ED0, 0, 0, 0, D_040014D0_E8A80); }
 #pragma _permuter sameline end
-            switch (D_803D5524->unk9C) {
+            switch (D_803D5524->animalType) {
             case CAMEL:
                 func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x64) >> 6, (D_803F2EC0 * 0x64) >> 6, (D_803F2EC4 * 0x64) >> 6, D_803F2ED0, 0, 0, 0, D_04000F90_E8540);
                 break;
@@ -444,7 +446,7 @@ void func_8036D700_77EDB0(void) {
         func_8035D6D0_76ED80();
     }
     if ((spDA == VISIBILITY_VISIBLE) || (spDA == VISIBILITY_OUT_OF_BOUNDS_X)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spDA == VISIBILITY_VISIBLE) {
         func_8034B298_75C948(0);
@@ -463,7 +465,7 @@ void func_8036F3AC_780A5C(void) {
         D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk365 = ATTACK_CAMEL_WATER_CANNON;
     } else {
-        recharge_skill(1);
+        recharge_skill(SKILL_B);
     }
 }
 

@@ -39,7 +39,7 @@ void update_elephant(void) {
     if (D_803D552C->unk365 == 0x10) {
         D_803D5528->unk3C0.unk0 = 0;
         if (D_803D5528->unk3C8.unk2 != 0) {
-            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x12;
+            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT_ATTACK;
         }
         if (D_803D5530->unk4A != 0) {
             D_803D552C->unk32A += 1;
@@ -79,7 +79,7 @@ void update_elephant(void) {
                 } else {
                     D_803D552C->unk365 = ATTACK_NONE;
                     if (D_803D5528->unk3C8.unk2 != 0) {
-                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x10;
+                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT;
                     }
                 }
             }
@@ -90,7 +90,7 @@ void update_elephant(void) {
 
     if ((D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) || (D_803D552C->movementMode == MOVEMENT_MODE_2)) {
         if (D_803D5528->unk3C8.unk2 != 0) {
-            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x10;
+            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT;
         }
     }
 
@@ -114,7 +114,7 @@ void update_elephant(void) {
       } else {
           var_v0 = 0;
       }
-      spAA = classify_object_visibility_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x1400, (u8) 0, (s16) 0x5A, (s16) 0x5A, (s16) 0x5A, (s8) 1, (u8) (var_v0 == 0));
+      spAA = classify_object_visibility(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->height << 0xF), 0x1400, (u8) 0, (s16) 0x5A, (s16) 0x5A, (s16) 0x5A, (s8) 1, (u8) (var_v0 == 0));
 
 block_33:
     if (spAA == 0) {
@@ -133,20 +133,20 @@ block_33:
         case ATTACK_GRAB:
             ticks_remaining = gGameplayTick - D_803D552C->unk32A;
             if (D_803D5528->unk3C8.unk2 != 0) {
-                D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x12;
+                D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT_ATTACK;
             }
             if (ticks_remaining == 8) {
                 D_803D552C->unk320 = func_803215DC_732C8C(0x64, 0x46);
                 D_803D552C->unk365 = ATTACK_NONE;
                 if (D_803D552C->unk320 != NULL) {
                     if (D_803D5528->unk3C8.unk2 != 0) {
-                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x1F;
+                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_HIDDEN;
                     }
                     D_803D552C->unk308 = D_803D552C->unk320->unk40;
                     D_803D552C->unk320->unk40 = MIN(D_803D552C->unk320->unk40, 0x898);
                 } else {
                     if (D_803D5528->unk3C8.unk2 != 0) {
-                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x10;
+                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT;
                     }
                     if (func_803224C4_733B74(0x16, 0x34, 0, 0x23, 5, 0, 0,5) != 0) {
                         play_sound_effect_at_location(SFX_UNKNOWN_26, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -163,7 +163,7 @@ block_33:
             if (ticks_remaining < 0x10) {
                 if (ticks_remaining == 0xC) {
                     if (D_803D5528->unk3C8.unk2 != 0) {
-                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x12;
+                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT_ATTACK;
                     }
                 }
 
@@ -174,7 +174,7 @@ block_33:
                     spA4 = spA4 - (((ticks_remaining - 8) * 0x64) / 32);
                 }
             } else {
-                if (func_8033C9CC_74E07C(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, (s16) (D_803D5530->position.yPos.h + ((s32) D_803D5524->unkBA >> 1)), D_803D5530->unk160, (s16) (s32) D_803D552C->unk320->position.xPos.h, (s16) (s32) D_803D552C->unk320->position.zPos.h, (s16) (D_803D552C->unk320->position.yPos.h + ((s32) D_803D552C->unk320->unk42 >> 1)), (u8) 0x7F, (u8) 0, (u8) 0) == 0) {
+                if (func_8033C9CC_74E07C(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, (s16) (D_803D5530->position.yPos.h + ((s32) D_803D5524->height >> 1)), D_803D5530->unk160, (s16) (s32) D_803D552C->unk320->position.xPos.h, (s16) (s32) D_803D552C->unk320->position.zPos.h, (s16) (D_803D552C->unk320->position.yPos.h + ((s32) D_803D552C->unk320->unk42 >> 1)), (u8) 0x7F, (u8) 0, (u8) 0) == 0) {
                     sp94 = D_803D552C->unk320;
                     D_803D552C->unk320->unk40 = D_803D552C->unk308;
                     func_80321920_732FD0(D_803D552C->unk320, 0x1E, 0);
@@ -186,11 +186,11 @@ block_33:
                     }
                     D_803D552C->unk365 = ATTACK_NONE;
                     if (D_803D5528->unk3C8.unk2 != 0) {
-                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x10;
+                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT;
                     }
                 } else {
                     if (D_803D5528->unk3C8.unk2 != 0) {
-                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x1F;
+                        D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_HIDDEN;
                     }
                     func_8032C508_73DBB8(0x10, 0x4000, 0, 1.0f);
                     D_803D552C->unk365 = ATTACK_NONE;
@@ -202,7 +202,7 @@ block_33:
             func_80321920_732FD0(D_803D552C->unk320, 0, 0);
             D_803D552C->unk365 = ATTACK_NONE;
             if (D_803D5528->unk3C8.unk2 != 0) {
-                D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x10;
+                D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_ELEPHANT;
             }
             break;
         case ATTACK_ELEPHANT_1:
@@ -212,7 +212,7 @@ block_33:
             break;
         }
         if ((D_803D5528->unk3C8.unk2 != 0) && (D_803A6CE4_7B8394 & 8)) {
-            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = 0x1F;
+            D_803E00C0[D_803D5528->unk3C8.unk2].tailType = TAIL_TYPE_HIDDEN;
         }
 
         if (((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL)) && (SSSV_RAND(256) == 0x9C) && ((D_803D5530->state < 0xB5) || (D_803D5530->state >= 0xBB))) {
@@ -264,7 +264,7 @@ block_33:
         D_80203FE0[19].unk4 += (D_803F63E0 * 0x2EE) >> 7;
         D_80203FE0[20].unk4 += (D_803F63E0 * 0x2EE) >> 7;
 
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_17 = gCameraUiState, (temp_v0_17 == 0)) || (temp_v0_17 == 2) || ((temp_v0_17 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_17 = gCameraUiState, (temp_v0_17 == 0)) || (temp_v0_17 == 2) || ((temp_v0_17 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((*D_803F2C18 != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, (s16) (s32) -D_803D552C->heading, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4 / 3);
 
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -300,7 +300,7 @@ block_33:
     }
 
     if ((spAA == 0) || (spAA == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x25, 0x25,  0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x25, 0x25,  0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     spA8 = D_803D5528->unk3C8.unk2;
@@ -308,10 +308,10 @@ block_33:
         if ((spAA == 0) && (D_803F2EDB != 0)) {
             if (!(advance_random_seed() & 0x7F)) {
                 // swap?
-                if (D_803E00C0[spA8].tailType == 0x10) {
-                    D_803E00C0[spA8].tailType = 0x11;
-                } else if (D_803E00C0[spA8].tailType == 0x11) {
-                    D_803E00C0[spA8].tailType = 0x10;
+                if (D_803E00C0[spA8].tailType == TAIL_TYPE_ELEPHANT) {
+                    D_803E00C0[spA8].tailType = TAIL_TYPE_ELEPHANT_WALK;
+                } else if (D_803E00C0[spA8].tailType == TAIL_TYPE_ELEPHANT_WALK) {
+                    D_803E00C0[spA8].tailType = TAIL_TYPE_ELEPHANT;
                 }
             }
 
@@ -325,12 +325,12 @@ block_33:
             if (gUiFlowState.unk0 == 0) {
                 func_802DE7F4_6EFEA4(spA8, D_803D5530->xVelocity.w, D_803D5530->zVelocity.w, D_803D5530->yVelocity.w);
             }
-            if (D_803E00C0[D_803D5528->unk3C8.unk2].unk34 == 1) {
+            if (D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve == 1) {
                 func_802DD244_6EE8F4(D_803D5528->unk3C8.unk2, D_803A39C0_7B5070);
             }
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 0;
+            D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve = 0;
         } else {
-            D_803E00C0[D_803D5528->unk3C8.unk2].unk34 = 1;
+            D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve = 1;
         }
     }
     func_80321B70_733220(0, spA4, spA2);
@@ -375,7 +375,7 @@ void func_8037D138_78E7E8(void) {
         s32 tmp = func_8033C9CC_74E07C(
             D_803D5530->position.xPos.h,
             D_803D5530->position.zPos.h,
-            D_803D5530->position.yPos.h + (D_803D5524->unkBA >> 1),
+            D_803D5530->position.yPos.h + (D_803D5524->height >> 1),
             D_803D5530->unk160,
             D_803D552C->unk320->position.xPos.h,
             D_803D552C->unk320->position.zPos.h,

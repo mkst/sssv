@@ -73,16 +73,16 @@ void func_802B4D20_6C63D0(void) {
                     animal1 = sp130->animal;
                     animal2 = sp12C->animal;
 
-                    if ((D_803B1BAC_7C325C[sp130->animal->unk16C->unk2] & (1 << (0xF - sp12C->animal->unk16C->unk2))) != 0) {
+                    if ((D_803B1BAC_7C325C[sp130->animal->unk16C->objectCategory] & (1 << (0xF - sp12C->animal->unk16C->objectCategory))) != 0) {
 
                         if ((ABS(animal1->newPosition.xPos.h - animal2->newPosition.xPos.h) < (animal1->unk34 + animal2->unk34)) &&
                             (ABS(animal1->newPosition.zPos.h - animal2->newPosition.zPos.h) < (animal1->unk34 + animal2->unk34)) &&
                             (ABS(((animal1->newPosition.yPos.h + (animal1->unk42 >> 1)) - animal2->newPosition.yPos.h) - (animal2->unk42 >> 1)) < (animal1->unk36 + animal2->unk36))) {
 
-                            if (((animal1->unk68 != animal2) || (((D_803A0510_7B1BC0[(animal1->unk16C->unk2)]) & (1 << (0xF - animal2->unk16C->unk2))) == 0)) &&
-                                ((animal2->unk68 != animal1) || (((D_803A0510_7B1BC0[(animal2->unk16C->unk2)]) & (1 << (0xF - animal1->unk16C->unk2))) == 0)) &&
-                                ((animal1->unk70 != animal2) || (animal2->unk16C->unk15 != 4) || (animal1->unk16C->unk2 != 5)) &&
-                                ((animal2->unk70 != animal1) || (animal1->unk16C->unk15 != 4) || (animal2->unk16C->unk2 != 5))) {
+                            if (((animal1->unk68 != animal2) || (((D_803A0510_7B1BC0[(animal1->unk16C->objectCategory)]) & (1 << (0xF - animal2->unk16C->objectCategory))) == 0)) &&
+                                ((animal2->unk68 != animal1) || (((D_803A0510_7B1BC0[(animal2->unk16C->objectCategory)]) & (1 << (0xF - animal1->unk16C->objectCategory))) == 0)) &&
+                                ((animal1->unk70 != animal2) || (animal2->unk16C->orientationMode != 4) || (animal1->unk16C->objectCategory != 5)) &&
+                                ((animal2->unk70 != animal1) || (animal1->unk16C->orientationMode != 4) || (animal2->unk16C->objectCategory != 5))) {
 
                                 if ((animal1->state != STATE_GRABBED_A) && (animal2->state != STATE_GRABBED_A) &&
                                     (animal1->state != STATE_GRABBED_B) && (animal2->state != STATE_GRABBED_B) &&
@@ -118,8 +118,8 @@ void func_802B4D20_6C63D0(void) {
                                         sp110 = animal2->zVelocity;
                                         sp108 = animal2->yVelocity;
 
-                                        if ((animal1->unk16C->unk2 == 9) || (animal2->unk16C->unk2 == 9) ||
-                                            (animal1->unk16C->unk2 == 8) || (animal2->unk16C->unk2 == 8)) {
+                                        if ((animal1->unk16C->objectCategory == 9) || (animal2->unk16C->objectCategory == 9) ||
+                                            (animal1->unk16C->objectCategory == 8) || (animal2->unk16C->objectCategory == 8)) {
                                             func_802CAB20_6DC1D0(animal1, animal2, sp11C.h, sp114.h, sp10C.h, sp118.h, sp110.h, sp108.h);
                                         } else {
                                             var_f2 = 1.0f;
@@ -139,18 +139,18 @@ void func_802B4D20_6C63D0(void) {
                                             spD4.y = animal2->zVelocity.w / 65536.0;
                                             spD4.z = animal2->yVelocity.w / 65536.0;
 
-                                            if ((((mode == 5) || (mode == 4)) && (D_803D60E0 == 1) && (((animal1->unk16C->unk82.unk2 != 0)) || (animal2->unk16C->unk82.unk2 != 0))) ||
+                                            if ((((mode == 5) || (mode == 4)) && (D_803D60E0 == 1) && (((animal1->unk16C->behaviourFlags.unk2 != 0)) || (animal2->unk16C->behaviourFlags.unk2 != 0))) ||
                                                 (((mode == 1) || (mode == 2)) && (D_803D60DC->yPos.w == 0) &&
-                                                  (((animal1->unk16C->unk82.unk2 != 0) && (((animal2->position.yPos.h < (animal1->position.yPos.h + (animal1->unk42 >> 1))))) && ((animal1->position.yPos.h + (animal1->unk42 >> 1)) < (animal2->position.yPos.h + animal2->unk42))) ||
-                                                   ((animal2->unk16C->unk82.unk2 != 0) && (((animal1->position.yPos.h < (animal2->position.yPos.h + (animal2->unk42 >> 1))))) && ((animal2->position.yPos.h + (animal2->unk42 >> 1)) < (animal1->position.yPos.h + animal1->unk42)))))) {
+                                                  (((animal1->unk16C->behaviourFlags.unk2 != 0) && (((animal2->position.yPos.h < (animal1->position.yPos.h + (animal1->unk42 >> 1))))) && ((animal1->position.yPos.h + (animal1->unk42 >> 1)) < (animal2->position.yPos.h + animal2->unk42))) ||
+                                                   ((animal2->unk16C->behaviourFlags.unk2 != 0) && (((animal1->position.yPos.h < (animal2->position.yPos.h + (animal2->unk42 >> 1))))) && ((animal2->position.yPos.h + (animal2->unk42 >> 1)) < (animal1->position.yPos.h + animal1->unk42)))))) {
                                                 var_f2 = 0.125f;
                                                 var_s5 = 1;
                                             } else {
                                                 var_s5 = 0;
                                             }
 
-                                            if (((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal2->unk4C.unk1B) && (animal2->unk16C->unk82.unk2 == 0)) ||
-                                                ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal1->unk4C.unk1B) && (animal1->unk16C->unk82.unk2 == 0))) {
+                                            if (((animal1->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal2->unk4C.unk1B) && (animal2->unk16C->behaviourFlags.unk2 == 0)) ||
+                                                ((animal2->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal1->unk4C.unk1B) && (animal1->unk16C->behaviourFlags.unk2 == 0))) {
 
                                                 var_s3 = animal1->mass;
                                                 var_s4 = animal2->mass;
@@ -161,7 +161,7 @@ void func_802B4D20_6C63D0(void) {
                                                     var_s4 = 0;
                                                 }
 
-                                                if ((animal1->unk16C->unk82.unk2 != 0) && (animal2->unk16C->unk82.unk2 != 0)) { // & 0x2000
+                                                if ((animal1->unk16C->behaviourFlags.unk2 != 0) && (animal2->unk16C->behaviourFlags.unk2 != 0)) { // & 0x2000
                                                     if ((animal1->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+HARD_MOUSE)) || (animal1->unk16C->objectType == (OB_TYPE_ANIMAL_OFFSET+RACING_TORTOISE_DEFENDING))) {
                                                         var_s3 *= 3;
                                                         play_sound_effect_at_location(SFX_UNKNOWN_79, 0x5000, 0, animal1->position.xPos.h, animal1->position.zPos.h, animal1->position.yPos.h, 1.0f);
@@ -188,10 +188,10 @@ void func_802B4D20_6C63D0(void) {
                                                 if (var_s5 == 0) {
                                                     temp_v1_6 = animal1->yVelocity.w;
                                                     temp_a0_6 = animal2->yVelocity.w;
-                                                    if ((animal1->unk4C.unk1B != 0) && (!animal1->unk16C->unk82.unk1)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
+                                                    if ((animal1->unk4C.unk1B != 0) && (!animal1->unk16C->behaviourFlags.unk1)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
                                                         animal1->yVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
                                                     }
-                                                    if ((animal2->unk4C.unk1B != 0) && (!animal2->unk16C->unk82.unk1)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
+                                                    if ((animal2->unk4C.unk1B != 0) && (!animal2->unk16C->behaviourFlags.unk1)) { // unk4C << 0x1B) >> 0x1F .. unk80 << 0x11) >> 0x1F
                                                         animal2->yVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
                                                     }
                                                 }
@@ -205,33 +205,33 @@ void func_802B4D20_6C63D0(void) {
                                                 func_80319280_72A930(animal1, &spF8, &spEC,
                                                                      animal2, &spE0, &spD4, var_f2 * 0.6, var_f2 * 0.8);
 
-                                                if ((animal1->unk4C.unk1B) && (!animal1->unk16C->unk82.unk1)) { // unk4C & 0x10 ... unk80 & 0x4000
+                                                if ((animal1->unk4C.unk1B) && (!animal1->unk16C->behaviourFlags.unk1)) { // unk4C & 0x10 ... unk80 & 0x4000
                                                     animal1->xVelocity.w = spEC.x * 65536.0f;
                                                     animal1->zVelocity.w = spEC.y * 65536.0f;
                                                     if (var_s5 == 0) {
                                                         animal1->yVelocity.w = spEC.z * 65536.0f;
                                                     }
-                                                    if (animal1->unk16C->unk2 == 5) {
+                                                    if (animal1->unk16C->objectCategory == 5) {
                                                         func_802B8304_6C99B4(animal1, animal2);
                                                     }
                                                 }
-                                                if ((animal2->unk4C.unk1B) && (!animal2->unk16C->unk82.unk1)) { // unk4C & 0x10 ... unk80 & 0x4000
+                                                if ((animal2->unk4C.unk1B) && (!animal2->unk16C->behaviourFlags.unk1)) { // unk4C & 0x10 ... unk80 & 0x4000
                                                     animal2->xVelocity.w = spD4.x * 65536.0f;
                                                     animal2->zVelocity.w = spD4.y * 65536.0f;
                                                     if (var_s5 == 0) {
                                                         animal2->yVelocity.w = spD4.z * 65536.0f;
                                                     }
-                                                    if (animal2->unk16C->unk2 == 5) {
+                                                    if (animal2->unk16C->objectCategory == 5) {
                                                         func_802B8304_6C99B4(animal2, animal1);
                                                     }
                                                 }
                                             }
 
-                                            if ((animal1->unk16C->unk82.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && ((animal2->unk16C->unk82.unk1) || ((animal2->unk16C->collision != NULL) && (animal2->unk40 > 0x1000))) && ((animal1->unk16C->unk9C == HYENA) || (animal1->unk16C->unk9C == HYENA_BIKER) || (animal1->unk16C->unk9C == DOG) || (animal1->unk16C->unk9C == RACING_DOG)) && (animal1->unk3C0.unk0 != 0x10)) {
+                                            if ((animal1->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && ((animal2->unk16C->behaviourFlags.unk1) || ((animal2->unk16C->collision != NULL) && (animal2->unk40 > 0x1000))) && ((animal1->unk16C->animalType == HYENA) || (animal1->unk16C->animalType == HYENA_BIKER) || (animal1->unk16C->animalType == DOG) || (animal1->unk16C->animalType == RACING_DOG)) && (animal1->unk3C0.unk0 != 0x10)) {
                                                 animal1->unk3C0.unk0 = 0x10;
                                                 animal1->unk3C0.unk2 = 0;
                                             }
-                                            if ((animal2->unk16C->unk82.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60DC) && (animal1->unk16C->unk82.unk1) && (((animal2->unk16C->unk9C == HYENA)) || (animal2->unk16C->unk9C == HYENA_BIKER) || (animal2->unk16C->unk9C == DOG) || (animal2->unk16C->unk9C == RACING_DOG)) && (animal2->unk3C0.unk0 != 0x10)) {
+                                            if ((animal2->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60DC) && (animal1->unk16C->behaviourFlags.unk1) && (((animal2->unk16C->animalType == HYENA)) || (animal2->unk16C->animalType == HYENA_BIKER) || (animal2->unk16C->animalType == DOG) || (animal2->unk16C->animalType == RACING_DOG)) && (animal2->unk3C0.unk0 != 0x10)) {
                                                 animal2->unk3C0.unk0 = 0x10;
                                                 animal2->unk3C0.unk2 = 0;
                                             }
@@ -287,9 +287,9 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
 
     *collision_func = NULL;
     a0 = arg0->unk16C;
-    if (a0->unk15 == 4) {
+    if (a0->orientationMode == 4) {
         a1 = arg1->unk16C;
-        if (a1->unk15 == 4) {
+        if (a1->orientationMode == 4) {
             // simple collision?
             res = 6;
             *collision_func = func_802B750C_6C8BBC;
@@ -314,7 +314,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
         }
     } else if (a0->collision != NULL) {
         a1 = arg1->unk16C;
-        if (a1->unk15 == 4) {
+        if (a1->orientationMode == 4) {
             // custom collision data
             if (arg1->unkC4[0].unkC != 0) {
                 res = 7;
@@ -355,7 +355,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
     } else {
         if (arg0->unkC4[0].unkC != 0) {
             a1 = arg1->unk16C;
-            if (a1->unk15 == 4) {
+            if (a1->orientationMode == 4) {
                 res = 4;
                 *collision_func = func_802B6B5C_6C820C;
                 *arg3 = 0;
@@ -847,7 +847,7 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
 #endif
 
     for (var_s5 = D_803DA110[tmp].next; var_s5 != NULL; var_s5 = var_s5->next) {
-        if ((arg0 != var_s5->animal) && (arg0 != arg1) && ((D_803B1BAC_7C325C[var_s5->animal->unk16C->unk2]) & (1 << (0xF - arg0->unk16C->unk2)))) {
+        if ((arg0 != var_s5->animal) && (arg0 != arg1) && ((D_803B1BAC_7C325C[var_s5->animal->unk16C->objectCategory]) & (1 << (0xF - arg0->unk16C->objectCategory)))) {
             xx.w = x;
             if (ABS(var_s5->animal->position.xPos.h - xx.h) < (var_s5->animal->unk34 + arg0->unk34)) {
                 yy.w = y;
@@ -855,7 +855,7 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
                     zz.w = z;
                     if (ABS((var_s5->animal->position.yPos.h + (var_s5->animal->unk42 >> 1)) - zz.h - (arg0->unk42 >> 1)) < (var_s5->animal->unk36 + arg0->unk36)) {
 
-                        if ((var_s5->animal->unk68 != arg0) && (arg0->unk68 != var_s5->animal) && ((var_s5->animal->unk70 != arg0) || (arg0->unk16C->unk15 != 4)) && ((arg0->unk70 != var_s5->animal) || (var_s5->animal->unk16C->unk15 != 4))) {
+                        if ((var_s5->animal->unk68 != arg0) && (arg0->unk68 != var_s5->animal) && ((var_s5->animal->unk70 != arg0) || (arg0->unk16C->orientationMode != 4)) && ((arg0->unk70 != var_s5->animal) || (var_s5->animal->unk16C->orientationMode != 4))) {
 
                             if ((var_s5->animal->state != STATE_GRABBED_A) && (arg0->state != STATE_GRABBED_A) && (var_s5->animal->state != STATE_GRABBED_B) && (arg0->state != STATE_GRABBED_B) && ((var_s5->animal->unk15C == 0) || (var_s5->animal->owner != arg0)) && ((arg0->unk15C == 0) || (arg0->owner != var_s5->animal)) && ((arg6 == 0) || (var_s5->animal->unk16C->objectType < 0x100))) {
 
@@ -865,8 +865,8 @@ u8 check_collision_against_animals_6C8C7C(Animal *arg0, Animal *arg1, s32 x, s32
                                 if (((D_803D60D4 != 0) && (D_803D60D0(arg0, other, &D_803D60D8, &D_803D60DC, xx, yy, zz, other->position.xPos, other->position.zPos, other->position.yPos) != 0)) ||
                                     ((D_803D60D4 == 0) && (D_803D60D0(other, arg0, &D_803D60D8, &D_803D60DC, other->position.xPos, other->position.zPos, other->position.yPos, xx, yy, zz) != 0))) {
 
-                                    if ((arg0->unk16C->unk2 == 9) || (other->unk16C->unk2 == 9) ||
-                                        (arg0->unk16C->unk2 == 8) || (other->unk16C->unk2 == 8)) {
+                                    if ((arg0->unk16C->objectCategory == 9) || (other->unk16C->objectCategory == 9) ||
+                                        (arg0->unk16C->objectCategory == 8) || (other->unk16C->objectCategory == 8)) {
                                         return 0;
                                     } else{
                                         zz.w += D_803A05B4_7B1C64; // gravity*2
@@ -973,13 +973,13 @@ u8 func_802B7BC8_6C9278(Animal *arg0, Animal *arg1) {
         y1 = spC4.z * 65536.0;
     }
 
-    if ((arg0->unk16C->unk82.unk1 != 0) || (arg0->unk4C.unk1B == 0) || (arg0->unk4A != 0) || ((x0 == 0) && (z0 == 0) && (y0 == 0))) {
+    if ((arg0->unk16C->behaviourFlags.unk1 != 0) || (arg0->unk4C.unk1B == 0) || (arg0->unk4A != 0) || ((x0 == 0) && (z0 == 0) && (y0 == 0))) {
         checkAnimal0 = 0;
     } else {
         checkAnimal0 = 1;
     }
 
-    if ((arg1->unk16C->unk82.unk1 != 0) || (arg1->unk4C.unk1B == 0) || (arg1->unk4A != 0) || ((x1 == 0) && (z1 == 0) && (y1 == 0))) {
+    if ((arg1->unk16C->behaviourFlags.unk1 != 0) || (arg1->unk4C.unk1B == 0) || (arg1->unk4A != 0) || ((x1 == 0) && (z1 == 0) && (y1 == 0))) {
         checkAnimal1 = 0;
     } else {
         checkAnimal1 = 1;
@@ -1091,7 +1091,7 @@ void func_802B8304_6C99B4(Animal *arg0, Animal *arg1) {
     var_f2 = (arg0->position.xPos.w - arg1->position.xPos.w) / 65536.0;
     var_f14 = (arg0->position.zPos.w - arg1->position.zPos.w) / 65536.0;
 
-    if (arg1->unk16C->unk15 == 4) {
+    if (arg1->unk16C->orientationMode == 4) {
         if (var_f2 < 0.0f) {
             var_f2 = MIN(0.0f, var_f2 + (arg1->unk30 - 2));
         } else {

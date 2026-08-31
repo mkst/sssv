@@ -99,14 +99,14 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
     obj->unk40 = scale;
 
     // fixes regalloc somehow...
-    obj->unk4C.unk1C = foo->unk82.unk4 & 0xFFFFFFFF;
-    obj->unk4C.unk1D = foo->unk82.unk5 & 0xFFFFFFFF;
-    obj->unk4C.unk1B = foo->unk82.unk3 & 0xFFFFFFFF;
+    obj->unk4C.unk1C = foo->behaviourFlags.unk4 & 0xFFFFFFFF;
+    obj->unk4C.unk1D = foo->behaviourFlags.unk5 & 0xFFFFFFFF;
+    obj->unk4C.unk1B = foo->behaviourFlags.unk3 & 0xFFFFFFFF;
 
-    obj->Info.health = foo->unk8A;
+    obj->Info.health = foo->maxHealth;
     obj->unk164 = foo->unk89;
 
-    if (foo->unk82.unk7) {
+    if (foo->behaviourFlags.unk7) {
         temp_v1 = sample_ground_height_at_xz(x, z) >> 0x10;
         if (y < temp_v1) {
             y = temp_v1;
@@ -140,7 +140,7 @@ Entity *spawn_object(u8 id, s16 x, s16 z, s16 y, s32 xVel, s32 zVel, s32 yVel, s
     obj->unk114[3] = 0x7FFF;
 
     func_802C9BA4_6DB254(obj);
-    if ((obj->unk16C->unk15 == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
+    if ((obj->unk16C->orientationMode == 4) && (((zRotation >= 225) && (zRotation < 315)) || ((zRotation >= 45) && (zRotation < 135)))) {
         y = (y + obj->unk32) - (obj->unk42 >> 1);
     }
     obj->position.xPos.h = x;
@@ -202,7 +202,7 @@ void func_802C9918_6DAFC8(Animal *arg0, s16 newZRotation, s16 newYRotation) {
     s32 prevQuadrant;
     s32 newQuadrant;
 
-    if (arg0->unk16C->unk15 != 4) {
+    if (arg0->unk16C->orientationMode != 4) {
         arg0->yRotation = newYRotation;
         arg0->zRotation = newZRotation;
         return;
@@ -223,9 +223,9 @@ void func_802C9918_6DAFC8(Animal *arg0, s16 newZRotation, s16 newYRotation) {
         }
     }
 
-    depth = arg0->unk16C->unk72;
-    width = arg0->unk16C->unk74;
-    height = arg0->unk16C->unk7A;
+    depth = arg0->unk16C->depth;
+    width = arg0->unk16C->width;
+    height = arg0->unk16C->collideHeight;
 
     if (((arg0->zRotation >= 45) && (arg0->zRotation < 135)) ||
         ((arg0->zRotation >= 225) && (arg0->zRotation < 315))) {
@@ -261,11 +261,11 @@ void func_802C9BA4_6DB254(Animal *arg0) {
         arg0->unk40 = 0x800; // default scale?
     }
 
-    width = arg0->unk16C->unk72;
-    depth = arg0->unk16C->unk74;
-    height = arg0->unk16C->unk7A;
+    width = arg0->unk16C->depth;
+    depth = arg0->unk16C->width;
+    height = arg0->unk16C->collideHeight;
 
-    if ((arg0->unk16C->unk15 == 4)) {
+    if ((arg0->unk16C->orientationMode == 4)) {
         if (((arg0->zRotation > 45)  && (arg0->zRotation <= 135)) ||
             ((arg0->zRotation > 225) && (arg0->zRotation <= 315))) {
             tempSwap = depth;
@@ -285,8 +285,8 @@ void func_802C9BA4_6DB254(Animal *arg0) {
     arg0->unk32 = depth;
     arg0->unk42 = height;
 
-    arg0->unk34 = arg0->unk16C->unk76;
-    arg0->unk36 = arg0->unk16C->unk78;
+    arg0->unk34 = arg0->unk16C->bodyHeight;
+    arg0->unk36 = arg0->unk16C->headHeight;
 
     // fixed-point scaling (0x800 => 1.0)
     arg0->unk34 = ((s64)arg0->unk34 * arg0->unk40) >> 11;

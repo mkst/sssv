@@ -218,15 +218,15 @@ void func_8032018C_73183C(LimbIKState *arg0, u16 arg1, u16 arg2, u16 arg3, s16 a
     temp_t6 = D_80203FE0[arg1].unk2;
     temp_a1 = D_80203FE0[arg1].unk4;
 
-    temp_a1 -= (s16)((arg4 * D_80152350.unk384[sp62]) / 256);
-    temp_t6 -= (s16)((arg4 * D_80152350.unk2D0[sp62]) / 256);
+    temp_a1 -= (s16)((arg4 * COSB(sp62)) / 256);
+    temp_t6 -= (s16)((arg4 * SINB(sp62)) / 256);
 
     D_80203FE0[arg2].unk4 = temp_a1;
     D_80203FE0[arg2].unk2 = temp_t6;
     D_80203FE0[arg2].unk0 = temp_t0;
 
-    temp_a1 -= (s16)((arg5 * D_80152350.unk384[sp60]) / 256);
-    temp_t6 -= (s16)((arg5 * D_80152350.unk2D0[sp60]) / 256);
+    temp_a1 -= (s16)((arg5 * COSB(sp60)) / 256);
+    temp_t6 -= (s16)((arg5 * SINB(sp60)) / 256);
 
     D_80203FE0[arg2 + 1].unk0 = temp_t0;
     D_80203FE0[arg2 + 1].unk2 = temp_t6;

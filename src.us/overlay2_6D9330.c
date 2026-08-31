@@ -10,49 +10,49 @@ void func_802C7C80_6D9330(void) {
     for (i = 0; i < AID_MAX_ANIMALS; i++) {
         gAnimalState.unk0[i].class = D_803A05D0_7B1C80[i].class;
 
-        gAnimalState.unk0[i].unk7E = 0xCC;
+        gAnimalState.unk0[i].frictionMultiplier = 0xCC;
         gAnimalState.unk0[i].unk80 = 2;
-        gAnimalState.unk0[i].unk8A = 0x7F;
-        gAnimalState.unk0[i].unkD8 = 0x14;
+        gAnimalState.unk0[i].maxHealth = 0x7F;
+        gAnimalState.unk0[i].criticalHealthThreshold = 0x14;
 
         gAnimalState.unk0[i].waterClass = D_803A05D0_7B1C80[i].waterClass;
-        gAnimalState.unk0[i].canJump = D_803A05D0_7B1C80[i].canJump;
+        gAnimalState.unk0[i].jumpFlags = D_803A05D0_7B1C80[i].jumpFlags;
 
-        gAnimalState.unk0[i].unk74 = gAnimalState.unk0[i].unk72 = gAnimalState.unk0[i].unkBE = D_803A05D0_7B1C80[i].unk6;
+        gAnimalState.unk0[i].width = gAnimalState.unk0[i].depth = gAnimalState.unk0[i].radius = D_803A05D0_7B1C80[i].bodyHalfExtent;
         gAnimalState.unk0[i].mass = D_803A05D0_7B1C80[i].mass & 0xFFFF;
         gAnimalState.unk0[i].armour = D_803A05D0_7B1C80[i].armour;
-        gAnimalState.unk0[i].unk8C = D_803A05D0_7B1C80[i].unkB;
-        gAnimalState.unk0[i].unkEB = D_803A05D0_7B1C80[i].unk51;
+        gAnimalState.unk0[i].collisionDamageFactor = D_803A05D0_7B1C80[i].collisionDamageFactor;
+        gAnimalState.unk0[i].footstepSoundCooldown = D_803A05D0_7B1C80[i].footstepSoundCooldown;
 
         if (i == EVO || i == EVO_TRANSFER) {
-            gAnimalState.unk0[i].unk2 = 15;
+            gAnimalState.unk0[i].objectCategory = 15;
         } else {
-            gAnimalState.unk0[i].unk2 = 5;
+            gAnimalState.unk0[i].objectCategory = 5;
         }
 
-        gAnimalState.unk0[i].unkA4 = D_803A05D0_7B1C80[i].unkC;
-        gAnimalState.unk0[i].unkA6 = D_803A05D0_7B1C80[i].unkE;
-        gAnimalState.unk0[i].unkA8 = D_803A05D0_7B1C80[i].unk10;
-        gAnimalState.unk0[i].unkAA = D_803A05D0_7B1C80[i].unk12;
-        gAnimalState.unk0[i].unkAC = D_803A05D0_7B1C80[i].unk14;
-        gAnimalState.unk0[i].fallDistance = D_803A05D0_7B1C80[i].unk16;
-        gAnimalState.unk0[i].unkB0 = D_803A05D0_7B1C80[i].unk18;
+        gAnimalState.unk0[i].walkSpeed = D_803A05D0_7B1C80[i].walkSpeed;
+        gAnimalState.unk0[i].jumpVelocity = D_803A05D0_7B1C80[i].jumpVelocity;
+        gAnimalState.unk0[i].swimSpeed = D_803A05D0_7B1C80[i].swimSpeed;
+        gAnimalState.unk0[i].flightLiftVelocity = D_803A05D0_7B1C80[i].flightLiftVelocity;
+        gAnimalState.unk0[i].flightSpeed = D_803A05D0_7B1C80[i].flightSpeed;
+        gAnimalState.unk0[i].fallDistance = D_803A05D0_7B1C80[i].fallDistance;
+        gAnimalState.unk0[i].turnRate = D_803A05D0_7B1C80[i].turnRate;
         gAnimalState.unk0[i].traction = D_803A05D0_7B1C80[i].traction;
         gAnimalState.unk0[i].unkB4 = D_803A05D0_7B1C80[i].unk1C;
         gAnimalState.unk0[i].unkB6 = D_803A05D0_7B1C80[i].unk1E;
-        gAnimalState.unk0[i].unkB8 = D_803A05D0_7B1C80[i].unk20;
-        gAnimalState.unk0[i].unkBA = D_803A05D0_7B1C80[i].unk22;
+        gAnimalState.unk0[i].footHeight = D_803A05D0_7B1C80[i].footHeight;
+        gAnimalState.unk0[i].height = D_803A05D0_7B1C80[i].height;
         gAnimalState.unk0[i].unkBC = D_803A05D0_7B1C80[i].unk24;
 
-        gAnimalState.unk0[i].unk7A = gAnimalState.unk0[i].unkBA;
-        gAnimalState.unk0[i].unk76 = ((gAnimalState.unk0[i].unk72) * 7) >> 2;
-        gAnimalState.unk0[i].unk78 = ((gAnimalState.unk0[i].unk7A) * 5) >> 3;
+        gAnimalState.unk0[i].collideHeight = gAnimalState.unk0[i].height;
+        gAnimalState.unk0[i].bodyHeight = ((gAnimalState.unk0[i].depth) * 7) >> 2;
+        gAnimalState.unk0[i].headHeight = ((gAnimalState.unk0[i].collideHeight) * 5) >> 3;
 
-        gAnimalState.unk0[i].unkC0 = D_803A05D0_7B1C80[i].unk26;
-        gAnimalState.unk0[i].unkC2 = D_803A05D0_7B1C80[i].unk28;
-        gAnimalState.unk0[i].unkC4 = D_803A05D0_7B1C80[i].unk2A;
-        gAnimalState.unk0[i].unkE6 = D_803A05D0_7B1C80[i].unk2C;
-        gAnimalState.unk0[i].unkE7 = D_803A05D0_7B1C80[i].unk2D;
+        gAnimalState.unk0[i].maxCarryWeight = D_803A05D0_7B1C80[i].maxCarryWeight;
+        gAnimalState.unk0[i].jumpLiftVelocity = D_803A05D0_7B1C80[i].jumpLiftVelocity;
+        gAnimalState.unk0[i].swimLiftVelocity = D_803A05D0_7B1C80[i].swimLiftVelocity;
+        gAnimalState.unk0[i].scoreTier = D_803A05D0_7B1C80[i].scoreTier;
+        gAnimalState.unk0[i].jumpCooldown = D_803A05D0_7B1C80[i].jumpCooldown;
         gAnimalState.unk0[i].unkC6 = D_803A05D0_7B1C80[i].unk2E;
         gAnimalState.unk0[i].unkC8 = D_803A05D0_7B1C80[i].unk30;
 
@@ -63,9 +63,9 @@ void func_802C7C80_6D9330(void) {
         gAnimalState.unk0[i].unkD2 = D_803A05D0_7B1C80[i].unk3A;
         gAnimalState.unk0[i].unkE8 = D_803A05D0_7B1C80[i].unk3C;
         gAnimalState.unk0[i].unkD4 = D_803A05D0_7B1C80[i].unk3E;
-        gAnimalState.unk0[i].unk9C = i;
-        gAnimalState.unk0[i].objectType = gAnimalState.unk0[i].unk9C + 0x100;
-        gAnimalState.unk0[i].unk82.unk2 = 1;
+        gAnimalState.unk0[i].animalType = i;
+        gAnimalState.unk0[i].objectType = gAnimalState.unk0[i].animalType + 0x100;
+        gAnimalState.unk0[i].behaviourFlags.unk2 = 1;
         gAnimalState.unk0[i].biome = D_803A05D0_7B1C80[i].biome;
 
         gAnimalState.unk0[i].unkDA[0][0] = D_803A05D0_7B1C80[i].unk42[0][0];
@@ -76,18 +76,18 @@ void func_802C7C80_6D9330(void) {
         gAnimalState.unk0[i].unkDA[1][1] = D_803A05D0_7B1C80[i].unk42[1][1];
         gAnimalState.unk0[i].unkDA[1][2] = D_803A05D0_7B1C80[i].unk42[1][2];
 
-        gAnimalState.unk0[i].unk82.unk3 = 1;
-        gAnimalState.unk0[i].unk82.unk4 = 1;
-        gAnimalState.unk0[i].unk82.unk5 = 1;
-        gAnimalState.unk0[i].unk82.unk6 = 0u;
+        gAnimalState.unk0[i].behaviourFlags.unk3 = 1;
+        gAnimalState.unk0[i].behaviourFlags.unk4 = 1;
+        gAnimalState.unk0[i].behaviourFlags.unk5 = 1;
+        gAnimalState.unk0[i].behaviourFlags.unk6 = 0u;
 
-        gAnimalState.unk0[i].unkE9 = D_803A05D0_7B1C80[i].unk4F;
-        gAnimalState.unk0[i].unkEA = D_803A05D0_7B1C80[i].unk50;
+        gAnimalState.unk0[i].stompCycleLength = D_803A05D0_7B1C80[i].stompCycleLength;
+        gAnimalState.unk0[i].stompEffectScale = D_803A05D0_7B1C80[i].stompEffectScale;
 
-        if (gAnimalState.unk0[i].unk9C == DESERT_FOX_ATTACKING) {
-            gAnimalState.unk0[i].unk8D = 4;
-        } else if (gAnimalState.unk0[i].unk9C == HARD_MOUSE) {
-            gAnimalState.unk0[i].unk8D = 2;
+        if (gAnimalState.unk0[i].animalType == DESERT_FOX_ATTACKING) {
+            gAnimalState.unk0[i].contactDamage = 4;
+        } else if (gAnimalState.unk0[i].animalType == HARD_MOUSE) {
+            gAnimalState.unk0[i].contactDamage = 2;
         }
     }
 }
@@ -152,7 +152,7 @@ Animal2 *spawn_animal(s16 arg0, s16 arg1, s16 arg2, s16 rotation, s16 health, s1
     D_803D5530->movementState = MOVEMENT_STATE_GROUND;
     D_803D5530->unk160 = 0;
     D_803D5530->unk16C = D_803D5524;
-    D_803D5530->Info.health = MIN(health, D_803D5524->unk8A);
+    D_803D5530->Info.health = MIN(health, D_803D5524->maxHealth);
     D_803D5530->unk4C.unk1B = 1;
     D_803D5530->unk4C.unk1C = 1;
     D_803D5530->unk4C.unk1D = 1;

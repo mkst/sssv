@@ -322,7 +322,7 @@ void perform_behavior_mystery_bear(void);
 void perform_behavior_parrot_attacking(void);
 void perform_behavior_parrot(void);
 void perform_behavior_penguin(void);
-void perform_behavior_pirana(void);
+void perform_behavior_piranha(void);
 void perform_behavior_pogo_kangaroo(void);
 void perform_behavior_polar_bear_defending(void);
 void perform_behavior_polar_bear(void);

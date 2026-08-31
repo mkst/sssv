@@ -7,9 +7,9 @@ extern u8  img_D_01003BD0_3D4A0_ci4__png[]; // fov masks
 
 
 // is animal off screen?
-s16 classify_object_visibility_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
+s16 classify_object_visibility(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
-        if (is_world_cell_loaded_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
+        if (is_world_cell_loaded(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
             return VISIBILITY_VISIBLE;
         } else {
             return VISIBILITY_INVISIBLE;
@@ -35,9 +35,9 @@ s16 classify_object_visibility_6FA0A0(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8
 
 
 // only used by dynamic objects / tails
-s16 classify_dynamic_visibility_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9) {
+s16 classify_dynamic_visibility(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9) {
     if (arg3 == 0) {
-        if (is_world_cell_loaded_6AB9E4(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
+        if (is_world_cell_loaded(xPos >> 16, zPos >> 16, yPos >> 16) != 0) {
             return VISIBILITY_VISIBLE;
         } else {
             return VISIBILITY_INVISIBLE;
@@ -95,7 +95,7 @@ s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3
     f32 unused5;
     f32 sp2C;
 
-    if (is_world_cell_loaded_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
+    if (is_world_cell_loaded(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
         return VISIBILITY_INVISIBLE;
     }
 
@@ -286,7 +286,7 @@ s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) 
     s64 sp48;
     s64 fov;
 
-    if (is_world_cell_loaded_6AB9E4(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
+    if (is_world_cell_loaded(arg0 >> 0x10, arg1 >> 0x10, arg2 >> 0x10) == 0) {
         return VISIBILITY_INVISIBLE;
     }
 
@@ -362,7 +362,7 @@ s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4) 
     return VISIBILITY_OUT_OF_BOUNDS_Y;
 }
 
-s16 classify_particle_visibility_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
+s16 classify_particle_visibility(s32 arg0, s32 arg1, s32 arg2, s8 arg3) {
     s64 sp88;
     s64 sp80;
     s32 sp7C; // X coordinate in camera space.

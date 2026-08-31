@@ -40,10 +40,10 @@ void func_80302200_7138B0(void) {
     } else {
         phi_v0 = 0;
     }
-    sp70 = classify_object_visibility_6FA0A0(
+    sp70 = classify_object_visibility(
         D_803D552C->position.xPos.w,
         D_803D552C->position.zPos.w,
-        D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+        D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
         0x730,
         0,
         0,
@@ -103,7 +103,7 @@ done:
         if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) &&
             ((D_803D5538 != 0) || ((tmp2 = gCameraUiState) == 0) || (tmp2 == 2) || ((tmp2 == 1) && (D_803F2AA3 >= 0xB))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].zoomIndex != -3))) {
 
             func_80127640(
                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
@@ -118,7 +118,7 @@ done:
                 D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.38f);
+            func_8038C230_79D8E0((D_803D5524->height * 8) / 5, 2, 3, 3, -0.38f);
             func_8038C484_79DB34(2, 1, 3, -0.38f, -0xBB8);
             if ((D_803D5530->state < 0x2C) && (D_803D5530->state >= 0x29)) {
                 D_803D552C->unk30A -= D_803D552C->unk30E * 7;
@@ -181,7 +181,7 @@ done:
         func_8035D6D0_76ED80();
     }
     if ((sp70 == 0) || (sp70 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp70 == 0) {
         func_80303820_714ED0(D_803D552C, 1, 2, 0x21A, 0);

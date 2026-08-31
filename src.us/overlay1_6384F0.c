@@ -869,7 +869,7 @@ void render_title_screen_frame(FrameContext *arg0) {
             }
         } else if ((gControllerConnected == 0) && (D_80204270 != 0)) {
             // show CONTROLLER_NOT_CONNECTED text + N64 controller model
-            spB2 = D_80152350.unk0[D_80204270];
+            spB2 = SINE(D_80204270);
             if (spB2 >= 256) {
                 spB2 = 0xFF;
             }
@@ -1295,9 +1295,9 @@ void render_title_screen_frame(FrameContext *arg0) {
             if (gIntroLogoRotZ > 359.0) {
                 gIntroLogoRotZ = 0.0f;
             }
-            gIntroLogoPosX = D_80152350.unk2D0[(s16)D_80299DF4_63D494] * D_80299DF8_63D498;
+            gIntroLogoPosX = SINB(D_80299DF4_63D494) * D_80299DF8_63D498;
             gIntroLogoPosY = 0.0f;
-            gIntroLogoPosZ = (D_80152350.unk384[(s16)D_80299DF4_63D494] * D_80299DF8_63D498) - 2500;
+            gIntroLogoPosZ = (COSB(D_80299DF4_63D494) * D_80299DF8_63D498) - 2500;
         }
         if (D_80299E1C_63D4BC >= 1800) {
             if (D_80299E1C_63D4BC == 1800) {
@@ -1502,7 +1502,7 @@ void render_title_screen_frame(FrameContext *arg0) {
                 D_8029A028_63D6C8 += 4;
             }
 
-            D_8029A024_63D6C4 = ABS(D_80152350.unk2D0[(s16)D_8029A02C_63D6CC] / D_8029A028_63D6C8);
+            D_8029A024_63D6C4 = ABS(SINB(D_8029A02C_63D6CC) / D_8029A028_63D6C8);
             if (D_8029A028_63D6C8 < 5) {
                 D_8029A02C_63D6CC += 6.0f;
             }

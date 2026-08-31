@@ -542,16 +542,37 @@ void __clearAudioDMA(void)
 
 // potential file split?
 
-static struct121 paramsTable = { // D_80155190
-    0x00000008, 0x00003800, 0x00000000, 0x00000160, 0x00000000, 0xFFFFD99A,
-    0x00000E10, 0x00000000, 0x00000000, 0x00000000, 0x00000160, 0x00000220, 0x00002666, 0xFFFFD99A,
-    0x00002B84, 0x00000000, 0x00000000, 0x00005000, 0x00000700, 0x00001600, 0x00004000, 0xFFFFC000,
-    0x000011EB, 0x00000000, 0x00000000, 0x00000000, 0x000007C0, 0x000011C0, 0x00002000, 0xFFFFE000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00001BE0, 0x000030A0, 0x00004000, 0xFFFFC000,
-    0x000011EB, 0x00000000, 0x00000000, 0x00006000, 0x00001CA0, 0x00002900, 0x00002000, 0xFFFFE000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00002900, 0x00002E20, 0x00002000, 0xFFFFE000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00003380, 0x00004650, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00007000,
+typedef struct {
+    s32 input;
+    s32 output;
+    s32 fbcoef;
+    s32 ffcoef;
+    s32 gain;
+    s32 chorusRate;
+    s32 chorusDepth;
+    s32 lpfilt;
+} ReverbSection;
+
+typedef struct {
+    s32 sectionCount;
+    s32 delayLength;
+    ReverbSection sections[8];
+} ReverbParams;
+
+// D_80155190
+static ReverbParams paramsTable = {
+    8, 0x3800,
+    {
+        /* input,  output, fbcoef,  ffcoef,   gain, chorusRate, chorusDepth, lpfilt */
+        {  0x0000, 0x0160,      0, -0x2666, 0x0E10,          0,           0,      0 },
+        {  0x0160, 0x0220, 0x2666, -0x2666, 0x2B84,          0,           0, 0x5000 },
+        {  0x0700, 0x1600, 0x4000, -0x4000, 0x11EB,          0,           0,      0 },
+        {  0x07C0, 0x11C0, 0x2000, -0x2000,      0,          0,           0,      0 },
+        {  0x1BE0, 0x30A0, 0x4000, -0x4000, 0x11EB,          0,           0, 0x6000 },
+        {  0x1CA0, 0x2900, 0x2000, -0x2000,      0,          0,           0,      0 },
+        {  0x2900, 0x2E20, 0x2000, -0x2000,      0,          0,           0,      0 },
+        {       0, 0x3380, 0x4650,       0,      0,          0,           0, 0x7000 },
+    }
 };
 static s32  D_80155298 = 0; // pad
 
@@ -566,7 +587,7 @@ void initialise_audio(s32 *arg0) {
     s32 seqCount;
     s32 pad[3];
     s32 tmp;
-    struct121 params; // sp48
+    ReverbParams params; // sp48
 
     // struct copy
     params = paramsTable;
@@ -643,7 +664,10 @@ void initialise_audio(s32 *arg0) {
     dma_read(_alSeqFileSegmentRomStart, D_8028630C, maxSeqArrayLen);
     alSeqFileNew(D_8028630C, _alSeqFileSegmentRomStart);
 
+#ifdef __sgi
+    // regalloc
     if (!D_8028630C->seqArray[seqCount].len) {};
+#endif
 
     maxSeqArrayLen = 0;
     for (seqCount = 0; seqCount < D_8028630C->seqCount; seqCount++) {
@@ -767,7 +791,6 @@ void func_80132174(struct Sound arg0, Sound **arg1, Sound **arg2) {
 }
 
 void func_801322EC(Sound *arg0, Sound **arg1, Sound **arg2) {
-
     if (gAudioInitialized == 0) {
         return;
     }
@@ -1281,9 +1304,13 @@ void play_sound_by_slot(s16 slot) {
 void func_8013364C(void) {
     s8 i;
     for (i = 0; i < 1; i++) {
-        if ((u8)(D_80155168[i] = 1)) { // makes no sense?
+#ifdef BUGFIX
+    if ((u8)(D_80155168[i] == 1)) {
+#else
+    if ((u8)(D_80155168[i] = 1)) { // makes no sense?
+#endif
             alSeqpStop(D_802863C8[i]);
-            D_80155168[i] = 0U;
+            D_80155168[i] = 0;
           }
 
         D_80154690[i] = 0;
@@ -1327,8 +1354,7 @@ void start_sequence_volume_fade(s16 idx, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-void start_sfx_volume_fade(f32 arg0, f32 arg1, f32 arg2)
-{
+void start_sfx_volume_fade(f32 arg0, f32 arg1, f32 arg2) {
     D_801546C0 = arg0;
     D_801546C4 = arg0;
     D_801546C8 = arg2 / 20.0f;
@@ -1384,6 +1410,7 @@ void set_music_volume(s16 arg0) {
     func_80133C50();
 }
 
+// unused
 void func_80133BE4(void) {
     ALSndPlayer *sndp;
     Sound *snd;

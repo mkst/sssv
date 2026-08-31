@@ -46,7 +46,7 @@ void maybe_trigger_exit_teleporter(Animal *arg0, Entity *teleporter) {
 
     if ((teleporter->state == 1) &&
         (D_803D2D90.unk0 == 0) && (D_803D2D90.unk64 == 0) &&
-        (dist < 800) && (arg0->unk16C->unk82.unk2) &&
+        (dist < 800) && (arg0->unk16C->behaviourFlags.unk2) &&
         (teleporter->unk248[1] != NULL) && (arg0->unk320 == NULL)) {
         Entity *tmp;
         teleporter->unk158 = 1;
@@ -315,19 +315,19 @@ void func_8029BB94_6AD244(void) {
         for (sp8C = 0; sp8C < 12; sp8C++) {
             if (D_803D2D90.unk6[sp8C] < (sp8C * 3)) {
                 D_803D2D90.unk6[sp8C] = D_803D2D90.unk3C;
-                var_s7 = D_80152350.unk2D0[(s16) (D_803D2D90.unk3C + (sp8C * 10))] >> 3;
+                var_s7 = SINB(D_803D2D90.unk3C + (sp8C * 10)) >> 3;
                 D_803D2D90.unk1E[sp8C] = var_s7;
             } else {
                 var_s7 = D_803D2D90.unk1E[sp8C];
             }
 
             for (var_s0 = 0; var_s0 < 6; var_s0++) {
-                sp84 = D_80152350.unk2D0[D_803D2D90.unk6[sp8C]];
+                sp84 = SINB(D_803D2D90.unk6[sp8C]);
                 if ((D_803D2D90.unk44 >= 0x6F) || (D_803D2D90.unk42 >= 0x6F)) {
                     if (SSSV_RAND(32) == 0) {
                         create_particle_effect(
-                            D_803D2D90.unk46 + ((D_80152350.unk2D0[(s16)((var_s0 * 60) + 30)] * var_s7) >> 7),
-                            D_803D2D90.unk48 + ((D_80152350.unk384[(s16)((var_s0 * 60) + 30)] * var_s7) >> 7),
+                            D_803D2D90.unk46 + ((SINB((var_s0 * 60) + 30) * var_s7) >> 7),
+                            D_803D2D90.unk48 + ((COSB((var_s0 * 60) + 30) * var_s7) >> 7),
                             D_803D2D90.unk4A + sp84,
                             35,
                             (advance_random_seed() * 3) - FTOFIX32(1.5),
@@ -352,8 +352,8 @@ void func_8029BB94_6AD244(void) {
                 if (sp8C == 11) {
                     var_s7 = 0;
                 }
-                gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[0] = D_803D2D90.unk46 + ((D_80152350.unk2D0[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
-                gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[1] = D_803D2D90.unk48 + ((D_80152350.unk384[(s16) ((var_s0 * 60) + 30)] * var_s7) >> 7);
+                gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[0] = D_803D2D90.unk46 + ((SINB((var_s0 * 60) + 30) * var_s7) >> 7);
+                gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[1] = D_803D2D90.unk48 + ((COSB((var_s0 * 60) + 30) * var_s7) >> 7);
                 gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.ob[2] = D_803D2D90.unk4A + sp84;
                 gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.cn[0] = (var_s0 * 42) - 0x7F;
                 gDisplayListContext->unk303F0[(sp8C * 6) + var_s0].v.cn[1] = 0;

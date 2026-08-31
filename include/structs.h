@@ -9,7 +9,6 @@ typedef struct CollisionNode CollisionNode;
 typedef struct Entity Entity;
 typedef struct Animal Animal;
 
-
 typedef struct {
     /* 0x00 */ f32 x;
     /* 0x04 */ f32 y;
@@ -656,7 +655,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ struct {
                    u8  trailType  : 4; // ((u8) temp_v1->unk0 & 0xFF0F) | 0x10;
-                   u8  unk4  : 4; // (s8) ((temp_t5 & 0xF0) | 1);
+                   u8  unk4  : 4;      // (s8) ((temp_t5 & 0xF0) | 1);
                } unk0;
     /* 0x01 */ struct {
                    u8  unk0  : 4; // (arg11 * 0x10) | (temp_v1->unk1 & 0xFF0F);
@@ -690,7 +689,6 @@ typedef struct {
     s16 eyes[6][13];
 } RightEyes;
 
-
 typedef struct {
     Position pos;
     s32 unkC; // unkD0, scale factor
@@ -709,18 +707,6 @@ typedef struct {
     u8 unk1[5];
 } struct002; // size 0x6
 
-/*
-states:
-  02 - standing
-  03 - walking
-  04 - running
-  05 - in air?
-  06 - collecting something?
-  8D - in water
-  8E - swimming slowly
-  8F - swimming fast
-  DD - ???
-*/
 struct Animal {
     /* 0x00 */  u16 state; // state? standing, walking, jumping,
     /* 0x04 */  Position position;
@@ -1053,12 +1039,6 @@ typedef struct {
     /* 0xA */ s16 screenWidth;
 } VIData; // size 0xC
 
-typedef struct {
-    s16 unk0[360];
-    s16 unk2D0[90];
-    s16 unk384[90]; // ?
-} struct013;
-
 // only used in main_123E0.c
 typedef struct {
     s32 status;
@@ -1101,10 +1081,6 @@ struct Sound {
     /* 0x2C */ Sound *prev; // maybe
     /* 0x30 */ Sound *next;
 }; // size 0x34
-
-typedef struct {
-    s32 params[66];
-} struct121; // size 0x108
 
 typedef struct {
     f32 unk0;
@@ -1251,79 +1227,79 @@ typedef struct {
 } PlayerEeprom; // size 0x40 (64 bytes)
 
 typedef struct {
-    /* 0x00 */ s16 cameraMode; // camera mode?
-    /* 0x02 */ s16 unk2;
-    /* 0x04 */ s16 unk4; // nextCameraMode?
-    /* 0x06 */ s16 unk6;
-    /* 0x08 */ f32 unk8;
-    /* 0x0C */ f32 unkC;
-    /* 0x10 */ f32 unk10;
-    /* 0x14 */ f32 unk14;
-    /* 0x18 */ f32 unk18;
-    /* 0x1C */ f32 unk1C;
-    /* 0x20 */ f32 unk20;
-    /* 0x24 */ f32 unk24;
-    /* 0x28 */ f32 unk28;
-    /* 0x2C */ f32 unk2C; // used in Z-mode
-    /* 0x30 */ f32 unk30;
-    /* 0x34 */ f32 unk34;
-    /* 0x38 */ f32 unk38;
-    /* 0x3C */ f32 unk3C;
-    /* 0x40 */ f32 unk40;
-    /* 0x44 */ f32 unk44;
-    /* 0x48 */ f32 unk48;
-    /* 0x4C */ s16 unk4C;
-    /* 0x4E */ s16 unk4E;  // distance?
-    /* 0x50 */ s16 unk50;  // distance?
-    /* 0x52 */ s16 unk52;
-    /* 0x54 */ s16 unk54;
-    /* 0x56 */ s16 unk56;
-    /* 0x58 */ s16 unk58;
-    /* 0x5A */ s16 unk5A;
-    /* 0x5C */ s16 unk5C;
-    /* 0x5E */ s16 unk5E;
+    /* 0x00 */ s16 cameraMode; // camera mode (camera_enums.h)
+    /* 0x02 */ s16 modeId;     // raw camera/trigger id, resolves via D_803A7B3C_7B91EC
+    /* 0x04 */ s16 heightOverride; // camera height override; -1 = use default
+    /* 0x06 */ s16 waypointProgress;
+    /* 0x08 */ f32 targetX;    // look-at target
+    /* 0x0C */ f32 targetZ;
+    /* 0x10 */ f32 targetY;
+    /* 0x14 */ f32 pitch;      // current pitch (256-unit circle, mode-dependent)
+    /* 0x18 */ f32 targetPitch;
+    /* 0x1C */ f32 pitchVelocity;
+    /* 0x20 */ f32 yaw;        // current heading
+    /* 0x24 */ f32 targetYaw;
+    /* 0x28 */ f32 yawVelocity;
+    /* 0x2C */ f32 yawOffset;  // relative heading delta (Z-mode)
+    /* 0x30 */ f32 distance;   // current camera->target distance
+    /* 0x34 */ f32 targetDistance;
+    /* 0x38 */ f32 distanceVelocity;
+    /* 0x3C */ f32 offsetX;    // Z-mode lateral screen offset
+    /* 0x40 */ f32 offsetXVelocity;
+    /* 0x44 */ f32 offsetY;    // Z-mode vertical screen offset
+    /* 0x48 */ f32 offsetYVelocity;
+    /* 0x4C */ s16 zoomInterp; // zoom sub-index (eased toward zoomIndex*8)
+    /* 0x4E */ s16 cameraHeight; // height above target; feeds pitch
+    /* 0x50 */ s16 baseDistance; // base distance, scaled by zoom table
+    /* 0x52 */ s16 followSpeed;
+    /* 0x54 */ s16 offsetXTarget;
+    /* 0x56 */ s16 offsetYTarget;
+    /* 0x58 */ s16 targetFollowSpeed;
+    /* 0x5A */ s16 fixPosX;    // fixed/cutscene camera position (map units)
+    /* 0x5C */ s16 fixPosZ;
+    /* 0x5E */ s16 fixPosY;
     /* 0x60 */ s16 unk60;
-    /* 0x62 */ s16 unk62;
-    /* 0x64 */ s8  unk64;
-    /* 0x65 */ s8  unk65;
-    /* 0x66 */ s8  unk66;
-    /* 0x67 */ u8  unk67;
+    /* 0x62 */ s16 focusHeightOffset;
+    /* 0x64 */ s8  zoomIndex;
+    /* 0x65 */ s8  zoomIndexMin;
+    /* 0x66 */ s8  zoomIndexMax;
+    /* 0x67 */ u8  autoPan;    // flag: heading-based look-ahead pan
     /* 0x68 */ u8  unk68; //[0x4];
     /* 0x69 */ u8  pad69[3];
-    /* 0x6C */ WaypointData *unk6C;
-    /* 0x70 */ s16 unk70;
+    /* 0x6C */ WaypointData *waypoints;
+    /* 0x70 */ s16 panCooldown;
     /* 0x71 */ u8  pad72[0x2];
-    /* 0x74 */ f32 unk74;
-    /* 0x78 */ f32 unk78;
-    /* 0x7C */ f32 unk7C;
-    /* 0x80 */ f32 unk80;
-    /* 0x84 */ f32 unk84;
-    /* 0x88 */ f32 unk88;
-    /* 0x8C */ f32 unk8C;
-    /* 0x90 */ f32 unk90;
-    /* 0x94 */ f32 unk94;
-    /* 0x98 */ f32 unk98;
-    /* 0x9C */ f32 unk9C;
-    /* 0xA0 */ f32 unkA0;
-    /* 0xA4 */ f32 unkA4;
-    /* 0xA8 */ f32 unkA8;
-    /* 0xAC */ f32 unkAC;
-    /* 0xB0 */ f32 unkB0;
-    /* 0xB4 */ f32 unkB4;
-    /* 0xB8 */ f32 unkB8;
-    /* 0xBC */ f32 unkBC;
-    /* 0xC0 */ f32 unkC0;
-    /* 0xC4 */ f32 unkC4;
-    /* 0xC8 */ u8  unkC8;
-    /* 0xC9 */ u8  unkC9;
+    /* 0x74 */ f32 eyeX;       // camera eye
+    /* 0x78 */ f32 eyeZ;
+    /* 0x7C */ f32 eyeY;
+    /* 0x80 */ f32 targetVelX; // look-at target velocity
+    /* 0x84 */ f32 targetVelZ;
+    /* 0x88 */ f32 targetVelY;
+    /* 0x8C */ f32 upX;        // up vector (guLookAt)
+    /* 0x90 */ f32 upZ;
+    /* 0x94 */ f32 upY;
+    /* 0x98 */ f32 focusX;     // current follow/focus point
+    /* 0x9C */ f32 focusZ;
+    /* 0xA0 */ f32 focusY;
+    /* 0xA4 */ f32 panOffsetX; // world pan, added to eye and target
+    /* 0xA8 */ f32 panOffsetZ;
+    /* 0xAC */ f32 lateralPanX; // camera-space pan, rotated into panOffsetX/Z
+    /* 0xB0 */ f32 lateralPanZ;
+    /* 0xB4 */ f32 lateralPanVelX;
+    /* 0xB8 */ f32 lateralPanVelZ;
+    /* 0xBC */ f32 panOffsetVelX;
+    /* 0xC0 */ f32 panOffsetVelZ;
+    /* 0xC4 */ f32 targetYawOffset; // eased heading offset added to targetYaw
+    /* 0xC8 */ u8  cellIndex;  // grid/cell index at the focus point
+    /* 0xC9 */ u8  useAreaVisibility;
     /* 0xCA */ s16 unkCA;
-    /* 0xCC */ Entity *unkCC; // animal ?
-    /* 0xD0 */ s16 unkD0;
-    /* 0xD2 */ s16 unkD2;
-    /* 0xD4 */ s16 unkD4;
-    /* 0xD6 */ s8  unkD6;
-    /* 0xD7 */ u8  unkD7;
-    /* 0xD8 */ u8  unkD8;
+    /* 0xCC */ Entity *followEntity; // entity followed when followType 2/3
+    /* 0xD0 */ s16 fixTargetX;
+    /* 0xD2 */ s16 fixTargetZ;
+    /* 0xD4 */ s16 fixTargetY;
+    /* 0xD6 */ s8  followType; // 1=player, 2/3=followEntity, 4=fixed, 0/5=keep
+    /* 0xD7 */ u8  panLeftAvailable;
+    /* 0xD8 */ u8  panRightAvailable;
     /* 0xD9 */ u8  padD9[0x3];
 } Camera; // size 0xDC
 
@@ -1375,27 +1351,27 @@ typedef struct {
 
 struct struct035 { // TODO: merge with ObjectData?
   /* 0x00 */  u16 objectType; // ID
-  /* 0x02 */  u8  unk2;
-  /* 0x03 */  u8  unk3;
+  /* 0x02 */  u8  objectCategory;
+  /* 0x03 */  u8  renderMode;
   /* 0x04 */  Gfx *displayList1;
   /* 0x08 */  Gfx *displayList2;
   /* 0x0C */  Gfx *displayList3;
   /* 0x10 */  s32 unk10;
-  /* 0x014 */ u8  unk14;
-  /* 0x15 */  u8  unk15; // checked if 2 or 4?
+  /* 0x14 */  u8  unk14;
+  /* 0x15 */  u8  orientationMode; // checked if 2 or 4?
   /* 0x16 */  u16 unk16;
   /* 0x18 */  Collision *collision;
   /* 0x1C */  u16 collisionIdx;
   /* 0x1E */  s16 pad1E;
   /* 0x20 */  s32 unk20[5][4]; // wrong
   /* 0x70 */  u16 unk70;
-  /* 0x72 */  u16 unk72; // depth
-              s16 unk74; // width
-              s16 unk76; // height
-              s16 unk78;
-              u16 unk7A;
+  /* 0x72 */  u16 depth;
+  /* 0x74 */  s16 width;
+  /* 0x76 */  s16 bodyHeight;
+  /* 0x78 */  s16 headHeight;
+  /* 0x7A */  u16 collideHeight; // 0xBA twin (collision box height)
   /* 0x7C */  u16 mass;
-  /* 0x7E */  s16 unk7E;
+  /* 0x7E */  s16 frictionMultiplier;
   /* 0x80 */  s16 unk80;
   /* 0x82 */  struct {
                   u8  unk0  : 1; // 0x80
@@ -1406,15 +1382,15 @@ struct struct035 { // TODO: merge with ObjectData?
                   u8  unk5  : 1; // 0x4
                   u8  unk6  : 1; // 0x2
                   u8  unk7  : 1; // 0x1
-              } unk82;
+              } behaviourFlags;
   /* 0x83 */  u8 unk83;
-  /* 0x84 */  void (*unk84)(void *);
+  /* 0x84 */  void (*updateCallback)(void *);
   /* 0x88 */  u8  unk88;
   /* 0x89 */  u8  unk89;
-  /* 0x8A */  u8  unk8A; // health?
+  /* 0x8A */  u8  maxHealth;
   /* 0x8B */  u8  armour;
-  /* 0x8C */  u8  unk8C; // (collisionDamageFactor) hard mouse has this value / 5
-  /* 0x8D */  u8  unk8D; // contactDamage
+  /* 0x8C */  u8  collisionDamageFactor;
+  /* 0x8D */  u8  contactDamage;
   /* 0x8E */  u16 unk8E;
   /* 0x90 */  u8  unk90;
   /* 0x91 */  u8  unk91; // red
@@ -1424,39 +1400,39 @@ struct struct035 { // TODO: merge with ObjectData?
   /* 0x95 */  u8  pad95;
   // very much TBD:
   /* 0x96 */  struct {
-                  u8 a : 4;
-                  u8 b : 4;
-              } unk96;
-  /* 0x97 */  u8  unk97;
-  /* 0x98 */  u8  unk98;
-  /* 0x99 */  s8  unk99;
-  /* 0x98 */  s16 unk9A;
+                  u8 type : 4;
+                  u8 imageIndex : 4;
+              } shadow;
+  /* 0x97 */  u8  shadowScaleX;
+  /* 0x98 */  u8  shadowScaleY;
+  /* 0x99 */  s8  shadowAlpha;
+  /* 0x9A */  s16 unk9A;
 
   // --- end of struct035/ObjectData shared fields ---
 
-  /* 0x9C */  u16 unk9C; // ANIMAL_TYPE
+  /* 0x9C */  u16 animalType;
   /* 0x9E */  u16 class;
   /* 0xA0 */  u16 waterClass;
-  /* 0xA2 */  u16 canJump;
-              u16 unkA4; // scaling?
-              u16 unkA6;
-              u16 unkA8;
-              u16 unkAA; // scaling?
-              u16 unkAC; // scaling?
+  /* 0xA2 */  u16 jumpFlags;
+              u16 walkSpeed;
+              u16 jumpVelocity;
+              u16 swimSpeed;
+              u16 flightLiftVelocity;
+              u16 flightSpeed;
   /* 0xAE */  s16 fallDistance;
-              s16 unkB0;
+              s16 turnRate;
   /* 0xB2 */  u16 traction;
               s16 unkB4;
               u16 unkB6;
-              u16 unkB8;
-              u16 unkBA;
+              u16 footHeight;
+              u16 height;
               u16 unkBC; // height
-              u16 unkBE;
-              s16 unkC0;
-              s16 unkC2; // scaling?
-              s16 unkC4; // scaling?
+              u16 radius;
+              s16 maxCarryWeight;
+              s16 jumpLiftVelocity;
+              s16 swimLiftVelocity;
               s16 unkC6;
-              s16 unkC8; // scaling?
+              s16 unkC8;
   /* 0xCA */  s16 unkCA;
   /* 0xCC */  s16 unkCC;
   /* 0xCE */  s16 unkCE;
@@ -1464,15 +1440,15 @@ struct struct035 { // TODO: merge with ObjectData?
   /* 0xD2 */  s16 unkD2; // scaling?
   /* 0xD4 */  s16 unkD4;
   /* 0xD6 */  s16 biome;
-  /* 0xD8 */  u8  unkD8;
+  /* 0xD8 */  u8  criticalHealthThreshold;
   /* 0xD9 */  u8  padD9;
   /* 0xDA */  s16 unkDA[2][3]; // skill A/B (drainRate;unknown;unknown)
-  /* 0xE6 */  s8  unkE6; // animal class / value?
-  /* 0xE7 */  s8  unkE7;
+  /* 0xE6 */  s8  scoreTier; // animal class / value?
+  /* 0xE7 */  s8  jumpCooldown;
   /* 0xE8 */  s8  unkE8;
-  /* 0xE8 */  s8  unkE9;
-  /* 0xE8 */  s8  unkEA;
-  /* 0xEB */  s8  unkEB;
+  /* 0xE9 */  s8  stompCycleLength;
+  /* 0xEA */  s8  stompEffectScale;
+  /* 0xEB */  s8  footstepSoundCooldown;
 }; // size 0xEC
 
 typedef struct {
@@ -1645,31 +1621,31 @@ typedef struct {
 } struct050;
 
 typedef struct {
-    /* 0x0 */  Animal *unk0;
-    /* 0x4 */  Animal *unk4;
-    /* 0x8 */  s16 unk8;
-    /* 0xA */  s16 unkA;
-    /* 0xC */  s16 unkC;
-    /* 0xE */  s16 unkE;
-    /* 0x10 */ s16 unk10;
-    /* 0x12 */ s16 unk12;
-    /* 0x14 */ s16 numSegments;
-    /* 0x16 */ s16 unk16;
-    /* 0x18 */ s32 unk18; // length
-    /* 0x1C */ s16 unk1C;
+    /* 0x0 */  Animal *endObject;     // object hanging at the tail tip
+    /* 0x4 */  Animal *anchorObject;  // object the chain hangs from
+    /* 0x8 */  s16 endOffsetX;        // tip-object world offset X
+    /* 0xA */  s16 endOffsetZ;        // tip-object world offset Z
+    /* 0xC */  s16 endOffsetY;        // tip-object world offset Y
+    /* 0xE */  s16 anchorOffsetX;     // anchor offset on parent X
+    /* 0x10 */ s16 anchorOffsetZ;     // anchor offset on parent Z
+    /* 0x12 */ s16 anchorOffsetY;     // anchor offset on parent Y
+    /* 0x14 */ s16 numSegments;       // segment count
+    /* 0x16 */ s16 workspaceIndex;    // node state index into D_803DA300
+    /* 0x18 */ s32 segmentLength;     // per-segment length (16.16)
+    /* 0x1C */ s16 radius;            // culling/grapple AABB radius
     /* 0x1E */ u8  pad1E[2];
-    /* 0x20 */ s32 unk20; // xPos
-    /* 0x24 */ s32 unk24; // zPos
-    /* 0x28 */ s32 unk28; // yPos
-    /* 0x2C */ s16 unk2C;
+    /* 0x20 */ s32 anchorX;           // anchor world X (16.16)
+    /* 0x24 */ s32 anchorZ;           // anchor world Z (16.16)
+    /* 0x28 */ s32 anchorY;           // anchor world Y (16.16)
+    /* 0x2C */ s16 heading;           // yaw orienting the tail curve
     /* 0x2E */ s8  tailType;
-    /* 0x2F */ s8  unk2F;
-    /* 0x30 */ s8  unk30; // lastSegmentNum?
-    /* 0x31 */ s8  unk31;
-    /* 0x32 */ u8  unk32;
-    /* 0x33 */ u8  unk33;
-    /* 0x34 */ s8  unk34;
-    /* 0x35 */ s8  unk35;
+    /* 0x2F */ s8  swingMode;         // 0 inert / 1 grabbable sway / 2 grabbed
+    /* 0x30 */ s8  segmentIndex;      // grabbed / current chain segment
+    /* 0x31 */ s8  curveVariant;      // sway/wisp curve variant 0-3
+    /* 0x32 */ u8  chaFlags;          // .cha flags (sway axis + damping)
+    /* 0x33 */ u8  phaseSeed;         // sway phase desync offset
+    /* 0x34 */ s8  needsRecurve;      // culled last frame -> rebuild chain
+    /* 0x35 */ s8  grabLock;          // post-grab input lock countdown
     /* 0x36 */ u8  pad36[0x2];
 } DynamicTail; // size 0x38
 
@@ -1837,37 +1813,63 @@ typedef struct {
 } struct067; // size 0x8
 
 typedef struct {
-    /* 0x00 */ u16 id;
-    /* 0x02 */ u16 type;            // flags OR'd together
-    /* 0x04 */ u8* displayList1;
-    /* 0x08 */ u8* displayList2;
-    /* 0x0C */ u8* displayList3;
-    /* 0x10 */ u8* unk10;
+    /* 0x00 */ u16 objectType; // ID
+    /* 0x02 */ u8  objectCategory;
+    /* 0x03 */ u8  renderMode;
+    /* 0x04 */ Gfx *displayList1;
+    /* 0x08 */ Gfx *displayList2;
+    /* 0x0C */ Gfx *displayList3;
+    /* 0x10 */ s32 unk10;
     /* 0x14 */ u8  unk14;
-    /* 0x15 */ u8  unk15;
+    /* 0x15 */ u8  orientationMode; // checked if 2 or 4?
     /* 0x16 */ u16 unk16;
-    /* 0x18 */ Collision* collision;
-    /* 0x1C */ u16 collisionIndex;
-    /* 0x1E */ u8 pad1E[0x52];
-    /* 0x70 */ s32 unk70;
-    /* 0x74 */ u8  pad74[0xC];
+    /* 0x18 */ Collision *collision;
+    /* 0x1C */ u16 collisionIdx;
+    /* 0x1E */ s16 pad1E;
+    /* 0x20 */ s32 unk20[5][4]; // wrong
+    /* 0x70 */ u16 unk70;
+    /* 0x72 */ u16 depth;
+    /* 0x74 */ s16 width;
+    /* 0x76 */ s16 bodyHeight;
+    /* 0x78 */ s16 headHeight;
+    /* 0x7A */ u16 collideHeight; // 0xBA twin (collision box height)
+    /* 0x7C */ u16 mass;
+    /* 0x7E */ s16 frictionMultiplier;
     /* 0x80 */ s16 unk80;
-  /* 0x82 */  struct {
-                  u8  unk0  : 1; // 0x80
-                  u8  unk1  : 1; // 0x40
-                  u8  unk2  : 1; // 0x20
-                  u8  unk3  : 1; // 0x10
-                  u8  unk4  : 1; // 0x8
-                  u8  unk5  : 1; // 0x4
-                  u8  unk6  : 1; // 0x2
-                  u8  unk7  : 1; // 0x1
-              } unk82;
-              u8 pad83;
-    /* 0x84 */ u8  pad84[0x5];
-    /* 0x89 */ u8  unk89;
-    /* 0x8A */ u8  unk8A;
-    /* 0x8B */ u8  pad8B[0x11];
-} ObjectData; // size 0x9C, ObjectData ?
+    /* 0x82 */  struct {
+                   u8  unk0  : 1; // 0x80
+                   u8  unk1  : 1; // 0x40
+                   u8  unk2  : 1; // 0x20
+                   u8  unk3  : 1; // 0x10
+                   u8  unk4  : 1; // 0x8
+                   u8  unk5  : 1; // 0x4
+                   u8  unk6  : 1; // 0x2
+                   u8  unk7  : 1; // 0x1
+               } behaviourFlags;
+    /* 0x83 */  u8  unk83;
+    /* 0x84 */  void (*updateCallback)(void *);
+    /* 0x88 */  u8  unk88;
+    /* 0x89 */  u8  unk89;
+    /* 0x8A */  u8  maxHealth;
+    /* 0x8B */  u8  armour;
+    /* 0x8C */  u8  collisionDamageFactor;
+    /* 0x8D */  u8  contactDamage;
+    /* 0x8E */  u16 unk8E;
+    /* 0x90 */  u8  unk90;
+    /* 0x91 */  u8  unk91; // red
+    /* 0x92 */  u8  unk92; // green
+    /* 0x93 */  u8  unk93; // blue
+    /* 0x94 */  s8  unk94; // alpha?
+    /* 0x95 */  u8  pad95;
+    /* 0x96 */  struct {
+                   u8 type : 4;
+                   u8 imageIndex : 4;
+               } shadow;
+    /* 0x97 */  u8  shadowScaleX;
+    /* 0x98 */  u8  shadowScaleY;
+    /* 0x99 */  s8  shadowAlpha;
+    /* 0x9A */  s16 unk9A;
+} ObjectData; // size 0x9C
 
 struct Entity {
     /* 0x0 */   u16 state; // enabled/disabled
@@ -2111,29 +2113,29 @@ typedef struct {
 typedef struct {
     /* 0x0 */ u16 class;    // unk9E
     /* 0x2 */ u16 waterClass;     // unkA0
-    /* 0x4 */ u16 canJump;     // unkA2
-    /* 0x6 */ u16 unk6;     // unkBE, unk72, unk74
+    /* 0x4 */ u16 jumpFlags;    // unkA2 (was canJump)
+    /* 0x6 */ u16 bodyHalfExtent;    // unkBE, unk72, unk74
     /* 0x8 */ u16 mass;
     /* 0xA */ u8  armour;
-    /* 0xB */ u8  unkB;     // unk8C
-    /* 0xC */ u16 unkC;     // unkA4
-    /* 0xE */ u16 unkE;     // unkA6
-    /* 0x10 */ u16 unk10;   // unkA8
-    /* 0x12 */ u16 unk12;   // unkAA
-    /* 0x14 */ u16 unk14;   // unkAC
-    /* 0x16 */ s16 unk16;   // fallDistance
-    /* 0x18 */ s16 unk18;   // unkB0
-    /* 0x1A */ u16 traction;   // traction
+    /* 0xB */ u8  collisionDamageFactor;
+    /* 0xC */ u16 walkSpeed;
+    /* 0xE */ u16 jumpVelocity;
+    /* 0x10 */ u16 swimSpeed;
+    /* 0x12 */ u16 flightLiftVelocity;   // unkAA
+    /* 0x14 */ u16 flightSpeed;
+    /* 0x16 */ s16 fallDistance;    // unkAE
+    /* 0x18 */ s16 turnRate;    // unkB0
+    /* 0x1A */ u16 traction;    // traction
     /* 0x1C */ u16 unk1C;   // unkB4
     /* 0x1E */ u16 unk1E;   // unkB6
-    /* 0x20 */ u16 unk20;   // unkB8
-    /* 0x22 */ u16 unk22;   // unkBA, unk7A
+    /* 0x20 */ u16 footHeight;  // unkB8
+    /* 0x22 */ u16 height;      // unkBA, unk7A
     /* 0x24 */ u16 unk24;   // unkBC
-    /* 0x26 */ s16 unk26;   // unkC0
-    /* 0x28 */ s16 unk28;   // unkC2
-    /* 0x2A */ s16 unk2A;   // unkC4
-    /* 0x2C */ s8  unk2C;   // unkE6
-    /* 0x2D */ s8  unk2D;   // unkE7
+    /* 0x26 */ s16 maxCarryWeight;    // unkC0
+    /* 0x28 */ s16 jumpLiftVelocity;  // unkC2
+    /* 0x2A */ s16 swimLiftVelocity;  // unkC4
+    /* 0x2C */ s8  scoreTier;  // unkE6
+    /* 0x2D */ s8  jumpCooldown;  // unkE7
     /* 0x2E */ s16 unk2E;   // unkC6
     /* 0x30 */ s16 unk30;   // unkC8
     /* 0x32 */ s16 unk32;   // unkCA
@@ -2146,9 +2148,9 @@ typedef struct {
     /* 0x40 */ s16 biome;   //
     /* 0x42 */ s16 unk42[2][3];
     /* 0x4E */ s8  unk4E;   //
-    /* 0x4F */ s8  unk4F;   // unkE9
-    /* 0x50 */ s8  unk50;   // unkEA
-    /* 0x51 */ s8  unk51;   // unkEB
+    /* 0x4F */ s8  stompCycleLength;    // unkE9
+    /* 0x50 */ s8  stompEffectScale;    // unkEA
+    /* 0x51 */ s8  footstepSoundCooldown;   // unkEB
 } struct089; // size 0x52
 
 // level data

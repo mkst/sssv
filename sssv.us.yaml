@@ -4128,7 +4128,7 @@ segments:
       - [0x7917A0, c, sssv/animinit]
       - [0x791CD0, c, overlay2_791CD0]
       - [0x791FD0, c, sssv/animals/seagull]
-      - [0x793700, c, sssv/animals/pirana]
+      - [0x793700, c, sssv/animals/piranha]
       - [0x7943A0, c, sssv/animals/cool_cod]
       - [0x794EE0, c, sssv/behaviours]
       - [0x79B090, c, overlay2_79B090]
@@ -4155,14 +4155,14 @@ segments:
       - [0x7B3250, data] # padding?
       - [0x7B3260, data, overlay2_6DCA10]
       - [0x7B4440, .data, overlay2_6EC720]
-      - [0x7B5040, data, sssv/dynamic_tail]
+      - [0x7B5040, .data, sssv/dynamic_tail]
       - [0x7B5B80, .data, sssv/animals/fox]
       - [0x7B5E60, data, overlay2_716900_data] # ?
       - [0x7B5F70, .data, sssv/aidata]
       - [0x7B62E0, .data, sssv/animals/dog]
       - [0x7B65A0, .data, sssv/animals/hippo]
       - [0x7B6770, .data, sssv/screen_transition]
-      - [0x7B6780, data, sssv/animals/lion]
+      - [0x7B6780, .data, sssv/animals/lion]
       - [0x7B6950, .data, sssv/lights]
       - [0x7B6970, .data, sssv/input]
       - [0x7B6980, data, overlay2_707310]
@@ -4176,7 +4176,7 @@ segments:
       - [0x7B6E10, .data, overlay2_72BA20]
       - [0x7B6E20, .data, overlay2_72C680]
       - [0x7B73D0, .data, sssv/animals/mouse]
-      - [0x7B7550, data, sssv/animals/bear]
+      - [0x7B7550, .data, sssv/animals/bear]
       - [0x7B7720, .data, overlay2_739290]
       - [0x7B7B20, .data, overlay2_6ED230] # animal sound lookup table? wrong place?
       - [0x7B7C80, data] # animal sounds lookup
@@ -4188,7 +4188,7 @@ segments:
       - [0x7B99F0, data, overlay2_725D10]
       - [0x7B9A00, .data, overlay2_75BC80]
       - [0x7B9A20, .data, sssv/init]
-      - [0x7B9A30, data, sssv/animals/tortoise]
+      - [0x7B9A30, .data, sssv/animals/tortoise]
       - [0x7B9BD0, .data, data/objects_7B9BD0]
       - [0x7C33D0, .data, data/D_803B1D20_7C33D0]
       - [0x7C35D0, .data, data/demo_input] # demo controller input]
@@ -4201,7 +4201,7 @@ segments:
       - [0x7C5900, data, sssv/animals/polar_bear]
       - [0x7C5BD0, .data, sssv/animals/husky]
       - [0x7C5FE0, data, sssv/animals/vulture]
-      - [0x7C60D0, data, sssv/animals/camel]
+      - [0x7C60D0, .data, sssv/animals/camel]
       - [0x7C62E0, data, sssv/animals/kangaroo]
       # - [0x7C6528, data, sssv/animals/desert_fox]
       - [0x7C65E0, .data, overlay2_785D10]
@@ -4211,7 +4211,7 @@ segments:
       - [0x7C6C60, .data, sssv/animals/elephant]
       - [0x7C6E00, .data, overlay2_78E970]
       - [0x7C6E20, .data, sssv/animals/seagull]
-      - [0x7C6F10, .data, sssv/animals/pirana]
+      - [0x7C6F10, .data, sssv/animals/piranha]
       - [0x7C6F50, .data, sssv/animals/cool_cod]
       - [0x7C6F90, data] # used in sssv/terminal_background
       - [0x7C73D0, .data, sssv/behaviours] # list of all behaviours

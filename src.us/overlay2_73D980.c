@@ -158,7 +158,7 @@ void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos) 
         (func_802B3D68_6C5418() < 1001)) {
         D_803D552C->unk36F -= 1;
         if (D_803D552C->unk36F <= 0) {
-            D_803D552C->unk36F = D_803D5524->unkEB;
+            D_803D552C->unk36F = D_803D5524->footstepSoundCooldown;
             switch (mass) {
                 case 20:
                     pitch = 1.122f;

@@ -3,12 +3,11 @@
 
 void reset_object_render_queues(void);
 
-
 // ========================================================
 // .data
 // ========================================================
 
-s32  D_803A04E0_7B1B90 = 0; // unused
+static s32  D_803A04E0_7B1B90 = 0; // unused
 
 // ========================================================
 // .bss
@@ -181,7 +180,7 @@ void func_80294E50_6A6500(void) {
         gSPDisplayList(gMainDL++, &gDisplayListContext->gAuxDL);
 
         func_8029877C_6A9E2C();
-        D_803F2D50.unk18 = 1; //D_803F2D68 = 1;
+        D_803F2D50.unk18 = 1;
 #ifdef __sgi
         if (0) {};
 #endif

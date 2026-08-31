@@ -36,7 +36,7 @@ void func_8035A5F0_76BCA0(void) {
         spCA = VISIBILITY_VISIBLE;
         gLodDetailState = 0;
     } else {
-        spCA = classify_object_visibility_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
+        spCA = classify_object_visibility(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->height << 0xF), 0xA00, 0, 0x9E, 0x9E, 0x4F, 1, CHECK_SEGMENT == 0);
     }
 
     if (spCA == VISIBILITY_VISIBLE) {
@@ -48,7 +48,7 @@ void func_8035A5F0_76BCA0(void) {
         D_803F2EC4 = ((D_803F2EC4 - FTOFIX32(1.0)) >> 1) + FTOFIX32(1.0);
         func_8035D734_76EDE4();
 
-        switch (D_803D5524->unk9C) {
+        switch (D_803D5524->animalType) {
         case CHAMELEON:
             switch (D_803D552C->unk365) {
             case ATTACK_CHAMELEON_TONGUE:
@@ -274,7 +274,7 @@ void func_8035A5F0_76BCA0(void) {
             D_80203FE0[13].unk2 -= var_s0;
             D_80203FE0[14].unk2 -= var_s0;
 
-            if (D_803D5524->unk9C == SNEAKY_CHAMELEON) {
+            if (D_803D5524->animalType == SNEAKY_CHAMELEON) {
                 switch (D_803F2F00) {
                 case 1:
                     func_80374660_785D10(-11, 0, 0x514);
@@ -304,12 +304,12 @@ void func_8035A5F0_76BCA0(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = gCameraUiState, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_8 = gCameraUiState, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, 0.09f);
-            if (D_803D5524->unk9C == CHAMELEON) {
+            func_8038C230_79D8E0((D_803D5524->height * 0xC) / 5, 2, 3, 3, 0.09f);
+            if (D_803D5524->animalType == CHAMELEON) {
 
                 gSPDisplayList(gOpaqueDL++, D_010034C0_3CD90);
 
@@ -354,8 +354,8 @@ void func_8035A5F0_76BCA0(void) {
         func_8035D6D0_76ED80();
     }
     if ((spCA == VISIBILITY_VISIBLE) || (spCA == VISIBILITY_OUT_OF_BOUNDS_X)) {
-        if (D_803D5524->unk9C != SNEAKY_CHAMELEON) {
-            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->unkBA), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
+        if (D_803D5524->animalType != SNEAKY_CHAMELEON) {
+            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + D_803D5524->height), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
     }
     if (spCA == VISIBILITY_VISIBLE) {
@@ -367,7 +367,7 @@ void func_8035A5F0_76BCA0(void) {
     }
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {
-            if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE) && (D_803D5524->unk9C != CHAMELEON)) {
+            if ((D_803D552C->unk365 != ATTACK_CHAMELEON_HIDE) && (D_803D552C->unk365 != ATTACK_CHAMELEON_UNHIDE) && (D_803D5524->animalType != CHAMELEON)) {
                 D_803D552C->unk32A = gGameplayTick;
                 D_803D552C->unk365 = ATTACK_CHAMELEON_UNHIDE;
             }

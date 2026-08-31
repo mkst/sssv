@@ -108,13 +108,13 @@ void func_802B4148_6C57F8(Gfx **dl) {
         temp_s2 = RAND(360);
 
         create_particle_effect(
-            ((D_80152350.unk2D0[temp_s2] * temp_s0) / 0x80) + 0x900,
-            ((D_80152350.unk384[temp_s2] * temp_s0) / 0x80) + 0xE00,
+            ((SINB(temp_s2) * temp_s0) / 0x80) + 0x900,
+            ((COSB(temp_s2) * temp_s0) / 0x80) + 0xE00,
             RAND(2000) + 1000,
             86,
-            D_80152350.unk2D0[temp_s1] * 4000,
-            D_80152350.unk384[temp_s1] * 4000,
-            D_80152350.unk2D0[(s16)RAND(360)] * 5000,
+            SINB(temp_s1) * 4000,
+            COSB(temp_s1) * 4000,
+            SINB(RAND(360)) * 5000,
             100,
             GPACK_RGBA5551(200, 200, 248, 0),
             GPACK_RGBA5551(0, 0, 248, 0),

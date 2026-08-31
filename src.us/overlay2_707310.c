@@ -58,7 +58,7 @@ void func_802F5C60_707310(Entity *arg0) {
     s16 i;
     struct043 *var_s1;
 
-    if (arg0->unk16C->unk15 != 1) {
+    if (arg0->unk16C->orientationMode != 1) {
         arg0->unkC4[0].pos.xPos.w = arg0->unk74[0].pos.xPos.w;
         arg0->unkC4[0].pos.zPos.w = arg0->unk74[0].pos.zPos.w;
         arg0->unkC4[0].pos.yPos.w = arg0->unk74[0].pos.yPos.w;
@@ -66,12 +66,12 @@ void func_802F5C60_707310(Entity *arg0) {
         return;
     }
 
-    if (arg0->unk16C->unk15 == 1) {
-        temp_t3 = D_80152350.unk2D0[arg0->zRotation];
-        temp_t6 = D_80152350.unk384[arg0->zRotation];
+    if (arg0->unk16C->orientationMode == 1) {
+        temp_t3 = SINB(arg0->zRotation);
+        temp_t6 = COSB(arg0->zRotation);
 
-        temp_t1 = D_80152350.unk2D0[arg0->yRotation];
-        temp_t4 = D_80152350.unk384[arg0->yRotation];
+        temp_t1 = SINB(arg0->yRotation);
+        temp_t4 = COSB(arg0->yRotation);
 
         i = 0;
         var_s1 = &arg0->unk74;
@@ -106,11 +106,11 @@ void func_802F5F44_7075F4(s16 x, s16 y, s16 z, s16 yRotation, s16 zRotation, str
     s16 temp_v0;
     s32 temp_t7;
 
-    temp_v0 = D_80152350.unk2D0[yRotation];
-    temp_t0 = D_80152350.unk384[yRotation];
+    temp_v0 = SINB(yRotation);
+    temp_t0 = COSB(yRotation);
 
-    temp_t1 = D_80152350.unk2D0[zRotation];
-    temp_t3 = D_80152350.unk384[zRotation];
+    temp_t1 = SINB(zRotation);
+    temp_t3 = COSB(zRotation);
 
     temp_t7 = ((y * temp_t0) - (z * temp_v0)) >> 8;
 
@@ -132,11 +132,11 @@ void func_802F603C_7076EC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, u16 
     s64 sp38;
     s64 sp30;
 
-    sp38 = D_80152350.unk2D0[arg3];
-    sp48 = D_80152350.unk384[arg3];
+    sp38 = SINB(arg3);
+    sp48 = COSB(arg3);
 
-    sp30 = D_80152350.unk2D0[arg4];
-    sp40 = D_80152350.unk384[arg4];
+    sp30 = SINB(arg4);
+    sp40 = COSB(arg4);
 
     sp60 = (arg0 * (s64)arg5) >> 0xB;
     sp58 = (arg1 * (s64)arg5) >> 0xB;
@@ -621,11 +621,11 @@ void func_802F705C_70870C(Animal *arg0, s16 zRotation, s16 yRotation, s16 height
             var_t2++;
         }
 
-        spD4.y = (f32)D_80152350.unk384[zRotation] / 256;
-        spD4.z = (f32)D_80152350.unk2D0[zRotation] / 256;
+        spD4.y = (f32)COSB(zRotation) / 256;
+        spD4.z = (f32)SINB(zRotation) / 256;
 
-        spD4.x = (f32)D_80152350.unk2D0[yRotation] * spD4.y / 256;
-        spD4.y = (f32)D_80152350.unk384[yRotation] * spD4.y / 256;
+        spD4.x = (f32)SINB(yRotation) * spD4.y / 256;
+        spD4.y = (f32)COSB(yRotation) * spD4.y / 256;
 
         for (sp13A = (xPos + var_t0); sp13A <= (xPos + var_t1); sp13A++) {
             for (sp138 = (zPos + var_t2); sp138 <= (zPos + var_t3); sp138++) {
@@ -650,7 +650,7 @@ void func_802F705C_70870C(Animal *arg0, s16 zRotation, s16 yRotation, s16 height
                                 if ((flags & 8) == 0) {
                                     var_f22 = temp_f0;
                                     var_s1 = &spC8;
-                                    var_f2 = (f32) D_80152350.unk384[(s16)(arg5 >> 1)] / 256;
+                                    var_f2 = (f32) COSB(arg5 >> 1) / 256;
                                 } else {
                                     var_f2 = (temp_f12 * spD4.x) + (temp_f14 * spD4.y) + (temp_f16 * spD4.z);
                                     if ((var_f28 < var_f2) || (var_f2 <= 0.0f)) {
@@ -1028,7 +1028,7 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
         temp_v0 = -temp_v0;
     }
 #endif
-    temp_f0 = (f32) (D_80152350.unk384[temp_v0] + (s16) (s32) (D_80152350.unk384[sp2A] * sp60)) / 256;
+    temp_f0 = (f32) (COSB(temp_v0) + (s16) (s32) (COSB(sp2A) * sp60)) / 256;
 
     if (temp_f0 == 0.0f) {
         return 0;
@@ -1047,7 +1047,7 @@ u8 func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct07
     temp_f0 = sp60 * sp5C;
     arg4->unk0 = arg1->position.xPos.h + (s16)(temp_f0 * var_f12);
     arg4->unk2 = arg1->position.zPos.h + (s16)(temp_f0 * var_f2);
-    arg4->unk4 = arg1->position.yPos.h + ( arg1->unk42 >> 1);
+    arg4->unk4 = arg1->position.yPos.h + (arg1->unk42 >> 1);
     return 1;
 }
 
@@ -1089,8 +1089,8 @@ Entity *find_closest_animal(Entity *arg0) {
             if ((gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) &&
                 (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_2) &&
                 (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DEACTIVATED)) {
-                if ((gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
-                    (gAnimalState.animals[i].unk0->unk9C != EVO)) {
+                if ((gAnimalState.animals[i].unk0->animalType != EVO_TRANSFER) &&
+                    (gAnimalState.animals[i].unk0->animalType != EVO)) {
 
                     animal = gAnimalState.animals[i].animal;
 
@@ -1281,7 +1281,7 @@ s32 func_802F9178_70A828(Entity *arg0) {
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != NULL) &&
-            (gAnimalState.animals[i].unk0->unk9C == MOUSE2)) {
+            (gAnimalState.animals[i].unk0->animalType == MOUSE2)) {
             if ((gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED) &&
                 (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_2) &&
                 (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DEACTIVATED)) {
@@ -1349,7 +1349,7 @@ void func_802F92B0_70A960(Entity *arg0) {
     }
 
     if (sp47 != 0) {
-        arg0->yRotation += D_80152350.unk2D0[(s16) ((arg0->Info.unk14E << 4) % 360)] >> 5;
+        arg0->yRotation += SINB((arg0->Info.unk14E << 4) % 360) >> 5;
     }
     if (arg0->yRotation >= 360) {
         arg0->yRotation -= 360;
@@ -1402,7 +1402,7 @@ void func_802F951C_70ABCC(Entity *arg0) {
                 red,
                 blue,
                 green);
-            enqueue_dynamic_texture_billboard_6AE5A0(
+            enqueue_dynamic_texture_billboard(
                 arg0->position.xPos.h << 16,
                 arg0->position.zPos.h << 16,
                 (arg0->position.yPos.h << 16) + (arg0->unk40 * 570),
@@ -1763,7 +1763,7 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
         break;
     }
 
-    if (arg0->unk16C->unk82.unk0 != 0) {
+    if (arg0->unk16C->behaviourFlags.unk0 != 0) {
         yPos = 0;
     }
     arg0->xVelocity.w = xPos - arg0->position.xPos.w;
@@ -2034,7 +2034,7 @@ void func_802FADBC_70C46C(Animal *arg0) {
 
         sp44 = sp44 % 360;
         sp42 = sp42 % 360;
-        if (arg0->unk16C->unk15 == 4) {
+        if (arg0->unk16C->orientationMode == 4) {
             func_802C9918_6DAFC8(arg0, sp44, sp42);
         } else {
             arg0->zRotation = sp44;
@@ -2131,8 +2131,8 @@ void func_802FB4C0_70CB70(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+        phi_v0 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v0 = -1;
     }
@@ -2161,8 +2161,8 @@ void func_802FB680_70CD30(Animal *arg0) {
     } else {
         phi_v0 = arg0->unk15E;
     }
-    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-        phi_v1 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+        phi_v1 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v1 = -1;
     }
@@ -2191,8 +2191,8 @@ void func_802FB85C_70CF0C(Animal *arg0) {
         phi_v0 = arg0->unk15E;
     }
 
-    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-        phi_v1 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+        phi_v1 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v1 = -1;
     }
@@ -2238,8 +2238,8 @@ void func_802FBA40_70D0F0(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+        phi_v0 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v0 = -1;
     }
@@ -2265,8 +2265,8 @@ void func_802FBBF8_70D2A8(Animal *arg0) {
         phi_t0 = arg0->unk15E;
     }
 
-    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+        phi_v0 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v0 = -1;
     }
@@ -2292,8 +2292,8 @@ void func_802FBDA8_70D458(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+        phi_v0 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v0 = -1;
     }
@@ -2319,8 +2319,8 @@ void func_802FBF58_70D608(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-        phi_v0 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+        phi_v0 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v0 = -1;
     }
@@ -2346,8 +2346,8 @@ void func_802FC108_70D7B8(Animal *arg0) {
     } else {
         phi_t0 = arg0->unk15E;
     }
-    if ((arg0->owner != NULL) && ((arg0->owner->unk16C->unk82.unk2))) {
-        phi_v0 = arg0->owner->unk16C->unkE6;
+    if ((arg0->owner != NULL) && ((arg0->owner->unk16C->behaviourFlags.unk2))) {
+        phi_v0 = arg0->owner->unk16C->scoreTier;
     } else {
         phi_v0 = -1;
     }
@@ -2625,8 +2625,8 @@ void func_802FCA08_70E0B8(Entity *arg0, s16 arg1) {
         } else {
             phi_v0 = arg0->unk15E;
         }
-        if ((arg0->owner != NULL) && (arg0->owner->unk16C->unk82.unk2)) {
-            phi_v1 = arg0->owner->unk16C->unkE6;
+        if ((arg0->owner != NULL) && (arg0->owner->unk16C->behaviourFlags.unk2)) {
+            phi_v1 = arg0->owner->unk16C->scoreTier;
         } else {
             phi_v1 = -1;
         }
@@ -2741,8 +2741,8 @@ s32 func_802FD538_70EBE8(Animal *arg0) {
 
     if ((D_803E1B02 > 0) && (gAnimalState.animals[gCurrentAnimalIndex].animal->state == STATE_INACTIVE)) {
         for (i = 0; i < 120; i++) {
-            if ((D_803E00C0[i].unk2F == 2) &&
-                ((arg0 == D_803E00C0[i].unk4) || (arg0 == D_803E00C0[i].unk0))) {
+            if ((D_803E00C0[i].swingMode == 2) &&
+                ((arg0 == D_803E00C0[i].anchorObject) || (arg0 == D_803E00C0[i].endObject))) {
                 return 1;
             }
         }
@@ -2779,8 +2779,8 @@ void func_802FD674_70ED24(Entity *arg0, Animal *arg1) {
             arg0->unk54.unk0 |= 0x10;
         }
     } else {
-        if ((arg1->unk16C->unk2 != 9) || (arg1->unk16C->objectType == OBJECT_BONUS_RING)) {
-            if ((arg1->unk16C->unk2 == 1) || (arg1->unk16C->unk2 == 2)) {
+        if ((arg1->unk16C->objectCategory != 9) || (arg1->unk16C->objectType == OBJECT_BONUS_RING)) {
+            if ((arg1->unk16C->objectCategory == 1) || (arg1->unk16C->objectCategory == 2)) {
                 tmp = 10;
             } else {
                 tmp = 2;
@@ -2805,8 +2805,8 @@ void func_802FD674_70ED24(Entity *arg0, Animal *arg1) {
             arg1->unk54.unk0 |= 0x10;
         }
     } else {
-        if ((arg0->unk16C->unk2 != 9) || (arg0->unk16C->objectType == OBJECT_BONUS_RING)) {
-            if ((arg0->unk16C->unk2 == 1) || ((arg0->unk16C->unk2 == 2))) {
+        if ((arg0->unk16C->objectCategory != 9) || (arg0->unk16C->objectType == OBJECT_BONUS_RING)) {
+            if ((arg0->unk16C->objectCategory == 1) || ((arg0->unk16C->objectCategory == 2))) {
                 tmp = 10;
             } else {
                 tmp = 2;

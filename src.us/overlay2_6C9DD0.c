@@ -144,11 +144,11 @@ u16 func_802B8B74_6CA224(void) {
         (D_803D5530->state == 182) ||
         (D_803D5530->state == 6) ||
         (D_803D5530->state == 185)) {
-        phi_v0 = D_803D5524->unkC2;
+        phi_v0 = D_803D5524->jumpLiftVelocity;
     }
     if ((D_803D5530->state == 4) ||
         (D_803D5530->state == 183)) {
-        phi_v0 = D_803D5524->unkC4;
+        phi_v0 = D_803D5524->swimLiftVelocity;
     }
 
     tmp = phi_v0 / MAX(1, (D_803D552C->unk31A << 5) >> 6);

@@ -91,9 +91,9 @@ void func_802A403C_6B56EC(Entity *arg0, s16 arg1) {
 void func_802A40EC_6B579C(void) {
     s16 tmp;
     if (D_803D5524->waterClass & (WATER_DAMAGE | WATER_DAMAGE_X2)) {
-        tmp = D_803D5524->unkBA;
+        tmp = D_803D5524->height;
     } else {
-        tmp = D_803D5524->unkB8;
+        tmp = D_803D5524->footHeight;
     }
     D_803D5530->yVelocity.w = (D_803D5530->yVelocity.w * 7) >> 3;
     D_803D5530->yVelocity.w -= ((D_803D5530->position.yPos.h + tmp) - func_80298F78_6AA628(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h)) << 10;
@@ -101,7 +101,7 @@ void func_802A40EC_6B579C(void) {
 
 // ESA: func_80064B5C
 void func_802A4184_6B5834(void) {
-    s16 tmp = (D_803D5530->position.yPos.h + D_803D5524->unkBA) - func_80298F78_6AA628(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
+    s16 tmp = (D_803D5530->position.yPos.h + D_803D5524->height) - func_80298F78_6AA628(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h);
     if (tmp >= 0) {
         D_803D5530->yVelocity.w -= gGravity;
     } else if (tmp >= -15) {

@@ -164,7 +164,7 @@ static s8   D_803F7DA1;
 static s8   D_803F7DA2;
 static s8   D_803F7DA3;
 struct030 D_803F7DA8;
-static s8   D_803F7DE0[31]; // levels available
+static s8   D_803F7DE0[32]; // levels available
 static s16  D_803F7E00; // europe levels completed
 static s16  D_803F7E02; // levels
 static s16  D_803F7E04; // levels

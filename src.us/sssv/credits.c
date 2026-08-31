@@ -70,7 +70,6 @@ char *credits[] = {
 s16  entryOffset; // credit entry offset
 s16  verticalPosition;  // credit vertical position
 
-
 // ========================================================
 // .text
 // ========================================================

@@ -757,7 +757,7 @@ static s16 D_803A04F8_7B1BA8 = 1; // unused?
 
 s32 func_802983D0_6A9A80(void) {
     s32 new_var UNUSED;
-    s32 water_level = GET_WATER_LEVEL(D_803C0740, ((u16)gCameras[gCameraId].unk74), ((u16)gCameras[gCameraId].unk78));
+    s32 water_level = GET_WATER_LEVEL(D_803C0740, ((u16)gCameras[gCameraId].eyeX), ((u16)gCameras[gCameraId].eyeZ));
     // needed!
     new_var = water_level;
     return 0;
@@ -971,10 +971,10 @@ void func_80299140_6AA7F0(void) {
 
     maxPoint = 100000;
 
-    minX = ((s32)gCameras[gCameraId].unk74 >> 6) - 25;
-    minZ = ((s32)gCameras[gCameraId].unk78 >> 6) - 25;
-    maxX = ((s32)gCameras[gCameraId].unk74 >> 6) + 25;
-    maxZ = ((s32)gCameras[gCameraId].unk78 >> 6) + 25;
+    minX = ((s32)gCameras[gCameraId].eyeX >> 6) - 25;
+    minZ = ((s32)gCameras[gCameraId].eyeZ >> 6) - 25;
+    maxX = ((s32)gCameras[gCameraId].eyeX >> 6) + 25;
+    maxZ = ((s32)gCameras[gCameraId].eyeZ >> 6) + 25;
 
 #ifdef __sgi
     if (1) { }
@@ -997,7 +997,7 @@ void func_80299140_6AA7F0(void) {
         for (j = minZ; j <= maxZ; j += 3) {
             temp_a3 = D_803C0740[i][j].unk6 << 2;
             if (temp_a3 != 0) {
-                newMax = ABS((i << 6) - ((s16) gCameras[gCameraId].unk74)) + ABS((j << 6) - (s16) gCameras[gCameraId].unk78) + ABS(temp_a3 - (s16) gCameras[gCameraId].unk7C);
+                newMax = ABS((i << 6) - ((s16) gCameras[gCameraId].eyeX)) + ABS((j << 6) - (s16) gCameras[gCameraId].eyeZ) + ABS(temp_a3 - (s16) gCameras[gCameraId].eyeY);
                 newMax = ABS(newMax);
 
                 if (newMax < maxPoint) {
@@ -1012,8 +1012,8 @@ void func_80299140_6AA7F0(void) {
 
     if (maxPoint != 100000) {
         if ((D_803F2D50.waterMode == 0) || (D_803F2D50.waterMode == 2)) {
-            water_level = ((GET_WATER_LEVEL(D_803C0740, (u16)gCameras[gCameraId].unk74, (u16)gCameras[gCameraId].unk78)) << 2);
-            if (water_level > (gCameras[gCameraId].unk7C - 12.0f)) {
+            water_level = ((GET_WATER_LEVEL(D_803C0740, (u16)gCameras[gCameraId].eyeX, (u16)gCameras[gCameraId].eyeZ)) << 2);
+            if (water_level > (gCameras[gCameraId].eyeY - 12.0f)) {
                 func_8032CD70_73E420((void*)&gWaterAnimState.unk204, SFX_UNKNOWN_12, 0x4718, 0, 0.28f, xPos, zPos, yPos); // D_803BAD00_7CC3B0
             } else {
                 func_8032CD70_73E420((void*)&gWaterAnimState.unk204, SFX_UNKNOWN_12, 0x2800, 0, 1.0f, xPos, zPos, yPos);

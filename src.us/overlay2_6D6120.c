@@ -94,7 +94,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     case 0x68:
     case 0xB6:
     case 0xCA:
-        var_t2 = (D_80152350.unk2D0[(s16) ((temp_t4 * 360) / 256)] / 25) + 20;
+        var_t2 = (SINB((temp_t4 * 360) / 256) / 25) + 20;
         var_t3 = 0x5A;
         var_t1 = var_a0;
         break;
@@ -104,7 +104,7 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     case 0x69:
     case 0xB7:
     case 0xCB:
-        var_t2 = MAX(1, (D_80152350.unk2D0[(s16) ((temp_t4 * 360) / 256)] / 10) + 20);
+        var_t2 = MAX(1, (SINB((temp_t4 * 360) / 256) / 10) + 20);
         var_t3 = 0x5A;
         var_t1 = var_a0;
         break;
@@ -115,20 +115,20 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
         break;
     case 0x8E:
     case 0x8F:
-        var_t2 = MAX(1, (D_80152350.unk2D0[(s16) ((temp_t4 * 360) / 256)] / 20) + 10);
+        var_t2 = MAX(1, (SINB((temp_t4 * 360) / 256) / 20) + 10);
         var_t3 = 0x5A;
         var_t1 = var_a0;
         break;
     default:
         switch (temp_t0_2->unk0) {
         case 1:
-            var_t2 = 0x34 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 100)] / 8);
-            var_t3 = 0x85 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 100)] / 6);
+            var_t2 = 0x34 - (COSB((temp_t0_2->unk2 * 360) / 100) / 8);
+            var_t3 = 0x85 - (COSB((temp_t0_2->unk2 * 360) / 100) / 6);
             var_t1 = 0;
             break;
         case 18:
-            var_t2 = 0x34 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 50)] / 8);
-            var_t3 = 0x85 - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 50)] / 6);
+            var_t2 = 0x34 - (COSB((temp_t0_2->unk2 * 360) / 50) / 8);
+            var_t3 = 0x85 - (COSB((temp_t0_2->unk2 * 360) / 50) / 6);
             var_t1 = 0;
             break;
         case 15:
@@ -137,29 +137,29 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
             var_t1 = (-temp_t0_2->unk2 * 12) + 0x78;
             break;
         case 5:
-            var_t2 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 150)] / 26) + 10;
+            var_t2 = (COSB(((temp_t0_2->unk2 * 360) / 150)) / 26) + 10;
             var_t3 = 0x5A;
             if (temp_t0_2->unk2 < 37) {
-                var_t1 = 0x2A - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 75)] / 6);
+                var_t1 = 0x2A - (COSB(((temp_t0_2->unk2 * 360) / 75)) / 6);
             }
             if ((temp_t0_2->unk2 >= 37) && (temp_t0_2->unk2 < 112)) {
-                var_t1 = (D_80152350.unk2D0[(s16) ((temp_t0_2->unk2 * 360) / 150)] / 3);
+                var_t1 = (SINB(((temp_t0_2->unk2 * 360) / 150)) / 3);
             }
             if (temp_t0_2->unk2 >= 112) {
-                var_t1 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 75)] / 6) - 42;
+                var_t1 = (COSB(((temp_t0_2->unk2 * 360) / 75)) / 6) - 42;
             }
             break;
         case 19:
-            var_t2 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 75)] / 26) + 10;
+            var_t2 = (COSB(((temp_t0_2->unk2 * 360) / 75)) / 26) + 10;
             var_t3 = 0x5A;
             if (temp_t0_2->unk2 < 18) {
-                var_t1 = 0x2A - (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 37)] / 6);
+                var_t1 = 0x2A - (COSB(((temp_t0_2->unk2 * 360) / 37)) / 6);
             }
             if ((temp_t0_2->unk2 >= 18) && (temp_t0_2->unk2 < 56)) {
-                var_t1 = (D_80152350.unk2D0[(s16) ((temp_t0_2->unk2 * 360) / 75)] / 3);
+                var_t1 = (SINB(((temp_t0_2->unk2 * 360) / 75)) / 3);
             }
             if (temp_t0_2->unk2 >= 56) {
-                var_t1 = (D_80152350.unk384[(s16) ((temp_t0_2->unk2 * 360) / 37)] / 6) - 42;
+                var_t1 = (COSB(((temp_t0_2->unk2 * 360) / 37)) / 6) - 42;
             }
             break;
         case 16:
@@ -245,19 +245,19 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     tmp2 = D_80203FE0[1].unk2;
     tmp3 = D_80203FE0[1].unk4;
 
-    tmp2 += ((arg0 * D_80152350.unk2D0[var_t2]) / 256);
-    tmp3 += ((arg0 * D_80152350.unk384[var_t2]) / 256);
+    tmp2 += ((arg0 * SINB(var_t2)) / 256);
+    tmp3 += ((arg0 * COSB(var_t2)) / 256);
 
     D_80203FE0[19].unk0 = tmp1;
     D_80203FE0[19].unk2 = tmp2;
     D_80203FE0[19].unk4 = tmp3;
 
     if (var_t1 != 0) {
-        tmp1 += (arg1 * D_80152350.unk2D0[var_t1]) / 256;
-        tmp2 += (arg1 * D_80152350.unk384[var_t1]) / 256;
+        tmp1 += (arg1 * SINB(var_t1)) / 256;
+        tmp2 += (arg1 * COSB(var_t1)) / 256;
     } else {
-        tmp2 += (arg1 * D_80152350.unk2D0[var_t3]) / 256;
-        tmp3 += (arg1 * D_80152350.unk384[var_t3]) / 256;
+        tmp2 += (arg1 * SINB(var_t3)) / 256;
+        tmp3 += (arg1 * COSB(var_t3)) / 256;
     }
 
     D_80203FE0[20].unk0 = tmp1;
@@ -268,8 +268,8 @@ void func_802C4A70_6D6120(s16 arg0, s16 arg1, u8 arg2) {
     tmp2 = D_80203FE0[1].unk2;
     tmp3 = D_80203FE0[1].unk4;
 
-    tmp2 += ((arg0 * D_80152350.unk2D0[20]) / 256);
-    tmp3 += ((arg0 * D_80152350.unk384[20]) / 256);
+    tmp2 += ((arg0 * SINB(20)) / 256);
+    tmp3 += ((arg0 * COSB(20)) / 256);
 
     D_80203FE0[32].unk0 = tmp1;
     D_80203FE0[33].unk0 = tmp1;
@@ -315,8 +315,8 @@ void func_802C56D0_6D6D80(s16 arg0) {
 void func_802C5824_6D6ED4(s16 arg0, s16 arg1, s16 arg2) {
     D_80203FE0[19].unk0 = D_80203FE0[1].unk0;
 
-    D_80203FE0[19].unk2 = D_80203FE0[1].unk2 + (D_80152350.unk2D0[arg2] * arg0 / 256);
-    D_80203FE0[19].unk4 = D_80203FE0[1].unk4 + (D_80152350.unk384[arg2] * arg0 / 256);
+    D_80203FE0[19].unk2 = D_80203FE0[1].unk2 + (SINB(arg2) * arg0 / 256);
+    D_80203FE0[19].unk4 = D_80203FE0[1].unk4 + (COSB(arg2) * arg0 / 256);
 
     D_80203FE0[20].unk0 = D_80203FE0[19].unk0;
     D_80203FE0[20].unk2 = D_80203FE0[19].unk2 + arg1;
@@ -373,7 +373,7 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
     case 0x68:
     case 0xB6:
     case 0xCA:
-        var_v1 = (D_80152350.unk2D0[(s16) ((temp_t0 * 360) / 256)] / 80) + 90;
+        var_v1 = (SINB((temp_t0 * 360) / 256) / 80) + 90;
         var_v0 = var_a0;
         break;
     case 0x4:
@@ -382,7 +382,7 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
     case 0x69:
     case 0xB7:
     case 0xCB:
-        var_v1 = (D_80152350.unk2D0[(s16) ((temp_t0 * 360) / 256)] / 40) + 90;
+        var_v1 = (SINB((temp_t0 * 360) / 256) / 40) + 90;
         var_v0 = var_a0;
         break;
     case 0x8D:
@@ -391,25 +391,25 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
         break;
     case 0x8E:
     case 0x8F:
-        var_v1 = (D_80152350.unk2D0[(s16) ((temp_t0 * 360) / 256)] / 60) + 90;
+        var_v1 = (SINB((temp_t0 * 360) / 256) / 60) + 90;
         var_v0 = var_a0;
         break;
     default:
         switch (tmp->unk0) {
         case 1:
             var_v0 = 0;
-            var_v1 = 104 - ((D_80152350.unk384[((s16) ((tmp->unk2 * 360) / 100))]) / 18);
+            var_v1 = 104 - ((COSB(((tmp->unk2 * 360) / 100))) / 18);
             break;
         case 5:
             var_v1 = 90;
             if (tmp->unk2 < 37) {
-                var_v0 = 21 - ((D_80152350.unk384[(s16) ((tmp->unk2 * 360) / 75)]) / 12);
+                var_v0 = 21 - ((COSB((tmp->unk2 * 360) / 75)) / 12);
             }
             if ((tmp->unk2 >= 37) && (tmp->unk2 < 112)) {
-                var_v0 = ((D_80152350.unk2D0[(s16) ((tmp->unk2 * 360) / 150)]) / 6);
+                var_v0 = ((SINB((tmp->unk2 * 360) / 150)) / 6);
             }
             if (tmp->unk2 >= 112) {
-                var_v0 = ((D_80152350.unk384[(s16) ((tmp->unk2 * 360) / 75)]) / 12) - 21;
+                var_v0 = ((COSB((tmp->unk2 * 360) / 75)) / 12) - 21;
             }
             break;
         default:
@@ -435,11 +435,11 @@ void func_802C58E4_6D6F94(s16 arg0, s16 arg1) {
     var_t2 = D_80203FE0[19].unk4;
 
     if (var_v0 != 0) {
-        var_a3 += (arg1 * D_80152350.unk2D0[var_v0]) / 256;
-        var_t0 += (arg1 * D_80152350.unk384[var_v0]) / 256;
+        var_a3 += (arg1 * SINB(var_v0)) / 256;
+        var_t0 += (arg1 * COSB(var_v0)) / 256;
     } else {
-        var_t0 += (arg1 * D_80152350.unk2D0[var_v1]) / 256;
-        var_t2 += (arg1 * D_80152350.unk384[var_v1]) / 256;
+        var_t0 += (arg1 * SINB(var_v1)) / 256;
+        var_t2 += (arg1 * COSB(var_v1)) / 256;
     }
 
     D_80203FE0[20].unk0 = var_a3;
@@ -506,23 +506,23 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
     switch (temp_v1_2->unk0) {
     case 1:
         var_a1 = 0;
-        var_a2 = 62 - (D_80152350.unk384[(s16) ((temp_v1_2->unk2 * 360) / 100)] / 8);
-        var_a3 = 133 - (D_80152350.unk384[(s16) ((temp_v1_2->unk2 * 360) / 100)] / 6);
+        var_a2 = 62 - (COSB((temp_v1_2->unk2 * 360) / 100) / 8);
+        var_a3 = 133 - (COSB((temp_v1_2->unk2 * 360) / 100) / 6);
         if (temp_v1_2->unk2 >= 100) {
             temp_v1_2->unk0 = 0;
         }
         break;
     case 5:
         var_a3 = 90;
-        var_a2 = (D_80152350.unk384[(s16) ((temp_v1_2->unk2 * 360) / 150)] / 26) + 20;
+        var_a2 = (COSB(((temp_v1_2->unk2 * 360) / 150)) / 26) + 20;
         if (temp_v1_2->unk2 < 37) {
-            var_a1 = 42 - (D_80152350.unk384[(s16) ((temp_v1_2->unk2 * 360) / 75)] / 6);
+            var_a1 = 42 - (COSB(((temp_v1_2->unk2 * 360) / 75)) / 6);
         }
         if ((temp_v1_2->unk2 >= 37) && (temp_v1_2->unk2 < 112)) {
-            var_a1 = (D_80152350.unk2D0[(s16) ((temp_v1_2->unk2 * 360) / 150)] / 3);
+            var_a1 = (SINB(((temp_v1_2->unk2 * 360) / 150)) / 3);
         }
         if (temp_v1_2->unk2 >= 112) {
-            var_a1 = (D_80152350.unk384[(s16) ((temp_v1_2->unk2 * 360) / 75)] / 6) - 42;
+            var_a1 = (COSB(((temp_v1_2->unk2 * 360) / 75)) / 6) - 42;
         }
         if (temp_v1_2->unk2 >= 150) {
             temp_v1_2->unk0 = 0;
@@ -572,19 +572,19 @@ void func_802C5F34_6D75E4(s16 arg0, s16 arg1, u8 arg2) {
         var_a0 = D_80203FE0[1].unk4;
     }
 
-    var_v1 += (arg0 * D_80152350.unk2D0[var_a2]) / 256;
-    var_a0 += (arg0 * D_80152350.unk384[var_a2]) / 256;
+    var_v1 += (arg0 * SINB(var_a2)) / 256;
+    var_a0 += (arg0 * COSB(var_a2)) / 256;
 
     D_80203FE0[19].unk0 = var_v0;
     D_80203FE0[19].unk2 = var_v1;
     D_80203FE0[19].unk4 = var_a0;
 
     if (var_a1 != 0) {
-        var_v0 += (arg1 * D_80152350.unk2D0[var_a1]) / 256;
-        var_v1 += (arg1 * D_80152350.unk384[var_a1]) / 256;
+        var_v0 += (arg1 * SINB(var_a1)) / 256;
+        var_v1 += (arg1 * COSB(var_a1)) / 256;
     } else {
-        var_v1 += (arg1 * D_80152350.unk2D0[var_a3]) / 256;
-        var_a0 += (arg1 * D_80152350.unk384[var_a3]) / 256;
+        var_v1 += (arg1 * SINB(var_a3)) / 256;
+        var_a0 += (arg1 * COSB(var_a3)) / 256;
     }
     D_80203FE0[20].unk0 = var_v0;
     D_80203FE0[20].unk2 = var_v1;
@@ -681,7 +681,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
         }
     }
     if (var_a1 >= 0xB5) {
-        var_a1 -= 0x168;
+        var_a1 -= 360;
     }
 
     switch (temp_a2_2->unk0) {
@@ -704,7 +704,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
     case 0x68:
     case 0xB6:
     case 0xCA:
-        var_a3_2 = (D_80152350.unk2D0[(s16) ((temp_t3 * 0x168) / 256)] / 50) + 0x14;
+        var_a3_2 = (SINB((temp_t3 * 360) / 256) / 50) + 0x14;
         var_t0 = 90;
         var_a0 = var_a1;
         break;
@@ -714,7 +714,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
     case 0x69:
     case 0xB7:
     case 0xCB:
-        var_a3_2 = (D_80152350.unk2D0[(s16) ((temp_t3 * 0x168) / 256)] / 20) + 0x14;
+        var_a3_2 = (SINB((temp_t3 * 360) / 256) / 20) + 0x14;
         var_t0 = 90;
         var_a0 = var_a1;
         break;
@@ -725,7 +725,7 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
         break;
     case 0x8E:
     case 0x8F:
-        var_a3_2 = (D_80152350.unk2D0[(s16) ((temp_t3 * 0x168) / 256)] / 40) + 0xA;
+        var_a3_2 = (SINB(((temp_t3 * 360) / 256)) / 40) + 0xA;
         var_t0 = 90;
         var_a0 = var_a1;
         break;
@@ -733,21 +733,21 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
         switch (temp_a2_2->unk0) {
         case 1:
             var_a0 = 0;
-            temp_v0_3 = D_80152350.unk384[(s16) ((s32) (temp_a2_2->unk2 * 0x168) / 100)];
+            temp_v0_3 = COSB(((temp_a2_2->unk2 * 360) / 100));
             var_a3_2 = 0x1C - (temp_v0_3 / 32);
             var_t0 = 0x64 - (temp_v0_3 / 24);
             break;
         case 5:
             var_t0 = 0x5A;
-            var_a3_2 = (D_80152350.unk384[(s16) ((temp_a2_2->unk2 * 0x168) / 150)] / 52) + 0xF;
+            var_a3_2 = (COSB(((temp_a2_2->unk2 * 360) / 150)) / 52) + 0xF;
             if (temp_a2_2->unk2 < 0x25) {
-                var_a0 = 0x15 - (D_80152350.unk384[(s16) ((temp_a2_2->unk2 * 0x168) / 75)] / 12);
+                var_a0 = 0x15 - (COSB(((temp_a2_2->unk2 * 360) / 75)) / 12);
             }
             if ((temp_a2_2->unk2 >= 0x25) && (temp_a2_2->unk2 < 0x70)) {
-                var_a0 = (D_80152350.unk2D0[(s16) ((temp_a2_2->unk2 * 0x168) / 150)] / 6);
+                var_a0 = (SINB(((temp_a2_2->unk2 * 360) / 150)) / 6);
             }
             if (temp_a2_2->unk2 >= 0x70) {
-                var_a0 = (D_80152350.unk384[(s16) ((temp_a2_2->unk2 * 0x168) / 75)] / 12) - 0x15;
+                var_a0 = (COSB(((temp_a2_2->unk2 * 360) / 75)) / 12) - 0x15;
             }
             break;
         default:
@@ -774,19 +774,19 @@ void func_802C652C_6D7BDC(s16 arg0, s16 arg1) {
     var_v1 = D_80203FE0[1].unk2;
     var_a1_2 = D_80203FE0[1].unk4;
 
-    var_v1 += ((arg0 * D_80152350.unk2D0[var_a3_2]) / 256);
-    var_a1_2 += ((arg0 * D_80152350.unk384[var_a3_2]) / 256);
+    var_v1 += ((arg0 * SINB(var_a3_2)) / 256);
+    var_a1_2 += ((arg0 * COSB(var_a3_2)) / 256);
 
     D_80203FE0[19].unk0 = var_v0;
     D_80203FE0[19].unk2 = var_v1;
     D_80203FE0[19].unk4 = var_a1_2;
 
     if (var_a0 != 0) {
-        var_v0 += (arg1 * D_80152350.unk2D0[var_a0]) / 256;
-        var_v1 += (arg1 * D_80152350.unk384[var_a0]) / 256;
+        var_v0 += (arg1 * SINB(var_a0)) / 256;
+        var_v1 += (arg1 * COSB(var_a0)) / 256;
     } else {
-        var_v1 += (arg1 * D_80152350.unk2D0[var_t0]) / 256;
-        var_a1_2 += (arg1 * D_80152350.unk384[var_t0]) / 256;
+        var_v1 += (arg1 * SINB(var_t0)) / 256;
+        var_a1_2 += (arg1 * COSB(var_t0)) / 256;
     }
     D_80203FE0[20].unk0 = var_v0;
     D_80203FE0[20].unk2 = var_v1;
@@ -833,13 +833,13 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
     switch (temp_a2_2->unk0) {
     case 5:
         if (temp_a2_2->unk2 < 0x25) {
-          var_v0_2 = 0x15 - (D_80152350.unk384[(s16) ((s32) (temp_a2_2->unk2 * 0x168) / 75)] / 12);
+          var_v0_2 = 0x15 - (COSB(((temp_a2_2->unk2 * 360) / 75)) / 12);
         }
         if ((temp_a2_2->unk2 >= 0x25) && (temp_a2_2->unk2 < 0x70)) {
-          var_v0_2 = (s16) (D_80152350.unk2D0[(s16) ((s32) (temp_a2_2->unk2 * 0x168) / 150)] / 6);
+          var_v0_2 = (SINB(((temp_a2_2->unk2 * 360) / 150)) / 6);
         }
         if (temp_a2_2->unk2 >= 0x70) {
-          var_v0_2 = (D_80152350.unk384[(s16) ((s32) (temp_a2_2->unk2 * 0x168) / 75)] / 12) - 0x15;
+          var_v0_2 = (COSB(((temp_a2_2->unk2 * 360) / 75)) / 12) - 0x15;
         }
         break;
     default:
@@ -884,8 +884,8 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
         var_v0_2 = 175;
     }
 
-    temp_t7 = (D_80152350.unk2D0[var_v0_2] * arg1) / 256;
-    temp_t7_2 = (D_80152350.unk384[var_v0_2] * arg1) / 256;
+    temp_t7 = (SINB(var_v0_2) * arg1) / 256;
+    temp_t7_2 = (COSB(var_v0_2) * arg1) / 256;
     temp_t7_3 = ((SIN(D_803D552C->unk310 >> 3) >> 7) * arg1) >> 8;
 
     D_80203FE0[20].unk0 = temp_t0_3 + temp_t7;
@@ -1085,24 +1085,24 @@ void func_802C79E0_6D9090(LimbConfig *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk2;
     s16 temp_v1 = arg0->unk4;
 
-    arg0->unk2 = ((temp_v0 * D_80152350.unk384[arg1]) + (D_80152350.unk2D0[arg1] * temp_v1)) / 256;
-    arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
+    arg0->unk2 = ((temp_v0 * COSB(arg1)) + (SINB(arg1) * temp_v1)) / 256;
+    arg0->unk4 = ((temp_v1 * COSB(arg1)) - (SINB(arg1) * temp_v0)) / 256;
 }
 
 void func_802C7A7C_6D912C(LimbConfig *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk0;
     s16 temp_v1 = arg0->unk4;
 
-    arg0->unk0 = ((temp_v0 * D_80152350.unk384[arg1]) + (D_80152350.unk2D0[arg1] * temp_v1)) / 256;
-    arg0->unk4 = ((temp_v1 * D_80152350.unk384[arg1]) - (D_80152350.unk2D0[arg1] * temp_v0)) / 256;
+    arg0->unk0 = ((temp_v0 * COSB(arg1)) + (SINB(arg1) * temp_v1)) / 256;
+    arg0->unk4 = ((temp_v1 * COSB(arg1)) - (SINB(arg1) * temp_v0)) / 256;
 }
 
 void func_802C7B18_6D91C8(LimbConfig *arg0, s16 arg1) {
     s16 temp_v0 = arg0->unk0;
     s16 temp_v1 = arg0->unk2;
 
-    arg0->unk0 = ((temp_v0 * D_80152350.unk384[arg1]) + (temp_v1 * D_80152350.unk2D0[arg1])) / 256;
-    arg0->unk2 = ((temp_v1 * D_80152350.unk384[arg1]) - (temp_v0 * D_80152350.unk2D0[arg1])) / 256;
+    arg0->unk0 = ((temp_v0 * COSB(arg1)) + (temp_v1 * SINB(arg1))) / 256;
+    arg0->unk2 = ((temp_v1 * COSB(arg1)) - (temp_v0 * SINB(arg1))) / 256;
 }
 
 void func_802C7BB4_6D9264(u16 arg0) {

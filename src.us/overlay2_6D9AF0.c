@@ -89,7 +89,7 @@ void func_802C8878_6D9F28(void) {
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != NULL) &&
-            (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
+            (gAnimalState.animals[i].unk0->animalType != EVO_TRANSFER) &&
             (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
             if (i == gCurrentAnimalIndex) {
                 add_multiple_lights();
@@ -121,7 +121,7 @@ void func_802C8878_6D9F28(void) {
                         func_8035E200_76F8B0();
                         if (D_803D552C->movementMode == MOVEMENT_MODE_2) {
                             func_802AA1EC_6BB89C();
-                        } else if (D_803D5524->unk9C != EVO) {
+                        } else if (D_803D5524->animalType != EVO) {
                             if (gUiFlowState.unk0 == 0) {
                                 func_802A78CC_6B8F7C();
                                 func_802AAAB0_6BC160();
@@ -151,7 +151,7 @@ void func_802C8878_6D9F28(void) {
                 }
             }
             if (gAnimalState.animals[i].animal != NULL) {
-                switch (gAnimalState.animals[i].unk0->unk9C) {
+                switch (gAnimalState.animals[i].unk0->animalType) {
                 case LION:
                     func_802F1730_702DE0();
                     break;
@@ -302,7 +302,7 @@ void func_802C8878_6D9F28(void) {
                 case SEAGULL2:
                     func_80380920_791FD0();
                     break;
-                case PIRANA:
+                case PIRANHA:
                     func_80382050_793700();
                     break;
                 case COOL_COD:

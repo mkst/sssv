@@ -105,7 +105,7 @@ void perform_screen_transition(void) {
             if (phi_v1 > 89) {
                 phi_v1 = 89;
             }
-            alpha = D_80152350.unk2D0[(s16)phi_v1];
+            alpha = SINB(phi_v1);
             draw_rectangle(&gMainDL, 0, 0, 320, 240, red, green, blue, alpha);
             if (gScreenTransition.unk2 < 100) {
                 gScreenTransition.unk2 += 1;
@@ -150,7 +150,7 @@ void perform_screen_transition(void) {
                 if (phi_v1 > 89) {
                     phi_v1 = 89;
                 }
-                alpha = D_80152350.unk2D0[(s16) (89 - phi_v1)];
+                alpha = SINB(89 - phi_v1);
                 alpha = 255 - alpha;
             } else {
                 alpha = 255;
@@ -169,7 +169,7 @@ void perform_screen_transition(void) {
             if (phi_v1 > 89) {
                 phi_v1 = 89;
             }
-            alpha = D_80152350.unk2D0[(s16)phi_v1];
+            alpha = SINB(phi_v1);
             if (alpha < 0) {
                 alpha = 0;
             }
@@ -188,7 +188,7 @@ void perform_screen_transition(void) {
                 if (phi_v1 > 89) {
                     phi_v1 = 89;
                 }
-                alpha = D_80152350.unk2D0[(s16) (89 - phi_v1)];
+                alpha = SINB(89 - phi_v1);
                 alpha = 0xFF - alpha;
             } else {
                 alpha = 0xFF;

@@ -299,7 +299,7 @@ struct114 D_803A6374_7B7A24[] = {
 };
 
 struct101 D_803A6378_7B7A28[] = {
-    {PIRANA,            {0xFF, 0x00, 0x00, 0x00, 0x00, 0x00}},
+    {PIRANHA,           {0xFF, 0x00, 0x00, 0x00, 0x00, 0x00}},
 };
 struct114 D_803A6380_7B7A30[] = {
     {0x00, 0x00, 0x00, 0x00},
@@ -358,7 +358,7 @@ struct082 D_803A63B0_7B7A60[] = {
     {0x0B, 0x00},   // TORTOISE_TANK
     {0x0B, 0x01},   // RACING_TORTOISE
     {0x0B, 0x02},   // TORTOISE_TANK_DEFENDING
-    {0x1D, 0x00},   // PIRANA
+    {0x1D, 0x00},   // PIRANHA
     {0x03, 0x00},   // DOG
     {0x0C, 0x00},   // RAT
     {0x0D, 0x00},   // SHEEP
@@ -598,7 +598,7 @@ void func_80327DA8_739458(void) {
         D_803E9828 = D_803A6364_7B7A14; // 0x0000FF00
         D_803E982C = D_803A6374_7B7A24;
         break;
-    case 29: // PIRANA
+    case 29: // PIRANHA
         D_803E9828 = D_803A6378_7B7A28; // 0x001EFF00
         D_803E982C = D_803A6380_7B7A30;
         break;
@@ -652,7 +652,7 @@ void func_80328258_739908(s16 idx) {
 void func_803283DC_739A8C(void) {
     func_803284C4_739B74();
 
-    if (D_803D5524->unk9C != ELEPHANT) {
+    if (D_803D5524->animalType != ELEPHANT) {
         D_803D552C->unk308 = 0;
     }
     D_803D552C->unk30A = 0;
@@ -686,10 +686,10 @@ Camera* func_803284C4_739B74(void) {
 
     temp_v1 = D_803D5524;
     camera = &gCameras[gCameraId];
-    camera->unk4E = temp_v1->unkCA;
-    camera->unk54 = temp_v1->unkD0;
-    camera->unk56 = temp_v1->unkD2;
-    camera->unk58 = temp_v1->unkCC;
+    camera->cameraHeight = temp_v1->unkCA;
+    camera->offsetXTarget = temp_v1->unkD0;
+    camera->offsetYTarget = temp_v1->unkD2;
+    camera->targetFollowSpeed = temp_v1->unkCC;
     camera->unk60 = temp_v1->unkCE;
     return camera;
 }
@@ -710,7 +710,7 @@ void func_80328520_739BD0(void) {
             D_803D552C->movementMode = MOVEMENT_MODE_DEACTIVATED;
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
-            switch (D_803D5524->unkE6) {
+            switch (D_803D5524->scoreTier) {
             case 0:
                 gGameState.score += 50;
                 break;
@@ -731,20 +731,20 @@ void func_80328520_739BD0(void) {
                 load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->cmdIndex - 1], 0);
                 func_803191B0_72A860(D_803D5530);
             }
-        } else if (D_803D5524->unkD8 >= D_803D5530->Info.health) {
+        } else if (D_803D5524->criticalHealthThreshold >= D_803D5530->Info.health) {
             D_803D552C->movementMode = MOVEMENT_MODE_CRITICAL;
             D_803D552C->unk328 = gGameplayTick;
         }
         break;
     case MOVEMENT_MODE_CRITICAL:
-        if (D_803D5524->unkD8 < D_803D5530->Info.health) {
+        if (D_803D5524->criticalHealthThreshold < D_803D5530->Info.health) {
             D_803D552C->movementMode = MOVEMENT_MODE_INJURED;
         } else if (D_803D5530->Info.health <= 0) {
             D_803D552C->movementMode = MOVEMENT_MODE_DEACTIVATED;
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
             if (gGameplayTick >= 2) {
-                switch (D_803D5524->unkE6) {
+                switch (D_803D5524->scoreTier) {
                 case 0:
                     gGameState.score += 50;
                     break;
@@ -794,7 +794,7 @@ void func_80328918_739FC8(void) {
     D_803D552C->attackState = ATTACK_STATE_NONE;
     D_803D552C->unk2EC = 0;
 
-    if (D_803D5524->unk9C == SNEAKY_CHAMELEON) {
+    if (D_803D5524->animalType == SNEAKY_CHAMELEON) {
         load_animal(CHAMELEON);
     }
 
@@ -898,11 +898,11 @@ void func_80328ACC_73A17C(void) {
         (D_803F2D50.segment != 5U)) {
 
         sp40 = gCurrentAnimalIndex;
-        animalId = gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C;
+        animalId = gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType;
 
-        if (((gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C != EVO))) {
+        if (((gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType != EVO))) {
 
-            if (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (gAnimalState.animals[gCurrentAnimalIndex].animal->unk320->unk16C->unk82.unk2 == 0)) &&
+            if (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (gAnimalState.animals[gCurrentAnimalIndex].animal->unk320->unk16C->behaviourFlags.unk2 == 0)) &&
                 (animalId != VULTURE) && (animalId != SEAGULL2) && (animalId != POLAR_BEAR_DEFENDING) &&
                 (animalId != PARROT_ATTACKING) && (animalId != HARD_MOUSE) && (animalId != CRAZY_BEAR) &&
                 (animalId != TORTOISE_TANK_DEFENDING) && (animalId != CRAZY_HUSKY) && (animalId != CROW_DIVER) &&
@@ -1023,7 +1023,7 @@ void func_80328ACC_73A17C(void) {
 
                         D_803D552C->unk308 = gAnimalState.animals[D_803D5536].animal->position.xPos.h;
                         D_803D552C->unk30A = gAnimalState.animals[D_803D5536].animal->position.zPos.h;
-                        D_803D552C->unk30C = gAnimalState.animals[D_803D5536].animal->position.yPos.h + (gAnimalState.animals[D_803D5536].unk0->unkBA / 2) ;
+                        D_803D552C->unk30C = gAnimalState.animals[D_803D5536].animal->position.yPos.h + (gAnimalState.animals[D_803D5536].unk0->height / 2) ;
                         D_803D5530->position.xPos.h = D_803D552C->unk308;
                         D_803D5530->position.zPos.h = D_803D552C->unk30A;
                         D_803D5530->position.yPos.h = D_803D552C->unk30C;
@@ -1069,7 +1069,7 @@ void func_80328ACC_73A17C(void) {
                         func_80327DA8_739458();
                         D_803D552C->unk308 = gAnimalState.animals[0].animal->position.xPos.h;
                         D_803D552C->unk30A = gAnimalState.animals[0].animal->position.zPos.h;
-                        D_803D552C->unk30C = gAnimalState.animals[0].animal->position.yPos.h + (gAnimalState.animals[0].unk0->unkBA / 2);
+                        D_803D552C->unk30C = gAnimalState.animals[0].animal->position.yPos.h + (gAnimalState.animals[0].unk0->height / 2);
                         D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
                         D_803D552C->unk32A = gGameplayTick;
                         D_803D552C->unk320 = gAnimalState.animals[sp80].animal;
@@ -1081,8 +1081,8 @@ void func_80328ACC_73A17C(void) {
                     currentAnimal = gAnimalState.animals[gCurrentAnimalIndex].animal;
                     temp_a0 = currentAnimal->position.yPos.h - temp_a0;
 
-                    if ((gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C == FIRE_FOX) ||
-                        (gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C == FLYING_DOG)) {
+                    if ((gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType == FIRE_FOX) ||
+                        (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType == FLYING_DOG)) {
                         if (temp_a0 < 0x80) {
                             func_80311A2C_7230DC(currentAnimal->position.xPos.h, currentAnimal->position.zPos.h, &sp7A, &sp78, currentAnimal->unk160);
 
@@ -1183,7 +1183,7 @@ void func_80328ACC_73A17C(void) {
                             func_803283DC_739A8C();
                             gAnimalState.animals[0].animal->position.xPos.w = gAnimalState.animals[D_803D5536].animal->position.xPos.w;
                             gAnimalState.animals[0].animal->position.zPos.w = gAnimalState.animals[D_803D5536].animal->position.zPos.w;
-                            gAnimalState.animals[0].animal->position.yPos.w = gAnimalState.animals[D_803D5536].animal->position.yPos.w + (gAnimalState.animals[D_803D5536].unk0->unkBA << 0xF) ;
+                            gAnimalState.animals[0].animal->position.yPos.w = gAnimalState.animals[D_803D5536].animal->position.yPos.w + (gAnimalState.animals[D_803D5536].unk0->height << 0xF) ;
                             gAnimalState.animals[0].animal->unk160 = gAnimalState.animals[D_803D5536].animal->unk160;
                             gAnimalState.animals[0].animal->unk68 = gAnimalState.animals[D_803D5536].animal->unk68;
                             gAnimalState.animals[0].animal->unk70 = gAnimalState.animals[D_803D5536].animal->unk70;
@@ -1495,7 +1495,7 @@ void func_8032A710_73BDC0(void) {
     }
 
     D_803D5530->unk18C.length = gAnimalState.animals[0].animal->unk18C.length;
-    gCurrentAnimalId = gAnimalState.animals[swapIdx].unk0->unk9C;
+    gCurrentAnimalId = gAnimalState.animals[swapIdx].unk0->animalType;
     D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
     D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
     check_and_set_species_encountered(gCurrentAnimalId);
@@ -1567,7 +1567,7 @@ void cheat_activate_scale_pulse_effect(void) {
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if (1) {};
         if (gAnimalState.animals[i].animal != NULL) {
-            if ((gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
+            if ((gAnimalState.animals[i].unk0->animalType != EVO_TRANSFER) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
                 D_803D5520 = &gAnimalState.animals[i];
                 D_803D5524 = gAnimalState.animals[i].unk0;
 
@@ -1628,11 +1628,11 @@ void cheat_activate_big_head_effect(void) {
     for (i = 0; i < AID_MAX_ANIMALS; i++) {
         tmp = &gAnimalState.unk0[i];
         tmp->unkC8 = tmp->unkC8 / 3;
-        tmp->unkA4 = tmp->unkA4 / 3;
-        tmp->unkAA = tmp->unkAA / 3;
-        tmp->unkAC = tmp->unkAC / 3;
-        tmp->unkC2 = tmp->unkC2 / 3;
-        tmp->unkC4 = tmp->unkC4 / 3;
+        tmp->walkSpeed = tmp->walkSpeed / 3;
+        tmp->flightLiftVelocity = tmp->flightLiftVelocity / 3;
+        tmp->flightSpeed = tmp->flightSpeed / 3;
+        tmp->jumpLiftVelocity = tmp->jumpLiftVelocity / 3;
+        tmp->swimLiftVelocity = tmp->swimLiftVelocity / 3;
         // different scaling factor?
         tmp->unkD0 = tmp->unkD0 / 2;
         tmp->unkD2 = tmp->unkD2 / 2;
@@ -1673,7 +1673,9 @@ void cheat_toggle_mystery_bear(void) {
         D_803D5524 = gAnimalState.animals[gCurrentAnimalIndex].unk0;
 
         D_803D5528 = a;
+#ifdef __sgi
         if (D_803D5528 == NULL) {}; // fakematch
+#endif
         D_803D552C = a;
         D_803D5530 = a;
 

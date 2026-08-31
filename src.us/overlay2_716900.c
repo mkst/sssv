@@ -149,12 +149,12 @@ void func_80305368_716A18(struct079 *arg0) {
 
                 if (temp_v1_4->objectType < OB_TYPE_ANIMAL_OFFSET) {
                     // it's an object
-                    if ((temp_v1_4->unk82.unk1 == 0) && (temp_v1_4->objectType != OBJECT_TELEPORTER_BASE) && (temp_v1_4->objectType != OBJECT_ENTRANCE_TELEPORTER) && (temp_v1_4->objectType != OBJECT_EXIT_TELEPORTER)) {
-                        if ((temp_v1_4->unk2 != 1) && (temp_v1_4->unk2 != 9) && (temp_v1_4->unk15 != 2) && (animal != D_803D552C->navTarget) && (animal != D_803D552C->unk320)) {
+                    if ((temp_v1_4->behaviourFlags.unk1 == 0) && (temp_v1_4->objectType != OBJECT_TELEPORTER_BASE) && (temp_v1_4->objectType != OBJECT_ENTRANCE_TELEPORTER) && (temp_v1_4->objectType != OBJECT_EXIT_TELEPORTER)) {
+                        if ((temp_v1_4->objectCategory != 1) && (temp_v1_4->objectCategory != 9) && (temp_v1_4->orientationMode != 2) && (animal != D_803D552C->navTarget) && (animal != D_803D552C->unk320)) {
                             dist = ABS(animal->position.xPos.h - x_pos) + ABS(animal->position.zPos.h - z_pos);
-                            dist = dist - D_803D5524->unkBE;
-                            if (temp_v1_4->unk2 == 2) {
-                                if ((D_803D5524->unk9C == RAT) || (D_803D5524->unk9C == POLAR_BEAR) || (D_803D5524->unk9C == HIPPO) || (D_803D5524->unk9C == KING_RAT) || (D_803D5524->unk9C == POLAR_TANK)) {
+                            dist = dist - D_803D5524->radius;
+                            if (temp_v1_4->objectCategory == 2) {
+                                if ((D_803D5524->animalType == RAT) || (D_803D5524->animalType == POLAR_BEAR) || (D_803D5524->animalType == HIPPO) || (D_803D5524->animalType == KING_RAT) || (D_803D5524->animalType == POLAR_TANK)) {
                                     if (animal->unk15C < 25) {
                                         dist = dist - (animal->unk30 + 100);
                                         func_80305250_716900(&arg0->unk38, animal, dist, 2);
@@ -178,8 +178,8 @@ void func_80305368_716A18(struct079 *arg0) {
                         }
 
                         dist = ABS(animal->position.xPos.h - x_pos) + ABS(animal->position.zPos.h - z_pos);
-                        dist = dist - (D_803D5524->unkBE);
-                        dist = dist - animal->unk16C->unkBE;
+                        dist = dist - (D_803D5524->radius);
+                        dist = dist - animal->unk16C->radius;
                         if (dist < 0) {
                             dist = 0;
                         }
@@ -418,7 +418,7 @@ s32 func_80305DA4_717454(s16 arg0, s16 arg1, s32 arg2, s16 arg3, u8 arg4) {
 
     for (var_a1_4 = D_803DA110[(s16) ((arg0 >> 0xA) + ((arg1 >> 0xA) * 5))].next; var_a1_4 != NULL; var_a1_4 = var_a1_4->next) {
         animal = var_a1_4->animal;
-        if ((animal->unk16C->unk82.unk1) && (animal != sp50) && (animal->xVelocity.h == 0) && (animal->zVelocity.h == 0) && (animal->yVelocity.h == 0)) {
+        if ((animal->unk16C->behaviourFlags.unk1) && (animal != sp50) && (animal->xVelocity.h == 0) && (animal->zVelocity.h == 0) && (animal->yVelocity.h == 0)) {
 
             if (ABS((animal->position.yPos.w + (animal->unk42 << 0x10)) - arg2) <= FTOFIX32(16.0)) {
                 switch (arg4) {
@@ -461,7 +461,7 @@ s16 func_803064BC_717B6C(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {
     Animal *temp_v0;
 
     temp_v0 = D_803D5530->unk6C;
-    if ((temp_v0 != NULL) && (temp_v0->unk16C->unk82.unk1) && ((temp_v0->xVelocity.w | temp_v0->zVelocity.w | (temp_v0->yVelocity.w != 0)) != 0)) {
+    if ((temp_v0 != NULL) && (temp_v0->unk16C->behaviourFlags.unk1) && ((temp_v0->xVelocity.w | temp_v0->zVelocity.w | (temp_v0->yVelocity.w != 0)) != 0)) {
         return 0xF;
     }
 
@@ -482,7 +482,7 @@ s16 func_803064BC_717B6C(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {
 // ESA: func_80079A84
 s16 func_803065F0_717CA0(s16 arg0, s16 arg1, s32 arg2, s16 arg3, s16 arg4) {
 
-    if ((arg3 != 0x40) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk82.unk1))) { //  & 0x4000
+    if ((arg3 != 0x40) || ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->behaviourFlags.unk1))) { //  & 0x4000
         return 0;
     }
 
@@ -652,8 +652,8 @@ void func_803071BC_71886C(void) {
         case NAV_MODE_NONE:
             break;
         case NAV_MODE_SCRIPTED_VECTOR:
-            spBC.unk0 = D_80152350.unk2D0[D_803D552C->navHeadingDegrees];
-            spBC.unk4 = D_80152350.unk384[D_803D552C->navHeadingDegrees];
+            spBC.unk0 = SINB(D_803D552C->navHeadingDegrees);
+            spBC.unk4 = COSB(D_803D552C->navHeadingDegrees);
 
             yOffset = D_803D552C->navTargetY;
 
@@ -835,7 +835,7 @@ void func_803071BC_71886C(void) {
     }
 
     if ((D_803D5524->class != CLASS_FLYING) && (D_803D5524->class != CLASS_BIRD) && (D_803D5524->class != CLASS_HELI) && (D_803D552C->aiFlags & (AI_FLAG_COLLIDE_WITH_STATIC | AI_FLAG_ALLOW_STEEP_NAVIGATION))) {
-        if ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->unk82.unk1)) { //  & 0x4000
+        if ((D_803D5530->unk6C != NULL) && (D_803D5530->unk6C->unk16C->behaviourFlags.unk1)) { //  & 0x4000
             sp86 = D_803D5530->unk6C->unk30 * 2;
             sp84 = (D_803D5530->unk6C->unk30 * 2) - 1;
             maxDist = ((sp86 * 5) >> 6);
@@ -852,7 +852,7 @@ void func_803071BC_71886C(void) {
 
         var_v1_3 = func_803064BC_717B6C(var_s1, var_s0, D_803D5530->position.yPos.w, D_803D5530->unk160, sp86);
 
-        if ((D_803D5530->unk6C == NULL) || ((!D_803D5530->unk6C->unk16C->unk82.unk1))) { //  << 0x11 >= 0
+        if ((D_803D5530->unk6C == NULL) || ((!D_803D5530->unk6C->unk16C->behaviourFlags.unk1))) { //  << 0x11 >= 0
             temp_v0_17 = func_803065F0_717CA0(var_s1, var_s0, D_803D5530->position.yPos.w, sp86, var_v1_3);
             if (temp_v0_17 != 0) {
                 sp86 = 0x48;
@@ -1278,7 +1278,7 @@ case_14:
         yRotation2 = var_s2;
     }
 
-    if (gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C == MOUSE2) {
+    if (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType == MOUSE2) {
         curDiff = ABS(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h - D_803D5530->position.xPos.h);
         if (curDiff < 0x280) {
             minDist = curDiff;
@@ -1309,7 +1309,7 @@ case_14:
     var_a0 = (D_803D5530->yRotation - yRotation2) & 0xFF;
 
     if (var_a0 != 0) {
-        defaultYRotation = D_803A47F4_7B5EA4[D_803D5524->unk9C];
+        defaultYRotation = D_803A47F4_7B5EA4[D_803D5524->animalType];
         if (var_a0 >= 128) {
             var_a0 = 256 - var_a0;
             if (var_a0 < defaultYRotation) {
@@ -1404,9 +1404,9 @@ s32 func_803099BC_71B06C(void) {
     if (D_803D552C->waypointMode == WAYPOINT_MODE_ENGAGE_PLAYER) {
         if (D_803D552C->aiFlags & AI_FLAG_CAN_ATTACK) {
             if (D_803D552C->aiTarget != 0) {
-                if ((D_803D5524->unk9C != EVO_TRANSFER) &&
-                    (D_803D5524->unk9C != EVO) &&
-                    (D_803D5524->unk9C != EVO_MICROCHIP)) {
+                if ((D_803D5524->animalType != EVO_TRANSFER) &&
+                    (D_803D5524->animalType != EVO) &&
+                    (D_803D5524->animalType != EVO_MICROCHIP)) {
                     if ((D_803D552C->aiTarget->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->aiTarget->movementMode != MOVEMENT_MODE_2)) {
                         return 1;
                     }
@@ -1596,7 +1596,7 @@ void func_80309F38_71B5E8(void) {
         D_803D552C->targetDistance = sqrtf(
             ((D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h) * (D_803D552C->aiTarget->position.xPos.h - D_803D5530->position.xPos.h)) +
             ((D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h) * (D_803D552C->aiTarget->position.zPos.h - D_803D5530->position.zPos.h)));
-        D_803D552C->targetDistance = ((D_803D552C->targetDistance - D_803D5524->unkBE) - D_803D552C->aiTarget->unk30);
+        D_803D552C->targetDistance = ((D_803D552C->targetDistance - D_803D5524->radius) - D_803D552C->aiTarget->unk30);
         if (D_803D552C->targetDistance < 0) {
             D_803D552C->targetDistance = 1;
         }
@@ -1606,7 +1606,7 @@ void func_80309F38_71B5E8(void) {
         D_803D552C->unk284 = sqrtf(
             ((D_803D552C->unk280->position.xPos.h - D_803D5530->position.xPos.h) * (D_803D552C->unk280->position.xPos.h - D_803D5530->position.xPos.h)) +
             ((D_803D552C->unk280->position.zPos.h - D_803D5530->position.zPos.h) * (D_803D552C->unk280->position.zPos.h - D_803D5530->position.zPos.h)));
-        D_803D552C->unk284 = ((D_803D552C->unk284 - D_803D5524->unkBE) - D_803D552C->unk280->unk30);
+        D_803D552C->unk284 = ((D_803D552C->unk284 - D_803D5524->radius) - D_803D552C->unk280->unk30);
         if (D_803D552C->unk284 < 0) {
             D_803D552C->unk284 = 1;
         }
@@ -1793,7 +1793,7 @@ void func_8030A8EC_71BF9C(void) {
 }
 
 void animal_jump(void) {
-    if ((D_803D5524->canJump & 1) && (D_803D5524->class == CLASS_WALK)) {
+    if ((D_803D5524->jumpFlags & 1) && (D_803D5524->class == CLASS_WALK)) {
         if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING)) {
             switch (D_803D5530->state) {
             case STATE_STANDING:

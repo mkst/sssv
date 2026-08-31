@@ -2,9 +2,9 @@
 #include "common.h"
 
 
-s8 D_803A8350_7B9A00[8] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFA, 0xFF, 0xFF, 0xFF, }; // reds
-s8 D_803A8358_7B9A08[8] = { 0xFF, 0xFF, 0xC8, 0xFF, 0xFA, 0xFF, 0xC8, 0xFF, }; // greens
-s8 D_803A8360_7B9A10[8] = { 0x00, 0x80, 0x64, 0xB4, 0x00, 0x64, 0xC8, 0xD4, }; // blues
+static s8 D_803A8350_7B9A00[8] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFA, 0xFF, 0xFF, 0xFF, }; // reds
+static s8 D_803A8358_7B9A08[8] = { 0xFF, 0xFF, 0xC8, 0xFF, 0xFA, 0xFF, 0xC8, 0xFF, }; // greens
+static s8 D_803A8360_7B9A10[8] = { 0x00, 0x80, 0x64, 0xB4, 0x00, 0x64, 0xC8, 0xD4, }; // blues
 
 void func_8034A5D0_75BC80(void) {
     func_802D760C_6E8CBC(
@@ -31,9 +31,9 @@ void spawn_dizzy_stars_big(void) {
     sp64 = SSSV_RAND(256);
     for (i = 0; i < 8; i++) {
         create_particle_effect(
-            D_803D5530->position.xPos.h + (((SIN((i << 5) + sp64) >> 7) * D_803D5524->unkBE) >> 9),
-            D_803D5530->position.zPos.h + (((COS((i << 5) + sp64) >> 7) * D_803D5524->unkBE) >> 9),
-            D_803D5530->position.yPos.h + D_803D5524->unkBA,
+            D_803D5530->position.xPos.h + (((SIN((i << 5) + sp64) >> 7) * D_803D5524->radius) >> 9),
+            D_803D5530->position.zPos.h + (((COS((i << 5) + sp64) >> 7) * D_803D5524->radius) >> 9),
+            D_803D5530->position.yPos.h + D_803D5524->height,
             36,
             ((SIN((i << 5) + sp64) >> 7) << 9) + (D_803D5530->xVelocity.w >> 1),
             ((COS((i << 5) + sp64) >> 7) << 9) + (D_803D5530->zVelocity.w >> 1),
@@ -45,7 +45,7 @@ void spawn_dizzy_stars_big(void) {
         create_particle_effect(
             (SSSV_RAND(32) + D_803D5530->position.xPos.h) - 16,
             (SSSV_RAND(32) + D_803D5530->position.zPos.h) - 16,
-            SSSV_RAND(32) + D_803D5530->position.yPos.h + (D_803D5524->unkBA >> 1),
+            SSSV_RAND(32) + D_803D5530->position.yPos.h + (D_803D5524->height >> 1),
             35,
             0,
             0,
@@ -64,9 +64,9 @@ void spawn_dizzy_stars_medium(void) {
     sp64 = SSSV_RAND(256);
     for (i = 0; i < 4; i++) {
         create_particle_effect(
-            D_803D5530->position.xPos.h + (((SIN((i << 6) + sp64) >> 7) * D_803D5524->unkBE) >> 9),
-            D_803D5530->position.zPos.h + (((COS((i << 6) + sp64) >> 7) * D_803D5524->unkBE) >> 9),
-            D_803D5530->position.yPos.h + D_803D5524->unkBA,
+            D_803D5530->position.xPos.h + (((SIN((i << 6) + sp64) >> 7) * D_803D5524->radius) >> 9),
+            D_803D5530->position.zPos.h + (((COS((i << 6) + sp64) >> 7) * D_803D5524->radius) >> 9),
+            D_803D5530->position.yPos.h + D_803D5524->height,
             36,
             ((SIN((i << 6) + sp64) >> 7) << 9) + (D_803D5530->xVelocity.w >> 1),
             ((COS((i << 6) + sp64) >> 7) << 9) + (D_803D5530->zVelocity.w >> 1),
@@ -78,7 +78,7 @@ void spawn_dizzy_stars_medium(void) {
         create_particle_effect(
             (SSSV_RAND(32) + D_803D5530->position.xPos.h) - 16,
             (SSSV_RAND(32) + D_803D5530->position.zPos.h) - 16,
-            SSSV_RAND(32) + D_803D5530->position.yPos.h + (D_803D5524->unkBA >> 1),
+            SSSV_RAND(32) + D_803D5530->position.yPos.h + (D_803D5524->height >> 1),
             35,
             0,
             0,
@@ -97,9 +97,9 @@ void spawn_dizzy_starts_small(void) {
     sp64 = SSSV_RAND(256);
     for (i = 0; i < 2; i++) {
         create_particle_effect(
-            D_803D5530->position.xPos.h + (((SIN((i << 6) + sp64) >> 7) * D_803D5524->unkBE) >> 9),
-            D_803D5530->position.zPos.h + (((COS((i << 6) + sp64) >> 7) * D_803D5524->unkBE) >> 9),
-            D_803D5530->position.yPos.h + D_803D5524->unkBA,
+            D_803D5530->position.xPos.h + (((SIN((i << 6) + sp64) >> 7) * D_803D5524->radius) >> 9),
+            D_803D5530->position.zPos.h + (((COS((i << 6) + sp64) >> 7) * D_803D5524->radius) >> 9),
+            D_803D5530->position.yPos.h + D_803D5524->height,
             36,
             ((SIN((i << 6) + sp64) >> 7) << 9) + (D_803D5530->xVelocity.w >> 1),
             ((COS((i << 6) + sp64) >> 7) << 9) + (D_803D5530->zVelocity.w >> 1),
@@ -111,7 +111,7 @@ void spawn_dizzy_starts_small(void) {
         create_particle_effect(
             (SSSV_RAND(32) + D_803D5530->position.xPos.h) - 16,
             (SSSV_RAND(32) + D_803D5530->position.zPos.h) - 16,
-            SSSV_RAND(32) + D_803D5530->position.yPos.h + (D_803D5524->unkBA >> 1),
+            SSSV_RAND(32) + D_803D5530->position.yPos.h + (D_803D5524->height >> 1),
             35,
             0,
             0,
@@ -214,8 +214,8 @@ void func_8034B298_75C948(s16 arg0) {
 
     if ((arg0 == 0) || ((D_803D5540 & 2) == 0)) {
         if ((D_803D5530->state == 143) || (((D_803D5530->state == 142) || (D_803D5530->state == 144)) && ((D_803D5540 & 1) != 0))) {
-            sp2E = ((SSSV_RAND(16) - 7) * (u16)D_803D5524->unkBE) >> 3;
-            sp2C = ((SSSV_RAND(16) - 7) * (u16)D_803D5524->unkBE) >> 3;
+            sp2E = ((SSSV_RAND(16) - 7) * (u16)D_803D5524->radius) >> 3;
+            sp2C = ((SSSV_RAND(16) - 7) * (u16)D_803D5524->radius) >> 3;
             create_particle_effect_2(D_803D5530->position.xPos.h + sp2E, D_803D5530->position.zPos.h + sp2C, D_803D5530->position.yPos.h, 28, SSSV_RAND(4) + 4, 0, 0, 0);
         }
     }
@@ -246,14 +246,14 @@ void func_8034B45C_75CB0C(void) {
         ((D_803D5530->movementState == MOVEMENT_STATE_WATER_SWIM) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING) || (D_803D5530->movementState == MOVEMENT_STATE_DRIFTING)) &&
         ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) || (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL))) {
 
-        s16 tmp1 = (((SIN(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
-        s16 tmp2 = (((COS(D_803D552C->heading) >> 7) * D_803D5524->unkBE * 3) >> 9);
+        s16 tmp1 = (((SIN(D_803D552C->heading) >> 7) * D_803D5524->radius * 3) >> 9);
+        s16 tmp2 = (((COS(D_803D552C->heading) >> 7) * D_803D5524->radius * 3) >> 9);
 
         for (i = 0; i < 3; i++) {
             create_particle_effect_2(
                 (SSSV_RAND(16) + D_803D5530->position.xPos.h + tmp1) - 8,
                 (SSSV_RAND(16) + D_803D5530->position.zPos.h + tmp2) - 8,
-                 SSSV_RAND(16) + D_803D5530->position.yPos.h + (D_803D5524->unkBA >> 1),
+                 SSSV_RAND(16) + D_803D5530->position.yPos.h + (D_803D5524->height >> 1),
                 28,
                 SSSV_RAND(4) + 4,
                 0,
@@ -268,12 +268,12 @@ void func_8034B64C_75CCFC(s16 arg0, s16 arg1, s16 arg2) {
     if ((D_803F2EDE != 0) &&
         (((D_803D5530->movementState != MOVEMENT_STATE_WATER_SWIM) && (D_803D5530->movementState == MOVEMENT_STATE_FLYING)) || (D_803D5530->movementState != MOVEMENT_STATE_DRIFTING)) &&
         ((D_803D552C->movementMode == MOVEMENT_MODE_INJURED) || (D_803D552C->movementMode == MOVEMENT_MODE_CRITICAL) || (D_803D552C->movementMode == MOVEMENT_MODE_NORMAL))) {
-        s16 tmp1 = ((((SIN(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
-        s16 tmp2 = ((((COS(D_803D552C->heading)) >> 7) * ((D_803D5524->unkBE * arg1) >> 4)) >> 8);
+        s16 tmp1 = ((((SIN(D_803D552C->heading)) >> 7) * ((D_803D5524->radius * arg1) >> 4)) >> 8);
+        s16 tmp2 = ((((COS(D_803D552C->heading)) >> 7) * ((D_803D5524->radius * arg1) >> 4)) >> 8);
         create_particle_effect(
             D_803D5530->position.xPos.h + tmp1,
             D_803D5530->position.zPos.h + tmp2,
-            D_803D5530->position.yPos.h + ((D_803D5524->unkBA * arg2) >> 4),
+            D_803D5530->position.yPos.h + ((D_803D5524->height * arg2) >> 4),
             25,
             (SIN(D_803D552C->heading) >> 7) << 8,
             (COS(D_803D552C->heading) >> 7) << 8,
@@ -302,8 +302,8 @@ void func_8034B848_75CEF8(s16 arg0) {
         if (phi_t3 != 0) {
             temp_a3 = -((SIN(D_803D552C->heading)) >> 7);
             temp_t7 = -((COS(D_803D552C->heading)) >> 7);
-            sp4E = (temp_a3 * D_803D5524->unkBE) >> 8;
-            sp4C = (temp_t7 * D_803D5524->unkBE) >> 8;
+            sp4E = (temp_a3 * D_803D5524->radius) >> 8;
+            sp4C = (temp_t7 * D_803D5524->radius) >> 8;
 
             create_particle_effect(
                 D_803D5530->position.xPos.h + sp4E,
@@ -335,7 +335,7 @@ void func_8034BB38_75D1E8(u8 arg0) {
                     create_particle_effect(
                         D_803D5530->position.xPos.h,
                         D_803D5530->position.zPos.h,
-                        D_803D5530->position.yPos.h + (D_803D5524->unkBA >> 1),
+                        D_803D5530->position.yPos.h + (D_803D5524->height >> 1),
                         24,
                         D_803D5530->xVelocity.w,
                         D_803D5530->zVelocity.w,
