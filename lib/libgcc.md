@@ -5,7 +5,7 @@ This `libgcc.a` was compiled using GCC 12.4 using GCC 12.4 sources.
 Instructions below (performed in an Ubuntu 22.04 Docker container).
 
 ```bash
-docker run --rm -t -v $(pwd)/gcc:/gcc ubuntu:22.04 bash
+docker run --rm -ti -v $(pwd)/gcc:/gcc ubuntu:22.04 bash
 ```
 
 Inside the container:
@@ -55,7 +55,7 @@ cd build
 
 make -j$(nproc) all-gcc
 
-sed -i mips-linux-gnu/libgcc/Makefile s'/PICFLAG = .*/PICFLAG =/'
+sed -i 's/PICFLAG = .*/PICFLAG =/' mips-linux-gnu/libgcc/Makefile
 
 make -j$(nproc) all-target-libgcc
 ```
@@ -64,10 +64,10 @@ Trim down the archive to just the objects we need:
 
 ```bash
 mips-linux-gnu-ar x   ./mips-linux-gnu/libgcc/libgcc.a _floatdisf.o _fixsfdi.o _fixunssfdi.o
-mips-linux-gnu-ar rcs /gcc/libgcc.a _floatdisf.o _fixsfdi.o _fixunssfdi.o
+mips-linux-gnu-ar rcs /gcc/libgcc.a _floatdisf.o _fixsfdi.o _fixunssfdi.o _fixsfdi.o
 ```
 
-Custom lines in the `sssv.ld`:
+Add these lines in the `sssv.ld`:
 
 ```ld
     .libgcc :

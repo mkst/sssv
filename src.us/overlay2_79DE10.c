@@ -17,10 +17,8 @@ s16  gAnimalBehaviourEnabled;
 // .text
 // ========================================================
 
-#ifdef __sgi
 void empty_8038C760_79DE10(void) {
 }
-#endif
 
 void func_8038C768_79DE18(void) {
     u16 ticks_remaining;

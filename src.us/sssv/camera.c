@@ -359,7 +359,7 @@ void func_8032FF94_741644(u8 cameraID) {
     s16 sp66;
 #ifdef BUGFIX
     // probably better as a float rather than short
-    f32 sp5C
+    f32 sp5C;
 #else
     s16 sp5C;
 #endif
