@@ -104,6 +104,7 @@ endif
 
 IDO_CFLAGS  = $(INCLUDE_CFLAGS) $(DEFINES)
 IDO_CFLAGS += -G0 -mips2 -32 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul -woff 649,838,807
+# IDO_CFLAGS += -Wo,-l,trace.lst -Wo,-zdbug:7
 
 ifeq ($(COMPILER),ido)
   CC = $(IDO)
@@ -114,6 +115,7 @@ else
   NON_MATCHING = 1
 endif
 
+LD_FLAGS_EXTRA =
 MAYBE_LIBGCC =
 GCC_C_FILES =
 GCC_C_OBJS =
@@ -178,7 +180,8 @@ VERIFY = verify
 
 ifeq ($(NON_MATCHING),1)
   $(info Building NON_MATCHING ROM...)
-  DEFINES += -DNON_MATCHING -DAVOID_UB -DBUGFIX -DENABLE_CHEATS
+  DEFINES += -DNON_MATCHING
+  DEFINES += -DAVOID_UB -DBUGFIX -DENABLE_CHEATS
   VERIFY = no_verify
 endif
 
@@ -204,11 +207,9 @@ ifeq ($(VERSION),eu)
 endif
 
 ifeq ($(VERSION),us)
-  LD_FLAGS_EXTRA  = -Lbuild/lib -lultra_rom
+  LD_FLAGS_EXTRA += -Lbuild/lib -lultra_rom
   # NOTE: this function is not included unless explicitly undefined
   LD_FLAGS_EXTRA += -u osViGetCurrentLine
-else
-  LD_FLAGS_EXTRA  =
 endif
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor

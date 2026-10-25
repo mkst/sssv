@@ -229,8 +229,8 @@ void func_8039E33C_7AF9EC(WalrusWake *arg0) {
     arg0->unk5E[arg0->numVtxs >> 1][1] = animal->position.zPos.h;
     arg0->unk5E[arg0->numVtxs >> 1][2] = animal->position.yPos.h;
 
-    arg0->unkDE[arg0->numVtxs >> 1][0] = -D_80152350.unk2D0[arg0->unkBE[arg0->numVtxs >> 1]];
-    arg0->unkDE[arg0->numVtxs >> 1][1] = -D_80152350.unk384[arg0->unkBE[arg0->numVtxs >> 1]];
+    arg0->unkDE[arg0->numVtxs >> 1][0] = -SINB(arg0->unkBE[arg0->numVtxs >> 1]);
+    arg0->unkDE[arg0->numVtxs >> 1][1] = -COSB(arg0->unkBE[arg0->numVtxs >> 1]);
 
     temp_lo = sqrtf((SQ(xVel) + SQ(zVel) + 1));
     arg0->unk2E[arg0->numVtxs >> 1] = MIN(0x80, (temp_lo * 128) / 15360); // u8, same as (temp_lo / 120)
@@ -287,8 +287,8 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
 
         switch (arg0->unk0.state) {
         case 0:
-            sp5E = (D_80152350.unk384[temp_v0] * arg0->unk5) >> 8;
-            sp5C = (-D_80152350.unk2D0[temp_v0] * arg0->unk5) >> 8;
+            sp5E = ( COSB(temp_v0) * arg0->unk5) >> 8;
+            sp5C = (-SINB(temp_v0) * arg0->unk5) >> 8;
             sp5A = 0;
             break;
         case 1:
@@ -299,16 +299,16 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
             sp5A = sp48.unk4;
             break;
         case 2:
-            sp58 = (COS(arg0->unk4) * arg0->unk5) >> 0xF;
+            sp58 = ( COS(arg0->unk4) * arg0->unk5) >> 0xF;
             sp5A = (-SIN(arg0->unk4) * arg0->unk5) >> 0xF;
-            sp5E = (D_80152350.unk384[temp_v0] * sp58) >> 8;
-            sp5C = (D_80152350.unk2D0[temp_v0] * -sp58) >> 8;
+            sp5E = (COSB(temp_v0) *  sp58) >> 8;
+            sp5C = (SINB(temp_v0) * -sp58) >> 8;
             break;
         case 3:
-            sp58 = ((COS(arg0->unk4) * arg0->unk5) >> 0xF);
+            sp58 = ( COS(arg0->unk4) * arg0->unk5) >> 0xF;
             sp5A = (-SIN(arg0->unk4) * arg0->unk5) >> 0xF;
-            sp5E = (D_80152350.unk384[(s16) ((s32)func_80128200() % 360)] * sp58) >> 8;
-            sp5C = (D_80152350.unk2D0[(s16) ((s32)func_80128200() % 360)] * -sp58) >> 8;
+            sp5E = (COSB((s32)func_80128200() % 360) *  sp58) >> 8;
+            sp5C = (SINB((s32)func_80128200() % 360) * -sp58) >> 8;
             break;
         default:
             break;
@@ -555,13 +555,13 @@ void display_trails(void) {
 
                     if (0) {};
 
-                    simpleTrail->unk38[var_a3+0].v.ob[0] = (D_80152350.unk384[(s16)idx] * temp_t8) >> 8;
+                    simpleTrail->unk38[var_a3+0].v.ob[0] = (COSB(idx * temp_t8) >> 8;
                     simpleTrail->unk38[var_a3+0].v.ob[1] = 0;
-                    simpleTrail->unk38[var_a3+0].v.ob[2] = (D_80152350.unk2D0[(s16)idx] * temp_t8) >> 8;
+                    simpleTrail->unk38[var_a3+0].v.ob[2] = (SINB(idx * temp_t8) >> 8;
 
-                    simpleTrail->unk38[var_a3+1].v.ob[0] = (D_80152350.unk384[(s16)idx] * temp_a1) >> 8;
+                    simpleTrail->unk38[var_a3+1].v.ob[0] = (COSB(idx * temp_a1) >> 8;
                     simpleTrail->unk38[var_a3+1].v.ob[1] = 0;
-                    simpleTrail->unk38[var_a3+1].v.ob[2] = (D_80152350.unk2D0[(s16)idx] * temp_a1) >> 8;
+                    simpleTrail->unk38[var_a3+1].v.ob[2] = (SINB(idx * temp_a1) >> 8;
 
                     simpleTrail->unk38[var_a3+0].v.cn[3] = 0xC0 - simpleTrail->unk2;
                     simpleTrail->unk38[var_a3+1].v.cn[3] = 0xC0 - simpleTrail->unk2;
@@ -581,7 +581,7 @@ void display_trails(void) {
                     }
                 }
 
-                if (is_world_cell_loaded_6AB9E4(simpleTrail->unk2C, simpleTrail->unk2E, simpleTrail->unk30) != 0) {
+                if (is_world_cell_loaded(simpleTrail->unk2C, simpleTrail->unk2E, simpleTrail->unk30) != 0) {
                     gDPSetCombineMode(gLayer0DL++, G_CC_BLENDPE, G_CC_BLENDPE);
                     gDPSetAlphaCompare(gLayer0DL++, G_AC_NONE);
                     gDPSetPrimColor(gLayer0DL++, 0, 0, simpleTrail->color[0], simpleTrail->color[1], simpleTrail->color[2], 0xFF);
@@ -696,8 +696,8 @@ void display_trails(void) {
                         temp_t0 = walrusWake->unkBE[var_s4 >> 1]; //unkE;
                         temp_a3 = ((walrusWake->unk3E[var_s4 >> 1] * walrusWake->unk5) >> 5) + walrusWake->unk5;
 
-                        temp_s5 = ( D_80152350.unk384[temp_t0] * temp_a3) >> 8;
-                        temp_s6 = (-D_80152350.unk2D0[temp_t0] * temp_a3) >> 8;
+                        temp_s5 = ( COSB(temp_t0) * temp_a3) >> 8;
+                        temp_s6 = (-SINB(temp_t0) * temp_a3) >> 8;
                         func_802F5F44_7075F4(walrusWake->unk320, walrusWake->unk322, walrusWake->unk324, 0, temp_t0, &sp17C);
 
                         if (0) {}; // probably not

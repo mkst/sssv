@@ -1,19 +1,20 @@
 #include <ultra64.h>
 #include "common.h"
 #include "camera_enums.h"
+#include "tortoise.h"
 
-extern u8  D_803A8380_7B9A30[];
-extern u8  D_803A8390_7B9A40[];
-extern s16 D_803A83A0_7B9A50[];
-extern s16 D_803A83BC_7B9A6C[];
-extern s16 D_803A83FC_7B9AAC[];
-extern u8  D_803A843C_7B9AEC[];
-extern u8  D_803A8450_7B9B00[];
-extern s16 D_803A8464_7B9B14[];
-extern s16 D_803A8484_7B9B34[];
-extern s16 D_803A84CC_7B9B7C[];
-extern u8  D_803A8514_7B9BC4[];
-extern u8  D_803A8518_7B9BC8[];
+// extern u8  D_803A8380_7B9A30[];
+// extern u8  D_803A8390_7B9A40[];
+// extern s16 D_803A83A0_7B9A50[];
+// extern s16 D_803A83BC_7B9A6C[];
+// extern s16 D_803A83FC_7B9AAC[];
+// extern u8  D_803A843C_7B9AEC[];
+// extern u8  D_803A8450_7B9B00[];
+// extern s16 D_803A8464_7B9B14[];
+// extern s16 D_803A8484_7B9B34[];
+// extern s16 D_803A84CC_7B9B7C[];
+// extern u8  D_803A8514_7B9BC4[];
+// extern u8  D_803A8518_7B9BC8[];
 
 extern Gfx D_01003AD0_3D3A0[];
 
@@ -34,7 +35,7 @@ extern Gfx D_040041D0_F5230[];
 void update_tortoise_tank(void) {
     s32 sp14C;
     s32 sp148;
-    Vertex sp140;
+    LimbConfig sp140;
 
     s32 sp13C; // pad
 
@@ -65,7 +66,7 @@ void update_tortoise_tank(void) {
     var_a0 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
-        var_v0 = gAnimalState.unkFFDA;
+        var_v0 = gAnimalState.stickMag;
     } else {
         var_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -150,7 +151,7 @@ void update_tortoise_tank(void) {
         gLodDetailState = 0;
     }
     else {
-        sp128 = classify_object_visibility_6FA0A0(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF), 0x740, 0, 0, 0x5A, 0, 1, CHECK_SEGMENT == 0);
+        sp128 = classify_object_visibility(D_803D552C->position.xPos.w, D_803D552C->position.zPos.w, D_803D552C->position.yPos.w + (D_803D5524->height << 0xF), 0x740, 0, 0, 0x5A, 0, 1, CHECK_SEGMENT == 0);
     }
 
     if (sp128 == 0) {
@@ -162,7 +163,7 @@ void update_tortoise_tank(void) {
         D_803F2EC0 = FTOFIX32(1.0) + ((D_803F2EC0 - FTOFIX32(1.0)) >> 1);
         D_803F2EC4 = FTOFIX32(1.0) + ((D_803F2EC4 - FTOFIX32(1.0)) >> 1);
 
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F)) {
             func_802B9130_6CA7E0(&sp140, 453, 308, 498, 0);
             func_802C1830_6D2EE0(498, &sp140);
             func_802B964C_6CACFC();
@@ -170,7 +171,7 @@ void update_tortoise_tank(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A8380_7B9A30, D_803A8390_7B9A40, D_803A83A0_7B9A50, D_803A83BC_7B9A6C);
                 break;
@@ -181,7 +182,7 @@ void update_tortoise_tank(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0 = gCameraUiState, (temp_v0 == 0)) || (temp_v0 == 2) || ((temp_v0 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1)) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].unk64 != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0 = gCameraUiState, (temp_v0 == 0)) || (temp_v0 == 2) || ((temp_v0 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1)) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -360,14 +361,14 @@ void update_tortoise_tank(void) {
         func_8035D6D0_76ED80();
     }
     if ((sp128 == 0) || (sp128 == 2)) {
-        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+        func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
 
     // draw crosshair?
     if ((D_803D5538 != 0) && (((gCameras[gCameraId].cameraMode == CAMERA_MODE_BEHIND_1)) || (gCameras[gCameraId].cameraMode == CAMERA_MODE_BEHIND_2))) {
         // sp134 = 14;
         sp134 = 14 - ((SIN((D_803D5540 << 3) & 0xFF) >> 7) >> 5);
-        sp132 = D_803D5530->yRotation - (s16)((gCameras[gCameraId].unk20 * 256.0) / 360.0);
+        sp132 = D_803D5530->yRotation - (s16)((gCameras[gCameraId].yaw * 256.0) / 360.0);
 
         if (sp132 > 128) {
             sp132 -= 256;
@@ -482,7 +483,7 @@ void update_racing_tortoise(void) {
     s32 phi_t0; // scaling?
     s32 phi_t3; // scaling?
 
-    Vertex sp90;
+    LimbConfig sp90;
     s16 sp8E;
     s16 sp8C;
     s16 sp8A;
@@ -519,7 +520,7 @@ void update_racing_tortoise(void) {
     var_v1 = D_803D552C->unk310 >> 8;
 
     if (D_803D5538 != 0) {
-        phi_v0 = gAnimalState.unkFFDA;
+        phi_v0 = gAnimalState.stickMag;
     } else {
         phi_v0 = MIN(D_803D552C->unk368 >> 2, 24);
     }
@@ -608,10 +609,10 @@ void update_racing_tortoise(void) {
         sp88 = 0;
         gLodDetailState = 0;
     }  else {
-        sp88 = classify_object_visibility_6FA0A0(
+        sp88 = classify_object_visibility(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
-            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
             0x740,
             0,
             0,
@@ -627,7 +628,7 @@ void update_racing_tortoise(void) {
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
 
-        if ((D_803F2ECE == 0) || (((D_803F2ECC < 31)))) {
+        if ((gAnimBlendMode == 0) || (((D_803F2ECC < 31)))) {
             if (D_803D5538 != 0) {
                 var_v1_6 = ((D_803D554C * 362) / 20);
             } else {
@@ -647,7 +648,7 @@ void update_racing_tortoise(void) {
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A843C_7B9AEC, D_803A8450_7B9B00, D_803A8464_7B9B14, D_803A8484_7B9B34);
                 break;
@@ -660,7 +661,7 @@ void update_racing_tortoise(void) {
         if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) &&
              (D_803F2EDA != 0) &&
              (((D_803D5538 != 0)) || ((gCameraUiState == 0)) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 > 10))) &&
-             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1)) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].unk64 != -3))) {
+             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1)) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].zoomIndex != -3))) {
 
             func_80127640(
                 &gDisplayListContext->modelViewMtx[(gDisplayListContext->usedModelViewMtxs)],
@@ -766,7 +767,7 @@ void update_racing_tortoise(void) {
         func_8034BD20_75D3D0(
             D_803D552C->position.xPos.h,
             D_803D552C->position.zPos.h,
-            (D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1)),
+            (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)),
             D_803D552C->heading,
             img_D_01033190_6CA60_i4__png,
             25,
@@ -788,16 +789,16 @@ void update_racing_tortoise(void) {
 
 // TORTOISE_TANK_DEFENDING/RACING_TORTOISE_DEFENDING
 void update_tortoise_defending(void) {
-    Vertex sp88;
+    LimbConfig sp88;
     s16 offscreen;
     f32 temp_f0;
     u8 tmp;
 
-    if (D_803D5524->unk9C == TORTOISE_TANK_DEFENDING) {
+    if (D_803D5524->animalType == TORTOISE_TANK_DEFENDING) {
         func_8032CD70_73E420(D_803D5530, SFX_UNKNOWN_175, 0x6000, 0, 1.0f, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
     }
 
-    if (D_803D5530->movementState == 1) {
+    if (D_803D5530->movementState == MOVEMENT_STATE_GROUND) {
         temp_f0 = (ABS(D_803D5530->xVelocity.w) + ABS(D_803D5530->zVelocity.w)) / (65536.0 * 10);
         if (temp_f0 > 0.2) {
             func_8032CD70_73E420(
@@ -816,10 +817,10 @@ void update_tortoise_defending(void) {
         offscreen = 0;
         gLodDetailState = 0;
     } else {
-        offscreen = classify_object_visibility_6FA0A0(
+        offscreen = classify_object_visibility(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
-            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
             0x740,
             0,
             0,
@@ -833,13 +834,13 @@ void update_tortoise_defending(void) {
         func_8035D120_76E7D0();
         func_8035DA60_76F110();
         func_8035D734_76EDE4();
-        if ((D_803F2ECE == 0) || (D_803F2ECC < 31)) {
+        if ((gAnimBlendMode == 0) || (D_803F2ECC < 31)) {
             func_802B9130_6CA7E0(&sp88, 0x1C5, 0x134, 0xB5, 0);
             func_802B964C_6CACFC();
         }
         if (D_803F2ECC != 0) {
             backup_joint_positions();
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803A8514_7B9BC4, D_803A8518_7B9BC8, D_803A8464_7B9B14, D_803A8484_7B9B34);
                 break;
@@ -853,7 +854,7 @@ void update_tortoise_defending(void) {
 
         if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) &&
             (D_803F2EDA != 0) && ((D_803D5538 != 0) || ((tmp = gCameraUiState, tmp == 0)) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 11))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].zoomIndex != -3))) {
 
             func_80127640(
                 &gDisplayListContext->modelViewMtx[(gDisplayListContext->usedModelViewMtxs)],
@@ -872,7 +873,7 @@ void update_tortoise_defending(void) {
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x3A) >> 6, (D_803F2EC0 * 0x3A) >> 6, (D_803F2EC4 * 0x3A) >> 6, D_803F2ED0, 0, 0, 0, D_04002D70_F3DD0);
             gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
 
-            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->unkBA, D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
+            func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + D_803D5524->height, D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x19, 0x19, 0x9B, 0, 0, 0, 0, D_803D5538);
         }
         func_8035D6A0_76ED50();
     } else {
@@ -887,7 +888,7 @@ void update_tortoise_defending(void) {
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {
             play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
-            if (D_803D5524->unk9C == TORTOISE_TANK_DEFENDING) {
+            if (D_803D5524->animalType == TORTOISE_TANK_DEFENDING) {
                 load_animal(TORTOISE_TANK);
             } else {
                 load_animal(RACING_TORTOISE);
@@ -897,9 +898,9 @@ void update_tortoise_defending(void) {
         }
     }
     if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
-        if (D_803D5524->unk9C == TORTOISE_TANK_DEFENDING) {
+        if (D_803D5524->animalType == TORTOISE_TANK_DEFENDING) {
             load_animal(TORTOISE_TANK);
-        } else if (D_803D5524->unk9C == RACING_TORTOISE_DEFENDING) {
+        } else if (D_803D5524->animalType == RACING_TORTOISE_DEFENDING) {
             load_animal(RACING_TORTOISE);
         }
     }
@@ -989,12 +990,12 @@ void func_80355E14_7674C4(void) {
 
 // tortoise_tank_???
 void func_80355EDC_76758C(void) {
-    recharge_skill(0);
+    recharge_skill(SKILL_A);
 }
 
 // tortoise_tank_???
 void func_80355EFC_7675AC(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->position.xPos.h,  D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(TORTOISE_TANK_DEFENDING);
 }
@@ -1019,21 +1020,21 @@ void func_80355F64_767614(void) {
 
 // racing tortoise
 void func_80355FFC_7676AC(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(RACING_TORTOISE_DEFENDING);
 }
 
 // tortoise_tank_defending_???
 void func_80356064_767714(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(TORTOISE_TANK);
 }
 
 // racing_tortoise_defending_???
 void func_803560CC_76777C(void) {
-    func_802DBA58_6ED108(15, D_803D552C);
+    func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
     play_sound_effect_at_location(SFX_EVO_TRANSFER, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
     load_animal(RACING_TORTOISE);
 }
@@ -1058,7 +1059,7 @@ void tortoise_tank_attack(Animal *a) {
 
 void tortoise_tank_defend(s16 arg0) {
     D_803D552C->unk2EC = arg0;
-    if (D_803D5524->unk9C == TORTOISE_TANK) {
+    if (D_803D5524->animalType == TORTOISE_TANK) {
         play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
         load_animal(TORTOISE_TANK_DEFENDING);
     }
@@ -1066,7 +1067,7 @@ void tortoise_tank_defend(s16 arg0) {
 
 void racing_tortoise_defend(s16 arg0) {
     D_803D552C->unk2EC = arg0;
-    if (D_803D5524->unk9C == RACING_TORTOISE) {
+    if (D_803D5524->animalType == RACING_TORTOISE) {
         play_sound_effect_at_location(SFX_UNKNOWN_123, 0x7FFF, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.8f);
         load_animal(RACING_TORTOISE_DEFENDING);
     }

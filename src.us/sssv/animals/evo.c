@@ -39,7 +39,7 @@ extern Gfx D_01006AE8_403B8[];
 void func_80389B30_79B1E0(void) {
     s32 pad[2];
 
-    Vertex sp148;
+    LimbConfig sp148;
 
     s16 var_v1_2;
     s16 temp_s0;
@@ -74,7 +74,7 @@ void func_80389B30_79B1E0(void) {
 
     f32 sp100;
 
-    if ((D_803D5530->movementState == 1) || (D_803D5530->movementState == 5)) {
+    if ((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_SINKING)) {
         D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
     }
 
@@ -86,7 +86,7 @@ void func_80389B30_79B1E0(void) {
     D_803F2EC4 = ((D_803F2EC4 - FTOFIX32(1.0)) >> 1) + FTOFIX32(1.0);
     func_8035D734_76EDE4();
 
-    if ((D_803F2ECE == 0) || (D_803F2ECC < 0x1F) || (D_803F2ECE >= 3)) {
+    if ((gAnimBlendMode == 0) || (D_803F2ECC < 0x1F) || (gAnimBlendMode >= 3)) {
         func_802BA220_6CB8D0(&sp148, 0x222, 0x4C1, 0x1FB, 0x15F, 0x138);
         func_802C353C_6D4BEC(0x29F, 0x222, 0x138, D_803B5E30_7C74E0, D_803B5E60_7C7510, D_803B5E90_7C7540, &sp148);
         update_limbs_evo(0x1D4, 0x271, D_803B5EA4_7C7554, D_803B5ED4_7C7584, D_803B5F04_7C75B4);
@@ -94,7 +94,7 @@ void func_80389B30_79B1E0(void) {
     }
     if (D_803F2ECC != 0) {
         backup_joint_positions();
-        switch (D_803F2ECE) {
+        switch (gAnimBlendMode) {
         case 1:
             func_802DB670_6ECD20(D_803B5F18_7C75C8, D_803B5F2C_7C75DC, D_803B5F40_7C75F0, D_803B5F64_7C7614);
             break;
@@ -105,14 +105,14 @@ void func_80389B30_79B1E0(void) {
     }
     func_8038064C_791CFC();
 
-    if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_3 = gCameraUiState, (temp_v0_3 == 0)) || (temp_v0_3 == 2) || ((temp_v0_3 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].unk64 != -3))) {
+    if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_3 = gCameraUiState, (temp_v0_3 == 0)) || (temp_v0_3 == 2) || ((temp_v0_3 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
         func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
 
         gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         gSPMatrix(gLayer0DL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
         gDisplayListContext->usedModelViewMtxs += 1;
 
-        func_8038C230_79D8E0((D_803D5524->unkBA * 0xC) / 5, 2, 3, 3, -0.32f);
+        func_8038C230_79D8E0((D_803D5524->height * 0xC) / 5, 2, 3, 3, -0.32f);
 
         guLookAtReflect(
             &gDisplayListContext->unk38CD0[gDisplayListContext->unk39310],
@@ -146,10 +146,10 @@ void func_80389B30_79B1E0(void) {
             sp12A = 0x28;
             sp134 = 0x4000;
             sp100 = 0.8f;
-            D_803D5524->unkA4 = 0x180;
-            D_803D5524->unkAA = 0x140;
-            D_803D5524->unkA6 = 0x16;
-            D_803D5524->unkA8 = 0x18;
+            D_803D5524->walkSpeed = 0x180;
+            D_803D5524->flightLiftVelocity = 0x140;
+            D_803D5524->jumpVelocity = 0x16;
+            D_803D5524->swimSpeed = 0x18;
             break;
         case EVO_SILVER_SHELLSUIT:
             sp138 = 3; // silver texture
@@ -158,10 +158,10 @@ void func_80389B30_79B1E0(void) {
             sp12A = 0x5A;
             sp134 = 0x5800;
             sp100 = 1.1f;
-            D_803D5524->unkA4 = 0x1C0;
-            D_803D5524->unkAA = 0x180;
-            D_803D5524->unkA6 = 0x18;
-            D_803D5524->unkA8 = 0x1A;
+            D_803D5524->walkSpeed = 0x1C0;
+            D_803D5524->flightLiftVelocity = 0x180;
+            D_803D5524->jumpVelocity = 0x18;
+            D_803D5524->swimSpeed = 0x1A;
             break;
         case EVO_GOLD_SHELLSUIT:
             sp138 = 1; // gold texture
@@ -170,10 +170,10 @@ void func_80389B30_79B1E0(void) {
             sp12A = 0x8C;
             sp134 = 0x6000;
             sp100 = 1.3f;
-            D_803D5524->unkA4 = 0x200;
-            D_803D5524->unkAA = 0x1C0;
-            D_803D5524->unkA6 = 0x1A;
-            D_803D5524->unkA8 = 0x1C;
+            D_803D5524->walkSpeed = 0x200;
+            D_803D5524->flightLiftVelocity = 0x1C0;
+            D_803D5524->jumpVelocity = 0x1A;
+            D_803D5524->swimSpeed = 0x1C;
             break;
         default:
             sp138 = 0; // (?) texture
@@ -182,10 +182,10 @@ void func_80389B30_79B1E0(void) {
             sp12A = 0xFF;
             sp134 = 0x7000;
             sp100 = 1.5f;
-            D_803D5524->unkA4 = 0x780;
-            D_803D5524->unkAA = 0x780;
-            D_803D5524->unkA6 = 0x28;
-            D_803D5524->unkA8 = 0x3C;
+            D_803D5524->walkSpeed = 0x780;
+            D_803D5524->flightLiftVelocity = 0x780;
+            D_803D5524->jumpVelocity = 0x28;
+            D_803D5524->swimSpeed = 0x3C;
             break;
         }
 
@@ -340,7 +340,7 @@ void func_80389B30_79B1E0(void) {
     }
 
     func_8035D6A0_76ED50();
-    func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->unkBA >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xC, 0x1C, 0x9B, 0, 0, 0, 0, D_803D5538);
+    func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xC, 0x1C, 0x9B, 0, 0, 0, 0, D_803D5538);
     func_80303820_714ED0(D_803D552C, 1, 2,  0x2BF, 0);
     func_80303820_714ED0(D_803D552C, 2, 2,  0x2BF, 1);
     func_80303820_714ED0(D_803D552C, 1, 19, 0x1D4, 2);
@@ -358,7 +358,7 @@ void func_80389B30_79B1E0(void) {
 void func_8038B330_79C9E0(void) {
     s16 tmp;
 
-    if (D_803D5530->movementState != 1) {
+    if (D_803D5530->movementState != MOVEMENT_STATE_GROUND) {
         if (D_803D5530->unk4A == 0) {
             func_8032CD70_73E420(
                 D_803D5530,
@@ -412,7 +412,7 @@ void func_8038B330_79C9E0(void) {
             tmp += 32;
         } while (tmp < 17);
     } else {
-        recharge_skill(0);
+        recharge_skill(SKILL_A);
     }
 }
 
@@ -446,7 +446,7 @@ void func_8038B798_79CE48(void) {
     D_803D5538 = 1;
     D_803D553C = gCurrentAnimalIndex;
     D_803D553A = 0;
-    if (D_803D5530->movementState == 1) {
+    if (D_803D5530->movementState == MOVEMENT_STATE_GROUND) {
         func_802A6390_6B7A40();
     }
 }

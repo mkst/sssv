@@ -29,7 +29,7 @@ void read_controller_input(OSContPad *cont) {
     }
 
     if ((gUiFlowState.unk0 != 0) || (gControllerDebounce != 0) || (D_803F2AA3 != 0) ||
-        (gAnimalState.animals[gCurrentAnimalIndex].animal->unk364 == 17)) {
+        (gAnimalState.animals[gCurrentAnimalIndex].animal->attackState == ATTACK_STATE_TELEPORT_OUT)) {
         gAnimalState.curAButton = 0;
         gAnimalState.curBButton = 0;
         gAnimalState.curLRTrigger = NO_TRIGGER;

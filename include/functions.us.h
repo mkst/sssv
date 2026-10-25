@@ -74,18 +74,18 @@ void func_80130E44(void);
 
 void reset_task_list(void);
 void func_80132044(s32 arg0);
-struct017 *func_801320EC(void);
-void func_801322EC(struct017 *arg0, struct017 **arg1, struct017 **arg2);
+Sound *func_801320EC(void);
+void func_801322EC(Sound *arg0, Sound **arg1, Sound **arg2);
 void func_80132394(void);
-struct017 *func_80132474(void);
-struct017 *func_80132568(void);
-struct017 *get_sound_by_object_and_id(s32 arg0, s16 id);
+Sound *func_80132474(void);
+Sound *func_80132568(void);
+Sound *get_sound_by_object_and_id(s32 arg0, s16 id);
 void func_801326A8(s8 arg0, s8 arg1);
 void func_801328F8(void);
 void func_80132C48(s8 idx);
 
 // core/audio2
-void func_80132174(struct struct017 arg0, struct017** arg1, struct017** arg2);
+void func_80132174(struct Sound arg0, Sound** arg1, Sound** arg2);
 void func_80132CC0(s32 arg0);
 s32  func_80132D84(ALSndPlayer *sndp);
 void func_80132F70(s16 id, s16 volume);
@@ -173,7 +173,7 @@ void setup_frame_render_state(DisplayList *arg0, Gfx **arg1);
 void draw_visible_world_cell_opaque_pass(DisplayList *arg0);
 void draw_visible_world_cell_translucent_pass(DisplayList * arg0);
 void func_8029A32C_6AB9DC(s32 arg0);
-s16  is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2);
+s16  is_world_cell_loaded(s32 arg0, s32 arg1, s32 arg2);
 void build_visible_world_cell_queue(s32 arg0, s32 arg1, s32 arg2);
 u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
@@ -189,8 +189,8 @@ void maybe_trigger_exit_teleporter(Animal *animal, Entity *teleporter);
 void func_8029B9B8_6AD068(Animal *animal, Entity *teleporter);
 void maybe_do_teleport(Animal *animal, Entity *teleporter);
 void func_8029BB94_6AD244(void);
-void enqueue_dynamic_texture_billboard_6AE5A0(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
-void render_dynamic_texture_billboards_6AE758(void);
+void enqueue_dynamic_texture_billboard(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
+void render_dynamic_texture_billboards(void);
 void reset_dynamic_texture_billboard_queue(void);
 void load_dynamic_texture_billboard_texture_pair(Gfx **arg0, s16 arg1);
 void enqueue_distance_sorted_textured_display_list_instance(u8 arg0, u16 arg1, s32 arg2, s32 arg3, s32 arg4, s16 arg5, s16 arg6, Gfx *arg7);
@@ -360,7 +360,6 @@ void func_802B8AD8_6CA188(void);
 void func_802B8B1C_6CA1CC(void);
 u16  func_802B8B74_6CA224(void);
 s32  func_802B8C50_6CA300(s16 arg0, s16 arg1);
-s32  func_802B901C_6CA6CC(u8 arg0, s16 *arg1, s16 *arg2);
 void func_802B90A0_6CA750(u8 arg0, s32 *arg1, s32 *arg2);
 
 // overlay2_6CA7E0
@@ -545,11 +544,11 @@ void func_802E8760_6F9E10(void);
 void func_802E88C0_6F9F70(s16 arg0);
 
 // overlay2_6FA0A0
-s16 classify_object_visibility_6FA0A0(s32 x, s32 y, s32 z, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
-s16 classify_dynamic_visibility_6FA26C(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9);
+s16 classify_object_visibility(s32 x, s32 y, s32 z, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
+s16 classify_dynamic_visibility(s32 xPos, s32 zPos, s32 yPos, s32 arg3, u8 fovImageIdx, s16 red, s16 green, s16 blue, s8 arg8, u8 arg9);
 s16 classify_visibility_and_draw_fov_mask(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 fovImageIdx, s16 arg5, s16 arg6, s16 arg7, s8 arg8, u8 arg9);
 s16 classify_visibility_simple(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4);
-s16 classify_particle_visibility_6FB6B4(s32 arg0, s32 arg1, s32 arg2, s8 arg3);
+s16 classify_particle_visibility(s32 arg0, s32 arg1, s32 arg2, s8 arg3);
 
 // src/sssv/aidata
 s16 get_ai_behaviour(u16 X, u16 Y);
@@ -997,7 +996,7 @@ void func_8035BDC0_76D470(void);
 void chameleon_attack(void);
 void chameleon_hide(void);
 void chameleon_unhide(void);
-void chameleon_attack_2(void);
+void sneaky_chameleon_attack(void);
 void func_8035C180_76D830(s16 arg0);
 
 // overlay2_76D850
@@ -1048,7 +1047,7 @@ void func_8035A130_76B7E0(void);
 void func_8035A170_76B820(void);
 void func_8035A2A8_76B958(void);
 void func_8035A590_76BC40(s16 arg0);
-void func_8035A5A4_76BC54(s16 arg0);
+void hyena_biker_turbo(s16 arg0);
 
 // overlay2_76F7D0
 void func_8035E200_76F8B0(void);
@@ -1083,7 +1082,7 @@ void springy_ram_headbutt(void);
 //overlay2_7741B0
 s32  func_80362B00_7741B0(Animal *a);
 s32  func_80362B60_774210(Animal *a);
-s32  func_80362BEC_77429C(Animal *a);
+s32  is_swimming(Animal *a);
 void func_80362C10_7742C0(Animal *arg0);
 void set_nav_state_engage_other(Animal *arg0, Animal *arg1, u16 arg2);
 void func_8036379C_774E4C(Animal *arg0);
@@ -1203,7 +1202,7 @@ void func_8037D138_78E7E8(void);
 void func_8037D268_78E918(s16 arg0);
 
 // overlay2_78E970
-void empty_8037D32C_78E9DC(Gfx *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
+void empty_8037D32C_78E9DC(s32 *arg0, u8 arg1, s32 arg2, u16 arg3, s32 arg4);
 void func_8037D340_78E9F0(s16 arg0, s16 arg1);
 void set_target_speed(s8 arg0);
 void func_8037D9D4_78F084(void);
@@ -1228,7 +1227,7 @@ void func_80380920_791FD0(void);
 void func_80381C60_793310(void);
 void func_80381F14_7935C4(void);
 
-// sssv/animals/pirana (overlay2_793700)
+// sssv/animals/piranha (overlay2_793700)
 void func_80382050_793700(void);
 void func_80382C9C_79434C(void);
 void func_80382CB0_794360(void);

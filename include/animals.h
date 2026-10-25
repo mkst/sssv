@@ -31,7 +31,7 @@
 #define TORTOISE_TANK               27
 #define RACING_TORTOISE             28
 #define TORTOISE_TANK_DEFENDING     29
-#define PIRANA                      30
+#define PIRANHA                     30
 #define DOG                         31
 #define RAT                         32
 #define SHEEP                       33
@@ -74,13 +74,23 @@
 
 // 'flying' class receives damage when touching the ground
 
-#define CLASS_WALK          2
-#define CLASS_WHEELS        4
-#define CLASS_POGO          8
-#define CLASS_BIRD          32
-#define CLASS_FLYING        64
-#define CLASS_HELI          128
-#define CLASS_SWIM          256
+#define BASE_WALK           1
+#define BASE_WHEELS         2
+#define BASE_POGO           3
+#define BASE_BIRD           5
+#define BASE_UNKNOWN        4
+#define BASE_FLYING         6
+#define BASE_HELI           7
+#define BASE_SWIM           8
+
+#define CLASS_WALK          (1 << BASE_WALK)    // 2
+#define CLASS_WHEELS        (1 << BASE_WHEELS)  // 4
+#define CLASS_POGO          (1 << BASE_POGO)    // 8
+#define CLASS_BIRD          (1 << BASE_BIRD)    // 16
+#define CLASS_UNKNOWN       (1 << BASE_UNKNOWN) // 32
+#define CLASS_FLYING        (1 << BASE_FLYING)  // 64
+#define CLASS_HELI          (1 << BASE_HELI)    // 128
+#define CLASS_SWIM          (1 << BASE_SWIM)    // 256
 
 #define WATER_TBD           1
 #define WATER_FLOAT         2

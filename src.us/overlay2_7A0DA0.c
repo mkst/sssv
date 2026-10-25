@@ -14,8 +14,8 @@ void func_8038FF48_7A15F8(void);
 void func_80391A38_7A30E8(void);
 void func_8039264C_7A3CFC(void);
 void func_80392668_7A3D18(void);
-void setup_pause_menu_perspective_a_7A6B30(void);
-void setup_pause_menu_perspective_b_7A6F04(void);
+void setup_pause_menu_perspective_a(void);
+void setup_pause_menu_perspective_b(void);
 void func_80395B58_7A7208(void);
 void func_80395E98_7A7548(Gfx **dl);
 void func_8039661C_7A7CCC(s16 arg0, s16 arg1, s16 arg2);
@@ -190,7 +190,7 @@ static s32 D_803B6880_7C7F30 = 0;
 // .bss
 // ========================================================
 
-struct027 gOverlayMenuState;
+OverlayMenuState gOverlayMenuState;
 static struct032 gOverlayUiState;
 s16  D_803F6704;
 static s16  D_803F6706;
@@ -434,7 +434,7 @@ void func_8038FD74_7A1424(void) {
     gGameState.score = 0;
     D_801D9ED4 = 6;
     gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
-    D_801546D8 = 1600;
+    gMusicVolumeScale = 1600;
     D_801546E0 = 2048;
     D_8015517C = 1.0f;
 
@@ -480,7 +480,7 @@ void func_8038FF68_7A1618(void) {
     func_80391A38_7A30E8();
     if (gOverlayMenuState.unk2A != 0) {
         sp3C = 1;
-        setup_pause_menu_perspective_a_7A6B30();
+        setup_pause_menu_perspective_a();
         func_80395B58_7A7208();
 
         gDPPipeSync(gMainDL++);
@@ -2257,7 +2257,7 @@ void render_tv_glass(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
 void func_8039546C_7A6B1C(Gfx **dl, s16 arg1, s16 arg2, s16 arg3) {
 }
 
-void setup_pause_menu_perspective_a_7A6B30(void) {
+void setup_pause_menu_perspective_a(void) {
     D_803B66F0_7C7DA0.vp.vscale[0] = gScreenWidth  * 2;
     D_803B66F0_7C7DA0.vp.vscale[1] = gScreenHeight * 2;
     D_803B66F0_7C7DA0.vp.vtrans[0] = gScreenWidth  * 2;
@@ -2291,7 +2291,7 @@ void setup_pause_menu_perspective_a_7A6B30(void) {
     gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 }
 
-void setup_pause_menu_perspective_b_7A6F04(void) {
+void setup_pause_menu_perspective_b(void) {
     gDPPipeSync(gMainDL++);
     init_f3dex_render(&gMainDL, gDisplayListContext);
     gDPPipeSync(gMainDL++);
@@ -2350,7 +2350,7 @@ void func_80395B58_7A7208(void) {
 
     D_803F670E += 2;
     D_803F670E %= 360;
-    temp_lo = (D_80152350.unk0[D_803F670E] + 0xFF) / 6;
+    temp_lo = (SINE(D_803F670E) + 0xFF) / 6;
 
     gDisplayListContext->lights.l[1].l.col[0] = temp_lo;
     gDisplayListContext->lights.l[1].l.col[1] = 8;

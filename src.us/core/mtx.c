@@ -12,12 +12,12 @@ void build_rotate_scale_translate_matrix(Mtx *mtx, s32 xPos, s32 zPos, s32 yPos,
     s64 spA0;
     s64 sp98;
 
-    spC0 = (s64)D_80152350.unk2D0[xRot] << 8;
-    spB8 = (s64)D_80152350.unk384[xRot] << 8;
-    spB0 = (s64)D_80152350.unk2D0[yRot] << 8;
-    spA8 = (s64)D_80152350.unk384[yRot] << 8;
-    spA0 = (s64)D_80152350.unk2D0[zRot] << 8;
-    sp98 = (s64)D_80152350.unk384[zRot] << 8;
+    spC0 = (s64)SINB(xRot) << 8;
+    spB8 = (s64)COSB(xRot) << 8;
+    spB0 = (s64)SINB(yRot) << 8;
+    spA8 = (s64)COSB(yRot) << 8;
+    spA0 = (s64)SINB(zRot) << 8;
+    sp98 = (s64)COSB(zRot) << 8;
 
     set_mtx_fixed_point_pair((xScale * ( ((spB8 * sp98) / 0x10000) - ((spC0 * ((spB0 * spA0) / 0x10000)) / 0x10000))) / 0x10000, (zScale * -((spC0 * spA8) / 0x10000)) / 0x10000, &mtx->m[0][0]);
     set_mtx_fixed_point_pair((yScale * (-((spB8 * spA0) / 0x10000) - ((spC0 * ((spB0 * sp98) / 0x10000)) / 0x10000))) / 0x10000, 0,                                             &mtx->m[0][1]);
@@ -38,10 +38,10 @@ void func_80125FE0(Mtx *mtx, s32 xPos, s32 zPos, s32 yPos, s16 xRot, s16 yRot, s
     s64 sp70;
     s64 sp68;
 
-    sp80 = (s64)D_80152350.unk2D0[xRot] << 8;
-    sp78 = (s64)D_80152350.unk384[xRot] << 8;
-    sp70 = (s64)D_80152350.unk2D0[yRot] << 8;
-    sp68 = (s64)D_80152350.unk384[yRot] << 8;
+    sp80 = (s64)SINB(xRot) << 8;
+    sp78 = (s64)COSB(xRot) << 8;
+    sp70 = (s64)SINB(yRot) << 8;
+    sp68 = (s64)COSB(yRot) << 8;
 
     set_mtx_fixed_point_pair((xScale * sp68) / 0x10000,                       (-xScale * sp70) / 0x10000,                      &mtx->m[0][0]);
     set_mtx_fixed_point_pair(0,                                               0,                                               &mtx->m[0][1]);
@@ -263,8 +263,8 @@ void unused_80126CC4(s16 angle, Mtx *mtx) {
     s16 temp_a2;
     s16 temp_v0;
 
-    temp_v0 = D_80152350.unk2D0[angle];
-    temp_a2 = D_80152350.unk384[angle];
+    temp_v0 = SINB(angle);
+    temp_a2 = COSB(angle);
 
     sp8.h.unk4 = mtx->m[0][0] >> 0x10;
     sp8.h.unk6 = mtx->m[2][0] >> 0x10;
@@ -661,8 +661,8 @@ void build_spring_bounce_matrix(Mtx *mtx, s16 radius, s16 angle) {
 
     FracIntHelper sp30;
 
-    sp40 = (s64)D_80152350.unk2D0[angle] << 8;
-    sp38 = (s64)D_80152350.unk384[angle] << 8;
+    sp40 = (s64)SINB(angle) << 8;
+    sp38 = (s64)COSB(angle) << 8;
 
     sp30.w.unk4 = 0x10000;
 

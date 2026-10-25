@@ -74,7 +74,7 @@ extern Gfx  D_04000230_F1290[];
 extern Gfx  D_04005B60_11C730[]; // spaceship interior
 extern Gfx  D_04006D00_11D8D0[]; // tv body
 
-extern Gfx D_04003580_EAB30[];
+extern Gfx sheep_leg[];
 extern Gfx D_04003640_EABF0[];
 extern Gfx D_040036D0_EAC80[];
 extern Gfx D_04003930_E0EF0[];
@@ -117,18 +117,6 @@ extern Gfx  D_05006170_9D190[];
 extern s32  D_80000300;
 extern u8   gFramebuffer[2][320 * 240 * 2]; // 0x25C00
 
-// 0x8003xxxx
-
-extern s32  D_80032870;
-
-// 0x8004xxxx
-
-extern u8   D_8004B400[]; // _gfxdlistSegmentStart
-
-// 0x8009xxxx
-
-extern u8   D_80099600[]; // _gfxdlistSegmentEnd
-
 // 0x800Bxxxx
 
 extern u8   gfxspecific[];
@@ -166,16 +154,13 @@ extern u32  D_80100000[];
 
 extern u16  D_80151424; // 0x2cb24 ??? in aspMainText?
 
+// controller.h
 extern u16  gSeed;
-// extern u8   D_80151438[]; // maps to ROM 0x2CB38 ?
-
-extern f32  D_80151C38[];
 extern s16  D_80152040[];
 extern s16  D_80152212[];
-extern s8   D_80152248[];
-extern struct013 D_80152350; // likely just an s16 array
-// extern s16  D_80152620[]; // these are D_80152350.unk2D0
-// extern s16  D_801526D4[]; // these are D_80152350.unk384
+
+// mtx.h
+extern s16  gSineTable[1170];
 extern s16  gSineTable256[256];
 
 // thread6
@@ -190,13 +175,11 @@ extern Gfx  D_801542D0[]; // 0x2F9D0
 // main_78F0
 extern u8   D_80154370[]; // 0x2FA70
 
-// extern u8*  D_80154500[37][2]; // bunch of offsets to RNC language files
-
 // audiomgr.c
 // core/audio.c .data
 extern f32  gMusicVolume;
 extern f32  gSfxVolume;
-extern s16  D_801546D8; // used in lots of places
+extern s16  gMusicVolumeScale; // used in lots of places
 extern s16  D_801546E0;
 extern s32  D_80155160;
 extern s8   D_80155164[];
@@ -259,39 +242,13 @@ extern s32  D_801DD8EC;
 extern s16  gScreenWidth;
 extern s16  gScreenHeight;
 
-// D_801DDD88 is D_801D9ED8.animals
-// D_801DDD8C[gCurrentAnimalIndex] is D_801D9ED8.animals[gCurrentAnimalIndex].animal
-
-// 0x801Exxxx
-
-// all of these are part of D_801D9ED8 (e.g. D_801E1ED7->unk7FA9 =>D_801D9ED8.unkFFA8)
-//extern s16  D_801E9E80; // D_801D9ED8.unkFFA8
-//extern u16  D_801E9E8A; // D_801D9ED8.curAButton
-//extern u16  D_801E9E8E; // D_801D9ED8.curBButton
-//extern u16  D_801E9E90; // D_801D9ED8.prevAButton
-//extern s16  D_801E9EA6; // D_801D9ED8.unkFFCE
-//extern s8   D_801E9EB0; // D_801D9ED8.stickX
-//extern s8   D_801E9EB1; // D_801D9ED8.stickY
-//extern s16  D_801E9EB2; // D_801D9ED8.unkFFDA // force? duration of controller input?
-//extern s16  D_801E9EB4; // D_801D9ED8.unkFFDC
-//extern s16  D_801E9EB6; // D_801D9ED8.unkFFDE // bear/gorilla use this
-
 extern Objects D_801E9EB8;  // gObjects
-// extern Entity D_80203AA8[];   // D_801E9EB8.objects
-// extern Entity *D_80203D1C[];  // D_801E9EB8.objectsPtr
-// extern s16  D_80203FC4;          // D_801E9EB8.total
 
 extern s16  D_80203FD0; // gScreenWidth
 extern s16  D_80203FD2; // gScreenHeight
 
 extern LimbConfig D_80203FE0[34];
 extern LimbConfig D_802040F0[34];
-
-// extern s16 D_80203FF0;
-// extern s16 D_80203FF2;
-// extern s16 D_80203FF4;
-// extern s16 D_80203FFA; // is D_80203FE0[3].unk2
-// extern s16 D_80204002; // is D_80203FE0[4].unk2
 
 // is this a Mtx?
 extern f32  D_80204200;
@@ -327,7 +284,6 @@ extern s16  gNoControllerMessageText[];
 extern s16  D_80204368[];
 extern u64  D_802043E0[]; // yield_data_ptr
 
-
 extern VIData gVIData;
 extern VIData D_802053F0;
 extern VIData D_80205400;
@@ -344,9 +300,7 @@ extern Gfx   D_80225650[2000];
 extern Vtx   gTranslucentVtxPool[1000];
 extern Vtx   D_8022D350[216];
 
-
 // src.us/main_78F0.c
-// extern s16   D_8022E3F0[]; // scratch area for RNC decompression
 
 // 0x8023xxxx
 
@@ -455,6 +409,7 @@ extern struct118 D_803A3D5C_7B540C[16];
 extern struct118 D_803A3E1C_7B54CC[16];
 extern struct118 D_803A3EDC_7B558C[16];
 extern struct118 D_803A3F9C_7B564C[16];
+extern struct118 D_803A405C_7B570C[16];
 extern struct118 D_803A411C_7B57CC[];
 extern struct118 D_803A41DC_7B588C[];
 extern struct118 D_803A429C_7B594C[];
@@ -486,8 +441,6 @@ extern struct077 D_803A53E0_7B6A90;
 extern struct077 D_803A53FC_7B6AAC;
 
 extern struct082 D_803A63B0_7B7A60[]; // animals?
-extern s16  D_803A6470_7B7B20[];
-extern s16  D_803A6520_7B7BD0[];
 extern s16  D_803A65D0_7B7C80[];
 extern s16  D_803A6680_7B7D30[];
 extern s16  D_803A6730_7B7DE0[];
@@ -504,7 +457,6 @@ extern u8   D_803A48C0_7B5F70[MAX_EUROPE_ANIMALS][MAX_EUROPE_ANIMALS]; // europe
 extern u8   D_803A4ABC_7B616C[MAX_ICE_ANIMALS][MAX_ICE_ANIMALS];       // ice
 extern u8   D_803A4A2C_7B60DC[MAX_JUNGLE_ANIMALS][MAX_JUNGLE_ANIMALS]; // jungle
 extern u8   D_803A4B38_7B61E8[MAX_DESERT_ANIMALS][MAX_DESERT_ANIMALS]; // desert
-// extern u8   D_803A4B78_7B6228[];
 
 // 0x803Bxxxx
 extern u16 D_803B1BAC_7C325C[];
@@ -531,7 +483,7 @@ extern s16  D_803B54A8_7C6B58[];
 extern struct076 D_803B555C_7C6C0C[];
 extern struct076 D_803B5574_7C6C24[];
 extern struct076 D_803B558C_7C6C3C[];
-extern Gfx  D_803B5764_7C6E14[];
+extern s32  D_803B5764_7C6E14[];
 extern u8   D_803B5860_7C6F10[];
 extern u8   D_803B5864_7C6F14[];
 extern s16  D_803B5868_7C6F18[];
@@ -628,7 +580,7 @@ extern s16  D_803D553C;
 extern s16  gNumAnimalsInLevel;
 extern s16  D_803D5540; // timer
 extern s16  D_803D5542; // timer
-extern u16  D_803D5544; // timer (for attacks? everything?) gCurrentTick
+extern u16  gGameplayTick; // timer (for attacks? everything?) gCurrentTick
 extern s16  D_803D5546;
 extern s16  D_803D5548;
 extern s8   D_803D554A;
@@ -646,14 +598,14 @@ extern s16  gControllerDebounce;
 
 // overlay2_6DCA10
 extern struct084 D_803D6120; // size 0x3FD8
-extern struct036 D_803D6128[]; // eh
+extern Particle D_803D6128[]; // eh
 
 // collist2
 extern CollisionNode D_803DA110[40];
 
 // dynamic_tail
 extern struct088 D_803DA300[1000];
-extern struct051 D_803E00C0[120];
+extern DynamicTail D_803E00C0[120];
 extern s16  D_803E1B02; // another counter, max 120
 extern s16  D_803E1B04; // used vtx for dynamic tails?
 
@@ -741,7 +693,6 @@ extern f32  gCameraEyeWorldY;
 extern f32  D_803F2C5C;
 extern f32  D_803F2C60;
 extern u8   D_803F2C6C;
-// extern u8   D_803F2C6D; // deliberately commented out, terminal_background needs it to be an s8
 
 // osd
 extern s16  D_803F2CD0;
@@ -757,7 +708,7 @@ extern u8   D_803F2CE6; // has (death?) sfx been played?
 extern s16  D_803F2CE8; // health slider 'animation'
 
 // init.c
-extern struct003 gUiFlowState;
+extern UiFlowState gUiFlowState;
 extern s16  D_803F2D18;
 
 // overlay2_7558F0
@@ -780,7 +731,7 @@ extern s32  D_803F2EC0;
 extern s32  D_803F2EC4;
 extern s32  D_803F2EC8;
 extern u16  D_803F2ECC;
-extern u16  D_803F2ECE;
+extern u16  gAnimBlendMode;
 extern s16  D_803F2ED0;
 extern s16  D_803F2ED2;
 extern s32  D_803F2ED4;
@@ -809,14 +760,14 @@ extern s16  D_803F63E0;
 extern Cheats  gCheats;
 
 // overlay2_79DE10
-extern s16  D_803F6450;
+extern s16  gAnimalBehaviourEnabled;
 
 // terminal_background
 extern Animal *D_803F6464;
 extern s16  D_803F6468;
 
 // overlay2_7A0DA0
-extern struct027 gOverlayMenuState;
+extern OverlayMenuState gOverlayMenuState;
 extern s16  D_803F6704;
 extern u16  D_803F6714;
 extern s16  D_803F6716; // current sfx volume

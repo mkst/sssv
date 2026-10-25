@@ -68,7 +68,7 @@ void func_803041FC_7158AC(void) {
 
 #ifdef __sgi
     // force this code to be generated
-    if (junk = D_80152350.unk2D0[D_803E4BD4] / 2) {}
+    if (junk = SINB(D_803E4BD4) / 2) {}
 #endif
 
     D_803E4BD4 = D_803E4BD4 + 10;
@@ -195,15 +195,15 @@ void func_803041FC_7158AC(void) {
                 gDPSetTileSize(
                     dl++,
                     1,
-                    D_80152350.unk2D0[D_803E4BD6] >> 2,
-                    D_80152350.unk384[D_803E4BD6] >> 2,
+                    SINB(D_803E4BD6) >> 2,
+                    COSB(D_803E4BD6) >> 2,
                     124,
                     124);
                 gDPSetTileSize(
                     dl++,
                     2,
-                    D_80152350.unk2D0[(s16) (290 - D_803E4BD8)] >> 2,
-                    D_80152350.unk384[(s16) (290 - D_803E4BD8)] >> 2,
+                    SINB(290 - D_803E4BD8) >> 2,
+                    COSB(290 - D_803E4BD8) >> 2,
                     124,
                     124);
                 gDPSetPrimColor(dl++, 128, 128, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
@@ -252,7 +252,7 @@ void func_803041FC_7158AC(void) {
                 gDPSetTileSize(
                     dl++,
                     6,
-                    D_80152350.unk2D0[D_803E4BDA] >> 7,
+                    SINB(D_803E4BDA) >> 7,
                     D_803E3130[i].ult >> 16,
                     60,
                     60);

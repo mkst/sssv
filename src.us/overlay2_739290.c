@@ -299,7 +299,7 @@ struct114 D_803A6374_7B7A24[] = {
 };
 
 struct101 D_803A6378_7B7A28[] = {
-    {PIRANA,            {0xFF, 0x00, 0x00, 0x00, 0x00, 0x00}},
+    {PIRANHA,           {0xFF, 0x00, 0x00, 0x00, 0x00, 0x00}},
 };
 struct114 D_803A6380_7B7A30[] = {
     {0x00, 0x00, 0x00, 0x00},
@@ -358,7 +358,7 @@ struct082 D_803A63B0_7B7A60[] = {
     {0x0B, 0x00},   // TORTOISE_TANK
     {0x0B, 0x01},   // RACING_TORTOISE
     {0x0B, 0x02},   // TORTOISE_TANK_DEFENDING
-    {0x1D, 0x00},   // PIRANA
+    {0x1D, 0x00},   // PIRANHA
     {0x03, 0x00},   // DOG
     {0x0C, 0x00},   // RAT
     {0x0D, 0x00},   // SHEEP
@@ -466,7 +466,7 @@ void func_80327BE0_739290(void) {
         if ((D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk3 == 1) || (D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk3 == 2)) {
             tmp = D_803E982C[D_803E9828[D_803E9822].unk2[i]].unk2;
             if ((tmp != 1) && (tmp != 2) && (tmp == 7) &&
-                (gAnimalState.unkFFCE || (gAnimalState.curDPadDown && (gAnimalState.prevDPadDown == 0)))) {
+                (gAnimalState.landedFlag || (gAnimalState.curDPadDown && (gAnimalState.prevDPadDown == 0)))) {
                 func_80328258_739908(i);
                 i = 6; // break out of loop
             }
@@ -477,7 +477,7 @@ void func_80327BE0_739290(void) {
     curDPadDown = gAnimalState.curDPadDown;
     curDPadLeft = gAnimalState.curDPadLeft;
     curDPadRight = gAnimalState.curDPadRight;
-    gAnimalState.unkFFCE = 0;
+    gAnimalState.landedFlag = 0;
 }
 
 void unused_80327DA0_739450(void) {
@@ -598,7 +598,7 @@ void func_80327DA8_739458(void) {
         D_803E9828 = D_803A6364_7B7A14; // 0x0000FF00
         D_803E982C = D_803A6374_7B7A24;
         break;
-    case 29: // PIRANA
+    case 29: // PIRANHA
         D_803E9828 = D_803A6378_7B7A28; // 0x001EFF00
         D_803E982C = D_803A6380_7B7A30;
         break;
@@ -638,10 +638,10 @@ void func_80328258_739908(s16 idx) {
 
     switch (sp1F) {
     case 1:
-        func_802DBA58_6ED108(0xF, D_803D552C);
+        func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
         break;
     case 2:
-        func_802DBA58_6ED108(0xF, D_803D552C);
+        func_802DBA58_6ED108(ATTACK_STATE_BIG_HIT, D_803D552C);
         break;
     case 0:
         break;
@@ -652,7 +652,7 @@ void func_80328258_739908(s16 idx) {
 void func_803283DC_739A8C(void) {
     func_803284C4_739B74();
 
-    if (D_803D5524->unk9C != ELEPHANT) {
+    if (D_803D5524->animalType != ELEPHANT) {
         D_803D552C->unk308 = 0;
     }
     D_803D552C->unk30A = 0;
@@ -686,10 +686,10 @@ Camera* func_803284C4_739B74(void) {
 
     temp_v1 = D_803D5524;
     camera = &gCameras[gCameraId];
-    camera->unk4E = temp_v1->unkCA;
-    camera->unk54 = temp_v1->unkD0;
-    camera->unk56 = temp_v1->unkD2;
-    camera->unk58 = temp_v1->unkCC;
+    camera->cameraHeight = temp_v1->unkCA;
+    camera->offsetXTarget = temp_v1->unkD0;
+    camera->offsetYTarget = temp_v1->unkD2;
+    camera->targetFollowSpeed = temp_v1->unkCC;
     camera->unk60 = temp_v1->unkCE;
     return camera;
 }
@@ -710,7 +710,7 @@ void func_80328520_739BD0(void) {
             D_803D552C->movementMode = MOVEMENT_MODE_DEACTIVATED;
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
-            switch (D_803D5524->unkE6) {
+            switch (D_803D5524->scoreTier) {
             case 0:
                 gGameState.score += 50;
                 break;
@@ -731,20 +731,20 @@ void func_80328520_739BD0(void) {
                 load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->cmdIndex - 1], 0);
                 func_803191B0_72A860(D_803D5530);
             }
-        } else if (D_803D5524->unkD8 >= D_803D5530->Info.health) {
+        } else if (D_803D5524->criticalHealthThreshold >= D_803D5530->Info.health) {
             D_803D552C->movementMode = MOVEMENT_MODE_CRITICAL;
-            D_803D552C->unk328 = D_803D5544;
+            D_803D552C->unk328 = gGameplayTick;
         }
         break;
     case MOVEMENT_MODE_CRITICAL:
-        if (D_803D5524->unkD8 < D_803D5530->Info.health) {
+        if (D_803D5524->criticalHealthThreshold < D_803D5530->Info.health) {
             D_803D552C->movementMode = MOVEMENT_MODE_INJURED;
         } else if (D_803D5530->Info.health <= 0) {
             D_803D552C->movementMode = MOVEMENT_MODE_DEACTIVATED;
             func_80328918_739FC8();
             play_sound_effect_at_location(SFX_DEACTIVATE_ANIMAL, 0x7000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
-            if (D_803D5544 >= 2) {
-                switch (D_803D5524->unkE6) {
+            if (gGameplayTick >= 2) {
+                switch (D_803D5524->scoreTier) {
                 case 0:
                     gGameState.score += 50;
                     break;
@@ -771,7 +771,7 @@ void func_80328520_739BD0(void) {
     case MOVEMENT_MODE_DEACTIVATED:
         if (D_803D5530->Info.health > 0) {
             D_803D552C->movementMode = MOVEMENT_MODE_CRITICAL;
-            D_803D552C->unk328 = D_803D5544;
+            D_803D552C->unk328 = gGameplayTick;
             D_803D552C->unk36A = 1;
         }
         break;
@@ -782,7 +782,7 @@ void func_80328520_739BD0(void) {
 
 // ESA: func_8007FB40
 void func_80328918_739FC8(void) {
-    D_803D552C->unk328 = D_803D5544;
+    D_803D552C->unk328 = gGameplayTick;
     D_803D552C->unk36A = 1;
     D_803D552C->unk348 = 0;
     D_803D552C->unk34A = 0;
@@ -791,10 +791,10 @@ void func_80328918_739FC8(void) {
     D_803D552C->unk369 = 0;
     D_803D552C->unk365 = ATTACK_NONE;
     D_803D552C->unk36E = 0;
-    D_803D552C->unk364 = 0;
+    D_803D552C->attackState = ATTACK_STATE_NONE;
     D_803D552C->unk2EC = 0;
 
-    if (D_803D5524->unk9C == SNEAKY_CHAMELEON) {
+    if (D_803D5524->animalType == SNEAKY_CHAMELEON) {
         load_animal(CHAMELEON);
     }
 
@@ -805,53 +805,53 @@ void func_80328918_739FC8(void) {
     func_802C9BA4_6DB254(D_803D5530);
 
     switch (D_803D5530->state) {
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-        D_803D5530->state = 2;
+    case STATE_WALKING:
+    case STATE_RUNNING:
+    case STATE_IN_AIR:
+    case STATE_CARRYING:
+        D_803D5530->state = STATE_STANDING;
         break;
-    case 22:
-    case 23:
-    case 24:
-        D_803D5530->state = 21;
+    case STATE_WHEELS_MOVING:
+    case STATE_WHEELS_TURNING:
+    case STATE_WHEELS_FAST:
+        D_803D5530->state = STATE_WHEELS_STANDING;
         break;
-    case 42:
-        D_803D5530->state = 41;
+    case STATE_POGO_HOPPING:
+        D_803D5530->state = STATE_POGO_STANDING;
         break;
-    case 62:
-    case 63:
-        D_803D5530->state = 61;
+    case STATE_SWIM_SWIMMING:
+    case STATE_SWIM_AIRBORNE:
+        D_803D5530->state = STATE_SWIM_IDLE;
         break;
     case 102:
-    case 103:
-    case 104:
-    case 105:
-    case 106:
-        D_803D5530->state = 101;
+    case STATE_BIRD_DIVING:
+    case STATE_BIRD_TURNING:
+    case STATE_BIRD_ATTACKING:
+    case STATE_BIRD_LANDING:
+        D_803D5530->state = STATE_BIRD_FLYING;
         break;
-    case 122:
-    case 123:
-        D_803D5530->state = 121;
+    case STATE_HELI_MOVING:
+    case STATE_HELI_ENTERING_WATER:
+        D_803D5530->state = STATE_HELI_HOVERING;
         break;
-    case 142:
-    case 143:
-    case 144:
-        D_803D5530->state = 141;
+    case STATE_FISH_SWIMMING_SLOW:
+    case STATE_FISH_SWIMMING:
+    case STATE_FISH_SWIMMING_FAST:
+        D_803D5530->state = STATE_FISH_IN_WATER;
         break;
-    case 162:
-        D_803D5530->state = 161;
+    case STATE_FISH_WALKING_ON_LAND:
+        D_803D5530->state = STATE_FISH_STANDING_ON_LAND;
         break;
-    case 182:
-    case 183:
-    case 184:
-    case 185:
-        D_803D5530->state = 181;
+    case STATE_WALKING_IN_WATER:
+    case STATE_RUNNING_IN_WATER:
+    case STATE_JUMPING_IN_WATER:
+    case STATE_FAST_IN_WATER:
+        D_803D5530->state = STATE_STANDING_IN_WATER;
         break;
-    case 202:
-    case 203:
-    case 204:
-        D_803D5530->state = 201;
+    case STATE_SINK_WHEELS_MOVING:
+    case STATE_SINK_WHEELS_TURNING:
+    case STATE_SINK_WHEELS_FAST:
+        D_803D5530->state = STATE_SINK_WHEELS_STANDING;
         break;
     }
 }
@@ -898,11 +898,11 @@ void func_80328ACC_73A17C(void) {
         (D_803F2D50.segment != 5U)) {
 
         sp40 = gCurrentAnimalIndex;
-        animalId = gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C;
+        animalId = gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType;
 
-        if (((gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C != EVO))) {
+        if (((gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType != EVO))) {
 
-            if (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (gAnimalState.animals[gCurrentAnimalIndex].animal->unk320->unk16C->unk82.unk2 == 0)) &&
+            if (((gAnimalState.animals[gCurrentAnimalIndex].animal->unk320 == NULL) || (gAnimalState.animals[gCurrentAnimalIndex].animal->unk320->unk16C->behaviourFlags.unk2 == 0)) &&
                 (animalId != VULTURE) && (animalId != SEAGULL2) && (animalId != POLAR_BEAR_DEFENDING) &&
                 (animalId != PARROT_ATTACKING) && (animalId != HARD_MOUSE) && (animalId != CRAZY_BEAR) &&
                 (animalId != TORTOISE_TANK_DEFENDING) && (animalId != CRAZY_HUSKY) && (animalId != CROW_DIVER) &&
@@ -1008,7 +1008,7 @@ void func_80328ACC_73A17C(void) {
                         D_803D553A = 0;
 
                         D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
-                        D_803D552C->unk328 = D_803D5544;
+                        D_803D552C->unk328 = gGameplayTick;
                         D_803D552C->unk36A = 2;
 
                         D_803D5520->unk0 = &gAnimalState.unk0[EVO_TRANSFER];
@@ -1023,12 +1023,12 @@ void func_80328ACC_73A17C(void) {
 
                         D_803D552C->unk308 = gAnimalState.animals[D_803D5536].animal->position.xPos.h;
                         D_803D552C->unk30A = gAnimalState.animals[D_803D5536].animal->position.zPos.h;
-                        D_803D552C->unk30C = gAnimalState.animals[D_803D5536].animal->position.yPos.h + (gAnimalState.animals[D_803D5536].unk0->unkBA / 2) ;
+                        D_803D552C->unk30C = gAnimalState.animals[D_803D5536].animal->position.yPos.h + (gAnimalState.animals[D_803D5536].unk0->height / 2) ;
                         D_803D5530->position.xPos.h = D_803D552C->unk308;
                         D_803D5530->position.zPos.h = D_803D552C->unk30A;
                         D_803D5530->position.yPos.h = D_803D552C->unk30C;
                         D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
-                        D_803D552C->unk32A = D_803D5544;
+                        D_803D552C->unk32A = gGameplayTick;
                         D_803D552C->unk320 = gAnimalState.animals[sp80].animal;
                         D_803D552C->unk30E = sp80;
                         D_803D5530->unk163 = gAnimalState.animals[D_803D5536].animal->unk163;
@@ -1069,9 +1069,9 @@ void func_80328ACC_73A17C(void) {
                         func_80327DA8_739458();
                         D_803D552C->unk308 = gAnimalState.animals[0].animal->position.xPos.h;
                         D_803D552C->unk30A = gAnimalState.animals[0].animal->position.zPos.h;
-                        D_803D552C->unk30C = gAnimalState.animals[0].animal->position.yPos.h + (gAnimalState.animals[0].unk0->unkBA / 2);
+                        D_803D552C->unk30C = gAnimalState.animals[0].animal->position.yPos.h + (gAnimalState.animals[0].unk0->height / 2);
                         D_803D552C->unk365 = ATTACK_EVO_CHIP_2;
-                        D_803D552C->unk32A = D_803D5544;
+                        D_803D552C->unk32A = gGameplayTick;
                         D_803D552C->unk320 = gAnimalState.animals[sp80].animal;
                         D_803D552C->unk30E = sp80;
                         play_sound_effect_at_location(SFX_UNKNOWN_56, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
@@ -1081,8 +1081,8 @@ void func_80328ACC_73A17C(void) {
                     currentAnimal = gAnimalState.animals[gCurrentAnimalIndex].animal;
                     temp_a0 = currentAnimal->position.yPos.h - temp_a0;
 
-                    if ((gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C == FIRE_FOX) ||
-                        (gAnimalState.animals[gCurrentAnimalIndex].unk0->unk9C == FLYING_DOG)) {
+                    if ((gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType == FIRE_FOX) ||
+                        (gAnimalState.animals[gCurrentAnimalIndex].unk0->animalType == FLYING_DOG)) {
                         if (temp_a0 < 0x80) {
                             func_80311A2C_7230DC(currentAnimal->position.xPos.h, currentAnimal->position.zPos.h, &sp7A, &sp78, currentAnimal->unk160);
 
@@ -1097,7 +1097,7 @@ void func_80328ACC_73A17C(void) {
                             doSwap = 0;
                         }
                     } else if ((currentAnimal->xVelocity.w != 0) || (currentAnimal->zVelocity.w != 0) || (currentAnimal->yVelocity.w > 0) ||
-                        (((currentAnimal->movementState != 1)) && (currentAnimal->movementState != 6)) ||
+                        (((currentAnimal->movementState != MOVEMENT_STATE_GROUND)) && (currentAnimal->movementState != MOVEMENT_STATE_FLYING)) ||
                         (((currentAnimal->unk6C != NULL)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_BUTTON)) && ((currentAnimal->unk6C->unk16C->objectType != OBJECT_FLAT_BLOCK_1) || (temp_a0 >= 0x20)))) {
                         // logic feels weird, should it all be inverted?
                         doSwap = 0;
@@ -1164,7 +1164,7 @@ void func_80328ACC_73A17C(void) {
                             D_803D553A = 0;
 
                             D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
-                            D_803D552C->unk328 = D_803D5544;
+                            D_803D552C->unk328 = gGameplayTick;
                             D_803D552C->unk36A = 2;
                             D_803D5530->unk163 = gAnimalState.animals[D_803D5536].animal->unk163;
                             D_803D5530->unk18C.length = gAnimalState.animals[D_803D5536].animal->unk18C.length;
@@ -1183,12 +1183,12 @@ void func_80328ACC_73A17C(void) {
                             func_803283DC_739A8C();
                             gAnimalState.animals[0].animal->position.xPos.w = gAnimalState.animals[D_803D5536].animal->position.xPos.w;
                             gAnimalState.animals[0].animal->position.zPos.w = gAnimalState.animals[D_803D5536].animal->position.zPos.w;
-                            gAnimalState.animals[0].animal->position.yPos.w = gAnimalState.animals[D_803D5536].animal->position.yPos.w + (gAnimalState.animals[D_803D5536].unk0->unkBA << 0xF) ;
+                            gAnimalState.animals[0].animal->position.yPos.w = gAnimalState.animals[D_803D5536].animal->position.yPos.w + (gAnimalState.animals[D_803D5536].unk0->height << 0xF) ;
                             gAnimalState.animals[0].animal->unk160 = gAnimalState.animals[D_803D5536].animal->unk160;
                             gAnimalState.animals[0].animal->unk68 = gAnimalState.animals[D_803D5536].animal->unk68;
                             gAnimalState.animals[0].animal->unk70 = gAnimalState.animals[D_803D5536].animal->unk70;
                             D_803D552C->unk365 = ATTACK_EVO_CHIP_1;
-                            D_803D552C->unk32A = D_803D5544;
+                            D_803D552C->unk32A = gGameplayTick;
                             D_803D5530->yRotation = (gAnimalState.animals[D_803D5536].animal->yRotation + 150) & 0xFF;
                             D_803D552C->heading = (gAnimalState.animals[D_803D5536].animal->heading + 150) & 0xFF;
                             func_80329F44_73B5F4();
@@ -1485,7 +1485,7 @@ void func_8032A710_73BDC0(void) {
     D_803D553A = 0;
 
     D_803D552C->movementMode = MOVEMENT_MODE_NORMAL;
-    D_803D552C->unk328 = D_803D5544;
+    D_803D552C->unk328 = gGameplayTick;
     D_803D552C->unk36A = 2;
     D_803D5530->unk163 = gAnimalState.animals[0].animal->unk163;
     D_803D5530->unk18C.length = gAnimalState.animals[0].animal->unk18C.length;
@@ -1495,7 +1495,7 @@ void func_8032A710_73BDC0(void) {
     }
 
     D_803D5530->unk18C.length = gAnimalState.animals[0].animal->unk18C.length;
-    gCurrentAnimalId = gAnimalState.animals[swapIdx].unk0->unk9C;
+    gCurrentAnimalId = gAnimalState.animals[swapIdx].unk0->animalType;
     D_803E9820 = D_803A63B0_7B7A60[gCurrentAnimalId].unk0;
     D_803E9822 = D_803A63B0_7B7A60[gCurrentAnimalId].unk1;
     check_and_set_species_encountered(gCurrentAnimalId);
@@ -1523,7 +1523,7 @@ void func_8032A710_73BDC0(void) {
 void func_8032AA94_73C144(void) {
     func_80321920_732FD0(D_803D552C->unk320, 0, 0);
     D_803D552C->unk320 = 0;
-    if (D_803D5530->state == 0xDD) {
+    if (D_803D5530->state == STATE_INACTIVE) {
         func_802E4AB8_6F6168();
     }
 }
@@ -1567,7 +1567,7 @@ void cheat_activate_scale_pulse_effect(void) {
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if (1) {};
         if (gAnimalState.animals[i].animal != NULL) {
-            if ((gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
+            if ((gAnimalState.animals[i].unk0->animalType != EVO_TRANSFER) && (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
                 D_803D5520 = &gAnimalState.animals[i];
                 D_803D5524 = gAnimalState.animals[i].unk0;
 
@@ -1628,11 +1628,11 @@ void cheat_activate_big_head_effect(void) {
     for (i = 0; i < AID_MAX_ANIMALS; i++) {
         tmp = &gAnimalState.unk0[i];
         tmp->unkC8 = tmp->unkC8 / 3;
-        tmp->unkA4 = tmp->unkA4 / 3;
-        tmp->unkAA = tmp->unkAA / 3;
-        tmp->unkAC = tmp->unkAC / 3;
-        tmp->unkC2 = tmp->unkC2 / 3;
-        tmp->unkC4 = tmp->unkC4 / 3;
+        tmp->walkSpeed = tmp->walkSpeed / 3;
+        tmp->flightLiftVelocity = tmp->flightLiftVelocity / 3;
+        tmp->flightSpeed = tmp->flightSpeed / 3;
+        tmp->jumpLiftVelocity = tmp->jumpLiftVelocity / 3;
+        tmp->swimLiftVelocity = tmp->swimLiftVelocity / 3;
         // different scaling factor?
         tmp->unkD0 = tmp->unkD0 / 2;
         tmp->unkD2 = tmp->unkD2 / 2;
@@ -1673,7 +1673,9 @@ void cheat_toggle_mystery_bear(void) {
         D_803D5524 = gAnimalState.animals[gCurrentAnimalIndex].unk0;
 
         D_803D5528 = a;
+#ifdef __sgi
         if (D_803D5528 == NULL) {}; // fakematch
+#endif
         D_803D552C = a;
         D_803D5530 = a;
 

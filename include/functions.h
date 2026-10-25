@@ -80,8 +80,8 @@ s32  eeprom_checksum(u8 *arg0);
 
 // core/audiomgr
 void initialise_audio(s32*);
-struct017 *get_sound_by_slot(s16 slot);
-struct017 *get_sound_by_id(u16 id);
+Sound *get_sound_by_slot(s16 slot);
+Sound *get_sound_by_id(u16 id);
 s16  get_used_sound_count(void);
 void play_sound_effect(s16 id, s16 arg1, s16 volume, f32 pitch, u8 pan);
 void play_sound_by_id_with_volume(u8 id, s16 vol);
@@ -234,7 +234,7 @@ void load_2_tiles(u8 *tlut1, u8 *tlut2, u8 *timg);
 void load_3_tiles(u8 *tlut1, u8 *tlut2, u8 *tlut3, u8 *arg3);
 
 // sssv/animals/hyena (overlay2_768B90)
-void biker_hyena_fire_missile(Animal *animal);
+void hyena_biker_fire_missile(Animal *animal);
 
 // overlay2_76F7D0
 void recharge_skill(s16 arg0);
@@ -322,7 +322,7 @@ void perform_behavior_mystery_bear(void);
 void perform_behavior_parrot_attacking(void);
 void perform_behavior_parrot(void);
 void perform_behavior_penguin(void);
-void perform_behavior_pirana(void);
+void perform_behavior_piranha(void);
 void perform_behavior_pogo_kangaroo(void);
 void perform_behavior_polar_bear_defending(void);
 void perform_behavior_polar_bear(void);

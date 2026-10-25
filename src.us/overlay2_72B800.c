@@ -8,7 +8,7 @@
 const LeftEyes D_803BD530_7CEBE0 = {
     {
         {1,  0,  2,  3,  4,  5,  6,  7, 11,  9, 10,  9,  9},  // D_803BD530_7CEBE0[0] is D_803BD530_7CEBE0 - (unused)
-        {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[1] is D_803BD54A_7CEBFA - camel, cool_cod, dog, pirana, seagul, sheep, vulture
+        {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[1] is D_803BD54A_7CEBFA - camel, cool_cod, dog, piranha, seagul, sheep, vulture
         {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[2] is D_803BD564_7CEC14 - hellirabbit
         {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[3] is D_803BD57E_7CEC2E - evo
         {0,  1,  2,  3,  4, 12,  9,  7,  8, 10, 12, 10, 11},  // D_803BD530_7CEBE0[4] is D_803BD598_7CEC48 - (unused)

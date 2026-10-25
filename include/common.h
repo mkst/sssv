@@ -33,6 +33,10 @@ typedef u8 Addr[];
 #define SIN(x)                 gSineTable256[((s16)(x)       ) & 0xFF]
 #define COS(x)                 gSineTable256[((s16)(x) + 0x40) & 0xFF]
 
+#define SINE(x)                gSineTable[((s16)(x))]
+#define SINB(x)                gSineTable[((s16)(x)) + 360     ]  // allows for +/- 360
+#define COSB(x)                gSineTable[((s16)(x)) + 360 + 90]  // allows for +/- 360
+
 #define IS_CURRENT_ANIMAL(x)   (((Animal*)(x)) == gAnimalState.animals[gCurrentAnimalIndex].animal)
 
 // DMA's interpretation of PI...
@@ -113,30 +117,84 @@ typedef u8 Addr[];
 #define FONT_COMIC_SANS             2
 #define FONT_LCD                    3
 
-// states
+#define STATE_IDLE                   1
+#define STATE_MOVING                 2
+#define STATE_MOVING_FAST            3
+
+// Band 0: CLASS_WALK (base 2)
 #define STATE_STANDING               2
 #define STATE_WALKING                3
 #define STATE_RUNNING                4
 #define STATE_IN_AIR                 5
-// #define STATE_06 - collecting something? collsion?
-// #define STATE_FISH_IN_WATER          62
-// #define STATE_FISH_OUT_OF_WATER      63
-#define STATE_FISH_IN_WATER          141
-#define STATE_FISH_SWIMMING_SLOW     142
-#define STATE_FISH_SWIMMING          143
+#define STATE_CARRYING               6
 
-#define STATE_FISH_STANDING_ON_LAND  161
-#define STATE_FISH_WALKING_ON_LAND   162
+// Special: grabbed / picked up
+#define STATE_GRABBED_A             30
+#define STATE_GRABBED_B             31
 
-#define STATE_STANDING_IN_WATER      181
-#define STATE_WALKING_IN_WATER       182
+// Band 1: CLASS_WHEELS (base 21)
+#define STATE_WHEELS                20
+#define STATE_WHEELS_STANDING       (STATE_WHEELS+STATE_IDLE)
+#define STATE_WHEELS_MOVING         (STATE_WHEELS+STATE_MOVING)
+#define STATE_WHEELS_TURNING        23
+#define STATE_WHEELS_FAST           24
 
-// unknown states
-// 6, 21, 23, 41, 43, 61, 81, 101, 121, 144, 183, 185, 201, 0x3F, 0x90,
+// Band 2: CLASS_POGO (base 41)
+#define STATE_POGO_STANDING         41
+#define STATE_POGO_HOPPING          42
+
+// Band 3: WATER_SWIM (base 61)
+#define STATE_SWIM_IDLE             61
+#define STATE_SWIM_SWIMMING         62
+#define STATE_SWIM_AIRBORNE         63
+
+// Band 4: CLASS_FLYING (base 81)
+#define STATE_FLYING                81
+
+// Band 5: CLASS_BIRD (base 101)
+#define STATE_BIRD_FLYING          101
+#define STATE_BIRD_DIVING          103
+#define STATE_BIRD_TURNING         104
+#define STATE_BIRD_ATTACKING       105
+#define STATE_BIRD_LANDING         106
+
+// Band 6: CLASS_HELI (base 121)
+#define STATE_HELI_HOVERING        121
+#define STATE_HELI_MOVING          122
+#define STATE_HELI_ENTERING_WATER  123
+
+// Band 7: WATER_FLOAT (base 141)
+// Names are uncertain — these states are checked by sheep, frog, parrot,
+// and overlay gait-phase code, so they are not gorilla/fish-specific.
+#define STATE_FISH_IN_WATER        141
+#define STATE_FISH_SWIMMING_SLOW   142
+#define STATE_FISH_SWIMMING        143
+#define STATE_FISH_SWIMMING_FAST   144
+
+// Band 8: CLASS_SWIM / Fish on land (base 161)
+#define STATE_FISH_STANDING_ON_LAND 161
+#define STATE_FISH_WALKING_ON_LAND 162
+
+// Band 9: WATER_SINK_WALK (base 181)
+#define STATE_WATER_SINK           180
+#define STATE_STANDING_IN_WATER    (STATE_WATER_SINK+STATE_IDLE)
+#define STATE_WALKING_IN_WATER     (STATE_WATER_SINK+STATE_MOVING)
+#define STATE_RUNNING_IN_WATER     (STATE_WATER_SINK+STATE_MOVING_FAST)
+#define STATE_JUMPING_IN_WATER     184
+#define STATE_FAST_IN_WATER        185
+
+// Band 10: WATER_SINK_WHEELS (base 201)
+#define STATE_SINK_WHEELS_STANDING 201
+#define STATE_SINK_WHEELS_MOVING   202
+#define STATE_SINK_WHEELS_TURNING  203
+#define STATE_SINK_WHEELS_FAST     204
+
+// Special: inactive / ejected sentinel
+#define STATE_INACTIVE             221
 
 #define TILESET_ASCII_OFFSET    272
-#define TILESET_ZERO (TILESET_ASCII_OFFSET + '0')
-#define TILESET_NINE (TILESET_ASCII_OFFSET + '9')
+#define TILESET_ZERO            (TILESET_ASCII_OFFSET + '0')
+#define TILESET_NINE            (TILESET_ASCII_OFFSET + '9')
 #define TILESET_SPACE           (TILESET_ASCII_OFFSET + ' ')
 #define TEXT_CONTROL_CHAR       336
 #define TEXT_TIMER              343
@@ -190,7 +248,6 @@ typedef u8 Addr[];
 #define INPUT_MODE_DEMO 1
 #define INPUT_MODE_DISABLED 2
 
-
 // waypoint related
 
 #define WAYPOINT_END    245
@@ -207,6 +264,9 @@ typedef u8 Addr[];
 #define PAUSE_MENU_OPTION_LEAVE_SV  7
 
 // attacks? animations? poses?
+
+#define SKILL_A 0
+#define SKILL_B 1
 
 #define ATTACK_NONE         0
 #define ATTACK_VULTURE      1
@@ -257,6 +317,21 @@ typedef u8 Addr[];
 #define ATTACK_FOX_4        47
 #define ATTACK_DOG_1        48
 
+// attack state
+#define ATTACK_STATE_NONE           0
+#define ATTACK_STATE_CHARGE         3
+#define ATTACK_STATE_CHARGE_END     4
+#define ATTACK_STATE_HEADBUTT       5
+#define ATTACK_STATE_STUMBLE        6
+#define ATTACK_STATE_BOUNCE         7
+#define ATTACK_STATE_LUNGE_FWD      8
+#define ATTACK_STATE_LUNGE_BACK     9
+#define ATTACK_STATE_KNOCKBACK_SM   13
+#define ATTACK_STATE_KNOCKBACK_LG   14
+#define ATTACK_STATE_BIG_HIT        15
+#define ATTACK_STATE_TELEPORT_IN    16
+#define ATTACK_STATE_TELEPORT_OUT   17
+
 // movement
 
 #define MOVEMENT_MODE_NORMAL        1
@@ -266,6 +341,30 @@ typedef u8 Addr[];
 #define MOVEMENT_MODE_CRITICAL      4
 #define MOVEMENT_MODE_DEACTIVATED   5
 #define MOVEMENT_MODE_DELETED       6
+
+// movementState (Animal struct offset 0x162)
+#define MOVEMENT_STATE_GROUND       1  // walking/standing on ground, full friction
+#define MOVEMENT_STATE_SWIMMING     2  // active flight or swimming, no gravity
+#define MOVEMENT_STATE_AIRBORNE     3  // falling/jumping through air, full gravity
+#define MOVEMENT_STATE_WATER_SWIM   4  // swimming underwater (set but never read)
+#define MOVEMENT_STATE_SINKING      5  // light fall, floating, sinking, deactivated
+#define MOVEMENT_STATE_FLYING       6  // bird flight, sink-walk, reduced friction
+#define MOVEMENT_STATE_DRIFTING     7  // light drift, reduced gravity
+
+// animation blends
+
+#define ANIM_BLEND_NONE          0  // No override
+#define ANIM_BLEND_DEACTIVATE    1  // Deactivated/spawn (replacement)
+#define ANIM_BLEND_KNOCKBACK     2  // Damage effect (replacement)
+#define ANIM_BLEND_ATTACK        3  // Grab/hold attack
+#define ANIM_BLEND_HIT           4  // Hit reaction (gorilla: crossfade)
+#define ANIM_BLEND_HURT          5  // Hurt shake
+#define ANIM_BLEND_CROSSFADE     6  // Cross-fade between two poses
+#define ANIM_BLEND_HOLD          7  // Holding/carrying
+#define ANIM_BLEND_THROW         8  // Throw (crossfade)
+#define ANIM_BLEND_SMASH_WINDUP  9  // Smash wind-up (crossfade)
+#define ANIM_BLEND_SMASH         10 // Slam/follow-through
+#define ANIM_BLEND_SHAKE         11 // Shake (bear only)
 
 // transitions
 
@@ -297,27 +396,27 @@ typedef u8 Addr[];
 
 // on-screen visibility
 
-#define VISIBILITY_VISIBLE 0         // Object is visible on-screen
-#define VISIBILITY_TOO_FAR 1         // Object is too far to be rendered
-#define VISIBILITY_OUT_OF_BOUNDS_X 2 // Object is off-screen horizontally
-#define VISIBILITY_OUT_OF_BOUNDS_Y 3 // Object is off-screen vertically
-#define VISIBILITY_INVISIBLE 4       // Object is too far away or not in a valid state
+#define VISIBILITY_VISIBLE                0 // Object is visible on-screen
+#define VISIBILITY_TOO_FAR                1 // Object is too far to be rendered
+#define VISIBILITY_OUT_OF_BOUNDS_X        2 // Object is off-screen horizontally
+#define VISIBILITY_OUT_OF_BOUNDS_Y        3 // Object is off-screen vertically
+#define VISIBILITY_INVISIBLE              4 // Object is too far away or not in a valid state
 
 // fov masks
 
-#define FOV_CIRCLE          0
-#define FOV_TREE            1
-#define FOV_HEXAGON         2
-#define FOV_HORIZONTAL_BAR  3
-#define FOV_VERTICAL_BAR    4
-#define FOV_HORIZONTAL_DIAMOND 5
-#define FOV_VERTICAL_DIAMOND 6
-#define FOV_HORIZONTAL_OVAL 7
-#define FOV_VERTICAL_OVAL   8
-#define FOV_TEARDROP        9
-#define FOV_TEARDROP_THIN   10
-#define FOV_HORIZONTAL_DIAMOND_2 11
-#define FOV_THIN_CONE       12
+#define FOV_CIRCLE                        0
+#define FOV_TREE                          1
+#define FOV_HEXAGON                       2
+#define FOV_HORIZONTAL_BAR                3
+#define FOV_VERTICAL_BAR                  4
+#define FOV_HORIZONTAL_DIAMOND            5
+#define FOV_VERTICAL_DIAMOND              6
+#define FOV_HORIZONTAL_OVAL               7
+#define FOV_VERTICAL_OVAL                 8
+#define FOV_TEARDROP                      9
+#define FOV_TEARDROP_THIN                 10
+#define FOV_HORIZONTAL_DIAMOND_2          11
+#define FOV_THIN_CONE                     12
 
 // level progress
 
@@ -332,34 +431,34 @@ typedef u8 Addr[];
 
 // waypoints
 
-#define WAYPOINT_MODE_NONE          0
-#define WAYPOINT_MODE_PATH          1
-#define WAYPOINT_MODE_MOVE          2
-#define WAYPOINT_MODE_PATROL        3
-#define WAYPOINT_MODE_RANDOM        4
-#define WAYPOINT_MODE_CHASE         5
-#define WAYPOINT_MODE_ROTATE        6
-#define WAYPOINT_MODE_FOLLOW        7
-#define WAYPOINT_MODE_ENGAGE_PLAYER 8
-#define WAYPOINT_MODE_ENGAGE_OTHER  9
-#define WAYPOINT_MODE_WAIT          10
+#define WAYPOINT_MODE_NONE                0
+#define WAYPOINT_MODE_PATH                1
+#define WAYPOINT_MODE_MOVE                2
+#define WAYPOINT_MODE_PATROL              3
+#define WAYPOINT_MODE_RANDOM              4
+#define WAYPOINT_MODE_CHASE               5
+#define WAYPOINT_MODE_ROTATE              6
+#define WAYPOINT_MODE_FOLLOW              7
+#define WAYPOINT_MODE_ENGAGE_PLAYER       8
+#define WAYPOINT_MODE_ENGAGE_OTHER        9
+#define WAYPOINT_MODE_WAIT                10
 
 // navigation
 
-#define NAVIGATION_STATE_IDLE            0
-#define NAVIGATION_STATE_GOTO_POINT      1
-#define NAVIGATION_STATE_CHASE_TARGET    2
-#define NAVIGATION_STATE_FOLLOW_TARGET   3
-#define NAVIGATION_STATE_FOLLOW_TARGET_2 4
-#define NAVIGATION_STATE_SCRIPTED        5
-#define NAVIGATION_STATE_TURN_THEN_MOVE  6
-#define NAVIGATION_STATE_UNUSED_7        7
-#define NAVIGATION_STATE_CHASE_ATTACK    8
+#define NAVIGATION_STATE_IDLE             0
+#define NAVIGATION_STATE_GOTO_POINT       1
+#define NAVIGATION_STATE_CHASE_TARGET     2
+#define NAVIGATION_STATE_FOLLOW_TARGET    3
+#define NAVIGATION_STATE_FOLLOW_TARGET_2  4
+#define NAVIGATION_STATE_SCRIPTED         5
+#define NAVIGATION_STATE_TURN_THEN_MOVE   6
+#define NAVIGATION_STATE_UNUSED_7         7
+#define NAVIGATION_STATE_CHASE_ATTACK     8
 
-#define NAV_MODE_NONE             0
-#define NAV_MODE_SCRIPTED_VECTOR  1
-#define NAV_MODE_TOWARDS_TARGET   2
-#define NAV_MODE_AWAY_FROM_TARGET 3
+#define NAV_MODE_NONE                     0
+#define NAV_MODE_SCRIPTED_VECTOR          1
+#define NAV_MODE_TOWARDS_TARGET           2
+#define NAV_MODE_AWAY_FROM_TARGET         3
 
 // texture banks
 
@@ -414,5 +513,44 @@ typedef u8 Addr[];
 
 #define gDPSetEnvColorRGBA5551CustomAlpha(pkt, rbga5551, alpha) \
     gDPSetEnvColor(pkt, ((rbga5551 & 0xF800) >> 8), (((rbga5551 & 0x7C0) >> 3)), (((rbga5551 & 0x3E) << 2)), alpha)
+
+// dynamic tail types (DynamicTail.tailType)
+
+#define TAIL_TYPE_NONE             0
+#define TAIL_TYPE_MOUSE            3
+#define TAIL_TYPE_MOUSE_DEAD       4
+#define TAIL_TYPE_MOUSE_SPIN       5   // mouse spin attack, not rendered
+#define TAIL_TYPE_CHAIN_BLUE_A     6
+#define TAIL_TYPE_CHAIN_BLUE_B     7
+#define TAIL_TYPE_CHAIN_WHITE      8
+#define TAIL_TYPE_FIRE_WISP_A      9
+#define TAIL_TYPE_FIRE_WISP_B     10
+#define TAIL_TYPE_HUSKY           11
+#define TAIL_TYPE_CRAZY_HUSKY     12
+#define TAIL_TYPE_KANGAROO        13
+#define TAIL_TYPE_SCORPION        14
+#define TAIL_TYPE_SCORPION_RAISED 15
+#define TAIL_TYPE_ELEPHANT        16
+#define TAIL_TYPE_ELEPHANT_WALK   17
+#define TAIL_TYPE_ELEPHANT_ATTACK 18
+#define TAIL_TYPE_CHAIN_GRN_A     19
+#define TAIL_TYPE_CHAIN_ORN_A     20
+#define TAIL_TYPE_CHAIN_WHT_A     21
+#define TAIL_TYPE_CHAIN_GRN_B     22
+#define TAIL_TYPE_CHAIN_ORN_B     23
+#define TAIL_TYPE_CHAIN_WHT_B     24
+#define TAIL_TYPE_CHAIN_GRN_C     25
+#define TAIL_TYPE_CHAIN_ORN_C     26
+#define TAIL_TYPE_CHAIN_WHT_C     27
+#define TAIL_TYPE_CHAIN_GRN_D     28
+#define TAIL_TYPE_CHAIN_ORN_D     29
+#define TAIL_TYPE_CHAIN_WHT_D     30
+#define TAIL_TYPE_HIDDEN          31
+#define TAIL_TYPE_KING_RAT        32
+#define TAIL_TYPE_KING_RAT_DEAD   33
+#define TAIL_TYPE_MOUSE_VARIANT   34
+#define TAIL_TYPE_LION            35
+#define TAIL_TYPE_CHAIN_LAV_A     36
+#define TAIL_TYPE_CHAIN_LAV_B     37
 
 #endif

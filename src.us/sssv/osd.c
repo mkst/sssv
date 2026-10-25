@@ -7,10 +7,6 @@
 // ========================================================
 
 extern Gfx D_01004650_3DF20[];
-extern u8 img_hud_energy_bar_left_rgba16__png[]; // img/hud/energy_bar_left.rgba16
-extern u8 img_hud_energy_bar_right_rgba16__png[]; // img/hud/energy_bar_right.rgba16
-extern u8 img_hud_power_green_rgba16__png[]; // img/hud/power_green.rgba16
-extern u8 img_hud_power_blue_rgba16__png[]; // img/hud/power_blue.rgba16
 
 // ========================================================
 // .data
@@ -299,7 +295,7 @@ void func_80349278_75A928(void) {
 
 // ESA: func_8007DA18
 void func_80349280_75A930(Animal *arg0, s16 damage) {
-    if ((arg0->unk16C->unk82.unk2) &&
+    if ((arg0->unk16C->behaviourFlags.unk2) &&
         ((arg0->movementMode == MOVEMENT_MODE_INJURED) || (arg0->movementMode == MOVEMENT_MODE_CRITICAL) || (arg0->movementMode == MOVEMENT_MODE_NORMAL))) {
         if (damage != 0) {
             arg0->lastHpLost = MAX(arg0->lastHpLost + (damage >> 2), (damage >> 2) + 4);

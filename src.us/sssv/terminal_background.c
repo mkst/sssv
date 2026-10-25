@@ -141,13 +141,13 @@ void setup_terminal_stat_text(void) {
     gTerminalStatLabels[15] = get_message_address_by_id(0xD5); // ""
     gTerminalStatLabels[16] = get_message_address_by_id(0xD5); // ""
 
-    gTerminalStatText[0] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk0);
-    gTerminalStatText[11] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk8);
-    gTerminalStatText[4] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unkA);
-    gTerminalStatText[7] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unkC);
-    gTerminalStatText[12] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk2);
-    gTerminalStatText[2] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk4);
-    gTerminalStatText[3] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->unk9C].unk6);
+    gTerminalStatText[0] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->animalType].unk0);
+    gTerminalStatText[11] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->animalType].unk8);
+    gTerminalStatText[4] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->animalType].unkA);
+    gTerminalStatText[7] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->animalType].unkC);
+    gTerminalStatText[12] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->animalType].unk2);
+    gTerminalStatText[2] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->animalType].unk4);
+    gTerminalStatText[3] = get_message_address_by_id(D_803B58E0_7C6F90[D_803D5524->animalType].unk6);
 
     switch (D_803D5524->biome) {
     case EUROPE_BIOME:
@@ -682,12 +682,12 @@ void func_8038F5F8_7A0CA8(Animal *arg0) {
             D_803F6468 = 0;
             D_803F2AA3 = 100;
             D_803F6460 = 100;
-            set_species_as_encountered(gAnimalState.animals[gCurrentAnimalIndex].animal->unk16C->unk9C);
+            set_species_as_encountered(gAnimalState.animals[gCurrentAnimalIndex].animal->unk16C->animalType);
         }
     }
 }
 
-// NOTE: there is a bug if paused is pressed during transition to NAC
+// NOTE: there is a bug if pause is pressed during transition to NAC
 void trigger_new_animal_cutscene(void) {
     gCameraUiState = 0;
     D_803F2AA3 = 25;

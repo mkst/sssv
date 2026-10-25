@@ -53,7 +53,7 @@ void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5) {
         (func_802B3D68_6C5418() < 1001) && (get_used_sound_count() < 6) &&
         (animalId != POLAR_BEAR_DEFENDING)) {
 
-        if ((D_803D5530->state >= 0x8D) && (D_803D5530->state < 0x91)) {
+        if ((D_803D5530->state >= STATE_FISH_IN_WATER) && (D_803D5530->state < 0x91)) {
             // snow footsteps?
             func_8032CA90_73E140(mass, animalId, x, y, z);
             return;
@@ -158,7 +158,7 @@ void func_8032CA90_73E140(u16 mass, u16 animalId, s16 xPos, s16 zPos, s16 yPos) 
         (func_802B3D68_6C5418() < 1001)) {
         D_803D552C->unk36F -= 1;
         if (D_803D552C->unk36F <= 0) {
-            D_803D552C->unk36F = D_803D5524->unkEB;
+            D_803D552C->unk36F = D_803D5524->footstepSoundCooldown;
             switch (mass) {
                 case 20:
                     pitch = 1.122f;

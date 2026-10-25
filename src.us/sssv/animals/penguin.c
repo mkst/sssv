@@ -2,15 +2,10 @@
 #include "common.h"
 #include "camera_enums.h"
 
-extern u8 D_803B4200_7C58B0[];
-extern u8 D_803B4208_7C58B8[];
-
-extern s16 D_803B4210_7C58C0[];
-extern s16 D_803B4218_7C58C8[];
-extern s16 D_803B4230_7C58E0[];
+#include "penguin.h"
 
 extern Gfx D_04001010_DE5D0[];
-extern Gfx D_04001220_C8C50[];
+extern Gfx D_04001220_DE7E0[];
 extern Gfx D_04001890_DEE50[];
 extern Gfx D_040012E0_DE8A0[];
 extern Gfx D_04001A60_DF020[];
@@ -45,7 +40,7 @@ void func_80364780_775E30(void) {
 
     s16 pad3[2];
 
-    switch (D_803D5524->unk9C) {                              /* irregular */
+    switch (D_803D5524->animalType) {                              /* irregular */
     case PENGUIN:
         scale = 1;
         break;
@@ -61,10 +56,10 @@ void func_80364780_775E30(void) {
         spA2 = 0;
         gLodDetailState = 0;
     } else {
-        spA2 = classify_object_visibility_6FA0A0(
+        spA2 = classify_object_visibility(
             D_803D552C->position.xPos.w,
             D_803D552C->position.zPos.w,
-            D_803D552C->position.yPos.w + (D_803D5524->unkBA << 0xF),
+            D_803D552C->position.yPos.w + (D_803D5524->height << 0xF),
             (((scale * 24) << 5) << 6) / 32,
             6,
             0x28,
@@ -75,7 +70,7 @@ void func_80364780_775E30(void) {
     }
 
     if (spA2 == 0) {
-        if ((D_803D5538 != 0) && (D_803D5524->unk9C == KING_PENGUIN) && (((D_803D5530->movementState == 1)) || (D_803D5530->movementState == 5))) {
+        if ((D_803D5538 != 0) && (D_803D5524->animalType == KING_PENGUIN) && (((D_803D5530->movementState == MOVEMENT_STATE_GROUND)) || (D_803D5530->movementState == MOVEMENT_STATE_SINKING))) {
             D_803D552C->energy[0].unk0 = MIN(0x400, D_803D552C->energy[0].unk0 + 0x32);
         }
         func_8034B298_75C948(0);
@@ -88,14 +83,14 @@ void func_80364780_775E30(void) {
         sp9C = 0;
         sp9A = 0;
 
-        switch (D_803D5524->unk9C) {
+        switch (D_803D5524->animalType) {
         case KING_PENGUIN:
             break;
 
         case PENGUIN:
             switch (D_803D552C->unk365) {
             case ATTACK_PENGUIN_1:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining == 2) {
                     play_sound_effect_at_location(SFX_UNKNOWN_174, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                 }
@@ -104,13 +99,13 @@ void func_80364780_775E30(void) {
                 } else {
                     sp9E = 0x10;
                 }
-                if ((D_803D5530->movementState != 3) || ((D_803D5538 != 0) && (gAnimalState.curAButton == 0))) {
-                    D_803D552C->unk32A = D_803D5544;
+                if ((D_803D5530->movementState != MOVEMENT_STATE_AIRBORNE) || ((D_803D5538 != 0) && (gAnimalState.curAButton == 0))) {
+                    D_803D552C->unk32A = gGameplayTick;
                     D_803D552C->unk365 = ATTACK_PENGUIN_2;
                 }
                 break;
             case ATTACK_PENGUIN_2:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining < 16) {
                     sp9E = 0x10;
                     sp9C = ticks_remaining;
@@ -119,7 +114,7 @@ void func_80364780_775E30(void) {
                 }
                 break;
             case ATTACK_SNOWBALL:
-                ticks_remaining = D_803D5544 - D_803D552C->unk32A;
+                ticks_remaining = gGameplayTick - D_803D552C->unk32A;
                 if (ticks_remaining < 8) {
                     sp9A = ticks_remaining * 2;
                 } else {
@@ -153,11 +148,11 @@ void func_80364780_775E30(void) {
                 break;
             default:
                 D_803D552C->unk365 = ATTACK_NONE;
-                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->movementState & 0xF) == 3) &&
+                if ((D_803D5530->yVelocity.h < -0xA) && ((D_803D5530->movementState & 0xF) == MOVEMENT_STATE_AIRBORNE) &&
                     ((D_803D5530->position.yPos.h - (func_80310EE4_722594(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->unk160) >> 0x10)) >= 0x31) &&
                     ((D_803D5538 == 0) || (gAnimalState.curAButton != 0))) {
                     D_803D552C->unk365 = ATTACK_PENGUIN_1;
-                    D_803D552C->unk32A = D_803D5544;
+                    D_803D552C->unk32A = gGameplayTick;
                 }
                 break;
             }
@@ -171,7 +166,7 @@ void func_80364780_775E30(void) {
                 D_803D5530->yVelocity.w = MIN(FTOFIX32(-1.0), D_803D5530->yVelocity.w + FTOFIX32(4.0));
             }
         }
-        if ((D_803F2ECE == 0) || ((D_803F2ECC <= 30))) {
+        if ((gAnimBlendMode == 0) || ((D_803F2ECC <= 30))) {
 
             D_803F2F00 = 0;
             func_802B975C_6CAE0C(&spA8, (scale * 150), 1);
@@ -199,7 +194,7 @@ void func_80364780_775E30(void) {
         if (D_803F2ECC != 0) {
             backup_joint_positions();
 
-            switch (D_803F2ECE) {
+            switch (gAnimBlendMode) {
             case 1:
                 func_802DB670_6ECD20(D_803B4200_7C58B0, D_803B4208_7C58B8, D_803B4210_7C58C0, D_803B4218_7C58C8);
                 break;
@@ -211,18 +206,18 @@ void func_80364780_775E30(void) {
         func_8038064C_791CFC();
         if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) &&
             (((D_803D5538 != 0)) || (temp_v0_14 = gCameraUiState, (temp_v0_14 == 0)) || (temp_v0_14 == 2) || ((temp_v0_14 == 1) && ( D_803F2AA3 >= 0xB))) &&
-            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].unk64 != -3))) {
+            ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
 
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
-            func_8038C230_79D8E0((D_803D5524->unkBA * 8) / 5, 2, 3, 3, -0.4f);
+            func_8038C230_79D8E0((D_803D5524->height * 8) / 5, 2, 3, 3, -0.4f);
             load_2_tiles(img_penguin_head_TLUT1_pal, img_penguin_head_TLUT2_pal, img_penguin_head_ci4__png);
             func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 1, D_04001010_DE5D0);
             if (gLodDetailState == 0) {
-                func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 1, D_04001220_C8C50);
+                func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 1, D_04001220_DE7E0);
             }
-            if (D_803D5524->unk9C == KING_PENGUIN) {
+            if (D_803D5524->animalType == KING_PENGUIN) {
                 // add crown
                 func_802C78B0_6D8F60(1, 2, (D_803F2EBC << 6) >> 6, (D_803F2EC0 << 6) >> 6, (D_803F2EC4 << 6) >> 6, D_803F2ED0, 0, 0, 1, D_04001890_DEE50);
             }
@@ -253,7 +248,7 @@ void func_80364780_775E30(void) {
         func_8034BD20_75D3D0(
             D_803D552C->position.xPos.h,
             D_803D552C->position.zPos.h,
-            D_803D552C->position.yPos.h + ((D_803D5524->unkBA * 3) >> 2),
+            D_803D552C->position.yPos.h + ((D_803D5524->height * 3) >> 2),
             D_803D552C->heading,
             img_D_01033190_6CA60_i4__png,
             (scale * 350) / 32,
@@ -284,7 +279,7 @@ void func_80364780_775E30(void) {
     } else {
         func_80303D00_7153B0(D_803D552C, ((scale * 150) * 6) >> 1, 0x96);
     }
-    if ((D_803D5538 == 0) && (D_803D5524->unk9C == KING_PENGUIN)) {
+    if ((D_803D5538 == 0) && (D_803D5524->animalType == KING_PENGUIN)) {
         if (D_803D552C->unk2EC <= 0) {
             D_803D552C->unk2B4.unk4 = 0;
         } else {
@@ -298,7 +293,7 @@ void func_80364780_775E30(void) {
 
 // king_penguin_jetpack
 void func_80365954_777004(void) {
-    if ((D_803D5530->movementState != 1) && (D_803D5530->unk4A == 0)) {
+    if ((D_803D5530->movementState != MOVEMENT_STATE_GROUND) && (D_803D5530->unk4A == 0)) {
         func_8032CD70_73E420(
             (void*)D_803D5530,
             SFX_UNKNOWN_103,
@@ -343,16 +338,16 @@ void func_80365954_777004(void) {
             0);
 
     } else {
-        recharge_skill(0);
+        recharge_skill(SKILL_A);
     }
 }
 
 void func_80365C28_7772D8(void) {
     if (D_803D552C->unk365 == ATTACK_NONE) {
         D_803D552C->unk365 = ATTACK_SNOWBALL;
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
     } else {
-        recharge_skill(1);
+        recharge_skill(SKILL_B);
     }
 }
 
@@ -388,7 +383,7 @@ void penguin_throw_snowball(Animal *arg0) {
             tmp = (s16) ((tmp * 256) / 360);
         }
         D_803D552C->unk365 = ATTACK_SNOWBALL;
-        D_803D552C->unk32A = D_803D5544;
+        D_803D552C->unk32A = gGameplayTick;
         D_803D552C->unk338 = tmp;
     }
 }

@@ -53,7 +53,7 @@ void draw_visible_world_cell_opaque_pass(DisplayList *arg0) {
 
     gSPDisplayList(gMainDL++, D_010043A0_3DC70);
 
-    build_visible_world_cell_queue(gCameras[gCameraId].unk74, gCameras[gCameraId].unk78, gCameras[gCameraId].unk7C);
+    build_visible_world_cell_queue(gCameras[gCameraId].eyeX, gCameras[gCameraId].eyeZ, gCameras[gCameraId].eyeY);
 
     for (D_803A0500_7B1BB0 = 0; gVisibleWorldCellQueue[D_803A0500_7B1BB0].start != 99; D_803A0500_7B1BB0++) {
         gSPDisplayList(gMainDL++, gWorldCellOpaqueDisplayLists[gVisibleWorldCellQueue[D_803A0500_7B1BB0].start][gVisibleWorldCellQueue[D_803A0500_7B1BB0].end]);
@@ -129,7 +129,7 @@ void unused_8029A32C_6AB9DC(s32 arg0) {
 }
 #endif
 
-s16 is_world_cell_loaded_6AB9E4(s32 arg0, s32 arg1, s32 arg2) {
+s16 is_world_cell_loaded(s32 arg0, s32 arg1, s32 arg2) {
     arg0 >>= 6;
     arg1 >>= 6;
     arg0 = (arg0 - 4) >> 4;

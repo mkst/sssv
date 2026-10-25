@@ -119,7 +119,7 @@ void (*behaviour_lut[AID_MAX_ANIMALS])(void) = {
     perform_behavior_tortoise_tank,
     perform_behavior_racing_tortoise,
     perform_behavior_tortoise_tank_defending,
-    perform_behavior_pirana,
+    perform_behavior_piranha,
     perform_behavior_dog,
     perform_behavior_rat,
     perform_behavior_sheep,
@@ -201,7 +201,7 @@ s16 func_8038395C_79500C(void) {
 
     res = sqrtf(xVel * xVel + zVel * zVel);
     res = 16 * res;
-    res = res / (D_803D5524->unkA4 >> 6);
+    res = res / (D_803D5524->walkSpeed >> 6);
     return res;
 }
 
@@ -1749,7 +1749,7 @@ void perform_behavior_hyena_biker(void) {
             D_803D552C->unk2B4.state = 3;
         } else if ((D_803D552C->unk2C4 <= 0) && (target_within_current_fov(5) != 0)) {
             D_803D552C->unk2C4 = ((guRandom() >> 8) % 0x14) + 0x14;
-            biker_hyena_fire_missile(D_803D552C->aiTarget);
+            hyena_biker_fire_missile(D_803D552C->aiTarget);
         }
         break;
     case 3:
@@ -1778,7 +1778,7 @@ void perform_behavior_chameleon(void) {
             D_803D552C->unk2C0 = 0;
         }
         if ((D_803D552C->targetDistance < 0x3D) && (D_803D552C->unk2C4 <= 0) && (D_803D552C->unk2BC < 3)) {
-            chameleon_attack_2();
+            sneaky_chameleon_attack();
             D_803D552C->unk2C4 = RAND(8) + 9;
             D_803D552C->unk2BC += 1;
         } else if (D_803D552C->unk2BC >= 3) {
@@ -1882,7 +1882,7 @@ void perform_behavior_seagull(void) {
 void perform_behavior_seagull2(void) {
 }
 
-void perform_behavior_pirana(void) {
+void perform_behavior_piranha(void) {
     switch (D_803D552C->unk2B4.state) {
     case 0:
         set_nav_state_chase_target(D_803D5530, D_803D552C->aiTarget, -1, 16);
@@ -1934,7 +1934,7 @@ void perform_behavior_cool_cod(void) {
 // ESA: func_8006B844
 void func_80389764_79AE14(u8 arg0) {
     ratBehaviorMode = arg0;
-    behaviour_lut[D_803D5524->unk9C]();
+    behaviour_lut[D_803D5524->animalType]();
 }
 
 // file split ?

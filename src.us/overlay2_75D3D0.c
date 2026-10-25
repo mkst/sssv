@@ -60,8 +60,8 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 
     if (argC == 0) {
 
-        temp_v1 = arg0 - (s16) gCameras[gCameraId].unk74;
-        temp_a0 = arg1 - (s16) gCameras[gCameraId].unk78;
+        temp_v1 = arg0 - (s16) gCameras[gCameraId].eyeX;
+        temp_a0 = arg1 - (s16) gCameras[gCameraId].eyeZ;
         if (argB >= 0) {
             sp74 = (SQ(temp_v1) + SQ(temp_a0)) >> argB;
         } else if (argB < 0) {
@@ -131,7 +131,7 @@ void func_8034BD20_75D3D0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
     for (var_a2 = D_803DA110[(s16) ((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; var_a2 != NULL; var_a2 = var_a2->next) {
         animal = var_a2->animal;
         if ((animal != (Animal*)D_803D5530) && ((animal->unk3E & 0x3F) != 0x28) &&
-            ((animal->unk16C->unk15 == 4) ||
+            ((animal->unk16C->orientationMode == 4) ||
             ((animal->unk16C->objectType == 93)) || (animal->unk16C->objectType == 94)) &&
             !(animal->unk163 & 0x10) && ((arg2 << 0x10) >= (animal->position.yPos.w + (animal->unk42 << 0x10)))) {
 
@@ -224,8 +224,8 @@ void func_8034C8F8_75DFA8(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 *img, s16 a
 
     // argC is either 0 or 1 (I think?)
     if (argC == 0) {
-        temp_v1 = arg0 - (s16) gCameras[gCameraId].unk74;
-        temp_a0 = arg1 - (s16) gCameras[gCameraId].unk78;
+        temp_v1 = arg0 - (s16) gCameras[gCameraId].eyeX;
+        temp_a0 = arg1 - (s16) gCameras[gCameraId].eyeZ;
 
         if (argB >= 0) {
             var_v0 = (SQ(temp_v1) + SQ(temp_a0)) >> argB;
@@ -452,7 +452,7 @@ void func_8034CE88_75E538(Vertex *arg0, s16 arg1, s16 arg2, s16 alpha, s16 arg4,
             spA8 = MIN(0xFF, ((arg2 + 0x20) - var_a0) << 4);
         }
 #ifdef __sgi
-        if (ABS((s16)gCameras[gCameraId].unk7C - var_a0)) {
+        if (ABS((s16)gCameras[gCameraId].eyeY - var_a0)) {
             // debug?
         }
 #endif
@@ -1212,7 +1212,7 @@ void func_80350600_761CB0(s16 numVtxs, Vertex *vtxs, s16 alpha, s16 tileX, s16 t
     s16 depthOffset;
     s16 localZ;
 
-    depthOffset = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((topL + botR) >> 1)) + 0x100) * 2) >> 8;
+    depthOffset = ((ABS((s16) gCameras[gCameraId].eyeY - (s16) ((topL + botR) >> 1)) + 0x100) * 2) >> 8;
     if (depthOffset > 4) {
         depthOffset = (depthOffset >> 1) + 2;
     }
@@ -1338,7 +1338,7 @@ void func_80351390_762A40(s16 numVtxs, Vertex *arg1, s16 alpha, s16 tileX, s16 t
     if (numVtxs >= 3) {
         if (ABS(MAX(MAX(arg9, argC), MAX(argA, argB)) - MIN(MIN(arg9, argC), MIN(argA, argB))) <= 192) {
 
-            var_t1 = ((ABS((s16) gCameras[gCameraId].unk7C - (s16) ((arg9 + argC) >> 1)) * 2) + 0x200) >> 8;
+            var_t1 = ((ABS((s16) gCameras[gCameraId].eyeY - (s16) ((arg9 + argC) >> 1)) * 2) + 0x200) >> 8;
             if (var_t1 > 4) {
                 var_t1 = (var_t1 >> 1) + 2;
             }
@@ -1460,7 +1460,7 @@ void func_80351EE8_763598(s16 numVtxs, Vertex *arg1, s16 arg2, s16 alpha, s16 re
 
     s16 i;
 
-    var_v1 = ABS((s16) (s32) gCameras[gCameraId].unk7C - arg2);
+    var_v1 = ABS((s16) (s32) gCameras[gCameraId].eyeY - arg2);
     var_a3 = ((var_v1 * 2) + 0x80) >> 7;
     if (var_a3 > 4) {
         var_a3 = (var_a3 / 2) + 4;

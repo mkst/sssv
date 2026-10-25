@@ -21,7 +21,7 @@ void init_and_spawn_evo_microchip(void) {
     D_803D5548 = D_803D554A = 0;
     gAnimalState.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.startHeading * 256) / 360;
     gAnimalState.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.startHeading * 256) / 360;
-    D_803F6450 = 1;
+    gAnimalBehaviourEnabled = 1;
     D_803F2CE6 = 0;
     D_803D5558 = 0;
 }
@@ -45,7 +45,7 @@ void func_802C85EC_6D9C9C(void) {
     }
     gAnimalState.animals[gCurrentAnimalIndex].animal->heading = (D_803F2D50.startHeading << 8) / 360;
     gAnimalState.animals[gCurrentAnimalIndex].animal->yRotation = (D_803F2D50.startHeading << 8) / 360;
-    gAnimalState.unkFFA8 = (D_803F2D50.startHeading << 8) / 360;
+    gAnimalState.desiredHeading = (D_803F2D50.startHeading << 8) / 360;
     D_803F2AA3 = 0;
     gCameraUiState = 0;
 }
@@ -58,7 +58,7 @@ void func_802C87E0_6D9E90(void) {
     if (gUiFlowState.unk0 == 0) {
         D_803D5540 = (D_803D5540 + 1) & 0xFF;
         D_803D5542 = (D_803D5542 + 1) % 360;
-        D_803D5544 += 1;
+        gGameplayTick += 1;
     }
 }
 
@@ -89,7 +89,7 @@ void func_802C8878_6D9F28(void) {
 
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if ((gAnimalState.animals[i].animal != NULL) &&
-            (gAnimalState.animals[i].unk0->unk9C != EVO_TRANSFER) &&
+            (gAnimalState.animals[i].unk0->animalType != EVO_TRANSFER) &&
             (gAnimalState.animals[i].animal->movementMode != MOVEMENT_MODE_DELETED)) {
             if (i == gCurrentAnimalIndex) {
                 add_multiple_lights();
@@ -121,7 +121,7 @@ void func_802C8878_6D9F28(void) {
                         func_8035E200_76F8B0();
                         if (D_803D552C->movementMode == MOVEMENT_MODE_2) {
                             func_802AA1EC_6BB89C();
-                        } else if (D_803D5524->unk9C != EVO) {
+                        } else if (D_803D5524->animalType != EVO) {
                             if (gUiFlowState.unk0 == 0) {
                                 func_802A78CC_6B8F7C();
                                 func_802AAAB0_6BC160();
@@ -130,7 +130,7 @@ void func_802C8878_6D9F28(void) {
                         } else if ((gUiFlowState.unk0 == 0) && (D_803D552C->unk365 != ATTACK_EVO_CHIP_2)) {
                             func_802AA424_6BBAD4();
                         }
-                    } else if ((D_803D5530->xVelocity.w != 0) || (D_803D5530->zVelocity.w != 0) || (D_803D5530->yVelocity.w != 0) || (D_803D5530->unk68 != 0) || (D_803D5530->unk70 != 0) || (D_803D5530->movementState != 1)) {
+                    } else if ((D_803D5530->xVelocity.w != 0) || (D_803D5530->zVelocity.w != 0) || (D_803D5530->yVelocity.w != 0) || (D_803D5530->unk68 != 0) || (D_803D5530->unk70 != 0) || (D_803D5530->movementState != MOVEMENT_STATE_GROUND)) {
                         if (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) {
                             func_802AA1EC_6BB89C();
                         } else {
@@ -151,7 +151,7 @@ void func_802C8878_6D9F28(void) {
                 }
             }
             if (gAnimalState.animals[i].animal != NULL) {
-                switch (gAnimalState.animals[i].unk0->unk9C) {
+                switch (gAnimalState.animals[i].unk0->animalType) {
                 case LION:
                     func_802F1730_702DE0();
                     break;
@@ -302,7 +302,7 @@ void func_802C8878_6D9F28(void) {
                 case SEAGULL2:
                     func_80380920_791FD0();
                     break;
-                case PIRANA:
+                case PIRANHA:
                     func_80382050_793700();
                     break;
                 case COOL_COD:

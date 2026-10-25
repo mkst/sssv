@@ -40,7 +40,7 @@ u8 ai_map_europe[MAX_EUROPE_ANIMALS][MAX_EUROPE_ANIMALS] = {
 };
 
 u8 ai_map_jungle[MAX_JUNGLE_ANIMALS][MAX_JUNGLE_ANIMALS] = {
-/*PIRANA*/          { 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, },
+/*PIRANHA*/         { 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, },
 /*GORILLA*/         { 1, 3, 0, 2, 2, 2, 0, 0, 0, 2, 2, 8, },
 /*CHAMELEON*/       { 1, 1, 3, 2, 2, 1, 0, 0, 0, 2, 2, 3, },
 /*HYENA*/           { 1, 2, 2, 3, 3, 2, 2, 0, 0, 2, 2, 8, },
@@ -110,7 +110,7 @@ u8 D_803A4B78_7B6228[] = {
     0x09, // TORTOISE_TANK
     0x0a, // RACING_TORTOISE
     0x09, // TORTOISE_TANK_DEFENDING
-    0x00, // PIRANA
+    0x00, // PIRANHA
     0x01, // DOG
     0x12, // RAT
     0x0e, // SHEEP

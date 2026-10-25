@@ -307,58 +307,49 @@ void reset_particles(void) {
 }
 
 #if 0
-// CURRENT (25147)
+// CURRENT (3350)
 void func_802CB394_6DCA44(DisplayList *arg0) {
-    s32 pad0[2];
+    s32 pad2[2];
 
     s16 sp806;
 
     s32 pad[4];
 
+    Particle *var_s1;
+    Gfx **dl;
     s16 var_s0;
     s16 var_s2;
-    s16 var_s4;
 
-    s16 temp_a0;
-    s32 temp_v1;
-    struct036 *var_s1;
-    Gfx **dl;
+    s16 temp_a0_4;
 
+    u16 size; // temp_fp
     u16 sp7E2;
 
-    s16 pad1;
-    s16 pad2;
-    s16 pad3;
-
-    u8  sp7DD;
-
-    s16 sp7DA;
-
-    u16 size;
-
-    u8  i;  // var_s3?
+    u16 temp_t4_48;
     u16 j;
-    u16 k;
+    u8  sp7DD;
+    u8  i;  // var_s3?
+    s16 sp7DA;
     u8 lodFraction;
+    struct099 *particle;
 
     u16 flags;
     u16 colorPriRGBA5551;
     u16 colorEnvRGBA5551;
 
+    s16 var_s4;
+    s32 temp_v0_88;
+    s32 temp_v1_36;
+
     s32 sp7C0;
     s16 sp7B0[8];
-
-    struct099 *particle;
-
-    s32 tmp1;
-    s32 tmp2;
-    s32 tmp3;
+    s32 pad3[2];
 
     sp806 = 0;
     advance_random_seed();
 
-    for (i = 0; i < 8; i++) {
-        sp7B0[i] = 0;
+    for (lodFraction = 0; lodFraction < 8; lodFraction++) {
+        sp7B0[lodFraction] = 0;
     }
 
     var_s1 = D_803D6120.particles; // D_803D6128
@@ -551,6 +542,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
     gSPDisplayList(D_801D9E98[1]++, D_01003A58_3D328);
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
+    // TODO: gDPLoadTextureBlock
     gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102A210_63AE0_bin));
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync(D_801D9E98[1]++);
@@ -565,8 +557,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
             var_s1->unk36--;
         } else if (var_s1->unk18 != 0) {
             particle = &D_803A20C0_7B3770[var_s1->id];
-            sp7DD = particle->unkD; //>pad6[7];
             flags = particle->unk0;
+            sp7DD = particle->unkD; //>pad6[7];
             sp7DA = particle->unkB; // pad6[5];
 
             D_803D6120.unk3FC8[sp7DD] = 1;
@@ -575,7 +567,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
             }
 
             // doesnt seem to be a switch
-            if (particle->unk6 != 0) {
+            if (particle->unk6) {
                 if (particle->unk6 == 2) {
                     var_s1->unk0  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)][0] << 8;
                     var_s1->unk8  += D_803A2C00_7B42B0[((particle->unk6 - 1) * 32) + (((var_s1->unk18 + sp7E2) & 0x3F) >> 1)][1] << 8;
@@ -667,8 +659,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                                 GPACK_RGBA5551(((D_803E1BBA + 0x1FF) / 3), ((D_803E1BBB + 0x1FF) / 3), ((D_803E1BBC + 0x1FF) / 3), 1),
                                 0);
                         }
-                    } else if ((flags & 0x20) == 0) {
-                        var_s1->unk28 = -(var_s1->unk28 / 2);
+                    } else if (!(flags & 0x20)) {
+                        var_s1->unk28 = var_s1->unk28 / -2;
                         var_s1->size = (var_s1->size >> 1);
                         if (var_s1->unk28 < FTOFIX32(0.48828125)) { // --> 1000 / 2048
                             var_s1->unk18 = 0;
@@ -677,7 +669,6 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                 }
                 if (flags & 4) {
                     var_s1->unk10 += var_s1->unk28;
-
                     var_s1->unk0 += var_s1->unk20;
                     var_s1->unk8 += var_s1->unk24;
                 }
@@ -1227,14 +1218,14 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 >= 3) {
                         var_s4 = 0;
                     }
-                    if ((gCameras[gCameraId].unk7C - 12.0f) < (f32) var_s2) {
+                    if ((gCameras[gCameraId].eyeY - 12.0f) < (f32) var_s2) {
                         gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
                         gDPSetTile(D_801D9E98[6]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                         gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[6]++, 0, lodFraction, colorPriRGBA5551, 0xB4);
                         gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[6]++, colorEnvRGBA5551, 0xB4);
 
-                        draw_particle_billboard_texrect(&D_801D9EB0, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                        draw_particle_billboard_texrect(&D_801D9E98[6], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                         D_803D6120.unk3FC8[6] = 1;
                     } else {
                         gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -1396,12 +1387,9 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     break;
 
                 case 0x2C:
-                    temp_a0 = (var_s1->unk18 + 0x10) << 3;
-                    temp_v1 = var_s1->unk18 << 4;
-
-                    var_s1->unk0 += ((SIN(temp_v1) >> 6) - (SIN(temp_a0) >> 6)) << 9;
-                    var_s1->unk8 += ((COS(temp_v1) >> 6) - (COS(temp_a0) >> 6)) << 9;
-                    var_s1->unk10 += ((COS(var_s1->unk18 << 3) >> 6) - (COS((var_s1->unk18 + 0x1F) << 2) >> 6)) << 8;
+                    var_s1->unk0 += ((SIN(((var_s1->unk18) << 4) & 0xFFFF) >> 6) - (SIN((((var_s1->unk18 + 0x10) & 0xFFFF) << 3)) >> 6)) << 9;
+                    var_s1->unk8 += ((COS(((var_s1->unk18) << 4) & 0xFFFF) >> 6) - (COS((((var_s1->unk18 + 0x10) & 0xFFFF) << 3)) >> 6)) << 9;
+                    var_s1->unk10 += ((COS((var_s1->unk18 << 3) & 0xFFFF) >> 6) - (COS((((var_s1->unk18 & 0xFFFF) + 0x1F) << 2)) >> 6)) << 8;
 
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
@@ -1754,10 +1742,10 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
-                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
-                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
-                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
+                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 << 4) & 0xFFFF);
+                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS((var_s1->unk34 << 4) & 0xFFFF);
+                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS((var_s1->unk34 << 3) & 0xFFFF)) + COS(var_s1->unk34 << 2);
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + ((sp7E2 << 6) & 0xFFFF)) & 0x7F) >> 3;
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
@@ -1776,10 +1764,10 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = (COS(var_s1->unk34 << 3) >> 0xA) * COS(var_s1->unk34 << 4);
+                    D_803DA0FC = (COS(var_s1->unk34 << 3) >> 0xA) * COS((var_s1->unk34 << 4) & 0xFFFF);
                     D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 & 0xF) << 3);
-                    D_803DA104 = ((COS(var_s1->unk34 * 6) >> 0xA) * SIN(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
-                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
+                    D_803DA104 = ((COS(var_s1->unk34 * 6) >> 0xA) * SIN((var_s1->unk34 << 3) & 0xFFFF)) + COS(var_s1->unk34 << 2);
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + ((sp7E2 << 6) & 0xFFFF)) & 0x7F) >> 3;
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
@@ -1822,7 +1810,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 2;
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + ((sp7E2 << 6) & 0xFFFF)) & 0x7F) >> 2;
 
                     var_s1->unk34++;
                     draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, D_803DA108, D_803DA108, 0, 0);
@@ -1899,7 +1887,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     // butterfly
                     gDPLoadTextureBlock(
                     /* pkt    */  (*dl)++,
-                    /* timg   */  &D_803B74D0_7C8B80[var_s1->unk34],
+                    /* timg   */  &D_803B74D0_7C8B80[var_s1->unk34 & 0xFFFF],
                     /* fmt    */  G_IM_FMT_RGBA,
                     /* siz    */  G_IM_SIZ_16b,
                     /* width  */  32,
@@ -2012,9 +2000,9 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     // why are we doing this just to discard it?
-                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
-                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
-                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
+                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 << 4) & 0xFFFF);
+                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS((var_s1->unk34 << 4) & 0xFFFF);
+                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS((var_s1->unk34 << 3) & 0xFFFF)) + COS(var_s1->unk34 << 2);
 
                     D_803DA0FC = var_s1->unk0 >> 0x10;
                     D_803DA100 = var_s1->unk8 >> 0x10;
@@ -2054,9 +2042,9 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = (SIN((sp7E2 & 7) * 50) >> 0xA) * SIN((var_s1->unk34 + ((sp7E2 & 7) * 20)) << 4);
-                    D_803DA100 = (SIN((sp7E2 & 7) * 50) >> 0xA) * COS((var_s1->unk34 + ((sp7E2 & 7) * 20)) << 4);
-                    D_803DA104 = (COS((sp7E2 & 7) * 50) >> 0xA) * COS((var_s1->unk34 + ((sp7E2 & 7) * 20)) << 3);
+                    D_803DA0FC = (SIN((sp7E2 & 7) * 50) >> 0xA) * SIN(((var_s1->unk34 + ((sp7E2 & 7) * 20)) & 0xFFFF) << 4);
+                    D_803DA100 = (SIN((sp7E2 & 7) * 50) >> 0xA) * COS(((var_s1->unk34 + ((sp7E2 & 7) * 20)) & 0xFFFF) << 4);
+                    D_803DA104 = (COS((sp7E2 & 7) * 50) >> 0xA) * COS(((var_s1->unk34 + ((sp7E2 & 7) * 20)) & 0xFFFF) << 3);
 
                     var_s1->unk10 += 0x20000;
 
@@ -2254,9 +2242,9 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     // temp_t0_264->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
                     gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
 
-                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN(var_s1->unk34 << 4);
-                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS(var_s1->unk34 << 4);
-                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS(var_s1->unk34 << 3)) + COS(var_s1->unk34 << 2);
+                    D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 << 4) & 0xFFFF);
+                    D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS((var_s1->unk34 << 4) & 0xFFFF);
+                    D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS((var_s1->unk34 << 3) & 0xFFFF)) + COS(var_s1->unk34 << 2);
                     D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
                     // temp_t9_42 = var_s1->unk14 + 0x80000U;
 
@@ -2275,8 +2263,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
         var_s1++;
     }
 
-    for (k = 0; k < 8; k++) {
-        gSPEndDisplayList(D_801D9E98[k]++);
+    for (sp7E2 = 0; sp7E2 < 8; sp7E2++) {
+        gSPEndDisplayList(D_801D9E98[sp7E2]++);
     }
 
 }
@@ -2304,7 +2292,7 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
 
     s16 temp_v0_2;
     s32 temp_v0_3;
-    struct036 *particle;
+    Particle *particle;
     struct099 *var_t2;
 
     s32 pad UNUSED;
@@ -2324,7 +2312,7 @@ s32 create_particle_effect_2(s32 x, s32 z, s32 y, s16 id, s16 size, u16 color1, 
     var_t2 = &D_803A20C0_7B3770[id];
 
     if (((var_t2->unk0 & 0x400) == 0)) {
-        temp_v0_2 = classify_particle_visibility_6FB6B4(x << 0x10, z << 0x10, y << 0x10, size);
+        temp_v0_2 = classify_particle_visibility(x << 0x10, z << 0x10, y << 0x10, size);
         if ((temp_v0_2 == 2) || (temp_v0_2 == 1)) {
             return 0;
         }
@@ -2434,10 +2422,10 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
     s32 temp;
     s16 sp3E;
     u8  used;
-    struct036 *particle;
+    Particle *particle;
     s32 temp_v0;
 
-    if (is_world_cell_loaded_6AB9E4(x, z, y) == VISIBILITY_VISIBLE) {
+    if (is_world_cell_loaded(x, z, y) == VISIBILITY_VISIBLE) {
         return 0;
     }
 
@@ -2471,7 +2459,7 @@ s32 create_particle_effect(s32 x, s32 z, s32 y, s16 id, s32 arg4, s32 arg5, s32 
     used = D_803D6120.used;
 
     if ((temp & 0x400) == 0) {
-        if (classify_particle_visibility_6FB6B4(x << 0x10, z << 0x10, y << 0x10, size) == 2) {
+        if (classify_particle_visibility(x << 0x10, z << 0x10, y << 0x10, size) == 2) {
             return 0;
         }
     }
@@ -2760,7 +2748,7 @@ void func_802D6738_6E7DE8(void) {
             }
         }
 
-        if ((gCameras[gCameraId].unk7C - 12.0f) < func_80298818_6A9EC8((u16) gCameras[gCameraId].unk74, (u16) gCameras[gCameraId].unk78)) {
+        if ((gCameras[gCameraId].eyeY - 12.0f) < func_80298818_6A9EC8((u16) gCameras[gCameraId].eyeX, (u16) gCameras[gCameraId].eyeZ)) {
             sp7A = gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h - 512;
             sp78 = gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h - 512;
             if (sp7A < 0) {
@@ -2878,10 +2866,10 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
 
     for (i = 0; i < tmp0; i++) {
         random = SSSV_RAND(8) + ((360 / tmp0) * i);
-        temp_s0 = arg0 + ((D_80152350.unk2D0[(s16) random] * arg3) >> 9);
+        temp_s0 = arg0 + ((SINB(random) * arg3) >> 9);
         random += 0; // fake but works
         random = SSSV_RAND(8) + ((360 / tmp0) * i);
-        temp_s2 = arg1 + ((D_80152350.unk384[(s16) random] * arg3) >> 9);
+        temp_s2 = arg1 + ((COSB(random) * arg3) >> 9);
 
         phi_v1_4 = 20;
         phi_v1_4 += MAX(arg2, func_80298E98_6AA548(temp_s0, temp_s2));
@@ -2892,8 +2880,8 @@ void func_802D760C_6E8CBC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
             temp_s2,
             phi_v1_4,
             24,
-            D_80152350.unk2D0[(s16)((360 / tmp0) * i)] * tmp2 << 4,
-            D_80152350.unk384[(s16)((360 / tmp0) * i)] * tmp2 << 4,
+            SINB((360 / tmp0) * i) * tmp2 << 4,
+            COSB((360 / tmp0) * i) * tmp2 << 4,
             ((random & 0x7FFF) << 2) + (phi_v1 << 16),
             2,
             GPACK_RGBA5551((D_803E1BBA + 511) / 3, (D_803E1BBB + 511) / 3, (D_803E1BBC + 511) / 3, 1),
@@ -3081,8 +3069,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 8,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 8,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 8,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3094,8 +3082,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3107,8 +3095,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3120,8 +3108,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3133,8 +3121,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 40,
-                (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
-                (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 8,
+                (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
+                (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 8,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 (SSSV_RAND(8)) + 2,
                 GPACK_RGBA5551(SSSV_RAND(128) + 100, SSSV_RAND(64), SSSV_RAND(64), 0),
@@ -3147,8 +3135,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 ((guRandom() % 6) + 0x47),
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + (spBC * 0xA),
                 color,
@@ -3160,8 +3148,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                     z,
                     y + 20,
                     ((guRandom() % 6) + 0x47),
-                    (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
-                    (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                    (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
+                    (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
                     (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                     SSSV_RAND(32) + spBC * 0xF,
                     color,
@@ -3173,8 +3161,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         ((guRandom() % 6) + 0x47),
-                        (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
-                        (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
+                        (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3187,8 +3175,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         ((guRandom() % 6) + 0x47),
-                        (D_80152350.unk2D0[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
-                        (D_80152350.unk384[((s16) ((guRandom() % 90) + ((360 / spBE) * i)))] * spBA) << 7,
+                        (SINB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
+                        (COSB((guRandom() % 90) + ((360 / spBE) * i)) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3203,8 +3191,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + spBC * 0xA,
                 color,
@@ -3215,21 +3203,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
-                SSSV_RAND(32) + spBC * 0xA,
-                color,
-                func_8029A568_6ABC18(color),
-                0);
-
-            create_particle_effect(
-                x,
-                z,
-                y + 20,
-                (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 0xB4) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 0xB4) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + spBC * 0xA,
                 color,
@@ -3241,8 +3216,21 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                 z,
                 y + 20,
                 (guRandom() % 6) + 0x4D,
-                (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                (SINB(((guRandom() % 0xB4) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 0xB4) + ((360 / spBE) * i))) * spBA) << 7,
+                (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
+                SSSV_RAND(32) + spBC * 0xA,
+                color,
+                func_8029A568_6ABC18(color),
+                0);
+
+            create_particle_effect(
+                x,
+                z,
+                y + 20,
+                (guRandom() % 6) + 0x4D,
+                (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                 (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                 SSSV_RAND(32) + spBC * 0xA,
                 color,
@@ -3254,8 +3242,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                     z,
                     y + 20,
                     (guRandom() % 6) + 0x4D,
-                    (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                    (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                    (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                    (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                     (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                     SSSV_RAND(32) + spBC * 0xF,
                     color,
@@ -3267,8 +3255,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         (guRandom() % 6) + 0x4D,
-                        (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                        (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                        (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3281,8 +3269,8 @@ void func_802D7BE0_6E9290(s16 id, s16 flags, s16 x, s16 z, s16 y, s16 arg5, u16 
                         z,
                         y + 20,
                         (guRandom() % 6) + 0x4D,
-                        (D_80152350.unk2D0[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
-                        (D_80152350.unk384[(s16) ((guRandom() % 90) + ((360 / spBE) * i))] * spBA) << 7,
+                        (SINB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
+                        (COSB(((guRandom() % 90) + ((360 / spBE) * i))) * spBA) << 7,
                         (SSSV_RAND(32768) * 4) + FTOFIX32(5.0),
                         SSSV_RAND(32) + spBC * 0xF,
                         color,
@@ -3349,8 +3337,8 @@ void create_sparks(s16 x, s16 z, s16 y, s16 size, u16 color) {
             z,
             y,
             35,
-            D_80152350.unk2D0[(s16)(RAND(90) + (360 / tmp0) * i)] * tmp2 * 84,
-            D_80152350.unk384[(s16)(RAND(90) + (360 / tmp0) * i)] * tmp2 * 84,
+            SINB(RAND(90) + (360 / tmp0) * i) * tmp2 * 84,
+            COSB(RAND(90) + (360 / tmp0) * i) * tmp2 * 84,
             (SSSV_RAND(FTOFIX32(0.5)) * 2) + FTOFIX32(6.0),
             SSSV_RAND(2) + 3,
             color,
