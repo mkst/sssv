@@ -24,7 +24,6 @@ void func_80300210_7118C0(void) {
     s16 sp80;
     s16 sp7E;
 
-
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp88 = 0;
         gLodDetailState = 0;
@@ -213,27 +212,25 @@ void func_80300210_7118C0(void) {
 }
 
 // HELI_RABBIT
-#ifdef NON_MATCHING
 void func_80301248_7128F8(void) {
     u8 tmp;
     f32 temp_f14;
     s16 idx;
     s32 z_scale;
 
-    s16 sp96;    // sp96
-    s16 heading; // sp94?
-    s32 x_scale; // sp90
+    s16 sp96;
+    s16 heading;
+    s32 x_scale;
     s16 sp8E;
     s16 sp8C;
-    s16 var_t0; // sp8A
+    s16 var_t0;
     s16 sp88;
     s16 sp86;
     s16 sp84;
 
-    s32 pad; // sp80?
-    f32 temp_f16; // sp7C
-    s16 pad2[2];
-
+    s32 a;
+    f32 temp_f16;
+    s32 b;
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         sp84 = 0;
@@ -299,32 +296,16 @@ void func_80301248_7128F8(void) {
             func_8038C230_79D8E0((D_803D5524->height * 8) / 5, 2, 3, 3, -0.35f);
 
             if ((D_803D5530->state == STATE_HELI_MOVING) || (D_803D5530->state == STATE_HELI_ENTERING_WATER)) {
-#if 1
-                // better regalloc but worse instructions
-                heading = D_803D552C->heading;
-                idx = -(heading * 360) / 256;
 
-                x_scale = ((D_803D5530->xVelocity.w * COSB(idx)) + (D_803D5530->zVelocity.w * SINB(idx))) / 256;
-                z_scale = ((D_803D5530->zVelocity.w * COSB(idx)) - (D_803D5530->xVelocity.w * SINB(idx))) / 256;
-
-                x_scale = (x_scale >> 14);
-                z_scale = (z_scale >> 14);
-
-                x_scale = -x_scale;
+                x_scale = D_803D5530->xVelocity.w;
+                z_scale = D_803D5530->zVelocity.w;
+                a = ((x_scale * COSB((-(D_803D552C->heading * 360) / 256))) + (z_scale * SINB((-(D_803D552C->heading * 360) / 256)))) / 256;
+                z_scale = ((z_scale * COSB((-(D_803D552C->heading * 360) / 256))) - (x_scale * SINB((-(D_803D552C->heading * 360) / 256)))) / 256;
+                b = a >> 14;
+                z_scale = z_scale >> 14;
+                x_scale = -b;
                 z_scale = -z_scale;
-#else
-                // worse regalloc but better instructions
-                x_scale = ((SINB((-(D_803D552C->heading * 360) / 256)) * D_803D5530->zVelocity.w));
-                x_scale = (x_scale + (COSB((-(D_803D552C->heading * 360) / 256)) * D_803D5530->xVelocity.w));
-                x_scale /= 256;
 
-                z_scale = ((SINB((-(D_803D552C->heading * 360) / 256)) * D_803D5530->xVelocity.w));
-                z_scale = ((COSB((-(D_803D552C->heading * 360) / 256)) * D_803D5530->zVelocity.w) - z_scale);
-                z_scale /= 256;
-
-                x_scale = -((x_scale) >> 14);
-                z_scale = -((z_scale) >> 14);
-#endif
                 x_scale = MIN(30, x_scale);
                 x_scale = MAX(-30, x_scale);
                 z_scale = MIN(30, z_scale);
@@ -369,9 +350,7 @@ void func_80301248_7128F8(void) {
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &sp88, &sp86);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &sp88, &sp86);
-#pragma _permuter sameline start
                 sp88 = D_803BD530_7CEBE0.eyes[2][sp88]; sp86 = D_803BD600_7CECB0.eyes[1][sp86];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes2_ci4__png, sp88);
                 func_802C78B0_6D8F60(1, 19, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, (D_803F2EC8 << 6) >> 6, D_803F2ED0, 0, 0, 0, D_04000AE0_DE0A0);
                 func_80356BD8_768288(img_eyes_TLUT4_pal, (u8 (*)[128])img_eyes2_ci4__png, sp86);
@@ -395,9 +374,6 @@ void func_80301248_7128F8(void) {
         func_80303D00_7153B0(D_803D552C, 1125, 375);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/rabbit/func_80301248_7128F8.s")
-#endif
 
 // rabbit
 void func_80302018_7136C8(void) {

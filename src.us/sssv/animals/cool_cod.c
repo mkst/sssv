@@ -7,7 +7,6 @@ s16 D_803B58A8_7C6F58[4] = { 500, 500, 500, 0 };
 s16 D_803B58B0_7C6F60[10] = { 0, 360, 310,  90,  254, 90, 176, 78, 112, 0 };
 s16 D_803B58C4_7C6F74[10] = { 0, 640, 1310, 130, 180, 90, 180, 48, 180, 0 };
 
-#ifdef NON_MATCHING
 // CURRENT (42)
 void func_80382CF0_7943A0(void) {
     s32 pad3[2];
@@ -108,7 +107,7 @@ void func_80382CF0_7943A0(void) {
         func_8038064C_791CFC();
         if ((((gDisplayListContext->usedModelViewMtxs + 30) < 250)) &&
             (D_803F2EDA != 0) &&
-            (((D_803D5538 != 0)) || (gCameraUiState == 0) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) &&
+            (((D_803D5538 != 0)) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(
                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
@@ -162,14 +161,7 @@ void func_80382CF0_7943A0(void) {
             D_803D5538);
     }
     func_80303D00_7153B0(D_803D552C, 500, 500);
-
-    if (0) {
-        if (sp84 == 1 ? sp84 == 2 ? sp84 == 3 ? sp84 == 4 ? 1 : 2 : 3 : 4 : 5);
-    }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/cool_cod/func_80382CF0_7943A0.s")
-#endif
 
 void func_80383804_794EB4(void) {
 }

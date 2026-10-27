@@ -17,26 +17,25 @@ extern Gfx D_04008E30_D0860[];
 extern Gfx D_04009540_D0F70[];
 
 // BEAR
-#ifdef NON_MATCHING
 // CURRENT (3913)
 void func_80323680_734D30(void) {
     u8 var_v0;
-    u8 temp_v0_10;
     u16 ticks_remaining;
     s16 temp_s0_3;
-    Animal *temp_v0_15;
 
-    s16 spC8;
+    s16 spC8[5];
 
     s32 spC4;
     s32 spC0;
     s32 spBC;
+    s16 pad;
 
     s16 spB8;
     s16 spB6;
     s16 spB4;
     s16 spB2;
     s16 spB0;
+    s16 idx;
 
     spB2 = 0x3B;
     spB0 = 0x1F;
@@ -136,6 +135,7 @@ void func_80323680_734D30(void) {
                 gAnimBlendMode = ANIM_BLEND_SMASH_WINDUP;
                 D_803F2ECC = MAX(1, (ticks_remaining << 5) / 20);
                 if (ticks_remaining == 20) {
+                    Animal *temp_v0_15;
                     temp_v0_15 = D_803D552C->unk320;
                     if (D_803D5530->state < 8) {
                         func_802A4390_6B5A40();
@@ -199,20 +199,16 @@ void func_80323680_734D30(void) {
         }
 
         if (((gAnimBlendMode == ANIM_BLEND_NONE) || (D_803F2ECC < 0x1F)) || (gAnimBlendMode >= ANIM_BLEND_ATTACK)) {
-            func_802B9A5C_6CB10C(&spC8, 0x510);
+            func_802B9A5C_6CB10C(spC8, 0x510);
             func_802C23F8_6D3AA8(0x614);
             update_limbs_bear(0x40D, 0x91E);
             if (D_803D5530->movementState == MOVEMENT_STATE_SINKING) {
-                s16 idx, idx2;
-                idx = (D_803D5540 << 4);
-
+                idx = (D_803D5540 << 4) & 0xFFFF;
                 D_80203FE0[8].unk2 =  D_80203FE0[7].unk2 + (((COS(idx) >> 7) * 0x91E) >> 8);
                 D_80203FE0[8].unk4 =  D_80203FE0[7].unk4 - (((SIN(idx) >> 7) * 0x91E) >> 8);
-
-                // slightly better with idx2 but shifts.
-                idx = idx + 0x50;
-                D_80203FE0[11].unk2 = D_80203FE0[10].unk2 + (((COS(idx) >> 7) * 0x91E) >> 8);
-                D_80203FE0[11].unk4 = D_80203FE0[10].unk4 - (((SIN(idx) >> 7) * 0x91E) >> 8);
+                idx = (idx + 0x50) & 0xFFFF;
+                D_80203FE0[11].unk2 =  D_80203FE0[10].unk2 + (((COS(idx) >> 7) * 0x91E) >> 8);
+                D_80203FE0[11].unk4 =  D_80203FE0[10].unk4 - (((SIN(idx) >> 7) * 0x91E) >> 8);
                 func_8034B3A8_75CA58(0);
             }
             spB0 += D_80203FE0[2].unk4 / 32;
@@ -294,7 +290,7 @@ void func_80323680_734D30(void) {
             D_80203FE0[8].unk2  -= (D_803D552C->unk318 * 0x14);
         }
         func_8038064C_791CFC();
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_10 = gCameraUiState, (temp_v0_10 == 0)) || (temp_v0_10 == 2) || ((temp_v0_10 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             if (D_803D5530->state == STATE_INACTIVE) {
                 func_802E497C_6F602C(D_803D552C->unk308, &spC4, &spC0, &spBC);
                 guTranslate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w / 65536.0, D_803D5530->position.zPos.w / 65536.0, D_803D5530->position.yPos.w / 65536.0);
@@ -372,9 +368,6 @@ void func_80323680_734D30(void) {
         func_80303D00_7153B0(D_803D552C, 0xF31, 0x510);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/bear/func_80323680_734D30.s")
-#endif
 
 // CRAZY_BEAR
 void update_crazy_bear(void) {
@@ -610,32 +603,27 @@ void update_crazy_bear(void) {
 }
 
 // MYSTERY_BEAR
-#ifdef NON_MATCHING
-// CURRENT (1792)
 void func_80326260_737910(void) {
     f32 temp_f2_2;
     s32 temp_lo;
     s32 tmp1;
     s32 tmp2;
-
+    s32 padA;
+    s16 padA2;
     s16 spC8;
-
+    f32 var_f0;
+    s32 padB;
     s32 spBC;
     s32 spB8;
-
-    f32 var_f0;
-
-    s16 var_t0; // spB4
+    s16 i;
+    s16 var_t0;
     s16 spB2;
     s16 spB0;
     s16 spAE;
-
     s16 var_a2;
-    s16 i;
     u8 temp_v0_8;
     s32 var_a3;
 
-    s32 sp5C;
     s32 sp4C;
     s16 new_var;
 
@@ -735,7 +723,6 @@ void func_80326260_737910(void) {
             // D_80203FE0->unk4 += 0x592
             D_80203FE0[0].unk4 += 0x592;
             // D_80203FE0->unkC = (s16) (D_80203FE0->unkC + 0x592);
-            D_80203FE0[1].unk4 += 0x592;
 
             // D_80203FE0->unkD0 = D_80203FE0->unk10
             D_80203FE0[26].unk0 = D_80203FE0[2].unk0;
@@ -747,6 +734,7 @@ void func_80326260_737910(void) {
             D_80203FE0[27].unk2 = D_80203FE0[2].unk2;
             // D_80203FE0->unkDC = (s16) D_80203FE0->unk14;
             D_80203FE0[27].unk4 = D_80203FE0[2].unk4;
+            D_80203FE0[1].unk4 += 0x592;
 
             var_a3 = D_803D5530->yVelocity.w >> 5;
             if (var_a3 > 0) {
@@ -800,9 +788,7 @@ void func_80326260_737910(void) {
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB0, &spAE);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB0, &spAE);
-#pragma _permuter sameline start
                 spB0 = D_803BD530_7CEBE0.eyes[6][spB0];spAE = D_803BD600_7CECB0.eyes[5][spAE];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes6_TLUT2_pal, (u8 (*)[128])img_eyes6_ci4__png, spB0);
 
                 gSPDisplayList(gOpaqueDL++, D_010037F0_3D0C0);
@@ -889,8 +875,7 @@ void func_80326260_737910(void) {
                         play_sound_effect_at_location(0, 0x4000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                     }
 
-                    tmp1 = ((SIN((var_t0 << 3)) >> 7) * 0xA6);
-                    tmp1 = (((tmp1 ) * 0x180) / 4);
+                    tmp1 = ((((SIN((var_t0 << 3)) >> 7) * 0xA6) << 7) * 3) / 4;
 
                     tmp2 = (SIN((var_t0 << 2)) >> 7) * 0xA6;
                     tmp2 = (tmp2) / 4;
@@ -924,9 +909,6 @@ void func_80326260_737910(void) {
         func_80303D00_7153B0(D_803D552C, 0xF31, 0x510);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/bear/func_80326260_737910.s")
-#endif
 
 // esa: func_8008D654
 void func_803277B4_738E64(void) {

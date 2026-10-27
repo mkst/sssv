@@ -394,7 +394,7 @@ void func_802BCF38_6CE5E8(u16, u16, LimbConfig*);
 void func_802BD21C_6CE8CC(u16 arg0, LimbConfig *arg1);
 void func_802BD358_6CEA08(s16 *arg0);
 void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, struct077 *arg8, struct077 *arg9, struct077 *argA, s16 argB, s16 argC, s16 argD, s16 argE, s16 argF, s16 arg10, s16 arg11, s16 arg12, struct077 *arg13, struct077 *arg14, struct077 *arg15, LimbConfig *arg16, s16 arg17); // tbd
-void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 * argB, s8 argC);
+void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 * argB, s8 argC);
 void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC);
 void update_limbs_rigid(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, struct077 *arg6, struct077 *arg7, struct077 *arg8, s16 arg9, s16 argA, s16 argB, s16 argC, s16 argD, s16 argE, struct077 *argF, struct077 *arg10, struct077 *arg11, LimbConfig *arg12);
 void func_802BFF84_6D1634(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, struct077 *arg7, struct077 *arg8, struct077 *arg9, s8 argA);

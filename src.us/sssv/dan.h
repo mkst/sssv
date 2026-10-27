@@ -371,6 +371,13 @@ Gfx *gRigPartDisplayLists[5][10] = {
 // .bss (D_803F6720 to D_803F7D60)
 // ========================================================
 
+static s32  D_803F6710;
+u16  D_803F6714;
+s16  D_803F6716;
+s16  D_803F6718;
+s16  D_803F671A;
+s16  D_803F671C;
+
 static RigPoseState  gRigPoseStates[3][10]; // 0x54 each
 static s16  D_803F70F8[3][10]; // current keyframe index for bone j
 static s16  D_803F7134[3];

@@ -197,13 +197,6 @@ static s16  D_803F6706;
 static s16  D_803F6708;
 static s16  D_803F670A;
 static s16  D_803F670C;
-static s16  D_803F670E; // static in func_80395B58_7A7208
-static s32  D_803F6710; // unused
-u16  D_803F6714; // effectively unused, always 0
-s16  D_803F6716; // current sfx volume
-s16  D_803F6718; // current music volume
-s16  D_803F671A; // current language
-s16  D_803F671C;
 
 
 // ========================================================
@@ -454,7 +447,6 @@ void func_8038FF48_7A15F8(void) {
     D_803F6714 = 0;
 }
 
-#ifdef NON_MATCHING
 void func_8038FF68_7A1618(void) {
     s16 pad;
     s16 sp3C = G_TX_NOMASK;
@@ -584,7 +576,8 @@ void func_8038FF68_7A1618(void) {
             if (func_80396714_7A7DC4()) {
                 gOverlayMenuState.unk18++;
                 gOverlayMenuState.unk1A = 0;
-                gOverlayMenuState.unk2A = gOverlayMenuState.unk2C = 1;
+                gOverlayMenuState.unk2C = 1;
+                gOverlayMenuState.unk2A = 1;
             }
             break;
         case 1:
@@ -615,9 +608,10 @@ void func_8038FF68_7A1618(void) {
             break;
         case 4:
             // this is set to 1 when the user has already seen the intro cutscene
-            if ((D_8023F260.unk34 & 1) == 0) {
+            {u32 tmp = D_8023F260.unk34;
+            if ((tmp & 1) == 0) {
                 load_smashing_start();
-            }
+            }}
             gFrameStepDivisor = 1;
             display_zone_select_screen();
             func_8039264C_7A3CFC();
@@ -700,7 +694,8 @@ void func_8038FF68_7A1618(void) {
                 func_80395074_7A6724(0);
                 gOverlayMenuState.unk18 = 12;
                 gOverlayMenuState.unk1A = 0;
-                gOverlayMenuState.unk2C = gOverlayMenuState.unk2A = 1;
+                gOverlayMenuState.unk2A = 1;
+                gOverlayMenuState.unk2C = 1;
             }
             if (((gControllerInput->button & B_BUTTON)) && (D_802912E0 == 1)) {
                 play_sound_effect(SFX_UNKNOWN_164, 0, 0x5000, 1.0f, 64);
@@ -1093,9 +1088,6 @@ void func_8038FF68_7A1618(void) {
         gSPDisplayList(gMainDL++, &gDisplayListContext->gLayer0DL);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_8038FF68_7A1618.s")
-#endif
 
 // play_tv_static_buzz_sfx
 void func_80391A38_7A30E8(void) {
@@ -1532,7 +1524,6 @@ void func_80393024_7A46D4(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 
     gSP1Quadrangle((*dl)++, 0, 1, 2, 3, 0);
 }
 
-#ifdef NON_MATCHING
 // CURRENT (1470)
 extern int PRIMITIVE;
 extern int TEXEL0;
@@ -1672,13 +1663,13 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             gDPSetColorDither(gMainDL++, G_CD_DISABLE);
             gDPSetAlphaDither(gMainDL++, G_AD_PATTERN);
 
-            for (row = 0; row < 3; row++) {
+            for (vertical_offset = 0; vertical_offset < 3; vertical_offset++) {
                 for (col = 0; col < 5; col++) {
                     func_803962EC_7A799C(&gMainDL,
                         (col * 22 + 188) << 2, // x0
-                        (row * 22 + 136) << 2, // y0
+                        (vertical_offset * 22 + 136) << 2,
                         (col * 22 + 204) << 2, // x1
-                        (row * 22 + 152) << 2, // y1
+                        (vertical_offset * 22 + 152) << 2,
                         D_800DE390,
                         32,
                         32
@@ -1697,14 +1688,14 @@ void load_pause_menu(s32 arg0, s16 arg1) {
             gDPSetBlendColor(gMainDL++, 0x00, 0x00, 0x00, 0x80);
             gDPPipeSync(gMainDL++);
 
-            for (row = 0; row < 3; row++) {
+            for (vertical_offset = 0; vertical_offset < 3; vertical_offset++) {
                 for (col = 0; col < 5; col++) {
                     if (cnt < gGameState.powercells) {
                         func_803962EC_7A799C(&gMainDL,
                             (col * 22 + 188) << 2,  // x0
-                            (row * 22 + 136) << 2,  // y0
+                            (vertical_offset * 22 + 136) << 2,
                             (col * 22 + 204) << 2,  // x1
-                            (row * 22 + 152) << 2,  // y1
+                            (vertical_offset * 22 + 152) << 2,
                             D_800DE390,             // img
                             32,                     // width
                             32                      // height
@@ -2212,9 +2203,6 @@ void load_pause_menu(s32 arg0, s16 arg1) {
         func_8039D034_7AE6E4(&gMainDL, 0);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/load_pause_menu.s")
-#endif
 
 void func_80395074_7A6724(s32 debug) {
 #ifdef __sgi
@@ -2314,8 +2302,6 @@ void setup_pause_menu_perspective_b(void) {
     gDPSetScissor(gMainDL++, G_SC_NON_INTERLACE, 8, 8, gScreenWidth - 8, gScreenHeight - 8);
 }
 
-#if 0
-// need to fix BSS
 void func_80395B58_7A7208(void) {
     static s16 D_803F670E;
     s16 temp_lo;
@@ -2366,9 +2352,6 @@ void func_80395B58_7A7208(void) {
 
     gSPSetLights1(gMainDL++, gDisplayListContext->lights);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_7A0DA0/func_80395B58_7A7208.s")
-#endif
 
 void func_80395E98_7A7548(Gfx **dl) {
     gDPPipeSync((*dl)++);

@@ -3,19 +3,6 @@
 #include "camera_enums.h"
 #include "tortoise.h"
 
-// extern u8  D_803A8380_7B9A30[];
-// extern u8  D_803A8390_7B9A40[];
-// extern s16 D_803A83A0_7B9A50[];
-// extern s16 D_803A83BC_7B9A6C[];
-// extern s16 D_803A83FC_7B9AAC[];
-// extern u8  D_803A843C_7B9AEC[];
-// extern u8  D_803A8450_7B9B00[];
-// extern s16 D_803A8464_7B9B14[];
-// extern s16 D_803A8484_7B9B34[];
-// extern s16 D_803A84CC_7B9B7C[];
-// extern u8  D_803A8514_7B9BC4[];
-// extern u8  D_803A8518_7B9BC8[];
-
 extern Gfx D_01003AD0_3D3A0[];
 
 extern Gfx D_04002D70_F3DD0[];
@@ -28,10 +15,7 @@ extern Gfx D_04003650_F46B0[];
 extern Gfx D_040037C0_F4820[];
 extern Gfx D_040041D0_F5230[];
 
-
 // TORTOISE_TANK
-#ifdef NON_MATCHING
-// CURRENT (34)
 void update_tortoise_tank(void) {
     s32 sp14C;
     s32 sp148;
@@ -57,7 +41,7 @@ void update_tortoise_tank(void) {
     u8  var_a1;
     s8  var_a0;
 
-    s16 pad[4];
+    s16 pad[2];
 
     D_803D552C->unk312 = 0;
 
@@ -182,7 +166,7 @@ void update_tortoise_tank(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0 = gCameraUiState, (temp_v0 == 0)) || (temp_v0 == 2) || ((temp_v0 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1)) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].zoomIndex != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1)) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -474,9 +458,6 @@ void update_tortoise_tank(void) {
         func_80303D00_7153B0(D_803D552C, 0x54F, 0x1C5);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/tortoise/update_tortoise_tank.s")
-#endif
 
 // racing tortoise
 void update_racing_tortoise(void) {

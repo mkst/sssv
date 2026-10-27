@@ -799,20 +799,19 @@ void func_802BD40C_6CEABC(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 
     func_802BEAB0_6D0160(&D_803D5528->unk3AC, arg16->unk6, 6, 16, sp48, argB, argC, argD, argE, arg13, arg14, arg15, sp45);
 }
 
-#if 0
-void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
-
+void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
     u16 temp_t7;
     u16 temp_t8;
+
     s16 sp72;
     s16 sp70;
     s16 sp6E;
 
-    s16 temp_a0;
-    s16 tmp1, tmp2, tmp3;
-
     s16 var_v0;
-    u32 temp;
+    s16 temp_a0;
+
+    s16 tmp1, tmp2, tmp3;
+    u32 sum;
 
     if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
@@ -868,7 +867,7 @@ void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 ar
         func_802BCDA0_6CE450(arg0, &sp72, &sp70, &sp6E);
     }
 
-    switch (D_803D5530->state) {                        /* switch 2; irregular */
+    switch (D_803D5530->state) {
     case 0x1:
     case 0x3:
     case 0x4:
@@ -876,7 +875,7 @@ void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 ar
     case 0xB6:
     case 0xB7:
     case 0xB9:
-        var_v0 = ((256 - COSB((arg4 * 360) / 256)) * arg8) / 512;
+        var_v0 = ((0x100 - COSB((s16) ((arg4 * 360) / 256))) * arg8) / 512;
         D_80203FE0[arg2].unk4 = (D_80203FE0[arg2].unk4 + arg8) - var_v0;
         break;
     case 0x5:
@@ -899,56 +898,48 @@ void func_802BE1A0_6CF850(LimbIKState *arg0, s16 arg1, u16 arg2, u8 arg3, u16 ar
         break;
     }
 
-    temp = (COSB(sp6E) * arg7) +
-           (COSB(sp72) * arg5) +
-           (COSB(sp70) * arg6);
-    temp_a0 = ((temp / 256) + arg1) - D_80203FE0[arg2].unk4;
+    sum = (arg5 * (u32)COSB(sp72)) + (arg6 * (u32)COSB(sp70)) + (COSB(sp6E) * (u32)arg7);
+    temp_a0 = (s16)(sum >> 8) + arg1 - D_80203FE0[arg2].unk4;
 
     if ((var_v0 * -3) < temp_a0) {
         if (var_v0 >= temp_a0) {
             D_80203FE0[arg2].unk4 += ((temp_a0 + (var_v0 * 3)) / 4);
         } else {
             D_80203FE0[arg2].unk4 += var_v0;
-            var_v0 = ((D_80203FE0[arg2].unk4 - arg1) - ((COSB(sp6E) * arg7) / 256));
-            func_802BC350_6CDA00(&sp72, &sp70, arg5, arg6, var_v0);
+            tmp2 = (D_80203FE0[arg2].unk4 - arg1) - (s16)((COSB(sp6E) * arg7) / 256);
+            func_802BC350_6CDA00(&sp72, &sp70, arg5, arg6, tmp2);
         }
     }
     if (sp70 >= sp6E) {
         sp6E = sp70;
     }
 
-    // all falls apart here...
-
     tmp1 = D_80203FE0[arg2].unk0;
     tmp2 = D_80203FE0[arg2].unk2;
     tmp3 = D_80203FE0[arg2].unk4;
 
-    tmp2 -= (s16)((arg5 * SINB(sp72)) / 256);
-    tmp3 -= (s16)((arg5 * COSB(sp72)) / 256);
+    tmp3 -= (s16) ((arg5 * COSB(sp72)) / 256);
+    tmp2 -= (s16) ((arg5 * SINB(sp72)) / 256);
 
     D_80203FE0[arg3].unk0 = tmp1;
     D_80203FE0[arg3].unk2 = tmp2;
     D_80203FE0[arg3].unk4 = tmp3;
 
-    tmp2 -= (s16)((arg6 * SINB(sp70)) / 256);
-    tmp3 -= (s16)((arg6 * COSB(sp70)) / 256);
+    tmp3 -= (s16) ((arg6 * COSB(sp70)) / 256);
+    tmp2 -= (s16) ((arg6 * SINB(sp70)) / 256);
 
-    D_80203FE0[arg3 + 1].unk0 = tmp1;
-    D_80203FE0[arg3 + 1].unk2 = tmp2;
-    D_80203FE0[arg3 + 1].unk4 = tmp3;
+    D_80203FE0[arg3+1].unk0 = tmp1;
+    D_80203FE0[arg3+1].unk2 = tmp2;
+    D_80203FE0[arg3+1].unk4 = tmp3;
 
-    tmp2 -= (s16)((arg7 * SINB(sp6E)) / 256);
-    tmp3 -= (s16)((arg7 * COSB(sp6E)) / 256);
+    tmp3 -= (s16) ((arg7 * COSB(sp6E)) / 256);
+    tmp2 -= (s16) ((arg7 * SINB(sp6E)) / 256);
 
-    D_80203FE0[arg3 + 2].unk0 = tmp1;
-    D_80203FE0[arg3 + 2].unk2 = tmp2;
-    D_80203FE0[arg3 + 2].unk4 = tmp3;
+    D_80203FE0[arg3+2].unk0 = tmp1;
+    D_80203FE0[arg3+2].unk2 = tmp2;
+    D_80203FE0[arg3+2].unk4 = tmp3;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BE1A0_6CF850.s")
-#endif
 
-#if 0
 // dupe of func_802BE1A0_6CF850?
 void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, struct077 *arg9, struct077 *argA, struct077 *argB, s8 argC) {
     u16 temp_t8;
@@ -962,6 +953,7 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     s16 temp_a0;
 
     s16 tmp1, tmp2, tmp3;
+    u32 sum;
 
     if ((arg0->unk10 != 0) && (gUiFlowState.unk0 == 0)) {
         arg0->unk12++;
@@ -1048,16 +1040,16 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
         break;
     }
 
-    temp_a0 = (((u32) ((COSB(sp6E) * arg7) +
-                       (COSB(sp72) * arg5) +
-                       (COSB(sp70) * arg6)) >> 8) + arg1) - D_80203FE0[arg2].unk4;
+    sum = (arg5 * (u32)COSB(sp72)) + (arg6 * (u32)COSB(sp70)) + (COSB(sp6E) * (u32)arg7);
+    temp_a0 = (s16)(sum >> 8) + arg1 - D_80203FE0[arg2].unk4;
 
     if ((var_v0 * -3) < temp_a0) {
         if (var_v0 >= temp_a0) {
             D_80203FE0[arg2].unk4 += ((temp_a0 + (var_v0 * 3)) / 4);
         } else {
             D_80203FE0[arg2].unk4 += var_v0;
-            func_802BC628_6CDCD8(&sp72, &sp70, arg5, arg6, (D_80203FE0[arg2].unk4 - arg1) - ((COSB(sp6E) * arg7) / 256));
+            tmp2 = (D_80203FE0[arg2].unk4 - arg1) - (s16)((COSB(sp6E) * arg7) / 256);
+            func_802BC628_6CDCD8(&sp72, &sp70, arg5, arg6, tmp2);
         }
     }
     if (sp70 >= sp6E) {
@@ -1071,9 +1063,9 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     tmp3 -= (s16) ((arg5 * COSB(sp72)) / 256);
     tmp2 -= (s16) ((arg5 * SINB(sp72)) / 256);
 
-    D_80203FE0[arg3+0].unk0 = tmp1;
-    D_80203FE0[arg3+0].unk2 = tmp2;
-    D_80203FE0[arg3+0].unk4 = tmp3;
+    D_80203FE0[arg3].unk0 = tmp1;
+    D_80203FE0[arg3].unk2 = tmp2;
+    D_80203FE0[arg3].unk4 = tmp3;
 
     tmp3 -= (s16) ((arg6 * COSB(sp70)) / 256);
     tmp2 -= (s16) ((arg6 * SINB(sp70)) / 256);
@@ -1089,9 +1081,6 @@ void func_802BEAB0_6D0160(LimbIKState *arg0, s16 arg1, u16 arg2, u16 arg3, u16 a
     D_80203FE0[arg3+2].unk2 = tmp2;
     D_80203FE0[arg3+2].unk4 = tmp3;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802BEAB0_6D0160.s")
-#endif
 
 void update_limbs_rigid(
     s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5,

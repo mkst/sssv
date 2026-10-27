@@ -53,9 +53,7 @@ u8   D_803F63C2; // pointless, used to check about calling a function stub
 // .text
 // ========================================================
 
-
 void func_80376D40_7883F0(void) {
-
     s16 pad;
     s32 a1;
     s32 a2;
@@ -465,15 +463,16 @@ void func_80376D40_7883F0(void) {
     }
 }
 
-#ifdef NON_MATCHING
 void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *target) {
     s16 temp_t7_3;
     s16 temp_t7_4;
-
-    s32 pad[3];
-
+    s16 pa0;
+    s16 pa1;
+    s16 pa2;
     s16 sp44;
-
+    s16 pb0;
+    s16 pb1;
+    s16 pb2;
     s16 sp3C;
     s16 sp3A;
     s16 sp38;
@@ -482,17 +481,17 @@ void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *targ
     s16 sp32;
     s16 sp30;
     s16 sp2E;
-    volatile s16 sp2C;
+    s16 sp2C;
 
-    temp_t7_3 = ((((COS(D_803D552C->heading) >> 7) * ((D_80203FE0[4].unk0 >> 2) + D_80203FE0[4].unk0)) / 32) + (((SIN(D_803D552C->heading) >> 7) * (D_80203FE0[2].unk2 + (D_80203FE0[2].unk2 >> 2))) / 32)) >> 7;
-    temp_t7_4 = ((((COS(D_803D552C->heading) >> 7) * ((D_80203FE0[2].unk2 >> 2) + D_80203FE0[2].unk2)) / 32) - (((SIN(D_803D552C->heading) >> 7) * (D_80203FE0[4].unk0 + (D_80203FE0[4].unk0 >> 2))) / 32)) >> 7;
+    temp_t7_3 = ((((COS(D_803D552C->heading) >> 7) * (D_80203FE0[2].unk0 + (D_80203FE0[2].unk0 >> 2))) / 32) + (((SIN(D_803D552C->heading) >> 7) * (D_80203FE0[2].unk2 + (D_80203FE0[2].unk2 >> 2))) / 32)) >> 7;
+    temp_t7_4 = ((((COS(D_803D552C->heading) >> 7) * ((D_80203FE0[2].unk2 >> 2) + D_80203FE0[2].unk2)) / 32) - (((SIN(D_803D552C->heading) >> 7) * (D_80203FE0[2].unk0 + (D_80203FE0[2].unk0 >> 2))) / 32)) >> 7;
 
-    temp_s0 = D_803D552C->position.xPos.h - (temp_t7_3);
-    temp_s1 = D_803D552C->position.zPos.h - (temp_t7_4);
+    temp_s0 = D_803D552C->position.xPos.h - temp_t7_3;
+    temp_s1 = D_803D552C->position.zPos.h - temp_t7_4;
 
     sp44 = D_803D552C->position.yPos.h;
-    sp3C = D_803D552C->position.xPos.h + (temp_t7_3);
-    sp3A = D_803D552C->position.zPos.h + (temp_t7_4);
+    sp3C = D_803D552C->position.xPos.h + temp_t7_3;
+    sp3A = D_803D552C->position.zPos.h + temp_t7_4;
     sp38 = D_803D552C->position.yPos.h;
     sp32 = D_803D552C->position.yPos.h + D_803D5524->height;
     sp30 = target->position.xPos.h;
@@ -508,7 +507,7 @@ void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *targ
         *y = sp3A + (((temp_s1 - sp3A) * (i - 4)) / 6);
         *z = sp38 + (((sp32 - sp38) * (i - 4)) / 6);
     } else if (i < 17) {
-        *x = temp_s0 + (((sp2E - temp_s0) * (i - 10)) / 6);
+        *x = temp_s0 + (((sp30 - temp_s0) * (i - 10)) / 6);
         *y = temp_s1 + (((sp2E - temp_s1) * (i - 10)) / 6);
         *z = sp32 + (((sp2C - sp32) * (i - 10)) / 6);
     } else {
@@ -518,9 +517,6 @@ void func_80378B84_78A234(s16 i, s16 *arg1, s16 *x, s16 *y, s16 *z, Animal *targ
     }
     *arg1 = D_803B52FC_7C69AC[i];
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/scorpion/func_80378B84_78A234.s")
-#endif
 
 void func_80378FF8_78A6A8(void) {
     if (!D_803D552C) {

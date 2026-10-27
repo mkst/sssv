@@ -306,7 +306,8 @@ void reset_particles(void) {
     D_803D6120.unk3FD4 = 0; // ?
 }
 
-#if 0
+#define D_01024550_5DE20 ((u8 (*)[512])&D_01024550_5DE20_bin)
+#define D_803B74D0_7C8B80 ((u8 (*)[2048])&img_butterflies_rgba16__png)
 // CURRENT (3350)
 void func_802CB394_6DCA44(DisplayList *arg0) {
     s32 pad2[2];
@@ -543,7 +544,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
     // TODO: gDPLoadTextureBlock
-    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_0102A210_63AE0_bin));
+    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (D_0102A210_63AE0_bin + 0x80000000));
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync(D_801D9E98[1]++);
     gDPLoadBlock(D_801D9E98[1]++, G_TX_LOADTILE, 0, 0, 2047, 512);
@@ -690,7 +691,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                 case 0x2:
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
-                        /* pkt    */  (*dl)++,
+                          D_801D9E98[sp7DD]++,
                         /* timg   */  D_01024550_5DE20_bin + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
@@ -706,11 +707,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         /* shiftt */  G_TX_NOLOD
                         );
 
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     } else {
                         gDPLoadTextureBlock2(
-                        /* pkt    */  (*dl)++,
+                          D_801D9E98[sp7DD]++,
                         /* timg   */  D_01024550_5DE20[var_s4],
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
@@ -726,15 +727,14 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         /* shiftt */  G_TX_NOLOD
                         );
 
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     }
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0x37);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0x37);
 
-                    draw_particle_billboard_texrect(
-                        dl,
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD],
                         var_s1->unk0,
                         var_s1->unk8,
                         var_s1->unk10,
@@ -763,7 +763,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
-                        /* pkt    */  (*dl)++,
+                          D_801D9E98[sp7DD]++,
                         /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
@@ -779,11 +779,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         /* shiftt */  G_TX_NOLOD
                         );
 
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     } else {
                         gDPLoadTextureBlock2(
-                        /* pkt    */  (*dl)++,
+                          D_801D9E98[sp7DD]++,
                         /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
@@ -799,15 +799,14 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         /* shiftt */  G_TX_NOLOD
                         );
 
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     }
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0x37);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0x37);
 
-                    draw_particle_billboard_texrect(
-                        dl,
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD],
                         var_s1->unk0,
                         var_s1->unk8,
                         var_s1->unk10,
@@ -834,7 +833,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     }
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
-                        /* pkt    */  (*dl)++,
+                          D_801D9E98[sp7DD]++,
                         /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
@@ -850,11 +849,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         /* shiftt */  G_TX_NOLOD
                         );
 
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     } else {
                         gDPLoadTextureBlock2(
-                        /* pkt    */  (*dl)++,
+                          D_801D9E98[sp7DD]++,
                         /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
@@ -870,15 +869,14 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         /* shiftt */  G_TX_NOLOD
                         );
 
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     }
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0x37);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0x37);
 
-                    draw_particle_billboard_texrect(
-                        dl,
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD],
                         var_s1->unk0,
                         var_s1->unk8,
                         var_s1->unk10,
@@ -892,7 +890,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                 case 0x9:
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
-                          /* pkt    */  (*dl)++,
+                            D_801D9E98[sp7DD]++,
                           /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
@@ -908,11 +906,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                           /* shiftt */  G_TX_NOLOD
                         );
 
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     } else {
                         gDPLoadTextureBlock2(
-                          /* pkt    */  (*dl)++,
+                            D_801D9E98[sp7DD]++,
                           /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
@@ -927,15 +925,14 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                           /* shifts */  5,
                           /* shiftt */  G_TX_NOLOD
                         );
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     }
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(
-                        dl,
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD],
                         var_s1->unk0,
                         var_s1->unk8,
                         var_s1->unk10,
@@ -947,24 +944,24 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         0);
                     break;
                 case 0xA:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /*tmem?*/ (var_s4 + 0x9) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1,  (var_s4 + 0x9) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0xFF - var_s1->unk18, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0xFF - var_s1->unk18, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
                     var_s1->unk18 = (var_s1->unk18 - var_s1->unk34) + 1;
                     if (var_s1->unk18 < 0) {
                         var_s1->unk18 = 0;
                     }
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0xB:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00C0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00C0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0xC:
                     if ((var_s1->unk10 >> 0x10) > (D_803C0740[((((var_s1->unk0) >> 0x10) + 0x40) >> 6)][(var_s1->unk8 >> 0x10) >> 6].unk6 * 4)) {
@@ -974,28 +971,27 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         var_s4 = 0;
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /* tmem */ (var_s4 + 0xA) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, /* tmem */ (var_s4 + 0xA) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1,  (var_s4 + 0xA) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1,  (var_s4 + 0xA) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     var_s1->unk10 += ((var_s1->size >> 3) + 1) << 0x10;
 
                     break;
                 case 0xD:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0>> 0x10, var_s1->unk8 >> 0x10) << 0x10;
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00A0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00A0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     var_s1->unk0 += var_s1->unk20;
                     var_s1->unk8 += var_s1->unk24;
 
-                    draw_particle_billboard_texrect(
-                        dl,
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD],
                         var_s1->unk0,
                         var_s1->unk8,
                         var_s1->unk10,
@@ -1032,14 +1028,14 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                             }
                         }
                     }
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00C0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00C0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     var_s1->unk28 -= 0x7FF8; //= (s32) (var_s1->unk28 - 0x7FF8);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     break;
                 case 0x12:
                     var_s2 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
@@ -1075,21 +1071,21 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                             }
                         }
                     }
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x01A0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x01A0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x13:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) << 0x10;
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0110, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0120, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0110, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0120, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, (var_s1->size * 6), colorPriRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, (var_s1->size * 6), colorPriRGBA5551, 0xFF);
 
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     var_s1->size += 2;
                     if (var_s1->size > 40) {
@@ -1102,29 +1098,29 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     var_s1->unk0 += var_s1->unk20;
                     var_s1->unk8 += var_s1->unk24;
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (size << 8), (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (size << 8), (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x14:
                 case 0x1D:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x15:
                 case 0x16:
                 case 0x17:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x10) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x11) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x10) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x11) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x18:
                     var_s2 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
@@ -1169,35 +1165,35 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         }
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x19:
                 case 0x1A:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
                     if (var_s1->size < var_s1->unk34) {
                         var_s1->size += SSSV_RAND(8) + 3;
                     }
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x1B:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x1C:
@@ -1228,13 +1224,13 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         draw_particle_billboard_texrect(&D_801D9E98[6], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                         D_803D6120.unk3FC8[6] = 1;
                     } else {
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                        gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                        gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                        gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xB4);
-                        gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xB4);
+                        gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xB4);
+                        gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xB4);
 
-                        draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                        draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     }
 
                     var_s1->unk0 += var_s1->unk20;
@@ -1242,79 +1238,62 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     var_s1->unk10 += (((s16) var_s1->size >> 3) + 2) << 0x10;
                     break;
                 case 0x1E:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     /* fallthrough */
                 case 0x1F:
                 case 0x20:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
                     var_s1->size += SSSV_RAND(2) + 1;
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     break;
 
                 case 0x22:
-                    // *temp_s0 = temp_t0_3 + 8;
-                    // temp_t0_3->words.w0 = 0xF5800200;
-                    // temp_t0_3->words.w1 = 0;
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    // temp_t0_124 = *temp_s0;
-                    // *temp_s0 = temp_t0_124 + 8;
-                    // temp_t0_124->words.w0 = 0xFA000000;
-                    // sp3C4 = temp_t0_124;
-                    // temp_s2_7 = func_8012826C() & 0xFFFF;
-                    // sp3C4->words.w1 = (((255 * SSSV_RAND(2)) & 0xFF) << 8) | ((func_8012826C() & 1) * 0xFF000000) | ((((temp_s2_7 & 1) * 0xFF) & 0xFF) << 0x10) | 0xC8;
-                    gDPSetPrimColor((*dl)++, 0, 0, 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 0xC8);
-
-                    // temp_t0_125 = *temp_s0;
-                    // *temp_s0 = temp_t0_125 + 8;
-                    // temp_t0_125->words.w0 = 0xFB000000;
-                    // sp3C0 = temp_t0_125;
-                    // temp_s2_8 = func_8012826C() & 0xFFFF;
-                    // temp_s3 = func_8012826C() & 0xFFFF;
-                    // sp3C0->words.w1 = (((255 * SSSV_RAND(2)) & 0xFF) << 8) | ((temp_s3 & 1) * 0xFF000000) | ((((temp_s2_8 & 1) * 0xFF) & 0xFF) << 0x10);
-                    gDPSetEnvColor((*dl)++, 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 0);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetPrimColor(D_801D9E98[sp7DD]++, 0, 0, 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 0xC8);
+                    gDPSetEnvColor(D_801D9E98[sp7DD]++, 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 255 * SSSV_RAND(2), 0);
                     break;
                 case 0x23:
                 case 0x62:
                 case 0x67:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0x19);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0x19);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0x19);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0x19);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
                     break;
                 case 0x24:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x25:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x26:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0010, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0010, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     if ((var_s1->size >= 5) && (D_80151424 == 1)) {
                           var_s1->size--;
@@ -1335,12 +1314,12 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                             0x6319,
                             0);
                     }
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x29:
                     var_s1->size--;
@@ -1348,12 +1327,12 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         var_s1->unk18 = 0;
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColor((*dl)++, 0, 0, (var_s1->unk18 * 2), (var_s1->unk18 * 2), (var_s1->unk18 * 2), 0xFF);
-                    gDPSetEnvColor((*dl)++, 0x00, 0x00, 0x00, 0xFF);
+                    gDPSetPrimColor(D_801D9E98[sp7DD]++, 0, 0, (var_s1->unk18 * 2), (var_s1->unk18 * 2), (var_s1->unk18 * 2), 0xFF);
+                    gDPSetEnvColor(D_801D9E98[sp7DD]++, 0x00, 0x00, 0x00, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x2A:
                     if (var_s1->unk18 & 8) {
@@ -1363,27 +1342,27 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         }
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x2B:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) << 0x10;
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0110, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0120, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0110, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0120, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, (var_s1->size * 3), colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, (var_s1->size * 3), colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     var_s1->size += 2;
                     if (var_s1->unk34 < var_s1->size) {
                         var_s1->unk18 = 0;
                     }
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x2C:
@@ -1391,34 +1370,34 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     var_s1->unk8 += ((COS(((var_s1->unk18) << 4) & 0xFFFF) >> 6) - (COS((((var_s1->unk18 + 0x10) & 0xFFFF) << 3)) >> 6)) << 9;
                     var_s1->unk10 += ((COS((var_s1->unk18 << 3) & 0xFFFF) >> 6) - (COS((((var_s1->unk18 & 0xFFFF) + 0x1F) << 2)) >> 6)) << 8;
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     advance_random_seed(); // more randomness is apparently required?
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x2E:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x8) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x8) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x32:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x18) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x19) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x18) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x19) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     var_s1->unk10 -= 0x8000;
                     if (var_s4 >= particle->unkC) {
@@ -1426,10 +1405,10 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     }
                     break;
                 case 0x35:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0020, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     var_s1->size += var_s1->unk34;
 
@@ -1440,7 +1419,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         var_s1->unk18 = 0;
                     }
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x36:
                     var_s2 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10);
@@ -1517,16 +1496,16 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         }
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
                     if (var_s1->size < var_s1->unk34) {
                         var_s1->size += SSSV_RAND(8) + 3;
                     }
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x37:
@@ -1555,12 +1534,12 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                             }
                         }
                     }
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0010, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0010, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 1, 8);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 1, 8);
 
                     var_s1->unk10 -= 0x30000;
 
@@ -1630,23 +1609,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                             }
                         }
                     }
-                    // temp_t0_166 = *temp_s0;
-                    // *temp_s0 = temp_t0_166 + 8;
-                    // temp_t0_166->words.w1 = 0;
-                    // temp_t0_166->words.w0 = 0xF5800370;
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    // temp_t0_167 = *temp_s0;
-                    // *temp_s0 = temp_t0_167 + 8;
-                    // temp_t0_167->words.w0 = 0xFA000000;
-                    // temp_t0_167->words.w1 = (((s32) (colorPriRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorPriRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorPriRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    // temp_t0_168 = *temp_s0;
-                    // *temp_s0 = temp_t0_168 + 8;
-                    // temp_t0_168->words.w0 = 0xFB000000;
-                    // temp_t0_168->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0170, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 1, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 1, 0);
                     break;
 
                 case 0x39:
@@ -1711,22 +1678,22 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         }
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) ((D_803F2A9C + 4) * (size << 8)) >> 8, 1, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) ((D_803F2A9C + 4) * (size << 8)) >> 8, 1, 0);
                     var_s1->unk10 -= 0xE0000;
                     break;
                 case 0x3A:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x0) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x0) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x3C:
@@ -1736,11 +1703,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         lodFraction = (0xFF - (var_s1->unk18 << 5));
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x10 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x10 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 << 4) & 0xFFFF);
                     D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS((var_s1->unk34 << 4) & 0xFFFF);
@@ -1749,7 +1716,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
-                    draw_particle_billboard_texrect(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
                     break;
                 case 0x3D:
                     if (var_s1->unk18 >= 9) {
@@ -1758,11 +1725,11 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         lodFraction = (0xFF - (var_s1->unk18 << 5));
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x08 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x08 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     D_803DA0FC = (COS(var_s1->unk34 << 3) >> 0xA) * COS((var_s1->unk34 << 4) & 0xFFFF);
                     D_803DA100 = (SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 & 0xF) << 3);
@@ -1771,26 +1738,26 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
                     var_s1->unk10 += 0x20000;
                     var_s1->unk34++;
-                    draw_particle_billboard_texrect(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
                     break;
 
                 case 0x3F:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
                 case 0x40:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) << 0x10;
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x17) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x18) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x17) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x18) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     var_s1->unk0 += var_s1->unk20;
                     var_s1->unk8 += var_s1->unk24;
@@ -1798,44 +1765,44 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s1->size < var_s1->unk34) {
                         var_s1->size += SSSV_RAND(2) + 1;
                     }
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x41:
                     lodFraction = (var_s1->unk34 << 3);
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x10 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x10 * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x18 * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     D_803DA108 = SIN(((var_s1->unk34 << 2) + ((sp7E2 << 6) & 0xFFFF)) & 0x7F) >> 2;
 
                     var_s1->unk34++;
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, D_803DA108, D_803DA108, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, D_803DA108, D_803DA108, 0, 0);
                     break;
 
                 case 0x46:
                     var_s1->unk10 = func_80298818_6A9EC8(var_s1->unk0 >> 0x10, var_s1->unk8 >> 0x10) << 0x10;
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00F0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x00F0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (size << 8), (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, (size << 8), (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
                 case 0x47:
                 case 0x48:
                 case 0x49:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x3) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x4) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x3) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x4) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
@@ -1843,13 +1810,13 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                 case 0x4A:
                 case 0x4B:
                 case 0x4C:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x9) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xA) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x9) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xA) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0U;
                     }
@@ -1857,13 +1824,13 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                 case 0x4D:
                 case 0x4E:
                 case 0x4F:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xE) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xF) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xE) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xF) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
@@ -1871,13 +1838,13 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                 case 0x50:
                 case 0x51:
                 case 0x52:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x13) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x14) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
@@ -1886,7 +1853,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                 case 0x53:
                     // butterfly
                     gDPLoadTextureBlock(
-                    /* pkt    */  (*dl)++,
+                      D_801D9E98[sp7DD]++,
                     /* timg   */  &D_803B74D0_7C8B80[var_s1->unk34 & 0xFFFF],
                     /* fmt    */  G_IM_FMT_RGBA,
                     /* siz    */  G_IM_SIZ_16b,
@@ -1901,42 +1868,23 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     /* shiftt */  G_TX_NOLOD
                     );
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 7, size << 7, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 7, size << 7, 0, 0);
                     break;
 
                 case 0x55:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x8) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x8) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
                     break;
 
                 case 0x56:
-                    // temp_t7_40 = var_s1->unk20;
-                    // temp_t9_36 = var_s1->unk4;
-                    // temp_ret_138 = __ll_rshift((var_s1->unk0 - (temp_t7_40 >> 0x1F)) - (temp_t9_36 < (u32) temp_t7_40), temp_t9_36 - temp_t7_40, 0, 0x10);
-                    // spC0 = temp_ret_138;
-                    // spC4 = (u32) (u64) temp_ret_138;
-                    // temp_t7_41 = var_s1->unk24;
-                    // temp_t9_37 = var_s1->unkC;
-                    // temp_s3_2 = func_8012826C() & 0xFFFF;
-                    // temp_ret_139 = __ll_rshift((var_s1->unk8 - (temp_t7_41 >> 0x1F)) - (temp_t9_37 < (u32) temp_t7_41), temp_t9_37 - temp_t7_41, 0, 0x10);
-                    // spC8 = temp_ret_139;
-                    // spCC = (u32) (u64) temp_ret_139;
-                    // sp82 = func_8012826C();
-                    // temp_t7_42 = var_s1->unk28;
-                    // temp_t9_38 = var_s1->unk14;
-                    // temp_ret_140 = __ll_rshift((var_s1->unk10 - (temp_t7_42 >> 0x1F)) - (temp_t9_38 < (u32) temp_t7_42), temp_t9_38 - temp_t7_42, 0, 0x10);
-                    // spD0 = temp_ret_140;
-                    // spD4 = (u32) (u64) temp_ret_140;
-                    // temp_s2_18 = func_8012826C() & 0xFFFF;
-                    // temp_t0_216 = var_s1->unk32;
                     create_particle_effect(
                         ((var_s1->unk0 - var_s1->unk20) >> 0x10) + (SSSV_RAND(32) - 0x14),
                         ((var_s1->unk8 - var_s1->unk24) >> 0x10) + (SSSV_RAND(32) - 0x14),
@@ -1949,26 +1897,6 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         var_s1->envColor,
                         var_s1->envColor,
                         0);
-
-                    // temp_t9_39 = var_s1->unk20;
-                    // temp_t7_43 = var_s1->unk4;
-                    // temp_ret_141 = __ll_rshift((var_s1->unk0 - (temp_t9_39 >> 0x1F)) - (temp_t7_43 < (u32) temp_t9_39), temp_t7_43 - temp_t9_39, 0, 0x10);
-                    // spC0 = temp_ret_141;
-                    // spC4 = (u32) (u64) temp_ret_141;
-                    // temp_t9_40 = var_s1->unk24;
-                    // temp_t7_44 = var_s1->unkC;
-                    // // temp_s3_3 = func_8012826C() & 0xFFFF;
-                    // temp_ret_142 = __ll_rshift((var_s1->unk8 - (temp_t9_40 >> 0x1F)) - (temp_t7_44 < (u32) temp_t9_40), temp_t7_44 - temp_t9_40, 0, 0x10);
-                    // spC8 = temp_ret_142;
-                    // spCC = (u32) (u64) temp_ret_142;
-                    // temp_t9_41 = var_s1->unk28;
-                    // temp_t7_45 = var_s1->unk14;
-                    // // temp_s4 = func_8012826C() & 0xFFFF;
-                    // temp_ret_143 = __ll_rshift((var_s1->unk10 - (temp_t9_41 >> 0x1F)) - (temp_t7_45 < (u32) temp_t9_41), temp_t7_45 - temp_t9_41, 0, 0x10);
-                    // spD0 = temp_ret_143;
-                    // spD4 = (u32) (u64) temp_ret_143;
-                    // temp_s2_19 = func_8012826C() & 0xFFFF;
-                    // temp_t0_217 = var_s1->unk32;
                     create_particle_effect(
                         ((var_s1->unk0 - var_s1->unk20) >> 0x10) + (SSSV_RAND(32) - 0x14),
                         ((var_s1->unk8 - var_s1->unk24) >> 0x10) + (SSSV_RAND(32) - 0x14),
@@ -1981,23 +1909,10 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         var_s1->envColor,
                         var_s1->envColor,
                         0);
-                    // temp_t0_218 = *temp_s0;
-                    // *temp_s0 = temp_t0_218 + 8;
-                    // temp_t0_218->words.w1 = 0;
-                    // temp_t0_218->words.w0 = 0xF5800270;
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0070, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    // temp_t0_219 = *temp_s0;
-                    // *temp_s0 = temp_t0_219 + 8;
-                    // temp_t0_219->words.w0 = 0xFA000000;
-                    // temp_t0_219->words.w1 = (((s32) (colorPriRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorPriRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorPriRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    // temp_t0_220 = *temp_s0;
-                    // *temp_s0 = temp_t0_220 + 8;
-                    // temp_t0_220->words.w0 = 0xFB000000;
-                    // temp_t0_220->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
-                    // temp_t4_45 = size << 8;
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0070, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     // why are we doing this just to discard it?
                     D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 << 4) & 0xFFFF);
@@ -2015,12 +1930,12 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     break;
 
                 case 0x57:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
 
                     var_s1->size -= 3;
                     if (var_s1->size < 3) {
@@ -2028,19 +1943,19 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     }
                     break;
                 case 0x58:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
                     break;
                 case 0x59:
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0100, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     D_803DA0FC = (SIN((sp7E2 & 7) * 50) >> 0xA) * SIN(((var_s1->unk34 + ((sp7E2 & 7) * 20)) & 0xFFFF) << 4);
                     D_803DA100 = (SIN((sp7E2 & 7) * 50) >> 0xA) * COS(((var_s1->unk34 + ((sp7E2 & 7) * 20)) & 0xFFFF) << 4);
@@ -2054,27 +1969,27 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         var_s1->unk18 = 0;
                     }
                     size = var_s1->unk34 + var_s1->size;
-                    draw_particle_billboard_texrect(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x5A:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x0, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x5B:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x20, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x30, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x20, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x30, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x5C:
@@ -2082,48 +1997,48 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         var_s1->unk2D = 0;
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x20, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x20, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x5D:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x5) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x5) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x5E:
                 case 0x5F:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xB) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x63:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x140, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x140, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
 
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
                     if (var_s1->size < var_s1->unk34) {
                         var_s1->size += SSSV_RAND(8);
                     }
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, (s32) (D_803A6CC0_7B8370 * (size << 8)) >> 8, 0, 0);
                     break;
 
                 case 0x64:
@@ -2134,17 +2049,17 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                         lodFraction = 0;
                     }
 
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x120, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x120, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 * 0x10) + 0x130, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x66:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0030, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0030, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
                     D_803DA0FC = SIN(guRandom() % 255) * 10;
                     D_803DA100 = COS(guRandom() % 255) * 10;
@@ -2167,92 +2082,73 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     break;
 
                 case 0x69:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xC) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0xD) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
                     if (var_s4 >= particle->unkC) {
                         var_s1->unk2D = 0;
                     }
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x6A:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1B) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1C) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1B) * 0x10, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1C) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x6B:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1E) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1F) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1E) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x1F) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xC8);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xC8);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 9, 0, 0);
                     break;
 
                 case 0x6C:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x6) * 0x10, 0, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, (var_s4 + 0x7) * 0x10, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xB4);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xB4);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xB4);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xB4);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x6D:
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, 0, colorPriRGBA5551, 0x19);
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0x19);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, 0, colorPriRGBA5551, 0x19);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0x19);
 
-                    draw_particle_billboard_texrect(dl, var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0, var_s1->unk8, var_s1->unk10, 0xF, 0xF, size << 8, size << 8, 0, 0);
                     break;
 
                 case 0x6E:
                     lodFraction = (var_s1->unk18 << 4);
-                    // *temp_s0 = temp_t0_3 + 8;
-                    // temp_t0_3->words.w0 = 0xF5880800;
-                    // temp_t0_3->words.w1 = 0;
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    // temp_t0_262 = *temp_s0;
-                    // *temp_s0 = temp_t0_262 + 8;
-                    // temp_t0_262->words.w1 = 0x01000000;
-                    // temp_t0_262->words.w0 = 0xF5880880;
-                    gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0080, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-                    // temp_t0_263 = *temp_s0;
-                    // *temp_s0 = temp_t0_263 + 8;
-                    // temp_t0_263->words.w0 = ((var_s1->unk18 * 0x10) & 0xFF & 0xFF) | 0xFA000000;
-                    // temp_t0_263->words.w1 = (((s32) (colorPriRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorPriRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorPriRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
-                    gDPSetPrimColorRGBA5551CustomAlpha((*dl)++, 0, lodFraction, colorPriRGBA5551, 0xFF);
-
-                    // temp_t0_264 = *temp_s0;
-                    // *temp_s0 = temp_t0_264 + 8;
-                    // temp_t0_264->words.w0 = 0xFB000000;
-                    // temp_t0_264->words.w1 = (((s32) (colorEnvRGBA5551 & 0xF800) >> 8) << 0x18) | ((((s32) (colorEnvRGBA5551 & 0x7C0) >> 3) & 0xFF) << 0x10) | ((((colorEnvRGBA5551 & 0x3E) * 4) & 0xFF) << 8) | 0xFF;
-                    gDPSetEnvColorRGBA5551CustomAlpha((*dl)++, colorEnvRGBA5551, 0xFF);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetTile(D_801D9E98[sp7DD]++, G_IM_FMT_I, G_IM_SIZ_8b, 4, 0x0080, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
+                    gDPSetPrimColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, 0, lodFraction, colorPriRGBA5551, 0xFF);
+                    gDPSetEnvColorRGBA5551CustomAlpha(D_801D9E98[sp7DD]++, colorEnvRGBA5551, 0xFF);
 
                     D_803DA0FC = ( SIN(var_s1->unk34 << 2) >> 0xA) * SIN((var_s1->unk34 << 4) & 0xFFFF);
                     D_803DA100 = ( SIN(var_s1->unk34 << 2) >> 0xA) * COS((var_s1->unk34 << 4) & 0xFFFF);
                     D_803DA104 = ((COS(var_s1->unk34 << 1) >> 0xA) * COS((var_s1->unk34 << 3) & 0xFFFF)) + COS(var_s1->unk34 << 2);
-                    D_803DA108 = SIN(((var_s1->unk34 << 2) + (sp7E2 << 6)) & 0x7F) >> 3;
-                    // temp_t9_42 = var_s1->unk14 + 0x80000U;
+                    D_803DA108 = SIN(((var_s1->unk34 << 2) + ((sp7E2 << 6) & 0xFFFF)) & 0x7F) >> 3;
 
-                    // var_s1->unk14 = temp_t9_42;
-                    // var_s1->unk10 = (s32) (var_s1->unk10 + (temp_t9_42 < 0x80000U));
                     var_s1->unk10 += 0x80000;
                     var_s1->unk34 += 4; //(u16) (var_s1->unk34 + 4);
-                    draw_particle_billboard_texrect(dl, var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
+                    draw_particle_billboard_texrect(&D_801D9E98[sp7DD], var_s1->unk0 + D_803DA0FC, var_s1->unk8 + D_803DA100, var_s1->unk10 + D_803DA104, 0x1F, 0x1F, D_803DA108, size << 8, 0, 0);
                     break;
 
                 }
@@ -2268,9 +2164,8 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
     }
 
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6DCA10/func_802CB394_6DCA44.s")
-#endif
+#undef D_01024550_5DE20
+#undef D_803B74D0_7C8B80
 
 // only called with these values:
 // func_802D5AD8_6E7188(0, 1) (enable dl 0)

@@ -34,8 +34,6 @@ extern Gfx D_01006AB0_40380[];
 extern Gfx D_01006AE8_403B8[];
 
 // EVO_SHELLSUIT
-#ifdef NON_MATCHING
-// CURRENT (8)
 void func_80389B30_79B1E0(void) {
     s32 pad[2];
 
@@ -105,7 +103,7 @@ void func_80389B30_79B1E0(void) {
     }
     func_8038064C_791CFC();
 
-    if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (temp_v0_3 = gCameraUiState, (temp_v0_3 == 0)) || (temp_v0_3 == 2) || ((temp_v0_3 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
+    if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && (((D_803D5538 != 0)) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
         func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
 
         gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -345,14 +343,7 @@ void func_80389B30_79B1E0(void) {
     func_80303820_714ED0(D_803D552C, 2, 2,  0x2BF, 1);
     func_80303820_714ED0(D_803D552C, 1, 19, 0x1D4, 2);
     func_80303D50_715400(D_803D552C, 3);
-
-    if (0) {
-        tmp = (tmp == 1 ? tmp == 2 ? tmp == 3 ? 1 : 2 : 3 : 4);
-    }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/evo/func_80389B30_79B1E0.s")
-#endif
 
 // evo shellsuit jetpack
 void func_8038B330_79C9E0(void) {

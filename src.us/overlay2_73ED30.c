@@ -38,33 +38,27 @@ void update_billboard_projection_cache(void) {
     gDisplayListContext->unk38A10.flat.unk34 *= gScreenHeight * 2;
 }
 
-#if 0
-// 9716
 void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
+    f32 xl;
+    f32 yl;
+    f32 xh;
     f32 sp80;
     f32 sp7C;
-
-    f32 xl;
-    f32 yl; // sp10
-    f32 xh;
-    f32 yh; // sp8
-
-    f32 yOffset; // sp4
-    f32 xOffset;
-
-    f32 temp_f0;
-    f32 temp_f12;
-    f32 temp_f14;
-    f32 temp_f18;
     f32 temp_f2;
+    f32 yh;
+    f32 yOffset;
+    f32 xOffset;
+    f32 temp_f0;
+    f32 temp_f18;
     f32 var_f12;
-
     f32 temp_f8;
     f32 temp_f6;
-
     s16 dsdx;
     s16 dtdy;
+    s16 t;
     u16 depth;
+    f32 temp_f12;
+    f32 temp_f14;
 
     temp_f18 = arg1 / 65536.0;
     temp_f12 = arg2 / 65536.0;
@@ -101,8 +95,8 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
             arg6 = (arg6 * 33) / D_803F2D50.fovY;
 
             var_f12 = (arg6 * 32) / -temp_f0;
-            if (var_f12 > 16383) {
-                var_f12 = 16383;
+            if (var_f12 > 16383.0f) {
+                var_f12 = 16383.0f;
             }
 
             if (var_f12 > 0.0f) {
@@ -120,8 +114,13 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
 
                 if ((xl < xh) && (yl < yh)) {
 
-                    dsdx = ((arg4 << 0xC) / (yh - yl));
-                    dtdy = ((arg5 << 0xC) / (xh - xl));
+                    dsdx = (arg5 << 0xC) / (xh - xl);
+                    dtdy = (arg4 << 0xC) / (yh - yl);
+                    if (yl < 0.0f) {
+                        t = 0;
+                    } else {
+                        t = -(dtdy * ((s16) yl & 3)) >> 7;
+                    }
 
                     if ((xl < (gScreenWidth * 4)) && (yl < 960.0f) && (xh > 0.0f) && (yh > 0.0f)) {
                         gSPScisTextureRectangle(
@@ -131,8 +130,8 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
                         /* xh   */ (s16) xh,
                         /* yh   */ (s16) yh,
                         /* tile */ G_TX_RENDERTILE,
-                        /* s    */ 0,
-                        /* t    */ -(dsdx * ((s16) yl & 3)) >> 7,
+                         (dsdx * ((s16) xl & 3)) >> 9,
+                         t,
                         /* dsdx */ dsdx, // tbd
                         /* dtdy */ dtdy);
                     }
@@ -141,42 +140,33 @@ void draw_energy_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 a
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/draw_energy_billboard_texrect.s")
-#endif
 
-#if 0
-// plenty more to figure out
-// 10688
 void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6) {
-    f32 spA8; // made up
-    f32 spA4; // made up
-
+    s16 dsdx;
+    s16 dtdy;
+    s16 t;
+    s16 temp_a2;
+    s16 temp_a3;
+    u16 depth;
     f32 spA0;
-
     f32 sp9C;
     f32 sp98;
     f32 sp94;
-
-    f32 sp64;
-    f32 sp60;
-    f32 sp5C;
-    // s32 sp34;
-    f32 xl; // sp20
-    f32 xh; // sp4
-    s16 dsdx; // sp0
-    s16 dtdy;
+    f32 spA8;
+    f32 spA4;
+    f32 xl;
+    f32 xh;
     f32 yh;
     f32 yl;
     f32 temp_f0;
     f32 xOffset;
     f32 yOffset;
-    s16 temp_a2;
-    s16 temp_a3;
     f32 temp_f10;
     u8 var_a1;
-    s32 var_v1;
-    u16 depth;
+    u8 var_v1;
+    f32 sp64;
+    f32 sp60;
+    f32 sp5C;
 
     var_v1 = 0;
 
@@ -230,7 +220,7 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
                     temp_a2 = gFogState.min * 8;
                     temp_a3 = gFogState.max * 8;
 
-                    temp_f10 = MIN(sp98 * 7990.0, 8000.0);
+                    temp_f10 = (8000.0 < sp98 * 7990.0) ? 8000.0 : sp98 * 7990.0;
 
                     if (temp_a2 >= (s16)temp_f10) {
                         var_a1 = 0;
@@ -269,6 +259,11 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
 
                     dsdx = (arg5 << 0xC) / (xh - xl);
                     dtdy = (arg4 << 0xC) / (yh - yl);
+                    if (yl < 0.0f) {
+                        t = 0;
+                    } else {
+                        t = -(dtdy * ((s16) yl & 3)) >> 7;
+                    }
 
                     if ((xl < (gScreenWidth * 4)) && (yl < 960.0f) && (xh > 0.0f) && (yh > 0.0f)) {
                         gSPScisTextureRectangle(
@@ -279,7 +274,7 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
                         /* yh   */ (s16) yh,
                         /* tile */ G_TX_RENDERTILE,
                         /* s    */ ((dsdx * ((s16) xl & 3)) >> 9),
-                        /* t    */ 0,
+                        /* t    */ t,
                         /* dsdx */ dsdx,
                         /* dtdy */ dtdy);
 
@@ -289,9 +284,6 @@ void draw_collectible_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, 
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_73ED30/draw_collectible_billboard_texrect.s")
-#endif
 
 void draw_dualscale_billboard_texrect(Gfx **dl, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s16 arg5, s32 arg6, s32 arg7) {
     f32 temp_f8;

@@ -2079,7 +2079,7 @@ segments:
       - [0xCAB58, sssv_vtx, data/inc/D_04003128_CAB58]
       - [0xCAC98, sssv_vtx, data/inc/D_04003268_CAC98]
       - [0xCAD18] # sheep body (sheep? springy thing? ram?)
-      - [0xCAEB0, .data, data/D_04003580_CAFB0]
+      - [0xCAEB0, .data, data/sheep_leg]
       - [0xCAEB0, sssv_vtx, data/inc/D_04003480_CAEB0]
       - [0xCAF30, sssv_vtx, data/inc/D_04003500_CAF30]
       - [0xCAFB0] # sheep leg
@@ -2681,7 +2681,7 @@ segments:
       - [0xEA990, sssv_vtx, data/inc/D_040033E0_EA990]
       - [0xEAA20, .data, data/D_04003470_EAA20]
       - [0xEAAB0, sssv_vtx, data/inc/D_04003500_EAAB0]
-      - [0xEAB30, .data, data/sheep_leg]
+      - [0xEAB30, .data, data/D_04003580_EAB30]
       - [0xEAB70, sssv_vtx, data/inc/D_040035C0_EAB70]
       - [0xEABF0, .data, data/D_04003640_EABF0] # dynamic tail
       - [0xEAC30, sssv_vtx, data/inc/D_04003680_EAC30]
@@ -3837,7 +3837,7 @@ segments:
   - [0x544960, rnc, img/trophies/BIG_CELEBRATION_PARADE, rgba16, 32, 32]
   - [0x544990, rnc, img/trophies/SECRET_LEVEL, rgba16, 32, 32]
   #
-  - [0x5449C0, i4, img/water, 16, 1088] # I4 WaterTexture (16x1088) (34 * 16x32)
+  - [0x5449C0, i8, img/water, 16, 544] # I4 WaterTexture (16x1088) (34 * 16x32)
   - [0x546BC0, bin] # tbd, unused?
   # game levels (nested RNC compressed) (differ from EU ROM)
   - [0x546D00, bin, levels/SMASHING_START]
