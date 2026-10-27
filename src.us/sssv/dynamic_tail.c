@@ -234,7 +234,6 @@ void func_802DD548_6EEBF8(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3) {
     }
 }
 
-#ifdef NON_MATCHING
 // ESA: func_80085274 (TBD)
 void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 numSegments) {
     s16 sp1E6;
@@ -359,7 +358,7 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 num
         sp18C = temp_v0->anchorY + ((sp1B0) * ((numSegments * temp_v0->segmentLength) / var_f0));
         sp1E6 = 1;
     } else {
-        sp1E6 = 0;
+        sp1E6 = var_s1 * 0;
     }
 
     var_t5[numSegments].unkC  = sp194 - var_t5[numSegments].unk0;
@@ -401,46 +400,46 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 num
     }
 
     if (sp1E6 != 0) {
-        var_s1 = 0;
+        i = 0;
     } else {
         // fake
-        for (var_s1 = (numSegments - 1); var_s1 >= (temp_v0->heading * 0); var_s1--) {
-            var_f0 = var_t5[var_s1].unk0 - var_t5[numSegments].unk0;
-            var_f2 = var_t5[var_s1].unk4 - var_t5[numSegments].unk4;
-            var_f14 = var_t5[var_s1].unk8 - var_t5[numSegments].unk8;
-            if ((sqrtf(SQ(var_f0) + SQ(var_f2) + SQ(var_f14)) <= (temp_v0->segmentLength * (numSegments - var_s1)))) {
+        for (i = (numSegments - 1); i >= 0; i--) {
+            var_f0 = var_t5[i].unk0 - var_t5[numSegments].unk0;
+            var_f2 = var_t5[i].unk4 - var_t5[numSegments].unk4;
+            var_f14 = var_t5[i].unk8 - var_t5[numSegments].unk8;
+            if ((sqrtf(SQ(var_f0) + SQ(var_f2) + SQ(var_f14)) <= (temp_v0->segmentLength * (numSegments - i)))) {
                 break;
             }
         }
     }
 
-    sp1B8 = var_t5[var_s1].unk0 - var_t5[numSegments].unk0;
-    sp1B4 = var_t5[var_s1].unk4 - var_t5[numSegments].unk4;
-    sp1B0 = var_t5[var_s1].unk8 - var_t5[numSegments].unk8;
+    sp1B8 = var_t5[i].unk0 - var_t5[numSegments].unk0;
+    sp1B4 = var_t5[i].unk4 - var_t5[numSegments].unk4;
+    sp1B0 = var_t5[i].unk8 - var_t5[numSegments].unk8;
 
     var_f12 = sqrtf(SQ(sp1B8) + SQ(sp1B4) + SQ(sp1B0));
     if (var_f12 < 1.0) {
         var_f12 = 1.0;
     }
 
-    if (var_f12 < temp_v0->segmentLength * (numSegments - var_s1)) {
-        sp1B8 = sp1B8 / (numSegments - var_s1);
-        sp1B4 = sp1B4 / (numSegments - var_s1);
-        sp1B0 = sp1B0 / (numSegments - var_s1);
+    if (var_f12 < temp_v0->segmentLength * (numSegments - i)) {
+        sp1B8 = sp1B8 / (numSegments - i);
+        sp1B4 = sp1B4 / (numSegments - i);
+        sp1B0 = sp1B0 / (numSegments - i);
     } else {
         sp1B8 = (temp_v0->segmentLength * sp1B8) / var_f12;
         sp1B4 = (temp_v0->segmentLength * sp1B4) / var_f12;
         sp1B0 = (temp_v0->segmentLength * sp1B0) / var_f12;
     }
 
-    for (i = numSegments - 1; i > var_s1; i--) {
-        var_t5[i].unk0 = var_t5[i+1].unk0 + sp1B8;
-        var_t5[i].unk4 = var_t5[i+1].unk4 + sp1B4;
-        var_t5[i].unk8 = var_t5[i+1].unk8 + sp1B0;
+    for (var_s1 = numSegments - 1; var_s1 > i; var_s1--) {
+        var_t5[var_s1].unk0 = var_t5[var_s1+1].unk0 + sp1B8;
+        var_t5[var_s1].unk4 = var_t5[var_s1+1].unk4 + sp1B4;
+        var_t5[var_s1].unk8 = var_t5[var_s1+1].unk8 + sp1B0;
 
-        var_t5[i].unkC  = var_t5[i].unk0 - sp130[i];
-        var_t5[i].unk10 = var_t5[i].unk4 - spF0[i];
-        var_t5[i].unk14 = var_t5[i].unk8 - spB0[i];
+        var_t5[var_s1].unkC  = var_t5[var_s1].unk0 - sp130[var_s1];
+        var_t5[var_s1].unk10 = var_t5[var_s1].unk4 - spF0[var_s1];
+        var_t5[var_s1].unk14 = var_t5[var_s1].unk8 - spB0[var_s1];
     }
 
     var_f0 = (ABS(var_t5[numSegments].unkC) + ABS(var_t5[numSegments].unk10) + ABS(var_t5[numSegments].unk14)) / (1024 * 1280.0);
@@ -454,9 +453,6 @@ void func_802DD994_6EF044(s16 arg0, struct118 *arg1, s16 arg2, s16 arg3, s16 num
         var_t5[numSegments].unk4 >> 0x10,
         var_t5[numSegments].unk8 >> 0x10);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802DD994_6EF044.s")
-#endif
 
 // ESA: func_80086120
 void func_802DE770_6EFE20(s16 arg0, s16 arg1, s32 xVelocity, s32 zVelocity, s32 yVelocity) {
@@ -1157,7 +1153,7 @@ void func_802E072C_6F1DDC(s8 arg0) {
                     gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0x8A, 0x47, 0xFF); // #ff8a47
                     if (func_80126FD4(D_803DA300[temp_s4->workspaceIndex+0].unk0, D_803DA300[temp_s4->workspaceIndex+0].unk4, D_803DA300[temp_s4->workspaceIndex+0].unk8, D_803DA300[temp_s4->workspaceIndex+1].unk0, D_803DA300[temp_s4->workspaceIndex+1].unk4, D_803DA300[temp_s4->workspaceIndex+1].unk8, 0x33D7, 0x33D7, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs])) {
                         gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-                        gSPDisplayList(gOpaqueDL++, sheep_leg);
+                        gSPDisplayList(gOpaqueDL++, D_04003580_EAB30);
                         gSPPopMatrix(gOpaqueDL++, G_MTX_MODELVIEW);
                     }
                     if (func_80126FD4(D_803DA300[temp_s4->workspaceIndex+1].unk0, D_803DA300[temp_s4->workspaceIndex+1].unk4, D_803DA300[temp_s4->workspaceIndex+1].unk8, D_803DA300[temp_s4->workspaceIndex+2].unk0, D_803DA300[temp_s4->workspaceIndex+2].unk4, D_803DA300[temp_s4->workspaceIndex+2].unk8, 0x33D7, 0x33D7, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs])) {
@@ -1295,9 +1291,7 @@ typedef struct {
   Vtx vtx2;
 } Vtx2;
 
-#ifdef NON_MATCHING
 // ESA: func_80087738
-// CURRENT (220)
 u32 func_802E3C88_6F5338(DynamicTail* arg0) {
 
     s32 var_a3;
@@ -1313,29 +1307,23 @@ u32 func_802E3C88_6F5338(DynamicTail* arg0) {
     s8 s7 = -1;
     s16 i;
 
-    Vtx2 *vtx;
+    Vtx *vtx;
 
     var_a3 = D_803F2C5C * 1024.0;
     temp_fp = D_803F2C60 * 1024.0;
 
-    // start of next available Vtxs
     vtx = &gDisplayListContext->unk31070[D_803E1B04];
 
-    // iterate over each tail segment
     for (i = 0; i < arg0->numSegments; i++) {
 
-        // seems better with var_s4 ops split in half, but ESA matches as single instruction
         if (i == (arg0->numSegments - 1)) {
-            // final piece
             var_s2 =  temp_fp * ((D_803DA300[arg0->workspaceIndex + arg0->numSegments - 1].unk8 - D_803DA300[arg0->workspaceIndex + arg0->numSegments - 2].unk8) >> 0x10);
             var_s3 =  -var_a3 * ((D_803DA300[arg0->workspaceIndex + arg0->numSegments - 1].unk8 - D_803DA300[arg0->workspaceIndex + arg0->numSegments - 2].unk8) >> 0x10);
             var_s4 =  (var_a3 * ((D_803DA300[arg0->workspaceIndex + arg0->numSegments - 1].unk4 - D_803DA300[arg0->workspaceIndex + arg0->numSegments - 2].unk4) >> 0x10)) - ((temp_fp * (D_803DA300[arg0->workspaceIndex + 15].unk0 - D_803DA300[arg0->workspaceIndex + arg0->numSegments - 2].unk0)) >> 0x10);
-            // var_s4 -= ((D_803DA300[arg0->workspaceIndex + 15].unk0 - D_803DA300[arg0->workspaceIndex + arg0->numSegments - 2].unk0) * temp_fp) >> 0x10;
         } else {
             var_s2 =  temp_fp * ((D_803DA300[arg0->workspaceIndex + i + 1].unk8 - D_803DA300[arg0->workspaceIndex + i + 0].unk8) >> 0x10);
             var_s3 =  -var_a3 * ((D_803DA300[arg0->workspaceIndex + i + 1].unk8 - D_803DA300[arg0->workspaceIndex + i + 0].unk8) >> 0x10);
             var_s4 =  (var_a3 * ((D_803DA300[arg0->workspaceIndex + i + 1].unk4 - D_803DA300[arg0->workspaceIndex + i + 0].unk4) >> 0x10)) - ((temp_fp * (D_803DA300[arg0->workspaceIndex + i + 1].unk0 - D_803DA300[arg0->workspaceIndex + i + 0].unk0)) >> 0x10);
-            // var_s4 -= ((D_803DA300[arg0->workspaceIndex + i + 1].unk0 - D_803DA300[arg0->workspaceIndex + i + 0].unk0) * temp_fp) >> 0x10;
         }
 
         var_a0 = 2 * sqrtf(SQ((f32)var_s2) + SQ((f32)var_s3) + SQ((f32)var_s4));
@@ -1343,46 +1331,37 @@ u32 func_802E3C88_6F5338(DynamicTail* arg0) {
             var_a0 = 2;
         }
 
-        // move t6,s6 ?!?
-
         var_s2 = (var_s2 * (arg0->segmentLength >> 0xE)) / var_a0;
         var_s3 = (var_s3 * (arg0->segmentLength >> 0xE)) / var_a0;
-#if 0
-        var_s4 = (var_s4 * (arg0->segmentLength >> 0xE)) / (var_a0);
-#else
-        var_s4 = (var_s4 * (arg0->segmentLength >> 0xE)) / (var_a0 & 0xFF);
-#endif
+        var_s4 = (var_s4 * (arg0->segmentLength >> 0xE)) / var_a0;
 
-        vtx[i].vtx1.n.ob[0] = (D_803DA300[arg0->workspaceIndex + i].unk0 >> 0xE) + var_s2;
-        vtx[i].vtx1.n.ob[1] = (D_803DA300[arg0->workspaceIndex + i].unk4 >> 0xE) + var_s3;
-        vtx[i].vtx1.n.ob[2] = (D_803DA300[arg0->workspaceIndex + i].unk8 >> 0xE) + var_s4;
+        vtx[i*2].n.ob[0] = (D_803DA300[arg0->workspaceIndex + i].unk0 >> 0xE) + var_s2;
+        vtx[i*2].n.ob[1] = (D_803DA300[arg0->workspaceIndex + i].unk4 >> 0xE) + var_s3;
+        vtx[i*2].n.ob[2] = (D_803DA300[arg0->workspaceIndex + i].unk8 >> 0xE) + var_s4;
 
-        vtx[i].vtx1.n.tc[0] = 0U;
+        vtx[i*2].n.tc[0] = 0U;
 
-        vtx[i].vtx1.n.n[0] = s7;  // this is s7 (-1)
-        vtx[i].vtx1.n.n[1] = s7;  // this is s7 (-1)
-        vtx[i].vtx1.n.n[2] = s7;  // this is s7 (-1)
-        vtx[i].vtx1.n.n[3] = t1;  // this is t1 (0xFF)
+        vtx[i*2].n.n[0] = s7;
+        vtx[i*2].n.n[1] = s7;
+        vtx[i*2].n.n[2] = s7;
+        vtx[i*2].n.n[3] = t1;
 
-        vtx[i].vtx2.n.ob[0] = (D_803DA300[arg0->workspaceIndex + i].unk0 >> 0xE) - var_s2;
-        vtx[i].vtx2.n.ob[1] = (D_803DA300[arg0->workspaceIndex + i].unk4 >> 0xE) - var_s3;
-        vtx[i].vtx2.n.ob[2] = (D_803DA300[arg0->workspaceIndex + i].unk8 >> 0xE) - var_s4;
+        vtx[i*2+1].n.ob[0] = (D_803DA300[arg0->workspaceIndex + i].unk0 >> 0xE) - var_s2;
+        vtx[i*2+1].n.ob[1] = (D_803DA300[arg0->workspaceIndex + i].unk4 >> 0xE) - var_s3;
+        vtx[i*2+1].n.ob[2] = (D_803DA300[arg0->workspaceIndex + i].unk8 >> 0xE) - var_s4;
 
-        vtx[i].vtx2.n.tc[0] = 0x7C0;
+        vtx[i*2+1].n.tc[0] = 0x7C0;
 
-        vtx[i].vtx2.n.n[0] = s7;  // this is s7 (-1)
-        vtx[i].vtx2.n.n[1] = s7;  // this is s7 (-1)
-        vtx[i].vtx2.n.n[2] = s7;  // this is s7 (-1)
-        vtx[i].vtx2.n.n[3] = t1;  // this is t1 (0xFF)
+        vtx[i*2+1].n.n[0] = s7;
+        vtx[i*2+1].n.n[1] = s7;
+        vtx[i*2+1].n.n[2] = s7;
+        vtx[i*2+1].n.n[3] = t1;
 
-        vtx[i].vtx1.n.tc[1] = ((i << 5) - 0x80) << 6;
-        vtx[i].vtx2.n.tc[1] = ((i << 5) - 0x80) << 6;
+        vtx[i*2].n.tc[1] = ((i << 5) - 0x80) << 6;
+        vtx[i*2+1].n.tc[1] = ((i << 5) - 0x80) << 6;
     }
     return OS_K0_TO_PHYSICAL(vtx);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/dynamic_tail/func_802E3C88_6F5338.s")
-#endif
 
 // ESA: func_80087AD0
 s32 func_802E414C_6F57FC(s16 arg0, s16 arg1, s16 arg2, s16 *arg3, s8 *arg4) {

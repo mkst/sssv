@@ -11,7 +11,6 @@ extern Gfx D_040012E0_DE8A0[];
 extern Gfx D_04001A60_DF020[];
 extern Gfx D_04001B60_DF120[];
 
-#ifdef NON_MATCHING
 void func_80364780_775E30(void) {
     s16 pad[0x4];
 
@@ -38,9 +37,7 @@ void func_80364780_775E30(void) {
     f32 sp88;
     f32 sp84;
 
-    s16 pad3[2];
-
-    switch (D_803D5524->animalType) {                              /* irregular */
+    switch (D_803D5524->animalType) {    
     case PENGUIN:
         scale = 1;
         break;
@@ -205,7 +202,7 @@ void func_80364780_775E30(void) {
         }
         func_8038064C_791CFC();
         if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) &&
-            (((D_803D5538 != 0)) || (temp_v0_14 = gCameraUiState, (temp_v0_14 == 0)) || (temp_v0_14 == 2) || ((temp_v0_14 == 1) && ( D_803F2AA3 >= 0xB))) &&
+            (((D_803D5538 != 0)) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && ( D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_1) && (gCameras[gCameraId].cameraMode != CAMERA_MODE_BEHIND_2)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
 
@@ -287,9 +284,6 @@ void func_80364780_775E30(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/penguin/func_80364780_775E30.s")
-#endif
 
 // king_penguin_jetpack
 void func_80365954_777004(void) {

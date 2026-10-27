@@ -20,10 +20,10 @@ extern Gfx D_04004C90_EC240[];
 extern Gfx D_04004330_EB8E0[];
 
 // ARMED_DESERT_FOX
-#ifdef NON_MATCHING
-//CURRENT (58)
 void func_803726E0_783D90(void) {
-    s32 pad[4];
+    f32 xDist;
+    f32 yDist;
+    s32 pad[2];
 
     s16 spB4[2]; // FIXME: this should only be a single spB4
     s16 spB0[2];
@@ -47,8 +47,6 @@ void func_803726E0_783D90(void) {
     f32 var_f14;
     f32 sp88;
     f32 var_f0;
-    f32 xDist;
-    f32 yDist;
 
     if (D_803D552C->unk348 >= 0x191) {
         if (D_803D5530->unk4A == 0) {
@@ -228,7 +226,7 @@ void func_803726E0_783D90(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_9 = gCameraUiState, (temp_v0_9 == 0)) || (temp_v0_9 == 2) || ((temp_v0_9 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, spAA - D_803D552C->heading, D_803F2EB0 / 4,  D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
             func_8038C230_79D8E0((D_803D5524->height * 8) / 5, 2, 3, 3, -0.4f);
@@ -270,9 +268,6 @@ void func_803726E0_783D90(void) {
         func_80303D00_7153B0(D_803D552C, 0x375, 0x127);
   }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/desert_fox/func_803726E0_783D90.s")
-#endif
 
 // DESERT_FOX_ATTACKING
 void update_desert_fox_attacking(void) {

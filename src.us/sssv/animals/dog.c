@@ -25,7 +25,6 @@ extern Gfx flying_dog_wing[];
 
 extern Gfx racing_dog_leg[];
 
-
 // RACING_DOG
 void func_802EA7F0_6FBEA0(void) {
     LimbConfig sp98;
@@ -525,8 +524,6 @@ done:
 }
 
 // DOG
-#ifdef NON_MATCHING
-// just the stack (72)
 void func_802ED108_6FE7B8(void) {
     LimbConfig spB8;
     s16 spB6;
@@ -707,7 +704,7 @@ void func_802ED108_6FE7B8(void) {
 
         if (((gDisplayListContext->usedModelViewMtxs +  30) < 250) &&
             (D_803F2EDA != 0) &&
-            ((D_803D5538 != 0) || (((tmp = gCameraUiState) == 0)) || (tmp == 2) || ((tmp == 1) && (D_803F2AA3 >= 0xB))) &&
+            ((D_803D5538 != 0) || ((!gCameraUiState)) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 17)) || (gCameras[gCameraId].zoomIndex != -3))) {
 
             func_80127640(
@@ -795,13 +792,7 @@ void func_802ED108_6FE7B8(void) {
         func_80303D00_7153B0(D_803D552C, 600, 900);
     }
 
-    if (0) {
-        padAE = (padAE == 1 ? padAE == 2 ? padAE == 3 ? padAE == 4 ? 1 : 2 : 3 : 4 : 5);
-    }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/dog/func_802ED108_6FE7B8.s")
-#endif
 
 void func_802EE89C_6FFF4C(void) {
     if (D_803D552C->missileSide != 0) {

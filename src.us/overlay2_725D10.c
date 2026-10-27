@@ -932,8 +932,6 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
 }
 
 // get_next_command?
-#ifdef NON_MATCHING
-// CURRENT 314
 s32 func_80316408_727AB8(Entity *arg0) {
     s32 pad[0x6];
 
@@ -1006,8 +1004,10 @@ s32 func_80316408_727AB8(Entity *arg0) {
     s16 sp9A;
     s16 sp98;
 
-    s32 pad3;
-    s32 pad4;
+    f32 dx;
+    f32 dz;
+    f32 dy;
+    f32 ff;
     s32 sp84;
 
     cmds = &arg0->commands;
@@ -1904,9 +1904,11 @@ s32 func_80316408_727AB8(Entity *arg0) {
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 900) { // 0x384
             func_8038B798_79CE48();
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 1000) { // 0x3E8
-            set_game_state(temp_s1, (s16) (cmds->unk19C.payload.cmd.regular.unk4 + 0x7FBE), (s32) (cosf((f32) ((f64) (f32) get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2 + 0x7FBE) * 0.017453216666666667)) * 2048.0f));
+            ff = cosf((f32) ((f64) (f32) get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2 + 0x7FBE) * 0.017453216666666667));
+            set_game_state(temp_s1, (s16) (cmds->unk19C.payload.cmd.regular.unk4 + 0x7FBE), (s32) (ff * 2048.0f));
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 1100) { // 0x44C
-            set_game_state(temp_s1, (s16) (cmds->unk19C.payload.cmd.regular.unk4 + 0x7FBE), (s32) (sinf((f32) ((f64) (f32) get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2 + 0x7FBE) * 0.017453216666666667)) * 2048.0f));
+            ff = sinf((f32) ((f64) (f32) get_game_state(temp_s1, cmds->unk19C.payload.cmd.regular.unk2 + 0x7FBE) * 0.017453216666666667));
+            set_game_state(temp_s1, (s16) (cmds->unk19C.payload.cmd.regular.unk4 + 0x7FBE), (s32) (ff * 2048.0f));
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 1200) { // 0x4B0
             D_803A6CE0_7B8390 = cmds->unk19C.payload.cmd.regular.unk2;
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 1300) { // 0x514
@@ -1937,7 +1939,10 @@ s32 func_80316408_727AB8(Entity *arg0) {
             spEC = 1.0f;
         } else {
             tmp3 = gAnimalState.animals[gCurrentAnimalIndex].animal;
-            spEC = sqrtf(SQ((f32)(temp_s1->position.xPos.h - tmp3->position.xPos.h)) + SQ((f32)(temp_s1->position.zPos.h - tmp3->position.zPos.h)) + SQ((f32)(temp_s1->position.yPos.h - tmp3->position.yPos.h)));
+            dx = (f32)(temp_s1->position.xPos.h - tmp3->position.xPos.h);
+            dz = (f32)(temp_s1->position.zPos.h - tmp3->position.zPos.h);
+            dy = (f32)(temp_s1->position.yPos.h - tmp3->position.yPos.h);
+            spEC = sqrtf(SQ(dx) + SQ(dz) + SQ(dy));
         }
 
         do_rumble(
@@ -2428,9 +2433,6 @@ s32 func_80316408_727AB8(Entity *arg0) {
 
     return 0;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_725D10/func_80316408_727AB8.s")
-#endif
 
 // ESA: func_8004C7B4
 void func_803190FC_72A7AC(Entity *arg0) {

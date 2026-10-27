@@ -15,26 +15,26 @@ extern Gfx D_04000D70_F1DD0[];
 extern Gfx D_04000F60_F1FC0[];
 extern Gfx D_04000FC0_F2020[];
 
-#ifdef NON_MATCHING
-// CURRENT (3727)
 void func_802F1730_702DE0(void) {
-    s32 pad[2];
-    u8  temp_v0_8;
+    s32 a1;
+    s32 a2;
+    s32 a3;
 
     LimbConfig spC4;
-    s16 spC2;                                       /* compiler-managed */
-    s16 spC0;                                       /* compiler-managed */
+    s16 spC2;                      
+    s16 spC0;                      
     s16 spBE;
     s16 spBC;
     s16 spBA;
     s16 temp_t9;
-    s32 temp_t7; // err?
+    s16 temp_t7;
     s16 temp_t6;
     s16 spB2;
     s16 spB0;
     s16 var_t2; // spAE
+    u8 temp_v0_8;
+    s16 sp538;
 
-    s16 pad2[2];
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spBE = 0;
@@ -111,7 +111,7 @@ void func_802F1730_702DE0(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_8 = gCameraUiState, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && (((sp538 = D_803D5538) != 0) || ((temp_v0_8 = gCameraUiState) == 0) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (sp538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, D_803F2EB0 / 4, D_803F2EB4 / 4,  (D_803F2EB8 / 4), D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
@@ -119,14 +119,12 @@ void func_802F1730_702DE0(void) {
             gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
             gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xFF, 0xFF, 0x0, 0xFF);
 
-            if ((D_803D5530->state == 3) && (D_803D552C->movementMode != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
-                // bleurgh
+            if ((D_803D5530->state == 3) && ((D_803D552C->movementMode & 0xFF) != MOVEMENT_MODE_DEACTIVATED) && (D_803D552C->movementMode != MOVEMENT_MODE_2)) {
                 var_t2 =  (COS(D_803D552C->gaitPhaseOffset) >> 7) / 16;
-                spBA =   ((COS(D_803D552C->gaitPhaseOffset) >> 7) * -0x20D) >> 0xA;
-
                 temp_t7 = ((0x100 + (COS(D_803D552C->gaitPhaseOffset) >> 7)) * 0x20D) >> 0xA;
                 temp_t9 = ((0x100 - (COS(D_803D552C->gaitPhaseOffset) >> 7)) * 0x20D) >> 0xA;
-                temp_t6 = ((SIN(D_803D552C->gaitPhaseOffset << 1) >> 7) * 0x20D) >> 0xB;
+                temp_t6 = ((gSineTable256[(D_803D552C->gaitPhaseOffset << 1) & 0xFF] >> 7) * 0x20D) >> 0xB;
+                spBA =   ((COS(D_803D552C->gaitPhaseOffset) >> 7) * -0x20D) >> 0xA;
 
                 D_80203FE0[4].unk4  += temp_t7;
                 D_80203FE0[10].unk4 += temp_t7;
@@ -162,7 +160,7 @@ void func_802F1730_702DE0(void) {
             D_80203FE0[1].unk2  += (spB0 * 600) >> 5;
             D_80203FE0[20].unk2 += (spB0 * 600) >> 5;
 
-            if (gLodDetailState == 0) { func_802C78B0_6D8F60(0x14, 1, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000D70_F1DD0); }
+            if (!gLodDetailState) { func_802C78B0_6D8F60(0x14, 1, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000D70_F1DD0); }
 
             D_80203FE0[20].unk4 += (spB2 * 600) >> 5;
             D_80203FE0[1].unk4  -= (spB0 * 600) >> 3;
@@ -196,11 +194,9 @@ void func_802F1730_702DE0(void) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spC2, &spC0);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spC2, &spC0);
                 if (D_803D552C->unk365 == ATTACK_ROAR) {
-                    spC0 = spC2 = 2;
+                    spC2 = spC0 = 2;
                 }
-#pragma _permuter sameline start
                 spC2 = D_803BD530_7CEBE0.eyes[6][spC2]; spC0 = D_803BD600_7CECB0.eyes[5][spC0];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes6_TLUT1_pal, (u8 (*)[128])img_eyes6_ci4__png, spC2);
                 gSPDisplayList(gOpaqueDL++, D_010037F0_3D0C0);
                 func_802C78B0_6D8F60(1, 20, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, (D_803F2EC8 * 0x60) >> 6, D_803F2ED0, 0, 0, 0, D_04000F60_F1FC0);
@@ -222,11 +218,15 @@ void func_802F1730_702DE0(void) {
     if (spBC != 0) {
         if ((spBE == 0) && (D_803F2EDB != 0)) {
 
+            a1 = D_803D5530->position.xPos.w + ((COS(D_803D552C->heading) * D_80203FE0[26].unk0) / 32) + ((SIN(D_803D552C->heading) * D_80203FE0[26].unk2) / 32);
+            a2 = D_803D5530->position.zPos.w + ((COS(D_803D552C->heading) * D_80203FE0[26].unk2) / 32) - ((SIN(D_803D552C->heading) * D_80203FE0[26].unk0) / 32);
+            a3 = D_803D5530->position.yPos.w + ((D_80203FE0[26].unk4 << 0x10) / 32);
+
             func_802DE914_6EFFC4(
                 spBC,
-                D_803D5530->position.xPos.w + ((COS(D_803D552C->heading) * D_80203FE0[26].unk0) / 32) + ((SIN(D_803D552C->heading) * D_80203FE0[26].unk2) / 32),
-                D_803D5530->position.zPos.w + ((COS(D_803D552C->heading) * D_80203FE0[26].unk2) / 32) - ((SIN(D_803D552C->heading) * D_80203FE0[26].unk0) / 32),
-                D_803D5530->position.yPos.w + ((D_80203FE0[26].unk4 << 0x10) / 32),
+                a1,
+                a2,
+                a3,
                 D_803D552C->heading);
 
             if (D_803E00C0[D_803D5528->unk3C8.unk2].needsRecurve == 1) {
@@ -245,9 +245,6 @@ void func_802F1730_702DE0(void) {
         func_80303D00_7153B0(D_803D552C, 0x384, 0x1C2);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/lion/func_802F1730_702DE0.s")
-#endif
 
 void func_802F2A2C_7040DC(void) {
     D_803D552C->unk32A = gGameplayTick;

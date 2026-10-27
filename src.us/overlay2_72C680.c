@@ -383,7 +383,6 @@ void load_level_data(u8 level) {
     func_8031C48C_72DB3C();
 }
 
-#ifdef NON_MATCHING
 // Level streams are a sequence of tagged payloads; svle writes them in this
 // order: .dat, .mat, .map, .cmd, .cob, .can, .joi, .rng, .cha, .paf,
 // geo, .cam, type 14, type 15, then type 3 as the terminator.
@@ -420,6 +419,7 @@ void load_level_data_sections(void) {
     DataSection *base;
 
     s16 type15EntryCount;
+    u16 count2;
 
     base = &D_80100000;
 
@@ -480,7 +480,7 @@ void load_level_data_sections(void) {
                 if (cob->commandReferenceIdx != 0) {
                     load_commands_into_object(
                         obj,
-                        &D_803E4D40[cob->commandReferenceIdx] - 1,
+                        (CmdWrapper*)((u8*)D_803E4D40 + cob->commandReferenceIdx * 10) - 1,
                         cob->commandsLength);
                 }
                 obj->cmdIndex = cob->unk12;
@@ -509,7 +509,7 @@ void load_level_data_sections(void) {
                 obj = gAnimalState.animals[gNumAnimalsInLevel - 1].animal;
 
                 if (can->unkC != 0) {
-                    cmdWrapper = &D_803E4D40[can->unkC] - 1;
+                    cmdWrapper = (CmdWrapper*)((u8*)D_803E4D40 + can->unkC * 10) - 1;
                     load_commands_into_object(
                         obj,
                         cmdWrapper,
@@ -552,22 +552,21 @@ void load_level_data_sections(void) {
             buf += get_compressed_size(buf);
 
             count = base->u.count;
-            payloadLength = sizeof(CmdWrapper);
 
             func_80314788_725E38(); // zero out D_803E4D40 amongst other things
             memcpy_sssv(base->s.payload, (u8*)D_803E4D40, count);
 
-            D_803E8E54 = count / (u32)payloadLength; // gNumCommands
+            D_803E8E54 = count / sizeof(CmdWrapper);
             for (j = 0; j < D_803E8E54; j++) {
-                if (D_803E4D40[(u32)j].type == 24) {
+                if ((*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).type == 24) {
                     if (1) {
                         osSyncPrintf(
                             "Partcle State: %d F $%X Fq %d Time %d S %d\n",
-                            D_803E4D40[(u32)j].cmd.type24.State,
-                            D_803E4D40[(u32)j].cmd.type24.F,
-                            D_803E4D40[(u32)j].cmd.type24.Fq,
-                            D_803E4D40[(u32)j].cmd.type24.Time,
-                            D_803E4D40[(u32)j].cmd.type24.S);
+                            (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.State,
+                            (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.F,
+                            (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.Fq,
+                            (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.Time,
+                            (*(CmdWrapper*)((u8*)D_803E4D40 + j * 10)).cmd.type24.S);
                         }
                 }
             }
@@ -591,14 +590,13 @@ void load_level_data_sections(void) {
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
 
-            count = base->u.count;
+            count2 = base->u.count;
             paf2 = paf = base->s.payload;
 
             pafBytesUsed = 0;
-            for (i = 0; i < count; i++) {
+            for (length = 0; length < count2; length++) {
                 // record the start of each waypoint in D_803E8E60
-                D_803E8E60[i] = (Waypoint*)&D_803E8F60[pafBytesUsed];
-                // each waypoint starts with the count followed by count*xyz entries, e.g.
+                D_803E8E60[length] = (Waypoint*)&D_803E8F60[pafBytesUsed];
                 //    B BBB BBB BBB ... =>
                 //    3 123 456 789
                 pafBytesUsed += (paf[0] * 3) + 1;
@@ -613,7 +611,7 @@ void load_level_data_sections(void) {
 
             // NOTE: no boundary check that pafBytesUsed < sizeof(D_803E8F60)!
             memcpy_sssv(paf2, (u8*)D_803E8F60, pafBytesUsed);
-            D_803A5750_7B6E00 = i;
+            D_803A5750_7B6E00 = count2;
             break;
 
         case 7: /* .cha: dynamic/hanging objects */
@@ -837,7 +835,7 @@ void load_level_data_sections(void) {
                     a0 = 4;
                     a1 = FTOFIX32(9.375);
                     a2 = 0;
-                    a3 = cha->unk0;
+                    a3 = TAIL_TYPE_FIRE_WISP_B;
                     func_802DD090_6EE740(
                         a0,
                         a1,
@@ -969,9 +967,6 @@ void load_level_data_sections(void) {
         }
     } while (!done);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72C680/load_level_data_sections.s")
-#endif
 
 void func_8031C304_72D9B4(void) {
     func_8012A400(); // receive messages, synchronization?

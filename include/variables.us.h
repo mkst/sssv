@@ -74,7 +74,7 @@ extern Gfx  D_04000230_F1290[];
 extern Gfx  D_04005B60_11C730[]; // spaceship interior
 extern Gfx  D_04006D00_11D8D0[]; // tv body
 
-extern Gfx sheep_leg[];
+extern Gfx D_04003580_EAB30[];
 extern Gfx D_04003640_EABF0[];
 extern Gfx D_040036D0_EAC80[];
 extern Gfx D_04003930_E0EF0[];
@@ -164,7 +164,7 @@ extern s16  gSineTable[1170];
 extern s16  gSineTable256[256];
 
 // thread6
-extern u8   D_80152E90; // 0x2E590
+extern s8   D_80152E90; // 0x2E590
 extern u8   D_80152E98;
 extern Vp   gMainViewport;
 extern u16  D_80152EB8; // frame buffer id?

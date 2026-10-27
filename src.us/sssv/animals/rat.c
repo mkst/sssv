@@ -13,8 +13,6 @@ extern Gfx D_04007520_CEF50[];
 extern Gfx D_040073B0_CEDE0[];
 extern Gfx D_040073D8_CEE08[];
 
-#ifdef NON_MATCHING
-// CURRENT (188)
 void func_8035E430_76FAE0(void) {
     s16 tailIndex; // spD6
     s32 a1;
@@ -37,7 +35,6 @@ void func_8035E430_76FAE0(void) {
     s16 scale; // spA0
 
     s32 temp_a3;
-    u8  temp_v0_9;
 
     switch (D_803D5524->animalType) {
     case RAT:
@@ -154,7 +151,7 @@ void func_8035E430_76FAE0(void) {
                     SSSV_RAND(4),
                     GPACK_RGBA5551(128, (SSSV_RAND(64) + 192), 0, 1),
                     GPACK_RGBA5551(SSSV_RAND(16) + 65, 160, 72, 1),
-                    (0, SSSV_RAND(32) + 10)); // slight improvement, but not correct
+                    SSSV_RAND(32) + 10);
 
                 if (D_803D5530->unk4A == 0) {
                     func_8032CD70_73E420(
@@ -192,7 +189,7 @@ void func_8035E430_76FAE0(void) {
         }
         func_8038064C_791CFC();
         if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 250) &&
-            (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_9 = gCameraUiState, (temp_v0_9 == 0)) || (temp_v0_9 == 2) || ((temp_v0_9 == 1) && (D_803F2AA3 >= 0xB))) &&
+            (D_803F2EDA != 0) && ((D_803D5538 != 0) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) &&
             ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
 
             func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w, -D_803D552C->heading, (scale * D_803F2EB0) / 4, (scale * D_803F2EB4) / 4, (scale * D_803F2EB8) / 4, D_803F2ED2, D_803F2ED4);
@@ -326,9 +323,6 @@ void func_8035E430_76FAE0(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/rat/func_8035E430_76FAE0.s")
-#endif
 
 void func_8035F92C_770FDC(void) {
     if (((D_803D5530->movementState == MOVEMENT_STATE_GROUND) || (D_803D5530->movementState == MOVEMENT_STATE_FLYING)) && (D_803D5530->unk6C == 0)) {

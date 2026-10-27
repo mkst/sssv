@@ -319,7 +319,6 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
         0);
 }
 
-#ifdef NON_MATCHING
 // ESA: func_800775B8
 // just the stack (16)
 void trigger_contagious_laughter(void) {
@@ -345,6 +344,10 @@ void trigger_contagious_laughter(void) {
     s16 sp9A;
     s16 sp98;
 
+    if (temp_t6 + var_a2) {}
+    if (var_a2) {}
+    if (temp_t6 + var_a3) {}
+    if (temp_t8 + var_t2) {}
     if (D_803D5524->animalType != MYSTERY_BEAR) {
         func_8032CD70_73E420(
             (u8*)D_803D5530 + 0x15,
@@ -470,9 +473,6 @@ void trigger_contagious_laughter(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_78E9F0/trigger_contagious_laughter.s")
-#endif
 
 // only used by MOUSE2
 void func_8037E6DC_78FD8C(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u8 arg4) {
