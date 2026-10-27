@@ -344,13 +344,13 @@ void func_8039E6D4_7AFD84(RegularTrail *arg0) {
     }
 }
 
-#if 0
-// CURRENT (3592)
 extern Gfx D_01004A70_3E340[];
-extern u8  D_01044CB0_7E580[];
-extern u8  D_010454B0_7ED80[];
+
+
 
 // esa:func_80088FEC
+#define SINB_T(x) sineTable[((s16)(x)) + 360]
+#define COSB_T(x) sineTable[((s16)(x)) + 360 + 90]
 void display_trails(void) {
     s16 i; // sp19E
     s32 pad[6];
@@ -368,6 +368,7 @@ void display_trails(void) {
 
     s16 temp_v1;
     s16 var_a3;
+    u8  var_t1;
     s16 var_s1;
 
     WalrusWake *walrusWake; // sp148?
@@ -379,49 +380,23 @@ void display_trails(void) {
     s32 idx;
 
     s16 var_s4;
-    u8  var_t1;
     u8  var_t5;
 
     RegularTrail *trail;
+    s16 *sineTable = gSineTable;
     SimpleTrail *simpleTrail;
     Animal *animal;
 
     gSPDisplayList(gLayer0DL++, D_01004A70_3E340);
 
     // what macros are these? can't get _gDPLoadTextureBlock to match...
-    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01044CB0_7E580); // trail
-    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD
-    );
-    gDPLoadSync(gLayer0DL++);
-    gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 1023, 1024);
-    gDPPipeSync(gLayer0DL++);
-    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD
-    );
-    gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, (32-1) << 2, (128-1) << 2);
-
-    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_010454B0_7ED80);
-    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0100, G_TX_LOADTILE, 0,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
-    gDPLoadSync(gLayer0DL++);
-    gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 1023, 1024);
-    gDPPipeSync(gLayer0DL++);
-    gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0100, G_TX_RENDERTILE, 0,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD,
-        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD
-    );
-    gDPSetTileSize(gLayer0DL++, G_TX_RENDERTILE, 0, 0, (32-1) << 2, (128-1) << 2);
+    gDPLoadTextureBlock_4b(gLayer0DL++, img_D_01044CB0_7E580_i4__png, G_IM_FMT_I, 32, 128, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gDPLoadMultiBlock_4b(gLayer0DL++, img_D_010454B0_7ED80_i4__png, 0x100, G_TX_RENDERTILE, G_IM_FMT_I, 32, 128, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
     if (trailsUsed > 0) {
         for (i = 0; i < 30; i++) {
+            if (gTrails[i].unk0.trailType != 0) {
             switch (gTrails[i].unk0.trailType) {
-            case 0:
-                break; // continue does the same
-
             case 1:
                 trail = &gTrails[i].trail.regular;
                 animal = trail->unk240;
@@ -439,7 +414,8 @@ void display_trails(void) {
                     if (gTrails[i].unk0.unk4 != 2) {
                         if (gTrails[i].unk0.unk4 == 1) {
                             gTrails[i].unk0.unk4 = 0;
-                            trail->unk2 = trail->unk1 = 0; // maybe?
+                            trail->unk2 = 0;
+                            trail->unk1 = 0;
                             trail->unk12[0] = 0;
                             func_8039E6D4_7AFD84(trail);
                         }
@@ -465,8 +441,8 @@ void display_trails(void) {
                             break; // break out of the loop
                         }
                     } else {
-                        trail->unk38[(var_s4 >> 1)+0].v.cn[3] = 0x80 - trail->unk12[var_s4 >> 1];
-                        trail->unk38[(var_s4 >> 1)+1].v.cn[3] = 0x80 - trail->unk12[var_s4 >> 1];
+                        trail->unk38[var_s4+0].v.cn[3] = 0x80 - trail->unk12[var_s4 >> 1];
+                        trail->unk38[var_s4+1].v.cn[3] = 0x80 - trail->unk12[var_s4 >> 1];
                     }
                 }
 
@@ -549,19 +525,17 @@ void display_trails(void) {
                         var_v1 = -(COS(simpleTrail->unk1) << 5) >> 0xF;
                     }
 
-                    temp_t8 = ((var_v1 + 0x100) * animal->unk40) >> 0xB;
+                    var_v1 = ((var_v1 + 0x100) * animal->unk40) >> 0xB;
                     temp_a1 = (((simpleTrail->unk3 * 8) * animal->unk40) >> 0xB);
-                    temp_a1 = temp_a1 + temp_t8;
+                    temp_a1 = temp_a1 + var_v1;
 
-                    if (0) {};
-
-                    simpleTrail->unk38[var_a3+0].v.ob[0] = (COSB(idx * temp_t8) >> 8;
+                    simpleTrail->unk38[var_a3+0].v.ob[0] = (COSB_T(idx) * var_v1) >> 8;
                     simpleTrail->unk38[var_a3+0].v.ob[1] = 0;
-                    simpleTrail->unk38[var_a3+0].v.ob[2] = (SINB(idx * temp_t8) >> 8;
+                    simpleTrail->unk38[var_a3+0].v.ob[2] = (SINB_T(idx) * var_v1) >> 8;
 
-                    simpleTrail->unk38[var_a3+1].v.ob[0] = (COSB(idx * temp_a1) >> 8;
+                    simpleTrail->unk38[var_a3+1].v.ob[0] = (COSB_T(idx) * temp_a1) >> 8;
                     simpleTrail->unk38[var_a3+1].v.ob[1] = 0;
-                    simpleTrail->unk38[var_a3+1].v.ob[2] = (SINB(idx * temp_a1) >> 8;
+                    simpleTrail->unk38[var_a3+1].v.ob[2] = (SINB_T(idx) * temp_a1) >> 8;
 
                     simpleTrail->unk38[var_a3+0].v.cn[3] = 0xC0 - simpleTrail->unk2;
                     simpleTrail->unk38[var_a3+1].v.cn[3] = 0xC0 - simpleTrail->unk2;
@@ -593,8 +567,8 @@ void display_trails(void) {
 
                     // 0x4280 -> 64.0
                     // 0x4100 -> 8.0
-                    temp_f2 = ((simpleTrail->unk2 / (1 / 0.015625f)) / (1 / 0.125f));
-                    guScale(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], temp_f2 + 0.125, temp_f2 + 0.125, temp_f2 + 0.125);
+                    temp_f2 = ((simpleTrail->unk2 / (1 / 0.015625f)) / (1 / 0.125f)) + 0.125;
+                    guScale(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], temp_f2, temp_f2, temp_f2);
                     gSPMatrix(gLayer0DL++, &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++], G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
                     guRotate(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], animal->yRotation, 0.0f, 0.0f, 1.0f);
@@ -626,7 +600,7 @@ void display_trails(void) {
                         );
                     }
                 }
-                simpleTrail->unk1 += 2; // numTris / numVtx
+                simpleTrail->unk1 = (simpleTrail->unk1 + 2) & 0xFF;
                 break;
 
             case 3:
@@ -654,16 +628,17 @@ void display_trails(void) {
                     if (gTrails[i].unk0.unk4 == 1) {
                         gTrails[i].unk0.unk4 = 0;
 
-                        walrusWake->unk2 = walrusWake->unk4 = 0;
+                        walrusWake->unk2 = 0;
+                        walrusWake->unk4 = 0;
                         walrusWake->numVtxs = 0;
                         func_8039E33C_7AF9EC(walrusWake);
                     }
                     if (var_t5) {
                         walrusWake->numVtxs = (walrusWake->numVtxs + 2) & 0x1F;
-                        if (walrusWake->unk2 == walrusWake->numVtxs) {
+                        if (walrusWake->numVtxs == walrusWake->unk2) {
                             walrusWake->unk2 = (walrusWake->unk2 + 2) & 0x1F;
                         }
-                        walrusWake->unk4 += 40;
+                        walrusWake->unk4 = (walrusWake->unk4 + 40) & 0xFF;
                         func_8039E33C_7AF9EC(walrusWake);
                     }
                 }
@@ -682,33 +657,31 @@ void display_trails(void) {
                         if ((var_s4 == walrusWake->unk2)) {
                             // first iteration?
                             walrusWake->unk2 = (walrusWake->unk2 + 2) & 0x1F;
-                            if ((walrusWake->numVtxs == walrusWake->unk2) && (gTrails[i].unk1.unk0 != 0)) {
+                            if ((walrusWake->unk2 == walrusWake->numVtxs) && (gTrails[i].unk1.unk0 != 0)) {
                                   trailsUsed--;
                                   gTrails[i].unk0.trailType = 0;
                                   break; // break out of the loop entirely
                             }
                         }
                     } else {
-                        temp_s6 = ((walrusWake->unk2E[var_s4 >> 1]) * (SIN(walrusWake->unkE[var_s4 >> 1]) >> 8)) >> 7;
-                        walrusWake->vtxs[var_s4 + 0].v.cn[3] = temp_s6;
-                        walrusWake->vtxs[var_s4 + 1].v.cn[3] = temp_s6;
+                        walrusWake->vtxs[var_s4 + 0].v.cn[3] = ((walrusWake->unk2E[var_s4 >> 1]) * (SIN(walrusWake->unkE[var_s4 >> 1]) >> 8)) >> 7;
+                        walrusWake->vtxs[var_s4 + 1].v.cn[3] = walrusWake->vtxs[var_s4 + 0].v.cn[3];
 
                         temp_t0 = walrusWake->unkBE[var_s4 >> 1]; //unkE;
                         temp_a3 = ((walrusWake->unk3E[var_s4 >> 1] * walrusWake->unk5) >> 5) + walrusWake->unk5;
 
-                        temp_s5 = ( COSB(temp_t0) * temp_a3) >> 8;
-                        temp_s6 = (-SINB(temp_t0) * temp_a3) >> 8;
+                        temp_s5 = ( COSB_T(temp_t0) * temp_a3) >> 8;
+                        temp_s6 = (-SINB_T(temp_t0) * temp_a3) >> 8;
                         func_802F5F44_7075F4(walrusWake->unk320, walrusWake->unk322, walrusWake->unk324, 0, temp_t0, &sp17C);
 
-                        if (0) {}; // probably not
 
                         temp_v1 = SIN(walrusWake->unk3E[var_s4 >> 1]);
 
-                        sp17C.unk0 += ((temp_v1 * walrusWake->unkDE[var_s4 >> 1][0]) >> 0x11);
-                        sp17C.unk2 += ((temp_v1 * walrusWake->unkDE[var_s4 >> 1][1]) >> 0x11);
+                        sp17C.unk0 += ((walrusWake->unkDE[var_s4 >> 1][0] * temp_v1) >> 0x11);
+                        sp17C.unk2 += ((walrusWake->unkDE[var_s4 >> 1][1] * temp_v1) >> 0x11);
 
-                        sp17C.unk0 += (walrusWake->unk3E[var_s4 >> 1] * walrusWake->unkDE[var_s4 >> 1][0]) >> 8;
-                        sp17C.unk2 += (walrusWake->unk3E[var_s4 >> 1] * walrusWake->unkDE[var_s4 >> 1][1]) >> 8;
+                        sp17C.unk0 += (walrusWake->unkDE[var_s4 >> 1][0] * walrusWake->unk3E[var_s4 >> 1]) >> 8;
+                        sp17C.unk2 += (walrusWake->unkDE[var_s4 >> 1][1] * walrusWake->unk3E[var_s4 >> 1]) >> 8;
 
                         walrusWake->vtxs[var_s4+0].v.ob[0] = sp17C.unk0 + (walrusWake->unk5E[var_s4 >> 1][0] + temp_s5);
                         walrusWake->vtxs[var_s4+0].v.ob[1] = sp17C.unk2 + (walrusWake->unk5E[var_s4 >> 1][1] + temp_s6);
@@ -751,9 +724,7 @@ void display_trails(void) {
                 walrusWake->unk3 %= walrusWake->unkD;
                 break;
             }
+            }
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/trails/display_trails.s")
-#endif

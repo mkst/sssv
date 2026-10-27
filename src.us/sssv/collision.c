@@ -27,7 +27,6 @@ u16 D_803D60E2;
 // .text
 // ========================================================
 
-#if 0
 // CURRENT (14669)
 // ESA: func_80070A6C
 void func_802B4D20_6C63D0(void) {
@@ -35,6 +34,7 @@ void func_802B4D20_6C63D0(void) {
     CollisionNode *sp130;
     CollisionNode *sp12C;
 
+    s32 pad[3];
     Pos sp11C;
     Pos sp118;
     Pos sp114;
@@ -42,8 +42,8 @@ void func_802B4D20_6C63D0(void) {
     Pos sp110;
     Pos sp10C;
     Pos sp108;
+    s32 diff;
 
-    s32 pad[4];
 
     Vec3f spF8;
     Vec3f spEC;
@@ -57,10 +57,9 @@ void func_802B4D20_6C63D0(void) {
     s32 temp_a0_6;
     s32 totalMass;
     s32 temp_v1_6;
-    s32 var_s5;
-    u16 var_s3;
-    u16 var_s4;
-    s32 res1, res2;
+    u32 var_s5;
+    s32 var_s3;
+    s32 var_s4;
 
     for (i = 0; i < 40; i++) {
         for (sp130 = D_803DA110[i].next; sp130 != NULL; sp130 = sp130->next) {
@@ -70,14 +69,13 @@ void func_802B4D20_6C63D0(void) {
                      ((sp130->animal->unk114[0] == i) && (sp12C->animal->unk114[0] < i)) ||
                      ((sp12C->animal->unk114[0] == i) && (sp130->animal->unk114[0] < i)))) {
 
-                    animal1 = sp130->animal;
-                    animal2 = sp12C->animal;
-
                     if ((D_803B1BAC_7C325C[sp130->animal->unk16C->objectCategory] & (1 << (0xF - sp12C->animal->unk16C->objectCategory))) != 0) {
 
-                        if ((ABS(animal1->newPosition.xPos.h - animal2->newPosition.xPos.h) < (animal1->unk34 + animal2->unk34)) &&
-                            (ABS(animal1->newPosition.zPos.h - animal2->newPosition.zPos.h) < (animal1->unk34 + animal2->unk34)) &&
-                            (ABS(((animal1->newPosition.yPos.h + (animal1->unk42 >> 1)) - animal2->newPosition.yPos.h) - (animal2->unk42 >> 1)) < (animal1->unk36 + animal2->unk36))) {
+                        if ((((diff = sp130->animal->newPosition.xPos.h - sp12C->animal->newPosition.xPos.h) < 0 ? -(sp130->animal->newPosition.xPos.h - sp12C->animal->newPosition.xPos.h) : (sp130->animal->newPosition.xPos.h - sp12C->animal->newPosition.xPos.h)) < (sp130->animal->unk34 + sp12C->animal->unk34)) &&
+                            (((diff = sp130->animal->newPosition.zPos.h - sp12C->animal->newPosition.zPos.h) < 0 ? -(sp130->animal->newPosition.zPos.h - sp12C->animal->newPosition.zPos.h) : (sp130->animal->newPosition.zPos.h - sp12C->animal->newPosition.zPos.h)) < (sp130->animal->unk34 + sp12C->animal->unk34)) &&
+                            (((diff = ((sp130->animal->newPosition.yPos.h + (sp130->animal->unk42 >> 1)) - sp12C->animal->newPosition.yPos.h) - (sp12C->animal->unk42 >> 1)) < 0 ? -(((sp130->animal->newPosition.yPos.h + (sp130->animal->unk42 >> 1)) - sp12C->animal->newPosition.yPos.h) - (sp12C->animal->unk42 >> 1)) : (((sp130->animal->newPosition.yPos.h + (sp130->animal->unk42 >> 1)) - sp12C->animal->newPosition.yPos.h) - (sp12C->animal->unk42 >> 1))) < (sp130->animal->unk36 + sp12C->animal->unk36))) {
+                            animal1 = sp130->animal;
+                            animal2 = sp12C->animal;
 
                             if (((animal1->unk68 != animal2) || (((D_803A0510_7B1BC0[(animal1->unk16C->objectCategory)]) & (1 << (0xF - animal2->unk16C->objectCategory))) == 0)) &&
                                 ((animal2->unk68 != animal1) || (((D_803A0510_7B1BC0[(animal2->unk16C->objectCategory)]) & (1 << (0xF - animal1->unk16C->objectCategory))) == 0)) &&
@@ -92,10 +90,8 @@ void func_802B4D20_6C63D0(void) {
 
                                     mode = func_802B5E48_6C74F8(animal1, animal2, &D_803D60D0, &D_803D60D4);
 
-                                    res1 = ((D_803D60D4 != 0) && (D_803D60D0(animal2, animal1, &D_803D60D8, &D_803D60DC, animal2->newPosition.xPos, animal2->newPosition.zPos, animal2->newPosition.yPos, animal1->newPosition.xPos, animal1->newPosition.zPos, animal1->newPosition.yPos)));
-                                    res2 = ((D_803D60D4 == 0) && (D_803D60D0(animal1, animal2, &D_803D60D8, &D_803D60DC, animal1->newPosition.xPos, animal1->newPosition.zPos, animal1->newPosition.yPos, animal2->newPosition.xPos, animal2->newPosition.zPos, animal2->newPosition.yPos)));
-
-                                    if (res1 || res2) {
+                                    if (((D_803D60D4 != 0) && (D_803D60D0(animal2, animal1, &D_803D60D8, &D_803D60DC, animal2->newPosition.xPos, animal2->newPosition.zPos, animal2->newPosition.yPos, animal1->newPosition.xPos, animal1->newPosition.zPos, animal1->newPosition.yPos) != 0)) ||
+                                        ((D_803D60D4 == 0) && (D_803D60D0(animal1, animal2, &D_803D60D8, &D_803D60DC, animal1->newPosition.xPos, animal1->newPosition.zPos, animal1->newPosition.yPos, animal2->newPosition.xPos, animal2->newPosition.zPos, animal2->newPosition.yPos) != 0))) {
 
                                         animal1->unk4C.unk19 = 1;
                                         animal2->unk4C.unk19 = 1;
@@ -110,13 +106,13 @@ void func_802B4D20_6C63D0(void) {
                                         func_802FD674_70ED24(animal2, animal1);
 
                                         // store original velocities...
-                                        sp11C = animal1->xVelocity;
-                                        sp114 = animal1->zVelocity;
-                                        sp10C = animal1->yVelocity;
+                                        sp11C.w = animal1->xVelocity.w;
+                                        sp114.w = animal1->zVelocity.w;
+                                        sp10C.w = animal1->yVelocity.w;
 
-                                        sp118 = animal2->xVelocity;
-                                        sp110 = animal2->zVelocity;
-                                        sp108 = animal2->yVelocity;
+                                        sp118.w = animal2->xVelocity.w;
+                                        sp110.w = animal2->zVelocity.w;
+                                        sp108.w = animal2->yVelocity.w;
 
                                         if ((animal1->unk16C->objectCategory == 9) || (animal2->unk16C->objectCategory == 9) ||
                                             (animal1->unk16C->objectCategory == 8) || (animal2->unk16C->objectCategory == 8)) {
@@ -149,8 +145,8 @@ void func_802B4D20_6C63D0(void) {
                                                 var_s5 = 0;
                                             }
 
-                                            if (((animal1->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal2->unk4C.unk1B) && (animal2->unk16C->behaviourFlags.unk2 == 0)) ||
-                                                ((animal2->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal1->unk4C.unk1B) && (animal1->unk16C->behaviourFlags.unk2 == 0))) {
+                                            if (((animal1->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal1->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal2->unk4C.unk1B) && (animal2->unk16C->behaviourFlags.unk1 == 0)) ||
+                                                ((animal2->unk16C->behaviourFlags.unk2 != 0) && ((Position*)animal2->unkC4 == D_803D60D8) && (((animal1->movementState == MOVEMENT_STATE_GROUND)) || (animal1->movementState == MOVEMENT_STATE_FLYING)) && ((animal2->movementState == MOVEMENT_STATE_GROUND) || (animal2->movementState == MOVEMENT_STATE_FLYING)) && (animal1->unk4C.unk1B) && (animal1->unk16C->behaviourFlags.unk1 == 0))) {
 
                                                 var_s3 = animal1->mass;
                                                 var_s4 = animal2->mass;
@@ -182,8 +178,12 @@ void func_802B4D20_6C63D0(void) {
                                                     *(volatile int*)0 = 0;
                                                 }
 
-                                                animal1->xVelocity.w = animal2->xVelocity.w = ((var_s3 * animal1->xVelocity.w) + (var_s4 * animal2->xVelocity.w)) / totalMass;
-                                                animal1->zVelocity.w = animal2->zVelocity.w = ((var_s3 * animal1->zVelocity.w) + (var_s4 * animal2->zVelocity.w)) / totalMass;
+                                                temp_v1_6 = animal1->xVelocity.w;
+                                                temp_a0_6 = animal2->xVelocity.w;
+                                                animal1->xVelocity.w = animal2->xVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
+                                                temp_v1_6 = animal1->zVelocity.w;
+                                                temp_a0_6 = animal2->zVelocity.w;
+                                                animal1->zVelocity.w = animal2->zVelocity.w = ((var_s3 * temp_v1_6) + (var_s4 * temp_a0_6)) / totalMass;
 
                                                 if (var_s5 == 0) {
                                                     temp_v1_6 = animal1->yVelocity.w;
@@ -252,16 +252,22 @@ void func_802B4D20_6C63D0(void) {
                                             }
                                             func_802CAB20_6DC1D0(animal1, animal2, sp11C.h, sp114.h, sp10C.h, sp118.h, sp110.h, sp108.h);
 
-                                            animal1->newPosition.xPos.w = animal1->position.xPos.w + animal1->xVelocity.w;
-                                            animal1->newPosition.zPos.w = animal1->position.zPos.w + animal1->zVelocity.w;
-                                            animal1->newPosition.yPos.w = animal1->position.yPos.w + animal1->yVelocity.w;
+                                            animal1->newPosition.xPos.w = animal1->position.xPos.w;
+                                            animal1->newPosition.xPos.w += animal1->xVelocity.w;
+                                            animal1->newPosition.zPos.w = animal1->position.zPos.w;
+                                            animal1->newPosition.zPos.w += animal1->zVelocity.w;
+                                            animal1->newPosition.yPos.w = animal1->position.yPos.w;
+                                            animal1->newPosition.yPos.w += animal1->yVelocity.w;
 
-                                            animal2->newPosition.xPos.w = animal2->position.xPos.w + animal2->xVelocity.w;
-                                            animal2->newPosition.zPos.w = animal2->position.zPos.w + animal2->zVelocity.w;
-                                            animal2->newPosition.yPos.w = animal2->position.yPos.w + animal2->yVelocity.w;
+                                            animal2->newPosition.xPos.w = animal2->position.xPos.w;
+                                            animal2->newPosition.xPos.w += animal2->xVelocity.w;
+                                            animal2->newPosition.zPos.w = animal2->position.zPos.w;
+                                            animal2->newPosition.zPos.w += animal2->zVelocity.w;
+                                            animal2->newPosition.yPos.w = animal2->position.yPos.w;
+                                            animal2->newPosition.yPos.w += animal2->yVelocity.w;
 
-                                            if (((D_803D60D4 != 0) && (D_803D60D0(animal2, animal1, &D_803D60D8, &D_803D60DC, animal2->newPosition.xPos, animal2->newPosition.zPos, animal2->newPosition.yPos, animal1->newPosition.xPos, animal1->newPosition.zPos, animal1->newPosition.yPos) != 0)) ||
-                                                ((D_803D60D4 == 0) && (D_803D60D0(animal1, animal2, &D_803D60D8, &D_803D60DC, animal1->newPosition.xPos, animal1->newPosition.zPos, animal1->newPosition.yPos, animal2->newPosition.xPos, animal2->newPosition.zPos, animal2->newPosition.yPos) != 0))) {
+                                            if (((D_803D60D4 != 0) && (D_803D60D0(animal2, animal1, &D_803D60D8, &D_803D60DC, animal2->position.xPos, animal2->position.zPos, animal2->position.yPos, animal1->position.xPos, animal1->position.zPos, animal1->position.yPos) != 0)) ||
+                                                ((D_803D60D4 == 0) && (D_803D60D0(animal1, animal2, &D_803D60D8, &D_803D60DC, animal1->position.xPos, animal1->position.zPos, animal1->position.yPos, animal2->position.xPos, animal2->position.zPos, animal2->position.yPos) != 0))) {
                                                 func_802B7BC8_6C9278(animal1, animal2);
                                             }
                                         }
@@ -275,9 +281,6 @@ void func_802B4D20_6C63D0(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/collision/func_802B4D20_6C63D0.s")
-#endif
 
 // ESA: func_80071AC0
 s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entity *arg0, Entity *arg1, Position** p1, Position** p2, Pos xPos1, Pos zPos1, Pos yPos1, Pos xPos2, Pos zPos2, Pos yPos2), u8 *arg3) {

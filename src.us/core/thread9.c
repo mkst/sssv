@@ -43,7 +43,6 @@ u8   D_802912E5; // z pressed
 // .text
 // ========================================================
 
-#ifdef NON_MATCHING
 s32 init_controllers(void) {
     s16 i;
     s32 pad;
@@ -63,10 +62,6 @@ s32 init_controllers(void) {
 
     osCreateMesgQueue(&D_8028D0A8, D_8029104C, 1);
     osSetEventMesg(5U, &D_8028D0A8, (void *)1);
-#ifdef __sgi
-    if((s32)&D_80291110[0]) {};
-    if (0) { }
-#endif
     osContInit(&D_8028D0A8, &pattern, gControllerStatus);
 
     numControllers = 0;
@@ -89,6 +84,7 @@ s32 init_controllers(void) {
             if (gControllerStatus[i].type & CONT_JOYPORT) {
                 if (gControllerStatus[i].status & CONT_CARD_ON) {
                     status = osPfsInit(&D_8028D0A8, (s32)&D_80291110[i], i);
+                    if ((status == 10) || (status == 11)) {}
                     if (((status == PFS_ERR_ID_FATAL)) || (status == PFS_ERR_DEVICE)) {
                         if (osMotorInit(&D_8028D0A8, (s32)&D_80291110[i], i) == 0) {
                             D_80291090.hasRumblePak[i] = 1;
@@ -103,9 +99,6 @@ s32 init_controllers(void) {
     func_80137168();
     return numControllers;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/core/thread9/init_controllers.s")
-#endif
 
 void func_80136F64(void) {
     OSContPad *ci = gControllerInput;
