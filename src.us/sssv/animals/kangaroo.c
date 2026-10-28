@@ -283,45 +283,30 @@ void func_8036F7A0_780E50(void) {
 }
 
 // POGO_KANGAROO
-#if 0
-// CURRENT (9850)
 // esa: func_8009A794 ?
 void func_80370C84_782334(void) {
     s16 temp_t1;
-    s32 temp_t8;
     s16 temp_v0;
     s16 var_v1_2;
     s16 temp_t0;
     u16 ticks_remaining;
-    u8  temp_v0_15;
-    s32 a0, a1, a2;
-
-    s32 var_s1;
-    s32 var_s2;
-
     s16 temp_a0;
     s16 temp_t9;
-    s16 tmp5;
-
-    s16 tmp1;
-    s16 tmp2;
-
     s16 spE8;
     s16 spE6;
-    s16 spE4; //pad
+    s16 tmp1;
     s16 spE2;
     s16 spE0;
-
     s16 spDE;
     s16 spDC;
-    s16 spDA; // pad
+    s16 tmp2;
     s16 spD8;
-
-    s32 spC8; // this isnt initialised...
-    s32 spC4; // this isnt initialised...
-
+    s32 a0, a1, a2;
+    s32 var_s1;
+    s32 var_s2;
     Animal *spC0;
     s8  spBF;
+    s16 tmp5;
 
     if ((D_803D5538 != 0) && (CHECK_SEGMENT != 0)) {
         spDE = 0;
@@ -403,8 +388,6 @@ void func_80370C84_782334(void) {
 
                     for (spD8 = 0; spD8 < 6; spD8++) {
 
-                        var_s2 = spC4; // wtf?
-                        var_s1 = spC8; // wtf?
 
                         temp_t1 = (ticks_remaining + spD8) - 6;
                         if ((temp_t1 >= 0) && (temp_t1 < 32)) {
@@ -420,7 +403,7 @@ void func_80370C84_782334(void) {
                                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
                                 D_803D5530->position.xPos.w + (var_s1 << 0x10),
                                 D_803D5530->position.zPos.w + (var_s2 << 0x10),
-                                D_803D5530->position.yPos.w + ((D_803D5524->height * 3) * 0x4000),
+                                D_803D5530->position.yPos.w + ((D_803D5524->height * 3) << 14),
                                 (temp_t1 << 4) & 0xFF,
                                 FTOFIX32(1.0) / 4,
                                 FTOFIX32(1.0) / 4,
@@ -463,7 +446,7 @@ void func_80370C84_782334(void) {
                       0,
                       0);
 
-                  if ((tmp5 != 0) || ((((D_803D5530->position.yPos.h + ((D_803D5524->height * 3) >> 2)) < (sample_ground_height_at_xz((D_803D5530->position.xPos.h + var_s1), (D_803D5530->position.zPos.h + var_s2)) >> 0x10)) != 0))) {
+                  if ((tmp5 != 0) || ((D_803D5530->position.yPos.h + ((D_803D5524->height * 3) >> 2)) < (sample_ground_height_at_xz((D_803D5530->position.xPos.h + var_s1), (D_803D5530->position.zPos.h + var_s2)) >> 0x10))) {
                       spBF = 1;
                       play_sound_effect_at_location(SFX_UNKNOWN_38, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                   }
@@ -511,18 +494,17 @@ void func_80370C84_782334(void) {
 
                         temp_t1 = (ticks_remaining + spD8) - 3;
                         if ((temp_t1 >= 0) && (temp_t1 < 16)) {
-                            temp_t8 = D_803D552C->unk32C;
-                            temp_t0 = (COS((temp_t1 << 3) & 0xFF) >> 7) + 0x100;
-
-                            // taking top 2 bits from both?
-                            a0 = ((temp_t0 * (((temp_t8 & ~0xFF)) >> 6) & 0xFF) >> 9);
-                            a1 = ((temp_t0 * ((temp_t8 << 8) >> 6) & 0xFF) >> 9);
+                            var_s1 = (s16)(D_803D552C->unk32C & 0xFF00) >> 6;
+                            var_s2 = (s16)((D_803D552C->unk32C & 0xFF) << 8) >> 6;
+                            temp_t0 = (COS(temp_t1 << 3) >> 7) + 0x100;
+                            var_s1 = (temp_t0 * var_s1) >> 9;
+                            var_s2 = (temp_t0 * var_s2) >> 9;
 
                             func_80127640(
                                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
-                                D_803D5530->position.xPos.w + (a0 << 0x10),
-                                D_803D5530->position.zPos.w + (a1 << 0x10),
-                                D_803D5530->position.yPos.w + ((D_803D5524->height * 3) * 0x4000),
+                                D_803D5530->position.xPos.w + (var_s1 << 0x10),
+                                D_803D5530->position.zPos.w + (var_s2 << 0x10),
+                                D_803D5530->position.yPos.w + ((D_803D5524->height * 3) << 14),
                                 (temp_t1 << 3) & 0xFF,
                                 FTOFIX32(1.0) / 4,
                                 FTOFIX32(1.0) / 4,
@@ -556,7 +538,7 @@ void func_80370C84_782334(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_15 = gCameraUiState, (temp_v0_15 == 0)) || (temp_v0_15 == 2) || ((temp_v0_15 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 30) < 250) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             func_80127640(
                 &gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs],
                 D_803D5530->position.xPos.w,
@@ -610,7 +592,7 @@ void func_80370C84_782334(void) {
                 2,
                 ((0x10000 - (spE6 << 4)) * 52) >> 6,
                 ((0x10000 - (spE6 << 4)) * 52) >> 6,
-                (((spE6 + 0x10) << 5) * 52) >> 6,
+                (((spE6 << 5) * 52) + FTOFIX32(52.0)) >> 6,
                 D_803F2ED0,
                 0,
                 0,
@@ -630,9 +612,7 @@ void func_80370C84_782334(void) {
             if (gLodDetailState == 0) {
                 func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spE2, &spE0);
                 func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spE2, &spE0);
-#pragma _permuter sameline start
                 spE2 = D_803BD530_7CEBE0.eyes[5][spE2]; spE0 = D_803BD600_7CECB0.eyes[4][spE0];
-#pragma _permuter sameline end
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spE2);
                 func_802C78B0_6D8F60(0x13, 0x14, (D_803F2EC8 * 0x34) >> 6, (D_803F2EC8 * 0x34) >> 6, (D_803F2EC8 * 0x34) >> 6, D_803F2ED0, 0, 0, 0, D_04003FF0_EB5A0);
                 func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spE0);
@@ -681,9 +661,6 @@ void func_80370C84_782334(void) {
         func_80303D00_7153B0(D_803D552C, 0x448, 0x3CF);
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/kangaroo/func_80370C84_782334.s")
-#endif
 
 void func_80372510_783BC0(void) {
     D_803D552C->unk32A = gGameplayTick;
