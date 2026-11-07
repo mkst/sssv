@@ -429,7 +429,7 @@ void func_8038FD74_7A1424(void) {
     gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
     gMusicVolumeScale = 1600;
     D_801546E0 = 2048;
-    D_8015517C = 1.0f;
+    gMusicSpeakerVolumeScale = 1.0f;
 
     reset_screen_transition();
     trigger_screen_transition(TRANSITION_FADE_IN);

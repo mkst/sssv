@@ -122,7 +122,7 @@ void init_rumble_pak(void);
 void func_80139200(f32);
 void func_80139330(f32);
 
-void func_80296544_6A7BF4(void);
+void initialize_water_wave_tables(void);
 void func_8029726C_6A891C(struct063 arg0[73][129]);
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1);
 void func_80296C8C_6A833C(struct063 arg0[73][129]);
@@ -154,12 +154,12 @@ void reset_player_progress(void);
 void reset_player_health(void);
 void init_level(void);
 void func_80296310_6A79C0(void);
-void func_802963D0_6A7A80(FrameContext *arg0);
+void initialize_water_grid(FrameContext *arg0);
 
 // overlay2_6A7A80
-void func_80296544_6A7BF4(void);
-void func_802985AC_6A9C5C(Gfx **dl);
-void func_8029877C_6A9E2C(void);
+void initialize_water_wave_tables(void);
+void setup_water_grid_material(Gfx **dl);
+void advance_water_animation(void);
 s16  func_80298B70_6AA220(s16 arg0, s16 arg1);
 s32  func_80298E08_6AA4B8(s16 arg0, s16 arg1);
 s16  func_80298E98_6AA548(s16 arg0, s16 arg1);
@@ -582,7 +582,7 @@ void func_802F2A2C_7040DC(void);
 void clear_used_lights(void);
 void add_light_at_location(s16, s16, s16, s16, s16 r, s16 g, s16 b);
 void func_802F2DF8_7044A8(void);
-void func_802F2EEC_70459C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6);
+void start_level_light_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6);
 void func_802F301C_7046CC(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6, u16 arg7);
 void func_802F30A4_704754(void);
 
@@ -610,14 +610,14 @@ u8   func_802F8658_709D08(Animal *arg0, Animal *arg1, f32 arg2, f32 arg3, struct
 Entity *find_closest_animal(Entity *arg0);
 s32  func_802F8918_709FC8(Animal *arg0, Animal *arg1);
 void func_802F8DCC_70A47C(Entity *arg0);
-void func_802F9084_70A734(Entity * arg0);
+void update_object_noop(Entity * arg0);
 void func_802F908C_70A73C(Entity *arg0);
 void func_802F90A8_70A758(Entity *arg0);
 void func_802F9104_70A7B4(Entity *arg0);
 s32  func_802F9178_70A828(Entity *arg0);
 void func_802F951C_70ABCC(Entity *arg0);
-void func_802F9624_70ACD4(Animal *arg0);
-void func_802F9880_70AF30(Animal *arg0);
+void update_flame_torch(Animal *arg0);
+void update_lever_switch(Animal *arg0);
 void func_802F9A08_70B0B8(Animal *arg0);
 void func_802F9C50_70B300(Entity *arg0);
 void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5);
@@ -664,7 +664,7 @@ void func_802FED68_710418(Entity *owner, Animal *target, s16 x, s16 z, s16 y, s1
 void func_802FF140_7107F0(void);
 void func_802FF184_710834(Animal *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9);
 void func_802FF25C_71090C(void);
-void func_802FF540_710BF0(Entity *arg0);
+void update_speaker(Entity *arg0);
 void func_802FF7D4_710E84(Entity *arg0);
 void func_802FF828_710ED8(Entity *arg0);
 void func_802FFA20_7110D0(Entity *arg0);
@@ -782,10 +782,10 @@ s32  is_animal_helper(Animal *arg0, s16 arg1);
 s32  is_animal(s16 arg0);
 s32  is_object_helper(Animal *arg0, s16 arg1);
 s32  is_object(s16 arg0);
-u8   run_single_command(Animal *arg0, Cmd *arg1);
-s32  func_80316408_727AB8(Entity *arg0);
-void func_803190FC_72A7AC(Entity *arg0);
-void func_803191B0_72A860(Entity *arg0);
+u8   evaluate_entity_condition(Animal *arg0, Cmd *arg1);
+s32  execute_entity_command(Entity *arg0);
+void check_deferred_script_conditions(Entity *arg0);
+void run_entity_script(Entity *arg0);
 
 // overlay2_72A930
 s32  func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2, Animal *arg3, Vec3f *arg4, Vec3f *arg5, f32 arg6, f32 arg7);

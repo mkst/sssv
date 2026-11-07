@@ -122,6 +122,7 @@
 #define OBJECT_JUNGLE_98            98
 #define OBJECT_JUNGLE_99            99
 #define OBJECT_JUNGLE_101           101
+#define TROPHY_JUNGLE_JUMPS         155
 #define OBJECT_JUNGLE_HOVERBUG      194
 
 /* ovl_04: desert_biome */
@@ -215,7 +216,7 @@
 
 /* ovl_05: GIVE_A_DOG_A_BONUS */
 
-#define TROPHY_GADAB                233
+#define OBJECT_EVO_TORSO            233
 
 
 /* ovl_05: SOMETHING_FISHY */
@@ -240,7 +241,7 @@
 
 /* ovl_05: WALRACE_64 */
 
-#define TROPHY_WALRACE_64              175
+#define OBJECT_EVO_HEAD             175
 #define OBJECT_WALRACE_64_CHEERLEADER  176
 #define OBJECT_WALRACE_64_BUOY         189
 
@@ -250,7 +251,7 @@
 
 /* ovl_05: SWAMP_OF_ETERNAL_STENCH */
 
-#define TROPHY_SWAMP_OF_ETERNAL_STENCH 20
+#define OBJECT_SWAMP_20             20
 
 /* ovl_05: EVOS_ESCAPE */
 
@@ -258,7 +259,7 @@
 #define OBJECT_EVOS_ESCAPE_ARROW    177
 #define OBJECT_EE_GORILLA_STATUE    220
 #define OBJECT_EE_LION_BUST         221
-#define TROPHY_EVOS_ESCAPE          235
+#define OBJECT_EVO_ARMS             235
 
 /* ovl_05: FUN_IN_THE_SUN */
 
@@ -278,7 +279,7 @@
 
 #define OBJECT_PUNCHUP_PYRAMID_KANGAROO_STATUE   119
 #define OBJECT_PUNCHUP_PYRAMID_ENTRANCE 152
-#define TROPHY_PUNCHUP_PYRAMID      234
+#define OBJECT_EVO_LEGS             234
 
 /* ovl_05: FAT_BEAR_MOUNTAIN */
 
@@ -286,7 +287,7 @@
 
 /* ovl_05: JUNGLE_JUMPS */
 
-#define TROPHY_JUNGLE_JUMPS         133
+#define OBJECT_JUNGLE_JUMPS_133     133
 
 
 

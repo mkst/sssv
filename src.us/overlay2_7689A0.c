@@ -20,7 +20,7 @@ void func_803572F0_7689A0(void) {
             (gGameState.unk4 == 0) && (D_803F2D50.unkC6 == 0)) {
             gGameState.unk4 = 1;
             gCurrentMusicTrack = MUSIC_TRACK_LEVEL_FAILED;
-            D_8015517C = 1.0f;
+            gMusicSpeakerVolumeScale = 1.0f;
             D_801546E0 = 2048;
             gMusicVolumeScale = 2048;
         }
@@ -34,7 +34,7 @@ void func_803572F0_7689A0(void) {
 // set_level_passed_music
 void func_8035739C_768A4C(void) {
     D_803F2D50.unkC6 = 1;
-    D_8015517C = 1.0f;
+    gMusicSpeakerVolumeScale = 1.0f;
     D_801546E0 = 2048;
     gMusicVolumeScale = 2048;
 

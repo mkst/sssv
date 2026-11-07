@@ -272,7 +272,7 @@ void display_zone_select_screen(void) {
         gCurrentMusicTrack = MUSIC_TRACK_MAIN_THEME;
         gMusicVolumeScale = 1600; // volume related
         D_801546E0 = 2048;
-        D_8015517C = 1.0f;
+        gMusicSpeakerVolumeScale = 1.0f;
     }
     D_803B74C4_7C8B74 = 12.0f; // font scale
     if ((gEepromGlobal.language == LANG_ITALIAN) ||

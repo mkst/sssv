@@ -736,81 +736,49 @@ void func_80295EB0_639550(s32 x) {
     gDPSetColorImage(gMainDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gFrameContextPtr->framebuffer));
 }
 
-#if 0
-
-// extern int SHADE;
-// extern int PRIMITIVE;
-
-// s16 D_80299FD4_63D674 = 0;
-// s16 D_80299FD8_63D678 = 0;
-// s32 D_80299FDC_63D67C = 0;
-
-// s32 D_80299FE0_63D680 = 0;
-// s32 D_80299FE4_63D684 = 0;
-// s32 D_80299FE8_63D688 = 0;
-// u8  D_80299FEC_63D68C = 0;
-
-// u8  D_80299FF0_63D690 = 0;
-// s16 D_80299FF4_63D694 = 1;
-// s8  D_80299FF8_63D698 = 0;
-// s16 D_80299FFC_63D69C = 320;
-
-// s16 D_8029A000_63D6A0 = 0;
-// f32 D_8029A004_63D6A4 = 1.0f;
-// f32 D_8029A008_63D6A8 = 1.0f;
-// u8  D_8029A00C_63D6AC = 0;
-
-// s8  D_8029A010_63D6B0 = 251;
-// u8  D_8029A014_63D6B4 = 46;
-// u16 D_8029A018_63D6B8 = 0;
-// u8  D_8029A01C_63D6BC = 1;
-
-u8  D_8029A020_63D6C0 = 0;
-u16 D_8029A024_63D6C4 = 0;
-u16 D_8029A028_63D6C8 = 0;
-f32 D_8029A02C_63D6CC = 0;
-
-u8  D_8029A030_63D6D0 = 0;
-u16 D_8029A034_63D6D4 = 0;
-u16 D_8029A038_63D6D8 = 0;
-s16 D_8029A03C_63D6DC = 0;
-
-
 void render_title_screen_frame(FrameContext *arg0) {
+    // Preserve data order, including the unused initialized statics.
     static s16 D_80299FD4_63D674 = 0;
     static s16 D_80299FD8_63D678 = 0;
     static s32 D_80299FDC_63D67C = 0;
-
     static s32 D_80299FE0_63D680 = 0;
     static s32 D_80299FE4_63D684 = 0;
     static s32 D_80299FE8_63D688 = 0;
-    static u8  D_80299FEC_63D68C = 0;
-
-    static u8  D_80299FF0_63D690 = 0;
+    static u8 D_80299FEC_63D68C = 0;
+    static u8 D_80299FF0_63D690 = 0;
     static s16 D_80299FF4_63D694 = 1;
-    static s8  D_80299FF8_63D698 = 0;
+    static s8 D_80299FF8_63D698 = 0;
     static s16 D_80299FFC_63D69C = 320;
-
     static s16 D_8029A000_63D6A0 = 0;
     static f32 D_8029A004_63D6A4 = 1.0f;
     static f32 D_8029A008_63D6A8 = 1.0f;
-    static u8  D_8029A00C_63D6AC = 0;
-
-    static s8  D_8029A010_63D6B0 = 251;
-    static u8  D_8029A014_63D6B4 = 46;
+    static u8 D_8029A00C_63D6AC = 0;
+    static s8 D_8029A010_63D6B0 = 251;
+    static u8 D_8029A014_63D6B4 = 46;
     static u16 D_8029A018_63D6B8 = 0;
-    static u8  D_8029A01C_63D6BC = 1;
+    static u8 D_8029A01C_63D6BC = 1;
+    static u8 D_8029A020_63D6C0 = 0;
+    // An array keeps the data position while preventing scalar-static caching.
+    static u16 D_8029A024_63D6C4_storage[1] = {0};
+#define D_8029A024_63D6C4 D_8029A024_63D6C4_storage[0]
+    static u16 D_8029A028_63D6C8 = 0;
+    static f32 D_8029A02C_63D6CC = 0;
+    static u8 D_8029A030_63D6D0 = 0;
+    static u16 D_8029A034_63D6D4 = 0;
+    static u16 D_8029A038_63D6D8 = 0;
+    static s16 D_8029A03C_63D6DC = 0;
+    static s16 D_8029A040_63D6E0 = 100;
+    static s16 D_8029A044_63D6E4 = 100;
+    static s16 D_8029A048_63D6E8 = 4000;
+    static s16 D_8029A04C_63D6EC = 0;
+    static s16 D_8029A050_63D6F0 = 0;
 
-    // static u8  D_8029A020_63D6C0 = 0;
-    // static u16 D_8029A024_63D6C4 = 0;
-    // static u16 D_8029A028_63D6C8 = 0;
-    // static f32 D_8029A02C_63D6CC = 0;
-
-    // static u8  D_8029A030_63D6D0 = 0;
-    // static u16 D_8029A034_63D6D4 = 0;
-    // static u16 D_8029A038_63D6D8 = 0;
-    // static s16 D_8029A03C_63D6DC = 0;
-
+    // Matching padding; the original unused locals are not recovered.
+    s32 titlePad[7];
+    s32 rotationWrap;
+    // Address-taking controls IDO's caching across calls; these emit no code.
+    s16 *unusedPointer0 = &D_80299FFC_63D69C;
+    u8 *unusedPointer1 = &D_8029A020_63D6C0;
     u8  spC7;
     s16 spC4;
     s16 spC0;
@@ -1027,12 +995,12 @@ void render_title_screen_frame(FrameContext *arg0) {
                 D_8029A014_63D6B4 = 56;
             }
         } else {
-            D_8015517C = 1.0f;
+            gMusicSpeakerVolumeScale = 1.0f;
             D_801546E0 = 2048;
             gMusicVolumeScale = 1936; // volume related
             gCurrentMusicTrack = MUSIC_TRACK_NEWSCASTER;
             // dupe?
-            D_8015517C = 1.0f;
+            gMusicSpeakerVolumeScale = 1.0f;
             gMusicVolumeScale = 1936;
 
             if (gRefreshRate == 50) {
@@ -1272,17 +1240,17 @@ void render_title_screen_frame(FrameContext *arg0) {
         break;
     case 3:  // title screen
         if (D_80299E1C_63D4BC == 1) {
-            D_8015517C = 1.0f;
+            gMusicSpeakerVolumeScale = 1.0f;
             D_801546E0 = 2048;
             gMusicVolumeScale = 2048;
             gCurrentMusicTrack = MUSIC_TRACK_TITLE_SCREEN;
             // dupe
-            D_8015517C = 1.0f;
+            gMusicSpeakerVolumeScale = 1.0f;
             D_801546E0 = 2048;
             gMusicVolumeScale = 2048;
         }
 
-        gIntroLogoRotY++;// += 1.0f;
+        gIntroLogoRotY += 1.0f;
         if (gIntroLogoRotY > 359.0) {
             gIntroLogoRotY = 0.0f;
         }
@@ -1323,7 +1291,7 @@ void render_title_screen_frame(FrameContext *arg0) {
             // PRESS START
             display_text_centered(&gMainDL, get_message_address_by_id(MSG_PRESS_START), 0xA0, 0xC8, 16.0f, 16.0f);
         }
-        D_80299E1C_63D4BC++;
+        D_80299E1C_63D4BC += 1;
         if (D_80299E1C_63D4BC >= 1885) {
             if (gAttractModeState >= 6) {
                 gAttractModeState = 0;
@@ -1349,7 +1317,7 @@ void render_title_screen_frame(FrameContext *arg0) {
         break;
         break;
     case 5:  // title screen logo pop-in
-        D_8015517C = 1.0f;
+        gMusicSpeakerVolumeScale = 1.0f;
         D_801546E0 = 2048;
         gMusicVolumeScale = 1;
         gCurrentMusicTrack = MUSIC_TRACK_NEWSCASTER;
@@ -1361,7 +1329,7 @@ void render_title_screen_frame(FrameContext *arg0) {
 
         gIntroLogoPosX += 42.0f;
 
-        gIntroLogoRotY++; // += 1.0f;
+        gIntroLogoRotY += 1.0f;
         if (gIntroLogoRotY >= 359.0) {
             gIntroLogoRotY = 0.0f;
         }
@@ -1463,13 +1431,21 @@ void render_title_screen_frame(FrameContext *arg0) {
         gIntroCamEyeX = gIntroCamEyeY = 0.0f;
         gIntroCamEyeZ = 4000.0f;
 
-        if (gIntroLogoRotZ++ >= 359.0f) {
+        // Compare the old angle, then increment before applying the wrap.
+        // Keeping these in one expression preserves IDO's evaluation order.
+        if ((rotationWrap = (gIntroLogoRotZ >= 359.0f),
+             gIntroLogoRotZ += 1.0f,
+             rotationWrap)) {
             gIntroLogoRotZ = 0.0f;
         }
-        if (gIntroLogoRotY++ >= 359.0f) {
+        if ((rotationWrap = (gIntroLogoRotY >= 359.0f),
+             gIntroLogoRotY += 1.0f,
+             rotationWrap)) {
             gIntroLogoRotY = 0.0f;
         }
-        if (gIntroLogoRotX++ >= 359.0f) {
+        if ((rotationWrap = (gIntroLogoRotX >= 359.0f),
+             gIntroLogoRotX += 1.0f,
+             rotationWrap)) {
             gIntroLogoRotX = 0.0f;
         }
         break;
@@ -1576,51 +1552,7 @@ void render_title_screen_frame(FrameContext *arg0) {
         }
     }
 }
-#else
-
-s16 D_80299FD4_63D674 = 0;
-s16 D_80299FD8_63D678 = 0;
-s32 D_80299FDC_63D67C = 0;
-
-s32 D_80299FE0_63D680 = 0;
-s32 D_80299FE4_63D684 = 0;
-s32 D_80299FE8_63D688 = 0;
-u8  D_80299FEC_63D68C = 0;
-
-u8  D_80299FF0_63D690 = 0;
-s16 D_80299FF4_63D694 = 1;
-s8  D_80299FF8_63D698 = 0;
-s16 D_80299FFC_63D69C = 320;
-
-s16 D_8029A000_63D6A0 = 0;
-f32 D_8029A004_63D6A4 = 1.0f;
-f32 D_8029A008_63D6A8 = 1.0f;
-u8  D_8029A00C_63D6AC = 0;
-
-s8  D_8029A010_63D6B0 = 251;
-u8  D_8029A014_63D6B4 = 46;
-u16 D_8029A018_63D6B8 = 0;
-u8  D_8029A01C_63D6BC = 1;
-
-u8  D_8029A020_63D6C0 = 0;
-u16 D_8029A024_63D6C4 = 0;
-u16 D_8029A028_63D6C8 = 0;
-f32 D_8029A02C_63D6CC = 0;
-
-u8  D_8029A030_63D6D0 = 0;
-u16 D_8029A034_63D6D4 = 0;
-u16 D_8029A038_63D6D8 = 0;
-s16 D_8029A03C_63D6DC = 0;
-
-s16 D_8029A040_63D6E0 = 100;
-s16 D_8029A044_63D6E4 = 100;
-s16 D_8029A048_63D6E8 = 4000;
-
-s16 D_8029A04C_63D6EC = 0;
-s16 D_8029A050_63D6F0 = 0;
-
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay1_6384F0/render_title_screen_frame.s")
-#endif
+#undef D_8029A024_63D6C4
 
 void render_intro_overlay_frame_63BF88(void) {
     gScreenWidth = 320;

@@ -23,7 +23,7 @@ void func_8033AAC8_74C178(u8 cameraID);
 void update_camera_from_waypoint(f32 *arg0, f32 *arg1, f32 *arg2, WaypointData *arg3, s16 arg4); // TBD
 void func_8033B118_74C7C8(u8 cameraID);
 void func_8033B440_74CAF0(u8 cameraID);
-void func_8033B594_74CC44(u8 cameraID);
+void update_watch_tv_camera(u8 cameraID);
 void func_8033B9B8_74D068(u8 cameraID);
 void func_8033C054_74D704(u8 cameraID);
 void func_8033C320_74D9D0(u8 cameraID);
@@ -296,8 +296,8 @@ void set_camera_mode(u8 cameraID, u8 arg1) {
     case CAMERA_MODE_28:
         func_8033641C_747ACC(cameraID, 1, arg1);
         break;
-    case CAMERA_MODE_29:    // seems to crash game?
-        func_8033B594_74CC44(cameraID);
+    case CAMERA_MODE_WATCH_TV:
+        update_watch_tv_camera(cameraID);
         break;
     case CAMERA_MODE_SPIN_1:    // spinning around player
     case CAMERA_MODE_SPIN_2:
@@ -2792,7 +2792,7 @@ void func_8033B440_74CAF0(u8 cameraID) {
     gCamera->yaw = phi_f2;
 }
 
-void func_8033B594_74CC44(u8 arg0) {
+void update_watch_tv_camera(u8 arg0) {
     f32 phi_f14;
     f32 phi_f20;
     f32 sp2C;
@@ -4540,7 +4540,7 @@ void func_803415BC_752C6C(void) {
                     func_80340E08_7524B8(45, 0, 0, 0, 1, -2, 0, 1, phi_v0);
                 }
             } else if ((gCameraUiState == 1) || (gCameraUiState == 2)) {
-                if (gCameras[gCameraId].cameraMode != CAMERA_MODE_29) {
+                if (gCameras[gCameraId].cameraMode != CAMERA_MODE_WATCH_TV) {
                     if (gCameraUiState == 1) {
                         phi_v0 = 30;
                     } else {
@@ -5013,7 +5013,7 @@ void func_80342550_753C00(Camera *arg0) {
         phi_f14 = MIN(4352.0 - gCameras[gCameraId].focusX, phi_f14);
 
         if ((arg0->cameraMode == CAMERA_MODE_ZOOM_SPIN) || (arg0->cameraMode == CAMERA_MODE_30) ||
-            (arg0->cameraMode == CAMERA_MODE_228) || (arg0->cameraMode == CAMERA_MODE_29)) {
+            (arg0->cameraMode == CAMERA_MODE_228) || (arg0->cameraMode == CAMERA_MODE_WATCH_TV)) {
             phi_f16 = 0.0f;
             phi_f14 = 0.0f;
         }

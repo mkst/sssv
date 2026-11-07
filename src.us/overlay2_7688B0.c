@@ -9,7 +9,7 @@
 static u16  D_803F2D20;        // always 0, effectively unused
 static s8   D_803F2D22;        // always 1, effectively unused
 static s8   targetMusicTrack;
-       s16  D_803F2D24;        // set in func_8029F7D4_6B0E84 but effectively unused
+       s16  D_803F2D24;        // Last rendered speaker pulse; also used by speaker rumble.
 
 // ========================================================
 // .text

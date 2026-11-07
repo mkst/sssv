@@ -199,6 +199,9 @@ gMusicVolume           = 0x801546D0;
 gSfxVolume             = 0x801546D4;
 gMusicVolumeScale      = 0x801546D8;
 gAudioInitialized      = 0x80155154;
+gMusicSpeakerVolumeScale           = 0x8015517C;
+gMusicChannels3PlusNoteOn          = 0x801552B4;
+gMusicChannel1NoteOn               = 0x801552B0;
 numControllers         = 0x80158544;
 
 strlen_sssv            = 0x80128DD0;
@@ -522,6 +525,7 @@ set_nav_state_goto_point    = 0x80363C48; // rom:0x7752F8
 
 run_commands           = 0x802FC990; // rom:0x70E040
 set_floor_level        = 0x802FD190; // rom:0x70E840
+update_speaker                     = 0x802FF540; // rom:0x710BF0
 set_water_level        = 0x802FD26C; // rom:0x70E91C
 
 set_game_state         = 0x80314874; // rom:0x725F24
@@ -531,7 +535,10 @@ do_maths_op                = 0x803152A4; // rom:0x726954
 copy_command_struct        = 0x80315384; // rom:0x726A34
 load_commands_into_object  = 0x803153B0; // rom:0x726A60
 find_next_animal_in_region = 0x8031540C; // rom:0x726ABC
-run_single_command         = 0x803159E4; // rom:0x727094
+evaluate_entity_condition        = 0x803159E4; // rom:0x727094
+execute_entity_command           = 0x80316408; // rom:0x727AB8
+check_deferred_script_conditions = 0x803190FC; // rom:0x72A7AC
+run_entity_script                = 0x803191B0; // rom:0x72A860
 
 resolve_entity_ref         = 0x803146A8; // rom:0x725D58
 
@@ -647,7 +654,7 @@ D_802863CC        = 0x802863CC;
 D_802863D0        = 0x802863D0;
 
 D_80286458        = 0x80286458;
-D_8028645A        = 0x8028645A;
+gSpeakerUpdatesThisFrame        = 0x8028645A;
 D_80286460        = 0x80286460;
 gCurrentMusicTrack = 0x8028645C;
 
@@ -857,8 +864,8 @@ D_803E1B98 = 0x803E1B98; // segment:overlay2
 D_803E1B99 = 0x803E1B99; // segment:overlay2
 D_803E1B9A = 0x803E1B9A; // segment:overlay2
 D_803E1B9B = 0x803E1B9B; // segment:overlay2
-D_803E1BA2 = 0x803E1BA2; // segment:overlay2
-D_803E1BA4 = 0x803E1BA4; // segment:overlay2
+sLevelLightTransitionDurationTicks = 0x803E1BA2; // segment:overlay2
+sLevelLightTransitionElapsedTicks = 0x803E1BA4; // segment:overlay2
 D_803E1BA6 = 0x803E1BA6; // segment:overlay2
 D_803E1BA8 = 0x803E1BA8; // segment:overlay2
 D_803E1BAA = 0x803E1BAA; // segment:overlay2
@@ -882,7 +889,7 @@ D_803E1BC4 = 0x803E1BC4; // segment:overlay2
 demoInput = 0x803E1BD4; // segment:overlay2
 
 // overlay2_707310
-D_803E1BE0 = 0x803E1BE0; // segment:overlay2
+sMaxSpeakerVolume = 0x803E1BE0; // segment:overlay2
 D_803E1BE8 = 0x803E1BE8; // segment:overlay2
 D_803E1CE0 = 0x803E1CE0; // segment:overlay2
 D_803E1CE8 = 0x803E1CE8; // segment:overlay2
@@ -961,7 +968,7 @@ D_803E4D3C = 0x803E4D3C; // segment:overlay2
 D_803E4D40 = 0x803E4D40; // segment:overlay2
 D_803E8E54 = 0x803E8E54; // segment:overlay2
 D_803E8E56 = 0x803E8E56; // segment:overlay2
-D_803E8E57 = 0x803E8E57; // segment:overlay2
+gSpeakerDistanceAttenuationEnabled = 0x803E8E57; // segment:overlay2
 D_803E8E58 = 0x803E8E58; // segment:overlay2
 
 D_803D5508 = 0x803D5508; // segment:overlay2
@@ -1928,3 +1935,9 @@ gTerminalDnaInterlaceRenderSetupDl = 0x803B66B8; // rom:0x7C7D68
 gPauseMenuLookAt = 0x803B683C; // rom:0x7C7EEC
 gRigPartDisplayLists = 0x803B7108; // rom:0x7C87B8
 // END sync_decomp_symbols promoted from undefined_syms
+initialize_water_grid = 0x802963D0; // rom:0x6A7A80
+initialize_water_wave_tables = 0x80296544; // rom:0x6A7BF4
+setup_water_grid_material = 0x802985AC; // rom:0x6A9C5C
+advance_water_animation = 0x8029877C; // rom:0x6A9E2C
+update_watch_tv_camera = 0x8033B594; // rom:0x74CC44
+start_level_light_transition = 0x802F2EEC; // rom:0x70459C

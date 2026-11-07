@@ -457,10 +457,10 @@ void __CSPHandleMIDIMsg(ALCSPlayer *seqp, ALEvent *event)
                     voice = &vstate->voice;
 #ifdef SSSV
                     if (chan == 1) {
-                        D_801552B0 = 1;
+                        gMusicChannel1NoteOn = 1;
                     }
                     if (chan > 2) {
-                        D_801552B4 = 1;
+                        gMusicChannels3PlusNoteOn = 1;
                     }
 #endif
                     alSynAllocVoice(seqp->drvr, voice, &config);

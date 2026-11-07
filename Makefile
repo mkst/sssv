@@ -180,7 +180,7 @@ VERIFY = verify
 
 ifeq ($(NON_MATCHING),1)
   $(info Building NON_MATCHING ROM...)
-  DEFINES += -DNON_MATCHING
+#   DEFINES += -DNON_MATCHING
   DEFINES += -DAVOID_UB -DBUGFIX -DENABLE_CHEATS
   VERIFY = no_verify
 endif

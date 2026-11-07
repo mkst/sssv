@@ -729,7 +729,7 @@ void func_80328520_739BD0(void) {
             }
             if (D_803D5530->cmdIndex != 0) {
                 load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->cmdIndex - 1], 0);
-                func_803191B0_72A860(D_803D5530);
+                run_entity_script(D_803D5530);
             }
         } else if (D_803D5524->criticalHealthThreshold >= D_803D5530->Info.health) {
             D_803D552C->movementMode = MOVEMENT_MODE_CRITICAL;
@@ -764,7 +764,7 @@ void func_80328520_739BD0(void) {
             }
             if (D_803D5530->cmdIndex != 0) {
                 load_commands_into_object(D_803D5530, &D_803E4D40[D_803D5530->cmdIndex - 1], 0);
-                func_803191B0_72A860(D_803D5530);
+                run_entity_script(D_803D5530);
             }
         }
         break;
