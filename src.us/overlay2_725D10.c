@@ -26,7 +26,7 @@ static s32  D_803E4D38[2];
 CmdWrapper  D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
        u16  D_803E8E54;
 static u8   D_803E8E56;
-       u8   D_803E8E57;
+       u8   gSpeakerDistanceAttenuationEnabled;
 static u8   D_803E8E58;
 
 // ========================================================
@@ -97,7 +97,7 @@ void func_80314788_725E38(void) {
     D_801546E0 = 0x800;
     gMusicVolumeScale = 0x800;
     func_803976E0_7A8D90(); // initialise something...
-    D_803E8E57 = 1;
+    gSpeakerDistanceAttenuationEnabled = 1;
     D_803E8E58 = 1;
 }
 
@@ -687,7 +687,7 @@ s32 is_object(s16 arg0) {
  *   ║╚═══════ multi-step command?
  *   ╚════════ invert command result?
  */
-u8 run_single_command(Animal *arg0, Cmd *arg1) {
+u8 evaluate_entity_condition(Animal *arg0, Cmd *arg1) {
     u16 res;
     u16 invert;
 
@@ -932,7 +932,7 @@ u8 run_single_command(Animal *arg0, Cmd *arg1) {
 }
 
 // get_next_command?
-s32 func_80316408_727AB8(Entity *arg0) {
+s32 execute_entity_command(Entity *arg0) {
     s32 pad[0x6];
 
     struct077 sp148;
@@ -1019,7 +1019,7 @@ s32 func_80316408_727AB8(Entity *arg0) {
 
     case 0x1:
 
-        if (run_single_command(temp_s1, &cmds->unk19C.payload.cmd)) {
+        if (evaluate_entity_condition(temp_s1, &cmds->unk19C.payload.cmd)) {
             if ((cmds->unk19C.payload.cmd.type1.unk0 & 0x40) == 0) {
                 cmds->unk19C.count = cmds->unk19C.payload.cmd.type1.unk6;
             }
@@ -1045,7 +1045,7 @@ s32 func_80316408_727AB8(Entity *arg0) {
         return 69;
 
     case 0x3:
-        temp_t3 = run_single_command(temp_s1, &cmds->unk19C.payload.cmd);
+        temp_t3 = evaluate_entity_condition(temp_s1, &cmds->unk19C.payload.cmd);
 
         if (cmds->unk1D4 == 0) {
             if (temp_t3 != 0) {
@@ -1528,7 +1528,7 @@ s32 func_80316408_727AB8(Entity *arg0) {
 
     case 0x25:
         // create light? update environment light?
-        func_802F2EEC_70459C(
+        start_level_light_transition(
             cmds->unk19C.payload.cmd.type37.unk0,
             cmds->unk19C.payload.cmd.type37.unk1,
             cmds->unk19C.payload.cmd.type37.unk2,
@@ -1898,7 +1898,7 @@ s32 func_80316408_727AB8(Entity *arg0) {
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 600) { // 0x258
             D_803F2D50.useDynamicLightDir = 1;
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 700) { // 0x2BC
-            D_803E8E57 = cmds->unk19C.payload.cmd.regular.unk2;
+            gSpeakerDistanceAttenuationEnabled = cmds->unk19C.payload.cmd.regular.unk2;
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 800) { // 0x320
             D_803E8E58 = cmds->unk19C.payload.cmd.regular.unk2;
         } else if (cmds->unk19C.payload.cmd.regular.unk0 == 900) { // 0x384
@@ -2435,13 +2435,13 @@ s32 func_80316408_727AB8(Entity *arg0) {
 }
 
 // ESA: func_8004C7B4
-void func_803190FC_72A7AC(Entity *arg0) {
+void check_deferred_script_conditions(Entity *arg0) {
     CmdUnknown *cmds;
     s8 i;
 
     cmds = (CmdUnknown*)&arg0->commands.unk1AC;
     for (i = 0; i < arg0->commands.numCommandsToCopy; i++) {
-        if (run_single_command(resolve_entity_ref(arg0, cmds->unk0.ub[1], 0), (Cmd*)cmds) != 0) {
+        if (evaluate_entity_condition(resolve_entity_ref(arg0, cmds->unk0.ub[1], 0), (Cmd*)cmds) != 0) {
             // finished?
             arg0->commands.unk19C.count = cmds->unk6 + 1;
             copy_command_struct(&arg0->commands.unk1A8[arg0->commands.unk19C.count], &arg0->commands.unk19C.payload);
@@ -2454,7 +2454,7 @@ void func_803190FC_72A7AC(Entity *arg0) {
 }
 
 // ESA: func_8004C87C
-void func_803191B0_72A860(Entity *arg0) {
+void run_entity_script(Entity *arg0) {
     s8 temp_v0;
 
     if (arg0->commands.unk1CC == 9) {
@@ -2462,12 +2462,12 @@ void func_803191B0_72A860(Entity *arg0) {
     }
     if (arg0->commands.numCommandsToCopy != 0) {
         // run all the commands
-        func_803190FC_72A7AC(arg0);
+        check_deferred_script_conditions(arg0);
     }
 
     do {
         // get_next_command?
-        temp_v0 = func_80316408_727AB8(arg0);
+        temp_v0 = execute_entity_command(arg0);
         if (temp_v0 != 0) {
             arg0->commands.unk19C.count++;
             copy_command_struct(&arg0->commands.unk1A8[arg0->commands.unk19C.count], &arg0->commands.unk19C.payload);

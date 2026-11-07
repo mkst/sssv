@@ -153,9 +153,9 @@ s16 func_8038CCF0_79E3A0(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
                 (D_803D5530->state == 121) || (D_803D5530->state == 141) ||
                 (D_803D5530->state == 181) || (D_803D5530->state == 201)) {
                 if (gMusicVolumeScale == 0) {
-                    if (D_8015517C > 0.99) {
+                    if (gMusicSpeakerVolumeScale > 0.99) {
                         phi_v0 = 400;
-                    } else if (D_8015517C > 0.5) {
+                    } else if (gMusicSpeakerVolumeScale > 0.5) {
                         phi_v0 = 200;
                     } else {
                         phi_v0 = 0;

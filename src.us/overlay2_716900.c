@@ -1643,7 +1643,7 @@ void func_80309F38_71B5E8(void) {
         }
 
         if (D_803D5530->commands.unk1A8 != NULL) {
-            func_803191B0_72A860((Entity*)D_803D5530);
+            run_entity_script((Entity*)D_803D5530);
         }
         func_80309C8C_71B33C();
         func_80362CC4_774374(D_803D5530);

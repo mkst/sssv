@@ -113,7 +113,7 @@ static s32             D_802863C4; // pad
 static u8              D_802863D0[0x88]; // padding
 
        u8              D_80286458;
-       s16             D_8028645A;
+       s16             gSpeakerUpdatesThisFrame;
        s16             gCurrentMusicTrack;
 static ALCSeqMarker    D_80286460;
 
@@ -156,7 +156,7 @@ static s16 D_8015516C[2] = {-1, 0};
        s8  D_80155170 = -1;            // always -1
        s8  D_80155174 = 0;
 static u8  D_80155178 = 0;      // wet/dry mix
-       f32 D_8015517C = 0;
+       f32 gMusicSpeakerVolumeScale = 0;
 static s16  D_80155180 = 0;
 static s16  D_80155184 = 0;     // music track change delay?
 static s16  D_80155188 = -99;   // targetMusicTrack
@@ -950,10 +950,10 @@ void func_801326A8(s8 src, s8 dest) {
         alCSeqNew(D_802863CC[dest], D_80286314[dest]);
         alSeqpSetSeq(D_802863C8[dest], (ALSeq*)D_802863CC[dest]);
         if (D_801546A8[dest] == 0) {
-            volume = (D_801550F8[src] * gMusicVolume) * D_8015517C;
+            volume = (D_801550F8[src] * gMusicVolume) * gMusicSpeakerVolumeScale;
         } else {
             volume = (((D_801546B4[dest] * D_801550F8[D_8015516C[dest]]) +
-                      ((D_801546B8[dest] * (D_801550F8[D_8015516C[dest]] * D_801546AC[dest])) / D_801546B0[dest])) * gMusicVolume) * D_8015517C;
+                      ((D_801546B8[dest] * (D_801550F8[D_8015516C[dest]] * D_801546AC[dest])) / D_801546B0[dest])) * gMusicVolume) * gMusicSpeakerVolumeScale;
         }
 
         tmp = gMusicVolumeScale / (1 * 2048.0f);
@@ -1027,14 +1027,14 @@ void func_801328F8(void) {
     if (gMusicVolumeScale != D_801546DC) {
         D_801546DC = gMusicVolumeScale;
         func_80133C50();
-    } else if (D_8015529C != D_8015517C) {
-        D_80286554 = D_8015517C - D_8015529C;
+    } else if (D_8015529C != gMusicSpeakerVolumeScale) {
+        D_80286554 = gMusicSpeakerVolumeScale - D_8015529C;
         if (D_80286554 < 0.0) {
             D_80286554 = D_80286554 * -1.0;
         }
         if (D_80286554 > 0.01) {
             func_80133C50();
-            D_8015529C = D_8015517C;
+            D_8015529C = gMusicSpeakerVolumeScale;
         }
     }
 
@@ -1053,8 +1053,8 @@ static f32  D_801552A0 = 0.0f;
 static f32  D_801552A4 = 0.0f;
 static u16  D_801552A8 = 100;
 static s32  D_801552AC = 0; // unused?
-u8   D_801552B0 = 0;
-u8   D_801552B4 = 0;
+u8   gMusicChannel1NoteOn = 0;
+u8   gMusicChannels3PlusNoteOn = 0;
 
 void func_80132C48(s8 idx) {
     ALSeqPlayer *seqp;
@@ -1368,7 +1368,7 @@ void func_801338A8(s16 arg0) {
     if (((u8)D_80155168[arg0] == 1) && (D_801546A8[arg0] == 1)) {
         tmp = D_801550F8[D_8015516C[arg0]];
         alSeqpSetVol(D_802863C8[arg0],
-            ((D_801546B4[arg0] * tmp) + ((D_801546B8[arg0] * (tmp * D_801546AC[arg0])) / D_801546B0[arg0])) * gMusicVolume * D_8015517C);
+            ((D_801546B4[arg0] * tmp) + ((D_801546B8[arg0] * (tmp * D_801546AC[arg0])) / D_801546B0[arg0])) * gMusicVolume * gMusicSpeakerVolumeScale);
     }
 
     if (0.0f == D_801546AC[arg0]) {
@@ -1435,9 +1435,9 @@ void func_80133C50(void) {
             tmp = gMusicVolumeScale / (1 * 2048.0f); // urgh
 
             if (D_801546A8[i] == 1) {
-                volume = ((D_801546B4[i] * D_801550F8[D_8015516C[i]]) + ((D_801546B8[i] * (D_801550F8[D_8015516C[i]] * D_801546AC[i])) / D_801546B0[i])) * gMusicVolume * D_8015517C;
+                volume = ((D_801546B4[i] * D_801550F8[D_8015516C[i]]) + ((D_801546B8[i] * (D_801550F8[D_8015516C[i]] * D_801546AC[i])) / D_801546B0[i])) * gMusicVolume * gMusicSpeakerVolumeScale;
             } else {
-                volume = D_801550F8[D_8015516C[i]] * (D_8015517C * gMusicVolume);
+                volume = D_801550F8[D_8015516C[i]] * (gMusicSpeakerVolumeScale * gMusicVolume);
             }
 
             volume = tmp * volume;

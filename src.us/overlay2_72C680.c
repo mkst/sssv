@@ -892,7 +892,7 @@ void load_level_data_sections(void) {
             break;
 
         case 9: /* .map: 65x97 terrain points copied into D_803C0740[4..68][8..104] */
-            func_80296544_6A7BF4();
+            initialize_water_wave_tables();
 
             copy_or_extract(buf, base, 0x25800);
             buf += get_compressed_size(buf);
@@ -1028,7 +1028,7 @@ void func_8031C48C_72DB3C(void) {
     for (i = 0; i < 170; i++) {
         if (D_801E9EB8.objects[i].commands.unk1A8 != NULL) {
             // load in commands
-            func_803191B0_72A860((Entity *) &D_801E9EB8.objects[i]);
+            run_entity_script((Entity *) &D_801E9EB8.objects[i]);
         }
     }
 
@@ -1036,7 +1036,7 @@ void func_8031C48C_72DB3C(void) {
     for (i = 0; i < gNumAnimalsInLevel; i++) {
         if (gAnimalState.animals[i].animal->commands.unk1A8 != NULL) {
             // load in commands
-            func_803191B0_72A860((Entity *) gAnimalState.animals[i].animal);
+            run_entity_script((Entity *) gAnimalState.animals[i].animal);
         }
     }
     //
@@ -1087,5 +1087,5 @@ custom:
     }
 
     func_8031C32C_72D9DC();
-    func_802963D0_6A7A80(gFrameContext);
+    initialize_water_grid(gFrameContext);
 }

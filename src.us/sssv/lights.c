@@ -43,8 +43,8 @@ static u8   D_803E1B9B;
 static s32  D_803E1B9C; // unused
 static s16  D_803E1BA0; // unused
 
-static u16  D_803E1BA2;
-static u16  D_803E1BA4;
+static u16  sLevelLightTransitionDurationTicks;
+static u16  sLevelLightTransitionElapsedTicks;
 static u8   D_803E1BA6;
 static s16  D_803E1BA8;
 static s16  D_803E1BAA;
@@ -133,12 +133,12 @@ void func_802F2DF8_7044A8(void) {
     D_803E1B96 = 0;
     D_803E1B97 = 0;
     D_803E1B98 = 0;
-    D_803E1BA2 = D_803E1BA4 = 0;
+    sLevelLightTransitionDurationTicks = sLevelLightTransitionElapsedTicks = 0;
     D_803A52B8_7B6968 = 1;
     D_803E1BA6 = 0;
 }
 
-void func_802F2EEC_70459C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6) {
+void start_level_light_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6) {
     D_803E1B99 = D_803A52A0_7B6950;
     D_803E1B9A = D_803A52A4_7B6954;
     D_803E1B9B = D_803A52A8_7B6958;
@@ -151,8 +151,8 @@ void func_802F2EEC_70459C(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, 
     D_803E1B90 = (s16)arg3 - D_803E1B96;
     D_803E1B92 = (s16)arg4 - D_803E1B97;
     D_803E1B94 = (s16)arg5 - D_803E1B98;
-    D_803E1BA2 = arg6;
-    D_803E1BA4 = 0;
+    sLevelLightTransitionDurationTicks = arg6;
+    sLevelLightTransitionElapsedTicks = 0;
     D_803A52B8_7B6968 = 0;
 }
 
@@ -181,7 +181,7 @@ void func_802F30A4_704754(void) {
     f32 temp;
 
     if (D_803A52B8_7B6968 == 0) {
-        if (D_803E1BA4 == D_803E1BA2) {
+        if (sLevelLightTransitionElapsedTicks == sLevelLightTransitionDurationTicks) {
             D_803A52A0_7B6950 = D_803E1B99 + D_803E1B8A;
             D_803A52A4_7B6954 = D_803E1B9A + D_803E1B8C;
             D_803A52A8_7B6958 = D_803E1B9B + D_803E1B8E;
@@ -199,7 +199,7 @@ void func_802F30A4_704754(void) {
 
             D_803A52B8_7B6968 = 1;
         } else {
-            var_f0 = (f32) D_803E1BA4 / D_803E1BA2;
+            var_f0 = (f32) sLevelLightTransitionElapsedTicks / sLevelLightTransitionDurationTicks;
             D_803A52A0_7B6950 = D_803E1B99 + (D_803E1B8A * var_f0);
             D_803A52A4_7B6954 = D_803E1B9A + (D_803E1B8C * var_f0);
             D_803A52A8_7B6958 = D_803E1B9B + (D_803E1B8E * var_f0);
@@ -214,7 +214,7 @@ void func_802F30A4_704754(void) {
             D_803E1BBD = (D_803F2D50.waterEnvRed + D_803A52A0_7B6950) / 2;
             D_803E1BBE = (D_803F2D50.waterEnvGreen + D_803A52A4_7B6954) / 2;
             D_803E1BBF = (D_803F2D50.waterEnvBlue + D_803A52A8_7B6958) / 2;
-            D_803E1BA4++;
+            sLevelLightTransitionElapsedTicks++;
         }
     } else {
         D_803A52A0_7B6950 = D_803E1B99 + D_803E1B8A;

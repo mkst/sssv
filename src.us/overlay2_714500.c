@@ -2,14 +2,14 @@
 #include "common.h"
 
 #ifdef NON_MATCHING
-// standard regalloc bollocks
+// CURRENT: 55 differing ROM instruction words (asm-differ score 1715).
 // only cool_cod + piranha
 void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_lo;
     s16 temp_v1;
-    s16 var_t3;
-    s16 var_t2;
-    s16 var_t4;
+    s32 var_t3;
+    s32 var_t2;
+    s32 var_t4;
 
     s16 tmp1, tmp2;
 
@@ -36,26 +36,28 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
                 D_803D5530->position.yPos.h,
                 1.0f);
         }
-        temp_lo = SIN(D_803D552C->unk310 >> 2) >> 7;
-        var_t2 = ( (temp_lo * D_803D552C->unk30E)) >> 9;
-        var_t3 = ( (temp_lo * D_803D552C->unk30E)) >> 10;
-        var_t4 = (-(temp_lo * D_803D552C->unk30E)) >> 7;
+        temp_lo = (SIN(D_803D552C->unk310 >> 2) >> 7) * D_803D552C->unk30E;
+        // Keep the 16-bit angle truncation explicit for IDO.
+        var_t2 = (s16)(temp_lo >> 9);
+        var_t3 = (s16)(temp_lo >> 10);
+        var_t4 = (s16)((-temp_lo) >> 7);
     } else {
-        var_t4 = var_t2 = var_t3 = 0;
+        var_t2 = var_t3 = var_t4 = 0;
     }
 
-    // TODO: take inspiration from func_802BAA38_6CC0E8?
-    D_80203FE0[1].unk0 = ((SIN(var_t3) >> 7) * arg1) >> 9;
+    tmp1 = ((SIN(var_t3) >> 7) * arg1) >> 9;
+    D_80203FE0[1].unk0 = tmp1;
+    tmp1 = D_80203FE0[1].unk0;
+    tmp2 = ((COS(var_t3) >> 7) * arg1) >> 9;
+    D_80203FE0[1].unk2 = tmp2;
+    tmp2 = D_80203FE0[1].unk2;
     D_80203FE0[1].unk4 = 0;
-
-    D_80203FE0[2].unk0 = -D_80203FE0[1].unk0;
+    D_80203FE0[2].unk0 = -tmp1;
     D_80203FE0[2].unk4 = 0;
+    D_80203FE0[2].unk2 = -tmp2;
 
-    D_80203FE0[1].unk2 = ((COS(var_t3) >> 7) * arg1) >> 9;
-    D_80203FE0[2].unk2 = -D_80203FE0[1].unk2;
-
-    D_80203FE0[0].unk0 = D_80203FE0[1].unk0 + (((SIN(var_t2) >> 7) * arg0) >> 8);
-    D_80203FE0[0].unk2 = D_80203FE0[1].unk2 + (((COS(var_t2) >> 7) * arg0) >> 8);
+    D_80203FE0[0].unk0 = tmp1 + (((SIN(var_t2) >> 7) * arg0) >> 8);
+    D_80203FE0[0].unk2 = tmp2 + (((COS(var_t2) >> 7) * arg0) >> 8);
     D_80203FE0[0].unk4 = 0;
 
     D_80203FE0[3].unk0 = D_80203FE0[2].unk0 - (((SIN(var_t4) >> 7) * arg2) >> 8);

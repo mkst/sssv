@@ -1261,7 +1261,7 @@ s16 load_level_text_data(s16 language, s16 level, u16 *msg_offsets, s16 *dst) {
     // the header contains 9 s32s that indicate the start of each language segment
     // each language segment starts with an s16 containing the number of messages
     // each message starts with an s16 containing the message length in bytes
-    // each message ends with 0x7350 (30000)
+    // each message ends with 0x7530 (30000)
 
     lang = (LangRomData*)&D_80154500[level + level];
     dma_read(lang->start, D_8022E3F0.scratch, lang->end - lang->start);

@@ -11,7 +11,7 @@
 // .bss
 // ========================================================
 
-static s32  D_803E1BE0;
+static s32  sMaxSpeakerVolume;
 static struct085  D_803E1BE8[10];
 
 static s32  D_803E1CD8 UNUSED;
@@ -1240,7 +1240,7 @@ void func_802F8DCC_70A47C(Entity *arg0) {
 }
 
 // ESA: func_80051A8C
-void func_802F9084_70A734(Entity * arg0) {
+void update_object_noop(Entity * arg0) {
 }
 
 // ESA: func_80051A94
@@ -1419,7 +1419,7 @@ void func_802F951C_70ABCC(Entity *arg0) {
 
 // used by OBJECT_FLAME_TORCH
 // ESA: func_80051F00
-void func_802F9624_70ACD4(Animal *arg0) {
+void update_flame_torch(Animal *arg0) {
     if (arg0->state == 1) {
         arg0->Info.unk14E++;
         arg0->Info.unk14E &= 3;
@@ -1442,7 +1442,7 @@ void func_802F9624_70ACD4(Animal *arg0) {
 
 // used by OBJECT_GRAVITY_SWITCH
 // esa: func_80051F98
-void func_802F96E0_70AD90(Entity *psMoveObj) {
+void update_gravity_switch(Entity *psMoveObj) {
     if (psMoveObj->Info.Counter2 == 0) {
         psMoveObj->Info.Counter2 = psMoveObj->unk40;
         psMoveObj->Info.unk152 = (func_80128200() & 0xFF);
@@ -1474,7 +1474,7 @@ void func_802F96E0_70AD90(Entity *psMoveObj) {
 
 // used by object 45
 // ESA: func_800520C4
-void func_802F9880_70AF30(Animal *arg0) {
+void update_lever_switch(Animal *arg0) {
     if (arg0->state == 1) {
         if (arg0->Info.unk150 == 0) {
             arg0->Info.unk150 = 1;
@@ -1552,7 +1552,7 @@ void func_802F9A08_70B0B8(Animal *arg0) {
 
 // used by OBJECT_BUTTON
 // ESA: func_80052324
-void func_802F9B4C_70B1FC(Entity *arg0) {
+void update_floor_button(Entity *arg0) {
     if (arg0->state == 1) {
         add_light_at_location(arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 0xFF, 255 /* red */, 0, 0);
         if (arg0->Info.unk14E == 0) {
@@ -1780,7 +1780,7 @@ void func_802FA6D8_70BD88(void) {
     D_803A5760_7B6E10 += 4;
     D_803A5760_7B6E10 &= 0xFF;
     D_803A52D0_7B6980 += 1;
-    D_803E1BE0 = 0;
+    sMaxSpeakerVolume = 0;
 }
 
 void func_802FA730_70BDE0(Animal *arg0) {
@@ -2054,7 +2054,7 @@ void func_802FB270_70C920(Entity *arg0) {
         func_802F90A8_70A758(arg0);
     }
     if (arg0->commands.unk1A8 != NULL) {
-        func_803191B0_72A860(arg0);
+        run_entity_script(arg0);
     }
     func_802FADBC_70C46C(arg0);
     arg0->newPosition.xPos.w = arg0->position.xPos.w + arg0->xVelocity.w;
@@ -2488,7 +2488,7 @@ void run_commands(Entity *arg0) {
         arg0->unk26C = 1;
         if (arg0->cmdIndex != 0) {
             load_commands_into_object(arg0, &D_803E4D40[arg0->cmdIndex - 1], 0);
-            func_803191B0_72A860(arg0);
+            run_entity_script(arg0);
         }
     }
 }
@@ -3134,7 +3134,7 @@ void func_802FF25C_71090C(void) {
 
 // used by OBJECT_SPEAKER
 // ESA: func_8005764C
-void func_802FF540_710BF0(Entity *arg0) {
+void update_speaker(Entity *arg0) {
     s32 dist;
     s32 phi_t2;
 
@@ -3142,7 +3142,7 @@ void func_802FF540_710BF0(Entity *arg0) {
         D_803A52D4_7B6984 -= 1;
     }
 
-    if (D_803E8E57 != 0) {
+    if (gSpeakerDistanceAttenuationEnabled != 0) {
         dist = ABS(arg0->position.xPos.h - (s16) (s32) gCameraEyeWorldX) +
                ABS(arg0->position.zPos.h - (s16) (s32) gCameraEyeWorldZ) +
                ABS(arg0->position.yPos.h - (s16) (s32) gCameraEyeWorldY);
@@ -3162,7 +3162,7 @@ void func_802FF540_710BF0(Entity *arg0) {
            ABS(arg0->position.yPos.h - gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h);
 
     if ((dist < 192) && (D_803A52D4_7B6984 == 0) &&
-        ((D_801552B0 != 0) || (D_803F2D24 != 0))) {
+        ((gMusicChannel1NoteOn != 0) || (D_803F2D24 != 0))) {
         if (dist < 128) {
             do_rumble(0, 2, 40, 40, dist * 4);
         } else {
@@ -3170,11 +3170,11 @@ void func_802FF540_710BF0(Entity *arg0) {
         }
         D_803A52D4_7B6984 = 5;
     }
-    if (D_803E1BE0 < phi_t2) {
-        D_803E1BE0 = phi_t2;
+    if (sMaxSpeakerVolume < phi_t2) {
+        sMaxSpeakerVolume = phi_t2;
     }
-    D_8015517C = (f32)D_803E1BE0 / 256;
-    D_8028645A += 1;
+    gMusicSpeakerVolumeScale = (f32)sMaxSpeakerVolume / 256;
+    gSpeakerUpdatesThisFrame += 1;
 }
 
 // used by object 140
@@ -3326,7 +3326,7 @@ void func_802FFF50_711600(Entity *arg0) {
 }
 
 // used by OBJECT_RED_TV and OBJECT_TV_SCREEN
-void func_802FFF70_711620(Entity *arg0) {
+void update_tv_hum(Entity *arg0) {
     func_8032CED0_73E580((u8*)arg0 + 0x22, SFX_UNKNOWN_159, 0x3000, 1.0f, 0, 0, arg0->position.xPos.h, arg0->position.zPos.h, arg0->position.yPos.h, 0, 0, 0);
 }
 

@@ -186,9 +186,9 @@ extern s8   D_80155164[];
 extern s8   D_80155168[]; // is this u8?
 extern s8   D_80155170;
 extern s8   D_80155174;
-extern f32  D_8015517C;
-extern u8   D_801552B0;
-extern u8   D_801552B4;
+extern f32  gMusicSpeakerVolumeScale;
+extern u8   gMusicChannel1NoteOn;
+extern u8   gMusicChannels3PlusNoteOn;
 
 // overlay1_6384F0
 extern u8   D_801552C0[]; // C
@@ -321,7 +321,7 @@ extern ALHeap D_80286328;
 extern ALSeqPlayer *D_802863C8[1];
 extern ALCSeq *D_802863CC[1];
 extern u8   D_80286458;
-extern s16  D_8028645A;
+extern s16  gSpeakerUpdatesThisFrame;
 extern s16  gCurrentMusicTrack;
 
 // csplayer
@@ -646,7 +646,7 @@ extern s32  gTasksCompleted;
 extern s32  D_803E4D30;
 extern CmdWrapper D_803E4D40[1666]; // BIG_DAY_PARADE is 1666 commands long
 extern u16  D_803E8E54;
-extern u8   D_803E8E57;
+extern u8   gSpeakerDistanceAttenuationEnabled;
 
 // overlay2_72B100
 extern WaypointData *D_803E8E60[64];

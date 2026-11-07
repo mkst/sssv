@@ -31,7 +31,7 @@ void func_80294E50_6A6500(void) {
     gDisplayListContext->usedModelViewMtxs = 0;
     gDisplayListContext->unk39310 = 0;
     gDisplayListContext->usedSprites = 0;
-    D_8028645A = 0;
+    gSpeakerUpdatesThisFrame = 0;
     // reset a bunch of things
     reset_object_render_queues();
 
@@ -179,7 +179,7 @@ void func_80294E50_6A6500(void) {
 
         gSPDisplayList(gMainDL++, &gDisplayListContext->gAuxDL);
 
-        func_8029877C_6A9E2C();
+        advance_water_animation();
         D_803F2D50.unk18 = 1;
 #ifdef __sgi
         if (0) {};
@@ -302,13 +302,13 @@ void func_80294E50_6A6500(void) {
                 set_tv_mode_widescreen();
             }
         }
-        if (D_8028645A == 0) {
-            D_8015517C = 0.0f;
+        if (gSpeakerUpdatesThisFrame == 0) {
+            gMusicSpeakerVolumeScale = 0.0f;
         }
         if ((gCurrentMusicTrack == MUSIC_TRACK_LEVEL_FAILED) ||
             (gCurrentMusicTrack == MUSIC_TRACK_LEVEL_PASSED) ||
             (gCurrentMusicTrack == MUSIC_TRACK_BOSS_LEVEL_PASSED)) {
-            D_8015517C = 1.0f;
+            gMusicSpeakerVolumeScale = 1.0f;
             gMusicVolumeScale = 0x800;
         }
         if (D_803C0426 != 0) {
@@ -366,8 +366,8 @@ void func_80294E50_6A6500(void) {
             trigger_screen_transition(TRANSITION_FADE_OUT_BLK);
         }
     }
-    D_801552B4 = 0;
-    D_801552B0 = 0;
+    gMusicChannels3PlusNoteOn = 0;
+    gMusicChannel1NoteOn = 0;
 }
 
 void reset_player_progress(void) {
@@ -400,8 +400,8 @@ void init_level(void) {
     load_water_texture();
     gInitialisationState = 0;
     gOverlayMenuState.unk4 = 0;
-    D_8028645A = 0;
-    D_8015517C = 0.0f;
+    gSpeakerUpdatesThisFrame = 0;
+    gMusicSpeakerVolumeScale = 0.0f;
     gCurrentMusicTrack = NO_MUSIC;
     D_803F2D50.screenWidth = 320;
     D_803F2D50.ready = 0;
@@ -412,7 +412,7 @@ void init_level(void) {
 
     load_objects();
     func_802C9834_6DAEE4();
-    func_80296544_6A7BF4(); // init_cosine_tables
+    initialize_water_wave_tables(); // init_cosine_tables
     reset_particles();
     func_80304170_715820(); // empty function
     func_80304194_715844(); // zero out texture size data?

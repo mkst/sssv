@@ -34,7 +34,7 @@ extern Gfx D_04003630_E0BF0[];
 
 // POLAR_BEAR
 #ifdef NON_MATCHING
-// reg + stack
+// CURRENT: 70
 void func_80365F10_7775C0(void) {
     LimbConfig spB8;
     s16 spB6;                                       /* compiler-managed */
@@ -42,13 +42,8 @@ void func_80365F10_7775C0(void) {
     s16 spB2;
     s16 spB0;
     s16 spAE;
-    u16 spAC;
-    s16 spAA;
-    u8  new_var;
-    u8  temp_v0;
     u16 ticks_remaining;
-
-    s16 pad;
+    s16 spAA;
 
     f32 spA4;
 
@@ -219,7 +214,7 @@ void func_80365F10_7775C0(void) {
             }
         }
         func_8038064C_791CFC();
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0 = gCameraUiState, (temp_v0 == 0)) || (temp_v0 == 2) || ((temp_v0 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 250) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (!gCameraUiState) || (gCameraUiState == 2) || ((gCameraUiState == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || ((gCameras[gCameraId].cameraMode != 3) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
             if (D_803D5524->animalType == POLAR_BEAR) {
                 spAA = D_803D552C->heading;
             } else {
@@ -241,10 +236,9 @@ void func_80365F10_7775C0(void) {
                     GPACK_RGBA5551(248, 248, 248, 1), // white
                     0);
             } else if (D_803D552C->attackState == ATTACK_STATE_CHARGE_END) {
-                spAC = gGameplayTick - D_803D552C->attackTimer;
-
+                ticks_remaining = (gGameplayTick & 0xFFFF) - D_803D552C->attackTimer;
                 func_802DC2AC_6ED95C(10);
-                spA4 = D_803B4378_7C5A28[spAC & 0xFFFF];
+                spA4 = D_803B4378_7C5A28[ticks_remaining & 0xFFFF];
             } else {
                 spA4 = 0.0f;
             }
@@ -268,7 +262,7 @@ void func_80365F10_7775C0(void) {
                 } else {
                     func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x99) >> 6, (D_803F2EC0 * 0x99) >> 6, (D_803F2EC4 * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04002C30_E01F0);
                 }
-                func_802C78B0_6D8F60(0x13, 0x14, (((s32) (spAE * D_803F2EC8) >> 8) * 0x99) >> 6, (((s32) (spAE * D_803F2EC8) >> 8) * 0x99) >> 6, (((s32) (spAE * D_803F2EC8) >> 8) * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04003250_E0810);
+                func_802C78B0_6D8F60(0x13, 0x14, (((spAE * D_803F2EC8) >> 8) * 0x99) >> 6, (((spAE * D_803F2EC8) >> 8) * 0x99) >> 6, (((spAE * D_803F2EC8) >> 8) * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04003250_E0810);
 
                 gDPSetPrimColor(gOpaqueDL++, 0, 0, 0x14, 0x14, 0x14, 0xFF);
                 gSPDisplayList(gOpaqueDL++, D_01003548_3CE18);
@@ -295,7 +289,7 @@ void func_80365F10_7775C0(void) {
                 break;
             case POLAR_BEAR_DEFENDING:
                 func_80368840_779EF0(32);
-                func_802C78B0_6D8F60(2, 1, (s32) (D_803F2EBC * 0x99) >> 6, (s32) (D_803F2EC0 * 0x99) >> 6, (s32) (D_803F2EC4 * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04002D78_E0338);
+                func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x99) >> 6, (D_803F2EC0 * 0x99) >> 6, (D_803F2EC4 * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04002D78_E0338);
                 if (D_803D5540 < 0x50) {
                     D_80203FE0[19].unk0 = 0;
                     D_80203FE0[19].unk2 = D_80203FE0[1].unk2 - 0x2CD;
@@ -319,7 +313,7 @@ void func_80365F10_7775C0(void) {
                     if ((D_803D5530->state == 2) && (D_803D5530->xVelocity.h == 0) && (D_803D5530->zVelocity.h == 0)) {
                         if (ABS(D_803D5530->yVelocity.h) < 6) {
                             if ((D_803D5540 == 0x78) || (D_803D5540 == 0xAA)) {
-                                play_sound_effect_at_location(SFX_UNKNOWN_24, 0x5000, 0, D_803D5530->position.xPos.h, (s16) (s32) D_803D5530->position.zPos.h, (s16) (s32) D_803D5530->position.yPos.h, 1.0f);
+                                play_sound_effect_at_location(SFX_UNKNOWN_24, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                                 create_particle_effect(
                                     D_803D5530->position.xPos.h,
                                     D_803D5530->position.zPos.h,
@@ -334,7 +328,7 @@ void func_80365F10_7775C0(void) {
                                     0);
                             }
                             if ((D_803D5540 == 0x91) || (D_803D5540 == 0xC3)) {
-                                play_sound_effect_at_location(SFX_UNKNOWN_25, 0x5000, 0, D_803D5530->position.xPos.h, (s16) (s32) D_803D5530->position.zPos.h, (s16) (s32) D_803D5530->position.yPos.h, 1.0f);
+                                play_sound_effect_at_location(SFX_UNKNOWN_25, 0x5000, 0, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 1.0f);
                                 create_particle_effect(
                                     D_803D5530->position.xPos.h,
                                     D_803D5530->position.zPos.h,
@@ -394,8 +388,9 @@ void func_80365F10_7775C0(void) {
     }
 
     if ((D_803D5524->animalType == POLAR_BEAR_DEFENDING)) {
-        new_var = D_803D552C->movementMode;
-        if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (new_var == MOVEMENT_MODE_DEACTIVATED)) {
+    if (D_803D552C->movementMode) {}
+    if (D_803D552C->movementMode == 2) {}
+        if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
             load_animal(POLAR_BEAR);
             func_802A4390_6B5A40();
         }
@@ -573,9 +568,9 @@ void func_803677C4_778E74(void) {
         }
         func_8038064C_791CFC();
 
-        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_8 = gCameraUiState, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && ((s32) D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
+        if (((gDisplayListContext->usedModelViewMtxs + 0x1E) < 0xFA) && (D_803F2EDA != 0) && ((D_803D5538 != 0) || (temp_v0_8 = gCameraUiState, (temp_v0_8 == 0)) || (temp_v0_8 == 2) || ((temp_v0_8 == 1) && (D_803F2AA3 >= 0xB))) && ((D_803F2C18[0] != 0) || (D_803D5538 == 0) || (((gCameras[gCameraId].cameraMode != 3)) && (gCameras[gCameraId].cameraMode != 0x11)) || (gCameras[gCameraId].zoomIndex != -3))) {
 
-            func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  (-D_803D552C->heading) & 0xFF, (s32) D_803F2EB0 / 4, (s32) D_803F2EB4 / 4, (s32) D_803F2EB8 / 4, (s16) (s32) D_803F2ED2, D_803F2ED4);
+            func_80127640(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs], D_803D5530->position.xPos.w, D_803D5530->position.zPos.w, D_803D5530->position.yPos.w,  (-D_803D552C->heading) & 0xFF, D_803F2EB0 / 4, D_803F2EB4 / 4, D_803F2EB8 / 4, D_803F2ED2, D_803F2ED4);
             gSPMatrix(gOpaqueDL++, OS_K0_TO_PHYSICAL(&gDisplayListContext->modelViewMtx[gDisplayListContext->usedModelViewMtxs++]), G_MTX_PUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
             func_802C78B0_6D8F60(2, 1, (D_803F2EBC * 0x99) >> 6, (D_803F2EC0 * 0x99) >> 6, (D_803F2EC4 * 0x99) >> 6, D_803F2ED0, 0, 0, 0, D_04002C30_E01F0);
@@ -713,7 +708,7 @@ void func_80368840_779EF0(s16 arg0) {
         temp_s2f = temp_s2;
         temp_s7f = temp_s7 = temp_s3 + ((temp_s3 + 75) / 2);
 
-        temp_v0 = (s32) sqrtf((temp_s1f * temp_s1f) + (temp_s2f * temp_s2f) + (temp_s7f * temp_s7f));
+        temp_v0 = sqrtf((temp_s1f * temp_s1f) + (temp_s2f * temp_s2f) + (temp_s7f * temp_s7f));
 
         phi_a1[i].v.ob[0] = ((((s16)  ((temp_s1 * 50) / temp_v0)       * arg0) + (temp_s1 * (32 - arg0))) >> 5);
         phi_a1[i].v.ob[1] = ((((s16)  ((temp_s2 * 50) / temp_v0)       * arg0) + (temp_s2 * (32 - arg0))) >> 5);

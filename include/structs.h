@@ -1659,8 +1659,8 @@ typedef struct {
 
 typedef struct {
     s8  unk0[8][64];
-    s16 unk200; // lod? (0..255)
-    u16 unk202; // current water tile index (0..15)
+    s16 textureBlend; // primitive LOD fraction (0..255)
+    u16 textureFrame; // current water texture frame (0..15)
     u16 unk204; // (0..63)
     u16 unk206;
     s16 unk208;

@@ -1472,7 +1472,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                     D_803D343C->yRotation,
                                     D_803D343C->unk16C->displayList1);
                                     scale = D_803D343C->unk40;
-                                    if (D_801552B0 != 0) {
+                                    if (gMusicChannel1NoteOn != 0) {
                                         scale += guRandom() % 600;
                                         D_803F2D24 = 1;
                                     } else {
@@ -1498,7 +1498,7 @@ void func_8029F7D4_6B0E84(DisplayList *arg0, Objects *arg1) {
                                 gSPDisplayList(gXluDL++, D_010106E0_49FB0);
                                 gSPPopMatrix(gXluDL++, G_MTX_MODELVIEW);
                                 scale = D_803D343C->unk40;
-                                if (D_801552B4 != 0) {
+                                if (gMusicChannels3PlusNoteOn != 0) {
                                     scale += guRandom() % 600;
                                 }
                                 func_80125FE0(

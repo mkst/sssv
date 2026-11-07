@@ -30,7 +30,7 @@
 #define CAMERA_MODE_26          26
 #define CAMERA_MODE_27          27
 #define CAMERA_MODE_28          28
-#define CAMERA_MODE_29          29
+#define CAMERA_MODE_WATCH_TV    29
 #define CAMERA_MODE_30          30
 #define CAMERA_MODE_SPIN_2      31
 #define CAMERA_MODE_228         228

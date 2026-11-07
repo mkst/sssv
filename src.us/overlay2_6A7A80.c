@@ -22,7 +22,7 @@ u16  gWorldPerspNorm; // matrix normalise
 // .text
 // ========================================================
 
-void func_802963D0_6A7A80(FrameContext *arg0) {
+void initialize_water_grid(FrameContext *arg0) {
     static int t5;
     s16 i;
     s16 j;
@@ -78,14 +78,14 @@ void func_802963D0_6A7A80(FrameContext *arg0) {
     }
 }
 
-void func_80296544_6A7BF4(void) {
+void initialize_water_wave_tables(void) {
     f64 temp_f20;
     f64 temp_f22;
     f64 temp_f24;
 
     u8 i;
 
-    gWaterAnimState.unk202 = 0;
+    gWaterAnimState.textureFrame = 0;
     gWaterAnimState.unk204 = 0;
 
     if (D_803F2D50.waterWaveMode == 0) {
@@ -298,7 +298,7 @@ void func_80296C8C_6A833C(struct063 arg0[73][129]) {
 
 #ifdef NON_MATCHING
 // update_water_level
-// 460
+// CURRENT (495): 86 differing ROM instruction words.
 void func_8029726C_6A891C(struct063 arg0[73][129]) {
     s16 xPos;
     s16 zPos;
@@ -322,7 +322,9 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
     if (gWaterAnimState.unk20F == (gWaterAnimState.unk20F == 0)) {
         // maybe
     };
-    curWater = arg0[sp4C.Start2][zPos].unk0;
+    // IDO allocation probe with defined array indices.
+    zPos = (gWaterAnimState.unk20F & 0x7F);
+    curWater = arg0[0][zPos].unk0;
     if (curWater && curWater) {
         // ??
     };
@@ -424,7 +426,7 @@ void func_8029726C_6A891C(struct063 arg0[73][129]) {
 #if 0
 extern Gfx D_010045A0_3DE70[];
 
-// CURRENT (34997)
+// CURRENT (28525): still non-matching; target 3496 bytes, draft 3392 bytes.
 void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     u8 pad[0x44];
     u16 z; // sp190
@@ -440,8 +442,8 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     s32 sp164;
     s32 sp160;
 
-    u16 sp142;
-    u16 sp140;
+    s16 sp142;
+    s16 sp140;
 
     // s16 sp142;
     // s16 sp140;
@@ -471,8 +473,8 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     s16 height;
     s16 end;
     s16 var_t1;
-    s16 var_t5;
-    s16 i;
+    s32 var_t5;
+    u16 i;
     s32 temp_a0;
     s32 temp_s4;
     s32 temp_t1;
@@ -482,7 +484,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     s32 var_s5;
     // s32 var_s7;
     s32 var_t4;
-    s32 var_v1;
+    u16 var_v1;
     s16 start;
     u16 temp_v1_3;
 
@@ -501,7 +503,7 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
     gSPDisplayList(gLayer1DL++, D_01004270_3DB40);
     gSPDisplayList(gLayer1DL++, D_010045A0_3DE70);
 
-    func_802985AC_6A9C5C(&gLayer1DL);
+    setup_water_grid_material(&gLayer1DL);
 
     gSPTexture(gLayer1DL++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON); // 0x10000
     gDPSetTextureLOD(gLayer1DL++, G_TL_TILE);
@@ -567,16 +569,8 @@ void func_80297628_6A8CD8(struct063 arg0[73][129], DisplayList *arg1) {
 
                             arg1->unk286E0[(z * vertsPerRow) + x].v.ob[2] = gWaterAnimState.unk0[(temp_t2 & 7)][((gWaterAnimState.unk204 + temp_t7) & 0x3F)] + height;
 
-                            tmp1 = gWaterAnimState.unk0[(tmp6    + 0) & 7][((gWaterAnimState.unk204 + tmp5   ) + 8) & 0x3F];
-                            tmp2 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7) + 0) & 0x3F];
-                            tmp3 = gWaterAnimState.unk0[(temp_t2 + 1) & 7][((gWaterAnimState.unk204 + temp_t7) + 8) & 0x3F];
-                            tmp4 = gWaterAnimState.unk0[(temp_t2 + 0) & 7][((gWaterAnimState.unk204 + temp_t7) + 0) & 0x3F];
-
-                            tmp7 = (D_803C0740[temp_t1][z + sp160 + 0].unk6 * 4);
-                            tmp8 = (D_803C0740[temp_t1][z + sp160 + 1].unk6 * 4);
-
-                            temp_f20 = ((tmp1 + height + tmp2) - (tmp7)) / 64.0f;
-                            temp_f22 = ((tmp3 + height + tmp4) - (tmp8)) / 64.0f;
+                            temp_f20 = ((gWaterAnimState.unk0[tmp6 & 7][(gWaterAnimState.unk204 + tmp5 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1 + 1][z + sp160].unk6 * 4)) / 64.0f;
+                            temp_f22 = ((gWaterAnimState.unk0[(temp_t2 + 1) & 7][(gWaterAnimState.unk204 + temp_t7 + 8) & 0x3F] + height + gWaterAnimState.unk0[temp_t2 & 7][(gWaterAnimState.unk204 + temp_t7) & 0x3F]) - (u16)(D_803C0740[temp_t1][z + sp160 + 1].unk6 * 4)) / 64.0f;
                             temp_f24 = foo / 64.0f;
 
                             temp_f2 = 128.0f / sqrtf(SQ(temp_f20) + SQ(temp_f22) + SQ(temp_f24));
@@ -764,8 +758,8 @@ s32 func_802983D0_6A9A80(void) {
 }
 
 // draw_water
-void func_802985AC_6A9C5C(Gfx **dl) {
-    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &gWaterTextureBuffer[gWaterAnimState.unk202 << 9]);
+void setup_water_grid_material(Gfx **dl) {
+    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, &gWaterTextureBuffer[gWaterAnimState.textureFrame << 9]);
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
     gDPLoadSync((*dl)++);
     gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 1024);
@@ -777,20 +771,20 @@ void func_802985AC_6A9C5C(Gfx **dl) {
 
     gDPSetEnvColor((*dl)++, D_803E1BBD, D_803E1BBE, D_803E1BBF, D_803F2D50.waterEnvAlpha);
 
-    gDPSetPrimColor((*dl)++, 128, gWaterAnimState.unk200, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
+    gDPSetPrimColor((*dl)++, 128, gWaterAnimState.textureBlend, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
 }
 
-void func_8029877C_6A9E2C(void) {
+void advance_water_animation(void) {
     // maximum 64
     gWaterAnimState.unk204 += 1;
     gWaterAnimState.unk204 &= 0x3F;
 
     // maximum 255
-    gWaterAnimState.unk200 += 64;
-    if (gWaterAnimState.unk200 >= 256) {
-        gWaterAnimState.unk200 &= 0xFF;
-        gWaterAnimState.unk202 += 1;
-        gWaterAnimState.unk202 &= 0xF;
+    gWaterAnimState.textureBlend += 64;
+    if (gWaterAnimState.textureBlend >= 256) {
+        gWaterAnimState.textureBlend &= 0xFF;
+        gWaterAnimState.textureFrame += 1;
+        gWaterAnimState.textureFrame &= 0xF;
     }
 
     gWaterAnimState.unk208 = 0;

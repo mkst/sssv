@@ -255,7 +255,7 @@ void update_terminal_scene_lighting(u8 arg0) {
         add_light_at_location(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h + 64, gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h,      gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h + 64, arg0,    0, arg0, 0);
         add_light_at_location(gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h,      gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h - 64, gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h - 64, arg0, arg0,    0, 0);
         if ((gCameraUiState == 1) && (gTerminalPhase != 2)) {
-            func_802F2EEC_70459C(70, 70, 70, 50, 30, 30, 30);
+            start_level_light_transition(70, 70, 70, 50, 30, 30, 30);
             gCameraUiState += 1;
         }
     }
@@ -605,7 +605,7 @@ void render_terminal_background_frame(void) {
 #endif
         render_terminal_background_scene();
         if (D_803B6310_7C79C0 == 1) {
-            func_802F2EEC_70459C(80, 80, 80, 200, 200, 200, 10);
+            start_level_light_transition(80, 80, 80, 200, 200, 200, 10);
         }
         D_803B6310_7C79C0 += 1;
         if ((D_803B6310_7C79C0) == 40) {
