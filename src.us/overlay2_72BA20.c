@@ -88,10 +88,13 @@ void func_8031A370_72BA20(void) {
     D_803E97C8.unk0 = var_v0;
 }
 
-#if 0
 // ESA: func_8004E044 (but custom for ps1)
 void func_8031A4E0_72BB90(void) {
-    s32 pad[0xA];
+    s32 nextX0;
+    s32 nextX1;
+    s32 nextY0;
+    s32 nextY1;
+    s32 pad[6];
     s16 x0;
     s16 y0; // sp4C
     s16 z0; // sp4A
@@ -207,19 +210,18 @@ void func_8031A4E0_72BB90(void) {
             y2 += SSSV_RAND(32) - 16;
             x2 += SSSV_RAND(32) - 16;
             z2 += SSSV_RAND(32) - 8;
-            if (!D_803E97C8.startX) {};
-            if ((&D_803E97C8) && (&D_803E97C8)){};
+            if (!D_803E97C8.startX) {}
             z2 += (COS(phase) * 8) >> 0xF;
         }
 
-#if 1
-        tmp1 = z2 + 4;
         tmp2 = z2 - 4;
 
         /* 0x00 */ vtxs[0].v.ob[0] = x0;
         /* 0x02 */ vtxs[0].v.ob[1] = y0;
         /* 0x04 */ vtxs[0].v.ob[2] = z0 + 4;
-        /* 0x0C */ vtxs[0].v.cn[0] = vtxs[0].v.cn[1] = vtxs[0].v.cn[2] = 0xFF;
+        /* 0x0C */ vtxs[0].v.cn[0] = 0xFF;
+        /* 0x0D */ vtxs[0].v.cn[1] = 0xFF;
+        /* 0x0E */ vtxs[0].v.cn[2] = 0xFF;
         /* 0x08 */ vtxs[0].v.tc[0] = 0;
         /* 0x0A */ vtxs[0].v.tc[1] = 0;
 
@@ -228,22 +230,33 @@ void func_8031A4E0_72BB90(void) {
         /* 0x14 */ vtxs[1].v.ob[2] = z1 - 4;
         /* 0x1A */ vtxs[1].v.tc[1] = 0x3FF;
 
-        /* 0x22 */ vtxs[2].v.ob[1] = y2;
-        /* 0x20 */ vtxs[2].v.ob[0] = x2;
+        nextX0 = (s16)x2;
+        /* 0x20 */ vtxs[2].v.ob[0] = nextX0;
+        nextY0 = (s16)y2;
+        /* 0x22 */ vtxs[2].v.ob[1] = nextY0;
+        tmp1 = z2 + 4;
         /* 0x24 */ vtxs[2].v.ob[2] = (tmp1 + 4);
         /* 0x28 */ vtxs[2].v.tc[0] = 0x7FF;
 
-        /* 0x30 */ vtxs[3].v.ob[0] = x2;
-        /* 0x32 */ vtxs[3].v.ob[1] = y2;
+        nextX1 = (s16)(u16)x2;
+        /* 0x30 */ vtxs[3].v.ob[0] = nextX1;
+        nextY1 = (s16)(u16)y2;
+        /* 0x32 */ vtxs[3].v.ob[1] = nextY1;
 
-        /* 0x1C */ vtxs[1].v.cn[0] = vtxs[1].v.cn[1] = vtxs[1].v.cn[2] = 0xFF;
+        /* 0x1C */ vtxs[1].v.cn[0] = 0xFF;
+        /* 0x1D */ vtxs[1].v.cn[1] = 0xFF;
+        /* 0x1E */ vtxs[1].v.cn[2] = 0xFF;
         /* 0x18 */ vtxs[1].v.tc[0] = 0;
 
-        /* 0x2C */ vtxs[2].v.cn[0] = vtxs[2].v.cn[1] = vtxs[2].v.cn[2] = 0xFF;
+        /* 0x2C */ vtxs[2].v.cn[0] = 0xFF;
+        /* 0x2D */ vtxs[2].v.cn[1] = 0xFF;
+        /* 0x2E */ vtxs[2].v.cn[2] = 0xFF;
         /* 0x2A */ vtxs[2].v.tc[1] = 0;
-        /* 0x34 */ vtxs[3].v.ob[2] = (tmp2 - 4) & 0xFFFF;
+        /* 0x34 */ vtxs[3].v.ob[2] = tmp2 - 4;
 
-        /* 0x3C */ vtxs[3].v.cn[0] = vtxs[3].v.cn[1] = vtxs[3].v.cn[2] = 0xFF;
+        /* 0x3C */ vtxs[3].v.cn[0] = 0xFF;
+        /* 0x3D */ vtxs[3].v.cn[1] = 0xFF;
+        /* 0x3E */ vtxs[3].v.cn[2] = 0xFF;
 
         /* 0x38 */ vtxs[3].v.tc[0] = 0x7FF;
         /* 0x3A */ vtxs[3].v.tc[1] = 0x3FF;
@@ -253,67 +266,18 @@ void func_8031A4E0_72BB90(void) {
         gDisplayListContext->unk3B30A[D_803E97C0] += 4;
         gDisplayListContext->unk3B308 += 4;
 
-        x0 = x2;
-        y0 = y2;
+        x0 = nextX0;
+        y0 = nextY0;
         z0 = tmp1;
 
-        x1 = x2;
-        y1 = y2;
+        x1 = nextX1;
+        y1 = nextY1;
         z1 = tmp2;
-#else
-        tmp1 = z2 + 4;
-        tmp2 = z2 - 4;
 
-        if (1) {
-            vtxs[0].v.ob[0] = x0;
-            vtxs[0].v.ob[1] = y0;
-            vtxs[0].v.ob[2] = z0 + 4;
-            vtxs[0].v.cn[0] = vtxs[0].v.cn[1] = vtxs[0].v.cn[2] = 0xFF;
-            vtxs[0].v.tc[0] = 0;
-            vtxs[0].v.tc[1] = 0;
-
-            vtxs[1].v.ob[0] = x1;
-            vtxs[1].v.ob[1] = y1;
-            vtxs[1].v.ob[2] = z1 - 4;
-            vtxs[1].v.cn[0] = vtxs[1].v.cn[1] = vtxs[1].v.cn[2] = 0xFF;
-            vtxs[1].v.tc[0] = 0;
-            vtxs[1].v.tc[1] = 0x3FF;
-
-            vtxs[2].v.ob[0] = x2;
-            vtxs[2].v.ob[1] = y2;
-            vtxs[2].v.ob[2] = tmp1 + 4;
-            vtxs[2].v.cn[0] = vtxs[2].v.cn[1] = vtxs[2].v.cn[2] = 0xFF;
-            vtxs[2].v.tc[0] = 0x7FF;
-            vtxs[2].v.tc[1] = 0;
-
-            vtxs[3].v.ob[0] = x2;
-            vtxs[3].v.ob[1] = y2;
-            vtxs[3].v.ob[2] = (tmp2 - 4) & 0xFFFF;
-            vtxs[3].v.cn[0] = vtxs[3].v.cn[1] = vtxs[3].v.cn[2] = 0xFF;
-            vtxs[3].v.tc[0] = 0x7FF;
-            vtxs[3].v.tc[1] = 0x3FF;
-
-            vtxs += 4;
-
-            gDisplayListContext->unk3B30A[D_803E97C0] += 4;
-            gDisplayListContext->unk3B308 += 4;
-
-            x0 = x2;
-            y0 = y2;
-            z0 = tmp1;
-
-            x1 = x2;
-            y1 = y2;
-            z1 = tmp2;
-        }
-#endif
     }
 
     D_803E97C0++;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_72BA20/func_8031A4E0_72BB90.s")
-#endif
 
 // used by object 28
 void func_8031AA0C_72C0BC(Entity *e) {
