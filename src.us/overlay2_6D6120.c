@@ -898,8 +898,6 @@ void func_802C6C00_6D82B0(s16 arg0, s16 arg1) {
 }
 
 // only used by rabbit
-#ifdef NON_MATCHING
-// CURRENT: 9 differing ROM instruction words; corrected ear-base heights.
 void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 liftL; // left ear?
     s16 liftR; // right ear?
@@ -909,10 +907,6 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     s16 tmp2;
     s16 tmp3;
     s16 tmp4;
-
-    // fakery
-    tmp3 = 3;
-    tmp2 = D_80203FE0[19].unk2;
 
     temp_hi = (D_803D5542 + 0x14) % 360;
 
@@ -933,34 +927,34 @@ void func_802C6FF4_6D86A4(s16 arg0, s16 arg1) {
     // not a switch
     if ((D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED) ||
         (D_803D552C->movementMode == MOVEMENT_MODE_2)) {
-            liftL = liftR = 0;
+        liftL = liftR = 0;
     }
 
-    tmp1 = D_80203FE0[19].unk0 - arg0;
-    tmp4 = D_80203FE0[19].unk0 + arg0;
+    tmp4 = D_80203FE0[19].unk0;
     tmp2 = D_80203FE0[19].unk2;
-
-    if (0) { };
-
     tmp3 = D_80203FE0[19].unk4;
-    arg1 += tmp3;
+
+    tmp1 = tmp4 - arg0;
+    tmp4 = tmp4 + arg0;
+
+    arg1 = D_80203FE0[19].unk4 + arg1;
 
     D_80203FE0[26].unk0 = tmp1; /* 0xD0 */
-    D_80203FE0[28].unk0 = tmp4; /* 0xE0 */
-    D_80203FE0[27].unk0 = tmp1;
-    D_80203FE0[26].unk4 = tmp3; /* 0xD4 */
-    D_80203FE0[27].unk2 = (tmp2 + (liftL     ));
-    D_80203FE0[29].unk0 = tmp4;
-    D_80203FE0[27].unk4 = ((arg1) - (liftL >> 1));
-    D_80203FE0[29].unk2 = (tmp2 + (liftR     ));
-    D_80203FE0[29].unk4 = ((arg1) - (liftR >> 1));
-    D_80203FE0[28].unk4 = tmp3; /* 0xE4 */
     D_80203FE0[26].unk2 = tmp2; /* 0xD2 */
+    D_80203FE0[26].unk4 = tmp3; /* 0xD4 */
+
     D_80203FE0[28].unk2 = tmp2; /* 0xE2 */
+    D_80203FE0[28].unk0 = tmp4; /* 0xE0 */
+    D_80203FE0[28].unk4 = tmp3; /* 0xE4 */
+
+    D_80203FE0[27].unk0 = tmp1;
+    D_80203FE0[27].unk2 = (tmp2 + (liftL     ));
+    D_80203FE0[27].unk4 = (arg1 - (liftL >> 1));
+
+    D_80203FE0[29].unk0 = tmp4;
+    D_80203FE0[29].unk2 = (tmp2 + (liftR     ));
+    D_80203FE0[29].unk4 = (arg1 - (liftR >> 1));
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6D6120/func_802C6FF4_6D86A4.s")
-#endif
 
 void func_802C71BC_6D886C(s16 *arg0, s16 *arg1, s16 *arg2, s16 arg3) {
     *arg0 = D_803D5530->position.xPos.h + ((((COS(D_803D552C->heading) * (D_80203FE0[20].unk0 + 0   )) / 32) + ((SIN(D_803D552C->heading) * (D_80203FE0[20].unk2 + arg3)) / 32)) >> 0xF);
