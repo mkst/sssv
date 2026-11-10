@@ -2386,35 +2386,30 @@ void func_802C4448_6D5AF8(s16 arg0) {
     D_80203FE0[5].unk4 = D_80203FE0[0].unk4 - arg0;
 }
 
-// ordering of assignments is wrong
-#if 0
-// CURRENT (7447)
+// Seagull and vulture joint layout.
 void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
+    s32 delta;
     s16 sp42;
     s16 sp40;
     s16 sp3E;
     s16 sp3C;
-
     s16 temp_t9;
     s16 temp_v0;
-    s16 temp_t7;
-    s32 phi_v1;
 
     switch (D_803D5530->state) {
     case 142:
     case 144:
         temp_v0 = (D_803D5540 << 4) & 0xFF;
         temp_t9 = ((D_803D5540 << 4) + 0x80) & 0xFF;
-        temp_t7 = (((SIN(temp_v0)) >> 7) * arg3) >> 8;
-        sp42 = temp_t7;
-        sp40 = -temp_t7;
+        sp42 = ((SIN(temp_v0) >> 7) * arg3) >> 8;
+        sp40 = -sp42;
         if ((temp_v0 > 64) && (temp_v0 < 192)) {
-            sp3E = ((((COS(temp_v0 << 1) >> 7) + 0x100) * arg3) >> 0xA);
+            sp3E = (((COS(temp_v0 << 1) >> 7) + 0x100) * arg3) >> 0xA;
         } else {
             sp3E = 0;
         }
         if ((temp_t9 > 64) && (temp_t9 < 192)) {
-            sp3C = ((((COS(temp_t9 << 1) >> 7) + 0x100) * arg3) >> 0xA);
+            sp3C = (((COS(temp_t9 << 1) >> 7) + 0x100) * arg3) >> 0xA;
         } else {
             sp3C = 0;
         }
@@ -2422,12 +2417,12 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
             func_8032CA90_73E140(D_803D5524->mass, D_803D5524->animalType, D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h);
         }
         break;
+
     case 143:
         temp_v0 = (D_803D5540 << 5) & 0xFF;
         temp_t9 = ((D_803D5540 << 5) + 0x80) & 0xFF;
-        temp_t7 = (((SIN(temp_v0)) >> 7) * arg3) >> 8;
-        sp42 = temp_t7;
-        sp40 = -temp_t7;
+        sp42 = ((SIN(temp_v0) >> 7) * arg3) >> 8;
+        sp40 = -sp42;
         if ((temp_v0 > 64) && (temp_v0 < 192)) {
             sp3E = (((COS(temp_v0 << 1) >> 7) + 256) * arg3) >> 10;
         } else {
@@ -2449,8 +2444,10 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
         sp42 = 0;
         break;
     }
+    // Reuse the phase temporary for the span between the outer tips.
+    temp_v0 = (arg3 * 11) >> 4;
 
-    // falls apart here
+    // Paired roots.
     D_80203FE0[5].unk0 = D_80203FE0[0].unk0;
     D_80203FE0[5].unk2 = D_80203FE0[0].unk2 + sp42;
     D_80203FE0[5].unk4 = D_80203FE0[0].unk4 - arg0;
@@ -2459,6 +2456,7 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     D_80203FE0[27].unk2 = D_80203FE0[0].unk2 + sp40;
     D_80203FE0[27].unk4 = D_80203FE0[0].unk4 - arg0;
 
+    // Opposing offsets from the roots.
     D_80203FE0[3].unk0 = D_80203FE0[5].unk0 - arg1;
     D_80203FE0[3].unk2 = D_80203FE0[5].unk2;
     D_80203FE0[3].unk4 = D_80203FE0[5].unk4;
@@ -2467,57 +2465,55 @@ void func_802C44E8_6D5B98(s16 arg0, s16 arg1, s16 arg2, s16 arg3) {
     D_80203FE0[4].unk2 = D_80203FE0[27].unk2;
     D_80203FE0[4].unk4 = D_80203FE0[27].unk4;
 
+    // Joint-3 side: inner point, center tip, and outer tips.
     D_80203FE0[13].unk0 = D_80203FE0[3].unk0;
     D_80203FE0[13].unk2 = D_80203FE0[3].unk2 - arg2;
     D_80203FE0[13].unk4 = D_80203FE0[3].unk4;
+
+    D_80203FE0[8].unk0 = D_80203FE0[3].unk0;
+    D_80203FE0[8].unk2 = (D_80203FE0[3].unk2 + arg3) - sp3E;
+    D_80203FE0[8].unk4 = D_80203FE0[3].unk4 - sp3E;
+
+    D_80203FE0[7].unk0 = D_80203FE0[3].unk0 - temp_v0;
+    D_80203FE0[7].unk2 = (D_80203FE0[3].unk2 + temp_v0) - sp3E;
+    D_80203FE0[7].unk4 = D_80203FE0[3].unk4 - sp3E;
+
+    D_80203FE0[9].unk0 = D_80203FE0[3].unk0 + temp_v0;
+    D_80203FE0[9].unk2 = (D_80203FE0[3].unk2 + temp_v0) - sp3E;
+    D_80203FE0[9].unk4 = D_80203FE0[3].unk4 - sp3E;
+
+    // Mirrored joint-4 side.
+    D_80203FE0[14].unk0 = D_80203FE0[4].unk0;
+    D_80203FE0[14].unk2 = D_80203FE0[4].unk2 - arg2;
+    D_80203FE0[14].unk4 = D_80203FE0[4].unk4;
 
     D_80203FE0[11].unk0 = D_80203FE0[4].unk0;
     D_80203FE0[11].unk2 = (D_80203FE0[4].unk2 + arg3) - sp3E;
     D_80203FE0[11].unk4 = D_80203FE0[4].unk4 - sp3C;
 
-    D_80203FE0[14].unk0 = D_80203FE0[4].unk0;
-    D_80203FE0[14].unk2 = D_80203FE0[4].unk2 - arg2;
-    D_80203FE0[14].unk4 = D_80203FE0[4].unk4;
-
-    D_80203FE0[7].unk0 = (D_80203FE0[3].unk0 - ((arg3 * 0xB) >> 4));
-    D_80203FE0[8].unk0 = D_80203FE0[3].unk0;
-    D_80203FE0[9].unk0 = (D_80203FE0[3].unk0 + ((arg3 * 0xB) >> 4));
-
-    D_80203FE0[7].unk2 = (D_80203FE0[3].unk2 + ((arg3 * 0xB) >> 4)) - sp3E;
-    D_80203FE0[8].unk2 = (D_80203FE0[3].unk2 + arg3) - sp3E;
-    D_80203FE0[9].unk2 = (D_80203FE0[3].unk2 + ((arg3 * 0xB) >> 4)) - sp3E;
-
-    D_80203FE0[7].unk4 = D_80203FE0[3].unk4 - sp3E;
-    D_80203FE0[8].unk4 = D_80203FE0[3].unk4 - sp3E;
-    D_80203FE0[9].unk4 = D_80203FE0[3].unk4 - sp3E;
-
-    D_80203FE0[10].unk0 = D_80203FE0[4].unk0 - ((arg3 * 0xB) >> 4);
-    D_80203FE0[12].unk0 = D_80203FE0[4].unk0 + ((arg3 * 0xB) >> 4);
-
-    D_80203FE0[10].unk2 = (D_80203FE0[4].unk2 + ((arg3 * 0xB) >> 4)) - sp3E;
-    D_80203FE0[12].unk2 = (D_80203FE0[4].unk2 + ((arg3 * 0xB) >> 4)) - sp3E;
-
+    D_80203FE0[10].unk0 = D_80203FE0[4].unk0 - temp_v0;
+    D_80203FE0[10].unk2 = (D_80203FE0[4].unk2 + temp_v0) - sp3E;
     D_80203FE0[10].unk4 = D_80203FE0[4].unk4 - sp3C;
+
+    D_80203FE0[12].unk0 = D_80203FE0[4].unk0 + temp_v0;
+    D_80203FE0[12].unk2 = (D_80203FE0[4].unk2 + temp_v0) - sp3E;
     D_80203FE0[12].unk4 = D_80203FE0[4].unk4 - sp3C;
 
     if (D_803D5530->state == 101) {
         if ((D_803D5524->animalType != SEAGULL2) && (D_803D5524->animalType != VULTURE)) {
             temp_t9 = D_803D5540 & 0x3F;
             if (temp_t9 < 20) {
-                phi_v1 = (temp_t9 - 10) < 0 ? (10 - temp_t9) : (temp_t9 - 10);
-                D_80203FE0[7].unk4 += (arg3 * (10 - phi_v1)) >> 4;
+                delta = temp_t9 - 10;
+                D_80203FE0[7].unk4 += (arg3 * (10 - (delta < 0 ? -(temp_t9 - 10) : delta))) >> 4;
             }
             if ((temp_t9 < 30) && (temp_t9 > 10)) {
-                phi_v1 = (temp_t9 - 20) < 0 ? (20 - temp_t9) : (temp_t9 - 20);
-                D_80203FE0[8].unk4 += (arg3 * (10 - phi_v1)) >> 4;
+                delta = temp_t9 - 20;
+                D_80203FE0[8].unk4 += (arg3 * (10 - (delta < 0 ? -(temp_t9 - 20) : delta))) >> 4;
             }
             if ((temp_t9 < 40) && (temp_t9 > 20)) {
-                phi_v1 = (temp_t9 - 30) < 0 ? (30 - temp_t9) : (temp_t9 - 30);
-                D_80203FE0[9].unk4 += (arg3 * (10 - phi_v1)) >> 4;
+                delta = temp_t9 - 30;
+                D_80203FE0[9].unk4 += (arg3 * (10 - (delta < 0 ? -(temp_t9 - 30) : delta))) >> 4;
             }
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_6CCEF0/func_802C44E8_6D5B98.s")
-#endif
