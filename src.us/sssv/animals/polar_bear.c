@@ -4,12 +4,11 @@
 extern u8  D_0103AA20_742F0[];
 extern u8  D_0103AC20_744F0[];
 
-
 extern struct077 D_803B4250_7C5900[];
 extern struct077 D_803B4280_7C5930[];
 extern struct077 D_803B42B0_7C5960[];
-extern f32 D_803B4338_7C59E8[]; // tbd
-extern f32 D_803B4378_7C5A28[]; // tbd
+extern f32 D_803B4338_7C59E8[]; 
+extern f32 D_803B4378_7C5A28[]; 
 extern u8  D_803B43A0_7C5A50[];
 extern u8  D_803B43B0_7C5A60[];
 extern s16 D_803B43C0_7C5A70[];
@@ -33,8 +32,6 @@ extern Gfx D_04003630_E0BF0[];
 
 
 // POLAR_BEAR
-#ifdef NON_MATCHING
-// CURRENT: 70
 void func_80365F10_7775C0(void) {
     LimbConfig spB8;
     s16 spB6;                                       /* compiler-managed */
@@ -124,11 +121,7 @@ void func_80365F10_7775C0(void) {
                 if (ticks_remaining < 9) {
                     func_80368840_779EF0(spB0);
                     if (ticks_remaining > 4) {
-#if 0
-                        spAE = (8 - ticks_remaining) * 64;
-#else
                         spAE = (ticks_remaining - 8) * -64;
-#endif
                     }
                 } else {
                     load_animal(POLAR_BEAR_DEFENDING);
@@ -236,9 +229,16 @@ void func_80365F10_7775C0(void) {
                     GPACK_RGBA5551(248, 248, 248, 1), // white
                     0);
             } else if (D_803D552C->attackState == ATTACK_STATE_CHARGE_END) {
-                ticks_remaining = (gGameplayTick & 0xFFFF) - D_803D552C->attackTimer;
+                ticks_remaining = 0;
+                if (1) {}
+                ticks_remaining++;
+                ticks_remaining++;
+                ticks_remaining++;
+                ticks_remaining = gGameplayTick - D_803D552C->attackTimer;
                 func_802DC2AC_6ED95C(10);
-                spA4 = D_803B4378_7C5A28[ticks_remaining & 0xFFFF];
+                spA4 = D_803B4378_7C5A28[ticks_remaining];
+                ticks_remaining++;
+                ticks_remaining++;
             } else {
                 spA4 = 0.0f;
             }
@@ -278,9 +278,7 @@ void func_80365F10_7775C0(void) {
                 if (gLodDetailState == 0) {
                     func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB6, &spB4);
                     func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB6, &spB4);
-#pragma _permuter sameline start
                     spB6 = D_803BD530_7CEBE0.eyes[5][spB6]; spB4 = D_803BD600_7CECB0.eyes[4][spB4];
-#pragma _permuter sameline end
                     func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spB6);
                     func_802C78B0_6D8F60(19, 20, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, (spAE * 0x9900) >> 6, D_803F2ED0, 0, 0, 0, D_04003740_E0D00);
                     func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spB4);
@@ -300,9 +298,7 @@ void func_80365F10_7775C0(void) {
                     if (gLodDetailState == 0) {
                         func_8031A150_72B800(D_803D552C->eyeBlinkTimer++, &spB6, &spB4);
                         func_8031A278_72B928(&D_803D552C->eyeBlinkTimer, &spB6, &spB4);
-#pragma _permuter sameline start
                         spB6 = D_803BD530_7CEBE0.eyes[5][spB6]; spB4 = D_803BD600_7CECB0.eyes[4][spB4];
-#pragma _permuter sameline end
                         func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spB6);
                         func_802C78B0_6D8F60(0x13, 0x14, 0x1CB00, 0x1CB00, 0x1CB00, D_803F2ED0, 0, 0, 0, D_04003740_E0D00);
                         func_80356BD8_768288(img_eyes_TLUT1_pal, (u8 (*)[128])img_eyes5_ci4__png, spB4);
@@ -396,9 +392,6 @@ void func_80365F10_7775C0(void) {
         }
     }
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/sssv/animals/polar_bear/func_80365F10_7775C0.s")
-#endif
 
 void func_803677C4_778E74(void) {
     LimbConfig sp98;
