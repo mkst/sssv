@@ -1,8 +1,6 @@
 #include <ultra64.h>
 #include "common.h"
 
-#ifdef NON_MATCHING
-// CURRENT: 55 differing ROM instruction words (asm-differ score 1715).
 // only cool_cod + piranha
 void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     s32 temp_lo;
@@ -10,8 +8,6 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     s32 var_t3;
     s32 var_t2;
     s32 var_t4;
-
-    s16 tmp1, tmp2;
 
     temp_v1 = D_803D552C->unk310;
     D_803D552C->unk310 = (D_803D552C->unk310 + D_803D552C->unk30C) & 0x3FF;
@@ -45,22 +41,23 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
         var_t2 = var_t3 = var_t4 = 0;
     }
 
-    tmp1 = ((SIN(var_t3) >> 7) * arg1) >> 9;
-    D_80203FE0[1].unk0 = tmp1;
-    tmp1 = D_80203FE0[1].unk0;
-    tmp2 = ((COS(var_t3) >> 7) * arg1) >> 9;
-    D_80203FE0[1].unk2 = tmp2;
-    tmp2 = D_80203FE0[1].unk2;
+    // Keep these angle conversions and byte masks for matching codegen.
+    temp_v1 = (u16)(s16)var_t3 & 0xFF;
+    D_80203FE0[1].unk0 = ((SIN(temp_v1) >> 7) * arg1) >> 9;
+    D_80203FE0[1].unk2 = ((COS(var_t3) >> 7) * arg1) >> 9;
     D_80203FE0[1].unk4 = 0;
-    D_80203FE0[2].unk0 = -tmp1;
-    D_80203FE0[2].unk4 = 0;
-    D_80203FE0[2].unk2 = -tmp2;
 
-    D_80203FE0[0].unk0 = tmp1 + (((SIN(var_t2) >> 7) * arg0) >> 8);
-    D_80203FE0[0].unk2 = tmp2 + (((COS(var_t2) >> 7) * arg0) >> 8);
+    D_80203FE0[2].unk0 = -D_80203FE0[1].unk0;
+    D_80203FE0[2].unk2 = -D_80203FE0[1].unk2;
+    D_80203FE0[2].unk4 = 0;
+
+    temp_v1 = (u16)(s16)var_t2 & 0xFF;
+    D_80203FE0[0].unk0 = D_80203FE0[1].unk0 + (((SIN(temp_v1) >> 7) * arg0) >> 8);
+    D_80203FE0[0].unk2 = D_80203FE0[1].unk2 + (((COS(var_t2) >> 7) * arg0) >> 8);
     D_80203FE0[0].unk4 = 0;
 
-    D_80203FE0[3].unk0 = D_80203FE0[2].unk0 - (((SIN(var_t4) >> 7) * arg2) >> 8);
+    temp_v1 = (u16)(s16)var_t4 & 0xFF;
+    D_80203FE0[3].unk0 = D_80203FE0[2].unk0 - (((SIN(temp_v1) >> 7) * arg2) >> 8);
     D_80203FE0[3].unk2 = D_80203FE0[2].unk2 - (((COS(var_t4) >> 7) * arg2) >> 8);
     D_80203FE0[3].unk4 = 0;
 
@@ -74,9 +71,7 @@ void func_80302E50_714500(s16 arg0, s16 arg1, s16 arg2) {
     D_80203FE0[2].unk4 += (D_803D5524->footHeight << 5);
     D_80203FE0[3].unk4 += (D_803D5524->footHeight << 5);
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay2_714500/func_80302E50_714500.s")
-#endif
+
 
 // only cool_cod + piranha
 void func_8030322C_7148DC(s16 idx, s16 angle) {
@@ -128,5 +123,4 @@ void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2) {
     // fake match to coerce regalloc
     D_80203FE0[arg0].unk0 = D_80203FE0[arg1].unk0 + (((temp_t1 * (temp_t8 = temp_t8)) + (temp_v0 * temp_t9)) >> 8);
     D_80203FE0[arg0].unk2 = D_80203FE0[arg1].unk2 + ((tmp = (temp_t1 * temp_t9) - (temp_t8 * temp_v0)) >> 8);
-
 }
