@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "common.h"
 
-#include "overlay2_6EC720.h"
+#include "pose_interpolation.data.h"
 
 
 void interpolate_bone_from_previous_pose(u16 src, u16 dst, s16 yawIndex, s16 pitchIndex, u16 boneLength, u16 interpStep);

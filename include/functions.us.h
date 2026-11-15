@@ -324,9 +324,10 @@ void func_802B3B48_6C51F8(Animal *arg0, Animal *arg1, s16 *damage);
 s16  func_802B3C9C_6C534C(s16 arg0, Animal *arg1);
 s16  func_802B3D68_6C5418(void);
 
-// overlay2_6C5570
 void func_802B2FF4_6C46A4(void);
 void func_802B315C_6C480C(void);
+
+// sssv/starfield.c
 void func_802B3EC0_6C5570(Gfx **arg0, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5);
 void func_802B3FAC_6C565C(void);
 void func_802B4148_6C57F8(Gfx **arg0);
@@ -486,10 +487,12 @@ void unregister_entity_collision(Entity *arg0);
 void reset_collision_lists(void);
 void func_802DAFAC_6EC65C(u8 xStart, u8 yStart, u8 xEnd, u8 yEnd);
 
-// overlay2_6EC720
+// sssv/pose_interpolation.c
 void func_802DB670_6ECD20(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3);
 void func_802DB7C4_6ECE74(u8 *arg0, u8 *arg1, s16 *arg2, s16 *arg3);
 void backup_joint_positions(void);
+
+// overlay2_6ECFF0
 void func_802DB940_6ECFF0(s16 *arg0, s16 arg1, u16 arg2);
 void func_802DB9E8_6ED098(s16 *arg0, s16 arg1, u16 arg2);
 void func_802DBA58_6ED108(u8 arg0, Animal *animal);
@@ -695,7 +698,7 @@ void func_8030322C_7148DC(s16 arg0, s16 arg1); // tbd
 void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2);
 void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2);
 
-// overlay2_714B80
+// sssv/collision_spheres.c
 void set_body_collision_sphere_pair(Animal *arg0, u16 arg1, s16 arg2, u16 arg3);
 void set_collision_sphere_at_joint_midpoint(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4);
 void set_collision_sphere_from_joint_pairs(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6);
@@ -790,9 +793,9 @@ void run_entity_script(Entity *arg0);
 // overlay2_72A930
 s32  func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2, Animal *arg3, Vec3f *arg4, Vec3f *arg5, f32 arg6, f32 arg7);
 void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s16 arg5, s16 arg6);
-void build_level_region_collision_masks(void);
 
-// overlay2_72B100
+// sssv/waypoints.c
+void build_level_region_collision_masks(void);
 void reset_waypoints(void);
 void func_80319AA0_72B150(struct002 *arg0, u8 arg1);
 void func_80319AC4_72B174(struct002 *arg0, u8 arg1);
@@ -800,9 +803,11 @@ void get_level_regions_at_point(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u
 u8   point_matches_level_region(u8 x, u8 z, u8 y, u8 arg3, u8 arg4);
 u16  func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6);
 
-// overlay2_72B800
+// sssv/animal_eyes.c
 void func_8031A150_72B800(s16 arg0, s16 *leftEye, s16 *rightEye);
 void func_8031A278_72B928(s16 *arg0, s16 *arg1, s16 *arg2);
+
+// overlay2_72BA20
 void func_8031A370_72BA20(void);
 void func_8031A4E0_72BB90(void);
 void func_8031AA0C_72C0BC(Entity *arg0);
@@ -899,6 +904,7 @@ s32  func_8032BD5C_73D40C(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4, s16 
 void func_8032C0EC_73D79C(Animal *arg0, s16 x, s16 y, s16 z, s16 r, s16 g, s16 b);
 
 
+// sssv/sfx.c
 void func_8032C2D0_73D980(s16 id, s16 volume, f32 pitch);
 void func_8032C508_73DBB8(s16 id, s16 volume, s16 unused, f32 pitch); // sound effect helper?
 void play_footstep_sfx(u16 mass, u16 animalId, s16 x, s16 y, s16 z, u8 arg5);

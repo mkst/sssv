@@ -4040,7 +4040,7 @@ segments:
       - [0x6AE5A0, c, overlay2_6AE5A0]
       - [0x6B5380, c, overlay2_6B5380]
       - [0x6B5A40, c, overlay2_6B5A40]
-      - [0x6C5570, c, overlay2_6C5570]
+      - [0x6C5570, c, sssv/starfield]
       - [0x6C63D0, c, sssv/collision]
       - [0x6C9DD0, c, overlay2_6C9DD0]
       - [0x6CA7E0, c, overlay2_6CA7E0]
@@ -4053,7 +4053,7 @@ segments:
       - [0x6DB610, c, overlay2_6DB610]
       - [0x6DCA10, c, overlay2_6DCA10]
       - [0x6EBEA0, c, sssv/collist2]
-      - [0x6EC720, c, overlay2_6EC720]
+      - [0x6EC720, c, sssv/pose_interpolation]
       - [0x6ECFF0, c, overlay2_6ECFF0]
       - [0x6ED230, c, overlay2_6ED230]
       - [0x6EE6F0, c, sssv/dynamic_tail]
@@ -4071,7 +4071,7 @@ segments:
       - [0x7118C0, c, sssv/animals/rabbit]
       - [0x7138B0, c, sssv/animals/frog]
       - [0x714500, c, overlay2_714500]
-      - [0x714B80, c, overlay2_714B80]
+      - [0x714B80, c, sssv/collision_spheres]
       - [0x715820, c, overlay2_715820]
       - [0x716530, c, overlay2_716530]
       - [0x716900, c, overlay2_716900]
@@ -4079,8 +4079,8 @@ segments:
       - [0x724E40, c, sssv/animals/parrot]
       - [0x725D10, c, overlay2_725D10] # sssv/commands
       - [0x72A930, c, overlay2_72A930]
-      - [0x72AF60, c, overlay2_72AF60]
-      - [0x72B800, c, overlay2_72B800]
+      - [0x72AF60, c, sssv/waypoints]
+      - [0x72B800, c, sssv/animal_eyes]
       - [0x72BA20, c, overlay2_72BA20]
       - [0x72C680, c, overlay2_72C680]
       - [0x72DE50, c, sssv/animals/mouse]
@@ -4089,7 +4089,7 @@ segments:
       - [0x734D30, c, sssv/animals/bear]
       - [0x739290, c, overlay2_739290] # sssv/bonus?
       - [0x73C890, c, overlay2_73C890]
-      - [0x73D980, c, overlay2_73D980] # sssv/sfx ?  # EU ROM suggests extra split at 0x73E580
+      - [0x73D980, c, sssv/sfx] # EU ROM suggests extra split at 0x73E580
       - [0x73EA30, c, sssv/vector]
       - [0x73ED30, c, overlay2_73ED30]
       - [0x741000, c, sssv/camera]
@@ -4150,11 +4150,11 @@ segments:
       - [0x7B1BE0, .data, overlay2_6ACF20] # D_803A0530_7B1BE0
       - [0x7B1C30, .data, overlay2_6AE5A0] # D_803A0580_7B1C30 overlay2_6ACF20
       - [0x7B1C60, .data, overlay2_6B5A40] # D_803A05B0_7B1C60
-      - [0x7B1C70, .data, overlay2_6C5570]
+      - [0x7B1C70, .data, sssv/starfield]
       - [0x7B1C80, .data, sssv/animals/stats] # (struct089 -> struct035)
       - [0x7B3250, data] # padding?
       - [0x7B3260, data, overlay2_6DCA10]
-      - [0x7B4440, .data, overlay2_6EC720]
+      - [0x7B4440, .data, sssv/pose_interpolation]
       - [0x7B5040, .data, sssv/dynamic_tail]
       - [0x7B5B80, .data, sssv/animals/fox]
       - [0x7B5E60, data, overlay2_716900_data] # ?
@@ -4172,7 +4172,7 @@ segments:
       - [0x7B6C30, .data, overlay2_716900]
       - [0x7B6C40, data, overlay2_716900_cont] # overlay2_716900 data continued
       - [0x7B6D60, .data, sssv/animals/parrot]
-      - [0x7B6E00, .data, overlay2_72AF60]
+      - [0x7B6E00, .data, sssv/waypoints]
       - [0x7B6E10, .data, overlay2_72BA20]
       - [0x7B6E20, .data, overlay2_72C680]
       - [0x7B73D0, .data, sssv/animals/mouse]
@@ -4256,14 +4256,14 @@ segments:
       - [0x7CE780, .rodata, overlay2_71C140]
       - [0x7CE7C0, .rodata, sssv/animals/parrot]
       - [0x7CE7D0, .rodata, overlay2_725D10]
-      - [0x7CEBA0, .rodata, overlay2_72AF60]
-      - [0x7CEBE0, .rodata, overlay2_72B800]
+      - [0x7CEBA0, .rodata, sssv/waypoints]
+      - [0x7CEBE0, .rodata, sssv/animal_eyes]
       - [0x7CEF30, .rodata, overlay2_72C680]
       - [0x7CF050, .rodata, sssv/animals/mouse]
       - [0x7CF090, .rodata, overlay2_7312E0]
       - [0x7CF120, .rodata, sssv/animals/bear]
       - [0x7CF180, .rodata, overlay2_739290]
-      - [0x7CF530, .rodata, overlay2_73D980]
+      - [0x7CF530, .rodata, sssv/sfx]
       - [0x7CF810, .rodata, overlay2_73ED30]
       - [0x7CF860, .rodata, sssv/camera]
       - [0x7CFFD0, .rodata, overlay2_7558F0]

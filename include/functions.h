@@ -200,6 +200,8 @@ void apply_recoil(s16 arg0);
 void load_animal(s16 id);
 void check_and_set_species_encountered(s16 arg0);
 void set_species_as_encountered(s16);
+
+// sssv/sfx.c
 void play_sound_effect_at_location(s16 id, s16 volume, s16 arg2, s16 x, s16 y, s16 z, f32 pitch);
 
 // overlay2_73EA30

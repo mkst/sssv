@@ -800,7 +800,7 @@ D_803D5570 = 0x803D5570; // segment:overlay2
 D_803D5572 = 0x803D5572; // segment:overlay2
 D_803D5574 = 0x803D5574;
 
-// overlay2_6C5570
+// sssv/starfield.c
 D_803D5590 = 0x803D5590; // segment:overlay2
 D_803D5860 = 0x803D5860; // segment:overlay2
 D_803D5B30 = 0x803D5B30; // segment:overlay2
@@ -985,7 +985,7 @@ gWaypointPathBuffer = 0x803E8F60; // segment:overlay2
 gLevelRegions = 0x803E93B0; // size:0x208 segment:overlay2
 gLevelRegionCollisionMasks = 0x803E95B8; // size:0x208 segment:overlay2
 
-// overlay2_72B800
+// overlay2_72BA20
 D_803E97C0 = 0x803E97C0; // segment:overlay2
 D_803E97C8 = 0x803E97C8; // segment:overlay2
 
