@@ -748,7 +748,7 @@ void func_802DE950_6F0000(void) {
                         break;
                     case TAIL_TYPE_CHAIN_LAV_A:
                     case TAIL_TYPE_CHAIN_LAV_B:
-                        func_802E4F20_6F65D0(img_D_0102BA10_652E0_i4__png);
+                        func_802E4F20_6F65D0(img_D_0102BA10_652E0_ia16__png);
                         gDPSetPrimColor(gOpaqueDL++, 0, 0, 0xD7, 0xD7, 0xFF, 0xFF); // #d7d7ff
                         gDPSetEnvColor(gOpaqueDL++, 0x89, 0x65, 0xB4, 0x00);
                         break;

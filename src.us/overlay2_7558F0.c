@@ -795,7 +795,7 @@ void func_803458FC_756FAC(Gfx **dl, struct115 *arg1, s16 numVtxs) {
 
                         gDPLoadMultiBlock(
                             (*dl)++,
-                            OS_K0_TO_PHYSICAL(D_0102C810_660E0_bin),
+                            OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png),
                             0x0000,
                             6,
                             G_IM_FMT_I,
@@ -1116,7 +1116,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
                     gSPTexture((*dl)++, 0x8000, 0x8000, 0, 5, G_ON);
 
-                    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, D_0102B610_64EE0_bin);
+                    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, img_D_0102B610_64EE0_i4__png);
 
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x019E, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync((*dl)++);
@@ -1155,7 +1155,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                     gDPSetRenderMode((*dl)++, G_RM_PASS, D_803F2CC0);
                     gDPSetTextureLOD((*dl)++, G_TL_TILE);
                     gSPTexture((*dl)++, 0x8000, 0x8000, 0, 5, G_ON);
-                    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, D_0102B810_650E0_bin);
+                    gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 16, img_D_0102B810_650E0_i4__png);
                     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0x01A0, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync((*dl)++);
                     gDPLoadTile((*dl)++, G_TX_LOADTILE, 0, 0, 62, 124);
@@ -1268,7 +1268,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                             if ((variant - 33) == 9) {
                                 if (0) {};
                                 // why cant we use OS_PHYSICAL_TO_K0 here?
-                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102C810_660E0_bin + 0x1000));
+                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png + 0x1000));
                                 gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync((*dl)++);
                                 gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);
@@ -1277,7 +1277,7 @@ void func_80346BB4_758264(Gfx **dl, struct115* arg1, s16 numVtxs) {
                                 gDPSetTileSize((*dl)++, G_TX_RENDERTILE, 0, 0, 124, 124);
                             } else {
 
-                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(D_0102C810_660E0_bin));
+                                gDPSetTextureImage((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_K0_TO_PHYSICAL(img_D_0102C810_660E0_i8__png));
                                 gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                                 gDPLoadSync((*dl)++);
                                 gDPLoadBlock((*dl)++, G_TX_LOADTILE, 0, 0, 511, 512);

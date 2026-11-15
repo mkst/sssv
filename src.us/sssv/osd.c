@@ -159,7 +159,7 @@ void osd_draw_health_and_power_bars(s16 arg0) {
         gSPDisplayList(gMainDL++, D_01004600_3DED0);
 
         // TODO: replace this with a macro
-        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01029DD0_636A0_bin);
+        gDPSetTextureImage(gMainDL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img_D_01029DD0_636A0_i4__png);
         gDPSetTile(gMainDL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 3, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 3, G_TX_NOLOD);
         gDPLoadSync(gMainDL++);
         gDPLoadBlock(gMainDL++, G_TX_LOADTILE, 0, 0, 31, 2048);

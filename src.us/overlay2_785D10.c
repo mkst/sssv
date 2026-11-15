@@ -80,7 +80,7 @@ void func_803747F4_785EA4(void) {
         }
     }
     if (D_803B4F34_7C65E4 > 0) {
-        gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, D_01037750_71020_bin);
+        gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, img_D_01037750_71020_i4__png);
         gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
         gDPLoadSync(gLayer0DL++);
         gDPLoadBlock(gLayer0DL++, G_TX_LOADTILE, 0, 0, 255, 1024);

@@ -234,7 +234,7 @@ void render_dynamic_texture_billboards(void) {
                         0, 0, 0, COMBINED,
                         0, 0, 0, COMBINED);
 
-                    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(D_01029E10_636E0_bin + ((loaded_texture_2 << 0xA) - 0x8000)));
+                    gDPSetTextureImage(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 1, OS_PHYSICAL_TO_K0(img_D_01029E10_636E0_i8__png + ((loaded_texture_2 << 0xA) - 0x8000)));
 
                     gDPSetTile(gLayer0DL++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
                     gDPLoadSync(gLayer0DL++);

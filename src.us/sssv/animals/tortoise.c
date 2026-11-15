@@ -367,7 +367,7 @@ void update_tortoise_tank(void) {
         sp132 = sp132 * 4;
 
         gSPDisplayList(gAuxDL++, D_01003AD0_3D3A0);
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, D_01036E90_70760_bin);
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, img_D_01036C90_70560_pal);
         gDPTileSync(gAuxDL++);
         gDPSetTile(gAuxDL++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync(gAuxDL++);
@@ -377,7 +377,7 @@ void update_tortoise_tank(void) {
 
         // FIXME: this is 1 macro (hence the newline breaks)
 #pragma _permuter sameline start
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (u32)D_01036C90_70560_bin & 0x1FFFFFFF);\
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, (u32)img_D_01036C90_70560_ci8__png & 0x1FFFFFFF);\
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);\
         gDPLoadSync(gAuxDL++);\
         gDPLoadBlock(gAuxDL++, G_TX_LOADTILE, 0, 0, 127, 1024);\
@@ -414,7 +414,7 @@ void update_tortoise_tank(void) {
         );
 
         // TODO: replace with single gDPLoadTextureBlock
-        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, K0_TO_PHYS(D_01036D90_70660_bin));
+        gDPSetTextureImage(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, K0_TO_PHYS((img_D_01036C90_70560_ci8__png + 0x100)));
         gDPSetTile(gAuxDL++, G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 2, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
         gDPLoadSync(gAuxDL++);
         gDPLoadBlock(gAuxDL++, G_TX_LOADTILE, 0, 0, 127, 1024);

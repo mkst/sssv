@@ -103,7 +103,7 @@ void func_803041FC_7158AC(void) {
         D_803E4BD1 = guRandom() % 3;
     }
 
-    imgBase = D_0102C810_660E0_bin;
+    imgBase = img_D_0102C810_660E0_i8__png;
 
     for (i = 0; i < D_803F2CA6; i++) {
         // if free?

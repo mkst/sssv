@@ -306,7 +306,7 @@ void reset_particles(void) {
     D_803D6120.unk3FD4 = 0; // ?
 }
 
-#define D_01024550_5DE20 ((u8 (*)[512])&D_01024550_5DE20_bin)
+#define D_01024550_5DE20 ((u8 (*)[512])&img_D_01024550_5DE20_i4__png)
 #define D_803B74D0_7C8B80 ((u8 (*)[2048])&img_butterflies_rgba16__png)
 // CURRENT (3350)
 void func_802CB394_6DCA44(DisplayList *arg0) {
@@ -366,7 +366,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[0]++,
-    /* timg   */  D_0102C210_65AE0_bin,
+    /* timg   */  img_D_0102C210_65AE0_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -382,7 +382,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[0]++,
-    /* timg   */  D_0102CA10_662E0_bin, // ???
+    /* timg   */  (img_D_0102C810_660E0_i8__png + 0x200), // overlapping I4 view of the I8 animation bank
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -402,7 +402,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[2]++,
-    /* timg   */  D_010226D0_5BFA0_bin,
+    /* timg   */  img_D_010226D0_5BFA0_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -418,7 +418,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[2]++,
-    /* timg   */  D_01022ED0_5C7A0_bin,
+    /* timg   */  (img_D_010226D0_5BFA0_i4__png + 0x800),
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -436,7 +436,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[6]++,
-    /* timg   */  D_01020DB0_5A680_bin,
+    /* timg   */  img_D_01020DB0_5A680_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -452,7 +452,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[6]++,
-    /* timg   */  D_010215B0_5AE80_bin,
+    /* timg   */  (img_D_01020DB0_5A680_i4__png + 0x800),
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -474,7 +474,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[4]++,
-    /* timg   */  D_01023550_5CE20_bin,
+    /* timg   */  (img_D_010226D0_5BFA0_i4__png + 0xE80),
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -490,7 +490,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[4]++,
-    /* timg   */  D_01023D50_5D620_bin,
+    /* timg   */  (img_D_010226D0_5BFA0_i4__png + 0x1680),
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -508,7 +508,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
-    /* timg   */  D_01028D50_62620_bin,
+    /* timg   */  img_D_01028D50_62620_i4__png,
     /* tmem   */  0,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -524,7 +524,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
 
     _gDPLoadTextureBlock_4b(
     /* pkt    */  D_801D9E98[5]++,
-    /* timg   */  D_01029550_62E20_bin,
+    /* timg   */  img_D_01029550_62E20_i4__png,
     /* tmem   */  0x0100,
     /* fmt    */  G_IM_FMT_I,
     /* width  */  16,
@@ -544,7 +544,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
     gSPDisplayList(D_801D9E98[1]++, D_010047D0_3E0A0);
 
     // TODO: gDPLoadTextureBlock
-    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (D_0102A210_63AE0_bin + 0x80000000));
+    gDPSetTextureImage(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 1, ((img_D_01029E10_636E0_i8__png + 0x400) + 0x80000000));
     gDPSetTile(D_801D9E98[1]++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPLoadSync(D_801D9E98[1]++);
     gDPLoadBlock(D_801D9E98[1]++, G_TX_LOADTILE, 0, 0, 2047, 512);
@@ -692,7 +692,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01024550_5DE20_bin + (var_s4 * 512),
+                        /* timg   */  img_D_01024550_5DE20_i4__png + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -764,7 +764,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
+                        /* timg   */  img_D_01025750_5F020_i4__png + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -784,7 +784,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01025750_5F020_bin + (var_s4 * 512),
+                        /* timg   */  img_D_01025750_5F020_i4__png + (var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -834,7 +834,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
+                        /* timg   */  img_D_01026950_60220_i4__png + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -854,7 +854,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                           D_801D9E98[sp7DD]++,
-                        /* timg   */  D_01026950_60220_bin + ( var_s4 * 512),
+                        /* timg   */  img_D_01026950_60220_i4__png + ( var_s4 * 512),
                         /* fmt    */  G_IM_FMT_I,
                         /* line,  */  2,
                         /* siz,   */  G_IM_SIZ_16b,
@@ -891,7 +891,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     if (var_s4 < particle->unkC) {
                         gDPLoadTextureBlock2(
                             D_801D9E98[sp7DD]++,
-                          /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
+                          /* timg   */  img_D_01027B50_61420_i4__png + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
@@ -911,7 +911,7 @@ void func_802CB394_6DCA44(DisplayList *arg0) {
                     } else {
                         gDPLoadTextureBlock2(
                             D_801D9E98[sp7DD]++,
-                          /* timg   */  D_01027B50_61420_bin + (var_s4 * 512), // 512 bytes per image
+                          /* timg   */  img_D_01027B50_61420_i4__png + (var_s4 * 512), // 512 bytes per image
                           /* fmt    */  G_IM_FMT_I,
                           /* line,  */  2,
                           /* siz,   */  G_IM_SIZ_16b,
