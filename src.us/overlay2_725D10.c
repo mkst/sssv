@@ -845,7 +845,7 @@ u8 evaluate_entity_condition(Animal *arg0, Cmd *arg1) {
         }
         break;
     case 14:
-        if (D_803A52B8_7B6968 != 0) {
+        if (gLevelLightTransitionComplete != 0) {
             res = 1;
         }
         break;

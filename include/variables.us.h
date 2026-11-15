@@ -428,7 +428,7 @@ extern s32  D_803A5590_7B6C40[];
 extern u16  D_803A5750_7B6E00; // number of waypoints?
 extern u16  D_803A5760_7B6E10;
 
-extern u8   D_803A52B8_7B6968; // lights.c
+extern u8   gLevelLightTransitionComplete; // lights.c
 
 extern u8   D_803A52D0_7B6980;
 extern s16  D_803A52D4_7B6984; // a struct in ESA?
@@ -613,12 +613,12 @@ extern s16  D_803E1B04; // used vtx for dynamic tails?
 extern ScreenTransition gScreenTransition;
 
 // lights
-extern u8   D_803E1BBA; // env r
-extern u8   D_803E1BBB; // env g
-extern u8   D_803E1BBC; // env b
-extern u8   D_803E1BBD; // water r
-extern u8   D_803E1BBE; // water g
-extern u8   D_803E1BBF; // water b
+extern u8   gWaterPrimRed; // water prim r
+extern u8   gWaterPrimGreen; // water prim g
+extern u8   gWaterPrimBlue; // water prim b
+extern u8   gWaterEnvRed; // water env r
+extern u8   gWaterEnvGreen; // water env g
+extern u8   gWaterEnvBlue; // water env b
 
 // input
 extern s16  gInputMode;

@@ -766,9 +766,9 @@ void setup_water_grid_material(Gfx **dl) {
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
     gDPSetTile((*dl)++, G_IM_FMT_I, G_IM_SIZ_4b, 2, 0x0040, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD);
 
-    gDPSetEnvColor((*dl)++, D_803E1BBD, D_803E1BBE, D_803E1BBF, D_803F2D50.waterEnvAlpha);
+    gDPSetEnvColor((*dl)++, gWaterEnvRed, gWaterEnvGreen, gWaterEnvBlue, D_803F2D50.waterEnvAlpha);
 
-    gDPSetPrimColor((*dl)++, 128, gWaterAnimState.textureBlend, D_803E1BBA, D_803E1BBB, D_803E1BBC, D_803F2D50.waterPrimAlpha);
+    gDPSetPrimColor((*dl)++, 128, gWaterAnimState.textureBlend, gWaterPrimRed, gWaterPrimGreen, gWaterPrimBlue, D_803F2D50.waterPrimAlpha);
 }
 
 void advance_water_animation(void) {

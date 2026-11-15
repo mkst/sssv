@@ -13,32 +13,32 @@ u8  gLevelDirectionalLightRed = 200;
 u8  gLevelDirectionalLightGreen = 200;
 u8  gLevelDirectionalLightBlue = 200;
 
-u8  D_803A52B8_7B6968 = 1;
+u8  gLevelLightTransitionComplete = 1;
 
 // ========================================================
 // .bss
 // ========================================================
 
-static s16  D_803E1B20[5];
-static s16  D_803E1B30[5];
-static s16  D_803E1B40[5];
-static s16  D_803E1B50[5];
-static s16  D_803E1B60[5];
-static s16  D_803E1B70[5];
-static s16  D_803E1B80[5];
-static s16  D_803E1B8A;
-static s16  D_803E1B8C;
-static s16  D_803E1B8E;
+static s16  sLocalLightIntensities[5];
+static s16  sLocalLightRed[5];
+static s16  sLocalLightGreen[5];
+static s16  sLocalLightBlue[5];
+static s16  sLocalLightDirectionX[5];
+static s16  sLocalLightDirectionY[5];
+static s16  sLocalLightDirectionZ[5];
+static s16  sLightTransitionAmbientDeltaRed;
+static s16  sLightTransitionAmbientDeltaGreen;
+static s16  sLightTransitionAmbientDeltaBlue;
 
-static s16  D_803E1B90;
-static s16  D_803E1B92;
-static s16  D_803E1B94;
-static u8   D_803E1B96;
-static u8   D_803E1B97;
-static u8   D_803E1B98;
-static u8   D_803E1B99;
-static u8   D_803E1B9A;
-static u8   D_803E1B9B;
+static s16  sLightTransitionDirectionalDeltaRed;
+static s16  sLightTransitionDirectionalDeltaGreen;
+static s16  sLightTransitionDirectionalDeltaBlue;
+static u8   sLightTransitionStartDirectionalRed;
+static u8   sLightTransitionStartDirectionalGreen;
+static u8   sLightTransitionStartDirectionalBlue;
+static u8   sLightTransitionStartAmbientRed;
+static u8   sLightTransitionStartAmbientGreen;
+static u8   sLightTransitionStartAmbientBlue;
 
 static s32  D_803E1B9C; // unused
 static s16  D_803E1BA0; // unused
@@ -56,12 +56,12 @@ static s16  D_803E1BB4;
 static s16  D_803E1BB6;
 static s16  D_803E1BB8;
 
-u8   D_803E1BBA; // env r
-u8   D_803E1BBB; // env g
-u8   D_803E1BBC; // env b
-u8   D_803E1BBD; // water r
-u8   D_803E1BBE; // water g
-u8   D_803E1BBF; // water b
+u8   gWaterPrimRed; // water prim r
+u8   gWaterPrimGreen; // water prim g
+u8   gWaterPrimBlue; // water prim b
+u8   gWaterEnvRed; // water env r
+u8   gWaterEnvGreen; // water env g
+u8   gWaterEnvBlue; // water env b
 
 // ========================================================
 // .text
@@ -70,7 +70,7 @@ u8   D_803E1BBF; // water b
 void clear_used_lights(void) {
     s16 i;
     for (i = 0; i < MAX_LIGHTS; i++) {
-        D_803E1B20[i] = 0;
+        sLocalLightIntensities[i] = 0;
     }
 }
 
@@ -96,64 +96,64 @@ void add_light_at_location(s16 x, s16 y, s16 z, s16 intensity, s16 r, s16 g, s16
             _intensity = (intensity * (320 - delta)) / 128;
         }
 
-        prev = D_803E1B20[0];
+        prev = sLocalLightIntensities[0];
         next = 0;
 
         for (i = 1; i < MAX_LIGHTS; i++) {
-            if (D_803E1B20[i] < prev) {
+            if (sLocalLightIntensities[i] < prev) {
                 next = i;
-                prev = D_803E1B20[i];
+                prev = sLocalLightIntensities[i];
             }
         }
 
         if (prev < _intensity) {
-            D_803E1B20[next] = _intensity;
-            D_803E1B30[next] = (r * _intensity) >> 8;
-            D_803E1B40[next] = (g * _intensity) >> 8;
-            D_803E1B50[next] = (b * _intensity) >> 8;
+            sLocalLightIntensities[next] = _intensity;
+            sLocalLightRed[next] = (r * _intensity) >> 8;
+            sLocalLightGreen[next] = (g * _intensity) >> 8;
+            sLocalLightBlue[next] = (b * _intensity) >> 8;
 
-            D_803E1B60[next] = ((x - a->position.xPos.h) * 120) / delta; // direction x
-            D_803E1B70[next] = ((y - a->position.zPos.h) * 120) / delta; // direction y
-            D_803E1B80[next] = ((z - a->position.yPos.h) * 120) / delta; // direction z
+            sLocalLightDirectionX[next] = ((x - a->position.xPos.h) * 120) / delta; // direction x
+            sLocalLightDirectionY[next] = ((y - a->position.zPos.h) * 120) / delta; // direction y
+            sLocalLightDirectionZ[next] = ((z - a->position.yPos.h) * 120) / delta; // direction z
         }
     }
 }
 
 // reset_lights?
 void reset_level_lighting(void) {
-    gLevelAmbientRed = D_803E1B8A = 80;
-    gLevelAmbientGreen = D_803E1B8C = 80;
-    gLevelAmbientBlue = D_803E1B8E = 80;
-    gLevelDirectionalLightRed = D_803E1B90 = 200;
-    gLevelDirectionalLightGreen = D_803E1B92 = 200;
-    gLevelDirectionalLightBlue = D_803E1B94 = 200;
-    D_803E1B99 = 0;
-    D_803E1B9A = 0;
-    D_803E1B9B = 0;
-    D_803E1B96 = 0;
-    D_803E1B97 = 0;
-    D_803E1B98 = 0;
+    gLevelAmbientRed = sLightTransitionAmbientDeltaRed = 80;
+    gLevelAmbientGreen = sLightTransitionAmbientDeltaGreen = 80;
+    gLevelAmbientBlue = sLightTransitionAmbientDeltaBlue = 80;
+    gLevelDirectionalLightRed = sLightTransitionDirectionalDeltaRed = 200;
+    gLevelDirectionalLightGreen = sLightTransitionDirectionalDeltaGreen = 200;
+    gLevelDirectionalLightBlue = sLightTransitionDirectionalDeltaBlue = 200;
+    sLightTransitionStartAmbientRed = 0;
+    sLightTransitionStartAmbientGreen = 0;
+    sLightTransitionStartAmbientBlue = 0;
+    sLightTransitionStartDirectionalRed = 0;
+    sLightTransitionStartDirectionalGreen = 0;
+    sLightTransitionStartDirectionalBlue = 0;
     sLevelLightTransitionDurationTicks = sLevelLightTransitionElapsedTicks = 0;
-    D_803A52B8_7B6968 = 1;
+    gLevelLightTransitionComplete = 1;
     D_803E1BA6 = 0;
 }
 
 void start_level_light_transition(u8 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u16 arg6) {
-    D_803E1B99 = gLevelAmbientRed;
-    D_803E1B9A = gLevelAmbientGreen;
-    D_803E1B9B = gLevelAmbientBlue;
-    D_803E1B96 = gLevelDirectionalLightRed;
-    D_803E1B97 = gLevelDirectionalLightGreen;
-    D_803E1B98 = gLevelDirectionalLightBlue;
-    D_803E1B8A = (s16)arg0 - D_803E1B99; // these casts are required
-    D_803E1B8C = (s16)arg1 - D_803E1B9A; // these casts are required
-    D_803E1B8E = (s16)arg2 - D_803E1B9B; // these casts are required
-    D_803E1B90 = (s16)arg3 - D_803E1B96;
-    D_803E1B92 = (s16)arg4 - D_803E1B97;
-    D_803E1B94 = (s16)arg5 - D_803E1B98;
+    sLightTransitionStartAmbientRed = gLevelAmbientRed;
+    sLightTransitionStartAmbientGreen = gLevelAmbientGreen;
+    sLightTransitionStartAmbientBlue = gLevelAmbientBlue;
+    sLightTransitionStartDirectionalRed = gLevelDirectionalLightRed;
+    sLightTransitionStartDirectionalGreen = gLevelDirectionalLightGreen;
+    sLightTransitionStartDirectionalBlue = gLevelDirectionalLightBlue;
+    sLightTransitionAmbientDeltaRed = (s16)arg0 - sLightTransitionStartAmbientRed; // these casts are required
+    sLightTransitionAmbientDeltaGreen = (s16)arg1 - sLightTransitionStartAmbientGreen; // these casts are required
+    sLightTransitionAmbientDeltaBlue = (s16)arg2 - sLightTransitionStartAmbientBlue; // these casts are required
+    sLightTransitionDirectionalDeltaRed = (s16)arg3 - sLightTransitionStartDirectionalRed;
+    sLightTransitionDirectionalDeltaGreen = (s16)arg4 - sLightTransitionStartDirectionalGreen;
+    sLightTransitionDirectionalDeltaBlue = (s16)arg5 - sLightTransitionStartDirectionalBlue;
     sLevelLightTransitionDurationTicks = arg6;
     sLevelLightTransitionElapsedTicks = 0;
-    D_803A52B8_7B6968 = 0;
+    gLevelLightTransitionComplete = 0;
 }
 
 // unused
@@ -180,49 +180,49 @@ void update_level_lighting(void) {
     f32 var_f22;
     f32 temp;
 
-    if (D_803A52B8_7B6968 == 0) {
+    if (gLevelLightTransitionComplete == 0) {
         if (sLevelLightTransitionElapsedTicks == sLevelLightTransitionDurationTicks) {
-            gLevelAmbientRed = D_803E1B99 + D_803E1B8A;
-            gLevelAmbientGreen = D_803E1B9A + D_803E1B8C;
-            gLevelAmbientBlue = D_803E1B9B + D_803E1B8E;
-            gLevelDirectionalLightRed = D_803E1B96 + D_803E1B90;
-            gLevelDirectionalLightGreen = D_803E1B97 + D_803E1B92;
-            gLevelDirectionalLightBlue = D_803E1B98 + D_803E1B94;
+            gLevelAmbientRed = sLightTransitionStartAmbientRed + sLightTransitionAmbientDeltaRed;
+            gLevelAmbientGreen = sLightTransitionStartAmbientGreen + sLightTransitionAmbientDeltaGreen;
+            gLevelAmbientBlue = sLightTransitionStartAmbientBlue + sLightTransitionAmbientDeltaBlue;
+            gLevelDirectionalLightRed = sLightTransitionStartDirectionalRed + sLightTransitionDirectionalDeltaRed;
+            gLevelDirectionalLightGreen = sLightTransitionStartDirectionalGreen + sLightTransitionDirectionalDeltaGreen;
+            gLevelDirectionalLightBlue = sLightTransitionStartDirectionalBlue + sLightTransitionDirectionalDeltaBlue;
 
-            D_803E1BBA = D_803F2D50.waterPrimRed;
-            D_803E1BBB = D_803F2D50.waterPrimGreen;
-            D_803E1BBC = D_803F2D50.waterPrimBlue;
+            gWaterPrimRed = D_803F2D50.waterPrimRed;
+            gWaterPrimGreen = D_803F2D50.waterPrimGreen;
+            gWaterPrimBlue = D_803F2D50.waterPrimBlue;
 
-            D_803E1BBD = D_803F2D50.waterEnvRed;
-            D_803E1BBE = D_803F2D50.waterEnvGreen;
-            D_803E1BBF = D_803F2D50.waterEnvBlue;
+            gWaterEnvRed = D_803F2D50.waterEnvRed;
+            gWaterEnvGreen = D_803F2D50.waterEnvGreen;
+            gWaterEnvBlue = D_803F2D50.waterEnvBlue;
 
-            D_803A52B8_7B6968 = 1;
+            gLevelLightTransitionComplete = 1;
         } else {
             var_f0 = (f32) sLevelLightTransitionElapsedTicks / sLevelLightTransitionDurationTicks;
-            gLevelAmbientRed = D_803E1B99 + (D_803E1B8A * var_f0);
-            gLevelAmbientGreen = D_803E1B9A + (D_803E1B8C * var_f0);
-            gLevelAmbientBlue = D_803E1B9B + (D_803E1B8E * var_f0);
-            gLevelDirectionalLightRed = D_803E1B96 + (D_803E1B90 * var_f0);
-            gLevelDirectionalLightGreen = D_803E1B97 + (D_803E1B92 * var_f0);
-            gLevelDirectionalLightBlue = D_803E1B98 + (D_803E1B94 * var_f0);
+            gLevelAmbientRed = sLightTransitionStartAmbientRed + (sLightTransitionAmbientDeltaRed * var_f0);
+            gLevelAmbientGreen = sLightTransitionStartAmbientGreen + (sLightTransitionAmbientDeltaGreen * var_f0);
+            gLevelAmbientBlue = sLightTransitionStartAmbientBlue + (sLightTransitionAmbientDeltaBlue * var_f0);
+            gLevelDirectionalLightRed = sLightTransitionStartDirectionalRed + (sLightTransitionDirectionalDeltaRed * var_f0);
+            gLevelDirectionalLightGreen = sLightTransitionStartDirectionalGreen + (sLightTransitionDirectionalDeltaGreen * var_f0);
+            gLevelDirectionalLightBlue = sLightTransitionStartDirectionalBlue + (sLightTransitionDirectionalDeltaBlue * var_f0);
             // water primary
-            D_803E1BBA = (D_803F2D50.waterPrimRed + gLevelAmbientRed) / 2;
-            D_803E1BBB = (D_803F2D50.waterPrimGreen + gLevelAmbientGreen) / 2;
-            D_803E1BBC = (D_803F2D50.waterPrimBlue + gLevelAmbientBlue) / 2;
+            gWaterPrimRed = (D_803F2D50.waterPrimRed + gLevelAmbientRed) / 2;
+            gWaterPrimGreen = (D_803F2D50.waterPrimGreen + gLevelAmbientGreen) / 2;
+            gWaterPrimBlue = (D_803F2D50.waterPrimBlue + gLevelAmbientBlue) / 2;
             // water env?
-            D_803E1BBD = (D_803F2D50.waterEnvRed + gLevelAmbientRed) / 2;
-            D_803E1BBE = (D_803F2D50.waterEnvGreen + gLevelAmbientGreen) / 2;
-            D_803E1BBF = (D_803F2D50.waterEnvBlue + gLevelAmbientBlue) / 2;
+            gWaterEnvRed = (D_803F2D50.waterEnvRed + gLevelAmbientRed) / 2;
+            gWaterEnvGreen = (D_803F2D50.waterEnvGreen + gLevelAmbientGreen) / 2;
+            gWaterEnvBlue = (D_803F2D50.waterEnvBlue + gLevelAmbientBlue) / 2;
             sLevelLightTransitionElapsedTicks++;
         }
     } else {
-        gLevelAmbientRed = D_803E1B99 + D_803E1B8A;
-        gLevelAmbientGreen = D_803E1B9A + D_803E1B8C;
-        gLevelAmbientBlue = D_803E1B9B + D_803E1B8E;
-        gLevelDirectionalLightRed = D_803E1B96 + D_803E1B90;
-        gLevelDirectionalLightGreen = D_803E1B97 + D_803E1B92;
-        gLevelDirectionalLightBlue = D_803E1B98 + D_803E1B94;
+        gLevelAmbientRed = sLightTransitionStartAmbientRed + sLightTransitionAmbientDeltaRed;
+        gLevelAmbientGreen = sLightTransitionStartAmbientGreen + sLightTransitionAmbientDeltaGreen;
+        gLevelAmbientBlue = sLightTransitionStartAmbientBlue + sLightTransitionAmbientDeltaBlue;
+        gLevelDirectionalLightRed = sLightTransitionStartDirectionalRed + sLightTransitionDirectionalDeltaRed;
+        gLevelDirectionalLightGreen = sLightTransitionStartDirectionalGreen + sLightTransitionDirectionalDeltaGreen;
+        gLevelDirectionalLightBlue = sLightTransitionStartDirectionalBlue + sLightTransitionDirectionalDeltaBlue;
     }
 
     if (D_803E1BA6 != 0) {
@@ -266,12 +266,12 @@ void update_level_lighting(void) {
         gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = gLevelDirectionalLightGreen * var_f0;
         gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = gLevelDirectionalLightBlue * var_f0;
 
-        D_803E1BBD *= var_f0;
-        D_803E1BBE *= var_f0;
-        D_803E1BBF *= var_f0;
-        D_803E1BBA *= var_f0;
-        D_803E1BBB *= var_f0;
-        D_803E1BBC *= var_f0;
+        gWaterEnvRed *= var_f0;
+        gWaterEnvGreen *= var_f0;
+        gWaterEnvBlue *= var_f0;
+        gWaterPrimRed *= var_f0;
+        gWaterPrimGreen *= var_f0;
+        gWaterPrimBlue *= var_f0;
     } else {
         gDisplayListContext->lights.a.l.col[0] = gDisplayListContext->lights.a.l.colc[0] = gLevelAmbientRed;
         gDisplayListContext->lights.a.l.col[1] = gDisplayListContext->lights.a.l.colc[1] = gLevelAmbientGreen;
@@ -281,12 +281,12 @@ void update_level_lighting(void) {
         gDisplayListContext->lights.l[0].l.col[1] = gDisplayListContext->lights.l[0].l.colc[1] = gLevelDirectionalLightGreen;
         gDisplayListContext->lights.l[0].l.col[2] = gDisplayListContext->lights.l[0].l.colc[2] = gLevelDirectionalLightBlue;
 
-        D_803E1BBA = ((D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed) + gLevelAmbientRed) / 4;
-        D_803E1BBB = ((D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen) + gLevelAmbientGreen) / 4;
-        D_803E1BBC = ((D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue) + gLevelAmbientBlue) / 4;
-        D_803E1BBD = ((D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed) + gLevelAmbientRed) / 4;
-        D_803E1BBE = ((D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen) + gLevelAmbientGreen) / 4;
-        D_803E1BBF = ((D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue) + gLevelAmbientBlue) / 4;
+        gWaterPrimRed = ((D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed + D_803F2D50.waterPrimRed) + gLevelAmbientRed) / 4;
+        gWaterPrimGreen = ((D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen + D_803F2D50.waterPrimGreen) + gLevelAmbientGreen) / 4;
+        gWaterPrimBlue = ((D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue + D_803F2D50.waterPrimBlue) + gLevelAmbientBlue) / 4;
+        gWaterEnvRed = ((D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed + D_803F2D50.waterEnvRed) + gLevelAmbientRed) / 4;
+        gWaterEnvGreen = ((D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen + D_803F2D50.waterEnvGreen) + gLevelAmbientGreen) / 4;
+        gWaterEnvBlue = ((D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue + D_803F2D50.waterEnvBlue) + gLevelAmbientBlue) / 4;
     }
 
     if (D_803F2D50.useDynamicLightDir != 0) {
@@ -332,19 +332,19 @@ void add_multiple_lights(void) {
 
     // copy all used lights into a contiguous lights array
     for (i = 0; i < MAX_LIGHTS; i++) {
-        if (D_803E1B20[i] > 0) {
+        if (sLocalLightIntensities[i] > 0) {
             used++;
-            gDisplayListContext->lights.l[used].l.col[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
-            gDisplayListContext->lights.l[used].l.col[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
-            gDisplayListContext->lights.l[used].l.col[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.col[0] = (sLocalLightRed[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.col[1] = (sLocalLightGreen[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.col[2] = (sLocalLightBlue[i] * D_803F2A9A) >> 8;
 
-            gDisplayListContext->lights.l[used].l.colc[0] = (D_803E1B30[i] * D_803F2A9A) >> 8;
-            gDisplayListContext->lights.l[used].l.colc[1] = (D_803E1B40[i] * D_803F2A9A) >> 8;
-            gDisplayListContext->lights.l[used].l.colc[2] = (D_803E1B50[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.colc[0] = (sLocalLightRed[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.colc[1] = (sLocalLightGreen[i] * D_803F2A9A) >> 8;
+            gDisplayListContext->lights.l[used].l.colc[2] = (sLocalLightBlue[i] * D_803F2A9A) >> 8;
 
-            gDisplayListContext->lights.l[used].l.dir[0] = D_803E1B60[i];
-            gDisplayListContext->lights.l[used].l.dir[1] = D_803E1B70[i];
-            gDisplayListContext->lights.l[used].l.dir[2] = D_803E1B80[i];
+            gDisplayListContext->lights.l[used].l.dir[0] = sLocalLightDirectionX[i];
+            gDisplayListContext->lights.l[used].l.dir[1] = sLocalLightDirectionY[i];
+            gDisplayListContext->lights.l[used].l.dir[2] = sLocalLightDirectionZ[i];
         }
     }
 
