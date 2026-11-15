@@ -1343,11 +1343,11 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */  Animal* animal;
-    /* 0x04 */  s16     health;
-    /* 0x06 */  s16     unk6; // health related too?
-    /* 0x08 */  s16     unk8; // ALSO health?
-    /* 0x0A */  s16     unkA; // 0x40?
-} struct033; // size 0xC
+    /* 0x04 */  s16     initialHealth;
+    /* 0x06 */  s16     targetHealth; // animation target
+    /* 0x08 */  s16     displayedHealth; // animated bar value
+    /* 0x0A */  s16     remainingDisplayTicks; // hold/fade counter after health animation
+} TargetHealthBarState; // size 0xC
 
 struct struct035 { // TODO: merge with ObjectData?
   /* 0x00 */  u16 objectType; // ID

@@ -122,7 +122,7 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         if (!(arg0->unk4C.unk1A /* & 0x20 */) || (arg0->Info.health < arg2)) {
             if (arg0->unk16C->objectType >= OB_TYPE_ANIMAL_OFFSET) {
                 if (arg2 < arg0->Info.health) {
-                    func_80349280_75A930(arg0, arg0->Info.health - arg2);
+                    notify_animal_damage(arg0, arg0->Info.health - arg2);
                 }
             }
             arg0->Info.health = MIN(0x7F, MAX(0, arg2));
@@ -233,9 +233,9 @@ void set_game_state(Animal *arg0, s16 arg1, s32 arg2) {
         break;
 
     case 22+0x7F7F:
-        D_803F2CD8 = ABS(arg2);
+        gHudTimerTicksPerStep = ABS(arg2);
         new_var = SIGNUM(arg2);
-        D_803F2CD6 = new_var;
+        gHudTimerStepSeconds = new_var;
         break;
 
     case ST_SET_GRAVITY:
@@ -366,11 +366,11 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->unk40;
             break;
         case ST_GET_TIMER:
-            if (D_803F2CD6 < 0) {
+            if (gHudTimerStepSeconds < 0) {
                 res = gHudTimerSeconds;
             } else {
                 res = gHudTimerSeconds - 1;
-                if ((D_803F2CD8 >> 1) < D_803F2CD4) {
+                if ((gHudTimerTicksPerStep >> 1) < gHudTimerTickCounter) {
                     res += 1;
                 }
             }
@@ -418,7 +418,7 @@ s32 get_game_state(Animal *arg0, s32 arg1) {
             res = arg0->state;
             break;
         case 22+0x7F7F:
-            res = D_803F2CD8 * D_803F2CD6;
+            res = gHudTimerTicksPerStep * gHudTimerStepSeconds;
             break;
         case ST_GET_GRAVITY:
             res = gGravity >> 6;

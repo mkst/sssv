@@ -390,7 +390,7 @@ void reset_player_progress(void) {
 // unused?
 void reset_player_health(void) {
     gAnimalState.animals[gCurrentAnimalIndex].animal->Info.health = 0x7F;
-    D_803F2CE8 = 0;
+    gHudDisplayedPlayerHealth = 0;
     D_8020427C = 1;
 }
 

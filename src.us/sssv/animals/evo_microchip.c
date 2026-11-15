@@ -27,7 +27,7 @@ void update_evo_microchip(void) {
             D_803D5530->Info.health = MAX(0, D_803D5530->Info.health - 1);
         }
         if (SSSV_RAND(4)) {
-            func_80349280_75A930(D_803D5530, 4);
+            notify_animal_damage(D_803D5530, 4);
         } else {
             create_sparks(D_803D5530->position.xPos.h, D_803D5530->position.zPos.h, D_803D5530->position.yPos.h, 0xA, GPACK_RGBA5551(224, 224, 128, 1));
         }

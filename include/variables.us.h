@@ -697,15 +697,15 @@ extern u8   D_803F2C6C;
 // osd
 extern s16  D_803F2CD0;
 extern s16  gHudTimerSeconds; // (race?) timer
-extern s16  D_803F2CD4;
-extern s16  D_803F2CD6;
-extern s16  D_803F2CD8;
+extern s16  gHudTimerTickCounter;
+extern s16  gHudTimerStepSeconds;
+extern s16  gHudTimerTicksPerStep;
 extern s8   D_803F2CDC;
 
 extern s16 *gHudCenterText; // pointer to some text
 extern s16  D_803F2CE4; // vertical offset for osd text?
 extern u8   D_803F2CE6; // has (death?) sfx been played?
-extern s16  D_803F2CE8; // health slider 'animation'
+extern s16  gHudDisplayedPlayerHealth; // health slider 'animation'
 
 // init.c
 extern UiFlowState gUiFlowState;

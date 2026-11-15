@@ -1093,9 +1093,9 @@ D_803F2CC0 = 0x803F2CC0; // segment:overlay2 size:0x8
 // osd
 D_803F2CD0 = 0x803F2CD0; // segment:overlay2
 gHudTimerSeconds = 0x803F2CD2; // segment:overlay2
-D_803F2CD4 = 0x803F2CD4; // segment:overlay2
-D_803F2CD6 = 0x803F2CD6; // segment:overlay2
-D_803F2CD8 = 0x803F2CD8; // segment:overlay2
+gHudTimerTickCounter = 0x803F2CD4; // segment:overlay2
+gHudTimerStepSeconds = 0x803F2CD6; // segment:overlay2
+gHudTimerTicksPerStep = 0x803F2CD8; // segment:overlay2
 D_803F2CDA = 0x803F2CDA; // segment:overlay2
 D_803F2CDC = 0x803F2CDC; // segment:overlay2
 D_803F2CDD = 0x803F2CDD; // segment:overlay2
@@ -1104,11 +1104,11 @@ D_803F2CDF = 0x803F2CDF; // segment:overlay2
 gHudCenterText = 0x803F2CE0; // segment:overlay2
 D_803F2CE4 = 0x803F2CE4; // segment:overlay2
 D_803F2CE6 = 0x803F2CE6; // segment:overlay2
-D_803F2CE8 = 0x803F2CE8; // segment:overlay2
+gHudDisplayedPlayerHealth = 0x803F2CE8; // segment:overlay2
 D_803F2CEC = 0x803F2CEC; // segment:overlay2
 gHudBarBaseY = 0x803F2CF0; // segment:overlay2
 D_803F2CF2 = 0x803F2CF2; // segment:overlay2
-D_803F2CF8 = 0x803F2CF8; // segment:overlay2
+sTargetHealthBar = 0x803F2CF8; // segment:overlay2
 D_803F2D04 = 0x803F2D04;
 gUiFlowState = 0x803F2D10; // segment:overlay2 size:0x4
 D_803F2D18 = 0x803F2D18; // segment:overlay2
@@ -1992,3 +1992,7 @@ gLevelLightTransitionComplete = 0x803A52B8; // segment:overlay2
 snapshot_controller_button_history = 0x80136F64; // segment:main
 reset_rumble_state = 0x80137168; // segment:main
 gSiLockInitialized = 0x80158540; // segment:main
+
+// US naming pass: HUD health bars and timer
+notify_animal_damage = 0x80349280; // segment:overlay2
+draw_and_update_target_health_bar = 0x803493C8; // segment:overlay2

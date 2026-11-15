@@ -94,27 +94,27 @@ void func_8037D340_78E9F0(s16 arg0, s16 arg1) {
                                             case 0:
                                                 damage = (arg0 * 8) >> 3;
                                                 animal->Info.health = MAX(animal->Info.health - damage, 0);
-                                                func_80349280_75A930(animal, damage);
+                                                notify_animal_damage(animal, damage);
                                                 break;
                                             case 1:
                                                 damage = (arg0 * 6) >> 3;
                                                 animal->Info.health = MAX(animal->Info.health - damage, 0);
-                                                func_80349280_75A930(animal, damage);
+                                                notify_animal_damage(animal, damage);
                                                 break;
                                             case 2:
                                                 damage = (arg0 * 4) >> 3;
                                                 animal->Info.health = MAX(animal->Info.health - damage, 0);
-                                                func_80349280_75A930(animal, damage);
+                                                notify_animal_damage(animal, damage);
                                                 break;
                                             case 3:
                                                 damage = (arg0 * 3) >> 3;
                                                 animal->Info.health = MAX(animal->Info.health - damage, 0);
-                                                func_80349280_75A930(animal, damage);
+                                                notify_animal_damage(animal, damage);
                                                 break;
                                             case 4:
                                                 damage = (arg0 * 2) >> 3;
                                                 animal->Info.health = MAX(animal->Info.health - damage, 0);
-                                                func_80349280_75A930(animal, damage);
+                                                notify_animal_damage(animal, damage);
                                                 break;
                                             }
                                             if (D_803D5538 != 0) {
@@ -266,7 +266,7 @@ void func_8037DA08_78F0B8(s16 arg0, s16 arg1, s16 damage) {
                                                     if ((animal->unk16C->animalType != RACING_TORTOISE_DEFENDING) &&
                                                         (animal->unk16C->animalType != TORTOISE_TANK_DEFENDING)) {
                                                         animal->Info.health = MAX(animal->Info.health - damage, 0);
-                                                        func_80349280_75A930(animal, damage);
+                                                        notify_animal_damage(animal, damage);
                                                     }
                                                 }
                                             }
@@ -454,7 +454,7 @@ void trigger_contagious_laughter(void) {
                                                         if (!(D_803D5540 & 3)) {
                                                             // hurt animal by 1HP every 4 ticks
                                                             animal->Info.health = MAX(animal->Info.health - 1, 0);
-                                                            func_80349280_75A930(animal, 1);
+                                                            notify_animal_damage(animal, 1);
                                                         }
                                                     temp_t0 = animal->unk16C;
                                                 }
@@ -855,7 +855,7 @@ void func_8037F6CC_790D7C(s32 arg0, s16 arg1, s16 damage) {
                                             if ((gGameplayTick & 3) == 0) {
 
                                                 animal->Info.health = MAX(animal->Info.health - damage, 0);
-                                                func_80349280_75A930(animal, damage);
+                                                notify_animal_damage(animal, damage);
 
                                                 animal->unk348 = MAX(100, animal->unk348);
                                                 animal->unk34A = MAX(40, animal->unk34A);
