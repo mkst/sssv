@@ -2002,3 +2002,12 @@ build_level_region_collision_masks = 0x803198B0; // segment:overlay2
 get_level_regions_at_point = 0x80319C38; // segment:overlay2
 point_matches_level_region = 0x80319E1C; // segment:overlay2
 gWaypointPathCount = 0x803A5750; // segment:overlay2
+
+// US naming pass: collision spheres
+set_body_collision_sphere_pair = 0x803034D0; // segment:overlay2
+set_collision_sphere_at_joint_midpoint = 0x80303820; // segment:overlay2
+set_collision_sphere_from_joint_pairs = 0x80303990; // segment:overlay2
+set_collision_sphere_at_joint = 0x80303B18; // segment:overlay2
+set_single_collision_sphere = 0x80303D00; // segment:overlay2
+terminate_collision_spheres = 0x80303D50; // segment:overlay2
+get_animal_collision_vertical_bounds = 0x8030400C; // segment:overlay2

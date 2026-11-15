@@ -696,16 +696,16 @@ void func_803032DC_71498C(s16 arg0, s16 arg1, s16 arg2);
 void func_803033D4_714A84(s16 arg0, s16 arg1, s16 arg2);
 
 // overlay2_714B80
-void func_803034D0_714B80(Animal *arg0, u16 arg1, s16 arg2, u16 arg3);
-void func_80303820_714ED0(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4);
-void func_80303990_715040(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6);
-void func_80303B18_7151C8(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4);
+void set_body_collision_sphere_pair(Animal *arg0, u16 arg1, s16 arg2, u16 arg3);
+void set_collision_sphere_at_joint_midpoint(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4);
+void set_collision_sphere_from_joint_pairs(Animal *arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4, u16 arg5, u16 arg6);
+void set_collision_sphere_at_joint(Animal *arg0, u16 arg1, s16 arg2, u16 arg3, u16 arg4);
 void func_80303C44_7152F4(Animal *arg0, u16 arg1, s16 arg2, s16 arg3);
-void func_80303D00_7153B0(Animal *arg0, u16 arg1, u16 arg2);
-void func_80303D50_715400(Animal *arg0, u16 arg1);
+void set_single_collision_sphere(Animal *arg0, u16 arg1, u16 arg2);
+void terminate_collision_spheres(Animal *arg0, u16 arg1);
 void func_80303D68_715418(Animal *arg0, u16 arg1, DisplayList *arg2);
 void func_80303F90_715640(Animal *arg0, DisplayList *arg1);
-s32  func_8030400C_7156BC(Animal*, s16, s16, s32*, s32*);
+s32  get_animal_collision_vertical_bounds(Animal*, s16, s16, s32*, s32*);
 
 // overlay2_715820
 void func_80304170_715820(void);

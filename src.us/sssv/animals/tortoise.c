@@ -452,10 +452,10 @@ void update_tortoise_tank(void) {
     }
 
     if (sp128 == 0) {
-        func_803034D0_714B80(D_803D552C, 0x2A7, 0, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_body_collision_sphere_pair(D_803D552C, 0x2A7, 0, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x54F, 0x1C5);
+        set_single_collision_sphere(D_803D552C, 0x54F, 0x1C5);
     }
 }
 
@@ -761,10 +761,10 @@ void update_racing_tortoise(void) {
             D_803D5538);
     }
     if (sp88 == 0) {
-        func_803034D0_714B80(D_803D552C, 679, 0, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_body_collision_sphere_pair(D_803D552C, 679, 0, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 1359, 453);
+        set_single_collision_sphere(D_803D552C, 1359, 453);
     }
 }
 
@@ -861,10 +861,10 @@ void update_tortoise_defending(void) {
         func_8035D6D0_76ED80();
     }
     if (!offscreen) {
-        func_803034D0_714B80(D_803D552C, 0x7F6, 0, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_body_collision_sphere_pair(D_803D552C, 0x7F6, 0, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x54F, 0x1C5);
+        set_single_collision_sphere(D_803D552C, 0x54F, 0x1C5);
     }
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {

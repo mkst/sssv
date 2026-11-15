@@ -313,11 +313,11 @@ void func_802C9BA4_6DB254(Animal *arg0) {
         arg0->unk74[i].pos.xPos.w = arg0->unk16C->unk20[i][0] << 0x10;
         arg0->unk74[i].pos.zPos.w = arg0->unk16C->unk20[i][1] << 0x10;
         arg0->unk74[i].pos.yPos.w = arg0->unk16C->unk20[i][2] << 0x10;
-        arg0->unk74[i].unkC       = arg0->unk16C->unk20[i][3];
+        arg0->unk74[i].radius       = arg0->unk16C->unk20[i][3];
 
         arg0->unk74[i].pos.xPos.w = ((s64)arg0->unk74[i].pos.xPos.w * arg0->unk40) >> 11;
         arg0->unk74[i].pos.zPos.w = ((s64)arg0->unk74[i].pos.zPos.w * arg0->unk40) >> 11;
         arg0->unk74[i].pos.yPos.w = ((s64)arg0->unk74[i].pos.yPos.w * arg0->unk40) >> 11;
-        arg0->unk74[i].unkC       = ((s64)arg0->unk74[i].unkC * arg0->unk40) >> 11;
+        arg0->unk74[i].radius       = ((s64)arg0->unk74[i].radius * arg0->unk40) >> 11;
     }
 }

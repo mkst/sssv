@@ -139,11 +139,11 @@ void func_80313790_724E40(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x12, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp62 == 0) {
-        func_803034D0_714B80(D_803D552C, 0x2BE, 0, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x15F, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0x2BE, 0, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x15F, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x2BE, 0);
+        set_single_collision_sphere(D_803D552C, 0x2BE, 0);
     }
     if ((D_803D5524->animalType == PARROT_ATTACKING) && ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED))) {
         load_animal(PARROT);

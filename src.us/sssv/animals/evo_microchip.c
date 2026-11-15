@@ -193,11 +193,11 @@ void update_evo_microchip(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + ((D_803D5524->height * 3) >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 9, 6, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp9A == 0) {
-        func_803034D0_714B80(D_803D552C, 0x138, 0, 0);
+        set_body_collision_sphere_pair(D_803D552C, 0x138, 0, 0);
         D_803D5530->unkC4[0].pos.yPos.h += 3; // 0xcc
         D_803D5530->unkC4[1].pos.yPos.h += 3; // 0xdc
-        func_80303D50_715400(D_803D552C, 2);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x138, 0x9C);
+        set_single_collision_sphere(D_803D552C, 0x138, 0x9C);
     }
 }

@@ -345,7 +345,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     s16 damage_factor;
 
     CollisionNode *var_ra;
-    struct043 *var_a1;
+    CollisionSphere *var_a1;
     Animal *animal; // sp34
 
     ret = 0;
@@ -357,10 +357,10 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
     for (var_ra = gCollisionGridHeads[(s16)((s16)(var_t3 >> 0xA) + ((s16)(var_t4 >> 0xA) * 5))].next; var_ra != NULL; var_ra = var_ra->next) {
         animal = var_ra->animal;
         if ((animal != (Animal*)D_803D5530) && (D_803D5530->unk6C != animal) && (((animal->unk16C->behaviourFlags.unk2) && ((animal == gAnimalState.animals[gCurrentAnimalIndex].animal) || (D_803D5538 != 0) || (D_803D5524->animalType != animal->unk16C->animalType))) || ((!animal->unk16C->behaviourFlags.unk2) && (animal->unk16C->objectType != 0x40)))) {
-            for (var_a1 = animal->unkC4; var_a1->unkC != 0; var_a1++) {
-                if (ABS((animal->position.xPos.h + var_a1->pos.xPos.h) - var_t3) < (var_a1->unkC + arg3) &&
-                    ABS((animal->position.zPos.h + var_a1->pos.zPos.h) - var_t4) < (var_a1->unkC + arg3) &&
-                    ABS((animal->position.yPos.h + var_a1->pos.yPos.h) - var_t5) < (var_a1->unkC + arg3)) {
+            for (var_a1 = animal->unkC4; var_a1->radius != 0; var_a1++) {
+                if (ABS((animal->position.xPos.h + var_a1->pos.xPos.h) - var_t3) < (var_a1->radius + arg3) &&
+                    ABS((animal->position.zPos.h + var_a1->pos.zPos.h) - var_t4) < (var_a1->radius + arg3) &&
+                    ABS((animal->position.yPos.h + var_a1->pos.yPos.h) - var_t5) < (var_a1->radius + arg3)) {
 
                     damage_factor = 0;
                     if (arg7 != 0) {
@@ -420,7 +420,7 @@ s16 func_803224C4_733B74(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s16 a
 u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Animal **arg5, Animal *arg6, u8 arg7) {
     s32 pad[2];
     CollisionNode *temp_t8;
-    struct043 *phi_s2; // ?
+    CollisionSphere *phi_s2; // ?
     u8 pad2[3];
     u8 ret;
     s16 phi_s1;
@@ -431,10 +431,10 @@ u8 func_80322A58_734108(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 damage, Anim
     for (temp_t8 = gCollisionGridHeads[(s16)((s16)(arg0 >> 0xA) + ((s16)(arg1 >> 0xA) * 5))].next; temp_t8 != NULL; temp_t8 = temp_t8->next) {
         a = temp_t8->animal;
         if ((a != (Animal*)D_803D5530) && (a != arg6) && (a->unk16C->objectType != 64)) {
-            for (phi_s2 = a->unkC4; phi_s2->unkC != 0; phi_s2++) {
-                if ((ABS((a->position.xPos.h + phi_s2->pos.xPos.h) - arg0) < phi_s2->unkC + arg3) &&
-                    (ABS((a->position.zPos.h + phi_s2->pos.zPos.h) - arg1) < phi_s2->unkC + arg3) &&
-                    (ABS((a->position.yPos.h + phi_s2->pos.yPos.h) - arg2) < phi_s2->unkC + arg3)) {
+            for (phi_s2 = a->unkC4; phi_s2->radius != 0; phi_s2++) {
+                if ((ABS((a->position.xPos.h + phi_s2->pos.xPos.h) - arg0) < phi_s2->radius + arg3) &&
+                    (ABS((a->position.zPos.h + phi_s2->pos.zPos.h) - arg1) < phi_s2->radius + arg3) &&
+                    (ABS((a->position.yPos.h + phi_s2->pos.yPos.h) - arg2) < phi_s2->radius + arg3)) {
                     ret = 1;
                     if (arg7 != 0) {
                         a->unk54.unk3 = arg7;

@@ -221,11 +221,11 @@ void update_hippo(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x3E, 0x2E, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spFA == 0) {
-        func_803034D0_714B80(D_803D552C, 0xC95, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x333, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0xC95, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x333, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x6B6, 0x35B);
+        set_single_collision_sphere(D_803D552C, 0x6B6, 0x35B);
     }
 }
 

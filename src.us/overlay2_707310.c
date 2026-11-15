@@ -56,13 +56,13 @@ void func_802F5C60_707310(Entity *arg0) {
     s64 temp_t4;
 
     s16 i;
-    struct043 *var_s1;
+    CollisionSphere *var_s1;
 
     if (arg0->unk16C->orientationMode != 1) {
         arg0->unkC4[0].pos.xPos.w = arg0->unk74[0].pos.xPos.w;
         arg0->unkC4[0].pos.zPos.w = arg0->unk74[0].pos.zPos.w;
         arg0->unkC4[0].pos.yPos.w = arg0->unk74[0].pos.yPos.w;
-        arg0->unkC4[0].unkC = arg0->unk74[0].unkC;
+        arg0->unkC4[0].radius = arg0->unk74[0].radius;
         return;
     }
 
@@ -76,7 +76,7 @@ void func_802F5C60_707310(Entity *arg0) {
         i = 0;
         var_s1 = &arg0->unk74;
 
-        while ((i < 5) && (var_s1->unkC != 0)) {
+        while ((i < 5) && (var_s1->radius != 0)) {
             x = var_s1->pos.xPos.w;
 
             temp_ret_3 = ((var_s1->pos.zPos.w * temp_t6) - (var_s1->pos.yPos.w * temp_t3)) >> 8;
@@ -85,7 +85,7 @@ void func_802F5C60_707310(Entity *arg0) {
             arg0->unkC4[i].pos.xPos.w = (( x * temp_t4) + (temp_ret_3 * temp_t1)) >> 8;
             arg0->unkC4[i].pos.zPos.w = ((-x * temp_t1) + (temp_ret_3 * temp_t4)) >> 8;
             arg0->unkC4[i].pos.yPos.w = (arg0->unk42 << 0xF) + temp_ret_6;
-            arg0->unkC4[i].unkC = var_s1->unkC;
+            arg0->unkC4[i].radius = var_s1->radius;
 
             i++;
             var_s1++;
@@ -93,7 +93,7 @@ void func_802F5C60_707310(Entity *arg0) {
 
         while (i < 5) {
             // clear others
-            arg0->unkC4[i++].unkC = 0;
+            arg0->unkC4[i++].radius = 0;
         }
     }
 }

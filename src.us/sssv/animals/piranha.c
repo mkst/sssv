@@ -225,7 +225,7 @@ done:
             }
         }
     }
-    func_80303D00_7153B0(D_803D552C, 625, 625);
+    set_single_collision_sphere(D_803D552C, 625, 625);
 }
 
 void func_80382C9C_79434C(void) {

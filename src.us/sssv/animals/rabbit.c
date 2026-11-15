@@ -203,12 +203,12 @@ void func_80300210_7118C0(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (s16) (D_803D552C->position.yPos.h + ((s32) D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp88 == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 1, 0x177, 1);
-        func_80303820_714ED0(D_803D552C, 0x13, 0x14, 0x14C, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 1, 0x177, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 0x13, 0x14, 0x14C, 0);
+        terminate_collision_spheres(D_803D552C, 2);
         return;
     }
-    func_80303D00_7153B0(D_803D552C, 0x465, 0x177);
+    set_single_collision_sphere(D_803D552C, 0x465, 0x177);
 }
 
 // HELI_RABBIT
@@ -367,11 +367,11 @@ void func_80301248_7128F8(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xF, 0xF, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp84 == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 1, 375, 1);
-        func_80303820_714ED0(D_803D552C, 19, 20, 332, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 1, 375, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 19, 20, 332, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 1125, 375);
+        set_single_collision_sphere(D_803D552C, 1125, 375);
     }
 }
 

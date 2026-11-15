@@ -196,10 +196,10 @@ done:
         }
     }
     if (sp86 == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 436, 0);
-        func_80303D50_715400(D_803D552C, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 436, 0);
+        terminate_collision_spheres(D_803D552C, 1);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0xFA, 0x7D);
+        set_single_collision_sphere(D_803D552C, 0xFA, 0x7D);
     }
     if ((D_803D5538 == 0) && (D_803D5524->animalType == MOUSE2)) {
         if (D_803D552C->unk2EC <= 0) {
@@ -448,11 +448,11 @@ void func_8031D624_72ECD4(void) {
         }
     }
     if (sp92 == 0) {
-        func_803034D0_714B80(D_803D552C, 0xFA, 0x75, 1);
-        func_80303820_714ED0(D_803D552C, 0x13, 0x14, 0x9C, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0xFA, 0x75, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 0x13, 0x14, 0x9C, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x177, 0x7D);
+        set_single_collision_sphere(D_803D552C, 0x177, 0x7D);
     }
 
     if (0) {
@@ -675,11 +675,11 @@ void func_8031E6A0_72FD50(void) {
         }
     }
     if (spA6 == 0) {
-        func_803034D0_714B80(D_803D552C, 250, 117, 1);
-        func_80303820_714ED0(D_803D552C, 19, 20, 156, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 250, 117, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 19, 20, 156, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 375, 125);
+        set_single_collision_sphere(D_803D552C, 375, 125);
     }
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {

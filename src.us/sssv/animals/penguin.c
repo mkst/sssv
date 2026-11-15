@@ -258,23 +258,23 @@ void func_80364780_775E30(void) {
             D_803D5538);
     }
     if (spA2 == 0) {
-        func_80303820_714ED0(
+        set_collision_sphere_at_joint_midpoint(
             D_803D552C,
             1,
             1,
             ((scale * 300) * 2) >> 1,
             0);
-        func_80303B18_7151C8(
+        set_collision_sphere_at_joint(
             D_803D552C,
             1,
             ((scale * 300) * 5) >> 3,
             ((scale * 300) * 7) >> 3,
             1);
-        func_80303D50_715400(
+        terminate_collision_spheres(
             D_803D552C,
             2);
     } else {
-        func_80303D00_7153B0(D_803D552C, ((scale * 150) * 6) >> 1, 0x96);
+        set_single_collision_sphere(D_803D552C, ((scale * 150) * 6) >> 1, 0x96);
     }
     if ((D_803D5538 == 0) && (D_803D5524->animalType == KING_PENGUIN)) {
         if (D_803D552C->unk2EC <= 0) {

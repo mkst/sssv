@@ -225,16 +225,16 @@ void func_8036C0B0_77D760(void) {
         D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1),
         D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x12, 0x12, 0x9B, 0, 0, 0, 0, D_803D5538);
     if (!offscreen) {
-        func_80303820_714ED0(D_803D552C, 0, 1, 750, 1);
-        func_80303820_714ED0(D_803D552C, 1, 19, 0x177, 0);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 0, 1, 750, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 19, 0x177, 0);
         if (D_803D552C->unk320 != 0) {
             func_80303C44_7152F4(D_803D552C, 2, 0, -D_803D552C->unk308 / 64);
-            func_80303D50_715400(D_803D552C, 3);
+            terminate_collision_spheres(D_803D552C, 3);
         } else {
-            func_80303D50_715400(D_803D552C, 2);
+            terminate_collision_spheres(D_803D552C, 2);
         }
     } else {
-        func_80303D00_7153B0(D_803D552C, 750, 0);
+        set_single_collision_sphere(D_803D552C, 750, 0);
     }
     if (D_803D5524->animalType == VULTURE) {
         if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {

@@ -691,8 +691,8 @@ typedef struct {
 
 typedef struct {
     Position pos;
-    s32 unkC; // unkD0, scale factor
-} struct043; // size 0x10
+    s32 radius; // zero terminates the sphere list
+} CollisionSphere; // size 0x10
 
 typedef struct {
     u8  unk0;
@@ -755,8 +755,8 @@ struct Animal {
     /* 0x68 */  Animal *unk68; // carry-ee (e.g. what seagull is carrying)
     /* 0x6C */  Animal *unk6C; // baseEntity (i.e. moving platform)
     /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
-    /* 0x74 */  struct043 unk74[5];
-    /* 0xC4 */  struct043 unkC4[5];  // hitboxes?
+    /* 0x74 */  CollisionSphere unk74[5];
+    /* 0xC4 */  CollisionSphere unkC4[5];  // hitboxes?
     /* 0x114 */ s16 collisionGridCells[4];       // occupied cells
     /* 0x11C */ CollisionNode collisionGridNodes[4]; // collisionNode
                 struct {
@@ -1919,8 +1919,8 @@ struct Entity {
     /* 0x68 */  Animal *unk68; // carry-ee (e.g. what seagull is carrying)
     /* 0x6C */  Animal *unk6C; // baseEntity
     /* 0x70 */  Animal *unk70; // carry-er (e.g. seagull)
-    /* 0x74 */  struct043 unk74[5];
-    /* 0xC4 */  struct043 unkC4[5];  // hitboxes?
+    /* 0x74 */  CollisionSphere unk74[5];
+    /* 0xC4 */  CollisionSphere unkC4[5];  // hitboxes?
     /* 0x114 */ s16 collisionGridCells[4];
     /* 0x11C */ CollisionNode collisionGridNodes[4]; // collisionNode
                 struct {

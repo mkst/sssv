@@ -450,13 +450,13 @@ void func_8036D700_77EDB0(void) {
     }
     if (spDA == VISIBILITY_VISIBLE) {
         func_8034B298_75C948(0);
-        func_803034D0_714B80(D_803D552C, 0x61A, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x20E, 0);
+        set_body_collision_sphere_pair(D_803D552C, 0x61A, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x20E, 0);
         D_803D5530->unkC4[0].pos.yPos.h -= 10;
-        func_80303B18_7151C8(D_803D552C, 0, -0x1D4, 0x1D4, 3);
-        func_80303D50_715400(D_803D552C, 4);
+        set_collision_sphere_at_joint(D_803D552C, 0, -0x1D4, 0x1D4, 3);
+        terminate_collision_spheres(D_803D552C, 4);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x271, 0x1D4);
+        set_single_collision_sphere(D_803D552C, 0x271, 0x1D4);
     }
 }
 

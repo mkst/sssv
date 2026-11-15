@@ -299,7 +299,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
             *arg3 = 0;
         } else if (a1->collision != NULL) {
             // custom collision data
-            if (arg1->unkC4[0].unkC != 0) {
+            if (arg1->unkC4[0].radius != 0) {
                 res = 7;
                 *collision_func = func_802B6F6C_6C861C;
                 *arg3 = 0;
@@ -309,7 +309,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
                 *arg3 = 0;
             }
         } else {
-            if (arg1->unkC4[0].unkC != 0) {
+            if (arg1->unkC4[0].radius != 0) {
                 res = 5;
                 *collision_func = func_802B6B5C_6C820C;
                 *arg3 = 1;
@@ -319,7 +319,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
         a1 = arg1->unk16C;
         if (a1->orientationMode == 4) {
             // custom collision data
-            if (arg1->unkC4[0].unkC != 0) {
+            if (arg1->unkC4[0].radius != 0) {
                 res = 7;
                 *collision_func = func_802B6F6C_6C861C;
                 *arg3 = 1;
@@ -329,7 +329,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
                 *arg3 = 1;
             }
         } else if (a1->collision != NULL) {
-            if ((arg0->unkC4[0].unkC != 0) && (arg1->unkC4[0].unkC != 0)) {
+            if ((arg0->unkC4[0].radius != 0) && (arg1->unkC4[0].radius != 0)) {
                 res = 1;
                 *collision_func = func_802B6088_6C7738;
                 if ((u32) arg0 < (u32) arg1) { // memory address lower!
@@ -337,7 +337,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
                 } else {
                     *arg3 = 1;
                 }
-            } else if (arg0->unkC4[0].unkC != 0) {
+            } else if (arg0->unkC4[0].radius != 0) {
                 res = 1;
                 *collision_func = func_802B6088_6C7738;
                 *arg3 = 0;
@@ -347,7 +347,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
                 *arg3 = 0;
             }
         } else {
-            if (arg1->unkC4[0].unkC != 0) {
+            if (arg1->unkC4[0].radius != 0) {
                 res = 2;
                 *collision_func = func_802B6088_6C7738;
                 *arg3 = 1;
@@ -356,7 +356,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
             }
         }
     } else {
-        if (arg0->unkC4[0].unkC != 0) {
+        if (arg0->unkC4[0].radius != 0) {
             a1 = arg1->unk16C;
             if (a1->orientationMode == 4) {
                 res = 4;
@@ -366,7 +366,7 @@ s32 func_802B5E48_6C74F8(Entity *arg0, Entity *arg1, u8 (**collision_func)(Entit
                 res = 1;
                 *collision_func = func_802B6088_6C7738;
                 *arg3 = 0;
-            } else  if (arg1->unkC4[0].unkC != 0) {
+            } else  if (arg1->unkC4[0].radius != 0) {
                 res = 3;
                 *collision_func = func_802B6948_6C7FF8;
                 *arg3 = 0;
@@ -417,7 +417,7 @@ u8 func_802B6088_6C7738(Entity *arg0, Entity *arg1, Position** p1, Position** p2
     D_803D60E8.zPos.w = 0;
     D_803D60E8.yPos.w = 0;
 
-    for (;((changed == 0) && (arg0->unkC4[i].unkC != 0) && (i < 5));) {
+    for (;((changed == 0) && (arg0->unkC4[i].radius != 0) && (i < 5));) {
 
         temp_a0 = (arg1->unk40 << 6) >> 0xB;
         temp_t5 = ((arg0->unkC4[i].pos.yPos.w + yPos1.w) - yPos2.w) - (arg1->unk42 << 0xF);
@@ -426,7 +426,7 @@ u8 func_802B6088_6C7738(Entity *arg0, Entity *arg1, Position** p1, Position** p2
         var_a1 = ((((arg0->unkC4[i].pos.zPos.w + zPos1.w) - zPos2.w) >> 0xB) / (temp_a0)) + 16;
         temp_a3 = ((temp_t5 >> 0xB) / temp_a0) + 16;
 
-        var_t1 = MAX(1, (arg0->unkC4[i].unkC << 5) / (temp_a0));
+        var_t1 = MAX(1, (arg0->unkC4[i].radius << 5) / (temp_a0));
         var_t3 = MAX(1, (var_t1 * 3) >> 2);
 
         if ((arg1->unk28 == 0) && (arg1->unk2A == 0)) {
@@ -582,15 +582,15 @@ u8 func_802B6948_6C7FF8(Entity *arg0, Entity *arg1, Position** p1, Position** p2
     i = 0;
     res = 0;
 
-    for (; ((res == 0) && (arg0->unkC4[i].unkC != 0) && (i < 5)); i++) {
-        for (j = 0; ((res == 0) && (arg1->unkC4[j].unkC != 0) && (j < 5)); j++) {
+    for (; ((res == 0) && (arg0->unkC4[i].radius != 0) && (i < 5)); i++) {
+        for (j = 0; ((res == 0) && (arg1->unkC4[j].radius != 0) && (j < 5)); j++) {
 
             temp_a3 = ((arg1->unkC4[j].pos.xPos.w + xPos2.w) - (arg0->unkC4[i].pos.xPos.w + xPos1.w)) / 0x10000;
             temp_t0 = ((arg1->unkC4[j].pos.zPos.w + zPos2.w) - (arg0->unkC4[i].pos.zPos.w + zPos1.w)) / 0x10000;
             temp_t1 = ((arg1->unkC4[j].pos.yPos.w + yPos2.w) - (arg0->unkC4[i].pos.yPos.w + yPos1.w)) / 0x10000;
 
-            temp_v0 = arg0->unkC4[i].unkC + arg1->unkC4[j].unkC; // dupe line is required for match
-            temp_v0 = arg0->unkC4[i].unkC + arg1->unkC4[j].unkC;
+            temp_v0 = arg0->unkC4[i].radius + arg1->unkC4[j].radius; // dupe line is required for match
+            temp_v0 = arg0->unkC4[i].radius + arg1->unkC4[j].radius;
             temp_v0 = SQ(temp_v0);
             res = ((SQ(temp_a3) + SQ(temp_t0)) + SQ(temp_t1)) < temp_v0;
 
@@ -617,18 +617,18 @@ u8 func_802B6B5C_6C820C(Entity *arg0, Entity *arg1, Position** p1, Position** p2
 
     D_803D60E0 = 0;
 
-    for (changed = 0, i = 0; (changed == 0) && (i < 5) && (arg0->unkC4[i].unkC != 0); i++) {
+    for (changed = 0, i = 0; (changed == 0) && (i < 5) && (arg0->unkC4[i].radius != 0); i++) {
 
-        temp_a0 = arg1->unk30 + arg0->unkC4[i].unkC;
-        temp_a1 = arg1->unk32 + arg0->unkC4[i].unkC;
+        temp_a0 = arg1->unk30 + arg0->unkC4[i].radius;
+        temp_a1 = arg1->unk32 + arg0->unkC4[i].radius;
 
         changed = (
             ((xPos1.h + arg0->unkC4[i].pos.xPos.h) > (xPos2.h - temp_a0)) &&
             ((xPos1.h + arg0->unkC4[i].pos.xPos.h) < (xPos2.h + temp_a0)) &&
             ((zPos1.h + arg0->unkC4[i].pos.zPos.h) > (zPos2.h - temp_a1)) &&
             ((zPos1.h + arg0->unkC4[i].pos.zPos.h) < (zPos2.h + temp_a1)) &&
-            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) > (yPos2.h - arg0->unkC4[i].unkC)) &&
-            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) < (yPos2.h + arg0->unkC4[i].unkC + arg1->unk42)));
+            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) > (yPos2.h - arg0->unkC4[i].radius)) &&
+            ((yPos1.h + arg0->unkC4[i].pos.yPos.h) < (yPos2.h + arg0->unkC4[i].radius + arg1->unk42)));
 
         if (changed != 0) {
             *p1 = (Position*)&arg0->unkC4[i];
@@ -648,22 +648,22 @@ u8 func_802B6B5C_6C820C(Entity *arg0, Entity *arg1, Position** p1, Position** p2
 
             switch (flags) {
             case (0x1 | 0x2 | 0x4 | 0x8): // 0xF
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h - arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
+                if (SQ(arg0->unkC4[i].radius) < (SQ((zPos2.h - arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
                 break;
             case (0x2 | 0x4 | 0x8): // 0xE
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h + arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
+                if (SQ(arg0->unkC4[i].radius) < (SQ((zPos2.h + arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h - arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
                 break;
             case (0x1 | 0x2 | 0x8): // 0xB
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h - arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
+                if (SQ(arg0->unkC4[i].radius) < (SQ((zPos2.h - arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
                 break;
             case (0x2 | 0x8):  // 0xA
-                if (SQ(arg0->unkC4[i].unkC) < (SQ((zPos2.h + arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
+                if (SQ(arg0->unkC4[i].radius) < (SQ((zPos2.h + arg1->unk32) - (zPos1.h - arg0->unkC4[i].pos.zPos.h)) + SQ((xPos2.h + arg1->unk30) - (xPos1.h - arg0->unkC4[i].pos.xPos.h)))) {
                     changed = 0;
                 }
             }

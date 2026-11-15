@@ -6,7 +6,7 @@
 // definitions
 // ========================================================
 
-s32 func_8030400C_7156BC(Animal*, s16, s16, s32*, s32*);
+s32 get_animal_collision_vertical_bounds(Animal*, s16, s16, s32*, s32*);
 s32 func_8032B1E0_73C890(Animal*, s16, s16, s32*, s32*);
 
 // ========================================================
@@ -112,7 +112,7 @@ u8 func_8029B000_6AC6B0(s16 xPos, s16 zPos, s32 yPos, Animal *sourceAnimal, Anim
                 if (animal->unk16C->scoreTier >= sourceAnimal->unk16C->scoreTier) {
                     if (((xPos >= (animal->position.xPos.h - animal->unk34)) && (xPos < (animal->position.xPos.h + animal->unk34))) &&
                         ((zPos >= (animal->position.zPos.h - animal->unk34)) && (zPos < (animal->position.zPos.h + animal->unk34)))) {
-                        isCollision = func_8030400C_7156BC(animal, xPos, zPos, &collisionYMax, &collisionYMin);
+                        isCollision = get_animal_collision_vertical_bounds(animal, xPos, zPos, &collisionYMax, &collisionYMin);
                     }
                 } else if ((((sourceAnimal->movementState != MOVEMENT_STATE_GROUND) || (sourceAnimal->unk68 != NULL)) && (sourceAnimal->yVelocity.w < FTOFIX32(-6.0))) ||
                     (animal->movementMode == MOVEMENT_MODE_DEACTIVATED) ||

@@ -362,14 +362,14 @@ void func_80365F10_7775C0(void) {
         D_80203FE0[33].unk0 = ((D_80203FE0[33].unk0 - D_80203FE0[1].unk0) * 3) + D_80203FE0[1].unk0;
         D_80203FE0[33].unk2 = ((D_80203FE0[33].unk2 - D_80203FE0[1].unk2) * 3) + D_80203FE0[1].unk2;
         D_80203FE0[33].unk4 += 0x77;
-        func_803034D0_714B80(D_803D552C, 0x59A, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2CD, 0);
+        set_body_collision_sphere_pair(D_803D552C, 0x59A, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2CD, 0);
         D_803D5530->unkC4[0].pos.yPos.h += 22;
         D_803D5530->unkC4[1].pos.yPos.h += 22;
         D_803D5530->unkC4[2].pos.yPos.h += 22;
-        func_80303D50_715400(D_803D552C, 3);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x3BC, 0x344);
+        set_single_collision_sphere(D_803D552C, 0x3BC, 0x344);
     }
     if ((D_803D5538 == 0) && (D_803D5524->animalType == POLAR_BEAR_DEFENDING)) {
         if (D_803D552C->unk2EC == 0) {
@@ -653,7 +653,7 @@ void func_803677C4_778E74(void) {
         D_80203FE0[33].unk0 = ((D_80203FE0[33].unk0 - D_80203FE0[1].unk0) * 4) + D_80203FE0[1].unk0;
         D_80203FE0[33].unk2 = ((D_80203FE0[33].unk2 - D_80203FE0[1].unk2) * 4) + D_80203FE0[1].unk2;
         D_80203FE0[33].unk4 += 0x166;
-        func_80303D00_7153B0(D_803D552C, 0x433, 0x611);
+        set_single_collision_sphere(D_803D552C, 0x433, 0x611);
 
         if ((D_803D552C->movementMode == MOVEMENT_MODE_2) || (D_803D552C->movementMode == MOVEMENT_MODE_DEACTIVATED)) {
             D_803D5530->unkC4[0].pos.yPos.h -= 0x1D;
@@ -661,12 +661,12 @@ void func_803677C4_778E74(void) {
         D_803D5530->unkC4[1].pos.xPos.h = D_803D5530->unkC4[0].pos.xPos.h;
         D_803D5530->unkC4[1].pos.zPos.h = D_803D5530->unkC4[0].pos.zPos.h;
         D_803D5530->unkC4[1].pos.yPos.h = D_803D5530->unkC4[0].pos.yPos.h;
-        D_803D5530->unkC4[1].unkC = D_803D5530->unkC4[0].unkC;
+        D_803D5530->unkC4[1].radius = D_803D5530->unkC4[0].radius;
 
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2CD, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2CD, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x3BC, 0x344);
+        set_single_collision_sphere(D_803D552C, 0x3BC, 0x344);
     }
 }
 

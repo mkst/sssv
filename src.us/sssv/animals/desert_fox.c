@@ -261,11 +261,11 @@ void func_803726E0_783D90(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xC, 0xC, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spAE == VISIBILITY_VISIBLE) {
-        func_80303820_714ED0(D_803D552C, 1, 1, 0x1BA, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x189, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 1, 0x1BA, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x189, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x375, 0x127);
+        set_single_collision_sphere(D_803D552C, 0x375, 0x127);
   }
 }
 
@@ -412,11 +412,11 @@ block_15:
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0xC, 0xC, 0x9B, 0, 0, 0,0, D_803D5538);
     }
     if (sp72 == VISIBILITY_VISIBLE) {
-        func_80303820_714ED0(D_803D552C, 1, 1, 0x24E, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x83, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 1, 0x24E, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x83, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x375, 0x127);
+        set_single_collision_sphere(D_803D552C, 0x375, 0x127);
     }
     if (D_803D5538 == 0) {
         if (D_803D552C->unk2EC <= 0) {

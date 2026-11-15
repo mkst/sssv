@@ -177,10 +177,10 @@ void update_sheep_or_ram(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, (D_803D552C->position.yPos.h + (D_803D5524->height >> 1)), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (sp8C == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 2, 593, 0);
-        func_80303D50_715400(D_803D552C, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2, 593, 0);
+        terminate_collision_spheres(D_803D552C, 1);
     } else {
-        func_80303D00_7153B0(D_803D552C, 890, 1009);
+        set_single_collision_sphere(D_803D552C, 890, 1009);
     }
 }
 
@@ -469,10 +469,10 @@ void update_springy_thingy_or_springy_ram(void) {
         func_8034BD20_75D3D0(D_803D552C->position.xPos.h, D_803D552C->position.zPos.h, D_803D552C->position.yPos.h + (D_803D5524->height >> 1), D_803D552C->heading, img_D_01033190_6CA60_i4__png, 0x15, 0x15, 0x9B, 0, 0, 0, 0, D_803D5538);
     }
     if (spAC == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 2, 593, 0);
-        func_80303D50_715400(D_803D552C, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2, 593, 0);
+        terminate_collision_spheres(D_803D552C, 1);
     } else {
-        func_80303D00_7153B0(D_803D552C, 890, 1009);
+        set_single_collision_sphere(D_803D552C, 890, 1009);
     }
 }
 

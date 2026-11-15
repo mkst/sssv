@@ -274,11 +274,11 @@ void func_8036F7A0_780E50(void) {
         }
     }
     if (sp9E == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 2, 0x391, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x28A, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2, 0x391, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x28A, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x891, 0x2DB);
+        set_single_collision_sphere(D_803D552C, 0x891, 0x2DB);
     }
 }
 
@@ -654,11 +654,11 @@ void func_80370C84_782334(void) {
         }
     }
     if (spDE == 0) {
-        func_80303820_714ED0(D_803D552C, 1, 2, 0x391, 1);
-        func_80303820_714ED0(D_803D552C, 1, 0x13, 0x28A, 0);
-        func_80303D50_715400(D_803D552C, 2);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 2, 0x391, 1);
+        set_collision_sphere_at_joint_midpoint(D_803D552C, 1, 0x13, 0x28A, 0);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x448, 0x3CF);
+        set_single_collision_sphere(D_803D552C, 0x448, 0x3CF);
     }
 }
 

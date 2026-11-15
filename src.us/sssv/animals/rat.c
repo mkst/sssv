@@ -291,13 +291,13 @@ void func_8035E430_76FAE0(void) {
     }
     if (spA2 == 0) {
         if (scale == 1) {
-            func_803034D0_714B80(D_803D552C, 609, 101, 0);
+            set_body_collision_sphere_pair(D_803D552C, 609, 101, 0);
         } else {
-            func_803034D0_714B80(D_803D552C, 609*2, 101*3 + 1, 0);
+            set_body_collision_sphere_pair(D_803D552C, 609*2, 101*3 + 1, 0);
         }
-        func_80303D50_715400(D_803D552C, 2);
+        terminate_collision_spheres(D_803D552C, 2);
     } else {
-        func_80303D00_7153B0(D_803D552C, (scale * 609) & 0xFFFF, (scale * 365));
+        set_single_collision_sphere(D_803D552C, (scale * 609) & 0xFFFF, (scale * 365));
     }
 
     if ((D_803D5538 == 0) && (D_803D5524->animalType == KING_RAT)) {

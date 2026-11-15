@@ -238,11 +238,11 @@ void func_802F1730_702DE0(void) {
         }
     }
     if (spBE == 0) {
-        func_803034D0_714B80(D_803D552C, 0x384, 0, 1);
-        func_80303990_715040(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2A3, 0);
-        func_80303D50_715400(D_803D552C, 3);
+        set_body_collision_sphere_pair(D_803D552C, 0x384, 0, 1);
+        set_collision_sphere_from_joint_pairs(D_803D552C, 0x20, 0x21, 0x13, 0x14, 0x2A3, 0);
+        terminate_collision_spheres(D_803D552C, 3);
     } else {
-        func_80303D00_7153B0(D_803D552C, 0x384, 0x1C2);
+        set_single_collision_sphere(D_803D552C, 0x384, 0x1C2);
     }
 }
 
