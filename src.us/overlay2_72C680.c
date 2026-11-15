@@ -578,12 +578,12 @@ void load_level_data_sections(void) {
 
             rangeCount = base->u.count;
 
-            memcpy_sssv(base->s.payload, (u8*)&D_803E93B0, rangeCount * sizeof(struct067));
+            memcpy_sssv(base->s.payload, (u8*)&gLevelRegions, rangeCount * sizeof(LevelRegion));
 
-            D_803E93B0[rangeCount].unk2 = 245;
-            D_803E93B0[rangeCount].unk5 = 245;
+            gLevelRegions[rangeCount].unk2 = 245;
+            gLevelRegions[rangeCount].unk5 = 245;
 
-            func_803198B0_72AF60();
+            build_level_region_collision_masks();
             break;
 
         case 6: /* .paf: variable-length waypoint paths */
@@ -595,8 +595,8 @@ void load_level_data_sections(void) {
 
             pafBytesUsed = 0;
             for (length = 0; length < count2; length++) {
-                // record the start of each waypoint in D_803E8E60
-                D_803E8E60[length] = (Waypoint*)&D_803E8F60[pafBytesUsed];
+                // record the start of each waypoint in gWaypointPaths
+                gWaypointPaths[length] = (Waypoint*)&gWaypointPathBuffer[pafBytesUsed];
                 //    B BBB BBB BBB ... =>
                 //    3 123 456 789
                 pafBytesUsed += (paf[0] * 3) + 1;
@@ -606,12 +606,12 @@ void load_level_data_sections(void) {
 
             // improves score by 30, but is likely unhelpful overall
             if (1) {
-                osSyncPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(D_803E8F60));
+                osSyncPrintf("Path thingies: %d (%d).\n", pafBytesUsed, sizeof(gWaypointPathBuffer));
             }
 
-            // NOTE: no boundary check that pafBytesUsed < sizeof(D_803E8F60)!
-            memcpy_sssv(paf2, (u8*)D_803E8F60, pafBytesUsed);
-            D_803A5750_7B6E00 = count2;
+            // NOTE: no boundary check that pafBytesUsed < sizeof(gWaypointPathBuffer)!
+            memcpy_sssv(paf2, (u8*)gWaypointPathBuffer, pafBytesUsed);
+            gWaypointPathCount = count2;
             break;
 
         case 7: /* .cha: dynamic/hanging objects */

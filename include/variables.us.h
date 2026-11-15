@@ -425,7 +425,7 @@ extern s16  D_803A5568_7B6C18[];
 extern s16  D_803A5570_7B6C20[];
 extern s16  D_803A5578_7B6C28[];
 extern s32  D_803A5590_7B6C40[];
-extern u16  D_803A5750_7B6E00; // number of waypoints?
+extern u16  gWaypointPathCount; // number of waypoints?
 extern u16  D_803A5760_7B6E10;
 
 extern u8   gLevelLightTransitionComplete; // lights.c
@@ -649,10 +649,10 @@ extern u16  D_803E8E54;
 extern u8   gSpeakerDistanceAttenuationEnabled;
 
 // overlay2_72B100
-extern WaypointData *D_803E8E60[64];
-extern u8   D_803E8F60[1100];
-extern struct067 D_803E93B0[65];
-extern s64  D_803E95B8[65];
+extern WaypointData *gWaypointPaths[64];
+extern u8   gWaypointPathBuffer[1100];
+extern LevelRegion gLevelRegions[65];
+extern s64  gLevelRegionCollisionMasks[65];
 
 // overlay2_72BA20
 extern s16  D_803E97C0;

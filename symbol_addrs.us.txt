@@ -980,10 +980,10 @@ D_803DA108 = 0x803DA108; // segment:overlay2
 // TODO: D_803E8E5C = 0x803E8E5C;
 
 // overlay2_72B100
-D_803E8E60 = 0x803E8E60; // segment:overlay2
-D_803E8F60 = 0x803E8F60; // segment:overlay2
-D_803E93B0 = 0x803E93B0; // size:0x208 segment:overlay2
-D_803E95B8 = 0x803E95B8; // size:0x208 segment:overlay2
+gWaypointPaths = 0x803E8E60; // segment:overlay2
+gWaypointPathBuffer = 0x803E8F60; // segment:overlay2
+gLevelRegions = 0x803E93B0; // size:0x208 segment:overlay2
+gLevelRegionCollisionMasks = 0x803E95B8; // size:0x208 segment:overlay2
 
 // overlay2_72B800
 D_803E97C0 = 0x803E97C0; // segment:overlay2
@@ -1996,3 +1996,9 @@ gSiLockInitialized = 0x80158540; // segment:main
 // US naming pass: HUD health bars and timer
 notify_animal_damage = 0x80349280; // segment:overlay2
 draw_and_update_target_health_bar = 0x803493C8; // segment:overlay2
+
+// US naming pass: level regions and waypoint storage
+build_level_region_collision_masks = 0x803198B0; // segment:overlay2
+get_level_regions_at_point = 0x80319C38; // segment:overlay2
+point_matches_level_region = 0x80319E1C; // segment:overlay2
+gWaypointPathCount = 0x803A5750; // segment:overlay2

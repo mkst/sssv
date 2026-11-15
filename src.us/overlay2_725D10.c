@@ -561,7 +561,7 @@ Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator) {
 
     i = 0;
     result = NULL;
-    bucketMask = D_803E95B8[regionId];
+    bucketMask = gLevelRegionCollisionMasks[regionId];
 
     while ((i < 0x28) && (bucketMask != 0)) {
         if (bucketMask & 0xFF) {
@@ -569,7 +569,7 @@ Animal *find_next_animal_in_region(s16 regionId, u8 resetIterator) {
                 if (((bucketMask & ((s64)1 << j)))) {
                     for (node = gCollisionGridHeads[i+j].next; node != NULL; node = node->next) {
                         if ((node->animal->unk16C->objectType != (256+EVO_TRANSFER)) && ((i + j) == node->animal->collisionGridCells[0])) {
-                            if ((lastReturnedAnimal == node->animal) || (func_80319E1C_72B4CC(node->animal->position.xPos.h >> 6, node->animal->position.zPos.h >> 6, node->animal->position.yPos.h >> 6, regionId , node->animal->unk160) != 0)) {
+                            if ((lastReturnedAnimal == node->animal) || (point_matches_level_region(node->animal->position.xPos.h >> 6, node->animal->position.zPos.h >> 6, node->animal->position.yPos.h >> 6, regionId , node->animal->unk160) != 0)) {
                                 if (canReturnMatch != 0) {
                                     lastReturnedAnimal = node->animal;
                                     result = node->animal;
@@ -607,13 +607,13 @@ u8 func_80315658_726D08(s16 regionId, s32 func(Animal *, s16), s16 arg2) {
 
     ret = 0;
 
-    for (sp50 = D_803E95B8[regionId], i = 0; ((i < 0x28) && (sp50 != 0)); sp50 >>= 8, i += 8) {
+    for (sp50 = gLevelRegionCollisionMasks[regionId], i = 0; ((i < 0x28) && (sp50 != 0)); sp50 >>= 8, i += 8) {
         if (sp50 & 0xFF) {
             for (j = 0; j < 8; j++) {
                 if (sp50 & ((s64)1 << j)) {
                     for (var_s1 = gCollisionGridHeads[i + j].next; var_s1 != NULL; var_s1 = var_s1->next) {
                         if ((var_s1->animal->unk16C->objectType != (256+EVO_TRANSFER)) && (var_s1->animal->collisionGridCells[0] == (i + j)) && (func(var_s1->animal, arg2))) {
-                            if (func_80319E1C_72B4CC(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, regionId, var_s1->animal->unk160) != 0) {
+                            if (point_matches_level_region(var_s1->animal->position.xPos.h >> 6, var_s1->animal->position.zPos.h >> 6, var_s1->animal->position.yPos.h >> 6, regionId, var_s1->animal->unk160) != 0) {
                                 ret = 1;
                                 goto done;
                             }
@@ -714,7 +714,7 @@ u8 evaluate_entity_condition(Animal *arg0, Cmd *arg1) {
             break;
         }
         if (arg1->dummy.unk2 & 0x10) {
-            if (func_80319E1C_72B4CC(
+            if (point_matches_level_region(
                 gAnimalState.animals[gCurrentAnimalIndex].animal->position.xPos.h >> 6,
                 gAnimalState.animals[gCurrentAnimalIndex].animal->position.zPos.h >> 6,
                 gAnimalState.animals[gCurrentAnimalIndex].animal->position.yPos.h >> 6,
@@ -855,7 +855,7 @@ u8 evaluate_entity_condition(Animal *arg0, Cmd *arg1) {
         }
         break;
     case 16:
-        if (func_80319E1C_72B4CC(
+        if (point_matches_level_region(
               arg0->position.xPos.h >> 6,
               arg0->position.zPos.h >> 6,
               arg0->position.yPos.h >> 6,
@@ -1435,7 +1435,7 @@ s32 execute_entity_command(Entity *arg0) {
                     &sp12C,
                     &sp130,
                     &sp134,
-                    D_803E8E60[cmds->unk19C.payload.cmd.type29.unk0],
+                    gWaypointPaths[cmds->unk19C.payload.cmd.type29.unk0],
                     0,
                     !(cmds->unk19C.payload.cmd.type29.unk6 == 1)); // unkA
 
@@ -2129,7 +2129,7 @@ s32 execute_entity_command(Entity *arg0) {
     case 0x50:
         // camera related
         func_80343D44_7553F4(
-            &D_803E8E60[cmds->unk19C.payload.cmd.dummy.unk0]->length,
+            &gWaypointPaths[cmds->unk19C.payload.cmd.dummy.unk0]->length,
             !cmds->unk19C.payload.cmd.dummy.unk1);
         return 69;
 

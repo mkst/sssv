@@ -790,14 +790,14 @@ void run_entity_script(Entity *arg0);
 // overlay2_72A930
 s32  func_80319280_72A930(Animal *arg0, Vec3f *arg1, Vec3f *arg2, Animal *arg3, Vec3f *arg4, Vec3f *arg5, f32 arg6, f32 arg7);
 void func_8031977C_72AE2C(s32 arg0, f32 *arg1, s32 arg2, f32 *arg3, f32 arg4, s16 arg5, s16 arg6);
-void func_803198B0_72AF60(void);
+void build_level_region_collision_masks(void);
 
 // overlay2_72B100
 void reset_waypoints(void);
 void func_80319AA0_72B150(struct002 *arg0, u8 arg1);
 void func_80319AC4_72B174(struct002 *arg0, u8 arg1);
-void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5);
-u8   func_80319E1C_72B4CC(u8 x, u8 z, u8 y, u8 arg3, u8 arg4);
+void get_level_regions_at_point(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 arg5);
+u8   point_matches_level_region(u8 x, u8 z, u8 y, u8 arg3, u8 arg4);
 u16  func_80319F58_72B608(struct105 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 *arg5, u8 *arg6);
 
 // overlay2_72B800

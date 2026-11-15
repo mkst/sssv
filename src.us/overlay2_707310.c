@@ -1625,7 +1625,7 @@ void func_802F9C50_70B300(Entity *arg0) {
 // ESA: func_800524A4
 void func_802F9E10_70B4C0(Animal *arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4, u8 arg5) {
     WaypointData *wpd;
-    wpd = D_803E8E60[arg1];
+    wpd = gWaypointPaths[arg1];
 
     arg0->unk170 = 3;
 
@@ -1721,7 +1721,7 @@ void func_802FA4F8_70BBA8(Animal *arg0) {
     WaypointData *wpd;
     u8 check;
 
-    wpd = D_803E8E60[(u8)arg0->unk174.unk8];
+    wpd = gWaypointPaths[(u8)arg0->unk174.unk8];
 
     switch (arg0->unk174.unk4) {
     case 1:

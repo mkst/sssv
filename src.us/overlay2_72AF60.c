@@ -5,23 +5,23 @@
 // .data
 // ========================================================
 
-u16 D_803A5750_7B6E00 = 0;
+u16 gWaypointPathCount = 0;
 
 // ========================================================
 // .bss
 // ========================================================
 
-WaypointData *D_803E8E60[64];
-u8   D_803E8F60[1100];
-struct067 D_803E93B0[65];
-s64  D_803E95B8[65];
+WaypointData *gWaypointPaths[64];
+u8   gWaypointPathBuffer[1100];
+LevelRegion gLevelRegions[65];
+s64  gLevelRegionCollisionMasks[65];
 
 // ========================================================
 // .text
 // ========================================================
 
 // ESA: func_8004C944
-void func_803198B0_72AF60(void) {
+void build_level_region_collision_masks(void) {
     s16 temp_s3;
     s16 temp_s6;
     s16 temp_s7;
@@ -32,28 +32,28 @@ void func_803198B0_72AF60(void) {
     s16 i; // sp42
 
     for (i = 0; i < 65; i++){
-        D_803E95B8[i] = 0;
+        gLevelRegionCollisionMasks[i] = 0;
     }
 
-    for (i = 0; D_803E93B0[i].unk2 != WAYPOINT_END; i++) {
-        temp_v1 = D_803E93B0[i].unk0;
-        temp_s7 = D_803E93B0[i].unk3;
-        temp_s6 = D_803E93B0[i].unk1;
-        temp_s3 = D_803E93B0[i].unk4;
+    for (i = 0; gLevelRegions[i].unk2 != WAYPOINT_END; i++) {
+        temp_v1 = gLevelRegions[i].minTileX;
+        temp_s7 = gLevelRegions[i].maxTileX;
+        temp_s6 = gLevelRegions[i].minTileZ;
+        temp_s3 = gLevelRegions[i].maxTileZ;
 
         for (j = temp_v1; j <= temp_s7; j++) {
             for (k = temp_s6; k <= temp_s3; k++) {
-                D_803E95B8[i] |= (s64)1 << (s16)((j >> 4) + ((k >> 4) * 5));
+                gLevelRegionCollisionMasks[i] |= (s64)1 << (s16)((j >> 4) + ((k >> 4) * 5));
             }
         }
     }
 }
 
 void reset_waypoints(void) {
-    bzero_sssv((u8*)D_803E8F60, sizeof(D_803E8F60)); // raw waypoint data
-    bzero_sssv((u8*)D_803E8E60, sizeof(D_803E8E60)); // pointers to waypoints
-    D_803E93B0[0].unk5 = D_803E93B0[0].unk2 = WAYPOINT_END;
-    D_803A5750_7B6E00 = 0;
+    bzero_sssv((u8*)gWaypointPathBuffer, sizeof(gWaypointPathBuffer)); // raw waypoint data
+    bzero_sssv((u8*)gWaypointPaths, sizeof(gWaypointPaths)); // pointers to waypoints
+    gLevelRegions[0].unk5 = gLevelRegions[0].unk2 = WAYPOINT_END;
+    gWaypointPathCount = 0;
 }
 
 // ESA: func_8004CAEC
@@ -106,18 +106,18 @@ u16 get_closest_waypoint_index(WaypointData *arg0, s16 x, s16 z, s16 y) {
 }
 
 // ESA: func_8004CCCC
-void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 unk160) {
-    struct067 *tmp;
+void get_level_regions_at_point(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 unk160) {
+    LevelRegion *tmp;
     u8 i;
 
     *arg4 = 0;
 
     i = 0;
-    tmp = &D_803E93B0[i];
+    tmp = &gLevelRegions[i];
 
     while ((tmp->unk2 != WAYPOINT_END) && (*arg4 < 4)) {
-        if ((arg0 >= tmp->unk0) && (tmp->unk3 >= arg0) &&
-            (arg1 >= tmp->unk1) && (tmp->unk4 >= arg1)) {
+        if ((arg0 >= tmp->minTileX) && (tmp->maxTileX >= arg0) &&
+            (arg1 >= tmp->minTileZ) && (tmp->maxTileZ >= arg1)) {
             switch (tmp->unk2) {
             case 240: // WAYPOINT_REGION_ALL_MODES
                 *arg3 = i;
@@ -168,15 +168,15 @@ void func_80319C38_72B2E8(u8 arg0, u8 arg1, u8 arg2, u8 *arg3, u8 *arg4, u8 unk1
 }
 
 // ESA: func_8004CE44
-u8 func_80319E1C_72B4CC(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 unk160) {
-    struct067 *tmp;
+u8 point_matches_level_region(u8 arg0, u8 arg1, u8 arg2, u8 idx, u8 unk160) {
+    LevelRegion *tmp;
     u8 ret;
 
     ret = 0;
-    tmp = &D_803E93B0[idx];
+    tmp = &gLevelRegions[idx];
 
-    if ((arg0 >= tmp->unk0) && (tmp->unk3 >= arg0) &&
-        (arg1 >= tmp->unk1) && (tmp->unk4 >= arg1)) {
+    if ((arg0 >= tmp->minTileX) && (tmp->maxTileX >= arg0) &&
+        (arg1 >= tmp->minTileZ) && (tmp->maxTileZ >= arg1)) {
 
         switch (tmp->unk2) {
         case 240:

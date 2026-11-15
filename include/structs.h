@@ -1803,14 +1803,14 @@ typedef struct {
 } struct066;
 
 typedef struct {
-  u8  unk0; // start1
-  u8  unk1; // start2
+  u8  minTileX; // inclusive tile bound
+  u8  minTileZ; // inclusive tile bound
   u8  unk2; // used?
-  u8  unk3; // end 1
-  u8  unk4; // send 2
+  u8  maxTileX; // inclusive tile bound
+  u8  maxTileZ; // inclusive tile bound
   u8  unk5; // used2?
   u16 alignment;
-} struct067; // size 0x8
+} LevelRegion; // size 0x8
 
 typedef struct {
     /* 0x00 */ u16 objectType; // ID

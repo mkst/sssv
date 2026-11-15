@@ -1558,13 +1558,13 @@ void func_80309EDC_71B58C(Animal *arg0) {
 }
 
 void func_80309F38_71B5E8(void) {
-    struct067 *tmp;
+    LevelRegion *tmp;
 
     if (D_803D552C->unk2C4 > 0) {
         D_803D552C->unk2C4--;
     }
 
-    func_80319C38_72B2E8(
+    get_level_regions_at_point(
         D_803D5530->position.xPos.h >> 6,
         D_803D5530->position.zPos.h >> 6,
         D_803D5530->position.yPos.h >> 6,
@@ -1576,11 +1576,11 @@ void func_80309F38_71B5E8(void) {
 
     if (D_803D552C->unk270 != 2) {
         if (D_803D5530->unk192.unk1[4] == 0) {
-            tmp = &D_803E93B0[D_803D5530->unk18C.unk1[4]];
+            tmp = &gLevelRegions[D_803D5530->unk18C.unk1[4]];
             set_nav_state_goto_point(
                 D_803D5530,
-                (tmp->unk3 + tmp->unk0) << 5,
-                (tmp->unk4 + tmp->unk1) << 5,
+                (tmp->maxTileX + tmp->minTileX) << 5,
+                (tmp->maxTileZ + tmp->minTileZ) << 5,
                 -1,
                 16,
                 32);
@@ -1788,7 +1788,7 @@ void func_80309F38_71B5E8(void) {
 // ESA: func_8007CE7C
 void func_8030A8EC_71BF9C(void) {
     Animal *animal = gAnimalState.animals[gCurrentAnimalIndex].animal;
-    func_80319C38_72B2E8(animal->position.xPos.h >> 6, animal->position.zPos.h >> 6, animal->position.yPos.h >> 6,
+    get_level_regions_at_point(animal->position.xPos.h >> 6, animal->position.zPos.h >> 6, animal->position.yPos.h >> 6,
                          animal->unk192.unk1, &animal->unk192.length, animal->unk160);
 }
 
