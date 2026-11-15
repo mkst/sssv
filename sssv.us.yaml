@@ -4033,10 +4033,10 @@ segments:
       - [0x6A6500, c, overlay2_6A6500]
       - [0x6A7A80, c, overlay2_6A7A80]
       - [0x6AB090, c, overlay2_6AB090]
-      - [0x6AC360, c, overlay2_6AC360]
+      - [0x6AC360, c, sssv/terrain_map]
       - [0x6AC6B0, c, overlay2_6AC6B0]
       - [0x6ACE80, c, overlay2_6ACE80]
-      - [0x6ACF20, c, overlay2_6ACF20]
+      - [0x6ACF20, c, sssv/teleporters]
       - [0x6AE5A0, c, overlay2_6AE5A0]
       - [0x6B5380, c, overlay2_6B5380]
       - [0x6B5A40, c, overlay2_6B5A40]
@@ -4102,7 +4102,7 @@ segments:
       - [0x763A30, c, sssv/animals/tortoise] # EU ROM suggests extra split at 0x7667E0
       - [0x767AC0, c, sssv/tile]
       - [0x7688B0, c, sssv/music_control]
-      - [0x7689A0, c, overlay2_7689A0]
+      - [0x7689A0, c, sssv/level_results]
       - [0x768B90, c, sssv/animals/hyena]
       - [0x76BCA0, c, sssv/animals/chameleon]
       - [0x76D850, c, sssv/animals/evo_microchip]
@@ -4147,8 +4147,8 @@ segments:
       - [0x7B1BA0, .data, overlay2_6A7A80] # D_803A04F0_7B1BA0
       - [0x7B1BB0, .data, overlay2_6AB090] # D_803A0500_7B1BB0
       - [0x7B1BC0, .data, overlay2_6AC6B0] # D_803A0510_7B1BC0
-      - [0x7B1BE0, .data, overlay2_6ACF20] # D_803A0530_7B1BE0
-      - [0x7B1C30, .data, overlay2_6AE5A0] # D_803A0580_7B1C30 overlay2_6ACF20
+      - [0x7B1BE0, .data, sssv/teleporters] # D_803A0530_7B1BE0
+      - [0x7B1C30, .data, overlay2_6AE5A0] # D_803A0580_7B1C30
       - [0x7B1C60, .data, overlay2_6B5A40] # D_803A05B0_7B1C60
       - [0x7B1C70, .data, sssv/starfield]
       - [0x7B1C80, .data, sssv/animals/stats] # (struct089 -> struct035)
@@ -4227,7 +4227,7 @@ segments:
       - [0x7C8B80, rgba16, img/butterflies, 32, 224]
       # rodata
       - [0x7CC380, .rodata, overlay2_6A7A80]
-      - [0x7CC3C0, .rodata, overlay2_6ACF20]
+      - [0x7CC3C0, .rodata, sssv/teleporters]
       - [0x7CC3F0, .rodata, overlay2_6AE5A0]
       - [0x7CC470, .rodata, overlay2_6B5A40]
       - [0x7CD5B0, .rodata, sssv/collision]

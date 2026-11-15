@@ -750,14 +750,16 @@ gWorldPerspNorm = 0x803C0658; // segment:overlay2
 // overlay2_6AB090
 gVisibleWorldCellQueue = 0x803C0660; // size:0xe0
 
-// overlay2_6AC360
+// sssv/terrain_map.c
 D_803C0740 = 0x803C0740; // size:0x12648 segment:overlay2
 
-// overlay2_6ACF20
+// sssv/teleporters.c
 D_803D2D90 = 0x803D2D90; // size:0x66 segment:overlay2
 D_803D2DF8 = 0x803D2DF8; // segment:overlay2
 D_803D2DFC = 0x803D2DFC; // segment:overlay2
 D_803D2DFE = 0x803D2DFE; // segment:overlay2
+
+// overlay2_6AE5A0
 D_803D2E00 = 0x803D2E00; // segment:overlay2
 gDynamicTextureBillboardQueue = 0x803D2E08; // segment:overlay2 size:0x620
 

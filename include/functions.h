@@ -119,7 +119,7 @@ s32  get_evo_suit_color(void);
 void set_fog_factor_and_color(Gfx **dl, u8 r, u8 g, u8 b);
 void set_fog_position_and_color(Gfx **dl);
 
-// overlay2_6AC360
+// overlay2_6ACE80
 s16  distance_from_player(s16 x, s16 z, s16 y);
 
 // overlay2_6D9330

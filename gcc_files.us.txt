@@ -32,7 +32,7 @@ src.us/overlay1_63C660.c
 
 src.us/overlay2_6A6500.c
 src.us/overlay2_6AB090.c
-src.us/overlay2_6AC360.c
+src.us/sssv/terrain_map.c
 src.us/overlay2_6AC6B0.c
 src.us/overlay2_6ACE80.c
 src.us/overlay2_6ACE80.c

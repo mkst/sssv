@@ -179,16 +179,20 @@ u16  func_8029A52C_6ABBDC(u8 arg0);
 u16  func_8029A568_6ABC18(s16 arg0);
 void render_ship_window_projection_replay(void);
 
-// overlay2_6AC360
+// overlay2_6AC6B0
 u8 func_8029B000_6AC6B0(s16 arg0, s16 arg1, s32 yPos, Animal *arg3, Animal *arg4, Animal **arg5, s32 *arg6, Animal *arg7, Animal **arg8, s32 *arg9);
+
+// sssv/terrain_map.c
 void func_8029ACB0_6AC360(void);
 void func_8029ACC8_6AC378(void);
 
-// overlay2_6ACF20
+// sssv/teleporters.c
 void maybe_trigger_exit_teleporter(Animal *animal, Entity *teleporter);
 void func_8029B9B8_6AD068(Animal *animal, Entity *teleporter);
 void maybe_do_teleport(Animal *animal, Entity *teleporter);
 void func_8029BB94_6AD244(void);
+
+// overlay2_6AE5A0
 void enqueue_dynamic_texture_billboard(s32 arg0, s32 arg1, s32 arg2, u16 arg3, u8 arg4, DynamicTextures *arg5, s8 arg6, u8 arg7, u8 arg8, u8 arg9);
 void render_dynamic_texture_billboards(void);
 void reset_dynamic_texture_billboard_queue(void);
@@ -1039,7 +1043,7 @@ void func_80357200_7688B0(void);
 void set_music_track(s8 arg0);
 s32  func_803572C0_768970(void);
 
-// overlay2_7689A0
+// sssv/level_results.c
 void func_803572F0_7689A0(void);
 void func_8035739C_768A4C(void);
 void func_80357438_768AE8(void);

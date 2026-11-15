@@ -556,11 +556,13 @@ extern s64  gRenderMode2;
 extern s64  gGeometryMode;
 extern u16  gWorldPerspNorm; // matrix normalise
 
-// overlay2_6AC360
+// sssv/terrain_map.c
 extern struct063 D_803C0740[72+1][128+1]; // 129 but data is [65][97]
 
-// overlay2_6ACF20
+// sssv/teleporters.c
 extern struct054 D_803D2D90;
+
+// overlay2_6AE5A0
 extern DynamicTextures gDynamicTextureBillboardQueue;
 extern DisplayList* D_803D3434;
 
@@ -718,10 +720,8 @@ extern s8   gWorldCellTranslucentEnabled[4][6];
 // sssv/music_control.c
 extern s16  D_803F2D24;
 
-// overlay2_7689A0
+// sssv/level_results.c
 extern GameState gGameState;
-
-// TODO:
 extern LevelConfig D_803F2D50;
 
 // overlay2_76E7D0
